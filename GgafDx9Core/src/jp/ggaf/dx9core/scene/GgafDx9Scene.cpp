@@ -15,13 +15,13 @@ void GgafDx9Scene::processPreJudgement() {
     _pBgmPerformer->behave();
 }
 
-void GgafDx9Scene::fadeinAlpha(int prm_frame_fade) {
+void GgafDx9Scene::fadeinSceneTree(int prm_frame_fade) {
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         _pAlphaCurtain->open(1.0 / prm_frame_fade);
         if (getSubFirst() != NULL) {
             GgafDx9Scene* pScene = (GgafDx9Scene*)getSubFirst();
             while(true) {
-                pScene->fadeinAlpha(prm_frame_fade);
+                pScene->fadeinSceneTree(prm_frame_fade);
                 if (pScene->isLast()) {
                     break;
                 } else {
@@ -32,13 +32,13 @@ void GgafDx9Scene::fadeinAlpha(int prm_frame_fade) {
     }
 }
 
-void GgafDx9Scene::fadeoutAlpha(int prm_frame_fade){
+void GgafDx9Scene::fadeoutSceneTree(int prm_frame_fade){
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         _pAlphaCurtain->close(1.0 / prm_frame_fade);
         if (getSubFirst() != NULL) {
             GgafDx9Scene* pScene = (GgafDx9Scene*)getSubFirst();
             while(true) {
-                pScene->fadeoutAlpha(prm_frame_fade);
+                pScene->fadeoutSceneTree(prm_frame_fade);
                 if (pScene->isLast()) {
                     break;
                 } else {

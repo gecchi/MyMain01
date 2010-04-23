@@ -6,7 +6,10 @@ namespace GgafDx9Core {
 
 /**
  * GgafDx9Core名前空間、基底シーンクラス.
- * GgafMainScene を継承しただけです。<BR>
+ * 次の機能をシーンクラスに追加しています。<BR>
+ * ・BGM演奏<BR>
+ * ・BGMフェードイン・フェードアウト<BR>
+ * ・描画オブジェクトのフェードイン・フェードアウト<BR>
  * GgafDx9Core名前空間内では、このクラスを基底シーンとします。<BR>
  * @version 1.00
  * @since 2008/01/24
@@ -15,26 +18,63 @@ namespace GgafDx9Core {
 class GgafDx9Scene : public GgafCore::GgafMainScene {
 private :
     /**
-     * draw()の使用禁止 .
-     * 世界(GgafDx9Universe)が全ての描画を行う仕組みになりました。
-     * GgafDx9Universe::draw() を参照せよ。
-     * ノードツリー用 draw メソッドを下位で使えないようにするためprivateで実装。
+     * draw() のオーバーライド禁止 .
+     * 世界(GgafDx9Universe)が全ての描画を行う仕組みになりました。<BR>
+     * したがって、オーバーライドしてもフレームワークより呼び出されることはありません。<BR>
+     * 誤ってオーバーライドしないために private で実装。<BR>
+     * GgafDx9Universe::draw() を参照せよ。<BR>
      */
     void draw() override {
     }
 
+    /**
+     * processPreJudgement() のオーバーライド禁止 .
+     * 本クラスのprocessPreJudgement()で、 GgafDx9AlphaCurtainとGgafDx9BgmPerformerを<BR>
+     * behave() しています。オーバーライドすると、画面フェード、BGMフェードが働きません。<BR>
+     * 誤ってオーバーライドしないために private で実装。<BR>
+     */
     void processPreJudgement() override;
 
 public :
-    /** 不思議なαカーテン */
+    /** αカーテン */
     GgafDx9AlphaCurtain* _pAlphaCurtain;
     /** BGM演奏者 */
     GgafDx9BgmPerformer* _pBgmPerformer;
+
+    /**
+     * コンストラクタ .
+     * @param prm_name
+     * @return
+     */
     GgafDx9Scene(const char* prm_name);
 
-    void fadeinAlpha(int prm_frame_fade);
+    /**
+     * 自ツリーシーンをフェードインさせる .
+     * 自シーンを含む配下全てのシーンについて、シーン所属オブジェクトのフェードインを行います。<BR>
+     * フェードインは具体的には、シーン所属オブジェクトに対して、<BR>
+     * 描画時にα値に0.0～1.0を変化させなが乗算する事を行います。<BR>
+     * サブシーンに影響を与えず、自シーンのみのフェードインを行うには<BR>
+     * <pre>
+     * _pAlphaCurtain->open(1.0 / prm_frame_fade); //αカーテンオープン
+     * </pre>
+     * とすることで可能です。<BR>
+     * @param prm_frame_fade 0% -> 100%になるまでの実行フレーム数
+     */
+    void fadeinSceneTree(int prm_frame_fade);
 
-    void fadeoutAlpha(int prm_frame_fade);
+    /**
+     * 自ツリーシーンをフェードアウトさせる .
+     * 自シーンを含む配下全てのシーンについて、シーン所属オブジェクトのフェードアウトを行います。<BR>
+     * フェードアウトは具体的には、シーン所属オブジェクトに対して、<BR>
+     * 描画時にα値に1.0～0.0を変化させなが乗算する事を行います。<BR>
+     * サブシーンに影響を与えず、自シーンのみフェードアウトさせるには<BR>
+     * <pre>
+     * _pAlphaCurtain->close(1.0 / prm_frame_fade); //αカーテンクローズ
+     * </pre>
+     * とすることで可能です。<BR>
+     * @param prm_frame_fade 100% -> 0%になるまでの実行フレーム数
+     */
+    void fadeoutSceneTree(int prm_frame_fade);
 
     virtual ~GgafDx9Scene();
 };

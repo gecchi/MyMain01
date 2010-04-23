@@ -261,8 +261,6 @@ class GgafDx9Texture;
 class GgafDx9Scene;
 class GgafDx9Universe;
 
-class GgafDx9AlphaCurtain;
-
 class GgafDx9Util;
 class GgafDx9SphereRadiusVectors;
 class GgafDx9Quaternion;
@@ -275,6 +273,7 @@ class GgafDx9GeometryScaler;
 class GgafDx9GeometryMorpher;
 class GgafDx9SeReflector;
 class GgafDx9BgmPerformer;
+class GgafDx9AlphaCurtain;
 class GgafDx9TextureBlinker;
 class GgafDx9UvFlipper;
 class GgafDx9RectUV;
@@ -375,8 +374,6 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/scene/GgafDx9Scene.h"
 #include "jp/ggaf/dx9core/scene/GgafDx9Universe.h"
 
-#include "jp/ggaf/dx9core/util/GgafDx9AlphaCurtain.h"
-
 #include "jp/ggaf/dx9core/GgafDx9Util.h"
 #include "jp/ggaf/dx9core/util/GgafDx9SphereRadiusVectors.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Quaternion.h"
@@ -390,8 +387,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9SeReflector.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9UvFlipper.h"
 #include "jp/ggaf/dx9core/scene/supporter/GgafDx9BgmPerformer.h"
+#include "jp/ggaf/dx9core/scene/supporter/GgafDx9AlphaCurtain.h"
 #include "jp/ggaf/dx9core/model/supporter/GgafDx9TextureBlinker.h"
-
 
 
 #include "jp/ggaf/dx9core/model/GgafDx9RectUV.h"
