@@ -33,9 +33,7 @@ public:
     /** [r]initializeが行われたどうかのフラグ(true=行われた) */
     bool _was_initialize_flg;
 
-    /** [r]余命 */
-    DWORD _frame_of_life_when_sayonara;
-    /** [r]ノードが誕生(addSubされた）時からのフレーム数総計 */
+    /** [r]ノードが誕生(addSubされた）時からのフレーム数総計(但し、_was_paused_flg==true 時は加算され無い) */
     DWORD _frame_of_life;
     /** [r]ノードが誕生(addSubされた）時から、振舞ったフレーム数総計 */
     DWORD _frame_of_behaving;
@@ -56,20 +54,17 @@ public:
     bool _was_paused_flg_in_next_frame;
     /** [r]次フレームの一時非表示フラグ、次フレームのフレーム加算時 _can_live_flg に反映される  */
     bool _can_live_flg_in_next_frame;
-
-    /** [r]先頭ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが先頭ノードに移動する */
-    bool _will_mv_first_in_next_frame_flg;
-    /** [r]末尾ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが末尾ノードに移動する */
-    bool _will_mv_last_in_next_frame_flg;
+    /** [r]さよならする予定の _frame_of_life */
+    DWORD _frame_of_life_when_sayonara;
 
     /** [r]あとで活動予約フラグ */
     bool _will_activate_after_flg;
-    /** [r]活動開始フレーム */
+    /** [r]活動開始する予定の _frame_of_life */
     DWORD _frame_of_life_when_activation;
 
     /** [r]あとで非活動予約フラグ */
     bool _will_inactivate_after_flg;
-    /** [r]活動終了フレーム */
+    /** [r]活動終了する予定の _frame_of_life */
     DWORD _frame_of_life_when_inactivation;
 
     /** [r]ノードが活動に切り替わった(_is_active_flg が false → true)瞬間に１フレームだけセットされるフラグ */
@@ -77,6 +72,10 @@ public:
     /** [r]ノードが停止に切り替わった(_is_active_flg が true → false)瞬間に１フレームだけセットされるフラグ */
     bool _on_change_to_inactive_flg;
 
+    /** [r]先頭ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが先頭ノードに移動する */
+    bool _will_mv_first_in_next_frame_flg;
+    /** [r]末尾ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが末尾ノードに移動する */
+    bool _will_mv_last_in_next_frame_flg;
 
     /**
      * コンストラクタ
@@ -612,91 +611,97 @@ void GgafElement<T>::nextFrame() {
         _can_live_flg_in_next_frame = false;
     }
 
-
+    //moveLast予約時
     if (_will_mv_last_in_next_frame_flg) {
         _will_mv_last_in_next_frame_flg = false;
         GGAF_NODE::moveLast();
-    } else {
-
-        if(_was_initialize_flg == false) {
-            initialize();
-            _was_initialize_flg = true;
-        }
-
-        _frame_of_life++;
-        if (_can_live_flg) {
-            if (_will_activate_after_flg) {
-                //遅延play処理
-                if (_frame_of_life >= _frame_of_life_when_activation) {
-                    activate();
-                    _frame_of_life_when_activation = 0;
-                    _will_activate_after_flg = false;
-                }
-            }
-
-            if (_will_inactivate_after_flg) {
-                //遅延stop処理
-                if (_frame_of_life == _frame_of_life_when_inactivation) {
-                    inactivate();
-                    _frame_of_life_when_inactivation = 0;
-                    _will_inactivate_after_flg = false;
-                }
-            }
-            if (_is_active_flg) {
-                _frame_of_behaving++;
-                _frame_of_behaving_since_onActive++;
-            }
-        }
-
-        _on_change_to_active_flg = false;
-        _on_change_to_inactive_flg = false;
-        if (_is_active_flg && _is_active_flg_in_next_frame == false) {
-            _on_change_to_inactive_flg = true;
-            onInactive(); //コールバック
-        }
-        //活動、非活動の状態変化時
-        if (_is_active_flg == false && _is_active_flg_in_next_frame) {
-            _on_change_to_active_flg = true;
-            _frame_of_behaving_since_onActive = 0;
-            onActive(); //コールバック
-        } else if (_is_active_flg && _frame_of_life == 1) {
-            //生まれてそのままならば、いきなり一回だけonActive()。
-            _on_change_to_active_flg = true;
-            _frame_of_behaving_since_onActive = 0;
-            onActive(); //コールバック
-        }
-
-
-
-        //フラグたちを反映
-        _is_active_flg   = _is_active_flg_in_next_frame;
-        _can_live_flg    = _can_live_flg_in_next_frame;
-
-        if (GGAF_NODE::_pSubFirst != NULL) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                if (pElementTemp->_is_last_flg) {
-                    pElementTemp->nextFrame();
-                    if (pElementTemp->_can_live_flg == false) {
-                        GgafFactory::_pGarbageBox->add(pElementTemp);
-                    }
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                    pElementTemp->GGAF_NODE::_pPrev->nextFrame();
-                    if (pElementTemp->GGAF_NODE::_pPrev->_can_live_flg == false) {
-                        GgafFactory::_pGarbageBox->add(pElementTemp->GGAF_NODE::_pPrev);
-                    }
-                }
-            }
-        }
-
-        if (_will_mv_first_in_next_frame_flg) {
-            _will_mv_first_in_next_frame_flg = false;
-            GGAF_NODE::moveFirst();
-        }
-
+        return;
+        //即returnする事は重要。
+        //moveLastを即時に行い、_frame_of_lifeを加算しない。
+        //これは _frame_of_life加算後にmoveLastしてしまうと、2フレーム増加になってしまうため。
+        //nextFrame() 以降このノードは、末尾に回されているため、
+        //現フレームでbehave() ～ finnary()はちゃんと１回実行される。
     }
+
+
+    if(_was_initialize_flg == false) {
+        initialize();
+        _was_initialize_flg = true;
+    }
+
+    _frame_of_life++;
+    if (_can_live_flg) {
+        if (_will_activate_after_flg) {
+            //遅延activate処理
+            if (_frame_of_life >= _frame_of_life_when_activation) {
+                activate();
+                _frame_of_life_when_activation = 0;
+                _will_activate_after_flg = false;
+            }
+        }
+
+        if (_will_inactivate_after_flg) {
+            //遅延inactivate処理
+            if (_frame_of_life == _frame_of_life_when_inactivation) {
+                inactivate();
+                _frame_of_life_when_inactivation = 0;
+                _will_inactivate_after_flg = false;
+            }
+        }
+        if (_is_active_flg) {
+            _frame_of_behaving++;
+            _frame_of_behaving_since_onActive++;
+        }
+    }
+
+    _on_change_to_active_flg = false;
+    _on_change_to_inactive_flg = false;
+    if (_is_active_flg && _is_active_flg_in_next_frame == false) {
+        _on_change_to_inactive_flg = true;
+        onInactive(); //コールバック
+    }
+    //活動、非活動の状態変化時
+    if (_is_active_flg == false && _is_active_flg_in_next_frame) {
+        _on_change_to_active_flg = true;
+        _frame_of_behaving_since_onActive = 0;
+        onActive(); //コールバック
+    } else if (_is_active_flg && _frame_of_life == 1) {
+        //生まれてそのままならば、いきなり一回だけonActive()。
+        _on_change_to_active_flg = true;
+        _frame_of_behaving_since_onActive = 0;
+        onActive(); //コールバック
+    }
+
+    //フラグたちを反映
+    _is_active_flg   = _is_active_flg_in_next_frame;
+    _can_live_flg    = _can_live_flg_in_next_frame;
+
+    if (GGAF_NODE::_pSubFirst != NULL) {
+        T* pElementTemp = GGAF_NODE::_pSubFirst;
+        while(true) {
+            if (pElementTemp->_is_last_flg) {
+                pElementTemp->nextFrame();
+                if (pElementTemp->_can_live_flg == false) {
+                    GgafFactory::_pGarbageBox->add(pElementTemp);
+                }
+                break;
+            } else {
+                pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+                pElementTemp->GGAF_NODE::_pPrev->nextFrame();
+                if (pElementTemp->GGAF_NODE::_pPrev->_can_live_flg == false) {
+                    GgafFactory::_pGarbageBox->add(pElementTemp->GGAF_NODE::_pPrev);
+                }
+            }
+        }
+    }
+
+    if (_will_mv_first_in_next_frame_flg) {
+        _will_mv_first_in_next_frame_flg = false;
+        GGAF_NODE::moveFirst();
+        //moveFirstを一番最後にすることは重要。
+        //これは ツリーの全ノードにnextFrame()実行する際に、2回実行を避けるため。
+    }
+
     TRACE("GgafElement::nextFrame END _frame_of_behaving="<<_frame_of_behaving<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
 }
 
