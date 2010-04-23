@@ -11,16 +11,25 @@ namespace GgafDx9LibStg {
 class VBRecorder : public GgafCore::GgafObject {
 public:
 
+
     class VBStateNote {
     public:
         VBStateNote* _pNext;
+
         vbsta _state;
-        DWORD _frame;
-        VBStateNote(vbsta state, DWORD frame) : _pNext(NULL),_state(state),_frame(frame) {
+        DWORD _frame_of_keeping;
+        VBStateNote(vbsta state, DWORD frame_of_keeping) : _pNext(NULL),_state(state),_frame_of_keeping(frame_of_keeping) {
         }
     };
 
-    VBRecorder();
+
+    VirtualButton* _vb;
+    VBStateNote* _pFirstVBNote;
+    VBStateNote* _pLastVBNote;
+    DWORD _nframe;
+
+
+    VBRecorder(VirtualButton* prm_vb);
 
     void updete();
 
