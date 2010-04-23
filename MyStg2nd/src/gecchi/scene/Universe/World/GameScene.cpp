@@ -50,10 +50,10 @@ void GameScene::processBehavior() {
     }
 #endif
     if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
-        fadeinAlpha(2*60);
+        fadeinSceneTree(2*60);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
-        fadeoutAlpha(2*60);
+        fadeoutSceneTree(2*60);
     }
 
     //サブシーンの切替えや平行実行のための、初期化、事前処理、フラグ処理等
