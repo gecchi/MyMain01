@@ -5,7 +5,9 @@ namespace GgafDx9Core {
 /**
  * スプライトメッシュアクター.
  * GgafDx9MeshSetActor を継承し、
- * UVを切り替える機能を有したアクター
+ * さらにUVを切り替える機能を有したアクター
+ * メッシュ３Dオブジェクトの表面のテクスチャをアニメーションできます。
+ * それのSet版。
  * @version 1.00
  * @since 2009/02/09
  * @author Masatoshi Tsuge

@@ -119,7 +119,7 @@ public:
      *       描画時、現在パターン番号(_pattno_uvflip_now) のみ参照されている。getUV() は内部で使用していない。
      *       したがって、setTextureUvRotation() の呼び出しはフレームワークの描画処理では無意味。
      *       アニメーションのUV座標のオフセット情報は、定義Xファイル(拡張子.sprx)から読み取られて、モデルで保持している。
-     *       上記アクター実装者は _pattno_uvflip_now の操作だけで良い。実装者は俺。
+     *       上記アクター実装者は _pattno_uvflip_now の操作だけで良い。（そして実装者は俺）
      *       コンストラクタで以下の初期処理を実行している。
      *       ----------------------------------------------------------
      *       _pUvFlipper = NEW GgafDx9UvFlipper(this);
@@ -131,7 +131,7 @@ public:
      * ・GgafDx9SpriteMeshActor
      *   GgafDx9SpriteMeshSetActor  について・・・
      *       内部で getUV() を使用している。よって setTextureUvRotation() による設定が必須。
-     *       描画時シェーダー内部で頂点バッファのUV座標に getUV() で得たUVオフセット値を加算している。
+     *       描画時頂点バッファのUV座標に getUV() で得たUVオフセット値をシェーダーへ渡し加算している。
      *       しかし『setTextureUvRotation() は内部で実行していない』ため、継承クラス側の初期処理などで、
      *       事前に１回は setTextureUvRotation() を呼び出して、パターンの番号とUV座標（オフセット値）の
      *       対応を定義しておく事が前提となる作りになっている。UV切り替えしないのであれば別の呼ばなくても大丈夫。
@@ -139,7 +139,7 @@ public:
      *       コンストラクタで以下の初期処理を実行している。必要に応じて下位実装クラスで setTextureUvRotation() 等を行うという仕組み。
      *       ----------------------------------------------------------
      *       _pUvFlipper = NEW GgafDx9UvFlipper(this);
-     *       _pUvFlipper->forcePtnNoRange(0, 最大アニメーションパターン番号);
+     *       _pUvFlipper->forcePtnNoRange(0, 算出した最大アニメーションパターン番号);
      *       _pUvFlipper->setPtnNo(0);
      *       _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
      *       ----------------------------------------------------------
