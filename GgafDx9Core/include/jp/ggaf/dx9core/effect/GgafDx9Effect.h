@@ -15,12 +15,12 @@ class GgafDx9Effect : public GgafCore::GgafObject {
 protected:
 public:
     D3DXHANDLE _hMasterAlpha;
-    /** モデル定義の識別名。(50文字まで) */
+    /** エフェクト定義の識別名。(50文字まで) */
     char* _effect_name;
     ID3DXEffect* _pID3DXEffect;
     /**
      * コンストラクタ<BR>
-     * @param prm_effect_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_effect_name エフェクト定義の識別名。".fx"を追加するとエフェクトファイル名になる。
      */
     GgafDx9Effect(char* prm_effect_name);
 
