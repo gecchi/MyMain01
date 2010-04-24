@@ -25,15 +25,15 @@ public:
 
     VirtualButton* _vb;
     VBStateNote* _pFirstVBNote;
-    VBStateNote* _pLastVBNote;
+    VBStateNote* _p;
     DWORD _nframe;
 
 
     VBRecorder(VirtualButton* prm_vb);
 
-    void updete();
+    //void updete();
 
-    void add(vbsta _state, DWORD _frame);
+    void write();
 
     virtual ~VBRecorder();
 };
