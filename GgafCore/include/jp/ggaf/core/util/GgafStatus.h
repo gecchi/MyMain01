@@ -4,12 +4,17 @@ namespace GgafCore {
 
 /**
  * ステースクラス.
+ * 何らかの値のセットを表現します。
  * @version 1.00
  * @since 2009/07/22 誕生日
  * @author Masatoshi Tsuge
  */
 class GgafStatus {
 
+    /**
+     * ステータス値を表す .
+     * 型は char, int, doubleのいずれか。
+     */
     union VALUE {
       char _char_val;
       int _int_val;
@@ -17,9 +22,16 @@ class GgafStatus {
     };
 
 public:
+    /** ステータス数 */
     int _len;
+    /** ステータス値配列 */
     VALUE* _paValue;
 
+    /**
+     * ステータスセットを作成 .
+     * @param n 最大ステータス要素数。
+     * @return
+     */
     GgafStatus(int n) {
         _len = n;
         _paValue = NEW VALUE[n];

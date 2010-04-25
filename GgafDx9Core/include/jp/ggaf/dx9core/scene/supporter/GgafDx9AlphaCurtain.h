@@ -11,7 +11,7 @@ namespace GgafDx9Core {
  */
 class GgafDx9AlphaCurtain : public GgafCore::GgafCurtain {
 public:
-    GgafDx9Scene* _pScene;
+    GgafDx9Scene* _pDxScene;
     float _alpha;
     GgafDx9AlphaCurtain(GgafDx9Scene* prm_pScene);
 

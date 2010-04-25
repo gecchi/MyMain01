@@ -3,7 +3,7 @@
 namespace GgafDx9Core {
 
 /**
- * クォータニオンクラス .
+ * とりあえずクォータニオンクラス .
  * TODO:もっと汎用化
  * @version 1.00
  * @since 2009/04/07

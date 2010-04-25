@@ -2,14 +2,6 @@
 #define GGAFDX9SE_H_
 namespace GgafDx9Core {
 
-// 本プログラムは、<BR>
-// 「越後屋Cyber」 http://www.e-cyber.org/ <BR>
-// のメンバーのアンダー氏のサンプルプログラムを流用（一部変更）させていただいて、実装しています。<BR>
-// 対象クラスは CWaveDecorder です。
-// アンダー氏ありがとう！
-//                                            2009/01/13 Masatoshi Tsuge<BR>
-
-
 /**
  * Sound Effect(Wave) クラス .
  */

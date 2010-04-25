@@ -187,9 +187,11 @@ int GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawable
         _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
     } else {
         //そのprm_draw_depth_levelで既にアクター登録済みだった場合
-        //固まらないように、お尻から追加(キュー)、或いは、前に積み上げ(スタック)を、フレームよって交互に行う。
-        //何故ならば、テクスチャに半透明が存在するZバッファ有りの半透明オブジェクトが交差した場合、
-        //同一深度なので、描画順によっては透けない部分が生じ、おかしな表示となる。これを高速交互表示で若干のごまかしを行う。
+        //表示順が固定にならないように、お尻から追加(キュー)、或いは、前に積み上げ(スタック)を、フレームよって交互に行う。
+        //何故そんなことをするかというと、Zバッファ有りのテクスチャに透明があるオブジェクトや、半透明オブジェクトが交差した場合、
+        //同一深度なので、プライオリティ（描画順）によって透けない部分が生じてしまう。
+        //これを描画順を毎フレーム返ることで、交互表示でちらつかせ若干のごまかしを行う。
+        //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にもうまくいくが、たくさん固まると本当にチラチラする。
         if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 1) {
             //お尻に追加
             pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];

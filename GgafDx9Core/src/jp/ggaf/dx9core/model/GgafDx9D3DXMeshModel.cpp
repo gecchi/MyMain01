@@ -81,7 +81,7 @@ HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() CommitChanges() に失敗しました。");
         }
         TRACE4("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
-        hr = _pID3DXMesh->DrawSubset(i);
+        hr = _pID3DXMesh->DrawSubset(i);  //なんて便利なメソッド。
     }
     //前回描画モデル名反映
     GgafDx9ModelManager::_pModelLastDraw = this;

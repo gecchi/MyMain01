@@ -3,7 +3,7 @@
 namespace GgafDx9Core {
 
 /**
- * GgafDx9D3DXActor用モデルクラス.(現在未使用？)
+ * GgafDx9D3DXActor用モデルクラス.(作成中)
  * GgafDx9D3DXAniMeshModel は D3DXLoadMeshFromX を使用して、Xファイルからモデルデータを読み込み設定する。<BR>
  * @version 1.00
  * @since 2009/11/25

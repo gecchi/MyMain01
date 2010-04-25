@@ -3,7 +3,9 @@
 namespace GgafDx9Core {
 
 /**
- * 当たり判定部品
+ * 当たり判定部品 .
+ * AABB または 球 をサポート .
+ * 当たり判定のローカル軸回転平行移動をサポート .
  * @version 1.00
  * @since 2010/01/21
  * @author Masatoshi Tsuge
@@ -56,10 +58,10 @@ public:
     GgafDx9CollisionPart();
 
     /**
-     * 判定領域の軸回転移動を行う。
-     * @param rX
-     * @param rY
-     * @param rZ
+     * 判定領域の軸回平行移動を行う。
+     * @param rX ローカルX軸回転アングル値(0~360000)
+     * @param rY ローカルY軸回転アングル値(0~360000)
+     * @param rZ ローカルZ軸回転アングル値(0~360000)
      * @return
      */
     virtual bool rotate(angle rX, angle rY, angle rZ) {

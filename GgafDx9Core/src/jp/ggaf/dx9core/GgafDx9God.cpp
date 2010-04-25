@@ -606,7 +606,7 @@ GgafDx9God::~GgafDx9God() {
     GgafDx9Input::release();
 
     //DirectSound解放
-    //TODO:稀に落ちる。
+    //TODO:私のマシンでは極稀にブルースクリーンになる。原因不明。
     GgafDx9Sound::release();
 
     RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
