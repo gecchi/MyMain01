@@ -41,7 +41,7 @@ void GameScene::initialize() {
 void GameScene::processBehavior() {
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
-    if (VB_PLAY->isPushedDown(VB_UI_DEBUG)) {
+    if (VB->isPushedDown(VB_UI_DEBUG)) {
         if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
             GgafDx9God::_d3dfillmode = D3DFILL_SOLID;
         } else {
@@ -49,12 +49,21 @@ void GameScene::processBehavior() {
         }
     }
 #endif
-    if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
-        fadeinSceneTree(2*60);
+//    if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
+//        fadeinSceneTree(2*60);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
+//        fadeoutSceneTree(2*60);
+//    }
+
+    if (_pScene_GameMain->wasPause()) {
+        if (VB->isPushedDown(VB_PAUSE)) {
+            _TRACE_("UNPAUSE!");
+            VB = VB_PLAY;
+            _pScene_GameMain->unpause();     //一時停止
+        }
     }
-    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
-        fadeoutSceneTree(2*60);
-    }
+
 
     //サブシーンの切替えや平行実行のための、初期化、事前処理、フラグ処理等
     if (_pSceneCannel == _pScene_GameDemo) {
@@ -129,64 +138,6 @@ void GameScene::processJudgement() {
                 KIND_ENEMY_BODY|KIND_OTHER,
                 KIND_OTHER
               );
-
-//        CollisionChecker::_pLinearOctree->executeAllHitChk(
-//                KIND_CHIKEI,
-//                KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
-//              );
-//
-//        CollisionChecker::_pLinearOctree->executeAllHitChk(
-//                KIND_ENEMY_BODY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER,
-//                KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_PA
-//              );
-//
-//        CollisionChecker::_pLinearOctree->executeAllHitChk(
-//                KIND_ENEMY_BODY|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_OTHER,
-//                KIND_MY_SHOT_NOMAL
-//            );
-//        CollisionChecker::_pLinearOctree->executeAllHitChk(
-//                KIND_OTHER,
-//                KIND_ENEMY_BODY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
-//              );
-//        CollisionChecker::_pLinearOctree->executeAllHitChk(
-//                KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL,
-//                KIND_MY_SHOT_GU
-//              );
-//        CollisionChecker::_pLinearOctree->executeAllHitChk(
-//                KIND_ENEMY_SHOT_CHOKI,
-//                KIND_ENEMY_SHOT_GU
-//              );
-
-
-//        ボトルネックもいいところ
-//        なんとかしなければ
-//        昔の相当たり法
-//
-//        executeHitChkGroupActors(
-//          KIND_CHIKEI,
-//          KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
-//        );
-//        executeHitChkGroupActors(
-//          KIND_ENEMY_BODY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER,
-//          KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_PA
-//        );
-//
-//        executeHitChkGroupActors(
-//            KIND_ENEMY_BODY|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_OTHER,
-//            KIND_MY_SHOT_NOMAL
-//        );
-//        executeHitChkGroupActors(
-//          KIND_OTHER,
-//          KIND_ENEMY_BODY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
-//        );
-//        executeHitChkGroupActors(
-//          KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL,
-//          KIND_ENEMY_SHOT_GU
-//        );
-//        executeHitChkGroupActors(
-//          KIND_MY_SHOT_CHOKI,
-//          KIND_MY_SHOT_GU
-//        );
     }
 }
 

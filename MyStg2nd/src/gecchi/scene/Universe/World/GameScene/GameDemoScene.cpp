@@ -73,7 +73,7 @@ void GameDemoScene::processBehavior() {
         _dwFrame_Title++;
 
         //ここに処理
-        if (VB_PLAY->isPushedDown(VB_UI_EXECUTE)) {
+        if (VB->isPushedDown(VB_UI_EXECUTE)) {
             setProgress(GAMEDEMO_PROG_DECIDE);
         }
 
@@ -120,7 +120,7 @@ void GameDemoScene::processBehavior() {
     //<-----ループ
     //デモプレイかランキング時
     if (GAMEDEMO_PROG_DEMOPLAY <= getProgress() && getProgress() <= GAMEDEMO_PROG_RANKING) {
-        if (VB_PLAY->isPushedDown(VB_UI_EXECUTE)) { //VB_UI_EXECUTEでタイトルへ
+        if (VB->isPushedDown(VB_UI_EXECUTE)) { //VB_UI_EXECUTEでタイトルへ
             setProgress(GAMEDEMO_PROG_TITLE);
         }
     }

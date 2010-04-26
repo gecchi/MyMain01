@@ -29,6 +29,7 @@ namespace MyStg2nd {
 class World : public GgafDx9LibStg::DefaultScene {
 
 public:
+    bool _is_create_GameScene;
 
     World(const char* prm_name);
 

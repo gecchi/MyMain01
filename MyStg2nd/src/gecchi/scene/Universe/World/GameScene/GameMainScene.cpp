@@ -160,40 +160,29 @@ void GameMainScene::processBehavior() {
     //ƒJƒƒ‰ƒ[ƒNŠÖ˜A
 
     if (getProgress() == GAMEMAIN_PROG_PLAY) {
-        GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
         //TODO:Ž~‚ß‚Ä‚àframe‚Íi‚ÞQH
-        if (VB_PLAY->isPushedDown(VB_PAUSE)) {
-            if (getSubFirst()->canBehave()) {
-                _TRACE_("PAUSE!");
-    //            //ƒJƒƒ‰’Ž‹•ûŒüÝ’è
-    //            pCAM->_pMover->setMvAng(
-    //                                pCAM->_gazeX,
-    //                                pCAM->_gazeY,
-    //                                pCAM->_gazeZ
-    //                           );
-
-                getSubFirst()->pause();     //ˆêŽž’âŽ~
-            } else {
-                _TRACE_("UNPAUSE!");
-                getSubFirst()->unpause();   //ˆêŽž’âŽ~‰ðœ
-            }
+        if (VB->isPushedDown(VB_PAUSE)) {
+            _TRACE_("PAUSE!");
+            VB = VB_UI;  //“ü—Í‚Í‚t‚h‚ÉØ‚è‘Ö‚¦
+            pause();     //Ž©g”z‰º‚ðˆêŽž’âŽ~‚·‚é
+                         //ˆêŽž’âŽ~‰ðœ‚ÍGameScene‚Ås‚í‚ê‚é
         }
 
-
+        GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
         //ƒJƒƒ‰ˆÊ’u‚ðs‚Á‚½‚è—ˆ‚½‚è
-        if (VB_PLAY->isPushedDown(VB_ZMOVE)) {
+        if (VB->isPushedDown(VB_ZMOVE)) {
             _TRACE_("VB_ZMOVE!! now _pos_camera="<<_pos_camera);
             if (_pos_camera < CAM_POS_TO_BEHIND) { //”w–ÊŽ‹“_‚Å‚Í‚È‚¢ê‡A
                 _pos_camera += CAM_POS_TO_BEHIND;  //‚»‚ê‚¼‚ê‚Ì‘Î‰ž”w–ÊŽ‹“_‚Ö
             } else if (_pos_camera > CAM_POS_TO_BEHIND) {//”w–ÊŽ‹“_‚Ìê‡
                 //•ûŒü“ü—Í‚É‚æ‚èV‚½‚ÈŽ‹“_‚Ö
-                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+                if (VB->isBeingPressed(VB_RIGHT)) {
                     _pos_camera = CAM_POS_LEFT;
-                } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+                } else if (VB->isBeingPressed(VB_LEFT)) {
                     _pos_camera = CAM_POS_RIGHT;
-                } else if (VB_PLAY->isBeingPressed(VB_UP)) {
+                } else if (VB->isBeingPressed(VB_UP)) {
                     _pos_camera = CAM_POS_BOTTOM;
-                } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+                } else if (VB->isBeingPressed(VB_DOWN)) {
                     _pos_camera = CAM_POS_TOP;
                 } else {
                     //•ûŒü–¢“ü—Í‚Ìê‡AŒ³‚ÌŽ‹“_‚Ö
@@ -276,7 +265,7 @@ void GameMainScene::processBehavior() {
 
         int cam_slow_velo_renge;
 
-        if (VB_PLAY->isBeingPressed(VB_ZMOVE)) {
+        if (VB->isBeingPressed(VB_ZMOVE)) {
             cam_slow_velo_renge = _cam_velo_renge / 100;
         } else {
             cam_slow_velo_renge = _cam_velo_renge;

@@ -54,7 +54,7 @@ void GameBeginningScene::processBehavior() {
         //Šˆ“®ƒ‹[ƒv
         _dwFrame_Ope++;
 
-        if (VB_PLAY->isPushedDown(VB_UI_EXECUTE)) {
+        if (VB->isPushedDown(VB_UI_EXECUTE)) {
             _selected_stage = 1;
             setProgress(GAMEBEGINNING_PROG_DECIDE);
         }

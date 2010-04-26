@@ -9,10 +9,12 @@ using namespace MyStg2nd;
 DispatcherManager God::_dispatcherManager = DispatcherManager("DispatcherManager");
 VirtualButton* God::_pVbtn_PLAY = NULL;
 VirtualButton* God::_pVbtn_UI = NULL;
+VirtualButton* God::_pVbtn_Active = NULL;
+
 God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd) {
     God::_pVbtn_PLAY = NEW VirtualButton();
     God::_pVbtn_UI   = NEW VirtualButton();
-
+    God::_pVbtn_Active = God::_pVbtn_UI;
 
     //仮想ボタンを本、ゲーム用に上書きして再定義
     VirtualButton::_tagKeymap.BUTTON1    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_SHOT1)      ];

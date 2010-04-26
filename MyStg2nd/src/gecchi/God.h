@@ -7,7 +7,7 @@ namespace MyStg2nd {
 #define pUNIVERSE ((Universe*)(GgafGod::_pGod->_pUniverse))
 #define VB_PLAY God::_pVbtn_PLAY
 #define VB_UI God::_pVbtn_UI
-
+#define VB God::_pVbtn_Active
 class God : public GgafDx9LibStg::DefaultGod {
 
 public:
@@ -15,6 +15,7 @@ public:
 
     static GgafDx9LibStg::VirtualButton* _pVbtn_PLAY;
     static GgafDx9LibStg::VirtualButton* _pVbtn_UI;
+    static GgafDx9LibStg::VirtualButton* _pVbtn_Active;
 
     God(HINSTANCE prm_hInstance, HWND prm_hWnd);
 

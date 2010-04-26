@@ -109,7 +109,7 @@ void MyOptionParent::initialize() {
 
 void MyOptionParent::processBehavior() {
 
-    if (VB_PLAY->isDoublePushedDown(VB_OPTION,8,8)) {
+    if (VB->isDoublePushedDown(VB_OPTION,8,8)) {
         //もとに戻す
         _pMover->execTagettingMvAngSequence(
                         0,
@@ -129,25 +129,25 @@ void MyOptionParent::processBehavior() {
         }
 
 
-    } else if (VB_PLAY->isBeingPressed(VB_OPTION) && !VB_PLAY->isBeingPressed(VB_TURBO)) {
+    } else if (VB->isBeingPressed(VB_OPTION) && !VB->isBeingPressed(VB_TURBO)) {
         //オプション向き操作
-        if (VB_PLAY->isBeingPressed(VB_UP)) {
+        if (VB->isBeingPressed(VB_UP)) {
             _pMover->addRzMvAng(_angVelo_Turn);
         }
-        if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+        if (VB->isBeingPressed(VB_DOWN)) {
             _pMover->addRzMvAng(-_angVelo_Turn);
         }
-        if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+        if (VB->isBeingPressed(VB_RIGHT)) {
             _pMover->addRyMvAng(_angVelo_Turn);
         }
-        if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+        if (VB->isBeingPressed(VB_LEFT)) {
             _pMover->addRyMvAng(-_angVelo_Turn);
         }
 
     }
 
-    if (VB_PLAY->isRoundPush(VB_OPTION)) {
-    //if (VB_PLAY->isPushedDown(VB_OPTION) && GgafDx9Input::isBeingPressedKey(DIK_S)) {
+    if (VB->isRoundPush(VB_OPTION)) {
+    //if (VB->isPushedDown(VB_OPTION) && GgafDx9Input::isBeingPressedKey(DIK_S)) {
         if (_paMyOption[0]) {
             _is_free_from_myship_mode = true;
             _is_handle_move_mode = true;
@@ -162,7 +162,7 @@ void MyOptionParent::processBehavior() {
     }
 
     if (_is_free_from_myship_mode) {
-        if (VB_PLAY->isBeingPressed(VB_OPTION) && _is_handle_move_mode) {
+        if (VB->isBeingPressed(VB_OPTION) && _is_handle_move_mode) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちのオプション移動速度のみを設定。
             _pMover->setMvVelo(GgafDx9Util::COS[_paMyOption[0]->_angExpanse/ ANGLE_RATE] * _veloOptionsMv);
