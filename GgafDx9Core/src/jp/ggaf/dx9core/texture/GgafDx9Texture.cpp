@@ -31,7 +31,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                 );
     if (hr != D3D_OK) {
         _TRACE_("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_texture_name);
-        //失敗用テクスチャを設定
+        //失敗用テクスチャ"GgafDx9IlligalTexture.png"を設定
         string texture_file_name2 = GGAFDX9_PROPERTY(DIR_TEXTURE) + "GgafDx9IlligalTexture.png";
         HRESULT hr2 = D3DXCreateTextureFromFileEx(
                          GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,

@@ -504,7 +504,8 @@ void GgafDx9God::makeUniversalMaterialize() {
         hr = GgafDx9God::_pID3DDevice9->EndScene();
         checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->EndScene() に失敗しました。");
 
-    } TRACE("GgafDx9God::makeUniversalMaterialize() end");
+    }
+    TRACE("GgafDx9God::makeUniversalMaterialize() end");
 }
 
 void GgafDx9God::presentUniversalVisualize() {
@@ -519,7 +520,7 @@ void GgafDx9God::presentUniversalVisualize() {
         //                Sleep(1);
         //            }
         //        }
-        HRESULT hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+        HRESULT hr = GgafDx9God::_pID3DDevice9->Present(NULL, &_rectPresentDest, NULL, NULL);
 
         if (hr == D3DERR_DEVICELOST) {
             //出刃異巣露酢斗！
@@ -533,8 +534,8 @@ void GgafDx9God::presentUniversalVisualize() {
             ___EndSynchronized; // <----- 排他終了
             for (int i = 0; GgafFactory::isResting() == false; i++) {
                 Sleep(60); //工場が落ち着くまで待つ
-                if (i > 2000) {
-                    _TRACE_("GgafDx9God::presentUniversalVisualize() ２分待機しましたが、工場から反応がありません。breakします。要調査");
+                if (i > 1000) {
+                    _TRACE_("GgafDx9God::presentUniversalVisualize() 1分待機しましたが、工場から反応がありません。breakします。要調査");
                 }
             }
             ___BeginSynchronized; // ----->排他開始
@@ -574,8 +575,8 @@ GgafDx9God::~GgafDx9God() {
         GgafFactory::_is_working_flg = false;
         for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
             Sleep(60); //工場が落ち着くまで待つ
-            if (i > 2000) {
-                _TRACE_("GgafDx9God::~GgafDx9God() ２分待機しましたが、工場から反応がありません。breakします。要調査");
+            if (i > 1000) {
+                _TRACE_("GgafDx9God::~GgafDx9God() 1分待機しましたが、工場から反応がありません。breakします。要調査");
             }
         }
         //排他の解除

@@ -97,6 +97,13 @@ void GgafDx9Universe::draw() {
             //但し、段階レンダリング不要であるにもかかわらず、半透明表示は、前後がうまく表示されないので避けるべき。
         }
         //マスターαを設定する。
+#ifdef MY_DEBUG
+            if (_pActor_DrawActive->getPlatformScene()->_scene_class & Obj_GgafDx9Scene) {
+                //OK
+            } else {
+                throwGgafCriticalException("GgafDx9Universe::draw() err1. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDx9Scene に変換不可です。this="<<getName());
+            }
+#endif
         GgafDx9Scene* pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
         _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
                 _pActor_DrawActive->_pGgafDx9Effect->_hMasterAlpha, pScene->_pAlphaCurtain->_alpha);
@@ -125,6 +132,13 @@ void GgafDx9Universe::draw() {
 //            }
 
             //マスターαを設定する。
+#ifdef MY_DEBUG
+            if (_pActor_DrawActive->getPlatformScene()->_scene_class & Obj_GgafDx9Scene) {
+                //OK
+            } else {
+                throwGgafCriticalException("GgafDx9Universe::draw() err2. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDx9Scene に変換不可です。this="<<getName());
+            }
+#endif
             GgafDx9Scene* pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
             _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
                     _pActor_DrawActive->_pGgafDx9Effect->_hMasterAlpha, pScene->_pAlphaCurtain->_alpha);
