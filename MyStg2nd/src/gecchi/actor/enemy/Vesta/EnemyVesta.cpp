@@ -23,7 +23,7 @@ EnemyVesta::EnemyVesta(const char* prm_name)
     _frame_of_morph_interval   = 60;
 
     _pDispatcher_Fired = NULL;
-    _pDpcon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot001");
+    _pDpcon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_SingleLaser");
 
     _pSeReflector->useSe(1);
     _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));

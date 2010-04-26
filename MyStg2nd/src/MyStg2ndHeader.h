@@ -1,7 +1,7 @@
 #ifndef MYSTG2NDHEADER_H_
 #define MYSTG2NDHEADER_H_
 
-//「俺DirectX9ライブラリ」を利用する場合（自分だけだけど；）
+//「DirectX9ライブラリ」を利用する場合（利用者は俺）
 //次の"GgafDx9LibStgHeader.h"ヘッダをインクルードします。
 
 #include "GgafDx9LibStgHeader.h"
@@ -152,6 +152,8 @@ class LaserChipDispatcherDispatcher;
 class Shot001;
 class Shot002;
 class Shot003;
+class SingleLaser;
+
 class MyCurveLaserChip001;
 class MyStraightLaserChip001;
 class Stage01MainScene;
@@ -263,6 +265,7 @@ class LaserChipEffectActor;
 #include "gecchi/actor/common/shot/Shot001.h"
 #include "gecchi/actor/common/shot/Shot002.h"
 #include "gecchi/actor/common/shot/Shot003.h"
+#include "gecchi/actor/common/shot/SingleLaser.h"
 
 #include "gecchi/actor/my/mesh/MyShip.h"
 #include "gecchi/actor/my/mesh/MyOptionParent.h"

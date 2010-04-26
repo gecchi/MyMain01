@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
-    CurveLaserChip(prm_name, "12/laser_chip") {
+        CurveLaserChip(prm_name, "12/laser_chip") { //LaserChipånÇÕç≈ëÂ12ÉZÉbÉg
     _class_name = "MyCurveLaserChip001";
     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
     _pOrg = NULL;

@@ -73,8 +73,8 @@ struct OUT_VS
 //レーザーチップ頂点シェーダー
 OUT_VS GgafDx9VS_LaserChip(
       float4 prm_pos    : POSITION,      // モデルの頂点
-      float  prm_index  : PSIZE ,    // モデルの頂点番号
-      float3 prm_normal : NORMAL,        // 法線ではなくてなんと、x要素に頂点番号！
+      float  prm_index  : PSIZE ,    // PSIZEではなくてなんとモデルの頂点番号
+      float3 prm_normal : NORMAL,        
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 ) {
 

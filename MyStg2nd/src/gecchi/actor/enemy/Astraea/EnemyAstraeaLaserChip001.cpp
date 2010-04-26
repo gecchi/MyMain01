@@ -7,7 +7,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-EnemyAstraeaLaserChip001::EnemyAstraeaLaserChip001(const char* prm_name) : HomingLaserChip(prm_name, "12/laser_chip_red") {
+EnemyAstraeaLaserChip001::EnemyAstraeaLaserChip001(const char* prm_name) :
+        HomingLaserChip(prm_name, "12/laser_chip_red") { //LaserChipånÇÕç≈ëÂ12ÉZÉbÉg
     _class_name = "EnemyAstraeaLaserChip001";
     MyStgUtil::resetEnemyAstraeaLaserChip001Status(_pStatus);
 }

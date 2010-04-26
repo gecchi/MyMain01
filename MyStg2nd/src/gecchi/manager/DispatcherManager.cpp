@@ -45,6 +45,17 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
         pCOMMONSCENE->getLordActor()->addSubGroup(pResource);
     }
 
+    if (GgafUtil::strcmp_ascii("DpCon_SingleLaser", prm_idstr) == 0) {
+        pResource = NEW GgafActorDispatcher("DP_SingleLaser_Stock");
+        SingleLaser* pSingleLaser;
+        for (int i = 0; i < 300; i++) {
+            pSingleLaser = NEW SingleLaser("SingleLaser");
+            pSingleLaser->inactivateImmediately();
+            pResource->addSubLast(pSingleLaser);
+        }
+        pCOMMONSCENE->getLordActor()->addSubGroup(pResource);
+    }
+
     return pResource;
 }
 
