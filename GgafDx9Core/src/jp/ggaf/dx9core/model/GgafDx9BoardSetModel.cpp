@@ -29,8 +29,7 @@ GgafDx9BoardSetModel::GgafDx9BoardSetModel(char* prm_model_name) : GgafDx9Model(
     } else {
         _set_num = num;
         if (_set_num > 28) {
-            _TRACE_("GgafDx9BoardSetModel("<<prm_model_name<<") の同時描画セット数オーバー。_set_num="<<_set_num<<"。最大の28がセットされます。");
-            _set_num = 28;
+            _TRACE_("GgafDx9BoardSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の28がセットですが、それ以上のセット数です。_set_num="<<_set_num);
         }
     }
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は

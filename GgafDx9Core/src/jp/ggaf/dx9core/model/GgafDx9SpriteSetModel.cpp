@@ -28,8 +28,7 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_model_name) : GgafDx9Mode
     } else {
         _set_num = num;
         if (_set_num > 18) {
-            _TRACE_("GgafDx9SpriteSetModel("<<prm_model_name<<") の同時描画セット数オーバー。_set_num="<<_set_num<<"。最大の18セットが設定されます。");
-            _set_num = 18;
+            _TRACE_("GgafDx9SpriteSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の18セットですがそれ以上のセット数です。_set_num="<<_set_num<<"。");
         }
     }
 

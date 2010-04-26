@@ -27,8 +27,7 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(pr
     } else {
         _set_num = num;
         if (_set_num > 16) {
-            _TRACE_("GgafDx9MeshSetModel("<<prm_model_name<<") の同時描画セット数オーバー。_set_num="<<_set_num<<"。最大の16セットが設定されます。");
-            _set_num = 16;
+            _TRACE_("GgafDx9MeshSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大は16セットがですがそれ以上が設定されています。_set_num="<<_set_num<<"。");
         }
     }
     _pIDirect3DVertexBuffer9 = NULL;
