@@ -121,6 +121,12 @@ public:
     static GgafMainScene* obtainScene(unsigned long prm_id);
 
     /**
+     * 注文した商品が出来上がっているか調べる。 .
+     * @return  進捗具合(-1:注文すらしていない/0:未着手/1:製造中/2:製造済み）
+     */
+    static int chkProgress(unsigned long prm_id);
+
+    /**
      * 工場を掃除する<BR>
      * メイン処理の神が呼び出します。<BR>
      * ROOT_ORDER が指している製品の連結リストを全て解放する<BR>

@@ -60,11 +60,31 @@ void GgafFactory::order(unsigned long prm_id,
     }
 }
 
+int GgafFactory::chkProgress(unsigned long prm_id) {
+    GgafOrder* pOrder;
+    DWORD waittime = 0;
+    pOrder = ROOT_ORDER;
+    if (pOrder == NULL) {
+        return -1;
+    }
+    while (_is_working_flg) {
+        if (pOrder->_id == prm_id) {
+            return pOrder->_progress;
+        } else {
+            if (pOrder->_is_last_order_flg) {
+                return -1;
+            } else {
+                pOrder = pOrder->_pOrder_Next;
+            }
+        }
+    }
+}
+
 void* GgafFactory::obtain(unsigned long prm_id) {
     TRACE("GgafFactory::obtain "<<prm_id<<"/");
-    static GgafOrder* pOrder;
-    static GgafOrder* pOrder_MyNext;
-    static GgafOrder* pOrder_MyPrev;
+    GgafOrder* pOrder;
+    GgafOrder* pOrder_MyNext;
+    GgafOrder* pOrder_MyPrev;
     DWORD waittime = 0;
     pOrder = ROOT_ORDER;
     void* objectCreation;

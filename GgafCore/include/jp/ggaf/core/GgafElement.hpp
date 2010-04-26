@@ -551,6 +551,11 @@ public:
     bool canBehave();
 
     /**
+     */
+    bool wasPause();
+
+
+    /**
      * 振る舞い状態に加算されるフレーム数を取得する .
      * 何もセットしない場合、次のような値を返す。<BR>
      * 1 Frame ～ からの値になる。0 Frame状態は基本存在しない。但し例外的に<BR>
@@ -1177,6 +1182,17 @@ bool GgafElement<T>::canBehave() {
         return false;
     }
 }
+
+
+template<class T>
+bool GgafElement<T>::wasPause() {
+    if (_was_paused_flg) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 template<class T>
 bool GgafElement<T>::relativeFrame(DWORD prm_frame_relative) {
