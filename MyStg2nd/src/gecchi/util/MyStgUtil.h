@@ -212,8 +212,8 @@ public:
 	static void resetEnemyCirceStatus(GgafCore::GgafStatus* p);
 	//汎用ショット003ミニレーザー
 	static void resetShot003Status(GgafCore::GgafStatus* p);
-	//ミニレーザー
-	static void resetSingleLaserStatus(GgafCore::GgafStatus* p);
+	//ミニレーザーショット
+	static void resetShot004Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

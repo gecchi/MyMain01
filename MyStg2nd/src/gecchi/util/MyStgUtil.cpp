@@ -306,7 +306,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 	}
-	void MyStgUtil::resetSingleLaserStatus(GgafStatus* p) {
+	void MyStgUtil::resetShot004Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //種別(デフォルト)
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク

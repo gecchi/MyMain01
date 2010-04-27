@@ -14,27 +14,20 @@ public:
 
     D3DXHANDLE _ahMatWorld[24];
     GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
-    SingleLaser(const char* prm_name);
+    SingleLaser(const char* prm_name, const char* prm_model_id);
 
-    void onCreateModel() override {
+    virtual void onCreateModel() override {
     }
-    void initialize() override;
 
-    void onActive() override;
+    virtual void processDraw() override;
 
-    void processBehavior() override;
-
-    void processJudgement() override;
-
-    void processDraw() override;
-
-    void processFinal() override {
+    virtual void processFinal() override {
     }
-    void processHappen(int prm_no) override {
-    }
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    void drawHitArea() override;
+    virtual void processHappen(int prm_no) override {
+    }
+
+    virtual void drawHitArea() override;
 
     virtual ~SingleLaser();
 };

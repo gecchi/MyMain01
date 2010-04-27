@@ -5,17 +5,14 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-SingleLaser::SingleLaser(const char* prm_name) :
+SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id) :
              GgafDx9MeshSetActor(prm_name,
-                                 "24/laser_single",
+                                 prm_model_id,
                                  "SingleLaserEffect",
                                  "SingleLaserTechnique",
                                  NEW CollisionChecker(this) ) {
     _class_name = "SingleLaser";
     _pCollisionChecker = (CollisionChecker*)_pChecker;
-    MyStgUtil::resetSingleLaserStatus(_pStatus);
-
-
     _ahMatWorld[0]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld001" );
     _ahMatWorld[1]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld002" );
     _ahMatWorld[2]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld003" );
@@ -48,30 +45,6 @@ SingleLaser::SingleLaser(const char* prm_name) :
 //    _ahMatWorld[29]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld030" );
 }
 
-void SingleLaser::initialize() {
-    setHitAble(false);
-    _SX = _SY = _SZ = 50 * 1000;
-    setAlpha(0.99); //半透明にすることで両面レンダリング
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
-}
-
-void SingleLaser::onActive() {
-    setHitAble(true);
-    _pMover->setMvVelo(20000);             //移動速度
-}
-
-void SingleLaser::processBehavior() {
-    //加算ランクポイントを減少
-    //座標に反映
-    _pMover->behave();
-}
-
-void SingleLaser::processJudgement() {
-    if (isOutOfGameSpace()) {
-        inactivate();
-    }
-}
 void SingleLaser::processDraw() {
     _draw_set_num = 1; //GgafDx9MeshSetActorの同じモデルが連続しているカウント数。同一描画深度は一度に描画する。
     GgafDx9DrawableActor* _pNextDrawActor;
@@ -126,25 +99,11 @@ void SingleLaser::processDraw() {
     // Zバッファ書き込み可
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 }
-void SingleLaser::onHit(GgafActor* prm_pOtherActor) {
-//    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-//    //・・・ココにヒットされたエフェクト
-//    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-//        //破壊された場合
-//        //・・・ココに破壊されたエフェクト
-//        EffectExplosion003* pExplo003 = (EffectExplosion003*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion003->employ();
-//        playSe3D1();
-//        if (pExplo003 != NULL) {
-//            pExplo003->activate();
-//            pExplo003->setGeometry(this);
-//        }
-//        inactivate();
-//    }
-}
-
 
 void SingleLaser::drawHitArea() {
     CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
 }
+
 SingleLaser::~SingleLaser() {
+    DELETE_IMPOSSIBLE_NULL(_pCollisionChecker);
 }
