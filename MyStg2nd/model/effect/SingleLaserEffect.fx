@@ -51,12 +51,9 @@ float4x4 g_matWorld021;
 float4x4 g_matWorld022;
 float4x4 g_matWorld023;
 float4x4 g_matWorld024;
-//float4x4 g_matWorld025;
-//float4x4 g_matWorld026;
-//float4x4 g_matWorld027;
-//float4x4 g_matWorld028;
-//float4x4 g_matWorld029;
-//float4x4 g_matWorld030;
+float4x4 g_matWorld025;
+float4x4 g_matWorld026;
+float4x4 g_matWorld027;
 
 
 
@@ -136,25 +133,15 @@ OUT_VS GgafDx9VS_SingleLaser(
 		matWorld = g_matWorld023;	
 	} else if (index == 23) {		
 		matWorld = g_matWorld024;	
-	} 
-/*
-else if (index == 24) {		
+	} else if (index == 24) {		
 		matWorld = g_matWorld025;	
-	}
-*/ 
-/*
-else if (index == 25) {		
+	} else if (index == 25) {		
 		matWorld = g_matWorld026;	
 	} else if (index == 26) {		
 		matWorld = g_matWorld027;	
-	} else if (index == 27) {		
-		matWorld = g_matWorld028;	
-	} else if (index == 28) {		
-		matWorld = g_matWorld029;	
-	} else {		
-		matWorld = g_matWorld030;	
 	} 
-*/
+
+
 	//World*View*ŽË‰e•ÏŠ·
 	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);
 	//UV‚Í‚»‚Ì‚Ü‚Ü

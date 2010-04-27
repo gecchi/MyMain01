@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 Shot004::Shot004(const char* prm_name) :
-        SingleLaser(prm_name, "24/laser_single") {
+        SingleLaser(prm_name, "27/laser_single") { //SingleLaserÇÕç≈ëÂ27ÉZÉbÉgÇ≈Ç†ÇÈ
     _class_name = "Shot004";
     MyStgUtil::resetShot004Status(_pStatus);
 }
