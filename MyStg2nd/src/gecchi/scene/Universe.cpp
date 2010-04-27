@@ -14,6 +14,7 @@ Universe::Universe(const char* prm_name) : DefaultUniverse(prm_name) {
     GgafRepeatSeq::create("CH_break_glass01", 0, 10);
     GgafRepeatSeq::create("CH_a_shot", 0, 3);
     GgafRepeatSeq::create("CH_laser001", 0, 8); //オプションレーザー
+	GgafRepeatSeq::create("CH_cm-22", 0, 8); //Juno発射音
     //【めも】
     //ここでActorやSceneのNEWをはしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。

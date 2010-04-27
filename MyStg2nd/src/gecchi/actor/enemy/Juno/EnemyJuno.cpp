@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Ceres") {
+EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Core3") {
     _class_name = "EnemyJuno";
     MyStgUtil::resetEnemyJunoStatus(_pStatus);
     _pDispatcher_ShotEffect = NULL;
@@ -15,15 +15,16 @@ EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Cere
     _nShot = 0;
     _can_Shot = false;
     _do_Shot = false;
-    _pSeReflector->useSe(1);
+    _pSeReflector->useSe(2);
     _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+	_pSeReflector->set(1, "cm-22", GgafRepeatSeq::nextVal("CH_cm-22"));     //発射
 }
 
 
 void EnemyJuno::initialize() {
     setHitAble(false);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliBox(0, -10000, -10000, 10000, 10000);
+    _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
     _pMover->setFaceAngVelo(AXIS_X, 5000);
     _pMover->forceMvVeloRange(1, _pMover->_veloMv);
 }
@@ -56,6 +57,7 @@ void EnemyJuno::processBehavior() {
                     pShot->activate();
                     _do_Shot = false;
                     chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
+					_pSeReflector->play3D(1);
                 }
                 //ショット発射エフェクト
                 if (_pDispatcher_ShotEffect) {
