@@ -6,8 +6,8 @@ namespace GgafDx9Core {
 #define max3(A,B,C) (GgafDx9Core::GgafDx9Util::max3(A,B,C))
 
 /**
- * ユーティリティ.
- * 独立した静的な座標関連関数はココに集約。
+ * ユーティリティクラス .
+ * 静的な座標計算関連関数はココに集約していこう。
  */
 class GgafDx9Util: public GgafCore::GgafUtil {
 
@@ -17,13 +17,25 @@ class GgafDx9Util: public GgafCore::GgafUtil {
     };
 
 public:
-    static int COS_UNITLEN[];
-    static int SIN_UNITLEN[];
-    static int TAN_UNITLEN[];
-    static int RAD_UNITLEN[];
+
     static float PARABORA[];
+    /**
+     * cosテーブル .
+     * 要素番号範囲：0 ~ S_ANG360
+     * angle値 r の cosは、COS_UNITLEN[r/ANGLE_RATE]
+     */
     static float COS[];
+    /**
+     * sinテーブル .
+     * 要素番号範囲：0 ~ S_ANG360
+     * angle値 r の sin は、SIN_UNITLEN[r/ANGLE_RATE]
+     */
     static float SIN[];
+    /**
+     * 弧度法変換テーブル .
+     * 要素番号範囲：0 ~ S_ANG360
+     * angle値 r のラディアンは、RAD_UNITLEN[r/ANGLE_RATE]
+     */
     static float RAD[];
 
     static angle SLANT2ANG[];
@@ -64,34 +76,26 @@ public:
         }
         if (prm_vx >= 0 && prm_vy >= 0) { //第1象限
             if (prm_vx >= prm_vy) {
-                //_TRACE_("getAngle2D prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE0+SLANT2ANG["<<(int)(1.0*prm_vy/prm_vx*100000)<<"]="<<(ANGLE0+SLANT2ANG[(int)(1.0*prm_vy/prm_vx*10000)]));
                 return ANGLE0  + SLANT2ANG[(int)(1.0*prm_vy/prm_vx*100000)];
             } else {
-                //_TRACE_("getAngle2D prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE90-SLANT2ANG["<<(int)(1.0*prm_vx/prm_vy*100000)<<"]="<<(ANGLE90-SLANT2ANG[(int)(1.0*prm_vx/prm_vy*10000)]));
                 return ANGLE90 - SLANT2ANG[(int)(1.0*prm_vx/prm_vy*100000)];
             }
         } else if (prm_vx <= 0 && prm_vy >= 0) { //第2象限
             if (-prm_vx <= prm_vy) {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE90+SLANT2ANG["<<(int)(1.0*-prm_vx/prm_vy*100000)<<"]="<<(ANGLE90+SLANT2ANG[(int)(1.0*-prm_vx/prm_vy*10000)]));
                 return ANGLE90 + SLANT2ANG[(int)(1.0*-prm_vx/prm_vy*100000)];
             } else {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE180-SLANT2ANG["<<(int)(1.0*prm_vy/-prm_vx*100000)<<"]="<<(ANGLE180-SLANT2ANG[(int)(1.0*prm_vy/-prm_vx*10000)]));
                 return ANGLE180 - SLANT2ANG[(int)(1.0*prm_vy/-prm_vx*100000)];
             }
         } else if (prm_vx <= 0 && prm_vy <= 0) { //第3象限
             if (-prm_vx >= -prm_vy) {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE180+SLANT2ANG["<<(int)(1.0*-prm_vy/-prm_vx*100000)<<"]="<<(ANGLE180+SLANT2ANG[(int)(1.0*-prm_vy/-prm_vx*10000)]));
                 return ANGLE180 + SLANT2ANG[(int)(1.0*-prm_vy/-prm_vx*100000)];
             } else {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE270-SLANT2ANG["<<(int)(1.0*-prm_vx/-prm_vy*100000)<<"]="<<(ANGLE270-SLANT2ANG[(int)(1.0*-prm_vx/-prm_vy*10000)]));
                 return ANGLE270 - SLANT2ANG[(int)(1.0*-prm_vx/-prm_vy*100000)];
             }
         } else if (prm_vx >= 0 && prm_vy <= 0) { //第4象限
             if (prm_vx <= -prm_vy) {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE270+SLANT2ANG["<<(int)(1.0*prm_vx/-prm_vy*100000)<<"]="<<(ANGLE270+SLANT2ANG[(int)(1.0*prm_vx/-prm_vy*10000)]));
                 return ANGLE270 + SLANT2ANG[(int)(1.0*prm_vx/-prm_vy*100000)];
             } else {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE360-SLANT2ANG["<<(int)(1.0*-prm_vy/prm_vx*100000)<<"]="<<(ANGLE360-SLANT2ANG[(int)(1.0*-prm_vy/prm_vx*10000)]));
                 return ANGLE360 - SLANT2ANG[(int)(1.0*-prm_vy/prm_vx*100000)];
             }
         }
@@ -244,53 +248,6 @@ public:
                  );
     }
 
-    /**
-     * @deprecated 現在未使用。より高速なgetRzRyAng()を使用している。
-     * @param vx
-     * @param vy
-     * @param vz
-     * @param out_angFaceZ
-     * @param out_angFaceY
-     * @param s
-     */
-    static void getRzRyAngle_old(int vx,
-                                   int vy,
-                                   int vz,
-                                   angle& out_angFaceZ,
-                                   angle& out_angFaceY,
-                                   int s = 25);
-
-    /**
-     * @deprecated 現在未使用。より高速なgetRzRyAng()を使用している。
-     * @param x
-     * @param y
-     * @param z
-     * @param out_nvx
-     * @param out_nvy
-     * @param out_nvz
-     * @param out_angFaceZ
-     * @param out_angFaceY
-     */
-    static void getRzRyAngle_old(int x,
-                              int y,
-                              int z,
-                              float& out_nvx,
-                              float& out_nvy,
-                              float& out_nvz,
-                              angle& out_angFaceZ,
-                              angle& out_angFaceY);
-
-    //現在未使用。より高速なgetRzRyAngleを使用している。
-    /**
-     * @deprecated より高速なgetRzRyAng() を使用している。
-     * @param nvx
-     * @param nvy
-     * @param nvz
-     * @param out_angFaceZ
-     * @param out_angFaceY
-     * @param s
-     */
-    static void getRzRyAngle_old(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY, int s = 25);
 
     /**
      * 原点からパラメータ座標を向く方向ベクトルの、Z軸回転アングル値とY軸回転アングル値を取得 .

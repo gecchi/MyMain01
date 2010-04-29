@@ -86,7 +86,7 @@ void CollisionChecker::updateHitArea() {
         return;
     }
     //if (_pActor->_can_hit_flg && _pActor->isActive() && _pActor->isOffscreen() == 0 ) {  //視野外は登録しない
-    if (_pActor->_can_hit_flg && _pActor->isActive() ) {  //視野外も登録
+    if (_pActor->_can_hit_flg && _pActor->isActive() ) {
         GgafDx9CollisionPart* pColliPart;
         for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
 #ifdef MY_DEBUG
@@ -122,7 +122,7 @@ void CollisionChecker::updateHitArea() {
                                              (_pActor->_X + _pCollisionArea->_AABB_X2)<<","<<
                                              (_pActor->_Y + _pCollisionArea->_AABB_Y2)<<","<<
                                              (_pActor->_Z + _pCollisionArea->_AABB_Z2)<<")");
-            _pLinearOctree->putTree();
+            //_pLinearOctree->putTree();
 
         }
 #endif
@@ -131,16 +131,13 @@ void CollisionChecker::updateHitArea() {
 
 
 bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
-    static GgafDx9Core::GgafDx9GeometricActor* pOtherActor;
-    static GgafDx9CollisionArea* pOtherCollisionArea;
-
-    pOtherActor = prm_pOtherChecker->getTargetActor();
-    pOtherCollisionArea = ((CollisionChecker*)prm_pOtherChecker)->_pCollisionArea;
+    GgafDx9Core::GgafDx9GeometricActor* pOtherActor = prm_pOtherChecker->getTargetActor();
+    GgafDx9CollisionArea* pOtherCollisionArea = ((CollisionChecker*)prm_pOtherChecker)->_pCollisionArea;
 
 //    if (_pCollisionArea == NULL || pOtherCollisionArea == NULL ||
 //        _pActor->isOffscreen() > 0 || pOtherActor->isOffscreen() > 0 ) {  //視野外は判定しない
 
-    if (_pCollisionArea == NULL || pOtherCollisionArea == NULL) {    //視野外も判定する
+    if (_pCollisionArea == NULL || pOtherCollisionArea == NULL) {
         return false;
     } else {
         GgafDx9CollisionPart* pColliPart;
@@ -154,7 +151,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                         CollisionChecker::_num_check++;
 
                         if (pColliPart->_shape_kind == COLLI_AABB && pOtherColliPart->_shape_kind == COLLI_AABB) {
-                            //AABB と  AABB
+                            //AABB と AABB
                             ColliBox* pBox = (ColliBox*)pColliPart;
                             ColliBox* pOtherBox = (ColliBox*)pOtherColliPart;
                             //軸が一致しない確率が高そうな順番(適当)に判定
@@ -202,36 +199,25 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                             int by2 = _pActor->_Y+pBox->_y2;
                             int bz1 = _pActor->_Z+pBox->_z1;
                             int bz2 = _pActor->_Z+pBox->_z2;
-//							_TRACE_("pOtherSphere->_r="<<pOtherSphere->_r);
-//							_TRACE_("o_scx,o_scy,o_scz="<<o_scx<<","<<o_scy<<","<<o_scz);
-//							_TRACE_("bx1,by1,bz1 - bx2,by2,bz2 ="<<bx1<<","<<by1<<","<<bz1<<" - "<<bx2<<","<<by2<<","<<bz2);
                             double square_length = 0; //球の中心とAABBの最短距離を二乗した値
-
                             if(o_scx < bx1) {
                                 square_length += (double)(o_scx - bx1) * (o_scx - bx1);
-                                //_TRACE_("1(o_scx < bx1) square_length="<<square_length);
                             }
                             if(o_scx > bx2) {
                                 square_length += (double)(o_scx - bx2) * (o_scx - bx2);
-                                //_TRACE_("2(o_scx > bx2) square_length="<<square_length);
                             }
                             if(o_scy < by1) {
                                 square_length += (double)(o_scy - by1) * (o_scy - by1);
-                                //_TRACE_("3(o_scy < by1) square_length="<<square_length);
                             }
                             if(o_scy > by2) {
                                 square_length += (double)(o_scy - by2) * (o_scy - by2);
-                                //_TRACE_("4(o_scy > by2) square_length="<<square_length);
                             }
                             if(o_scz < bz1) {
                                 square_length += (double)(o_scz - bz1) * (o_scz - bz1);
-                                //_TRACE_("5(o_scz < bz1) square_length="<<square_length);
                             }
                             if(o_scz > bz2) {
                                 square_length += (double)(o_scz - bz2) * (o_scz - bz2);
-                                //_TRACE_("6(o_scz > bz2) square_length="<<square_length);
                             }
-                            //_TRACE_("square_length="<<square_length<<" pOtherSphere->_r * pOtherSphere->_r="<<((double)pOtherSphere->_r * pOtherSphere->_r));
                             //square_lengthが球の半径（の二乗）よりも短ければ衝突している
                             if (square_length <= (double)pOtherSphere->_r * pOtherSphere->_r) {
                                 return true;

@@ -142,9 +142,5 @@ int GgafDx9Se::restore(void) {
 
 
 GgafDx9Se::~GgafDx9Se() {
-    //	if (_pSoundSE != NULL) {
-    //		_pSoundSE->Release();
-    //		delete _pSoundSE;
-    //		_pSoundSE = NULL;
-    //	}
+    RELEASE_IMPOSSIBLE_NULL(_pIDirectSoundBuffer);
 }

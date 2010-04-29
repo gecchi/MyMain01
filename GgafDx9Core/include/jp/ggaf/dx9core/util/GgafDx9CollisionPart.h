@@ -3,7 +3,7 @@
 namespace GgafDx9Core {
 
 /**
- * 当たり判定部品 .
+ * 当たり判定領域要素 .
  * AABB または 球 をサポート .
  * 当たり判定のローカル軸回転平行移動をサポート .
  * @version 1.00
@@ -13,7 +13,7 @@ namespace GgafDx9Core {
 class GgafDx9CollisionPart : public GgafCore::GgafObject {
 
 public:
-    /** 種別 */
+    /** 当たり判定種別(COLLI_AABB:直方体 / COLLI_SPHERE:球) */
     int _shape_kind;
     /** 有効フラグ */
     bool _is_valid_flg;

@@ -16,19 +16,19 @@ using namespace GgafDx9Core;
 //ang または angle と変数名にある場合、ラジアンではなくて度数法での角度数値が入る。
 //（ラジアンの場合はradと書くようにしている）
 //但し精度が場合によってまちまちである。
-//キャラがもつ angle値は 0 ～ 360,000 の 度数法の1000倍の精度を持つ。一応これが基本。
-//s_ang は計算用、テーブルインデックス用に精度を落とした  0 ～ 3600 の単位系もある
+//キャラがもつ angle値は 0 ～ 360,000 で 値の上では度数法の1000倍の精度を持つ。一応これが基本。
+//s_ang は計算用、テーブルインデックス用に精度を落とすため、angle値を100で割って  0 ～ 3600 にした単位系。
 //
 //次に軸回転と平面の中心角の表現区別について
 //＜軸回転の角度の変数名表現＞
-//軸回転は rot または r で書くようにする。 angFace とか、とにかく R が変数名に入ってる
+//軸回転は rot または r で書くようにする。 angRx とか、とにかく R が r が変数名に入ってる
 //＜例＞
-//angRx angFaceX rotX rX Rx rX radRx ・・・ X軸回転angle値
-//angRy angFaceY rotY rY Ry rY radRy ・・・ Y軸回転angle値
-//angRz angFaceZ rotZ rX Rz rZ radRz ・・・ Z軸回転angle値
+//angRx rotX rX Rx rX radRx ・・・ X軸回転に関連している変数名
+//angRy rotY rY Ry rY radRy ・・・ Y軸回転に関連している変数名
+//angRz rotZ rX Rz rZ radRz ・・・ Z軸回転に関連している変数名
 //これらもその時々により精度が変わっているかもしれない。
 //また左手系(X軸は右へ行くと正、Y軸は上に行くと正、Z軸は奥へ行くと正）を前提としているため、
-//これらの軸回転angle値の正の値とは軸を向いて反時計回りの方向を表す。
+//これらの軸回転angle値の正の値とは通常は、軸を向いて反時計回りの方向を表す。
 //X軸回転値 ・・・ X軸の正の方向を向いて左回りが正の回転角度
 //Y軸回転値 ・・・ Y軸の正の方向を向いて左回りが正の回転角度
 //Z軸回転値 ・・・ Z軸の正の方向を向いて左回りが正の回転角度
@@ -36,45 +36,34 @@ using namespace GgafDx9Core;
 //＜平面の中心角、または直線の成す角度の変数名表現＞
 //ある平面系に対しての中心角はどの平面かを書くようにする。
 //
-//angXY ・・・XY平面での中心角の値。正の角度とは X軸の正の方向を右、Y軸の正の方向を上、３時の方向 (x,y)=(1,0)を角度0°とし、原点を中心に反時計回り
-//angXZ ・・・XZ平面での中心角の値。正の角度とは X軸の正の方向を右、Z軸の正の方向を上、３時の方向 (x,z)=(1,0)を角度0°とし、原点を中心に反時計回り
-//angZX ・・・ZX平面での中心角の値。正の角度とは Z軸の正の方向を右、X軸の正の方向を上、３時の方向 (z,x)=(1,0)を角度0°とし、原点を中心に反時計回り
-//         angXZ とは角度の正負が逆になります。
+//angXY ・・・XY平面での中心角の値。正の角度とは X軸の正の方向を右、Y軸の正の方向を上にした２次元平面で、３時の方向 (x,y)=(1,0)を角度0°とし、原点を中心に反時計回り
+//angXZ ・・・XZ平面での中心角の値。正の角度とは X軸の正の方向を右、Z軸の正の方向を上にした２次元平面で、３時の方向 (x,z)=(1,0)を角度0°とし、原点を中心に反時計回り
+//angZX ・・・ZX平面での中心角の値。正の角度とは Z軸の正の方向を右、X軸の正の方向を上にした２次元平面で、３時の方向 (z,x)=(1,0)を角度0°とし、原点を中心に反時計回り
+//ここで注意は、
+//angXY → Z軸回転値
+//angZX → Y軸回転値
+//と読み替えれるが、angXZはY軸回転値の正負が逆になること
 //
 //＜平面の中心角、または直線の成す角度を、軸回転とみなして計算する場合の変数名表現＞
 //angXY は ３次元空間の Z=0 のXY平面上に限り、angRz とみなすことが出来ます。
 //このようにして計算を行っている箇所があり、
 //「平面の中心角、または直線の成す角度 として値を求めたけども、軸回転として読み替えた、或いは、使いたかった」
 //という場合は rotXY という変数にしています。
-//angXY -> angRz は角度0°の位置(方向ベクトル(x,y,z)=(1,0,0))、正の回転方向が一致するのでわかりやすいですが、
-//
 //つまり rotXY = angXY or angRz
+//angXY -> angRz は角度0°の位置(方向ベクトル(x,y,z)=(1,0,0))、正の回転方向が一致するのでわかりやすいです。
+
 //「めも」
 //angXZ -> angRy の読み替えは正の回転方向が angXZ と angRy で逆になってしまいます。
 //angZX -> angRy の場合は正の回転方向は一致しますが、角度0°の位置が(x,y,z)=(1,0,0) ではなくなってしまうため、キャラの軸回転には向きません
 //
 //そこで
 //rotXZ = angXZ or angRy_rev
-//のように "rev" 「逆周りですよ」と書くようにした。
-
-
-
-
-
-
-
-
-
-
-
+//のように "rev" 「逆周りですよ」と書くようにした。角度0°の位置を優先した結果、こんなややこしいことになっている！
 
 
 
 bool GgafDx9Util::_was_inited_flg = false;
-int GgafDx9Util::COS_UNITLEN[S_ANG360];
-int GgafDx9Util::SIN_UNITLEN[S_ANG360];
-int GgafDx9Util::TAN_UNITLEN[S_ANG360];
-int GgafDx9Util::RAD_UNITLEN[S_ANG360];
+
 float GgafDx9Util::PARABORA[S_ANG360];
 float GgafDx9Util::COS[S_ANG360];
 float GgafDx9Util::SIN[S_ANG360];
@@ -100,10 +89,7 @@ void GgafDx9Util::init() {
 
     for (s_ang ang = 0; ang < S_ANG360; ang++) {
         double rad = (PI * 2.0f * ang) / S_ANG360;
-        COS_UNITLEN[ang] = (int)(cos(rad) * LEN_UNIT);
-        SIN_UNITLEN[ang] = (int)(sin(rad) * LEN_UNIT);
-        TAN_UNITLEN[ang] = (int)(tan(rad) * LEN_UNIT);
-        RAD_UNITLEN[ang] = (int)(rad * LEN_UNIT);
+
 
         COS[ang] = (float)(cos(rad));
         SIN[ang] = (float)(sin(rad));
@@ -111,22 +97,6 @@ void GgafDx9Util::init() {
         PARABORA[ang] = (float)((double)((ang-(S_ANG360/2))*(ang-(S_ANG360/2))) /  (double)(-1.0*(S_ANG360/2)*(S_ANG360/2)) + 1.0);
         //PARABORA[0] = 0 , PARABORA[S_ANG180] = 1,  PARABORA[S_ANG360-1] = 0 で y = -x^2  放物線の値をとる
     }
-
-    COS_UNITLEN[0] = 1 * LEN_UNIT;
-    COS_UNITLEN[S_ANG90] = 0;
-    COS_UNITLEN[S_ANG180] = -1 * LEN_UNIT;
-    COS_UNITLEN[S_ANG270] = 0;
-
-    SIN_UNITLEN[0] = 0;
-    SIN_UNITLEN[S_ANG90] = 1 * LEN_UNIT;
-    SIN_UNITLEN[S_ANG180] = 0;
-    SIN_UNITLEN[S_ANG270] = -1 * LEN_UNIT;
-
-    TAN_UNITLEN[0] = 0;
-    TAN_UNITLEN[S_ANG90] = LONG_MAX;
-    TAN_UNITLEN[S_ANG180] = 0;
-    TAN_UNITLEN[S_ANG270] = -1 * LONG_MAX;
-    //TAN_UNITLEN[ANGLE360] = 0;
 
     COS[0] = 1;
     COS[S_ANG90] = 0;
@@ -208,9 +178,6 @@ void GgafDx9Util::init() {
     //その方向ベクトルの単位ベクトルが指す単位球の緯度と経度（Z軸回転角、Y軸回転角）を紐つけることを目的とする。
     //つまり、XY射影角、ZY射影角 → Z軸回転角、Y軸回転角 の読み替えを高速に行いたい
     //XY射影角90度分 * ZY射影角90度分 を配列要素、値をZ軸回転角、Y軸回転角を値とする配列を構築。
-
-
-
 
     double nvx,nvy,nvz;
     double prj_rad_xy,prj_rad_xz, prj_rad_zy, prj_rad_zx;
@@ -299,17 +266,6 @@ void GgafDx9Util::init() {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -439,43 +395,29 @@ void GgafDx9Util::getRzRyAng(int vx,
     vy = (vy == 0 ? 1 : vy);
     vz = (vz == 0 ? 1 : vz);
 
-//_TRACE_("GgafDx9Util::getRzRyAng "<<vx<<","<<vy<<","<<vz);
-
     angle prj_rXY = getAngle2D(abs(vx), abs(vy)); //Rz
     angle prj_rXZ = getAngle2D(abs(vx), abs(vz));
     angle prj_rZY = getAngle2D(abs(vz), abs(vy)); //Rz
     angle prj_rZX = getAngle2D(abs(vz), abs(vx));
 
-//_TRACE_("getAngle2D("<<abs(vx)<<","<<abs(vy)<<")=prj_rXY="<<prj_rXY);
-//_TRACE_("getAngle2D("<<abs(vx)<<","<<abs(vz)<<")=prj_rXZ="<<prj_rXZ);
-//_TRACE_("getAngle2D("<<abs(vz)<<","<<abs(vy)<<")=prj_rZY="<<prj_rZY);
-//_TRACE_("getAngle2D("<<abs(vz)<<","<<abs(vy)<<")=prj_rZX="<<prj_rZX);
-
     angle rotZ, rotY_rev, rotY;
     if (0 <= prj_rXZ && prj_rXZ <= ANGLE45) {
-//_TRACE_("prj_rXZはANGLE0~ANGLE45");
         rotZ = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
         rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
-//_TRACE_("GgafDx9Util PROJANG_XY_XZ_TO_ROTANG_Z["<<(int)(prj_rXY/100.0)<<"]["<<(int)(prj_rXZ/100.0)<<"]=rotZ="<<rotZ);
-//_TRACE_("GgafDx9Util PROJANG_XY_XZ_TO_ROTANG_Y_REV["<<(int)(prj_rXY/100.0)<<"]["<<(int)(prj_rXZ/100.0)<<"]=rotY_rev="<<rotY_rev);
     } else if (ANGLE45 <= prj_rXZ && prj_rXZ <= ANGLE90) {
-//_TRACE_("prj_rXZはANGLE45~ANGLE90");
         rotZ = PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY/100.0)][(int)(prj_rZX/100.0)];
         rotY = PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY/100.0)][(int)(prj_rZX/100.0)];
         rotY_rev = ANGLE90 - rotY;
-//_TRACE_("GgafDx9Util PROJANG_ZY_ZX_TO_ROTANG_X_REV["<<(int)(prj_rZY/100.0)<<"]["<<(int)(prj_rZX/100.0)<<"]=rotZ="<<rotZ);
-//_TRACE_("GgafDx9Util PROJANG_ZY_ZX_TO_ROTANG_Y["<<(int)(prj_rZY/100.0)<<"]["<<(int)(prj_rZX/100.0)<<"]=rotY="<<rotY);
-//_TRACE_("rotY_rev = ANGLE90 - rotY = "<<rotY_rev);
     } else {
-        _TRACE_("GgafDx9Util::getRzRyAng おかしいですぜ！1");
+        throwGgafCriticalException("GgafDx9Util::getRzRyAng 範囲が破錠してます。prj_rXZ="<<prj_rXZ);
     }
 
     if (0 <= prj_rXY && prj_rXY < ANGLE45) {
-
+        //OK
     } else if (ANGLE45 <= prj_rXY && prj_rXY <= ANGLE90) {
-
+        //OK
     } else {
-        _TRACE_("GgafDx9Util::getRzRyAng おかしいですぜ！2");
+        throwGgafCriticalException("GgafDx9Util::getRzRyAng 範囲が破錠してます。prj_rXY="<<prj_rXY);
     }
     //象限によって回転角を補正
     if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
@@ -503,12 +445,9 @@ void GgafDx9Util::getRzRyAng(int vx,
         out_angFaceZ = (ANGLE360 - rotZ);
         out_angFaceY = rotY_rev;
     } else {
-        _TRACE_("おかしいですぜgetRzRyAngle_new");
+        throwGgafCriticalException("GgafDx9Util::getRzRyAng ありえません。vx,vy,vz="<<vx<<","<<vy<<","<<vz);
     }
 }
-
-
-
 
 
 void GgafDx9Util::getRzRyAng(int vx,
@@ -545,171 +484,6 @@ void GgafDx9Util::getRzRyAng(float nvx, float nvy, float nvz, angle& out_angFace
 }
 
 
-//現在未使用。より高速なgetRzRyAngleを使用している。
-void GgafDx9Util::getRzRyAngle_old(int x,
-                                int y,
-                                int z,
-                                float& out_nvx,
-                                float& out_nvy,
-                                float& out_nvz,
-                                angle& out_angFaceZ,
-                                angle& out_angFaceY ) {
-    static float vx, vy, vz, t;
-    vx = ((float)x) / LEN_UNIT;
-    vy = ((float)y) / LEN_UNIT;
-    vz = ((float)z) / LEN_UNIT;
-    //vx,vy,vz を正規化する。
-    //求める単位ベクトルを (X,Y,Z) とすると (X,Y,Z) = t(vx,vy,vz)
-    //関係式   X=t*vx; Y=t*vy; Z=t*vz; ・・・ (1) を得る
-    //単位球は X^2 + Y^2 + Z^2 = 1 ・・・(2)
-    //(1)(2)を連立させて、t について解く。
-    //t = 1 / sqrt(vx^2 + vy^2 + vz^2)
-    t = 1 / sqrt_fast(vx * vx + vy * vy + vz * vz);
-    //求めた t を (1) に代入し (X,Y,Z) を求める。
-    out_nvx = t * vx;
-    out_nvy = t * vy;
-    out_nvz = t * vz;
-
-    //GgafDx9SphereRadiusVectors を使って単位ベクトルから回転角をもとめる
-    //但し GgafDx9SphereRadiusVectors のベクトル精度は 10000を乗じた整数である。(LEN_UNIT*10)
-    //さらに、引数のベクトル要素は全て正の値（1/8 の球分）だけなのです。よって、いろいろ場合わけする。
-
-    static s_ang rZ, rY;
-    _srv.getFaceAngClosely(
-            (DWORD) abs(out_nvx*1000000),
-            (DWORD) abs(out_nvy*1000000),
-            (DWORD) abs(out_nvz*1000000),
-            rZ,
-            rY,
-            10000
-    );
-
-    //x > 0; y > 0; z > 0 の領域を第一象限とする
-    //x < 0; y > 0; z > 0 の領域を第二象限とする
-    //x < 0; y < 0; z > 0 の領域を第三象限とする
-    //x > 0; y < 0; z > 0 の領域を第四象限とする
-    //x > 0; y > 0; z < 0 の領域を第五象限とする
-    //x < 0; y > 0; z < 0 の領域を第六象限とする
-    //x < 0; y < 0; z < 0 の領域を第七象限とする
-    //x > 0; y < 0; z < 0 の領域を第八象限とする
-    //象限によって回転角を補正
-    if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
-        out_angFaceZ = rZ * ANGLE_RATE;
-        out_angFaceY = (S_ANG360 - rY) * ANGLE_RATE;
-    } else if (vx <= 0 && vy >= 0 && vz >= 0) { //第二象限
-        out_angFaceZ = rZ * ANGLE_RATE;
-        out_angFaceY = (S_ANG180 + rY) * ANGLE_RATE;
-    } else if (vx <= 0 && vy <= 0 && vz >= 0) { //第三象限
-        out_angFaceZ = (S_ANG360 - rZ) * ANGLE_RATE;
-        out_angFaceY = (S_ANG180 + rY) * ANGLE_RATE;
-    } else if (vx >= 0 && vy <= 0 && vz >= 0) { //第四象限
-        out_angFaceZ = (S_ANG360 - rZ) * ANGLE_RATE;
-        out_angFaceY = (S_ANG360 - rY) * ANGLE_RATE;
-    } else if (vx >= 0 && vy >= 0 && vz <= 0) { //第五象限
-        out_angFaceZ = rZ * ANGLE_RATE;
-        out_angFaceY = rY * ANGLE_RATE;
-    } else if (vx <= 0 && vy >= 0 && vz <= 0) { //第六象限
-        out_angFaceZ = rZ * ANGLE_RATE;
-        out_angFaceY = (S_ANG180 - rY) * ANGLE_RATE;
-    } else if (vx <= 0 && vy <= 0 && vz <= 0) { //第七象限
-        out_angFaceZ = (S_ANG360 - rZ) * ANGLE_RATE;
-        out_angFaceY = (S_ANG180 - rY) * ANGLE_RATE;
-    } else if (vx >= 0 && vy <= 0 && vz <= 0) { //第八象限
-        out_angFaceZ = (S_ANG360 - rZ) * ANGLE_RATE;
-        out_angFaceY = rY * ANGLE_RATE;
-    } else {
-        _TRACE_("おかしいですぜ");
-    }
-
-    //_TRACE_("(x,y,z)=("<<x<<","<<y<<","<<z<<") (out_nvx,nvy,nvz)=("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<") RZ="<<out_angFaceZ<<" RY="<<out_angFaceY);
-}
-
-//現在未使用。より高速なgetRzRyAngleを使用している。
-void GgafDx9Util::getRzRyAngle_old(int x, int y, int z, angle& out_angFaceZ, angle& out_angFaceY, int s) {
-    static float vx, vy, vz, t;
-    vx = ((float)x) / LEN_UNIT;
-    vy = ((float)y) / LEN_UNIT;
-    vz = ((float)z) / LEN_UNIT;
-    t = 1 / sqrt_fast(vx * vx + vy * vy + vz * vz);
-    static s_ang rZ, rY;
-
-    _srv.getFaceAngClosely(
-            (DWORD) abs(t*vx*1000000),
-            (DWORD) abs(t*vy*1000000),
-            (DWORD) abs(t*vz*1000000),
-            rZ,
-            rY,
-            s
-    );
-    if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
-        out_angFaceZ = rZ * ANGLE_RATE;
-        out_angFaceY = (S_ANG360 - rY) * ANGLE_RATE;
-    } else if (vx <= 0 && vy >= 0 && vz >= 0) { //第二象限
-        out_angFaceZ = rZ * ANGLE_RATE;
-        out_angFaceY = (S_ANG180 + rY) * ANGLE_RATE;
-    } else if (vx <= 0 && vy <= 0 && vz >= 0) { //第三象限
-        out_angFaceZ = (S_ANG360 - rZ) * ANGLE_RATE;
-        out_angFaceY = (S_ANG180 + rY) * ANGLE_RATE;
-    } else if (vx >= 0 && vy <= 0 && vz >= 0) { //第四象限
-        out_angFaceZ = (S_ANG360 - rZ) * ANGLE_RATE;
-        out_angFaceY = (S_ANG360 - rY) * ANGLE_RATE;
-    } else if (vx >= 0 && vy >= 0 && vz <= 0) { //第五象限
-        out_angFaceZ = rZ * ANGLE_RATE;
-        out_angFaceY = rY * ANGLE_RATE;
-    } else if (vx <= 0 && vy >= 0 && vz <= 0) { //第六象限
-        out_angFaceZ = rZ * ANGLE_RATE;
-        out_angFaceY = (S_ANG180 - rY) * ANGLE_RATE;
-    } else if (vx <= 0 && vy <= 0 && vz <= 0) { //第七象限
-        out_angFaceZ = (S_ANG360 - rZ) * ANGLE_RATE;
-        out_angFaceY = (S_ANG180 - rY) * ANGLE_RATE;
-    } else if (vx >= 0 && vy <= 0 && vz <= 0) { //第八象限
-        out_angFaceZ = (S_ANG360 - rZ) * ANGLE_RATE;
-        out_angFaceY = rY * ANGLE_RATE;
-    } else {
-        _TRACE_("おかしいですぜ");
-    }
-}
-
-//現在未使用。より高速なgetRzRyAngleを使用している。
-void GgafDx9Util::getRzRyAngle_old(float vx, float vy, float vz, angle& out_angFaceZ, angle& out_angFaceY, int s) {
-    static s_ang rZ, rY;
-    _srv.getFaceAngClosely(
-            (DWORD) abs(vx*1000000),
-            (DWORD) abs(vy*1000000),
-            (DWORD) abs(vz*1000000),
-            rZ,
-            rY,
-            s
-    );
-    if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
-        out_angFaceZ = rZ * ANGLE_RATE;
-        out_angFaceY = (S_ANG360 - rY) * ANGLE_RATE;
-    } else if (vx <= 0 && vy >= 0 && vz >= 0) { //第二象限
-        out_angFaceZ = rZ * ANGLE_RATE;
-        out_angFaceY = (S_ANG180 + rY) * ANGLE_RATE;
-    } else if (vx <= 0 && vy <= 0 && vz >= 0) { //第三象限
-        out_angFaceZ = (S_ANG360 - rZ) * ANGLE_RATE;
-        out_angFaceY = (S_ANG180 + rY) * ANGLE_RATE;
-    } else if (vx >= 0 && vy <= 0 && vz >= 0) { //第四象限
-        out_angFaceZ = (S_ANG360 - rZ) * ANGLE_RATE;
-        out_angFaceY = (S_ANG360 - rY) * ANGLE_RATE;
-    } else if (vx >= 0 && vy >= 0 && vz <= 0) { //第五象限
-        out_angFaceZ = rZ * ANGLE_RATE;
-        out_angFaceY = rY * ANGLE_RATE;
-    } else if (vx <= 0 && vy >= 0 && vz <= 0) { //第六象限
-        out_angFaceZ = rZ * ANGLE_RATE;
-        out_angFaceY = (S_ANG180 - rY) * ANGLE_RATE;
-    } else if (vx <= 0 && vy <= 0 && vz <= 0) { //第七象限
-        out_angFaceZ = (S_ANG360 - rZ) * ANGLE_RATE;
-        out_angFaceY = (S_ANG180 - rY) * ANGLE_RATE;
-    } else if (vx >= 0 && vy <= 0 && vz <= 0) { //第八象限
-        out_angFaceZ = (S_ANG360 - rZ) * ANGLE_RATE;
-        out_angFaceY = rY * ANGLE_RATE;
-    } else {
-        _TRACE_("おかしいですぜ");
-    }
-}
-
 void GgafDx9Util::getNormalizeVector(int x,
                                      int y,
                                      int z,
@@ -724,22 +498,7 @@ void GgafDx9Util::getNormalizeVector(int x,
     out_nvx = t * vx;
     out_nvy = t * vy;
     out_nvz = t * vz;
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 void GgafDx9Util::getNormalizeVectorZY(angle prm_angFaceZ,

@@ -2,48 +2,9 @@
 #define GGAFDX9SPHERERADIUSVECTORS_H_
 namespace GgafDx9Core {
 
-/**
- * 方向ベクトル構造体.
- * 各要素の単位は、1000000倍の整数で保持されます。<BR>
- * ＜例＞<BR>
- * 単位ベクトル(0.658301, 0.1132, 0.744) は<BR>
- * SR_VECTORでは、(658301, 113200, 744000) です<BR>
- */
-struct SR_VECTOR {
-    DWORD x;
-    DWORD z;
-    DWORD y;
-};
 
-/**
- * ソート可能方向ベクトルクラス.
- * SR_VECTOR(方向ベクトル)に大小の値をつけ、比較を可能にしたメンバをもつクラス。<BR>
- * 大小の値の強さは、y要素 ＞ z要素 ＞ x要素 の順です。<BR>
- */
-class COMPARE_ABLE_SR_VECTOR : public GgafCore::GgafObject {
-public:
-    DWORDLONG num_yzx;
-    SR_VECTOR vec;
-    COMPARE_ABLE_SR_VECTOR() : GgafObject() {
-    }
-    /**
-     * 単位ベクトルを設定する。<BR>
-     * @param prm_x 単位方向ベクトルX要素（長さ1 が 1000000)
-     * @param prm_y 単位方向ベクトルY要素（長さ1 が 1000000)
-     * @param prm_z 単位方向ベクトルZ要素（長さ1 が 1000000)
-     */
-    void set(DWORD prm_x, DWORD prm_y, DWORD prm_z) {
-        vec.x = prm_x;
-        vec.y = prm_y;
-        vec.z = prm_z;
-        num_yzx = (prm_y * 1000000LL * 1000000LL ) +
-        (prm_z * 1000000LL ) +
-        (prm_x );
 
-        //_TRACE_(prm_x<<","<<prm_y<<","<<prm_z<<"  num_yzx="<<(num_yzx));
-        //1048575LL = &b11111111111111111111 (20bit)
-    }
-};
+
 
 /**
  * 単位球と、単位ベクトルの関係を保持するクラスです。 .
@@ -55,9 +16,59 @@ public:
  */
 class GgafDx9SphereRadiusVectors : public GgafCore::GgafObject {
 public:
-    /** 1/8球分のソート可能方向ベクトル配列(要素数は900*900) */
-    static COMPARE_ABLE_SR_VECTOR _sr[];
 
+    /**
+     * ソート可能方向ベクトルクラス.
+     * SR_VECTOR(方向ベクトル)に大小の値をつけ、比較を可能にしたメンバをもつクラス。<BR>
+     * 大小の値の強さは、y要素 ＞ z要素 ＞ x要素 の順です。<BR>
+     */
+    class COMPARE_ABLE_SR_VECTOR : public GgafCore::GgafObject {
+    public:
+
+        /**
+         * COMPARE_ABLE_SR_VECTOR用の方向ベクトル構造体.
+         * 各要素の単位は、1000000倍の整数で保持されます。<BR>
+         * ＜例＞<BR>
+         * 単位ベクトル(0.658301, 0.1132, 0.744) は<BR>
+         * SR_VECTORでは、(658301, 113200, 744000) です<BR>
+         */
+        struct SR_VECTOR {
+            DWORD x;
+            DWORD z;
+            DWORD y;
+        };
+
+
+        DWORDLONG num_yzx;
+        SR_VECTOR vec;
+        COMPARE_ABLE_SR_VECTOR() : GgafObject() {
+        }
+        /**
+         * 単位ベクトルを設定する。<BR>
+         * @param prm_x 単位方向ベクトルX要素（長さ1 が 1000000)
+         * @param prm_y 単位方向ベクトルY要素（長さ1 が 1000000)
+         * @param prm_z 単位方向ベクトルZ要素（長さ1 が 1000000)
+         */
+        void set(DWORD prm_x, DWORD prm_y, DWORD prm_z) {
+            vec.x = prm_x;
+            vec.y = prm_y;
+            vec.z = prm_z;
+            num_yzx = (prm_y * 1000000LL * 1000000LL ) +
+            (prm_z * 1000000LL ) +
+            (prm_x );
+
+            //_TRACE_(prm_x<<","<<prm_y<<","<<prm_z<<"  num_yzx="<<(num_yzx));
+            //1048575LL = &b11111111111111111111 (20bit)
+        }
+    };
+
+
+
+
+
+    /** 作成目的の 1/8球分のソート可能方向ベクトル配列(要素数は900*900) */
+    //COMPARE_ABLE_SR_VECTOR _sr[];
+    COMPARE_ABLE_SR_VECTOR _sr[(S_ANG90 + 1) * (S_ANG90 + 1)];
     GgafDx9SphereRadiusVectors();
 
     /**
