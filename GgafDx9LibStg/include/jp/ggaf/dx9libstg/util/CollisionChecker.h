@@ -18,7 +18,7 @@ public:
     bool _need_update_aabb;
 
     static LinearOctreeForActor* _pLinearOctree;
-    LOFA_Elem* _pElem;
+    LinearOctreeActorElem* _pElem;
 
     static int _num_check;
 

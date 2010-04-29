@@ -26,7 +26,7 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
 
 void LinearOctreeForActor::executeHitChk(DWORD prm_index) {
     TRACE5("InSpaceNo="<<prm_index);
-    LOFA_Elem* pElem = ((LOFA_Elem*)(_paSpace[prm_index]._pElemFirst));
+    LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paSpace[prm_index]._pElemFirst));
     if (pElem != NULL) {
         GgafActor* pActor_ElemValue = pElem->_pActor;
         TRACE5("pActor_ElemValue="<<pActor_ElemValue->getName());
@@ -40,7 +40,7 @@ void LinearOctreeForActor::executeHitChk(DWORD prm_index) {
             if (pElem == _paSpace[prm_index]._pElemLast) {
                 break;
             }
-            pElem = (LOFA_Elem*)(pElem -> _pNext);
+            pElem = (LinearOctreeActorElem*)(pElem -> _pNext);
             pActor_ElemValue = pElem->_pActor;
         }
         //現在の空間のグループAとグループB総当り

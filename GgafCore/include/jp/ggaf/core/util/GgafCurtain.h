@@ -58,46 +58,55 @@ public:
     /**
      * カーテンを動かす .
      * 本クラスを機能させるにには、毎フレームこのメソッドを実行してください。
+     * 毎フレーム behave() することで次のメソッドが適宜呼び出されるようになります。
+     * <code>
+     * processOpenBegin()
+     * processOpening()
+     * processOpenDone()
+     * processCloseBegin()
+     * processClosing()
+     * processCloseDone()
+     * </code>
      */
     virtual void behave();
 
     /**
-     * カーテンが開着始める瞬間の処理 .
+     * カーテンが開き始める瞬間の処理 .
      * open() 時に１度だけ呼び出されます。 <BR>
-     * 下位で実装してください。<BR>
+     * 下位で実際の処理を実装してください。<BR>
      */
     virtual void processOpenBegin() {}
 
     /**
      * カーテンが開いていく途中の処理 .
-     * 下位で実装してください。<BR>
+     * 下位で実際の処理を実装してください。<BR>
      */
     virtual void processOpening() {}
 
     /**
      * カーテンが開ききった時の処理 .
      * _now_curtain_lengthが0になった際１度だけ呼び出されます。 <BR>
-     * 下位で実装してください。<BR>
+     * 下位で実際の処理を実装してください。<BR>
      */
     virtual void processOpenDone() {}
 
     /**
      * カーテンが閉まり始める瞬間の処理 .
      * close() 時に１度だけ呼び出されます。 <BR>
-     * 下位で実装してください。<BR>
+     * 下位で実際の処理を実装してください。<BR>
      */
     virtual void processCloseBegin() {}
 
     /**
      * カーテンが閉まっていく途中の処理 .
-     * 下位で実装してください。<BR>
+     * 下位で実際の処理を実装してください。<BR>
      */
     virtual void processClosing() {}
 
     /**
      * カーテンが閉まった時の処理 .
      * _now_curtain_length が _curtain_length になった際１度だけ呼び出されます。 <BR>
-     * 下位で実装してください。<BR>
+     * 下位で実際の処理を実装してください。<BR>
      */
     virtual void processCloseDone() {}
 

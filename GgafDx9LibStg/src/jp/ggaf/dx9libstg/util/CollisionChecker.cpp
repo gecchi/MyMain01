@@ -11,7 +11,7 @@ CollisionChecker::CollisionChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9C
     if (CollisionChecker::_pLinearOctree == NULL) {
         CollisionChecker::_pLinearOctree  = ((DefaultUniverse*)(GgafGod::_pGod->_pUniverse))->_pLinearOctree;
     }
-    _pElem = new LOFA_Elem(prm_pActor, 0);
+    _pElem = new LinearOctreeActorElem(prm_pActor, 0);
     _need_update_aabb = true;
 }
 

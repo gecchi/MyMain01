@@ -34,7 +34,7 @@ class SpriteMeshSetActor;
 class ColliBox;
 class ColliSphere;
 class LinearOctreeForActor;
-class LOFA_Elem;
+class LinearOctreeActorElem;
 class CollisionChecker;
 }
 
@@ -70,7 +70,7 @@ class CollisionChecker;
 #include "jp/ggaf/dx9libstg/util/ColliBox.h"
 #include "jp/ggaf/dx9libstg/util/ColliSphere.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
-#include "jp/ggaf/dx9libstg/util/LOFA_Elem.h"
+#include "jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h"
 #include "jp/ggaf/dx9libstg/util/CollisionChecker.h"
 
 
