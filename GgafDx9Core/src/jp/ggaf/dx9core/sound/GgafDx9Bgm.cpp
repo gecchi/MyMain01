@@ -53,8 +53,8 @@ bool GgafDx9Bgm::isActive() {
 
 GgafDx9Bgm::~GgafDx9Bgm() {
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() begin");
-    pPcmPlayer->terminateThread();
     pPcmPlayer->stop();
+    pPcmPlayer->terminateThread();
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() end");
     delete pPcmPlayer;
 }
