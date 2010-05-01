@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Core3") {
+EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Core4") {
     _class_name = "EnemyJuno";
     MyStgUtil::resetEnemyJunoStatus(_pStatus);
     _pDispatcher_ShotEffect = NULL;
