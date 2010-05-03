@@ -232,9 +232,9 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 //#endif
 
                  ___BeginSynchronized; // ----->排他開始
-                    TRACE2("GgafFactory::work ＜工場＞ 製造完了！["<<CREATING_ORDER->_id<<"] (^_^)v");
+                    TRACE2("GgafFactory::work ＜工場＞ 製造完了！品番["<<CREATING_ORDER->_id<<"] (^_^)v");
                     if (CREATING_ORDER == NULL) {
-                        TRACE2("GgafFactory::work ＜工場＞ ガーン！。せっかく作ったのにキャンセルっすか （´・ω・｀）。破棄します。pObjectをdelete!");
+                        TRACE2("GgafFactory::work ＜工場＞ ガーン！。せっかく作ったのにキャンセルっすか・・・。破棄します。pObjectをdelete!");
                         DELETE_IMPOSSIBLE_NULL(pObject);
                      ___EndSynchronized; // <----- 排他終了
                         continue;
