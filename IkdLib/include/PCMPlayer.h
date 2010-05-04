@@ -4,7 +4,7 @@
 #ifndef IKD_DIX_PCMPLAYER_H
 #define IKD_DIX_PCMPLAYER_H
 
-#include "DixSmartPtr.hpp"
+//#include "DixSmartPtr.hpp"
 //#include "DixComPtr.h"
 #include "PCMDecoder.h"
 #include "dsound.h"
@@ -23,7 +23,8 @@ namespace Dix {
     public:
         PCMPlayer();
         PCMPlayer( IDirectSound8* pDS8 );
-        PCMPlayer( IDirectSound8* pDS8, sp< PCMDecoder > spDecoder );
+        //PCMPlayer( IDirectSound8* pDS8, sp< PCMDecoder > spDecoder );
+        PCMPlayer( IDirectSound8* pDS8, PCMDecoder* spDecoder );
 
         virtual ~PCMPlayer(); //tsuge virtual 追加
 
@@ -31,8 +32,8 @@ namespace Dix {
         void setDevice(IDirectSound8* pDS8 );
 
         //! PCMデコーダを設定
-        bool setDecoder( sp< PCMDecoder > pcmDecoder );
-
+        //bool setDecoder( sp< PCMDecoder > pcmDecoder );
+        bool setDecoder( PCMDecoder* pcmDecoder );
         //! 再生
         bool play( bool isLoop );
 
@@ -73,7 +74,8 @@ namespace Dix {
 
 
     public:
-        sp< PCMDecoder >				spPCMDecoder_;		//!< 再生対象デコード
+        //sp< PCMDecoder >				spPCMDecoder_;		//!< 再生対象デコード
+        PCMDecoder*                     spPCMDecoder_;
         WAVEFORMATEX					waveFormat_;		//!< WAVEFORMATEX構造体
         DSBUFFERDESC					DSBufferDesc_;		//!< DSBUFFERDESC構造体
         IDirectSound8*                  pDS8_;				//!< サウンドデバイス

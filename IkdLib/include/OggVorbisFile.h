@@ -5,7 +5,7 @@
 #define IKD_DIX_OGGVORBISFILE_H
 
 #include "OggVorbisResource.h"
-#include "DixSmartPtr.hpp"
+//#include "DixSmartPtr.hpp"
 #include "memory.h"
 
 namespace Dix {
@@ -20,7 +20,9 @@ namespace Dix {
 		virtual void clear();
 
 		//! 安全なクローンを作成
-		virtual sp< OggVorbisResource > createClone();
+		//virtual sp< OggVorbisResource > createClone();
+		virtual OggVorbisResource* createClone();
+
 
 		//! Oggファイルオープン
 		bool open( const char* filePath );

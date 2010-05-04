@@ -40,7 +40,8 @@ namespace Dix {
         clear();
     }
 
-    PCMPlayer::PCMPlayer( IDirectSound8* pDS8, sp< PCMDecoder > spDecoder ) :
+    //PCMPlayer::PCMPlayer( IDirectSound8* pDS8, sp< PCMDecoder > spDecoder ) :
+    PCMPlayer::PCMPlayer( IDirectSound8* pDS8, PCMDecoder* spDecoder ) :
         pDS8_			( pDS8 ),
         pDSBuffer_		( NULL ),
         isReady_		( false ),
@@ -55,8 +56,6 @@ namespace Dix {
 
     PCMPlayer::~PCMPlayer() {
         terminateThread();
-        //いる
-        spPCMDecoder_.Release();
     }
 
     //! クリア
@@ -107,8 +106,10 @@ namespace Dix {
 
 
     //! PCMデコーダを設定
-    bool PCMPlayer::setDecoder( sp< PCMDecoder > pcmDecoder ) {
-        if ( pDS8_ == NULL || pcmDecoder.GetPtr() == 0 || pcmDecoder->isReady() == false ) {
+    //bool PCMPlayer::setDecoder( sp< PCMDecoder > pcmDecoder ) {
+    bool PCMPlayer::setDecoder( PCMDecoder* pcmDecoder ) {
+        //if ( pDS8_ == NULL || pcmDecoder.GetPtr() == 0 || pcmDecoder->isReady() == false ) {
+        if ( pDS8_ == NULL || pcmDecoder == 0 || pcmDecoder->isReady() == false ) {
             isReady_ = false;
             return false;
         }
@@ -159,7 +160,10 @@ namespace Dix {
 
     //! バッファを初期化する
     bool PCMPlayer::initializeBuffer() {
-        if ( spPCMDecoder_.GetPtr() == 0 ) {
+//        if ( spPCMDecoder_.GetPtr() == 0 ) {
+//            return false;
+//        }
+        if (spPCMDecoder_ = 0) {
             return false;
         }
 

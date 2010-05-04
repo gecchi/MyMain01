@@ -6,7 +6,7 @@
 
 #include <windows.h>
 #include <mmsystem.h>
-#include "DixSmartPtr.hpp"
+//#include "DixSmartPtr.hpp"
 
 namespace Dix
 {
@@ -25,7 +25,8 @@ namespace Dix
 		virtual void setHead() = 0;
 
 		//! 安全なクローンを生成
-		virtual sp< PCMDecoder > createClone() = 0;
+		//virtual sp< PCMDecoder > createClone() = 0;
+		virtual PCMDecoder* createClone() = 0;
 
 	public:
 		//! クリア

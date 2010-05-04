@@ -19,7 +19,8 @@ namespace Dix {
 	OggDecoder::OggDecoder() {
 	}
 
-	OggDecoder::OggDecoder( sp< OggVorbisResource > oggVorbisResource ) {
+	//OggDecoder::OggDecoder( sp< OggVorbisResource > oggVorbisResource ) {
+	OggDecoder::OggDecoder(OggVorbisResource* oggVorbisResource ) {
 		setResource( oggVorbisResource );
 	}
 
@@ -109,8 +110,10 @@ namespace Dix {
 	}
 
 	//! 安全なクローンを生成
-	sp< PCMDecoder > OggDecoder::createClone() {
-		sp< OggDecoder > spObj( NEW OggDecoder );
+	//sp< PCMDecoder > OggDecoder::createClone() {
+	PCMDecoder* OggDecoder::createClone() {
+		//sp< OggDecoder > spObj( NEW OggDecoder );
+		OggDecoder* spObj = NEW OggDecoder;
 		if ( oggVorbisResource_->isReady() == false ) {
 			return spObj;  // 空を返す
 		}
@@ -121,16 +124,19 @@ namespace Dix {
 	}
 
 	//! サウンドをセット
-	bool OggDecoder::setResource( sp< OggVorbisResource > oggVorbisResource ) {
+	//bool OggDecoder::setResource( sp< OggVorbisResource > oggVorbisResource ) {
+	bool OggDecoder::setResource(OggVorbisResource* oggVorbisResource ) {
 
 		clear();
 
-		if ( oggVorbisResource.GetPtr() == 0 || oggVorbisResource->isReady() == false ) {
+		//if ( oggVorbisResource.GetPtr() == 0 || oggVorbisResource->isReady() == false ) {
+		if (oggVorbisResource == 0 || oggVorbisResource->isReady() == false ) {
 			return false;
 		}
 
 		oggVorbisResource_ = oggVorbisResource->createClone();
-		if ( oggVorbisResource_.GetPtr() == 0 ) {
+		//if ( oggVorbisResource_.GetPtr() == 0 ) {
+		if ( oggVorbisResource_ == 0 ) {
 			// クローン作成失敗
 			return false;
 		}

@@ -7,13 +7,14 @@
 #include "vorbis/vorbisfile.h"
 #include "PCMDecoder.h"
 #include "OggVorbisResource.h"
-#include "DixSmartPtr.hpp"
+//#include "DixSmartPtr.hpp"
 
 namespace Dix {
 	class OggDecoder : public PCMDecoder {
 	public:
 		OggDecoder();
-		OggDecoder( sp< OggVorbisResource > oggVorbisResource );
+		//OggDecoder( sp< OggVorbisResource > oggVorbisResource );
+		OggDecoder(OggVorbisResource* oggVorbisResource );
 		virtual ~OggDecoder();
 
 		//! クリア
@@ -26,13 +27,16 @@ namespace Dix {
 		virtual void setHead();
 
 		//! 安全なクローンを生成
-		virtual sp< PCMDecoder > createClone();
+		//virtual sp< PCMDecoder > createClone();
+		virtual PCMDecoder* createClone();
 
 		//! サウンドをセット
-		virtual bool setResource( sp< OggVorbisResource > oggVorbisResource );
+		//virtual bool setResource( sp< OggVorbisResource > oggVorbisResource );
+		virtual bool setResource(OggVorbisResource* oggVorbisResource );
 
 	protected:
-		sp< OggVorbisResource > oggVorbisResource_;
+		//sp< OggVorbisResource > oggVorbisResource_;
+		OggVorbisResource* oggVorbisResource_;
 	};
 }
 

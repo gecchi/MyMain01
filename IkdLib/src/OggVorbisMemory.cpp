@@ -39,12 +39,13 @@ namespace Dix {
 	}
 
 	// 安全なクローンを作成
-	sp< OggVorbisResource > OggVorbisMemory::createClone() {
+	//sp< OggVorbisResource > OggVorbisMemory::createClone() {
+	OggVorbisResource* OggVorbisMemory::createClone() {
 		if ( isReady_ == false ) {
 			return 0;
 		}
 		OggVorbisMemory* obj = NEW OggVorbisMemory;
-		*obj = *this;
+		*obj = *this; //メモ：これはフィールド部の値コピー
 		obj->curPos_ = 0;
 
 		// コールバック登録
@@ -63,9 +64,10 @@ namespace Dix {
 			return 0;
 		}
 
-		sp< OggVorbisMemory > spObj( obj );
+		//sp< OggVorbisMemory > spObj( obj );
 
-		return spObj;
+		//return spObj;
+		return obj;
 	}
 
 	//! メモリ読み込み
@@ -84,7 +86,8 @@ namespace Dix {
 			count = maxCount;
 		}
 
-		memcpy( buffer, p->spBuffer_.GetPtr() + p->curPos_, size * count );
+		//memcpy( buffer, p->spBuffer_.GetPtr() + p->curPos_, size * count );
+		memcpy( buffer, p->spBuffer_ + p->curPos_, size * count );
 
 		// ポインタ位置を移動
 		p->curPos_ += size * count;
@@ -153,8 +156,10 @@ namespace Dix {
 		size_ = ftell( f );
 		fseek( f, 0, SEEK_SET );
 
-		spBuffer_.SetPtr( NEW char[ size_ ], true );
-		size_t readSize = fread( spBuffer_.GetPtr(), size_, 1, f );
+		//spBuffer_.SetPtr( NEW char[ size_ ], true );
+		spBuffer_ = NEW char[ size_ ];
+		//size_t readSize = fread( spBuffer_.GetPtr(), size_, 1, f );
+		size_t readSize = fread( spBuffer_, size_, 1, f );
 		if ( readSize != 1 ) {
 			// 何か変です
 			clear();

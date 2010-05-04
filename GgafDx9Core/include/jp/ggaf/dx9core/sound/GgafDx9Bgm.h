@@ -17,8 +17,11 @@ class GgafDx9Bgm : public GgafCore::GgafObject {
 public:
     char* _ogg_name;
     Dix::PCMPlayer* pPcmPlayer;
-    Dix::sp< Dix::OggVorbisFile> spOggResource;
-    Dix::sp< Dix::OggDecoder> spOggDecoder;
+    Dix::OggVorbisFile* spOggResource;
+    Dix::OggDecoder* spOggDecoder;
+
+//    Dix::sp< Dix::OggVorbisFile> spOggResource;
+//    Dix::sp< Dix::OggDecoder> spOggDecoder;
 
     GgafDx9Bgm(char* _ogg_name);
 

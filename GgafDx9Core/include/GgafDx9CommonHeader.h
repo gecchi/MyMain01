@@ -82,7 +82,7 @@
 #include "OggVorbisMemory.h"
 #include "OggVorbisFile.h"
 #include "PCMPlayer.h"
-#include "DixSmartPtr.hpp"
+//#include "DixSmartPtr.hpp"
 //#include "DixComPtr.h"
 
 //class CWaveDecorder;

@@ -5,7 +5,7 @@
 #define IKD_DIX_OGGVORBISRESOURCE_H
 
 #include "vorbis/vorbisfile.h"
-#include "DixSmartPtr.hpp"
+//#include "DixSmartPtr.hpp"
 #include "memory.h"
 
 namespace Dix {
@@ -32,7 +32,8 @@ namespace Dix {
 		}
 
 		// 安全なクローンを作成
-		virtual sp< OggVorbisResource > createClone() = 0;
+		//virtual sp< OggVorbisResource > createClone() = 0;
+		virtual OggVorbisResource* createClone() = 0;
 
 		// 準備できた？
 		bool isReady() {

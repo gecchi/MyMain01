@@ -11,8 +11,8 @@ GgafDx9Bgm::GgafDx9Bgm(char* prm_ogg_name) : GgafObject() {
     }
     _ogg_name = prm_ogg_name;
     string ogg_filename = GGAFDX9_PROPERTY(DIR_OGG) + string(prm_ogg_name) + ".ogg";
-    spOggResource.SetPtr(NEW OggVorbisFile( ogg_filename.c_str() ));
-    spOggDecoder.SetPtr( NEW OggDecoder( spOggResource ) );
+    spOggResource = NEW OggVorbisFile( ogg_filename.c_str() ));
+    spOggDecoder =  NEW OggDecoder( spOggResource ) );
     pPcmPlayer = NEW PCMPlayer(GgafDx9Sound::_pIDirectSound8 , spOggDecoder);
 }
 
@@ -53,8 +53,12 @@ bool GgafDx9Bgm::isActive() {
 
 GgafDx9Bgm::~GgafDx9Bgm() {
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() begin");
-    pPcmPlayer->stop();
+    //pPcmPlayer->stop();
     pPcmPlayer->terminateThread();
+    DELETE_IMPOSSIBLE_NULL(pPcmPlayer);
+    DELETE_IMPOSSIBLE_NULL(spOggDecoder);
+    DELETE_IMPOSSIBLE_NULL(spOggResource);
+
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() end");
-    delete pPcmPlayer;
+
 }
