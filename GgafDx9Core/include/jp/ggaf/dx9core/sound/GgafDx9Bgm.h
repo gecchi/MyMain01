@@ -25,25 +25,15 @@ public:
 
     GgafDx9Bgm(char* _ogg_name);
 
-    //! Šˆ“®
     void play(int prm_volume, int prm_pan, bool prm_isLoop);
     void play(bool prm_isLoop) {
         play(DSBVOLUME_MAX, DSBPAN_CENTER, prm_isLoop);
     }
-    //! ˆêŽž’âŽ~
     void pause();
-
-    //! ’âŽ~
     void stop();
-
-    //! ‰¹—Ê‚ð•Ï‚¦‚é
     void setVolume(int volume);
-
-    //! ƒpƒ“‚ÌˆÊ’u‚ð•Ï‚¦‚é
     void setPan(int pan);
-    //! ’âŽ~
     void clear();
-
     bool isActive();
 
     virtual ~GgafDx9Bgm();

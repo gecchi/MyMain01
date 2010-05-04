@@ -68,9 +68,9 @@ public:
      * @param z [“x
      */
     virtual void setGeometry(int x, int y, int z) override {
-        _x = x;
-        _y = y;
-        _z = z;
+        _x = (float)x;
+        _y = (float)y;
+        _z = (float)z;
     }
 
     /**

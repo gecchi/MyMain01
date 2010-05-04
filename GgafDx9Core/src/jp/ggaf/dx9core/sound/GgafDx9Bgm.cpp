@@ -58,7 +58,6 @@ GgafDx9Bgm::~GgafDx9Bgm() {
     DELETE_IMPOSSIBLE_NULL(pPcmPlayer);
     DELETE_IMPOSSIBLE_NULL(spOggDecoder);
     DELETE_IMPOSSIBLE_NULL(spOggResource);
-
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() end");
 
 }

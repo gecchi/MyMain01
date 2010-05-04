@@ -78,6 +78,7 @@ int GgafFactory::chkProgress(unsigned long prm_id) {
             }
         }
     }
+	return -2;
 }
 
 void* GgafFactory::obtain(unsigned long prm_id) {

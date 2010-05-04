@@ -51,14 +51,14 @@ public:
     virtual void processDraw() override;
 
     virtual void setGeometry(int x, int y) {
-        _x = x;
-        _y = y;
+        _x = (float)x;
+        _y = (float)y;
     }
 
     virtual void setGeometry(int x, int y, int z) override {
-        _x = x;
-        _y = y;
-        _z = z;
+        _x = (float)x;
+        _y = (float)y;
+        _z = (float)z;
     }
 
     virtual void setGeometry(float x, float y, float z) {

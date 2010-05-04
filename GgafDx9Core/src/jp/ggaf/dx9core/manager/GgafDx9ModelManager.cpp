@@ -1842,7 +1842,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
             paVertex[i*4 + 0].nz = -1.0f;
             paVertex[i*4 + 0].tu = 0.0f;
             paVertex[i*4 + 0].tv = 0.0f;
-            paVertex[i*4 + 0].index = i;
+            paVertex[i*4 + 0].index = (float)i;
             //右上
             paVertex[i*4 + 1].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
             paVertex[i*4 + 1].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
@@ -1852,7 +1852,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
             paVertex[i*4 + 1].nz = -1.0f;
             paVertex[i*4 + 1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// - (pxU/2);
             paVertex[i*4 + 1].tv = 0.0f;
-            paVertex[i*4 + 1].index = i;
+            paVertex[i*4 + 1].index = (float)i;
             //左下
             paVertex[i*4 + 2].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
             paVertex[i*4 + 2].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
@@ -1862,7 +1862,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
             paVertex[i*4 + 2].nz = -1.0f;
             paVertex[i*4 + 2].tu = 0.0f;
             paVertex[i*4 + 2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
-            paVertex[i*4 + 2].index = i;
+            paVertex[i*4 + 2].index = (float)i;
             //右下
             paVertex[i*4 + 3].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
             paVertex[i*4 + 3].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
@@ -1872,7 +1872,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
             paVertex[i*4 + 3].nz = -1.0f;
             paVertex[i*4 + 3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// - (pxU/2);
             paVertex[i*4 + 3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
-            paVertex[i*4 + 3].index = i;
+            paVertex[i*4 + 3].index = (float)i;
 
 //            _TRACE_("paVertex["<<(i*4 + 0)<<"].x ="<<paVertex[i*4 + 0].x );
 //            _TRACE_("paVertex["<<(i*4 + 0)<<"].y ="<<paVertex[i*4 + 0].y );
@@ -2269,28 +2269,28 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
             paVertex[i*4 + 0].z = 0.0f;
             paVertex[i*4 + 0].tu = (pxU/100);
             paVertex[i*4 + 0].tv = (pxV/100);
-            paVertex[i*4 + 0].index = i;
+            paVertex[i*4 + 0].index = (float)i;
             //右上
             paVertex[i*4 + 1].x = *pFloat_Size_BoardSetModelWidth;
             paVertex[i*4 + 1].y = 0.0f;
             paVertex[i*4 + 1].z = 0.0f;
             paVertex[i*4 + 1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100);
             paVertex[i*4 + 1].tv = (pxV/100);
-            paVertex[i*4 + 1].index = i;
+            paVertex[i*4 + 1].index = (float)i;
             //左下
             paVertex[i*4 + 2].x = 0.0f;
             paVertex[i*4 + 2].y = *pFloat_Size_BoardSetModelHeight;
             paVertex[i*4 + 2].z = 0.0f;
             paVertex[i*4 + 2].tu = (pxU/100);
             paVertex[i*4 + 2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100);
-            paVertex[i*4 + 2].index = i;
+            paVertex[i*4 + 2].index = (float)i;
             //右下
             paVertex[i*4 + 3].x = *pFloat_Size_BoardSetModelWidth;
             paVertex[i*4 + 3].y = *pFloat_Size_BoardSetModelHeight;
             paVertex[i*4 + 3].z = 0.0f;
             paVertex[i*4 + 3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100);
             paVertex[i*4 + 3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100);
-            paVertex[i*4 + 3].index = i;
+            paVertex[i*4 + 3].index = (float)i;
          }
 
         //バッファ作成
@@ -2747,7 +2747,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         for (int i = 0; i < prm_pMeshSetModel->_set_num; i++) {
             for (int j = 0; j < nVertices; j++) {
                 model_paVtxBuffer_org[(i*nVertices) + j] = unit_paVtxBuffer_org[j];
-                model_paVtxBuffer_org[(i*nVertices) + j].index = i; //+= (nVertices*i);
+                model_paVtxBuffer_org[(i*nVertices) + j].index = (float)i; //+= (nVertices*i);
             }
         }
         DELETEARR_IMPOSSIBLE_NULL(unit_paVtxBuffer_org);
