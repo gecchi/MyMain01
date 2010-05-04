@@ -1,6 +1,6 @@
 // PCMPlayer.cpp
 //
-
+#include "GgafCommonHeader.h"
 #include "PCMPlayer.h"
 #include <process.h>
 #include <stdio.h>
@@ -55,6 +55,8 @@ namespace Dix {
 
     PCMPlayer::~PCMPlayer() {
         terminateThread();
+        //Ç¢ÇÈ
+        spPCMDecoder_.Release();
     }
 
     //! ÉNÉäÉA
@@ -63,7 +65,8 @@ namespace Dix {
         memset( &DSBufferDesc_, 0, sizeof( DSBufferDesc_ ) );
         memset( &waveFormat_, 0, sizeof( waveFormat_ ) );
         if (pDSBuffer_ != NULL) {
-            delete pDSBuffer_;
+            DELETE_IMPOSSIBLE_NULL(pDSBuffer_);
+            //delete pDSBuffer_;
             pDSBuffer_ = NULL;
         }
         isReady_ = false;

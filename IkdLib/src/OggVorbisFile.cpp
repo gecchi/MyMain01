@@ -1,6 +1,6 @@
 // OggVorbisFile.cpp
 //
-
+#include "GgafCommonHeader.h"
 #include "OggVorbisFile.h"
 #include "string.h"
 
@@ -28,7 +28,7 @@ namespace Dix {
 
 	//! ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğì¬
 	sp< OggVorbisResource > OggVorbisFile::createClone() {
-		OggVorbisFile* obj = new OggVorbisFile;
+		OggVorbisFile* obj = NEW OggVorbisFile;
 		if ( obj->open( filePath_ ) == false ) {
 			return 0;
 		}

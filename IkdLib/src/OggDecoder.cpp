@@ -1,3 +1,4 @@
+#include "GgafCommonHeader.h"
 // OggDecoder.cpp
 //
 
@@ -109,7 +110,7 @@ namespace Dix {
 
 	//! ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğ¶¬
 	sp< PCMDecoder > OggDecoder::createClone() {
-		sp< OggDecoder > spObj( new OggDecoder );
+		sp< OggDecoder > spObj( NEW OggDecoder );
 		if ( oggVorbisResource_->isReady() == false ) {
 			return spObj;  // ‹ó‚ğ•Ô‚·
 		}

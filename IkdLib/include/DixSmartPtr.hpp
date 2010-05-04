@@ -51,7 +51,7 @@
 // ・ SwapPtrメソッドによるポインタ入れ替えのサポート
 // ・ ウィークポインタサポート
 
-
+#include "GgafCommonHeader.h"
 #ifndef IKD_DIXSMARTPTR_H
 #define IKD_DIXSMARTPTR_H
 
@@ -98,18 +98,29 @@ namespace Dix {
             // 参照カウンタ減少
             if( m_pRefCnt != 0 && ( *m_pRefCnt == 0 || --(*m_pRefCnt) == 0 ) ) {
 
-                if ( m_isAry )
-                    delete[] *m_ppPtr;	// 配列メモリ削除
-                else
-                    delete *m_ppPtr;	// 単位メモリ削除
+//                if ( m_isAry )
+//                    delete[] *m_ppPtr;	// 配列メモリ削除
+//                else
+//                    delete *m_ppPtr;	// 単位メモリ削除
+//
+//                delete m_ppPtr;
 
-                delete m_ppPtr;
+
+                if ( m_isAry ) {
+                    DELETEARR_IMPOSSIBLE_NULL(m_ppPtr);
+                } else {
+                    DELETE_IMPOSSIBLE_NULL(m_ppPtr);    // 単位メモリ削除
+                }
+                DELETE_IMPOSSIBLE_NULL(m_ppPtr);
             }
 
             // ウィークカウンタチェック
             if ( m_pWeakCnt != 0 && ( *m_pWeakCnt == 0 || --(*m_pWeakCnt) == 0 ) ) {
-                delete m_pWeakCnt;
-                delete m_pRefCnt;
+                DELETE_IMPOSSIBLE_NULL(m_pWeakCnt);
+                DELETE_IMPOSSIBLE_NULL(m_pRefCnt);
+
+                //delete m_pWeakCnt;
+                //delete m_pRefCnt;
             }
         }
 
@@ -387,11 +398,11 @@ namespace Dix {
                 Clear();
             } else {
                 // Srcが有効なので参照カウンタを増加させます
-                m_pRefCnt = new unsigned int;
+                m_pRefCnt = NEW unsigned int;
                 *m_pRefCnt = add;
-                m_pWeakCnt = new unsigned int;
+                m_pWeakCnt = NEW unsigned int;
                 *m_pWeakCnt = add;
-                m_ppPtr = new T*;
+                m_ppPtr = NEW T*;
                 *m_ppPtr = src;
 
                 AddRef();       // 参照カウンタ増加
@@ -412,11 +423,11 @@ namespace Dix {
                 Clear();
             } else {
                 // Srcが有効なので参照カウンタを増加させます
-                m_pRefCnt = new unsigned int;
+                m_pRefCnt = NEW unsigned int;
                 *m_pRefCnt = add;
-                m_pWeakCnt = new unsigned int;
+                m_pWeakCnt = NEW unsigned int;
                 *m_pWeakCnt = add;
-                m_ppPtr = new T*;
+                m_ppPtr = NEW T*;
                 *m_ppPtr = src;
 
                 AddRef();       // 参照カウンタ増加
@@ -588,8 +599,10 @@ namespace Dix {
             if ( m_pWeakCnt != 0 ) {
                 if ( --(*m_pWeakCnt) == 0 ) {
                     // ウィークカウンタ削除
-                    delete m_pWeakCnt;
-                    delete m_pRefCnt;
+                    DELETEARR_IMPOSSIBLE_NULL(m_pWeakCnt);
+                    DELETEARR_IMPOSSIBLE_NULL(m_pRefCnt);
+                    //delete m_pWeakCnt;
+                    //delete m_pRefCnt;
                     return 0;
                 }
                 return *m_pWeakCnt;

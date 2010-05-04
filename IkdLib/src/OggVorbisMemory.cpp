@@ -4,7 +4,7 @@
 #pragma warning ( disable : 4267 )
 #pragma warning ( disable : 4244 )
 #pragma warning ( disable : 4996 )
-
+#include "GgafCommonHeader.h"
 #include "OggVorbisMemory.h"
 #include <stdio.h>
 #include <string.h>
@@ -43,7 +43,7 @@ namespace Dix {
 		if ( isReady_ == false ) {
 			return 0;
 		}
-		OggVorbisMemory* obj = new OggVorbisMemory;
+		OggVorbisMemory* obj = NEW OggVorbisMemory;
 		*obj = *this;
 		obj->curPos_ = 0;
 
@@ -58,7 +58,8 @@ namespace Dix {
 		// OggƒI[ƒvƒ“
 		if ( ov_open_callbacks( obj, &obj->oggVorbisFile_ , 0, 0, callbacks ) != 0 ) {
 			obj->clear();
-			delete obj;
+			DELETE_IMPOSSIBLE_NULL(obj);
+			//delete obj;
 			return 0;
 		}
 
@@ -152,7 +153,7 @@ namespace Dix {
 		size_ = ftell( f );
 		fseek( f, 0, SEEK_SET );
 
-		spBuffer_.SetPtr( new char[ size_ ], true );
+		spBuffer_.SetPtr( NEW char[ size_ ], true );
 		size_t readSize = fread( spBuffer_.GetPtr(), size_, 1, f );
 		if ( readSize != 1 ) {
 			// ‰½‚©•Ï‚Å‚·

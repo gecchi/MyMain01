@@ -41,6 +41,7 @@ void GgafDx9Sound::init() {
 
 void GgafDx9Sound::release() {
     DELETE_IMPOSSIBLE_NULL(_pBgmManager);
+
     DELETE_IMPOSSIBLE_NULL(_pSeManager);
     RELEASE_IMPOSSIBLE_NULL(_pIDirectSound8);
 }
