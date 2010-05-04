@@ -17,15 +17,18 @@ namespace {
 namespace Dix {
 	//! コンストラクタ
 	OggDecoder::OggDecoder() {
+	    oggVorbisResource_ = NULL;
 	}
 
 	//OggDecoder::OggDecoder( sp< OggVorbisResource > oggVorbisResource ) {
 	OggDecoder::OggDecoder(OggVorbisResource* oggVorbisResource ) {
+	    oggVorbisResource_ = NULL;
 		setResource( oggVorbisResource );
 	}
 
 	//! デストラクタ
 	OggDecoder::~OggDecoder() {
+	    DELETE_IMPOSSIBLE_NULL(oggVorbisResource_);
 		clear();
 	}
 
@@ -130,13 +133,13 @@ namespace Dix {
 		clear();
 
 		//if ( oggVorbisResource.GetPtr() == 0 || oggVorbisResource->isReady() == false ) {
-		if (oggVorbisResource == 0 || oggVorbisResource->isReady() == false ) {
+		if (oggVorbisResource == NULL || oggVorbisResource->isReady() == false ) {
 			return false;
 		}
 
 		oggVorbisResource_ = oggVorbisResource->createClone();
 		//if ( oggVorbisResource_.GetPtr() == 0 ) {
-		if ( oggVorbisResource_ == 0 ) {
+		if ( oggVorbisResource_ == NULL ) {
 			// クローン作成失敗
 			return false;
 		}

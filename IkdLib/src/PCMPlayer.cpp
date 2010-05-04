@@ -19,6 +19,7 @@ namespace Dix {
     PCMPlayer::PCMPlayer() :
         pDS8_			( NULL ),
         pDSBuffer_		( NULL ),
+        spPCMDecoder_   ( NULL ),
         isReady_		( false ),
         threadHandle_	( 0 ),
         isTerminate_	( false ),
@@ -31,6 +32,7 @@ namespace Dix {
     PCMPlayer::PCMPlayer( IDirectSound8* pDS8 ) :
         pDS8_			( pDS8 ),
         pDSBuffer_		( NULL ),
+        spPCMDecoder_   ( NULL ),
         isReady_		( false ),
         threadHandle_	( 0 ),
         isTerminate_	( false ),
@@ -44,6 +46,7 @@ namespace Dix {
     PCMPlayer::PCMPlayer( IDirectSound8* pDS8, PCMDecoder* spDecoder ) :
         pDS8_			( pDS8 ),
         pDSBuffer_		( NULL ),
+        spPCMDecoder_   ( NULL ),
         isReady_		( false ),
         threadHandle_	( 0 ),
         isTerminate_	( false ),
@@ -56,6 +59,7 @@ namespace Dix {
 
     PCMPlayer::~PCMPlayer() {
         terminateThread();
+        DELETE_IMPOSSIBLE_NULL(spPCMDecoder_);
     }
 
     //! ÉNÉäÉA
@@ -109,7 +113,7 @@ namespace Dix {
     //bool PCMPlayer::setDecoder( sp< PCMDecoder > pcmDecoder ) {
     bool PCMPlayer::setDecoder( PCMDecoder* pcmDecoder ) {
         //if ( pDS8_ == NULL || pcmDecoder.GetPtr() == 0 || pcmDecoder->isReady() == false ) {
-        if ( pDS8_ == NULL || pcmDecoder == 0 || pcmDecoder->isReady() == false ) {
+        if ( pDS8_ == NULL || pcmDecoder == NULL || pcmDecoder->isReady() == false ) {
             isReady_ = false;
             return false;
         }
@@ -163,7 +167,7 @@ namespace Dix {
 //        if ( spPCMDecoder_.GetPtr() == 0 ) {
 //            return false;
 //        }
-        if (spPCMDecoder_ = 0) {
+        if (spPCMDecoder_ == NULL) {
             return false;
         }
 
