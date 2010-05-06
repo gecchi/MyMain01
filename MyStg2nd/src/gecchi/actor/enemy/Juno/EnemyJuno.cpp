@@ -20,6 +20,12 @@ EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Core
 	_pSeReflector->set(1, "cm-22", GgafRepeatSeq::nextVal("CH_cm-22"));     //”­ŽË
 }
 
+void EnemyJuno::onCreateModel() {
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.5, 2.0);
+    _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
+    _pGgafDx9Model->_pTextureBlinker->beat(60, 3, 1, -1);
+    _pGgafDx9Model->_fBlinkThreshold = 0.9;
+}
 
 void EnemyJuno::initialize() {
     setHitAble(false);
