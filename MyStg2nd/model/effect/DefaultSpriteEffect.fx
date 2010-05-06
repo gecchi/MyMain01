@@ -14,6 +14,7 @@ float g_offsetV; //テクスチャV座標増分
 float g_PowerBlink;   
 float g_BlinkThreshold;
 float g_MasterAlpha;
+float g_zf;
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);

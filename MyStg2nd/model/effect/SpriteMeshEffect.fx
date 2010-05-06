@@ -17,6 +17,7 @@ float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
 float g_PowerBlink;   
 float g_BlinkThreshold;
 float g_MasterAlpha;
+float g_zf;
 
 float g_offset_u;
 float g_offset_v;
@@ -34,7 +35,7 @@ struct OUT_VS
 {
     float4 pos    : POSITION;
 	float2 uv     : TEXCOORD0;
-	float3 normal : TEXCOORD1;   // ワールド変換した法線
+	float4 col    : COLOR0;
 };
 
 
@@ -51,49 +52,52 @@ OUT_VS GgafDx9VS_SpriteMesh(
 
 	//頂点計算
 	out_vs.pos = mul( mul( mul(prm_pos, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
-    //法線計算
-    out_vs.normal = normalize(mul(prm_normal, g_matWorld)); 	//法線を World 変換して正規化
+    //UV
 	out_vs.uv.x = prm_uv.x + g_offset_u;
 	out_vs.uv.y = prm_uv.y + g_offset_v;
+
+	//法線を World 変換して正規化
+    float3 normal = normalize(mul(prm_normal, g_matWorld)); 	
+    //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
+	float power = max(dot(normal, -g_LightDirection ), 0);      
+	//Ambientライト色、Diffuseライト色、Diffuseライト方向、マテリアル色 を考慮したカラー作成。      
+	out_vs.col = (g_LightAmbient + (g_LightDiffuse*power)) * g_MaterialDiffuse;
+	//αフォグ
+	out_vs.col.a = g_MaterialDiffuse.a;
+	if (out_vs.pos.z > g_zf*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
+    	out_vs.col.a *= (-1.0/(g_zf*0.5)*out_vs.pos.z + 2.0);
+	} 
+//	if (out_vs.pos.z > g_zf*0.75) { //最遠の 3/4 より奥の場合徐々に透明に
+//    	out_vs.col.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);
+//	}
+	//マスターα
+	out_vs.col.a *= g_MasterAlpha;
+
 	return out_vs;
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_SpriteMesh(
 	float2 prm_uv	  : TEXCOORD0,
-	float3 prm_normal : TEXCOORD1
+    float4 prm_col    : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
+	float4 out_color = tex_color * prm_col;
 
-    //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
-	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-	float4 out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
-	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
-	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
+    //Blinkerを考慮
 	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
-		out_color = tex_color * g_PowerBlink; //+ (tex_color * g_PowerBlink);
+		out_color *= g_PowerBlink; //+ (tex_color * g_PowerBlink);
 	} 
-	//α計算、αは法線およびライト方向に依存しないとするので別計算。本シェーダーはライトα色は無し。
-	out_color.a = g_MaterialDiffuse.a * tex_color.a * g_MasterAlpha; 
-
-	return out_color;
-}
-
-float4 PS_DestBlendOne( 
-	float2 prm_uv	  : TEXCOORD0
-) : COLOR  {
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_MaterialDiffuse;
-	out_color.a = out_color.a * g_MasterAlpha; 
 	return out_color;
 }
 
 float4 PS_Flush( 
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_MaterialDiffuse * float4(7.0, 7.0, 7.0, 1.0);
-	out_color.a = out_color.a * g_MasterAlpha; 
+	//テクスチャをサンプリングして色取得（原色を取得）
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
+	float4 out_color = tex_color * prm_col * float4(7.0, 7.0, 7.0, 1.0);;
 	return out_color;
 }
 
@@ -140,7 +144,7 @@ technique DestBlendOne
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
 		VertexShader = compile vs_2_0 GgafDx9VS_SpriteMesh();
-		PixelShader  = compile ps_2_0 PS_DestBlendOne();
+		PixelShader  = compile ps_2_0 GgafDx9PS_SpriteMesh();
 	}
 }
 

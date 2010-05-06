@@ -191,9 +191,19 @@ OUT_VS GgafDx9VS_LaserChip(
 		out_vs.uv.x = 0;
 		out_vs.uv.y = 1;
 	}
+	//αフォグ
+	out_vs.col = float4(1.0, 1.0, 1.0, 1.0);
+	if (out_vs.pos.z > g_zf*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
+    	out_vs.col.a *= (-1.0/(g_zf*0.5)*out_vs.pos.z + 2.0);
+	} 
+	out_vs.col.a *= g_MasterAlpha;
+
+//	if (out_vs.pos.z > g_zf*0.75) { //最遠の 3/4 より奥の場合徐々に透明に
+//    	out_vs.col.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);
+//	}
 
 	//簡易フォグ
-	out_vs.col.a = 1.0/(g_zf - (g_zf*0.5))*out_vs.pos.z - 1.0; // 1/2 より奥の場合徐々に透明に
+//	out_vs.col.a = 1.0/(g_zf - (g_zf*0.5))*out_vs.pos.z - 1.0; // 1/2 より奥の場合徐々に透明に
 	//out_vs.col.a = 1.0/(g_zf - (g_zf*0.75))*out_vs.pos.z - 3.0;  // 3/4 より奥の場合徐々に透明に
 
 	return out_vs;
@@ -204,11 +214,9 @@ float4 GgafDx9PS_LaserChip(
 	float4 prm_col    : COLOR0
 ) : COLOR  {
 
-	float4 out_color = tex2D( MyTextureSampler, prm_uv);
-	out_color.a -= prm_col.a; 
-	out_color.a = out_color.a * g_MasterAlpha;        
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv);
+	float4 out_color = tex_color * prm_col;
 	return out_color;
-	//return tex2D( MyTextureSampler, prm_uv);
 }
 
 

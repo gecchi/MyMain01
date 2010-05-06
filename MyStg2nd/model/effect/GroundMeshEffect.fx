@@ -11,6 +11,7 @@ float4 g_MaterialDiffuse;
 float g_PowerBlink;   
 float g_BlinkThreshold;
 float g_MasterAlpha;
+float g_zf;
 
 sampler MyTextureSampler : register(s0);
 

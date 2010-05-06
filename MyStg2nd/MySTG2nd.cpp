@@ -74,7 +74,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         int nCmdShow)
 {
 
-	//_CrtSetBreakAlloc(95299);
+    //_CrtSetBreakAlloc(95299);
 
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
@@ -94,9 +94,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     try {
         MyStg2nd::Properties::load(".\\config.properties");
     } catch (GgafCore::GgafCriticalException& e) {
-		MessageBox(NULL, (string("config.properties のロードの失敗。\n理由：")+e.getMsg()).c_str(),"Error", MB_OK|MB_ICONSTOP);
+        MessageBox(NULL, (string("config.properties のロードの失敗。\n理由：")+e.getMsg()).c_str(),"Error", MB_OK|MB_ICONSTOP);
         MyStg2nd::Properties::clean();
-        GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
+        _TRACE_("[GgafCriticalException]:" << e.getMsg());
         return EXIT_FAILURE;
     }
 
@@ -215,7 +215,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         #ifdef _DEBUG
                         //ダンプ
                         //_CrtDumpMemoryLeaks();
-						_CrtMemDumpAllObjectsSince( NULL );
+                        _CrtMemDumpAllObjectsSince( NULL );
 
         #else
                         //特に何も無し
@@ -243,7 +243,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能性があります。\n誠に申し訳ございません。\n";
         string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
-        GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
+        _TRACE_("[GgafCriticalException]:"<<e.getMsg());
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     } catch (exception& e2) {
@@ -252,7 +252,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかったエラーです。\n誠に申し訳ございません。\n";
         string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP);
-        GgafCore::GgafLogger::write("[exception]:"+what);
+        _TRACE_("[exception]:"<<what);
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     }

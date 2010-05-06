@@ -10,6 +10,7 @@ float4x4 g_matProj;   //射影変換行列
 float g_PowerBlink;   
 float g_BlinkThreshold;
 float g_MasterAlpha;
+float g_zf;
 
 float4x4 g_matWorld001;
 float4x4 g_matWorld002;
@@ -213,7 +214,7 @@ OUT_VS GgafDx9VS_DefaultSpriteSet(
 	//UVのオフセット(パターン番号による増分)加算
 	out_vs.uv.x = prm_uv.x + offsetU;
 	out_vs.uv.y = prm_uv.y + offsetV;
-	out_vs.col  = alpha;
+	out_vs.col.a  = alpha;
 	return out_vs;
 }
 

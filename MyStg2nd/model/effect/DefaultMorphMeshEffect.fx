@@ -24,6 +24,7 @@ float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
 float g_PowerBlink;   
 float g_BlinkThreshold;
 float g_MasterAlpha;
+float g_zf;
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -379,7 +380,6 @@ OUT_VS GgafDx9VS_DefaultMorphMesh6(
 //	return out_vs;
 //}
 
-//メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_DefaultMorphMesh(
 	float2 prm_uv	  : TEXCOORD0,
 	float3 prm_normal : TEXCOORD1

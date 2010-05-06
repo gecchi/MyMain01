@@ -146,6 +146,12 @@ OUT_VS GgafDx9VS_SingleLaser(
 	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);
 	//UVはそのまま
 	out_vs.uv = prm_uv;
+	//αフォグ
+	out_vs.col = float4(1.0, 1.0, 1.0, 1.0);
+	if (out_vs.pos.z > g_zf*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
+    	out_vs.col.a *= (-1.0/(g_zf*0.5)*out_vs.pos.z + 2.0);
+	} 
+	out_vs.col.a *= g_MasterAlpha;
 	return out_vs;
 }
 
@@ -155,9 +161,8 @@ float4 GgafDx9PS_SingleLaser(
 	float4 prm_col    : COLOR0
 ) : COLOR  {
 
-	float4 out_color = tex2D( MyTextureSampler, prm_uv);
-	out_color.a -= prm_col.a; 
-	out_color.a = out_color.a * g_MasterAlpha;        
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv);
+	float4 out_color = tex_color * prm_col;
 	return out_color;
 }
 
