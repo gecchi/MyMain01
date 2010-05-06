@@ -14,14 +14,14 @@ GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect(char* prm_effect_name) : Ggaf
     hr = _pID3DXEffect->SetMatrix("g_matProj", &pCAM->_vMatrixProj );
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetMatrix(g_matProj) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = _pID3DXEffect->SetFloat("g_default_DcamZ", -(pCAM->_cameraZ_org));
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(_zn) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_default_DcamZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = _pID3DXEffect->SetFloat("g_zn", pCAM->_zn);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(_zf) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = _pID3DXEffect->SetFloat("g_zf", pCAM->_zf);
-
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_zn) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = _pID3DXEffect->SetFloat("g_zf", pCAM->_zf );
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9SpriteEffect SetFloat(g_zf) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     //_TRACE_("GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect g_default_DcamZ="<<pCAM->_zn<<" g_default_DcamZ="<<( -(pCAM->_cameraZ_org))<<"");
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_zn) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    //checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_zn) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //ÉVÉFÅ[É_Å[ÉnÉìÉhÉã
     _hMatView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
     _hMatWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );

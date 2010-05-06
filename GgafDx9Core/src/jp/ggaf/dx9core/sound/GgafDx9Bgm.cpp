@@ -53,10 +53,15 @@ bool GgafDx9Bgm::isActive() {
 
 GgafDx9Bgm::~GgafDx9Bgm() {
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() begin");
+    _TRACE_("pPcmPlayer->setVolume(DSBVOLUME_MIN);");
     pPcmPlayer->setVolume(DSBVOLUME_MIN);
+    _TRACE_("pPcmPlayer->terminateThread();");
     pPcmPlayer->terminateThread();
+    _TRACE_("DELETE_IMPOSSIBLE_NULL(pPcmPlayer);");
     DELETE_IMPOSSIBLE_NULL(pPcmPlayer);
+    _TRACE_("DELETE_IMPOSSIBLE_NULL(spOggDecoder);");
     DELETE_IMPOSSIBLE_NULL(spOggDecoder);
+    _TRACE_("DELETE_IMPOSSIBLE_NULL(spOggResource);");
     DELETE_IMPOSSIBLE_NULL(spOggResource);
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() end");
 

@@ -20,6 +20,11 @@ GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect(char* prm_effect_name) : GgafDx9E
     //Ambient反射
     hr = _pID3DXEffect->SetValue("g_LightAmbient", &(GgafDx9God::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
     checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightAmbient) に失敗しました。");
+
+    hr = _pID3DXEffect->SetFloat("g_zf", pCAM->_zf );
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9SpriteEffect SetFloat(g_zf) に失敗しました。");
+
+
     //シェーダーハンドル
     _hMorphTargetnum = _pID3DXEffect->GetParameterByName(NULL, "g_morph_target_num");
     _hWeight[1] = _pID3DXEffect->GetParameterByName(NULL, "g_weight1");

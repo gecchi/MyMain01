@@ -40,8 +40,12 @@ void GgafDx9Sound::init() {
 }
 
 void GgafDx9Sound::release() {
+    _TRACE_("GgafDx9Sound::release() begin");
+    _TRACE_("DELETE_IMPOSSIBLE_NULL(_pBgmManager);");
     DELETE_IMPOSSIBLE_NULL(_pBgmManager);
-
+    _TRACE_("DELETE_IMPOSSIBLE_NULL(_pSeManager);");
     DELETE_IMPOSSIBLE_NULL(_pSeManager);
+    _TRACE_("RELEASE_IMPOSSIBLE_NULL(_pIDirectSound8);");
     RELEASE_IMPOSSIBLE_NULL(_pIDirectSound8);
+    _TRACE_("GgafDx9Sound::release() end");
 }
