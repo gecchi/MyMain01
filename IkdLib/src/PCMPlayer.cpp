@@ -58,8 +58,12 @@ namespace Dix {
     }
 
     PCMPlayer::~PCMPlayer() {
+        _TRACE_("PCMPlayer::~PCMPlayer() begin");
+        _TRACE_("terminateThread();");
         terminateThread();
+        _TRACE_("DELETE_IMPOSSIBLE_NULL(spPCMDecoder_);");
         DELETE_IMPOSSIBLE_NULL(spPCMDecoder_);
+        _TRACE_("PCMPlayer::~PCMPlayer() end");
     }
 
     //! ÉNÉäÉA
