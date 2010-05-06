@@ -85,31 +85,31 @@
     //#define PFUNC std::cout << __PRETTY_FUNCTION__ << std::endl
 
     /** コンストラクタ、主要メソッド、デストラクタ関連ログ */
-    //#define TRACE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
+    //#define TRACE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
     #define TRACE(X)
 
     /** 工場関連関連ログ */
-    //#define TRACE2(X) {std::stringstream ss; ss << "[別スレッド]" << X; GgafCore::GgafLogger::writeln(ss.str()); }
+    //#define TRACE2(X) {std::stringstream ss; ss << "[別スレッド]" << X; GgafCore::GgafLogger::writeln(ss); }
     #define TRACE2(X)
 
     /** 資源マネージャ、コネクション関連ログ */
-    //#define TRACE3(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
+    //#define TRACE3(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
     #define TRACE3(X)
 
     /** エフェクト、パス、Draw関連ログ */
-    //#define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
+    //#define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
     #define TRACE4(X)
 
     /** ８分木、あたり判定関連ログ */
-    //#define TRACE5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
+    //#define TRACE5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
     #define TRACE5(X)
-    //#define TEXT5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
+    //#define TEXT5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
     #define TEXT5(X)
 
     /** デバッグ用通常ログ */
-    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
+    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
     //#define _TRACE_(X)
-    #define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
+    #define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
     //#define _TEXT_(X)
 
     //メモリ解放用マクロ
@@ -139,7 +139,7 @@
                 std::stringstream ss; \
                 ss << "RELEASE_POSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
                       #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
-                GgafCore::GgafLogger::writeln(ss.str()); \
+                GgafCore::GgafLogger::writeln(ss); \
             } \
             (POINTER) = NULL; \
         } else { \
@@ -155,7 +155,7 @@
             std::stringstream ss; \
             ss << "DELETE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< \
                   #POINTER << " の解放をやむなく無視しました。本来は、ここでNULLになってこと自体おかしい。調査せよ。"; \
-            GgafCore::GgafLogger::writeln(ss.str()); \
+            GgafCore::GgafLogger::writeln(ss); \
             (POINTER) = NULL; \
         } \
     }
@@ -168,7 +168,7 @@
             std::stringstream ss; \
             ss << "DELETEARR_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< \
                   #POINTER << "の解放をやむなく無視しました。本来は、ここでNULLになってこと自体おかしい。調査せよ。"; \
-            GgafCore::GgafLogger::writeln(ss.str()); \
+            GgafCore::GgafLogger::writeln(ss); \
             (POINTER) = NULL; \
         } \
     }
@@ -180,14 +180,14 @@
                 std::stringstream ss; \
                 ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
                       #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
-                GgafCore::GgafLogger::writeln(ss.str()); \
+                GgafCore::GgafLogger::writeln(ss); \
             } \
             (POINTER) = NULL; \
         } else { \
             std::stringstream ss; \
             ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< \
                   #POINTER << "のリリースをやむなく無視しました。本来は、ここでNULLになってこと自体おかしい。調査せよ。"; \
-            GgafCore::GgafLogger::writeln(ss.str()); \
+            GgafCore::GgafLogger::writeln(ss); \
             (POINTER) = NULL; \
         } \
     }
@@ -224,7 +224,7 @@
     #define TRACE4(X)
     #define TRACE5(X)
     #define TEXT5(X)
-    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
+    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
     //#define _TRACE_(X)
     #define _TEXT_(X)
     #define _TRACEORE(X)
