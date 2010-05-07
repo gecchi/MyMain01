@@ -273,12 +273,10 @@ float4 GgafDx9PS_StringBoard(
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv); 
 	//求める色
-	float4 out_color; 
+	float4 out_color = tex_color; 
 	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
-		out_color = tex_color * g_PowerBlink; //+ (tex_color * g_PowerBlink);
-	} else {
-		out_color = tex_color;
-	}               
+		out_color.rgb *= g_PowerBlink; //+ (tex_color * g_PowerBlink);
+	}        
 	out_color.a = out_color.a * prm_col.a * g_MasterAlpha; 
 	return out_color;
 }

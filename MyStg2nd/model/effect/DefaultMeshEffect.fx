@@ -84,7 +84,7 @@ float4 GgafDx9PS_DefaultMesh(
 
     //Blinker‚ðl—¶
 	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
-		out_color *= g_PowerBlink; //+ (tex_color * g_PowerBlink);
+		out_color.rgb *= g_PowerBlink; //+ (tex_color * g_PowerBlink);
 	} 
 	return out_color;
 }
