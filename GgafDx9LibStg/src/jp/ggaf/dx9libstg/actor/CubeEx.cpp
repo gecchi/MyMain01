@@ -34,7 +34,7 @@ void CubeEx::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
         if (iAreaNum > 0) {
             for (int i = 0; i < iAreaNum; i++) {
 
-                if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AABB) {
+                if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AAB) {
                     ColliAAB* box = (ColliAAB*)pCollisionArea->_papColliPart[i];
                     //_TRACE_("drawHitarea name="<<prm_pCollisionChecker->getTargetActor()->getName()<<" index="<<i);
 

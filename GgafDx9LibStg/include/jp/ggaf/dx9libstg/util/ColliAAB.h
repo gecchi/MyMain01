@@ -1,26 +1,26 @@
-#ifndef COLIAABB_H_
-#define COLIAABB_H_
+#ifndef COLIAAB_H_
+#define COLIAAB_H_
 namespace GgafDx9LibStg {
 
 /**
- * AABB当たり判定要素クラス
+ * AAB(軸並行直方体：Axis-Aligned Box)当たり判定要素クラス
  * @version 1.00
  * @since 2008/03/13
  * @author Masatoshi Tsuge
  */
 class ColliAAB : public GgafDx9Core::GgafDx9CollisionPart {
 public:
-    /** AABBのx座標の小さい方 */
+    /** AABのx座標の小さい方 */
     int _x1;
-    /** AABBのy座標の小さい方 */
+    /** AABのy座標の小さい方 */
     int _y1;
-    /** AABBのz座標の小さい方 */
+    /** AABのz座標の小さい方 */
     int _z1;
-    /** AABBの対角の頂点となるx座標大きい方 */
+    /** AABの対角の頂点となるx座標大きい方 */
     int _x2;
-    /** AABBの対角の頂点となるy座標大きい方 */
+    /** AABの対角の頂点となるy座標大きい方 */
     int _y2;
-    /** AABBの対角の頂点となるz座標大きい方 */
+    /** AABの対角の頂点となるz座標大きい方 */
     int _z2;
 
 
@@ -34,4 +34,4 @@ public:
 };
 
 }
-#endif /*COLIAABB_H_*/
+#endif /*COLIAAB_H_*/

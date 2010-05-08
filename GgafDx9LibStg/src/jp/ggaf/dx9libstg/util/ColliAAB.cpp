@@ -11,7 +11,7 @@ ColliAAB::ColliAAB() : GgafDx9CollisionPart() {
     _x2 = 0;
     _y2 = 0;
     _z2 = 0;
-    _shape_kind = COLLI_AABB;
+    _shape_kind = COLLI_AAB;
 }
 
 void ColliAAB::set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ) {
@@ -54,12 +54,12 @@ void ColliAAB::set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bo
     _rotY = rotY;
     _rotZ = rotZ;
     //ã´äEóÃàÊÇÕëSÇ≠ìØÇ∂
-    _aabb_x1 = _x1;
-    _aabb_y1 = _y1;
-    _aabb_z1 = _z1;
-    _aabb_x2 = _x2;
-    _aabb_y2 = _y2;
-    _aabb_z2 = _z2;
+    _aab_x1 = _x1;
+    _aab_y1 = _y1;
+    _aab_z1 = _z1;
+    _aab_x2 = _x2;
+    _aab_y2 = _y2;
+    _aab_z2 = _z2;
 
     _is_valid_flg = true;
 }
@@ -104,12 +104,12 @@ bool ColliAAB::rotate(angle rX, angle rY, angle rZ) {
         _y2 = wk_cy + _hdy;
         _z2 = wk_cz + _hdz;
         //ã´äEóÃàÊÇ‡çXêV
-        _aabb_x1 = _x1;
-        _aabb_y1 = _y1;
-        _aabb_z1 = _z1;
-        _aabb_x2 = _x2;
-        _aabb_y2 = _y2;
-        _aabb_z2 = _z2;
+        _aab_x1 = _x1;
+        _aab_y1 = _y1;
+        _aab_z1 = _z1;
+        _aab_x2 = _x2;
+        _aab_y2 = _y2;
+        _aab_z2 = _z2;
         return true;
     } else {
         return false;

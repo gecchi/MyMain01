@@ -35,12 +35,12 @@ void ColliSphere::set(int x, int y, int z, int r, bool rotX, bool rotY, bool rot
     _rotY = rotY;
     _rotZ = rotZ;
     //‹«ŠE—Ìˆæ
-    _aabb_x1 = _x - _r;
-    _aabb_y1 = _y - _r;
-    _aabb_z1 = _z - _r;
-    _aabb_x2 = _x + _r;
-    _aabb_y2 = _y + _r;
-    _aabb_z2 = _z + _r;
+    _aab_x1 = _x - _r;
+    _aab_y1 = _y - _r;
+    _aab_z1 = _z - _r;
+    _aab_x2 = _x + _r;
+    _aab_y2 = _y + _r;
+    _aab_z2 = _z + _r;
 
     _is_valid_flg = true;
 }
@@ -83,12 +83,12 @@ bool ColliSphere::rotate(angle rX, angle rY, angle rZ) {
         _z = wk_cz;
         //_r = r;
         //‹«ŠE—Ìˆæ‚àXV
-        _aabb_x1 = _x - _r;
-        _aabb_y1 = _y - _r;
-        _aabb_z1 = _z - _r;
-        _aabb_x2 = _x + _r;
-        _aabb_y2 = _y + _r;
-        _aabb_z2 = _z + _r;
+        _aab_x1 = _x - _r;
+        _aab_y1 = _y - _r;
+        _aab_z1 = _z - _r;
+        _aab_x2 = _x + _r;
+        _aab_y2 = _y + _r;
+        _aab_z2 = _z + _r;
         return true;
     } else {
         return false;

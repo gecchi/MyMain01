@@ -77,7 +77,7 @@ class CollisionChecker;
 
 #define DISP_HITAREA 1
 
-#define COLLI_AABB 1
+#define COLLI_AAB 1
 #define COLLI_SPHERE 2
 
 

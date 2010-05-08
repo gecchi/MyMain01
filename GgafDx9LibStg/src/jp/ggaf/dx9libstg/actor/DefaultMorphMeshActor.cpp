@@ -16,7 +16,7 @@ DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* p
     _pCollisionChecker = (CollisionChecker*)_pChecker;
 
     _pScaler = NEW GgafDx9GeometryScaler(this);
-    _pMorpher = NEW GgafDx9GeometryMorpher(this);
+    _pMorpher = NEW GgafDx9Morpher(this);
 
 }
 
