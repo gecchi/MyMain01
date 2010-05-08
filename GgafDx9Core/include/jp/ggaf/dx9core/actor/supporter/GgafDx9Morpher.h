@@ -8,6 +8,7 @@ namespace GgafDx9Core {
  * GgafDx9MorphMeshActor のメンバの<BR>
  * 重み _weight[] <BR>
  * を簡単に操作するために設計。<BR>
+ * 尚 _weight[] は、[0]は未使用、[1]～[n]がモーフターゲット1～nの重み <BR>
  * @version 1.00
  * @since 2009/05/11
  * @author Masatoshi Tsuge
@@ -52,7 +53,7 @@ public:
     GgafDx9Morpher(GgafDx9MorphMeshActor* prm_pActor);
 
     /**
-     * モーフターゲットの重みの上限と下限を設定 .
+     * モーフターゲットの重みの上限と下限を設定し重みの値を制限する .
      * @param prm_target_mesh モーフターゲットメッシュNO
      * @param prm_weight1 重み１(上限 or 下限)
      * @param prm_weight2 重み２(下限 or 上限)
