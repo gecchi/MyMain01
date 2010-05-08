@@ -30,7 +30,7 @@ void EnemyJuno::onCreateModel() {
 void EnemyJuno::initialize() {
     setHitAble(false);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
+    _pCollisionChecker->setColliAabb(0, -30000, -30000, 30000, 30000);
     _pMover->setFaceAngVelo(AXIS_X, 5000);
     _pMover->forceMvVeloRange(1, _pMover->_veloMv);
 }

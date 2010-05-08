@@ -40,7 +40,7 @@ void EnemyAstraea::onCreateModel() {
 void EnemyAstraea::initialize() {
     setHitAble(true);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    _pCollisionChecker->setColliAabb(0, -30000, -30000, -30000, 30000, 30000, 30000);
     _pMover->setMvVelo(0);
     _pMover->relateRzRyFaceAngToMvAng(true);
 }

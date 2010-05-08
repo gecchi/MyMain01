@@ -19,13 +19,13 @@ void MyWave001::initialize() {
     _pMover->setMvVelo(20000);
 
     _pCollisionChecker->makeCollision(7);
-    _pCollisionChecker->setColliBox(0, -10000, -10000, -10000, 10000, 10000, 10000, true, true, true);
-    _pCollisionChecker->setColliBox(1, -10000, -140000, -10000, 10000, -120000, 10000, true, true, true);
-    _pCollisionChecker->setColliBox(2, -10000, 120000, -10000, 10000, 140000, 10000, true, true, true);
-    _pCollisionChecker->setColliBox(3, -140000, -10000, -10000, -120000, 10000, 10000, true, true, true);
-    _pCollisionChecker->setColliBox(4, 120000, -10000, -10000, 140000, 10000, 10000, true, true, true);
-    _pCollisionChecker->setColliBox(5, -10000, -10000, -140000, 10000, 10000, -120000, true, true, true);
-    _pCollisionChecker->setColliBox(6, -10000, -10000, 120000, 10000, 10000, 140000, true, true, true);
+    _pCollisionChecker->setColliAabb(0, -10000, -10000, -10000, 10000, 10000, 10000, true, true, true);
+    _pCollisionChecker->setColliAabb(1, -10000, -140000, -10000, 10000, -120000, 10000, true, true, true);
+    _pCollisionChecker->setColliAabb(2, -10000, 120000, -10000, 10000, 140000, 10000, true, true, true);
+    _pCollisionChecker->setColliAabb(3, -140000, -10000, -10000, -120000, 10000, 10000, true, true, true);
+    _pCollisionChecker->setColliAabb(4, 120000, -10000, -10000, 140000, 10000, 10000, true, true, true);
+    _pCollisionChecker->setColliAabb(5, -10000, -10000, -140000, 10000, 10000, -120000, true, true, true);
+    _pCollisionChecker->setColliAabb(6, -10000, -10000, 120000, 10000, 10000, 140000, true, true, true);
 
     //	_pCollisionChecker->_pHitAreaBoxs->setLine(0, -20000, 20000, 20000, 20000, true);
     //	_pCollisionChecker->_pHitAreaBoxs->setLine(1, 20000, 20000, 20000, -20000, true);

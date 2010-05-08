@@ -26,7 +26,7 @@ void EnemyCirce::initialize() {
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->setMvVelo(300);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
+    _pCollisionChecker->setColliAabb(0, -10000, -10000, -10000, 10000, 10000, 10000);
 }
 
 void EnemyCirce::onActive() {

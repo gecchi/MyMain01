@@ -101,7 +101,7 @@ public:
      * @param rotY 当たり判定の直方体を、向きに伴ってローカルY軸での回転並行移動を行う場合 true
      * @param rotZ 当たり判定の直方体を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
      */
-    void setColliBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
+    void setColliAabb(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
 
     /**
      * 当たり判定領域を直方体として定義 .
@@ -114,8 +114,8 @@ public:
      * @param y2 右下奥Y座標
      * @param z2 右下奥Z座標
      */
-    void setColliBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2) {
-        setColliBox(prm_index, x1, y1, z1, x2, y2, z2, false, false, false);
+    void setColliAabb(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2) {
+        setColliAabb(prm_index, x1, y1, z1, x2, y2, z2, false, false, false);
     }
 
     /**
@@ -127,8 +127,8 @@ public:
      * @param x2 右下奥X座標
      * @param y2 右下奥Y座標
      */
-    void setColliBox(int prm_index, int x1, int y1, int x2, int y2) {
-        setColliBox(prm_index, x1, y1, -1 * LEN_UNIT / 2, x2, y2, LEN_UNIT / 2, false, false,
+    void setColliAabb(int prm_index, int x1, int y1, int x2, int y2) {
+        setColliAabb(prm_index, x1, y1, -1 * LEN_UNIT / 2, x2, y2, LEN_UNIT / 2, false, false,
                       false);
     }
 
@@ -140,12 +140,12 @@ public:
      * @param prm_height 高さ
      * @param prm_depth 深さ（奥行）
      */
-    void setColliBox_WHD(int prm_index, int prm_width, int prm_height, int prm_depth) {
+    void setColliAabb_WHD(int prm_index, int prm_width, int prm_height, int prm_depth) {
         int hw = prm_width  / 2;
         int hh = prm_height / 2;
         int hd = prm_depth  / 2;
 
-        setColliBox(prm_index, -hw, -hh, -hd, hw, hh, hd);
+        setColliAabb(prm_index, -hw, -hh, -hd, hw, hh, hd);
     }
 
     /**
@@ -154,9 +154,9 @@ public:
      * @param prm_index 当たり判定領域の要素番号
      * @param prm_edge １辺の長さ
      */
-    void setColliBox_Cube(int prm_index, int prm_edge) {
+    void setColliAabb_Cube(int prm_index, int prm_edge) {
         int h = prm_edge / 2;
-        setColliBox(prm_index, -h, -h, -h, h, h, h);
+        setColliAabb(prm_index, -h, -h, -h, h, h, h);
     }
 
     /**

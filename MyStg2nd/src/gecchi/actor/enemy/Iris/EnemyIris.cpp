@@ -28,7 +28,7 @@ void EnemyIris::initialize() {
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->setFaceAngVelo(AXIS_X, 5000);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    _pCollisionChecker->setColliAabb(0, -30000, -30000, -30000, 30000, 30000, 30000);
 }
 
 void EnemyIris::onActive() {

@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-ColliBox::ColliBox() : GgafDx9CollisionPart() {
+ColliAabb::ColliAabb() : GgafDx9CollisionPart() {
     _x1 = 0;
     _y1 = 0;
     _z1 = 0;
@@ -14,7 +14,7 @@ ColliBox::ColliBox() : GgafDx9CollisionPart() {
     _shape_kind = COLLI_AABB;
 }
 
-void ColliBox::set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ) {
+void ColliAabb::set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ) {
     if (x1 < x2) {
         _x1 = x1;
         _x2 = x2;
@@ -64,7 +64,7 @@ void ColliBox::set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bo
     _is_valid_flg = true;
 }
 
-bool ColliBox::rotate(angle rX, angle rY, angle rZ) {
+bool ColliAabb::rotate(angle rX, angle rY, angle rZ) {
     if (_rotX || _rotY || _rotZ) {
         s_ang s_RX, s_RY, s_RZ;
         int wk_cx, wk_cy, wk_cz;
@@ -117,6 +117,6 @@ bool ColliBox::rotate(angle rX, angle rY, angle rZ) {
 }
 
 
-ColliBox::~ColliBox() {
-    TRACE("ColliBox::~ColliBox()");
+ColliAabb::~ColliAabb() {
+    TRACE("ColliAabb::~ColliAabb()");
 }

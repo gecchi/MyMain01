@@ -56,7 +56,7 @@ void StraightLaserChip::processBehavior() {
       centerX = (_X - _pChip_front->_X) / 2;
       centerY = (_Y - _pChip_front->_Y) / 2;
       centerZ = (_Z - _pChip_front->_Z) / 2;
-      _pCollisionChecker->setColliBox(
+      _pCollisionChecker->setColliAabb(
                       1,
                       centerX - 30000,
                       centerY - 30000,

@@ -29,12 +29,12 @@ void TamagoActor::initialize() {
     //	_pMover->_iType_AutoXYMvAngTarget = TURN_COUNTERCLOCKWISE;
 
     //	_pCollisionChecker->makeCollision(1, 0);
-    //	_pCollisionChecker->setColliBox(0, -10000, -10000, 10000, 10000);
+    //	_pCollisionChecker->setColliAabb(0, -10000, -10000, 10000, 10000);
     _pMover->setFaceAng(AXIS_Z, -ANGLE90);
     //_pMover->setFaceAngVelo(AXIS_Y, 1000);
 //    _pCollisionChecker->makeCollision(2);
-//    _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-//    _pCollisionChecker->setColliBox(1, 100000, 100000, 100000, 130000, 130000, 130000);
+//    _pCollisionChecker->setColliAabb(0, -30000, -30000, -30000, 30000, 30000, 30000);
+//    _pCollisionChecker->setColliAabb(1, 100000, 100000, 100000, 130000, 130000, 130000);
     _pScaler->setScale(20000000);
     _frame_offset = 0;
     //_pMover->_iIncrementFaceAng[AXIS_X] = -100*1000;
