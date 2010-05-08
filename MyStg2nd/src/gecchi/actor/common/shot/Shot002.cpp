@@ -15,7 +15,7 @@ Shot002::Shot002(const char* prm_name) : DefaultMeshSetActor(prm_name, "Flora") 
 
 void Shot002::initialize() {
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAabb(0, -50000, -50000, -50000, 50000, 50000, 50000);
+    _pCollisionChecker->setColliAAB(0, -50000, -50000, -50000, 50000, 50000, 50000);
 }
 
 void Shot002::onActive() {

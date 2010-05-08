@@ -39,7 +39,7 @@ void EnemyTamago01::initialize() {
     _pCollisionChecker->setColliSphere(0, 90000);
 
 
-    //_pCollisionChecker->setColliAabb(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    //_pCollisionChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
 //    _X = 300000;
 //    _Y = 300000;
 //    _Z = 300000;

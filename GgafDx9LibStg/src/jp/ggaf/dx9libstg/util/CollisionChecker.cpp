@@ -48,7 +48,7 @@ void CollisionChecker::setColliSphere(int prm_index, int x, int y, int z, int r,
 }
 
 
-void CollisionChecker::setColliAabb(int prm_index,
+void CollisionChecker::setColliAAB(int prm_index,
                                    int x1,
                                    int y1,
                                    int z1,
@@ -67,14 +67,14 @@ void CollisionChecker::setColliAabb(int prm_index,
     }
 #endif
     if (_pCollisionArea->_papColliPart[prm_index] == NULL) {
-        _pCollisionArea->_papColliPart[prm_index] = NEW ColliAabb();
+        _pCollisionArea->_papColliPart[prm_index] = NEW ColliAAB();
     }
 #ifdef MY_DEBUG
     if (_pCollisionArea->_papColliPart[prm_index]->_shape_kind != COLLI_AABB) {
         throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"はAABBでなかったため、更新はできません。");
     }
 #endif
-    ColliAabb* pBox = (ColliAabb*)_pCollisionArea->_papColliPart[prm_index];
+    ColliAAB* pBox = (ColliAAB*)_pCollisionArea->_papColliPart[prm_index];
     pBox->_shape_kind = COLLI_AABB;
     pBox->_is_valid_flg = true;
     pBox->set(x1, y1, z1, x2, y2, z2, rotX, rotY, rotZ);
@@ -152,8 +152,8 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
 
                         if (pColliPart->_shape_kind == COLLI_AABB && pOtherColliPart->_shape_kind == COLLI_AABB) {
                             //AABB と AABB
-                            ColliAabb* pBox = (ColliAabb*)pColliPart;
-                            ColliAabb* pOtherBox = (ColliAabb*)pOtherColliPart;
+                            ColliAAB* pBox = (ColliAAB*)pColliPart;
+                            ColliAAB* pOtherBox = (ColliAAB*)pOtherColliPart;
                             //軸が一致しない確率が高そうな順番(適当)に判定
                             if (_pActor->_Z + pBox->_z2 >= pOtherActor->_Z + pOtherBox->_z1) {
                                 if (_pActor->_Z + pBox->_z1 <= pOtherActor->_Z + pOtherBox->_z2) {
@@ -188,7 +188,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
 
                         } else if (pColliPart->_shape_kind == COLLI_AABB && pOtherColliPart->_shape_kind == COLLI_SPHERE) {
                             //AABB と 球
-                            ColliAabb* pBox = (ColliAabb*)pColliPart;
+                            ColliAAB* pBox = (ColliAAB*)pColliPart;
                             ColliSphere* pOtherSphere = (ColliSphere*)pOtherColliPart;
                             int o_scx =  pOtherActor->_X+pOtherSphere->_cx;
                             int o_scy =  pOtherActor->_Y+pOtherSphere->_cy;
@@ -225,7 +225,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                         } else if (pColliPart->_shape_kind == COLLI_SPHERE && pOtherColliPart->_shape_kind == COLLI_AABB) {
                             //球 と AABB
                             ColliSphere* pSphere = (ColliSphere*)pColliPart;
-                            ColliAabb* pOtherBox = (ColliAabb*)pOtherColliPart;
+                            ColliAAB* pOtherBox = (ColliAAB*)pOtherColliPart;
                             int scx =  _pActor->_X+pSphere->_cx;
                             int scy =  _pActor->_Y+pSphere->_cy;
                             int scz =  _pActor->_Z+pSphere->_cz;

@@ -16,7 +16,7 @@ void Shot004::initialize() {
     _SX = _SY = _SZ = 50 * 1000;
     setAlpha(0.99); //”¼“§–¾‚É‚·‚é‚±‚Æ‚Å—¼–ÊƒŒƒ“ƒ_ƒŠƒ“ƒO
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAabb(0, -30000, -30000, 30000, 30000);
+    _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
 }
 
 void Shot004::onActive() {

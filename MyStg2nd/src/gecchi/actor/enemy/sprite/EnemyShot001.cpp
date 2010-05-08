@@ -14,7 +14,7 @@ void EnemyShot001::initialize() {
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
     _pMover->setMvVelo(3000);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAabb(0, -10000, -10000, 10000, 10000);
+    _pCollisionChecker->setColliAAB(0, -10000, -10000, 10000, 10000);
     setHitAble(true);
 }
 

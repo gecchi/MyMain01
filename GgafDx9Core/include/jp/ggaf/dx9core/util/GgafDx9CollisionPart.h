@@ -4,7 +4,11 @@ namespace GgafDx9Core {
 
 /**
  * 当たり判定領域要素 .
- * AABB または 球 をサポート .
+ * 当たり判定要素、当たり判定領域、という２つの言葉を次のように定義します。<BR>
+ * 当たり判定要素 ・・・ １つの 球、或いはAABB の当たり判定。<BR>
+ * 当たり判定領域 ・・・ 複数の当たり判定要素が集まって、グループ化した物<BR>
+ * 本クラスは当たり判定「要素」を実装したクラスです。<BR>
+ * 形状は AABB または 球 をサポート。（今後増えるかもしれない）<BR>
  * 当たり判定のローカル軸回転平行移動をサポート .
  * @version 1.00
  * @since 2010/01/21
@@ -13,11 +17,10 @@ namespace GgafDx9Core {
 class GgafDx9CollisionPart : public GgafCore::GgafObject {
 
 public:
-    /** 当たり判定種別(COLLI_AABB:直方体 / COLLI_SPHERE:球) */
+    /** 当たり判定種別(COLLI_AABB:辺が各軸に並行な直方体 / COLLI_SPHERE:球) */
     int _shape_kind;
     /** 有効フラグ */
     bool _is_valid_flg;
-
 
     /** 境界BOX(8分木登録のため) */
     int _aabb_x1, _aabb_y1, _aabb_z1, _aabb_x2, _aabb_y2, _aabb_z2;

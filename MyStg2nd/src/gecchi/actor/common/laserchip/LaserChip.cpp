@@ -116,7 +116,7 @@ void LaserChip::processPreJudgement() {
                 cY = dY / 2;
                 cZ = dZ / 2;
                 h = _hitarea_edge_length / 2;
-                _pCollisionChecker->setColliAabb(
+                _pCollisionChecker->setColliAAB(
                               1,
                               cX - _harf_hitarea_edge_length,
                               cY - _harf_hitarea_edge_length,
@@ -300,8 +300,8 @@ void LaserChip::registHitAreaCube(int prm_edge_length) {
     _hitarea_edge_length = prm_edge_length;
     _harf_hitarea_edge_length = _hitarea_edge_length / 2;
     _pCollisionChecker->makeCollision(2);
-    _pCollisionChecker->setColliAabb_Cube(0, prm_edge_length);
-    _pCollisionChecker->setColliAabb_Cube(1, prm_edge_length);
+    _pCollisionChecker->setColliAAB_Cube(0, prm_edge_length);
+    _pCollisionChecker->setColliAAB_Cube(1, prm_edge_length);
     _pCollisionChecker->disable(1);
     setHitAble(true);
     //_TRACE_("LaserChip::registHitAreaCube()ed "<<getName()<<" bump="<<canHit());

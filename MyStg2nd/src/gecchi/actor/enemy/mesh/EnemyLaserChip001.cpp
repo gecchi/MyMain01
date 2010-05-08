@@ -13,7 +13,7 @@ EnemyLaserChip001::EnemyLaserChip001(const char* prm_name) : HomingLaserChip(prm
 void EnemyLaserChip001::initialize() {
     _pMover->setMvVelo(1000);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAabb(0, -10000, -10000, -10000, 10000, 10000, 10000);
+    _pCollisionChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
     setHitAble(true);
     _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.9f;

@@ -73,7 +73,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDispatcher* prm_pDispatche
 
 void EnemyCeres::initialize() {
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAabb(0, -30000, -30000, 30000, 30000);
+    _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
 }
 
 void EnemyCeres::onActive() {

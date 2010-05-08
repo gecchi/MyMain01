@@ -16,7 +16,7 @@ void Shot003::initialize() {
     setAlpha(0.99); //”¼“§–¾‚É‚·‚é‚±‚Æ‚Å—¼–ÊƒŒƒ“ƒ_ƒŠƒ“ƒO
     chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAabb(0, -30000, -30000, 30000, 30000);
+    _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
 }
 
 void Shot003::onActive() {

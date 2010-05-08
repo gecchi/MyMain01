@@ -8,7 +8,7 @@ namespace GgafDx9LibStg {
  * @since 2008/03/13
  * @author Masatoshi Tsuge
  */
-class ColliAabb : public GgafDx9Core::GgafDx9CollisionPart {
+class ColliAAB : public GgafDx9Core::GgafDx9CollisionPart {
 public:
     /** AABBÇÃxç¿ïWÇÃè¨Ç≥Ç¢ï˚ */
     int _x1;
@@ -24,13 +24,13 @@ public:
     int _z2;
 
 
-    ColliAabb();
+    ColliAAB();
 
     void set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
 
     bool rotate(angle rX, angle rY, angle rZ) override;
 
-    virtual ~ColliAabb();
+    virtual ~ColliAAB();
 };
 
 }

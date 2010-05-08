@@ -31,7 +31,7 @@ class CubeEx;
 class SphereEx;
 class SpriteMeshActor;
 class SpriteMeshSetActor;
-class ColliAabb;
+class ColliAAB;
 class ColliSphere;
 class LinearOctreeForActor;
 class LinearOctreeActorElem;
@@ -67,7 +67,7 @@ class CollisionChecker;
 #include "jp/ggaf/dx9libstg/actor/SpriteMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/SpriteMeshSetActor.h"
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
-#include "jp/ggaf/dx9libstg/util/ColliAabb.h"
+#include "jp/ggaf/dx9libstg/util/ColliAAB.h"
 #include "jp/ggaf/dx9libstg/util/ColliSphere.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h"

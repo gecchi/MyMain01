@@ -45,7 +45,7 @@ void EnemyVesta::initialize() {
     _pMorpher->forceWeightRange(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAabb(0, -10000, -10000, -10000, 10000, 10000, 10000);
+    _pCollisionChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _pScaler->setScale(1000);
     _pDispatcher_Fired = _pDpcon->view();
 }
