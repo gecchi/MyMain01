@@ -36,7 +36,7 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
 //    orderActorToFactory(100000009, EnemyCirce, "EnemyCirce");
 
 //    orderActorToFactory(100000001, FormationJuno001, "FormationJuno001");
-
+    orderActorToFactory(100000001, Torus, "Torus001");
 }
 
 void TamagoScene::reset() {
@@ -48,6 +48,11 @@ void TamagoScene::initialize() {
 }
 
 void TamagoScene::processBehavior() {
+    if (getPartFrame() == 60) {
+        Torus* p = (Torus*)obtainActorFromFactory(100000001);
+        getLordActor()->addSubGroup(p);
+    }
+
 //    if (getPartFrame() == 120) {
 //        FormationJuno001* p = (FormationJuno001*)obtainActorFromFactory(100000001);
 //        getLordActor()->addSubGroup(p);

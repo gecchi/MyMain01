@@ -98,7 +98,7 @@ void EnemyCeres::processBehavior() {
 
         angle way[32];
         //GgafDx9Util::getWayAngle2D(180000, 8, 10000, way);
-        GgafDx9Util::getRadiationAngle2D(0, 32, way);
+        GgafDx9Util::getRadialAngle2D(0, 32, way);
         GgafDx9DrawableActor* pTama;
         for (int i = 0; i < 16; i++) {
             pTama = (GgafDx9DrawableActor*)_pDispatcher_EnemyCeresShots001->employ();

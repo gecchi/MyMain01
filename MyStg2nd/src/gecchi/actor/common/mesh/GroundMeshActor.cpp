@@ -17,12 +17,12 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model) :
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDx9GeometryScaler(this);
 
-    if (_pMeshModel->_paVtxBuffer_org[0].nx == 0 &&
-        _pMeshModel->_paVtxBuffer_org[0].ny == 0 &&
-        _pMeshModel->_paVtxBuffer_org[0].nz == 0)
-    {
-        strcpy(_technique, "GroundMeshTechnique2");
-    }
+//    if (_pMeshModel->_paVtxBuffer_org[0].nx == 0 &&
+//        _pMeshModel->_paVtxBuffer_org[0].ny == 0 &&
+//        _pMeshModel->_paVtxBuffer_org[0].nz == 0)
+//    {
+//        strcpy(_technique, "GroundMeshTechnique2");
+//    }
 }
 
 //void GroundMeshActor::processPreDraw() {
@@ -43,17 +43,17 @@ void GroundMeshActor::processDraw() {
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
-    // Zバッファを無効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    // Zバッファ書き込み不可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+//    // Zバッファを無効に
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+//    // Zバッファ書き込み不可
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 
     _pMeshModel->draw(this);
 
-    // Zバッファを有効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    // Zバッファ書き込み可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+//    // Zバッファを有効に
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+//    // Zバッファ書き込み可
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
 }
 

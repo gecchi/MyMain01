@@ -142,6 +142,9 @@ class Stage05Scene;
 class TamagoScene;
 
 class GroundMeshActor;
+class Torus;
+
+
 class LaserChip;
 class CurveLaserChip;
 class HomingLaserChip;
@@ -320,6 +323,9 @@ class LaserChipEffectActor;
 #include "gecchi/actor/enemy/Iris/FormationIris002.h"
 #include "gecchi/actor/enemy/Vesta/EnemyVesta.h"
 #include "gecchi/actor/enemy/Circe/EnemyCirce.h"
+
+#include "gecchi/actor/chikei/Torus/Torus.h"
+
 #include "gecchi/magic/Magic.h"
 #include "gecchi/magic/DefaultMagic.h"
 #include "gecchi/magic/OptionMagic.h"

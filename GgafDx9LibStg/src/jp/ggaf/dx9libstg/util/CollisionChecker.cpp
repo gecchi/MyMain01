@@ -95,7 +95,7 @@ void CollisionChecker::updateHitArea() {
             }
 #endif
             pColliPart = _pCollisionArea->_papColliPart[i];
-            if (pColliPart->rotate(_pActor->_RX, _pActor->_RY, _pActor->_RZ)) {
+            if (pColliPart->rotateRxRzRy(_pActor->_RX, _pActor->_RY, _pActor->_RZ)) {
                 _need_update_aabb = true;
             }
         }

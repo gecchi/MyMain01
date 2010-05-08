@@ -15,10 +15,10 @@ BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx
     _papapChipBoard = NEW BackGroundChipBoard**[4];
     for (int i = 0; i < 4; i++) {
         _papapChipBoard[i] = NEW BackGroundChipBoard*[4];
-        _papapChipBoard[i][0] = NEW BackGroundChipBoard("Bg01_Chip01", "28/background01");
-        _papapChipBoard[i][1] = NEW BackGroundChipBoard("Bg01_Chip02", "28/background02");
-        _papapChipBoard[i][2] = NEW BackGroundChipBoard("Bg01_Chip03", "28/background03");
-        _papapChipBoard[i][3] = NEW BackGroundChipBoard("Bg01_Chip04", "28/background04");
+        _papapChipBoard[i][0] = NEW BackGroundChipBoard("Bg01_Chip01", "4/background01");
+        _papapChipBoard[i][1] = NEW BackGroundChipBoard("Bg01_Chip02", "4/background02");
+        _papapChipBoard[i][2] = NEW BackGroundChipBoard("Bg01_Chip03", "4/background03");
+        _papapChipBoard[i][3] = NEW BackGroundChipBoard("Bg01_Chip04", "4/background04");
     }
 
 

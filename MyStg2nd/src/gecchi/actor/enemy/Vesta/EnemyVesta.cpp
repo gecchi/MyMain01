@@ -134,8 +134,8 @@ void EnemyVesta::processBehavior() {
                     //最終的な方向ベクトルは（_Xorg*mat_11, _Xorg*mat_12, _Xorg*mat_13) である。
                     angle Rz, Ry;
                     GgafDx9Util::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
-                                            Rz, Ry);
-                    pActor->_pMover->setRzRyMvAng(Rz, Ry);
+                                            Rz, Ry); //現在の最終的な向きを、RzRyで取得！
+                    pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
                     pActor->activate();
                 }
             }
@@ -144,7 +144,7 @@ void EnemyVesta::processBehavior() {
 
     if (getPartFrame() % 10 == 0) {
         //自機へ方向を向ける
-        //考え方：ローカルでどの方向に向いておけば、最終的に自機に向くことになるかを求める
+        //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める
         //
         //自機への向くための変換前状態でのターゲット位置を(TvX, TvY, TvZ) とおき、
         //「土台まで」の行列の積（_pActor_Base->_matWorldRotMv) を b_mat_xx とする。

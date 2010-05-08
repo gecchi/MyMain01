@@ -15,7 +15,7 @@ class GgafStatus {
      * ステータス値を表す .
      * 型は char, int, doubleのいずれか。
      */
-    union VALUE {
+    struct VALUE {
       char _char_val;
       int _int_val;
       double _double_val;
@@ -35,7 +35,11 @@ public:
     GgafStatus(int n) {
         _len = n;
         _paValue = NEW VALUE[n];
-        ZeroMemory(_paValue, sizeof(VALUE)*_len);
+        for (int i = 0; i < n; i++) {
+            _paValue[i]._double_val = 0;
+            _paValue[i]._int_val = 0;
+            _paValue[i]._char_val = 0;
+        }
     }
 
 

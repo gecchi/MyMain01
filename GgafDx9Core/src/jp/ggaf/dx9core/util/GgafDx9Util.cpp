@@ -64,10 +64,10 @@ using namespace GgafDx9Core;
 
 bool GgafDx9Util::_was_inited_flg = false;
 
-float GgafDx9Util::PARABORA[S_ANG360];
-float GgafDx9Util::COS[S_ANG360];
-float GgafDx9Util::SIN[S_ANG360];
-float GgafDx9Util::RAD[S_ANG360];
+float GgafDx9Util::PARABORA[S_ANG360+1];
+float GgafDx9Util::COS[S_ANG360+1];
+float GgafDx9Util::SIN[S_ANG360+1];
+float GgafDx9Util::RAD[S_ANG360+1];
 
 angle GgafDx9Util::SLANT2ANG[100000 + 1];
 
@@ -87,7 +87,7 @@ void GgafDx9Util::init() {
         return;
     }
 
-    for (s_ang ang = 0; ang < S_ANG360; ang++) {
+    for (s_ang ang = 0; ang < S_ANG360+1; ang++) {
         double rad = (PI * 2.0f * ang) / S_ANG360;
 
 
@@ -285,7 +285,7 @@ void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_ang
     }
 }
 
-void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle) {
+void GgafDx9Util::getRadialAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle) {
     for (int i = 0; i < prm_nWay; i++) {
         out_paAngle[i] = addAng(prm_angStart, (angle)(1.0f * ANGLE360 / prm_nWay * i));
     }

@@ -141,7 +141,7 @@ public:
     void loopLiner(int prm_target_mesh, DWORD prm_loop_spend_frame, float prm_loop_num = -1);
 
     /**
-     * 三角波の波形を重みとしてモーフィングする。.
+     * 三角波の波形を重みとしてモーフィングする。 .
      * <PRE>
      * ④  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
      *            /＼                     /＼

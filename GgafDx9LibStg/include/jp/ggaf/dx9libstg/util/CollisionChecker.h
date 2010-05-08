@@ -132,6 +132,16 @@ public:
                       false);
     }
 
+
+    void setColliAAB_WHD(int prm_index, int x, int y, int z, int prm_width, int prm_height, int prm_depth) {
+        int hw = prm_width  / 2;
+        int hh = prm_height / 2;
+        int hd = prm_depth  / 2;
+
+        setColliAAB(prm_index, x-hw, y-hh, z-hd, x+hw, y+hh, z+hd);
+    }
+
+
     /**
      * 当たり判定領域を軸並行直方体として定義 .
      * オブジェクトの基点を中心として、幅、高さ、奥行で指定
@@ -145,7 +155,39 @@ public:
         int hh = prm_height / 2;
         int hd = prm_depth  / 2;
 
-        setColliAAB(prm_index, -hw, -hh, -hd, hw, hh, hd);
+        setColliAAB_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth);
+    }
+
+
+    /**
+     * 当たり判定領域を軸並行立方体として定義 .
+     * 引数座標を中心として、１辺の長さで指定
+     * @param prm_index 当たり判定領域の要素番号
+     * @param x 当たり判定の立方体の中心ローカルX座標
+     * @param y 当たり判定の立方体の中心ローカルY座標
+     * @param z 当たり判定の立方体の中心ローカルZ座標
+     * @param prm_edge １辺の長さ
+     */
+    void setColliAAB_Cube(int prm_index, int x, int y, int z, int prm_edge) {
+        int h = prm_edge / 2;
+        setColliAAB(prm_index, x-h, y-h, z-h, x+h, y+h, z+h);
+    }
+
+    /**
+     * 当たり判定領域を軸並行立方体として定義 .
+     * 引数座標を中心として、１辺の長さで指定
+     * @param prm_index 当たり判定領域の要素番号
+     * @param x 当たり判定の立方体の中心ローカルX座標
+     * @param y 当たり判定の立方体の中心ローカルY座標
+     * @param z 当たり判定の立方体の中心ローカルZ座標
+     * @param prm_edge １辺の長さ
+     * @param rotX 当たり判定の立方体を、向きに伴ってローカルX軸での回転並行移動を行う場合 true
+     * @param rotY 当たり判定の立方体を、向きに伴ってローカルY軸での回転並行移動を行う場合 true
+     * @param rotZ 当たり判定の立方体を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
+     */
+    void setColliAAB_Cube(int prm_index, int x, int y, int z, int prm_edge, bool rotX, bool rotY, bool rotZ) {
+        int h = prm_edge / 2;
+        setColliAAB(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, rotX, rotY, rotZ);
     }
 
     /**
@@ -156,7 +198,7 @@ public:
      */
     void setColliAAB_Cube(int prm_index, int prm_edge) {
         int h = prm_edge / 2;
-        setColliAAB(prm_index, -h, -h, -h, h, h, h);
+        setColliAAB_Cube(prm_index, 0, 0, 0, prm_edge);
     }
 
     /**

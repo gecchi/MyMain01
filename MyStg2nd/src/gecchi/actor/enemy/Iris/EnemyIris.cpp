@@ -59,7 +59,7 @@ void EnemyIris::processBehavior() {
             //•úËóƒVƒ‡ƒbƒg”­Ë
             int way = 5+5*_RANK_;
             angle* paAngWay = new angle[way];
-            GgafDx9Util::getRadiationAngle2D(0, way, paAngWay);
+            GgafDx9Util::getRadialAngle2D(0, way, paAngWay);
             GgafDx9DrawableActor* pActor;
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();

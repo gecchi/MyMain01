@@ -45,7 +45,7 @@ void ColliSphere::set(int x, int y, int z, int r, bool rotX, bool rotY, bool rot
     _is_valid_flg = true;
 }
 
-bool ColliSphere::rotate(angle rX, angle rY, angle rZ) {
+bool ColliSphere::rotateRxRzRy(angle rX, angle rY, angle rZ) {
     if (_rotX || _rotY || _rotZ) {
         s_ang s_RX, s_RY, s_RZ;
         int wk_cx, wk_cy, wk_cz;
@@ -64,19 +64,26 @@ bool ColliSphere::rotate(angle rX, angle rY, angle rZ) {
             wk_cz = _cz;
         }
 
-        if (_rotY) {
-            _cz = (wk_cz * GgafDx9Util::COS[s_RY]) - (wk_cx * GgafDx9Util::SIN[s_RY]);
-            _cx = (wk_cz * GgafDx9Util::SIN[s_RY]) + (wk_cx * GgafDx9Util::COS[s_RY]);
-            wk_cz = _cz;
-            wk_cx = _cx;
-        }
-
+        //
         if (_rotZ) {
             _cx = (wk_cx * GgafDx9Util::COS[s_RZ]) - (wk_cy * GgafDx9Util::SIN[s_RZ]);
             _cy = (wk_cx * GgafDx9Util::SIN[s_RZ]) + (wk_cy * GgafDx9Util::COS[s_RZ]);
             wk_cx = _cx;
             wk_cy = _cy;
         }
+
+        if (_rotY) {
+//            _cz = (wk_cz * GgafDx9Util::COS[s_RY]) - (wk_cx * GgafDx9Util::SIN[s_RY]);
+//            _cx = (wk_cz * GgafDx9Util::SIN[s_RY]) + (wk_cx * GgafDx9Util::COS[s_RY]);
+            //↑普通はこう考えるけど
+            //RYは、(1,0,0)を０度として、Y軸の方向を向いて反時計回りなのでこうなる
+            _cx = (wk_cx * GgafDx9Util::COS[S_ANG360-s_RY]) - (wk_cz * GgafDx9Util::SIN[S_ANG360-s_RY]);
+            _cz = (wk_cx * GgafDx9Util::SIN[S_ANG360-s_RY]) + (wk_cz * GgafDx9Util::COS[S_ANG360-s_RY]);
+            wk_cz = _cz;
+            wk_cx = _cx;
+        }
+
+
 
         _x = wk_cx;
         _y = wk_cy;

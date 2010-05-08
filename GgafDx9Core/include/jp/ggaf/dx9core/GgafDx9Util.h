@@ -194,7 +194,7 @@ public:
      * @param prm_nWay	[in] 'N'way弾の N。
      * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列のポインタ
      */
-    static void getRadiationAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle);
+    static void getRadialAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle);
 
     /**
      *
