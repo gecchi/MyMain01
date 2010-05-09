@@ -10,9 +10,9 @@ Torus::Torus(const char* prm_name) : GroundMeshActor(prm_name, "Torus") {
 }
 
 void Torus::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.4, 2.0);
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.4, 3.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
-    _pGgafDx9Model->_pTextureBlinker->beat(60*10, 60*5, 60*1, -1);
+    _pGgafDx9Model->_pTextureBlinker->beat(60*20, 60*9, 60*3, -1);
     _pGgafDx9Model->_fBlinkThreshold = 0.7;
 }
 
@@ -20,7 +20,7 @@ void Torus::initialize() {
     setHitAble(true);
     int r1 = 2000*1000; //トーラス半径1
     int r2 = 750*1000;  //トーラス半径2
-    int nSphere = 12;    //当たり判定球の数;
+    int nSphere = 16;    //当たり判定球の数;
     angle* paAngRadial = NEW angle[nSphere];
     GgafDx9Util::getRadialAngle2D(0, nSphere, paAngRadial);
     _pCollisionChecker->makeCollision(nSphere);
@@ -34,10 +34,11 @@ void Torus::initialize() {
     }
     DELETE_IMPOSSIBLE_NULL(paAngRadial);
     setAlpha(1.00);
-    _X = 000000;
-    _pMover->setRzMvAngVelo(100);
-    _pMover->setRyMvAngVelo(200);
-    _pMover->relateRzRyFaceAngToMvAng(true);
+    _X = GgafDx9Core::GgafDx9Universe::_X_goneRight+r1+r2;
+    _pMover->setRzRyMvAng(ANGLE180, 0);
+	_pMover->setMvVelo(1000);
+    _pMover->setFaceAngVelo(AXIS_Z, 100);
+    _pMover->setFaceAngVelo(AXIS_Y, 200);
 }
 
 void Torus::processBehavior() {

@@ -26,6 +26,14 @@ public:
     bool isOffScreen() {
         return 0;
     }
+
+    bool isOutOfGameSpace() {
+		if (GgafDx9Core::GgafDx9Universe::_X_goneLeft < _X) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     virtual ~Torus();
 };
 
