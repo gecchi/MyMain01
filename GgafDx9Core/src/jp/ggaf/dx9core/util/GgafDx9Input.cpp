@@ -331,11 +331,15 @@ bool GgafDx9Input::isBeingPressedJoyDirection(int prm_iDirectionNo) {
 void GgafDx9Input::release() {
     TRACE("GgafDx9Input::~GgafDx9Input()");
     //デバイス解放
-    _pIDirectInputDevice8_Keyboard->Unacquire();
-    RELEASE_IMPOSSIBLE_NULL(_pIDirectInputDevice8_Keyboard);
-    if (_pIDirectInputDevice8_Joystick != NULL) {
-        _pIDirectInputDevice8_Joystick->Unacquire();
-        RELEASE_IMPOSSIBLE_NULL(_pIDirectInputDevice8_Joystick);
+    if (_pIDirectInput8) {
+        if (_pIDirectInputDevice8_Keyboard) {
+            _pIDirectInputDevice8_Keyboard->Unacquire();
+            RELEASE_IMPOSSIBLE_NULL(_pIDirectInputDevice8_Keyboard);
+        }
+        if (_pIDirectInputDevice8_Joystick != NULL) {
+            _pIDirectInputDevice8_Joystick->Unacquire();
+            RELEASE_IMPOSSIBLE_NULL(_pIDirectInputDevice8_Joystick);
+        }
+        RELEASE_IMPOSSIBLE_NULL(_pIDirectInput8);
     }
-    RELEASE_IMPOSSIBLE_NULL(_pIDirectInput8);
 }

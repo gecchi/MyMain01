@@ -35,6 +35,12 @@ void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int 
 }
 
 void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
+    DWORD index = getSpatialIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
+    if (index > _num_space-1) { //空間外は登録しない
+        //_TRACE_("GgafLinearOctree::registElem() Over Space Index !. index="<<index<<" _num_space="<<_num_space);
+        return;
+    }
+
     if (prm_pElem->_pSpace_Current == NULL) {
         //登録Elemリストに追加
         if (_pRegElemFirst == NULL) {
@@ -48,12 +54,7 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int 
 
     //空間座標インデックス
     prm_pElem->_pLinearOctree = this;
-    DWORD index = getSpatialIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
-    if (index > _num_space-1) { //Root空間を更新した際に起こりうるため、この判定は必要。
-        return;
-    } else {
-        prm_pElem->addElem(&(_paSpace[index]));
-    }
+    prm_pElem->addElem(&(_paSpace[index]));
 
 
 //    if (index > _num_space-1) {

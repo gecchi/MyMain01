@@ -603,12 +603,15 @@ GgafDx9God::~GgafDx9God() {
     //保持モデル解放
     DELETE_IMPOSSIBLE_NULL(_pModelManager);
     DELETE_IMPOSSIBLE_NULL(_pEffectManager);
-    //DirectInput解放
-    GgafDx9Input::release();
 
     //DirectSound解放
     //TODO:私のマシンでは極稀にブルースクリーンになる。原因不明。
     GgafDx9Sound::release();
+
+    //DirectInput解放
+    GgafDx9Input::release();
+
+
 
     RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
     RELEASE_IMPOSSIBLE_NULL(_pID3D9);
