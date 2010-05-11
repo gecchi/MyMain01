@@ -19,7 +19,7 @@ public:
      */
     class CollisionStack {
     public:
-        /** 一つの空間に 3000 もキャラが集まらないだろうという安易な見積もり */
+        /** 一つの空間に 3000 もキャラが集まらないだろうという安易で浅はかな見積もり */
         GgafCore::GgafActor* _apActor[3000];
         /** カーソルポインタ  */
         DWORD _p;
