@@ -122,11 +122,11 @@ public:
     int _top_level_dZ;
 
     /** 8の累乗の値を予め計算して保持している配列 */
-    DWORD* _paPow;
+    int* _paPow;
     /** 全空間数 */
-    DWORD _num_space;
+    int _num_space;
     /** 最大空間レベル */
-    DWORD _top_space_level; //ルート空間はLevel=0
+    int _top_space_level; //ルート空間はLevel=0
 
     /**
      * 線形八分木空間を構築する.
@@ -168,15 +168,16 @@ public:
      * 座標から空間配列要素番号（線形八分木配列の要素番号）を算出 .
      * まず、BOXの所属空間 Level と、その空間Levelのモートン順序通し空間番号を求め
      * 計算して配列Indexを返します
+     * ルート空間よりはみ出てしまう場合は-1を返す
      * @param tX1 対象オブジェクトのBOX座標
      * @param tY1
      * @param tZ1
      * @param tX2
      * @param tY2
      * @param tZ2
-     * @return 空間配列要素番号
+     * @return 空間配列要素番号 又は -1
      */
-    virtual DWORD getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
+    virtual int getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
 
     /**
      * 座標→線形8分木空間要素番号、の変換 .
@@ -185,13 +186,13 @@ public:
      * @param tZ
      * @return
      */
-    inline DWORD getIndex(int tX, int tY, int tZ) {
-        return getMortonOrderNumFromXYZindex(
-                    (tX - _root_X1) / _top_level_dX,
-                    (tY - _root_Y1) / _top_level_dY,
-                    (tZ - _root_Z1) / _top_level_dZ
-               );
-    }
+//    inline int getIndex(int tX, int tY, int tZ) {
+//        return getMortonOrderNumFromXYZindex(
+//                    (tX - _root_X1) / _top_level_dX,
+//                    (tY - _root_Y1) / _top_level_dY,
+//                    (tZ - _root_Z1) / _top_level_dZ
+//               );
+//    }
 
     /**
      * 同一Level空間の八分木モートン順序の通し空間番号取得.
