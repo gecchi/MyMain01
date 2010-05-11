@@ -69,6 +69,12 @@ void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan
 }
 
 void GgafDx9Universe::processPreJudgement() {
+    ULONG rc;
+    rc = GgafDx9God::_pID3DDevice9->AddRef();
+    rc = GgafDx9God::_pID3DDevice9->Release();
+    _TRACE_("U GgafDx9God::_pID3DDevice9 rc="<<rc);
+
+
     GgafUniverse::processPreJudgement();
     //SE‚ð–Â‚ç‚·
     SeArray* pSeArray = _pRing_pSeArray->next(); //ˆê‚Âi‚ß‚ÄSE”z—ñŽæ“¾

@@ -568,7 +568,7 @@ void GgafDx9God::presentUniversalVisualize() {
 }
 
 GgafDx9God::~GgafDx9God() {
-    _TRACE_("GgafDx9God::~GgafDx9God()");
+    _TRACE_("GgafDx9God::~GgafDx9God() begin");
     if (_pUniverse != NULL) {
         //工場を止める
         Sleep(1);
@@ -611,11 +611,18 @@ GgafDx9God::~GgafDx9God() {
     //DirectInput解放
     GgafDx9Input::release();
 
-
-
+    ULONG rc;
+    rc = _pID3DDevice9->AddRef();
+    rc = _pID3DDevice9->Release();
+    _TRACE_("_pID3DDevice9 rc="<<rc);
+    _TRACE_("_pID3DDevice9 Release");
     RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
+    rc = _pID3D9->AddRef();
+    rc = _pID3D9->Release();
+    _TRACE_("_pID3D9 rc="<<rc);
+    _TRACE_("_pID3D9 Release");
     RELEASE_IMPOSSIBLE_NULL(_pID3D9);
-
+    _TRACE_("GgafDx9God::~GgafDx9God() end");
     //    //デバイス解放処理(2010/03/19メモ)
     //    //デバイス解放時、ある時期からたまにVISTAのフルスクリーンモード時に落ちる現象が発生した。
     //    //等色々調べた結果VISTAの参照カウンタが「なんか知らんけど違う」と言う結論になった。
