@@ -1,0 +1,13 @@
+Windows Registry Editor Version 5.00
+
+; MinGWPathEntries.reg
+; Creates the registry entries for environment variables
+;   LIBRARY_PATH
+;   C_INCLUDE_PATH
+;   CPLUS_INCLUDE_PATH
+; for a standard MinGW installation into the folder C:\cygwin\MinGW
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Environment]
+"LIBRARY_PATH"="C:\\cygwin\\MinGW\\lib;C:\\cygwin\\MinGW\\lib\\gcc\\mingw32\\4.5.0;C:\\cygwin\\MinGW\\lib\\w32api"
+"C_INCLUDE_PATH"="C:\\cygwin\\MinGW\\include;C:\\cygwin\\MinGW\\lib\gcc\\mingw32\\4.5.0\\include"
+"CPLUS_INCLUDE_PATH"="C:\\cygwin\\MinGW\\include\\c++;C:\\cygwin\\MinGW\\lib\gcc\\mingw32\\4.5.0\\include\\c++;C:\\cygwin\\MinGW\\include\\w32api"
