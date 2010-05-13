@@ -181,15 +181,17 @@ void GgafDx9MorphMeshModel::release() {
         }
         DELETE_IMPOSSIBLE_NULL(_papModel3D[pattern]);
     }
+
+
     DELETEARR_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9_morph);
     DELETEARR_IMPOSSIBLE_NULL(_papaVtxBuffer_org_morph);
+    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
+    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexDeclaration9);
+
     DELETEARR_IMPOSSIBLE_NULL(_papModel3D);
     //_papMeshesFront[0],_papMeshesFront[1] ‚Í _papModel3D ‚ðDELETE‚µ‚Ä‚¢‚é‚Ì‚Å‚·‚é•K—v‚Í–³‚¢
     DELETEARR_IMPOSSIBLE_NULL(_papMeshesFront);
     _papMeshesFront = NULL;
-
-
-    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
     DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
 
