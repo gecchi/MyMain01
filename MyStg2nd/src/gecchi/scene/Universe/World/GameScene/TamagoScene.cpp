@@ -27,16 +27,16 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
     _pTurboMeter001->setGeometry(16 , GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 64);
     getLordActor()->addSubGroup(_pTurboMeter001);
 
-//    orderActorToFactory(100000001, EnemyVesta, "EnemyVesta1");
-//    orderActorToFactory(100000002, EnemyVesta, "EnemyVesta2");
-//    orderActorToFactory(100000003, EnemyVesta, "EnemyVesta3");
-//    orderActorToFactory(100000004, EnemyVesta, "EnemyVesta4");
-//    orderActorToFactory(100000005, EnemyVesta, "EnemyVesta5");
-//    orderActorToFactory(100000006, EnemyVesta, "EnemyVesta6");
-//    orderActorToFactory(100000009, EnemyCirce, "EnemyCirce");
+    orderActorToFactory(100000001, EnemyVesta, "EnemyVesta1");
+    orderActorToFactory(100000002, EnemyVesta, "EnemyVesta2");
+    orderActorToFactory(100000003, EnemyVesta, "EnemyVesta3");
+    orderActorToFactory(100000004, EnemyVesta, "EnemyVesta4");
+    orderActorToFactory(100000005, EnemyVesta, "EnemyVesta5");
+    orderActorToFactory(100000006, EnemyVesta, "EnemyVesta6");
+    orderActorToFactory(100000009, EnemyCirce, "EnemyCirce");
 
 //    orderActorToFactory(100000001, FormationJuno001, "FormationJuno001");
-    orderActorToFactory(100000001, Torus, "Torus001");
+    orderActorToFactory(900000001, Torus, "Torus001");
 }
 
 void TamagoScene::reset() {
@@ -49,7 +49,7 @@ void TamagoScene::initialize() {
 
 void TamagoScene::processBehavior() {
     if (getPartFrame() == 60) {
-        Torus* p = (Torus*)obtainActorFromFactory(100000001);
+        Torus* p = (Torus*)obtainActorFromFactory(900000001);
         getLordActor()->addSubGroup(p);
     }
 
@@ -57,27 +57,27 @@ void TamagoScene::processBehavior() {
 //        FormationJuno001* p = (FormationJuno001*)obtainActorFromFactory(100000001);
 //        getLordActor()->addSubGroup(p);
 //    }
-//    if (getPartFrame() == 60) {
-//
-//        EnemyVesta* p1 = (EnemyVesta*)obtainActorFromFactory(100000001);
-//        EnemyVesta* p2 = (EnemyVesta*)obtainActorFromFactory(100000002);
-//        EnemyVesta* p3 = (EnemyVesta*)obtainActorFromFactory(100000003);
-//        EnemyVesta* p4 = (EnemyVesta*)obtainActorFromFactory(100000004);
-//        EnemyVesta* p5 = (EnemyVesta*)obtainActorFromFactory(100000005);
-//        EnemyVesta* p6 = (EnemyVesta*)obtainActorFromFactory(100000006);
-//
-//        EnemyCirce* p9 = (EnemyCirce*)obtainActorFromFactory(100000009);
-//        p9->setGeometry(80000,50000,50000);
-//        p9->addSubBone(p1,       0,       0,  300000, ANGLE0,   ANGLE0, ANGLE270);
-//        p9->addSubBone(p2,  300000,       0,       0, ANGLE0,   ANGLE0, ANGLE0);
-//        p9->addSubBone(p3,       0,       0, -300000, ANGLE0,   ANGLE0, ANGLE90);
-//        p9->addSubBone(p4, -300000,       0,       0, ANGLE0,   ANGLE0, ANGLE180);
-//        p9->addSubBone(p5,       0,  300000,       0, ANGLE0,  ANGLE90, ANGLE0);
-//        p9->addSubBone(p6,       0, -300000,       0, ANGLE0, ANGLE270, ANGLE0);
-//
-//        getLordActor()->addSubGroup(p9);
-//
-//    }
+    if (getPartFrame() == 120) {
+
+        EnemyVesta* p1 = (EnemyVesta*)obtainActorFromFactory(100000001);
+        EnemyVesta* p2 = (EnemyVesta*)obtainActorFromFactory(100000002);
+        EnemyVesta* p3 = (EnemyVesta*)obtainActorFromFactory(100000003);
+        EnemyVesta* p4 = (EnemyVesta*)obtainActorFromFactory(100000004);
+        EnemyVesta* p5 = (EnemyVesta*)obtainActorFromFactory(100000005);
+        EnemyVesta* p6 = (EnemyVesta*)obtainActorFromFactory(100000006);
+
+        EnemyCirce* p9 = (EnemyCirce*)obtainActorFromFactory(100000009);
+        p9->setGeometry(80000,50000,50000);
+        p9->addSubBone(p1,       0,       0,  300000, ANGLE0,   ANGLE0, ANGLE270);
+        p9->addSubBone(p2,  300000,       0,       0, ANGLE0,   ANGLE0, ANGLE0);
+        p9->addSubBone(p3,       0,       0, -300000, ANGLE0,   ANGLE0, ANGLE90);
+        p9->addSubBone(p4, -300000,       0,       0, ANGLE0,   ANGLE0, ANGLE180);
+        p9->addSubBone(p5,       0,  300000,       0, ANGLE0,  ANGLE90, ANGLE0);
+        p9->addSubBone(p6,       0, -300000,       0, ANGLE0, ANGLE270, ANGLE0);
+
+        getLordActor()->addSubGroup(p9);
+
+    }
 //    for (int i = 1; i <= 1; i++) {
 //        if (getBehaveingFrame() == (i*8)) {
 //            HoshiBoshi001* p = (HoshiBoshi001*)(obtainActorFromFactory(100000000+i));
