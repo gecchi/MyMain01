@@ -89,6 +89,7 @@ void GgafProperties::parse(char* p) {
 }
 
 void GgafProperties::clean() {
+    _TRACE_("Properties::clean()");
     DELETE_IMPOSSIBLE_NULL(MAX_SKIP_FRAME);
     DELETE_IMPOSSIBLE_NULL(_pMapProperties);
 }

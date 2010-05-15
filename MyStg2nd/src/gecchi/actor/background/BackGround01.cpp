@@ -71,7 +71,7 @@ void BackGround01::initialize() {
         _papapChipBoard[i][3]->_y = _base_y[i] + _y + _chip_height;
         _papapChipBoard[i][3]->_z = _z;
    }
-//    //GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)
+//    //GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)
 //
 //    _x = 0;
 //    _y = -216;

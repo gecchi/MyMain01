@@ -8,8 +8,8 @@ namespace GgafDx9Core {
 class GgafDx9Properties: public GgafCore::GgafProperties {
 public:
     static bool* FULL_SCREEN;
-    static int* GAME_SCREEN_WIDTH;
-    static int* GAME_SCREEN_HEIGHT;
+    static int* GAME_SPACE_WIDTH;
+    static int* GAME_SPACE_HEIGHT;
     static float* GAME_SPACE_DEPTH;
     static int* VIEW_SCREEN_WIDTH;
     static int* VIEW_SCREEN_HEIGHT;

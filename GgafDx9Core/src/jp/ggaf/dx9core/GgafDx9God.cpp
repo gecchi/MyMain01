@@ -27,10 +27,12 @@ D3DFILLMODE GgafDx9God::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFI
 
 GgafDx9ModelManager* GgafDx9God::_pModelManager = NULL;
 GgafDx9EffectManager* GgafDx9God::_pEffectManager = NULL;
-//int const GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)  = 1024;
-//int const GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) = 600;
+//int const GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)  = 1024;
+//int const GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) = 600;
 D3DPRESENT_PARAMETERS GgafDx9God::_structD3dPresent_Parameters;
 bool GgafDx9God::_is_device_lost_flg = false;
+bool GgafDx9God::_FULLSCRREEN = false;
+D3DDISPLAYMODE GgafDx9God::_structD3DDisplayMode;
 
 GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
     GgafGod() {
@@ -42,11 +44,11 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
 }
 
 HRESULT GgafDx9God::init() {
-    bool FULLSCRREEN = GGAFDX9_PROPERTY(FULL_SCREEN);
+    _FULLSCRREEN = GGAFDX9_PROPERTY(FULL_SCREEN);
     _rectPresentDest.left = 0;
     _rectPresentDest.top = 0;
-    _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH);
-    _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT);
+    _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH);
+    _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT);
 
     HRESULT hr;
 
@@ -60,23 +62,23 @@ HRESULT GgafDx9God::init() {
     //    GgafDx9God::_pID3D9->AddRef();
 
     //デスプレイモードの取得
-    D3DDISPLAYMODE structD3DDisplayMode; //結果が格納される構造体
-    hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &structD3DDisplayMode);
+    _structD3DDisplayMode; //結果が格納される構造体
+    hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &_structD3DDisplayMode);
     checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました");
 
     //デバイス作成
     ZeroMemory(&_structD3dPresent_Parameters, sizeof(D3DPRESENT_PARAMETERS));
     //バックバッファの縦サイズ
-    //_structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT);
+    //_structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT);
     _structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT);
     //バックバッファの横サイズ
-    //_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH);
+    //_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH);
     _structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH);
     //バックバッファのフォーマット
-    if (FULLSCRREEN) {
+    if (_FULLSCRREEN) {
         _structD3dPresent_Parameters.BackBufferFormat = D3DFMT_X8R8G8B8;//D3DFMT_A8R8G8B8;//D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
     } else {
-        _structD3dPresent_Parameters.BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
+        _structD3dPresent_Parameters.BackBufferFormat = _structD3DDisplayMode.Format; //ウィンドウ時
     }
     //_structD3dPresent_Parameters.BackBufferFormat = D3DFMT_UNKNOWN;	//現在の画面モードを利用
     //バックバッファの数
@@ -87,7 +89,7 @@ HRESULT GgafDx9God::init() {
     //ウィンドウハンドル
     _structD3dPresent_Parameters.hDeviceWindow = NULL;
     //ウィンドウモード
-    if (FULLSCRREEN) {
+    if (_FULLSCRREEN) {
         _structD3dPresent_Parameters.Windowed = false; //フルスクリーン時
     } else {
         _structD3dPresent_Parameters.Windowed = true; //ウィンドウ時
@@ -100,13 +102,13 @@ HRESULT GgafDx9God::init() {
     //0にしておく
     _structD3dPresent_Parameters.Flags = 0;
     //フルスクリーンでのリフレッシュレート(ウィンドウモードなら0を指定)
-    if (FULLSCRREEN) {
+    if (_FULLSCRREEN) {
         _structD3dPresent_Parameters.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //フルスクリーン時
     } else {
         _structD3dPresent_Parameters.FullScreen_RefreshRateInHz = 0; //ウィンドウ時
     }
     //スワップのタイミング
-    if (FULLSCRREEN) {
+    if (_FULLSCRREEN) {
         _structD3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
     } else {
         _structD3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
@@ -121,7 +123,7 @@ HRESULT GgafDx9God::init() {
     //		D3DADAPTER_DEFAULT,
     //		D3DDEVTYPE_HAL,
     //		D3DFMT_A8R8G8B8,
-    //		FULLSCRREEN ? FALSE : TRUE,
+    //		_FULLSCRREEN ? FALSE : TRUE,
     //		D3DMULTISAMPLE_2_SAMPLES,
     //		&qualityLevels) ) )
     //	{
@@ -129,7 +131,7 @@ HRESULT GgafDx9God::init() {
     //			D3DADAPTER_DEFAULT,
     //			D3DDEVTYPE_HAL,
     //			D3DFMT_D24S8,
-    //			FULLSCRREEN ? FALSE : TRUE,
+    //			_FULLSCRREEN ? FALSE : TRUE,
     //			D3DMULTISAMPLE_2_SAMPLES,
     //			NULL) ) )
     //		{
@@ -143,7 +145,7 @@ HRESULT GgafDx9God::init() {
     _structD3dPresent_Parameters.MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
 
     //フルスクリーンに出来るか調べる
-    if (FULLSCRREEN) {
+    if (_FULLSCRREEN) {
         int cc = GgafDx9God::_pID3D9->GetAdapterModeCount(D3DADAPTER_DEFAULT,
                                                           _structD3dPresent_Parameters.BackBufferFormat);
         if (cc) {
@@ -269,7 +271,7 @@ HRESULT GgafDx9God::initDx9Device() {
      GgafDx9God::_d3dlight9_default.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
      GgafDx9God::_d3dlight9_default.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
      //下は平行光では関係ない
-     //GgafDx9God::_d3dlight9_default.Position = D3DXVECTOR3(-1*GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)/2, -1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/2, -1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/2);
+     //GgafDx9God::_d3dlight9_default.Position = D3DXVECTOR3(-1*GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)/2, -1*GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)/2, -1*GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)/2);
      //GgafDx9God::_d3dlight9_default.Range = 1000;
      */
 
@@ -520,8 +522,12 @@ void GgafDx9God::presentUniversalVisualize() {
         //                Sleep(1);
         //            }
         //        }
-        HRESULT hr = GgafDx9God::_pID3DDevice9->Present(NULL, &_rectPresentDest, NULL, NULL);
-
+        HRESULT hr;
+        if (_FULLSCRREEN) {
+            hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+        } else {
+            hr = GgafDx9God::_pID3DDevice9->Present(NULL, &_rectPresentDest, NULL, NULL);
+        }
         if (hr == D3DERR_DEVICELOST) {
             //出刃異巣露酢斗！
             _TRACE_("通常デバイスロスト！Present()");
@@ -611,6 +617,15 @@ GgafDx9God::~GgafDx9God() {
     //DirectInput解放
     GgafDx9Input::release();
 
+/*	if (_FULLSCRREEN) {
+		_FULLSCRREEN = false;
+		_structD3dPresent_Parameters.Windowed = true; //ウィンドウ時
+        _structD3dPresent_Parameters.FullScreen_RefreshRateInHz = 0; //ウィンドウ時
+		_structD3dPresent_Parameters.BackBufferFormat = _structD3DDisplayMode.Format; //ウィンドウ時
+		HRESULT hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
+        //checkDxException(hr, D3D_OK, "GgafDx9God::~GgafDx9God() 終了前のResetで例外");
+    }
+*/
     ULONG rc;
     rc = _pID3DDevice9->AddRef();
     rc = _pID3DDevice9->Release();
