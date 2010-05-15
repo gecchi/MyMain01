@@ -46,7 +46,6 @@ public:
     static GgafDx9ModelManager* _pModelManager;
     static GgafDx9EffectManager* _pEffectManager;
     static bool _FULLSCRREEN;
-	static D3DDISPLAYMODE _structD3DDisplayMode;
     /**
      * コンストラクタ<BR>
      */

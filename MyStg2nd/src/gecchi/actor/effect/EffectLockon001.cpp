@@ -22,9 +22,9 @@ void EffectLockOn001::initialize() {
 void EffectLockOn001::onActive() {
     _pUvFlipper->setPtnNoToTop();
     setAlpha(0.01);
-    _pScaler->forceScaleRange(30000, 1000); //スケーリング・範囲
-    _pScaler->setScale(30000);
-    _pScaler->intoTargetScaleLinerUntil(1000, 30);//スケーリング・60F費やして1000に縮小
+    _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
+    _pScaler->setScale(60000);
+    _pScaler->intoTargetScaleLinerUntil(2000, 30);//スケーリング・60F費やして1000に縮小
     _pMover->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
 
@@ -35,7 +35,7 @@ void EffectLockOn001::processBehavior() {
 
     if (_pScaler->_method[0] == NOSCALE) {
         //縮小完了後、Beat
-        _pScaler->forceScaleRange(1000, 2000);
+        _pScaler->forceScaleRange(2000, 4000);
         _pScaler->beat(30, 2, 2, -1); //無限ループ
     }
     _pUvFlipper->behave();

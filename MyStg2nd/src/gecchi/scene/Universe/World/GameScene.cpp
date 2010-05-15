@@ -136,7 +136,7 @@ void GameScene::processJudgement() {
               );
         CollisionChecker::_pLinearOctree->executeAllHitChk(
                 KIND_ENEMY_BODY|KIND_OTHER,
-                KIND_OTHER
+                KIND_OTHER|KIND_CHIKEI
               );
     }
 }

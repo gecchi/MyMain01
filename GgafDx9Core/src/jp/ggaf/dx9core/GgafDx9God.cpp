@@ -32,7 +32,6 @@ GgafDx9EffectManager* GgafDx9God::_pEffectManager = NULL;
 D3DPRESENT_PARAMETERS GgafDx9God::_structD3dPresent_Parameters;
 bool GgafDx9God::_is_device_lost_flg = false;
 bool GgafDx9God::_FULLSCRREEN = false;
-D3DDISPLAYMODE GgafDx9God::_structD3DDisplayMode;
 
 GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
     GgafGod() {
@@ -62,8 +61,8 @@ HRESULT GgafDx9God::init() {
     //    GgafDx9God::_pID3D9->AddRef();
 
     //デスプレイモードの取得
-    _structD3DDisplayMode; //結果が格納される構造体
-    hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &_structD3DDisplayMode);
+    D3DDISPLAYMODE structD3DDisplayMode; //結果が格納される構造体
+    hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &structD3DDisplayMode);
     checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました");
 
     //デバイス作成
@@ -78,7 +77,7 @@ HRESULT GgafDx9God::init() {
     if (_FULLSCRREEN) {
         _structD3dPresent_Parameters.BackBufferFormat = D3DFMT_X8R8G8B8;//D3DFMT_A8R8G8B8;//D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
     } else {
-        _structD3dPresent_Parameters.BackBufferFormat = _structD3DDisplayMode.Format; //ウィンドウ時
+        _structD3dPresent_Parameters.BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
     }
     //_structD3dPresent_Parameters.BackBufferFormat = D3DFMT_UNKNOWN;	//現在の画面モードを利用
     //バックバッファの数
@@ -621,11 +620,13 @@ GgafDx9God::~GgafDx9God() {
 		_FULLSCRREEN = false;
 		_structD3dPresent_Parameters.Windowed = true; //ウィンドウ時
         _structD3dPresent_Parameters.FullScreen_RefreshRateInHz = 0; //ウィンドウ時
-		_structD3dPresent_Parameters.BackBufferFormat = _structD3DDisplayMode.Format; //ウィンドウ時
+		_structD3dPresent_Parameters.BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
 		HRESULT hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
         //checkDxException(hr, D3D_OK, "GgafDx9God::~GgafDx9God() 終了前のResetで例外");
     }
 */
+    _TRACE_("さぁ_pID3DDevice9解放！");
+    Sleep(60);
     ULONG rc;
     rc = _pID3DDevice9->AddRef();
     rc = _pID3DDevice9->Release();

@@ -7,6 +7,7 @@ using namespace MyStg2nd;
 
 Torus::Torus(const char* prm_name) : GroundMeshActor(prm_name, "Torus") {
     _class_name = "Torus";
+    MyStgUtil::resetTorusStatus(_pStatus);
 }
 
 void Torus::onCreateModel() {
@@ -41,6 +42,10 @@ void Torus::initialize() {
     _pMover->setFaceAngVelo(AXIS_Y, 200);
 }
 
+void Torus::onActive() {
+    MyStgUtil::resetTorusStatus(_pStatus);
+}
+
 void Torus::processBehavior() {
     //座標に反映
     _pMover->behave();
@@ -50,7 +55,11 @@ void Torus::processJudgement() {
 }
 
 void Torus::onHit(GgafActor* prm_pOtherActor) {
-    _TRACE_("Torusヒットしました。("<<_X<<","<<_Y<<","<<_Z<<")");
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+    if (pExplo001 != NULL) {
+        pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
+        pExplo001->activate();
+    }
 }
 
 Torus::~Torus() {

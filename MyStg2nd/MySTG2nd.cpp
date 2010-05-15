@@ -393,8 +393,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 				PostQuitMessage(0);
 				break;
 			} else {
-				DefWindowProc(hWnd, message, wParam, lParam);
-				break;
+				return DefWindowProc(hWnd, message, wParam, lParam);
 			}
 
 

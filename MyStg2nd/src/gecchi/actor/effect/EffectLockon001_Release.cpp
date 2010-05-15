@@ -21,9 +21,9 @@ void EffectLockOn001_Release::initialize() {
 void EffectLockOn001_Release::onActive() {
     setAlpha(_pEffectLockOn001->getAlpha());
     _pUvFlipper->copyStatesFrom(_pEffectLockOn001->_pUvFlipper);
-    _pScaler->forceScaleRange(4000, 1000); //スケーリング・範囲
+    _pScaler->forceScaleRange(30000, 2000); //スケーリング・範囲
     _pScaler->setScale(_pEffectLockOn001->_pScaler->_scale[0]);
-    _pScaler->intoTargetScaleLinerUntil(4000, 50);//スケーリング
+    _pScaler->intoTargetScaleLinerUntil(30000, 50);//スケーリング
     _pMover->setFaceAng(AXIS_Z, _pEffectLockOn001->_pMover->_angFace[AXIS_Z]);
     _pMover->setFaceAngVelo(AXIS_Z, _pEffectLockOn001->_pMover->_angveloFace[AXIS_Z]*-3);        //回転
 }

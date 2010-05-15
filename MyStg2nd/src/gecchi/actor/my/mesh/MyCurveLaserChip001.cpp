@@ -120,46 +120,52 @@ void MyCurveLaserChip001::processBehavior() {
 
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
-    if (_pOrg->_pLockOnTarget) {
-        if (pOther == _pOrg->_pLockOnTarget) {
-            _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+    if (pOther->getKind() & KIND_ENEMY) {
+        //敵の場合
+        if (_pOrg->_pLockOnTarget) {
+            if (pOther == _pOrg->_pLockOnTarget) {
+                _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
 
-            //中間先頭チップがヒットした場合の処理。(_chip_kind=3の場合)
-            if (_pChip_front && _pChip_front->_pChip_front == NULL) {
-                //先端チップへ今後の方針を伝える。（先端チップは当たり判定がないため）
-                MyCurveLaserChip001* pTip = (MyCurveLaserChip001*)_pChip_front; //先端チップ
-                pTip->_lockon = 2; //先端に伝える
-                //今後の移動方角(加速度)を伝えるのだが、先端チップや自身や移動方向は、急激な角度に曲がっている可能性が極めて高く
-                //不自然な角度のカーブを描きかねないので、やや後方のチップが存在するならば、そちらの移動方向をコピーする。
-                LaserChip* pChipPrev = this;
-                for (int i = 0; i < 3; i++) { //最高3つ後方まで在れば採用
-                    if (pChipPrev->_pChip_behind) {
-                        pChipPrev = pChipPrev->_pChip_behind;
-                    } else {
-                        break;
+                //中間先頭チップがヒットした場合の処理。(_chip_kind=3の場合)
+                if (_pChip_front && _pChip_front->_pChip_front == NULL) {
+                    //先端チップへ今後の方針を伝える。（先端チップは当たり判定がないため）
+                    MyCurveLaserChip001* pTip = (MyCurveLaserChip001*)_pChip_front; //先端チップ
+                    pTip->_lockon = 2; //先端に伝える
+                    //今後の移動方角(加速度)を伝えるのだが、先端チップや自身や移動方向は、急激な角度に曲がっている可能性が極めて高く
+                    //不自然な角度のカーブを描きかねないので、やや後方のチップが存在するならば、そちらの移動方向をコピーする。
+                    LaserChip* pChipPrev = this;
+                    for (int i = 0; i < 3; i++) { //最高3つ後方まで在れば採用
+                        if (pChipPrev->_pChip_behind) {
+                            pChipPrev = pChipPrev->_pChip_behind;
+                        } else {
+                            break;
+                        }
                     }
+                    pTip->_pMover->setVxMvVelo(pChipPrev->_pMover->_veloVxMv*2);
+                    pTip->_pMover->setVyMvVelo(pChipPrev->_pMover->_veloVyMv*2);
+                    pTip->_pMover->setVzMvVelo(pChipPrev->_pMover->_veloVzMv*2);
+                    //ターゲットに向かっている最中であるため、殆どの場合減速中である。
+                    //そのま加速度を設定すると、いずれ逆方向に向かうことになってしまう。。
+                    //本来向かうべき方向に近似するため、正負逆を設定する。
+                    pTip->_pMover->setVxMvAcce(-(pChipPrev->_pMover->_acceVxMv));
+                    pTip->_pMover->setVyMvAcce(-(pChipPrev->_pMover->_acceVyMv));
+                    pTip->_pMover->setVzMvAcce(-(pChipPrev->_pMover->_acceVzMv));
                 }
-                pTip->_pMover->setVxMvVelo(pChipPrev->_pMover->_veloVxMv*2);
-                pTip->_pMover->setVyMvVelo(pChipPrev->_pMover->_veloVyMv*2);
-                pTip->_pMover->setVzMvVelo(pChipPrev->_pMover->_veloVzMv*2);
-                //ターゲットに向かっている最中であるため、殆どの場合減速中である。
-                //そのま加速度を設定すると、いずれ逆方向に向かうことになってしまう。。
-                //本来向かうべき方向に近似するため、正負逆を設定する。
-                pTip->_pMover->setVxMvAcce(-(pChipPrev->_pMover->_acceVxMv));
-                pTip->_pMover->setVyMvAcce(-(pChipPrev->_pMover->_acceVyMv));
-                pTip->_pMover->setVzMvAcce(-(pChipPrev->_pMover->_acceVzMv));
             }
+        } else {
+            _pOrg->_pLockOnTarget = pOther;
         }
-    } else {
-        _pOrg->_pLockOnTarget = pOther;
-    }
-    //ここにMyのヒットエフェクト
-    if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //ここにMyの消滅エフェクト
-        inactivate();
-    } else {
+        //ここにMyのヒットエフェクト
+        if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+            //ここにMyの消滅エフェクト
+            inactivate();
+        } else {
 
+        }
+    } else if (pOther->getKind() & KIND_CHIKEI) {
+        inactivate();
     }
+
 
 }
 void MyCurveLaserChip001::processFinal() {

@@ -17,6 +17,8 @@ public:
 
     void initialize() override;
 
+    void onActive() override;
+
     void processBehavior() override;
 
     void processJudgement() override;
