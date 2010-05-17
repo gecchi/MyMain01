@@ -37,7 +37,7 @@ void Torus::initialize() {
     setAlpha(1.00);
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight+r1+r2;
     _pMover->setRzRyMvAng(ANGLE180, 0);
-	_pMover->setMvVelo(1000);
+    _pMover->setMvVelo(1000);
     _pMover->setFaceAngVelo(AXIS_Z, 100);
     _pMover->setFaceAngVelo(AXIS_Y, 200);
 }
