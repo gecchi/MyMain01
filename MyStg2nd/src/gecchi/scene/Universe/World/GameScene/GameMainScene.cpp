@@ -163,7 +163,7 @@ void GameMainScene::processBehavior() {
         //TODO:~‚ß‚Ä‚àframe‚Íi‚ŞQH
         if (VB->isPushedDown(VB_PAUSE)) {
             _TRACE_("PAUSE!");
-            VB = VB_UI;  //“ü—Í‚Í‚t‚h‚ÉØ‚è‘Ö‚¦
+            pGOD->setVB(VB_UI);  //“ü—Í‚Í‚t‚h‚ÉØ‚è‘Ö‚¦
             pause();     //©g”z‰º‚ğˆê’â~‚·‚é
                          //ˆê’â~‰ğœ‚ÍGameScene‚Ås‚í‚ê‚é
         }

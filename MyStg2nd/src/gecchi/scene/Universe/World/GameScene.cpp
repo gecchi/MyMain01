@@ -59,7 +59,7 @@ void GameScene::processBehavior() {
     if (_pScene_GameMain->wasPause()) {
         if (VB->isPushedDown(VB_PAUSE)) {
             _TRACE_("UNPAUSE!");
-            VB = VB_PLAY;
+            pGOD->setVB(VB_PLAY);
             _pScene_GameMain->unpause();     //ˆê’â~
         }
     }
