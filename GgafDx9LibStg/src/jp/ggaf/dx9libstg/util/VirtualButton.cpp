@@ -243,8 +243,7 @@ void VirtualButton::init() {
 
 
 VirtualButton::VBMap* VirtualButton::getPastVBMap(DWORD prm_dwFrameAgo) {
-    static VBMap* pVBMTemp;
-    pVBMTemp = _pVBMap_Active;
+    VBMap* pVBMTemp = _pVBMap_Active;
     for (DWORD i = 0; i < prm_dwFrameAgo; i++) {
         pVBMTemp = pVBMTemp->_prev;
     }
@@ -256,8 +255,7 @@ vbsta VirtualButton::isBeingPressed(vbsta prm_VB) {
 }
 
 vbsta VirtualButton::wasBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo) {
-    static VBMap* pVBMTemp;
-    pVBMTemp = getPastVBMap(prm_dwFrameAgo);
+    VBMap* pVBMTemp = getPastVBMap(prm_dwFrameAgo);
     return pVBMTemp->_state & prm_VB;
 }
 
