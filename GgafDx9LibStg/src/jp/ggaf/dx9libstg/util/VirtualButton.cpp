@@ -58,11 +58,6 @@ VirtualButton::VirtualButton() {
     pVBMapOldest->_prev = _pVBMap_Active;
     _pVBMap_Active->_next = pVBMapOldest;
 
-    _pVBMap_Reset =  getPastVBMap((VB_MAP_BUFFER - 1) / 2);
-    //リセットするタイミングのポインタを設定
-    for (int i = 1; i < (VB_MAP_BUFFER - 1)/2; i++) {
-
-    }
     if (!_is_init) {
         init();
     }
@@ -592,10 +587,7 @@ void VirtualButton::update() {
 
     _pVBMap_Active = _pVBMap_Active->_next;
 
-    //連結リングの反対側でリセット
-    _pVBMap_Reset = _pVBMap_Reset->_next;
-    _pVBMap_Reset->_state = 0;
-
+    _pVBMap_Active->_state = 0; //リセット
     _pVBMap_Active->_state |= (VB_BUTTON1 * (GgafDx9Input::isBeingPressedKey(_tagKeymap.BUTTON1) ||
                                       GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON1)));
 
@@ -683,6 +675,15 @@ void VirtualButton::update() {
         _pVBMap_Active->_state |= VB_LEFT_STC;
     } else {
         _pVBMap_Active->_state |= VB_NEUTRAL_STC;
+    }
+}
+
+
+void VirtualButton::clear() {
+    VBMap* pVBMap = _pVBMap_Active;
+    for (int i = 0; i < VB_MAP_BUFFER; i++) {
+        pVBMap->_state = 0;
+        pVBMap = pVBMap->_next;
     }
 }
 

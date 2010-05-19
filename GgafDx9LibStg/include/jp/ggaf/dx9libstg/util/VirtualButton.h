@@ -40,7 +40,7 @@ namespace GgafDx9LibStg {
 #define VB_STC_CLIP_MASK  (0x803FFFFF) //&B 10000000 00111111 11111111 11111111
 #define VB_STC_MASK       (0x7FC00000) //&B 01111111 11000000 00000000 00000000
 
-#define VB_MAP_BUFFER 200
+#define VB_MAP_BUFFER 120
 #define VB_NUM 29
 
 
@@ -115,8 +115,6 @@ public:
     VirtualButton();
 
     VBMap* _pVBMap_Active; //現在フレームの入力状態
-
-    VBMap* _pVBMap_Reset; //入力状態をリセットする位置
 
     VBMap* getPastVBMap(DWORD prm_dwFrameAgo);
 
