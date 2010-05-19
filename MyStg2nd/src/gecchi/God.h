@@ -26,7 +26,7 @@ public:
      * @param prm_pVB
      */
     void setVB(GgafDx9LibStg::VirtualButton* prm_pVB) {
-        _pVbtn_Active = _pVbtn_Active_next_frame;
+        _pVbtn_Active_next_frame = prm_pVB;
     }
 
     /**

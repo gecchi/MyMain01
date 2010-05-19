@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 }
 
 static MyStg2nd::God* pGod = NULL;
-static bool can_be_god = true;
+static bool can_be_god = false;
 
 /**
  * VCならばエントリポイント
@@ -83,8 +83,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     //	HACCEL hAccelTable;
 
     // グローバル文字列を初期化しています。
-    //	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    //	LoadString(hInstance, IDC_MYSTG2ND, szWindowClass, MAX_LOADSTRING);
+    LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+    _TRACE_("szTitle = "<<szTitle);
+    LoadString(hInstance, IDC_MYSTG2ND, szWindowClass, MAX_LOADSTRING);
+    _TRACE_("szWindowClass = "<<szWindowClass);
     //LoadStringができん！
     strcpy(szTitle,"MyStg2nd"); //無理やり
     strcpy(szWindowClass,"MYSTG2ND"); //ですよ！
@@ -180,6 +182,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     try {
         //神の誕生！
         pGod = NEW MyStg2nd::God(hInstance, hWnd);
+        can_be_god = true;
         if (SUCCEEDED(pGod->init())) {
             adjustGameScreen(hWnd);
 
@@ -368,9 +371,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
          break;
          */
         case WM_SIZE:
-			if (!GGAFDX9_PROPERTY(FULL_SCREEN)) {
-				adjustGameScreen(hWnd);
-			}
+            if (pGod) {
+                if (!GGAFDX9_PROPERTY(FULL_SCREEN)) {
+                    adjustGameScreen(hWnd);
+                }
+            }
             break;
             //    case WM_KEYDOWN:
             //        //エスケープキーを押したら終了させる
@@ -379,22 +384,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             //            return 0;
             //
         case WM_PAINT:
-            hdc = BeginPaint(hWnd, &ps);
-            EndPaint(hWnd, &ps);
+            if (pGod) {
+                hdc = BeginPaint(hWnd, &ps);
+                EndPaint(hWnd, &ps);
+            }
             break;
-		case WM_SYSCOMMAND:
-			if(wParam == SC_CLOSE){
-				if (pGod) {
-					can_be_god = false;
-					delete pGod; //神さようなら
-					pGod = NULL;
-					MyStg2nd::Properties::clean();
-				}
-				PostQuitMessage(0);
-				break;
-			} else {
-				return DefWindowProc(hWnd, message, wParam, lParam);
-			}
+        case WM_SYSCOMMAND:
+            if(wParam == SC_CLOSE){
+                if (pGod) {
+                    can_be_god = false;
+                    delete pGod; //神さようなら
+                    pGod = NULL;
+                    MyStg2nd::Properties::clean();
+                }
+                PostQuitMessage(0);
+                break;
+            } else {
+                return DefWindowProc(hWnd, message, wParam, lParam);
+            }
 
 
         case WM_DESTROY:
@@ -402,12 +409,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             //                        SetPriorityClass( GetCurrentProcess(), HIGH_PRIORITY_CLASS );
             //                        //優先度上げる理由。
             //                        //非アクティブになると解放が著しく遅くなってしまうのを回避しようとした。
-			if (pGod) {
-				can_be_god = false;
-				delete pGod; //神さようなら
-				pGod = NULL;
-				MyStg2nd::Properties::clean();
-			}
+            if (pGod) {
+                can_be_god = false;
+                delete pGod; //神さようなら
+                pGod = NULL;
+                MyStg2nd::Properties::clean();
+            }
             PostQuitMessage(0);
             break;
         default:

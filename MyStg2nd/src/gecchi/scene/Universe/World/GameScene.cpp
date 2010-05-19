@@ -59,7 +59,9 @@ void GameScene::processBehavior() {
     if (_pScene_GameMain->wasPause()) {
         if (VB->isPushedDown(VB_PAUSE)) {
             _TRACE_("UNPAUSE!");
+            VB_PLAY->_pVBMap_Active->_state |= VB_PAUSE; //VB_PAUSE押している事にする
             pGOD->setVB(VB_PLAY);
+
             _pScene_GameMain->unpause();     //一時停止
         }
     }
@@ -68,45 +70,64 @@ void GameScene::processBehavior() {
     //サブシーンの切替えや平行実行のための、初期化、事前処理、フラグ処理等
     if (_pSceneCannel == _pScene_GameDemo) {
         if (_pScene_GameDemo->getProgressOnChange() == GAMEDEMO_PROG_BEGIN) {
+            VB_UI->clear();
+            pGOD->setVB(VB_UI);
             _pScene_GameBeginning->reset();
             _pScene_GameBeginning->ready();
         }
         if (_pScene_GameDemo->getProgressOnChange() == GAMEDEMO_PROG_DECIDE) {
+            VB_UI->clear();
+            pGOD->setVB(VB_UI);
             _pScene_GameBeginning->activate();
             _pSceneCannel = _pScene_GameBeginning;
         }
 
     } else if (_pSceneCannel == _pScene_GameBeginning) {
         if (_pScene_GameBeginning->getProgressOnChange() == GAMEBEGINNING_PROG_BEGIN) {
+            VB_UI->clear();
+            pGOD->setVB(VB_UI);
             _pScene_GameMain->reset();
         }
 
         if (_pScene_GameBeginning->getProgressOnChange() == GAMEBEGINNING_PROG_DECIDE) {
+            VB_UI->clear();
+            pGOD->setVB(VB_UI);
             _stage = _pScene_GameBeginning->_selected_stage;
-            _pScene_GameMain->ready(_stage);
+            _pScene_GameMain->ready(_stage); //先行準備
         }
 
         if (_pScene_GameBeginning->getProgressOnChange() == GAMEBEGINNING_PROG_END) {
+            VB_UI->clear();
+            pGOD->setVB(VB_UI);
             _pScene_GameMain->activate();
             _pSceneCannel = _pScene_GameMain;
         }
 
     } else if (_pSceneCannel == _pScene_GameMain) {
         if (_pScene_GameMain->getProgressOnChange() == GAMEMAIN_PROG_BEGIN) {
+            VB_UI->clear();
+            VB_PLAY->clear();
+            pGOD->setVB(VB_PLAY); //保存のためプレイ用に変更
             _pScene_GameEnding->reset();
             _pScene_GameEnding->ready();
         }
         if (_pScene_GameMain->getProgressOnChange() == GAMEMAIN_PROG_END) {
+            VB_UI->clear();
+            pGOD->setVB(VB_UI);  //戻す
             _pScene_GameEnding->activate();
             _pSceneCannel = _pScene_GameEnding;
         }
 
     } else if (_pSceneCannel == _pScene_GameEnding) {
         if (_pScene_GameMain->getProgressOnChange() == GAMEENDING_PROG_BEGIN) {
+            VB_UI->clear();
+            pGOD->setVB(VB_UI);
             _pScene_GameEnding->reset();
             _pScene_GameEnding->ready();
         }
         if (_pScene_GameMain->getProgressOnChange() == GAMEENDING_PROG_END) {
+            VB_UI->clear();
+            pGOD->setVB(VB_UI);
             _pScene_GameEnding->activate();
             _pSceneCannel = _pScene_GameEnding;
         }

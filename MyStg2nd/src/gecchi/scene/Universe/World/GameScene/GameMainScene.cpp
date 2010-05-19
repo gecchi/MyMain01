@@ -163,6 +163,9 @@ void GameMainScene::processBehavior() {
         //TODO:止めてもframeは進む＿？
         if (VB->isPushedDown(VB_PAUSE)) {
             _TRACE_("PAUSE!");
+            VB_UI->_pVBMap_Active->_state |= VB_PAUSE; //VB_UIでVB_PAUSE押している事にする
+                                       //そうしておかないと、VB_UIに切り替わった瞬間、
+                                       //VB_UI側でVB_PAUSEが押されたことになってしまうため
             pGOD->setVB(VB_UI);  //入力はＵＩに切り替え
             pause();     //自身配下を一時停止する
                          //一時停止解除はGameSceneで行われる
