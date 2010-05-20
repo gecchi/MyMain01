@@ -548,7 +548,7 @@ angle GgafDx9GeometryMover::getFaceAngDistance(int prm_axis, angle prm_angTarget
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-                throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(1)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angFace[prm_axis] && _angFace[prm_axis] <= ANGLE360) {
             if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis] - ANGLE180) {
@@ -568,7 +568,7 @@ angle GgafDx9GeometryMover::getFaceAngDistance(int prm_axis, angle prm_angTarget
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-                throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(2)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
@@ -589,7 +589,7 @@ angle GgafDx9GeometryMover::getFaceAngDistance(int prm_axis, angle prm_angTarget
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-                throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(1)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angFace[prm_axis] && _angFace[prm_axis] <= ANGLE360) {
             if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis] - ANGLE180) {
@@ -608,13 +608,13 @@ angle GgafDx9GeometryMover::getFaceAngDistance(int prm_axis, angle prm_angTarget
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-                throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(2)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
         if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < _angTargetRot) {
             return (_angTargetRot - _angFace[prm_axis]);
-        } else if (_angTargetRot < _angFace[prm_axis] && _angFace[prm_axis] < ANGLE360) {
+        } else if (_angTargetRot < _angFace[prm_axis] && _angFace[prm_axis] <= ANGLE360) {
             return ANGLE360 - _angFace[prm_axis] + _angTargetRot;
         } else if (_angFace[prm_axis] == _angTargetRot) {
             //重なってる場合
@@ -622,12 +622,12 @@ angle GgafDx9GeometryMover::getFaceAngDistance(int prm_axis, angle prm_angTarget
         } else {
             //おかしい
             _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-            throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(3)。");
+            throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(3)。_pActor="<<_pActor->getName());
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
         if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < _angTargetRot) {
             return -1 * (_angFace[prm_axis] + ANGLE360 - _angTargetRot);
-        } else if (_angTargetRot < _angFace[prm_axis] && _angFace[prm_axis] < ANGLE360) {
+        } else if (_angTargetRot < _angFace[prm_axis] && _angFace[prm_axis] <= ANGLE360) {
             return -1 * (_angFace[prm_axis] - _angTargetRot);
         } else if (_angFace[prm_axis] == _angTargetRot) {
             //重なってる場合
@@ -635,11 +635,11 @@ angle GgafDx9GeometryMover::getFaceAngDistance(int prm_axis, angle prm_angTarget
         } else {
             //おかしい
             _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-            throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(4)。");
+            throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(4)。_pActor="<<_pActor->getName());
         }
     }
     _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-    throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 何故かしら角の距離が求めれません。(2)");
+    throwGgafCriticalException("GgafDx9GeometryMover::getFaceAngDistance() 何故かしら角の距離が求めれません(2)。_pActor="<<_pActor->getName());
 }
 
 
@@ -763,7 +763,7 @@ angle GgafDx9GeometryMover::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_
             } else {
                 //おかしい
                 _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-                throwGgafCriticalException("GgafDx9GeometryMover::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angRzMv && _angRzMv <= ANGLE360) {
             if (0 <= angTargetRzMv && angTargetRzMv < _angRzMv - ANGLE180) {
@@ -782,7 +782,7 @@ angle GgafDx9GeometryMover::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_
             } else {
                 //おかしい
                 _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-                throwGgafCriticalException("GgafDx9GeometryMover::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
@@ -803,7 +803,7 @@ angle GgafDx9GeometryMover::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_
             } else {
                 //おかしい
                 _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-                throwGgafCriticalException("GgafDx9GeometryMover::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angRzMv && _angRzMv <= ANGLE360) {
             if (0 <= angTargetRzMv && angTargetRzMv < _angRzMv - ANGLE180) {
@@ -822,13 +822,13 @@ angle GgafDx9GeometryMover::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_
             } else {
                 //おかしい
                 _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-                throwGgafCriticalException("GgafDx9GeometryMover::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
         if (0 <= _angRzMv && _angRzMv < angTargetRzMv) {
             return (angTargetRzMv - _angRzMv);
-        } else if (angTargetRzMv < _angRzMv && _angRzMv < ANGLE360) {
+        } else if (angTargetRzMv < _angRzMv && _angRzMv <= ANGLE360) {
             return ANGLE360 - _angRzMv + angTargetRzMv;
         } else if (_angRzMv == angTargetRzMv) {
             //重なってる場合
@@ -836,12 +836,12 @@ angle GgafDx9GeometryMover::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_
         } else {
             //おかしい
             _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-            throwGgafCriticalException("GgafDx9GeometryMover::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(3)。");
+            throwGgafCriticalException("GgafDx9GeometryMover::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(3)。_pActor="<<_pActor->getName());
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
         if (0 <= _angRzMv && _angRzMv < angTargetRzMv) {
             return -1 * (_angRzMv + ANGLE360 - angTargetRzMv);
-        } else if (angTargetRzMv < _angRzMv && _angRzMv < ANGLE360) {
+        } else if (angTargetRzMv < _angRzMv && _angRzMv <= ANGLE360) {
             return -1 * (_angRzMv - angTargetRzMv);
         } else if (_angRzMv == angTargetRzMv) {
             //重なってる場合
@@ -849,12 +849,12 @@ angle GgafDx9GeometryMover::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_
         } else {
             //おかしい
             _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-            throwGgafCriticalException("GgafDx9GeometryMover::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(4)。");
+            throwGgafCriticalException("GgafDx9GeometryMover::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(4)。_pActor="<<_pActor->getName());
         }
     }
 
     _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-    throwGgafCriticalException("GgafDx9GeometryMover::getRzMvAngDistance() 何故かしら角の距離が求めれません。(1)");
+    throwGgafCriticalException("GgafDx9GeometryMover::getRzMvAngDistance() 何故かしら角の距離が求めれません(1)。_pActor="<<_pActor->getName());
 
 }
 
@@ -951,7 +951,7 @@ angle GgafDx9GeometryMover::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_
             } else {
                 //おかしい
                 _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-                throwGgafCriticalException("GgafDx9GeometryMover::behave() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::behave() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angRyMv && _angRyMv <= ANGLE360) {
             if (0 <= angTargetRyMv && angTargetRyMv < _angRyMv - ANGLE180) {
@@ -970,7 +970,7 @@ angle GgafDx9GeometryMover::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_
             } else {
                 //おかしい
                 _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-                throwGgafCriticalException("GgafDx9GeometryMover::getRyMvAngDistance() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::getRyMvAngDistance() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
@@ -991,7 +991,7 @@ angle GgafDx9GeometryMover::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_
             } else {
                 //おかしい
                 _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-                throwGgafCriticalException("GgafDx9GeometryMover::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angRyMv && _angRyMv <= ANGLE360) {
             if (0 <= angTargetRyMv && angTargetRyMv < _angRyMv - ANGLE180) {
@@ -1010,13 +1010,13 @@ angle GgafDx9GeometryMover::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_
             } else {
                 //おかしい
                 _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-                throwGgafCriticalException("GgafDx9GeometryMover::getRyMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::getRyMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
         if (0 <= _angRyMv && _angRyMv < angTargetRyMv) {
             return (angTargetRyMv - _angRyMv);
-        } else if (angTargetRyMv < _angRyMv && _angRyMv < ANGLE360) {
+        } else if (angTargetRyMv < _angRyMv && _angRyMv <= ANGLE360) {
             return ANGLE360 - _angRyMv + angTargetRyMv;
         } else if (_angRyMv == angTargetRyMv) {
             //重なってる場合
@@ -1024,12 +1024,12 @@ angle GgafDx9GeometryMover::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_
         } else {
             //おかしい
             _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-            throwGgafCriticalException("GgafDx9GeometryMover::getRyMvAngDistance() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(3)。");
+            throwGgafCriticalException("GgafDx9GeometryMover::getRyMvAngDistance() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(3)。_pActor="<<_pActor->getName());
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
         if (0 <= _angRyMv && _angRyMv < angTargetRyMv) {
             return -1 * (_angRyMv + ANGLE360 - angTargetRyMv);
-        } else if (angTargetRyMv < _angRyMv && _angRyMv < ANGLE360) {
+        } else if (angTargetRyMv < _angRyMv && _angRyMv <= ANGLE360) {
             return -1 * (_angRyMv - angTargetRyMv);
         } else if (_angRyMv == angTargetRyMv) {
             //重なってる場合
@@ -1037,12 +1037,12 @@ angle GgafDx9GeometryMover::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_
         } else {
             //おかしい
             _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-            throwGgafCriticalException("GgafDx9GeometryMover::getRyMvAngDistance() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(4)。");
+            throwGgafCriticalException("GgafDx9GeometryMover::getRyMvAngDistance() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(4)。_pActor="<<_pActor->getName());
         }
     }
 
     _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-    throwGgafCriticalException("GgafDx9GeometryMover::getRyMvAngDistance() 何故かしら角の距離が求めれません。(1)");
+    throwGgafCriticalException("GgafDx9GeometryMover::getRyMvAngDistance() 何故かしら角の距離が求めれません(1)。_pActor="<<_pActor->getName());
 
 }
 
@@ -1120,7 +1120,7 @@ void GgafDx9GeometryMover::getRzRyMvAngDistance(int prm_way,
         out_target_angRy = target_angRy;
     } else {
         //おかしい
-        throwGgafCriticalException("GgafDx9GeometryMover::getRzRyMvAngDistance() prm_way="<<prm_way<<" は想定外です。");
+        throwGgafCriticalException("GgafDx9GeometryMover::getRzRyMvAngDistance() prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
     }
 }
 
@@ -1204,7 +1204,7 @@ void GgafDx9GeometryMover::getRzRyMvAngDistance(int prm_way,
 //        out_target_angRy = target_angRy;
 //    } else {
 //        //おかしい
-//        throwGgafCriticalException("GgafDx9GeometryMover::getRzRyMvAngDistance() prm_way="<<prm_way<<" は想定外です。");
+//        throwGgafCriticalException("GgafDx9GeometryMover::getRzRyMvAngDistance() prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
 //    }
 //}
 
@@ -1267,7 +1267,7 @@ void GgafDx9GeometryMover::getRzRyFaceAngDistance(int prm_way,
         out_target_angRy = target_angRy;
     } else {
         //おかしい
-        throwGgafCriticalException("GgafDx9GeometryMover::getRzRyMvAngDistance() prm_way="<<prm_way<<" は想定外です。");
+        throwGgafCriticalException("GgafDx9GeometryMover::getRzRyMvAngDistance() prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
     }
 }
 
@@ -1330,7 +1330,7 @@ void GgafDx9GeometryMover::getRzRyFaceAngDistance(int prm_way,
 //        out_target_angRy = target_angRy;
 //    } else {
 //        //おかしい
-//        throwGgafCriticalException("GgafDx9GeometryMover::getRzRyMvAngDistance() prm_way="<<prm_way<<" は想定外です。");
+//        throwGgafCriticalException("GgafDx9GeometryMover::getRzRyMvAngDistance() prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
 //    }
 //}
 
