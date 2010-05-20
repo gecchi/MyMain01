@@ -127,10 +127,10 @@ public:
      * 平方根の近似を求める .
      * 標準sqrtよりも計算が速いが、アバウト。
      * @param a 平方根を求めたい値
-     * @param s 精度（計算ループ回数。回数が多いほど正確。省略時11）
+     * @param s 精度（計算ループ回数。回数が多いほど正確。省略時19）
      * @return 引数aの平方根近似値
      */
-    static double sqrt_fast(double a, int s = 21) {
+    static double sqrt_fast(double a, int s = 19) {
         double ret = 1;
         for (int i = 1; i <= s; i++) {
             ret = 0.5 * (ret + a / ret);
