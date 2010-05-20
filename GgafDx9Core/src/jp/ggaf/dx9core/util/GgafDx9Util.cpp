@@ -98,16 +98,16 @@ void GgafDx9Util::init() {
         //PARABORA[0] = 0 , PARABORA[S_ANG180] = 1,  PARABORA[S_ANG360-1] = 0 Ç≈ y = -x^2  ï˙ï®ê¸ÇÃílÇÇ∆ÇÈ
     }
 
-    COS[0] = 1;
-    COS[S_ANG90] = 0;
+    COS[S_ANG0]   =  1;
+    COS[S_ANG90]  =  0;
     COS[S_ANG180] = -1;
-    COS[S_ANG270] = 0;
-
-    SIN[0] = 0;
-    SIN[S_ANG90] = 1;
-    SIN[S_ANG180] = 0;
+    COS[S_ANG270] =  0;
+    COS[S_ANG360] =  1;
+    SIN[S_ANG0]   =  0;
+    SIN[S_ANG90]  =  1;
+    SIN[S_ANG180] =  0;
     SIN[S_ANG270] = -1;
-
+    SIN[S_ANG360] =  0;
     //<SLANT2ANG>
     double rad;
     double vx,vy,vz;
