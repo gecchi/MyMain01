@@ -64,25 +64,89 @@ void HomingLaserChip::onActive() {
 }
 
 void HomingLaserChip::onInactive() {
+
+
+
     //レーザーチップ消失時処理
 
     //一つ後方のチップがあれば、自分の意思（移動など）を引き継がせる
     //これは、レーザーがちぎれた場合、以下のパラメーターのみ引き継がせ、移動を継続させるため。
-    //加速度なや、移動予約など引き継がれないものが多数あるので、複雑な移動をする際は、ココに注意を払うこと！
+    //加速度や、移動予約など引き継がれないものが多数あるので、複雑な移動をする際は、ココに注意を払うこと！
     //レーザーがゲーム領域外にたっしたときも、先頭チップから順に連続で引継ぎが発生することになる。
     //ちょっと無駄っぽいけど、さもなば先頭の次のチップが領域外に向かって移動するとは限らないので、やはり必要。
-    if (_pChip_behind) {
-        _pChip_behind->_pMover->_vX = _pMover->_vX;
-        _pChip_behind->_pMover->_vY = _pMover->_vY;
-        _pChip_behind->_pMover->_vZ = _pMover->_vZ;
-        _pChip_behind->_pMover->_angRzMv = _pMover->_angRzMv;
-        _pChip_behind->_pMover->_angRyMv = _pMover->_angRyMv;
-        _pChip_behind->_pMover->_veloMv = _pMover->_veloMv;
-        _pChip_behind->_pMover->_angFace[AXIS_X] = _pMover->_angFace[AXIS_X];
-        _pChip_behind->_pMover->_angFace[AXIS_Y] = _pMover->_angFace[AXIS_Y];
-        _pChip_behind->_pMover->_angFace[AXIS_Z] = _pMover->_angFace[AXIS_Z];
-    }
 
+    //      -==========<>            レーザーは
+    //
+    //      -= === === === <>        こんなふうに分断されています。
+    //
+    //    | -=|===|===|===|<> |      左図はレーザーをオブジェクトで区切ったつもりの図
+    //
+    //    <--><--><--><--><-->^
+    //    ^   ^   ^   ^   ^   |
+    //    |   |   |   |   |   |
+    //    |   |   |   |   |    `----- 4:先端チップ(非表示で、中間先頭チップを表示するためだけに存在)
+    //    |   |   |   |    `----- 3:中間先頭チップ(表示される実質の先頭)
+    //    |   |   |    `----- 2:中間チップ
+    //    |   |    `----- 2:中間チップ
+    //    |    `----- 2:中間チップ
+    //     `----- 1:末尾チップ
+    //
+
+    _TRACE_("A HomingLaserChip::onInactive() _chip_kind ="<<_chip_kind <<")");
+    if (_chip_kind == 1) {
+
+    } else if (_chip_kind == 2) {
+        //中間チップ消失時の場合
+        //自身のチップが消失することにより、レーザーの数珠つなぎ構造が２分されてしまう。
+        //消失前の先頭以外のチップは、一つ前に追従してるだけなので、中間チップ Mover 内部パラメータは不定。
+        //後方チップが新たな先頭チップとなるレーザー構造のグループを _pMover->behave() で動作を継続させるために、
+        //新たな先頭チップへ現在の移動方向と移動速度の情報を伝達する必要がある。
+        if (_pChip_behind) {
+            int D = (int)(GgafUtil::sqrt_fast(
+                              (
+                                ((double)(_pChip_behind->_X - _X)) * ((double)(_pChip_behind->_X - _X))
+                              ) + (
+                                ((double)(_pChip_behind->_Y - _Y)) * ((double)(_pChip_behind->_Y - _Y))
+                              ) + (
+                                ((double)(_pChip_behind->_Z - _Z)) * ((double)(_pChip_behind->_Z - _Z))
+                              )
+                            )
+                         );
+            _pChip_behind->_pMover->setMvVelo(D); //距離が速度になる
+            _pChip_behind->_pMover->setMvAng(this);
+        } else {
+            //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 2 であるにも関わらず、_pChip_behindが存在しません");
+        }
+    } else if (_chip_kind == 3) {
+        //中間先頭チップ消失時の場合
+        //殆どの場合、先頭から順に消えていくはずである。
+        //行いたいことは中間チップ消失時の場合と同じだが、
+        //先端チップ Mover 内部パラメータの移動方向と移動速度の情報をコピーすることでOK
+        //計算速度を稼ぐ
+        if (_pChip_behind && _pChip_front) {
+            _TRACE_("A HomingLaserChip::onInactive() _chip_kind ="<<_chip_kind <<")");
+
+            _pChip_behind->_pMover->_vX = _pChip_front->_pMover->_vX;
+            _pChip_behind->_pMover->_vY = _pChip_front->_pMover->_vY;
+            _pChip_behind->_pMover->_vZ = _pChip_front->_pMover->_vZ;
+            _pChip_behind->_pMover->_angRzMv = _pChip_front->_pMover->_angRzMv;
+            _pChip_behind->_pMover->_angRyMv = _pChip_front->_pMover->_angRyMv;
+            _pChip_behind->_pMover->_veloMv = _pChip_front->_pMover->_veloMv;
+        } else {
+            //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 2 であるにも関わらず、_pChip_front と _pChip_behind が両方存在しません");
+        }
+    } else if (_chip_kind == 4) {
+        if (_pChip_behind) {
+            _pChip_behind->_pMover->_vX = _pMover->_vX;
+            _pChip_behind->_pMover->_vY = _pMover->_vY;
+            _pChip_behind->_pMover->_vZ = _pMover->_vZ;
+            _pChip_behind->_pMover->_angRzMv = _pMover->_angRzMv;
+            _pChip_behind->_pMover->_angRyMv = _pMover->_angRyMv;
+            _pChip_behind->_pMover->_veloMv = _pMover->_veloMv;
+        } else {
+            //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 4 であるにも関わらず、_pChip_behind が存在しません");
+        }
+    }
     LaserChip::onInactive(); //つながりを切断処理
 }
 
@@ -112,7 +176,7 @@ void HomingLaserChip::processBehavior() {
 //            _prev_RzMvAng = _pMover->_angRzMv;
 //            _prev_RyMvAng = _pMover->_angRyMv;
 
-            processBehaviorHeadChip();
+            processBehaviorHeadChip(); //先頭チップのみ移動実装
         } else {
 
             _prev_X  = _X;

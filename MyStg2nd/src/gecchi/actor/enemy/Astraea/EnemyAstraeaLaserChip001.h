@@ -12,7 +12,10 @@ public:
 
     void onActive() override;
 
-    void processBehaviorHeadChip();
+    /**
+     * 先頭チップの動きを定義
+     */
+    void processBehaviorHeadChip() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
