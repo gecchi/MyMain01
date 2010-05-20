@@ -61,10 +61,8 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
 void EnemyAstraeaLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ƒqƒbƒgŽž
-    _TRACE_("EnemyAstraeaLaserChip001::onHit("<<prm_pOtherActor->getName()<<")");
     //‘Ì—ÍŒvŽZ
     int sta = MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
-    _TRACE_("_chip_kind ="<<_chip_kind <<")");
     if (sta <= 0) {
         //ƒqƒbƒg‚µ‚ÄÁ–ÅŽž
         inactivate();

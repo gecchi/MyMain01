@@ -79,7 +79,7 @@
 #define STAT_DefaultDefenceRate     6
 #define STAT_DominantDefenceRate    7
 #define STAT_RecessiveDefenceRate   8
-
+#define STAT_LockOnAble             9
 //1/Å„2
 #define NANAME 0.70710
 
