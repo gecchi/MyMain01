@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 #define VESTA_HATCH_OPENED      1
 
 EnemyVesta::EnemyVesta(const char* prm_name)
-                       : DefaultMorphMeshActor(prm_name, "1/hachi") {
+                       : DefaultMorphMeshActor(prm_name, "1/Vesta") {
     _class_name = "EnemyVesta";
     MyStgUtil::resetEnemyVestaStatus(_pStatus);
     _pActor_Base = NULL;
@@ -101,6 +101,7 @@ void EnemyVesta::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
+    //オープン時敵出現
     if (_iMovePatternNo == VESTA_HATCH_OPENED) {
         int openningFrame = getPartFrame() - _frame_of_moment_nextopen; //開いてからのフレーム数。
         //_frame_of_moment_nextopenは、ここの処理の時点では直近でオープンしたフレームとなる。
@@ -142,7 +143,7 @@ void EnemyVesta::processBehavior() {
         }
     }
 
-    if (getPartFrame() % 10 == 0) {
+    if (getPartFrame() % 10 == 0                   && 1 == 2) {
         //自機へ方向を向ける
         //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める
         //
