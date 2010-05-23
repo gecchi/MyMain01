@@ -5,21 +5,30 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-Torus::Torus(const char* prm_name, const char* prm_model) : GroundMeshActor(prm_name, prm_model) {
-    _class_name = "Torus";
+VarietyTorus001::VarietyTorus001(const char* prm_name) : Torus(prm_name, "Torus") {
+    _class_name = "VarietyTorus001";
     MyStgUtil::resetTorusStatus(_pStatus);
     _r1 = 2000*1000; //トーラス半径1
     _r2 = 800*1000;  //トーラス半径2
+    EnemyVesta* pEV1 = NEW EnemyVesta("pEV1");
+    EnemyVesta* pEV2 = NEW EnemyVesta("pEV2");
+    EnemyVesta* pEV3 = NEW EnemyVesta("pEV3");
+    EnemyVesta* pEV4 = NEW EnemyVesta("pEV4");
+
+    this->addSubBone(pEV1,  _r2  ,  _r1    ,     0, ANGLE0, ANGLE0, ANGLE0);
+    this->addSubBone(pEV2,  0    ,  _r1+_r2,     0, ANGLE0, ANGLE90, ANGLE0);
+    this->addSubBone(pEV4,  -_r2 ,  _r1    ,     0, ANGLE0, ANGLE180, ANGLE0);
+    this->addSubBone(pEV3,  0    ,  _r1-_r2,     0, ANGLE0, ANGLE270, ANGLE0);
 }
 
-void Torus::onCreateModel() {
+void VarietyTorus001::onCreateModel() {
     _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.4, 3.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
     _pGgafDx9Model->_pTextureBlinker->beat(60*20, 60*9, 60*3, -1);
     _pGgafDx9Model->_fBlinkThreshold = 0.7;
 }
 
-void Torus::initialize() {
+void VarietyTorus001::initialize() {
     setHitAble(true);
 
     int nSphere = 16;    //当たり判定球の数;
@@ -43,19 +52,19 @@ void Torus::initialize() {
     _pMover->setFaceAngVelo(AXIS_Y, 200);
 }
 
-void Torus::onActive() {
+void VarietyTorus001::onActive() {
     MyStgUtil::resetTorusStatus(_pStatus);
 }
 
-void Torus::processBehavior() {
+void VarietyTorus001::processBehavior() {
     //座標に反映
     _pMover->behave();
 }
 
-void Torus::processJudgement() {
+void VarietyTorus001::processJudgement() {
 }
 
-void Torus::onHit(GgafActor* prm_pOtherActor) {
+void VarietyTorus001::onHit(GgafActor* prm_pOtherActor) {
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
@@ -63,5 +72,5 @@ void Torus::onHit(GgafActor* prm_pOtherActor) {
     }
 }
 
-Torus::~Torus() {
+VarietyTorus001::~VarietyTorus001() {
 }

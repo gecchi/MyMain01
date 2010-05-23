@@ -117,8 +117,6 @@ void HomingLaserChip::onInactive() {
         //先端チップ Mover 内部パラメータの移動方向と移動速度の情報をコピーすることでOK
         //計算速度を稼ぐ
         if (_pChip_behind && _pChip_front) {
-            _TRACE_("A HomingLaserChip::onInactive() _chip_kind ="<<_chip_kind <<")");
-
             _pChip_behind->_pMover->_vX = _pChip_front->_pMover->_vX;
             _pChip_behind->_pMover->_vY = _pChip_front->_pMover->_vY;
             _pChip_behind->_pMover->_vZ = _pChip_front->_pMover->_vZ;

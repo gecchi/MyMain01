@@ -19,18 +19,19 @@ public:
 
 
 
-    Torus(const char* prm_name);
-    void onCreateModel() override;
+    Torus(const char* prm_name, const char* prm_model);
 
-    void initialize() override;
+    virtual void onCreateModel() override;
 
-    void onActive() override;
+    virtual void initialize() override;
 
-    void processBehavior() override;
+    virtual void onActive() override;
 
-    void processJudgement() override;
+    virtual void processBehavior() override;
 
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    virtual void processJudgement() override;
+
+    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     bool isOffScreen() {
         return 0;

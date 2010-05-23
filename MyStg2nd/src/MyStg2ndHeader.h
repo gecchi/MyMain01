@@ -143,7 +143,7 @@ class TamagoScene;
 
 class GroundMeshActor;
 class Torus;
-
+class VarietyTorus001;
 
 class LaserChip;
 class CurveLaserChip;
@@ -273,7 +273,6 @@ class LaserChipEffectActor;
 #include "gecchi/actor/common/shot/Shot003.h"
 #include "gecchi/actor/common/shot/Shot004.h"
 
-
 #include "gecchi/actor/my/mesh/MyShip.h"
 #include "gecchi/actor/my/mesh/MyOptionParent.h"
 #include "gecchi/actor/my/mesh/MyOptionParentGizmo.h"
@@ -325,6 +324,7 @@ class LaserChipEffectActor;
 #include "gecchi/actor/enemy/Circe/EnemyCirce.h"
 
 #include "gecchi/actor/chikei/Torus/Torus.h"
+#include "gecchi/actor/chikei/Torus/VarietyTorus001.h"
 
 #include "gecchi/magic/Magic.h"
 #include "gecchi/magic/DefaultMagic.h"
