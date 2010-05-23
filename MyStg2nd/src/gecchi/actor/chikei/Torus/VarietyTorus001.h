@@ -14,6 +14,7 @@ class VarietyTorus001 : public Torus {
 public:
 
     VarietyTorus001(const char* prm_name);
+
     void onCreateModel() override;
 
     void initialize() override;

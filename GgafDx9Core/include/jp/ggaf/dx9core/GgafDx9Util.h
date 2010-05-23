@@ -365,6 +365,20 @@ public:
         ry1 = ry2;
     }
 
+
+    static angle simplifyAng(angle prm_ang) {
+        angle angSimple = prm_ang;
+        while (angSimple >= ANGLE360) {
+            angSimple -= ANGLE360;
+        }
+        while (angSimple < 0) {
+            angSimple += ANGLE360;
+        }
+        return angSimple;
+    }
+
+
+
     /**
      * ü•ª‚Ì“–‚½‚è”»’è<BR>
      * @param x11

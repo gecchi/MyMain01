@@ -130,17 +130,17 @@ void MyOption::setRadiusPosition(int prm_radius) {
     angle angZY_ROTANG_X;
     if (_radiusPosition > 0) {
         angZY_ROTANG_X = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
-        _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
-        _Y = _radiusPosition * GgafDx9Util::SIN[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
+        _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9Util::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
+        _Y = _radiusPosition * GgafDx9Util::SIN[GgafDx9Util::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
     } else {
         angZY_ROTANG_X = MyStgUtil::getAngle2D(-_Z, -_Y); //自分の位置
-        _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
-        _Y = _radiusPosition * GgafDx9Util::SIN[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
+        _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9Util::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
+        _Y = _radiusPosition * GgafDx9Util::SIN[GgafDx9Util::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
     }
     //もしprm_lenが0の場合、理論的には元の位置に戻るはずなのだが、
     //誤差丸め込みのため、微妙に位置が変わる。
     //よって、移動方角、移動角速度を現在の位置(_Z,_Y)で再設定しなければズレる。
-    _pMover->setRzMvAng(GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X + ANGLE90));
+    _pMover->setRzMvAng(GgafDx9Util::simplifyAng(angZY_ROTANG_X + ANGLE90));
     _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(float)ANGLE180)/PI;
     _pMover->setRzMvAngVelo(_angveloMove);
 }
@@ -193,7 +193,7 @@ void MyOption::processBehavior() {
             _angExpanse = _angExpanse_default;
             _return_to_default_angExpanse_seq = false;
         }
-        _angExpanse = GgafDx9GeometryMover::simplifyAng(_angExpanse);
+        _angExpanse = GgafDx9Util::simplifyAng(_angExpanse);
     } else {
         //オプション広がり制御
         if (VB->isBeingPressed(VB_OPTION) && VB->isBeingPressed(VB_TURBO)) {
@@ -263,7 +263,7 @@ void MyOption::processBehavior() {
                     _angExpanse -= _angveloExpanseNomal;
                 }
             }
-            _angExpanse = GgafDx9GeometryMover::simplifyAng(_angExpanse);
+            _angExpanse = GgafDx9Util::simplifyAng(_angExpanse);
         }
     }
 
@@ -350,8 +350,8 @@ void MyOption::processBehavior() {
         _RY
      );
 
-    _RZ = GgafDx9GeometryMover::simplifyAng(_RZ);
-    _RY = GgafDx9GeometryMover::simplifyAng(_RY);
+    _RZ = GgafDx9Util::simplifyAng(_RZ);
+    _RY = GgafDx9Util::simplifyAng(_RY);
     _X += _pMyOptionParent->_X;
     _Y += _pMyOptionParent->_Y;
     _Z += _pMyOptionParent->_Z;

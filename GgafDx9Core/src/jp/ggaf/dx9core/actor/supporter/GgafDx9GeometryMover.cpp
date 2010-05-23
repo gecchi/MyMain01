@@ -433,21 +433,8 @@ void GgafDx9GeometryMover::behave() {
 
 }
 
-
-angle GgafDx9GeometryMover::simplifyAng(angle prm_ang) {
-    static angle angSimple;
-    angSimple = prm_ang;
-    while (angSimple >= ANGLE360) {
-        angSimple -= ANGLE360;
-    }
-    while (angSimple < 0) {
-        angSimple += ANGLE360;
-    }
-    return angSimple;
-}
-
 void GgafDx9GeometryMover::setFaceAng(int prm_axis, angle prm_angFace) {
-    _angFace[prm_axis] = simplifyAng(prm_angFace);
+    _angFace[prm_axis] = GgafDx9Util::simplifyAng(prm_angFace);
 }
 
 void GgafDx9GeometryMover::setFaceAng(int prm_tX, int prm_tY, int prm_tZ) {
@@ -516,7 +503,7 @@ void GgafDx9GeometryMover::setStopTarget_FaceAng(int prm_axis,
                                                  int prm_way_allow,
                                                  angvelo prm_angveloAllow) {
     _face_ang_targeting_flg[prm_axis] = true;
-    _angTargetFace[prm_axis] = simplifyAng(prm_angTargetRot);
+    _angTargetFace[prm_axis] = GgafDx9Util::simplifyAng(prm_angTargetRot);
     _face_ang_target_allow_way[prm_axis] = prm_way_allow;
     _face_ang_target_allow_velo[prm_axis] = prm_angveloAllow;
 }
@@ -528,7 +515,7 @@ angle GgafDx9GeometryMover::getFaceAngDistance(int prm_axis, int prm_tX, int prm
 
 angle GgafDx9GeometryMover::getFaceAngDistance(int prm_axis, angle prm_angTargetRot, int prm_way) {
     static angle _angTargetRot;
-    _angTargetRot = simplifyAng(prm_angTargetRot);
+    _angTargetRot = GgafDx9Util::simplifyAng(prm_angTargetRot);
     if (prm_way == TURN_CLOSE_TO) { //‹ß‚¢‚Ù‚¤‰ñ“]
         if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < ANGLE180) {
             if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis]) {
@@ -678,7 +665,7 @@ void GgafDx9GeometryMover::setRzMvAng(int prm_tX, int prm_tY) {
 
 void GgafDx9GeometryMover::setRzMvAng(angle prm_ang) {
     if (prm_ang !=  _angRzMv) {
-        _angRzMv = simplifyAng(prm_ang);
+        _angRzMv = GgafDx9Util::simplifyAng(prm_ang);
         GgafDx9Util::getNormalizeVectorZY(_angRzMv, _angRyMv, _vX, _vY, _vZ);
     }
     if (_relate_RzFaceAng_to_RzMvAng_flg) {
@@ -726,7 +713,7 @@ void GgafDx9GeometryMover::setStopTarget_RzMvAng(angle prm_angTargetRzMv,
                                                  int prm_way_allow,
                                                  angvelo prm_angveloAllowRyMv) {
     _mv_ang_rz_target_flg = true;
-    _angTargetRzMv = simplifyAng(prm_angTargetRzMv);
+    _angTargetRzMv = GgafDx9Util::simplifyAng(prm_angTargetRzMv);
     _mv_ang_rz_target_allow_way = prm_way_allow;
     _mv_ang_rz_target_allow_velo = prm_angveloAllowRyMv;
 }
@@ -744,7 +731,7 @@ angle GgafDx9GeometryMover::getRzMvAngDistance(int prm_tX, int prm_tY, int prm_w
 }
 
 angle GgafDx9GeometryMover::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
-    angle angTargetRzMv = simplifyAng(prm_angTargetRzMv);
+    angle angTargetRzMv = GgafDx9Util::simplifyAng(prm_angTargetRzMv);
     if (prm_way == TURN_CLOSE_TO) { //‹ß‚¢‚Ù‚¤‰ñ“]
         if (0 <= _angRzMv && _angRzMv < ANGLE180) {
             if (0 <= angTargetRzMv && angTargetRzMv < _angRzMv) {
@@ -865,7 +852,7 @@ void GgafDx9GeometryMover::setRyMvAng(int prm_tX, int prm_tY) {
 
 void GgafDx9GeometryMover::setRyMvAng(angle prm_ang) {
     if (prm_ang != _angRyMv) {
-        _angRyMv = simplifyAng(prm_ang);
+        _angRyMv = GgafDx9Util::simplifyAng(prm_ang);
         GgafDx9Util::getNormalizeVectorZY(_angRzMv, _angRyMv, _vX, _vY, _vZ);
     }
     if (_relate_RyFaceAng_to_RyMvAng_flg) {
@@ -913,7 +900,7 @@ void GgafDx9GeometryMover::setStopTarget_RyMvAng(angle prm_angTargetRyMv,
                                                  int prm_way_allow,
                                                  angvelo prm_angveloAllowRyMv) {
     _mv_ang_ry_target_flg = true;
-    _angTargetRyMv = simplifyAng(prm_angTargetRyMv);
+    _angTargetRyMv = GgafDx9Util::simplifyAng(prm_angTargetRyMv);
     _mv_ang_ry_target_allow_way = prm_way_allow;
     _mv_ang_ry_target_allow_velo = prm_angveloAllowRyMv;
 }
@@ -932,7 +919,7 @@ angle GgafDx9GeometryMover::getRyMvAngDistance(int prm_tX, int prm_tY, int prm_w
 
 angle GgafDx9GeometryMover::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
     static angle angTargetRyMv;
-    angTargetRyMv = simplifyAng(prm_angTargetRyMv);
+    angTargetRyMv = GgafDx9Util::simplifyAng(prm_angTargetRyMv);
     if (prm_way == TURN_CLOSE_TO) { //‹ß‚¢‚Ù‚¤‰ñ“]
         if (0 <= _angRyMv && _angRyMv < ANGLE180) {
             if (0 <= angTargetRyMv && angTargetRyMv < _angRyMv) {
@@ -1142,10 +1129,10 @@ void GgafDx9GeometryMover::getRzRyMvAngDistance(int prm_way,
 //
 //        _TRACE_("1 target_angRz="<<target_angRz<<" target_angRy="<<target_angRy);
 //        angle d1_angRz = getRzMvAngDistance(target_angRz, TURN_CLOSE_TO); //Rz‚Ì·
-//        angle d1_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO) * ((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5); //Ry‚Ì·*‹É’n•â³
-//        _TRACE_("1 ((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5)="<<(float)((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5));
+//        angle d1_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO) * ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5); //Ry‚Ì·*‹É’n•â³
+//        _TRACE_("1 ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5)="<<(float)((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5));
 //        _TRACE_("1 d1_angRz="<<d1_angRz<<" d1_angRy="<<d1_angRy);
-//        //((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5)
+//        //((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5)
 //        //‚±‚Ì’l‚ðæ‚¸‚é‚Ì‚ÍA
 //        //YŽ²‰ñ“]Šp‚Í‹É’niANGLE90,ANGLE270•t‹ßj‚Å‚ÌRz‚Ì·‚Ì‹——£‚Í0‚É‹ß‚­‚È‚é‚±‚Æ‚ðl—¶
 //        double d1d1 = 1.0*d1_angRz*d1_angRz + 1.0*d1_angRy*d1_angRy; //RzRy‚Ì‹——£‚ð’¼ŠpŽOŠpŒ`‚ÉŒ©—§‚Ä‚ÄŽÎ•Ó‚Å‹——£”»’è‚·‚éiŠÈˆÕ‹ßŽ—j
@@ -1154,8 +1141,8 @@ void GgafDx9GeometryMover::getRzRyMvAngDistance(int prm_way,
 //        GgafDx9Util::anotherRzRy(target_angRz, target_angRy);
 //        _TRACE_("2 anotherRzRy target_angRz="<<target_angRz<<" target_angRy="<<target_angRy);
 //        angle d2_angRz = getRzMvAngDistance(target_angRz, TURN_CLOSE_TO);
-//        angle d2_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO) * ((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
-//        _TRACE_("2 ((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5)="<<(float)((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5));
+//        angle d2_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO) * ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
+//        _TRACE_("2 ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5)="<<(float)((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5));
 //        _TRACE_("2 d2_angRz="<<d2_angRz<<" d2_angRy="<<d2_angRy);
 //        double d2d2 = 1.0*d2_angRz*d2_angRz + 1.0*d2_angRy*d2_angRy;
 //        _TRACE_("2  d2d2="<<((float)d2d2));
@@ -1175,11 +1162,11 @@ void GgafDx9GeometryMover::getRzRyMvAngDistance(int prm_way,
 //        _TRACE_("<--- getRzRyMvAngDistance");
 //    } else if (prm_way == TURN_ANTICLOSE_TO) { //‰“‚¢•û‚Ì‰ñ“]
 //        angle d1_angRz = getRzMvAngDistance(target_angRz, TURN_ANTICLOSE_TO);
-//        angle d1_angRy = getRyMvAngDistance(target_angRy, TURN_ANTICLOSE_TO) * ((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
+//        angle d1_angRy = getRyMvAngDistance(target_angRy, TURN_ANTICLOSE_TO) * ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
 //        double d1d1 = 1.0*d1_angRz*d1_angRz + 1.0*d1_angRy*d1_angRy;
 //        GgafDx9Util::anotherRzRy(target_angRz, target_angRy);
 //        angle d2_angRz = getRzMvAngDistance(target_angRz, TURN_ANTICLOSE_TO);
-//        angle d2_angRy = getRyMvAngDistance(target_angRy, TURN_ANTICLOSE_TO) * ((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
+//        angle d2_angRy = getRyMvAngDistance(target_angRy, TURN_ANTICLOSE_TO) * ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
 //        double d2d2 = 1.0*d2_angRz*d2_angRz + 1.0*d2_angRy*d2_angRy;
 //        if (d1d1 >= d2d2) {
 //            out_d_angRz = d1_angRz;
@@ -1222,7 +1209,7 @@ void GgafDx9GeometryMover::getRzRyFaceAngDistance(int prm_way,
         angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
         GgafDx9Util::anotherRzRy(target_angRz, target_angRy);
         angle d2_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_CLOSE_TO);
-        angle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO) * ((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
+        angle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO) * ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
         angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
         if (d1 <= d2) {
             out_d_angRz = d1_angRz;
@@ -1280,12 +1267,12 @@ void GgafDx9GeometryMover::getRzRyFaceAngDistance(int prm_way,
 //    angle target_angRy = prm_target_angRy;
 //    if (prm_way == TURN_CLOSE_TO) { //‹ß‚¢‚Ù‚¤‰ñ“]
 //        angle d1_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_CLOSE_TO);
-//        angle d1_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO) * ((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
+//        angle d1_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO) * ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
 //        //GgafDx9Util::SIN[target_angRz/ANGLE_RATE]‚ðæ‚¸‚é‚Ì‚ÍAYŽ²‰ñ“]Šp‚Í‹É’n‚É‚È‚é‚Ù‚Ç‚Ì‹——£‚ª’Z‚­‚È‚é‚½‚ß
 //        double d1d1 = 1.0*d1_angRz*d1_angRz + 1.0*d1_angRy*d1_angRy;
 //        GgafDx9Util::anotherRzRy(target_angRz, target_angRy);
 //        angle d2_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_CLOSE_TO);
-//        angle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO) * ((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
+//        angle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO) * ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
 //        double d2d2 = 1.0*d2_angRz*d2_angRz + 1.0*d2_angRy*d2_angRy;
 //        if (d1d1 <= d2d2) {
 //            out_d_angRz = d1_angRz;
@@ -1301,11 +1288,11 @@ void GgafDx9GeometryMover::getRzRyFaceAngDistance(int prm_way,
 //
 //    } else if (prm_way == TURN_ANTICLOSE_TO) { //‰“‚¢•û‚Ì‰ñ“]
 //        angle d1_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_ANTICLOSE_TO);
-//        angle d1_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_ANTICLOSE_TO) * ((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
+//        angle d1_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_ANTICLOSE_TO) * ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
 //        double d1d1 = 1.0*d1_angRz*d1_angRz + 1.0*d1_angRy*d1_angRy;
 //        GgafDx9Util::anotherRzRy(target_angRz, target_angRy);
 //        angle d2_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_ANTICLOSE_TO);
-//        angle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_ANTICLOSE_TO) * ((GgafDx9Util::COS[simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
+//        angle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_ANTICLOSE_TO) * ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
 //        double d2d2 = 1.0*d2_angRz*d2_angRz + 1.0*d2_angRy*d2_angRy;
 //        if (d1d1 >= d2d2) {
 //            out_d_angRz = d1_angRz;
@@ -1337,8 +1324,8 @@ void GgafDx9GeometryMover::getRzRyFaceAngDistance(int prm_way,
 
 void GgafDx9GeometryMover::setRzRyMvAng(angle prm_angRz, angle prm_angRy) {
     if (prm_angRz != _angRzMv || prm_angRy !=_angRyMv ) {
-        _angRzMv = simplifyAng(prm_angRz);
-        _angRyMv = simplifyAng(prm_angRy);
+        _angRzMv = GgafDx9Util::simplifyAng(prm_angRz);
+        _angRyMv = GgafDx9Util::simplifyAng(prm_angRy);
         GgafDx9Util::getNormalizeVectorZY(_angRzMv, _angRyMv, _vX, _vY, _vZ);
     }
     if (_relate_RzFaceAng_to_RzMvAng_flg) {
@@ -1351,8 +1338,8 @@ void GgafDx9GeometryMover::setRzRyMvAng(angle prm_angRz, angle prm_angRy) {
 }
 
 void GgafDx9GeometryMover::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_angRyRz_Rz) {
-    angle RyRz_Ry = simplifyAng(prm_angRyRz_Ry);
-    angle RyRz_Rz = simplifyAng(prm_angRyRz_Rz);
+    angle RyRz_Ry = GgafDx9Util::simplifyAng(prm_angRyRz_Ry);
+    angle RyRz_Rz = GgafDx9Util::simplifyAng(prm_angRyRz_Rz);
     float out_vY, out_vZ;
     GgafDx9Util::getNormalizeVectorZY(RyRz_Ry, ANGLE360-RyRz_Rz, _vX, out_vY, out_vZ);
     _vY = -1.0f*out_vZ;

@@ -447,6 +447,8 @@ void GgafDx9Util::getRzRyAng(int vx,
     } else {
         throwGgafCriticalException("GgafDx9Util::getRzRyAng Ç†ÇËÇ¶Ç‹ÇπÇÒÅBvx,vy,vz="<<vx<<","<<vy<<","<<vz);
     }
+    out_angFaceZ = simplifyAng(out_angFaceZ);
+    out_angFaceY = simplifyAng(out_angFaceY);
 }
 
 

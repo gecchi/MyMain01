@@ -10,16 +10,25 @@ VarietyTorus001::VarietyTorus001(const char* prm_name) : Torus(prm_name, "Torus"
     MyStgUtil::resetTorusStatus(_pStatus);
     _r1 = 2000*1000; //トーラス半径1
     _r2 = 800*1000;  //トーラス半径2
-    EnemyVesta* pEV1 = NEW EnemyVesta("pEV1");
-    EnemyVesta* pEV2 = NEW EnemyVesta("pEV2");
-    EnemyVesta* pEV3 = NEW EnemyVesta("pEV3");
-    EnemyVesta* pEV4 = NEW EnemyVesta("pEV4");
 
-    this->addSubBone(pEV1,  _r2  ,  _r1    ,     0, ANGLE0, ANGLE0, ANGLE0);
-    this->addSubBone(pEV2,  0    ,  _r1+_r2,     0, ANGLE0, ANGLE90, ANGLE0);
-    this->addSubBone(pEV4,  -_r2 ,  _r1    ,     0, ANGLE0, ANGLE180, ANGLE0);
-    this->addSubBone(pEV3,  0    ,  _r1-_r2,     0, ANGLE0, ANGLE270, ANGLE0);
+//    EnemyVesta* pEV1 = NEW EnemyVesta("pEV1");
+//    EnemyVesta* pEV2 = NEW EnemyVesta("pEV2");
+//    EnemyVesta* pEV3 = NEW EnemyVesta("pEV3");
+//    EnemyVesta* pEV4 = NEW EnemyVesta("pEV4");
+
+    for (int angPos1 = 0; angPos1 < ANGLE360;  angPos1 += (60*1000)) {
+        for (int angPos2 = 0; angPos2 < ANGLE360;  angPos2 += (20*1000)) {
+            EnemyVesta* p = NEW EnemyVesta("pEV1");
+            addSubBoneOnSurface(p, angPos1, angPos2);
+        }
+    }
+//
+//    this->addSubBone(pEV1,  _r2  ,  _r1    ,     0, ANGLE0, ANGLE0, ANGLE0);
+//    this->addSubBone(pEV2,  0    ,  _r1+_r2,     0, ANGLE0, ANGLE90, ANGLE0);
+//    this->addSubBone(pEV4,  -_r2 ,  _r1    ,     0, ANGLE0, ANGLE180, ANGLE0);
+//    this->addSubBone(pEV3,  0    ,  _r1-_r2,     0, ANGLE0, ANGLE270, ANGLE0);
 }
+
 
 void VarietyTorus001::onCreateModel() {
     _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.4, 3.0);

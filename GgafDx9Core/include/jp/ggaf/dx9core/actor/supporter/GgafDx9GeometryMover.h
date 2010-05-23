@@ -72,16 +72,6 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
     /** 目標の軸回転方角自動停止機能が有効になる角速度（回転正負共通） */
     angvelo _face_ang_target_allow_velo[3]; //この角速度より小さい値の場合機能有効とするz
 
-
-
-    /**
-     * アングル値を単純化する。
-     * 負のアングル値、又は360,000以上のアングル値を、0～359,999 に変換します。
-     * @param prm_ang 方角
-     * @return 単純化されたアングル値
-     */
-    static angle simplifyAng(angle prm_ang);
-
     /**
      * Actorの軸の回転方角を設定。<BR>
      * @param	prm_axis	回転軸(AXIS_X / AXIS_Y / AXIS_Z)

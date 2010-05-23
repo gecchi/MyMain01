@@ -12,6 +12,43 @@ Torus::Torus(const char* prm_name, const char* prm_model) : GroundMeshActor(prm_
     _r2 = 800*1000;  //ƒg[ƒ‰ƒX”¼Œa2
 }
 
+void Torus::addSubBoneOnSurface(GgafDx9GeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {
+    //ƒg[ƒ‰ƒX‚ÍZY•½–Ê‚É‰~
+    s_ang angPos1 = prm_angPos1 /ANGLE_RATE;
+    s_ang angPos2 = prm_angPos2 /ANGLE_RATE;
+
+    //•½sˆÚ“®( +_r2, +0, +0) > angPos2‚ÌYŽ²‰ñ“] > •½sˆÚ“®( +0, +0, -_r1) > angPos1‚ÌXŽ²‰ñ“]
+    //    | COS[angPos2]    , -SIN[angPos2]*-SIN[angPos1]             , -SIN[angPos2]*COS[angPos1]             , 0 |
+    //    | 0               , COS[angPos1]                            , SIN[angPos1]                           , 0 |
+    //    | SIN[angPos2]    , COS[angPos2]*-SIN[angPos1]              , COS[angPos2]*COS[angPos1]              , 0 |
+    //    | _r2*COS[angPos2], (_r2*-SIN[angPos2] + -_r1)*-SIN[angPos1], (_r2*-SIN[angPos2] + -_r1)*COS[angPos1], 1 |
+//  _TRACE_("GgafDx9Util::COS[angPos2]="<<GgafDx9Util::COS[angPos2]);
+//  _TRACE_("_r2="<<_r2);
+//  _TRACE_("_r2*GgafDx9Util::COS[angPos2]="<<_r2*GgafDx9Util::COS[angPos2]);
+    double X = _r2*GgafDx9Util::COS[angPos2];
+    double Y = (_r2*-GgafDx9Util::SIN[angPos2] - _r1) * -GgafDx9Util::SIN[angPos1];
+    double Z = (_r2*-GgafDx9Util::SIN[angPos2] - _r1) *  GgafDx9Util::COS[angPos1];
+
+    //Œü‚«‚ð‹‚ß‚é
+    //•½sˆÚ“®( +0, +0, -_r1) > angPos1‚ÌXŽ²‰ñ“]
+    //    | 1, 0                 , 0                , 0 |
+    //    | 0, COS[angPos1]      , SIN[angPos1]     , 0 |
+    //    | 0, -SIN[angPos1]     , COS[angPos1]     , 0 |
+    //    | 0, -_r1*-SIN[angPos1], -_r1*COS[angPos1], 1 |
+
+    double CX = 0;
+    double CY = -_r1*-GgafDx9Util::SIN[angPos1];
+    double CZ = -_r1*GgafDx9Util::COS[angPos1];
+    angle angRz, angRy;
+    GgafDx9Util::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
+//  _TRACE_("angPos1="<<angPos1<<" angPos2="<<angPos2);
+//  _TRACE_("X="<<(int)(X)<<" Y="<<(int)(Y)<<" Z="<<(int)(Z));
+//  _TRACE_("CX="<<(int)(CY)<<" CY="<<(int)(CY)<<" CZ="<<(int)(CZ));
+//  _TRACE_("(int)(X - CX)="<<(int)(X - CX)<<" (int)(Y - CY)="<<(int)(Y - CY)<<" (int)(Z - CZ)="<<(int)(Z - CZ));
+//  _TRACE_("angRz="<<angRz<<" angRy="<<angRz);
+    this->addSubBone(prm_pGeoActor, X, Y, Z, ANGLE0, angRz, angRy);
+}
+
 void Torus::onCreateModel() {
     _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.4, 3.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);

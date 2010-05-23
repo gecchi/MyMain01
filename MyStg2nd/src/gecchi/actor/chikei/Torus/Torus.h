@@ -21,6 +21,8 @@ public:
 
     Torus(const char* prm_name, const char* prm_model);
 
+    void addSubBoneOnSurface(GgafDx9Core::GgafDx9GeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2);
+
     virtual void onCreateModel() override;
 
     virtual void initialize() override;
