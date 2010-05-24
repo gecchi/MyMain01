@@ -26,6 +26,9 @@ void Shot004::onActive() {
 
 void Shot004::processBehavior() {
     //加算ランクポイントを減少
+    //_pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+    //弾なので不要
+
     //座標に反映
     _pMover->behave();
 }
@@ -37,19 +40,18 @@ void Shot004::processJudgement() {
 }
 
 void Shot004::onHit(GgafActor* prm_pOtherActor) {
-//    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 //    //・・・ココにヒットされたエフェクト
-//    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-//        //破壊された場合
-//        //・・・ココに破壊されたエフェクト
-//        EffectExplosion003* pExplo003 = (EffectExplosion003*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion003->employ();
-//        playSe3D1();
-//        if (pExplo003 != NULL) {
-//            pExplo003->activate();
-//            pExplo003->setGeometry(this);
-//        }
-//        inactivate();
-//    }
+    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        //破壊された場合
+        //・・・ココに破壊されたエフェクト
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        if (pExplo001 != NULL) {
+            pExplo001->activate();
+            pExplo001->setGeometry(this);
+        }
+        inactivate();
+    }
 }
 
 
