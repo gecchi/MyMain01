@@ -626,7 +626,7 @@ GgafDx9God::~GgafDx9God() {
     }
 */
     _TRACE_("‚³‚Ÿ_pID3DDevice9‰ð•úI");
-    Sleep(60);
+    Sleep(1000*5);
     ULONG rc;
     rc = _pID3DDevice9->AddRef();
     rc = _pID3DDevice9->Release();

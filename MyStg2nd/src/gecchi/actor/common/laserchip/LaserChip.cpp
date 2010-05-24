@@ -228,15 +228,15 @@ void LaserChip::processDraw() {
 
         if (pDrawLaserChipActor->_pChip_front != NULL) {
             //テクスチャ種類
-            hr = pID3DXEffect->SetInt(_ahKind[i], pDrawLaserChipActor->_chip_kind);
+            hr = pID3DXEffect->SetInt(this->_ahKind[i], pDrawLaserChipActor->_chip_kind);
             checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
-            hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
+            hr = pID3DXEffect->SetMatrix(this->_ahMatWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
             checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) に失敗しました。1");
         } else {
             //テクスチャ種類
-            hr = pID3DXEffect->SetInt(_ahKind[i], pDrawLaserChipActor->_chip_kind);
+            hr = pID3DXEffect->SetInt(this->_ahKind[i], pDrawLaserChipActor->_chip_kind);
             checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
-            hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_matWorld) ); //先頭がないので自信の_matWorld
+            hr = pID3DXEffect->SetMatrix(this->_ahMatWorld_front[i], &(pDrawLaserChipActor->_matWorld) ); //先頭がないので自信の_matWorld
             checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) に失敗しました。2");
         }
         //このキャストは危険である

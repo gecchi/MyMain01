@@ -120,8 +120,9 @@ void MyCurveLaserChip001::processBehavior() {
 
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
-    if (pOther->getKind() & KIND_ENEMY) {
-        //敵の場合
+
+    if ((pOther->getKind() & KIND_ENEMY_BODY) && pOther->_pStatus->get(STAT_LockOnAble) == 1) {
+        //敵のでロックオン可能な場合
         if (_pOrg->_pLockOnTarget) {
             if (pOther == _pOrg->_pLockOnTarget) {
                 _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
@@ -151,6 +152,10 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                     pTip->_pMover->setVyMvAcce(-(pChipPrev->_pMover->_acceVyMv));
                     pTip->_pMover->setVzMvAcce(-(pChipPrev->_pMover->_acceVzMv));
                 }
+            } else {
+                //ロックオンは後がちとする
+                _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+                _pOrg->_pLockOnTarget = pOther;
             }
         } else {
             _pOrg->_pLockOnTarget = pOther;

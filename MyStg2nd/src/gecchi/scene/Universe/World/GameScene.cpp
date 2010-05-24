@@ -149,21 +149,22 @@ void GameScene::processJudgement() {
         //配下のシーンに所属アクターの当たり判定処理実行
         //詳細は 「シーンCreater.xls」 の 「種別相関」 シート参照
         CollisionChecker::_pLinearOctree->executeAllHitChk(
-            KIND_MY_SHOT|KIND_MY_BODY,
-            KIND_ENEMY_BODY|KIND_OTHER|KIND_CHIKEI
+        KIND_MY_SHOT|KIND_MY_BODY,
+        KIND_ENEMY_BODY|KIND_OTHER|KIND_CHIKEI
         );
         CollisionChecker::_pLinearOctree->executeAllHitChk(
-            KIND_ENEMY_SHOT,
-            KIND_MY_BODY|KIND_OTHER|KIND_CHIKEI
+        KIND_ENEMY_SHOT,
+        KIND_MY_BODY|KIND_OTHER|KIND_CHIKEI
         );
         CollisionChecker::_pLinearOctree->executeAllHitChk(
-            KIND_ENEMY_BODY_NOMAL|KIND_ENEMY_BODY_GU|KIND_ENEMY_BODY_CHOKI|KIND_ENEMY_BODY_PA,
-            KIND_CHIKEI|KIND_OTHER
+        KIND_ENEMY_BODY_NOMAL|KIND_ENEMY_BODY_GU|KIND_ENEMY_BODY_CHOKI|KIND_ENEMY_BODY_PA,
+        KIND_CHIKEI|KIND_OTHER
         );
         CollisionChecker::_pLinearOctree->executeAllHitChk(
-            KIND_ENEMY_BODY_CHIKEI_GU|KIND_ENEMY_BODY_CHIKEI_CHOKI|KIND_ENEMY_BODY_CHIKEI_PA|KIND_CHIKEI|KIND_OTHER,
-            KIND_OTHER
+        KIND_ENEMY_BODY_CHIKEI_NOMAL|KIND_ENEMY_BODY_CHIKEI_GU|KIND_ENEMY_BODY_CHIKEI_CHOKI|KIND_ENEMY_BODY_CHIKEI_PA|KIND_CHIKEI|KIND_OTHER,
+        KIND_OTHER
         );
+
     }
 }
 
