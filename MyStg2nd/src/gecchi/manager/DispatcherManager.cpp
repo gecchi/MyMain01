@@ -48,7 +48,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
     if (GgafUtil::strcmp_ascii("DpCon_Shot004", prm_idstr) == 0) {
         pResource = NEW GgafActorDispatcher("DP_Shot004_Stock");
         Shot004* pShot004;
-        for (int i = 0; i < 600; i++) {
+        for (int i = 0; i < 2000; i++) {
             pShot004 = NEW Shot004("Shot004");
             pShot004->inactivateImmediately();
             pResource->addSubLast(pShot004);

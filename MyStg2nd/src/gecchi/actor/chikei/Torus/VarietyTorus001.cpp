@@ -16,8 +16,8 @@ VarietyTorus001::VarietyTorus001(const char* prm_name) : Torus(prm_name, "Torus"
 //    EnemyVesta* pEV3 = NEW EnemyVesta("pEV3");
 //    EnemyVesta* pEV4 = NEW EnemyVesta("pEV4");
 
-    for (int angPos1 = 0; angPos1 < ANGLE360;  angPos1 += (60*1000)) {
-        for (int angPos2 = 0; angPos2 < ANGLE360;  angPos2 += (20*1000)) {
+    for (int angPos1 = 0; angPos1 < ANGLE360;  angPos1 += (10*1000)) {
+        for (int angPos2 = 0; angPos2 < ANGLE360;  angPos2 += (90*1000)) {
             EnemyVesta* p = NEW EnemyVesta("pEV1");
             addSubBoneOnSurface(p, angPos1, angPos2);
         }
