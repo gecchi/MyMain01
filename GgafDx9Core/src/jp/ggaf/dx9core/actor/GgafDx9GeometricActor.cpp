@@ -110,6 +110,8 @@ void GgafDx9GeometricActor::processPreJudgement() {
         _fY = _matWorld._42;
         _fZ = _matWorld._43;
 
+        //TODO:â‘ÎÀ•W‚Ì_RX, _RY, _RZ ‚É•ÏŠ·‚Í•Û—¯
+
     }
 
     //‚W•ªŠò
