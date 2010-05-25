@@ -45,7 +45,7 @@ void EnemyVesta::initialize() {
     _pMorpher->forceWeightRange(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
+    _pCollisionChecker->setColliAAB_Cube(0, 50000);
     _pScaler->setScale(1000);
     _pDispatcher_Fired = _pDpcon->view();
 }
@@ -60,19 +60,47 @@ void EnemyVesta::onActive() {
 
 void EnemyVesta::processBehavior() {
     //ボーンにあたるアクターのメモ
-    //＜chengeGeoFinal(); 時＞
-    //・_X, _Y, _Z は最終的なワールド座標
-    //・_RX, _RY, _RZ は不定。
-    //・GgafDx9GeometryMover の値は常にローカル座標なのでbehave()を呼び出してはいけない。
-    //※RX,RY,RZ は最終的なワールド回転値・・・にしようとしたが、
-    //毎フレーム計算するのは無駄であるため設定されていない。
-    //必要なときに求めることとする。
-    //＜chengeGeoLocal(); 時＞
-    //・_X, _Y, _Z はローカル座標
-    //・_RX, _RY, _RZ  はローカル回転値
-    //・GgafDx9GeometryMover の値はローカル座標
-    //
-    //基本的にchengeGeoFinal()の状態である。
+    //_X, _Y, _Z, _RX, _RY, _RZ について２つの座標系セットを切り替えが必要な仕様です。
+    //それぞれローカル座標、最終（絶対）座標と呼ぶことにします。
+    //・最終（絶対）座標 ・・・ 普通のワールド座標系の事です。
+    //・ローカル座標     ・・・ 親アクターの基点(0,0,0)からの相対的な座標系を意味します。
+    //                          座標計算はこちらで行って下さい。
+    //＜方針＞
+    //  ①座標計算は主にローカル座標系の計算である。GgafDx9GeometryMover でローカル座標系の操作を行うこととする。
+    //    しかし、８分木登録や、当たり判定や、ターゲット座標など、他のオブジェクトからワールド座標を参照することが多いため。
+    //    基本的にprocessBehavior()開始時は 最終（絶対）座標系(chengeGeoFinal())の状態とする。
+    //  ②processBehavior()内で必要に応じて chengeGeoLocal() で _X, _Y, _Z, _RX, _RY, _RZ の切り替えを行い座標計算を行う。
+    //  ③但し processBehavior() を抜ける際には必ず最終座標(chengeGeoFinal())の状態に戻しておく事。
+    //  ④オブジェクト自体のワールド変換行列は、ローカル座標系の行列積で変換行列が作成される。
+
+    //＜chengeGeoLocal(); 実行時＞
+    //ローカル座標系に切替えます。
+    //・_X, _Y, _Z     ・・・ は、ローカル座標を意味するようになります。
+    //                        chengeGeoLocal(); を実行すると自動的に_X, _Y, _Z に
+    //                        ローカル座標値に切り替わります。
+    //・_RX, _RY, _RZ  ・・・ は、ローカル座標での軸回転値を意味するようになります。
+    //                        chengeGeoLocal(); を実行すると自動的に_RX, _RY, _RZに
+    //                        ローカル座標軸回転値に切り替わります。
+
+    //＜chengeGeoFinal(); 実行時＞
+    //最終（絶対）座標系に切り替えます。
+    //・_X, _Y, _Z    ・・・ 毎フレーム GgafDx9GeometricActor::processPreJudgement() で計算され自動更新されてます。
+    //                       processBehavior() で chengeGeoFinal() を行うと、１フレーム前の_X, _Y, _Zに切り替わる事になります。
+    //                       _X, _Y, _Z は参照専用。値を代入しても意味が有りません
+    //・_RX, _RY, _RZ ・・・ 毎フレーム GgafDx9GeometricActor::processPreJudgement() 自動代入されません！
+    //                       chengeGeoFinal(); を実行しても、_RX, _RY, _RZ は以前の最終（絶対）座標系の値が
+    //                       入りっぱなしで変化しません。
+    //                       他のオブジェクトから、ボーンにあたるアクターを参照するとき、_RX, _RY, _RZは全く信用できません。
+
+    //＜注意＞
+    //・GgafDx9GeometryMover(_pMover)の behave() 以外メソッドは、常にローカル座標の操作とする。
+    //  behave()以外メソッドは実際に座標計算しているわけではないので、
+    //  chengeGeoFinal()時、chengeGeoLocal()時に関係なく、呼び出し可能。
+    //・GgafDx9GeometryMover(_pMover)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
+    //  したがって、次のように ローカル座標時(chengeGeoLocal()時)で呼び出す事とする。
+    //    chengeGeoLocal();
+    //    _pMover->behave();
+    //    chengeGeoFinal();
     //TODO:混在感をもっとなくす。
 
     switch (_iMovePatternNo) {

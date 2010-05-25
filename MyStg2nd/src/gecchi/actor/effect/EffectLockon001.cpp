@@ -24,7 +24,7 @@ void EffectLockOn001::onActive() {
     setAlpha(0.01);
     _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
     _pScaler->setScale(60000);
-    _pScaler->intoTargetScaleLinerUntil(2000, 30);//スケーリング・60F費やして1000に縮小
+    _pScaler->intoTargetScaleLinerUntil(2000, 30);//スケーリング・30F費やして2000に縮小
     _pMover->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
 

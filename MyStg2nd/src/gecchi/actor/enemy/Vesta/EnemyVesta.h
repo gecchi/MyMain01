@@ -3,7 +3,7 @@
 namespace MyStg2nd {
 
 /**
- * 土台に乗るテスト用 .
+ * ヴェスタ .
  * @version 1.00
  * @since 2009/01/22
  * @author Masatoshi Tsuge
@@ -39,30 +39,30 @@ public:
     EnemyVesta(const char* prm_name);
 
     /**
-     * たまごモデルが生成された際に１回だけ実行される処理
+     * ヴェスタモデルが生成された際に１回だけ実行される処理
      */
     void onCreateModel() override;
     /**
-     * たまごの初期処理（インスタンス生成後保証）
+     * ヴェスタの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 
     /**
-     * たまごのがアクティブになった瞬間の処理 .
+     * ヴェスタのがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 
     /**
-     * たまごの振る舞い .
+     * ヴェスタの振る舞い .
      */
     void processBehavior() override;
     /**
-     * たまごの振る舞い後の判定処理 .
+     * ヴェスタの振る舞い後の判定処理 .
      */
     void processJudgement() override;
 
     /**
-     * たまごの衝突時処理 .
+     * ヴェスタの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
