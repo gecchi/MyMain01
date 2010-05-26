@@ -63,12 +63,27 @@ void MyCurveLaserChip001::processBehavior() {
     if (_lockon == 1) {
         if (getPartFrame() < 180) {
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
-                int dx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*10);
-                int dy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*7);
-                int dz = _pOrg->_pLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*10);
-                _pMover->setVxMvAcce(dx);
-                _pMover->setVyMvAcce(dy);
-                _pMover->setVzMvAcce(dz);
+                int fdx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*8);
+                int fdy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*6);
+                int fdz = _pOrg->_pLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*8);
+                _pMover->setVxMvAcce(fdx);
+                _pMover->setVyMvAcce(fdy);
+                _pMover->setVzMvAcce(fdz);
+                //上記のホーミングは優秀だが、距離に応じて減速していくため移動する敵には永遠に当たらない。
+                //ある程度近づいたら見切りで直進させる
+                int dx = _pOrg->_pLockOnTarget->_X - _X;
+                int dy = _pOrg->_pLockOnTarget->_Y - _Y;
+                int dz = _pOrg->_pLockOnTarget->_Z - _Z;
+                if (abs(dx)+abs(dy)+abs(dz) < 150*1000) {
+                    _pMover->setVxMvVelo(dx);
+                    _pMover->setVyMvVelo(dy);
+                    _pMover->setVzMvVelo(dz);
+                    _pMover->setVxMvAcce(dx/10);
+                    _pMover->setVyMvAcce(dy/10);
+                    _pMover->setVzMvAcce(dz/10);
+                    _lockon = 2;
+                }
+
             } else {
                 _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
             }
@@ -122,10 +137,11 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
 
     if ((pOther->getKind() & KIND_ENEMY_BODY) && pOther->_pStatus->get(STAT_LockOnAble) == 1) {
-        //敵のでロックオン可能な場合
-        if (_pOrg->_pLockOnTarget) {
-            if (pOther == _pOrg->_pLockOnTarget) {
+        //敵のロックオン可能な場合
+        if (_pOrg->_pLockOnTarget) { //既にオプションはロックオン中
+            if (pOther == _pOrg->_pLockOnTarget) { //オプションのロックオンに見事命中した場合
                 _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+                //もうホーミングする必要はない。今後の方針を決定
 
                 //中間先頭チップがヒットした場合の処理。(_chip_kind=3の場合)
                 if (_pChip_front && _pChip_front->_pChip_front == NULL) {
@@ -135,7 +151,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                     //今後の移動方角(加速度)を伝えるのだが、先端チップや自身や移動方向は、急激な角度に曲がっている可能性が極めて高く
                     //不自然な角度のカーブを描きかねないので、やや後方のチップが存在するならば、そちらの移動方向をコピーする。
                     LaserChip* pChipPrev = this;
-                    for (int i = 0; i < 3; i++) { //最高3つ後方まで在れば採用
+                    for (int i = 0; i < 4; i++) { //最高3つ後方まで在れば採用
                         if (pChipPrev->_pChip_behind) {
                             pChipPrev = pChipPrev->_pChip_behind;
                         } else {
@@ -152,20 +168,27 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                     pTip->_pMover->setVyMvAcce(-(pChipPrev->_pMover->_acceVyMv));
                     pTip->_pMover->setVzMvAcce(-(pChipPrev->_pMover->_acceVzMv));
                 }
-            } else {
-                //ロックオンは後がちとする
-                _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
-                _pOrg->_pLockOnTarget = pOther;
+            } else { //オプションのロックオン以外に見事命中した場合
+
             }
         } else {
             _pOrg->_pLockOnTarget = pOther;
         }
-        //ここにMyのヒットエフェクト
-        if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-            //ここにMyの消滅エフェクト
-            inactivate();
-        } else {
 
+        //ここにMyのヒットエフェクト
+        int default_stamina = _pStatus->get(STAT_Stamina);
+        if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+            //一撃で消滅
+            inactivate();
+//            if (pOther == _pOrg->_pLockOnTarget) {
+//            } else {
+//                //ロックオンは後がちとする
+//                _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+//                _pOrg->_pLockOnTarget = pOther;
+//            }
+        } else {
+            //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
+            _pStatus->set(STAT_Stamina, default_stamina);
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
         inactivate();
