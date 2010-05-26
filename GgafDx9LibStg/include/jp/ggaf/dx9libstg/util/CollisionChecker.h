@@ -20,8 +20,6 @@ public:
     static int _num_check;
 
 
-    /** 当たり判定領域 */
-    GgafDx9Core::GgafDx9CollisionArea* _pCollisionArea;
     /** 当たり判定領域の境界領域(AABB)を再計算するかどうかのフラグ */
     bool _need_update_aabb;
     /** 線形８分木登録用要素 */

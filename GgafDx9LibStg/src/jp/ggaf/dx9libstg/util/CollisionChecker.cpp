@@ -7,7 +7,6 @@ using namespace GgafDx9LibStg;
 int CollisionChecker::_num_check = 0;
 LinearOctreeForActor* CollisionChecker::_pLinearOctree = NULL;
 CollisionChecker::CollisionChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_pActor) {
-    _pCollisionArea = NULL;
     if (CollisionChecker::_pLinearOctree == NULL) {
         CollisionChecker::_pLinearOctree  = ((DefaultUniverse*)(GgafGod::_pGod->_pUniverse))->_pLinearOctree;
     }
