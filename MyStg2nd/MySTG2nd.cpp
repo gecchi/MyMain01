@@ -371,7 +371,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
          break;
          */
         case WM_SIZE:
-            if (pGod) {
+            if (can_be_god) {
                 if (!GGAFDX9_PROPERTY(FULL_SCREEN)) {
                     adjustGameScreen(hWnd);
                 }
@@ -384,14 +384,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             //            return 0;
             //
         case WM_PAINT:
-            if (pGod) {
+            if (can_be_god) {
                 hdc = BeginPaint(hWnd, &ps);
                 EndPaint(hWnd, &ps);
             }
             break;
         case WM_SYSCOMMAND:
             if(wParam == SC_CLOSE){
-                if (pGod) {
+                if (can_be_god) {
                     can_be_god = false;
                     delete pGod; //神さようなら
                     pGod = NULL;
@@ -409,7 +409,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             //                        SetPriorityClass( GetCurrentProcess(), HIGH_PRIORITY_CLASS );
             //                        //優先度上げる理由。
             //                        //非アクティブになると解放が著しく遅くなってしまうのを回避しようとした。
-            if (pGod) {
+            if (can_be_god) {
                 can_be_god = false;
                 delete pGod; //神さようなら
                 pGod = NULL;

@@ -35,7 +35,7 @@ void VarietyTorus004::initialize() {
     DELETE_IMPOSSIBLE_NULL(paAngRadial);
     setAlpha(1.00);
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight+_r1+_r2;
-    _Y = GgafDx9Core::GgafDx9Universe::_Y_goneBottom+_r1+_r2+_r1+_r2;
+    _Y = MyShip::_lim_bottom;
     _Z = 0;
     _pMover->setRzRyMvAng(ANGLE180, 0);
     _pMover->setMvVelo(3000);

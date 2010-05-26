@@ -11,8 +11,8 @@ VarietyTorus001::VarietyTorus001(const char* prm_name) : Torus(prm_name, "Torus"
     _r1 = 2000*1000; //トーラス半径1
     _r2 = 800*1000;  //トーラス半径2
 
-    for (int angPos1 = 0; angPos1 < ANGLE360;  angPos1 += (30*1000)) {
-        for (int angPos2 = 0; angPos2 < ANGLE360;  angPos2 += (90*1000)) {
+    for (int angPos1 = 0; angPos1 < ANGLE360;  angPos1 += (20*1000)) {
+        for (int angPos2 = 0; angPos2 < ANGLE360;  angPos2 += (30*1000)) {
             EnemyVesta* p = NEW EnemyVesta("pEV1");
             addSubBoneOnSurface(p, angPos1, angPos2);
         }

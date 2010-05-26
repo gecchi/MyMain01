@@ -36,7 +36,7 @@ void VarietyTorus002::initialize() {
     setAlpha(1.00);
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight+_r1+_r2;
     _Y = 0;
-    _Z = GgafDx9Core::GgafDx9Universe::_Z_goneFar-_r1-_r2-_r1-_r2;
+    _Z = MyShip::_lim_zleft;
     _pMover->setRzRyMvAng(ANGLE180, 0);
     _pMover->setMvVelo(3000);
     _pMover->setFaceAngVelo(AXIS_Z, -200);

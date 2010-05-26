@@ -14,7 +14,7 @@ class Torus : public GroundMeshActor {
 public:
     /** トーラス半径1(輪) */
     int _r1;
-    /** トーラス半径1(太さ) */
+    /** トーラス半径2(太さ) */
     int _r2;
 
     Torus(const char* prm_name, const char* prm_model);
