@@ -3,10 +3,9 @@
 namespace MyStg2nd {
 
 /**
- * 地形トーラス .
- * 最初に作った地形
+ * 地形トーラス００１ .
  * @version 1.00
- * @since 2010/05/08
+ * @since 2010/05/23
  * @author Masatoshi Tsuge
  */
 class VarietyTorus001 : public Torus {
@@ -15,17 +14,11 @@ public:
 
     VarietyTorus001(const char* prm_name);
 
-    void onCreateModel() override;
-
     void initialize() override;
 
     void onActive() override;
 
     void processBehavior() override;
-
-    void processJudgement() override;
-
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~VarietyTorus001();
 };

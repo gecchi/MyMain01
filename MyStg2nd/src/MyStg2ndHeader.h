@@ -124,6 +124,9 @@ class TamagoScene;
 class GroundMeshActor;
 class Torus;
 class VarietyTorus001;
+class VarietyTorus002;
+class VarietyTorus003;
+class VarietyTorus004;
 
 class LaserChip;
 class CurveLaserChip;
@@ -305,6 +308,9 @@ class LaserChipEffectActor;
 
 #include "gecchi/actor/chikei/Torus/Torus.h"
 #include "gecchi/actor/chikei/Torus/VarietyTorus001.h"
+#include "gecchi/actor/chikei/Torus/VarietyTorus002.h"
+#include "gecchi/actor/chikei/Torus/VarietyTorus003.h"
+#include "gecchi/actor/chikei/Torus/VarietyTorus004.h"
 
 #include "gecchi/magic/Magic.h"
 #include "gecchi/magic/DefaultMagic.h"

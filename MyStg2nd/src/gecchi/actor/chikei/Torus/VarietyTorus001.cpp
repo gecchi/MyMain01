@@ -11,52 +11,35 @@ VarietyTorus001::VarietyTorus001(const char* prm_name) : Torus(prm_name, "Torus"
     _r1 = 2000*1000; //トーラス半径1
     _r2 = 800*1000;  //トーラス半径2
 
-//    EnemyVesta* pEV1 = NEW EnemyVesta("pEV1");
-//    EnemyVesta* pEV2 = NEW EnemyVesta("pEV2");
-//    EnemyVesta* pEV3 = NEW EnemyVesta("pEV3");
-//    EnemyVesta* pEV4 = NEW EnemyVesta("pEV4");
-
-    for (int angPos1 = 0; angPos1 < ANGLE360;  angPos1 += (10*1000)) {
+    for (int angPos1 = 0; angPos1 < ANGLE360;  angPos1 += (30*1000)) {
         for (int angPos2 = 0; angPos2 < ANGLE360;  angPos2 += (90*1000)) {
             EnemyVesta* p = NEW EnemyVesta("pEV1");
             addSubBoneOnSurface(p, angPos1, angPos2);
         }
     }
-//
-//    this->addSubBone(pEV1,  _r2  ,  _r1    ,     0, ANGLE0, ANGLE0, ANGLE0);
-//    this->addSubBone(pEV2,  0    ,  _r1+_r2,     0, ANGLE0, ANGLE90, ANGLE0);
-//    this->addSubBone(pEV4,  -_r2 ,  _r1    ,     0, ANGLE0, ANGLE180, ANGLE0);
-//    this->addSubBone(pEV3,  0    ,  _r1-_r2,     0, ANGLE0, ANGLE270, ANGLE0);
-}
-
-
-void VarietyTorus001::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.4, 3.0);
-    _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
-    _pGgafDx9Model->_pTextureBlinker->beat(60*20, 60*9, 60*3, -1);
-    _pGgafDx9Model->_fBlinkThreshold = 0.7;
 }
 
 void VarietyTorus001::initialize() {
     setHitAble(true);
-
     int nSphere = 16;    //当たり判定球の数;
     angle* paAngRadial = NEW angle[nSphere];
-    GgafDx9Util::getRadialAngle2D(0, nSphere, paAngRadial);
     _pCollisionChecker->makeCollision(nSphere);
+    GgafDx9Util::getRadialAngle2D(0, nSphere, paAngRadial);
     for (int i = 0; i < nSphere; i++) {
         _pCollisionChecker->setColliSphere(
                 i,
                 0 , GgafDx9Util::SIN[paAngRadial[i]/ANGLE_RATE] * _r1, GgafDx9Util::COS[paAngRadial[i]/ANGLE_RATE] * _r1,
-                _r2*0.95,
+                _r2*0.96,
                 false, true, true
                 );
     }
     DELETE_IMPOSSIBLE_NULL(paAngRadial);
     setAlpha(1.00);
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight+_r1+_r2;
+    _Y = 0;
+    _Z = 0;
     _pMover->setRzRyMvAng(ANGLE180, 0);
-    _pMover->setMvVelo(1000);
+    _pMover->setMvVelo(3000);
     _pMover->setFaceAngVelo(AXIS_Z, 100);
     _pMover->setFaceAngVelo(AXIS_Y, 200);
 }
@@ -68,17 +51,6 @@ void VarietyTorus001::onActive() {
 void VarietyTorus001::processBehavior() {
     //座標に反映
     _pMover->behave();
-}
-
-void VarietyTorus001::processJudgement() {
-}
-
-void VarietyTorus001::onHit(GgafActor* prm_pOtherActor) {
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    if (pExplo001 != NULL) {
-        pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
-        pExplo001->activate();
-    }
 }
 
 VarietyTorus001::~VarietyTorus001() {

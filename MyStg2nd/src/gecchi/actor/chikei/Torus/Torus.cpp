@@ -90,6 +90,9 @@ void Torus::processBehavior() {
 }
 
 void Torus::processJudgement() {
+    if (isOutOfGameSpace()) {
+        inactivate();
+    }
 }
 
 void Torus::onHit(GgafActor* prm_pOtherActor) {
@@ -100,5 +103,9 @@ void Torus::onHit(GgafActor* prm_pOtherActor) {
     }
 }
 
+int Torus::isOffscreen() {
+    //Ž‹–ìŠO”»’è•s—v
+    return 0;
+}
 Torus::~Torus() {
 }

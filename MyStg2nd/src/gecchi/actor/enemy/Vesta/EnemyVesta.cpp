@@ -27,7 +27,7 @@ EnemyVesta::EnemyVesta(const char* prm_name)
 
     _pSeReflector->useSe(1);
     _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
-
+    setAlpha(1.0);
 }
 
 void EnemyVesta::onCreateModel() {

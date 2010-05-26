@@ -17,8 +17,6 @@ public:
     /** ÉgÅ[ÉâÉXîºåa1(ëæÇ≥) */
     int _r2;
 
-
-
     Torus(const char* prm_name, const char* prm_model);
 
     void addSubBoneOnSurface(GgafDx9Core::GgafDx9GeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2);
@@ -35,12 +33,10 @@ public:
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    bool isOffScreen() {
-        return 0;
-    }
+    virtual int isOffscreen() override;
 
-    bool isOutOfGameSpace() {
-		if (GgafDx9Core::GgafDx9Universe::_X_goneLeft < _X) {
+    virtual bool isOutOfGameSpace() override {
+        if (GgafDx9Core::GgafDx9Universe::_X_goneLeft < _X) {
             return false;
         } else {
             return true;
