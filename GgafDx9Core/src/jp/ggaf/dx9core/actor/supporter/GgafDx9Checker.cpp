@@ -5,6 +5,7 @@ using namespace GgafDx9Core;
 
 GgafDx9Checker::GgafDx9Checker(GgafDx9GeometricActor* prm_pActor) :
     GgafObject() {
+    _pCollisionArea = NULL;
     _pActor = prm_pActor;
 }
 

@@ -16,6 +16,10 @@ protected:
     GgafDx9GeometricActor* _pActor;
 
 public:
+
+    /** 当たり判定領域 */
+    GgafDx9Core::GgafDx9CollisionArea* _pCollisionArea;
+
     /**
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
