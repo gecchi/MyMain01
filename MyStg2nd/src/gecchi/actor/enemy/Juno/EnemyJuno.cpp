@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Core4") {
+EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Ceres") {
     _class_name = "EnemyJuno";
     MyStgUtil::resetEnemyJunoStatus(_pStatus);
     _pDispatcher_ShotEffect = NULL;
@@ -17,14 +17,14 @@ EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Core
     _do_Shot = false;
     _pSeReflector->useSe(2);
     _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
-	_pSeReflector->set(1, "cm-22", GgafRepeatSeq::nextVal("CH_cm-22"));     //発射
+    _pSeReflector->set(1, "cm-22", GgafRepeatSeq::nextVal("CH_cm-22"));     //発射
 }
 
 void EnemyJuno::onCreateModel() {
     _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.5, 2.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
     _pGgafDx9Model->_pTextureBlinker->beat(60, 3, 1, -1);
-    _pGgafDx9Model->_fBlinkThreshold = 0.9;
+    _pGgafDx9Model->_fBlinkThreshold = 0.2;
 }
 
 void EnemyJuno::initialize() {
@@ -63,7 +63,7 @@ void EnemyJuno::processBehavior() {
                     pShot->activate();
                     _do_Shot = false;
                     chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
-					_pSeReflector->play3D(1);
+                    _pSeReflector->play3D(1);
                 }
                 //ショット発射エフェクト
                 if (_pDispatcher_ShotEffect) {

@@ -63,9 +63,11 @@ void MyCurveLaserChip001::processBehavior() {
     if (_lockon == 1) {
         if (getPartFrame() < 120) {
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
-                int fdx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*(8.0 - (0.06*getPartFrame())));
-                int fdy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*(8.0 - (0.06*getPartFrame())));
-                int fdz = _pOrg->_pLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*(8.0 - (0.06*getPartFrame())));
+                float rate = 8.0 - 0.06*getPartFrame(); //0.06 * 120 = 8.0
+                rate = rate > 0 ? rate : 0;
+                int fdx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*rate);
+                int fdy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
+                int fdz = _pOrg->_pLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*rate);
                 _pMover->setVxMvAcce(fdx);
                 _pMover->setVyMvAcce(fdy);
                 _pMover->setVzMvAcce(fdz);
@@ -136,11 +138,12 @@ void MyCurveLaserChip001::processBehavior() {
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
 
-    if ((pOther->getKind() & KIND_ENEMY_BODY) && pOther->_pStatus->get(STAT_LockOnAble) == 1) {
-        //敵のロックオン可能な場合
+    if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
         if (_pOrg->_pLockOnTarget) { //既にオプションはロックオン中
-            if (pOther == _pOrg->_pLockOnTarget) { //オプションのロックオンに見事命中した場合
-                _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+            if (pOther == _pOrg->_pLockOnTarget) {
+                //オプションのロックオンに見事命中した場合
+
+                _lockon = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
                 //もうホーミングする必要はない。今後の方針を決定
 
                 //中間先頭チップがヒットした場合の処理。(_chip_kind=3の場合)
@@ -168,27 +171,27 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                     pTip->_pMover->setVyMvAcce(-(pChipPrev->_pMover->_acceVyMv));
                     pTip->_pMover->setVzMvAcce(-(pChipPrev->_pMover->_acceVzMv));
                 }
-            } else { //オプションのロックオン以外に見事命中した場合
+            } else {
+                //オプションのロックオン以外のアクターに命中した場合
 
             }
         } else {
-            _pOrg->_pLockOnTarget = pOther;
-        }
+            //オプション非ロックオン中に命中した場合
 
-        //ここにMyのヒットエフェクト
+        }
         int default_stamina = _pStatus->get(STAT_Stamina);
-        if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-            //一撃で消滅
+        int stamina = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+        if (stamina <= 0) {
+            //一撃でチップ消滅
             inactivate();
-//            if (pOther == _pOrg->_pLockOnTarget) {
-//            } else {
-//                //ロックオンは後がちとする
-//                _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
-//                _pOrg->_pLockOnTarget = pOther;
-//            }
+            //ロックオン可能アクターならロックオン更新
+            if (pOther->_pStatus->get(STAT_LockOnAble) == 1) {
+                _pOrg->_pLockOnTarget = pOther;
+            }
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             _pStatus->set(STAT_Stamina, default_stamina);
+            //痛感可能な雑魚はロックオン無し
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
         inactivate();
