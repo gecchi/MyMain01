@@ -16,8 +16,6 @@ public:
 
     void initialize() override;
 
-    void onActive() override;
-
     void processBehavior() override;
 
     virtual ~VarietyTorus001();

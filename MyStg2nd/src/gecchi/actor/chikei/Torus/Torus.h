@@ -17,17 +17,19 @@ public:
     /** トーラス半径2(太さ) */
     int _r2;
 
-    Torus(const char* prm_name, const char* prm_model);
-
-    void addSubBoneOnSurface(GgafDx9Core::GgafDx9GeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2);
+    /**
+     * コンストラクタ .
+     * @param prm_name
+     * @param prm_model
+     * @param prm_r1 トーラス半径1(輪)
+     * @param prm_r2 トーラス半径2(輪の太さ)
+     * @return
+     */
+    Torus(const char* prm_name, const char* prm_model, int prm_r1, int prm_r2);
 
     virtual void onCreateModel() override;
 
-    virtual void initialize() override;
-
     virtual void onActive() override;
-
-    virtual void processBehavior() override;
 
     virtual void processJudgement() override;
 
@@ -43,6 +45,16 @@ public:
         }
     }
     virtual ~Torus();
+
+protected:
+    /**
+     * 当たり判定領域を作成し設定する .
+     * @param prm_nSphere 当たり判定球の数
+     */
+    void makeCollisionArea(int prm_nSphere);
+
+    void addSubBoneOnSurface(GgafDx9Core::GgafDx9GeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2);
+
 };
 
 }
