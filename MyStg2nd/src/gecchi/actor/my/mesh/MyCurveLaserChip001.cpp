@@ -61,28 +61,28 @@ void MyCurveLaserChip001::onActive() {
 
 void MyCurveLaserChip001::processBehavior() {
     if (_lockon == 1) {
-        if (getPartFrame() < 180) {
+        if (getPartFrame() < 120) {
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
-                int fdx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*8);
-                int fdy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*6);
-                int fdz = _pOrg->_pLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*8);
+                int fdx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*(8.0 - (0.06*getPartFrame())));
+                int fdy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*(8.0 - (0.06*getPartFrame())));
+                int fdz = _pOrg->_pLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*(8.0 - (0.06*getPartFrame())));
                 _pMover->setVxMvAcce(fdx);
                 _pMover->setVyMvAcce(fdy);
                 _pMover->setVzMvAcce(fdz);
-                //上記のホーミングは優秀だが、距離に応じて減速していくため移動する敵には永遠に当たらない。
-                //ある程度近づいたら見切りで直進させる
-                int dx = _pOrg->_pLockOnTarget->_X - _X;
-                int dy = _pOrg->_pLockOnTarget->_Y - _Y;
-                int dz = _pOrg->_pLockOnTarget->_Z - _Z;
-                if (abs(dx)+abs(dy)+abs(dz) < 150*1000) {
-                    _pMover->setVxMvVelo(dx);
-                    _pMover->setVyMvVelo(dy);
-                    _pMover->setVzMvVelo(dz);
-                    _pMover->setVxMvAcce(dx/10);
-                    _pMover->setVyMvAcce(dy/10);
-                    _pMover->setVzMvAcce(dz/10);
-                    _lockon = 2;
-                }
+//                //上記のホーミングは優秀だが、距離に応じて減速していくため移動する敵には永遠に当たらない。
+//                //ある程度近づいたら見切りで直進させる
+//                int dx = _pOrg->_pLockOnTarget->_X - _X;
+//                int dy = _pOrg->_pLockOnTarget->_Y - _Y;
+//                int dz = _pOrg->_pLockOnTarget->_Z - _Z;
+//                if (abs(dx)+abs(dy)+abs(dz) < 150*1000) {
+//                    _pMover->setVxMvVelo(dx);
+//                    _pMover->setVyMvVelo(dy);
+//                    _pMover->setVzMvVelo(dz);
+//                    _pMover->setVxMvAcce(dx/10);
+//                    _pMover->setVyMvAcce(dy/10);
+//                    _pMover->setVzMvAcce(dz/10);
+//                    _lockon = 2;
+//                }
 
             } else {
                 _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
