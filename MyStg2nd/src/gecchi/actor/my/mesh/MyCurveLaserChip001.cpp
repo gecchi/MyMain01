@@ -164,9 +164,8 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                     pTip->_pMover->setVxMvVelo(pChipPrev->_pMover->_veloVxMv*2);
                     pTip->_pMover->setVyMvVelo(pChipPrev->_pMover->_veloVyMv*2);
                     pTip->_pMover->setVzMvVelo(pChipPrev->_pMover->_veloVzMv*2);
-                    //ターゲットに向かっている最中であるため、殆どの場合減速中である。
-                    //そのま加速度を設定すると、いずれ逆方向に向かうことになってしまう。。
-                    //本来向かうべき方向に近似するため、正負逆を設定する。
+                    //ターゲットがなくなり、レーザーの「ハジけた感（解放感）」を演出するため
+                    //加速度の正負逆を設定する。
                     pTip->_pMover->setVxMvAcce(-(pChipPrev->_pMover->_acceVxMv));
                     pTip->_pMover->setVyMvAcce(-(pChipPrev->_pMover->_acceVyMv));
                     pTip->_pMover->setVzMvAcce(-(pChipPrev->_pMover->_acceVzMv));

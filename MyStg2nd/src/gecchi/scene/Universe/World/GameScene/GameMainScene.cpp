@@ -265,26 +265,26 @@ void GameMainScene::processBehavior() {
         } else {
             throwGgafCriticalException("World::processBehavior() 不正な_pos_camera="<<_pos_camera);
         }
-
-        int cam_slow_velo_renge;
+        //各軸最大速度
+        int cam_velo_renge;
 
         if (VB->isBeingPressed(VB_ZMOVE)) {
-            cam_slow_velo_renge = _cam_velo_renge / 100;
+            cam_velo_renge = _cam_velo_renge / 200;
         } else {
-            cam_slow_velo_renge = _cam_velo_renge;
+            cam_velo_renge = _cam_velo_renge;
         }
-        pCAM->_pMover->forceVxMvVeloRange(-cam_slow_velo_renge, cam_slow_velo_renge);
-        pCAM->_pMover->forceVyMvVeloRange(-cam_slow_velo_renge, cam_slow_velo_renge);
-        pCAM->_pMover->forceVzMvVeloRange(-cam_slow_velo_renge, cam_slow_velo_renge);
-        pCAM->_pMover->forceVxMvAcceRange(-cam_slow_velo_renge / 40, cam_slow_velo_renge / 40);
-        pCAM->_pMover->forceVyMvAcceRange(-cam_slow_velo_renge / 40, cam_slow_velo_renge / 40);
-        pCAM->_pMover->forceVzMvAcceRange(-cam_slow_velo_renge / 40, cam_slow_velo_renge / 40);
-        pVP->_pMover->forceVxMvVeloRange(-cam_slow_velo_renge, cam_slow_velo_renge);
-        pVP->_pMover->forceVyMvVeloRange(-cam_slow_velo_renge, cam_slow_velo_renge);
-        pVP->_pMover->forceVzMvVeloRange(-cam_slow_velo_renge, cam_slow_velo_renge);
-        pVP->_pMover->forceVxMvAcceRange(-cam_slow_velo_renge / 40, cam_slow_velo_renge / 40);
-        pVP->_pMover->forceVyMvAcceRange(-cam_slow_velo_renge / 40, cam_slow_velo_renge / 40);
-        pVP->_pMover->forceVzMvAcceRange(-cam_slow_velo_renge / 40, cam_slow_velo_renge / 40);
+        pCAM->_pMover->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
+        pCAM->_pMover->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
+        pCAM->_pMover->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+        pCAM->_pMover->forceVxMvAcceRange(-cam_velo_renge / 40, cam_velo_renge / 40);
+        pCAM->_pMover->forceVyMvAcceRange(-cam_velo_renge / 40, cam_velo_renge / 40);
+        pCAM->_pMover->forceVzMvAcceRange(-cam_velo_renge / 40, cam_velo_renge / 40);
+        pVP->_pMover->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
+        pVP->_pMover->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
+        pVP->_pMover->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+        pVP->_pMover->forceVxMvAcceRange(-cam_velo_renge / 40, cam_velo_renge / 40);
+        pVP->_pMover->forceVyMvAcceRange(-cam_velo_renge / 40, cam_velo_renge / 40);
+        pVP->_pMover->forceVzMvAcceRange(-cam_velo_renge / 40, cam_velo_renge / 40);
 
         //カメラと視点の移動目標を自機移動範囲を考慮して制限
         if (_pos_camera < CAM_POS_TO_BEHIND) {
