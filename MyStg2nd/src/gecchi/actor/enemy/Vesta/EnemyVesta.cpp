@@ -26,7 +26,7 @@ EnemyVesta::EnemyVesta(const char* prm_name)
     _pDpcon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot004");
 
     _pSeReflector->useSe(1);
-    _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeReflector->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
     setAlpha(1.0);
 }
 
@@ -241,13 +241,14 @@ void EnemyVesta::processJudgement() {
 void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    _pSeReflector->play3D(0);
+
     if (pExplo001 != NULL) {
         pExplo001->activate();
         pExplo001->setGeometry(this);
     }
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        _pSeReflector->play3D(0);
         inactivate();
     }
 }

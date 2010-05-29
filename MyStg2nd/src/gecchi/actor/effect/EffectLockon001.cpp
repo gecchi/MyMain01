@@ -11,6 +11,8 @@ EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(p
     chengeEffectTechnique("DestBlendOne"); //加算合成
     defineWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
     setHitAble(false); //当たり判定無し
+    _pSeReflector->useSe(1);
+    _pSeReflector->set(0, "humei10", GgafRepeatSeq::nextVal("CH_humei10"));
 }
 
 void EffectLockOn001::initialize() {
@@ -26,6 +28,7 @@ void EffectLockOn001::onActive() {
     _pScaler->setScale(60000); //(6000%)
     _pScaler->intoTargetScaleLinerUntil(2000, 20);//スケーリング・20F費やして2000(200%)に縮小
     _pMover->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    _pSeReflector->play(0);
 }
 
 void EffectLockOn001::processBehavior() {

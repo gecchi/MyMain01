@@ -15,6 +15,9 @@ Universe::Universe(const char* prm_name) : DefaultUniverse(prm_name) {
     GgafRepeatSeq::create("CH_a_shot", 0, 3);
     GgafRepeatSeq::create("CH_laser001", 0, 8); //オプションレーザー
 	GgafRepeatSeq::create("CH_cm-22", 0, 8); //Juno発射音
+	GgafRepeatSeq::create("CH_bom10", 0, 3); //Metis爆発
+    GgafRepeatSeq::create("CH_explos3", 0, 3); //Vesta爆発
+    GgafRepeatSeq::create("CH_humei10", 0, 1); //LockOn
     //【めも】
     //ここでActorやSceneのNEWをはしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。

@@ -14,7 +14,7 @@ EnemyMetis::EnemyMetis(const char* prm_name) : DefaultMeshSetActor(prm_name, "Me
     _iMovePatternNo = 0;
     _pSeReflector->useSe(2);
     _pSeReflector->set(0, "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeReflector->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
+    _pSeReflector->set(1, "bom10", GgafRepeatSeq::nextVal("CH_bom10"));     //”š”­
 }
 
 void EnemyMetis::initialize() {
