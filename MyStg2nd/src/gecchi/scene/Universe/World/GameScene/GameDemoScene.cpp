@@ -11,7 +11,8 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
     _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "moji");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard02);
-
+    _pBgmPerformer->useBgm(1);
+    _pBgmPerformer->set(0, "FrozenRay");
 //    orderActorToFactory(111111, TamagoActor, "TAMAGO_X");
 }
 void GameDemoScene::reset() {
@@ -67,6 +68,9 @@ void GameDemoScene::processBehavior() {
          //タイトル開始
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE TITLE");
         _pStringBoard02->update(100, 150, "PUSH A UI_EXECUTE BUTTON");
+        _pBgmPerformer->stop(0);
+        _pBgmPerformer->play(0, true);
+
         _dwFrame_Title = 0;
     } else if (getProgress() == GAMEDEMO_PROG_TITLE) {
         //タイトル活動ループ
@@ -77,7 +81,7 @@ void GameDemoScene::processBehavior() {
             setProgress(GAMEDEMO_PROG_DECIDE);
         }
 
-        if (_dwFrame_Title == 300) {
+        if (_dwFrame_Title == 600) {
             setProgress(GAMEDEMO_PROG_DEMOPLAY); //デモへ
         }
     }
@@ -88,6 +92,9 @@ void GameDemoScene::processBehavior() {
         _pStringBoard02->update(100, 150, "GAME OVER");
        setProgress(GAMEDEMO_PROG_DEMOPLAY);
         _dwFrame_Demoplay = 0;
+
+        _pBgmPerformer->fadeout(0, 180);//タイトルBGMが鳴っていれば消す
+
     } else if (getProgress() == GAMEDEMO_PROG_DEMOPLAY) {
         //デモプレイ活動ループ
         _dwFrame_Demoplay++;
@@ -103,7 +110,7 @@ void GameDemoScene::processBehavior() {
     if (onChangeProgressAt(GAMEDEMO_PROG_RANKING)) {
         //ランキング表示
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE RANKING");
-        _pStringBoard02->update(100, 150, "1ST GECCHIRAQ ");
+        _pStringBoard02->update(100, 150, "1st GECCHIRAQ 100000\n2nd GECCHIRAQ  90000\n3rd GECCHIRAQ  80000\n4th GECCHIRAQ  70000\n5th GECCHIRAQ  60000");
         _dwFrame_Ranking = 0;
     } else if (getProgress() == GAMEDEMO_PROG_RANKING) {
         //ランキング活動ループ
@@ -136,6 +143,7 @@ void GameDemoScene::processBehavior() {
         _dwFrame_Decide++;
 
         if (_dwFrame_Decide == 120) {
+            _pBgmPerformer->fadeout_stop(0, 180);
             setProgress(GAMEDEMO_PROG_END); //お終い
         }
     }

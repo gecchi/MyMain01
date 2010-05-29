@@ -14,6 +14,7 @@ private:
 
 public:
     bool* _pa_is_fade;
+    bool* _pa_is_fadeout_stop;
     double* _pa_now_volume;
     double* _pa_target_volume;
     double* _pa_inc_volume;
@@ -32,6 +33,11 @@ public:
     }
     void fadeout(int prm_id, int prm_frame) {
         fade(prm_id, prm_frame, DSBVOLUME_MIN);
+        _pa_is_fadeout_stop[prm_id] = false;
+    }
+    void fadeout_stop(int prm_id, int prm_frame) {
+        fade(prm_id, prm_frame, DSBVOLUME_MIN);
+        _pa_is_fadeout_stop[prm_id] = true;
     }
 
     void prepare(int prm_id, const char* prm_se_name) ;
@@ -41,6 +47,10 @@ public:
     }
 
     void play(int prm_id, int prm_volume, bool prm_is_loop);
+
+    void stop(int prm_id);
+
+    void pause(int prm_id);
     virtual ~GgafDx9BgmPerformer();
 };
 

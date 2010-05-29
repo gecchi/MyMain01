@@ -11,7 +11,7 @@ GgafDx9StringBoardActor::GgafDx9StringBoardActor(const char* prm_name, const cha
     _class_name = "GgafDx9StringBoardActor";
     _draw_string = NULL;
     _len = 0;
-    _buf = NEW char[50];
+    _buf = NEW char[1024];
 }
 
 void GgafDx9StringBoardActor::update(float prm_x, float prm_y, const char* prm_str) {
