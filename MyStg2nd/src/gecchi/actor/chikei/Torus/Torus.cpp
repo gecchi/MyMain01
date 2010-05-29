@@ -16,15 +16,12 @@ void Torus::addSubBoneOnSurface(GgafDx9GeometricActor* prm_pGeoActor, angle prm_
     //トーラスはZY平面に円
     s_ang angPos1 = prm_angPos1 /ANGLE_RATE;
     s_ang angPos2 = prm_angPos2 /ANGLE_RATE;
-
+    //位置を求める
     //平行移動( +_r2, +0, +0) > angPos2のY軸回転 > 平行移動( +0, +0, -_r1) > angPos1のX軸回転 変換行列の dx, dy, dz を使用
     //    | COS[angPos2]    , -SIN[angPos2]*-SIN[angPos1]             , -SIN[angPos2]*COS[angPos1]             , 0 |
     //    | 0               , COS[angPos1]                            , SIN[angPos1]                           , 0 |
     //    | SIN[angPos2]    , COS[angPos2]*-SIN[angPos1]              , COS[angPos2]*COS[angPos1]              , 0 |
     //    | _r2*COS[angPos2], (_r2*-SIN[angPos2] + -_r1)*-SIN[angPos1], (_r2*-SIN[angPos2] + -_r1)*COS[angPos1], 1 |
-//  _TRACE_("GgafDx9Util::COS[angPos2]="<<GgafDx9Util::COS[angPos2]);
-//  _TRACE_("_r2="<<_r2);
-//  _TRACE_("_r2*GgafDx9Util::COS[angPos2]="<<_r2*GgafDx9Util::COS[angPos2]);
     double X = _r2*GgafDx9Util::COS[angPos2];
     double Y = (_r2*-GgafDx9Util::SIN[angPos2] - _r1) * -GgafDx9Util::SIN[angPos1];
     double Z = (_r2*-GgafDx9Util::SIN[angPos2] - _r1) *  GgafDx9Util::COS[angPos1];
@@ -35,12 +32,12 @@ void Torus::addSubBoneOnSurface(GgafDx9GeometricActor* prm_pGeoActor, angle prm_
     //    | 0, COS[angPos1]      , SIN[angPos1]     , 0 |
     //    | 0, -SIN[angPos1]     , COS[angPos1]     , 0 |
     //    | 0, -_r1*-SIN[angPos1], -_r1*COS[angPos1], 1 |
-
     double CX = 0;
     double CY = -_r1*-GgafDx9Util::SIN[angPos1];
     double CZ = -_r1*GgafDx9Util::COS[angPos1];
     angle angRz, angRy;
     GgafDx9Util::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
+    //ボーンとして追加
     this->addSubBone(prm_pGeoActor, X, Y, Z, ANGLE0, angRz, angRy);
 }
 

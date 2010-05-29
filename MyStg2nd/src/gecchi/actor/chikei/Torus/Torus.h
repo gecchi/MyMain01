@@ -48,11 +48,17 @@ public:
 
 protected:
     /**
-     * 当たり判定領域を作成し設定する .
+     * トーラスの当たり判定領域を作成し設定する .
      * @param prm_nSphere 当たり判定球の数
      */
     void makeCollisionArea(int prm_nSphere);
 
+    /**
+     * トーラスの表面にサブボーンを追加
+     * @param prm_pGeoActor 追加するアクター
+     * @param prm_angPos1 輪の角度位置
+     * @param prm_angPos2 輪周りの角度位置
+     */
     void addSubBoneOnSurface(GgafDx9Core::GgafDx9GeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2);
 
 };
