@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Ceres") {
+EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Pallas") {
     _class_name = "EnemyJuno";
     MyStgUtil::resetEnemyJunoStatus(_pStatus);
     _pDispatcher_ShotEffect = NULL;
@@ -30,8 +30,8 @@ void EnemyJuno::onCreateModel() {
 void EnemyJuno::initialize() {
     setHitAble(false);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -90000, -90000, -90000, 90000, 90000, 90000);
-    _pMover->setFaceAngVelo(AXIS_X, 5000);
+    _pCollisionChecker->setColliAAB_Cube(0, 45000);
+    _pMover->setFaceAngVelo(AXIS_Z, 5000);
     _pMover->forceMvVeloRange(1, _pMover->_veloMv);
 }
 

@@ -126,7 +126,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_AddRankPoint, 0.00000 );  //‰ÁZƒ‰ƒ“ƒN
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 		p->set(STAT_Stamina, 100 );  //‘Ì—Í
-		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_Attack, 105 );  //UŒ‚—Í
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
@@ -138,7 +138,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_AddRankPoint, 0.00000 );  //‰ÁZƒ‰ƒ“ƒN
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 		p->set(STAT_Stamina, 100 );  //‘Ì—Í
-		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_Attack, 105 );  //UŒ‚—Í
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
@@ -162,7 +162,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 		p->set(STAT_Stamina, 100 );  //‘Ì—Í
-		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_Attack, 99 );  //UŒ‚—Í
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
@@ -221,7 +221,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_AddScorePoint, 100 );  //‰ÁZ“¾“_
 		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-		p->set(STAT_Stamina, 10000 );  //‘Ì—Í
+		p->set(STAT_Stamina, 2000 );  //‘Ì—Í
 		p->set(STAT_Attack, 100 );  //UŒ‚—Í
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
@@ -233,7 +233,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_AddScorePoint, 30000 );  //‰ÁZ“¾“_
 		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-		p->set(STAT_Stamina, 100000 );  //‘Ì—Í
+		p->set(STAT_Stamina, 50000 );  //‘Ì—Í
 		p->set(STAT_Attack, 100 );  //UŒ‚—Í
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
@@ -246,7 +246,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 		p->set(STAT_Stamina, 100 );  //‘Ì—Í
-		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_Attack, 99 );  //UŒ‚—Í
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
@@ -306,7 +306,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 		p->set(STAT_Stamina, 100 );  //‘Ì—Í
-		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_Attack, 99 );  //UŒ‚—Í
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
