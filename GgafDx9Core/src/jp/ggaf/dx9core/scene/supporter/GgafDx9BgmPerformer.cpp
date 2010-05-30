@@ -11,6 +11,7 @@ GgafDx9BgmPerformer::GgafDx9BgmPerformer() : GgafObject() {
     _pa_now_volume = NULL;
     _pa_target_volume = NULL;
     _pa_inc_volume = NULL;
+	_pa_is_fadeout_stop = NULL;
 }
 void GgafDx9BgmPerformer::useBgm(int prm_bgm_num) {
     _bgm_num = prm_bgm_num;
@@ -94,12 +95,14 @@ void GgafDx9BgmPerformer::setVolume(int prm_id, int prm_volume) {
     _papBgmCon[prm_id]->view()->setVolume(prm_volume);
 }
 GgafDx9BgmPerformer::~GgafDx9BgmPerformer() {
-    for (int i = 0; i < _bgm_num; i++) {
-        if (_papBgmCon[i]) {
-            _papBgmCon[i]->close();
-        }
+	if (_papBgmCon) {
+		for (int i = 0; i < _bgm_num; i++) {
+			if (_papBgmCon[i]) {
+				_papBgmCon[i]->close();
+			}
 
-    }
+		}
+	}
     DELETEARR_POSSIBLE_NULL(_papBgmCon);
     DELETEARR_POSSIBLE_NULL(_pa_is_fade);
 	DELETEARR_POSSIBLE_NULL(_pa_is_fadeout_stop);
