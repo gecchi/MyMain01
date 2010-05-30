@@ -45,10 +45,11 @@
 #define ANGLE_PI (180000)
 #define ANGLE_2PI (360000)
 
-//3D空間の座標単位１に対してのPG内での座標単位の比率（PG内での座標単位を LEN_UNITで割ると3D空間の座標単位１になる）
-#define LEN_UNIT (1000)
-//3D空間の座標単位１に対しての画面px数（画面高さなどを、PX_UNITで割ると3D空間の座標単位１になる）
+
+//DirectXの3D空間の座標単位１に対しての原点付近の画面px相当数（画面高さ(px)などを、PX_UNITで割ると3D空間の座標単位１になる）
 #define PX_UNIT (10)
+//原点付近の画面上の１px相当に対してのPG内での座標単位の比率（PG内での座標単位を LEN_UNITで割ると3D空間のpxになる）
+#define LEN_UNIT (1000)
 #define PI (3.14159265358979)
 
 //ノードの happen 引数
@@ -69,31 +70,10 @@
 #include <dxfile.h>
 
 
-
-
-
-//#include "ogg/os_types.h"
-//#include "ogg/ogg.h"
-//#include "vorbis/codec.h"
-//#include "vorbis/vorbisenc.h"
-//#include "vorbis/vorbisfile.h"
-
 #include "OggDecoder.h"
 #include "OggVorbisMemory.h"
 #include "OggVorbisFile.h"
 #include "PCMPlayer.h"
-//#include "DixSmartPtr.hpp"
-//#include "DixComPtr.h"
-
-//class CWaveDecorder;
-//class CC3DSound;
-//class CC3DSoundBufferSE;
-//class CC3DSoundSE;
-
-//
-//#include "jp/ggaf/dx9core/sound/wavedecorder.h"
-//#include "jp/ggaf/dx9core/sound/c3dsound.h"
-
 
 class CmRandomNumberGenerator;
 
@@ -287,19 +267,8 @@ class GgafDx9BgmManager;
 class GgafDx9Sound;
 class CWaveDecorder;
 
-
-
-
 }
 
-//class DixComPtr;
-//class DixSmartPtr;
-//class PCMDecoder;
-//class PCMPlayer;
-//class OggDecoder;
-//class OggVorbisResource;
-//class OggVorbisFile;
-//class OggVorbisMemory;
 
 #include "ToolBox/IOModel_X.h"
 #include "jp/ggaf/dx9core/exception/GgafDx9CriticalException.h"
@@ -390,30 +359,9 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/scene/supporter/GgafDx9AlphaCurtain.h"
 #include "jp/ggaf/dx9core/model/supporter/GgafDx9TextureBlinker.h"
 
-
 #include "jp/ggaf/dx9core/model/GgafDx9RectUV.h"
 
-
-
-//#include "jp/ggaf/dx9core/sound/c3dsound.hpp"
-//#include "jp/ggaf/dx9core/sound/oggdecorder.hpp"
-//#include "jp/ggaf/dx9core/sound/wavedecorder.hpp"
-//
-
-
-/*
-
-#include "jp/ggaf/dx9core/sound/PCMDecoder.h"
-#include "jp/ggaf/dx9core/sound/PCMPlayer.h"
-#include "jp/ggaf/dx9core/sound/OggDecoder.h"
-#include "jp/ggaf/dx9core/sound/OggVorbisResource.h"
-#include "jp/ggaf/dx9core/sound/OggVorbisFile.h"
-#include "jp/ggaf/dx9core/sound/OggVorbisMemory.h"
-
-*/
 #include "jp/ggaf/dx9core/sound/CWaveDecorder.h"
-
-
 #include "jp/ggaf/dx9core/sound/GgafDx9Se.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9Bgm.h"
 #include "jp/ggaf/dx9core/manager/GgafDx9SeConnection.h"

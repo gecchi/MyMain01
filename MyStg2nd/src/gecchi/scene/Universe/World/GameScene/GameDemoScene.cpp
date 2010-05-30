@@ -93,7 +93,7 @@ void GameDemoScene::processBehavior() {
        setProgress(GAMEDEMO_PROG_DEMOPLAY);
         _dwFrame_Demoplay = 0;
 
-        _pBgmPerformer->fadeout(0, 180);//タイトルBGMが鳴っていれば消す
+        _pBgmPerformer->fadeout_stop(0, 180);//タイトルBGMが鳴っていれば消す
 
     } else if (getProgress() == GAMEDEMO_PROG_DEMOPLAY) {
         //デモプレイ活動ループ
