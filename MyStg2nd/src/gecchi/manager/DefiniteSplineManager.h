@@ -3,10 +3,10 @@
 namespace MyStg2nd {
 
 /**
- * DefiniteSpline 管理クラス .
- * 生成済み DefiniteSpline オブジェクトを登録しておき、使いまわします。
+ * Spline 管理クラス .
+ * 生成済み GgafDx9Spline3D オブジェクトを登録しておき、使いまわします。
  * @version 1.00
- * @since 2008/09/08
+ * @since 2010/05/31
  * @author Masatoshi Tsuge
  */
 class DefiniteSplineManager : public GgafCore::GgafResourceManager<GgafDx9Core::GgafDx9Spline3D> {
@@ -21,9 +21,9 @@ public:
 
     /**
      * ディスパッチャーを識別文字列から生成。
-     * 本アプリのディスパッチャーはココに集約しようと思っている。
+     * 本アプリのスプライン座標セットはココに集約しようと思っている。
      * @param prm_idstr
-     * @return ディスパッチャー
+     * @return GgafDx9Spline3Dオブジェクト
      */
     GgafDx9Core::GgafDx9Spline3D* processCreateResource(char* prm_idstr);
 

@@ -69,7 +69,7 @@ void Torus::onActive() {
 
 void Torus::processJudgement() {
     if (isOutOfGameSpace()) {
-        inactivate();
+        sayonara(2000);
     }
 }
 
