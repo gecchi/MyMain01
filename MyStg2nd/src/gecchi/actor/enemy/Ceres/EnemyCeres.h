@@ -18,8 +18,6 @@ private:
 public:
     /** 弾ストック */
     GgafCore::GgafActorDispatcher* _pDispatcher_EnemyCeresShots001;
-    /** Ceres共通スプライン */
-    static GgafDx9Core::GgafDx9Spline3D _spline;
     /** スプラインプログラム */
     GgafDx9Core::GgafDx9SplineProgram* _pProgram_CeresMove;
 
@@ -34,7 +32,7 @@ public:
 
     int _iMovePatternNo;
     DWORD _dwFrame_Active;
-
+    DefiniteSplineConnection* _pSplineCon;
 
     /**
      * コンストラクタ

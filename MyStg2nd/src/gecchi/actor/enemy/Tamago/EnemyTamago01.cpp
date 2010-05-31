@@ -14,7 +14,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
 
-    _pDispatcherCon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot001");
+    _pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->connect("DpCon_Shot001"));
     _pDispatcher_Shot = _pDispatcherCon->view();
 
     _pSeReflector->useSe(1);

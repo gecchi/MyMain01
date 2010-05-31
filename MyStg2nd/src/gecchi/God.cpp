@@ -6,12 +6,14 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-DispatcherManager God::_dispatcherManager = DispatcherManager("DispatcherManager");
 VirtualButton* God::_pVbtn_PLAY = NULL;
 VirtualButton* God::_pVbtn_UI = NULL;
 VirtualButton* God::_pVbtn_Active = NULL;
 VirtualButton* God::_pVbtn_Active_next_frame = NULL;
 God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd) {
+    _pDispatcherManager = NEW DispatcherManager("DispatcherManager");
+    _pDefiniteSplineManager = NEW DefiniteSplineManager("DefiniteSplineManager");
+
     God::_pVbtn_PLAY = NEW VirtualButton();
     God::_pVbtn_UI   = NEW VirtualButton();
     God::_pVbtn_Active = God::_pVbtn_UI;
@@ -54,6 +56,10 @@ GgafUniverse* God::createUniverse() {
 }
 
 God::~God() {
+
+    DELETE_IMPOSSIBLE_NULL(_pDispatcherManager);
+    DELETE_IMPOSSIBLE_NULL(_pDefiniteSplineManager);
+
     DELETE_IMPOSSIBLE_NULL(_pVbtn_PLAY);
     DELETE_IMPOSSIBLE_NULL(_pVbtn_UI);
 

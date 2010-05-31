@@ -1,0 +1,37 @@
+#ifndef DEFINITESPLINEMANAGER_H_
+#define DEFINITESPLINEMANAGER_H_
+namespace MyStg2nd {
+
+/**
+ * DefiniteSpline 管理クラス .
+ * 生成済み DefiniteSpline オブジェクトを登録しておき、使いまわします。
+ * @version 1.00
+ * @since 2008/09/08
+ * @author Masatoshi Tsuge
+ */
+class DefiniteSplineManager : public GgafCore::GgafResourceManager<GgafDx9Core::GgafDx9Spline3D> {
+
+public:
+
+    /**
+     * コンストラクタ
+     * @param prm_manager_name マネージャ名称(リテラル必須)
+     */
+    DefiniteSplineManager(const char* prm_manager_name);
+
+    /**
+     * ディスパッチャーを識別文字列から生成。
+     * 本アプリのディスパッチャーはココに集約しようと思っている。
+     * @param prm_idstr
+     * @return ディスパッチャー
+     */
+    GgafDx9Core::GgafDx9Spline3D* processCreateResource(char* prm_idstr);
+
+    GgafCore::GgafResourceConnection<GgafDx9Core::GgafDx9Spline3D>* processCreateConnection(char* prm_idstr, GgafDx9Core::GgafDx9Spline3D* prm_pResource);
+
+    virtual ~DefiniteSplineManager() {
+    }
+};
+
+}
+#endif /*GGAFDX9BGMMANAGER_H_*/

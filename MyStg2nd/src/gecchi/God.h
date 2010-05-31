@@ -12,7 +12,9 @@ namespace MyStg2nd {
 class God : public GgafDx9LibStg::DefaultGod {
 
 public:
-    static DispatcherManager _dispatcherManager;
+    DispatcherManager* _pDispatcherManager;
+    DefiniteSplineManager* _pDefiniteSplineManager;
+
 
     static GgafDx9LibStg::VirtualButton* _pVbtn_PLAY;
     static GgafDx9LibStg::VirtualButton* _pVbtn_UI;
