@@ -31,13 +31,14 @@ public:
     /**
      * コンストラクタ
      */
-    GgafDx9FixedFrameSplineProgram();
+    GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor);
 
 
     /**
      * コンストラクタ.
      * 引数から内部でGgafDx9Spline3Dを生成しスプライン曲線補完点を計算します。
      * GgafDx9Spline3Dオブジェクトの解放も内部で行われます。
+     * @param prm_pActor 対象のアクター
      * @param prm_paaCriteriaPoint 基点配列
      * @param prm_point_num  基点配列の要素数
      * @param prm_accuracy  1基点の精度（荒い 1.0 ～ 0.0 細かい)、
@@ -48,7 +49,8 @@ public:
      * @param prm_spent_frame 始点～終点へ移動するのに費やすフレーム数
      * @param prm_angFaceMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
      */
-    GgafDx9FixedFrameSplineProgram(double prm_paaCriteriaPoint[][3],
+    GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
+                                   double prm_paaCriteriaPoint[][3],
                                    int prm_point_num,
                                    double prm_accuracy,
                                    DWORD prm_spent_frame,
@@ -56,13 +58,16 @@ public:
     /**
      * コンストラクタ.
      * 引数のGgafDx9Spline3Dを利用します。GgafDx9Spline3Dの解放は、呼び出し元で行ってください。
-     * たくさんのオブジェクトに同じ動きをさせる場合は、こちらのコンストラクタで生成すべきです。
+     * たくさんのオブジェクトに同じGgafDx9Spline3Dの動きをさせる場合は、
+     * こちらのコンストラクタで生成すべきです。
+     * @param prm_pActor 対象のアクター
      * @param prm_sp スプライン曲線の補完点生成、保持クラスのインスタンス
      * @param prm_spent_frame 始点～終点へ移動するのに許されるフレーム数
      * @param prm_angFaceMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
      * @return
      */
-    GgafDx9FixedFrameSplineProgram(GgafDx9Spline3D* prm_sp,
+    GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
+                                   GgafDx9Spline3D* prm_sp,
                                    DWORD prm_spent_frame,
                                    angvelo prm_angFaceMove);
 
@@ -74,16 +79,15 @@ public:
 
     /**
      * スプライン曲線利用のフレーム数指定移動プログラム開始
-     * @param prm_pActor 対象のアクター
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
      */
-    void begin(GgafDx9GeometricActor* prm_pActor, int prm_option = 0);
+    void begin(int prm_option = 0) override;
 
     /**
      * 移動実行メソッド .
      * 移動のために毎フレームこのメソッドを呼び出す必要があります。
      */
-    void behave();
+    void behave() override;
 
     virtual ~GgafDx9FixedFrameSplineProgram();
 };

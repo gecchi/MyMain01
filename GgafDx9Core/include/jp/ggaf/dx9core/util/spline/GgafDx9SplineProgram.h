@@ -26,14 +26,16 @@ public:
     /**
      * コンストラクタ .
      * GgafDx9Spline3Dオブジェクトの参照を後から設定して下さい。
+     * @param prm_pActor_target 対象のアクター
      */
-    GgafDx9SplineProgram();
+    GgafDx9SplineProgram(GgafDx9GeometricActor* prm_pActor_target);
 
 
     /**
      * コンストラクタ .
      * 引数から内部でGgafDx9Spline3Dを生成しスプライン曲線補完点を計算します。
      * GgafDx9Spline3Dオブジェクトの解放も内部で行われます。
+     * @param prm_pActor_target 対象のアクター
      * @param prm_paaCriteriaPoint 基点配列
      * @param prm_point_num  基点配列の要素数
      * @param prm_accuracy  1基点の精度（荒い 1.0 ～ 0.0 細かい)、
@@ -42,25 +44,27 @@ public:
      *                      0.5 とすると基点から次基点までに補完点は1つ入る。
      *                      0.1 とすると基点と基点の間に補完点は9つ。
      */
-    GgafDx9SplineProgram(double prm_paaCriteriaPoint[][3],
-                            int prm_point_num,
-                            double prm_accuracy);
+    GgafDx9SplineProgram(GgafDx9GeometricActor* prm_pActor_target,
+                         double prm_paaCriteriaPoint[][3],
+                         int prm_point_num,
+                         double prm_accuracy);
     /**
      * コンストラクタ .
      * 引数のGgafDx9Spline3Dを利用します。GgafDx9Spline3Dの解放は、呼び出し元で行ってください。
      * たくさんのオブジェクトに同じ動きをさせる場合は、こちらのコンストラクタで生成すべきです。
+     * @param prm_pActor_target 対象のアクター
      * @param prm_sp スプライン曲線の補完点生成、保持クラスのインスタンス
      */
-    GgafDx9SplineProgram(GgafDx9Spline3D* prm_sp);
+    GgafDx9SplineProgram(GgafDx9GeometricActor* prm_pActor_target,
+                         GgafDx9Spline3D* prm_sp);
 
 
     virtual void setSpline(GgafDx9Spline3D* prm_sp);
     /**
      * スプライン曲線の補完点を移動するプログラムを実行開始
-     * @param prm_pActor_target 対象のアクター
      * @param prm_option オプション 特に意味無し。下位実装拡張用
      */
-    virtual void begin(GgafDx9GeometricActor* prm_pActor_target, int prm_option = 0);
+    virtual void begin(int prm_option = 0);
 
     /**
      * 移動実行メソッド .

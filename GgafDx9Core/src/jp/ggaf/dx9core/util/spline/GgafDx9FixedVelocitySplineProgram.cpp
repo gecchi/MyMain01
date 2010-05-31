@@ -3,8 +3,8 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram() : GgafDx9SplineProgram() {
-
+GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor)
+  : GgafDx9SplineProgram(prm_pActor) {
     _paDistace_to = NULL;
     _paFrame_need_at = NULL;
     _is_executing = false;
@@ -21,18 +21,23 @@ GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram() : GgafDx9
     _veloMvUnit = LEN_UNIT;
 }
 
-GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9Spline3D* prm_sp,
-                                                                     angvelo prm_angFaceMove) : GgafDx9SplineProgram(prm_sp) {
+GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
+                                                                     GgafDx9Spline3D* prm_sp,
+                                                                     angvelo prm_angFaceMove)
+                                                    : GgafDx9SplineProgram(prm_pActor,
+                                                                           prm_sp) {
     _angFaceMove = prm_angFaceMove;
     init();
 }
 
-GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(double prm_paaCriteriaPoints[][3],
+GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
+                                                                     double prm_paaCriteriaPoints[][3],
                                                                      int prm_point_num,
                                                                      double prm_accuracy,
                                                                      angvelo prm_angFaceMove )
 
-                                                    : GgafDx9SplineProgram(prm_paaCriteriaPoints,
+                                                    : GgafDx9SplineProgram(prm_pActor,
+                                                                           prm_paaCriteriaPoints,
                                                                            prm_point_num,
                                                                            prm_accuracy)  {
     _angFaceMove = prm_angFaceMove;
@@ -124,12 +129,11 @@ void GgafDx9FixedVelocitySplineProgram::init() {
 
 }
 
-void GgafDx9FixedVelocitySplineProgram::begin(GgafDx9GeometricActor* prm_pActor, int prm_option) {
+void GgafDx9FixedVelocitySplineProgram::begin(int prm_option) {
 
     if (_sp != NULL) {
         _is_executing = true;
         _option = prm_option;
-        _pActor_target = prm_pActor;
         _fFrame_executing = 0;
         _fFrame_next_point = 0.0;
         _point_index = 0;

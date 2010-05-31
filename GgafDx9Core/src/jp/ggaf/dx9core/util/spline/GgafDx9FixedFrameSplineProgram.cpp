@@ -3,8 +3,8 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram() : GgafDx9SplineProgram() {
-
+GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor)
+ : GgafDx9SplineProgram(prm_pActor) {
     _SPframe_segment = 0;
     _paDistace_to = NULL;
     _paSPMvVeloTo = NULL;
@@ -18,13 +18,15 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram() : GgafDx9Spline
     _angFaceMove = ANGLE360;
 }
 
-GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(double prm_paaCriteriaPoints[][3],
+GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
+                                                               double prm_paaCriteriaPoints[][3],
                                                                int prm_point_num,
                                                                double prm_accuracy,
                                                                DWORD prm_spent_frame,
                                                                angvelo prm_angFaceMove )
 
-                                        : GgafDx9SplineProgram(prm_paaCriteriaPoints,
+                                        : GgafDx9SplineProgram(prm_pActor,
+                                                               prm_paaCriteriaPoints,
                                                                prm_point_num,
                                                                prm_accuracy)      {
     _spent_frame = prm_spent_frame;
@@ -32,9 +34,12 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(double prm_paaCri
     init();
 }
 
-GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9Spline3D* prm_sp,
+GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
+                                                               GgafDx9Spline3D* prm_sp,
                                                                DWORD prm_spent_frame,
-                                                               angvelo prm_angFaceMove) : GgafDx9SplineProgram(prm_sp) {
+                                                               angvelo prm_angFaceMove)
+                                         : GgafDx9SplineProgram(prm_pActor,
+                                                                prm_sp) {
     _spent_frame = prm_spent_frame;
     _angFaceMove = prm_angFaceMove;
     init();
@@ -123,14 +128,13 @@ void GgafDx9FixedFrameSplineProgram::init() {
 
 }
 
-void GgafDx9FixedFrameSplineProgram::begin(GgafDx9GeometricActor* prm_pActor, int prm_option) {
+void GgafDx9FixedFrameSplineProgram::begin(int prm_option) {
 
     if (_sp != NULL) {
         _is_executing = true;
         _option = prm_option;
-        _pActor_target = prm_pActor;
         _SPframe = 0;
-        velo v = prm_pActor->_pMover->_veloMv;
+        velo v = _pActor_target->_pMover->_veloMv;
         if (v == 0) {
             _paSPMvVeloTo[0] = 1000;
         } else {
@@ -138,9 +142,9 @@ void GgafDx9FixedFrameSplineProgram::begin(GgafDx9GeometricActor* prm_pActor, in
         }
 
         if (_option == 1) {
-            _X_relative = _sp->_X_compute[0] - prm_pActor->_X ;
-            _Y_relative = _sp->_Y_compute[0] - prm_pActor->_Y;
-            _Z_relative = _sp->_Z_compute[0] - prm_pActor->_Z;
+            _X_relative = _sp->_X_compute[0] - _pActor_target->_X ;
+            _Y_relative = _sp->_Y_compute[0] - _pActor_target->_Y;
+            _Z_relative = _sp->_Z_compute[0] - _pActor_target->_Z;
         }
     }
 }

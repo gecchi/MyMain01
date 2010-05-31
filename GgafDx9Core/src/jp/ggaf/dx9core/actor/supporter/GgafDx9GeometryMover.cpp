@@ -238,16 +238,10 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     _acceVzMv = 0;
     _acceTopVzMv = 256 * LEN_UNIT;
     _acceBottomVzMv = -256 * LEN_UNIT;
-    _progSP = NULL;
 
 }
 
 void GgafDx9GeometryMover::behave() {
-
-    //スプライン曲線移動
-    if (_progSP != NULL) {
-        _progSP->behave();
-    }
 
     //軸回転方角処理
     static angle angDistance;
@@ -1576,13 +1570,6 @@ void GgafDx9GeometryMover::forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acce
     setVzMvAcce(_acceVzMv); //再設定して範囲内に補正
 }
 
-
-
-void GgafDx9GeometryMover::executeSplineMoveProgram(GgafDx9SplineProgram* prm_progSP, int prm_option) {
-    _progSP = prm_progSP;
-    _progSP->begin(_pActor, prm_option);
-}
-
 void GgafDx9GeometryMover::execTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way, bool prm_optimize_ang) {
@@ -1757,6 +1744,4 @@ void GgafDx9GeometryMover::execTagettingRyMvAngSequence(angle prm_angRy_Target,
 
 
 GgafDx9GeometryMover::~GgafDx9GeometryMover() {
-
-    //DELETE_POSSIBLE_NULL(_progSP);//Actorで始末する。いらない
 }

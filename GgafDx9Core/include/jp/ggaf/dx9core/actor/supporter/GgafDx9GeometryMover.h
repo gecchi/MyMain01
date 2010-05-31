@@ -38,9 +38,6 @@ class GgafDx9GeometryMover : public GgafCore::GgafObject {
 public:
     /** 対象アクター */
     GgafDx9GeometricActor* _pActor;
-    /** スプラインプログラム  */
-    GgafDx9SplineProgram* _progSP;
-
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
@@ -513,13 +510,6 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     void setVzMvAcce(acce prm_acceVzMv);
     void addVzMvAcce(acce prm_acceVzMv);
     void forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02);
-    /**
-     * スプラインプログラム実行
-     * @param prm_progSP スプラインプログラム
-     * @param prm_option オプション。GgafDx9SplineProgram実オブジェクトに依存する。GgafDx9SplineProgram継承クラスを参照せよ。
-     */
-    void executeSplineMoveProgram(GgafDx9SplineProgram* prm_progSP, int prm_option);
-
 
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットするシークエンスを実行 .

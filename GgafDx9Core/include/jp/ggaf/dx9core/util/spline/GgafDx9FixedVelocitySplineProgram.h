@@ -28,12 +28,13 @@ public:
     int _Y_relative;
     int _Z_relative;
 
-    GgafDx9FixedVelocitySplineProgram();
+    GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor);
 
 
     /**
      * コンストラクタ .
      * 等速移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
+     * @param prm_pActor 対象のアクター
      * @param prm_paaCriteriaPoint 基点配列
      * @param prm_point_num  基点配列の要素数
      * @param prm_accuracy  1基点の精度（荒い 1.0 ～ 0.0 細かい)、
@@ -43,7 +44,8 @@ public:
      *                      0.1 とすると基点と基点の間に補完点は9つ。
      * @param prm_angFaceMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
      */
-    GgafDx9FixedVelocitySplineProgram(double prm_paaCriteriaPoint[][3],
+    GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
+                                      double prm_paaCriteriaPoint[][3],
                                       int prm_point_num,
                                       double prm_accuracy,
                                       angvelo prm_angFaceMove);
@@ -51,11 +53,13 @@ public:
     /**
      * コンストラクタ .
      * 等速移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
+     * @param prm_pActor 対象のアクター
      * @param prm_sp 計算済みスプラインオブジェクト
      * @param prm_angFaceMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
      * @return
      */
-    GgafDx9FixedVelocitySplineProgram(GgafDx9Spline3D* prm_sp,
+    GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
+                                      GgafDx9Spline3D* prm_sp,
                                       angvelo prm_angFaceMove);
 
     /**
@@ -66,16 +70,15 @@ public:
 
     /**
      * スプライン曲線利用のフレーム数指定移動プログラム開始
-     * @param prm_pActor 対象のアクター
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
      */
-    void begin(GgafDx9GeometricActor* prm_pActor, int prm_option = 0);
+    void begin(int prm_option = 0) override;
 
     /**
      * 毎フレームの振る舞いメソッド .
      * 利用者は毎フレームこのメソッドを呼び出す必要があります。
      */
-    void behave();
+    void behave() override;
 
 
     virtual ~GgafDx9FixedVelocitySplineProgram();
