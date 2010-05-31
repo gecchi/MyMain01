@@ -10,15 +10,15 @@ namespace MyStg2nd {
  */
 class EnemyIris : public GgafDx9LibStg::DefaultMeshSetActor {
 
-public:
-    /** 行動パターン番号 */
-    int _iMovePatternNo;
     /** 移動スプラインプログラム */
     GgafDx9Core::GgafDx9SplineProgram* _pProgram_IrisMove;
     /** 弾ストック */
     GgafCore::GgafActorDispatcher* _pDispatcher_Shot;
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDispatcher* _pDispatcher_ShotEffect;
+public:
+    /** 行動パターン番号 */
+    int _iMovePatternNo;
 
     /**
      * コンストラクタ
