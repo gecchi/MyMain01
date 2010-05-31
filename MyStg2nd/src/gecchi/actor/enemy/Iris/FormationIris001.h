@@ -9,8 +9,9 @@ namespace MyStg2nd {
  * @author Masatoshi Tsuge
  */
 class FormationIris001 : public GgafDx9LibStg::FormationActor {
-
+    /** イリスの発射弾の借り入れ元Dispatcher資源への接続 */
     DispatcherConnection* _pDispatcherCon;
+    /** スプライン定義資源への接続 */
     DefiniteSplineConnection* _pSplineCon;
 public:
     /** 編隊数(RANK変動) */
@@ -24,6 +25,9 @@ public:
 
     FormationIris001(const char* prm_name);
 
+    /**
+     * 編隊を作成 .
+     */
     virtual void initialize() override;
 
     virtual ~FormationIris001();

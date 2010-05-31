@@ -38,36 +38,9 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDispatcher* prm_pDispatche
         _createGgafActorDispatcher = false;
     }
 
-
-_pSplineCon = (DefiniteSplineConnection*)(pGOD->_pDefiniteSplineManager->connect("SpCon_001"));
-
-    //ケレス用スプライン移動の定義
-/*    if (EnemyCeres::_spline._num_basepoint == 0) { //ケレスクラスで１回だけ作成
-        double p[][3] = { //        X ,        Y ,       Z
-                           { -1024000 ,  -300000 ,  680000 },
-                           {  -16000000 ,   300000 ,  480000 },
-                           {  -400000 ,  -300000 ,  200000 },
-                           {   400000 ,   300000 ,  100000 },
-                           {   800000 ,        0 ,       0 },
-                           {   600000 ,        0 ,       0 },
-                           {   400000 ,   200000 ,       0 },
-                           {   200000 ,        0 ,  200000 },
-                           {        0 ,  -200000 ,       0 },
-                           {  -200000 ,        0 , -200000 },
-                           {   400000 ,        0 ,       0 },
-                           {        0 ,   300000 ,       0 },
-                           {        0 ,        0 ,  300000 },
-                           {  -700000 ,        0 ,       0 },
-                           {        0 ,  -300000 ,       0 },
-                           {        0 ,        0 , -300000 },
-                           {  -16000000 ,        0 ,       0 }
-                        };
-        EnemyCeres::_spline.init(p, 17, 0.2);
-    }
-*/
-    //Mover に渡すプログラムオブジェクトを生成しておく
+    _pSplineCon = (DefiniteSplineConnection*)(pGOD->_pDefiniteSplineManager->connect("SpCon_001"));
     //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //移動速度固定
-    _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(_pSplineCon->view(), 600, 5000); //移動フレーム数固定
+    _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(this, _pSplineCon->view(), 600, 5000); //移動フレーム数固定
 
     _pSeReflector->useSe(1);
     _pSeReflector->set(0, "a_shot", GgafRepeatSeq::nextVal("CH_a_shot"));
@@ -87,7 +60,7 @@ void EnemyCeres::onActive() {
     _pMover->setFaceAngVelo(AXIS_X, 6000);
     _pMover->setFaceAngVelo(AXIS_X, 6000);
     _pMover->setMvVelo(8000);
-    _pMover->executeSplineMoveProgram(_pProgram_CeresMove, 0); //スプライン移動をプログラムしておく
+    _pProgram_CeresMove->begin(0); //スプライン移動を開始
     _dwFrame_Active = 0;
 }
 
@@ -121,7 +94,7 @@ void EnemyCeres::processBehavior() {
 
         _iMovePatternNo++;
     }
-
+    _pProgram_CeresMove->behave(); //スプライン移動を進める
     _pMover->behave(); //次の座標へ移動
     //_pSeReflector->behave();
     _dwFrame_Active++;

@@ -59,16 +59,26 @@ public:
     void onInactive() override;
 
     /**
-     * 発射弾設定 .
-     * @param prm_pDispatcher (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つディスパッチャーのポインタ
+     * 発射弾Dispatcher設定 .
+     * initialize() までに設定して下さい。
+     * @param prm_pDispatcher
      */
     void setDispatcher_Shot(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
         _pDispatcher_Shot = prm_pDispatcher;
     }
 
     /**
-     * 効果エフェクト設定 .
-     * @param prm_pDispatcher (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つディスパッチャーのポインタ
+     * スプライン移動設定 .
+     * initialize() までに設定して下さい。
+     * @param prm_pProgram_IrisMove
+     */
+    void setSplineProgram(GgafDx9Core::GgafDx9SplineProgram* prm_pProgram_IrisMove) {
+        _pProgram_IrisMove = prm_pProgram_IrisMove;
+    }
+
+    /**
+     * ショット発射効果エフェクト設定 .
+     * @param prm_pDispatcher
      */
     void setDispatcher_ShotEffect(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
         _pDispatcher_ShotEffect = prm_pDispatcher;

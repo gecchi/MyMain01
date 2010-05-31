@@ -34,7 +34,7 @@ void EnemyIris::initialize() {
 void EnemyIris::onActive() {
     MyStgUtil::resetEnemyIrisStatus(_pStatus);
     if (_pProgram_IrisMove) {
-        _pMover->executeSplineMoveProgram(_pProgram_IrisMove, 0); //スプライン移動をプログラムしておく
+        _pProgram_IrisMove->begin(0); //スプライン移動を開始
     }
     _iMovePatternNo = 0;
 }
@@ -44,9 +44,13 @@ void EnemyIris::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     if (_iMovePatternNo == 0) {
-        //スプライン移動中
-        if (!(_pProgram_IrisMove->isExecuting())) {
-            _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
+        if (_pProgram_IrisMove) {
+            //スプライン移動中
+            if (!(_pProgram_IrisMove->isExecuting())) {
+                _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
+            }
+        } else {
+            _iMovePatternNo++;
         }
     }
 
@@ -98,6 +102,10 @@ void EnemyIris::processBehavior() {
 
     }
 
+
+    if (_pProgram_IrisMove) {
+        _pProgram_IrisMove->behave(); //スプライン移動を振る舞い
+    }
     _pMover->behave();
     //_pSeReflector->behave();
 }

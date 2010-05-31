@@ -49,7 +49,7 @@ void EnemyTamago01::initialize() {
 void EnemyTamago01::onActive() {
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     if (_pProgram_Tamago01Move) {
-        _pMover->executeSplineMoveProgram(_pProgram_Tamago01Move, 0); //スプライン移動をプログラムしておく
+        _pProgram_Tamago01Move->begin(0); //スプライン移動をプログラムしておく
     }
 
     _pUvFlipper->setTextureUvRotation(16, 1/16.0, 1/16.0);
@@ -151,7 +151,9 @@ void EnemyTamago01::processBehavior() {
         }
 
     }
-
+    if (_pProgram_Tamago01Move) {
+        _pProgram_Tamago01Move->behave();
+    }
     _pMover->behave();
     _pScaler->behave();
     _pUvFlipper->behave();
