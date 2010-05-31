@@ -117,8 +117,6 @@ public:
     double* _Z_compute;
     int _rnum;
 
-
-
     virtual ~GgafDx9Spline3D();
 
 };

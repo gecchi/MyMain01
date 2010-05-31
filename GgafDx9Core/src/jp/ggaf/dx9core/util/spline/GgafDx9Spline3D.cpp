@@ -23,9 +23,9 @@ GgafDx9Spline3D::GgafDx9Spline3D(double prm_paaEstablish[][3], int prm_num, doub
 
 void GgafDx9Spline3D::init(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
     _num_basepoint = prm_num;
-    _X_basepoint = new double[prm_num]; //本クラスは static宣言で使用されるため、NEWマクロでチェック不可。NEWマクロは使わない。
-    _Y_basepoint = new double[prm_num];
-    _Z_basepoint = new double[prm_num];
+    _X_basepoint = NEW double[prm_num];
+    _Y_basepoint = NEW double[prm_num];
+    _Z_basepoint = NEW double[prm_num];
     for (int i = 0; i < prm_num; i++) {
         _X_basepoint[i] = prm_paaEstablish[i][0];
         _Y_basepoint[i] = prm_paaEstablish[i][1];
@@ -47,9 +47,9 @@ void GgafDx9Spline3D::compute(double prm_accuracy) {
         DELETEARR_IMPOSSIBLE_NULL(_Y_compute);
         DELETEARR_IMPOSSIBLE_NULL(_Z_compute);
     }
-    _X_compute = new double[_rnum];
-    _Y_compute = new double[_rnum];
-    _Z_compute = new double[_rnum];
+    _X_compute = NEW double[_rnum];
+    _Y_compute = NEW double[_rnum];
+    _Z_compute = NEW double[_rnum];
 
     int index = 0;
     for (double t = 0.0; t <= _num_basepoint-1.0; t += prm_accuracy) {
