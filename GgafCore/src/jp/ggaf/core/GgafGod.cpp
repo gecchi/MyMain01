@@ -110,7 +110,6 @@ void GgafGod::be() {
                     presentUniversalVisualize();
                     finalizeUniversal();
                 }
-                //getUniverse()->cleane(10);
              ___EndSynchronized; // <----- 排他終了
             } else {
                 //スキップ時はfinalizeUniversal()だけ
@@ -136,7 +135,7 @@ void GgafGod::be() {
         _is_behaved_flg = false;
         _is_materialized_flg = false;
     } else {//描画タイミングフレームになってない(余裕がある)
-        Sleep(2); //工場（別スレッド）に回す
+        Sleep(3); //工場（別スレッド）に回す
     }
 
     return;
