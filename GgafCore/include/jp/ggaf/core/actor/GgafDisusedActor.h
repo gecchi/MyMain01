@@ -3,7 +3,7 @@
 namespace GgafCore {
 
 /**
- * さよならルートアクター.
+ * リタイアルートアクター.
  * このアクターに所属したアクターは、遅かれ早かれdeleteされます。<BR>
  * 遅かれ早かれというのは、神(GgafGod)が、Fpsの余裕があるときに delete するという意味です<BR>
  * @version 1.00
@@ -13,7 +13,7 @@ namespace GgafCore {
 class GgafDisusedActor : public GgafActor {
 public:
     GgafDisusedActor() :
-        GgafActor("SayonaraActor") {
+        GgafActor("DisusedActor") {
     }
     void initialize() override {
     }

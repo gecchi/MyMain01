@@ -218,7 +218,7 @@ public:
      * 自ツリーシーンをnフレーム後にゴミ箱へ移動 .
      * @param prm_frame_offset ゴミ箱へ移動タイミング残りフレーム数(デフォルト=0)
      */
-    virtual void sayonara(DWORD prm_frame_offset = 0);
+    virtual void retire(DWORD prm_frame_offset = 0);
 
     /**
      * 自ツリーを末端から開放する。 .

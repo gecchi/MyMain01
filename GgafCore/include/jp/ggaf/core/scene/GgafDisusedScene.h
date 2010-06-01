@@ -3,7 +3,7 @@
 namespace GgafCore {
 
 /**
- * さよならルートシーン .
+ * リタイアルートシーン .
  * このシーンに所属したシーンは、遅かれ早かれdeleteされます。<BR>
  * 遅かれ早かれというのは、神(GgafGod)が、Fpsの余裕があるときに delete するという意味です<BR>
  * @version 1.00
@@ -13,7 +13,7 @@ namespace GgafCore {
 class GgafDisusedScene : public GgafScene {
 public:
     GgafDisusedScene() :
-        GgafScene("SayonaraScene") {
+        GgafScene("DisusedScene") {
         _scene_class |= Obj_GgafDisusedScene;
         _class_name = "GgafDisusedScene";
     }

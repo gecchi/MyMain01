@@ -30,7 +30,7 @@ public:
      */
     virtual void processJudgement() override {
         if (getSubFirst() == NULL) {
-            sayonara(1); //1フレーム後
+            retire(1); //1フレーム後
         }
     }
 

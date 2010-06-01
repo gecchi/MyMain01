@@ -171,9 +171,9 @@ void GgafScene::unpauseImmediately() {
     _pLordActor->unpauseImmediately();
 }
 
-void GgafScene::sayonara(DWORD prm_frame_offset) {
-    GgafElement<GgafScene>::sayonara(prm_frame_offset);
-    _pLordActor->sayonara(prm_frame_offset);
+void GgafScene::retire(DWORD prm_frame_offset) {
+    GgafElement<GgafScene>::retire(prm_frame_offset);
+    _pLordActor->retire(prm_frame_offset);
 }
 
 void GgafScene::cleane(int prm_num_cleaning) {
