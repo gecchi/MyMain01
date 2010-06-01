@@ -36,70 +36,92 @@ GgafGod::GgafGod() : GgafObject(),
     _is_behaved_flg = false;
     _is_materialized_flg = false;
     GgafFactory::_pGarbageBox = NEW GgafGarbageBox();
-
+    _is_being = false;
+    _can_be = true;
 }
 
 void GgafGod::be() {
-    if (_pUniverse == NULL) {
-        _pUniverse = createUniverse();
-#ifdef MY_DEBUG
+    if (_can_be) {
+        _is_being = true;
         if (_pUniverse == NULL) {
-            throwGgafCriticalException("GgafGod::be() Error! この世を実装して下さい！");
-        }
-#endif
-        _pUniverse->_pGod = this;
-    }
-
-    //工場（別スレッド）例外をチェック
-    if (_pException_Factory != NULL) {
-        throw *_pException_Factory;
-    }
-
-    if (_is_behaved_flg == false) {
-        _is_behaved_flg = true;
-     ___BeginSynchronized; // ----->排他開始
-        _godframe++;
-        presentUniversalMoment();
-        executeUniversalJudge();
-     ___EndSynchronized; // <----- 排他終了
-        //描画タイミングフレーム加算
-        //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //予定は変わらない
-        if (_num_actor_drawing > 500) {
-            _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_godframe % 60] * 2);
-        } else if (_num_actor_drawing > 400) {
-            _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_godframe % 60] * 1.5);
-        } else {
-            _expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60];
+            _pUniverse = createUniverse();
+    #ifdef MY_DEBUG
+            if (_pUniverse == NULL) {
+                throwGgafCriticalException("GgafGod::be() Error! この世を実装して下さい！");
+            }
+    #endif
+            _pUniverse->_pGod = this;
         }
 
-
-        if (_expected_time_of_next_frame <= timeGetTime()) { //描画タイミングフレームになった、或いは過ぎている場合
-            //makeUniversalMaterialize はパス
-        } else {
-            //余裕有り
-            _is_materialized_flg = true;
-            makeUniversalMaterialize();
+        //工場（別スレッド）例外をチェック
+        if (_pException_Factory != NULL) {
+            throw *_pException_Factory;
         }
-    }
 
-    _time_at_beginning_frame = timeGetTime(); //
+        if (_is_behaved_flg == false) {
+            _is_behaved_flg = true;
+         ___BeginSynchronized; // ----->排他開始
+            _godframe++;
+            presentUniversalMoment();
+            executeUniversalJudge();
+         ___EndSynchronized; // <----- 排他終了
+            //描画タイミングフレーム加算
+            //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //予定は変わらない
+            if (_num_actor_drawing > 500) {
+                _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_godframe % 60] * 2);
+            } else if (_num_actor_drawing > 400) {
+                _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_godframe % 60] * 1.5);
+            } else {
+                _expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60];
+            }
 
-    //fps計算
-    if (_time_at_beginning_frame - _time_prev >= 1000) {
-        _fps = (float)(_frame_of_visualize - _frame_of_prev_visualize) / (float)((_time_at_beginning_frame - _time_prev) / 1000.0f);
-        _TRACE_(_godframe<<"Frame "<<_num_actor_drawing<<"Actor "<<_fps<<"Fps");
-        _time_prev = _time_at_beginning_frame;
-        _frame_of_prev_visualize = _frame_of_visualize;
-    }
 
-    if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //描画タイミングフレームになった、或いは過ぎている場合
+            if (_expected_time_of_next_frame <= timeGetTime()) { //描画タイミングフレームになった、或いは過ぎている場合
+                //makeUniversalMaterialize はパス
+            } else {
+                //余裕有り
+                _is_materialized_flg = true;
+                makeUniversalMaterialize();
+            }
+        }
 
-        if (_time_at_beginning_frame > _expected_time_of_next_frame + _aTime_OffsetOfNextFrame[_godframe % 60]) {
-            //大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
-            _skip_count_of_frame++;
-            if (_skip_count_of_frame >= GGAF_PROPERTY(MAX_SKIP_FRAME)) {
-                //スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
-                _skip_count_of_frame = 0;
+        _time_at_beginning_frame = timeGetTime(); //
+
+        //fps計算
+        if (_time_at_beginning_frame - _time_prev >= 1000) {
+            _fps = (float)(_frame_of_visualize - _frame_of_prev_visualize) / (float)((_time_at_beginning_frame - _time_prev) / 1000.0f);
+            _TRACE_(_godframe<<"Frame "<<_num_actor_drawing<<"Actor "<<_fps<<"Fps");
+            _time_prev = _time_at_beginning_frame;
+            _frame_of_prev_visualize = _frame_of_visualize;
+        }
+
+        if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //描画タイミングフレームになった、或いは過ぎている場合
+
+            if (_time_at_beginning_frame > _expected_time_of_next_frame + _aTime_OffsetOfNextFrame[_godframe % 60]) {
+                //大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
+                _skip_count_of_frame++;
+                if (_skip_count_of_frame >= GGAF_PROPERTY(MAX_SKIP_FRAME)) {
+                    //スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
+                    _skip_count_of_frame = 0;
+                    _frame_of_visualize++;
+                 ___BeginSynchronized; // ----->排他開始
+                    if (_is_materialized_flg) {
+                        presentUniversalVisualize();
+                        finalizeUniversal();
+                    } else {
+                        makeUniversalMaterialize();
+                        presentUniversalVisualize();
+                        finalizeUniversal();
+                    }
+                 ___EndSynchronized; // <----- 排他終了
+                } else {
+                    //スキップ時はfinalizeUniversal()だけ
+                 ___BeginSynchronized; // ----->排他開始
+                    finalizeUniversal();
+                 ___EndSynchronized; // <----- 排他終了
+                }
+            } else {
+                //通常時描画（スキップなし）
                 _frame_of_visualize++;
              ___BeginSynchronized; // ----->排他開始
                 if (_is_materialized_flg) {
@@ -109,35 +131,17 @@ void GgafGod::be() {
                     makeUniversalMaterialize();
                     presentUniversalVisualize();
                     finalizeUniversal();
+
                 }
              ___EndSynchronized; // <----- 排他終了
-            } else {
-                //スキップ時はfinalizeUniversal()だけ
-             ___BeginSynchronized; // ----->排他開始
-                finalizeUniversal();
-             ___EndSynchronized; // <----- 排他終了
             }
-        } else {
-            //通常時描画（スキップなし）
-            _frame_of_visualize++;
-         ___BeginSynchronized; // ----->排他開始
-            if (_is_materialized_flg) {
-                presentUniversalVisualize();
-                finalizeUniversal();
-            } else {
-                makeUniversalMaterialize();
-                presentUniversalVisualize();
-                finalizeUniversal();
-
-            }
-         ___EndSynchronized; // <----- 排他終了
+            _is_behaved_flg = false;
+            _is_materialized_flg = false;
+        } else {//描画タイミングフレームになってない(余裕がある)
+            Sleep(2); //工場（別スレッド）に回す
         }
-        _is_behaved_flg = false;
-        _is_materialized_flg = false;
-    } else {//描画タイミングフレームになってない(余裕がある)
-        Sleep(3); //工場（別スレッド）に回す
+        _is_being = false;
     }
-
     return;
 }
 

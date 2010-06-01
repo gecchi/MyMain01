@@ -36,6 +36,9 @@ void World::initialize() {
 void World::processBehavior() {
     if (_is_create_GameScene) {
         VB->update(); //“ü—Íî•ñXV
+        if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
+            //TODO:I—¹ˆ—
+        }
     } else {
         if (MyFactory::chkProgress(2) == 2) {
             GameScene* pGameScene = (GameScene*)obtainSceneFromFactory(2);

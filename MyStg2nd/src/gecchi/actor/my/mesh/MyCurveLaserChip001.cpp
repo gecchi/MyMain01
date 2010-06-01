@@ -193,7 +193,26 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //痛感可能な雑魚はロックオン無し
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
-        sayonara();
+//        if (_pOrg->_pLockOnTarget) {
+            _pMover->setVxMvVelo(-(_pMover->_veloVxMv));
+            //_pMover->setVxMvAcce(-(_pMover->_acceVxMv));
+            _pMover->setVyMvVelo(-(_pMover->_veloVyMv));
+            //_pMover->setVyMvAcce(-(_pMover->_acceVyMv));
+            _pMover->setVzMvVelo(-(_pMover->_veloVzMv));
+            //_pMover->setVzMvAcce(-(_pMover->_acceVzMv));
+            _pMover->behave();
+//        }
+
+//        if (abs(_pMover->_veloVxMv) >= abs(_pMover->_veloVyMv) && abs(_pMover->_veloVxMv) >= abs(_pMover->_veloVzMv)) {
+//            _pMover->setVxMvVelo(-(_pMover->_veloVxMv));
+//            _pMover->setVxMvAcce(-(_pMover->_acceVxMv));
+//        } else if (abs(_pMover->_veloVyMv) >= abs(_pMover->_veloVxMv) && abs(_pMover->_veloVyMv) >= abs(_pMover->_veloVzMv)) {
+//            _pMover->setVyMvVelo(-(_pMover->_veloVyMv));
+//            _pMover->setVyMvAcce(-(_pMover->_acceVyMv));
+//        } else if (abs(_pMover->_veloVzMv) >= abs(_pMover->_veloVxMv) && abs(_pMover->_veloVzMv) >= abs(_pMover->_veloVyMv)) {
+//            _pMover->setVzMvVelo(-(_pMover->_veloVzMv));
+//            _pMover->setVzMvAcce(-(_pMover->_acceVzMv));
+//        }
     }
 
 

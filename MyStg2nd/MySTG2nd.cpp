@@ -105,19 +105,38 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     MyRegisterClass(hInstance);
     HWND hWnd;
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
-    hWnd = CreateWindow(
-            szWindowClass, //WINDOW_CLASS,			// ウインドウクラス名
-            szTitle,//WINDOW_TITLE,				// ウインドウのタイトル名
-            WS_OVERLAPPEDWINDOW, // ウインドウスタイル
-            CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
-            CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
+    if (GGAFDX9_PROPERTY(FULL_SCREEN)) {
+
+        // ウインドウの生成
+        hWnd = CreateWindowEx(
+            WS_EX_APPWINDOW,
+            szWindowClass, //WINDOW_CLASS,          // ウインドウクラス名
+            szTitle,//WINDOW_TITLE,             // ウインドウのタイトル名
+            WS_POPUP | WS_VISIBLE,
+            CW_USEDEFAULT,
+            CW_USEDEFAULT,
             GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH), // ウィンドウの幅
             GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT), // ウィンドウの幅
-            NULL, // 親ウインドウ
-            NULL, // ウインドウメニュー
-            hInstance, // インスタンスハンドル
-            NULL // WM_CREATE情報
-    );
+            HWND_DESKTOP,
+            NULL,
+            hInstance,
+            NULL);
+
+    } else {
+        hWnd = CreateWindow(
+                szWindowClass, //WINDOW_CLASS,			// ウインドウクラス名
+                szTitle,//WINDOW_TITLE,				// ウインドウのタイトル名
+                WS_OVERLAPPEDWINDOW, // ウインドウスタイル
+                CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
+                CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
+                GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH), // ウィンドウの幅
+                GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT), // ウィンドウの幅
+                HWND_DESKTOP, // 親ウインドウ
+                NULL, // ウインドウメニュー
+                hInstance, // インスタンスハンドル
+                NULL // WM_CREATE情報
+        );
+    }
 
     if (!hWnd) {
         cout << "can't CreateWindow " << endl;
@@ -192,7 +211,19 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                 if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
                     if (msg.message == WM_QUIT) {
 
+                        if (can_be_god) {
+                            can_be_god = false;
+                            pGod->_can_be = false;
+                            while (pGod->_is_being) {
+                                Sleep(2);
+                                _TRACE_("神 being yet");
+                            }
+                            delete pGod; //神さようなら
 
+                            //RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
+                            pGod = NULL;
+                            MyStg2nd::Properties::clean();
+                        }
 
                         ::timeEndPeriod(1);
 
@@ -391,12 +422,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             break;
         case WM_SYSCOMMAND:
             if(wParam == SC_CLOSE){
-                if (can_be_god) {
-                    can_be_god = false;
-                    delete pGod; //神さようなら
-                    pGod = NULL;
-                    MyStg2nd::Properties::clean();
-                }
+//                if (can_be_god) {
+//                    can_be_god = false;
+//                    pGod->_can_be = false;
+//                    while (pGod->_is_being) {
+//                        Sleep(2);
+//                        _TRACE_("神 being yet");
+//                    }
+//                    delete pGod; //神さようなら
+//                    pGod = NULL;
+//                    MyStg2nd::Properties::clean();
+//                }
                 PostQuitMessage(0);
                 break;
             } else {
@@ -409,12 +445,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             //                        SetPriorityClass( GetCurrentProcess(), HIGH_PRIORITY_CLASS );
             //                        //優先度上げる理由。
             //                        //非アクティブになると解放が著しく遅くなってしまうのを回避しようとした。
-            if (can_be_god) {
-                can_be_god = false;
-                delete pGod; //神さようなら
-                pGod = NULL;
-                MyStg2nd::Properties::clean();
-            }
+//            if (can_be_god) {
+//                can_be_god = false;
+//                pGod->_can_be = false;
+//                while (pGod->_is_being) {
+//                    Sleep(2);
+//                    _TRACE_("神 being yet");
+//                }
+//                delete pGod; //神さようなら
+//                pGod = NULL;
+//                MyStg2nd::Properties::clean();
+//            }
             PostQuitMessage(0);
             break;
         default:

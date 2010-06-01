@@ -20,11 +20,16 @@ namespace GgafCore {
 class GgafGod : public GgafObject {
 
 private:
+
     /** behaveを行ったかフラグ */
     bool _is_behaved_flg;
     /** materializeを行ったかフラグ */
     bool _is_materialized_flg;
 public:
+    /** be() できるかどうか */
+    bool _can_be;
+    /** be() 中かどうか */
+    bool _is_being;
     /** [r]自身 */
     static GgafGod* _pGod;
     /** [r]生成工場(別スレッド)のエラー状態。NULL＝正常稼働中／not NULL＝異常発生 */

@@ -257,6 +257,7 @@ HRESULT GgafDx9God::init() {
     GgafDx9Util::init(); //ユーティリティ準備
     GgafDx9Input::init(); //DirectInput準備
     GgafDx9Sound::init(); //DirectSound準備
+	RELEASE_IMPOSSIBLE_NULL(_pID3D9);
     return initDx9Device();
 
 }
@@ -616,29 +617,62 @@ GgafDx9God::~GgafDx9God() {
     //DirectInput解放
     GgafDx9Input::release();
 
-/*	if (_FULLSCRREEN) {
+
+
+
+//	    HRESULT hr = GgafDx9God::_pID3DDevice9->EndScene();
+//        checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->EndScene() に失敗しました。");
+
+
+
+
+	ULONG rc;
+    rc = _pID3DDevice9->AddRef();
+    rc = _pID3DDevice9->Release();
+    _TRACE_("_FULLSCRREEN前 _pID3DDevice9 rc="<<rc);
+    _TRACE_("_FULLSCRREEN前 _pID3DDevice9 Release");
+
+/*
+    if (_FULLSCRREEN) {
+
+        IDirect3DSwapChain9* pSwapChain;
+        _pID3DDevice9->GetSwapChain( 0, &pSwapChain );
+        pSwapChain->SetFullscreenState(FALSE, 0);
+
+    }
+*/
+	//rc = _pID3D9->AddRef();
+    //rc = _pID3D9->Release();
+    //_TRACE_("_FULLSCRREEN前 _pID3D9 rc="<<rc);
+    //_TRACE_("_FULLSCRREEN前 _pID3D9 Release");
+
+	if (_FULLSCRREEN) {
 		_FULLSCRREEN = false;
 		_structD3dPresent_Parameters.Windowed = true; //ウィンドウ時
         _structD3dPresent_Parameters.FullScreen_RefreshRateInHz = 0; //ウィンドウ時
-		_structD3dPresent_Parameters.BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
+		//_structD3dPresent_Parameters.BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
 		HRESULT hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
-        //checkDxException(hr, D3D_OK, "GgafDx9God::~GgafDx9God() 終了前のResetで例外");
+        checkDxException(hr, D3D_OK, "GgafDx9God::~GgafDx9God() 終了前のResetで例外");
     }
-*/
+
     _TRACE_("さぁ_pID3DDevice9解放！");
-    Sleep(1000*5);
-    ULONG rc;
+    Sleep(1);
+
+	//ULONG rc;
     rc = _pID3DDevice9->AddRef();
     rc = _pID3DDevice9->Release();
     _TRACE_("_pID3DDevice9 rc="<<rc);
     _TRACE_("_pID3DDevice9 Release");
+	//rc = _pID3D9->AddRef();
+    //rc = _pID3D9->Release();
+    //_TRACE_("_pID3D9 rc="<<rc);
+    //_TRACE_("_pID3D9 Release");
+
+
     RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
-    rc = _pID3D9->AddRef();
-    rc = _pID3D9->Release();
-    _TRACE_("_pID3D9 rc="<<rc);
-    _TRACE_("_pID3D9 Release");
-    RELEASE_IMPOSSIBLE_NULL(_pID3D9);
-    _TRACE_("GgafDx9God::~GgafDx9God() end");
+
+    //RELEASE_IMPOSSIBLE_NULL(_pID3D9);
+    //_TRACE_("GgafDx9God::~GgafDx9God() end");
     //    //デバイス解放処理(2010/03/19メモ)
     //    //デバイス解放時、ある時期からたまにVISTAのフルスクリーンモード時に落ちる現象が発生した。
     //    //等色々調べた結果VISTAの参照カウンタが「なんか知らんけど違う」と言う結論になった。
