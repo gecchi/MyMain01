@@ -68,7 +68,8 @@ void Torus::onActive() {
 }
 
 void Torus::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (hasToSayonara() == false && isOutOfGameSpace()) {
+        //_TRACE_("Torus:"<<getName()<<" sayonara(2000)!");
         sayonara(2000);
     }
 }
