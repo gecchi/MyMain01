@@ -21,8 +21,8 @@ FormationJuno001::FormationJuno001(const char* prm_name) :
 
 void FormationJuno001::processJudgement() {
     if (_X < GgafDx9Universe::_X_goneLeft - 300000) {
-        _TRACE_("FormationJuno001::processJudgement() リタイア");
-        retire();
+        _TRACE_("FormationJuno001::processJudgement() 終了");
+        sayonara();
     }
 }
 

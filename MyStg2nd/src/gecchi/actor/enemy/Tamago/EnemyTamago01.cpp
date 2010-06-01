@@ -162,7 +162,7 @@ void EnemyTamago01::processBehavior() {
 
 void EnemyTamago01::processJudgement() {
     if (isOutOfGameSpace()) {
-        inactivate();
+        sayonara();
     }
 }
 
@@ -178,12 +178,12 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 
 
-        //inactivate();
+        //sayonara();
     }
 }
 
 void EnemyTamago01::onInactive() {
-    //retire();
+    //end();
 }
 
 EnemyTamago01::~EnemyTamago01() {

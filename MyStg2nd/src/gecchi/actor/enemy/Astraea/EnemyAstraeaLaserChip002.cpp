@@ -1,4 +1,3 @@
-
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
@@ -59,7 +58,7 @@ void EnemyAstraeaLaserChip002::onHit(GgafActor* prm_pOtherActor) {
 //    //‘Ì—ÍŒvZ
 //    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 //        //ƒqƒbƒg‚µ‚ÄÁ–Å
-//        inactivate();
+//        sayonara();
 //    } else {
 //        //ƒqƒbƒg‚µ‚Ä¶‘¶
 //    }

@@ -102,7 +102,7 @@ void EnemyCeres::processBehavior() {
 
 void EnemyCeres::processJudgement() {
     if (isOutOfGameSpace()) {
-        inactivate();
+        sayonara();
     }
 }
 
@@ -114,12 +114,12 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
         //”j‰ó‚³‚ê‚½ê‡
         setHitAble(false);
         _pSeReflector->play3D(0);
-        inactivate(); //TODO:ƒŠƒ^ƒCƒA
         GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->setGeometry(this);
             pExplo001->activate();
         }
+        sayonara();
     }
 }
 
@@ -127,9 +127,9 @@ void EnemyCeres::onInactive() {
     if (_createGgafActorDispatcher) {
         //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
         getLordActor()->addSubLast(_pDispatcher_EnemyCeresShots001->getGroupActor()->extract());
-       _pDispatcher_EnemyCeresShots001->retire(60 * 5);//‰ð•ú—\–ñ
+       _pDispatcher_EnemyCeresShots001->sayonara(60 * 5);//‰ð•ú—\–ñ
     }
-    retire();
+    sayonara();
 }
 
 bool EnemyCeres::isOutOfGameSpace() {

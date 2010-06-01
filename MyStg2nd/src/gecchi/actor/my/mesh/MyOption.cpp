@@ -30,7 +30,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _angveloExpanseNomal = 3000;
     _angveloExpanseSlow = 1000;
 
-	
+
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
 
@@ -56,9 +56,9 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     addSubGroup(_pEffectLockOn);
     _pEffectLockOn_Release = NEW EffectLockOn001_Release("EffectLockOn001_R", _pEffectLockOn);
     addSubGroup(_pEffectLockOn_Release);
-	_pSeReflector->useSe(1);
-	_pSeReflector->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
-	//prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
+    _pSeReflector->useSe(1);
+    _pSeReflector->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
+    //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
     _pLockOnTarget = NULL;
 }
 
@@ -386,7 +386,7 @@ void MyOption::processBehavior() {
             pLaserChip->activate();
             if (pLaserChip->_pChip_front == NULL) {
                 //pLaserChip->_pSeReflector->play3D(0);
-				_pSeReflector->play3D(0);
+                _pSeReflector->play3D(0);
                 //playSe3D(0);
             }
         }
@@ -411,7 +411,7 @@ void MyOption::processBehavior() {
        _pEffectLockOn->inactivate();
     }
 
-	_pSeReflector->behave();
+    _pSeReflector->behave();
 
 }
 
@@ -420,7 +420,7 @@ void MyOption::processJudgement() {
 }
 
 void MyOption::onHit(GgafActor* prm_pOtherActor) {
-    retire();
+    sayonara();
 }
 
 

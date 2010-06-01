@@ -182,7 +182,7 @@ void EnemyAstraea::processBehavior() {
 
 void EnemyAstraea::processJudgement() {
     if (isOutOfGameSpace()) {
-        inactivate();
+        sayonara();
     }
 }
 
@@ -194,7 +194,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
         _pSeReflector->play3D(1);
-        inactivate(); //リタイア
+        sayonara();
         //消滅エフェクト
     } else {
 
@@ -216,7 +216,7 @@ void EnemyAstraea::onInactive() {
             }
         }
     }
-    retire();
+    sayonara();
 }
 
 

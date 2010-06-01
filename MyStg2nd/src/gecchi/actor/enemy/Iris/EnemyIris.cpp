@@ -112,7 +112,7 @@ void EnemyIris::processBehavior() {
 
 void EnemyIris::processJudgement() {
     if (isOutOfGameSpace()) {
-        inactivate();
+        sayonara();
     }
 }
 
@@ -128,12 +128,12 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
             pExplo001->activate();
             pExplo001->setGeometry(this);
         }
-        inactivate();
+        sayonara();
     }
 }
 
 void EnemyIris::onInactive() {
-    retire();
+    sayonara();
 }
 
 EnemyIris::~EnemyIris() {

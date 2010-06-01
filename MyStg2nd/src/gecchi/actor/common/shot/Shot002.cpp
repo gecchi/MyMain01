@@ -9,8 +9,8 @@ Shot002::Shot002(const char* prm_name) : DefaultMeshSetActor(prm_name, "Flora") 
     _class_name = "Shot002";
     MyStgUtil::resetShot002Status(_pStatus);
     _my_frame = 0;
-	_pSeReflector->useSe(1);
-	_pSeReflector->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
+    _pSeReflector->useSe(1);
+    _pSeReflector->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
 }
 
 void Shot002::initialize() {
@@ -49,13 +49,13 @@ void Shot002::processBehavior() {
     //À•W‚É”½‰f
     _pMover->behave();
     _pScaler->behave();
-	_pSeReflector->behave();
+    _pSeReflector->behave();
     _my_frame++;
 }
 
 void Shot002::processJudgement() {
     if (isOutOfGameSpace()) {
-        inactivate();
+        sayonara();
     }
 }
 
@@ -70,7 +70,7 @@ void Shot002::onHit(GgafActor* prm_pOtherActor) {
             pExplo001->activate();
             pExplo001->setGeometry(this);
         }
-        inactivate();
+        sayonara();
     }
 }
 

@@ -68,9 +68,8 @@ void Torus::onActive() {
 }
 
 void Torus::processJudgement() {
-    if (wasDeclaredRetire() == false && isOutOfGameSpace()) {
-        //_TRACE_("Torus:"<<getName()<<" retire(2000)!");
-        retire(2000);
+    if (wasDeclaredEnd() == false && isOutOfGameSpace()) {
+        sayonara(2000);
     }
 }
 

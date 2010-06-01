@@ -35,7 +35,7 @@ void Shot004::processBehavior() {
 
 void Shot004::processJudgement() {
     if (isOutOfGameSpace()) {
-        inactivate();
+        sayonara();
     }
 }
 
@@ -50,7 +50,7 @@ void Shot004::onHit(GgafActor* prm_pOtherActor) {
             pExplo001->activate();
             pExplo001->setGeometry(this);
         }
-        inactivate();
+        sayonara();
     }
 }
 

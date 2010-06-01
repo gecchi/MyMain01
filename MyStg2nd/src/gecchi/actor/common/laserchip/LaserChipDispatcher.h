@@ -39,7 +39,7 @@ public:
     /**
      * レーザーチップの借り入れを試みる .
      * ストック切れの場合は NULL が返る。必ずチェックすること。
-     * 使い終われば inactivate() を実行してください。自動的にストックに戻ります。
+     * 使い終われば sayonara() か、inactivate() を実行してください。自動的にストックに戻ります。
      * @return 借り入れしたレーザーチップ。借り入れできない場合はNULL
      */
     virtual LaserChip* employ() override;

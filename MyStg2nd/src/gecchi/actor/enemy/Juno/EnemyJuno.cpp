@@ -92,7 +92,7 @@ void EnemyJuno::processBehavior() {
 
 void EnemyJuno::processJudgement() {
     if (isOutOfGameSpace()) {
-        inactivate();
+        sayonara();
     }
 }
 
@@ -109,7 +109,7 @@ void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
             pExplo001->activate();
             pExplo001->setGeometry(this);
         }
-        inactivate();
+        sayonara();
     }
 }
 

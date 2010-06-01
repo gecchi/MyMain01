@@ -182,7 +182,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         int stamina = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
         if (stamina <= 0) {
             //一撃でチップ消滅
-            inactivate();
+            sayonara();
             //ロックオン可能アクターならロックオン更新
             if (pOther->_pStatus->get(STAT_LockOnAble) == 1) {
                 _pOrg->_pLockOnTarget = pOther;
@@ -193,7 +193,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //痛感可能な雑魚はロックオン無し
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
-        inactivate();
+        sayonara();
     }
 
 

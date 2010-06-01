@@ -229,12 +229,12 @@ void EnemyVesta::processJudgement() {
 //        (*(_pActor_Base->_pFunc_calcWorldMatrix))(_pActor_Base, _matWorld);
     } else {
         //“y‘ä‚ª‚È‚¯‚ê‚Î©•ª‚à€‚Ê
-        inactivate();
+        sayonara();
     }
 
 
 //    if (isOutOfGameSpace()) {
-//        inactivate();
+//        sayonara();
 //    }
 }
 
@@ -249,12 +249,12 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         _pSeReflector->play3D(0);
-        inactivate();
+        sayonara();
     }
 }
 
 void EnemyVesta::onInactive() {
-    retire();
+    sayonara();
 }
 
 EnemyVesta::~EnemyVesta() {

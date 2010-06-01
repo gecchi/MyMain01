@@ -46,7 +46,7 @@ void EnemyCirce::processBehavior() {
 
 void EnemyCirce::processJudgement() {
 //    if (isOutOfGameSpace()) {
-//        inactivate();
+//        sayonara();
 //    }
 }
 
@@ -61,12 +61,12 @@ void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
     }
 
 //    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-//        inactivate();
+//        sayonara();
 //    }
 }
 
 void EnemyCirce::onInactive() {
-    retire();
+    sayonara();
 }
 
 EnemyCirce::~EnemyCirce() {

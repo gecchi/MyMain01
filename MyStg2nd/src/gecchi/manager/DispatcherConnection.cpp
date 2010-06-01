@@ -11,7 +11,7 @@ DispatcherConnection::DispatcherConnection(char* prm_idstr, GgafActorDispatcher*
 
 void DispatcherConnection::processReleaseResource(GgafActorDispatcher* prm_pResource) {
     _TRACE_("DispatcherConnection::processReleaseResourceで開放");
-	prm_pResource->retire(); //GgafActorDispatcherはゴミ箱で削除するためここでかいほうは行わない
+	prm_pResource->end(); //GgafActorDispatcherはゴミ箱で削除するためここでかいほうは行わない
 	// DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }
 

@@ -34,7 +34,7 @@ void EffectExplosion002::processBehavior() {
 
 void EffectExplosion002::processJudgement() {
     if (_fAlpha < 0) {
-        inactivate();
+        sayonara();
     }
 }
 

@@ -131,7 +131,7 @@ void LaserChip::processPreJudgement() {
             }
 //            //伸びすぎたら切れる
 //            if (abs(dX) >= _hitarea_edge_length*5 || abs(dY) >= _hitarea_edge_length*5 || abs(dZ) >= _hitarea_edge_length*5) {
-//                inactivate();
+//                sayonara();
 //            }
         } else {
             _pCollisionChecker->disable(1);
@@ -146,8 +146,7 @@ void LaserChip::processPreJudgement() {
 void LaserChip::processJudgement() {
     //_TRACE_("LaserChip::processJudgement()st "<<getName()<<" bump="<<canHit());
     if (isOutOfGameSpace()) {
-        //レーザーチップはDisprcher登録前提のため、ゲーム画面外は retire() ではなくてinactivate() にする。
-        inactivate();
+        sayonara();
     }
     //レーザーチップ種別 設定。
     //シェーダーのパラメータとなります。
