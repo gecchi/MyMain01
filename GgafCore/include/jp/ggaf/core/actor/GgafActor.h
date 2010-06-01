@@ -176,6 +176,15 @@ public:
     }
 
     /**
+     * さよならします .
+     * Dispcherに所属している場合は inactiveAfter(prm_frame_offset) <BR>
+     * Dispcherに所属していない場合は end(prm_frame_offset) <BR>
+     * が、実行されます。
+     * @param prm_frame_offset 猶予フレーム(1～)
+     */
+    virtual void sayonara(DWORD prm_frame_offset = 1);
+
+    /**
      * デバッグ用：ツリー構造を表示<BR>
      */
     virtual void dump();

@@ -77,6 +77,14 @@ GgafScene* GgafActor::getPlatformScene() {
     return _pScene_Platform;
 }
 
+void GgafActor::sayonara(DWORD prm_frame_offset) {
+    if (_pDependenceDispcher) {
+        inactivateAfter(prm_frame_offset);
+    } else {
+        end(prm_frame_offset);
+    }
+}
+
 void GgafActor::dump() {
     _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_behaving<<
                                                                                ","<<

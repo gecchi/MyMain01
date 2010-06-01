@@ -57,7 +57,7 @@ public:
     void processJudgement() override {
         //ƒTƒu‚ª–³‚¯‚ê‚ÎŽ©ŽE
         if (getSubFirst() == NULL) {
-            retire();
+            end();
         }
     }
 

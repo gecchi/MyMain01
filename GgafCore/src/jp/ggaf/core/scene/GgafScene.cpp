@@ -171,9 +171,9 @@ void GgafScene::unpauseImmediately() {
     _pLordActor->unpauseImmediately();
 }
 
-void GgafScene::retire(DWORD prm_frame_offset) {
-    GgafElement<GgafScene>::retire(prm_frame_offset);
-    _pLordActor->retire(prm_frame_offset);
+void GgafScene::end(DWORD prm_frame_offset) {
+    GgafElement<GgafScene>::end(prm_frame_offset);
+    _pLordActor->end(prm_frame_offset);
 }
 
 void GgafScene::cleane(int prm_num_cleaning) {

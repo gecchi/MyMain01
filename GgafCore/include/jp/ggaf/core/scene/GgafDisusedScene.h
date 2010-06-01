@@ -3,7 +3,7 @@
 namespace GgafCore {
 
 /**
- * リタイアルートシーン .
+ * 不要になったシーン .
  * このシーンに所属したシーンは、遅かれ早かれdeleteされます。<BR>
  * 遅かれ早かれというのは、神(GgafGod)が、Fpsの余裕があるときに delete するという意味です<BR>
  * @version 1.00
