@@ -51,7 +51,7 @@ bool EnemyShot001::isOutOfGameSpace() {
 
 void EnemyShot001::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
-    //sayonara();
+    //retire();
     setHitAble(false);
     inactivateTree();
     EffectExplosion001* pExplo001 =

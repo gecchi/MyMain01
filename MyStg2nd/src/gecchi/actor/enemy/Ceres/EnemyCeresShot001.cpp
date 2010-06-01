@@ -100,8 +100,8 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyCeresShot001::onInactive() {
-    //ディスパッチャに戻るだけなのでsayonara不要？
-    //sayonara();
+    //ディスパッチャに戻るだけなのでretire不要？
+    //retire();
 }
 
 EnemyCeresShot001::~EnemyCeresShot001() {

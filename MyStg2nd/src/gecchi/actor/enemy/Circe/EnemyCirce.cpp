@@ -66,7 +66,7 @@ void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyCirce::onInactive() {
-    sayonara();
+    retire();
 }
 
 EnemyCirce::~EnemyCirce() {

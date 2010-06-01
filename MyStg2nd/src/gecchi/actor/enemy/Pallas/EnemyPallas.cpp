@@ -46,13 +46,13 @@ void EnemyPallas::processBehavior() {
 
 void EnemyPallas::processJudgement() {
     if (isOutOfGameSpace()) {
-        sayonara();
+        retire();
     }
 }
 
 void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
     setHitAble(false);
-    sayonara();
+    retire();
 }
 
 bool EnemyPallas::isOutOfGameSpace() {

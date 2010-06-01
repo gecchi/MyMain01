@@ -146,7 +146,7 @@ void LaserChip::processPreJudgement() {
 void LaserChip::processJudgement() {
     //_TRACE_("LaserChip::processJudgement()st "<<getName()<<" bump="<<canHit());
     if (isOutOfGameSpace()) {
-        //レーザーチップはDisprcher登録前提のため、ゲーム画面外は sayonara() ではなくてinactivate() にする。
+        //レーザーチップはDisprcher登録前提のため、ゲーム画面外は retire() ではなくてinactivate() にする。
         inactivate();
     }
     //レーザーチップ種別 設定。

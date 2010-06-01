@@ -254,7 +254,7 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyVesta::onInactive() {
-    sayonara();
+    retire();
 }
 
 EnemyVesta::~EnemyVesta() {

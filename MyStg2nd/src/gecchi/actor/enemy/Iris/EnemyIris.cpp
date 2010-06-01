@@ -133,7 +133,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyIris::onInactive() {
-    sayonara();
+    retire();
 }
 
 EnemyIris::~EnemyIris() {

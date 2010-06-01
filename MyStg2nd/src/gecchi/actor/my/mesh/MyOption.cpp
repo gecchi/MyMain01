@@ -420,7 +420,7 @@ void MyOption::processJudgement() {
 }
 
 void MyOption::onHit(GgafActor* prm_pOtherActor) {
-    sayonara();
+    retire();
 }
 
 

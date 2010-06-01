@@ -183,7 +183,7 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyTamago01::onInactive() {
-    //sayonara();
+    //retire();
 }
 
 EnemyTamago01::~EnemyTamago01() {

@@ -59,7 +59,7 @@ void EnemyMetis::processBehavior() {
 
 void EnemyMetis::processJudgement() {
     if (isOutOfGameSpace()) {
-        sayonara();
+        retire();
     }
 }
 
@@ -96,7 +96,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyMetis::onInactive() {
-    sayonara();
+    retire();
 }
 EnemyMetis::~EnemyMetis() {
 }
