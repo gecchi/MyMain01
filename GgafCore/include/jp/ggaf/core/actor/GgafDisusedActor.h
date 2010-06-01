@@ -1,5 +1,5 @@
-#ifndef GGAFSAYONARAACTOR_H_
-#define GGAFSAYONARAACTOR_H_
+#ifndef GGAFDISUSEDACTOR_H_
+#define GGAFDISUSEDACTOR_H_
 namespace GgafCore {
 
 /**
@@ -10,9 +10,9 @@ namespace GgafCore {
  * @since 2008/12/17
  * @author Masatoshi Tsuge
  */
-class GgafSayonaraActor : public GgafActor {
+class GgafDisusedActor : public GgafActor {
 public:
-    GgafSayonaraActor() :
+    GgafDisusedActor() :
         GgafActor("SayonaraActor") {
     }
     void initialize() override {
@@ -39,9 +39,9 @@ public:
     GgafGod* askGod() {
         return NULL;
     }
-    virtual ~GgafSayonaraActor() {
+    virtual ~GgafDisusedActor() {
     }
 };
 
 }
-#endif /*GGAFSAYONARAACTOR_H_*/
+#endif /*GGAFDISUSEDACTOR_H_*/

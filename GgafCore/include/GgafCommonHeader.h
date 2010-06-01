@@ -257,7 +257,7 @@ typedef DWORD actorkind;
 
 #define Obj_GgafScene             (0x1)              //&B 00000000 00000000 00000000 00000001
 #define Obj_GgafMainScene         (0x2)              //&B 00000000 00000000 00000000 00000010
-#define Obj_GgafSayonaraScene     (0x4)              //&B 00000000 00000000 00000000 00000100
+#define Obj_GgafDisusedScene     (0x4)              //&B 00000000 00000000 00000000 00000100
 #define Obj_GgafUniverse          (0x8)              //&B 00000000 00000000 00000000 00001000
 
 #define Obj_GgafActor                   (0x1)              //&B 00000000 00000000 00000000 00000001
@@ -265,7 +265,7 @@ typedef DWORD actorkind;
 #define Obj_GgafDummyActor              (0x4)              //&B 00000000 00000000 00000000 00000100
 #define Obj_GgafLordActor               (0x8)              //&B 00000000 00000000 00000000 00001000
 #define Obj_GgafGroupActor              (0x10)             //&B 00000000 00000000 00000000 00010000
-#define Obj_GgafSayonaraActor           (0x20)             //&B 00000000 00000000 00000000 00100000
+#define Obj_GgafDisusedActor           (0x20)             //&B 00000000 00000000 00000000 00100000
 #define Obj_GgafActorDispatcher         (0x40)             //&B 00000000 00000000 00000000 01000000
 
 
@@ -298,10 +298,10 @@ class GgafFactory;
 class GgafGarbageBox;
 
 class GgafScene;
-class GgafSayonaraScene;
+class GgafDisusedScene;
 class GgafActor;
 class GgafStatus;
-class GgafSayonaraActor;
+class GgafDisusedActor;
 class GgafMainActor;
 class GgafDummyActor;
 class GgafUniverse;
@@ -348,11 +348,11 @@ class GgafCurtain;
 #include "jp/ggaf/core/GgafElement.hpp"
 #include "jp/ggaf/core/GgafLinkedListRing.hpp"
 #include "jp/ggaf/core/scene/GgafScene.h"
-#include "jp/ggaf/core/scene/GgafSayonaraScene.h"
+#include "jp/ggaf/core/scene/GgafDisusedScene.h"
 #include "jp/ggaf/core/scene/GgafMainScene.h"
 #include "jp/ggaf/core/actor/GgafActor.h"
 
-#include "jp/ggaf/core/actor/GgafSayonaraActor.h"
+#include "jp/ggaf/core/actor/GgafDisusedActor.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 #include "jp/ggaf/core/actor/GgafDummyActor.h"
 #include "jp/ggaf/core/scene/GgafUniverse.h"

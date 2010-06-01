@@ -54,8 +54,12 @@ public:
     bool _was_paused_flg_in_next_frame;
     /** [r]次フレームの一時非表示フラグ、次フレームのフレーム加算時 _can_live_flg に反映される  */
     bool _can_live_flg_in_next_frame;
+
+    /** [r]さよならフラグ */
+    bool _will_sayonara_after_flg;
     /** [r]さよならする予定の _frame_of_life */
     DWORD _frame_of_life_when_sayonara;
+
 
     /** [r]あとで活動予約フラグ */
     bool _will_activate_after_flg;
@@ -470,21 +474,23 @@ public:
 
     /**
      * さよならします。(自ツリー) .
-     * 自ノードを次フレームから「生存終了」状態にすることを宣言する。（削除フラグを立てる） <BR>
-     * 自ツリーノード全て道連れで生存終了(sayonara())がお知らせが届く。<br>
+     * 自ノードを次フレームから「生存終了」状態にすることを宣言する。（さよならフラグを立てる） <BR>
+     * 自ツリーノード全て道連れで、さよなら(sayonara())がお知らせが届く。<br>
      * 親ノードがさよならならすれば、子ノードもさよならせざるをえない。<BR>
+     * さよならフラグは一度立てると元にもどせません。以降 sayonara を重ねて呼び出しても無視します。<BR>
+     * 引数の猶予フレーム後に生存終了とする。<BR>
      * 生存終了とは具体的には、振る舞いフラグ(_is_active_flg)、生存フラグ(_can_live_flg) を、
      * 次フレームからアンセットする予約フラグを立てること事である。<BR>
-     * _can_live_flg がアンセットされることにより、GgafSayonaraActor に所属することになる。<BR>
-     * 神(GgafGod)が処理時間の余裕のある時に cleane() メソッドにより、GgafSayonaraActor 配下ノードを<BR>
-     * delete することとなる。<BR>
+     * _can_live_flg がアンセットされることにより、GgafDisusedActor に所属することになる。<BR>
+     * 工場(GgafFactory)が神(GgafGod)処理に余裕のある時を見計らい cleane() メソッドにより、<BR>
+     * GgafDisusedActor 配下ノードを delete することとなる。<BR>
      * したがって、本メンバ関数を実行しても、『同一フレーム内』では、まだdeleteは行なわれず、<BR>
-     * GgafSayonaraActor 配下に移るだけ。（タスクからは除外されている）。<BR>
+     * GgafDisusedActor 配下に移るだけ。（タスクからは除外されている）。<BR>
      * 次フレーム以降でも直ぐには deleteされないかもしれない。<BR>
      * インスタンスがすぐに解放されないことに注意せよ！（内部的なバグを生みやすい）。<BR>
      * さよならした後『同一フレーム内』に、 _can_live_flg をセットし直しても駄目です。<BR>
-     * これは本メソッドで、GgafSayonaraActorに所属してしまうためです。<BR>
-     * @param prm_frame_offset 予約猶予フレーム(1～)
+     * これは本メソッドで、GgafDisusedActorに所属してしまうためです。<BR>
+     * @param prm_frame_offset 猶予フレーム(1～)
      */
     void sayonara(DWORD prm_frame_offset = 1);
 
@@ -555,6 +561,8 @@ public:
     bool wasPause();
 
 
+    bool hasToSayonara();
+
     /**
      * 振る舞い状態に加算されるフレーム数を取得する .
      * 何もセットしない場合、次のような値を返す。<BR>
@@ -593,7 +601,7 @@ public:
 
 template<class T>
 GgafElement<T>::GgafElement(const char* prm_name) : GgafCore::GgafNode<T>(prm_name),
-            _pGod(NULL), _was_initialize_flg(false), _frame_of_life_when_sayonara(MAXDWORD), _frame_of_life(0), _frame_of_behaving(0),
+            _pGod(NULL), _was_initialize_flg(false), _will_sayonara_after_flg(false), _frame_of_life_when_sayonara(MAXDWORD), _frame_of_life(0), _frame_of_behaving(0),
             _frame_of_behaving_since_onActive(0), _frame_relative(0), _is_active_flg(true), _was_paused_flg(false), _can_live_flg(true),
             _is_active_flg_in_next_frame(true), _was_paused_flg_in_next_frame(false),
             _can_live_flg_in_next_frame(true), _will_mv_first_in_next_frame_flg(false), _will_mv_last_in_next_frame_flg(false),
@@ -611,7 +619,7 @@ void GgafElement<T>::nextFrame() {
     }
 
     //死の時か
-    if (_frame_of_life_when_sayonara == _frame_of_life+1) {
+    if (_will_sayonara_after_flg && _frame_of_life_when_sayonara == _frame_of_life+1) {
         _is_active_flg_in_next_frame = false;
         _can_live_flg_in_next_frame = false;
     }
@@ -1131,16 +1139,19 @@ void GgafElement<T>::unpauseImmediately() {
 }
 template<class T>
 void GgafElement<T>::sayonara(DWORD prm_frame_offset) {
-    inactivateAfter(prm_frame_offset);
-    _frame_of_life_when_sayonara = _frame_of_life + prm_frame_offset + GGAF_SAYONARA_DELAY;
-    if (GGAF_NODE::_pSubFirst != NULL) {
-        T* pElementTemp = GGAF_NODE::_pSubFirst;
-        while(true) {
-            pElementTemp->sayonara(prm_frame_offset);
-            if (pElementTemp->_is_last_flg) {
-                break;
-            } else {
-                pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+    if (_will_sayonara_after_flg == false) { //一度さよならしたら２度と取り消せません。
+        _will_sayonara_after_flg = true;
+        inactivateAfter(prm_frame_offset);
+        _frame_of_life_when_sayonara = _frame_of_life + prm_frame_offset + GGAF_SAYONARA_DELAY;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
+            while(true) {
+                pElementTemp->sayonara(prm_frame_offset);
+                if (pElementTemp->_is_last_flg) {
+                    break;
+                } else {
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+                }
             }
         }
     }
@@ -1193,6 +1204,14 @@ bool GgafElement<T>::wasPause() {
     }
 }
 
+template<class T>
+bool GgafElement<T>::hasToSayonara() {
+    if (_will_sayonara_after_flg) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 template<class T>
 bool GgafElement<T>::relativeFrame(DWORD prm_frame_relative) {

@@ -1,5 +1,5 @@
-#ifndef GGAFSAYONARASCENE_H_
-#define GGAFSAYONARASCENE_H_
+#ifndef GGAFDISUSEDSCENE_H_
+#define GGAFDISUSEDSCENE_H_
 namespace GgafCore {
 
 /**
@@ -10,12 +10,12 @@ namespace GgafCore {
  * @since 2008/12/17
  * @author Masatoshi Tsuge
  */
-class GgafSayonaraScene : public GgafScene {
+class GgafDisusedScene : public GgafScene {
 public:
-    GgafSayonaraScene() :
+    GgafDisusedScene() :
         GgafScene("SayonaraScene") {
-        _scene_class |= Obj_GgafSayonaraScene;
-        _class_name = "GgafSayonaraScene";
+        _scene_class |= Obj_GgafDisusedScene;
+        _class_name = "GgafDisusedScene";
     }
     void initialize() override {
     }
@@ -33,9 +33,9 @@ public:
     }
     void processFinal() override {
     }
-    virtual ~GgafSayonaraScene() {
+    virtual ~GgafDisusedScene() {
     }
 };
 
 }
-#endif /*GGAFSAYONARASCENE_H_*/
+#endif /*GGAFDISUSEDSCENE_H_*/

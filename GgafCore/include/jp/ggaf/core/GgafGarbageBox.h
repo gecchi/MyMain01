@@ -15,9 +15,9 @@ class GgafGarbageBox : public GgafObject {
 
 public:
     /** [r]まもなくdeleteされるアクターのツリートップのノード */
-    GgafSayonaraActor* _pSayonaraActor;
+    GgafDisusedActor* _pDisusedActor;
     /** [r]まもなくdeleteされるシーンのツリートップのノード */
-    GgafSayonaraScene* _pSayonaraScene;
+    GgafDisusedScene* _pDisusedScene;
 
     /**
      * コンストラクタ .
