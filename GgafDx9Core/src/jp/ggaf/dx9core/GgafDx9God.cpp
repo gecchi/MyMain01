@@ -645,7 +645,7 @@ GgafDx9God::~GgafDx9God() {
     //rc = _pID3D9->Release();
     //_TRACE_("_FULLSCRREEN前 _pID3D9 rc="<<rc);
     //_TRACE_("_FULLSCRREEN前 _pID3D9 Release");
-
+/*
 	if (_FULLSCRREEN) {
 		_FULLSCRREEN = false;
 		_structD3dPresent_Parameters.Windowed = true; //ウィンドウ時
@@ -654,9 +654,9 @@ GgafDx9God::~GgafDx9God() {
 		HRESULT hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
         checkDxException(hr, D3D_OK, "GgafDx9God::~GgafDx9God() 終了前のResetで例外");
     }
-
+*/
     _TRACE_("さぁ_pID3DDevice9解放！");
-    Sleep(1);
+    Sleep(10);
 
 	//ULONG rc;
     rc = _pID3DDevice9->AddRef();
@@ -669,7 +669,8 @@ GgafDx9God::~GgafDx9God() {
     //_TRACE_("_pID3D9 Release");
 
 
-    RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
+//
+//	RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
 
     //RELEASE_IMPOSSIBLE_NULL(_pID3D9);
     //_TRACE_("GgafDx9God::~GgafDx9God() end");
