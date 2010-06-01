@@ -3,6 +3,9 @@
 
 #define GGAF_PROPERTY(X) (*GgafCore::GgafProperties::X)
 
+
+namespace GgafCore {
+
 /**
  * プロパティクラス .
  * 外部ファイルから読み込こみ、アプリの環境変数を保持します。
@@ -10,8 +13,6 @@
  * @since 2008/07/22
  * @author Masatoshi Tsuge
  */
-namespace GgafCore {
-
 class GgafProperties {
 
 public:
