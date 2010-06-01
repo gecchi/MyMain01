@@ -17,17 +17,17 @@ private:
      */
     virtual void processJudgement() override {
         if (getSubFirst() == NULL) {
-            _TRACE_("FormationActor["<<getName()<<" sayonara("<<_frame_offset_sayonara<<")!!!!!!!!!!!!");
+            _TRACE_("FormationActor["<<getName()<<" retire("<<_frame_offset_retire<<")!!!!!!!!!!!!");
             inactivate();
-            sayonara(_frame_offset_sayonara);//20•bŒãŠJ•ú
+            retire(_frame_offset_retire);//20•bŒãŠJ•ú
         }
     }
 
 public:
 
-    DWORD _frame_offset_sayonara;
+    DWORD _frame_offset_retire;
 
-    FormationActor(const char* prm_name, DWORD prm_frame_offset_sayonara = 5*60);
+    FormationActor(const char* prm_name, DWORD prm_frame_offset_retire = 5*60);
 
     virtual void initialize() override {
     }
