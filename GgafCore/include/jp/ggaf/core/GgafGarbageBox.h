@@ -12,7 +12,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 class GgafGarbageBox : public GgafObject {
-
+    static CRITICAL_SECTION CS;
 public:
     /** [r]まもなくdeleteされるアクターのツリートップのノード */
     GgafDisusedActor* _pDisusedActor;

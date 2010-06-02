@@ -4,7 +4,6 @@ namespace GgafCore {
 
 #define  ___BeginSynchronized ::EnterCriticalSection(&(GgafCore::GgafGod::CS1))
 #define  ___EndSynchronized ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
-
 /**
  * 神クラス.
  * 主にこの世(GgafUniverse)を管理し操作することを目的とするクラスです。一番えらい。<BR>
