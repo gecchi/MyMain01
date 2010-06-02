@@ -257,7 +257,7 @@ HRESULT GgafDx9God::init() {
     GgafDx9Util::init(); //ユーティリティ準備
     GgafDx9Input::init(); //DirectInput準備
     GgafDx9Sound::init(); //DirectSound準備
-	RELEASE_IMPOSSIBLE_NULL(_pID3D9);
+    RELEASE_IMPOSSIBLE_NULL(_pID3D9);
     return initDx9Device();
 
 }
@@ -626,7 +626,7 @@ GgafDx9God::~GgafDx9God() {
 
 
 
-	ULONG rc;
+    ULONG rc;
     rc = _pID3DDevice9->AddRef();
     rc = _pID3DDevice9->Release();
     _TRACE_("_FULLSCRREEN前 _pID3DDevice9 rc="<<rc);
@@ -641,36 +641,88 @@ GgafDx9God::~GgafDx9God() {
 
     }
 */
-	//rc = _pID3D9->AddRef();
+    //rc = _pID3D9->AddRef();
     //rc = _pID3D9->Release();
     //_TRACE_("_FULLSCRREEN前 _pID3D9 rc="<<rc);
     //_TRACE_("_FULLSCRREEN前 _pID3D9 Release");
-/*
-	if (_FULLSCRREEN) {
-		_FULLSCRREEN = false;
-		_structD3dPresent_Parameters.Windowed = true; //ウィンドウ時
-        _structD3dPresent_Parameters.FullScreen_RefreshRateInHz = 0; //ウィンドウ時
-		//_structD3dPresent_Parameters.BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
-		HRESULT hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
-        checkDxException(hr, D3D_OK, "GgafDx9God::~GgafDx9God() 終了前のResetで例外");
-    }
-*/
+
+//    if (_FULLSCRREEN) {
+//           _FULLSCRREEN = false;
+//
+//        //工場休止
+//        GgafFactory::beginRest();
+//        ___EndSynchronized; // <----- 排他終了
+//        for (int i = 0; GgafFactory::isResting() == false; i++) {
+//            Sleep(60); //工場が落ち着くまで待つ
+//            if (i > 2000) {
+//                _TRACE_("GgafDx9God::makeUniversalMaterialize() ２分待機しましたが、工場から反応がありません。breakします。要調査");
+//            }
+//        }
+//        //            while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
+//        //                Sleep(10);
+//        //            }
+//        ___BeginSynchronized; // ----->排他開始
+//        _TRACE_("正常デバイスロスト処理。Begin");
+//        //エフェクト、デバイスロスト処理
+//        GgafDx9God::_pEffectManager->onDeviceLostAll();
+//        //モデル解放
+//        GgafDx9God::_pModelManager->onDeviceLostAll();
+//        //全ノードに解放しなさいイベント発令
+//        getUniverse()->happen(GGAF_EVENT_ON_DEVICE_LOST);
+//
+//        _structD3dPresent_Parameters.Windowed = true; //ウィンドウ時
+//        _structD3dPresent_Parameters.FullScreen_RefreshRateInHz = 0; //ウィンドウ時
+//        //デバイスリセットを試みる
+//        hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
+//        checkDxException(hr, D3D_OK, "GGgafDx9God::~GgafDx9God() ウインドウ化");
+//
+//        //デバイス再設定
+//        GgafDx9God::initDx9Device();
+//        //エフェクトリセット
+//        GgafDx9God::_pEffectManager->restoreAll();
+//        //モデル再設定
+//        GgafDx9God::_pModelManager->restoreAll();
+//        //全ノードに再設定しなさいイベント発令
+//        getUniverse()->happen(GGAF_EVENT_DEVICE_LOST_RESTORE);
+//        //前回描画モデル情報を無効にする
+//        GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
+//        _is_device_lost_flg = false;
+//
+//        //工場再開
+//        GgafFactory::finishRest();
+//        _TRACE_("正常デバイスロスト処理。End");
+//
+//
+//
+//
+//
+//
+//
+//
+////		_FULLSCRREEN = false;
+////		_structD3dPresent_Parameters.Windowed = true; //ウィンドウ時
+////        _structD3dPresent_Parameters.FullScreen_RefreshRateInHz = 0; //ウィンドウ時
+////		//_structD3dPresent_Parameters.BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
+////		HRESULT hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
+////        checkDxException(hr, D3D_OK, "GgafDx9God::~GgafDx9God() 終了前のResetで例外");
+//    }
+
     _TRACE_("さぁ_pID3DDevice9解放！");
     Sleep(10);
 
-	//ULONG rc;
+    //ULONG rc;
     rc = _pID3DDevice9->AddRef();
     rc = _pID3DDevice9->Release();
     _TRACE_("_pID3DDevice9 rc="<<rc);
     _TRACE_("_pID3DDevice9 Release");
-	//rc = _pID3D9->AddRef();
+    //rc = _pID3D9->AddRef();
     //rc = _pID3D9->Release();
     //_TRACE_("_pID3D9 rc="<<rc);
     //_TRACE_("_pID3D9 Release");
 
 
 //
-//	RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
+    RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
 
     //RELEASE_IMPOSSIBLE_NULL(_pID3D9);
     //_TRACE_("GgafDx9God::~GgafDx9God() end");
