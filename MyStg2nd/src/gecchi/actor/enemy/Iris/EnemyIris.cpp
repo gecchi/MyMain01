@@ -72,7 +72,7 @@ void EnemyIris::processBehavior() {
                     pActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                     if (pActor_Shot) {
                         pActor_Shot->setGeometry(this);
-                        pActor_Shot->_pMover->setRzRyMvAng(-ANGLE180 + paAngWay[i], ANGLE90);
+                        pActor_Shot->_pMover->setRzRyMvAng(paAngWay[i], ANGLE90);
                         pActor_Shot->activate();
                     }
                 }
@@ -98,7 +98,7 @@ void EnemyIris::processBehavior() {
                 //Ž©‹@‚ÆZŽ²‚ªÚ‹ß‚µ‚½‚çƒOƒ‹ƒb‚Æ‹t‰ñ“]‚Å•ûŒü“]Š·
                 _pMover->execTagettingMvAngSequence(MyShip::_lim_behaind - 500000 , _Y, _Z,
                                                    10000, 0,
-                                                   TURN_ANTICLOSE_TO);
+                                                   TURN_CLOSE_TO);
                 _pMover->setMvAcce(100);
                 _iMovePatternNo++;
             } else {

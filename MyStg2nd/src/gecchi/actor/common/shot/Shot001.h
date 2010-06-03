@@ -26,6 +26,8 @@ public:
 
     void processJudgement() override;
 
+    void onInactive() override;
+
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~Shot001();

@@ -21,7 +21,7 @@ void Shot002::initialize() {
 void Shot002::onActive() {
     MyStgUtil::resetShot002Status(_pStatus);
     setHitAble(true);
-    _pScaler->setScale(300);
+    _pScaler->setScale(2000);
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->setMvVelo(8000*_RANK_);
     _pMover->setFaceAngVelo(AXIS_X, 1000*_RANK_);
