@@ -63,8 +63,6 @@ public:
     static int _Z_goneFar;
     static int _Z_goneNear;
 
-
-
     GgafDx9Universe(const char* prm_name);
 
     virtual void processPreJudgement() override;

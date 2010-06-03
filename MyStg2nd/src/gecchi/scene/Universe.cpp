@@ -8,14 +8,14 @@ using namespace MyStg2nd;
 Universe::Universe(const char* prm_name) : DefaultUniverse(prm_name) {
     _TRACE_("Universe::Universe()");
 
-    GgafRepeatSeq::create("CH_bomb1", 0, 10);
+    GgafRepeatSeq::create("CH_bomb1", 0, 20);
     GgafRepeatSeq::create("CH_yume_Sbend", 0, 8);
     GgafRepeatSeq::create("CH_yume_shototsu", 0, 2);
-    GgafRepeatSeq::create("CH_break_glass01", 0, 10);
-    GgafRepeatSeq::create("CH_a_shot", 0, 3);
+    GgafRepeatSeq::create("CH_break_glass01", 0, 20);
+    GgafRepeatSeq::create("CH_a_shot", 0, 5);
     GgafRepeatSeq::create("CH_laser001", 0, 8); //オプションレーザー
 	GgafRepeatSeq::create("CH_cm-22", 0, 8); //Juno発射音
-	GgafRepeatSeq::create("CH_bom10", 0, 3); //Metis爆発
+	GgafRepeatSeq::create("CH_bom10", 0, 5); //Metis爆発
     GgafRepeatSeq::create("CH_explos3", 0, 3); //Vesta爆発
     GgafRepeatSeq::create("CH_humei10", 0, 1); //LockOn
     //【めも】

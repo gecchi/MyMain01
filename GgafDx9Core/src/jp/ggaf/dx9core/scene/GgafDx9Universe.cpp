@@ -61,11 +61,12 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
     for (int i = 0; i < GGAF_SAYONARA_DELAY+1; i++) { //GGAF_SAYONARA_DELAY
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
-
+    GgafRepeatSeq::create("_SE_D_", 0, 8); //ズレSE再生フレーム
 }
 
 void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, int prm_delay, float prm_rate_frequency) {
-    _pRing_pSeArray->getNext(prm_delay+1)->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
+    //SEの鳴るタイミングを 0～8フレームをずらしてバラつかせる
+    _pRing_pSeArray->getNext(prm_delay+1+(GgafRepeatSeq::nextVal("_SE_D_")))->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
 }
 
 void GgafDx9Universe::processPreJudgement() {
