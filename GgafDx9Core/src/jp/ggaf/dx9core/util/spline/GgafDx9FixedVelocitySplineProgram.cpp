@@ -204,14 +204,44 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
 
             if (_point_index == 0) {
                 //始点へ行く！
-                _paDistace_to[0] = GgafDx9Util::getDistance(
-                                        (double)_pActor_target->_X,
-                                        (double)_pActor_target->_Y,
-                                        (double)_pActor_target->_Z,
-                                        _sp->_X_compute[0],
-                                        _sp->_Y_compute[0],
-                                        _sp->_Z_compute[0]
-                                     );
+                if (_option == 2) {
+                    //    並行移動 ＞ Z軸回転 ＞ Y軸回転
+                    //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
+                    //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
+                    //    | sinRy                                  , 0                    , cosRy                                   , 0 |
+                    //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
+
+                    _paDistace_to[0] = GgafDx9Util::getDistance(
+                                            (double)_pActor_target->_X,
+                                            (double)_pActor_target->_Y,
+                                            (double)_pActor_target->_Z,
+                                            ((_sp->_X_compute[0] * _COS_RzMv_begin + _sp->_Y_compute[0] * -_SIN_RzMv_begin) * _COS_RyMv_begin + _sp->_Z_compute[0] * _SIN_RyMv_begin) - _X_begin,
+                                            (_sp->_X_compute[0] * _SIN_RzMv_begin + _sp->_Y_compute[0] * _COS_RzMv_begin) - _Y_begin,
+                                            ((_sp->_X_compute[0] * _COS_RzMv_begin + _sp->_Y_compute[0] * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + _sp->_Z_compute[0] * _COS_RyMv_begin) - _Z_begin
+                                         );
+                } else if (_option == 1) {
+                    //相対座標ターゲット
+                    _paDistace_to[0] = GgafDx9Util::getDistance(
+                                            (double)_pActor_target->_X,
+                                            (double)_pActor_target->_Y,
+                                            (double)_pActor_target->_Z,
+                                            _sp->_X_compute[0] - _X_begin,
+                                            _sp->_Y_compute[0] - _Y_begin,
+                                            _sp->_Z_compute[0] - _Z_begin
+                                         );
+                } else {
+                    //絶対座標ターゲット
+                    _paDistace_to[0] = GgafDx9Util::getDistance(
+                                            (double)_pActor_target->_X,
+                                            (double)_pActor_target->_Y,
+                                            (double)_pActor_target->_Z,
+                                            _sp->_X_compute[0],
+                                            _sp->_Y_compute[0],
+                                            _sp->_Z_compute[0]
+                                         );
+                }
+
+
                 //始点までに必要なフレーム数取得
                 _paFrame_need_at[0] =  (float)(1.0*_paDistace_to[0] / _veloMvUnit);
                 _fFrame_next_point = _paFrame_need_at[0];
