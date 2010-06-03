@@ -27,7 +27,7 @@ void Shot001::onActive() {
     _pMover->setMvVelo(5000*_RANK_);             //ˆÚ“®‘¬“x
     _pMover->setFaceAngVelo(AXIS_X, 6000*_RANK_); //‚«‚è‚à‚Ý‹ï‡
     _pSplineProgram = NEW GgafDx9FixedVelocitySplineProgram(this, _pSplineCon->view(), 5000*_RANK_); //ˆÚ“®‘¬“xŒÅ’è
-    _pSplineProgram->begin(3);
+    _pSplineProgram->begin(2);
     _pScaler->beat(30,5,2,-1);
 }
 
@@ -42,7 +42,7 @@ void Shot001::processBehavior() {
 
 void Shot001::processJudgement() {
     if (isOutOfGameSpace()) {
-            DELETE_POSSIBLE_NULL(_pSplineProgram);
+        DELETE_POSSIBLE_NULL(_pSplineProgram);
         sayonara();
     }
 }

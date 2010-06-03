@@ -42,7 +42,7 @@ GgafDx9Spline3D* DefiniteSplineManager::processCreateResource(char* prm_idstr) {
            {      MyShip::_lim_front * 1.5 , MyShip::_lim_top * 0.2 ,                       0.0 },
            {      MyShip::_lim_front * 2.5 , MyShip::_lim_top * 0.5 , MyShip::_lim_zright * 0.3 },
            {      MyShip::_lim_front * 2.2 , MyShip::_lim_top * 1.0 ,                       0.0 },
-           {      MyShip::_lim_front * 2.0 ,                    0.0 ,                       0.0 }
+           {      400000 ,                    0.0 ,                       0.0 }
         };
         pResource = NEW GgafDx9Spline3D(p, 5, 0.2); //—±“x 0.2
     }
