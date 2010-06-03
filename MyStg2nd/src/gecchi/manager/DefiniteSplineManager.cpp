@@ -58,6 +58,25 @@ GgafDx9Spline3D* DefiniteSplineManager::processCreateResource(char* prm_idstr) {
         };
         pResource = NEW GgafDx9Spline3D(p, 5, 0.2); //—±“x 0.2
     }
+
+    if (GgafUtil::strcmp_ascii("SpCon_HAN", prm_idstr) == 0) {
+        //Œã•û‚©‚ç
+        double p[][3] = { //           X  ,                          Y ,                         Z
+           {      100000 , 0.0 , 0.0 },
+           {      200000 , 400000 , 0.0 },
+           {      300000 , 0.0 , 400000 },
+           {      400000 , -400000 , 0.0 },
+           {      500000 , 0.0 , -400000 },
+           {      600000 , 200000 , 0.0 },
+            {      700000 , 0.0 , 200000 },
+            {      800000 , -200000 , 0.0 },
+            {      900000 , 0.0 , 0.0 },
+            {      50000 , 300000 , 0.0 }
+        };
+        pResource = NEW GgafDx9Spline3D(p, 10, 0.2); //—±“x 0.2
+    }
+
+
     return pResource;
 }
 

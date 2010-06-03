@@ -151,7 +151,7 @@ void GameDemoScene::processBehavior() {
     if (onChangeProgressAt(GAMEDEMO_PROG_END)) {
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE END");
         _pStringBoard02->update(100, 150, "SRABA");
-        inactivateAfter(200);
+        end(200);
     }
 
 

@@ -9,7 +9,7 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris
     _class_name = "EnemyIris";
     MyStgUtil::resetEnemyIrisStatus(_pStatus);
     _iMovePatternNo = 0;
-    _pProgram_IrisMove = NULL;
+    _pSplineProgram = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
     _pSeReflector->useSe(1);
@@ -33,78 +33,85 @@ void EnemyIris::initialize() {
 
 void EnemyIris::onActive() {
     MyStgUtil::resetEnemyIrisStatus(_pStatus);
-    if (_pProgram_IrisMove) {
-        _pProgram_IrisMove->begin(0); //スプライン移動を開始
-    }
-    _iMovePatternNo = 0;
+
+    _iMovePatternNo = 0; //行動パターンリセット
 }
 
 void EnemyIris::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    if (_iMovePatternNo == 0) {
-        if (_pProgram_IrisMove) {
-            //スプライン移動中
-            if (!(_pProgram_IrisMove->isExecuting())) {
-                _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
+    switch (_iMovePatternNo) {
+        case 0:  //【パターン０：スプライン移動開始】
+            if (_pSplineProgram) {
+                _pSplineProgram->begin(0); //スプライン移動を開始
             }
-        } else {
-            _iMovePatternNo++;
-        }
-    }
+            _iMovePatternNo++; //次の行動パターンへ
+            break;
 
-    if (_iMovePatternNo == 1) {
-        //スプライン移動終了時
-        _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
-                                            3000, 0,
-                                            TURN_CLOSE_TO);
-        if (_pDispatcher_Shot) {
-            //放射状ショット発射
-            int way = 5+5*_RANK_;
-            angle* paAngWay = new angle[way];
-            GgafDx9Util::getRadialAngle2D(0, way, paAngWay);
-            GgafDx9DrawableActor* pActor;
-            for (int i = 0; i < way; i++) {
-                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
-                if (pActor) {
-                    pActor->setGeometry(this);
-                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
-                    pActor->_pMover->setRzRyMvAng(-ANGLE180 + paAngWay[i], ANGLE90);
-                    pActor->activate();
+        case 1:  //【パターン１：スプライン移動終了待ち】
+            if (_pSplineProgram) {
+                //スプライン移動有り
+                if (!(_pSplineProgram->isExecuting())) {
+                    _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
+                }
+            } else {
+                //スプライン移動無し
+                _iMovePatternNo++; //すぐに次の行動パターンへ
+            }
+            break;
+
+        case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
+            if (_pDispatcher_Shot) {
+                //放射状ショット
+                int way = 5+5*_RANK_; //ショットWAY数
+                angle* paAngWay = new angle[way];
+                GgafDx9Util::getRadialAngle2D(0, way, paAngWay);
+                GgafDx9DrawableActor* pActor_Shot;
+                for (int i = 0; i < way; i++) {
+                    pActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                    if (pActor_Shot) {
+                        pActor_Shot->setGeometry(this);
+                        pActor_Shot->_pMover->setRzRyMvAng(-ANGLE180 + paAngWay[i], ANGLE90);
+                        pActor_Shot->activate();
+                    }
+                }
+                DELETEARR_IMPOSSIBLE_NULL(paAngWay);
+                //ショット発射エフェクト
+                if (_pDispatcher_ShotEffect) {
+                    GgafDx9DrawableActor* pActo_Effect = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
+                    if (pActo_Effect) {
+                        pActo_Effect->setGeometry(this);
+                        pActo_Effect->activate();
+                    }
                 }
             }
-            DELETEARR_IMPOSSIBLE_NULL(paAngWay);
-            //ショット発射エフェクト
-            if (_pDispatcher_ShotEffect) {
-                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
-                if (pActor) {
-                    pActor->setGeometry(_X, _Y, _Z);
-                }
+            //自機へ方向転換
+            _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
+                                                3000, 0,
+                                                TURN_CLOSE_TO);
+            _iMovePatternNo++; //次の行動パターンへ
+            break;
+
+        case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
+            if (_Z-10000 < pMYSHIP->_Z && pMYSHIP->_Z < _Z+10000) {
+                //自機とZ軸が接近したらグルッと逆回転で方向転換
+                _pMover->execTagettingMvAngSequence(MyShip::_lim_behaind - 500000 , _Y, _Z,
+                                                   10000, 0,
+                                                   TURN_ANTICLOSE_TO);
+                _pMover->setMvAcce(100);
+                _iMovePatternNo++;
+            } else {
+                //自機とZ軸が接近するまで待つ
             }
-
-        }
-        _iMovePatternNo++; //次の行動パターンへ
-    }
-
-    if (_iMovePatternNo == 2) {
-        if (_Z-10000 < pMYSHIP->_Z && pMYSHIP->_Z < _Z+10000) {
-            //自機とZ軸が接近
-            _pMover->execTagettingMvAngSequence(MyShip::_lim_behaind - 500000 , _Y, _Z,
-                                                       2000, 0,
-                                                       TURN_CLOSE_TO);
-            _pMover->setMvAcce(100);
-            _iMovePatternNo++;
-        }
-    }
-
-    if (_iMovePatternNo == 3) {
-
+            break;
+        default:
+            break;
     }
 
 
-    if (_pProgram_IrisMove) {
-        _pProgram_IrisMove->behave(); //スプライン移動を振る舞い
+    if (_pSplineProgram) {
+        _pSplineProgram->behave(); //スプライン移動を振る舞い
     }
     _pMover->behave();
     //_pSeReflector->behave();
@@ -137,5 +144,5 @@ void EnemyIris::onInactive() {
 }
 
 EnemyIris::~EnemyIris() {
-    DELETE_POSSIBLE_NULL(_pProgram_IrisMove);
+    DELETE_POSSIBLE_NULL(_pSplineProgram);
 }

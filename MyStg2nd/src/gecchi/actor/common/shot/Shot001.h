@@ -11,6 +11,11 @@ namespace MyStg2nd {
  */
 class Shot001 : public GgafDx9LibStg::DefaultMeshSetActor {
 public:
+
+    /** 移動スプラインプログラム */
+    GgafDx9Core::GgafDx9SplineProgram* _pSplineProgram;
+    /** スプライン定義資源への接続 */
+    DefiniteSplineConnection* _pSplineCon;
     Shot001(const char* prm_name);
 
     void initialize() override;
