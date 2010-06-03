@@ -24,10 +24,13 @@ public:
 
     /** オプション 0:絶対座標移動、1:始点をActorの現座標とみなし、そこからの相対座標移動 */
     int _option;
-    int _X_relative;
-    int _Y_relative;
-    int _Z_relative;
-
+    int _X_begin;
+    int _Y_begin;
+    int _Z_begin;
+    float _SIN_RzMv_begin;
+    float _COS_RzMv_begin;
+    float _SIN_RyMv_begin;
+    float _COS_RyMv_begin;
     /**
      * コンストラクタ
      */

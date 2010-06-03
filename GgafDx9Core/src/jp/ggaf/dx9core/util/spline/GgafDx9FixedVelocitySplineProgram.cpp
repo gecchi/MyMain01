@@ -10,9 +10,13 @@ GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9Geom
     _is_executing = false;
     _option = 0;
 
-    _X_relative = 0;
-    _Y_relative = 0;
-    _Z_relative = 0;
+    _X_begin = 0;
+    _Y_begin = 0;
+    _Z_begin = 0;
+    _SIN_RzMv_begin = 0;
+    _COS_RzMv_begin = 0;
+    _SIN_RyMv_begin = 0;
+    _COS_RyMv_begin = 0;
     _fFrame_executing = 0;
     _fFrame_next_point = 0;
     _point_index = 0;
@@ -137,10 +141,18 @@ void GgafDx9FixedVelocitySplineProgram::begin(int prm_option) {
         _fFrame_executing = 0;
         _fFrame_next_point = 0.0;
         _point_index = 0;
-        if (_option == 1) {
-            _X_relative = _sp->_X_compute[0] - _pActor_target->_X ;
-            _Y_relative = _sp->_Y_compute[0] - _pActor_target->_Y;
-            _Z_relative = _sp->_Z_compute[0] - _pActor_target->_Z;
+        if (_option == 2) {
+            _X_begin = _sp->_X_compute[0] - _pActor_target->_X ;
+            _Y_begin = _sp->_Y_compute[0] - _pActor_target->_Y;
+            _Z_begin = _sp->_Z_compute[0] - _pActor_target->_Z;
+            _SIN_RzMv_begin = GgafDx9Util::SIN[_pActor_target->_pMover->_angRzMv/ANGLE_RATE];
+            _COS_RzMv_begin = GgafDx9Util::COS[_pActor_target->_pMover->_angRzMv/ANGLE_RATE];
+            _SIN_RyMv_begin = GgafDx9Util::SIN[_pActor_target->_pMover->_angRyMv/ANGLE_RATE];
+            _COS_RyMv_begin = GgafDx9Util::COS[_pActor_target->_pMover->_angRyMv/ANGLE_RATE];
+        } else if (_option == 1) {
+            _X_begin = _sp->_X_compute[0] - _pActor_target->_X ;
+            _Y_begin = _sp->_Y_compute[0] - _pActor_target->_Y;
+            _Z_begin = _sp->_Z_compute[0] - _pActor_target->_Z;
         }
     }
 }
@@ -156,17 +168,27 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
         //変わり目
         if (_fFrame_executing >= _fFrame_next_point) {
 
-
-            if (_option == 1) {
+            if (_option == 2) {
+                //    並行移動 ＞ Z軸回転 ＞ Y軸回転
+                //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
+                //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
+                //    | sinRy                                  , 0                    , cosRy                                   , 0 |
+                //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
+                _pActorMover->setStopTarget_RzRyMvAng(
+                        ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * _COS_RyMv_begin + _sp->_Z_compute[_point_index] * _SIN_RyMv_begin) - _X_begin,
+                        (_sp->_X_compute[_point_index] * _SIN_RzMv_begin + _sp->_Y_compute[_point_index] * _COS_RzMv_begin) - _Y_begin,
+                        ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + _sp->_Z_compute[_point_index] * _COS_RyMv_begin) - _Z_begin
+                    );
+            } else if (_option == 1) {
                 //相対座標ターゲット
-                _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index] - _X_relative,
-                                                            _sp->_Y_compute[_point_index] - _Y_relative,
-                                                            _sp->_Z_compute[_point_index] - _Z_relative);
+                _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index] - _X_begin,
+                                                    _sp->_Y_compute[_point_index] - _Y_begin,
+                                                    _sp->_Z_compute[_point_index] - _Z_begin);
             } else {
                 //絶対座標ターゲット
                 _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index],
-                                                            _sp->_Y_compute[_point_index],
-                                                            _sp->_Z_compute[_point_index]);
+                                                    _sp->_Y_compute[_point_index],
+                                                    _sp->_Z_compute[_point_index]);
             }
             if (_pActorMover->getRzMvAngDistance(_pActorMover->_angTargetRzMv, TURN_CLOSE_TO) > 0) {
                 _pActorMover->setRzMvAngVelo(_angFaceMove);
