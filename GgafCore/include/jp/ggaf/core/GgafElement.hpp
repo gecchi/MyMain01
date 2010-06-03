@@ -40,7 +40,7 @@ public:
     /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計 */
     DWORD _frame_of_behaving_since_onActive;
     /** [r]相対フレーム計算用 */
-    DWORD _frame_relative;
+    DWORD _frameEnd;
     /** [r]ノード活動フラグ */
     bool _is_active_flg;
     /** [r]一時停止フラグ */
@@ -593,10 +593,10 @@ public:
      * 直前の relativeFrame(int) 実行時（結果がtrue/falseに関わらず）のフレーム数からの経過フレーム数に達したか判定する。
      * 初回呼び出しは、getBehaveingFrame() == ０からの相対フレーム数となるため、１度は空呼び出しを行う（なんとかしたい）事になるかもしれない。
      * 注意：入れ子や条件分岐により、relativeFrame(int) が呼び出される回数が変化する場合、相対経過フレームも変化する。
-     * @param   prm_frame_relative    相対振る舞いフレーム数
+     * @param   prm_frameEnd    相対振る舞いフレーム数
      * @return  bool    true:経過フレーム数に達した/false:達していない
      */
-    bool relativeFrame(DWORD prm_frame_relative);
+    bool relativeFrame(DWORD prm_frameEnd);
 
 };
 
@@ -605,7 +605,7 @@ public:
 template<class T>
 GgafElement<T>::GgafElement(const char* prm_name) : GgafCore::GgafNode<T>(prm_name),
             _pGod(NULL), _was_initialize_flg(false), _will_end_after_flg(false), _frame_of_life_when_end(MAXDWORD), _frame_of_life(0), _frame_of_behaving(0),
-            _frame_of_behaving_since_onActive(0), _frame_relative(0), _is_active_flg(true), _was_paused_flg(false), _can_live_flg(true),
+            _frame_of_behaving_since_onActive(0), _frameEnd(0), _is_active_flg(true), _was_paused_flg(false), _can_live_flg(true),
             _is_active_flg_in_next_frame(true), _was_paused_flg_in_next_frame(false),
             _can_live_flg_in_next_frame(true), _will_mv_first_in_next_frame_flg(false), _will_mv_last_in_next_frame_flg(false),
             _will_activate_after_flg(false), _frame_of_life_when_activation(0), _will_inactivate_after_flg(false), _frame_of_life_when_inactivation(0),
@@ -730,7 +730,7 @@ void GgafElement<T>::behave() {
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
-            _frame_relative = 0;
+            _frameEnd = 0;
             processBehavior();    //ユーザー実装用
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
@@ -756,7 +756,7 @@ void GgafElement<T>::preJudge() {
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
-            _frame_relative = 0;
+            _frameEnd = 0;
             processPreJudgement(); //フレームワーク用
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
@@ -783,7 +783,7 @@ void GgafElement<T>::judge() {
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
-            _frame_relative = 0;
+            _frameEnd = 0;
             processJudgement();    //ユーザー実装用
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
@@ -809,7 +809,7 @@ void GgafElement<T>::preDraw() {
 
     if (_is_active_flg && _can_live_flg) {
         if (_was_initialize_flg) {
-            _frame_relative = 0;
+            _frameEnd = 0;
             processPreDraw();
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
@@ -830,7 +830,7 @@ template<class T>
 void GgafElement<T>::draw() {
     if (_is_active_flg && _can_live_flg) {
         if (_was_initialize_flg) {
-            _frame_relative = 0;
+            _frameEnd = 0;
             processDraw();
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
@@ -851,7 +851,7 @@ template<class T>
 void GgafElement<T>::afterDraw() {
     if (_is_active_flg && _can_live_flg) {
         if (_was_initialize_flg) {
-            _frame_relative = 0;
+            _frameEnd = 0;
             processAfterDraw();
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
@@ -877,7 +877,7 @@ void GgafElement<T>::happen(int prm_no) {
 
     if (_can_live_flg) {
         if (_was_initialize_flg) {
-            _frame_relative = 0;
+            _frameEnd = 0;
             processHappen(prm_no);
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
@@ -903,7 +903,7 @@ void GgafElement<T>::finally() {
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
-            _frame_relative = 0;
+            _frameEnd = 0;
             processFinal();
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
@@ -1217,9 +1217,9 @@ bool GgafElement<T>::wasDeclaredEnd() {
 }
 
 template<class T>
-bool GgafElement<T>::relativeFrame(DWORD prm_frame_relative) {
-    _frame_relative += prm_frame_relative;
-    if (_frame_of_behaving == _frame_relative) {
+bool GgafElement<T>::relativeFrame(DWORD prm_frameEnd) {
+    _frameEnd += prm_frameEnd;
+    if (_frame_of_behaving == _frameEnd) {
         return true;
     } else {
         return false;
