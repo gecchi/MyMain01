@@ -5,11 +5,11 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-DefiniteSplineManager::DefiniteSplineManager(const char* prm_manager_name) :
+Spline3DManager::Spline3DManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDx9Core::GgafDx9Spline3D> (prm_manager_name) {
 }
 
-GgafDx9Spline3D* DefiniteSplineManager::processCreateResource(char* prm_idstr) {
+GgafDx9Spline3D* Spline3DManager::processCreateResource(char* prm_idstr) {
     GgafDx9Spline3D* pResource = NULL;
 
     if (GgafUtil::strcmp_ascii("SpCon_001", prm_idstr) == 0) {
@@ -88,9 +88,9 @@ GgafDx9Spline3D* DefiniteSplineManager::processCreateResource(char* prm_idstr) {
     return pResource;
 }
 
-GgafResourceConnection<GgafDx9Core::GgafDx9Spline3D>* DefiniteSplineManager::processCreateConnection(char* prm_idstr, GgafDx9Spline3D* prm_pResource) {
-    TRACE3(" DefiniteSplineManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
-    DefiniteSplineConnection* pConnection = NEW DefiniteSplineConnection(prm_idstr, prm_pResource);
-    TRACE3(" DefiniteSplineManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+GgafResourceConnection<GgafDx9Core::GgafDx9Spline3D>* Spline3DManager::processCreateConnection(char* prm_idstr, GgafDx9Spline3D* prm_pResource) {
+    TRACE3(" Spline3DManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    Spline3DConnection* pConnection = NEW Spline3DConnection(prm_idstr, prm_pResource);
+    TRACE3(" Spline3DManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return pConnection;
 }

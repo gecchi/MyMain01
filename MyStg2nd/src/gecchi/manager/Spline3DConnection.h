@@ -8,20 +8,20 @@ namespace MyStg2nd {
  * @since 2010/05/31
  * @author Masatoshi Tsuge
  */
-class DefiniteSplineConnection : public GgafCore::GgafResourceConnection<GgafDx9Core::GgafDx9Spline3D> {
+class Spline3DConnection : public GgafCore::GgafResourceConnection<GgafDx9Core::GgafDx9Spline3D> {
 
 public:
 
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名
-     * @param prm_pDefiniteSpline GgafDx9Spline3Dオブジェクト
+     * @param prm_pSpline3D GgafDx9Spline3Dオブジェクト
      */
-    DefiniteSplineConnection(char* prm_idstr, GgafDx9Core::GgafDx9Spline3D* prm_pDefiniteSpline);
+    Spline3DConnection(char* prm_idstr, GgafDx9Core::GgafDx9Spline3D* prm_pSpline3D);
 
     void processReleaseResource(GgafDx9Core::GgafDx9Spline3D* prm_pResource);
 
-    virtual ~DefiniteSplineConnection() {
+    virtual ~Spline3DConnection() {
     }
 };
 

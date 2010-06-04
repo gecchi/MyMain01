@@ -32,7 +32,7 @@ public:
 
     int _iMovePatternNo;
     DWORD _dwFrame_Active;
-    DefiniteSplineConnection* _pSplineCon;
+    Spline3DConnection* _pSplineCon;
 
     /**
      * コンストラクタ

@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @since 2010/05/31
  * @author Masatoshi Tsuge
  */
-class DefiniteSplineManager : public GgafCore::GgafResourceManager<GgafDx9Core::GgafDx9Spline3D> {
+class Spline3DManager : public GgafCore::GgafResourceManager<GgafDx9Core::GgafDx9Spline3D> {
 
 public:
 
@@ -17,7 +17,7 @@ public:
      * コンストラクタ
      * @param prm_manager_name マネージャ名称(リテラル必須)
      */
-    DefiniteSplineManager(const char* prm_manager_name);
+    Spline3DManager(const char* prm_manager_name);
 
     /**
      * ディスパッチャーを識別文字列から生成。
@@ -29,7 +29,7 @@ public:
 
     GgafCore::GgafResourceConnection<GgafDx9Core::GgafDx9Spline3D>* processCreateConnection(char* prm_idstr, GgafDx9Core::GgafDx9Spline3D* prm_pResource);
 
-    virtual ~DefiniteSplineManager() {
+    virtual ~Spline3DManager() {
     }
 };
 

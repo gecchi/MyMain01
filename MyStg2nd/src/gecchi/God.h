@@ -13,7 +13,7 @@ class God : public GgafDx9LibStg::DefaultGod {
 
 public:
     DispatcherManager* _pDispatcherManager;
-    DefiniteSplineManager* _pDefiniteSplineManager;
+    Spline3DManager* _pSpline3DManager;
 
 
     static GgafDx9LibStg::VirtualButton* _pVbtn_PLAY;

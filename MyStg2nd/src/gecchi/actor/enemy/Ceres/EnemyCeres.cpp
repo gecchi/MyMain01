@@ -38,7 +38,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDispatcher* prm_pDispatche
         _createGgafActorDispatcher = false;
     }
 
-    _pSplineCon = (DefiniteSplineConnection*)(pGOD->_pDefiniteSplineManager->connect("SpCon_001"));
+    _pSplineCon = (Spline3DConnection*)(pGOD->_pSpline3DManager->connect("SpCon_001"));
     //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //ˆÚ“®‘¬“xŒÅ’è
     _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(this, _pSplineCon->view(), 600, 5000); //ˆÚ“®ƒtƒŒ[ƒ€”ŒÅ’è
 

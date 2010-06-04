@@ -201,8 +201,8 @@ class EnemyVesta;
 class EnemyCirce;
 class DispatcherConnection;
 class DispatcherManager;
-class DefiniteSplineConnection;
-class DefiniteSplineManager;
+class Spline3DConnection;
+class Spline3DManager;
 
 
 
@@ -323,8 +323,8 @@ class LaserChipEffectActor;
 #include "gecchi/MyFactory.h"
 #include "gecchi/manager/DispatcherManager.h"
 #include "gecchi/manager/DispatcherConnection.h"
-#include "gecchi/manager/DefiniteSplineManager.h"
-#include "gecchi/manager/DefiniteSplineConnection.h"
+#include "gecchi/manager/Spline3DManager.h"
+#include "gecchi/manager/Spline3DConnection.h"
 #include "gecchi/actor/common/template/Formation001.hpp"
 
 #include "gecchi/actor/_predrawer/LaserChipEffectActor.h"

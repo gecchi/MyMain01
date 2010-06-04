@@ -10,7 +10,7 @@ Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "Flora") 
     MyStgUtil::resetShot001Status(_pStatus);
     _pSeReflector->useSe(1);
     _pSeReflector->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
-    _pSplineCon = (DefiniteSplineConnection*)(pGOD->_pDefiniteSplineManager->connect("SpCon_HAN")); //スプライン定義
+    _pSplineCon = (Spline3DConnection*)(pGOD->_pSpline3DManager->connect("SpCon_HAN")); //スプライン定義
     _pSplineProgram = NULL;
 }
 
