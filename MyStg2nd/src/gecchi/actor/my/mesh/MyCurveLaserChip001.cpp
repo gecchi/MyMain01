@@ -181,7 +181,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         int default_stamina = _pStatus->get(STAT_Stamina);
         int stamina = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
         if (stamina <= 0) {
-            //一撃でチップ消滅
+            //一撃でチップ消滅の攻撃力
             sayonara();
             //ロックオン可能アクターならロックオン更新
             if (pOther->_pStatus->get(STAT_LockOnAble) == 1) {
@@ -190,18 +190,27 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             _pStatus->set(STAT_Stamina, default_stamina);
-            //痛感可能な雑魚はロックオン無し
+            //ロックオン可能アクターならロックオン更新
+            if (pOther->_pStatus->get(STAT_LockOnAble) == 1) {
+                _pOrg->_pLockOnTarget = pOther;
+            }
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
-//        if (_pOrg->_pLockOnTarget) {
+        if (_pOrg->_pLockOnTarget) {
             _pMover->setVxMvVelo(-(_pMover->_veloVxMv));
-            //_pMover->setVxMvAcce(-(_pMover->_acceVxMv));
             _pMover->setVyMvVelo(-(_pMover->_veloVyMv));
-            //_pMover->setVyMvAcce(-(_pMover->_acceVyMv));
             _pMover->setVzMvVelo(-(_pMover->_veloVzMv));
-            //_pMover->setVzMvAcce(-(_pMover->_acceVzMv));
-            _pMover->behave();
-//        }
+        }
+
+////        if (_pOrg->_pLockOnTarget) {
+//            _pMover->setVxMvVelo(-(_pMover->_veloVxMv));
+//            //_pMover->setVxMvAcce(-(_pMover->_acceVxMv));
+//            _pMover->setVyMvVelo(-(_pMover->_veloVyMv));
+//            //_pMover->setVyMvAcce(-(_pMover->_acceVyMv));
+//            _pMover->setVzMvVelo(-(_pMover->_veloVzMv));
+//            //_pMover->setVzMvAcce(-(_pMover->_acceVzMv));
+//            _pMover->behave();
+////        }
 
 //        if (abs(_pMover->_veloVxMv) >= abs(_pMover->_veloVyMv) && abs(_pMover->_veloVxMv) >= abs(_pMover->_veloVzMv)) {
 //            _pMover->setVxMvVelo(-(_pMover->_veloVxMv));
