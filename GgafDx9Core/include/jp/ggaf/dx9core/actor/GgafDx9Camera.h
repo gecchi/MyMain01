@@ -86,6 +86,7 @@ public:
     /** カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn  */
     float _zf;
 
+    float _dep;
     /** 注視点 **/
     GgafDx9CameraViewPoint* _pViewPoint;
 
@@ -114,7 +115,7 @@ public:
      *
      * @param prm_name 名前(デバックで表示。何でもよい)
      * @param prm_rad_fovX 左右の視野角（ラジアン）
-     * @param prm_dep 深さの割合
+     * @param prm_dep 深さ（_cameraZ_orgの何倍か)
      * @return
      */
     GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm_dep);

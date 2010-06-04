@@ -50,8 +50,9 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
     );
 
     // Ë‰e•ÏŠ·s—ñì¬i‚R‚c¨•½–Êj
+    _dep = prm_dep;
     _zn = 0.01;
-    _zf = -_cameraZ_org*(prm_dep+1.0f);
+    _zf = -_cameraZ_org*(_dep+1.0f);
     _TRACE_("GgafDx9Camera::GgafDx9Camera ”ÍˆÍ ["<<_zn<<" ~ "<<_zf<<"]");
     D3DXMatrixPerspectiveFovLH(
             &_vMatrixProj,
