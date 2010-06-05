@@ -573,180 +573,30 @@ void GgafDx9God::presentUniversalVisualize() {
     }
 }
 
+void GgafDx9God::clean() {
+    if (!_was_cleaned) {
+        _TRACE_("GgafDx9God::clean() begin");
+        GgafGod::clean();
+
+        CmRandomNumberGenerator::getInstance()->release();
+        //保持モデル解放
+        DELETE_IMPOSSIBLE_NULL(_pModelManager);
+        DELETE_IMPOSSIBLE_NULL(_pEffectManager);
+
+
+        _TRACE_("GgafDx9God::clean() end");
+    }
+}
+
 GgafDx9God::~GgafDx9God() {
-    _TRACE_("GgafDx9God::~GgafDx9God() begin");
-    if (_pUniverse != NULL) {
-        //工場を止める
-        Sleep(1);
-        GgafFactory::_is_working_flg = false;
-        for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
-            Sleep(60); //工場が落ち着くまで待つ
-            if (i > 1000) {
-                _TRACE_("GgafDx9God::~GgafDx9God() 1分待機しましたが、工場から反応がありません。breakします。要調査");
-            }
-        }
-        //排他の解除
-        CloseHandle(_handleFactory01);
-        DeleteCriticalSection(&(GgafGod::CS2));
-        DeleteCriticalSection(&(GgafGod::CS1));
-        //工場掃除
-        //___BeginSynchronized; // ----->排他開始
-        GgafFactory::clean();
-        //ゴミ箱
-        GgafFactory::_pGarbageBox->_pDisusedScene->dump();
-        GgafFactory::_pGarbageBox->_pDisusedActor->dump();
-        DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
-        //___EndSynchronized; // <----- 排他終了
-
-        //この世で生きている物も掃除
-        Sleep(20);
-        //___BeginSynchronized; // ----->排他開始
-        DELETE_IMPOSSIBLE_NULL(_pUniverse);
-        //___EndSynchronized; // <----- 排他終了
-    }
-
-    CmRandomNumberGenerator::getInstance()->release();
-    //保持モデル解放
-    DELETE_IMPOSSIBLE_NULL(_pModelManager);
-    DELETE_IMPOSSIBLE_NULL(_pEffectManager);
-
-    //DirectSound解放
-    //TODO:私のマシンでは極稀にブルースクリーンになる。原因不明。
-    GgafDx9Sound::release();
-
-    //DirectInput解放
-    GgafDx9Input::release();
-
-
-
-
-//	    HRESULT hr = GgafDx9God::_pID3DDevice9->EndScene();
-//        checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->EndScene() に失敗しました。");
-
-
-
-
-    ULONG rc;
-    rc = _pID3DDevice9->AddRef();
-    rc = _pID3DDevice9->Release();
-    _TRACE_("_FULLSCRREEN前 _pID3DDevice9 rc="<<rc);
-    _TRACE_("_FULLSCRREEN前 _pID3DDevice9 Release");
-
-/*
-    if (_FULLSCRREEN) {
-
-        IDirect3DSwapChain9* pSwapChain;
-        _pID3DDevice9->GetSwapChain( 0, &pSwapChain );
-        pSwapChain->SetFullscreenState(FALSE, 0);
-
-    }
-*/
-    //rc = _pID3D9->AddRef();
-    //rc = _pID3D9->Release();
-    //_TRACE_("_FULLSCRREEN前 _pID3D9 rc="<<rc);
-    //_TRACE_("_FULLSCRREEN前 _pID3D9 Release");
-
-//    if (_FULLSCRREEN) {
-//           _FULLSCRREEN = false;
-//
-//        //工場休止
-//        GgafFactory::beginRest();
-//        ___EndSynchronized; // <----- 排他終了
-//        for (int i = 0; GgafFactory::isResting() == false; i++) {
-//            Sleep(60); //工場が落ち着くまで待つ
-//            if (i > 2000) {
-//                _TRACE_("GgafDx9God::makeUniversalMaterialize() ２分待機しましたが、工場から反応がありません。breakします。要調査");
-//            }
-//        }
-//        //            while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
-//        //                Sleep(10);
-//        //            }
-//        ___BeginSynchronized; // ----->排他開始
-//        _TRACE_("正常デバイスロスト処理。Begin");
-//        //エフェクト、デバイスロスト処理
-//        GgafDx9God::_pEffectManager->onDeviceLostAll();
-//        //モデル解放
-//        GgafDx9God::_pModelManager->onDeviceLostAll();
-//        //全ノードに解放しなさいイベント発令
-//        getUniverse()->happen(GGAF_EVENT_ON_DEVICE_LOST);
-//
-//        _structD3dPresent_Parameters.Windowed = true; //ウィンドウ時
-//        _structD3dPresent_Parameters.FullScreen_RefreshRateInHz = 0; //ウィンドウ時
-//        //デバイスリセットを試みる
-//        hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
-//        checkDxException(hr, D3D_OK, "GGgafDx9God::~GgafDx9God() ウインドウ化");
-//
-//        //デバイス再設定
-//        GgafDx9God::initDx9Device();
-//        //エフェクトリセット
-//        GgafDx9God::_pEffectManager->restoreAll();
-//        //モデル再設定
-//        GgafDx9God::_pModelManager->restoreAll();
-//        //全ノードに再設定しなさいイベント発令
-//        getUniverse()->happen(GGAF_EVENT_DEVICE_LOST_RESTORE);
-//        //前回描画モデル情報を無効にする
-//        GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
-//        _is_device_lost_flg = false;
-//
-//        //工場再開
-//        GgafFactory::finishRest();
-//        _TRACE_("正常デバイスロスト処理。End");
-//
-//
-//
-//
-//
-//
-//
-//
-////		_FULLSCRREEN = false;
-////		_structD3dPresent_Parameters.Windowed = true; //ウィンドウ時
-////        _structD3dPresent_Parameters.FullScreen_RefreshRateInHz = 0; //ウィンドウ時
-////		//_structD3dPresent_Parameters.BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
-////		HRESULT hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
-////        checkDxException(hr, D3D_OK, "GgafDx9God::~GgafDx9God() 終了前のResetで例外");
-//    }
-
-    _TRACE_("さぁ_pID3DDevice9解放！");
-    Sleep(10);
-
-    //ULONG rc;
-    rc = _pID3DDevice9->AddRef();
-    rc = _pID3DDevice9->Release();
-    _TRACE_("_pID3DDevice9 rc="<<rc);
-    _TRACE_("_pID3DDevice9 Release");
-    //rc = _pID3D9->AddRef();
-    //rc = _pID3D9->Release();
-    //_TRACE_("_pID3D9 rc="<<rc);
-    //_TRACE_("_pID3D9 Release");
-
-
-//
-    RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
-
-    //RELEASE_IMPOSSIBLE_NULL(_pID3D9);
-    //_TRACE_("GgafDx9God::~GgafDx9God() end");
-    //    //デバイス解放処理(2010/03/19メモ)
-    //    //デバイス解放時、ある時期からたまにVISTAのフルスクリーンモード時に落ちる現象が発生した。
-    //    //等色々調べた結果VISTAの参照カウンタが「なんか知らんけど違う」と言う結論になった。
-    //    //たしかDirectX10は参照カウンタのカウント方法が変わったというリリースノートを読んだ記憶があるが、
-    //    //関係あるのだろうか。
-    //    //いろいろ試行錯誤したが結局誰のせいなのかはっきり分からない.
-    //    //そこで、カッコ悪いけども余分に参照カウンタを２つ増やし、開放時は0になるまで解放するという措置を行う。
-    //    //TODO:ちゃんと解放する方法。
-    //    while (true) {
-    //        ULONG rc = _pID3DDevice9->Release();
-    //		_TRACE_("_pID3DDevice9 rc="<<rc);
-    //        if (rc == 0) {
-    //            break;
-    //        }
-    //    }
-    //    while (true) {
-    //        ULONG rc = _pID3D9->Release();
-    //        if (rc == 0) {
-    //            break;
-    //        }
-    //    }
-
-
+    clean();
+    _was_cleaned = true;
+	Sleep(10);
+	//DirectSound解放
+	GgafDx9Sound::release();
+	//DirectInput解放
+	GgafDx9Input::release();
+	_TRACE_("さぁ_pID3DDevice9解放！");
+	Sleep(10);
+	RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
 }

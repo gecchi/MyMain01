@@ -1,6 +1,6 @@
 // PCMPlayer.cpp
 //
-#include "GgafCommonHeader.h"
+#include "GgafDx9CommonHeader.h"
 #include "PCMPlayer.h"
 #include <process.h>
 #include <stdio.h>
@@ -61,6 +61,8 @@ namespace Dix {
         _TRACE_("PCMPlayer::~PCMPlayer() begin");
         _TRACE_("terminateThread();");
         terminateThread();
+        _TRACE_("RELEASE_IMPOSSIBLE_NULL(pDSBuffer_);");
+        RELEASE_IMPOSSIBLE_NULL(pDSBuffer_);
         _TRACE_("DELETE_IMPOSSIBLE_NULL(spPCMDecoder_);");
         DELETE_IMPOSSIBLE_NULL(spPCMDecoder_);
         _TRACE_("PCMPlayer::~PCMPlayer() end");
@@ -72,7 +74,7 @@ namespace Dix {
         memset( &DSBufferDesc_, 0, sizeof( DSBufferDesc_ ) );
         memset( &waveFormat_, 0, sizeof( waveFormat_ ) );
         if (pDSBuffer_ != NULL) {
-            DELETE_IMPOSSIBLE_NULL(pDSBuffer_);
+            RELEASE_IMPOSSIBLE_NULL(pDSBuffer_);
             //delete pDSBuffer_;
             pDSBuffer_ = NULL;
         }
@@ -176,17 +178,21 @@ namespace Dix {
         }
 
         spPCMDecoder_->setHead();	// 頭出し
-        pDSBuffer_->SetCurrentPosition( 0 );
-
+        HRESULT hr = pDSBuffer_->SetCurrentPosition( 0 );
+        checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer()  SetCurrentPosition( 0 ) に失敗しました。");
         // バッファをロックして初期データ書き込み
         void* AP1 = 0, *AP2 = 0;
         DWORD AB1 = 0, AB2  = 0;
-        if ( SUCCEEDED( pDSBuffer_->Lock( 0, 0, &AP1, &AB1, &AP2, &AB2, DSBLOCK_ENTIREBUFFER ) ) ) {
+        hr = pDSBuffer_->Lock( 0, 0, &AP1, &AB1, &AP2, &AB2, DSBLOCK_ENTIREBUFFER );
+        //checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Lock に失敗しました。");
+        if ( SUCCEEDED(hr) ) {
             spPCMDecoder_->getSegment( (char*)AP1, AB1, 0, 0 );
-            pDSBuffer_->Unlock( AP1, AB1, AP2, AB2 );
+            hr = pDSBuffer_->Unlock( AP1, AB1, AP2, AB2 );
+            checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Unlock に失敗しました。");
         }
         else {
             clear();
+            //throwGgafCriticalException("PCMPlayer::initializeBuffer() Lock に失敗しました。2");
             return false;
         }
 

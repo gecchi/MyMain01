@@ -54,6 +54,7 @@ void GgafDx9Scene::fadeoutSceneTree(int prm_frame_fade){
             if (getSubFirst()->_scene_class & Obj_GgafDx9Scene) {
                 //OK
             } else {
+				_TRACE_("GgafDx9Scene::fadeoutSceneTree() サブシーンが、GgafDx9Scene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName())<<" class="<<(getSubFirst()->_scene_class));
                 throwGgafCriticalException("GgafDx9Scene::fadeoutSceneTree() サブシーンが、GgafDx9Scene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName()) );
             }
 #endif

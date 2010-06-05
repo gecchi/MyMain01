@@ -184,14 +184,14 @@ void GgafScene::end(DWORD prm_frame_offset) {
     _pLordActor->end(prm_frame_offset);
 }
 
-void GgafScene::cleane(int prm_num_cleaning) {
+void GgafScene::clean(int prm_num_cleaning) {
     if (_pLordActor) {
-        _pLordActor->cleane(prm_num_cleaning);
+        _pLordActor->clean(prm_num_cleaning);
         if (_pLordActor->_pSubFirst == NULL) {
             DELETE_IMPOSSIBLE_NULL(_pLordActor);
         }
     } else {
-        GgafElement<GgafScene>::cleane(prm_num_cleaning);
+        GgafElement<GgafScene>::clean(prm_num_cleaning);
     }
 }
 

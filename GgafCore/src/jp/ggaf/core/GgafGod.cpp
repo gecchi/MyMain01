@@ -38,6 +38,7 @@ GgafGod::GgafGod() : GgafObject(),
     GgafFactory::_pGarbageBox = NEW GgafGarbageBox();
     _is_being = false;
     _can_be = true;
+    _was_cleaned = false;
 }
 
 void GgafGod::be() {
@@ -170,40 +171,58 @@ void GgafGod::finalizeUniversal() {
     _pUniverse->finally();
 }
 
-GgafGod::~GgafGod() {
-    _TRACE_("GgafGod::~GgafGod start");
-    if (_pUniverse != NULL) {
-        _TRACE_("_pUniverse != NULL");
-        //çHèÍÇé~ÇﬂÇÈ
-        Sleep(1);
-        GgafFactory::_is_working_flg = false;
-        for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
-            Sleep(60); //çHèÍÇ™óéÇøíÖÇ≠Ç‹Ç≈ë“Ç¬
-            if (i > 2000) {
-                _TRACE_("GgafGod::~GgafGod() ÇQï™ë“ã@ÇµÇ‹ÇµÇΩÇ™ÅAçHèÍÇ©ÇÁîΩâûÇ™Ç†ÇËÇ‹ÇπÇÒÅBbreakÇµÇ‹Ç∑ÅBóví≤ç∏");
+void GgafGod::clean() {
+    if (!_was_cleaned) {
+        _TRACE_("GgafGod::clean() start");
+        if (_pUniverse != NULL) {
+            _TRACE_("_pUniverse != NULL");
+            //çHèÍÇé~ÇﬂÇÈ
+            Sleep(10);
+            GgafFactory::_is_working_flg = false;
+            for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
+                Sleep(60); //çHèÍÇ™óéÇøíÖÇ≠Ç‹Ç≈ë“Ç¬
+                if (i > 2000) {
+                    _TRACE_("GgafGod::~GgafGod() ÇQï™ë“ã@ÇµÇ‹ÇµÇΩÇ™ÅAçHèÍÇ©ÇÁîΩâûÇ™Ç†ÇËÇ‹ÇπÇÒÅBbreakÇµÇ‹Ç∑ÅBóví≤ç∏");
+                }
             }
-        }
-        //îrëºÇÃâèú
-        CloseHandle(_handleFactory01);
-        DeleteCriticalSection(&(GgafGod::CS2));
-        DeleteCriticalSection(&(GgafGod::CS1));
-        //çHèÍë|èú
-    // ___BeginSynchronized; // ----->îrëºäJén
-        GgafFactory::clean();
-        _TRACE_("GgafFactory::clean()");
-    //___EndSynchronized; // <----- îrëºèIóπ
-        //ÉSÉ~î†
-        //GgafFactory::_pGarbageBox->_pDisusedScene->dump();
-        //GgafFactory::_pGarbageBox->_pDisusedActor->dump();
-        DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
-        //Ç±ÇÃê¢Ç≈ê∂Ç´ÇƒÇ¢ÇÈï®Ç‡ë|èú
-        Sleep(20);
-     //___BeginSynchronized; // ----->îrëºäJén
-        DELETE_IMPOSSIBLE_NULL(_pUniverse);
-     //___EndSynchronized; // <----- îrëºèIóπ
-    }
+            //îrëºÇÃâèú
+            CloseHandle(_handleFactory01);
+            DeleteCriticalSection(&(GgafGod::CS2));
+            DeleteCriticalSection(&(GgafGod::CS1));
 
-    //çHèÍó·äO _pException_Factory Ç™ãNÇ±Ç¡ÇƒÇ¢ÇÈÇ©Ç‡ÇµÇÍÇ»Ç¢ÅB
-    DELETE_POSSIBLE_NULL(_pException_Factory);
-    _TRACE_("GgafGod::~GgafGod end");
+    #ifdef MY_DEBUG
+            //ÉcÉäÅ[ç\ë¢ï\é¶
+            _TRACE_("Dumping _pUniverse ...");
+            _pUniverse->dump();
+    #endif
+
+            //çHèÍë|èú
+            _TRACE_("GgafFactory::clean()");
+            GgafFactory::clean();
+            //ÉSÉ~î†
+    #ifdef MY_DEBUG
+            _TRACE_("Dumping GgafFactory::_pGarbageBox->_pDisusedScene ...");
+            GgafFactory::_pGarbageBox->_pDisusedScene->dump();
+            _TRACE_("GgafFactory::_pGarbageBox->_pDisusedActor ...");
+            GgafFactory::_pGarbageBox->_pDisusedActor->dump();
+    #endif
+            _TRACE_("DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);");
+            DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
+            //Ç±ÇÃê¢Ç≈ê∂Ç´ÇƒÇ¢ÇÈï®Ç‡ë|èú
+            Sleep(20);
+            _TRACE_("DELETE_IMPOSSIBLE_NULL(_pUniverse);");
+            DELETE_IMPOSSIBLE_NULL(_pUniverse);
+        }
+
+        //çHèÍó·äO _pException_Factory Ç™ãNÇ±Ç¡ÇƒÇ¢ÇÈÇ©Ç‡ÇµÇÍÇ»Ç¢ÅB
+        _TRACE_("DELETE_POSSIBLE_NULL(_pException_Factory);");
+        DELETE_POSSIBLE_NULL(_pException_Factory);
+        _TRACE_("GgafGod::clean() end");
+    }
+}
+
+
+GgafGod::~GgafGod() {
+    clean();
+    _was_cleaned = true;
 }

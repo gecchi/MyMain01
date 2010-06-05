@@ -64,6 +64,8 @@ public:
     /** [r]元フレームの描画回数 */
     static int _num_actor_drawing;
 
+
+    bool _was_cleaned;
     /**
      * コンストラクタ .
      * 別スレッドで工場を稼動させます。
@@ -117,6 +119,8 @@ public:
      * @return この世
      */
     virtual GgafUniverse* createUniverse() = 0;
+
+    virtual void clean();
 
     virtual ~GgafGod();
 };

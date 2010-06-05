@@ -7,7 +7,7 @@ namespace GgafDx9Core {
         if (HR != OKVAL) { \
             std::stringstream ss; \
             ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
-            throw GgafDx9CriticalException(ss.str(),HR); \
+            throw GgafDx9Core::GgafDx9CriticalException(ss.str(),HR); \
         } \
     }
 #else

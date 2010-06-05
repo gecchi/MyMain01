@@ -1,6 +1,6 @@
 // OggVorbisFile.cpp
 //
-#include "GgafCommonHeader.h"
+#include "GgafDx9CommonHeader.h"
 #include "OggVorbisFile.h"
 #include "string.h"
 

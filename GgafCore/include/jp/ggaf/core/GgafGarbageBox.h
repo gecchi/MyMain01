@@ -47,7 +47,7 @@ public:
      * 通常、神(GgafGod)がこれを行います。
      * @param prm_num_cleaning deleteするオブジェクト数
      */
-    void cleane(int prm_num_cleaning);
+    void clean(int prm_num_cleaning);
 
     virtual ~GgafGarbageBox();
 };

@@ -4,7 +4,7 @@
 #pragma warning ( disable : 4267 )
 #pragma warning ( disable : 4244 )
 #pragma warning ( disable : 4996 )
-#include "GgafCommonHeader.h"
+#include "GgafDx9CommonHeader.h"
 #include "OggVorbisMemory.h"
 #include <stdio.h>
 #include <string.h>

@@ -35,6 +35,7 @@ void GgafDx9Universe::SeArray::add(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm
 
 void GgafDx9Universe::SeArray::play(int index) {
     _apSe[index]->play(_volume[index], _pan[index], _rate_frequency[index]);
+    _apSe[index] = NULL;
 }
 
 GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) {
@@ -58,7 +59,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
     _TRACE_("Gone=X ("<<_X_goneLeft<<" ~ "<<_X_goneRight<<") Y("<<_Y_goneBottom<<" ~ "<<_Y_goneTop<<") Z("<<_Z_goneFar<<" ~ "<<_Z_goneNear<<")");
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();
-    for (int i = 0; i < GGAF_SAYONARA_DELAY+1; i++) { //GGAF_SAYONARA_DELAY
+    for (int i = 0; i < GGAF_SAYONARA_DELAY*2; i++) { //GGAF_SAYONARA_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
     GgafRepeatSeq::create("_SE_D_", 0, 8); //ズレSE再生フレーム
@@ -67,6 +68,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
 void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, int prm_delay, float prm_rate_frequency) {
     //SEの鳴るタイミングを 0～8フレームをずらしてバラつかせる
     _pRing_pSeArray->getNext(prm_delay+1+(GgafRepeatSeq::nextVal("_SE_D_")))->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
+    //_pRing_pSeArray->getNext(prm_delay+1)->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
 }
 
 void GgafDx9Universe::processPreJudgement() {

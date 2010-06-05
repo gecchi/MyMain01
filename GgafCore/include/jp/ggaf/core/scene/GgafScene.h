@@ -224,7 +224,7 @@ public:
      * 自ツリーを末端から開放する。 .
      * @param prm_num_cleaning 開放インスタンス数
      */
-    virtual void cleane(int prm_num_cleaning);
+    virtual void clean(int prm_num_cleaning);
 
     /**
      * 神に謁見 .

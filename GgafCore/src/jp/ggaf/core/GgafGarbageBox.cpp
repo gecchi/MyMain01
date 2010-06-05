@@ -23,10 +23,10 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
     ::LeaveCriticalSection(&CS);
 }
 
-void GgafGarbageBox::cleane(int prm_num_cleaning) {
+void GgafGarbageBox::clean(int prm_num_cleaning) {
     ::EnterCriticalSection(&CS);
-    _pDisusedScene->cleane(prm_num_cleaning);
-    _pDisusedActor->cleane(prm_num_cleaning);
+    _pDisusedScene->clean(prm_num_cleaning);
+    _pDisusedActor->clean(prm_num_cleaning);
     ::LeaveCriticalSection(&CS);
 }
 

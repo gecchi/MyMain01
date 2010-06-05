@@ -98,7 +98,7 @@ public:
      * 配下ノードの中にノード生存フラグ(_can_live_flg)が false になっているノードがあれば prm_num_cleaning 個だけ delete する。<BR>
      * @param prm_num_cleaning 解放するオブジェクト数
      */
-    virtual void cleane(int prm_num_cleaning);
+    virtual void clean(int prm_num_cleaning);
 
     /**
      * ノード初期処理(単体) .
@@ -206,7 +206,7 @@ public:
      * processFinally() をコールした後、配下のノード全てについて finally() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して finally() 実行後、<BR>
-     * 次フレームまでの残時間に余裕があれば cleane() を実行することになる。<BR>
+     * 次フレームまでの残時間に余裕があれば clean() を実行することになる。<BR>
      */
     virtual void finally();
 
@@ -482,7 +482,7 @@ public:
      * 生存終了とは具体的には、振る舞いフラグ(_is_active_flg)、生存フラグ(_can_live_flg) を、
      * 次フレームからアンセットする予約フラグを立てること事である。<BR>
      * _can_live_flg がアンセットされることにより、GgafDisusedActor に所属することになる。<BR>
-     * 工場(GgafFactory)が神(GgafGod)処理に余裕のある時を見計らい cleane() メソッドにより、<BR>
+     * 工場(GgafFactory)が神(GgafGod)処理に余裕のある時を見計らい clean() メソッドにより、<BR>
      * GgafDisusedActor 配下ノードを delete することとなる。<BR>
      * したがって、本メンバ関数を実行しても、『同一フレーム内』では、まだdeleteは行なわれず、<BR>
      * GgafDisusedActor 配下に移るだけ。（タスクからは除外されている）。<BR>
@@ -1238,7 +1238,7 @@ T* GgafElement<T>::extract() {
 }
 
 template<class T>
-void GgafElement<T>::cleane(int prm_num_cleaning) {
+void GgafElement<T>::clean(int prm_num_cleaning) {
     if (GGAF_NODE::_pSubFirst == NULL) {
         return;
     }
@@ -1250,7 +1250,7 @@ void GgafElement<T>::cleane(int prm_num_cleaning) {
 
         if (pElementTemp->_pSubFirst) {
             //子の子がまだのっている場合さらにもぐる
-            pElementTemp->cleane(prm_num_cleaning);
+            pElementTemp->clean(prm_num_cleaning);
             if (GgafFactory::_cnt_cleaned >= prm_num_cleaning) {
                 break;
             }
@@ -1259,7 +1259,7 @@ void GgafElement<T>::cleane(int prm_num_cleaning) {
         if (pElementTemp->_is_first_flg) { //最後の一つ
             if (pElementTemp->_pSubFirst) {
                 //子の子がまだのっている場合さらにもぐる
-                pElementTemp->cleane(prm_num_cleaning);
+                pElementTemp->clean(prm_num_cleaning);
                 if (GgafFactory::_cnt_cleaned >= prm_num_cleaning) {
                     break;
                 }
@@ -1273,7 +1273,7 @@ void GgafElement<T>::cleane(int prm_num_cleaning) {
             pWk = pElementTemp;
             if (pWk->_pSubFirst) {
                 //子の子がまだのっている場合さらにもぐる
-                pWk->cleane(prm_num_cleaning);
+                pWk->clean(prm_num_cleaning);
                 if (GgafFactory::_cnt_cleaned >= prm_num_cleaning) {
                     break;
                 }

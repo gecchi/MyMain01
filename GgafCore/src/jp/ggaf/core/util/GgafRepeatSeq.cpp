@@ -27,13 +27,17 @@ bool GgafRepeatSeq::isExist(string ID) {
 }
 
 int GgafRepeatSeq::nextVal(string ID) {
+#ifdef MY_DEBUG
     if (isExist(ID) ) {
+#endif
         mapNowval[ID] = mapNowval[ID] + 1;
         if (mapNowval[ID]  > mapMaxval[ID]) {
             mapNowval[ID] = mapMinval[ID];
         }
-        return mapNowval[ID];
+		return mapNowval[ID];
+#ifdef MY_DEBUG
     } else {
         throwGgafCriticalException("GgafRepeatSeq::nextVal() ID="<<ID<<"‚Í‘¶Ý‚µ‚Ü‚¹‚ñ");
     }
+#endif
 }

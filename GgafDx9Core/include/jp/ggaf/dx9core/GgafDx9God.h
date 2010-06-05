@@ -83,7 +83,7 @@ public:
     //	 */
     //	virtual GgafDx9Universe* createDx9World() = 0;
 
-
+    virtual void clean() override;
     /**
      * デストラクタ<BR>
      */

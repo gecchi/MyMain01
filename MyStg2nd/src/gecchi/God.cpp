@@ -55,24 +55,19 @@ GgafUniverse* God::createUniverse() {
     return (GgafUniverse*)pUniverse;
 }
 
-God::~God() {
-
-    DELETE_IMPOSSIBLE_NULL(_pDispatcherManager);
-    DELETE_IMPOSSIBLE_NULL(_pSpline3DManager);
-
-    DELETE_IMPOSSIBLE_NULL(_pVbtn_PLAY);
-    DELETE_IMPOSSIBLE_NULL(_pVbtn_UI);
-
-    GgafFactory::_is_working_flg = false;
-    for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
-        Sleep(60); //Hê‚ª—Ž‚¿’…‚­‚Ü‚Å‘Ò‚Â
-        _TRACE_("God::~God() Hê‰Ò“®’âŽ~‘Ò‚¿");
-        if (i > 2000) {
-            _TRACE_("God::~God() ‚Q•ª‘Ò‹@‚µ‚Ü‚µ‚½‚ªAHê‚©‚ç”½‰ž‚ª‚ ‚è‚Ü‚¹‚ñBbreak‚µ‚Ü‚·B—v’²¸");
-        }
+void God::clean() {
+    if (!_was_cleaned) {
+        _TRACE_("God::clean() begin");
+        DefaultGod::clean();
+        DELETE_IMPOSSIBLE_NULL(_pVbtn_PLAY);
+        DELETE_IMPOSSIBLE_NULL(_pVbtn_UI);
+        DELETE_IMPOSSIBLE_NULL(_pDispatcherManager);
+        DELETE_IMPOSSIBLE_NULL(_pSpline3DManager);
+        _TRACE_("God::clean() end");
     }
-    _TRACE_("God::~God() Hê’âŽ~");
+}
 
-
-    _pUniverse->dump();
+God::~God() {
+    clean();
+    _was_cleaned = true;
 }

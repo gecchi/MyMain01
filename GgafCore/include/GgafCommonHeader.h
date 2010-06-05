@@ -60,7 +60,7 @@
 #endif
 
 //自分用デバッグビルド(コメントを外せば使用可能)
-#define MY_DEBUG 1
+//#define MY_DEBUG 1
 
 
 #ifdef MY_DEBUG
@@ -154,7 +154,7 @@
         } else { \
             std::stringstream ss; \
             ss << "DELETE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< \
-                  #POINTER << " の解放をやむなく無視しました。本来は、ここでNULLになってこと自体おかしい。調査せよ。"; \
+                  #POINTER << " の解放をやむなく無視しました。本来は、ここでNULLになってこと自体おかしいのでは？。調査せよ。"; \
             GgafCore::GgafLogger::writeln(ss); \
             (POINTER) = NULL; \
         } \
@@ -167,7 +167,7 @@
         } else { \
             std::stringstream ss; \
             ss << "DELETEARR_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< \
-                  #POINTER << "の解放をやむなく無視しました。本来は、ここでNULLになってこと自体おかしい。調査せよ。"; \
+                  #POINTER << "の解放をやむなく無視しました。本来は、ここでNULLになってこと自体おかしいのでは？。調査せよ。"; \
             GgafCore::GgafLogger::writeln(ss); \
             (POINTER) = NULL; \
         } \
@@ -186,7 +186,7 @@
         } else { \
             std::stringstream ss; \
             ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< \
-                  #POINTER << "のリリースをやむなく無視しました。本来は、ここでNULLになってこと自体おかしい。調査せよ。"; \
+                  #POINTER << "のリリースをやむなく無視しました。本来は、ここでNULLになってこと自体おかしいのでは？。調査せよ。"; \
             GgafCore::GgafLogger::writeln(ss); \
             (POINTER) = NULL; \
         } \

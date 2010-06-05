@@ -46,7 +46,7 @@ public:
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
     GgafCore::GgafUniverse* createUniverse() override;
-
+    virtual void clean() override;
     virtual ~God();
 };
 
