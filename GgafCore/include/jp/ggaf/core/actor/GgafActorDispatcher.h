@@ -3,9 +3,9 @@
 namespace GgafCore {
 
 /**
- * アクター発送者クラス .
- * ツリーの子に予め幾つかアクターを登録(addSubLast)してストックする。<BR>
- * employ() メソッドで、ストックの活動していないアクター探して提供する。<BR>
+ * アクターディスパッチャー（発送者）クラス .
+ * 自アクターのサブに予め幾つかアクターを登録(addSubLast)してストックする。<BR>
+ * 他からの employ() メソッドで、ストックの活動していないアクター探して提供する。<BR>
  * アクターは使い終わったらinactivate()すると、ストックに戻ったことになる。<BR>
  * 弾など何度も使いまわしたいアクターや、出現数制限したい場合等に有効となるハズである。<BR>
  * 連続employ()の場合、次のemploy()のアクターは必ず隣同士となっているという法則がある。<BR>
@@ -43,12 +43,13 @@ public:
 
     /**
      * アクター取り出し .
-     * アクター発送者の暇そうなメンバー（active中、またはactive予約されていない）がいれば取得する。<BR>
+     * アクター発送者の暇そうなサブメンバー（active中、またはactive予約されていない）がいれば取得する。<BR>
      * 暇なメンバーが居ない場合 NULL が返ります。<BR>
      * 取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動されます。<BR>
+     * 一時的にキャラを派遣するようなイメージ<BR>
      * ＜使用例＞
-     * <code>
-     * GgafMainActor* pActor = pDispatcher->employForce();
+     * <code><pre>
+     * GgafMainActor* pActor = pDispatcher->employ();
      * if (pActor != NULL) {
      *     //アクターの初期処理
      *     //・・・
@@ -56,7 +57,7 @@ public:
      *     pActor->active();
      * }
      *
-     * </code>
+     * </pre></code>
      * @return アクター発送者の暇そうなメンバーアクター
      */
     virtual GgafCore::GgafMainActor* employ() {
@@ -93,20 +94,23 @@ public:
 
     /**
      * 強制的にアクター取り出し .
-     * employ() を試みて取り出せない場合、強制的に先頭のアクターを返します。
-     * 注意：取り出し後、アクターに active() としても、そのアクターが既に
+     * アクター発送者の暇そうなサブメンバー（active中、またはactive予約されていない）が
+     * 居なくても強制的に取得する。<BR>
+     * employ() を試みて取り出せない場合、強制的に先頭のアクターを返します。<BR>
+     * <b>＜注意＞</b><BR>
+     * 取り出し後、アクターに active() を実行しても、そのアクターが既に
      * isActive() == true の状態もありうるため、onActive() コールバックは
-     * 呼ばれない可能性がある。
+     * 呼ばれない可能性がある。<BR>
      * 強制的にonActive() コールバックを呼び出したい場合に次のようなコードに
      * しなければいけないかも知れない。
-     * <code>
+     * <pre><code>
      * GgafMainActor* pActor = pDispatcher->employForce();
      * if (pActor->isActive()) {
      *     pActor->inactivateImmediately();
      *     pActor->onInactive();
      * }
      * pActor->active();
-     * </code>
+     * </pre></code>
      *
      * @return
      */

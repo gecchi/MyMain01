@@ -9,10 +9,10 @@ namespace GgafCore {
  * 毎フレーム、神(GgafGod)はこの世(GgafUniverse)に、次のメソッド順で呼び出す仕組みになっている。この世(GgafUniverse)も本templateを実装している。<BR>
  * nextFrame() > behave() > preJudge() > judge() > [preDraw() > draw() > afterDraw()] > finally() <BR>
  * 上記の内、nextFrame() finally() は毎フレーム実行される。<BR>
- * behave() judge() は活動状態フラグ(_is_active_flg)が true、かつ、一時停止フラグ(_was_paused_flg)が false の場合実行される。<BR>
+ * behave() preJudge() judge() は活動状態フラグ(_is_active_flg)が true、かつ、一時停止フラグ(_was_paused_flg)が false の場合実行される。<BR>
  * preDraw() draw() afterDraw() は、次フレームまでの残時間に余裕がある場合実行される。<BR>
  * 次フレームまでの残時間に余裕が無い場合、神はこの３メソッドをスキップするが、MAX_SKIP_FRAME フレームに１回は実行する。<BR>
- * 上記の nextFrame() ～ finally() のオーバーライドは非推奨。オーバーライド用に純粋仮想(processXxxxxx()) を用意している。<BR>
+ * 上記の nextFrame() ～ finally() の直接オーバーライドは非推奨。オーバーライド用に各メソッドでコールバックされる純粋仮想関数(processXxxxxx()) を用意している。<BR>
  * initialize() は、上記の nextFrame() ～ finally() を何れかを呼び出す前にインスタンスごとに１回だけ呼ばれる仕組みになっている。<BR>
  * 但し、生存フラグ(_can_live_flg)がfalseの場合（deleteされる）は、nextFrame() ～ finally() は全て実行されない。<BR>
  * (※旧クラス名はGgafFactor)
@@ -125,6 +125,7 @@ public:
      * （ _is_active_flg && !_was_paused_flg && _can_live_flg ）の場合 <BR>
      * processBehavior() をコールした後、配下のノード全てについて behave() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 下位クラスではコールされる processBehavior() をオーバーライドしてロジックを実装する <BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して behave() 実行後、次は preJudge() を実行することになる。<BR>
      */
     virtual void behave();
@@ -153,6 +154,7 @@ public:
      * つまり ( _is_active_flg && !_was_paused_flg && _can_live_flg )の場合 <BR>
      * processPreJudgement() をコールした後、配下のノード全てについて preJudge() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 下位クラスではコールされる processPreJudgement() をオーバーライドしてロジックを実装する <BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して preJudge() 数実行後、次に judge() を実行することになる。<BR>
      */
     virtual void preJudge();
@@ -164,6 +166,7 @@ public:
      * つまり ( _is_active_flg && !_was_paused_flg && _can_live_flg )の場合 <BR>
      * processJudgement() をコールした後、配下のノード全てについて judge() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 下位クラスではコールされる processJudgement() をオーバーライドしてロジックを実装する <BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して judge() 実行後、<BR>
      * 次フレームまでの残時間に余裕があれば preDraw() 無ければ finally() を実行することになる。<BR>
      */
@@ -175,6 +178,7 @@ public:
      * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
      * processPreDraw() をコールした後、配下のノード全てについて preDraw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 下位クラスではコールされる processPreDraw() をオーバーライドしてロジックを実装する <BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して preDraw() 実行後、次に draw() を実行することになる。<BR>
      */
     virtual void preDraw();
@@ -185,6 +189,7 @@ public:
      * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
      * processDraw() をコールした後、配下のノード全てについて draw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 下位クラスではコールされる processDraw() をオーバーライドしてロジックを実装する <BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して draw() 実行後、次に afterDraw() を実行することになる。<BR>
      */
     virtual void draw();
@@ -193,8 +198,9 @@ public:
      * ノードのフレーム毎の描画事後処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） .
      * 活動フラグ、生存フラグがセット<BR>
      * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
-     * processTerminate() をコールした後、配下のノード全てについて afterDraw() を再帰的に実行する。<BR>
+     * processAfterDraw() をコールした後、配下のノード全てについて afterDraw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 下位クラスではコールされる processAfterDraw() をオーバーライドしてロジックを実装する <BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して afterDraw() 実行後、次に finally() を実行することになる。<BR>
      */
     virtual void afterDraw();
@@ -205,8 +211,10 @@ public:
      * （_is_active_flg && !_was_paused_flg && _can_live_flg）の場合 <BR>
      * processFinally() をコールした後、配下のノード全てについて finally() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 下位クラスではコールされる processFinally() をオーバーライドしてロジックを実装する <BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して finally() 実行後、<BR>
-     * 次フレームまでの残時間に余裕があれば clean() を実行することになる。<BR>
+     * 次フレームまでの残時間に余裕があれば clean() を実行する。<BR>
+     * その後は nextFrame() を実行することになる。<BR>
      */
     virtual void finally();
 
@@ -294,15 +302,15 @@ public:
      */
     virtual GgafGod* askGod() = 0;
 
-    //==================状態変移メソッド郡==================>
+    //==================状態遷移メソッド郡==================>
     /**
      * 活動状態にする(自ツリー・コールバック有り) .
      * 正確には、次フレームから活動状態にする予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で活動状態になる事になる。<BR>
      * 自身と配下ノード全てについて再帰的に activateTree() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
-     * 自ノードの processBehavior() で本メソッドを呼び出すコードを書いても、タスクシステムの仕組み上、<BR>
-     * processBehavior()は活動状態に実行されることになるので意味が無い。<BR>
+     * 自ノードの processBehavior() で 自身を activateTree() を呼び出すコードを書いても、タスクシステムの仕組み上、<BR>
+     * processBehavior()は活動状態にのみ実行されるので、実行されることが無く意味が無い。<BR>
      * 他ノードへ実行したり、processFinal() などでの使用を想定。<BR>
      * <B>[補足]</B>ノード生成直後は、活動状態となっている。<BR>
      */
@@ -331,7 +339,7 @@ public:
      * 自ノードについて、即座に活動状態にする。通常、初期化以外で本メソッドの使用は非推奨。<BR>
      * onActive() コールバックは実行されない。<BR>
      * 即座に状態が変化するため、以下の点を留意して、使用する際は注意が必要である。<BR>
-     * 『同一フレーム内』の残りの未処理のノードに対しては有効になってしまう。つまり、<BR>
+     * 『同一フレーム内』の残りの未処理のノードに対して有効になってしまう。つまり、<BR>
      * 『同一フレーム内』であっても、既に処理されたノードとは異なる状態になる可能性が大きく、<BR>
      * 他ノードのロジックが、「このノードが活動状態ならば・・・」等、その状態（フラグ）により処理分岐していた場合、<BR>
      * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
@@ -474,23 +482,21 @@ public:
 
     /**
      * 終了します。(自ツリー) .
-     * 自ノードを次フレームから「生存終了」状態にすることを宣言する。（終了フラグを立てる） <BR>
+     * 自ノードを引数のフレーム後に「生存終了」状態にすることを宣言する。（終了フラグを立てる） <BR>
      * 自ツリーノード全て道連れで、終了(end())がお知らせが届く。<br>
-     * 親ノードが終了ならすれば、子ノードも終了せざるをえない。<BR>
+     * 親ノードが終了すれば、子ノードも終了せざるをえないからである。<BR>
      * 終了フラグは一度立てると元にもどせません。以降 end を重ねて呼び出しても無視します。<BR>
      * 引数の猶予フレーム後に生存終了とする。<BR>
-     * 生存終了とは具体的には、振る舞いフラグ(_is_active_flg)、生存フラグ(_can_live_flg) を、
+     * 「生存終了」とは具体的には、振る舞いフラグ(_is_active_flg)、生存フラグ(_can_live_flg) を、
      * 次フレームからアンセットする予約フラグを立てること事である。<BR>
-     * _can_live_flg がアンセットされることにより、GgafDisusedActor に所属することになる。<BR>
-     * 工場(GgafFactory)が神(GgafGod)処理に余裕のある時を見計らい clean() メソッドにより、<BR>
+     * _can_live_flg がアンセットされることにより、ゴミ箱(GgafGarbageBox) に所属することになる。<BR>
+     * そして神(GgafGod)処理に余裕のある時を見計らい clean() メソッドにより、<BR>
      * GgafDisusedActor 配下ノードを delete することとなる。<BR>
-     * したがって、本メンバ関数を実行しても、『同一フレーム内』では、まだdeleteは行なわれず、<BR>
+     * したがって、本メンバ関数を実行して引数の猶予フレーム後になっても、まだdeleteは行なわれず、<BR>
      * GgafDisusedActor 配下に移るだけ。（タスクからは除外されている）。<BR>
-     * 次フレーム以降でも直ぐには deleteされないかもしれない。<BR>
+     * 次フレーム以降でも直ぐには delete されるとは限らない。<BR>
      * インスタンスがすぐに解放されないことに注意せよ！（内部的なバグを生みやすい）。<BR>
-     * 終了した後『同一フレーム内』に、 _can_live_flg をセットし直しても駄目です。<BR>
-     * これは本メソッドで、GgafDisusedActorに所属してしまうためです。<BR>
-     * @param prm_frame_offset 猶予フレーム(1～)
+     * @param prm_frame_offset 生存終了猶予フレーム(1～)
      */
     void end(DWORD prm_frame_offset = 1);
 
