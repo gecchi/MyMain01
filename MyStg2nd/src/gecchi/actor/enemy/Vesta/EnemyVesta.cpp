@@ -45,7 +45,7 @@ void EnemyVesta::initialize() {
     _pMorpher->forceWeightRange(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB_Cube(0, 80000);
+    _pCollisionChecker->setColliAAB_Cube(0, 160000);
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 1200);
     _pScaler->beat(30, 5, 5, -1);
@@ -239,6 +239,8 @@ void EnemyVesta::processJudgement() {
 }
 
 void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
+    chengeEffectTechniqueInterim("Flush", 2); //ƒtƒ‰ƒbƒVƒ…
+
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
 

@@ -196,11 +196,13 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             }
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
-        if (_pOrg->_pLockOnTarget) {
-            _pMover->setVxMvVelo(-(_pMover->_veloVxMv));
-            _pMover->setVyMvVelo(-(_pMover->_veloVyMv));
-            _pMover->setVzMvVelo(-(_pMover->_veloVzMv));
-        }
+        sayonara();
+    }
+//        if (_pOrg->_pLockOnTarget) {
+//            _pMover->setVxMvVelo(-(_pMover->_veloVxMv));
+//            _pMover->setVyMvVelo(-(_pMover->_veloVyMv));
+//            _pMover->setVzMvVelo(-(_pMover->_veloVzMv));
+//        }
 
 ////        if (_pOrg->_pLockOnTarget) {
 //            _pMover->setVxMvVelo(-(_pMover->_veloVxMv));
@@ -222,7 +224,6 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //            _pMover->setVzMvVelo(-(_pMover->_veloVzMv));
 //            _pMover->setVzMvAcce(-(_pMover->_acceVzMv));
 //        }
-    }
 
 
 }
