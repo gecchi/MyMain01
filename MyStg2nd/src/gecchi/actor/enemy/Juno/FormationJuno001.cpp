@@ -10,7 +10,7 @@ FormationJuno001::FormationJuno001(const char* prm_name) :
                   -800000, -400000, -1,
                    400000,  800000,  1,
                    GgafDx9Universe::_X_goneRight - 300000, 0, GgafDx9Universe::_Z_goneFar - 1000,
-                   1000,
+                   2000,
                    ANGLE0, ANGLE180,
                    30000,
                    ANGLE0, ANGLE90,

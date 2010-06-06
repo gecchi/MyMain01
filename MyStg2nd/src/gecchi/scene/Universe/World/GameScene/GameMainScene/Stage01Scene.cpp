@@ -13,9 +13,6 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     _pBackGround01 = NEW BackGround01("BACKGOROUND01", "");
     _pBackGround01->inactivateTree();
     getLordActor()->addSubGroup(KIND_EFFECT, _pBackGround01);
-//    _pBackGroundStar =  NEW BackGroundStar("BackGroundStarP");
-//    _pBackGroundStar->inactivateTree();
-//    getLordActor()->addSubGroup(KIND_EFFECT, _pBackGroundStar);
 
     _pHoshiBoshi001 = NEW HoshiBoshi001("HoshiBoshi001");
     getLordActor()->addSubGroup(KIND_EFFECT, _pHoshiBoshi001);
@@ -29,9 +26,6 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 	_pBgmPerformer->useBgm(2);
     _pBgmPerformer->set(0, "VIRTUAL_ON_11");
     _pBgmPerformer->set(1, "VIRTUAL_ON_09");
-
-//    prepareBgm(0, "VIRTUAL_ON_11");
-//    prepareBgm(1, "VIRTUAL_ON_09");
 
 }
 
@@ -81,13 +75,13 @@ void Stage01Scene::processBehavior() {
         _angCamXY_prev = angCamXY;
 
         if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_RIGHT) {
-            _pBackGround01->_x -= 0.05; //”wŒiƒXƒNƒ[ƒ‹
+            _pBackGround01->_x -= 0.01; //”wŒiƒXƒNƒ[ƒ‹
         } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_LEFT) {
-            _pBackGround01->_x += 0.05;
+            _pBackGround01->_x += 0.01;
         } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_TOP) {
-            _pBackGround01->_y += 0.05;
+            _pBackGround01->_y += 0.01;
         } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_BOTTOM) {
-            _pBackGround01->_y -= 0.05;
+            _pBackGround01->_y -= 0.01;
         }
 
 

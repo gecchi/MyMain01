@@ -16,6 +16,7 @@ public:
     DWORD _frame_when_shot;
     int _nMaxShot;
     int _nShot;
+    velo _veloMv_begin;
 
     EnemyJuno(const char* prm_name);
 
