@@ -128,6 +128,8 @@ public:
 
     vbsta isPushedDown(vbsta prm_VB);
 
+    vbsta isPushedUp(vbsta prm_VB, DWORD prm_frame_push = 5);
+
     vbsta isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push = 5, DWORD prm_frame_delay = 5);
 
 
@@ -204,7 +206,7 @@ public:
      * @param prm_frame_delay グルッが成立する許容フレーム
      * @return
      */
-    bool isRoundPush(vbsta prm_VB, DWORD prm_frame_delay=30);
+    bool isRoundPushDown(vbsta prm_VB, DWORD prm_frame_delay=30);
 
 //    /**
 //     * 今、prm_VB1と同時にPushedDownされたスティックの番号を返す。

@@ -402,6 +402,48 @@ vbsta VirtualButton::isReleasedUp(vbsta prm_VB) {
     }
 }
 
+vbsta VirtualButton::isPushedUp(vbsta prm_VB, DWORD prm_frame_push) {
+    //-------oooo-
+    //       <-->
+    //         |
+    //         `-- prm_frame_push
+    //‰ß‹Ž‚É‘k‚è‚È‚ª‚çŒŸØ
+    VirtualButton::VBMap* pVBMap;
+    pVBMap = _pVBMap_Active;
+    //Œ»Ý‚Í‰Ÿ‚³‚ê‚Ä‚¢‚Ä‚Í‘Ê–Ú
+    if (pVBMap->_state & prm_VB) {
+        return false;
+    } else {
+        //OK
+    }
+    pVBMap = pVBMap->_prev;
+    //’¼‘O‚Í‰Ÿ‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î‚¢‚¯‚È‚¢
+    if (pVBMap->_state & prm_VB) {
+        //OK
+    } else {
+        return false;
+    }
+    pVBMap = pVBMap->_prev;
+    bool ok = false;
+    for (DWORD i = 0; i < prm_frame_push; i++) {
+        pVBMap = pVBMap->_prev;
+        if (pVBMap->_state & prm_VB) {
+
+        } else {
+            //prm_frame_pushŠúŠÔ“à‚É—£‚µ‚Ä‚¢‚ê‚ÎOK
+            ok = true;
+            break;
+        }
+    }
+    if (ok) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+
 vbsta VirtualButton::wasReleasedUp(vbsta prm_VB, DWORD prm_dwFrameAgo) {
     if (wasNotBeingPressed(prm_VB, prm_dwFrameAgo) && wasBeingPressed(prm_VB, prm_dwFrameAgo + 1)) {
         return true;
@@ -477,7 +519,7 @@ vbsta VirtualButton::isDoublePushedDownStick(DWORD prm_frame_push, DWORD prm_fra
 }
 
 
-bool VirtualButton::isRoundPush(vbsta prm_VB, DWORD prm_frame_delay) {
+bool VirtualButton::isRoundPushDown(vbsta prm_VB, DWORD prm_frame_delay) {
     if (isPushedDown(prm_VB)) {
         VBMap* pVBMap;
         pVBMap = _pVBMap_Active;
