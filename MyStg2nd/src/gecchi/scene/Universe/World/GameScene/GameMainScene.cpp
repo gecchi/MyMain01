@@ -233,14 +233,14 @@ void GameMainScene::processBehavior() {
                 move_target_Z_VP = pMYSHIP->_Z;
             } else if (_pos_camera == CAM_POS_TOP) {
                 move_target_X_CAM = -Dx - Ddx_hw;
-                move_target_Y_CAM = pMYSHIP->_Y + _dZ_camera_init;
+                move_target_Y_CAM = pMYSHIP->_Y + _dZ_camera_init + Ddx_hw;
                 move_target_Z_CAM = pMYSHIP->_Z;
                 move_target_X_VP = Dx - Ddx_hw;
                 move_target_Y_VP = pMYSHIP->_Y;
                 move_target_Z_VP = pMYSHIP->_Z;
             } else if (_pos_camera == CAM_POS_BOTTOM) {
                 move_target_X_CAM = -Dx - Ddx_hw;
-                move_target_Y_CAM = pMYSHIP->_Y - _dZ_camera_init;
+                move_target_Y_CAM = pMYSHIP->_Y - _dZ_camera_init - Ddx_hw;
                 move_target_Z_CAM = pMYSHIP->_Z;
                 move_target_X_VP = Dx - Ddx_hw;
                 move_target_Y_VP = pMYSHIP->_Y;
@@ -279,8 +279,12 @@ void GameMainScene::processBehavior() {
                 //チョン押しの場合
             } else {
                 //長押し
-                //方向未入力の場合、元の視点へ
-                _pos_camera -= CAM_POS_TO_BEHIND;
+                if (_pos_camera < CAM_POS_TO_BEHIND) { //背面視点ではない場合、
+                    _pos_camera += CAM_POS_TO_BEHIND;  //それぞれの対応背面視点へ
+                } else if (_pos_camera > CAM_POS_TO_BEHIND) {//背面視点の場合
+                    _pos_camera -= CAM_POS_TO_BEHIND;
+                }
+
             }
         }
 
