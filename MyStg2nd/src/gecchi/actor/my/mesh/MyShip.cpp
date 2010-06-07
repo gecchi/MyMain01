@@ -47,7 +47,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _angRXVelo_BeginMZT = 40000;
 
     _iMvBtmVelo_MT = 0; //Turbo移動中の移動速度の最低速度
-    _iMvVelo_BeginMT = 10000; //Turbo移動開始時の移動速度の初速度
+    _iMvVelo_BeginMT = 40000; //Turbo移動開始時の移動速度の初速度
     _iMvAcce_MT = -200; //Turbo移動中の移動速度の加速度
 
     _way = WAY_FRONT;

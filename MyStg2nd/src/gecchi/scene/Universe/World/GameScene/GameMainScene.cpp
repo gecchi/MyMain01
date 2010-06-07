@@ -269,10 +269,22 @@ void GameMainScene::processBehavior() {
         int cam_velo_renge;
 
         if (VB->isBeingPressed(VB_ZMOVE)) {
-            cam_velo_renge = _cam_velo_renge / 200;
+            cam_velo_renge = _cam_velo_renge / 100; //‚¨‚µ‚Á‚Ï‚Í‚ä‚Á‚­‚è
         } else {
             cam_velo_renge = _cam_velo_renge;
         }
+        //—£‚µ‚½ê‡
+        if (VB->isReleasedUp(VB_ZMOVE)) {
+            if (VB->isPushedUp(VB_ZMOVE, 20)) {
+                //ƒ`ƒ‡ƒ“‰Ÿ‚µ‚Ìê‡
+            } else {
+                //’·‰Ÿ‚µ
+                //•ûŒü–¢“ü—Í‚Ìê‡AŒ³‚ÌŽ‹“_‚Ö
+                _pos_camera -= CAM_POS_TO_BEHIND;
+            }
+        }
+
+
         pCAM->_pMover->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
         pCAM->_pMover->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
         pCAM->_pMover->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);

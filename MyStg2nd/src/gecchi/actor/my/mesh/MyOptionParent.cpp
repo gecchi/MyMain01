@@ -146,7 +146,7 @@ void MyOptionParent::processBehavior() {
 
     }
 
-    if (VB->isRoundPush(VB_OPTION)) {
+    if (VB->isRoundPushDown(VB_OPTION)) {
     //if (VB->isPushedDown(VB_OPTION) && GgafDx9Input::isBeingPressedKey(DIK_S)) {
         if (_paMyOption[0]) {
             _is_free_from_myship_mode = true;
