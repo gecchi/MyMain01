@@ -1,0 +1,160 @@
+//  -7.842804;-9.833065;0.000000;,
+//  7.842804;9.833065;0.000000;,
+//  -7.842804;9.833065;0.000000;,
+//  7.842804;-9.833065;0.000000;,
+//  -7.842804;-9.833065;-14.280981;,
+//  7.842804;9.833065;-14.280981;,
+//  7.842804;-9.833065;-14.280981;,
+//  -7.842804;9.833065;-14.280981;,
+//  -7.842804;-9.833065;0.000000;,
+//  7.842804;-9.833065;-14.280981;,
+//  7.842804;-9.833065;0.000000;,
+//  -7.842804;-9.833065;-14.280981;,
+//  7.842804;9.833065;0.000000;,
+//  7.842804;-9.833065;-14.280981;,
+//  7.842804;9.833065;0.000000;,
+//  -7.842804;9.833065;-14.280981;,
+//  -7.842804;9.833065;0.000000;,
+//  7.842804;9.833065;-14.280981;,
+//  -7.842804;9.833065;0.000000;,
+//  -7.842804;-9.833065;-14.280981;;
+//を
+//{ -7.842804 , -9.833065 ,   0.000000 },
+//{  7.842804 ,  9.833065 ,   0.000000 },
+//{ -7.842804 ,  9.833065 ,   0.000000 },
+//{  7.842804 , -9.833065 ,   0.000000 },
+//{ -7.842804 , -9.833065 , -14.280981 },
+//{  7.842804 ,  9.833065 , -14.280981 },
+//{  7.842804 , -9.833065 , -14.280981 },
+//{ -7.842804 ,  9.833065 , -14.280981 },
+//{ -7.842804 , -9.833065 ,   0.000000 },
+//{  7.842804 , -9.833065 , -14.280981 },
+//{  7.842804 , -9.833065 ,   0.000000 },
+//{ -7.842804 , -9.833065 , -14.280981 },
+//{  7.842804 ,  9.833065 ,   0.000000 },
+//{  7.842804 , -9.833065 , -14.280981 },
+//{  7.842804 ,  9.833065 ,   0.000000 },
+//{ -7.842804 ,  9.833065 , -14.280981 },
+//{ -7.842804 ,  9.833065 ,   0.000000 },
+//{  7.842804 ,  9.833065 , -14.280981 },
+//{ -7.842804 ,  9.833065 ,   0.000000 },
+//{ -7.842804 , -9.833065 , -14.280981 },
+//に整形
+
+
+
+
+
+
+
+gofiletop;
+
+	setcompatiblemode 0x0F;
+	replaceallfast " " , "" , casesense;
+	replaceallfast ";," , "" , casesense;
+	replaceallfast ";;" , "" , casesense;
+	replaceallfast "," , "" , casesense;
+	replaceallfast ";" , " , " , casesense;
+
+$sepa = ",";
+gofiletop;
+
+//データ最長文字数、レコード中りの最長データ数を求める
+#idx_col = 0;
+#idx_line = 0;
+#line_active = y; //行 (０～)
+#col_active = 0;  //カラム（０～）
+#source_line = linecount2;
+TRX1:
+
+while (#line_active < #source_line) {
+	//行頭にカーソル移動
+	movetolineno 1, #line_active+1;
+	//行の文字数取得
+	#strlen_inline = linelen2;
+
+	#p = 0;
+	#col_active = 0;
+
+	while (#p < #strlen_inline) {  
+		searchdown2 $sepa, casesense, noregular, hilight; //区切り文字まで移動
+		#res = result;
+		if( (#res == false) || (#line_active < y)) {
+			//行の最後のデータ
+			$data[#line_active][#col_active] = gettext2( #p, #line_active+1, #strlen_inline, #line_active+1);
+
+			//各カラムの最大文字長を保持
+			if (#max_datalen[#col_active] < strlen($data[#line_active][#col_active])) {
+				#max_datalen[#col_active] = strlen($data[#line_active][#col_active]);
+			}
+			
+			if (#idx_col < #col_active) {
+				#idx_col = #col_active; //最大要素インデックスを保持
+			}
+			break;
+		} else {
+			//p ～ x 
+			$data[#line_active][#col_active] = gettext2( #p, #line_active+1, x, #line_active+1);
+
+			//各カラムの最大文字長を保持
+			if (#max_datalen[#col_active] < strlen($data[#line_active][#col_active])) {
+				#max_datalen[#col_active] = strlen($data[#line_active][#col_active]);
+			}
+
+			#p = x+1;
+		}
+		#col_active = #col_active + 1;
+	}
+	#line_active = #line_active + 1;
+}
+
+TRX2:
+
+gofileend;
+insertreturn;
+insertreturn;
+
+//結果表示
+#i = 0;
+while (#i < #source_line) {
+	#j = 0;
+	insert "{ ";
+	while (#j < #idx_col+1) {
+		call PadStr $data[#i][#j], #max_datalen[#j];
+		insert $$return;
+		if (#j == #idx_col) {
+			//最後は区切り文字を入れない
+			insert " },";
+		} else {
+			insert $sepa;
+		}
+		#j = #j + 1;
+	}
+	insert "\n";
+	#i = #i + 1;
+}
+
+
+Exit:
+	endmacro;
+
+
+
+
+
+//【関数】文字列パディング（左へスペース文字埋め）
+//引数１：パディングしたい文字列(文字列)
+//引数２：全体文字数(数値)
+//戻り値：パディングされた文字列
+PadStr:
+	##data_len = strlen($$1);
+	##padstr_len = ##2 - ##data_len;
+	##i = 0;
+	$$r = $$1;
+	while(##i < ##padstr_len) {
+		$$r = " " + $$r; //Leftとココが違う
+		##i = ##i + 1;
+	}
+	return $$r;
+
+
