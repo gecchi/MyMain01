@@ -181,21 +181,33 @@ namespace Dix {
         HRESULT hr = pDSBuffer_->SetCurrentPosition( 0 );
         checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer()  SetCurrentPosition( 0 ) に失敗しました。");
         // バッファをロックして初期データ書き込み
-        void* AP1 = 0, *AP2 = 0;
-        DWORD AB1 = 0, AB2  = 0;
-        hr = pDSBuffer_->Lock( 0, 0, &AP1, &AB1, &AP2, &AB2, DSBLOCK_ENTIREBUFFER );
-        //checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Lock に失敗しました。");
-        if ( SUCCEEDED(hr) ) {
-            spPCMDecoder_->getSegment( (char*)AP1, AB1, 0, 0 );
-            hr = pDSBuffer_->Unlock( AP1, AB1, AP2, AB2 );
-            checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Unlock に失敗しました。");
+        for (int i = 0; i < 10; i++) { //最大１０回試行する
+                                       //これは DSBLOCK_ENTIREBUFFER （全体ロック)が
+                                       //特定のタイミングで失敗することが、たぶん避けれないと考えたため
+            void* AP1 = 0, *AP2 = 0;
+            DWORD AB1 = 0, AB2  = 0;
+            hr = pDSBuffer_->Lock( 0, 0, &AP1, &AB1, &AP2, &AB2, DSBLOCK_ENTIREBUFFER );
+            //checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Lock に失敗しました。");
+            if ( SUCCEEDED(hr) ) {
+                spPCMDecoder_->getSegment( (char*)AP1, AB1, 0, 0 );
+                hr = pDSBuffer_->Unlock( AP1, AB1, AP2, AB2 );
+                checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Unlock に失敗しました。");
+                break;
+            } else {
+                //ロック失敗時
+                if (i < 10) {
+                    _TRACE_("PCMPlayer::initializeBuffer() Lockに失敗 i="<<i<<" ");
+                    _TRACE_("hr="<<hr<<" "<<DXGetErrorString(hr)<<" "<<DXGetErrorDescription(hr));
+                    Sleep(1);
+                    continue; //もう一回頑張る
+                } else {
+                    //あきらめる
+                    _TRACE_("PCMPlayer::initializeBuffer() Lockをあきらめて解放します");
+                    clear();
+                    return false;
+                }
+            }
         }
-        else {
-            clear();
-            //throwGgafCriticalException("PCMPlayer::initializeBuffer() Lock に失敗しました。2");
-            return false;
-        }
-
         return true;
     }
 
@@ -318,6 +330,7 @@ namespace Dix {
 
     //! 停止
     void PCMPlayer::stop() {
+        _TRACE_("PCMPlayer::stop()");
         if ( isReady() == false ) {
             return;
         }
@@ -325,7 +338,8 @@ namespace Dix {
         pDSBuffer_->Stop();
 
         // バッファの頭出し
-        initializeBuffer();
+        bool r = initializeBuffer();
+        _TRACE_("initializeBuffer() = "<<r);
     }
 
     //! 音量を変える
