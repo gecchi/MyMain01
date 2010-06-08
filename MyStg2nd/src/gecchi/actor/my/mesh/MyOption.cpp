@@ -90,16 +90,26 @@ void MyOption::addRadiusPosition(int prm_radius_offset) {
     //    _Zorg = _Z;
     //‚æ‚è‘O
     //‚Å‚µ‚©ŒÄ‚Ño‚µ‚Ä‚Í‚¢‚¯‚Ü‚¹‚ñB
+
+
+//•‰‚Ì”¼Œa‚à‹–‚·ê‡‚Í”@‰½‚ÌƒƒWƒbƒN‚ÌƒRƒƒ“ƒg‚ðŠO‚·
+//    int radius;
+//    if (_radiusPosition == -1 * prm_radius_offset) { //·•ª‚ð‰Á‚¦‚é‚Æ0‚É‚È‚éê‡
+//        //”¼Œa‚Í0‚É‚µ‚Ä‚Í‚¢‚¯‚È‚¢B0Š„‚èŽZ‚ð”ð‚¯‚é‚½‚ß
+//        if (_radiusPosition > 0) {
+//            radius = -100;
+//        } else {
+//            radius = 100;
+//        }
+//    } else {
+//        radius = _radiusPosition + prm_radius_offset;
+//    }
+//    setRadiusPosition(radius);
+
     int radius;
-    if (_radiusPosition == -1 * prm_radius_offset) { //·•ª‚ð‰Á‚¦‚é‚Æ0‚É‚È‚éê‡
-        //”¼Œa‚Í0‚É‚µ‚Ä‚Í‚¢‚¯‚È‚¢B0Š„‚èŽZ‚ð”ð‚¯‚é‚½‚ß
-        if (_radiusPosition > 0) {
-            radius = -100;
-        } else {
-            radius = 100;
-        }
-    } else {
-        radius = _radiusPosition + prm_radius_offset;
+    radius = _radiusPosition + prm_radius_offset;
+    if (_radiusPosition < 15000) {
+        radius = 15000; //ƒIƒvƒVƒ‡ƒ“Å’á”¼Œa‹——£
     }
     setRadiusPosition(radius);
 }
