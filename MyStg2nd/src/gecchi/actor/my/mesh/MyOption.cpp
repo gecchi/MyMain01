@@ -195,7 +195,7 @@ void MyOption::processBehavior() {
         }
         _angExpanse = GgafDx9Util::simplifyAng(_angExpanse);
     } else {
-        //オプション広がり制御
+        //オプション広がりと向き制御
         if (VB->isBeingPressed(VB_OPTION) && VB->isBeingPressed(VB_TURBO)) {
             if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_RIGHT) {
                 if (VB->isBeingPressed(VB_RIGHT)) {
@@ -205,10 +205,12 @@ void MyOption::processBehavior() {
                     _angExpanse -= _angveloExpanseNomal;
                 }
                 if (VB->isBeingPressed(VB_UP)) {
-                    _angExpanse += _angveloExpanseSlow;
+                    addRadiusPosition(2000 * (_radiusPosition_default/60000));
+                    //_angExpanse += _angveloExpanseSlow;
                 }
                 if (VB->isBeingPressed(VB_DOWN)) {
-                    _angExpanse -= _angveloExpanseSlow;
+                    addRadiusPosition(-2000 * (_radiusPosition_default/60000));
+                    //_angExpanse -= _angveloExpanseSlow;
                 }
             } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_LEFT) {
                 if (VB->isBeingPressed(VB_RIGHT)) {
@@ -218,17 +220,21 @@ void MyOption::processBehavior() {
                     _angExpanse += _angveloExpanseNomal;
                 }
                 if (VB->isBeingPressed(VB_UP)) {
-                    _angExpanse += _angveloExpanseSlow;
+                    addRadiusPosition(2000 * (_radiusPosition_default/60000));
+                    //_angExpanse += _angveloExpanseSlow;
                 }
                 if (VB->isBeingPressed(VB_DOWN)) {
-                    _angExpanse -= _angveloExpanseSlow;
+                    addRadiusPosition(-2000 * (_radiusPosition_default/60000));
+                    //_angExpanse -= _angveloExpanseSlow;
                 }
             } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_TOP) {
                 if (VB->isBeingPressed(VB_RIGHT)) {
-                    _angExpanse += _angveloExpanseSlow;
+                    addRadiusPosition(2000 * (_radiusPosition_default/60000));
+                    //_angExpanse += _angveloExpanseSlow;
                 }
                 if (VB->isBeingPressed(VB_LEFT)) {
-                    _angExpanse -= _angveloExpanseSlow;
+                    addRadiusPosition(-2000 * (_radiusPosition_default/60000));
+                    //_angExpanse -= _angveloExpanseSlow;
                 }
                 if (VB->isBeingPressed(VB_UP)) {
                     _angExpanse += _angveloExpanseNomal;
@@ -238,10 +244,12 @@ void MyOption::processBehavior() {
                 }
             } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_BOTTOM) {
                 if (VB->isBeingPressed(VB_RIGHT)) {
-                    _angExpanse -= _angveloExpanseSlow;
+                    addRadiusPosition(-2000 * (_radiusPosition_default/60000));
+                    //_angExpanse -= _angveloExpanseSlow;
                 }
                 if (VB->isBeingPressed(VB_LEFT)) {
-                    _angExpanse += _angveloExpanseSlow;
+                    addRadiusPosition(2000 * (_radiusPosition_default/60000));
+                    //_angExpanse += _angveloExpanseSlow;
                 }
                 if (VB->isBeingPressed(VB_UP)) {
                     _angExpanse -= _angveloExpanseNomal;
@@ -251,16 +259,18 @@ void MyOption::processBehavior() {
                 }
             } else if (GameMainScene::_pGameMainScene->_pos_camera > CAM_POS_TO_BEHIND) {
                 if (VB->isBeingPressed(VB_RIGHT)) {
-                    _angExpanse += _angveloExpanseSlow;
-                }
-                if (VB->isBeingPressed(VB_LEFT)) {
-                    _angExpanse -= _angveloExpanseSlow;
-                }
-                if (VB->isBeingPressed(VB_UP)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
-                if (VB->isBeingPressed(VB_DOWN)) {
+                if (VB->isBeingPressed(VB_LEFT)) {
                     _angExpanse -= _angveloExpanseNomal;
+                }
+                if (VB->isBeingPressed(VB_UP)) {
+                    addRadiusPosition(2000 * (_radiusPosition_default/60000));
+                    //_angExpanse += _angveloExpanseSlow;
+                }
+                if (VB->isBeingPressed(VB_DOWN)) {
+                    addRadiusPosition(-2000 * (_radiusPosition_default/60000));
+                    //_angExpanse -= _angveloExpanseSlow;
                 }
             }
             _angExpanse = GgafDx9Util::simplifyAng(_angExpanse);
@@ -268,17 +278,12 @@ void MyOption::processBehavior() {
     }
 
 
-
-
-
-
-
-    if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
-        addRadiusPosition(1000);
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
-        addRadiusPosition(-1000);
-    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
+//        addRadiusPosition(1000);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
+//        addRadiusPosition(-1000);
+//    }
 
     _pMover->setMvVelo(_veloMv);
     _pMover->behave();
@@ -361,7 +366,7 @@ void MyOption::processBehavior() {
     _pMover->setVxMvVelo(0);
     _pMover->setVyMvVelo(0);
     _pMover->setVzMvVelo(0);
-			//_TRACE_("_pVBMap_Active->_state="<<(vbsta)(VB->_pVBMap_Active->_state));
+            //_TRACE_("_pVBMap_Active->_state="<<(vbsta)(VB->_pVBMap_Active->_state));
     if (VB->isBeingPressed(VB_SHOT2)) {
 
 
