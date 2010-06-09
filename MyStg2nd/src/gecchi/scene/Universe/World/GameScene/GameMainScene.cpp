@@ -27,11 +27,11 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
     _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "moji");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard02);
-    _pStringBoard_JIKI_X = NEW GgafDx9StringBoardActor("JIKI_X", "moji");
+    _pStringBoard_JIKI_X = NEW GgafDx9StringBoardActor("JIKI_X", "GECCHI_88FONT");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_JIKI_X);
-    _pStringBoard_JIKI_Y = NEW GgafDx9StringBoardActor("JIKI_Y", "moji");
+    _pStringBoard_JIKI_Y = NEW GgafDx9StringBoardActor("JIKI_Y", "GECCHI_88FONT");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_JIKI_Y);
-    _pStringBoard_JIKI_Z = NEW GgafDx9StringBoardActor("JIKI_Z", "moji");
+    _pStringBoard_JIKI_Z = NEW GgafDx9StringBoardActor("JIKI_Z", "GECCHI_88FONT");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_JIKI_Z);
     _pScene_Stage01 = NULL;
     _pScene_Stage02 = NULL;
@@ -160,11 +160,11 @@ void GameMainScene::processBehavior() {
     _pStringBoard_STAMINA->update(500, 40, _buf);
 
     sprintf(_buf, "X:%8d", pMYSHIP->_X);
-    _pStringBoard_JIKI_X->update(0, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 16*3, _buf);
+    _pStringBoard_JIKI_X->update(0, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*3, _buf);
     sprintf(_buf, "Y:%8d", pMYSHIP->_Y);
-    _pStringBoard_JIKI_Y->update(0, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 16*2, _buf);
+    _pStringBoard_JIKI_Y->update(0, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*2, _buf);
     sprintf(_buf, "Z:%8d", pMYSHIP->_Z);
-    _pStringBoard_JIKI_Z->update(0, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 16*1, _buf);
+    _pStringBoard_JIKI_Z->update(0, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*1, _buf);
     //カメラワーク関連
 
     if (getProgress() == GAMEMAIN_PROG_PLAY) {
