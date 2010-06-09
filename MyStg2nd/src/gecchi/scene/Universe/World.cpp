@@ -16,7 +16,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 void World::initialize() {
     _TRACE_("World::initialize()");
 #ifdef MY_DEBUG
-    orderActorWithModelToFactory(3, DispFpsActor, "FPS_STRING", "28/moji");
+    orderActorWithModelToFactory(3, DispFpsActor, "FPS_STRING", "28/GECCHI_16FONT");
     DispFpsActor* pDispFpsActor = (DispFpsActor*)obtainActorFromFactory(3);
     getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
 #endif

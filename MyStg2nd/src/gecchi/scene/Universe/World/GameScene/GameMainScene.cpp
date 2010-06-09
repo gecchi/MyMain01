@@ -17,21 +17,21 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _frame_pushdown_zmove = 0;
 
 
-    _pStringBoard_SCORE = NEW GgafDx9StringBoardActor("SCORE", "moji");
+    _pStringBoard_SCORE = NEW GgafDx9StringBoardActor("SCORE", "28/GECCHI_16FONT");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_SCORE);
-    _pStringBoard_RANK = NEW GgafDx9StringBoardActor("RANK", "moji");
+    _pStringBoard_RANK = NEW GgafDx9StringBoardActor("RANK", "28/GECCHI_16FONT");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_RANK);
-    _pStringBoard_STAMINA = NEW GgafDx9StringBoardActor("STAMINA", "moji");
+    _pStringBoard_STAMINA = NEW GgafDx9StringBoardActor("STAMINA", "28/GECCHI_16FONT");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_STAMINA);
-    _pStringBoard01 = NEW GgafDx9StringBoardActor("STR01", "moji");
+    _pStringBoard01 = NEW GgafDx9StringBoardActor("STR01", "28/GECCHI_16FONT");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
-    _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "moji");
+    _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "28/GECCHI_16FONT");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard02);
-    _pStringBoard_JIKI_X = NEW GgafDx9StringBoardActor("JIKI_X", "GECCHI_88FONT");
+    _pStringBoard_JIKI_X = NEW GgafDx9StringBoardActor("JIKI_X", "28/GECCHI_88FONT");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_JIKI_X);
-    _pStringBoard_JIKI_Y = NEW GgafDx9StringBoardActor("JIKI_Y", "GECCHI_88FONT");
+    _pStringBoard_JIKI_Y = NEW GgafDx9StringBoardActor("JIKI_Y", "28/GECCHI_88FONT");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_JIKI_Y);
-    _pStringBoard_JIKI_Z = NEW GgafDx9StringBoardActor("JIKI_Z", "GECCHI_88FONT");
+    _pStringBoard_JIKI_Z = NEW GgafDx9StringBoardActor("JIKI_Z", "28/GECCHI_88FONT");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_JIKI_Z);
     _pScene_Stage01 = NULL;
     _pScene_Stage02 = NULL;
