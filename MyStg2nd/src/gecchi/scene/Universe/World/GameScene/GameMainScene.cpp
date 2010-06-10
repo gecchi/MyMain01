@@ -545,8 +545,6 @@ void GameMainScene::processBehavior() {
                     pVP->_Z += ((pVP->_Z - pMYSHIP->_iMoveVelo) - (pVP->_Z + vpveloZ + pVP->_pMover->_acceVzMv));
                 }
             }
-
-
             pCAM->_pMover->behave();
             pVP->_pMover->behave();
         }
