@@ -9,12 +9,12 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 
     //レーザーストック
-    _laser_way = 3;
+    _laser_way = 2;
     _X = 0;
     _Y = 0;
     _Z = 0;
-    _laser_length = 40;
-    _shot_interval = 120;
+    _laser_length = 30;
+    _shot_interval = 180;
     _angveloTurn = 3000;
 
     _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
@@ -134,7 +134,7 @@ void EnemyAstraea::processBehavior() {
 
         static EnemyAstraeaLaserChip001* pLaserChip;
 
-        angle angClearance = 30000;//開き具合
+        angle angClearance = 10000;//開き具合
 
         GgafDx9Util::getWayAngle2D(_RY, _laser_way, angClearance, _paWayRy);
         GgafDx9Util::getWayAngle2D(_RZ, _laser_way, angClearance, _paWayRz);

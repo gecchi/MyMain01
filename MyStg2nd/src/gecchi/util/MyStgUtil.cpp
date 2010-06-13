@@ -241,7 +241,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyIrisStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 1 );  //ロックオン可否
+		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 20 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -346,6 +346,18 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_DefaultDefenceRate, 9999999 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 9999999 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 9999999 );  //劣性時の防御率
+	}
+	void MyStgUtil::resetEnemyPallasStatus(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
+		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_AddScorePoint, 100 );  //加算得点
+		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
+		p->set(STAT_Stamina, 100 );  //体力
+		p->set(STAT_Attack, 99 );  //攻撃力
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 	}
 // gen02 end
 

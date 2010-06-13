@@ -216,6 +216,8 @@ public:
 	static void resetShot004Status(GgafCore::GgafStatus* p);
 	//地形トーラス
 	static void resetTorusStatus(GgafCore::GgafStatus* p);
+	//パラス
+	static void resetEnemyPallasStatus(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

@@ -180,6 +180,7 @@ class FormationCeres001;
 class FormationCeres002;
 
 class EnemyPallas;
+class FormationPallas001;
 
 class EnemyJuno;
 class FormationJuno;
@@ -293,6 +294,7 @@ class LaserChipEffectActor;
 #include "gecchi/actor/enemy/Ceres/FormationCeres001.h"
 #include "gecchi/actor/enemy/Ceres/FormationCeres002.h"
 #include "gecchi/actor/enemy/Pallas/EnemyPallas.h"
+#include "gecchi/actor/enemy/Pallas/FormationPallas001.h"
 #include "gecchi/actor/enemy/Juno/EnemyJuno.h"
 #include "gecchi/actor/enemy/Juno/FormationJuno.h"
 #include "gecchi/actor/enemy/Juno/FormationJuno001.h"
