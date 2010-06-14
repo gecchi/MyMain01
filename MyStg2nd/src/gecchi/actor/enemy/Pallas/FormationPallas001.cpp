@@ -7,13 +7,13 @@ using namespace MyStg2nd;
 
 FormationPallas001::FormationPallas001(const char* prm_name) : FormationActor(prm_name, 30*60) {
     _class_name = "FormationPallas001";
-    _num_Pallas       = 10*_RANK_;    //編隊数
-    _frame_interval = 15/_RANK_+5;   //パラスの間隔(frame)
-    _mv_velo  = 24000*_RANK_; //速度
+    _num_Pallas     = 10*_RANK_;    //編隊数
+    _frame_interval = 15/_RANK_+5;  //パラスの間隔(frame)
+    _mv_velo        = 24000*_RANK_; //速度
     //パラス編隊作成
     _pSplineCon     = (Spline3DConnection*)(pGOD->_pSpline3DManager->connect("SpCon_Pallas01")); //スプライン定義
-    //_pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->connect("DpCon_Shot001"));
-	_pDispatcherCon = NULL;
+    //_pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->connect("DpCon_Shot001")); //パラス弾のディスパッチャー
+    _pDispatcherCon = NULL;
     _papPallas = NEW EnemyPallas*[_num_Pallas];
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i] = NEW EnemyPallas("Pallas01");
@@ -29,8 +29,8 @@ FormationPallas001::FormationPallas001(const char* prm_name) : FormationActor(pr
 void FormationPallas001::initialize() {
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i]->setGeometry(_pSplineCon->view()->_X_basepoint[0] ,
-			                       _pSplineCon->view()->_Y_basepoint[0]+100000,
-								   pMYSHIP->_Z);
+                                   _pSplineCon->view()->_Y_basepoint[0]+100000,
+                                   pMYSHIP->_Z);
         _papPallas[i]->_pMover->setMvVelo(_mv_velo);
         _papPallas[i]->activateAfter(i*_frame_interval + 1);//_frame_interval間隔でActiveにする。
     }
@@ -38,8 +38,8 @@ void FormationPallas001::initialize() {
 
 FormationPallas001::~FormationPallas001() {
     _pSplineCon->close();
-	if (_pDispatcherCon) {
-		_pDispatcherCon->close();
-	}
+    if (_pDispatcherCon) {
+        _pDispatcherCon->close();
+    }
     DELETEARR_IMPOSSIBLE_NULL(_papPallas);
 }
