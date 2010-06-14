@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 FormationPallas001::FormationPallas001(const char* prm_name) : FormationActor(prm_name, 30*60) {
     _class_name = "FormationPallas001";
-    _num_Pallas     = 10*_RANK_;    //編隊数
-    _frame_interval = 15/_RANK_+5;  //パラスの間隔(frame)
-    _mv_velo        = 24000*_RANK_; //速度
+    _num_Pallas     = 12*_RANK_;    //編隊数
+    _frame_interval = 5/_RANK_+5;  //パラスの間隔(frame)
+    _mv_velo        = 12000*_RANK_; //速度
     //パラス編隊作成
     _pSplineCon     = (Spline3DConnection*)(pGOD->_pSpline3DManager->connect("SpCon_Pallas01")); //スプライン定義
     //_pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->connect("DpCon_Shot001")); //パラス弾のディスパッチャー

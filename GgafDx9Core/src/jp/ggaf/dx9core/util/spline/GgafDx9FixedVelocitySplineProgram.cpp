@@ -174,32 +174,55 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
                 //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
                 //    | sinRy                                  , 0                    , cosRy                                   , 0 |
                 //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
-                _pActorMover->setStopTarget_RzRyMvAng(
+                _pActorMover->execTagettingMvAngSequence(
                         ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * _COS_RyMv_begin + _sp->_Z_compute[_point_index] * _SIN_RyMv_begin) - _X_begin,
                         (_sp->_X_compute[_point_index] * _SIN_RzMv_begin + _sp->_Y_compute[_point_index] * _COS_RzMv_begin) - _Y_begin,
-                        ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + _sp->_Z_compute[_point_index] * _COS_RyMv_begin) - _Z_begin
-                    );
+                        ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + _sp->_Z_compute[_point_index] * _COS_RyMv_begin) - _Z_begin,
+                        _angveloRzRyMv, 0,
+                        TURN_CLOSE_TO, false);
+
+//                _pActorMover->setStopTarget_RzRyMvAng(
+//                        ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * _COS_RyMv_begin + _sp->_Z_compute[_point_index] * _SIN_RyMv_begin) - _X_begin,
+//                        (_sp->_X_compute[_point_index] * _SIN_RzMv_begin + _sp->_Y_compute[_point_index] * _COS_RzMv_begin) - _Y_begin,
+//                        ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + _sp->_Z_compute[_point_index] * _COS_RyMv_begin) - _Z_begin
+//                    );
             } else if (_option == 1) {
                 //相対座標ターゲット
-                _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index] - _X_begin,
-                                                    _sp->_Y_compute[_point_index] - _Y_begin,
-                                                    _sp->_Z_compute[_point_index] - _Z_begin);
+                _pActorMover->execTagettingMvAngSequence(
+                        _sp->_X_compute[_point_index] - _X_begin,
+                        _sp->_Y_compute[_point_index] - _Y_begin,
+                        _sp->_Z_compute[_point_index] - _Z_begin,
+                        _angveloRzRyMv, 0,
+                        TURN_CLOSE_TO, false);
+
+
+//                _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index] - _X_begin,
+//                                                    _sp->_Y_compute[_point_index] - _Y_begin,
+//                                                    _sp->_Z_compute[_point_index] - _Z_begin);
             } else {
                 //絶対座標ターゲット
-                _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index],
-                                                    _sp->_Y_compute[_point_index],
-                                                    _sp->_Z_compute[_point_index]);
+                _pActorMover->execTagettingMvAngSequence(
+                        _sp->_X_compute[_point_index],
+                        _sp->_Y_compute[_point_index],
+                        _sp->_Z_compute[_point_index],
+                        _angveloRzRyMv, 0,
+                        TURN_CLOSE_TO, false);
+
+
+//                _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index],
+//                                                    _sp->_Y_compute[_point_index],
+//                                                    _sp->_Z_compute[_point_index]);
             }
-            if (_pActorMover->getRzMvAngDistance(_pActorMover->_angTargetRzMv, TURN_CLOSE_TO) > 0) {
-                _pActorMover->setRzMvAngVelo(_angveloRzRyMv);
-            } else {
-                _pActorMover->setRzMvAngVelo(-_angveloRzRyMv);
-            }
-            if (_pActorMover->getRyMvAngDistance(_pActorMover->_angTargetRyMv, TURN_CLOSE_TO) > 0) {
-                _pActorMover->setRyMvAngVelo(_angveloRzRyMv);
-            } else {
-                _pActorMover->setRyMvAngVelo(-_angveloRzRyMv);
-            }
+//            if (_pActorMover->getRzMvAngDistance(_pActorMover->_angTargetRzMv, TURN_CLOSE_TO) > 0) {
+//                _pActorMover->setRzMvAngVelo(_angveloRzRyMv);
+//            } else {
+//                _pActorMover->setRzMvAngVelo(-_angveloRzRyMv);
+//            }
+//            if (_pActorMover->getRyMvAngDistance(_pActorMover->_angTargetRyMv, TURN_CLOSE_TO) > 0) {
+//                _pActorMover->setRyMvAngVelo(_angveloRzRyMv);
+//            } else {
+//                _pActorMover->setRyMvAngVelo(-_angveloRzRyMv);
+//            }
 
 
             if (_point_index == 0) {
