@@ -179,7 +179,7 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
                         (_sp->_X_compute[_point_index] * _SIN_RzMv_begin + _sp->_Y_compute[_point_index] * _COS_RzMv_begin) - _Y_begin,
                         ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + _sp->_Z_compute[_point_index] * _COS_RyMv_begin) - _Z_begin,
                         _angveloRzRyMv, 0,
-                        TURN_CLOSE_TO, false);
+                        TURN_CLOSE_TO, true);
 
 //                _pActorMover->setStopTarget_RzRyMvAng(
 //                        ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * _COS_RyMv_begin + _sp->_Z_compute[_point_index] * _SIN_RyMv_begin) - _X_begin,
@@ -193,7 +193,7 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
                         _sp->_Y_compute[_point_index] - _Y_begin,
                         _sp->_Z_compute[_point_index] - _Z_begin,
                         _angveloRzRyMv, 0,
-                        TURN_CLOSE_TO, false);
+                        TURN_CLOSE_TO, true);
 
 
 //                _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index] - _X_begin,
@@ -206,7 +206,7 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
                         _sp->_Y_compute[_point_index],
                         _sp->_Z_compute[_point_index],
                         _angveloRzRyMv, 0,
-                        TURN_CLOSE_TO, false);
+                        TURN_CLOSE_TO, true);
 
 
 //                _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index],
