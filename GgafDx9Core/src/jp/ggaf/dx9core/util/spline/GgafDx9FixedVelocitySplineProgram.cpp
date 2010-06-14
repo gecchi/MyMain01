@@ -21,16 +21,16 @@ GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9Geom
     _fFrame_next_point = 0;
     _point_index = 0;
     //_fSPPointFrame = 0;
-    _angFaceMove = ANGLE360;
+    _angveloRzRyMv = ANGLE360;
     _veloMvUnit = LEN_UNIT;
 }
 
 GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
                                                                      GgafDx9Spline3D* prm_sp,
-                                                                     angvelo prm_angFaceMove)
+                                                                     angvelo prm_angveloRzRyMv)
                                                     : GgafDx9SplineProgram(prm_pActor,
                                                                            prm_sp) {
-    _angFaceMove = prm_angFaceMove;
+    _angveloRzRyMv = prm_angveloRzRyMv;
     init();
 }
 
@@ -38,13 +38,13 @@ GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9Geom
                                                                      double prm_paaCriteriaPoints[][3],
                                                                      int prm_point_num,
                                                                      double prm_accuracy,
-                                                                     angvelo prm_angFaceMove )
+                                                                     angvelo prm_angveloRzRyMv )
 
                                                     : GgafDx9SplineProgram(prm_pActor,
                                                                            prm_paaCriteriaPoints,
                                                                            prm_point_num,
                                                                            prm_accuracy)  {
-    _angFaceMove = prm_angFaceMove;
+    _angveloRzRyMv = prm_angveloRzRyMv;
     init();
 }
 
@@ -191,14 +191,14 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
                                                     _sp->_Z_compute[_point_index]);
             }
             if (_pActorMover->getRzMvAngDistance(_pActorMover->_angTargetRzMv, TURN_CLOSE_TO) > 0) {
-                _pActorMover->setRzMvAngVelo(_angFaceMove);
+                _pActorMover->setRzMvAngVelo(_angveloRzRyMv);
             } else {
-                _pActorMover->setRzMvAngVelo(-_angFaceMove);
+                _pActorMover->setRzMvAngVelo(-_angveloRzRyMv);
             }
             if (_pActorMover->getRyMvAngDistance(_pActorMover->_angTargetRyMv, TURN_CLOSE_TO) > 0) {
-                _pActorMover->setRyMvAngVelo(_angFaceMove);
+                _pActorMover->setRyMvAngVelo(_angveloRzRyMv);
             } else {
-                _pActorMover->setRyMvAngVelo(-_angFaceMove);
+                _pActorMover->setRyMvAngVelo(-_angveloRzRyMv);
             }
 
 
