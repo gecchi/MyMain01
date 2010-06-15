@@ -29,6 +29,8 @@ public:
     int _lim_VP_zleft;
     int _lim_VP_zright;
 
+    angle _angXY_nowCamUp;
+
     int _correction_width;
     int _correction_height;
     int _pos_camera;

@@ -18,8 +18,8 @@ FormationPallas001::FormationPallas001(const char* prm_name) : FormationActor(pr
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
-        GgafDx9SplineProgram* pProgram = NEW GgafDx9FixedVelocitySplineProgram(_papPallas[i], _pSplineCon->view(), 8000); //移動速度固定
-        //GgafDx9SplineProgram* pProgram = NEW GgafDx9FixedFrameSplineProgram(_papPallas[i], _pSplineCon->view(), 400, 8000); //移動フレーム数固定
+        //GgafDx9SplineProgram* pProgram = NEW GgafDx9FixedVelocitySplineProgram(_papPallas[i], _pSplineCon->view(), 8000); //移動速度固定
+        GgafDx9SplineProgram* pProgram = NEW GgafDx9FixedFrameSplineProgram(_papPallas[i], _pSplineCon->view(), 500, 8000); //移動フレーム数固定
         _papPallas[i]->setSplineProgram(pProgram);
         //_papPallas[i]->setDispatcher_Shot(_pDispatcherCon->view()); //弾設定
         _papPallas[i]->inactivateImmediately();
