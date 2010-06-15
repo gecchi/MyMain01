@@ -41,6 +41,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricA
                                                                GgafDx9Spline3D* prm_sp,
                                                                DWORD prm_spent_frame,
                                                                angvelo prm_angveloRzRyMv)
+
                                          : GgafDx9SplineProgram(prm_pActor,
                                                                 prm_sp) {
     _spent_frame = prm_spent_frame;
@@ -121,8 +122,6 @@ void GgafDx9FixedFrameSplineProgram::init() {
         //距離 paDistaceTo[t] を、時間frm_segment で移動するために必要な速度を求める。
         //速さ＝距離÷時間
         _paSPMvVeloTo[t] = (velo)(_paDistace_to[t] / _SPframe_segment);
-
-
     }
 //
 //    for (int t = 0; t < _sp->_rnum; t ++) {
@@ -132,7 +131,6 @@ void GgafDx9FixedFrameSplineProgram::init() {
 }
 
 void GgafDx9FixedFrameSplineProgram::begin(int prm_option) {
-
     if (_sp != NULL) {
         _is_executing = true;
         _option = prm_option;
@@ -161,11 +159,10 @@ void GgafDx9FixedFrameSplineProgram::begin(int prm_option) {
 }
 
 
-
-
 void GgafDx9FixedFrameSplineProgram::behave() {
-
     if (_is_executing) {
+        GgafDx9GeometryMover* _pActorMover = _pActor_target->_pMover;
+
         //現在の点INDEX
         int SPPointIndex = _SPframe/_SPframe_segment;
         if ( SPPointIndex == _sp->_rnum) {
@@ -176,47 +173,42 @@ void GgafDx9FixedFrameSplineProgram::behave() {
 
         //変わり目
         if (_SPframe % _SPframe_segment == 0) {
+            //次の補間点（or基点)に移動方角を向ける
             if (_option == 2) {
                 //    並行移動 ＞ Z軸回転 ＞ Y軸回転
                 //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
                 //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
                 //    | sinRy                                  , 0                    , cosRy                                   , 0 |
                 //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
-                _pActor_target->_pMover->setStopTarget_RzRyMvAng(
-                        ((_sp->_X_compute[SPPointIndex] * _COS_RzMv_begin + _sp->_Y_compute[SPPointIndex] * -_SIN_RzMv_begin) * _COS_RyMv_begin + _sp->_Z_compute[SPPointIndex] * _SIN_RyMv_begin) - _X_begin,
-                        (_sp->_X_compute[SPPointIndex] * _SIN_RzMv_begin + _sp->_Y_compute[SPPointIndex] * _COS_RzMv_begin) - _Y_begin,
-                        ((_sp->_X_compute[SPPointIndex] * _COS_RzMv_begin + _sp->_Y_compute[SPPointIndex] * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + _sp->_Z_compute[SPPointIndex] * _COS_RyMv_begin) - _Z_begin
-                    );
+                _pActorMover->execTagettingMvAngSequence(
+                                ((_sp->_X_compute[SPPointIndex] * _COS_RzMv_begin + _sp->_Y_compute[SPPointIndex] * -_SIN_RzMv_begin) * _COS_RyMv_begin + _sp->_Z_compute[SPPointIndex] * _SIN_RyMv_begin) - _X_begin,
+                                (_sp->_X_compute[SPPointIndex] * _SIN_RzMv_begin + _sp->_Y_compute[SPPointIndex] * _COS_RzMv_begin) - _Y_begin,
+                                ((_sp->_X_compute[SPPointIndex] * _COS_RzMv_begin + _sp->_Y_compute[SPPointIndex] * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + _sp->_Z_compute[SPPointIndex] * _COS_RyMv_begin) - _Z_begin,
+                                _angveloRzRyMv, 0,
+                                TURN_CLOSE_TO, true
+                              );
             } else if (_option == 1) {
                 //相対座標ターゲット
-                _pActor_target->_pMover->setStopTarget_RzRyMvAng(_sp->_X_compute[SPPointIndex] - _X_begin,
-                                                                   _sp->_Y_compute[SPPointIndex] - _Y_begin,
-                                                                   _sp->_Z_compute[SPPointIndex] - _Z_begin);
+                _pActorMover->execTagettingMvAngSequence(
+                                _sp->_X_compute[SPPointIndex] - _X_begin,
+                                _sp->_Y_compute[SPPointIndex] - _Y_begin,
+                                _sp->_Z_compute[SPPointIndex] - _Z_begin,
+                                _angveloRzRyMv, 0,
+                                TURN_CLOSE_TO, true
+                              );
             } else {
                 //絶対座標ターゲット
-                _pActor_target->_pMover->setStopTarget_RzRyMvAng(_sp->_X_compute[SPPointIndex],
-                                                                   _sp->_Y_compute[SPPointIndex],
-                                                                   _sp->_Z_compute[SPPointIndex]);
+                _pActorMover->execTagettingMvAngSequence(
+                                _sp->_X_compute[SPPointIndex],
+                                _sp->_Y_compute[SPPointIndex],
+                                _sp->_Z_compute[SPPointIndex],
+                                _angveloRzRyMv, 0,
+                                TURN_CLOSE_TO, true
+                              );
             }
-
-            if (_pActor_target->_pMover->getRzMvAngDistance(_pActor_target->_pMover->_angTargetRzMv, TURN_CLOSE_TO) > 0) {
-                _pActor_target->_pMover->setRzMvAngVelo(_angveloRzRyMv);
-            } else {
-                _pActor_target->_pMover->setRzMvAngVelo(-_angveloRzRyMv);
-            }
-
-            if (_pActor_target->_pMover->getRyMvAngDistance(_pActor_target->_pMover->_angTargetRyMv, TURN_CLOSE_TO) > 0) {
-                _pActor_target->_pMover->setRyMvAngVelo(_angveloRzRyMv);
-            } else {
-                _pActor_target->_pMover->setRyMvAngVelo(-_angveloRzRyMv);
-            }
-
-
             _pActor_target->_pMover->setMvVelo(_paSPMvVeloTo[SPPointIndex]);
         }
-
         _SPframe++;
-
     }
 
 }

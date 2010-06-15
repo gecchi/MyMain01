@@ -164,10 +164,9 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
     if (_is_executing) {
         GgafDx9GeometryMover* _pActorMover = _pActor_target->_pMover;
 
-
         //変わり目
         if (_fFrame_executing >= _fFrame_next_point) {
-
+            //次の補間点（or基点)に移動方角を向ける
             if (_option == 2) {
                 //    並行移動 ＞ Z軸回転 ＞ Y軸回転
                 //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
@@ -175,43 +174,29 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
                 //    | sinRy                                  , 0                    , cosRy                                   , 0 |
                 //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
                 _pActorMover->execTagettingMvAngSequence(
-                        ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * _COS_RyMv_begin + _sp->_Z_compute[_point_index] * _SIN_RyMv_begin) - _X_begin,
-                        (_sp->_X_compute[_point_index] * _SIN_RzMv_begin + _sp->_Y_compute[_point_index] * _COS_RzMv_begin) - _Y_begin,
-                        ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + _sp->_Z_compute[_point_index] * _COS_RyMv_begin) - _Z_begin,
-                        _angveloRzRyMv, 0,
-                        TURN_CLOSE_TO, true);
-
-//                _pActorMover->setStopTarget_RzRyMvAng(
-//                        ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * _COS_RyMv_begin + _sp->_Z_compute[_point_index] * _SIN_RyMv_begin) - _X_begin,
-//                        (_sp->_X_compute[_point_index] * _SIN_RzMv_begin + _sp->_Y_compute[_point_index] * _COS_RzMv_begin) - _Y_begin,
-//                        ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + _sp->_Z_compute[_point_index] * _COS_RyMv_begin) - _Z_begin
-//                    );
+                                ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * _COS_RyMv_begin + _sp->_Z_compute[_point_index] * _SIN_RyMv_begin) - _X_begin,
+                                (_sp->_X_compute[_point_index] * _SIN_RzMv_begin + _sp->_Y_compute[_point_index] * _COS_RzMv_begin) - _Y_begin,
+                                ((_sp->_X_compute[_point_index] * _COS_RzMv_begin + _sp->_Y_compute[_point_index] * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + _sp->_Z_compute[_point_index] * _COS_RyMv_begin) - _Z_begin,
+                                _angveloRzRyMv, 0,
+                                TURN_CLOSE_TO, true);
             } else if (_option == 1) {
                 //相対座標ターゲット
                 _pActorMover->execTagettingMvAngSequence(
-                        _sp->_X_compute[_point_index] - _X_begin,
-                        _sp->_Y_compute[_point_index] - _Y_begin,
-                        _sp->_Z_compute[_point_index] - _Z_begin,
-                        _angveloRzRyMv, 0,
-                        TURN_CLOSE_TO, true);
-
-
-//                _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index] - _X_begin,
-//                                                    _sp->_Y_compute[_point_index] - _Y_begin,
-//                                                    _sp->_Z_compute[_point_index] - _Z_begin);
+                                _sp->_X_compute[_point_index] - _X_begin,
+                                _sp->_Y_compute[_point_index] - _Y_begin,
+                                _sp->_Z_compute[_point_index] - _Z_begin,
+                                _angveloRzRyMv, 0,
+                                TURN_CLOSE_TO, true
+                              );
             } else {
                 //絶対座標ターゲット
                 _pActorMover->execTagettingMvAngSequence(
-                        _sp->_X_compute[_point_index],
-                        _sp->_Y_compute[_point_index],
-                        _sp->_Z_compute[_point_index],
-                        _angveloRzRyMv, 0,
-                        TURN_CLOSE_TO, true);
-
-
-//                _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index],
-//                                                    _sp->_Y_compute[_point_index],
-//                                                    _sp->_Z_compute[_point_index]);
+                                _sp->_X_compute[_point_index],
+                                _sp->_Y_compute[_point_index],
+                                _sp->_Z_compute[_point_index],
+                                _angveloRzRyMv, 0,
+                                TURN_CLOSE_TO, true
+                              );
             }
 //            if (_pActorMover->getRzMvAngDistance(_pActorMover->_angTargetRzMv, TURN_CLOSE_TO) > 0) {
 //                _pActorMover->setRzMvAngVelo(_angveloRzRyMv);
