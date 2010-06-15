@@ -204,8 +204,8 @@ void MyOptionParent::processBehavior() {
     }
 
     //ƒMƒYƒ‚
-    _pGizmo->setGeometry(this);
-    _pGizmo->_pMover->setRzRyMvAng(_pMover->_angRzMv, _pMover->_angRyMv);
+    _pDirectionVector->setGeometry(this);
+    _pDirectionVector->_pMover->setRzRyMvAng(_pMover->_angRzMv, _pMover->_angRyMv);
 
     _pMover->behave();
     _pRing_GeoHistory->next()->set(this);

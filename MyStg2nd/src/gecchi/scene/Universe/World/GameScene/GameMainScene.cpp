@@ -625,64 +625,6 @@ void GameMainScene::processBehavior() {
             pVP->_pMover->behave();
         }
 
-        //サブシーンが一時停止していれば、カメラ操作できる。
-        if ( getSubFirst()->canBehave() ) {
-            //スルー
-        } else {
-            pCAM->_pMover->_mv_ang_rz_target_flg = true;
-            pCAM->_pMover->_mv_ang_ry_target_flg = true;
-
-            if (GgafDx9Input::isBeingPressedKey(DIK_SPACE)) {
-                if (GgafDx9Input::isBeingPressedKey(DIK_UP)) {
-                    pCAM->_Y += 4000;
-                } else if (GgafDx9Input::isBeingPressedKey(DIK_DOWN)) {
-                    pCAM->_Y -= 4000;
-                } else {
-
-                }
-
-                if (GgafDx9Input::isBeingPressedKey(DIK_RIGHT)) {
-                    pCAM->_X += 4000;
-                } else if (GgafDx9Input::isBeingPressedKey(DIK_LEFT)) {
-                    pCAM->_X -= 4000;
-                } else {
-                }
-
-                if (GgafDx9Input::isBeingPressedKey(DIK_PGUP)) {
-                    pCAM->_Z += 4000;
-                } else if (GgafDx9Input::isBeingPressedKey(DIK_PGDN)) {
-                    pCAM->_Z -= 4000;
-                } else {
-                }
-
-            } else {
-                if (GgafDx9Input::isBeingPressedKey(DIK_UP)) {
-                    pCAM->_pMover->addRzMvAng(4000);
-                } else if (GgafDx9Input::isBeingPressedKey(DIK_DOWN)) {
-                    pCAM->_pMover->addRzMvAng(-4000);
-                } else {
-                    pCAM->_pMover->addRzMvAng(0);
-                }
-
-                if (GgafDx9Input::isBeingPressedKey(DIK_RIGHT)) {
-                    pCAM->_pMover->addRyMvAng(4000);
-                } else if (GgafDx9Input::isBeingPressedKey(DIK_LEFT)) {
-                    pCAM->_pMover->addRyMvAng(-4000);
-                } else {
-                    pCAM->_pMover->addRyMvAng(0);
-                }
-                if (GgafDx9Input::isBeingPressedKey(DIK_PGUP)) {
-                    pCAM->_pMover->setMvVelo(4000);
-                } else if (GgafDx9Input::isBeingPressedKey(DIK_PGDN)) {
-                    pCAM->_pMover->setMvVelo(-4000);
-                } else {
-                    pCAM->_pMover->setMvVelo(0);
-                }
-            }
-            pCAM->_pMover->behave();
-            pVP->_pMover->behave();
-        }
-
         if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
             pCAM->_pMover->setMvAng(0,0,0);
             _TRACE_("GgafDx9Universe Camera=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<")");
