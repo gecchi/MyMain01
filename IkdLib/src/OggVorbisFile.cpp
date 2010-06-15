@@ -14,7 +14,11 @@ namespace Dix {
 	}
 
 	OggVorbisFile::OggVorbisFile( const char* filePath ) {
-		open( filePath );
+		if (open( filePath )) {
+		    //OK
+		} else {
+		    throwGgafCriticalException(filePath << "‚Ì open ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+		}
 	}
 
 	OggVorbisFile::~OggVorbisFile() {

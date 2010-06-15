@@ -493,7 +493,7 @@ void GameMainScene::processBehavior() {
                 } else {
                     pCAM->_pMover->setVxMvAcce(dX_CAM);
                 }
-                if (-_stop_renge/4 < dX_VP && dX_VP < _stop_renge/4) {
+                if (-_stop_renge < dX_VP && dX_VP < _stop_renge) {
                     pVP->_pMover->setVxMvAcce(0);
                     pVP->_pMover->setVxMvVelo(pVP->_pMover->_veloVxMv * 0.8);
                 } else {
@@ -524,7 +524,7 @@ void GameMainScene::processBehavior() {
                 } else {
                     pCAM->_pMover->setVyMvAcce(dY_CAM);
                 }
-                if (-_stop_renge/4 < dY_VP && dY_VP < _stop_renge/4) {
+                if (-_stop_renge < dY_VP && dY_VP < _stop_renge) {
                     pVP->_pMover->setVyMvAcce(0);
                     pVP->_pMover->setVyMvVelo(pVP->_pMover->_veloVyMv * 0.8);
                 } else {

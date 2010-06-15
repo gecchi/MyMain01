@@ -24,8 +24,8 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     setProgress(STAGE01_PROG_INIT);
 
 	_pBgmPerformer->useBgm(2);
-    _pBgmPerformer->set(0, "VIRTUAL_ON_11");
-    _pBgmPerformer->set(1, "VIRTUAL_ON_09");
+    _pBgmPerformer->set(0, "VIRTUAL_ON_06");
+    _pBgmPerformer->set(1, "PLANETES");
 
 }
 
@@ -59,19 +59,47 @@ void Stage01Scene::processBehavior() {
             setProgress(STAGE01_PROG_PLAY);
         }
     } else if (getProgress() == STAGE01_PROG_PLAY) {
-        angle angCamXZ = GgafDx9Util::getAngle2D(
+        angle angCamZX;
+        if (pCAM->_X < pCAM->_pViewPoint->_X) {
+            angCamZX= GgafDx9Util::getAngle2D(
                              pCAM->_X - pCAM->_pViewPoint->_X,
                              pCAM->_Z - pCAM->_pViewPoint->_Z
                          );
-        angle angCamXY = GgafDx9Util::getAngle2D(
+        } else {
+            angCamZX= GgafDx9Util::getAngle2D(
+                    pCAM->_pViewPoint->_X - pCAM->_X ,
+                             pCAM->_Z - pCAM->_pViewPoint->_Z
+                         );
+
+        }
+
+        angle angCamXY;
+        if (pCAM->_X < pCAM->_pViewPoint->_X) {
+            angCamXY = GgafDx9Util::getAngle2D(
                              pCAM->_X - pCAM->_pViewPoint->_X,
                              pCAM->_Y - pCAM->_pViewPoint->_Y
                          );
-        _pBackGround01->_inc_x = GgafDx9Util::getDiffAng(_angCamZX_prev, angCamXZ) * (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/(ANGLE90*0.5));
+        } else {
+            angCamXY = GgafDx9Util::getAngle2D(
+                            pCAM->_pViewPoint->_X -pCAM->_X,
+                             pCAM->_Y - pCAM->_pViewPoint->_Y
+                         );
+        }
+        _pBackGround01->_inc_x = GgafDx9Util::getDiffAng(_angCamZX_prev, angCamZX) * (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/(ANGLE90*0.5));
         _pBackGround01->_inc_y = GgafDx9Util::getDiffAng(_angCamXY_prev, angCamXY) * (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT)/(ANGLE90*0.5));
+        _TRACE_("------");
+        _TRACE_("GgafDx9Util::getDiffAng(_angCamZX_prev, angCamZX)="<<GgafDx9Util::getDiffAng(_angCamZX_prev, angCamZX));
+        _TRACE_("GgafDx9Util::getDiffAng(_angCamXY_prev, angCamXY)="<<GgafDx9Util::getDiffAng(_angCamXY_prev, angCamXY));
+        _TRACE_("_angCamZX_prev="<<_angCamZX_prev);
+        _TRACE_("angCamZX="<<angCamZX);
+        _TRACE_("_angCamXY_prev="<<_angCamXY_prev);
+        _TRACE_("angCamXY="<<angCamXY);
+        _TRACE_("_pBackGround01->_inc_x="<<_pBackGround01->_inc_x);
+        _TRACE_("_pBackGround01->_inc_y="<<_pBackGround01->_inc_y);
+
         //* (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/ANGLE90 ‚Å 90“xƒJƒƒ‰‚ð‰ñ‚·‚Æ”wŒi‚ª‚PŽü‚·‚éŒvŽZ(1‰æ–Ê•ª“®‚­jB
         //ŽÀÛ‚É‚Í2‰æ–Ê‚Ù‚Ç”wŒi‚Í“®‚­‚ÆŽv‚¤‚Ì‚Å~0.5
-        _angCamZX_prev = angCamXZ;
+        _angCamZX_prev = angCamZX;
         _angCamXY_prev = angCamXY;
 
         if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_RIGHT) {
