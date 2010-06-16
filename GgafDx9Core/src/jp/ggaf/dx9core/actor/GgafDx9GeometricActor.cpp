@@ -114,7 +114,7 @@ void GgafDx9GeometricActor::processPreJudgement() {
 
     }
 
-    //‚W•ªŠò
+    //‚W•ª–Ø“o˜^
     if (_pChecker) {
         _pChecker->updateHitArea();
     }

@@ -1161,7 +1161,29 @@ void GgafDx9Util::setWorldMatrix_RzBxyzMv(GgafDx9GeometricActor* prm_pActor, D3D
     out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
+void GgafDx9Util::setWorldMatrix_ScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+    static float fRateScale = 1.0f * LEN_UNIT;
 
+    out_matWorld._11 = prm_pActor->_SX / fRateScale;
+    out_matWorld._12 = 0.0f;
+    out_matWorld._13 = 0.0f;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = 0.0f;
+    out_matWorld._22 = prm_pActor->_SY / fRateScale;
+    out_matWorld._23 = 0.0f;
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = 0.0f;
+    out_matWorld._32 = 0.0f;
+    out_matWorld._33 = prm_pActor->_SZ / fRateScale;
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
+    out_matWorld._44 = 1.0f;
+}
 //DWORD GgafDx9Util::max3(DWORD a, DWORD b, DWORD c) {
 //	if (a > b) {
 //		if (a > c) {
