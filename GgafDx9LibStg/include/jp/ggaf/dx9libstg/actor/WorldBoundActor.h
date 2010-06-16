@@ -8,7 +8,7 @@ namespace GgafDx9LibStg {
  * @since 2010/06/16
  * @author Masatoshi Tsuge
  */
-class WorldBoundActor : public GgafDx9Core::GgafDx9SpriteMeshSetActor {
+class WorldBoundActor : public GgafDx9Core::GgafDx9SpriteMeshActor {
 
 public:
     /** 拡大縮小支援オブジェクト */
@@ -24,8 +24,8 @@ public:
     virtual void initialize() override {
     }
 
-    virtual void processPreJudgement() override;
-
+   virtual void processPreJudgement() override;
+//
     virtual void processPreDraw() override;
 
     virtual void processHappen(int prm_no) override {

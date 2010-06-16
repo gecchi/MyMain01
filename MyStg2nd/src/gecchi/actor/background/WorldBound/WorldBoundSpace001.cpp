@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-WorldBoundSpace001::WorldBoundSpace001(const char* prm_name) : WorldBoundActor(prm_name, "CORE4") {
+WorldBoundSpace001::WorldBoundSpace001(const char* prm_name) : WorldBoundActor(prm_name, "WorldBound_TEST") {
     _class_name = "WorldBoundSpace001";
 }
 void WorldBoundSpace001::initialize() {
@@ -16,7 +16,7 @@ void WorldBoundSpace001::initialize() {
     setHitAble(false);
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
-    //_SX = _SY = _SZ = 1000*10;
+    _SX = _SY = _SZ = 500*1000;
 }
 
 void WorldBoundSpace001::onActive() {

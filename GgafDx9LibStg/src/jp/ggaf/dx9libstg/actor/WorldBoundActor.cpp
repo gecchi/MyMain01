@@ -5,15 +5,15 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
-        GgafDx9SpriteMeshSetActor(prm_name,
+        GgafDx9SpriteMeshActor(prm_name,
                                prm_model,
                                NULL) {
 
     _class_name = "WorldBoundActor";
     _frame_offset = 0;
     _pScaler = NEW GgafDx9GeometryScaler(this);
-//    chengeEffectTechnique("NoLight"); //NoLightでベタ塗りテクニック
-//    defineWorldMatrix(GgafDx9Util::setWorldMatrix_ScMv); //拡大×平行移動のみ
+    chengeEffectTechnique("NoLight"); //NoLightでベタ塗りテクニック
+    defineWorldMatrix(GgafDx9Util::setWorldMatrix_ScMv); //拡大×平行移動のみ
 }
 
 void WorldBoundActor::processPreJudgement() {
@@ -26,7 +26,7 @@ void WorldBoundActor::processPreJudgement() {
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-    //(*_pFunc_calcWorldMatrix)(this, _matWorld); //ワールド変換行列
+    (*_pFunc_calcWorldMatrix)(this, _matWorld); //ワールド変換
 }
 void WorldBoundActor::processPreDraw() {
     //画面外判定無しに伴ない処理簡略化
