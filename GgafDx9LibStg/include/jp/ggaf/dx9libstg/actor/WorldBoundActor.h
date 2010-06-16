@@ -8,7 +8,7 @@ namespace GgafDx9LibStg {
  * @since 2010/06/16
  * @author Masatoshi Tsuge
  */
-class WorldBoundActor : public GgafDx9Core::GgafDx9SpriteMeshActor {
+class WorldBoundActor : public GgafDx9Core::GgafDx9SpriteMeshSetActor {
 
 public:
     /** 拡大縮小支援オブジェクト */
