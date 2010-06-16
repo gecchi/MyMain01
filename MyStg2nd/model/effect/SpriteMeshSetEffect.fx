@@ -43,7 +43,7 @@ float4x4 g_matWorld012;
 float4x4 g_matWorld013;
 float4x4 g_matWorld014;
 float4x4 g_matWorld015;
-float4x4 g_matWorld016;
+//float4x4 g_matWorld016;
 //オブジェクトのマテリアル色（Diffuse反射色と、Ambien反射色共通）
 float4 g_MaterialDiffuse001;
 float4 g_MaterialDiffuse002;
@@ -60,7 +60,7 @@ float4 g_MaterialDiffuse012;
 float4 g_MaterialDiffuse013;
 float4 g_MaterialDiffuse014;
 float4 g_MaterialDiffuse015;
-float4 g_MaterialDiffuse016;
+//float4 g_MaterialDiffuse016;
 
 float g_offsetU001;
 float g_offsetU002;
@@ -77,7 +77,7 @@ float g_offsetU012;
 float g_offsetU013;
 float g_offsetU014;
 float g_offsetU015;
-float g_offsetU016;
+//float g_offsetU016;
 
 float g_offsetV001;
 float g_offsetV002;
@@ -94,7 +94,7 @@ float g_offsetV012;
 float g_offsetV013;
 float g_offsetV014;
 float g_offsetV015;
-float g_offsetV016;
+//float g_offsetV016;
 
 //テクスチャのサンプラ(s0レジスタ)
 sampler MyTextureSampler : register(s0);
@@ -197,17 +197,18 @@ OUT_VS GgafDx9VS_SpriteMeshSet(
 		colorMaterialDiffuse = g_MaterialDiffuse014;
 		offsetU  = g_offsetU014;
 		offsetV  = g_offsetV014;
-	} else if (index == 14) {
+	} else { //if (index == 14) {
 		matWorld = g_matWorld015;
 		colorMaterialDiffuse = g_MaterialDiffuse015;
 		offsetU  = g_offsetU015;
 		offsetV  = g_offsetV015;
-	} else {
-		matWorld = g_matWorld016;
-		colorMaterialDiffuse = g_MaterialDiffuse016;
-		offsetU  = g_offsetU016;
-		offsetV  = g_offsetV016;
-	}
+	} 
+//	else {
+//		matWorld = g_matWorld016;
+//		colorMaterialDiffuse = g_MaterialDiffuse016;
+//		offsetU  = g_offsetU016;
+//		offsetV  = g_offsetV016;
+//	}
 	//World*View*射影変換
 	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);
     //法線計算

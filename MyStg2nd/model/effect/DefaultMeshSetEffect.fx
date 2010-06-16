@@ -42,7 +42,7 @@ float4x4 g_matWorld012;
 float4x4 g_matWorld013;
 float4x4 g_matWorld014;
 float4x4 g_matWorld015;
-float4x4 g_matWorld016;
+//float4x4 g_matWorld016;
 //オブジェクトのマテリアル色（Diffuse反射色と、Ambien反射色共通）
 float4 g_MaterialDiffuse001;
 float4 g_MaterialDiffuse002;
@@ -59,7 +59,7 @@ float4 g_MaterialDiffuse012;
 float4 g_MaterialDiffuse013;
 float4 g_MaterialDiffuse014;
 float4 g_MaterialDiffuse015;
-float4 g_MaterialDiffuse016;
+//float4 g_MaterialDiffuse016;
 
 //テクスチャのサンプラ(s0レジスタ)
 sampler MyTextureSampler : register(s0);
@@ -132,13 +132,14 @@ OUT_VS GgafDx9VS_DefaultMeshSet(
 	} else if (index == 13) {
 		matWorld = g_matWorld014;
 		colorMaterialDiffuse = g_MaterialDiffuse014;
-	} else if (index == 14) {
+	} else { //if (index == 14) {
 		matWorld = g_matWorld015;
 		colorMaterialDiffuse = g_MaterialDiffuse015;
-	} else {
-		matWorld = g_matWorld016;
-		colorMaterialDiffuse = g_MaterialDiffuse016;
 	}
+//	} else {
+//		matWorld = g_matWorld016;
+//		colorMaterialDiffuse = g_MaterialDiffuse016;
+//	}
 	//World*View*射影変換
 	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);
 	//UVはそのまま
@@ -188,7 +189,7 @@ float4 PS_Flush(
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	float4 out_color = tex_color * prm_col * float4(7.0, 7.0, 7.0, 1.0);;
+	float4 out_color = tex_color * prm_col * float4(7.0, 7.0, 7.0, 1.0);
 	return out_color;
 }
 
