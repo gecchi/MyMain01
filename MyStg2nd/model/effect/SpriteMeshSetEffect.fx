@@ -211,7 +211,7 @@ OUT_VS GgafDx9VS_SpriteMeshSet(
 	//World*View*Ë‰e•ÏŠ·
 	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);
     //–@üŒvZ
-    out_vs.normal = normalize(mul(prm_normal, matWorld)); 	//–@ü‚ğ World •ÏŠ·‚µ‚Ä³‹K‰»
+    //out_vs.normal = normalize(mul(prm_normal, matWorld)); 	//–@ü‚ğ World •ÏŠ·‚µ‚Ä³‹K‰»
 	//UV‚Í‚»‚Ì‚Ü‚Ü
 	out_vs.uv.x = prm_uv.x + offsetU;
 	out_vs.uv.y = prm_uv.y + offsetV;
