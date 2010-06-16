@@ -15,8 +15,9 @@ class Stage01Scene : public StageScene {
 public:
 
     Stage01MainScene* _pScene_Stage01Main;
-    BackGround01* _pBackGround01;
+    //BackGround01* _pBackGround01;
 //    BackGroundStar* _pBackGroundStar;
+    WorldBoundSpace001* _pWorldBoundSpace001;
     HoshiBoshi001* _pHoshiBoshi001;
     angle _angCamZX_prev;
     angle _angCamXY_prev;

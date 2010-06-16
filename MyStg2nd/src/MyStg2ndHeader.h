@@ -161,6 +161,8 @@ class EffectTurbo002;
 class EffectCondensation001;
 class HoshiBoshi001;
 class HoshiBoshi002;
+class WorldBoundSpace001;
+
 class TurboMeter;
 
 class TamagoActor;
@@ -278,6 +280,8 @@ class LaserChipEffectActor;
 #include "gecchi/actor/effect/EffectTurbo002.h"
 #include "gecchi/actor/effect/EffectCondensation001.h"
 
+
+
 #include "gecchi/actor/enemy/Tamago/TamagoActor.h"
 #include "gecchi/actor/enemy/Tamago/EnemyTamago01.h"
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"
@@ -288,6 +292,9 @@ class LaserChipEffectActor;
 #include "gecchi/actor/background/board/TurboMeter.h"
 #include "gecchi/actor/background/HoshiBoshi001.h"
 #include "gecchi/actor/background/HoshiBoshi002.h"
+
+#include "gecchi/actor/background/WorldBound/WorldBoundSpace001.h"
+
 #include "gecchi/GameGlobal.h"
 
 #include "gecchi/actor/enemy/Ceres/EnemyCeres.h"
@@ -318,6 +325,9 @@ class LaserChipEffectActor;
 #include "gecchi/actor/chikei/Torus/VarietyTorus002.h"
 #include "gecchi/actor/chikei/Torus/VarietyTorus003.h"
 #include "gecchi/actor/chikei/Torus/VarietyTorus004.h"
+
+
+
 
 #include "gecchi/magic/Magic.h"
 #include "gecchi/magic/DefaultMagic.h"

@@ -76,6 +76,26 @@ OUT_VS GgafDx9VS_SpriteMesh(
 	return out_vs;
 }
 
+OUT_VS VS_NoLight(
+      float4 prm_pos    : POSITION,      // モデルの頂点
+      float3 prm_normal : NORMAL,        // モデルの頂点の法線
+      float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
+
+) {
+	OUT_VS out_vs = (OUT_VS)0;
+	//頂点計算
+	out_vs.pos = mul( mul( mul(prm_pos, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
+    //UV
+	out_vs.uv.x = prm_uv.x + g_offset_u;
+	out_vs.uv.y = prm_uv.y + g_offset_v;
+	//、マテリアル色 を考慮したカラー作成。      
+	out_vs.col = g_MaterialDiffuse;
+	//マスターα
+	out_vs.col.a *= g_MasterAlpha;
+	return out_vs;
+}
+
+
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_SpriteMesh(
 	float2 prm_uv	  : TEXCOORD0,
@@ -93,11 +113,26 @@ float4 GgafDx9PS_SpriteMesh(
 }
 
 float4 PS_Flush( 
-	float2 prm_uv	  : TEXCOORD0
+	float2 prm_uv	  : TEXCOORD0,
+    float4 prm_col    : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
 	float4 out_color = tex_color * prm_col * float4(7.0, 7.0, 7.0, 1.0);;
+	return out_color;
+}
+
+float4 PS_NoLight(
+	float2 prm_uv	  : TEXCOORD0,
+    float4 prm_col    : COLOR0
+) : COLOR  {
+	//テクスチャをサンプリングして色取得（原色を取得）
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
+	float4 out_color = tex_color * prm_col;
+    //Blinkerを考慮
+//	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
+//		out_color.rgb *= g_PowerBlink; //+ (tex_color * g_PowerBlink);
+//	} 
 	return out_color;
 }
 
@@ -156,6 +191,17 @@ technique Flush
 		DestBlend = InvSrcAlpha;
 		VertexShader = compile vs_2_0 GgafDx9VS_SpriteMesh();
 		PixelShader  = compile ps_2_0 PS_Flush();
+	}
+}
+
+technique NoLight
+{
+	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		VertexShader = compile vs_2_0 VS_NoLight();
+		PixelShader  = compile ps_2_0 PS_NoLight();
 	}
 }
 
