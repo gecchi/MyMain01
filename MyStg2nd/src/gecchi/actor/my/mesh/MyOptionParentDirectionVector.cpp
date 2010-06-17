@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyOptionParentDirectionVector::MyOptionParentDirectionVector(const char* prm_name) : DefaultMeshActor(prm_name, "Gizmo") {
+MyOptionParentDirectionVector::MyOptionParentDirectionVector(const char* prm_name) : DefaultMeshActor(prm_name, "Nothing") {
     _class_name = "MyOptionParentDirectionVector";
 
     _ptn_no = 0;

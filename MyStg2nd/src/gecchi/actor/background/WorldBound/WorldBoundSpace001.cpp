@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-WorldBoundSpace001::WorldBoundSpace001(const char* prm_name) : WorldBoundActor(prm_name, "WorldBound_TEST") {
+WorldBoundSpace001::WorldBoundSpace001(const char* prm_name) : WorldBoundActor(prm_name, "WorldBoundSpace001") {
     _class_name = "WorldBoundSpace001";
 }
 void WorldBoundSpace001::initialize() {
@@ -16,7 +16,7 @@ void WorldBoundSpace001::initialize() {
     setHitAble(false);
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
-    _SX = _SY = _SZ = 500*1000;
+    _SX = _SY = _SZ = ((pCAM->_zf-pCAM->_zn)*1000)*0.999;
 }
 
 void WorldBoundSpace001::onActive() {
@@ -24,6 +24,7 @@ void WorldBoundSpace001::onActive() {
 }
 
 void WorldBoundSpace001::processBehavior() {
+    setGeometry(pCAM);
     //_pUvFlipper->behave();
 }
 void WorldBoundSpace001::processJudgement() {

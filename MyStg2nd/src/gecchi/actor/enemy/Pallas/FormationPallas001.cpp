@@ -9,7 +9,7 @@ FormationPallas001::FormationPallas001(const char* prm_name) : FormationActor(pr
     _class_name = "FormationPallas001";
     _num_Pallas     = 12*_RANK_;    //編隊数
     _frame_interval = 5/_RANK_+5;  //パラスの間隔(frame)
-    _mv_velo        = 12000*_RANK_; //速度
+    _mv_velo        = 10000*_RANK_; //速度
     //パラス編隊作成
     _pSplineCon     = (Spline3DConnection*)(pGOD->_pSpline3DManager->connect("SpCon_Pallas01")); //スプライン定義
     //_pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->connect("DpCon_Shot001")); //パラス弾のディスパッチャー
@@ -18,8 +18,8 @@ FormationPallas001::FormationPallas001(const char* prm_name) : FormationActor(pr
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
-        //GgafDx9SplineProgram* pProgram = NEW GgafDx9FixedVelocitySplineProgram(_papPallas[i], _pSplineCon->view(), 8000); //移動速度固定
-        GgafDx9SplineProgram* pProgram = NEW GgafDx9FixedFrameSplineProgram(_papPallas[i], _pSplineCon->view(), 500, 8000); //移動フレーム数固定
+        GgafDx9SplineProgram* pProgram = NEW GgafDx9FixedVelocitySplineProgram(_papPallas[i], _pSplineCon->view(), 7000); //移動速度固定
+        //GgafDx9SplineProgram* pProgram = NEW GgafDx9FixedFrameSplineProgram(_papPallas[i], _pSplineCon->view(), 500, 8000); //移動フレーム数固定
         _papPallas[i]->setSplineProgram(pProgram);
         //_papPallas[i]->setDispatcher_Shot(_pDispatcherCon->view()); //弾設定
         _papPallas[i]->inactivateImmediately();

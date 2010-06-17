@@ -55,7 +55,7 @@ void HoshiBoshi002::processJudgement() {
 void HoshiBoshi002::processPreDraw() {
     //画面外判定無しに伴ない処理簡略化
     //GgafDx9DrawableActor::processPreDraw() と同期を取る事！
-    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL ,this); //最深部
+    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL-1,this); //最深部-1、最深部はWorldBound
 
 //    //一時テクニック期間チェック
 //    if (_is_temp_technique) {

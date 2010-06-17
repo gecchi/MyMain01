@@ -34,7 +34,7 @@ void WorldBoundActor::processPreDraw() {
     //・段階レンダリングの深度計算
     //・一時テクニック考慮
     //GgafDx9DrawableActor::processPreDraw() と同期を取る事！
-    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL - MAX_DRAW_DEPTH_LEVEL/100 ,this); //最深部
+    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL,this); //最深部
 }
 
 WorldBoundActor::~WorldBoundActor() {
