@@ -27,11 +27,11 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
     _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "28/GECCHI_16FONT");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard02);
-    _pStringBoard_JIKI_X = NEW GgafDx9StringBoardActor("JIKI_X", "28/GECCHI_88FONT");
+    _pStringBoard_JIKI_X = NEW GgafDx9StringBoardActor("JIKI_X", "28/Gecchi_8Font");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_JIKI_X);
-    _pStringBoard_JIKI_Y = NEW GgafDx9StringBoardActor("JIKI_Y", "28/GECCHI_88FONT");
+    _pStringBoard_JIKI_Y = NEW GgafDx9StringBoardActor("JIKI_Y", "28/Gecchi_8Font");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_JIKI_Y);
-    _pStringBoard_JIKI_Z = NEW GgafDx9StringBoardActor("JIKI_Z", "28/GECCHI_88FONT");
+    _pStringBoard_JIKI_Z = NEW GgafDx9StringBoardActor("JIKI_Z", "28/Gecchi_8Font");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_JIKI_Z);
     _pScene_Stage01 = NULL;
     _pScene_Stage02 = NULL;

@@ -3,7 +3,7 @@ xof 0303txt 0032
 SpriteDef Mogera-to {
    8.0;
    8.0;
-   "GECCHI_88FONT.png";
+   "Gecchi_8Font.png";
    8;
    8;
-} 
+}
