@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 //MyOption::MyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
-MyOption::MyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMeshSetActor(prm_name, "myvic") {
+MyOption::MyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMeshSetActor(prm_name, "Core4") {
 
 _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _class_name = "MyOption";
@@ -62,6 +62,13 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _pLockOnTarget = NULL;
 }
 
+void MyOption::onCreateModel() {
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.3, 2.0);
+    _pGgafDx9Model->_pTextureBlinker->setBlink(1.0);
+    _pGgafDx9Model->_pTextureBlinker->beat(120, 10, 1, -1);
+    _pGgafDx9Model->_fBlinkThreshold = 0.9;
+}
+
 void MyOption::initialize() {
     _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(float)ANGLE180)/PI;
     _pMover->setMvVelo(_veloMv);
@@ -73,11 +80,13 @@ void MyOption::initialize() {
     _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radiusPosition; //X軸の正の方向を向いて時計回りに配置
                                                                     //ワールド変換の（左手法）のX軸回転とはと逆の回転なので注意
     _X = 0;
-    _pMover->setFaceAngVelo(AXIS_X, 8000);
+    _pMover->setFaceAngVelo(AXIS_X, 4000);
     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
     GameGlobal::_pSceneCommon->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
+	
+	_SX=_SY=_SZ=100;
 }
 
 void MyOption::addRadiusPosition(int prm_radius_offset) {
@@ -153,6 +162,7 @@ void MyOption::setRadiusPosition(int prm_radius) {
     _pMover->setRzMvAng(GgafDx9Util::simplifyAng(angZY_ROTANG_X + ANGLE90));
     _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(float)ANGLE180)/PI;
     _pMover->setRzMvAngVelo(_angveloMove);
+
 }
 
 void MyOption::processBehavior() {

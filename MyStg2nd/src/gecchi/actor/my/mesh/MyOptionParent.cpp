@@ -37,42 +37,49 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _paMyOption[0] = NEW MyOption("MY_OPTION01", 0, this);
     _paMyOption[0]->setInitializeProperty(60000, ANGLE0, 0, 500);
     _paMyOption[0]->setMaterialColor(1.0, 1.0, 1.0);
-    addSubGroup(_paMyOption[0]);
+    _paMyOption[0]->setAlpha(0.7);
+	addSubGroup(_paMyOption[0]);
 
     _paMyOption[1] = NEW MyOption("MY_OPTION02", 1, this);
     _paMyOption[1]->setInitializeProperty(60000, ANGLE90, 0, 500);
-    _paMyOption[1]->setMaterialColor(0.0, 1.0, 1.0);
-    addSubGroup(_paMyOption[1]);
+    _paMyOption[1]->setMaterialColor(0.8, 1.0, 1.0);
+    _paMyOption[1]->setAlpha(0.7);
+	addSubGroup(_paMyOption[1]);
 
     _paMyOption[2] = NEW MyOption("MY_OPTION03", 2, this);
     _paMyOption[2]->setInitializeProperty(60000, ANGLE180, 0, 500);
-    _paMyOption[2]->setMaterialColor(1.0, 0, 1.0);
-    addSubGroup(_paMyOption[2]);
+    _paMyOption[2]->setMaterialColor(1.0, 0.8, 0.8);
+    _paMyOption[2]->setAlpha(0.7);
+	addSubGroup(_paMyOption[2]);
 
     _paMyOption[3] = NEW MyOption("MY_OPTION04", 4, this);
     _paMyOption[3]->setInitializeProperty(60000, ANGLE270, 0, 500);
-    _paMyOption[3]->setMaterialColor(0, 1.0, 0);
-    addSubGroup(_paMyOption[3]);
+    _paMyOption[3]->setMaterialColor(0.8, 1.0, 0.8);
+    _paMyOption[3]->setAlpha(0.7);
+	addSubGroup(_paMyOption[3]);
 
     _paMyOption[4] = NEW MyOption("MY_OPTION05", 5, this);
     _paMyOption[4]->setInitializeProperty(120000, ANGLE0, 0, -500);
-    _paMyOption[4]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 0, 1.0, 1.0);
-    addSubGroup(_paMyOption[4]);
+    _paMyOption[4]->setMaterialColor(0.8, 0.8, 1.0);
+    _paMyOption[4]->setAlpha(0.7);
+	addSubGroup(_paMyOption[4]);
 
     _paMyOption[5] = NEW MyOption("MY_OPTION06", 6, this);
     _paMyOption[5]->setInitializeProperty(120000, ANGLE90, 0, -500);
-    _paMyOption[5]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 1.0, 0, 1.0);
-    addSubGroup(_paMyOption[5]);
+    _paMyOption[5]->setMaterialColor(0.8, 1.0, 0.8);
+    _paMyOption[5]->setAlpha(0.7);
+	addSubGroup(_paMyOption[5]);
 
     _paMyOption[6] = NEW MyOption("MY_OPTION07", 7, this);
     _paMyOption[6]->setInitializeProperty(120000, ANGLE180, 0, -500);
-    _paMyOption[6]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0, 0, 1.0);
+    _paMyOption[6]->setMaterialColor(1.0, 0.8, 0);
+	_paMyOption[6]->setAlpha(0.7);
     addSubGroup(_paMyOption[6]);
 
     _paMyOption[7] = NEW MyOption("MY_OPTION08", 8, this);
     _paMyOption[7]->setInitializeProperty(120000, ANGLE270, 0, -500);
-    _paMyOption[7]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
-    _paMyOption[7]->setAlpha(0.3);
+    _paMyOption[7]->setMaterialColor(1.0, 1.0, 1.0);
+    _paMyOption[7]->setAlpha(0.7);
     addSubGroup(_paMyOption[7]);
 
 

@@ -99,6 +99,7 @@ public:
         _angExpanse_default = prm_angExpanse;
         _veloMv_default = prm_veloMv;
     }
+    void onCreateModel() override;
 
     void initialize() override;
 
