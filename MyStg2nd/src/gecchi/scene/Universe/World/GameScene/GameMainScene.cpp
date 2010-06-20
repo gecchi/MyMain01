@@ -230,7 +230,7 @@ void GameMainScene::processBehavior() {
     //            move_target_Y_VP = 0;
     //            move_target_Z_VP = 0;
 
-                move_target_X_CAM = -Dx + (-pMYSHIP->_X);
+                move_target_X_CAM = -Dx + (-pMYSHIP->_X-180000)*2; //-180000 はカメラ移動位置、*2はパン具合。調整を繰り返せ
                 if (-Dx > move_target_X_CAM) {
                     move_target_X_CAM = -Dx;
                 } else if (move_target_X_CAM > Dx/2) {
@@ -238,7 +238,7 @@ void GameMainScene::processBehavior() {
                 }
                 move_target_Y_CAM = pMYSHIP->_Y;
                 move_target_Z_CAM = pMYSHIP->_Z - _dZ_camera_init;
-                move_target_X_VP = Dx - (-pMYSHIP->_X);
+                move_target_X_VP = Dx - (-pMYSHIP->_X-180000)*2;
                 if (Dx < move_target_X_VP) {
                     move_target_X_VP = Dx;
                 } else if ( move_target_X_VP < -Dx/2) {
@@ -249,7 +249,7 @@ void GameMainScene::processBehavior() {
 
                 move_target_XY_CAM_UP = ANGLE90;
             } else if (_pos_camera == CAM_POS_LEFT) {
-                move_target_X_CAM = -Dx + (-pMYSHIP->_X/2);
+                move_target_X_CAM = -Dx + (-pMYSHIP->_X-180000)*2;
                 if (-Dx > move_target_X_CAM) {
                     move_target_X_CAM = -Dx;
                 } else if (move_target_X_CAM > Dx/2) {
@@ -257,7 +257,7 @@ void GameMainScene::processBehavior() {
                 }
                 move_target_Y_CAM = pMYSHIP->_Y;
                 move_target_Z_CAM = pMYSHIP->_Z + _dZ_camera_init;
-                move_target_X_VP = Dx - (-pMYSHIP->_X);
+                move_target_X_VP = Dx - (-pMYSHIP->_X-180000)*2;
                 if (Dx < move_target_X_VP) {
                     move_target_X_VP = Dx;
                 } else if ( move_target_X_VP < -Dx/2) {
@@ -267,7 +267,7 @@ void GameMainScene::processBehavior() {
                 move_target_Z_VP = pMYSHIP->_Z;
                 move_target_XY_CAM_UP = ANGLE90;
             } else if (_pos_camera == CAM_POS_TOP) {
-                move_target_X_CAM = -Dx - Ddx_hw + (-pMYSHIP->_X);
+                move_target_X_CAM = -Dx - Ddx_hw + (-pMYSHIP->_X-125000)*2;
                 if ((-Dx - Ddx_hw) > move_target_X_CAM) {
                     move_target_X_CAM = -Dx - Ddx_hw;
                 } else if (move_target_X_CAM > (Dx + Ddx_hw)/2) {
@@ -275,7 +275,7 @@ void GameMainScene::processBehavior() {
                 }
                 move_target_Y_CAM = pMYSHIP->_Y + _dZ_camera_init + Ddx_hw;
                 move_target_Z_CAM = pMYSHIP->_Z;
-                move_target_X_VP = Dx + Ddx_hw - (-pMYSHIP->_X);
+                move_target_X_VP = Dx + Ddx_hw - (-pMYSHIP->_X-125000)*2;
                 if (Dx + Ddx_hw < move_target_X_VP) {
                     move_target_X_VP = Dx + Ddx_hw;
                 } else if ( move_target_X_VP < -(Dx + Ddx_hw)/2) {
@@ -289,7 +289,7 @@ void GameMainScene::processBehavior() {
                     move_target_XY_CAM_UP = ANGLE315;
                 }
             } else if (_pos_camera == CAM_POS_BOTTOM) {
-                move_target_X_CAM = -Dx - Ddx_hw + (-pMYSHIP->_X);
+                move_target_X_CAM = -Dx - Ddx_hw + (-pMYSHIP->_X-125000)*2;
                 if ((-Dx - Ddx_hw) > move_target_X_CAM) {
                     move_target_X_CAM = -Dx - Ddx_hw;
                 } else if (move_target_X_CAM > (Dx + Ddx_hw)/2) {
@@ -297,7 +297,7 @@ void GameMainScene::processBehavior() {
                 }
                 move_target_Y_CAM = pMYSHIP->_Y - _dZ_camera_init - Ddx_hw;
                 move_target_Z_CAM = pMYSHIP->_Z;
-                move_target_X_VP = Dx + Ddx_hw - (-pMYSHIP->_X);
+                move_target_X_VP = Dx + Ddx_hw - (-pMYSHIP->_X-125000)*2;
                 if (Dx + Ddx_hw < move_target_X_VP) {
                     move_target_X_VP = Dx + Ddx_hw;
                 } else if ( move_target_X_VP < -(Dx + Ddx_hw)/2) {
