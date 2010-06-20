@@ -255,7 +255,6 @@ public:
 
 
     EffectTurbo001* _pEffectTurbo001;
-    EffectTurbo002* _pEffectTurbo002;
 
 
     MyShip(const char* prm_name);

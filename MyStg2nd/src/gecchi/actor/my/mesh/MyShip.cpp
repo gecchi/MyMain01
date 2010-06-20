@@ -89,8 +89,8 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 
     _pEffectTurbo001 = NEW EffectTurbo001("EffectTurbo001");
     addSubGroup(_pEffectTurbo001);
-    _pEffectTurbo002 = NEW EffectTurbo002("EffectTurbo002");
-    addSubGroup(_pEffectTurbo002);
+//    _pEffectTurbo002 = NEW EffectTurbo002("EffectTurbo002");
+//    addSubGroup(_pEffectTurbo002);
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (DWORD i = 0; i < 100; i++) {
@@ -319,8 +319,11 @@ void MyShip::processBehavior() {
 
     if (VB->isPushedDown(VB_TURBO)) {
         //ターボ開始時
-        _pEffectTurbo002->activate();
-        _pEffectTurbo002->setGeometry(this);
+        EffectTurbo002* pTurbo002 = (EffectTurbo002*)GameGlobal::_pSceneCommon->_pDispatcher_EffectTurbo002->employForce();
+         if (pTurbo002 != NULL) {
+             pTurbo002->setGeometry(this);
+             pTurbo002->activate();
+         }
         (this->*paFuncTurbo[_way])();
     } else {
         //Notターボ開始時

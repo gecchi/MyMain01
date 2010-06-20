@@ -37,6 +37,19 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         getLordActor()->addSubGroup(_pDispatcher_EffectExplosion001);
     }
 
+
+
+    { //Effect EffectTurbo002 ターボ噴射
+        _pDispatcher_EffectTurbo002 = NEW GgafActorDispatcher("RotExplo002");
+        EffectTurbo002* pEffectTurbo;
+        for (int i = 0; i < 256; i++) { //ストック100個
+            pEffectTurbo = NEW EffectTurbo002("EffectTurbo002");
+            pEffectTurbo->inactivateTreeImmediately(); //最初非表示
+            _pDispatcher_EffectTurbo002->addSubLast(pEffectTurbo);
+        }
+        getLordActor()->addSubGroup(_pDispatcher_EffectTurbo002);
+    }
+
     {
         _pDispatcher_LaserChipDispatcher = NEW GgafActorDispatcher("LCDD");
         LaserChipDispatcher* pLaserChipDispatcher;
