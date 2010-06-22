@@ -39,6 +39,7 @@ namespace Dix {
 
 	//! ƒZƒOƒƒ“ƒgæ“¾
 	bool OggDecoder::getSegment( char* buffer, unsigned int size, unsigned int* writeSize, bool* isEnd ) {
+	    //_TRACE_("OggDecoder::getSegment");
 		if ( isReady() == false ) {
 			return false;
 		}

@@ -155,18 +155,18 @@ void GameMainScene::processBehavior() {
 
     //SCORE表示
     sprintf(_buf, "SCR:%07u", _SCORE_);
-    _pStringBoard_SCORE->update(600, 0, _buf);
+    _pStringBoard_SCORE->update(600, 1, _buf);
     sprintf(_buf, "R:%.7f", _RANK_);
     _pStringBoard_RANK->update(500, 20, _buf);
     sprintf(_buf, "STAMINA:%7d", pMYSHIP->_pStatus->get(STAT_Stamina));
     _pStringBoard_STAMINA->update(500, 40, _buf);
 
     sprintf(_buf, "X:%8d", pMYSHIP->_X);
-    _pStringBoard_JIKI_X->update(0, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*3, _buf);
+    _pStringBoard_JIKI_X->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*3-1, _buf);
     sprintf(_buf, "Y:%8d", pMYSHIP->_Y);
-    _pStringBoard_JIKI_Y->update(0, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*2, _buf);
+    _pStringBoard_JIKI_Y->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*2-1, _buf);
     sprintf(_buf, "Z:%8d", pMYSHIP->_Z);
-    _pStringBoard_JIKI_Z->update(0, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*1, _buf);
+    _pStringBoard_JIKI_Z->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*1-1, _buf);
     //カメラワーク関連
 
     if (getProgress() == GAMEMAIN_PROG_PLAY) {

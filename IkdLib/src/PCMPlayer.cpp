@@ -198,7 +198,8 @@ namespace Dix {
                 if (i < 10) {
                     _TRACE_("PCMPlayer::initializeBuffer() Lock‚ÉŽ¸”s i="<<i<<" ");
                     _TRACE_("hr="<<hr<<" "<<DXGetErrorString(hr)<<" "<<DXGetErrorDescription(hr));
-                    Sleep(1);
+                    hr = pDSBuffer_->Unlock( AP1, AB1, AP2, AB2 );
+                    Sleep(5);
                     continue; //‚à‚¤ˆê‰ñŠæ’£‚é
                 } else {
                     //‚ ‚«‚ç‚ß‚é
