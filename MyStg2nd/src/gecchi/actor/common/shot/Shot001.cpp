@@ -11,7 +11,7 @@ Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "Flora") 
     _pSeReflector->useSe(1);
     _pSeReflector->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
     _pSplineCon = (Spline3DConnection*)(pGOD->_pSpline3DManager->connect("SpCon_HAN")); //スプライン定義
-    _pSplineProgram = NULL;
+    _pSplineProgram = NEW GgafDx9FixedVelocitySplineProgram(this, _pSplineCon->view(), 10000); //移動速度固定
 }
 
 void Shot001::initialize() {
@@ -27,7 +27,6 @@ void Shot001::onActive() {
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->setMvVelo(5000*_RANK_);             //移動速度
     _pMover->setFaceAngVelo(AXIS_X, 6000*_RANK_); //きりもみ具合
-    _pSplineProgram = NEW GgafDx9FixedVelocitySplineProgram(this, _pSplineCon->view(), 10000); //移動速度固定
     _pSplineProgram->begin(2);
     _pScaler->beat(30,5,2,-1);
 }
@@ -68,10 +67,10 @@ void Shot001::onHit(GgafActor* prm_pOtherActor) {
 
 
 void Shot001::onInactive() {
-    DELETE_POSSIBLE_NULL(_pSplineProgram);
 }
 
 
 Shot001::~Shot001() {
+    DELETE_IMPOSSIBLE_NULL(_pSplineProgram);
     _pSplineCon->close();
 }
