@@ -55,14 +55,14 @@ public:
 
 
     char _buf[20];
-    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard_SCORE;
-    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard_RANK;
-    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard_STAMINA;
-    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard_JIKI_X;
-    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard_JIKI_Y;
-    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard_JIKI_Z;
-    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard01;
-    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard02;
+    FontGecchi16* _pFont16_SCORE;
+    FontGecchi16* _pFont16_RANK;
+    FontGecchi16* _pFont16_STAMINA;
+    FontGecchi8* _pFont8_JIKI_X;
+    FontGecchi8* _pFont8_JIKI_Y;
+    FontGecchi8* _pFont8_JIKI_Z;
+    FontGecchi16* _pFont1601;
+    FontGecchi16* _pFont1602;
 
 
 

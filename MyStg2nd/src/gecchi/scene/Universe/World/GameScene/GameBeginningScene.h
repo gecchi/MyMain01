@@ -17,8 +17,8 @@ namespace MyStg2nd {
 class GameBeginningScene : public GgafDx9LibStg::DefaultScene {
 
 public:
-    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard01;
-    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard02;
+    FontGecchi16* _pStringBoard01;
+    FontGecchi16* _pStringBoard02;
 
     DWORD _dwFrame_Begin;
     DWORD _dwFrame_Ope;

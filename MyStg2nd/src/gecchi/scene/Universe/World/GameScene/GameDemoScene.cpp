@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     setProgress(GAMEDEMO_PROG_INIT);
-    _pStringBoard01 = NEW GgafDx9StringBoardActor("STR01", "28/GECCHI_16FONT");
+    _pStringBoard01 = NEW FontGecchi16("STR01");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
-    _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "28/GECCHI_16FONT");
+    _pStringBoard02 = NEW FontGecchi16("STR02");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard02);
     _pBgmPerformer->useBgm(1);
     _pBgmPerformer->set(0, "FrozenRay");

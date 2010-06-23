@@ -17,22 +17,22 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _frame_pushdown_zmove = 0;
 
 
-    _pStringBoard_SCORE = NEW GgafDx9StringBoardActor("SCORE", "28/GECCHI_16FONT");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_SCORE);
-    _pStringBoard_RANK = NEW GgafDx9StringBoardActor("RANK", "28/GECCHI_16FONT");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_RANK);
-    _pStringBoard_STAMINA = NEW GgafDx9StringBoardActor("STAMINA", "28/GECCHI_16FONT");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_STAMINA);
-    _pStringBoard01 = NEW GgafDx9StringBoardActor("STR01", "28/GECCHI_16FONT");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
-    _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "28/GECCHI_16FONT");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard02);
-    _pStringBoard_JIKI_X = NEW GgafDx9StringBoardActor("JIKI_X", "28/Gecchi_8Font");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_JIKI_X);
-    _pStringBoard_JIKI_Y = NEW GgafDx9StringBoardActor("JIKI_Y", "28/Gecchi_8Font");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_JIKI_Y);
-    _pStringBoard_JIKI_Z = NEW GgafDx9StringBoardActor("JIKI_Z", "28/Gecchi_8Font");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_JIKI_Z);
+    _pFont16_SCORE = NEW FontGecchi16("SCORE");
+    getLordActor()->addSubGroup(KIND_EFFECT, _pFont16_SCORE);
+    _pFont16_RANK = NEW FontGecchi16("RANK");
+    getLordActor()->addSubGroup(KIND_EFFECT, _pFont16_RANK);
+    _pFont16_STAMINA = NEW FontGecchi16("STAMINA");
+    getLordActor()->addSubGroup(KIND_EFFECT, _pFont16_STAMINA);
+    _pFont1601 = NEW FontGecchi16("STR01");
+    getLordActor()->addSubGroup(KIND_EFFECT, _pFont1601);
+    _pFont1602 = NEW FontGecchi16("STR02");
+    getLordActor()->addSubGroup(KIND_EFFECT, _pFont1602);
+    _pFont8_JIKI_X = NEW FontGecchi8("JIKI_X");
+    getLordActor()->addSubGroup(KIND_EFFECT, _pFont8_JIKI_X);
+    _pFont8_JIKI_Y = NEW FontGecchi8("JIKI_Y");
+    getLordActor()->addSubGroup(KIND_EFFECT, _pFont8_JIKI_Y);
+    _pFont8_JIKI_Z = NEW FontGecchi8("JIKI_Z");
+    getLordActor()->addSubGroup(KIND_EFFECT, _pFont8_JIKI_Z);
     _pScene_Stage01 = NULL;
     _pScene_Stage02 = NULL;
     _pScene_Stage03 = NULL;
@@ -134,8 +134,8 @@ void GameMainScene::processBehavior() {
     }
 
     if (onChangeProgressAt(GAMEMAIN_PROG_BEGIN)) {
-        _pStringBoard01->update(300, 300, "GAME_MAIN_SCENE BEGIN");
-        _pStringBoard02->update(300, 350, "DESTOROY ALL!");
+        _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
+        _pFont1602->update(300, 350, "DESTOROY ALL!");
         addSubLast(obtainSceneFromFactory(11)); //ステージシーン追加
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEMAIN_PROG_BEGIN) {
@@ -148,25 +148,25 @@ void GameMainScene::processBehavior() {
     }
 
     if (onChangeProgressAt(GAMEMAIN_PROG_PLAY)) {
-        _pStringBoard01->update(300, 300, "");
-        _pStringBoard02->update(300, 350, "");
+        _pFont1601->update(300, 300, "");
+        _pFont1602->update(300, 350, "");
 
     }
 
     //SCORE表示
     sprintf(_buf, "SCR:%07u", _SCORE_);
-    _pStringBoard_SCORE->update(600, 1, _buf);
+    _pFont16_SCORE->update(600, 1, _buf);
     sprintf(_buf, "R:%.7f", _RANK_);
-    _pStringBoard_RANK->update(500, 20, _buf);
+    _pFont16_RANK->update(500, 20, _buf);
     sprintf(_buf, "STAMINA:%7d", pMYSHIP->_pStatus->get(STAT_Stamina));
-    _pStringBoard_STAMINA->update(500, 40, _buf);
+    _pFont16_STAMINA->update(500, 40, _buf);
 
     sprintf(_buf, "X:%8d", pMYSHIP->_X);
-    _pStringBoard_JIKI_X->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*3-1, _buf);
+    _pFont8_JIKI_X->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*3-1, _buf);
     sprintf(_buf, "Y:%8d", pMYSHIP->_Y);
-    _pStringBoard_JIKI_Y->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*2-1, _buf);
+    _pFont8_JIKI_Y->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*2-1, _buf);
     sprintf(_buf, "Z:%8d", pMYSHIP->_Z);
-    _pStringBoard_JIKI_Z->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*1-1, _buf);
+    _pFont8_JIKI_Z->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*1-1, _buf);
     //カメラワーク関連
 
     if (getProgress() == GAMEMAIN_PROG_PLAY) {

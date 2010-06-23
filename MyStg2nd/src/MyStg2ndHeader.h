@@ -164,6 +164,8 @@ class HoshiBoshi002;
 class WorldBoundSpace001;
 
 class TurboMeter;
+class FontGecchi8;
+class FontGecchi16;
 
 class TamagoActor;
 class EnemyTamago01Actor;
@@ -292,6 +294,10 @@ class LaserChipEffectActor;
 #include "gecchi/actor/background/board/TurboMeter.h"
 #include "gecchi/actor/background/HoshiBoshi001.h"
 #include "gecchi/actor/background/HoshiBoshi002.h"
+
+#include "gecchi/actor/font/FontGecchi8.h"
+#include "gecchi/actor/font/FontGecchi16.h"
+
 
 #include "gecchi/actor/background/WorldBound/WorldBoundSpace001.h"
 
