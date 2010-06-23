@@ -87,19 +87,42 @@ public:
      */
     GgafDx9Spline3D();
 
+    /**
+     * コンストラクタ .
+     * 後で init() を呼び出さなくて良い。
+     * @param prm_paaBase 基点座標の配列
+     *                    [][0] X座標
+     *                    [][1] Y座標
+     *                    [][2] Z座標
+     * @param num         基点座標の配列数
+     * @param prm_accuracy 補完点挿入粒度。
+     *                     1.0で補完点なし。
+     *                     0.5で基点間中点を一つ追加。
+     *                     0.1だと1基点間に10点補完、といった具合
+     * @return
+     */
     GgafDx9Spline3D(double prm_paaBase[][3], int num, double prm_accuracy);
 
     /**
      * 初期化し補完点し、使用できる状態にします .
-     * @param prm_paaBase
-     * @param num
-     * @param prm_accuracy
+     * @param prm_paaBase 基点座標の配列
+     *                    [][0] X座標
+     *                    [][1] Y座標
+     *                    [][2] Z座標
+     * @param num         基点座標の配列数
+     * @param prm_accuracy 補完点挿入粒度。
+     *                     1.0で補完点なし。
+     *                     0.5で基点間中点を1つ追加。
+     *                     0.1だと1基点間に9個の補完点、といった具合
      */
     void init(double prm_paaBase[][3], int num, double prm_accuracy);
 
     /**
      * 補完点計算
-     * @param prm_accuracy 精度 0.0 ～ 1.0 (1.0で補完なし、0.5で中点が一つ追加、0.1だと10点補完)
+     * @param prm_accuracy 補完点挿入粒度。
+     *                     1.0で補完点なし。
+     *                     0.5で基点間に中点を1つ追加。
+     *                     0.1だと基点間に9個の補完点、といった具合
      */
     void compute(double prm_accuracy);
 

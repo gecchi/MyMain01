@@ -29,8 +29,7 @@ private:
      * GgafDx9Universe::draw() を参照せよ。
      * ノードツリー用 draw メソッドを下位で使えないようにするためprivateで実装。
      */
-    void draw() override {
-    }
+    void draw() override {}
 
 public:
     /** 直近の描画時に使用されたテクニック名のハッシュコード */

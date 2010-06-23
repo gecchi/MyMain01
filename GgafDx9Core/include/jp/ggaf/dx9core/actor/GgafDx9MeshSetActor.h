@@ -24,13 +24,14 @@ public:
     int _draw_set_num;
     //int _draw_object_num;
 
-
     /**
-     * コンストラクタ
-     * @param prm_name  モデル名称（デバッグログで表示、なんでも良い）
-     * @param prm_model モデル定義名、末尾に ".x" をつけてXファイル名になること。
-     * @param prm_technique エフェクト(GgafDx9MeshSetEffect.fx) のテクニック。
-     * @param prm_pChecker   様々な判定を行なうチェッカークラスのインスタンスを渡す
+     * コンストラクタ .
+     * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
+     * @param prm_model_id モデル定義名、末尾に ".x" をつけてXファイル名になること。
+     * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
+     * @param prm_technique エフェクトのテクニック名
+     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
+     * @return
      */
     GgafDx9MeshSetActor(const char* prm_name,
                         const char* prm_model_id,

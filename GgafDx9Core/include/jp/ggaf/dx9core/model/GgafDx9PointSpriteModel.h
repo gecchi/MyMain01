@@ -13,19 +13,6 @@ class GgafDx9PointSpriteModel : public GgafDx9Model {
 
 protected:
 public:
-
-//    struct VARTEXPARAM {
-//        UINT MaterialNo;
-//        UINT StartVertex;
-//        UINT PrimitiveCount;
-//
-////        INT BaseVertexIndex;
-////        UINT MinIndex;
-////        UINT NumVertices;
-////        UINT StartIndex;
-////        UINT PrimitiveCount;
-//    };
-
     struct VERTEX {
         float x, y, z;    // 頂点座標
         float psize;      // ポイントサイズ
@@ -55,18 +42,11 @@ public:
 
     /**
      * コンストラクタ<BR>
-     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_model_name スプライト定義の識別名。".psprx"を追加すると定義Xファイル名になる。
      */
     GgafDx9PointSpriteModel(char* prm_model_name);
 
 public:
-    /** 全アニメパターン数(0～) */
-//    int _pattno_uvflip_Max;
-//    float _fSize_PointSpriteModelWidthPx;
-//    float _fSize_PointSpriteModelHeightPx;
-//    int _row_texture_split;
-//    int _col_texture_split;
-
     /**
      * GgafDx9PointSpriteModelオブジェクトの描画<BR>
      * @param   prm_pActor_Target 描画するGgafDx9PointSpriteActor

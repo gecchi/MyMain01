@@ -22,11 +22,13 @@ public:
     float _weight[MAX_MORPH_TARGET+1]; //[0]は未使用、[1]～[6]がモーフターゲット1～6の重み
 
     /**
-     * コンストラクタ
-     * @param prm_name  モデル名称（デバッグログで表示、なんでも良い）
-     * @param prm_model モデル定義名。GgafDx9MorphMeshModel の説明参照。
-     * @param prm_technique エフェクト(GgafDx9MeshEffect.fx) のテクニック。
-     * @param prm_pChecker   様々な判定を行なうチェッカークラスのインスタンスを渡す
+     * コンストラクタ .
+     * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
+     * @param prm_model_id モデル定義名、末尾に ".x" をつけてXファイル名になること。
+     * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
+     * @param prm_technique エフェクトのテクニック名
+     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
+     * @return
      */
     GgafDx9MorphMeshActor(const char* prm_name,
                           const char* prm_model_id,

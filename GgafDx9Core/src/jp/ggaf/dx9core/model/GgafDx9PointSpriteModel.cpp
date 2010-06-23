@@ -7,14 +7,7 @@ DWORD GgafDx9PointSpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFUSE
 
 GgafDx9PointSpriteModel::GgafDx9PointSpriteModel(char* prm_model_name) : GgafDx9Model(prm_model_name) {
     TRACE3("GgafDx9PointSpriteModel::GgafDx9PointSpriteModel(" << _model_name << ")");
-
-//    _fSize_PointSpriteModelWidthPx = 32.0f;
-//    _fSize_PointSpriteModelHeightPx = 32.0f;
-//    _row_texture_split = 1;
-//    _col_texture_split = 1;
-//    _pattno_uvflip_Max = 0;
     _pIDirect3DVertexBuffer9 = NULL;
-
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel*)

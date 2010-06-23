@@ -141,7 +141,7 @@ public:
      * @return
      */
     GgafDx9GeometricActor(const char* prm_name,
-                              GgafDx9Checker* prm_pChecker);
+                          GgafDx9Checker* prm_pChecker);
 
     /**
      * 次のアクターを取得
