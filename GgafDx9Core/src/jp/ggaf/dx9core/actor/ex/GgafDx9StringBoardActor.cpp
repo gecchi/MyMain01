@@ -3,8 +3,6 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-float GgafDx9StringBoardActor::_aWidthPx[256];
-
 GgafDx9StringBoardActor::GgafDx9StringBoardActor(const char* prm_name, const char* prm_model)
 //: GgafDx9BoardSetActor(prm_name, prm_model, "DefaultBoardSetEffect", "DefaultBoardSetTechnique") {
   : GgafDx9BoardSetActor(prm_name, prm_model, "StringBoardEffect", "StringBoardTechnique") {
@@ -14,12 +12,13 @@ GgafDx9StringBoardActor::GgafDx9StringBoardActor(const char* prm_name, const cha
     _draw_string = NULL;
     _len = 0;
     _buf = NEW char[1024];
-}
-
-void GgafDx9StringBoardActor::onCreateModel() {
     for (int i = 0; i < 256; i++) {
         _aWidthPx[i] = _pBoardSetModel->_fSize_BoardSetModelWidthPx; //ÇPï∂éöÇÃïù(px)
     }
+}
+
+void GgafDx9StringBoardActor::onCreateModel() {
+
 }
 
 

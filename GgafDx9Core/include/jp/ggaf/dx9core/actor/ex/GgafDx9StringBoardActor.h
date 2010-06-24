@@ -17,7 +17,7 @@ class GgafDx9StringBoardActor : public GgafDx9BoardSetActor {
     int _len;
 public:
     /** [rw]Še•¶ŽšŠÔŠu(px) */
-    static float _aWidthPx[256];
+    float _aWidthPx[256];
 
 
     /**
