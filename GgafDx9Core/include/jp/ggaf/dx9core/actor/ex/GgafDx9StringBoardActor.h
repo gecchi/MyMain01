@@ -16,6 +16,10 @@ class GgafDx9StringBoardActor : public GgafDx9BoardSetActor {
     char* _draw_string;
     int _len;
 public:
+    /** [rw]各文字間隔(px) */
+    static float _aWidthPx[256];
+
+
     /**
      *
      * @param prm_name
@@ -24,27 +28,11 @@ public:
      */
     GgafDx9StringBoardActor(const char* prm_name, const char* prm_model);
 
-    virtual void onCreateModel() override {
-    }
+    virtual void onCreateModel() override;
 
-    virtual void initialize() override {
-    }
-
-    virtual void processBehavior() override {
-    }
-
-    virtual void processJudgement() override {
-    }
-
-    virtual void processDraw() override; //オーバーライド
+    virtual void processDraw() override;
 
     virtual void processAfterDraw() override {
-    }
-
-    virtual void processHappen(int prm_no) override {
-    }
-
-    virtual void processFinal() override {
     }
 
     virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) {
