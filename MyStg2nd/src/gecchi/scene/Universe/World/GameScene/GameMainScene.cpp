@@ -17,21 +17,21 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _frame_pushdown_zmove = 0;
 
 
-    _pFont16_SCORE = NEW FontGecchi16("SCORE");
+    _pFont16_SCORE = NEW LabelGecchi16Font("SCORE");
     getLordActor()->addSubGroup(KIND_EFFECT, _pFont16_SCORE);
-    _pFont16_RANK = NEW FontGecchi16("RANK");
+    _pFont16_RANK = NEW LabelGecchi16Font("RANK");
     getLordActor()->addSubGroup(KIND_EFFECT, _pFont16_RANK);
-    _pFont16_STAMINA = NEW FontGecchi16("STAMINA");
+    _pFont16_STAMINA = NEW LabelGecchi16Font("STAMINA");
     getLordActor()->addSubGroup(KIND_EFFECT, _pFont16_STAMINA);
-    _pFont1601 = NEW FontGecchi16("STR01");
+    _pFont1601 = NEW LabelGecchi16Font("STR01");
     getLordActor()->addSubGroup(KIND_EFFECT, _pFont1601);
-    _pFont1602 = NEW FontGecchi16("STR02");
+    _pFont1602 = NEW LabelGecchi16Font("STR02");
     getLordActor()->addSubGroup(KIND_EFFECT, _pFont1602);
-    _pFont8_JIKI_X = NEW FontGecchi8("JIKI_X");
+    _pFont8_JIKI_X = NEW LabelGecchi8Font("JIKI_X");
     getLordActor()->addSubGroup(KIND_EFFECT, _pFont8_JIKI_X);
-    _pFont8_JIKI_Y = NEW FontGecchi8("JIKI_Y");
+    _pFont8_JIKI_Y = NEW LabelGecchi8Font("JIKI_Y");
     getLordActor()->addSubGroup(KIND_EFFECT, _pFont8_JIKI_Y);
-    _pFont8_JIKI_Z = NEW FontGecchi8("JIKI_Z");
+    _pFont8_JIKI_Z = NEW LabelGecchi8Font("JIKI_Z");
     getLordActor()->addSubGroup(KIND_EFFECT, _pFont8_JIKI_Z);
     _pScene_Stage01 = NULL;
     _pScene_Stage02 = NULL;

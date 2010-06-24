@@ -55,14 +55,14 @@ public:
 
 
     char _buf[20];
-    FontGecchi16* _pFont16_SCORE;
-    FontGecchi16* _pFont16_RANK;
-    FontGecchi16* _pFont16_STAMINA;
-    FontGecchi8* _pFont8_JIKI_X;
-    FontGecchi8* _pFont8_JIKI_Y;
-    FontGecchi8* _pFont8_JIKI_Z;
-    FontGecchi16* _pFont1601;
-    FontGecchi16* _pFont1602;
+    LabelGecchi16Font* _pFont16_SCORE;
+    LabelGecchi16Font* _pFont16_RANK;
+    LabelGecchi16Font* _pFont16_STAMINA;
+    LabelGecchi8Font* _pFont8_JIKI_X;
+    LabelGecchi8Font* _pFont8_JIKI_Y;
+    LabelGecchi8Font* _pFont8_JIKI_Z;
+    LabelGecchi16Font* _pFont1601;
+    LabelGecchi16Font* _pFont1602;
 
 
 

@@ -17,8 +17,8 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 void World::initialize() {
     _TRACE_("World::initialize()");
 #ifdef MY_DEBUG
-    orderActorToFactory(0, FontGecchi16, "DebugStr");
-    _pFont16_Debug = (FontGecchi16*)obtainActorFromFactory(0);
+    orderActorToFactory(0, LabelGecchi16Font, "DebugStr");
+    _pFont16_Debug = (LabelGecchi16Font*)obtainActorFromFactory(0);
     getLordActor()->addSubGroup(_pFont16_Debug);
 //    orderActorWithModelToFactory(3, DispFpsActor, "FPS_STRING", "28/GECCHI_16FONT");
 //    DispFpsActor* pDispFpsActor = (DispFpsActor*)obtainActorFromFactory(3);

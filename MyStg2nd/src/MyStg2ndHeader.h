@@ -104,7 +104,6 @@ class World;
 
 class CommonScene;
 
-class DispFpsActor;
 class BackGround01;
 class BackGroundChipBoard;
 class PreDrawScene;
@@ -164,8 +163,8 @@ class HoshiBoshi002;
 class WorldBoundSpace001;
 
 class TurboMeter;
-class FontGecchi8;
-class FontGecchi16;
+class LabelGecchi8Font;
+class LabelGecchi16Font;
 
 class TamagoActor;
 class EnemyTamago01Actor;
@@ -288,15 +287,14 @@ class LaserChipEffectActor;
 #include "gecchi/actor/enemy/Tamago/EnemyTamago01.h"
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"
 #include "gecchi/actor/enemy/sprite/EnemyShot001.h"
-#include "gecchi/actor/_debug/DispFpsActor.h"
 #include "gecchi/actor/background/BackGround01.h"
 #include "gecchi/actor/background/board/BackGroundChipBoard.h"
 #include "gecchi/actor/background/board/TurboMeter.h"
 #include "gecchi/actor/background/HoshiBoshi001.h"
 #include "gecchi/actor/background/HoshiBoshi002.h"
 
-#include "gecchi/actor/font/FontGecchi8.h"
-#include "gecchi/actor/font/FontGecchi16.h"
+#include "gecchi/actor/label/LabelGecchi8Font.h"
+#include "gecchi/actor/label/LabelGecchi16Font.h"
 
 
 #include "gecchi/actor/background/WorldBound/WorldBoundSpace001.h"
