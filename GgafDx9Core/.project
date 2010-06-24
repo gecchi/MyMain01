@@ -6,7 +6,6 @@
 		<project>CustomizeOgg_static</project>
 		<project>CustomizeVorbis_static</project>
 		<project>GgafCore</project>
-		<project>PaulCoppensLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
