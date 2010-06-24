@@ -3,7 +3,7 @@
 namespace MyStg2nd {
 
 /**
- * 8x8ドットフォント
+ * オリジナル8x8ドットフォントのラベル .
  * @version 1.00
  * @since 2010/06/23
  * @author Masatoshi Tsuge
