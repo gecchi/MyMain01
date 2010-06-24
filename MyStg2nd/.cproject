@@ -34,8 +34,6 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/MyStg2nd}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/MSVC_include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
@@ -54,8 +52,6 @@
 <option id="gnu.c.compiler.option.include.paths.769069567" name="インクルード・パス (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/MyStg2nd}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/MSVC_include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/include}&quot;"/>
@@ -76,8 +72,6 @@
 <listOptionValue builtIn="false" value="GgafDx9LibStg"/>
 <listOptionValue builtIn="false" value="GgafDx9Core"/>
 <listOptionValue builtIn="false" value="dxerr"/>
-<listOptionValue builtIn="false" value="IkdLib"/>
-<listOptionValue builtIn="false" value="PaulCoppensLib"/>
 <listOptionValue builtIn="false" value="GgafCore"/>
 <listOptionValue builtIn="false" value="dxguid"/>
 <listOptionValue builtIn="false" value="dinput"/>
@@ -97,8 +91,6 @@
 <listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/DebugCdt}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/DebugCdt}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/CdtDebug}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/DebugCdt}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/DebugCdt}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/DebugCdt}&quot;"/>
 </option>
