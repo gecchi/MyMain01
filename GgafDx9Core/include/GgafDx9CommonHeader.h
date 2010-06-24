@@ -68,12 +68,29 @@
 #include <dinput.h>
 #include <dsound.h>
 #include <dxfile.h>
+namespace Dix {
+class PCMPlayer;
+class OggVorbisResource;
+class PCMDecoder;
+class OggDecoder;
+class OggVorbisFile;
+class OggVorbisMemory;
+}
+#include "jp/ggaf/dx9core/sound/IkdLib/PCMPlayer.h"
+#include "jp/ggaf/dx9core/sound/IkdLib/OggVorbisResource.h"
+#include "jp/ggaf/dx9core/sound/IkdLib/PCMDecoder.h"
+#include "jp/ggaf/dx9core/sound/IkdLib/OggDecoder.h"
+#include "jp/ggaf/dx9core/sound/IkdLib/OggVorbisFile.h"
+#include "jp/ggaf/dx9core/sound/IkdLib/OggVorbisMemory.h"
 
 
-#include "OggDecoder.h"
-#include "OggVorbisMemory.h"
-#include "OggVorbisFile.h"
-#include "PCMPlayer.h"
+
+
+
+
+
+
+
 
 class CmRandomNumberGenerator;
 
