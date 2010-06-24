@@ -8,6 +8,7 @@ using namespace MyStg2nd;
 World::World(const char* prm_name) : DefaultScene(prm_name) {
     _TRACE_("World::World");
     _is_create_GameScene = false;
+    _pFont16_Debug = NULL;
     //y‚ß‚àz
     //‚±‚±‚ÅActor‚âScene‚ÌNEW‚ð‚Í‚µ‚Ä‚Í‚È‚ç‚È‚¢B
     //‚Ü‚¸‚Í‚±‚Ì¢‚ðì‚é‚±‚Æ‚ð—Dæ‚µ‚È‚¢‚ÆA‚¢‚ë‚¢‚ë‚Æ•s“s‡‚ª‚ ‚éB
@@ -16,9 +17,12 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 void World::initialize() {
     _TRACE_("World::initialize()");
 #ifdef MY_DEBUG
-    orderActorWithModelToFactory(3, DispFpsActor, "FPS_STRING", "28/GECCHI_16FONT");
-    DispFpsActor* pDispFpsActor = (DispFpsActor*)obtainActorFromFactory(3);
-    getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
+    orderActorToFactory(0, FontGecchi16, "DebugStr");
+    _pFont16_Debug = (FontGecchi16*)obtainActorFromFactory(0);
+    getLordActor()->addSubGroup(_pFont16_Debug);
+//    orderActorWithModelToFactory(3, DispFpsActor, "FPS_STRING", "28/GECCHI_16FONT");
+//    DispFpsActor* pDispFpsActor = (DispFpsActor*)obtainActorFromFactory(3);
+//    getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
 #endif
 
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
@@ -48,6 +52,12 @@ void World::processBehavior() {
             _is_create_GameScene = true;
         }
     }
+
+
+#ifdef MY_DEBUG
+    sprintf(_aBufDebug, "%05uDRAW %06uCHK %07uF %.1fFPS", GgafGod::_num_actor_drawing, CollisionChecker::_num_check, (unsigned int)askGod()->_godframe, askGod()->_fps);
+    _pFont16_Debug->update(1, 1, _aBufDebug);
+#endif
 }
 
 void World::processJudgement() {

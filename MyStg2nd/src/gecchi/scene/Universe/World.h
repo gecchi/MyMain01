@@ -30,6 +30,8 @@ class World : public GgafDx9LibStg::DefaultScene {
 
 public:
     bool _is_create_GameScene;
+    char _aBufDebug[80];
+    FontGecchi16* _pFont16_Debug;
 
     World(const char* prm_name);
 
