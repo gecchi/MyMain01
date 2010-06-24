@@ -14,6 +14,7 @@ public:
     StringBoardActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
+        GgafDx9Core::GgafDx9StringBoardActor::onCreateModel();
     }
 
     virtual void initialize() override {
@@ -35,13 +36,6 @@ public:
     }
 
     virtual void onInactive() override {
-    }
-
-    virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
-        return false;
-    }
-
-    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
     virtual ~StringBoardActor();
