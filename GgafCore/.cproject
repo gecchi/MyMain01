@@ -39,7 +39,7 @@
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.debug.602817255." name="/" resourcePath="">
 <toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.lib.debug.2122313487" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.debug">
 <targetPlatform binaryParser="org.eclipse.cdt.core.PE;org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="cdt.managedbuild.target.gnu.platform.mingw.lib.debug.873774508" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.debug"/>
-<builder buildPath="${workspace_loc:/GgafCore/DebugCdt}" id="cdt.managedbuild.target.gnu.builder.base.418276245" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+<builder buildPath="${workspace_loc:/GgafCore/DebugCdt}" id="cdt.managedbuild.target.gnu.builder.base.418276245" keepEnvironmentInBuildfile="false" name="Gnu Make ビルダー" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 <tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug.797941506" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug">
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.1036276096" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>

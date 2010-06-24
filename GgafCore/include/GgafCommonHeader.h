@@ -364,4 +364,12 @@ class GgafCurtain;
 #include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
 #include "jp/ggaf/core/util/GgafCurtain.h"
+
+#include "jp/ggaf/core/util/XFile/framework/frm_mesh.h"
+#include "jp/ggaf/core/util/XFile/framework/Frm_Tbuff.h"
+#include "jp/ggaf/core/util/XFile/ToolBox/IOModel_X.h"
+#include "jp/ggaf/core/util/XFile/ToolBox/IOTexture_Bmp.h"
+#include "jp/ggaf/core/util/XFile/ToolBox/TBox_Textures.h"
+
+
 #endif /*GGAFCOMMONHEADER_H_*/
