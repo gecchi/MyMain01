@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
-
+//åªç›ñ¢égóp
 BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx9GeometricActor(prm_name, NULL) {
     _class_name = "BackGround01";
     _x = 0;

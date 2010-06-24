@@ -1,7 +1,7 @@
 #ifndef HOSHIBOSHI002_H_
 #define HOSHIBOSHI002_H_
 namespace MyStg2nd {
-
+//現在未使用
 /**
  * 爆発エフェクトスプライト002
  * @version 1.00

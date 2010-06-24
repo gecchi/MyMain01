@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
-
+//åªç›ñ¢égóp
 HoshiBoshi002::HoshiBoshi002(const char* prm_name) :
 DefaultPointSpriteActor(prm_name, "hoshitest") {
     _class_name = "HoshiBoshi002";

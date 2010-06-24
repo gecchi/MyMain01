@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 LabelGecchi16Font::LabelGecchi16Font(const char* prm_name) :
-        StringBoardActor(prm_name, "28/Gecchi_16Font")
+        StringBoardActor(prm_name, "Gecchi_16Font")
 {
     _class_name = "LabelGecchi16Font";
 }

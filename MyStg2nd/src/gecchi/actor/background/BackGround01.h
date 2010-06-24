@@ -1,7 +1,7 @@
 #ifndef BACKGROUND01_H_
 #define BACKGROUND01_H_
 namespace MyStg2nd {
-
+//åªç›ñ¢égóp
 class BackGround01 : public GgafDx9Core::GgafDx9GeometricActor {
 
     BackGroundChipBoard*** _papapChipBoard;
