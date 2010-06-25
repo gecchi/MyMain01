@@ -13,6 +13,7 @@ GgafDx9Spline3D::GgafDx9Spline3D() {
     _Y_compute = NULL;
     _Z_compute = NULL;
     _rnum = 0;
+
 }
 
 

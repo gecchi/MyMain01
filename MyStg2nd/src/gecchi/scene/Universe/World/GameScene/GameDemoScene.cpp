@@ -110,7 +110,7 @@ void GameDemoScene::processBehavior() {
     if (onChangeProgressAt(GAMEDEMO_PROG_RANKING)) {
         //ランキング表示
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE RANKING");
-        _pStringBoard02->update(100, 150, "1st GECCHIRAQ 100000\n2nd GECCHIRAQ  90000\n3rd GECCHIRAQ  80000\n4th GECCHIRAQ  70000\n5th GECCHIRAQ  60000");
+        _pStringBoard02->update(100, 150, "WE ARE THE WORLD. DESTORY ALL THEM. POWER UP");
         _dwFrame_Ranking = 0;
     } else if (getProgress() == GAMEDEMO_PROG_RANKING) {
         //ランキング活動ループ

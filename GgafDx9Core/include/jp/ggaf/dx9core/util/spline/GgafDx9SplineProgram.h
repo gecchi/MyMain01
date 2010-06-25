@@ -22,6 +22,15 @@ public:
     GgafDx9GeometricActor* _pActor_target;
     /** コンストラクタ内部でGgafDx9Spline3Dを生成した場合true/コンストラクタ引数にGgafDx9Spline3Dが渡された場合、false */
     bool _is_create_sp;
+    /** [r]始点X座標 */
+    int _X_begin;
+    /** [r]始点Y座標 */
+    int _Y_begin;
+    /** [r]始点Z座標 */
+    int _Z_begin;
+    float _rate_X;
+    float _rate_Y;
+    float _rate_Z;
 
     /**
      * コンストラクタ .
@@ -64,7 +73,7 @@ public:
      * スプライン曲線の補完点を移動するプログラムを実行開始
      * @param prm_option オプション 特に意味無し。下位実装拡張用
      */
-    virtual void begin(int prm_option = 0);
+    virtual void begin(int prm_option = 0, float rate_X = 1.0, float rate_Y = 1.0, float rate_Z = 1.0);
 
     /**
      * 移動実行メソッド .

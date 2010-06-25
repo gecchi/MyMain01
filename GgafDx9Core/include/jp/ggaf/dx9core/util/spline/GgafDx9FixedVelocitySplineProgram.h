@@ -33,12 +33,6 @@ public:
      */
     int _option;
 
-    /** [r]始点X座標 */
-    int _X_begin;
-    /** [r]始点Y座標 */
-    int _Y_begin;
-    /** [r]始点Z座標 */
-    int _Z_begin;
 
     //計算用定数
     float _SIN_RzMv_begin;
@@ -94,7 +88,7 @@ public:
      * スプライン曲線利用のフレーム数指定移動プログラム開始
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
      */
-    void begin(int prm_option = 0) override;
+    void begin(int prm_option = 0, float rate_X = 1.0, float rate_Y = 1.0, float rate_Z = 1.0) override;
 
     /**
      * 毎フレームの振る舞いメソッド .
