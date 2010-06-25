@@ -135,7 +135,7 @@ void GameMainScene::processBehavior() {
 
     if (onChangeProgressAt(GAMEMAIN_PROG_BEGIN)) {
         _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
-        _pFont1602->update(300, 350, "DESTOROY ALL!");
+        _pFont1602->update(300, 350, "DESTOROY ALL THEM!!");
         addSubLast(obtainSceneFromFactory(11)); //ステージシーン追加
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEMAIN_PROG_BEGIN) {
@@ -154,12 +154,12 @@ void GameMainScene::processBehavior() {
     }
 
     //SCORE表示
-    sprintf(_buf, "SCR:%07u", _SCORE_);
-    _pFont16_SCORE->update(600, 1, _buf);
-    sprintf(_buf, "R:%.7f", _RANK_);
-    _pFont16_RANK->update(500, 20, _buf);
-    sprintf(_buf, "STAMINA:%7d", pMYSHIP->_pStatus->get(STAT_Stamina));
-    _pFont16_STAMINA->update(500, 40, _buf);
+    sprintf(_buf, "SCORE %07u", _SCORE_);
+    _pFont16_SCORE->update(550, 1, _buf);
+    sprintf(_buf, "RANK %.7f", _RANK_);
+    _pFont16_RANK->update(550, 20, _buf);
+    sprintf(_buf, "STAMINA %7d", pMYSHIP->_pStatus->get(STAT_Stamina));
+    _pFont16_STAMINA->update(550, 40, _buf);
 
     sprintf(_buf, "X:%8d", pMYSHIP->_X);
     _pFont8_JIKI_X->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*3-1, _buf);
