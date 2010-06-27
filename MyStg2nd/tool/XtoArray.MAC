@@ -48,8 +48,18 @@
 
 
 gofiletop;
-
-	setcompatiblemode 0x0F;
+	searchdown "Mesh " , casesense;
+	finddown;
+	down;
+	down;
+	beginsel;
+	down;
+	searchdown ";;" , casesense;
+	cut;
+	selectall;
+	delete;
+	paste;
+gofiletop;
 	replaceallfast " " , "" , casesense;
 	replaceallfast ";," , "" , casesense;
 	replaceallfast ";;" , "" , casesense;
@@ -124,7 +134,11 @@ while (#i < #source_line) {
 		insert $$return;
 		if (#j == #idx_col) {
 			//最後は区切り文字を入れない
-			insert " },";
+			if (#i == #source_line-1) {
+               insert " }";
+			} else {
+				insert " },";
+			}
 		} else {
 			insert $sepa;
 		}
@@ -133,7 +147,13 @@ while (#i < #source_line) {
 	insert "\n";
 	#i = #i + 1;
 }
-
+//コピー
+gofiletop;
+searchdown "{" , casesense;
+beginsel
+down;
+gofileend;
+copy2;
 
 Exit:
 	endmacro;
