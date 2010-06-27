@@ -40,7 +40,7 @@ void EnemyPallas::processBehavior() {
     switch (_iMovePatternNo) {
         case 0:  //【パターン０：スプライン移動開始】
             if (_pSplineProgram) {
-                _pSplineProgram->begin(1); //スプライン移動を開始(1:座標相対)
+                _pSplineProgram->begin(0); //スプライン移動を開始(1:座標相対)
             }
             _iMovePatternNo++; //次の行動パターンへ
             break;
@@ -82,9 +82,9 @@ void EnemyPallas::processBehavior() {
                     }
                 }
             }
-            //自機へ方向転換
-            _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
-                                                3000, 0,
+//            //自機へ方向転換
+            _pMover->execTagettingMvAngSequence(pMYSHIP->_X, _Y, pMYSHIP->_Z,
+                                                2000, 0,
                                                 TURN_CLOSE_TO);
             _iMovePatternNo++; //次の行動パターンへ
             break;

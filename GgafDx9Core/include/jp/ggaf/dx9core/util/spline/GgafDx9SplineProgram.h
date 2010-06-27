@@ -68,12 +68,20 @@ public:
                          GgafDx9Spline3D* prm_sp);
 
 
+
+    void setRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) {
+        _rate_X = prm_rate_X;
+        _rate_Y = prm_rate_Y;
+        _rate_Z = prm_rate_Z;
+    }
+
+
     virtual void setSpline(GgafDx9Spline3D* prm_sp);
     /**
      * スプライン曲線の補完点を移動するプログラムを実行開始
      * @param prm_option オプション 特に意味無し。下位実装拡張用
      */
-    virtual void begin(int prm_option = 0, float rate_X = 1.0, float rate_Y = 1.0, float rate_Z = 1.0);
+    virtual void begin(int prm_option = 0);
 
     /**
      * 移動実行メソッド .

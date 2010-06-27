@@ -24,12 +24,24 @@ GgafDx9SplineProgram::GgafDx9SplineProgram(GgafDx9GeometricActor* prm_pActor_tar
     _sp = NEW GgafDx9Spline3D(prm_paaCriteriaPoints, prm_point_num, prm_accuracy);
     _SPframe = 0;
     _is_create_sp = true;
+    _rate_X = 1.0;
+    _rate_Y = 1.0;
+    _rate_Z = 1.0;
+    _X_begin = 0;
+    _Y_begin = 0;
+    _Z_begin = 0;
 }
 
 GgafDx9SplineProgram::GgafDx9SplineProgram(GgafDx9GeometricActor* prm_pActor_target, GgafDx9Spline3D* prm_sp) {
     _pActor_target = prm_pActor_target;
     _sp = prm_sp;
     _is_create_sp = false;
+    _rate_X = 1.0;
+    _rate_Y = 1.0;
+    _rate_Z = 1.0;
+    _X_begin = 0;
+    _Y_begin = 0;
+    _Z_begin = 0;
 }
 
 void GgafDx9SplineProgram::setSpline(GgafDx9Spline3D* prm_sp) {
@@ -37,10 +49,7 @@ void GgafDx9SplineProgram::setSpline(GgafDx9Spline3D* prm_sp) {
     _is_create_sp = false;
 }
 
-void GgafDx9SplineProgram::begin(int prm_option, float rate_X, float rate_Y, float rate_Z) {
-    _rate_X = rate_X;
-    _rate_Y = rate_Y;
-    _rate_Z = rate_Z;
+void GgafDx9SplineProgram::begin(int prm_option) {
     if (_sp != NULL) {
         _is_executing = true;
 

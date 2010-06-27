@@ -90,7 +90,7 @@ public:
      * スプライン曲線利用のフレーム数指定移動プログラム開始
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
      */
-    void begin(int prm_option = 0, float rate_X = 1.0, float rate_Y = 1.0, float rate_Z = 1.0) override;
+    void begin(int prm_option = 0) override;
 
     /**
      * 移動実行メソッド .

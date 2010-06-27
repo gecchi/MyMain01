@@ -119,6 +119,7 @@ void GgafDx9FixedFrameSplineProgram::init() {
         //ë¨Ç≥ÅÅãóó£ÅÄéûä‘
         _paSPMvVeloTo[t] = (velo)(_paDistace_to[t] / _SPframe_segment);
     }
+
 //
 //    for (int t = 0; t < _sp->_rnum; t ++) {
 //        _TRACE_((float)_sp->_X_compute[t]<<"  "<< (float)_sp->_Y_compute[t]<<"  "<< (float)_sp->_Z_compute[t]);
@@ -126,10 +127,7 @@ void GgafDx9FixedFrameSplineProgram::init() {
 
 }
 
-void GgafDx9FixedFrameSplineProgram::begin(int prm_option, float rate_X, float rate_Y, float rate_Z) {
-    _rate_X = rate_X;
-    _rate_Y = rate_Y;
-    _rate_Z = rate_Z;
+void GgafDx9FixedFrameSplineProgram::begin(int prm_option) {
     if (_sp != NULL) {
         _is_executing = true;
         _option = prm_option;

@@ -127,13 +127,9 @@ void GgafDx9FixedVelocitySplineProgram::init() {
         _paFrame_need_at[t] = _paFrame_need_at[t-1] + (float)(1.0*_paDistace_to[t] / _veloMvUnit);
 
     }
-
 }
 
-void GgafDx9FixedVelocitySplineProgram::begin(int prm_option, float rate_X, float rate_Y, float rate_Z) {
-    _rate_X = rate_X;
-    _rate_Y = rate_Y;
-    _rate_Z = rate_Z;
+void GgafDx9FixedVelocitySplineProgram::begin(int prm_option) {
     if (_sp != NULL) {
         _is_executing = true;
         _option = prm_option;

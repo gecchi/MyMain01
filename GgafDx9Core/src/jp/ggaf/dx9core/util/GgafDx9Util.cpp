@@ -417,7 +417,7 @@ void GgafDx9Util::getRzRyAng(int vx,
     } else if (ANGLE45 <= prj_rXY && prj_rXY <= ANGLE90) {
         //OK
     } else {
-        throwGgafCriticalException("GgafDx9Util::getRzRyAng ”ÍˆÍ‚ª”jù‚µ‚Ä‚Ü‚·Bprj_rXY="<<prj_rXY);
+        throwGgafCriticalException("GgafDx9Util::getRzRyAng ”ÍˆÍ‚ª”jù‚µ‚Ä‚Ü‚·Bprj_rXY="<<prj_rXY<<" ˆø”:"<<vx<<","<<vy<<","<<vz);
     }
     //ÛŒÀ‚É‚æ‚Á‚Ä‰ñ“]Šp‚ğ•â³
     if (vx >= 0 && vy >= 0 && vz >= 0) { //‘æˆêÛŒÀ

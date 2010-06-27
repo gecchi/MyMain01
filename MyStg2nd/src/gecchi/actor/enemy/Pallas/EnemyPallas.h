@@ -10,13 +10,14 @@ namespace MyStg2nd {
  */
 class EnemyPallas : public GgafDx9LibStg::DefaultMeshSetActor {
 
+public:
     /** 移動スプラインプログラム */
     GgafDx9Core::GgafDx9SplineProgram* _pSplineProgram;
     /** 弾ストック */
     GgafCore::GgafActorDispatcher* _pDispatcher_Shot;
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDispatcher* _pDispatcher_ShotEffect;
-public:
+
     /** 行動パターン番号 */
     int _iMovePatternNo;
 
