@@ -8,9 +8,6 @@
 #define FRM_IO_H
 
 #include "../framework/frm_types.h"
-#include <vector>
-#include <fstream>
-#include <iomanip>
 
 namespace Frm {
 template<class T>

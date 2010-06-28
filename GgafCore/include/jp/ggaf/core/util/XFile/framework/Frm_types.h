@@ -45,6 +45,5 @@ struct TEXTURE {
 };
 
 #include "../framework/Frm_3dMath.h"
-#include <string>
 
 #endif

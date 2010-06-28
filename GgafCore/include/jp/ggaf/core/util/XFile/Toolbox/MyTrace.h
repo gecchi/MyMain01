@@ -4,8 +4,6 @@
 #include "../framework/Frm_TBuff.h"
 
 #include <stdio.h>
-#include <fstream>
-#include <sstream>
 
 using namespace std;
 

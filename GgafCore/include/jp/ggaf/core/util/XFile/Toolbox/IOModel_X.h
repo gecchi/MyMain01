@@ -13,7 +13,6 @@
 #include "../Toolbox/MyTrace.h"
 
 #include "../framework/frm_IO.h"
-#include <fstream>
 //#include <GL\freeglut.h>
 #include "../framework/Frm_Mesh.h"
 #include "../ToolBox/XFileStructs.h"
