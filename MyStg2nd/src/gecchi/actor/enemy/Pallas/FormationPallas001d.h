@@ -3,7 +3,7 @@
 namespace MyStg2nd {
 
 /**
- * 敵機イリス用フォーメーションその001-d .
+ * 敵機パラス用フォーメーションその001-d .
  * @version 1.00
  * @since 2010/06/27
  * @author Masatoshi Tsuge

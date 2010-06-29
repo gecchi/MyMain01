@@ -3,7 +3,7 @@
 namespace MyStg2nd {
 
 /**
- * キルケ .
+ * 敵機キルケ .
  * @version 1.00
  * @since 2010/03/25
  * @author Masatoshi Tsuge

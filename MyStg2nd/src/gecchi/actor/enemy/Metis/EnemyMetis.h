@@ -2,7 +2,13 @@
 #define ENEMYMETIS_H_
 namespace MyStg2nd {
 
-//ヴェスタ
+/**
+ * 敵機メティス .
+ * バキュラ～・・・
+ * @version 1.00
+ * @since 2010/04/21
+ * @author Masatoshi Tsuge
+ */
 class EnemyMetis : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
