@@ -987,14 +987,18 @@ void GgafElement<T>::activateAfter(DWORD prm_frame_offset) {
 template<class T>
 void GgafElement<T>::inactivate() {
     if (_can_live_flg) {
-        _is_active_flg_in_next_frame = false;
+        if (_is_active_flg) {
+            _is_active_flg_in_next_frame = false;
+        }
     }
 }
 
 template<class T>
 void GgafElement<T>::inactivateTree() {
     if (_can_live_flg) {
-        _is_active_flg_in_next_frame = false;
+        if (_is_active_flg) {
+            _is_active_flg_in_next_frame = false;
+        }
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
@@ -1011,23 +1015,31 @@ void GgafElement<T>::inactivateTree() {
 
 template<class T>
 void GgafElement<T>::inactivateAfter(DWORD prm_frame_offset) {
-    _will_inactivate_after_flg = true;
-    _frame_of_life_when_inactivation = _frame_of_life + prm_frame_offset;
+    if (_can_live_flg) {
+        if (_is_active_flg) {
+            _will_inactivate_after_flg = true;
+            _frame_of_life_when_inactivation = _frame_of_life + prm_frame_offset;
+        }
+    }
 }
 
 template<class T>
 void GgafElement<T>::inactivateImmediately() {
     if (_can_live_flg) {
-        _is_active_flg = false;
-        _is_active_flg_in_next_frame = false;
+        if (_is_active_flg) {
+            _is_active_flg = false;
+            _is_active_flg_in_next_frame = false;
+        }
     }
 }
 
 template<class T>
 void GgafElement<T>::inactivateTreeImmediately() {
     if (_can_live_flg) {
-        _is_active_flg = false;
-        _is_active_flg_in_next_frame = false;
+        if (_is_active_flg) {
+            _is_active_flg = false;
+            _is_active_flg_in_next_frame = false;
+        }
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
