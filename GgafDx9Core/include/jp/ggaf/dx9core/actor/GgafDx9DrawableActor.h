@@ -51,7 +51,8 @@ public:
     GgafDx9Effect* _pGgafDx9Effect;
 
     int _now_drawdepth;
-
+    /** 特別な描画深度 */
+    int _specal_drawdepth;
 
     /**
      * コンストラクタ .
@@ -131,6 +132,15 @@ public:
         }
     }
 
+    /**
+     * 特別な描画深度を強制する。 .
+     * 0以上指定場合、描画深度指定にこの値が使用される。
+     * 負の数の指定場合、自動設定に戻る（_specal_drawdepthのデフォルトは-1)
+     * @param prm_drawdepth
+     */
+    void setSpecialDrawdepth(int prm_drawdepth) {
+        _specal_drawdepth = prm_drawdepth;
+    }
     /**
      * 共通の描画事前処理 .
      * 段階レンダリングを実現するために、自身の深度に応じて

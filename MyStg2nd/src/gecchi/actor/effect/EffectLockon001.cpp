@@ -18,7 +18,7 @@ EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(p
 void EffectLockOn001::initialize() {
     _pUvFlipper->forcePtnNoRange(0, 3);   //アニメ範囲を０～１５
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //アニメ順序
-
+    setSpecialDrawdepth(1); //最前面描画。ロックオンエフェクトが隠れないようにするため
 }
 
 void EffectLockOn001::onActive() {
@@ -26,14 +26,14 @@ void EffectLockOn001::onActive() {
     setAlpha(0.01);
     _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
     _pScaler->setScale(60000); //(6000%)
-    _pScaler->intoTargetScaleLinerUntil(2000, 20);//スケーリング・20F費やして2000(200%)に縮小
+    _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
     _pMover->setFaceAngVelo(AXIS_Z, 1000);        //回転
     _pSeReflector->play3D(0);
 }
 
 void EffectLockOn001::processBehavior() {
     if (getAlpha() < 1.0) {
-        addAlpha(0.05);
+        addAlpha(0.01);
     }
 
     if (_pScaler->_method[0] == NOSCALE) {
