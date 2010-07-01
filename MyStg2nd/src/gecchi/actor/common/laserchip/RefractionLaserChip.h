@@ -4,9 +4,11 @@ namespace MyStg2nd {
 
 /**
  * 屈折レーザー用ポリラインのチップ .
- * 屈折レーザーと表現しているが、
- * 正確には発射座標固定、移動方向は先頭チップが決める、押し出し形レーザーというべきか。
- * ところてん方式レーザーと言うべきか、そんな感じ。
+ * 屈折レーザーなどどと表現しているが、正確には <BR>
+ * ・発射座標固定、 <BR>
+ * ・移動方向、速度は先頭チップがのみが決め、残りチップは単に追従する<BR>
+ * ・移動方向は直進、但し一定間隔で移動方向が変化 <BR>
+ * と言うべきか、ダライアス多段レーザーと言うべきか、そんな感じ。
  * @version 1.00
  * @since 2010/01/19
  * @author Masatoshi Tsuge
@@ -42,7 +44,13 @@ public:
 
     RefractionLaserChip(const char* prm_name, const char* prm_model);
 
-    void setParam(int prm_num_refraction, DWORD prm_frame_refraction_interval, DWORD prm_frame_standstill) {
+    /**
+     * リフレクションレーザーを定義 .
+     * @param prm_num_refraction 何回反射するか
+     * @param prm_frame_refraction_interval 屈折終了～(直進)～次の屈折開始、までのフレーム間隔
+     * @param prm_frame_standstill 屈折時の停滞貯めフレーム数
+     */
+    void setRefractionParam(int prm_num_refraction, DWORD prm_frame_refraction_interval, DWORD prm_frame_standstill) {
         _num_refraction = prm_num_refraction;
         _frame_refraction_interval = _frame_refraction_interval;
         _frame_standstill = prm_frame_standstill;
@@ -58,7 +66,7 @@ public:
     virtual void processBehavior() override;
 
     /**
-     * 屈折レーザーの先頭チップの動きを実装する .
+     * レーザーの屈折時の先頭チップの動きを実装する .
      * 本当の先頭チップの場合はもちろんコールバックされるが、
      * にわか先頭チップ（ちぎれて急に先頭になったチップ）の場合もコールバックされます。
      */

@@ -10,7 +10,7 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "12/laser_chip_red") { //LaserChipånÇÕç≈ëÂ12ÉZÉbÉg
     _class_name = "EnemyAstraeaLaserChip002";
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
-    setParam(5, 15, 30);
+    setRefractionParam(5, 15, 30);
 }
 
 void EnemyAstraeaLaserChip002::initialize() {
