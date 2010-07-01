@@ -161,7 +161,7 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
         if (len > 0) {
             char c = Text[len-1];
             if (c == '{') { //最終文字
-                // ブロック区切り文字はホワイトスペースの他に'{'も区切りと見なしたい（メタセコアXファイルがそんなふうになっている）
+                // ブロック区切り文字はホワイトスペースの他に'{'も区切りと見なしたい（メタセコイアXファイルがそんなふうになっている）
                 // "Header {" でも "Header{" でも両方OKとするため。
                 Text = string(Text, 0, len-1);
                 token_next = c;

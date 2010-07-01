@@ -19,7 +19,7 @@ GgafDx9MeshModel::GgafDx9MeshModel(char* prm_model_name) : GgafDx9Model(prm_mode
     _paIndexParam = NULL;
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel*)
-    //で行うようにした。
+    //で行うようにした。要参照。
 }
 
 //描画

@@ -11,7 +11,7 @@ GgafDx9PointSpriteModel::GgafDx9PointSpriteModel(char* prm_model_name) : GgafDx9
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel*)
-    //で行うようにした。
+    //で行うようにした。要参照。
 }
 
 //描画

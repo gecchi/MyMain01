@@ -16,7 +16,7 @@ EffectLockOn001_Release::EffectLockOn001_Release(const char* prm_name, EffectLoc
 
 void EffectLockOn001_Release::initialize() {
     _pUvFlipper->copyStatesFrom(_pEffectLockOn001->_pUvFlipper);
-    setSpecialDrawdepth(1); //最前面描画。ロックオンエフェクトが隠れないようにするため
+    setSpecialDrawDepth(1); //最前面描画。ロックオンエフェクトが隠れないようにするため
 }
 
 void EffectLockOn001_Release::onActive() {

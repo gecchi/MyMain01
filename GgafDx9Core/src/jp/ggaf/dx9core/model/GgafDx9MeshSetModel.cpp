@@ -38,7 +38,7 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(pr
     _papaIndexParam = NULL;
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどのメンバー初期化は
     //void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel*)
-    //で行うようにした。
+    //で行うようにした。要参照。
     _TRACE_("GgafDx9MeshSetModel::GgafDx9MeshSetModel(" << _model_name << ") End");
 }
 

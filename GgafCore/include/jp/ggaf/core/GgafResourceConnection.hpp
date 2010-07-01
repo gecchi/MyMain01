@@ -201,7 +201,7 @@ int GgafResourceConnection<T>::close() {
             } else if (rnum < 0) {
                 //通常ココは通らない
                 _TRACE_("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum
-                        << "Connection] 解放しすぎ！。どないやねん。もうアホー(>_<)。とりあえずスルー。");
+                        << "Connection] 解放しすぎ！。おかしい。どないやねん。アホー(>_<)。とりあえずスルー。");
                 _num_connection = 0; //とりあえず解放
             }
             break;

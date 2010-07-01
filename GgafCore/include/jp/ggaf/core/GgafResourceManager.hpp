@@ -4,12 +4,12 @@ namespace GgafCore {
 
 /**
  * 資源管理クラス。 .
- * 資源管理クラスは、資源をラッピングする『資源接続クラス(GgafResourceConnection)』を管理します。<BR>
+ * 資源管理クラスは、資源をラッピングした『資源接続オブジェクト(GgafResourceConnection)』を管理します。<BR>
  * 資源(Resource)を無駄に生成を行わず、参照して使いまわしたい。しかし new するのかどうかを意識したくない。<BR>
  * そんなときに使うクラスです。<BR>
  * GgafResourceManager : Resource : GgafResourceConnection  = 1 : N : N <BR>
  * の関係で、これでワンセットです。<BR>
- * 資源管理クラスは主な機能は、資源接続クラスのインスタンスをを内部にリストで保持し、取得要求があった場合、
+ * 資源管理クラスは主な機能は、資源接続クラスのインスタンス（のポインタ）を内部にリストで保持し、取得要求があった場合、
  * 内部保持していればそれを返し、保持していなければ生成して、リストに追加した後それを返します。
  * (旧GdxfwActorManagerから汎用化)
  * @version 1.00
@@ -184,7 +184,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
         throwGgafCriticalException("GgafResourceManager<T>::connect() 現在connect()中にもかかわらず、connect("<<prm_idstr<<")しました。connectのスレッドを１本にして下さい。")
     }
 
-    //TODO:簡易的な排他。完全ではない。
+    //TODO:簡易的な排他。ほぼ完璧だが完全ではない。
     GgafResourceConnection<T>* pObj = NULL;
     for(int i = 0; GgafResourceConnection<T>::_is_closing_resource; i++) {
         _is_waiting_to_connect = true;
@@ -200,8 +200,8 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
     //シビアなタイミングでメモリを破壊する恐れが残っている！９９％大丈夫と思うのだけども。
     //スレッドセーフ完全対応しようとすると、かなりめんどくさい処理になりそうだ。
     //たぶん全ての connect() 呼び出し元で connect() 失敗時の処理を定義しなくてはいけなくなる。
-    //templateにしたのは失敗だったのか；（void*にすべきだったか）。困った・・・。
-    //時間のあるときにちゃんとやろう。
+    //templateにしたのは失敗だったのか；（void*にすべきだったか）。
+    //時間のあるときにちゃんと勉強してやろう。今は後回し。
     _is_waiting_to_connect = false;
     _is_connecting_resource = true;
     pObj = find(prm_idstr);

@@ -18,7 +18,7 @@ EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(p
 void EffectLockOn001::initialize() {
     _pUvFlipper->forcePtnNoRange(0, 3);   //アニメ範囲を０～１５
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //アニメ順序
-    setSpecialDrawdepth(1); //最前面描画。ロックオンエフェクトが隠れないようにするため
+    setSpecialDrawDepth(1); //最前面描画。ロックオンエフェクトが隠れないようにするため
 }
 
 void EffectLockOn001::onActive() {

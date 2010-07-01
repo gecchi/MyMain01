@@ -135,7 +135,6 @@ public:
      *       しかし『setTextureUvRotation() は内部で実行していない』ため、継承クラス側の初期処理などで、
      *       事前に１回は setTextureUvRotation() を呼び出して、パターンの番号とUV座標（オフセット値）の
      *       対応を定義しておく事が前提となる作りになっている。UV切り替えしないのであれば別の呼ばなくても大丈夫。
-     *       （TODO:本メソッドの事前呼び出しを強制させる仕組みは現在無い。いずれ作りたい。が、とりあえず今は自分で気を付ける）
      *       コンストラクタで以下の初期処理を実行している。必要に応じて下位実装クラスで setTextureUvRotation() 等を行うという仕組み。
      *       ----------------------------------------------------------
      *       _pUvFlipper = NEW GgafDx9UvFlipper(this);
@@ -149,7 +148,8 @@ public:
      *
      * 【まとめ】
      * 要は GgafDx9SpriteMeshActor, GgafDx9SpriteSetMeshActor 利用時は
-     * setTextureUvRotation() を実行が必要、他は不要。
+     * setTextureUvRotation() の事前実行が必要、他は不要。
+     * （TODO:本クラスの事前呼び出しをクラスの仕組みで強制させる仕組みは現在無い。いずれ作りたい。が、とりあえず今は自分で気を付ける）
      * </pre>
      * @param prm_tex_col_num パターンのカラム数。UV座標を改行するために使用される(自然数)
      * @param prm_tex_width １パターンの幅(0.0f～1.0f)

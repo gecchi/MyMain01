@@ -403,7 +403,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
             _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
 
-            //XファイルのFrameTransformMatrix(フレームのアニメーション)を考慮
+            //XファイルのFrameTransformMatrix(0フレーム目の初期化アニメーション)を考慮
             if ((*iteBone) != NULL) {
                 Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
                 if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
@@ -1010,7 +1010,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     }
                 }
             }
-            //XファイルのFrameTransformMatrixを考慮
+            //XファイルのFrameTransformMatrix(0フレーム目の初期化アニメーション)を考慮
             int n = 0;
             int nVertices_begin = 0;
             int nVertices_end = 0;
@@ -2651,7 +2651,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                 iteBone != model_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
 
             _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
-            //XファイルのFrameTransformMatrixを考慮
+            //XファイルのFrameTransformMatrix(0フレーム目の初期化アニメーション)を考慮
             if ((*iteBone) != NULL) {
                 Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
                 if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {

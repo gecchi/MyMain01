@@ -138,7 +138,7 @@ public:
      * 負の数の指定場合、自動設定に戻る（_specal_drawdepthのデフォルトは-1)
      * @param prm_drawdepth
      */
-    void setSpecialDrawdepth(int prm_drawdepth) {
+    void setSpecialDrawDepth(int prm_drawdepth) {
         _specal_drawdepth = prm_drawdepth;
     }
     /**
