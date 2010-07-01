@@ -78,10 +78,10 @@ public:
      * 初期設定パラメーター .
      * 生成直後からinitialize()までに設定することができる、
      * オブジェクト固有パラメータです。
-     * @param prm_radiusPosition
-     * @param prm_angPosition
-     * @param prm_angExpanse
-     * @param prm_veloMv
+     * @param prm_radiusPosition 自機からの半径を指定
+     * @param prm_angPosition 上記半径の円周上においての位置を円周角で指定
+     * @param prm_angExpanse 上記の位置でのオプションの「前方」向きを指定。0で正面
+     * @param prm_veloMv 旋回移動速度を指定
      */
     void setInitializeProperty(
             angle prm_radiusPosition,
