@@ -44,7 +44,7 @@ public:
     GgafDx9GeometryMover* _pMover;
     /** [r]チェッカーオブジェクト */
     GgafDx9Checker* _pChecker;
-    /** [r] */
+    /** [r]効果音発生管理オブジェクト */
     GgafDx9SeReflector* _pSeReflector;
 
     /** [r/w]境界球の半径(DirectXのt単位)。画面外判定に使用される */
@@ -199,12 +199,13 @@ public:
     /**
      * 画面内に表示されているか判定 .
      * @return 0:Viewport範囲内
-     *         6:Viewport視錐台の奥平面より奥で範囲外
-     *         5:Viewport視錐台の手前平面より手前で範囲外
-     *         4:Viewport視錐台の右平面より右で範囲外
-     *         3:Viewport視錐台の左平面より左で範囲外
-     *         2:Viewport視錐台の下平面より下で範囲外
      *         1:Viewport視錐台の上平面より上で範囲外
+     *         2:Viewport視錐台の下平面より下で範囲外
+     *         3:Viewport視錐台の左平面より左で範囲外
+     *         4:Viewport視錐台の右平面より右で範囲外
+     *         5:Viewport視錐台の手前平面より手前で範囲外
+     *         6:Viewport視錐台の奥平面より奥で範囲外
+     *         ※判定優先順位順に並んでいます。（例：1 かつ 4 は 1 が返ります）
      */
     virtual int isOffscreen();
 
