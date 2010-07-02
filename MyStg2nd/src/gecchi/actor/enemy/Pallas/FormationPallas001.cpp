@@ -27,13 +27,26 @@ FormationPallas001::FormationPallas001(const char* prm_name) : GgafDx9FormationA
     }
 }
 void FormationPallas001::initialize() {
-    for (int i = 0; i < _num_Pallas; i++) {
-        _papPallas[i]->setGeometry(_pSplineCon->view()->_X_basepoint[0] ,
-                                   0,
-                                   0);
-        _papPallas[i]->_pMover->setMvVelo(_mv_velo);
-        _papPallas[i]->activateAfter(i*_frame_interval + 1);//_frame_intervalä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
-    }
+    GgafMainActor* pActor = getSubFirst();
+    EnemyPallas* pPallas = NULL;
+    int t = 0;
+    do {
+        pPallas = (EnemyPallas*)pActor;
+        pPallas->setGeometry(_pSplineCon->view()->_X_basepoint[0], 0, 0);
+        pPallas->_pMover->setMvVelo(_mv_velo);
+        pPallas->activateAfter(t*_frame_interval + 1);//_frame_intervalä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
+        t++;
+        pActor = pActor->getNext();
+    } while (!pActor->isFirst());
+
+//
+//    for (GgafMainActor* pActor = getSubFirst(); i < _num_Pallas; i++) {
+//        _papPallas[i]->setGeometry(_pSplineCon->view()->_X_basepoint[0] ,
+//                                   0,
+//                                   0);
+//        _papPallas[i]->_pMover->setMvVelo(_mv_velo);
+//        _papPallas[i]->activateAfter(i*_frame_interval + 1);//_frame_intervalä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
+//    }
 }
 
 FormationPallas001::~FormationPallas001() {

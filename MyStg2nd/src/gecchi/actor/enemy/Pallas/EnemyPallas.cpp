@@ -123,7 +123,7 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
             pExplo001->setGeometry(this);
         }
 
-        if (getParent()->
+        //if (getParent()->
         sayonara();
     }
 }
