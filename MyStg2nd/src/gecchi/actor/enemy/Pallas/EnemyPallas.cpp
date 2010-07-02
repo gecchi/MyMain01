@@ -21,7 +21,7 @@ void EnemyPallas::onCreateModel() {
 
 void EnemyPallas::initialize() {
     setHitAble(true);
-	_pMover->setFaceAngVelo(AXIS_Z, -7000);
+    _pMover->setFaceAngVelo(AXIS_Z, -7000);
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB_Cube(0, 40000);
@@ -122,6 +122,8 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
             pExplo001->activate();
             pExplo001->setGeometry(this);
         }
+
+        if (getParent()->
         sayonara();
     }
 }

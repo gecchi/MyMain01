@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-FormationPallas001::FormationPallas001(const char* prm_name) : FormationActor(prm_name, 30*60) {
+FormationPallas001::FormationPallas001(const char* prm_name) : GgafDx9FormationActor(prm_name, 30*60) {
     _class_name = "FormationPallas001";
     _num_Pallas     = 12*_RANK_;    //ï“ë‡êî
     _frame_interval = 5/_RANK_+5;  //ÉpÉâÉXÇÃä‘äu(frame)

@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-FormationCeres002::FormationCeres002(const char* prm_name) : FormationActor(prm_name) {
+FormationCeres002::FormationCeres002(const char* prm_name) : GgafDx9FormationActor(prm_name) {
     _class_name = "FormationCeres002";
 
     for (int i = 0; i < NUM_CERES_FORMATION002; i++) {

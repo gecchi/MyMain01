@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2009/12/25
  * @author Masatoshi Tsuge
  */
-class FormationIris002 : public GgafDx9LibStg::FormationActor {
+class FormationIris002 : public GgafDx9Core::GgafDx9FormationActor {
 
     DispatcherConnection* _pDispatcherCon;
     Spline3DConnection* _pSplineCon;
