@@ -118,6 +118,9 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
     DELETEARR_IMPOSSIBLE_NULL(model_name);
     DELETEARR_IMPOSSIBLE_NULL(effelct_name);
+
+    _now_drawdepth = 0;
+    _specal_drawdepth = -1;
 }
 
 
