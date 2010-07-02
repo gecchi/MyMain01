@@ -153,8 +153,8 @@ enum GgafDx9BlinkerMethod {
     BEAT_BLINK_PARABOLA_REV   //!< BEAT_BLINK_PARABOLA_REV
 };
 
-#define Obj_GgafDx9Scene          (0x10)             //&B 00000000 00000000 00000000 00010000
-#define Obj_GgafDx9Universe       (0x20)             //&B 00000000 00000000 00000000 00100000
+#define Obj_GgafDx9Scene                (0x10)             //&B 00000000 00000000 00000000 00010000
+#define Obj_GgafDx9Universe             (0x20)             //&B 00000000 00000000 00000000 00100000
 
 #define Obj_GgafDx9BaseActor            (0x80)             //&B 00000000 00000000 00000000 10000000
 #define Obj_GgafDx9GeometricActor       (0x100)            //&B 00000000 00000000 00000001 00000000
@@ -179,7 +179,7 @@ enum GgafDx9BlinkerMethod {
 #define Obj_GgafDx9BoardSetActor        (0x8000000)        //&B 00001000 00000000 00000000 00000000
 #define Obj_GgafDx9PointSpriteActor     (0x10000000)       //&B 00010000 00000000 00000000 00000000
 #define Obj_GgafDx9StringBoardActor     (0x20000000)       //&B 00100000 00000000 00000000 00000000
-
+#define Obj_GgafDx9FormationActor       (0x40000000)       //&B 01000000 00000000 00000000 00000000
 
 
 namespace GgafDx9Core {
@@ -228,6 +228,7 @@ class GgafDx9CameraViewPoint;
 class GgafDx9BoardActor;
 class GgafDx9BoardSetActor;
 class GgafDx9PointSpriteActor;
+class GgafDx9FormationActor;
 
 class GgafDx9Model;
 class GgafDx9D3DXMeshModel;
@@ -324,6 +325,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/GgafDx9BoardActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9BoardSetActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9PointSpriteActor.h"
+#include "jp/ggaf/dx9core/actor/GgafDx9FormationActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeEx.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SphereActor.h"
@@ -331,6 +333,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SpriteMeshActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SpriteMeshSetActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9StringBoardActor.h"
+
 
 #include "jp/ggaf/dx9core/model/GgafDx9Model.h"
 #include "jp/ggaf/dx9core/model/GgafDx9D3DXMeshModel.h"
