@@ -50,14 +50,27 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
         //pChip->inactivateImmediately();
         _pLaserChipDispatcher->addSubLast(pChip);
     }
-    addSubLast(_pLaserChipDispatcher);
+    addSubGroup(_pLaserChipDispatcher);
+
+    _pDispatcher_MyShots001 = NEW GgafActorDispatcher("RotShot001");
+    MyShot001* pShot;
+    for (int i = 0; i < 20; i++) { //自弾ストック
+        pShot = NEW MyShot001("MY_MyShot001");
+        pShot->inactivateImmediately();
+        _pDispatcher_MyShots001->addSubLast(pShot);
+    }
+    addSubGroup(_pDispatcher_MyShots001);
+
+
 
     _pEffectLockOn = NEW EffectLockOn001("EffectLockOn001");
     addSubGroup(_pEffectLockOn);
     _pEffectLockOn_Release = NEW EffectLockOn001_Release("EffectLockOn001_R", _pEffectLockOn);
     addSubGroup(_pEffectLockOn_Release);
-    _pSeReflector->useSe(1);
+    _pSeReflector->useSe(2);
     _pSeReflector->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
+    _pSeReflector->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
+
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
     _pLockOnTarget = NULL;
 }
@@ -84,8 +97,8 @@ void MyOption::initialize() {
     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
-    GameGlobal::_pSceneCommon->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
-	
+    //GameGlobal::_pSceneCommon->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
+
 	_SX=_SY=_SZ=100;
 }
 
@@ -438,6 +451,21 @@ void MyOption::processBehavior() {
         }
        _pEffectLockOn->inactivate();
     }
+
+
+    if (VB->isPushedDown(VB_SHOT1)) {
+        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
+        if (pShot != NULL) {
+            _pSeReflector->play3D(1);
+            pShot->setGeometry(this);
+            pShot->_pMover->_angFace[AXIS_X] = _RX;
+            pShot->_pMover->_angFace[AXIS_Z] = _RZ;
+            pShot->_pMover->_angFace[AXIS_Y] = _RY;
+            pShot->_pMover->setRzRyMvAng(_RZ, _RY);
+            pShot->activate();
+        }
+    }
+
 
     _pSeReflector->behave();
 

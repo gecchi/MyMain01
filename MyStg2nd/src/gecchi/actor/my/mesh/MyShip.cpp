@@ -56,21 +56,12 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 
     _pDispatcher_MyShots001 = NEW GgafActorDispatcher("RotShot001");
     MyShot001* pShot;
-    for (int i = 0; i < 10; i++) { //自弾ストック
+    for (int i = 0; i < 20; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateImmediately();
         _pDispatcher_MyShots001->addSubLast(pShot);
     }
-    addSubLast(_pDispatcher_MyShots001); //仮サブ
-
-    _pDispatcher_MyWaves001 = NEW GgafActorDispatcher("RotWave001");
-    MyWave001* pWave;
-    for (int i = 0; i < 10; i++) { //自弾ストック
-        pWave = NEW MyWave001("MY_Wave001");
-        pWave->inactivateImmediately();
-        _pDispatcher_MyWaves001->addSubLast(pWave);
-    }
-    addSubLast(_pDispatcher_MyWaves001); //仮サブ
+    addSubGroup(_pDispatcher_MyShots001);
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
     MyStraightLaserChip001* pChip;
@@ -164,10 +155,10 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     paFuncTurbo[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
     paFuncTurbo[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
-    _pSeReflector->useSe(2);
+    _pSeReflector->useSe(3);
     _pSeReflector->set(0, "se-020");
     _pSeReflector->set(1,"laser001", 99);
-
+    _pSeReflector->set(2,"fire01", 99);
     char rankstr[80] = {0} ;// 全て0で初期化
     MyStgUtil::getRankStr(99999, rankstr);
     _TRACE_("RANKSTR:"<<rankstr);
@@ -187,8 +178,8 @@ void MyShip::initialize() {
 
 
     //種別に振り分け
-    getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDispatcher_MyShots001->extract());
-    getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDispatcher_MyWaves001->extract());
+//    getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDispatcher_MyShots001->extract());
+//    getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDispatcher_MyWaves001->extract());
     //getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
 
     setHitAble(true);
@@ -419,31 +410,12 @@ void MyShip::processJudgement() {
     if (VB->isPushedDown(VB_SHOT1)) {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot != NULL) {
+            _pSeReflector->play3D(2);
+            pShot->setGeometry(this);
             pShot->activate();
-
-            EffectExplosion001* pExplo001 =
-                    (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-            if (pExplo001 != NULL) {
-                pExplo001->setGeometry(this);
-                pExplo001->activate();
-            }
         }
     }
 
-    //ショットボタン
-    if (VB->arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
-        MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
-        if (pWave != NULL) {
-            pWave->activate();
-
-            EffectExplosion001* pExplo001 =
-                    (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-            if (pExplo001 != NULL) {
-                pExplo001->activate();
-                pExplo001->setGeometry(this);
-            }
-        }
-    }
 }
 
 void MyShip::onHit(GgafActor* prm_pOtherActor) {

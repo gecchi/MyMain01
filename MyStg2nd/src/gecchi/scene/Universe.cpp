@@ -18,6 +18,9 @@ Universe::Universe(const char* prm_name) : DefaultUniverse(prm_name) {
 	GgafRepeatSeq::create("CH_bom10", 0, 5); //Metis”š”­
     GgafRepeatSeq::create("CH_explos3", 0, 3); //Vesta”š”­
     GgafRepeatSeq::create("CH_humei10", 0, 1); //LockOn
+    GgafRepeatSeq::create("CH_fire01", 0, 16); //LockOn
+
+
     //y‚ß‚àz
     //‚±‚±‚ÅActor‚âScene‚ÌNEW‚ğ‚Í‚µ‚Ä‚Í‚È‚ç‚È‚¢B
     //‚Ü‚¸‚Í‚±‚Ì¢‚ğì‚é‚±‚Æ‚ğ—Dæ‚µ‚È‚¢‚ÆA‚¢‚ë‚¢‚ë‚Æ•s“s‡‚ª‚ ‚éB

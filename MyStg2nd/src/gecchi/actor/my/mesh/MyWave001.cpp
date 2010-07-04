@@ -38,7 +38,6 @@ void MyWave001::initialize() {
     //setAlpha(0.2);
 
     setHitAble(true);
-    inactivateTree();
 
 }
 
@@ -69,7 +68,7 @@ void MyWave001::processBehavior() {
 void MyWave001::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOutOfGameSpace()) {
-        inactivateTree();
+        sayonara();
     }
 
 }
@@ -85,13 +84,10 @@ void MyWave001::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("MyWave001::onHit ショットがヒットしました");
     //_TRACE_("MyWave001ヒットしました。("<<_X<<","<<_Y<<")");
     //end();
-    inactivateTree();
+    sayonara();
 }
 
 void MyWave001::onInactive() {
-    //消失時処理
-    setHitAble(false);
-    moveFirst();
 }
 
 MyWave001::~MyWave001() {

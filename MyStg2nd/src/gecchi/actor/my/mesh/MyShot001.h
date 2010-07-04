@@ -1,5 +1,5 @@
-#ifndef SHOT004_H_
-#define SHOT004_H_
+#ifndef MYSHOT001_H_
+#define MYSHOT001_H_
 namespace MyStg2nd {
 
 /**
@@ -35,5 +35,5 @@ public:
 };
 
 }
-#endif /*SHOT004_H_*/
+#endif /*MYSHOT001_H_*/
 

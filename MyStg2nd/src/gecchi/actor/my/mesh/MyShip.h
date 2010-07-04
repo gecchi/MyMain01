@@ -246,9 +246,7 @@ public:
 
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
 
-    GgafCore::GgafActorDispatcher* _pDispatcher_MyWaves001;
     GgafCore::GgafActorDispatcher* _pDispatcher_MyShots001;
-//    GgafCore::GgafActorDispatcher* _pLaserChipDispatcher;
     GgafCore::GgafActorDispatcher* _pDispatcher_EnemyShots001;
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion001;
     LaserChipDispatcher* _pLaserChipDispatcher;

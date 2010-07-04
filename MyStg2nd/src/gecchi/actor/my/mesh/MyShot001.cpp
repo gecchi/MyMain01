@@ -13,15 +13,18 @@ MyShot001::MyShot001(const char* prm_name) :
 
 void MyShot001::initialize() {
     setHitAble(false);
-    _SX = _SY = _SZ = 50 * 1000;
+    _SX = 35 * 1000;
+    _SY = _SZ = 25 * 1000;
     setAlpha(0.99); //半透明にすることで両面レンダリング
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    _pCollisionChecker->setColliAAB(0, -50000, -40000, -40000, 50000, 40000, 40000);
+    _pMover->setFaceAngVelo(AXIS_X, 12000);
 }
 
 void MyShot001::onActive() {
     setHitAble(true);
-    _pMover->setMvVelo(50000);             //移動速度
+    _pMover->setMvVelo(70000);             //移動速度
+    _pMover->setMvAcce(100);
 }
 
 void MyShot001::processBehavior() {
@@ -30,7 +33,11 @@ void MyShot001::processBehavior() {
     //弾なので不要
 
     //座標に反映
-    _pMover->behave();
+    //if (onChangeToActive()) {
+
+    //} else {
+        _pMover->behave();
+    //}
 }
 
 void MyShot001::processJudgement() {
@@ -41,17 +48,14 @@ void MyShot001::processJudgement() {
 
 void MyShot001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-//    //・・・ココにヒットされたエフェクト
-    if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //破壊された場合
-        //・・・ココに破壊されたエフェクト
+    //if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->activate();
             pExplo001->setGeometry(this);
         }
         sayonara();
-    }
+    //}
 }
 
 
