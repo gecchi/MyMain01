@@ -273,7 +273,7 @@ class LaserChipEffectActor;
 #include "gecchi/actor/my/mesh/MyOptionParentGizmo.h"
 #include "gecchi/actor/my/mesh/MyOptionParentDirectionVector.h"
 #include "gecchi/actor/my/mesh/MyOption.h"
-#include "gecchi/actor/my/sprite/MyShot001.h"
+#include "gecchi/actor/my/mesh/MyShot001.h"
 #include "gecchi/actor/my/mesh/MyWave001.h"
 #include "gecchi/actor/my/mesh/MyCurveLaserChip001.h"
 #include "gecchi/actor/my/mesh/MyStraightLaserChip001.h"

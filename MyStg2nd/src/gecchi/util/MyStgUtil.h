@@ -176,7 +176,7 @@ public:
 
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
-    // コード変更は「シーンCreater.xls」から行っていただきたい。
+    // コード変更は「ステータスCreater.xls」から行っていただきたい。
     // gen01 start
 	//自機レーザー
 	static void resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
@@ -218,6 +218,8 @@ public:
 	static void resetTorusStatus(GgafCore::GgafStatus* p);
 	//パラス
 	static void resetEnemyPallasStatus(GgafCore::GgafStatus* p);
+	//自機ショット
+	static void resetMyShot001Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

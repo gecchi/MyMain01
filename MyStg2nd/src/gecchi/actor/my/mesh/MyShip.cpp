@@ -414,20 +414,9 @@ void MyShip::processJudgement() {
         }
     }
 
-    //ショットボタン
-    if (VB->isPushedDown(VB_SHOT1)) {
-        MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
-        if (pWave != NULL) {
-            pWave->activate();
 
-            EffectExplosion001* pExplo001 =
-                    (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-            if (pExplo001 != NULL) {
-                pExplo001->activate();
-                pExplo001->setGeometry(this);
-            }
-        }
-    } else if (VB->arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
+
+    if (VB->isPushedDown(VB_SHOT1)) {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot != NULL) {
             pShot->activate();
@@ -437,6 +426,21 @@ void MyShip::processJudgement() {
             if (pExplo001 != NULL) {
                 pExplo001->setGeometry(this);
                 pExplo001->activate();
+            }
+        }
+    }
+
+    //ショットボタン
+    if (VB->arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
+        MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
+        if (pWave != NULL) {
+            pWave->activate();
+
+            EffectExplosion001* pExplo001 =
+                    (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+            if (pExplo001 != NULL) {
+                pExplo001->activate();
+                pExplo001->setGeometry(this);
             }
         }
     }

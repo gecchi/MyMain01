@@ -117,7 +117,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 
 
 // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
-// コード変更は「シーンCreater.xls」から行っていただきたい。
+// コード変更は「ステータスCreater.xls」から行っていただきたい。
 // gen02 start
 	void MyStgUtil::resetMyStraightLaserChip001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);  //種別(デフォルト)
@@ -355,6 +355,18 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 100 );  //体力
 		p->set(STAT_Attack, 99 );  //攻撃力
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
+	}
+	void MyStgUtil::resetMyShot001Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);  //種別(デフォルト)
+		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_AddScorePoint, 0 );  //加算得点
+		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
+		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
+		p->set(STAT_Stamina, 100 );  //体力
+		p->set(STAT_Attack, 105 );  //攻撃力
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
