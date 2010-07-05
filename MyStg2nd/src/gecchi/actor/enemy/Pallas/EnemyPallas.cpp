@@ -116,11 +116,11 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion003* pExplo003 = (EffectExplosion003*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion003->employ();
         _pSeReflector->play3D(0);
-        if (pExplo001 != NULL) {
-            pExplo001->activate();
-            pExplo001->setGeometry(this);
+        if (pExplo003 != NULL) {
+            pExplo003->activate();
+            pExplo003->setGeometry(this);
         }
 
         //if (getParent()->

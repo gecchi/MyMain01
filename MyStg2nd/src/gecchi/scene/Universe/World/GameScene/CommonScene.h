@@ -12,6 +12,7 @@ public:
 
     GgafCore::GgafActorDispatcher* _pDispatcher_EnemyShots001;
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion001;
+    GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion003;
     GgafCore::GgafActorDispatcher* _pDispatcher_LaserChipDispatcher;
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectTurbo002;
     CommonScene(const char* prm_name);
