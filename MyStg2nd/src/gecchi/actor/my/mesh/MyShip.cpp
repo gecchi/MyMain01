@@ -56,7 +56,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 
     _pDispatcher_MyShots001 = NEW GgafActorDispatcher("RotShot001");
     MyShot001* pShot;
-    for (int i = 0; i < 20; i++) { //自弾ストック
+    for (int i = 0; i < 25; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateImmediately();
         _pDispatcher_MyShots001->addSubLast(pShot);
@@ -402,7 +402,7 @@ void MyShip::processJudgement() {
     _is_shooting_laser = false;
     if (VB->isBeingPressed(VB_SHOT1)) {
         _dwFrame_shot_pressed ++;
-        if (_dwFrame_shot_pressed > 8) { //８フレーム押しっぱなしでレーザーへ
+        if (_dwFrame_shot_pressed > 30) { //12フレーム押しっぱなしでレーザーへ
             _is_shooting_laser = true;
         }
     } else {
@@ -447,7 +447,7 @@ void MyShip::processJudgement() {
                 pShot->setGeometry(this);
                 pShot->activate();
             }
-            if (_dwFrame_soft_rapidshot >= 16) {
+            if (_dwFrame_soft_rapidshot >= 12) {
                 //4発打ち終えたらソフト連射終了
                 _is_being_soft_rapidshot = false;
             }

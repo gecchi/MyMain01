@@ -54,7 +54,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 
     _pDispatcher_MyShots001 = NEW GgafActorDispatcher("RotShot001");
     MyShot001* pShot;
-    for (int i = 0; i < 20; i++) { //自弾ストック
+    for (int i = 0; i < 25; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateImmediately();
         _pDispatcher_MyShots001->addSubLast(pShot);
