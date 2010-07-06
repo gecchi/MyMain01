@@ -151,6 +151,9 @@ void GameMainScene::processBehavior() {
         _pFont1601->update(300, 300, "");
         _pFont1602->update(300, 350, "");
 
+    } else if (getProgress() == GAMEMAIN_PROG_PLAY) {
+        //活動ループ
+
     }
 
     //SCORE表示
@@ -183,8 +186,8 @@ void GameMainScene::processBehavior() {
 
         GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
         //カメラ位置を行ったり来たり
-        if (VB->isPushedDown(VB_ZMOVE)) {
-            _TRACE_("VB_ZMOVE!! now _pos_camera="<<_pos_camera);
+        if (VB->isPushedDown(VB_VIEW)) {
+            _TRACE_("VB_VIEW!! now _pos_camera="<<_pos_camera);
             if (_pos_camera < CAM_POS_TO_BEHIND) { //背面視点ではない場合、
                 _pos_camera += CAM_POS_TO_BEHIND;  //それぞれの対応背面視点へ
             } else if (_pos_camera > CAM_POS_TO_BEHIND) {//背面視点の場合
@@ -202,7 +205,7 @@ void GameMainScene::processBehavior() {
                     _pos_camera -= CAM_POS_TO_BEHIND;
                 }
             }
-            _TRACE_("VB_ZMOVE!!  -> _pos_camera="<<_pos_camera);
+            _TRACE_("VB_VIEW!!  -> _pos_camera="<<_pos_camera);
         }
 
         //カメラの移動目標点
@@ -336,14 +339,14 @@ void GameMainScene::processBehavior() {
         //各軸最大速度
         int cam_velo_renge;
 
-        if (VB->isBeingPressed(VB_ZMOVE)) {
+        if (VB->isBeingPressed(VB_VIEW)) {
             cam_velo_renge = _cam_velo_renge / 100; //おしっぱはゆっくり
         } else {
             cam_velo_renge = _cam_velo_renge;
         }
         //離した場合
-        if (VB->isReleasedUp(VB_ZMOVE)) {
-            if (VB->isPushedUp(VB_ZMOVE, 20)) {
+        if (VB->isReleasedUp(VB_VIEW)) {
+            if (VB->isPushedUp(VB_VIEW, 20)) {
                 //チョン押しの場合
             } else {
                 //長押し
@@ -624,23 +627,6 @@ void GameMainScene::processBehavior() {
             pCAM->_pMover->behave();
             pVP->_pMover->behave();
         }
-
-        if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
-            pCAM->_pMover->setMvAng(0,0,0);
-            _TRACE_("GgafDx9Universe Camera=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<")");
-        }
-
-    //    if ( getSubFirst()->canBehave() ) {
-    //        //スルー
-    //    } else {
-    //        //カメラ注視方向設定
-    //        pCAM->setViewPoint (
-    //                   pCAM->_X + (pCAM->_pMover->_vX * LEN_UNIT * PX_UNIT),
-    //                   pCAM->_Y + (pCAM->_pMover->_vY * LEN_UNIT * PX_UNIT),
-    //                   pCAM->_Z + (pCAM->_pMover->_vZ * LEN_UNIT * PX_UNIT)
-    //                  );
-    //        pCAM->_pMover->setMvAng(0,0,0);
-    //    }
 
     } // if (getProgress() == GAMEMAIN_PROG_PLAY)
 }

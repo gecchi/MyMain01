@@ -400,7 +400,7 @@ void MyOption::processBehavior() {
     _pMover->setVyMvVelo(0);
     _pMover->setVzMvVelo(0);
             //_TRACE_("_pVBMap_Active->_state="<<(vbsta)(VB->_pVBMap_Active->_state));
-    if (pMYSHIP->_is_laser && VB->isBeingPressed(VB_SHOT1)) {
+    if (pMYSHIP->_is_shooting_laser && VB->isBeingPressed(VB_SHOT1)) {
 
 
         MyCurveLaserChip001* pLaserChip = (MyCurveLaserChip001*)_pLaserChipDispatcher->employ();

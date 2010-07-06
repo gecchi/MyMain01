@@ -168,9 +168,9 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _iMvVelo_TurboBottom = 10000;
 
     _dwFrame_soft_rapidshot = 0;
-    _is_duration_of_soft_rapidshot = false;
+    _is_being_soft_rapidshot = false;
     _just_shot = false;
-    _is_laser = false;
+    _is_shooting_laser = false;
     _dwFrame_shot_pressed = 0;
 }
 
@@ -399,18 +399,18 @@ void MyShip::processBehavior() {
 
 void MyShip::processJudgement() {
     //ショット関連処理
-    _is_laser = false;
+    _is_shooting_laser = false;
     if (VB->isBeingPressed(VB_SHOT1)) {
         _dwFrame_shot_pressed ++;
-        if (_dwFrame_shot_pressed > 8) {
-            _is_laser = true;
+        if (_dwFrame_shot_pressed > 8) { //８フレーム押しっぱなしでレーザーへ
+            _is_shooting_laser = true;
         }
     } else {
         _dwFrame_shot_pressed = 0;
     }
 
 
-    if (_is_laser) {
+    if (_is_shooting_laser) {
         if (VB->isBeingPressed(VB_SHOT1)) {//isBeingPressed
             //GgafActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
             MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
@@ -424,9 +424,9 @@ void MyShip::processJudgement() {
     }
 
     //ソフト連射
-    //1プッシュで4F毎に最大5発
+    //1プッシュで4F毎に16フレーム(最大4発)
     if (VB->isPushedDown(VB_SHOT1)) {
-        _is_duration_of_soft_rapidshot = true;
+        _is_being_soft_rapidshot = true;
         if (_dwFrame_soft_rapidshot >= 4) {
             //４フレームより遅い場合
             //連射と連射のつなぎ目が無いようにする
@@ -437,10 +437,10 @@ void MyShip::processJudgement() {
             _dwFrame_soft_rapidshot = 0;
         }
     }
-    _just_shot = false; //たった今ショットしましたフラグ
-    if (_is_duration_of_soft_rapidshot) {
+    _just_shot = false;
+    if (_is_being_soft_rapidshot) {
         if (_dwFrame_soft_rapidshot % 4 == 0) {
-            _just_shot = true;
+            _just_shot = true;//たった今ショットしましたフラグ
             MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
             if (pShot != NULL) {
                 _pSeReflector->play3D(2);
@@ -448,11 +448,12 @@ void MyShip::processJudgement() {
                 pShot->activate();
             }
             if (_dwFrame_soft_rapidshot >= 16) {
-                _is_duration_of_soft_rapidshot = false;
+                //4発打ち終えたらソフト連射終了
+                _is_being_soft_rapidshot = false;
             }
         }
     }
-    if (_is_duration_of_soft_rapidshot) {
+    if (_is_being_soft_rapidshot) {
         _dwFrame_soft_rapidshot++;
     }
 

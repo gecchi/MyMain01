@@ -42,13 +42,13 @@
 #define KIND_CHOKI       (0x2)    //010
 #define KIND_PA          (0x4)    //100
 
-
+//VirtualButton.h ‚Ì define ‚Ì•Ê–¼‚ð’è‹`
 #define VB_SHOT1    VB_BUTTON1
 #define VB_SHOT2    VB_BUTTON2
 #define VB_OPTION   VB_BUTTON3
-#define VB_ZMOVE    VB_BUTTON4
+#define VB_VIEW     VB_BUTTON4
 #define VB_TURBO    VB_BUTTON5
-#define VB_SHOT1_R  VB_BUTTON6
+#define VB_POWERUP  VB_BUTTON6
 
 //STAT_DEFAULT_ACTOR_KIND‚Í0
 #define STAT_AddScorePoint          1

@@ -24,7 +24,10 @@ public:
 
 
     DWORD _dwFrame_Begin;
+    DWORD _dwFrame_Play;
     DWORD _dwFrame_End;
+
+    LabelGecchi16Font* _pMessage;
 
     Stage01Scene(const char* prm_name);
     /**

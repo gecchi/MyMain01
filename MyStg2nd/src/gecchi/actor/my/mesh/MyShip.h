@@ -254,11 +254,15 @@ public:
 
     EffectTurbo001* _pEffectTurbo001;
 
-
+    /** ソフト連射開始からの経過フレーム数 */
     DWORD _dwFrame_soft_rapidshot;
-    boolean _is_duration_of_soft_rapidshot;
+    /** ソフト連射中であるか否か */
+    boolean _is_being_soft_rapidshot;
+    /** ショットしたフレームのみ true になる */
     boolean _just_shot;
-    boolean _is_laser;
+    /** レーザー発射かどうか */
+    boolean _is_shooting_laser;
+    /** SHOTボタン押しっぱなし経過フレーム数（レーザー発射開始判定のため） */
     DWORD _dwFrame_shot_pressed;
 
     MyShip(const char* prm_name);

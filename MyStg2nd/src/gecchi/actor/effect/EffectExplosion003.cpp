@@ -5,9 +5,11 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EffectExplosion003::EffectExplosion003(const char* prm_name) : DefaultSpriteSetActor(prm_name, "18/EffectExplosion003") {
+EffectExplosion003::EffectExplosion003(const char* prm_name) : DefaultSpriteSetActor(prm_name, "EffectExplosion003") {
     _class_name = "EffectExplosion003";
-    chengeEffectTechnique("DestBlendOne"); //加算合成Technique指定
+    //加算合成Technique指定
+    chengeEffectTechnique("DestBlendOne");
+    //ワールド変換行列はビルボード指定
     defineWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv);
 }
 
@@ -15,7 +17,6 @@ void EffectExplosion003::initialize() {
     _pUvFlipper->forcePtnNoRange(0, 63);
     _pScaler->forceScaleRange(500, 2000);
     setHitAble(false);
-
 }
 
 void EffectExplosion003::onActive() {

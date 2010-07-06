@@ -13,22 +13,12 @@ class EffectExplosion003 : public GgafDx9LibStg::DefaultSpriteSetActor {
 public:
     EffectExplosion003(const char* prm_name);
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
     void initialize() override;
-
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
-    void processBehavior() override;
-
 
     void onActive() override;
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
+    void processBehavior() override;
+
     void processJudgement() override;
 
     virtual ~EffectExplosion003();
