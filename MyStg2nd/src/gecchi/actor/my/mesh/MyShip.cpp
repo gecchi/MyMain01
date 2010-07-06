@@ -166,6 +166,12 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 
     _iMvVelo_TurboTop = 30000;
     _iMvVelo_TurboBottom = 10000;
+
+    _dwFrame_soft_rapidshot = 0;
+    _is_duration_of_soft_rapidshot = false;
+    _just_shot = false;
+    _is_laser = false;
+    _dwFrame_shot_pressed = 0;
 }
 
 void MyShip::onActive() {
@@ -393,27 +399,61 @@ void MyShip::processBehavior() {
 
 void MyShip::processJudgement() {
     //ショット関連処理
-    if (VB->isBeingPressed(VB_SHOT2)) {//isBeingPressed
+    _is_laser = false;
+    if (VB->isBeingPressed(VB_SHOT1)) {
+        _dwFrame_shot_pressed ++;
+        if (_dwFrame_shot_pressed > 8) {
+            _is_laser = true;
+        }
+    } else {
+        _dwFrame_shot_pressed = 0;
+    }
 
-        //GgafActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
-        MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
-        if (pLaser != NULL) {
-            pLaser->activate();
-            if (pLaser->_pChip_front == NULL) {
-                _pSeReflector->play3D(1);
+
+    if (_is_laser) {
+        if (VB->isBeingPressed(VB_SHOT1)) {//isBeingPressed
+            //GgafActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
+            MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
+            if (pLaser != NULL) {
+                pLaser->activate();
+                if (pLaser->_pChip_front == NULL) {
+                    _pSeReflector->play3D(1);
+                }
             }
         }
     }
 
-
-
+    //ソフト連射
+    //1プッシュで4F毎に最大5発
     if (VB->isPushedDown(VB_SHOT1)) {
-        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
-        if (pShot != NULL) {
-            _pSeReflector->play3D(2);
-            pShot->setGeometry(this);
-            pShot->activate();
+        _is_duration_of_soft_rapidshot = true;
+        if (_dwFrame_soft_rapidshot >= 4) {
+            //４フレームより遅い場合
+            //連射と連射のつなぎ目が無いようにする
+            _dwFrame_soft_rapidshot = _dwFrame_soft_rapidshot % 4;
+        } else {
+            //４フレームより速い連射の場合
+            //これを受け入れて強制的に発射できる
+            _dwFrame_soft_rapidshot = 0;
         }
+    }
+    _just_shot = false; //たった今ショットしましたフラグ
+    if (_is_duration_of_soft_rapidshot) {
+        if (_dwFrame_soft_rapidshot % 4 == 0) {
+            _just_shot = true;
+            MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
+            if (pShot != NULL) {
+                _pSeReflector->play3D(2);
+                pShot->setGeometry(this);
+                pShot->activate();
+            }
+            if (_dwFrame_soft_rapidshot >= 16) {
+                _is_duration_of_soft_rapidshot = false;
+            }
+        }
+    }
+    if (_is_duration_of_soft_rapidshot) {
+        _dwFrame_soft_rapidshot++;
     }
 
 }

@@ -99,7 +99,7 @@ void MyOption::initialize() {
     _Zorg = _Z;
     //GameGlobal::_pSceneCommon->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
 
-	_SX=_SY=_SZ=100;
+    _SX=_SY=_SZ=100;
 }
 
 void MyOption::addRadiusPosition(int prm_radius_offset) {
@@ -400,7 +400,7 @@ void MyOption::processBehavior() {
     _pMover->setVyMvVelo(0);
     _pMover->setVzMvVelo(0);
             //_TRACE_("_pVBMap_Active->_state="<<(vbsta)(VB->_pVBMap_Active->_state));
-    if (VB->isBeingPressed(VB_SHOT2)) {
+    if (pMYSHIP->_is_laser && VB->isBeingPressed(VB_SHOT1)) {
 
 
         MyCurveLaserChip001* pLaserChip = (MyCurveLaserChip001*)_pLaserChipDispatcher->employ();
@@ -452,8 +452,7 @@ void MyOption::processBehavior() {
        _pEffectLockOn->inactivate();
     }
 
-
-    if (VB->isPushedDown(VB_SHOT1)) {
+    if (pMYSHIP->_just_shot) {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot != NULL) {
             _pSeReflector->play3D(1);
@@ -465,6 +464,19 @@ void MyOption::processBehavior() {
             pShot->activate();
         }
     }
+
+//    if (VB->isPushedDown(VB_SHOT1)) {
+//        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
+//        if (pShot != NULL) {
+//            _pSeReflector->play3D(1);
+//            pShot->setGeometry(this);
+//            pShot->_pMover->_angFace[AXIS_X] = _RX;
+//            pShot->_pMover->_angFace[AXIS_Z] = _RZ;
+//            pShot->_pMover->_angFace[AXIS_Y] = _RY;
+//            pShot->_pMover->setRzRyMvAng(_RZ, _RY);
+//            pShot->activate();
+//        }
+//    }
 
 
     _pSeReflector->behave();

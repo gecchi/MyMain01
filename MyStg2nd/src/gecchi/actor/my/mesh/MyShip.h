@@ -255,6 +255,12 @@ public:
     EffectTurbo001* _pEffectTurbo001;
 
 
+    DWORD _dwFrame_soft_rapidshot;
+    boolean _is_duration_of_soft_rapidshot;
+    boolean _just_shot;
+    boolean _is_laser;
+    DWORD _dwFrame_shot_pressed;
+
     MyShip(const char* prm_name);
 
     /**
