@@ -24,7 +24,7 @@ GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
 
 
 void GgafDx9MeshSetActor::setAlpha(float prm_fAlpha) {
-    GgafDx9DrawableActor::setAlpha(prm_fAlpha);
+    _fAlpha = prm_fAlpha;
     //GgafDx9MeshSetActorはメッシュαも設定（シェーダーで参照するため）
     for (DWORD i = 0; i < _pMeshSetModel->_dwNumMaterials; i++) {
         _paD3DMaterial9[i].Ambient.a = _fAlpha;
@@ -32,6 +32,14 @@ void GgafDx9MeshSetActor::setAlpha(float prm_fAlpha) {
     }
 }
 
+void GgafDx9MeshSetActor::addAlpha(float prm_fAlpha) {
+    _fAlpha += prm_fAlpha;
+    //GgafDx9MeshSetActorはメッシュαも設定（シェーダーで参照するため）
+    for (DWORD i = 0; i < _pMeshSetModel->_dwNumMaterials; i++) {
+        _paD3DMaterial9[i].Ambient.a = _fAlpha;
+        _paD3DMaterial9[i].Diffuse.a = _fAlpha;
+    }
+}
 
 void GgafDx9MeshSetActor::processDraw() {
     _draw_set_num = 1; //GgafDx9MeshSetActorの同じモデルが連続しているカウント数。同一描画深度は一度に描画する。

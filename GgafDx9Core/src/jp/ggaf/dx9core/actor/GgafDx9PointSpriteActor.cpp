@@ -33,12 +33,18 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
 
 
 void GgafDx9PointSpriteActor::setAlpha(float prm_fAlpha) {
-    GgafDx9DrawableActor::setAlpha(prm_fAlpha);
+    _fAlpha = prm_fAlpha;
     //GgafDx9PointSpriteActorはメッシュαも設定（シェーダーで参照するため）
     _paD3DMaterial9[0].Ambient.a = _fAlpha;
     _paD3DMaterial9[0].Diffuse.a = _fAlpha;
 }
 
+void GgafDx9PointSpriteActor::addAlpha(float prm_fAlpha) {
+    _fAlpha += prm_fAlpha;
+    //GgafDx9PointSpriteActorはメッシュαも設定（シェーダーで参照するため）
+    _paD3DMaterial9[0].Ambient.a = _fAlpha;
+    _paD3DMaterial9[0].Diffuse.a = _fAlpha;
+}
 
 void GgafDx9PointSpriteActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;

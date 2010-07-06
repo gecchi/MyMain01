@@ -33,10 +33,15 @@ public:
 
     /**
      * α設定.
-     * ＜オーバーライト＞
      * @param prm_fAlpha
      */
     void setAlpha(float prm_fAlpha) override;
+
+    /**
+     * α加算 .
+     * @param prm_fAlpha
+     */
+    void addAlpha(float prm_fAlpha) override;
 
     virtual ~GgafDx9D3DXAniMeshActor(); //デストラクタ
 };

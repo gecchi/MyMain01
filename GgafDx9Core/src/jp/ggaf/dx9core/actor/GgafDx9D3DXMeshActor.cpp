@@ -25,7 +25,16 @@ GgafDx9D3DXMeshActor::GgafDx9D3DXMeshActor(const char* prm_name,
 }
 
 void GgafDx9D3DXMeshActor::setAlpha(float prm_fAlpha) {
-    GgafDx9DrawableActor::setAlpha(prm_fAlpha);
+    _fAlpha = prm_fAlpha;
+    //GgafDx9D3DXMeshActorはメッシュαも設定（シェーダーで参照するため）
+    for (DWORD i = 0; i < _pD3DXMeshModel->_dwNumMaterials; i++) {
+        _paD3DMaterial9[i].Ambient.a = _fAlpha;
+        _paD3DMaterial9[i].Diffuse.a = _fAlpha;
+    }
+}
+
+void GgafDx9D3DXMeshActor::addAlpha(float prm_fAlpha) {
+    _fAlpha += prm_fAlpha;
     //GgafDx9D3DXMeshActorはメッシュαも設定（シェーダーで参照するため）
     for (DWORD i = 0; i < _pD3DXMeshModel->_dwNumMaterials; i++) {
         _paD3DMaterial9[i].Ambient.a = _fAlpha;

@@ -61,6 +61,14 @@ void GgafDx9SpriteActor::setAlpha(float prm_fAlpha) {
     _paD3DMaterial9[0].Diffuse.a = _fAlpha;
 }
 
+void GgafDx9SpriteActor::addAlpha(float prm_fAlpha) {
+    _fAlpha += prm_fAlpha;
+    //α設定、現在マテリアルはDiffuse以外関係ない
+    _paD3DMaterial9[0].Ambient.a = _fAlpha;
+    _paD3DMaterial9[0].Diffuse.a = _fAlpha;
+}
+
+
 GgafDx9SpriteActor::~GgafDx9SpriteActor() {
     DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
 }

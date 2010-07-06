@@ -36,11 +36,17 @@ public:
     virtual void processDraw() override;
 
     /**
-     * α値設定.
-     * ＜オーバーライト＞
-     * @param prm_fAlpha α値
+     * α設定.
+     * @param prm_fAlpha
      */
     void setAlpha(float prm_fAlpha) override;
+
+    /**
+     * α加算 .
+     * @param prm_fAlpha
+     */
+    void addAlpha(float prm_fAlpha) override;
+
 
     virtual ~GgafDx9MeshActor(); //デストラクタ
 };
