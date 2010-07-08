@@ -198,8 +198,7 @@ void GameScene::processJudgement() {
             CollisionChecker::_pLinearOctree->putTree();
         }
 
-        //八分木アルゴリズムでヒットチェック
-        //配下のシーンに所属アクターの当たり判定処理実行
+        //八分木アルゴリズムで所属シーンの所属アクター全ヒットチェック
         //詳細は 「シーンCreater.xls」 の 「種別相関」 シート参照
         CollisionChecker::_pLinearOctree->executeAllHitChk(
         KIND_MY_SHOT|KIND_MY_BODY,

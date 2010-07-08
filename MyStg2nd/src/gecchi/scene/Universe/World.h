@@ -23,8 +23,7 @@ namespace MyStg2nd {
 
 /**
  * 世界シーンクラス .
- * この世に、とある世界がありました。<BR>
- * 本クラスは、世界の振る舞い等を実装しています。<BR>
+ * 本クラスは、アプリ上の「この世」の振る舞い等を実装しています。<BR>
  */
 class World : public GgafDx9LibStg::DefaultScene {
 
