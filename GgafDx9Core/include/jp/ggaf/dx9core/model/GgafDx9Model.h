@@ -14,35 +14,33 @@ class GgafDx9Model : public GgafCore::GgafObject {
 
 protected:
 public:
-    /** ID */
+    /** [r]ID */
     int _id;
 
-    /** モデル定義の識別名。(50文字まで) */
+    /** [r]モデル定義の識別名。(50文字まで) */
     char* _model_name;
-    /** 次のGgafDx9Modelへのポインタ。終端はNULL */
-    //GgafDx9Model*	_pModel_Next;
 
-    /** マテリアル配列 */
+    /** [r]マテリアル配列 */
     D3DMATERIAL9* _paD3DMaterial9_default;
-    /** マテリアル数 */
+    /** [r]マテリアル数 */
     DWORD _dwNumMaterials;
 
-    /** このモデルのローカル座標の原点から全頂点の距離で最大の長さ */
+    /** [rw]モデルの境界球半径。画面外判定に利用される */
     FLOAT _fBoundingSphereRadius;
-    /** 点滅強度 (0.0 <= _fblink <= 1.0)、GgafDx9TextureBlinkerにより操作出来る */
+    /** [r]点滅強度 (0.0 <= _fblink <= 1.0)。GgafDx9TextureBlinkerにより操作すること */
     FLOAT _fPowerBlink;
-    /** 点滅対象RGB値(0.0 <= tex2D()のrgbの何れか <= 1.0) */
+    /** [r]点滅対象RGB値(0.0 <= tex2D()のrgbの何れか <= 1.0)。GgafDx9TextureBlinkerにより操作すること */
     FLOAT _fBlinkThreshold;
     //_fBlinkThreshold = 1.0 と指定した場合、PSでtex2D()のサンプリングカラーの
     //r,g,b 何れか >= 1.0 の の場合、_fPowerBlink倍数の色(rgb)を加算
     //ゼビウスの地上物破壊後の赤い点滅のようなことをしたかった。
 
-    /** テクスチャ資源コネクション配列 */
+    /** [r]テクスチャ資源コネクション配列 */
     GgafDx9TextureConnection** _papTextureCon;
-    /** 点滅操作支援オブジェクト */
+    /** [r]点滅操作支援オブジェクト */
     GgafDx9TextureBlinker* _pTextureBlinker;
     DWORD _frame_blinker;
-    /** モデル単位の初期処理が実行済みかどうか(draw時チェック＆変更) */
+    /** [r]モデル単位の初期処理が実行済みかどうか(draw時チェック＆変更) */
     bool _is_init_model;
     /**
      * コンストラクタ<BR>
@@ -52,6 +50,24 @@ public:
 
     char* getName(){
         return _model_name;
+    }
+
+    /**
+     * モデルの境界球半径の倍率設定。
+     * 境界球半径とは、ローカル座標の原点から全頂点の距離で最大の長さで、
+     * この値は、画面外判定に利用されてるため、モデル表示時に独自に拡大を行った場合。
+     * この値を更新しないと画面外判定が正しく行われない。<BR>
+     * 例えば、表示時に５倍の拡大で表示した場合、本メソッドで<BR>
+     * <BR>
+     * setBoundingSphereRadiusRate(5.0)<BR>
+     * <BR>
+     * とすると、画面外判定が正しくなる。<BR>
+     * 注意は、モデル１に対して１つしか設定出来無いということ。<BR>
+     * 複数のアクターでバラバラの拡大表示をする場合は、最大の拡大のものを採用するしか無い。<BR>
+     * @param prm_rate 拡大率
+     */
+    virtual void setBoundingSphereRadiusRate(FLOAT prm_rate) {
+        _fBoundingSphereRadius *= prm_rate;
     }
 
     /**

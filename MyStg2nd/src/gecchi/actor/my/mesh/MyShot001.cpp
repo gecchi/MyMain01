@@ -15,6 +15,7 @@ void MyShot001::initialize() {
     setHitAble(false);
     _SX = 35 * 1000;
     _SY = _SZ = 25 * 1000;
+    getModel()->setBoundingSphereRadiusRate(35.0f);
     setAlpha(0.99); //”¼“§–¾‚É‚·‚é‚±‚Æ‚Å—¼–ÊƒŒƒ“ƒ_ƒŠƒ“ƒO
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -50000, -40000, -40000, 50000, 40000, 40000);

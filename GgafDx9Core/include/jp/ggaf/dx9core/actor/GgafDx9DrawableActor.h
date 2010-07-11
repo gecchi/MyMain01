@@ -205,6 +205,13 @@ public:
      */
     virtual void resetMaterialColor();
 
+    virtual GgafDx9Model* getModel() {
+        return _pGgafDx9Model;
+    }
+
+    virtual GgafDx9Effect* getEffect() {
+        return _pGgafDx9Effect;
+    }
     /**
      * モデルが生成された時の処理 .
      * モデルオブジェクトが new された場合に１回だけ呼び出します。
