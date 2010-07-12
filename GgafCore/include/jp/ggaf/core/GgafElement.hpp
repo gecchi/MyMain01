@@ -610,12 +610,29 @@ public:
 
 template<class T>
 GgafElement<T>::GgafElement(const char* prm_name) : GgafCore::GgafNode<T>(prm_name),
-            _pGod(NULL), _was_initialize_flg(false), _will_end_after_flg(false), _frame_of_life_when_end(MAXDWORD), _frame_of_life(0), _frame_of_behaving(0),
-            _frame_of_behaving_since_onActive(0), _frameEnd(0), _is_active_flg(true), _was_paused_flg(false), _can_live_flg(true),
-            _is_active_flg_in_next_frame(true), _was_paused_flg_in_next_frame(false),
-            _can_live_flg_in_next_frame(true), _will_mv_first_in_next_frame_flg(false), _will_mv_last_in_next_frame_flg(false),
-            _will_activate_after_flg(false), _frame_of_life_when_activation(0), _will_inactivate_after_flg(false), _frame_of_life_when_inactivation(0),
-            _on_change_to_active_flg(false), _on_change_to_inactive_flg(false) {
+_pGod(NULL),
+_was_initialize_flg(false),
+_frame_of_life(0),
+_frame_of_behaving(0),
+_frame_of_behaving_since_onActive(0),
+_frameEnd(0),
+_is_active_flg(true),
+_was_paused_flg(false),
+_can_live_flg(true),
+_is_active_flg_in_next_frame(true),
+_was_paused_flg_in_next_frame(false),
+_can_live_flg_in_next_frame(true),
+_will_end_after_flg(false),
+_frame_of_life_when_end(MAXDWORD),
+_will_activate_after_flg(false),
+_frame_of_life_when_activation(0),
+_will_inactivate_after_flg(false),
+_frame_of_life_when_inactivation(0),
+_on_change_to_active_flg(false),
+_on_change_to_inactive_flg(false),
+_will_mv_first_in_next_frame_flg(false),
+_will_mv_last_in_next_frame_flg(false)
+{
 }
 
 template<class T>

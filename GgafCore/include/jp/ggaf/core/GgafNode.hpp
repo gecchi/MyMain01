@@ -303,22 +303,23 @@ public:
 /**
  * ‚±‚±‚©‚ç‚ÍŽÀ‘••”
  */
-
 template<class T>
 GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
+_pNodeTemp(NULL),
+_id(0),
 _name("NOT_OBJECT_YET"),
+_class_name("GgafNode<T>"),
 _pParent(NULL),
+_pNext((T*)this),
+_pPrev((T*)this),
 _pSubFirst(NULL),
 _is_first_flg(false),
 _is_last_flg(false)
 {
-    _pNext = (T*)this;
-    _pPrev = (T*)this;
     _name = NEW char[51];
     strcpy(_name, prm_name);
     //_id = GgafUtil::itos(GgafObject::_iObjectNo);
     TRACE("template<class T> GgafNode<T>::GgafNode(" << _name << ")");
-    _class_name = "GgafNode<T>";
 }
 
 template<class T>

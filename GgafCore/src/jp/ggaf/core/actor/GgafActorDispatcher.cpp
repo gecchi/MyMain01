@@ -28,4 +28,4 @@ void GgafActorDispatcher::addSubLast(GgafActor* prm_pSub) {
 //＜最適化案＞
 //TODO:GgafActorDispatcherは、GgafGroupActorを継承して、
 //特別なGgafGroupActorという扱いにすればアクターの数を減らせれるのではないか
-//場合によりけりか
+//場合によりけりか、あとで考える。

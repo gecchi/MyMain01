@@ -62,7 +62,6 @@ void GgafFactory::order(unsigned long prm_id,
 
 int GgafFactory::chkProgress(unsigned long prm_id) {
     GgafOrder* pOrder;
-    DWORD waittime = 0;
     pOrder = ROOT_ORDER;
     if (pOrder == NULL) {
         return -1;

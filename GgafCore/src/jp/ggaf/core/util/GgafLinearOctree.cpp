@@ -233,14 +233,6 @@ void GgafLinearOctree::putTree() {
     int lv8_order_num = 0;
 
     int lv0_order_pos = 0;
-    int lv1_order_pos = 0;
-    int lv2_order_pos = 0;
-    int lv3_order_pos = 0;
-    int lv4_order_pos = 0;
-    int lv5_order_pos = 0;
-    int lv6_order_pos = 0;
-    int lv7_order_pos = 0;
-    int lv8_order_pos = 0;
 
     int LV0 = 0;
 
