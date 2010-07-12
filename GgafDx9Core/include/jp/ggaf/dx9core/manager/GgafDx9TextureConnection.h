@@ -15,7 +15,7 @@ public:
     /**
      * コンストラクタ<BR>
      * @param prm_idstr テクスチャ識別名
-     * @param prm_pIDirect3DTexture9 テクスチャ
+     * @param prm_pResource テクスチャ
      */
     GgafDx9TextureConnection(char* prm_idstr, GgafDx9Texture* prm_pResource);
 

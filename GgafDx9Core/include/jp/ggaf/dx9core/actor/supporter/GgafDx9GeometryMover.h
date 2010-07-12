@@ -412,7 +412,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     void addRyMvAng(angle prm_angDistance);
 
     /**
-     * Actorの目標の移動方角（Y軸回転）自動停止機能を有効(目標の移動方角（Y軸回転）設定)<BR>
+     * Actorの目標のY軸回転移動方角の自動停止機能を有効 .
+     * 目標の移動方角（Y軸回転）設定する。<BR>
      * 引数に設定された移動方角（Y軸回転）になるまで、移動方角（Y軸回転）を加算(減算)を毎フレーム行い続けます。<BR>
      * 加算か減算かは、移動方角（Y軸回転）の角速度（_angveloRyMv）の正負で決定されます。<BR>
      * <B>移動方角（Y軸回転）の角速度が 0 ならば、何も起こりません。</B>動作させるには、角速度が必要です。<BR>
@@ -420,25 +421,25 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * 目標の移動方角（Y軸回転）に到達したならば、この目標の移動方角（Y軸回転）自動停止機能は解除されます。<BR>
      *
      * @param	prm_angRyMv	到達目標の移動方角（Y軸回転）(-360,000～360,000)
-     * @param	prm_way_allow  自動停止機能が有効になる進入回転方向
+     * @param	prm_mv_ang_ry_target_allow_way  自動停止機能が有効になる進入回転方向
      * @param	prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
      */
     void setStopTarget_RyMvAng(angle prm_angRyMv,
-                               int _mv_ang_ry_target_allow_way = TURN_BOTH,
+                               int prm_mv_ang_ry_target_allow_way = TURN_BOTH,
                                angvelo prm_angveloAllowRyMv = ANGLE180);
 
     /**
-     * Actorの目標の移動方角（Y軸回転）自動停止機能を有効(目標の移動方角（Y軸回転）を現在Y軸座標からの対象Y軸座標で設定)<BR>
+     * Actorの目標のY軸回転移動方角自動停止機能を有効 .
+     * 目標の移動方角（Y軸回転）を現在Y軸座標からの対象Y軸座標で設定<BR>
      * 機能はsetStopTarget_RyMvAng(int)と同じ<BR>
-     *
      * @param	prm_tX	xRy座標
      * @param	prm_tY	yRy座標
-     * @param	prm_way_allow  自動停止機能が有効になる進入回転方向
+     * @param	prm_mv_ang_ry_target_allow_way  自動停止機能が有効になる進入回転方向
      * @param	prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
      */
     void setStopTarget_RyMvAngV(int prm_tX,
                                 int prm_tY,
-                                int _mv_ang_ry_target_allow_way = TURN_BOTH,
+                                int prm_mv_ang_ry_target_allow_way = TURN_BOTH,
                                 angvelo prm_angveloAllowRyMv = ANGLE180);
 
     void setRyMvAngVelo(angvelo prm_angveloRyMv);
