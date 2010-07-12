@@ -18,25 +18,26 @@ public:
     int _frame_app_interval;
 
     /**
-     *
-     * @param prm_name
-     * @param prm_X1_app
-     * @param prm_Y1_app
-     * @param prm_Z1_app
-     * @param prm_X2_app
-     * @param prm_Y2_app
-     * @param prm_Z2_app
-     * @param prm_X
-     * @param prm_Y
-     * @param prm_Z
-     * @param prm_veloMv_App
-     * @param prm_angRzMv_AppBox
-     * @param prm_angRyMv_AppBox
-     * @param prm_veloMv_Juno
-     * @param prm_angRzMv_JunoMv
-     * @param prm_angRyMv_Juno
-     * @param prm_nJunoStock
-     * @param prm_frame_app_interval
+     * コンストラクタ .
+     * Junoフォーメーションを定義します。
+     * @param prm_name           フォーメーション名（デバッグ用）
+     * @param prm_X1_app         Juno出現範囲AAB(軸並行直方体：Axis-Aligned Box)の左上手前X座標（ローカル座標）
+     * @param prm_Y1_app         Juno出現範囲AABの左上手前Y座標（ローカル座標）
+     * @param prm_Z1_app         Juno出現範囲AABの左上手前Z座標（ローカル座標）
+     * @param prm_X2_app         Juno出現範囲AABの右下奥X座標（ローカル座標）
+     * @param prm_Y2_app         Juno出現範囲AABの右下奥Y座標（ローカル座標）
+     * @param prm_Z2_app         Juno出現範囲AABの右下奥Z座標（ローカル座標）
+     * @param prm_X              Juno出現範囲AABの中心X座標（絶対座標）
+     * @param prm_Y              Juno出現範囲AABの中心Y座標（絶対座標）
+     * @param prm_Z              Juno出現範囲AABの中心Z座標（絶対座標）
+     * @param prm_veloMv_App     Juno出現範囲AAB全体の移動速度
+     * @param prm_angRzMv_AppBox Juno出現範囲AAB全体の移動方角のZ軸回転角
+     * @param prm_angRyMv_AppBox Juno出現範囲AAB全体の移動方角のY軸回転角
+     * @param prm_veloMv_Juno    各Junoの移動速度初期値
+     * @param prm_angRzMv_JunoMv 各Junoの移動方角のZ軸回転角初期値
+     * @param prm_angRyMv_JunoMv 各Junoの移動方角のY軸回転角初期値
+     * @param prm_nJunoStock     Junoのストック数(バッファ数)
+     * @param prm_frame_app_interval Junoの出現間隔
      * @return
      */
     FormationJuno(const char* prm_name,
