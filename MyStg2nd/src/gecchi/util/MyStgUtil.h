@@ -26,10 +26,10 @@ public:
      * @param kind_enemy
      * @return ˆÈ‰º‚Ì•\QÆB
      * <table>
-     * <tr><th>0‚æ‚è¬‚³‚¢                        </th><th>0  </th><th>0‚æ‚è‘å‚«‚¢                  </th></tr>
-     * <tr><td>kind_my‚Ì•û‚ª—ò«       </td><td>“¯Ši</td><td>kind_my‚Ì•û‚ª—D«</td></tr>
+     * <tr><th>0‚æ‚è¬‚³‚¢         </th><th>0   </th><th>0‚æ‚è‘å‚«‚¢         </th></tr>
+     * <tr><td>kind_my‚Ì•û‚ª—ò«   </td><td>“¯Ši</td><td>kind_my‚Ì•û‚ª—D«   </td></tr>
      * <tr><td>kind_enemy‚Ì•û‚ª—D«</td><td>“¯Ši</td><td>kind_enemy‚Ì•û‚ª—ò«</td></tr>
-     * <table>
+     * </table>
      */
     static int judgeMyDominant(actorkind kind_my, actorkind kind_enemy) {
         int ret = 0;

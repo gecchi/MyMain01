@@ -76,8 +76,7 @@ void GameMainScene::ready(int prm_stage) {
 }
 
 void GameMainScene::initialize() {
-    //初期カメラ位置
-    int cam_MvVeloRange = pMYSHIP->_iMoveSpeed * 0.99;
+    //初期カメラZ位置
     _dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
     //初期カメラ移動範囲制限
     float revise = 0.7; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
