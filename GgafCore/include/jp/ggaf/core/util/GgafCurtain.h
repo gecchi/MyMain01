@@ -38,7 +38,7 @@ public:
      * コンストラクタ .
      * カーテンの長さは1.0に設定されます。<BR>
      * また、初期状態はカーテンは開いています。<BR>
-     * @param _pScene カーテンを取り付けるシーン
+     * @param prm_pScene カーテンを取り付けるシーン
      * @return
      */
     GgafCurtain(GgafScene* prm_pScene);

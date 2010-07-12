@@ -45,7 +45,7 @@ namespace GgafCore {
  *  +--+--+--+--+
  *  |10|11|14|15|
  *  +--+--+--+--+
- * </pre></code>
+ * </code></pre>
  * <BR>
  * <B>用語定義</B>
  * <BR>
@@ -79,7 +79,7 @@ namespace GgafCore {
  *  +--+--+
  *  |10|11|
  *  +--+--+
- *  </pre></code>
+ *  </code></pre>
  *  を指すこととする。<BR>
  *
  *  <B>【例２】</B><BR>
@@ -91,7 +91,7 @@ namespace GgafCore {
  *  +--+--+
  *  |14|15|
  *  +--+--+
- *  </pre></code>
+ *  </code></pre>
  *  のことを指し、これのモートン順序位置3なので、Lv2空間モートン順序通し番号 14 を指してることとする。<BR>
  *  その他使用例<BR>
  *  ・Lv1 空間のモートン順序位置 1 は Lv2 空間の空間番号 4 5 6 7 に当たる。<BR>
@@ -187,13 +187,13 @@ public:
      */
     virtual int getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
 
-    /**
-     * 座標→線形8分木空間要素番号、の変換 .
-     * @param tX 座標
-     * @param tY 〃
-     * @param tZ 〃
-     * @return
-     */
+//    /**
+//     * 座標→線形8分木空間要素番号、の変換 .
+//     * @param tX 座標
+//     * @param tY 〃
+//     * @param tZ 〃
+//     * @return
+//     */
 //    inline int getIndex(int tX, int tY, int tZ) {
 //        return getMortonOrderNumFromXYZindex(
 //                    (tX - _root_X1) / _top_level_dX,
@@ -226,13 +226,11 @@ public:
      *                                      ^^^-->&B(xph)       = そのLevelの空間のモートン順序通し空間番号 0～7
      *                                  ^^^^^^^-->&B(wogxph)    = そのLevelの親空間のモートン順序通し空間番号 0～63
      *                              ^^^^^^^^^^^-->&B(vnfwogxph) = そのLevelの親の親空間のモートン順序通し空間番号 0～511
-     *
      *                          ^^^ ^^^ ^^^ ^^^
      *                           |   |   |   |
      *                           |   |   |   &B(xph) = そのLevelの空間のモートン順序の位置 0～7
      *             ............  |   |   +---&B(wog) = そのLevelの親空間のモートン順序の位置  0～7
      *                           |   +-------&B(vnf) = そのLevelの親の親の空間のモートン順序の位置 0～7
-     *
      * </code></pre>
      * @param x_space_index 同一のレベル空間のx座標空間インデックス (ただし 0～255 とする)
      * @param y_space_index 同一のレベル空間のy座標空間インデックス (ただし 0～255 とする)

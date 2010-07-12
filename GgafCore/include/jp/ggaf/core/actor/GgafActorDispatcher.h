@@ -48,7 +48,7 @@ public:
      * 取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動されます。<BR>
      * 一時的にキャラを派遣するようなイメージ<BR>
      * ＜使用例＞
-     * <code><pre>
+     * <pre><code>
      * GgafMainActor* pActor = pDispatcher->employ();
      * if (pActor != NULL) {
      *     //アクターの初期処理
@@ -57,7 +57,7 @@ public:
      *     pActor->active();
      * }
      *
-     * </pre></code>
+     * </code></pre>
      * @return アクター発送者の暇そうなメンバーアクター
      */
     virtual GgafCore::GgafMainActor* employ() {
@@ -110,7 +110,7 @@ public:
      *     pActor->onInactive();
      * }
      * pActor->active();
-     * </pre></code>
+     * </code></pre>
      *
      * @return
      */

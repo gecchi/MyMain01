@@ -83,7 +83,7 @@ public:
     static unsigned int easy_hash(const char* str) {
         unsigned long hash = 5381;
         char c;
-        while (c = *str++) { //strの\0までループ
+        while (c = *str++) { //strの\0までループ （演算子 "==" と間違えていません）
             hash = ((hash << 5) + hash) + c; // hash * 33 + c
         }
         return hash;

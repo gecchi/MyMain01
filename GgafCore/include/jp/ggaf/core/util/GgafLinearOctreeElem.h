@@ -50,6 +50,7 @@ public:
 //     * @param prm_pSpace_target
 //     */
 //void moveToSpace(GgafLinearOctreeSpace* prm_pSpace_target);
+
     void dump();
 
     virtual ~GgafLinearOctreeElem();
