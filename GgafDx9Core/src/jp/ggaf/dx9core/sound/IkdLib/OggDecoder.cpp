@@ -23,18 +23,17 @@ namespace {
 //namespace Dix {
     //! コンストラクタ
     OggDecoder::OggDecoder() {
-        oggVorbisResource_ = NULL;
+        pOggVorbisResource_ = NULL;
     }
 
-    //OggDecoder::OggDecoder( sp< OggVorbisResource > oggVorbisResource ) {
-    OggDecoder::OggDecoder(OggVorbisResource* oggVorbisResource ) {
-        oggVorbisResource_ = NULL;
-        setResource( oggVorbisResource );
+    OggDecoder::OggDecoder(OggVorbisResource* pOggVorbisResource ) {
+        pOggVorbisResource_ = NULL;
+        setResource( pOggVorbisResource );
     }
 
     //! デストラクタ
     OggDecoder::~OggDecoder() {
-        DELETE_IMPOSSIBLE_NULL(oggVorbisResource_);
+        DELETE_IMPOSSIBLE_NULL(pOggVorbisResource_);
         clear();
     }
 
@@ -45,7 +44,6 @@ namespace {
 
     //! セグメント取得
     bool OggDecoder::getSegment( char* buffer, unsigned int size, unsigned int* writeSize, bool* isEnd ) {
-        //_TRACE_("OggDecoder::getSegment");
         if ( isReady() == false ) {
             return false;
         }
@@ -56,7 +54,7 @@ namespace {
             return false;
         }
 
-        OggVorbis_File& ovf_ = oggVorbisResource_->getOggVorbisFile();
+        OggVorbis_File& ovf_ = pOggVorbisResource_->getOggVorbisFile();
 
         if ( isEnd ) *isEnd = false;
 
@@ -115,50 +113,40 @@ namespace {
     //! 頭出し
     void OggDecoder::setHead() {
         if ( isReady() == true ) {
-            ov_time_seek( &oggVorbisResource_->getOggVorbisFile(), 0.0 );
+            ov_time_seek( &pOggVorbisResource_->getOggVorbisFile(), 0.0 );
         }
     }
 
-    //! 安全なクローンを生成
-    //sp< PCMDecoder > OggDecoder::createClone() {
+    //! クローンを生成
     PCMDecoder* OggDecoder::createClone() {
-        //sp< OggDecoder > spObj( NEW OggDecoder );
         OggDecoder* spObj = NEW OggDecoder;
-        if ( oggVorbisResource_->isReady() == false ) {
+        if ( pOggVorbisResource_->isReady() == false ) {
             return spObj;  // 空を返す
         }
 
-        spObj->setResource( oggVorbisResource_ );
+        spObj->setResource( pOggVorbisResource_ );
 
         return spObj;
     }
 
     //! サウンドをセット
-    //bool OggDecoder::setResource( sp< OggVorbisResource > oggVorbisResource ) {
-    bool OggDecoder::setResource(OggVorbisResource* oggVorbisResource ) {
-
+    bool OggDecoder::setResource(OggVorbisResource* pOggVorbisResource ) {
         clear();
-
-        //if ( oggVorbisResource.GetPtr() == 0 || oggVorbisResource->isReady() == false ) {
-        if (oggVorbisResource == NULL || oggVorbisResource->isReady() == false ) {
+        if (pOggVorbisResource == NULL || pOggVorbisResource->isReady() == false ) {
             return false;
         }
 
-        oggVorbisResource_ = oggVorbisResource->createClone();
-        //if ( oggVorbisResource_.GetPtr() == 0 ) {
-        if ( oggVorbisResource_ == NULL ) {
+        pOggVorbisResource_ = pOggVorbisResource->createClone();
+        if ( pOggVorbisResource_ == NULL ) {
             // クローン作成失敗
             return false;
         }
-
         // Oggから基本情報を格納
-        vorbis_info *info = ov_info( &oggVorbisResource_->getOggVorbisFile(), -1 );
+        vorbis_info *info = ov_info( &pOggVorbisResource_->getOggVorbisFile(), -1 );
         setChannelNum( info->channels );
         setBitRate( 16 );
         setSamplingRate( info->rate );
-
         setReady( true );
-
         return true;
     }
 //}

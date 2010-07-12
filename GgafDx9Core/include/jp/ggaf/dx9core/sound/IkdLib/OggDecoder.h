@@ -13,8 +13,7 @@ namespace Dix {
     class OggDecoder : public PCMDecoder {
     public:
         OggDecoder();
-        //OggDecoder( sp< OggVorbisResource > oggVorbisResource );
-        OggDecoder(OggVorbisResource* oggVorbisResource );
+        OggDecoder(OggVorbisResource* pOggVorbisResource );
         virtual ~OggDecoder();
 
         //! クリア
@@ -26,17 +25,14 @@ namespace Dix {
         //! 頭出し
         virtual void setHead();
 
-        //! 安全なクローンを生成
-        //virtual sp< PCMDecoder > createClone();
+        //! クローンを生成
         virtual PCMDecoder* createClone();
 
         //! サウンドをセット
-        //virtual bool setResource( sp< OggVorbisResource > oggVorbisResource );
-        virtual bool setResource(OggVorbisResource* oggVorbisResource );
+        virtual bool setResource(OggVorbisResource* pOggVorbisResource );
 
     protected:
-        //sp< OggVorbisResource > oggVorbisResource_;
-        OggVorbisResource* oggVorbisResource_;
+        OggVorbisResource* pOggVorbisResource_;
     };
 }
 

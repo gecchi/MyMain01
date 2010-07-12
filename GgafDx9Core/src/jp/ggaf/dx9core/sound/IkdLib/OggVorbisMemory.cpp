@@ -11,7 +11,6 @@ using namespace Dix;
 //#pragma warning ( disable : 4267 )
 //#pragma warning ( disable : 4244 )
 //#pragma warning ( disable : 4996 )
-//#include "GgafDx9CommonHeader.h"
 //#include "OggVorbisMemory.h"
 //#include <stdio.h>
 //#include <string.h>
@@ -41,7 +40,7 @@ using namespace Dix;
     void OggVorbisMemory::clear() {
         size_ = 0;
         curPos_ = 0;
-        spBuffer_ = 0;
+        pBuffer_ = 0;
         OggVorbisResource::clear();
     }
 
@@ -67,13 +66,8 @@ using namespace Dix;
         if ( ov_open_callbacks( obj, &obj->oggVorbisFile_ , 0, 0, callbacks ) != 0 ) {
             obj->clear();
             DELETE_IMPOSSIBLE_NULL(obj);
-            //delete obj;
             return 0;
         }
-
-        //sp< OggVorbisMemory > spObj( obj );
-
-        //return spObj;
         return obj;
     }
 
@@ -92,9 +86,7 @@ using namespace Dix;
         if ( count > maxCount ) {
             count = maxCount;
         }
-
-        //memcpy( buffer, p->spBuffer_.GetPtr() + p->curPos_, size * count );
-        memcpy( buffer, p->spBuffer_ + p->curPos_, size * count );
+        memcpy( buffer, p->pBuffer_ + p->curPos_, size * count );
 
         // ポインタ位置を移動
         p->curPos_ += size * count;
@@ -163,10 +155,8 @@ using namespace Dix;
         size_ = ftell( f );
         fseek( f, 0, SEEK_SET );
 
-        //spBuffer_.SetPtr( NEW char[ size_ ], true );
-        spBuffer_ = NEW char[ size_ ];
-        //size_t readSize = fread( spBuffer_.GetPtr(), size_, 1, f );
-        size_t readSize = fread( spBuffer_, size_, 1, f );
+        pBuffer_ = NEW char[ size_ ];
+        size_t readSize = fread( pBuffer_, size_, 1, f );
         if ( readSize != 1 ) {
             // 何か変です
             clear();

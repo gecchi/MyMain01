@@ -1027,7 +1027,6 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                         _TRACE_("pattern=["<<pattern<<"] FrameTransformMatrix is Identity");
                     } else {
                         _TRACE_("pattern=["<<pattern<<"] Execute FrameTransform!");
-                        int nVertices = model_papMeshesFront[pattern]->_nVertices;
                         FrameTransformMatrix._11 = pMatPos->data[0];
                         FrameTransformMatrix._12 = pMatPos->data[1];
                         FrameTransformMatrix._13 = pMatPos->data[2];
@@ -3034,7 +3033,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     float model_fSquareSize = *pFloat_SquareSize;
     int model_texture_split_rowcol = *pInt_TextureSplitRowCol;
     int model_vertices_num = *pInt_VerticesNum;
-	TRACE3("GgafDx9ModelManager::restorePointSpriteModel model_vertices_num="<<model_vertices_num);
+    TRACE3("GgafDx9ModelManager::restorePointSpriteModel model_vertices_num="<<model_vertices_num);
     UINT model_size_vertices = sizeof(GgafDx9PointSpriteModel::VERTEX)*model_vertices_num;
     UINT model_size_vertex_unit = sizeof(GgafDx9PointSpriteModel::VERTEX);
 

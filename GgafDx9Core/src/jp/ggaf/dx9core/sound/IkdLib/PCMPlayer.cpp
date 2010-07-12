@@ -26,7 +26,9 @@ namespace {
     PCMPlayer::PCMPlayer() :
         pDS8_			( NULL ),
         pDSBuffer_		( NULL ),
-        spPCMDecoder_   ( NULL ),
+        pPCMDecoder_   ( NULL ),
+        waveFormat_     (),
+        DSBufferDesc_   (),
         isReady_		( false ),
         threadHandle_	( 0 ),
         isTerminate_	( false ),
@@ -39,7 +41,9 @@ namespace {
     PCMPlayer::PCMPlayer( IDirectSound8* pDS8 ) :
         pDS8_			( pDS8 ),
         pDSBuffer_		( NULL ),
-        spPCMDecoder_   ( NULL ),
+        pPCMDecoder_   ( NULL ),
+        waveFormat_     (),
+        DSBufferDesc_   (),
         isReady_		( false ),
         threadHandle_	( 0 ),
         isTerminate_	( false ),
@@ -49,11 +53,12 @@ namespace {
         clear();
     }
 
-    //PCMPlayer::PCMPlayer( IDirectSound8* pDS8, sp< PCMDecoder > spDecoder ) :
     PCMPlayer::PCMPlayer( IDirectSound8* pDS8, PCMDecoder* spDecoder ) :
         pDS8_			( pDS8 ),
         pDSBuffer_		( NULL ),
-        spPCMDecoder_   ( NULL ),
+        pPCMDecoder_   ( NULL ),
+        waveFormat_     (),
+        DSBufferDesc_   (),
         isReady_		( false ),
         threadHandle_	( 0 ),
         isTerminate_	( false ),
@@ -65,13 +70,15 @@ namespace {
     }
 
     PCMPlayer::~PCMPlayer() {
+        //正しく解放されない場合の原因究明のため、
+        //スマートポインタを外してdeleteとReleaseで解放
         _TRACE_("PCMPlayer::~PCMPlayer() begin");
         _TRACE_("terminateThread();");
         terminateThread();
         _TRACE_("RELEASE_IMPOSSIBLE_NULL(pDSBuffer_);");
         RELEASE_IMPOSSIBLE_NULL(pDSBuffer_);
-        _TRACE_("DELETE_IMPOSSIBLE_NULL(spPCMDecoder_);");
-        DELETE_IMPOSSIBLE_NULL(spPCMDecoder_);
+        _TRACE_("DELETE_IMPOSSIBLE_NULL(pPCMDecoder_);");
+        DELETE_IMPOSSIBLE_NULL(pPCMDecoder_);
         _TRACE_("PCMPlayer::~PCMPlayer() end");
     }
 
@@ -82,7 +89,6 @@ namespace {
         memset( &waveFormat_, 0, sizeof( waveFormat_ ) );
         if (pDSBuffer_ != NULL) {
             RELEASE_IMPOSSIBLE_NULL(pDSBuffer_);
-            //delete pDSBuffer_;
             pDSBuffer_ = NULL;
         }
         isReady_ = false;
@@ -123,9 +129,7 @@ namespace {
 
 
     //! PCMデコーダを設定
-    //bool PCMPlayer::setDecoder( sp< PCMDecoder > pcmDecoder ) {
     bool PCMPlayer::setDecoder( PCMDecoder* pcmDecoder ) {
-        //if ( pDS8_ == NULL || pcmDecoder.GetPtr() == 0 || pcmDecoder->isReady() == false ) {
         if ( pDS8_ == NULL || pcmDecoder == NULL || pcmDecoder->isReady() == false ) {
             isReady_ = false;
             return false;
@@ -145,7 +149,7 @@ namespace {
         DSBufferDesc_.guid3DAlgorithm = GUID_NULL;
 
         // クローンを保存
-        spPCMDecoder_ = pcmDecoder->createClone();
+        pPCMDecoder_ = pcmDecoder->createClone();
 
         // セカンダリバッファがまだ無い場合は作成
         if ( pDSBuffer_ == NULL ) {
@@ -177,26 +181,27 @@ namespace {
 
     //! バッファを初期化する
     bool PCMPlayer::initializeBuffer() {
-//        if ( spPCMDecoder_.GetPtr() == 0 ) {
-//            return false;
-//        }
-        if (spPCMDecoder_ == NULL) {
+        if (pPCMDecoder_ == NULL) {
             return false;
         }
 
-        spPCMDecoder_->setHead();	// 頭出し
+        pPCMDecoder_->setHead();	// 頭出し
         HRESULT hr = pDSBuffer_->SetCurrentPosition( 0 );
         checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer()  SetCurrentPosition( 0 ) に失敗しました。");
         // バッファをロックして初期データ書き込み
         for (int i = 0; i < 10; i++) { //最大１０回試行する
                                        //これは DSBLOCK_ENTIREBUFFER （全体ロック)が
-                                       //特定のタイミングで失敗することが、たぶん避けれないと考えたため
+                                       //仕組上特定のタイミングで失敗することは避けれないと考えたため。
+                                       //TODO:はたしてこんな方法でいいのだろうか。
+                                       //TODO:稀に落ちるのはなぜか？。サンドバッファのロックについて勉強不足のため納得していない。
+
             void* AP1 = 0, *AP2 = 0;
             DWORD AB1 = 0, AB2  = 0;
             hr = pDSBuffer_->Lock( 0, 0, &AP1, &AB1, &AP2, &AB2, DSBLOCK_ENTIREBUFFER );
-            //checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Lock に失敗しました。");
+            //checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Lock に失敗しました。"); //←これが起こる場合が稀にある。
+                                                                                                   //  起こった場合、リークしていた。
             if ( SUCCEEDED(hr) ) {
-                spPCMDecoder_->getSegment( (char*)AP1, AB1, 0, 0 );
+                pPCMDecoder_->getSegment( (char*)AP1, AB1, 0, 0 );
                 hr = pDSBuffer_->Unlock( AP1, AB1, AP2, AB2 );
                 checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Unlock に失敗しました。");
                 break;
@@ -244,7 +249,7 @@ namespace {
                 if ( flag == 0 && point >= size ) {
                     // 前半に書き込み
                     if ( SUCCEEDED( player->pDSBuffer_->Lock( 0, size, &AP1, &AB1, &AP2, &AB2, 0 ) ) ) {
-                        player->spPCMDecoder_->getSegment( (char*)AP1, AB1, &writeSize, &isEnd );
+                        player->pPCMDecoder_->getSegment( (char*)AP1, AB1, &writeSize, &isEnd );
                         player->pDSBuffer_->Unlock( AP1, AB1, AP2, AB2 );
                         flag = 1;
                     }
@@ -259,7 +264,7 @@ namespace {
                 else if ( flag == 1 && point < size ) {
                     // 後半に書き込み
                     if ( SUCCEEDED( player->pDSBuffer_->Lock( size, size * 2, &AP1, &AB1, &AP2, &AB2, 0 ) ) ) {
-                        player->spPCMDecoder_->getSegment( (char*)AP1, AB1, &writeSize, &isEnd );
+                        player->pPCMDecoder_->getSegment( (char*)AP1, AB1, &writeSize, &isEnd );
                         player->pDSBuffer_->Unlock( AP1, AB1, AP2, AB2 );
                         flag = 0;
                     }
@@ -317,7 +322,7 @@ namespace {
             return false;
         }
         isLoop_ = isLoop;
-        spPCMDecoder_->setLoop( isLoop );
+        pPCMDecoder_->setLoop( isLoop );
         pDSBuffer_->Play( 0, 0, DSBPLAY_LOOPING );
         state_ = STATE_PLAY;
         return true;

@@ -37,15 +37,11 @@ using namespace Dix;
     }
 
     //! ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğì¬
-    //sp< OggVorbisResource > OggVorbisFile::createClone() {
     OggVorbisResource* OggVorbisFile::createClone() {
         OggVorbisFile* obj = NEW OggVorbisFile;
         if ( obj->open( filePath_ ) == false ) {
             return 0;
         }
-
-//		sp< OggVorbisFile > spObj( obj );
-//		return spObj;
         return obj;
     }
 

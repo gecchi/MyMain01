@@ -23,16 +23,14 @@ namespace Dix {
     public:
         PCMPlayer();
         PCMPlayer( IDirectSound8* pDS8 );
-        //PCMPlayer( IDirectSound8* pDS8, sp< PCMDecoder > spDecoder );
         PCMPlayer( IDirectSound8* pDS8, PCMDecoder* spDecoder );
 
-        virtual ~PCMPlayer(); //tsuge virtual 追加
+        virtual ~PCMPlayer(); //virtual 追加
 
         //! デバイス設定
         void setDevice(IDirectSound8* pDS8 );
 
         //! PCMデコーダを設定
-        //bool setDecoder( sp< PCMDecoder > pcmDecoder );
         bool setDecoder( PCMDecoder* pcmDecoder );
         //! 再生
         bool play( bool isLoop );
@@ -74,12 +72,12 @@ namespace Dix {
 
 
     public:
-        //sp< PCMDecoder >				spPCMDecoder_;		//!< 再生対象デコード
-        PCMDecoder*                     spPCMDecoder_;
-        WAVEFORMATEX					waveFormat_;		//!< WAVEFORMATEX構造体
-        DSBUFFERDESC					DSBufferDesc_;		//!< DSBUFFERDESC構造体
+        //sp< PCMDecoder >				pPCMDecoder_;		//!< 再生対象デコード
         IDirectSound8*                  pDS8_;				//!< サウンドデバイス
         IDirectSoundBuffer8*            pDSBuffer_;		//!< セカンダリバッファ
+        PCMDecoder*                     pPCMDecoder_;
+        WAVEFORMATEX                    waveFormat_;        //!< WAVEFORMATEX構造体
+        DSBUFFERDESC                    DSBufferDesc_;      //!< DSBUFFERDESC構造体
         bool							isReady_;			//!< 準備できた？
         unsigned int					threadHandle_;		//!< ストリーム再生スレッドハンドル
         bool							isTerminate_;		//!< スレッド停止
