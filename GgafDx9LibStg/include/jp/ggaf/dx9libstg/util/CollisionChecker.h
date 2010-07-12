@@ -149,10 +149,6 @@ public:
      * @param prm_depth ê[Ç≥ÅiâúçsÅj
      */
     void setColliAAB_WHD(int prm_index, int prm_width, int prm_height, int prm_depth) {
-        int hw = prm_width  / 2;
-        int hh = prm_height / 2;
-        int hd = prm_depth  / 2;
-
         setColliAAB_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth);
     }
 
@@ -195,7 +191,6 @@ public:
      * @param prm_edge ÇPï”ÇÃí∑Ç≥
      */
     void setColliAAB_Cube(int prm_index, int prm_edge) {
-        int h = prm_edge / 2;
         setColliAAB_Cube(prm_index, 0, 0, 0, prm_edge);
     }
 
