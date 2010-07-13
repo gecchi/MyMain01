@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
-        StraightLaserChip(prm_name, "12/laser_chip") { //LaserChip系は最大12セット
+        StraightLaserChip(prm_name, "11/laser_chip") { //LaserChip系は最大11セット
     _class_name = "MyStraightLaserChip001";
     MyStgUtil::resetMyStraightLaserChip001Status(_pStatus);
     _veloMv = 100000;

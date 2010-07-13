@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
-        RefractionLaserChip(prm_name, "12/laser_chip_red") { //LaserChip系は最大12セット
+        RefractionLaserChip(prm_name, "11/laser_chip_red") { //LaserChip系は最大12セット
     _class_name = "EnemyAstraeaLaserChip002";
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
     setRefractionParam(5, 15, 30);

@@ -21,7 +21,6 @@ int g_kind008;
 int g_kind009;
 int g_kind010;
 int g_kind011;
-int g_kind012;
 float4x4 g_matWorld001;
 float4x4 g_matWorld002;
 float4x4 g_matWorld003;
@@ -33,7 +32,6 @@ float4x4 g_matWorld008;
 float4x4 g_matWorld009;
 float4x4 g_matWorld010;
 float4x4 g_matWorld011;
-float4x4 g_matWorld012;
 float4x4 g_matWorld_front001;
 float4x4 g_matWorld_front002;
 float4x4 g_matWorld_front003;
@@ -45,7 +43,6 @@ float4x4 g_matWorld_front008;
 float4x4 g_matWorld_front009;
 float4x4 g_matWorld_front010;
 float4x4 g_matWorld_front011;
-float4x4 g_matWorld_front012;
 
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
@@ -127,16 +124,11 @@ OUT_VS GgafDx9VS_LaserChip(
 		matWorld = g_matWorld010;
 		matWorld_front = g_matWorld_front010;
 		kind = g_kind010;
-	} else if (index == 10) {
+	} else {
 		matWorld = g_matWorld011;
 		matWorld_front = g_matWorld_front011;
 		kind = g_kind011;
-	} else {
-		matWorld = g_matWorld012;
-		matWorld_front = g_matWorld_front012;
-		kind = g_kind012;
 	} 
-
 	float4 posWorld;
 	if (prm_pos.x > 0) {
 //TODO:20090806アイディア
@@ -181,11 +173,11 @@ OUT_VS GgafDx9VS_LaserChip(
 		out_vs.uv = prm_uv;
 	} else if (kind == 1) {
 		//out_vs.uv = prm_uv;
-		out_vs.uv.x = prm_uv.x - 0.5;
+		out_vs.uv.x = prm_uv.x < 0.51f ? 0.0f : prm_uv.x;
 		out_vs.uv.y = prm_uv.y;
 	} else if (kind == 3) {
-		out_vs.uv.x = prm_uv.x;
-		out_vs.uv.y = prm_uv.y - 0.5;
+		out_vs.uv.x = prm_uv.x > 0.51f ? 1.0f : prm_uv.x;
+		out_vs.uv.y = prm_uv.y;
 	} else {
 		//何も描画したくない
 		out_vs.uv.x = 0;

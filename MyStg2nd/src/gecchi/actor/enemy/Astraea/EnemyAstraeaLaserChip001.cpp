@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 
 
 EnemyAstraeaLaserChip001::EnemyAstraeaLaserChip001(const char* prm_name) :
-        HomingLaserChip(prm_name, "12/laser_chip_red") { //LaserChip系は最大12セット
+        HomingLaserChip(prm_name, "11/laser_chip_red") { //LaserChip系は最大12セット
     _class_name = "EnemyAstraeaLaserChip001";
     MyStgUtil::resetEnemyAstraeaLaserChip001Status(_pStatus);
 }
