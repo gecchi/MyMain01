@@ -155,7 +155,7 @@ Frame Box01 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "MyCurveLaserChip001.png";
+     "LaserChip_red.png";
     }
    }
   }
