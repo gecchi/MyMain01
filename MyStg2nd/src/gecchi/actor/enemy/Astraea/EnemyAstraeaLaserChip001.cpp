@@ -16,7 +16,7 @@ EnemyAstraeaLaserChip001::EnemyAstraeaLaserChip001(const char* prm_name) :
 void EnemyAstraeaLaserChip001::initialize() {
     registHitAreaCube(15000);
     setHitAble(true);
-    _SX = _SY = _SZ = 100*1000;
+    _SX = _SY = _SZ = 5*1000;
     _fAlpha = 0.9f;
     _fBoundingSphereRadius = 5.0f;
     _paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0.0, 0.0, 1.0);
@@ -30,7 +30,7 @@ void EnemyAstraeaLaserChip001::onActive() {
 
     _pMover->setMvVelo(5000);
     _pMover->setMvAcce(300);
-    _pMover->relateRzRyFaceAngToMvAng(true);
+    //_pMover->relateRzRyFaceAngToMvAng(true);
 }
 
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
@@ -38,7 +38,7 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
         _pMover->execTagettingMvAngSequence(
                     GameGlobal::_pMyShip,
                     8000, 0,
-                    TURN_ANTICLOSE_TO);
+                    TURN_ANTICLOSE_TO, false);
     }
 
 
@@ -46,7 +46,7 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
         _pMover->execTagettingMvAngSequence(
                     GameGlobal::_pMyShip,
                     100, 0,
-                    TURN_CLOSE_TO);
+                    TURN_CLOSE_TO, false);
     }
 //
 //    if (_frame_of_behaving_from_onActive == 35) {

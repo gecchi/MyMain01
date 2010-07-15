@@ -18,7 +18,7 @@ void MyCurveLaserChip001::initialize() {
     _pMover->relateRzRyFaceAngToMvAng(true);
     registHitAreaCube(80000);
     setHitAble(true);
-    _SX = _SY = _SZ = 100 * 1000;
+    _SX = _SY = _SZ = 5 * 1000;
     _fAlpha = 0.99f;
     _fBoundingSphereRadius = 50.0f;
 
