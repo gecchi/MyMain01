@@ -213,9 +213,8 @@ OUT_VS GgafDx9VS_LaserChip(
 //			prm_pos.z = 8.0 * tmpy;
 //		}
 
-		
+		prm_pos.x = 0;		
 		if (kind == 4) {  //3‚Å‚Í‚È‚¢‚æ
-			prm_pos.x = 0;
 			prm_pos.y = 0;
 			prm_pos.z = 0;
 		} 

@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 
 
 EnemyAstraeaLaserChip001::EnemyAstraeaLaserChip001(const char* prm_name) :
-        HomingLaserChip(prm_name, "11/LaserChip_red") { //LaserChip系は最大12セット
+        HomingLaserChip(prm_name, "11/AstraeaLaserChip001") { //LaserChip系は最大12セット
     _class_name = "EnemyAstraeaLaserChip001";
     MyStgUtil::resetEnemyAstraeaLaserChip001Status(_pStatus);
 }
@@ -30,7 +30,7 @@ void EnemyAstraeaLaserChip001::onActive() {
 
     _pMover->setMvVelo(5000);
     _pMover->setMvAcce(300);
-    //_pMover->relateRzRyFaceAngToMvAng(true);
+    _pMover->relateRzRyFaceAngToMvAng(true);
 }
 
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
