@@ -59,10 +59,10 @@ void CurveLaserChip::processBehavior() {
     _tmpZ = _Z;
 }
 void CurveLaserChip::processPreJudgement() {
-    //平均曲線座標設定。
+    //平均曲線座標設定。(レーザーを滑らかにするノーマライズ）
     //processPreJudgement() のメソッドの意義とは離れて座標をいじり移動している。
-    //本来は processBehaviorAfter() 的な意味の処理であるが、仕方ないのでprocessPreJudgement()に
-    //食い込んでいます。
+    //本来は processBehaviorAfter() 的な意味の処理であるが、全レーザーチップが移動後でないと意味がないので
+    //仕方ないのでprocessPreJudgement()に食い込んでいます。
     //したがって本クラスを継承した場合、継承クラスのprocessPreJudgement()では、先頭で呼び出した方が良い。
 
     if (_pChip_front == NULL) {

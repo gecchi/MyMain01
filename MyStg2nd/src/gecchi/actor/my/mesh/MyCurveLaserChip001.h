@@ -10,6 +10,8 @@ public:
     MyOption* _pOrg;
     velo _veloCurve;
     int _renge;
+    float _maxAcceRange;
+
 
     MyCurveLaserChip001(const char* prm_name);
 

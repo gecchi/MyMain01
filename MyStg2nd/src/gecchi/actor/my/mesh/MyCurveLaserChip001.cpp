@@ -18,9 +18,9 @@ void MyCurveLaserChip001::initialize() {
     _pMover->relateRzRyFaceAngToMvAng(true);
     registHitAreaCube(80000);
     setHitAble(true);
-    _SX = _SY = _SZ = 5 * 1000;
+    _SX = _SY = _SZ = 6 * 1000;
     _fAlpha = 0.99f;
-    _fBoundingSphereRadius = 50.0f;
+    _fBoundingSphereRadius = 60.0f;
 
 }
 
@@ -53,15 +53,19 @@ void MyCurveLaserChip001::onActive() {
     _pMover->forceVxMvVeloRange(-_renge, _renge);
     _pMover->forceVyMvVeloRange(-_renge, _renge);
     _pMover->forceVzMvVeloRange(-_renge, _renge);
-
-    _pMover->forceVxMvAcceRange(-_renge / 20, _renge / 20);
-    _pMover->forceVyMvAcceRange(-_renge / 20, _renge / 20);
-    _pMover->forceVzMvAcceRange(-_renge / 20, _renge / 20);
+    _maxAcceRange= _renge / 30;
+    _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
+    _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
+    _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 }
 
 void MyCurveLaserChip001::processBehavior() {
     if (_lockon == 1) {
-        if (getPartFrame() < 120) {
+        if (getPartFrame() < 100) {
+            _maxAcceRange+=100;
+            _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
+            _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
+            _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
                 float rate = 8.0 - 0.06*getPartFrame(); //0.06 * 120 = 8.0
                 rate = rate > 0 ? rate : 0;

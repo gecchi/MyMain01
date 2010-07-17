@@ -16,7 +16,7 @@ VarietyTorus001::VarietyTorus001(const char* prm_name) : Torus(prm_name, "Torus"
 }
 
 void VarietyTorus001::initialize() {
-    makeCollisionArea(16);
+    makeCollisionArea(32);
     setHitAble(true);
     setAlpha(1.00);
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight+_r1+_r2;

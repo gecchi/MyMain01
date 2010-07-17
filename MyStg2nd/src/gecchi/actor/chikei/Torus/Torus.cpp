@@ -49,10 +49,11 @@ void Torus::makeCollisionArea(int prm_nSphere){
         _pCollisionChecker->setColliSphere(
                 i,
                 0 , GgafDx9Util::SIN[paAngRadial[i]/ANGLE_RATE] * _r1, GgafDx9Util::COS[paAngRadial[i]/ANGLE_RATE] * _r1,
-                _r2*0.98,
+                _r2,
                 false, true, true
                 );
     }
+    setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-10);
     DELETE_IMPOSSIBLE_NULL(paAngRadial);
 }
 

@@ -138,16 +138,7 @@ void LaserChip::processPreJudgement() {
         }
     }
 
-    GgafDx9MeshSetActor::processPreJudgement(); //８分木登録
-    //当たり判定領域を更新してからprocessPreJudgementで８分木登録すること。
 
-}
-
-void LaserChip::processJudgement() {
-    //_TRACE_("LaserChip::processJudgement()st "<<getName()<<" bump="<<canHit());
-    if (isOutOfGameSpace()) {
-        sayonara();
-    }
     //レーザーチップ種別 設定。
     //シェーダーのパラメータとなります。
     //
@@ -186,6 +177,17 @@ void LaserChip::processJudgement() {
     } else {
         _chip_kind = 4; //先端チップ。何も描画したくない
         setHitAble(false);
+    }
+
+    GgafDx9MeshSetActor::processPreJudgement(); //８分木登録
+    //当たり判定領域を更新してからprocessPreJudgementで８分木登録すること。
+
+}
+
+void LaserChip::processJudgement() {
+    //_TRACE_("LaserChip::processJudgement()st "<<getName()<<" bump="<<canHit());
+    if (isOutOfGameSpace()) {
+        sayonara();
     }
 }
 
