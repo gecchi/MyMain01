@@ -10,8 +10,10 @@ class EnemyAstraea : public GgafDx9LibStg::DefaultMeshActor {
 private:
     /** 発射済みレーザーチップ数 */
     int _cnt_laserchip;
-
+    DWORD _frame_shot_after;
 public:
+    /** 行動パターン番号 */
+    int _iMovePatternNo;
     /** 方向転換間隔(frame) */
     int _shot_interval;
     /** 発射レーザーチップの数 */
@@ -46,8 +48,6 @@ public:
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     void onInactive() override;
-
-    bool isOutOfGameSpace() override;
 
     virtual ~EnemyAstraea();
 };

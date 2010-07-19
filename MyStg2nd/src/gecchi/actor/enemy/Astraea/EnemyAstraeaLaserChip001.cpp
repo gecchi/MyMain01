@@ -28,8 +28,8 @@ void EnemyAstraeaLaserChip001::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaLaserChip001Status(_pStatus);
 
-    _pMover->setMvVelo(5000);
-    _pMover->setMvAcce(300);
+    _pMover->setMvVelo(10000);
+    _pMover->setMvAcce(400);
     _pMover->relateRzRyFaceAngToMvAng(true);
 }
 
@@ -37,7 +37,7 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     if (getPartFrame() == 40) {
         _pMover->execTagettingMvAngSequence(
                     GameGlobal::_pMyShip,
-                    8000, 0,
+                    7000, 0,
                     TURN_ANTICLOSE_TO, false);
     }
 

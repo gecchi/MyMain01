@@ -9,13 +9,13 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 
     //レーザーストック
-    _laser_way = 2;
+    _laser_way = 3;
     _X = 0;
     _Y = 0;
     _Z = 0;
     _laser_length = 30;
-    _shot_interval = 180;
-    _angveloTurn = 3000;
+    _shot_interval = 480;
+    _angveloTurn = 200;
 
     _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
     for (int i = 0; i < _laser_way; i++) {
@@ -33,22 +33,35 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     _pSeReflector->useSe(2);
     _pSeReflector->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
     _pSeReflector->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+    _frame_shot_after = 1000;
+    _iMovePatternNo = 0;
 }
 
 void EnemyAstraea::onCreateModel() {
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.5, 12.0);
+    _pGgafDx9Model->_pTextureBlinker->setBlink(1.0);
+    _pGgafDx9Model->_pTextureBlinker->beat(60*6, 60*2, 60*2, -1);
+    _pGgafDx9Model->_fBlinkThreshold = 0.97;
 }
 void EnemyAstraea::initialize() {
     setHitAble(true);
+    setAlpha(0.99);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    _pMover->setMvVelo(0);
-    _pMover->relateRzRyFaceAngToMvAng(true);
+    _pCollisionChecker->setColliSphere(0, 200*1000);
+    _pMover->setMvVelo(-5000);
+    _frame_shot_after = 1000;
+    _iMovePatternNo = 0;
+    _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
 }
 
 
 void EnemyAstraea::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
+    _pMover->setMvVelo(-5000);
+    _frame_shot_after = 1000;
+    _iMovePatternNo = 0;
+    _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
 }
 
 void EnemyAstraea::processBehavior() {
@@ -112,79 +125,87 @@ void EnemyAstraea::processBehavior() {
 //    }
 //    _pMorpher->behave();
     /////////////モーフテスト////////////////
-
-    _X = _X - 5000;
-    if (getBehaveingFrame() % _shot_interval == 0) {
-        _pMover->execTagettingMvAngSequence(GameGlobal::_pMyShip,
-                                            _angveloTurn, 0,
-                                            TURN_CLOSE_TO);
-/*
-        _pMover->setStopTarget_RzRyMvAng(GameGlobal::_pMyShip);
-        _pMover->setRzMvAngVelo(
-                        _angveloTurn*sgn(_pMover->getRzMvAngDistance(_pMover->_angTargetRzMv,TURN_CLOSE_TO))
-                    );
-        _pMover->setRyMvAngVelo(
-                        _angveloTurn*sgn(_pMover->getRyMvAngDistance(_pMover->_angTargetRyMv,TURN_CLOSE_TO))
-                    );
-*/
-        _cnt_laserchip = 0;
+    if (_iMovePatternNo == 0) {
+        _pMover->setFaceAngVelo(AXIS_X, _angveloTurn);
+        _pMover->setFaceAngVelo(AXIS_Z, _angveloTurn*1.5);
+        _pMover->setFaceAngVelo(AXIS_Y, _angveloTurn*0.5);
+        _pMover->setMvVelo(-3000);
+        _iMovePatternNo = 1;
     }
-    if (!_pMover->isTagettingMvAng()) {
-        _pMover->setRzMvAngVelo(_angveloTurn/2);
-        _pMover->setRyMvAngVelo(_angveloTurn/3);
+    if (_iMovePatternNo == 1 ) {
+        if (getBehaveingFrame() % _shot_interval == 0 && _X > pMYSHIP->_X-400000) {
+            _pMover->execTagettingFaceAngSequence(GameGlobal::_pMyShip,
+                                                _angveloTurn*20, 0,
+                                                TURN_COUNTERCLOCKWISE, false);
+            _iMovePatternNo = 2;
+            _cnt_laserchip = 0;
+        }
+    }
+    if (_iMovePatternNo == 2) {
+        if (!_pMover->isTagettingFaceAng()) {
+            _iMovePatternNo = 3;
+            _frame_shot_after = 0;
+        }
     }
 
+    if (_iMovePatternNo == 3) {
+        _pMover->setFaceAngVelo(AXIS_X, _angveloTurn*40);
+        _pMover->setFaceAngVelo(AXIS_Z, 0);
+        _pMover->setFaceAngVelo(AXIS_Y, 0);
+        _pMover->setMvVelo(0);
+        if (_cnt_laserchip < _laser_length) {
+            _cnt_laserchip++;
 
-    _pMover->behave();
+            static EnemyAstraeaLaserChip001* pLaserChip;
 
-    if (!_pMover->isTagettingMvAng() && _cnt_laserchip < _laser_length) {
-
-        static EnemyAstraeaLaserChip001* pLaserChip;
-
-        angle angClearance = 10000;//開き具合
-
-        GgafDx9Util::getWayAngle2D(_RY, _laser_way, angClearance, _paWayRy);
-        GgafDx9Util::getWayAngle2D(_RZ, _laser_way, angClearance, _paWayRz);
-
-        for (int i = 0; i < _laser_way; i++) {
-
-            for (int j = 0; j < _laser_way; j++) {
+            angle angClearance = 10000;//開き具合
+            GgafDx9Util::getWayAngle2D(_pMover->_angFace[AXIS_Z], _laser_way, angClearance, _paWayRz);
+            GgafDx9Util::getWayAngle2D(_pMover->_angFace[AXIS_Y], _laser_way, angClearance, _paWayRy);
 
 
-                if (_papapLaserChipDispatcher[i][j] == NULL) {
-                    GgafMainActor* p = pCOMMONSCENE->_pDispatcher_LaserChipDispatcher->employ();
-                    if (p == NULL) {
-                        //レーザーセットは借入出来ない
-                        continue;
-                    } else {
-                        _papapLaserChipDispatcher[i][j] = (LaserChipDispatcher*)p;
-                        _papapLaserChipDispatcher[i][j]->_num_continual_employ_max = _laser_length;
-                        _papapLaserChipDispatcher[i][j]->_num_chip_interval = 0;
-                        _papapLaserChipDispatcher[i][j]->activate();
+            for (int i = 0; i < _laser_way; i++) {
 
+                for (int j = 0; j < _laser_way; j++) {
+
+
+                    if (_papapLaserChipDispatcher[i][j] == NULL) {
+                        GgafMainActor* p = pCOMMONSCENE->_pDispatcher_LaserChipDispatcher->employ();
+                        if (p == NULL) {
+                            //レーザーセットは借入出来ない
+                            continue;
+                        } else {
+                            _papapLaserChipDispatcher[i][j] = (LaserChipDispatcher*)p;
+                            _papapLaserChipDispatcher[i][j]->_num_continual_employ_max = _laser_length;
+                            _papapLaserChipDispatcher[i][j]->_num_chip_interval = 0;
+                            _papapLaserChipDispatcher[i][j]->activate();
+
+                        }
                     }
-                }
 
-                pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
-                if (pLaserChip != NULL) {
-                    pLaserChip->activate();
-                    pLaserChip->setGeometry(this);
-                    pLaserChip->_pMover->setRzRyMvAng(_paWayRz[i], _paWayRy[j]);
-                    pLaserChip->_pMover->_angFace[AXIS_Z] = _paWayRz[i];
-                    pLaserChip->_pMover->_angFace[AXIS_Y] = _paWayRy[j];
-                    pLaserChip->_pMover->behave();
+                    pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
+                    if (pLaserChip != NULL) {
+                        pLaserChip->activate();
+                        pLaserChip->setGeometry(this);
+                        pLaserChip->_pMover->setRzRyMvAng(_paWayRz[i], _paWayRy[j]);
+                        pLaserChip->_pMover->_angFace[AXIS_Z] = _paWayRz[i];
+                        pLaserChip->_pMover->_angFace[AXIS_Y] = _paWayRy[j];
+                        pLaserChip->_pMover->behave();
 
-                    if (i == 0 && j == 0 && pLaserChip->_pChip_front == NULL) {
-                        _pSeReflector->play3D(0); //発射音
+                        if (i == 0 && j == 0 && pLaserChip->_pChip_front == NULL) {
+                            _pSeReflector->play3D(0); //発射音
+                            chengeEffectTechniqueInterim("Flush", 5); //フラッシュ
+                        }
                     }
                 }
             }
+        } else {
+            _iMovePatternNo = 0;
         }
-        _cnt_laserchip++;
     }
 
     _pSeReflector->behave();
 
+    _pMover->behave();
 }
 
 void EnemyAstraea::processJudgement() {
@@ -226,14 +247,6 @@ void EnemyAstraea::onInactive() {
     sayonara();
 }
 
-
-bool EnemyAstraea::isOutOfGameSpace() {
-    if (_X < GgafDx9Camera::_X_ScreenLeft - 300000) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 EnemyAstraea::~EnemyAstraea() {
     DELETEARR_IMPOSSIBLE_NULL(_paWayRz);
