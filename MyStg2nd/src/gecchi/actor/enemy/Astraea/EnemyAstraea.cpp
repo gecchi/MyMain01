@@ -115,7 +115,10 @@ void EnemyAstraea::processBehavior() {
 
     _X = _X - 5000;
     if (getBehaveingFrame() % _shot_interval == 0) {
-
+        _pMover->execTagettingMvAngSequence(GameGlobal::_pMyShip,
+                                            _angveloTurn, 0,
+                                            TURN_CLOSE_TO);
+/*
         _pMover->setStopTarget_RzRyMvAng(GameGlobal::_pMyShip);
         _pMover->setRzMvAngVelo(
                         _angveloTurn*sgn(_pMover->getRzMvAngDistance(_pMover->_angTargetRzMv,TURN_CLOSE_TO))
@@ -123,13 +126,18 @@ void EnemyAstraea::processBehavior() {
         _pMover->setRyMvAngVelo(
                         _angveloTurn*sgn(_pMover->getRyMvAngDistance(_pMover->_angTargetRyMv,TURN_CLOSE_TO))
                     );
+*/
         _cnt_laserchip = 0;
+    }
+    if (!_pMover->isTagettingMvAng()) {
+        _pMover->setRzMvAngVelo(_angveloTurn/2);
+        _pMover->setRyMvAngVelo(_angveloTurn/3);
     }
 
 
     _pMover->behave();
 
-    if (_pMover->_angveloRzMv == 0 && _pMover->_angveloRyMv == 0 && _cnt_laserchip < _laser_length) {
+    if (!_pMover->isTagettingMvAng() && _cnt_laserchip < _laser_length) {
 
         static EnemyAstraeaLaserChip001* pLaserChip;
 
