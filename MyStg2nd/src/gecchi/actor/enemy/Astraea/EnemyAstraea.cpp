@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_name, "4/8box") {
+EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "Astraea") {
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 
     //レーザーストック
@@ -78,41 +78,40 @@ void EnemyAstraea::processBehavior() {
 //    }
 //    _pMorpher->behave();
 
-    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-        _pMorpher->intoTargetLinerUntil(1, 1.0, 30);
-        _pMorpher->intoTargetLinerUntil(2, 0, 30);
-        _pMorpher->intoTargetLinerUntil(3, 0, 30);
-        _pMorpher->intoTargetLinerUntil(4, 0, 30);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
-        _pMorpher->intoTargetLinerUntil(1, 0, 30);
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-        _pMorpher->intoTargetLinerUntil(1, 0, 30);
-        _pMorpher->intoTargetLinerUntil(2, 1.0, 30);
-        _pMorpher->intoTargetLinerUntil(3, 0, 30);
-        _pMorpher->intoTargetLinerUntil(4, 0, 30);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
-        _pMorpher->intoTargetLinerUntil(2, 0, 30);
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-        _pMorpher->intoTargetLinerUntil(1, 0, 30);
-        _pMorpher->intoTargetLinerUntil(2, 0, 30);
-        _pMorpher->intoTargetLinerUntil(3, 1.0, 30);
-        _pMorpher->intoTargetLinerUntil(4, 0, 30);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
-        _pMorpher->intoTargetLinerUntil(3, 0, 30);
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-        _pMorpher->intoTargetLinerUntil(1, 0, 30);
-        _pMorpher->intoTargetLinerUntil(2, 0, 30);
-        _pMorpher->intoTargetLinerUntil(3, 0, 30);
-        _pMorpher->intoTargetLinerUntil(4, 1.0, 30);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
-        _pMorpher->intoTargetLinerUntil(4, 0, 30);
-    }
-    _pMorpher->behave();
+//    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
+//        _pMorpher->intoTargetLinerUntil(1, 1.0, 30);
+//        _pMorpher->intoTargetLinerUntil(2, 0, 30);
+//        _pMorpher->intoTargetLinerUntil(3, 0, 30);
+//        _pMorpher->intoTargetLinerUntil(4, 0, 30);
+//    } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
+//        _pMorpher->intoTargetLinerUntil(1, 0, 30);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
+//        _pMorpher->intoTargetLinerUntil(1, 0, 30);
+//        _pMorpher->intoTargetLinerUntil(2, 1.0, 30);
+//        _pMorpher->intoTargetLinerUntil(3, 0, 30);
+//        _pMorpher->intoTargetLinerUntil(4, 0, 30);
+//    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
+//        _pMorpher->intoTargetLinerUntil(2, 0, 30);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+//        _pMorpher->intoTargetLinerUntil(1, 0, 30);
+//        _pMorpher->intoTargetLinerUntil(2, 0, 30);
+//        _pMorpher->intoTargetLinerUntil(3, 1.0, 30);
+//        _pMorpher->intoTargetLinerUntil(4, 0, 30);
+//    } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
+//        _pMorpher->intoTargetLinerUntil(3, 0, 30);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+//        _pMorpher->intoTargetLinerUntil(1, 0, 30);
+//        _pMorpher->intoTargetLinerUntil(2, 0, 30);
+//        _pMorpher->intoTargetLinerUntil(3, 0, 30);
+//        _pMorpher->intoTargetLinerUntil(4, 1.0, 30);
+//    } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+//        _pMorpher->intoTargetLinerUntil(4, 0, 30);
+//    }
+//    _pMorpher->behave();
     /////////////モーフテスト////////////////
-
 
     _X = _X - 5000;
     if (getBehaveingFrame() % _shot_interval == 0) {
