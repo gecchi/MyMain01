@@ -144,7 +144,7 @@ void EnemyVesta::processBehavior() {
                     //＜現在の最終的な向きを、RzRyで取得する＞
                     //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
                     //元の方向ベクトルを(_Xorg,_Yorg,_Zorg)、
-                    //ワールド変換行列の積（_matWorldRotMv)の成分を mat_xx、
+                    //ワールド変換行列の回転部分の積（_matWorldRotMv)の成分を mat_xx、
                     //最終的な方向ベクトルを(vX, vY, vZ) とすると
                     //
                     //                      | mat_11 mat_12 mat_13 |

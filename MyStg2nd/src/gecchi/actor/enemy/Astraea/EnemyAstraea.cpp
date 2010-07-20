@@ -14,8 +14,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     _Y = 0;
     _Z = 0;
     _laser_length = 30;
-    _shot_interval = 480;
+    _laser_interval = 600;
     _angveloTurn = 200;
+    _shot_interval = 30;
 
     _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
     for (int i = 0; i < _laser_way; i++) {
@@ -29,6 +30,10 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
             _papapLaserChipDispatcher[i][j] = NULL;
         }
     }
+
+    _pDispatcher_Shot = NULL;
+    _pDpcon = (DispatcherConnection*)(pGOD->_pDispatcherManager->connect("DpCon_Shot004"));
+
 
     _pSeReflector->useSe(2);
     _pSeReflector->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
@@ -52,6 +57,7 @@ void EnemyAstraea::initialize() {
     _frame_shot_after = 1000;
     _iMovePatternNo = 0;
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
+    _pDispatcher_Shot = _pDpcon->view();
 }
 
 
@@ -126,29 +132,188 @@ void EnemyAstraea::processBehavior() {
 //    _pMorpher->behave();
     /////////////モーフテスト////////////////
     if (_iMovePatternNo == 0) {
-        _pMover->setFaceAngVelo(AXIS_X, _angveloTurn);
+        _pMover->setFaceAngVelo(AXIS_X, 0);
         _pMover->setFaceAngVelo(AXIS_Z, _angveloTurn*1.5);
         _pMover->setFaceAngVelo(AXIS_Y, _angveloTurn*0.5);
         _pMover->setMvVelo(-3000);
         _iMovePatternNo = 1;
-    }
-    if (_iMovePatternNo == 1 ) {
-        if (getBehaveingFrame() % _shot_interval == 0 && _X > pMYSHIP->_X-400000) {
+    } else if (_iMovePatternNo == 1 ) {
+        if (getBehaveingFrame() % _laser_interval == 0 && _X > pMYSHIP->_X-400000) {
             _pMover->execTagettingFaceAngSequence(GameGlobal::_pMyShip,
                                                 _angveloTurn*20, 0,
                                                 TURN_COUNTERCLOCKWISE, false);
             _iMovePatternNo = 2;
             _cnt_laserchip = 0;
+        } else {
+            //８方向ショット
+            if (getBehaveingFrame() % _shot_interval == 0) {
+                angle Rz, Ry;
+                GgafDx9DrawableActor* pActor;
+                static double SQR2 = 1.41421356;
+                D3DXMATRIX matWorldRot;
+                GgafDx9Util::setWorldMatrix_RxRzRy(this, matWorldRot);
+                //＜８方向ショット向きを、RzRyで取得する＞
+                //ローカルでのショットの方向ベクトルを(_Xorg,_Yorg,_Zorg)、
+                //ワールド変換行列の回転部分（matWorldRot)の成分を mat_xx、
+                //最終的な方向ベクトルを(vX, vY, vZ) とすると
+                //
+                //                      | mat_11 mat_12 mat_13 |
+                //| _Xorg _Yorg _Zorg | | mat_21 mat_22 mat_23 | = | vX vY vZ |
+                //                      | mat_31 mat_32 mat_33 |
+                //
+                //vX = _Xorg*mat_11 + _Yorg*mat_21 + _Zorg*mat_31
+                //vY = _Xorg*mat_12 + _Yorg*mat_22 + _Zorg*mat_32
+                //vZ = _Xorg*mat_13 + _Yorg*mat_23 + _Zorg*mat_33
+                //
+                //さてここで、ローカルのショットの８方向とは、刺への方向のことで、
+                //①( 2a, 0, a√2)   ②( 2a, a√2, 0)   ③( 2a, 0,-a√2)   ④( 2a,-a√2, 0)
+                //⑤(-2a, 0, a√2)   ⑥(-2a, a√2, 0)   ⑦(-2a, 0,-a√2)   ⑧(-2a,-a√2, 0)
+                //である。それぞれ a=1と置いた場合
+                //①( 2a, 0, a√2)は
+                //vX = 2*mat_11                + √2*mat_31
+                //vY = 2*mat_12                + √2*mat_32
+                //vZ = 2*mat_13                + √2*mat_33
+                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                if (pActor) {
+                    GgafDx9Util::getRzRyAng(
+                       2.0*matWorldRot._11 + SQR2*matWorldRot._31,
+                       2.0*matWorldRot._12 + SQR2*matWorldRot._32,
+                       2.0*matWorldRot._13 + SQR2*matWorldRot._33,
+                       Rz, Ry
+                    ); //現在の最終的な向きを、RzRyで取得
+                    pActor->setGeometry(this);
+                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                    pActor->activate();
+                }
+                //②( 2a, a√2, 0)は
+                //vX = 2*mat_11  + √2*mat_21
+                //vY = 2*mat_12  + √2*mat_22
+                //vZ = 2*mat_13  + √2*mat_23
+                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                if (pActor) {
+                    GgafDx9Util::getRzRyAng(
+                       2.0*matWorldRot._11 + SQR2*matWorldRot._21,
+                       2.0*matWorldRot._12 + SQR2*matWorldRot._22,
+                       2.0*matWorldRot._13 + SQR2*matWorldRot._23,
+                       Rz, Ry
+                    ); //現在の最終的な向きを、RzRyで取得
+                    pActor->setGeometry(this);
+                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                    pActor->activate();
+                }
+                //③( 2a, 0,-a√2)は
+                //vX = 2*mat_11                - √2*mat_31
+                //vY = 2*mat_12                - √2*mat_32
+                //vZ = 2*mat_13                - √2*mat_33
+                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                if (pActor) {
+                    GgafDx9Util::getRzRyAng(
+                       2.0*matWorldRot._11 - SQR2*matWorldRot._31,
+                       2.0*matWorldRot._12 - SQR2*matWorldRot._32,
+                       2.0*matWorldRot._13 - SQR2*matWorldRot._33,
+                       Rz, Ry
+                    ); //現在の最終的な向きを、RzRyで取得
+                    pActor->setGeometry(this);
+                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                    pActor->activate();
+                }
+                //④( 2a,-a√2, 0)は
+                //vX = 2*mat_11  - √2*mat_21
+                //vY = 2*mat_12  - √2*mat_22
+                //vZ = 2*mat_13  - √2*mat_23
+                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                if (pActor) {
+                    GgafDx9Util::getRzRyAng(
+                       2.0*matWorldRot._11 - SQR2*matWorldRot._21,
+                       2.0*matWorldRot._12 - SQR2*matWorldRot._22,
+                       2.0*matWorldRot._13 - SQR2*matWorldRot._23,
+                       Rz, Ry
+                    ); //現在の最終的な向きを、RzRyで取得
+                    pActor->setGeometry(this);
+                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                    pActor->activate();
+                }
+                //⑤(-2a, 0, a√2)は
+                //vX = -2*mat_11                + √2*mat_31
+                //vY = -2*mat_12                + √2*mat_32
+                //vZ = -2*mat_13                + √2*mat_33
+                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                if (pActor) {
+                    GgafDx9Util::getRzRyAng(
+                       -2.0*matWorldRot._11 + SQR2*matWorldRot._31,
+                       -2.0*matWorldRot._12 + SQR2*matWorldRot._32,
+                       -2.0*matWorldRot._13 + SQR2*matWorldRot._33,
+                       Rz, Ry
+                    ); //現在の最終的な向きを、RzRyで取得
+                    pActor->setGeometry(this);
+                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                    pActor->activate();
+                }
+                //⑥(-2a, a√2, 0)は
+                //vX = -2*mat_11  + √2*mat_21
+                //vY = -2*mat_12  + √2*mat_22
+                //vZ = -2*mat_13  + √2*mat_23
+                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                if (pActor) {
+                    GgafDx9Util::getRzRyAng(
+                       -2.0*matWorldRot._11 + SQR2*matWorldRot._21,
+                       -2.0*matWorldRot._12 + SQR2*matWorldRot._22,
+                       -2.0*matWorldRot._13 + SQR2*matWorldRot._23,
+                       Rz, Ry
+                    ); //現在の最終的な向きを、RzRyで取得
+                    pActor->setGeometry(this);
+                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                    pActor->activate();
+                }
+                //⑦(-2a, 0,-a√2)は
+                //vX = -2*mat_11                - √2*mat_31
+                //vY = -2*mat_12                - √2*mat_32
+                //vZ = -2*mat_13                - √2*mat_33
+                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                if (pActor) {
+                    GgafDx9Util::getRzRyAng(
+                       -2.0*matWorldRot._11 - SQR2*matWorldRot._31,
+                       -2.0*matWorldRot._12 - SQR2*matWorldRot._32,
+                       -2.0*matWorldRot._13 - SQR2*matWorldRot._33,
+                       Rz, Ry
+                    ); //現在の最終的な向きを、RzRyで取得
+                    pActor->setGeometry(this);
+                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                    pActor->activate();
+                }
+                //⑧(-2a,-a√2, 0)は
+                //vX = -2*mat_11  - √2*mat_21
+                //vY = -2*mat_12  - √2*mat_22
+                //vZ = -2*mat_13  - √2*mat_23
+                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                if (pActor) {
+                    GgafDx9Util::getRzRyAng(
+                       -2.0*matWorldRot._11 - SQR2*matWorldRot._21,
+                       -2.0*matWorldRot._12 - SQR2*matWorldRot._22,
+                       -2.0*matWorldRot._13 - SQR2*matWorldRot._23,
+                       Rz, Ry
+                    ); //現在の最終的な向きを、RzRyで取得
+                    pActor->setGeometry(this);
+                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                    pActor->activate();
+                }
+            }
+
         }
-    }
-    if (_iMovePatternNo == 2) {
+    } else if (_iMovePatternNo == 2) {
         if (!_pMover->isTagettingFaceAng()) {
             _iMovePatternNo = 3;
             _frame_shot_after = 0;
         }
-    }
-
-    if (_iMovePatternNo == 3) {
+    } else if (_iMovePatternNo == 3) {
         _pMover->setFaceAngVelo(AXIS_X, _angveloTurn*40);
         _pMover->setFaceAngVelo(AXIS_Z, 0);
         _pMover->setFaceAngVelo(AXIS_Y, 0);
@@ -204,7 +369,6 @@ void EnemyAstraea::processBehavior() {
     }
 
     _pSeReflector->behave();
-
     _pMover->behave();
 }
 

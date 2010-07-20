@@ -15,6 +15,7 @@ public:
     /** 行動パターン番号 */
     int _iMovePatternNo;
     /** 方向転換間隔(frame) */
+    int _laser_interval;
     int _shot_interval;
     /** 発射レーザーチップの数 */
     int _laser_length;
@@ -27,7 +28,8 @@ public:
     angvelo _angveloTurn;
 
     LaserChipDispatcher*** _papapLaserChipDispatcher;
-
+    GgafCore::GgafActorDispatcher* _pDispatcher_Shot;
+    DispatcherConnection* _pDpcon;
     EnemyAstraea(const char* prm_name);
 
     void onCreateModel() override;
