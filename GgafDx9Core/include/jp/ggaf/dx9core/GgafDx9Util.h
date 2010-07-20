@@ -297,7 +297,23 @@ public:
      * @param out_angFaceZ [out]Z軸回転アングル値
      * @param out_angFaceY [out]Y軸回転アングル値
      */
-    static void getRzRyAng(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY);
+    static void getRzRyAng(double nvx, double nvy, double nvz, angle& out_angFaceZ, angle& out_angFaceY) {
+        getRzRyAng((int)(nvx*LEN_UNIT*PX_UNIT),
+                   (int)(nvy*LEN_UNIT*PX_UNIT),
+                   (int)(nvz*LEN_UNIT*PX_UNIT),
+                   out_angFaceZ,
+                   out_angFaceY );
+    }
+
+    static void getRzRyAng(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY) {
+        getRzRyAng((int)(nvx*LEN_UNIT*PX_UNIT),
+                   (int)(nvy*LEN_UNIT*PX_UNIT),
+                   (int)(nvz*LEN_UNIT*PX_UNIT),
+                   out_angFaceZ,
+                   out_angFaceY );
+
+
+    }
 
 
     /**
@@ -408,6 +424,8 @@ public:
 
 
     static void setWorldMatrix_ScRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
+    static void setWorldMatrix_RxRzRy(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換行列設定 .
