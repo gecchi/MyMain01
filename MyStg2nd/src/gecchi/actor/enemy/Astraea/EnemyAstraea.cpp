@@ -165,10 +165,13 @@ void EnemyAstraea::processBehavior() {
                 //vY = _Xorg*mat_12 + _Yorg*mat_22 + _Zorg*mat_32
                 //vZ = _Xorg*mat_13 + _Yorg*mat_23 + _Zorg*mat_33
                 //
-                //Ç≥ÇƒÇ±Ç±Ç≈ÅAÉçÅ[ÉJÉãÇÃÉVÉáÉbÉgÇÃÇWï˚å¸Ç∆ÇÕÅAéhÇ÷ÇÃï˚å¸ÇÃÇ±Ç∆Ç≈ÅA
+                //Ç≥ÇƒÇ±Ç±Ç≈ÅAÉçÅ[ÉJÉãÇÃÉVÉáÉbÉgÇÃÇWï˚å¸Ç∆ÇÕÅAÇ∆Ç∞Ç∆Ç∞Ç÷ÇÃï˚å¸ÇÃÇ±Ç∆Ç≈ÅA
                 //á@( 2a, 0, aÅ„2)   áA( 2a, aÅ„2, 0)   áB( 2a, 0,-aÅ„2)   áC( 2a,-aÅ„2, 0)
                 //áD(-2a, 0, aÅ„2)   áE(-2a, aÅ„2, 0)   áF(-2a, 0,-aÅ„2)   áG(-2a,-aÅ„2, 0)
-                //Ç≈Ç†ÇÈÅBÇªÇÍÇºÇÍ a=1Ç∆íuÇ¢ÇΩèÍçá
+                //Ç≈Ç†ÇÈÅBÇªÇÍÇºÇÍ 2a=ÉÇÉfÉãã´äEãÖîºåa(R)Ç∆íuÇ¢ÇΩèÍçá
+                //aÅ„2 = R/2*Å„2 ÅcÇ±ÇÍÇ
+                int R = _pGgafDx9Model->_fBoundingSphereRadius*PX_UNIT*LEN_UNIT;
+                int ASQR2 = A2*SQR2/2;
                 //á@( 2a, 0, aÅ„2)ÇÕ
                 //vX = 2*mat_11                + Å„2*mat_31
                 //vY = 2*mat_12                + Å„2*mat_32
