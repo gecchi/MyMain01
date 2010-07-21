@@ -10,7 +10,6 @@ GgafDx9TextureConnection::GgafDx9TextureConnection(char* prm_idstr, GgafDx9Textu
 }
 
 void GgafDx9TextureConnection::processReleaseResource(GgafDx9Texture* prm_pResource) {
-    TRACE3("GgafDx9TextureConnection::processReleaseResource _idstr="<<getIdStr()<<" ŠJŽn");
     DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }
 

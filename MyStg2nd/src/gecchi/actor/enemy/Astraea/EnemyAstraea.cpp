@@ -14,8 +14,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     _Y = 0;
     _Z = 0;
     _laser_length = 30;
-    _laser_interval = 600;
-    _angveloTurn = 200;
+    _laser_interval = 6000;
+    _angveloTurn = 100;
     _shot_interval = 30;
 
     _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
@@ -53,7 +53,7 @@ void EnemyAstraea::initialize() {
     setAlpha(0.99);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 200*1000);
-    _pMover->setMvVelo(-5000);
+    _pMover->setMvVelo(-1000);
     _frame_shot_after = 1000;
     _iMovePatternNo = 0;
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
@@ -148,6 +148,7 @@ void EnemyAstraea::processBehavior() {
             //‚W•ûŒüƒVƒ‡ƒbƒg
             if (getBehaveingFrame() % _shot_interval == 0) {
                 angle Rz, Ry;
+                int vX, vY, vZ;
                 GgafDx9DrawableActor* pActor;
                 static double SQR2 = 1.41421356;
                 D3DXMATRIX matWorldRot;
@@ -165,145 +166,129 @@ void EnemyAstraea::processBehavior() {
                 //vY = _Xorg*mat_12 + _Yorg*mat_22 + _Zorg*mat_32
                 //vZ = _Xorg*mat_13 + _Yorg*mat_23 + _Zorg*mat_33
                 //
-                //‚³‚Ä‚±‚±‚ÅAƒ[ƒJƒ‹‚ÌƒVƒ‡ƒbƒg‚Ì‚W•ûŒü‚Æ‚ÍA‚Æ‚°‚Æ‚°‚Ö‚Ì•ûŒü‚Ì‚±‚Æ‚ÅA
-                //‡@( 2a, 0, aã2)   ‡A( 2a, aã2, 0)   ‡B( 2a, 0,-aã2)   ‡C( 2a,-aã2, 0)
-                //‡D(-2a, 0, aã2)   ‡E(-2a, aã2, 0)   ‡F(-2a, 0,-aã2)   ‡G(-2a,-aã2, 0)
-                //‚Å‚ ‚éB‚»‚ê‚¼‚ê 2a=ƒ‚ƒfƒ‹‹«ŠE‹…”¼Œa(R)‚Æ’u‚¢‚½ê‡
-                //aã2 = R/2*ã2 c‚±‚ê‚ð
-                int R = _pGgafDx9Model->_fBoundingSphereRadius*PX_UNIT*LEN_UNIT;
-                int ASQR2 = A2*SQR2/2;
-                //‡@( 2a, 0, aã2)‚Í
-                //vX = 2*mat_11                + ã2*mat_31
-                //vY = 2*mat_12                + ã2*mat_32
-                //vZ = 2*mat_13                + ã2*mat_33
+                //‚³‚Ä‚±‚±‚ÅAƒ[ƒJƒ‹‚ÌƒVƒ‡ƒbƒg‚Ì‚W•ûŒü‚Æ‚ÍA‚Æ‚°‚Æ‚°‚Ö‚Ì•ûŒü‚Ì‚±‚Æ‚ÅA—§•û‘Ì‚Ì1•Ó‚Ì”¼•ª‚ða‚Æ‚·‚é‚Æ
+                //‡@( a, 0, aã2)   ‡A( a, aã2, 0)   ‡B( a, 0,-aã2)   ‡C( a,-aã2, 0)
+                //‡D(-a, 0, aã2)   ‡E(-a, aã2, 0)   ‡F(-a, 0,-aã2)   ‡G(-a,-aã2, 0)
+                //‚Å‚ ‚éB‚»‚ê‚¼‚ê a=‚Æ‚°‚Æ‚°‚Ü‚Å‚Ì‹——£(R)‚Æ’u‚¢‚½ê‡
+                //aã2 = R *ã2 c‚±‚ê‚ð S ‚Æ‚µ‚æ‚¤
+                double R = _pGgafDx9Model->_fBoundingSphereRadius/2;
+                double S = R*SQR2;
+                //‡@( a, 0, aã2)‚Í
+                //vX = R*mat_11                + S*mat_31
+                //vY = R*mat_12                + S*mat_32
+                //vZ = R*mat_13                + S*mat_33
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
-                    GgafDx9Util::getRzRyAng(
-                       2.0*matWorldRot._11 + SQR2*matWorldRot._31,
-                       2.0*matWorldRot._12 + SQR2*matWorldRot._32,
-                       2.0*matWorldRot._13 + SQR2*matWorldRot._33,
-                       Rz, Ry
-                    ); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
-                    pActor->setGeometry(this);
+                    vX = (R*matWorldRot._11 + S*matWorldRot._31)*PX_UNIT*LEN_UNIT;
+                    vY = (R*matWorldRot._12 + S*matWorldRot._32)*PX_UNIT*LEN_UNIT;
+                    vZ = (R*matWorldRot._13 + S*matWorldRot._33)*PX_UNIT*LEN_UNIT;
+                    GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
+                    pActor->setGeometry(_X+vX, _Y+vY, _Z+vZ);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
                     pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRy‚ÅMover‚ÉÝ’è
                     pActor->activate();
                 }
-                //‡A( 2a, aã2, 0)‚Í
-                //vX = 2*mat_11  + ã2*mat_21
-                //vY = 2*mat_12  + ã2*mat_22
-                //vZ = 2*mat_13  + ã2*mat_23
+                //‡A( a, aã2, 0)‚Í
+                //vX = R*mat_11  + S*mat_21
+                //vY = R*mat_12  + S*mat_22
+                //vZ = R*mat_13  + S*mat_23
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
-                    GgafDx9Util::getRzRyAng(
-                       2.0*matWorldRot._11 + SQR2*matWorldRot._21,
-                       2.0*matWorldRot._12 + SQR2*matWorldRot._22,
-                       2.0*matWorldRot._13 + SQR2*matWorldRot._23,
-                       Rz, Ry
-                    ); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
-                    pActor->setGeometry(this);
+                    vX = (R*matWorldRot._11 + S*matWorldRot._21)*PX_UNIT*LEN_UNIT;
+                    vY = (R*matWorldRot._12 + S*matWorldRot._22)*PX_UNIT*LEN_UNIT;
+                    vZ = (R*matWorldRot._13 + S*matWorldRot._23)*PX_UNIT*LEN_UNIT;
+                    GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
+                    pActor->setGeometry(_X+vX, _Y+vY, _Z+vZ);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
                     pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRy‚ÅMover‚ÉÝ’è
                     pActor->activate();
                 }
-                //‡B( 2a, 0,-aã2)‚Í
-                //vX = 2*mat_11                - ã2*mat_31
-                //vY = 2*mat_12                - ã2*mat_32
-                //vZ = 2*mat_13                - ã2*mat_33
+                //‡B( a, 0,-aã2)‚Í
+                //vX = R*mat_11                - S*mat_31
+                //vY = R*mat_12                - S*mat_32
+                //vZ = R*mat_13                - S*mat_33
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
-                    GgafDx9Util::getRzRyAng(
-                       2.0*matWorldRot._11 - SQR2*matWorldRot._31,
-                       2.0*matWorldRot._12 - SQR2*matWorldRot._32,
-                       2.0*matWorldRot._13 - SQR2*matWorldRot._33,
-                       Rz, Ry
-                    ); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
-                    pActor->setGeometry(this);
+                    vX = (R*matWorldRot._11 - S*matWorldRot._31)*PX_UNIT*LEN_UNIT;
+                    vY = (R*matWorldRot._12 - S*matWorldRot._32)*PX_UNIT*LEN_UNIT;
+                    vZ = (R*matWorldRot._13 - S*matWorldRot._33)*PX_UNIT*LEN_UNIT;
+                    GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
+                    pActor->setGeometry(_X+vX, _Y+vY, _Z+vZ);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
                     pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRy‚ÅMover‚ÉÝ’è
                     pActor->activate();
                 }
-                //‡C( 2a,-aã2, 0)‚Í
-                //vX = 2*mat_11  - ã2*mat_21
-                //vY = 2*mat_12  - ã2*mat_22
-                //vZ = 2*mat_13  - ã2*mat_23
+                //‡C( a,-aã2, 0)‚Í
+                //vX = R*mat_11  - S*mat_21
+                //vY = R*mat_12  - S*mat_22
+                //vZ = R*mat_13  - S*mat_23
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
-                    GgafDx9Util::getRzRyAng(
-                       2.0*matWorldRot._11 - SQR2*matWorldRot._21,
-                       2.0*matWorldRot._12 - SQR2*matWorldRot._22,
-                       2.0*matWorldRot._13 - SQR2*matWorldRot._23,
-                       Rz, Ry
-                    ); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
-                    pActor->setGeometry(this);
+                    vX = (R*matWorldRot._11 - S*matWorldRot._21)*PX_UNIT*LEN_UNIT;
+                    vY = (R*matWorldRot._12 - S*matWorldRot._22)*PX_UNIT*LEN_UNIT;
+                    vZ = (R*matWorldRot._13 - S*matWorldRot._23)*PX_UNIT*LEN_UNIT;
+                    GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
+                    pActor->setGeometry(_X+vX, _Y+vY, _Z+vZ);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
                     pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRy‚ÅMover‚ÉÝ’è
                     pActor->activate();
                 }
-                //‡D(-2a, 0, aã2)‚Í
-                //vX = -2*mat_11                + ã2*mat_31
-                //vY = -2*mat_12                + ã2*mat_32
-                //vZ = -2*mat_13                + ã2*mat_33
+                //‡D(-a, 0, aã2)‚Í
+                //vX = -R*mat_11                + S*mat_31
+                //vY = -R*mat_12                + S*mat_32
+                //vZ = -R*mat_13                + S*mat_33
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
-                    GgafDx9Util::getRzRyAng(
-                       -2.0*matWorldRot._11 + SQR2*matWorldRot._31,
-                       -2.0*matWorldRot._12 + SQR2*matWorldRot._32,
-                       -2.0*matWorldRot._13 + SQR2*matWorldRot._33,
-                       Rz, Ry
-                    ); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
-                    pActor->setGeometry(this);
+                    vX = (-R*matWorldRot._11 + S*matWorldRot._31)*PX_UNIT*LEN_UNIT;
+                    vY = (-R*matWorldRot._12 + S*matWorldRot._32)*PX_UNIT*LEN_UNIT;
+                    vZ = (-R*matWorldRot._13 + S*matWorldRot._33)*PX_UNIT*LEN_UNIT;
+                    GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
+                    pActor->setGeometry(_X+vX, _Y+vY, _Z+vZ);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
                     pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRy‚ÅMover‚ÉÝ’è
                     pActor->activate();
                 }
-                //‡E(-2a, aã2, 0)‚Í
-                //vX = -2*mat_11  + ã2*mat_21
-                //vY = -2*mat_12  + ã2*mat_22
-                //vZ = -2*mat_13  + ã2*mat_23
+                //‡E(-a, aã2, 0)‚Í
+                //vX = -R*mat_11  + S*mat_21
+                //vY = -R*mat_12  + S*mat_22
+                //vZ = -R*mat_13  + S*mat_23
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
-                    GgafDx9Util::getRzRyAng(
-                       -2.0*matWorldRot._11 + SQR2*matWorldRot._21,
-                       -2.0*matWorldRot._12 + SQR2*matWorldRot._22,
-                       -2.0*matWorldRot._13 + SQR2*matWorldRot._23,
-                       Rz, Ry
-                    ); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
-                    pActor->setGeometry(this);
+                    vX = (-R*matWorldRot._11 + S*matWorldRot._21)*PX_UNIT*LEN_UNIT;
+                    vY = (-R*matWorldRot._12 + S*matWorldRot._22)*PX_UNIT*LEN_UNIT;
+                    vZ = (-R*matWorldRot._13 + S*matWorldRot._23)*PX_UNIT*LEN_UNIT;
+                    GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
+                    pActor->setGeometry(_X+vX, _Y+vY, _Z+vZ);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
                     pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRy‚ÅMover‚ÉÝ’è
                     pActor->activate();
                 }
-                //‡F(-2a, 0,-aã2)‚Í
-                //vX = -2*mat_11                - ã2*mat_31
-                //vY = -2*mat_12                - ã2*mat_32
-                //vZ = -2*mat_13                - ã2*mat_33
+                //‡F(-a, 0,-aã2)‚Í
+                //vX = -R*mat_11                - S*mat_31
+                //vY = -R*mat_12                - S*mat_32
+                //vZ = -R*mat_13                - S*mat_33
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
-                    GgafDx9Util::getRzRyAng(
-                       -2.0*matWorldRot._11 - SQR2*matWorldRot._31,
-                       -2.0*matWorldRot._12 - SQR2*matWorldRot._32,
-                       -2.0*matWorldRot._13 - SQR2*matWorldRot._33,
-                       Rz, Ry
-                    ); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
-                    pActor->setGeometry(this);
+                    vX = (-R*matWorldRot._11 - S*matWorldRot._31)*PX_UNIT*LEN_UNIT;
+                    vY = (-R*matWorldRot._12 - S*matWorldRot._32)*PX_UNIT*LEN_UNIT;
+                    vZ = (-R*matWorldRot._13 - S*matWorldRot._33)*PX_UNIT*LEN_UNIT;
+                    GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
+                    pActor->setGeometry(_X+vX, _Y+vY, _Z+vZ);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
                     pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRy‚ÅMover‚ÉÝ’è
                     pActor->activate();
                 }
-                //‡G(-2a,-aã2, 0)‚Í
-                //vX = -2*mat_11  - ã2*mat_21
-                //vY = -2*mat_12  - ã2*mat_22
-                //vZ = -2*mat_13  - ã2*mat_23
+                //‡G(-a,-aã2, 0)‚Í
+                //vX = -R*mat_11  - S*mat_21
+                //vY = -R*mat_12  - S*mat_22
+                //vZ = -R*mat_13  - S*mat_23
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
-                    GgafDx9Util::getRzRyAng(
-                       -2.0*matWorldRot._11 - SQR2*matWorldRot._21,
-                       -2.0*matWorldRot._12 - SQR2*matWorldRot._22,
-                       -2.0*matWorldRot._13 - SQR2*matWorldRot._23,
-                       Rz, Ry
-                    ); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
-                    pActor->setGeometry(this);
+                    vX = (-R*matWorldRot._11 - S*matWorldRot._21)*PX_UNIT*LEN_UNIT;
+                    vY = (-R*matWorldRot._12 - S*matWorldRot._22)*PX_UNIT*LEN_UNIT;
+                    vZ = (-R*matWorldRot._13 - S*matWorldRot._23)*PX_UNIT*LEN_UNIT;
+                    GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
+                    pActor->setGeometry(_X+vX, _Y+vY, _Z+vZ);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
                     pActor->_pMover->setRzRyMvAng(Rz, Ry); //RzRy‚ÅMover‚ÉÝ’è
                     pActor->activate();
@@ -416,6 +401,7 @@ void EnemyAstraea::onInactive() {
 
 
 EnemyAstraea::~EnemyAstraea() {
+    _pDpcon->close();
     DELETEARR_IMPOSSIBLE_NULL(_paWayRz);
     DELETEARR_IMPOSSIBLE_NULL(_paWayRy);
     for (int i = 0; i < _laser_way; i++) {

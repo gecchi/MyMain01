@@ -10,7 +10,7 @@ Spline3DConnection::Spline3DConnection(char* prm_idstr, GgafDx9Core::GgafDx9Spli
 }
 
 void Spline3DConnection::processReleaseResource(GgafDx9Core::GgafDx9Spline3D* prm_pResource) {
-    _TRACE_("Spline3DConnection::processReleaseResource‚ÅŠJ•ú");
+    _TRACE_("Spline3DConnection::processReleaseResource‚ÅŠJ•ú(‚±‚±‚Å‚Ô‚Á‰ó‚ê‚½‚çclose()˜R‚ê‚Ì‰Â”\«‚ ‚è)");
     DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }
 
