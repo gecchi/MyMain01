@@ -169,9 +169,10 @@ void EnemyAstraea::processBehavior() {
                 //さてここで、ローカルのショットの８方向とは、とげとげへの方向のことで、立方体の1辺の半分をaとすると
                 //①( a, 0, a√2)   ②( a, a√2, 0)   ③( a, 0,-a√2)   ④( a,-a√2, 0)
                 //⑤(-a, 0, a√2)   ⑥(-a, a√2, 0)   ⑦(-a, 0,-a√2)   ⑧(-a,-a√2, 0)
-                //である。それぞれ a=とげとげまでの距離(R)と置いた場合
-                //a√2 = R *√2 …これを S としよう
-                double R = _pGgafDx9Model->_fBoundingSphereRadius/2;
+                //である。それぞれ
+                //a = とげとげまでの距離 … これを R と置き
+                //a√2 = R *√2          … これを S としよう
+                double R = _pGgafDx9Model->_fBoundingSphereRadius/2; //とげとげへの距離
                 double S = R*SQR2;
                 //①( a, 0, a√2)は
                 //vX = R*mat_11                + S*mat_31
