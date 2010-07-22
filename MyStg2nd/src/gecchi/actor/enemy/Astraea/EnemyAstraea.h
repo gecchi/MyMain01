@@ -27,8 +27,8 @@ public:
     /** Way”     */
     int _laser_way;
 
-    angle* _paWayRz;
-    angle* _paWayRy;
+//    angle* _paWayRz;
+//    angle* _paWayRy;
     /** •ûŒü“]Š·Šp‘¬“x */
     angvelo _angveloTurn;
 
@@ -38,7 +38,7 @@ public:
         int Y;
         int Z;
     };
-    PosLaser** papaPosLaser;
+    PosLaser** _papaPosLaser;
 
 
     LaserChipDispatcher*** _papapLaserChipDispatcher;

@@ -9,12 +9,12 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 
     //レーザーストック
-    _laser_way = 4;
+    _laser_way = 9;
     _X = 0;
     _Y = 0;
     _Z = 0;
     _laser_length = 30;
-    _laser_interval = 6000;
+    _laser_interval = 600;
     _angveloTurn = 100;
     _shot_interval = 30;
 
@@ -31,21 +31,21 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     }
 
 
-    papaPosLaser = NEW PosLaser*[_laser_way];
+    _papaPosLaser = NEW PosLaser*[_laser_way];
     angle* paAngWay = NEW angle[_laser_way];
-    GgafDx9Util::getWayAngle2D(0, _laser_way, 30000, paAngWay);
+    GgafDx9Util::getWayAngle2D(0, _laser_way, 10000, paAngWay);
     angle Rz,Ry;
     float vx, vy, vz;
     for (int i = 0; i < _laser_way; i++) {
         Rz = GgafDx9Util::simplifyAng(paAngWay[i]);
-        papaPosLaser[i] = NEW PosLaser[_laser_way];
+        _papaPosLaser[i] = NEW PosLaser[_laser_way];
         for (int j = 0; j < _laser_way; j++) {
-            Ry = GgafDx9Util::simplifyAng(paAngWay[i]);
+            Ry = GgafDx9Util::simplifyAng(paAngWay[j]);
             GgafDx9Util::getNormalizeVectorZY(Rz, Ry,
                                               vx, vy, vz);
-            papaPosLaser[i][j].X = vx * 200*1000;
-            papaPosLaser[i][j].Y = vx * 200*1000;
-            papaPosLaser[i][j].Z = vx * 200*1000;
+            _papaPosLaser[i][j].X = vx * 100*1000;
+            _papaPosLaser[i][j].Y = vy * 100*1000;
+            _papaPosLaser[i][j].Z = vz * 100*1000;
         }
     }
 
@@ -331,8 +331,8 @@ void EnemyAstraea::processBehavior() {
             static EnemyAstraeaLaserChip001* pLaserChip;
 
             angle angClearance = 10000;//開き具合
-            GgafDx9Util::getWayAngle2D(_pMover->_angFace[AXIS_Z], _laser_way, angClearance, _paWayRz);
-            GgafDx9Util::getWayAngle2D(_pMover->_angFace[AXIS_Y], _laser_way, angClearance, _paWayRy);
+//            GgafDx9Util::getWayAngle2D(_pMover->_angFace[AXIS_Z], _laser_way, angClearance, _paWayRz);
+//            GgafDx9Util::getWayAngle2D(_pMover->_angFace[AXIS_Y], _laser_way, angClearance, _paWayRy);
             D3DXMATRIX matWorldRot;
             GgafDx9Util::setWorldMatrix_RxRzRy(this, matWorldRot);
             angle Rz, Ry;
@@ -358,9 +358,9 @@ void EnemyAstraea::processBehavior() {
 
                     if (pLaserChip != NULL) {
                         //レーザーの向きを計算
-                        vX = papaPosLaser[i][j].X*matWorldRot._11 + papaPosLaser[i][j].Y*matWorldRot._21 + papaPosLaser[i][j].Z*matWorldRot._31;
-                        vY = papaPosLaser[i][j].X*matWorldRot._12 + papaPosLaser[i][j].Y*matWorldRot._22 + papaPosLaser[i][j].Z*matWorldRot._32;
-                        vZ = papaPosLaser[i][j].X*matWorldRot._13 + papaPosLaser[i][j].Y*matWorldRot._23 + papaPosLaser[i][j].Z*matWorldRot._33;
+                        vX = _papaPosLaser[i][j].X*matWorldRot._11 + _papaPosLaser[i][j].Y*matWorldRot._21 + _papaPosLaser[i][j].Z*matWorldRot._31;
+                        vY = _papaPosLaser[i][j].X*matWorldRot._12 + _papaPosLaser[i][j].Y*matWorldRot._22 + _papaPosLaser[i][j].Z*matWorldRot._32;
+                        vZ = _papaPosLaser[i][j].X*matWorldRot._13 + _papaPosLaser[i][j].Y*matWorldRot._23 + _papaPosLaser[i][j].Z*matWorldRot._33;
                         GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //現在の最終的な向きを、RzRyで取得
 
                         pLaserChip->activate();
@@ -428,11 +428,15 @@ void EnemyAstraea::onInactive() {
 
 EnemyAstraea::~EnemyAstraea() {
     _pDpcon->close();
-    DELETEARR_IMPOSSIBLE_NULL(_paWayRz);
-    DELETEARR_IMPOSSIBLE_NULL(_paWayRy);
+//    DELETEARR_IMPOSSIBLE_NULL(_paWayRz);
+//    DELETEARR_IMPOSSIBLE_NULL(_paWayRy);
+
+
     for (int i = 0; i < _laser_way; i++) {
+        DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser[i]);
         DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipDispatcher[i]);
     }
+    DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser);
     DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipDispatcher);
 
 
