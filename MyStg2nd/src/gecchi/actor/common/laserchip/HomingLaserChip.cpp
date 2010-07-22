@@ -113,7 +113,7 @@ void HomingLaserChip::onInactive() {
     } else if (_chip_kind == 3) {
         //中間先頭チップ消失時の場合
         //殆どの場合、先頭から順に消えていくはずである。
-        //行いたいことは中間チップ消失時の場合と同じだが、
+        //行いたいことは中間チップ消失時の場合と同じで、後方チップへ情報を伝達する必要がある。
         //先端チップ Mover 内部パラメータの移動方向と移動速度の情報をコピーすることでOK
         //計算速度を稼ぐ
         if (_pChip_behind && _pChip_front) {
@@ -161,11 +161,6 @@ void HomingLaserChip::processBehavior() {
             _prev_RX = _RX;
             _prev_RY = _RY;
             _prev_RZ = _RZ;
-//            _prev_vX = _pMover->_vX;
-//            _prev_vY = _pMover->_vY;
-//            _prev_vZ = _pMover->_vZ;
-//            _prev_RzMvAng = _pMover->_angRzMv;
-//            _prev_RyMvAng = _pMover->_angRyMv;
 
             processBehaviorHeadChip(); //先頭チップのみ移動実装
         } else {
@@ -176,11 +171,6 @@ void HomingLaserChip::processBehavior() {
             _prev_RX = _RX;
             _prev_RY = _RY;
             _prev_RZ = _RZ;
-//            _prev_vX = _pMover->_vX;
-//            _prev_vY = _pMover->_vY;
-//            _prev_vZ = _pMover->_vZ;
-//            _prev_RzMvAng = _pMover->_angRzMv;
-//            _prev_RyMvAng = _pMover->_angRyMv;
 
             _X  = pChip_front->_prev_X;
             _Y  = pChip_front->_prev_Y;
@@ -188,11 +178,6 @@ void HomingLaserChip::processBehavior() {
             _RX = pChip_front->_prev_RX;
             _RY = pChip_front->_prev_RY;
             _RZ = pChip_front->_prev_RZ;
-//            _pMover->_vX = pChip_front->_prev_vX;
-//            _pMover->_vY = pChip_front->_prev_vY;
-//            _pMover->_vZ = pChip_front->_prev_vZ;
-//            _pMover->_angRzMv = pChip_front->_prev_RzMvAng;
-//            _pMover->_angRyMv = pChip_front->_prev_RyMvAng;
         }
     }
 }

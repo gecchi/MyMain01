@@ -7,6 +7,11 @@ namespace MyStg2nd {
  */
 class EnemyAstraea : public GgafDx9LibStg::DefaultMeshActor {
 
+
+
+
+
+
 private:
     /** 発射済みレーザーチップ数 */
     int _cnt_laserchip;
@@ -26,6 +31,15 @@ public:
     angle* _paWayRy;
     /** 方向転換角速度 */
     angvelo _angveloTurn;
+
+
+    struct PosLaser {
+        int X;
+        int Y;
+        int Z;
+    };
+    PosLaser** papaPosLaser;
+
 
     LaserChipDispatcher*** _papapLaserChipDispatcher;
     GgafCore::GgafActorDispatcher* _pDispatcher_Shot;
