@@ -10,7 +10,7 @@ GgafDx9Scene::GgafDx9Scene(const char* prm_name) : GgafMainScene(prm_name) {
     _pBgmPerformer = NEW GgafDx9BgmPerformer();
 }
 
-void GgafDx9Scene::processPreJudgement() {
+void GgafDx9Scene::processSettlementBehavior() {
     _pAlphaCurtain->behave();
     _pBgmPerformer->behave();
 }

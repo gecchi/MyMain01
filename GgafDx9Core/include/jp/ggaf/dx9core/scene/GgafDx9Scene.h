@@ -28,12 +28,12 @@ private :
     }
 
     /**
-     * processPreJudgement() のオーバーライド禁止 .
-     * 本クラスのprocessPreJudgement()で、 GgafDx9AlphaCurtainとGgafDx9BgmPerformerを<BR>
+     * processSettlementBehavior() のオーバーライド禁止 .
+     * 本クラスのprocessSettlementBehavior()で、 GgafDx9AlphaCurtainとGgafDx9BgmPerformerを<BR>
      * behave() しています。オーバーライドすると、画面フェード、BGMフェードが働きません。<BR>
      * 誤ってオーバーライドしないために private で実装。<BR>
      */
-    void processPreJudgement() override;
+    void processSettlementBehavior() override;
 
 public :
     /** αカーテン */

@@ -20,7 +20,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _pSeReflector = NEW GgafDx9SeReflector(this);
 
     _offscreenkind = -1;
-    _pFunc_calcWorldMatrix = NULL;
+    _pFunc_calcRotMvWorldMatrix = NULL;
     _pActor_Base = NULL;
 
 
@@ -50,7 +50,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
 }
 
 
-void GgafDx9GeometricActor::processPreJudgement() {
+void GgafDx9GeometricActor::processSettlementBehavior() {
     _wasCalc_matInvWorldRotMv = false;
 
     if (_pActor_Base) {
@@ -63,8 +63,8 @@ void GgafDx9GeometricActor::processPreJudgement() {
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
     //World変換行列（_matWorld）を更新
-    if (_pFunc_calcWorldMatrix) {
-        (*_pFunc_calcWorldMatrix)(this, _matWorldRotMv);
+    if (_pFunc_calcRotMvWorldMatrix) {
+        (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
         //スケールを考慮
         if (_SX != LEN_UNIT || _SY != LEN_UNIT || _SZ != LEN_UNIT) {
            static float fRateScale = 1.0f * LEN_UNIT;

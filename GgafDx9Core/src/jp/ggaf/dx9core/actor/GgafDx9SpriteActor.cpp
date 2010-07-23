@@ -25,7 +25,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     _pUvFlipper->forcePtnNoRange(0, _pSpriteModel->_pattno_uvflip_Max);
     _pUvFlipper->setPtnNo(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
-    _pFunc_calcWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
+    _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
 }
 
 void GgafDx9SpriteActor::processDraw() {
@@ -34,7 +34,7 @@ void GgafDx9SpriteActor::processDraw() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatView, &pCAM->_vMatrixView );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    //(*_pFunc_calcWorldMatrix)(this, _matWorld);
+    //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::processDraw SetMatrix(_hMatWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_hAlpha, _fAlpha);

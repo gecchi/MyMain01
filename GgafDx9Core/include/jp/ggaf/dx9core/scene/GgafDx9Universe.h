@@ -65,7 +65,7 @@ public:
 
     GgafDx9Universe(const char* prm_name);
 
-    virtual void processPreJudgement() override;
+    virtual void processSettlementBehavior() override;
 
     virtual ~GgafDx9Universe();
 

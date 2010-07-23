@@ -26,7 +26,7 @@ GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
     _fAlpha = 1.0f;
 
     _isTransformed = true;
-    _pFunc_calcWorldMatrix = NULL;
+    _pFunc_calcRotMvWorldMatrix = NULL;
 }
 
 void GgafDx9BoardSetActor::processDraw() {

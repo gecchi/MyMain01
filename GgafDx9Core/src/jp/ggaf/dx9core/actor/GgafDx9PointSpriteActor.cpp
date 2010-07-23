@@ -21,7 +21,7 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
     _class_name = "GgafDx9PointSpriteActor";
     _pPointSpriteModel = (GgafDx9PointSpriteModel*)_pGgafDx9Model;
     _pPointSpriteEffect = (GgafDx9PointSpriteEffect*)_pGgafDx9Effect;
-    _pFunc_calcWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
+    _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
     _pUvFlipper = NEW GgafDx9UvFlipper(this);
 //    _pUvFlipper->setTextureUvRotation(_pPointSpriteModel->_texture_split_rowcol,
 //                                      1.0 / _pPointSpriteModel->_texture_split_rowcol,
@@ -51,7 +51,7 @@ void GgafDx9PointSpriteActor::processDraw() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_hMatView, &pCAM->_vMatrixView );
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    //(*_pFunc_calcWorldMatrix)(this, _matWorld);
+    //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_hMatWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_hDist_VpPlnFront, -_fDist_VpPlnFront);

@@ -26,7 +26,7 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
     _fAlpha = 1.0f;
 
     _isTransformed = true;
-    _pFunc_calcWorldMatrix = NULL;
+    _pFunc_calcRotMvWorldMatrix = NULL;
     _sx = 1.0f;
     _sy = 1.0f;
 }

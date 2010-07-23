@@ -71,8 +71,8 @@ void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan
     //_pRing_pSeArray->getNext(prm_delay+1)->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
 }
 
-void GgafDx9Universe::processPreJudgement() {
-    GgafUniverse::processPreJudgement();
+void GgafDx9Universe::processSettlementBehavior() {
+    GgafUniverse::processSettlementBehavior();
     //SE‚ð–Â‚ç‚·
     SeArray* pSeArray = _pRing_pSeArray->next(); //ˆê‚Âi‚ß‚ÄSE”z—ñŽæ“¾
     if (pSeArray->_p > 0) {

@@ -67,17 +67,17 @@ public:
     FLOAT _fDist_VpPlnFront;
     /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     FLOAT _fDist_VpPlnBack;
-    /** [r/w]WORLD変換行列計算関数 */
-    void (*_pFunc_calcWorldMatrix)(GgafDx9GeometricActor*, D3DXMATRIX&);
+    /** [r/w]WORLD変換行列計算関数(通常は回転×移動のみ) */
+    void (*_pFunc_calcRotMvWorldMatrix)(GgafDx9GeometricActor*, D3DXMATRIX&);
 
 
-    /** [r]自身の現在のWorld変換行列 */
+    /** [r]自身の現在のWorld変換行列(通常は拡大縮小×回転×移動) */
     D3DXMATRIX _matWorld;
-    /** [r]自身の現在のWorld変換行列(回転と移動のみ) */
+    /** [r]自身の現在のWorld変換行列(回転×移動のみ) */
     D3DXMATRIX _matWorldRotMv;
-    /** [r]自身の現在のWorld変換行列の逆行列(回転と移動のみ) */
+    /** [r]自身の現在のWorld変換行列の逆行列(回転×移動のインバース) */
     D3DXMATRIX _matInvWorldRotMv;
-    /** [r]自身の現在のWorld変換行列の逆行列(回転と移動のみ) */
+    /** [r]カレントフレームで自身の現在のWorld変換行列の逆行列(_matInvWorldRotMv)を計算して求めたかどうかのフラグ。 */
     bool _wasCalc_matInvWorldRotMv;
 
     /** 土台となるアクター */
@@ -161,8 +161,8 @@ public:
 
     /**
      * 判定処理事前処理 .
-     * ① processBehavior() 後、座標計算事後処理として <BR>
-     *    以下のメンバの更新を行う。 <BR>
+     * processBehavior() 後、座標計算事後処理として次の処理を行う <BR>
+     * ①自身の座標情報から以下のメンバの更新を行う。 <BR>
      *     _fX <BR>
      *     _fY <BR>
      *     _fZ <BR>
@@ -172,17 +172,17 @@ public:
      *     _fDist_VpPlnRight <BR>
      *     _fDist_VpPlnFront <BR>
      *     _fDist_VpPlnBack <BR>
-     * ② ワールド変換行列を作成し_matWorldに保持
+     * ② 自身の座標情報からワールド変換行列を作成し_matWorldに保持
      * ③ processJudgement() を呼び出すのため準備処理として、 <BR>
-     *    アクターの線形８分木配列への登録を行う。 <BR>
+     *    自身の座標情報から線形８分木配列への登録を行う。 <BR>
      *
      * 本メソッドはオーバーライド可能とするが、フレームワークの描画や判定に関わる
      * 重要な事前処理のため、オーバーライドは推奨できない。<BR>
      * どうしてもオーバーライドが必要な場合は、オーバーライド先で、 <BR>
-     * GgafDx9GeometricActor::processPreJudgement() を呼び出すか、 <BR>
+     * GgafDx9GeometricActor::processSettlementBehavior() を呼び出すか、 <BR>
      * 上記①②③と同等の処理を行うようにすべきである。 <BR>
      */
-    virtual void processPreJudgement() override;
+    virtual void processSettlementBehavior() override;
 
     /**
      * 当たり判定ロジック .
@@ -320,8 +320,8 @@ public:
      * ワールド変換行列を計算する関数を定義 .
      * @param prm_pFunc 関数へのポインタ
      */
-    void defineWorldMatrix(void (*prm_pFunc)(GgafDx9GeometricActor*, D3DXMATRIX&)) {
-        _pFunc_calcWorldMatrix = prm_pFunc;
+    void defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDx9GeometricActor*, D3DXMATRIX&)) {
+        _pFunc_calcRotMvWorldMatrix = prm_pFunc;
     }
 
     /**
