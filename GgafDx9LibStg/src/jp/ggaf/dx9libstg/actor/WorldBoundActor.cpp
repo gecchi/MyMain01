@@ -13,20 +13,20 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
     _frame_offset = 0;
     _pScaler = NEW GgafDx9GeometryScaler(this);
     chengeEffectTechnique("NoLight"); //NoLightでベタ塗りテクニック
-    defineWorldMatrix(GgafDx9Util::setWorldMatrix_ScMv); //拡大×平行移動のみ
+    defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_ScMv); //拡大×平行移動のみ
 }
 
-void WorldBoundActor::processPreJudgement() {
+void WorldBoundActor::processSettlementBehavior() {
     //画面外判定無しに伴ない処理簡略化。
     //次の処理を無視しています
     //・自身がボーン時の考慮
     //・８分木登録
     //・視錐台からの距離計算
-    //GgafDx9GeometricActor::processPreJudgement() と同期を取る事！
+    //GgafDx9GeometricActor::processSettlementBehavior() と同期を取る事！
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-    (*_pFunc_calcWorldMatrix)(this, _matWorld); //ワールド変換
+    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ワールド変換
 }
 void WorldBoundActor::processPreDraw() {
     //画面外判定無しに伴ない処理簡略化

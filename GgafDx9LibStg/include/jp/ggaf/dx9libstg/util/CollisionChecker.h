@@ -36,8 +36,8 @@ public:
      * 当たり判定領域BOXの回転平行移動と、８分木登録を行います .
      * 当たり判定機能を使用するには、このメソッドを毎フレーム実行する必要があります。<br>
      * しかし、フレームワークに組み込まれているため、実装者は特に気にする必要がない。<br>
-     * 現在は GgafDx9GeometricActor::processPreJudgement から毎フレームコールされている。<br>
-     * もし processPreJudgement() を下位でオーバーライドする場合は気を付けるべし！<br>
+     * 現在は GgafDx9GeometricActor::processSettlementBehavior から毎フレームコールされている。<br>
+     * もし processSettlementBehavior() を下位でオーバーライドする場合は気を付けるべし！<br>
      */
     virtual void updateHitArea();
 

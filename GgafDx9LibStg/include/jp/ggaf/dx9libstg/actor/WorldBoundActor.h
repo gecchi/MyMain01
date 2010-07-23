@@ -24,7 +24,7 @@ public:
     virtual void initialize() override {
     }
 
-   virtual void processPreJudgement() override;
+   virtual void processSettlementBehavior() override;
 //
     virtual void processPreDraw() override;
 
