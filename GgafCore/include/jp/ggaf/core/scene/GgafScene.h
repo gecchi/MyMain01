@@ -71,7 +71,7 @@ namespace GgafCore {
  * <BR>
  * void initialize() ・・・初期処理 <BR>
  * void processBehavior() ・・・フレーム毎の振る舞い処理 <BR>
- * void processPreJudgement() ・・・フレーム毎の様々な判定処理の事前準備処理（全シーン振る舞い処理完了後の処理） <BR>
+ * void processSettlementBehavior() ・・・フレーム毎の様々な判定処理の事前準備処理（全シーン振る舞い処理完了後の処理） <BR>
  * void processJudgement() ・・・フレーム毎の様々な判定処理の本処理 <BR>
  * void processPreDraw() ・・・フレーム毎の描画事前処理 <BR>
  * void processDraw() ・・・フレーム毎の描画本処理 <BR>
@@ -190,7 +190,7 @@ public:
 
     virtual void nextFrame();
     virtual void behave();
-    virtual void preJudge();
+    virtual void settleBehavior();
     virtual void judge();
     virtual void preDraw();
     virtual void draw();

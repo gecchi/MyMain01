@@ -5,11 +5,11 @@ namespace GgafCore {
 #define GGAF_NODE GgafCore::GgafNode<T>
 #define GGAF_SAYONARA_DELAY 120
 /**
- * GgafNodeに、タスクシステム及び様々な状態管理（フラグ管理）を追加。 .
+ * GgafNodeに、様々な状態遷移管理（タスクシステム）を追加。 .
  * 毎フレーム、神(GgafGod)はこの世(GgafUniverse)に、次のメソッド順で呼び出す仕組みになっている。この世(GgafUniverse)も本templateを実装している。<BR>
- * nextFrame() > behave() > preJudge() > judge() > [preDraw() > draw() > afterDraw()] > finally() <BR>
+ * nextFrame() > behave() > settleBehavior() > judge() > [preDraw() > draw() > afterDraw()] > finally() <BR>
  * 上記の内、nextFrame() finally() は毎フレーム実行される。<BR>
- * behave() preJudge() judge() は活動状態フラグ(_is_active_flg)が true、かつ、一時停止フラグ(_was_paused_flg)が false の場合実行される。<BR>
+ * behave() settleBehavior() judge() は活動状態フラグ(_is_active_flg)が true、かつ、一時停止フラグ(_was_paused_flg)が false の場合実行される。<BR>
  * preDraw() draw() afterDraw() は、次フレームまでの残時間に余裕がある場合実行される。<BR>
  * 次フレームまでの残時間に余裕が無い場合、神はこの３メソッドをスキップするが、MAX_SKIP_FRAME フレームに１回は実行する。<BR>
  * 上記の nextFrame() ～ finally() の直接オーバーライドは非推奨。オーバーライド用に各メソッドでコールバックされる純粋仮想関数(processXxxxxx()) を用意している。<BR>
@@ -109,6 +109,7 @@ public:
 
     /**
      * ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理(自ツリー) .
+     * フラグ関連の更新を主に行う <BR>
      * _is_active_flg_in_next_frame _was_paused_flg_in_next_frame _can_live_flg_in_next_frame を<BR>
      * _is_active_flg _was_paused_flg _can_live_flg に反映（コピー）する。<BR>
      * また、_will_mv_first_in_next_frame_flg, _will_mv_last_in_next_frame_flg が true の場合は、<BR>
@@ -121,19 +122,21 @@ public:
 
     /**
      * ノードのフレーム毎の振る舞い処理(自ツリー) .
+     * この処理では、全ノード座標移動処理を行うこととする。<BR>
+     * 実行されるためのフラグの条件は、<BR>
      * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
      * （ _is_active_flg && !_was_paused_flg && _can_live_flg ）の場合 <BR>
-     * processBehavior() をコールした後、配下のノード全てについて behave() を再帰的に実行する。<BR>
-     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 下位クラスではコールされる processBehavior() をオーバーライドしてロジックを実装する <BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して behave() 実行後、次は preJudge() を実行することになる。<BR>
+     * behave() は 仮想関数 processBehavior() をコールした後、配下のノード全てについて behave() を再帰的に実行する。<BR>
+     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
+     * 下位クラスではコールされる processBehavior() をオーバーライドして具体的な座標移動ロジックを実装する。 <BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して behave() 実行後、次は settleBehavior() を実行することになる。<BR>
      */
     virtual void behave();
 
     /**
      * 非活動→活動時に切り替わった時の処理(単体) .
      * 非活動状態から活動状態に変化したときに１回コールバックされる。<BR>
-     * 呼び出されるタイミングはフレーム加算直後である。
+     * 呼び出されるタイミングはフレーム加算直後である。通常 behave() よりも前に実行される。<BR>
      * 必要に応じてオーバーライドする。<BR>
      */
     virtual void onActive() {
@@ -142,33 +145,38 @@ public:
     /**
      * 活動→非活動時に切り替わった時の処理(単体) .
      * 活動状態から非活動状態に変化したときに１回コールバックされる。<BR>
-     * 呼び出されるタイミングはフレーム加算直後である。
+     * 呼び出されるタイミングはフレーム加算直後である。通常 behave() よりも前に実行される。<BR>
      * 必要に応じてオーバーライドする。<BR>
      */
     virtual void onInactive() {
     }
 
     /**
-     * ノードのフレーム毎の判定事前処理(自ツリー) .
-     * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * つまり ( _is_active_flg && !_was_paused_flg && _can_live_flg )の場合 <BR>
-     * processPreJudgement() をコールした後、配下のノード全てについて preJudge() を再帰的に実行する。<BR>
-     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 下位クラスではコールされる processPreJudgement() をオーバーライドしてロジックを実装する <BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して preJudge() 数実行後、次に judge() を実行することになる。<BR>
+     * ノードのフレーム毎の振る舞い事後処理(自ツリー) .
+     * この処理では、全ノード座標移動が完了していることが保証された後の処理を行う事とする設計。<BR>
+     * 更新が完了した座標情報から、それに伴う内部の様々なステータス等の更新処理をここで行う事を目的とする<BR>
+     * 実行されるためのフラグの条件は、behave()と同じく、活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット。<BR>
+     * つまり ( _is_active_flg && !_was_paused_flg && _can_live_flg )の場合である。 <BR>
+     * settleBehavior()は、仮想関数 processSettlementBehavior() をコールした後、配下のノード全てについて settleBehavior() を再帰的に実行する。<BR>
+     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
+     * 下位クラスではコールされる processSettlementBehavior() をオーバーライドしてロジックを実装することとする。 <BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して settleBehavior() 実行後、次に judge() を実行することになる。<BR>
      */
-    virtual void preJudge();
+    virtual void settleBehavior();
 
 
     /**
      * ノードのフレーム毎の判定処理(自ツリー) .
+     * この処理では、ノード間の様々な判定処理を行う事とする設計。<BR>
+     * 全ノード座標移動処理と伴なうステータス類の更新が完全に完了してが前提とする処理が行われる。<BR>
+     * 実行されるためのフラグの条件は、behave()と同じく、<BR>
      * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
      * つまり ( _is_active_flg && !_was_paused_flg && _can_live_flg )の場合 <BR>
-     * processJudgement() をコールした後、配下のノード全てについて judge() を再帰的に実行する。<BR>
-     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * judge() は 仮想関数 processJudgement() をコールした後、配下のノード全てについて judge() を再帰的に実行する。<BR>
+     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processJudgement() をオーバーライドしてロジックを実装する <BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して judge() 実行後、<BR>
-     * 次フレームまでの残時間に余裕があれば preDraw() 無ければ finally() を実行することになる。<BR>
+     * 神(GgafGod)はこの後、次フレームまでの残時間に余裕があれば preDraw() 無ければ finally() を実行することになる。<BR>
      */
     virtual void judge();
 
@@ -207,6 +215,7 @@ public:
 
     /**
      * ノードのフレーム毎の最終処理(自ツリー) .
+     * 座標移動処理、判定処理、描画処理が終了した後に、最後に行う後始末処理を行う事とする設計。<BR>
      * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
      * （_is_active_flg && !_was_paused_flg && _can_live_flg）の場合 <BR>
      * processFinally() をコールした後、配下のノード全てについて finally() を再帰的に実行する。<BR>
@@ -236,9 +245,9 @@ public:
     virtual void processBehavior() = 0;
 
     /**
-     * フレーム毎の個別判断処理を実装。(フレームワーク実装用、単体) .
+     * フレーム毎の個別振る舞い事後処理を実装。(フレームワーク実装用、単体) .
      */
-    virtual void processPreJudgement() {}
+    virtual void processSettlementBehavior() {}
 
     /**
      * フレーム毎の個別判断処理を実装。(ユーザー実装用、単体) .
@@ -484,8 +493,8 @@ public:
      * 終了します。(自ツリー) .
      * 自ノードを引数のフレーム後に「生存終了」状態にすることを宣言する。（終了フラグを立てる） <BR>
      * 自ツリーノード全て道連れで、終了(end())がお知らせが届く。<br>
-     * 親ノードが終了すれば、子ノードも終了せざるをえないからである。<BR>
-     * 終了フラグは一度立てると元にもどせません。以降 end を重ねて呼び出しても無視します。<BR>
+     * 親ノードが終了すれば、子ノードも終了せざるを得ないからである。<BR>
+     * 終了フラグは一度立てると元にもどせません。以降 end() を重ねて呼び出しても無視します。<BR>
      * 引数の猶予フレーム後に生存終了とする。<BR>
      * 「生存終了」とは具体的には、振る舞いフラグ(_is_active_flg)、生存フラグ(_can_live_flg) を、
      * 次フレームからアンセットする予約フラグを立てること事である。<BR>
@@ -771,7 +780,7 @@ void GgafElement<T>::behave() {
 }
 
 template<class T>
-void GgafElement<T>::preJudge() {
+void GgafElement<T>::settleBehavior() {
 //    if(_was_initialize_flg == false) {
 //        initialize();
 //        _was_initialize_flg = true;
@@ -780,12 +789,12 @@ void GgafElement<T>::preJudge() {
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
-            processPreJudgement(); //フレームワーク用
+            processSettlementBehavior(); //フレームワーク用
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
-                pElementTemp->preJudge();
+                pElementTemp->settleBehavior();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {

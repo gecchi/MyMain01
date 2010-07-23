@@ -152,7 +152,7 @@ void GgafGod::presentUniversalMoment() {
 }
 
 void GgafGod::executeUniversalJudge() {
-    _pUniverse->preJudge();
+    _pUniverse->settleBehavior();
     _pUniverse->judge();
 }
 

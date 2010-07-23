@@ -49,10 +49,10 @@ void GgafScene::behave() {
     _pLordActor->behave();
 }
 
-void GgafScene::preJudge() {
-    TRACE("GgafScene::preJudge() " << getName());
-    GgafElement<GgafScene>::preJudge();
-    _pLordActor->preJudge();
+void GgafScene::settleBehavior() {
+    TRACE("GgafScene::settleBehavior() " << getName());
+    GgafElement<GgafScene>::settleBehavior();
+    _pLordActor->settleBehavior();
 }
 
 void GgafScene::judge() {

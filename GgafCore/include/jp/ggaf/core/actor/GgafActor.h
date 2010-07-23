@@ -180,6 +180,7 @@ public:
      * Dispcherに所属している場合は inactiveAfter(prm_frame_offset) <BR>
      * Dispcherに所属していない場合は end(prm_frame_offset) <BR>
      * が、実行されます。
+     * アクターをシーンから離脱させたい場合はこのメソッドを実行すること。
      * @param prm_frame_offset 猶予フレーム(1～)
      */
     virtual void sayonara(DWORD prm_frame_offset = 1);
