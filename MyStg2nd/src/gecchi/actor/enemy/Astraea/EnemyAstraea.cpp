@@ -9,14 +9,14 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 
     //レーザー
-    _laser_way = 2;
+    _laser_way = 3;
     _X = 0;
     _Y = 0;
     _Z = 0;
     _laser_length = 30;
     _laser_interval = 600;
     _angveloTurn = 100;
-    _angClearance = 10000;//開き具合
+    _angClearance = 40000;//開き具合
     _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
     for (int i = 0; i < _laser_way; i++) {
         _papapLaserChipDispatcher[i] = NEW LaserChipDispatcher*[_laser_way];
@@ -176,7 +176,6 @@ void EnemyAstraea::processBehavior() {
             int vX, vY, vZ;
             for (int i = 0; i < _laser_way; i++) {
                 for (int j = 0; j < _laser_way; j++) {
-
                     if (_papapLaserChipDispatcher[i][j] == NULL) {
                         GgafMainActor* p = pCOMMONSCENE->_pDispatcher_LaserChipDispatcher->employ();
                         if (p == NULL) {
@@ -184,15 +183,12 @@ void EnemyAstraea::processBehavior() {
                             continue;
                         } else {
                             _papapLaserChipDispatcher[i][j] = (LaserChipDispatcher*)p;
-                            _papapLaserChipDispatcher[i][j]->_num_continual_employ_max = _laser_length;
-                            _papapLaserChipDispatcher[i][j]->_num_chip_interval = 0;
+                            _papapLaserChipDispatcher[i][j]->setLaserChipDispatcherParam(_laser_length, 1);
                             _papapLaserChipDispatcher[i][j]->activate();
-
                         }
                     }
 
                     pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
-
                     if (pLaserChip != NULL) {
                         //レーザーの向きを計算
                         //ローカルでのショットの方向ベクトルを(_Xorg,_Yorg,_Zorg)、

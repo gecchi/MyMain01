@@ -10,7 +10,7 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "11/AstraeaLaserChip001") { //LaserChip系は最大12セット
     _class_name = "EnemyAstraeaLaserChip002";
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
-    setRefractionParam(100, 5, 3);
+    setRefractionParam(20, 2, 1);
 }
 
 void EnemyAstraeaLaserChip002::initialize() {
@@ -28,9 +28,9 @@ void EnemyAstraeaLaserChip002::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
 
-    _pMover->setMvVelo(50000);
-    _pMover->setMvAcce(300);
-    _pMover->forceRyMvAngVeloRange(-45000, 45000);
+    _pMover->setMvVelo(60000);
+    //_pMover->setMvAcce(300);
+    //_pMover->forceRyMvAngVeloRange(-90000, 90000);
     _pMover->relateRzRyFaceAngToMvAng(true);
 }
 
@@ -38,17 +38,23 @@ void EnemyAstraeaLaserChip002::onRefraction(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
 
     } else {
-//        angle out_angRz_Target;
-//        angle out_angRy_Target;
-//        GgafDx9Util::getRzRyAng(pMYSIP->_X - _X,
-//                                  pMYSIP->_Y - _Y,
-//                                  pMYSIP->_Z - _Z,
-//                                  out_angRz_Target,
-//                                  out_angRy_Target);
-        _pMover->execTagettingMvAngSequence(
-                        GameGlobal::_pMyShip,
-                        45000, 0,
-                        TURN_CLOSE_TO, false);
+        angle out_angRz_Target;
+        angle out_angRy_Target;
+        angle out_d_angRz;
+        angle out_d_angRy;
+        GgafDx9Util::getRzRyAng(pMYSHIP->_X - _X,
+                                pMYSHIP->_Y - _Y,
+                                pMYSHIP->_Z - _Z,
+                                out_angRz_Target,
+                                out_angRy_Target);
+        out_d_angRz = _pMover->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
+        out_d_angRy = _pMover->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
+        _pMover->addRzMvAng(sgn(out_d_angRz)*45000);
+        _pMover->addRyMvAng(sgn(out_d_angRy)*90000);
+//        _pMover->execTagettingMvAngSequence(
+//                        GameGlobal::_pMyShip,
+//                        90000, 0,
+//                        TURN_CLOSE_TO, false);
 
 //        _pMover->setMvAng(pMYSHIP);
     }

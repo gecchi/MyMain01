@@ -12,27 +12,37 @@ namespace MyStg2nd {
 class LaserChipDispatcher : public GgafCore::GgafActorDispatcher {
     friend class LaserChip;
 public:
-    /** 保持するレーザーチップ数(読み取り専用) */
+    /** [r]保持するレーザーチップ数(読み取り専用) */
     int _num_chip_max;
-    /** 活動中レーザーチップ数(読み取り専用) */
+    /** [r]活動中レーザーチップ数(読み取り専用) */
     int _num_chip_active;
-    /** レーザーチップ切断されたフラグ(読み取り専用、true=連続発射状態は遮断されている/false=連続発射状態) */
+    /** [r]レーザーチップ切断されたフラグ(読み取り専用、true=連続発射状態は遮断されている/false=連続発射状態) */
     bool _is_tear_laser;
-    /** 前回（前フレーム）取得されたレーザーチップ(読み取り専用) */
+    /** [r]前回（前フレーム）取得されたレーザーチップ(読み取り専用) */
     LaserChip* _pChip_prev_employ;
-    /** 前回（前フレーム）取得されたレーザーチップの取得された時点の活動フレーム(読み取り専用) */
+    /** [r]前回（前フレーム）取得されたレーザーチップの取得された時点の活動フレーム(読み取り専用) */
     DWORD _frame_of_behaving_prev_employ;
-    /** レーザーチップ連続取得カウント(読み取り専用) */
+    /** [r]レーザーチップ連続取得カウント(読み取り専用) */
     int _num_continual_employ_count;
-    /** レーザーチップ連続未取得カウント(読み取り専用) */
+    /** [r]レーザーチップ連続未取得カウント(読み取り専用) */
     int _num_interval_frame_count;
 
-    /** 弾切れに移行するチップの連続取得数。（読み書き可／デフォルト：addSubLast()完了後 _num_chip_max と同じになっている。 */
+    /** [r/w]弾切れに移行するチップの連続取得数。（読み書き可／デフォルト：addSubLast()完了後 _num_chip_max と同じになっている。 */
     int _num_continual_employ_max;
-    /** 弾切れフレーム数（読み書き可／デフォルト=20） */
+    /** [r/w]弾切れフレーム数（読み書き可／デフォルト=20） */
     int _num_chip_interval;
 
     LaserChipDispatcher(const char* prm_name);
+
+    /**
+     * LaserChipDispatcherを設定する。
+     * @param prm_num_continual_employ_max 強制的に弾切れに移行するチップの連続取得数。
+     * @param prm_num_chip_interval 弾切れフレーム数
+     */
+    void setLaserChipDispatcherParam(int prm_num_continual_employ_max, DWORD prm_num_chip_interval) {
+        _num_continual_employ_max = prm_num_continual_employ_max;
+        _num_chip_interval = prm_num_chip_interval;
+    }
 
     virtual void processBehavior() override;
 
