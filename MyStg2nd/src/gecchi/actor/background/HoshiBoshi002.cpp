@@ -41,9 +41,9 @@ void HoshiBoshi002::processBehavior() {
     _pUvFlipper->behave();
 }
 
-void HoshiBoshi002::processPreJudgement() {
+void HoshiBoshi002::processSettlementBehavior() {
     //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
-    //GgafDx9GeometricActor::processPreJudgement() ‚Æ“¯Šú‚ğæ‚é–I
+    //GgafDx9GeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);

@@ -86,10 +86,10 @@ void EnemyVesta::processBehavior() {
 
     //＜chengeGeoFinal(); 実行時＞
     //最終（絶対）座標系に切り替えます。
-    //・_X, _Y, _Z    ・・・ 毎フレーム GgafDx9GeometricActor::processPreJudgement() で計算され自動更新されてます。
+    //・_X, _Y, _Z    ・・・ 毎フレーム GgafDx9GeometricActor::processSettlementBehavior() で計算され自動更新されてます。
     //                       processBehavior() で chengeGeoFinal() を行うと、１フレーム前の_X, _Y, _Zに切り替わる事になります。
     //                       _X, _Y, _Z は参照専用。値を代入しても意味が有りません
-    //・_RX, _RY, _RZ ・・・ 毎フレーム GgafDx9GeometricActor::processPreJudgement() 自動代入されません！
+    //・_RX, _RY, _RZ ・・・ 毎フレーム GgafDx9GeometricActor::processSettlementBehavior() 自動代入されません！
     //                       chengeGeoFinal(); を実行しても、_RX, _RY, _RZ は以前の最終（絶対）座標系の値が
     //                       入りっぱなしで変化しません。
     //                       他のオブジェクトから、ボーンにあたるアクターを参照するとき、_RX, _RY, _RZは全く信用できません。
@@ -226,7 +226,7 @@ void EnemyVesta::processBehavior() {
 
 void EnemyVesta::processJudgement() {
     if (_pActor_Base != NULL && _pActor_Base->isActive()) {
-//        (*(_pActor_Base->_pFunc_calcWorldMatrix))(_pActor_Base, _matWorld);
+//        (*(_pActor_Base->_pFunc_calcRotMvWorldMatrix))(_pActor_Base, _matWorld);
     } else {
         //土台がなければ自分も死ぬ
         sayonara();

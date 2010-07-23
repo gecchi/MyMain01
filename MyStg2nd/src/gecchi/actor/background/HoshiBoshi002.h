@@ -24,7 +24,7 @@ public:
 
     void processBehavior() override;
 
-    void processPreJudgement() override;
+    void processSettlementBehavior() override;
 
     void processJudgement() override;
 

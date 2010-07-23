@@ -99,7 +99,7 @@ void LaserChip::processBehavior() {
 
 
 
-void LaserChip::processPreJudgement() {
+void LaserChip::processSettlementBehavior() {
     //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
     //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
 
@@ -179,8 +179,8 @@ void LaserChip::processPreJudgement() {
         setHitAble(false);
     }
 
-    GgafDx9MeshSetActor::processPreJudgement(); //８分木登録
-    //当たり判定領域を更新してからprocessPreJudgementで８分木登録すること。
+    GgafDx9MeshSetActor::processSettlementBehavior(); //８分木登録
+    //当たり判定領域を更新してからprocessSettlementBehaviorで８分木登録すること。
 
 }
 

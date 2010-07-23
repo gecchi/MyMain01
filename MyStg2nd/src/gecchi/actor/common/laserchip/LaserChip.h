@@ -43,7 +43,7 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void processPreJudgement() override;
+    virtual void processSettlementBehavior() override;
 
     virtual void processJudgement() override;
 

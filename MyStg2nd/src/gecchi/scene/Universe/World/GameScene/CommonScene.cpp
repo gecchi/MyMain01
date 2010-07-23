@@ -64,15 +64,15 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     {
         _pDispatcher_LaserChipDispatcher = NEW GgafActorDispatcher("LCDD");
         LaserChipDispatcher* pLaserChipDispatcher;
-        EnemyAstraeaLaserChip001* pChip;
+        EnemyAstraeaLaserChip002* pChip;
         for (int nLaser = 0; nLaser < 63; nLaser++) {
             stringstream name;
             name <<  "LaserChipDispatcher["<<nLaser<<"]";
             pLaserChipDispatcher = NEW LaserChipDispatcher(name.str().c_str());
             for (int nChip = 0; nChip < 50; nChip++) {
                 stringstream name;
-                name <<  "EnemyAstraeaLaserChip001["<<nLaser<<"]["<<nChip<<"]";
-                pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
+                name <<  "EnemyAstraeaLaserChip002["<<nLaser<<"]["<<nChip<<"]";
+                pChip = NEW EnemyAstraeaLaserChip002(name.str().c_str());
                 pChip->inactivateImmediately();
                 pLaserChipDispatcher->addSubLast(pChip);
             }

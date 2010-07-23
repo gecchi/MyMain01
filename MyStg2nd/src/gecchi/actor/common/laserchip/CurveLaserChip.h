@@ -29,7 +29,7 @@ public:
     virtual void processBehavior() override;
 
 
-    virtual void processPreJudgement() override;
+    virtual void processSettlementBehavior() override;
 
     /**
      * レーザーチップ判定等処理 .

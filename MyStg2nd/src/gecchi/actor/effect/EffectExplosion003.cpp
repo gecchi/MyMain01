@@ -10,7 +10,7 @@ EffectExplosion003::EffectExplosion003(const char* prm_name) : DefaultSpriteSetA
     //加算合成Technique指定
     chengeEffectTechnique("DestBlendOne");
     //ワールド変換行列はビルボード指定
-    defineWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv);
+    defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv);
 }
 
 void EffectExplosion003::initialize() {

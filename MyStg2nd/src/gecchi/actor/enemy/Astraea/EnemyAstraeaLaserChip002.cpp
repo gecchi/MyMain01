@@ -7,10 +7,10 @@ using namespace MyStg2nd;
 
 
 EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
-        RefractionLaserChip(prm_name, "11/LaserChip_red") { //LaserChip系は最大12セット
+        RefractionLaserChip(prm_name, "11/AstraeaLaserChip001") { //LaserChip系は最大12セット
     _class_name = "EnemyAstraeaLaserChip002";
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
-    setRefractionParam(5, 15, 30);
+    setRefractionParam(100, 5, 3);
 }
 
 void EnemyAstraeaLaserChip002::initialize() {
@@ -28,8 +28,9 @@ void EnemyAstraeaLaserChip002::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
 
-    _pMover->setMvVelo(10000);
+    _pMover->setMvVelo(50000);
     _pMover->setMvAcce(300);
+    _pMover->forceRyMvAngVeloRange(-45000, 45000);
     _pMover->relateRzRyFaceAngToMvAng(true);
 }
 
@@ -44,8 +45,12 @@ void EnemyAstraeaLaserChip002::onRefraction(int prm_num_refraction)  {
 //                                  pMYSIP->_Z - _Z,
 //                                  out_angRz_Target,
 //                                  out_angRy_Target);
+        _pMover->execTagettingMvAngSequence(
+                        GameGlobal::_pMyShip,
+                        45000, 0,
+                        TURN_CLOSE_TO, false);
 
-        _pMover->setMvAng(pMYSHIP);
+//        _pMover->setMvAng(pMYSHIP);
     }
 
 

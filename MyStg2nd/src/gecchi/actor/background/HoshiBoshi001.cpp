@@ -26,7 +26,7 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
     _CAM_ZF = abs(pCAM->_zf * PX_UNIT * LEN_UNIT);
     _TRACE_("HoshiBoshi001::HoshiBoshi001 _CAM_ZF="<<_CAM_ZF);
     //独自ワールド変換
-    defineWorldMatrix(HoshiBoshi001::setWorldMatrix_HoshiBoshi001);
+    defineRotMvWorldMatrix(HoshiBoshi001::setWorldMatrix_HoshiBoshi001);
 
 }
 
@@ -57,13 +57,13 @@ void HoshiBoshi001::processBehavior() {
     _pUvFlipper->behave();
 }
 
-void HoshiBoshi001::processPreJudgement() {
+void HoshiBoshi001::processSettlementBehavior() {
     //画面外判定無しに伴ない処理簡略化
-    //GgafDx9GeometricActor::processPreJudgement() と同期を取る事！
+    //GgafDx9GeometricActor::processSettlementBehavior() と同期を取る事！
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-    (*_pFunc_calcWorldMatrix)(this, _matWorld); //ワールド変換行列
+    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ワールド変換行列
 
 }
 

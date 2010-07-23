@@ -15,20 +15,17 @@ class EnemyAstraea : public GgafDx9LibStg::DefaultMeshActor {
 private:
     /** 発射済みレーザーチップ数 */
     int _cnt_laserchip;
-    DWORD _frame_shot_after;
 public:
     /** 行動パターン番号 */
     int _iMovePatternNo;
-    /** 方向転換間隔(frame) */
+    /** レーザ発射間隔(frame) */
     int _laser_interval;
-    int _shot_interval;
-    /** 発射レーザーチップの数 */
+    /** 発射レーザーチップの数（レーザー長さ） */
     int _laser_length;
-    /** Way数     */
+    /** レーザーWay数(n×n)の一辺の本数 */
     int _laser_way;
-
-//    angle* _paWayRz;
-//    angle* _paWayRy;
+    /** レーザーとレーザーの間隔開き角度 */
+    angle _angClearance;
     /** 方向転換角速度 */
     angvelo _angveloTurn;
 
@@ -38,12 +35,11 @@ public:
         int Y;
         int Z;
     };
+    /** レーザー発射ローカル座標 */
     PosLaser** _papaPosLaser;
 
 
     LaserChipDispatcher*** _papapLaserChipDispatcher;
-    GgafCore::GgafActorDispatcher* _pDispatcher_Shot;
-    DispatcherConnection* _pDpcon;
     EnemyAstraea(const char* prm_name);
 
     void onCreateModel() override;

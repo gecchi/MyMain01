@@ -9,7 +9,7 @@ EffectCondensation001::EffectCondensation001(const char* prm_name) : DefaultSpri
     _class_name = "EffectCondensation001";
     inactivateImmediately();
     chengeEffectTechnique("DestBlendOne"); //加算合成
-    defineWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
+    defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
     setHitAble(false); //当たり判定無し
 }
 
