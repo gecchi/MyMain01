@@ -10,7 +10,7 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "11/AstraeaLaserChip001") { //LaserChipŒn‚ÍÅ‘å12ƒZƒbƒg
     _class_name = "EnemyAstraeaLaserChip002";
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
-    setRefractionParam(20, 2, 1);
+    setRefractionParam(20, 2, 6);
 }
 
 void EnemyAstraeaLaserChip002::initialize() {
@@ -34,7 +34,11 @@ void EnemyAstraeaLaserChip002::onActive() {
     _pMover->relateRzRyFaceAngToMvAng(true);
 }
 
-void EnemyAstraeaLaserChip002::onRefraction(int prm_num_refraction)  {
+void EnemyAstraeaLaserChip002::onRefractionEnter(int prm_num_refraction)  {
+
+}
+
+void EnemyAstraeaLaserChip002::onRefractionOut(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
 
     } else {
@@ -58,8 +62,6 @@ void EnemyAstraeaLaserChip002::onRefraction(int prm_num_refraction)  {
 
 //        _pMover->setMvAng(pMYSHIP);
     }
-
-
 }
 
 void EnemyAstraeaLaserChip002::onHit(GgafActor* prm_pOtherActor) {

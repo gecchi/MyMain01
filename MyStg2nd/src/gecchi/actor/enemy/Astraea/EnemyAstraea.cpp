@@ -47,6 +47,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
             _papaPosLaser[i][j].Z = vz * 100*1000;
         }
     }
+    DELETEARR_IMPOSSIBLE_NULL(paAngWay);
 
     _pSeReflector->useSe(2);
     _pSeReflector->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
@@ -208,12 +209,13 @@ void EnemyAstraea::processBehavior() {
                         vZ = _papaPosLaser[i][j].X*matWorldRot._13 + _papaPosLaser[i][j].Y*matWorldRot._23 + _papaPosLaser[i][j].Z*matWorldRot._33;
                         GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
 
-                        pLaserChip->activate();
+
                         pLaserChip->setGeometry(_X+vX, _Y+vY, _Z+vZ);
                         pLaserChip->_pMover->setRzRyMvAng(Rz, Ry);
                         pLaserChip->_pMover->_angFace[AXIS_Z] = Rz;
                         pLaserChip->_pMover->_angFace[AXIS_Y] = Ry;
-                        pLaserChip->_pMover->behave();
+                        pLaserChip->activate();
+                        //pLaserChip->_pMover->behave();
 
                         if (i == 0 && j == 0 && pLaserChip->_pChip_front == NULL) {
                             _pSeReflector->play3D(0); //”­ŽË‰¹

@@ -36,7 +36,6 @@ void RefractionLaserChip::onActive() {
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
 
-
     RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
     //レーザーチップ出現時処理
     if (pChip_front == NULL) {
@@ -51,6 +50,8 @@ void RefractionLaserChip::onActive() {
         _cnt_refraction = 0;
         _frame_refraction_enter = getBehaveingFrame() + _frame_refraction_interval;
         _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
+		onRefractionEnter(_cnt_refraction); //0回目の屈折
+		onRefractionOut(_cnt_refraction);
     } else {
         _is_leader = false;
         _begining_X = pChip_front->_begining_X;
@@ -66,11 +67,10 @@ void RefractionLaserChip::onActive() {
         _RX = _begining_RX;
         _RY = _begining_RY;
         _RZ = _begining_RZ;
-        _cnt_refraction = INT_MAX;
+        _cnt_refraction = 0;
         _frame_refraction_enter = INT_MAX;
         _frame_refraction_outer = INT_MAX;
     }
-    onRefraction(_cnt_refraction);
 
     _isRefracting = false;
 }
@@ -122,12 +122,18 @@ void RefractionLaserChip::processBehavior() {
 
             if (_isRefracting) {
                 if (_frame_of_behaving >= _frame_refraction_outer) {
-                    _cnt_refraction++;
+
                     RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
                     if (_cnt_refraction <= _num_refraction && pChip_front == NULL) {
-                        onRefraction(_cnt_refraction);
+                        onRefractionOut(_cnt_refraction);
                         _frame_refraction_enter = getBehaveingFrame() + _frame_refraction_interval;
                         _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
+                        //座標を変えず方向だけ転換
+                        int X, Y, Z;
+                        X = _X; Y = _Y; Z = _Z;
+                        _pMover->behave(); //
+                        _X = X; _Y = Y; _Z = Z;
+
                     } else {
                         _cnt_refraction = INT_MAX;
                         _frame_refraction_enter = INT_MAX;
@@ -137,9 +143,20 @@ void RefractionLaserChip::processBehavior() {
                 } else {
                     return;
                 }
+            } else {
+                _pMover->behave();
             }
-            _pMover->behave();
+
+            if (getBehaveingFrame() >= _frame_refraction_enter) {
+                if (_isRefracting == false) {
+					_cnt_refraction++;
+                    onRefractionEnter(_cnt_refraction);
+                }
+                _isRefracting = true;
+            }
+
         } else {
+            //先頭以外のチップ処理
             _prev_X  = _X;
             _prev_Y  = _Y;
             _prev_Z  = _Z;
@@ -153,9 +170,6 @@ void RefractionLaserChip::processBehavior() {
             _RY = pChip_front->_prev_RY;
             _RZ = pChip_front->_prev_RZ;
         }
-    }
-    if (getBehaveingFrame() >= _frame_refraction_enter) {
-        _isRefracting = true;
     }
 }
 
