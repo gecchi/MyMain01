@@ -9,7 +9,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 
     //ƒŒ[ƒU[
-    _laser_way = 3;
+    _laser_way = 1;
     _X = 0;
     _Y = 0;
     _Z = 0;
@@ -53,6 +53,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     _pSeReflector->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
     _pSeReflector->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
     _iMovePatternNo = 0;
+
+
+
 }
 
 void EnemyAstraea::onCreateModel() {
@@ -169,7 +172,7 @@ void EnemyAstraea::processBehavior() {
         if (_cnt_laserchip < _laser_length) {
             _cnt_laserchip++;
 
-            static EnemyAstraeaLaserChip001* pLaserChip;
+            EnemyAstraeaLaserChip001* pLaserChip;
 
             D3DXMATRIX matWorldRot;
             GgafDx9Util::setWorldMatrix_RxRzRy(this, matWorldRot);

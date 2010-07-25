@@ -181,7 +181,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
     }
     if (_is_waiting_to_connect == true || _is_connecting_resource == true) {
         //connect() は複数スレッドから受付ない仕様とする。
-        throwGgafCriticalException("GgafResourceManager<T>::connect() 現在connect()中にもかかわらず、connect("<<prm_idstr<<")しました。connectのスレッドを１本にして下さい。")
+        throwGgafCriticalException("GgafResourceManager<T>::connect() 現在connect()中にもかかわらず、connect("<<prm_idstr<<")しました。connectのスレッドを１本にして下さい。");
     }
 
     //TODO:簡易的な排他。ほぼ完璧だが完全ではない。
@@ -192,7 +192,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
         if (i > 1000*60) {
             //１分以上無応答時
             _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、１分待機・・・");
-            throwGgafCriticalException("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、１分待機。排他処理が崩壊しているか、処理が遅すぎます。")
+            throwGgafCriticalException("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
         }
     }
     //TODO:

@@ -18,6 +18,10 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _frame_refraction_enter = 0;
     _frame_refraction_outer = 0;
     _isRefracting = false;
+
+    _pDispatche_RefractionEffect = NULL;
+    _pRefractionEffect = NULL;
+    _prev_pRefractionEffect = NULL;
 }
 
 void RefractionLaserChip::initialize() {
@@ -50,8 +54,8 @@ void RefractionLaserChip::onActive() {
         _cnt_refraction = 0;
         _frame_refraction_enter = getBehaveingFrame() + _frame_refraction_interval;
         _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
-		onRefractionEnter(_cnt_refraction); //0回目の屈折
-		onRefractionOut(_cnt_refraction);
+		onRefractionEnterHeadChip(_cnt_refraction); //0回目の屈折
+		onRefractionOutHeadChip(_cnt_refraction);
     } else {
         _is_leader = false;
         _begining_X = pChip_front->_begining_X;
@@ -73,6 +77,7 @@ void RefractionLaserChip::onActive() {
     }
 
     _isRefracting = false;
+    _prev_isRefracting = false;
 }
 
 void RefractionLaserChip::onInactive() {
@@ -84,15 +89,20 @@ void RefractionLaserChip::onInactive() {
     //レーザーがゲーム領域外にたっしたときも、先頭チップから順に連続で引継ぎが発生することになる。
     //ちょっと無駄っぽいけど、さもなば先頭の次のチップが領域外に向かって移動するとは限らないので、やはり必要。
     if (_pChip_behind) {
-        _pChip_behind->_pMover->_vX = _pMover->_vX;
-        _pChip_behind->_pMover->_vY = _pMover->_vY;
-        _pChip_behind->_pMover->_vZ = _pMover->_vZ;
-        _pChip_behind->_pMover->_angRzMv = _pMover->_angRzMv;
-        _pChip_behind->_pMover->_angRyMv = _pMover->_angRyMv;
-        _pChip_behind->_pMover->_veloMv = _pMover->_veloMv;
-        _pChip_behind->_pMover->_angFace[AXIS_X] = _pMover->_angFace[AXIS_X];
-        _pChip_behind->_pMover->_angFace[AXIS_Y] = _pMover->_angFace[AXIS_Y];
-        _pChip_behind->_pMover->_angFace[AXIS_Z] = _pMover->_angFace[AXIS_Z];
+        RefractionLaserChip* pChip = (RefractionLaserChip*)_pChip_behind;
+        pChip->_pMover->_vX = _pMover->_vX;
+        pChip->_pMover->_vY = _pMover->_vY;
+        pChip->_pMover->_vZ = _pMover->_vZ;
+        pChip->_pMover->_angRzMv = _pMover->_angRzMv;
+        pChip->_pMover->_angRyMv = _pMover->_angRyMv;
+        pChip->_pMover->_veloMv = _pMover->_veloMv;
+        pChip->_pMover->_angFace[AXIS_X] = _pMover->_angFace[AXIS_X];
+        pChip->_pMover->_angFace[AXIS_Y] = _pMover->_angFace[AXIS_Y];
+        pChip->_pMover->_angFace[AXIS_Z] = _pMover->_angFace[AXIS_Z];
+        pChip->_cnt_refraction = _cnt_refraction;
+        pChip->_frame_refraction_enter = _frame_refraction_enter;
+        pChip->_frame_refraction_outer = _frame_refraction_outer;
+        pChip->_isRefracting = _isRefracting;
     }
 
     LaserChip::onInactive(); //つながりを切断処理
@@ -119,26 +129,31 @@ void RefractionLaserChip::processBehavior() {
             _prev_RX = _RX;
             _prev_RY = _RY;
             _prev_RZ = _RZ;
-
+            _prev_isRefracting = _isRefracting;
+            _prev_pRefractionEffect = _pRefractionEffect;
             if (!_isRefracting) {
                 if (getBehaveingFrame() >= _frame_refraction_enter) {
                     if (_cnt_refraction < _num_refraction) {
                         _cnt_refraction++;
-                        onRefractionEnter(_cnt_refraction);
+                        onRefractionEnterHeadChip(_cnt_refraction);
                         _frame_refraction_outer = getBehaveingFrame()  + _frame_standstill;
                         _isRefracting = true;
+
+                        if (_pDispatche_RefractionEffect) {
+							_pRefractionEffect = (GgafDx9DrawableActor*)_pDispatche_RefractionEffect->employ();
+							_TRACE_("_pRefractionEffect->employ();");
+                            if (_pRefractionEffect) {
+                                _pRefractionEffect->setGeometry(this);
+                                _pRefractionEffect->activate();
+                            }
+                        }
                     }
-//                    else {
-//                        _cnt_refraction = INT_MAX;
-//                        _frame_refraction_enter = INT_MAX;
-//                        _frame_refraction_outer = INT_MAX;
-//                    }
                 }
             }
 
             if (_isRefracting) {
                 if (getBehaveingFrame() >= _frame_refraction_outer) {
-                    onRefractionOut(_cnt_refraction);
+                    onRefractionOutHeadChip(_cnt_refraction);
                     _frame_refraction_enter = getBehaveingFrame() + _frame_refraction_interval;
                     //座標を変えず方向だけ転換
                     int X, Y, Z;
@@ -146,6 +161,7 @@ void RefractionLaserChip::processBehavior() {
                     _pMover->behave(); //
                     _X = X; _Y = Y; _Z = Z;
                     _isRefracting = false;
+
                     return;
                 }
             }
@@ -157,19 +173,36 @@ void RefractionLaserChip::processBehavior() {
             }
 
         } else {
-            //先頭以外のチップ処理
+            //先頭以外のチップ数珠繋ぎ処理
             _prev_X  = _X;
             _prev_Y  = _Y;
             _prev_Z  = _Z;
             _prev_RX = _RX;
             _prev_RY = _RY;
             _prev_RZ = _RZ;
+            _prev_isRefracting = _isRefracting;
+            _prev_pRefractionEffect = _pRefractionEffect;
             _X  = pChip_front->_prev_X;
             _Y  = pChip_front->_prev_Y;
             _Z  = pChip_front->_prev_Z;
             _RX = pChip_front->_prev_RX;
             _RY = pChip_front->_prev_RY;
             _RZ = pChip_front->_prev_RZ;
+            _isRefracting =  pChip_front->_prev_isRefracting;
+            _pRefractionEffect = pChip_front->_prev_pRefractionEffect;
+            if (_isRefracting) {
+                if (pChip_front->_pRefractionEffect) {
+                    _pRefractionEffect = pChip_front->_pRefractionEffect;
+                    pChip_front->_pRefractionEffect = NULL;
+                } else {
+
+                }
+            } else {
+                if (_pRefractionEffect && _pChip_behind == NULL) {
+                    _TRACE_("_pRefractionEffect->sayonara();");
+                    _pRefractionEffect->sayonara();
+                }
+            }
         }
     }
 }

@@ -159,6 +159,8 @@ class EffectLockOn001_Release;
 class EffectTurbo001;
 class EffectTurbo002;
 class EffectCondensation001;
+class EffectLaserRefraction001;
+
 class HoshiBoshi001;
 class HoshiBoshi002;
 class WorldBoundSpace001;
@@ -286,7 +288,7 @@ class LaserChipEffectActor;
 #include "gecchi/actor/effect/EffectTurbo001.h"
 #include "gecchi/actor/effect/EffectTurbo002.h"
 #include "gecchi/actor/effect/EffectCondensation001.h"
-
+#include "gecchi/actor/effect/EffectLaserRefraction001.h"
 
 
 #include "gecchi/actor/enemy/Tamago/TamagoActor.h"

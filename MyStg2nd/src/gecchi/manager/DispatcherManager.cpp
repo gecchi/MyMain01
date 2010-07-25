@@ -56,7 +56,22 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
         pCOMMONSCENE->getLordActor()->addSubGroup(pResource);
     }
 
-    return pResource;
+    if (GgafUtil::strcmp_ascii("DpCon_EffRefraction001", prm_idstr) == 0) {
+        pResource = NEW GgafActorDispatcher("DP_EffRefraction001");
+        EffectLaserRefraction001* p;
+        for (int i = 0; i < 2500; i++) {
+            p = NEW EffectLaserRefraction001("Shot004");
+            p->inactivateImmediately();
+            pResource->addSubLast(p);
+        }
+        pCOMMONSCENE->getLordActor()->addSubGroup(pResource);
+    }
+
+	if (pResource == NULL) {
+		throwGgafCriticalException("DispatcherManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。Dispatcherが作成できません。");
+	} else {
+		return pResource;
+	}
 }
 
 GgafResourceConnection<GgafActorDispatcher>* DispatcherManager::processCreateConnection(char* prm_idstr, GgafActorDispatcher* prm_pResource) {

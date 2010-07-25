@@ -40,6 +40,9 @@ public:
 
 
     LaserChipDispatcher*** _papapLaserChipDispatcher;
+
+
+
     EnemyAstraea(const char* prm_name);
 
     void onCreateModel() override;

@@ -6,6 +6,10 @@ class EnemyAstraeaLaserChip002 : public RefractionLaserChip {
 
 
 public:
+
+    DispatcherConnection* _pDispatcherCon;
+
+
     EnemyAstraeaLaserChip002(const char* prm_name);
 
     /**
@@ -15,9 +19,9 @@ public:
 
     void onActive() override;
 
-    void onRefractionEnter(int prm_num_refraction) override;
+    void onRefractionEnterHeadChip(int prm_num_refraction) override;
 
-    void onRefractionOut(int prm_num_refraction) override;
+    void onRefractionOutHeadChip(int prm_num_refraction) override;
 
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;

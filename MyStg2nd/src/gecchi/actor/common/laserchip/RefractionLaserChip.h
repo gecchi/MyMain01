@@ -37,9 +37,15 @@ public:
     angle _prev_RY;
     angle _prev_RZ;
 
+    bool _prev_isRefracting;
+    GgafDx9Core::GgafDx9DrawableActor* _prev_pRefractionEffect;
     int _num_refraction;
     DWORD _frame_refraction_interval;
     DWORD _frame_standstill;
+
+    /** 屈折エフェクトアクターのディスパッチャー（シーン所属済みアクターであること） */
+    GgafCore::GgafActorDispatcher* _pDispatche_RefractionEffect;
+    GgafDx9Core::GgafDx9DrawableActor* _pRefractionEffect;
 
 
     RefractionLaserChip(const char* prm_name, const char* prm_model);
@@ -70,9 +76,9 @@ public:
      * 本当の先頭チップの場合はもちろんコールバックされるが、
      * にわか先頭チップ（ちぎれて急に先頭になったチップ）の場合もコールバックされます。
      */
-    virtual void onRefractionEnter(int prm_num_refraction)=0;
+    virtual void onRefractionEnterHeadChip(int prm_num_refraction)=0;
 
-    virtual void onRefractionOut(int prm_num_refraction)=0;
+    virtual void onRefractionOutHeadChip(int prm_num_refraction)=0;
 
     /**
      * レーザーチップ判定等処理 .
