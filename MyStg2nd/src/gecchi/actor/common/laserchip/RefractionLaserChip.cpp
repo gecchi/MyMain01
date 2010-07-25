@@ -146,6 +146,7 @@ void RefractionLaserChip::processBehavior() {
                     _pMover->behave(); //
                     _X = X; _Y = Y; _Z = Z;
                     _isRefracting = false;
+                    return;
                 }
             }
 

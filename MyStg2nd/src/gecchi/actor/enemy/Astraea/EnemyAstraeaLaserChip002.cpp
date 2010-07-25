@@ -10,7 +10,7 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "11/AstraeaLaserChip001") { //LaserChipŒn‚ÍÅ‘å12ƒZƒbƒg
     _class_name = "EnemyAstraeaLaserChip002";
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
-    setRefractionParam(50, 10, 1);
+    setRefractionParam(50, 6, 1);
 }
 
 void EnemyAstraeaLaserChip002::initialize() {
@@ -53,8 +53,8 @@ void EnemyAstraeaLaserChip002::onRefractionOut(int prm_num_refraction)  {
                                 out_angRy_Target);
         out_d_angRz = _pMover->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
         out_d_angRy = _pMover->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
-        _pMover->addRzMvAng(sgn(out_d_angRz)*45000);
-        _pMover->addRyMvAng(sgn(out_d_angRy)*45000);
+        _pMover->addRzMvAng(sgn(out_d_angRz)*60000);
+        _pMover->addRyMvAng(sgn(out_d_angRy)*60000);
 //        _pMover->execTagettingMvAngSequence(
 //                        GameGlobal::_pMyShip,
 //                        90000, 0,
