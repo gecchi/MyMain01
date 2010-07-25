@@ -120,39 +120,39 @@ void RefractionLaserChip::processBehavior() {
             _prev_RY = _RY;
             _prev_RZ = _RZ;
 
-            if (_isRefracting) {
-                if (_frame_of_behaving >= _frame_refraction_outer) {
-
-                    RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
-                    if (_cnt_refraction <= _num_refraction && pChip_front == NULL) {
-                        onRefractionOut(_cnt_refraction);
-                        _frame_refraction_enter = getBehaveingFrame() + _frame_refraction_interval;
-                        _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
-                        //À•W‚ð•Ï‚¦‚¸•ûŒü‚¾‚¯“]Š·
-                        int X, Y, Z;
-                        X = _X; Y = _Y; Z = _Z;
-                        _pMover->behave(); //
-                        _X = X; _Y = Y; _Z = Z;
-
-                    } else {
-                        _cnt_refraction = INT_MAX;
-                        _frame_refraction_enter = INT_MAX;
-                        _frame_refraction_outer = INT_MAX;
+            if (!_isRefracting) {
+                if (getBehaveingFrame() >= _frame_refraction_enter) {
+                    if (_cnt_refraction < _num_refraction) {
+                        _cnt_refraction++;
+                        onRefractionEnter(_cnt_refraction);
+                        _frame_refraction_outer = getBehaveingFrame()  + _frame_standstill;
+                        _isRefracting = true;
                     }
-                    _isRefracting = false;
-                } else {
-                    return;
+//                    else {
+//                        _cnt_refraction = INT_MAX;
+//                        _frame_refraction_enter = INT_MAX;
+//                        _frame_refraction_outer = INT_MAX;
+//                    }
                 }
-            } else {
-                _pMover->behave();
             }
 
-            if (getBehaveingFrame() >= _frame_refraction_enter) {
-                if (_isRefracting == false) {
-					_cnt_refraction++;
-                    onRefractionEnter(_cnt_refraction);
+            if (_isRefracting) {
+                if (getBehaveingFrame() >= _frame_refraction_outer) {
+                    onRefractionOut(_cnt_refraction);
+                    _frame_refraction_enter = getBehaveingFrame() + _frame_refraction_interval;
+                    //À•W‚ð•Ï‚¦‚¸•ûŒü‚¾‚¯“]Š·
+                    int X, Y, Z;
+                    X = _X; Y = _Y; Z = _Z;
+                    _pMover->behave(); //
+                    _X = X; _Y = Y; _Z = Z;
+                    _isRefracting = false;
                 }
-                _isRefracting = true;
+            }
+
+            if (!_isRefracting) {
+                //_isRefracting’†‚Í’âŽ~‚µ‚È‚­‚Ä‚Í‚¢‚¯‚È‚¢‚½‚ß_pMover->behave()‚ðŽÀs‚µ‚È‚¢B
+                //_pMover->behave();ˆÈŠO‚ÅÀ•W‚ð‘€ì‚µ‚Ä‚¢‚éê‡‚ÍAŠ®‘S‚È’âŽ~‚É‚È‚ç‚È‚¢‚Ì‚Å’ˆÓ
+                _pMover->behave();
             }
 
         } else {

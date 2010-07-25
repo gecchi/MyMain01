@@ -52,7 +52,7 @@ public:
      */
     void setRefractionParam(int prm_num_refraction, DWORD prm_frame_refraction_interval, DWORD prm_frame_standstill) {
         _num_refraction = prm_num_refraction;
-        _frame_refraction_interval = _frame_refraction_interval;
+        _frame_refraction_interval = prm_frame_refraction_interval;
         _frame_standstill = prm_frame_standstill;
     }
 
