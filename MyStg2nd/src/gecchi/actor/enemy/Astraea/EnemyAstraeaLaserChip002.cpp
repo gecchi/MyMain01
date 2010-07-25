@@ -10,7 +10,7 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "11/AstraeaLaserChip001") { //LaserChipŒn‚ÍÅ‘å12ƒZƒbƒg
     _class_name = "EnemyAstraeaLaserChip002";
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
-    setRefractionParam(50, 10, 15);
+    setRefractionParam(50, 10, 5);
     _pDispatcherCon = NULL;
 	_pDispatche_RefractionEffect = NULL;
     _pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->connect("DpCon_EffRefraction001"));

@@ -21,7 +21,7 @@ void EffectLaserRefraction001::onActive() {
     _pUvFlipper->setPtnNoToTop();
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
     _fAlpha = 0.99;
-    _SX = _SY = _SZ = 10000;
+    _SX = _SY = _SZ = 1000;
 }
 
 void EffectLaserRefraction001::processBehavior() {
@@ -29,7 +29,7 @@ void EffectLaserRefraction001::processBehavior() {
     _SY+= 100;
     _pUvFlipper->behave();
     _pMover->behave();
-    _pScaler->behave();
+    //_pScaler->behave();
 }
 
 void EffectLaserRefraction001::processJudgement() {

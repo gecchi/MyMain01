@@ -131,6 +131,8 @@ void RefractionLaserChip::processBehavior() {
             _prev_RZ = _RZ;
             _prev_isRefracting = _isRefracting;
             _prev_pRefractionEffect = _pRefractionEffect;
+
+            _pRefractionEffect = NULL;
             if (!_isRefracting) {
                 if (getBehaveingFrame() >= _frame_refraction_enter) {
                     if (_cnt_refraction < _num_refraction) {
@@ -141,7 +143,7 @@ void RefractionLaserChip::processBehavior() {
 
                         if (_pDispatche_RefractionEffect) {
 							_pRefractionEffect = (GgafDx9DrawableActor*)_pDispatche_RefractionEffect->employ();
-							_TRACE_("_pRefractionEffect->employ();");
+							//_TRACE_("_pRefractionEffect->employ();");
                             if (_pRefractionEffect) {
                                 _pRefractionEffect->setGeometry(this);
                                 _pRefractionEffect->activate();
@@ -190,17 +192,10 @@ void RefractionLaserChip::processBehavior() {
             _RZ = pChip_front->_prev_RZ;
             _isRefracting =  pChip_front->_prev_isRefracting;
             _pRefractionEffect = pChip_front->_prev_pRefractionEffect;
-            if (_isRefracting) {
-                if (pChip_front->_pRefractionEffect) {
-                    _pRefractionEffect = pChip_front->_pRefractionEffect;
-                    pChip_front->_pRefractionEffect = NULL;
-                } else {
-
-                }
-            } else {
-                if (_pRefractionEffect && _pChip_behind == NULL) {
-                    _TRACE_("_pRefractionEffect->sayonara();");
-                    _pRefractionEffect->sayonara();
+            if (_pChip_behind == NULL) {
+                if (_pRefractionEffect) {
+                    //_TRACE_("_pRefractionEffect->sayonara();");
+                    _pRefractionEffect->sayonara(_frame_standstill);
                 }
             }
         }
