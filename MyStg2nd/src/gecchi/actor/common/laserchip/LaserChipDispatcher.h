@@ -39,7 +39,7 @@ public:
      * @param prm_num_continual_employ_max 強制的に弾切れに移行するチップの連続取得数。
      * @param prm_num_chip_interval 弾切れフレーム数
      */
-    void setLaserChipDispatcherParam(int prm_num_continual_employ_max, DWORD prm_num_chip_interval) {
+    void configLaserChipDispatcher(int prm_num_continual_employ_max, DWORD prm_num_chip_interval) {
         _num_continual_employ_max = prm_num_continual_employ_max;
         _num_chip_interval = prm_num_chip_interval;
     }

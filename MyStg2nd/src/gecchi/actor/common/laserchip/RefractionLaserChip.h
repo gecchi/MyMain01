@@ -18,10 +18,10 @@ class RefractionLaserChip : public LaserChip {
 
 private:
     DWORD _frame_refraction_enter;
-    DWORD _frame_refraction_outer;
+    DWORD _frame_refraction_out;
     bool _isRefracting;
     int _cnt_refraction;
-public:
+
     /** 先導チップ（本当の先頭チップ）フラグ */
     bool _is_leader; //本当の先頭チップとは、レーザー移動中にちぎれて発生するにわか先頭チップでは無いという意味。;
     int _begining_X;
@@ -40,26 +40,31 @@ public:
     bool _prev_isRefracting;
     GgafDx9Core::GgafDx9DrawableActor* _prev_pRefractionEffect;
     int _num_refraction;
-    DWORD _frame_refraction_interval;
-    DWORD _frame_standstill;
+    DWORD _frame_between_refraction;
+    DWORD _frame_standstill_refraction;
 
     /** 屈折エフェクトアクターのディスパッチャー（シーン所属済みアクターであること） */
     GgafCore::GgafActorDispatcher* _pDispatche_RefractionEffect;
     GgafDx9Core::GgafDx9DrawableActor* _pRefractionEffect;
 
-
+public:
     RefractionLaserChip(const char* prm_name, const char* prm_model);
 
     /**
      * リフレクションレーザーを定義 .
-     * @param prm_num_refraction 何回反射するか
-     * @param prm_frame_refraction_interval 屈折終了～(直進)～次の屈折開始、までのフレーム間隔
-     * @param prm_frame_standstill 屈折時の停滞貯めフレーム数
+     * @param prm_num_refraction 何回屈折するか
+     * @param prm_frame_between_refraction 直進開始(屈折終了)～直進～直進終了(屈折開始)、のフレーム数
+     * @param prm_frame_standstill_refraction 屈折時(直進終了(屈折開始)～停止～直進開始(屈折終了))の停滞貯めフレーム数
+     * @param prm_pDispatche_RefractionEffect 屈折時のエフェクトアクターのディスパッチャー(無しの場合はNULL)
      */
-    void setRefractionParam(int prm_num_refraction, DWORD prm_frame_refraction_interval, DWORD prm_frame_standstill) {
+    void configRefraction(int prm_num_refraction,
+                          DWORD prm_frame_between_refraction,
+                          DWORD prm_frame_standstill_refraction,
+                          GgafCore::GgafActorDispatcher* prm_pDispatche_RefractionEffect) {
         _num_refraction = prm_num_refraction;
-        _frame_refraction_interval = prm_frame_refraction_interval;
-        _frame_standstill = prm_frame_standstill;
+        _frame_between_refraction = prm_frame_between_refraction;
+        _frame_standstill_refraction = prm_frame_standstill_refraction;
+        _pDispatche_RefractionEffect = prm_pDispatche_RefractionEffect;
     }
 
     virtual void initialize() override;
@@ -72,13 +77,16 @@ public:
     virtual void processBehavior() override;
 
     /**
-     * レーザーの屈折時の先頭チップの動きを実装する .
-     * 本当の先頭チップの場合はもちろんコールバックされるが、
-     * にわか先頭チップ（ちぎれて急に先頭になったチップ）の場合もコールバックされます。
+     * 先頭チップのレーザーの直進終了～屈折開始時の処理 .
+     * @param prm_num_refraction 屈折カウント(何回目の屈折開始か)(0～)
      */
-    virtual void onRefractionEnterHeadChip(int prm_num_refraction)=0;
+    virtual void onRefractionBegin(int prm_num_refraction)=0;
 
-    virtual void onRefractionOutHeadChip(int prm_num_refraction)=0;
+    /**
+     * 先頭チップのレーザーの屈折終了～直進開始時の処理 .
+     * @param prm_num_refraction 屈折カウント(何回目の屈折終了か)(0～)
+     */
+    virtual void onRefractionFinish(int prm_num_refraction)=0;
 
     /**
      * レーザーチップ判定等処理 .

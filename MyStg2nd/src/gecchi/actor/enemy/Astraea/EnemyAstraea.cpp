@@ -187,7 +187,7 @@ void EnemyAstraea::processBehavior() {
                             continue;
                         } else {
                             _papapLaserChipDispatcher[i][j] = (LaserChipDispatcher*)p;
-                            _papapLaserChipDispatcher[i][j]->setLaserChipDispatcherParam(_laser_length, 1);
+                            _papapLaserChipDispatcher[i][j]->configLaserChipDispatcher(_laser_length, 1);
                             _papapLaserChipDispatcher[i][j]->activate();
                         }
                     }

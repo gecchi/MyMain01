@@ -11,12 +11,12 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _class_name = "RefractionLaserChip";
     _is_leader = false;
     _num_refraction = 2;
-    _frame_standstill = 10;
-    _frame_refraction_interval = 20;
+    _frame_standstill_refraction = 10;
+    _frame_between_refraction = 20;
 
     _cnt_refraction = 0;
     _frame_refraction_enter = 0;
-    _frame_refraction_outer = 0;
+    _frame_refraction_out = 0;
     _isRefracting = false;
 
     _pDispatche_RefractionEffect = NULL;
@@ -52,10 +52,10 @@ void RefractionLaserChip::onActive() {
         _begining_RY = _RY;
         _begining_RZ = _RZ;
         _cnt_refraction = 0;
-        _frame_refraction_enter = getBehaveingFrame() + _frame_refraction_interval;
-        _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
-		onRefractionEnterHeadChip(_cnt_refraction); //0回目の屈折
-		onRefractionOutHeadChip(_cnt_refraction);
+        _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction;
+        _frame_refraction_out = _frame_refraction_enter + _frame_standstill_refraction;
+        //onRefractionBegin(_cnt_refraction);
+        onRefractionFinish(_cnt_refraction);  //0回目の屈折終了からスタートする
     } else {
         _is_leader = false;
         _begining_X = pChip_front->_begining_X;
@@ -73,7 +73,7 @@ void RefractionLaserChip::onActive() {
         _RZ = _begining_RZ;
         _cnt_refraction = 0;
         _frame_refraction_enter = INT_MAX;
-        _frame_refraction_outer = INT_MAX;
+        _frame_refraction_out = INT_MAX;
     }
 
     _isRefracting = false;
@@ -101,7 +101,7 @@ void RefractionLaserChip::onInactive() {
         pChip->_pMover->_angFace[AXIS_Z] = _pMover->_angFace[AXIS_Z];
         pChip->_cnt_refraction = _cnt_refraction;
         pChip->_frame_refraction_enter = _frame_refraction_enter;
-        pChip->_frame_refraction_outer = _frame_refraction_outer;
+        pChip->_frame_refraction_out = _frame_refraction_out;
         pChip->_isRefracting = _isRefracting;
     }
 
@@ -137,13 +137,13 @@ void RefractionLaserChip::processBehavior() {
                 if (getBehaveingFrame() >= _frame_refraction_enter) {
                     if (_cnt_refraction < _num_refraction) {
                         _cnt_refraction++;
-                        onRefractionEnterHeadChip(_cnt_refraction);
-                        _frame_refraction_outer = getBehaveingFrame()  + _frame_standstill;
+                        onRefractionBegin(_cnt_refraction);
+                        _frame_refraction_out = getBehaveingFrame()  + _frame_standstill_refraction;
                         _isRefracting = true;
 
                         if (_pDispatche_RefractionEffect) {
-							_pRefractionEffect = (GgafDx9DrawableActor*)_pDispatche_RefractionEffect->employ();
-							//_TRACE_("_pRefractionEffect->employ();");
+                            _pRefractionEffect = (GgafDx9DrawableActor*)_pDispatche_RefractionEffect->employ();
+                            //_TRACE_("_pRefractionEffect->employ();");
                             if (_pRefractionEffect) {
                                 _pRefractionEffect->setGeometry(this);
                                 _pRefractionEffect->activate();
@@ -154,9 +154,9 @@ void RefractionLaserChip::processBehavior() {
             }
 
             if (_isRefracting) {
-                if (getBehaveingFrame() >= _frame_refraction_outer) {
-                    onRefractionOutHeadChip(_cnt_refraction);
-                    _frame_refraction_enter = getBehaveingFrame() + _frame_refraction_interval;
+                if (getBehaveingFrame() >= _frame_refraction_out) {
+                    onRefractionFinish(_cnt_refraction);
+                    _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction;
                     //座標を変えず方向だけ転換
                     int X, Y, Z;
                     X = _X; Y = _Y; Z = _Z;
@@ -195,7 +195,7 @@ void RefractionLaserChip::processBehavior() {
             if (_pChip_behind == NULL) {
                 if (_pRefractionEffect) {
                     //_TRACE_("_pRefractionEffect->sayonara();");
-                    _pRefractionEffect->sayonara(_frame_standstill);
+                    _pRefractionEffect->sayonara(_frame_standstill_refraction);
                 }
             }
         }

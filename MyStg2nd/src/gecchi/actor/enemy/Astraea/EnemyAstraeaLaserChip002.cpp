@@ -10,11 +10,10 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "11/AstraeaLaserChip001") { //LaserChip系は最大12セット
     _class_name = "EnemyAstraeaLaserChip002";
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
-    setRefractionParam(50, 10, 5);
-    _pDispatcherCon = NULL;
-	_pDispatche_RefractionEffect = NULL;
-    _pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->connect("DpCon_EffRefraction001"));
-    _pDispatche_RefractionEffect = _pDispatcherCon->view();
+
+    //屈折レーザー設定
+    _pDispatcherCon_RefractionEffect = (DispatcherConnection*)(pGOD->_pDispatcherManager->connect("DpCon_EffRefraction001"));
+    configRefraction(50, 10, 5, _pDispatcherCon_RefractionEffect->view());
 }
 
 void EnemyAstraeaLaserChip002::initialize() {
@@ -24,9 +23,6 @@ void EnemyAstraeaLaserChip002::initialize() {
     _fAlpha = 0.9f;
     _fBoundingSphereRadius = 5.0f;
     _paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0.0, 0.0, 1.0);
-
-
-
 }
 
 void EnemyAstraeaLaserChip002::onActive() {
@@ -43,11 +39,11 @@ void EnemyAstraeaLaserChip002::onActive() {
 
 }
 
-void EnemyAstraeaLaserChip002::onRefractionEnterHeadChip(int prm_num_refraction)  {
+void EnemyAstraeaLaserChip002::onRefractionBegin(int prm_num_refraction)  {
 
 }
 
-void EnemyAstraeaLaserChip002::onRefractionOutHeadChip(int prm_num_refraction)  {
+void EnemyAstraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
 
     } else {
@@ -87,8 +83,8 @@ void EnemyAstraeaLaserChip002::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EnemyAstraeaLaserChip002::~EnemyAstraeaLaserChip002() {
-    if (_pDispatcherCon) {
-        _pDispatcherCon->close();
+    if (_pDispatcherCon_RefractionEffect) {
+        _pDispatcherCon_RefractionEffect->close();
     }
 
 }
