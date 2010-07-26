@@ -17,7 +17,7 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
 }
 
 void EnemyAstraeaLaserChip002::initialize() {
-    registHitAreaCube(2000);
+    registHitAreaCube(10000);
     setHitAble(true);
     _SX = _SY = _SZ = 5*1000;
     _fAlpha = 0.9f;

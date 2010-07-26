@@ -323,7 +323,7 @@ public:
      * 他ノードへ実行したり、processFinal() などでの使用を想定。<BR>
      * <B>[補足]</B>ノード生成直後は、活動状態となっている。<BR>
      */
-    void activateTree();
+    virtual void activateTree();
 
     /**
      * 活動状態にする(単体・コールバック有り) .
@@ -331,7 +331,7 @@ public:
      * 配下ノードには何も影響がありません。
      * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
      */
-    void activate();
+    virtual void activate();
 
     /**
      * 活動状態にする(単体・コールバック有り).
@@ -341,7 +341,11 @@ public:
      * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
      * @param prm_frame_offset 遅延フレーム数(1～)
      */
-    void activateAfter(DWORD prm_frame_offset);
+    virtual void activateAfter(DWORD prm_frame_offset);
+
+
+    virtual void activateTreeAfter(DWORD prm_frame_offset);
+
 
     /**
      * 活動状態にする(単体・即時・コールバック無し) .
@@ -354,7 +358,7 @@ public:
      * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
      * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
      */
-    void activateImmediately();
+    virtual void activateImmediately();
 
     /**
      * 活動状態にする(自ツリー・即時・コールバック無し)
@@ -362,7 +366,7 @@ public:
      * activateImmediately() の説明を要参照。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void activateTreeImmediately();
+    virtual void activateTreeImmediately();
     //===================
     /**
      * 非活動状態にする(自ツリー・コールバック有り) .
@@ -371,7 +375,7 @@ public:
      * 自身と配下ノード全てについて再帰的に inactivate() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
      */
-    void inactivateTree();
+    virtual void inactivateTree();
 
     /**
      * 非活動状態にする(単体・コールバック有り) .
@@ -379,7 +383,7 @@ public:
      * 配下ノードには何も影響がありません。
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
      */
-    void inactivate();
+    virtual void inactivate();
 
     /**
      * 非活動予約する(自ツリー・コールバック有り) .
@@ -389,8 +393,11 @@ public:
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
      * @param prm_frame_offset 遅延フレーム数(1～)
      */
-    void inactivateAfter(DWORD prm_frame_offset);
+    virtual void inactivateAfter(DWORD prm_frame_offset);
 
+
+
+    virtual void inactivateTreeAfter(DWORD prm_frame_offset);
 
     /**
      * 非活動状態にする(単体・即時・コールバック無し)  .
@@ -403,7 +410,7 @@ public:
      * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
      * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
      */
-    void inactivateImmediately();
+    virtual void inactivateImmediately();
 
     /**
      * 非活動状態にする(自ツリー・即時・コールバック無し)  .
@@ -411,7 +418,7 @@ public:
      * inactivateImmediately() の説明を要参照。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void inactivateTreeImmediately();
+    virtual void inactivateTreeImmediately();
 
     //===================
     /**
@@ -1006,8 +1013,29 @@ void GgafElement<T>::activateTreeImmediately() {
 
 template<class T>
 void GgafElement<T>::activateAfter(DWORD prm_frame_offset) {
-    _will_activate_after_flg = true;
-    _frame_of_life_when_activation = _frame_of_life + prm_frame_offset;
+    if (_can_live_flg) {
+        _will_activate_after_flg = true;
+        _frame_of_life_when_activation = _frame_of_life + prm_frame_offset;
+    }
+}
+
+template<class T>
+void GgafElement<T>::activateTreeAfter(DWORD prm_frame_offset) {
+    if (_can_live_flg) {
+        _will_activate_after_flg = true;
+        _frame_of_life_when_activation = _frame_of_life + prm_frame_offset;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
+            while(true) {
+                pElementTemp->activateTree();
+                if (pElementTemp->_is_last_flg) {
+                    break;
+                } else {
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+                }
+            }
+        }
+    }
 }
 
 template<class T>
@@ -1047,6 +1075,27 @@ void GgafElement<T>::inactivateAfter(DWORD prm_frame_offset) {
             _frame_of_life_when_inactivation = _frame_of_life + prm_frame_offset;
         }
     }
+}
+
+template<class T>
+void GgafElement<T>::inactivateTreeAfter(DWORD prm_frame_offset) {
+	if (_can_live_flg) {
+		if (_is_active_flg) {
+			_will_inactivate_after_flg = true;
+			_frame_of_life_when_inactivation = _frame_of_life + prm_frame_offset;
+		}
+		if (GGAF_NODE::_pSubFirst != NULL) {
+			T* pElementTemp = GGAF_NODE::_pSubFirst;
+			while(true) {
+				pElementTemp->inactivateTreeAfter(prm_frame_offset);
+				if (pElementTemp->_is_last_flg) {
+					break;
+				} else {
+					pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+				}
+			}
+		}
+	}
 }
 
 template<class T>

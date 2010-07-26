@@ -89,20 +89,40 @@ void RefractionLaserChip::onInactive() {
     //レーザーがゲーム領域外にたっしたときも、先頭チップから順に連続で引継ぎが発生することになる。
     //ちょっと無駄っぽいけど、さもなば先頭の次のチップが領域外に向かって移動するとは限らないので、やはり必要。
     if (_pChip_behind) {
-        RefractionLaserChip* pChip = (RefractionLaserChip*)_pChip_behind;
-        pChip->_pMover->_vX = _pMover->_vX;
-        pChip->_pMover->_vY = _pMover->_vY;
-        pChip->_pMover->_vZ = _pMover->_vZ;
-        pChip->_pMover->_angRzMv = _pMover->_angRzMv;
-        pChip->_pMover->_angRyMv = _pMover->_angRyMv;
-        pChip->_pMover->_veloMv = _pMover->_veloMv;
-        pChip->_pMover->_angFace[AXIS_X] = _pMover->_angFace[AXIS_X];
-        pChip->_pMover->_angFace[AXIS_Y] = _pMover->_angFace[AXIS_Y];
-        pChip->_pMover->_angFace[AXIS_Z] = _pMover->_angFace[AXIS_Z];
-        pChip->_cnt_refraction = _cnt_refraction;
-        pChip->_frame_refraction_enter = _frame_refraction_enter;
-        pChip->_frame_refraction_out = _frame_refraction_out;
-        pChip->_isRefracting = _isRefracting;
+        RefractionLaserChip* pChip_behind = (RefractionLaserChip*)_pChip_behind;
+        pChip_behind->_pMover->_vX = _pMover->_vX;
+        pChip_behind->_pMover->_vY = _pMover->_vY;
+        pChip_behind->_pMover->_vZ = _pMover->_vZ;
+        pChip_behind->_pMover->_angRzMv = _pMover->_angRzMv;
+        pChip_behind->_pMover->_angRyMv = _pMover->_angRyMv;
+        pChip_behind->_pMover->_veloMv = _pMover->_veloMv;
+        pChip_behind->_pMover->_angFace[AXIS_X] = _pMover->_angFace[AXIS_X];
+        pChip_behind->_pMover->_angFace[AXIS_Y] = _pMover->_angFace[AXIS_Y];
+        pChip_behind->_pMover->_angFace[AXIS_Z] = _pMover->_angFace[AXIS_Z];
+        pChip_behind->_cnt_refraction = _cnt_refraction;
+        pChip_behind->_frame_refraction_enter = _frame_refraction_enter;
+        pChip_behind->_frame_refraction_out = _frame_refraction_out;
+        pChip_behind->_isRefracting = _isRefracting;
+        //屈折エフェクトを解除
+        if (_pRefractionEffect) {
+            _pRefractionEffect->sayonara();
+            _pRefractionEffect = NULL;
+        }
+        if (_prev_pRefractionEffect) {
+            _prev_pRefractionEffect->sayonara();
+            _prev_pRefractionEffect = NULL;
+        }
+        pChip_behind->_pRefractionEffect = _pRefractionEffect;
+    } else {
+        //屈折エフェクトを解除
+        if (_pRefractionEffect) {
+            _pRefractionEffect->sayonara();
+            _pRefractionEffect = NULL;
+        }
+        if (_prev_pRefractionEffect) {
+            _prev_pRefractionEffect->sayonara();
+            _prev_pRefractionEffect = NULL;
+        }
     }
 
     LaserChip::onInactive(); //つながりを切断処理

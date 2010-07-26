@@ -31,15 +31,25 @@ public:
 
 
     /**
-     * 子アクターへは影響させない
+     * activate系は子アクターへは影響させない
      */
-    virtual void activateTree() {
+    virtual void activateTree() override {
         activate();
     }
 
-    virtual void inactivateTree() {
-        inactivate();
+//    virtual void inactivateTree() override {
+//        inactivate();
+//    }
+    /**
+     * activate系は子アクターへは影響させない
+     */
+    virtual void activateTreeAfter(DWORD prm_frame_offset) override {
+        activateAfter(prm_frame_offset);
     }
+
+//    virtual void inactivateTreeAfter(DWORD prm_frame_offset) override {
+//        inactivateAfter(prm_frame_offset);
+//    }
 
     /**
      * アクター取り出し .

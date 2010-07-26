@@ -264,11 +264,11 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
 
 
 void EnemyAstraea::onInactive() {
-//    //レーザーは遅れてからディスパッチャーに戻す
+    //レーザーディスパッチャーは遅れてから戻す
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
             if (_papapLaserChipDispatcher[i][j]) {
-                _papapLaserChipDispatcher[i][j]->inactivateAfter(300);
+                _papapLaserChipDispatcher[i][j]->sayonara(100);
             }
         }
     }

@@ -79,9 +79,21 @@ GgafScene* GgafActor::getPlatformScene() {
 
 void GgafActor::sayonara(DWORD prm_frame_offset) {
     if (_pDependenceDispcher) {
-        inactivateAfter(prm_frame_offset);
+        inactivateTreeAfter(prm_frame_offset);
     } else {
         end(prm_frame_offset);
+    }
+    GgafActor* pActor;
+    if (_pSubFirst != NULL) {
+        pActor = _pSubFirst;
+        while (true) {
+            pActor->sayonara(prm_frame_offset);
+            if (pActor->_is_last_flg) {
+                break;
+            } else {
+                pActor = pActor->_pNext;
+            }
+        }
     }
 }
 
