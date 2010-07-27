@@ -1,6 +1,6 @@
 #ifndef CURVELASERCHIP_H_
 #define CURVELASERCHIP_H_
-namespace MyStg2nd {
+namespace GgafDx9LibStg {
 
 /**
  * カーブレーザー用ポリラインのチップ .

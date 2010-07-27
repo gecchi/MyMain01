@@ -1,6 +1,6 @@
 #ifndef LASERCHIPDISPATCHER_H_
 #define LASERCHIPDISPATCHER_H_
-namespace MyStg2nd {
+namespace GgafDx9LibStg {
 
 /**
  * レーザーチップ使いまわし管理クラス .

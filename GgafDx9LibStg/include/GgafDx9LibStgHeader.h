@@ -37,6 +37,14 @@ class ColliSphere;
 class LinearOctreeForActor;
 class LinearOctreeActorElem;
 class CollisionChecker;
+
+class LaserChip;
+class CurveLaserChip;
+class HomingLaserChip;
+class StraightLaserChip;
+class RefractionLaserChip;
+class LaserChipDispatcher;
+class LaserChipDispatcherDispatcher;
 }
 
 #include "jp/ggaf/dx9libstg/DefaultGod.h"
@@ -75,7 +83,13 @@ class CollisionChecker;
 #include "jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h"
 #include "jp/ggaf/dx9libstg/util/CollisionChecker.h"
 
-
+#include "jp/ggaf/dx9libstg/actor/laserchip/LaserChip.h"
+#include "jp/ggaf/dx9libstg/actor/laserchip/CurveLaserChip.h"
+#include "jp/ggaf/dx9libstg/actor/laserchip/HomingLaserChip.h"
+#include "jp/ggaf/dx9libstg/actor/laserchip/StraightLaserChip.h"
+#include "jp/ggaf/dx9libstg/actor/laserchip/RefractionLaserChip.h"
+#include "jp/ggaf/dx9libstg/actor/laserchip/LaserChipDispatcher.h"
+#include "jp/ggaf/dx9libstg/actor/laserchip/LaserChipDispatcherDispatcher.h"
 
 #define DISP_HITAREA 1
 

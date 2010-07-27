@@ -1,6 +1,6 @@
 #ifndef HOMINGLASERCHIP_H_
 #define HOMINGLASERCHIP_H_
-namespace MyStg2nd {
+namespace GgafDx9LibStg {
 
 /**
  * ホーミングレーザー用ポリラインのチップ .

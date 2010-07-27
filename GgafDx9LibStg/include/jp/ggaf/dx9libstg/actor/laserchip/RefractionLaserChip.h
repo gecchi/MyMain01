@@ -1,6 +1,6 @@
 #ifndef REFRACTIONLASERCHIP_H_
 #define REFRACTIONLASERCHIP_H_
-namespace MyStg2nd {
+namespace GgafDx9LibStg {
 
 /**
  * 屈折レーザー用ポリラインのチップ .

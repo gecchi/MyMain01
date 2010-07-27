@@ -1,6 +1,6 @@
 #ifndef STRAIGHTLASERCHIP_H_
 #define STRAIGHTLASERCHIP_H_
-namespace MyStg2nd {
+namespace GgafDx9LibStg {
 
 /**
  * ストレートレーザー用ポリラインのチップ .

@@ -1,6 +1,6 @@
 #ifndef LASERCHIPDISPATCHERDISPATCHER_H_
 #define LASERCHIPDISPATCHERDISPATCHER_H_
-namespace MyStg2nd {
+namespace GgafDx9LibStg {
 
 /**
  * （現在未使用。普通のDispatcher でできたし）

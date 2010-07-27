@@ -1,6 +1,6 @@
 #ifndef LASERCHIP_H_
 #define LASERCHIP_H_
-namespace MyStg2nd {
+namespace GgafDx9LibStg {
 
 /**
  * ポリラインレーザーのチップの基底クラス .
