@@ -15,7 +15,7 @@ public:
     D3DXHANDLE _ahMatWorld_front[16];
     D3DXHANDLE _h_cnt_vertec;
 
-    GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
+    CollisionChecker* _pCollisionChecker;
 
     /** 一つ前方のレーザーチップ */
     LaserChip* _pChip_front;

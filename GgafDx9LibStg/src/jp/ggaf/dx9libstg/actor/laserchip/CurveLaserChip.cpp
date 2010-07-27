@@ -72,8 +72,8 @@ void CurveLaserChip::processSettlementBehavior() {
         //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->isActive()と判定すること
         //なぜならemployの瞬間に_pChip_behind != NULL となるが、active()により有効になるのは次フレームだから
         //_X,_Y,_Z にはまだ変な値が入っている。
-        MyCurveLaserChip001* pF = (MyCurveLaserChip001*)_pChip_front;
-        MyCurveLaserChip001* pB = (MyCurveLaserChip001*)_pChip_behind;
+        CurveLaserChip* pF = (CurveLaserChip*)_pChip_front;
+        CurveLaserChip* pB = (CurveLaserChip*)_pChip_behind;
         //中間座標に再設定
         _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3;
         _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
