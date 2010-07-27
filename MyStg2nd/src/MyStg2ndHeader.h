@@ -127,13 +127,7 @@ class VarietyTorus002;
 class VarietyTorus003;
 class VarietyTorus004;
 
-class LaserChip;
-class CurveLaserChip;
-class HomingLaserChip;
-class StraightLaserChip;
-class RefractionLaserChip;
-class LaserChipDispatcher;
-class LaserChipDispatcherDispatcher;
+
 class SingleLaser;
 class Shot001;
 class Shot002;
@@ -258,13 +252,6 @@ class LaserChipEffectActor;
 #include "gecchi/actor/my/sprite/DefaultSpriteMyActor.h"
 #include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
-#include "gecchi/actor/common/laserchip/LaserChip.h"
-#include "gecchi/actor/common/laserchip/CurveLaserChip.h"
-#include "gecchi/actor/common/laserchip/HomingLaserChip.h"
-#include "gecchi/actor/common/laserchip/StraightLaserChip.h"
-#include "gecchi/actor/common/laserchip/RefractionLaserChip.h"
-#include "gecchi/actor/common/laserchip/LaserChipDispatcher.h"
-#include "gecchi/actor/common/laserchip/LaserChipDispatcherDispatcher.h"
 #include "gecchi/actor/common/singlelaser/SingleLaser.h"
 #include "gecchi/actor/common/shot/Shot001.h"
 #include "gecchi/actor/common/shot/Shot002.h"

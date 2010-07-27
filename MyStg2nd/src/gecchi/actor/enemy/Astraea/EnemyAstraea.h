@@ -38,10 +38,7 @@ public:
     /** レーザー発射ローカル座標 */
     PosLaser** _papaPosLaser;
 
-
-    LaserChipDispatcher*** _papapLaserChipDispatcher;
-
-
+    GgafDx9LibStg::LaserChipDispatcher*** _papapLaserChipDispatcher;
 
     EnemyAstraea(const char* prm_name);
 

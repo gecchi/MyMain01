@@ -249,7 +249,7 @@ public:
     GgafCore::GgafActorDispatcher* _pDispatcher_MyShots001;
     GgafCore::GgafActorDispatcher* _pDispatcher_EnemyShots001;
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion001;
-    LaserChipDispatcher* _pLaserChipDispatcher;
+    GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
 
 
     EffectTurbo001* _pEffectTurbo001;

@@ -2,7 +2,7 @@
 #define MYSTRAIGHTLASERCHIP001_H_
 namespace MyStg2nd {
 
-class MyStraightLaserChip001 : public StraightLaserChip {
+class MyStraightLaserChip001 : public GgafDx9LibStg::StraightLaserChip {
 
 public:
 

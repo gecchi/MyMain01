@@ -2,7 +2,7 @@
 #define LASERCHIPEFFECTACTOR_H_
 namespace MyStg2nd {
 
-class LaserChipEffectActor : public StraightLaserChip {
+class LaserChipEffectActor : public GgafDx9LibStg::StraightLaserChip {
 
 public:
 

@@ -2,7 +2,7 @@
 #define MYLASERCHIP001_H_
 namespace MyStg2nd {
 
-class MyCurveLaserChip001 : public CurveLaserChip {
+class MyCurveLaserChip001 : public GgafDx9LibStg::CurveLaserChip {
 
 public:
     /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */

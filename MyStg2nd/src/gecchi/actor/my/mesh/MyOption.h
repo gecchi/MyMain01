@@ -40,7 +40,7 @@ public:
     EffectLockOn001* _pEffectLockOn;
     EffectLockOn001_Release* _pEffectLockOn_Release;
 
-    LaserChipDispatcher* _pLaserChipDispatcher;
+    GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
     GgafCore::GgafActorDispatcher* _pDispatcher_MyShots001;
     /** 計算された現在の旋廻円周移動角速度（読み出し専用） */
     angvelo _angveloMove;
