@@ -32,6 +32,11 @@ private:
     void draw() override {}
 
 public:
+
+    bool _zenable;
+
+    bool _zwriteenable;
+
     /** 直近の描画時に使用されたテクニック名のハッシュコード */
     static unsigned int _hash_technique_last_draw;
 
@@ -166,6 +171,9 @@ public:
 
     /**
      * アクターのアルファ設定 .
+     * 1.0 以上の場合カリングがON、
+     * 1.0 より小さな場合、カリングがOFF、
+     * という機能もあわせ持つ。
      * @param prm_fAlpha
      */
     virtual void setAlpha(float prm_fAlpha) {
@@ -212,6 +220,25 @@ public:
     virtual GgafDx9Effect* getEffect() {
         return _pGgafDx9Effect;
     }
+
+
+    /**
+     * 描画時Zバッファを考慮するか .
+     * @param prm_bool true:考慮する(default) / false:無視する
+     */
+    void setZEnable(bool prm_bool) {
+        _zenable = prm_bool;
+    }
+
+    /**
+     * 描画時Zバッファを書き込むか .
+     * @param prm_bool true:書き込む(default) / false:書き込まない
+     */
+    void setZWriteEnable(bool prm_bool) {
+        _zwriteenable = prm_bool;
+    }
+
+
     /**
      * モデルが生成された時の処理 .
      * モデルオブジェクトが new された場合に１回だけ呼び出します。

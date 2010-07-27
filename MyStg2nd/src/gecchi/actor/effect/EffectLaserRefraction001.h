@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/07/26
  * @author Masatoshi Tsuge
  */
-class EffectLaserRefraction001 : public GgafDx9LibStg::DefaultSpriteSetActor {
+class EffectLaserRefraction001 : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
     EffectLaserRefraction001(const char* prm_name);

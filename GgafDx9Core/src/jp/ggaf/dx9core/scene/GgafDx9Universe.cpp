@@ -126,16 +126,20 @@ void GgafDx9Universe::draw() {
         _pActor_DrawActive = _apAlphaActorList_DrawDepthLevel[i];
         while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
 
-            if (_pActor_DrawActive->_fAlpha < 1.0) {
-                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリングを一時OFF
-            }
-            //TODO:奥は暗く
-//            if (alphapoint < i) {
-//                tmpAlpah = _pActor_DrawActive->getAlpha();
-//                _pActor_DrawActive->addAlpha((1.0/(MAX_DRAW_DEPTH_LEVEL - alphapoint))*i - 3.0);
-//            }
 
-            //マスターαを設定する。
+            //半透明要素ありの場合カリングを一時OFF
+            if (_pActor_DrawActive->_fAlpha < 1.0) {
+                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+            }
+            //Zバッファを考慮無効設定
+            if (!_pActor_DrawActive->_zenable) {
+                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+            }
+            // Zバッファ書き込み不可設定
+            if (!_pActor_DrawActive->_zwriteenable) {
+                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+            }
+
 #ifdef MY_DEBUG
             if (_pActor_DrawActive->getPlatformScene()->_scene_class & Obj_GgafDx9Scene) {
                 //OK
@@ -143,16 +147,27 @@ void GgafDx9Universe::draw() {
                 throwGgafCriticalException("GgafDx9Universe::draw() err2. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDx9Scene に変換不可です。this="<<getName());
             }
 #endif
+            //各所属シーンのαカーテンを設定する。
             GgafDx9Scene* pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
             _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
                     _pActor_DrawActive->_pGgafDx9Effect->_hMasterAlpha, pScene->_pAlphaCurtain->_alpha);
             _pActor_DrawActive->processDraw();
-//            if (alphapoint < i) {
-//                _pActor_DrawActive->setAlpha(tmpAlpah);
-//            }
+
+            //カリング有りに戻す
             if (_pActor_DrawActive->_fAlpha < 1.0) {
-                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //カリング有りに戻す
+                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
             }
+            //Zバッファを考慮無効設定
+            if (!_pActor_DrawActive->_zenable) {
+                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+            }
+            // Zバッファ書き込み不可設定
+            if (!_pActor_DrawActive->_zwriteenable) {
+                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+            }
+
+
+
             _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
         _apAlphaActorList_DrawDepthLevel[i] = NULL; //次回のためにリセット

@@ -6,30 +6,33 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 EffectLaserRefraction001::EffectLaserRefraction001(const char* prm_name)
-               : DefaultSpriteSetActor(prm_name, "EffectExplosion003") {
+               : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001") {
     _class_name = "EffectLaserRefraction001";
     chengeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
 }
 
 void EffectLaserRefraction001::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 63);
+//    _pUvFlipper->forcePtnNoRange(0, 63);
     setHitAble(false);
-
+    setZWriteEnable(false);
 }
 
 void EffectLaserRefraction001::onActive() {
-    _pUvFlipper->setPtnNoToTop();
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
-    _fAlpha = 0.99;
-    _SX = _SY = _SZ = 1000;
+    //_pUvFlipper->setPtnNoToTop();
+    //_pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
+    setAlpha(0.99);
+    _pScaler->setScale(3*1000);
+    _pMover->setFaceAngVelo(AXIS_X, 3*1000);
+    _pMover->setFaceAngVelo(AXIS_Y, 5*1000);
+    _pMover->setFaceAngVelo(AXIS_Z, 7*1000);
 }
 
 void EffectLaserRefraction001::processBehavior() {
-    _SX+= 100;
-    _SY+= 100;
-    _pUvFlipper->behave();
+    _pScaler->addScale(100);
+
+    //_pUvFlipper->behave();
     _pMover->behave();
-    //_pScaler->behave();
+    _pScaler->behave();
 }
 
 void EffectLaserRefraction001::processJudgement() {
