@@ -5,8 +5,11 @@ namespace MyStg2nd {
 
 #define pGOD ((God*)GgafGod::_pGod)
 #define pUNIVERSE ((Universe*)(GgafGod::_pGod->_pUniverse))
+/** ゲーム時のVirtualButton */
 #define VB_PLAY God::_pVbtn_PLAY
+/** UI操作時のVirtualButton */
 #define VB_UI God::_pVbtn_UI
+/** VB_PLAY or VB_UI のどちらかで、アクティブな方のVirtualButton */
 #define VB God::_pVbtn_Active
 
 class God : public GgafDx9LibStg::DefaultGod {
@@ -28,6 +31,9 @@ public:
      * @param prm_pVB
      */
     void setVB(GgafDx9LibStg::VirtualButton* prm_pVB) {
+        if (_pVbtn_Active != prm_pVB) {
+            //VBのセットが切り替わる
+        }
         _pVbtn_Active_next_frame = prm_pVB;
     }
 

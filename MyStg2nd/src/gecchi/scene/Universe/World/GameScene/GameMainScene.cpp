@@ -173,11 +173,12 @@ void GameMainScene::processBehavior() {
 
     if (getProgress() == GAMEMAIN_PROG_PLAY) {
         //TODO:止めてもframeは進む＿？
-        if (VB->isPushedDown(VB_PAUSE)) {
+        //if (VB_PLAY->isClicked(VB_PAUSE)) {
+        if (VB_PLAY->isReleasedUp(VB_PAUSE)) {
             _TRACE_("PAUSE!");
-            VB_UI->_pVBMap_Active->_state |= VB_PAUSE; //VB_UIでVB_PAUSE押している事にする
-                                       //そうしておかないと、VB_UIに切り替わった瞬間、
-                                       //VB_UI側でVB_PAUSEが押されたことになってしまうため
+//            VB_UI->_pVBMap_Active->_state |= VB_PAUSE; //VB_UIでVB_PAUSE押している事にする
+//                                       //そうしておかないと、VB_UIに切り替わった瞬間、
+//                                       //VB_UI側でVB_PAUSEが押されたことになってしまうため
             pGOD->setVB(VB_UI);  //入力はＵＩに切り替え
             pause();     //自身配下を一時停止する
                          //一時停止解除はGameSceneで行われる
@@ -185,19 +186,19 @@ void GameMainScene::processBehavior() {
 
         GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
         //カメラ位置を行ったり来たり
-        if (VB->isPushedDown(VB_VIEW)) {
+        if (VB_PLAY->isPushedDown(VB_VIEW)) {
             _TRACE_("VB_VIEW!! now _pos_camera="<<_pos_camera);
             if (_pos_camera < CAM_POS_TO_BEHIND) { //背面視点ではない場合、
                 _pos_camera += CAM_POS_TO_BEHIND;  //それぞれの対応背面視点へ
             } else if (_pos_camera > CAM_POS_TO_BEHIND) {//背面視点の場合
                 //方向入力により新たな視点へ
-                if (VB->isBeingPressed(VB_RIGHT)) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _pos_camera = CAM_POS_LEFT;
-                } else if (VB->isBeingPressed(VB_LEFT)) {
+                } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
                     _pos_camera = CAM_POS_RIGHT;
-                } else if (VB->isBeingPressed(VB_UP)) {
+                } else if (VB_PLAY->isBeingPressed(VB_UP)) {
                     _pos_camera = CAM_POS_BOTTOM;
-                } else if (VB->isBeingPressed(VB_DOWN)) {
+                } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     _pos_camera = CAM_POS_TOP;
                 } else {
                     //方向未入力の場合、元の視点へ
@@ -338,14 +339,14 @@ void GameMainScene::processBehavior() {
         //各軸最大速度
         int cam_velo_renge;
 
-        if (VB->isBeingPressed(VB_VIEW)) {
+        if (VB_PLAY->isBeingPressed(VB_VIEW)) {
             cam_velo_renge = _cam_velo_renge / 100; //おしっぱはゆっくり
         } else {
             cam_velo_renge = _cam_velo_renge;
         }
         //離した場合
-        if (VB->isReleasedUp(VB_VIEW)) {
-            if (VB->isPushedUp(VB_VIEW, 20)) {
+        if (VB_PLAY->isReleasedUp(VB_VIEW)) {
+            if (VB_PLAY->isPushedUp(VB_VIEW, 20)) {
                 //チョン押しの場合
             } else {
                 //長押し

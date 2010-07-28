@@ -205,7 +205,7 @@ void MyOption::processBehavior() {
     } else {
 
         //オプション独立移動制御時
-        if (VB->isBeingPressed(VB_OPTION) && _pMyOptionParent->_is_handle_move_mode) {
+        if (VB_PLAY->isBeingPressed(VB_OPTION) && _pMyOptionParent->_is_handle_move_mode) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちの旋回半径増加速度のみを設定。
             addRadiusPosition(GgafDx9Util::SIN[_angExpanse/ ANGLE_RATE] * _pMyOptionParent->_veloOptionsMv);
@@ -229,79 +229,79 @@ void MyOption::processBehavior() {
         _angExpanse = GgafDx9Util::simplifyAng(_angExpanse);
     } else {
         //オプション広がりと向き制御
-        if (VB->isBeingPressed(VB_OPTION) && VB->isBeingPressed(VB_TURBO)) {
+        if (VB_PLAY->isBeingPressed(VB_OPTION) && VB_PLAY->isBeingPressed(VB_TURBO)) {
             if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_RIGHT) {
-                if (VB->isBeingPressed(VB_RIGHT)) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
-                if (VB->isBeingPressed(VB_LEFT)) {
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
-                if (VB->isBeingPressed(VB_UP)) {
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
                     addRadiusPosition(2000 * (_radiusPosition_default/60000));
                     //_angExpanse += _angveloExpanseSlow;
                 }
-                if (VB->isBeingPressed(VB_DOWN)) {
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     addRadiusPosition(-2000 * (_radiusPosition_default/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
             } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_LEFT) {
-                if (VB->isBeingPressed(VB_RIGHT)) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
-                if (VB->isBeingPressed(VB_LEFT)) {
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
-                if (VB->isBeingPressed(VB_UP)) {
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
                     addRadiusPosition(2000 * (_radiusPosition_default/60000));
                     //_angExpanse += _angveloExpanseSlow;
                 }
-                if (VB->isBeingPressed(VB_DOWN)) {
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     addRadiusPosition(-2000 * (_radiusPosition_default/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
             } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_TOP) {
-                if (VB->isBeingPressed(VB_RIGHT)) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     addRadiusPosition(2000 * (_radiusPosition_default/60000));
                     //_angExpanse += _angveloExpanseSlow;
                 }
-                if (VB->isBeingPressed(VB_LEFT)) {
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
                     addRadiusPosition(-2000 * (_radiusPosition_default/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
-                if (VB->isBeingPressed(VB_UP)) {
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
-                if (VB->isBeingPressed(VB_DOWN)) {
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
             } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_BOTTOM) {
-                if (VB->isBeingPressed(VB_RIGHT)) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     addRadiusPosition(-2000 * (_radiusPosition_default/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
-                if (VB->isBeingPressed(VB_LEFT)) {
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
                     addRadiusPosition(2000 * (_radiusPosition_default/60000));
                     //_angExpanse += _angveloExpanseSlow;
                 }
-                if (VB->isBeingPressed(VB_UP)) {
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
-                if (VB->isBeingPressed(VB_DOWN)) {
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
             } else if (GameMainScene::_pGameMainScene->_pos_camera > CAM_POS_TO_BEHIND) {
-                if (VB->isBeingPressed(VB_RIGHT)) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
-                if (VB->isBeingPressed(VB_LEFT)) {
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
-                if (VB->isBeingPressed(VB_UP)) {
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
                     addRadiusPosition(2000 * (_radiusPosition_default/60000));
                     //_angExpanse += _angveloExpanseSlow;
                 }
-                if (VB->isBeingPressed(VB_DOWN)) {
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     addRadiusPosition(-2000 * (_radiusPosition_default/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
@@ -399,8 +399,8 @@ void MyOption::processBehavior() {
     _pMover->setVxMvVelo(0);
     _pMover->setVyMvVelo(0);
     _pMover->setVzMvVelo(0);
-            //_TRACE_("_pVBMap_Active->_state="<<(vbsta)(VB->_pVBMap_Active->_state));
-    if (pMYSHIP->_is_shooting_laser && VB->isBeingPressed(VB_SHOT1)) {
+            //_TRACE_("_pVBMap_Active->_state="<<(vbsta)(VB_PLAY->_pVBMap_Active->_state));
+    if (pMYSHIP->_is_shooting_laser && VB_PLAY->isBeingPressed(VB_SHOT1)) {
 
 
         MyCurveLaserChip001* pLaserChip = (MyCurveLaserChip001*)_pLaserChipDispatcher->employ();
@@ -465,7 +465,7 @@ void MyOption::processBehavior() {
         }
     }
 
-//    if (VB->isPushedDown(VB_SHOT1)) {
+//    if (VB_PLAY->isPushedDown(VB_SHOT1)) {
 //        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
 //        if (pShot != NULL) {
 //            _pSeReflector->play3D(1);

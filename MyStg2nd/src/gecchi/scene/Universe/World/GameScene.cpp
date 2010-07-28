@@ -57,9 +57,12 @@ void GameScene::processBehavior() {
 //    }
 
     if (_pScene_GameMain->wasPause()) {
-        if (VB->isPushedDown(VB_PAUSE)) {
-            _TRACE_("UNPAUSE!");
-            VB_PLAY->_pVBMap_Active->_state |= VB_PAUSE; //VB_PAUSE押している事にする
+        if (VB_UI->isReleasedUp(VB_PAUSE)) {
+
+//        if (VB_UI->isPushedDown(VB_PAUSE)) {
+//            _TRACE_("UNPAUSE!");
+//            VB_PLAY->_pVBMap_Active->_state ^= VB_PAUSE; //VB_PAUSEはなかった事にする
+//                                                         //VB_PAUSEのビットをリセット
             pGOD->setVB(VB_PLAY);
 
             _pScene_GameMain->unpause();     //一時停止

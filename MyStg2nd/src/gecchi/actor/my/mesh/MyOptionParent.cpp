@@ -38,42 +38,42 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _paMyOption[0]->setInitializeProperty(60000, ANGLE0, 0, 1000);
     _paMyOption[0]->setMaterialColor(1.0, 1.0, 1.0);
     _paMyOption[0]->setAlpha(0.7);
-	addSubGroup(_paMyOption[0]);
+    addSubGroup(_paMyOption[0]);
 
     _paMyOption[1] = NEW MyOption("MY_OPTION02", 1, this);
     _paMyOption[1]->setInitializeProperty(60000, ANGLE90, 0, 1000);
     _paMyOption[1]->setMaterialColor(0.8, 1.0, 1.0);
     _paMyOption[1]->setAlpha(0.7);
-	addSubGroup(_paMyOption[1]);
+    addSubGroup(_paMyOption[1]);
 
     _paMyOption[2] = NEW MyOption("MY_OPTION03", 2, this);
     _paMyOption[2]->setInitializeProperty(60000, ANGLE180, 0, 1000);
     _paMyOption[2]->setMaterialColor(1.0, 0.8, 0.8);
     _paMyOption[2]->setAlpha(0.7);
-	addSubGroup(_paMyOption[2]);
+    addSubGroup(_paMyOption[2]);
 
     _paMyOption[3] = NEW MyOption("MY_OPTION04", 4, this);
     _paMyOption[3]->setInitializeProperty(60000, ANGLE270, 0, 1000);
     _paMyOption[3]->setMaterialColor(0.8, 1.0, 0.8);
     _paMyOption[3]->setAlpha(0.7);
-	addSubGroup(_paMyOption[3]);
+    addSubGroup(_paMyOption[3]);
 
     _paMyOption[4] = NEW MyOption("MY_OPTION05", 5, this);
     _paMyOption[4]->setInitializeProperty(120000, ANGLE0, 0, -1500);
     _paMyOption[4]->setMaterialColor(0.8, 0.8, 1.0);
     _paMyOption[4]->setAlpha(0.7);
-	addSubGroup(_paMyOption[4]);
+    addSubGroup(_paMyOption[4]);
 
     _paMyOption[5] = NEW MyOption("MY_OPTION06", 6, this);
     _paMyOption[5]->setInitializeProperty(120000, ANGLE90, 0, -1500);
     _paMyOption[5]->setMaterialColor(0.8, 1.0, 0.8);
     _paMyOption[5]->setAlpha(0.7);
-	addSubGroup(_paMyOption[5]);
+    addSubGroup(_paMyOption[5]);
 
     _paMyOption[6] = NEW MyOption("MY_OPTION07", 7, this);
     _paMyOption[6]->setInitializeProperty(120000, ANGLE180, 0, -1500);
     _paMyOption[6]->setMaterialColor(1.0, 0.8, 0);
-	_paMyOption[6]->setAlpha(0.7);
+    _paMyOption[6]->setAlpha(0.7);
     addSubGroup(_paMyOption[6]);
 
     _paMyOption[7] = NEW MyOption("MY_OPTION08", 8, this);
@@ -116,7 +116,7 @@ void MyOptionParent::initialize() {
 
 void MyOptionParent::processBehavior() {
 
-    if (VB->isDoublePushedDown(VB_OPTION,8,8)) {
+    if (VB_PLAY->isDoublePushedDown(VB_OPTION,8,8)) {
         //もとに戻す
         _pMover->execTagettingMvAngSequence(
                         0,
@@ -136,25 +136,25 @@ void MyOptionParent::processBehavior() {
         }
 
 
-    } else if (VB->isBeingPressed(VB_OPTION) && !VB->isBeingPressed(VB_TURBO)) {
+    } else if (VB_PLAY->isBeingPressed(VB_OPTION) && !VB_PLAY->isBeingPressed(VB_TURBO)) {
         //オプション向き操作
-        if (VB->isBeingPressed(VB_UP)) {
+        if (VB_PLAY->isBeingPressed(VB_UP)) {
             _pMover->addRzMvAng(_angVelo_Turn);
         }
-        if (VB->isBeingPressed(VB_DOWN)) {
+        if (VB_PLAY->isBeingPressed(VB_DOWN)) {
             _pMover->addRzMvAng(-_angVelo_Turn);
         }
-        if (VB->isBeingPressed(VB_RIGHT)) {
+        if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
             _pMover->addRyMvAng(_angVelo_Turn);
         }
-        if (VB->isBeingPressed(VB_LEFT)) {
+        if (VB_PLAY->isBeingPressed(VB_LEFT)) {
             _pMover->addRyMvAng(-_angVelo_Turn);
         }
 
     }
 
-    if (VB->isRoundPushDown(VB_OPTION)) {
-    //if (VB->isPushedDown(VB_OPTION) && GgafDx9Input::isBeingPressedKey(DIK_S)) {
+    if (VB_PLAY->isRoundPushDown(VB_OPTION)) {
+    //if (VB_PLAY->isPushedDown(VB_OPTION) && GgafDx9Input::isBeingPressedKey(DIK_S)) {
         if (_paMyOption[0]) {
             _is_free_from_myship_mode = true;
             _is_handle_move_mode = true;
@@ -169,7 +169,7 @@ void MyOptionParent::processBehavior() {
     }
 
     if (_is_free_from_myship_mode) {
-        if (VB->isBeingPressed(VB_OPTION) && _is_handle_move_mode) {
+        if (VB_PLAY->isBeingPressed(VB_OPTION) && _is_handle_move_mode) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちのオプション移動速度のみを設定。
             _pMover->setMvVelo(GgafDx9Util::COS[_paMyOption[0]->_angExpanse/ ANGLE_RATE] * _veloOptionsMv);
