@@ -20,8 +20,8 @@ void EffectLaserRefraction001::initialize() {
 void EffectLaserRefraction001::onActive() {
     //_pUvFlipper->setPtnNoToTop();
     //_pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
-    setAlpha(0.99);
-    _pScaler->setScale(3*1000);
+    setAlpha(0.5);
+    _pScaler->setScale(6*1000);
     _pMover->setFaceAngVelo(AXIS_X, 3*1000);
     _pMover->setFaceAngVelo(AXIS_Y, 5*1000);
     _pMover->setFaceAngVelo(AXIS_Z, 7*1000);

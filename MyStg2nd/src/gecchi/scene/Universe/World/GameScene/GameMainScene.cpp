@@ -172,13 +172,10 @@ void GameMainScene::processBehavior() {
     //カメラワーク関連
 
     if (getProgress() == GAMEMAIN_PROG_PLAY) {
-        //TODO:止めてもframeは進む＿？
-        //if (VB_PLAY->isClicked(VB_PAUSE)) {
+
+        //一時停止
         if (VB_PLAY->isReleasedUp(VB_PAUSE)) {
             _TRACE_("PAUSE!");
-//            VB_UI->_pVBMap_Active->_state |= VB_PAUSE; //VB_UIでVB_PAUSE押している事にする
-//                                       //そうしておかないと、VB_UIに切り替わった瞬間、
-//                                       //VB_UI側でVB_PAUSEが押されたことになってしまうため
             pGOD->setVB(VB_UI);  //入力はＵＩに切り替え
             pause();     //自身配下を一時停止する
                          //一時停止解除はGameSceneで行われる
