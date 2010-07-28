@@ -223,11 +223,17 @@ public:
 //     */
 //    static vbsta getPushedDownStickWith(int prm_VB);
 
+
+    //vbsta isClicked(vbsta prm_VB);
+
     void update();
 
     void init();
 
     void clear();
+
+
+
 
     virtual ~VirtualButton();
 };
