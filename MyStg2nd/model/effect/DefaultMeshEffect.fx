@@ -64,16 +64,15 @@ OUT_VS GgafDx9VS_DefaultMesh(
 	if (out_vs.pos.z > g_zf*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
     	out_vs.col.a *= (-1.0/(g_zf*0.5)*out_vs.pos.z + 2.0);
 	} 
-//	if (out_vs.pos.z > g_zf*0.75) { //最遠の 3/4 より奥の場合徐々に透明に
-//    	out_vs.col.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);
-//	}
 	//マスターα
 	out_vs.col.a *= g_MasterAlpha;
 
 	return out_vs;
 }
 
-//メッシュ標準ピクセルシェーダー（テクスチャ有り）
+/**
+ * 通常ピクセルシェーダー（テクスチャ有り）
+ */
 float4 GgafDx9PS_DefaultMesh(
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_col    : COLOR0
@@ -99,6 +98,10 @@ float4 PS_Flush(
 	return out_color;
 }
 
+
+/**
+ * 通常テクニック
+ */
 technique DefaultMeshTechnique
 {
 	//pass P0「メッシュ標準シェーダー」

@@ -79,7 +79,7 @@ struct OUT_VS
 //メッシュ標準頂点シェーダー
 OUT_VS VS_HoshiBoshi(
       float4 prm_pos         : POSITION,  //ポイントスプライトのポイント群
-      float  prm_psize_rate  : PSIZE,     //PSIZEでは無くて、スケールの率(0.0～N (1.0=等倍)) が入ってくる
+      float  prm_psize_rate  : PSIZE,     //PSIZEはポイントサイズでは無く、スケールの率(0.0～N (1.0=等倍)) が入ってくる
       float2 prm_ptn_no      : TEXCOORD0, //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
       float4 prm_col         : COLOR0     //オブジェクトのカラー
 
@@ -109,11 +109,25 @@ OUT_VS VS_HoshiBoshi(
 	if (out_vs.pos.z < -g_zf) {
 		out_vs.pos.z = out_vs.pos.z + (g_zf*2);
 	}
+//abs(x)+abs(y)+abs(z)=1.0 ラミエル
+//abs(x)/default_DcamZ*8 + abs(y)/default_DcamZ*2 + abs(z)/default_DcamZ*2 =1.0 
+//abs(x)/default_DcamZ*8 + {(abs(y)+abs(z))/default_DcamZ*2} = r
+//α = 1.0 - r ????
+//     |            |＼                 ／|
+//     |            |  ＼      自     ／  |                     
+//-----+------------+----＼----+----／----+------------------------------> 星X
+//    0|            |      ＼     ／      | 
+//     |            |        ＼ ／        |                         
+//     |            |          ^          |              ・
+//     |            |          |          | 
+//     |            |          |      ・  | 
+//     |            |          |          | 
 
 
 	//ZY座標について自機の周りは非表示
 	if (g_MyShip_fZ-g_default_DcamZ*2 <  out_vs.pos.z  && out_vs.pos.z <  g_MyShip_fZ+g_default_DcamZ*2) {
 		if (g_MyShip_fY-g_default_DcamZ*2 <  out_vs.pos.y  && out_vs.pos.y <  g_MyShip_fY+g_default_DcamZ*2) {
+			
 			out_vs.col.a = 0;
 //			out_vs.col.r = 1.0 -  (abs(out_vs.pos.z - g_MyShip_fZ) + abs(out_vs.pos.y - g_MyShip_fY)) / g_default_DcamZ;
 		}
@@ -135,7 +149,7 @@ OUT_VS VS_HoshiBoshi(
 	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize_rate;  //通常の奥行きの縮小率
 
     int ptnno = ((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
-	//スペキュラ(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
+	//スペキュラセマンテックス(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
 	out_vs.uv_ps.x = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
 	out_vs.uv_ps.y = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
 
