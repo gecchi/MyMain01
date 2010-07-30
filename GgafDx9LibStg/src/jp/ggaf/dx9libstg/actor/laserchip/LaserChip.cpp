@@ -55,9 +55,12 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ahMatWorld_front[14]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front015" );
     _ahMatWorld_front[15]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front016" );
 
+
 }
 
 void LaserChip::onCreateModel() {
+    _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
+    _TRACE_("LaserChip::onCreateModel() "<<_pMeshSetModel->getName()<<" のセット数は "<< _pMeshSetModel->_set_num<<" 個に強制されました。");
 }
 
 void LaserChip::initialize() {
