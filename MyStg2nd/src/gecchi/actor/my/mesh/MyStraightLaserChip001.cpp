@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
-        StraightLaserChip(prm_name, "11/MyCurveLaserChip001") { //LaserChipånÇÕç≈ëÂ11ÉZÉbÉg
+        StraightLaserChip(prm_name, "MyCurveLaserChip001") {
     _class_name = "MyStraightLaserChip001";
     MyStgUtil::resetMyStraightLaserChip001Status(_pStatus);
     _veloMv = 100000;

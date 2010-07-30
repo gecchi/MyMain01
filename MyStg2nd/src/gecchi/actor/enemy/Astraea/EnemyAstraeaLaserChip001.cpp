@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 
 
 EnemyAstraeaLaserChip001::EnemyAstraeaLaserChip001(const char* prm_name) :
-        HomingLaserChip(prm_name, "11/AstraeaLaserChip001") { //LaserChipånÇÕç≈ëÂ12ÉZÉbÉg
+        HomingLaserChip(prm_name, "AstraeaLaserChip001") {
     _class_name = "EnemyAstraeaLaserChip001";
     MyStgUtil::resetEnemyAstraeaLaserChip001Status(_pStatus);
 }

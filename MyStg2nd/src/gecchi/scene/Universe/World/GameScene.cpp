@@ -28,7 +28,8 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pScene_GameMain->inactivate();
     _pScene_GameEnding->inactivate();
 
-    addSubLast(NEW TamagoScene("TamagoScene"));
+    //‚½‚Ü‚²
+    //addSubLast(NEW TamagoScene("TamagoScene"));
 
 }
 

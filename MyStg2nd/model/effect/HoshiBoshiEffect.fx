@@ -109,29 +109,100 @@ OUT_VS VS_HoshiBoshi(
 	if (out_vs.pos.z < -g_zf) {
 		out_vs.pos.z = out_vs.pos.z + (g_zf*2);
 	}
-//abs(x)+abs(y)+abs(z)=1.0 ƒ‰ƒ~ƒGƒ‹
-//abs(x)/default_DcamZ*8 + abs(y)/default_DcamZ*2 + abs(z)/default_DcamZ*2 =1.0 
-//abs(x)/default_DcamZ*8 + {(abs(y)+abs(z))/default_DcamZ*2} = r
-//ƒ¿ = 1.0 - r ????
-//     |            |_                 ^|
-//     |            |  _      Ž©     ^  |                     
-//-----+------------+----_----+----^----+------------------------------> ¯X
-//    0|            |      _     ^      | 
-//     |            |        _ ^        |                         
-//     |            |          ^          |              E
-//     |            |          |          | 
-//     |            |          |      E  | 
-//     |            |          |          | 
 
+// Ž©‹@‚ÌŽü‚è‚É‚ ‚é¯X‚ðŠŠ‚ç‚©‚É“§–¾‚É‚µ‚½‚¢B
+//
+// Ž©‹@À•W‚ð(X,Y,Z)‚Æ‚µ‚½ê‡B
+// f(x,y,z) = abs(X-x)+abs(Y-y)+abs(Z-z)@‚Æ’u‚­‚Æ
+// f(x,y,z) = D ‚ð–ž‚½‚·(x,y,z)‚ÍA‹——£‚ªD‚Ìƒ‰ƒ~ƒGƒ‹‚Æ‚È‚éB
+// f(x,y,z) = g_default_DcamZ ‚Í‚Â‚Ü‚è ‡@ ‚Ì‚æ‚¤‚È”ÍˆÍ‚Å‚ ‚éBig_default_DcamZ‚ÍŽ©‹@‚©‚çƒJƒƒ‰‚Ì‰Šú‹——£j
+// ‡@‚ðŽ®•ÏŒ`‚µ‚Ä
+// {abs(X-x)+abs(Y-y)+abs(Z-z)} / default_DcamZ = 1.0 c ‡@ 
+// ‚±‚ê‚æ‚èAˆÈ‰º‚Ì”ÍˆÍ‚ðl‚¦‚é
+// {abs(X-x)/4 + abs(Y-y)/2 + abs(Z-z)/2} / g_default_DcamZ = 1.0 c‡A 
+// {abs(X-x)/4 + abs(Y-y)/2 + abs(Z-z)/2} / g_default_DcamZ = 2.0 c‡B
+//
+// [^ã‚©‚ç‚ÌƒCƒ[ƒWi}‚Ì”ä—¦‚ªƒIƒJƒVƒC‚ªGj]
+//
+//      Z
+//     ^
+//     |
+//     |
+//     |
+//     |
+//     |                                            Q                  
+//     |                       (DcamZ,0)              PQ        œ                                  œ
+//     |                     ^ _                        PQ          
+//     |                   ^     _                        ‡APQ             œ   PQ      
+//     |                 ^       ‡@_                            PQ                ‡BPQ  
+//     |               ^             _                              PQ                  PQ
+//     |             ^                 _                                PQ                  PQ
+// ----+--------------------- Ž©‹@¨ --------------------------------------------------------------------------------> X
+//    0|   (-DcamZ,0)_        ^        ^  (DcamZ,0)                     QP (4*DcamZ,0)      QP(8*DcamZ,0)
+//     |               _      |DcamZ ^                              QP                  QP
+//     |                 _    |    ^         ‚±‚Ì—Ìˆæ‚Å‚Í       QP                  QP
+//     |                   _  |  ^           ¯‚Í”ñ•\Ž¦     QP        œ        QP                    œ
+//     |                     _v^                        QP                  QP
+// PQ                     Cam (DcamZ,0)           QP                  QP         
+//     PQ                  ^                  QP    ‚±‚Ì—Ìˆæ‚Å    QP             
+//     |   PQ              |              QP     ¯‚ª”–‚Ü‚é   QP  œ(out_vs.pos.x, out_vs.pos.y, out_vs.pos.z)
+//     |       PQ          |          QP                  QP      ¯
+//     |           PQ      |      QP                  QP
+//     |               PQ  v  QP                  QP
+// PQ                  P P                  QP
+//     PQ                  ^ (2*DcamZ,0)      QP
+//     |   PQ              |              QP
+//     |       PQ          |          QP                           œ
+//     |           PQ      |      QP
+//     |               PQ  v  QP
+//     |                   P P
+//                             (4*DcamZ,0)
+//
+// ‚±‚±‚Å (x,y,z) ‚É¯‚ÌÀ•W‚ð‘ã“ü‚µ‚ÄA‡B¨‡A‚ÖˆÚ“®’†‚ÉƒAƒ‹ƒtƒ@‚ðŒ¸‚ç‚»‚¤‚Æ‚µ‚½B
+//
+//	float r2 = ( abs(out_vs.pos.x-g_MyShip_fX)/4 + 
+//               abs(out_vs.pos.y-g_MyShip_fY)/2 + 
+//               abs(out_vs.pos.z-g_MyShip_fZ)/2  ) / g_default_DcamZ;
+//
+//	if (r2 < 1.0) {
+//		//‡A‚Ì“à‘¤A¯”ñ•\Ž¦—Ìˆæ
+//		//out_vs.col.a = 0;
+//		out_vs.col.r = 1.0;
+//		out_vs.col.g = 0.0;
+//		out_vs.col.b = 0.0;
+//	} else {
+//		//‡A‚ÌŠO‘¤
+//        //out_vs.col.a = r2 - 1.0;
+//		out_vs.col.rgb = r2;
+//	}
 
-	//ZYÀ•W‚É‚Â‚¢‚ÄŽ©‹@‚ÌŽü‚è‚Í”ñ•\Ž¦
-	if (g_MyShip_fZ-g_default_DcamZ*2 <  out_vs.pos.z  && out_vs.pos.z <  g_MyShip_fZ+g_default_DcamZ*2) {
-		if (g_MyShip_fY-g_default_DcamZ*2 <  out_vs.pos.y  && out_vs.pos.y <  g_MyShip_fY+g_default_DcamZ*2) {
-			
-			out_vs.col.a = 0;
-//			out_vs.col.r = 1.0 -  (abs(out_vs.pos.z - g_MyShip_fZ) + abs(out_vs.pos.y - g_MyShip_fY)) / g_default_DcamZ;
-		}
+	//<<ŒŸØ—p>>
+	float r2 = ( abs(out_vs.pos.x-g_MyShip_fX)/5.0+ 
+                 abs(out_vs.pos.y-g_MyShip_fY)/5.0+ 
+                 abs(out_vs.pos.z-g_MyShip_fZ)/5.0 ) / g_default_DcamZ;
+
+	if (r2 < 1.0) {
+		//‡A‚Ì“à‘¤A¯”ñ•\Ž¦—Ìˆæ
+		//out_vs.col.a = 0;
+		out_vs.col.r = 1.0;
+		out_vs.col.g = 1.0;
+		out_vs.col.b = 1.0;
+		out_vs.col.a = 1.0;
+	} else {
+		//‡A‚ÌŠO‘¤
+        //out_vs.col.a = r2 - 1.0;
+		out_vs.col.a = 0;
 	}
+
+
+//	//ZYÀ•W‚É‚Â‚¢‚ÄŽ©‹@‚ÌŽü‚è‚Í”ñ•\Ž¦
+//	if (g_MyShip_fZ-g_default_DcamZ*2 <  out_vs.pos.z  && out_vs.pos.z <  g_MyShip_fZ+g_default_DcamZ*2) {
+//		if (g_MyShip_fY-g_default_DcamZ*2 <  out_vs.pos.y  && out_vs.pos.y <  g_MyShip_fY+g_default_DcamZ*2) {
+//			
+//			out_vs.col.a = 0;
+////			out_vs.col.r = 1.0 -  (abs(out_vs.pos.z - g_MyShip_fZ) + abs(out_vs.pos.y - g_MyShip_fY)) / g_default_DcamZ;
+//		}
+//	}
 
 
 	out_vs.pos = mul(out_vs.pos , g_matView);  //View
@@ -145,8 +216,8 @@ OUT_VS VS_HoshiBoshi(
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //ŽË‰e•ÏŠ·
 
 
-
-	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize_rate;  //’Êí‚Ì‰œs‚«‚Ìk¬—¦
+	//‰œ‚Ù‚Ç¬‚³‚­•\Ž¦‚·‚é‚½‚ß‚Ék¬—¦ŒvŽZ
+	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize_rate*5.0;  //’Êí‚Ì‰œs‚«‚Ìk¬—¦
 
     int ptnno = ((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
 	//ƒXƒyƒLƒ…ƒ‰ƒZƒ}ƒ“ƒeƒbƒNƒX(COLOR1)‚ð’×‚µ‚Ä•\Ž¦‚µ‚½‚¢UVÀ•W¶ã‚Ìî•ñ‚ðPS‚É“n‚·
