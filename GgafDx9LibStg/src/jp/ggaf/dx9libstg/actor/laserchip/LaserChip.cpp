@@ -7,10 +7,12 @@ using namespace GgafDx9LibStg;
 
 LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
      GgafDx9MeshSetActor(prm_name,
-                         prm_model,
+                         string(string("11/") + string(prm_model)).c_str(),
                          "LaserChipEffect",
                          "LaserChipTechnique",
                          NEW CollisionChecker(this) ) {
+    _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
+
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _class_name = "LaserChip";
     _pChip_front = NULL;
@@ -58,10 +60,10 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
 
 }
 
-void LaserChip::onCreateModel() {
-    _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
-    _TRACE_("LaserChip::onCreateModel() "<<_pMeshSetModel->getName()<<" のセット数は "<< _pMeshSetModel->_set_num<<" 個に強制されました。");
-}
+//void LaserChip::onCreateModel() {
+//    _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
+//    _TRACE_("LaserChip::onCreateModel() "<<_pMeshSetModel->getName()<<" のセット数は "<< _pMeshSetModel->_set_num<<" 個に強制されました。");
+//}
 
 void LaserChip::initialize() {
     //_TRACE_("LaserChip::initialize() "<<getName()<<" bump="<<canHit());

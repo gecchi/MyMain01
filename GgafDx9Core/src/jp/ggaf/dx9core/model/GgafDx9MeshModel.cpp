@@ -24,10 +24,6 @@ GgafDx9MeshModel::GgafDx9MeshModel(char* prm_model_name) : GgafDx9Model(prm_mode
 
 //描画
 HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
-    if (_is_init_model == false) {
-        prm_pActor_Target->onCreateModel(); //モデル作成時の初期処理
-        _is_init_model = true;
-    }
 
     //対象アクター
     static GgafDx9MeshActor* pTargetActor;

@@ -28,7 +28,7 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_model_name) : GgafDx9Mode
     } else {
         _set_num = num;
         if (_set_num > 18) {
-            _TRACE_("GgafDx9SpriteSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の18セットですがそれ以上のセット数です。_set_num="<<_set_num<<"。");
+            _TRACE_("GgafDx9SpriteSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の18セットですがそれ以上のセット数です。意図していますか？ _set_num="<<_set_num<<"。");
         }
     }
 
@@ -41,10 +41,7 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_model_name) : GgafDx9Mode
 //描画
 HRESULT GgafDx9SpriteSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9SpriteSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
-    if (_is_init_model == false) {
-        prm_pActor_Target->onCreateModel(); //モデル作成時の初期処理
-        _is_init_model = true;
-    }
+
     //対象Actor
     static GgafDx9SpriteSetActor* pTargetActor;
     pTargetActor = (GgafDx9SpriteSetActor*)prm_pActor_Target;

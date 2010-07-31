@@ -22,12 +22,12 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(pr
     int num = (int)strtol(pT, NULL, 10);
     pT = strtok(NULL, "/");
     if (pT == NULL) {
-        _TRACE_("GgafDx9MeshSetModel("<<prm_model_name<<") のセット数省略。最大の15セットが設定されます。");
+        _TRACE_("GgafDx9MeshSetModel("<<prm_model_name<<") のセット数省略のため、標準の最大の15セットが設定されます。");
         _set_num = 15;
     } else {
         _set_num = num;
         if (_set_num > 15) {
-            _TRACE_("GgafDx9MeshSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大は15セットがですがそれ以上が設定されています。_set_num="<<_set_num<<"。");
+            _TRACE_("GgafDx9MeshSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大は15セットがですがそれ以上が設定されています。意図していますか？ _set_num="<<_set_num<<"。");
         }
     }
     _pIDirect3DVertexBuffer9 = NULL;
@@ -45,10 +45,6 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(pr
 //描画
 HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
-    if (_is_init_model == false) {
-        prm_pActor_Target->onCreateModel(); //モデル作成時の初期処理
-        _is_init_model = true;
-    }
     //対象アクター
     static GgafDx9MeshSetActor* pTargetActor;
     pTargetActor = (GgafDx9MeshSetActor*)prm_pActor_Target;

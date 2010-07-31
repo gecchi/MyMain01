@@ -121,7 +121,6 @@ OUT_VS VS_HoshiBoshi(
 // ‚±‚ê‚æ‚èAˆÈ‰º‚Ì”ÍˆÍ‚ğl‚¦‚é
 // {abs(X-x)/4 + abs(Y-y)/2 + abs(Z-z)/2} / g_default_DcamZ = 1.0 c‡A 
 // {abs(X-x)/4 + abs(Y-y)/2 + abs(Z-z)/2} / g_default_DcamZ = 2.0 c‡B
-//
 // [^ã‚©‚ç‚ÌƒCƒ[ƒWi}‚Ì”ä—¦‚ªƒIƒJƒVƒC‚ªGj]
 //
 //      Z
@@ -140,11 +139,11 @@ OUT_VS VS_HoshiBoshi(
 // ----+--------------------- ©‹@¨ --------------------------------------------------------------------------------> X
 //    0|   (-DcamZ,0)_        ^        ^  (DcamZ,0)                     QP (4*DcamZ,0)      QP(8*DcamZ,0)
 //     |               _      |DcamZ ^                              QP                  QP
-//     |                 _    |    ^         ‚±‚Ì—Ìˆæ‚Å‚Í       QP                  QP
-//     |                   _  |  ^           ¯‚Í”ñ•\¦     QP        œ        QP                    œ
+//     |                 _    |    ^      ‚±‚Ì—Ìˆæ(A—Ìˆæ)‚Å‚Í   QP                  QP
+//     |                   _  |  ^        ¯‚Í”ñ•\¦        QP        œ        QP                    œ
 //     |                     _v^                        QP                  QP
 // PQ                     Cam (DcamZ,0)           QP                  QP         
-//     PQ                  ^                  QP    ‚±‚Ì—Ìˆæ‚Å    QP             
+//     PQ                  ^                  QP‚±‚Ì—Ìˆæ(B—Ìˆæ)   QP             
 //     |   PQ              |              QP     ¯‚ª”–‚Ü‚é   QP  œ(out_vs.pos.x, out_vs.pos.y, out_vs.pos.z)
 //     |       PQ          |          QP                  QP      ¯
 //     |           PQ      |      QP                  QP
@@ -159,65 +158,29 @@ OUT_VS VS_HoshiBoshi(
 //                             (4*DcamZ,0)
 //
 // ‚±‚±‚Å (x,y,z) ‚É¯‚ÌÀ•W‚ğ‘ã“ü‚µ‚ÄA‡B¨‡A‚ÖˆÚ“®’†‚ÉƒAƒ‹ƒtƒ@‚ğŒ¸‚ç‚»‚¤‚Æ‚µ‚½B
-//
-//	float r2 = ( abs(out_vs.pos.x-g_MyShip_fX)/4 + 
-//               abs(out_vs.pos.y-g_MyShip_fY)/2 + 
-//               abs(out_vs.pos.z-g_MyShip_fZ)/2  ) / g_default_DcamZ;
-//
-//	if (r2 < 1.0) {
-//		//‡A‚Ì“à‘¤A¯”ñ•\¦—Ìˆæ
-//		//out_vs.col.a = 0;
-//		out_vs.col.r = 1.0;
-//		out_vs.col.g = 0.0;
-//		out_vs.col.b = 0.0;
-//	} else {
-//		//‡A‚ÌŠO‘¤
-//        //out_vs.col.a = r2 - 1.0;
-//		out_vs.col.rgb = r2;
-//	}
 
-	//<<ŒŸØ—p>>
-	float r2 = ( abs(out_vs.pos.x-g_MyShip_fX)/5.0+ 
-                 abs(out_vs.pos.y-g_MyShip_fY)/5.0+ 
-                 abs(out_vs.pos.z-g_MyShip_fZ)/5.0 ) / g_default_DcamZ;
+	float r2 = ( abs(out_vs.pos.x-g_MyShip_fX)/4 + 
+               abs(out_vs.pos.y-g_MyShip_fY)/2 + 
+               abs(out_vs.pos.z-g_MyShip_fZ)/2  ) / g_default_DcamZ;
+	// r2 < 1.0         ‚ªA—Ìˆæ
+	// 1.0 < r2 < 2.0   ‚ªB—Ìˆæ  ‚Æ‚È‚é
 
 	if (r2 < 1.0) {
-		//‡A‚Ì“à‘¤A¯”ñ•\¦—Ìˆæ
-		//out_vs.col.a = 0;
-		out_vs.col.r = 1.0;
-		out_vs.col.g = 1.0;
-		out_vs.col.b = 1.0;
-		out_vs.col.a = 1.0;
-	} else {
-		//‡A‚ÌŠO‘¤
-        //out_vs.col.a = r2 - 1.0;
+		//A—Ìˆæ‚Ìê‡A¯‚ğ”ñ•\¦
 		out_vs.col.a = 0;
+	} else {
+		//A—ÌˆæŠO‘¤‚Ìê‡A¯‚ğ‹——£‚É‰‚¶‚Ä”¼“§–¾
+        out_vs.col.a = r2 - 1.0;
 	}
-
-
-//	//ZYÀ•W‚É‚Â‚¢‚Ä©‹@‚Ìü‚è‚Í”ñ•\¦
-//	if (g_MyShip_fZ-g_default_DcamZ*2 <  out_vs.pos.z  && out_vs.pos.z <  g_MyShip_fZ+g_default_DcamZ*2) {
-//		if (g_MyShip_fY-g_default_DcamZ*2 <  out_vs.pos.y  && out_vs.pos.y <  g_MyShip_fY+g_default_DcamZ*2) {
-//			
-//			out_vs.col.a = 0;
-////			out_vs.col.r = 1.0 -  (abs(out_vs.pos.z - g_MyShip_fZ) + abs(out_vs.pos.y - g_MyShip_fY)) / g_default_DcamZ;
-//		}
-//	}
-
 
 	out_vs.pos = mul(out_vs.pos , g_matView);  //View
 	float dep = out_vs.pos.z + 1.0; //+1.0‚ÌˆÓ–¡‚Í
                                     //VIEW•ÏŠ·‚Í(0.0, 0.0, -1.0) ‚©‚ç (0.0, 0.0, 0.0) ‚ğŒ©‚Ä‚¢‚é‚½‚ßA
                                     //‹——£‚É‰Á‚¦‚éB
-
-
-
-
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //Ë‰e•ÏŠ·
 
-
 	//‰œ‚Ù‚Ç¬‚³‚­•\¦‚·‚é‚½‚ß‚Ék¬—¦ŒvZ
-	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize_rate*5.0;  //’Êí‚Ì‰œs‚«‚Ìk¬—¦
+	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize_rate;  //’Êí‚Ì‰œs‚«‚Ìk¬—¦
 
     int ptnno = ((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
 	//ƒXƒyƒLƒ…ƒ‰ƒZƒ}ƒ“ƒeƒbƒNƒX(COLOR1)‚ğ’×‚µ‚Ä•\¦‚µ‚½‚¢UVÀ•W¶ã‚Ìî•ñ‚ğPS‚É“n‚·

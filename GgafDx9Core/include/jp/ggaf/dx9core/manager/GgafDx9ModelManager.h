@@ -58,13 +58,13 @@ public:
      *  "d/MyShip"   --> GgafDx9D3DXMeshModel のモデル。読み込むファイルは "MyShip.x"（D3DXMESH_DYNAMIC オプションだけ異なる）
      *  "A/Hone"     --> GgafDx9D3DXAniMeshModel のモデル。読み込むファイルは "Hone.x"
      *  "X/Enemy"    --> GgafDx9MeshModel のモデル。読み込むファイルは "Enemy.x"
-     *  "x/12/Enemy"- -> GgafDx9MeshSetModel のモデル。読み込むファイルは "Enemy"。同時描画オブジェクト数は 12 セット
-     *  "x/Enemy"    --> GgafDx9MeshSetModel のモデル。読み込むファイルは "Enemy.x"。セット数省略時は最大の 15 セット
+     *  "x/12/Enemy"- -> GgafDx9MeshSetModel のモデル。読み込むファイルは "Enemy.x"。同時描画オブジェクト数は 12 セット
+     *  "x/Enemy"    --> GgafDx9MeshSetModel のモデル(セット数省略表記)。読み込むファイルは "Enemy.x"。セット数省略時は最大の 15 セット
      *  "M/3/MyShip" --> GgafDx9MorphMeshModel のモデル。読み込むファイルは "MyShip_0.x", "MyShip_1.x", "MyShip_2.x", "MyShip_3.x"。数値部分省略不可。
      *                   プライマリモデルは"MyShip_0.x"、モーフターゲット1～3が"MyShip_1.x", "MyShip_2.x", "MyShip_3.x"
      *  "S/Bomb"     --> GgafDx9SpriteModel のモデル。読み込むファイルは "Bomb.sprx"。
      *  "s/5/Bomb"   --> GgafDx9SpriteSetModel のモデル。読み込むファイルは "Bomb.sprx"。同時描画オブジェクト数は 5 セット
-     *  "s/Bomb"     --> GgafDx9SpriteSetModel のモデル。読み込むファイルは "Bomb.sprx"。セット数省略時は最大の 18 セット
+     *  "s/Bomb"     --> GgafDx9SpriteSetModel のモデル(セット数省略表記)。読み込むファイルは "Bomb.sprx"。セット数省略時は最大の 18 セット
      *  "B/Font"     --> GgafDx9BoardModel のモデル。読み込むファイルは "Font.sprx"。
      *  "b/10/Font"  --> GgafDx9BoardSetModel のモデル。読み込むファイルは "Font.sprx"。同時描画オブジェクト数は 10 セット
      *  "b/Font"     --> GgafDx9BoardSetModel のモデル。読み込むファイルは "Font.sprx"。セット数省略時は最大の 28 セット
@@ -74,7 +74,7 @@ public:
      * @param prm_idstr モデル識別ID
      * @return モデルオブジェクト
      */
-    GgafDx9Model* processCreateResource(char* prm_idstr);
+    GgafDx9Model* processCreateResource(char* prm_idstr) override;
 
     /**
      * GgafDx9D3DXMeshModel オブジェクトを再構築する。 .
@@ -112,7 +112,7 @@ public:
     /**
      * オーバーライド
      */
-    GgafCore::GgafResourceConnection<GgafDx9Model>* processCreateConnection(char* prm_idstr, GgafDx9Model* prm_pResource);
+    GgafCore::GgafResourceConnection<GgafDx9Model>* processCreateConnection(char* prm_idstr, GgafDx9Model* prm_pResource) override;
 
     /**
      * モデルオブジェクトリストの各インスタンスの内容を再構築。 .

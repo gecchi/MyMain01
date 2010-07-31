@@ -26,7 +26,7 @@ public:
 
    virtual void processSettlementBehavior() override;
 //
-    virtual void processPreDraw() override;
+//    virtual void processPreDraw() override;
 
     virtual void processHappen(int prm_no) override {
     }

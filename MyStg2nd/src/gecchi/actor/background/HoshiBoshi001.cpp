@@ -27,6 +27,7 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
     _TRACE_("HoshiBoshi001::HoshiBoshi001 _CAM_ZF="<<_CAM_ZF);
     //独自ワールド変換
     defineRotMvWorldMatrix(HoshiBoshi001::setWorldMatrix_HoshiBoshi001);
+    setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-10);//最深部の次くらいに・・
 
 }
 
@@ -51,7 +52,7 @@ void HoshiBoshi001::processBehavior() {
     if (_X < -_CAM_ZF) {
         _X += (_CAM_ZF*2);
     } else {
-        _X -= 1000;
+        _X -= 10000;
     }
 
     _pUvFlipper->behave();
@@ -70,23 +71,23 @@ void HoshiBoshi001::processSettlementBehavior() {
 void HoshiBoshi001::processJudgement() {
 }
 
-void HoshiBoshi001::processPreDraw() {
-    //画面外判定無しに伴ない処理簡略化
-    //GgafDx9DrawableActor::processPreDraw() と同期を取る事！
-    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL - 10,this); //最深部
-
-//    //一時テクニック期間チェック
-//    if (_is_temp_technique) {
-//        if (_frame_temp_technique <= _frame_of_behaving) {
-//            //一時テクニック期間満了。元に戻す
-//            _hash_technique = _hash_technique_temp;
-//            strcpy(_technique, _technique_temp);
-//            _is_temp_technique = false;
-//            //これはダメ。配列領域がどこかにいくため。_technique_temp = "";
-//            _hash_technique_temp = 0;
-//        }
-//    }
-}
+//void HoshiBoshi001::processPreDraw() {
+//    //画面外判定無しに伴ない処理簡略化
+//    //GgafDx9DrawableActor::processPreDraw() と同期を取る事！
+//    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL - 10,this); //最深部
+//
+////    //一時テクニック期間チェック
+////    if (_is_temp_technique) {
+////        if (_frame_temp_technique <= _frame_of_behaving) {
+////            //一時テクニック期間満了。元に戻す
+////            _hash_technique = _hash_technique_temp;
+////            strcpy(_technique, _technique_temp);
+////            _is_temp_technique = false;
+////            //これはダメ。配列領域がどこかにいくため。_technique_temp = "";
+////            _hash_technique_temp = 0;
+////        }
+////    }
+//}
 
 void HoshiBoshi001::processDraw() {
     ID3DXEffect* pID3DXEffect;

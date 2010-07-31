@@ -14,6 +14,7 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
     _pScaler = NEW GgafDx9GeometryScaler(this);
     chengeEffectTechnique("NoLight"); //NoLightでベタ塗りテクニック
     defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_ScMv); //拡大×平行移動のみ
+    setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);
 }
 
 void WorldBoundActor::processSettlementBehavior() {
@@ -28,14 +29,18 @@ void WorldBoundActor::processSettlementBehavior() {
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ワールド変換
 }
-void WorldBoundActor::processPreDraw() {
-    //画面外判定無しに伴ない処理簡略化
-    //次の処理を無視しています
-    //・段階レンダリングの深度計算
-    //・一時テクニック考慮
-    //GgafDx9DrawableActor::processPreDraw() と同期を取る事！
-    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL,this); //最深部
-}
+//void WorldBoundActor::processPreDraw() {
+//    //画面外判定無しに伴ない処理簡略化
+//    //次の処理を無視しています
+//    //・段階レンダリングの深度計算
+//    //・一時テクニック考慮
+//    //GgafDx9DrawableActor::processPreDraw() と同期を取る事！
+//    if (_pGgafDx9Model->_is_init_model == false) {
+//        onCreateModel(); //モデル作成時の初期処理
+//        _pGgafDx9Model->_is_init_model = true;
+//    }
+//    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL,this); //最深部
+//}
 
 WorldBoundActor::~WorldBoundActor() {
     DELETE_IMPOSSIBLE_NULL(_pScaler);

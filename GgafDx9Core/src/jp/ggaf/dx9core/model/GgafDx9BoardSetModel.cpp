@@ -29,7 +29,7 @@ GgafDx9BoardSetModel::GgafDx9BoardSetModel(char* prm_model_name) : GgafDx9Model(
     } else {
         _set_num = num;
         if (_set_num > 28) {
-            _TRACE_("GgafDx9BoardSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の28がセットですが、それ以上のセット数です。_set_num="<<_set_num);
+            _TRACE_("GgafDx9BoardSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の28がセットですが、それ以上のセット数です。意図していますか？_set_num="<<_set_num);
         }
     }
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
@@ -40,10 +40,6 @@ GgafDx9BoardSetModel::GgafDx9BoardSetModel(char* prm_model_name) : GgafDx9Model(
 //描画
 HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9BoardSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
-    if (_is_init_model == false) {
-        prm_pActor_Target->onCreateModel(); //モデル作成時の初期処理
-        _is_init_model = true;
-    }
 
     //対象Actor
     static GgafDx9BoardSetActor* pTargetActor;

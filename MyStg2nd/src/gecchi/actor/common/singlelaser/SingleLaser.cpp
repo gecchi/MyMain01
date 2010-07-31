@@ -7,10 +7,13 @@ using namespace MyStg2nd;
 
 SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id) :
              GgafDx9MeshSetActor(prm_name,
-                                 prm_model_id,
+                                 string(string("27/") + string(prm_model_id)).c_str(),
                                  "SingleLaserEffect",
                                  "SingleLaserTechnique",
                                  NEW CollisionChecker(this) ) {
+
+    _pMeshSetModel->_set_num = 27; //現在のシングルレーザーの最大セット数は27。
+
     _class_name = "SingleLaser";
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _ahMatWorld[0]   = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld001" );
@@ -43,7 +46,14 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id) :
 //    _ahMatWorld[27]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld028" );
 //    _ahMatWorld[28]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld029" );
 //    _ahMatWorld[29]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld030" );
+
+
 }
+
+//void SingleLaser::onCreateModel() {
+//    _pMeshSetModel->_set_num = 27; //現在のSingleレーザーの最大セット数は27。
+//    _TRACE_("SingleLaser::onCreateModel() "<<_pMeshSetModel->getName()<<" のセット数は "<< _pMeshSetModel->_set_num<<" 個に強制されました。");
+//}
 
 void SingleLaser::processDraw() {
     _draw_set_num = 1; //GgafDx9MeshSetActorの同じモデルが連続しているカウント数。同一描画深度は一度に描画する。

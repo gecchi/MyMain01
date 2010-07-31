@@ -16,8 +16,8 @@ public:
     GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
     SingleLaser(const char* prm_name, const char* prm_model_id);
 
-    virtual void onCreateModel() override {
-    }
+
+    virtual void onCreateModel() override {}
 
     virtual void processDraw() override;
 

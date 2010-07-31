@@ -121,11 +121,18 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
     _now_drawdepth = 0;
     _specal_drawdepth = -1;
+    _zenable = true;
+    _zwriteenable = true;
 }
 
 
 
 void GgafDx9DrawableActor::processPreDraw() {
+    if (_pGgafDx9Model->_is_init_model == false) {
+        onCreateModel(); //ƒ‚ƒfƒ‹ì¬‚Ì‰Šúˆ—
+        _pGgafDx9Model->_is_init_model = true;
+    }
+
     _pNext_TheSameDrawDepthLevel = NULL;
     //TODO:—vŒŸØ
     if (_is_active_flg && _can_live_flg) {

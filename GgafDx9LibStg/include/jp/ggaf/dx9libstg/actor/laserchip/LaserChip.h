@@ -35,13 +35,8 @@ public:
     DWORD _frame_of_behaving_from_onActive;
     LaserChip(const char* prm_name, const char* prm_model);
 
-    /**
-     * モデルのセット数を強制しています。
-     * 下位でオーバーライドする場合は、必ず
-     * LaserChip::onCreateModel();
-     * とどこかで呼び出して下さい。
-     */
-    virtual void onCreateModel() override;
+
+    virtual void onCreateModel() override {}
 
     virtual void initialize() override;
 

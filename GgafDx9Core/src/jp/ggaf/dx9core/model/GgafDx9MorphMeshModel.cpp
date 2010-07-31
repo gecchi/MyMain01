@@ -31,8 +31,7 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
     }
     //_morph_target_num = (int)(*prm_model_name - '0'); //頭一文字の半角数字文字を数値に
     if (_morph_target_num > 6) {
-        _TRACE_("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel モーフターゲット数は最大6個までです。_morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
-        _morph_target_num = 6;
+        _TRACE_("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel モーフターゲット数が最大6個以上指定されてます。意図していますか？ _morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
     }
     _papModel3D = NULL;
     _papMeshesFront = NULL;
@@ -53,10 +52,7 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
 
 HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9MorphMeshModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
-    if (_is_init_model == false) {
-        prm_pActor_Target->onCreateModel(); //モデル作成時の初期処理
-        _is_init_model = true;
-    }
+
     //対象アクター
     static GgafDx9MorphMeshActor* pTargetActor;
     pTargetActor = (GgafDx9MorphMeshActor*)prm_pActor_Target;

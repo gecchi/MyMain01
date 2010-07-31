@@ -28,7 +28,7 @@ public:
 
     void processJudgement() override;
 
-    void processPreDraw() override;
+//    void processPreDraw() override;
 
     int isOffscreen() override;
 

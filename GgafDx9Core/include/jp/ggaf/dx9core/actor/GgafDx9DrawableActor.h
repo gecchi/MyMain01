@@ -148,9 +148,14 @@ public:
     }
     /**
      * 共通の描画事前処理 .
-     * 段階レンダリングを実現するために、自身の深度に応じて
-     * GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[] または  GgafDx9Universe::_pActors_DrawMaxDrawDepth に
-     * 自身を登録する。
+     * 描画を行うにあたっての重要な事前処理を行ないます。
+     * ・onCreateModel() の呼び出し
+     * ・段階レンダリングの深度計算
+     * ・一時テクニック考慮
+     * オーバーライド非推奨。
+     * オーバーライドする場合は、
+     * GgafDx9DrawableActor::processPreDraw() をメソッド内で呼び出すか、
+     * 或いは自前で同等の処理を実装するか、問題ないか考慮してください。
      * TODO:private virtual にするべきか否か？。fainal が欲しい
      */
     virtual void processPreDraw() override;

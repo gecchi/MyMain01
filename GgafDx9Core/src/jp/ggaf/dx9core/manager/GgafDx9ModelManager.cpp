@@ -2430,7 +2430,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     TRACE3("GgafDx9ModelManager::restoreMeshSetModel(" << prm_pMeshSetModel->_model_name << ")");
     string xfile_name; //読み込むXファイル名
     //"12/Ceres" or "8/Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
-    //TODO:数値３桁以上の時
+    //TODO:数値３桁以上の時はだめ
     if (*(prm_pMeshSetModel->_model_name + 1) == '/') {
         xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 2) + ".x";
     } else if (*(prm_pMeshSetModel->_model_name + 2) == '/') {
@@ -2741,7 +2741,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             unit_paIdxBuffer_org[i*3 + 2] = model_pMeshesFront->_Faces[i].data[2];
         }
 
-        //頂点バッファセットをコピーで作成
+        //頂点バッファをセット数分繰り返しコピーで作成
         model_paVtxBuffer_org = NEW GgafDx9MeshSetModel::VERTEX[nVertices * prm_pMeshSetModel->_set_num];
         for (int i = 0; i < prm_pMeshSetModel->_set_num; i++) {
             for (int j = 0; j < nVertices; j++) {
@@ -2751,7 +2751,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         }
         DELETEARR_IMPOSSIBLE_NULL(unit_paVtxBuffer_org);
 
-        //インデックスバッファセットをコピーで作成
+        //インデックスバッファをセット数分繰り返しコピーで作成
         model_paIdxBuffer_org = NEW WORD[(nFaces*3) * prm_pMeshSetModel->_set_num];
         for (int i = 0; i < prm_pMeshSetModel->_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
@@ -2762,7 +2762,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         }
         DELETEARR_IMPOSSIBLE_NULL(unit_paIdxBuffer_org);
 
-        //マテリアルリストセットをコピーで作成
+        //マテリアルリストをセット数分繰り返しコピーで作成
         uint16* paFaceMaterials = NEW uint16[nFaces * prm_pMeshSetModel->_set_num];
         for (int i = 0; i < prm_pMeshSetModel->_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
@@ -2770,7 +2770,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             }
         }
 
-        //パラメータ
+        //パラメータもをセット数分繰り返しコピーで作成
         model_papaIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_set_num];
         prm_pMeshSetModel->_pa_nMaterialListGrp = NEW UINT[prm_pMeshSetModel->_set_num];
         for (int set_index = 0; set_index < prm_pMeshSetModel->_set_num; set_index++) {

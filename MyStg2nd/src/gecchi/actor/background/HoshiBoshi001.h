@@ -39,7 +39,7 @@ public:
 
     void processJudgement() override;
 
-    void processPreDraw() override;
+//    void processPreDraw() override;
 
     void processDraw() override;
 

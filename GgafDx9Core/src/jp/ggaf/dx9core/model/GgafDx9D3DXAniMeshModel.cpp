@@ -18,11 +18,6 @@ GgafDx9D3DXAniMeshModel::GgafDx9D3DXAniMeshModel(char* prm_model_name) : GgafDx9
 
 HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9D3DXAniMeshModel::draw("<<prm_pActor_Target->getName()<<")");
-    if (_is_init_model == false) {
-        prm_pActor_Target->onCreateModel(); //モデル作成時の初期処理
-        _is_init_model = true;
-    }
-
     GgafDx9D3DXAniMeshActor* pTargetActor;
     //対象アクター
     pTargetActor = (GgafDx9D3DXAniMeshActor*)prm_pActor_Target;
