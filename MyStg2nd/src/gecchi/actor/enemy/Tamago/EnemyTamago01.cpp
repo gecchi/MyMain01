@@ -14,8 +14,8 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
 
-    _pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->connect("DpCon_Shot001"));
-    _pDispatcher_Shot = _pDispatcherCon->view();
+    _pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_Shot001"));
+    _pDispatcher_Shot = _pDispatcherCon->refer();
 
     _pSeReflector->useSe(1);
     _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));

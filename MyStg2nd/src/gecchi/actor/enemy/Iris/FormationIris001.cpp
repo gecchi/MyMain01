@@ -11,15 +11,15 @@ FormationIris001::FormationIris001(const char* prm_name) : GgafDx9FormationActor
     _frame_interval = 25/_RANK_+5;   //イリスの間隔(frame)
     _mv_velo  = 8000*_RANK_; //速度
     //イリス編隊作成
-    _pSplineCon     = (Spline3DConnection*)(pGOD->_pSpline3DManager->connect("SpCon_002_01")); //スプライン定義
-    _pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->connect("DpCon_Shot001"));
+    _pSplineCon     = (Spline3DConnection*)(pGOD->_pSpline3DManager->getConnection("SpCon_002_01")); //スプライン定義
+    _pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_Shot001"));
     _papIris = NEW EnemyIris*[_num_Iris];
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i] = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
-        GgafDx9SplineProgram* pProgram = NEW GgafDx9FixedVelocitySplineProgram(_papIris[i], _pSplineCon->view(), 4000); //移動速度固定
+        GgafDx9SplineProgram* pProgram = NEW GgafDx9FixedVelocitySplineProgram(_papIris[i], _pSplineCon->refer(), 4000); //移動速度固定
         _papIris[i]->setSplineProgram(pProgram);
-        _papIris[i]->setDispatcher_Shot(_pDispatcherCon->view()); //弾設定
+        _papIris[i]->setDispatcher_Shot(_pDispatcherCon->refer()); //弾設定
         _papIris[i]->inactivateImmediately();
         addSubLast(_papIris[i]);
     }

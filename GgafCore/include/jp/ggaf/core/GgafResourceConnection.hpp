@@ -81,7 +81,7 @@ public:
      * 接続カウンタは増えません<BR>
      * @return 資源へのポインタ
      */
-    virtual T* view();
+    virtual T* refer();
 
 
     int getNumConnection();
@@ -124,7 +124,7 @@ GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResou
 }
 
 template<class T>
-T* GgafResourceConnection<T>::view() {
+T* GgafResourceConnection<T>::refer() {
     return _pResource;
 }
 template<class T>
@@ -214,7 +214,7 @@ int GgafResourceConnection<T>::close() {
 
 
     if (_num_connection == 0) {
-        T* r = pCurrent->view();
+        T* r = pCurrent->refer();
         if (r != NULL) {
             TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "] //本当の解放 processReleaseResource[" << _idstr << "←" << _num_connection <<"]");
             pCurrent->processReleaseResource(r); //本当の解放
@@ -234,8 +234,8 @@ int GgafResourceConnection<T>::close() {
             if (GgafResourceManager<T>::_is_waiting_to_connect) {
                 //ここに来て、connet()待ちに変わっていたら、もう諦める。
                 //現在の排他が完全ではないと考えるのは、このあたりの処理も含む
-                //TODO:完全対応には、connect()を却下する機構を作らねばならぬ。
-                _TRACE_("＜警告＞GgafResourceConnection<T>::close() delete this 中に connect() しようとしました。大丈夫でしょうか。・・・もはやどうしようも無いのですが！");
+                //TODO:完全対応には、getConnection()を却下する機構を作らねばならぬ。
+                _TRACE_("＜警告＞GgafResourceConnection<T>::close() delete this 中に getConnection() しようとしました。大丈夫でしょうか。・・・もはやどうしようも無いのですが！");
             }
             _is_closing_resource = false;
             return 0;

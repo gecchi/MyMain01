@@ -28,7 +28,7 @@ void GgafDx9SeReflector::set(int prm_id, const char* prm_se_name, int prm_cannel
     }
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
-    _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
+    _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection(idstr);
 }
 
 void GgafDx9SeReflector::play(int prm_id) {
@@ -36,7 +36,7 @@ void GgafDx9SeReflector::play(int prm_id) {
         throwGgafCriticalException("GgafDx9SeReflector::play() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
     GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
-    pUniverse->registSe(_papSeCon[prm_id]->view(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
+    pUniverse->registSe(_papSeCon[prm_id]->refer(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
 }
 void GgafDx9SeReflector::play3D(int prm_id) {
     if (prm_id < 0 || prm_id >= _se_num) {
@@ -77,7 +77,7 @@ void GgafDx9SeReflector::play3D(int prm_id) {
         delay = GGAF_SAYONARA_DELAY;
     }
 
-    ((GgafDx9Universe*)(GgafGod::_pGod->_pUniverse))->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
+    ((GgafDx9Universe*)(GgafGod::_pGod->_pUniverse))->registSe(_papSeCon[prm_id]->refer(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
     //真ん中からの距離
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);
@@ -124,8 +124,8 @@ void GgafDx9SeReflector::updatePanVolume3D() {
     angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
     LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
     for (int i = 0; i < _se_num; i++) {
-        _papSeCon[i]->view()->setPan(pan);
-        _papSeCon[i]->view()->setVolume(vol);
+        _papSeCon[i]->refer()->setPan(pan);
+        _papSeCon[i]->refer()->setVolume(vol);
     }
 
 }

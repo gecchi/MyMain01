@@ -175,38 +175,38 @@ public:
     virtual void drawHitArea() {};
 
     /**
-     * アクターのアルファ設定 .
-     * 1.0 以上の場合カリングがON、
-     * 1.0 より小さな場合、カリングがOFF、
-     * という機能もあわせ持つ。
-     * @param prm_fAlpha
+     * 本アクターの描画時のマテリアルアルファ値設定 .
+     * 1.0 以上の場合カリングがON、<br>
+     * 1.0 より小さな場合、カリングがOFF、<br>
+     * という機能もあわせ持つ。<br>
+     * @param prm_fAlpha アクターのマテリアルアルファ値
      */
     virtual void setAlpha(float prm_fAlpha) {
         _fAlpha = prm_fAlpha;
     }
 
     /**
-     * アクターのアルファ加算 .
-     * @param prm_fAlpha
+     * 本アクターの描画時のマテリアルアルファ値を加算する .
+     * @param prm_fAlpha 加算するマテリアルアルファ値
      */
     virtual void addAlpha(float prm_fAlpha) {
         _fAlpha += prm_fAlpha;
     }
 
     /**
-     * アクターの現在のアルファ値 .
-     * @return
+     * 本アクターの描画時のマテリアルアルファ値を取得 .
+     * @return アクターの現在のアルファ値
      */
     virtual float getAlpha() {
         return _fAlpha;
     }
 
     /**
-     * アクターのマテリアルカラーを設定。 .
+     * 本アクターの描画時のマテリアルカラーを設定。 .
      * キャラクタ全体に色を重ねる効果を得る。<br>
      * 実装方法は、下位に依存。<br>
      * したがって本メソッドによる「マテリアルカラー」の意味は、<br>
-     * 「DirectXのマテリアルカラー」と一致しないかもしれない。<br>
+     * 「DirectXのマテリアル」の意味と一致しないかもしれない。<br>
      * @param r Red強度(0.0 ～ 1.0)
      * @param g Green強度(0.0 ～ 1.0)
      * @param b Blue強度(0.0 ～ 1.0)

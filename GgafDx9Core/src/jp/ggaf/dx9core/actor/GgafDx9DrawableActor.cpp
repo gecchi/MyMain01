@@ -31,11 +31,11 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
     _pNext_TheSameDrawDepthLevel = NULL;
     //モデル取得
-    _pGgafDx9ModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->connect(prm_model);
-    _pGgafDx9Model = (GgafDx9Model*)_pGgafDx9ModelCon->view();
+    _pGgafDx9ModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
+    _pGgafDx9Model = (GgafDx9Model*)_pGgafDx9ModelCon->refer();
     //エフェクト取得
-    _pGgafDx9EffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->connect(prm_effect);
-    _pGgafDx9Effect = (GgafDx9Effect*)_pGgafDx9EffectCon->view();
+    _pGgafDx9EffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
+    _pGgafDx9Effect = (GgafDx9Effect*)_pGgafDx9EffectCon->refer();
     //マテリアルをコピー
     _paD3DMaterial9 = NEW D3DMATERIAL9[_pGgafDx9Model->_dwNumMaterials];
     for (DWORD i = 0; i < _pGgafDx9Model->_dwNumMaterials; i++){
@@ -101,11 +101,11 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
     _pNext_TheSameDrawDepthLevel = NULL;
     //モデル取得
-    _pGgafDx9ModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->connect(model_name);
-    _pGgafDx9Model = (GgafDx9Model*)_pGgafDx9ModelCon->view();
+    _pGgafDx9ModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(model_name);
+    _pGgafDx9Model = (GgafDx9Model*)_pGgafDx9ModelCon->refer();
     //エフェクト取得
-    _pGgafDx9EffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->connect(effelct_name);
-    _pGgafDx9Effect = (GgafDx9Effect*)_pGgafDx9EffectCon->view();
+    _pGgafDx9EffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(effelct_name);
+    _pGgafDx9Effect = (GgafDx9Effect*)_pGgafDx9EffectCon->refer();
     //マテリアルをコピー
     _paD3DMaterial9 = NEW D3DMATERIAL9[_pGgafDx9Model->_dwNumMaterials];
     for (DWORD i = 0; i < _pGgafDx9Model->_dwNumMaterials; i++){

@@ -86,7 +86,7 @@ void GgafDx9Universe::processSettlementBehavior() {
 void GgafDx9Universe::draw() {
     GgafDx9ModelConnection* pModelCon = GgafDx9God::_pModelManager->getFirstConnection();
     while (pModelCon != NULL) {
-        pModelCon->view()->_pTextureBlinker->behave();
+        pModelCon->refer()->_pTextureBlinker->behave();
         pModelCon = (GgafDx9ModelConnection*)(pModelCon->getNext());
     }
 

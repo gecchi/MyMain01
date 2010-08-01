@@ -108,7 +108,7 @@ public:
      * new した場合、接続カウンタは1です。<BR>
      * @param prm_idstr 識別名
      */
-    virtual GgafResourceConnection<T>* connect(char* prm_idstr);
+    virtual GgafResourceConnection<T>* getConnection(char* prm_idstr);
 
     /**
      * GgafResourceConnectionオブジェクトを取得。<BR>
@@ -117,7 +117,7 @@ public:
      * new した場合、接続カウンタは1です。<BR>
      * @param prm_idstr 識別名
      */
-    virtual GgafResourceConnection<T>* connect(const char* prm_idstr);
+    virtual GgafResourceConnection<T>* getConnection(const char* prm_idstr);
 
 
     /**
@@ -174,14 +174,14 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_New) {
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
+GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr) {
 
     if (prm_idstr == NULL) {
-        TRACE3("警告 GgafResourceManager<T>::connect(NULL) [" << _manager_name << "]");
+        TRACE3("警告 GgafResourceManager<T>::getConnection(NULL) [" << _manager_name << "]");
     }
     if (_is_waiting_to_connect == true || _is_connecting_resource == true) {
-        //connect() は複数スレッドから受付ない仕様とする。
-        throwGgafCriticalException("GgafResourceManager<T>::connect() 現在connect()中にもかかわらず、connect("<<prm_idstr<<")しました。connectのスレッドを１本にして下さい。");
+        //getConnection() は複数スレッドから受付ない仕様とする。
+        throwGgafCriticalException("GgafResourceManager<T>::getConnection() 現在getConnection()中にもかかわらず、getConnection("<<prm_idstr<<")しました。connectのスレッドを１本にして下さい。");
     }
 
     //TODO:簡易的な排他。ほぼ完璧だが完全ではない。
@@ -191,15 +191,15 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
         Sleep(1);
         if (i > 1000*60) {
             //１分以上無応答時
-            _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、１分待機・・・");
-            throwGgafCriticalException("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
+            _TRACE_("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、１分待機・・・");
+            throwGgafCriticalException("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
         }
     }
     //TODO:
-    //close()中に、別スレッドでconnect()すると。
+    //close()中に、別スレッドでgetConnection()すると。
     //シビアなタイミングでメモリを破壊する恐れが残っている！９９％大丈夫と思うのだけども。
     //スレッドセーフ完全対応しようとすると、かなりめんどくさい処理になりそうだ。
-    //たぶん全ての connect() 呼び出し元で connect() 失敗時の処理を定義しなくてはいけなくなる。
+    //たぶん全ての getConnection() 呼び出し元で getConnection() 失敗時の処理を定義しなくてはいけなくなる。
     //templateにしたのは失敗だったのか；（void*にすべきだったか）。
     //時間のあるときにちゃんと勉強してやろう。今は後回し。
     _is_waiting_to_connect = false;
@@ -224,8 +224,8 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr) {
-    return this->connect((char*)prm_idstr);
+GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(const char* prm_idstr) {
+    return this->getConnection((char*)prm_idstr);
 }
 
 template<class T>
@@ -275,7 +275,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
             int rnum = pCurrent->_num_connection;
             TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストに[" << pCurrent->_idstr << "←" << rnum
                     << "Connection]が残ってます。強制削除しますが、本来あってはいけません。特別に" << rnum << "回 close()を発行します");
-//            T* r = pCurrent->view();
+//            T* r = pCurrent->refer();
             pCurrent_Next = pCurrent->_pNext;
 //            if (r != NULL) {
 //                pCurrent->processReleaseResource(r); //リソースの解放

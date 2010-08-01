@@ -12,8 +12,8 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
 
     //‹üÜƒŒ[ƒU[Ý’è
-    _pDispatcherCon_RefractionEffect = (DispatcherConnection*)(pGOD->_pDispatcherManager->connect("DpCon_EffRefraction001"));
-    configRefraction(50, 10, 5, _pDispatcherCon_RefractionEffect->view());
+    _pDispatcherCon_RefractionEffect = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_EffRefraction001"));
+    configRefraction(50, 10, 5, _pDispatcherCon_RefractionEffect->refer());
 }
 
 void EnemyAstraeaLaserChip002::initialize() {

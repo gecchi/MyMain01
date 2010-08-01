@@ -11,7 +11,7 @@ FormationPallas001b::FormationPallas001b(const char* prm_name) : FormationPallas
 void FormationPallas001b::initialize() {
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i]->_pSplineProgram->setRate(1.0, -1.0, 1.0);
-        _papPallas[i]->setGeometry(_pSplineCon->view()->_X_basepoint[0] ,
+        _papPallas[i]->setGeometry(_pSplineCon->refer()->_X_basepoint[0] ,
                                    0,
                                    0);
         _papPallas[i]->_pMover->setMvVelo(_mv_velo);

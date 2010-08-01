@@ -33,7 +33,7 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PointSpriteModel::FVF);
-        GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view()->_pIDirect3DTexture9);
+        GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->refer()->_pIDirect3DTexture9);
 
         hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_hPowerBlink, _fPowerBlink);
         checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::draw() SetFloat(_hPowerBlink) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

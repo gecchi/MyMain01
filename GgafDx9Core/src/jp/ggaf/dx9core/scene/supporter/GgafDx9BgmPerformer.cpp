@@ -40,7 +40,7 @@ void GgafDx9BgmPerformer::set(int prm_id, const char* prm_bgm_name) {
     if (prm_id < 0 || prm_id >= _bgm_num) {
         throwGgafCriticalException("GgafDx9BgmPerformer::seteBGM() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
-    _papBgmCon[prm_id] = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->connect(prm_bgm_name);
+    _papBgmCon[prm_id] = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->getConnection(prm_bgm_name);
 }
 
 void GgafDx9BgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {
@@ -49,21 +49,21 @@ void GgafDx9BgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {
     }
     _pa_now_volume[prm_id] = (double)prm_volume;
     _pa_is_fade[prm_id] = false;
-    _papBgmCon[prm_id]->view()->play(prm_volume, DSBPAN_CENTER, prm_is_loop);
+    _papBgmCon[prm_id]->refer()->play(prm_volume, DSBPAN_CENTER, prm_is_loop);
 }
 
 void GgafDx9BgmPerformer::stop(int prm_id) {
     if (prm_id < 0 || prm_id >= _bgm_num) {
         throwGgafCriticalException("GgafDx9BgmPerformer::stop() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
-    _papBgmCon[prm_id]->view()->stop();
+    _papBgmCon[prm_id]->refer()->stop();
 }
 
 void GgafDx9BgmPerformer::pause(int prm_id) {
     if (prm_id < 0 || prm_id >= _bgm_num) {
         throwGgafCriticalException("GgafDx9BgmPerformer::pause() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
-    _papBgmCon[prm_id]->view()->pause();
+    _papBgmCon[prm_id]->refer()->pause();
 }
 
 void GgafDx9BgmPerformer::behave() {
@@ -71,7 +71,7 @@ void GgafDx9BgmPerformer::behave() {
 
         if (_pa_is_fade[id]) {
             _pa_now_volume[id] += _pa_inc_volume[id];
-            _papBgmCon[id]->view()->setVolume(_pa_now_volume[id]);
+            _papBgmCon[id]->refer()->setVolume(_pa_now_volume[id]);
             if (_pa_inc_volume[id] > 0 && _pa_now_volume[id] >= _pa_target_volume[id]) {
                 //増音量時
                 setVolume(id, (int)_pa_target_volume[id]);
@@ -92,7 +92,7 @@ void GgafDx9BgmPerformer::behave() {
 
 void GgafDx9BgmPerformer::setVolume(int prm_id, int prm_volume) {
     _pa_now_volume[prm_id] = (double)prm_volume;
-    _papBgmCon[prm_id]->view()->setVolume(prm_volume);
+    _papBgmCon[prm_id]->refer()->setVolume(prm_volume);
 }
 GgafDx9BgmPerformer::~GgafDx9BgmPerformer() {
 	if (_papBgmCon) {
