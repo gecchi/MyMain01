@@ -15,8 +15,6 @@ namespace GgafDx9LibStg {
 class HomingLaserChip : public LaserChip {
     friend class LaserChipDispatcher;
 
-
-
 public:
     /** 先導チップ（本当の先頭チップ）フラグ */
     bool _is_leader; //本当の先頭チップとは、レーザー移動中にちぎれて発生するにわか先頭チップでは無いという意味。

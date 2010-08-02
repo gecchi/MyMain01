@@ -9,11 +9,33 @@ namespace GgafDx9LibStg {
  * @author Masatoshi Tsuge
  */
 class LaserChip : public GgafDx9Core::GgafDx9MeshSetActor {
+    friend class CurveLaserChip;
+    friend class HomingLaserChip;
+    friend class RefractionLaserChip;
+    friend class StraightLaserChip;
     friend class LaserChipDispatcher;
-public:
+    friend class LaserChipDispatcherDispatcher;
+
+private:
     D3DXHANDLE _ahKind[16];
     D3DXHANDLE _ahMatWorld_front[16];
+
     D3DXHANDLE _h_cnt_vertec;
+
+    /** onAcive() でリセットされる振る舞い時フレーム数 */
+    DWORD _frame_of_behaving_from_onActive;
+
+    /** 自身を管理してるアクター発送者 */
+    LaserChipDispatcher* _pDispatcher;
+    /** registHitAreaCube() メソッドにより登録されているかどうか。trueならば、中間当たり判定自動生成機能が使える */
+    bool _is_regist_hitarea;
+    /** registHitAreaCube() メソッドにより登録時の当たり判定立方体の１辺の長さ */
+    int _hitarea_edge_length;
+    /** registHitAreaCube() メソッドにより登録時の当たり判定立方体の１辺の長さの半分 */
+    int _harf_hitarea_edge_length;
+
+public:
+
 
     CollisionChecker* _pCollisionChecker;
 
@@ -23,16 +45,8 @@ public:
     LaserChip* _pChip_behind;
     /** レーザーテクスチャ種別  1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */
     int _chip_kind;
-    /** 自身を管理してるアクター発送者 */
-    LaserChipDispatcher* _pDispatcher;
-    /** registHitAreaCube() メソッドにより登録されているかどうか。trueならば、中間当たり判定自動生成昨日が使える */
-    bool _is_regist_hitarea;
-    /** registHitAreaCube() メソッドにより登録時の当たり判定立方体の１辺の長さ */
-    int _hitarea_edge_length;
-    /** registHitAreaCube() メソッドにより登録時の当たり判定立方体の１辺の長さの半分 */
-    int _harf_hitarea_edge_length;
-    /** onAcive() でリセットされる振る舞い時フレーム数 */
-    DWORD _frame_of_behaving_from_onActive;
+
+
     LaserChip(const char* prm_name, const char* prm_model);
 
 
