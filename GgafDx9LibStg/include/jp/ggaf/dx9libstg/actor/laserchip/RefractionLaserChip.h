@@ -1,5 +1,6 @@
 #ifndef REFRACTIONLASERCHIP_H_
 #define REFRACTIONLASERCHIP_H_
+
 namespace GgafDx9LibStg {
 
 /**

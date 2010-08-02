@@ -4,7 +4,6 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-
 RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_model) :
     LaserChip(prm_name, prm_model) {
     _class_name = "RefractionLaserChip";

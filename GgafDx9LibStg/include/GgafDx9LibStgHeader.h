@@ -90,7 +90,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/actor/laserchip/RefractionLaserChip.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/LaserChipDispatcher.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/LaserChipDispatcherDispatcher.h"
-
+#include "jp/ggaf/dx9libstg/actor/laserchip/SingleLaser.h"
 #define DISP_HITAREA 1
 
 #define COLLI_AAB 1
