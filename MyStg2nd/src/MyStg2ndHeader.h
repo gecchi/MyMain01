@@ -252,7 +252,6 @@ class LaserChipEffectActor;
 #include "gecchi/actor/my/sprite/DefaultSpriteMyActor.h"
 #include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
-#include "gecchi/actor/common/singlelaser/SingleLaser.h"
 #include "gecchi/actor/common/shot/Shot001.h"
 #include "gecchi/actor/common/shot/Shot002.h"
 #include "gecchi/actor/common/shot/Shot003.h"
