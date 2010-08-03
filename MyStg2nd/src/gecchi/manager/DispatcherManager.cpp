@@ -59,7 +59,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
     if (GgafUtil::strcmp_ascii("DpCon_EffRefraction001", prm_idstr) == 0) {
         pResource = NEW GgafActorDispatcher("DP_EffRefraction001");
         EffectLaserRefraction001* p;
-        for (int i = 0; i < 2500; i++) {
+        for (int i = 0; i < 100; i++) {
             p = NEW EffectLaserRefraction001("Shot004");
             p->inactivateImmediately();
             pResource->addSubLast(p);
@@ -67,11 +67,35 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
         pCOMMONSCENE->getLordActor()->addSubGroup(pResource);
     }
 
-	if (pResource == NULL) {
-		throwGgafCriticalException("DispatcherManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。Dispatcherが作成できません。");
-	} else {
-		return pResource;
-	}
+    //敵カーブレーザー01
+    if (GgafUtil::strcmp_ascii("DpCon_EneCurveLaser001Dp", prm_idstr) == 0) {
+        pResource = NEW LaserChipDispatcherDispatcher("DPDP_EneCurveLaser001");
+        LaserChipDispatcher* pLaserChipDispatcher;
+        EnemyCurveLaserChip001* pChip;
+        for (int set = 0; set < 20; set++) {
+            stringstream name;
+            name <<  "EneCurveLaser001Dp["<<set<<"]";
+            pLaserChipDispatcher = NEW LaserChipDispatcher(name.str().c_str());
+            for (int n = 0; n < 50; n++) {
+                stringstream name;
+                name <<  "EneCurveLaser001["<<set<<"]["<<n<<"]";
+                pChip = NEW EnemyCurveLaserChip001(name.str().c_str());
+                pChip->inactivateImmediately();
+                pLaserChipDispatcher->addSubLast(pChip);
+            }
+            pLaserChipDispatcher->inactivateImmediately();
+            pResource->addSubLast(pLaserChipDispatcher);
+
+        }
+        pCOMMONSCENE->getLordActor()->addSubGroup(pResource);
+    }
+
+
+    if (pResource == NULL) {
+        throwGgafCriticalException("DispatcherManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。Dispatcherが作成できません。");
+    } else {
+        return pResource;
+    }
 }
 
 GgafResourceConnection<GgafActorDispatcher>* DispatcherManager::processCreateConnection(char* prm_idstr, GgafActorDispatcher* prm_pResource) {

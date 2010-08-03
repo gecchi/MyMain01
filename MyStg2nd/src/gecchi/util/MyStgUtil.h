@@ -186,6 +186,10 @@ public:
 	static void resetMyCurveLaserChip001Status(GgafCore::GgafStatus* p);
 	//自機
 	static void resetMyShipStatus(GgafCore::GgafStatus* p);
+	//敵ストレートレーザー001
+	static void resetEnemyStraightLaserChip001Status(GgafCore::GgafStatus* p);
+	//敵カーブレーザー001
+	static void resetEnemyCurveLaserChip001Status(GgafCore::GgafStatus* p);
 	//ケレス
 	static void resetEnemyCeresStatus(GgafCore::GgafStatus* p);
 	//ケレスショット001
@@ -204,6 +208,8 @@ public:
 	static void resetEnemyIrisStatus(GgafCore::GgafStatus* p);
 	//ジュノー
 	static void resetEnemyJunoStatus(GgafCore::GgafStatus* p);
+	//タエラ
+	static void resetEnemyThaliaStatus(GgafCore::GgafStatus* p);
 	//汎用ショット001
 	static void resetShot001Status(GgafCore::GgafStatus* p);
 	//汎用ショット002

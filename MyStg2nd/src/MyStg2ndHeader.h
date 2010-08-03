@@ -133,7 +133,8 @@ class Shot001;
 class Shot002;
 class Shot003;
 class Shot004;
-
+class EnemyCurveLaserChip001;
+class EnemyStraightLaserChip001;
 
 class MyCurveLaserChip001;
 class MyStraightLaserChip001;
@@ -205,6 +206,11 @@ class FormationIris002;
 class EnemyVesta;
 
 class EnemyCirce;
+
+class EnemyThalia;
+class FormationThalia001;
+
+
 class DispatcherConnection;
 class DispatcherManager;
 class Spline3DConnection;
@@ -256,6 +262,8 @@ class LaserChipEffectActor;
 #include "gecchi/actor/common/shot/Shot002.h"
 #include "gecchi/actor/common/shot/Shot003.h"
 #include "gecchi/actor/common/shot/Shot004.h"
+#include "gecchi/actor/common/laserchip/EnemyCurveLaserChip001.h"
+#include "gecchi/actor/common/laserchip/EnemyStraightLaserChip001.h"
 
 #include "gecchi/actor/my/mesh/MyShip.h"
 #include "gecchi/actor/my/mesh/MyOptionParent.h"
@@ -321,6 +329,8 @@ class LaserChipEffectActor;
 #include "gecchi/actor/enemy/Iris/FormationIris002.h"
 #include "gecchi/actor/enemy/Vesta/EnemyVesta.h"
 #include "gecchi/actor/enemy/Circe/EnemyCirce.h"
+#include "gecchi/actor/enemy/Thalia/EnemyThalia.h"
+#include "gecchi/actor/enemy/Thalia/FormationThalia001.h"
 
 #include "gecchi/actor/chikei/Torus/Torus.h"
 #include "gecchi/actor/chikei/Torus/VarietyTorus001.h"
