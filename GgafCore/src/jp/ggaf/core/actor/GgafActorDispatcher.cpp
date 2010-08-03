@@ -3,6 +3,7 @@ using namespace std;
 using namespace GgafCore;
 
 GgafActorDispatcher::GgafActorDispatcher(const char* prm_name) : GgafDummyActor(prm_name) {
+    _actor_class |= Obj_GgafActorDispatcher;
     _class_name = "GgafActorDispatcher";
     setHitAble(false);
 }
