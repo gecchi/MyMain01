@@ -17,7 +17,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _fBoundingSphereRadius = 0;
     _pChecker = prm_pChecker;
     _pMover = NEW GgafDx9GeometryMover(this);
-    _pSeReflector = NEW GgafDx9SeTransmitter(this);
+    _pSeTransmitter = NEW GgafDx9SeTransmitter(this);
 
     _offscreenkind = -1;
     _pFunc_calcRotMvWorldMatrix = NULL;
@@ -284,7 +284,7 @@ bool GgafDx9GeometricActor::isOutOfGameSpace() {
 
 GgafDx9GeometricActor::~GgafDx9GeometricActor() {
     DELETE_IMPOSSIBLE_NULL(_pMover);
-    DELETE_IMPOSSIBLE_NULL(_pSeReflector);
+    DELETE_IMPOSSIBLE_NULL(_pSeTransmitter);
 }
 
 
