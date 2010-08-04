@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
-using namespace EnemyStg2nd;
+using namespace MyStg2nd;
 
 
 EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :

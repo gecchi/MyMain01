@@ -3,12 +3,12 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
-using namespace EnemyStg2nd;
+using namespace MyStg2nd;
 
 EnemyCurveLaserChip001::EnemyCurveLaserChip001(const char* prm_name) :
         CurveLaserChip(prm_name, "EnemyCurveLaserChip001") {
     _class_name = "EnemyCurveLaserChip001";
-    EnemyStgUtil::resetEnemyCurveLaserChip001Status(_pStatus);
+    MyStgUtil::resetEnemyCurveLaserChip001Status(_pStatus);
     _pOrg = NULL;
     _lockon = 0;
 
@@ -25,7 +25,7 @@ void EnemyCurveLaserChip001::initialize() {
 }
 
 void EnemyCurveLaserChip001::onActive() {
-    EnemyStgUtil::resetEnemyCurveLaserChip001Status(_pStatus);
+    MyStgUtil::resetEnemyCurveLaserChip001Status(_pStatus);
     CurveLaserChip::onActive();
     _pMover->setMvVelo(0);
     _pMover->setVxMvAcce(0);
@@ -183,7 +183,7 @@ void EnemyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 
         }
         int default_stamina = _pStatus->get(STAT_Stamina);
-        int stamina = EnemyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+        int stamina = MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
         if (stamina <= 0) {
             //ˆêŒ‚‚Åƒ`ƒbƒvÁ–Å‚ÌUŒ‚—Í
             sayonara();

@@ -1,6 +1,6 @@
 #ifndef ENEMYSTRAIGHTLASERCHIP001_H_
 #define ENEMYSTRAIGHTLASERCHIP001_H_
-namespace EnemyStg2nd {
+namespace MyStg2nd {
 
 class EnemyStraightLaserChip001 : public GgafDx9LibStg::StraightLaserChip {
 

@@ -1,13 +1,13 @@
-#ifndef ENEMYLASERCHIP001_H_
-#define ENEMYLASERCHIP001_H_
-namespace EnemyStg2nd {
+#ifndef ENEMYCURVELASERCHIP001_H_
+#define ENEMYCURVELASERCHIP001_H_
+namespace MyStg2nd {
 
 class EnemyCurveLaserChip001 : public GgafDx9LibStg::CurveLaserChip {
 
 public:
     /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
     int _lockon;
-    //EnemyOption* _pOrg;
+    MyOption* _pOrg;
     velo _veloCurve;
     int _renge;
     float _maxAcceRange;
@@ -40,5 +40,5 @@ public:
 };
 
 }
-#endif /*ENEMYLASERCHIP001_H_*/
+#endif /*ENEMYCURVELASERCHIP001_H_*/
 

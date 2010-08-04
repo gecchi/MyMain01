@@ -172,8 +172,6 @@ class GameGlobal;
 class DefaultSpriteMyActor;
 class DefaultSpriteEnemyActor;
 
-class EnemyMeshShot001;
-class EnemyLaserChip001;
 
 class EnemyCeres;
 class EnemyCeresShot001;
@@ -322,8 +320,6 @@ class LaserChipEffectActor;
 #include "gecchi/actor/enemy/Astraea/EnemyAstraea.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip001.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip002.h"
-#include "gecchi/actor/enemy/mesh/EnemyMeshShot001.h"
-#include "gecchi/actor/enemy/mesh/EnemyLaserChip001.h"
 #include "gecchi/actor/enemy/Iris/EnemyIris.h"
 #include "gecchi/actor/enemy/Iris/FormationIris001.h"
 #include "gecchi/actor/enemy/Iris/FormationIris002.h"
