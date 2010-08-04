@@ -49,9 +49,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     }
     DELETEARR_IMPOSSIBLE_NULL(paAngWay);
 
-    _pSeReflector->useSe(2);
-    _pSeReflector->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
-    _pSeReflector->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTransmitter->useSe(2);
+    _pSeTransmitter->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
+    _pSeTransmitter->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
     _iMovePatternNo = 0;
 
 
@@ -221,7 +221,7 @@ void EnemyAstraea::processBehavior() {
                         //pLaserChip->_pMover->behave();
 
                         if (i == 0 && j == 0 && pLaserChip->_pChip_front == NULL) {
-                            _pSeReflector->play3D(0); //発射音
+                            _pSeTransmitter->play3D(0); //発射音
                             chengeEffectTechniqueInterim("Flush", 5); //フラッシュ
                         }
                     }
@@ -232,7 +232,7 @@ void EnemyAstraea::processBehavior() {
         }
     }
 
-    _pSeReflector->behave();
+    _pSeTransmitter->behave();
     _pMover->behave();
 }
 
@@ -249,7 +249,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
-        _pSeReflector->play3D(1);
+        _pSeTransmitter->play3D(1);
         sayonara();
         //消滅エフェクト
     } else {

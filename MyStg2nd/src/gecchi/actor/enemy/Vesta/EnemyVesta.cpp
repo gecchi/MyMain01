@@ -25,8 +25,8 @@ EnemyVesta::EnemyVesta(const char* prm_name)
     _pDispatcher_Fired = NULL;
     _pDpcon = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_Shot004"));
 
-    _pSeReflector->useSe(1);
-    _pSeReflector->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
+    _pSeTransmitter->useSe(1);
+    _pSeTransmitter->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
     setAlpha(1.0);
 }
 
@@ -215,7 +215,7 @@ void EnemyVesta::processBehavior() {
 
     _pScaler->behave();
     _pMorpher->behave();
-    //_pSeReflector->behave();
+    //_pSeTransmitter->behave();
 
     //_pMoverの計算はローカルで行う
     chengeGeoLocal();
@@ -250,7 +250,7 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     }
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        _pSeReflector->play3D(0);
+        _pSeTransmitter->play3D(0);
         sayonara();
     }
 }

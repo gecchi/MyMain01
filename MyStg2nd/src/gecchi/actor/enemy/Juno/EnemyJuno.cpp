@@ -16,9 +16,9 @@ EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Pall
     _can_Shot = false;
     _do_Shot = false;
     _veloMv_begin = 0;
-    _pSeReflector->useSe(2);
-    _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
-    _pSeReflector->set(1, "cm-22", GgafRepeatSeq::nextVal("CH_cm-22"));     //発射
+    _pSeTransmitter->useSe(2);
+    _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    _pSeTransmitter->set(1, "cm-22", GgafRepeatSeq::nextVal("CH_cm-22"));     //発射
 }
 
 void EnemyJuno::onCreateModel() {
@@ -68,7 +68,7 @@ void EnemyJuno::processBehavior() {
                     pShot->activate();
                     _do_Shot = false;
                     chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
-                    _pSeReflector->play3D(1);
+                    _pSeTransmitter->play3D(1);
 
                 }
                 //ショット発射エフェクト
@@ -109,7 +109,7 @@ void EnemyJuno::onInactive() {
 void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        _pSeReflector->play3D(0);
+        _pSeTransmitter->play3D(0);
         EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->activate();

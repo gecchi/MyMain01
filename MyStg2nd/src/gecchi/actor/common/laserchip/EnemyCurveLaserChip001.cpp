@@ -134,7 +134,7 @@ void EnemyCurveLaserChip001::processBehavior() {
         }
     }
     if (_pChip_front == NULL) {
-        _pSeReflector->behave();
+        _pSeTransmitter->behave();
     }
     CurveLaserChip::processBehavior();//À•W‚ğˆÚ“®‚³‚¹‚Ä‚©‚çŒÄ‚Ño‚·‚±‚Æ
 }

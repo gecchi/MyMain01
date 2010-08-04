@@ -9,8 +9,8 @@ EnemyCirce::EnemyCirce(const char* prm_name) : DefaultMeshActor(prm_name, "ebi")
     _class_name = "EnemyCirce";
     MyStgUtil::resetEnemyCirceStatus(_pStatus);
     _iMovePatternNo = 0;
-    _pSeReflector->useSe(1);
-    _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeTransmitter->useSe(1);
+    _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
 
 void EnemyCirce::onCreateModel() {
@@ -40,7 +40,7 @@ void EnemyCirce::processBehavior() {
     _pMover->execTagettingMvAngSequence(pMYSHIP, 50, 0, TURN_CLOSE_TO);
     _pMover->behave();
     _pScaler->behave();
-    //_pSeReflector->behave();
+    //_pSeTransmitter->behave();
 }
 
 
@@ -54,7 +54,7 @@ void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 =
             (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    _pSeReflector->play3D(0);
+    _pSeTransmitter->play3D(0);
     if (pExplo001 != NULL) {
         pExplo001->activate();
         pExplo001->setGeometry(this);

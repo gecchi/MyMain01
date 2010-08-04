@@ -12,8 +12,8 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMeshSetActor(prm_name, "
     _pSplineProgram = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
-    _pSeReflector->useSe(1);
-    _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
+    _pSeTransmitter->useSe(1);
+    _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
 }
 
 void EnemyThalia::onCreateModel() {
@@ -114,7 +114,7 @@ void EnemyThalia::processBehavior() {
         _pSplineProgram->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ğU‚é•‘‚¢
     }
     _pMover->behave();
-    //_pSeReflector->behave();
+    //_pSeTransmitter->behave();
 }
 
 void EnemyThalia::processJudgement() {
@@ -130,7 +130,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 
         EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-        _pSeReflector->play3D(0);
+        _pSeTransmitter->play3D(0);
         if (pExplo001 != NULL) {
             pExplo001->activate();
             pExplo001->setGeometry(this);

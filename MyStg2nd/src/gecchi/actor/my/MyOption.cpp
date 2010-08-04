@@ -45,8 +45,8 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 //        pChip->_pSource_vX = &_Q._x;
 //        pChip->_pSource_vY = &_Q._y;
 //        pChip->_pSource_vZ = &_Q._z;
-       // pChip->_pSeReflector->useSe(1);
-       // pChip->_pSeReflector->set(0, "laser001", _no);
+       // pChip->_pSeTransmitter->useSe(1);
+       // pChip->_pSeTransmitter->set(0, "laser001", _no);
         //pChip->inactivateImmediately();
         _pLaserChipDispatcher->addSubLast(pChip);
     }
@@ -67,9 +67,9 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     addSubGroup(_pEffectLockOn);
     _pEffectLockOn_Release = NEW EffectLockOn001_Release("EffectLockOn001_R", _pEffectLockOn);
     addSubGroup(_pEffectLockOn_Release);
-    _pSeReflector->useSe(2);
-    _pSeReflector->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
-    _pSeReflector->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
+    _pSeTransmitter->useSe(2);
+    _pSeTransmitter->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
+    _pSeTransmitter->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
 
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
     _pLockOnTarget = NULL;
@@ -426,8 +426,8 @@ void MyOption::processBehavior() {
             pLaserChip->_pOrg = this;
             pLaserChip->activate();
             if (pLaserChip->_pChip_front == NULL) {
-                //pLaserChip->_pSeReflector->play3D(0);
-                _pSeReflector->play3D(0);
+                //pLaserChip->_pSeTransmitter->play3D(0);
+                _pSeTransmitter->play3D(0);
                 //playSe3D(0);
             }
         }
@@ -455,7 +455,7 @@ void MyOption::processBehavior() {
     if (pMYSHIP->_just_shot) {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot != NULL) {
-            _pSeReflector->play3D(1);
+            _pSeTransmitter->play3D(1);
             pShot->setGeometry(this);
             pShot->_pMover->_angFace[AXIS_X] = _RX;
             pShot->_pMover->_angFace[AXIS_Z] = _RZ;
@@ -468,7 +468,7 @@ void MyOption::processBehavior() {
 //    if (VB_PLAY->isPushedDown(VB_SHOT1)) {
 //        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
 //        if (pShot != NULL) {
-//            _pSeReflector->play3D(1);
+//            _pSeTransmitter->play3D(1);
 //            pShot->setGeometry(this);
 //            pShot->_pMover->_angFace[AXIS_X] = _RX;
 //            pShot->_pMover->_angFace[AXIS_Z] = _RZ;
@@ -479,7 +479,7 @@ void MyOption::processBehavior() {
 //    }
 
 
-    _pSeReflector->behave();
+    _pSeTransmitter->behave();
 
 }
 

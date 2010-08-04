@@ -42,8 +42,8 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDispatcher* prm_pDispatche
     //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //移動速度固定
     _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(this, _pSplineCon->refer(), 600, 5000); //移動フレーム数固定
 
-    _pSeReflector->useSe(1);
-    _pSeReflector->set(0, "a_shot", GgafRepeatSeq::nextVal("CH_a_shot"));
+    _pSeTransmitter->useSe(1);
+    _pSeTransmitter->set(0, "a_shot", GgafRepeatSeq::nextVal("CH_a_shot"));
 }
 
 void EnemyCeres::initialize() {
@@ -96,7 +96,7 @@ void EnemyCeres::processBehavior() {
     }
     _pProgram_CeresMove->behave(); //スプライン移動を進める
     _pMover->behave(); //次の座標へ移動
-    //_pSeReflector->behave();
+    //_pSeTransmitter->behave();
     _dwFrame_Active++;
 }
 
@@ -113,7 +113,7 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         setHitAble(false);
-        _pSeReflector->play3D(0);
+        _pSeTransmitter->play3D(0);
         GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->setGeometry(this);

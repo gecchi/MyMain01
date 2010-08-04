@@ -155,10 +155,10 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     paFuncTurbo[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
     paFuncTurbo[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
-    _pSeReflector->useSe(3);
-    _pSeReflector->set(0, "se-020");
-    _pSeReflector->set(1,"laser001", 99);
-    _pSeReflector->set(2,"fire01", 99);
+    _pSeTransmitter->useSe(3);
+    _pSeTransmitter->set(0, "se-020");
+    _pSeTransmitter->set(1,"laser001", 99);
+    _pSeTransmitter->set(2,"fire01", 99);
     char rankstr[80] = {0} ;// 全て0で初期化
     MyStgUtil::getRankStr(99999, rankstr);
     _TRACE_("RANKSTR:"<<rankstr);
@@ -372,7 +372,7 @@ void MyShip::processBehavior() {
 
     //座標に反映
     _pMover->behave();
-    _pSeReflector->behave();
+    _pSeTransmitter->behave();
 
     if (_Y > MyShip::_lim_top) {
         _Y = MyShip::_lim_top;
@@ -417,7 +417,7 @@ void MyShip::processJudgement() {
             if (pLaser != NULL) {
                 pLaser->activate();
                 if (pLaser->_pChip_front == NULL) {
-                    _pSeReflector->play3D(1);
+                    _pSeTransmitter->play3D(1);
                 }
             }
         }
@@ -443,7 +443,7 @@ void MyShip::processJudgement() {
             _just_shot = true;//たった今ショットしましたフラグ
             MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
             if (pShot != NULL) {
-                _pSeReflector->play3D(2);
+                _pSeTransmitter->play3D(2);
                 pShot->setGeometry(this);
                 pShot->activate();
             }
@@ -462,7 +462,7 @@ void MyShip::processJudgement() {
 void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
-    _pSeReflector->play3D(0);
+    _pSeTransmitter->play3D(0);
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(pOther);
