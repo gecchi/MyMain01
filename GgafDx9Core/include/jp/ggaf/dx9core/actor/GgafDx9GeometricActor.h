@@ -45,7 +45,7 @@ public:
     /** [r]チェッカーオブジェクト */
     GgafDx9Checker* _pChecker;
     /** [r]効果音発生管理オブジェクト */
-    GgafDx9SeReflector* _pSeReflector;
+    GgafDx9SeTransmitter* _pSeReflector;
 
     /** [r/w]境界球の半径(DirectXのt単位)。画面外判定に使用される */
     FLOAT _fBoundingSphereRadius;

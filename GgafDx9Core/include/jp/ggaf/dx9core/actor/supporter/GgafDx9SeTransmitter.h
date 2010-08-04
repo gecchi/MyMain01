@@ -8,7 +8,7 @@ namespace GgafDx9Core {
  * @since 2010/04/19
  * @author Masatoshi Tsuge
  */
-class GgafDx9SeReflector : public GgafCore::GgafObject {
+class GgafDx9SeTransmitter : public GgafCore::GgafObject {
 
     /** SE資源接続 */
     GgafDx9SeConnection** _papSeCon;
@@ -20,7 +20,7 @@ public:
     /**
      * コンストラクタ .
      */
-    GgafDx9SeReflector(GgafDx9GeometricActor* prm_pActor);
+    GgafDx9SeTransmitter(GgafDx9GeometricActor* prm_pActor);
 
     void useSe(int prm_se_num);
     void set(int prm_id, const char* prm_se_name, int prm_cannel = 1);
@@ -31,7 +31,7 @@ public:
     /**
      * デストラクタ
      */
-    virtual ~GgafDx9SeReflector();
+    virtual ~GgafDx9SeTransmitter();
 };
 
 }

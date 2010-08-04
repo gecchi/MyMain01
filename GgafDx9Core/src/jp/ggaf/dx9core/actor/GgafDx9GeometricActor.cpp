@@ -17,7 +17,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _fBoundingSphereRadius = 0;
     _pChecker = prm_pChecker;
     _pMover = NEW GgafDx9GeometryMover(this);
-    _pSeReflector = NEW GgafDx9SeReflector(this);
+    _pSeReflector = NEW GgafDx9SeTransmitter(this);
 
     _offscreenkind = -1;
     _pFunc_calcRotMvWorldMatrix = NULL;

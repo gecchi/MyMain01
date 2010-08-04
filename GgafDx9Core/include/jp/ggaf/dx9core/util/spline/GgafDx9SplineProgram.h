@@ -34,7 +34,7 @@ public:
 
     /**
      * コンストラクタ .
-     * GgafDx9Spline3Dオブジェクトの参照を後から設定して下さい。
+     * GgafDx9Spline3Dオブジェクトの参照を後から設定して下さい。（setSpline() メソッドで）
      * @param prm_pActor_target 対象のアクター
      */
     GgafDx9SplineProgram(GgafDx9GeometricActor* prm_pActor_target);
@@ -68,13 +68,18 @@ public:
                          GgafDx9Spline3D* prm_sp);
 
 
-
-    void setRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) {
+    /**
+     * スプライン曲線全体を、X軸方向、Y軸方向、Z軸方向それぞれに、割合を乗じ補正することが出来ます。
+     * デフォルトは adjustAxisRate(1.0, 1.0, 1.0)
+     * @param prm_rate_X X軸方向補正割合
+     * @param prm_rate_Y Y軸方向補正割合
+     * @param prm_rate_Z Z軸方向補正割合
+     */
+    void adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) {
         _rate_X = prm_rate_X;
         _rate_Y = prm_rate_Y;
         _rate_Z = prm_rate_Z;
     }
-
 
     virtual void setSpline(GgafDx9Spline3D* prm_sp);
     /**

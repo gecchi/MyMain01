@@ -269,7 +269,7 @@ class GgafDx9GeometryMover;
 class GgafDx9Checker;
 class GgafDx9GeometryScaler;
 class GgafDx9Morpher;
-class GgafDx9SeReflector;
+class GgafDx9SeTransmitter;
 class GgafDx9BgmPerformer;
 class GgafDx9AlphaCurtain;
 class GgafDx9TextureBlinker;
@@ -373,7 +373,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Checker.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9GeometryScaler.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Morpher.h"
-#include "jp/ggaf/dx9core/actor/supporter/GgafDx9SeReflector.h"
+#include "jp/ggaf/dx9core/actor/supporter/GgafDx9SeTransmitter.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9UvFlipper.h"
 #include "jp/ggaf/dx9core/scene/supporter/GgafDx9BgmPerformer.h"
 #include "jp/ggaf/dx9core/scene/supporter/GgafDx9AlphaCurtain.h"
