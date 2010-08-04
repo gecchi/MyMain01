@@ -169,8 +169,6 @@ class EnemyTamago01Actor;
 class MyUtil;
 class GameGlobal;
 
-class DefaultSpriteMyActor;
-class DefaultSpriteEnemyActor;
 
 
 class EnemyCeres;
@@ -253,8 +251,6 @@ class LaserChipEffectActor;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage05Scene.h"
 #include "gecchi/scene/Universe/World/GameScene/TamagoScene.h"
 
-#include "gecchi/actor/my/sprite/DefaultSpriteMyActor.h"
-#include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
 #include "gecchi/actor/common/shot/Shot001.h"
 #include "gecchi/actor/common/shot/Shot002.h"
@@ -263,15 +259,15 @@ class LaserChipEffectActor;
 #include "gecchi/actor/common/laserchip/EnemyCurveLaserChip001.h"
 #include "gecchi/actor/common/laserchip/EnemyStraightLaserChip001.h"
 
-#include "gecchi/actor/my/mesh/MyShip.h"
-#include "gecchi/actor/my/mesh/MyOptionParent.h"
-#include "gecchi/actor/my/mesh/MyOptionParentGizmo.h"
-#include "gecchi/actor/my/mesh/MyOptionParentDirectionVector.h"
-#include "gecchi/actor/my/mesh/MyOption.h"
-#include "gecchi/actor/my/mesh/MyShot001.h"
-#include "gecchi/actor/my/mesh/MyWave001.h"
-#include "gecchi/actor/my/mesh/MyCurveLaserChip001.h"
-#include "gecchi/actor/my/mesh/MyStraightLaserChip001.h"
+#include "gecchi/actor/my/MyShip.h"
+#include "gecchi/actor/my/MyOptionParent.h"
+#include "gecchi/actor/my/MyOptionParentGizmo.h"
+#include "gecchi/actor/my/MyOptionParentDirectionVector.h"
+#include "gecchi/actor/my/MyOption.h"
+#include "gecchi/actor/my/MyShot001.h"
+#include "gecchi/actor/my/MyWave001.h"
+#include "gecchi/actor/my/MyCurveLaserChip001.h"
+#include "gecchi/actor/my/MyStraightLaserChip001.h"
 #include "gecchi/actor/effect/EffectExplosion001.h"
 #include "gecchi/actor/effect/EffectExplosion002.h"
 #include "gecchi/actor/effect/EffectExplosion003.h"
@@ -285,8 +281,6 @@ class LaserChipEffectActor;
 
 #include "gecchi/actor/enemy/Tamago/TamagoActor.h"
 #include "gecchi/actor/enemy/Tamago/EnemyTamago01.h"
-#include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"
-#include "gecchi/actor/enemy/sprite/EnemyShot001.h"
 #include "gecchi/actor/background/BackGround01.h"
 #include "gecchi/actor/background/board/BackGroundChipBoard.h"
 #include "gecchi/actor/background/board/TurboMeter.h"
@@ -295,7 +289,6 @@ class LaserChipEffectActor;
 
 #include "gecchi/actor/label/LabelGecchi8Font.h"
 #include "gecchi/actor/label/LabelGecchi16Font.h"
-
 
 #include "gecchi/actor/background/WorldBound/WorldBoundSpace001.h"
 
@@ -333,9 +326,6 @@ class LaserChipEffectActor;
 #include "gecchi/actor/chikei/Torus/VarietyTorus002.h"
 #include "gecchi/actor/chikei/Torus/VarietyTorus003.h"
 #include "gecchi/actor/chikei/Torus/VarietyTorus004.h"
-
-
-
 
 #include "gecchi/magic/Magic.h"
 #include "gecchi/magic/DefaultMagic.h"
