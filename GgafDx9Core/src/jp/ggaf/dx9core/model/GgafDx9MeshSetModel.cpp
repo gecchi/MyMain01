@@ -117,6 +117,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() BeginPass(0) に失敗しました。");
         } else {
+            //TODO:上でSetTextureしないことを判定すれば、CommitChanges() も省略できるのはないだろうか・・・
             hr = pID3DXEffect->CommitChanges();
             checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() CommitChanges() に失敗しました。");
         }

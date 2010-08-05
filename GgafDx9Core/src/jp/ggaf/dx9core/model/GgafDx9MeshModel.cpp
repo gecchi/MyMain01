@@ -90,7 +90,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() BeginPass(0) に失敗しました。");
         } else {
             //前回描画と同じモデル
-            hr = pID3DXEffect->CommitChanges();
+            hr = pID3DXEffect->CommitChanges(); //マテリアルをコミットしなければいけない。
             checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() CommitChanges() に失敗しました。");
         }
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
