@@ -53,7 +53,7 @@ void GgafDx9SpriteSetActor::processDraw() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pSpriteSetEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_hMatView, &pCAM->_vMatrixView );
+    hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_h_matView, &pCAM->_vMatrixView );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     GgafDx9DrawableActor *pDrawActor;
@@ -61,8 +61,8 @@ void GgafDx9SpriteSetActor::processDraw() {
     pDrawActor = this;
     for (int i = 0; i < _draw_set_num; i++) {
         //(*_pFunc_calcRotMvWorldMatrix)(pDrawActor, pDrawActor->_matWorld);
-        hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld) );
-        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetMatrix(_hMatWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ah_matWorld[i], &(pDrawActor->_matWorld) );
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetMatrix(_h_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         //ç°âÒï`âÊÇÃUV
 
         pRectUV_Active = _pSpriteSetModel->_paRectUV + (((GgafDx9SpriteSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);

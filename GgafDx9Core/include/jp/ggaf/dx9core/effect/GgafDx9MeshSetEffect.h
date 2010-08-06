@@ -12,15 +12,15 @@ class GgafDx9MeshSetEffect : public GgafDx9Effect {
     friend class GgafDx9EffectManager;
 
 public:
-    D3DXHANDLE _hPowerBlink;
-    D3DXHANDLE _hBlinkThreshold;
-    D3DXHANDLE _hMatView;
-    //D3DXHANDLE _hMatWorld;
-    D3DXHANDLE _ahMatWorld[16];
-    D3DXHANDLE _ahMaterialDiffuse[16];
+    D3DXHANDLE _h_tex_blink_power;
+    D3DXHANDLE _h_tex_blink_threshold;
+    D3DXHANDLE _h_matView;
+    //D3DXHANDLE _h_matWorld;
+    D3DXHANDLE _ah_matWorld[16];
+    D3DXHANDLE _ah_materialDiffuse[16];
     D3DXHANDLE _ahOffsetU[16];
     D3DXHANDLE _ahOffsetV[16];
-    D3DXHANDLE _h_nVertexs;
+    D3DXHANDLE _h_vertexs_num;
 
 public:
     /**

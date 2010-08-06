@@ -13,22 +13,22 @@ GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect(char* prm_effect_name) : Ggaf
     //射影変換行列
     hr = _pID3DXEffect->SetMatrix("g_matProj", &pCAM->_vMatrixProj );
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetMatrix(g_matProj) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_default_DcamZ", -(pCAM->_cameraZ_org));
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_default_DcamZ) に失敗しました。");
+    hr = _pID3DXEffect->SetFloat("g_dist_CamZ_default", -(pCAM->_cameraZ_org));
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_dist_CamZ_default) に失敗しました。");
     hr = _pID3DXEffect->SetFloat("g_zn", pCAM->_zn);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_zn) に失敗しました。");
     hr = _pID3DXEffect->SetFloat("g_zf", pCAM->_zf );
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9SpriteEffect SetFloat(g_zf) に失敗しました。");
 
-    //_TRACE_("GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect g_default_DcamZ="<<pCAM->_zn<<" g_default_DcamZ="<<( -(pCAM->_cameraZ_org))<<"");
+    //_TRACE_("GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect g_dist_CamZ_default="<<pCAM->_zn<<" g_dist_CamZ_default="<<( -(pCAM->_cameraZ_org))<<"");
     //checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_zn) に失敗しました。");
     //シェーダーハンドル
-    _hMatView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
-    _hMatWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
+    _h_matView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
+    _h_matWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
     _hAlpha    = _pID3DXEffect->GetParameterByName( NULL, "g_hAlpha" );
-    _hPowerBlink = _pID3DXEffect->GetParameterByName( NULL, "g_PowerBlink" );
-    _hBlinkThreshold = _pID3DXEffect->GetParameterByName( NULL, "g_BlinkThreshold" );
-    _hDist_VpPlnFront = _pID3DXEffect->GetParameterByName( NULL, "g_Dist_VpPlnFront" );
+    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
+    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
+    _h_dist_VpFrontPlane = _pID3DXEffect->GetParameterByName( NULL, "g_dist_VpFrontPlane" );
     _hTexSize = _pID3DXEffect->GetParameterByName( NULL, "g_TexSize" );
     _hTextureSplitRowcol = _pID3DXEffect->GetParameterByName( NULL, "g_TextureSplitRowcol" );
     _hUvFlipPtnNo = _pID3DXEffect->GetParameterByName( NULL, "g_UvFlipPtnNo" );

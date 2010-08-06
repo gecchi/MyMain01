@@ -12,10 +12,10 @@ class GgafDx9SpriteEffect : public GgafDx9Effect {
     friend class GgafDx9EffectManager;
 
 public:
-    D3DXHANDLE _hPowerBlink;
-    D3DXHANDLE _hBlinkThreshold;
-    D3DXHANDLE _hMatView;
-    D3DXHANDLE _hMatWorld;
+    D3DXHANDLE _h_tex_blink_power;
+    D3DXHANDLE _h_tex_blink_threshold;
+    D3DXHANDLE _h_matView;
+    D3DXHANDLE _h_matWorld;
     D3DXHANDLE _hOffsetU;
     D3DXHANDLE _hOffsetV;
     D3DXHANDLE _hAlpha;

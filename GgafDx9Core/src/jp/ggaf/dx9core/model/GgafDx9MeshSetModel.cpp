@@ -69,10 +69,10 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshSetModel::FVF);
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
 
-        hr = pID3DXEffect->SetFloat(pMeshSetEffect->_hPowerBlink, _fPowerBlink);
-        checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetFloat(_hPowerBlink) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-        hr = pID3DXEffect->SetFloat(pMeshSetEffect->_hBlinkThreshold, _fBlinkThreshold);
-        checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetFloat(_hBlinkThreshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        hr = pID3DXEffect->SetFloat(pMeshSetEffect->_h_tex_blink_power, _fPowerBlink);
+        checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetFloat(_h_tex_blink_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        hr = pID3DXEffect->SetFloat(pMeshSetEffect->_h_tex_blink_threshold, _fBlinkThreshold);
+        checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetFloat(_h_tex_blink_threshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
 
 

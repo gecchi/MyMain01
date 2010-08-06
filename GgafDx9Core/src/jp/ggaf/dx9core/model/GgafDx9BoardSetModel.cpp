@@ -60,10 +60,10 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->refer()->_pIDirect3DTexture9);
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
 
-        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_hPowerBlink, _fPowerBlink);
-        checkDxException(hr, D3D_OK, "GgafDx9BoardSetActor::draw() SetFloat(_hPowerBlink) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_hBlinkThreshold, _fBlinkThreshold);
-        checkDxException(hr, D3D_OK, "GgafDx9BoardSetActor::draw() SetFloat(_hBlinkThreshold) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_h_tex_blink_power, _fPowerBlink);
+        checkDxException(hr, D3D_OK, "GgafDx9BoardSetActor::draw() SetFloat(_h_tex_blink_power) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_h_tex_blink_threshold, _fBlinkThreshold);
+        checkDxException(hr, D3D_OK, "GgafDx9BoardSetActor::draw() SetFloat(_h_tex_blink_threshold) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
 
     if (GgafDx9EffectManager::_pEffect_Active != pBoardSetEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)  {

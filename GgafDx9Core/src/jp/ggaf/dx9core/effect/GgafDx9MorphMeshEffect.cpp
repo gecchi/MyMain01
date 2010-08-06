@@ -12,37 +12,37 @@ GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect(char* prm_effect_name) : GgafDx9E
     hr = _pID3DXEffect->SetMatrix("g_matProj", &pCAM->_vMatrixProj );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MorphMeshEffect SetMatrix() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //ƒ‰ƒCƒg•ûŒü
-    hr = _pID3DXEffect->SetValue("g_LightDirection", &(GgafDx9God::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
-    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightDirection) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = _pID3DXEffect->SetValue("g_vecLightDirection", &(GgafDx9God::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_vecLightDirection) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //Diffuse”½ŽË
-    hr = _pID3DXEffect->SetValue("g_LightDiffuse", &(GgafDx9God::_d3dlight9_default.Diffuse), sizeof(D3DCOLORVALUE));
-    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = _pID3DXEffect->SetValue("g_colLightDiffuse", &(GgafDx9God::_d3dlight9_default.Diffuse), sizeof(D3DCOLORVALUE));
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_colLightDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //Ambient”½ŽË
-    hr = _pID3DXEffect->SetValue("g_LightAmbient", &(GgafDx9God::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
-    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightAmbient) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = _pID3DXEffect->SetValue("g_colLightAmbient", &(GgafDx9God::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_colLightAmbient) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     hr = _pID3DXEffect->SetFloat("g_zf", pCAM->_zf );
     checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9SpriteEffect SetFloat(g_zf) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 
     //ƒVƒF[ƒ_[ƒnƒ“ƒhƒ‹
-    _hMorphTargetnum = _pID3DXEffect->GetParameterByName(NULL, "g_morph_target_num");
-    _hWeight[1] = _pID3DXEffect->GetParameterByName(NULL, "g_weight1");
-    _hWeight[2] = _pID3DXEffect->GetParameterByName(NULL, "g_weight2");
-    _hWeight[3] = _pID3DXEffect->GetParameterByName(NULL, "g_weight3");
-    _hWeight[4] = _pID3DXEffect->GetParameterByName(NULL, "g_weight4");
-    _hWeight[5] = _pID3DXEffect->GetParameterByName(NULL, "g_weight5");
-    _hWeight[6] = _pID3DXEffect->GetParameterByName(NULL, "g_weight6");
+    _h_morph_target_num = _pID3DXEffect->GetParameterByName(NULL, "g_morph_target_num");
+    _ah_weight[1] = _pID3DXEffect->GetParameterByName(NULL, "g_weight1");
+    _ah_weight[2] = _pID3DXEffect->GetParameterByName(NULL, "g_weight2");
+    _ah_weight[3] = _pID3DXEffect->GetParameterByName(NULL, "g_weight3");
+    _ah_weight[4] = _pID3DXEffect->GetParameterByName(NULL, "g_weight4");
+    _ah_weight[5] = _pID3DXEffect->GetParameterByName(NULL, "g_weight5");
+    _ah_weight[6] = _pID3DXEffect->GetParameterByName(NULL, "g_weight6");
 
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
-        hr = _pID3DXEffect->SetFloat(_hWeight[i], 0.0f);
-        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect() SetFloat(_hWeight["<<i<<"]) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        hr = _pID3DXEffect->SetFloat(_ah_weight[i], 0.0f);
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect() SetFloat(_ah_weight["<<i<<"]) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
-    _hMatView = _pID3DXEffect->GetParameterByName(NULL, "g_matView");
-    _hMatWorld = _pID3DXEffect->GetParameterByName(NULL, "g_matWorld");
-    _hMaterialDiffuse = _pID3DXEffect->GetParameterByName(NULL, "g_MaterialDiffuse");
-    _hPowerBlink = _pID3DXEffect->GetParameterByName( NULL, "g_PowerBlink" );
-    _hBlinkThreshold = _pID3DXEffect->GetParameterByName( NULL, "g_BlinkThreshold" );
+    _h_matView = _pID3DXEffect->GetParameterByName(NULL, "g_matView");
+    _h_matWorld = _pID3DXEffect->GetParameterByName(NULL, "g_matWorld");
+    _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName(NULL, "g_colMaterialDiffuse");
+    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
+    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
 }
 
 

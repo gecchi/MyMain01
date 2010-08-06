@@ -75,10 +75,10 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@Ý’è
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
 
-        hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_hPowerBlink, _fPowerBlink);
-        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_hPowerBlink) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_hBlinkThreshold, _fBlinkThreshold);
-        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_hBlinkThreshold) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_tex_blink_power, _fPowerBlink);
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_h_tex_blink_power) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_tex_blink_threshold, _fBlinkThreshold);
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_h_tex_blink_threshold) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
 
     //•`‰æ
@@ -94,8 +94,8 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
         }
-        hr = pID3DXEffect->SetValue(pMorphMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw()SetValue(g_MaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        hr = pID3DXEffect->SetValue(pMorphMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw()SetValue(g_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
         if ((GgafDx9EffectManager::_pEffect_Active != pMorphMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {

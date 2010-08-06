@@ -14,7 +14,7 @@ class GgafDx9Effect : public GgafCore::GgafObject {
 
 protected:
 public:
-    D3DXHANDLE _hMasterAlpha;
+    D3DXHANDLE _h_alpha_master;
     /** エフェクト定義の識別名。(50文字まで) */
     char* _effect_name;
     ID3DXEffect* _pID3DXEffect;

@@ -19,31 +19,31 @@ GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect(char* prm_effect_name) : GgafDx9E
 
 
     //シェーダーハンドル
-    _hMatView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
-    _ahMatWorld[0] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld001" );
-    _ahMatWorld[1] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld002" );
-    _ahMatWorld[2] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld003" );
-    _ahMatWorld[3] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld004" );
-    _ahMatWorld[4] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld005" );
-    _ahMatWorld[5] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld006" );
-    _ahMatWorld[6] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld007" );
-    _ahMatWorld[7] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld008" );
-    _ahMatWorld[8] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld009" );
-    _ahMatWorld[9] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld010" );
-    _ahMatWorld[10] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld011" );
-    _ahMatWorld[11] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld012" );
-    _ahMatWorld[12] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld013" );
-    _ahMatWorld[13] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld014" );
-    _ahMatWorld[14] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld015" );
-    _ahMatWorld[15] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld016" );
-    _ahMatWorld[16] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld017" );
-    _ahMatWorld[17] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld018" );
-//    _ahMatWorld[18] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld019" );
-//    _ahMatWorld[19] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld020" );
-//    _ahMatWorld[20] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld021" );
-//    _ahMatWorld[21] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld022" );
-//    _ahMatWorld[22] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld023" );
-//    _ahMatWorld[23] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld024" );
+    _h_matView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
+    _ah_matWorld[0] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld001" );
+    _ah_matWorld[1] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld002" );
+    _ah_matWorld[2] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld003" );
+    _ah_matWorld[3] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld004" );
+    _ah_matWorld[4] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld005" );
+    _ah_matWorld[5] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld006" );
+    _ah_matWorld[6] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld007" );
+    _ah_matWorld[7] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld008" );
+    _ah_matWorld[8] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld009" );
+    _ah_matWorld[9] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld010" );
+    _ah_matWorld[10] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld011" );
+    _ah_matWorld[11] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld012" );
+    _ah_matWorld[12] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld013" );
+    _ah_matWorld[13] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld014" );
+    _ah_matWorld[14] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld015" );
+    _ah_matWorld[15] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld016" );
+    _ah_matWorld[16] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld017" );
+    _ah_matWorld[17] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld018" );
+//    _ah_matWorld[18] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld019" );
+//    _ah_matWorld[19] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld020" );
+//    _ah_matWorld[20] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld021" );
+//    _ah_matWorld[21] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld022" );
+//    _ah_matWorld[22] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld023" );
+//    _ah_matWorld[23] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld024" );
 
     _ahOffsetU[0] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU001" );
     _ahOffsetU[1] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU002" );
@@ -120,8 +120,8 @@ GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect(char* prm_effect_name) : GgafDx9E
 //    _ahAlpha[22] = _pID3DXEffect->GetParameterByName( NULL, "g_alpha023" );
 //    _ahAlpha[23] = _pID3DXEffect->GetParameterByName( NULL, "g_alpha024" );
 
-    _hPowerBlink = _pID3DXEffect->GetParameterByName( NULL, "g_PowerBlink" );
-    _hBlinkThreshold = _pID3DXEffect->GetParameterByName( NULL, "g_BlinkThreshold" );
+    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
+    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
 }
 
 GgafDx9SpriteSetEffect::~GgafDx9SpriteSetEffect() {

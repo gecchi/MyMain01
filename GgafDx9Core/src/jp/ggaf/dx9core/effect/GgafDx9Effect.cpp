@@ -32,7 +32,7 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
     checkDxException(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
     TRACE3(" GgafDx9Effect::GgafDx9Effect "<<prm_effect_name<<" のエフェクトを生成しました。");
 
-    _hMasterAlpha = _pID3DXEffect->GetParameterByName( NULL, "g_MasterAlpha" ); //マスターα
+    _h_alpha_master = _pID3DXEffect->GetParameterByName( NULL, "g_alpha_master" ); //マスターα
 }
 
 GgafDx9Effect::~GgafDx9Effect() {

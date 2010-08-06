@@ -43,14 +43,14 @@ HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             }
             //マテリアルのセット
             //GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[i]));
-            hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[i].Diffuse), sizeof(D3DCOLORVALUE) );
-            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
+            hr = pID3DXEffect->SetValue(pMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[i].Diffuse), sizeof(D3DCOLORVALUE) );
+            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
 
 
-            hr = pID3DXEffect->SetFloat(pMeshEffect->_hPowerBlink, _fPowerBlink);
-            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetFloat(_hPowerBlink) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(pMeshEffect->_hBlinkThreshold, _fBlinkThreshold);
-            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetFloat(_hBlinkThreshold) に失敗しました。");
+            hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_power, _fPowerBlink);
+            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
+            hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_threshold, _fBlinkThreshold);
+            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
         }
 
         //描画

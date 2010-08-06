@@ -190,8 +190,8 @@ GgafDx9BoardSetEffect::GgafDx9BoardSetEffect(char* prm_effect_name) : GgafDx9Eff
     _ahDepthZ[26] = _pID3DXEffect->GetParameterByName( NULL, "g_depthZ027" );
     _ahDepthZ[27] = _pID3DXEffect->GetParameterByName( NULL, "g_depthZ028" );
 
-    _hPowerBlink = _pID3DXEffect->GetParameterByName( NULL, "g_PowerBlink" );
-    _hBlinkThreshold = _pID3DXEffect->GetParameterByName( NULL, "g_BlinkThreshold" );
+    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
+    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
 }
 
 GgafDx9BoardSetEffect::~GgafDx9BoardSetEffect() {

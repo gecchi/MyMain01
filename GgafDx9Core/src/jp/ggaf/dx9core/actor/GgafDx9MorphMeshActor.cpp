@@ -49,16 +49,16 @@ void GgafDx9MorphMeshActor::processDraw() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_hMatView, &pCAM->_vMatrixView );
+    hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_h_matView, &pCAM->_vMatrixView );
     checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
     //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
-    hr = pID3DXEffect->SetInt(_pMorphMeshEffect->_hMorphTargetnum, _pMorphMeshModel->_morph_target_num);
-    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetInt(_hMorphTargetnum) に失敗しました。");
+    hr = pID3DXEffect->SetInt(_pMorphMeshEffect->_h_morph_target_num, _pMorphMeshModel->_morph_target_num);
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetInt(_h_morph_target_num) に失敗しました。");
     for (int pattern = 1; pattern <= _pMorphMeshModel->_morph_target_num; pattern++) {
-        hr = pID3DXEffect->SetFloat(_pMorphMeshEffect->_hWeight[pattern], _weight[pattern]);
-        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetFloat(_hWeight["<<pattern<<"]) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(_pMorphMeshEffect->_ah_weight[pattern], _weight[pattern]);
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetFloat(_ah_weight["<<pattern<<"]) に失敗しました。");
     }
-    hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_hMatWorld, &_matWorld );
+    hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
     // Zバッファを有効に

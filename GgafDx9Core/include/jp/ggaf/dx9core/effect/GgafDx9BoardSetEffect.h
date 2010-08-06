@@ -12,8 +12,8 @@ class GgafDx9BoardSetEffect : public GgafDx9Effect {
     friend class GgafDx9EffectManager;
 
 public:
-    D3DXHANDLE _hPowerBlink;
-    D3DXHANDLE _hBlinkThreshold;
+    D3DXHANDLE _h_tex_blink_power;
+    D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _ahOffsetU[28];
     D3DXHANDLE _ahOffsetV[28];
     D3DXHANDLE _ahTransformedX[28];

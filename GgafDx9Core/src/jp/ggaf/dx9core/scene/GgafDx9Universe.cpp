@@ -109,7 +109,7 @@ void GgafDx9Universe::draw() {
 #endif
         GgafDx9Scene* pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
         _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
-                _pActor_DrawActive->_pGgafDx9Effect->_hMasterAlpha, pScene->_pAlphaCurtain->_alpha);
+                _pActor_DrawActive->_pGgafDx9Effect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha);
         //描画
         _pActor_DrawActive->processDraw();
         if (_pActor_DrawActive->_fAlpha < 1.0) {
@@ -150,7 +150,7 @@ void GgafDx9Universe::draw() {
             //各所属シーンのαカーテンを設定する。
             GgafDx9Scene* pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
             _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
-                    _pActor_DrawActive->_pGgafDx9Effect->_hMasterAlpha, pScene->_pAlphaCurtain->_alpha);
+                    _pActor_DrawActive->_pGgafDx9Effect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha);
             _pActor_DrawActive->processDraw();
 
             //カリング有りに戻す
