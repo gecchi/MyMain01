@@ -117,7 +117,7 @@ OUT_VS VS_HoshiBoshi(
 // f(x,y,z) = D ‚ð–ž‚½‚·(x,y,z)‚ÍA‹——£‚ªD‚Ìƒ‰ƒ~ƒGƒ‹‚Æ‚È‚éB
 // f(x,y,z) = g_dist_CamZ_default ‚Í‚Â‚Ü‚è ‡@ ‚Ì‚æ‚¤‚È”ÍˆÍ‚Å‚ ‚éBig_dist_CamZ_default‚ÍŽ©‹@‚©‚çƒJƒƒ‰‚Ì‰Šú‹——£j
 // ‡@‚ðŽ®•ÏŒ`‚µ‚Ä
-// {abs(X-x)+abs(Y-y)+abs(Z-z)} / default_DcamZ = 1.0 c ‡@ 
+// {abs(X-x)+abs(Y-y)+abs(Z-z)} / g_dist_CamZ_default = 1.0 c ‡@ 
 // ‚±‚ê‚æ‚èAˆÈ‰º‚Ì”ÍˆÍ‚ðl‚¦‚é
 // {abs(X-x)/4 + abs(Y-y)/2 + abs(Z-z)/2} / g_dist_CamZ_default = 1.0 c‡A 
 // {abs(X-x)/4 + abs(Y-y)/2 + abs(Z-z)/2} / g_dist_CamZ_default = 2.0 c‡B
@@ -130,32 +130,32 @@ OUT_VS VS_HoshiBoshi(
 //     |
 //     |
 //     |                                            Q                  
-//     |                       (DcamZ,0)              PQ        œ                                  œ
+//     |                       (dCamZ,0)              PQ        œ                                  œ
 //     |                     ^ _                        PQ          
 //     |                   ^     _                        ‡APQ             œ   PQ      
 //     |                 ^       ‡@_                            PQ                ‡BPQ  
 //     |               ^             _                              PQ                  PQ
 //     |             ^                 _                                PQ                  PQ
 // ----+--------------------- Ž©‹@¨ --------------------------------------------------------------------------------> X
-//    0|   (-DcamZ,0)_        ^        ^  (DcamZ,0)                     QP (4*DcamZ,0)      QP(8*DcamZ,0)
-//     |               _      |DcamZ ^                              QP                  QP
+//    0|   (-dCamZ,0)_        ^        ^  (dCamZ,0)                     QP (4*dCamZ,0)      QP(8*dCamZ,0)
+//     |               _      |dCamZ ^                              QP                  QP
 //     |                 _    |    ^      ‚±‚Ì—Ìˆæ(A—Ìˆæ)‚Å‚Í   QP                  QP
 //     |                   _  |  ^        ¯‚Í”ñ•\Ž¦        QP        œ        QP                    œ
 //     |                     _v^                        QP                  QP
-// PQ                     Cam (DcamZ,0)           QP                  QP         
+// PQ                     Cam (dCamZ,0)           QP                  QP         
 //     PQ                  ^                  QP‚±‚Ì—Ìˆæ(B—Ìˆæ)   QP             
 //     |   PQ              |              QP     ¯‚ª”–‚Ü‚é   QP  œ(out_vs.pos.x, out_vs.pos.y, out_vs.pos.z)
 //     |       PQ          |          QP                  QP      ¯
 //     |           PQ      |      QP                  QP
 //     |               PQ  v  QP                  QP
 // PQ                  P P                  QP
-//     PQ                  ^ (2*DcamZ,0)      QP
+//     PQ                  ^ (2*dCamZ,0)      QP
 //     |   PQ              |              QP
 //     |       PQ          |          QP                           œ
 //     |           PQ      |      QP
 //     |               PQ  v  QP
 //     |                   P P
-//                             (4*DcamZ,0)
+//                             (4*dCamZ,0)
 //
 // ‚±‚±‚Å (x,y,z) ‚É¯‚ÌÀ•W‚ð‘ã“ü‚µ‚ÄA‡B¨‡A‚ÖˆÚ“®’†‚ÉƒAƒ‹ƒtƒ@‚ðŒ¸‚ç‚»‚¤‚Æ‚µ‚½B
 
