@@ -18,7 +18,7 @@ class LaserChip : public GgafDx9Core::GgafDx9MeshSetActor {
 
 private:
     D3DXHANDLE _ahKind[16];
-    D3DXHANDLE _ahMatWorld_front[16];
+    D3DXHANDLE _ah_matWorld_front[16];
 
     D3DXHANDLE _h_cnt_vertec;
 

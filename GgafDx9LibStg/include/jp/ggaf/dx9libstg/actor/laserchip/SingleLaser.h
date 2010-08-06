@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
 class SingleLaser : public GgafDx9Core::GgafDx9MeshSetActor {
 public:
 
-    D3DXHANDLE _ahMatWorld[27];
+    D3DXHANDLE _ah_matWorld[27];
     CollisionChecker* _pCollisionChecker;
     SingleLaser(const char* prm_name, const char* prm_model_id);
 
