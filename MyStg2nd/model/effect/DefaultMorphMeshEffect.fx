@@ -16,14 +16,14 @@ float g_weight5; //モーフターゲット５の重み
 float g_weight6; //モーフターゲット６の重み
 //float g_weight7; //モーフターゲット７の重み
 
-float3 g_LightDirection; // ライトの方向
-float4 g_LightAmbient;   // Ambienライト色（入射色）
-float4 g_LightDiffuse;   // Diffuseライト色（入射色）
+float3 g_vecLightDirection; // ライトの方向
+float4 g_colLightAmbient;   // Ambienライト色（入射色）
+float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
-float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
-float g_PowerBlink;   
-float g_BlinkThreshold;
-float g_MasterAlpha;
+float4 g_colMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
+float g_tex_blink_power;   
+float g_tex_blink_threshold;
+float g_alpha_master;
 float g_zf;
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
@@ -387,18 +387,18 @@ float4 GgafDx9PS_DefaultMorphMesh(
 	//求める色
 	float4 out_color; 
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
+	float power = max(dot(prm_normal, -g_vecLightDirection ), 0);          
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
 	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
+	out_color = g_colLightDiffuse * g_colMaterialDiffuse * tex_color * power; 
 	//Ambient色を加算。マテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
-	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
-	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
-		out_color.rgb *= g_PowerBlink;
+	out_color =  (g_colLightAmbient * g_colMaterialDiffuse * tex_color) + out_color;  
+	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
+		out_color.rgb *= g_tex_blink_power;
 	} 
 	//α計算、αは法線およびライト方向に依存しない事とするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
-	out_color.a = g_MaterialDiffuse.a * tex_color.a * g_MasterAlpha; 
+	out_color.a = g_colMaterialDiffuse.a * tex_color.a * g_alpha_master; 
 
 	return out_color;
 }
@@ -406,16 +406,16 @@ float4 GgafDx9PS_DefaultMorphMesh(
 float4 PS_DestBlendOne( 
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_MaterialDiffuse;
-	out_color.a = out_color.a * g_MasterAlpha; 
+	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_colMaterialDiffuse;
+	out_color.a = out_color.a * g_alpha_master; 
 	return 	out_color.a;
 }
 
 float4 PS_Flush( 
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_MaterialDiffuse * float4(7.0, 7.0, 7.0, 1.0);
-	out_color.a = out_color.a * g_MasterAlpha; 
+	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_colMaterialDiffuse * float4(7.0, 7.0, 7.0, 1.0);
+	out_color.a = out_color.a * g_alpha_master; 
 	return 	out_color.a;
 }
 
@@ -442,10 +442,10 @@ technique DefaultMorphMeshTechnique
 	// float4x4 g_matWorld		:	World変換行列
 	// float4x4 g_matView		:	View変換行列
 	// float4x4 g_matProj		:	射影変換行列   
-	// float3 g_LightDirection	:	ライトの方向
-	// float4 g_LightAmbient	:	Ambienライト色（入射色）
-	// float4 g_LightDiffuse	:	Diffuseライト色（入射色）
-	// float4 g_MaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）
+	// float3 g_vecLightDirection	:	ライトの方向
+	// float4 g_colLightAmbient	:	Ambienライト色（入射色）
+	// float4 g_colLightDiffuse	:	Diffuseライト色（入射色）
+	// float4 g_colMaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）
 	// s0レジスタ				:	2Dテクスチャ
 
 	//モーフターゲット無し

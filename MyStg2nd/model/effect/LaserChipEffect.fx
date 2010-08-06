@@ -67,9 +67,9 @@
    }
   }
 */
-float g_PowerBlink;   
-float g_BlinkThreshold;
-float g_MasterAlpha;
+float g_tex_blink_power;   
+float g_tex_blink_threshold;
+float g_alpha_master;
 float g_zf;
 
 //int g_kind; //チップ種類 1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）
@@ -110,11 +110,11 @@ float4x4 g_matWorld_front011;
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 
-float3 g_LightDirection; // ライトの方向
-float4 g_LightAmbient;   // Ambienライト色（入射色）
-float4 g_LightDiffuse;   // Diffuseライト色（入射色）
+float3 g_vecLightDirection; // ライトの方向
+float4 g_colLightAmbient;   // Ambienライト色（入射色）
+float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
-float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
+float4 g_colMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -273,7 +273,7 @@ OUT_VS GgafDx9VS_LaserChip(
 	if (out_vs.pos.z > g_zf*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
     	out_vs.col.a *= (-1.0/(g_zf*0.5)*out_vs.pos.z + 2.0);
 	} 
-	out_vs.col.a *= g_MasterAlpha;
+	out_vs.col.a *= g_alpha_master;
 
 //	if (out_vs.pos.z > g_zf*0.75) { //最遠の 3/4 より奥の場合徐々に透明に
 //    	out_vs.col.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);

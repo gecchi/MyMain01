@@ -9,13 +9,13 @@ float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 
-float g_MyShip_fX;
-float g_MyShip_fY;
-float g_MyShip_fZ;
+float g_fX_MyShip;
+float g_fY_MyShip;
+float g_fZ_MyShip;
 
 
-float g_default_DcamZ;
-float g_Dist_VpPlnFront; //ほぼ視点からの距離
+float g_dist_CamZ_default;
+float g_dist_VpFrontPlane; //ほぼ視点からの距離
 float g_zn;
 float g_zf;
 float g_TexSize;  //読み込んだテクスチャ（正方形が前提）の幅テクセル数
@@ -27,14 +27,14 @@ float g_offsetU;        //テクスチャU座標増分
 float g_offsetV;         //テクスチャV座標増分
 float g_UvFlipPtnNo;
 
-float3 g_LightDirection; // ライトの方向
-float4 g_LightAmbient;   // Ambienライト色（入射色）
-float4 g_LightDiffuse;   // Diffuseライト色（入射色）
+float3 g_vecLightDirection; // ライトの方向
+float4 g_colLightAmbient;   // Ambienライト色（入射色）
+float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
-float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
-float g_PowerBlink;   
-float g_BlinkThreshold;
-float g_MasterAlpha;
+float4 g_colMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
+float g_tex_blink_power;   
+float g_tex_blink_threshold;
+float g_alpha_master;
 
 //s0レジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -115,12 +115,12 @@ OUT_VS VS_HoshiBoshi(
 // 自機座標を(X,Y,Z)とした場合。
 // f(x,y,z) = abs(X-x)+abs(Y-y)+abs(Z-z)　と置くと
 // f(x,y,z) = D を満たす(x,y,z)は、距離がDのラミエルとなる。
-// f(x,y,z) = g_default_DcamZ はつまり ① のような範囲である。（g_default_DcamZは自機からカメラの初期距離）
+// f(x,y,z) = g_dist_CamZ_default はつまり ① のような範囲である。（g_dist_CamZ_defaultは自機からカメラの初期距離）
 // ①を式変形して
 // {abs(X-x)+abs(Y-y)+abs(Z-z)} / default_DcamZ = 1.0 … ① 
 // これより、以下の範囲を考える
-// {abs(X-x)/4 + abs(Y-y)/2 + abs(Z-z)/2} / g_default_DcamZ = 1.0 …② 
-// {abs(X-x)/4 + abs(Y-y)/2 + abs(Z-z)/2} / g_default_DcamZ = 2.0 …③
+// {abs(X-x)/4 + abs(Y-y)/2 + abs(Z-z)/2} / g_dist_CamZ_default = 1.0 …② 
+// {abs(X-x)/4 + abs(Y-y)/2 + abs(Z-z)/2} / g_dist_CamZ_default = 2.0 …③
 // [真上からのイメージ（図の比率がオカシイが；）]
 //
 //      Z
@@ -159,9 +159,9 @@ OUT_VS VS_HoshiBoshi(
 //
 // ここで (x,y,z) に星の座標を代入して、③→②へ移動中にアルファを減らそうとした。
 
-	float r2 = ( abs(out_vs.pos.x-g_MyShip_fX)/4 + 
-               abs(out_vs.pos.y-g_MyShip_fY)/2 + 
-               abs(out_vs.pos.z-g_MyShip_fZ)/2  ) / g_default_DcamZ;
+	float r2 = ( abs(out_vs.pos.x-g_fX_MyShip)/4 + 
+               abs(out_vs.pos.y-g_fY_MyShip)/2 + 
+               abs(out_vs.pos.z-g_fZ_MyShip)/2  ) / g_dist_CamZ_default;
 	// r2 < 1.0         がA領域
 	// 1.0 < r2 < 2.0   がB領域  となる
 
@@ -180,7 +180,7 @@ OUT_VS VS_HoshiBoshi(
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 
 	//奥ほど小さく表示するために縮小率計算
-	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize_rate;  //通常の奥行きの縮小率
+	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;  //通常の奥行きの縮小率
 
     int ptnno = ((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
 	//スペキュラセマンテックス(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
@@ -199,8 +199,8 @@ float4 PS_HoshiBoshi(
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col; // * g_MaterialDiffuse;
-	out_color.a = out_color.a * g_MasterAlpha; 
+	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col; // * g_colMaterialDiffuse;
+	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;
 }
 
@@ -213,8 +213,8 @@ float4 PS_Flush(
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col * float4(7.0, 7.0, 7.0, 1.0);// * g_MaterialDiffuse;
-	out_color.a = out_color.a * g_MasterAlpha; 
+	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col * float4(7.0, 7.0, 7.0, 1.0);// * g_colMaterialDiffuse;
+	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;
 }
 

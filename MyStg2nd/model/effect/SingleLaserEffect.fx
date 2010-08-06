@@ -11,17 +11,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-int g_nVertexs;
+int g_vertexs_num;
 float g_zf;
-float g_PowerBlink;   
-float g_BlinkThreshold;
-float g_MasterAlpha;
+float g_tex_blink_power;   
+float g_tex_blink_threshold;
+float g_alpha_master;
 // ライトの方向
-float3 g_LightDirection;
+float3 g_vecLightDirection;
 // Ambienライト色（入射色）
-float4 g_LightAmbient;
+float4 g_colLightAmbient;
 // Diffuseライト色（入射色）  
-float4 g_LightDiffuse;  
+float4 g_colLightDiffuse;  
 //View変換行列
 float4x4 g_matView; 
 //射影変換行列  
@@ -151,7 +151,7 @@ OUT_VS GgafDx9VS_SingleLaser(
 	if (out_vs.pos.z > g_zf*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
     	out_vs.col.a *= (-1.0/(g_zf*0.5)*out_vs.pos.z + 2.0);
 	} 
-	out_vs.col.a *= g_MasterAlpha;
+	out_vs.col.a *= g_alpha_master;
 	return out_vs;
 }
 

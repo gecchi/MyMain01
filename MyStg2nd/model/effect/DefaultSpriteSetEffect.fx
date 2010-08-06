@@ -7,9 +7,9 @@
 
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
-float g_PowerBlink;   
-float g_BlinkThreshold;
-float g_MasterAlpha;
+float g_tex_blink_power;   
+float g_tex_blink_threshold;
+float g_alpha_master;
 float g_zf;
 
 float4x4 g_matWorld001;
@@ -228,10 +228,10 @@ float4 GgafDx9PS_DefaultSpriteSet(
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv); 
 	//求める色
 	float4 out_color = tex_color; 
-	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
-		out_color.rgb *= g_PowerBlink; //+ (tex_color * g_PowerBlink);
+	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
+		out_color.rgb *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
 	}           
-	out_color.a = out_color.a * prm_col.a * g_MasterAlpha; 
+	out_color.a = out_color.a * prm_col.a * g_alpha_master; 
 	return out_color;
 }
 
@@ -242,7 +242,7 @@ float4 PS_Flush(
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 out_color = tex2D( MyTextureSampler, prm_uv) * float4(7.0, 7.0, 7.0, 1.0);
 	//α計算、テクスチャαとオブジェクトαの合算
-	out_color.a = out_color.a * prm_col.a * g_MasterAlpha; 
+	out_color.a = out_color.a * prm_col.a * g_alpha_master; 
 	return out_color;
 }
 

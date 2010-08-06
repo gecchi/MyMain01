@@ -37,10 +37,10 @@ void GroundMeshActor::processDraw() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &pCAM->_vMatrixView );
+    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matView, &pCAM->_vMatrixView );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
     GgafDx9Util::setWorldMatrix_RxRzRyMv(this, _matWorld);
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
+    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
 //    // Zバッファを無効に

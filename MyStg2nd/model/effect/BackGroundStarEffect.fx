@@ -9,17 +9,17 @@ float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 
-float3 g_LightDirection; // ライトの方向
-float4 g_LightAmbient;   // Ambienライト色（入射色）
-float4 g_LightDiffuse;   // Diffuseライト色（入射色）
-float g_MasterAlpha;   
+float3 g_vecLightDirection; // ライトの方向
+float4 g_colLightAmbient;   // Ambienライト色（入射色）
+float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
+float g_alpha_master;   
 
 
 
-float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
+float4 g_colMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
 
-float g_PowerBlink;   
-float g_BlinkThreshold;
+float g_tex_blink_power;   
+float g_tex_blink_threshold;
 
 //texture g_diffuseMap;
 //sampler MyTextureSampler = sampler_state {

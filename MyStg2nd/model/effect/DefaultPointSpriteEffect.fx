@@ -9,8 +9,8 @@ float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 
-float g_default_DcamZ;
-float g_Dist_VpPlnFront; //ほぼ視点からの距離
+float g_dist_CamZ_default;
+float g_dist_VpFrontPlane; //ほぼ視点からの距離
 float g_zn;
 float g_zf;
 float g_TexSize;  //読み込んだテクスチャ（正方形が前提）の幅テクセル数
@@ -22,14 +22,14 @@ float g_offsetU;        //テクスチャU座標増分
 float g_offsetV;         //テクスチャV座標増分
 float g_UvFlipPtnNo;
 
-float3 g_LightDirection; // ライトの方向
-float4 g_LightAmbient;   // Ambienライト色（入射色）
-float4 g_LightDiffuse;   // Diffuseライト色（入射色）
+float3 g_vecLightDirection; // ライトの方向
+float4 g_colLightAmbient;   // Ambienライト色（入射色）
+float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
-float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
-float g_PowerBlink;   
-float g_BlinkThreshold;
-float g_MasterAlpha;
+float4 g_colMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
+float g_tex_blink_power;   
+float g_tex_blink_threshold;
+float g_alpha_master;
 
 //s0レジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -86,7 +86,7 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
                                     //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
                                     //距離に加える。
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
-	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize_rate;
+	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;
 
     int ptnno = ((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
 	//スペキュラ(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
@@ -105,8 +105,8 @@ float4 GgafDx9PS_DefaultPointSprite(
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col; // * g_MaterialDiffuse;
-	out_color.a = out_color.a * g_MasterAlpha; 
+	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col; // * g_colMaterialDiffuse;
+	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;
 }
 
@@ -119,8 +119,8 @@ float4 PS_Flush(
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col * float4(7.0, 7.0, 7.0, 1.0);// * g_MaterialDiffuse;
-	out_color.a = out_color.a * g_MasterAlpha; 
+	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col * float4(7.0, 7.0, 7.0, 1.0);// * g_colMaterialDiffuse;
+	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;
 }
 

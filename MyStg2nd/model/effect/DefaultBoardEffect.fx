@@ -15,9 +15,9 @@ float g_view_width; //画面幅(px)
 float g_view_height; //画面高さ(px)
 float g_sx;
 float g_sy;
-float g_PowerBlink;   
-float g_BlinkThreshold;
-float g_MasterAlpha;
+float g_tex_blink_power;   
+float g_tex_blink_threshold;
+float g_alpha_master;
 //s0レジスタのサンプラを使う(＝固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
 
@@ -58,11 +58,11 @@ float4 GgafDx9PS_DefaultBoard(
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv); 
 	//求める色
 	float4 out_color = tex_color; 
-	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
-		out_color *= g_PowerBlink; //+ (tex_color * g_PowerBlink);
+	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
+		out_color *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
 	}    
 	//α考慮
-	out_color.a = out_color.a * g_alpha * g_MasterAlpha; 
+	out_color.a = out_color.a * g_alpha * g_alpha_master; 
 	return out_color;
 }
 
@@ -74,7 +74,7 @@ float4 PS_Flush(
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 out_color = tex2D( MyTextureSampler, prm_uv) * float4(7.0, 7.0, 7.0, 1.0 );                
 	//α考慮
-	out_color.a = out_color.a * g_alpha * g_MasterAlpha; 
+	out_color.a = out_color.a * g_alpha * g_alpha_master; 
 	return out_color;
 }
 

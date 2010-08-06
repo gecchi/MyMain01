@@ -19,9 +19,9 @@ public:
 
     int _CAM_ZF;
 
-    D3DXHANDLE _hMyShip_fX;
-    D3DXHANDLE _hMyShip_fY;
-    D3DXHANDLE _hMyShip_fZ;
+    D3DXHANDLE _h_fX_MyShip;
+    D3DXHANDLE _h_fY_MyShip;
+    D3DXHANDLE _h_fZ_MyShip;
 
 
     HoshiBoshi001(const char* prm_name);

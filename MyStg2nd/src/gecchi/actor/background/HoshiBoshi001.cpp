@@ -12,9 +12,9 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
                                "HoshiBoshiTechnique",
                                NULL ) {
     _class_name = "HoshiBoshi001";
-    _hMyShip_fX  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_MyShip_fX" );
-    _hMyShip_fY  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_MyShip_fY" );
-    _hMyShip_fZ  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_MyShip_fZ" );
+    _h_fX_MyShip  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fX_MyShip" );
+    _h_fY_MyShip  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fY_MyShip" );
+    _h_fZ_MyShip  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fZ_MyShip" );
 
 
     _frame_offset = 0;
@@ -93,12 +93,12 @@ void HoshiBoshi001::processDraw() {
     ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetFloat(_hMyShip_fX, pMYSHIP->_fX);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_hMyShip_fX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_hMyShip_fY, pMYSHIP->_fY);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_hMyShip_fY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_hMyShip_fZ, pMYSHIP->_fZ);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_hMyShip_fZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(_h_fX_MyShip, pMYSHIP->_fX);
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_fX_MyShip) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(_h_fY_MyShip, pMYSHIP->_fY);
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_fY_MyShip) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(_h_fZ_MyShip, pMYSHIP->_fZ);
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_fZ_MyShip) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     GgafDx9PointSpriteActor::processDraw();
 }
 

@@ -9,14 +9,14 @@ float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 
-float3 g_LightDirection; // ライトの方向
-float4 g_LightAmbient;   // Ambienライト色（入射色）
-float4 g_LightDiffuse;   // Diffuseライト色（入射色）
-float g_MasterAlpha;
+float3 g_vecLightDirection; // ライトの方向
+float4 g_colLightAmbient;   // Ambienライト色（入射色）
+float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
+float g_alpha_master;
 float g_zf;
-float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
-float g_PowerBlink;   
-float g_BlinkThreshold;
+float4 g_colMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
+float g_tex_blink_power;   
+float g_tex_blink_threshold;
 
 //s0レジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -51,11 +51,11 @@ OUT_VS GgafDx9VS_DefaultAniMesh(
 	//法線を World 変換して正規化
     float3 normal = normalize(mul(prm_normal, g_matWorld)); 	
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(normal, -g_LightDirection ), 0);      
+	float power = max(dot(normal, -g_vecLightDirection ), 0);      
 	//Ambientライト色、Diffuseライト色、Diffuseライト方向、マテリアル色 を考慮したカラー作成。      
-	out_vs.col = (g_LightAmbient + (g_LightDiffuse*power)) * g_MaterialDiffuse;
+	out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
 	//αフォグ
-	out_vs.col.a = g_MaterialDiffuse.a;
+	out_vs.col.a = g_colMaterialDiffuse.a;
 	if (out_vs.pos.z > g_zf*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
     	out_vs.col.a *= (-1.0/(g_zf*0.5)*out_vs.pos.z + 2.0);
 	} 
@@ -63,7 +63,7 @@ OUT_VS GgafDx9VS_DefaultAniMesh(
 //    	out_vs.col.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);
 //	}
 	//マスターα
-	out_vs.col.a *= g_MasterAlpha;
+	out_vs.col.a *= g_alpha_master;
 
 	return out_vs;
 }
@@ -78,8 +78,8 @@ float4 GgafDx9PS_DefaultAniMesh(
 	float4 out_color = tex_color * prm_col;
 
     //Blinkerを考慮
-	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
-		out_color *= g_PowerBlink; //+ (tex_color * g_PowerBlink);
+	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
+		out_color *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
 	} 
 	return out_color;
 }
@@ -93,8 +93,8 @@ float4 GgafDx9PS_DefaultAniMesh2(
 	float4 out_color = tex_color * prm_col;
 
     //Blinkerを考慮
-	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
-		out_color *= g_PowerBlink; //+ (tex_color * g_PowerBlink);
+	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
+		out_color *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
 	} 
 	return out_color;
 }
@@ -121,10 +121,10 @@ technique DefaultAniMeshTechnique
 	// float4x4 g_matWorld		:	World変換行列
 	// float4x4 g_matView		:	View変換行列
 	// float4x4 g_matProj		:	射影変換行列   
-	// float3 g_LightDirection	:	ライトの方向
-	// float4 g_LightAmbient	:	Ambienライト色（入射色）
-	// float4 g_LightDiffuse	:	Diffuseライト色（入射色）
-	// float4 g_MaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）
+	// float3 g_vecLightDirection	:	ライトの方向
+	// float4 g_colLightAmbient	:	Ambienライト色（入射色）
+	// float4 g_colLightDiffuse	:	Diffuseライト色（入射色）
+	// float4 g_colMaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）
 	// s0レジスタ				:	2Dテクスチャ
 	pass P0 {
 		AlphaBlendEnable = true;
