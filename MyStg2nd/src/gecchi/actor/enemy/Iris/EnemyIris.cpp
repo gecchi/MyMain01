@@ -129,6 +129,12 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 
+        //自機側に撃たれて消滅、かつフォメーション所属の場合、
+        //フォーメーションに自身が撃たれた事を伝える。
+        if ((pOther->getKind() & KIND_MY) && (getParent()->_actor_class & Obj_GgafDx9FormationActor)) {
+            ((GgafDx9FormationActor*)getParent())->wasDestroyedFollower(this);
+        }
+
         EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         _pSeTransmitter->play3D(0);
         if (pExplo001 != NULL) {

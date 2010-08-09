@@ -14,7 +14,6 @@ EffectLaserRefraction001::EffectLaserRefraction001(const char* prm_name)
 void EffectLaserRefraction001::initialize() {
 //    _pUvFlipper->forcePtnNoRange(0, 63);
     setHitAble(false);
-    setZWriteEnable(false);
 }
 
 void EffectLaserRefraction001::onActive() {
