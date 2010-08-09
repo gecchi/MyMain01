@@ -15,8 +15,6 @@
 					<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -24,7 +22,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.release.913731097." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.mingw.lib.release.1220168437" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.release">
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.lib.release.232620171" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.release"/>
-							<builder buildPath="${workspace_loc:/CustomizeVorbis_static/DebugCdt}" id="cdt.managedbuild.builder.xlupc.exe.debug.342197554" superClass="cdt.managedbuild.builder.xlupc.exe.debug"/>
+							<builder buildPath="${workspace_loc:/CustomizeVorbis_static/DebugCdt}" id="org.eclipse.cdt.build.core.internal.builder.671170045" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.release.549050288" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.release">
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.12825947" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>

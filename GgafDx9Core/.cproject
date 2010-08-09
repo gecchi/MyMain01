@@ -19,8 +19,6 @@
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -28,7 +26,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.debug.1294883959." name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.lib.debug.687261938" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.debug">
 							<targetPlatform binaryParser="org.eclipse.cdt.core.PE;org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="cdt.managedbuild.target.gnu.platform.mingw.lib.debug.438638643" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.debug"/>
-							<builder buildPath="${workspace_loc:/GgafDx9Core/DebugCdt}" id="cdt.managedbuild.builder.xlupc.exe.debug.1168371733" superClass="cdt.managedbuild.builder.xlupc.exe.debug"/>
+							<builder buildPath="${workspace_loc:/GgafDx9Core/DebugCdt}" id="org.eclipse.cdt.build.core.internal.builder.149465079" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug.1562522851" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug">
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.923349400" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
