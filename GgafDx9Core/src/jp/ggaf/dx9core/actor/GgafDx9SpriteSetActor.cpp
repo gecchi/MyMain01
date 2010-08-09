@@ -30,12 +30,16 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
 }
 
 void GgafDx9SpriteSetActor::processDraw() {
-    _draw_set_num = 1; //同一描画深度に、GgafDx9SpriteSetActorの同じモデルが連続しているカウント数
+    _draw_set_num = 1; //同一描画深度に、GgafDx9SpriteSetActorの同じモデルかつ同じテクニックが
+                       //連続しているカウント数
     GgafDx9DrawableActor* _pNextDrawActor;
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
         if (_pNextDrawActor != NULL)  {
-            if (_pNextDrawActor->_pGgafDx9Model == _pSpriteSetModel && _pNextDrawActor->isActive()) {
+            if (_pNextDrawActor->_pGgafDx9Model == _pSpriteSetModel &&
+                _pNextDrawActor->_hash_technique == _hash_technique &&
+                _pNextDrawActor->isActive()
+            ) {
                 _draw_set_num++;
                 if (_draw_set_num > _pSpriteSetModel->_set_num) {
                     _draw_set_num = _pSpriteSetModel->_set_num;
@@ -80,17 +84,9 @@ void GgafDx9SpriteSetActor::processDraw() {
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
     }
-    // Zバッファを無効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    // Zバッファ書き込み不可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 
     _pSpriteSetModel->draw(this);
 
-    // Zバッファを有効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    // Zバッファ書き込み可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
 }
 

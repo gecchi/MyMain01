@@ -30,12 +30,16 @@ GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
 }
 
 void GgafDx9BoardSetActor::processDraw() {
-    _draw_set_num = 1; //同一描画深度に、GgafDx9BoardSetActorの同じモデルが連続しているカウント数
+    _draw_set_num = 1; //同一描画深度に、GgafDx9BoardSetActorの同じモデルかつ同じテクニックが
+                       //連続しているカウント数
     GgafDx9DrawableActor* _pNextDrawActor;
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
         if (_pNextDrawActor != NULL)  {
-            if (_pNextDrawActor->_pGgafDx9Model == _pBoardSetModel && _pNextDrawActor->isActive()) {
+            if (_pNextDrawActor->_pGgafDx9Model == _pBoardSetModel &&
+                _pNextDrawActor->_hash_technique == _hash_technique &&
+                _pNextDrawActor->isActive()
+            ) {
                 _draw_set_num++;
                 if (_draw_set_num > _pBoardSetModel->_set_num) {
                     _draw_set_num = _pBoardSetModel->_set_num;

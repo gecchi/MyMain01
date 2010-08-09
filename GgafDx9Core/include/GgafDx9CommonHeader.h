@@ -179,7 +179,8 @@ enum GgafDx9BlinkerMethod {
 #define Obj_GgafDx9BoardSetActor        (0x8000000)        //&B 00001000 00000000 00000000 00000000
 #define Obj_GgafDx9PointSpriteActor     (0x10000000)       //&B 00010000 00000000 00000000 00000000
 #define Obj_GgafDx9StringBoardActor     (0x20000000)       //&B 00100000 00000000 00000000 00000000
-#define Obj_GgafDx9FormationActor       (0x40000000)       //&B 01000000 00000000 00000000 00000000
+#define Obj_GgafDx9StringSpriteActor    (0x40000000)       //&B 01000000 00000000 00000000 00000000
+#define Obj_GgafDx9FormationActor       (0x80000000)       //&B 10000000 00000000 00000000 00000000
 
 
 namespace GgafDx9Core {
@@ -252,6 +253,7 @@ class GgafDx9SpriteSetEffect;
 class GgafDx9BoardEffect;
 class GgafDx9BoardSetEffect;
 class GgafDx9StringBoardActor;
+class GgafDx9StringSpriteActor;
 class GgafDx9PointSpriteEffect;
 
 class GgafDx9Texture;
@@ -333,7 +335,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SpriteMeshActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SpriteMeshSetActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9StringBoardActor.h"
-
+#include "jp/ggaf/dx9core/actor/ex/GgafDx9StringSpriteActor.h"
 
 #include "jp/ggaf/dx9core/model/GgafDx9Model.h"
 #include "jp/ggaf/dx9core/model/GgafDx9D3DXMeshModel.h"
