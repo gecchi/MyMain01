@@ -57,7 +57,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ah_matWorld_front[14]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front015" );
     _ah_matWorld_front[15]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front016" );
 
-
+    setZWriteEnable(false);
 }
 
 //void LaserChip::onCreateModel() {

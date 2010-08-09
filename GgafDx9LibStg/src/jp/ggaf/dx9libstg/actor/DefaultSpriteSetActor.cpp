@@ -14,6 +14,7 @@ DefaultSpriteSetActor::DefaultSpriteSetActor(const char* prm_name, const char* p
     _frame_offset = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDx9GeometryScaler(this);
+    setZWriteEnable(false);
 }
 
 
