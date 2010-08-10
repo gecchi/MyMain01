@@ -21,7 +21,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.1486841325" name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.base.1666988058" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.PE;org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="cdt.managedbuild.target.gnu.platform.mingw.base.4539888" name="デバッグ・プラットフォーム" osList="win32" superClass="cdt.managedbuild.target.gnu.platform.mingw.base"/>
-							<builder buildPath="${workspace_loc:/MyStg2nd/DebugCdt}" id="org.eclipse.cdt.build.core.internal.builder.1455554752" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<builder buildPath="${workspace_loc:/MyStg2nd/DebugCdt}" id="org.eclipse.cdt.build.core.internal.builder.1455554752" keepEnvironmentInBuildfile="false" name="CDT 内部ビルダー" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.mingw.base.836069003" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.base">
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1742576542" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
@@ -38,7 +38,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.other.other.415790542" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="  -c -fmessage-length=0 -s -mno-cygwin -mwindows -Winit-self" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.415790542" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="  -c -fmessage-length=0 -s -mno-cygwin -mwindows -Winit-self --input-charset=cp932 --exec-charset=cp932" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.optimization.level.59160748" name="最適化レベル" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.73751336" name="デバッグ・レベル" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.warnings.nowarn.844208225" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="false" valueType="boolean"/>
@@ -60,7 +60,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
-								<option id="gnu.c.compiler.option.misc.other.1543265832" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value=" -c -fmessage-length=0 -s -mno-cygwin -mwindows -fstack-protector -Winit-self" valueType="string"/>
+								<option id="gnu.c.compiler.option.misc.other.1543265832" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value=" -c -fmessage-length=0 -s -mno-cygwin -mwindows -fstack-protector -Winit-self --input-charset=cp932 --exec-charset=cp932" valueType="string"/>
 								<option id="gnu.c.compiler.option.optimization.level.1319981218" name="最適化レベル" superClass="gnu.c.compiler.option.optimization.level" value="gnu.c.optimization.level.most" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.59051683" name="デバッグ・レベル" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.default" valueType="enumerated"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1506301635" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
@@ -93,7 +93,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/DebugCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/DebugCdt}&quot;"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.184456478" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/MyStg2nd/VClib/chkstk.o}&quot; -Wl,--enable-auto-import -mno-cygwin -mwindows " valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.184456478" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/MyStg2nd/VClib/chkstk.o}&quot; -Wl,--enable-auto-import -mno-cygwin -mwindows  --input-charset=cp932 --exec-charset=cp932" valueType="string"/>
 								<option id="gnu.cpp.link.option.userobjs.599840029" name="その他のオブジェクト" superClass="gnu.cpp.link.option.userobjs"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.265070194" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>

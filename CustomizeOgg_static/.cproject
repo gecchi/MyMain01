@@ -35,7 +35,7 @@
 								<option id="gnu.cpp.compiler.option.include.paths.1431861181" name="インクルード・パス (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/include}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.other.other.191858156" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows " valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.191858156" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows --input-charset=cp932 --exec-charset=cp932" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.nowarn.1007847589" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.warnings.allwarn.1840968777" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.911477189" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -46,7 +46,7 @@
 								<option id="gnu.c.compiler.option.include.paths.1608026697" name="インクルード・パス (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/include}&quot;"/>
 								</option>
-								<option id="gnu.c.compiler.option.misc.other.609457051" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows " valueType="string"/>
+								<option id="gnu.c.compiler.option.misc.other.609457051" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows --input-charset=cp932 --exec-charset=cp932" valueType="string"/>
 								<option id="gnu.c.compiler.option.warnings.nowarn.310185493" name="すべての警告を禁止 (-w)" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.warnings.allwarn.1059282436" name="すべての警告 (-Wall)" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1325474302" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>

@@ -331,7 +331,7 @@ public:
     /**/
     /*      trect<T>& operator+=(vector<T> &pV)
      {xs += pV[VX]; ys += pV[VY]; xe += pV[VX]; ye += pV[VY]; return *this;};
-     /**/
+    */
     trect(const T pxs, const T pys, const T pxe, const T pye) {
         xs = pxs;
         ys = pys;
@@ -372,7 +372,8 @@ public:
      if (pv[VX] > xe) return false;
      if (pv[VY] < ys) return false;
      if (pv[VY] > ye) return false;
-     return true;};/**/
+     return true;};
+    */
     bool _fastcall InRect(const trect<T> &prect) {
         if ((prect.xe <= xe) && (prect.ye <= ye) && (prect.xs >= xs)
                 && (prect.ys >= ys))

@@ -13,9 +13,6 @@
 #define XOFFILE_FORMAT_VERSION03 \
     ((long)'0' + ((long)'3' << 8))
 
-//#define XOFFILE_FORMAT_VERSION02 \
-//    ((long)'0' + ((long)'3' << 8))
-
 //tsuge alter
 #define XOFFILE_FORMAT_VERSION02 \
     ((long)'0' + ((long)'2' << 8))

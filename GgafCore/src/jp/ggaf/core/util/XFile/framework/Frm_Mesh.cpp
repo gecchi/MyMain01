@@ -87,10 +87,10 @@ void Mesh::CreateSubsets(void) {
     Subset* MeshSubset;
 
     //For each material
-    for (int i = 0; i < _Materials.size(); i++) {
+    for (uint32 i = 0; i < _Materials.size(); i++) {
         //We count the number of faces using this material
         FaceCount = 0;
-        for (int j = 0; j < _nFaces; j++)
+        for (uint32 j = 0; j < _nFaces; j++)
             if (_FaceMaterials[j] == i)
                 ++FaceCount;
         //We initialise the mesh subset
@@ -99,7 +99,7 @@ void Mesh::CreateSubsets(void) {
         MeshSubset->Faces = NEW Face[FaceCount];
         int k = 0;
         //We fill in the Mesh subset
-        for (int j = 0; j < _nFaces; j++)
+        for (uint32 j = 0; j < _nFaces; j++)
             if (_FaceMaterials[j] == i)
                 MeshSubset->Faces[k++] = _Faces[j];
         //And we add that subset to the list

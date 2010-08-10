@@ -8,7 +8,7 @@
 Before loading, 16 bit textures should be converted to RGB
 since all texture conversion function accept a 24 bit texture
 as an entry.
-/**/
+*/
 #ifndef TBOX_TEXTURES_H
 #define TBOX_TEXTURES_H
 

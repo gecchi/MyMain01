@@ -8,7 +8,7 @@
 //#include "jp/ggaf/core/util/XFile/ToolBox/IOTexture_Bmp.h"
 
 //#define EXIT        {fclose(in); return false;}
-#define EXIT(msg)   {MYTRACE(msg); fclose(in); return false;}
+//#define EXIT(msg)   {MYTRACE(msg); fclose(in); return false;}
 
 bool ToolBox::IO_Texture_BMP::Load(std::string pFilename, TEXTURE &pT) {
     BITMAPFILEHEADER BmpFH;
@@ -18,17 +18,23 @@ bool ToolBox::IO_Texture_BMP::Load(std::string pFilename, TEXTURE &pT) {
     FILE * in = fopen(pFilename.data(), "rb");
     if (!in)
         return false;
-    if (fread(&BmpFH, 1, 14, in) != 14)
-        EXIT("Corrupt Bitmap file header.");
-    if (fread(&BmpIH, 1, 40, in) != 40)
-        EXIT("Corrupt Bitmap information header.");
+    if (fread(&BmpFH, 1, 14, in) != 14) {
+        fclose(in); return false;
+    }
+        //EXIT("Corrupt Bitmap file header.");
+    if (fread(&BmpIH, 1, 40, in) != 40) {
+        fclose(in); return false;
+    }
+      //  EXIT("Corrupt Bitmap information header.");
 
     pT.Width = (uint16) BmpIH.biWidth;
     pT.Height = (uint16) BmpIH.biHeight;
     pT.Depth = (uchar) (BmpIH.biBitCount / 8);
 
-    if (pT.Depth < 3)
-        EXIT("8 and 16 bit depths are not supported.");
+    if (pT.Depth < 3) {
+        fclose(in); return false;
+    }
+        //EXIT("8 and 16 bit depths are not supported.");
 
     if (BmpIH.biSizeImage == 0) {
         pT.Size = (uint32) (BmpIH.biWidth * BmpIH.biHeight * BmpIH.biBitCount

@@ -15,7 +15,7 @@
 #define MAX_TEMPLATES 15
 
 struct XOF_TEMPLATEID {
-    char* TxtID;
+    const char* TxtID;
     uint16 TemplateID;
 };
 
@@ -851,7 +851,7 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
     fin.getline(Data, TEXT_BUFFER, ';');
     cBone->_nVertices = (uint16) TextToNum(Data);
     cBone->_Vertices = NEW uint16[(cBone->_nVertices)];
-    for (int i = 0; i < cBone->_nVertices - 1; i++) {
+    for (uint32 i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         cBone->_Vertices[i] = (uint16) TextToNum(Data);
         _TRACE_("Vertex:" << atoi(Data));
@@ -861,7 +861,7 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
     _TRACE_("Vertex:" << atoi(Data));
 
     cBone->_Weights = NEW float[cBone->_nVertices];
-    for (int i = 0; i < cBone->_nVertices - 1; i++) {
+    for (uint32 i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         cBone->_Weights[i] = TextToNum(Data);
         _TRACE_("Weight:" << atof(Data));

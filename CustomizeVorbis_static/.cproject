@@ -22,7 +22,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.release.913731097." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.mingw.lib.release.1220168437" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.release">
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.lib.release.232620171" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.release"/>
-							<builder buildPath="${workspace_loc:/CustomizeVorbis_static/DebugCdt}" id="org.eclipse.cdt.build.core.internal.builder.671170045" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<builder buildPath="${workspace_loc:/CustomizeVorbis_static/DebugCdt}" id="org.eclipse.cdt.build.core.internal.builder.671170045" keepEnvironmentInBuildfile="false" name="CDT 内部ビルダー" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.release.549050288" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.release">
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.12825947" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
@@ -35,7 +35,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/lib}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.other.other.235613678" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows " valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.235613678" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows --input-charset=cp932 --exec-charset=cp932" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.nowarn.700485701" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.warnings.allwarn.1050330387" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.756146719" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -48,7 +48,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/lib}&quot;"/>
 								</option>
-								<option id="gnu.c.compiler.option.misc.other.1278092317" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows " valueType="string"/>
+								<option id="gnu.c.compiler.option.misc.other.1278092317" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows --input-charset=cp932 --exec-charset=cp932" valueType="string"/>
 								<option id="gnu.c.compiler.option.warnings.nowarn.1850258951" name="すべての警告を禁止 (-w)" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.warnings.allwarn.2100424606" name="すべての警告 (-Wall)" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1481961671" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
