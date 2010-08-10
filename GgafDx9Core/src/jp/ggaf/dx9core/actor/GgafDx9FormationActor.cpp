@@ -39,7 +39,6 @@ void GgafDx9FormationActor::processBehavior() {
 
 void GgafDx9FormationActor::processJudgement() {
     if (getSubFirst() == NULL) {
-        _TRACE_("GgafDx9FormationActor["<<getName()<<" end("<<_frame_offset_end<<")!!!!!!!!!!!!");
         inactivate();
         sayonara(_frame_offset_end);
     }

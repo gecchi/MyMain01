@@ -20,6 +20,7 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
     _pSource_vY = &_pMover->_vY;
     _pSource_vZ = &_pMover->_vZ;
     _veloMv = 100000;
+
 }
 
 void StraightLaserChip::initialize() {

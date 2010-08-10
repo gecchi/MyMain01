@@ -114,8 +114,8 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyPallas::onHit!!! this="<<getName()<<"("<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
     //_TRACE_("EnemyPallas::onHit!!! prm_pOtherActor="<<prm_pOtherActor->getName()<<"("<<prm_pOtherActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 
+    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         EffectExplosion003* pExplo003 = (EffectExplosion003*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion003->employ();
         _pSeTransmitter->play3D(0);
         if (pExplo003 != NULL) {
@@ -128,7 +128,7 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
         if ((pOther->getKind() & KIND_MY) && (getParent()->_actor_class & Obj_GgafDx9FormationActor)) {
             ((GgafDx9FormationActor*)getParent())->wasDestroyedFollower(this);
         }
-
+        setHitAble(false); //同一フレーム内で複数回ヒットさせないため重要
         sayonara();
     }
 }

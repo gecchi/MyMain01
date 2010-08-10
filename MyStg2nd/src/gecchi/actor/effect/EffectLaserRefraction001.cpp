@@ -9,6 +9,8 @@ EffectLaserRefraction001::EffectLaserRefraction001(const char* prm_name)
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001") {
     _class_name = "EffectLaserRefraction001";
     chengeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
+    setZEnable(true);        //Zバッファは考慮有り
+    setZWriteEnable(false);  //Zバッファは書き込み無し
 }
 
 void EffectLaserRefraction001::initialize() {

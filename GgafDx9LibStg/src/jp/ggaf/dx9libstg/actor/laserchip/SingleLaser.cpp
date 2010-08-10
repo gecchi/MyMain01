@@ -48,6 +48,9 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id) :
 //    _ah_matWorld[29]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld030" );
 
 
+    setZEnable(true);        //Zバッファは考慮有り
+    setZWriteEnable(false);  //Zバッファは書き込み無し
+
 }
 
 //void SingleLaser::onCreateModel() {
