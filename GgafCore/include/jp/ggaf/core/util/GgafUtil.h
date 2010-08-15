@@ -44,7 +44,7 @@ public:
      * @param out_binstr 2進数文字列化  char[33]  [out]
      * @param bitnum 所望の２進数ビット数
      */
-    static void strbin(unsigned long int prm_decimal, char* out_binstr, int bitnum = 32){
+    static void strbin(UINT32 prm_decimal, char* out_binstr, int bitnum = 32){
         /* 10進数-->2進数変換 */
         int i, k;
         for (i = 0, k = bitnum - 1; k >= 0; i++, k--) {
@@ -76,15 +76,15 @@ public:
      * 簡易ハッシュ .
      * 文字列 を、さも一意のような32biｔ数値に変換。
      * スピード優先のハッシュ関数のため、厳密ではない。
-     * 33を乗ずると、なんか衝突が少ないらしい。
+     * 33を乗じると、衝突が少ないらしいという文献を信じる。
      * @param str 文字列
      * @return ハッシュ値
      */
-    static unsigned int easy_hash(const char* str) {
+    static UINT32 easy_hash(const char* str) {
         unsigned long hash = 5381;
         char c;
         while (c = *str++) { //strの\0までループ （演算子 "==" と間違えていません）
-            hash = ((hash << 5) + hash) + c; // hash * 33 + c
+            hash = ((hash << 5) + hash) + c; // hash * 33 + c  33倍してます
         }
         return hash;
     }
