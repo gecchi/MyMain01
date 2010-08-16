@@ -88,7 +88,7 @@ void GgafDx9Morpher::behave() {
     }
 }
 
-void GgafDx9Morpher::intoTargetLinerUntil(int prm_target_mesh, float prm_target_weight, DWORD prm_spend_frame) {
+void GgafDx9Morpher::intoTargetLinerUntil(int prm_target_mesh, float prm_target_weight, UINT32 prm_spend_frame) {
     _method[prm_target_mesh] = TARGET_MORPH_LINER;
     _target_weight[prm_target_mesh] = prm_target_weight;
     _velo_weight[prm_target_mesh] = (prm_target_weight - _weight[prm_target_mesh]) / (int)(prm_spend_frame);
@@ -108,14 +108,14 @@ void GgafDx9Morpher::intoTargetLinerStep(int prm_target_mesh, float prm_target_w
     _velo_weight[prm_target_mesh] = sgn(prm_target_weight - _weight[prm_target_mesh])*prm_velo_weight;
 }
 
-void GgafDx9Morpher::loopLiner(int prm_target_mesh, DWORD prm_loop_spend_frame, float prm_loop_num) {
+void GgafDx9Morpher::loopLiner(int prm_target_mesh, UINT32 prm_loop_spend_frame, float prm_loop_num) {
     _method[prm_target_mesh] = LOOP_MORPH_LINER;
     _halfloop_cnt[prm_target_mesh] = 0;
     _stop_halfloop_num[prm_target_mesh] = (int)(prm_loop_num*2.0f);
     _velo_weight[prm_target_mesh] = 1.0f / ((int)prm_loop_spend_frame / 2);
 }
 
-void GgafDx9Morpher::loopTriangleWave(int prm_target_mesh, DWORD prm_loop_spend_frame, DWORD prm_attack_frame, DWORD prm_rest_frame, float prm_loop_num) {
+void GgafDx9Morpher::loopTriangleWave(int prm_target_mesh, UINT32 prm_loop_spend_frame, UINT32 prm_attack_frame, UINT32 prm_rest_frame, float prm_loop_num) {
     _method[prm_target_mesh] = LOOP_MORPH_TRIANGLEWAVE;
     _halfloop_cnt[prm_target_mesh] = 0;
     _stop_halfloop_num[prm_target_mesh] = (int)(prm_loop_num*2.0f);

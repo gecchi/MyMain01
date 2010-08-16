@@ -15,7 +15,7 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshSetActor
     /** 出現時の加速度（負で遅くなる） */
     _iMoveAcce_1st = -150;
     /** 自身が出現してから、時機の方向に方向転換を開始するフレーム */
-    _dwFrame_TurnBegin = 60;
+    _frame_TurnBegin = 60;
     /** 移動速度上限 */
     _iMvVelo_Top = 30000;
     /** 最低保証移動速度 */
@@ -24,7 +24,7 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshSetActor
     _dwFrameInterval_Turn = 400;
     /** 方向転換中の角速度アングル値(正の値) */
     _angVelo_Turn = 7000;
-    /** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
+    /** 方向転換を開始（_frame_TurnBegin）から再設定される加速度 */
     _iMoveAcce_2nd = 100;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
@@ -54,7 +54,7 @@ void EnemyCeresShot001::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     //方向転換開始
-    if (getActivePartFrame() == _dwFrame_TurnBegin) {
+    if (getActivePartFrame() == _frame_TurnBegin) {
 
         _pMover->execTagettingMvAngSequence(GameGlobal::_pMyShip,
                                                    _angVelo_Turn, 0,
@@ -63,7 +63,7 @@ void EnemyCeresShot001::processBehavior() {
     }
 
     //方向転換終了
-    if (getActivePartFrame() == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
+    if (getActivePartFrame() == _frame_TurnBegin + _dwFrameInterval_Turn) {
         _pMover->setRzMvAngVelo(0);
         _pMover->setRyMvAngVelo(0);
         _pMover->_mv_ang_ry_target_flg = false;

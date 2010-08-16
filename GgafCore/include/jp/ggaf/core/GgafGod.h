@@ -34,7 +34,7 @@ public:
     /** [r]生成工場(別スレッド)のエラー状態。NULL＝正常稼働中／not NULL＝異常発生 */
     static GgafCriticalException* _pException_Factory;
     /** [r]次にこの世を活動させる時間のオフセット */
-    static DWORD _aTime_OffsetOfNextFrame[];
+    static UINT32 _aTime_OffsetOfNextFrame[];
     /** [r]GgafFactory::work スレッドハンドル  */
     HANDLE _handleFactory01;
     /** [r]GgafFactory::work スレッドID  */
@@ -44,23 +44,23 @@ public:
     /** [r]クリティカルセクション（セマフォ） */
     static CRITICAL_SECTION CS2;
     /** [r]神のフレーム開始システム時間 */
-    DWORD _time_at_beginning_frame;
+    UINT32 _time_at_beginning_frame;
     /** [r]次にこの世を活動させるシステム時間 */
-    DWORD _expected_time_of_next_frame;
+    UINT32 _expected_time_of_next_frame;
     /** [r]神誕生からのフレーム数 */
-    DWORD _godframe;
+    UINT32 _godframe;
     /** [r]この世を視覚化できなかった（スキップした）回数 */
-    DWORD _skip_count_of_frame;
+    UINT32 _skip_count_of_frame;
     /** [r]この世 */
     GgafUniverse* _pUniverse;
     /** [r]fps値（約1000ms毎に計算される） */
     float _fps;
     /** [r]前回fps計算時のシステム時間 */
-    DWORD _time_prev;
+    UINT32 _time_prev;
     /** [r]描画フレームカウンタ */
-    DWORD _frame_of_visualize;
+    UINT32 _frame_of_visualize;
     /** [r]前回fps計算時の描画フレームカウント値 */
-    DWORD _frame_of_prev_visualize;
+    UINT32 _frame_of_prev_visualize;
     /** [r]元フレームの描画回数 */
     static int _num_actor_drawing;
 

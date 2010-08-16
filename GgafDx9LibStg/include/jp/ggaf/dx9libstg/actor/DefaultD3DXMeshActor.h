@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
 class DefaultD3DXMeshActor : public GgafDx9Core::GgafDx9D3DXMeshActor {
 
 public:
-    DWORD _frame_offset;
+    UINT32 _frame_offset;
 
     CollisionChecker* _pCollisionChecker;
     /** 拡大縮小支援オブジェクト */

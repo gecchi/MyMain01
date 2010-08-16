@@ -51,12 +51,12 @@ void GameDemoScene::processBehavior() {
     if (onChangeProgressAt(GAMEDEMO_PROG_BEGIN)) {
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE BEGIN");
         _pStringBoard02->update(100, 150, "HAJIMARI HAJIMARI!");
-        _dwFrame_Begin = 0;
+        _frame_Begin = 0;
     } else if (getProgress() == GAMEDEMO_PROG_BEGIN) {
         //タイトル活動ループ
-        _dwFrame_Begin++;
+        _frame_Begin++;
 
-        if (_dwFrame_Begin == 120) {
+        if (_frame_Begin == 120) {
             setProgress(GAMEDEMO_PROG_TITLE); //タイトルへ
         }
     }
@@ -71,17 +71,17 @@ void GameDemoScene::processBehavior() {
         _pBgmPerformer->stop(0);
         _pBgmPerformer->play(0, true);
 
-        _dwFrame_Title = 0;
+        _frame_Title = 0;
     } else if (getProgress() == GAMEDEMO_PROG_TITLE) {
         //タイトル活動ループ
-        _dwFrame_Title++;
+        _frame_Title++;
 
         //ここに処理
         if (VB->isPushedDown(VB_UI_EXECUTE)) {
             setProgress(GAMEDEMO_PROG_DECIDE);
         }
 
-        if (_dwFrame_Title == 600) {
+        if (_frame_Title == 600) {
             setProgress(GAMEDEMO_PROG_DEMOPLAY); //デモへ
         }
     }
@@ -91,16 +91,16 @@ void GameDemoScene::processBehavior() {
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE DEMOPLAY");
         _pStringBoard02->update(100, 150, "GAME OVER");
        setProgress(GAMEDEMO_PROG_DEMOPLAY);
-        _dwFrame_Demoplay = 0;
+        _frame_Demoplay = 0;
 
         _pBgmPerformer->fadeout_stop(0, 180);//タイトルBGMが鳴っていれば消す
 
     } else if (getProgress() == GAMEDEMO_PROG_DEMOPLAY) {
         //デモプレイ活動ループ
-        _dwFrame_Demoplay++;
+        _frame_Demoplay++;
 
         //ここに処理
-        if (_dwFrame_Demoplay == 300) {
+        if (_frame_Demoplay == 300) {
             setProgress(GAMEDEMO_PROG_RANKING); //ランキングへ
         }
     }
@@ -111,15 +111,15 @@ void GameDemoScene::processBehavior() {
         //ランキング表示
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE RANKING");
         _pStringBoard02->update(100, 150, "WE ARE THE WORLD. DESTORY ALL THEM. POWER UP");
-        _dwFrame_Ranking = 0;
+        _frame_Ranking = 0;
     } else if (getProgress() == GAMEDEMO_PROG_RANKING) {
         //ランキング活動ループ
-        _dwFrame_Ranking++;
+        _frame_Ranking++;
 
         //ここに処理
 
 
-        if (_dwFrame_Ranking == 300) {
+        if (_frame_Ranking == 300) {
             setProgress(GAMEDEMO_PROG_TITLE); //タイトルへ
         }
     }
@@ -137,12 +137,12 @@ void GameDemoScene::processBehavior() {
     if (onChangeProgressAt(GAMEDEMO_PROG_DECIDE)) {
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE DECIDE");
         _pStringBoard02->update(100, 150, "OK HJIMARIMASU!");
-        _dwFrame_Decide = 0;
+        _frame_Decide = 0;
     } else if (getProgress() == GAMEDEMO_PROG_DECIDE) {
         //活動ループ
-        _dwFrame_Decide++;
+        _frame_Decide++;
 
-        if (_dwFrame_Decide == 120) {
+        if (_frame_Decide == 120) {
             _pBgmPerformer->fadeout_stop(0, 180);
             setProgress(GAMEDEMO_PROG_END); //お終い
         }

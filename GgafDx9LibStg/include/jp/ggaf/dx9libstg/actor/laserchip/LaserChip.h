@@ -23,7 +23,7 @@ private:
     D3DXHANDLE _h_cnt_vertec;
 
     /** onAcive() でリセットされる振る舞い時フレーム数 */
-    DWORD _frame_of_behaving_from_onActive;
+    UINT32 _frame_of_behaving_from_onActive;
 
     /** 自身を管理してるアクター発送者 */
     LaserChipDispatcher* _pDispatcher;

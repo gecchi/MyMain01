@@ -253,8 +253,7 @@
 
 //#define MAX_GROUPACTOR_PER_SCENE 16
 
-typedef DWORD actorkind;
-typedef UINT32 frame;
+typedef UINT32 actorkind;
 
 #define Obj_GgafScene             (0x1)              //&B 00000000 00000000 00000000 00000001
 #define Obj_GgafMainScene         (0x2)              //&B 00000000 00000000 00000000 00000010

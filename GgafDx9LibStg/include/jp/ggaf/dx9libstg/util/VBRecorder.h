@@ -17,8 +17,8 @@ public:
         VBStateNote* _pNext;
 
         vbsta _state;
-        DWORD _frame_of_keeping;
-        VBStateNote(vbsta state, DWORD frame_of_keeping) : _pNext(NULL),_state(state),_frame_of_keeping(frame_of_keeping) {
+        UINT32 _frame_of_keeping;
+        VBStateNote(vbsta state, UINT32 frame_of_keeping) : _pNext(NULL),_state(state),_frame_of_keeping(frame_of_keeping) {
         }
     };
 
@@ -26,7 +26,7 @@ public:
     VirtualButton* _vb;
     VBStateNote* _pFirstVBNote;
     VBStateNote* _p;
-    DWORD _nframe;
+    UINT32 _nframe;
 
 
     VBRecorder(VirtualButton* prm_vb);

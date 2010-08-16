@@ -21,7 +21,7 @@ public:
     /** [r]前回（前フレーム）取得されたレーザーチップ(読み取り専用) */
     LaserChip* _pChip_prev_employ;
     /** [r]前回（前フレーム）取得されたレーザーチップの取得された時点の活動フレーム(読み取り専用) */
-    DWORD _frame_of_behaving_prev_employ;
+    UINT32 _frame_of_behaving_prev_employ;
     /** [r]レーザーチップ連続取得カウント(読み取り専用) */
     int _num_continual_employ_count;
     /** [r]レーザーチップ連続未取得カウント(読み取り専用) */
@@ -43,7 +43,7 @@ public:
      * @param prm_pEffectActor_Irradiate シーン所属済み発射中エフェクト(不要時はNULL)。解放は呼び元で。
      */
     void configLaserChipDispatcher(int prm_num_continual_employ_max,
-                                   DWORD prm_num_chip_interval,
+                                   UINT32 prm_num_chip_interval,
                                    GgafDx9Core::GgafDx9DrawableActor* prm_pEffectActor_Irradiate = NULL);
 
     virtual void processBehavior() override {

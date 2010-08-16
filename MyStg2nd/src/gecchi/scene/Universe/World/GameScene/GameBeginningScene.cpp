@@ -35,12 +35,12 @@ void GameBeginningScene::processBehavior() {
     if (onChangeProgressAt(GAMEBEGINNING_PROG_BEGIN)) {
         _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE BEGIN");
         _pStringBoard02->update(200, 250, "YOKUKITANA!");
-        _dwFrame_Begin = 0;
+        _frame_Begin = 0;
     } else if (getProgress() == GAMEBEGINNING_PROG_BEGIN) {
         //活動ループ
-        _dwFrame_Begin++;
+        _frame_Begin++;
 
-        if (_dwFrame_Begin == 120) {
+        if (_frame_Begin == 120) {
             setProgress(GAMEBEGINNING_PROG_OPE); //自機選択
         }
     }
@@ -49,10 +49,10 @@ void GameBeginningScene::processBehavior() {
     if (onChangeProgressAt(GAMEBEGINNING_PROG_OPE)) {
         _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE OPE");
         _pStringBoard02->update(200, 250, "SELECT YOUR EQ!");
-        _dwFrame_Ope = 0;
+        _frame_Ope = 0;
     } else if (getProgress() == GAMEBEGINNING_PROG_OPE) {
         //活動ループ
-        _dwFrame_Ope++;
+        _frame_Ope++;
 
         if (VB->isPushedDown(VB_UI_EXECUTE)) {
             _selected_stage = 1;
@@ -64,12 +64,12 @@ void GameBeginningScene::processBehavior() {
     if (onChangeProgressAt(GAMEBEGINNING_PROG_DECIDE)) {
         _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE DECIDE");
         _pStringBoard02->update(200, 250, "OK. ARE YOU READY!");
-        _dwFrame_Decide = 0;
+        _frame_Decide = 0;
     } else if (getProgress() == GAMEBEGINNING_PROG_DECIDE) {
         //活動ループ
-        _dwFrame_Decide++;
+        _frame_Decide++;
 
-        if (_dwFrame_Decide == 60*5) { //5秒（ここでステージを作ってるはず
+        if (_frame_Decide == 60*5) { //5秒（ここでステージを作ってるはず
             setProgress(GAMEBEGINNING_PROG_END); //お終い
         }
     }

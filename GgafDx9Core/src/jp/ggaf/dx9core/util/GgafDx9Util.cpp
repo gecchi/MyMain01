@@ -208,9 +208,9 @@ void GgafDx9Util::init() {
 //
 //            //単位ベクトルからRxRyを求める
             _srv.getFaceAngClosely(
-                    (DWORD)(nvx*1000000),
-                    (DWORD)(nvy*1000000),
-                    (DWORD)(nvz*1000000),
+                    (UINT32)(nvx*1000000),
+                    (UINT32)(nvy*1000000),
+                    (UINT32)(nvz*1000000),
                     rz,
                     ry_rev,
                     9999
@@ -244,9 +244,9 @@ void GgafDx9Util::init() {
 //
 //            //単位ベクトルからRxRyを求める
             _srv.getFaceAngClosely(
-                    (DWORD)(nvx*1000000),
-                    (DWORD)(nvy*1000000),
-                    (DWORD)(nvz*1000000),
+                    (UINT32)(nvx*1000000),
+                    (UINT32)(nvy*1000000),
+                    (UINT32)(nvz*1000000),
                     rz,
                     ry_rev,
                     9999
@@ -601,7 +601,7 @@ void GgafDx9Util::getNormalizeVectorZY(angle prm_angFaceZ,
     } else {
         _TRACE_("getNormalizeVectorZY: なんかおかしいですぜ prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
     }
-    DWORD vx, vy, vz;
+    UINT32 vx, vy, vz;
     //  _TRACE_("prm_angFaceZ="<<prm_angFaceZ<<"/prm_angFaceY="<<prm_angFaceY<<" rY="<<rY<<"/rZ="<<rZ<<")");
     //  _TRACE_("("<<Xsign<<","<<Ysign<<","<<Zsign<<")");
     _srv.getVectorClosely(rY_rev, rZ, vx, vy, vz);
@@ -1209,7 +1209,7 @@ void GgafDx9Util::setWorldMatrix_ScMv(GgafDx9GeometricActor* prm_pActor, D3DXMAT
     out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
-//DWORD GgafDx9Util::max3(DWORD a, DWORD b, DWORD c) {
+//UINT32 GgafDx9Util::max3(UINT32 a, UINT32 b, UINT32 c) {
 //	if (a > b) {
 //		if (a > c) {
 //			return a;

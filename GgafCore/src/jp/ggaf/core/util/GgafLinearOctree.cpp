@@ -101,24 +101,24 @@ int GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY
     //まず、BOXの所属空間 Level と、その空間Levelのモートン順序通し空間番号を求める
 
     //BOXの左上手前のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
-    DWORD minnum_in_toplevel = getMortonOrderNumFromXYZindex(
-                                  (DWORD)((tX1 - _root_X1) / _top_level_dX),
-                                  (DWORD)((tY1 - _root_Y1) / _top_level_dY),
-                                  (DWORD)((tZ1 - _root_Z1) / _top_level_dZ)
+    UINT32 minnum_in_toplevel = getMortonOrderNumFromXYZindex(
+                                  (UINT32)((tX1 - _root_X1) / _top_level_dX),
+                                  (UINT32)((tY1 - _root_Y1) / _top_level_dY),
+                                  (UINT32)((tZ1 - _root_Z1) / _top_level_dZ)
                                 );
 
     //BOXの右下奥のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
-    DWORD maxnum_in_toplevel = getMortonOrderNumFromXYZindex(
-                                  (DWORD)((tX2 - _root_X1) / _top_level_dX),
-                                  (DWORD)((tY2 - _root_Y1) / _top_level_dY),
-                                  (DWORD)((tZ2 - _root_Z1) / _top_level_dZ)
+    UINT32 maxnum_in_toplevel = getMortonOrderNumFromXYZindex(
+                                  (UINT32)((tX2 - _root_X1) / _top_level_dX),
+                                  (UINT32)((tY2 - _root_Y1) / _top_level_dY),
+                                  (UINT32)((tZ2 - _root_Z1) / _top_level_dZ)
                                 );                 //↑_root_X2,_root_Y2,_root_Z2 と間違えていません。
 
 
     //引数のBOXは、どのレベルの空間に所属しているのか取得
-    DWORD differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
-    DWORD shift_num = 0;
-    for(DWORD i = 0; i < (DWORD)_top_space_level; i++) {
+    UINT32 differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
+    UINT32 shift_num = 0;
+    for(UINT32 i = 0; i < (UINT32)_top_space_level; i++) {
         if (((differ_bit_pos>>(i*3)) & 0x7) != 0 ) {
             shift_num = i+1;
         }
@@ -172,7 +172,7 @@ int GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY
     //所属空間Level = 8 7 6 5 4 3 2 1 0
 
     //所属空間のモートン順序の通し空間番号を求める
-    DWORD morton_order_space_num = minnum_in_toplevel>>(shift_num*3);
+    UINT32 morton_order_space_num = minnum_in_toplevel>>(shift_num*3);
     //不揃いの下位のビットを3ビット単位で除去し、所属のモートン順序番号を求める
     //
     // minnum_in_toplevel>>(shift_num*3); について、

@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
 class LinearOctreeActorElem : public GgafCore::GgafLinearOctreeElem {
 public:
     GgafCore::GgafActor* _pActor;
-    LinearOctreeActorElem(GgafCore::GgafObject* prm_pObject, DWORD prm_kindbit) : GgafCore::GgafLinearOctreeElem(prm_pObject,prm_kindbit) {
+    LinearOctreeActorElem(GgafCore::GgafObject* prm_pObject, UINT32 prm_kindbit) : GgafCore::GgafLinearOctreeElem(prm_pObject,prm_kindbit) {
         _pActor = (GgafCore::GgafActor*)prm_pObject;
     }
 };

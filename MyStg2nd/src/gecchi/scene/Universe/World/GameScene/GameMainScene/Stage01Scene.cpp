@@ -56,12 +56,12 @@ void Stage01Scene::processBehavior() {
         _pBgmPerformer->fadein(0, 420);
         //playBgm(0, DSBVOLUME_MIN, true); //音量無し
         //fadeinBgm(0, 420);               //フェードイン
-        _dwFrame_Begin = 0;
+        _frame_Begin = 0;
     } else if (getProgress() == STAGE01_PROG_BEGIN) {
         //活動ループ
-        _dwFrame_Begin++;
+        _frame_Begin++;
 
-        if (_dwFrame_Begin == 180) { //ステージ１開始！
+        if (_frame_Begin == 180) { //ステージ１開始！
             _pMessage->activateImmediately();
             _pMessage->update(300, 300, "SCENE 01 START!");
             _pMessage->inactivateAfter(120);
@@ -72,10 +72,10 @@ void Stage01Scene::processBehavior() {
     }
 
     if (onChangeProgressAt(STAGE01_PROG_PLAY)) {
-        _dwFrame_Play = 0;
+        _frame_Play = 0;
     } else if (getProgress() == STAGE01_PROG_PLAY) {
         //活動ループ
-        _dwFrame_Play++;
+        _frame_Play++;
 
     }
 

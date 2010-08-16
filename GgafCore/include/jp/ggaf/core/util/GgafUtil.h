@@ -11,9 +11,9 @@ namespace GgafCore {
  */
 class GgafUtil {
 public:
-    static DWORD _timex;
+    static UINT32 _timex;
 
-    static DWORD getSystemTime();
+    static UINT32 getSystemTime();
 
     static char* getFileText(std::string prm_filename);
 

@@ -31,7 +31,7 @@ public:
     int _incZ;
 
     int _iMovePatternNo;
-    DWORD _dwFrame_Active;
+    UINT32 _frame_Active;
     Spline3DConnection* _pSplineCon;
 
     /**

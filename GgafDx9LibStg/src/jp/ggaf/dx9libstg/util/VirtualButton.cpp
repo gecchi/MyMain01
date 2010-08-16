@@ -237,9 +237,9 @@ void VirtualButton::init() {
 }
 
 
-VirtualButton::VBMap* VirtualButton::getPastVBMap(DWORD prm_dwFrameAgo) {
+VirtualButton::VBMap* VirtualButton::getPastVBMap(UINT32 prm_dwFrameAgo) {
     VBMap* pVBMTemp = _pVBMap_Active;
-    for (DWORD i = 0; i < prm_dwFrameAgo; i++) {
+    for (UINT32 i = 0; i < prm_dwFrameAgo; i++) {
         pVBMTemp = pVBMTemp->_prev;
     }
     return pVBMTemp;
@@ -249,7 +249,7 @@ vbsta VirtualButton::isBeingPressed(vbsta prm_VB) {
     return _pVBMap_Active->_state & prm_VB;
 }
 
-vbsta VirtualButton::wasBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo) {
+vbsta VirtualButton::wasBeingPressed(vbsta prm_VB, UINT32 prm_dwFrameAgo) {
     VBMap* pVBMTemp = getPastVBMap(prm_dwFrameAgo);
     return pVBMTemp->_state & prm_VB;
 }
@@ -262,7 +262,7 @@ vbsta VirtualButton::isNotBeingPressed(vbsta prm_VB) {
     }
 }
 
-vbsta VirtualButton::wasNotBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo) {
+vbsta VirtualButton::wasNotBeingPressed(vbsta prm_VB, UINT32 prm_dwFrameAgo) {
     if (wasBeingPressed(prm_VB, prm_dwFrameAgo)) {
         return false;
     } else {
@@ -277,7 +277,7 @@ vbsta VirtualButton::isPushedDown(vbsta prm_VB) {
         return false;
     }
 }
-vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push, DWORD prm_frame_delay) {
+vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, UINT32 prm_frame_push, UINT32 prm_frame_delay) {
     //-------oooo-----o
     //       <--><--->
     //         |    `-- prm_frame_delay
@@ -296,7 +296,7 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push, DWOR
         return false;
     }
     bool ok = false;
-    for (DWORD i = 0; i < prm_frame_delay; i++) {
+    for (UINT32 i = 0; i < prm_frame_delay; i++) {
         pVBMap = pVBMap->_prev;
         if (pVBMap->_state & prm_VB) {
             //OK
@@ -310,7 +310,7 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push, DWOR
         return false;
     }
     ok = false;
-    for (DWORD i = 0; i < prm_frame_push; i++) {
+    for (UINT32 i = 0; i < prm_frame_push; i++) {
         pVBMap = pVBMap->_prev;
         if (pVBMap->_state & prm_VB) {
 
@@ -386,7 +386,7 @@ vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum) {
     return false;
 }
 
-vbsta VirtualButton::wasPushedDown(vbsta prm_VB, DWORD prm_dwFrameAgo) {
+vbsta VirtualButton::wasPushedDown(vbsta prm_VB, UINT32 prm_dwFrameAgo) {
     if (wasBeingPressed(prm_VB, prm_dwFrameAgo) && wasNotBeingPressed(prm_VB, prm_dwFrameAgo + 1)) {
         return true;
     } else {
@@ -402,7 +402,7 @@ vbsta VirtualButton::isReleasedUp(vbsta prm_VB) {
     }
 }
 
-vbsta VirtualButton::isPushedUp(vbsta prm_VB, DWORD prm_frame_push) {
+vbsta VirtualButton::isPushedUp(vbsta prm_VB, UINT32 prm_frame_push) {
     //-------oooo-
     //       <-->
     //         |
@@ -425,7 +425,7 @@ vbsta VirtualButton::isPushedUp(vbsta prm_VB, DWORD prm_frame_push) {
     }
     pVBMap = pVBMap->_prev;
     bool ok = false;
-    for (DWORD i = 0; i < prm_frame_push; i++) {
+    for (UINT32 i = 0; i < prm_frame_push; i++) {
         pVBMap = pVBMap->_prev;
         if (pVBMap->_state & prm_VB) {
 
@@ -444,7 +444,7 @@ vbsta VirtualButton::isPushedUp(vbsta prm_VB, DWORD prm_frame_push) {
 }
 
 
-vbsta VirtualButton::wasReleasedUp(vbsta prm_VB, DWORD prm_dwFrameAgo) {
+vbsta VirtualButton::wasReleasedUp(vbsta prm_VB, UINT32 prm_dwFrameAgo) {
     if (wasNotBeingPressed(prm_VB, prm_dwFrameAgo) && wasBeingPressed(prm_VB, prm_dwFrameAgo + 1)) {
         return true;
     } else {
@@ -473,7 +473,7 @@ vbsta VirtualButton::getPushedDownStick() {
 }
 
 
-vbsta VirtualButton::isDoublePushedDownStick(DWORD prm_frame_push, DWORD prm_frame_delay) {
+vbsta VirtualButton::isDoublePushedDownStick(UINT32 prm_frame_push, UINT32 prm_frame_delay) {
     vbsta STC = getPushedDownStick();
     if (STC == 0 || STC == VB_NEUTRAL_STC) {
         return 0;
@@ -487,7 +487,7 @@ vbsta VirtualButton::isDoublePushedDownStick(DWORD prm_frame_push, DWORD prm_fra
     pVBMap = _pVBMap_Active;
     pVBMap = pVBMap->_prev; //è„ÇÃgetPushedDownStickÇ≈í≤ç∏çœÇ›Ç»ÇÃÇ≈îÚÇŒÇ∑ÅB
     bool ok = false;
-    for (DWORD i = 0; i < prm_frame_delay; i++) {
+    for (UINT32 i = 0; i < prm_frame_delay; i++) {
         pVBMap = pVBMap->_prev;
         if (pVBMap->_state & STC) {
             //OK
@@ -501,7 +501,7 @@ vbsta VirtualButton::isDoublePushedDownStick(DWORD prm_frame_push, DWORD prm_fra
         return 0;
     }
     ok = false;
-    for (DWORD i = 0; i < prm_frame_push; i++) {
+    for (UINT32 i = 0; i < prm_frame_push; i++) {
         pVBMap = pVBMap->_prev;
         if (pVBMap->_state & STC) {
 
@@ -519,7 +519,7 @@ vbsta VirtualButton::isDoublePushedDownStick(DWORD prm_frame_push, DWORD prm_fra
 }
 
 
-bool VirtualButton::isRoundPushDown(vbsta prm_VB, DWORD prm_frame_delay) {
+bool VirtualButton::isRoundPushDown(vbsta prm_VB, UINT32 prm_frame_delay) {
     if (isPushedDown(prm_VB)) {
         VBMap* pVBMap;
         pVBMap = _pVBMap_Active;
@@ -527,7 +527,7 @@ bool VirtualButton::isRoundPushDown(vbsta prm_VB, DWORD prm_frame_delay) {
         bool down = false;
         bool left = false;
         bool right = false;
-        for (DWORD i = 0; i < prm_frame_delay; i++) {
+        for (UINT32 i = 0; i < prm_frame_delay; i++) {
             pVBMap = pVBMap->_prev;
             if (pVBMap->_state & VB_UP) {
                 up = true;

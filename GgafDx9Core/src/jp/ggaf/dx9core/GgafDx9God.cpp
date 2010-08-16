@@ -115,7 +115,7 @@ HRESULT GgafDx9God::init() {
     }
 
     //アンチアイリアスにできるかチェック
-    DWORD qualityLevels = D3DMULTISAMPLE_NONE;
+    UINT32 qualityLevels = D3DMULTISAMPLE_NONE;
     D3DMULTISAMPLE_TYPE multiSampleType = D3DMULTISAMPLE_NONE;
 
     //	if( SUCCEEDED(GgafDx9God::_pID3D9->CheckDeviceMultiSampleType(
@@ -242,8 +242,8 @@ HRESULT GgafDx9God::init() {
                                        D3DDEVTYPE_HAL, // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
                                        &caps); // [out] デバイスの能力が格納される
 
-    DWORD vs_v = caps.VertexShaderVersion;
-    DWORD ps_v = caps.PixelShaderVersion;
+    UINT32 vs_v = caps.VertexShaderVersion;
+    UINT32 ps_v = caps.PixelShaderVersion;
     _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(vs_v));
     _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(ps_v));
     if (vs_v < D3DVS_VERSION(2, 0) || ps_v < D3DPS_VERSION(2, 0)) {

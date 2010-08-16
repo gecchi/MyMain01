@@ -238,7 +238,7 @@ public:
      * @return そのLevell空間の(x_index, y_index, z_index)で示される空間に対応する
      *         八分木モートン順序の通し空間番号(最大Level8で、0～23068671)
      */
-    inline DWORD getMortonOrderNumFromXYZindex( DWORD x_space_index, DWORD y_space_index, DWORD z_space_index ) {
+    inline UINT32 getMortonOrderNumFromXYZindex( UINT32 x_space_index, UINT32 y_space_index, UINT32 z_space_index ) {
        return separateEveryThirdBit(x_space_index)    |
               separateEveryThirdBit(y_space_index)<<1 |
               separateEveryThirdBit(z_space_index)<<2;
@@ -274,7 +274,7 @@ public:
      * @param n 0～255までの数値
      * @return 3bitごとに間隔が空けられた値
      */
-    inline DWORD separateEveryThirdBit(DWORD n) {
+    inline UINT32 separateEveryThirdBit(UINT32 n) {
        n = ( n | n<<8 ) & 0x0000f00f;
        n = ( n | n<<4 ) & 0x000c30c3;
        n = ( n | n<<2 ) & 0x00249249;

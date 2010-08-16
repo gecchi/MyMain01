@@ -16,7 +16,7 @@ namespace GgafCore {
 class GgafProperties {
 
 public:
-    static DWORD* MAX_SKIP_FRAME;
+    static UINT32* MAX_SKIP_FRAME;
 
     static void load(std::string prm_properties_filename);
     static void clean();
@@ -30,7 +30,7 @@ public:
     static bool* getBool(std::string prm_key);
     static float* getFloat(std::string prm_key);
     static int* getInt(std::string prm_key);
-    static DWORD* getDWORD(std::string prm_key);
+    static UINT32* getUInt(std::string prm_key);
     static double* getDouble(std::string prm_key);
 };
 

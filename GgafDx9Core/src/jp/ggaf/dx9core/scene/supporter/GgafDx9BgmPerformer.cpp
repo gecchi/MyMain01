@@ -30,7 +30,7 @@ void GgafDx9BgmPerformer::useBgm(int prm_bgm_num) {
         _pa_inc_volume[i] = 0;
     }
 }
-void GgafDx9BgmPerformer::fade(int prm_id, DWORD prm_frame, int prm_target_volume) {
+void GgafDx9BgmPerformer::fade(int prm_id, UINT32 prm_frame, int prm_target_volume) {
     _pa_is_fade[prm_id] = true;
     _pa_target_volume[prm_id] = (double)prm_target_volume;
     _pa_inc_volume[prm_id] = (prm_target_volume - _pa_now_volume[prm_id]) / (double)prm_frame;

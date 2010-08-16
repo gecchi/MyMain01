@@ -13,7 +13,7 @@ class DefaultScene : public GgafDx9Core::GgafDx9Scene {
 public:
 
     /** シーンイベント用のフレーム値の配列 */
-    DWORD* _paFrame_NextEvent;
+    UINT32* _paFrame_NextEvent;
     /** シーンのイベント数（_paFrame_NextEventの要素数） */
     int _iCnt_Event;
 

@@ -24,7 +24,7 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
 }
 
 
-void LinearOctreeForActor::executeHitChk(DWORD prm_index) {
+void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
     TRACE5("InSpaceNo="<<prm_index);
     LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paSpace[prm_index]._pElemFirst));
     if (pElem != NULL) {
@@ -53,7 +53,7 @@ void LinearOctreeForActor::executeHitChk(DWORD prm_index) {
         executeHitChk_RoundRobin(&_stackParentSpaceActor_GroupA , &_stackCurrentSpaceActor_GroupB);
     }
 
-    DWORD next_level_index = prm_index*8 + 1; //_papSpace[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
+    UINT32 next_level_index = prm_index*8 + 1; //_papSpace[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
     TRACE5("next_level_index="<<next_level_index);
     if ( next_level_index > _num_space-1) {
         //要素数オーバー、つまりリーフ
@@ -86,7 +86,7 @@ void LinearOctreeForActor::executeHitChk(DWORD prm_index) {
         }
 
         //子空間へもぐるが良い
-        for(DWORD i = next_level_index; i < next_level_index+8; i++) {
+        for(UINT32 i = next_level_index; i < next_level_index+8; i++) {
             if (((_paSpace[i]._kindinfobit & _kind_groupA) > 0) || ((_paSpace[i]._kindinfobit & _kind_groupB) > 0)) {
                 executeHitChk(i);
             }
@@ -114,9 +114,9 @@ void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA,
     }
     GgafActor* pActor_A;
     GgafActor* pActor_B;
-    for (DWORD i = 0; i < prm_pStackA->_p; i++) {
+    for (UINT32 i = 0; i < prm_pStackA->_p; i++) {
         pActor_A = prm_pStackA->_apActor[i];
-        for (DWORD j = 0; j < prm_pStackB->_p; j++) {
+        for (UINT32 j = 0; j < prm_pStackB->_p; j++) {
             pActor_B = prm_pStackB->_apActor[j];
 #ifdef MY_DEBUG
         if (GgafDx9Input::isBeingPressedKey(DIK_I)) {

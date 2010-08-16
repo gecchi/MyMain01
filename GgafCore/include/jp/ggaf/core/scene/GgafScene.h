@@ -107,7 +107,7 @@ public:
     /** [r]次フレーム設定する進捗ID具合(1～99) */
     int _progress_nextframe;
     /** [r]進捗IDイベント時フレームストック */
-    DWORD _aFrame_ProgressChange[100];
+    UINT32 _aFrame_ProgressChange[100];
 
     /**
      * 現在の進捗ID取得 .
@@ -122,7 +122,7 @@ public:
      * @param prm_progress 進捗ID(1～99)
      * @return 引数の直近の進捗IDが起こったときのフレーム
      */
-    virtual DWORD getFrameAtProgress(int prm_progress) {
+    virtual UINT32 getFrameAtProgress(int prm_progress) {
         return _aFrame_ProgressChange[prm_progress];
     }
 
@@ -198,12 +198,12 @@ public:
     virtual void finally();
     virtual void happen(int prm_no);
     virtual void activateTree();
-    virtual void activateAfter(DWORD prm_frame_offset);
+    virtual void activateAfter(UINT32 prm_frame_offset);
     virtual void activate();
     virtual void activateTreeImmediately();
     virtual void activateImmediately();
     virtual void inactivateTree();
-    virtual void inactivateAfter(DWORD prm_frame_offset);
+    virtual void inactivateAfter(UINT32 prm_frame_offset);
     virtual void inactivate();
     virtual void inactivateTreeImmediately();
     virtual void inactivateImmediately();
@@ -222,7 +222,7 @@ public:
      * 自ツリーシーンをnフレーム後にゴミ箱へ移動 .
      * @param prm_frame_offset ゴミ箱へ移動タイミング残りフレーム数(デフォルト=0)
      */
-    virtual void end(DWORD prm_frame_offset = 0);
+    virtual void end(UINT32 prm_frame_offset = 0);
 
     /**
      * 自ツリーを末端から開放する。 .

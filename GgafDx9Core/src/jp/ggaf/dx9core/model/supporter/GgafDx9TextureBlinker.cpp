@@ -107,7 +107,7 @@ void GgafDx9TextureBlinker::behave() {
 //            _TRACE_("_bottom_fPowerBlink["<<<<"] - _top_fPowerBlink["<<<<"]" << (_bottom_fPowerBlink - _top_fPowerBlink));
 //            _TRACE_("_fPowerBlink["<<<<"] _velo_fPowerBlink["<<<<"]="<<_fPowerBlink<<" "<<_velo_fPowerBlink);
 
-void GgafDx9TextureBlinker::intoTargetBlinkLinerUntil(float prm_target_fPowerBlink, DWORD prm_spend_frame) {
+void GgafDx9TextureBlinker::intoTargetBlinkLinerUntil(float prm_target_fPowerBlink, UINT32 prm_spend_frame) {
     //_TRACE_("intoTargetBlinkLinerUntil prm_="<<prm_<<"/prm_target_fPowerBlink="<<prm_target_fPowerBlink<<"/prm_spend_frame="<<prm_spend_frame);
     _method = TARGET_BLINK_LINER;
     _target_fPowerBlink = prm_target_fPowerBlink;
@@ -132,7 +132,7 @@ void GgafDx9TextureBlinker::intoTargetBlinkLinerStep(float prm_target_fPowerBlin
     _velo_fPowerBlink = sgn(prm_target_fPowerBlink - _fPowerBlink)*prm_velo_fPowerBlink;
 }
 
-void GgafDx9TextureBlinker::loopLiner(DWORD prm_beat_spend_frame, float prm_beat_num) {
+void GgafDx9TextureBlinker::loopLiner(UINT32 prm_beat_spend_frame, float prm_beat_num) {
     _method = BEAT_BLINK_LINER;
     _one_way_cnt = 0;
     _stop_one_way_num = (int)(prm_beat_num*2.0f);
@@ -144,7 +144,7 @@ void GgafDx9TextureBlinker::loopLiner(DWORD prm_beat_spend_frame, float prm_beat
 }
 
 
-void GgafDx9TextureBlinker::beat(DWORD prm_beat_spend_frame, DWORD prm_attack_frame, DWORD prm_rest_frame, float prm_beat_num) {
+void GgafDx9TextureBlinker::beat(UINT32 prm_beat_spend_frame, UINT32 prm_attack_frame, UINT32 prm_rest_frame, float prm_beat_num) {
     _method = BEAT_BLINK_TRIANGLEWAVE;
     _one_way_cnt = 0;
     _stop_one_way_num = (int)(prm_beat_num*2.0f);

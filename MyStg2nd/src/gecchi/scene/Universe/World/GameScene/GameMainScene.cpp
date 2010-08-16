@@ -136,12 +136,12 @@ void GameMainScene::processBehavior() {
         _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
         _pFont1602->update(300, 350, "DESTOROY ALL THEM!!");
         addSubLast(obtainSceneFromFactory(11)); //ステージシーン追加
-        _dwFrame_Begin = 0;
+        _frame_Begin = 0;
     } else if (getProgress() == GAMEMAIN_PROG_BEGIN) {
         //活動ループ
-        _dwFrame_Begin++;
+        _frame_Begin++;
 
-        if (_dwFrame_Begin == 180) {
+        if (_frame_Begin == 180) {
             setProgress(GAMEMAIN_PROG_PLAY); //
         }
     }

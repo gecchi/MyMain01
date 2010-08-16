@@ -20,7 +20,7 @@ LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : GgafActorDispat
 }
 
 void LaserChipDispatcher::configLaserChipDispatcher(int prm_num_continual_employ_max,
-                               DWORD prm_num_chip_interval,
+                               UINT32 prm_num_chip_interval,
                                GgafDx9Core::GgafDx9DrawableActor* prm_pEffectActor_Irradiate) {
     _num_continual_employ_max = prm_num_continual_employ_max;
     _num_chip_interval = prm_num_chip_interval;

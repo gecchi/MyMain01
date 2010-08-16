@@ -55,13 +55,13 @@ void EnemyCeres::onActive() {
     setHitAble(true);
     MyStgUtil::resetEnemyCeresStatus(_pStatus);
     _iMovePatternNo = 0;
-    _dwFrame_Active = 0;
+    _frame_Active = 0;
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->setFaceAngVelo(AXIS_X, 6000);
     _pMover->setFaceAngVelo(AXIS_X, 6000);
     _pMover->setMvVelo(8000);
     _pProgram_CeresMove->begin(0); //スプライン移動を開始
-    _dwFrame_Active = 0;
+    _frame_Active = 0;
 }
 
 void EnemyCeres::processBehavior() {
@@ -97,7 +97,7 @@ void EnemyCeres::processBehavior() {
     _pProgram_CeresMove->behave(); //スプライン移動を進める
     _pMover->behave(); //次の座標へ移動
     //_pSeTransmitter->behave();
-    _dwFrame_Active++;
+    _frame_Active++;
 }
 
 void EnemyCeres::processJudgement() {

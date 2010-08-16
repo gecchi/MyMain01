@@ -69,7 +69,7 @@ public:
     /** [r]所属ディスパッチャー(NULLは未所属) */
     GgafActorDispatcher* _pDependenceDispcher;
     /** [r]アクター開始システム時刻 */
-    DWORD _start_system_time;
+    UINT32 _start_system_time;
     /** [r]アクター衝突判定有無フラグ */
     bool _can_hit_flg;
     /** [r]自由ステータス */
@@ -183,7 +183,7 @@ public:
      * アクターをシーンから離脱させたい場合はこのメソッドを実行すること。
      * @param prm_frame_offset 猶予フレーム(1～)
      */
-    virtual void sayonara(DWORD prm_frame_offset = 1);
+    virtual void sayonara(UINT32 prm_frame_offset = 1);
 
     /**
      * デバッグ用：ツリー構造を表示<BR>

@@ -22,7 +22,7 @@ public:
     /** 対象オブジェクト */
     GgafObject* _pObject;
     /** 対象オブジェクト種別 */
-    DWORD _kindbit;
+    UINT32 _kindbit;
     /** 登録リスト用リンク */
     GgafLinearOctreeElem* _pRegLinkNext;
 
@@ -32,7 +32,7 @@ public:
      * @param prm_kindbit その対象オブジェクの種別、種類分け不要な場合は、任意の数値でよい。
      * @return
      */
-    GgafLinearOctreeElem(GgafObject* prm_pObject, DWORD prm_kindbit);
+    GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_kindbit);
 
     /**
      * 自身が自ら離脱

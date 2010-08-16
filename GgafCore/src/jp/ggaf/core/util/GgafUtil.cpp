@@ -3,9 +3,9 @@ using namespace std;
 
 using namespace GgafCore;
 
-DWORD GgafUtil::_timex = 0;
+UINT32 GgafUtil::_timex = 0;
 
-DWORD GgafUtil::getSystemTime() {
+UINT32 GgafUtil::getSystemTime() {
 
     return timeGetTime();
     //return _timex++;

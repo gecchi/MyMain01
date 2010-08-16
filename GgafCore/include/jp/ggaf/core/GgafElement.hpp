@@ -34,13 +34,13 @@ public:
     bool _was_initialize_flg;
 
     /** [r]ノードが誕生(addSubされた）時からのフレーム数総計(但し、_was_paused_flg==true 時は加算され無い) */
-    DWORD _frame_of_life;
+    UINT32 _frame_of_life;
     /** [r]ノードが誕生(addSubされた）時から、振舞ったフレーム数総計 */
-    DWORD _frame_of_behaving;
+    UINT32 _frame_of_behaving;
     /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計 */
-    DWORD _frame_of_behaving_since_onActive;
+    UINT32 _frame_of_behaving_since_onActive;
     /** [r]相対フレーム計算用 */
-    DWORD _frameEnd;
+    UINT32 _frameEnd;
     /** [r]ノード活動フラグ */
     bool _is_active_flg;
     /** [r]一時停止フラグ */
@@ -58,18 +58,18 @@ public:
     /** [r]終了フラグ */
     bool _will_end_after_flg;
     /** [r]終了する予定の _frame_of_life */
-    DWORD _frame_of_life_when_end;
+    UINT32 _frame_of_life_when_end;
 
 
     /** [r]あとで活動予約フラグ */
     bool _will_activate_after_flg;
     /** [r]活動開始する予定の _frame_of_life */
-    DWORD _frame_of_life_when_activation;
+    UINT32 _frame_of_life_when_activation;
 
     /** [r]あとで非活動予約フラグ */
     bool _will_inactivate_after_flg;
     /** [r]活動終了する予定の _frame_of_life */
-    DWORD _frame_of_life_when_inactivation;
+    UINT32 _frame_of_life_when_inactivation;
 
     /** [r]ノードが活動に切り替わった(_is_active_flg が false → true)瞬間に１フレームだけセットされるフラグ */
     bool _on_change_to_active_flg;
@@ -336,15 +336,15 @@ public:
     /**
      * 活動状態にする(単体・コールバック有り).
      * Nフレーム後に activate() が実行されることを予約する。<BR>
-     * 自身と配下ノード全てについて再帰的に activateAfter(DWORD) が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に activateAfter(UINT32) が実行される。<BR>
      * activateAfter(1) は、activate() と同じ意味になります。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
      * @param prm_frame_offset 遅延フレーム数(1～)
      */
-    virtual void activateAfter(DWORD prm_frame_offset);
+    virtual void activateAfter(UINT32 prm_frame_offset);
 
 
-    virtual void activateTreeAfter(DWORD prm_frame_offset);
+    virtual void activateTreeAfter(UINT32 prm_frame_offset);
 
 
     /**
@@ -388,16 +388,16 @@ public:
     /**
      * 非活動予約する(自ツリー・コールバック有り) .
      * Nフレーム後に inactivateTree() が実行されることを予約する。<BR>
-     * 自身と配下ノード全てについて再帰的に inactivateAfter(DWORD) が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に inactivateAfter(UINT32) が実行される。<BR>
      * inactivateAfter(1) は、inactivateTree() と同じ意味になります。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
      * @param prm_frame_offset 遅延フレーム数(1～)
      */
-    virtual void inactivateAfter(DWORD prm_frame_offset);
+    virtual void inactivateAfter(UINT32 prm_frame_offset);
 
 
 
-    virtual void inactivateTreeAfter(DWORD prm_frame_offset);
+    virtual void inactivateTreeAfter(UINT32 prm_frame_offset);
 
     /**
      * 非活動状態にする(単体・即時・コールバック無し)  .
@@ -514,7 +514,7 @@ public:
      * インスタンスがすぐに解放されないことに注意せよ！（内部的なバグを生みやすい）。<BR>
      * @param prm_frame_offset 生存終了猶予フレーム(1～)
      */
-    void end(DWORD prm_frame_offset = 1);
+    void end(UINT32 prm_frame_offset = 1);
 
     /**
      * 自ツリーノードを最終ノードに移動する(単体) .
@@ -598,7 +598,7 @@ public:
      * 「振る舞い状態」とは、canBehave() == true の条件成立時の事を意味する。<BR>
      * @return 振る舞いフレーム数総計
      */
-    DWORD getBehaveingFrame();
+    UINT32 getBehaveingFrame();
 
     /**
      * onActive()からの振る舞い状態に加算されるフレーム数を取得する .
@@ -607,7 +607,7 @@ public:
      * getBehaveingFrame() と同じタイミングで加算されるが、onActive()でリセットされる。<BR>
      * @return onActive()からの振る舞いフレーム数
      */
-    DWORD getActivePartFrame();
+    UINT32 getActivePartFrame();
 
 
     /**
@@ -618,7 +618,7 @@ public:
      * @param   prm_frameEnd    相対振る舞いフレーム数
      * @return  bool    true:経過フレーム数に達した/false:達していない
      */
-    bool relativeFrame(DWORD prm_frameEnd);
+    bool relativeFrame(UINT32 prm_frameEnd);
 
 };
 
@@ -1012,7 +1012,7 @@ void GgafElement<T>::activateTreeImmediately() {
 }
 
 template<class T>
-void GgafElement<T>::activateAfter(DWORD prm_frame_offset) {
+void GgafElement<T>::activateAfter(UINT32 prm_frame_offset) {
     if (_can_live_flg) {
         _will_activate_after_flg = true;
         _frame_of_life_when_activation = _frame_of_life + prm_frame_offset;
@@ -1020,7 +1020,7 @@ void GgafElement<T>::activateAfter(DWORD prm_frame_offset) {
 }
 
 template<class T>
-void GgafElement<T>::activateTreeAfter(DWORD prm_frame_offset) {
+void GgafElement<T>::activateTreeAfter(UINT32 prm_frame_offset) {
     if (_can_live_flg) {
         _will_activate_after_flg = true;
         _frame_of_life_when_activation = _frame_of_life + prm_frame_offset;
@@ -1068,7 +1068,7 @@ void GgafElement<T>::inactivateTree() {
 }
 
 template<class T>
-void GgafElement<T>::inactivateAfter(DWORD prm_frame_offset) {
+void GgafElement<T>::inactivateAfter(UINT32 prm_frame_offset) {
     if (_can_live_flg) {
         if (_is_active_flg) {
             _will_inactivate_after_flg = true;
@@ -1078,7 +1078,7 @@ void GgafElement<T>::inactivateAfter(DWORD prm_frame_offset) {
 }
 
 template<class T>
-void GgafElement<T>::inactivateTreeAfter(DWORD prm_frame_offset) {
+void GgafElement<T>::inactivateTreeAfter(UINT32 prm_frame_offset) {
     if (_can_live_flg) {
         if (_is_active_flg) {
             _will_inactivate_after_flg = true;
@@ -1234,7 +1234,7 @@ void GgafElement<T>::unpauseImmediately() {
     }
 }
 template<class T>
-void GgafElement<T>::end(DWORD prm_frame_offset) {
+void GgafElement<T>::end(UINT32 prm_frame_offset) {
     if (_will_end_after_flg == false) { //一度終了したら２度と取り消せません。
         _will_end_after_flg = true;
         inactivateAfter(prm_frame_offset);
@@ -1310,7 +1310,7 @@ bool GgafElement<T>::wasDeclaredEnd() {
 }
 
 template<class T>
-bool GgafElement<T>::relativeFrame(DWORD prm_frameEnd) {
+bool GgafElement<T>::relativeFrame(UINT32 prm_frameEnd) {
     _frameEnd += prm_frameEnd;
     if (_frame_of_behaving == _frameEnd) {
         return true;
@@ -1382,12 +1382,12 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
 
 
 template<class T>
-DWORD GgafElement<T>::getBehaveingFrame() {
+UINT32 GgafElement<T>::getBehaveingFrame() {
    return _frame_of_behaving;
 }
 
 template<class T>
-DWORD GgafElement<T>::getActivePartFrame() {
+UINT32 GgafElement<T>::getActivePartFrame() {
    return _frame_of_behaving_since_onActive;
 }
 

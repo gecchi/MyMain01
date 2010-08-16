@@ -32,13 +32,13 @@ public:
     float _acce_weight[MAX_MORPH_TARGET+1];
 
     /** ループ重みの１ループフレーム幅 */
-    DWORD _loop_spend_frame[MAX_MORPH_TARGET+1];
+    UINT32 _loop_spend_frame[MAX_MORPH_TARGET+1];
     /** ループ重みの開始相対フレーム */
-    DWORD _loop_begin_frame[MAX_MORPH_TARGET+1];
+    UINT32 _loop_begin_frame[MAX_MORPH_TARGET+1];
     /** 三角波ループ重みのアタックまでのフレーム幅 */
-    DWORD _loop_attack_frame[MAX_MORPH_TARGET+1];
+    UINT32 _loop_attack_frame[MAX_MORPH_TARGET+1];
     /** 三角波ループ重みの休息フレーム幅 */
-    DWORD _loop_rest_frame[MAX_MORPH_TARGET+1];
+    UINT32 _loop_rest_frame[MAX_MORPH_TARGET+1];
     /** １ループを往復と考えた場合の片道ループ数カウンタ(１ループで２増える) */
     int _halfloop_cnt[MAX_MORPH_TARGET+1];
     /** 停止予定の片道ループ数 */
@@ -111,7 +111,7 @@ public:
      * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetLinerUntil(int prm_target_mesh, float prm_target_weight, DWORD prm_spend_frame);
+    void intoTargetLinerUntil(int prm_target_mesh, float prm_target_weight, UINT32 prm_spend_frame);
 
     /**
      * モーフターゲットへ一定速度でモーフィングする（重み差分指定） .
@@ -138,7 +138,7 @@ public:
      * @param prm_loop_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_loop_num ループする回数(0.5 回単位で指定可能)
      */
-    void loopLiner(int prm_target_mesh, DWORD prm_loop_spend_frame, float prm_loop_num = -1);
+    void loopLiner(int prm_target_mesh, UINT32 prm_loop_spend_frame, float prm_loop_num = -1);
 
     /**
      * 三角波の波形を重みとしてモーフィングする。 .
@@ -168,9 +168,9 @@ public:
      * @param prm_loop_num ループ数(-1で無限)
      */
     void loopTriangleWave(int prm_target_mesh,
-                          DWORD prm_loop_spend_frame,
-                          DWORD prm_attack_frame,
-                          DWORD prm_rest_frame,
+                          UINT32 prm_loop_spend_frame,
+                          UINT32 prm_attack_frame,
+                          UINT32 prm_rest_frame,
                           float prm_loop_num = -1);
 
     /**

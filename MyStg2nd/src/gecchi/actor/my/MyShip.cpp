@@ -167,11 +167,11 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     _iMvVelo_TurboTop = 30000;
     _iMvVelo_TurboBottom = 10000;
 
-    _dwFrame_soft_rapidshot = 0;
+    _frame_soft_rapidshot = 0;
     _is_being_soft_rapidshot = false;
     _just_shot = false;
     _is_shooting_laser = false;
-    _dwFrame_shot_pressed = 0;
+    _frame_shot_pressed = 0;
 }
 
 void MyShip::onActive() {
@@ -401,12 +401,12 @@ void MyShip::processJudgement() {
     //ショット関連処理
     _is_shooting_laser = false;
     if (VB_PLAY->isBeingPressed(VB_SHOT1)) {
-        _dwFrame_shot_pressed ++;
-        if (_dwFrame_shot_pressed > 30) { //12フレーム押しっぱなしでレーザーへ
+        _frame_shot_pressed ++;
+        if (_frame_shot_pressed > 30) { //12フレーム押しっぱなしでレーザーへ
             _is_shooting_laser = true;
         }
     } else {
-        _dwFrame_shot_pressed = 0;
+        _frame_shot_pressed = 0;
     }
 
 
@@ -427,19 +427,19 @@ void MyShip::processJudgement() {
     //1プッシュで4F毎に16フレーム(最大4発)
     if (VB_PLAY->isPushedDown(VB_SHOT1)) {
         _is_being_soft_rapidshot = true;
-        if (_dwFrame_soft_rapidshot >= 4) {
+        if (_frame_soft_rapidshot >= 4) {
             //４フレームより遅い場合
             //連射と連射のつなぎ目が無いようにする
-            _dwFrame_soft_rapidshot = _dwFrame_soft_rapidshot % 4;
+            _frame_soft_rapidshot = _frame_soft_rapidshot % 4;
         } else {
             //４フレームより速い連射の場合
             //これを受け入れて強制的に発射できる
-            _dwFrame_soft_rapidshot = 0;
+            _frame_soft_rapidshot = 0;
         }
     }
     _just_shot = false;
     if (_is_being_soft_rapidshot) {
-        if (_dwFrame_soft_rapidshot % 4 == 0) {
+        if (_frame_soft_rapidshot % 4 == 0) {
             _just_shot = true;//たった今ショットしましたフラグ
             MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
             if (pShot != NULL) {
@@ -447,14 +447,14 @@ void MyShip::processJudgement() {
                 pShot->setGeometry(this);
                 pShot->activate();
             }
-            if (_dwFrame_soft_rapidshot >= 12) {
+            if (_frame_soft_rapidshot >= 12) {
                 //4発打ち終えたらソフト連射終了
                 _is_being_soft_rapidshot = false;
             }
         }
     }
     if (_is_being_soft_rapidshot) {
-        _dwFrame_soft_rapidshot++;
+        _frame_soft_rapidshot++;
     }
 
 }

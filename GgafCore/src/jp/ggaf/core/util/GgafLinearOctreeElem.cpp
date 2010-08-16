@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 
 
-GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, DWORD prm_kindbit) {
+GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_kindbit) {
     _pSpace_Current = NULL;
     _pNext = NULL;
     _pPrev = NULL;

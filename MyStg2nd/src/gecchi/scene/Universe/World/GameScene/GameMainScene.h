@@ -36,7 +36,7 @@ public:
     int _pos_camera;
     int _cam_velo_renge;
     int _stop_renge;
-    DWORD _frame_pushdown_zmove;
+    UINT32 _frame_pushdown_zmove;
 
 
 
@@ -73,9 +73,9 @@ public:
     Stage05Scene* _pScene_Stage05;
     StageScene* _pSceneMainCannnel;
 
-    DWORD _dwFrame_Begin;
-    DWORD _dwFrame_Play;
-    DWORD _dwFrame_End;
+    UINT32 _frame_Begin;
+    UINT32 _frame_Play;
+    UINT32 _frame_End;
 
     int _stage;
 

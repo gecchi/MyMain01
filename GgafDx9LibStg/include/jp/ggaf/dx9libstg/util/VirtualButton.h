@@ -116,30 +116,30 @@ public:
 
     VBMap* _pVBMap_Active; //現在フレームの入力状態
 
-    VBMap* getPastVBMap(DWORD prm_dwFrameAgo);
+    VBMap* getPastVBMap(UINT32 prm_dwFrameAgo);
 
     vbsta isBeingPressed(vbsta prm_VB);
 
-    vbsta wasBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo);
+    vbsta wasBeingPressed(vbsta prm_VB, UINT32 prm_dwFrameAgo);
 
     vbsta isNotBeingPressed(vbsta prm_VB);
 
-    vbsta wasNotBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo);
+    vbsta wasNotBeingPressed(vbsta prm_VB, UINT32 prm_dwFrameAgo);
 
     vbsta isPushedDown(vbsta prm_VB);
 
-    vbsta isPushedUp(vbsta prm_VB, DWORD prm_frame_push = 5);
+    vbsta isPushedUp(vbsta prm_VB, UINT32 prm_frame_push = 5);
 
-    vbsta isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push = 5, DWORD prm_frame_delay = 5);
-
-
+    vbsta isDoublePushedDown(vbsta prm_VB, UINT32 prm_frame_push = 5, UINT32 prm_frame_delay = 5);
 
 
-    vbsta wasPushedDown(vbsta prm_VB, DWORD prm_dwFrameAgo);
+
+
+    vbsta wasPushedDown(vbsta prm_VB, UINT32 prm_dwFrameAgo);
 
     vbsta isReleasedUp(vbsta prm_VB);
 
-    vbsta wasReleasedUp(vbsta prm_VB, DWORD prm_dwFrameAgo);
+    vbsta wasReleasedUp(vbsta prm_VB, UINT32 prm_dwFrameAgo);
 
     vbsta arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum);
 
@@ -198,7 +198,7 @@ public:
     vbsta getPushedDownStick();
 
 
-    vbsta isDoublePushedDownStick(DWORD prm_frame_push = 5, DWORD prm_frame_delay = 5);
+    vbsta isDoublePushedDownStick(UINT32 prm_frame_push = 5, UINT32 prm_frame_delay = 5);
 
     /**
      * グルッとポンか否か
@@ -206,7 +206,7 @@ public:
      * @param prm_frame_delay グルッが成立する許容フレーム
      * @return
      */
-    bool isRoundPushDown(vbsta prm_VB, DWORD prm_frame_delay=30);
+    bool isRoundPushDown(vbsta prm_VB, UINT32 prm_frame_delay=30);
 
 //    /**
 //     * 今、prm_VB1と同時にPushedDownされたスティックの番号を返す。

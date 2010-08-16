@@ -13,7 +13,7 @@ public:
     /** 線形八分木配列の自身の要素番号 */
     int _my_index;
     /** 所属してる要素の種別情報 */
-    DWORD _kindinfobit;
+    UINT32 _kindinfobit;
     /** ぶら下がる要素の先頭 */
     GgafLinearOctreeElem* _pElemFirst;
     /** ぶら下がる要素の末尾 */

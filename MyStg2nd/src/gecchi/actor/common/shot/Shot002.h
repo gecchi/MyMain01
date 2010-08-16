@@ -12,7 +12,7 @@ namespace MyStg2nd {
 class Shot002 : public GgafDx9LibStg::DefaultMeshSetActor {
 public:
     /** 自機へ方向転換開始フレーム */
-    DWORD _my_frame;
+    UINT32 _my_frame;
 
     Shot002(const char* prm_name);
 

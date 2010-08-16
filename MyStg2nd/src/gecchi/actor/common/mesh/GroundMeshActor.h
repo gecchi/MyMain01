@@ -11,7 +11,7 @@ class GroundMeshActor : public GgafDx9Core::GgafDx9MeshActor {
 public:
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 
-    DWORD _frame_offset;
+    UINT32 _frame_offset;
 
     GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 

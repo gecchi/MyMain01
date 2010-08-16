@@ -13,7 +13,7 @@ public:
     GgafCore::GgafActorDispatcher* _pDispatcher_ShotEffect;
     bool _do_Shot;
     bool _can_Shot;
-    DWORD _frame_when_shot;
+    UINT32 _frame_when_shot;
     int _nMaxShot;
     int _nShot;
     velo _veloMv_begin;

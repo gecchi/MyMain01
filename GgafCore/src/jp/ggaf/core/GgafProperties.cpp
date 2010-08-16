@@ -5,7 +5,7 @@ using namespace GgafCore;
 
 map<string, string>* GgafProperties::_pMapProperties = NULL;
 
-DWORD* GgafProperties::MAX_SKIP_FRAME = NULL;
+UINT32* GgafProperties::MAX_SKIP_FRAME = NULL;
 
 void GgafProperties::load(string prm_properties_filename) {
     if (_pMapProperties == NULL) {
@@ -16,7 +16,7 @@ void GgafProperties::load(string prm_properties_filename) {
         }
     }
 
-    MAX_SKIP_FRAME = getDWORD("MAX_SKIP_FRAME");
+    MAX_SKIP_FRAME = getUInt("MAX_SKIP_FRAME");
 
     _TRACE_("GGAF_PROPERTY(MAX_SKIP_FRAME)="<<GGAF_PROPERTY(MAX_SKIP_FRAME));
 }
@@ -120,12 +120,12 @@ int* GgafProperties::getInt(string prm_key) {
     }
 }
 
-DWORD* GgafProperties::getDWORD(string prm_key) {
+UINT32* GgafProperties::getUInt(string prm_key) {
     if (isExistKey(prm_key)) {
-        DWORD* dwRet = NEW DWORD((DWORD)(atoi((*_pMapProperties)[prm_key].c_str())));
+        UINT32* dwRet = NEW UINT32((UINT32)(atoi((*_pMapProperties)[prm_key].c_str())));
         return dwRet;
     } else {
-        throwGgafCriticalException("GgafProperties::getDWORD() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
+        throwGgafCriticalException("GgafProperties::getUInt() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }
 }
 

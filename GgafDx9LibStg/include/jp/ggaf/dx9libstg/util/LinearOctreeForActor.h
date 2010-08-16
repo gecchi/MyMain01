@@ -22,7 +22,7 @@ public:
         /** 一つの空間に 3000 もキャラが集まらないだろうという安易で浅はかな見積もり */
         GgafCore::GgafActor* _apActor[3000];
         /** カーソルポインタ  */
-        DWORD _p;
+        UINT32 _p;
         /**
          * コンストラクタ
          * @return
@@ -69,7 +69,7 @@ public:
         }
         void dump() {
             TEXT5("CollisionStack.dump=");
-            for (DWORD i = 0; i < _p; i++) {
+            for (UINT32 i = 0; i < _p; i++) {
                 TEXT5((_apActor[i]->getName())<<"->");
             }
             TEXT5("END");
@@ -111,7 +111,7 @@ public:
      * executeAllHitChk から使用される。
      * @param prm_index 線形八分木配列の配列要素番号
      */
-    void executeHitChk(DWORD prm_index);
+    void executeHitChk(UINT32 prm_index);
 
     /**
      * アクター種別Aグループのスタックと、アクター種別Bグループのスタックの総当りの当たり判定を行う  .

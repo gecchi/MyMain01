@@ -15,7 +15,7 @@ public:
     /** 拡大縮小支援オブジェクト */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 
-    DWORD _frame_offset;
+    UINT32 _frame_offset;
 
     CollisionChecker* _pCollisionChecker;
     /**

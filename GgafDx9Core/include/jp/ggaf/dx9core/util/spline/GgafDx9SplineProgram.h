@@ -15,7 +15,7 @@ public:
     /** スプライン曲線の補完点生成、保持するクラス */
     GgafDx9Spline3D* _sp;
     /** begin()からの経過フレーム数 */
-    DWORD _SPframe;
+    UINT32 _SPframe;
     /** 現在プログラム実行中であるかどうか */
     boolean _is_executing;
     /** 座標を操作する対象となるアクター */

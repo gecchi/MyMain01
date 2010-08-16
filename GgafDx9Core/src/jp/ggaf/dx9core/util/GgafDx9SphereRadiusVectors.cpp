@@ -7,7 +7,7 @@ using namespace GgafDx9Core;
 GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() : GgafObject() {
     int index;
     static double s_angRad = ((PI * 2.0) / (S_ANG90 * 4));
-    DWORD xXY, yXY, xXZ, zXZ;
+    UINT32 xXY, yXY, xXZ, zXZ;
     double radRotAxisZ, radRotAxisY;
     for (s_ang angFaceAxisZ = 0; angFaceAxisZ <= S_ANG90; angFaceAxisZ++) {
         //XY•½–Êã‚Ì‹…•\–Ê‚Ì“_‚ð‹‚ß‚éB
@@ -26,9 +26,9 @@ GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() : GgafObject() {
     }
 }
 
-void GgafDx9SphereRadiusVectors::getFaceAngClosely(DWORD prm_x,
-                                                   DWORD prm_y,
-                                                   DWORD prm_z,
+void GgafDx9SphereRadiusVectors::getFaceAngClosely(UINT32 prm_x,
+                                                   UINT32 prm_y,
+                                                   UINT32 prm_z,
                                                    s_ang& out_angFaceZ,
                                                    s_ang& out_angFaceY_rev,
                                                    int s) {
@@ -83,9 +83,9 @@ void GgafDx9SphereRadiusVectors::getFaceAngClosely(DWORD prm_x,
 
 void GgafDx9SphereRadiusVectors::getVectorClosely(s_ang prm_angFaceY_rev,
                                                   s_ang prm_angFaceZ,
-                                                  DWORD& out_x,
-                                                  DWORD& out_y,
-                                                  DWORD& out_z) {
+                                                  UINT32& out_x,
+                                                  UINT32& out_y,
+                                                  UINT32& out_z) {
     static int index;
     index = prm_angFaceZ*(S_ANG90+1)+prm_angFaceY_rev;
     out_x = _sr[index].vec.x;

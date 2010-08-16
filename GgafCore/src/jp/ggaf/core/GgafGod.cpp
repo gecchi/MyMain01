@@ -8,7 +8,7 @@ CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::_num_actor_drawing = 0;
 GgafGod* GgafGod::_pGod = NULL;
-DWORD GgafGod::_aTime_OffsetOfNextFrame[] = {17, 17, 16, 17, 17, 16, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
+UINT32 GgafGod::_aTime_OffsetOfNextFrame[] = {17, 17, 16, 17, 17, 16, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
                                              17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 16,
                                              17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
                                              17, 17, 16, 17, 17, 17};
@@ -29,7 +29,7 @@ GgafGod::GgafGod() : GgafObject(),
     ::SetThreadPriority(_handleFactory01, THREAD_PRIORITY_IDLE);
     GgafGod::_pGod = this;
     _time_at_beginning_frame = timeGetTime();
-    _expected_time_of_next_frame = (DWORD)(_time_at_beginning_frame + 3000); //3•b¼
+    _expected_time_of_next_frame = (UINT32)(_time_at_beginning_frame + 3000); //3•b¼
     _time_prev = _time_at_beginning_frame;
     _frame_of_visualize = 0;
     _frame_of_prev_visualize = 0;
@@ -69,9 +69,9 @@ void GgafGod::be() {
             //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‰ÁŽZ
             //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //—\’è‚Í•Ï‚í‚ç‚È‚¢
             if (_num_actor_drawing > 500) {
-                _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_godframe % 60] * 2);
+                _expected_time_of_next_frame += (UINT32)(_aTime_OffsetOfNextFrame[_godframe % 60] * 2);
             } else if (_num_actor_drawing > 400) {
-                _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_godframe % 60] * 1.5);
+                _expected_time_of_next_frame += (UINT32)(_aTime_OffsetOfNextFrame[_godframe % 60] * 1.5);
             } else {
                 _expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60];
             }
