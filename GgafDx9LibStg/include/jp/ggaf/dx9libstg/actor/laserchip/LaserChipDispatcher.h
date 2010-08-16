@@ -31,6 +31,8 @@ public:
     int _num_continual_employ_max;
     /** [r/w]弾切れフレーム数（読み書き可／デフォルト=20） */
     int _num_chip_interval;
+    /** [r/w]レーザー発射時エフェクト。不要の場合はNULLを設定する */
+    GgafDx9Core::GgafDx9DrawableActor* _pEffectActor_Irradiate;
 
     LaserChipDispatcher(const char* prm_name);
 
@@ -38,13 +40,16 @@ public:
      * LaserChipDispatcherを設定する。
      * @param prm_num_continual_employ_max 強制的に弾切れに移行するチップの連続取得数。
      * @param prm_num_chip_interval 弾切れフレーム数
+     * @param prm_pEffectActor_Irradiate シーン所属済み発射中エフェクト(不要時はNULL)。解放は呼び元で。
      */
-    void configLaserChipDispatcher(int prm_num_continual_employ_max, DWORD prm_num_chip_interval) {
-        _num_continual_employ_max = prm_num_continual_employ_max;
-        _num_chip_interval = prm_num_chip_interval;
+    void configLaserChipDispatcher(int prm_num_continual_employ_max,
+                                   DWORD prm_num_chip_interval,
+                                   GgafDx9Core::GgafDx9DrawableActor* prm_pEffectActor_Irradiate = NULL);
+
+    virtual void processBehavior() override {
     }
 
-    virtual void processBehavior() override;
+    virtual void processFinal() override;
 
     /**
      * レーザーチップの借り入れを試みる .

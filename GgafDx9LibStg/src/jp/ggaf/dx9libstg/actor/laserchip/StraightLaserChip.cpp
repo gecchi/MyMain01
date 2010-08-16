@@ -42,10 +42,10 @@ void StraightLaserChip::processBehavior() {
     _RX = (*_pSource_RX);
     _RY = (*_pSource_RY);
     _RZ = (*_pSource_RZ);
-    _X = (*_pSource_X) + ((*_pSource_vX) * _veloMv * (int)getPartFrame());
-    //_TRACE_("(*_pSource_X)="<<(*_pSource_X)<<" (*_pSource_vX)="<<(*_pSource_vX)<<" _veloMv="<<_veloMv<<" getPartFrame()="<<getPartFrame()<<" _X="<<_X);
-    _Y = (*_pSource_Y) + ((*_pSource_vY) * _veloMv * (int)getPartFrame());
-    _Z = (*_pSource_Z) + ((*_pSource_vZ) * _veloMv * (int)getPartFrame());
+    _X = (*_pSource_X) + ((*_pSource_vX) * _veloMv * (int)getActivePartFrame());
+    //_TRACE_("(*_pSource_X)="<<(*_pSource_X)<<" (*_pSource_vX)="<<(*_pSource_vX)<<" _veloMv="<<_veloMv<<" getActivePartFrame()="<<getActivePartFrame()<<" _X="<<_X);
+    _Y = (*_pSource_Y) + ((*_pSource_vY) * _veloMv * (int)getActivePartFrame());
+    _Z = (*_pSource_Z) + ((*_pSource_vZ) * _veloMv * (int)getActivePartFrame());
 
     //À•W‚É”½‰f
     //_pMover->behave();
