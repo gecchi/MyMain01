@@ -31,7 +31,7 @@ void EffectLockOn001_Release::onActive() {
 
 void EffectLockOn001_Release::processBehavior() {
     addAlpha(-0.04);
-    if (_fAlpha < 0.0f || getPartFrame() > 60) {
+    if (_fAlpha < 0.0f || getActivePartFrame() > 60) {
         inactivate();
     }
     _pUvFlipper->behave();

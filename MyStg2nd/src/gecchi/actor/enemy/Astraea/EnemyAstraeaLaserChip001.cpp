@@ -34,7 +34,7 @@ void EnemyAstraeaLaserChip001::onActive() {
 }
 
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
-    if (getPartFrame() == 40) {
+    if (getActivePartFrame() == 40) {
         _pMover->execTagettingMvAngSequence(
                     GameGlobal::_pMyShip,
                     7000, 0,

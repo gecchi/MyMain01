@@ -54,10 +54,10 @@ void EnemyJuno::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     if (_do_Shot) {
-        if (getPartFrame() == _frame_when_shot) {
+        if (getActivePartFrame() == _frame_when_shot) {
             _pMover->setMvVelo(500); //Œ¸‘¬
             _pMover->execTagettingRxSpinAngleSequence(ANGLE180, 8000, 0, TURN_CLOCKWISE);
-        } else if (getPartFrame() == _frame_when_shot + 20) {
+        } else if (getActivePartFrame() == _frame_when_shot + 20) {
             if (_pDispatcher_Shot) {
                 GgafDx9DrawableActor* pShot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pShot) {
@@ -83,7 +83,7 @@ void EnemyJuno::processBehavior() {
                 pMYSHIP->_Y - 500000 < _Y && _Y < pMYSHIP->_Y + 500000 &&
                 _nMaxShot > _nShot
             ) {
-                _frame_when_shot = getPartFrame() + (CmRandomNumberGenerator::getInstance()->genrand_int32() % 60) + 1;
+                _frame_when_shot = getActivePartFrame() + (CmRandomNumberGenerator::getInstance()->genrand_int32() % 60) + 1;
                 _do_Shot = true;
             }
         }

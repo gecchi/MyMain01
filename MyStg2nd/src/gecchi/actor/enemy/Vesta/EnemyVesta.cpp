@@ -107,22 +107,22 @@ void EnemyVesta::processBehavior() {
 
     switch (_iMovePatternNo) {
         case VESTA_HATCH_CLOSED:
-            if (getPartFrame() == _frame_of_moment_nextopen-(_frame_of_morph_interval/2)) {
+            if (getActivePartFrame() == _frame_of_moment_nextopen-(_frame_of_morph_interval/2)) {
                 _pMorpher->intoTargetLinerUntil(MORPHTARGET_VESTA_HATCH_OPENED,
                                                 1.0f, _frame_of_morph_interval);
             }
-            if (getPartFrame() == _frame_of_moment_nextopen) {
-                _frame_of_moment_nextclose = getPartFrame() + _frame_of_close_interval;
+            if (getActivePartFrame() == _frame_of_moment_nextopen) {
+                _frame_of_moment_nextclose = getActivePartFrame() + _frame_of_close_interval;
                 _iMovePatternNo = VESTA_HATCH_OPENED;
             }
             break;
         case VESTA_HATCH_OPENED:
-            if (getPartFrame() == _frame_of_moment_nextclose - (_frame_of_morph_interval/2)) {
+            if (getActivePartFrame() == _frame_of_moment_nextclose - (_frame_of_morph_interval/2)) {
                 _pMorpher->intoTargetLinerUntil(MORPHTARGET_VESTA_HATCH_OPENED,
                                                 0.0f, _frame_of_morph_interval);
             }
-            if (getPartFrame() == _frame_of_moment_nextclose) {
-                _frame_of_moment_nextopen = getPartFrame() + _frame_of_open_interval;
+            if (getActivePartFrame() == _frame_of_moment_nextclose) {
+                _frame_of_moment_nextopen = getActivePartFrame() + _frame_of_open_interval;
                 _iMovePatternNo = VESTA_HATCH_CLOSED;
             }
         default :
@@ -133,7 +133,7 @@ void EnemyVesta::processBehavior() {
 
     //オープン時敵出現
     if (_iMovePatternNo == VESTA_HATCH_OPENED) {
-        int openningFrame = getPartFrame() - _frame_of_moment_nextopen; //開いてからのフレーム数。
+        int openningFrame = getActivePartFrame() - _frame_of_moment_nextopen; //開いてからのフレーム数。
         //_frame_of_moment_nextopenは、ここの処理の時点では直近でオープンしたフレームとなる。
         if (openningFrame % (int)(20/_RANK_+5) == 0) {
             if (_pDispatcher_Fired) {
@@ -173,7 +173,7 @@ void EnemyVesta::processBehavior() {
         }
     }
 
-    if (getPartFrame() % 10 == 0                   && 1 == 2) {
+    if (getActivePartFrame() % 10 == 0                   && 1 == 2) {
         //自機へ方向を向ける
         //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める
         //

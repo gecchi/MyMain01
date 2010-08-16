@@ -30,11 +30,10 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _angveloExpanseNomal = 3000;
     _angveloExpanseSlow = 1000;
 
-
+    _pEffect_LaserIrradiate = NEW EffectLaserRefraction001("OP_Eff_Ref");
+    addSubGroup(_pEffect_LaserIrradiate);
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
-
-
     MyCurveLaserChip001* pChip;
     for (int i = 0; i < 90; i++) { //レーザーストック
         stringstream name;
@@ -50,6 +49,9 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
         //pChip->inactivateImmediately();
         _pLaserChipDispatcher->addSubLast(pChip);
     }
+    _pLaserChipDispatcher->configLaserChipDispatcher(
+                               90, 25, _pEffect_LaserIrradiate
+                           );
     addSubGroup(_pLaserChipDispatcher);
 
     _pDispatcher_MyShots001 = NEW GgafActorDispatcher("RotShot001");
@@ -405,6 +407,9 @@ void MyOption::processBehavior() {
 
         MyCurveLaserChip001* pLaserChip = (MyCurveLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaserChip != NULL) {
+            if (_pLaserChipDispatcher->_pEffectActor_Irradiate) {
+                _pLaserChipDispatcher->_pEffectActor_Irradiate->setGeometry(this);
+            }
             pLaserChip->_pMover->_vX = _Q._x;
             pLaserChip->_pMover->_vY = _Q._y;
             pLaserChip->_pMover->_vZ = _Q._z;

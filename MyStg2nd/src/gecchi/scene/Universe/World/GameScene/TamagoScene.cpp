@@ -48,16 +48,16 @@ void TamagoScene::initialize() {
 }
 
 void TamagoScene::processBehavior() {
-//    if (getPartFrame() == 60) {
+//    if (getActivePartFrame() == 60) {
 //        VarietyTorus001* p = (VarietyTorus001*)obtainActorFromFactory(900000001);
 //        getLordActor()->addSubGroup(p);
 //    }
 
-//    if (getPartFrame() == 120) {
+//    if (getActivePartFrame() == 120) {
 //        FormationJuno001* p = (FormationJuno001*)obtainActorFromFactory(100000001);
 //        getLordActor()->addSubGroup(p);
 //    }
-//    if (getPartFrame() == 120) {
+//    if (getActivePartFrame() == 120) {
 //
 //        EnemyVesta* p1 = (EnemyVesta*)obtainActorFromFactory(100000001);
 //        EnemyVesta* p2 = (EnemyVesta*)obtainActorFromFactory(100000002);

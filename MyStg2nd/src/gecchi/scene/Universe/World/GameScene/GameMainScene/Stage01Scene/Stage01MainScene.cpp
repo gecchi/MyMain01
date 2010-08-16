@@ -43,8 +43,8 @@ void Stage01MainScene::processBehavior() {
     // 以下の gen02 start ～ end はマクロにより自動生成されたコードです。
     // コード変更は「シーンCreater.xls」を開いて、そこから行うこと（整合性確保のため）。
     // gen02 start
-    if (getPartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
-        switch (getPartFrame()) {
+    if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
+        switch (getActivePartFrame()) {
             case 1:
                 break;
             case 100:

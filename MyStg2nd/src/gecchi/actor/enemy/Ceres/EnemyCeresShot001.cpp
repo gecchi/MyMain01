@@ -54,7 +54,7 @@ void EnemyCeresShot001::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     //•ûŒü“]Š·ŠJn
-    if (getPartFrame() == _dwFrame_TurnBegin) {
+    if (getActivePartFrame() == _dwFrame_TurnBegin) {
 
         _pMover->execTagettingMvAngSequence(GameGlobal::_pMyShip,
                                                    _angVelo_Turn, 0,
@@ -63,7 +63,7 @@ void EnemyCeresShot001::processBehavior() {
     }
 
     //•ûŒü“]Š·I—¹
-    if (getPartFrame() == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
+    if (getActivePartFrame() == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
         _pMover->setRzMvAngVelo(0);
         _pMover->setRyMvAngVelo(0);
         _pMover->_mv_ang_ry_target_flg = false;

@@ -42,6 +42,11 @@ public:
 
     GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
     GgafCore::GgafActorDispatcher* _pDispatcher_MyShots001;
+
+    /** レーザー発射時エフェクト */
+    GgafDx9Core::GgafDx9DrawableActor* _pEffect_LaserIrradiate;
+
+
     /** 計算された現在の旋廻円周移動角速度（読み出し専用） */
     angvelo _angveloMove;
     /** 円周上初期位置角度（周囲角）（initialize()までに変更可／デフォルト=0） */

@@ -63,7 +63,7 @@ void FormationJuno::initialize() {
 }
 
 void FormationJuno::processBehavior() {
-    if (getPartFrame() % _frame_app_interval == 0) {
+    if (getActivePartFrame() % _frame_app_interval == 0) {
         EnemyJuno* pEnemyJuno = (EnemyJuno*)_pDispatcher_EnemyJuno->employ();
         if (pEnemyJuno != NULL) {
             pEnemyJuno->_X = (_pRndGen->genrand_int32() % (_X2_app-_X1_app)) + _X1_app + _X;

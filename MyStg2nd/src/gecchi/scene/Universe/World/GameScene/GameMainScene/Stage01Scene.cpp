@@ -81,7 +81,7 @@ void Stage01Scene::processBehavior() {
 
 
 
-    if (getPartFrame() == 60*60) {
+    if (getActivePartFrame() == 60*60) {
 
         _pBgmPerformer->fadeout_stop(0, 420);
         //fadeoutBgm(0, 420);
