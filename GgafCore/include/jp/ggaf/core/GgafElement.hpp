@@ -607,7 +607,7 @@ public:
      * getBehaveingFrame() と同じタイミングで加算されるが、onActive()でリセットされる。<BR>
      * @return onActive()からの振る舞いフレーム数
      */
-    DWORD getPartFrame();
+    DWORD getActivePartFrame();
 
 
     /**
@@ -1079,23 +1079,23 @@ void GgafElement<T>::inactivateAfter(DWORD prm_frame_offset) {
 
 template<class T>
 void GgafElement<T>::inactivateTreeAfter(DWORD prm_frame_offset) {
-	if (_can_live_flg) {
-		if (_is_active_flg) {
-			_will_inactivate_after_flg = true;
-			_frame_of_life_when_inactivation = _frame_of_life + prm_frame_offset;
-		}
-		if (GGAF_NODE::_pSubFirst != NULL) {
-			T* pElementTemp = GGAF_NODE::_pSubFirst;
-			while(true) {
-				pElementTemp->inactivateTreeAfter(prm_frame_offset);
-				if (pElementTemp->_is_last_flg) {
-					break;
-				} else {
-					pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-				}
-			}
-		}
-	}
+    if (_can_live_flg) {
+        if (_is_active_flg) {
+            _will_inactivate_after_flg = true;
+            _frame_of_life_when_inactivation = _frame_of_life + prm_frame_offset;
+        }
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
+            while(true) {
+                pElementTemp->inactivateTreeAfter(prm_frame_offset);
+                if (pElementTemp->_is_last_flg) {
+                    break;
+                } else {
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+                }
+            }
+        }
+    }
 }
 
 template<class T>
@@ -1387,7 +1387,7 @@ DWORD GgafElement<T>::getBehaveingFrame() {
 }
 
 template<class T>
-DWORD GgafElement<T>::getPartFrame() {
+DWORD GgafElement<T>::getActivePartFrame() {
    return _frame_of_behaving_since_onActive;
 }
 
