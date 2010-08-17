@@ -198,12 +198,12 @@ public:
     virtual void finally();
     virtual void happen(int prm_no);
     virtual void activateTree();
-    virtual void activateAfter(UINT32 prm_frame_offset);
+    virtual void activateAfter(frame prm_frame_offset);
     virtual void activate();
     virtual void activateTreeImmediately();
     virtual void activateImmediately();
     virtual void inactivateTree();
-    virtual void inactivateAfter(UINT32 prm_frame_offset);
+    virtual void inactivateAfter(frame prm_frame_offset);
     virtual void inactivate();
     virtual void inactivateTreeImmediately();
     virtual void inactivateImmediately();
@@ -222,7 +222,7 @@ public:
      * 自ツリーシーンをnフレーム後にゴミ箱へ移動 .
      * @param prm_frame_offset ゴミ箱へ移動タイミング残りフレーム数(デフォルト=0)
      */
-    virtual void end(UINT32 prm_frame_offset = 0);
+    virtual void end(frame prm_frame_offset = 0);
 
     /**
      * 自ツリーを末端から開放する。 .

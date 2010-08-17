@@ -183,7 +183,7 @@ public:
      * アクターをシーンから離脱させたい場合はこのメソッドを実行すること。
      * @param prm_frame_offset 猶予フレーム(1～)
      */
-    virtual void sayonara(UINT32 prm_frame_offset = 1);
+    virtual void sayonara(frame prm_frame_offset = 1);
 
     /**
      * デバッグ用：ツリー構造を表示<BR>

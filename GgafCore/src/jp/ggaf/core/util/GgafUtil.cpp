@@ -16,18 +16,18 @@ char* GgafUtil::getFileText(string prm_filename) {
     if (!ifs.is_open()) {
         return NULL;
     } else {
-        DWORD dwSize = 0;
+        UINT32 size = 0;
         // サイズを取得
         while (!ifs.eof()) {
             ifs.ignore();
-            ++dwSize;
+            ++size;
         }
         ifs.clear();
         ifs.seekg(0, ios_base::beg);
         //サイズを指定して読込み
-        char* pa_char = NEW char[dwSize];
-		ZeroMemory(pa_char, dwSize);
-        ifs.read(pa_char, dwSize-1);
+        char* pa_char = NEW char[size];
+        ZeroMemory(pa_char, size);
+        ifs.read(pa_char, size-1);
         return pa_char;
     }
 }

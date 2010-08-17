@@ -77,7 +77,7 @@ GgafScene* GgafActor::getPlatformScene() {
     return _pScene_Platform;
 }
 
-void GgafActor::sayonara(UINT32 prm_frame_offset) {
+void GgafActor::sayonara(frame prm_frame_offset) {
     if (_pDependenceDispcher) {
         inactivateTreeAfter(prm_frame_offset);
     } else {
