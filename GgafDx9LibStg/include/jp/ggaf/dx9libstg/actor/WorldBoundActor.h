@@ -14,7 +14,7 @@ public:
     /** 拡大縮小支援オブジェクト */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 
-    UINT32 _frame_offset;
+    frame _frame_offset;
 
     WorldBoundActor(const char* prm_name, const char* prm_model);
 

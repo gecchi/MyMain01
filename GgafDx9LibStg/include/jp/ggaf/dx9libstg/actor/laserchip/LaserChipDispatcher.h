@@ -21,7 +21,7 @@ public:
     /** [r]前回（前フレーム）取得されたレーザーチップ(読み取り専用) */
     LaserChip* _pChip_prev_employ;
     /** [r]前回（前フレーム）取得されたレーザーチップの取得された時点の活動フレーム(読み取り専用) */
-    UINT32 _frame_of_behaving_prev_employ;
+    frame _frame_of_behaving_prev_employ;
     /** [r]レーザーチップ連続取得カウント(読み取り専用) */
     int _num_continual_employ_count;
     /** [r]レーザーチップ連続未取得カウント(読み取り専用) */

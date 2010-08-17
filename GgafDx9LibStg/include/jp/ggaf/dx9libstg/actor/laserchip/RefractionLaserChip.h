@@ -18,8 +18,8 @@ class RefractionLaserChip : public LaserChip {
     friend class LaserChipDispatcher;
 
 private:
-    UINT32 _frame_refraction_enter;
-    UINT32 _frame_refraction_out;
+    frame _frame_refraction_enter;
+    frame _frame_refraction_out;
     bool _isRefracting;
     int _cnt_refraction;
 
@@ -41,8 +41,8 @@ private:
     bool _prev_isRefracting;
     GgafDx9Core::GgafDx9DrawableActor* _prev_pRefractionEffect;
     int _num_refraction;
-    UINT32 _frame_between_refraction;
-    UINT32 _frame_standstill_refraction;
+    frame _frame_between_refraction;
+    frame _frame_standstill_refraction;
 
     /** 屈折エフェクトアクターのディスパッチャー（シーン所属済みアクターであること） */
     GgafCore::GgafActorDispatcher* _pDispatche_RefractionEffect;
@@ -59,8 +59,8 @@ public:
      * @param prm_pDispatche_RefractionEffect 屈折時のエフェクトアクターのディスパッチャー(無しの場合はNULL)
      */
     void configRefraction(int prm_num_refraction,
-                          UINT32 prm_frame_between_refraction,
-                          UINT32 prm_frame_standstill_refraction,
+                          frame prm_frame_between_refraction,
+                          frame prm_frame_standstill_refraction,
                           GgafCore::GgafActorDispatcher* prm_pDispatche_RefractionEffect) {
         _num_refraction = prm_num_refraction;
         _frame_between_refraction = prm_frame_between_refraction;

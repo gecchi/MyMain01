@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
 class DefaultMorphMeshActor : public GgafDx9Core::GgafDx9MorphMeshActor {
 
 public:
-    UINT32 _frame_offset;
+    frame _frame_offset;
     /** 拡大縮小支援オブジェクト */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 	/** モーフィング支援オブジェクト */
