@@ -114,7 +114,7 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
         //”j‰ó‚³‚ê‚½ê‡
         setHitAble(false);
         _pSeTransmitter->play3D(0);
-        GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->setGeometry(this);
             pExplo001->activate();

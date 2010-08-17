@@ -298,6 +298,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
         p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
         p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«Žž‚Ì–hŒä—¦
         p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«Žž‚Ì–hŒä—¦
+        p->set(9, (void*)pCOMMONSCENE->_pDispatcher_EffectExplosion001 );  //—ò«Žž‚Ì–hŒä—¦
     }
     void MyStgUtil::resetShot001Status(GgafStatus* p) {
         p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //Ží•Ê(ƒfƒtƒHƒ‹ƒg)

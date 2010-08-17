@@ -91,7 +91,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
 
         EffectExplosion001* pExplo001 =
-                (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+                (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->setGeometry(this);
             pExplo001->activate();

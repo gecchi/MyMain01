@@ -50,7 +50,7 @@ void MyShot001::processJudgement() {
 void MyShot001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->activate();
             pExplo001->setGeometry(this);

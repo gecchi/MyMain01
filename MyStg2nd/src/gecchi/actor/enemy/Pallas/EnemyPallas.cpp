@@ -75,10 +75,10 @@ void EnemyPallas::processBehavior() {
                 DELETEARR_IMPOSSIBLE_NULL(paAngWay);
                 //ショット発射エフェクト
                 if (_pDispatcher_ShotEffect) {
-                    GgafDx9DrawableActor* pActo_Effect = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
-                    if (pActo_Effect) {
-                        pActo_Effect->setGeometry(this);
-                        pActo_Effect->activate();
+                    GgafDx9DrawableActor* pEffectActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
+                    if (pEffectActor_Shot) {
+                        pEffectActor_Shot->setGeometry(this);
+                        pEffectActor_Shot->activate();
                     }
                 }
             }
@@ -116,7 +116,7 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion003* pExplo003 = (EffectExplosion003*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion003->employ();
+        EffectExplosion003* pExplo003 = (EffectExplosion003*)pCOMMONSCENE->_pDispatcher_EffectExplosion003->employ();
         _pSeTransmitter->play3D(0);
         if (pExplo003 != NULL) {
             pExplo003->activate();

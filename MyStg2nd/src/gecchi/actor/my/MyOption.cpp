@@ -99,7 +99,7 @@ void MyOption::initialize() {
     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
-    //GameGlobal::_pSceneCommon->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
+    //pCOMMONSCENE->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
 
     _SX=_SY=_SZ=100;
 }

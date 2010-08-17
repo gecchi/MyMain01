@@ -41,7 +41,7 @@ void EnemyJuno::onActive() {
     setHitAble(true);
     _do_Shot = false;
     //_can_Shot = ((CmRandomNumberGenerator::getInstance()->genrand_int32() % 2) == 0) ? true : false;
-	_can_Shot = true;
+    _can_Shot = true;
     _nShot = 0;
     _frame_when_shot = 0;
     _veloMv_begin = _pMover->_veloMv; //‰ŠúˆÚ“®‘¬“x‚ğ•Û‘¶
@@ -110,7 +110,7 @@ void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         _pSeTransmitter->play3D(0);
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->activate();
             pExplo001->setGeometry(this);

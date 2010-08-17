@@ -120,6 +120,21 @@ class Stage04Scene;
 class Stage05Scene;
 class TamagoScene;
 
+class Stage01Controller;
+class Stage01_01;
+class Stage01_02;
+class Stage01_03;
+
+
+
+
+
+
+
+
+
+
+
 class GroundMeshActor;
 class Torus;
 class VarietyTorus001;
@@ -138,7 +153,6 @@ class EnemyStraightLaserChip001;
 
 class MyCurveLaserChip001;
 class MyStraightLaserChip001;
-class Stage01MainScene;
 class MyShip;
 class MyOptionParent;
 class MyOptionParentGizmo;
@@ -244,12 +258,16 @@ class LaserChipEffectActor;
 #include "gecchi/scene/Universe/World/GameScene/GameEndingScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/Stage01MainScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage02Scene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage03Scene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage04Scene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage05Scene.h"
 #include "gecchi/scene/Universe/World/GameScene/TamagoScene.h"
+
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/Stage01Controller.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01_01.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01_02.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01_03.h"
 
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
 #include "gecchi/actor/common/shot/Shot001.h"

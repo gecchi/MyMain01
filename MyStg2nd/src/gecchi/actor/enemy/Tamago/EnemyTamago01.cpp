@@ -168,7 +168,7 @@ void EnemyTamago01::processJudgement() {
 
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
     _pSeTransmitter->play3D(0);
     if (pExplo001 != NULL) {
         pExplo001->activate();

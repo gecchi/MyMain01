@@ -316,7 +316,7 @@ void MyShip::processBehavior() {
 
     if (VB_PLAY->isPushedDown(VB_TURBO)) {
         //ターボ開始時
-        EffectTurbo002* pTurbo002 = (EffectTurbo002*)GameGlobal::_pSceneCommon->_pDispatcher_EffectTurbo002->employForce();
+        EffectTurbo002* pTurbo002 = (EffectTurbo002*)pCOMMONSCENE->_pDispatcher_EffectTurbo002->employForce();
          if (pTurbo002 != NULL) {
              pTurbo002->setGeometry(this);
              pTurbo002->activate();
@@ -463,7 +463,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
     _pSeTransmitter->play3D(0);
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(pOther);
         pExplo001->activate();

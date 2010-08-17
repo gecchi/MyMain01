@@ -255,7 +255,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     } else {
 
     }
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->activate();
         pExplo001->setGeometry(this);

@@ -79,10 +79,10 @@ void EnemyIris::processBehavior() {
                 DELETEARR_IMPOSSIBLE_NULL(paAngWay);
                 //ショット発射エフェクト
                 if (_pDispatcher_ShotEffect) {
-                    GgafDx9DrawableActor* pActo_Effect = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
-                    if (pActo_Effect) {
-                        pActo_Effect->setGeometry(this);
-                        pActo_Effect->activate();
+                    GgafDx9DrawableActor* pEffectActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
+                    if (pEffectActor_Shot) {
+                        pEffectActor_Shot->setGeometry(this);
+                        pEffectActor_Shot->activate();
                     }
                 }
             }
@@ -135,7 +135,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
             ((GgafDx9FormationActor*)getParent())->wasDestroyedFollower(this);
         }
 
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
         _pSeTransmitter->play3D(0);
         if (pExplo001 != NULL) {
             pExplo001->activate();

@@ -14,7 +14,7 @@ class Stage01Scene : public StageScene {
 
 public:
 
-    Stage01MainScene* _pScene_Stage01Main;
+    Stage01Controller* _pScene_Stage01Controller;
     //BackGround01* _pBackGround01;
 //    BackGroundStar* _pBackGroundStar;
     WorldBoundSpace001* _pWorldBoundSpace001;

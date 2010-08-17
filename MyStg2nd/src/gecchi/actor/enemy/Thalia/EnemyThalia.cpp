@@ -79,10 +79,10 @@ void EnemyThalia::processBehavior() {
                 DELETEARR_IMPOSSIBLE_NULL(paAngWay);
                 //ショット発射エフェクト
                 if (_pDispatcher_ShotEffect) {
-                    GgafDx9DrawableActor* pActo_Effect = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
-                    if (pActo_Effect) {
-                        pActo_Effect->setGeometry(this);
-                        pActo_Effect->activate();
+                    GgafDx9DrawableActor* pActor_Effect = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
+                    if (pActor_Effect) {
+                        pActor_Effect->setGeometry(this);
+                        pActor_Effect->activate();
                     }
                 }
             }

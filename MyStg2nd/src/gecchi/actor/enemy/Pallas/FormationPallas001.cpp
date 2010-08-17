@@ -52,7 +52,7 @@ void FormationPallas001::initialize() {
 
 void FormationPallas001::wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) {
     //•Ò‘àÁ–ÅŽž‚ÌŽÀŒ±
-    EffectTurbo002* pTurbo002 = (EffectTurbo002*)GameGlobal::_pSceneCommon->_pDispatcher_EffectTurbo002->employForce();
+    EffectTurbo002* pTurbo002 = (EffectTurbo002*)pCOMMONSCENE->_pDispatcher_EffectTurbo002->employForce();
      if (pTurbo002 != NULL) {
          pTurbo002->setGeometry(prm_pActorLast);
          pTurbo002->activate();

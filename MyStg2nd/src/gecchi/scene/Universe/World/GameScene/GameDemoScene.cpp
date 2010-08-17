@@ -38,7 +38,7 @@ void GameDemoScene::processBehavior() {
 //        getLordActor()->addSubGroup(KIND_ENEMY_BODY, pActor);
 
         //自機表示
-        GameGlobal::_pSceneCommon->_pMyShip->activate(); //下位にオプション等があるし
+        pCOMMONSCENE->_pMyShip->activate(); //下位にオプション等があるし
 
         //TODO:kesu
         //テスト
