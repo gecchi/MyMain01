@@ -84,7 +84,7 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
 //    addSubGroup(_pEffectTurbo002);
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
-    for (DWORD i = 0; i < 100; i++) {
+    for (UINT32 i = 0; i < 100; i++) {
         _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
     }
 
@@ -511,35 +511,35 @@ void MyShip::equipOption() {
 
 bool MyShip::isDoublePushedDown(vbsta prm_VB) {
     //過去に遡りながら検証
-    DWORD dwFrameApply;
-    DWORD dwFrameAgo = 1;
-    VirtualButton::VBMap* pVBMap = VB_PLAY->getPastVBMap(dwFrameAgo);
+    frame frame_Apply;
+    frame frame_Ago = 1;
+    VirtualButton::VBMap* pVBMap = VB_PLAY->getPastVBMap(frame_Ago);
     //直前は必ず押されていては駄目、ニュートラルでなければだめ
     if ((pVBMap->_state & prm_VB) == 0) {
 
-        dwFrameAgo++;
+        frame_Ago++;
         //その前の5フレーム以内のどこかで押していなければならない
-        dwFrameApply = dwFrameAgo + 7;//許容フレーム
-        for ( ; dwFrameAgo < dwFrameApply; dwFrameAgo++) {
-            pVBMap = VB_PLAY->getPastVBMap(dwFrameAgo);
+        frame_Apply = frame_Ago + 7;//許容フレーム
+        for ( ; frame_Ago < frame_Apply; frame_Ago++) {
+            pVBMap = VB_PLAY->getPastVBMap(frame_Ago);
             if (pVBMap->_state & prm_VB) {
                 break;
             }
         }
-        if (dwFrameAgo >= dwFrameApply) {
+        if (frame_Ago >= frame_Apply) {
             return false; //不合格
         }
 
         //さらにそこから以前5フレーム以内のどこかで押されていては駄目
-        dwFrameApply = dwFrameAgo + 7;//許容フレーム
-        for ( ; dwFrameAgo < dwFrameApply; dwFrameAgo++) {
-            pVBMap = VB_PLAY->getPastVBMap(dwFrameAgo);
+        frame_Apply = frame_Ago + 7;//許容フレーム
+        for ( ; frame_Ago < frame_Apply; frame_Ago++) {
+            pVBMap = VB_PLAY->getPastVBMap(frame_Ago);
             if ((pVBMap->_state & prm_VB) == 0) {
 
                 break;
             }
         }
-        if (dwFrameAgo >= dwFrameApply) {
+        if (frame_Ago >= frame_Apply) {
             return false; //不合格
         }
         return true;

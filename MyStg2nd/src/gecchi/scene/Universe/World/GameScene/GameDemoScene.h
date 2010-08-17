@@ -26,12 +26,12 @@ public:
     LabelGecchi16Font* _pStringBoard01;
     LabelGecchi16Font* _pStringBoard02;
 
-    UINT32 _frame_Begin;
-    UINT32 _frame_Title;
-    UINT32 _frame_Demoplay;
-    UINT32 _frame_Ranking;
-    UINT32 _frame_Decide;
-    UINT32 _frame_End;
+    frame _frame_Begin;
+    frame _frame_Title;
+    frame _frame_Demoplay;
+    frame _frame_Ranking;
+    frame _frame_Decide;
+    frame _frame_End;
 
     GameDemoScene(const char* prm_name);
     void reset();

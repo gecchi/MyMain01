@@ -18,13 +18,13 @@ public:
     /** 出現時の加速度（負で遅くなる */
     int _iMoveAcce_1st;
     /** 自身が出現してから、時機の方向に方向転換を開始するフレーム */
-    UINT32 _frame_TurnBegin;
+    frame _frame_TurnBegin;
     /** 移動速度上限 */
     int _iMvVelo_Top;
     /** 最低保証移動速度 */
     int _iMvVelo_Bottom;
     /** 方向転換に費やすことができるフレーム数 */
-    DWORD _dwFrameInterval_Turn;
+    frame _frame_TurnInterval;
     /** 方向転換中の角速度アングル値 */
     angle _angVelo_Turn;
     /** 方向転換を開始（_frame_TurnBegin）から再設定される加速度 */

@@ -23,9 +23,9 @@ public:
     angle _angCamXY_prev;
 
 
-    UINT32 _frame_Begin;
-    UINT32 _frame_Play;
-    UINT32 _frame_End;
+    frame _frame_Begin;
+    frame _frame_Play;
+    frame _frame_End;
 
     LabelGecchi16Font* _pMessage;
 

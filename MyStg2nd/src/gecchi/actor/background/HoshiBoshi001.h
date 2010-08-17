@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class HoshiBoshi001 : public GgafDx9Core::GgafDx9PointSpriteActor {
 
 public:
-    UINT32 _frame_offset;
+    frame _frame_offset;
 
     /** 拡大縮小支援オブジェクト */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;

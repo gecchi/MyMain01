@@ -489,7 +489,6 @@ void MyOption::processBehavior() {
 }
 
 void MyOption::processJudgement() {
-    //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 }
 
 void MyOption::onHit(GgafActor* prm_pOtherActor) {

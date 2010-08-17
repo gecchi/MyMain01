@@ -11,7 +11,7 @@ MyShip* GameGlobal::_pMyShip = NULL;
 CommonScene* GameGlobal::_pSceneCommon = NULL;
 GameScene*   GameGlobal::_pSceneGame = NULL;
 double GameGlobal::_rank = 1.0;
-DWORD GameGlobal::_dwScore = 0;
+UINT32 GameGlobal::_score = 0;
 
 
 
@@ -20,7 +20,7 @@ DWORD GameGlobal::_dwScore = 0;
 void GameGlobal::init() {
     if (_isInit == false) {
         _rank = 1;
-        _dwScore = 0;
+        _score = 0;
 
 
         _isInit = true;

@@ -21,7 +21,7 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshSetActor
     /** 最低保証移動速度 */
     _iMvVelo_Bottom = 0;
     /** 方向転換に費やすことができるフレーム数 */
-    _dwFrameInterval_Turn = 400;
+    _frame_TurnInterval = 400;
     /** 方向転換中の角速度アングル値(正の値) */
     _angVelo_Turn = 7000;
     /** 方向転換を開始（_frame_TurnBegin）から再設定される加速度 */
@@ -63,7 +63,7 @@ void EnemyCeresShot001::processBehavior() {
     }
 
     //方向転換終了
-    if (getActivePartFrame() == _frame_TurnBegin + _dwFrameInterval_Turn) {
+    if (getActivePartFrame() == _frame_TurnBegin + _frame_TurnInterval) {
         _pMover->setRzMvAngVelo(0);
         _pMover->setRyMvAngVelo(0);
         _pMover->_mv_ang_ry_target_flg = false;

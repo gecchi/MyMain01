@@ -20,10 +20,10 @@ public:
     LabelGecchi16Font* _pStringBoard01;
     LabelGecchi16Font* _pStringBoard02;
 
-    UINT32 _frame_Begin;
-    UINT32 _frame_Ope;
-    UINT32 _frame_Decide;
-    UINT32 _frame_End;
+    frame _frame_Begin;
+    frame _frame_Ope;
+    frame _frame_Decide;
+    frame _frame_End;
 
     int _selected_stage;
 

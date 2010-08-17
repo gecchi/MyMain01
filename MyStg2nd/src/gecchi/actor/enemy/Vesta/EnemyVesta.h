@@ -11,20 +11,20 @@ namespace MyStg2nd {
 class EnemyVesta : public GgafDx9LibStg::DefaultMorphMeshActor {
 private:
     /** [r]次回ハッチが開くフレーム */
-    UINT32 _frame_of_moment_nextopen;
+    frame _frame_of_moment_nextopen;
     /** [r]次回ハッチが閉じるフレーム */
-    UINT32 _frame_of_moment_nextclose;
+    frame _frame_of_moment_nextclose;
 public:
     /** [r]行動パターン番号 */
     int _iMovePatternNo;
     /** [r]状況 */
     bool _is_open_hatch;
     /** [r/w]ハッチが開いているフレーム間隔 */
-    UINT32 _frame_of_open_interval;
+    frame _frame_of_open_interval;
     /** [r/w]ハッチが閉じていているフレーム間隔 */
-    UINT32 _frame_of_close_interval;
+    frame _frame_of_close_interval;
     /** [r/w]ハッチ開＞閉 或いは、閉＞開 のモーフアニメーションフレーム数 */
-    UINT32 _frame_of_morph_interval;
+    frame _frame_of_morph_interval;
     /** [r/w]ハッチの土台となってるアクター */
 
     /** [r/w]ハッチから発射されるアクターをメンバーに持つディスパッチャー */

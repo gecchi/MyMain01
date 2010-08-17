@@ -2,7 +2,7 @@
 #define GAMEGLOBAL_H_
 namespace MyStg2nd {
 #define _RANK_ (GameGlobal::_rank)
-#define _SCORE_ (GameGlobal::_dwScore)
+#define _SCORE_ (GameGlobal::_score)
 #define pMYSHIP (GameGlobal::_pMyShip)
 #define pCOMMONSCENE (GameGlobal::_pSceneCommon)
 #define pGAMESCENE (GameGlobal::_pSceneGame)
@@ -11,7 +11,7 @@ class GameGlobal {
 public:
     static boolean _isInit;
     /** スコア */
-    static DWORD _dwScore;
+    static UINT32 _score;
 
     /** ステージ */
     static int _iScene;
