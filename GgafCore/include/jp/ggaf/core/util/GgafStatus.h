@@ -19,6 +19,7 @@ class GgafStatus {
       char _char_val;
       int _int_val;
       double _double_val;
+      void* _ptr;
     };
 
 public:
@@ -39,6 +40,7 @@ public:
             _paValue[i]._double_val = 0;
             _paValue[i]._int_val = 0;
             _paValue[i]._char_val = 0;
+            _paValue[i]._ptr = NULL;
         }
     }
 
@@ -53,6 +55,10 @@ public:
 
     void set(int n, double val) {
         _paValue[n]._double_val = val;
+    }
+
+    void set(int n, void* p) {
+        _paValue[n]._ptr = p;
     }
 
     char plus(int n, char val) {
@@ -105,6 +111,10 @@ public:
 
     double getDouble(int n) {
         return _paValue[n]._double_val;
+    }
+
+    void* getPtr(int n) {
+        return _paValue[n]._ptr;
     }
 
     ~GgafStatus() {
