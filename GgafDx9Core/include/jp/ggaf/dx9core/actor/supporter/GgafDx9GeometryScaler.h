@@ -40,13 +40,13 @@ public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     /** 各軸の毎フレームのスケールの増分の増分 */
     int _acce_scale[3];
     /** 各軸の三角波の波形でスケーリングのアタックフレーム */
-    UINT32 _beat_attack_frame[3];
+    frame _beat_attack_frame[3];
     /** 各軸の三角波の波形でスケーリングのレストフレーム */
-    UINT32 _beat_rest_frame[3];
+    frame _beat_rest_frame[3];
     /** 各軸のスケーリングに費やすフレーム数 */
-    UINT32 _beat_spend_frame[3];
+    frame _beat_spend_frame[3];
     /** 各軸のスケーリングを開始したフレーム */
-    UINT32 _beat_begin_frame[3];
+    frame _beat_begin_frame[3];
     /** 各軸のループカウント（2で拡大縮小ワンセット、1ならば拡大or縮小の片道） */
     int _one_way_cnt[3];
     /** 各軸のストップする予定のループカウント */
@@ -178,7 +178,7 @@ public:
      * @param prm_target_scale 目標スケール
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetScaleLinerUntil(int prm_target_scale, UINT32 prm_spend_frame);
+    void intoTargetScaleLinerUntil(int prm_target_scale, frame prm_spend_frame);
 
     /**
      * 片道等速スケーリング（軸単位・持続フレーム数指定） .
@@ -187,7 +187,7 @@ public:
      * @param prm_target_scale 目標スケール
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetScaleLinerUntil(int prm_axis, int prm_target_scale, UINT32 prm_spend_frame);
+    void intoTargetScaleLinerUntil(int prm_axis, int prm_target_scale, frame prm_spend_frame);
 
     /**
      * 片道等速スケーリング（全軸・スケール速度指定） .
@@ -235,7 +235,7 @@ public:
      * @param prm_beat_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
-    void loopLiner(UINT32 prm_beat_spend_frame, float prm_beat_num);
+    void loopLiner(frame prm_beat_spend_frame, float prm_beat_num);
 
     /**
      * 反復等速スケーリング（軸単位・フレーム数指定）
@@ -245,7 +245,7 @@ public:
      * @param prm_beat_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
-    void loopLiner(int prm_axis, UINT32 prm_beat_spend_frame, float prm_beat_num);
+    void loopLiner(int prm_axis, frame prm_beat_spend_frame, float prm_beat_num);
 
     /**
      * 三角波の波形でスケーリングする。（全軸指定）.
@@ -273,9 +273,9 @@ public:
      * @param prm_rest_frame 上図で③のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
-    void beat(UINT32 prm_beat_spend_frame,
-              UINT32 prm_attack_frame,
-              UINT32 prm_rest_frame,
+    void beat(frame prm_beat_spend_frame,
+              frame prm_attack_frame,
+              frame prm_rest_frame,
               float prm_beat_num);
     /**
      * 三角波の波形でスケーリングする。（軸指定）.
@@ -286,9 +286,9 @@ public:
      * @param prm_beat_num ループ数(-1で無限)
      */
     void beat(int prm_axis,
-              UINT32 prm_beat_spend_frame,
-              UINT32 prm_attack_frame,
-              UINT32 prm_rest_frame,
+              frame prm_beat_spend_frame,
+              frame prm_attack_frame,
+              frame prm_rest_frame,
               float prm_beat_num);
 
     /**

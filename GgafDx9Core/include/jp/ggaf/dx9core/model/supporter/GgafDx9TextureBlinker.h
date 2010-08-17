@@ -33,13 +33,13 @@ public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     /** 毎フレームの色強度の増分の増分 */
     float _acce_fPowerBlink;
     /** 三角波の波形で点滅のアタックフレーム */
-    UINT32 _beat_attack_frame;
+    frame _beat_attack_frame;
     /** 三角波の波形で点滅のレストフレーム */
-    UINT32 _beat_rest_frame;
+    frame _beat_rest_frame;
     /** 点滅に費やすフレーム数 */
-    UINT32 _beat_spend_frame;
+    frame _beat_spend_frame;
     /** 点滅を開始したフレーム */
-    UINT32 _beat_begin_frame;
+    frame _beat_begin_frame;
     /** ループカウント（2で点滅ワンセット、1ならば拡大or縮小の片道） */
     int _one_way_cnt;
     /** ストップする予定のループカウント */
@@ -117,7 +117,7 @@ public:
      * @param prm_target_fPowerBlink 目標色強度
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetBlinkLinerUntil(float prm_target_fPowerBlink, UINT32 prm_spend_frame);
+    void intoTargetBlinkLinerUntil(float prm_target_fPowerBlink, frame prm_spend_frame);
 
     /**
      * 片道等速点滅（全軸・色強度速度指定） .
@@ -146,7 +146,7 @@ public:
      * @param prm_beat_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
-    void loopLiner(UINT32 prm_beat_spend_frame, float prm_beat_num);
+    void loopLiner(frame prm_beat_spend_frame, float prm_beat_num);
 
     /**
      * 三角波の波形で点滅する。.
@@ -174,9 +174,9 @@ public:
      * @param prm_rest_frame 上図で③のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
-    void beat(UINT32 prm_beat_spend_frame,
-              UINT32 prm_attack_frame,
-              UINT32 prm_rest_frame,
+    void beat(frame prm_beat_spend_frame,
+              frame prm_attack_frame,
+              frame prm_rest_frame,
               float prm_beat_num);
 
 

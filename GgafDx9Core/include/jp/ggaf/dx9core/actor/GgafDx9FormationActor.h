@@ -21,14 +21,14 @@ public:
     /** 所属アクター数 */
     int _num_sub;
 
-    UINT32 _frame_offset_end;
+    frame _frame_offset_end;
     /**
      *
      * @param prm_name
      * @param prm_frame_offset_end 子が無くなったときに解放する猶予フレーム
      * @return
      */
-    GgafDx9FormationActor(const char* prm_name, UINT32 prm_frame_offset_end = 30*60);
+    GgafDx9FormationActor(const char* prm_name, frame prm_frame_offset_end = 30*60);
 
     virtual void initialize() override {
     }

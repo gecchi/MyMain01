@@ -12,7 +12,7 @@ class GgafDx9FixedFrameSplineProgram : public GgafDx9SplineProgram {
 
 public:
     /** [r]１区間の使用可能フレーム */
-    UINT32 _SPframe_segment;
+    frame _SPframe_segment;
     /** [r]次の補完点までの距離のテーブル */
     int* _paDistace_to;
     /** [r]次の補完点到達に必要な移動速度のテーブル */
@@ -20,7 +20,7 @@ public:
     /** [rw]方向転換に許されるRzRyの軸転速度 */
     angvelo _angveloRzRyMv;
     /** [r]目標地点に到着までに設定されたフレーム数 */
-    UINT32 _spent_frame;
+    frame _spent_frame;
     /**
      * [r]オプション
      * 0:絶対座標移動。
@@ -61,7 +61,7 @@ public:
                                    double prm_paaCriteriaPoint[][3],
                                    int prm_point_num,
                                    double prm_accuracy,
-                                   UINT32 prm_spent_frame,
+                                   frame prm_spent_frame,
                                    angvelo prm_angveloRzRyMv);
     /**
      * コンストラクタ.
@@ -77,7 +77,7 @@ public:
      */
     GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
                                    GgafDx9Spline3D* prm_sp,
-                                   UINT32 prm_spent_frame,
+                                   frame prm_spent_frame,
                                    angvelo prm_angveloRzRyMv);
 
     /**

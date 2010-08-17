@@ -14,7 +14,7 @@ class GgafDx9UvFlipper : public GgafCore::GgafObject {
 private:
 
     /** 内部アニメフレーム用カウンタ */
-    UINT32 _frame_counter_uvflip;
+    frame _frame_counter_uvflip;
 
 
 public:
@@ -32,7 +32,7 @@ public:
     /** 現在表示中のアニメパターン番号 */
     int _pattno_uvflip_bottom;
     /** パターンとパターンの間隔フレーム数 */
-    UINT32 _frame_uvflip_interval;
+    frame _frame_uvflip_interval;
     /** アニメ方式 */
     GgafDx9UvFlipMethod _uvflip_method;
     /** FLIP_OSCILLATE_LOOP用の現在のアニメ方向 */

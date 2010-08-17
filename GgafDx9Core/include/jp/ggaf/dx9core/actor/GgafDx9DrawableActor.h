@@ -15,7 +15,7 @@ class GgafDx9DrawableActor : public GgafDx9GeometricActor {
 private:
 
     char* _technique_temp;
-    UINT32 _frame_temp_technique;
+    frame _frame_temp_technique;
     unsigned int _hash_technique_temp;
     bool _is_temp_technique;
     /** モデル資源接続 */
@@ -124,7 +124,7 @@ public:
      * @param prm_technique テクニック名
      * @param prm_frame 変更テクニックの継続フレーム数
      */
-    void chengeEffectTechniqueInterim(const char* prm_technique, UINT32 prm_frame) {
+    void chengeEffectTechniqueInterim(const char* prm_technique, frame prm_frame) {
         if (_is_temp_technique == false) { //すでに一時テクニック使用時は無視
             //元々のテクニックを退避
             _hash_technique_temp = _hash_technique;

@@ -26,7 +26,7 @@ public:
     void useBgm(int prm_bgm_num);
     void set(int prm_id, const char* prm_bgm_name);
     void behave();
-    void fade(int prm_id, UINT32 prm_frame, int prm_target_volume);
+    void fade(int prm_id, frame prm_frame, int prm_target_volume);
 
     void fadein(int prm_id, int prm_frame) {
         fade(prm_id, prm_frame, DSBVOLUME_MAX);

@@ -21,7 +21,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricA
                                                                double prm_paaCriteriaPoints[][3],
                                                                int prm_point_num,
                                                                double prm_accuracy,
-                                                               UINT32 prm_spent_frame,
+                                                               frame prm_spent_frame,
                                                                angvelo prm_angveloRzRyMv )
 
                                         : GgafDx9SplineProgram(prm_pActor,
@@ -35,7 +35,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricA
 
 GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
                                                                GgafDx9Spline3D* prm_sp,
-                                                               UINT32 prm_spent_frame,
+                                                               frame prm_spent_frame,
                                                                angvelo prm_angveloRzRyMv)
 
                                          : GgafDx9SplineProgram(prm_pActor,

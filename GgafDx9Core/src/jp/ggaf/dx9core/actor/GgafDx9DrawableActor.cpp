@@ -194,7 +194,7 @@ void GgafDx9DrawableActor::processPreDraw() {
                         // 上記の例では 1001.07 * (5.0/10.0) = 500.535
                         // MAX_DRAW_DEPTH_LEVEL = 0 ～ 500 が使用される
     //                    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
-    //                        _TRACE_(GgafGod::_pGod->_godframe<<"\t"<<getName()<<"\t"<<dep<<"\t"<<_now_drawdepth<<"\t1\tinfo\tOffset=0\t"<<pCAM->_zf<<"\t"<<roughly_dep_point1<<"\t"<<roughly_dep_point2<<"\t");
+    //                        _TRACE_(GgafGod::_pGod->_frame_of_God<<"\t"<<getName()<<"\t"<<dep<<"\t"<<_now_drawdepth<<"\t1\tinfo\tOffset=0\t"<<pCAM->_zf<<"\t"<<roughly_dep_point1<<"\t"<<roughly_dep_point2<<"\t");
     //                    }
                     } else if (dep <= roughly_dep_point2) {
                         //dep が roughly_dep_point1(500.535) ～ roughly_dep_point2(800.856) までの距離のオブジェクトは
@@ -205,7 +205,7 @@ void GgafDx9DrawableActor::processPreDraw() {
                         // (800.856 - 500.535) * 0.2 =  550.5885 となるので
                         // MAX_DRAW_DEPTH_LEVEL の 500 ～  550 がここで当てはめられる
     //                    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
-    //                        _TRACE_(GgafGod::_pGod->_godframe<<"\t"<<getName()<<"\t"<<dep<<"\t"<<_now_drawdepth<<"\t2\tinfo\tOffset="<<offset_DRAW_DEPTH_LEVEL<<"\t"<<pCAM->_zf<<"\t"<<roughly_dep_point1<<"\t"<<roughly_dep_point2<<"\t");
+    //                        _TRACE_(GgafGod::_pGod->_frame_of_God<<"\t"<<getName()<<"\t"<<dep<<"\t"<<_now_drawdepth<<"\t2\tinfo\tOffset="<<offset_DRAW_DEPTH_LEVEL<<"\t"<<pCAM->_zf<<"\t"<<roughly_dep_point1<<"\t"<<roughly_dep_point2<<"\t");
     //                    }
                     } else {
                         //dep が roughly_dep_point2(800.856) ～ までの距離のオブジェクトは
@@ -214,7 +214,7 @@ void GgafDx9DrawableActor::processPreDraw() {
 
                         _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(offset_DRAW_DEPTH_LEVEL  + ((dep - roughly_dep_point2) * 0.04), this); //0.04倍。つまりDirectXの距離25が深さ1。よって250px間隔で段階レンダ
     //                    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
-    //                        _TRACE_(GgafGod::_pGod->_godframe<<"\t"<<getName()<<"\t"<<dep<<"\t"<<_now_drawdepth<<"\t3\tinfo\tOffset="<<offset_DRAW_DEPTH_LEVEL<<"\t"<<pCAM->_zf<<"\t"<<roughly_dep_point1<<"\t"<<roughly_dep_point2<<"\t");
+    //                        _TRACE_(GgafGod::_pGod->_frame_of_God<<"\t"<<getName()<<"\t"<<dep<<"\t"<<_now_drawdepth<<"\t3\tinfo\tOffset="<<offset_DRAW_DEPTH_LEVEL<<"\t"<<pCAM->_zf<<"\t"<<roughly_dep_point1<<"\t"<<roughly_dep_point2<<"\t");
     //                    }
                     }
                 } else { //特別な描画深度指定有り

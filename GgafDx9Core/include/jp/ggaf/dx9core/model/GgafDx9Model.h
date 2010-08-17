@@ -39,7 +39,7 @@ public:
     GgafDx9TextureConnection** _papTextureCon;
     /** [r]点滅操作支援オブジェクト */
     GgafDx9TextureBlinker* _pTextureBlinker;
-    UINT32 _frame_blinker;
+    frame _frame_blinker;
     /** [r]モデル単位の初期処理が実行済みかどうか(draw時チェック＆変更) */
     bool _is_init_model;
     /**

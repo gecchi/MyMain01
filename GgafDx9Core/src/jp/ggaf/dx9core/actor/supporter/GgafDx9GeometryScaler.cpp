@@ -110,13 +110,13 @@ void GgafDx9GeometryScaler::behave() {
 //            _TRACE_("_bottom_scale["<<axis<<"] - _top_scale["<<axis<<"]" << (_bottom_scale[axis] - _top_scale[axis]));
 //            _TRACE_("_scale["<<axis<<"] _velo_scale["<<axis<<"]="<<_scale[axis]<<" "<<_velo_scale[axis]);
 
-void GgafDx9GeometryScaler::intoTargetScaleLinerUntil(int prm_target_scale, UINT32 prm_spend_frame) {
+void GgafDx9GeometryScaler::intoTargetScaleLinerUntil(int prm_target_scale, frame prm_spend_frame) {
     for (int axis = 0; axis < 3; axis++) {
         intoTargetScaleLinerUntil(axis, prm_target_scale, prm_spend_frame);
     }
 }
 
-void GgafDx9GeometryScaler::intoTargetScaleLinerUntil(int prm_axis, int prm_target_scale, UINT32 prm_spend_frame) {
+void GgafDx9GeometryScaler::intoTargetScaleLinerUntil(int prm_axis, int prm_target_scale, frame prm_spend_frame) {
     //_TRACE_("intoTargetScaleLinerUntil prm_axis="<<prm_axis<<"/prm_target_scale="<<prm_target_scale<<"/prm_spend_frame="<<prm_spend_frame);
     _method[prm_axis] = TARGET_SCALE_LINER;
     _target_scale[prm_axis] = prm_target_scale;
@@ -154,13 +154,13 @@ void GgafDx9GeometryScaler::intoTargetScaleLinerStep(int prm_axis, int prm_targe
 }
 
 
-void GgafDx9GeometryScaler::loopLiner(UINT32 prm_beat_spend_frame, float prm_beat_num) {
+void GgafDx9GeometryScaler::loopLiner(frame prm_beat_spend_frame, float prm_beat_num) {
     for (int axis = 0; axis < 3; axis++) {
         loopLiner(axis, prm_beat_spend_frame, prm_beat_num);
     }
 }
 
-void GgafDx9GeometryScaler::loopLiner(int prm_axis, UINT32 prm_beat_spend_frame, float prm_beat_num) {
+void GgafDx9GeometryScaler::loopLiner(int prm_axis, frame prm_beat_spend_frame, float prm_beat_num) {
     _method[prm_axis] = BEAT_SCALE_LINER;
     _one_way_cnt[prm_axis] = 0;
     _stop_one_way_num[prm_axis] = (int)(prm_beat_num*2.0f);
@@ -171,14 +171,14 @@ void GgafDx9GeometryScaler::loopLiner(int prm_axis, UINT32 prm_beat_spend_frame,
     }
 }
 
-void GgafDx9GeometryScaler::beat(UINT32 prm_beat_spend_frame, UINT32 prm_attack_frame, UINT32 prm_rest_frame, float prm_beat_num) {
+void GgafDx9GeometryScaler::beat(frame prm_beat_spend_frame, frame prm_attack_frame, frame prm_rest_frame, float prm_beat_num) {
     for (int axis = 0; axis < 3; axis++) {
         beat(axis, prm_beat_spend_frame, prm_attack_frame, prm_rest_frame, prm_beat_num);
     }
 }
 
 
-void GgafDx9GeometryScaler::beat(int prm_axis, UINT32 prm_beat_spend_frame, UINT32 prm_attack_frame, UINT32 prm_rest_frame, float prm_beat_num) {
+void GgafDx9GeometryScaler::beat(int prm_axis, frame prm_beat_spend_frame, frame prm_attack_frame, frame prm_rest_frame, float prm_beat_num) {
     _method[prm_axis] = BEAT_SCALE_TRIANGLEWAVE;
     _one_way_cnt[prm_axis] = 0;
     _stop_one_way_num[prm_axis] = (int)(prm_beat_num*2.0f);

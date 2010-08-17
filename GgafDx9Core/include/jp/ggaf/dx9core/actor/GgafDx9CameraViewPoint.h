@@ -12,7 +12,7 @@ class GgafDx9CameraViewPoint : public GgafDx9GeometricActor {
 
 public:
 
-    UINT32 _frame_offset;
+    frame _frame_offset;
 
     GgafDx9CameraViewPoint();
 

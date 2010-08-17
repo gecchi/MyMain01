@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9FormationActor::GgafDx9FormationActor(const char* prm_name, UINT32 prm_frame_offset_end) :
+GgafDx9FormationActor::GgafDx9FormationActor(const char* prm_name, frame prm_frame_offset_end) :
     GgafDx9GeometricActor(prm_name, NULL)
 {
     _actor_class |= Obj_GgafDx9FormationActor;
