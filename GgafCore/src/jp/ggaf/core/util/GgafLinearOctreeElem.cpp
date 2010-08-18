@@ -19,7 +19,7 @@ void GgafLinearOctreeElem::extract() {
         return;
     }
     //情報リセット
-    int index = _pSpace_Current->_my_index;
+    UINT32 index = _pSpace_Current->_my_index;
     while(true) {
         //一つでもextract()すると情報は崩れることを注意、アプリケーションロジックからextract() は使用しないこと。
         //基本ツリーは、登録と、クリア飲み行うという設計
@@ -90,7 +90,7 @@ void GgafLinearOctreeElem::addElem(GgafLinearOctreeSpace* prm_pSpace_target) {
         }
     }
     //引数の要素番号
-    int index = prm_pSpace_target->_my_index;
+    UINT32 index = prm_pSpace_target->_my_index;
     //親空間すべてに要素種別情報を流す
     while(true) {
         _pLinearOctree->_paSpace[index]._kindinfobit =

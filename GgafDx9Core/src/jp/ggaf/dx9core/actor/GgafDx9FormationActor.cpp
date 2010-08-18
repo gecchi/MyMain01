@@ -36,9 +36,12 @@ void GgafDx9FormationActor::processBehavior() {
 }
 
 void GgafDx9FormationActor::processJudgement() {
-    if (getSubFirst() == NULL) {
-        inactivate();
-        sayonara(_frame_offset_end);
+    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
+        //èIóπÇë“Ç¬ÇÃÇ›
+    } else {
+		if (getSubFirst() == NULL) {
+			sayonara(_frame_offset_end);
+		}
     }
 }
 

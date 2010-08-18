@@ -130,9 +130,9 @@ public:
     int _top_level_dZ;
 
     /** 8の累乗の値を予め計算して保持している配列 */
-    int* _paPow;
+    UINT32* _paPow;
     /** 全空間数 */
-    int _num_space;
+    UINT32 _num_space;
     /** 最大空間レベル */
     int _top_space_level; //ルート空間はLevel=0
 
@@ -185,7 +185,7 @@ public:
      * @param tZ2 〃
      * @return 空間配列要素番号 又は -1
      */
-    virtual int getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
+    virtual UINT32 getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
 
 //    /**
 //     * 座標→線形8分木空間要素番号、の変換 .

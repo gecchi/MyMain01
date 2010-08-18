@@ -319,7 +319,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[i*3+1];
 
             //頂点インデックス C の角(∠ACB)を求めて、配列に保持
-            paRad[i*3+2] = 2*PI - (paRad[i*3+0] + paRad[i*3+1]);
+            paRad[i*3+2] = (float)(2*PI - (paRad[i*3+0] + paRad[i*3+1]));
             //C の頂点インデックス番号に紐つけて、角を加算
             paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
         }
@@ -508,7 +508,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         int faceNoCnt_break = 0;
         int prev_faceNoCnt_break = -1;
         UINT max_num_vertices = 0;
-        UINT min_num_vertices = INT_MAX;
+        UINT min_num_vertices = UINT_MAX;
 
         int faceNoCnt;
         for (faceNoCnt = 0; faceNoCnt < nFaces; faceNoCnt++) {
@@ -520,10 +520,10 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
                 paParam[paramno].MaterialNo = materialno;
                 paParam[paramno].BaseVertexIndex = 0;
-                paParam[paramno].MinIndex = INT_MAX; //次回ブレイク時に設定、必ずブレイクしたいため変な値にしとく
-                paParam[paramno].NumVertices = INT_MAX; //次回ブレイク時に設定
+                paParam[paramno].MinIndex = UINT_MAX; //次回ブレイク時に設定、必ずブレイクしたいため変な値にしとく
+                paParam[paramno].NumVertices = UINT_MAX; //次回ブレイク時に設定
                 paParam[paramno].StartIndex = faceNoCnt*3;
-                paParam[paramno].PrimitiveCount = INT_MAX; //次回ブレイク時に設定
+                paParam[paramno].PrimitiveCount = UINT_MAX; //次回ブレイク時に設定
 
                 if (faceNoCnt > 0) {
                     paParam[paramno-1].MinIndex = min_num_vertices;
@@ -531,7 +531,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                     paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
                     //リセット
                     max_num_vertices = 0;
-                    min_num_vertices = INT_MAX;
+                    min_num_vertices = UINT_MAX;
                 }
                 paramno++;
             }
@@ -907,7 +907,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                 paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[i*3+1];
 
                 //頂点インデックス C の角(∠ACB)を求めて、配列に保持
-                paRad[i*3+2] = 2*PI - (paRad[i*3+0] + paRad[i*3+1]);
+                paRad[i*3+2] = (float)(2*PI - (paRad[i*3+0] + paRad[i*3+1]));
                 //C の頂点インデックス番号に紐つけて、角を加算
                 paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
             }
@@ -1158,7 +1158,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         int faceNoCnt_break = 0;
         int prev_faceNoCnt_break = -1;
         UINT max_num_vertices = 0;
-        UINT min_num_vertices = INT_MAX;
+        UINT min_num_vertices = UINT_MAX;
 
         int faceNoCnt;
         for (faceNoCnt = 0; faceNoCnt < nFaces; faceNoCnt++) {
@@ -1170,10 +1170,10 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
                 paParam[paramno].MaterialNo = materialno;
                 paParam[paramno].BaseVertexIndex = 0;
-                paParam[paramno].MinIndex = INT_MAX; //次回ブレイク時に設定、変な値にしとく
-                paParam[paramno].NumVertices = INT_MAX; //次回ブレイク時に設定
+                paParam[paramno].MinIndex = UINT_MAX; //次回ブレイク時に設定、変な値にしとく
+                paParam[paramno].NumVertices = UINT_MAX; //次回ブレイク時に設定
                 paParam[paramno].StartIndex = faceNoCnt*3;
-                paParam[paramno].PrimitiveCount = INT_MAX; //次回ブレイク時に設定
+                paParam[paramno].PrimitiveCount = UINT_MAX; //次回ブレイク時に設定
 
                 if (faceNoCnt > 0) {
                     paParam[paramno-1].MinIndex = min_num_vertices;
@@ -1181,7 +1181,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
                     //リセット
                     max_num_vertices = 0;
-                    min_num_vertices = INT_MAX;
+                    min_num_vertices = UINT_MAX;
                 }
                 paramno++;
             }
@@ -2089,8 +2089,8 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     prm_pBoardModel->_size_vertex_unit = sizeof(GgafDx9BoardModel::VERTEX);
 
     //1pxあたりのuvの大きさを求める
-    float texWidth  = model_pTextureCon->refer()->_pD3DXIMAGE_INFO->Width; //テクスチャの幅(px)
-    float texHeight = model_pTextureCon->refer()->_pD3DXIMAGE_INFO->Height; //テクスチャの高さ(px)
+    float texWidth  = (float)(model_pTextureCon->refer()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+    float texHeight = (float)(model_pTextureCon->refer()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
      float pxU = 1.0f / texWidth; //テクスチャの幅(px)で割る
      float pxV = 1.0f / texHeight; //テクスチャの高さ(px)で割る
 
@@ -2256,8 +2256,8 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
         GgafDx9BoardSetModel::VERTEX* paVertex = NEW GgafDx9BoardSetModel::VERTEX[4 * prm_pBoardSetModel->_set_num];
 
         //1pxあたりのuvの大きさを求める
-        float texWidth  = model_pTextureCon->refer()->_pD3DXIMAGE_INFO->Width; //テクスチャの幅(px)
-        float texHeight = model_pTextureCon->refer()->_pD3DXIMAGE_INFO->Height; //テクスチャの高さ(px)
+        float texWidth  = (float)(model_pTextureCon->refer()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+        float texHeight = (float)(model_pTextureCon->refer()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
         float pxU = 1.0f / texWidth; //テクスチャの幅(px)で割る
         float pxV = 1.0f / texHeight; //テクスチャの高さ(px)で割る
 
@@ -2566,7 +2566,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[i*3+1];
 
             //頂点インデックス C の角(∠ACB)を求めて、配列に保持
-            paRad[i*3+2] = 2*PI - (paRad[i*3+0] + paRad[i*3+1]);
+            paRad[i*3+2] = (float)(2*PI - (paRad[i*3+0] + paRad[i*3+1]));
             //C の頂点インデックス番号に紐つけて、角を加算
             paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
         }
@@ -2781,7 +2781,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             int faceNoCnt_break = 0;
             int prev_faceNoCnt_break = -1;
             UINT max_num_vertices = 0;
-            UINT min_num_vertices = INT_MAX;
+            UINT min_num_vertices = UINT_MAX;
 
             int faceNoCnt;
             for (faceNoCnt = 0; faceNoCnt < nFaces * (set_index+1); faceNoCnt++) {
@@ -2793,10 +2793,10 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
                     paParam[paramno].MaterialNo = materialno;
                     paParam[paramno].BaseVertexIndex = 0;
-                    paParam[paramno].MinIndex = INT_MAX; //次回ブレイク時に設定、必ずブレイクしたいため変な値にしとく
-                    paParam[paramno].NumVertices = INT_MAX; //次回ブレイク時に設定
+                    paParam[paramno].MinIndex = UINT_MAX; //次回ブレイク時に設定、必ずブレイクしたいため変な値にしとく
+                    paParam[paramno].NumVertices = UINT_MAX; //次回ブレイク時に設定
                     paParam[paramno].StartIndex = faceNoCnt*3;
-                    paParam[paramno].PrimitiveCount = INT_MAX; //次回ブレイク時に設定
+                    paParam[paramno].PrimitiveCount = UINT_MAX; //次回ブレイク時に設定
 
                     if (faceNoCnt > 0) {
                         paParam[paramno-1].MinIndex = min_num_vertices;
@@ -2804,7 +2804,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                         paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
                         //リセット
                         max_num_vertices = 0;
-                        min_num_vertices = INT_MAX;
+                        min_num_vertices = UINT_MAX;
                     }
                     paramno++;
                 }
@@ -3042,8 +3042,8 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     model_papTextureCon = NEW GgafDx9TextureConnection*[1];
     model_papTextureCon[0] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
 
-    float texWidth  = model_papTextureCon[0]->refer()->_pD3DXIMAGE_INFO->Width; //テクスチャの幅(px)
-    float texHeight = model_papTextureCon[0]->refer()->_pD3DXIMAGE_INFO->Height; //テクスチャの高さ(px)幅と同じになる
+    float texWidth  = (float)(model_papTextureCon[0]->refer()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+    float texHeight = (float)(model_papTextureCon[0]->refer()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
     FLOAT model_fBoundingSphereRadius = 0;
 
     //頂点バッファ作成
@@ -3052,8 +3052,8 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
 
     GgafDx9UvFlipper uvflipper(NULL);
     uvflipper.setTextureUvRotation(model_texture_split_rowcol,
-                                   1.0 / model_texture_split_rowcol,
-                                   1.0 / model_texture_split_rowcol );
+                                   1.0f / model_texture_split_rowcol,
+                                   1.0f / model_texture_split_rowcol );
     uvflipper.forcePtnNoRange(0, model_texture_split_rowcol * model_texture_split_rowcol);
     float u = 0;
     float v = 0;

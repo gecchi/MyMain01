@@ -11,7 +11,7 @@ namespace GgafCore {
 class GgafLinearOctreeSpace {
 public:
     /** 線形八分木配列の自身の要素番号 */
-    int _my_index;
+    UINT32 _my_index;
     /** 所属してる要素の種別情報 */
     UINT32 _kindinfobit;
     /** ぶら下がる要素の先頭 */
@@ -27,7 +27,7 @@ public:
         _pElemFirst = NULL;
         _pElemLast = NULL;
         _kindinfobit = 0;
-        _my_index = -1; //ありえない-1を入れておく
+        _my_index = 0xffffffff; //ありえない0xffffffffを入れておく
     }
 
     void dump();
