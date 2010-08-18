@@ -27,14 +27,12 @@ void GgafDx9FormationActor::addSubLast(GgafActor* prm_pSub) {
                                        "à¯êî="<<prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pSub->getName()<<"]");
         }
     }
-	_num_sub++;
+    _num_sub++;
     GgafDx9GeometricActor::addSubLast(prm_pSub);
 }
 
 
 void GgafDx9FormationActor::processBehavior() {
-
-
 }
 
 void GgafDx9FormationActor::processJudgement() {
