@@ -232,6 +232,11 @@ public:
      */
     virtual void addLast(T* prm_pSub, bool prm_is_delete_value = true);
 
+    /**
+     * —v‘f”‚ğ•Ô‚· .
+     * @return —v‘f”
+     */
+    int length();
 };
 
 //////////////////////////////////////////////////////////////////
@@ -346,6 +351,10 @@ void GgafLinkedListRing<T>::addLast(T* prm_pSub, bool prm_is_delete_value) {
     }
     _num_elem++;
 
+}
+template<class T>
+int GgafLinkedListRing<T>::length() {
+    return _num_elem;
 }
 
 template<class T>

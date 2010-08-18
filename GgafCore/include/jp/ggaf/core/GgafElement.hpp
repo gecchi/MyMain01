@@ -35,9 +35,9 @@ public:
 
     /** [r]ノードが誕生(addSubされた）時からのフレーム数総計(但し、_was_paused_flg==true 時は加算され無い) */
     frame _frame_of_life;
-    /** [r]ノードが誕生(addSubされた）時から、振舞ったフレーム数総計 */
+    /** [r]ノードが誕生(addSubされた）時から、振舞ったフレーム数総計(但し、_was_paused_flg==true 又は _is_active_flg==false 時は加算され無い) */
     frame _frame_of_behaving;
-    /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計 */
+    /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計(但し、_was_paused_flg==true 又は _is_active_flg==false は加算され無い) */
     frame _frame_of_behaving_since_onActive;
     /** [r]相対フレーム計算用 */
     frame _frameEnd;
