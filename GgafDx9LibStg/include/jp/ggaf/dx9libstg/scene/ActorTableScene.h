@@ -16,17 +16,26 @@ namespace GgafDx9LibStg {
 class ActorTableScene : public GgafDx9Core::GgafDx9Scene {
 public:
 
+    class TblElem {
+    public:
+        GgafCore::GgafMainActor* _pActor;
+        frame _max_delay_offset;
+        TblElem(GgafCore::GgafMainActor* prm_pActor, frame prm_max_delay_offset) {
+            _pActor = prm_pActor;
+            _max_delay_offset = prm_max_delay_offset;
+        }
+        virtual ~TblElem() {
+            //_pActorはシーン所属となるため解放は不要
+        }
+    };
 
+    frame _prev_active_frame;
 
-
-    GgafCore::GgafLinkedListRing<GgafCore::GgafMainActor> _table;
+    GgafCore::GgafLinkedListRing<TblElem> _table;
 
     ActorTableScene(const char* prm_name);
 
-    GgafCore::GgafGroupActor* addToTable(GgafCore::GgafMainActor* prm_pMainActor);
-
-    GgafCore::GgafGroupActor* addToTable(actorkind prm_kind, GgafCore::GgafMainActor* prm_pMainActor);
-
+    GgafCore::GgafGroupActor* addToTable(GgafCore::GgafMainActor* prm_pMainActo, frame prm_max_delay_offsetr);
 
     virtual void initialize() override;
 
@@ -34,13 +43,12 @@ public:
 
     virtual void processJudgement() override {
     }
-    virtual void processDraw() {
+    virtual void processDraw() override {
     }
     virtual void processHappen(int prm_no) override {
     }
     virtual void processFinal() override {
     }
-
     virtual ~ActorTableScene();
 };
 
