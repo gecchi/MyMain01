@@ -12,6 +12,7 @@ class VBRecorder;
 class GeoElement;
 class GeometryChain;
 class DefaultScene;
+class ActorTableScene;
 class DefaultD3DXMeshActor;
 class DefaultD3DXAniMeshActor;
 class DefaultMeshActor;
@@ -55,6 +56,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/util/GeoElement.h"
 #include "jp/ggaf/dx9libstg/util/GeometryChain.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
+#include "jp/ggaf/dx9libstg/scene/ActorTableScene.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultUniverse.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultD3DXMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultD3DXAniMeshActor.h"
