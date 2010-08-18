@@ -27,6 +27,29 @@ FormationPallas001::FormationPallas001(const char* prm_name) : GgafDx9FormationA
     }
 }
 void FormationPallas001::initialize() {
+//    GgafMainActor* pActor = getSubFirst();
+//    EnemyPallas* pPallas = NULL;
+//    int t = 0;
+//    do {
+//        pPallas = (EnemyPallas*)pActor;
+//        pPallas->setGeometry(_pSplineCon->refer()->_X_basepoint[0], 0, 0);
+//        pPallas->_pMover->setMvVelo(_mv_velo);
+//        pPallas->activateAfter(t*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
+//        t++;
+//        pActor = pActor->getNext();
+//    } while (!pActor->isFirst());
+
+//
+//    for (GgafMainActor* pActor = getSubFirst(); i < _num_Pallas; i++) {
+//        _papPallas[i]->setGeometry(_pSplineCon->refer()->_X_basepoint[0] ,
+//                                   0,
+//                                   0);
+//        _papPallas[i]->_pMover->setMvVelo(_mv_velo);
+//        _papPallas[i]->activateAfter(i*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
+//    }
+}
+
+void FormationPallas001::onActive() {
     GgafMainActor* pActor = getSubFirst();
     EnemyPallas* pPallas = NULL;
     int t = 0;
@@ -39,17 +62,8 @@ void FormationPallas001::initialize() {
         pActor = pActor->getNext();
     } while (!pActor->isFirst());
 
-//
-//    for (GgafMainActor* pActor = getSubFirst(); i < _num_Pallas; i++) {
-//        _papPallas[i]->setGeometry(_pSplineCon->refer()->_X_basepoint[0] ,
-//                                   0,
-//                                   0);
-//        _papPallas[i]->_pMover->setMvVelo(_mv_velo);
-//        _papPallas[i]->activateAfter(i*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
-//    }
+
 }
-
-
 void FormationPallas001::wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) {
     //•Ò‘àÁ–ÅŽž‚ÌŽÀŒ±
     EffectTurbo002* pTurbo002 = (EffectTurbo002*)pCOMMONSCENE->_pDispatcher_EffectTurbo002->employForce();
@@ -57,8 +71,13 @@ void FormationPallas001::wasDestroyedFormation(GgafDx9GeometricActor* prm_pActor
          pTurbo002->setGeometry(prm_pActorLast);
          pTurbo002->activate();
      }
+}
+
+void FormationPallas001::processBehavior() {
+
 
 }
+
 
 FormationPallas001::~FormationPallas001() {
     _pSplineCon->close();

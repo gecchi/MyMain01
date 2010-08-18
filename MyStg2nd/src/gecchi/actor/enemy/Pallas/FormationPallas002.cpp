@@ -13,7 +13,7 @@ FormationPallas002::FormationPallas002(const char* prm_name) : GgafDx9FormationA
     //パラス編隊作成
     _pSplineCon     = (Spline3DConnection*)(pGOD->_pSpline3DManager->getConnection("SpCon_Pallas01")); //スプライン定義
     //_pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_Shot002"));
-	_pDispatcherCon = NULL;
+    _pDispatcherCon = NULL;
     _papPallas = NEW EnemyPallas*[_num_Pallas];
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i] = NEW EnemyPallas("Pallas01");
@@ -26,7 +26,7 @@ FormationPallas002::FormationPallas002(const char* prm_name) : GgafDx9FormationA
     }
 }
 
-void FormationPallas002::initialize() {
+void FormationPallas002::onActive() {
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i]->setGeometry(MyShip::_lim_behaind *2 , pMYSHIP->_Y+300000,  pMYSHIP->_Z);
         _papPallas[i]->_pMover->setMvVelo(_mv_velo);
@@ -36,8 +36,8 @@ void FormationPallas002::initialize() {
 
 FormationPallas002::~FormationPallas002() {
     _pSplineCon->close();
-	if (_pDispatcherCon) {
-		_pDispatcherCon->close();
-	}
+    if (_pDispatcherCon) {
+        _pDispatcherCon->close();
+    }
     DELETEARR_IMPOSSIBLE_NULL(_papPallas);
 }

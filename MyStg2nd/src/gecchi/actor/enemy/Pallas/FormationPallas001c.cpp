@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 FormationPallas001c::FormationPallas001c(const char* prm_name) : FormationPallas001(prm_name) {
     _class_name = "FormationPallas001c";
 }
-void FormationPallas001c::initialize() {
+void FormationPallas001c::onActive() {
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i]->_pSplineProgram->adjustAxisRate(1.0, 1.0, -1.0);
         _papPallas[i]->setGeometry(_pSplineCon->refer()->_X_basepoint[0] ,

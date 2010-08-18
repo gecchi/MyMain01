@@ -2,6 +2,12 @@
 #define STAGE01CONTROLLER_H_
 namespace MyStg2nd {
 
+/**
+ * ステージ１コントローラー .
+ * @version 1.00
+ * @since 2010/08/18
+ * @author Masatoshi Tsuge
+ */
 class Stage01Controller : public GgafDx9LibStg::DefaultScene {
 
     GgafDx9Core::GgafDx9Bgm* _bgm_st1;

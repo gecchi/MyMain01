@@ -28,8 +28,9 @@ public:
     /**
      * •Ò‘à‚ğì¬ .
      */
-    virtual void initialize() override;
-
+    virtual void initialize() override {
+    }
+    virtual void onActive() override;
     virtual ~FormationPallas002();
 };
 
