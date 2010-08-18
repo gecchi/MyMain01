@@ -15,10 +15,10 @@ Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
 	for (int i = 0; i < 2; i++) {
 		_paFrame_NextEvent[i] = f[i];
 	}
-	orderActorToFactory(21048100, FormationPallas001a, "F001a_Pallas_1");
-	orderActorToFactory(21058100, FormationPallas001b, "F001b_Pallas_2");
-	orderActorToFactory(21068100, FormationPallas001c, "F001c_Pallas_3");
-	orderActorToFactory(21078100, FormationPallas001d, "F001d_Pallas_4");
+	orderActorToFactory(21047100, FormationPallas001a, "F001a_Pallas_1");
+	orderActorToFactory(21057100, FormationPallas001b, "F001b_Pallas_2");
+	orderActorToFactory(21067100, FormationPallas001c, "F001c_Pallas_3");
+	orderActorToFactory(21077100, FormationPallas001d, "F001d_Pallas_4");
     // gen01 end
 }
 
@@ -38,16 +38,20 @@ void Stage01_01::processBehavior() {
 				{
 				ActorTableScene* ta1 = NEW ActorTableScene("saisyo");
 				ta1->addToTable(
-				((FormationPallas001a*)obtainActorFromFactory(21048100))
+				((FormationPallas001a*)obtainActorFromFactory(21047100))
+				, 120
 				);
 				ta1->addToTable(
-				((FormationPallas001b*)obtainActorFromFactory(21058100))
+				((FormationPallas001b*)obtainActorFromFactory(21057100))
+				, 120
 				);
 				ta1->addToTable(
-				((FormationPallas001c*)obtainActorFromFactory(21068100))
+				((FormationPallas001c*)obtainActorFromFactory(21067100))
+				, 120
 				);
 				ta1->addToTable(
-				((FormationPallas001d*)obtainActorFromFactory(21078100))
+				((FormationPallas001d*)obtainActorFromFactory(21077100))
+				, 120
 				);
 				addSubLast(ta1);
 				}
