@@ -143,19 +143,19 @@ public:
      * アクティブ要素の値（保持している内容）を取得する .
      * @return	アクティブ要素の値
      */
-    T* get();
+    virtual T* get();
 
     /**
      * アクティブ要素を一つ進める。 .
      * @return アクティブ要素を一つ進めた後の、その要素の値。
      */
-    T* next();
+    virtual T* next();
 
     /**
      * アクティブ要素の次の要素の値を取得する。アクティブ要素は変化しない .
      * @return 次の要素の値
      */
-    T* getNext();
+    virtual T* getNext();
 
     /**
      * アクティブ要素のｎ番目の要素の値を取得する。アクティブ要素は変化しない .
@@ -163,19 +163,19 @@ public:
      * @param n インデックス
      * @return アクティブ要素からｎ番目の要素
      */
-    T* getNext(int n);
+    virtual T* getNext(int n);
 
     /**
      * アクティブ要素を一つ戻す。 .
      * @return アクティブ要素を一つ戻した後の、その要素の値
      */
-    T* prev();
+    virtual T* prev();
 
     /**
      * アクティブ要素をの１つ前の要素の値を取得する。アクティブ要素は変化しない .
      * @return 前の要素の値
      */
-    T* getPrev();
+    virtual T* getPrev();
 
     /**
      * アクティブ要素のｎ番目前の要素の値を取得する。アクティブ要素は変化しない .
@@ -183,25 +183,25 @@ public:
      * @param n インデックス
      * @return アクティブ要素からｎ番目前の要素
      */
-    T* getPrev(int n);
+    virtual T* getPrev(int n);
 
     /**
      * アクティブ要素を先頭に戻す。 .
      * @return アクティブ要素を先頭に戻した後の、その要素の値
      */
-    T* first();
+    virtual T* first();
 
     /**
      * アクティブ要素がリストの末尾であるか判定する .
      * @return true:末尾である／false:そうでは無い
      */
-    bool isLast();
+    virtual bool isLast();
 
     /**
      * アクティブ要素がリストの先頭であるか判定する .
      * @return true:末尾である／false:そうでは無い
      */
-    bool isFirst();
+    virtual bool isFirst();
 
     /**
      * アクティブ要素に値を上書き設定する。 .
@@ -236,7 +236,7 @@ public:
      * 要素数を返す .
      * @return 要素数
      */
-    int length();
+    virtual int length();
 };
 
 //////////////////////////////////////////////////////////////////
