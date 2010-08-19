@@ -28,14 +28,33 @@ void EnemyPallas::initialize() {
 }
 
 void EnemyPallas::onActive() {
+    if (_pSplineProgram == NULL) {
+        throwGgafCriticalException("EnemyPallasはスプライン必須ですconfigして下さい");
+    }
+
     MyStgUtil::resetEnemyPallasStatus(_pStatus);
 
     _iMovePatternNo = 0; //行動パターンリセット
+    setProgress(1);
 }
 
 void EnemyPallas::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+
+    //【パターン1：スプライン移動】
+    if (onChangeProgressAt(1)) {
+        _pSplineProgram->begin(0); //スプライン移動を開始(1:座標相対)
+    }
+    if (getProgress() == 1) {
+        //スプライン移動終了待ち
+        if (_pSplineProgram->isExecuting()) {
+            //待ちぼうけ
+        } else {
+            nextProgress(); //次のパターンへ
+        }
+    }
+
 
     switch (_iMovePatternNo) {
         case 0:  //【パターン０：スプライン移動開始】

@@ -25,7 +25,7 @@ public:
 
     void processFinal() override {
     }
-    void processHappen(int prm_no) override {
+    void catchEvent(int prm_no) override {
     }
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

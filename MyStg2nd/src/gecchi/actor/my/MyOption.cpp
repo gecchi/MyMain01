@@ -49,7 +49,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
         //pChip->inactivateImmediately();
         _pLaserChipDispatcher->addSubLast(pChip);
     }
-    _pLaserChipDispatcher->configLaserChipDispatcher(
+    _pLaserChipDispatcher->config(
                                90, 25, _pEffect_LaserIrradiate
                            );
     addSubGroup(_pLaserChipDispatcher);

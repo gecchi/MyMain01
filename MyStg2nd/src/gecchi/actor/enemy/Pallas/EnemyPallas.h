@@ -60,30 +60,21 @@ public:
     void onInactive() override;
 
     /**
-     * 発射弾Dispatcher設定 .
-     * initialize() までに設定して下さい。
-     * @param prm_pDispatcher
-     */
-    void setDispatcher_Shot(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
-        _pDispatcher_Shot = prm_pDispatcher;
-    }
-
-    /**
-     * スプライン移動設定 .
-     * initialize() までに設定して下さい。
+     *
      * @param prm_pSplineProgram
+     * @param prm_pDispatcher_Shot
+     * @param prm_pDispatcher_ShotEffect
      */
-    void setSplineProgram(GgafDx9Core::GgafDx9SplineProgram* prm_pSplineProgram) {
+    virtual void config(
+            GgafDx9Core::GgafDx9SplineProgram* prm_pSplineProgram,
+            GgafCore::GgafActorDispatcher* prm_pDispatcher_Shot,
+            GgafCore::GgafActorDispatcher* prm_pDispatcher_ShotEffect
+            ) {
         _pSplineProgram = prm_pSplineProgram;
+        _pDispatcher_Shot = prm_pDispatcher_Shot;
+        _pDispatcher_ShotEffect = prm_pDispatcher_ShotEffect;
     }
 
-    /**
-     * ショット発射効果エフェクト設定 .
-     * @param prm_pDispatcher
-     */
-    void setDispatcher_ShotEffect(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
-        _pDispatcher_ShotEffect = prm_pDispatcher;
-    }
 
     virtual ~EnemyPallas();
 };

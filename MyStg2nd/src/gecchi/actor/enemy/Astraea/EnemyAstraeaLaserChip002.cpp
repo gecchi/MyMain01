@@ -13,7 +13,7 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
 
     //‹üÜƒŒ[ƒU[Ý’è
     _pDispatcherCon_RefractionEffect = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_EffRefraction001"));
-    configRefraction(50, 10, 5, _pDispatcherCon_RefractionEffect->refer());
+    config(50, 10, 5, _pDispatcherCon_RefractionEffect->refer());
 }
 
 void EnemyAstraeaLaserChip002::initialize() {

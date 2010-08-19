@@ -19,7 +19,7 @@ FormationPallas002::FormationPallas002(const char* prm_name) : GgafDx9FormationA
         _papPallas[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
         GgafDx9SplineProgram* pProgram = NEW GgafDx9FixedVelocitySplineProgram(_papPallas[i], _pSplineCon->refer(), 8000); //移動速度固定
-        _papPallas[i]->setSplineProgram(pProgram);
+        _papPallas[i]->config(pProgram, NULL, NULL);
         //_papPallas[i]->setDispatcher_Shot(_pDispatcherCon->refer()); //弾設定
         _papPallas[i]->inactivateImmediately();
         addSubLast(_papPallas[i]);

@@ -48,7 +48,7 @@ public:
 //GgafDx9GeometricActor‚Ìê‡‚ÍƒRƒƒ“ƒg‚ğŠO‚·‚±‚Æ
     virtual void processDraw() override {}
 
-    virtual void processHappen(int prm_no) override {}
+    virtual void catchEvent(int prm_no) override {}
 
     virtual void processFinal() override {}
 

@@ -15,7 +15,7 @@ Stage01_03::Stage01_03(const char* prm_name) : DefaultScene(prm_name) {
 	for (int i = 0; i < 2; i++) {
 		_paFrame_NextEvent[i] = f[i];
 	}
-	orderActorToFactory(41026100, VarietyTorus004, "VarietyTorus004_1");
+	orderActorToFactory(41037100, FormationIris002, "F002_Iris_1");
     // gen01 end
 }
 
@@ -32,7 +32,10 @@ void Stage01_03::processBehavior() {
 			case 1:
 				break;
 			case 100:
-				getLordActor()->addSubGroup(obtainActorFromFactory(41026100));
+				{
+				FormationIris002* pActor = (FormationIris002*)obtainActorFromFactory(41037100);
+				getLordActor()->addSubGroup(pActor);
+				}
 				break;
 			default :
 				break;
