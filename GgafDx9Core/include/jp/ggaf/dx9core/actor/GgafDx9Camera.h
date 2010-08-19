@@ -135,7 +135,7 @@ public:
     virtual void processAfterDraw() override {
     }
 
-    virtual void processHappen(int prm_no) override {
+    virtual void catchEvent(int prm_no) override {
     }
 
     virtual void processFinal() override {

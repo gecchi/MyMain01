@@ -38,7 +38,7 @@ public:
     virtual void processDraw() {
     }
 
-    virtual void processHappen(int prm_no) override {
+    virtual void catchEvent(int prm_no) override {
     }
 
     virtual void processFinal() override {
