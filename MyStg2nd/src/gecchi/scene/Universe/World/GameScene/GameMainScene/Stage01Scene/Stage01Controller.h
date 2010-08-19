@@ -24,6 +24,8 @@ public:
 
     virtual void processFinal() override;
 
+    virtual void catchEvent(int prm_no) override;
+
     virtual ~Stage01Controller();
 };
 
