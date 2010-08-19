@@ -58,10 +58,10 @@ public:
      * @param prm_frame_standstill_refraction 屈折時(直進終了(屈折開始)～停止～直進開始(屈折終了))の停滞貯めフレーム数
      * @param prm_pDispatche_RefractionEffect 屈折時のエフェクトアクターのディスパッチャー(無しの場合はNULL)
      */
-    void configRefraction(int prm_num_refraction,
-                          frame prm_frame_between_refraction,
-                          frame prm_frame_standstill_refraction,
-                          GgafCore::GgafActorDispatcher* prm_pDispatche_RefractionEffect) {
+    virtual void config(int prm_num_refraction,
+                       frame prm_frame_between_refraction,
+                       frame prm_frame_standstill_refraction,
+                       GgafCore::GgafActorDispatcher* prm_pDispatche_RefractionEffect) {
         _num_refraction = prm_num_refraction;
         _frame_between_refraction = prm_frame_between_refraction;
         _frame_standstill_refraction = prm_frame_standstill_refraction;

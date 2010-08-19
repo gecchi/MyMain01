@@ -42,9 +42,9 @@ public:
      * @param prm_num_chip_interval 弾切れフレーム数
      * @param prm_pEffectActor_Irradiate シーン所属済み発射中エフェクト(不要時はNULL)。解放は呼び元で。
      */
-    void configLaserChipDispatcher(int prm_num_continual_employ_max,
-                                   UINT32 prm_num_chip_interval,
-                                   GgafDx9Core::GgafDx9DrawableActor* prm_pEffectActor_Irradiate = NULL);
+    virtual void config(int prm_num_continual_employ_max,
+                        UINT32 prm_num_chip_interval,
+                        GgafDx9Core::GgafDx9DrawableActor* prm_pEffectActor_Irradiate = NULL);
 
     virtual void processBehavior() override {
     }

@@ -28,7 +28,7 @@ public:
 //
 //    virtual void processPreDraw() override;
 
-    virtual void processHappen(int prm_no) override {
+    virtual void catchEvent(int prm_no) override {
     }
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {

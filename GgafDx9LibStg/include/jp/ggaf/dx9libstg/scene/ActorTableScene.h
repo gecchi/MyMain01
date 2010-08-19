@@ -29,23 +29,28 @@ public:
         }
     };
 
-    frame _prev_active_frame;
+    frame _max_perform_frame;
+    frame _frame_of_current_part_began;
 
     GgafCore::GgafLinkedListRing<TblElem> _table;
 
     ActorTableScene(const char* prm_name);
 
-    GgafCore::GgafGroupActor* addToTable(GgafCore::GgafMainActor* prm_pMainActo, frame prm_max_delay_offsetr);
+    virtual GgafCore::GgafGroupActor* addToTable(GgafCore::GgafMainActor* prm_pMainActo, frame prm_max_delay_offset);
+
+    virtual void setMaxPerformFrame(frame prm_max_perform_frame) {
+        _max_perform_frame = prm_max_perform_frame;
+    }
 
     virtual void initialize() override;
-
+    virtual void onActive() override;
     virtual void processBehavior() override;
 
     virtual void processJudgement() override {
     }
     virtual void processDraw() override {
     }
-    virtual void processHappen(int prm_no) override {
+    virtual void catchEvent(int prm_no) override {
     }
     virtual void processFinal() override {
     }

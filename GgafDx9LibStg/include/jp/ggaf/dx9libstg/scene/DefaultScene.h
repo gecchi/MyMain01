@@ -34,8 +34,8 @@ public:
         TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_behaving);
     }
 
-    virtual void processHappen(int prm_no) override {
-        TRACE("DefaultScene::processHappen " << getName() << "no:" << prm_no);
+    virtual void catchEvent(int prm_no) override {
+        TRACE("DefaultScene::catchEvent " << getName() << "no:" << prm_no);
     }
 
     virtual void processFinal() override {
