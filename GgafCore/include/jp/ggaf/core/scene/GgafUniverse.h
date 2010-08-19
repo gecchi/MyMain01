@@ -67,7 +67,7 @@ public:
      * ‰½‚©‚Ìˆ—<BR>
      * @param prm_no ‰½‚©‚ğ•\‚·”’l
      */
-    virtual void processHappen(int prm_no) override {
+    virtual void catchEvent(int prm_no) override {
     }
 
     /**

@@ -43,11 +43,22 @@ public:
     void processAfterDraw() override {
     }
 
-    void processHappen(int prm_no) override {
-    }
 
     void processFinal() override {
     }
+
+
+    void catchEvent(int prm_no) override {
+    }
+
+
+    virtual void throwUpEvent(int prm_no) {
+        GgafScene* s = getPlatformScene();
+        if (s != NULL) {
+            s->throwUpEvent(prm_no); //自分より上位は居ない。そこで所属シーンへ投げる
+        }
+    }
+
 
     /**
      * 当たり判定不要のため常にfalseを返す .

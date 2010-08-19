@@ -12,12 +12,7 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     _scene_class = Obj_GgafScene;
 
     _pLordActor = NEW GgafLordActor(this);
-    _progress = -1;
-    _progress_prev = -2;
-    DWORD x = UINT_MAX/2;
-    for (int i = 0; i < 100; i++) {
-        _aFrame_ProgressChange[i] = x; //有りえないフレームなら良い
-    }
+
 #ifdef MY_DEBUG
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
 #else
@@ -38,9 +33,7 @@ void GgafScene::nextFrame() {
     TRACE("GgafScene::nextFrame() " << getName());
     GgafElement<GgafScene>::nextFrame();
     _pLordActor->nextFrame();
-    //進捗を更新
-    _progress_prev = _progress;
-    _progress = _progress_nextframe;
+
 }
 
 void GgafScene::behave() {
@@ -79,9 +72,9 @@ void GgafScene::afterDraw() {
     _pLordActor->afterDraw();
 }
 
-void GgafScene::happen(int prm_no) {
-    GgafElement<GgafScene>::happen(prm_no);
-    _pLordActor->happen(prm_no);
+void GgafScene::throwDownEvent(int prm_no) {
+    GgafElement<GgafScene>::throwDownEvent(prm_no);
+    _pLordActor->throwDownEvent(prm_no);
 }
 
 void GgafScene::finally() {

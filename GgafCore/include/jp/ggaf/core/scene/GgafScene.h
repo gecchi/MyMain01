@@ -77,7 +77,7 @@ namespace GgafCore {
  * void processDraw() ・・・フレーム毎の描画本処理 <BR>
  * void processAfterDraw() ・・・フレーム毎の描画事後処理 <BR>
  * void processFinal() ・・・フレーム毎の終端処理 <BR>
- * void processHappen(int prm_no) ・・・その他のイベント時処理 <BR>
+ * void catchEvent(int prm_no) ・・・その他のイベント時処理 <BR>
  * <BR>
  * @version 1.00
  * @since 2006/06/27
@@ -100,72 +100,6 @@ public:
     /** [r]シーンのインスタンス種類 */
     UINT32 _scene_class;
 
-    /** [r]進捗ID具合(1～99) */
-    int _progress;
-    /** [r]１フレーム前進捗ID(1～99) */
-    int _progress_prev;
-    /** [r]次フレーム設定する進捗ID具合(1～99) */
-    int _progress_nextframe;
-    /** [r]進捗IDイベント時フレームストック */
-    UINT32 _aFrame_ProgressChange[100];
-
-    /**
-     * 現在の進捗ID取得 .
-     * @return 進捗ID(1～99)
-     */
-    virtual int getProgress() {
-        return _progress;
-    }
-
-    /**
-     * 進捗IDが起こった時のフレーム取得 .
-     * @param prm_progress 進捗ID(1～99)
-     * @return 引数の直近の進捗IDが起こったときのフレーム
-     */
-    virtual UINT32 getFrameAtProgress(int prm_progress) {
-        return _aFrame_ProgressChange[prm_progress];
-    }
-
-    /**
-     * 進捗IDを設定 .
-     * @param prm_progress 進捗ID(1～99)
-     */
-    virtual void setProgress(int prm_progress) {
-        _progress_nextframe = prm_progress;
-        _aFrame_ProgressChange[prm_progress] = _frame_of_behaving+1;
-    }
-
-    /**
-     * 引数の進捗IDに切り替わったかどうか調べる。.
-     * 切り替わった瞬間1フレームだけtrueになります。
-     * @param prm_progress 切り替わったかどうか調べたい進捗ID
-     * @return true:引数の進捗IDに切り替わった／false:それ以外
-     */
-    bool onChangeProgressAt(int prm_progress) {
-        if (_progress != _progress_prev) {
-            if (prm_progress == _progress) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * 進捗IDが変化したか（前回と同じかどうか）調べる .
-     * @return 0 又は 進捗ID
-     *         0    ：変化していない
-     *         0以外：変化が有りで、その新しい進捗ID
-     */
-    int getProgressOnChange() {
-        if (_progress != _progress_prev) {
-            return _progress;
-        } else {
-            return 0; // = false
-        }
-    }
 
     /**
      * コンストラクタ .
@@ -196,7 +130,7 @@ public:
     virtual void draw();
     virtual void afterDraw();
     virtual void finally();
-    virtual void happen(int prm_no);
+    virtual void throwDownEvent(int prm_no);
     virtual void activateTree();
     virtual void activateAfter(frame prm_frame_offset);
     virtual void activate();
