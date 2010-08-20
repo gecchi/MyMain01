@@ -3,7 +3,7 @@
 namespace GgafCore {
 
 #define GGAF_NODE GgafCore::GgafNode<T>
-#define GGAF_SAYONARA_DELAY 120
+#define GGAF_SAYONARA_DELAY 5
 /**
  * GgafNodeに、様々な状態遷移管理（タスクシステム）を追加。 .
  * 毎フレーム、神(GgafGod)はこの世(GgafUniverse)に、次のメソッド順で呼び出す仕組みになっている。この世(GgafUniverse)も本templateを実装している。<BR>
