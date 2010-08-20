@@ -39,7 +39,7 @@ public:
     virtual void processJudgement() override {
     }
 
-    virtual void catchEvent(int prm_no) override {
+    virtual void catchEvent(UINT32 prm_no) override {
     }
 
     virtual void processFinal() override {

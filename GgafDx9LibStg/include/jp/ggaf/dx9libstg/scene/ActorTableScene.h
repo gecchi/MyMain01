@@ -3,24 +3,70 @@
 namespace GgafDx9LibStg {
 
 /**
- * アクターテーブル管理 .
- * 斑鳩の敵出現テーブルのような、早回しを実現するためのシーン。
- * 早回し可能な敵出現テーブルとは具体的に、
- * 敵（や編隊）が消滅すれば、即刻次の敵（や編隊）が出現。
- * 敵が消滅せずとも、一定時間で次の敵が出現。
- * というようなテーブルのこと。
+ * 早回し敵出現テーブル管理シーン .
+ * 早回し敵出現とは具体的に、<BR>
+ * ・敵（や編隊）が消滅すれば、即刻次の敵（や編隊）が出現。<BR>
+ * ・敵が消滅せずとも、一定時間で次の敵が出現。<BR>
+ * というようなテーブルのこと。<BR>
+ * (斑鳩の敵出現テーブルのような感じで・・)<BR>
+ * <b>＜使用方法＞</b><BR>
+ * <pre><code>
+ * ・あるSceneのprocessBehavior()等で次のコードを書いたとする。
+ *
+ *     ActorTableScene* ta = NEW ActorTableScene("TableScene_9");
+ *     ta->setMaxPerformFrame(290);  //全体フレーム数設定
+ *     addSubLast(ta);               //子シーンとして登録
+ *     ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(21047100)), 100);   //編隊a。全消滅しなくとも、次の編隊bは100フレーム後出現
+ *     ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(21057100)), 100);   //編隊b。全消滅しなくとも、次の編隊cは100フレーム後出現
+ *     ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(21067100)), 100);   //編隊c。全消滅しなくとも、次の編隊dは100フレーム後出現
+ *     ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(21077100)), 100);   //編隊d。全消滅しなくとも、次の編隊eは100フレーム後出現
+ *     ta->addToTable(((FormationPallas001e*)obtainActorFromFactory(21087100)));        //編隊e。次の敵が無いため、フレーム数設定の意味は無くなる。
+ *
+ * ・これは下図のような事を意味する。
+ *
+ *  親シーン   --------------------+----------------------------+---------------------------->
+ *  親フレーム                     n                            n+290
+ *
+ *  ＜何もしない場合＞
+ *    子シーン(ActorTableScene)    +---------+---------+--------+
+ *    子フレーム                   0         100       200      290
+ *
+ *                                 | a       | b       | c       |   d  ←  編隊d以降は出現しない。
+ *                                 <--100---><--100---><--100---><--100--->      編隊dの出現タイミングは300となり、290までに間に合っていないため出現しない
+ *
+ *  ＜編隊aだけを早期撃破(80フレーム)された場合＞
+ *    子シーン(ActorTableScene)    +------+---------+---------+-+
+ *    子フレーム                   0      80        180     280 290
+ *
+ *                                 |a     | b       | c       | d  ←  編隊dは出現する。
+ *                                 <--80-><--100---><--100---><--100--->   編隊dの出現タイミングが280となり、290までに間に合っているので出現する。
+ *                                                                         仮に編隊dが10フレーム以内で消滅された場合は、編隊eも出現可能。
+ *  </code></pre>
  * @version 1.00
- * @since 2007/12/06
+ * @since 2010/08/19
  * @author Masatoshi Tsuge
  */
 class ActorTableScene : public GgafDx9Core::GgafDx9Scene {
-public:
 
+private:
+    /**
+     * 敵出現テーブル要素クラス .
+     * 敵(アクター)、最大待ちフレーム(_max_delay_offset) の情報を持ったコンテナ
+     */
     class TblElem {
     public:
+        /** 敵(アクター) */
         GgafCore::GgafMainActor* _pActor;
+        /** 敵(アクター)が放置されたとしても、次の敵が出現するまでのフレーム数 */
         frame _max_delay_offset;
-        TblElem(GgafCore::GgafMainActor* prm_pActor, frame prm_max_delay_offset) {
+
+        /**
+         * 要素コンストラクタ .
+         * @param prm_pActor 敵(アクター)
+         * @param prm_max_delay_offset 次の敵が出現するまでのフレーム数(省略時は0)
+         * @return
+         */
+        TblElem(GgafCore::GgafMainActor* prm_pActor, frame prm_max_delay_offset = 0) {
             _pActor = prm_pActor;
             _max_delay_offset = prm_max_delay_offset;
         }
@@ -29,28 +75,58 @@ public:
         }
     };
 
+public:
+    /** 早回し敵出現テーブル全体の許容フレーム */
     frame _max_perform_frame;
+    /** テーブル内の現在の敵(アクター)が出現してからのフレーム数 */
     frame _frame_of_current_part_began;
-
+    /** 敵出現テーブル(TblElemオブジェクトの連結リスト) */
     GgafCore::GgafLinkedListRing<TblElem> _table;
 
+    /**
+     * コンストラクタ .
+     * @param prm_name シーン名
+     * @return
+     */
     ActorTableScene(const char* prm_name);
 
-    virtual GgafCore::GgafGroupActor* addToTable(GgafCore::GgafMainActor* prm_pMainActo, frame prm_max_delay_offset);
+    /**
+     * 敵出現テーブルに要素追加 .
+     * 要素追加時、敵(アクター)は非活動状態(inactivateImmediately())にさせられます。<BR>
+     * 要素追加してからactivate()しないでください。<BR>
+     * @param prm_pMainActor 敵(アクター)
+     * @param prm_max_delay_offset 次の敵出現までの、最大待ちフレーム数
+     * @return
+     */
+    virtual GgafCore::GgafGroupActor* addToTable(GgafCore::GgafMainActor* prm_pMainActor, frame prm_max_delay_offset = 0);
 
+    /**
+     * 早回し敵出現テーブル全体の許容フレームを設定する。
+     * 設定を行わない場合、0xffffffff が設定されている。
+     * @param prm_max_perform_frame
+     */
     virtual void setMaxPerformFrame(frame prm_max_perform_frame) {
         _max_perform_frame = prm_max_perform_frame;
     }
 
-    virtual void initialize() override;
+    virtual void initialize() override {
+    }
+
+    /**
+     * 敵要素が追加されているかチェックする .
+     */
     virtual void onActive() override;
+
+    /**
+     * テーブルにしたがって、敵(アクター)をactivate()していきます。
+     */
     virtual void processBehavior() override;
 
     virtual void processJudgement() override {
     }
     virtual void processDraw() override {
     }
-    virtual void catchEvent(int prm_no) override {
+    virtual void catchEvent(UINT32 prm_no) override {
     }
     virtual void processFinal() override {
     }
