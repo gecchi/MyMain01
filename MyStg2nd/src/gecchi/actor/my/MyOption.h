@@ -77,7 +77,7 @@ public:
     bool _return_to_default_angExpanse_seq;
 
 
-    MyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent);
+    MyOption(const char* prm_name, UINT32 prm_no, MyOptionParent* prm_pMyOptionParent);
 
     /**
      * 初期設定パラメーター .

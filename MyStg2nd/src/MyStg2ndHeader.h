@@ -93,6 +93,14 @@ enum MoveWay {
     WAY_ZLEFT_UP_FRONT            //26   TN( 1, 1, 1)
 };
 
+
+
+//イベント用 UINT32 数値宣言
+AVAILABLE_EVENT(STG01_BOSS_WAS_BREAK)
+
+
+
+
 namespace MyStg2nd {
 
 //その他のヘッダファイルはここに記述

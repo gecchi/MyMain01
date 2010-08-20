@@ -29,7 +29,7 @@ public:
     void processFinal() override {
     }
 
-    void catchEvent(int prm_no) override {
+    void catchEvent(UINT32 prm_no) override {
     }
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
