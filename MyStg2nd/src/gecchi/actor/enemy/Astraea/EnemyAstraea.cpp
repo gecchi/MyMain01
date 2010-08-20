@@ -49,6 +49,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     }
     DELETEARR_IMPOSSIBLE_NULL(paAngWay);
 
+    _pEffect_Appearance = NULL;
+
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
     _pSeTransmitter->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
@@ -81,6 +83,10 @@ void EnemyAstraea::onActive() {
     _pMover->setMvVelo(-5000);
     _iMovePatternNo = 0;
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
+
+    if (_pEffect_Appearance) {
+        _pEffect_Appearance->activate();
+    }
 }
 
 void EnemyAstraea::processBehavior() {
@@ -228,6 +234,11 @@ void EnemyAstraea::processBehavior() {
                 }
             }
         } else {
+//            for (int i = 0; i < _laser_way; i++) {
+//                for (int j = 0; j < _laser_way; j++) {
+//                    _papapLaserChipDispatcher[i][j] = NULL;
+//                }
+//            }
             _iMovePatternNo = 0;
         }
     }
@@ -249,17 +260,18 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
+        if (pExplo001 != NULL) {
+            pExplo001->activate();
+            pExplo001->setGeometry(this);
+        }
         _pSeTransmitter->play3D(1);
         sayonara();
         //消滅エフェクト
     } else {
 
     }
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
-    if (pExplo001 != NULL) {
-        pExplo001->activate();
-        pExplo001->setGeometry(this);
-    }
+
 }
 
 
@@ -268,7 +280,7 @@ void EnemyAstraea::onInactive() {
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
             if (_papapLaserChipDispatcher[i][j]) {
-                _papapLaserChipDispatcher[i][j]->sayonara(100);
+                _papapLaserChipDispatcher[i][j]->sayonara(60*10);
             }
         }
     }

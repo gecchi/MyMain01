@@ -75,11 +75,7 @@ void Torus::processJudgement() {
 }
 
 void Torus::onHit(GgafActor* prm_pOtherActor) {
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
-    if (pExplo001 != NULL) {
-        pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
-        pExplo001->activate();
-    }
+
 }
 
 int Torus::isOffscreen() {

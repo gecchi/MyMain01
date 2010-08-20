@@ -31,11 +31,16 @@ void MyStraightLaserChip001::onActive() {
 
 void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    //・・・ココにヒットされたエフェクト
+    //ヒットエフェクト
+    //無し
     //playSe3D1();
     if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //破壊された場合
-        //・・・ココに破壊されたエフェクト
+        //破壊されたエフェクト
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
+        if (pExplo001 != NULL) {
+            pExplo001->setGeometry(this);
+            pExplo001->activate();
+        }
         sayonara();
     }
 

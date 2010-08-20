@@ -7,11 +7,6 @@ namespace MyStg2nd {
  */
 class EnemyAstraea : public GgafDx9LibStg::DefaultMeshActor {
 
-
-
-
-
-
 private:
     /** 発射済みレーザーチップ数 */
     int _cnt_laserchip;
@@ -39,6 +34,9 @@ public:
     PosLaser** _papaPosLaser;
 
     GgafDx9LibStg::LaserChipDispatcher*** _papapLaserChipDispatcher;
+
+    /** 出現エフェクト */
+    GgafDx9Core::GgafDx9DrawableActor* _pEffect_Appearance;
 
     EnemyAstraea(const char* prm_name);
 

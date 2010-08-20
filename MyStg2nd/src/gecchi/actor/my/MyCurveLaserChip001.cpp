@@ -142,6 +142,9 @@ void MyCurveLaserChip001::processBehavior() {
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
 
+    //ヒットエフェクト
+    //無し
+
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
         if (_pOrg->_pLockOnTarget) { //既にオプションはロックオン中
             if (pOther == _pOrg->_pLockOnTarget) {
@@ -186,11 +189,20 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         int stamina = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
-            sayonara();
+
+            //破壊されたエフェクト
+            EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
+            if (pExplo001 != NULL) {
+                pExplo001->setGeometry(this);
+                pExplo001->activate();
+            }
             //ロックオン可能アクターならロックオン更新
             if (pOther->_pStatus->get(STAT_LockOnAble) == 1) {
                 _pOrg->_pLockOnTarget = pOther;
             }
+
+            sayonara();
+
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             _pStatus->set(STAT_Stamina, default_stamina);
@@ -200,6 +212,14 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             }
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
+        //地形相手は無条件さようなら
+
+        //破壊されたエフェクト
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
+        if (pExplo001 != NULL) {
+            pExplo001->setGeometry(this);
+            pExplo001->activate();
+        }
         sayonara();
     }
 }
