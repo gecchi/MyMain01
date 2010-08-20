@@ -29,7 +29,7 @@ namespace GgafCore {
  * void processAfterDraw() ・・・フレーム毎の描画事後処理 <BR>
  * void processFinal() ・・・フレーム毎の終端処理 <BR>
  * ＜毎フレーム呼び出されるわけではない純粋仮想関数＞<BR>
- * void catchEvent(int prm_no) ・・・その他のイベント時の処理 <BR>
+ * void catchEvent(UINT32 prm_no) ・・・その他のイベント時の処理 <BR>
  * bool processHitChkLogic(GgafActor* prm_pOtherActor) ・・・衝突判定ロジック <BR>
  * void onHit(GgafActor* prm_pOtherActor) ・・・衝突判定ロジックがtrueの場合の処理 <BR>
  * <BR>

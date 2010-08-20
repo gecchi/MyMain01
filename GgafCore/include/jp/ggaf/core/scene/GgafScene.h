@@ -77,7 +77,7 @@ namespace GgafCore {
  * void processDraw() ・・・フレーム毎の描画本処理 <BR>
  * void processAfterDraw() ・・・フレーム毎の描画事後処理 <BR>
  * void processFinal() ・・・フレーム毎の終端処理 <BR>
- * void catchEvent(int prm_no) ・・・その他のイベント時処理 <BR>
+ * void catchEvent(UINT32 prm_no) ・・・その他のイベント時処理 <BR>
  * <BR>
  * @version 1.00
  * @since 2006/06/27
@@ -116,10 +116,10 @@ public:
 
     virtual void addSubLast(GgafScene* prm_pScene) override {
         GgafElement<GgafScene>::addSubLast(prm_pScene);
-        if(prm_pScene->_was_initialize_flg == false) {
-            prm_pScene->initialize();
-            prm_pScene->_was_initialize_flg = true;
-        }
+//        if(prm_pScene->_was_initialize_flg == false) {
+//            prm_pScene->initialize();
+//            prm_pScene->_was_initialize_flg = true;
+//        }
     }
 
     virtual void nextFrame();
@@ -130,7 +130,7 @@ public:
     virtual void draw();
     virtual void afterDraw();
     virtual void finally();
-    virtual void throwDownEvent(int prm_no);
+    virtual void throwDownEvent(UINT32 prm_no);
     virtual void activateTree();
     virtual void activateAfter(frame prm_frame_offset);
     virtual void activate();

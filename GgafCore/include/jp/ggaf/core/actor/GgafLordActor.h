@@ -48,11 +48,11 @@ public:
     }
 
 
-    void catchEvent(int prm_no) override {
+    void catchEvent(UINT32 prm_no) override {
     }
 
 
-    virtual void throwUpEvent(int prm_no) {
+    virtual void throwUpEvent(UINT32 prm_no) {
         GgafScene* s = getPlatformScene();
         if (s != NULL) {
             s->throwUpEvent(prm_no); //Ž©•ª‚æ‚èãˆÊ‚Í‹‚È‚¢B‚»‚±‚ÅŠ‘®ƒV[ƒ“‚Ö“Š‚°‚é

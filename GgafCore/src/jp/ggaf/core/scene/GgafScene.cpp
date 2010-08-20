@@ -72,7 +72,7 @@ void GgafScene::afterDraw() {
     _pLordActor->afterDraw();
 }
 
-void GgafScene::throwDownEvent(int prm_no) {
+void GgafScene::throwDownEvent(UINT32 prm_no) {
     GgafElement<GgafScene>::throwDownEvent(prm_no);
     _pLordActor->throwDownEvent(prm_no);
 }

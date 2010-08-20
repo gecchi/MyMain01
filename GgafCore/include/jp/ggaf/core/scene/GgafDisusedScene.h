@@ -29,7 +29,7 @@ public:
     }
     void processAfterDraw() override {
     }
-    void catchEvent(int prm_no) override {
+    void catchEvent(UINT32 prm_no) override {
     }
     void processFinal() override {
     }

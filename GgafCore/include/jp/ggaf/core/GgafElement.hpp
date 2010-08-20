@@ -315,16 +315,16 @@ public:
      * 直ちに catchEvent(int) をコールした後、配下のノード全てについて throwDownEvent() を再帰的に実行する。<BR>
      * @param   prm_no 何かの番号
      */
-    virtual void throwDownEvent(int prm_no);
+    virtual void throwDownEvent(UINT32 prm_no);
 
-    virtual void throwUpEvent(int prm_no);
+    virtual void throwUpEvent(UINT32 prm_no);
     /**
      * ノードの個別何かの処理を記述。(単体)
      * throwDownEvent() 時の処理先頭でコールバックされる。
      * 利用目的不定の汎用イベント用コールバック
      * @param prm_no 何かの番号
      */
-    virtual void catchEvent(int prm_no) = 0;
+    virtual void catchEvent(UINT32 prm_no) = 0;
 
     /**
      * 神に謁見 .
@@ -1450,7 +1450,7 @@ UINT32 GgafElement<T>::getActivePartFrame() {
 
 
 template<class T>
-void GgafElement<T>::throwDownEvent(int prm_no) {
+void GgafElement<T>::throwDownEvent(UINT32 prm_no) {
     if (_can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
@@ -1471,7 +1471,7 @@ void GgafElement<T>::throwDownEvent(int prm_no) {
 }
 
 template<class T>
-void GgafElement<T>::throwUpEvent(int prm_no) {
+void GgafElement<T>::throwUpEvent(UINT32 prm_no) {
     if (_can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
