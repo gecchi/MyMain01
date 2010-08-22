@@ -44,6 +44,7 @@ void ActorTableScene::processBehavior() {
                 //最終パートだったらTABLE終了
                 _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 全パート終了！！");
                 end(60*60);
+                ここをコメントにしたら大丈夫なのはなぜか？
             } else {
                 _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] pActiveActor="<<pActiveActor->getName()<<" 消滅により早回しきたー！！");
                 //最終パートではない場合、テーブル全体の許容フレームか判断

@@ -24,7 +24,7 @@ GgafDx9Universe::SeArray::SeArray() {
 }
 
 void GgafDx9Universe::SeArray::add(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, float prm_rate_frequency) {
-    if (_p < MAX_SE_AT_ONCE) {
+    if (_p < MAX_SE_AT_ONCE-1) {
         _apSe[_p] = prm_pSe;
         _rate_frequency[_p] = prm_rate_frequency;
         _volume[_p] = prm_volume;
@@ -34,7 +34,9 @@ void GgafDx9Universe::SeArray::add(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm
 }
 
 void GgafDx9Universe::SeArray::play(int index) {
+    _TRACE_("GgafDx9Universe::SeArray::play("<<index<<") start");
     _apSe[index]->play(_volume[index], _pan[index], _rate_frequency[index]);
+    _TRACE_("GgafDx9Universe::SeArray::play("<<index<<") end");
     _apSe[index] = NULL;
 }
 
@@ -72,15 +74,24 @@ void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan
 }
 
 void GgafDx9Universe::processSettlementBehavior() {
+
     GgafUniverse::processSettlementBehavior();
     //SEを鳴らす
     SeArray* pSeArray = _pRing_pSeArray->next(); //一つ進めてSE配列取得
     if (pSeArray->_p > 0) {
+		_TRACE_("GgafDx9Universe::processSettlementBehavior() _pRing_pSeArray="<<_pRing_pSeArray);
+		_TRACE_("GgafDx9Universe::processSettlementBehavior() pSeArray="<<pSeArray);
+		_TRACE_("GgafDx9Universe::processSettlementBehavior() pSeArray->_p="<<pSeArray->_p);
+
         for (int p = 0; p < pSeArray->_p; p++) {
+			_TRACE_("GgafDx9Universe::processSettlementBehavior() _pRing_pSeArray="<<_pRing_pSeArray);
+			_TRACE_("GgafDx9Universe::processSettlementBehavior() pSeArray="<<pSeArray);
+			_TRACE_("GgafDx9Universe::processSettlementBehavior() pSeArray->_p="<<pSeArray->_p);
+			_TRACE_("p="<<p);
             pSeArray->play(p);
         }
-        pSeArray->_p = 0; //リセット
     }
+	pSeArray->_p = 0; //リセット
 }
 
 void GgafDx9Universe::draw() {
