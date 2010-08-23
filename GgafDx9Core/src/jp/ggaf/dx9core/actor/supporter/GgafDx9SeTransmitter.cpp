@@ -70,11 +70,11 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
     angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
     LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
 
-    int delay = (d / (pCAM->_zf*PX_UNIT))*GGAF_SAYONARA_DELAY-10; //10フレーム底上げ
+    int delay = (d / (pCAM->_zf*PX_UNIT))*MAX_SE_DELAY-10; //10フレーム底上げ
     if (delay < 0) {
         delay = 0;
-    } else if (delay > GGAF_SAYONARA_DELAY) {
-        delay = GGAF_SAYONARA_DELAY;
+    } else if (delay > MAX_SE_DELAY) {
+        delay = MAX_SE_DELAY;
     }
 
     ((GgafDx9Universe*)(GgafGod::_pGod->_pUniverse))->registSe(_papSeCon[prm_id]->refer(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ

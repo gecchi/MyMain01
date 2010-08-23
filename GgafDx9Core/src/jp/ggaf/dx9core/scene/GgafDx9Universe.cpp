@@ -24,7 +24,7 @@ GgafDx9Universe::SeArray::SeArray() {
 }
 
 void GgafDx9Universe::SeArray::add(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, float prm_rate_frequency) {
-    if (_p < MAX_SE_AT_ONCE-1) {
+    if (_p < MAX_SE_AT_ONCE) {
         _apSe[_p] = prm_pSe;
         _rate_frequency[_p] = prm_rate_frequency;
         _volume[_p] = prm_volume;
@@ -59,7 +59,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
     _TRACE_("Gone=X ("<<_X_goneLeft<<" ~ "<<_X_goneRight<<") Y("<<_Y_goneBottom<<" ~ "<<_Y_goneTop<<") Z("<<_Z_goneFar<<" ~ "<<_Z_goneNear<<")");
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();
-    for (int i = 0; i < GGAF_SAYONARA_DELAY*2; i++) { //GGAF_SAYONARA_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
+    for (int i = 0; i < MAX_SE_DELAY; i++) { //GGAF_SAYONARA_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
     GgafRepeatSeq::create("_SE_D_", 0, 8); //ズレSE再生フレーム
@@ -80,8 +80,9 @@ void GgafDx9Universe::processSettlementBehavior() {
         for (int p = 0; p < pSeArray->_p; p++) {
             pSeArray->play(p);
         }
+        pSeArray->_p = 0; //リセット
     }
-    pSeArray->_p = 0; //リセット
+
 }
 
 void GgafDx9Universe::draw() {

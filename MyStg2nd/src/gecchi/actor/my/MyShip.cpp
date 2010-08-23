@@ -173,7 +173,6 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     _is_shooting_laser = false;
     _frame_shot_pressed = 0;
 
-    _X= 700*1000;
 }
 
 void MyShip::onActive() {

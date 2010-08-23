@@ -10,25 +10,24 @@ Stage01_03::Stage01_03(const char* prm_name) : DefaultScene(prm_name) {
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コード変更は「シーンCreater.xls」を開いて、そこから行うこと（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100};
-	_paFrame_NextEvent = new frame[2];
-	for (int i = 0; i < 2; i++) {
+	frame f[] = {1,100,2500};
+	_paFrame_NextEvent = new frame[3];
+	for (int i = 0; i < 3; i++) {
 		_paFrame_NextEvent[i] = f[i];
 	}
-	orderActorToFactory(41037100, FormationIris002, "F002_Iris_1");
 	
-	orderActorToFactory(41087100, FormationPallas001a, "F001a_Pallas_2");
-	orderActorToFactory(41097100, FormationPallas001b, "F001b_Pallas_3");
-	orderActorToFactory(41107100, FormationPallas001c, "F001c_Pallas_4");
-	orderActorToFactory(41117100, FormationPallas001d, "F001d_Pallas_5");
-	orderActorToFactory(41127100, FormationPallas001a, "F001a_Pallas_6");
-	orderActorToFactory(41137100, FormationPallas001d, "F001d_Pallas_7");
-	orderActorToFactory(41147100, FormationPallas001b, "F001b_Pallas_8");
-	orderActorToFactory(41157100, FormationPallas001c, "F001c_Pallas_9");
-	orderActorToFactory(41167100, FormationPallas001a, "F001a_Pallas_10");
-	orderActorToFactory(41177100, FormationPallas001d, "F001d_Pallas_11");
-	orderActorToFactory(41187100, FormationPallas001b, "F001b_Pallas_12");
-	orderActorToFactory(41197100, FormationPallas001c, "F001c_Pallas_13");
+	orderActorToFactory(41087100, FormationPallas001a, "F001a_Pallas_1");
+	orderActorToFactory(41097100, FormationPallas001b, "F001b_Pallas_2");
+	orderActorToFactory(41107100, FormationPallas001c, "F001c_Pallas_3");
+	orderActorToFactory(41117100, FormationPallas001d, "F001d_Pallas_4");
+	orderActorToFactory(41127100, FormationPallas001a, "F001a_Pallas_5");
+	orderActorToFactory(41137100, FormationPallas001d, "F001d_Pallas_6");
+	orderActorToFactory(41147100, FormationPallas001b, "F001b_Pallas_7");
+	orderActorToFactory(41157100, FormationPallas001c, "F001c_Pallas_8");
+	orderActorToFactory(41167100, FormationPallas001a, "F001a_Pallas_9");
+	orderActorToFactory(41177100, FormationPallas001d, "F001d_Pallas_10");
+	orderActorToFactory(41187100, FormationPallas001b, "F001b_Pallas_11");
+	orderActorToFactory(41197100, FormationPallas001c, "F001c_Pallas_12");
     // gen01 end
 }
 
@@ -46,11 +45,7 @@ void Stage01_03::processBehavior() {
 				break;
 			case 100:
 				{
-				FormationIris002* pActor = (FormationIris002*)obtainActorFromFactory(41037100);
-				getLordActor()->addSubGroup(pActor);
-				}
-				{
-				ActorTableScene* ta = NEW ActorTableScene("TableScene_14");
+				ActorTableScene* ta = NEW ActorTableScene("TableScene_13");
 				ta->setMaxPerformFrame(2000);
 				addSubLast(ta);
 				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(41087100)), 400);
@@ -67,10 +62,13 @@ void Stage01_03::processBehavior() {
 				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(41197100)), 400);
 				}
 				break;
+			case 2500:
+				throwUpEvent(STG01_03_WAS_BROKEN);
+				break;
 			default :
 				break;
 		}
-		_iCnt_Event = (_iCnt_Event < 2-1 ? _iCnt_Event+1 : _iCnt_Event);
+		_iCnt_Event = (_iCnt_Event < 3-1 ? _iCnt_Event+1 : _iCnt_Event);
 	}
     // gen02 end
 }
