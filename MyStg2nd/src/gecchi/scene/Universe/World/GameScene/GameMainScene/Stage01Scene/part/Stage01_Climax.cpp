@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 Stage01_Climax::Stage01_Climax(const char* prm_name) : DefaultScene(prm_name) {
 
-    orderActorToFactory(11111111, FormationPallas001a, "STG1BOSS");
+    orderActorToFactory(11111111, EnemyAstraea, "STG1BOSS");
     // gen01 end
 }
 
@@ -18,11 +18,14 @@ void Stage01_Climax::initialize() {
 void Stage01_Climax::processBehavior() {
     if (getActivePartFrame() == 60) {
         _pBoss = (EnemyAstraea*)obtainActorFromFactory(11111111);
+        _pBoss->_Z = -1800000;
+        _pBoss->_Y = -100000;
         getLordActor()->addSubGroup(_pBoss);
     }
 
     if (getActivePartFrame() > 60) {
         if (_pBoss->isDisappear()) {
+            isDisappear()‚É‚È‚è‚Á•ú‚µ‚ð‚È‚ñ‚Æ‚©‚·‚é
             _TRACE_("Stage01_Climax::processBehavior() STG01_BOSS_WAS_BROKEN!!!!");
             throwUpEvent(STG01_BOSS_WAS_BROKEN);
         }
