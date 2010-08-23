@@ -488,7 +488,7 @@ void GgafDx9God::makeUniversalMaterialize() {
                                               NULL, // 矩形領域
                                               D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
                                               //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-                                              D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
+                                              D3DCOLOR_RGBA(0, 0, 0, 0), //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
                                               1.0f, // Zバッファのクリア値
                                               0 // ステンシルバッファのクリア値
                 );
@@ -591,12 +591,12 @@ void GgafDx9God::clean() {
 GgafDx9God::~GgafDx9God() {
     clean();
     _was_cleaned = true;
-	Sleep(10);
-	//DirectSound解放
-	GgafDx9Sound::release();
-	//DirectInput解放
-	GgafDx9Input::release();
-	_TRACE_("さぁ_pID3DDevice9解放！");
-	Sleep(10);
-	RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
+    Sleep(10);
+    //DirectSound解放
+    GgafDx9Sound::release();
+    //DirectInput解放
+    GgafDx9Input::release();
+    _TRACE_("さぁ_pID3DDevice9解放！");
+    Sleep(10);
+    RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
 }
