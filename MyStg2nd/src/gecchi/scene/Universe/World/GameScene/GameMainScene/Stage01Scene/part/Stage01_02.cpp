@@ -16,6 +16,19 @@ Stage01_02::Stage01_02(const char* prm_name) : DefaultScene(prm_name) {
 		_paFrame_NextEvent[i] = f[i];
 	}
 	orderActorToFactory(31026100, EnemyAstraea, "Astraea_1");
+	
+	orderActorToFactory(31097100, FormationPallas001a, "F001a_Pallas_2");
+	orderActorToFactory(31107100, FormationPallas001b, "F001b_Pallas_3");
+	orderActorToFactory(31117100, FormationPallas001c, "F001c_Pallas_4");
+	orderActorToFactory(31127100, FormationPallas001d, "F001d_Pallas_5");
+	orderActorToFactory(31137100, FormationPallas001a, "F001a_Pallas_6");
+	orderActorToFactory(31147100, FormationPallas001d, "F001d_Pallas_7");
+	orderActorToFactory(31157100, FormationPallas001b, "F001b_Pallas_8");
+	orderActorToFactory(31167100, FormationPallas001c, "F001c_Pallas_9");
+	orderActorToFactory(31177100, FormationPallas001a, "F001a_Pallas_10");
+	orderActorToFactory(31187100, FormationPallas001d, "F001d_Pallas_11");
+	orderActorToFactory(31197100, FormationPallas001b, "F001b_Pallas_12");
+	orderActorToFactory(31207100, FormationPallas001c, "F001c_Pallas_13");
     // gen01 end
 }
 
@@ -37,6 +50,23 @@ void Stage01_02::processBehavior() {
 				getLordActor()->addSubGroup(pActor);
 				pActor->_Z = -1800000;
 				pActor->_Y = -100000;
+				}
+				{
+				ActorTableScene* ta = NEW ActorTableScene("TableScene_14");
+				ta->setMaxPerformFrame(2000);
+				addSubLast(ta);
+				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(31097100)), 400);
+				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(31107100)), 400);
+				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(31117100)), 400);
+				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(31127100)), 400);
+				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(31137100)), 1);
+				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(31147100)), 400);
+				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(31157100)), 1);
+				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(31167100)), 400);
+				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(31177100)), 1);
+				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(31187100)), 1);
+				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(31197100)), 1);
+				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(31207100)), 400);
 				}
 				break;
 			default :

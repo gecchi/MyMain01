@@ -41,6 +41,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
             pShot003 = NEW Shot003("Shot003");
             pShot003->inactivateImmediately();
             pResource->addSubLast(pShot003);
+            if (i % 20 == 0) { Sleep(1); }
         }
         pCOMMONSCENE->getLordActor()->addSubGroup(pResource);
     }
@@ -52,6 +53,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
             pShot004 = NEW Shot004("Shot004");
             pShot004->inactivateImmediately();
             pResource->addSubLast(pShot004);
+            if (i % 20 == 0) { Sleep(1); }
         }
         pCOMMONSCENE->getLordActor()->addSubGroup(pResource);
     }
@@ -82,6 +84,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
                 pChip = NEW EnemyCurveLaserChip001(name.str().c_str());
                 pChip->inactivateImmediately();
                 pLaserChipDispatcher->addSubLast(pChip);
+                if (n % 20 == 0) { Sleep(1); }
             }
             pLaserChipDispatcher->inactivateImmediately();
             pResource->addSubLast(pLaserChipDispatcher);
