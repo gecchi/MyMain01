@@ -80,34 +80,28 @@ void Stage01Controller::processFinal() {
 }
 
 void Stage01Controller::catchEvent(UINT32 prm_no) {
-    switch (prm_no) {
-        case STG01_01_WAS_BROKEN:
-            _TRACE_("Stage01Controller::catchEvent() STG01_01_WAS_BROKEN");
-            //BGM０番フェードアウト
-            _pBgmPerformer->fadeout_stop(0, 420);
-            //BGM１番フェードイン
-            _pBgmPerformer->play(1, DSBVOLUME_MIN, true);
-            _pBgmPerformer->fadein(1, 420);
-            break;
-        case STG01_02_WAS_BROKEN:
-            _TRACE_("Stage01Controller::catchEvent() STG01_02_WAS_BROKEN");
-            break;
-        case STG01_03_WAS_BROKEN:
-            _TRACE_("Stage01Controller::catchEvent() STG01_03_WAS_BROKEN");
-            //BGM１番フェードアウト
-            _pBgmPerformer->fadeout_stop(1, 420);
-            //BGM２番フェードイン
-            _pBgmPerformer->play(2, DSBVOLUME_MIN, true);
-            _pBgmPerformer->fadein(2, 420);
-            break;
-        case STG01_BOSS_WAS_BROKEN:
-            //BGM１番フェードアウト
-            _pBgmPerformer->fadeout_stop(2, 420);
-            _TRACE_("Stage01Controller::catchEvent() STG01_BOSS_WAS_BROKENキャッチしたよ。STAGE_PROG_ENDにします");
-            getParent()->setProgress(STAGE_PROG_END); //ステージエンドを親シーンに伝える
-            break;
-        default :
-            break;
+	if (prm_no == STG01_01_WAS_BROKEN) {
+        _TRACE_("Stage01Controller::catchEvent() STG01_01_WAS_BROKEN");
+        //BGM０番フェードアウト
+        _pBgmPerformer->fadeout_stop(0, 420);
+        //BGM１番フェードイン
+        _pBgmPerformer->play(1, DSBVOLUME_MIN, true);
+        _pBgmPerformer->fadein(1, 420);
+    } else if (prm_no == STG01_02_WAS_BROKEN) {
+        _TRACE_("Stage01Controller::catchEvent() STG01_02_WAS_BROKEN");
+    } else if (prm_no == STG01_03_WAS_BROKEN) {
+        _TRACE_("Stage01Controller::catchEvent() STG01_03_WAS_BROKEN");
+        //BGM１番フェードアウト
+        _pBgmPerformer->fadeout_stop(1, 420);
+        //BGM２番フェードイン
+        _pBgmPerformer->play(2, DSBVOLUME_MIN, true);
+        _pBgmPerformer->fadein(2, 420);
+    } else if (prm_no == STG01_BOSS_WAS_BROKEN) {
+        //BGM１番フェードアウト
+        _pBgmPerformer->fadeout_stop(2, 420);
+        _TRACE_("Stage01Controller::catchEvent() STG01_BOSS_WAS_BROKENキャッチしたよ。STAGE_PROG_ENDにします");
+        getParent()->setProgress(STAGE_PROG_END); //ステージエンドを親シーンに伝える
+    } else {
     }
 }
 
