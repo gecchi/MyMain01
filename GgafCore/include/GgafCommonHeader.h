@@ -249,7 +249,7 @@
 
 
 
-#define AVAILABLE_EVENT(EV) static UINT32 EV = GgafCore::GgafUtil::easy_hash(#EV);
+#define AVAILABLE_EVENT(X) const static UINT32 X = GgafCore::GgafUtil::easy_hash(#X);
 
 //#define MAX_GROUPACTOR_PER_SCENE 16
 
