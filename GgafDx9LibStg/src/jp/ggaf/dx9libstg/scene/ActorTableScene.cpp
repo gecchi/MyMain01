@@ -53,9 +53,7 @@ void ActorTableScene::processBehavior() {
                 was_destroyed = false;
             }
         } else if (pActiveActor->_actor_class | Obj_GgafDx9DrawableActor) {
-            if (pActiveActor->_will_inactivate_after_flg ||
-                        pActiveActor->_is_active_flg_in_next_frame == false ||
-                        pActiveActor->_will_end_after_flg) {
+            if (pActiveActor->isDisappear()) {
                 was_destroyed = true;
             } else {
                 was_destroyed = false;
