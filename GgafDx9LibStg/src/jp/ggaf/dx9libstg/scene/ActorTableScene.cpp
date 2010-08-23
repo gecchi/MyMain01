@@ -11,6 +11,13 @@ ActorTableScene::ActorTableScene(const char* prm_name) : GgafDx9Scene(prm_name) 
 
 
 GgafGroupActor* ActorTableScene::addToTable(GgafMainActor* prm_pMainActor, frame prm_max_delay_offset) {
+    if (prm_pMainActor->_actor_class | Obj_GgafDx9FormationActor) {
+        //OK
+    } else if (prm_pMainActor->_actor_class | Obj_GgafDx9DrawableActor) {
+        //OK
+    } else {
+        _TRACE_("ActorTableScene::processBehavior() GgafDx9FormationActor,Obj_GgafDx9DrawableActor 以外が登録されています。")
+    }
     prm_pMainActor->inactivateImmediately();
     _table.addLast(NEW TblElem(prm_pMainActor, prm_max_delay_offset));
     return getLordActor()->addSubGroup(prm_pMainActor);
@@ -36,15 +43,34 @@ void ActorTableScene::processBehavior() {
     } else {
         TblElem* e = _table.get();
         GgafMainActor* pActiveActor = e->_pActor;
-        if (pActiveActor->_will_inactivate_after_flg ||
-            pActiveActor->_is_active_flg_in_next_frame == false ||
-            pActiveActor->_will_end_after_flg) {
+        //全滅判定
+        bool was_destroyed = false;
+        if (pActiveActor->_actor_class | Obj_GgafDx9FormationActor) {
+            GgafDx9FormationActor* pF = (GgafDx9FormationActor*)pActiveActor;
+            if (pF->_num_sub == 0) {
+                was_destroyed = true;
+            } else {
+                was_destroyed = false;
+            }
+        } else if (pActiveActor->_actor_class | Obj_GgafDx9DrawableActor) {
+            if (pActiveActor->_will_inactivate_after_flg ||
+                        pActiveActor->_is_active_flg_in_next_frame == false ||
+                        pActiveActor->_will_end_after_flg) {
+                was_destroyed = true;
+            } else {
+                was_destroyed = false;
+            }
+        } else {
+            was_destroyed = false;
+        }
+
+        if (was_destroyed) {
             //全滅 or 全領域外は次へ
             if (_table.isLast()) {
                 //最終パートだったらTABLE終了
                 _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 全パート終了！！");
                 end(60*60);
-                ここをコメントにしたら大丈夫なのはなぜか？
+                //ここをコメントにしたら大丈夫なのはなぜか？
             } else {
                 _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] pActiveActor="<<pActiveActor->getName()<<" 消滅により早回しきたー！！");
                 //最終パートではない場合、テーブル全体の許容フレームか判断
