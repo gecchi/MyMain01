@@ -3,7 +3,7 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafGroupActor::GgafGroupActor(actorkind prm_kind) : GgafActor("HEAD") {
+GgafGroupActor::GgafGroupActor(actorkind prm_kind) : GgafActor("GROUP") {
     _actor_class |= Obj_GgafGroupActor;
     _class_name = "GgafGroupActor";
 

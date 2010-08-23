@@ -3,7 +3,18 @@
 namespace GgafCore {
 
 #define GGAF_NODE GgafCore::GgafNode<T>
-#define GGAF_SAYONARA_DELAY 5
+/** 共通遅延解放フレーム数 */
+#define GGAF_SAYONARA_DELAY (3600)
+//GGAF_SAYONARA_DELAYは全Element共通の遅延フレーム数で、
+//長めに設定しないと、いろいろ不都合が多い。
+//消失後もなお参照が可能とするための仕組みで、
+//例えば、消滅後のSEの座標情報や、消滅後の子の発射弾など
+//しばらくは残存させなければいけない場合がある。
+//基本的に、消滅確定→完全に消失までのフレームの最大フレームを指定する。
+//爆発SEが１分なるアクターが１匹でもいるならば、60*60を設定しておくこと。
+
+
+
 /**
  * GgafNodeに、様々な状態遷移管理（タスクシステム）を追加。 .
  * 毎フレーム、神(GgafGod)はこの世(GgafUniverse)に、次のメソッド順で呼び出す仕組みになっている。この世(GgafUniverse)も本templateを実装している。<BR>

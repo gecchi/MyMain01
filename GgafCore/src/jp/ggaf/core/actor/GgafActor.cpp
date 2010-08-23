@@ -9,7 +9,7 @@ GgafActor::GgafActor(const char* prm_name) :
     _class_name = "GgafActor";
     _actor_class = Obj_GgafActor;
 
-    _pStatus = NEW GgafStatus(10);
+    _pStatus = NEW GgafStatus(12);
     _pStatus->set(0, 0);
     _pScene_Platform = NULL;
     _pGod = NULL;

@@ -213,6 +213,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                     void* arg2 = CREATING_ORDER->_pArg2;
                     void* arg3 = CREATING_ORDER->_pArg3;
                     TRACE2("GgafFactory::work ＜工場＞ 製造開始！["<<CREATING_ORDER->_id<<"] (σ ｀・ω・´)σ ");
+                    Sleep(2);
                  ___EndSynchronized; // <----- 排他終了
 //#ifdef MY_DEBUG
 //try {
@@ -232,6 +233,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 //#endif
 
                  ___BeginSynchronized; // ----->排他開始
+                    Sleep(2);
                     TRACE2("GgafFactory::work ＜工場＞ 製造完了！品番["<<CREATING_ORDER->_id<<"] (^_^)v");
                     if (CREATING_ORDER == NULL) {
                         TRACE2("GgafFactory::work ＜工場＞ ガーン！。せっかく作ったのにキャンセルっすか・・・。破棄します。pObjectをdelete!");
@@ -273,7 +275,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                     }
                 }
             }
-            Sleep(1);
+            Sleep(10);
         }
         TRACE2("GgafFactory::work ＜工場＞ 工場はこれにて店じまいです。さようなら、また会いましょう。");
         _was_finished_flg = true;
