@@ -107,6 +107,11 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
     int DX = (pCAM->_X - _pActor->_X) / LEN_UNIT;
     int DY = (pCAM->_Y - _pActor->_Y) / LEN_UNIT;
     int DZ = (pCAM->_Z - _pActor->_Z) / LEN_UNIT;
+
+    //備忘録
+    //例えば消滅時の爆発だった場合、_pActor->_X みたいに、消滅後も値を参照したい。
+    //そこで GGAF_SAYONARA_DELAY が重要になっている
+
     double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
     LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCAM->_zf*PX_UNIT))) * VOLUME_RANGE_3D);
     if (VOLUME_MAX_3D < vol) {

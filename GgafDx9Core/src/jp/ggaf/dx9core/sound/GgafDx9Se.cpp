@@ -83,37 +83,28 @@ int GgafDx9Se::writeBuffer(CWaveDecorder& WaveFile) {
 }
 
 void GgafDx9Se::play(int prm_iVolume, int prm_iPan, float prm_fRate_Frequency) {
-_TRACE_(" 1");
     if (_pIDirectSoundBuffer == NULL) {
         _TRACE_("_pIDirectSoundBuffer==NULL;!");
     }
-_TRACE_(" 2");
     DWORD dwStatus;
     if (FAILED(_pIDirectSoundBuffer->GetStatus(&dwStatus))) {
         _TRACE_("GgafDx9Se::play() GetStatus() 失敗");
     }
-    _TRACE_(" 3");
     if (dwStatus == (DWORD)DSERR_BUFFERLOST) {
         if (FAILED(_pIDirectSoundBuffer->Restore())) {
             _TRACE_("GgafDx9Se::play() Restore() 失敗");
         }
-        _TRACE_(" 4");
         if (!restore()) {
             _TRACE_("GgafDx9Se::play() restore() 失敗");
         }
-        _TRACE_(" 5");
     }
-    _TRACE_(" 6");
     setVolume(prm_iVolume);
     setPan(prm_iPan);
     setFrequencyRate(prm_fRate_Frequency);
     HRESULT hr;
-    _TRACE_(" 7");
     hr = _pIDirectSoundBuffer->SetCurrentPosition(0); //バッファ頭だし
-    _TRACE_(" 8");
     checkDxException(hr, DS_OK, "GgafDx9Se::play() SetCurrentPosition(0) が失敗しました。");
     hr = _pIDirectSoundBuffer->Play(0, 0, 0x00000000);
-    _TRACE_(" 9");
     checkDxException(hr, DS_OK, "GgafDx9Se::play() Play(0, 0, 0x00000000) が失敗しました。");
 }
 
