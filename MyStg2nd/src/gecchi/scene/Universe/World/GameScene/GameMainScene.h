@@ -6,6 +6,13 @@
 #define GAMEMAIN_PROG_PLAY     3
 #define GAMEMAIN_PROG_END      4
 
+
+#define STAGE_PROG_INIT    1
+#define STAGE_PROG_BEGIN   2
+#define STAGE_PROG_PLAY    3
+#define STAGE_PROG_END     7
+
+
 namespace MyStg2nd {
 
 /**

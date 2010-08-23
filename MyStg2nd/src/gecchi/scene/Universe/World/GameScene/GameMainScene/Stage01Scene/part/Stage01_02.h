@@ -10,7 +10,6 @@ namespace MyStg2nd {
  */
 class Stage01_02 : public GgafDx9LibStg::DefaultScene {
 
-    GgafDx9Core::GgafDx9Bgm* _bgm_st1;
 
 public:
 

@@ -20,15 +20,9 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     _pHoshiBoshi001 = NEW HoshiBoshi001("HoshiBoshi001");
     getLordActor()->addSubGroup(KIND_EFFECT, _pHoshiBoshi001);
 
-    _angCamZX_prev = 0;
-    _angCamXY_prev = 0;
 
     //GameMainSceneが解除してくれる
-    setProgress(STAGE01_PROG_INIT);
-
-    _pBgmPerformer->useBgm(2);
-    _pBgmPerformer->set(0, "VIRTUAL_ON_06");
-    _pBgmPerformer->set(1, "PLANETES");
+    setProgress(STAGE_PROG_INIT);
 
     _pMessage = NEW LabelGecchi16Font("Stage01Msg");
     getLordActor()->addSubGroup(KIND_EFFECT, _pMessage);
@@ -37,27 +31,22 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 }
 
 void Stage01Scene::initialize() {
-    _angCamZX_prev = GgafDx9Util::getAngle2D(-(pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x),
-                                                     -(pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z)
-                                                    );
-    setProgress(STAGE01_PROG_INIT);
+    setProgress(STAGE_PROG_INIT);
 }
 
 void Stage01Scene::processBehavior() {
 
 
-    if (getProgress() == STAGE01_PROG_INIT) {
-        setProgress(STAGE01_PROG_BEGIN);
+    if (getProgress() == STAGE_PROG_INIT) {
+        setProgress(STAGE_PROG_BEGIN);
     }
 
 
-    if (onChangeProgressAt(STAGE01_PROG_BEGIN)) {
-        _pBgmPerformer->play(0, DSBVOLUME_MIN, true); //音量無し
-        _pBgmPerformer->fadein(0, 420);
+    if (onChangeProgressAt(STAGE_PROG_BEGIN)) {
         //playBgm(0, DSBVOLUME_MIN, true); //音量無し
         //fadeinBgm(0, 420);               //フェードイン
         _frame_Begin = 0;
-    } else if (getProgress() == STAGE01_PROG_BEGIN) {
+    } else if (getProgress() == STAGE_PROG_BEGIN) {
         //活動ループ
         _frame_Begin++;
 
@@ -67,33 +56,30 @@ void Stage01Scene::processBehavior() {
             _pMessage->inactivateAfter(120);
             _pWorldBoundSpace001->activateTree();
             _pScene_Stage01Controller->activate();
-            setProgress(STAGE01_PROG_PLAY);
+            setProgress(STAGE_PROG_PLAY);
         }
     }
 
-    if (onChangeProgressAt(STAGE01_PROG_PLAY)) {
+    if (onChangeProgressAt(STAGE_PROG_PLAY)) {
         _frame_Play = 0;
-    } else if (getProgress() == STAGE01_PROG_PLAY) {
+    } else if (getProgress() == STAGE_PROG_PLAY) {
         //活動ループ
         _frame_Play++;
-
     }
-
 
 
     if (getActivePartFrame() == 60*60) {
-
-        _pBgmPerformer->fadeout_stop(0, 420);
         //fadeoutBgm(0, 420);
 
-        _pBgmPerformer->play(1, DSBVOLUME_MIN, true);
-        _pBgmPerformer->fadein(1, 420);
     }
 
 
-    if (onChangeProgressAt(STAGE01_PROG_END)) {
-
-    } else if (getProgress() == STAGE01_PROG_END) {
+    if (onChangeProgressAt(STAGE_PROG_END)) {
+        _TRACE_("Stage01Scene::processBehavior()  STAGE_PROG_ENDになりますた！");
+        _pMessage->activateImmediately();
+        _pMessage->update(300, 300, "SCENE 01 CLEAR!!");
+        _pMessage->inactivateAfter(120);
+    } else if (getProgress() == STAGE_PROG_END) {
 
     }
 

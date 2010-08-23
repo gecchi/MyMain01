@@ -1,13 +1,6 @@
 #ifndef STAGE01SCENE_H_
 #define STAGE01SCENE_H_
 
-
-#define STAGE01_PROG_INIT    1
-#define STAGE01_PROG_BEGIN   2
-#define STAGE01_PROG_PLAY    3
-#define STAGE01_PROG_END     7
-
-
 namespace MyStg2nd {
 
 class Stage01Scene : public StageScene {
@@ -19,8 +12,6 @@ public:
 //    BackGroundStar* _pBackGroundStar;
     WorldBoundSpace001* _pWorldBoundSpace001;
     HoshiBoshi001* _pHoshiBoshi001;
-    angle _angCamZX_prev;
-    angle _angCamXY_prev;
 
 
     frame _frame_Begin;

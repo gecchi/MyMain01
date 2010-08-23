@@ -96,8 +96,10 @@ enum MoveWay {
 
 
 //イベント用 UINT32 数値宣言
-AVAILABLE_EVENT(STG01_BOSS_WAS_BREAK)
-
+AVAILABLE_EVENT(STG01_BOSS_WAS_BROKEN)
+AVAILABLE_EVENT(STG01_01_WAS_BROKEN)
+AVAILABLE_EVENT(STG01_02_WAS_BROKEN)
+AVAILABLE_EVENT(STG01_03_WAS_BROKEN)
 
 
 
@@ -132,7 +134,7 @@ class Stage01Controller;
 class Stage01_01;
 class Stage01_02;
 class Stage01_03;
-
+class Stage01_Climax;
 
 
 
@@ -276,7 +278,7 @@ class LaserChipEffectActor;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01_01.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01_02.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01_03.h"
-
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01_Climax.h"
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
 #include "gecchi/actor/common/shot/Shot001.h"
 #include "gecchi/actor/common/shot/Shot002.h"
