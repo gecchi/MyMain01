@@ -337,6 +337,8 @@ public:
      */
     virtual void catchEvent(UINT32 prm_no) = 0;
 
+
+    virtual bool isDisappear();
     /**
      * _‚É‰yŒ© .
      * @return  ŒÄ‚Î‚ê‚Äo‚Ä‚«‚½_
@@ -1541,6 +1543,17 @@ int GgafElement<T>::getProgressOnChange() {
         return 0; // = false
     }
 }
+template<class T>
+bool GgafElement<T>::isDisappear() {
+    if (_will_inactivate_after_flg ||
+        _is_active_flg_in_next_frame == false ||
+        _will_end_after_flg ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 template<class T>
 GgafElement<T>::~GgafElement() {
