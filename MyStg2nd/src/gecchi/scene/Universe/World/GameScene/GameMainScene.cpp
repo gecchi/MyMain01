@@ -40,6 +40,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pScene_Stage05 = NULL;
 
     _pSceneMainCannnel = NULL;
+    _pSceneReady = NULL;
     setProgress(GAMEMAIN_PROG_INIT);
 
     GameMainScene::_pGameMainScene = this;
@@ -54,23 +55,23 @@ void GameMainScene::ready(int prm_stage) {
     switch (prm_stage) {
         case 1:
             orderSceneToFactory(11, Stage01Scene, "Stage01");
-            _pSceneMainCannnel = _pScene_Stage01;
+            _pSceneReady = _pScene_Stage01;
             break;
         case 2:
             orderSceneToFactory(11, Stage02Scene, "Stage02");
-            _pSceneMainCannnel = _pScene_Stage02;
+            _pSceneReady = _pScene_Stage02;
             break;
         case 3:
             orderSceneToFactory(11, Stage03Scene, "Stage03");
-            _pSceneMainCannnel = _pScene_Stage03;
+            _pSceneReady = _pScene_Stage03;
             break;
         case 4:
             orderSceneToFactory(11, Stage04Scene, "Stage04");
-            _pSceneMainCannnel = _pScene_Stage04;
+            _pSceneReady = _pScene_Stage04;
             break;
         case 5:
             orderSceneToFactory(11, Stage05Scene, "Stage05");
-            _pSceneMainCannnel = _pScene_Stage05;
+            _pSceneReady = _pScene_Stage05;
             break;
         default:
             break;
@@ -140,6 +141,9 @@ void GameMainScene::processBehavior() {
         addSubLast(obtainSceneFromFactory(11)); //ステージシーン追加
         _is_ready_stage = false;
         _frame_Begin = 0;
+
+        _pSceneMainCannnel->end(30*60);
+        _pSceneMainCannnel = _pSceneReady;
     } else if (getProgress() == GAMEMAIN_PROG_BEGIN) {
         //活動ループ
         _frame_Begin++;

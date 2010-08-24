@@ -73,6 +73,7 @@ public:
     Stage03Scene* _pScene_Stage03;
     Stage04Scene* _pScene_Stage04;
     Stage05Scene* _pScene_Stage05;
+    StageScene* _pSceneReady;
     StageScene* _pSceneMainCannnel;
 
     frame _frame_Begin;
