@@ -67,7 +67,7 @@ void ActorTableScene::processBehavior() {
             if (_table.isLast()) {
                 //最終パートだったらTABLE終了
                 _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 全パート終了！！");
-                end(60*60);
+                end(30*60);
                 //ここをコメントにしたら大丈夫なのはなぜか？
             } else {
                 _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] pActiveActor="<<pActiveActor->getName()<<" 消滅により早回しきたー！！");
@@ -75,7 +75,7 @@ void ActorTableScene::processBehavior() {
                 if (_max_perform_frame <  getActivePartFrame()) {
                     //収まらないと言うわけで、以降は全て無視されてシーン終了
                     _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了１！！");
-                    end(60*60); //1分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
+                    end(30*60); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
                 } else {
                     //余裕があるため次のパートをアクティブにする。
                     TblElem* n = _table.next(); //アクティブを次のパートへ
@@ -94,7 +94,7 @@ void ActorTableScene::processBehavior() {
                     if (_max_perform_frame <  getActivePartFrame()) {
                         //収まらないと言うわけで、以降は全て無視され共生終了
                         _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了２！！");
-                        end(60*60); //1分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
+                        end(30*60); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
                     } else {
                         TblElem* n = _table.next(); //アクティブを次のパートへ
                         n->_pActor->activate();
