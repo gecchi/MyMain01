@@ -141,6 +141,7 @@ void GameMainScene::processBehavior() {
 		_pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(11);
 		addSubLast(_pSceneMainCannnel); //ステージシーン追加
         _pSceneMainCannnel->addSubLast(pCommonScene);         // 共通シーンを配下に移動
+        //TODO:レーザーが途切れる
         _is_ready_stage = false;
         _frame_Begin = 0;
 
