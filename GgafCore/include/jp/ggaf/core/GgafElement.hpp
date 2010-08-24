@@ -1312,7 +1312,11 @@ void GgafElement<T>::end(frame prm_frame_offset) {
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
-                pElementTemp->end(prm_frame_offset);
+                if (prm_frame_offset > 2) {
+                    pElementTemp->end(prm_frame_offset-1); //––’[‚©‚çend‚·‚é
+                } else {
+                    pElementTemp->end(prm_frame_offset);
+                }
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
