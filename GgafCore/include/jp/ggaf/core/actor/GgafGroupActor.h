@@ -71,7 +71,7 @@ public:
     void processAfterDraw() override {
     }
 
-    void catchEvent(UINT32 prm_no) override {
+    void catchEvent(UINT32 prm_no, void* prm_pSource) override {
     }
 
     void processFinal() override {

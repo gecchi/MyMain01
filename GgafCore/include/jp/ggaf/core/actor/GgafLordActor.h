@@ -48,14 +48,14 @@ public:
     }
 
 
-    void catchEvent(UINT32 prm_no) override {
+    void catchEvent(UINT32 prm_no, void* prm_pSource) override {
     }
 
 
-    virtual void throwUpEvent(UINT32 prm_no) {
+    virtual void throwUpEvent(UINT32 prm_no, void* prm_pSource) {
         GgafScene* s = getPlatformScene();
         if (s != NULL) {
-            s->throwUpEvent(prm_no); //自分より上位は居ない。そこで所属シーンへ投げる
+            s->throwUpEvent(prm_no, this); //自分より上位は居ない。そこで所属シーンへ投げる
         }
     }
 
