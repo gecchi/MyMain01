@@ -40,7 +40,6 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pScene_Stage05 = NULL;
 
     _pSceneMainCannnel = NULL;
-    _pSceneReady = NULL;
     setProgress(GAMEMAIN_PROG_INIT);
 
     GameMainScene::_pGameMainScene = this;
@@ -55,23 +54,18 @@ void GameMainScene::ready(int prm_stage) {
     switch (prm_stage) {
         case 1:
             orderSceneToFactory(11, Stage01Scene, "Stage01");
-            _pSceneReady = _pScene_Stage01;
             break;
         case 2:
             orderSceneToFactory(11, Stage02Scene, "Stage02");
-            _pSceneReady = _pScene_Stage02;
             break;
         case 3:
             orderSceneToFactory(11, Stage03Scene, "Stage03");
-            _pSceneReady = _pScene_Stage03;
             break;
         case 4:
             orderSceneToFactory(11, Stage04Scene, "Stage04");
-            _pSceneReady = _pScene_Stage04;
             break;
         case 5:
             orderSceneToFactory(11, Stage05Scene, "Stage05");
-            _pSceneReady = _pScene_Stage05;
             break;
         default:
             break;
@@ -138,12 +132,19 @@ void GameMainScene::processBehavior() {
     if (onChangeProgressAt(GAMEMAIN_PROG_BEGIN)) {
         _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
         _pFont1602->update(300, 350, "DESTOROY ALL THEM!!");
-        addSubLast(obtainSceneFromFactory(11)); //ステージシーン追加
+        GgafScene* pCommonScene = GameGlobal::_pSceneCommon->extract();
+		if (_pSceneMainCannnel) {
+			//2面目以降はこのタイミングで前ステージをend
+			_TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
+			_pSceneMainCannnel->end(30*60);
+		}
+		_pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(11);
+		addSubLast(_pSceneMainCannnel); //ステージシーン追加
+        _pSceneMainCannnel->addSubLast(pCommonScene);         // 共通シーンを配下に移動
         _is_ready_stage = false;
         _frame_Begin = 0;
 
-        _pSceneMainCannnel->end(30*60);
-        _pSceneMainCannnel = _pSceneReady;
+
     } else if (getProgress() == GAMEMAIN_PROG_BEGIN) {
         //活動ループ
         _frame_Begin++;

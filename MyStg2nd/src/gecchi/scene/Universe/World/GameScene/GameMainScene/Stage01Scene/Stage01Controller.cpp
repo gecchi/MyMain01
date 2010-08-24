@@ -82,8 +82,7 @@ void Stage01Controller::processBehavior() {
 
     if (onChangeProgressAt(STAGE01CONTROLLER_PROG_INIT)) {
         _TRACE_("Stage01Controller::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
-        // 共通シーンを配下に移動
-        addSubLast(GameGlobal::_pSceneCommon->extract());
+
     }
 
     if (onChangeProgressAt(STAGE01CONTROLLER_PROG_STG01_01_BEGIN)) {

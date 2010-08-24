@@ -18,8 +18,6 @@ void Stage02Scene::processBehavior() {
 
     if (getActivePartFrame() == 10) {
         _TRACE_("Stage02Scene::processBehavior 私も起動しましたよ");
-        // 共通シーンを配下に移動
-        addSubLast(GameGlobal::_pSceneCommon->extract());
 
         _TRACE_("SCENE 02 COMMING!!!!!");
         _pMessage->activateImmediately();
