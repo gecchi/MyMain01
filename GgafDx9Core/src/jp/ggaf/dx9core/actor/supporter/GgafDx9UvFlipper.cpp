@@ -83,7 +83,7 @@ void GgafDx9UvFlipper::behave() {
                 _pattno_uvflip_now++;
             } else {
                 _pattno_uvflip_now = _pattno_uvflip_bottom;
-                _pActor->catchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //もうアニメーションは進まないことを通知
+                _pActor->catchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED, this); //もうアニメーションは進まないことを通知
                 _uvflip_method = NOT_ANIMATED;
             }
         } else if (_uvflip_method == FLIP_REVERSE_NOLOOP) { //例：5,4,3,2,1,0,0,0,0,0,0...
@@ -91,7 +91,7 @@ void GgafDx9UvFlipper::behave() {
                 _pattno_uvflip_now--;
             } else {
                 _pattno_uvflip_now = _pattno_uvflip_top;
-                _pActor->catchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //もうアニメーションは進まないことを通知
+                _pActor->catchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED, this); //もうアニメーションは進まないことを通知
                 _uvflip_method = NOT_ANIMATED;
             }
         } else if (_uvflip_method == FLIP_OSCILLATE_LOOP) { //例：0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
@@ -123,7 +123,7 @@ void GgafDx9UvFlipper::behave() {
                 _pattno_uvflip_now = _paInt_PtnOffset_Customized[_cnt_Customized];
                 _cnt_Customized ++;
                 if (_cnt_Customized == _nPtn_Customized) {
-                    _pActor->catchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //もうアニメーションは進まないことを通知
+                    _pActor->catchEvent(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED, this); //もうアニメーションは進まないことを通知
                     _cnt_Customized = 0;
                     _uvflip_method = NOT_ANIMATED;
                 }
