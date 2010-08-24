@@ -7,11 +7,6 @@
 #define GAMEMAIN_PROG_END      4
 
 
-#define STAGE_PROG_INIT    1
-#define STAGE_PROG_BEGIN   2
-#define STAGE_PROG_PLAY    3
-#define STAGE_PROG_END     7
-
 
 namespace MyStg2nd {
 
@@ -86,6 +81,8 @@ public:
 
     int _stage;
 
+    boolean _is_ready_stage;
+    frame _frame_ready_stage;
     GameMainScene(const char* prm_name);
 
     void setStage(int prm_stage) {
@@ -103,7 +100,7 @@ public:
     virtual void processBehavior() override;
 
     virtual void processFinal() override;
-
+    virtual void catchEvent(UINT32 prm_no, void* prm_pSource) override;
     virtual ~GameMainScene();
 
 };

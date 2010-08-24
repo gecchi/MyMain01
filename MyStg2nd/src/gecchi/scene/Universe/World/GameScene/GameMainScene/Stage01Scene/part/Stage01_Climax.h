@@ -12,6 +12,8 @@ class Stage01_Climax : public GgafDx9LibStg::DefaultScene {
 
 
 public:
+    bool _waiting;
+
     EnemyAstraea* _pBoss;
 
     Stage01_Climax(const char* prm_name);

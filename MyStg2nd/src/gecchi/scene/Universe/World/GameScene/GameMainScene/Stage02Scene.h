@@ -5,6 +5,7 @@ namespace MyStg2nd {
 class Stage02Scene : public StageScene {
 
 public:
+    LabelGecchi16Font* _pMessage;
 
     Stage02Scene(const char* prm_name);
     /**

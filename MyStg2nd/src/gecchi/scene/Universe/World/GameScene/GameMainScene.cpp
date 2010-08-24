@@ -49,6 +49,8 @@ void GameMainScene::reset() {
 }
 void GameMainScene::ready(int prm_stage) {
     _stage = prm_stage;
+    _is_ready_stage = true;
+    _frame_ready_stage = 0;
     switch (prm_stage) {
         case 1:
             orderSceneToFactory(11, Stage01Scene, "Stage01");
@@ -136,6 +138,7 @@ void GameMainScene::processBehavior() {
         _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
         _pFont1602->update(300, 350, "DESTOROY ALL THEM!!");
         addSubLast(obtainSceneFromFactory(11)); //ステージシーン追加
+        _is_ready_stage = false;
         _frame_Begin = 0;
     } else if (getProgress() == GAMEMAIN_PROG_BEGIN) {
         //活動ループ
@@ -152,6 +155,13 @@ void GameMainScene::processBehavior() {
 
     } else if (getProgress() == GAMEMAIN_PROG_PLAY) {
         //活動ループ
+        if (_is_ready_stage) {
+            _frame_ready_stage++;
+            if (_frame_ready_stage == 20*60) {
+                _TRACE_("新ステージCOMEING!!");
+                setProgress(GAMEMAIN_PROG_BEGIN);
+            }
+        }
 
     }
 
@@ -627,7 +637,18 @@ void GameMainScene::processBehavior() {
 
     } // if (getProgress() == GAMEMAIN_PROG_PLAY)
 }
+void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
+    if (prm_no == READY_NEXT_STAGE) {
+        _TRACE_("GameMainScene::catchEvent() READY_NEXT_STAGE準備きた");
+        if (_stage < 5) {
+            _stage++;
+            ready(_stage);
 
+        } else {
+            //TODO:エデニング？
+        }
+    }
+}
 void GameMainScene::processFinal() {
 }
 

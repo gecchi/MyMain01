@@ -62,7 +62,7 @@ void Stage01_01::processBehavior() {
 				}
 				break;
 			case 2500:
-				throwUpEvent(STG01_01_WAS_BROKEN);
+				throwUpEvent(STG01_01_WAS_BROKEN,this);
 				break;
 			default :
 				break;
