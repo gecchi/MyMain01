@@ -8,15 +8,14 @@ using namespace MyStg2nd;
 bool StageScene::_pause = false;
 
 StageScene::StageScene(const char* prm_name) : DefaultScene(prm_name) {
-    setProgress(STAGE_PROG_INIT);
+
 }
 
 void StageScene::initialize() {
-
+    setProgress(STAGE_PROG_INIT);
 }
 void StageScene::processBehavior() {
     if (onChangeProgressAt(STAGE_PROG_INIT)) {
-        addSubLast(pCOMMONSCENE->extract()); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
     } else if (getProgress() == STAGE_PROG_INIT) {
     }
 
@@ -35,7 +34,7 @@ void StageScene::processBehavior() {
 
     if (onChangeProgressAt(STAGE_PROG_END)) {
         _frame_End = 0;
-        throwUpEvent(READY_NEXT_STAGE, this); //次ステージ準備へ
+        throwUpEvent(PREPARE_NEXT_STAGE, this); //次ステージ準備へ
     } else if (getProgress() == STAGE_PROG_END) {
         _frame_End++;
     }

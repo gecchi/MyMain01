@@ -12,8 +12,8 @@ public:
     Stage01Controller* _pScene_Stage01Controller;
     //BackGround01* _pBackGround01;
 //    BackGroundStar* _pBackGroundStar;
-    WorldBoundSpace001* _pWorldBoundSpace001;
-    HoshiBoshi001* _pHoshiBoshi001;
+    WorldBoundSpace001* _pWorldBoundSpace;
+    HoshiBoshi001* _pHoshiBoshi;
 
 
     LabelGecchi16Font* _pMessage;

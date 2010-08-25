@@ -11,7 +11,7 @@ Stage02Controller::Stage02Controller(const char* prm_name) : DefaultScene(prm_na
     _pBgmPerformer->set(1, "PLANETES");
     _pBgmPerformer->set(2, "VIRTUAL_ON_11");
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
-    // コード変更は「シーンCreater.xls」を開いて、そこから行うこと（整合性確保のため）。
+    // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
     frame f[] = {1,3,1200,3000};
     _paFrame_NextEvent = new frame[4];
@@ -29,8 +29,8 @@ void Stage02Controller::initialize() {
 }
 
 void Stage02Controller::processBehavior() {
-    // 以下の gen02 start ～ end はマクロにより自動生成されたコードです。
-    // コード変更は「シーンCreater.xls」を開いて、そこから行うこと（整合性確保のため）。
+    // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
+    // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
     if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
         switch (getActivePartFrame()) {

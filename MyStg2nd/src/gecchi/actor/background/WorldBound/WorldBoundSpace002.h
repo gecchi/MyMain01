@@ -1,5 +1,5 @@
-#ifndef WORLDBOUNDSPACE001_H_
-#define WORLDBOUNDSPACE001_H_
+#ifndef WORLDBOUNDSPACE002_H_
+#define WORLDBOUNDSPACE002_H_
 namespace MyStg2nd {
 
 /**
@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/06/16
  * @author Masatoshi Tsuge
  */
-class WorldBoundSpace001 : public GgafDx9LibStg::WorldBoundActor {
+class WorldBoundSpace002 : public GgafDx9LibStg::WorldBoundActor {
 
 public:
 
@@ -17,7 +17,7 @@ public:
      * @param prm_name
      * @return
      */
-    WorldBoundSpace001(const char* prm_name);
+    WorldBoundSpace002(const char* prm_name);
 
     void onCreateModel() override {
     }
@@ -35,9 +35,9 @@ public:
     void processFinal() override {
     }
 
-    virtual ~WorldBoundSpace001();
+    virtual ~WorldBoundSpace002();
 };
 
 }
-#endif /*WORLDBOUNDSPACE001_H_*/
+#endif /*WORLDBOUNDSPACE002_H_*/
 

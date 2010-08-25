@@ -49,7 +49,7 @@ void GameMainScene::reset() {
 }
 void GameMainScene::ready(int prm_stage) {
     _stage = prm_stage;
-    _is_ready_stage = true;
+    _had_ready_stage = true;
     _frame_ready_stage = 0;
     switch (prm_stage) {
         case 1:
@@ -127,20 +127,24 @@ void GameMainScene::initialize() {
 void GameMainScene::processBehavior() {
     if (getProgress() == GAMEMAIN_PROG_INIT) {
         setProgress(GAMEMAIN_PROG_BEGIN);
+        GgafScene* pCommon = pCOMMONSCENE->extract();
+        addSubLast(pCommon); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
     }
 
     if (onChangeProgressAt(GAMEMAIN_PROG_BEGIN)) {
         _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
         _pFont1602->update(300, 350, "DESTOROY ALL THEM!!");
+
         if (_pSceneMainCannnel) {
             //2面目以降はこのタイミングで前ステージをend
             _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
             _pSceneMainCannnel->end(30*60);
         }
+
         _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(11);
         addSubLast(_pSceneMainCannnel); //ステージシーン追加
 
-        _is_ready_stage = false;
+        _had_ready_stage = false;
         _frame_Begin = 0;
 
 
@@ -159,9 +163,9 @@ void GameMainScene::processBehavior() {
 
     } else if (getProgress() == GAMEMAIN_PROG_PLAY) {
         //活動ループ
-        if (_is_ready_stage) {
+        if (_had_ready_stage) {
             _frame_ready_stage++;
-            if (_frame_ready_stage == 20*60) {
+            if (_frame_ready_stage == 5*60) {
                 _TRACE_("新ステージCOMEING!!");
                 setProgress(GAMEMAIN_PROG_BEGIN);
             }
@@ -185,7 +189,7 @@ void GameMainScene::processBehavior() {
     _pFont8_JIKI_Z->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*1-1, _buf);
     //カメラワーク関連
 
-    if (getProgress() == GAMEMAIN_PROG_PLAY) {
+    if (getProgress() == GAMEMAIN_PROG_PLAY || getProgress() == GAMEMAIN_PROG_BEGIN) {
 
         //一時停止
         if (VB_PLAY->isReleasedUp(VB_PAUSE)) {
@@ -642,13 +646,14 @@ void GameMainScene::processBehavior() {
     } // if (getProgress() == GAMEMAIN_PROG_PLAY)
 }
 void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
-    if (prm_no == READY_NEXT_STAGE) {
-        _TRACE_("GameMainScene::catchEvent() READY_NEXT_STAGE準備きた");
+    if (prm_no == PREPARE_NEXT_STAGE) {
+        _TRACE_("GameMainScene::catchEvent() PREPARE_NEXT_STAGE準備きた");
         if (_stage < 5) {
             _stage++;
             ready(_stage);
 
         } else {
+            _TRACE_("最終面クリア");
             //TODO:エデニング？
         }
     }

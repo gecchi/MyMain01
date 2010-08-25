@@ -81,7 +81,7 @@ public:
 
     int _stage;
 
-    boolean _is_ready_stage;
+    boolean _had_ready_stage;
     frame _frame_ready_stage;
     GameMainScene(const char* prm_name);
 

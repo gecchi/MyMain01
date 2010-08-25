@@ -96,7 +96,7 @@ enum MoveWay {
 
 
 //イベント用 UINT32 数値宣言
-AVAILABLE_EVENT(READY_NEXT_STAGE)
+AVAILABLE_EVENT(PREPARE_NEXT_STAGE)
 
 
 AVAILABLE_EVENT(STG01_01_WAS_BROKEN)
@@ -191,7 +191,7 @@ class EffectLaserRefraction001;
 class HoshiBoshi001;
 class HoshiBoshi002;
 class WorldBoundSpace001;
-
+class WorldBoundSpace002;
 class TurboMeter;
 class LabelGecchi8Font;
 class LabelGecchi16Font;
@@ -333,6 +333,7 @@ class LaserChipEffectActor;
 #include "gecchi/actor/label/LabelGecchi16Font.h"
 
 #include "gecchi/actor/background/WorldBound/WorldBoundSpace001.h"
+#include "gecchi/actor/background/WorldBound/WorldBoundSpace002.h"
 
 #include "gecchi/GameGlobal.h"
 

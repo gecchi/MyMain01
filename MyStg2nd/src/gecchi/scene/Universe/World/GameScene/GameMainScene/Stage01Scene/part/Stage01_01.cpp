@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
-    // コード変更は「シーンCreater.xls」を開いて、そこから行うこと（整合性確保のため）。
+    // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
 	frame f[] = {1,100,2500};
 	_paFrame_NextEvent = new frame[3];
@@ -35,8 +35,8 @@ void Stage01_01::initialize() {
 }
 
 void Stage01_01::processBehavior() {
-    // 以下の gen02 start ～ end はマクロにより自動生成されたコードです。
-    // コード変更は「シーンCreater.xls」を開いて、そこから行うこと（整合性確保のため）。
+    // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
+    // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
 	if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
 		switch (getActivePartFrame()) {
