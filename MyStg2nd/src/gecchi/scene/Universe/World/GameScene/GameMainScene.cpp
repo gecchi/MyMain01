@@ -170,8 +170,13 @@ void GameMainScene::processBehavior() {
                 setProgress(GAMEMAIN_PROG_BEGIN);
             }
         }
-
     }
+
+    if (onChangeProgressAt(GAMEMAIN_PROG_END)) {
+        _TRACE_("オワタ");
+    } else if (getProgress() == GAMEMAIN_PROG_END) {
+    }
+
 
     //SCORE表示
     sprintf(_buf, "SCORE %07u", _SCORE_);
@@ -654,6 +659,7 @@ void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
 
         } else {
             _TRACE_("最終面クリア");
+            setProgress(GAMEMAIN_PROG_END);
             //TODO:エデニング？
         }
     }
