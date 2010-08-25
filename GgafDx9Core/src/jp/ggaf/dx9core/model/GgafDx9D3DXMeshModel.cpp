@@ -118,7 +118,7 @@ void GgafDx9D3DXMeshModel::onDeviceLost() {
 void GgafDx9D3DXMeshModel::release() {
     TRACE3("GgafDx9D3DXMeshModel::release() " << _model_name << " start");
     if (_pID3DXMesh == NULL) {
-        _TRACE_("＜警告＞ [GgafDx9D3DXMeshModel::release()]  "<<prm_model_name<<" の _pID3DXMeshが オブジェクトになっていないため release できません！");
+        _TRACE_("＜警告＞ [GgafDx9D3DXMeshModel::release()]  "<<_model_name<<" の _pID3DXMeshが オブジェクトになっていないため release できません！");
     }
     //テクスチャを解放
     if (_papTextureCon) {
