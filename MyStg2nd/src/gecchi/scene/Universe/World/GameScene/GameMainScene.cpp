@@ -40,12 +40,10 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pScene_Stage05 = NULL;
 
     _pSceneMainCannnel = NULL;
-    setProgress(GAMEMAIN_PROG_INIT);
 
     GameMainScene::_pGameMainScene = this;
 }
 void GameMainScene::reset() {
-    setProgress(GAMEMAIN_PROG_INIT);
 }
 void GameMainScene::ready(int prm_stage) {
     _stage = prm_stage;
@@ -121,14 +119,19 @@ void GameMainScene::initialize() {
 
     _stop_renge = 60000;
     _angXY_nowCamUp = ANGLE90;
-}
 
+    setProgress(GAMEMAIN_PROG_INIT);
+    //initialize()時はinactive()であることに注意する事
+}
 
 void GameMainScene::processBehavior() {
     if (getProgress() == GAMEMAIN_PROG_INIT) {
-        setProgress(GAMEMAIN_PROG_BEGIN);
+        VB_UI->clear();
+        VB_PLAY->clear();
+        pGOD->setVB(VB_PLAY); //保存のためプレイ用に変更
         GgafScene* pCommon = pCOMMONSCENE->extract();
         addSubLast(pCommon); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
+        setProgress(GAMEMAIN_PROG_BEGIN);
     }
 
     if (onChangeProgressAt(GAMEMAIN_PROG_BEGIN)) {
@@ -173,6 +176,8 @@ void GameMainScene::processBehavior() {
     }
 
     if (onChangeProgressAt(GAMEMAIN_PROG_END)) {
+         VB_UI->clear();
+         pGOD->setVB(VB_UI);  //戻す
         _TRACE_("オワタ");
     } else if (getProgress() == GAMEMAIN_PROG_END) {
     }

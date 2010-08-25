@@ -156,15 +156,15 @@ void GameScene::processBehavior() {
 
     } else if (_pSceneCannel == _pScene_GameMain) {
         if (_pScene_GameMain->getProgressOnChange() == GAMEMAIN_PROG_BEGIN) {
-            VB_UI->clear();
-            VB_PLAY->clear();
-            pGOD->setVB(VB_PLAY); //保存のためプレイ用に変更
+//            VB_UI->clear();
+//            VB_PLAY->clear();
+//            pGOD->setVB(VB_PLAY); //保存のためプレイ用に変更
             _pScene_GameEnding->reset();
             _pScene_GameEnding->ready();
         }
         if (_pScene_GameMain->getProgressOnChange() == GAMEMAIN_PROG_END) {
-            VB_UI->clear();
-            pGOD->setVB(VB_UI);  //戻す
+//            VB_UI->clear();
+//            pGOD->setVB(VB_UI);  //戻す
             _pScene_GameEnding->activate();
             _pSceneCannel = _pScene_GameEnding;
         }

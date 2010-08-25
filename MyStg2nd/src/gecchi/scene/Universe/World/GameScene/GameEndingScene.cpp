@@ -12,9 +12,10 @@ void GameEndingScene::reset() {
     //setProgress(GAMEENDING_PROG_INIT);
 }
 void GameEndingScene::ready() {
-    //_TRACE_("GameEndingScene::ready()");
+    _TRACE_("GameEndingScene::ready()");
 }
 void GameEndingScene::initialize() {
+    _TRACE_("GameEndingScene::initialize()");
 }
 
 void GameEndingScene::processBehavior() {
