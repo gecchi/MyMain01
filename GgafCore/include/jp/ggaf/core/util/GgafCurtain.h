@@ -47,13 +47,13 @@ public:
      * カーテンを開ける .
      * @param prm_opening_velocity カーテンを開ける速度
      */
-    virtual void open(float prm_opening_velocity);
+    virtual void open(float prm_opening_velocity = 1.0f);
 
     /**
      * カーテンを閉める .
      * @param prm_closeing_velocity カーテンを閉める速度
      */
-    virtual void close(float prm_closeing_velocity);
+    virtual void close(float prm_closeing_velocity = 1.0f);
 
     /**
      * カーテンを動かす .

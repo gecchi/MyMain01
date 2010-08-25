@@ -73,7 +73,7 @@ public:
     virtual GgafCore::GgafMainActor* employ() {
 #ifdef MY_DEBUG
         if (_pSubFirst == NULL) {
-            throwGgafCriticalException("GgafActorDispatcher::employ() 子がありません");
+            throwGgafCriticalException("GgafActorDispatcher::employ() "<<getName()<<" の子がありません");
         }
 #endif
         static GgafMainActor* pActor;
@@ -95,7 +95,7 @@ public:
             }
 #ifdef MY_DEBUG
             if (i == 100000) {
-                throwGgafCriticalException("GgafActorDispatcher::employ() 末尾フラグが見つかりません。循環ループしている可能性があります。");
+                throwGgafCriticalException("GgafActorDispatcher::employ() "<<getName()<<" のメンバの末尾フラグが見つかりません。循環ループしている可能性があります。");
             }
 #endif
         }

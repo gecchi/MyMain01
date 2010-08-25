@@ -39,7 +39,7 @@ void GgafCurtain::behave() {
         }
 
     } else if (_state == CLOSE) {
-        processOpenBegin();
+        processCloseBegin();
         _state = CLOSING;
     } else if (_state == CLOSING) {
         _now_curtain_length += _closeing_velocity;
