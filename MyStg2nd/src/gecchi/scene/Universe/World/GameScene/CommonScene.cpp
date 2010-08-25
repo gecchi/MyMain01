@@ -40,7 +40,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //Effect EffectExplosion001
         _pDispatcher_EffectExplosion003 = NEW GgafActorDispatcher("RotExplo003");
         EffectExplosion003* pEffectExplosion;
-        for (int i = 0; i < 100; i++) { //ストック100個
+        for (int i = 0; i < 50; i++) { //ストック100個
             pEffectExplosion = NEW EffectExplosion003("EffectExplosion003");
             pEffectExplosion->inactivateTreeImmediately(); //最初非表示
             _pDispatcher_EffectExplosion003->addSubLast(pEffectExplosion);
@@ -53,7 +53,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //Effect EffectTurbo002 ターボ噴射
         _pDispatcher_EffectTurbo002 = NEW GgafActorDispatcher("RotExplo002");
         EffectTurbo002* pEffectTurbo;
-        for (int i = 0; i < 256; i++) { //ストック100個
+        for (int i = 0; i < 10; i++) { //ストック100個
             pEffectTurbo = NEW EffectTurbo002("EffectTurbo002");
             pEffectTurbo->inactivateTreeImmediately(); //最初非表示
             _pDispatcher_EffectTurbo002->addSubLast(pEffectTurbo);
@@ -65,7 +65,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         _pDispatcher_LaserChipDispatcher = NEW GgafActorDispatcher("LCDD");
         LaserChipDispatcher* pLaserChipDispatcher;
         EnemyAstraeaLaserChip002* pChip;
-        for (int nLaser = 0; nLaser < 63; nLaser++) {
+        for (int nLaser = 0; nLaser < 27; nLaser++) {
             stringstream name;
             name <<  "LaserChipDispatcher["<<nLaser<<"]";
             pLaserChipDispatcher = NEW LaserChipDispatcher(name.str().c_str());

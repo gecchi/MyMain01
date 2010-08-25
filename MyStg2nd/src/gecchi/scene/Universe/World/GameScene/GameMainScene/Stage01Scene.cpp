@@ -33,8 +33,10 @@ void Stage01Scene::initialize() {
 void Stage01Scene::processBehavior() {
 
 
-    if (getProgress() == STAGE01_PROG_INIT) {
+    if (onChangeProgressAt(STAGE01_PROG_INIT)) {
         //
+    } else if (getProgress() == STAGE01_PROG_INIT) {
+        addSubLast(pCOMMONSCENE->extract()); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
         setProgress(STAGE01_PROG_BEGIN);
     }
 

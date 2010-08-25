@@ -104,7 +104,11 @@ AVAILABLE_EVENT(STG01_02_WAS_BROKEN)
 AVAILABLE_EVENT(STG01_03_WAS_BROKEN)
 AVAILABLE_EVENT(STG01_CLIMAX_WAS_BROKEN)
 AVAILABLE_EVENT(STAGE01CONTROLLER_WAS_END)
-
+AVAILABLE_EVENT(STG02_01_WAS_BROKEN)
+AVAILABLE_EVENT(STG02_02_WAS_BROKEN)
+AVAILABLE_EVENT(STG02_03_WAS_BROKEN)
+AVAILABLE_EVENT(STG02_CLIMAX_WAS_BROKEN)
+AVAILABLE_EVENT(STAGE02CONTROLLER_WAS_END)
 namespace MyStg2nd {
 
 //その他のヘッダファイルはここに記述
@@ -138,7 +142,9 @@ class Stage01_02;
 class Stage01_03;
 class Stage01_Climax;
 
-
+class Stage02Controller;
+class Stage02_01;
+class Stage02_Climax;
 
 
 
@@ -281,6 +287,12 @@ class LaserChipEffectActor;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01_02.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01_03.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01_Climax.h"
+
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage02Scene/Stage02Controller.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage02Scene/part/Stage02_01.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage02Scene/part/Stage02_Climax.h"
+
+
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
 #include "gecchi/actor/common/shot/Shot001.h"
 #include "gecchi/actor/common/shot/Shot002.h"

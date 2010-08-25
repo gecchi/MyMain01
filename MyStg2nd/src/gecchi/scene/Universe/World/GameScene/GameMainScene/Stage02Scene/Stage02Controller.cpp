@@ -1,0 +1,146 @@
+#include "stdafx.h"
+using namespace std;
+using namespace GgafCore;
+using namespace GgafDx9Core;
+using namespace GgafDx9LibStg;
+using namespace MyStg2nd;
+
+Stage02Controller::Stage02Controller(const char* prm_name) : DefaultScene(prm_name) {
+    _pBgmPerformer->useBgm(3);
+    _pBgmPerformer->set(0, "VIRTUAL_ON_06");
+    _pBgmPerformer->set(1, "PLANETES");
+    _pBgmPerformer->set(2, "VIRTUAL_ON_11");
+    // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
+    // コード変更は「シーンCreater.xls」を開いて、そこから行うこと（整合性確保のため）。
+    // gen01 start
+    frame f[] = {1,3,1200,3000};
+    _paFrame_NextEvent = new frame[4];
+    for (int i = 0; i < 4; i++) {
+        _paFrame_NextEvent[i] = f[i];
+    }
+    orderSceneToFactory(510273, Stage02_01, "Stage02_01");
+    // gen01 end
+}
+
+void Stage02Controller::initialize() {
+    _pBgmPerformer->play(0, DSBVOLUME_MIN, true);
+    _pBgmPerformer->fadein(0, 420);
+    setProgress(STAGE02CONTROLLER_PROG_INIT);
+}
+
+void Stage02Controller::processBehavior() {
+    // 以下の gen02 start ～ end はマクロにより自動生成されたコードです。
+    // コード変更は「シーンCreater.xls」を開いて、そこから行うこと（整合性確保のため）。
+    // gen02 start
+    if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
+        switch (getActivePartFrame()) {
+            case 1:
+                break;
+            case 3:
+                {
+                Stage02_01* pScene = (Stage02_01*)obtainSceneFromFactory(510273);
+                addSubLast(pScene);
+                setProgress(STAGE02CONTROLLER_PROG_STG02_01_BEGIN);
+                }
+                break;
+            case 1200:
+                orderSceneToFactory(510373000, Stage02_Climax, "Stage01_Climax");
+                break;
+            case 3000:
+                {
+                Stage02_Climax* pScene = (Stage02_Climax*)obtainSceneFromFactory(510373000);
+                addSubLast(pScene);
+                setProgress(STAGE02CONTROLLER_PROG_STG02_CLIMAX_BEGIN);
+                }
+                break;
+            default :
+                break;
+        }
+        _iCnt_Event = (_iCnt_Event < 4-1 ? _iCnt_Event+1 : _iCnt_Event);
+    }
+    // gen02 end
+
+    if (onChangeProgressAt(STAGE02CONTROLLER_PROG_INIT)) {
+        _TRACE_("Stage02Controller::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
+
+    }
+
+    if (onChangeProgressAt(STAGE02CONTROLLER_PROG_STG02_01_BEGIN)) {
+        //STG02_01開始処理
+
+        setProgress(STAGE02CONTROLLER_PROG_STG02_01_PLAYING);
+    } else if (getProgress() == STAGE02CONTROLLER_PROG_STG02_01_PLAYING) {
+        //STG02_01最中の処理
+
+    }
+
+//    if (onChangeProgressAt(STAGE02CONTROLLER_PROG_STG02_02_BEGIN)) {
+//        //STG02_02開始処理
+//        _pBgmPerformer->fadeout_stop(0, 420);        //BGM０番フェードアウト
+//        _pBgmPerformer->play(1, DSBVOLUME_MIN, true);//BGM１番フェードイン
+//        _pBgmPerformer->fadein(1, 420);
+//        setProgress(STAGE02CONTROLLER_PROG_STG02_02_PLAYING);
+//    } else if (getProgress() == STAGE02CONTROLLER_PROG_STG02_02_PLAYING) {
+//        //STG02_02最中の処理
+//
+//    }
+//
+//    if (onChangeProgressAt(STAGE02CONTROLLER_PROG_STG02_03_BEGIN)) {
+//        //STG02_03開始処理
+//
+//        setProgress(STAGE02CONTROLLER_PROG_STG02_03_PLAYING);
+//    } else if (getProgress() == STAGE02CONTROLLER_PROG_STG02_03_PLAYING) {
+//        //STG02_03最中の処理
+//
+//    }
+
+    if (onChangeProgressAt(STAGE02CONTROLLER_PROG_STG02_CLIMAX_BEGIN)) {
+        //STG02_Climax開始処理
+        _pBgmPerformer->fadeout_stop(1, 420);  //BGM１番フェードアウト
+        _pBgmPerformer->play(2, DSBVOLUME_MIN, true); //BGM２番フェードイン
+        _pBgmPerformer->fadein(2, 420);
+        setProgress(STAGE02CONTROLLER_PROG_STG02_CLIMAX_PLAYING);
+    } else if (getProgress() == STAGE02CONTROLLER_PROG_STG02_CLIMAX_PLAYING) {
+        //STG02_Climax最中の処理
+
+    }
+
+    if (onChangeProgressAt(STAGE02CONTROLLER_PROG_FAINAL)) {
+        //STG02_Climax終焉の処理
+        _TRACE_("STG02_Climax終焉のSTAGE02CONTROLLER_PROG_FAINALきた");
+        _pBgmPerformer->fadeout_stop(2, 420); //BGM１番フェードアウト
+        _frame_prog_fainal = 0;
+    } else if (getProgress() == STAGE02CONTROLLER_PROG_FAINAL) {
+        //STG02_Climax終焉最中の処理
+        _frame_prog_fainal++;
+
+        if (_frame_prog_fainal == 420) { //BGMフェードアウトを待つ。
+            throwUpEvent(STAGE02CONTROLLER_WAS_END, this); //ステージエンドを上位に伝える
+        }
+    }
+
+    if (getBehaveingFrame() == 2) {
+
+    }
+
+}
+
+void Stage02Controller::processFinal() {
+}
+
+void Stage02Controller::catchEvent(UINT32 prm_no, void* prm_pSource) {
+    if (prm_no == STG02_01_WAS_BROKEN) {
+        _TRACE_("Stage02Controller::catchEvent() STG02_01_WAS_BROKEN");
+        ((Stage02_01*)prm_pSource)->end(30*60);
+    } else if (prm_no == STG02_CLIMAX_WAS_BROKEN) {
+        _TRACE_("Stage02Controller::catchEvent() STG02_CLIMAX_WAS_BROKENキャッチした。STAGE02CONTROLLER_ENDINGを投げる");
+        ((Stage02_Climax*)prm_pSource)->end(30*60);
+        setProgress(STAGE02CONTROLLER_PROG_FAINAL); //進捗をSTAGE02CONTROLLER_PROG_FAINALに切り替える
+    } else {
+
+    }
+}
+
+Stage02Controller::~Stage02Controller() {
+
+}
