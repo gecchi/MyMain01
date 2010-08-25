@@ -122,53 +122,53 @@ public:
 //        }
     }
 
-    virtual void nextFrame();
-    virtual void behave();
-    virtual void settleBehavior();
-    virtual void judge();
-    virtual void preDraw();
-    virtual void draw();
-    virtual void afterDraw();
-    virtual void finally();
-    virtual void throwDownEvent(UINT32 prm_no, void* prm_pSource);
-    virtual void activateTree();
-    virtual void activateAfter(frame prm_frame_offset);
-    virtual void activate();
-    virtual void activateTreeImmediately();
-    virtual void activateImmediately();
-    virtual void inactivateTree();
-    virtual void inactivateAfter(frame prm_frame_offset);
-    virtual void inactivate();
-    virtual void inactivateTreeImmediately();
-    virtual void inactivateImmediately();
+    virtual void nextFrame() override;
+    virtual void behave() override;
+    virtual void settleBehavior() override;
+    virtual void judge() override;
+    virtual void preDraw() override;
+    virtual void draw() override;
+    virtual void afterDraw() override;
+    virtual void finally() override;
+    virtual void throwDownEvent(UINT32 prm_no, void* prm_pSource) override;
+    virtual void activateTree() override;
+    virtual void activateAfter(frame prm_frame_offset = 1) override;
+    virtual void activate() override;
+    virtual void activateTreeImmediately() override;
+    virtual void activateImmediately() override;
+    virtual void inactivateTree() override;
+    virtual void inactivateAfter(frame prm_frame_offset = 1) override;
+    virtual void inactivate() override;
+    virtual void inactivateTreeImmediately() override;
+    virtual void inactivateImmediately() override;
 
-    virtual void pauseTree();
-    virtual void pause();
-    virtual void pauseTreeImmediately();
-    virtual void pauseImmediately();
+    virtual void pauseTree() override;
+    virtual void pause() override;
+    virtual void pauseTreeImmediately() override;
+    virtual void pauseImmediately() override;
 
-    virtual void unpauseTree();
-    virtual void unpause();
-    virtual void unpauseTreeImmediately();
-    virtual void unpauseImmediately();
+    virtual void unpauseTree() override;
+    virtual void unpause() override;
+    virtual void unpauseTreeImmediately() override;
+    virtual void unpauseImmediately() override;
 
     /**
      * 自ツリーシーンをnフレーム後にゴミ箱へ移動 .
-     * @param prm_frame_offset ゴミ箱へ移動タイミング残りフレーム数(デフォルト=0)
+     * @param prm_frame_offset ゴミ箱へ移動タイミング残りフレーム数(デフォルト=1)
      */
-    virtual void end(frame prm_frame_offset = 0);
+    virtual void end(frame prm_frame_offset = 1) override;
 
     /**
      * 自ツリーを末端から開放する。 .
      * @param prm_num_cleaning 開放インスタンス数
      */
-    virtual void clean(int prm_num_cleaning);
+    virtual void clean(int prm_num_cleaning) override;
 
     /**
      * 神に謁見 .
      * @return	呼ばれて出てきた神
      */
-    virtual GgafGod* askGod();
+    virtual GgafGod* askGod() override;
 
     /**
      * 自シーンの管理者を取得 .

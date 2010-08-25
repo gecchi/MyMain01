@@ -173,7 +173,7 @@ void GgafScene::unpauseImmediately() {
 }
 
 void GgafScene::end(frame prm_frame_offset) {
-    GgafElement<GgafScene>::end(prm_frame_offset);
+    GgafElement<GgafScene>::end(prm_frame_offset+1);
     _pLordActor->end(prm_frame_offset);
 }
 

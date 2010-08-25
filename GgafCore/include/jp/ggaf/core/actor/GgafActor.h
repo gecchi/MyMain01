@@ -185,6 +185,8 @@ public:
      */
     virtual void sayonara(frame prm_frame_offset = 1);
 
+
+
     /**
      * デバッグ用：ツリー構造を表示<BR>
      */

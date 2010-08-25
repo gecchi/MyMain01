@@ -375,10 +375,10 @@ public:
      * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
      * @param prm_frame_offset 遅延フレーム数(1～)
      */
-    virtual void activateAfter(frame prm_frame_offset);
+    virtual void activateAfter(frame prm_frame_offset = 1);
 
 
-    virtual void activateTreeAfter(frame prm_frame_offset);
+    virtual void activateTreeAfter(frame prm_frame_offset = 1);
 
 
     /**
@@ -427,11 +427,11 @@ public:
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
      * @param prm_frame_offset 遅延フレーム数(1～)
      */
-    virtual void inactivateAfter(frame prm_frame_offset);
+    virtual void inactivateAfter(frame prm_frame_offset = 1);
 
 
 
-    virtual void inactivateTreeAfter(frame prm_frame_offset);
+    virtual void inactivateTreeAfter(frame prm_frame_offset = 1);
 
     /**
      * 非活動状態にする(単体・即時・コールバック無し)  .
@@ -462,7 +462,7 @@ public:
      * 自身と配下ノード全てについて再帰的に pause() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は一時停止の変化は無く一貫性は保たれる。<BR>
      */
-    void pauseTree();
+    virtual void pauseTree();
 
     /**
      * 一時停止にする(単体) .
@@ -470,7 +470,7 @@ public:
      * 配下ノードには何も影響がありません。
      * 本メソッドを実行しても、『同一フレーム内』は一時停止の変化は無く一貫性は保たれる。<BR>
      */
-    void pause();
+    virtual void pause();
 
     /**
      * 一時停止状態にする(単体・即時) .
@@ -482,7 +482,7 @@ public:
      * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
      * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
      */
-    void pauseImmediately();
+    virtual void pauseImmediately();
 
     /**
      * 一時停止状態にする(自ツリー・即時) .
@@ -490,7 +490,7 @@ public:
      * pauseImmediately() の説明を要参照。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void pauseTreeImmediately();
+    virtual void pauseTreeImmediately();
 
     //===================
     /**
@@ -500,14 +500,14 @@ public:
      * 自身と配下ノード全てについて再帰的に unpause() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は一時停止状態を解除の変化は無く一貫性は保たれる。<BR>
      */
-    void unpauseTree();
+    virtual void unpauseTree();
     /**
      * 一時停止状態を解除する(単体) .
      * 自ノードだけ次フレームから一時停止状態を解除にする予約フラグを立てる。<BR>
      * 配下ノードには何も影響がありません。
      * 本メソッドを実行しても、『同一フレーム内』は一時停止状態を解除の変化は無く一貫性は保たれる。<BR>
      */
-    void unpause();
+    virtual void unpause();
 
     /**
      * 一時停止状態を解除する(自ツリー・即時) .
@@ -515,7 +515,7 @@ public:
      * unpauseImmediately() の説明を要参照。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void unpauseTreeImmediately();
+    virtual void unpauseTreeImmediately();
 
     /**
      * 一時停止状態を解除する(単体・即時) .
@@ -527,7 +527,7 @@ public:
      * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
      * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
      */
-    void unpauseImmediately();
+    virtual void unpauseImmediately();
     //===================
 
     /**
@@ -548,14 +548,14 @@ public:
      * インスタンスがすぐに解放されないことに注意せよ！（内部的なバグを生みやすい）。<BR>
      * @param prm_frame_offset 生存終了猶予フレーム(1～)
      */
-    void end(frame prm_frame_offset = 1);
+    virtual void end(frame prm_frame_offset = 1);
 
     /**
      * 自ツリーノードを最終ノードに移動する(単体) .
      * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの最終にシフトする。<BR>
      * <B>[注意]</B>即座に順繰り処理が実行されるわけではない。<BR>
      */
-    void moveLast() {
+    virtual void moveLast() {
         _will_mv_last_in_next_frame_flg = true;
     }
 
@@ -564,7 +564,7 @@ public:
      * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの先頭にシフトする。<BR>
      * <B>[注意]</B>即座に順繰り処理が実行されるわけではない。<BR>
      */
-    void moveFirst() {
+    virtual void moveFirst() {
         _will_mv_first_in_next_frame_flg = true;
     }
 
@@ -582,7 +582,7 @@ public:
      * 他のノードの状態変化を知りたい時のために、本メソッドを準備した。<BR>
      * @return  bool true:切り替わった／false:切り替わっていない
      */
-    bool onChangeToActive();
+    virtual bool onChangeToActive();
 
     /**
      * 活動から停止に切り替わったかどうか .
@@ -590,13 +590,13 @@ public:
      * 他のノードの状態変化を知りたい時のために、本メソッドを準備した。<BR>
      * @return  bool true:切り替わった／false:切り替わっていない
      */
-    bool onChangeToInactive();
+    virtual bool onChangeToInactive();
 
     /**
      * 生存可能か調べる
      * @return  bool true:生存可能／false:生存不可
      */
-    bool canLive() {
+    virtual bool canLive() {
         return _can_live_flg;
     }
 
@@ -604,23 +604,23 @@ public:
      * 活動中か調べる
      * @return  bool true:活動中／false:非活動中
      */
-    bool isActive();
+    virtual bool isActive();
 
     /**
      * 振る舞い可能か調べる（＝一時停止されていないか）
      * @return  bool true:振る舞い可能（活動中で一時停止では無い）／false:振る舞い不可
      */
-    bool canBehave();
+    virtual bool canBehave();
 
     /**
      */
-    bool wasPause();
+    virtual bool wasPause();
 
     /**
      * 終了宣言したかどうか
      * @return
      */
-    bool wasDeclaredEnd();
+    virtual bool wasDeclaredEnd();
 
     /**
      * 振る舞い状態に加算されるフレーム数を取得する .
@@ -632,7 +632,7 @@ public:
      * 「振る舞い状態」とは、canBehave() == true の条件成立時の事を意味する。<BR>
      * @return 振る舞いフレーム数総計
      */
-    UINT32 getBehaveingFrame();
+    virtual UINT32 getBehaveingFrame();
 
     /**
      * onActive()からの振る舞い状態に加算されるフレーム数を取得する .
@@ -641,7 +641,7 @@ public:
      * getBehaveingFrame() と同じタイミングで加算されるが、onActive()でリセットされる。<BR>
      * @return onActive()からの振る舞いフレーム数
      */
-    UINT32 getActivePartFrame();
+    virtual UINT32 getActivePartFrame();
 
 
     /**
@@ -652,7 +652,7 @@ public:
      * @param   prm_frameEnd    相対振る舞いフレーム数
      * @return  bool    true:経過フレーム数に達した/false:達していない
      */
-    bool relativeFrame(frame prm_frameEnd);
+    virtual bool relativeFrame(frame prm_frameEnd);
 
 
 
@@ -692,7 +692,7 @@ public:
      * @param prm_progress 切り替わったかどうか調べたい進捗ID
      * @return true:引数の進捗IDに切り替わった／false:それ以外
      */
-    bool onChangeProgressAt(int prm_progress);
+    virtual bool onChangeProgressAt(int prm_progress);
 
     /**
      * 進捗IDが変化したか（前回と同じかどうか）調べる .
@@ -700,7 +700,7 @@ public:
      *         0    ：変化していない
      *         0以外：変化が有りで、その新しい進捗ID
      */
-    int getProgressOnChange();
+    virtual int getProgressOnChange();
 
     //進捗管理支援メソッド===================
 

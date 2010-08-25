@@ -168,6 +168,13 @@ actorkind GgafMainActor::getKind() {
     return getGroupActor()->_kind;
 }
 
+bool GgafMainActor::isActive() {
+    if (GgafActor::isActive() && getPlatformScene() && getPlatformScene()->isActive()) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 GgafMainActor::~GgafMainActor() {
 }
