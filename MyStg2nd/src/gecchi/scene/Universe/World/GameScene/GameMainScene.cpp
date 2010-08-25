@@ -132,7 +132,6 @@ void GameMainScene::processBehavior() {
     if (onChangeProgressAt(GAMEMAIN_PROG_BEGIN)) {
         _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
         _pFont1602->update(300, 350, "DESTOROY ALL THEM!!");
-        GgafScene* pCommonScene = GameGlobal::_pSceneCommon->extract();
         if (_pSceneMainCannnel) {
             //2面目以降はこのタイミングで前ステージをend
             _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
@@ -141,7 +140,6 @@ void GameMainScene::processBehavior() {
         _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(11);
         addSubLast(_pSceneMainCannnel); //ステージシーン追加
 
-        //TODO:レーザーが途切れる
         _is_ready_stage = false;
         _frame_Begin = 0;
 
