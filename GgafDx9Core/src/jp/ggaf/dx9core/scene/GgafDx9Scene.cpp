@@ -17,7 +17,11 @@ void GgafDx9Scene::processSettlementBehavior() {
 
 void GgafDx9Scene::fadeinSceneTree(int prm_frame_fade) {
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
-        _pAlphaCurtain->open(1.0 / prm_frame_fade);
+        if (prm_frame_fade == 0) {
+            _pAlphaCurtain->open(1.0);
+        } else {
+            _pAlphaCurtain->open(1.0 / prm_frame_fade);
+        }
         if (getSubFirst() != NULL) {
 #ifdef MY_DEBUG
             if (getSubFirst()->_scene_class & Obj_GgafDx9Scene) {
@@ -46,15 +50,32 @@ void GgafDx9Scene::fadeinSceneTree(int prm_frame_fade) {
     }
 }
 
-void GgafDx9Scene::fadeoutSceneTree(int prm_frame_fade){
+void GgafDx9Scene::fadeinScene(int prm_frame_fade) {
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
-        _pAlphaCurtain->close(1.0 / prm_frame_fade);
+        if (prm_frame_fade == 0) {
+            _pAlphaCurtain->open(1.0);
+        } else {
+            _pAlphaCurtain->open(1.0 / prm_frame_fade);
+        }
+    }
+}
+
+
+
+
+void GgafDx9Scene::fadeoutSceneTree(int prm_frame_fade) {
+    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+        if (prm_frame_fade == 0) {
+            _pAlphaCurtain->close(1.0);
+        } else {
+            _pAlphaCurtain->close(1.0 / prm_frame_fade);
+        }
         if (getSubFirst() != NULL) {
 #ifdef MY_DEBUG
             if (getSubFirst()->_scene_class & Obj_GgafDx9Scene) {
                 //OK
             } else {
-				_TRACE_("GgafDx9Scene::fadeoutSceneTree() サブシーンが、GgafDx9Scene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName())<<" class="<<(getSubFirst()->_scene_class));
+                _TRACE_("GgafDx9Scene::fadeoutSceneTree() サブシーンが、GgafDx9Scene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName())<<" class="<<(getSubFirst()->_scene_class));
                 throwGgafCriticalException("GgafDx9Scene::fadeoutSceneTree() サブシーンが、GgafDx9Scene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName()) );
             }
 #endif
@@ -77,6 +98,17 @@ void GgafDx9Scene::fadeoutSceneTree(int prm_frame_fade){
         }
     }
 }
+
+void GgafDx9Scene::fadeoutScene(int prm_frame_fade){
+    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+        if (prm_frame_fade == 0) {
+            _pAlphaCurtain->close(1.0);
+        } else {
+            _pAlphaCurtain->close(1.0 / prm_frame_fade);
+        }
+    }
+}
+
 
 GgafDx9Scene::~GgafDx9Scene() {
     DELETE_IMPOSSIBLE_NULL(_pAlphaCurtain);

@@ -63,6 +63,12 @@ public :
     void fadeinSceneTree(int prm_frame_fade);
 
     /**
+     * 自シーンのみのフェードイン .
+     * @param prm_frame_fade 0% -> 100%になるまでの実行フレーム数
+     */
+    void fadeinScene(int prm_frame_fade);
+
+    /**
      * 自ツリーシーンをフェードアウトさせる .
      * 自シーンを含む配下全てのシーンについて、シーン所属オブジェクトのフェードアウトを行います。<BR>
      * フェードアウトは具体的には、シーン所属オブジェクトに対して、<BR>
@@ -75,6 +81,12 @@ public :
      * @param prm_frame_fade 100% -> 0%になるまでの実行フレーム数
      */
     void fadeoutSceneTree(int prm_frame_fade);
+
+    /**
+     * 自シーンのみのフェードアウト .
+     * @param prm_frame_fade 100% -> 0%になるまでの実行フレーム数
+     */
+    void fadeoutScene(int prm_frame_fade);
 
     virtual ~GgafDx9Scene();
 };
