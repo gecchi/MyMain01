@@ -96,7 +96,7 @@ void GgafDx9Universe::draw() {
     //段階レンダリング不要（最深部等、背景、最善面の文字等）の描画。
     //※TODO:本来は手前から描画のほうが効率良い。が、その内最適化
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
-    while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
+    while (_pActor_DrawActive != NULL && _pActor_DrawActive->isActive()) {
         if (_pActor_DrawActive->_fAlpha < 1.0) {
             GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリングを一時OFF
             //但し、段階レンダリング不要であるにもかかわらず、半透明表示は、前後がうまく表示されないので避けるべき。
@@ -126,7 +126,7 @@ void GgafDx9Universe::draw() {
     //int alphapoint = MAX_DRAW_DEPTH_LEVEL/4*3;
     for (int i = MAX_DRAW_DEPTH_LEVEL - 1; i >= 0; i--) {
         _pActor_DrawActive = _apAlphaActorList_DrawDepthLevel[i];
-        while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
+        while (_pActor_DrawActive != NULL && _pActor_DrawActive->isActive()) {
 
 
             //半透明要素ありの場合カリングを一時OFF
