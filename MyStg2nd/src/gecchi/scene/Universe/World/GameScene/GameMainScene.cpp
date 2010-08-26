@@ -117,7 +117,7 @@ void GameMainScene::initialize() {
 //    pVP->_pMover->forceVyMvAcceRange(-_cam_velo_renge / 50, _cam_velo_renge / 50);
 //    pVP->_pMover->forceVzMvAcceRange(-_cam_velo_renge / 50, _cam_velo_renge / 50);
 
-    _stop_renge = 60000;
+    _stop_renge = 100000;
     _angXY_nowCamUp = ANGLE90;
 
     setProgress(GAMEMAIN_PROG_INIT);
@@ -246,6 +246,7 @@ void GameMainScene::processBehavior() {
 
         static int Dx = (int)((GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)/4*2);
         static int Ddx_hw = (int)((GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2) - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2));
+        static int Dd = 30000;
         //int Dx = (int)((GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)/2);
 
         //カメラと視点の移動目標設定
@@ -349,15 +350,15 @@ void GameMainScene::processBehavior() {
             move_target_Y_VP = pMYSHIP->_Y;
             move_target_Z_VP = pMYSHIP->_Z;
             move_target_XY_CAM_UP = ANGLE90;
-    //        if (_pos_camera == CAM_POS_BEHIND_RIGHT) {
-    //            move_target_Z_CAM -= Dd;
-    //        } else if (_pos_camera == CAM_POS_BEHIND_LEFT) {
-    //            move_target_Z_CAM += Dd;
-    //        } else if (_pos_camera == CAM_POS_BEHIND_TOP) {
-    //            move_target_Y_CAM -= Dd;
-    //        } else if (_pos_camera > CAM_POS_BEHIND_BOTTOM) {
-    //            move_target_Y_CAM += Dd;
-    //        }
+            if (_pos_camera == CAM_POS_BEHIND_RIGHT) {
+                move_target_Z_CAM -= Dd;
+            } else if (_pos_camera == CAM_POS_BEHIND_LEFT) {
+                move_target_Z_CAM += Dd;
+            } else if (_pos_camera == CAM_POS_BEHIND_TOP) {
+                move_target_Y_CAM += Dd;
+            } else if (_pos_camera == CAM_POS_BEHIND_BOTTOM) {
+                move_target_Y_CAM -= Dd;
+            }
         } else {
             throwGgafCriticalException("World::processBehavior() 不正な_pos_camera="<<_pos_camera);
         }
@@ -388,9 +389,9 @@ void GameMainScene::processBehavior() {
         pCAM->_pMover->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
         pCAM->_pMover->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
         pCAM->_pMover->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
-//        pCAM->_pMover->forceVxMvAcceRange(-cam_velo_renge / 40, cam_velo_renge / 40);
-//        pCAM->_pMover->forceVyMvAcceRange(-cam_velo_renge / 40, cam_velo_renge / 40);
-//        pCAM->_pMover->forceVzMvAcceRange(-cam_velo_renge / 40, cam_velo_renge / 40);
+////        pCAM->_pMover->forceVxMvAcceRange(-cam_velo_renge / 40, cam_velo_renge / 40);
+////        pCAM->_pMover->forceVyMvAcceRange(-cam_velo_renge / 40, cam_velo_renge / 40);
+////        pCAM->_pMover->forceVzMvAcceRange(-cam_velo_renge / 40, cam_velo_renge / 40);
         pVP->_pMover->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
         pVP->_pMover->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
         pVP->_pMover->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
@@ -494,21 +495,90 @@ void GameMainScene::processBehavior() {
         dY_VP = move_target_Y_VP - pVP->_Y;
         dZ_VP = move_target_Z_VP - pVP->_Z;
         if ( getSubFirst()->canBehave() ) {
+            velo veloVxRenge = 3000;
+            velo veloVyRenge = 3000;
+            velo veloVzRenge = 3000;
+            if (_pos_camera == CAM_POS_BEHIND_RIGHT || _pos_camera == CAM_POS_BEHIND_LEFT) {
+                //ややX軸移動を早くする
+                veloVxRenge *= 1.5;
+            } else if (_pos_camera == CAM_POS_BEHIND_TOP || _pos_camera == CAM_POS_BEHIND_BOTTOM) {
+                //ややX軸移動を早くする
+                veloVxRenge *= 1.5;
+            } else if (_pos_camera == CAM_POS_RIGHT || _pos_camera == CAM_POS_LEFT) {
+                //ややZ軸移動を早くする
+                veloVzRenge *= 1.5;
+            } else if (_pos_camera == CAM_POS_TOP || _pos_camera == CAM_POS_BOTTOM) {
+                //ややY軸移動を早くする
+                veloVyRenge *= 1.5;
+            }
+            velo last_CAM_veloVxMv = pCAM->_pMover->_veloVxMv;
+            velo  new_CAM_veloVxMv = pMYSHIP->_iMoveSpeed*(dX_CAM*1.0 / _stop_renge);
+            if (last_CAM_veloVxMv-veloVxRenge <= new_CAM_veloVxMv && new_CAM_veloVxMv <= last_CAM_veloVxMv+veloVxRenge) {
+                pCAM->_pMover->setVxMvVelo(new_CAM_veloVxMv);
+            } else {
+                if (last_CAM_veloVxMv-veloVxRenge > new_CAM_veloVxMv) {
+                    pCAM->_pMover->setVxMvVelo(last_CAM_veloVxMv-veloVxRenge);
+                } else if (new_CAM_veloVxMv > last_CAM_veloVxMv+veloVxRenge) {
+                    pCAM->_pMover->setVxMvVelo(last_CAM_veloVxMv+veloVxRenge);
+                }
+            }
+            velo last_VP_veloVxMv = pVP->_pMover->_veloVxMv;
+            velo  new_VP_veloVxMv = pMYSHIP->_iMoveSpeed*(dX_VP*1.0 / _stop_renge);
+            if (last_VP_veloVxMv-veloVxRenge <= new_VP_veloVxMv && new_VP_veloVxMv <= last_VP_veloVxMv+veloVxRenge) {
+                pVP->_pMover->setVxMvVelo(new_VP_veloVxMv);
+            } else {
+                if (last_VP_veloVxMv-veloVxRenge > new_VP_veloVxMv) {
+                    pVP->_pMover->setVxMvVelo(last_VP_veloVxMv-veloVxRenge);
+                } else if (new_VP_veloVxMv > last_VP_veloVxMv+veloVxRenge) {
+                    pVP->_pMover->setVxMvVelo(last_VP_veloVxMv+veloVxRenge);
+                }
+            }
 
-            double rVX_CAM = dX_CAM*1.0 / _stop_renge;
-            pCAM->_pMover->setVxMvVelo(pMYSHIP->_iMoveSpeed*rVX_CAM);
-            double rVX_VP = dX_VP*1.0 / _stop_renge;
-            pVP->_pMover->setVxMvVelo(pMYSHIP->_iMoveSpeed*rVX_VP);
+            velo last_CAM_veloVyMv = pCAM->_pMover->_veloVyMv;
+            velo  new_CAM_veloVyMv = pMYSHIP->_iMoveSpeed*(dY_CAM*1.0 / _stop_renge);
+            if (last_CAM_veloVyMv-veloVyRenge <= new_CAM_veloVyMv && new_CAM_veloVyMv <= last_CAM_veloVyMv+veloVyRenge) {
+                pCAM->_pMover->setVyMvVelo(new_CAM_veloVyMv);
+            } else {
+                if (last_CAM_veloVyMv-veloVyRenge > new_CAM_veloVyMv) {
+                    pCAM->_pMover->setVyMvVelo(last_CAM_veloVyMv-veloVyRenge);
+                } else if (new_CAM_veloVyMv > last_CAM_veloVyMv+veloVyRenge) {
+                    pCAM->_pMover->setVyMvVelo(last_CAM_veloVyMv+veloVyRenge);
+                }
+            }
+            velo last_VP_veloVyMv = pVP->_pMover->_veloVyMv;
+            velo  new_VP_veloVyMv = pMYSHIP->_iMoveSpeed*(dY_VP*1.0 / _stop_renge);
+            if (last_VP_veloVyMv-veloVyRenge <= new_VP_veloVyMv && new_VP_veloVyMv <= last_VP_veloVyMv+veloVyRenge) {
+                pVP->_pMover->setVyMvVelo(new_VP_veloVyMv);
+            } else {
+                if (last_VP_veloVyMv-veloVyRenge > new_VP_veloVyMv) {
+                    pVP->_pMover->setVyMvVelo(last_VP_veloVyMv-veloVyRenge);
+                } else if (new_VP_veloVyMv > last_VP_veloVyMv+veloVyRenge) {
+                    pVP->_pMover->setVyMvVelo(last_VP_veloVyMv+veloVyRenge);
+                }
+            }
 
-            double rVY_CAM = dY_CAM*1.0 / _stop_renge;
-            pCAM->_pMover->setVyMvVelo(pMYSHIP->_iMoveSpeed*rVY_CAM);
-            double rVY_VP = dY_VP*1.0 / _stop_renge;
-            pVP->_pMover->setVyMvVelo(pMYSHIP->_iMoveSpeed*rVY_VP);
-
-            double rVZ_CAM = dZ_CAM*1.0 / _stop_renge;
-            pCAM->_pMover->setVzMvVelo(pMYSHIP->_iMoveSpeed*rVZ_CAM);
-            double rVZ_VP = dZ_VP*1.0 / _stop_renge;
-            pVP->_pMover->setVzMvVelo(pMYSHIP->_iMoveSpeed*rVZ_VP);
+            velo last_CAM_veloVzMv = pCAM->_pMover->_veloVzMv;
+            velo  new_CAM_veloVzMv = pMYSHIP->_iMoveSpeed*(dZ_CAM*1.0 / _stop_renge);
+            if (last_CAM_veloVzMv-veloVzRenge <= new_CAM_veloVzMv && new_CAM_veloVzMv <= last_CAM_veloVzMv+veloVzRenge) {
+                pCAM->_pMover->setVzMvVelo(new_CAM_veloVzMv);
+            } else {
+                if (last_CAM_veloVzMv-veloVzRenge > new_CAM_veloVzMv) {
+                    pCAM->_pMover->setVzMvVelo(last_CAM_veloVzMv-veloVzRenge);
+                } else if (new_CAM_veloVzMv > last_CAM_veloVzMv+veloVzRenge) {
+                    pCAM->_pMover->setVzMvVelo(last_CAM_veloVzMv+veloVzRenge);
+                }
+            }
+            velo last_VP_veloVzMv = pVP->_pMover->_veloVzMv;
+            velo  new_VP_veloVzMv = pMYSHIP->_iMoveSpeed*(dZ_VP*1.0 / _stop_renge);
+            if (last_VP_veloVzMv-veloVzRenge <= new_VP_veloVzMv && new_VP_veloVzMv <= last_VP_veloVzMv+veloVzRenge) {
+                pVP->_pMover->setVzMvVelo(new_VP_veloVzMv);
+            } else {
+                if (last_VP_veloVzMv-veloVzRenge > new_VP_veloVzMv) {
+                    pVP->_pMover->setVzMvVelo(last_VP_veloVzMv-veloVzRenge);
+                } else if (new_VP_veloVzMv > last_VP_veloVzMv+veloVzRenge) {
+                    pVP->_pMover->setVzMvVelo(last_VP_veloVzMv+veloVzRenge);
+                }
+            }
 
 //        //目標地点までの各軸距離
 //        //速度＊３を加算するのは、ぶるんぶるんしなようにするため
@@ -662,7 +732,7 @@ void GameMainScene::processBehavior() {
                 if (-1000 < da && da < 1000) {
                     _angXY_nowCamUp = move_target_XY_CAM_UP;
                 } else {
-                    _angXY_nowCamUp += (1000 * sgn(da));
+                    _angXY_nowCamUp += (2000 * sgn(da));
                 }
                 _angXY_nowCamUp = GgafDx9Util::simplifyAng(_angXY_nowCamUp);
                 pCAM->_pVecCamUp->x = GgafDx9Util::COS[_angXY_nowCamUp/ANGLE_RATE];
