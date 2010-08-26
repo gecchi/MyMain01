@@ -11,6 +11,21 @@ GgafMainActor::GgafMainActor(const char* prm_name) : GgafActor(prm_name) {
     setHitAble(false);
 }
 
+GgafMainActor* GgafMainActor::extract() {
+    GgafMainActor* pActor = (GgafMainActor*)GgafActor::extract();
+    pActor->setLordActor(NULL); //管理者アクターリセット
+    pActor->setScenePlatform(NULL); //所属シーンリセット
+    return pActor;
+}
+
+bool GgafMainActor::isActive() {
+    if (GgafActor::isActive() && getPlatformScene() && getPlatformScene()->isActive()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void GgafMainActor::setLordActor(GgafLordActor* prm_pLordActor) {
     _pLordActor = prm_pLordActor;
     if (_pSubFirst != NULL) {
@@ -50,7 +65,7 @@ void GgafMainActor::setGroupActor(GgafGroupActor* prm_pGroupActor) {
     }
 }
 //＜setGroupActor最適化案メモ＞
-//以下のような構造の場合、GgafGroupActorは統合できる。
+//以下のような構造の場合、GgafGroupActorは統合できるはず。
 //TODO:うまくして、GgafGroupActor(088C6D48)の排除はできないか
 //
 //   ｜GgafGroupActor(088C6EA0)[kind=00000000000000000100000000000000]@13883,0,101,101,0(0)
@@ -87,19 +102,20 @@ GgafGroupActor* GgafMainActor::getGroupActor() {
 GgafLordActor* GgafMainActor::getLordActor() {
     if (_pLordActor == NULL) {
         if (_pParent == NULL) {
-            _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
-            _TRACE_("【警告】GgafMainActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")。そこで勝手にこの世(Universe)のLordActorを返しました");
+            _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor(); //この世の管理者アクターに仮所属
+//            _TRACE_("【警告】GgafMainActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")。そこで勝手にこの世(Universe)のLordActorを返しました");
         } else {
             if (_pParent->_actor_class & Obj_GgafMainActor) {
                 _pLordActor = ((GgafMainActor*)(_pParent))->getLordActor();
             } else if (_pParent->_actor_class & Obj_GgafGroupActor) {
                 _pLordActor = ((GgafGroupActor*)(_pParent))->getLordActor();
-            } else if (_pParent->_actor_class & Obj_GgafLordActor) {
+            } else if (_pParent->_actor_class & Obj_GgafLordActor) { //ありえんかな
                 return (GgafLordActor*)_pParent;
+            } else {
+                _pLordActor = NULL;
             }
-            _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
-            _TRACE_("【警告】GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")。そこで勝手にこの世(Universe)のLordActorを返しました");
-            return _pLordActor;
+           _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor(); //この世の管理者アクターに仮所属
+//            _TRACE_("【警告】GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")。そこで勝手にこの世(Universe)のLordActorを返しました");
         }
     }
     return _pLordActor;
@@ -121,6 +137,8 @@ GgafGroupActor* GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* pr
     }
     pSubGroupActor->addSubLast(prm_pMainActor);
     prm_pMainActor->setGroupActor(pSubGroupActor);
+    prm_pMainActor->setLordActor(getLordActor()); //管理者アクターリセット
+    prm_pMainActor->setScenePlatform(getPlatformScene()); //所属シーンリセット
     return pSubGroupActor;
 }
 
@@ -154,11 +172,9 @@ GgafGroupActor* GgafMainActor::getSubGroupActor(actorkind prm_kind) {
 
 GgafGod* GgafMainActor::askGod() {
     if (_pGod == NULL) {
-#ifdef MY_DEBUG
         if (_pParent == NULL) {
             throwGgafCriticalException("GgafMainActor::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
         }
-#endif
         _pGod = getParent()->askGod();
     }
     return _pGod;
@@ -168,13 +184,7 @@ actorkind GgafMainActor::getKind() {
     return getGroupActor()->_kind;
 }
 
-bool GgafMainActor::isActive() {
-    if (GgafActor::isActive() && getPlatformScene() && getPlatformScene()->isActive()) {
-        return true;
-    } else {
-        return false;
-    }
-}
+
 
 GgafMainActor::~GgafMainActor() {
 }

@@ -76,9 +76,7 @@ public:
             throwGgafCriticalException("GgafActorDispatcher::employ() "<<getName()<<" ‚Ìq‚ª‚ ‚è‚Ü‚¹‚ñ");
         }
 #endif
-        static GgafMainActor* pActor;
-        pActor = getSubFirst();
-
+        GgafMainActor* pActor = getSubFirst();
         for (int i = 0; i <= 100000; i++) {
             if (pActor->_is_active_flg == false &&  pActor->_is_active_flg_in_next_frame == false &&  pActor->_on_change_to_inactive_flg == false) {
                 //pActor->activate(); //activate‚ÍŒÄ‚ÑŒ³‚Å–¾¦“I‚És‚¤‚æ‚¤‚É‚µ‚½

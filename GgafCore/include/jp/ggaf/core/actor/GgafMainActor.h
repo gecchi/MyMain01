@@ -54,9 +54,17 @@ public:
      * 自ノードに子がぶら下がっていた場合、それらも切り離されたことになります。<BR>
      * @return	自ノードのポインタ
      */
-    virtual GgafMainActor* extract() override {
-        return (GgafMainActor*)GgafActor::extract();
-    }
+    virtual GgafMainActor* extract() override;
+
+    /**
+     * 活動中か調べる .
+     * フラグにによる活動判定に、所属元シーンが活動中であるかも条件に加える。
+     * これは、シーンのみがinactiveに状態になった場合、
+     * そこに所属するアクター達のフラグは影響を受けず矛盾する場合がある。
+     * TODO:厳密には、シーンの親シーンも全て調査する必要があるのだが、そのようなぶった切りは行わないように工夫する。
+     * @return アクターが活動中（かつ所属元シーンも活動中）
+     */
+    virtual bool isActive() override;
 
     /**
      * シーン管理者を設定する。 .
@@ -122,16 +130,6 @@ public:
     actorkind getKind();
 
 
-
-    /**
-     * 活動中か調べる .
-     * フラグにによる活動判定に、所属元シーンが活動中であるかも条件に加える。
-     * これは、シーンのみがinactiveに状態になった場合、
-     * 所属元アクターのフラグは影響を受けず矛盾するため。
-     * TODO:厳密には、シーンの親シーンも全て調査する必要があるのだが、そのようなぶった切りは行わないように工夫する。
-     * @return アクターが活動中（かつ所属元シーンも活動中）
-     */
-    virtual bool isActive() override;
 
     virtual ~GgafMainActor();
 };
