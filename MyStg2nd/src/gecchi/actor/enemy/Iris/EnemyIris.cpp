@@ -141,6 +141,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
             pExplo001->activate();
             pExplo001->setGeometry(this);
         }
+        setHitAble(false); //同一フレーム内で複数回ヒットさせないため重要
         sayonara();
     }
 }
