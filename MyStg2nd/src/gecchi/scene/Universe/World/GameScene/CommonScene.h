@@ -29,27 +29,43 @@ public:
 
 
 
-
+    /** 原点から初期カメラZ位置の距離 */
     int _dZ_camera_init;
-    int _lim_CAM_top;
-    int _lim_CAM_bottom;
-    int _lim_CAM_front;
-    int _lim_CAM_behaind;
-    int _lim_CAM_zleft;
-    int _lim_CAM_zright;
 
+    /** カメラY座標上限 */
+    int _lim_CAM_top;
+    /** カメラY座標下限 */
+    int _lim_CAM_bottom;
+    /** カメラX座標上限 */
+    int _lim_CAM_front;
+    /** カメラX座標下限 */
+    int _lim_CAM_behaind;
+    /** カメラZ座標上限 */
+    int _lim_CAM_zleft;
+    /** カメラZ座標下限 */
+    int _lim_CAM_zright;
+    /** ビューポイントY座標上限 */
     int _lim_VP_top;
+    /** ビューポイントY座標下限 */
     int _lim_VP_bottom;
+    /** ビューポイントX座標上限 */
     int _lim_VP_front;
+    /** ビューポイントX座標下限 */
     int _lim_VP_behaind;
+    /** ビューポイントZ座標上限 */
     int _lim_VP_zleft;
+    /** ビューポイントZ座標下限 */
     int _lim_VP_zright;
 
+    /** 現在のカメラのUPのアングル値 */
     angle _angXY_nowCamUp;
-
+    /** 画面背後時用Z軸補正範囲差分 */
     int _correction_width;
+    /** 画面背後時用Y軸補正範囲差分 */
     int _correction_height;
+    /** カメラ位置番号 */
     int _pos_camera;
+
     int _cam_velo_renge;
     int _stop_renge;
     int _stop_dZ;
