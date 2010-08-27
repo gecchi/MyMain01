@@ -12,7 +12,7 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard02);
     _pBgmPerformer->useBgm(1);
-    _pBgmPerformer->set(0, "FrozenRay");
+    _pBgmPerformer->set(0, "BGM_DEMO");
 //    orderActorToFactory(111111, TamagoActor, "TAMAGO_X");
 }
 void GameDemoScene::reset() {
@@ -32,7 +32,7 @@ void GameDemoScene::initialize() {
 
 void GameDemoScene::processBehavior() {
     if (getProgress() == GAMEDEMO_PROG_INIT) {
-        pCAM->setDefaultPosition();
+//        pCAM->setDefaultPosition();
 
 //        TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(111111);
 //        getLordActor()->addSubGroup(KIND_ENEMY_BODY, pActor);

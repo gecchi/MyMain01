@@ -7,18 +7,18 @@ using namespace MyStg2nd;
 
 Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_name) {
     _pBgmPerformer->useBgm(3);
-    _pBgmPerformer->set(0, "VIRTUAL_ON_06");
-    _pBgmPerformer->set(1, "PLANETES");
-    _pBgmPerformer->set(2, "VIRTUAL_ON_11");
+    _pBgmPerformer->set(0, "BGM_01_01");
+    _pBgmPerformer->set(1, "BGM_01_02");
+    _pBgmPerformer->set(2, "BGM_01_03");
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,3,200,2000,2200,4000,4200,6000};
-	_paFrame_NextEvent = new frame[8];
-	for (int i = 0; i < 8; i++) {
-		_paFrame_NextEvent[i] = f[i];
-	}
-	orderSceneToFactory(110273, Stage01_01, "Stage01_01");
+    frame f[] = {1,3,200,2000,2200,4000,4200,6000};
+    _paFrame_NextEvent = new frame[8];
+    for (int i = 0; i < 8; i++) {
+        _paFrame_NextEvent[i] = f[i];
+    }
+    orderSceneToFactory(110273, Stage01_01, "Stage01_01");
     // gen01 end
 }
 
@@ -32,52 +32,52 @@ void Stage01Controller::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
-		switch (getActivePartFrame()) {
-			case 1:
-				break;
-			case 3:
-				{
-				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(110273);
-				addSubLast(pScene);
-				setProgress(STAGE01CONTROLLER_PROG_STG01_01_BEGIN);
-				}
-				break;
-			case 200:
-				orderSceneToFactory(110372000, Stage01_02, "Stage01_02");
-				break;
-			case 2000:
-				{
-				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(110372000);
-				addSubLast(pScene);
-				setProgress(STAGE01CONTROLLER_PROG_STG01_02_BEGIN);
-				}
-				break;
-			case 2200:
-				orderSceneToFactory(110474000, Stage01_03, "Stage01_03");
-				break;
-			case 4000:
-				{
-				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(110474000);
-				addSubLast(pScene);
-				setProgress(STAGE01CONTROLLER_PROG_STG01_03_BEGIN);
-				}
-				break;
-			case 4200:
-				orderSceneToFactory(110576000, Stage01_Climax, "Stage01_Climax");
-				break;
-			case 6000:
-				{
-				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(110576000);
-				addSubLast(pScene);
-				setProgress(STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN);
-				}
-				break;
-			default :
-				break;
-		}
-		_iCnt_Event = (_iCnt_Event < 8-1 ? _iCnt_Event+1 : _iCnt_Event);
-	}
+    if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
+        switch (getActivePartFrame()) {
+            case 1:
+                break;
+            case 3:
+                {
+                Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(110273);
+                addSubLast(pScene);
+                setProgress(STAGE01CONTROLLER_PROG_STG01_01_BEGIN);
+                }
+                break;
+            case 200:
+                orderSceneToFactory(110372000, Stage01_02, "Stage01_02");
+                break;
+            case 2000:
+                {
+                Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(110372000);
+                addSubLast(pScene);
+                setProgress(STAGE01CONTROLLER_PROG_STG01_02_BEGIN);
+                }
+                break;
+            case 2200:
+                orderSceneToFactory(110474000, Stage01_03, "Stage01_03");
+                break;
+            case 4000:
+                {
+                Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(110474000);
+                addSubLast(pScene);
+                setProgress(STAGE01CONTROLLER_PROG_STG01_03_BEGIN);
+                }
+                break;
+            case 4200:
+                orderSceneToFactory(110576000, Stage01_Climax, "Stage01_Climax");
+                break;
+            case 6000:
+                {
+                Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(110576000);
+                addSubLast(pScene);
+                setProgress(STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN);
+                }
+                break;
+            default :
+                break;
+        }
+        _iCnt_Event = (_iCnt_Event < 8-1 ? _iCnt_Event+1 : _iCnt_Event);
+    }
     // gen02 end
 
     if (onChangeProgressAt(STAGE01CONTROLLER_PROG_INIT)) {

@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 Stage02Controller::Stage02Controller(const char* prm_name) : DefaultScene(prm_name) {
     _pBgmPerformer->useBgm(3);
-    _pBgmPerformer->set(0, "VIRTUAL_ON_06");
-    _pBgmPerformer->set(1, "PLANETES");
-    _pBgmPerformer->set(2, "VIRTUAL_ON_11");
+    _pBgmPerformer->set(0, "BGM_01_01");
+    _pBgmPerformer->set(1, "BGM_01_02");
+    _pBgmPerformer->set(2, "BGM_01_03");
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
