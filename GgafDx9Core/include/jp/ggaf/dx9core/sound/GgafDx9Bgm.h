@@ -17,15 +17,22 @@ namespace GgafDx9Core {
  */
 class GgafDx9Bgm : public GgafCore::GgafObject {
 public:
-    char* _ogg_name;
+    int _bpm;
+    std::string _title;
+    std::string _ogg_file_name;
     Dix::PCMPlayer* pPcmPlayer;
-    Dix::OggVorbisFile* spOggResource;
-    Dix::OggDecoder* spOggDecoder;
+    Dix::OggVorbisFile* pOggResource;
+    Dix::OggDecoder* pOggDecoder;
 
-//    Dix::sp< Dix::OggVorbisFile> spOggResource;
-//    Dix::sp< Dix::OggDecoder> spOggDecoder;
-
-    GgafDx9Bgm(char* _ogg_name);
+//    Dix::sp< Dix::OggVorbisFile> pOggResource;
+//    Dix::sp< Dix::OggDecoder> pOggDecoder;
+    /**
+     *
+     * @param prm_bgm_key プロパティファイルのkey
+     *                    _OGG, _BPM, _TITLE のプレフィックスを指定
+     * @return
+     */
+    GgafDx9Bgm(char* prm_bgm_key);
 
     void play(int prm_volume, int prm_pan, bool prm_isLoop);
     void play(bool prm_isLoop) {

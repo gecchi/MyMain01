@@ -3,6 +3,9 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
+int GgafDx9BgmPerformer::_active_bgm_bpm = 120;
+
+
 GgafDx9BgmPerformer::GgafDx9BgmPerformer() : GgafObject() {
 
     _bgm_num = 0;
@@ -11,13 +14,13 @@ GgafDx9BgmPerformer::GgafDx9BgmPerformer() : GgafObject() {
     _pa_now_volume = NULL;
     _pa_target_volume = NULL;
     _pa_inc_volume = NULL;
-	_pa_is_fadeout_stop = NULL;
+    _pa_is_fadeout_stop = NULL;
 }
 void GgafDx9BgmPerformer::useBgm(int prm_bgm_num) {
     _bgm_num = prm_bgm_num;
     _papBgmCon = NEW GgafDx9BgmConnection*[_bgm_num];
     _pa_is_fade = NEW bool[_bgm_num];
-	_pa_is_fadeout_stop = NEW bool[_bgm_num];
+    _pa_is_fadeout_stop = NEW bool[_bgm_num];
     _pa_now_volume = NEW double[_bgm_num];
     _pa_target_volume = NEW double[_bgm_num];
     _pa_inc_volume = NEW double[_bgm_num];
@@ -50,6 +53,7 @@ void GgafDx9BgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {
     _pa_now_volume[prm_id] = (double)prm_volume;
     _pa_is_fade[prm_id] = false;
     _papBgmCon[prm_id]->refer()->play(prm_volume, DSBPAN_CENTER, prm_is_loop);
+    GgafDx9BgmPerformer::_active_bgm_bpm = _papBgmCon[prm_id]->refer()->_bpm; //ÅV‚ÌBGM‚ÌBPMƒŠƒYƒ€
 }
 
 void GgafDx9BgmPerformer::stop(int prm_id) {
@@ -95,17 +99,17 @@ void GgafDx9BgmPerformer::setVolume(int prm_id, int prm_volume) {
     _papBgmCon[prm_id]->refer()->setVolume(prm_volume);
 }
 GgafDx9BgmPerformer::~GgafDx9BgmPerformer() {
-	if (_papBgmCon) {
-		for (int i = 0; i < _bgm_num; i++) {
-			if (_papBgmCon[i]) {
-				_papBgmCon[i]->close();
-			}
+    if (_papBgmCon) {
+        for (int i = 0; i < _bgm_num; i++) {
+            if (_papBgmCon[i]) {
+                _papBgmCon[i]->close();
+            }
 
-		}
-	}
+        }
+    }
     DELETEARR_POSSIBLE_NULL(_papBgmCon);
     DELETEARR_POSSIBLE_NULL(_pa_is_fade);
-	DELETEARR_POSSIBLE_NULL(_pa_is_fadeout_stop);
+    DELETEARR_POSSIBLE_NULL(_pa_is_fadeout_stop);
     DELETEARR_POSSIBLE_NULL(_pa_now_volume);
     DELETEARR_POSSIBLE_NULL(_pa_target_volume);
     DELETEARR_POSSIBLE_NULL(_pa_inc_volume);

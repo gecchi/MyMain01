@@ -13,6 +13,8 @@ private:
 
 
 public:
+    static int _active_bgm_bpm;
+
     bool* _pa_is_fade;
     bool* _pa_is_fadeout_stop;
     double* _pa_now_volume;
@@ -24,6 +26,12 @@ public:
 
     GgafDx9BgmPerformer();
     void useBgm(int prm_bgm_num);
+    /**
+     *
+     * @param prm_id 番号ID
+     * @param prm_bgm_name プロパティファイルの_OGG, _BPM, _TITLE のプレフィックスとなっているkey文字列
+     *
+     */
     void set(int prm_id, const char* prm_bgm_name);
     void behave();
     void fade(int prm_id, frame prm_frame, int prm_target_volume);
