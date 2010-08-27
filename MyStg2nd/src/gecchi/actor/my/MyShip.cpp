@@ -221,7 +221,7 @@ void MyShip::processBehavior() {
     //オリジナルシステム VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
     _stc = VB_PLAY->getBeingPressedStick();
-    if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_RIGHT) {
+    if (pCOMMONSCENE->_pos_camera == CAM_POS_RIGHT) {
         //右サイドビュー(右から左へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
@@ -235,7 +235,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_LEFT) {
+    } else if (pCOMMONSCENE->_pos_camera == CAM_POS_LEFT) {
         //左サイドビュー(左から右へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
@@ -249,7 +249,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_TOP) {
+    } else if (pCOMMONSCENE->_pos_camera == CAM_POS_TOP) {
         //トップビュー(上から下へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //前方
@@ -263,7 +263,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
-    } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_BOTTOM) {
+    } else if (pCOMMONSCENE->_pos_camera == CAM_POS_BOTTOM) {
         //ボトムビュー(下から上へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //後方
@@ -277,7 +277,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
-    } else if (GameMainScene::_pGameMainScene->_pos_camera > CAM_POS_TO_BEHIND) {
+    } else if (pCOMMONSCENE->_pos_camera > CAM_POS_TO_BEHIND) {
         //背後ビュー（奥から手前にスクロール）
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
