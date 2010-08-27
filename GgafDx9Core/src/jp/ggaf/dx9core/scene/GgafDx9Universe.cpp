@@ -66,6 +66,21 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
 }
 
 void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, int prm_delay, float prm_rate_frequency) {
+    int bpm = GgafDx9BgmPerformer::_active_bgm_bpm;
+    //ズレフレーム数計算
+    //1分間は60*60=3600フレーム
+    //4分音符タイミングは 3600/_bpm
+    //8分音符タイミングは 3600/(_bpm*2) = 1800/_bpm
+    //16分音符タイミングは 3600/(_bpm*4) = 900/_bpm
+    //0フレームからBGMが鳴ったとして、現在のフレームをfとすると、直近未来の16分音符タイミングは
+    //F = f%(900/_bpm)
+    //F = 0の場合、今がそう f
+    //F != 0 の場合 {f/(900/_bpm)の商 * (900/_bpm)} + (900/_bpm) が直近未来の16分音符タイミング
+    //TODO:温めていたのにインベーダーエクストリームに先をこされてしまった！！＋α新要素が欲しい。！！
+
+
+
+
     //SEの鳴るタイミングを 0～8フレームをずらしてバラつかせる
     _pRing_pSeArray->getNext(prm_delay+1+(GgafRepeatSeq::nextVal("_SE_D_")))->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
     //_pRing_pSeArray->getNext(prm_delay+1)->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
@@ -226,7 +241,7 @@ int GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawable
         //何故そんなことをするかというと、Zバッファ有りのテクスチャに透明があるオブジェクトや、半透明オブジェクトが交差した場合、
         //同一深度なので、プライオリティ（描画順）によって透けない部分が生じてしまう。
         //これを描画順を毎フレーム返ることで、交互表示でちらつかせ若干のごまかしを行う。
-        //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にもうまくいくが、たくさん固まると本当にチラチラする。
+        //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
         if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 1) {
             //お尻に追加
             pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
