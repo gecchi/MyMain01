@@ -145,7 +145,7 @@ public:
     }
 
 
-    void setDefaultPosition();
+    virtual void setDefaultPosition();
 
     /**
      * カメラの注視点を設定 .
@@ -153,14 +153,14 @@ public:
      * @param prm_tY 注視点Y座標
      * @param prm_tZ 注視点Z座標
      */
-    void setViewPoint(int prm_tX, int prm_tY, int prm_tZ);
+    virtual void setViewPoint(int prm_tX, int prm_tY, int prm_tZ);
 
     /**
      * カメラの注視点を設定 .
      * 引数のアクターのXYZ座標(_X, _Y, _Z)がsetViewPointされるだけです。
      * @param prm_pActor 注視するアクター
      */
-    void setViewPoint(GgafDx9GeometricActor* prm_pActor);
+    virtual void setViewPoint(GgafDx9GeometricActor* prm_pActor);
 
     virtual ~GgafDx9Camera(); //デストラクタ
 };
