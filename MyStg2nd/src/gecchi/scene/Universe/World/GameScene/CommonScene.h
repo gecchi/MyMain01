@@ -13,7 +13,8 @@ namespace MyStg2nd {
 #define CAM_POS_BEHIND_BOTTOM 14
 
 /**
- * ゲームシーンの共通シーンクラス .
+ * 共通シーンクラス .
+ * 2008/9/8
  */
 class CommonScene : public GgafDx9LibStg::DefaultScene {
 
@@ -25,8 +26,6 @@ public:
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion003;
     GgafCore::GgafActorDispatcher* _pDispatcher_LaserChipDispatcher;
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectTurbo002;
-
-
 
 
     /** 原点から初期カメラZ位置の距離 */
@@ -65,14 +64,15 @@ public:
     int _correction_height;
     /** カメラ位置番号 */
     int _pos_camera;
-
+    /** カメラの最高速度（上限、負数で下限） */
     int _cam_velo_renge;
-    int _stop_renge;
+    /** カメラの速度が、丁度自機の通常移動速度の1.0倍となるカメラ目標座標からの距離。 */
+    int _stop_renge; //カメラ目標座標距離が、これより小さいと、     1.0倍より減
+                     //カメラ目標座標距離が、これより大きいとさいと 1.0倍より超
+    /** カメラ目標座標に加えられるZ軸座標オフセット補正値 */
     int _stop_dZ;
+    /** カメラ目標座標に加えられるY軸座標オフセット補正値 */
     int _stop_dY;
-    frame _frame_pushdown_zmove;
-
-
 
 
     CommonScene(const char* prm_name);

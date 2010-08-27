@@ -109,7 +109,6 @@ void CommonScene::initialize() {
     _correction_height = 0;//(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)/4;
 
     _pos_camera = CAM_POS_RIGHT;
-    _frame_pushdown_zmove = 0;
     GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
 //    pCAM->_X = 0;
 //    pCAM->_Y = 0;
@@ -121,18 +120,11 @@ void CommonScene::initialize() {
     pCAM->_pMover->forceVxMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pCAM->_pMover->forceVyMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pCAM->_pMover->forceVzMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
-//    pCAM->_pMover->forceVxMvAcceRange(-_cam_velo_renge / 50, _cam_velo_renge / 50);
-//    pCAM->_pMover->forceVyMvAcceRange(-_cam_velo_renge / 50, _cam_velo_renge / 50);
-//    pCAM->_pMover->forceVzMvAcceRange(-_cam_velo_renge / 50, _cam_velo_renge / 50);
-
     pVP->_pMover->forceVxMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pVP->_pMover->forceVyMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pVP->_pMover->forceVzMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
-//    pVP->_pMover->forceVxMvAcceRange(-_cam_velo_renge / 50, _cam_velo_renge / 50);
-//    pVP->_pMover->forceVyMvAcceRange(-_cam_velo_renge / 50, _cam_velo_renge / 50);
-//    pVP->_pMover->forceVzMvAcceRange(-_cam_velo_renge / 50, _cam_velo_renge / 50);
 
-    _stop_renge = 100000;
+    _stop_renge = 60000;
     _angXY_nowCamUp = ANGLE90;
     _stop_dZ = 0;
     _stop_dY = 0;
@@ -279,7 +271,7 @@ void CommonScene::processBehavior() {
         move_target_X_CAM = _pMyShip->_X - (_dZ_camera_init*0.6);
         move_target_Y_CAM = _pMyShip->_Y;
         move_target_Z_CAM = _pMyShip->_Z;
-        move_target_X_VP = _pMyShip->_X + (_dZ_camera_init*6);
+        move_target_X_VP = _pMyShip->_X + (_dZ_camera_init);
         move_target_Y_VP = _pMyShip->_Y;
         move_target_Z_VP = _pMyShip->_Z;
         move_target_XY_CAM_UP = ANGLE90;
@@ -296,8 +288,8 @@ void CommonScene::processBehavior() {
         throwGgafCriticalException("World::processBehavior() 不正な_pos_camera="<<_pos_camera);
     }
     //カメラの目標座標、ビューポイントの目標座標について、現在の動いている方向への若干画面寄りを行う。（ﾅﾝﾉｺｯﾁｬ）
-    GeoElement* pGeoMyShip = _pMyShip->_pRing_GeoHistory->get();
-    GeoElement* pGeoMyShip_prev= _pMyShip->_pRing_GeoHistory->getPrev();
+    GeoElement* pGeoMyShip = _pMyShip->_pRing_GeoHistory->get(); //現在の自機座標
+    GeoElement* pGeoMyShip_prev= _pMyShip->_pRing_GeoHistory->getPrev(); //現在のひとつ前のフレームの自機座標
     _stop_dZ += (pGeoMyShip_prev->_Z - pGeoMyShip->_Z)*0.1; //自機の移動量の1割の移動量を
     _stop_dY += (pGeoMyShip_prev->_Y - pGeoMyShip->_Y)*0.1; //カメラの目標座標に加算してます。
     move_target_Z_CAM += _stop_dZ;
@@ -437,21 +429,49 @@ void CommonScene::processBehavior() {
     int dX_VP = move_target_X_VP - pVP->_X;
     int dY_VP = move_target_Y_VP - pVP->_Y;
     int dZ_VP = move_target_Z_VP - pVP->_Z;
-    velo veloVxRenge = 3000;
-    velo veloVyRenge = 3000;
-    velo veloVzRenge = 3000;
+    velo veloVxRenge = 4000;
+    velo veloVyRenge = 4000;
+    velo veloVzRenge = 4000;
     if (_pos_camera == CAM_POS_BEHIND_RIGHT || _pos_camera == CAM_POS_BEHIND_LEFT) {
-        //ややX軸移動を早くする
-        veloVxRenge *= 1.5;
+        if (_pMyShip->_X > -Dx) {
+            //ややZ軸移動を早くする
+            veloVzRenge *= 1.8;
+            veloVxRenge *= 0.2;
+        } else {
+            //ややZ軸移動を遅くする
+            veloVzRenge *= 0.2;
+            veloVxRenge *= 1.8;
+        }
     } else if (_pos_camera == CAM_POS_BEHIND_TOP || _pos_camera == CAM_POS_BEHIND_BOTTOM) {
-        //ややX軸移動を早くする
-        veloVxRenge *= 1.5;
+        if (_pMyShip->_X > -Dx) {
+            //ややY軸移動を早くする
+            veloVyRenge *= 1.8;
+            veloVxRenge *= 0.2;
+        } else {
+            //ややY軸移動を遅くする
+            veloVyRenge *= 0.2;
+            veloVxRenge *= 1.8;
+        }
     } else if (_pos_camera == CAM_POS_RIGHT || _pos_camera == CAM_POS_LEFT) {
-        //ややX軸移動を早くする
-        veloVxRenge *= 1.5;
+        if (_pMyShip->_X > -Dx) {
+            //ややX軸移動を早くする
+            veloVxRenge *= 1.8;
+            veloVzRenge *= 0.2;
+        } else {
+            //ややX軸移動を遅くする
+            veloVxRenge *= 0.2;
+            veloVzRenge *= 1.8;
+        }
     } else if (_pos_camera == CAM_POS_TOP || _pos_camera == CAM_POS_BOTTOM) {
-        //ややX軸移動を早くする
-        veloVxRenge *= 1.5;
+        if (_pMyShip->_X > -Dx) {
+            //ややX軸移動を早くする
+            veloVxRenge *= 1.8;
+            veloVyRenge *= 0.2;
+        } else {
+            //ややX軸移動を遅くする
+            veloVxRenge *= 0.2;
+            veloVyRenge *= 1.8;
+        }
     }
     velo last_CAM_veloVxMv = pCAM->_pMover->_veloVxMv;
     velo  new_CAM_veloVxMv = _pMyShip->_iMoveSpeed*(dX_CAM*1.0 / _stop_renge);
@@ -529,7 +549,7 @@ void CommonScene::processBehavior() {
         if (-1000 < da && da < 1000) {
             _angXY_nowCamUp = move_target_XY_CAM_UP;
         } else {
-            _angXY_nowCamUp += (2000 * sgn(da));
+            _angXY_nowCamUp += (1000 * sgn(da));
         }
         _angXY_nowCamUp = GgafDx9Util::simplifyAng(_angXY_nowCamUp);
         pCAM->_pVecCamUp->x = GgafDx9Util::COS[_angXY_nowCamUp/ANGLE_RATE];
