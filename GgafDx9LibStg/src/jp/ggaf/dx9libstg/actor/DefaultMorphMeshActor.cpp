@@ -17,7 +17,6 @@ DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* p
 
     _pScaler = NEW GgafDx9GeometryScaler(this);
     _pMorpher = NEW GgafDx9Morpher(this);
-
 }
 
 void DefaultMorphMeshActor::drawHitArea() {

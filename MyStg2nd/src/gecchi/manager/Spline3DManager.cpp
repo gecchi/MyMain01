@@ -38,7 +38,7 @@ GgafDx9Spline3D* Spline3DManager::processCreateResource(char* prm_idstr) {
     if (GgafUtil::strcmp_ascii("SpCon_002_01", prm_idstr) == 0) {
         //Œã•û‚©‚ç
         double p[][3] = { //           X  ,                       Y ,                         Z
-           { MyShip::_lim_behaind - 500000 ,                    0.0 ,  MyShip::_lim_zleft * 0.8 },
+           { MyShip::_lim_behaind - 500000.0 ,                    0.0 ,  MyShip::_lim_zleft * 0.8 },
            {                       3000000 , MyShip::_lim_top * 0.2 ,                       0.0 },
            {                       3000000 , MyShip::_lim_top * 0.5 , MyShip::_lim_zright * 0.3 },
            {                       3000000 , MyShip::_lim_top * 1.0 ,                       0.0 },
@@ -50,7 +50,7 @@ GgafDx9Spline3D* Spline3DManager::processCreateResource(char* prm_idstr) {
     if (GgafUtil::strcmp_ascii("SpCon_002_02", prm_idstr) == 0) {
         //Œã•û‚©‚ç
         double p[][3] = { //           X  ,                          Y ,                         Z
-           { MyShip::_lim_behaind - 500000 ,                       0.0 , MyShip::_lim_zright * 0.8 },
+           { MyShip::_lim_behaind - 500000.0 ,                       0.0 , MyShip::_lim_zright * 0.8 },
            {      MyShip::_lim_front * 1.5 , MyShip::_lim_bottom * 0.2 ,                       0.0 },
            {      MyShip::_lim_front * 2.5 , MyShip::_lim_bottom * 0.5 ,  MyShip::_lim_zleft * 0.3 },
            {      MyShip::_lim_front * 2.2 , MyShip::_lim_bottom * 1.0 ,                       0.0 },

@@ -5,17 +5,11 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-#define ORDER_ID_CREATESTAGE01SCENE 11
-#define ORDER_ID_CREATESTAGE02SCENE 12
-#define ORDER_ID_CREATESTAGE03SCENE 13
-#define ORDER_ID_CREATESTAGE04SCENE 14
-#define ORDER_ID_CREATESTAGE05SCENE 15
+#define ORDER_ID_STAGESCENE 11
+
 GameMainScene* GameMainScene::_pGameMainScene = NULL;
 
 GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
-
-
-
     _pFont16_SCORE = NEW LabelGecchi16Font("SCORE");
     getLordActor()->addSubGroup(KIND_EFFECT, _pFont16_SCORE);
     _pFont16_RANK = NEW LabelGecchi16Font("RANK");
@@ -42,27 +36,29 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 
     GameMainScene::_pGameMainScene = this;
 }
+
 void GameMainScene::reset() {
 }
+
 void GameMainScene::ready(int prm_stage) {
     _stage = prm_stage;
     _had_ready_stage = true;
     _frame_ready_stage = 0;
     switch (prm_stage) {
         case 1:
-            orderSceneToFactory(11, Stage01Scene, "Stage01");
+            orderSceneToFactory(ORDER_ID_STAGESCENE, Stage01Scene, "Stage01");
             break;
         case 2:
-            orderSceneToFactory(11, Stage02Scene, "Stage02");
+            orderSceneToFactory(ORDER_ID_STAGESCENE, Stage02Scene, "Stage02");
             break;
         case 3:
-            orderSceneToFactory(11, Stage03Scene, "Stage03");
+            orderSceneToFactory(ORDER_ID_STAGESCENE, Stage03Scene, "Stage03");
             break;
         case 4:
-            orderSceneToFactory(11, Stage04Scene, "Stage04");
+            orderSceneToFactory(ORDER_ID_STAGESCENE, Stage04Scene, "Stage04");
             break;
         case 5:
-            orderSceneToFactory(11, Stage05Scene, "Stage05");
+            orderSceneToFactory(ORDER_ID_STAGESCENE, Stage05Scene, "Stage05");
             break;
         default:
             break;
@@ -95,7 +91,7 @@ void GameMainScene::processBehavior() {
             _pSceneMainCannnel->end(30*60);
         }
 
-        _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(11);
+        _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
         addSubLast(_pSceneMainCannnel); //ステージシーン追加
 
         _had_ready_stage = false;
@@ -156,15 +152,15 @@ void GameMainScene::processBehavior() {
         if (VB_PLAY->isReleasedUp(VB_PAUSE)) {
             _TRACE_("PAUSE!");
             pGOD->setVB(VB_UI);  //入力はＵＩに切り替え
-            pause();     //自身配下を一時停止する
-                         //一時停止解除はGameSceneで行われる
+            pause();     //自身配下を一時停止する。一時停止解除はGameSceneで行われる
         }
-
-
-    } // if (getProgress() == GAMEMAIN_PROG_PLAY)
+    }
 }
+
 void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
+
     if (prm_no == PREPARE_NEXT_STAGE) {
+        //次のステージを工場に注文していいよというイベント
         _TRACE_("GameMainScene::catchEvent() PREPARE_NEXT_STAGE準備きた");
         if (_stage < 5) {
             _stage++;
@@ -177,6 +173,7 @@ void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
         }
     }
 }
+
 void GameMainScene::processFinal() {
 }
 

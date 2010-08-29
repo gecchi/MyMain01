@@ -50,7 +50,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/MSVC_include}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.other.other.390840211" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows -Winit-self --input-charset=cp932 --exec-charset=cp932" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.390840211" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows -Winit-self --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.pedantic.1477397133" name="ペダンティック (-pedantic)" superClass="gnu.cpp.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.452194199" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
@@ -61,7 +61,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/MSVC_include}&quot;"/>
 								</option>
-								<option id="gnu.c.compiler.option.misc.other.1591338129" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows -Winit-self --input-charset=cp932 --exec-charset=cp932" valueType="string"/>
+								<option id="gnu.c.compiler.option.misc.other.1591338129" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows -Winit-self --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
 								<option id="gnu.c.compiler.option.warnings.pedantic.1923472672" name="ペダンティック (-pedantic)" superClass="gnu.c.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1900115219" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>

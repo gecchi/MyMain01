@@ -17,8 +17,6 @@ DefaultSpriteSetActor::DefaultSpriteSetActor(const char* prm_name, const char* p
     setZWriteEnable(false);
 }
 
-
-
 void DefaultSpriteSetActor::drawHitArea() {
     CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
 }
