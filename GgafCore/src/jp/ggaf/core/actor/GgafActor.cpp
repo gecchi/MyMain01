@@ -110,9 +110,9 @@ void GgafActor::dump() {
                                                                                _was_paused_flg<<
                                                                                _can_live_flg<<
                                                                                ","<<
-                                                                               _is_active_flg_in_next_frame<<
+                                                                               
                                                                                _was_paused_flg_in_next_frame<<
-                                                                               _can_live_flg_in_next_frame<<
+                                                                               
                                                                                ","<<
                                                                                _will_activate_after_flg<<
                                                                                "("<<_frame_of_life_when_activation<<")");
@@ -144,9 +144,9 @@ void GgafActor::dump(string prm_parent) {
                                                                          _was_paused_flg<<
                                                                          _can_live_flg<<
                                                                          ","<<
-                                                                         _is_active_flg_in_next_frame<<
+                                                                         
                                                                          _was_paused_flg_in_next_frame<<
-                                                                         _can_live_flg_in_next_frame<<","<<
+                                                                         ","<<
                                                                          _will_activate_after_flg<<
                                                                          "("<<_frame_of_life_when_activation<<")");
     GgafActor* pActor_tmp = _pSubFirst;

@@ -25,6 +25,9 @@ void LaserChipDispatcher::config(int prm_num_continual_employ_max,
     _num_continual_employ_max = prm_num_continual_employ_max;
     _num_chip_interval = prm_num_chip_interval;
     _pEffectActor_Irradiate = prm_pEffectActor_Irradiate;
+    if (_pEffectActor_Irradiate) {
+        _pEffectActor_Irradiate->inactivateImmediately();
+    }
 }
 
 

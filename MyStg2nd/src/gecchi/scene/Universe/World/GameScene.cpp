@@ -23,10 +23,10 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pScene_GameEnding = NEW GameEndingScene("GameEnding");
     addSubLast(_pScene_GameEnding);
 
-    _pScene_GameDemo->inactivate();        //最初のアクティブなサブシーンはデモシーン
-    _pScene_GameBeginning->inactivate();
-    _pScene_GameMain->inactivate();
-    _pScene_GameEnding->inactivate();
+    _pScene_GameDemo->inactivateImmediately();        //最初のアクティブなサブシーンはデモシーン
+    _pScene_GameBeginning->inactivateImmediately();
+    _pScene_GameMain->inactivateImmediately();
+    _pScene_GameEnding->inactivateImmediately();
 
     //たまご
     //addSubLast(NEW TamagoScene("TamagoScene"));

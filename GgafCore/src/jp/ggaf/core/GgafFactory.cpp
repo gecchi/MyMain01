@@ -89,7 +89,7 @@ void* GgafFactory::obtain(unsigned long prm_id) {
     pOrder = ROOT_ORDER;
     void* objectCreation;
     if (pOrder == NULL) {
-        throwGgafCriticalException("GgafFactory::obtain Error! 注文はNULLです。orederとobtainの対応が取れていません。");
+        throwGgafCriticalException("GgafFactory::obtain("<<prm_id<<") Error! 注文はNULLです。orederとobtainの対応が取れていません。");
     }
     while (_is_working_flg) {
 

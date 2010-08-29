@@ -23,7 +23,7 @@ FormationCeres002::FormationCeres002(const char* prm_name) : GgafDx9FormationAct
     for (int i = 0; i < 30; i++) { //弾ストック
         Sleep(1);
         pShot = NEW EnemyCeresShot001("EnemyMeshShot");
-        pShot->inactivate(); //最初非表示
+        pShot->inactivateImmediately(); //最初非表示
         _pDispatcher_EnemyMeshShots001->addSubLast(pShot);
     }
 

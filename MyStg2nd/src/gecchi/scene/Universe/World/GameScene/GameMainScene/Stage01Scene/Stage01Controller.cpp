@@ -13,12 +13,12 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-    frame f[] = {1,3,200,2000,2200,4000,4200,6000};
-    _paFrame_NextEvent = new frame[8];
-    for (int i = 0; i < 8; i++) {
-        _paFrame_NextEvent[i] = f[i];
-    }
-    orderSceneToFactory(110273, Stage01_01, "Stage01_01");
+	frame f[] = {1,3};
+	_paFrame_NextEvent = new frame[2];
+	for (int i = 0; i < 2; i++) {
+		_paFrame_NextEvent[i] = f[i];
+	}
+	orderSceneToFactory(110273, Stage01_01, "Stage01_01");
     // gen01 end
 }
 
@@ -32,52 +32,22 @@ void Stage01Controller::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-    if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
-        switch (getActivePartFrame()) {
-            case 1:
-                break;
-            case 3:
-                {
-                Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(110273);
-                addSubLast(pScene);
-                setProgress(STAGE01CONTROLLER_PROG_STG01_01_BEGIN);
-                }
-                break;
-            case 200:
-                orderSceneToFactory(110372000, Stage01_02, "Stage01_02");
-                break;
-            case 2000:
-                {
-                Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(110372000);
-                addSubLast(pScene);
-                setProgress(STAGE01CONTROLLER_PROG_STG01_02_BEGIN);
-                }
-                break;
-            case 2200:
-                orderSceneToFactory(110474000, Stage01_03, "Stage01_03");
-                break;
-            case 4000:
-                {
-                Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(110474000);
-                addSubLast(pScene);
-                setProgress(STAGE01CONTROLLER_PROG_STG01_03_BEGIN);
-                }
-                break;
-            case 4200:
-                orderSceneToFactory(110576000, Stage01_Climax, "Stage01_Climax");
-                break;
-            case 6000:
-                {
-                Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(110576000);
-                addSubLast(pScene);
-                setProgress(STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN);
-                }
-                break;
-            default :
-                break;
-        }
-        _iCnt_Event = (_iCnt_Event < 8-1 ? _iCnt_Event+1 : _iCnt_Event);
-    }
+	if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
+		switch (getActivePartFrame()) {
+			case 1:
+				break;
+			case 3:
+				{
+				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(110273);
+				addSubLast(pScene);
+				setProgress(STAGE01CONTROLLER_PROG_STG01_01_BEGIN);
+				}
+				break;
+			default :
+				break;
+		}
+		_iCnt_Event = (_iCnt_Event < 2-1 ? _iCnt_Event+1 : _iCnt_Event);
+	}
     // gen02 end
 
     if (onChangeProgressAt(STAGE01CONTROLLER_PROG_INIT)) {
@@ -151,7 +121,7 @@ void Stage01Controller::processFinal() {
 void Stage01Controller::catchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == STG01_01_WAS_BROKEN) {
         _TRACE_("Stage01Controller::catchEvent() STG01_01_WAS_BROKEN");
-        ((Stage01_01*)prm_pSource)->end(30*60);
+        ((Stage01_01*)prm_pSource)->end(3000*60);
     } else if (prm_no == STG01_02_WAS_BROKEN) {
         _TRACE_("Stage01Controller::catchEvent() STG01_02_WAS_BROKEN");
         ((Stage01_02*)prm_pSource)->end(30*60);
