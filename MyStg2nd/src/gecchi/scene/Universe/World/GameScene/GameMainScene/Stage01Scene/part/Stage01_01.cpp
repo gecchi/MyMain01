@@ -9,9 +9,9 @@ Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100};
-	_paFrame_NextEvent = new frame[2];
-	for (int i = 0; i < 2; i++) {
+	frame f[] = {1,100,2000};
+	_paFrame_NextEvent = new frame[3];
+	for (int i = 0; i < 3; i++) {
 		_paFrame_NextEvent[i] = f[i];
 	}
 	
@@ -45,7 +45,7 @@ void Stage01_01::processBehavior() {
 			case 100:
 				{
 				ActorTableScene* ta = NEW ActorTableScene("TableScene_13");
-				ta->setMaxPerformFrame(20000);
+				ta->setMaxPerformFrame(2000);
 				addSubLast(ta);
 				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(21047100)), 1);
 				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(21057100)), 1);
@@ -61,10 +61,13 @@ void Stage01_01::processBehavior() {
 				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(21157100)), 400);
 				}
 				break;
+			case 2000:
+				throwUpEvent(STG01_01_WAS_BROKEN,this);
+				break;
 			default :
 				break;
 		}
-		_iCnt_Event = (_iCnt_Event < 2-1 ? _iCnt_Event+1 : _iCnt_Event);
+		_iCnt_Event = (_iCnt_Event < 3-1 ? _iCnt_Event+1 : _iCnt_Event);
 	}
     // gen02 end
 
