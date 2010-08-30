@@ -448,16 +448,20 @@ void MyOption::processBehavior() {
         if (_pLockOnTarget->isActive() == false) {  //非アクティブのみ解除（視野外でもロックオン維持）
             _pLockOnTarget = NULL;
         } else {
-            _pEffectLockOn->setGeometry(_pLockOnTarget);
-            _pEffectLockOn->activate();
+            if (_pEffectLockOn->isActive() || _pEffectLockOn->_will_activate_after_flg) {
+                _pEffectLockOn->setGeometry(_pLockOnTarget);
+            } else {
+                _pEffectLockOn->activate();
+            }
         }
 
     } else {
         if (_pEffectLockOn->isActive()) {
             _pEffectLockOn_Release->setGeometry(_pEffectLockOn);
             _pEffectLockOn_Release->activate();
+            _pEffectLockOn->inactivate();
         }
-       _pEffectLockOn->inactivate();
+
     }
 
     if (pMYSHIP->_just_shot) {

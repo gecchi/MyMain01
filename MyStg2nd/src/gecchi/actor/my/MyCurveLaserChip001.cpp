@@ -173,9 +173,9 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                     pTip->_pMover->setVzMvVelo(pChipPrev->_pMover->_veloVzMv*2);
                     //ターゲットがなくなり、レーザーの「ハジけた感（解放感）」を演出するため
                     //加速度の正負逆を設定する。
-                    pTip->_pMover->setVxMvAcce(-(pChipPrev->_pMover->_acceVxMv));
-                    pTip->_pMover->setVyMvAcce(-(pChipPrev->_pMover->_acceVyMv));
-                    pTip->_pMover->setVzMvAcce(-(pChipPrev->_pMover->_acceVzMv));
+                    pTip->_pMover->setVxMvAcce(pChipPrev->_pMover->_acceVxMv);
+                    pTip->_pMover->setVyMvAcce(pChipPrev->_pMover->_acceVyMv);
+                    pTip->_pMover->setVzMvAcce(pChipPrev->_pMover->_acceVzMv);
                 }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合
