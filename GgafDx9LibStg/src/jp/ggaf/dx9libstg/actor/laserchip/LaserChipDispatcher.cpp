@@ -40,6 +40,7 @@ LaserChip* LaserChipDispatcher::employ() {
         _num_interval_frame_count = 0;
         return NULL;
     } else if (_num_interval_frame_count < _num_chip_interval) { //_num_chip_intervalフレーム以内なので弾切れにする。
+        _is_tear_laser = true;
         _num_interval_frame_count++;
         return NULL;
     } else if (_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/4) { //弾切れの時 _num_chip_max/4 溜まってから発射
@@ -55,7 +56,7 @@ LaserChip* LaserChipDispatcher::employ() {
             pChip->activate();
             if (_pChip_prev_employ != NULL) {
                 //前フレームもemploy()していた場合
-                if (_frame_of_behaving_prev_employ == _pChip_prev_employ->getBehaveingFrame()) { //アクティブになってフレームが加算されるのは１フレーム次であるため
+                if (_frame_of_behaving_prev_employ+1 == _pChip_prev_employ->getBehaveingFrame()) {
                     //2フレーム連続でemployの場合連結とみなす
                     _num_continual_employ_count++;
                     pChip->_pChip_front = _pChip_prev_employ;
@@ -91,14 +92,18 @@ LaserChip* LaserChipDispatcher::employ() {
 }
 
 void LaserChipDispatcher::processFinal() {
-
-    if (_pEffectActor_Irradiate) {
-        if (_pChip_prev_employ && _frame_of_behaving_prev_employ == _pChip_prev_employ->getBehaveingFrame()) {
-            _pEffectActor_Irradiate->activate();
-        } else {
-            _pEffectActor_Irradiate->inactivate();
-        }
-    }
+//TODO:
+//    if (_pEffectActor_Irradiate) {
+//        if (_pChip_prev_employ) {
+//            if (_frame_of_behaving_prev_employ == _pChip_prev_employ->getBehaveingFrame()) {
+//                _pEffectActor_Irradiate->activate();
+//            } else {
+//                _pEffectActor_Irradiate->inactivate();
+//            }
+//        } else {
+//            _pEffectActor_Irradiate->inactivate();
+//        }
+//    }
 }
 
 void LaserChipDispatcher::addSubLast(LaserChip* prm_pLaserChip) {
