@@ -55,7 +55,7 @@ LaserChip* LaserChipDispatcher::employ() {
         if (pChip != NULL) {
             pChip->activate();
             if (_pChip_prev_employ != NULL) {
-                //前フレームもemploy()していた場合
+                //以前のemploy()したチップ
                 if (_frame_of_behaving_prev_employ+1 == _pChip_prev_employ->getBehaveingFrame()) {
                     //2フレーム連続でemployの場合連結とみなす
                     _num_continual_employ_count++;
@@ -93,17 +93,19 @@ LaserChip* LaserChipDispatcher::employ() {
 
 void LaserChipDispatcher::processFinal() {
 //TODO:
-//    if (_pEffectActor_Irradiate) {
-//        if (_pChip_prev_employ) {
-//            if (_frame_of_behaving_prev_employ == _pChip_prev_employ->getBehaveingFrame()) {
-//                _pEffectActor_Irradiate->activate();
-//            } else {
-//                _pEffectActor_Irradiate->inactivate();
-//            }
-//        } else {
-//            _pEffectActor_Irradiate->inactivate();
-//        }
-//    }
+    if (_pEffectActor_Irradiate) {
+        if (_pChip_prev_employ && _frame_of_behaving_prev_employ == _pChip_prev_employ->getBehaveingFrame()) {
+            //_TRACE_("_frame_of_behaving_prev_employ="<<_frame_of_behaving_prev_employ<<" ==? "<<_pChip_prev_employ->getBehaveingFrame()<<" _is_active_flg="<<_is_active_flg);
+            if (_pEffectActor_Irradiate->_is_active_flg == false) {
+                //_TRACE_("OKOKOKOK");
+                _pEffectActor_Irradiate->activate();
+            }
+        } else {
+            if (_pEffectActor_Irradiate->_is_active_flg) {
+                _pEffectActor_Irradiate->inactivate();
+            }
+        }
+    }
 }
 
 void LaserChipDispatcher::addSubLast(LaserChip* prm_pLaserChip) {
