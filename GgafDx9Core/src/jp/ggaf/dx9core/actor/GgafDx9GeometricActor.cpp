@@ -289,7 +289,36 @@ GgafDx9GeometricActor::~GgafDx9GeometricActor() {
 
 
 void GgafDx9GeometricActor::dump() {
-    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")@"<<_frame_of_behaving<<","<<_can_hit_flg<<","<<_is_active_flg<<_was_paused_flg<<_can_live_flg<<","<<_was_paused_flg_in_next_frame<<","<<_will_activate_after_flg<<"("<<_frame_of_life_when_activation<<")");
+    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")@"<<_frame_of_behaving_since_onActive<<
+                                                                                                          "/"<<
+                                                                                                          _frame_of_behaving<<
+                                                                                                          "/"<<
+                                                                                                          _frame_of_life<<
+                                                                                                          ","<<
+                                                                                                          _was_initialize_flg<<
+                                                                                                          ","<<
+                                                                                                          _can_live_flg<<
+                                                                                                          _is_active_flg<<
+                                                                                                          ","<<
+                                                                                                          _will_activate_after_flg<<
+                                                                                                          "("<<_frame_of_life_when_activation<<")"<<
+                                                                                                          _on_change_to_active_flg<<
+                                                                                                          ","<<
+                                                                                                          _will_inactivate_after_flg<<
+                                                                                                          "("<<_frame_of_life_when_inactivation<<")"<<
+                                                                                                          _on_change_to_inactive_flg<<
+                                                                                                          ","<<
+                                                                                                          _will_end_after_flg<<
+                                                                                                          "("<<_frame_of_life_when_end<<")"<<
+                                                                                                          ","<<
+                                                                                                          _progress<<
+                                                                                                          "("<<_progress_nextframe<<")"<<
+                                                                                                          ","<<
+                                                                                                          _was_paused_flg<<
+                                                                                                          _was_paused_flg_in_next_frame<<
+                                                                                                          _will_mv_first_in_next_frame_flg<<
+                                                                                                          _will_mv_last_in_next_frame_flg
+                                                                                                          );
 
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
@@ -310,7 +339,36 @@ void GgafDx9GeometricActor::dump() {
 }
 
 void GgafDx9GeometricActor::dump(string prm_parent) {
-    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")@"<<_frame_of_behaving<<","<<_can_hit_flg<<","<<_is_active_flg<<_was_paused_flg<<_can_live_flg<<","<<_was_paused_flg_in_next_frame<<","<<_will_activate_after_flg<<"("<<_frame_of_life_when_activation<<")");
+    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")@"<<_frame_of_behaving_since_onActive<<
+                                                                                                     "/"<<
+                                                                                                     _frame_of_behaving<<
+                                                                                                     "/"<<
+                                                                                                     _frame_of_life<<
+                                                                                                     ","<<
+                                                                                                     _was_initialize_flg<<
+                                                                                                     ","<<
+                                                                                                     _can_live_flg<<
+                                                                                                     _is_active_flg<<
+                                                                                                     ","<<
+                                                                                                     _will_activate_after_flg<<
+                                                                                                     "("<<_frame_of_life_when_activation<<")"<<
+                                                                                                     _on_change_to_active_flg<<
+                                                                                                     ","<<
+                                                                                                     _will_inactivate_after_flg<<
+                                                                                                     "("<<_frame_of_life_when_inactivation<<")"<<
+                                                                                                     _on_change_to_inactive_flg<<
+                                                                                                     ","<<
+                                                                                                     _will_end_after_flg<<
+                                                                                                     "("<<_frame_of_life_when_end<<")"<<
+                                                                                                     ","<<
+                                                                                                     _progress<<
+                                                                                                     "("<<_progress_nextframe<<")"<<
+                                                                                                     ","<<
+                                                                                                     _was_paused_flg<<
+                                                                                                     _was_paused_flg_in_next_frame<<
+                                                                                                     _will_mv_first_in_next_frame_flg<<
+                                                                                                     _will_mv_last_in_next_frame_flg
+                                                                                                     );
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
         while (true) {
