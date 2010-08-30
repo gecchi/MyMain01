@@ -92,12 +92,10 @@ LaserChip* LaserChipDispatcher::employ() {
 }
 
 void LaserChipDispatcher::processFinal() {
-//TODO:
+    //発射中エフェクト表示切り替え
     if (_pEffectActor_Irradiate) {
         if (_pChip_prev_employ && _frame_of_behaving_prev_employ == _pChip_prev_employ->getBehaveingFrame()) {
-            //_TRACE_("_frame_of_behaving_prev_employ="<<_frame_of_behaving_prev_employ<<" ==? "<<_pChip_prev_employ->getBehaveingFrame()<<" _is_active_flg="<<_is_active_flg);
             if (_pEffectActor_Irradiate->_is_active_flg == false) {
-                //_TRACE_("OKOKOKOK");
                 _pEffectActor_Irradiate->activate();
             }
         } else {
