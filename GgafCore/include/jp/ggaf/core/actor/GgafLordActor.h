@@ -51,6 +51,9 @@ public:
     void catchEvent(UINT32 prm_no, void* prm_pSource) override {
     }
 
+    GgafLordActor* extract() override {
+        throwGgafCriticalException("GgafLordActor ‚É extract() ‚ÍÀs‚Å‚«‚Ü‚¹‚ñBname="<<getName());
+    }
 
     virtual void throwUpEvent(UINT32 prm_no, void* prm_pSource) {
         GgafScene* s = getPlatformScene();
@@ -128,6 +131,7 @@ public:
      * @return
      */
     GgafGroupActor* getSubGroupActor(actorkind prm_kind);
+
 
 
     /**
