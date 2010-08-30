@@ -31,6 +31,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _angveloExpanseSlow = 1000;
 
     _pEffect_LaserIrradiate = NEW EffectLaserRefraction001("OP_Eff_Ref");
+    _pEffect_LaserIrradiate->inactivateImmediately();
     addSubGroup(_pEffect_LaserIrradiate);
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
@@ -66,8 +67,10 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 
 
     _pEffectLockOn = NEW EffectLockOn001("EffectLockOn001");
+    _pEffectLockOn->inactivateImmediately();
     addSubGroup(_pEffectLockOn);
     _pEffectLockOn_Release = NEW EffectLockOn001_Release("EffectLockOn001_R", _pEffectLockOn);
+    _pEffectLockOn_Release->inactivateImmediately();
     addSubGroup(_pEffectLockOn_Release);
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
