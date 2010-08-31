@@ -61,17 +61,20 @@ LaserChip* LaserChipDispatcher::employ() {
                     _num_continual_employ_count++;
                     pChip->_pChip_front = _pChip_prev_employ;
                     _pChip_prev_employ->_pChip_behind = pChip;
+                    pChip->_pChip_behind = NULL;
                     _is_tear_laser = false;
                 } else {
                     //2フレーム連続でemploy出来てない場合連結は切れてる
                     _num_continual_employ_count = 0;
                     pChip->_pChip_front = NULL;
-                    _pChip_prev_employ->_pChip_behind = NULL;
+                    pChip->_pChip_behind = NULL;
+                    //_pChip_prev_employ->_pChip_behind = NULL;
                     _is_tear_laser = true;
                 }
             } else {
                 //employ()初回
                 pChip->_pChip_front = NULL;
+                pChip->_pChip_behind = NULL;
                 _is_tear_laser = false;
             }
             _pChip_prev_employ = pChip;
