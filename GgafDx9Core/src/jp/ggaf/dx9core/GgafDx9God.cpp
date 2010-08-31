@@ -597,6 +597,6 @@ GgafDx9God::~GgafDx9God() {
     //DirectInput‰ğ•ú
     GgafDx9Input::release();
     _TRACE_("‚³‚Ÿ_pID3DDevice9‰ğ•úI");
-    Sleep(10);
+    Sleep(5*1000);
     RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
 }

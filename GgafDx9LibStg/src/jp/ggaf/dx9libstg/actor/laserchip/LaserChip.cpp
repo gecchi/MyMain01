@@ -307,6 +307,25 @@ void LaserChip::onInactive() {
     //    |    `----- 2:中間チップ
     //     `----- 1:末尾チップ
 
+
+    //    | -=|<> |     左図はレーザーをオブジェクトで区切ったつもりの図
+    //
+    //    <--><-->^
+    //    ^   ^   ^
+    //    |   |   |
+    //    |   |    `----- 4:先端チップ
+    //    |    `----- 3:中間先頭チップ
+    //     `----- 1:末尾チップ
+
+
+    //    | -=|     左図はレーザーをオブジェクトで区切ったつもりの図
+    //
+    //    <-->^
+    //    ^   ^
+    //    |   |
+    //    |    `----- 4:先端チップ
+    //     `----- 1:末尾チップ
+
     if (_pChip_front) {
         if (_pChip_behind) {
             if (_pChip_behind->isActive()) {
@@ -334,6 +353,10 @@ void LaserChip::onInactive() {
         _pChip_behind = NULL;
         _pDispatcher->_num_chip_active--;
     } else if (_chip_kind == 3) {
+
+
+
+
         //無理やり先端を解放、自分が先端になりかわる
         if (_pChip_front) {
             _pChip_front->inactivateImmediately();

@@ -61,13 +61,13 @@ void MyCurveLaserChip001::onActive() {
 
 void MyCurveLaserChip001::processBehavior() {
     if (_lockon == 1) {
-        if (getActivePartFrame() < 100) {
+        if (getActivePartFrame() < 120) {
             _maxAcceRange+=100;
             _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
             _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
             _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
-                float rate = 6.0 - 0.06*getActivePartFrame(); //0.06 * 100 = 6.0
+                float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
                 rate = rate > 0 ? rate : 0;
                 int fdx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*rate);
                 int fdy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
@@ -119,10 +119,17 @@ void MyCurveLaserChip001::processBehavior() {
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
-        } else {
+        } else if (_pChip_front->_pChip_front->_pChip_front->_pChip_front == NULL) {
             dx = _pChip_front->_pChip_front->_pChip_front->_X - (_X + _pMover->_veloVxMv*3);
             dy = _pChip_front->_pChip_front->_pChip_front->_Y - (_Y + _pMover->_veloVyMv*3);
             dz = _pChip_front->_pChip_front->_pChip_front->_Z - (_Z + _pMover->_veloVzMv*3);
+            _pMover->setVxMvAcce(dx);
+            _pMover->setVyMvAcce(dy);
+            _pMover->setVzMvAcce(dz);
+        } else {
+            dx = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_X - (_X + _pMover->_veloVxMv*3);
+            dy = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_Y - (_Y + _pMover->_veloVyMv*3);
+            dz = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_Z - (_Z + _pMover->_veloVzMv*3);
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
@@ -166,9 +173,11 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                     pTip->_pMover->setVxMvVelo(pChipPrev->_pMover->_veloVxMv);
                     pTip->_pMover->setVyMvVelo(pChipPrev->_pMover->_veloVyMv);
                     pTip->_pMover->setVzMvVelo(pChipPrev->_pMover->_veloVzMv);
-                    pTip->_pMover->setVxMvAcce(pChipPrev->_pMover->_acceVxMv);
-                    pTip->_pMover->setVyMvAcce(pChipPrev->_pMover->_acceVyMv);
-                    pTip->_pMover->setVzMvAcce(pChipPrev->_pMover->_acceVzMv);
+                    //ターゲットがなくなり、レーザーの「ハジけた感（解放感）」を演出するため
+                    //加速度の正負逆を設定する。
+                    pTip->_pMover->setVxMvAcce(-(pChipPrev->_pMover->_acceVxMv));
+                    pTip->_pMover->setVyMvAcce(-(pChipPrev->_pMover->_acceVyMv));
+                    pTip->_pMover->setVzMvAcce(-(pChipPrev->_pMover->_acceVzMv));
                 }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合
