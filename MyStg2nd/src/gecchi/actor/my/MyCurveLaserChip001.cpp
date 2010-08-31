@@ -67,7 +67,7 @@ void MyCurveLaserChip001::processBehavior() {
             _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
             _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
-                float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
+                float rate = 6.0 - 0.06*getActivePartFrame(); //0.06 * 100 = 6.0
                 rate = rate > 0 ? rate : 0;
                 int fdx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*rate);
                 int fdy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
