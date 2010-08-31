@@ -96,7 +96,9 @@ void MyCurveLaserChip001::processBehavior() {
         } else {
             _lockon = 2;
         }
-    } else if (_lockon == 2) {
+    }
+
+    if (_lockon == 2) {
         int dx, dy, dz;
         if (_pChip_front == NULL) {
 //            _pMover->addVxMvAcce(_pMover->_acceVxMv);
@@ -117,17 +119,10 @@ void MyCurveLaserChip001::processBehavior() {
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
-        } else if (_pChip_front->_pChip_front->_pChip_front->_pChip_front == NULL) {
+        } else {
             dx = _pChip_front->_pChip_front->_pChip_front->_X - (_X + _pMover->_veloVxMv*3);
             dy = _pChip_front->_pChip_front->_pChip_front->_Y - (_Y + _pMover->_veloVyMv*3);
             dz = _pChip_front->_pChip_front->_pChip_front->_Z - (_Z + _pMover->_veloVzMv*3);
-            _pMover->setVxMvAcce(dx);
-            _pMover->setVyMvAcce(dy);
-            _pMover->setVzMvAcce(dz);
-        } else {
-            dx = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_X - (_X + _pMover->_veloVxMv*3);
-            dy = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_Y - (_Y + _pMover->_veloVyMv*3);
-            dz = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_Z - (_Z + _pMover->_veloVzMv*3);
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
@@ -161,18 +156,16 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                     //今後の移動方角(加速度)を伝えるのだが、先端チップや自身や移動方向は、急激な角度に曲がっている可能性が極めて高く
                     //不自然な角度のカーブを描きかねないので、やや後方のチップが存在するならば、そちらの移動方向をコピーする。
                     LaserChip* pChipPrev = this;
-                    for (int i = 0; i < 4; i++) { //最高3つ後方まで在れば採用
+                    for (int i = 0; i < 2; i++) { //最高2つ後方まで在れば採用
                         if (pChipPrev->_pChip_behind) {
                             pChipPrev = pChipPrev->_pChip_behind;
                         } else {
                             break;
                         }
                     }
-                    pTip->_pMover->setVxMvVelo(pChipPrev->_pMover->_veloVxMv*2);
-                    pTip->_pMover->setVyMvVelo(pChipPrev->_pMover->_veloVyMv*2);
-                    pTip->_pMover->setVzMvVelo(pChipPrev->_pMover->_veloVzMv*2);
-                    //ターゲットがなくなり、レーザーの「ハジけた感（解放感）」を演出するため
-                    //加速度の正負逆を設定する。
+                    pTip->_pMover->setVxMvVelo(pChipPrev->_pMover->_veloVxMv);
+                    pTip->_pMover->setVyMvVelo(pChipPrev->_pMover->_veloVyMv);
+                    pTip->_pMover->setVzMvVelo(pChipPrev->_pMover->_veloVzMv);
                     pTip->_pMover->setVxMvAcce(pChipPrev->_pMover->_acceVxMv);
                     pTip->_pMover->setVyMvAcce(pChipPrev->_pMover->_acceVyMv);
                     pTip->_pMover->setVzMvAcce(pChipPrev->_pMover->_acceVzMv);
@@ -185,6 +178,8 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //オプション非ロックオン中に命中した場合
 
         }
+
+
         int default_stamina = _pStatus->get(STAT_Stamina);
         int stamina = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
         if (stamina <= 0) {
@@ -200,7 +195,16 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             if (pOther->_pStatus->get(STAT_LockOnAble) == 1) {
                 _pOrg->_pLockOnTarget = pOther;
             }
-
+//
+//            //一つ後ろのチップに今後の方針を伝える
+//            if (_pChip_behind && _pChip_behind->isActive()) {
+//                _pChip_behind->_pMover->setVxMvVelo(_pMover->_veloVxMv);
+//                _pChip_behind->_pMover->setVyMvVelo(_pMover->_veloVyMv);
+//                _pChip_behind->_pMover->setVzMvVelo(_pMover->_veloVzMv);
+//                _pChip_behind->_pMover->setVxMvAcce(_pMover->_acceVxMv);
+//                _pChip_behind->_pMover->setVyMvAcce(_pMover->_acceVyMv);
+//                _pChip_behind->_pMover->setVzMvAcce(_pMover->_acceVzMv);
+//            }
             sayonara();
 
         } else {
