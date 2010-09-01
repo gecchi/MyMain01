@@ -328,7 +328,7 @@ void LaserChip::onInactive() {
     //     ^  |
     //     |  |
     //     |   `----- 4:先端チップ
-    //      `----- 1:末尾チップ(※中間先頭チップではないこととする)
+    //      `----- 1:末尾チップ(※2:中間先頭チップではないこととする)
 
 
     //＜パターンC＞
@@ -337,7 +337,7 @@ void LaserChip::onInactive() {
     //
     //    ^
     //    |
-    //     `----- 4:先端チップ(※末尾チップではないこととする)
+    //     `----- 4:先端チップ(※1:末尾チップではないこととする)
 
 
     if (_pChip_front) {
@@ -346,7 +346,7 @@ void LaserChip::onInactive() {
                 if (_pChip_front->_pChip_front) {
                     _chip_kind = 2; //中間テクスチャチップ
                 } else {
-                    _chip_kind = 3; //先頭テクスチャチップ
+                    _chip_kind = 3; //中間先頭テクスチャチップ
                 }
             } else {
                 _chip_kind = 1; //発射元の末端テクスチャチップ
@@ -361,16 +361,18 @@ void LaserChip::onInactive() {
     if (_chip_kind == 4) {
         //一つ後ろが先端に変わる
         if (_pChip_behind) {
+            //＜パターンC＞以外
             _pChip_behind->_pChip_front = NULL;
+            _pChip_front = NULL;
+            _pChip_behind = NULL;
+        } else {
+            //＜パターンC＞
+            _pChip_front = NULL;
+            _pChip_behind = NULL;
         }
-        _pChip_front = NULL;
-        _pChip_behind = NULL;
+
         _pDispatcher->_num_chip_active--;
     } else if (_chip_kind == 3) {
-
-
-
-
         //無理やり先端を解放、自分が先端になりかわる
         if (_pChip_front) {
             _pChip_front->inactivateImmediately();
