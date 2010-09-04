@@ -135,8 +135,8 @@ void MyOption::addRadiusPosition(int prm_radius_offset) {
 
     int radius;
     radius = _radiusPosition + prm_radius_offset;
-    if (_radiusPosition < 15000) {
-        radius = 15000; //オプション最低半径距離
+    if (_radiusPosition < 30000) {
+        radius = 30000; //オプション最低半径距離
     }
     setRadiusPosition(radius);
 }

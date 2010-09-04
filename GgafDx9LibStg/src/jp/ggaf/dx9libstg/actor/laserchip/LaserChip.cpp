@@ -281,6 +281,31 @@ void LaserChip::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void LaserChip::onInactive() {
+
+
+
+    //消失時
+    _pDispatcher->_num_chip_active--;
+    //前後の繋がりを切断
+    if (_pChip_front) {
+        _pChip_front->_pChip_behind = NULL;
+    }
+    _pChip_front = NULL;
+    if (_pChip_behind) {
+        _pChip_behind->_pChip_front = NULL;
+    }
+    _pChip_behind = NULL;
+
+
+
+
+
+
+
+
+
+
+
     //_TRACE_("LaserChip::onInactive()st "<<getName()<<" bump="<<canHit());
 //    _TRACE_("LaserChip::onInactive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
 //            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
@@ -340,68 +365,68 @@ void LaserChip::onInactive() {
     //     `----- 4:先端チップ(※1:末尾チップではないこととする)
 
 
-    if (_pChip_front) {
-        if (_pChip_behind) {
-            if (_pChip_behind->isActive()) {
-                if (_pChip_front->_pChip_front) {
-                    _chip_kind = 2; //中間テクスチャチップ
-                } else {
-                    _chip_kind = 3; //中間先頭テクスチャチップ
-                }
-            } else {
-                _chip_kind = 1; //発射元の末端テクスチャチップ
-            }
-        } else {
-            _chip_kind = 1; //普通の末端テクスチャ
-        }
-    } else {
-        _chip_kind = 4; //先端チップ
-    }
-//_TRACE_("_chip_kind="<<_chip_kind<<" _pChip_behind="<<_pChip_behind<<"/_pChip_front="<<_pChip_front);
-    if (_chip_kind == 4) {
-        //一つ後ろが先端に変わる
-        if (_pChip_behind) {
-            //＜パターンC＞以外
-            _pChip_behind->_pChip_front = NULL;
-            _pChip_front = NULL;
-            _pChip_behind = NULL;
-        } else {
-            //＜パターンC＞
-            _pChip_front = NULL;
-            _pChip_behind = NULL;
-        }
-
-        _pDispatcher->_num_chip_active--;
-    } else if (_chip_kind == 3) {
-        //無理やり先端を解放、自分が先端になりかわる
-        if (_pChip_front) {
-            _pChip_front->inactivateImmediately();
-            _pChip_front->_pChip_front = NULL;
-            _pChip_front->_pChip_behind = NULL;
-            _pChip_front = NULL;
-        }
-        activateImmediately();
-        _pDispatcher->_num_chip_active--;
-    } else if (_chip_kind == 2) {
-        //鎖が切れるだけで解放しない
-        activateImmediately(); //無理やりactiveに戻す
-        if (_pChip_front) {
-            _pChip_front->_pChip_behind = NULL;
-        }
-        if (_pChip_behind) {
-            _pChip_behind->_pChip_front = NULL;
-        }
-        _pChip_front = NULL;
-        _pChip_behind = NULL;
-        //_pDispatcher->_num_chip_active は変化なし
-    } else if (_chip_kind == 1) {
-        if (_pChip_front) {
-            _pChip_front->_pChip_behind = NULL;
-        }
-        _pChip_front = NULL;
-        _pChip_behind = NULL;
-        _pDispatcher->_num_chip_active--;
-    }
+//    if (_pChip_front) {
+//        if (_pChip_behind) {
+//            if (_pChip_behind->isActive()) {
+//                if (_pChip_front->_pChip_front) {
+//                    _chip_kind = 2; //中間テクスチャチップ
+//                } else {
+//                    _chip_kind = 3; //中間先頭テクスチャチップ
+//                }
+//            } else {
+//                _chip_kind = 1; //発射元の末端テクスチャチップ
+//            }
+//        } else {
+//            _chip_kind = 1; //普通の末端テクスチャ
+//        }
+//    } else {
+//        _chip_kind = 4; //先端チップ
+//    }
+////_TRACE_("_chip_kind="<<_chip_kind<<" _pChip_behind="<<_pChip_behind<<"/_pChip_front="<<_pChip_front);
+//    if (_chip_kind == 4) {
+//        //一つ後ろが先端に変わる
+//        if (_pChip_behind) {
+//            //＜パターンC＞以外
+//            _pChip_behind->_pChip_front = NULL;
+//            _pChip_front = NULL;
+//            _pChip_behind = NULL;
+//        } else {
+//            //＜パターンC＞
+//            _pChip_front = NULL;
+//            _pChip_behind = NULL;
+//        }
+//
+//        _pDispatcher->_num_chip_active--;
+//    } else if (_chip_kind == 3) {
+//        //無理やり先端を解放、自分が先端になりかわる
+//        if (_pChip_front) {
+//            _pChip_front->inactivateImmediately();
+//            _pChip_front->_pChip_front = NULL;
+//            _pChip_front->_pChip_behind = NULL;
+//            _pChip_front = NULL;
+//        }
+//        activateImmediately();
+//        _pDispatcher->_num_chip_active--;
+//    } else if (_chip_kind == 2) {
+//        //鎖が切れるだけで解放しない
+//        activateImmediately(); //無理やりactiveに戻す
+//        if (_pChip_front) {
+//            _pChip_front->_pChip_behind = NULL;
+//        }
+//        if (_pChip_behind) {
+//            _pChip_behind->_pChip_front = NULL;
+//        }
+//        _pChip_front = NULL;
+//        _pChip_behind = NULL;
+//        //_pDispatcher->_num_chip_active は変化なし
+//    } else if (_chip_kind == 1) {
+//        if (_pChip_front) {
+//            _pChip_front->_pChip_behind = NULL;
+//        }
+//        _pChip_front = NULL;
+//        _pChip_behind = NULL;
+//        _pDispatcher->_num_chip_active--;
+//    }
 }
 
 void LaserChip::registHitAreaCube(int prm_edge_length) {

@@ -57,6 +57,8 @@ void MyCurveLaserChip001::onActive() {
     _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
     _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
     _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
+
+
 }
 
 void MyCurveLaserChip001::processBehavior() {
@@ -99,8 +101,13 @@ void MyCurveLaserChip001::processBehavior() {
     }
 
     if (_lockon == 2) {
+        _maxAcceRange+=100;
+        _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
+        _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
+        _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
         int dx, dy, dz;
         if (_pChip_front == NULL) {
+            _maxAcceRange+=200;
 //            _pMover->addVxMvAcce(_pMover->_acceVxMv);
 //            _pMover->addVyMvAcce(_pMover->_acceVyMv);
 //            _pMover->addVzMvAcce(_pMover->_acceVzMv);
@@ -138,7 +145,17 @@ void MyCurveLaserChip001::processBehavior() {
     if (_pChip_front == NULL) {
         _pSeTransmitter->behave();
     }
+
     CurveLaserChip::processBehavior();//座標を移動させてから呼び出すこと
+
+    //根元からレーザー表示のため強敵に座標補正
+    if (onChangeToActive()) {
+        setGeometry(_pOrg);
+        _tmpX = _X;
+        _tmpY = _Y;
+        _tmpZ = _Z;
+    }
+
 }
 
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
@@ -175,9 +192,9 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                     pTip->_pMover->setVzMvVelo(pChipPrev->_pMover->_veloVzMv);
                     //ターゲットがなくなり、レーザーの「ハジけた感（解放感）」を演出するため
                     //加速度の正負逆を設定する。
-                    pTip->_pMover->setVxMvAcce(-(pChipPrev->_pMover->_acceVxMv));
-                    pTip->_pMover->setVyMvAcce(-(pChipPrev->_pMover->_acceVyMv));
-                    pTip->_pMover->setVzMvAcce(-(pChipPrev->_pMover->_acceVzMv));
+                    pTip->_pMover->setVxMvAcce(pChipPrev->_pMover->_acceVxMv);
+                    pTip->_pMover->setVyMvAcce(pChipPrev->_pMover->_acceVyMv);
+                    pTip->_pMover->setVzMvAcce(pChipPrev->_pMover->_acceVzMv);
                 }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合
