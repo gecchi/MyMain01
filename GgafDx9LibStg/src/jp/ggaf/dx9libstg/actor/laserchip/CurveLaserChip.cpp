@@ -89,27 +89,32 @@ void CurveLaserChip::processSettlementBehavior() {
 
 
     } else if (_pChip_front->isActive() && _pChip_behind->isActive()) {
-        if (_pChip_front->_pChip_front != NULL && _pChip_front->_pChip_front->isActive()) {
-            if (_pChip_behind->_pChip_behind != NULL && _pChip_behind->_pChip_behind->isActive()) {
-                if (getActivePartFrame() > 20) {
-                    CurveLaserChip* pFF = (CurveLaserChip*)_pChip_front->_pChip_front;
-                    CurveLaserChip* pF = (CurveLaserChip*)_pChip_front;
-                    CurveLaserChip* pB = (CurveLaserChip*)_pChip_behind;
-                    CurveLaserChip* pBB = (CurveLaserChip*)_pChip_behind->_pChip_behind;
-                    _X = (pFF->_tmpX + pF->_tmpX + _tmpX + pB->_tmpX + pBB->_tmpX) / 5;
-                    _Y = (pFF->_tmpY + pF->_tmpY + _tmpY + pB->_tmpY + pBB->_tmpY) / 5;
-                    _Z = (pFF->_tmpZ + pF->_tmpZ + _tmpZ + pB->_tmpZ + pBB->_tmpZ) / 5;
-                }
-			} else {
-	            CurveLaserChip* pF = (CurveLaserChip*)_pChip_front;
-	            CurveLaserChip* pB = (CurveLaserChip*)_pChip_behind;
-	            //中間座標に再設定
-	            _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3;
-	            _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
-	            _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
-			}
-
-        } else {
+//        if (_pChip_front->_pChip_front != NULL && _pChip_front->_pChip_front->isActive()) {
+//            if (_pChip_behind->_pChip_behind != NULL && _pChip_behind->_pChip_behind->isActive()) {
+//                    CurveLaserChip* pFF = (CurveLaserChip*)_pChip_front->_pChip_front;
+//                    CurveLaserChip* pF = (CurveLaserChip*)_pChip_front;
+//                    CurveLaserChip* pB = (CurveLaserChip*)_pChip_behind;
+//                    CurveLaserChip* pBB = (CurveLaserChip*)_pChip_behind->_pChip_behind;
+//                    _X = (pFF->_tmpX + pF->_tmpX + _tmpX + pB->_tmpX + pBB->_tmpX) / 5;
+//                    _Y = (pFF->_tmpY + pF->_tmpY + _tmpY + pB->_tmpY + pBB->_tmpY) / 5;
+//                    _Z = (pFF->_tmpZ + pF->_tmpZ + _tmpZ + pB->_tmpZ + pBB->_tmpZ) / 5;
+//                    _pMover->_veloVxMv = (pFF->_pMover->_veloVxMv + pF->_pMover->_veloVxMv + _pMover->_veloVxMv + pB->_pMover->_veloVxMv + pBB->_pMover->_veloVxMv) / 5;
+//                    _pMover->_veloVyMv = (pFF->_pMover->_veloVyMv + pF->_pMover->_veloVyMv + _pMover->_veloVyMv + pB->_pMover->_veloVyMv + pBB->_pMover->_veloVyMv) / 5;
+//                    _pMover->_veloVxMv = (pFF->_pMover->_veloVxMv + pF->_pMover->_veloVxMv + _pMover->_veloVxMv + pB->_pMover->_veloVxMv + pBB->_pMover->_veloVxMv) / 5;
+//			} else {
+//	            CurveLaserChip* pF = (CurveLaserChip*)_pChip_front;
+//	            CurveLaserChip* pB = (CurveLaserChip*)_pChip_behind;
+//	            //中間座標に再設定
+//	            _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3;
+//	            _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
+//	            _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
+//                _pMover->_veloVxMv = (pF->_pMover->_veloVxMv + _pMover->_veloVxMv + pB->_pMover->_veloVxMv) / 3;
+//                _pMover->_veloVyMv = (pF->_pMover->_veloVyMv + _pMover->_veloVyMv + pB->_pMover->_veloVyMv) / 3;
+//                _pMover->_veloVxMv = (pF->_pMover->_veloVxMv + _pMover->_veloVxMv + pB->_pMover->_veloVxMv) / 3;
+//
+//			}
+//
+//        } else {
             //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->isActive()と判定すること
             //なぜならemployの瞬間に_pChip_behind != NULL となるが、active()により有効になるのは次フレームだから
             //_X,_Y,_Z にはまだ変な値が入っている。
@@ -119,7 +124,10 @@ void CurveLaserChip::processSettlementBehavior() {
             _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3;
             _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
             _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
-        }
+            _pMover->_veloVxMv = (pF->_pMover->_veloVxMv + _pMover->_veloVxMv + pB->_pMover->_veloVxMv) / 3;
+            _pMover->_veloVyMv = (pF->_pMover->_veloVyMv + _pMover->_veloVyMv + pB->_pMover->_veloVyMv) / 3;
+            _pMover->_veloVxMv = (pF->_pMover->_veloVxMv + _pMover->_veloVxMv + pB->_pMover->_veloVxMv) / 3;
+//        }
     }
     LaserChip::processSettlementBehavior();
 }
