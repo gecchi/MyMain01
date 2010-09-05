@@ -596,7 +596,14 @@ GgafDx9God::~GgafDx9God() {
     GgafDx9Sound::release();
     //DirectInput解放
     GgafDx9Input::release();
-    _TRACE_("さぁ_pID3DDevice9解放！");
-    Sleep(5*1000);
-    RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
+    _TRACE_("_pID3DDevice9 解放はWindowsに任せる事にする。");
+
+//    RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9); //本来はこれが必要
+
+//    デバイス(_pID3DDevice9)の解放はWindowsに任せる事にする。
+//    理由：フルスクリーンで終了時、極まれにブルースクリーンになる。原因不明。
+//    開発環境：WindowsXp, GeForce go 7600 （ハード、HP DV9200)
+//    他の環境では起こったことがない。ビデオカードドライバなのか、DV9200固有の問題なのか？！
+
+
 }
