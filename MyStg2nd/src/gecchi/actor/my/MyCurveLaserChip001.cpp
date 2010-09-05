@@ -49,7 +49,7 @@ void MyCurveLaserChip001::onActive() {
         }
         _pOrg->_pLockOnTarget = NULL;
     }
-    _renge = 150000;
+    _renge = 120000;
     _pMover->forceVxMvVeloRange(-_renge, _renge);
     _pMover->forceVyMvVeloRange(-_renge, _renge);
     _pMover->forceVzMvVeloRange(-_renge, _renge);
