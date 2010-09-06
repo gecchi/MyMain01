@@ -81,7 +81,6 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
     _pLockOnTarget = NULL;
-    _overtakeLockOn = false;
 }
 
 void MyOption::onCreateModel() {
@@ -464,24 +463,9 @@ void MyOption::processBehavior() {
                     _pEffectLockOn->_pMover->setMvVelo(200000);
                 }
 
-//                if (_overtakeLockOn) {
-//                    _pEffectLockOn->setGeometry(_pLockOnTarget);
-//                } else {
-//                    if (abs(_pLockOnTarget->_X-_pEffectLockOn->_X) <= _pEffectLockOn->_pMover->_veloMv &&
-//                        abs(_pLockOnTarget->_Y-_pEffectLockOn->_Y) <= _pEffectLockOn->_pMover->_veloMv &&
-//                        abs(_pLockOnTarget->_Z-_pEffectLockOn->_Z) <= _pEffectLockOn->_pMover->_veloMv ) {
-//                        _pEffectLockOn->setGeometry(_pLockOnTarget);
-//                        _pEffectLockOn->_pMover->setMvVelo(200000);
-//                        _overtakeLockOn = true;
-//                    } else {
-//                        _pEffectLockOn->_pMover->setMvAng(_pLockOnTarget);
-//                    }
-//                }
             } else {
                 _pEffectLockOn->activate();
                 _pEffectLockOn->setGeometry(_pLockOnTarget);
-//                _pEffectLockOn->_pMover->setMvVelo(200000);
-//                _overtakeLockOn = false;
             }
         }
 
@@ -490,7 +474,6 @@ void MyOption::processBehavior() {
             _pEffectLockOn_Release->setGeometry(_pEffectLockOn);
             _pEffectLockOn_Release->activate();
             _pEffectLockOn->inactivate();
-            _overtakeLockOn = false;
         }
 
     }
