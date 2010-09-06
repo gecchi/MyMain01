@@ -9,6 +9,7 @@ MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
         CurveLaserChip(prm_name, "MyCurveLaserChip001") {
     _class_name = "MyCurveLaserChip001";
     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
+    _default_stamina = _pStatus->get(STAT_Stamina);
     _pOrg = NULL;
     _lockon = 0;
 
@@ -82,21 +83,6 @@ void MyCurveLaserChip001::processBehavior() {
                 _pMover->setVxMvAcce(fdx);
                 _pMover->setVyMvAcce(fdy);
                 _pMover->setVzMvAcce(fdz);
-//                //上記のホーミングは優秀だが、距離に応じて減速していくため移動する敵には永遠に当たらない。
-//                //ある程度近づいたら見切りで直進させる
-//                int dx = _pOrg->_pLockOnTarget->_X - _X;
-//                int dy = _pOrg->_pLockOnTarget->_Y - _Y;
-//                int dz = _pOrg->_pLockOnTarget->_Z - _Z;
-//                if (abs(dx)+abs(dy)+abs(dz) < 150*1000) {
-//                    _pMover->setVxMvVelo(dx);
-//                    _pMover->setVyMvVelo(dy);
-//                    _pMover->setVzMvVelo(dz);
-//                    _pMover->setVxMvAcce(dx/10);
-//                    _pMover->setVyMvAcce(dy/10);
-//                    _pMover->setVzMvAcce(dz/10);
-//                    _lockon = 2;
-//                }
-
             } else {
                 _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
             }
@@ -196,41 +182,12 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                     //中間先頭チップがヒットした場合、先端にも伝える
                     ((MyCurveLaserChip001*)_pChip_front)->_lockon = 2;
                 }
-                //もうホーミングする必要はない。今後の方針を決定
-//
-//                //中間先頭チップがヒットした場合の処理。(_chip_kind=3の場合)
-//                if (_pChip_front && _pChip_front->_pChip_front == NULL) {
-//                    //先端チップへ今後の方針を伝える。（先端チップは当たり判定がないため）
-//                    MyCurveLaserChip001* pTip = (MyCurveLaserChip001*)_pChip_front; //先端チップ
-//                    pTip->_lockon = 2; //先端に伝える
-//                    //今後の移動方角(加速度)を伝えるのだが、先端チップや自身や移動方向は、急激な角度に曲がっている可能性が極めて高く
-//                    //不自然な角度のカーブを描きかねないので、やや後方のチップが存在するならば、そちらの移動方向をコピーする。
-//                    LaserChip* pChipPrev = this;
-//                    for (int i = 0; i < 2; i++) { //最高2つ後方まで在れば採用
-//                        if (pChipPrev->_pChip_behind) {
-//                            pChipPrev = pChipPrev->_pChip_behind;
-//                        } else {
-//                            break;
-//                        }
-//                    }
-//                    pTip->_pMover->setVxMvVelo(pChipPrev->_pMover->_veloVxMv);
-//                    pTip->_pMover->setVyMvVelo(pChipPrev->_pMover->_veloVyMv);
-//                    pTip->_pMover->setVzMvVelo(pChipPrev->_pMover->_veloVzMv);
-//                    //ターゲットがなくなり、レーザーの「ハジけた感（解放感）」を演出するため
-//                    //加速度の正負逆を設定する。
-//                    pTip->_pMover->setVxMvAcce(pChipPrev->_pMover->_acceVxMv);
-//                    pTip->_pMover->setVyMvAcce(pChipPrev->_pMover->_acceVyMv);
-//                    pTip->_pMover->setVzMvAcce(pChipPrev->_pMover->_acceVzMv);
-//                }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合
-
             }
         } else {
             //オプション非ロックオン中に命中した場合
-
         }
-
 
         int stamina = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
         if (stamina <= 0) {
@@ -246,18 +203,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             if (pOther->_pStatus->get(STAT_LockOnAble) == 1) {
                 _pOrg->_pLockOnTarget = pOther;
             }
-//
-//            //一つ後ろのチップに今後の方針を伝える
-//            if (_pChip_behind && _pChip_behind->isActive()) {
-//                _pChip_behind->_pMover->setVxMvVelo(_pMover->_veloVxMv);
-//                _pChip_behind->_pMover->setVyMvVelo(_pMover->_veloVyMv);
-//                _pChip_behind->_pMover->setVzMvVelo(_pMover->_veloVzMv);
-//                _pChip_behind->_pMover->setVxMvAcce(_pMover->_acceVxMv);
-//                _pChip_behind->_pMover->setVyMvAcce(_pMover->_acceVyMv);
-//                _pChip_behind->_pMover->setVzMvAcce(_pMover->_acceVzMv);
-//            }
             sayonara();
-
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             _pStatus->set(STAT_Stamina, _default_stamina);

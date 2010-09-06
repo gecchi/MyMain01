@@ -5,10 +5,12 @@ namespace MyStg2nd {
 class MyStraightLaserChip001 : public GgafDx9LibStg::StraightLaserChip {
 
 public:
-
+    int _default_stamina;
     MyStraightLaserChip001(const char* prm_name);
 
     void initialize() override;
+
+    void processBehavior() override;
 
     void onActive() override;
 

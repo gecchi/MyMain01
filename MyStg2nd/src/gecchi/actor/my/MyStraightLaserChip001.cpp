@@ -10,6 +10,7 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
         StraightLaserChip(prm_name, "MyCurveLaserChip001") {
     _class_name = "MyStraightLaserChip001";
     MyStgUtil::resetMyStraightLaserChip001Status(_pStatus);
+    _default_stamina = _pStatus->get(STAT_Stamina);
     _veloMv = 100000;
 }
 
@@ -22,19 +23,46 @@ void MyStraightLaserChip001::initialize() {
     _fBoundingSphereRadius = 20.0;
 }
 
+void MyStraightLaserChip001::processBehavior() {
+    StraightLaserChip::processBehavior();
+    //根元からレーザー表示のため強敵に座標補正
+    if (onChangeToActive()) {
+        setGeometry(pMYSHIP);
+    }
+}
+
+
+
 void MyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
-    _pMover->setMvVelo(60000);
+    _pMover->setMvVelo(80000);
     _pMover->setMvAcce(300);
     MyStgUtil::resetMyStraightLaserChip001Status(_pStatus);
+    _default_stamina = _pStatus->get(STAT_Stamina);
 }
 
 void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    //ヒットエフェクト
-    //無し
-    //playSe3D1();
-    if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+
+
+    if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
+        int stamina = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+        if (stamina <= 0) {
+            //一撃でチップ消滅の攻撃力
+
+            //破壊されたエフェクト
+            EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
+            if (pExplo001 != NULL) {
+                pExplo001->setGeometry(this);
+                pExplo001->activate();
+            }
+            sayonara();
+        } else {
+            //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
+            _pStatus->set(STAT_Stamina, _default_stamina);
+        }
+    } else if (pOther->getKind() & KIND_CHIKEI) {
+        //地形相手は無条件さようなら
         //破壊されたエフェクト
         EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {

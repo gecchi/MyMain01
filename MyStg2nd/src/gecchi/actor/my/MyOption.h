@@ -18,6 +18,8 @@ class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
     float _vXwk,_vYwk,_vZwk;
     GgafDx9Core::GgafDx9Quaternion _Q;
 
+    bool _overtakeLockOn;
+
 private:
     /**
      * ù‰ô‰~ü”¼Œa‚ğÄİ’è‚·‚é .
