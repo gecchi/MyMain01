@@ -12,6 +12,11 @@ public:
     int _renge;
     float _maxAcceRange;
 
+    int _new_target_X;
+    int _new_target_Y;
+    int _new_target_Z;
+    bool _isLockOn;
+    int _default_stamina;
 
     MyCurveLaserChip001(const char* prm_name);
 
