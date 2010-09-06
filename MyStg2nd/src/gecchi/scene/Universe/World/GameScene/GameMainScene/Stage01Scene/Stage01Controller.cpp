@@ -13,7 +13,7 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,3,200,2000,2200,4000,4200,6000};
+	frame f[] = {1,3,200,2000,2200,4000,28200,30000};
 	_paFrame_NextEvent = new frame[8];
 	for (int i = 0; i < 8; i++) {
 		_paFrame_NextEvent[i] = f[i];
@@ -63,12 +63,12 @@ void Stage01Controller::processBehavior() {
 				setProgress(STAGE01CONTROLLER_PROG_STG01_03_BEGIN);
 				}
 				break;
-			case 4200:
-				orderSceneToFactory(110576000, Stage01_Climax, "Stage01_Climax");
+			case 28200:
+				orderSceneToFactory(1105730000, Stage01_Climax, "Stage01_Climax");
 				break;
-			case 6000:
+			case 30000:
 				{
-				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(110576000);
+				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(1105730000);
 				addSubLast(pScene);
 				setProgress(STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN);
 				}
