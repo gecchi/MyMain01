@@ -12,11 +12,14 @@ EffectLockOn001_Release::EffectLockOn001_Release(const char* prm_name, EffectLoc
     defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
     _pEffectLockOn001 = prm_pEffectLockOn001;
     setHitAble(false); //当たり判定無し
+
+    setZEnable(false);        //Zバッファは考慮無し
+    setZWriteEnable(false);  //Zバッファは書き込み無し
+    setSpecialDrawDepth(1); //最前面描画。ロックオンエフェクトが隠れないようにするため
 }
 
 void EffectLockOn001_Release::initialize() {
     _pUvFlipper->copyStatesFrom(_pEffectLockOn001->_pUvFlipper);
-    setSpecialDrawDepth(1); //最前面描画。ロックオンエフェクトが隠れないようにするため
 }
 
 void EffectLockOn001_Release::onActive() {

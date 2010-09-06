@@ -10,6 +10,10 @@ EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(p
     inactivateImmediately();
     chengeEffectTechnique("DestBlendOne"); //加算合成
     defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
+    setZEnable(false);        //Zバッファは考慮無し
+    setZWriteEnable(false);  //Zバッファは書き込み無し
+    setSpecialDrawDepth(1); //最前面描画。ロックオンエフェクトが隠れないようにするため
+
     setHitAble(false); //当たり判定無し
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "humei10", GgafRepeatSeq::nextVal("CH_humei10"));
@@ -18,7 +22,6 @@ EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(p
 void EffectLockOn001::initialize() {
     _pUvFlipper->forcePtnNoRange(0, 3);   //アニメ範囲を０～１５
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //アニメ順序
-    setSpecialDrawDepth(1); //最前面描画。ロックオンエフェクトが隠れないようにするため
 }
 
 void EffectLockOn001::onActive() {
@@ -28,7 +31,7 @@ void EffectLockOn001::onActive() {
     _pScaler->setScale(60000); //(6000%)
     _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
     _pMover->setFaceAngVelo(AXIS_Z, 1000);        //回転
-    _pSeTransmitter->play3D(0);
+    _pSeTransmitter->play3D(0); //ロックオンSE
 }
 
 void EffectLockOn001::processBehavior() {
