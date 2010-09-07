@@ -72,9 +72,9 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _pEffectLockOn = NEW EffectLockOn001("EffectLockOn001");
     _pEffectLockOn->inactivateImmediately();
     addSubGroup(_pEffectLockOn);
-    _pEffectLockOn_Release = NEW EffectLockOn001_Release("EffectLockOn001_R", _pEffectLockOn);
-    _pEffectLockOn_Release->inactivateImmediately();
-    addSubGroup(_pEffectLockOn_Release);
+//    _pEffectLockOn_Release = NEW EffectLockOn001_Release("EffectLockOn001_R", _pEffectLockOn);
+//    _pEffectLockOn_Release->inactivateImmediately();
+//    addSubGroup(_pEffectLockOn_Release);
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
     _pSeTransmitter->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
@@ -471,9 +471,7 @@ void MyOption::processBehavior() {
 
     } else {
         if (_pEffectLockOn->isActive()) {
-            _pEffectLockOn_Release->setGeometry(_pEffectLockOn);
-            _pEffectLockOn_Release->activate();
-            _pEffectLockOn->inactivate();
+            _pEffectLockOn->releaseLockOn();
         }
 
     }
@@ -516,7 +514,14 @@ void MyOption::onHit(GgafActor* prm_pOtherActor) {
     sayonara();
 }
 
-
+void MyOption::processFinal() {
+    //ロックオンが体力が無くなれば、存在してようが切る
+    if (_pLockOnTarget) {
+        if (_pLockOnTarget->_pStatus->get(STAT_Stamina) <= 0) {
+            _pLockOnTarget = NULL;
+        }
+    }
+}
 MyOption::~MyOption() {
 }
 

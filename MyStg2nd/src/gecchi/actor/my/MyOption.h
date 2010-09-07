@@ -36,10 +36,11 @@ private:
 
 public:
 
-
+    /** ロックオン中アクター */
     GgafDx9Core::GgafDx9GeometricActor* _pLockOnTarget;
+
+
     EffectLockOn001* _pEffectLockOn;
-    EffectLockOn001_Release* _pEffectLockOn_Release;
 
     GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
     GgafCore::GgafActorDispatcher* _pDispatcher_MyShots001;
@@ -112,6 +113,8 @@ public:
     void processBehavior() override;
 
     void processJudgement() override;
+
+    void processFinal() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

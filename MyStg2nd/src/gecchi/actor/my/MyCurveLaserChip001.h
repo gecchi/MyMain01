@@ -30,7 +30,7 @@ public:
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    void processFinal();
+//    void processFinal();
 
 //    bool isOutOfGameSpace() override {
 //        if (isOffscreen() == 0) {

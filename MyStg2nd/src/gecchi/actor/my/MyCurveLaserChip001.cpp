@@ -74,7 +74,10 @@ void MyCurveLaserChip001::processBehavior() {
             _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
             _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
             _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
+//            if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive() && _pOrg->_pLockOnTarget->_pStatus->get(STAT_Stamina) > 0) {
+                                                                                 //体力の判定はオプション側で行うことにした
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
+
                 float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
                 rate = rate > 0 ? rate : 0;
                 int fdx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*rate);
@@ -224,16 +227,15 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         sayonara();
     }
 }
-void MyCurveLaserChip001::processFinal() {
-    CurveLaserChip::processFinal();
-    //ロックオンが消滅ならば、切る
-    if (_pOrg->_pLockOnTarget) {
-        if (_pOrg->_pLockOnTarget->_pStatus->get(STAT_Stamina) <= 0) {
-            _pOrg->_pLockOnTarget = NULL;
-            _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
-        }
-    }
-}
+//void MyCurveLaserChip001::processFinal() {
+//    CurveLaserChip::processFinal();
+//    //ロックオンが消滅ならば、切る
+//    if (_pOrg->_pLockOnTarget) {
+//        if (_pOrg->_pLockOnTarget->_pStatus->get(STAT_Stamina) <= 0) {
+//            _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+//        }
+//    }
+//}
 
 void MyCurveLaserChip001::onInactive() {
     CurveLaserChip::onInactive();
