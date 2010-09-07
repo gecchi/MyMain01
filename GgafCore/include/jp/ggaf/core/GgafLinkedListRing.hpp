@@ -3,24 +3,35 @@
 namespace GgafCore {
 
 /**
- * 要素（同一型インスタンス）の環状双方向連結リストを構築するテンプレートです。.
+ * 要素（同一型インスタンスへのポインタ）の環状双方向連結リストを構築するテンプレートです。.
  * <B>【解説】</B><BR>
  * 連結リストの先頭と末尾が繋がっているということで、『環状』と表現しています。<BR>
- * <PRE STYLE="font-size:12px">
- * 【例】
- * (Ｅ)⇔Ａ⇔Ｂ⇔Ｃ*⇔Ｄ⇔Ｅ⇔(Ａ)
- * </PRE>
- * 例えば、５つの要素で上図のような構造を採る事が出来ます。<BR>
- * 『⇔』は、要素（インスタンス）同士がお互いポインタを指しあっている事を示しています。<BR>
- * Ａを先頭要素、Ｅを末尾要素、*はアクティブ要素(カーソルが指しているようなもの)と呼ぶこととします。<BR>
+ *
+ * 例えば、次のようなコードを描くと
+ * <pre><code>
+ * Object* A = new Object();
+ * Object* B = new Object();
+ * Object* C = new Object();
+ * Object* D = new Object();
+ * Object* E = new Object();
+ * GgafLinkedListRing<Object> ring_list = GgafLinkedListRing<Object>();
+ * ring_list.addLast(A);
+ * ring_list.addLast(B);
+ * ring_list.addLast(C);
+ * ring_list.addLast(D);
+ * ring_list.addLast(E);
+ * </code></pre>
+ * ５つの要素で下図のような構造を採る事が出来ます。<BR>
+ * <pre>
+ * --------------------------------
+ * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+ * --------------------------------
+ * </pre>
+ * 『⇔』は、要素（正確には要素を保持する入れ物）同士がお互いポインタを指しあっている事を示しています。<BR>
+ * A を先頭要素、E を末尾要素、!はアクティブ要素(カーソルが指しているようなもの)と呼ぶこととします。<BR>
  * ロジック中、addLast() にて一番最初に追加した要素が先頭要素で、最後に追加した要素が末尾要素となります。<BR>
- * 両端の「(Ｅ)」と「(Ａ)」という表記は、連結リストの先頭と末尾も、お互い連結している事を示しています。(環状になっている)<BR>
- * addLast()で１要素だけ追加した場合は次のようになります。<BR>
- * <PRE STYLE="font-size:12px">
- * 【例】
- * (Ａ)⇔Ａ*⇔(Ａ)
- * </PRE>
- * イテレータのような使い方を想定していますが、上図から解るように、hasNext() による判定は存在しません。<BR>
+ * 両端の「(E)」と「(A)」という表記は、連結リストの先頭と末尾も、お互い連結している事を示しています。(環状になっている)<BR>
+ * 全要素への処理時等、上図から解るように next が必ず存在するので注意が必要です。(イテレータとちょっと違う)<BR>
  * <BR>
  * @version 1.00
  * @since 2008/12/19
@@ -53,53 +64,14 @@ private:
         /**
          * コンストラクタ
          * @param prm_pValue 値ポインタ
-         * @param prm_is_delete_value true:GgafLinkedListRingインスタンスdelete時に、要素(_pValue)もdeleteする。/false:要素(_pValue)をdeleteしない。
+         * @param prm_is_delete_value true  : GgafLinkedListRingインスタンスdelete時に、要素(_pValue)もdeleteする。
+         *                            false : 要素(_pValue)をdeleteしない。
          */
         Elem(T* prm_pValue, bool prm_is_delete_value = true) {
             _pValue = prm_pValue;
             _pNext = _pPrev = NULL;
             _is_first_flg = _is_last_flg = false;
             _is_delete_value = prm_is_delete_value;
-        }
-
-        /**
-         * 要素の値を取得
-         * @return 要素の値
-         */
-        T* getVal() {
-            return _pValue;
-        }
-
-        /**
-         * 次の要素を取得
-         * @return 次の要素
-         */
-        Elem* getNext() {
-            return _pNext;
-        }
-
-        /**
-         * 前の要素を取得
-         * @return 前の要素
-         */
-        Elem* getPrev() {
-            return _pPrev;
-        }
-
-        /**
-         * 要素が先頭要素か調べる .
-         * @return	bool true:先頭要素／false:先頭要素ではない
-         */
-        bool isFirst() {
-            return _is_first_flg;
-        }
-
-        /**
-         * 要素が末尾要素か調べる .
-         * @return	bool true:末尾要素／false:末尾要素ではない
-         */
-        bool isLast() {
-            return _is_last_flg;
         }
 
         /**
@@ -133,7 +105,6 @@ public:
     /**
      * デストラクタ.
      * 内部保持する要素の値は、NULLで無い場合、それぞれ delete により解放されます。<BR>
-     * TODO:デストラクタ時、要素も delete するかしないか指定できるようにしたい。
      * TODO:delete[] やその他の解放方法に対応
      */
     virtual ~GgafLinkedListRing();
@@ -141,18 +112,45 @@ public:
 
     /**
      * アクティブ要素の値（保持している内容）を取得する .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ 変化せずにCをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * -----------------------
+     * </pre>
      * @return	アクティブ要素の値
      */
     virtual T* get();
 
     /**
      * アクティブ要素を一つ進める。 .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ Dをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C⇔D!⇔E⇔(A)
+     * --------------------------
+     * </pre>
      * @return アクティブ要素を一つ進めた後の、その要素の値。
      */
     virtual T* next();
 
     /**
      * アクティブ要素の次の要素の値を取得する。アクティブ要素は変化しない .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ 変化せずにDをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
      * @return 次の要素の値
      */
     virtual T* getNext();
@@ -160,6 +158,15 @@ public:
     /**
      * アクティブ要素のｎ番目の要素の値を取得する。アクティブ要素は変化しない .
      * getNext(1) は、getNext() と同じです。getNext(0) は get()と同じです。
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ getNext(2) … 変化せずにEをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
      * @param n インデックス
      * @return アクティブ要素からｎ番目の要素
      */
@@ -167,12 +174,30 @@ public:
 
     /**
      * アクティブ要素を一つ戻す。 .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ Bをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B!⇔C⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
      * @return アクティブ要素を一つ戻した後の、その要素の値
      */
     virtual T* prev();
 
     /**
      * アクティブ要素をの１つ前の要素の値を取得する。アクティブ要素は変化しない .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ 変化せずにBをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
      * @return 前の要素の値
      */
     virtual T* getPrev();
@@ -180,25 +205,103 @@ public:
     /**
      * アクティブ要素のｎ番目前の要素の値を取得する。アクティブ要素は変化しない .
      * getPrev(1) は、getPrev() と同じです。getPrev(0) は get()と同じです。
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ getPrev(2) … 変化せずにAをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
      * @param n インデックス
      * @return アクティブ要素からｎ番目前の要素
      */
     virtual T* getPrev(int n);
 
+
+
+
     /**
      * アクティブ要素を先頭に戻す。 .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ アクティブを先頭にしてAをゲット
+     * ---「実行後」-------------
+     * (E)⇔A!⇔B⇔C⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
      * @return アクティブ要素を先頭に戻した後の、その要素の値
      */
     virtual T* first();
 
     /**
+     * 先頭の要素の値を取得する。アクティブ要素は変化しない .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ 変化せずにAをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * @return 先頭の要素の値
+     */
+    virtual T* getFirst();
+
+    /**
+     * アクティブ要素を末尾へ移動。 .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ アクティブを末尾にしてEをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C⇔D⇔E!⇔(A)
+     * --------------------------
+     * </pre>
+     * @return アクティブ要素を末尾へ移動した後の、その要素の値
+     */
+    virtual T* last();
+
+    /**
+     * 末尾の要素の値を取得する。アクティブ要素は変化しない .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ 変化せずにEをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * @return 末尾の要素の値
+     */
+    virtual T* getLast();
+
+    /**
      * アクティブ要素がリストの末尾であるか判定する .
+     *<pre>
+     * --------------------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * 上図の場合、Eのみtrueそれ以外はfalseとなる
+     * </pre>
      * @return true:末尾である／false:そうでは無い
      */
     virtual bool isLast();
 
     /**
      * アクティブ要素がリストの先頭であるか判定する .
+     *<pre>
+     * --------------------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * 上図の場合、Aのみtrueそれ以外はfalseとなる
+     * </pre>
      * @return true:末尾である／false:そうでは無い
      */
     virtual bool isFirst();
@@ -206,34 +309,82 @@ public:
     /**
      * アクティブ要素に値を上書き設定する。 .
      * 元の要素の値の解放等は、戻り値を使用して呼び元で行って下さい。
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ set(X) … Xを上書きして元のCをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔X!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
      * @return 上書きされる前の要素の値
      */
     virtual T* set(T* prm_pVal);
 
     /**
+     * アクティブ要素を抜き取る .
+     * アクティブ要素は next の要素に変わる。
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ pick(X) … 抜き出してCをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔D!⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * 抜き取った値の解放等が必要な場合は、戻り値を使用して呼び元で行って下さい。
+     * @return 抜き取った要素の値
+     */
+    virtual T* pick();
+
+    /**
      * 引数要素を、末尾(_is_last_flg が true)として追加する .
-     * 追加される場所は以下の図のようになります。<BR>
-     *<PRE STYLE="font-size:12px">
-     * ----------------「実行前」
-     * (Ｋ)⇔Ｉ*⇔Ｊ⇔Ｋ⇔(Ｉ)
-     * -----------------------
-     * 　　　　↓ 上図は３要素からなる環状リストです。「Ｋ」が末尾要素です。
-     * 　　　　↓ ここに要素「Ｘ」addLast すると下図のような状態になり、
-     * 　　　　↓ 要素「Ｘ」が新たな末尾要素になります。
-     * ----------------「実行後」
-     * (Ｘ)⇔Ｉ*⇔Ｊ⇔Ｋ⇔Ｘ⇔(Ｉ)
-     * -----------------------
-     * </PRE>
-     * 初めてのaddLastは、引数のオブジェクトはにアクティブ要素なり、<BR>
+     * 追加される場所は以下の図のようになります。
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ addLast(X)
+     * ---「実行後」-------------
+     * (X)⇔A⇔B⇔C!⇔D⇔E⇔X⇔(A)
+     * --------------------------
+     * </pre>
+     * <BR>
+     * また、初めてのaddLastは、引数のオブジェクトはにアクティブ要素なり、<BR>
      * ２回目以降addLastを行なってもにアクティブ要素は影響されません。<BR>
-     *
+     * <pre>
+     * ---「実行前」-------------
+     * NULL(要素なし)
+     * --------------------------
+     *               ↓ addLast(A)
+     * --------------------------
+     * (A)⇔A!⇔(A)
+     * --------------------------
+     *               ↓ addLast(B)
+     * --------------------------
+     * (B)⇔A!⇔B⇔(A)
+     * --------------------------
+     *               ↓ addLast(C)
+     * --------------------------
+     * (C)⇔A!⇔B⇔C⇔(A)
+     * --------------------------
+     * </pre>
      * @param prm_pSub インスタンス生成済み要素のポインタ
-     * @param prm_is_delete_value true:本インスタンスdelete時に、引数の追加要素もdeleteする。/false:delete時に、引数の追加要素をdeleteしない。
+     * @param prm_is_delete_value true  : 本インスタンスdelete時に、引数の追加要素についてdeleteを実行する。
+     *                            false : 本インスタンスdelete時に、引数の追加要素について何も行わない。
      */
     virtual void addLast(T* prm_pSub, bool prm_is_delete_value = true);
 
     /**
      * 要素数を返す .
+     *<pre>
+     * --------------------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * 上図の場合、length()は5を返す
+     * </pre>
      * @return 要素数
      */
     virtual int length();
@@ -278,7 +429,6 @@ T* GgafLinkedListRing<T>::getNext(int n) {
     return pElem_return->_pValue;
 }
 
-
 template<class T>
 T* GgafLinkedListRing<T>::prev() {
     _pElemActive = _pElemActive->_pPrev;
@@ -305,6 +455,22 @@ T* GgafLinkedListRing<T>::first() {
     return _pElemActive->_pValue;
 }
 
+template<class T>
+T* GgafLinkedListRing<T>::getFirst() {
+    return _pElemFirst->_pValue;
+}
+
+template<class T>
+T* GgafLinkedListRing<T>::last() {
+    _pElemActive = _pElemFirst->_pPrev; //環状なので、先頭の一つ前は末尾
+    return _pElemActive->_pValue;
+}
+
+template<class T>
+T* GgafLinkedListRing<T>::getLast() {
+    return _pElemFirst->_pPrev->_pValue; //環状なので、先頭の一つ前は末尾
+}
+
 
 template<class T>
 bool GgafLinkedListRing<T>::isLast() {
@@ -324,13 +490,40 @@ T* GgafLinkedListRing<T>::set(T* prm_pVal) {
 }
 
 template<class T>
+T* GgafLinkedListRing<T>::pick() {
+    Elem* pMy = _pElemActive;
+    _num_elem--;
+    if (pMy->_is_first_flg && pMy->_is_last_flg) {
+        //要素が１つの場合
+        _pElemActive = NULL;
+        _pElemFirst = NULL;
+        return pMy->_pValue;
+    } else {
+        //連結から外す
+        Elem* pMyNext = _pElemActive->_pNext;
+        Elem* pMyPrev = _pElemActive->_pPrev;
+        //両隣のノード同士を繋ぎ、自分を指さなくする。
+        pMyPrev->_pNext = pMyNext;
+        pMyNext->_pPrev = pMyPrev;
+        if (pMy->_is_last_flg) { //抜き取られる要素が末尾だったなら
+            pMyPrev->_is_last_flg = true; //一つ前の要素が新しい末尾になる
+        }
+        if (pMy->_is_first_flg) { //抜き取られる要素が先頭だったなら
+            _pElemFirst = pMyNext;
+            pMyNext->_is_first_flg = true; //次の要素が新しい先頭になる
+        }
+        _pElemActive = pMyNext; //アクティブ要素は next に更新。
+        return pMy->_pValue;
+    }
+}
+
+
+template<class T>
 void GgafLinkedListRing<T>::addLast(T* prm_pSub, bool prm_is_delete_value) {
     if (prm_pSub == NULL) {
         throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
     }
-    static Elem* pElem;
-    static Elem* pLastElem;
-    pElem = NEW Elem(prm_pSub, prm_is_delete_value);
+    Elem* pElem = NEW Elem(prm_pSub, prm_is_delete_value);
     pElem->_is_last_flg = true;
     if (_pElemFirst == NULL) {
         //最初の１つ
@@ -342,7 +535,7 @@ void GgafLinkedListRing<T>::addLast(T* prm_pSub, bool prm_is_delete_value) {
     } else {
         //２つ目以降
         pElem->_is_first_flg = false;
-        pLastElem = _pElemFirst->_pPrev;
+        Elem* pLastElem = _pElemFirst->_pPrev;
         pLastElem->_is_last_flg = false;
         pLastElem->_pNext = pElem;
         pElem->_pPrev = pLastElem;
