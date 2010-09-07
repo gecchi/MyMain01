@@ -24,14 +24,15 @@ namespace GgafCore {
  * ５つの要素で下図のような構造を採る事が出来ます。<BR>
  * <pre>
  * --------------------------------
- * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+ * (E)⇔A!⇔B⇔C⇔D⇔E⇔(A!)
  * --------------------------------
  * </pre>
  * 『⇔』は、要素（正確には要素を保持する入れ物）同士がお互いポインタを指しあっている事を示しています。<BR>
  * A を先頭要素、E を末尾要素、!はアクティブ要素(カーソルが指しているようなもの)と呼ぶこととします。<BR>
  * ロジック中、addLast() にて一番最初に追加した要素が先頭要素で、最後に追加した要素が末尾要素となります。<BR>
- * 両端の「(E)」と「(A)」という表記は、連結リストの先頭と末尾も、お互い連結している事を示しています。(環状になっている)<BR>
- * 全要素への処理時等、上図から解るように next が必ず存在するので注意が必要です。(イテレータとちょっと違う)<BR>
+ * 両端の「(E)」と「(A!)」という表記は、連結リストの先頭と末尾も、お互い連結している事を示しています。<BR>
+ * 環状になっているため終端が無く、永遠に next 或いは prev が可能です。
+ * ポインタの連結は終端が無いですが、内部フラグによって先頭要素、末尾要素は管理されています。
  * <BR>
  * @version 1.00
  * @since 2008/12/19
@@ -119,7 +120,7 @@ public:
      *               ↓ 変化せずにCをゲット
      * ---「実行後」-------------
      * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * -----------------------
+     * --------------------------
      * </pre>
      * @return	アクティブ要素の値
      */
@@ -131,9 +132,21 @@ public:
      * ---「実行前」-------------
      * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
      * --------------------------
-     *               ↓ Dをゲット
+     *               ↓ next()実行。アクティブ要素を「次」に進めDをゲット
      * ---「実行後」-------------
      * (E)⇔A⇔B⇔C⇔D!⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * <BR>
+     * アクティブ要素が末尾の状態で本メソッドを実行すると、<BR>
+     * 先頭がアクティブ要素が末尾になります。<BR>
+     * <pre>
+     * ---「実行前」-------------
+     * (E!)⇔A⇔B⇔C⇔D⇔E!⇔(A)
+     * --------------------------
+     *               ↓  next()実行。アクティブ要素を「次（＝先頭）」に進めAをゲット
+     * ---「実行後」-------------
+     * (E)⇔A!⇔B⇔C⇔D⇔E⇔(A!)
      * --------------------------
      * </pre>
      * @return アクティブ要素を一つ進めた後の、その要素の値。
@@ -146,9 +159,20 @@ public:
      * ---「実行前」-------------
      * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
      * --------------------------
-     *               ↓ 変化せずにDをゲット
+     *               ↓ getNext()実行。変化せずにDをゲット
      * ---「実行後」-------------
      * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * アクティブ要素が末尾の状態で本メソッドを実行すると、<BR>
+     * 先頭要素の値を取得することになります。<BR>
+     * <pre>
+     * ---「実行前」-------------
+     * (E!)⇔A⇔B⇔C⇔D⇔E!⇔(A)
+     * --------------------------
+     *               ↓  getNext()実行。変化せずにAをゲット
+     * ---「実行後」-------------
+     * (!E)⇔A⇔B⇔C⇔D⇔E!⇔(A)
      * --------------------------
      * </pre>
      * @return 次の要素の値
@@ -339,6 +363,8 @@ public:
      */
     virtual T* pick();
 
+    virtual bool has(T* prm_pVal);
+
     /**
      * 引数要素を、末尾(_is_last_flg が true)として追加する .
      * 追加される場所は以下の図のようになります。
@@ -353,29 +379,169 @@ public:
      * </pre>
      * <BR>
      * また、初めてのaddLastは、引数のオブジェクトはにアクティブ要素なり、<BR>
-     * ２回目以降addLastを行なってもにアクティブ要素は影響されません。<BR>
+     * ２回目以降addLastを行なってもアクティブ要素は影響されません。<BR>
      * <pre>
      * ---「実行前」-------------
      * NULL(要素なし)
      * --------------------------
      *               ↓ addLast(A)
      * --------------------------
-     * (A)⇔A!⇔(A)
+     * (A!)⇔A!⇔(A!)
      * --------------------------
      *               ↓ addLast(B)
      * --------------------------
-     * (B)⇔A!⇔B⇔(A)
+     * (B)⇔A!⇔B⇔(A!)
      * --------------------------
      *               ↓ addLast(C)
      * --------------------------
-     * (C)⇔A!⇔B⇔C⇔(A)
+     * (C)⇔A!⇔B⇔C⇔(A!)
      * --------------------------
      * </pre>
-     * @param prm_pSub インスタンス生成済み要素のポインタ
+     * @param prm_pNew インスタンス生成済み要素のポインタ
      * @param prm_is_delete_value true  : 本インスタンスdelete時に、引数の追加要素についてdeleteを実行する。
      *                            false : 本インスタンスdelete時に、引数の追加要素について何も行わない。
      */
-    virtual void addLast(T* prm_pSub, bool prm_is_delete_value = true);
+    virtual void addLast(T* prm_pNew, bool prm_is_delete_value = true);
+
+    /**
+     * 引数要素を、先頭(_is_first_flg が true)として追加する .
+     * 追加される場所は以下の図のようになります。
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ addFirst(X)
+     * ---「実行後」-------------
+     * (E)⇔X⇔A⇔B⇔C!⇔D⇔E⇔(X)
+     * --------------------------
+     * </pre>
+     * <BR>
+     * また、初めてのaddFirstは、引数のオブジェクトはにアクティブ要素なり、<BR>
+     * ２回目以降addFirstを行なってもアクティブ要素は影響されません。<BR>
+     * <pre>
+     * ---「実行前」-------------
+     * NULL(要素なし)
+     * --------------------------
+     *               ↓ addFirst(A)
+     * --------------------------
+     * (A!)⇔A!⇔(A!)
+     * --------------------------
+     *               ↓ addFirst(B)
+     * --------------------------
+     * (A!)⇔B⇔A!⇔(B)
+     * --------------------------
+     *               ↓ addFirst(C)
+     * --------------------------
+     * (A!)⇔C⇔B⇔A!⇔(C)
+     * --------------------------
+     * </pre>
+     * @param prm_pNew インスタンス生成済み要素のポインタ
+     * @param prm_is_delete_value true  : 本インスタンスdelete時に、引数の追加要素についてdeleteを実行する。
+     *                            false : 本インスタンスdelete時に、引数の追加要素について何も行わない。
+     */
+    virtual void addFirst(T* prm_pNew, bool prm_is_delete_value = true);
+
+    /**
+     * 引数要素を、アクティブ要素の「次」に追加する .
+     * 追加される場所は以下の図のようになります。
+     * <pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ addNext(X)
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔X⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * <BR>
+     * 初めての addNext は、引数オブジェクトはアクティブ要素なり、<BR>
+     * ２回目以降 addNext は、アクティブ要素は影響されません。<BR>
+     * <pre>
+     * ---「実行前」-------------
+     * NULL(要素なし)
+     * --------------------------
+     *               ↓ addNext(A)
+     * --------------------------
+     * (A!)⇔A!⇔(A!)
+     * --------------------------
+     *               ↓ addNext(B)
+     * --------------------------
+     * (B)⇔A!⇔B⇔(A!)
+     * --------------------------
+     *               ↓ addNext(C)
+     * --------------------------
+     * (B)⇔A!⇔C⇔B⇔(A!)
+     * --------------------------
+     * </pre>
+     * <BR>
+     * アクティブ要素が末尾の状態で本メソッドを実行すると、<BR>
+     * 引数の要素が末尾になります。（引数の要素が先頭にはなりません）<BR>
+     * <pre>
+     * ---「実行前」-------------
+     * (E!)⇔A⇔B⇔C⇔D⇔E!⇔(A)
+     * --------------------------
+     *               ↓ addNext(X)
+     * ---「実行後」-------------
+     * (X)⇔A⇔B⇔C⇔D⇔E!⇔X⇔(A)
+     * --------------------------
+     * </pre>
+     * @param prm_pNew インスタンス生成済み要素のポインタ
+     * @param prm_is_delete_value true  : 本インスタンスdelete時に、引数の追加要素についてdeleteを実行する。
+     *                            false : 本インスタンスdelete時に、引数の追加要素について何も行わない。
+     */
+    virtual void addNext(T* prm_pNew, bool prm_is_delete_value = true);
+
+
+    /**
+     * 引数要素を、アクティブ要素の「前」に追加する .
+     * 追加される場所は以下の図のようになります。
+     * <pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ addPrev(X)
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔X⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * <BR>
+     * 初めての addPrev は、引数オブジェクトはアクティブ要素なり、<BR>
+     * ２回目以降 addPrev は、アクティブ要素は影響されません。<BR>
+     * <pre>
+     * ---「実行前」-------------
+     * NULL(要素なし)
+     * --------------------------
+     *               ↓ addPrev(A)
+     * --------------------------
+     * (A!)⇔A!⇔(A!)
+     * --------------------------
+     *               ↓ addPrev(B)
+     * --------------------------
+     * (A!)⇔B⇔A!⇔(B)
+     * --------------------------
+     *               ↓ addPrev(C)
+     * --------------------------
+     * (A!)⇔B⇔C⇔A!⇔(B)
+     * --------------------------
+     * </pre>
+     * <BR>
+     * アクティブ要素が先頭の状態で本メソッドを実行すると、<BR>
+     * 引数の要素が先頭になります。（引数の要素が末尾にはなりません）<BR>
+     * <pre>
+     * ---「実行前」-------------
+     * (E)⇔A!⇔B⇔C⇔D⇔E⇔(A!)
+     * --------------------------
+     *               ↓ addPrev(X)
+     * ---「実行後」-------------
+     * (E)⇔X⇔A!⇔B⇔C⇔D⇔E⇔(X)
+     * --------------------------
+     * </pre>
+     * @param prm_pNew インスタンス生成済み要素のポインタ
+     * @param prm_is_delete_value true  : 本インスタンスdelete時に、引数の追加要素についてdeleteを実行する。
+     *                            false : 本インスタンスdelete時に、引数の追加要素について何も行わない。
+     */
+    virtual void addPrev(T* prm_pNew, bool prm_is_delete_value = true);
+
 
     /**
      * 要素数を返す .
@@ -519,15 +685,36 @@ T* GgafLinkedListRing<T>::pick() {
 
 
 template<class T>
-void GgafLinkedListRing<T>::addLast(T* prm_pSub, bool prm_is_delete_value) {
-    if (prm_pSub == NULL) {
+bool GgafLinkedListRing<T>::has(T* prm_pVal) {
+    if (_pElemFirst == NULL) {
+        return false;
+    }
+    Elem* pElem = _pElemFirst;
+    while (true) {
+        if (pElem->_pValue == prm_pVal) {
+            return true;
+        } else {
+            if (pElem->_is_last_flg) {
+                break;
+            } else {
+                pElem = pElem -> _pNext;
+            }
+        }
+    }
+    return false;
+}
+
+template<class T>
+void GgafLinkedListRing<T>::addLast(T* prm_pNew, bool prm_is_delete_value) {
+    if (prm_pNew == NULL) {
         throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
     }
-    Elem* pElem = NEW Elem(prm_pSub, prm_is_delete_value);
-    pElem->_is_last_flg = true;
+    Elem* pElem = NEW Elem(prm_pNew, prm_is_delete_value);
+
     if (_pElemFirst == NULL) {
         //最初の１つ
         pElem->_is_first_flg = true;
+        pElem->_is_last_flg = true;
         pElem->_pNext = pElem;
         pElem->_pPrev = pElem;
         _pElemActive = pElem;
@@ -535,6 +722,7 @@ void GgafLinkedListRing<T>::addLast(T* prm_pSub, bool prm_is_delete_value) {
     } else {
         //２つ目以降
         pElem->_is_first_flg = false;
+        pElem->_is_last_flg = true;
         Elem* pLastElem = _pElemFirst->_pPrev;
         pLastElem->_is_last_flg = false;
         pLastElem->_pNext = pElem;
@@ -543,8 +731,101 @@ void GgafLinkedListRing<T>::addLast(T* prm_pSub, bool prm_is_delete_value) {
         _pElemFirst->_pPrev = pElem;
     }
     _num_elem++;
-
 }
+
+
+template<class T>
+void GgafLinkedListRing<T>::addFirst(T* prm_pNew, bool prm_is_delete_value) {
+    if (prm_pNew == NULL) {
+        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
+    }
+    Elem* pElem = NEW Elem(prm_pNew, prm_is_delete_value);
+    if (_pElemFirst == NULL) {
+        //最初の１つ
+        pElem->_is_first_flg = true;
+        pElem->_is_last_flg = true;
+        pElem->_pNext = pElem;
+        pElem->_pPrev = pElem;
+        _pElemActive = pElem;
+        _pElemFirst = pElem;
+    } else {
+        Elem* pFirstElem = _pElemFirst;
+        Elem* pLastElem = _pElemFirst->_pPrev;
+        pLastElem->_pNext = pElem;
+        pElem->_pPrev = pLastElem;
+        pElem->_pNext = pFirstElem;
+        pFirstElem->_pPrev = pElem;
+        pFirstElem->_is_first_flg = false;
+
+        pElem->_is_first_flg = true;
+        pElem->_is_last_flg = false;
+        _pElemFirst = pElem;
+    }
+    _num_elem++;
+}
+
+
+template<class T>
+void GgafLinkedListRing<T>::addNext(T* prm_pNew, bool prm_is_delete_value) {
+    if (prm_pNew == NULL) {
+        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
+    }
+    Elem* pElem = NEW Elem(prm_pNew, prm_is_delete_value);
+    if (_pElemFirst == NULL) {
+        //最初の１つ
+        pElem->_is_last_flg = true;
+        pElem->_is_first_flg = true;
+        pElem->_pNext = pElem;
+        pElem->_pPrev = pElem;
+        _pElemActive = pElem;
+        _pElemFirst = pElem;
+    } else {
+        Elem* pMy = _pElemActive;
+        if (pMy->_is_last_flg) {
+            pMy->_is_last_flg = false;
+            pElem->_is_last_flg = true;
+            pElem->_is_first_flg = false;
+        }
+        Elem* pMyNext = _pElemActive->_pNext;
+        pMy->_pNext = pElem;
+        pElem->_pPrev = pMy;
+        pElem->_pNext = pMyNext;
+        pMyNext->_pPrev = pElem;
+    }
+    _num_elem++;
+}
+
+template<class T>
+void GgafLinkedListRing<T>::addPrev(T* prm_pNew, bool prm_is_delete_value) {
+    if (prm_pNew == NULL) {
+        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
+    }
+    Elem* pElem = NEW Elem(prm_pNew, prm_is_delete_value);
+    if (_pElemFirst == NULL) {
+        //最初の１つ
+        pElem->_is_last_flg = true;
+        pElem->_is_first_flg = true;
+        pElem->_pNext = pElem;
+        pElem->_pPrev = pElem;
+        _pElemActive = pElem;
+        _pElemFirst = pElem;
+    } else {
+        Elem* pMy = _pElemActive;
+        if (pMy->_is_first_flg) {
+            pMy->_is_first_flg = false;
+            pElem->_is_first_flg = true;
+            pElem->_is_last_flg = false;
+        }
+        Elem* pMyPrev = _pElemActive->_pPrev;
+        pMyPrev->_pNext = pElem;
+        pElem->_pPrev = pMyPrev;
+        pElem->_pNext = pMy;
+        pMy->_pPrev = pElem;
+    }
+    _num_elem++;
+}
+
+
 template<class T>
 int GgafLinkedListRing<T>::length() {
     return _num_elem;

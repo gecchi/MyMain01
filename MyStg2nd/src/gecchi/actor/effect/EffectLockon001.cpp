@@ -7,8 +7,8 @@ using namespace MyStg2nd;
 
 EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "8/LockOn001") {
     _class_name = "EffectLockOn001";
-    _pTarget = NULL;
-
+    //_pTarget = NULL;
+    _max_lock_num = 5;
     inactivateImmediately();
     chengeEffectTechnique("DestBlendOne"); //加算合成
     defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
@@ -100,19 +100,21 @@ void EffectLockOn001::onInactive() {
 }
 
 void EffectLockOn001::lockOn(GgafDx9GeometricActor* prm_pTarget) {
-    if (getProgress() == EffectLockOn001_PROG_NOTHING) {
-        setGeometry(prm_pTarget);
-        setProgress(EffectLockOn001_PROG_RELEASE);
-    } else if (getProgress() == EffectLockOn001_PROG_LOCK && _pTarget != prm_pTarget) {
-        _pSeTransmitter->play3D(0); //ロックオンSE
-    } else if (getProgress() == EffectLockOn001_PROG_RELEASE && _pTarget != prm_pTarget) {
-        _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
-        _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
-        _pMover->setFaceAngVelo(AXIS_Z, 1000);   //回転
-        _pSeTransmitter->play3D(0); //ロックオンSE
-        setProgress(EffectLockOn001_PROG_RELEASE);
+    if (!ringTarget.has(prm_pTarget)) {
+        if (getProgress() == EffectLockOn001_PROG_NOTHING) {
+            setGeometry(prm_pTarget);
+            setProgress(EffectLockOn001_PROG_RELEASE);
+        } else if (getProgress() == EffectLockOn001_PROG_LOCK && _pTarget != prm_pTarget) {
+            _pSeTransmitter->play3D(0); //ロックオンSE
+        } else if (getProgress() == EffectLockOn001_PROG_RELEASE && _pTarget != prm_pTarget) {
+            _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
+            _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
+            _pMover->setFaceAngVelo(AXIS_Z, 1000);   //回転
+            _pSeTransmitter->play3D(0); //ロックオンSE
+            setProgress(EffectLockOn001_PROG_RELEASE);
+        }
+        ringTarget.addLast(prm_pTarget)
     }
-    _pTarget = prm_pTarget;
 }
 
 
