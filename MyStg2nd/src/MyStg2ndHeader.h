@@ -176,6 +176,7 @@ class MyOptionParent;
 class MyOptionParentGizmo;
 class MyOptionParentDirectionVector;
 class MyOption;
+class MyOptionLockonController;
 class MyShot001;
 class MyWave001;
 class EffectExplosion001;
@@ -306,6 +307,7 @@ class LaserChipEffectActor;
 #include "gecchi/actor/my/MyOptionParentGizmo.h"
 #include "gecchi/actor/my/MyOptionParentDirectionVector.h"
 #include "gecchi/actor/my/MyOption.h"
+#include "gecchi/actor/my/MyOptionLockonController.h"
 #include "gecchi/actor/my/MyShot001.h"
 #include "gecchi/actor/my/MyWave001.h"
 #include "gecchi/actor/my/MyCurveLaserChip001.h"

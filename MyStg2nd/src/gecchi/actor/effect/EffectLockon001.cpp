@@ -10,15 +10,16 @@ EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(p
     //_pTarget = NULL;
     _max_lock_num = 5;
     inactivateImmediately();
-    chengeEffectTechnique("DestBlendOne"); //加算合成
-    defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
-    setZEnable(false);        //Zバッファは考慮無し
-    setZWriteEnable(false);  //Zバッファは書き込み無し
-    setSpecialDrawDepth(1); //最前面描画。ロックオンエフェクトが隠れないようにするため
+    defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
+    chengeEffectTechnique("DestBlendOne"); //エフェクトテクニックは加算合成に強制
+    setZEnable(false);      //Zバッファは考慮無しに強制
+    setZWriteEnable(false); //Zバッファは書き込み無しに強制
+    setSpecialDrawDepth(1); //描画順序を最前面描画に強制。ロックオンエフェクトが隠れないようにするため。
+    setAlpha(9.9);          //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
 
     setHitAble(false); //当たり判定無し
-    _pSeTransmitter->useSe(1);
-    _pSeTransmitter->set(0, "humei10", GgafRepeatSeq::nextVal("CH_humei10"));
+    _pSeTransmitter->useSe(1);                                                //使用効果音数宣言
+    _pSeTransmitter->set(0, "humei10", GgafRepeatSeq::nextVal("CH_humei10")); //効果音定義
 
 //    _pEffectLockOn_Release = NEW EffectLockOn001_Release("EffectLockOn001_R", this);
 //    _pEffectLockOn_Release->inactivateImmediately();
@@ -113,7 +114,7 @@ void EffectLockOn001::lockOn(GgafDx9GeometricActor* prm_pTarget) {
             _pSeTransmitter->play3D(0); //ロックオンSE
             setProgress(EffectLockOn001_PROG_RELEASE);
         }
-        ringTarget.addLast(prm_pTarget)
+        _ringTarget.addLast(prm_pTarget);
     }
 }
 

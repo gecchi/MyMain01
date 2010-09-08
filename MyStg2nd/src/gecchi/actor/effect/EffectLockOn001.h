@@ -17,7 +17,7 @@ class EffectLockOn001 : public GgafDx9LibStg::DefaultSpriteSetActor {
 public:
     //GgafDx9GeometricActor* _pTarget;
     int _max_lock_num;
-    GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor*> ringTarget;
+    GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor> _ringTarget;
 //    EffectLockOn001_Release* _pEffectLockOn_Release;
 
     EffectLockOn001(const char* prm_name);
