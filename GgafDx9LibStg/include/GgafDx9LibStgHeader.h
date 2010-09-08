@@ -13,6 +13,7 @@ class GeoElement;
 class GeometryChain;
 class DefaultScene;
 class ActorTableScene;
+class DefaultGeometricActor;
 class DefaultD3DXMeshActor;
 class DefaultD3DXAniMeshActor;
 class DefaultMeshActor;
@@ -25,6 +26,7 @@ class DefaultSpriteSetActor;
 class DefaultBoardActor;
 class DefaultBoardSetActor;
 class DefaultPointSpriteActor;
+
 class FontSpriteActor;
 //class FontSpriteString;
 class CubeEx;
@@ -58,6 +60,8 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
 #include "jp/ggaf/dx9libstg/scene/ActorTableScene.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultUniverse.h"
+
+#include "jp/ggaf/dx9libstg/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultD3DXMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultD3DXAniMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultMeshActor.h"
