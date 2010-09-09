@@ -24,7 +24,7 @@ void MyOptionLockonController::processBehavior() {
             //OK
             _ringTarget.next(); //次へ
         } else {
-            _ringTarget.pick(); //抜き出し
+            _ringTarget.remove(); //抜き出し
             i++;
 
         }
@@ -36,7 +36,7 @@ void MyOptionLockonController::processJudgement() {
 
 
 void MyOptionLockonController::lockOn(GgafDx9GeometricActor* prm_pTarget) {
-    if (!ringTarget.has(prm_pTarget)) { //ロックオン済みに無ければ
+    if (ringTarget.indexOf(prm_pTarget) >= 0) { //ロックオン済みに無ければ
         if (_ringTarget.length() < _max_lock_num) {
         _ringTarget.addPrev(prm_pTarget);
         _ringTarget.prev();
@@ -64,10 +64,10 @@ void MyOptionLockonController::lockOn(GgafDx9GeometricActor* prm_pTarget) {
 
 void MyOptionLockonController::releaseLockOn() {
     if (ringTarget.length() > 0) {
-        ringTarget.pick();
+        ringTarget.remove();
         //F            L
         //⇔a⇔b⇔c⇔d!⇔f⇔g⇔
-        //      ↓  pick()
+        //      ↓  remove()
         //⇔a⇔b⇔c⇔f!⇔g⇔
     }
 }

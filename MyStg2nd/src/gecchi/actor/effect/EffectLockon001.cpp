@@ -101,7 +101,7 @@ void EffectLockOn001::onInactive() {
 }
 
 void EffectLockOn001::lockOn(GgafDx9GeometricActor* prm_pTarget) {
-    if (!ringTarget.has(prm_pTarget)) {
+    if (ringTarget.indexOf(prm_pTarget) >= 0) {
         if (getProgress() == EffectLockOn001_PROG_NOTHING) {
             setGeometry(prm_pTarget);
             setProgress(EffectLockOn001_PROG_RELEASE);

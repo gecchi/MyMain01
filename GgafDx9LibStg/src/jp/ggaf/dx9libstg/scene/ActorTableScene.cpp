@@ -27,7 +27,7 @@ void ActorTableScene::onActive() {
     if (_table.length() > 0) {
         _frame_of_current_part_began = getActivePartFrame();
         _table.first();
-        _table.get()->_pActor->activate();
+        _table.getCurrent()->_pActor->activate();
         //OK
         //_frame_of_current_part_began = getActivePartFrame(); todo:絶対に０になるし。相対フレームでいいっか・・・
         _TRACE_("ActorTableScene::onActive() ["<<getName()<<"] 来ました。");
@@ -41,7 +41,7 @@ void ActorTableScene::processBehavior() {
     if (wasDeclaredEnd()) {
         //終了を待つのみ
     } else {
-        TblElem* e = _table.get();
+        TblElem* e = _table.getCurrent();
         GgafMainActor* pActiveActor = e->_pActor;
         //全滅判定
         bool was_destroyed = false;
