@@ -15,10 +15,12 @@ namespace MyStg2nd {
 class MyOptionLockonController : public GgafCore::GgafDummyActor {
 
 public:
-    int _max_lockon_num;
-    int _now_lockon_num;
 
-    GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor> _ringTarget;
+    static int _max_lockon_num;
+    int _now_lockon_num;
+    EffectLockon001_Main* _pMainLockonEffect;
+    GgafDx9Core::GgafDx9GeometricActor* _pMainTarget;
+    GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor>* _pRingTarget;
 
     MyOptionLockonController(const char* prm_name);
 
@@ -28,7 +30,7 @@ public:
 
     void processJudgement() override;
 
-    void releaseLockon();
+    void releaseAllLockon();
 
     void lockon(GgafDx9Core::GgafDx9GeometricActor* prm_pTarget);
 

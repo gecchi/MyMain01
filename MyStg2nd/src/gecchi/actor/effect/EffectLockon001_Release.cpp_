@@ -5,12 +5,12 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EffectLockon001_Release::EffectLockon001_Release(const char* prm_name, EffectLockon001* prm_pEffectLockon001) : DefaultSpriteSetActor(prm_name, "8/Lockon001") {
+EffectLockon001_Release::EffectLockon001_Release(const char* prm_name, EffectLockon001_Main* prm_pEffectLockon001_Main) : DefaultSpriteSetActor(prm_name, "8/Lockon001") {
     _class_name = "EffectLockon001_Release";
     inactivateImmediately();
     chengeEffectTechnique("DestBlendOne"); //加算合成
     defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
-    _pEffectLockon001 = prm_pEffectLockon001;
+    _pEffectLockon001_Main = prm_pEffectLockon001_Main;
     setHitAble(false); //当たり判定無し
 
     setZEnable(false);        //Zバッファは考慮無し
@@ -19,17 +19,17 @@ EffectLockon001_Release::EffectLockon001_Release(const char* prm_name, EffectLoc
 }
 
 void EffectLockon001_Release::initialize() {
-    _pUvFlipper->copyStatesFrom(_pEffectLockon001->_pUvFlipper);
+    _pUvFlipper->copyStatesFrom(_pEffectLockon001_Main->_pUvFlipper);
 }
 
 void EffectLockon001_Release::onActive() {
-    setAlpha(_pEffectLockon001->getAlpha());
-    _pUvFlipper->copyStatesFrom(_pEffectLockon001->_pUvFlipper);
+    setAlpha(_pEffectLockon001_Main->getAlpha());
+    _pUvFlipper->copyStatesFrom(_pEffectLockon001_Main->_pUvFlipper);
     _pScaler->forceScaleRange(20000, 2000); //スケーリング・範囲
-    _pScaler->setScale(_pEffectLockon001->_pScaler->_scale[0]);
+    _pScaler->setScale(_pEffectLockon001_Main->_pScaler->_scale[0]);
     _pScaler->intoTargetScaleLinerUntil(20000, 50);//スケーリング
-    _pMover->setFaceAng(AXIS_Z, _pEffectLockon001->_pMover->_angFace[AXIS_Z]);
-    _pMover->setFaceAngVelo(AXIS_Z, _pEffectLockon001->_pMover->_angveloFace[AXIS_Z]*-3);        //回転
+    _pMover->setFaceAng(AXIS_Z, _pEffectLockon001_Main->_pMover->_angFace[AXIS_Z]);
+    _pMover->setFaceAngVelo(AXIS_Z, _pEffectLockon001_Main->_pMover->_angveloFace[AXIS_Z]*-3);        //回転
 }
 
 void EffectLockon001_Release::processBehavior() {

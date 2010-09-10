@@ -183,7 +183,8 @@ class EffectExplosion001;
 class EffectExplosion002;
 class EffectExplosion003;
 class EffectLockon001;
-class EffectLockon001_Release;
+class EffectLockon001_Main;
+class EffectLockon001_Sub;
 class EffectTurbo001;
 class EffectTurbo002;
 class EffectCondensation001;
@@ -316,7 +317,8 @@ class LaserChipEffectActor;
 #include "gecchi/actor/effect/EffectExplosion002.h"
 #include "gecchi/actor/effect/EffectExplosion003.h"
 #include "gecchi/actor/effect/EffectLockon001.h"
-#include "gecchi/actor/effect/EffectLockon001_Release.h"
+#include "gecchi/actor/effect/EffectLockon001_Main.h"
+#include "gecchi/actor/effect/EffectLockon001_Sub.h"
 #include "gecchi/actor/effect/EffectTurbo001.h"
 #include "gecchi/actor/effect/EffectTurbo002.h"
 #include "gecchi/actor/effect/EffectCondensation001.h"

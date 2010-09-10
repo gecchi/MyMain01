@@ -31,7 +31,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _angveloExpanseSlow = 1000;
 
     //レーザー発射エフェクト
-//    _pEffect_LaserIrradiate = NEW EffectLockon001("OP_Eff_Ref");
+//    _pEffect_LaserIrradiate = NEW EffectLockon001_Main("OP_Eff_Ref");
 //    _pEffect_LaserIrradiate->inactivateImmediately();
 //    addSubGroup(_pEffect_LaserIrradiate);
     _pEffect_LaserIrradiate = NULL;
@@ -69,10 +69,10 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 
 
 
-    _pEffectLockon = NEW EffectLockon001("EffectLockon001");
-    _pEffectLockon->inactivateImmediately();
-    addSubGroup(_pEffectLockon);
-//    _pEffectLockon_Release = NEW EffectLockon001_Release("EffectLockon001_R", _pEffectLockon);
+    _pLockonController = NEW MyOptionLockonController("Lockon001");
+    addSubGroup(_pLockonController);
+//    addSubGroup(_pEffectLockon);
+//    _pEffectLockon_Release = NEW EffectLockon001_Release("EffectLockon001_Main_R", _pEffectLockon);
 //    _pEffectLockon_Release->inactivateImmediately();
 //    addSubGroup(_pEffectLockon_Release);
     _pSeTransmitter->useSe(2);
@@ -80,7 +80,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _pSeTransmitter->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
 
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
-    _pLockonTarget = NULL;
+   
 }
 
 void MyOption::onCreateModel() {
@@ -443,38 +443,22 @@ void MyOption::processBehavior() {
             }
         }
     } else {
-        _pLockonTarget = NULL;
+        _pLockonController->releaseAllLockon();
     }
 
-    if (_pLockonTarget) {
-        //if (_pLockonTarget->isOffscreen() || _pLockonTarget->isActive() == false) { //非アクティブのみと視野外はロックオン解除
-        if (_pLockonTarget->isActive() == false) {  //非アクティブのみ解除（視野外でもロックオン維持）
-            _pLockonTarget = NULL;
-        } else {
-            if (_pEffectLockon->isActive() || _pEffectLockon->_will_activate_after_flg) {
-                if (abs(_pLockonTarget->_X-_pEffectLockon->_X) <= 200000 &&
-                    abs(_pLockonTarget->_Y-_pEffectLockon->_Y) <= 200000 &&
-                    abs(_pLockonTarget->_Z-_pEffectLockon->_Z) <= 200000) {
-                    _pEffectLockon->setGeometry(_pLockonTarget);
-                    _pEffectLockon->_pMover->setMvVelo(0);
-//                    _overtakeLockon = true;
-                } else {
-                    _pEffectLockon->_pMover->setMvAng(_pLockonTarget);
-                    _pEffectLockon->_pMover->setMvVelo(200000);
-                }
-
-            } else {
-                _pEffectLockon->activate();
-                _pEffectLockon->setGeometry(_pLockonTarget);
-            }
-        }
-
-    } else {
-        if (_pEffectLockon->isActive()) {
-            _pEffectLockon->releaseLockon();
-        }
-
-    }
+//    if (_pLockonTarget) {
+//        //if (_pLockonTarget->isOffscreen() || _pLockonTarget->isActive() == false) { //非アクティブのみと視野外はロックオン解除
+//        if (_pLockonTarget->isActive() == false) {  //非アクティブのみ解除（視野外でもロックオン維持）
+//            _pLockonController->releaseLockon();
+//            _pLockonTarget = NULL;
+//        } else {
+//            _pLockonController->lockon(_pLockonTarget);
+//        }
+//
+//    } else {
+//        _pLockonController->releaseLockon();
+//        _pLockonTarget = NULL;
+//    }
 
     if (pMYSHIP->_just_shot) {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
@@ -515,12 +499,13 @@ void MyOption::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void MyOption::processFinal() {
-    //ロックオンが体力が無くなれば、存在してようが切る
-    if (_pLockonTarget) {
-        if (_pLockonTarget->_pStatus->get(STAT_Stamina) <= 0) {
-            _pLockonTarget = NULL;
-        }
-    }
+//    //ロックオンが体力が無くなれば、存在してようが切る
+//    if (_pLockonTarget) {
+//        if (_pLockonTarget->_pStatus->get(STAT_Stamina) <= 0) {
+//            _pLockonController->releaseLockon();
+//            _pLockonTarget = NULL;
+//        }
+//    }
 }
 MyOption::~MyOption() {
 }

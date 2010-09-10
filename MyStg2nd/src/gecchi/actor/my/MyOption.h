@@ -36,10 +36,10 @@ private:
 public:
 
     /** ロックオン中アクター */
-    GgafDx9Core::GgafDx9GeometricActor* _pLockonTarget;
+    //GgafDx9Core::GgafDx9GeometricActor* _pLockonTarget;
 
 
-    EffectLockon001* _pEffectLockon;
+    MyOptionLockonController* _pLockonController;
 
     GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
     GgafCore::GgafActorDispatcher* _pDispatcher_MyShots001;

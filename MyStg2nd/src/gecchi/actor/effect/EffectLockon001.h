@@ -15,12 +15,12 @@ namespace MyStg2nd {
 class EffectLockon001 : public GgafDx9LibStg::DefaultSpriteSetActor {
 
 public:
-    //GgafDx9GeometricActor* _pTarget;
+    GgafDx9Core::GgafDx9GeometricActor* _pTarget;
     //int _max_lock_num;
     //GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor> _ringTarget;
-//    EffectLockon001_Release* _pEffectLockon_Release;
+//    EffectLockon001_Release* _pEffectLockon001_Release;
 
-    EffectLockon001(const char* prm_name);
+    EffectLockon001(const char* prm_name, const char* prm_model_id);
 
     void initialize() override;
 
@@ -34,7 +34,7 @@ public:
 
     void releaseLockon();
 
-    void lockOn(GgafDx9GeometricActor* prm_pTarget);
+    void lockon(GgafDx9GeometricActor* prm_pTarget);
 
 
     virtual ~EffectLockon001();

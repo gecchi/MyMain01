@@ -30,7 +30,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _pMover->forceVzMvAcceRange(-_renge / 30, _renge / 30);
 
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 4; i++) {
         _paMyOption[i] = NULL;
     }
 
@@ -57,34 +57,34 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _paMyOption[3]->setMaterialColor(0.8, 1.0, 0.8);
     _paMyOption[3]->setAlpha(0.7);
     addSubGroup(_paMyOption[3]);
+//
+//    _paMyOption[4] = NEW MyOption("MY_OPTION05", 5, this);
+//    _paMyOption[4]->setInitializeProperty(120000, ANGLE0, 0, -1500);
+//    _paMyOption[4]->setMaterialColor(0.8, 0.8, 1.0);
+//    _paMyOption[4]->setAlpha(0.7);
+//    addSubGroup(_paMyOption[4]);
+//
+//    _paMyOption[5] = NEW MyOption("MY_OPTION06", 6, this);
+//    _paMyOption[5]->setInitializeProperty(120000, ANGLE90, 0, -1500);
+//    _paMyOption[5]->setMaterialColor(0.8, 1.0, 0.8);
+//    _paMyOption[5]->setAlpha(0.7);
+//    addSubGroup(_paMyOption[5]);
+//
+//    _paMyOption[6] = NEW MyOption("MY_OPTION07", 7, this);
+//    _paMyOption[6]->setInitializeProperty(120000, ANGLE180, 0, -1500);
+//    _paMyOption[6]->setMaterialColor(1.0, 0.8, 0);
+//    _paMyOption[6]->setAlpha(0.7);
+//    addSubGroup(_paMyOption[6]);
+//
+//    _paMyOption[7] = NEW MyOption("MY_OPTION08", 8, this);
+//    _paMyOption[7]->setInitializeProperty(120000, ANGLE270, 0, -1500);
+//    _paMyOption[7]->setMaterialColor(1.0, 1.0, 1.0);
+//    _paMyOption[7]->setAlpha(0.7);
+//    addSubGroup(_paMyOption[7]);
 
-    _paMyOption[4] = NEW MyOption("MY_OPTION05", 5, this);
-    _paMyOption[4]->setInitializeProperty(120000, ANGLE0, 0, -1500);
-    _paMyOption[4]->setMaterialColor(0.8, 0.8, 1.0);
-    _paMyOption[4]->setAlpha(0.7);
-    addSubGroup(_paMyOption[4]);
-
-    _paMyOption[5] = NEW MyOption("MY_OPTION06", 6, this);
-    _paMyOption[5]->setInitializeProperty(120000, ANGLE90, 0, -1500);
-    _paMyOption[5]->setMaterialColor(0.8, 1.0, 0.8);
-    _paMyOption[5]->setAlpha(0.7);
-    addSubGroup(_paMyOption[5]);
-
-    _paMyOption[6] = NEW MyOption("MY_OPTION07", 7, this);
-    _paMyOption[6]->setInitializeProperty(120000, ANGLE180, 0, -1500);
-    _paMyOption[6]->setMaterialColor(1.0, 0.8, 0);
-    _paMyOption[6]->setAlpha(0.7);
-    addSubGroup(_paMyOption[6]);
-
-    _paMyOption[7] = NEW MyOption("MY_OPTION08", 8, this);
-    _paMyOption[7]->setInitializeProperty(120000, ANGLE270, 0, -1500);
-    _paMyOption[7]->setMaterialColor(1.0, 1.0, 1.0);
-    _paMyOption[7]->setAlpha(0.7);
-    addSubGroup(_paMyOption[7]);
 
 
-
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 4; i++) {
         _paMyOption[i]->activate();
     }
 

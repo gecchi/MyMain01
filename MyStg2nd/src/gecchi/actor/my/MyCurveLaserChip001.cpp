@@ -34,7 +34,7 @@ void MyCurveLaserChip001::onActive() {
     _pMover->setVyMvAcce(0);
     _pMover->setVzMvAcce(0);
     _isLockon = false;
-    if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive()) {
+    if (_pOrg->_pLockonController->_pMainTarget && _pOrg->_pLockonController->_pMainTarget->isActive()) {
         if (_pChip_front == NULL) {
             //先端チップ
             _lockon = 1;
@@ -53,7 +53,6 @@ void MyCurveLaserChip001::onActive() {
             _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
             _isLockon = ((MyCurveLaserChip001*) _pChip_front)->_isLockon;//一つ前のロックオン情報を引き継ぐ
         }
-        _pOrg->_pLockonTarget = NULL;
     }
     _renge = 150000;
     _pMover->forceVxMvVeloRange(-_renge, _renge);
@@ -68,6 +67,8 @@ void MyCurveLaserChip001::onActive() {
 }
 
 void MyCurveLaserChip001::processBehavior() {
+    GgafDx9GeometricActor* pLockonTarget = _pOrg->_pLockonController->_pMainTarget;
+
     if (_lockon == 1) {
         if (getActivePartFrame() < 120) {
             _maxAcceRange+=100;
@@ -76,13 +77,13 @@ void MyCurveLaserChip001::processBehavior() {
             _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 //            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive() && _pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) > 0) {
                                                                                  //体力の判定はオプション側で行うことにした
-            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive()) {
+            if (pLockonTarget && pLockonTarget->isActive()) {
 
                 float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
                 rate = rate > 0 ? rate : 0;
-                int fdx = _pOrg->_pLockonTarget->_X - (_X + _pMover->_veloVxMv*rate);
-                int fdy = _pOrg->_pLockonTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
-                int fdz = _pOrg->_pLockonTarget->_Z - (_Z + _pMover->_veloVzMv*rate);
+                int fdx = pLockonTarget->_X - (_X + _pMover->_veloVxMv*rate);
+                int fdy = pLockonTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
+                int fdz = pLockonTarget->_Z - (_Z + _pMover->_veloVzMv*rate);
                 _pMover->setVxMvAcce(fdx);
                 _pMover->setVyMvAcce(fdy);
                 _pMover->setVzMvAcce(fdz);
@@ -95,8 +96,6 @@ void MyCurveLaserChip001::processBehavior() {
     }
     int dx, dy, dz;
     if (_lockon == 2) {
-
-
         if (_isLockon) {
             _isLockon = false;
             //先端ならば特別に、オプションの反対の座標をターゲットする
@@ -171,13 +170,13 @@ void MyCurveLaserChip001::processBehavior() {
 
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
-
+    GgafDx9GeometricActor* pLockonTarget = _pOrg->_pLockonController->_pMainTarget;
     //ヒットエフェクト
     //無し
 
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-        if (_pOrg->_pLockonTarget) { //既にオプションはロックオン中
-            if (pOther == _pOrg->_pLockonTarget) {
+        if (pLockonTarget) { //既にオプションはロックオン中
+            if (pOther == pLockonTarget) {
                 //オプションのロックオンに見事命中した場合
 
                 _lockon = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
@@ -202,17 +201,17 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                 pExplo001->setGeometry(this);
                 pExplo001->activate();
             }
-            //ロックオン可能アクターならロックオン更新
+            //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-                _pOrg->_pLockonTarget = pOther;
+                _pOrg->_pLockonController->lockon(pOther);
             }
             sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             _pStatus->set(STAT_Stamina, _default_stamina);
-            //ロックオン可能アクターならロックオン更新
+            //ロックオン可能アクターならロックオン
             if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
-                _pOrg->_pLockonTarget = pOther;
+                _pOrg->_pLockonController->lockon(pOther);
             }
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {

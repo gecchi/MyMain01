@@ -10,10 +10,10 @@ namespace MyStg2nd {
  */
 class EffectLockon001_Release : public GgafDx9LibStg::DefaultSpriteSetActor {
 
-    EffectLockon001* _pEffectLockon001;
+    EffectLockon001_Main* _pEffectLockon001_Main;
 
 public:
-    EffectLockon001_Release(const char* prm_name, EffectLockon001* prm_pEffectLockon001);
+    EffectLockon001_Release(const char* prm_name, EffectLockon001_Main* prm_pEffectLockon001_Main);
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ

@@ -5,10 +5,9 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EffectLockon001::EffectLockon001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "8/Lockon001") {
+EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id) : DefaultSpriteSetActor(prm_name, prm_model_id) {
     _class_name = "EffectLockon001";
     //_pTarget = NULL;
-    _max_lock_num = 5;
     inactivateImmediately();
     defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     chengeEffectTechnique("DestBlendOne"); //エフェクトテクニックは加算合成に強制
@@ -21,9 +20,9 @@ EffectLockon001::EffectLockon001(const char* prm_name) : DefaultSpriteSetActor(p
     _pSeTransmitter->useSe(1);                                                //使用効果音数宣言
     _pSeTransmitter->set(0, "humei10", GgafRepeatSeq::nextVal("CH_humei10")); //効果音定義
 
-//    _pEffectLockon_Release = NEW EffectLockon001_Release("EffectLockon001_R", this);
-//    _pEffectLockon_Release->inactivateImmediately();
-//    addSubGroup(_pEffectLockon_Release);
+//    _pEffectLockon001_Release = NEW EffectLockon001_Release("EffectLockon001_R", this);
+//    _pEffectLockon001_Release->inactivateImmediately();
+//    addSubGroup(_pEffectLockon001_Release);
 
     setProgress(EffectLockon001_PROG_NOTHING);
 }
@@ -98,38 +97,42 @@ void EffectLockon001::processJudgement() {
 }
 
 void EffectLockon001::onInactive() {
+
 }
 
-void EffectLockon001::lockOn(GgafDx9GeometricActor* prm_pTarget) {
-    if (ringTarget.indexOf(prm_pTarget) >= 0) {
-        if (getProgress() == EffectLockon001_PROG_NOTHING) {
-            setGeometry(prm_pTarget);
-            setProgress(EffectLockon001_PROG_RELEASE);
-        } else if (getProgress() == EffectLockon001_PROG_LOCK && _pTarget != prm_pTarget) {
-            _pSeTransmitter->play3D(0); //ロックオンSE
-        } else if (getProgress() == EffectLockon001_PROG_RELEASE && _pTarget != prm_pTarget) {
-            _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
-            _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
-            _pMover->setFaceAngVelo(AXIS_Z, 1000);   //回転
-            _pSeTransmitter->play3D(0); //ロックオンSE
-            setProgress(EffectLockon001_PROG_RELEASE);
-        }
-        _ringTarget.addLast(prm_pTarget);
+void EffectLockon001::lockon(GgafDx9GeometricActor* prm_pTarget) {
+    if (prm_pTarget == NULL || _pTarget == prm_pTarget) {
+        return;
+    }
+    _pTarget = prm_pTarget;
+    if (getProgress() == EffectLockon001_PROG_NOTHING) {
+        setGeometry(prm_pTarget);
+        setProgress(EffectLockon001_PROG_RELEASE);
+    } else if (getProgress() == EffectLockon001_PROG_LOCK) {
+        _pSeTransmitter->play3D(0); //ロックオンSE
+    } else if (getProgress() == EffectLockon001_PROG_RELEASE) {
+        _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
+        _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
+        _pMover->setFaceAngVelo(AXIS_Z, 1000);   //回転
+        _pSeTransmitter->play3D(0); //ロックオンSE
+        setProgress(EffectLockon001_PROG_RELEASE);
     }
 }
 
 
 void EffectLockon001::releaseLockon() {
-    if (getProgress() == EffectLockon001_PROG_NOTHING) {
-        setProgress(EffectLockon001_PROG_RELEASE);
-        inactivate();
-    } else if (getProgress() == EffectLockon001_PROG_RELEASE) {
-        //何も無し
-    } else if (getProgress() == EffectLockon001_PROG_LOCK) {
-        _pScaler->forceScaleRange(20000, 2000); //スケーリング・範囲
-        _pScaler->intoTargetScaleLinerUntil(20000, 50);//スケーリング
-        _pMover->setFaceAngVelo(AXIS_Z, _pMover->_angveloFace[AXIS_Z]*-3); //速く逆回転
-        setProgress(EffectLockon001_PROG_RELEASE);
+    if (isActive()) {
+        if (getProgress() == EffectLockon001_PROG_NOTHING) {
+            setProgress(EffectLockon001_PROG_RELEASE);
+            inactivate();
+        } else if (getProgress() == EffectLockon001_PROG_RELEASE) {
+            //何も無し
+        } else if (getProgress() == EffectLockon001_PROG_LOCK) {
+            _pScaler->forceScaleRange(20000, 2000); //スケーリング・範囲
+            _pScaler->intoTargetScaleLinerUntil(20000, 50);//スケーリング
+            _pMover->setFaceAngVelo(AXIS_Z, _pMover->_angveloFace[AXIS_Z]*-3); //速く逆回転
+            setProgress(EffectLockon001_PROG_RELEASE);
+        }
     }
     _pTarget = NULL;
 }
