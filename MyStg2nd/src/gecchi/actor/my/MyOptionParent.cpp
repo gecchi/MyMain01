@@ -18,7 +18,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _angVelo_Turn = 3000;
     _veloOptionsMv = 20000;
 
-	_option_num = 4;
+	_option_num = 1;
 
     _renge = 80000;
     _pMover->forceVxMvVeloRange(-_renge, _renge);
@@ -40,23 +40,23 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _paMyOption[0]->setAlpha(0.7);
     addSubGroup(_paMyOption[0]);
 
-    _paMyOption[1] = NEW MyOption("MY_OPTION02", 1, this);
-    _paMyOption[1]->setInitializeProperty(60000, ANGLE90, 0, 1000);
-    _paMyOption[1]->setMaterialColor(0.8, 1.0, 1.0);
-    _paMyOption[1]->setAlpha(0.7);
-    addSubGroup(_paMyOption[1]);
-
-    _paMyOption[2] = NEW MyOption("MY_OPTION03", 2, this);
-    _paMyOption[2]->setInitializeProperty(60000, ANGLE180, 0, 1000);
-    _paMyOption[2]->setMaterialColor(1.0, 0.8, 0.8);
-    _paMyOption[2]->setAlpha(0.7);
-    addSubGroup(_paMyOption[2]);
-
-    _paMyOption[3] = NEW MyOption("MY_OPTION04", 4, this);
-    _paMyOption[3]->setInitializeProperty(60000, ANGLE270, 0, 1000);
-    _paMyOption[3]->setMaterialColor(0.8, 1.0, 0.8);
-    _paMyOption[3]->setAlpha(0.7);
-    addSubGroup(_paMyOption[3]);
+//    _paMyOption[1] = NEW MyOption("MY_OPTION02", 1, this);
+//    _paMyOption[1]->setInitializeProperty(60000, ANGLE90, 0, 1000);
+//    _paMyOption[1]->setMaterialColor(0.8, 1.0, 1.0);
+//    _paMyOption[1]->setAlpha(0.7);
+//    addSubGroup(_paMyOption[1]);
+//
+//    _paMyOption[2] = NEW MyOption("MY_OPTION03", 2, this);
+//    _paMyOption[2]->setInitializeProperty(60000, ANGLE180, 0, 1000);
+//    _paMyOption[2]->setMaterialColor(1.0, 0.8, 0.8);
+//    _paMyOption[2]->setAlpha(0.7);
+//    addSubGroup(_paMyOption[2]);
+//
+//    _paMyOption[3] = NEW MyOption("MY_OPTION04", 4, this);
+//    _paMyOption[3]->setInitializeProperty(60000, ANGLE270, 0, 1000);
+//    _paMyOption[3]->setMaterialColor(0.8, 1.0, 0.8);
+//    _paMyOption[3]->setAlpha(0.7);
+//    addSubGroup(_paMyOption[3]);
 //
 //    _paMyOption[4] = NEW MyOption("MY_OPTION05", 5, this);
 //    _paMyOption[4]->setInitializeProperty(120000, ANGLE0, 0, -1500);
