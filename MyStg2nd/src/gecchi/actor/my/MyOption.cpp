@@ -80,7 +80,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _pSeTransmitter->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
 
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
-   
+
 }
 
 void MyOption::onCreateModel() {
@@ -485,7 +485,6 @@ void MyOption::processBehavior() {
 //            pShot->activate();
 //        }
 //    }
-
 
     _pSeTransmitter->behave();
 

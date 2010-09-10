@@ -87,7 +87,6 @@ private:
                 DELETE_IMPOSSIBLE_NULL(_pValue);
             }
         }
-
     };
 
 protected:
