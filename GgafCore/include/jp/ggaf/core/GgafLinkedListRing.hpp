@@ -616,7 +616,11 @@ GgafLinkedListRing<T>::GgafLinkedListRing() :
 
 template<class T>
 T* GgafLinkedListRing<T>::getCurrent() {
-    return _pElemActive->_pValue;
+    if (_pElemActive == NULL) {
+        return NULL;
+    } else {
+        return _pElemActive->_pValue;
+    }
 }
 
 template<class T>

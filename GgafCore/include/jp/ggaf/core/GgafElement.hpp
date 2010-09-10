@@ -559,6 +559,9 @@ public:
         _will_mv_last_in_next_frame_flg = true;
     }
 
+    virtual void moveLastImmediately() {
+        GGAF_NODE::moveLast();
+    }
     /**
      * 自ツリーノードを先頭ノードに移動する(単体) .
      * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの先頭にシフトする。<BR>
@@ -568,6 +571,9 @@ public:
         _will_mv_first_in_next_frame_flg = true;
     }
 
+    virtual void moveFirstImmediately() {
+        GGAF_NODE::moveFirst();
+    }
 //    /**
 //     * 所属ツリーから独立する(単体)
 //     * extract() のラッパーで、生存確認のチェック付き。通常はこちらを使用する。

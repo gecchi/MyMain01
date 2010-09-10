@@ -244,15 +244,22 @@ public:
      */
     virtual void addSubLast(T* prm_pSub);
 
+//    /**
+//     * 子ノードをノード名称を指定して取得する .
+//     * 存在しない場合はエラー<BR>
+//     * 内部で char* の比較を見つかるまで行うため、重いです。<BR>
+//     * 毎フレーム実行されるような使用は避けるべきです。<BR>
+//     * @param	prm_sub_actor_name	子ノード名
+//     * @return	T*	最初にヒットした子ノード名に対応する子ノードのポインタ
+//     */
+//    virtual T* getSub(char* prm_sub_actor_name);
+
     /**
-     * 子ノードをノード名称を指定して取得する .
-     * 存在しない場合はエラー<BR>
-     * 内部で char* の比較を見つかるまで行うため、重いです。<BR>
-     * 毎フレーム実行されるような使用は避けるべきです。<BR>
-     * @param	prm_sub_actor_name	子ノード名
-     * @return	T*	最初にヒットした子ノード名に対応する子ノードのポインタ
+     * 子ノードが存在する場合取得する .
+     * @param prm_pSubActor 子ノード
+     * @return 存在する場合子ノードが返る、存在しない場合 NULL が返る
      */
-    virtual T* getSub(char* prm_sub_actor_name);
+    virtual T* getSub(T* prm_pSub);
 
     /**
      * 子ノードのグループの先頭ノードを取得する .
@@ -433,27 +440,46 @@ T* GgafNode<T>::getParent(char* prm_parent_name) {
     return _pNodeTemp;
 }
 
+//template<class T>
+//T* GgafNode<T>::getSub(char* prm_sub_actor_name) {
+//#ifdef MY_DEBUG
+//    if (_pSubFirst == NULL) {
+//        throwGgafCriticalException("[GgafNode<" << _class_name << ">::getSub()] Error! _pSubFirstがNULLです。");
+//    }
+//#endif
+//    _pNodeTemp = _pSubFirst;
+//    do {
+//        if (GgafUtil::strcmp_ascii(_pNodeTemp->getName(), prm_sub_actor_name) == 0) {
+//            break;
+//        }
+//#ifdef MY_DEBUG
+//        if (_pNodeTemp->_is_last_flg) {
+//            throwGgafCriticalException("[GgafNode<" << _class_name << ">::getSub()] Error! 子ノードは存在しません。(prm_sub_actor_name=" << prm_sub_actor_name << ")");
+//        }
+//#endif
+//        _pNodeTemp = _pNodeTemp->_pNext;
+//    } while (true);
+//    return _pNodeTemp;
+//}
+
 template<class T>
-T* GgafNode<T>::getSub(char* prm_sub_actor_name) {
-#ifdef MY_DEBUG
+T* GgafNode<T>::getSub(T* prm_pSub) {
     if (_pSubFirst == NULL) {
-        throwGgafCriticalException("[GgafNode<" << _class_name << ">::getSub()] Error! _pSubFirstがNULLです。");
+        return NULL;
     }
-#endif
-    _pNodeTemp = _pSubFirst;
+    T* pNodeTemp = _pSubFirst;
     do {
-        if (GgafUtil::strcmp_ascii(_pNodeTemp->getName(), prm_sub_actor_name) == 0) {
+        if (prm_pSub == pNodeTemp) {
             break;
         }
-#ifdef MY_DEBUG
-        if (_pNodeTemp->_is_last_flg) {
-            throwGgafCriticalException("[GgafNode<" << _class_name << ">::getSub()] Error! 子ノードは存在しません。(prm_sub_actor_name=" << prm_sub_actor_name << ")");
+        if (pNodeTemp->_is_last_flg) {
+            return NULL;
         }
-#endif
-        _pNodeTemp = _pNodeTemp->_pNext;
+        pNodeTemp = pNodeTemp->_pNext;
     } while (true);
-    return _pNodeTemp;
+    return pNodeTemp;
 }
+
 
 template<class T>
 bool GgafNode<T>::hasSub(char* prm_sub_actor_name) {
