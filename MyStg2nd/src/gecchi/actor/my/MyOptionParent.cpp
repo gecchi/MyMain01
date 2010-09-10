@@ -18,7 +18,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _angVelo_Turn = 3000;
     _veloOptionsMv = 20000;
 
-
+	_option_num = 4;
 
     _renge = 80000;
     _pMover->forceVxMvVeloRange(-_renge, _renge);
@@ -30,7 +30,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _pMover->forceVzMvAcceRange(-_renge / 30, _renge / 30);
 
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < _option_num; i++) {
         _paMyOption[i] = NULL;
     }
 
@@ -84,7 +84,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
 
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < _option_num; i++) {
         _paMyOption[i]->activate();
     }
 
@@ -129,7 +129,7 @@ void MyOptionParent::processBehavior() {
         _is_handle_move_mode = false;
         _return_to_default_position_seq = true;
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < _option_num; i++) {
             //オプションの半径位置を元に戻す指示
             _paMyOption[i]->_return_to_default_radiusPosition_seq = true;
             _paMyOption[i]->_return_to_default_angExpanse_seq= true;
