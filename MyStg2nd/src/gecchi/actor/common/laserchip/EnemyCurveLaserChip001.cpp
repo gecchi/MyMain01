@@ -31,7 +31,7 @@ void EnemyCurveLaserChip001::onActive() {
     _pMover->setVxMvAcce(0);
     _pMover->setVyMvAcce(0);
     _pMover->setVzMvAcce(0);
-    if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
+    if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive()) {
         if (_pChip_front == NULL) {
             //先端チップ
             _lockon = 1;
@@ -47,7 +47,7 @@ void EnemyCurveLaserChip001::onActive() {
             //先端以外
             _lockon = ((EnemyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
         }
-        _pOrg->_pLockOnTarget = NULL;
+        _pOrg->_pLockonTarget = NULL;
     }
     _renge = 150000;
     _pMover->forceVxMvVeloRange(-_renge, _renge);
@@ -66,20 +66,20 @@ void EnemyCurveLaserChip001::processBehavior() {
             _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
             _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
             _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
-            if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
+            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive()) {
                 float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
                 rate = rate > 0 ? rate : 0;
-                int fdx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*rate);
-                int fdy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
-                int fdz = _pOrg->_pLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*rate);
+                int fdx = _pOrg->_pLockonTarget->_X - (_X + _pMover->_veloVxMv*rate);
+                int fdy = _pOrg->_pLockonTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
+                int fdz = _pOrg->_pLockonTarget->_Z - (_Z + _pMover->_veloVzMv*rate);
                 _pMover->setVxMvAcce(fdx);
                 _pMover->setVyMvAcce(fdy);
                 _pMover->setVzMvAcce(fdz);
 //                //上記のホーミングは優秀だが、距離に応じて減速していくため移動する敵には永遠に当たらない。
 //                //ある程度近づいたら見切りで直進させる
-//                int dx = _pOrg->_pLockOnTarget->_X - _X;
-//                int dy = _pOrg->_pLockOnTarget->_Y - _Y;
-//                int dz = _pOrg->_pLockOnTarget->_Z - _Z;
+//                int dx = _pOrg->_pLockonTarget->_X - _X;
+//                int dy = _pOrg->_pLockonTarget->_Y - _Y;
+//                int dz = _pOrg->_pLockonTarget->_Z - _Z;
 //                if (abs(dx)+abs(dy)+abs(dz) < 150*1000) {
 //                    _pMover->setVxMvVelo(dx);
 //                    _pMover->setVyMvVelo(dy);
@@ -143,8 +143,8 @@ void EnemyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
 
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-        if (_pOrg->_pLockOnTarget) { //既にオプションはロックオン中
-            if (pOther == _pOrg->_pLockOnTarget) {
+        if (_pOrg->_pLockonTarget) { //既にオプションはロックオン中
+            if (pOther == _pOrg->_pLockonTarget) {
                 //オプションのロックオンに見事命中した場合
 
                 _lockon = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
@@ -188,27 +188,27 @@ void EnemyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //一撃でチップ消滅の攻撃力
             sayonara();
             //ロックオン可能アクターならロックオン更新
-            if (pOther->_pStatus->get(STAT_LockOnAble) == 1) {
-                _pOrg->_pLockOnTarget = pOther;
+            if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
+                _pOrg->_pLockonTarget = pOther;
             }
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             _pStatus->set(STAT_Stamina, default_stamina);
             //ロックオン可能アクターならロックオン更新
-            if (pOther->_pStatus->get(STAT_LockOnAble) == 1) {
-                _pOrg->_pLockOnTarget = pOther;
+            if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
+                _pOrg->_pLockonTarget = pOther;
             }
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
         sayonara();
     }
-//        if (_pOrg->_pLockOnTarget) {
+//        if (_pOrg->_pLockonTarget) {
 //            _pMover->setVxMvVelo(-(_pMover->_veloVxMv));
 //            _pMover->setVyMvVelo(-(_pMover->_veloVyMv));
 //            _pMover->setVzMvVelo(-(_pMover->_veloVzMv));
 //        }
 
-////        if (_pOrg->_pLockOnTarget) {
+////        if (_pOrg->_pLockonTarget) {
 //            _pMover->setVxMvVelo(-(_pMover->_veloVxMv));
 //            //_pMover->setVxMvAcce(-(_pMover->_acceVxMv));
 //            _pMover->setVyMvVelo(-(_pMover->_veloVyMv));
@@ -234,9 +234,9 @@ void EnemyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 void EnemyCurveLaserChip001::processFinal() {
     CurveLaserChip::processFinal();
     //ロックオンが消滅ならば、切る
-    if (_pOrg->_pLockOnTarget) {
-        if (_pOrg->_pLockOnTarget->_pStatus->get(STAT_Stamina) <= 0) {
-            _pOrg->_pLockOnTarget = NULL;
+    if (_pOrg->_pLockonTarget) {
+        if (_pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) <= 0) {
+            _pOrg->_pLockonTarget = NULL;
             _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
         }
     }

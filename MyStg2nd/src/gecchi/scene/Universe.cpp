@@ -17,7 +17,7 @@ Universe::Universe(const char* prm_name) : DefaultUniverse(prm_name) {
 	GgafRepeatSeq::create("CH_cm-22", 0, 8); //Juno発射音
 	GgafRepeatSeq::create("CH_bom10", 0, 5); //Metis爆発
     GgafRepeatSeq::create("CH_explos3", 0, 3); //Vesta爆発
-    GgafRepeatSeq::create("CH_humei10", 0, 1); //LockOn
+    GgafRepeatSeq::create("CH_humei10", 0, 1); //Lockon
     GgafRepeatSeq::create("CH_fire01", 0, 16); //自機ショット
 
 

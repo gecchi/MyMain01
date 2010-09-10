@@ -288,7 +288,7 @@ void CommonScene::processBehavior() {
         throwGgafCriticalException("World::processBehavior() 不正な_pos_camera="<<_pos_camera);
     }
     //カメラの目標座標、ビューポイントの目標座標について、現在の動いている方向への若干画面寄りを行う。（ﾅﾝﾉｺｯﾁｬ）
-    GeoElement* pGeoMyShip = _pMyShip->_pRing_GeoHistory->get(); //現在の自機座標
+    GeoElement* pGeoMyShip = _pMyShip->_pRing_GeoHistory->getCurrent(); //現在の自機座標
     GeoElement* pGeoMyShip_prev= _pMyShip->_pRing_GeoHistory->getPrev(); //現在のひとつ前のフレームの自機座標
     _stop_dZ += (pGeoMyShip_prev->_Z - pGeoMyShip->_Z)*0.1; //自機の移動量の1割の移動量を
     _stop_dY += (pGeoMyShip_prev->_Y - pGeoMyShip->_Y)*0.1; //カメラの目標座標に加算してます。

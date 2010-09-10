@@ -33,16 +33,16 @@ void MyCurveLaserChip001::onActive() {
     _pMover->setVxMvAcce(0);
     _pMover->setVyMvAcce(0);
     _pMover->setVzMvAcce(0);
-    _isLockOn = false;
-    if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
+    _isLockon = false;
+    if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive()) {
         if (_pChip_front == NULL) {
             //先端チップ
             _lockon = 1;
-            _isLockOn = true;
+            _isLockon = true;
         } else {
             //先端以外
             _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
-            _isLockOn = ((MyCurveLaserChip001*) _pChip_front)->_isLockOn;//一つ前のロックオン情報を引き継ぐ
+            _isLockon = ((MyCurveLaserChip001*) _pChip_front)->_isLockon;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
         if (_pChip_front == NULL) {
@@ -51,9 +51,9 @@ void MyCurveLaserChip001::onActive() {
         } else {
             //先端以外
             _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
-            _isLockOn = ((MyCurveLaserChip001*) _pChip_front)->_isLockOn;//一つ前のロックオン情報を引き継ぐ
+            _isLockon = ((MyCurveLaserChip001*) _pChip_front)->_isLockon;//一つ前のロックオン情報を引き継ぐ
         }
-        _pOrg->_pLockOnTarget = NULL;
+        _pOrg->_pLockonTarget = NULL;
     }
     _renge = 150000;
     _pMover->forceVxMvVeloRange(-_renge, _renge);
@@ -74,15 +74,15 @@ void MyCurveLaserChip001::processBehavior() {
             _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
             _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
             _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
-//            if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive() && _pOrg->_pLockOnTarget->_pStatus->get(STAT_Stamina) > 0) {
+//            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive() && _pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) > 0) {
                                                                                  //体力の判定はオプション側で行うことにした
-            if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
+            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive()) {
 
                 float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
                 rate = rate > 0 ? rate : 0;
-                int fdx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*rate);
-                int fdy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
-                int fdz = _pOrg->_pLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*rate);
+                int fdx = _pOrg->_pLockonTarget->_X - (_X + _pMover->_veloVxMv*rate);
+                int fdy = _pOrg->_pLockonTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
+                int fdz = _pOrg->_pLockonTarget->_Z - (_Z + _pMover->_veloVzMv*rate);
                 _pMover->setVxMvAcce(fdx);
                 _pMover->setVyMvAcce(fdy);
                 _pMover->setVzMvAcce(fdz);
@@ -97,8 +97,8 @@ void MyCurveLaserChip001::processBehavior() {
     if (_lockon == 2) {
 
 
-        if (_isLockOn) {
-            _isLockOn = false;
+        if (_isLockon) {
+            _isLockon = false;
             //先端ならば特別に、オプションの反対の座標をターゲットする
             if (_pChip_front == NULL) {
                 _new_target_X = _X + (_X - _pOrg->_X);
@@ -176,8 +176,8 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     //無し
 
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-        if (_pOrg->_pLockOnTarget) { //既にオプションはロックオン中
-            if (pOther == _pOrg->_pLockOnTarget) {
+        if (_pOrg->_pLockonTarget) { //既にオプションはロックオン中
+            if (pOther == _pOrg->_pLockonTarget) {
                 //オプションのロックオンに見事命中した場合
 
                 _lockon = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
@@ -203,16 +203,16 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                 pExplo001->activate();
             }
             //ロックオン可能アクターならロックオン更新
-            if (pOther->_pStatus->get(STAT_LockOnAble) == 1) {
-                _pOrg->_pLockOnTarget = pOther;
+            if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
+                _pOrg->_pLockonTarget = pOther;
             }
             sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             _pStatus->set(STAT_Stamina, _default_stamina);
             //ロックオン可能アクターならロックオン更新
-            if (pOther->_pStatus->get(STAT_LockOnAble) == 1) {
-                _pOrg->_pLockOnTarget = pOther;
+            if (pOther->_pStatus->get(STAT_LockonAble) == 1) {
+                _pOrg->_pLockonTarget = pOther;
             }
         }
     } else if (pOther->getKind() & KIND_CHIKEI) {
@@ -230,8 +230,8 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //void MyCurveLaserChip001::processFinal() {
 //    CurveLaserChip::processFinal();
 //    //ロックオンが消滅ならば、切る
-//    if (_pOrg->_pLockOnTarget) {
-//        if (_pOrg->_pLockOnTarget->_pStatus->get(STAT_Stamina) <= 0) {
+//    if (_pOrg->_pLockonTarget) {
+//        if (_pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) <= 0) {
 //            _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
 //        }
 //    }

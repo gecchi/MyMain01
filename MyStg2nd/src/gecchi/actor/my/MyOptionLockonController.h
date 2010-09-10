@@ -15,7 +15,9 @@ namespace MyStg2nd {
 class MyOptionLockonController : public GgafCore::GgafDummyActor {
 
 public:
-    int _max_lock_num;
+    int _max_lockon_num;
+    int _now_lockon_num;
+
     GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor> _ringTarget;
 
     MyOptionLockonController(const char* prm_name);
@@ -26,9 +28,9 @@ public:
 
     void processJudgement() override;
 
-    void releaseLockOn();
+    void releaseLockon();
 
-    void lockOn(GgafDx9GeometricActor* prm_pTarget);
+    void lockon(GgafDx9Core::GgafDx9GeometricActor* prm_pTarget);
 
     virtual ~MyOptionLockonController();
 };

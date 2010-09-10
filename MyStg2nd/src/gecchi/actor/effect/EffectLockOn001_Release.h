@@ -8,12 +8,12 @@ namespace MyStg2nd {
  * @since 2010/02/22
  * @author Masatoshi Tsuge
  */
-class EffectLockOn001_Release : public GgafDx9LibStg::DefaultSpriteSetActor {
+class EffectLockon001_Release : public GgafDx9LibStg::DefaultSpriteSetActor {
 
-    EffectLockOn001* _pEffectLockOn001;
+    EffectLockon001* _pEffectLockon001;
 
 public:
-    EffectLockOn001_Release(const char* prm_name, EffectLockOn001* prm_pEffectLockOn001);
+    EffectLockon001_Release(const char* prm_name, EffectLockon001* prm_pEffectLockon001);
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
@@ -33,7 +33,7 @@ public:
      */
     void processJudgement() override;
 
-    virtual ~EffectLockOn001_Release();
+    virtual ~EffectLockon001_Release();
 };
 
 }

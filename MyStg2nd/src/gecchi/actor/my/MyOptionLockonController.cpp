@@ -8,7 +8,17 @@ using namespace MyStg2nd;
 MyOptionLockonController::MyOptionLockonController(const char* prm_name) : GgafDummyActor(prm_name) {
     _class_name = "MyOptionLockonController";
     //_pTarget = NULL;
-    _max_lock_num = 5;
+    _max_lockon_num = 5;
+    _now_lockon_num = 0;
+    EffectLockon001 pLockon = NEW EffectLockon001("LOCKON_MARK");
+    pLockon->inactivateImmediately();
+    addSubLast(pLockon);
+    for (int i = 1; i < _max_lockon_num; i++) {
+        EffectSubLockon001* pSubLockon = NEW EffectSubLockon001("Sub_LOCKON_MARK");
+        pLockon->inactivateImmediately();
+        addSubLast(pLockon);
+    }
+
     setProgress(MyOptionLockonController_PROG_NOTHING);
 }
 
@@ -18,15 +28,15 @@ void MyOptionLockonController::initialize() {
 
 void MyOptionLockonController::processBehavior() {
     //ロックオンターゲット生存確認
-    GgafDx9GeometricActor* pTarget = _ringTarget.get(); //メインロックオン
+    GgafDx9GeometricActor* pTarget = _ringTarget.getCurrent(); //メインロックオン
+    EffectLockon001* pEffectLockon = getSubFirst(); //メインロックオンエフェクトアクター
     for (int i = 0; i < _ringTarget.length(); i++) {
         if (pTarget->isActive()) {
-            //OK
+            pTarget
             _ringTarget.next(); //次へ
         } else {
             _ringTarget.remove(); //抜き出し
             i++;
-
         }
     }
 }
@@ -35,7 +45,7 @@ void MyOptionLockonController::processJudgement() {
 }
 
 
-void MyOptionLockonController::lockOn(GgafDx9GeometricActor* prm_pTarget) {
+void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
     if (ringTarget.indexOf(prm_pTarget) >= 0) { //ロックオン済みに無ければ
         if (_ringTarget.length() < _max_lock_num) {
         _ringTarget.addPrev(prm_pTarget);
@@ -62,7 +72,7 @@ void MyOptionLockonController::lockOn(GgafDx9GeometricActor* prm_pTarget) {
 }
 
 
-void MyOptionLockonController::releaseLockOn() {
+void MyOptionLockonController::releaseLockon() {
     if (ringTarget.length() > 0) {
         ringTarget.remove();
         //F            L

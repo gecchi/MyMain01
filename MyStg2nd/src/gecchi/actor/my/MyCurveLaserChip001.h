@@ -15,7 +15,7 @@ public:
     int _new_target_X;
     int _new_target_Y;
     int _new_target_Z;
-    bool _isLockOn;
+    bool _isLockon;
     int _default_stamina;
 
     MyCurveLaserChip001(const char* prm_name);

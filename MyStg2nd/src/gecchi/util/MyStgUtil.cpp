@@ -121,7 +121,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 // gen02 start
 	void MyStgUtil::resetMyStraightLaserChip001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
@@ -133,7 +133,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetMyCurveLaserChip001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
@@ -145,7 +145,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetMyShipStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
@@ -157,7 +157,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyStraightLaserChip001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
@@ -169,7 +169,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyCurveLaserChip001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
@@ -181,7 +181,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyCeresStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 1 );  //ロックオン可否
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -193,7 +193,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyCeresShot001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 1 );  //ロックオン可否
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 10 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -205,7 +205,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyAstraeaStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 1 );  //ロックオン可否
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 300 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -217,7 +217,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -229,7 +229,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyAstraeaLaserChip002Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -241,7 +241,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyVestaStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_CHIKEI_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 1 );  //ロックオン可否
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -253,7 +253,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyMetisStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 1 );  //ロックオン可否
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 30000 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -265,7 +265,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyIrisStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 20 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -277,7 +277,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyJunoStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 1 );  //ロックオン可否
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 20 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -289,7 +289,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyThaliaStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 1 );  //ロックオン可否
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 20 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -301,7 +301,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetShot001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 1 );  //ロックオン可否
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 2 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.01000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -313,7 +313,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetShot002Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 1 );  //ロックオン可否
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 3 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.01000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -325,7 +325,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyTamago01Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 1 );  //ロックオン可否
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -337,7 +337,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyCirceStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 1 );  //ロックオン可否
+		p->set(STAT_LockonAble, 1 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -349,7 +349,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetShot003Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
@@ -361,7 +361,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetShot004Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
@@ -373,7 +373,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetTorusStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
@@ -385,7 +385,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetEnemyPallasStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
@@ -397,7 +397,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	}
 	void MyStgUtil::resetMyShot001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);  //種別(デフォルト)
-		p->set(STAT_LockOnAble, 0 );  //ロックオン可否
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率

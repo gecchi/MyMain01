@@ -31,7 +31,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _angveloExpanseSlow = 1000;
 
     //レーザー発射エフェクト
-//    _pEffect_LaserIrradiate = NEW EffectLockOn001("OP_Eff_Ref");
+//    _pEffect_LaserIrradiate = NEW EffectLockon001("OP_Eff_Ref");
 //    _pEffect_LaserIrradiate->inactivateImmediately();
 //    addSubGroup(_pEffect_LaserIrradiate);
     _pEffect_LaserIrradiate = NULL;
@@ -69,18 +69,18 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 
 
 
-    _pEffectLockOn = NEW EffectLockOn001("EffectLockOn001");
-    _pEffectLockOn->inactivateImmediately();
-    addSubGroup(_pEffectLockOn);
-//    _pEffectLockOn_Release = NEW EffectLockOn001_Release("EffectLockOn001_R", _pEffectLockOn);
-//    _pEffectLockOn_Release->inactivateImmediately();
-//    addSubGroup(_pEffectLockOn_Release);
+    _pEffectLockon = NEW EffectLockon001("EffectLockon001");
+    _pEffectLockon->inactivateImmediately();
+    addSubGroup(_pEffectLockon);
+//    _pEffectLockon_Release = NEW EffectLockon001_Release("EffectLockon001_R", _pEffectLockon);
+//    _pEffectLockon_Release->inactivateImmediately();
+//    addSubGroup(_pEffectLockon_Release);
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
     _pSeTransmitter->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
 
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
-    _pLockOnTarget = NULL;
+    _pLockonTarget = NULL;
 }
 
 void MyOption::onCreateModel() {
@@ -443,35 +443,35 @@ void MyOption::processBehavior() {
             }
         }
     } else {
-        _pLockOnTarget = NULL;
+        _pLockonTarget = NULL;
     }
 
-    if (_pLockOnTarget) {
-        //if (_pLockOnTarget->isOffscreen() || _pLockOnTarget->isActive() == false) { //非アクティブのみと視野外はロックオン解除
-        if (_pLockOnTarget->isActive() == false) {  //非アクティブのみ解除（視野外でもロックオン維持）
-            _pLockOnTarget = NULL;
+    if (_pLockonTarget) {
+        //if (_pLockonTarget->isOffscreen() || _pLockonTarget->isActive() == false) { //非アクティブのみと視野外はロックオン解除
+        if (_pLockonTarget->isActive() == false) {  //非アクティブのみ解除（視野外でもロックオン維持）
+            _pLockonTarget = NULL;
         } else {
-            if (_pEffectLockOn->isActive() || _pEffectLockOn->_will_activate_after_flg) {
-                if (abs(_pLockOnTarget->_X-_pEffectLockOn->_X) <= 200000 &&
-                    abs(_pLockOnTarget->_Y-_pEffectLockOn->_Y) <= 200000 &&
-                    abs(_pLockOnTarget->_Z-_pEffectLockOn->_Z) <= 200000) {
-                    _pEffectLockOn->setGeometry(_pLockOnTarget);
-                    _pEffectLockOn->_pMover->setMvVelo(0);
-//                    _overtakeLockOn = true;
+            if (_pEffectLockon->isActive() || _pEffectLockon->_will_activate_after_flg) {
+                if (abs(_pLockonTarget->_X-_pEffectLockon->_X) <= 200000 &&
+                    abs(_pLockonTarget->_Y-_pEffectLockon->_Y) <= 200000 &&
+                    abs(_pLockonTarget->_Z-_pEffectLockon->_Z) <= 200000) {
+                    _pEffectLockon->setGeometry(_pLockonTarget);
+                    _pEffectLockon->_pMover->setMvVelo(0);
+//                    _overtakeLockon = true;
                 } else {
-                    _pEffectLockOn->_pMover->setMvAng(_pLockOnTarget);
-                    _pEffectLockOn->_pMover->setMvVelo(200000);
+                    _pEffectLockon->_pMover->setMvAng(_pLockonTarget);
+                    _pEffectLockon->_pMover->setMvVelo(200000);
                 }
 
             } else {
-                _pEffectLockOn->activate();
-                _pEffectLockOn->setGeometry(_pLockOnTarget);
+                _pEffectLockon->activate();
+                _pEffectLockon->setGeometry(_pLockonTarget);
             }
         }
 
     } else {
-        if (_pEffectLockOn->isActive()) {
-            _pEffectLockOn->releaseLockOn();
+        if (_pEffectLockon->isActive()) {
+            _pEffectLockon->releaseLockon();
         }
 
     }
@@ -516,9 +516,9 @@ void MyOption::onHit(GgafActor* prm_pOtherActor) {
 
 void MyOption::processFinal() {
     //ロックオンが体力が無くなれば、存在してようが切る
-    if (_pLockOnTarget) {
-        if (_pLockOnTarget->_pStatus->get(STAT_Stamina) <= 0) {
-            _pLockOnTarget = NULL;
+    if (_pLockonTarget) {
+        if (_pLockonTarget->_pStatus->get(STAT_Stamina) <= 0) {
+            _pLockonTarget = NULL;
         }
     }
 }
