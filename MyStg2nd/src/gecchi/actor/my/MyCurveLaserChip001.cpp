@@ -34,7 +34,7 @@ void MyCurveLaserChip001::onActive() {
     _pMover->setVyMvAcce(0);
     _pMover->setVzMvAcce(0);
     _isLockon = false;
-    if (_pOrg->_pLockonController->_pMainTarget && _pOrg->_pLockonController->_pMainTarget->isActive()) {
+    if (_pOrg->_pLockonController->_pMainLockOnTarget && _pOrg->_pLockonController->_pMainLockOnTarget->isActive()) {
         if (_pChip_front == NULL) {
             //先端チップ
             _lockon = 1;
@@ -67,7 +67,7 @@ void MyCurveLaserChip001::onActive() {
 }
 
 void MyCurveLaserChip001::processBehavior() {
-    GgafDx9GeometricActor* pLockonTarget = _pOrg->_pLockonController->_pMainTarget;
+    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pMainLockOnTarget;
 
     if (_lockon == 1) {
         if (getActivePartFrame() < 120) {
@@ -77,13 +77,13 @@ void MyCurveLaserChip001::processBehavior() {
             _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 //            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive() && _pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) > 0) {
                                                                                  //体力の判定はオプション側で行うことにした
-            if (pLockonTarget && pLockonTarget->isActive()) {
+            if (pMainLockOnTarget && pMainLockOnTarget->isActive()) {
 
                 float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
                 rate = rate > 0 ? rate : 0;
-                int fdx = pLockonTarget->_X - (_X + _pMover->_veloVxMv*rate);
-                int fdy = pLockonTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
-                int fdz = pLockonTarget->_Z - (_Z + _pMover->_veloVzMv*rate);
+                int fdx = pMainLockOnTarget->_X - (_X + _pMover->_veloVxMv*rate);
+                int fdy = pMainLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
+                int fdz = pMainLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*rate);
                 _pMover->setVxMvAcce(fdx);
                 _pMover->setVyMvAcce(fdy);
                 _pMover->setVzMvAcce(fdz);
@@ -170,13 +170,13 @@ void MyCurveLaserChip001::processBehavior() {
 
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
-    GgafDx9GeometricActor* pLockonTarget = _pOrg->_pLockonController->_pMainTarget;
+    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pMainLockOnTarget;
     //ヒットエフェクト
     //無し
 
     if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
-        if (pLockonTarget) { //既にオプションはロックオン中
-            if (pOther == pLockonTarget) {
+        if (pMainLockOnTarget) { //既にオプションはロックオン中
+            if (pOther == pMainLockOnTarget) {
                 //オプションのロックオンに見事命中した場合
 
                 _lockon = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）

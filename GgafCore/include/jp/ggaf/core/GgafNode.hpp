@@ -77,7 +77,7 @@ private:
     /** ループ用 */
     T* _pNodeTemp;
 
-protected:
+public:
     /** [r]ID */
     char* _id;
     /** [r]ノード識別名(50文字まで) */

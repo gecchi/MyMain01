@@ -13,7 +13,7 @@ MyOptionLockonController::MyOptionLockonController(const char* prm_name) : GgafD
 
 
     _pRingTarget = NEW GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor>();
-    _pMainTarget = NULL;
+    _pMainLockOnTarget = NULL;
 
     EffectLockon001_Main* _pMainLockonEffect = NEW EffectLockon001_Main("MAIN");
     _pMainLockonEffect->inactivateImmediately();
@@ -36,7 +36,7 @@ void MyOptionLockonController::initialize() {
 void MyOptionLockonController::processBehavior() {
     //ロックオンターゲット生存確認
     GgafDx9GeometricActor* pTarget = _pRingTarget->getCurrent();
-    _pMainTarget = pTarget;
+//    _pMainTarget = pTarget;
 
     GgafMainActor* pLockonEffect_Active = getSubFirst();
 
@@ -65,12 +65,12 @@ void MyOptionLockonController::processBehavior() {
 
                     //最後の一つ
                     ((EffectLockon001*)pLockonEffect_Active)->releaseLockon(); //ロックオンリリース
-                    _pMainTarget = NULL;
+//                    _pMainTarget = NULL;
 
                 } else {
                     _pRingTarget->remove(); //抜き出し
                     //アクティブを次へ処理は不要、remove()したので自動的に次になっている。
-                    _pMainTarget = _pRingTarget->getCurrent();
+//                    _pMainTarget = _pRingTarget->getCurrent();
 
                     //メインロックオンエフェクトを直近ロックオンへ戻す
                     //そのため
@@ -101,7 +101,7 @@ void MyOptionLockonController::processBehavior() {
 
         }
     }
-
+    _pMainLockOnTarget = _pRingTarget->getCurrent();
 }
 
 void MyOptionLockonController::processJudgement() {
@@ -130,7 +130,7 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
             //ターゲットローテート
             _pRingTarget->prev();
             _pRingTarget->set(prm_pTarget);
-            _pMainTarget = prm_pTarget;
+            //_pMainTarget = prm_pTarget;
 
             //ロックオンエフェクトローテート
             //操作不要
@@ -144,33 +144,68 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
             // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
             //
             // ⇔t1⇔
+            // エフェクトアクター変化無し
+            //
             // ⇔t2⇔t1⇔
+            // ⇔Ｍ⇔S3⇔S0⇔S1⇔S2⇔
+            //
             // ⇔t3⇔t2⇔t1⇔
+            // ⇔Ｍ⇔S2⇔S3⇔S0⇔S1⇔
+            //
             // ⇔t4⇔t3⇔t2⇔t1⇔
+            // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔
+            //
             // ⇔t5⇔t4⇔t3⇔t2⇔t1⇔
+            // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔
 
             //ターゲットローテート
             _pRingTarget->addPrev(prm_pTarget, false);
             _pRingTarget->prev();
-            _pMainTarget = prm_pTarget;
+            //_pMainTarget = prm_pTarget;
 
-            //ロックオンエフェクトローテート
-            //操作不要
+            //ロックオンエフェクト
+			if (_pRingTarget->length() == 1) {
+				//最初の Mianロックオン追加時
+				GgafMainActor* pLockonEffect = getSubFirst();
+				pLockonEffect->activate();
+				((EffectLockon001*)pLockonEffect)->lockon(prm_pTarget);
 
-            //ロックオンエフェクト ロックオン
-            GgafMainActor* pLockonEffect = getSubFirst();
-            for (int i = 0; i < _pRingTarget->length()-1; i++) {
-                pLockonEffect = pLockonEffect->getNext();
+            } else if (_pRingTarget->length() > 1) {
+                //Subロックオン追加時
+                if (_max_lockon_num >= 3) {
+					//特殊なローテート
+                    //を切り出す
+                    GgafMainActor* pLockonEffect = getSubFirst()->getPrev(); //Last
+                    GgafMainActor* pLockonEffect_Next = pLockonEffect->getNext(); //Mainロックオンとなる
+                    GgafMainActor* pLockonEffect_Prev = pLockonEffect->getPrev();
+                    pLockonEffect_Prev->_pNext = pLockonEffect_Next;
+                    pLockonEffect_Next->_pPrev = pLockonEffect_Prev;
+                    pLockonEffect_Prev->_is_last_flg = true;
+                    pLockonEffect->_is_last_flg = false;
+                    //First->Next の間に入れる
+                    GgafMainActor* pMainLockonEffect = getSubFirst();
+                    GgafMainActor* pMainLockonEffect_Next = getSubFirst()->getNext();
+                    pMainLockonEffect->_pNext = pLockonEffect;
+                    pLockonEffect->_pPrev = pMainLockonEffect;
+                    pLockonEffect->_pNext = pMainLockonEffect_Next;
+                    pMainLockonEffect_Next->_pPrev = pLockonEffect;
+					pLockonEffect->activate(); //サブロックオン有効に
+                    //ロックオン！
+					((EffectLockon001*)pLockonEffect)->lockon(_pRingTarget->getNext());
+				} else {
+					GgafMainActor* pLockonEffect = getSubFirst()->getPrev(); //２つなので結局Nextの位置
+					pLockonEffect->activate(); //サブロックオン有効に
+					((EffectLockon001*)pLockonEffect)->lockon(_pRingTarget->getNext());
+				}
+
+                //_pMainTarget = prm_pTarget;
             }
-            pLockonEffect->activate();
-            ((EffectLockon001*)pLockonEffect)->lockon(prm_pTarget);
-
-            _pMainTarget = prm_pTarget;
         }
         _TRACE_("lockon("<<prm_pTarget->getName()<<") AFTER");
         dumpTarget();
         dump();
     }
+//	_pMainLockOnTarget = _pRingTarget->getCurrent(); //processBehavior() で更新は
 }
 
         // ＜切れ無い場合＞ エフェクトアクターは操作不要

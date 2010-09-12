@@ -19,7 +19,7 @@ public:
     static int _max_lockon_num;
     int _now_lockon_num;
     EffectLockon001_Main* _pMainLockonEffect;
-    GgafDx9Core::GgafDx9GeometricActor* _pMainTarget;
+    GgafDx9Core::GgafDx9GeometricActor* _pMainLockOnTarget;
     GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor>* _pRingTarget;
 
     MyOptionLockonController(const char* prm_name);
