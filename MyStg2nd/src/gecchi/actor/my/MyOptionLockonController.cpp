@@ -39,8 +39,8 @@ void MyOptionLockonController::processBehavior() {
 //    _pMainTarget = pTarget;
 
     GgafMainActor* pLockonEffect_Active = getSubFirst();
-
-    for (int i = 0; i < _pRingTarget->length(); i++) {
+    int n = _pRingTarget->length();
+    for (int i = 0; i < n; i++) {
 
         if (pTarget->isActive() && pTarget->_pStatus->get(STAT_Stamina) > 0) {
             //OK
@@ -52,11 +52,11 @@ void MyOptionLockonController::processBehavior() {
         } else {
 
             //切れる場合
-            _TRACE_("---------------------------------");
-            _TRACE_("切れる BEFORE");
-            dumpTarget();
-            dump();
-            if (i == 0) {
+//            _TRACE_("---------------------------------");
+//            _TRACE_("切れる BEFORE");
+//            dumpTarget();
+//            dump();
+            if (pTarget == _pRingTarget->getCurrent()) {
                 //メインロックオン時処理
                 if (_pRingTarget->length() == 0) {
                     _pRingTarget->remove(); //抜き出し
@@ -64,7 +64,6 @@ void MyOptionLockonController::processBehavior() {
                     //最後の一つ
                     ((EffectLockon001*)pLockonEffect_Active)->releaseLockon(); //ロックオンリリース
 //                    _pMainTarget = NULL;
-
                 } else {
                     _pRingTarget->remove(); //抜き出し
 					pTarget = _pRingTarget->getCurrent(); //Target次へ
@@ -84,7 +83,6 @@ void MyOptionLockonController::processBehavior() {
 
                     pLockonEffect_Active = pLockonEffect_Active->getNext();//次へ
 
-
                 }
             } else {
                 //サブロックオン時処理
@@ -99,13 +97,14 @@ void MyOptionLockonController::processBehavior() {
 
                 //pLockonEffect_Active->_pTarget は更新しなくても変化してないので不要。という設計。
             }
-            _TRACE_("切れる AFTER");
-            dumpTarget();
-            dump();
+//            _TRACE_("切れる AFTER");
+//            dumpTarget();
+//            dump();
 
         }
     }
     _pMainLockOnTarget = _pRingTarget->getCurrent();
+    //_TRACE_("_pRingTarget->getCurrent()="<<(_pRingTarget->getCurrent()==NULL?"NULL":_pRingTarget->getCurrent()->getName()));
 }
 
 void MyOptionLockonController::processJudgement() {
@@ -116,11 +115,11 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
     // 追加の場合エフェクトアクターは操作不要
 
     if (_pRingTarget->indexOf(prm_pTarget) == -1) { //ロックオン済みに無ければ
-        _TRACE_("---------------------------------");
-        _TRACE_("_pRingTarget->indexOf("<<prm_pTarget->getName()<<") = "<<_pRingTarget->indexOf(prm_pTarget));
-        _TRACE_("lockon("<<prm_pTarget->getName()<<") BEFORE");
-        dumpTarget();
-        dump();
+//        _TRACE_("---------------------------------");
+//        _TRACE_("_pRingTarget->indexOf("<<prm_pTarget->getName()<<") = "<<_pRingTarget->indexOf(prm_pTarget));
+//        _TRACE_("lockon("<<prm_pTarget->getName()<<") BEFORE");
+//        dumpTarget();
+//        dump();
 
         if (_pRingTarget->length() >= _max_lockon_num) {
 
@@ -208,9 +207,9 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
 
         ((EffectLockon001*)getSubFirst())->_pTarget = prm_pTarget;
 
-        _TRACE_("lockon("<<prm_pTarget->getName()<<") AFTER");
-        dumpTarget();
-        dump();
+//        _TRACE_("lockon("<<prm_pTarget->getName()<<") AFTER");
+//        dumpTarget();
+//        dump();
     }
 //	_pMainLockOnTarget = _pRingTarget->getCurrent(); //processBehavior() で更新は
 }

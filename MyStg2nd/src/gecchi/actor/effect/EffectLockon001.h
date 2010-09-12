@@ -1,7 +1,7 @@
 #ifndef EFFECTLOCKON001_H_
 #define EFFECTLOCKON001_H_
 namespace MyStg2nd {
-
+#define EffectLockon001_PROG_FIRST_LOCK     1
 #define EffectLockon001_PROG_LOCK     2
 #define EffectLockon001_PROG_RELEASE  3
 

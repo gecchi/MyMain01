@@ -156,6 +156,12 @@ void MyCurveLaserChip001::processBehavior() {
         _pSeTransmitter->behave();
     }
 
+    if (pMainLockOnTarget && pMainLockOnTarget->isActive()) {
+        _lockon = 1;
+        _isLockon = true;
+    }
+
+
     CurveLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 
     //根元からレーザー表示のため強敵に座標補正
