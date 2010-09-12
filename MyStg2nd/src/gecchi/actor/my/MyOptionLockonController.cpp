@@ -45,10 +45,8 @@ void MyOptionLockonController::processBehavior() {
         if (pTarget->isActive() && pTarget->_pStatus->get(STAT_Stamina) > 0) {
             //OK
             //エフェクトアクターのターゲット更新                    //エフェクトをズルっとします
-            ((EffectLockon001*)pLockonEffect_Active)->_pTarget = pTarget;
+            ((EffectLockon001*)pLockonEffect_Active)->lockon(pTarget);
             pLockonEffect_Active = pLockonEffect_Active->getNext();//エフェクトアクター次へ
-
-
             pTarget = _pRingTarget->next(); //次へ
 
         } else {
@@ -62,23 +60,28 @@ void MyOptionLockonController::processBehavior() {
                 //メインロックオン時処理
                 if (_pRingTarget->length() == 0) {
                     _pRingTarget->remove(); //抜き出し
-
+					pTarget = _pRingTarget->getCurrent(); //Target次へ
                     //最後の一つ
                     ((EffectLockon001*)pLockonEffect_Active)->releaseLockon(); //ロックオンリリース
 //                    _pMainTarget = NULL;
 
                 } else {
                     _pRingTarget->remove(); //抜き出し
+					pTarget = _pRingTarget->getCurrent(); //Target次へ
                     //アクティブを次へ処理は不要、remove()したので自動的に次になっている。
 //                    _pMainTarget = _pRingTarget->getCurrent();
 
                     //メインロックオンエフェクトを直近ロックオンへ戻す
+					((EffectLockon001*)pLockonEffect_Active)->lockon(pTarget);
                     //そのため
                     //メインロックオンエフェクトの次のエフェクトを解放
+                    ((EffectLockon001*)pLockonEffect_Active->getNext())->releaseLockon();
                     pLockonEffect_Active->getNext()->moveLastImmediately(); //末尾へ
-                    pLockonEffect_Active->getNext()->inactivateAfter(30); //解放
+
+                    //pLockonEffect_Active->getNext()->releaseLockon();//inactivate(); //解放
                     //メインロックオンエフェクトアクターのターゲット更新、ズルっと戻ります
-                    ((EffectLockon001*)pLockonEffect_Active)->_pTarget = _pRingTarget->getCurrent();
+                    //((EffectLockon001*)pLockonEffect_Active)->_pTarget = _pRingTarget->getCurrent();
+
                     pLockonEffect_Active = pLockonEffect_Active->getNext();//次へ
 
 
@@ -87,6 +90,7 @@ void MyOptionLockonController::processBehavior() {
                 //サブロックオン時処理
 
                 _pRingTarget->remove(); //ターゲット抜き出し
+				pTarget = _pRingTarget->getCurrent(); //Target次へ
                 //アクティブを次へ処理は不要、remove()したので自動的に次になっている。
 
                 ((EffectLockon001*)pLockonEffect_Active)->releaseLockon(); //ロックオンリリース
@@ -118,7 +122,7 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
         dumpTarget();
         dump();
 
-        if (_pRingTarget->length() > _max_lockon_num) {
+        if (_pRingTarget->length() >= _max_lockon_num) {
 
             // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
             //
@@ -201,6 +205,9 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
                 //_pMainTarget = prm_pTarget;
             }
         }
+
+        ((EffectLockon001*)getSubFirst())->_pTarget = prm_pTarget;
+
         _TRACE_("lockon("<<prm_pTarget->getName()<<") AFTER");
         dumpTarget();
         dump();
@@ -504,4 +511,5 @@ void MyOptionLockonController::dumpTarget() {
     }
     _TEXT_(" ... avtive="<<_pRingTarget->getCurrent()->getName()<<"\n");
 }
+
 

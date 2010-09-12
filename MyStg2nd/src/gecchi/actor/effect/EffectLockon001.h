@@ -37,6 +37,17 @@ public:
 
 
     virtual ~EffectLockon001();
+
+    /**
+     * デバッグ用：ツリー構造を表示<BR>
+     */
+    virtual void dump();
+
+    /**
+     * デバッグ用：dump()から使用される<BR>
+     */
+    virtual void dump(std::string prm_parent);
+
 };
 
 }

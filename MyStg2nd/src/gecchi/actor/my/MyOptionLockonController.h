@@ -37,6 +37,8 @@ public:
     virtual ~MyOptionLockonController();
 
     void dumpTarget();
+
+
 };
 
 }
