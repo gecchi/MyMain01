@@ -15,11 +15,13 @@ MyOptionLockonController::MyOptionLockonController(const char* prm_name) : GgafD
     _pRingTarget = NEW GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor>();
     _pMainTarget = NULL;
 
-    EffectLockon001_Main* _pMainLockonEffect = NEW EffectLockon001_Main("LOCKON_MARK");
+    EffectLockon001_Main* _pMainLockonEffect = NEW EffectLockon001_Main("MAIN");
     _pMainLockonEffect->inactivateImmediately();
     addSubLast(_pMainLockonEffect);
     for (int i = 1; i < _max_lockon_num; i++) {
-        EffectLockon001_Sub* pSubLockon = NEW EffectLockon001_Sub("SUB_LOCKON_MARK");
+        stringstream name;
+        name <<  "SUB["<<i<<"]";
+        EffectLockon001_Sub* pSubLockon = NEW EffectLockon001_Sub(name.str().c_str());
         pSubLockon->inactivateImmediately();
         addSubLast(pSubLockon);
     }
@@ -36,42 +38,66 @@ void MyOptionLockonController::processBehavior() {
     GgafDx9GeometricActor* pTarget = _pRingTarget->getCurrent();
     _pMainTarget = pTarget;
 
-    GgafMainActor* pLockonEffect = getSubFirst();
+    GgafMainActor* pLockonEffect_Active = getSubFirst();
 
     for (int i = 0; i < _pRingTarget->length(); i++) {
 
         if (pTarget->isActive() && pTarget->_pStatus->get(STAT_Stamina) > 0) {
             //OK
+            //エフェクトアクターのターゲット更新                    //エフェクトをズルっとします
+            ((EffectLockon001*)pLockonEffect_Active)->_pTarget = pTarget;
+            pLockonEffect_Active = pLockonEffect_Active->getNext();//エフェクトアクター次へ
+
+
             pTarget = _pRingTarget->next(); //次へ
+
         } else {
+
             //切れる場合
+            _TRACE_("---------------------------------");
+            _TRACE_("切れる BEFORE");
+            dumpTarget();
+            dump();
             if (i == 0) {
                 //メインロックオン時処理
-                pTarget = _pRingTarget->remove(); //抜き出し
-                //エフェクトをズルっとします
-                GgafMainActor* pLockonEffect = getSubFirst()->getNext();
-                pLockonEffect->moveLastImmediately(); //末尾へ
-                ((EffectLockon001*)pLockonEffect)->releaseLockon();
+                if (_pRingTarget->length() == 0) {
+                    _pRingTarget->remove(); //抜き出し
 
-                pTarget = _pRingTarget->getCurrent(); //次へ（remove()したので自動的に次になっている)
-                _pMainTarget = pTarget;
+                    //最後の一つ
+                    ((EffectLockon001*)pLockonEffect_Active)->releaseLockon(); //ロックオンリリース
+                    _pMainTarget = NULL;
+
+                } else {
+                    _pRingTarget->remove(); //抜き出し
+                    //アクティブを次へ処理は不要、remove()したので自動的に次になっている。
+                    _pMainTarget = _pRingTarget->getCurrent();
+
+                    //メインロックオンエフェクトを直近ロックオンへ戻す
+                    //そのため
+                    //メインロックオンエフェクトの次のエフェクトを解放
+                    pLockonEffect_Active->getNext()->moveLastImmediately(); //末尾へ
+                    pLockonEffect_Active->getNext()->inactivateAfter(30); //解放
+                    //メインロックオンエフェクトアクターのターゲット更新、ズルっと戻ります
+                    ((EffectLockon001*)pLockonEffect_Active)->_pTarget = _pRingTarget->getCurrent();
+                    pLockonEffect_Active = pLockonEffect_Active->getNext();//次へ
+
+
+                }
             } else {
                 //サブロックオン時処理
 
-                //ターゲット抜き出し
-                pTarget = _pRingTarget->remove();
-                //対応エフェクトを末尾へ
-                GgafMainActor* pLockonEffect = getSubFirst();
-                for (int j = 0; j < i; j++) {
-                    pLockonEffect = pLockonEffect->getNext();
-                }
-                pLockonEffect->moveLastImmediately(); //末尾へ
-                ((EffectLockon001*)pLockonEffect)->releaseLockon();
+                _pRingTarget->remove(); //ターゲット抜き出し
+                //アクティブを次へ処理は不要、remove()したので自動的に次になっている。
 
-                pTarget = _pRingTarget->getCurrent(); //次へ（remove()したので自動的に次になっている)
+                ((EffectLockon001*)pLockonEffect_Active)->releaseLockon(); //ロックオンリリース
+                pLockonEffect_Active = pLockonEffect_Active->getNext();//先に次へ
+                pLockonEffect_Active->getPrev()->moveLastImmediately(); //今回releaseLockon()を末尾へ
+
+                //pLockonEffect_Active->_pTarget は更新しなくても変化してないので不要。という設計。
             }
-
-
+            _TRACE_("切れる AFTER");
+            dumpTarget();
+            dump();
 
         }
     }
@@ -86,6 +112,12 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
     // 追加の場合エフェクトアクターは操作不要
 
     if (_pRingTarget->indexOf(prm_pTarget) == -1) { //ロックオン済みに無ければ
+        _TRACE_("---------------------------------");
+        _TRACE_("_pRingTarget->indexOf("<<prm_pTarget->getName()<<") = "<<_pRingTarget->indexOf(prm_pTarget));
+        _TRACE_("lockon("<<prm_pTarget->getName()<<") BEFORE");
+        dumpTarget();
+        dump();
+
         if (_pRingTarget->length() > _max_lockon_num) {
 
             // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
@@ -98,7 +130,7 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
             //ターゲットローテート
             _pRingTarget->prev();
             _pRingTarget->set(prm_pTarget);
-
+            _pMainTarget = prm_pTarget;
 
             //ロックオンエフェクトローテート
             //操作不要
@@ -135,6 +167,9 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
 
             _pMainTarget = prm_pTarget;
         }
+        _TRACE_("lockon("<<prm_pTarget->getName()<<") AFTER");
+        dumpTarget();
+        dump();
     }
 }
 
@@ -155,31 +190,31 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
         // ⇔t5⇔t4⇔t3⇔t2⇔t1⇔
         //          ↓    remove(t1)
         // ⇔t5⇔t4⇔t3⇔t2⇔
-        // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・変化無し（S3が末尾へ）
+        // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・変化無し（S3が末尾へ）移動してlockonRelase()
 
         // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
         // ⇔t5⇔t4⇔t3⇔t2⇔t1⇔
         //          ↓    remove(t2)
         // ⇔t5⇔t4⇔t3⇔t1⇔
-        // ⇔Ｍ⇔S0⇔S1⇔S3⇔S2⇔    ・・・S2が末尾へ
+        // ⇔Ｍ⇔S0⇔S1⇔S3⇔S2⇔    ・・・S2が末尾へ移動してlockonRelase()
 
         // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
         // ⇔t5⇔t4⇔t3⇔t2⇔t1⇔
         //          ↓    remove(t3)
         // ⇔t5⇔t4⇔t2⇔t1⇔
-        // ⇔Ｍ⇔S0⇔S2⇔S3⇔S1⇔    ・・・S1が末尾へ
+        // ⇔Ｍ⇔S0⇔S2⇔S3⇔S1⇔    ・・・S1が末尾へ移動してlockonRelase()
 
         // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
         // ⇔t5⇔t4⇔t3⇔t2⇔t1⇔
         //          ↓    remove(t4)
         // ⇔t5⇔t3⇔t2⇔t1⇔
-        // ⇔Ｍ⇔S2⇔S3⇔S1⇔S0⇔    ・・・S0が末尾へ
+        // ⇔Ｍ⇔S2⇔S3⇔S1⇔S0⇔    ・・・S0が末尾へ移動してlockonRelase()
 
         // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
         // ⇔t5⇔t4⇔t3⇔t2⇔t1⇔
         //          ↓    remove(t5)
         // ⇔t4⇔t3⇔t2⇔t1⇔
-        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・ S0が末尾へ（注意）
+        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・ S0が末尾へ（注意）移動してlockonRelase()
 
 
 
@@ -188,25 +223,25 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
         // ⇔t4⇔t3⇔t2⇔t1⇔
         //          ↓    remove(t1)
         // ⇔t4⇔t3⇔t1⇔
-        // ⇔Ｍ⇔S0⇔S1⇔S3⇔S2⇔    ・・・S2が末尾へ（処理省略可？）
+        // ⇔Ｍ⇔S0⇔S1⇔S3⇔S2⇔    ・・・S2が末尾へ（処理省略可？）移動してlockonRelase()
 
         // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
         // ⇔t4⇔t3⇔t2⇔t1⇔
         //          ↓    remove(t2)
         // ⇔t4⇔t3⇔t1⇔
-        // ⇔Ｍ⇔S0⇔S2⇔S3⇔S1⇔    ・・・S1が末尾へ
+        // ⇔Ｍ⇔S0⇔S2⇔S3⇔S1⇔    ・・・S1が末尾へ移動してlockonRelase()
 
         // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
         // ⇔t4⇔t3⇔t2⇔t1⇔
         //          ↓    remove(t3)
         // ⇔t4⇔t2⇔t1⇔
-        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・S0が末尾へ
+        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・S0が末尾へ移動してlockonRelase()
 
         // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
         // ⇔t4⇔t3⇔t2⇔t1⇔
         //          ↓    remove(t4)
         // ⇔t3⇔t2⇔t1⇔
-        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・S0が末尾へ（注意）
+        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・S0が末尾へ（注意）移動してlockonRelase()
 
 
 
@@ -215,19 +250,19 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
         // ⇔t3⇔t2⇔t1⇔
         //          ↓    remove(t1)
         // ⇔t3⇔t2⇔
-        // ⇔Ｍ⇔S0⇔S2⇔S3⇔S1⇔    ・・・S1が末尾へ（処理省略可？）
+        // ⇔Ｍ⇔S0⇔S2⇔S3⇔S1⇔    ・・・S1が末尾へ（処理省略可？）移動してlockonRelase()
 
         // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
         // ⇔t3⇔t2⇔t1⇔
         //          ↓    remove(t2)
         // ⇔t3⇔t1⇔
-        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・S0が末尾へ
+        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・S0が末尾へ移動してlockonRelase()
 
         // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
         // ⇔t3⇔t2⇔t1⇔
         //          ↓    remove(t3)
         // ⇔t2⇔t1⇔
-        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・S0が末尾へ
+        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・S0が末尾へ移動してlockonRelase()
 
 
 
@@ -236,13 +271,13 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
         // ⇔t2⇔t1⇔
         //          ↓    remove(t1)
         // ⇔t2⇔
-        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・S0が末尾へ（処理省略可？）
+        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・S0が末尾へ（処理省略可？）移動してlockonRelase()
 
         // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
         // ⇔t2⇔t1⇔
         //          ↓    remove(t2)
         // ⇔t2⇔t1⇔
-        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・S0が末尾へ
+        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・S0が末尾ヘ移動してlockonRelase()
 
 
         //＜切れる場合5＞
@@ -250,7 +285,7 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
         // ⇔t1⇔
         //          ↓    remove(t1)
         //
-        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・変化無し
+        // ⇔Ｍ⇔S1⇔S2⇔S3⇔S0⇔    ・・・変化無しでMをlockonRelase()
 
 
 
@@ -413,3 +448,25 @@ void MyOptionLockonController::releaseAllLockon() {
 
 MyOptionLockonController::~MyOptionLockonController() {
 }
+
+
+
+
+void MyOptionLockonController::dumpTarget() {
+
+    GgafMainActor* pActor = _pRingTarget->getCurrent();
+	if (pActor == NULL) {
+		_TEXT_("NULL\n");
+		return;
+	} else {
+	    _TEXT_("⇔");
+	}
+    for (int i = 0; i < _pRingTarget->length(); i++) {
+        if (pActor == _pRingTarget->getCurrent()) {
+            _TEXT_("！");
+        }
+        _TEXT_(_pRingTarget->getNext(i)->getName()<<"["<<i<<"]⇔");
+    }
+    _TEXT_(" ... avtive="<<_pRingTarget->getCurrent()->getName()<<"\n");
+}
+

@@ -35,6 +35,8 @@ public:
     void lockon(GgafDx9Core::GgafDx9GeometricActor* prm_pTarget);
 
     virtual ~MyOptionLockonController();
+
+    void dumpTarget();
 };
 
 }

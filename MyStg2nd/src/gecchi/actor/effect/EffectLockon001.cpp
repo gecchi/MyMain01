@@ -97,7 +97,7 @@ void EffectLockon001::processJudgement() {
 }
 
 void EffectLockon001::onInactive() {
-
+    setProgress(EffectLockon001_PROG_NOTHING);
 }
 
 void EffectLockon001::lockon(GgafDx9GeometricActor* prm_pTarget) {

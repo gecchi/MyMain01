@@ -864,6 +864,7 @@ void GgafLinkedListRing<T>::addPrev(T* prm_pNew, bool prm_is_delete_value) {
             pMy->_is_first_flg = false;
             pElem->_is_first_flg = true;
             pElem->_is_last_flg = false;
+            _pElemFirst = pElem;
         }
         Elem* pMyPrev = _pElemActive->_pPrev;
         pMyPrev->_pNext = pElem;
