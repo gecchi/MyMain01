@@ -29,12 +29,13 @@ void MyCurveLaserChip001::onActive() {
     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
     _default_stamina = _pStatus->get(STAT_Stamina);
     CurveLaserChip::onActive();
+    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
     _pMover->setMvVelo(0);
     _pMover->setVxMvAcce(0);
     _pMover->setVyMvAcce(0);
     _pMover->setVzMvAcce(0);
     _isLockon = false;
-    if (_pOrg->_pLockonController->_pMainLockOnTarget && _pOrg->_pLockonController->_pMainLockOnTarget->isActive()) {
+    if (pMainLockOnTarget && pMainLockOnTarget->isActive()) {
         if (_pChip_front == NULL) {
             //先端チップ
             _lockon = 1;
@@ -67,7 +68,7 @@ void MyCurveLaserChip001::onActive() {
 }
 
 void MyCurveLaserChip001::processBehavior() {
-    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pMainLockOnTarget;
+    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
 
     if (_lockon == 1) {
         if (getActivePartFrame() < 120) {
@@ -156,10 +157,10 @@ void MyCurveLaserChip001::processBehavior() {
         _pSeTransmitter->behave();
     }
 
-    if (pMainLockOnTarget && pMainLockOnTarget->isActive()) {
-        _lockon = 1;
-        _isLockon = true;
-    }
+//    if (pMainLockOnTarget && pMainLockOnTarget->isActive()) {
+//        _lockon = 1;
+//        _isLockon = true;
+//    }
 
 
     CurveLaserChip::processBehavior();//座標を移動させてから呼び出すこと
@@ -176,7 +177,7 @@ void MyCurveLaserChip001::processBehavior() {
 
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
-    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pMainLockOnTarget;
+    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
     //ヒットエフェクト
     //無し
 

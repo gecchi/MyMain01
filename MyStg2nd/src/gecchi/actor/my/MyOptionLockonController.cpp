@@ -13,7 +13,7 @@ MyOptionLockonController::MyOptionLockonController(const char* prm_name) : GgafD
 
 
     _pRingTarget = NEW GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor>();
-    _pMainLockOnTarget = NULL;
+   // _pMainLockOnTarget = NULL;
 
     EffectLockon001_Main* _pMainLockonEffect = NEW EffectLockon001_Main("MAIN");
     _pMainLockonEffect->inactivateImmediately();
@@ -103,7 +103,7 @@ void MyOptionLockonController::processBehavior() {
 
         }
     }
-    _pMainLockOnTarget = _pRingTarget->getCurrent();
+//    _pMainLockOnTarget = _pRingTarget->getCurrent();
     //_TRACE_("_pRingTarget->getCurrent()="<<(_pRingTarget->getCurrent()==NULL?"NULL":_pRingTarget->getCurrent()->getName()));
 }
 
