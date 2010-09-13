@@ -798,7 +798,10 @@ void GgafElement<T>::nextFrame() {
             _frame_of_life_when_activation = 0;
             _will_activate_after_flg = false;
         } else if (_will_activate_after_flg) {
-            if(_frame_of_life == _frame_of_life_when_activation) {
+            if (_is_active_flg) {
+                _frame_of_behaving++;
+                _frame_of_behaving_since_onActive++;
+            } else if(_frame_of_life == _frame_of_life_when_activation) {
                 //activateˆ—
                 if (_is_active_flg == false) {//_is_active_flg = false ¨ true  
                     _is_active_flg = true; //Šˆ“®ƒtƒ‰ƒOON!!!
