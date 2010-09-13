@@ -35,7 +35,7 @@ public:
 
     virtual ~MyOptionLockonController();
 
-    void dumpTarget();
+    void dumpTarget(GgafDx9Core::GgafDx9GeometricActor* pMain);
 
 
 };
