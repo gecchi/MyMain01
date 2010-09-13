@@ -70,6 +70,7 @@ void GgafDx9GeometryScaler::behave() {
             }
 
         } else if (_method[axis] == BEAT_SCALE_TRIANGLEWAVE) {
+            //setScale(axis, _scale[axis] += _velo_scale[axis]);
             _scale[axis] += _velo_scale[axis];
             if (_beat_begin_frame[axis] + _beat_attack_frame[axis] == _pActor->_frame_of_behaving) { //アタック頂点時
                 _scale[axis] = _top_scale[axis];

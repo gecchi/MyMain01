@@ -115,6 +115,7 @@ public:
     void forceScaleRange(int prm_scale1, int prm_scale2) {
         for (int axis = 0; axis < 3; axis++) {
             forceScaleRange(axis, prm_scale1, prm_scale2);
+            setScale(axis, _scale[axis]);
         }
     }
     /**
