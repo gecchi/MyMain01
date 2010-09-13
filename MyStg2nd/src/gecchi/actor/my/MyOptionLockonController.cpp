@@ -60,18 +60,18 @@ void MyOptionLockonController::processBehavior() {
                 //メインロックオン時処理
                 if (_pRingTarget->length() == 0) {
                     _pRingTarget->remove(); //抜き出し
-					pTarget = _pRingTarget->getCurrent(); //Target次へ
+                    pTarget = _pRingTarget->getCurrent(); //Target次へ
                     //最後の一つ
                     ((EffectLockon001*)pLockonEffect_Active)->releaseLockon(); //ロックオンリリース
 //                    _pMainTarget = NULL;
                 } else {
                     _pRingTarget->remove(); //抜き出し
-					pTarget = _pRingTarget->getCurrent(); //Target次へ
+                    pTarget = _pRingTarget->getCurrent(); //Target次へ
                     //アクティブを次へ処理は不要、remove()したので自動的に次になっている。
 //                    _pMainTarget = _pRingTarget->getCurrent();
 
                     //メインロックオンエフェクトを直近ロックオンへ戻す
-					((EffectLockon001*)pLockonEffect_Active)->lockon(pTarget);
+                    ((EffectLockon001*)pLockonEffect_Active)->lockon(pTarget);
                     //そのため
                     //メインロックオンエフェクトの次のエフェクトを解放
                     ((EffectLockon001*)pLockonEffect_Active->getNext())->releaseLockon();
@@ -88,7 +88,7 @@ void MyOptionLockonController::processBehavior() {
                 //サブロックオン時処理
 
                 _pRingTarget->remove(); //ターゲット抜き出し
-				pTarget = _pRingTarget->getCurrent(); //Target次へ
+                pTarget = _pRingTarget->getCurrent(); //Target次へ
                 //アクティブを次へ処理は不要、remove()したので自動的に次になっている。
 
                 ((EffectLockon001*)pLockonEffect_Active)->releaseLockon(); //ロックオンリリース
@@ -167,16 +167,16 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
             //_pMainTarget = prm_pTarget;
 
             //ロックオンエフェクト
-			if (_pRingTarget->length() == 1) {
-				//最初の Mianロックオン追加時
-				GgafMainActor* pLockonEffect = getSubFirst();
-				pLockonEffect->activate();
-				((EffectLockon001*)pLockonEffect)->lockon(prm_pTarget);
+            if (_pRingTarget->length() == 1) {
+                //最初の Mianロックオン追加時
+                GgafMainActor* pLockonEffect = getSubFirst();
+                pLockonEffect->activate();
+                ((EffectLockon001*)pLockonEffect)->lockon(prm_pTarget);
 
             } else if (_pRingTarget->length() > 1) {
                 //Subロックオン追加時
                 if (_max_lockon_num >= 3) {
-					//特殊なローテート
+                    //特殊なローテート
                     //を切り出す
                     GgafMainActor* pLockonEffect = getSubFirst()->getPrev(); //Last
                     GgafMainActor* pLockonEffect_Next = pLockonEffect->getNext(); //Mainロックオンとなる
@@ -192,14 +192,14 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
                     pLockonEffect->_pPrev = pMainLockonEffect;
                     pLockonEffect->_pNext = pMainLockonEffect_Next;
                     pMainLockonEffect_Next->_pPrev = pLockonEffect;
-					pLockonEffect->activate(); //サブロックオン有効に
+                    pLockonEffect->activate(); //サブロックオン有効に
                     //ロックオン！
-					((EffectLockon001*)pLockonEffect)->lockon(_pRingTarget->getNext());
-				} else {
-					GgafMainActor* pLockonEffect = getSubFirst()->getPrev(); //２つなので結局Nextの位置
-					pLockonEffect->activate(); //サブロックオン有効に
-					((EffectLockon001*)pLockonEffect)->lockon(_pRingTarget->getNext());
-				}
+                    ((EffectLockon001*)pLockonEffect)->lockon(_pRingTarget->getNext());
+                } else {
+                    GgafMainActor* pLockonEffect = getSubFirst()->getPrev(); //２つなので結局Nextの位置
+                    pLockonEffect->activate(); //サブロックオン有効に
+                    ((EffectLockon001*)pLockonEffect)->lockon(_pRingTarget->getNext());
+                }
 
                 //_pMainTarget = prm_pTarget;
             }
@@ -488,6 +488,7 @@ void MyOptionLockonController::releaseAllLockon() {
 
 
 MyOptionLockonController::~MyOptionLockonController() {
+    DELETE_IMPOSSIBLE_NULL(_pRingTarget);
 }
 
 
@@ -496,12 +497,12 @@ MyOptionLockonController::~MyOptionLockonController() {
 void MyOptionLockonController::dumpTarget() {
 
     GgafMainActor* pActor = _pRingTarget->getCurrent();
-	if (pActor == NULL) {
-		_TEXT_("NULL\n");
-		return;
-	} else {
-	    _TEXT_("⇔");
-	}
+    if (pActor == NULL) {
+        _TEXT_("NULL\n");
+        return;
+    } else {
+        _TEXT_("⇔");
+    }
     for (int i = 0; i < _pRingTarget->length(); i++) {
         if (pActor == _pRingTarget->getCurrent()) {
             _TEXT_("！");
