@@ -198,6 +198,8 @@ public:
      */
     virtual T* getNext(int n);
 
+    virtual T* getNextFromFirst(int n);
+
     /**
      * カレント要素を一つ戻す。 .
      *<pre>
@@ -643,6 +645,18 @@ T* GgafLinkedListRing<T>::getNext(int n) {
 }
 
 template<class T>
+T* GgafLinkedListRing<T>::getNextFromFirst(int n) {
+    Elem* pElem_return = _pElemFirst;
+    for (int i = 0; i < n; i++) {
+        pElem_return = pElem_return->_pNext;
+    }
+    return pElem_return->_pValue;
+}
+
+
+
+
+template<class T>
 T* GgafLinkedListRing<T>::prev() {
     _pElemActive = _pElemActive->_pPrev;
     return _pElemActive->_pValue;
@@ -710,7 +724,9 @@ T* GgafLinkedListRing<T>::remove() {
         //要素が１つの場合
         _pElemActive = NULL;
         _pElemFirst = NULL;
-        return pMy->_pValue;
+        T* r = pMy->_pValue;
+        DELETE_IMPOSSIBLE_NULL(pMy);
+        return r;
     } else {
         //連結から外す
         Elem* pMyNext = _pElemActive->_pNext;
@@ -726,7 +742,9 @@ T* GgafLinkedListRing<T>::remove() {
             pMyNext->_is_first_flg = true; //次の要素が新しい先頭になる
         }
         _pElemActive = pMyNext; //カレント要素は next に更新。
-        return pMy->_pValue;
+        T* r = pMy->_pValue;
+        DELETE_IMPOSSIBLE_NULL(pMy);
+        return r;
     }
 }
 
