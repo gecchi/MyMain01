@@ -10,11 +10,7 @@ int MyOptionLockonController::_max_lockon_num = 9;
 MyOptionLockonController::MyOptionLockonController(const char* prm_name) : GgafDummyActor(prm_name) {
     _class_name = "MyOptionLockonController";
     _now_lockon_num = 0;
-
-
     _pRingTarget = NEW GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor>();
-   // _pMainLockOnTarget = NULL;
-
     EffectLockon001_Main* _pMainLockonEffect = NEW EffectLockon001_Main("MAIN");
     _pMainLockonEffect->inactivateImmediately();
     addSubLast(_pMainLockonEffect);
@@ -35,21 +31,27 @@ void MyOptionLockonController::initialize() {
 
 void MyOptionLockonController::processBehavior() {
     //ロックオンターゲット生存確認
-    GgafDx9GeometricActor* pTarget = _pRingTarget->getCurrent();
     GgafDx9GeometricActor* pMainLockonTarget = _pRingTarget->getCurrent();
-//    _pMainTarget = pTarget;
-
-    GgafMainActor* pLockonEffect_Active = getSubFirst();
+    GgafDx9GeometricActor* pTarget = _pRingTarget->getCurrent(); //ターゲットカーソル
+    GgafMainActor* pLockonEffect_Active = getSubFirst();         //ロックオンエフェクトカーソル
     int n = _pRingTarget->length();
     for (int i = 0; i < n; i++) {
-
+//_TRACE_("<<<"<<i<<">>>");
         if (pTarget->isActive() && pTarget->_pStatus->get(STAT_Stamina) > 0) {
+//            _TRACE_("---------------------------------");
+//            _TRACE_("エフェクトアクターのターゲット更新  BEFORE");
+//            dumpTarget(_pRingTarget->getCurrent());
+//            dump();
+
             //OK
             //エフェクトアクターのターゲット更新                    //エフェクトをズルっとします
             ((EffectLockon001*)pLockonEffect_Active)->lockon(pTarget);
             pLockonEffect_Active = pLockonEffect_Active->getNext();//エフェクトアクター次へ
             pTarget = _pRingTarget->next(); //次へ
 
+//            _TRACE_("エフェクトアクターのターゲット更新 AFTER");
+//            dumpTarget(_pRingTarget->getCurrent());
+//            dump();
         } else {
 
             //切れる場合
@@ -60,22 +62,40 @@ void MyOptionLockonController::processBehavior() {
             if (pTarget == pMainLockonTarget) {
                 //メインロックオン時処理
                 if (_pRingTarget->length() == 1) {
+                    _TRACE_("---------------------------------");
+                    _TRACE_("最後の一つでメインロックオン切れる BEFORE");
+                    dumpTarget(_pRingTarget->getCurrent());
+                    dump();
+
+
                     //最後の一つでメインロックオン
                     _pRingTarget->remove(); //抜き出し
                     //最後の一つ
                     ((EffectLockon001*)pLockonEffect_Active)->releaseLockon(); //ロックオンリリース
                     pTarget = NULL;
+
+                    _TRACE_("最後の一つでメインロックオン切れる AFTER");
+                    dumpTarget(_pRingTarget->getCurrent());
+                    dump();
+
                     break;
 //                    _pMainTarget = NULL;
                 } else {
+                    _TRACE_("---------------------------------");
+                    _TRACE_("メインロックオン切れる BEFORE");
+                    dumpTarget(_pRingTarget->getCurrent());
+                    dump();
+
+
+
                     _pRingTarget->remove(); //抜き出し
                     pTarget = _pRingTarget->getCurrent(); //Target次へ
                     pMainLockonTarget = pTarget;
                     //アクティブを次へ処理は不要、remove()したので自動的に次になっている。
 //                    _pMainTarget = _pRingTarget->getCurrent();
 
-                    //メインロックオンエフェクトを直近ロックオンへ戻す
-                    ((EffectLockon001*)pLockonEffect_Active)->lockon(pTarget);
+                    //メインロックオンエフェクトを直近ロックオンへ戻す は不要、
+                    //((EffectLockon001*)pLockonEffect_Active)->lockon(pTarget);
                     //そのため
                     //メインロックオンエフェクトの次のエフェクトを解放
                     ((EffectLockon001*)pLockonEffect_Active->getNext())->releaseLockon();
@@ -85,14 +105,46 @@ void MyOptionLockonController::processBehavior() {
                     //メインロックオンエフェクトアクターのターゲット更新、ズルっと戻ります
                     //((EffectLockon001*)pLockonEffect_Active)->_pTarget = _pRingTarget->getCurrent();
 
-                    pLockonEffect_Active = pLockonEffect_Active->getNext();//次へ
+                    //pLockonEffect_Active = pLockonEffect_Active->getNext();//次へは
+                    //次へはしなくて良い
+                    //理由は次のようになるから、次は         Metis_85  であるため
+//  5601092 <DEBUG> メインロックオン切れる BEFORE
+//  ⇔！Metis_36[0]⇔Metis_85[1]⇔ ... avtive=Metis_36
+//  5601095 <DEBUG>                                 MyOptionLockonController(08A06F18)[Lockon001]@4628/4628/4628,1,11,0(0)0,0(0)0,0(4294967295),1(1),0000
+//  5601096 <DEBUG>                                 ｜EffectLockon001_Main(08A07298)[MAIN] Target=Metis_36 @278/4628/4628,1,11,0(0)0,0(0)0,0(4294967295),2(2),0000
+//  5601096 <DEBUG>                                 ｜EffectLockon001_Sub(08A0C360)[SUB[8]] Target=Metis_85 @214/4628/4628,1,11,0(0)0,0(0)0,0(4294967295),2(2),0000
+//  5601097 <DEBUG>                                 ｜EffectLockon001_Sub(08A07D40)[SUB[1]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601097 <DEBUG>                                 ｜EffectLockon001_Sub(08A08760)[SUB[2]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601098 <DEBUG>                                 ｜EffectLockon001_Sub(08A09160)[SUB[3]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601098 <DEBUG>                                 ｜EffectLockon001_Sub(08A09B60)[SUB[4]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601099 <DEBUG>                                 ｜EffectLockon001_Sub(08A0A560)[SUB[5]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601099 <DEBUG>                                 ｜EffectLockon001_Sub(08A0AF60)[SUB[6]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601100 <DEBUG>                                 ｜EffectLockon001_Sub(08A0B960)[SUB[7]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601100 <DEBUG>                                 └─
+//  5601101 <DEBUG> メインロックオン切れる AFTER
+//  ⇔！Metis_85[0]⇔ ... avtive=Metis_85
+//  5601103 <DEBUG>                                 MyOptionLockonController(08A06F18)[Lockon001]@4628/4628/4628,1,11,0(0)0,0(0)0,0(4294967295),1(1),0000
+//  5601103 <DEBUG>                                 ｜EffectLockon001_Main(08A07298)[MAIN] Target=Metis_85 @278/4628/4628,1,11,0(0)0,0(0)0,0(4294967295),2(2),0000
+//  5601104 <DEBUG>                                 ｜EffectLockon001_Sub(08A07D40)[SUB[1]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601104 <DEBUG>                                 ｜EffectLockon001_Sub(08A08760)[SUB[2]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601105 <DEBUG>                                 ｜EffectLockon001_Sub(08A09160)[SUB[3]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601105 <DEBUG>                                 ｜EffectLockon001_Sub(08A09B60)[SUB[4]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601105 <DEBUG>                                 ｜EffectLockon001_Sub(08A0A560)[SUB[5]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601106 <DEBUG>                                 ｜EffectLockon001_Sub(08A0AF60)[SUB[6]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601106 <DEBUG>                                 ｜EffectLockon001_Sub(08A0B960)[SUB[7]] Target=NULL @4628/4628/4628,1,10,0(0)0,0(0)0,0(4294967295),-3(-3),0000
+//  5601107 <DEBUG>                                 ｜EffectLockon001_Sub(08A0C360)[SUB[8]] Target=NULL @214/4628/4628,1,11,0(0)0,0(0)0,0(4294967295),2(3),0000
+//  5601107 <DEBUG>                                 └─
 
+
+                    _TRACE_("メインロックオン切れる AFTER");
+                    dumpTarget(_pRingTarget->getCurrent());
+                    dump();
                 }
             } else {
 
                 _TRACE_("---------------------------------");
                 _TRACE_("サブロックオン切れる BEFORE");
-                dumpTarget(pMainLockonTarget);
+                dumpTarget(_pRingTarget->getCurrent());
                 dump();
 
                 //サブロックオン時処理
@@ -108,7 +160,7 @@ void MyOptionLockonController::processBehavior() {
                 //pLockonEffect_Active->_pTarget は更新しなくても変化してないので不要。という設計。
 
                 _TRACE_("切れる AFTER");
-                dumpTarget(pMainLockonTarget);
+                dumpTarget(_pRingTarget->getCurrent());
                 dump();
 
             }
@@ -130,14 +182,12 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
     // 追加の場合エフェクトアクターは操作不要
 
     if (_pRingTarget->indexOf(prm_pTarget) == -1) { //ロックオン済みに無ければ
-//        _TRACE_("---------------------------------");
-//        _TRACE_("_pRingTarget->indexOf("<<prm_pTarget->getName()<<") = "<<_pRingTarget->indexOf(prm_pTarget));
-//        _TRACE_("lockon("<<prm_pTarget->getName()<<") BEFORE");
-//        dumpTarget();
-//        dump();
 
         if (_pRingTarget->length() >= _max_lockon_num) {
-
+            _TRACE_("---------------------------------");
+            _TRACE_("満帆で ズレる lockon("<<prm_pTarget->getName()<<") BEFORE");
+            dumpTarget(_pRingTarget->getCurrent());
+            dump();
             // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
             //
             // ⇔t5⇔t4⇔t3⇔t2⇔t1⇔
@@ -156,9 +206,14 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
 
             //ロックオンエフェクト ロックオン
             //フルロックオン状態であるため必要なし
-
+            _TRACE_("満帆で ズレる lockon("<<prm_pTarget->getName()<<") AFTER");
+            dumpTarget(_pRingTarget->getCurrent());
+            dump();
         } else {
-
+            _TRACE_("---------------------------------");
+            _TRACE_("満帆では無い lockon("<<prm_pTarget->getName()<<") BEFORE");
+            dumpTarget(_pRingTarget->getCurrent());
+            dump();
             // ⇔Ｍ⇔S0⇔S1⇔S2⇔S3⇔    ・・・エフェクトアクター
             //
             // ⇔t1⇔
@@ -188,6 +243,9 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
                 pLockonEffect->activate();
                 ((EffectLockon001*)pLockonEffect)->lockon(prm_pTarget);
 
+
+                _TRACE_("満帆では無い 最初の Mianロックオン追加時 lockon("<<prm_pTarget->getName()<<") AFTER");
+
             } else if (_pRingTarget->length() > 1) {
                 //Subロックオン追加時
                 if (_max_lockon_num >= 3) {
@@ -210,10 +268,17 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
                     pLockonEffect->activate(); //サブロックオン有効に
                     //ロックオン！
                     ((EffectLockon001*)pLockonEffect)->lockon(_pRingTarget->getNext());
+
+                    _TRACE_("満帆では無い Subロックオン追加時 特殊なローテート lockon("<<prm_pTarget->getName()<<") AFTER");
+
                 } else {
                     GgafMainActor* pLockonEffect = getSubFirst()->getPrev(); //２つなので結局Nextの位置
                     pLockonEffect->activate(); //サブロックオン有効に
                     ((EffectLockon001*)pLockonEffect)->lockon(_pRingTarget->getNext());
+
+                    _TRACE_("満帆では無い Subロックオン追加時 ２つなので結局Nextの位置 lockon("<<prm_pTarget->getName()<<") AFTER");
+
+
                 }
 
                 //_pMainTarget = prm_pTarget;
@@ -221,10 +286,8 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
         }
 
         ((EffectLockon001*)getSubFirst())->_pTarget = prm_pTarget;
-
-//        _TRACE_("lockon("<<prm_pTarget->getName()<<") AFTER");
-//        dumpTarget();
-//        dump();
+        dumpTarget(_pRingTarget->getCurrent());
+        dump();
     }
 //	_pMainLockOnTarget = _pRingTarget->getCurrent(); //processBehavior() で更新は
 }
