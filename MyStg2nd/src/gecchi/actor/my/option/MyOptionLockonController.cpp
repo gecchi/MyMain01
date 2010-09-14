@@ -10,7 +10,7 @@ int MyOptionLockonController::_max_lockon_num = 9;
 MyOptionLockonController::MyOptionLockonController(const char* prm_name) : GgafDummyActor(prm_name) {
     _class_name = "MyOptionLockonController";
     _pRingTarget = NEW GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor>();
-    EffectLockon001_Main* _pMainLockonEffect = NEW EffectLockon001_Main("MAIN");
+    _pMainLockonEffect = NEW EffectLockon001_Main("MAIN");
     _pMainLockonEffect->inactivateImmediately();
     addSubLast(_pMainLockonEffect);
     for (int i = 1; i < _max_lockon_num; i++) {

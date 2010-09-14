@@ -78,23 +78,30 @@ void MyCurveLaserChip001::processBehavior() {
             _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 //            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive() && _pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) > 0) {
                                                                                  //体力の判定はオプション側で行うことにした
-            if (pMainLockOnTarget && pMainLockOnTarget->isActive()) {
+            if (pMainLockOnTarget) {
+                if (pMainLockOnTarget->isActive()) {
+                    float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
+                    rate = rate > 0 ? rate : 0;
+                    int fdx = pMainLockOnTarget->_X - (_X + _pMover->_veloVxMv*rate);
+                    int fdy = pMainLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
+                    int fdz = pMainLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*rate);
+                    _pMover->setVxMvAcce(fdx);
+                    _pMover->setVyMvAcce(fdy);
+                    _pMover->setVzMvAcce(fdz);
+                } else {
 
-                float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
-                rate = rate > 0 ? rate : 0;
-                int fdx = pMainLockOnTarget->_X - (_X + _pMover->_veloVxMv*rate);
-                int fdy = pMainLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*rate);
-                int fdz = pMainLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*rate);
-                _pMover->setVxMvAcce(fdx);
-                _pMover->setVyMvAcce(fdy);
-                _pMover->setVzMvAcce(fdz);
+
+                }
             } else {
-                _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+                _lockon = 2;
             }
         } else {
             _lockon = 2;
         }
     }
+
+
+
     int dx, dy, dz;
     if (_lockon == 2) {
         if (_isLockon) {
@@ -102,8 +109,8 @@ void MyCurveLaserChip001::processBehavior() {
             //先端ならば特別に、オプションの反対の座標をターゲットする
             if (_pChip_front == NULL) {
                 _new_target_X = _X + (_X - _pOrg->_X);
-                _new_target_Y = _Y + (_X - _pOrg->_Y);
-                _new_target_Z = _Z + (_X - _pOrg->_Z);
+                _new_target_Y = _Y + (_Y - _pOrg->_Y);
+                _new_target_Z = _Z + (_Z - _pOrg->_Z);
                 dx = _new_target_X - (_X );
                 dy = _new_target_Y - (_Y );
                 dz = _new_target_Z - (_Z );
@@ -122,6 +129,7 @@ void MyCurveLaserChip001::processBehavior() {
 
         if (_pChip_front == NULL) {
             _maxAcceRange+=100;
+            //上の処理１回と、毎回 _maxAcceRange+=100;
         } else if (_pChip_front->_pChip_front == NULL) {
             //新たなターゲットを作成
             dx = _pChip_front->_X - (_X + _pMover->_veloVxMv);

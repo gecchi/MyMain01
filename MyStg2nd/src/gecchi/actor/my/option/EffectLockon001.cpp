@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id) : DefaultSpriteSetActor(prm_name, prm_model_id) {
     _class_name = "EffectLockon001";
-    //_pTarget = NULL;
+    _pTarget = NULL;
     inactivateImmediately();
     defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     chengeEffectTechnique("DestBlendOne"); //エフェクトテクニックは加算合成に強制
@@ -20,126 +20,23 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
     _pSeTransmitter->useSe(1);                                                //使用効果音数宣言
     _pSeTransmitter->set(0, "humei10", GgafRepeatSeq::nextVal("CH_humei10")); //効果音定義
 
-//    _pEffectLockon001_Release = NEW EffectLockon001_Release("EffectLockon001_R", this);
-//    _pEffectLockon001_Release->inactivateImmediately();
-//    addSubGroup(_pEffectLockon001_Release);
-
-    //setProgress(EffectLockon001_PROG_NOTHING);
 }
 
 void EffectLockon001::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 3);   //アニメ範囲を０～１５
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //アニメ順序
-    _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
 }
 
 void EffectLockon001::onActive() {
-    _pUvFlipper->setPtnNoToTop();
-    setAlpha(0.01);
-    _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
-    _pScaler->setScale(60000); //(6000%)
-    _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
-    _pMover->setFaceAngVelo(AXIS_Z, 1000);        //回転
-    _pSeTransmitter->play3D(0); //ロックオンSE
-    setGeometry(_pTarget);
-    setProgress(EffectLockon001_PROG_FIRST_LOCK);
 }
 
 void EffectLockon001::processBehavior() {
-
-
-
-    if (getProgress() == EffectLockon001_PROG_LOCK || getProgress() == EffectLockon001_PROG_FIRST_LOCK) {
-        if (getAlpha() < 1.0) {
-             addAlpha(0.01);
-         }
-         if (_pScaler->_method[0] == NOSCALE) {
-             //縮小完了後、Beat
-             _pScaler->forceScaleRange(2000, 4000);
-             _pScaler->beat(30, 2, 2, -1); //無限ループ
-             setProgress(EffectLockon001_PROG_LOCK);
-         }
-         if (_pTarget) {
-             if (_pTarget->isActive() || _pTarget->_will_activate_after_flg) {
-                 if (abs(_pTarget->_X-_X) <= 200000 &&
-                     abs(_pTarget->_Y-_Y) <= 200000 &&
-                     abs(_pTarget->_Z-_Z) <= 200000) {
-                     setGeometry(_pTarget);
-                     _pMover->setMvVelo(0);
-                 } else {
-                     _pMover->setMvAng(_pTarget);
-                     _pMover->setMvVelo(200000);
-                 }
-             } else {
-                 setProgress(EffectLockon001_PROG_RELEASE);
-             }
-         } else {
-             setProgress(EffectLockon001_PROG_RELEASE);
-         }
-    }
-
-    if (getProgress() == EffectLockon001_PROG_RELEASE) {
-        _pTarget = NULL;
-        addAlpha(-0.04);
-        if (_pScaler->_method[0] == NOSCALE || getAlpha() <= 0.0) {
-            inactivate();
-        }
-    }
-
-    _pUvFlipper->behave();
-    _pMover->behave();
-    _pScaler->behave();
 }
 
 void EffectLockon001::processJudgement() {
-
-//    if (_fAlpha < 0) {
-//        inactivate();
-//    }
 }
 
 void EffectLockon001::onInactive() {
-   // setProgress(EffectLockon001_PROG_NOTHING);
 }
 
-void EffectLockon001::lockon(GgafDx9GeometricActor* prm_pTarget) {
-    if (prm_pTarget == NULL || _pTarget == prm_pTarget) {
-        return;
-    }
-    _pTarget = prm_pTarget;
-
-    if (getProgress() == EffectLockon001_PROG_FIRST_LOCK) {
-
-    } else if (getProgress() == EffectLockon001_PROG_LOCK) {
-    } else if (getProgress() == EffectLockon001_PROG_RELEASE) {
-        _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
-        _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
-        _pMover->setFaceAngVelo(AXIS_Z, 1000);   //回転
-        _pSeTransmitter->play3D(0); //ロックオンSE
-        setProgress(EffectLockon001_PROG_FIRST_LOCK);
-    }
-
-}
-
-
-void EffectLockon001::releaseLockon() {
-    if (isActive()) {
-        if (getProgress() == EffectLockon001_PROG_FIRST_LOCK) {
-            _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
-            _pScaler->intoTargetScaleLinerUntil(60000, 50);//スケーリング
-            _pMover->setFaceAngVelo(AXIS_Z, _pMover->_angveloFace[AXIS_Z]*-3); //速く逆回転
-            setProgress(EffectLockon001_PROG_RELEASE);
-        } else if (getProgress() == EffectLockon001_PROG_LOCK) {
-            _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
-            _pScaler->intoTargetScaleLinerUntil(60000, 50);//スケーリング
-            _pMover->setFaceAngVelo(AXIS_Z, _pMover->_angveloFace[AXIS_Z]*-3); //速く逆回転
-            setProgress(EffectLockon001_PROG_RELEASE);
-        } else if (getProgress() == EffectLockon001_PROG_RELEASE) {
-            //何も無し
-        }
-    }
-    _pTarget = NULL;
-}
 
 EffectLockon001::~EffectLockon001() {
 }

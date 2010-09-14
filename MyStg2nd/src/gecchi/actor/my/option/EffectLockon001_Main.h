@@ -24,6 +24,10 @@ public:
 
     void onInactive() override;
 
+    void releaseLockon() override;
+
+    void lockon(GgafDx9GeometricActor* prm_pTarget)  override;
+
     virtual ~EffectLockon001_Main();
 };
 

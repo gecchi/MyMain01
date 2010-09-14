@@ -12,6 +12,8 @@ class EffectLockon001_Sub : public EffectLockon001 {
 
 public:
 
+    EffectLockon001_Main* _pEffectLockon001_Main;
+
     EffectLockon001_Sub(const char* prm_name);
 
     void initialize() override;
@@ -24,6 +26,9 @@ public:
 
     void processJudgement() override;
 
+    void releaseLockon() override;
+
+    void lockon(GgafDx9GeometricActor* prm_pTarget)  override;
 
     virtual ~EffectLockon001_Sub();
 };
