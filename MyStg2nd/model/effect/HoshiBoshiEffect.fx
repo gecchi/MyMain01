@@ -174,14 +174,19 @@ OUT_VS VS_HoshiBoshi(
 	}
 
 	out_vs.pos = mul(out_vs.pos , g_matView);  //View
-	float dep = out_vs.pos.z + 1.0; //+1.0の意味は
-                                    //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
-                                    //距離に加える。
+//	float dep = out_vs.pos.z + 1.0; //+1.0の意味は
+//                                    //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
+//                                    //距離に加える。
+    // out_vs.pos.z/2.0 奥行きを半分にして 縮小率計算             
+	float dep = (out_vs.pos.z*0.7) + 1.0; //+1.0の意味は
+                                          //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
+                                          //距離に加える。
+
+
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 
 	//奥ほど小さく表示するために縮小率計算
 	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;  //通常の奥行きの縮小率
-
     int ptnno = ((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
 	//スペキュラセマンテックス(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
 	out_vs.uv_ps.x = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);

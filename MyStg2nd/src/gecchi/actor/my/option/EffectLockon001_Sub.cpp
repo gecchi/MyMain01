@@ -7,6 +7,7 @@ using namespace MyStg2nd;
 
 EffectLockon001_Sub::EffectLockon001_Sub(const char* prm_name) : EffectLockon001(prm_name, "8/Lockon001_Sub") {
     _class_name = "EffectLockon001_Sub";
+    setProgress(EffectLockon001_PROG_LOCK);
 }
 
 void EffectLockon001_Sub::initialize() {
@@ -17,7 +18,7 @@ void EffectLockon001_Sub::initialize() {
 
 void EffectLockon001_Sub::onActive() {
     EffectLockon001::onActive();
-    _pEffectLockon001_Main = ((MyOptionLockonController*)getParent())->_pMainLockonEffect;
+    _pEffectLockon001_Main = (EffectLockon001_Main*)getParent()->getSubFirst();
 _TRACE_("_pEffectLockon001_Main="<<_pEffectLockon001_Main);
     _pUvFlipper->setPtnNoToTop();
     setAlpha(0.01);
@@ -34,7 +35,7 @@ void EffectLockon001_Sub::processBehavior() {
 
     if (getProgress() == EffectLockon001_PROG_LOCK) {
         if (getAlpha() < 1.0) {
-             addAlpha(0.1);
+             addAlpha(0.02);
          }
          //縮小完了後、Mainのビートに合わせる
          _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;

@@ -69,6 +69,7 @@ void EffectLockon001_Main::processBehavior() {
         _pTarget = NULL;
         addAlpha(-0.05);
         if (_pScaler->_method[0] == NOSCALE || getAlpha() <= 0.0) {
+            _pScaler->setScale(2000);
             inactivate();
         }
     }
