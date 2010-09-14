@@ -20,8 +20,6 @@ MyOptionLockonController::MyOptionLockonController(const char* prm_name) : GgafD
         pSubLockon->inactivateImmediately();
         addSubLast(pSubLockon);
     }
-
-    setProgress(MyOptionLockonController_PROG_NOTHING);
 }
 
 void MyOptionLockonController::initialize() {
