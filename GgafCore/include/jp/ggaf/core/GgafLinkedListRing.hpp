@@ -646,6 +646,9 @@ T* GgafLinkedListRing<T>::getNext(int n) {
 
 template<class T>
 T* GgafLinkedListRing<T>::getNextFromFirst(int n) {
+    if (_pElemFirst == NULL) {
+        return NULL;
+    }
     Elem* pElem_return = _pElemFirst;
     for (int i = 0; i < n; i++) {
         pElem_return = pElem_return->_pNext;
