@@ -183,7 +183,7 @@ public:
 
     /**
      * カレント要素のｎ番目の要素の値を取得する。カレント要素は変化しない .
-     * getNext(1) は、getNext() と同じです。getNext(0) は get()と同じです。
+     * getNext(1) は、getNext() と同じです。getNext(0) は getCurrent()と同じです。
      *<pre>
      * ---「実行前」-------------
      * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
@@ -403,7 +403,6 @@ public:
      * int d = ring_list.indexOf(D);   // d = 3 となる
      * int e = ring_list.indexOf(E);   // e = -1 となる(存在しない場合の戻り値)
      * </code></pre>
-     * <pre>
      * @param prm_pVal インデックスを調べたい要素
      * @return 存在する場合、そのインデックス(0～)を返す、存在しない場合 -1 を返す。
      */

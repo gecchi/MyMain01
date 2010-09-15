@@ -256,7 +256,7 @@ public:
 
     /**
      * 子ノードが存在する場合取得する .
-     * @param prm_pSubActor 子ノード
+     * @param prm_pSub 子ノード
      * @return 存在する場合子ノードが返る、存在しない場合 NULL が返る
      */
     virtual T* getSub(T* prm_pSub);

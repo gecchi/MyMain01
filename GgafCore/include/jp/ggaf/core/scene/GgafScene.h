@@ -129,15 +129,15 @@ public:
     virtual void preDraw() override;
     virtual void draw() override;
     virtual void afterDraw() override;
-    virtual void finally() override;
+    virtual void doFinally() override;
     virtual void throwDownEvent(UINT32 prm_no, void* prm_pSource) override;
     virtual void activateTree() override;
-    virtual void activateAfter(frame prm_frame_offset = 1) override;
+    virtual void activateDelay(frame prm_frame_offset = 1) override;
     virtual void activate() override;
     virtual void activateTreeImmediately() override;
     virtual void activateImmediately() override;
     virtual void inactivateTree() override;
-    virtual void inactivateAfter(frame prm_frame_offset = 1) override;
+    virtual void inactivateDelay(frame prm_frame_offset = 1) override;
     virtual void inactivate() override;
     virtual void inactivateTreeImmediately() override;
     virtual void inactivateImmediately() override;

@@ -77,9 +77,9 @@ void GgafScene::throwDownEvent(UINT32 prm_no, void* prm_pSource) {
     _pLordActor->throwDownEvent(prm_no, prm_pSource);
 }
 
-void GgafScene::finally() {
-    GgafElement<GgafScene>::finally();
-    _pLordActor->finally();
+void GgafScene::doFinally() {
+    GgafElement<GgafScene>::doFinally();
+    _pLordActor->doFinally();
 }
 
 void GgafScene::activateTree() {
@@ -87,9 +87,9 @@ void GgafScene::activateTree() {
     _pLordActor->activateTree();
 }
 
-void GgafScene::activateAfter(frame prm_frame_offset) {
-    GgafElement<GgafScene>::activateAfter(prm_frame_offset);
-    _pLordActor->activateAfter(prm_frame_offset);
+void GgafScene::activateDelay(frame prm_frame_offset) {
+    GgafElement<GgafScene>::activateDelay(prm_frame_offset);
+    _pLordActor->activateDelay(prm_frame_offset);
 }
 
 void GgafScene::activate() {
@@ -112,9 +112,9 @@ void GgafScene::inactivateTree() {
     _pLordActor->inactivateTree();
 }
 
-void GgafScene::inactivateAfter(frame prm_frame_offset) {
-    GgafElement<GgafScene>::inactivateAfter(prm_frame_offset);
-    _pLordActor->inactivateAfter(prm_frame_offset);
+void GgafScene::inactivateDelay(frame prm_frame_offset) {
+    GgafElement<GgafScene>::inactivateDelay(prm_frame_offset);
+    _pLordActor->inactivateDelay(prm_frame_offset);
 }
 
 void GgafScene::inactivate() {

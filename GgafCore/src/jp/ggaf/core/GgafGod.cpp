@@ -168,7 +168,7 @@ void GgafGod::presentUniversalVisualize() {
 }
 
 void GgafGod::finalizeUniversal() {
-    _pUniverse->finally();
+    _pUniverse->doFinally();
 }
 
 void GgafGod::clean() {

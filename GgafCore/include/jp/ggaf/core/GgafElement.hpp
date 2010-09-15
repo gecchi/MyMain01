@@ -18,14 +18,14 @@ namespace GgafCore {
 /**
  * GgafNodeに、様々な状態遷移管理（タスクシステム）を追加。 .
  * 毎フレーム、神(GgafGod)はこの世(GgafUniverse)に、次のメソッド順で呼び出す仕組みになっている。この世(GgafUniverse)も本templateを実装している。<BR>
- * nextFrame() > behave() > settleBehavior() > judge() > [preDraw() > draw() > afterDraw()] > finally() <BR>
- * 上記の内、nextFrame() finally() は毎フレーム実行される。<BR>
+ * nextFrame() > behave() > settleBehavior() > judge() > [preDraw() > draw() > afterDraw()] > doFinally() <BR>
+ * 上記の内、nextFrame() doFinally() は毎フレーム実行される。<BR>
  * behave() settleBehavior() judge() は活動状態フラグ(_is_active_flg)が true、かつ、一時停止フラグ(_was_paused_flg)が false の場合実行される。<BR>
  * preDraw() draw() afterDraw() は、次フレームまでの残時間に余裕がある場合実行される。<BR>
  * 次フレームまでの残時間に余裕が無い場合、神はこの３メソッドをスキップするが、MAX_SKIP_FRAME フレームに１回は実行する。<BR>
- * 上記の nextFrame() ～ finally() の直接オーバーライドは非推奨。オーバーライド用に各メソッドでコールバックされる純粋仮想関数(processXxxxxx()) を用意している。<BR>
- * initialize() は、上記の nextFrame() ～ finally() を何れかを呼び出す前にインスタンスごとに１回だけ呼ばれる仕組みになっている。<BR>
- * 但し、生存フラグ(_can_live_flg)がfalseの場合（deleteされる）は、nextFrame() ～ finally() は全て実行されない。<BR>
+ * 上記の nextFrame() ～ doFinally() の直接オーバーライドは非推奨。オーバーライド用に各メソッドでコールバックされる純粋仮想関数(processXxxxxx()) を用意している。<BR>
+ * initialize() は、上記の nextFrame() ～ doFinally() を何れかを呼び出す前にインスタンスごとに１回だけ呼ばれる仕組みになっている。<BR>
+ * 但し、生存フラグ(_can_live_flg)がfalseの場合（deleteされる）は、nextFrame() ～ doFinally() は全て実行されない。<BR>
  * (※旧クラス名はGgafFactor)
  * @version 1.00
  * @since 2008/08/21
@@ -205,7 +205,7 @@ public:
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processJudgement() をオーバーライドしてロジックを実装する <BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して judge() 実行後、<BR>
-     * 神(GgafGod)はこの後、次フレームまでの残時間に余裕があれば preDraw() 無ければ finally() を実行することになる。<BR>
+     * 神(GgafGod)はこの後、次フレームまでの残時間に余裕があれば preDraw() 無ければ doFinally() を実行することになる。<BR>
      */
     virtual void judge();
 
@@ -238,7 +238,7 @@ public:
      * processAfterDraw() をコールした後、配下のノード全てについて afterDraw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processAfterDraw() をオーバーライドしてロジックを実装する <BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して afterDraw() 実行後、次に finally() を実行することになる。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して afterDraw() 実行後、次に doFinally() を実行することになる。<BR>
      */
     virtual void afterDraw();
 
@@ -247,14 +247,14 @@ public:
      * 座標移動処理、判定処理、描画処理が終了した後に、最後に行う後始末処理を行う事とする設計。<BR>
      * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
      * （_is_active_flg && !_was_paused_flg && _can_live_flg）の場合 <BR>
-     * processFinally() をコールした後、配下のノード全てについて finally() を再帰的に実行する。<BR>
+     * processFinally() をコールした後、配下のノード全てについて doFinally() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processFinally() をオーバーライドしてロジックを実装する <BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して finally() 実行後、<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して doFinally() 実行後、<BR>
      * 次フレームまでの残時間に余裕があれば clean() を実行する。<BR>
      * その後は nextFrame() を実行することになる。<BR>
      */
-    virtual void finally();
+    virtual void doFinally();
 
 
     /**
@@ -311,7 +311,7 @@ public:
 
     /**
      * ノードのフレーム毎の個別終端処理を実装。(ユーザー実装用、単体) .
-     * finally() 時の処理先頭でコールバックされる。<BR>
+     * doFinally() 時の処理先頭でコールバックされる。<BR>
      * このメンバ関数を下位クラスでオーバーライドして、ノード個別の終端処理を実装する。<BR>
      * 終端処理とは、フラグ管理の実行などである。<BR>
      * 想定している振る舞い処理とは、主に座標計算と移動処理である。その他なんでも良いである。<BR>
@@ -370,15 +370,15 @@ public:
     /**
      * 活動状態にする(単体・コールバック有り).
      * Nフレーム後に activate() が実行されることを予約する。<BR>
-     * 自身と配下ノード全てについて再帰的に activateAfter(UINT32) が実行される。<BR>
-     * activateAfter(1) は、activate() と同じ意味になります。<BR>
+     * 自身と配下ノード全てについて再帰的に activateDelay(UINT32) が実行される。<BR>
+     * activateDelay(1) は、activate() と同じ意味になります。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
      * @param prm_frame_offset 遅延フレーム数(1～)
      */
-    virtual void activateAfter(frame prm_frame_offset = 1);
+    virtual void activateDelay(frame prm_frame_offset = 1);
 
 
-    virtual void activateTreeAfter(frame prm_frame_offset = 1);
+    virtual void activateTreeDelay(frame prm_frame_offset = 1);
 
 
     /**
@@ -422,16 +422,16 @@ public:
     /**
      * 非活動予約する(自ツリー・コールバック有り) .
      * Nフレーム後に inactivateTree() が実行されることを予約する。<BR>
-     * 自身と配下ノード全てについて再帰的に inactivateAfter(UINT32) が実行される。<BR>
-     * inactivateAfter(1) は、inactivateTree() と同じ意味になります。<BR>
+     * 自身と配下ノード全てについて再帰的に inactivateDelay(UINT32) が実行される。<BR>
+     * inactivateDelay(1) は、inactivateTree() と同じ意味になります。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
      * @param prm_frame_offset 遅延フレーム数(1～)
      */
-    virtual void inactivateAfter(frame prm_frame_offset = 1);
+    virtual void inactivateDelay(frame prm_frame_offset = 1);
 
 
 
-    virtual void inactivateTreeAfter(frame prm_frame_offset = 1);
+    virtual void inactivateTreeDelay(frame prm_frame_offset = 1);
 
     /**
      * 非活動状態にする(単体・即時・コールバック無し)  .
@@ -1022,7 +1022,7 @@ void GgafElement<T>::afterDraw() {
 
 
 template<class T>
-void GgafElement<T>::finally() {
+void GgafElement<T>::doFinally() {
 //    if(_was_initialize_flg == false) {
 //        initialize();
 //        _was_initialize_flg = true;
@@ -1036,7 +1036,7 @@ void GgafElement<T>::finally() {
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
-                pElementTemp->finally();
+                pElementTemp->doFinally();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -1050,14 +1050,14 @@ void GgafElement<T>::finally() {
 template<class T>
 void GgafElement<T>::activate() {
     if (_can_live_flg) {
-        activateAfter(1);
+        activateDelay(1);
     }
 }
 
 template<class T>
 void GgafElement<T>::activateTree() {
     if (_can_live_flg) {
-        activateAfter(1);
+        activateDelay(1);
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
@@ -1098,19 +1098,19 @@ void GgafElement<T>::activateTreeImmediately() {
 }
 
 template<class T>
-void GgafElement<T>::activateAfter(frame prm_frame_offset) {
+void GgafElement<T>::activateDelay(frame prm_frame_offset) {
     if (_can_live_flg) {
-        //既にactivateAfter()実行済みの場合でも、後勝ちとする。
-        //(※inactivateAfter() と優先の考えが違うため注意)
+        //既にactivateDelay()実行済みの場合でも、後勝ちとする。
+        //(※inactivateDelay() と優先の考えが違うため注意)
         _will_activate_after_flg = true;
         _frame_of_life_when_activation = _frame_of_life + prm_frame_offset;
     }
 }
 
 template<class T>
-void GgafElement<T>::activateTreeAfter(frame prm_frame_offset) {
+void GgafElement<T>::activateTreeDelay(frame prm_frame_offset) {
     if (_can_live_flg) {
-        activateAfter(prm_frame_offset);
+        activateDelay(prm_frame_offset);
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
@@ -1128,14 +1128,14 @@ void GgafElement<T>::activateTreeAfter(frame prm_frame_offset) {
 template<class T>
 void GgafElement<T>::inactivate() {
     if (_can_live_flg) {
-        inactivateAfter(1);
+        inactivateDelay(1);
     }
 }
 
 template<class T>
 void GgafElement<T>::inactivateTree() {
     if (_can_live_flg) {
-        inactivateAfter(1);
+        inactivateDelay(1);
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
@@ -1151,10 +1151,10 @@ void GgafElement<T>::inactivateTree() {
 }
 
 template<class T>
-void GgafElement<T>::inactivateAfter(frame prm_frame_offset) {
+void GgafElement<T>::inactivateDelay(frame prm_frame_offset) {
     if (_can_live_flg) {
         if (_will_inactivate_after_flg) {
-            //既にinactivateAfter()実行済みの場合、より早く inactivate するならば有効とする
+            //既にinactivateDelay()実行済みの場合、より早く inactivate するならば有効とする
             if (_frame_of_life_when_inactivation < _frame_of_life + prm_frame_offset) {
                 //今回指定算フレームの方が遅いため無視
                 return;
@@ -1166,13 +1166,13 @@ void GgafElement<T>::inactivateAfter(frame prm_frame_offset) {
 }
 
 template<class T>
-void GgafElement<T>::inactivateTreeAfter(frame prm_frame_offset) {
+void GgafElement<T>::inactivateTreeDelay(frame prm_frame_offset) {
     if (_can_live_flg) {
-        inactivateAfter(prm_frame_offset);
+        inactivateDelay(prm_frame_offset);
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
-                pElementTemp->inactivateTreeAfter(prm_frame_offset);
+                pElementTemp->inactivateTreeDelay(prm_frame_offset);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -1323,7 +1323,7 @@ void GgafElement<T>::end(frame prm_frame_offset) {
     }
     _will_end_after_flg = true;
     _frame_of_life_when_end = _frame_of_life + prm_frame_offset + GGAF_SAYONARA_DELAY;
-    inactivateAfter(prm_frame_offset); //指定フレームにはinactivateが行われる
+    inactivateDelay(prm_frame_offset); //指定フレームにはinactivateが行われる
     if (GGAF_NODE::_pSubFirst != NULL) {
         T* pElementTemp = GGAF_NODE::_pSubFirst;
         while(true) {
