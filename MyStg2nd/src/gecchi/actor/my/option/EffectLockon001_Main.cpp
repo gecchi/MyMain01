@@ -51,9 +51,9 @@ void EffectLockon001_Main::processBehavior() {
                      abs(_pTarget->_Z-_Z) <= 200000) {
                      setGeometry(_pTarget);
                      _pMover->setMvVelo(0);
-                     _pMover->_angveloFace[AXIS_Z] = 2000; //‘¬Žü‚è
-                 } else {
                      _pMover->_angveloFace[AXIS_Z] = 1000;
+                 } else {
+                     _pMover->_angveloFace[AXIS_Z] = 3000; //‘¬Žü‚è
                      _pMover->setMvAng(_pTarget);
                      _pMover->setMvVelo(200000);
                  }

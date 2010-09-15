@@ -16,7 +16,7 @@ FormationMetis001::FormationMetis001(const char* prm_name) : GgafDx9FormationAct
 
 void FormationMetis001::initialize() {
     for (int i = 0; i < NUM_METIS_FORMATION001; i++) {
-        _pEnemyMetis[i]->activateAfter(i * 20 + 1);
+        _pEnemyMetis[i]->activateDelay(i * 20 + 1);
     }
 }
 

@@ -173,7 +173,7 @@ void MyCurveLaserChip001::processBehavior() {
 
     CurveLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 
-    //根元からレーザー表示のため強敵に座標補正
+    //根元からレーザー表示のため強制的に座標補正
     if (onChangeToActive()) {
         setGeometry(_pOrg);
         _tmpX = _X;

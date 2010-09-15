@@ -31,7 +31,7 @@ void FormationIris002::initialize() {
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i]->setGeometry(MyShip::_lim_behaind - 500000, 0, MyShip::_lim_zright * 0.8);
         _papIris[i]->_pMover->setMvVelo(_mv_velo);
-        _papIris[i]->activateAfter(i*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
+        _papIris[i]->activateDelay(i*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
     }
 }
 

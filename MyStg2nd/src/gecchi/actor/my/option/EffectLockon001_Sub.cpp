@@ -34,8 +34,14 @@ void EffectLockon001_Sub::processBehavior() {
     EffectLockon001::processBehavior();
 
     if (getProgress() == EffectLockon001_PROG_LOCK) {
-        if (getAlpha() < 1.0) {
-             addAlpha(0.02);
+        if (getAlpha() < 0.7) {
+            if (_pEffectLockon001_Main->getProgress() == EffectLockon001_PROG_LOCK) {
+                addAlpha(0.07);
+            } else if (_pEffectLockon001_Main->getProgress() == EffectLockon001_PROG_FIRST_LOCK) {
+                addAlpha(0.01);
+            } else {
+                addAlpha(0.01);
+            }
          }
          //縮小完了後、Mainのビートに合わせる
          _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;

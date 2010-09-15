@@ -34,7 +34,7 @@ void FormationPallas001::initialize() {
 //        pPallas = (EnemyPallas*)pActor;
 //        pPallas->setGeometry(_pSplineCon->refer()->_X_basepoint[0], 0, 0);
 //        pPallas->_pMover->setMvVelo(_mv_velo);
-//        pPallas->activateAfter(t*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
+//        pPallas->activateDelay(t*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
 //        t++;
 //        pActor = pActor->getNext();
 //    } while (!pActor->isFirst());
@@ -45,7 +45,7 @@ void FormationPallas001::initialize() {
 //                                   0,
 //                                   0);
 //        _papPallas[i]->_pMover->setMvVelo(_mv_velo);
-//        _papPallas[i]->activateAfter(i*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
+//        _papPallas[i]->activateDelay(i*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
 //    }
 }
 
@@ -57,7 +57,7 @@ void FormationPallas001::onActive() {
         pPallas = (EnemyPallas*)pActor;
         pPallas->setGeometry(_pSplineCon->refer()->_X_basepoint[0], 0, 0);
         pPallas->_pMover->setMvVelo(_mv_velo);
-        pPallas->activateAfter(t*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
+        pPallas->activateDelay(t*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
         t++;
         pActor = pActor->getNext();
     } while (!pActor->isFirst());

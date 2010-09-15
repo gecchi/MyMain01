@@ -38,7 +38,7 @@ void Stage01Scene::processBehavior() {
         if (_frame_Begin == 180) { //ステージ１開始！
             _pMessage->activateImmediately();
             _pMessage->update(300, 300, "SCENE 01 START!");
-            _pMessage->inactivateAfter(240);
+            _pMessage->inactivateDelay(240);
             _pWorldBoundSpace->activateTree();
             _pScene_Stage01Controller->activate();
             fadeinScene(240);
@@ -50,7 +50,7 @@ void Stage01Scene::processBehavior() {
         _TRACE_("Stage01Scene::processBehavior()  STAGE_PROG_ENDになりますた！");
         _pMessage->activateImmediately();
         _pMessage->update(300, 300, "SCENE 01 CLEAR!!");
-        _pMessage->inactivateAfter(120);
+        _pMessage->inactivateDelay(120);
         fadeoutScene(120);
     }
 

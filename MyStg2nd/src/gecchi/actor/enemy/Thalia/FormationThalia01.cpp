@@ -29,7 +29,7 @@ void FormationThalia001::initialize() {
     for (int i = 0; i < _num_Thalia; i++) {
         _papThalia[i]->setGeometry(MyShip::_lim_behaind - 500000, 0, MyShip::_lim_zleft * 0.8);
         _papThalia[i]->_pMover->setMvVelo(_mv_velo);
-        _papThalia[i]->activateAfter(i*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
+        _papThalia[i]->activateDelay(i*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
     }
 }
 

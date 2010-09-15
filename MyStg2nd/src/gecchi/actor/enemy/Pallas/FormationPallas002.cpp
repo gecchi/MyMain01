@@ -30,7 +30,7 @@ void FormationPallas002::onActive() {
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i]->setGeometry(MyShip::_lim_behaind *2 , pMYSHIP->_Y+300000,  pMYSHIP->_Z);
         _papPallas[i]->_pMover->setMvVelo(_mv_velo);
-        _papPallas[i]->activateAfter(i*_frame_interval + 1);//_frame_intervalä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
+        _papPallas[i]->activateDelay(i*_frame_interval + 1);//_frame_intervalä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
     }
 }
 
