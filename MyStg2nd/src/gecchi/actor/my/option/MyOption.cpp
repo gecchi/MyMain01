@@ -5,6 +5,10 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+
+/** １オプション当たりの最大可能ロックオン数 */
+int MyOption::_max_lockon_num = 8;
+
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
 MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMeshSetActor(prm_name, "Core4") {
 
@@ -67,14 +71,15 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     }
     addSubGroup(_pDispatcher_MyShots001);
 
-
-
-    _pLockonController = NEW MyOptionLockonController("Lockon001");
+    //ロックオンコントローラー
+    _pLockonController = NEW MyOptionLockonController("LockonController");
     addSubGroup(_pLockonController);
-//    addSubGroup(_pEffectLockon);
-//    _pEffectLockon_Release = NEW EffectLockon001_Release("EffectLockon001_Main_R", _pEffectLockon);
-//    _pEffectLockon_Release->inactivateImmediately();
-//    addSubGroup(_pEffectLockon_Release);
+
+    //フォトンコントローラー
+    _pTorpedoController = NEW MyOptionTorpedoController("TorpedoController");
+
+
+
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));
     _pSeTransmitter->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));

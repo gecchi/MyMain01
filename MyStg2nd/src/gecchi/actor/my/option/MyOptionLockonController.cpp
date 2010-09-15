@@ -5,7 +5,6 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-int MyOptionLockonController::_max_lockon_num = 9;
 
 MyOptionLockonController::MyOptionLockonController(const char* prm_name) : GgafDummyActor(prm_name) {
     _class_name = "MyOptionLockonController";
@@ -13,7 +12,7 @@ MyOptionLockonController::MyOptionLockonController(const char* prm_name) : GgafD
     _pMainLockonEffect = NEW EffectLockon001_Main("MAIN");
     _pMainLockonEffect->inactivateImmediately();
     addSubLast(_pMainLockonEffect);
-    for (int i = 1; i < _max_lockon_num; i++) {
+    for (int i = 1; i < MyOption::_max_lockon_num; i++) {
         stringstream name;
         name <<  "SUB["<<i<<"]";
         EffectLockon001_Sub* pSubLockon = NEW EffectLockon001_Sub(name.str().c_str());
@@ -79,7 +78,7 @@ void MyOptionLockonController::processJudgement() {
 void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
     if (_pRingTarget->indexOf(prm_pTarget) == -1) { //ロックオン済みに無ければ
 
-        if (_pRingTarget->length() >= _max_lockon_num) {
+        if (_pRingTarget->length() >= MyOption::_max_lockon_num) {
             //ターゲットのリストが既に満員の場合
             //ロックオンターゲットローテート
             _pRingTarget->prev();
@@ -101,7 +100,7 @@ void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
                 //最初のロックオンターゲット以外の追加時（サブロックオンターゲット追加時）
             } else if (_pRingTarget->length() > 1) {
                 //Subロックオン追加時
-                if (_max_lockon_num >= 3) {
+                if (_pRingTarget->length() >= 3) {
                     //３個目の以降ターゲット追加時（２個目以降のサブロックオンターゲット追加時）
                     //ロックオンエフェクトの特殊なローテートを行う。（※最後のコメント＜追加の場合＞参照）
                     //Lastを切り出す

@@ -2,6 +2,8 @@
 #define MYDUMMYOPTION_H_
 namespace MyStg2nd {
 
+
+
 //class MyOption : public GgafDx9LibStg::DefaultMorphMeshActor {
 class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 
@@ -11,7 +13,8 @@ class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 
     /** オプション番号 */
     int _no;
-
+    /** １オプション当たりの最大可能ロックオン数 */
+    static int _max_lockon_num;
     //一時変数達
     int _Xorg,_Yorg,_Zorg;
     //angle _RXorg,_RYorg,_RZorg;

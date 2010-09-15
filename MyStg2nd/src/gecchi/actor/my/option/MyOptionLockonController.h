@@ -12,8 +12,6 @@ namespace MyStg2nd {
 class MyOptionLockonController : public GgafCore::GgafDummyActor {
 
 public:
-    /** １オプション当たりの最大可能ロックオン数（メイン＋サブ） */
-    static int _max_lockon_num;
     /** メインロックオンエフェクト */
     EffectLockon001_Main* _pMainLockonEffect;
     /** ロックオンターゲットリストリング */
