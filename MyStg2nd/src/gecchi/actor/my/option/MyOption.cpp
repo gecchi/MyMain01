@@ -76,7 +76,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     addSubGroup(_pLockonController);
 
     //フォトンコントローラー
-    _pTorpedoController = NEW MyOptionTorpedoController("TorpedoController", _pLockonController);
+    _pTorpedoController = NEW MyOptionTorpedoController("TorpedoController", this);
     addSubGroup(_pTorpedoController);
 
 
@@ -492,7 +492,8 @@ void MyOption::processBehavior() {
 //    }
 
 
-    if (VB_PLAY->isPushedDown(VB_SHOT2)) {
+//    if (VB_PLAY->isPushedDown(VB_SHOT2)) {
+    if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
         _pTorpedoController->fire();
     }
 

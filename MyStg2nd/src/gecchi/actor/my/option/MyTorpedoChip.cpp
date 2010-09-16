@@ -29,17 +29,19 @@ void MyTorpedoChip::onActive() {
     //ステータスリセット
     MyStgUtil::resetMyTorpedoChipStatus(_pStatus);
 
-    _pMover->setMvVelo(10000);
+    _pMover->setMvVelo(80000);
     _pMover->setMvAcce(400);
     _pMover->relateRzRyFaceAngToMvAng(true);
 }
 
 void MyTorpedoChip::processBehaviorHeadChip() {
-    if (_pTarget && _pTarget->isActive()) {
+    if (_pTarget && _pTarget->isActive() && getActivePartFrame() < 90)  {
         _pMover->execTagettingMvAngSequence(
                     _pTarget,
-                    2000, 0,
+                    4000, 0,
                     TURN_CLOSE_TO, false);
+    } else {
+        _pTarget = NULL;
     }
     _pMover->behave();
 }
