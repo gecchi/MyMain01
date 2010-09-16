@@ -15,7 +15,7 @@ MyTorpedoChip::MyTorpedoChip(const char* prm_name) :
 }
 
 void MyTorpedoChip::initialize() {
-    registHitAreaCube(15000);
+    registHitAreaCube(30000);
     setHitAble(true);
     _SX = _SY = _SZ = 5*1000;
     _fAlpha = 0.9f;
@@ -40,6 +40,12 @@ void MyTorpedoChip::processBehaviorHeadChip() {
                     _pTarget,
                     4000, 0,
                     TURN_CLOSE_TO, false);
+    } else if (_pTarget && _pTarget->isActive() && getActivePartFrame() >= 90)  {
+        _pMover->execTagettingMvAngSequence(
+                    _pTarget,
+                    90, 0,
+                    TURN_CLOSE_TO, false);
+
     } else {
         _pTarget = NULL;
     }
@@ -50,7 +56,7 @@ void MyTorpedoChip::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ƒqƒbƒg
     //‘Ì—ÍŒvZ
-    int sta = MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
+    int sta = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
     if (sta <= 0) {
         //ƒqƒbƒg‚µ‚ÄÁ–Å
         sayonara();

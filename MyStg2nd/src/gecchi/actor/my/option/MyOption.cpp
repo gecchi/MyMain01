@@ -492,12 +492,6 @@ void MyOption::processBehavior() {
 //    }
 
 
-//    if (VB_PLAY->isPushedDown(VB_SHOT2)) {
-    if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
-        _pTorpedoController->fire();
-    }
-
-
     _pSeTransmitter->behave();
 
 }
