@@ -16,7 +16,6 @@ public:
    // GgafDx9LibStg::HomingLaserChip*** _papaHomingLaserChip;
 
     GgafDx9LibStg::LaserChipDispatcher** _papLaserChipDispatcher;
-
     MyTorpedoChip** _papMyTorpedoChip_Head;
     MyOption* _pMyOption;
     bool* _pa_all_employed;
