@@ -13,8 +13,7 @@ class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 
     /** オプション番号 */
     int _no;
-    /** １オプション当たりの最大可能ロックオン数 */
-    static int _max_lockon_num;
+
     //一時変数達
     int _Xorg,_Yorg,_Zorg;
     //angle _RXorg,_RYorg,_RZorg;
@@ -41,8 +40,13 @@ public:
     /** ロックオン中アクター */
     //GgafDx9Core::GgafDx9GeometricActor* _pLockonTarget;
 
-
+    /** １オプション当たりの最大可能ロックオン数 */
+    static int _max_lockon_num;
+    /** ロックオンコントローラー */
     MyOptionLockonController* _pLockonController;
+    /** 魚雷コントローラー */
+    MyOptionTorpedoController* _pTorpedoController;
+
 
     GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
     GgafCore::GgafActorDispatcher* _pDispatcher_MyShots001;

@@ -17,15 +17,15 @@ public:
 
     GgafDx9LibStg::LaserChipDispatcher** _papLaserChipDispatcher;
 
-    MyTorpedoChip* _paMyTorpedoChip_Head;
-    MyOptionLockonController* _pMyOptionLockonController;
-    int* _pa_all_employed;
+    MyTorpedoChip** _papMyTorpedoChip_Head;
+    MyOptionLockonController* _pLockonController;
+    bool* _pa_all_employed;
     int _length_TorpedoChip;
     //bool _ready_to_fire;
     int _firing_num;
     bool _in_firing;
 
-    MyOptionTorpedoController(const char* prm_name);
+    MyOptionTorpedoController(const char* prm_name, MyOptionLockonController* prm_pLockonController);
 
     void initialize() override;
 

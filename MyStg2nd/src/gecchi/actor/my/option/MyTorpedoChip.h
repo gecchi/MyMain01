@@ -6,6 +6,8 @@ class MyTorpedoChip : public GgafDx9LibStg::HomingLaserChip {
 
 
 public:
+    GgafDx9Core::GgafDx9GeometricActor* _pTarget;
+
     MyTorpedoChip(const char* prm_name);
 
     void initialize() override;

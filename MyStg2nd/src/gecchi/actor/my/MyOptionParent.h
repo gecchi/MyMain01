@@ -19,14 +19,15 @@ class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
 
 
 public:
-    MyOption* _paMyOption[8];
+    MyOption** _papMyOption;
     MyOptionParentGizmo* _pGizmo;
     MyOptionParentDirectionVector* _pDirectionVector;
 
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
     velo _veloOptionsMv;
     MoveWay _way_myship_prev;
-	int _option_num;
+    static int _max_option_num;
+    int _now_option_num;
     bool _is_handle_move_mode;
     bool _is_free_from_myship_mode;
 

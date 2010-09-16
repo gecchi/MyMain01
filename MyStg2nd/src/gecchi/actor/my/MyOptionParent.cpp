@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
-
+int MyOptionParent::_max_option_num = 8;
 
 //MyOptionParent::MyOptionParent(const char* prm_name) :
 //    DefaultMeshActor(prm_name, "Gizmo") {
@@ -18,7 +18,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _angVelo_Turn = 3000;
     _veloOptionsMv = 20000;
 
-    _option_num = 8;
+    _now_option_num = 6;
 
     _renge = 80000;
     _pMover->forceVxMvVeloRange(-_renge, _renge);
@@ -29,63 +29,67 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _pMover->forceVyMvAcceRange(-_renge / 30, _renge / 30);
     _pMover->forceVzMvAcceRange(-_renge / 30, _renge / 30);
 
-
-    for (int i = 0; i < _option_num; i++) {
-        _paMyOption[i] = NULL;
+    _papMyOption = NEW MyOption*[_max_option_num];
+    for (int i = 0; i < _max_option_num; i++) {
+        _papMyOption[i] = NULL;
     }
 
-    _paMyOption[0] = NEW MyOption("MY_OPTION01", 0, this);
-    _paMyOption[0]->setInitializeProperty(60000, ANGLE0, 0, 1000);
-    _paMyOption[0]->setMaterialColor(1.0, 1.0, 1.0);
-    _paMyOption[0]->setAlpha(0.7);
-    addSubGroup(_paMyOption[0]);
+    _papMyOption[0] = NEW MyOption("MY_OPTION01", 0, this);
+    _papMyOption[0]->setInitializeProperty(60000, ANGLE0, 0, 1000);
+    _papMyOption[0]->setMaterialColor(1.0, 1.0, 1.0);
+    _papMyOption[0]->setAlpha(0.7);
+    addSubGroup(_papMyOption[0]);
 
-    _paMyOption[1] = NEW MyOption("MY_OPTION02", 1, this);
-    _paMyOption[1]->setInitializeProperty(60000, ANGLE90, 0, 1000);
-    _paMyOption[1]->setMaterialColor(0.8, 1.0, 1.0);
-    _paMyOption[1]->setAlpha(0.7);
-    addSubGroup(_paMyOption[1]);
+    _papMyOption[1] = NEW MyOption("MY_OPTION02", 1, this);
+    _papMyOption[1]->setInitializeProperty(60000, ANGLE90, 0, 1000);
+    _papMyOption[1]->setMaterialColor(0.8, 1.0, 1.0);
+    _papMyOption[1]->setAlpha(0.7);
+    addSubGroup(_papMyOption[1]);
 
-    _paMyOption[2] = NEW MyOption("MY_OPTION03", 2, this);
-    _paMyOption[2]->setInitializeProperty(60000, ANGLE180, 0, 1000);
-    _paMyOption[2]->setMaterialColor(1.0, 0.8, 0.8);
-    _paMyOption[2]->setAlpha(0.7);
-    addSubGroup(_paMyOption[2]);
+    _papMyOption[2] = NEW MyOption("MY_OPTION03", 2, this);
+    _papMyOption[2]->setInitializeProperty(60000, ANGLE180, 0, 1000);
+    _papMyOption[2]->setMaterialColor(1.0, 0.8, 0.8);
+    _papMyOption[2]->setAlpha(0.7);
+    addSubGroup(_papMyOption[2]);
 
-    _paMyOption[3] = NEW MyOption("MY_OPTION04", 4, this);
-    _paMyOption[3]->setInitializeProperty(60000, ANGLE270, 0, 1000);
-    _paMyOption[3]->setMaterialColor(0.8, 1.0, 0.8);
-    _paMyOption[3]->setAlpha(0.7);
-    addSubGroup(_paMyOption[3]);
+    _papMyOption[3] = NEW MyOption("MY_OPTION04", 4, this);
+    _papMyOption[3]->setInitializeProperty(60000, ANGLE270, 0, 1000);
+    _papMyOption[3]->setMaterialColor(0.8, 1.0, 0.8);
+    _papMyOption[3]->setAlpha(0.7);
+    addSubGroup(_papMyOption[3]);
 
-    _paMyOption[4] = NEW MyOption("MY_OPTION05", 5, this);
-    _paMyOption[4]->setInitializeProperty(120000, ANGLE0, 0, -1500);
-    _paMyOption[4]->setMaterialColor(0.8, 0.8, 1.0);
-    _paMyOption[4]->setAlpha(0.7);
-    addSubGroup(_paMyOption[4]);
+    _papMyOption[4] = NEW MyOption("MY_OPTION05", 5, this);
+    _papMyOption[4]->setInitializeProperty(120000, ANGLE0, 0, -1500);
+    _papMyOption[4]->setMaterialColor(0.8, 0.8, 1.0);
+    _papMyOption[4]->setAlpha(0.7);
+    addSubGroup(_papMyOption[4]);
 
-    _paMyOption[5] = NEW MyOption("MY_OPTION06", 6, this);
-    _paMyOption[5]->setInitializeProperty(120000, ANGLE90, 0, -1500);
-    _paMyOption[5]->setMaterialColor(0.8, 1.0, 0.8);
-    _paMyOption[5]->setAlpha(0.7);
-    addSubGroup(_paMyOption[5]);
+    _papMyOption[5] = NEW MyOption("MY_OPTION06", 6, this);
+    _papMyOption[5]->setInitializeProperty(120000, ANGLE90, 0, -1500);
+    _papMyOption[5]->setMaterialColor(0.8, 1.0, 0.8);
+    _papMyOption[5]->setAlpha(0.7);
+    addSubGroup(_papMyOption[5]);
 
-    _paMyOption[6] = NEW MyOption("MY_OPTION07", 7, this);
-    _paMyOption[6]->setInitializeProperty(120000, ANGLE180, 0, -1500);
-    _paMyOption[6]->setMaterialColor(1.0, 0.8, 0);
-    _paMyOption[6]->setAlpha(0.7);
-    addSubGroup(_paMyOption[6]);
+    _papMyOption[6] = NEW MyOption("MY_OPTION07", 7, this);
+    _papMyOption[6]->setInitializeProperty(120000, ANGLE180, 0, -1500);
+    _papMyOption[6]->setMaterialColor(1.0, 0.8, 0);
+    _papMyOption[6]->setAlpha(0.7);
+    addSubGroup(_papMyOption[6]);
 
-    _paMyOption[7] = NEW MyOption("MY_OPTION08", 8, this);
-    _paMyOption[7]->setInitializeProperty(120000, ANGLE270, 0, -1500);
-    _paMyOption[7]->setMaterialColor(1.0, 1.0, 1.0);
-    _paMyOption[7]->setAlpha(0.7);
-    addSubGroup(_paMyOption[7]);
+    _papMyOption[7] = NEW MyOption("MY_OPTION08", 8, this);
+    _papMyOption[7]->setInitializeProperty(120000, ANGLE270, 0, -1500);
+    _papMyOption[7]->setMaterialColor(1.0, 1.0, 1.0);
+    _papMyOption[7]->setAlpha(0.7);
+    addSubGroup(_papMyOption[7]);
 
 
+    for (int i = 0; i < _max_option_num; i++) {
+        _papMyOption[i]->inactivateImmediately();
+    }
 
-    for (int i = 0; i < _option_num; i++) {
-        _paMyOption[i]->activate();
+
+    for (int i = 0; i < _now_option_num; i++) {
+        _papMyOption[i]->activate();
     }
 
     //ギズモ
@@ -129,10 +133,10 @@ void MyOptionParent::processBehavior() {
         _is_handle_move_mode = false;
         _return_to_default_position_seq = true;
 
-        for (int i = 0; i < _option_num; i++) {
+        for (int i = 0; i < _now_option_num; i++) {
             //オプションの半径位置を元に戻す指示
-            _paMyOption[i]->_return_to_default_radiusPosition_seq = true;
-            _paMyOption[i]->_return_to_default_angExpanse_seq= true;
+            _papMyOption[i]->_return_to_default_radiusPosition_seq = true;
+            _papMyOption[i]->_return_to_default_angExpanse_seq= true;
         }
 
 
@@ -155,7 +159,7 @@ void MyOptionParent::processBehavior() {
 
     if (VB_PLAY->isRoundPushDown(VB_OPTION)) {
     //if (VB_PLAY->isPushedDown(VB_OPTION) && GgafDx9Input::isBeingPressedKey(DIK_S)) {
-        if (_paMyOption[0]) {
+        if (_papMyOption[0]) {
             _is_free_from_myship_mode = true;
             _is_handle_move_mode = true;
             _pMover->setVxMvAcce(0);
@@ -172,7 +176,7 @@ void MyOptionParent::processBehavior() {
         if (VB_PLAY->isBeingPressed(VB_OPTION) && _is_handle_move_mode) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちのオプション移動速度のみを設定。
-            _pMover->setMvVelo(GgafDx9Util::COS[_paMyOption[0]->_angExpanse/ ANGLE_RATE] * _veloOptionsMv);
+            _pMover->setMvVelo(GgafDx9Util::COS[_papMyOption[0]->_angExpanse/ ANGLE_RATE] * _veloOptionsMv);
             //旋回半径増加速度の処理はMyOptionクラスで行う。
         } else {
             _is_handle_move_mode = false;
@@ -221,6 +225,7 @@ void MyOptionParent::processBehavior() {
 
 
 MyOptionParent::~MyOptionParent() {
+    DELETEARR_IMPOSSIBLE_NULL(_papMyOption);
     DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
 }
 

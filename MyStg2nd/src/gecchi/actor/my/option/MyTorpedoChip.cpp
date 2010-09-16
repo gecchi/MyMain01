@@ -11,6 +11,7 @@ MyTorpedoChip::MyTorpedoChip(const char* prm_name) :
         HomingLaserChip(prm_name, "AstraeaLaserChip001") {
     _class_name = "MyTorpedoChip";
     MyStgUtil::resetMyTorpedoChipStatus(_pStatus);
+    _pTarget = NULL;
 }
 
 void MyTorpedoChip::initialize() {
@@ -34,27 +35,12 @@ void MyTorpedoChip::onActive() {
 }
 
 void MyTorpedoChip::processBehaviorHeadChip() {
-    if (getActivePartFrame() == 40) {
+    if (_pTarget && _pTarget->isActive()) {
         _pMover->execTagettingMvAngSequence(
-                    GameGlobal::_pMyShip,
-                    7000, 0,
-                    TURN_ANTICLOSE_TO, false);
-    }
-
-
-    if (_pMover->_mv_ang_ry_target_flg == false && _pMover->_mv_ang_rz_target_flg == false) {
-        _pMover->execTagettingMvAngSequence(
-                    GameGlobal::_pMyShip,
-                    100, 0,
+                    _pTarget,
+                    2000, 0,
                     TURN_CLOSE_TO, false);
     }
-//
-//    if (_frame_of_behaving_from_onActive == 35) {
-//        _pMover->execTagettingMvAngSequence(
-//                    GameGlobal::_pMyShip,
-//                    20000, TURN_ANTICLOSE_TO);
-//    }
-
     _pMover->behave();
 }
 
