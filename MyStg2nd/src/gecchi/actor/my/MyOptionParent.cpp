@@ -52,36 +52,35 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _papMyOption[2]->setAlpha(0.7);
     addSubGroup(_papMyOption[2]);
 
-    _papMyOption[3] = NEW MyOption("MY_OPTION04", 4, this);
+    _papMyOption[3] = NEW MyOption("MY_OPTION04", 3, this);
     _papMyOption[3]->setInitializeProperty(60000, ANGLE270, 0, 1000);
     _papMyOption[3]->setMaterialColor(0.8, 1.0, 0.8);
     _papMyOption[3]->setAlpha(0.7);
     addSubGroup(_papMyOption[3]);
 
-    _papMyOption[4] = NEW MyOption("MY_OPTION05", 5, this);
+    _papMyOption[4] = NEW MyOption("MY_OPTION05", 4, this);
     _papMyOption[4]->setInitializeProperty(120000, ANGLE0, 0, -1500);
     _papMyOption[4]->setMaterialColor(0.8, 0.8, 1.0);
     _papMyOption[4]->setAlpha(0.7);
     addSubGroup(_papMyOption[4]);
 
-    _papMyOption[5] = NEW MyOption("MY_OPTION06", 6, this);
+    _papMyOption[5] = NEW MyOption("MY_OPTION06", 5, this);
     _papMyOption[5]->setInitializeProperty(120000, ANGLE90, 0, -1500);
     _papMyOption[5]->setMaterialColor(0.8, 1.0, 0.8);
     _papMyOption[5]->setAlpha(0.7);
     addSubGroup(_papMyOption[5]);
 
-    _papMyOption[6] = NEW MyOption("MY_OPTION07", 7, this);
+    _papMyOption[6] = NEW MyOption("MY_OPTION07", 6, this);
     _papMyOption[6]->setInitializeProperty(120000, ANGLE180, 0, -1500);
     _papMyOption[6]->setMaterialColor(1.0, 0.8, 0);
     _papMyOption[6]->setAlpha(0.7);
     addSubGroup(_papMyOption[6]);
 
-    _papMyOption[7] = NEW MyOption("MY_OPTION08", 8, this);
+    _papMyOption[7] = NEW MyOption("MY_OPTION08", 7, this);
     _papMyOption[7]->setInitializeProperty(120000, ANGLE270, 0, -1500);
     _papMyOption[7]->setMaterialColor(1.0, 1.0, 1.0);
     _papMyOption[7]->setAlpha(0.7);
     addSubGroup(_papMyOption[7]);
-
 
     for (int i = 0; i < _max_option_num; i++) {
         _papMyOption[i]->inactivateImmediately();

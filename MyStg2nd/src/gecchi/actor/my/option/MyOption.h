@@ -8,11 +8,8 @@ namespace MyStg2nd {
 class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 
 
-    /** 親アクター */
-    MyOptionParent* _pMyOptionParent;
 
-    /** オプション番号 */
-    int _no;
+
 
     //一時変数達
     int _Xorg,_Yorg,_Zorg;
@@ -37,9 +34,12 @@ private:
 
 public:
 
+    /** 親アクター */
+    MyOptionParent* _pMyOptionParent;
     /** ロックオン中アクター */
     //GgafDx9Core::GgafDx9GeometricActor* _pLockonTarget;
-
+    /** オプション番号 */
+    int _no;
     /** １オプション当たりの最大可能ロックオン数 */
     static int _max_lockon_num;
     /** ロックオンコントローラー */

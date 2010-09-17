@@ -56,7 +56,6 @@ void MyOptionTorpedoController::processBehavior() {
                 MyTorpedoChip* pTorpedoChip = (MyTorpedoChip*)_papLaserChipDispatcher[i]->employ();
                 if (pTorpedoChip) {
                     pTorpedoChip->setGeometry(pMYSHIP);
-                    pTorpedoChip->_pMover->setMvAng(_pMyOption);
                     pTorpedoChip->activate();
                     if (pTorpedoChip->_pChip_front &&  pTorpedoChip->_pChip_front->_pChip_front == NULL) {
                         _papMyTorpedoChip_Head[i] = pTorpedoChip;
@@ -74,17 +73,33 @@ void MyOptionTorpedoController::processJudgement() {
 
 void MyOptionTorpedoController::fire() {
     if (!_in_firing) {
-        _firing_num = _pMyOption->_pLockonController->_pRingTarget->length();
-        if (_firing_num == 0) {
-            //_firing_num = 1;
-        } else {
-            for (int i = 0; i < _firing_num; i++) {
-                _pa_all_employed[i] = false; //リセット
-                MyTorpedoChip* pHead = (MyTorpedoChip*)_papLaserChipDispatcher[i]->getSubFirst();
+        _in_firing = true;
+        int target_num = _pMyOption->_pLockonController->_pRingTarget->length();
+        _firing_num = MyOption::_max_lockon_num; //target_num == 0 ? MyOption::_max_lockon_num : target_num;
+        angle angBegin = ANGLE90;
+        angle angRenge  = ANGLE360 / _pMyOption->_pMyOptionParent->_now_option_num;
+        angle angFireCenter = angBegin + (ANGLE360*(_pMyOption->_no-1) / _pMyOption->_pMyOptionParent->_now_option_num);
+        angle out_rz,out_ry,out_dz,out_dy;
+        angle* pa_angWay = NEW angle[ _firing_num+2];
+        GgafDx9Util::getWayAngle2D(angFireCenter, _firing_num+1, angRenge / _firing_num, pa_angWay);
+        for (int i = 0; i < _firing_num; i++) { //両端の方向は不要
+            _pa_all_employed[i] = false; //リセット
+            MyTorpedoChip* pHead = (MyTorpedoChip*)_papLaserChipDispatcher[i]->getSubFirst();
+            if (target_num == 0) {
+                pHead->_pTarget = NULL;
+            } else {
                 pHead->_pTarget = _pMyOption->_pLockonController->_pRingTarget->getNext(i);
             }
-            _in_firing = true;
+
+            pHead->_pMover->setRzRyMvAng(0, 0);
+            pHead->_pMover->getRzRyMvAngDistance(TURN_CLOSE_TO,
+                                                 pa_angWay[i], ANGLE90,
+                                                 out_dz, out_dy,
+                                                 out_rz, out_ry
+                                                );
+            pHead->_pMover->setRzRyMvAng(out_rz, out_ry);
         }
+        delete[] pa_angWay;
     }
 }
 
