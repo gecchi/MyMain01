@@ -340,11 +340,54 @@ public:
                                    float& out_nvz);
 
     /**
-     * 方向を変えず、Z軸回転+Y軸回転の合計が小さくなるように最適化を試みる。
+     * 方向を変えず、Z軸回転+Y軸回転もう一つの組み合わせを返す。
      * @param rz1
      * @param ry1
      */
     static void anotherRzRy(angle& rz1, angle& ry1) {
+        int rz2 = 0;
+        int ry2 = 0;
+        if (0 <= rz1 && rz1 < ANGLE90) {
+            rz2 = ANGLE180 - rz1;
+
+            if (0 <= ry1 && ry1 < ANGLE180) {
+                ry2 = ry1 + ANGLE180;
+            } else {
+                ry2 = ry1 - ANGLE180;
+            }
+        } else if (ANGLE90 <= rz1 && rz1 < ANGLE180) {
+            rz2 = ANGLE180 - rz1;
+            if (0 <= ry1 && ry1 < ANGLE180) {
+                ry2 = ry1 + ANGLE180;
+            } else {
+                ry2 = ry1 - ANGLE180;
+            }
+        } else if (ANGLE180 <= rz1 && rz1 < ANGLE270) {
+            rz2 = ANGLE180 + (ANGLE360 - rz1);
+            if (0 <= ry1 && ry1 < ANGLE180) {
+                ry2 = ry1 + ANGLE180;
+            } else {
+                ry2 = ry1 - ANGLE180;
+            }
+        } else if (ANGLE270 <= rz1 && rz1 <= ANGLE360) {
+            rz2 = ANGLE180 + (ANGLE360 - rz1);
+            if (0 <= ry1 && ry1 < ANGLE180) {
+                ry2 = ry1 + ANGLE180;
+            } else {
+                ry2 = ry1 - ANGLE180;
+            }
+        }
+        rz1 = rz2;
+        ry1 = ry2;
+    }
+
+    /**
+     * RzRyの最適化を試みる。
+     * 方向を変えず、Z軸回転+Y軸回転もう一つの組み合わせと比較し。
+     * @param rz1
+     * @param ry1
+     */
+    static void optimizeRzRy(angle& rz1, angle& ry1) {
         int rz2 = 0;
         int ry2 = 0;
         if (0 <= rz1 && rz1 < ANGLE90) {
