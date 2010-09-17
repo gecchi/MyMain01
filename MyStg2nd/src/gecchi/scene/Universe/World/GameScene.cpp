@@ -192,9 +192,9 @@ void GameScene::processJudgement() {
     if (getBehaveingFrame() >= 120) {
         CollisionChecker::_num_check = 0;
 
-        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-            CollisionChecker::_pLinearOctree->putTree();
-        }
+//        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+//            CollisionChecker::_pLinearOctree->putTree();
+//        }
 
         //八分木アルゴリズムで所属シーンの所属アクター全ヒットチェック
         //詳細は 「シーンCreater.xls」 の 「種別相関」 シート参照

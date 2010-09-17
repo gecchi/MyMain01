@@ -31,38 +31,43 @@ void MyTorpedoChip::onActive() {
 
     _pMover->setMvVelo(40000);
     _pMover->setMvAcce(1000);
+    _pMover->setRzMvAngVelo(0);
+    _pMover->setRyMvAngVelo(0);
+    _pMover->setRzMvAngAcce(0);
+    _pMover->setRyMvAngAcce(0);
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->stopTagettingMvAngSequence();
 }
 
 void MyTorpedoChip::processBehaviorHeadChip() {
-    if (getActivePartFrame() < 120) {
+    if (getActivePartFrame() <= 120 && getActivePartFrame() % 5 == 0) {
         if (_pTarget) {
             if (_pTarget->isActive())  {
-                if (_pMover->isTagettingMvAng()) {
-
-                } else {
-                    _pMover->execTagettingMvAngSequence(
-                                _pTarget,
-                                2000, 0,
-                                TURN_CLOSE_TO, false);
-                }
+                _pMover->execTagettingMvAngSequence(
+                            _pTarget,
+                            2000, 0,
+                            TURN_CLOSE_TO, false);
             } else {
                 //‚Ü‚Á‚·‚®
+                _pMover->setRzMvAngVelo(0);
+                _pMover->setRyMvAngVelo(0);
+                _pMover->setRzMvAngAcce(0);
+                _pMover->setRyMvAngAcce(0);
             }
         } else {
-            if (_pMover->isTagettingMvAng()) {
-
-            } else {
                 _pMover->execTagettingMvAngSequence(
                             GgafDx9Universe::_X_goneRight, pMYSHIP->_Y, pMYSHIP->_Z,
                             2000, 0,
                             TURN_CLOSE_TO, false);
-            }
         }
     }
 
-    if ( getActivePartFrame() >= 120)  {
+    if ( getActivePartFrame() == 300) {
+        _pMover->setRzMvAngVelo(0);
+        _pMover->setRyMvAngVelo(0);
+        _pMover->setRzMvAngAcce(0);
+        _pMover->setRyMvAngAcce(0);
+    } else if ( getActivePartFrame() > 120 && getActivePartFrame() % 5 == 0)  {
         if (_pTarget) {
             if (_pTarget->isActive())  {
                 if (_pMover->isTagettingMvAng()) {
@@ -74,6 +79,11 @@ void MyTorpedoChip::processBehaviorHeadChip() {
                                 TURN_CLOSE_TO, false);
                 }
             }
+        } else {
+            _pMover->setRzMvAngVelo(0);
+            _pMover->setRyMvAngVelo(0);
+            _pMover->setRzMvAngAcce(0);
+            _pMover->setRyMvAngAcce(0);
         }
     }
 

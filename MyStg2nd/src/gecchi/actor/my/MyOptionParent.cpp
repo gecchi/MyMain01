@@ -118,6 +118,10 @@ void MyOptionParent::initialize() {
 }
 
 void MyOptionParent::processBehavior() {
+//    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+//        dump();
+//    }
+
 
     if (VB_PLAY->isDoublePushedDown(VB_OPTION,8,8)) {
         //‚à‚Æ‚É–ß‚·
