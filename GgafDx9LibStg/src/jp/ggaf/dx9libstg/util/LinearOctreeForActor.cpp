@@ -119,9 +119,9 @@ void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA,
         for (UINT32 j = 0; j < prm_pStackB->_p; j++) {
             pActor_B = prm_pStackB->_apActor[j];
 #ifdef MY_DEBUG
-        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-            _TRACE_("HitChk("<<pActor_A->getName()<<" x "<<pActor_B->getName()<<")");
-        }
+//        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+//            _TRACE_("HitChk("<<pActor_A->getName()<<" x "<<pActor_B->getName()<<")");
+//        }
 #endif
 
             pActor_A->executeHitChk_MeAnd(pActor_B);

@@ -113,17 +113,17 @@ void CollisionChecker::updateHitArea() {
                                            _pActor->_Z + _pCollisionArea->_AABB_Z2);
 
 #ifdef MY_DEBUG
-        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-            _TRACE_("  CollisionChecker::updateHitArea()  registElem("<<(_pActor->getName())<<")=("<<
-                                             (_pActor->_X + _pCollisionArea->_AABB_X1)<<","<<
-                                             (_pActor->_Y + _pCollisionArea->_AABB_Y1)<<","<<
-                                             (_pActor->_Z + _pCollisionArea->_AABB_Z1)<<","<<
-                                             (_pActor->_X + _pCollisionArea->_AABB_X2)<<","<<
-                                             (_pActor->_Y + _pCollisionArea->_AABB_Y2)<<","<<
-                                             (_pActor->_Z + _pCollisionArea->_AABB_Z2)<<")");
-            //_pLinearOctree->putTree();
-
-        }
+//        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+//            _TRACE_("  CollisionChecker::updateHitArea()  registElem("<<(_pActor->getName())<<")=("<<
+//                                             (_pActor->_X + _pCollisionArea->_AABB_X1)<<","<<
+//                                             (_pActor->_Y + _pCollisionArea->_AABB_Y1)<<","<<
+//                                             (_pActor->_Z + _pCollisionArea->_AABB_Z1)<<","<<
+//                                             (_pActor->_X + _pCollisionArea->_AABB_X2)<<","<<
+//                                             (_pActor->_Y + _pCollisionArea->_AABB_Y2)<<","<<
+//                                             (_pActor->_Z + _pCollisionArea->_AABB_Z2)<<")");
+//            //_pLinearOctree->putTree();
+//
+//        }
 #endif
     }
 }
