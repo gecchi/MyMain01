@@ -15,9 +15,9 @@ MyTorpedoChip::MyTorpedoChip(const char* prm_name) :
 }
 
 void MyTorpedoChip::initialize() {
-    registHitAreaCube(30000);
+    registHitAreaCube(80000);
     setHitAble(true);
-    _SX = _SY = _SZ = 5*1000;
+    _SX = _SY = _SZ = 6*1000;
     _fAlpha = 0.9f;
     _fBoundingSphereRadius = 5.0f;
     _paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0.0, 0.0, 1.0);
@@ -29,13 +29,14 @@ void MyTorpedoChip::onActive() {
     //ステータスリセット
     MyStgUtil::resetMyTorpedoChipStatus(_pStatus);
 
-    _pMover->setMvVelo(40000);
+    _pMover->setMvVelo(100000);
     _pMover->setMvAcce(1000);
     _pMover->setRzMvAngVelo(0);
     _pMover->setRyMvAngVelo(0);
     _pMover->setRzMvAngAcce(0);
     _pMover->setRyMvAngAcce(0);
-    _pMover->relateRzRyFaceAngToMvAng(true);
+    _pMover->forceRzMvAngVeloRange(-10000, 10000);
+    _pMover->forceRyMvAngVeloRange(-10000, 10000);
     _pMover->stopTagettingMvAngSequence();
 }
 
@@ -45,7 +46,7 @@ void MyTorpedoChip::processBehaviorHeadChip() {
             if (_pTarget->isActive())  {
                 _pMover->execTagettingMvAngSequence(
                             _pTarget,
-                            2000, 0,
+                            3000, 100,
                             TURN_CLOSE_TO, false);
             } else {
                 //まっすぐ
@@ -57,7 +58,7 @@ void MyTorpedoChip::processBehaviorHeadChip() {
         } else {
                 _pMover->execTagettingMvAngSequence(
                             GgafDx9Universe::_X_goneRight, pMYSHIP->_Y, pMYSHIP->_Z,
-                            2000, 0,
+                            3000, 100,
                             TURN_CLOSE_TO, false);
         }
     }
