@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 /** １オプション当たりの最大可能ロックオン数 */
-int MyOption::_max_lockon_num = 4;
+int MyOption::_max_lockon_num = 6;
 
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
 MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMeshSetActor(prm_name, "Core4") {

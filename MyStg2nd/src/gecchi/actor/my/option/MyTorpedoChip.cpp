@@ -35,8 +35,8 @@ void MyTorpedoChip::onActive() {
     _pMover->setRyMvAngVelo(0);
     _pMover->setRzMvAngAcce(0);
     _pMover->setRyMvAngAcce(0);
-    _pMover->forceRzMvAngVeloRange(-10000, 10000);
-    _pMover->forceRyMvAngVeloRange(-10000, 10000);
+    _pMover->forceRzMvAngVeloRange(-40000, 40000);
+    _pMover->forceRyMvAngVeloRange(-40000, 40000);
     _pMover->stopTagettingMvAngSequence();
 }
 
@@ -46,7 +46,7 @@ void MyTorpedoChip::processBehaviorHeadChip() {
             if (_pTarget->isActive())  {
                 _pMover->execTagettingMvAngSequence(
                             _pTarget,
-                            3000, 100,
+                            4000, 300,
                             TURN_CLOSE_TO, false);
             } else {
                 //‚Ü‚Á‚·‚®
@@ -58,7 +58,7 @@ void MyTorpedoChip::processBehaviorHeadChip() {
         } else {
                 _pMover->execTagettingMvAngSequence(
                             GgafDx9Universe::_X_goneRight, pMYSHIP->_Y, pMYSHIP->_Z,
-                            3000, 100,
+                            4000, 300,
                             TURN_CLOSE_TO, false);
         }
     }
@@ -76,7 +76,7 @@ void MyTorpedoChip::processBehaviorHeadChip() {
                 } else {
                     _pMover->execTagettingMvAngSequence(
                                 _pTarget,
-                                90, 0,
+                                200, 0,
                                 TURN_CLOSE_TO, false);
                 }
             }
