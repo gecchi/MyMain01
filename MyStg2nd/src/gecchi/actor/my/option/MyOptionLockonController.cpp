@@ -36,6 +36,9 @@ void MyOptionLockonController::processBehavior() {
             //ターゲットが存命ならば
             //エフェクトアクターのターゲット更新、エフェクトをズルっとします
             ((EffectLockon001*)pLockonEffect_Active)->lockon(pTarget);
+            if (!pLockonEffect_Active->isActive()) {
+                pLockonEffect_Active->activate();
+            }
             pLockonEffect_Active = pLockonEffect_Active->getNext(); //次回処理ロックオンエフェクトアクター次へ
             pTarget = _pRingTarget->next();                         //次回処理ターゲットを次へ
         } else {
@@ -69,6 +72,13 @@ void MyOptionLockonController::processBehavior() {
             }
         }
     }
+
+    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+        dumpTarget(_pRingTarget->getCurrent());
+        dump();
+    }
+
+
 }
 
 void MyOptionLockonController::processJudgement() {

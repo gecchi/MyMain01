@@ -9,7 +9,7 @@ using namespace MyStg2nd;
 MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOption* prm_pMyOption)
                                                                                   : GgafDummyActor(prm_name) {
     _class_name = "MyOptionTorpedoController";
-    _length_TorpedoChip = 9;
+    _length_TorpedoChip = 10;
     _papLaserChipDispatcher = NEW LaserChipDispatcher*[MyOption::_max_lockon_num];
     _pa_all_employed = NEW bool[MyOption::_max_lockon_num];
     _papMyTorpedoChip_Head = NEW MyTorpedoChip*[MyOption::_max_lockon_num];

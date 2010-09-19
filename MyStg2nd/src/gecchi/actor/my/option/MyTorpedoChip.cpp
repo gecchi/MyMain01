@@ -29,12 +29,13 @@ void MyTorpedoChip::onActive() {
     //ステータスリセット
     MyStgUtil::resetMyTorpedoChipStatus(_pStatus);
 
-    _pMover->setMvVelo(100000);
-    _pMover->setMvAcce(1000);
+    _pMover->setMvVelo(30000);
+    _pMover->setMvAcce(2000);
     _pMover->setRzMvAngVelo(0);
     _pMover->setRyMvAngVelo(0);
     _pMover->setRzMvAngAcce(0);
     _pMover->setRyMvAngAcce(0);
+    _pMover->forceMvVeloRange(1000, 80000);
     _pMover->forceRzMvAngVeloRange(-40000, 40000);
     _pMover->forceRyMvAngVeloRange(-40000, 40000);
     _pMover->stopTagettingMvAngSequence();
@@ -46,7 +47,7 @@ void MyTorpedoChip::processBehaviorHeadChip() {
             if (_pTarget->isActive())  {
                 _pMover->execTagettingMvAngSequence(
                             _pTarget,
-                            4000, 300,
+                            3000, 300,
                             TURN_CLOSE_TO, false);
             } else {
                 //まっすぐ
@@ -58,7 +59,7 @@ void MyTorpedoChip::processBehaviorHeadChip() {
         } else {
                 _pMover->execTagettingMvAngSequence(
                             GgafDx9Universe::_X_goneRight, pMYSHIP->_Y, pMYSHIP->_Z,
-                            4000, 300,
+                            3000, 300,
                             TURN_CLOSE_TO, false);
         }
     }

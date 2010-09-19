@@ -13,8 +13,8 @@ EnemyMetis::EnemyMetis(const char* prm_name) : DefaultMeshSetActor(prm_name, "Me
     _depth_Y = 36*2*LEN_UNIT;
     _iMovePatternNo = 0;
     _pSeTransmitter->useSe(2);
-    _pSeTransmitter->set(0, "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeTransmitter->set(1, "bom10", GgafRepeatSeq::nextVal("CH_bom10"));     //”š”­
+    _pSeTransmitter->set(0, "yume_shototsu", GgafRepeatSeq::nextVal("CH_MetisHit"));
+    _pSeTransmitter->set(1, "bom10", GgafRepeatSeq::nextVal("CH_MetisDestroy"));     //”š”­
 }
 
 void EnemyMetis::initialize() {

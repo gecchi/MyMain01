@@ -155,10 +155,11 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     paFuncTurbo[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
     paFuncTurbo[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
-    _pSeTransmitter->useSe(3);
+    _pSeTransmitter->useSe(4);
     _pSeTransmitter->set(0, "se-020");
     _pSeTransmitter->set(1,"laser001", 99);
     _pSeTransmitter->set(2,"fire01", 99);
+    _pSeTransmitter->set(3,"bse5", 99);
     char rankstr[80] = {0} ;// ‘S‚Ä0‚Å‰Šú‰»
     MyStgUtil::getRankStr(99999, rankstr);
     _TRACE_("RANKSTR:"<<rankstr);
@@ -462,6 +463,7 @@ void MyShip::processJudgement() {
             }
         }
         if (can_fire) {
+            _pSeTransmitter->play3D(3);
             for (int i = 0; i < _pMyOptionParent->_now_option_num; i++) {
                 _pMyOptionParent->_papMyOption[i]->_pTorpedoController->fire();
             }
