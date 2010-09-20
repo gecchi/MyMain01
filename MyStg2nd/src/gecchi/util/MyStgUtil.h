@@ -185,7 +185,7 @@ public:
 	//オプションレーザー
 	static void resetMyCurveLaserChip001Status(GgafCore::GgafStatus* p);
 	//トゥピード
-	static void resetMyTorpedoChipStatus(GgafCore::GgafStatus* p);
+	static void resetMyTorpedoTailStatus(GgafCore::GgafStatus* p);
 	//自機
 	static void resetMyShipStatus(GgafCore::GgafStatus* p);
 	//敵ストレートレーザー001

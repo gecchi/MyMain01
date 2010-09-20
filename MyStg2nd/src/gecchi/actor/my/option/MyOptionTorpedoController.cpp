@@ -12,7 +12,7 @@ MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOpt
     _length_TorpedoChip = 10;
     _papLaserChipDispatcher = NEW LaserChipDispatcher*[MyOption::_max_lockon_num];
     _pa_all_employed = NEW bool[MyOption::_max_lockon_num];
-    _papMyTorpedoChip_Head = NEW MyTorpedoChip*[MyOption::_max_lockon_num];
+    _papMyTorpedoTail_Head = NEW MyTorpedoTail*[MyOption::_max_lockon_num];
     for (int i = 0; i < MyOption::_max_lockon_num; i++) {
         _pa_all_employed[i] = false;
         _papLaserChipDispatcher[i] = NEW LaserChipDispatcher("DP");
@@ -22,7 +22,7 @@ MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOpt
         for (int j = 0; j < _length_TorpedoChip; j++) {
             stringstream name;
             name <<  "Torpedo["<<i<<"]["<<j<<"]";
-            MyTorpedoChip* pChip = NEW MyTorpedoChip(name.str().c_str());
+            MyTorpedoTail* pChip = NEW MyTorpedoTail(name.str().c_str());
             if (j == 0) {
                 //実質の先頭？
 
@@ -53,12 +53,12 @@ void MyOptionTorpedoController::processBehavior() {
             } else {
                 //発射中
                 _in_firing = true;
-                MyTorpedoChip* pTorpedoChip = (MyTorpedoChip*)_papLaserChipDispatcher[i]->employ();
+                MyTorpedoTail* pTorpedoChip = (MyTorpedoTail*)_papLaserChipDispatcher[i]->employ();
                 if (pTorpedoChip) {
                     pTorpedoChip->setGeometry(pMYSHIP);
                     pTorpedoChip->activate();
                     if (pTorpedoChip->_pChip_front &&  pTorpedoChip->_pChip_front->_pChip_front == NULL) {
-                        _papMyTorpedoChip_Head[i] = pTorpedoChip;
+                        _papMyTorpedoTail_Head[i] = pTorpedoChip;
                     }
                 } else {
                     _pa_all_employed[i] = true;
@@ -84,7 +84,7 @@ void MyOptionTorpedoController::fire() {
         GgafDx9Util::getWayAngle2D(angFireCenter, _firing_num+1, angRenge / _firing_num, pa_angWay);
         for (int i = 0; i < _firing_num; i++) { //両端の方向は不要
             _pa_all_employed[i] = false; //リセット
-            MyTorpedoChip* pHead = (MyTorpedoChip*)_papLaserChipDispatcher[i]->getSubFirst();
+            MyTorpedoTail* pHead = (MyTorpedoTail*)_papLaserChipDispatcher[i]->getSubFirst();
             if (target_num == 0) {
                 pHead->_pTarget = NULL;
             } else {

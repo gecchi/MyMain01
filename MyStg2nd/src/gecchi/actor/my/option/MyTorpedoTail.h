@@ -1,14 +1,14 @@
-#ifndef MYTORPEDOCHIP_H_
-#define MYTORPEDOCHIP_H_
+#ifndef MYTORPEDOTAIL_H_
+#define MYTORPEDOTAIL_H_
 namespace MyStg2nd {
 
-class MyTorpedoChip : public GgafDx9LibStg::HomingLaserChip {
+class MyTorpedoTail : public GgafDx9LibStg::HomingLaserChip {
 
 
 public:
     GgafDx9Core::GgafDx9GeometricActor* _pTarget;
 
-    MyTorpedoChip(const char* prm_name);
+    MyTorpedoTail(const char* prm_name);
 
     void initialize() override;
 
@@ -22,10 +22,10 @@ public:
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
 
-    virtual ~MyTorpedoChip();
+    virtual ~MyTorpedoTail();
 
 };
 
 }
-#endif /*MYTORPEDOCHIP_H_*/
+#endif /*MYTORPEDOTAIL_H_*/
 

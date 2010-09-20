@@ -7,14 +7,14 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-MyTorpedoChip::MyTorpedoChip(const char* prm_name) :
+MyTorpedoTail::MyTorpedoTail(const char* prm_name) :
         HomingLaserChip(prm_name, "AstraeaLaserChip001") {
-    _class_name = "MyTorpedoChip";
-    MyStgUtil::resetMyTorpedoChipStatus(_pStatus);
+    _class_name = "MyTorpedoTail";
+    MyStgUtil::resetMyTorpedoTailStatus(_pStatus);
     _pTarget = NULL;
 }
 
-void MyTorpedoChip::initialize() {
+void MyTorpedoTail::initialize() {
     registHitAreaCube(80000);
     setHitAble(true);
     _SX = _SY = _SZ = 6*1000;
@@ -24,10 +24,10 @@ void MyTorpedoChip::initialize() {
 
 }
 
-void MyTorpedoChip::onActive() {
+void MyTorpedoTail::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
-    MyStgUtil::resetMyTorpedoChipStatus(_pStatus);
+    MyStgUtil::resetMyTorpedoTailStatus(_pStatus);
 
     _pMover->setMvVelo(30000);
     _pMover->setMvAcce(2000);
@@ -41,7 +41,7 @@ void MyTorpedoChip::onActive() {
     _pMover->stopTagettingMvAngSequence();
 }
 
-void MyTorpedoChip::processBehaviorHeadChip() {
+void MyTorpedoTail::processBehaviorHeadChip() {
     if (getActivePartFrame() <= 120 && getActivePartFrame() % 5 == 0) {
         if (_pTarget) {
             if (_pTarget->isActive())  {
@@ -93,7 +93,7 @@ void MyTorpedoChip::processBehaviorHeadChip() {
     _pMover->behave();
 }
 
-void MyTorpedoChip::onHit(GgafActor* prm_pOtherActor) {
+void MyTorpedoTail::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ヒット時
     //体力計算
@@ -106,7 +106,7 @@ void MyTorpedoChip::onHit(GgafActor* prm_pOtherActor) {
     }
 }
 
-MyTorpedoChip::~MyTorpedoChip() {
+MyTorpedoTail::~MyTorpedoTail() {
 
 }
 
