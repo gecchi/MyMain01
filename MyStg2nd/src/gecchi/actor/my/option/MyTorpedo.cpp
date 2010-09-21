@@ -33,7 +33,6 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOpti
 
 void MyTorpedo::initialize() {
 //    _pUvFlipper->forcePtnNoRange(0, 63);
-    setHitAble(true);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB_Cube(0, 70000);
 }
@@ -60,6 +59,7 @@ void MyTorpedo::onActive() {
     _begin_X = _X;
     _begin_Y = _Y;
     _begin_Z = _Z;
+    setHitAble(true);
     setProgress(MyTorpedo_IN_FIRE);
 }
 
@@ -142,6 +142,7 @@ void MyTorpedo::processJudgement() {
             pTailEffect = pTailEffect->getNext();
         }
         _pMover->setMvVelo(0);
+        setHitAble(false);
     }
 
 }
@@ -164,7 +165,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //ƒqƒbƒgŽž
     //‘Ì—ÍŒvŽZ
     int sta = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
-
+    setHitAble(false);
     setProgress(MyTorpedo_RELEASE);
     GgafMainActor* pTailEffect = _pTailEffectDispatcher->getSubFirst();
     for (int i = 0; i < _length_TailEffect; i++) {
