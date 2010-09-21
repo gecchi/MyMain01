@@ -21,7 +21,7 @@ MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOpt
 
         for (int j = 0; j < _length_TorpedoChip; j++) {
             stringstream name;
-            name <<  "Torpedo["<<i<<"]["<<j<<"]";
+            name <<  "MYOPTION"<<(prm_pMyOption->_no)<<"'s Torpedo["<<i<<"]["<<j<<"]";
             MyTorpedoTail* pChip = NEW MyTorpedoTail(name.str().c_str());
             if (j == 0) {
                 //ŽÀŽ¿‚Ìæ“ªH
@@ -99,10 +99,13 @@ void MyOptionTorpedoController::fire() {
                                                 );
             pHead->_pMover->setRzRyMvAng(out_rz, out_ry);
         }
-        delete[] pa_angWay;
+        DELETEARR_IMPOSSIBLE_NULL(pa_angWay);
     }
 }
 
 
 MyOptionTorpedoController::~MyOptionTorpedoController() {
+    DELETEARR_IMPOSSIBLE_NULL(_papLaserChipDispatcher);
+    DELETEARR_IMPOSSIBLE_NULL(_pa_all_employed);
+    DELETEARR_IMPOSSIBLE_NULL(_papMyTorpedoTail_Head);
 }
