@@ -238,6 +238,12 @@ public:
         _Z = prm_pActor->_Z;
     }
 
+    virtual void setRotation(GgafDx9GeometricActor* prm_pActor) {
+        _RX = prm_pActor->_RX;
+        _RY = prm_pActor->_RY;
+        _RZ = prm_pActor->_RZ;
+    }
+
     /**
      * _matInvWorldRotMvの逆行列を返す。
      * 計算済みならばそれを返す。
