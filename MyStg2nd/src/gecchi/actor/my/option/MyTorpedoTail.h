@@ -6,11 +6,13 @@ class MyTorpedoTail : public GgafDx9LibStg::HomingLaserChip {
 
 
 public:
-    GgafDx9Core::GgafDx9GeometricActor* _pTarget;
-
-    MyTorpedoTail(const char* prm_name);
+//    GgafDx9Core::GgafDx9GeometricActor* _pTarget;
+    MyTorpedo* _pMyTorpedo;
+    MyTorpedoTail(const char* prm_name, MyTorpedo* prm_pMyTorpedo);
 
     void initialize() override;
+
+    void onInactive() override;
 
     void onActive() override;
 

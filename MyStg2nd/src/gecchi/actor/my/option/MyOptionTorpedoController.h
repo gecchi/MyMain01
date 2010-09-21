@@ -12,14 +12,15 @@ namespace MyStg2nd {
 class MyOptionTorpedoController : public GgafCore::GgafDummyActor {
 
 public:
-
-   // GgafDx9LibStg::HomingLaserChip*** _papaHomingLaserChip;
-
-    GgafDx9LibStg::LaserChipDispatcher** _papLaserChipDispatcher;
-    MyTorpedoTail** _papMyTorpedoTail_Head;
+    /** 親となるオプション */
     MyOption* _pMyOption;
-    bool* _pa_all_employed;
-    int _length_TorpedoChip;
+    MyTorpedo** _papMyTorpedo;
+
+    //GgafDx9LibStg::LaserChipDispatcher** _papMyTorpedoTailChipDispatcher;
+    //MyTorpedoTail** _papMyTorpedoTailChip_Head;
+
+    //bool* _pa_all_employed_MyTorpedoTailChip;
+    //int _length_MyTorpedoTailChip;
     //bool _ready_to_fire;
     int _firing_num;
     bool _in_firing;

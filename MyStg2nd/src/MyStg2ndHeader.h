@@ -179,6 +179,7 @@ class MyOption;
 class MyOptionLockonController;
 class MyOptionTorpedoController;
 class MyTorpedoTail;
+class MyTorpedo;
 class MyShot001;
 class MyWave001;
 class EffectExplosion001;
@@ -326,6 +327,7 @@ class LaserChipEffectActor;
 #include "gecchi/actor/my/option/MyOptionLockonController.h"
 #include "gecchi/actor/my/option/MyOptionTorpedoController.h"
 #include "gecchi/actor/my/option/MyTorpedoTail.h"
+#include "gecchi/actor/my/option/MyTorpedo.h"
 #include "gecchi/actor/my/option/MyCurveLaserChip001.h"
 #include "gecchi/actor/my/option/EffectLockon001.h"
 #include "gecchi/actor/my/option/EffectLockon001_Main.h"

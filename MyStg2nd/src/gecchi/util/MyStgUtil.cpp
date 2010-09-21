@@ -143,7 +143,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«Žž‚Ì–hŒä—¦
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«Žž‚Ì–hŒä—¦
 	}
-	void MyStgUtil::resetMyTorpedoTailStatus(GgafStatus* p) {
+	void MyStgUtil::resetMyTorpedoStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);  //Ží•Ê(ƒfƒtƒHƒ‹ƒg)
 		p->set(STAT_LockonAble, 0 );  //ƒƒbƒNƒIƒ“‰Â”Û
 		p->set(STAT_AddScorePoint, 0 );  //‰ÁŽZ“¾“_
