@@ -1,5 +1,5 @@
-#ifndef MYOPTIONPARENT_H_
-#define MYOPTIONPARENT_H_
+#ifndef MYOPTIONCONTROLLER_H_
+#define MYOPTIONCONTROLLER_H_
 namespace MyStg2nd {
 
 /**
@@ -8,8 +8,8 @@ namespace MyStg2nd {
  * @since 2006/06/22
  * @author Masatoshi Tsuge
  */
-//class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
-class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
+//class MyOptionController : public GgafDx9LibStg::DefaultMeshActor {
+class MyOptionController : public GgafDx9Core::GgafDx9GeometricActor {
 
 
     struct AngRzRy {
@@ -20,8 +20,8 @@ class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
 
 public:
     MyOption** _papMyOption;
-    MyOptionParentGizmo* _pGizmo;
-    MyOptionParentDirectionVector* _pDirectionVector;
+    MyOptionControllerGizmo* _pGizmo;
+    MyOptionControllerDirectionVector* _pDirectionVector;
 
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
     velo _veloOptionsMv;
@@ -37,7 +37,7 @@ public:
     /** •ûŒü“]Š·Šp‘¬“x */
     angle _angVelo_Turn;
     int _renge;
-    MyOptionParent(const char* prm_name);
+    MyOptionController(const char* prm_name);
 
     virtual void initialize() override;
 
@@ -58,11 +58,11 @@ public:
     //void setTerget(angle prm_angRz_Target, angle prm_angRy_Target);
 
 
-    virtual ~MyOptionParent();
+    virtual ~MyOptionController();
 
 
 };
 
 }
-#endif /*MYOPTIONPARENT_H_*/
+#endif /*MYOPTIONCONTROLLER_H_*/
 

@@ -5,30 +5,30 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyOptionParentDirectionVector::MyOptionParentDirectionVector(const char* prm_name) : DefaultMeshActor(prm_name, "Nothing") {
-    _class_name = "MyOptionParentDirectionVector";
+MyOptionControllerDirectionVector::MyOptionControllerDirectionVector(const char* prm_name) : DefaultMeshActor(prm_name, "Nothing") {
+    _class_name = "MyOptionControllerDirectionVector";
 
     _ptn_no = 0;
 }
 
-void MyOptionParentDirectionVector::initialize() {
+void MyOptionControllerDirectionVector::initialize() {
     setAlpha(0.3);
     setHitAble(false);
     _pMover->relateRzRyFaceAngToMvAng(true);
 }
 
-void MyOptionParentDirectionVector::onActive() {
+void MyOptionControllerDirectionVector::onActive() {
 }
 
-void MyOptionParentDirectionVector::processBehavior() {
+void MyOptionControllerDirectionVector::processBehavior() {
     _pMover->behave();
 }
 
-void MyOptionParentDirectionVector::processJudgement() {
+void MyOptionControllerDirectionVector::processJudgement() {
 }
 
-void MyOptionParentDirectionVector::onInactive() {
+void MyOptionControllerDirectionVector::onInactive() {
 }
 
-MyOptionParentDirectionVector::~MyOptionParentDirectionVector() {
+MyOptionControllerDirectionVector::~MyOptionControllerDirectionVector() {
 }

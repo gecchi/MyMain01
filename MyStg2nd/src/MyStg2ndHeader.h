@@ -172,9 +172,9 @@ class EnemyStraightLaserChip001;
 class MyCurveLaserChip001;
 class MyStraightLaserChip001;
 class MyShip;
-class MyOptionParent;
-class MyOptionParentGizmo;
-class MyOptionParentDirectionVector;
+class MyOptionController;
+class MyOptionControllerGizmo;
+class MyOptionControllerDirectionVector;
 class MyOption;
 class MyOptionLockonController;
 class MyOptionTorpedoController;
@@ -307,9 +307,9 @@ class LaserChipEffectActor;
 #include "gecchi/actor/common/laserchip/EnemyStraightLaserChip001.h"
 
 #include "gecchi/actor/my/MyShip.h"
-#include "gecchi/actor/my/MyOptionParent.h"
-#include "gecchi/actor/my/MyOptionParentGizmo.h"
-#include "gecchi/actor/my/MyOptionParentDirectionVector.h"
+#include "gecchi/actor/my/MyOptionController.h"
+#include "gecchi/actor/my/MyOptionControllerGizmo.h"
+#include "gecchi/actor/my/MyOptionControllerDirectionVector.h"
 
 #include "gecchi/actor/my/MyShot001.h"
 #include "gecchi/actor/my/MyWave001.h"

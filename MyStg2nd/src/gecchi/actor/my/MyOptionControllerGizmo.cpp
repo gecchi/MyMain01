@@ -5,40 +5,40 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyOptionParentGizmo::MyOptionParentGizmo(const char* prm_name) : DefaultMeshActor(prm_name, "Nothing") {
-    _class_name = "MyOptionParentGizmo";
+MyOptionControllerGizmo::MyOptionControllerGizmo(const char* prm_name) : DefaultMeshActor(prm_name, "Nothing") {
+    _class_name = "MyOptionControllerGizmo";
 
     _ptn_no = 0;
 }
 
-void MyOptionParentGizmo::initialize() {
+void MyOptionControllerGizmo::initialize() {
     setHitAble(false);
     setAlpha(0.5);
 }
 
-void MyOptionParentGizmo::onActive() {
+void MyOptionControllerGizmo::onActive() {
 }
 
-void MyOptionParentGizmo::processBehavior() {
+void MyOptionControllerGizmo::processBehavior() {
     _pMover->behave();
 }
 
-void MyOptionParentGizmo::processJudgement() {
+void MyOptionControllerGizmo::processJudgement() {
 }
 
-int MyOptionParentGizmo::isOffscreen() {
+int MyOptionControllerGizmo::isOffscreen() {
     //画面外判定無し
     return 0;
 }
 
-bool MyOptionParentGizmo::isOutOfGameSpace() {
+bool MyOptionControllerGizmo::isOutOfGameSpace() {
     //ゲーム座標範囲外判定無し
     return false;
 }
 
-void MyOptionParentGizmo::drawHitArea() {
+void MyOptionControllerGizmo::drawHitArea() {
     //CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
 }
 
-MyOptionParentGizmo::~MyOptionParentGizmo() {
+MyOptionControllerGizmo::~MyOptionControllerGizmo() {
 }

@@ -51,8 +51,8 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     _iMvAcce_MT = -200; //TurboˆÚ“®’†‚ÌˆÚ“®‘¬“x‚Ì‰Á‘¬“x
 
     _way = WAY_FRONT;
-    _pMyOptionParent = NEW MyOptionParent("MY_OPTION_PARENT");
-    addSubLast(_pMyOptionParent);
+    _pMyOptionController = NEW MyOptionController("MY_OPTION_PARENT");
+    addSubLast(_pMyOptionController);
 
     _pDispatcher_MyShots001 = NEW GgafActorDispatcher("RotShot001");
     MyShot001* pShot;
@@ -456,16 +456,16 @@ void MyShip::processJudgement() {
     //    if (VB_PLAY->isPushedDown(VB_SHOT2)) {
     if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
         bool can_fire = true;
-        for (int i = 0; i < _pMyOptionParent->_now_option_num; i++) {
-            if (_pMyOptionParent->_papMyOption[i]->_pTorpedoController->_in_firing) {
+        for (int i = 0; i < _pMyOptionController->_now_option_num; i++) {
+            if (_pMyOptionController->_papMyOption[i]->_pTorpedoController->_in_firing) {
                 can_fire = false;
                 break;
             }
         }
         if (can_fire) {
             _pSeTransmitter->play3D(3);
-            for (int i = 0; i < _pMyOptionParent->_now_option_num; i++) {
-                _pMyOptionParent->_papMyOption[i]->_pTorpedoController->fire();
+            for (int i = 0; i < _pMyOptionController->_now_option_num; i++) {
+                _pMyOptionController->_papMyOption[i]->_pTorpedoController->fire();
             }
         }
     }

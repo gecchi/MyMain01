@@ -4,12 +4,12 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
-int MyOptionParent::_max_option_num = 8;
+int MyOptionController::_max_option_num = 8;
 
-//MyOptionParent::MyOptionParent(const char* prm_name) :
+//MyOptionController::MyOptionController(const char* prm_name) :
 //    DefaultMeshActor(prm_name, "Gizmo") {
 
-MyOptionParent::MyOptionParent(const char* prm_name) :
+MyOptionController::MyOptionController(const char* prm_name) :
   GgafDx9GeometricActor(prm_name,
                             NULL) {
     _is_handle_move_mode = false;
@@ -92,10 +92,10 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     }
 
     //ギズモ
-    _pGizmo = NEW MyOptionParentGizmo("MyPGizmo");
+    _pGizmo = NEW MyOptionControllerGizmo("MyPGizmo");
     addSubGroup(_pGizmo);
     //方向ベクトル
-    _pDirectionVector = NEW MyOptionParentDirectionVector("MyPDirectionVector");
+    _pDirectionVector = NEW MyOptionControllerDirectionVector("MyPDirectionVector");
     addSubGroup(_pDirectionVector);
 
     //トレース用履歴
@@ -106,7 +106,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
 }
 
-void MyOptionParent::initialize() {
+void MyOptionController::initialize() {
 
     _pMover->setMvVelo(0);
     _pMover->forceRyMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
@@ -117,7 +117,7 @@ void MyOptionParent::initialize() {
     _pMover->behave();
 }
 
-void MyOptionParent::processBehavior() {
+void MyOptionController::processBehavior() {
 //    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
 //        dump();
 //    }
@@ -227,7 +227,7 @@ void MyOptionParent::processBehavior() {
 
 
 
-MyOptionParent::~MyOptionParent() {
+MyOptionController::~MyOptionController() {
     DELETEARR_IMPOSSIBLE_NULL(_papMyOption);
     DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
 }

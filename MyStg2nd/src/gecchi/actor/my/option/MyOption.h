@@ -30,7 +30,7 @@ private:
 public:
 
     /** [r]親アクター */
-    MyOptionParent* _pMyOptionParent;
+    MyOptionController* _pMyOptionController;
     /** [r]自身のオプション番号(０～・・・) */
     int _no;
     /** [r]１オプション当たりの最大可能ロックオン数 */
@@ -55,7 +55,7 @@ public:
     int _radiusPosition;
     /** [r/w]旋廻円周移動速度（随時変更可／デフォルト=1000） */
     velo _veloMv;
-    /** [r/w]オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionParentと同じ方向（前方）を向いている） */
+    /** [r/w]オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionControllerと同じ方向（前方）を向いている） */
     angle _angExpanse;
 
     /** [r]初期円周上初期位置角度 */
@@ -81,10 +81,10 @@ public:
      * コンストラクタ .
      * @param prm_name
      * @param prm_no オプション番号（0～...)
-     * @param prm_pMyOptionParent 親アクター
+     * @param prm_pMyOptionController 親アクター
      * @return
      */
-    MyOption(const char* prm_name, UINT32 prm_no, MyOptionParent* prm_pMyOptionParent);
+    MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController);
 
     /**
      * 初期設定パラメーター .

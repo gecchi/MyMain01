@@ -9,12 +9,12 @@ using namespace MyStg2nd;
 /** １オプション当たりの最大可能ロックオン数 */
 int MyOption::_max_lockon_num = 9;
 
-//MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
-MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMeshSetActor(prm_name, "Core4") {
+//MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
+MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMeshSetActor(prm_name, "Core4") {
 
 _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _class_name = "MyOption";
-    _pMyOptionParent = prm_pMyOptionParent;
+    _pMyOptionController = prm_pMyOptionController;
     _no = prm_no;
     _angveloMove = 0;//旋廻移動角速度（読み出し専用）
 
@@ -218,10 +218,10 @@ void MyOption::processBehavior() {
     } else {
 
         //オプション独立移動制御時
-        if (VB_PLAY->isBeingPressed(VB_OPTION) && _pMyOptionParent->_is_handle_move_mode) {
+        if (VB_PLAY->isBeingPressed(VB_OPTION) && _pMyOptionController->_is_handle_move_mode) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちの旋回半径増加速度のみを設定。
-            addRadiusPosition(GgafDx9Util::SIN[_angExpanse/ ANGLE_RATE] * _pMyOptionParent->_veloOptionsMv);
+            addRadiusPosition(GgafDx9Util::SIN[_angExpanse/ ANGLE_RATE] * _pMyOptionController->_veloOptionsMv);
             //オプション移動速度の処理はMyOptionクラスで行う。
         }
     }
@@ -363,11 +363,11 @@ void MyOption::processBehavior() {
 
     static float sinRY, cosRY, sinRZ, cosRZ;
 
-    sinRZ = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
-    cosRZ = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
-    sinRY = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
-    cosRY = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
-    //全オプションを一つの塊としてOptionParentを中心にWORLD変換のような旋廻
+    sinRZ = GgafDx9Util::SIN[_pMyOptionController->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
+    cosRZ = GgafDx9Util::COS[_pMyOptionController->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
+    sinRY = GgafDx9Util::SIN[_pMyOptionController->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
+    cosRY = GgafDx9Util::COS[_pMyOptionController->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
+    //全オプションを一つの塊としてOptionControllerを中心にWORLD変換のような旋廻
     _X = cosRY*cosRZ*_Xorg + cosRY*-sinRZ*_Yorg + sinRY*_Zorg;
     _Y = sinRZ*_Xorg + cosRZ*_Yorg;
     _Z = -sinRY*cosRZ*_Xorg + -sinRY*-sinRZ*_Yorg + cosRY*_Zorg;
@@ -387,9 +387,9 @@ void MyOption::processBehavior() {
     //計算
     _Q.set( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
     _Q.mul(0,
-           _pMyOptionParent->_pMover->_vX,
-           _pMyOptionParent->_pMover->_vY,
-           _pMyOptionParent->_pMover->_vZ); //R*P 回転軸が現在の進行方向ベクトルとなる
+           _pMyOptionController->_pMover->_vX,
+           _pMyOptionController->_pMover->_vY,
+           _pMyOptionController->_pMover->_vZ); //R*P 回転軸が現在の進行方向ベクトルとなる
     _Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //_Q._x, _Q._y, _Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
@@ -403,9 +403,9 @@ void MyOption::processBehavior() {
 
     _RZ = GgafDx9Util::simplifyAng(_RZ);
     _RY = GgafDx9Util::simplifyAng(_RY);
-    _X += _pMyOptionParent->_X;
-    _Y += _pMyOptionParent->_Y;
-    _Z += _pMyOptionParent->_Z;
+    _X += _pMyOptionController->_X;
+    _Y += _pMyOptionController->_Y;
+    _Z += _pMyOptionController->_Z;
 
     //TODO
     //最適化

@@ -1,5 +1,5 @@
-#ifndef MYOPTIONPARENTGIZMO_H_
-#define MYOPTIONPARENTGIZMO_H_
+#ifndef MYOPTIONCONTROLLERGIZMO_H_
+#define MYOPTIONCONTROLLERGIZMO_H_
 namespace MyStg2nd {
 
 /**
@@ -8,12 +8,12 @@ namespace MyStg2nd {
  * @since 2010/03/16
  * @author Masatoshi Tsuge
  */
-class MyOptionParentGizmo : public GgafDx9LibStg::DefaultMeshActor {
+class MyOptionControllerGizmo : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
     int _ptn_no;
 
-    MyOptionParentGizmo(const char* prm_name);
+    MyOptionControllerGizmo(const char* prm_name);
 
     void onCreateModel() override {
     }
@@ -41,9 +41,9 @@ public:
 
     bool isOutOfGameSpace() override;
 
-    virtual ~MyOptionParentGizmo();
+    virtual ~MyOptionControllerGizmo();
 };
 
 }
-#endif /*MYOPTIONPARENTGIZMO_H_*/
+#endif /*MYOPTIONCONTROLLERGIZMO_H_*/
 

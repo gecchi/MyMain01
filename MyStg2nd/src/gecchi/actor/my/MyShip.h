@@ -251,7 +251,7 @@ public:
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion001;
     GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
 
-    MyOptionParent* _pMyOptionParent;
+    MyOptionController* _pMyOptionController;
     EffectTurbo001* _pEffectTurbo001;
 
     /** ソフト連射開始からの経過フレーム数 */

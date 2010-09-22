@@ -1,5 +1,5 @@
-#ifndef MYOPTIONPARENTDIRECTIONVECTOR_H_
-#define MYOPTIONPARENTDIRECTIONVECTOR_H_
+#ifndef MYOPTIONCONTROLLERDIRECTIONVECTOR_H_
+#define MYOPTIONCONTROLLERDIRECTIONVECTOR_H_
 namespace MyStg2nd {
 
 /**
@@ -8,12 +8,12 @@ namespace MyStg2nd {
  * @since 2010/03/18
  * @author Masatoshi Tsuge
  */
-class MyOptionParentDirectionVector : public GgafDx9LibStg::DefaultMeshActor {
+class MyOptionControllerDirectionVector : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
     int _ptn_no;
 
-    MyOptionParentDirectionVector(const char* prm_name);
+    MyOptionControllerDirectionVector(const char* prm_name);
 
     void onCreateModel() override {
     }
@@ -42,9 +42,9 @@ public:
     }
 
 
-    virtual ~MyOptionParentDirectionVector();
+    virtual ~MyOptionControllerDirectionVector();
 };
 
 }
-#endif /*MYOPTIONPARENTDIRECTIONVECTOR_H_*/
+#endif /*MYOPTIONCONTROLLERDIRECTIONVECTOR_H_*/
 
