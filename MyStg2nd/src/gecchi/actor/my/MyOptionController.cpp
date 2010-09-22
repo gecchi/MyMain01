@@ -18,7 +18,7 @@ MyOptionController::MyOptionController(const char* prm_name) :
     _angVelo_Turn = 3000;
     _veloOptionsMv = 20000;
 
-    _now_option_num = 8;
+    _now_option_num = 4;
 
     _renge = 80000;
     _pMover->forceVxMvVeloRange(-_renge, _renge);

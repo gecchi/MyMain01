@@ -162,6 +162,14 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     _pMover->setMvVelo(0);
     //自身のinactive()はprocessBehavior()で行われ
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
+
+    //爆風発生
+    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)_pMyOptionTorpedoController->_pDispatcher_TorpedoBlast->employ();
+    if (pBlast) {
+        pBlast->setGeometry(this);
+        pBlast->activate();
+    }
+
 }
 
 MyTorpedo::~MyTorpedo() {

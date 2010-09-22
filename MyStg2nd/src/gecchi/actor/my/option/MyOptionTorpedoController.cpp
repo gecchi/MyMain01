@@ -22,6 +22,14 @@ MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOpt
         addSubGroup(_papMyTorpedo[i]);
     }
 
+    _pDispatcher_TorpedoBlast = NEW GgafActorDispatcher("DP_TorpedoBlast");
+    for (int i = 0; i < MyOption::_max_lockon_num*2; i++) {
+        MyTorpedoBlast* pTorpedoBlast = NEW MyTorpedoBlast("TorpedoBlast");
+        pTorpedoBlast->inactivateImmediately();
+        _pDispatcher_TorpedoBlast->addSubLast(pTorpedoBlast);
+    }
+    addSubGroup(_pDispatcher_TorpedoBlast);
+
 }
 
 void MyOptionTorpedoController::initialize() {
@@ -75,4 +83,5 @@ void MyOptionTorpedoController::fire() {
 
 
 MyOptionTorpedoController::~MyOptionTorpedoController() {
+    DELETEARR_IMPOSSIBLE_NULL(_papMyTorpedo);
 }
