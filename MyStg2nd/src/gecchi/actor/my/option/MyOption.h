@@ -3,13 +3,8 @@
 namespace MyStg2nd {
 
 
-
 //class MyOption : public GgafDx9LibStg::DefaultMorphMeshActor {
 class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
-
-
-
-
 
     //一時変数達
     int _Xorg,_Yorg,_Zorg;
@@ -34,45 +29,42 @@ private:
 
 public:
 
-    /** 親アクター */
+    /** [r]親アクター */
     MyOptionParent* _pMyOptionParent;
-    /** ロックオン中アクター */
-    //GgafDx9Core::GgafDx9GeometricActor* _pLockonTarget;
-    /** オプション番号 */
+    /** [r]自身のオプション番号(０～・・・) */
     int _no;
-    /** １オプション当たりの最大可能ロックオン数 */
+    /** [r]１オプション当たりの最大可能ロックオン数 */
     static int _max_lockon_num;
-    /** ロックオンコントローラー */
+    /** [r]ロックオンコントローラー */
     MyOptionLockonController* _pLockonController;
-    /** 魚雷コントローラー */
+    /** [r]魚雷コントローラー */
     MyOptionTorpedoController* _pTorpedoController;
-
-
+    /** [r]発射するレーザーチップのディスパッチャー */
     GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
+    /** [r]発射するショットのディスパッチャー */
     GgafCore::GgafActorDispatcher* _pDispatcher_MyShots001;
-
-    /** レーザー発射時エフェクト */
+    /** [r]レーザー発射中のエフェクト */
     GgafDx9Core::GgafDx9DrawableActor* _pEffect_LaserIrradiate;
 
 
-    /** 計算された現在の旋廻円周移動角速度（読み出し専用） */
+    /** [r]計算された現在の旋廻円周移動角速度（読み出し専用） */
     angvelo _angveloMove;
-    /** 円周上初期位置角度（周囲角）（initialize()までに変更可／デフォルト=0） */
+    /** [r]円周上初期位置角度（周囲角）（initialize()までに変更可／デフォルト=0） */
     angle _angPosition;
-    /** 旋廻円周半径（initialize()までに変更可／デフォルト=200000） */
+    /** [r]旋廻円周半径（initialize()までに変更可／デフォルト=200000） */
     int _radiusPosition;
-    /** 旋廻円周移動速度（随時変更可／デフォルト=1000） */
+    /** [r/w]旋廻円周移動速度（随時変更可／デフォルト=1000） */
     velo _veloMv;
-    /** オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionParentと同じ方向（前方）を向いている） */
+    /** [r/w]オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionParentと同じ方向（前方）を向いている） */
     angle _angExpanse;
 
-    /** 初期円周上初期位置角度 */
+    /** [r]初期円周上初期位置角度 */
     angle _angPosition_default;
-    /** 初期旋廻円周半径 */
+    /** [r]初期旋廻円周半径 */
     int _radiusPosition_default;
-    /** 初期旋廻円周移動速度 */
+    /** [r]初期旋廻円周移動速度 */
     velo _veloMv_default;
-    /** 初期オプションの広がり回転角 */
+    /** [r]初期オプションの広がり回転角 */
     angle _angExpanse_default;
 
     /** オプションの広がり回転角速度（通常時） */
@@ -80,11 +72,18 @@ public:
     /** オプションの広がり回転角速度（微調整時） */
     angvelo _angveloExpanseSlow;
 
-
+    /** オプションの初期位置に自動戻りを行っている最中は true */
     bool _return_to_default_radiusPosition_seq;
+    /** オプションの初期円周半径に自動戻りを行っている最中は true */
     bool _return_to_default_angExpanse_seq;
 
-
+    /**
+     * コンストラクタ .
+     * @param prm_name
+     * @param prm_no オプション番号（0～...)
+     * @param prm_pMyOptionParent 親アクター
+     * @return
+     */
     MyOption(const char* prm_name, UINT32 prm_no, MyOptionParent* prm_pMyOptionParent);
 
     /**
@@ -96,7 +95,7 @@ public:
      * @param prm_angExpanse 上記の位置でのオプションの「前方」向きを指定。0で正面
      * @param prm_veloMv 旋回移動速度を指定
      */
-    void setInitializeProperty(
+    void config(
             angle prm_radiusPosition,
             angle prm_angPosition,
             angle prm_angExpanse,

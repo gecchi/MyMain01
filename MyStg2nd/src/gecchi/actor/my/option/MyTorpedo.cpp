@@ -10,7 +10,7 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOpti
     _class_name = "MyTorpedo";
     MyStgUtil::resetMyTorpedoStatus(_pStatus);
     _pMyOptionTorpedoController = prm_pMyOptionTorpedoController;
-    _length_TailEffect = 20;
+    _length_TailEffect = 4;
 
     _pTailEffectDispatcher = NEW LaserChipDispatcher("DP_TailEffect");
     _pTailEffectDispatcher->config(_length_TailEffect, 0, NULL);
@@ -23,8 +23,6 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOpti
         _pTailEffectDispatcher->addSubLast(pChip);
     }
     addSubGroup(_pTailEffectDispatcher);
-
-//    _pMyTorpedoTailChip_Head = NULL;
     chengeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -32,21 +30,19 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOpti
 }
 
 void MyTorpedo::initialize() {
-//    _pUvFlipper->forcePtnNoRange(0, 63);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB_Cube(0, 70000);
 }
 
 void MyTorpedo::onActive() {
     MyStgUtil::resetMyTorpedoStatus(_pStatus);
-    //_pUvFlipper->setPtnNoToTop();
-    //_pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
-    setAlpha(0.7);
-    _pScaler->setScale(7*1000);
+    setAlpha(0.4);
+    _pScaler->setScale(100);
+    _pScaler->intoTargetScaleLinerStep(7000, 500);
     _pMover->setFaceAngVelo(AXIS_X, 3*1000);
     _pMover->setFaceAngVelo(AXIS_Y, 5*1000);
     _pMover->setFaceAngVelo(AXIS_Z, 7*1000);
-    _pMover->setMvVelo(5000);
+    _pMover->setMvVelo(1000);
     _pMover->setMvAcce(1000);
     _pMover->setRzMvAngVelo(0);
     _pMover->setRyMvAngVelo(0);
@@ -66,9 +62,14 @@ void MyTorpedo::onActive() {
 void MyTorpedo::processBehavior() {
     if (getProgress() == MyTorpedo_RELEASE) {
         if (_pTailEffectDispatcher->_num_chip_active == 0) {
-            inactivate();
+            //軌跡エフェクトが全て非活動になった場合
+            inactivate(); //自身を最後にinactivate()
+        } else {
+            addAlpha(-0.05);
         }
-    } else if (getProgress() == MyTorpedo_IN_FIRE) {
+    }
+
+    if (getProgress() == MyTorpedo_IN_FIRE) {
         if (_pTailEffectDispatcher->_num_chip_active < _length_TailEffect) {
             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)_pTailEffectDispatcher->employ();
             if (pTailEffect) {
@@ -76,12 +77,12 @@ void MyTorpedo::processBehavior() {
                 pTailEffect->activate();
             }
         }
-        if (getActivePartFrame() <= 120 && getActivePartFrame() % 5 == 0) {
+        if (getActivePartFrame() <= 120 && getActivePartFrame() % 20 == 0) {
             if (_pTarget) {
                 if (_pTarget->isActive())  {
                     _pMover->execTagettingMvAngSequence(
                                 _pTarget,
-                                3000, 300,
+                                1000, 500,
                                 TURN_CLOSE_TO, false);
                 } else {
                     //まっすぐ
@@ -93,7 +94,7 @@ void MyTorpedo::processBehavior() {
             } else {
                     _pMover->execTagettingMvAngSequence(
                                 GgafDx9Universe::_X_goneRight, pMYSHIP->_Y, pMYSHIP->_Z,
-                                3000, 300,
+                                1000, 500,
                                 TURN_CLOSE_TO, false);
             }
         }
@@ -125,70 +126,42 @@ void MyTorpedo::processBehavior() {
         _pMover->behave();
         _pScaler->behave();
     }
-
-
-
-
-
-
 }
 
 void MyTorpedo::processJudgement() {
     if (isOutOfGameSpace() && getProgress() == MyTorpedo_IN_FIRE) {
+        setHitAble(false);
         setProgress(MyTorpedo_RELEASE);
-        _TRACE_("MyTorpedo::processJudgement() BEFORE--------");
-        dump();
         GgafMainActor* pTailEffect = _pTailEffectDispatcher->getSubFirst();
         for (int i = 0; i < _length_TailEffect; i++) {
-            pTailEffect->inactivateDelay(i+2);
+            pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
             pTailEffect = pTailEffect->getNext();
         }
-        _TRACE_("MyTorpedo::processJudgement() AFTER--------");
-        dump();
         _pMover->setMvVelo(0);
-        setHitAble(false);
+        //自身のinactive()はprocessBehavior()で行われ
+        //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
     }
 
 }
 
 void MyTorpedo::onInactive() {
-//    GgafMainActor* pTailEffect = _pTailEffectDispatcher->getSubFirst();
-//    for (int i = 0; i < _length_TailEffect; i++) {
-//        pTailEffect->inactivateImmediately();
-//        pTailEffect = pTailEffect->getNext();
-//    }
-
-//    if (_pMyTorpedoTailChip_Head) {
-//        _pMyTorpedoTailChip_Head->inactivate(); //これにてズルズルっと消える
-//    }
 }
 
 
 void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    //ヒット時
-    //体力計算
+    //ヒット時通貫はしません
     int sta = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
     setHitAble(false);
     setProgress(MyTorpedo_RELEASE);
     GgafMainActor* pTailEffect = _pTailEffectDispatcher->getSubFirst();
     for (int i = 0; i < _length_TailEffect; i++) {
-        pTailEffect->inactivateDelay(i+2);
+        pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
         pTailEffect = pTailEffect->getNext();
     }
     _pMover->setMvVelo(0);
-
-//    if (_pMyTorpedoTailChip_Head) {
-//        _pMyTorpedoTailChip_Head->inactivate(); //これにてズルズルっと消える
-//    }
-////
-//    if (sta <= 0) {
-//        //ヒットして消滅時
-//        inactivate();
-//
-//    } else {
-//        //ヒットして生存時
-//    }
+    //自身のinactive()はprocessBehavior()で行われ
+    //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 }
 
 MyTorpedo::~MyTorpedo() {

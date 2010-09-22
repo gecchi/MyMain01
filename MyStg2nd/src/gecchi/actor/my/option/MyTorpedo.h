@@ -5,26 +5,33 @@
 #define MyTorpedo_RELEASE 2
 namespace MyStg2nd {
 
-
-
 /**
  * 魚雷 .
+ * オプションが保持しているロックオンの敵めがけて飛んでゆきます。
  * @version 1.00
- * @since 2010/07/26
+ * @since 2010/09/21
  * @author Masatoshi Tsuge
  */
 class MyTorpedo : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
+    /** [r]親アクターとなる魚雷コンローラー */
     MyOptionTorpedoController* _pMyOptionTorpedoController;
-//    MyTorpedoTail* _pMyTorpedoTailChip_Head;
+    /** [r]魚雷の移動軌跡エフェクトの数 */
     int _length_TailEffect;
-
-    int _begin_X,_begin_Y,_begin_Z;
-
+    /** [r]魚雷の移動軌跡エフェクトのディスパッチャー */
     GgafDx9LibStg::LaserChipDispatcher* _pTailEffectDispatcher;
-
+    /** [r]魚雷発射時の座標 */
+    int _begin_X,_begin_Y,_begin_Z;
+    /** [r]到達目標のアクター。NULLの場合は自機前方のゲーム領域境界点を目標とする仕組み */
     GgafDx9Core::GgafDx9GeometricActor* _pTarget;
+
+    /**
+     * コンストラクタ .
+     * @param prm_name
+     * @param prm_pMyOptionTorpedoController 親アクターとなる魚雷コンローラー .
+     * @return
+     */
     MyTorpedo(const char* prm_name, MyOptionTorpedoController* prm_pMyOptionTorpedoController);
 
     void onCreateModel() override {

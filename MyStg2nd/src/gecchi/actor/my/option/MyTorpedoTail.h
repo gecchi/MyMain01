@@ -2,12 +2,24 @@
 #define MYTORPEDOTAIL_H_
 namespace MyStg2nd {
 
+/**
+ * 魚雷の移動軌跡エフェクト .
+ * @version 1.00
+ * @since 2010/09/21
+ * @author Masatoshi Tsuge
+ */
 class MyTorpedoTail : public GgafDx9LibStg::HomingLaserChip {
 
-
 public:
-//    GgafDx9Core::GgafDx9GeometricActor* _pTarget;
+    /** [r]軌跡を描く元の魚雷オブジェクト */
     MyTorpedo* _pMyTorpedo;
+
+    /**
+     *
+     * @param prm_name
+     * @param prm_pMyTorpedo 軌跡を描く元の魚雷オブジェクト
+     * @return
+     */
     MyTorpedoTail(const char* prm_name, MyTorpedo* prm_pMyTorpedo);
 
     void initialize() override;
@@ -17,11 +29,9 @@ public:
     void onActive() override;
 
     /**
-     * 先頭チップの動きを定義
+     * 先頭チップの動きを定義 .
      */
     void processBehaviorHeadChip() override;
-
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
 
     virtual ~MyTorpedoTail();
