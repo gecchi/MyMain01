@@ -43,10 +43,12 @@ void GgafDx9GeometryScaler::behave() {
             }
         } if (_method[axis] == TARGET_SCALE_ACCELERATION) {
             _scale[axis] += _velo_scale[axis];
-            if (_velo_scale[axis] > 0 && _target_scale[axis] <= _scale[axis]) {
+            //if (_velo_scale[axis] > 0 && _target_scale[axis] <= _scale[axis]) {
+            if (_acce_scale[axis] > 0 && _target_scale[axis] <= _scale[axis]) {
                 _scale[axis] = _target_scale[axis];
                 _method[axis] = NOSCALE;
-            } else if (_velo_scale[axis] < 0 && _target_scale[axis] >= _scale[axis]) {
+            //} else if (_velo_scale[axis] < 0 && _target_scale[axis] >= _scale[axis]) {
+            } else if (_acce_scale[axis] < 0 && _target_scale[axis] >= _scale[axis]) {
                 _scale[axis] = _target_scale[axis];
                 _method[axis] = NOSCALE;
             }

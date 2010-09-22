@@ -212,6 +212,8 @@ public:
      * 目標のスケールへ加速指定でスケーリングする
      * スケール加速度を0に指定すると intoTargetScaleLinerStep とほぼ同じ意味になる。
      * intoTargetScaleLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * スケール加速度が正の場合、目標スケールを超えるとスケーリング終了。
+     * スケール加速度が負の場合、目標スケールを下回るとスケーリング終了。
      * @param prm_target_scale 目標スケール
      * @param prm_velo_scale 初期スケール速度
      * @param prm_acce_scale スケール加速度
