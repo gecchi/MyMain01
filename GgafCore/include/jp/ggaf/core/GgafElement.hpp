@@ -824,13 +824,14 @@ void GgafElement<T>::nextFrame() {
 
         if (_will_inactivate_after_flg) {
             if (_frame_of_life == _frame_of_life_when_inactivation) {
+                _frame_of_life_when_inactivation = 0;
+                _will_inactivate_after_flg = false;
                 //inactivate処理
                 if (_is_active_flg == true) { //_is_active_flg = true → false 時
                     _is_active_flg = false;//活動フラグOFF!!!
                     _on_change_to_inactive_flg = true;
                     onInactive(); //コールバック
-                    _frame_of_life_when_inactivation = 0;
-                    _will_inactivate_after_flg = false;
+
                 } else {
                     //もともと非活動中
                 }
