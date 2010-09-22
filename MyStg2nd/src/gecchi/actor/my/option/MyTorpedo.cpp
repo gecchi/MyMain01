@@ -134,13 +134,17 @@ void MyTorpedo::processBehavior() {
 }
 
 void MyTorpedo::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (isOutOfGameSpace() && getProgress() == MyTorpedo_IN_FIRE) {
         setProgress(MyTorpedo_RELEASE);
+        _TRACE_("MyTorpedo::processJudgement() BEFORE--------");
+        dump();
         GgafMainActor* pTailEffect = _pTailEffectDispatcher->getSubFirst();
         for (int i = 0; i < _length_TailEffect; i++) {
-            pTailEffect->inactivateDelay(i+1);
+            pTailEffect->inactivateDelay(i+2);
             pTailEffect = pTailEffect->getNext();
         }
+        _TRACE_("MyTorpedo::processJudgement() AFTER--------");
+        dump();
         _pMover->setMvVelo(0);
         setHitAble(false);
     }
@@ -169,7 +173,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     setProgress(MyTorpedo_RELEASE);
     GgafMainActor* pTailEffect = _pTailEffectDispatcher->getSubFirst();
     for (int i = 0; i < _length_TailEffect; i++) {
-        pTailEffect->inactivateDelay(i+1);
+        pTailEffect->inactivateDelay(i+2);
         pTailEffect = pTailEffect->getNext();
     }
     _pMover->setMvVelo(0);
