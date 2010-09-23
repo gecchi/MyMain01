@@ -38,6 +38,11 @@ void ActorTableScene::onActive() {
 
 
 void ActorTableScene::processBehavior() {
+    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+        _TRACE_("---------------");
+        dump();
+    }
+
     if (wasDeclaredEnd()) {
         //終了を待つのみ
     } else {
@@ -66,14 +71,14 @@ void ActorTableScene::processBehavior() {
             //全滅 or 全領域外は次へ
             if (_table.isLast()) {
                 //最終パートだったらTABLE終了
-                //_TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 全パート終了！！");
+                _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 全パート終了！！");
                 end(30*60);
             } else {
-                //_TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] pActiveActor="<<pActiveActor->getName()<<" 消滅により早回しきたー！！");
+                _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] pActiveActor="<<pActiveActor->getName()<<" 消滅により早回しきたー！！");
                 //最終パートではない場合、テーブル全体の許容フレームか判断
                 if (_max_perform_frame <  getActivePartFrame()) {
                     //収まらないと言うわけで、以降は全て無視されてシーン終了
-                    //_TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了１！！");
+                    _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了１！！");
                     end(30*60); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
                 } else {
                     //余裕があるため次のパートをアクティブにする。
@@ -92,7 +97,7 @@ void ActorTableScene::processBehavior() {
                 if (getActivePartFrame() >= e->_max_delay_offset+_frame_of_current_part_began) {
                     if (_max_perform_frame <  getActivePartFrame()) {
                         //収まらないと言うわけで、以降は全て無視され共生終了
-                        //_TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了２！！");
+                        _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了２！！");
                         end(30*60); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
                     } else {
                         TblElem* n = _table.next(); //アクティブを次のパートへ
@@ -108,4 +113,6 @@ void ActorTableScene::processBehavior() {
 
 ActorTableScene::~ActorTableScene() {
     _TRACE_("ActorTableScene::~ActorTableScene() ["<<getName()<<"] 解放！！！！");
+    _TRACE_("-----delete直前----------");
+    dump();
 }

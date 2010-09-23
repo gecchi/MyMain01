@@ -45,7 +45,7 @@ void Stage01_03::processBehavior() {
 				break;
 			case 100:
 				{
-				ActorTableScene* ta = NEW ActorTableScene("TableScene_13");
+				ActorTableScene* ta = NEW ActorTableScene("TableScene_41076100");
 				ta->setMaxPerformFrame(2000);
 				addSubLast(ta);
 				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(41087100)), 400);

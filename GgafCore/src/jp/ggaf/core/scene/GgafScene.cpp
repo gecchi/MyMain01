@@ -173,8 +173,9 @@ void GgafScene::unpauseImmediately() {
 }
 
 void GgafScene::end(frame prm_frame_offset) {
-    GgafElement<GgafScene>::end(prm_frame_offset);
     _pLordActor->end(prm_frame_offset);
+    GgafElement<GgafScene>::end(prm_frame_offset);
+    //この順番は重要。逆にするとゴミ箱の解放時に不正ポインタになりうるため。
 }
 
 void GgafScene::clean(int prm_num_cleaning) {

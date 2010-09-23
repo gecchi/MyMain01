@@ -25,8 +25,11 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
 
 void GgafGarbageBox::clean(int prm_num_cleaning) {
     ::EnterCriticalSection(&CS);
-    _pDisusedScene->clean(prm_num_cleaning);
-    _pDisusedActor->clean(prm_num_cleaning);
+    if (_pDisusedActor->getSubFirst()) {
+        _pDisusedActor->clean(prm_num_cleaning);
+    } else {
+        _pDisusedScene->clean(prm_num_cleaning);
+    }
     ::LeaveCriticalSection(&CS);
 }
 

@@ -26,6 +26,11 @@ FormationIris001::FormationIris001(const char* prm_name) : GgafDx9FormationActor
 }
 
 void FormationIris001::initialize() {
+    //編隊作成はonActive()で行わうこと。
+    //ActorTableScene で active にされるタイミングは変動するため
+}
+
+void FormationIris001::onActive() {
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i]->setGeometry(MyShip::_lim_behaind - 500000, 0, MyShip::_lim_zleft * 0.8);
         _papIris[i]->_pMover->setMvVelo(_mv_velo);
