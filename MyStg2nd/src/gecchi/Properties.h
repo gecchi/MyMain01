@@ -13,6 +13,8 @@ public:
     static std::string* MY_KEY_VIEW;
     static std::string* MY_KEY_TURBO;
     static std::string* MY_KEY_POWERUP;
+    static std::string* MY_KEY_BUTTON7;
+    static std::string* MY_KEY_BUTTON8;
     static std::string* MY_KEY_PAUSE;
     static std::string* MY_KEY_UP;
     static std::string* MY_KEY_DOWN;
@@ -31,6 +33,8 @@ public:
     static std::string* MY_JOY_VIEW;
     static std::string* MY_JOY_TURBO;
     static std::string* MY_JOY_POWERUP;
+    static std::string* MY_JOY_BUTTON7;
+    static std::string* MY_JOY_BUTTON8;
     static std::string* MY_JOY_PAUSE;
     static std::string* MY_JOY_UI_EXECUTE;
     static std::string* MY_JOY_UI_CANCEL;

@@ -73,7 +73,7 @@ void GameScene::processBehavior() {
          //スルー
      } else {
          //コマ送り
-         if (VB_UI->isPushedDown(VB_SHOT2)) {
+         if (VB_UI->isPushedDown(VB_BUTTON7)) {
              _is_frame_advance = true;
          }
 

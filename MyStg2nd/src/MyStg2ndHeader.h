@@ -49,6 +49,8 @@
 #define VB_VIEW     VB_BUTTON4
 #define VB_TURBO    VB_BUTTON5
 #define VB_POWERUP  VB_BUTTON6
+//#define VB_VIEW_01  VB_BUTTON7
+//#define VB_VIEW_02  VB_BUTTON8
 
 //STAT_DEFAULT_ACTOR_KIND‚Í0
 #define STAT_AddScorePoint          1
