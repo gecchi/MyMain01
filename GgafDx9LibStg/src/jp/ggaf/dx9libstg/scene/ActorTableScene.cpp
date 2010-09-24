@@ -19,7 +19,7 @@ GgafGroupActor* ActorTableScene::addToTable(GgafMainActor* prm_pMainActor, frame
         _TRACE_("ActorTableScene::processBehavior() GgafDx9FormationActor,Obj_GgafDx9DrawableActor 以外が登録されています。")
     }
     prm_pMainActor->inactivateImmediately();
-    _table.addLast(NEW TblElem(prm_pMainActor, prm_max_delay_offset));
+    _table.addLast(NEW TblElem(prm_pMainActor, prm_max_delay_offset), false);
     return getLordActor()->addSubGroup(prm_pMainActor);
 }
 
@@ -38,14 +38,16 @@ void ActorTableScene::onActive() {
 
 
 void ActorTableScene::processBehavior() {
-    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-        _TRACE_("---------------");
-        dump();
-    }
 
     if (wasDeclaredEnd()) {
         //終了を待つのみ
     } else {
+
+        if (!getLordActor()->getSubFirst()) {
+            end(30*60);
+            return;
+        }
+
         TblElem* e = _table.getCurrent();
         GgafMainActor* pActiveActor = e->_pActor;
         //全滅判定
@@ -112,7 +114,4 @@ void ActorTableScene::processBehavior() {
 }
 
 ActorTableScene::~ActorTableScene() {
-    _TRACE_("ActorTableScene::~ActorTableScene() ["<<getName()<<"] 解放！！！！");
-    _TRACE_("-----delete直前----------");
-    dump();
 }
