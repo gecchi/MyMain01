@@ -903,6 +903,7 @@ int GgafLinkedListRing<T>::length() {
 
 template<class T>
 GgafLinkedListRing<T>::~GgafLinkedListRing() {
+    _TRACE_("GgafLinkedListRing<T>::~GgafLinkedListRing() BEGIN _num_elem="<<_num_elem);
     //Ž©•ª‚ÉŽq‚ª‚ ‚éê‡
     if (_pElemFirst) {
         //‚Ü‚¸Žq‚ðdelete
