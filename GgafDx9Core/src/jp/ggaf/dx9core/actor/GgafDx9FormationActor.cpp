@@ -39,9 +39,9 @@ void GgafDx9FormationActor::processJudgement() {
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //I—¹‚ğ‘Ò‚Â‚Ì‚İ
     } else {
-		if (getSubFirst() == NULL) {
-			sayonara(_frame_offset_end);
-		}
+        if (getSubFirst() == NULL) {
+            sayonara(_frame_offset_end);
+        }
     }
 }
 
