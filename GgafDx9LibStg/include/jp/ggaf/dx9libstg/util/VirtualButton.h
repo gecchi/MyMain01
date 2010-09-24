@@ -12,6 +12,8 @@ namespace GgafDx9LibStg {
 #define VB_BUTTON4 (0x8)
 #define VB_BUTTON5 (0x10)
 #define VB_BUTTON6 (0x20)
+#define VB_BUTTON7 (0x40)
+#define VB_BUTTON8 (0x80)
 
 #define VB_PAUSE   (0x400)
 #define VB_UP      (0x800)
@@ -62,6 +64,8 @@ public:
         int BUTTON4;
         int BUTTON5;
         int BUTTON6;
+        int BUTTON7;
+        int BUTTON8;
         int PAUSE;
         int UP;
         int DOWN;
@@ -83,6 +87,8 @@ public:
         int BUTTON4;
         int BUTTON5;
         int BUTTON6;
+        int BUTTON7;
+        int BUTTON8;
         int PAUSE;
         int UI_EXECUTE;
         int UI_CANCEL;

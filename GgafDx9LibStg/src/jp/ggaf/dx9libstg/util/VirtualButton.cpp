@@ -8,7 +8,7 @@ using namespace GgafDx9LibStg;
 keymap VirtualButton::_mapDIK;
 bool VirtualButton::_is_init = false;
 
-//標準キーボード割り当て
+//組み込み標準キーボード割り当て
 VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
                               DIK_Z,      // BUTTON1
                               DIK_X,      // BUTTON2
@@ -16,6 +16,8 @@ VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
                               DIK_A,      // BUTTON4
                               DIK_S,      // BUTTON5
                               DIK_D,      // BUTTON6
+                              DIK_V,      // BUTTON7
+                              DIK_B,      // BUTTON8
                               DIK_ESCAPE, // PAUSE
                               DIK_UP,     // UP
                               DIK_DOWN,   // DOWN
@@ -35,9 +37,11 @@ VirtualButton::JOYSTICKMAP VirtualButton::_tagJoymap = {
                               1, // BUTTON2
                               2, // BUTTON3
                               3, // BUTTON4
-                              4, // TURBO
+                              4, // BUTTON5
                               5, // BUTTON6
-                              6, // PAUSE
+                              6, // BUTTON7
+                              7, // BUTTON8
+                              9, // PAUSE
                               0, // UI_EXECUTE
                               1  // UI_CANCEL
                            };
@@ -647,6 +651,12 @@ void VirtualButton::update() {
 
     _pVBMap_Active->_state |= (VB_BUTTON6 * (GgafDx9Input::isBeingPressedKey(_tagKeymap.BUTTON6) ||
                                       GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON6)));
+
+    _pVBMap_Active->_state |= (VB_BUTTON7 * (GgafDx9Input::isBeingPressedKey(_tagKeymap.BUTTON7) ||
+                                      GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON7)));
+
+    _pVBMap_Active->_state |= (VB_BUTTON8 * (GgafDx9Input::isBeingPressedKey(_tagKeymap.BUTTON8) ||
+                                      GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON8)));
 
     _pVBMap_Active->_state |= (VB_PAUSE * (GgafDx9Input::isBeingPressedKey(_tagKeymap.PAUSE) ||
                                     GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.PAUSE)));
