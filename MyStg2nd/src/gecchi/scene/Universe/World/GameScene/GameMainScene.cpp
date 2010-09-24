@@ -149,7 +149,8 @@ void GameMainScene::processBehavior() {
     if (getProgress() == GAMEMAIN_PROG_PLAY || getProgress() == GAMEMAIN_PROG_BEGIN) {
 
         //一時停止
-        if (VB_PLAY->isReleasedUp(VB_PAUSE)) {
+        if (VB_PLAY->isReleasedUp(VB_PAUSE) || pGAMESCENE->_is_frame_advance) {
+            pGAMESCENE->_is_frame_advance = false;
             _TRACE_("PAUSE!");
             pGOD->setVB(VB_UI);  //入力はＵＩに切り替え
             pause();     //自身配下を一時停止する。一時停止解除はGameSceneで行われる

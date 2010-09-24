@@ -16,18 +16,13 @@ Stage01_03::Stage01_03(const char* prm_name) : DefaultScene(prm_name) {
 		_paFrame_NextEvent[i] = f[i];
 	}
 	
-	orderActorToFactory(41087100, FormationPallas001a, "F001a_Pallas_1");
-	orderActorToFactory(41097100, FormationPallas001b, "F001b_Pallas_2");
-	orderActorToFactory(41107100, FormationPallas001c, "F001c_Pallas_3");
-	orderActorToFactory(41117100, FormationPallas001d, "F001d_Pallas_4");
-	orderActorToFactory(41127100, FormationPallas001a, "F001a_Pallas_5");
-	orderActorToFactory(41137100, FormationPallas001d, "F001d_Pallas_6");
-	orderActorToFactory(41147100, FormationPallas001b, "F001b_Pallas_7");
-	orderActorToFactory(41157100, FormationPallas001c, "F001c_Pallas_8");
-	orderActorToFactory(41167100, FormationPallas001a, "F001a_Pallas_9");
-	orderActorToFactory(41177100, FormationPallas001d, "F001d_Pallas_10");
-	orderActorToFactory(41187100, FormationPallas001b, "F001b_Pallas_11");
-	orderActorToFactory(41197100, FormationPallas001c, "F001c_Pallas_12");
+	orderActorToFactory(41087100, FormationIris002, "F002_Iris_1");
+	orderActorToFactory(41097100, FormationIris001, "F001_Iris_2");
+	orderActorToFactory(41107100, FormationIris001, "F001_Iris_3");
+	orderActorToFactory(41117100, FormationIris002, "F002_Iris_4");
+	orderActorToFactory(41127100, FormationIris001, "F001_Iris_5");
+	orderActorToFactory(41137100, FormationIris002, "F002_Iris_6");
+	orderActorToFactory(41207100, VarietyTorus001, "VarietyTorus001_7");
     // gen01 end
 }
 
@@ -45,21 +40,19 @@ void Stage01_03::processBehavior() {
 				break;
 			case 100:
 				{
-				ActorTableScene* ta = NEW ActorTableScene("TableScene_41076100");
+				ActorTableScene* ta = NEW ActorTableScene("TableScene_41077100");
 				ta->setMaxPerformFrame(2000);
 				addSubLast(ta);
-				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(41087100)), 400);
-				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(41097100)), 400);
-				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(41107100)), 400);
-				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(41117100)), 400);
-				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(41127100)), 1);
-				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(41137100)), 400);
-				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(41147100)), 1);
-				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(41157100)), 400);
-				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(41167100)), 1);
-				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(41177100)), 1);
-				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(41187100)), 1);
-				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(41197100)), 400);
+				ta->addToTable(((FormationIris002*)obtainActorFromFactory(41087100)), 400);
+				ta->addToTable(((FormationIris001*)obtainActorFromFactory(41097100)), 400);
+				ta->addToTable(((FormationIris001*)obtainActorFromFactory(41107100)), 400);
+				ta->addToTable(((FormationIris002*)obtainActorFromFactory(41117100)), 400);
+				ta->addToTable(((FormationIris001*)obtainActorFromFactory(41127100)), 400);
+				ta->addToTable(((FormationIris002*)obtainActorFromFactory(41137100)), 400);
+				}
+				{
+				VarietyTorus001* pActor = (VarietyTorus001*)obtainActorFromFactory(41207100);
+				getLordActor()->addSubGroup(pActor);
 				}
 				break;
 			case 2500:

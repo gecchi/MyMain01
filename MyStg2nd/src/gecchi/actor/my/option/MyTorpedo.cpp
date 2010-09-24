@@ -37,18 +37,19 @@ void MyTorpedo::initialize() {
 void MyTorpedo::onActive() {
     MyStgUtil::resetMyTorpedoStatus(_pStatus);
     setAlpha(0.4);
+    _SX = _SY = _SZ = 100;
     _pScaler->setScale(100);
     _pScaler->intoTargetScaleLinerStep(7000, 500);
     _pMover->setFaceAngVelo(AXIS_X, 3*1000);
     _pMover->setFaceAngVelo(AXIS_Y, 5*1000);
     _pMover->setFaceAngVelo(AXIS_Z, 7*1000);
-    _pMover->setMvVelo(1000);
-    _pMover->setMvAcce(1000);
+    _pMover->setMvVelo(6000);
+    _pMover->setMvAcce(-200);
     _pMover->setRzMvAngVelo(0);
     _pMover->setRyMvAngVelo(0);
     _pMover->setRzMvAngAcce(0);
     _pMover->setRyMvAngAcce(0);
-    _pMover->forceMvVeloRange(1000, 80000);
+    _pMover->forceMvVeloRange(200, 80000);
     _pMover->forceRzMvAngVeloRange(-40000, 40000);
     _pMover->forceRyMvAngVeloRange(-40000, 40000);
     _pMover->stopTagettingMvAngSequence();
@@ -57,6 +58,7 @@ void MyTorpedo::onActive() {
     _begin_Z = _Z;
     setHitAble(true);
     setProgress(MyTorpedo_IN_FIRE);
+    _move_section = 0;
 }
 
 void MyTorpedo::processBehavior() {
@@ -70,6 +72,7 @@ void MyTorpedo::processBehavior() {
     }
 
     if (getProgress() == MyTorpedo_IN_FIRE) {
+        //尾っぽエフェクト追加処理
         if (_pTailEffectDispatcher->_num_chip_active < _length_TailEffect) {
             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)_pTailEffectDispatcher->employ();
             if (pTailEffect) {
@@ -77,52 +80,103 @@ void MyTorpedo::processBehavior() {
                 pTailEffect->activate();
             }
         }
-        if (getActivePartFrame() <= 120 && getActivePartFrame() % 20 == 0) {
-            if (_pTarget) {
-                if (_pTarget->isActive())  {
+        //魚雷のムーブ
+        if (_move_section == 0) {
+            if (_pMover->_veloMv == _pMover->_veloBottomMv) {
+                //減速終了
+                _pMover->setMvAcce(500);
+                if (_pTarget) {
                     _pMover->execTagettingMvAngSequence(
                                 _pTarget,
-                                1000, 500,
-                                TURN_CLOSE_TO, false);
+                                2000, 100,
+                                TURN_ANTICLOSE_TO, false);
                 } else {
-                    //まっすぐ
-                    _pMover->setRzMvAngVelo(0);
-                    _pMover->setRyMvAngVelo(0);
-                    _pMover->setRzMvAngAcce(0);
-                    _pMover->setRyMvAngAcce(0);
-                }
-            } else {
                     _pMover->execTagettingMvAngSequence(
                                 GgafDx9Universe::_X_goneRight, pMYSHIP->_Y, pMYSHIP->_Z,
-                                1000, 500,
-                                TURN_CLOSE_TO, false);
+                                2000, 100,
+                                TURN_ANTICLOSE_TO, false);
+                }
+                _move_section++;
             }
         }
 
-        if ( getActivePartFrame() == 300) {
+        //ムーブ１
+        if (_move_section == 1) {
+            if (_pMover->isTagettingMvAng()) {
+                //そのまま
+            } else {
+                _move_section++;
+            }
+
+        }
+        //ムーブ２
+        if (_move_section == 2) {
+            if (getActivePartFrame() < 120) {
+                if (getActivePartFrame() % 10 == 0) {
+                    if (_pTarget) {
+                        if (_pTarget->isActive())  {
+                            _pMover->execTagettingMvAngSequence(
+                                        _pTarget,
+                                        2000, 500,
+                                        TURN_CLOSE_TO, false);
+                        } else {
+                            //まっすぐ
+                            _pMover->setRzMvAngVelo(0);
+                            _pMover->setRyMvAngVelo(0);
+                            _pMover->setRzMvAngAcce(0);
+                            _pMover->setRyMvAngAcce(0);
+                        }
+                    } else {
+                            _pMover->execTagettingMvAngSequence(
+                                        GgafDx9Universe::_X_goneRight, pMYSHIP->_Y, pMYSHIP->_Z,
+                                        2000, 500,
+                                        TURN_CLOSE_TO, false);
+                    }
+                } else {
+                   //
+                }
+            } else {
+                _move_section++;
+            }
+        }
+        //ムーブ３
+        if (_move_section == 3) {
+            if (getActivePartFrame() < 300) {
+                if (getActivePartFrame() % 20 == 0) {
+                    if (_pTarget) {
+                        if (_pTarget->isActive())  {
+                            _pMover->execTagettingMvAngSequence(
+                                        _pTarget,
+                                        300, 0,
+                                        TURN_CLOSE_TO, false);
+                        } else {
+                            //まっすぐ
+                            _pMover->setRzMvAngVelo(0);
+                            _pMover->setRyMvAngVelo(0);
+                            _pMover->setRzMvAngAcce(0);
+                            _pMover->setRyMvAngAcce(0);
+                        }
+                    } else {
+                            _pMover->execTagettingMvAngSequence(
+                                        GgafDx9Universe::_X_goneRight, pMYSHIP->_Y, pMYSHIP->_Z,
+                                        300, 0,
+                                        TURN_CLOSE_TO, false);
+                    }
+                } else {
+                   //
+                }
+            } else {
+                _move_section++;
+            }
+        }
+        //ムーブ４
+        if (_move_section == 4) {
             _pMover->setRzMvAngVelo(0);
             _pMover->setRyMvAngVelo(0);
             _pMover->setRzMvAngAcce(0);
             _pMover->setRyMvAngAcce(0);
-        } else if ( getActivePartFrame() > 120 && getActivePartFrame() % 5 == 0)  {
-            if (_pTarget) {
-                if (_pTarget->isActive())  {
-                    if (_pMover->isTagettingMvAng()) {
-
-                    } else {
-                        _pMover->execTagettingMvAngSequence(
-                                    _pTarget,
-                                    200, 0,
-                                    TURN_CLOSE_TO, false);
-                    }
-                }
-            } else {
-                _pMover->setRzMvAngVelo(0);
-                _pMover->setRyMvAngVelo(0);
-                _pMover->setRzMvAngAcce(0);
-                _pMover->setRyMvAngAcce(0);
-            }
         }
+
         _pMover->behave();
         _pScaler->behave();
     }

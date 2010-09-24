@@ -29,6 +29,8 @@ public:
     GameMainScene*      _pScene_GameMain;
     GameEndingScene*    _pScene_GameEnding;
 
+    /** コマ送りフラグ */
+    bool _is_frame_advance;
 
     int _stage;
     GgafDx9LibStg::DefaultScene* _pSceneCannel;

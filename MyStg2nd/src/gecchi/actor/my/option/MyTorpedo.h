@@ -26,6 +26,8 @@ public:
     /** [r]到達目標のアクター。NULLの場合は自機前方のゲーム領域境界点を目標とする仕組み */
     GgafDx9Core::GgafDx9GeometricActor* _pTarget;
 
+    int _move_section;
+
     /**
      * コンストラクタ .
      * @param prm_name

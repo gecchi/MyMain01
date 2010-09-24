@@ -13,7 +13,7 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,3,200,2000,2200,4000,28200,30000};
+	frame f[] = {1,3,18200,20000,28200,30000,38200,40000};
 	_paFrame_NextEvent = new frame[8];
 	for (int i = 0; i < 8; i++) {
 		_paFrame_NextEvent[i] = f[i];
@@ -43,32 +43,32 @@ void Stage01Controller::processBehavior() {
 				setProgress(STAGE01CONTROLLER_PROG_STG01_01_BEGIN);
 				}
 				break;
-			case 200:
-				orderSceneToFactory(110372000, Stage01_02, "Stage01_02");
+			case 18200:
+				orderSceneToFactory(1103720000, Stage01_02, "Stage01_02");
 				break;
-			case 2000:
+			case 20000:
 				{
-				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(110372000);
+				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(1103720000);
 				addSubLast(pScene);
 				setProgress(STAGE01CONTROLLER_PROG_STG01_02_BEGIN);
 				}
 				break;
-			case 2200:
-				orderSceneToFactory(110474000, Stage01_03, "Stage01_03");
+			case 28200:
+				orderSceneToFactory(1104730000, Stage01_03, "Stage01_03");
 				break;
-			case 4000:
+			case 30000:
 				{
-				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(110474000);
+				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(1104730000);
 				addSubLast(pScene);
 				setProgress(STAGE01CONTROLLER_PROG_STG01_03_BEGIN);
 				}
 				break;
-			case 28200:
-				orderSceneToFactory(1105730000, Stage01_Climax, "Stage01_Climax");
+			case 38200:
+				orderSceneToFactory(1105740000, Stage01_Climax, "Stage01_Climax");
 				break;
-			case 30000:
+			case 40000:
 				{
-				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(1105730000);
+				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(1105740000);
 				addSubLast(pScene);
 				setProgress(STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN);
 				}

@@ -31,6 +31,8 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     //たまご
     //addSubLast(NEW TamagoScene("TamagoScene"));
 
+    _is_frame_advance = false;
+
 }
 
 void GameScene::initialize() {
@@ -57,8 +59,9 @@ void GameScene::processBehavior() {
 //        fadeoutSceneTree(2*60);
 //    }
 
+    //一時停止解除
     if (_pScene_GameMain->wasPause()) {
-        if (VB_UI->isReleasedUp(VB_PAUSE)) {
+        if (VB_UI->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
             pGOD->setVB(VB_PLAY);
             _pScene_GameMain->unpause();     //GameMainSceneでの一時停止解除
         }
@@ -66,8 +69,16 @@ void GameScene::processBehavior() {
 
      //おまけ機能。一時停止していれば、カメラ操作できる。
      if (_pScene_GameMain->canBehave() ) {
+         //一時停止していない状態。
          //スルー
      } else {
+         //コマ送り
+         if (VB_UI->isPushedDown(VB_SHOT2)) {
+             _is_frame_advance = true;
+         }
+
+
+         //一時停止してい状態
          GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
          if (GgafDx9Input::isBeingPressedKey(DIK_V)) {
              //V＋方向で注視点操作
