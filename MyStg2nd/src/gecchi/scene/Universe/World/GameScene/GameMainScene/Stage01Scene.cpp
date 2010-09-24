@@ -14,8 +14,8 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     _pWorldBoundSpace->inactivateTree();
     getLordActor()->addSubGroup(KIND_EFFECT, _pWorldBoundSpace);
 
-    _pHoshiBoshi = NEW HoshiBoshi001("HoshiBoshi001");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pHoshiBoshi);
+//    _pHoshiBoshi = NEW HoshiBoshi001("HoshiBoshi001");
+//    getLordActor()->addSubGroup(KIND_EFFECT, _pHoshiBoshi);
 
     _pMessage = NEW LabelGecchi16Font("Stage01Msg");
     getLordActor()->addSubGroup(KIND_EFFECT, _pMessage);
@@ -39,7 +39,7 @@ void Stage01Scene::processBehavior() {
             _pMessage->activateImmediately();
             _pMessage->update(300, 300, "SCENE 01 START!");
             _pMessage->inactivateDelay(240);
-            _pWorldBoundSpace->activateTree();
+            //_pWorldBoundSpace->activateTree();    //”wŒiON
             _pScene_Stage01Controller->activate();
             fadeinScene(240);
             setProgress(STAGE_PROG_PLAYING);
