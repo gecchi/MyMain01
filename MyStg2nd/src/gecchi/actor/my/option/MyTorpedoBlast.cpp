@@ -22,7 +22,7 @@ void MyTorpedoBlast::initialize() {
 
 void MyTorpedoBlast::onActive() {
     MyStgUtil::resetMyTorpedoBlastStatus(_pStatus);
-    setAlpha(0.7);
+    setAlpha(1.0);
     _pMover->setFaceAngVelo(AXIS_X, 1*1000);
     _pMover->setFaceAngVelo(AXIS_Y, 3*1000);
     _pMover->setFaceAngVelo(AXIS_Z, 2*1000);
@@ -36,7 +36,7 @@ void MyTorpedoBlast::processBehavior() {
     if (_pScaler->_method[AXIS_X] == NOSCALE) {
         sayonara();//–c‚ç‚ñ‚Å‚µ‚Ú‚Ş‚ªI—¹
     } else {
-        _pCollisionChecker->setColliSphere(0, _pScaler->_scale[AXIS_X]*100); //“–‚½‚è”»’è‚à•Ï‰»
+        _pCollisionChecker->setColliSphere(0, _pScaler->_scale[AXIS_X]*1000); //“–‚½‚è”»’è‚à•Ï‰»
         _pMover->behave();
         _pScaler->behave();
     }
