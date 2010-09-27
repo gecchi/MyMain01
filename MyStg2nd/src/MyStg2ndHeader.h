@@ -244,7 +244,7 @@ class EnemyVesta;
 class EnemyCirce;
 
 class EnemyThalia;
-class FormationThalia001;
+class FormationThalia;
 
 
 class DispatcherConnection;
@@ -378,7 +378,7 @@ class LaserChipEffectActor;
 #include "gecchi/actor/enemy/Vesta/EnemyVesta.h"
 #include "gecchi/actor/enemy/Circe/EnemyCirce.h"
 #include "gecchi/actor/enemy/Thalia/EnemyThalia.h"
-#include "gecchi/actor/enemy/Thalia/FormationThalia001.h"
+#include "gecchi/actor/enemy/Thalia/FormationThalia.h"
 
 #include "gecchi/actor/chikei/Torus/Torus.h"
 #include "gecchi/actor/chikei/Torus/VarietyTorus001.h"

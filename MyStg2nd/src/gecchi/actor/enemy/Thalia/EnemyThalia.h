@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/08/03
  * @author Masatoshi Tsuge
  */
-class EnemyThalia : public GgafDx9LibStg::DefaultMeshSetActor {
+class EnemyThalia : public GgafDx9LibStg::DefaultMorphMeshActor {
 
     /** 移動スプラインプログラム */
     GgafDx9Core::GgafDx9SplineProgram* _pSplineProgram;
