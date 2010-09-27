@@ -1400,8 +1400,8 @@ bool GgafElement<T>::wasDeclaredEnd() {
 
 template<class T>
 bool GgafElement<T>::relativeFrame(frame prm_frameEnd) {
-    _frameEnd += prm_frameEnd;
     if (_frame_of_behaving == _frameEnd) {
+        _frameEnd += prm_frameEnd;
         return true;
     } else {
         return false;
