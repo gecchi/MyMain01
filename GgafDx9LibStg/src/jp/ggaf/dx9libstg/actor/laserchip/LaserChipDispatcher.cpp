@@ -10,7 +10,7 @@ LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : GgafActorDispat
     _num_chip_active = 0;
     _is_tear_laser = true;
     _num_chip_max = 0;
-    _num_chip_interval = 20;
+    _num_chip_interval = 1;
     _pChip_prev_employ = NULL;
     _frame_of_behaving_prev_employ = 0;
 
