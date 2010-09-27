@@ -49,7 +49,7 @@ void EnemyThalia::initialize() {
 
 void EnemyThalia::onActive() {
     MyStgUtil::resetEnemyThaliaStatus(_pStatus);
-    _pMover->setMvAcce(pMYSHIP->_X-_X, 180);
+    _pMover->setMvAcceToStop(pMYSHIP->_X-_X);
     _TRACE_("_pMover->_accMv="<<_pMover->_accMv);
     _iMovePatternNo = 0; //行動パターンリセット
 }
@@ -59,7 +59,7 @@ void EnemyThalia::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     if (_iMovePatternNo == 0) {
-        if (getActivePartFrame() == 180) {
+        if (_pMover->_veloMv <= 0) {
             _pMover->setMvAcce(0);
             _pMover->setMvVelo(0);
             _pMorpher->intoTargetLinerUntil(1, 1.0, 120);

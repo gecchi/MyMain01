@@ -278,12 +278,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     void setMvAcce(acce prm_acceMove);
 
     /**
-     * 移動加速度を距離と時間により設定 .
-     * 初速度 v0 は 現在の移動速度が使用される。
-     * @param prm_distance 目標地点までの距離
-     * @param prm_time     到達に費やす時間（費やすフレーム数）
+     * 移動加速度を、現時点の速度と制動距離により設定 .
+     * @param prm_distance 制動距離
      */
-    void setMvAcce(int prm_distance, frame prm_time);
+    void setMvAcceToStop(int prm_distance);
 
     /**
      * Actorの移動方角（Z軸回転）を設定。<BR>

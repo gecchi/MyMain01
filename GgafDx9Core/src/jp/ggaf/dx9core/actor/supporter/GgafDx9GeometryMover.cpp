@@ -653,16 +653,26 @@ void GgafDx9GeometryMover::setMvAcce(int prm_acceMove) {
     _accMv = prm_acceMove;
 }
 
-void GgafDx9GeometryMover::setMvAcce(int prm_distance, frame prm_time) {
-    //    s = v0 t + (1/2) a t^2   v0:初速度  s:距離
-    //                              t:時間    a:加速度
-    //より
-    //    2(s - v0 t) / t^2 = a
-    http://hittobe.exblog.jp/3292476/
-    miyo
-
-    int iTime = (int)prm_time;
-    _accMv = ((2.0*(prm_distance - _veloMv*iTime)) / (1.0*iTime*iTime));
+void GgafDx9GeometryMover::setMvAcceToStop(int prm_distance) {
+    //   速度
+    //   ^       a:加速度
+    //   |       S:距離
+    //   |       v0:現時点の速度
+    // v0|       t:停止するフレーム
+    //   |\
+    //   | \
+    //   |  \ 傾きはa
+    //   | S \
+    // --+----\-----> 時間（フレーム)
+    // 0 |    t
+    //
+    //  S = (1/2) v0 t  ・・・①
+    //  a = -v0 / t     ・・・②
+    // ①より
+    //  t = 2S / v0    これを②へ代入
+    //  a = -v0 / (2S / v0)
+    //  ∴ a = -(v0^2) / 2S
+    _accMv =  -(1.0*_veloMv*_veloMv) / (2.0*prm_distance);
 }
 
 void GgafDx9GeometryMover::setRzMvAng(int prm_tX, int prm_tY) {

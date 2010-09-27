@@ -9,7 +9,7 @@ FormationThalia::FormationThalia(const char* prm_name) : GgafDx9FormationActor(p
     _class_name = "FormationThalia";
     _num_Thalia       = 7*_RANK_;    //•Ò‘à”
     _frame_interval = 25/_RANK_+5;   //ŠÔŠu(frame)
-    _mv_velo  = 300000*_RANK_;         //‰Šú‘¬“x
+    _mv_velo  = 30000*_RANK_;         //‰Šú‘¬“x
     //•Ò‘àì¬
     _papThalia = NEW EnemyThalia*[_num_Thalia];
     for (int i = 0; i < _num_Thalia; i++) {
