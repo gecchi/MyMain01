@@ -9,85 +9,15 @@ Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,10,40,70,100,130,160,190,220,250,280,310,340,370,400,430,460,490,520,550,580,610,640,670,700,730,760,790,820,850,880,910,940,970,1000,1030,1060,1090,1120,1150,1180,1210,1240,1270,1300,1330,1360,1390,1420,1450,1480,1510,1540,1570,1600,1630,1660,1690,1720,1750,1780,1810,1840,1870,1900,1930,1960,1990,2020,2050,2080,2110,2140,2170,2200,2230,2260,2290,2320,2350,2380,2410,2440,2470,2500,2530,2560,2590,2620,2650,2680,2710,2740,2770,2800,2830,2860,2890,2920,2950,2980,3010,3040,3070,3100,3130,3160,3190,3220,3250,3280,3310,3340,3370,3400,3430,3460,3490,3520,3550,3580,3610,3640,3670,3700,3730,3760,3790,3820,3850,3880,3910,3940,3970,4000,4030,4060,4090,4120,4150,4180,4210,4240,4270,4300,4330,4360,4390,4420,4450,4480,4510,4540,4570,4600,4630,4660,4690,4720,4750,4780,4810,4840,4870,4900,4930,4960,4990,5020,5050,5080,5110,5140,5170,5200,5230,5260,5290,5320,5350,5380,5410,5440,5470,5500,5530,5560,5590,5620,5650,5680,5710,5740,5770,5800,5830,5860,5890,5920,5950,5980,6010,6040,6070,6100,6130,6160,6190,6220,6250,6280,6310,6340,6370,6400,6430,6460,6490,6520,6550,6580,6610,6640,6670,6700,6730,6760,6790,6820,6850,6880,6910,6940,6970,7000,7030,7060,7090,7120,7150,7180,7210,7240,7270,7300,7330,7360,7390,7420,7450,7480,7510,7540,7570,7600,7630,7660,7690,7720,7750,7780,7810,7840,7870,7900,7930,7960,7990,8020,8050,8080,8110,8140,8170,8200,8230,8260,8290,8320,8350,8380,8410,8440,8470,8500,8530,8560,8590,8620,8650,8680,8710,8740,8770,8800,8830,8860,8890,8920,8950,8980,9010,9040,9070,9100,9130,9160,9190,9220,9250,9280,9310,9340,9370,9400,9430,9460,9490,9520,9550,9580,9610,9640,9670,9700,9730,9760,9790,9820,9850,9880,9910,9940,9970,10000,10030,10060,10090,10120,10150,10180,10210,10240,10270,10300,10330,10360,10390,10420,10450,10480,10510,10540,10570,10600,10630,10660,10690,10720,10750,10780,10810,10840,10870,10900,10930,10960,10990,11020,11050,11080,11110,11140,11170,11200,11230,11260,11290,11320,11350,11380,11410,11440,11470,11500,11530,11560,11590,11620,11650,11680,11710,11740,11770,11800,11830,11860,11890,11920,11950,11980,12010,12040,12070,12100,12130,12160,12190,12220,12250,12280,12310,12340,12370,12400,12430,12460,12490,12520,12550,12580,12610,12640,12670,12700,12730,12760,12790,12820,12850,12880,12910,12940,12970,13000,13030,13060,13090,13120,13150,13180,13210,13240,13270,13300,13330,13360,13390,13420,13450,13480,13510,13540,13570,13600,13630,13660,13690,13720,13750,13780,13810,13840,13870,13900,13930,13960,13990,14020,14050,14080,14110,14140,14170,14200,14230,14260,14290,14320,14350,14380,14410,14440,14470,14500,14530,14560,14590,14620,14650,14680,14710,14740,14770,14800,14830,14860,14890,14920,14950,14980,15010,15040,15070,15100,15130,15160,15190,15220,15250,15280,15310,15340,15370,15400,15430,15460,15490,15520,15550,15580,15610,15640,15670,15700,15730,15760,15790,15820,15850,15880,15910,15940,15970,16000,16030,16060,16090,16120,16150,16180,16210,16240,16270,16300,16330,16360,16390,16420,16450,16480,16510,16540,16570,16600,16630,16660,16690,16720,16750,16780,16810,16840,16870,16900,16930,16960,16990,17020,17050,17080,17110,17140,17170,17200,17230,17260,17290,17320,17350,17380,17410,17440,17470,17500,17530,17560,17590,17620,17650,17680,17710,17740,17770,17800,17830,17860,17890,17920,17950,17980,18010,18040,18070,18100,18130,18160,18190,18220,18250,18280,18310,18340,18370,18400,18430,18460,18490,18520,18550,18580,18610,18640,18670,18700,18730,18760,18790,18820,18850,18880,18910,18940,18970,19000,19030,19060,19090,19120,19150,19180,19210,19240,19270,19300,19330,19360,19390,19420,19450,19480,19510,19540,19570,19600,19630,19660,19690,19720,19750,19780,19810,19840,19870,19900,19930,19960,19990,20020,20050,20080,20110,20140,20170,20200,20230,20260,20290,20320,20350,20380,20410,20440,20470,20500,20530,20560,20590,20620,20650,20680,20710,20740,20770,20800,20830,20860,20890,20920,20950,20980,21010,21040,21070,21100,21130,21160,21190,21220,21250,21280,21310,21340,21370,21400,21430,21460,21490,21520,21550,21580,21610,21640,21670,21700,21730,21760,21790,21820,21850,21880,21910,21940,21970,22000,22030,22060,22090,22120,22150,22180,22210,22240,22270,22300,22330,22360,22390,22420,22450,22480,22510,22540,22570,22600,22630,22660,22690,22720,22750,22780,22810,22840,22870,22900,22930,22960,22990,23020,23050,23080,23110,23140,23170,23200,23230,23260,23290,23320,23350,23380,23410,23440,23470,23500,23530,23560,23590,23620,23650,23680,23710,23740,23770,23800,23830,23860,23890,23920,23950,23980,24010,24040,24070,24100,24130,24160,24190,24220,24250,24280,24310,24340,24370,24400,24430,24460,24490,24520,24550,24580,24610,24640,24670,24700,24730,24760,24790,24820,24850,24880,24910,24940,24970,25000,25030,25060,25090,25120,25150,25180,25210,25240,25270,25300,25330,25360,25390,25420,25450,25480,25510,25540,25570,25600,25630,25660,25690,25720,25750,25780,25810,25840,25870,25900,25930,25960,25990,26020,26050,26080,26110,26140,26170,26200,26230,26260,26290,26320,26350,26380,26410,26440,26470,26500,26530,26560,26590,26620,26650,26680,26710,26740,26770,26800,26830,26860,26890,26920,26950,26980,27010,27040,27070,27100,27130,27160,27190,27220,27250,27280,27310,27340,27370,27400,27430,27460,27490,27520,27550,27580,27610,27640,27670,27700,27730,27760,27790,27820,27850,27880,27910,27940,27970,28000,28030,28060,28090,28120,28150,28180,28210,28240,28270,28300,28330,28360,28390,28420,28450,28480,28510,28540,28570,28600,28630,28660,28690,28720,28750,28780,28810,28840,28870,28900,28930,28960,28990,29020,29050,29080,29110,29140,29170,29200,29230,29260,29290,29320,29350,29380,29410,29440,29470,29500,29530,29560,29590,29620,29650,29680,29710,29740,29770,29800,29830,29860,29890,29920,29950,29980,30000};
-	_paFrame_NextEvent = new frame[1002];
-	for (int i = 0; i < 1002; i++) {
+	frame f[] = {1,100,300,600,800,1100,1200,1230,1260,1290,1300,1320,1350,1380,1410,1440,1470,1500,1530,1560,1590,1600,1620,1650,1680,1710,1740,1770,1800,1830,1860,1890,1920,1950,1980,2010,2040,2070,2100,2130,2160,2190,2220,2250,2280,2300,2310,2340,2370,2400,2430,2460,2490,2520,2550,2580,2600,2610,2640,2670,2700,2730,2760,2790,2800,2820,2850,2880,2910,2940,2970,3000,3030,3060,3090,3100,3120,3150,3180,3210,3240,3270,3300,3330,3360,3390,3420,3450,3480,3510,3540,3570,3600,3630,3660,3690,3720,3750,3780,3800,3810,3840,3870,3900,3930,3960,3990,4020,4050,4080,4100,4110,4140,4170,4200,4230,4260,4290,4300,4320,4350,4380,4410,4440,4470,4500,4530,4560,4590,4600,4620,4650,4680,4710,4740,4770,4800,4830,4860,4890,4920,4950,4980,5010,5040,5070,5100,5130,5160,5190,5220,5250,5280,5300,5310,5340,5370,5400,5430,5460,5490,5520,5550,5580,5600,5610,5640,5670,5700,5730,5760,5790,5800,5820,5850,5880,5910,5940,5970,6000,6030,6060,6090,6100,6120,6150,6180,6210,6240,6270,6300,6330,6360,6390,6420,6450,6480,6510,6540,6570,6600,6630,6660,6690,6720,6750,6780,6800,6810,6840,6870,6900,6930,6960,6990,7020,7050,7080,7100,7110,7140,7170,7200,7230,7260,7290,7300,7320,7350,7380,7410,7440,7470,7500,7530,7560,7590,7600,7620,7650,7680,7710,7740,7770,7800,7830,7860,7890,7920,7950,7980,8010,8040,8070,8100,8130,8160,8190,8220,8250,8280,8310,8340,8370,8400,8430,8460,8490,8520,8550,8580,8600,8610,8640,8670,8700,8730,8760,8790,8820,8850,8880,8910,8940,8970,9000,9030,9060,9090,9100,9120,9150,9180,9210,9240,9270,9300,9330,9360,9390,9420,9450,9480,9510,9540,9570,9600,9630,9660,9690,9720,9750,9780,9810,9840,9870,9900,9930,9960,9990,10020,10050,10080,10110,10140,10170,10200,10230,10260,10290,10320,10350,10380,10410,10440,10470,10500,10530,10560,10590,10620,10650,10680,10710,10740,10770,10800,10830,10860,10890,10920,10950,10980,11010,11040,11070,11100,11130,11160,11190,11220,11250,11280,11310,11340,11370,11400,11430,11460,11490,11520,11550,11580,11610,11640,11670,11700,11730,11760,11790,11820,11850,11880,11910,11940,11970,12000,12030,12060,12090,12120,12150,12180,12210,12240,12270,12300,12330,12360,12390,12420,12450,12480,12510,12540,12570,12600,12630,12660,12690,12720,12750,12780,12810,12840,12870,12900,12930,12960,12990,13020,13050,13080,13110,13140,13170,13200,13230,13260,13290,13320,13350,13380,13410,13440,13470,13500,13530,13560,13590,13620,13650,13680,13710,13740,13770,13800,13830,13860,13890,13920,13950,13980,14010,14040,14070,14100,14130,14160,14190,14220,14250,14280,14310,14340,14370,14400,14430,14460,14490,14520,14550,14580,14610,14640,14670,14700,14730,14760,14790,14820,14850,14880,14910,14940,14970,15000,15030,15060,15090,15120,15150,15180,15210,15240,15270,15300,15330,15360,15390,15420,15450,15480,15510,15540,15570,15600,15630,15660,15690,15720,15750,15780,15810,15840,15870,15900,15930,15960,15990,16020,16050,16080,16110,16140,16170,16200,16230,16260,16290,16320,16350,16380,16410,16440,16470,16500,16530,16560,16590,16620,16650,16680,16710,16740,16770,16800,16830,16860,16890,16920,16950,16980,17010,17040,17070,17100,17130,17160,17190,17220,17250,17280,17310,17340,17370,17400,17430,17460,17490,17520,17550,17580,17610,17640,17670,17700,17730,17760,17790,17820,17850,17880,17910,17940,17970,18000,18030,18060,18090,18120,18150,18180,18210,18240,18270,18300,18330,18360,18390,18420,18450,18480,18510,18540,18570,18600,18630,18660,18690,18720,18750,18780,18810,18840,18870,18900,18930,18960,18990,19020,19050,19080,19110,19140,19170,19200,19230,19260,19290,19320,19350,19380,19410,19440,19470,19500,19530,19560,19590,19620,19650,19680,19710,19740,19770,19800,19830,19860,19890,19920,19950,19980,20010,20040,20070,20100,20130,20160,20190,20220,20250,20280,20310,20340,20370,20400,20430,20460,20490,20520,20550,20580,20610,20640,20670,20700,20730,20760,20790,20820,20850,20880,20910,20940,20970,21000,21030,21060,21090,21120,21150,21180,21210,21240,21270,21300,21330,21360,21390,21420,21450,21480,21510,21540,21570,21600,21630,21660,21690,21720,21750,21780,21810,21840,21870,21900,21930,21960,21990,22020,22050,22080,22110,22140,22170,22200,22230,22260,22290,22320,22350,22380,22410,22440,22470,22500,22530,22560,22590,22620,22650,22680,22710,22740,22770,22800,22830,22860,22890,22920,22950,22980,23010,23040,23070,23100,23130,23160,23190,23220,23250,23280,23310,23340,23370,23400,23430,23460,23490,23520,23550,23580,23610,23640,23670,23700,23730,23760,23790,23820,23850,23880,23910,23940,23970,24000,24030,24060,24090,24120,24150,24180,24210,24240,24270,24300,24330,24360,24390,24420,24450,24480,24510,24540,24570,24600,24630,24660,24690,24720,24750,24780,24810,24840,24870,24900,24930,24960,24990,25020,25050,25080,25110,25140,25170,25200,25230,25260,25290,25320,25350,25380,25410,25440,25470,25500,25530,25560,25590,25620,25650,25680,25710,25740,25770,25800,25830,25860,25890,25920,25950,25980,26010,26040,26070,26100,26130,26160,26190,26220,26250,26280,26310,26340,26370,26400,26430,26460,26490,26520,26550,26580,26610,26640,26670,26700,26730,26760,26790,26820,26850,26880,26910,26940,26970,27000,27030,27060,27090,27120,27150,27180,27210,27240,27270,27300,27330,27360,27390,27420,27450,27480,27510,27540,27570,27600,27630,27660,27690,27720,27750,27780,27810,27840,27870,27900,27930,27960,27990,28020,28050,28080,28110,28140,28170,28200,28230,28260,28290,28320,28350,28380,28410,28440,28470,28500,28530,28560,28590,28620,28650,28680,28710,28740,28770,28800,28830,28860,28890,28920,28950,28980,29010,29040,29070,29100,29130,29160,29190,29220,29250,29280,29310,29340,29370,29400,29430,29460,29490,29520,29550,29580,29610,29640,29670,29700,29730,29760,29790,29820,29850,29880,29910,29940,29970,30000};
+	_paFrame_NextEvent = new frame[987];
+	for (int i = 0; i < 987; i++) {
 		_paFrame_NextEvent[i] = f[i];
 	}
-	
-	orderActorToFactory(21047100, FormationPallas001a, "F001a_Pallas_1");
-	orderActorToFactory(21057100, FormationPallas001d, "F001d_Pallas_2");
-	orderActorToFactory(21067100, FormationPallas001b, "F001b_Pallas_3");
-	orderActorToFactory(21077100, FormationPallas001c, "F001c_Pallas_4");
-	orderActorToFactory(21087100, FormationPallas001a, "F001a_Pallas_5");
-	orderActorToFactory(21097100, FormationPallas001d, "F001d_Pallas_6");
-	orderActorToFactory(21107100, FormationPallas001b, "F001b_Pallas_7");
-	orderActorToFactory(21117100, FormationPallas001c, "F001c_Pallas_8");
-	orderActorToFactory(21127100, FormationPallas001a, "F001a_Pallas_9");
-	orderActorToFactory(21137100, FormationPallas001d, "F001d_Pallas_10");
-	orderActorToFactory(21147100, FormationPallas001b, "F001b_Pallas_11");
-	orderActorToFactory(21157100, FormationPallas001c, "F001c_Pallas_12");
-	orderActorToFactory(21177100, EnemyMetis, "Metis_13");
-	orderActorToFactory(21177130, EnemyMetis, "Metis_14");
-	orderActorToFactory(21177160, EnemyMetis, "Metis_15");
-	orderActorToFactory(21177190, EnemyMetis, "Metis_16");
-	orderActorToFactory(21177220, EnemyMetis, "Metis_17");
-	orderActorToFactory(21177250, EnemyMetis, "Metis_18");
-	orderActorToFactory(21177280, EnemyMetis, "Metis_19");
-	orderActorToFactory(21177310, EnemyMetis, "Metis_20");
-	orderActorToFactory(21177340, EnemyMetis, "Metis_21");
-	orderActorToFactory(21177370, EnemyMetis, "Metis_22");
-	orderActorToFactory(21177400, EnemyMetis, "Metis_23");
-	orderActorToFactory(21177430, EnemyMetis, "Metis_24");
-	orderActorToFactory(21177460, EnemyMetis, "Metis_25");
-	orderActorToFactory(21177490, EnemyMetis, "Metis_26");
-	orderActorToFactory(21177520, EnemyMetis, "Metis_27");
-	orderActorToFactory(21177550, EnemyMetis, "Metis_28");
-	orderActorToFactory(21177580, EnemyMetis, "Metis_29");
-	orderActorToFactory(21177610, EnemyMetis, "Metis_30");
-	orderActorToFactory(21177640, EnemyMetis, "Metis_31");
-	orderActorToFactory(21177670, EnemyMetis, "Metis_32");
-	orderActorToFactory(21177700, EnemyMetis, "Metis_33");
-	orderActorToFactory(21177730, EnemyMetis, "Metis_34");
-	orderActorToFactory(21177760, EnemyMetis, "Metis_35");
-	orderActorToFactory(21177790, EnemyMetis, "Metis_36");
-	orderActorToFactory(21177820, EnemyMetis, "Metis_37");
-	orderActorToFactory(21177850, EnemyMetis, "Metis_38");
-	orderActorToFactory(21177880, EnemyMetis, "Metis_39");
-	orderActorToFactory(21177910, EnemyMetis, "Metis_40");
-	orderActorToFactory(21177940, EnemyMetis, "Metis_41");
-	orderActorToFactory(21177970, EnemyMetis, "Metis_42");
-	orderActorToFactory(211771000, EnemyMetis, "Metis_43");
-	orderActorToFactory(211771030, EnemyMetis, "Metis_44");
-	orderActorToFactory(211771060, EnemyMetis, "Metis_45");
-	orderActorToFactory(211771090, EnemyMetis, "Metis_46");
-	orderActorToFactory(211771120, EnemyMetis, "Metis_47");
-	orderActorToFactory(211771150, EnemyMetis, "Metis_48");
-	orderActorToFactory(211771180, EnemyMetis, "Metis_49");
-	orderActorToFactory(211771210, EnemyMetis, "Metis_50");
-	orderActorToFactory(211771240, EnemyMetis, "Metis_51");
-	orderActorToFactory(211771270, EnemyMetis, "Metis_52");
-	orderActorToFactory(211771300, EnemyMetis, "Metis_53");
-	orderActorToFactory(211771330, EnemyMetis, "Metis_54");
-	orderActorToFactory(211771360, EnemyMetis, "Metis_55");
-	orderActorToFactory(211771390, EnemyMetis, "Metis_56");
-	orderActorToFactory(211771420, EnemyMetis, "Metis_57");
-	orderActorToFactory(211771450, EnemyMetis, "Metis_58");
-	orderActorToFactory(211771480, EnemyMetis, "Metis_59");
-	orderActorToFactory(211771510, EnemyMetis, "Metis_60");
-	orderActorToFactory(211771540, EnemyMetis, "Metis_61");
-	orderActorToFactory(211771570, EnemyMetis, "Metis_62");
-	orderActorToFactory(211771600, EnemyMetis, "Metis_63");
-	orderActorToFactory(211771630, EnemyMetis, "Metis_64");
-	orderActorToFactory(211771660, EnemyMetis, "Metis_65");
-	orderActorToFactory(211771690, EnemyMetis, "Metis_66");
-	orderActorToFactory(211771720, EnemyMetis, "Metis_67");
-	orderActorToFactory(211771750, EnemyMetis, "Metis_68");
-	orderActorToFactory(211771780, EnemyMetis, "Metis_69");
-	orderActorToFactory(21226100, EnemyAstraea, "Astraea_70");
-	orderActorToFactory(21226400, EnemyAstraea, "Astraea_71");
-	orderActorToFactory(21226700, EnemyAstraea, "Astraea_72");
-	orderActorToFactory(212261000, EnemyAstraea, "Astraea_73");
+	orderActorToFactory(21037100, FormationThalia, "FormationThalia_1");
+	orderActorToFactory(21037600, FormationThalia, "FormationThalia_2");
+	orderActorToFactory(210371100, FormationThalia, "FormationThalia_3");
+	orderActorToFactory(210371600, FormationThalia, "FormationThalia_4");
     // gen01 end
 }
 
@@ -103,6982 +33,6584 @@ void Stage01_01::processBehavior() {
 		switch (getActivePartFrame()) {
 			case 1:
 				break;
-			case 10:
-				orderActorToFactory(211771810, EnemyMetis, "Metis_74");
-				break;
-			case 40:
-				orderActorToFactory(211771840, EnemyMetis, "Metis_75");
-				break;
-			case 70:
-				orderActorToFactory(211771870, EnemyMetis, "Metis_76");
-				break;
 			case 100:
 				{
-				ActorTableScene* ta = NEW ActorTableScene("TableScene_77");
-				ta->setMaxPerformFrame(2000);
-				addSubLast(ta);
-				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(21047100)), 1);
-				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(21057100)), 1);
-				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(21067100)), 1);
-				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(21077100)), 400);
-				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(21087100)), 1);
-				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(21097100)), 1);
-				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(21107100)), 1);
-				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(21117100)), 400);
-				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(21127100)), 1);
-				ta->addToTable(((FormationPallas001d*)obtainActorFromFactory(21137100)), 1);
-				ta->addToTable(((FormationPallas001b*)obtainActorFromFactory(21147100)), 1);
-				ta->addToTable(((FormationPallas001c*)obtainActorFromFactory(21157100)), 400);
-				}
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177100);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(21037100);
 				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211771900, EnemyMetis, "Metis_78");
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(21226100);
-				getLordActor()->addSubGroup(pActor);
-				pActor->_Z = -1800000;
-				pActor->_Y = -100000;
 				}
 				break;
-			case 130:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177130);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211771930, EnemyMetis, "Metis_79");
+			case 300:
+				orderActorToFactory(210372100, FormationThalia, "FormationThalia_5");
 				break;
-			case 160:
+			case 600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177160);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(21037600);
 				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211771960, EnemyMetis, "Metis_80");
-				break;
-			case 190:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177190);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211771990, EnemyMetis, "Metis_81");
-				break;
-			case 220:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177220);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772020, EnemyMetis, "Metis_82");
-				break;
-			case 250:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177250);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772050, EnemyMetis, "Metis_83");
-				break;
-			case 280:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177280);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772080, EnemyMetis, "Metis_84");
-				break;
-			case 310:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177310);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772110, EnemyMetis, "Metis_85");
-				break;
-			case 340:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177340);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772140, EnemyMetis, "Metis_86");
-				break;
-			case 370:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177370);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772170, EnemyMetis, "Metis_87");
-				break;
-			case 400:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177400);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772200, EnemyMetis, "Metis_88");
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(21226400);
-				getLordActor()->addSubGroup(pActor);
-				pActor->_Z = -1800000;
-				pActor->_Y = -100000;
 				}
 				break;
-			case 430:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177430);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772230, EnemyMetis, "Metis_89");
+			case 800:
+				orderActorToFactory(210372600, FormationThalia, "FormationThalia_6");
 				break;
-			case 460:
+			case 1100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177460);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210371100);
 				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772260, EnemyMetis, "Metis_90");
-				break;
-			case 490:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177490);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772290, EnemyMetis, "Metis_91");
-				break;
-			case 520:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177520);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772320, EnemyMetis, "Metis_92");
-				break;
-			case 550:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177550);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772350, EnemyMetis, "Metis_93");
-				break;
-			case 580:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177580);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772380, EnemyMetis, "Metis_94");
-				break;
-			case 610:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177610);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772410, EnemyMetis, "Metis_95");
-				break;
-			case 640:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177640);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772440, EnemyMetis, "Metis_96");
-				break;
-			case 670:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177670);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772470, EnemyMetis, "Metis_97");
-				break;
-			case 700:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177700);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772500, EnemyMetis, "Metis_98");
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(21226700);
-				getLordActor()->addSubGroup(pActor);
-				pActor->_Z = -1800000;
-				pActor->_Y = -100000;
 				}
 				break;
-			case 730:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177730);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772530, EnemyMetis, "Metis_99");
+			case 1200:
+				orderActorToFactory(211773000, EnemyMetis, "Metis_7");
 				break;
-			case 760:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177760);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772560, EnemyMetis, "Metis_100");
+			case 1230:
+				orderActorToFactory(211773030, EnemyMetis, "Metis_8");
 				break;
-			case 790:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177790);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772590, EnemyMetis, "Metis_101");
+			case 1260:
+				orderActorToFactory(211773060, EnemyMetis, "Metis_9");
 				break;
-			case 820:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177820);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772620, EnemyMetis, "Metis_102");
-				break;
-			case 850:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177850);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772650, EnemyMetis, "Metis_103");
-				break;
-			case 880:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177880);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772680, EnemyMetis, "Metis_104");
-				break;
-			case 910:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177910);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772710, EnemyMetis, "Metis_105");
-				break;
-			case 940:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177940);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772740, EnemyMetis, "Metis_106");
-				break;
-			case 970:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(21177970);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772770, EnemyMetis, "Metis_107");
-				break;
-			case 1000:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771000);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772800, EnemyMetis, "Metis_108");
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(212261000);
-				getLordActor()->addSubGroup(pActor);
-				pActor->_Z = -1800000;
-				pActor->_Y = -100000;
-				}
-				break;
-			case 1030:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771030);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772830, EnemyMetis, "Metis_109");
-				break;
-			case 1060:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771060);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772860, EnemyMetis, "Metis_110");
-				break;
-			case 1090:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771090);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772890, EnemyMetis, "Metis_111");
-				break;
-			case 1120:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771120);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772920, EnemyMetis, "Metis_112");
-				break;
-			case 1150:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771150);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772950, EnemyMetis, "Metis_113");
-				break;
-			case 1180:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771180);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211772980, EnemyMetis, "Metis_114");
-				break;
-			case 1210:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771210);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773010, EnemyMetis, "Metis_115");
-				break;
-			case 1240:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771240);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773040, EnemyMetis, "Metis_116");
-				break;
-			case 1270:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771270);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773070, EnemyMetis, "Metis_117");
+			case 1290:
+				orderActorToFactory(211773090, EnemyMetis, "Metis_10");
 				break;
 			case 1300:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771300);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773100, EnemyMetis, "Metis_118");
+				orderActorToFactory(210373100, FormationThalia, "FormationThalia_11");
 				break;
-			case 1330:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771330);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773130, EnemyMetis, "Metis_119");
+			case 1320:
+				orderActorToFactory(211773120, EnemyMetis, "Metis_12");
 				break;
-			case 1360:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771360);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773160, EnemyMetis, "Metis_120");
+			case 1350:
+				orderActorToFactory(211773150, EnemyMetis, "Metis_13");
 				break;
-			case 1390:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771390);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773190, EnemyMetis, "Metis_121");
+			case 1380:
+				orderActorToFactory(211773180, EnemyMetis, "Metis_14");
 				break;
-			case 1420:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771420);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773220, EnemyMetis, "Metis_122");
+			case 1410:
+				orderActorToFactory(211773210, EnemyMetis, "Metis_15");
 				break;
-			case 1450:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771450);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773250, EnemyMetis, "Metis_123");
+			case 1440:
+				orderActorToFactory(211773240, EnemyMetis, "Metis_16");
 				break;
-			case 1480:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771480);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773280, EnemyMetis, "Metis_124");
+			case 1470:
+				orderActorToFactory(211773270, EnemyMetis, "Metis_17");
 				break;
-			case 1510:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771510);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773310, EnemyMetis, "Metis_125");
+			case 1500:
+				orderActorToFactory(211773300, EnemyMetis, "Metis_18");
 				break;
-			case 1540:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771540);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773340, EnemyMetis, "Metis_126");
+			case 1530:
+				orderActorToFactory(211773330, EnemyMetis, "Metis_19");
 				break;
-			case 1570:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771570);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773370, EnemyMetis, "Metis_127");
+			case 1560:
+				orderActorToFactory(211773360, EnemyMetis, "Metis_20");
+				break;
+			case 1590:
+				orderActorToFactory(211773390, EnemyMetis, "Metis_21");
 				break;
 			case 1600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771600);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210371600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211773400, EnemyMetis, "Metis_128");
 				break;
-			case 1630:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771630);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773430, EnemyMetis, "Metis_129");
+			case 1620:
+				orderActorToFactory(211773420, EnemyMetis, "Metis_22");
 				break;
-			case 1660:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771660);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773460, EnemyMetis, "Metis_130");
+			case 1650:
+				orderActorToFactory(211773450, EnemyMetis, "Metis_23");
 				break;
-			case 1690:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771690);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773490, EnemyMetis, "Metis_131");
+			case 1680:
+				orderActorToFactory(211773480, EnemyMetis, "Metis_24");
 				break;
-			case 1720:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771720);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773520, EnemyMetis, "Metis_132");
+			case 1710:
+				orderActorToFactory(211773510, EnemyMetis, "Metis_25");
 				break;
-			case 1750:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771750);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773550, EnemyMetis, "Metis_133");
+			case 1740:
+				orderActorToFactory(211773540, EnemyMetis, "Metis_26");
 				break;
-			case 1780:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771780);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773580, EnemyMetis, "Metis_134");
+			case 1770:
+				orderActorToFactory(211773570, EnemyMetis, "Metis_27");
 				break;
-			case 1810:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771810);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773610, EnemyMetis, "Metis_135");
+			case 1800:
+				orderActorToFactory(210373600, FormationThalia, "FormationThalia_28");
+				orderActorToFactory(211773600, EnemyMetis, "Metis_29");
 				break;
-			case 1840:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771840);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773640, EnemyMetis, "Metis_136");
+			case 1830:
+				orderActorToFactory(211773630, EnemyMetis, "Metis_30");
 				break;
-			case 1870:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771870);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773670, EnemyMetis, "Metis_137");
+			case 1860:
+				orderActorToFactory(211773660, EnemyMetis, "Metis_31");
 				break;
-			case 1900:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771900);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773700, EnemyMetis, "Metis_138");
+			case 1890:
+				orderActorToFactory(211773690, EnemyMetis, "Metis_32");
 				break;
-			case 1930:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771930);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773730, EnemyMetis, "Metis_139");
+			case 1920:
+				orderActorToFactory(211773720, EnemyMetis, "Metis_33");
 				break;
-			case 1960:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771960);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773760, EnemyMetis, "Metis_140");
+			case 1950:
+				orderActorToFactory(211773750, EnemyMetis, "Metis_34");
 				break;
-			case 1990:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211771990);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773790, EnemyMetis, "Metis_141");
+			case 1980:
+				orderActorToFactory(211773780, EnemyMetis, "Metis_35");
 				break;
-			case 2020:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772020);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773820, EnemyMetis, "Metis_142");
+			case 2010:
+				orderActorToFactory(211773810, EnemyMetis, "Metis_36");
 				break;
-			case 2050:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772050);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773850, EnemyMetis, "Metis_143");
+			case 2040:
+				orderActorToFactory(211773840, EnemyMetis, "Metis_37");
 				break;
-			case 2080:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772080);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773880, EnemyMetis, "Metis_144");
+			case 2070:
+				orderActorToFactory(211773870, EnemyMetis, "Metis_38");
 				break;
-			case 2110:
+			case 2100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772110);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210372100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211773910, EnemyMetis, "Metis_145");
+				orderActorToFactory(211773900, EnemyMetis, "Metis_39");
 				break;
-			case 2140:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772140);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773940, EnemyMetis, "Metis_146");
+			case 2130:
+				orderActorToFactory(211773930, EnemyMetis, "Metis_40");
 				break;
-			case 2170:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772170);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211773970, EnemyMetis, "Metis_147");
+			case 2160:
+				orderActorToFactory(211773960, EnemyMetis, "Metis_41");
 				break;
-			case 2200:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772200);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774000, EnemyMetis, "Metis_148");
+			case 2190:
+				orderActorToFactory(211773990, EnemyMetis, "Metis_42");
 				break;
-			case 2230:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772230);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774030, EnemyMetis, "Metis_149");
+			case 2220:
+				orderActorToFactory(211774020, EnemyMetis, "Metis_43");
 				break;
-			case 2260:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772260);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774060, EnemyMetis, "Metis_150");
+			case 2250:
+				orderActorToFactory(211774050, EnemyMetis, "Metis_44");
 				break;
-			case 2290:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772290);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774090, EnemyMetis, "Metis_151");
+			case 2280:
+				orderActorToFactory(211774080, EnemyMetis, "Metis_45");
 				break;
-			case 2320:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772320);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774120, EnemyMetis, "Metis_152");
+			case 2300:
+				orderActorToFactory(210374100, FormationThalia, "FormationThalia_46");
 				break;
-			case 2350:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772350);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774150, EnemyMetis, "Metis_153");
+			case 2310:
+				orderActorToFactory(211774110, EnemyMetis, "Metis_47");
 				break;
-			case 2380:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772380);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774180, EnemyMetis, "Metis_154");
+			case 2340:
+				orderActorToFactory(211774140, EnemyMetis, "Metis_48");
 				break;
-			case 2410:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772410);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774210, EnemyMetis, "Metis_155");
+			case 2370:
+				orderActorToFactory(211774170, EnemyMetis, "Metis_49");
 				break;
-			case 2440:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772440);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774240, EnemyMetis, "Metis_156");
+			case 2400:
+				orderActorToFactory(211774200, EnemyMetis, "Metis_50");
 				break;
-			case 2470:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772470);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774270, EnemyMetis, "Metis_157");
+			case 2430:
+				orderActorToFactory(211774230, EnemyMetis, "Metis_51");
 				break;
-			case 2500:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772500);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774300, EnemyMetis, "Metis_158");
+			case 2460:
+				orderActorToFactory(211774260, EnemyMetis, "Metis_52");
 				break;
-			case 2530:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772530);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774330, EnemyMetis, "Metis_159");
+			case 2490:
+				orderActorToFactory(211774290, EnemyMetis, "Metis_53");
 				break;
-			case 2560:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772560);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774360, EnemyMetis, "Metis_160");
+			case 2520:
+				orderActorToFactory(211774320, EnemyMetis, "Metis_54");
 				break;
-			case 2590:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772590);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774390, EnemyMetis, "Metis_161");
+			case 2550:
+				orderActorToFactory(211774350, EnemyMetis, "Metis_55");
 				break;
-			case 2620:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772620);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774420, EnemyMetis, "Metis_162");
+			case 2580:
+				orderActorToFactory(211774380, EnemyMetis, "Metis_56");
 				break;
-			case 2650:
+			case 2600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772650);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210372600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211774450, EnemyMetis, "Metis_163");
 				break;
-			case 2680:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772680);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774480, EnemyMetis, "Metis_164");
+			case 2610:
+				orderActorToFactory(211774410, EnemyMetis, "Metis_57");
 				break;
-			case 2710:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772710);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774510, EnemyMetis, "Metis_165");
+			case 2640:
+				orderActorToFactory(211774440, EnemyMetis, "Metis_58");
 				break;
-			case 2740:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772740);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774540, EnemyMetis, "Metis_166");
+			case 2670:
+				orderActorToFactory(211774470, EnemyMetis, "Metis_59");
 				break;
-			case 2770:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772770);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774570, EnemyMetis, "Metis_167");
+			case 2700:
+				orderActorToFactory(211774500, EnemyMetis, "Metis_60");
+				break;
+			case 2730:
+				orderActorToFactory(211774530, EnemyMetis, "Metis_61");
+				break;
+			case 2760:
+				orderActorToFactory(211774560, EnemyMetis, "Metis_62");
+				break;
+			case 2790:
+				orderActorToFactory(211774590, EnemyMetis, "Metis_63");
 				break;
 			case 2800:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772800);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774600, EnemyMetis, "Metis_168");
+				orderActorToFactory(210374600, FormationThalia, "FormationThalia_64");
 				break;
-			case 2830:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772830);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774630, EnemyMetis, "Metis_169");
+			case 2820:
+				orderActorToFactory(211774620, EnemyMetis, "Metis_65");
 				break;
-			case 2860:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772860);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774660, EnemyMetis, "Metis_170");
+			case 2850:
+				orderActorToFactory(211774650, EnemyMetis, "Metis_66");
 				break;
-			case 2890:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772890);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774690, EnemyMetis, "Metis_171");
+			case 2880:
+				orderActorToFactory(211774680, EnemyMetis, "Metis_67");
 				break;
-			case 2920:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772920);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774720, EnemyMetis, "Metis_172");
+			case 2910:
+				orderActorToFactory(211774710, EnemyMetis, "Metis_68");
 				break;
-			case 2950:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772950);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774750, EnemyMetis, "Metis_173");
+			case 2940:
+				orderActorToFactory(211774740, EnemyMetis, "Metis_69");
 				break;
-			case 2980:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211772980);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211774780, EnemyMetis, "Metis_174");
+			case 2970:
+				orderActorToFactory(211774770, EnemyMetis, "Metis_70");
 				break;
-			case 3010:
+			case 3000:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773010);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773000);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211774810, EnemyMetis, "Metis_175");
+				orderActorToFactory(211774800, EnemyMetis, "Metis_71");
 				break;
-			case 3040:
+			case 3030:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773040);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773030);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211774840, EnemyMetis, "Metis_176");
+				orderActorToFactory(211774830, EnemyMetis, "Metis_72");
 				break;
-			case 3070:
+			case 3060:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773070);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773060);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211774870, EnemyMetis, "Metis_177");
+				orderActorToFactory(211774860, EnemyMetis, "Metis_73");
+				break;
+			case 3090:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773090);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211774890, EnemyMetis, "Metis_74");
 				break;
 			case 3100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773100);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210373100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211774900, EnemyMetis, "Metis_178");
 				break;
-			case 3130:
+			case 3120:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773130);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773120);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211774930, EnemyMetis, "Metis_179");
+				orderActorToFactory(211774920, EnemyMetis, "Metis_75");
 				break;
-			case 3160:
+			case 3150:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773160);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773150);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211774960, EnemyMetis, "Metis_180");
+				orderActorToFactory(211774950, EnemyMetis, "Metis_76");
 				break;
-			case 3190:
+			case 3180:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773190);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773180);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211774990, EnemyMetis, "Metis_181");
+				orderActorToFactory(211774980, EnemyMetis, "Metis_77");
 				break;
-			case 3220:
+			case 3210:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773220);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773210);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775020, EnemyMetis, "Metis_182");
+				orderActorToFactory(211775010, EnemyMetis, "Metis_78");
 				break;
-			case 3250:
+			case 3240:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773250);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773240);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775050, EnemyMetis, "Metis_183");
+				orderActorToFactory(211775040, EnemyMetis, "Metis_79");
 				break;
-			case 3280:
+			case 3270:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773280);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773270);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775080, EnemyMetis, "Metis_184");
+				orderActorToFactory(211775070, EnemyMetis, "Metis_80");
 				break;
-			case 3310:
+			case 3300:
+				orderActorToFactory(210375100, FormationThalia, "FormationThalia_81");
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773310);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773300);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775110, EnemyMetis, "Metis_185");
+				orderActorToFactory(211775100, EnemyMetis, "Metis_82");
 				break;
-			case 3340:
+			case 3330:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773340);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773330);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775140, EnemyMetis, "Metis_186");
+				orderActorToFactory(211775130, EnemyMetis, "Metis_83");
 				break;
-			case 3370:
+			case 3360:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773370);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773360);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775170, EnemyMetis, "Metis_187");
+				orderActorToFactory(211775160, EnemyMetis, "Metis_84");
 				break;
-			case 3400:
+			case 3390:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773400);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773390);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775200, EnemyMetis, "Metis_188");
+				orderActorToFactory(211775190, EnemyMetis, "Metis_85");
 				break;
-			case 3430:
+			case 3420:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773430);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773420);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775230, EnemyMetis, "Metis_189");
+				orderActorToFactory(211775220, EnemyMetis, "Metis_86");
 				break;
-			case 3460:
+			case 3450:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773460);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773450);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775260, EnemyMetis, "Metis_190");
+				orderActorToFactory(211775250, EnemyMetis, "Metis_87");
 				break;
-			case 3490:
+			case 3480:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773490);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773480);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775290, EnemyMetis, "Metis_191");
+				orderActorToFactory(211775280, EnemyMetis, "Metis_88");
 				break;
-			case 3520:
+			case 3510:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773520);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773510);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775320, EnemyMetis, "Metis_192");
+				orderActorToFactory(211775310, EnemyMetis, "Metis_89");
 				break;
-			case 3550:
+			case 3540:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773550);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773540);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775350, EnemyMetis, "Metis_193");
+				orderActorToFactory(211775340, EnemyMetis, "Metis_90");
 				break;
-			case 3580:
+			case 3570:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773580);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773570);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775380, EnemyMetis, "Metis_194");
+				orderActorToFactory(211775370, EnemyMetis, "Metis_91");
 				break;
-			case 3610:
+			case 3600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773610);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210373600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775410, EnemyMetis, "Metis_195");
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773600);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211775400, EnemyMetis, "Metis_92");
 				break;
-			case 3640:
+			case 3630:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773640);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773630);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775440, EnemyMetis, "Metis_196");
+				orderActorToFactory(211775430, EnemyMetis, "Metis_93");
 				break;
-			case 3670:
+			case 3660:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773670);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773660);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775470, EnemyMetis, "Metis_197");
+				orderActorToFactory(211775460, EnemyMetis, "Metis_94");
 				break;
-			case 3700:
+			case 3690:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773700);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773690);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775500, EnemyMetis, "Metis_198");
+				orderActorToFactory(211775490, EnemyMetis, "Metis_95");
 				break;
-			case 3730:
+			case 3720:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773730);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773720);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775530, EnemyMetis, "Metis_199");
+				orderActorToFactory(211775520, EnemyMetis, "Metis_96");
 				break;
-			case 3760:
+			case 3750:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773760);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773750);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775560, EnemyMetis, "Metis_200");
+				orderActorToFactory(211775550, EnemyMetis, "Metis_97");
 				break;
-			case 3790:
+			case 3780:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773790);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773780);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775590, EnemyMetis, "Metis_201");
+				orderActorToFactory(211775580, EnemyMetis, "Metis_98");
 				break;
-			case 3820:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773820);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211775620, EnemyMetis, "Metis_202");
+			case 3800:
+				orderActorToFactory(210375600, FormationThalia, "FormationThalia_99");
 				break;
-			case 3850:
+			case 3810:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773850);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773810);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775650, EnemyMetis, "Metis_203");
+				orderActorToFactory(211775610, EnemyMetis, "Metis_100");
 				break;
-			case 3880:
+			case 3840:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773880);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773840);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775680, EnemyMetis, "Metis_204");
+				orderActorToFactory(211775640, EnemyMetis, "Metis_101");
 				break;
-			case 3910:
+			case 3870:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773910);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773870);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775710, EnemyMetis, "Metis_205");
+				orderActorToFactory(211775670, EnemyMetis, "Metis_102");
 				break;
-			case 3940:
+			case 3900:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773940);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773900);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775740, EnemyMetis, "Metis_206");
+				orderActorToFactory(211775700, EnemyMetis, "Metis_103");
 				break;
-			case 3970:
+			case 3930:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773970);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773930);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775770, EnemyMetis, "Metis_207");
+				orderActorToFactory(211775730, EnemyMetis, "Metis_104");
 				break;
-			case 4000:
+			case 3960:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774000);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773960);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775800, EnemyMetis, "Metis_208");
+				orderActorToFactory(211775760, EnemyMetis, "Metis_105");
 				break;
-			case 4030:
+			case 3990:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774030);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211773990);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775830, EnemyMetis, "Metis_209");
+				orderActorToFactory(211775790, EnemyMetis, "Metis_106");
 				break;
-			case 4060:
+			case 4020:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774060);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774020);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775860, EnemyMetis, "Metis_210");
+				orderActorToFactory(211775820, EnemyMetis, "Metis_107");
 				break;
-			case 4090:
+			case 4050:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774090);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774050);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775890, EnemyMetis, "Metis_211");
+				orderActorToFactory(211775850, EnemyMetis, "Metis_108");
 				break;
-			case 4120:
+			case 4080:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774120);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774080);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775920, EnemyMetis, "Metis_212");
+				orderActorToFactory(211775880, EnemyMetis, "Metis_109");
 				break;
-			case 4150:
+			case 4100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774150);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210374100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775950, EnemyMetis, "Metis_213");
 				break;
-			case 4180:
+			case 4110:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774180);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774110);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211775980, EnemyMetis, "Metis_214");
+				orderActorToFactory(211775910, EnemyMetis, "Metis_110");
 				break;
-			case 4210:
+			case 4140:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774210);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774140);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776010, EnemyMetis, "Metis_215");
+				orderActorToFactory(211775940, EnemyMetis, "Metis_111");
 				break;
-			case 4240:
+			case 4170:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774240);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774170);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776040, EnemyMetis, "Metis_216");
+				orderActorToFactory(211775970, EnemyMetis, "Metis_112");
 				break;
-			case 4270:
+			case 4200:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774270);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774200);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776070, EnemyMetis, "Metis_217");
+				orderActorToFactory(211776000, EnemyMetis, "Metis_113");
+				break;
+			case 4230:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774230);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211776030, EnemyMetis, "Metis_114");
+				break;
+			case 4260:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774260);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211776060, EnemyMetis, "Metis_115");
+				break;
+			case 4290:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774290);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211776090, EnemyMetis, "Metis_116");
 				break;
 			case 4300:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774300);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211776100, EnemyMetis, "Metis_218");
+				orderActorToFactory(210376100, FormationThalia, "FormationThalia_117");
 				break;
-			case 4330:
+			case 4320:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774330);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774320);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776130, EnemyMetis, "Metis_219");
+				orderActorToFactory(211776120, EnemyMetis, "Metis_118");
 				break;
-			case 4360:
+			case 4350:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774360);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774350);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776160, EnemyMetis, "Metis_220");
+				orderActorToFactory(211776150, EnemyMetis, "Metis_119");
 				break;
-			case 4390:
+			case 4380:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774390);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774380);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776190, EnemyMetis, "Metis_221");
+				orderActorToFactory(211776180, EnemyMetis, "Metis_120");
 				break;
-			case 4420:
+			case 4410:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774420);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774410);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776220, EnemyMetis, "Metis_222");
+				orderActorToFactory(211776210, EnemyMetis, "Metis_121");
 				break;
-			case 4450:
+			case 4440:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774450);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774440);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776250, EnemyMetis, "Metis_223");
+				orderActorToFactory(211776240, EnemyMetis, "Metis_122");
 				break;
-			case 4480:
+			case 4470:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774480);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774470);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776280, EnemyMetis, "Metis_224");
+				orderActorToFactory(211776270, EnemyMetis, "Metis_123");
 				break;
-			case 4510:
+			case 4500:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774510);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774500);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776310, EnemyMetis, "Metis_225");
+				orderActorToFactory(211776300, EnemyMetis, "Metis_124");
 				break;
-			case 4540:
+			case 4530:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774540);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774530);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776340, EnemyMetis, "Metis_226");
+				orderActorToFactory(211776330, EnemyMetis, "Metis_125");
 				break;
-			case 4570:
+			case 4560:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774570);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774560);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776370, EnemyMetis, "Metis_227");
+				orderActorToFactory(211776360, EnemyMetis, "Metis_126");
+				break;
+			case 4590:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774590);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211776390, EnemyMetis, "Metis_127");
 				break;
 			case 4600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774600);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210374600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776400, EnemyMetis, "Metis_228");
 				break;
-			case 4630:
+			case 4620:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774630);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774620);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776430, EnemyMetis, "Metis_229");
+				orderActorToFactory(211776420, EnemyMetis, "Metis_128");
 				break;
-			case 4660:
+			case 4650:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774660);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774650);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776460, EnemyMetis, "Metis_230");
+				orderActorToFactory(211776450, EnemyMetis, "Metis_129");
 				break;
-			case 4690:
+			case 4680:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774690);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774680);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776490, EnemyMetis, "Metis_231");
+				orderActorToFactory(211776480, EnemyMetis, "Metis_130");
 				break;
-			case 4720:
+			case 4710:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774720);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774710);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776520, EnemyMetis, "Metis_232");
+				orderActorToFactory(211776510, EnemyMetis, "Metis_131");
 				break;
-			case 4750:
+			case 4740:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774750);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774740);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776550, EnemyMetis, "Metis_233");
+				orderActorToFactory(211776540, EnemyMetis, "Metis_132");
 				break;
-			case 4780:
+			case 4770:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774780);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774770);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776580, EnemyMetis, "Metis_234");
+				orderActorToFactory(211776570, EnemyMetis, "Metis_133");
 				break;
-			case 4810:
+			case 4800:
+				orderActorToFactory(210376600, FormationThalia, "FormationThalia_134");
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774810);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774800);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776610, EnemyMetis, "Metis_235");
+				orderActorToFactory(211776600, EnemyMetis, "Metis_135");
 				break;
-			case 4840:
+			case 4830:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774840);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774830);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776640, EnemyMetis, "Metis_236");
+				orderActorToFactory(211776630, EnemyMetis, "Metis_136");
 				break;
-			case 4870:
+			case 4860:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774870);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774860);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776670, EnemyMetis, "Metis_237");
+				orderActorToFactory(211776660, EnemyMetis, "Metis_137");
 				break;
-			case 4900:
+			case 4890:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774900);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774890);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776700, EnemyMetis, "Metis_238");
+				orderActorToFactory(211776690, EnemyMetis, "Metis_138");
 				break;
-			case 4930:
+			case 4920:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774930);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774920);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776730, EnemyMetis, "Metis_239");
+				orderActorToFactory(211776720, EnemyMetis, "Metis_139");
 				break;
-			case 4960:
+			case 4950:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774960);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774950);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776760, EnemyMetis, "Metis_240");
+				orderActorToFactory(211776750, EnemyMetis, "Metis_140");
 				break;
-			case 4990:
+			case 4980:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774990);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211774980);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776790, EnemyMetis, "Metis_241");
+				orderActorToFactory(211776780, EnemyMetis, "Metis_141");
 				break;
-			case 5020:
+			case 5010:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775020);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775010);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776820, EnemyMetis, "Metis_242");
+				orderActorToFactory(211776810, EnemyMetis, "Metis_142");
 				break;
-			case 5050:
+			case 5040:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775050);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775040);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776850, EnemyMetis, "Metis_243");
+				orderActorToFactory(211776840, EnemyMetis, "Metis_143");
 				break;
-			case 5080:
+			case 5070:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775080);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775070);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776880, EnemyMetis, "Metis_244");
+				orderActorToFactory(211776870, EnemyMetis, "Metis_144");
 				break;
-			case 5110:
+			case 5100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775110);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210375100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776910, EnemyMetis, "Metis_245");
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775100);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211776900, EnemyMetis, "Metis_145");
 				break;
-			case 5140:
+			case 5130:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775140);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775130);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776940, EnemyMetis, "Metis_246");
+				orderActorToFactory(211776930, EnemyMetis, "Metis_146");
 				break;
-			case 5170:
+			case 5160:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775170);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775160);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211776970, EnemyMetis, "Metis_247");
+				orderActorToFactory(211776960, EnemyMetis, "Metis_147");
 				break;
-			case 5200:
+			case 5190:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775200);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775190);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777000, EnemyMetis, "Metis_248");
+				orderActorToFactory(211776990, EnemyMetis, "Metis_148");
 				break;
-			case 5230:
+			case 5220:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775230);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775220);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777030, EnemyMetis, "Metis_249");
+				orderActorToFactory(211777020, EnemyMetis, "Metis_149");
 				break;
-			case 5260:
+			case 5250:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775260);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775250);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777060, EnemyMetis, "Metis_250");
+				orderActorToFactory(211777050, EnemyMetis, "Metis_150");
 				break;
-			case 5290:
+			case 5280:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775290);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775280);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777090, EnemyMetis, "Metis_251");
+				orderActorToFactory(211777080, EnemyMetis, "Metis_151");
 				break;
-			case 5320:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775320);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211777120, EnemyMetis, "Metis_252");
+			case 5300:
+				orderActorToFactory(210377100, FormationThalia, "FormationThalia_152");
 				break;
-			case 5350:
+			case 5310:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775350);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775310);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777150, EnemyMetis, "Metis_253");
+				orderActorToFactory(211777110, EnemyMetis, "Metis_153");
 				break;
-			case 5380:
+			case 5340:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775380);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775340);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777180, EnemyMetis, "Metis_254");
+				orderActorToFactory(211777140, EnemyMetis, "Metis_154");
 				break;
-			case 5410:
+			case 5370:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775410);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775370);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777210, EnemyMetis, "Metis_255");
+				orderActorToFactory(211777170, EnemyMetis, "Metis_155");
 				break;
-			case 5440:
+			case 5400:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775440);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775400);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777240, EnemyMetis, "Metis_256");
+				orderActorToFactory(211777200, EnemyMetis, "Metis_156");
 				break;
-			case 5470:
+			case 5430:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775470);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775430);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777270, EnemyMetis, "Metis_257");
+				orderActorToFactory(211777230, EnemyMetis, "Metis_157");
 				break;
-			case 5500:
+			case 5460:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775500);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775460);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777300, EnemyMetis, "Metis_258");
+				orderActorToFactory(211777260, EnemyMetis, "Metis_158");
 				break;
-			case 5530:
+			case 5490:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775530);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775490);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777330, EnemyMetis, "Metis_259");
+				orderActorToFactory(211777290, EnemyMetis, "Metis_159");
 				break;
-			case 5560:
+			case 5520:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775560);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775520);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777360, EnemyMetis, "Metis_260");
+				orderActorToFactory(211777320, EnemyMetis, "Metis_160");
 				break;
-			case 5590:
+			case 5550:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775590);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775550);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777390, EnemyMetis, "Metis_261");
+				orderActorToFactory(211777350, EnemyMetis, "Metis_161");
 				break;
-			case 5620:
+			case 5580:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775620);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775580);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777420, EnemyMetis, "Metis_262");
+				orderActorToFactory(211777380, EnemyMetis, "Metis_162");
 				break;
-			case 5650:
+			case 5600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775650);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210375600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777450, EnemyMetis, "Metis_263");
 				break;
-			case 5680:
+			case 5610:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775680);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775610);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777480, EnemyMetis, "Metis_264");
+				orderActorToFactory(211777410, EnemyMetis, "Metis_163");
 				break;
-			case 5710:
+			case 5640:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775710);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775640);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777510, EnemyMetis, "Metis_265");
+				orderActorToFactory(211777440, EnemyMetis, "Metis_164");
 				break;
-			case 5740:
+			case 5670:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775740);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775670);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777540, EnemyMetis, "Metis_266");
+				orderActorToFactory(211777470, EnemyMetis, "Metis_165");
 				break;
-			case 5770:
+			case 5700:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775770);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775700);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777570, EnemyMetis, "Metis_267");
+				orderActorToFactory(211777500, EnemyMetis, "Metis_166");
+				break;
+			case 5730:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775730);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211777530, EnemyMetis, "Metis_167");
+				break;
+			case 5760:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775760);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211777560, EnemyMetis, "Metis_168");
+				break;
+			case 5790:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775790);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211777590, EnemyMetis, "Metis_169");
 				break;
 			case 5800:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775800);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211777600, EnemyMetis, "Metis_268");
+				orderActorToFactory(210377600, FormationThalia, "FormationThalia_170");
 				break;
-			case 5830:
+			case 5820:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775830);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775820);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777630, EnemyMetis, "Metis_269");
+				orderActorToFactory(211777620, EnemyMetis, "Metis_171");
 				break;
-			case 5860:
+			case 5850:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775860);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775850);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777660, EnemyMetis, "Metis_270");
+				orderActorToFactory(211777650, EnemyMetis, "Metis_172");
 				break;
-			case 5890:
+			case 5880:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775890);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775880);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777690, EnemyMetis, "Metis_271");
+				orderActorToFactory(211777680, EnemyMetis, "Metis_173");
 				break;
-			case 5920:
+			case 5910:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775920);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775910);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777720, EnemyMetis, "Metis_272");
+				orderActorToFactory(211777710, EnemyMetis, "Metis_174");
 				break;
-			case 5950:
+			case 5940:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775950);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775940);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777750, EnemyMetis, "Metis_273");
+				orderActorToFactory(211777740, EnemyMetis, "Metis_175");
 				break;
-			case 5980:
+			case 5970:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775980);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211775970);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777780, EnemyMetis, "Metis_274");
+				orderActorToFactory(211777770, EnemyMetis, "Metis_176");
 				break;
-			case 6010:
+			case 6000:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776010);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776000);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777810, EnemyMetis, "Metis_275");
+				orderActorToFactory(211777800, EnemyMetis, "Metis_177");
 				break;
-			case 6040:
+			case 6030:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776040);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776030);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777840, EnemyMetis, "Metis_276");
+				orderActorToFactory(211777830, EnemyMetis, "Metis_178");
 				break;
-			case 6070:
+			case 6060:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776070);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776060);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777870, EnemyMetis, "Metis_277");
+				orderActorToFactory(211777860, EnemyMetis, "Metis_179");
+				break;
+			case 6090:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776090);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211777890, EnemyMetis, "Metis_180");
 				break;
 			case 6100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776100);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210376100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777900, EnemyMetis, "Metis_278");
 				break;
-			case 6130:
+			case 6120:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776130);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776120);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777930, EnemyMetis, "Metis_279");
+				orderActorToFactory(211777920, EnemyMetis, "Metis_181");
 				break;
-			case 6160:
+			case 6150:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776160);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776150);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777960, EnemyMetis, "Metis_280");
+				orderActorToFactory(211777950, EnemyMetis, "Metis_182");
 				break;
-			case 6190:
+			case 6180:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776190);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776180);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211777990, EnemyMetis, "Metis_281");
+				orderActorToFactory(211777980, EnemyMetis, "Metis_183");
 				break;
-			case 6220:
+			case 6210:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776220);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776210);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778020, EnemyMetis, "Metis_282");
+				orderActorToFactory(211778010, EnemyMetis, "Metis_184");
 				break;
-			case 6250:
+			case 6240:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776250);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776240);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778050, EnemyMetis, "Metis_283");
+				orderActorToFactory(211778040, EnemyMetis, "Metis_185");
 				break;
-			case 6280:
+			case 6270:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776280);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776270);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778080, EnemyMetis, "Metis_284");
+				orderActorToFactory(211778070, EnemyMetis, "Metis_186");
 				break;
-			case 6310:
+			case 6300:
+				orderActorToFactory(210378100, FormationThalia, "FormationThalia_187");
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776310);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776300);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778110, EnemyMetis, "Metis_285");
+				orderActorToFactory(211778100, EnemyMetis, "Metis_188");
 				break;
-			case 6340:
+			case 6330:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776340);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776330);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778140, EnemyMetis, "Metis_286");
+				orderActorToFactory(211778130, EnemyMetis, "Metis_189");
 				break;
-			case 6370:
+			case 6360:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776370);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776360);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778170, EnemyMetis, "Metis_287");
+				orderActorToFactory(211778160, EnemyMetis, "Metis_190");
 				break;
-			case 6400:
+			case 6390:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776400);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776390);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778200, EnemyMetis, "Metis_288");
+				orderActorToFactory(211778190, EnemyMetis, "Metis_191");
 				break;
-			case 6430:
+			case 6420:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776430);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776420);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778230, EnemyMetis, "Metis_289");
+				orderActorToFactory(211778220, EnemyMetis, "Metis_192");
 				break;
-			case 6460:
+			case 6450:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776460);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776450);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778260, EnemyMetis, "Metis_290");
+				orderActorToFactory(211778250, EnemyMetis, "Metis_193");
 				break;
-			case 6490:
+			case 6480:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776490);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776480);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778290, EnemyMetis, "Metis_291");
+				orderActorToFactory(211778280, EnemyMetis, "Metis_194");
 				break;
-			case 6520:
+			case 6510:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776520);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776510);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778320, EnemyMetis, "Metis_292");
+				orderActorToFactory(211778310, EnemyMetis, "Metis_195");
 				break;
-			case 6550:
+			case 6540:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776550);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776540);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778350, EnemyMetis, "Metis_293");
+				orderActorToFactory(211778340, EnemyMetis, "Metis_196");
 				break;
-			case 6580:
+			case 6570:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776580);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776570);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778380, EnemyMetis, "Metis_294");
+				orderActorToFactory(211778370, EnemyMetis, "Metis_197");
 				break;
-			case 6610:
+			case 6600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776610);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210376600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778410, EnemyMetis, "Metis_295");
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776600);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211778400, EnemyMetis, "Metis_198");
 				break;
-			case 6640:
+			case 6630:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776640);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776630);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778440, EnemyMetis, "Metis_296");
+				orderActorToFactory(211778430, EnemyMetis, "Metis_199");
 				break;
-			case 6670:
+			case 6660:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776670);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776660);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778470, EnemyMetis, "Metis_297");
+				orderActorToFactory(211778460, EnemyMetis, "Metis_200");
 				break;
-			case 6700:
+			case 6690:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776700);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776690);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778500, EnemyMetis, "Metis_298");
+				orderActorToFactory(211778490, EnemyMetis, "Metis_201");
 				break;
-			case 6730:
+			case 6720:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776730);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776720);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778530, EnemyMetis, "Metis_299");
+				orderActorToFactory(211778520, EnemyMetis, "Metis_202");
 				break;
-			case 6760:
+			case 6750:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776760);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776750);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778560, EnemyMetis, "Metis_300");
+				orderActorToFactory(211778550, EnemyMetis, "Metis_203");
 				break;
-			case 6790:
+			case 6780:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776790);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776780);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778590, EnemyMetis, "Metis_301");
+				orderActorToFactory(211778580, EnemyMetis, "Metis_204");
 				break;
-			case 6820:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776820);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211778620, EnemyMetis, "Metis_302");
+			case 6800:
+				orderActorToFactory(210378600, FormationThalia, "FormationThalia_205");
 				break;
-			case 6850:
+			case 6810:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776850);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776810);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778650, EnemyMetis, "Metis_303");
+				orderActorToFactory(211778610, EnemyMetis, "Metis_206");
 				break;
-			case 6880:
+			case 6840:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776880);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776840);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778680, EnemyMetis, "Metis_304");
+				orderActorToFactory(211778640, EnemyMetis, "Metis_207");
 				break;
-			case 6910:
+			case 6870:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776910);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776870);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778710, EnemyMetis, "Metis_305");
+				orderActorToFactory(211778670, EnemyMetis, "Metis_208");
 				break;
-			case 6940:
+			case 6900:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776940);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776900);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778740, EnemyMetis, "Metis_306");
+				orderActorToFactory(211778700, EnemyMetis, "Metis_209");
 				break;
-			case 6970:
+			case 6930:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776970);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776930);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778770, EnemyMetis, "Metis_307");
+				orderActorToFactory(211778730, EnemyMetis, "Metis_210");
 				break;
-			case 7000:
+			case 6960:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777000);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776960);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778800, EnemyMetis, "Metis_308");
+				orderActorToFactory(211778760, EnemyMetis, "Metis_211");
 				break;
-			case 7030:
+			case 6990:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777030);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211776990);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778830, EnemyMetis, "Metis_309");
+				orderActorToFactory(211778790, EnemyMetis, "Metis_212");
 				break;
-			case 7060:
+			case 7020:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777060);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777020);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778860, EnemyMetis, "Metis_310");
+				orderActorToFactory(211778820, EnemyMetis, "Metis_213");
 				break;
-			case 7090:
+			case 7050:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777090);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777050);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778890, EnemyMetis, "Metis_311");
+				orderActorToFactory(211778850, EnemyMetis, "Metis_214");
 				break;
-			case 7120:
+			case 7080:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777120);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777080);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778920, EnemyMetis, "Metis_312");
+				orderActorToFactory(211778880, EnemyMetis, "Metis_215");
 				break;
-			case 7150:
+			case 7100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777150);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210377100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778950, EnemyMetis, "Metis_313");
 				break;
-			case 7180:
+			case 7110:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777180);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777110);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211778980, EnemyMetis, "Metis_314");
+				orderActorToFactory(211778910, EnemyMetis, "Metis_216");
 				break;
-			case 7210:
+			case 7140:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777210);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777140);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779010, EnemyMetis, "Metis_315");
+				orderActorToFactory(211778940, EnemyMetis, "Metis_217");
 				break;
-			case 7240:
+			case 7170:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777240);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777170);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779040, EnemyMetis, "Metis_316");
+				orderActorToFactory(211778970, EnemyMetis, "Metis_218");
 				break;
-			case 7270:
+			case 7200:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777270);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777200);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779070, EnemyMetis, "Metis_317");
+				orderActorToFactory(211779000, EnemyMetis, "Metis_219");
+				break;
+			case 7230:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777230);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211779030, EnemyMetis, "Metis_220");
+				break;
+			case 7260:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777260);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211779060, EnemyMetis, "Metis_221");
+				break;
+			case 7290:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777290);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211779090, EnemyMetis, "Metis_222");
 				break;
 			case 7300:
-				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777300);
-				getLordActor()->addSubGroup(pActor);
-				}
-				orderActorToFactory(211779100, EnemyMetis, "Metis_318");
+				orderActorToFactory(210379100, FormationThalia, "FormationThalia_223");
 				break;
-			case 7330:
+			case 7320:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777330);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777320);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779130, EnemyMetis, "Metis_319");
+				orderActorToFactory(211779120, EnemyMetis, "Metis_224");
 				break;
-			case 7360:
+			case 7350:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777360);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777350);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779160, EnemyMetis, "Metis_320");
+				orderActorToFactory(211779150, EnemyMetis, "Metis_225");
 				break;
-			case 7390:
+			case 7380:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777390);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777380);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779190, EnemyMetis, "Metis_321");
+				orderActorToFactory(211779180, EnemyMetis, "Metis_226");
 				break;
-			case 7420:
+			case 7410:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777420);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777410);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779220, EnemyMetis, "Metis_322");
+				orderActorToFactory(211779210, EnemyMetis, "Metis_227");
 				break;
-			case 7450:
+			case 7440:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777450);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777440);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779250, EnemyMetis, "Metis_323");
+				orderActorToFactory(211779240, EnemyMetis, "Metis_228");
 				break;
-			case 7480:
+			case 7470:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777480);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777470);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779280, EnemyMetis, "Metis_324");
+				orderActorToFactory(211779270, EnemyMetis, "Metis_229");
 				break;
-			case 7510:
+			case 7500:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777510);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777500);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779310, EnemyMetis, "Metis_325");
+				orderActorToFactory(211779300, EnemyMetis, "Metis_230");
 				break;
-			case 7540:
+			case 7530:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777540);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777530);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779340, EnemyMetis, "Metis_326");
+				orderActorToFactory(211779330, EnemyMetis, "Metis_231");
 				break;
-			case 7570:
+			case 7560:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777570);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777560);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779370, EnemyMetis, "Metis_327");
+				orderActorToFactory(211779360, EnemyMetis, "Metis_232");
+				break;
+			case 7590:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777590);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211779390, EnemyMetis, "Metis_233");
 				break;
 			case 7600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777600);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210377600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779400, EnemyMetis, "Metis_328");
 				break;
-			case 7630:
+			case 7620:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777630);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777620);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779430, EnemyMetis, "Metis_329");
+				orderActorToFactory(211779420, EnemyMetis, "Metis_234");
 				break;
-			case 7660:
+			case 7650:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777660);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777650);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779460, EnemyMetis, "Metis_330");
+				orderActorToFactory(211779450, EnemyMetis, "Metis_235");
 				break;
-			case 7690:
+			case 7680:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777690);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777680);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779490, EnemyMetis, "Metis_331");
+				orderActorToFactory(211779480, EnemyMetis, "Metis_236");
 				break;
-			case 7720:
+			case 7710:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777720);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777710);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779520, EnemyMetis, "Metis_332");
+				orderActorToFactory(211779510, EnemyMetis, "Metis_237");
 				break;
-			case 7750:
+			case 7740:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777750);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777740);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779550, EnemyMetis, "Metis_333");
+				orderActorToFactory(211779540, EnemyMetis, "Metis_238");
 				break;
-			case 7780:
+			case 7770:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777780);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777770);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779580, EnemyMetis, "Metis_334");
+				orderActorToFactory(211779570, EnemyMetis, "Metis_239");
 				break;
-			case 7810:
+			case 7800:
+				orderActorToFactory(210379600, FormationThalia, "FormationThalia_240");
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777810);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777800);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779610, EnemyMetis, "Metis_335");
+				orderActorToFactory(211779600, EnemyMetis, "Metis_241");
 				break;
-			case 7840:
+			case 7830:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777840);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777830);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779640, EnemyMetis, "Metis_336");
+				orderActorToFactory(211779630, EnemyMetis, "Metis_242");
 				break;
-			case 7870:
+			case 7860:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777870);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777860);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779670, EnemyMetis, "Metis_337");
+				orderActorToFactory(211779660, EnemyMetis, "Metis_243");
 				break;
-			case 7900:
+			case 7890:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777900);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777890);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779700, EnemyMetis, "Metis_338");
+				orderActorToFactory(211779690, EnemyMetis, "Metis_244");
 				break;
-			case 7930:
+			case 7920:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777930);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777920);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779730, EnemyMetis, "Metis_339");
+				orderActorToFactory(211779720, EnemyMetis, "Metis_245");
 				break;
-			case 7960:
+			case 7950:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777960);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777950);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779760, EnemyMetis, "Metis_340");
+				orderActorToFactory(211779750, EnemyMetis, "Metis_246");
 				break;
-			case 7990:
+			case 7980:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777990);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211777980);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779790, EnemyMetis, "Metis_341");
+				orderActorToFactory(211779780, EnemyMetis, "Metis_247");
 				break;
-			case 8020:
+			case 8010:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778020);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778010);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779820, EnemyMetis, "Metis_342");
+				orderActorToFactory(211779810, EnemyMetis, "Metis_248");
 				break;
-			case 8050:
+			case 8040:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778050);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778040);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779850, EnemyMetis, "Metis_343");
+				orderActorToFactory(211779840, EnemyMetis, "Metis_249");
 				break;
-			case 8080:
+			case 8070:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778080);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778070);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779880, EnemyMetis, "Metis_344");
+				orderActorToFactory(211779870, EnemyMetis, "Metis_250");
 				break;
-			case 8110:
+			case 8100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778110);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210378100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779910, EnemyMetis, "Metis_345");
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778100);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(211779900, EnemyMetis, "Metis_251");
 				break;
-			case 8140:
+			case 8130:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778140);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778130);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779940, EnemyMetis, "Metis_346");
+				orderActorToFactory(211779930, EnemyMetis, "Metis_252");
 				break;
-			case 8170:
+			case 8160:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778170);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778160);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(211779970, EnemyMetis, "Metis_347");
+				orderActorToFactory(211779960, EnemyMetis, "Metis_253");
 				break;
-			case 8200:
+			case 8190:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778200);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778190);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710000, EnemyMetis, "Metis_348");
+				orderActorToFactory(211779990, EnemyMetis, "Metis_254");
 				break;
-			case 8230:
+			case 8220:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778230);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778220);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710030, EnemyMetis, "Metis_349");
+				orderActorToFactory(2117710020, EnemyMetis, "Metis_255");
 				break;
-			case 8260:
+			case 8250:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778260);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778250);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710060, EnemyMetis, "Metis_350");
+				orderActorToFactory(2117710050, EnemyMetis, "Metis_256");
 				break;
-			case 8290:
+			case 8280:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778290);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778280);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710090, EnemyMetis, "Metis_351");
+				orderActorToFactory(2117710080, EnemyMetis, "Metis_257");
 				break;
-			case 8320:
+			case 8310:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778320);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778310);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710120, EnemyMetis, "Metis_352");
+				orderActorToFactory(2117710110, EnemyMetis, "Metis_258");
 				break;
-			case 8350:
+			case 8340:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778350);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778340);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710150, EnemyMetis, "Metis_353");
+				orderActorToFactory(2117710140, EnemyMetis, "Metis_259");
 				break;
-			case 8380:
+			case 8370:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778380);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778370);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710180, EnemyMetis, "Metis_354");
+				orderActorToFactory(2117710170, EnemyMetis, "Metis_260");
 				break;
-			case 8410:
+			case 8400:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778410);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778400);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710210, EnemyMetis, "Metis_355");
+				orderActorToFactory(2117710200, EnemyMetis, "Metis_261");
 				break;
-			case 8440:
+			case 8430:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778440);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778430);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710240, EnemyMetis, "Metis_356");
+				orderActorToFactory(2117710230, EnemyMetis, "Metis_262");
 				break;
-			case 8470:
+			case 8460:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778470);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778460);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710270, EnemyMetis, "Metis_357");
+				orderActorToFactory(2117710260, EnemyMetis, "Metis_263");
 				break;
-			case 8500:
+			case 8490:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778500);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778490);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710300, EnemyMetis, "Metis_358");
+				orderActorToFactory(2117710290, EnemyMetis, "Metis_264");
 				break;
-			case 8530:
+			case 8520:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778530);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778520);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710330, EnemyMetis, "Metis_359");
+				orderActorToFactory(2117710320, EnemyMetis, "Metis_265");
 				break;
-			case 8560:
+			case 8550:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778560);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778550);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710360, EnemyMetis, "Metis_360");
+				orderActorToFactory(2117710350, EnemyMetis, "Metis_266");
 				break;
-			case 8590:
+			case 8580:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778590);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778580);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710390, EnemyMetis, "Metis_361");
+				orderActorToFactory(2117710380, EnemyMetis, "Metis_267");
 				break;
-			case 8620:
+			case 8600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778620);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210378600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710420, EnemyMetis, "Metis_362");
 				break;
-			case 8650:
+			case 8610:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778650);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778610);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710450, EnemyMetis, "Metis_363");
+				orderActorToFactory(2117710410, EnemyMetis, "Metis_268");
 				break;
-			case 8680:
+			case 8640:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778680);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778640);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710480, EnemyMetis, "Metis_364");
+				orderActorToFactory(2117710440, EnemyMetis, "Metis_269");
 				break;
-			case 8710:
+			case 8670:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778710);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778670);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710510, EnemyMetis, "Metis_365");
+				orderActorToFactory(2117710470, EnemyMetis, "Metis_270");
 				break;
-			case 8740:
+			case 8700:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778740);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778700);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710540, EnemyMetis, "Metis_366");
+				orderActorToFactory(2117710500, EnemyMetis, "Metis_271");
 				break;
-			case 8770:
+			case 8730:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778770);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778730);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710570, EnemyMetis, "Metis_367");
+				orderActorToFactory(2117710530, EnemyMetis, "Metis_272");
 				break;
-			case 8800:
+			case 8760:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778800);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778760);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710600, EnemyMetis, "Metis_368");
+				orderActorToFactory(2117710560, EnemyMetis, "Metis_273");
 				break;
-			case 8830:
+			case 8790:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778830);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778790);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710630, EnemyMetis, "Metis_369");
+				orderActorToFactory(2117710590, EnemyMetis, "Metis_274");
 				break;
-			case 8860:
+			case 8820:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778860);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778820);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710660, EnemyMetis, "Metis_370");
+				orderActorToFactory(2117710620, EnemyMetis, "Metis_275");
 				break;
-			case 8890:
+			case 8850:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778890);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778850);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710690, EnemyMetis, "Metis_371");
+				orderActorToFactory(2117710650, EnemyMetis, "Metis_276");
 				break;
-			case 8920:
+			case 8880:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778920);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778880);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710720, EnemyMetis, "Metis_372");
+				orderActorToFactory(2117710680, EnemyMetis, "Metis_277");
 				break;
-			case 8950:
+			case 8910:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778950);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778910);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710750, EnemyMetis, "Metis_373");
+				orderActorToFactory(2117710710, EnemyMetis, "Metis_278");
 				break;
-			case 8980:
+			case 8940:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778980);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778940);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710780, EnemyMetis, "Metis_374");
+				orderActorToFactory(2117710740, EnemyMetis, "Metis_279");
 				break;
-			case 9010:
+			case 8970:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779010);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211778970);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710810, EnemyMetis, "Metis_375");
+				orderActorToFactory(2117710770, EnemyMetis, "Metis_280");
 				break;
-			case 9040:
+			case 9000:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779040);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779000);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710840, EnemyMetis, "Metis_376");
+				orderActorToFactory(2117710800, EnemyMetis, "Metis_281");
 				break;
-			case 9070:
+			case 9030:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779070);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779030);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710870, EnemyMetis, "Metis_377");
+				orderActorToFactory(2117710830, EnemyMetis, "Metis_282");
+				break;
+			case 9060:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779060);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(2117710860, EnemyMetis, "Metis_283");
+				break;
+			case 9090:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779090);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(2117710890, EnemyMetis, "Metis_284");
 				break;
 			case 9100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779100);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210379100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710900, EnemyMetis, "Metis_378");
 				break;
-			case 9130:
+			case 9120:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779130);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779120);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710930, EnemyMetis, "Metis_379");
+				orderActorToFactory(2117710920, EnemyMetis, "Metis_285");
 				break;
-			case 9160:
+			case 9150:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779160);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779150);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710960, EnemyMetis, "Metis_380");
+				orderActorToFactory(2117710950, EnemyMetis, "Metis_286");
 				break;
-			case 9190:
+			case 9180:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779190);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779180);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117710990, EnemyMetis, "Metis_381");
+				orderActorToFactory(2117710980, EnemyMetis, "Metis_287");
 				break;
-			case 9220:
+			case 9210:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779220);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779210);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711020, EnemyMetis, "Metis_382");
+				orderActorToFactory(2117711010, EnemyMetis, "Metis_288");
 				break;
-			case 9250:
+			case 9240:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779250);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779240);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711050, EnemyMetis, "Metis_383");
+				orderActorToFactory(2117711040, EnemyMetis, "Metis_289");
 				break;
-			case 9280:
+			case 9270:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779280);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779270);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711080, EnemyMetis, "Metis_384");
+				orderActorToFactory(2117711070, EnemyMetis, "Metis_290");
 				break;
-			case 9310:
+			case 9300:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779310);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779300);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711110, EnemyMetis, "Metis_385");
+				orderActorToFactory(2117711100, EnemyMetis, "Metis_291");
 				break;
-			case 9340:
+			case 9330:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779340);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779330);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711140, EnemyMetis, "Metis_386");
+				orderActorToFactory(2117711130, EnemyMetis, "Metis_292");
 				break;
-			case 9370:
+			case 9360:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779370);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779360);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711170, EnemyMetis, "Metis_387");
+				orderActorToFactory(2117711160, EnemyMetis, "Metis_293");
 				break;
-			case 9400:
+			case 9390:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779400);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779390);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711200, EnemyMetis, "Metis_388");
+				orderActorToFactory(2117711190, EnemyMetis, "Metis_294");
 				break;
-			case 9430:
+			case 9420:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779430);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779420);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711230, EnemyMetis, "Metis_389");
+				orderActorToFactory(2117711220, EnemyMetis, "Metis_295");
 				break;
-			case 9460:
+			case 9450:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779460);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779450);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711260, EnemyMetis, "Metis_390");
+				orderActorToFactory(2117711250, EnemyMetis, "Metis_296");
 				break;
-			case 9490:
+			case 9480:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779490);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779480);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711290, EnemyMetis, "Metis_391");
+				orderActorToFactory(2117711280, EnemyMetis, "Metis_297");
 				break;
-			case 9520:
+			case 9510:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779520);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779510);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711320, EnemyMetis, "Metis_392");
+				orderActorToFactory(2117711310, EnemyMetis, "Metis_298");
 				break;
-			case 9550:
+			case 9540:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779550);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779540);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711350, EnemyMetis, "Metis_393");
+				orderActorToFactory(2117711340, EnemyMetis, "Metis_299");
 				break;
-			case 9580:
+			case 9570:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779580);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779570);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711380, EnemyMetis, "Metis_394");
+				orderActorToFactory(2117711370, EnemyMetis, "Metis_300");
 				break;
-			case 9610:
+			case 9600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779610);
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(210379600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711410, EnemyMetis, "Metis_395");
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779600);
+				getLordActor()->addSubGroup(pActor);
+				}
+				orderActorToFactory(2117711400, EnemyMetis, "Metis_301");
 				break;
-			case 9640:
+			case 9630:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779640);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779630);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711440, EnemyMetis, "Metis_396");
+				orderActorToFactory(2117711430, EnemyMetis, "Metis_302");
 				break;
-			case 9670:
+			case 9660:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779670);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779660);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711470, EnemyMetis, "Metis_397");
+				orderActorToFactory(2117711460, EnemyMetis, "Metis_303");
 				break;
-			case 9700:
+			case 9690:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779700);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779690);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711500, EnemyMetis, "Metis_398");
+				orderActorToFactory(2117711490, EnemyMetis, "Metis_304");
 				break;
-			case 9730:
+			case 9720:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779730);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779720);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711530, EnemyMetis, "Metis_399");
+				orderActorToFactory(2117711520, EnemyMetis, "Metis_305");
 				break;
-			case 9760:
+			case 9750:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779760);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779750);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711560, EnemyMetis, "Metis_400");
+				orderActorToFactory(2117711550, EnemyMetis, "Metis_306");
 				break;
-			case 9790:
+			case 9780:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779790);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779780);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711590, EnemyMetis, "Metis_401");
+				orderActorToFactory(2117711580, EnemyMetis, "Metis_307");
 				break;
-			case 9820:
+			case 9810:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779820);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779810);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711620, EnemyMetis, "Metis_402");
+				orderActorToFactory(2117711610, EnemyMetis, "Metis_308");
 				break;
-			case 9850:
+			case 9840:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779850);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779840);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711650, EnemyMetis, "Metis_403");
+				orderActorToFactory(2117711640, EnemyMetis, "Metis_309");
 				break;
-			case 9880:
+			case 9870:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779880);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779870);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711680, EnemyMetis, "Metis_404");
+				orderActorToFactory(2117711670, EnemyMetis, "Metis_310");
 				break;
-			case 9910:
+			case 9900:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779910);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779900);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711710, EnemyMetis, "Metis_405");
+				orderActorToFactory(2117711700, EnemyMetis, "Metis_311");
 				break;
-			case 9940:
+			case 9930:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779940);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779930);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711740, EnemyMetis, "Metis_406");
+				orderActorToFactory(2117711730, EnemyMetis, "Metis_312");
 				break;
-			case 9970:
+			case 9960:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779970);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779960);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711770, EnemyMetis, "Metis_407");
+				orderActorToFactory(2117711760, EnemyMetis, "Metis_313");
 				break;
-			case 10000:
+			case 9990:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710000);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(211779990);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711800, EnemyMetis, "Metis_408");
+				orderActorToFactory(2117711790, EnemyMetis, "Metis_314");
 				break;
-			case 10030:
+			case 10020:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710030);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710020);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711830, EnemyMetis, "Metis_409");
+				orderActorToFactory(2117711820, EnemyMetis, "Metis_315");
 				break;
-			case 10060:
+			case 10050:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710060);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710050);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711860, EnemyMetis, "Metis_410");
+				orderActorToFactory(2117711850, EnemyMetis, "Metis_316");
 				break;
-			case 10090:
+			case 10080:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710090);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710080);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711890, EnemyMetis, "Metis_411");
+				orderActorToFactory(2117711880, EnemyMetis, "Metis_317");
 				break;
-			case 10120:
+			case 10110:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710120);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710110);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711920, EnemyMetis, "Metis_412");
+				orderActorToFactory(2117711910, EnemyMetis, "Metis_318");
 				break;
-			case 10150:
+			case 10140:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710150);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710140);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711950, EnemyMetis, "Metis_413");
+				orderActorToFactory(2117711940, EnemyMetis, "Metis_319");
 				break;
-			case 10180:
+			case 10170:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710180);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710170);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117711980, EnemyMetis, "Metis_414");
+				orderActorToFactory(2117711970, EnemyMetis, "Metis_320");
 				break;
-			case 10210:
+			case 10200:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710210);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710200);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712010, EnemyMetis, "Metis_415");
+				orderActorToFactory(2117712000, EnemyMetis, "Metis_321");
 				break;
-			case 10240:
+			case 10230:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710240);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710230);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712040, EnemyMetis, "Metis_416");
+				orderActorToFactory(2117712030, EnemyMetis, "Metis_322");
 				break;
-			case 10270:
+			case 10260:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710270);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710260);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712070, EnemyMetis, "Metis_417");
+				orderActorToFactory(2117712060, EnemyMetis, "Metis_323");
 				break;
-			case 10300:
+			case 10290:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710300);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710290);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712100, EnemyMetis, "Metis_418");
+				orderActorToFactory(2117712090, EnemyMetis, "Metis_324");
 				break;
-			case 10330:
+			case 10320:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710330);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710320);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712130, EnemyMetis, "Metis_419");
+				orderActorToFactory(2117712120, EnemyMetis, "Metis_325");
 				break;
-			case 10360:
+			case 10350:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710360);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710350);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712160, EnemyMetis, "Metis_420");
+				orderActorToFactory(2117712150, EnemyMetis, "Metis_326");
 				break;
-			case 10390:
+			case 10380:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710390);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710380);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712190, EnemyMetis, "Metis_421");
+				orderActorToFactory(2117712180, EnemyMetis, "Metis_327");
 				break;
-			case 10420:
+			case 10410:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710420);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710410);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712220, EnemyMetis, "Metis_422");
+				orderActorToFactory(2117712210, EnemyMetis, "Metis_328");
 				break;
-			case 10450:
+			case 10440:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710450);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710440);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712250, EnemyMetis, "Metis_423");
+				orderActorToFactory(2117712240, EnemyMetis, "Metis_329");
 				break;
-			case 10480:
+			case 10470:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710480);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710470);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712280, EnemyMetis, "Metis_424");
+				orderActorToFactory(2117712270, EnemyMetis, "Metis_330");
 				break;
-			case 10510:
+			case 10500:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710510);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710500);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712310, EnemyMetis, "Metis_425");
+				orderActorToFactory(2117712300, EnemyMetis, "Metis_331");
 				break;
-			case 10540:
+			case 10530:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710540);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710530);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712340, EnemyMetis, "Metis_426");
+				orderActorToFactory(2117712330, EnemyMetis, "Metis_332");
 				break;
-			case 10570:
+			case 10560:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710570);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710560);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712370, EnemyMetis, "Metis_427");
+				orderActorToFactory(2117712360, EnemyMetis, "Metis_333");
 				break;
-			case 10600:
+			case 10590:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710600);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710590);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712400, EnemyMetis, "Metis_428");
+				orderActorToFactory(2117712390, EnemyMetis, "Metis_334");
 				break;
-			case 10630:
+			case 10620:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710630);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710620);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712430, EnemyMetis, "Metis_429");
+				orderActorToFactory(2117712420, EnemyMetis, "Metis_335");
 				break;
-			case 10660:
+			case 10650:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710660);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710650);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712460, EnemyMetis, "Metis_430");
+				orderActorToFactory(2117712450, EnemyMetis, "Metis_336");
 				break;
-			case 10690:
+			case 10680:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710690);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710680);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712490, EnemyMetis, "Metis_431");
+				orderActorToFactory(2117712480, EnemyMetis, "Metis_337");
 				break;
-			case 10720:
+			case 10710:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710720);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710710);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712520, EnemyMetis, "Metis_432");
+				orderActorToFactory(2117712510, EnemyMetis, "Metis_338");
 				break;
-			case 10750:
+			case 10740:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710750);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710740);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712550, EnemyMetis, "Metis_433");
+				orderActorToFactory(2117712540, EnemyMetis, "Metis_339");
 				break;
-			case 10780:
+			case 10770:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710780);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710770);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712580, EnemyMetis, "Metis_434");
+				orderActorToFactory(2117712570, EnemyMetis, "Metis_340");
 				break;
-			case 10810:
+			case 10800:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710810);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710800);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712610, EnemyMetis, "Metis_435");
+				orderActorToFactory(2117712600, EnemyMetis, "Metis_341");
 				break;
-			case 10840:
+			case 10830:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710840);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710830);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712640, EnemyMetis, "Metis_436");
+				orderActorToFactory(2117712630, EnemyMetis, "Metis_342");
 				break;
-			case 10870:
+			case 10860:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710870);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710860);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712670, EnemyMetis, "Metis_437");
+				orderActorToFactory(2117712660, EnemyMetis, "Metis_343");
 				break;
-			case 10900:
+			case 10890:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710900);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710890);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712700, EnemyMetis, "Metis_438");
+				orderActorToFactory(2117712690, EnemyMetis, "Metis_344");
 				break;
-			case 10930:
+			case 10920:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710930);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710920);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712730, EnemyMetis, "Metis_439");
+				orderActorToFactory(2117712720, EnemyMetis, "Metis_345");
 				break;
-			case 10960:
+			case 10950:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710960);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710950);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712760, EnemyMetis, "Metis_440");
+				orderActorToFactory(2117712750, EnemyMetis, "Metis_346");
 				break;
-			case 10990:
+			case 10980:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710990);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117710980);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712790, EnemyMetis, "Metis_441");
+				orderActorToFactory(2117712780, EnemyMetis, "Metis_347");
 				break;
-			case 11020:
+			case 11010:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711020);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711010);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712820, EnemyMetis, "Metis_442");
+				orderActorToFactory(2117712810, EnemyMetis, "Metis_348");
 				break;
-			case 11050:
+			case 11040:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711050);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711040);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712850, EnemyMetis, "Metis_443");
+				orderActorToFactory(2117712840, EnemyMetis, "Metis_349");
 				break;
-			case 11080:
+			case 11070:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711080);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711070);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712880, EnemyMetis, "Metis_444");
+				orderActorToFactory(2117712870, EnemyMetis, "Metis_350");
 				break;
-			case 11110:
+			case 11100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711110);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712910, EnemyMetis, "Metis_445");
+				orderActorToFactory(2117712900, EnemyMetis, "Metis_351");
 				break;
-			case 11140:
+			case 11130:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711140);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711130);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712940, EnemyMetis, "Metis_446");
+				orderActorToFactory(2117712930, EnemyMetis, "Metis_352");
 				break;
-			case 11170:
+			case 11160:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711170);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711160);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117712970, EnemyMetis, "Metis_447");
+				orderActorToFactory(2117712960, EnemyMetis, "Metis_353");
 				break;
-			case 11200:
+			case 11190:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711200);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711190);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713000, EnemyMetis, "Metis_448");
+				orderActorToFactory(2117712990, EnemyMetis, "Metis_354");
 				break;
-			case 11230:
+			case 11220:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711230);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711220);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713030, EnemyMetis, "Metis_449");
+				orderActorToFactory(2117713020, EnemyMetis, "Metis_355");
 				break;
-			case 11260:
+			case 11250:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711260);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711250);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713060, EnemyMetis, "Metis_450");
+				orderActorToFactory(2117713050, EnemyMetis, "Metis_356");
 				break;
-			case 11290:
+			case 11280:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711290);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711280);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713090, EnemyMetis, "Metis_451");
+				orderActorToFactory(2117713080, EnemyMetis, "Metis_357");
 				break;
-			case 11320:
+			case 11310:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711320);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711310);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713120, EnemyMetis, "Metis_452");
+				orderActorToFactory(2117713110, EnemyMetis, "Metis_358");
 				break;
-			case 11350:
+			case 11340:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711350);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711340);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713150, EnemyMetis, "Metis_453");
+				orderActorToFactory(2117713140, EnemyMetis, "Metis_359");
 				break;
-			case 11380:
+			case 11370:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711380);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711370);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713180, EnemyMetis, "Metis_454");
+				orderActorToFactory(2117713170, EnemyMetis, "Metis_360");
 				break;
-			case 11410:
+			case 11400:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711410);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711400);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713210, EnemyMetis, "Metis_455");
+				orderActorToFactory(2117713200, EnemyMetis, "Metis_361");
 				break;
-			case 11440:
+			case 11430:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711440);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711430);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713240, EnemyMetis, "Metis_456");
+				orderActorToFactory(2117713230, EnemyMetis, "Metis_362");
 				break;
-			case 11470:
+			case 11460:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711470);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711460);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713270, EnemyMetis, "Metis_457");
+				orderActorToFactory(2117713260, EnemyMetis, "Metis_363");
 				break;
-			case 11500:
+			case 11490:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711500);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711490);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713300, EnemyMetis, "Metis_458");
+				orderActorToFactory(2117713290, EnemyMetis, "Metis_364");
 				break;
-			case 11530:
+			case 11520:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711530);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711520);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713330, EnemyMetis, "Metis_459");
+				orderActorToFactory(2117713320, EnemyMetis, "Metis_365");
 				break;
-			case 11560:
+			case 11550:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711560);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711550);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713360, EnemyMetis, "Metis_460");
+				orderActorToFactory(2117713350, EnemyMetis, "Metis_366");
 				break;
-			case 11590:
+			case 11580:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711590);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711580);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713390, EnemyMetis, "Metis_461");
+				orderActorToFactory(2117713380, EnemyMetis, "Metis_367");
 				break;
-			case 11620:
+			case 11610:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711620);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711610);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713420, EnemyMetis, "Metis_462");
+				orderActorToFactory(2117713410, EnemyMetis, "Metis_368");
 				break;
-			case 11650:
+			case 11640:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711650);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711640);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713450, EnemyMetis, "Metis_463");
+				orderActorToFactory(2117713440, EnemyMetis, "Metis_369");
 				break;
-			case 11680:
+			case 11670:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711680);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711670);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713480, EnemyMetis, "Metis_464");
+				orderActorToFactory(2117713470, EnemyMetis, "Metis_370");
 				break;
-			case 11710:
+			case 11700:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711710);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711700);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713510, EnemyMetis, "Metis_465");
+				orderActorToFactory(2117713500, EnemyMetis, "Metis_371");
 				break;
-			case 11740:
+			case 11730:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711740);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711730);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713540, EnemyMetis, "Metis_466");
+				orderActorToFactory(2117713530, EnemyMetis, "Metis_372");
 				break;
-			case 11770:
+			case 11760:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711770);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711760);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713570, EnemyMetis, "Metis_467");
+				orderActorToFactory(2117713560, EnemyMetis, "Metis_373");
 				break;
-			case 11800:
+			case 11790:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711800);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711790);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713600, EnemyMetis, "Metis_468");
+				orderActorToFactory(2117713590, EnemyMetis, "Metis_374");
 				break;
-			case 11830:
+			case 11820:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711830);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711820);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713630, EnemyMetis, "Metis_469");
+				orderActorToFactory(2117713620, EnemyMetis, "Metis_375");
 				break;
-			case 11860:
+			case 11850:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711860);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711850);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713660, EnemyMetis, "Metis_470");
+				orderActorToFactory(2117713650, EnemyMetis, "Metis_376");
 				break;
-			case 11890:
+			case 11880:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711890);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711880);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713690, EnemyMetis, "Metis_471");
+				orderActorToFactory(2117713680, EnemyMetis, "Metis_377");
 				break;
-			case 11920:
+			case 11910:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711920);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711910);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713720, EnemyMetis, "Metis_472");
+				orderActorToFactory(2117713710, EnemyMetis, "Metis_378");
 				break;
-			case 11950:
+			case 11940:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711950);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711940);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713750, EnemyMetis, "Metis_473");
+				orderActorToFactory(2117713740, EnemyMetis, "Metis_379");
 				break;
-			case 11980:
+			case 11970:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711980);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117711970);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713780, EnemyMetis, "Metis_474");
+				orderActorToFactory(2117713770, EnemyMetis, "Metis_380");
 				break;
-			case 12010:
+			case 12000:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712010);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712000);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713810, EnemyMetis, "Metis_475");
+				orderActorToFactory(2117713800, EnemyMetis, "Metis_381");
 				break;
-			case 12040:
+			case 12030:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712040);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712030);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713840, EnemyMetis, "Metis_476");
+				orderActorToFactory(2117713830, EnemyMetis, "Metis_382");
 				break;
-			case 12070:
+			case 12060:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712070);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712060);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713870, EnemyMetis, "Metis_477");
+				orderActorToFactory(2117713860, EnemyMetis, "Metis_383");
 				break;
-			case 12100:
+			case 12090:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712100);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712090);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713900, EnemyMetis, "Metis_478");
+				orderActorToFactory(2117713890, EnemyMetis, "Metis_384");
 				break;
-			case 12130:
+			case 12120:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712130);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712120);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713930, EnemyMetis, "Metis_479");
+				orderActorToFactory(2117713920, EnemyMetis, "Metis_385");
 				break;
-			case 12160:
+			case 12150:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712160);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712150);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713960, EnemyMetis, "Metis_480");
+				orderActorToFactory(2117713950, EnemyMetis, "Metis_386");
 				break;
-			case 12190:
+			case 12180:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712190);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712180);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117713990, EnemyMetis, "Metis_481");
+				orderActorToFactory(2117713980, EnemyMetis, "Metis_387");
 				break;
-			case 12220:
+			case 12210:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712220);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712210);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714020, EnemyMetis, "Metis_482");
+				orderActorToFactory(2117714010, EnemyMetis, "Metis_388");
 				break;
-			case 12250:
+			case 12240:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712250);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712240);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714050, EnemyMetis, "Metis_483");
+				orderActorToFactory(2117714040, EnemyMetis, "Metis_389");
 				break;
-			case 12280:
+			case 12270:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712280);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712270);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714080, EnemyMetis, "Metis_484");
+				orderActorToFactory(2117714070, EnemyMetis, "Metis_390");
 				break;
-			case 12310:
+			case 12300:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712310);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712300);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714110, EnemyMetis, "Metis_485");
+				orderActorToFactory(2117714100, EnemyMetis, "Metis_391");
 				break;
-			case 12340:
+			case 12330:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712340);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712330);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714140, EnemyMetis, "Metis_486");
+				orderActorToFactory(2117714130, EnemyMetis, "Metis_392");
 				break;
-			case 12370:
+			case 12360:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712370);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712360);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714170, EnemyMetis, "Metis_487");
+				orderActorToFactory(2117714160, EnemyMetis, "Metis_393");
 				break;
-			case 12400:
+			case 12390:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712400);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712390);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714200, EnemyMetis, "Metis_488");
+				orderActorToFactory(2117714190, EnemyMetis, "Metis_394");
 				break;
-			case 12430:
+			case 12420:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712430);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712420);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714230, EnemyMetis, "Metis_489");
+				orderActorToFactory(2117714220, EnemyMetis, "Metis_395");
 				break;
-			case 12460:
+			case 12450:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712460);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712450);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714260, EnemyMetis, "Metis_490");
+				orderActorToFactory(2117714250, EnemyMetis, "Metis_396");
 				break;
-			case 12490:
+			case 12480:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712490);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712480);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714290, EnemyMetis, "Metis_491");
+				orderActorToFactory(2117714280, EnemyMetis, "Metis_397");
 				break;
-			case 12520:
+			case 12510:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712520);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712510);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714320, EnemyMetis, "Metis_492");
+				orderActorToFactory(2117714310, EnemyMetis, "Metis_398");
 				break;
-			case 12550:
+			case 12540:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712550);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712540);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714350, EnemyMetis, "Metis_493");
+				orderActorToFactory(2117714340, EnemyMetis, "Metis_399");
 				break;
-			case 12580:
+			case 12570:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712580);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712570);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714380, EnemyMetis, "Metis_494");
+				orderActorToFactory(2117714370, EnemyMetis, "Metis_400");
 				break;
-			case 12610:
+			case 12600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712610);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714410, EnemyMetis, "Metis_495");
+				orderActorToFactory(2117714400, EnemyMetis, "Metis_401");
 				break;
-			case 12640:
+			case 12630:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712640);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712630);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714440, EnemyMetis, "Metis_496");
+				orderActorToFactory(2117714430, EnemyMetis, "Metis_402");
 				break;
-			case 12670:
+			case 12660:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712670);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712660);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714470, EnemyMetis, "Metis_497");
+				orderActorToFactory(2117714460, EnemyMetis, "Metis_403");
 				break;
-			case 12700:
+			case 12690:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712700);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712690);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714500, EnemyMetis, "Metis_498");
+				orderActorToFactory(2117714490, EnemyMetis, "Metis_404");
 				break;
-			case 12730:
+			case 12720:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712730);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712720);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714530, EnemyMetis, "Metis_499");
+				orderActorToFactory(2117714520, EnemyMetis, "Metis_405");
 				break;
-			case 12760:
+			case 12750:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712760);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712750);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714560, EnemyMetis, "Metis_500");
+				orderActorToFactory(2117714550, EnemyMetis, "Metis_406");
 				break;
-			case 12790:
+			case 12780:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712790);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712780);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714590, EnemyMetis, "Metis_501");
+				orderActorToFactory(2117714580, EnemyMetis, "Metis_407");
 				break;
-			case 12820:
+			case 12810:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712820);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712810);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714620, EnemyMetis, "Metis_502");
+				orderActorToFactory(2117714610, EnemyMetis, "Metis_408");
 				break;
-			case 12850:
+			case 12840:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712850);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712840);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714650, EnemyMetis, "Metis_503");
+				orderActorToFactory(2117714640, EnemyMetis, "Metis_409");
 				break;
-			case 12880:
+			case 12870:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712880);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712870);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714680, EnemyMetis, "Metis_504");
+				orderActorToFactory(2117714670, EnemyMetis, "Metis_410");
 				break;
-			case 12910:
+			case 12900:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712910);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712900);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714710, EnemyMetis, "Metis_505");
+				orderActorToFactory(2117714700, EnemyMetis, "Metis_411");
 				break;
-			case 12940:
+			case 12930:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712940);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712930);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714740, EnemyMetis, "Metis_506");
+				orderActorToFactory(2117714730, EnemyMetis, "Metis_412");
 				break;
-			case 12970:
+			case 12960:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712970);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712960);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714770, EnemyMetis, "Metis_507");
+				orderActorToFactory(2117714760, EnemyMetis, "Metis_413");
 				break;
-			case 13000:
+			case 12990:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713000);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117712990);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714800, EnemyMetis, "Metis_508");
+				orderActorToFactory(2117714790, EnemyMetis, "Metis_414");
 				break;
-			case 13030:
+			case 13020:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713030);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713020);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714830, EnemyMetis, "Metis_509");
+				orderActorToFactory(2117714820, EnemyMetis, "Metis_415");
 				break;
-			case 13060:
+			case 13050:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713060);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713050);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714860, EnemyMetis, "Metis_510");
+				orderActorToFactory(2117714850, EnemyMetis, "Metis_416");
 				break;
-			case 13090:
+			case 13080:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713090);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713080);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714890, EnemyMetis, "Metis_511");
+				orderActorToFactory(2117714880, EnemyMetis, "Metis_417");
 				break;
-			case 13120:
+			case 13110:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713120);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713110);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714920, EnemyMetis, "Metis_512");
+				orderActorToFactory(2117714910, EnemyMetis, "Metis_418");
 				break;
-			case 13150:
+			case 13140:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713150);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713140);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714950, EnemyMetis, "Metis_513");
+				orderActorToFactory(2117714940, EnemyMetis, "Metis_419");
 				break;
-			case 13180:
+			case 13170:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713180);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713170);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117714980, EnemyMetis, "Metis_514");
+				orderActorToFactory(2117714970, EnemyMetis, "Metis_420");
 				break;
-			case 13210:
+			case 13200:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713210);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713200);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715010, EnemyMetis, "Metis_515");
+				orderActorToFactory(2117715000, EnemyMetis, "Metis_421");
 				break;
-			case 13240:
+			case 13230:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713240);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713230);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715040, EnemyMetis, "Metis_516");
+				orderActorToFactory(2117715030, EnemyMetis, "Metis_422");
 				break;
-			case 13270:
+			case 13260:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713270);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713260);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715070, EnemyMetis, "Metis_517");
+				orderActorToFactory(2117715060, EnemyMetis, "Metis_423");
 				break;
-			case 13300:
+			case 13290:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713300);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713290);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715100, EnemyMetis, "Metis_518");
+				orderActorToFactory(2117715090, EnemyMetis, "Metis_424");
 				break;
-			case 13330:
+			case 13320:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713330);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713320);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715130, EnemyMetis, "Metis_519");
+				orderActorToFactory(2117715120, EnemyMetis, "Metis_425");
 				break;
-			case 13360:
+			case 13350:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713360);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713350);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715160, EnemyMetis, "Metis_520");
+				orderActorToFactory(2117715150, EnemyMetis, "Metis_426");
 				break;
-			case 13390:
+			case 13380:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713390);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713380);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715190, EnemyMetis, "Metis_521");
+				orderActorToFactory(2117715180, EnemyMetis, "Metis_427");
 				break;
-			case 13420:
+			case 13410:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713420);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713410);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715220, EnemyMetis, "Metis_522");
+				orderActorToFactory(2117715210, EnemyMetis, "Metis_428");
 				break;
-			case 13450:
+			case 13440:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713450);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713440);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715250, EnemyMetis, "Metis_523");
+				orderActorToFactory(2117715240, EnemyMetis, "Metis_429");
 				break;
-			case 13480:
+			case 13470:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713480);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713470);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715280, EnemyMetis, "Metis_524");
+				orderActorToFactory(2117715270, EnemyMetis, "Metis_430");
 				break;
-			case 13510:
+			case 13500:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713510);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713500);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715310, EnemyMetis, "Metis_525");
+				orderActorToFactory(2117715300, EnemyMetis, "Metis_431");
 				break;
-			case 13540:
+			case 13530:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713540);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713530);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715340, EnemyMetis, "Metis_526");
+				orderActorToFactory(2117715330, EnemyMetis, "Metis_432");
 				break;
-			case 13570:
+			case 13560:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713570);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713560);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715370, EnemyMetis, "Metis_527");
+				orderActorToFactory(2117715360, EnemyMetis, "Metis_433");
 				break;
-			case 13600:
+			case 13590:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713600);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713590);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715400, EnemyMetis, "Metis_528");
+				orderActorToFactory(2117715390, EnemyMetis, "Metis_434");
 				break;
-			case 13630:
+			case 13620:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713630);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713620);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715430, EnemyMetis, "Metis_529");
+				orderActorToFactory(2117715420, EnemyMetis, "Metis_435");
 				break;
-			case 13660:
+			case 13650:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713660);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713650);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715460, EnemyMetis, "Metis_530");
+				orderActorToFactory(2117715450, EnemyMetis, "Metis_436");
 				break;
-			case 13690:
+			case 13680:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713690);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713680);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715490, EnemyMetis, "Metis_531");
+				orderActorToFactory(2117715480, EnemyMetis, "Metis_437");
 				break;
-			case 13720:
+			case 13710:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713720);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713710);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715520, EnemyMetis, "Metis_532");
+				orderActorToFactory(2117715510, EnemyMetis, "Metis_438");
 				break;
-			case 13750:
+			case 13740:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713750);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713740);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715550, EnemyMetis, "Metis_533");
+				orderActorToFactory(2117715540, EnemyMetis, "Metis_439");
 				break;
-			case 13780:
+			case 13770:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713780);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713770);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715580, EnemyMetis, "Metis_534");
+				orderActorToFactory(2117715570, EnemyMetis, "Metis_440");
 				break;
-			case 13810:
+			case 13800:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713810);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713800);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715610, EnemyMetis, "Metis_535");
+				orderActorToFactory(2117715600, EnemyMetis, "Metis_441");
 				break;
-			case 13840:
+			case 13830:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713840);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713830);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715640, EnemyMetis, "Metis_536");
+				orderActorToFactory(2117715630, EnemyMetis, "Metis_442");
 				break;
-			case 13870:
+			case 13860:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713870);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713860);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715670, EnemyMetis, "Metis_537");
+				orderActorToFactory(2117715660, EnemyMetis, "Metis_443");
 				break;
-			case 13900:
+			case 13890:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713900);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713890);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715700, EnemyMetis, "Metis_538");
+				orderActorToFactory(2117715690, EnemyMetis, "Metis_444");
 				break;
-			case 13930:
+			case 13920:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713930);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713920);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715730, EnemyMetis, "Metis_539");
+				orderActorToFactory(2117715720, EnemyMetis, "Metis_445");
 				break;
-			case 13960:
+			case 13950:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713960);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713950);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715760, EnemyMetis, "Metis_540");
+				orderActorToFactory(2117715750, EnemyMetis, "Metis_446");
 				break;
-			case 13990:
+			case 13980:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713990);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117713980);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715790, EnemyMetis, "Metis_541");
+				orderActorToFactory(2117715780, EnemyMetis, "Metis_447");
 				break;
-			case 14020:
+			case 14010:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714020);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714010);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715820, EnemyMetis, "Metis_542");
+				orderActorToFactory(2117715810, EnemyMetis, "Metis_448");
 				break;
-			case 14050:
+			case 14040:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714050);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714040);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715850, EnemyMetis, "Metis_543");
+				orderActorToFactory(2117715840, EnemyMetis, "Metis_449");
 				break;
-			case 14080:
+			case 14070:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714080);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714070);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715880, EnemyMetis, "Metis_544");
+				orderActorToFactory(2117715870, EnemyMetis, "Metis_450");
 				break;
-			case 14110:
+			case 14100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714110);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715910, EnemyMetis, "Metis_545");
+				orderActorToFactory(2117715900, EnemyMetis, "Metis_451");
 				break;
-			case 14140:
+			case 14130:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714140);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714130);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715940, EnemyMetis, "Metis_546");
+				orderActorToFactory(2117715930, EnemyMetis, "Metis_452");
 				break;
-			case 14170:
+			case 14160:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714170);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714160);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117715970, EnemyMetis, "Metis_547");
+				orderActorToFactory(2117715960, EnemyMetis, "Metis_453");
 				break;
-			case 14200:
+			case 14190:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714200);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714190);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716000, EnemyMetis, "Metis_548");
+				orderActorToFactory(2117715990, EnemyMetis, "Metis_454");
 				break;
-			case 14230:
+			case 14220:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714230);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714220);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716030, EnemyMetis, "Metis_549");
+				orderActorToFactory(2117716020, EnemyMetis, "Metis_455");
 				break;
-			case 14260:
+			case 14250:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714260);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714250);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716060, EnemyMetis, "Metis_550");
+				orderActorToFactory(2117716050, EnemyMetis, "Metis_456");
 				break;
-			case 14290:
+			case 14280:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714290);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714280);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716090, EnemyMetis, "Metis_551");
+				orderActorToFactory(2117716080, EnemyMetis, "Metis_457");
 				break;
-			case 14320:
+			case 14310:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714320);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714310);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716120, EnemyMetis, "Metis_552");
+				orderActorToFactory(2117716110, EnemyMetis, "Metis_458");
 				break;
-			case 14350:
+			case 14340:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714350);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714340);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716150, EnemyMetis, "Metis_553");
+				orderActorToFactory(2117716140, EnemyMetis, "Metis_459");
 				break;
-			case 14380:
+			case 14370:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714380);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714370);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716180, EnemyMetis, "Metis_554");
+				orderActorToFactory(2117716170, EnemyMetis, "Metis_460");
 				break;
-			case 14410:
+			case 14400:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714410);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714400);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716210, EnemyMetis, "Metis_555");
+				orderActorToFactory(2117716200, EnemyMetis, "Metis_461");
 				break;
-			case 14440:
+			case 14430:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714440);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714430);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716240, EnemyMetis, "Metis_556");
+				orderActorToFactory(2117716230, EnemyMetis, "Metis_462");
 				break;
-			case 14470:
+			case 14460:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714470);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714460);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716270, EnemyMetis, "Metis_557");
+				orderActorToFactory(2117716260, EnemyMetis, "Metis_463");
 				break;
-			case 14500:
+			case 14490:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714500);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714490);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716300, EnemyMetis, "Metis_558");
+				orderActorToFactory(2117716290, EnemyMetis, "Metis_464");
 				break;
-			case 14530:
+			case 14520:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714530);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714520);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716330, EnemyMetis, "Metis_559");
+				orderActorToFactory(2117716320, EnemyMetis, "Metis_465");
 				break;
-			case 14560:
+			case 14550:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714560);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714550);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716360, EnemyMetis, "Metis_560");
+				orderActorToFactory(2117716350, EnemyMetis, "Metis_466");
 				break;
-			case 14590:
+			case 14580:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714590);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714580);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716390, EnemyMetis, "Metis_561");
+				orderActorToFactory(2117716380, EnemyMetis, "Metis_467");
 				break;
-			case 14620:
+			case 14610:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714620);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714610);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716420, EnemyMetis, "Metis_562");
+				orderActorToFactory(2117716410, EnemyMetis, "Metis_468");
 				break;
-			case 14650:
+			case 14640:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714650);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714640);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716450, EnemyMetis, "Metis_563");
+				orderActorToFactory(2117716440, EnemyMetis, "Metis_469");
 				break;
-			case 14680:
+			case 14670:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714680);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714670);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716480, EnemyMetis, "Metis_564");
+				orderActorToFactory(2117716470, EnemyMetis, "Metis_470");
 				break;
-			case 14710:
+			case 14700:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714710);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714700);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716510, EnemyMetis, "Metis_565");
+				orderActorToFactory(2117716500, EnemyMetis, "Metis_471");
 				break;
-			case 14740:
+			case 14730:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714740);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714730);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716540, EnemyMetis, "Metis_566");
+				orderActorToFactory(2117716530, EnemyMetis, "Metis_472");
 				break;
-			case 14770:
+			case 14760:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714770);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714760);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716570, EnemyMetis, "Metis_567");
+				orderActorToFactory(2117716560, EnemyMetis, "Metis_473");
 				break;
-			case 14800:
+			case 14790:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714800);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714790);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716600, EnemyMetis, "Metis_568");
+				orderActorToFactory(2117716590, EnemyMetis, "Metis_474");
 				break;
-			case 14830:
+			case 14820:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714830);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714820);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716630, EnemyMetis, "Metis_569");
+				orderActorToFactory(2117716620, EnemyMetis, "Metis_475");
 				break;
-			case 14860:
+			case 14850:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714860);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714850);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716660, EnemyMetis, "Metis_570");
+				orderActorToFactory(2117716650, EnemyMetis, "Metis_476");
 				break;
-			case 14890:
+			case 14880:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714890);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714880);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716690, EnemyMetis, "Metis_571");
+				orderActorToFactory(2117716680, EnemyMetis, "Metis_477");
 				break;
-			case 14920:
+			case 14910:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714920);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714910);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716720, EnemyMetis, "Metis_572");
+				orderActorToFactory(2117716710, EnemyMetis, "Metis_478");
 				break;
-			case 14950:
+			case 14940:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714950);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714940);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716750, EnemyMetis, "Metis_573");
+				orderActorToFactory(2117716740, EnemyMetis, "Metis_479");
 				break;
-			case 14980:
+			case 14970:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714980);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117714970);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716780, EnemyMetis, "Metis_574");
+				orderActorToFactory(2117716770, EnemyMetis, "Metis_480");
 				break;
-			case 15010:
+			case 15000:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715010);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715000);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716810, EnemyMetis, "Metis_575");
+				orderActorToFactory(2117716800, EnemyMetis, "Metis_481");
 				break;
-			case 15040:
+			case 15030:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715040);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715030);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716840, EnemyMetis, "Metis_576");
+				orderActorToFactory(2117716830, EnemyMetis, "Metis_482");
 				break;
-			case 15070:
+			case 15060:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715070);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715060);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716870, EnemyMetis, "Metis_577");
+				orderActorToFactory(2117716860, EnemyMetis, "Metis_483");
 				break;
-			case 15100:
+			case 15090:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715100);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715090);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716900, EnemyMetis, "Metis_578");
+				orderActorToFactory(2117716890, EnemyMetis, "Metis_484");
 				break;
-			case 15130:
+			case 15120:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715130);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715120);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716930, EnemyMetis, "Metis_579");
+				orderActorToFactory(2117716920, EnemyMetis, "Metis_485");
 				break;
-			case 15160:
+			case 15150:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715160);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715150);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716960, EnemyMetis, "Metis_580");
+				orderActorToFactory(2117716950, EnemyMetis, "Metis_486");
 				break;
-			case 15190:
+			case 15180:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715190);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715180);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117716990, EnemyMetis, "Metis_581");
+				orderActorToFactory(2117716980, EnemyMetis, "Metis_487");
 				break;
-			case 15220:
+			case 15210:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715220);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715210);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717020, EnemyMetis, "Metis_582");
+				orderActorToFactory(2117717010, EnemyMetis, "Metis_488");
 				break;
-			case 15250:
+			case 15240:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715250);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715240);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717050, EnemyMetis, "Metis_583");
+				orderActorToFactory(2117717040, EnemyMetis, "Metis_489");
 				break;
-			case 15280:
+			case 15270:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715280);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715270);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717080, EnemyMetis, "Metis_584");
+				orderActorToFactory(2117717070, EnemyMetis, "Metis_490");
 				break;
-			case 15310:
+			case 15300:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715310);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715300);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717110, EnemyMetis, "Metis_585");
+				orderActorToFactory(2117717100, EnemyMetis, "Metis_491");
 				break;
-			case 15340:
+			case 15330:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715340);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715330);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717140, EnemyMetis, "Metis_586");
+				orderActorToFactory(2117717130, EnemyMetis, "Metis_492");
 				break;
-			case 15370:
+			case 15360:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715370);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715360);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717170, EnemyMetis, "Metis_587");
+				orderActorToFactory(2117717160, EnemyMetis, "Metis_493");
 				break;
-			case 15400:
+			case 15390:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715400);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715390);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717200, EnemyMetis, "Metis_588");
+				orderActorToFactory(2117717190, EnemyMetis, "Metis_494");
 				break;
-			case 15430:
+			case 15420:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715430);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715420);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717230, EnemyMetis, "Metis_589");
+				orderActorToFactory(2117717220, EnemyMetis, "Metis_495");
 				break;
-			case 15460:
+			case 15450:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715460);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715450);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717260, EnemyMetis, "Metis_590");
+				orderActorToFactory(2117717250, EnemyMetis, "Metis_496");
 				break;
-			case 15490:
+			case 15480:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715490);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715480);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717290, EnemyMetis, "Metis_591");
+				orderActorToFactory(2117717280, EnemyMetis, "Metis_497");
 				break;
-			case 15520:
+			case 15510:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715520);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715510);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717320, EnemyMetis, "Metis_592");
+				orderActorToFactory(2117717310, EnemyMetis, "Metis_498");
 				break;
-			case 15550:
+			case 15540:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715550);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715540);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717350, EnemyMetis, "Metis_593");
+				orderActorToFactory(2117717340, EnemyMetis, "Metis_499");
 				break;
-			case 15580:
+			case 15570:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715580);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715570);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717380, EnemyMetis, "Metis_594");
+				orderActorToFactory(2117717370, EnemyMetis, "Metis_500");
 				break;
-			case 15610:
+			case 15600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715610);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717410, EnemyMetis, "Metis_595");
+				orderActorToFactory(2117717400, EnemyMetis, "Metis_501");
 				break;
-			case 15640:
+			case 15630:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715640);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715630);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717440, EnemyMetis, "Metis_596");
+				orderActorToFactory(2117717430, EnemyMetis, "Metis_502");
 				break;
-			case 15670:
+			case 15660:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715670);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715660);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717470, EnemyMetis, "Metis_597");
+				orderActorToFactory(2117717460, EnemyMetis, "Metis_503");
 				break;
-			case 15700:
+			case 15690:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715700);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715690);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717500, EnemyMetis, "Metis_598");
+				orderActorToFactory(2117717490, EnemyMetis, "Metis_504");
 				break;
-			case 15730:
+			case 15720:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715730);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715720);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717530, EnemyMetis, "Metis_599");
+				orderActorToFactory(2117717520, EnemyMetis, "Metis_505");
 				break;
-			case 15760:
+			case 15750:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715760);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715750);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717560, EnemyMetis, "Metis_600");
+				orderActorToFactory(2117717550, EnemyMetis, "Metis_506");
 				break;
-			case 15790:
+			case 15780:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715790);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715780);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717590, EnemyMetis, "Metis_601");
+				orderActorToFactory(2117717580, EnemyMetis, "Metis_507");
 				break;
-			case 15820:
+			case 15810:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715820);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715810);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717620, EnemyMetis, "Metis_602");
+				orderActorToFactory(2117717610, EnemyMetis, "Metis_508");
 				break;
-			case 15850:
+			case 15840:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715850);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715840);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717650, EnemyMetis, "Metis_603");
+				orderActorToFactory(2117717640, EnemyMetis, "Metis_509");
 				break;
-			case 15880:
+			case 15870:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715880);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715870);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717680, EnemyMetis, "Metis_604");
+				orderActorToFactory(2117717670, EnemyMetis, "Metis_510");
 				break;
-			case 15910:
+			case 15900:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715910);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715900);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717710, EnemyMetis, "Metis_605");
+				orderActorToFactory(2117717700, EnemyMetis, "Metis_511");
 				break;
-			case 15940:
+			case 15930:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715940);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715930);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717740, EnemyMetis, "Metis_606");
+				orderActorToFactory(2117717730, EnemyMetis, "Metis_512");
 				break;
-			case 15970:
+			case 15960:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715970);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715960);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717770, EnemyMetis, "Metis_607");
+				orderActorToFactory(2117717760, EnemyMetis, "Metis_513");
 				break;
-			case 16000:
+			case 15990:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716000);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117715990);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717800, EnemyMetis, "Metis_608");
+				orderActorToFactory(2117717790, EnemyMetis, "Metis_514");
 				break;
-			case 16030:
+			case 16020:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716030);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716020);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717830, EnemyMetis, "Metis_609");
+				orderActorToFactory(2117717820, EnemyMetis, "Metis_515");
 				break;
-			case 16060:
+			case 16050:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716060);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716050);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717860, EnemyMetis, "Metis_610");
+				orderActorToFactory(2117717850, EnemyMetis, "Metis_516");
 				break;
-			case 16090:
+			case 16080:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716090);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716080);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717890, EnemyMetis, "Metis_611");
+				orderActorToFactory(2117717880, EnemyMetis, "Metis_517");
 				break;
-			case 16120:
+			case 16110:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716120);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716110);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717920, EnemyMetis, "Metis_612");
+				orderActorToFactory(2117717910, EnemyMetis, "Metis_518");
 				break;
-			case 16150:
+			case 16140:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716150);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716140);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717950, EnemyMetis, "Metis_613");
+				orderActorToFactory(2117717940, EnemyMetis, "Metis_519");
 				break;
-			case 16180:
+			case 16170:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716180);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716170);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117717980, EnemyMetis, "Metis_614");
+				orderActorToFactory(2117717970, EnemyMetis, "Metis_520");
 				break;
-			case 16210:
+			case 16200:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716210);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716200);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718010, EnemyMetis, "Metis_615");
+				orderActorToFactory(2117718000, EnemyMetis, "Metis_521");
 				break;
-			case 16240:
+			case 16230:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716240);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716230);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718040, EnemyMetis, "Metis_616");
+				orderActorToFactory(2117718030, EnemyMetis, "Metis_522");
 				break;
-			case 16270:
+			case 16260:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716270);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716260);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718070, EnemyMetis, "Metis_617");
+				orderActorToFactory(2117718060, EnemyMetis, "Metis_523");
 				break;
-			case 16300:
+			case 16290:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716300);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716290);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718100, EnemyMetis, "Metis_618");
+				orderActorToFactory(2117718090, EnemyMetis, "Metis_524");
 				break;
-			case 16330:
+			case 16320:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716330);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716320);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718130, EnemyMetis, "Metis_619");
+				orderActorToFactory(2117718120, EnemyMetis, "Metis_525");
 				break;
-			case 16360:
+			case 16350:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716360);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716350);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718160, EnemyMetis, "Metis_620");
+				orderActorToFactory(2117718150, EnemyMetis, "Metis_526");
 				break;
-			case 16390:
+			case 16380:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716390);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716380);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718190, EnemyMetis, "Metis_621");
+				orderActorToFactory(2117718180, EnemyMetis, "Metis_527");
 				break;
-			case 16420:
+			case 16410:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716420);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716410);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718220, EnemyMetis, "Metis_622");
+				orderActorToFactory(2117718210, EnemyMetis, "Metis_528");
 				break;
-			case 16450:
+			case 16440:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716450);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716440);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718250, EnemyMetis, "Metis_623");
+				orderActorToFactory(2117718240, EnemyMetis, "Metis_529");
 				break;
-			case 16480:
+			case 16470:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716480);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716470);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718280, EnemyMetis, "Metis_624");
+				orderActorToFactory(2117718270, EnemyMetis, "Metis_530");
 				break;
-			case 16510:
+			case 16500:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716510);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716500);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718310, EnemyMetis, "Metis_625");
+				orderActorToFactory(2117718300, EnemyMetis, "Metis_531");
 				break;
-			case 16540:
+			case 16530:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716540);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716530);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718340, EnemyMetis, "Metis_626");
+				orderActorToFactory(2117718330, EnemyMetis, "Metis_532");
 				break;
-			case 16570:
+			case 16560:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716570);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716560);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718370, EnemyMetis, "Metis_627");
+				orderActorToFactory(2117718360, EnemyMetis, "Metis_533");
 				break;
-			case 16600:
+			case 16590:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716600);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716590);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718400, EnemyMetis, "Metis_628");
+				orderActorToFactory(2117718390, EnemyMetis, "Metis_534");
 				break;
-			case 16630:
+			case 16620:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716630);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716620);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718430, EnemyMetis, "Metis_629");
+				orderActorToFactory(2117718420, EnemyMetis, "Metis_535");
 				break;
-			case 16660:
+			case 16650:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716660);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716650);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718460, EnemyMetis, "Metis_630");
+				orderActorToFactory(2117718450, EnemyMetis, "Metis_536");
 				break;
-			case 16690:
+			case 16680:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716690);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716680);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718490, EnemyMetis, "Metis_631");
+				orderActorToFactory(2117718480, EnemyMetis, "Metis_537");
 				break;
-			case 16720:
+			case 16710:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716720);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716710);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718520, EnemyMetis, "Metis_632");
+				orderActorToFactory(2117718510, EnemyMetis, "Metis_538");
 				break;
-			case 16750:
+			case 16740:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716750);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716740);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718550, EnemyMetis, "Metis_633");
+				orderActorToFactory(2117718540, EnemyMetis, "Metis_539");
 				break;
-			case 16780:
+			case 16770:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716780);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716770);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718580, EnemyMetis, "Metis_634");
+				orderActorToFactory(2117718570, EnemyMetis, "Metis_540");
 				break;
-			case 16810:
+			case 16800:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716810);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716800);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718610, EnemyMetis, "Metis_635");
+				orderActorToFactory(2117718600, EnemyMetis, "Metis_541");
 				break;
-			case 16840:
+			case 16830:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716840);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716830);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718640, EnemyMetis, "Metis_636");
+				orderActorToFactory(2117718630, EnemyMetis, "Metis_542");
 				break;
-			case 16870:
+			case 16860:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716870);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716860);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718670, EnemyMetis, "Metis_637");
+				orderActorToFactory(2117718660, EnemyMetis, "Metis_543");
 				break;
-			case 16900:
+			case 16890:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716900);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716890);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718700, EnemyMetis, "Metis_638");
+				orderActorToFactory(2117718690, EnemyMetis, "Metis_544");
 				break;
-			case 16930:
+			case 16920:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716930);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716920);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718730, EnemyMetis, "Metis_639");
+				orderActorToFactory(2117718720, EnemyMetis, "Metis_545");
 				break;
-			case 16960:
+			case 16950:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716960);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716950);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718760, EnemyMetis, "Metis_640");
+				orderActorToFactory(2117718750, EnemyMetis, "Metis_546");
 				break;
-			case 16990:
+			case 16980:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716990);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117716980);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718790, EnemyMetis, "Metis_641");
+				orderActorToFactory(2117718780, EnemyMetis, "Metis_547");
 				break;
-			case 17020:
+			case 17010:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717020);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717010);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718820, EnemyMetis, "Metis_642");
+				orderActorToFactory(2117718810, EnemyMetis, "Metis_548");
 				break;
-			case 17050:
+			case 17040:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717050);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717040);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718850, EnemyMetis, "Metis_643");
+				orderActorToFactory(2117718840, EnemyMetis, "Metis_549");
 				break;
-			case 17080:
+			case 17070:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717080);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717070);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718880, EnemyMetis, "Metis_644");
+				orderActorToFactory(2117718870, EnemyMetis, "Metis_550");
 				break;
-			case 17110:
+			case 17100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717110);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718910, EnemyMetis, "Metis_645");
+				orderActorToFactory(2117718900, EnemyMetis, "Metis_551");
 				break;
-			case 17140:
+			case 17130:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717140);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717130);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718940, EnemyMetis, "Metis_646");
+				orderActorToFactory(2117718930, EnemyMetis, "Metis_552");
 				break;
-			case 17170:
+			case 17160:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717170);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717160);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117718970, EnemyMetis, "Metis_647");
+				orderActorToFactory(2117718960, EnemyMetis, "Metis_553");
 				break;
-			case 17200:
+			case 17190:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717200);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717190);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719000, EnemyMetis, "Metis_648");
+				orderActorToFactory(2117718990, EnemyMetis, "Metis_554");
 				break;
-			case 17230:
+			case 17220:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717230);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717220);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719030, EnemyMetis, "Metis_649");
+				orderActorToFactory(2117719020, EnemyMetis, "Metis_555");
 				break;
-			case 17260:
+			case 17250:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717260);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717250);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719060, EnemyMetis, "Metis_650");
+				orderActorToFactory(2117719050, EnemyMetis, "Metis_556");
 				break;
-			case 17290:
+			case 17280:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717290);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717280);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719090, EnemyMetis, "Metis_651");
+				orderActorToFactory(2117719080, EnemyMetis, "Metis_557");
 				break;
-			case 17320:
+			case 17310:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717320);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717310);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719120, EnemyMetis, "Metis_652");
+				orderActorToFactory(2117719110, EnemyMetis, "Metis_558");
 				break;
-			case 17350:
+			case 17340:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717350);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717340);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719150, EnemyMetis, "Metis_653");
+				orderActorToFactory(2117719140, EnemyMetis, "Metis_559");
 				break;
-			case 17380:
+			case 17370:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717380);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717370);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719180, EnemyMetis, "Metis_654");
+				orderActorToFactory(2117719170, EnemyMetis, "Metis_560");
 				break;
-			case 17410:
+			case 17400:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717410);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717400);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719210, EnemyMetis, "Metis_655");
+				orderActorToFactory(2117719200, EnemyMetis, "Metis_561");
 				break;
-			case 17440:
+			case 17430:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717440);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717430);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719240, EnemyMetis, "Metis_656");
+				orderActorToFactory(2117719230, EnemyMetis, "Metis_562");
 				break;
-			case 17470:
+			case 17460:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717470);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717460);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719270, EnemyMetis, "Metis_657");
+				orderActorToFactory(2117719260, EnemyMetis, "Metis_563");
 				break;
-			case 17500:
+			case 17490:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717500);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717490);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719300, EnemyMetis, "Metis_658");
+				orderActorToFactory(2117719290, EnemyMetis, "Metis_564");
 				break;
-			case 17530:
+			case 17520:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717530);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717520);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719330, EnemyMetis, "Metis_659");
+				orderActorToFactory(2117719320, EnemyMetis, "Metis_565");
 				break;
-			case 17560:
+			case 17550:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717560);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717550);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719360, EnemyMetis, "Metis_660");
+				orderActorToFactory(2117719350, EnemyMetis, "Metis_566");
 				break;
-			case 17590:
+			case 17580:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717590);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717580);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719390, EnemyMetis, "Metis_661");
+				orderActorToFactory(2117719380, EnemyMetis, "Metis_567");
 				break;
-			case 17620:
+			case 17610:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717620);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717610);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719420, EnemyMetis, "Metis_662");
+				orderActorToFactory(2117719410, EnemyMetis, "Metis_568");
 				break;
-			case 17650:
+			case 17640:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717650);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717640);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719450, EnemyMetis, "Metis_663");
+				orderActorToFactory(2117719440, EnemyMetis, "Metis_569");
 				break;
-			case 17680:
+			case 17670:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717680);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717670);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719480, EnemyMetis, "Metis_664");
+				orderActorToFactory(2117719470, EnemyMetis, "Metis_570");
 				break;
-			case 17710:
+			case 17700:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717710);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717700);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719510, EnemyMetis, "Metis_665");
+				orderActorToFactory(2117719500, EnemyMetis, "Metis_571");
 				break;
-			case 17740:
+			case 17730:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717740);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717730);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719540, EnemyMetis, "Metis_666");
+				orderActorToFactory(2117719530, EnemyMetis, "Metis_572");
 				break;
-			case 17770:
+			case 17760:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717770);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717760);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719570, EnemyMetis, "Metis_667");
+				orderActorToFactory(2117719560, EnemyMetis, "Metis_573");
 				break;
-			case 17800:
+			case 17790:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717800);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717790);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719600, EnemyMetis, "Metis_668");
+				orderActorToFactory(2117719590, EnemyMetis, "Metis_574");
 				break;
-			case 17830:
+			case 17820:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717830);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717820);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719630, EnemyMetis, "Metis_669");
+				orderActorToFactory(2117719620, EnemyMetis, "Metis_575");
 				break;
-			case 17860:
+			case 17850:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717860);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717850);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719660, EnemyMetis, "Metis_670");
+				orderActorToFactory(2117719650, EnemyMetis, "Metis_576");
 				break;
-			case 17890:
+			case 17880:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717890);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717880);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719690, EnemyMetis, "Metis_671");
+				orderActorToFactory(2117719680, EnemyMetis, "Metis_577");
 				break;
-			case 17920:
+			case 17910:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717920);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717910);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719720, EnemyMetis, "Metis_672");
+				orderActorToFactory(2117719710, EnemyMetis, "Metis_578");
 				break;
-			case 17950:
+			case 17940:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717950);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717940);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719750, EnemyMetis, "Metis_673");
+				orderActorToFactory(2117719740, EnemyMetis, "Metis_579");
 				break;
-			case 17980:
+			case 17970:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717980);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117717970);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719780, EnemyMetis, "Metis_674");
+				orderActorToFactory(2117719770, EnemyMetis, "Metis_580");
 				break;
-			case 18010:
+			case 18000:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718010);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718000);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719810, EnemyMetis, "Metis_675");
+				orderActorToFactory(2117719800, EnemyMetis, "Metis_581");
 				break;
-			case 18040:
+			case 18030:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718040);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718030);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719840, EnemyMetis, "Metis_676");
+				orderActorToFactory(2117719830, EnemyMetis, "Metis_582");
 				break;
-			case 18070:
+			case 18060:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718070);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718060);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719870, EnemyMetis, "Metis_677");
+				orderActorToFactory(2117719860, EnemyMetis, "Metis_583");
 				break;
-			case 18100:
+			case 18090:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718100);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718090);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719900, EnemyMetis, "Metis_678");
+				orderActorToFactory(2117719890, EnemyMetis, "Metis_584");
 				break;
-			case 18130:
+			case 18120:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718130);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718120);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719930, EnemyMetis, "Metis_679");
+				orderActorToFactory(2117719920, EnemyMetis, "Metis_585");
 				break;
-			case 18160:
+			case 18150:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718160);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718150);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719960, EnemyMetis, "Metis_680");
+				orderActorToFactory(2117719950, EnemyMetis, "Metis_586");
 				break;
-			case 18190:
+			case 18180:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718190);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718180);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117719990, EnemyMetis, "Metis_681");
+				orderActorToFactory(2117719980, EnemyMetis, "Metis_587");
 				break;
-			case 18220:
+			case 18210:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718220);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718210);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720020, EnemyMetis, "Metis_682");
+				orderActorToFactory(2117720010, EnemyMetis, "Metis_588");
 				break;
-			case 18250:
+			case 18240:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718250);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718240);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720050, EnemyMetis, "Metis_683");
+				orderActorToFactory(2117720040, EnemyMetis, "Metis_589");
 				break;
-			case 18280:
+			case 18270:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718280);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718270);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720080, EnemyMetis, "Metis_684");
+				orderActorToFactory(2117720070, EnemyMetis, "Metis_590");
 				break;
-			case 18310:
+			case 18300:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718310);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718300);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720110, EnemyMetis, "Metis_685");
+				orderActorToFactory(2117720100, EnemyMetis, "Metis_591");
 				break;
-			case 18340:
+			case 18330:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718340);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718330);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720140, EnemyMetis, "Metis_686");
+				orderActorToFactory(2117720130, EnemyMetis, "Metis_592");
 				break;
-			case 18370:
+			case 18360:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718370);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718360);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720170, EnemyMetis, "Metis_687");
+				orderActorToFactory(2117720160, EnemyMetis, "Metis_593");
 				break;
-			case 18400:
+			case 18390:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718400);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718390);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720200, EnemyMetis, "Metis_688");
+				orderActorToFactory(2117720190, EnemyMetis, "Metis_594");
 				break;
-			case 18430:
+			case 18420:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718430);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718420);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720230, EnemyMetis, "Metis_689");
+				orderActorToFactory(2117720220, EnemyMetis, "Metis_595");
 				break;
-			case 18460:
+			case 18450:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718460);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718450);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720260, EnemyMetis, "Metis_690");
+				orderActorToFactory(2117720250, EnemyMetis, "Metis_596");
 				break;
-			case 18490:
+			case 18480:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718490);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718480);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720290, EnemyMetis, "Metis_691");
+				orderActorToFactory(2117720280, EnemyMetis, "Metis_597");
 				break;
-			case 18520:
+			case 18510:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718520);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718510);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720320, EnemyMetis, "Metis_692");
+				orderActorToFactory(2117720310, EnemyMetis, "Metis_598");
 				break;
-			case 18550:
+			case 18540:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718550);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718540);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720350, EnemyMetis, "Metis_693");
+				orderActorToFactory(2117720340, EnemyMetis, "Metis_599");
 				break;
-			case 18580:
+			case 18570:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718580);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718570);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720380, EnemyMetis, "Metis_694");
+				orderActorToFactory(2117720370, EnemyMetis, "Metis_600");
 				break;
-			case 18610:
+			case 18600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718610);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720410, EnemyMetis, "Metis_695");
+				orderActorToFactory(2117720400, EnemyMetis, "Metis_601");
 				break;
-			case 18640:
+			case 18630:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718640);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718630);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720440, EnemyMetis, "Metis_696");
+				orderActorToFactory(2117720430, EnemyMetis, "Metis_602");
 				break;
-			case 18670:
+			case 18660:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718670);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718660);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720470, EnemyMetis, "Metis_697");
+				orderActorToFactory(2117720460, EnemyMetis, "Metis_603");
 				break;
-			case 18700:
+			case 18690:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718700);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718690);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720500, EnemyMetis, "Metis_698");
+				orderActorToFactory(2117720490, EnemyMetis, "Metis_604");
 				break;
-			case 18730:
+			case 18720:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718730);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718720);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720530, EnemyMetis, "Metis_699");
+				orderActorToFactory(2117720520, EnemyMetis, "Metis_605");
 				break;
-			case 18760:
+			case 18750:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718760);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718750);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720560, EnemyMetis, "Metis_700");
+				orderActorToFactory(2117720550, EnemyMetis, "Metis_606");
 				break;
-			case 18790:
+			case 18780:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718790);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718780);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720590, EnemyMetis, "Metis_701");
+				orderActorToFactory(2117720580, EnemyMetis, "Metis_607");
 				break;
-			case 18820:
+			case 18810:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718820);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718810);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720620, EnemyMetis, "Metis_702");
+				orderActorToFactory(2117720610, EnemyMetis, "Metis_608");
 				break;
-			case 18850:
+			case 18840:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718850);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718840);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720650, EnemyMetis, "Metis_703");
+				orderActorToFactory(2117720640, EnemyMetis, "Metis_609");
 				break;
-			case 18880:
+			case 18870:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718880);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718870);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720680, EnemyMetis, "Metis_704");
+				orderActorToFactory(2117720670, EnemyMetis, "Metis_610");
 				break;
-			case 18910:
+			case 18900:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718910);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718900);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720710, EnemyMetis, "Metis_705");
+				orderActorToFactory(2117720700, EnemyMetis, "Metis_611");
 				break;
-			case 18940:
+			case 18930:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718940);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718930);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720740, EnemyMetis, "Metis_706");
+				orderActorToFactory(2117720730, EnemyMetis, "Metis_612");
 				break;
-			case 18970:
+			case 18960:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718970);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718960);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720770, EnemyMetis, "Metis_707");
+				orderActorToFactory(2117720760, EnemyMetis, "Metis_613");
 				break;
-			case 19000:
+			case 18990:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719000);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117718990);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720800, EnemyMetis, "Metis_708");
+				orderActorToFactory(2117720790, EnemyMetis, "Metis_614");
 				break;
-			case 19030:
+			case 19020:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719030);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719020);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720830, EnemyMetis, "Metis_709");
+				orderActorToFactory(2117720820, EnemyMetis, "Metis_615");
 				break;
-			case 19060:
+			case 19050:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719060);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719050);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720860, EnemyMetis, "Metis_710");
+				orderActorToFactory(2117720850, EnemyMetis, "Metis_616");
 				break;
-			case 19090:
+			case 19080:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719090);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719080);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720890, EnemyMetis, "Metis_711");
+				orderActorToFactory(2117720880, EnemyMetis, "Metis_617");
 				break;
-			case 19120:
+			case 19110:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719120);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719110);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720920, EnemyMetis, "Metis_712");
+				orderActorToFactory(2117720910, EnemyMetis, "Metis_618");
 				break;
-			case 19150:
+			case 19140:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719150);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719140);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720950, EnemyMetis, "Metis_713");
+				orderActorToFactory(2117720940, EnemyMetis, "Metis_619");
 				break;
-			case 19180:
+			case 19170:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719180);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719170);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117720980, EnemyMetis, "Metis_714");
+				orderActorToFactory(2117720970, EnemyMetis, "Metis_620");
 				break;
-			case 19210:
+			case 19200:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719210);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719200);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721010, EnemyMetis, "Metis_715");
+				orderActorToFactory(2117721000, EnemyMetis, "Metis_621");
 				break;
-			case 19240:
+			case 19230:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719240);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719230);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721040, EnemyMetis, "Metis_716");
+				orderActorToFactory(2117721030, EnemyMetis, "Metis_622");
 				break;
-			case 19270:
+			case 19260:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719270);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719260);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721070, EnemyMetis, "Metis_717");
+				orderActorToFactory(2117721060, EnemyMetis, "Metis_623");
 				break;
-			case 19300:
+			case 19290:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719300);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719290);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721100, EnemyMetis, "Metis_718");
+				orderActorToFactory(2117721090, EnemyMetis, "Metis_624");
 				break;
-			case 19330:
+			case 19320:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719330);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719320);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721130, EnemyMetis, "Metis_719");
+				orderActorToFactory(2117721120, EnemyMetis, "Metis_625");
 				break;
-			case 19360:
+			case 19350:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719360);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719350);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721160, EnemyMetis, "Metis_720");
+				orderActorToFactory(2117721150, EnemyMetis, "Metis_626");
 				break;
-			case 19390:
+			case 19380:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719390);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719380);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721190, EnemyMetis, "Metis_721");
+				orderActorToFactory(2117721180, EnemyMetis, "Metis_627");
 				break;
-			case 19420:
+			case 19410:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719420);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719410);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721220, EnemyMetis, "Metis_722");
+				orderActorToFactory(2117721210, EnemyMetis, "Metis_628");
 				break;
-			case 19450:
+			case 19440:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719450);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719440);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721250, EnemyMetis, "Metis_723");
+				orderActorToFactory(2117721240, EnemyMetis, "Metis_629");
 				break;
-			case 19480:
+			case 19470:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719480);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719470);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721280, EnemyMetis, "Metis_724");
+				orderActorToFactory(2117721270, EnemyMetis, "Metis_630");
 				break;
-			case 19510:
+			case 19500:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719510);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719500);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721310, EnemyMetis, "Metis_725");
+				orderActorToFactory(2117721300, EnemyMetis, "Metis_631");
 				break;
-			case 19540:
+			case 19530:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719540);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719530);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721340, EnemyMetis, "Metis_726");
+				orderActorToFactory(2117721330, EnemyMetis, "Metis_632");
 				break;
-			case 19570:
+			case 19560:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719570);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719560);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721370, EnemyMetis, "Metis_727");
+				orderActorToFactory(2117721360, EnemyMetis, "Metis_633");
 				break;
-			case 19600:
+			case 19590:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719600);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719590);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721400, EnemyMetis, "Metis_728");
+				orderActorToFactory(2117721390, EnemyMetis, "Metis_634");
 				break;
-			case 19630:
+			case 19620:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719630);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719620);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721430, EnemyMetis, "Metis_729");
+				orderActorToFactory(2117721420, EnemyMetis, "Metis_635");
 				break;
-			case 19660:
+			case 19650:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719660);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719650);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721460, EnemyMetis, "Metis_730");
+				orderActorToFactory(2117721450, EnemyMetis, "Metis_636");
 				break;
-			case 19690:
+			case 19680:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719690);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719680);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721490, EnemyMetis, "Metis_731");
+				orderActorToFactory(2117721480, EnemyMetis, "Metis_637");
 				break;
-			case 19720:
+			case 19710:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719720);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719710);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721520, EnemyMetis, "Metis_732");
+				orderActorToFactory(2117721510, EnemyMetis, "Metis_638");
 				break;
-			case 19750:
+			case 19740:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719750);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719740);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721550, EnemyMetis, "Metis_733");
+				orderActorToFactory(2117721540, EnemyMetis, "Metis_639");
 				break;
-			case 19780:
+			case 19770:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719780);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719770);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721580, EnemyMetis, "Metis_734");
+				orderActorToFactory(2117721570, EnemyMetis, "Metis_640");
 				break;
-			case 19810:
+			case 19800:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719810);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719800);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721610, EnemyMetis, "Metis_735");
+				orderActorToFactory(2117721600, EnemyMetis, "Metis_641");
 				break;
-			case 19840:
+			case 19830:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719840);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719830);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721640, EnemyMetis, "Metis_736");
+				orderActorToFactory(2117721630, EnemyMetis, "Metis_642");
 				break;
-			case 19870:
+			case 19860:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719870);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719860);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721670, EnemyMetis, "Metis_737");
+				orderActorToFactory(2117721660, EnemyMetis, "Metis_643");
 				break;
-			case 19900:
+			case 19890:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719900);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719890);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721700, EnemyMetis, "Metis_738");
+				orderActorToFactory(2117721690, EnemyMetis, "Metis_644");
 				break;
-			case 19930:
+			case 19920:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719930);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719920);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721730, EnemyMetis, "Metis_739");
+				orderActorToFactory(2117721720, EnemyMetis, "Metis_645");
 				break;
-			case 19960:
+			case 19950:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719960);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719950);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721760, EnemyMetis, "Metis_740");
+				orderActorToFactory(2117721750, EnemyMetis, "Metis_646");
 				break;
-			case 19990:
+			case 19980:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719990);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117719980);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721790, EnemyMetis, "Metis_741");
+				orderActorToFactory(2117721780, EnemyMetis, "Metis_647");
 				break;
-			case 20020:
+			case 20010:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720020);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720010);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721820, EnemyMetis, "Metis_742");
+				orderActorToFactory(2117721810, EnemyMetis, "Metis_648");
 				break;
-			case 20050:
+			case 20040:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720050);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720040);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721850, EnemyMetis, "Metis_743");
+				orderActorToFactory(2117721840, EnemyMetis, "Metis_649");
 				break;
-			case 20080:
+			case 20070:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720080);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720070);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721880, EnemyMetis, "Metis_744");
+				orderActorToFactory(2117721870, EnemyMetis, "Metis_650");
 				break;
-			case 20110:
+			case 20100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720110);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721910, EnemyMetis, "Metis_745");
+				orderActorToFactory(2117721900, EnemyMetis, "Metis_651");
 				break;
-			case 20140:
+			case 20130:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720140);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720130);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721940, EnemyMetis, "Metis_746");
+				orderActorToFactory(2117721930, EnemyMetis, "Metis_652");
 				break;
-			case 20170:
+			case 20160:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720170);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720160);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117721970, EnemyMetis, "Metis_747");
+				orderActorToFactory(2117721960, EnemyMetis, "Metis_653");
 				break;
-			case 20200:
+			case 20190:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720200);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720190);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722000, EnemyMetis, "Metis_748");
+				orderActorToFactory(2117721990, EnemyMetis, "Metis_654");
 				break;
-			case 20230:
+			case 20220:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720230);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720220);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722030, EnemyMetis, "Metis_749");
+				orderActorToFactory(2117722020, EnemyMetis, "Metis_655");
 				break;
-			case 20260:
+			case 20250:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720260);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720250);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722060, EnemyMetis, "Metis_750");
+				orderActorToFactory(2117722050, EnemyMetis, "Metis_656");
 				break;
-			case 20290:
+			case 20280:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720290);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720280);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722090, EnemyMetis, "Metis_751");
+				orderActorToFactory(2117722080, EnemyMetis, "Metis_657");
 				break;
-			case 20320:
+			case 20310:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720320);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720310);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722120, EnemyMetis, "Metis_752");
+				orderActorToFactory(2117722110, EnemyMetis, "Metis_658");
 				break;
-			case 20350:
+			case 20340:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720350);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720340);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722150, EnemyMetis, "Metis_753");
+				orderActorToFactory(2117722140, EnemyMetis, "Metis_659");
 				break;
-			case 20380:
+			case 20370:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720380);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720370);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722180, EnemyMetis, "Metis_754");
+				orderActorToFactory(2117722170, EnemyMetis, "Metis_660");
 				break;
-			case 20410:
+			case 20400:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720410);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720400);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722210, EnemyMetis, "Metis_755");
+				orderActorToFactory(2117722200, EnemyMetis, "Metis_661");
 				break;
-			case 20440:
+			case 20430:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720440);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720430);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722240, EnemyMetis, "Metis_756");
+				orderActorToFactory(2117722230, EnemyMetis, "Metis_662");
 				break;
-			case 20470:
+			case 20460:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720470);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720460);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722270, EnemyMetis, "Metis_757");
+				orderActorToFactory(2117722260, EnemyMetis, "Metis_663");
 				break;
-			case 20500:
+			case 20490:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720500);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720490);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722300, EnemyMetis, "Metis_758");
+				orderActorToFactory(2117722290, EnemyMetis, "Metis_664");
 				break;
-			case 20530:
+			case 20520:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720530);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720520);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722330, EnemyMetis, "Metis_759");
+				orderActorToFactory(2117722320, EnemyMetis, "Metis_665");
 				break;
-			case 20560:
+			case 20550:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720560);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720550);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722360, EnemyMetis, "Metis_760");
+				orderActorToFactory(2117722350, EnemyMetis, "Metis_666");
 				break;
-			case 20590:
+			case 20580:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720590);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720580);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722390, EnemyMetis, "Metis_761");
+				orderActorToFactory(2117722380, EnemyMetis, "Metis_667");
 				break;
-			case 20620:
+			case 20610:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720620);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720610);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722420, EnemyMetis, "Metis_762");
+				orderActorToFactory(2117722410, EnemyMetis, "Metis_668");
 				break;
-			case 20650:
+			case 20640:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720650);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720640);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722450, EnemyMetis, "Metis_763");
+				orderActorToFactory(2117722440, EnemyMetis, "Metis_669");
 				break;
-			case 20680:
+			case 20670:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720680);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720670);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722480, EnemyMetis, "Metis_764");
+				orderActorToFactory(2117722470, EnemyMetis, "Metis_670");
 				break;
-			case 20710:
+			case 20700:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720710);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720700);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722510, EnemyMetis, "Metis_765");
+				orderActorToFactory(2117722500, EnemyMetis, "Metis_671");
 				break;
-			case 20740:
+			case 20730:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720740);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720730);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722540, EnemyMetis, "Metis_766");
+				orderActorToFactory(2117722530, EnemyMetis, "Metis_672");
 				break;
-			case 20770:
+			case 20760:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720770);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720760);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722570, EnemyMetis, "Metis_767");
+				orderActorToFactory(2117722560, EnemyMetis, "Metis_673");
 				break;
-			case 20800:
+			case 20790:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720800);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720790);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722600, EnemyMetis, "Metis_768");
+				orderActorToFactory(2117722590, EnemyMetis, "Metis_674");
 				break;
-			case 20830:
+			case 20820:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720830);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720820);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722630, EnemyMetis, "Metis_769");
+				orderActorToFactory(2117722620, EnemyMetis, "Metis_675");
 				break;
-			case 20860:
+			case 20850:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720860);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720850);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722660, EnemyMetis, "Metis_770");
+				orderActorToFactory(2117722650, EnemyMetis, "Metis_676");
 				break;
-			case 20890:
+			case 20880:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720890);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720880);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722690, EnemyMetis, "Metis_771");
+				orderActorToFactory(2117722680, EnemyMetis, "Metis_677");
 				break;
-			case 20920:
+			case 20910:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720920);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720910);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722720, EnemyMetis, "Metis_772");
+				orderActorToFactory(2117722710, EnemyMetis, "Metis_678");
 				break;
-			case 20950:
+			case 20940:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720950);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720940);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722750, EnemyMetis, "Metis_773");
+				orderActorToFactory(2117722740, EnemyMetis, "Metis_679");
 				break;
-			case 20980:
+			case 20970:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720980);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117720970);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722780, EnemyMetis, "Metis_774");
+				orderActorToFactory(2117722770, EnemyMetis, "Metis_680");
 				break;
-			case 21010:
+			case 21000:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721010);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721000);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722810, EnemyMetis, "Metis_775");
+				orderActorToFactory(2117722800, EnemyMetis, "Metis_681");
 				break;
-			case 21040:
+			case 21030:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721040);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721030);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722840, EnemyMetis, "Metis_776");
+				orderActorToFactory(2117722830, EnemyMetis, "Metis_682");
 				break;
-			case 21070:
+			case 21060:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721070);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721060);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722870, EnemyMetis, "Metis_777");
+				orderActorToFactory(2117722860, EnemyMetis, "Metis_683");
 				break;
-			case 21100:
+			case 21090:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721100);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721090);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722900, EnemyMetis, "Metis_778");
+				orderActorToFactory(2117722890, EnemyMetis, "Metis_684");
 				break;
-			case 21130:
+			case 21120:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721130);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721120);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722930, EnemyMetis, "Metis_779");
+				orderActorToFactory(2117722920, EnemyMetis, "Metis_685");
 				break;
-			case 21160:
+			case 21150:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721160);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721150);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722960, EnemyMetis, "Metis_780");
+				orderActorToFactory(2117722950, EnemyMetis, "Metis_686");
 				break;
-			case 21190:
+			case 21180:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721190);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721180);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117722990, EnemyMetis, "Metis_781");
+				orderActorToFactory(2117722980, EnemyMetis, "Metis_687");
 				break;
-			case 21220:
+			case 21210:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721220);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721210);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723020, EnemyMetis, "Metis_782");
+				orderActorToFactory(2117723010, EnemyMetis, "Metis_688");
 				break;
-			case 21250:
+			case 21240:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721250);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721240);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723050, EnemyMetis, "Metis_783");
+				orderActorToFactory(2117723040, EnemyMetis, "Metis_689");
 				break;
-			case 21280:
+			case 21270:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721280);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721270);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723080, EnemyMetis, "Metis_784");
+				orderActorToFactory(2117723070, EnemyMetis, "Metis_690");
 				break;
-			case 21310:
+			case 21300:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721310);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721300);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723110, EnemyMetis, "Metis_785");
+				orderActorToFactory(2117723100, EnemyMetis, "Metis_691");
 				break;
-			case 21340:
+			case 21330:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721340);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721330);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723140, EnemyMetis, "Metis_786");
+				orderActorToFactory(2117723130, EnemyMetis, "Metis_692");
 				break;
-			case 21370:
+			case 21360:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721370);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721360);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723170, EnemyMetis, "Metis_787");
+				orderActorToFactory(2117723160, EnemyMetis, "Metis_693");
 				break;
-			case 21400:
+			case 21390:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721400);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721390);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723200, EnemyMetis, "Metis_788");
+				orderActorToFactory(2117723190, EnemyMetis, "Metis_694");
 				break;
-			case 21430:
+			case 21420:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721430);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721420);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723230, EnemyMetis, "Metis_789");
+				orderActorToFactory(2117723220, EnemyMetis, "Metis_695");
 				break;
-			case 21460:
+			case 21450:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721460);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721450);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723260, EnemyMetis, "Metis_790");
+				orderActorToFactory(2117723250, EnemyMetis, "Metis_696");
 				break;
-			case 21490:
+			case 21480:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721490);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721480);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723290, EnemyMetis, "Metis_791");
+				orderActorToFactory(2117723280, EnemyMetis, "Metis_697");
 				break;
-			case 21520:
+			case 21510:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721520);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721510);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723320, EnemyMetis, "Metis_792");
+				orderActorToFactory(2117723310, EnemyMetis, "Metis_698");
 				break;
-			case 21550:
+			case 21540:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721550);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721540);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723350, EnemyMetis, "Metis_793");
+				orderActorToFactory(2117723340, EnemyMetis, "Metis_699");
 				break;
-			case 21580:
+			case 21570:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721580);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721570);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723380, EnemyMetis, "Metis_794");
+				orderActorToFactory(2117723370, EnemyMetis, "Metis_700");
 				break;
-			case 21610:
+			case 21600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721610);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723410, EnemyMetis, "Metis_795");
+				orderActorToFactory(2117723400, EnemyMetis, "Metis_701");
 				break;
-			case 21640:
+			case 21630:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721640);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721630);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723440, EnemyMetis, "Metis_796");
+				orderActorToFactory(2117723430, EnemyMetis, "Metis_702");
 				break;
-			case 21670:
+			case 21660:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721670);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721660);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723470, EnemyMetis, "Metis_797");
+				orderActorToFactory(2117723460, EnemyMetis, "Metis_703");
 				break;
-			case 21700:
+			case 21690:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721700);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721690);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723500, EnemyMetis, "Metis_798");
+				orderActorToFactory(2117723490, EnemyMetis, "Metis_704");
 				break;
-			case 21730:
+			case 21720:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721730);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721720);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723530, EnemyMetis, "Metis_799");
+				orderActorToFactory(2117723520, EnemyMetis, "Metis_705");
 				break;
-			case 21760:
+			case 21750:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721760);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721750);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723560, EnemyMetis, "Metis_800");
+				orderActorToFactory(2117723550, EnemyMetis, "Metis_706");
 				break;
-			case 21790:
+			case 21780:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721790);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721780);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723590, EnemyMetis, "Metis_801");
+				orderActorToFactory(2117723580, EnemyMetis, "Metis_707");
 				break;
-			case 21820:
+			case 21810:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721820);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721810);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723620, EnemyMetis, "Metis_802");
+				orderActorToFactory(2117723610, EnemyMetis, "Metis_708");
 				break;
-			case 21850:
+			case 21840:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721850);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721840);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723650, EnemyMetis, "Metis_803");
+				orderActorToFactory(2117723640, EnemyMetis, "Metis_709");
 				break;
-			case 21880:
+			case 21870:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721880);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721870);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723680, EnemyMetis, "Metis_804");
+				orderActorToFactory(2117723670, EnemyMetis, "Metis_710");
 				break;
-			case 21910:
+			case 21900:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721910);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721900);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723710, EnemyMetis, "Metis_805");
+				orderActorToFactory(2117723700, EnemyMetis, "Metis_711");
 				break;
-			case 21940:
+			case 21930:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721940);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721930);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723740, EnemyMetis, "Metis_806");
+				orderActorToFactory(2117723730, EnemyMetis, "Metis_712");
 				break;
-			case 21970:
+			case 21960:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721970);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721960);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723770, EnemyMetis, "Metis_807");
+				orderActorToFactory(2117723760, EnemyMetis, "Metis_713");
 				break;
-			case 22000:
+			case 21990:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722000);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117721990);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723800, EnemyMetis, "Metis_808");
+				orderActorToFactory(2117723790, EnemyMetis, "Metis_714");
 				break;
-			case 22030:
+			case 22020:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722030);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722020);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723830, EnemyMetis, "Metis_809");
+				orderActorToFactory(2117723820, EnemyMetis, "Metis_715");
 				break;
-			case 22060:
+			case 22050:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722060);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722050);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723860, EnemyMetis, "Metis_810");
+				orderActorToFactory(2117723850, EnemyMetis, "Metis_716");
 				break;
-			case 22090:
+			case 22080:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722090);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722080);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723890, EnemyMetis, "Metis_811");
+				orderActorToFactory(2117723880, EnemyMetis, "Metis_717");
 				break;
-			case 22120:
+			case 22110:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722120);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722110);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723920, EnemyMetis, "Metis_812");
+				orderActorToFactory(2117723910, EnemyMetis, "Metis_718");
 				break;
-			case 22150:
+			case 22140:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722150);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722140);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723950, EnemyMetis, "Metis_813");
+				orderActorToFactory(2117723940, EnemyMetis, "Metis_719");
 				break;
-			case 22180:
+			case 22170:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722180);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722170);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117723980, EnemyMetis, "Metis_814");
+				orderActorToFactory(2117723970, EnemyMetis, "Metis_720");
 				break;
-			case 22210:
+			case 22200:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722210);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722200);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724010, EnemyMetis, "Metis_815");
+				orderActorToFactory(2117724000, EnemyMetis, "Metis_721");
 				break;
-			case 22240:
+			case 22230:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722240);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722230);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724040, EnemyMetis, "Metis_816");
+				orderActorToFactory(2117724030, EnemyMetis, "Metis_722");
 				break;
-			case 22270:
+			case 22260:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722270);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722260);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724070, EnemyMetis, "Metis_817");
+				orderActorToFactory(2117724060, EnemyMetis, "Metis_723");
 				break;
-			case 22300:
+			case 22290:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722300);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722290);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724100, EnemyMetis, "Metis_818");
+				orderActorToFactory(2117724090, EnemyMetis, "Metis_724");
 				break;
-			case 22330:
+			case 22320:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722330);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722320);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724130, EnemyMetis, "Metis_819");
+				orderActorToFactory(2117724120, EnemyMetis, "Metis_725");
 				break;
-			case 22360:
+			case 22350:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722360);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722350);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724160, EnemyMetis, "Metis_820");
+				orderActorToFactory(2117724150, EnemyMetis, "Metis_726");
 				break;
-			case 22390:
+			case 22380:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722390);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722380);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724190, EnemyMetis, "Metis_821");
+				orderActorToFactory(2117724180, EnemyMetis, "Metis_727");
 				break;
-			case 22420:
+			case 22410:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722420);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722410);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724220, EnemyMetis, "Metis_822");
+				orderActorToFactory(2117724210, EnemyMetis, "Metis_728");
 				break;
-			case 22450:
+			case 22440:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722450);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722440);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724250, EnemyMetis, "Metis_823");
+				orderActorToFactory(2117724240, EnemyMetis, "Metis_729");
 				break;
-			case 22480:
+			case 22470:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722480);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722470);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724280, EnemyMetis, "Metis_824");
+				orderActorToFactory(2117724270, EnemyMetis, "Metis_730");
 				break;
-			case 22510:
+			case 22500:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722510);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722500);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724310, EnemyMetis, "Metis_825");
+				orderActorToFactory(2117724300, EnemyMetis, "Metis_731");
 				break;
-			case 22540:
+			case 22530:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722540);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722530);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724340, EnemyMetis, "Metis_826");
+				orderActorToFactory(2117724330, EnemyMetis, "Metis_732");
 				break;
-			case 22570:
+			case 22560:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722570);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722560);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724370, EnemyMetis, "Metis_827");
+				orderActorToFactory(2117724360, EnemyMetis, "Metis_733");
 				break;
-			case 22600:
+			case 22590:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722600);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722590);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724400, EnemyMetis, "Metis_828");
+				orderActorToFactory(2117724390, EnemyMetis, "Metis_734");
 				break;
-			case 22630:
+			case 22620:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722630);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722620);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724430, EnemyMetis, "Metis_829");
+				orderActorToFactory(2117724420, EnemyMetis, "Metis_735");
 				break;
-			case 22660:
+			case 22650:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722660);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722650);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724460, EnemyMetis, "Metis_830");
+				orderActorToFactory(2117724450, EnemyMetis, "Metis_736");
 				break;
-			case 22690:
+			case 22680:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722690);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722680);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724490, EnemyMetis, "Metis_831");
+				orderActorToFactory(2117724480, EnemyMetis, "Metis_737");
 				break;
-			case 22720:
+			case 22710:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722720);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722710);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724520, EnemyMetis, "Metis_832");
+				orderActorToFactory(2117724510, EnemyMetis, "Metis_738");
 				break;
-			case 22750:
+			case 22740:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722750);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722740);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724550, EnemyMetis, "Metis_833");
+				orderActorToFactory(2117724540, EnemyMetis, "Metis_739");
 				break;
-			case 22780:
+			case 22770:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722780);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722770);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724580, EnemyMetis, "Metis_834");
+				orderActorToFactory(2117724570, EnemyMetis, "Metis_740");
 				break;
-			case 22810:
+			case 22800:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722810);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722800);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724610, EnemyMetis, "Metis_835");
+				orderActorToFactory(2117724600, EnemyMetis, "Metis_741");
 				break;
-			case 22840:
+			case 22830:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722840);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722830);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724640, EnemyMetis, "Metis_836");
+				orderActorToFactory(2117724630, EnemyMetis, "Metis_742");
 				break;
-			case 22870:
+			case 22860:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722870);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722860);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724670, EnemyMetis, "Metis_837");
+				orderActorToFactory(2117724660, EnemyMetis, "Metis_743");
 				break;
-			case 22900:
+			case 22890:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722900);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722890);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724700, EnemyMetis, "Metis_838");
+				orderActorToFactory(2117724690, EnemyMetis, "Metis_744");
 				break;
-			case 22930:
+			case 22920:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722930);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722920);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724730, EnemyMetis, "Metis_839");
+				orderActorToFactory(2117724720, EnemyMetis, "Metis_745");
 				break;
-			case 22960:
+			case 22950:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722960);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722950);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724760, EnemyMetis, "Metis_840");
+				orderActorToFactory(2117724750, EnemyMetis, "Metis_746");
 				break;
-			case 22990:
+			case 22980:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722990);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117722980);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724790, EnemyMetis, "Metis_841");
+				orderActorToFactory(2117724780, EnemyMetis, "Metis_747");
 				break;
-			case 23020:
+			case 23010:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723020);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723010);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724820, EnemyMetis, "Metis_842");
+				orderActorToFactory(2117724810, EnemyMetis, "Metis_748");
 				break;
-			case 23050:
+			case 23040:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723050);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723040);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724850, EnemyMetis, "Metis_843");
+				orderActorToFactory(2117724840, EnemyMetis, "Metis_749");
 				break;
-			case 23080:
+			case 23070:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723080);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723070);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724880, EnemyMetis, "Metis_844");
+				orderActorToFactory(2117724870, EnemyMetis, "Metis_750");
 				break;
-			case 23110:
+			case 23100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723110);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724910, EnemyMetis, "Metis_845");
+				orderActorToFactory(2117724900, EnemyMetis, "Metis_751");
 				break;
-			case 23140:
+			case 23130:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723140);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723130);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724940, EnemyMetis, "Metis_846");
+				orderActorToFactory(2117724930, EnemyMetis, "Metis_752");
 				break;
-			case 23170:
+			case 23160:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723170);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723160);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117724970, EnemyMetis, "Metis_847");
+				orderActorToFactory(2117724960, EnemyMetis, "Metis_753");
 				break;
-			case 23200:
+			case 23190:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723200);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723190);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725000, EnemyMetis, "Metis_848");
+				orderActorToFactory(2117724990, EnemyMetis, "Metis_754");
 				break;
-			case 23230:
+			case 23220:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723230);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723220);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725030, EnemyMetis, "Metis_849");
+				orderActorToFactory(2117725020, EnemyMetis, "Metis_755");
 				break;
-			case 23260:
+			case 23250:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723260);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723250);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725060, EnemyMetis, "Metis_850");
+				orderActorToFactory(2117725050, EnemyMetis, "Metis_756");
 				break;
-			case 23290:
+			case 23280:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723290);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723280);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725090, EnemyMetis, "Metis_851");
+				orderActorToFactory(2117725080, EnemyMetis, "Metis_757");
 				break;
-			case 23320:
+			case 23310:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723320);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723310);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725120, EnemyMetis, "Metis_852");
+				orderActorToFactory(2117725110, EnemyMetis, "Metis_758");
 				break;
-			case 23350:
+			case 23340:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723350);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723340);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725150, EnemyMetis, "Metis_853");
+				orderActorToFactory(2117725140, EnemyMetis, "Metis_759");
 				break;
-			case 23380:
+			case 23370:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723380);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723370);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725180, EnemyMetis, "Metis_854");
+				orderActorToFactory(2117725170, EnemyMetis, "Metis_760");
 				break;
-			case 23410:
+			case 23400:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723410);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723400);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725210, EnemyMetis, "Metis_855");
+				orderActorToFactory(2117725200, EnemyMetis, "Metis_761");
 				break;
-			case 23440:
+			case 23430:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723440);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723430);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725240, EnemyMetis, "Metis_856");
+				orderActorToFactory(2117725230, EnemyMetis, "Metis_762");
 				break;
-			case 23470:
+			case 23460:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723470);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723460);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725270, EnemyMetis, "Metis_857");
+				orderActorToFactory(2117725260, EnemyMetis, "Metis_763");
 				break;
-			case 23500:
+			case 23490:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723500);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723490);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725300, EnemyMetis, "Metis_858");
+				orderActorToFactory(2117725290, EnemyMetis, "Metis_764");
 				break;
-			case 23530:
+			case 23520:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723530);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723520);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725330, EnemyMetis, "Metis_859");
+				orderActorToFactory(2117725320, EnemyMetis, "Metis_765");
 				break;
-			case 23560:
+			case 23550:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723560);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723550);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725360, EnemyMetis, "Metis_860");
+				orderActorToFactory(2117725350, EnemyMetis, "Metis_766");
 				break;
-			case 23590:
+			case 23580:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723590);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723580);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725390, EnemyMetis, "Metis_861");
+				orderActorToFactory(2117725380, EnemyMetis, "Metis_767");
 				break;
-			case 23620:
+			case 23610:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723620);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723610);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725420, EnemyMetis, "Metis_862");
+				orderActorToFactory(2117725410, EnemyMetis, "Metis_768");
 				break;
-			case 23650:
+			case 23640:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723650);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723640);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725450, EnemyMetis, "Metis_863");
+				orderActorToFactory(2117725440, EnemyMetis, "Metis_769");
 				break;
-			case 23680:
+			case 23670:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723680);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723670);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725480, EnemyMetis, "Metis_864");
+				orderActorToFactory(2117725470, EnemyMetis, "Metis_770");
 				break;
-			case 23710:
+			case 23700:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723710);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723700);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725510, EnemyMetis, "Metis_865");
+				orderActorToFactory(2117725500, EnemyMetis, "Metis_771");
 				break;
-			case 23740:
+			case 23730:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723740);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723730);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725540, EnemyMetis, "Metis_866");
+				orderActorToFactory(2117725530, EnemyMetis, "Metis_772");
 				break;
-			case 23770:
+			case 23760:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723770);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723760);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725570, EnemyMetis, "Metis_867");
+				orderActorToFactory(2117725560, EnemyMetis, "Metis_773");
 				break;
-			case 23800:
+			case 23790:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723800);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723790);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725600, EnemyMetis, "Metis_868");
+				orderActorToFactory(2117725590, EnemyMetis, "Metis_774");
 				break;
-			case 23830:
+			case 23820:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723830);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723820);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725630, EnemyMetis, "Metis_869");
+				orderActorToFactory(2117725620, EnemyMetis, "Metis_775");
 				break;
-			case 23860:
+			case 23850:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723860);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723850);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725660, EnemyMetis, "Metis_870");
+				orderActorToFactory(2117725650, EnemyMetis, "Metis_776");
 				break;
-			case 23890:
+			case 23880:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723890);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723880);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725690, EnemyMetis, "Metis_871");
+				orderActorToFactory(2117725680, EnemyMetis, "Metis_777");
 				break;
-			case 23920:
+			case 23910:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723920);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723910);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725720, EnemyMetis, "Metis_872");
+				orderActorToFactory(2117725710, EnemyMetis, "Metis_778");
 				break;
-			case 23950:
+			case 23940:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723950);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723940);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725750, EnemyMetis, "Metis_873");
+				orderActorToFactory(2117725740, EnemyMetis, "Metis_779");
 				break;
-			case 23980:
+			case 23970:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723980);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117723970);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725780, EnemyMetis, "Metis_874");
+				orderActorToFactory(2117725770, EnemyMetis, "Metis_780");
 				break;
-			case 24010:
+			case 24000:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724010);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724000);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725810, EnemyMetis, "Metis_875");
+				orderActorToFactory(2117725800, EnemyMetis, "Metis_781");
 				break;
-			case 24040:
+			case 24030:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724040);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724030);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725840, EnemyMetis, "Metis_876");
+				orderActorToFactory(2117725830, EnemyMetis, "Metis_782");
 				break;
-			case 24070:
+			case 24060:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724070);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724060);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725870, EnemyMetis, "Metis_877");
+				orderActorToFactory(2117725860, EnemyMetis, "Metis_783");
 				break;
-			case 24100:
+			case 24090:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724100);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724090);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725900, EnemyMetis, "Metis_878");
+				orderActorToFactory(2117725890, EnemyMetis, "Metis_784");
 				break;
-			case 24130:
+			case 24120:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724130);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724120);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725930, EnemyMetis, "Metis_879");
+				orderActorToFactory(2117725920, EnemyMetis, "Metis_785");
 				break;
-			case 24160:
+			case 24150:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724160);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724150);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725960, EnemyMetis, "Metis_880");
+				orderActorToFactory(2117725950, EnemyMetis, "Metis_786");
 				break;
-			case 24190:
+			case 24180:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724190);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724180);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117725990, EnemyMetis, "Metis_881");
+				orderActorToFactory(2117725980, EnemyMetis, "Metis_787");
 				break;
-			case 24220:
+			case 24210:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724220);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724210);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726020, EnemyMetis, "Metis_882");
+				orderActorToFactory(2117726010, EnemyMetis, "Metis_788");
 				break;
-			case 24250:
+			case 24240:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724250);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724240);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726050, EnemyMetis, "Metis_883");
+				orderActorToFactory(2117726040, EnemyMetis, "Metis_789");
 				break;
-			case 24280:
+			case 24270:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724280);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724270);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726080, EnemyMetis, "Metis_884");
+				orderActorToFactory(2117726070, EnemyMetis, "Metis_790");
 				break;
-			case 24310:
+			case 24300:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724310);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724300);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726110, EnemyMetis, "Metis_885");
+				orderActorToFactory(2117726100, EnemyMetis, "Metis_791");
 				break;
-			case 24340:
+			case 24330:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724340);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724330);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726140, EnemyMetis, "Metis_886");
+				orderActorToFactory(2117726130, EnemyMetis, "Metis_792");
 				break;
-			case 24370:
+			case 24360:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724370);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724360);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726170, EnemyMetis, "Metis_887");
+				orderActorToFactory(2117726160, EnemyMetis, "Metis_793");
 				break;
-			case 24400:
+			case 24390:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724400);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724390);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726200, EnemyMetis, "Metis_888");
+				orderActorToFactory(2117726190, EnemyMetis, "Metis_794");
 				break;
-			case 24430:
+			case 24420:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724430);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724420);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726230, EnemyMetis, "Metis_889");
+				orderActorToFactory(2117726220, EnemyMetis, "Metis_795");
 				break;
-			case 24460:
+			case 24450:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724460);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724450);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726260, EnemyMetis, "Metis_890");
+				orderActorToFactory(2117726250, EnemyMetis, "Metis_796");
 				break;
-			case 24490:
+			case 24480:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724490);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724480);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726290, EnemyMetis, "Metis_891");
+				orderActorToFactory(2117726280, EnemyMetis, "Metis_797");
 				break;
-			case 24520:
+			case 24510:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724520);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724510);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726320, EnemyMetis, "Metis_892");
+				orderActorToFactory(2117726310, EnemyMetis, "Metis_798");
 				break;
-			case 24550:
+			case 24540:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724550);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724540);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726350, EnemyMetis, "Metis_893");
+				orderActorToFactory(2117726340, EnemyMetis, "Metis_799");
 				break;
-			case 24580:
+			case 24570:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724580);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724570);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726380, EnemyMetis, "Metis_894");
+				orderActorToFactory(2117726370, EnemyMetis, "Metis_800");
 				break;
-			case 24610:
+			case 24600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724610);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726410, EnemyMetis, "Metis_895");
+				orderActorToFactory(2117726400, EnemyMetis, "Metis_801");
 				break;
-			case 24640:
+			case 24630:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724640);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724630);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726440, EnemyMetis, "Metis_896");
+				orderActorToFactory(2117726430, EnemyMetis, "Metis_802");
 				break;
-			case 24670:
+			case 24660:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724670);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724660);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726470, EnemyMetis, "Metis_897");
+				orderActorToFactory(2117726460, EnemyMetis, "Metis_803");
 				break;
-			case 24700:
+			case 24690:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724700);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724690);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726500, EnemyMetis, "Metis_898");
+				orderActorToFactory(2117726490, EnemyMetis, "Metis_804");
 				break;
-			case 24730:
+			case 24720:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724730);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724720);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726530, EnemyMetis, "Metis_899");
+				orderActorToFactory(2117726520, EnemyMetis, "Metis_805");
 				break;
-			case 24760:
+			case 24750:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724760);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724750);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726560, EnemyMetis, "Metis_900");
+				orderActorToFactory(2117726550, EnemyMetis, "Metis_806");
 				break;
-			case 24790:
+			case 24780:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724790);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724780);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726590, EnemyMetis, "Metis_901");
+				orderActorToFactory(2117726580, EnemyMetis, "Metis_807");
 				break;
-			case 24820:
+			case 24810:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724820);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724810);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726620, EnemyMetis, "Metis_902");
+				orderActorToFactory(2117726610, EnemyMetis, "Metis_808");
 				break;
-			case 24850:
+			case 24840:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724850);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724840);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726650, EnemyMetis, "Metis_903");
+				orderActorToFactory(2117726640, EnemyMetis, "Metis_809");
 				break;
-			case 24880:
+			case 24870:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724880);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724870);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726680, EnemyMetis, "Metis_904");
+				orderActorToFactory(2117726670, EnemyMetis, "Metis_810");
 				break;
-			case 24910:
+			case 24900:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724910);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724900);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726710, EnemyMetis, "Metis_905");
+				orderActorToFactory(2117726700, EnemyMetis, "Metis_811");
 				break;
-			case 24940:
+			case 24930:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724940);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724930);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726740, EnemyMetis, "Metis_906");
+				orderActorToFactory(2117726730, EnemyMetis, "Metis_812");
 				break;
-			case 24970:
+			case 24960:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724970);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724960);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726770, EnemyMetis, "Metis_907");
+				orderActorToFactory(2117726760, EnemyMetis, "Metis_813");
 				break;
-			case 25000:
+			case 24990:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725000);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117724990);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726800, EnemyMetis, "Metis_908");
+				orderActorToFactory(2117726790, EnemyMetis, "Metis_814");
 				break;
-			case 25030:
+			case 25020:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725030);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725020);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726830, EnemyMetis, "Metis_909");
+				orderActorToFactory(2117726820, EnemyMetis, "Metis_815");
 				break;
-			case 25060:
+			case 25050:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725060);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725050);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726860, EnemyMetis, "Metis_910");
+				orderActorToFactory(2117726850, EnemyMetis, "Metis_816");
 				break;
-			case 25090:
+			case 25080:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725090);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725080);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726890, EnemyMetis, "Metis_911");
+				orderActorToFactory(2117726880, EnemyMetis, "Metis_817");
 				break;
-			case 25120:
+			case 25110:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725120);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725110);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726920, EnemyMetis, "Metis_912");
+				orderActorToFactory(2117726910, EnemyMetis, "Metis_818");
 				break;
-			case 25150:
+			case 25140:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725150);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725140);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726950, EnemyMetis, "Metis_913");
+				orderActorToFactory(2117726940, EnemyMetis, "Metis_819");
 				break;
-			case 25180:
+			case 25170:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725180);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725170);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117726980, EnemyMetis, "Metis_914");
+				orderActorToFactory(2117726970, EnemyMetis, "Metis_820");
 				break;
-			case 25210:
+			case 25200:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725210);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725200);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727010, EnemyMetis, "Metis_915");
+				orderActorToFactory(2117727000, EnemyMetis, "Metis_821");
 				break;
-			case 25240:
+			case 25230:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725240);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725230);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727040, EnemyMetis, "Metis_916");
+				orderActorToFactory(2117727030, EnemyMetis, "Metis_822");
 				break;
-			case 25270:
+			case 25260:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725270);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725260);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727070, EnemyMetis, "Metis_917");
+				orderActorToFactory(2117727060, EnemyMetis, "Metis_823");
 				break;
-			case 25300:
+			case 25290:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725300);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725290);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727100, EnemyMetis, "Metis_918");
+				orderActorToFactory(2117727090, EnemyMetis, "Metis_824");
 				break;
-			case 25330:
+			case 25320:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725330);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725320);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727130, EnemyMetis, "Metis_919");
+				orderActorToFactory(2117727120, EnemyMetis, "Metis_825");
 				break;
-			case 25360:
+			case 25350:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725360);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725350);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727160, EnemyMetis, "Metis_920");
+				orderActorToFactory(2117727150, EnemyMetis, "Metis_826");
 				break;
-			case 25390:
+			case 25380:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725390);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725380);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727190, EnemyMetis, "Metis_921");
+				orderActorToFactory(2117727180, EnemyMetis, "Metis_827");
 				break;
-			case 25420:
+			case 25410:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725420);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725410);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727220, EnemyMetis, "Metis_922");
+				orderActorToFactory(2117727210, EnemyMetis, "Metis_828");
 				break;
-			case 25450:
+			case 25440:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725450);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725440);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727250, EnemyMetis, "Metis_923");
+				orderActorToFactory(2117727240, EnemyMetis, "Metis_829");
 				break;
-			case 25480:
+			case 25470:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725480);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725470);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727280, EnemyMetis, "Metis_924");
+				orderActorToFactory(2117727270, EnemyMetis, "Metis_830");
 				break;
-			case 25510:
+			case 25500:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725510);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725500);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727310, EnemyMetis, "Metis_925");
+				orderActorToFactory(2117727300, EnemyMetis, "Metis_831");
 				break;
-			case 25540:
+			case 25530:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725540);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725530);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727340, EnemyMetis, "Metis_926");
+				orderActorToFactory(2117727330, EnemyMetis, "Metis_832");
 				break;
-			case 25570:
+			case 25560:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725570);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725560);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727370, EnemyMetis, "Metis_927");
+				orderActorToFactory(2117727360, EnemyMetis, "Metis_833");
 				break;
-			case 25600:
+			case 25590:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725600);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725590);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727400, EnemyMetis, "Metis_928");
+				orderActorToFactory(2117727390, EnemyMetis, "Metis_834");
 				break;
-			case 25630:
+			case 25620:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725630);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725620);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727430, EnemyMetis, "Metis_929");
+				orderActorToFactory(2117727420, EnemyMetis, "Metis_835");
 				break;
-			case 25660:
+			case 25650:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725660);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725650);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727460, EnemyMetis, "Metis_930");
+				orderActorToFactory(2117727450, EnemyMetis, "Metis_836");
 				break;
-			case 25690:
+			case 25680:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725690);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725680);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727490, EnemyMetis, "Metis_931");
+				orderActorToFactory(2117727480, EnemyMetis, "Metis_837");
 				break;
-			case 25720:
+			case 25710:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725720);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725710);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727520, EnemyMetis, "Metis_932");
+				orderActorToFactory(2117727510, EnemyMetis, "Metis_838");
 				break;
-			case 25750:
+			case 25740:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725750);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725740);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727550, EnemyMetis, "Metis_933");
+				orderActorToFactory(2117727540, EnemyMetis, "Metis_839");
 				break;
-			case 25780:
+			case 25770:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725780);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725770);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727580, EnemyMetis, "Metis_934");
+				orderActorToFactory(2117727570, EnemyMetis, "Metis_840");
 				break;
-			case 25810:
+			case 25800:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725810);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725800);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727610, EnemyMetis, "Metis_935");
+				orderActorToFactory(2117727600, EnemyMetis, "Metis_841");
 				break;
-			case 25840:
+			case 25830:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725840);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725830);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727640, EnemyMetis, "Metis_936");
+				orderActorToFactory(2117727630, EnemyMetis, "Metis_842");
 				break;
-			case 25870:
+			case 25860:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725870);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725860);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727670, EnemyMetis, "Metis_937");
+				orderActorToFactory(2117727660, EnemyMetis, "Metis_843");
 				break;
-			case 25900:
+			case 25890:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725900);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725890);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727700, EnemyMetis, "Metis_938");
+				orderActorToFactory(2117727690, EnemyMetis, "Metis_844");
 				break;
-			case 25930:
+			case 25920:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725930);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725920);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727730, EnemyMetis, "Metis_939");
+				orderActorToFactory(2117727720, EnemyMetis, "Metis_845");
 				break;
-			case 25960:
+			case 25950:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725960);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725950);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727760, EnemyMetis, "Metis_940");
+				orderActorToFactory(2117727750, EnemyMetis, "Metis_846");
 				break;
-			case 25990:
+			case 25980:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725990);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117725980);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727790, EnemyMetis, "Metis_941");
+				orderActorToFactory(2117727780, EnemyMetis, "Metis_847");
 				break;
-			case 26020:
+			case 26010:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726020);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726010);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727820, EnemyMetis, "Metis_942");
+				orderActorToFactory(2117727810, EnemyMetis, "Metis_848");
 				break;
-			case 26050:
+			case 26040:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726050);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726040);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727850, EnemyMetis, "Metis_943");
+				orderActorToFactory(2117727840, EnemyMetis, "Metis_849");
 				break;
-			case 26080:
+			case 26070:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726080);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726070);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727880, EnemyMetis, "Metis_944");
+				orderActorToFactory(2117727870, EnemyMetis, "Metis_850");
 				break;
-			case 26110:
+			case 26100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726110);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726100);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727910, EnemyMetis, "Metis_945");
+				orderActorToFactory(2117727900, EnemyMetis, "Metis_851");
 				break;
-			case 26140:
+			case 26130:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726140);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726130);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727940, EnemyMetis, "Metis_946");
+				orderActorToFactory(2117727930, EnemyMetis, "Metis_852");
 				break;
-			case 26170:
+			case 26160:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726170);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726160);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117727970, EnemyMetis, "Metis_947");
+				orderActorToFactory(2117727960, EnemyMetis, "Metis_853");
 				break;
-			case 26200:
+			case 26190:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726200);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726190);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728000, EnemyMetis, "Metis_948");
+				orderActorToFactory(2117727990, EnemyMetis, "Metis_854");
 				break;
-			case 26230:
+			case 26220:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726230);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726220);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728030, EnemyMetis, "Metis_949");
+				orderActorToFactory(2117728020, EnemyMetis, "Metis_855");
 				break;
-			case 26260:
+			case 26250:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726260);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726250);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728060, EnemyMetis, "Metis_950");
+				orderActorToFactory(2117728050, EnemyMetis, "Metis_856");
 				break;
-			case 26290:
+			case 26280:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726290);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726280);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728090, EnemyMetis, "Metis_951");
+				orderActorToFactory(2117728080, EnemyMetis, "Metis_857");
 				break;
-			case 26320:
+			case 26310:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726320);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726310);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728120, EnemyMetis, "Metis_952");
+				orderActorToFactory(2117728110, EnemyMetis, "Metis_858");
 				break;
-			case 26350:
+			case 26340:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726350);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726340);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728150, EnemyMetis, "Metis_953");
+				orderActorToFactory(2117728140, EnemyMetis, "Metis_859");
 				break;
-			case 26380:
+			case 26370:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726380);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726370);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728180, EnemyMetis, "Metis_954");
+				orderActorToFactory(2117728170, EnemyMetis, "Metis_860");
 				break;
-			case 26410:
+			case 26400:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726410);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726400);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728210, EnemyMetis, "Metis_955");
+				orderActorToFactory(2117728200, EnemyMetis, "Metis_861");
 				break;
-			case 26440:
+			case 26430:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726440);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726430);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728240, EnemyMetis, "Metis_956");
+				orderActorToFactory(2117728230, EnemyMetis, "Metis_862");
 				break;
-			case 26470:
+			case 26460:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726470);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726460);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728270, EnemyMetis, "Metis_957");
+				orderActorToFactory(2117728260, EnemyMetis, "Metis_863");
 				break;
-			case 26500:
+			case 26490:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726500);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726490);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728300, EnemyMetis, "Metis_958");
+				orderActorToFactory(2117728290, EnemyMetis, "Metis_864");
 				break;
-			case 26530:
+			case 26520:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726530);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726520);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728330, EnemyMetis, "Metis_959");
+				orderActorToFactory(2117728320, EnemyMetis, "Metis_865");
 				break;
-			case 26560:
+			case 26550:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726560);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726550);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728360, EnemyMetis, "Metis_960");
+				orderActorToFactory(2117728350, EnemyMetis, "Metis_866");
 				break;
-			case 26590:
+			case 26580:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726590);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726580);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728390, EnemyMetis, "Metis_961");
+				orderActorToFactory(2117728380, EnemyMetis, "Metis_867");
 				break;
-			case 26620:
+			case 26610:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726620);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726610);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728420, EnemyMetis, "Metis_962");
+				orderActorToFactory(2117728410, EnemyMetis, "Metis_868");
 				break;
-			case 26650:
+			case 26640:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726650);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726640);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728450, EnemyMetis, "Metis_963");
+				orderActorToFactory(2117728440, EnemyMetis, "Metis_869");
 				break;
-			case 26680:
+			case 26670:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726680);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726670);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728480, EnemyMetis, "Metis_964");
+				orderActorToFactory(2117728470, EnemyMetis, "Metis_870");
 				break;
-			case 26710:
+			case 26700:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726710);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726700);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728510, EnemyMetis, "Metis_965");
+				orderActorToFactory(2117728500, EnemyMetis, "Metis_871");
 				break;
-			case 26740:
+			case 26730:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726740);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726730);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728540, EnemyMetis, "Metis_966");
+				orderActorToFactory(2117728530, EnemyMetis, "Metis_872");
 				break;
-			case 26770:
+			case 26760:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726770);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726760);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728570, EnemyMetis, "Metis_967");
+				orderActorToFactory(2117728560, EnemyMetis, "Metis_873");
 				break;
-			case 26800:
+			case 26790:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726800);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726790);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728600, EnemyMetis, "Metis_968");
+				orderActorToFactory(2117728590, EnemyMetis, "Metis_874");
 				break;
-			case 26830:
+			case 26820:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726830);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726820);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728630, EnemyMetis, "Metis_969");
+				orderActorToFactory(2117728620, EnemyMetis, "Metis_875");
 				break;
-			case 26860:
+			case 26850:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726860);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726850);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728660, EnemyMetis, "Metis_970");
+				orderActorToFactory(2117728650, EnemyMetis, "Metis_876");
 				break;
-			case 26890:
+			case 26880:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726890);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726880);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728690, EnemyMetis, "Metis_971");
+				orderActorToFactory(2117728680, EnemyMetis, "Metis_877");
 				break;
-			case 26920:
+			case 26910:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726920);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726910);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728720, EnemyMetis, "Metis_972");
+				orderActorToFactory(2117728710, EnemyMetis, "Metis_878");
 				break;
-			case 26950:
+			case 26940:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726950);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726940);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728750, EnemyMetis, "Metis_973");
+				orderActorToFactory(2117728740, EnemyMetis, "Metis_879");
 				break;
-			case 26980:
+			case 26970:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726980);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117726970);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728780, EnemyMetis, "Metis_974");
+				orderActorToFactory(2117728770, EnemyMetis, "Metis_880");
 				break;
-			case 27010:
+			case 27000:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727010);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727000);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728810, EnemyMetis, "Metis_975");
+				orderActorToFactory(2117728800, EnemyMetis, "Metis_881");
 				break;
-			case 27040:
+			case 27030:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727040);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727030);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728840, EnemyMetis, "Metis_976");
+				orderActorToFactory(2117728830, EnemyMetis, "Metis_882");
 				break;
-			case 27070:
+			case 27060:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727070);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727060);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728870, EnemyMetis, "Metis_977");
+				orderActorToFactory(2117728860, EnemyMetis, "Metis_883");
 				break;
-			case 27100:
+			case 27090:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727100);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727090);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728900, EnemyMetis, "Metis_978");
+				orderActorToFactory(2117728890, EnemyMetis, "Metis_884");
 				break;
-			case 27130:
+			case 27120:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727130);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727120);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728930, EnemyMetis, "Metis_979");
+				orderActorToFactory(2117728920, EnemyMetis, "Metis_885");
 				break;
-			case 27160:
+			case 27150:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727160);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727150);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728960, EnemyMetis, "Metis_980");
+				orderActorToFactory(2117728950, EnemyMetis, "Metis_886");
 				break;
-			case 27190:
+			case 27180:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727190);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727180);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117728990, EnemyMetis, "Metis_981");
+				orderActorToFactory(2117728980, EnemyMetis, "Metis_887");
 				break;
-			case 27220:
+			case 27210:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727220);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727210);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729020, EnemyMetis, "Metis_982");
+				orderActorToFactory(2117729010, EnemyMetis, "Metis_888");
 				break;
-			case 27250:
+			case 27240:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727250);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727240);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729050, EnemyMetis, "Metis_983");
+				orderActorToFactory(2117729040, EnemyMetis, "Metis_889");
 				break;
-			case 27280:
+			case 27270:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727280);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727270);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729080, EnemyMetis, "Metis_984");
+				orderActorToFactory(2117729070, EnemyMetis, "Metis_890");
 				break;
-			case 27310:
+			case 27300:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727310);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727300);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729110, EnemyMetis, "Metis_985");
+				orderActorToFactory(2117729100, EnemyMetis, "Metis_891");
 				break;
-			case 27340:
+			case 27330:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727340);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727330);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729140, EnemyMetis, "Metis_986");
+				orderActorToFactory(2117729130, EnemyMetis, "Metis_892");
 				break;
-			case 27370:
+			case 27360:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727370);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727360);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729170, EnemyMetis, "Metis_987");
+				orderActorToFactory(2117729160, EnemyMetis, "Metis_893");
 				break;
-			case 27400:
+			case 27390:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727400);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727390);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729200, EnemyMetis, "Metis_988");
+				orderActorToFactory(2117729190, EnemyMetis, "Metis_894");
 				break;
-			case 27430:
+			case 27420:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727430);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727420);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729230, EnemyMetis, "Metis_989");
+				orderActorToFactory(2117729220, EnemyMetis, "Metis_895");
 				break;
-			case 27460:
+			case 27450:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727460);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727450);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729260, EnemyMetis, "Metis_990");
+				orderActorToFactory(2117729250, EnemyMetis, "Metis_896");
 				break;
-			case 27490:
+			case 27480:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727490);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727480);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729290, EnemyMetis, "Metis_991");
+				orderActorToFactory(2117729280, EnemyMetis, "Metis_897");
 				break;
-			case 27520:
+			case 27510:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727520);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727510);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729320, EnemyMetis, "Metis_992");
+				orderActorToFactory(2117729310, EnemyMetis, "Metis_898");
 				break;
-			case 27550:
+			case 27540:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727550);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727540);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729350, EnemyMetis, "Metis_993");
+				orderActorToFactory(2117729340, EnemyMetis, "Metis_899");
 				break;
-			case 27580:
+			case 27570:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727580);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727570);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729380, EnemyMetis, "Metis_994");
+				orderActorToFactory(2117729370, EnemyMetis, "Metis_900");
 				break;
-			case 27610:
+			case 27600:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727610);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727600);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729410, EnemyMetis, "Metis_995");
+				orderActorToFactory(2117729400, EnemyMetis, "Metis_901");
 				break;
-			case 27640:
+			case 27630:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727640);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727630);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729440, EnemyMetis, "Metis_996");
+				orderActorToFactory(2117729430, EnemyMetis, "Metis_902");
 				break;
-			case 27670:
+			case 27660:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727670);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727660);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729470, EnemyMetis, "Metis_997");
+				orderActorToFactory(2117729460, EnemyMetis, "Metis_903");
 				break;
-			case 27700:
+			case 27690:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727700);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727690);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729500, EnemyMetis, "Metis_998");
+				orderActorToFactory(2117729490, EnemyMetis, "Metis_904");
 				break;
-			case 27730:
+			case 27720:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727730);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727720);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729530, EnemyMetis, "Metis_999");
+				orderActorToFactory(2117729520, EnemyMetis, "Metis_905");
 				break;
-			case 27760:
+			case 27750:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727760);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727750);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729560, EnemyMetis, "Metis_1000");
+				orderActorToFactory(2117729550, EnemyMetis, "Metis_906");
 				break;
-			case 27790:
+			case 27780:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727790);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727780);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729590, EnemyMetis, "Metis_1001");
+				orderActorToFactory(2117729580, EnemyMetis, "Metis_907");
 				break;
-			case 27820:
+			case 27810:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727820);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727810);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729620, EnemyMetis, "Metis_1002");
+				orderActorToFactory(2117729610, EnemyMetis, "Metis_908");
 				break;
-			case 27850:
+			case 27840:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727850);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727840);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729650, EnemyMetis, "Metis_1003");
+				orderActorToFactory(2117729640, EnemyMetis, "Metis_909");
 				break;
-			case 27880:
+			case 27870:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727880);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727870);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729680, EnemyMetis, "Metis_1004");
+				orderActorToFactory(2117729670, EnemyMetis, "Metis_910");
 				break;
-			case 27910:
+			case 27900:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727910);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727900);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729710, EnemyMetis, "Metis_1005");
+				orderActorToFactory(2117729700, EnemyMetis, "Metis_911");
 				break;
-			case 27940:
+			case 27930:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727940);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727930);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729740, EnemyMetis, "Metis_1006");
+				orderActorToFactory(2117729730, EnemyMetis, "Metis_912");
 				break;
-			case 27970:
+			case 27960:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727970);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727960);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729770, EnemyMetis, "Metis_1007");
+				orderActorToFactory(2117729760, EnemyMetis, "Metis_913");
 				break;
-			case 28000:
+			case 27990:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728000);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117727990);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729800, EnemyMetis, "Metis_1008");
+				orderActorToFactory(2117729790, EnemyMetis, "Metis_914");
 				break;
-			case 28030:
+			case 28020:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728030);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728020);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729830, EnemyMetis, "Metis_1009");
+				orderActorToFactory(2117729820, EnemyMetis, "Metis_915");
 				break;
-			case 28060:
+			case 28050:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728060);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728050);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729860, EnemyMetis, "Metis_1010");
+				orderActorToFactory(2117729850, EnemyMetis, "Metis_916");
 				break;
-			case 28090:
+			case 28080:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728090);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728080);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729890, EnemyMetis, "Metis_1011");
+				orderActorToFactory(2117729880, EnemyMetis, "Metis_917");
 				break;
-			case 28120:
+			case 28110:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728120);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728110);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729920, EnemyMetis, "Metis_1012");
+				orderActorToFactory(2117729910, EnemyMetis, "Metis_918");
 				break;
-			case 28150:
+			case 28140:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728150);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728140);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729950, EnemyMetis, "Metis_1013");
+				orderActorToFactory(2117729940, EnemyMetis, "Metis_919");
 				break;
-			case 28180:
+			case 28170:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728180);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728170);
 				getLordActor()->addSubGroup(pActor);
 				}
-				orderActorToFactory(2117729980, EnemyMetis, "Metis_1014");
+				orderActorToFactory(2117729970, EnemyMetis, "Metis_920");
 				break;
-			case 28210:
+			case 28200:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728210);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728200);
 				getLordActor()->addSubGroup(pActor);
 				}
+				orderActorToFactory(2117730000, EnemyMetis, "Metis_921");
 				break;
-			case 28240:
+			case 28230:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728240);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728230);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28270:
+			case 28260:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728270);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728260);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28300:
+			case 28290:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728300);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728290);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28330:
+			case 28320:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728330);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728320);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28360:
+			case 28350:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728360);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728350);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28390:
+			case 28380:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728390);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728380);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28420:
+			case 28410:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728420);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728410);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28450:
+			case 28440:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728450);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728440);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28480:
+			case 28470:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728480);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728470);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28510:
+			case 28500:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728510);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728500);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28540:
+			case 28530:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728540);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728530);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28570:
+			case 28560:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728570);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728560);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28600:
+			case 28590:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728600);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728590);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28630:
+			case 28620:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728630);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728620);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28660:
+			case 28650:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728660);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728650);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28690:
+			case 28680:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728690);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728680);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28720:
+			case 28710:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728720);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728710);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28750:
+			case 28740:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728750);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728740);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28780:
+			case 28770:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728780);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728770);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28810:
+			case 28800:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728810);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728800);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28840:
+			case 28830:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728840);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728830);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28870:
+			case 28860:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728870);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728860);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28900:
+			case 28890:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728900);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728890);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28930:
+			case 28920:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728930);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728920);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28960:
+			case 28950:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728960);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728950);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 28990:
+			case 28980:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728990);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117728980);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29020:
+			case 29010:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729020);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729010);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29050:
+			case 29040:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729050);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729040);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29080:
+			case 29070:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729080);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729070);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29110:
+			case 29100:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729110);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729100);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29140:
+			case 29130:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729140);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729130);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29170:
+			case 29160:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729170);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729160);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29200:
+			case 29190:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729200);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729190);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29230:
+			case 29220:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729230);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729220);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29260:
+			case 29250:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729260);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729250);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29290:
+			case 29280:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729290);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729280);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29320:
+			case 29310:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729320);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729310);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29350:
+			case 29340:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729350);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729340);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29380:
+			case 29370:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729380);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729370);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29410:
+			case 29400:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729410);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729400);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29440:
+			case 29430:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729440);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729430);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29470:
+			case 29460:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729470);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729460);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29500:
+			case 29490:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729500);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729490);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29530:
+			case 29520:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729530);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729520);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29560:
+			case 29550:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729560);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729550);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29590:
+			case 29580:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729590);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729580);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29620:
+			case 29610:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729620);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729610);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29650:
+			case 29640:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729650);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729640);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29680:
+			case 29670:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729680);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729670);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29710:
+			case 29700:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729710);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729700);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29740:
+			case 29730:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729740);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729730);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29770:
+			case 29760:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729770);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729760);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29800:
+			case 29790:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729800);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729790);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29830:
+			case 29820:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729830);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729820);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29860:
+			case 29850:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729860);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729850);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29890:
+			case 29880:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729890);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729880);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29920:
+			case 29910:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729920);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729910);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29950:
+			case 29940:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729950);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729940);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
-			case 29980:
+			case 29970:
 				{
-				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729980);
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117729970);
 				getLordActor()->addSubGroup(pActor);
 				}
 				break;
 			case 30000:
+				{
+				EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117730000);
+				getLordActor()->addSubGroup(pActor);
+				}
 				throwUpEvent(STG01_01_WAS_BROKEN,this);
 				break;
 			default :
 				break;
 		}
-		_iCnt_Event = (_iCnt_Event < 1002-1 ? _iCnt_Event+1 : _iCnt_Event);
+		_iCnt_Event = (_iCnt_Event < 987-1 ? _iCnt_Event+1 : _iCnt_Event);
 	}
     // gen02 end
 

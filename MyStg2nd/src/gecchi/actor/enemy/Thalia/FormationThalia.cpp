@@ -9,7 +9,7 @@ FormationThalia::FormationThalia(const char* prm_name) : GgafDx9FormationActor(p
     _class_name = "FormationThalia";
     _num_Thalia       = 7*_RANK_;    //•Ò‘à”
     _frame_interval = 25/_RANK_+5;   //ŠÔŠu(frame)
-    _mv_velo  = 8000*_RANK_;         //‰Šú‘¬“x
+    _mv_velo  = 300000*_RANK_;         //‰Šú‘¬“x
     //•Ò‘àì¬
     _papThalia = NEW EnemyThalia*[_num_Thalia];
     for (int i = 0; i < _num_Thalia; i++) {
@@ -28,7 +28,8 @@ void FormationThalia::initialize() {
 
 void FormationThalia::onActive() {
     for (int i = 0; i < _num_Thalia; i++) {
-        _papThalia[i]->setGeometry(MyShip::_lim_behaind - 500000, 0, MyShip::_lim_zleft * 0.8);
+        _papThalia[i]->setGeometry(MyShip::_lim_behaind - 500000, 300000, -2000000 + (i * 500000));
+        _papThalia[i]->_pMover->setRzRyMvAng(0,0);
         _papThalia[i]->_pMover->setMvVelo(_mv_velo);
         _papThalia[i]->activateDelay(i*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
     }

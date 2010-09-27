@@ -5,34 +5,52 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name, "Thalia") {
+EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name, "1/Thalia") {
     _class_name = "EnemyThalia";
     MyStgUtil::resetEnemyThaliaStatus(_pStatus);
     _iMovePatternNo = 0;
     _pSplineProgram = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
-    _pSeTransmitter->useSe(1);
+
+    _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
+    EnemyStraightLaserChip001* pChip;
+    for (int i = 0; i < 100; i++) { //レーザーストック
+        stringstream name;
+        name <<  "EnemyStraightLaserChip001" << i;
+        string name2 = name.str();
+        pChip = NEW EnemyStraightLaserChip001(name2.c_str());
+        pChip->setSource(this); //位置向き同期
+        pChip->inactivateImmediately();
+        _pLaserChipDispatcher->addSubLast(pChip);
+    }
+    addSubGroup(_pLaserChipDispatcher);
+
+    _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    _pSeTransmitter->set(1, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));     //爆発
 }
 
 void EnemyThalia::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.5, 2.0);
-    _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
-    _pGgafDx9Model->_pTextureBlinker->beat(60, 3, 1, -1);
+//    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.5, 2.0);
+//    _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
+//    _pGgafDx9Model->_pTextureBlinker->beat(60, 3, 1, -1);
 }
 
 void EnemyThalia::initialize() {
     setHitAble(true);
     _pMover->relateRzRyFaceAngToMvAng(true);
-    _pMover->setFaceAngVelo(AXIS_X, 5000);
+    _pMover->setFaceAngVelo(AXIS_X, 1000);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    _pCollisionChecker->setColliSphere(0, 10000);
+    _pMorpher->setWeight(0, 1.0);
+    _pMorpher->setWeight(1, 0.0);
 }
 
 void EnemyThalia::onActive() {
     MyStgUtil::resetEnemyThaliaStatus(_pStatus);
-
+    _pMover->setMvAcce(pMYSHIP->_X-_X, 180);
+    _TRACE_("_pMover->_accMv="<<_pMover->_accMv);
     _iMovePatternNo = 0; //行動パターンリセット
 }
 
@@ -40,80 +58,46 @@ void EnemyThalia::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    switch (_iMovePatternNo) {
-        case 0:  //【パターン０：スプライン移動開始】
-            if (_pSplineProgram) {
-                _pSplineProgram->begin(0); //スプライン移動を開始
-            }
-            _iMovePatternNo++; //次の行動パターンへ
-            break;
-
-        case 1:  //【パターン１：スプライン移動終了待ち】
-            if (_pSplineProgram) {
-                //スプライン移動有り
-                if (!(_pSplineProgram->isExecuting())) {
-                    _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
-                }
-            } else {
-                //スプライン移動無し
-                _iMovePatternNo++; //すぐに次の行動パターンへ
-            }
-            break;
-
-        case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
-            if (_pDispatcher_Shot) {
-                //放射状ショット
-                int way = 5+5*_RANK_; //ショットWAY数
-                angle* paAngWay = new angle[way];
-                GgafDx9Util::getRadialAngle2D(0, way, paAngWay);
-                GgafDx9DrawableActor* pActor_Shot;
-                for (int i = 0; i < way; i++) {
-                    pActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
-                    if (pActor_Shot) {
-                        pActor_Shot->setGeometry(this);
-                        pActor_Shot->_pMover->setRzRyMvAng(paAngWay[i], ANGLE90);
-                        pActor_Shot->activate();
-                    }
-                }
-                DELETEARR_IMPOSSIBLE_NULL(paAngWay);
-                //ショット発射エフェクト
-                if (_pDispatcher_ShotEffect) {
-                    GgafDx9DrawableActor* pActor_Effect = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
-                    if (pActor_Effect) {
-                        pActor_Effect->setGeometry(this);
-                        pActor_Effect->activate();
-                    }
-                }
-            }
-            //自機へ方向転換
+    if (_iMovePatternNo == 0) {
+        if (getActivePartFrame() == 180) {
+            _pMover->setMvAcce(0);
+            _pMover->setMvVelo(0);
+            _pMorpher->intoTargetLinerUntil(1, 1.0, 120);
             _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
-                                                3000, 0,
+                                                1000, 0,
                                                 TURN_CLOSE_TO);
-            _iMovePatternNo++; //次の行動パターンへ
-            break;
+            _pMover->setFaceAngVelo(AXIS_X, 5000);
+            _iMovePatternNo++;
+        }
 
-        case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
-            if (_Z-10000 < pMYSHIP->_Z && pMYSHIP->_Z < _Z+10000) {
-                //自機とZ軸が接近したらグルッと逆回転で方向転換
-                _pMover->execTagettingMvAngSequence(MyShip::_lim_behaind - 500000 , _Y, _Z,
-                                                   10000, 0,
-                                                   TURN_CLOSE_TO);
-                _pMover->setMvAcce(100);
-                _iMovePatternNo++;
-            } else {
-                //自機とZ軸が接近するまで待つ
-            }
-            break;
-        default:
-            break;
     }
 
+    if (_iMovePatternNo == 1) {
+        if (getActivePartFrame() == 220) {
+            _iMovePatternNo++;
+        }
+    }
 
-    if (_pSplineProgram) {
-        _pSplineProgram->behave(); //スプライン移動を振る舞い
+    if (_iMovePatternNo == 2) {
+        EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)_pLaserChipDispatcher->employ();
+        if (pLaser != NULL) {
+            pLaser->activate();
+            if (pLaser->_pChip_front == NULL) {
+                _pSeTransmitter->play3D(1);
+            }
+        } else {
+            _iMovePatternNo++;
+        }
+    }
+
+    if (_iMovePatternNo == 3) {
+        _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
+        _pMover->setMvAcce(200);
+        _pMover->setFaceAngVelo(AXIS_X, 1000);
     }
     _pMover->behave();
-    //_pSeTransmitter->behave();
+    _pMorpher->behave();
+    _pSeTransmitter->behave();
 }
 
 void EnemyThalia::processJudgement() {

@@ -20,6 +20,7 @@ public:
     /** 行動パターン番号 */
     int _iMovePatternNo;
 
+    GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
     /**
      * コンストラクタ
      * @param prm_name

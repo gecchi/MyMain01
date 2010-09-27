@@ -66,7 +66,6 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
     MyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
-        Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  "MyStraightLaserChip001_" << i;
         string name2 = name.str();
