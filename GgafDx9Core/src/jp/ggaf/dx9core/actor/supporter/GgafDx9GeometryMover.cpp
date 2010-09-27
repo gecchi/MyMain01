@@ -653,6 +653,14 @@ void GgafDx9GeometryMover::setMvAcce(int prm_acceMove) {
     _accMv = prm_acceMove;
 }
 
+void GgafDx9GeometryMover::setMvAcce(int prm_distance, frame prm_time) {
+    //    s = v0 t + (1/2) a t^2   v0:‰‘¬“x  s:‹——£
+    //                              t:ŽžŠÔ    a:‰Á‘¬“x
+    //‚æ‚è
+    //    2(s - v0 t) / t^2 = a
+    _accMv = 2.0*(prm_distance - _veloMv*prm_time) / (1.0*prm_time*prm_time);
+}
+
 void GgafDx9GeometryMover::setRzMvAng(int prm_tX, int prm_tY) {
     setRzMvAng(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
 }

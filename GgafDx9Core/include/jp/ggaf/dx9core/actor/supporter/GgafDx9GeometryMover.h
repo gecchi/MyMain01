@@ -252,17 +252,38 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     acce _acceBottomVzMv;
 
     /**
-     * ActorのZ軸移動スピードを設定<BR>
-     * @param	prm_veloMv	Z軸移動スピード
+     * 移動速度を設定 .
+     * @param	prm_veloMv	移動速度
      */
     void setMvVelo(velo prm_veloMv);
 
+    /**
+     * 移動速度を加算 .
+     * @param prm_veloMv_Offset 加算移動速度
+     */
     void addMvVelo(velo prm_veloMv_Offset);
 
+    /**
+     * 移動速度の上限下限を設定し、移動速度の範囲を制限する .
+     * 引数の移動速度１、移動速度２の大小はどちらでもかまわない。（内部で判定する）
+     * @param prm_veloMv01  移動速度１
+     * @param prm_veloMv02  移動速度２
+     */
     void forceMvVeloRange(velo prm_veloMv01, velo prm_veloMv02);
 
+    /**
+     * 移動加速度を設定 .
+     * @param prm_acceMove 移動加速度
+     */
     void setMvAcce(acce prm_acceMove);
 
+    /**
+     * 移動加速度を距離と時間により設定 .
+     * 初速度 v0 は 現在の移動速度が使用される。
+     * @param prm_distance 目標地点までの距離
+     * @param prm_time     到達に費やす時間（費やすフレーム数）
+     */
+    void setMvAcce(int prm_distance, frame prm_time);
 
     /**
      * Actorの移動方角（Z軸回転）を設定。<BR>
