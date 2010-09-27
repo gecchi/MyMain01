@@ -658,7 +658,11 @@ void GgafDx9GeometryMover::setMvAcce(int prm_distance, frame prm_time) {
     //                              t:ŽžŠÔ    a:‰Á‘¬“x
     //‚æ‚è
     //    2(s - v0 t) / t^2 = a
-    _accMv = 2.0*(prm_distance - _veloMv*prm_time) / (1.0*prm_time*prm_time);
+    http://hittobe.exblog.jp/3292476/
+    miyo
+
+    int iTime = (int)prm_time;
+    _accMv = ((2.0*(prm_distance - _veloMv*iTime)) / (1.0*iTime*iTime));
 }
 
 void GgafDx9GeometryMover::setRzMvAng(int prm_tX, int prm_tY) {
