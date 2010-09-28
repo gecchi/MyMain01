@@ -14,6 +14,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
     _pDispatcher_ShotEffect = NULL;
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
+    _pLaserChipDispatcher->config(100, 0, NULL);
     EnemyStraightLaserChip001* pChip;
     for (int i = 0; i < 100; i++) { //レーザーストック
         stringstream name;
@@ -29,6 +30,8 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     _pSeTransmitter->set(1, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));     //爆発
+    _veloTopMv = 10000;
+
 }
 
 void EnemyThalia::onCreateModel() {
@@ -41,8 +44,8 @@ void EnemyThalia::initialize() {
     setHitAble(true);
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliSphere(0, 10000);
-
+    _pCollisionChecker->setColliSphere(0, 90000);
+_SX=_SY=_SZ=500;
 }
 
 void EnemyThalia::onActive() {
@@ -50,10 +53,10 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pMover->setFaceAngVelo(AXIS_X, 1000);
-
+    _pMover->execSmoothMvVeloSequence(_veloTopMv, 300, MyShip::_lim_front - _X);
     setProgress(THALIA_PROG_MOVE);
-    _pMover->setMvAcceToStop(pMYSHIP->_X-_X); //
     _iMovePatternNo = 0; //行動パターンリセット
+
 }
 
 void EnemyThalia::processBehavior() {
@@ -61,46 +64,48 @@ void EnemyThalia::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     if (getProgress() == THALIA_PROG_MOVE) {
-
-    }
-
-    if (_iMovePatternNo == 0) {
-        if (_pMover->_veloMv <= 0) {
-            _pMover->setMvAcce(0);
-            _pMover->setMvVelo(0);
-            _pMorpher->intoTargetLinerUntil(1, 1.0, 120);
+        if (!_pMover->isMoveingSmooth()) {
+            _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.001);
             _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
-                                                1000, 0,
+                                                0, 100,
                                                 TURN_CLOSE_TO);
-            _pMover->setFaceAngVelo(AXIS_X, 5000);
-            _iMovePatternNo++;
-        }
-
-    }
-
-    if (_iMovePatternNo == 1) {
-        if (getActivePartFrame() == 220) {
-            _iMovePatternNo++;
+            setProgress(THALIA_PROG_TURN_OPEN);
         }
     }
 
-    if (_iMovePatternNo == 2) {
+    if (getProgress() == THALIA_PROG_TURN_OPEN) {
+        if (_pMorpher->_method[1] == NOMORPH ) {
+            setProgress(THALIA_PROG_FIRE_BEGIN);
+        }
+    }
+
+    if (getProgress() == THALIA_PROG_FIRE_BEGIN) {
+        _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
+                                            100, 0,
+                                            TURN_CLOSE_TO);
+        setProgress(THALIA_PROG_IN_FIRE);
+    }
+
+    if (getProgress() == THALIA_PROG_IN_FIRE) {
+        _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
+                                            100, 0,
+                                            TURN_CLOSE_TO);
         EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
             pLaser->activate();
             if (pLaser->_pChip_front == NULL) {
+                chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
                 _pSeTransmitter->play3D(1);
+                _pMover->setFaceAngVelo(AXIS_X, 4000);
             }
         } else {
-            _iMovePatternNo++;
+            setProgress(THALIA_PROG_MOVE);
+            _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
+            _pMover->execSmoothMvVeloSequence(_veloTopMv, 1000, 1500000);
+            _pMover->setFaceAngVelo(AXIS_X, 1000);
         }
     }
 
-    if (_iMovePatternNo == 3) {
-        _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
-        _pMover->setMvAcce(200);
-        _pMover->setFaceAngVelo(AXIS_X, 1000);
-    }
     _pMover->behave();
     _pMorpher->behave();
     _pSeTransmitter->behave();
@@ -115,21 +120,22 @@ void EnemyThalia::processJudgement() {
 void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyThalia::onHit!!! this="<<getName()<<"("<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
     //_TRACE_("EnemyThalia::onHit!!! prm_pOtherActor="<<prm_pOtherActor->getName()<<"("<<prm_pOtherActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-        _pSeTransmitter->play3D(0);
-        if (pExplo001 != NULL) {
-            pExplo001->activate();
-            pExplo001->setGeometry(this);
-        }
-        sayonara();
-    }
+//    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+//    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+//
+//        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+//        _pSeTransmitter->play3D(0);
+//        if (pExplo001 != NULL) {
+//            pExplo001->activate();
+//            pExplo001->setGeometry(this);
+//        }
+//        //sayonara();
+//    }
 }
 
 void EnemyThalia::onInactive() {
-    sayonara();
+    //sayonara();
 }
 
 EnemyThalia::~EnemyThalia() {

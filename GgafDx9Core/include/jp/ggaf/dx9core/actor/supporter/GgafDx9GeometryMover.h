@@ -253,20 +253,20 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     /** なめらかな移動シークエンスを実行中はtrue */
     bool _smooth_mv_velo_seq_flg;
-    /** なめらかな移動シークエンスを実行完了時の加速度設定（true：0に設定／false:そのままにしておく） */
+    /** なめらかな移動シークエンスを実行完了時の加速度設定（true：加速度0に設定／false:加速度をそのままにしておく） */
     bool _smooth_mv_velo_seq_endacc_flg;
-    /** なめらかな移動シークエンスのトップスピード（等速移動時速度） */
+    /** なめらかな移動シークエンスで設定されたトップスピード（等速移動時速度） */
     velo _smooth_mv_velo_seq_top_velo;
-    /** なめらかな移動シークエンス終了時の速度 */
+    /** なめらかな移動シークエンスで設定された終了時の速度 */
     velo _smooth_mv_velo_seq_end_velo;
-    /** なめらかな移動シークエンスにより移動する目標距離 */
-    int  _smooth_mv_velo_seq_target_distance;
-    /** なめらかな移動シークエンスにより移動した距離 */
+    /** なめらかな移動シークエンスで設定された目標移動距離 */
+    int  _smooth_mv_velo_seq_distance_of_target;
+    /** なめらかな移動シークエンスに開始から現在までの移動距離 */
     int  _smooth_mv_velo_seq_mv_distance;
-    /** なめらかな移動シークエンスの加速～等速へ切り替わる距離 */
-    int  _smooth_mv_velo_seq_p1_distance;
-    /** なめらかな移動シークエンスの等速～減速へ切り替わる距離 */
-    int  _smooth_mv_velo_seq_p2_distance;
+    /** なめらかな移動シークエンスで設定された加速～等速へ切り替わる距離の位置 */
+    int  _smooth_mv_velo_seq_distance_of_p1;
+    /** なめらかな移動シークエンスで設定された等速～減速へ切り替わる距離の位置 */
+    int  _smooth_mv_velo_seq_distance_of_p2;
     /** なめらかな移動シークエンスの進捗状況 */
     int  _smooth_mv_velo_seq_progress;
 
@@ -299,19 +299,19 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     /**
      * 移動加速度を、現時点の速度と制動距離により設定 .
-     * @param prm_distance 制動距離
+     * @param prm_distance_of_target 制動距離
      * @return 所要フレーム（参考値）
      */
-    void setMvAcceToStop(int prm_distance);
+    void setMvAcceToStop(int prm_distance_of_target);
 
     /**
      * 移動加速度を、現時点の速度、目標到達速度、目標到達に費やす距離により設定 .
      * setMvAcce(0, d) は setMvAcceToStop(d) と同じ
      * @param prm_velo_target 目標到達速度
-     * @param prm_distance    目標到達速度に達するまでに費やす距離
+     * @param prm_distance_of_target    目標到達速度に達するまでに費やす距離
      * @return 所要フレーム（参考値）
      */
-    void setMvAcce(velo prm_velo_target, int prm_distance);
+    void setMvAcce(int prm_distance_of_target, velo prm_velo_target);
 
 
     /**
@@ -823,11 +823,15 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * 距離 3/4 ～ 距離 4/4 まで ・・・ トップスピードから最終スピードへ減速
      * @param prm_top_velo トップスピード
      * @param prm_end_velo 最終スピード
-     * @param prm_distance 目標移動距離
-     * @param prm_smooth_mv_velo_seq_endacc_flg true:目標移動距離に達した際に加速度を０にする/false:加速度はそのままにしておく
+     * @param prm_distance_of_target 目標移動距離
+     * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０にする/false:加速度はそのままにしておく
      */
-    void execSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance,
-                                  bool prm_smooth_mv_velo_seq_endacc_flg = true);
+    void execSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
+                                  bool prm_endacc_flg = true);
+
+    bool isMoveingSmooth();
+
+
 
     /**
      * 毎フレームのActorの振る舞い。<BR>

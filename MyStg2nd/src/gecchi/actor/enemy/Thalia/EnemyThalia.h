@@ -2,9 +2,9 @@
 #define ENEMYTHALIA_H_
 
 #define THALIA_PROG_MOVE  1
-#define THALIA_PROG_TURN  2
-#define THALIA_PROG_OPEN  3
-#define THALIA_PROG_FIRE  4
+#define THALIA_PROG_TURN_OPEN  2
+#define THALIA_PROG_FIRE_BEGIN  3
+#define THALIA_PROG_IN_FIRE 4
 #define THALIA_PROG_CLOSE 5
 
 namespace MyStg2nd {
@@ -28,6 +28,8 @@ class EnemyThalia : public GgafDx9LibStg::DefaultMorphMeshActor {
 public:
     /** 行動パターン番号 */
     int _iMovePatternNo;
+
+    velo _veloTopMv;
 
     GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
     /**
