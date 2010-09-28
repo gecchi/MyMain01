@@ -784,9 +784,6 @@ void GgafElement<T>::nextFrame() {
             _was_initialize_flg = true;
         }
 
-        //進捗を反映する
-        _progress_prev = _progress;
-        _progress = _progress_nextframe;
 
         if (_is_active_flg && _frame_of_life == 1) {
             //生まれてそのままならば、いきなり一回だけonActive()。
@@ -839,6 +836,10 @@ void GgafElement<T>::nextFrame() {
 
             }
         }
+
+        //進捗を反映する
+        _progress_prev = _progress;
+        _progress = _progress_nextframe;
 
     }
 
