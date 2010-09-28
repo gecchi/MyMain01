@@ -251,6 +251,26 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /** Z軸方向移動加速度下限*/
     acce _acceBottomVzMv;
 
+    /** なめらかな移動シークエンスを実行中はtrue */
+    bool _smooth_mv_velo_seq_flg;
+    /** なめらかな移動シークエンスを実行完了時の加速度設定（true：0に設定／false:そのままにしておく） */
+    bool _smooth_mv_velo_seq_endacc_flg;
+    /** なめらかな移動シークエンスのトップスピード（等速移動時速度） */
+    velo _smooth_mv_velo_seq_top_velo;
+    /** なめらかな移動シークエンス終了時の速度 */
+    velo _smooth_mv_velo_seq_end_velo;
+    /** なめらかな移動シークエンスにより移動する目標距離 */
+    int  _smooth_mv_velo_seq_target_distance;
+    /** なめらかな移動シークエンスにより移動した距離 */
+    int  _smooth_mv_velo_seq_mv_distance;
+    /** なめらかな移動シークエンスの加速～等速へ切り替わる距離 */
+    int  _smooth_mv_velo_seq_p1_distance;
+    /** なめらかな移動シークエンスの等速～減速へ切り替わる距離 */
+    int  _smooth_mv_velo_seq_p2_distance;
+    /** なめらかな移動シークエンスの進捗状況 */
+    int  _smooth_mv_velo_seq_progress;
+
+
     /**
      * 移動速度を設定 .
      * @param	prm_veloMv	移動速度
@@ -280,8 +300,19 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * 移動加速度を、現時点の速度と制動距離により設定 .
      * @param prm_distance 制動距離
+     * @return 所要フレーム（参考値）
      */
     void setMvAcceToStop(int prm_distance);
+
+    /**
+     * 移動加速度を、現時点の速度、目標到達速度、目標到達に費やす距離により設定 .
+     * setMvAcce(0, d) は setMvAcceToStop(d) と同じ
+     * @param prm_velo_target 目標到達速度
+     * @param prm_distance    目標到達速度に達するまでに費やす距離
+     * @return 所要フレーム（参考値）
+     */
+    void setMvAcce(velo prm_velo_target, int prm_distance);
+
 
     /**
      * Actorの移動方角（Z軸回転）を設定。<BR>
@@ -784,6 +815,19 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
         _relate_RzFaceAng_to_RzMvAng_flg = prm_b;
     }
 
+    /**
+     * なめらかな移動速度で移動するシークエンスを実行 .
+     * 引数の移動距離を４分割し、次のような速度制御を自動的に行う。
+     * 距離 0    ～距離 1/4 まで ・・・ 現在の速度からトップスピードまで加速
+     * 距離 1/4 ～ 距離 3/4 まで ・・・ トップスピードで等速
+     * 距離 3/4 ～ 距離 4/4 まで ・・・ トップスピードから最終スピードへ減速
+     * @param prm_top_velo トップスピード
+     * @param prm_end_velo 最終スピード
+     * @param prm_distance 目標移動距離
+     * @param prm_smooth_mv_velo_seq_endacc_flg true:目標移動距離に達した際に加速度を０にする/false:加速度はそのままにしておく
+     */
+    void execSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance,
+                                  bool prm_smooth_mv_velo_seq_endacc_flg = true);
 
     /**
      * 毎フレームのActorの振る舞い。<BR>
