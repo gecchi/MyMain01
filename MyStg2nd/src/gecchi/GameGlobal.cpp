@@ -10,7 +10,7 @@ boolean GameGlobal::_isInit = false;
 MyShip* GameGlobal::_pMyShip = NULL;
 CommonScene* GameGlobal::_pSceneCommon = NULL;
 GameScene*   GameGlobal::_pSceneGame = NULL;
-double GameGlobal::_rank = 1.0;
+double GameGlobal::_rank = 0.0;
 UINT32 GameGlobal::_score = 0;
 
 

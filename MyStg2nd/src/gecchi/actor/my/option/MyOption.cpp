@@ -515,5 +515,3 @@ void MyOption::processFinal() {
 MyOption::~MyOption() {
 }
 
-
-

@@ -1,6 +1,15 @@
 #ifndef ENEMYTHALIA_H_
 #define ENEMYTHALIA_H_
+
+#define THALIA_PROG_MOVE  1
+#define THALIA_PROG_TURN  2
+#define THALIA_PROG_OPEN  3
+#define THALIA_PROG_FIRE  4
+#define THALIA_PROG_CLOSE 5
+
 namespace MyStg2nd {
+
+
 
 /**
  * “G‹@ƒ^ƒŠƒA .

@@ -15,7 +15,7 @@ public:
 
     /** ステージ */
     static int _iScene;
-    /** ランク */
+    /** ランク（0.0 ～ 1.0。 1.0がMAXランクとする) */
     static double _rank;
 
     /** 自機へのポインタ */

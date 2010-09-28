@@ -25,8 +25,8 @@ void Shot001::onActive() {
     MyStgUtil::resetShot001Status(_pStatus);
     setHitAble(true);
     _pMover->relateRzRyFaceAngToMvAng(true);
-    _pMover->setMvVelo(5000*_RANK_);             //ˆÚ“®‘¬“x
-    _pMover->setFaceAngVelo(AXIS_X, 6000*_RANK_); //‚«‚è‚à‚İ‹ï‡
+    _pMover->setMvVelo(5000+_RANK_*5000);             //ˆÚ“®‘¬“x
+    _pMover->setFaceAngVelo(AXIS_X, 6000+_RANK_*6000); //‚«‚è‚à‚İ‹ï‡
     _pSplineProgram->begin(2);
     _pScaler->beat(30,5,2,-1);
 }

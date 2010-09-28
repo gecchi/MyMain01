@@ -40,23 +40,29 @@ void EnemyThalia::onCreateModel() {
 void EnemyThalia::initialize() {
     setHitAble(true);
     _pMover->relateRzRyFaceAngToMvAng(true);
-    _pMover->setFaceAngVelo(AXIS_X, 1000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 10000);
-    _pMorpher->setWeight(0, 1.0);
-    _pMorpher->setWeight(1, 0.0);
+
 }
 
 void EnemyThalia::onActive() {
     MyStgUtil::resetEnemyThaliaStatus(_pStatus);
-    _pMover->setMvAcceToStop(pMYSHIP->_X-_X);
-    _TRACE_("_pMover->_accMv="<<_pMover->_accMv);
+    _pMorpher->setWeight(0, 1.0);
+    _pMorpher->setWeight(1, 0.0);
+    _pMover->setFaceAngVelo(AXIS_X, 1000);
+
+    setProgress(THALIA_PROG_MOVE);
+    _pMover->setMvAcceToStop(pMYSHIP->_X-_X); //
     _iMovePatternNo = 0; //行動パターンリセット
 }
 
 void EnemyThalia::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+
+    if (getProgress() == THALIA_PROG_MOVE) {
+
+    }
 
     if (_iMovePatternNo == 0) {
         if (_pMover->_veloMv <= 0) {

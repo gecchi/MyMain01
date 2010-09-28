@@ -23,8 +23,8 @@ void Shot002::onActive() {
     setHitAble(true);
     _pScaler->setScale(2000);
     _pMover->relateRzRyFaceAngToMvAng(true);
-    _pMover->setMvVelo(8000*_RANK_);
-    _pMover->setFaceAngVelo(AXIS_X, 1000*_RANK_);
+    _pMover->setMvVelo(8000+_RANK_*8000);
+    _pMover->setFaceAngVelo(AXIS_X, 1000+_RANK_*1000);
     _my_frame = 0;
 }
 
