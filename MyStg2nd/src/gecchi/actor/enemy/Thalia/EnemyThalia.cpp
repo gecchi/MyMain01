@@ -54,6 +54,8 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(1, 0.0);
     _pMover->setFaceAngVelo(AXIS_X, 1000);
     _pMover->execSmoothMvVeloSequence(_veloTopMv, 300, MyShip::_lim_front - _X);
+    _TRACE_("execSmoothMvVeloSequence START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離="<<(MyShip::_lim_front - _X)<<" veloMv="<<(_pMover->_veloMv));
+
     setProgress(THALIA_PROG_MOVE);
     _iMovePatternNo = 0; //行動パターンリセット
 
@@ -65,6 +67,8 @@ void EnemyThalia::processBehavior() {
 
     if (getProgress() == THALIA_PROG_MOVE) {
         if (!_pMover->isMoveingSmooth()) {
+            _TRACE_("execSmoothMvVeloSequence END ("<<_X<<","<<_Y<<","<<_Z<<") veloMv="<<(_pMover->_veloMv));
+
             _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.001);
             _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
                                                 0, 100,
@@ -101,7 +105,9 @@ void EnemyThalia::processBehavior() {
         } else {
             setProgress(THALIA_PROG_MOVE);
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
-            _pMover->execSmoothMvVeloSequence(_veloTopMv, 1000, 1500000);
+            _pMover->execSmoothMvVeloSequence(_veloTopMv, 0, 1500000);
+             _TRACE_("execSmoothMvVeloSequence START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離=1500000 veloMv="<<(_pMover->_veloMv));
+
             _pMover->setFaceAngVelo(AXIS_X, 1000);
         }
     }
