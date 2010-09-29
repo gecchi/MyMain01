@@ -69,7 +69,7 @@ void EnemyThalia::processBehavior() {
         if (!_pMover->isMoveingSmooth()) {
             _TRACE_("execSmoothMvVeloSequence END ("<<_X<<","<<_Y<<","<<_Z<<") veloMv="<<(_pMover->_veloMv));
 
-            _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.001);
+            _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0005);
             _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
                                                 0, 100,
                                                 TURN_CLOSE_TO);
@@ -105,7 +105,7 @@ void EnemyThalia::processBehavior() {
         } else {
             setProgress(THALIA_PROG_MOVE);
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
-            _pMover->execSmoothMvVeloSequence(_veloTopMv, 0, 1500000);
+            _pMover->execSmoothMvVeloSequence(_veloTopMv, 200, 1500000);
              _TRACE_("execSmoothMvVeloSequence START ("<<_X<<","<<_Y<<","<<_Z<<") –Ú•W‹——£=1500000 veloMv="<<(_pMover->_veloMv));
 
             _pMover->setFaceAngVelo(AXIS_X, 1000);
