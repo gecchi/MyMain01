@@ -299,7 +299,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     /**
      * 移動加速度を、「停止移動距離」により設定する .
-     *
+     * <pre><code>
      *    速度
      *     ^       a:減加速度
      *     |       S:移動距離（停止に費やす距離）
@@ -319,7 +319,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *    これを②へ代入
      *    a = -v0 / (2S / v0)
      *    ∴ a = -(v0^2) / 2S
-     * </pre>
+     * </code></pre>
      * 具体的には、の上図のような状態を想定し、加速度(a)を計算し設定している。<BR>
      * @param prm_distance_of_target 停止移動距離
      */
@@ -327,7 +327,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     /**
      * 移動加速度を、「目標到達速度」「移動距離」に達するまでに費やす距離、により設定 .
-     * <pre>
+     * <pre><code>
      *
      *    速度
      *     ^        a:加速度
@@ -351,7 +351,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *    これを②へ代入
      *    S = (vx^2 - v0^2) / 2a
      *    ∴ a = (vx^2 - v0^2) / 2S
-     * </pre>
+     * </code></pre>
      * 具体的には、の上図のような状態を想定し、加速度(a)を計算し設定している。<BR>
      * v0 <= 0  かつ  vx <= 0 場合、あるいは  v0 >= 0  かつ  vx >= 0  場合は、S(目標距離)が上記式で問題ないため使用できる。<BR>
      * v0 < 0   かつ  vx > 0  場合、あるいは  v0 > 0   かつ  vx < 0   場合は、S(目標距離)がおかしくなるため使用できない。<BR>
@@ -616,15 +616,16 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_angRy_Target 目標軸回転方角(Y軸)
      * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
      * @param prm_angAcce 角加速度（正負自動判定）
-     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
+     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、
-     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、
-     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。(注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は
-     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。
+     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
+     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
+     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
@@ -637,16 +638,16 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_tZ 目標Z座標
      * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
      * @param prm_angAcce 角加速度（正負自動判定）
-     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
-     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
-     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、
-     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、
-     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は
-     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)
-     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。
+     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
+     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
+     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
+     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
+     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
+     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                       angvelo prm_angVelo, angacce prm_angAcce,
@@ -660,14 +661,14 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_angAcce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
-     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、
-     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、
-     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は
-     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)
-     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。
+     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
+     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
+     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
+     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTagettingFaceAngSequence(GgafDx9GeometricActor* prm_pActor_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
@@ -682,7 +683,6 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
                 prm_optimize_ang
         );
     }
-
 
     /**
      * 軸回転方角(Z軸)を目標にターゲットするシークエンスを実行 .
@@ -726,16 +726,16 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_angRy_Target 目標移動方角(Y軸)
      * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
      * @param prm_angAcce 角加速度（正負自動判定）
-     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
-     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
-     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、
-     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、
-     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は
-     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)
-     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。
+     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
+     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
+     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
+     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
+     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
+     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTagettingMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                     angvelo prm_angVelo, angacce prm_angAcce,
@@ -748,16 +748,16 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_tZ 目標Z座標
      * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
      * @param prm_angAcce 角加速度（正負自動判定）
-     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
-     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
-     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、
-     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、
-     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は
-     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)
-     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。
+     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
+     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
+     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
+     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
+     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
+     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                     angvelo prm_angVelo, angacce prm_angAcce,
@@ -769,16 +769,16 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_pActor_Target 目標オブジェクト
      * @param prm_angVelo ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
      * @param prm_angAcce 角加速度（正負自動判定）
-     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
-     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
-     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。
-     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、
-     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、
-     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。
-     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は
-     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)
-     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)
-     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。
+     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
+     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO<BR>
+     * @param prm_optimize_ang ターゲットアングルを最適化するかどうかを指定。<BR>
+     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、<BR>
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、<BR>
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。<BR>
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は<BR>
+     *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
+     *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
+     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTagettingMvAngSequence(GgafDx9GeometricActor* prm_pActor_Target,
                                     angvelo prm_angVelo, angacce prm_angAcce,
@@ -799,7 +799,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_angRz_Target 目標移動方角(Z軸)
      * @param prm_angVelo ターゲットへ移動方角を回転移動中に適用する目標移動方角回転移動角速度（正負自動判定）
      * @param prm_angAcce 角加速度（正負自動判定）
-     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
+     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void execTagettingRzMvAngSequence(angle prm_angRz_Target,
@@ -811,7 +811,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_angRy_Target 目標移動方角(Y軸)
      * @param prm_angVelo ターゲットへ移動方角を回転移動中に適用する目標移動方角回転移動角速度（正負自動判定）
      * @param prm_angAcce 角加速度（正負自動判定）
-     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
+     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void execTagettingRyMvAngSequence(angle prm_angRy_Target,
@@ -854,8 +854,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     /**
      * 移動方角に伴って軸回転方角を更新 .
-     * true を設定すると、自動的に移動方角の方に向きが変わる。
-     * false を設定すると、移動方角と向きは独立。
+     * true を設定すると、自動的に移動方角の方に向きが変わる。<BR>
+     * false を設定すると、移動方角と向きは独立。<BR>
      * @param prm_b true:移動方角に伴って軸回転方角を更新/false:移動方角と軸回転方角は独立
      */
     void relateRzRyFaceAngToMvAng(bool prm_b) {
@@ -865,10 +865,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     /**
      * なめらかな移動速度で移動するシークエンスを実行 .
-     * 引数の移動距離を４分割し、次のような速度制御を自動的に行う。
-     * 距離 0    ～距離 1/4 まで ・・・ 現在の速度からトップスピードまで加速
-     * 距離 1/4 ～ 距離 3/4 まで ・・・ トップスピードで等速
-     * 距離 3/4 ～ 距離 4/4 まで ・・・ トップスピードから最終スピードへ減速
+     * 引数の移動距離を４分割し、次のような速度制御を自動的に行う。<BR>
+     * 距離 0    ～距離 1/4 まで ・・・ 現在の速度からトップスピードまで加速<BR>
+     * 距離 1/4 ～ 距離 3/4 まで ・・・ トップスピードで等速<BR>
+     * 距離 3/4 ～ 距離 4/4 まで ・・・ トップスピードから最終スピードへ減速<BR>
      * @param prm_top_velo トップスピード
      * @param prm_end_velo 最終スピード
      * @param prm_distance_of_target 目標移動距離
