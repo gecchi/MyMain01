@@ -14,15 +14,10 @@ double GameGlobal::_rank = 0.0;
 UINT32 GameGlobal::_score = 0;
 
 
-
-
-
 void GameGlobal::init() {
     if (_isInit == false) {
-        _rank = 1;
+        _rank = 0.0;
         _score = 0;
-
-
         _isInit = true;
     }
 }

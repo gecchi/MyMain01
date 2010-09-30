@@ -122,11 +122,13 @@ void GameMainScene::processBehavior() {
         }
     }
 
+    //終了処理
     if (onChangeProgressAt(GAMEMAIN_PROG_END)) {
          VB_UI->clear();
          pGOD->setVB(VB_UI);  //戻す
         _TRACE_("オワタ");
     } else if (getProgress() == GAMEMAIN_PROG_END) {
+        //GAMEMAIN_PROG_END時はなにもできない
     }
 
 
@@ -173,6 +175,11 @@ void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
             //TODO:エデニング？
         }
     }
+
+    if (prm_no == JUST_GAME_OVER) {
+        setProgress(GAMEMAIN_PROG_END);
+    }
+
 }
 
 void GameMainScene::processFinal() {

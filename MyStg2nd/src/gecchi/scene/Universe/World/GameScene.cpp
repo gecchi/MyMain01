@@ -23,11 +23,15 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pScene_GameEnding = NEW GameEndingScene("GameEnding");
     addSubLast(_pScene_GameEnding);
 
+    _pScene_GameEnding = NEW GameOverScene("GameEnding");
+    addSubLast(_pScene_GameEnding);
+
+
     _pScene_GameDemo->inactivateImmediately();        //最初のアクティブなサブシーンはデモシーン
     _pScene_GameBeginning->inactivateImmediately();
     _pScene_GameMain->inactivateImmediately();
     _pScene_GameEnding->inactivateImmediately();
-
+    _pScene_GameOver->inactivateImmediately();
     //たまご
     //addSubLast(NEW TamagoScene("TamagoScene"));
 
@@ -170,28 +174,52 @@ void GameScene::processBehavior() {
 //            VB_UI->clear();
 //            VB_PLAY->clear();
 //            pGOD->setVB(VB_PLAY); //保存のためプレイ用に変更
+
+            //GameOverかGameEnding 先行準備
+            _pScene_GameOver->reset();
+            _pScene_GameOver->ready();
             _pScene_GameEnding->reset();
             _pScene_GameEnding->ready();
+
         }
         if (_pScene_GameMain->getProgressOnChange() == GAMEMAIN_PROG_END) {
 //            VB_UI->clear();
 //            pGOD->setVB(VB_UI);  //戻す
-            _pScene_GameEnding->activate();
-            _pSceneCannel = _pScene_GameEnding;
+//            _pScene_GameEnding->activate();
+//            _pSceneCannel = _pScene_GameEnding;
+
+            if (true) { //GameOverかどうか分岐
+                _pSceneCannel = _pScene_GameOver;
+            } else {
+                _pSceneCannel = _pScene_GameEnding;
+            }
         }
 
     } else if (_pSceneCannel == _pScene_GameEnding) {
-        if (_pScene_GameMain->getProgressOnChange() == GAMEENDING_PROG_BEGIN) {
+        if (_pScene_GameEnding->getProgressOnChange() == GAMEENDING_PROG_BEGIN) {
             VB_UI->clear();
             pGOD->setVB(VB_UI);
-            _pScene_GameEnding->reset();
-            _pScene_GameEnding->ready();
+            _pScene_GameDemo->reset();
+            _pScene_GameDemo->ready();
+
         }
         if (_pScene_GameMain->getProgressOnChange() == GAMEENDING_PROG_END) {
             VB_UI->clear();
             pGOD->setVB(VB_UI);
-            _pScene_GameEnding->activate();
-            _pSceneCannel = _pScene_GameEnding;
+            _pSceneCannel = _pScene_GameDemo;
+        }
+
+    } else if (_pSceneCannel == _pScene_GameOver) {
+        if (_pScene_GameMain->getProgressOnChange() == GAMEOVER_PROG_BEGIN) {
+            VB_UI->clear();
+            pGOD->setVB(VB_UI);
+            _pScene_GameDemo->reset();
+            _pScene_GameDemo->ready();
+        }
+        if (_pScene_GameMain->getProgressOnChange() == GAMEOVER_PROG_END) {
+            VB_UI->clear();
+            pGOD->setVB(VB_UI);
+            _pSceneCannel = _pScene_GameDemo;
         }
 
     }
@@ -225,9 +253,12 @@ void GameScene::processJudgement() {
         KIND_ENEMY_BODY_CHIKEI_NOMAL|KIND_ENEMY_BODY_CHIKEI_GU|KIND_ENEMY_BODY_CHIKEI_CHOKI|KIND_ENEMY_BODY_CHIKEI_PA|KIND_CHIKEI|KIND_OTHER,
         KIND_OTHER
         );
-
     }
 }
+
+
+
+
 
 void GameScene::processFinal() {
 

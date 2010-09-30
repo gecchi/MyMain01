@@ -14,7 +14,7 @@ namespace MyStg2nd {
  * ゲームシーンクラス .
  * この世にとある世界で、ゲームが行なわれている場面がありました。<BR>
  * 本クラスは、ゲームの全体的な振る舞いを実装しています。<BR>
- * 主に、サブシーンの切り替えと、カメラ操作です。
+ * 主に、サブシーンの切り替えです。
  * @version 1.00
  * @since 2007/11/16
  * @author Masatoshi Tsuge
@@ -28,6 +28,8 @@ public:
     GameBeginningScene* _pScene_GameBeginning;
     GameMainScene*      _pScene_GameMain;
     GameEndingScene*    _pScene_GameEnding;
+    GameEOverScene*     _pScene_GameOver;
+
 
     /** コマ送りフラグ */
     bool _is_frame_advance;
@@ -44,7 +46,7 @@ public:
     void processBehavior() override;
     void processJudgement() override;
     void processFinal() override;
-
+    virtual void catchEvent(UINT32 prm_no, void* prm_pSource) override;
 //    void cannelGameDemo();
 //
 //    void cannelGameMain();

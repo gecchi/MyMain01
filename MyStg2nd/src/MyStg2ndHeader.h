@@ -99,8 +99,7 @@ enum MoveWay {
 
 //イベント用 UINT32 数値宣言
 AVAILABLE_EVENT(PREPARE_NEXT_STAGE)
-
-
+AVAILABLE_EVENT(JUST_GAME_OVER)
 AVAILABLE_EVENT(STG01_01_WAS_BROKEN)
 AVAILABLE_EVENT(STG01_02_WAS_BROKEN)
 AVAILABLE_EVENT(STG01_03_WAS_BROKEN)
@@ -130,6 +129,7 @@ class GameDemoScene;
 class GameBeginningScene;
 class GameMainScene;
 class GameEndingScene;
+class GameOverScene;
 class StageScene;
 class Stage01Scene;
 class Stage02Scene;
@@ -282,6 +282,7 @@ class LaserChipEffectActor;
 #include "gecchi/scene/Universe/World/GameScene/CommonScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameEndingScene.h"
+#include "gecchi/scene/Universe/World/GameScene/GameOverScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage02Scene.h"
