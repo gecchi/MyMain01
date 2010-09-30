@@ -28,7 +28,7 @@ public:
     GameBeginningScene* _pScene_GameBeginning;
     GameMainScene*      _pScene_GameMain;
     GameEndingScene*    _pScene_GameEnding;
-    GameEOverScene*     _pScene_GameOver;
+    GameOverScene*     _pScene_GameOver;
 
 
     /** コマ送りフラグ */
@@ -46,7 +46,7 @@ public:
     void processBehavior() override;
     void processJudgement() override;
     void processFinal() override;
-    virtual void catchEvent(UINT32 prm_no, void* prm_pSource) override;
+    //virtual void catchEvent(UINT32 prm_no, void* prm_pSource) override;
 //    void cannelGameDemo();
 //
 //    void cannelGameMain();

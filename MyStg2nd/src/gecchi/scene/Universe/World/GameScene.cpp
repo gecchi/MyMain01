@@ -23,8 +23,8 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pScene_GameEnding = NEW GameEndingScene("GameEnding");
     addSubLast(_pScene_GameEnding);
 
-    _pScene_GameEnding = NEW GameOverScene("GameEnding");
-    addSubLast(_pScene_GameEnding);
+    _pScene_GameOver = NEW GameOverScene("GameEnding");
+    addSubLast(_pScene_GameOver);
 
 
     _pScene_GameDemo->inactivateImmediately();        //最初のアクティブなサブシーンはデモシーン
