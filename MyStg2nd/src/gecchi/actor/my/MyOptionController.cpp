@@ -138,8 +138,8 @@ void MyOptionController::processBehavior() {
 
         for (int i = 0; i < _now_option_num; i++) {
             //オプションの半径位置を元に戻す指示
-            _papMyOption[i]->_return_to_default_radiusPosition_seq = true;
-            _papMyOption[i]->_return_to_default_angExpanse_seq= true;
+            _papMyOption[i]->_return_to_base_radiusPosition_seq = true;
+            _papMyOption[i]->_return_to_base_angExpanse_seq= true;
         }
 
 
@@ -216,6 +216,21 @@ void MyOptionController::processBehavior() {
             setGeometry(pMYSHIP);
         }
     }
+
+    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
+        for (int i = 0; i < _now_option_num; i++) {
+            _papMyOption[i]->adjustAngPosition(i*ANGLE45);
+        }
+    }
+
+    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
+        for (int i = 0; i < _now_option_num; i++) {
+            _papMyOption[i]->adjustAngPosition(i*ANGLE90);
+        }
+    }
+
+
+
 
     //ギズモ
     _pDirectionVector->setGeometry(this);

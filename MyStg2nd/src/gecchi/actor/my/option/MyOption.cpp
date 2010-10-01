@@ -23,13 +23,13 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _veloMv = 5000;     //旋廻移動速度（上書き初期設定可）
     _angExpanse = 0;      //オプションの広がり角の回転角（上書き初期設定可）
 
-    _angPosition_default = _angPosition;
-    _radiusPosition_default = _radiusPosition;
+    _angPosition_base = _angPosition;
+    _radiusPosition_base = _radiusPosition;
     _angExpanse_default = _angExpanse;
-    _veloMv_default = _veloMv;
+    _veloMv_base = _veloMv;
 
-    _return_to_default_radiusPosition_seq = false;
-    _return_to_default_angExpanse_seq = false;
+    _return_to_base_radiusPosition_seq = false;
+    _return_to_base_angExpanse_seq = false;
 
     _angveloExpanseNomal = 3000;
     _angveloExpanseSlow = 1000;
@@ -85,6 +85,13 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _pSeTransmitter->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
 
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
+    _new_angPosition_base = 0;
+    _adjust_angPosition_seq = false;
+    _adjust_angPosition_seq_angDistance= 0;
+    _adjust_angPosition_seq_angDistanceBase = 0;
+    _angveloMove_approach = 0;
+    _acceMv_approach= 0;
+    _adjust_angPosition_seq_acceMv_approach_rate = 1.0;
 
 }
 
@@ -188,8 +195,44 @@ void MyOption::setRadiusPosition(int prm_radius) {
     _pMover->setRzMvAng(GgafDx9Util::simplifyAng(angZY_ROTANG_X + ANGLE90));
     _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(float)ANGLE180)/PI;
     _pMover->setRzMvAngVelo(_angveloMove);
-
 }
+
+
+void MyOption::adjustAngPosition(angle prm_new_angPosition_base) {
+    _TRACE_(getName()<<": ********************************************");
+    _TRACE_(getName()<<": 前_adjust_angPosition_seq_angDistance="<<_adjust_angPosition_seq_angDistance<<")");
+    if (_adjust_angPosition_seq_angDistance == 0) {
+        _adjust_angPosition_seq_angDistance = (prm_new_angPosition_base - _angPosition_base);
+        _adjust_angPosition_seq_angDistanceBase = _adjust_angPosition_seq_angDistance;
+    } else {
+        int sabunn = _adjust_angPosition_seq_angDistanceBase - _adjust_angPosition_seq_angDistance;
+        _adjust_angPosition_seq_angDistance = (prm_new_angPosition_base - _angPosition_base) - sabunn;
+        _adjust_angPosition_seq_angDistanceBase = (prm_new_angPosition_base - _angPosition_base);
+    }
+上こここ
+    //_adjust_angPosition_seq_angDistance = _adjust_angPosition_seq_angDistance + (((prm_new_angPosition_base - _angPosition_base) - _adjust_angPosition_seq_angDistance));
+    _TRACE_(getName()<<": 後_adjust_angPosition_seq_angDistance="<<_adjust_angPosition_seq_angDistance<<")");
+    _TRACE_(getName()<<": adjustAngPosition("<<prm_new_angPosition_base<<")");
+    _TRACE_(getName()<<": _angPosition_base="<<_angPosition_base<<")");
+//    if (_adjust_angPosition_seq_angDistance == 0) {
+//        return;
+//    }
+    //加える角速度差分
+    _adjust_angPosition_seq_acceMv_approach_rate = 1.0;
+    if (_adjust_angPosition_seq_angDistance > 0) {
+        _acceMv_approach = 100;
+    } else if (_adjust_angPosition_seq_angDistance < 0) {
+        _acceMv_approach = -100;
+    } else {
+        _acceMv_approach = 0;
+    }
+    _TRACE_(getName()<<": _acceMv_approach="<<_acceMv_approach<<")");
+    _new_angPosition_base = prm_new_angPosition_base;
+    _adjust_angPosition_seq = true;
+    _angveloMove_approach = 0;
+}
+
+
 
 void MyOption::processBehavior() {
 
@@ -202,17 +245,17 @@ void MyOption::processBehavior() {
     _Z = _Zorg;
 
 
-    if (_return_to_default_radiusPosition_seq) {
+    if (_return_to_base_radiusPosition_seq) {
         //自動戻り
-        if (_radiusPosition > _radiusPosition_default) {
+        if (_radiusPosition > _radiusPosition_base) {
             addRadiusPosition(-10000);
         }
-        if (_radiusPosition < _radiusPosition_default) {
+        if (_radiusPosition < _radiusPosition_base) {
             addRadiusPosition(10000);
         }
-        if (-10000 < _radiusPosition_default-_radiusPosition && _radiusPosition_default-_radiusPosition < 10000) {
-            setRadiusPosition(_radiusPosition_default);
-            _return_to_default_radiusPosition_seq = false;
+        if (-10000 < _radiusPosition_base-_radiusPosition && _radiusPosition_base-_radiusPosition < 10000) {
+            setRadiusPosition(_radiusPosition_base);
+            _return_to_base_radiusPosition_seq = false;
         }
 
     } else {
@@ -227,7 +270,7 @@ void MyOption::processBehavior() {
     }
 
 
-    if (_return_to_default_angExpanse_seq) {
+    if (_return_to_base_angExpanse_seq) {
         //自動戻り
         if (_angExpanse > _angExpanse_default) {
             _angExpanse -= 3000;
@@ -237,7 +280,7 @@ void MyOption::processBehavior() {
         }
         if (-3000 <= _angExpanse_default-_angExpanse && _angExpanse_default-_angExpanse <= 3000) {
             _angExpanse = _angExpanse_default;
-            _return_to_default_angExpanse_seq = false;
+            _return_to_base_angExpanse_seq = false;
         }
         _angExpanse = GgafDx9Util::simplifyAng(_angExpanse);
     } else {
@@ -251,11 +294,11 @@ void MyOption::processBehavior() {
                     _angExpanse -= _angveloExpanseNomal;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
-                    addRadiusPosition(2000 * (_radiusPosition_default/60000));
+                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
                     //_angExpanse += _angveloExpanseSlow;
                 }
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-2000 * (_radiusPosition_default/60000));
+                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
             } else if (pCOMMONSCENE->_pos_camera == CAM_POS_LEFT) {
@@ -266,20 +309,20 @@ void MyOption::processBehavior() {
                     _angExpanse += _angveloExpanseNomal;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
-                    addRadiusPosition(2000 * (_radiusPosition_default/60000));
+                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
                     //_angExpanse += _angveloExpanseSlow;
                 }
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-2000 * (_radiusPosition_default/60000));
+                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
             } else if (pCOMMONSCENE->_pos_camera == CAM_POS_TOP) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-                    addRadiusPosition(2000 * (_radiusPosition_default/60000));
+                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
                     //_angExpanse += _angveloExpanseSlow;
                 }
                 if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-                    addRadiusPosition(-2000 * (_radiusPosition_default/60000));
+                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
@@ -290,11 +333,11 @@ void MyOption::processBehavior() {
                 }
             } else if (pCOMMONSCENE->_pos_camera == CAM_POS_BOTTOM) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-                    addRadiusPosition(-2000 * (_radiusPosition_default/60000));
+                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
                 if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-                    addRadiusPosition(2000 * (_radiusPosition_default/60000));
+                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
                     //_angExpanse += _angveloExpanseSlow;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
@@ -311,11 +354,11 @@ void MyOption::processBehavior() {
                     _angExpanse -= _angveloExpanseNomal;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
-                    addRadiusPosition(2000 * (_radiusPosition_default/60000));
+                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
                     //_angExpanse += _angveloExpanseSlow;
                 }
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-                    addRadiusPosition(-2000 * (_radiusPosition_default/60000));
+                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
             }
@@ -331,7 +374,54 @@ void MyOption::processBehavior() {
 //        addRadiusPosition(-1000);
 //    }
 
-    _pMover->setMvVelo(_veloMv);
+    if (_adjust_angPosition_seq) {
+        _TRACE_(getName() <<":-----------------------------------------");
+        _TRACE_(getName() <<": _acceMv_approach = "<<_acceMv_approach);
+        _angveloMove_approach = ((1.0f*(_acceMv_approach) / _radiusPosition)*(float)ANGLE180)/PI;
+        _TRACE_(getName() <<": _angveloMove_approach = "<<_angveloMove_approach);
+        _TRACE_(getName() <<": 前 _adjust_angPosition_seq_angDistance = "<<_adjust_angPosition_seq_angDistance);
+        int d = _adjust_angPosition_seq_angDistance;
+
+        _adjust_angPosition_seq_angDistance = _adjust_angPosition_seq_angDistance - _angveloMove_approach;
+
+        _TRACE_(getName() <<": 後 _adjust_angPosition_seq_angDistance = "<<_adjust_angPosition_seq_angDistance);
+        _TRACE_(getName() <<":  _veloMv = "<<_veloMv);
+        _TRACE_(getName() <<":  _acceMv_approach = "<<_acceMv_approach);
+        _pMover->setMvVelo(_veloMv + _acceMv_approach);
+        _TRACE_(getName() <<":  前_angveloMove = "<<_angveloMove);
+        _angveloMove = ((1.0f*(_veloMv + _acceMv_approach) / _radiusPosition)*(float)ANGLE180)/PI;
+        _TRACE_(getName() <<":  後_angveloMove = "<<_angveloMove);
+        _pMover->setRzMvAngVelo(_angveloMove);
+        if (-100 < _adjust_angPosition_seq_angDistance && _adjust_angPosition_seq_angDistance < 100 &&
+            -100 < _acceMv_approach                    && _acceMv_approach < 100
+        ) {
+            _angPosition_base = _new_angPosition_base;
+            _adjust_angPosition_seq = false;
+            _pMover->setMvVelo(_veloMv);
+            setRadiusPosition(_radiusPosition);
+        } else {
+
+            if (d > 0 && _adjust_angPosition_seq_angDistance < 0) {
+                _acceMv_approach = 100;
+                _adjust_angPosition_seq_acceMv_approach_rate = 1.0;
+            } else if (d < 0 && _adjust_angPosition_seq_angDistance > 0) {
+                _acceMv_approach = -100;
+                _adjust_angPosition_seq_acceMv_approach_rate = 1.0;
+            }
+            _TRACE_(getName() <<":  前 _adjust_angPosition_seq_angDistance="<<_adjust_angPosition_seq_angDistance<<"  _acceMv_approach="<<_acceMv_approach<<" _rate="<<_adjust_angPosition_seq_acceMv_approach_rate);
+            if (_adjust_angPosition_seq_angDistance > 0) {
+                _acceMv_approach += 100*_adjust_angPosition_seq_acceMv_approach_rate;
+            } else if (_adjust_angPosition_seq_angDistance < 0) {
+                _acceMv_approach -= 100*_adjust_angPosition_seq_acceMv_approach_rate;
+            }
+            _adjust_angPosition_seq_acceMv_approach_rate = _adjust_angPosition_seq_acceMv_approach_rate * 0.9;
+            _TRACE_(getName() <<": 後 _adjust_angPosition_seq_angDistance="<<_adjust_angPosition_seq_angDistance<<"  _acceMv_approach="<<_acceMv_approach<<" _rate="<<_adjust_angPosition_seq_acceMv_approach_rate);
+        }
+
+    } else {
+        //通常時
+        _pMover->setMvVelo(_veloMv);
+    }
     _pMover->behave();
 
     _Xorg = _X;

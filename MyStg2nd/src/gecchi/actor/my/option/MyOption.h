@@ -27,7 +27,12 @@ private:
      */
     void addRadiusPosition(int prm_radius_offset);
 
+
+
+
+
 public:
+
 
     /** [r]親アクター */
     MyOptionController* _pMyOptionController;
@@ -59,11 +64,11 @@ public:
     angle _angExpanse;
 
     /** [r]初期円周上初期位置角度 */
-    angle _angPosition_default;
+    angle _angPosition_base;
     /** [r]初期旋廻円周半径 */
-    int _radiusPosition_default;
+    int _radiusPosition_base;
     /** [r]初期旋廻円周移動速度 */
-    velo _veloMv_default;
+    velo _veloMv_base;
     /** [r]初期オプションの広がり回転角 */
     angle _angExpanse_default;
 
@@ -73,10 +78,17 @@ public:
     angvelo _angveloExpanseSlow;
 
     /** オプションの初期位置に自動戻りを行っている最中は true */
-    bool _return_to_default_radiusPosition_seq;
+    bool _return_to_base_radiusPosition_seq;
     /** オプションの初期円周半径に自動戻りを行っている最中は true */
-    bool _return_to_default_angExpanse_seq;
+    bool _return_to_base_angExpanse_seq;
 
+    angle _new_angPosition_base;
+    bool _adjust_angPosition_seq;
+    int _adjust_angPosition_seq_angDistance;
+    int _adjust_angPosition_seq_angDistanceBase;
+    angvelo _angveloMove_approach;
+    acce _acceMv_approach;
+    float _adjust_angPosition_seq_acceMv_approach_rate;
     /**
      * コンストラクタ .
      * @param prm_name
@@ -106,10 +118,10 @@ public:
         _angExpanse = prm_angExpanse;
         _veloMv = prm_veloMv;
 
-        _angPosition_default = prm_angPosition;
-        _radiusPosition_default = prm_radiusPosition;
+        _angPosition_base = prm_angPosition;
+        _radiusPosition_base = prm_radiusPosition;
         _angExpanse_default = prm_angExpanse;
-        _veloMv_default = prm_veloMv;
+        _veloMv_base = prm_veloMv;
     }
     void onCreateModel() override;
 
@@ -125,6 +137,8 @@ public:
 
     virtual ~MyOption();
 
+
+    void adjustAngPosition(angle prm_new_angPosition_base);
 
 };
 
