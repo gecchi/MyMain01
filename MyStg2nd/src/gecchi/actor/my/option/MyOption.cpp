@@ -87,11 +87,13 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
     _new_angPosition_base = 0;
     _adjust_angPosition_seq = false;
-    _adjust_angPosition_seq_angDistance= 0;
-    _adjust_angPosition_seq_angDistanceBase = 0;
+    _adjust_angPosition_seq_angTargetDistance= 0;
+//    _adjust_angPosition_seq_angAddTotal = 0;
     _angveloMove_approach = 0;
     _acceMv_approach= 0;
     _adjust_angPosition_seq_acceMv_approach_rate = 1.0;
+    _adjust_angPosition_seq_angAddTotal = 0;
+    _adjust_angPosition_seq_angPosition_org = 0;
 
 }
 
@@ -118,7 +120,9 @@ void MyOption::initialize() {
     _Yorg = _Y;
     _Zorg = _Z;
     //pCOMMONSCENE->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
-
+    _angPosition = _pMover->_angRzMv;
+    _angPosition_base = _angPosition;
+    _adjust_angPosition_seq_angPosition_org = _angPosition;
     _SX=_SY=_SZ=100;
 }
 
@@ -199,35 +203,41 @@ void MyOption::setRadiusPosition(int prm_radius) {
 
 
 void MyOption::adjustAngPosition(angle prm_new_angPosition_base) {
-    _TRACE_(getName()<<": ********************************************");
-    _TRACE_(getName()<<": 前_adjust_angPosition_seq_angDistance="<<_adjust_angPosition_seq_angDistance<<")");
-    if (_adjust_angPosition_seq_angDistance == 0) {
-        _adjust_angPosition_seq_angDistance = (prm_new_angPosition_base - _angPosition_base);
-        _adjust_angPosition_seq_angDistanceBase = _adjust_angPosition_seq_angDistance;
-    } else {
-        int sabunn = _adjust_angPosition_seq_angDistanceBase - _adjust_angPosition_seq_angDistance;
-        _adjust_angPosition_seq_angDistance = (prm_new_angPosition_base - _angPosition_base) - sabunn;
-        _adjust_angPosition_seq_angDistanceBase = (prm_new_angPosition_base - _angPosition_base);
-    }
-上こここ
-    //_adjust_angPosition_seq_angDistance = _adjust_angPosition_seq_angDistance + (((prm_new_angPosition_base - _angPosition_base) - _adjust_angPosition_seq_angDistance));
-    _TRACE_(getName()<<": 後_adjust_angPosition_seq_angDistance="<<_adjust_angPosition_seq_angDistance<<")");
-    _TRACE_(getName()<<": adjustAngPosition("<<prm_new_angPosition_base<<")");
-    _TRACE_(getName()<<": _angPosition_base="<<_angPosition_base<<")");
-//    if (_adjust_angPosition_seq_angDistance == 0) {
+    _new_angPosition_base = prm_new_angPosition_base + ANGLE90;
+    _TRACE_(getName()<<": **************adjustAngPosition("<<prm_new_angPosition_base<<")******************************");
+//    _TRACE_(getName()<<": 前_adjust_angPosition_seq_angAddTotal="<<_adjust_angPosition_seq_angAddTotal<<")");
+    _TRACE_(getName()<<": 前_adjust_angPosition_seq_angTargetDistance="<<_adjust_angPosition_seq_angTargetDistance<<")");
+    _TRACE_(getName()<<": 前_angPosition_base="<<_angPosition_base<<")");
+//    if (_adjust_angPosition_seq_angTargetDistance == 0) {
+//        _adjust_angPosition_seq_angTargetDistance = (prm_new_angPosition_base - _angPosition_base);
+//        _adjust_angPosition_seq_angAddTotal = _adjust_angPosition_seq_angTargetDistance;
+//    } else {
+        //int sabunn = _adjust_angPosition_seq_angAddTotal - _adjust_angPosition_seq_angTargetDistance;
+        //_TRACE_(getName()<<": sabunn="<<sabunn<<")");
+
+        _adjust_angPosition_seq_angTargetDistance = (_new_angPosition_base - _angPosition_base);// - _adjust_angPosition_seq_angAddTotal;// - sabunn;
+//        _adjust_angPosition_seq_angAddTotal = (prm_new_angPosition_base - _angPosition_base);
+//    }
+//上こここ
+    //_adjust_angPosition_seq_angTargetDistance = _adjust_angPosition_seq_angTargetDistance + (((prm_new_angPosition_base - _angPosition_base) - _adjust_angPosition_seq_angTargetDistance));
+//        _TRACE_(getName()<<": 後_adjust_angPosition_seq_angAddTotal="<<_adjust_angPosition_seq_angAddTotal<<")");
+        _TRACE_(getName()<<": 後_adjust_angPosition_seq_angTargetDistance="<<_adjust_angPosition_seq_angTargetDistance<<")");
+        _TRACE_(getName()<<": 後_angPosition_base="<<_angPosition_base<<")");
+//    if (_adjust_angPosition_seq_angTargetDistance == 0) {
 //        return;
 //    }
+// _adjust_angPosition_seq_angPosition_org = _angPosition_org;
     //加える角速度差分
     _adjust_angPosition_seq_acceMv_approach_rate = 1.0;
-    if (_adjust_angPosition_seq_angDistance > 0) {
+    if (_adjust_angPosition_seq_angTargetDistance > 0) {
         _acceMv_approach = 100;
-    } else if (_adjust_angPosition_seq_angDistance < 0) {
+    } else if (_adjust_angPosition_seq_angTargetDistance < 0) {
         _acceMv_approach = -100;
     } else {
         _acceMv_approach = 0;
     }
     _TRACE_(getName()<<": _acceMv_approach="<<_acceMv_approach<<")");
-    _new_angPosition_base = prm_new_angPosition_base;
+
     _adjust_angPosition_seq = true;
     _angveloMove_approach = 0;
 }
@@ -379,49 +389,72 @@ void MyOption::processBehavior() {
         _TRACE_(getName() <<": _acceMv_approach = "<<_acceMv_approach);
         _angveloMove_approach = ((1.0f*(_acceMv_approach) / _radiusPosition)*(float)ANGLE180)/PI;
         _TRACE_(getName() <<": _angveloMove_approach = "<<_angveloMove_approach);
-        _TRACE_(getName() <<": 前 _adjust_angPosition_seq_angDistance = "<<_adjust_angPosition_seq_angDistance);
-        int d = _adjust_angPosition_seq_angDistance;
+        _TRACE_(getName() <<": 前 _adjust_angPosition_seq_angTargetDistance = "<<_adjust_angPosition_seq_angTargetDistance);
+        int d = _adjust_angPosition_seq_angTargetDistance;
 
-        _adjust_angPosition_seq_angDistance = _adjust_angPosition_seq_angDistance - _angveloMove_approach;
+        _adjust_angPosition_seq_angTargetDistance = _adjust_angPosition_seq_angTargetDistance - _angveloMove_approach;
+//        _adjust_angPosition_seq_angAddTotal += ( d - _adjust_angPosition_seq_angTargetDistance); //差分を累計
+//        _adjust_angPosition_seq_angAddTotal += ( d - _adjust_angPosition_seq_angTargetDistance); //差分を累計
 
-        _TRACE_(getName() <<": 後 _adjust_angPosition_seq_angDistance = "<<_adjust_angPosition_seq_angDistance);
+        _TRACE_(getName() <<": 後 _adjust_angPosition_seq_angTargetDistance = "<<_adjust_angPosition_seq_angTargetDistance);
         _TRACE_(getName() <<":  _veloMv = "<<_veloMv);
         _TRACE_(getName() <<":  _acceMv_approach = "<<_acceMv_approach);
         _pMover->setMvVelo(_veloMv + _acceMv_approach);
         _TRACE_(getName() <<":  前_angveloMove = "<<_angveloMove);
         _angveloMove = ((1.0f*(_veloMv + _acceMv_approach) / _radiusPosition)*(float)ANGLE180)/PI;
+        angvelo angveloMove_org = ((1.0f*(_veloMv) / _radiusPosition)*(float)ANGLE180)/PI; //アプローチしなかった場合の回転速度
+        _adjust_angPosition_seq_angPosition_org = GgafDx9Util::simplifyAng(_adjust_angPosition_seq_angPosition_org+angveloMove_org); //アプローチしなかった場合の現在角位置
         _TRACE_(getName() <<":  後_angveloMove = "<<_angveloMove);
         _pMover->setRzMvAngVelo(_angveloMove);
-        if (-100 < _adjust_angPosition_seq_angDistance && _adjust_angPosition_seq_angDistance < 100 &&
+        if (-100 < _adjust_angPosition_seq_angTargetDistance && _adjust_angPosition_seq_angTargetDistance < 100 &&
             -100 < _acceMv_approach                    && _acceMv_approach < 100
         ) {
-            _angPosition_base = _new_angPosition_base;
             _adjust_angPosition_seq = false;
+
+            _adjust_angPosition_seq_angAddTotal = _adjust_angPosition_seq_angPosition_org + (_new_angPosition_base - _angPosition_base); //理論角度位置
+            if (_radiusPosition > 0) {
+                _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9Util::simplifyAng(_adjust_angPosition_seq_angAddTotal)/ANGLE_RATE];
+                _Y = _radiusPosition * GgafDx9Util::SIN[GgafDx9Util::simplifyAng(_adjust_angPosition_seq_angAddTotal)/ANGLE_RATE];
+            } else {
+                _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9Util::simplifyAng(_adjust_angPosition_seq_angAddTotal)/ANGLE_RATE];
+                _Y = _radiusPosition * GgafDx9Util::SIN[GgafDx9Util::simplifyAng(_adjust_angPosition_seq_angAddTotal)/ANGLE_RATE];
+            }
+
+            _pMover->setRzMvAng(GgafDx9Util::simplifyAng(_adjust_angPosition_seq_angAddTotal));
+            _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(float)ANGLE180)/PI;
+            _pMover->setRzMvAngVelo(_angveloMove);
+            //_angPosition_base = _new_angPosition_base;
+            //_adjust_angPosition_seq_angAddTotal = _adjust_angPosition_seq_angAddTotal - _adjust_angPosition_seq_angTargetDistance;
+            //_adjust_angPosition_seq_angAddTotal = 0;
             _pMover->setMvVelo(_veloMv);
             setRadiusPosition(_radiusPosition);
+            _adjust_angPosition_seq_angTargetDistance = 0;
+            _adjust_angPosition_seq_angPosition_org = _angPosition; //次回の準備
+            _angPosition_base = _new_angPosition_base;
         } else {
 
-            if (d > 0 && _adjust_angPosition_seq_angDistance < 0) {
+            if (d > 0 && _adjust_angPosition_seq_angTargetDistance < 0) {
                 _acceMv_approach = 100;
                 _adjust_angPosition_seq_acceMv_approach_rate = 1.0;
-            } else if (d < 0 && _adjust_angPosition_seq_angDistance > 0) {
+            } else if (d < 0 && _adjust_angPosition_seq_angTargetDistance > 0) {
                 _acceMv_approach = -100;
                 _adjust_angPosition_seq_acceMv_approach_rate = 1.0;
             }
-            _TRACE_(getName() <<":  前 _adjust_angPosition_seq_angDistance="<<_adjust_angPosition_seq_angDistance<<"  _acceMv_approach="<<_acceMv_approach<<" _rate="<<_adjust_angPosition_seq_acceMv_approach_rate);
-            if (_adjust_angPosition_seq_angDistance > 0) {
+            _TRACE_(getName() <<":  前 _adjust_angPosition_seq_angTargetDistance="<<_adjust_angPosition_seq_angTargetDistance<<"  _acceMv_approach="<<_acceMv_approach<<" _rate="<<_adjust_angPosition_seq_acceMv_approach_rate);
+            if (_adjust_angPosition_seq_angTargetDistance > 0) {
                 _acceMv_approach += 100*_adjust_angPosition_seq_acceMv_approach_rate;
-            } else if (_adjust_angPosition_seq_angDistance < 0) {
+            } else if (_adjust_angPosition_seq_angTargetDistance < 0) {
                 _acceMv_approach -= 100*_adjust_angPosition_seq_acceMv_approach_rate;
             }
             _adjust_angPosition_seq_acceMv_approach_rate = _adjust_angPosition_seq_acceMv_approach_rate * 0.9;
-            _TRACE_(getName() <<": 後 _adjust_angPosition_seq_angDistance="<<_adjust_angPosition_seq_angDistance<<"  _acceMv_approach="<<_acceMv_approach<<" _rate="<<_adjust_angPosition_seq_acceMv_approach_rate);
+            _TRACE_(getName() <<": 後 _adjust_angPosition_seq_angTargetDistance="<<_adjust_angPosition_seq_angTargetDistance<<"  _acceMv_approach="<<_acceMv_approach<<" _rate="<<_adjust_angPosition_seq_acceMv_approach_rate);
         }
 
     } else {
         //通常時
         _pMover->setMvVelo(_veloMv);
     }
+    _angPosition = GgafDx9Util::simplifyAng(_angPosition+_angveloMove);
     _pMover->behave();
 
     _Xorg = _X;
@@ -432,7 +465,7 @@ void MyOption::processBehavior() {
     //ここまでで、GgafDx9GeometryMoverの機能のみで、
     //以下のような状態までもっていく。
     //(100,0,0) から原点を見たイメージ、自は原点
-    //↑y軸  →z軸  ・x軸
+    //↑y軸  →z軸  ・x軸（奥から手前、手前が正）
     //
     //
     //              YZ平面に平行でぐるぐる回ってる。

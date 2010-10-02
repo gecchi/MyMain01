@@ -84,11 +84,13 @@ public:
 
     angle _new_angPosition_base;
     bool _adjust_angPosition_seq;
-    int _adjust_angPosition_seq_angDistance;
-    int _adjust_angPosition_seq_angDistanceBase;
+    int _adjust_angPosition_seq_angTargetDistance;
+    int _adjust_angPosition_seq_angAddTotal;
     angvelo _angveloMove_approach;
     acce _acceMv_approach;
     float _adjust_angPosition_seq_acceMv_approach_rate;
+
+    float _adjust_angPosition_seq_angPosition_org;
     /**
      * コンストラクタ .
      * @param prm_name

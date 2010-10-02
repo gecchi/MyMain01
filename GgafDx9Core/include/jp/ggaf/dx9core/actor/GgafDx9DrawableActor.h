@@ -5,7 +5,7 @@ namespace GgafDx9Core {
 /**
  * 画面に描画を行うアクターの抽象クラス .
  * GgafDx9GeometricActor に モデル、エフェクト、マテリアルなどを保持し、<BR>
- * 描画関連メソッドを追加<BR>
+ * 描画関連メソッドを定義<BR>
  * @version 1.00
  * @since 2009/06/10
  * @author Masatoshi Tsuge

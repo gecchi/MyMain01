@@ -1,13 +1,13 @@
-// PCMPlayer.h
-//
+// 本プログラムは、<BR>
+// 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html <BR>
+// サイト内コンテンツの 「Ogg Vorbis入門編」 http://marupeke296.com/OGG_main.html <BR>
+// のサンプルプログラムのがオリジナルです。<BR>
+// 一部変更して使用しています。<BR>
+//                                            2009/01/13 Masatoshi Tsuge<BR>
+
 
 #ifndef IKD_DIX_PCMPLAYER_H
 #define IKD_DIX_PCMPLAYER_H
-
-//#include "DixSmartPtr.hpp"
-//#include "DixComPtr.h"
-//#include "PCMDecoder.h"
-//#include "dsound.h"
 
 namespace Dix {
     class PCMPlayer {
@@ -72,7 +72,6 @@ namespace Dix {
 
 
     public:
-        //sp< PCMDecoder >				pPCMDecoder_;		//!< 再生対象デコード
         IDirectSound8*                  pDS8_;				//!< サウンドデバイス
         IDirectSoundBuffer8*            pDSBuffer_;		//!< セカンダリバッファ
         PCMDecoder*                     pPCMDecoder_;

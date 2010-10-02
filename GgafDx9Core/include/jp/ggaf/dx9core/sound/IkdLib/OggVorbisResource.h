@@ -1,3 +1,10 @@
+// 本プログラムは、<BR>
+// 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html <BR>
+// サイト内コンテンツの 「Ogg Vorbis入門編」 http://marupeke296.com/OGG_main.html <BR>
+// のサンプルプログラムのがオリジナルです。<BR>
+// 一部変更して使用しています。<BR>
+//                                            2009/01/13 Masatoshi Tsuge<BR>
+
 // OggVorbisResource.h
 //
 
@@ -5,8 +12,6 @@
 #define IKD_DIX_OGGVORBISRESOURCE_H
 
 #include "vorbis/vorbisfile.h"
-//#include "DixSmartPtr.hpp"
-//#include "memory.h"
 
 namespace Dix {
     class OggVorbisResource {
@@ -32,7 +37,6 @@ namespace Dix {
         }
 
         // 安全なクローンを作成
-        //virtual sp< OggVorbisResource > createClone() = 0;
         virtual OggVorbisResource* createClone() = 0;
 
         // 準備できた？

@@ -61,18 +61,7 @@ void GgafDx9MorphMeshActor::processDraw() {
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
-    // Zバッファを有効に
-    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    // Zバッファ書き込み可
-    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-
     _pMorphMeshModel->draw(this);
-
-    // Zバッファを無効に
-    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    // Zバッファ書き込み不可
-    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
-
 }
 
 int GgafDx9MorphMeshActor::getMorphTergetNum() {

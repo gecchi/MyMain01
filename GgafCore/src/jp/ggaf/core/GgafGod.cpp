@@ -101,7 +101,7 @@ void GgafGod::be() {
             if (_time_at_beginning_frame > _expected_time_of_next_frame + _aTime_OffsetOfNextFrame[_frame_of_God % 60]) {
                 //大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
                 _skip_count_of_frame++;
-                if (_skip_count_of_frame >= GGAF_PROPERTY(MAX_SKIP_FRAME)) {
+                if (_skip_count_of_frame >= (int)GGAF_PROPERTY(MAX_SKIP_FRAME)) {
                     //スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
                     _skip_count_of_frame = 0;
                     _frame_of_visualize++;

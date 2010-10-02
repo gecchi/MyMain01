@@ -15,7 +15,7 @@ namespace GgafDx9Core {
  * _X,_Y,_Z             ・・・ カメラの位置 <BR>
  * <BR>
  * ＜使い方＞<BR>
- * 継承し、processBehavior() 等を オーバーライドして好きに座標を動かすだけで良い<BR>
+ * 継承し、processBehavior() 等を オーバーライドして好きに座標を動かすがよい<BR>
  * <BR>
  * @version 1.00
  * @since 2009/02/12

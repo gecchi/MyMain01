@@ -218,7 +218,7 @@ void MyShip::initialize() {
 
 void MyShip::processBehavior() {
 
-    //オリジナルシステム VAMSystemの実装
+    //VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
     _stc = VB_PLAY->getBeingPressedStick();
     if (pCOMMONSCENE->_pos_camera == CAM_POS_RIGHT) {

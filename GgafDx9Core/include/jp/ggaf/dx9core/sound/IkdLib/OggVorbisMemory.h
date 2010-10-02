@@ -1,10 +1,13 @@
-// OggVorbisMemory.h
-//
+// 本プログラムは、<BR>
+// 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html <BR>
+// サイト内コンテンツの 「Ogg Vorbis入門編」 http://marupeke296.com/OGG_main.html <BR>
+// のサンプルプログラムのがオリジナルです。<BR>
+// 一部変更して使用しています。<BR>
+//                                            2009/01/13 Masatoshi Tsuge<BR>
+
 
 #ifndef IKD_DIX_OGGVORBISMEMORY_H
 #define IKD_DIX_OGGVORBISMEMORY_H
-
-//#include "OggVorbisResource.h"
 
 namespace Dix {
     class OggVorbisMemory : public OggVorbisResource {
