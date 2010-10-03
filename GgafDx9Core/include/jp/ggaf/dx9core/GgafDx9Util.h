@@ -5,6 +5,18 @@ namespace GgafDx9Core {
 #define sgn(X) (GgafDx9Core::GgafDx9Util::sign(X))
 #define max3(A,B,C) (GgafDx9Core::GgafDx9Util::max3(A,B,C))
 
+//近い方向に回転
+#define TURN_CLOSE_TO 0
+//遠い方向に回転
+#define TURN_ANTICLOSE_TO 2
+//時計回りに回転
+#define TURN_CLOCKWISE (-1)
+//反時計回りに回転
+#define TURN_COUNTERCLOCKWISE 1
+//どちらかの回転（いずれの回転でも）
+#define TURN_BOTH 0
+
+
 /**
  * ユーティリティクラス .
  * 静的な座標計算関連関数はココに集約していこう。
@@ -103,55 +115,16 @@ public:
     }
 
     /**
-     * 近いほうのアングル値の差を取る
+     * 近いほうのアングル値の差を取る .
+     * TURN_COUNTERCLOCKWISE ・・・ 回転方向が左回りで差異角取得、正の値で返る。<BR>
+     * TURN_CLOCKWISE        ・・・ 回転方向が右回りで差異角取得、負の値に返る。<BR>
+     * TURN_CLOSE_TO         ・・・ ターゲットの回転角と距離が近い方の回転方向で取得、正又は負の値になる。<BR>
      * @param angFrom
      * @param angTo
-     * @return アングル値の差（正負あり)
+     * @param prm_way TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO
+     * @return アングル値の差（結果が 反時計周りは正、時計回りは負)
      */
-    static angle getDiffAng(angle angFrom, angle angTo) {
-            if (0 <= angFrom && angFrom < ANGLE180) {
-                if (0 <= angTo && angTo < angFrom) {
-                    return -1 * (angFrom - angTo);
-                } else if (angTo == angFrom) {
-                    //重なってる場合
-                    return 0;
-                } else if (angFrom < angTo && angTo < angFrom + ANGLE180) {
-                    return angTo - angFrom;
-                } else if (angTo == angFrom + ANGLE180) {
-                    //正反対を向いている（＝距離は等しい）
-                    //仕方ないので正の値とする。(正確には -ANGLE180 or ANGLE180)
-                    return ANGLE180;
-                } else if (angFrom + ANGLE180 < angTo && angTo <= ANGLE360) {
-                    return -1 * (angFrom + (ANGLE360 - angTo));
-                } else {
-                    //おかしい
-                    _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
-                    throwGgafCriticalException("GgafDx9Util::getDiffAngle アングル値が範囲外です(1)。");
-                }
-            } else if (ANGLE180 <= angFrom && angFrom <= ANGLE360) {
-                if (0 <= angTo && angTo < angFrom - ANGLE180) {
-                    return ANGLE360 - angFrom + angTo;
-                } else if (angTo == angFrom - ANGLE180) {
-                    //正反対を向いている（＝距離は等しい）
-                    //仕方ないので正の値とする。(正確には -ANGLE180 or ANGLE180)
-                    return ANGLE180;
-                } else if (angFrom - ANGLE180 < angTo && angTo < angFrom) {
-                    return -1 * (angFrom - angTo);
-                } else if (angFrom == angTo) {
-                    //重なってる場合
-                    return 0;
-                } else if (angFrom < angTo && angTo <= ANGLE360) {
-                    return angTo - angFrom;
-                } else {
-                    //おかしい
-                    _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
-                    throwGgafCriticalException("GgafDx9Util::getDiffAngle アングル値が範囲外です(2)。");
-                }
-            }
-
-        _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
-        throwGgafCriticalException("GgafDx9Util::getDiffAngle  何故かしら角の距離が求めれません。(1)");
-    }
+    static angle getAngDiff(angle angFrom, angle angTo, int prm_way=TURN_CLOSE_TO);
 
 
     /**

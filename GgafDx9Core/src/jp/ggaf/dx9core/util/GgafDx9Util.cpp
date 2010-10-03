@@ -5,9 +5,6 @@ using namespace GgafDx9Core;
 
 
 
-
-
-
 //角度の種類の変数名の命名。忘れないようメモ(2009/10/21)
 //
 //変数名と種類
@@ -336,6 +333,65 @@ angle GgafDx9Util::addAng(angle prm_angNow, angle prm_angOffset) {
         angAdd += ANGLE360;
     }
     return angAdd;
+}
+
+angle GgafDx9Util::getAngDiff(angle angFrom, angle angTo, int prm_way) {
+    if (prm_way == TURN_ANTICLOSE_TO) {
+        if (0 <= angFrom && angFrom < ANGLE180) {
+            if (0 <= angTo && angTo < angFrom) {
+                return -1 * (angFrom - angTo);
+            } else if (angTo == angFrom) {
+                //重なってる場合
+                return 0;
+            } else if (angFrom < angTo && angTo < angFrom + ANGLE180) {
+                return angTo - angFrom;
+            } else if (angTo == angFrom + ANGLE180) {
+                //正反対を向いている（＝距離は等しい）
+                //仕方ないので正の値とする。(正確には -ANGLE180 or ANGLE180)
+                return ANGLE180;
+            } else if (angFrom + ANGLE180 < angTo && angTo <= ANGLE360) {
+                return -1 * (angFrom + (ANGLE360 - angTo));
+            } else {
+                //おかしい
+                _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
+                throwGgafCriticalException("GgafDx9Util::getDiffAngle アングル値が範囲外です(1)。");
+            }
+        } else if (ANGLE180 <= angFrom && angFrom <= ANGLE360) {
+            if (0 <= angTo && angTo < angFrom - ANGLE180) {
+                return ANGLE360 - angFrom + angTo;
+            } else if (angTo == angFrom - ANGLE180) {
+                //正反対を向いている（＝距離は等しい）
+                //仕方ないので正の値とする。(正確には -ANGLE180 or ANGLE180)
+                return ANGLE180;
+            } else if (angFrom - ANGLE180 < angTo && angTo < angFrom) {
+                return -1 * (angFrom - angTo);
+            } else if (angFrom == angTo) {
+                //重なってる場合
+                return 0;
+            } else if (angFrom < angTo && angTo <= ANGLE360) {
+                return angTo - angFrom;
+            } else {
+                //おかしい
+                _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
+                throwGgafCriticalException("GgafDx9Util::getDiffAngle アングル値が範囲外です(2)。");
+            }
+        }
+    } else if (prm_way == TURN_COUNTERCLOCKWISE) {
+        if (angFrom <= angTo) {
+            return angTo - angFrom;
+        } else {
+            return -(ANGLE360 - angFrom + angTo);
+        }
+    } else if (prm_way == TURN_CLOCKWISE) {
+        if (angFrom >= angTo) {
+            return -(angFrom - angTo);
+        } else {
+            return -(angFrom + (ANGLE360 - angTo));
+        }
+    }
+
+    _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
+    throwGgafCriticalException("GgafDx9Util::getDiffAngle  何故かしら角の距離が求めれません。(1)");
 }
 
 void GgafDx9Util::rotXY(int prm_X, int prm_Y, angle prm_ang, int& out_X, int& out_Y) {

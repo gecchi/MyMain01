@@ -545,7 +545,7 @@ void CommonScene::processBehavior() {
     //ƒJƒƒ‰‚ÌUP‚ğŒvZ
     if (_angXY_nowCamUp != move_target_XY_CAM_UP) {
         //_TRACE_("_angXY_nowCamUp="<<_angXY_nowCamUp<<" / move_target_XY_CAM_UP="<<move_target_XY_CAM_UP);
-        angle da = GgafDx9Util::getDiffAng(_angXY_nowCamUp, move_target_XY_CAM_UP);
+        angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, move_target_XY_CAM_UP);
         if (-1000 < da && da < 1000) {
             _angXY_nowCamUp = move_target_XY_CAM_UP;
         } else {

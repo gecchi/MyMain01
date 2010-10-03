@@ -82,15 +82,10 @@ public:
     /** オプションの初期円周半径に自動戻りを行っている最中は true */
     bool _return_to_base_angExpanse_seq;
 
-    angle _new_angPosition_base;
-    bool _adjust_angPosition_seq;
-    int _adjust_angPosition_seq_angTargetDistance;
-    int _adjust_angPosition_seq_angAddTotal;
-    angvelo _angveloMove_approach;
-    acce _acceMv_approach;
-    float _adjust_angPosition_seq_acceMv_approach_rate;
 
-    float _adjust_angPosition_seq_angPosition_org;
+
+    bool _adjust_angPosition_seq;
+
     /**
      * コンストラクタ .
      * @param prm_name
@@ -128,6 +123,8 @@ public:
     void onCreateModel() override;
 
     void initialize() override;
+
+    void onActive() override;
 
     void processBehavior() override;
 

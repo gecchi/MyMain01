@@ -2,17 +2,6 @@
 #define GGAFDX9GEOMETRYMOVER_H_
 namespace GgafDx9Core {
 
-//‹ß‚¢•ûŒü‚É‰ñ“]
-#define TURN_CLOSE_TO 0
-//‰“‚¢•ûŒü‚É‰ñ“]
-#define TURN_ANTICLOSE_TO 2
-//ŽžŒv‰ñ‚è‚É‰ñ“]
-#define TURN_CLOCKWISE (-1)
-//”½ŽžŒv‰ñ‚è‚É‰ñ“]
-#define TURN_COUNTERCLOCKWISE 1
-//‚Ç‚¿‚ç‚Ì‰ñ“]‚Å‚àŽó‚¯“ü‚ê‚é
-#define TURN_BOTH 0
-
 //Ž²X
 #define AXIS_X 0
 //Ž²Y
