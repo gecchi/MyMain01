@@ -353,7 +353,7 @@ angle GgafDx9Util::getAngDiff(angle angFrom, angle angTo, int prm_way) {
                 return -1 * (angFrom + (ANGLE360 - angTo));
             } else {
                 //おかしい
-                _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
+                _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("GgafDx9Util::getDiffAngle アングル値が範囲外です(1)。");
             }
         } else if (ANGLE180 <= angFrom && angFrom <= ANGLE360) {
@@ -372,7 +372,7 @@ angle GgafDx9Util::getAngDiff(angle angFrom, angle angTo, int prm_way) {
                 return angTo - angFrom;
             } else {
                 //おかしい
-                _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
+                _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("GgafDx9Util::getDiffAngle アングル値が範囲外です(2)。");
             }
         }
@@ -390,7 +390,7 @@ angle GgafDx9Util::getAngDiff(angle angFrom, angle angTo, int prm_way) {
         }
     }
 
-    _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
+    _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
     throwGgafCriticalException("GgafDx9Util::getDiffAngle  何故かしら角の距離が求めれません。(1)");
 }
 

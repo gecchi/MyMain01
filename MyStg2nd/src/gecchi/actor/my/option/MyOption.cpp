@@ -212,7 +212,7 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent
 
     //       角速度
     //        ^                                        a:角加速度               ・・・求めたいもの
-    //        |                                        S:目標移動距離           ・・・上記の angDiffで指定
+    //        |                                        S:目標移動角度           ・・・上記の angDiffで指定
     //        |                                      ω0:現時点の角速度         ・・・GgafDx9GeometryMover->_veloMvで指定
     //        |                                      ωx:最大角速度             ・・・任意
     //        |                                        t:目標時間（フレーム数） ・・・定数で指定
@@ -245,7 +245,7 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent
     angle angDiff = MyStgUtil::getAngDiff(prm_new_angPosition_base, angPosition, sgn(_veloMv));
     _adjust_angPosition_seq_angacc = 4.0 * (angDiff - _angveloMove * (int)prm_spent_frame) / (double)(prm_spent_frame*prm_spent_frame);
     _TRACE_("_adjust_angPosition_seq_angacc = "<<_adjust_angPosition_seq_angacc);
-    _pMover->setRzMvAngAcce(_adjust_angPosition_seq_angacc);
+
 }
 
 
@@ -387,12 +387,13 @@ void MyOption::processBehavior() {
 //        addRadiusPosition(-1000);
 //    }
     if (_adjust_angPosition_seq_progress > 0) {
+        _pMover->setRzMvAngAcce(_adjust_angPosition_seq_angacc);
         if (_adjust_angPosition_seq_progress == 1) {
             if (getActivePartFrame() > _adjust_angPosition_seq_frame_of_begin + (_adjust_angPosition_seq_spent_frame/2)) {
                 _adjust_angPosition_seq_progress = 2;
                 _adjust_angPosition_seq_angacc = -_adjust_angPosition_seq_angacc;
-                _pMover->setRzMvAngAcce(_adjust_angPosition_seq_angacc);
             }
+//            _pMover->setRzMvAngAcce(_adjust_angPosition_seq_angacc);
         } else if (_adjust_angPosition_seq_progress == 2) {
             if (getActivePartFrame() > _adjust_angPosition_seq_frame_of_begin + _adjust_angPosition_seq_spent_frame) {
                 _adjust_angPosition_seq_progress = 0;
@@ -402,9 +403,12 @@ void MyOption::processBehavior() {
         }
         //角速度から移動速度を計算
         _veloMv = 2.0*PI*_radiusPosition / _pMover->_angveloRzMv;
+
+        _pMover->setMvVelo(_veloMv);
+    } else {
+         //通常時
+        _pMover->setMvVelo(_veloMv);
     }
-        //通常時
-    _pMover->setMvVelo(_veloMv);
     _angPosition = GgafDx9Util::simplifyAng(_angPosition+_angveloMove);
 
     _pMover->behave();
