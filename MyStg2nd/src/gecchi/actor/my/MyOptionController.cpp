@@ -219,13 +219,13 @@ void MyOptionController::processBehavior() {
 
     if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
         for (int i = 0; i < _now_option_num; i++) {
-            _papMyOption[i]->adjustAngPosition(i*ANGLE45);
+            _papMyOption[i]->adjustAngPosition(i*ANGLE45, 60*3);
         }
     }
 
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
         for (int i = 0; i < _now_option_num; i++) {
-            _papMyOption[i]->adjustAngPosition(i*ANGLE90);
+            _papMyOption[i]->adjustAngPosition(i*ANGLE90, 60*3);
         }
     }
 

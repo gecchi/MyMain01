@@ -84,8 +84,10 @@ public:
 
 
 
-    bool _adjust_angPosition_seq;
-
+    int _adjust_angPosition_seq_progress;
+    angacce _adjust_angPosition_seq_angacc;
+    frame _adjust_angPosition_seq_frame_of_begin;
+    frame _adjust_angPosition_seq_spent_frame;
     /**
      * コンストラクタ .
      * @param prm_name
@@ -137,7 +139,7 @@ public:
     virtual ~MyOption();
 
 
-    void adjustAngPosition(angle prm_new_angPosition_base);
+    void adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent_frame);
 
 };
 

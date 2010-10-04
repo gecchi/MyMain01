@@ -117,8 +117,10 @@ void MyOption::onActive() {
     //pCOMMONSCENE->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
     _angPosition = _pMover->_angRzMv;
 
-    _adjust_angPosition_seq = false;
-
+    _adjust_angPosition_seq_progress = 0;
+    _adjust_angPosition_seq_angacc = 0;
+    _adjust_angPosition_seq_spent_frame = 0;
+    _adjust_angPosition_seq_frame_of_begin = 0;
 
 
 }
@@ -198,8 +200,42 @@ void MyOption::setRadiusPosition(int prm_radius) {
 }
 
 
-void MyOption::adjustAngPosition(angle prm_new_angPosition_base) {
-    _adjust_angPosition_seq = true;
+void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent_frame) {
+    _adjust_angPosition_seq_progress = 1;
+    _adjust_angPosition_seq_spent_frame = prm_spent_frame;
+    _adjust_angPosition_seq_frame_of_begin = getActivePartFrame();
+
+    //sgn(_veloMv) は以下のように定義されている事が大前提
+    //#define TURN_CLOSE_TO 0
+    //#define TURN_CLOCKWISE (-1)
+    //#define TURN_COUNTERCLOCKWISE 1
+
+    //       角速度
+    //        ^                                        a:角加速度               ・・・求めたいもの
+    //        |                                        S:目標移動距離           ・・・上記の angDiffで指定
+    //        |                                      ω0:現時点の角速度         ・・・GgafDx9GeometryMover->_veloMvで指定
+    //        |                                      ωx:最大角速度             ・・・任意
+    //        |                                        t:目標時間（フレーム数） ・・・定数で指定
+    //     ωx|........
+    //        |      ／:＼
+    //    傾きはα ／  :  ＼   傾きは-α
+    //        |  ／    :    ＼
+    //        |／      :      ＼
+    //     ω0|     Ｓ :        |
+    //        |        :        |
+    //      --+--------+--------+-------> 時間(フレーム)
+    //        |       t/2       t
+    //
+    //    S  = ω0 t + (ωx - ω0) t / 2 ・・・①
+    //    a  = (ωx - ω0) / (t/2)       ・・・②
+    //    ②より
+    //    a (t/2) = (ωx - ω0)
+    //    ωx =  a (t/2) + ω0
+    //    これを ①へ代入
+    //    S  = ω0 t + ((a (t/2) + ω0) - ω0) t / 2
+    //    a について解く
+    //    S  = ω0 t + (a t^2) / 4
+    //    a = 4 (S - ω0 t) / t^2
     angle angPosition;
     if (_radiusPosition > 0) {
         angPosition = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
@@ -207,18 +243,14 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base) {
         angPosition = MyStgUtil::getAngle2D(-_Z, -_Y); //自分の位置(誤差あり)
     }
     angle angDiff = MyStgUtil::getAngDiff(prm_new_angPosition_base, angPosition, sgn(_veloMv));
-    //sgn(_veloMv) は以下のように定義されている事が大前提
-    //#define TURN_CLOSE_TO 0
-    //#define TURN_CLOCKWISE (-1)
-    //#define TURN_COUNTERCLOCKWISE 1
+    _adjust_angPosition_seq_angacc = 4.0 * (angDiff - _angveloMove * (int)prm_spent_frame) / (double)(prm_spent_frame*prm_spent_frame);
+    _TRACE_("_adjust_angPosition_seq_angacc = "<<_adjust_angPosition_seq_angacc);
+    _pMover->setRzMvAngAcce(_adjust_angPosition_seq_angacc);
 }
 
 
 
 void MyOption::processBehavior() {
-
-
-
 
     //処理メイン
     _X = _Xorg;
@@ -354,9 +386,27 @@ void MyOption::processBehavior() {
 //    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
 //        addRadiusPosition(-1000);
 //    }
-    //通常時
+    if (_adjust_angPosition_seq_progress > 0) {
+        if (_adjust_angPosition_seq_progress == 1) {
+            if (getActivePartFrame() > _adjust_angPosition_seq_frame_of_begin + (_adjust_angPosition_seq_spent_frame/2)) {
+                _adjust_angPosition_seq_progress = 2;
+                _adjust_angPosition_seq_angacc = -_adjust_angPosition_seq_angacc;
+                _pMover->setRzMvAngAcce(_adjust_angPosition_seq_angacc);
+            }
+        } else if (_adjust_angPosition_seq_progress == 2) {
+            if (getActivePartFrame() > _adjust_angPosition_seq_frame_of_begin + _adjust_angPosition_seq_spent_frame) {
+                _adjust_angPosition_seq_progress = 0;
+                _adjust_angPosition_seq_angacc = 0;
+                _pMover->setRzMvAngAcce(0);
+            }
+        }
+        //角速度から移動速度を計算
+        _veloMv = 2.0*PI*_radiusPosition / _pMover->_angveloRzMv;
+    }
+        //通常時
     _pMover->setMvVelo(_veloMv);
     _angPosition = GgafDx9Util::simplifyAng(_angPosition+_angveloMove);
+
     _pMover->behave();
 
     _Xorg = _X;
