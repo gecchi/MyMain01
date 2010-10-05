@@ -336,7 +336,7 @@ angle GgafDx9Util::addAng(angle prm_angNow, angle prm_angOffset) {
 }
 
 angle GgafDx9Util::getAngDiff(angle angFrom, angle angTo, int prm_way) {
-    if (prm_way == TURN_ANTICLOSE_TO) {
+    if (prm_way == TURN_CLOSE_TO) {
         if (0 <= angFrom && angFrom < ANGLE180) {
             if (0 <= angTo && angTo < angFrom) {
                 return -1 * (angFrom - angTo);
@@ -353,7 +353,7 @@ angle GgafDx9Util::getAngDiff(angle angFrom, angle angTo, int prm_way) {
                 return -1 * (angFrom + (ANGLE360 - angTo));
             } else {
                 //おかしい
-                _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+                _TRACE_("GgafDx9Util::getAngDiff bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("GgafDx9Util::getDiffAngle アングル値が範囲外です(1)。");
             }
         } else if (ANGLE180 <= angFrom && angFrom <= ANGLE360) {
@@ -372,7 +372,7 @@ angle GgafDx9Util::getAngDiff(angle angFrom, angle angTo, int prm_way) {
                 return angTo - angFrom;
             } else {
                 //おかしい
-                _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+                _TRACE_("GgafDx9Util::getAngDiff bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
                 throwGgafCriticalException("GgafDx9Util::getDiffAngle アングル値が範囲外です(2)。");
             }
         }
@@ -388,6 +388,9 @@ angle GgafDx9Util::getAngDiff(angle angFrom, angle angTo, int prm_way) {
         } else {
             return -(angFrom + (ANGLE360 - angTo));
         }
+    } else {
+        _TRACE_("GgafDx9Util::getAngDiff bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
+        throwGgafCriticalException("GgafDx9Util::getDiffAngle  prm_way = TURN_CLOSE_TO/TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE 以外が指定されています。");
     }
 
     _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
