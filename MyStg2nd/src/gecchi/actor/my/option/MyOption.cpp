@@ -119,9 +119,14 @@ void MyOption::onActive() {
 
     _adjust_angPosition_seq_progress = 0;
     _adjust_angPosition_seq_angacc = 0;
-    _adjust_angPosition_seq_spent_frame = 0;
+    _adjust_angPosition_seq_angveloMove_offset = 0;
     _adjust_angPosition_seq_frame_of_begin = 0;
+    _adjust_angPosition_seq_frame_of_center = 0;
+    _adjust_angPosition_seq_frame_of_finish = 0;
+    _adjust_angPosition_seq_ang_diff = 0;
 
+    _adjust_angPosition_seq_tc = 0;
+    _adjust_angPosition_seq_tf = 0;
 
 }
 void MyOption::addRadiusPosition(int prm_radius_offset) {
@@ -202,50 +207,98 @@ void MyOption::setRadiusPosition(int prm_radius) {
 
 void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent_frame) {
     _adjust_angPosition_seq_progress = 1;
-    _adjust_angPosition_seq_spent_frame = prm_spent_frame;
+    _new_angPosition_base = prm_new_angPosition_base;
+    _adjust_angPosition_seq_angveloMove_offset = 0;
+    _adjust_angPosition_seq_tc = prm_spent_frame/2;
+    _adjust_angPosition_seq_tf = prm_spent_frame;
     _adjust_angPosition_seq_frame_of_begin = getActivePartFrame();
+    _adjust_angPosition_seq_frame_of_center = getActivePartFrame() + (prm_spent_frame/2);
+    _adjust_angPosition_seq_frame_of_finish = getActivePartFrame() + prm_spent_frame;
 
-    //sgn(_veloMv) は以下のように定義されている事が大前提
-    //#define TURN_CLOSE_TO 0
-    //#define TURN_CLOCKWISE (-1)
-    //#define TURN_COUNTERCLOCKWISE 1
 
-    //       角速度
-    //        ^                                        a:角加速度               ・・・求めたいもの
-    //        |                                        S:目標移動角度           ・・・上記の angDiffで指定
-    //        |                                      ω0:現時点の角速度         ・・・GgafDx9GeometryMover->_veloMvで指定
-    //        |                                      ωx:最大角速度             ・・・任意
-    //        |                                        t:目標時間（フレーム数） ・・・定数で指定
-    //     ωx|........
-    //        |      ／:＼
-    //    傾きはα ／  :  ＼   傾きは-α
-    //        |  ／    :    ＼
-    //        |／      :      ＼
-    //     ω0|     Ｓ :        |
-    //        |        :        |
-    //      --+--------+--------+-------> 時間(フレーム)
-    //        |       t/2       t
-    //
-    //    S  = ω0 t + (ωx - ω0) t / 2 ・・・①
-    //    a  = (ωx - ω0) / (t/2)       ・・・②
-    //    ②より
-    //    a (t/2) = (ωx - ω0)
-    //    ωx =  a (t/2) + ω0
-    //    これを ①へ代入
-    //    S  = ω0 t + ((a (t/2) + ω0) - ω0) t / 2
-    //    a について解く
-    //    S  = ω0 t + (a t^2) / 4
-    //    a = 4 (S - ω0 t) / t^2
-    angle angPosition;
-    if (_radiusPosition > 0) {
-        angPosition = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
-    } else {
-        angPosition = MyStgUtil::getAngle2D(-_Z, -_Y); //自分の位置(誤差あり)
-    }
-    angle angDiff = MyStgUtil::getAngDiff(prm_new_angPosition_base, angPosition, sgn(_veloMv));
-    _adjust_angPosition_seq_angacc = 4.0 * (angDiff - _angveloMove * (int)prm_spent_frame) / (double)(prm_spent_frame*prm_spent_frame);
-    _TRACE_("_adjust_angPosition_seq_angacc = "<<_adjust_angPosition_seq_angacc);
 
+
+
+
+
+
+
+
+
+//    //処理メイン
+//    _X = _Xorg;
+//    _Y = _Yorg;
+//    _Z = _Zorg;
+//
+//
+//
+//    _TRACE_("**************************************");
+//    _TRACE_("OPTION"<<_no<<" prm_new_angPosition_base = "<<prm_new_angPosition_base<<" prm_spent_frame="<<prm_spent_frame);
+//    _adjust_angPosition_seq_progress = 1;
+//    _adjust_angPosition_seq_spent_frame = prm_spent_frame;
+//    _adjust_angPosition_seq_frame_of_begin = getActivePartFrame();
+//    _TRACE_("OPTION"<<_no<<" _adjust_angPosition_seq_progress = "<<_adjust_angPosition_seq_progress);
+//    _TRACE_("OPTION"<<_no<<" _adjust_angPosition_seq_spent_frame = "<<_adjust_angPosition_seq_spent_frame);
+//    _TRACE_("OPTION"<<_no<<" _adjust_angPosition_seq_frame_of_begin = "<<_adjust_angPosition_seq_frame_of_begin);
+//    _TRACE_("OPTION"<<_no<<" (_X,_Y,_Z) = ("<<_X<<","<<_Y<<","<<_Z<<")");
+//
+//
+//
+//    //sgn(_veloMv) は以下のように定義されている事が大前提
+//    //#define TURN_CLOSE_TO 0
+//    //#define TURN_CLOCKWISE (-1)
+//    //#define TURN_COUNTERCLOCKWISE 1
+//
+//    //       角速度
+//    //        ^                                        a:角加速度               ・・・求めたいもの
+//    //        |                                        S:目標移動角度           ・・・上記の angDiffで指定
+//    //        |                                      ω0:現時点の角速度         ・・・GgafDx9GeometryMover->_angveloMoveで指定
+//    //        |                                      ωx:最大角速度             ・・・任意
+//    //        |                                        t:目標時間（フレーム数） ・・・定数で指定
+//    //     ωx|........
+//    //        |      ／:＼
+//    //    傾きはα ／  :  ＼   傾きは-α
+//    //        |  ／    :    ＼
+//    //        |／      :      ＼
+//    //     ω0|     Ｓ :        |
+//    //        |        :        |
+//    //      --+--------+--------+-------> 時間(フレーム)
+//    //        |       t/2       t
+//    //
+//    //    S  = ω0 t + (ωx - ω0) t / 2 ・・・①
+//    //    a  = (ωx - ω0) / (t/2)       ・・・②
+//    //    ②より
+//    //    a (t/2) = (ωx - ω0)
+//    //    ωx =  a (t/2) + ω0
+//    //    これを ①へ代入
+//    //    S  = ω0 t + ((a (t/2) + ω0) - ω0) t / 2
+//    //    a について解く
+//    //    S  = ω0 t + (a t^2) / 4
+//    //    a = 4 (S - ω0 t) / t^2
+//    angle angPosition;
+//    if (_radiusPosition > 0) {
+//        angPosition = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
+//    } else {
+//        angPosition = MyStgUtil::getAngle2D(-_Z, -_Y); //自分の位置(誤差あり)
+//    }
+//    _TRACE_("OPTION"<<_no<<" angPosition = "<<angPosition);
+//
+//
+//    _adjust_angPosition_seq_ang_diff = MyStgUtil::getAngDiff(angPosition, prm_new_angPosition_base, TURN_COUNTERCLOCKWISE);//sgn(_veloMv));
+//    _adjust_angPosition_seq_angacc = 4.0 * (_adjust_angPosition_seq_ang_diff - _angveloMove * (int)prm_spent_frame) / (double)(prm_spent_frame*prm_spent_frame);
+//
+//    _TRACE_("OPTION"<<_no<<" angDiff = "<<angDiff);
+//    _TRACE_("OPTION"<<_no<<" _adjust_angPosition_seq_angacc = "<<_adjust_angPosition_seq_angacc);
+//    _TRACE_("OPTION"<<_no<<" 前_pMover->_angRzMv = "<<_pMover->_angRzMv);
+//    _TRACE_("OPTION"<<_no<<" 前_pMover->_angveloRzMv = "<<_pMover->_angveloRzMv);
+//    _TRACE_("OPTION"<<_no<<" 前(_X,_Y,_Z) = ("<<_X<<","<<_Y<<","<<_Z<<")");
+//
+//
+//
+//
+//    _Xorg = _X;
+//    _Yorg = _Y;
+//    _Zorg = _Z;
 }
 
 
@@ -284,6 +337,7 @@ void MyOption::processBehavior() {
 
 
     if (_return_to_base_angExpanse_seq) {
+
         //自動戻り
         if (_angExpanse > _angExpanse_default) {
             _angExpanse -= 3000;
@@ -386,25 +440,84 @@ void MyOption::processBehavior() {
 //    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
 //        addRadiusPosition(-1000);
 //    }
+
     if (_adjust_angPosition_seq_progress > 0) {
-        _pMover->setRzMvAngAcce(_adjust_angPosition_seq_angacc);
         if (_adjust_angPosition_seq_progress == 1) {
-            if (getActivePartFrame() > _adjust_angPosition_seq_frame_of_begin + (_adjust_angPosition_seq_spent_frame/2)) {
+            if (getActivePartFrame() > _adjust_angPosition_seq_frame_of_center) {
                 _adjust_angPosition_seq_progress = 2;
-                _adjust_angPosition_seq_angacc = -_adjust_angPosition_seq_angacc;
-            }
-//            _pMover->setRzMvAngAcce(_adjust_angPosition_seq_angacc);
-        } else if (_adjust_angPosition_seq_progress == 2) {
-            if (getActivePartFrame() > _adjust_angPosition_seq_frame_of_begin + _adjust_angPosition_seq_spent_frame) {
-                _adjust_angPosition_seq_progress = 0;
-                _adjust_angPosition_seq_angacc = 0;
-                _pMover->setRzMvAngAcce(0);
+            } else {
+                //       角速度
+                //        ^                                        a:角加速度               ・・・求めたいもの
+                //        |                                        S:残移動距離（角度）     ・・・上記の angDiffで指定
+                //        |                                      ω0:現時点の角速度         ・・・GgafDx9GeometryMover->_angveloMove + _adjust_angPosition_seq_angveloMove_offset
+                //        |                                      ωf:現時点の目標角速度     ・・・GgafDx9GeometryMover->_angveloMove
+                //        |                                      ωc:最大角速度             ・・・不定
+                //        |                                       tc:折り返し時間           ・・・_adjust_angPosition_seq_tc
+                //        |                                        t:目標時間（フレーム数） ・・・_adjust_angPosition_seq_tf
+                //     ωc|......
+                //        |    ／:＼
+                //        |  ／  :  ＼   傾きは-α
+                //     ω0|／    :    ＼          ^
+                //        |      :  S   ＼        | ω0 - ωf = _adjust_angPosition_seq_angveloMove_offset
+                //     ωf|......:........＼      v
+                //        |      :          |
+                //      --+------+----------+-------> 時間(フレーム)
+                //      0 |      tc         tf
+                //
+                //    tcで区切られた台形２つの計をSと考える
+                //    S = { (ω0 + ωc) tc / 2 } + { (ωf + ωc) (tf - tc) / 2 } ・・・①
+                //     a  = (ωc - ω0) / tc                                      ・・・②
+                //    -a  = -(ωc - ωf) / (tf - tc)                               ・・・③
+
+                //     ωc = a tc + ω0
+                //     -a  = -((a tc + ω0) - ωf) / (tf - tc)
+                //     -a (tf - tc) = -((a tc + ω0) - ωf)
+                //     a tc - a tf = - a tc - ω0 + ωf
+                //     2 a tc - a tf = - ω0 + ωf
+                //     a (2 tc - tf) = - ω0 + ωf
+                //     a = (ωf - ω0) / (2 tc - tf)
+
+                //     a = (ω0 - ωf) / (tf - 2 tc)  ・・・たしかに
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                //    S  = ω0 tf + (ωc - ω0) tf / 2 ・・・①
+                //    a  = (ωc - ω0) / tc          ・・・②
+                //    ②より
+                //    a tc = (ωc - ω0)
+                //    ωx =  a tc + ω0
+                //    これを ①へ代入
+                //    S  = ω0 t + ((a tc + ω0) - ω0) tf / 2
+                //    a について解sく
+                //    S  = ω0 tf + (a tc tf) / 2
+                //    2 (S - ω0 tf) = a tc tf
+                //    a = 2 (S - ω0 tf) / tc tf
+                angle angPosition;
             }
         }
-        //角速度から移動速度を計算
-        _veloMv = 2.0*PI*_radiusPosition / _pMover->_angveloRzMv;
 
-        _pMover->setMvVelo(_veloMv);
+
+
+        if (_adjust_angPosition_seq_progress == 2) {
+            if (getActivePartFrame() > _adjust_angPosition_seq_frame_of_finish) {
+            }
+        }
     } else {
          //通常時
         _pMover->setMvVelo(_veloMv);
