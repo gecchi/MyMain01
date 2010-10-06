@@ -84,7 +84,7 @@ void CollisionChecker::updateHitArea() {
     if (_pActor == NULL || _pCollisionArea == NULL) {
         return;
     }
-    //if (_pActor->_can_hit_flg && _pActor->isActive() && _pActor->isOffscreen() == 0 ) {  //Ž‹–ìŠO‚Í“o˜^‚µ‚È‚¢
+    //if (_pActor->_can_hit_flg && _pActor->isActive() && _pActor->isOutOfView() == 0 ) {  //Ž‹–ìŠO‚Í“o˜^‚µ‚È‚¢
     if (_pActor->_can_hit_flg && _pActor->isActive() ) {
         GgafDx9CollisionPart* pColliPart;
         for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
@@ -141,7 +141,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
     GgafDx9CollisionArea* pOppCollisionArea = ((CollisionChecker*)prm_pOppChecker)->_pCollisionArea;
 
 //    if (_pCollisionArea == NULL || pOppCollisionArea == NULL ||
-//        _pActor->isOffscreen() > 0 || pOppActor->isOffscreen() > 0 ) {  //Ž‹–ìŠO‚Í”»’è‚µ‚È‚¢
+//        _pActor->isOutOfView() > 0 || pOppActor->isOutOfView() > 0 ) {  //Ž‹–ìŠO‚Í”»’è‚µ‚È‚¢
 
     if (_pCollisionArea == NULL || pOppCollisionArea == NULL) {
         return false;
