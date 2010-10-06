@@ -70,10 +70,10 @@ void MyOptionTorpedoController::fire() {
             }
             _papMyTorpedo[i]->_pMover->setRzRyMvAng(0, 0);
             _papMyTorpedo[i]->_pMover->getRzRyMvAngDistance(TURN_CLOSE_TO,
-                                                 pa_angWay[i], ANGLE90,
-                                                 out_dz, out_dy,
-                                                 out_rz, out_ry
-                                                );
+                                                             pa_angWay[i], ANGLE90,
+                                                             out_dz, out_dy,
+                                                             out_rz, out_ry
+                                                            );
             _papMyTorpedo[i]->_pMover->setRzRyMvAng(out_rz, out_ry);
             _papMyTorpedo[i]->activate();
         }

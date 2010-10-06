@@ -3,7 +3,7 @@
 namespace MyStg2nd {
 
 /**
- * 地形トーラス００１ .
+ * 地形トーラスのバリエーション001 .
  * @version 1.00
  * @since 2010/05/23
  * @author Masatoshi Tsuge

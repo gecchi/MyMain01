@@ -79,7 +79,7 @@ void Torus::onHit(GgafActor* prm_pOtherActor) {
 }
 
 int Torus::isOutOfView() {
-    //視野外判定不要
+    //視野外判定無し
     return 0;
 }
 Torus::~Torus() {
