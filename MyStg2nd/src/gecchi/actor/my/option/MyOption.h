@@ -84,17 +84,12 @@ public:
 
 
 
-    int _adjust_angPosition_seq_progress;
-    angacce _adjust_angPosition_seq_angacc;
-    frame _adjust_angPosition_seq_tc;
-    frame _adjust_angPosition_seq_tf;
+    int _adjust_angPos_seq_progress;
+    angle _adjust_angPos_seq_new_angPosition_base;
+    frame _adjust_angPos_seq_spent_frame;
+    frame _adjust_angPos_seq_frame_of_finish;
+    angle _adjust_angPos_seq_angPosition;
 
-    frame _adjust_angPosition_seq_frame_of_begin;
-    frame _adjust_angPosition_seq_frame_of_center;
-    frame _adjust_angPosition_seq_frame_of_finish;
-    angvelo _adjust_angPosition_seq_angveloMove_offset;
-    angle _new_angPosition_base;
-    angle _adjust_angPosition_seq_ang_diff;
     /**
      * コンストラクタ .
      * @param prm_name

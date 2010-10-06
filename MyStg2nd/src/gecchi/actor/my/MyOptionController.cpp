@@ -18,7 +18,7 @@ MyOptionController::MyOptionController(const char* prm_name) :
     _angVelo_Turn = 3000;
     _veloOptionsMv = 20000;
 
-    _now_option_num = 1;
+    _now_option_num = 8;
 
     _renge = 80000;
     _pMover->forceVxMvVeloRange(-_renge, _renge);
@@ -35,8 +35,7 @@ MyOptionController::MyOptionController(const char* prm_name) :
     }
 
     _papMyOption[0] = NEW MyOption("MY_OPTION01", 0, this);
-    //_papMyOption[0]->config(60000, ANGLE0, 0, 1000);
-    _papMyOption[0]->config(60000, ANGLE180, 0, 0);
+    _papMyOption[0]->config(60000, ANGLE0, 0, 1000);
     _papMyOption[0]->setMaterialColor(1.0, 1.0, 1.0);
     _papMyOption[0]->setAlpha(0.7);
     addSubGroup(_papMyOption[0]);
@@ -220,17 +219,21 @@ void MyOptionController::processBehavior() {
 
     if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
         for (int i = 0; i < _now_option_num; i++) {
-            _papMyOption[i]->adjustAngPosition(ANGLE270, 90);
+            _papMyOption[i]->adjustAngPosition(ANGLE45*i, 300);
         }
     }
 
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
         for (int i = 0; i < _now_option_num; i++) {
-            _papMyOption[i]->adjustAngPosition(ANGLE270, 90);
+            _papMyOption[i]->adjustAngPosition(30000*i, 300);
         }
     }
 
-
+    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+        for (int i = 0; i < _now_option_num; i++) {
+            _papMyOption[i]->adjustAngPosition(ANGLE90*i, 300);
+        }
+    }
 
 
     //ÉMÉYÉÇ
