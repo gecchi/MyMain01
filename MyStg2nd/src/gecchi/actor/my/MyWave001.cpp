@@ -66,7 +66,7 @@ void MyWave001::processBehavior() {
 }
 
 void MyWave001::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (isOutOfUniverse()) {
         sayonara();
     }
 

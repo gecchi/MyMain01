@@ -35,9 +35,9 @@ public:
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    virtual int isOffscreen() override;
+    virtual int isOutOfView() override;
 
-    virtual bool isOutOfGameSpace() override {
+    virtual bool isOutOfUniverse() override {
         if (GgafDx9Core::GgafDx9Universe::_X_goneLeft < _X) {
             return false;
         } else {

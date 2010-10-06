@@ -124,7 +124,7 @@ void EnemyPallas::processBehavior() {
 }
 
 void EnemyPallas::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (isOutOfUniverse()) {
         sayonara();
     }
 }

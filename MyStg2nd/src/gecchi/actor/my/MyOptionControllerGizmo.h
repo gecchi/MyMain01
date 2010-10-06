@@ -37,9 +37,9 @@ public:
 
     void drawHitArea() override;
 
-    int isOffscreen() override;
+    int isOutOfView() override;
 
-    bool isOutOfGameSpace() override;
+    bool isOutOfUniverse() override;
 
     virtual ~MyOptionControllerGizmo();
 };

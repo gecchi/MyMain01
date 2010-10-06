@@ -183,7 +183,7 @@ void MyTorpedo::processBehavior() {
 }
 
 void MyTorpedo::processJudgement() {
-    if (isOutOfGameSpace() && getProgress() == MyTorpedo_IN_FIRE) {
+    if (isOutOfUniverse() && getProgress() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
         setProgress(MyTorpedo_RELEASE);
         GgafMainActor* pTailEffect = _pTailEffectDispatcher->getSubFirst();

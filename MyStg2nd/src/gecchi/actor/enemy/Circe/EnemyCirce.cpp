@@ -45,7 +45,7 @@ void EnemyCirce::processBehavior() {
 
 
 void EnemyCirce::processJudgement() {
-//    if (isOutOfGameSpace()) {
+//    if (isOutOfUniverse()) {
 //        sayonara();
 //    }
 }

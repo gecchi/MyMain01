@@ -97,7 +97,7 @@ void EnemyJuno::processBehavior() {
 }
 
 void EnemyJuno::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (isOutOfUniverse()) {
         sayonara();
     }
 }

@@ -98,7 +98,6 @@ void EnemyThalia::processBehavior() {
         if (pLaser != NULL) {
             pLaser->activate();
             if (pLaser->_pChip_front == NULL) {
-                chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
                 _pSeTransmitter->play3D(1);
                 _pMover->setFaceAngVelo(AXIS_X, 4000);
             }
@@ -118,26 +117,29 @@ void EnemyThalia::processBehavior() {
 }
 
 void EnemyThalia::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (isOutOfUniverse()) {
         sayonara();
     }
 }
 
 void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
-    //_TRACE_("EnemyThalia::onHit!!! this="<<getName()<<"("<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
-    //_TRACE_("EnemyThalia::onHit!!! prm_pOtherActor="<<prm_pOtherActor->getName()<<"("<<prm_pOtherActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
-//    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-//    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-//
-//        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-//        _pSeTransmitter->play3D(0);
-//        if (pExplo001 != NULL) {
-//            pExplo001->activate();
-//            pExplo001->setGeometry(this);
-//        }
-//        //sayonara();
-//    }
+    if (getProgress() == THALIA_PROG_IN_FIRE) {
+        chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
+        if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+            EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+            if (pExplo001 != NULL) {
+                pExplo001->activate();
+                pExplo001->setGeometry(this);
+            }
+            _pSeTransmitter->play3D(0);
+        }
+        sayonara();
+    } else {
+
+    }
+
 }
 
 void EnemyThalia::onInactive() {

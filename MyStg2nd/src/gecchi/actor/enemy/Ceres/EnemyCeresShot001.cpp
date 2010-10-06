@@ -77,7 +77,7 @@ void EnemyCeresShot001::processBehavior() {
 }
 
 void EnemyCeresShot001::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (isOutOfUniverse()) {
         sayonara();
     }
 }

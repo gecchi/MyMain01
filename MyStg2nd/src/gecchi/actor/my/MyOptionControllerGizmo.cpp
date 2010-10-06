@@ -26,12 +26,12 @@ void MyOptionControllerGizmo::processBehavior() {
 void MyOptionControllerGizmo::processJudgement() {
 }
 
-int MyOptionControllerGizmo::isOffscreen() {
+int MyOptionControllerGizmo::isOutOfView() {
     //画面外判定無し
     return 0;
 }
 
-bool MyOptionControllerGizmo::isOutOfGameSpace() {
+bool MyOptionControllerGizmo::isOutOfUniverse() {
     //ゲーム座標範囲外判定無し
     return false;
 }

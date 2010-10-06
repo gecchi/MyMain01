@@ -15,12 +15,12 @@ DefaultPointSpriteActor(prm_name, "hoshitest") {
     _TRACE_("HoshiBoshi002::HoshiBoshi002 _CAM_ZF="<<_CAM_ZF);
 }
 
-int HoshiBoshi002::isOffscreen() {
+int HoshiBoshi002::isOutOfView() {
     //画面外判定無し
     return 0;
 }
 
-bool HoshiBoshi002::isOutOfGameSpace() {
+bool HoshiBoshi002::isOutOfUniverse() {
     //ゲーム座標範囲外判定無し
     return false;
 }

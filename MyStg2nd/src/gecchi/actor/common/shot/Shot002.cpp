@@ -54,7 +54,7 @@ void Shot002::processBehavior() {
 }
 
 void Shot002::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (isOutOfUniverse()) {
         sayonara();
     }
 }

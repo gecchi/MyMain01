@@ -248,7 +248,7 @@ void EnemyAstraea::processBehavior() {
 }
 
 void EnemyAstraea::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (isOutOfUniverse()) {
         sayonara();
     }
 }

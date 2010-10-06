@@ -87,7 +87,6 @@ public:
     int _adjust_angPos_seq_progress;
     angle _adjust_angPos_seq_new_angPosition_base;
     frame _adjust_angPos_seq_spent_frame;
-    frame _adjust_angPos_seq_frame_of_finish;
     angle _adjust_angPos_seq_angPosition;
 
     /**

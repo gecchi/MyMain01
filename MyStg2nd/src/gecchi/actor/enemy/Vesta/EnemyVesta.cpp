@@ -233,7 +233,7 @@ void EnemyVesta::processJudgement() {
     }
 
 
-//    if (isOutOfGameSpace()) {
+//    if (isOutOfUniverse()) {
 //        sayonara();
 //    }
 }

@@ -118,7 +118,7 @@ void EnemyIris::processBehavior() {
 }
 
 void EnemyIris::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (isOutOfUniverse()) {
         sayonara();
     }
 }

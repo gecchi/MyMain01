@@ -161,7 +161,7 @@ void EnemyTamago01::processBehavior() {
 }
 
 void EnemyTamago01::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (isOutOfUniverse()) {
         sayonara();
     }
 }

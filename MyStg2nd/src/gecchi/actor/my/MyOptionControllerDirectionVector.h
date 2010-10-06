@@ -31,12 +31,12 @@ public:
 
     void onInactive() override;
 
-    int isOffscreen() override {
+    int isOutOfView() override {
         //画面外判定無し
         return 0;
     }
 
-    bool isOutOfGameSpace() override {
+    bool isOutOfUniverse() override {
         //ゲーム座標範囲外判定無し
         return false;
     }

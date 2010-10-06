@@ -120,7 +120,6 @@ void MyOption::onActive() {
     _adjust_angPos_seq_progress = 0;
     _adjust_angPos_seq_new_angPosition_base = _angPosition;
     _adjust_angPos_seq_spent_frame = 0;
-    _adjust_angPos_seq_frame_of_finish = 0;
     _adjust_angPos_seq_angPosition = 0;
 }
 void MyOption::addRadiusPosition(int prm_radius_offset) {
@@ -203,8 +202,6 @@ void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent
     _adjust_angPos_seq_progress = 1;
     _adjust_angPos_seq_new_angPosition_base = MyStgUtil::simplifyAng(prm_new_angPosition_base);
     _adjust_angPos_seq_spent_frame = prm_spent_frame + 1;
-    _adjust_angPos_seq_frame_of_finish = getActivePartFrame() + _adjust_angPos_seq_spent_frame;
-
 }
 
 
@@ -376,14 +373,14 @@ void MyOption::processBehavior() {
             _adjust_angPos_seq_spent_frame --;
 
             if (_adjust_angPos_seq_spent_frame == 0) {
+                _angPosition_base = _adjust_angPos_seq_new_angPosition_base;
                 //誤差修正のため理想位置に再設定
                 _angveloMove = ((1.0*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
                 _pMover->setMvVelo(_veloMv);
                 _pMover->setRzMvAngVelo(_angveloMove);//∵半径Ｒ＝速度Ｖ／角速度ω
-                _Z = GgafDx9Util::COS[_adjust_angPos_seq_new_angPosition_base/ANGLE_RATE]*_radiusPosition; //X軸中心回転なのでXYではなくてZY
-                _Y = GgafDx9Util::SIN[_adjust_angPos_seq_new_angPosition_base/ANGLE_RATE]*_radiusPosition; //X軸の正の方向を向いて時計回りに配置
+                _Z = GgafDx9Util::COS[_angPosition_base/ANGLE_RATE]*_radiusPosition; //X軸中心回転なのでXYではなくてZY
+                _Y = GgafDx9Util::SIN[_angPosition_base/ANGLE_RATE]*_radiusPosition; //X軸の正の方向を向いて時計回りに配置
                 _X = 0;
-
                 _adjust_angPos_seq_progress = 0;
             }
         }
@@ -513,7 +510,7 @@ void MyOption::processBehavior() {
     }
 
 //    if (_pLockonTarget) {
-//        //if (_pLockonTarget->isOffscreen() || _pLockonTarget->isActive() == false) { //非アクティブのみと視野外はロックオン解除
+//        //if (_pLockonTarget->isOutOfView() || _pLockonTarget->isActive() == false) { //非アクティブのみと視野外はロックオン解除
 //        if (_pLockonTarget->isActive() == false) {  //非アクティブのみ解除（視野外でもロックオン維持）
 //            _pLockonController->releaseLockon();
 //            _pLockonTarget = NULL;

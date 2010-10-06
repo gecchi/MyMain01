@@ -23,7 +23,7 @@ public:
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    int isOffscreen() override {
+    int isOutOfView() override {
         return 0;
     }
     virtual ~TamagoActor();

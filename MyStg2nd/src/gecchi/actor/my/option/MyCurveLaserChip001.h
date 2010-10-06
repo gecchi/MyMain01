@@ -32,8 +32,8 @@ public:
 
 //    void processFinal();
 
-//    bool isOutOfGameSpace() override {
-//        if (isOffscreen() == 0) {
+//    bool isOutOfUniverse() override {
+//        if (isOutOfView() == 0) {
 //            return false;
 //        } else {
 //            return true;

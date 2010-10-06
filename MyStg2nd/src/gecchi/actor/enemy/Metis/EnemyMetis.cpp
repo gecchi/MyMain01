@@ -58,7 +58,7 @@ void EnemyMetis::processBehavior() {
 }
 
 void EnemyMetis::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (isOutOfUniverse()) {
         sayonara();
     }
 }

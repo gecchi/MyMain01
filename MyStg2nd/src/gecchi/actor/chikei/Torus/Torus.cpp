@@ -69,7 +69,7 @@ void Torus::onActive() {
 }
 
 void Torus::processJudgement() {
-    if (wasDeclaredEnd() == false && isOutOfGameSpace()) {
+    if (wasDeclaredEnd() == false && isOutOfUniverse()) {
         sayonara(2000);
     }
 }
@@ -78,7 +78,7 @@ void Torus::onHit(GgafActor* prm_pOtherActor) {
 
 }
 
-int Torus::isOffscreen() {
+int Torus::isOutOfView() {
     //Ž‹–ìŠO”»’è•s—v
     return 0;
 }

@@ -101,7 +101,7 @@ void EnemyCeres::processBehavior() {
 }
 
 void EnemyCeres::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (isOutOfUniverse()) {
         sayonara();
     }
 }
@@ -132,7 +132,7 @@ void EnemyCeres::onInactive() {
     sayonara();
 }
 
-bool EnemyCeres::isOutOfGameSpace() {
+bool EnemyCeres::isOutOfUniverse() {
     if (_X < GgafDx9Camera::_X_ScreenLeft - 20000000) {
         return true;
     } else {
