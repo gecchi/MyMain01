@@ -19,14 +19,14 @@ private:
      * Žg‚¦‚È‚­‚·‚é‚½‚ß‚Éprivate‚Åoverride
      * @return
      */
-    virtual int isOffscreen() {
+    virtual int isOutOfView() {
         return 0;
     }
     /**
      * Žg‚¦‚È‚­‚·‚é‚½‚ß‚Éprivate‚Åoverride
      * @return
      */
-    virtual bool isOutOfGameSpace() {
+    virtual bool isOutOfUniverse() {
         return false;
     }
 

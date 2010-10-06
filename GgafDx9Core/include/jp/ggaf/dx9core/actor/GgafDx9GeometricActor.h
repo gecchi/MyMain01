@@ -1,8 +1,7 @@
 #ifndef GGAFDX9GEOMETRICACTOR_H_
 #define GGAFDX9GEOMETRICACTOR_H_
-namespace GgafDx9Core {
 
-#define MAX_SE_PER_ACTOR 10
+namespace GgafDx9Core {
 
 /**
  * 座標情報を持ったアクター.
@@ -16,7 +15,7 @@ namespace GgafDx9Core {
 class GgafDx9GeometricActor : public GgafDx9BaseActor {
 
 private:
-    /** 画面外種別。isOffscreen()が内部で使用。未計算時は -1 */
+    /** 画面外種別。isOutOfView()が内部で使用。未計算時は -1 */
     int _offscreenkind;
 
 public:
@@ -197,23 +196,23 @@ public:
 
     /**
      * 画面内に表示されているか判定 .
-     * @return 0:Viewport範囲内
-     *         1:Viewport視錐台の上平面より上で範囲外
-     *         2:Viewport視錐台の下平面より下で範囲外
-     *         3:Viewport視錐台の左平面より左で範囲外
-     *         4:Viewport視錐台の右平面より右で範囲外
-     *         5:Viewport視錐台の手前平面より手前で範囲外
-     *         6:Viewport視錐台の奥平面より奥で範囲外
+     * @return 0(false):Viewport範囲内
+     *         1       :Viewport視錐台の上平面より上で範囲外
+     *         2       :Viewport視錐台の下平面より下で範囲外
+     *         3       :Viewport視錐台の左平面より左で範囲外
+     *         4       :Viewport視錐台の右平面より右で範囲外
+     *         5       :Viewport視錐台の手前平面より手前で範囲外
+     *         6       :Viewport視錐台の奥平面より奥で範囲外
      *         ※判定優先順位順に並んでいます。（例：1 かつ 4 は 1 が返ります）
      */
-    virtual int isOffscreen();
+    virtual int isOutOfView();
 
     /**
      * 現在の座標がゲーム活動範囲内かどうか判定 .
      * 画面内、画面外とは無関係
      * @return true:活動範囲外/false:活動範囲内
      */
-    virtual bool isOutOfGameSpace();
+    virtual bool isOutOfUniverse();
 
     /**
      * 未変換ワールド座標を設定 .
@@ -316,9 +315,6 @@ public:
 
         }
     }
-
-
-
 
 
     /**

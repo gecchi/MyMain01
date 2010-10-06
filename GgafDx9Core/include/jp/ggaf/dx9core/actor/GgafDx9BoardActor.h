@@ -17,7 +17,7 @@ private:
      * Žg‚¦‚È‚­‚·‚é‚½‚ß‚Éprivate‚Åoverride
      * @return
      */
-    int isOffscreen() override {
+    int isOutOfView() override {
         return 0;
     }
 
@@ -25,7 +25,7 @@ private:
      * Žg‚¦‚È‚­‚·‚é‚½‚ß‚Éprivate‚Åoverride
      * @return
      */
-    bool isOutOfGameSpace() override {
+    bool isOutOfUniverse() override {
         return false;
     }
 

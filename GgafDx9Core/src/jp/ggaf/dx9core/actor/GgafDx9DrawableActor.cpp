@@ -142,7 +142,7 @@ void GgafDx9DrawableActor::processPreDraw() {
                                 this
                              );
         } else {
-            if (isOffscreen()) {
+            if (isOutOfView()) {
                 //ï`âÊÇµÇ»Ç¢ÇÃÇ≈ìoò^Ç»Çµ
             } else {
                 //ÅÉÉÅÉÇÅÑ
