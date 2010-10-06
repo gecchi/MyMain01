@@ -380,7 +380,7 @@ angle GgafDx9Util::getAngDiff(angle angFrom, angle angTo, int prm_way) {
         if (angFrom <= angTo) {
             return angTo - angFrom;
         } else {
-            return -(ANGLE360 - angFrom + angTo);
+            return (ANGLE360 - angFrom) + angTo;
         }
     } else if (prm_way == TURN_CLOCKWISE) {
         if (angFrom >= angTo) {
