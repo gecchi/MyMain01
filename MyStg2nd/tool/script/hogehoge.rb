@@ -1,10 +1,10 @@
-require 'tool/script/ExteriorBox'
 
+require 'tool/script/ExteriorArea'
 #http://download.aptana.com/tools/radrails/plugin/install/radrails-bundle
 
-xfile_dir = "C:\\cygwin\\workspace\\MyStgResource\\_STAGE_"
+xfile_dir = "../MyStgResource/_STAGE_"
 xfile= "STAGE3.X"
-f = open(xfile_dir+"\\"+xfile)
+f = open(xfile_dir+"/"+xfile)
 i = 0
 box = Array.new
 while line = f.gets
@@ -25,22 +25,23 @@ box = box.sort{|e1, e2|  (e1.X <=> e2.X).nonzero? or   #Xè∏èá
                           e1.Z <=> e2.Z                #Zè∏èá
                          }
 
+area = ExteriorArea.new(i,32,32)
 
-for b in box
-#  print  b.X,"\t",b.Y,"\t",b.Z
-#  print  "\n"
-end
+#for b in box
+##  print  b.X,"\t",b.Y,"\t",b.Z
+##  print  "\n"
+#end
 
-
-area = Array.new( 8, 0 )
-area.each_index { |x|
-  area[x] = Array.new( 7, 0 )
-
-  area[x].each_index { |y|
-      area[x][y] = Array.new( 6, 0 )
-  }
-
-}
+#
+#area = Array.new( 8, 0 )
+#area.each_index { |x|
+#  area[x] = Array.new( 7, 0 )
+#
+#  area[x].each_index { |y|
+#      area[x][y] = Array.new( 6, 0 )
+#  }
+#
+#}
 
 
 area[2][3][4] = "aaa"
@@ -53,7 +54,6 @@ for c in area
     end
  print  "\n"
   end
-
  print  "------------------\n"
 end
 
