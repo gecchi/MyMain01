@@ -1,5 +1,7 @@
 require 'tool/script/ExteriorBox'
 
+#http://download.aptana.com/tools/radrails/plugin/install/radrails-bundle
+
 xfile_dir = "C:\\cygwin\\workspace\\MyStgResource\\_STAGE_"
 xfile= "STAGE3.X"
 f = open(xfile_dir+"\\"+xfile)
@@ -25,7 +27,33 @@ box = box.sort{|e1, e2|  (e1.X <=> e2.X).nonzero? or   #Xè∏èá
 
 
 for b in box
-  print  b.X,"\t",b.Y,"\t",b.Z
-  print  "\n"
+#  print  b.X,"\t",b.Y,"\t",b.Z
+#  print  "\n"
+end
+
+
+area = Array.new( 8, 0 )
+area.each_index { |x|
+  area[x] = Array.new( 7, 0 )
+
+  area[x].each_index { |y|
+      area[x][y] = Array.new( 6, 0 )
+  }
+
+}
+
+
+area[2][3][4] = "aaa"
+puts "TEST"
+
+for c in area
+  for d in c
+      for e in d
+        print  e,"\t"
+    end
+ print  "\n"
+  end
+
+ print  "------------------\n"
 end
 
