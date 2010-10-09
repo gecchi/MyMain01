@@ -1,4 +1,4 @@
-class ExteriorBox
+class Veartex
   attr_accessor :X ,:Y, :Z
   def initialize
     @X = 0
@@ -7,7 +7,14 @@ class ExteriorBox
   end
 end
 
-
+class Box
+  attr_accessor :X ,:Y, :Z
+  def initialize
+    @X = 0
+    @Y = 0
+    @Z = 0
+  end
+end
 
 class ExteriorArea
   attr_accessor :width ,:height, :len
