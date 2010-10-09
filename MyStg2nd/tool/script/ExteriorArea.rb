@@ -173,7 +173,8 @@ class ExteriorArea
   def dump
     for l in 0..@len-1
       print l,")------------------\n"
-      for h in 0..@height-1
+      #for h in (@height-1..0).include?(-1)
+      (@height-1).downto(0) do |h| #Yé≤ÇÕâ∫Ç©ÇÁè„Ç™ê≥
         for w in 0..@width-1
           print @area[l][h][w]
         end
