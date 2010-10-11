@@ -31,7 +31,7 @@ void GroundBoxActor::initialize() {
 }
 
 void GroundBoxActor::onActive() {
-    _box_type
+    //_box_type
 
 
 
