@@ -35,9 +35,20 @@ while line = f.gets
   i += 1
 end
 
+
+
+
 box_index = 0
 box = Array.new
 break_flg = false
+
+max_x = 0;
+max_y = 0;
+max_z = 0;
+min_x = 0;
+min_y = 0;
+min_z = 0;
+
 
 while break_flg == false
 
@@ -98,6 +109,10 @@ end
 
 f.close
 
+$box_dep = max_x-min_x
+$box_width = max_y-min_y
+$box_height = max_z-min_z
+
 
 
 
@@ -114,13 +129,11 @@ box = box.sort{|e1, e2|  (e1.X <=> e2.X).nonzero? or   #X昇順
 
 
 #オブジェクト構築
-$box_dep = 40
-$box_width = 10
-$box_height = 10
+
 
 $area_len = ((box[box_index-1].X - ($box_dep/2))/$box_dep)+1
-$area_height = 32
-$area_width = 42
+$area_height = 24
+$area_width = 32
 
 area = Array.new( $area_len, 0 )
 area.each_index { |x|

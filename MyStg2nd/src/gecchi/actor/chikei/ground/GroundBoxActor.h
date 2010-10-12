@@ -1,5 +1,15 @@
 #ifndef GROUNDBOXACTOR_H_
 #define GROUNDBOXACTOR_H_
+
+
+#define FACE_A_IDX 5
+#define FACE_B_IDX 4
+#define FACE_C_IDX 3
+#define FACE_D_IDX 2
+#define FACE_E_IDX 1
+#define FACE_F_IDX 0
+
+
 namespace MyStg2nd {
 
 /**
@@ -8,21 +18,18 @@ class GroundBoxActor : public GgafDx9Core::GgafDx9MeshSetActor {
 
 public:
 
-    int _box_type;
+    int _box_draw_face;
+
+    int _box_dep;
+    int _box_width;
+    int _box_height;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+    D3DXHANDLE _ahDrawFace[16];
+    D3DXHANDLE _h_box_dep;
+    D3DXHANDLE _h_box_width;
+    D3DXHANDLE _h_box_height;
 
 
 
@@ -34,6 +41,14 @@ public:
     GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 
     GroundBoxActor(const char* prm_name, const char* prm_model);
+
+
+    virtual void config(int prm_box_dep, int prm_box_width, int prm_box_height,
+                        int prm_box_draw_face,
+                        int* prm_aColliBoxStretch);
+
+
+
     virtual void onCreateModel() override {
     }
     virtual void initialize() override;
@@ -62,6 +77,7 @@ public:
     }
 
     virtual void drawHitArea() override;
+
 
 
     virtual ~GroundBoxActor();
