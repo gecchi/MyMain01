@@ -143,7 +143,12 @@ end
 #exArea.dump
 #ŠO“h‚è‚Â‚Ô‚µ
 exArea.fullfull
-r_exArea = exArea.getAnalyze
-r_exArea.dump
+r01_exArea = exArea.getAnalyze01
+r01_exArea.dump01
+r01_exArea.dump02
+
+r02_exArea = r01_exArea.getAnalyze02
+
+r02_exArea.dump02
 
 
