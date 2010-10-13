@@ -13,6 +13,7 @@ GroundBoxActor::GroundBoxActor(const char* prm_name, const char* prm_model, int 
                          NEW CollisionChecker(this) ) {
     _pMeshSetModel->_set_num = 16; //GroundBoxActor最大セット数は16。
     _class_name = "GroundBoxActor";
+    setHitAble(true);
     _frame_offset = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDx9GeometryScaler(this);
@@ -42,6 +43,11 @@ GroundBoxActor::GroundBoxActor(const char* prm_name, const char* prm_model, int 
     _h_box_dep = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_box_dep" );
     _h_box_width = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_box_width" );
     _h_box_height = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_box_height" );
+
+
+
+    setZEnable(true);        //Zバッファは考慮有り
+    setZWriteEnable(true);  //Zバッファは書き込み有り
 }
 
 //void GroundBoxActor::processPreDraw() {
@@ -54,6 +60,10 @@ GroundBoxActor::GroundBoxActor(const char* prm_name, const char* prm_model, int 
 
 void GroundBoxActor::initialize() {
     _pCollisionChecker->makeCollision(1);
+    _pCollisionChecker->setColliAAB(0, -_box_dep/2, -_box_height/2, -_box_width/2,
+                                        _box_dep/2,  _box_height/2,  _box_width/2);
+    _SX=_SY=_SZ = 4000;
+    _pGgafDx9Model->setBoundingSphereRadiusRate(5);
 }
 
 void GroundBoxActor::onActive() {
@@ -196,16 +206,26 @@ void GroundBoxActor::drawHitArea() {
 void GroundBoxActor::config(int prm_box_draw_face, int* prm_aColliBoxStretch) {
     _box_draw_face = prm_box_draw_face;
 
-    _pCollisionChecker->setColliAAB(0, -_box_dep/2, -_box_height/2, -_box_width/2,
-                                        _box_dep/2,  _box_height/2,  _box_width/2);
+    _pCollisionChecker->setColliAAB(0, -(_box_dep/2)    - (_box_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
+                                       -(_box_height/2) - (_box_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
+                                       -(_box_width/2)  - (_box_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
+                                        (_box_dep/2)    + (_box_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1)),
+                                        (_box_height/2) + (_box_height * (prm_aColliBoxStretch[FACE_A_IDX]-1)),
+                                        (_box_width/2)  + (_box_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1))
+                                   );
 
-    GgafDx9CollisionPart* pColliPart = _pCollisionChecker->_pCollisionArea->_papColliPart[0];
-    pColliPart->_aab_x1 -= _box_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1);
-    pColliPart->_aab_x2 += _box_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1);
-    pColliPart->_aab_y1 -= _box_height * (prm_aColliBoxStretch[FACE_D_IDX]-1);
-    pColliPart->_aab_y2 += _box_height * (prm_aColliBoxStretch[FACE_A_IDX]-1);
-    pColliPart->_aab_z1 -= _box_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1);
-    pColliPart->_aab_z2 += _box_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1);
+
+
+
+//                                        _box_dep/2,  _box_height/2,  _box_width/2);
+//
+//    GgafDx9CollisionPart* pColliPart = _pCollisionChecker->_pCollisionArea->_papColliPart[0];
+//    //pColliPart->_aab_x1 -= _box_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1);
+//    pColliPart->_aab_x2 += _box_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1);
+//    //pColliPart->_aab_y1 -= _box_height * (prm_aColliBoxStretch[FACE_D_IDX]-1);
+//    pColliPart->_aab_y2 += _box_height * (prm_aColliBoxStretch[FACE_A_IDX]-1);
+//    //pColliPart->_aab_z1 -= _box_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1);
+//    pColliPart->_aab_z2 += _box_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1);
 
 }
 

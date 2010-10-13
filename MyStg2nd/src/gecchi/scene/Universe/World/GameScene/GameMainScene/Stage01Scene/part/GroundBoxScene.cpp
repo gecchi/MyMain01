@@ -56,11 +56,11 @@ GroundBoxScene::GroundBoxScene(const char* prm_name) : DefaultScene(prm_name) {
 
 
 
-    _ground_speed = 2000;
+    _ground_speed = 8000;
 
-    _box_dep = 400000;
-    _box_width = 100000;
-    _box_height = 100000;
+    _box_dep = 1600000;
+    _box_width = 400000;
+    _box_height = 400000;
     _frame_of_launch_interval = (frame)(_box_dep /_ground_speed);
 
     _box_stock = 800;
@@ -96,7 +96,6 @@ void GroundBoxScene::initialize() {
 
 void GroundBoxScene::onActive() {
     _cnt_area_len = 0;
-    _pAlphaCurtain->_alpha = 0.8;
 }
 
 
@@ -108,9 +107,9 @@ void GroundBoxScene::processBehavior() {
             if (pBox) {
                 pBox->config(_papaBoxInfo[_cnt_area_len][n]._box_draw_face,
                              _papaBoxInfo[_cnt_area_len][n]._aColliBoxStretch);
-                pBox->setGeometry(4000000,
-                                  (-(_area_width*_box_width)/2) +  _papaBoxInfo[_cnt_area_len][n]._Y*_box_width,
-                                  (-(_area_height*_box_height)/2) + _papaBoxInfo[_cnt_area_len][n]._Z*_box_height);
+                pBox->setGeometry(10000000,
+                                  ((-_area_height/2) + _papaBoxInfo[_cnt_area_len][n]._Y) * _box_height,
+                                  ((-_area_width/2) + _papaBoxInfo[_cnt_area_len][n]._Z) * _box_width);
                 pBox->activate();
             }
         }
