@@ -15,6 +15,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _x = _y = _z = 0.0f;
 
     _fBoundingSphereRadius = 0;
+    _fRate_BoundingSphereRadius = 1.0f;
     _pChecker = prm_pChecker;
     _pMover = NEW GgafDx9GeometryMover(this);
     _pSeTransmitter = NEW GgafDx9SeTransmitter(this);
@@ -227,13 +228,14 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 
 int GgafDx9GeometricActor::isOutOfView() {
     //_TRACE_("name="<<getName()<<" _fBoundingSphereRadius="<<_fBoundingSphereRadius);
+    float bound = _fBoundingSphereRadius * _fRate_BoundingSphereRadius;
     if (_offscreenkind == -1) {
-        if (_fDist_VpPlnTop <= _fBoundingSphereRadius) {
-            if (_fDist_VpPlnBottom <= _fBoundingSphereRadius) {
-                if (_fDist_VpPlnLeft <= _fBoundingSphereRadius) {
-                    if (_fDist_VpPlnRight <= _fBoundingSphereRadius) {
-                        if (_fDist_VpPlnFront <= _fBoundingSphereRadius*1.5) {
-                            if (_fDist_VpPlnBack <= _fBoundingSphereRadius) {
+        if (_fDist_VpPlnTop <= bound) {
+            if (_fDist_VpPlnBottom <= bound) {
+                if (_fDist_VpPlnLeft <= bound) {
+                    if (_fDist_VpPlnRight <= bound) {
+                        if (_fDist_VpPlnFront <= bound) {
+                            if (_fDist_VpPlnBack <= bound) {
                                 //Viewport”ÍˆÍ“à
                                 _offscreenkind = 0;
                             } else {

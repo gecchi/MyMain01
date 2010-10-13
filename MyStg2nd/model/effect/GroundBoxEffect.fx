@@ -154,14 +154,13 @@ OUT_VS GgafDx9VS_GroundBox(
 	} else if (index == 13) {
 		matWorld = g_matWorld014;
 		draw_face = g_draw_face014;
-	} else { //if (index == 14) {
+	} else if (index == 14) {
 		matWorld = g_matWorld015;
 		draw_face = g_draw_face015;
+	} else {
+		matWorld = g_matWorld016;
+		draw_face = g_draw_face016;
 	}
-//	} else {
-//		matWorld = g_matWorld016;
-//		draw_face = g_draw_face016;
-//	}
 //float g_box_dep;
 //float g_box_width;
 //float g_box_height;
@@ -179,16 +178,33 @@ OUT_VS GgafDx9VS_GroundBox(
     //                   |e
     //                   | \
     //                   |  \   
+	//  u v
+	// (0,0)      0.25                     ¨u
+	//       +------+------+------+------+
+	//       |      |        Z+          |
+	//       |      |       –Êc          |
+	//  0.25 +  X+  +--------------------+
+	//       | –Êf  |        Y-          |
+	//       |      |       –Êd          |
+	//   0.5 +------+--------------------+
+	//       |      |        Y+          |
+	//       |      |       –Êa          |
+	//  0.75 +  X-  +--------------------+
+	//       | –Êb  |        Z-          |
+	//       |      |       –Êe          |
+	//       +------+------+------+------+
+	//    «                                (1,1)
+	//    v
 
     //                          00abcdef
   	if (draw_face >= 32) {  //&b00100000
         draw_face -= 32;
     } else {
         //ã–Ê(–Êa)‚ª•`‰æ•s—v‚Ìê‡
-        if (prm_pos.y > g_box_height/2) {
-//            prm_pos.xyz = 0;
-//            out_vs.col.a = 0;
-//        	return out_vs;
+        if (0.25 < prm_uv.x && 
+            0.5  < prm_uv.y && prm_uv.y < 0.75 ) 
+		{
+            prm_pos.xyz = 0;
         }
     }
 
@@ -197,10 +213,10 @@ OUT_VS GgafDx9VS_GroundBox(
         draw_face -= 16;
     } else {
         //³–Ê(–Êb)‚ª•`‰æ•s—v‚Ìê‡
-        if (prm_pos.x < -g_box_dep/2) {
-//            prm_pos.xyz = 0;
-//             out_vs.col.a = 0;
-//         	return out_vs;
+        if (                   prm_uv.x < 0.25 &&
+            0.5  < prm_uv.y                       ) 
+		{
+            prm_pos.xyz = 0;
         }
     }
     //                          00abcdef
@@ -208,10 +224,10 @@ OUT_VS GgafDx9VS_GroundBox(
         draw_face -= 8;
     } else {
         //¶‘¤–Ê(–Êc)‚ª•`‰æ•s—v‚Ìê‡
-        if (prm_pos.z > g_box_width/2) {
-//            prm_pos.xyz = 0;
-//             out_vs.col.a = 0;
-//         	return out_vs;
+        if (0.25 < prm_uv.x && 
+                               prm_uv.y < 0.25 ) 
+		{
+            prm_pos.xyz = 0;
         }
     }
     //                          00abcdef
@@ -219,10 +235,10 @@ OUT_VS GgafDx9VS_GroundBox(
         draw_face -= 4;
     } else {
         //’ê–Ê(–Êd)‚ª•`‰æ•s—v‚Ìê‡
-        if (prm_pos.y < -g_box_height/2) {
-//            prm_pos.xyz = 0;
-//             out_vs.col.a = 0;
-//         	return out_vs;
+        if (0.25 < prm_uv.x &&
+            0.25 < prm_uv.y && prm_uv.y < 0.5 ) 
+		{
+            prm_pos.xyz = 0;
         }
     }
     //                          00abcdef
@@ -230,21 +246,21 @@ OUT_VS GgafDx9VS_GroundBox(
         draw_face -= 2;
     } else {
         //‰E‘¤–Ê(–Êe)‚ª•`‰æ•s—v‚Ìê‡
-        if (prm_pos.z < -g_box_width/2) {
-//            prm_pos.xyz = 0;
-//             out_vs.col.a = 0;
-//         	return out_vs;
-        }   
+        if (0.25 < prm_uv.x &&
+            0.75 < prm_uv.y                    ) 
+		{
+            prm_pos.xyz = 0;
+        } 
     }
     //                          00abcdef
   	if (draw_face >= 1) {   //&b00000001
         draw_face -= 1;
     } else {
         //Œü‚±‚¤³–Ê(–Êf)‚ª•`‰æ•s—v‚Ìê‡
-        if (prm_pos.x > g_box_dep/2) {
-//            prm_pos.xyz = 0;
-//             out_vs.col.a = 0;
-//         	return out_vs;
+        if (                    prm_uv.x < 0.25 &&
+                                prm_uv.y < 0.5    ) 
+		{
+            prm_pos.xyz = 0;
         }
     }
 

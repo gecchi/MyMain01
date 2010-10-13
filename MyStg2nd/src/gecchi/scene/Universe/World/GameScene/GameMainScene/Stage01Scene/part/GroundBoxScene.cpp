@@ -58,15 +58,15 @@ GroundBoxScene::GroundBoxScene(const char* prm_name) : DefaultScene(prm_name) {
 
     _ground_speed = 8000;
 
-    _box_dep = 1600000;
-    _box_width = 400000;
-    _box_height = 400000;
+    _box_dep = 400000;
+    _box_width = 100000;
+    _box_height = 100000;
     _frame_of_launch_interval = (frame)(_box_dep /_ground_speed);
 
     _box_stock = 800;
     _pDispatcher_Box = NEW GgafActorDispatcher("Dp_Box");
     for (int i = 0; i < _box_stock; i++) {
-        GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox","gbox",
+        GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox","g_box001",
                                                               _box_dep, _box_width, _box_height);
         pGroundBoxActor->_ground_speed = _ground_speed;
         pGroundBoxActor->inactivateTreeImmediately();

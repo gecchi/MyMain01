@@ -44,7 +44,6 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     _fAlpha = 1.0f;
     //Å‘å‹——£’¸“_
     _fBoundingSphereRadius = _pGgafDx9Model->_fBoundingSphereRadius;
-
     _now_drawdepth = 0;
     _specal_drawdepth = -1;
 }

@@ -48,6 +48,8 @@ public:
 
     /** [r/w]境界球の半径(DirectXの単位)。画面外判定に使用される */
     FLOAT _fBoundingSphereRadius;
+    /** [rw]モデルの境界球半径倍率 */
+    FLOAT _fRate_BoundingSphereRadius;
     /** [r]DirectXのワールドX座標(_fX : _X = 0.1 : 1000) */
     FLOAT _fX;
     /** [r]DirectYのワールドY座標(_fY : _Y = 0.1 : 1000) */
@@ -324,6 +326,26 @@ public:
     void defineRotMvWorldMatrix(void (*prm_pFunc)(GgafDx9GeometricActor*, D3DXMATRIX&)) {
         _pFunc_calcRotMvWorldMatrix = prm_pFunc;
     }
+
+
+    /**
+     * モデルの境界球半径の倍率設定。
+     * 境界球半径とは、ローカル座標の原点から全頂点の距離で最大の長さで、
+     * この値は、画面外判定に利用されてるため、モデル表示時に独自に拡大を行った場合。
+     * この値を更新しないと画面外判定が正しく行われない。<BR>
+     * 例えば、表示時に５倍の拡大で表示した場合、本メソッドで<BR>
+     * <BR>
+     * setBoundingSphereRadiusRate(5.0)<BR>
+     * <BR>
+     * とすると、画面外判定が正しくなる。<BR>
+     * 注意は、モデル１に対して１つしか設定出来無いということ。<BR>
+     * 複数のアクターでバラバラの拡大表示をする場合は、最大の拡大のものを採用するしか無い。<BR>
+     * @param prm_rate 拡大率
+     */
+    virtual void setBoundingSphereRadiusRate(FLOAT prm_rate) {
+        _fRate_BoundingSphereRadius = prm_rate;
+    }
+
 
     /**
      * デストラクタ
