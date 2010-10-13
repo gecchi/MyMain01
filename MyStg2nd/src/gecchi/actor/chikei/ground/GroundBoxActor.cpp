@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-GroundBoxActor::GroundBoxActor(const char* prm_name, const char* prm_model) :
+GroundBoxActor::GroundBoxActor(const char* prm_name, const char* prm_model, int prm_box_dep, int prm_box_width, int prm_box_height) :
     GgafDx9MeshSetActor(prm_name,
                         string(string("16/") + string(prm_model)).c_str(),
                          "GroundBoxEffect",
@@ -16,12 +16,12 @@ GroundBoxActor::GroundBoxActor(const char* prm_name, const char* prm_model) :
     _frame_offset = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDx9GeometryScaler(this);
-
+    _ground_speed = 0;
     _box_draw_face = 0;
 
-    _box_dep = 0;
-    _box_width = 0;
-    _box_height = 0;
+    _box_dep = prm_box_dep;
+    _box_width = prm_box_width;
+    _box_height = prm_box_height;
 
     _ahDrawFace[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_draw_face001" );
     _ahDrawFace[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_draw_face002" );
@@ -66,7 +66,7 @@ void GroundBoxActor::onActive() {
 
 
 void GroundBoxActor::processBehavior() {
-
+    _X = _X - _ground_speed;
 }
 
 
@@ -122,7 +122,7 @@ void GroundBoxActor::processDraw() {
         //GgafDx9Util::setWorldMatrix_ScRxRzRyMv(pDrawActor, pDrawActor->_matWorld);
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[i], &(pDrawActor->_matWorld));
         checkDxException(hr, D3D_OK, "GroundBoxActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-        hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[i], &(pDrawActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
+        //hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[i], &(pDrawActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
         //【GgafDx9MeshSetActorのマテリアルカラーについて考え方】備忘録メモ
         //本来はマテリアル１オブジェクトに複数保持し、マテリアルリストのグループ毎に設定するものだが、実行速度最適化と使用レジスタ数削減の為、各セットの[0]のマテリアルを全体のマテリアルとする。
         //したがってGgafDx9MeshSetActorはマテリアル色は8セット全てそれぞれ１色しか不可能。
@@ -130,7 +130,7 @@ void GroundBoxActor::processDraw() {
         //もともと本クラスは、同一モデル複数オブジェクトを、最大8セット同時に一回で描画しスピードアップを図ることを目的としたクラスで、たくさんマテリアルグループがあるオブジェクトには不向というか無意味である。
         //１枚テクスチャで頑張れば問題ない・・・という方針。マテリアル色で色分けしたい場合は GgafDx9MeshActor を使うしかない。
 
-        checkDxException(hr, D3D_OK, "GroundBoxActor::processDraw() SetValue(_ah_materialDiffuse) に失敗しました。");
+        //checkDxException(hr, D3D_OK, "GroundBoxActor::processDraw() SetValue(_ah_materialDiffuse) に失敗しました。");
 
         //描画面番号
         hr = pID3DXEffect->SetInt(this->_ahDrawFace[i], pDrawActor->_box_draw_face);
@@ -193,14 +193,9 @@ void GroundBoxActor::drawHitArea() {
     CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
 }
 
-void GroundBoxActor::config(int prm_box_dep, int prm_box_width, int prm_box_height,
-                            int prm_box_draw_face,
-                            int* prm_aColliBoxStretch) {
+void GroundBoxActor::config(int prm_box_draw_face, int* prm_aColliBoxStretch) {
     _box_draw_face = prm_box_draw_face;
 
-    _box_dep = prm_box_dep;
-    _box_width = prm_box_width;
-    _box_height = prm_box_height;
     _pCollisionChecker->setColliAAB(0, -_box_dep/2, -_box_height/2, -_box_width/2,
                                         _box_dep/2,  _box_height/2,  _box_width/2);
 

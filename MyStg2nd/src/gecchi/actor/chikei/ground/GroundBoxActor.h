@@ -24,7 +24,7 @@ public:
     int _box_width;
     int _box_height;
 
-
+    int _ground_speed;
 
     D3DXHANDLE _ahDrawFace[16];
     D3DXHANDLE _h_box_dep;
@@ -40,12 +40,10 @@ public:
 
     GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 
-    GroundBoxActor(const char* prm_name, const char* prm_model);
+    GroundBoxActor(const char* prm_name, const char* prm_model, int prm_box_dep, int prm_box_width, int prm_box_height);
 
 
-    virtual void config(int prm_box_dep, int prm_box_width, int prm_box_height,
-                        int prm_box_draw_face,
-                        int* prm_aColliBoxStretch);
+    virtual void config(int prm_box_draw_face, int* prm_aColliBoxStretch);
 
 
 

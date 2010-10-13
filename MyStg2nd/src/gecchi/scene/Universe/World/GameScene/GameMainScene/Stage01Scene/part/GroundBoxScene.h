@@ -39,9 +39,18 @@ public:
     int _area_height;
     int _area_width;
 
+    int _box_dep;
+    int _box_width;
+    int _box_height;
 
+
+    frame _frame_of_launch_interval;
+
+    int _cnt_area_len;
     BoxInfo** _papaBoxInfo;
+    int* _paBoxInfoLen;
 
+    int _ground_speed;
 
     int _box_stock;
     GgafCore::GgafActorDispatcher* _pDispatcher_Box;
@@ -50,7 +59,9 @@ public:
     /**
      * ‰Šúˆ—
      */
-    void initialize() override;
+    virtual void initialize() override;
+
+    virtual void onActive() override;
 
     virtual void processBehavior() override;
 

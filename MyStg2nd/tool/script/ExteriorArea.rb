@@ -359,7 +359,7 @@ class ExteriorArea
     end
   end
 
-    def dump02
+  def dump02
     for l in 0..@len-1
       print l,")------------------\n"
       #for h in (@height-1..0).include?(-1)

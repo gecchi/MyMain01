@@ -66,22 +66,22 @@ float4x4 g_matWorld014;
 float4x4 g_matWorld015;
 float4x4 g_matWorld016;
 //オブジェクトのマテリアル色（Diffuse反射色と、Ambien反射色共通）
-//float4 g_colMaterialDiffuse001;
-//float4 g_colMaterialDiffuse002;
-//float4 g_colMaterialDiffuse003;
-//float4 g_colMaterialDiffuse004;
-//float4 g_colMaterialDiffuse005;
-//float4 g_colMaterialDiffuse006;
-//float4 g_colMaterialDiffuse007;
-//float4 g_colMaterialDiffuse008;
-//float4 g_colMaterialDiffuse009;
-//float4 g_colMaterialDiffuse010;
-//float4 g_colMaterialDiffuse011;
-//float4 g_colMaterialDiffuse012;
-//float4 g_colMaterialDiffuse013;
-//float4 g_colMaterialDiffuse014;
-//float4 g_colMaterialDiffuse015;
-//float4 g_colMaterialDiffuse016;
+//float4 g_draw_face001;
+//float4 g_draw_face002;
+//float4 g_draw_face003;
+//float4 g_draw_face004;
+//float4 g_draw_face005;
+//float4 g_draw_face006;
+//float4 g_draw_face007;
+//float4 g_draw_face008;
+//float4 g_draw_face009;
+//float4 g_draw_face010;
+//float4 g_draw_face011;
+//float4 g_draw_face012;
+//float4 g_draw_face013;
+//float4 g_draw_face014;
+//float4 g_draw_face015;
+//float4 g_draw_face016;
 
 //テクスチャのサンプラ(s0レジスタ)
 sampler MyTextureSampler : register(s0);
@@ -114,53 +114,53 @@ OUT_VS GgafDx9VS_GroundBox(
 
 	if (index == 0) {
 		matWorld = g_matWorld001;
-		draw_face = g_colMaterialDiffuse001;
+		draw_face = g_draw_face001;
 	} else if (index == 1) {
 		matWorld = g_matWorld002;
-		draw_face = g_colMaterialDiffuse002;
+		draw_face = g_draw_face002;
 	} else if (index == 2) {
 		matWorld = g_matWorld003;
-		draw_face = g_colMaterialDiffuse003;
+		draw_face = g_draw_face003;
 	} else if (index == 3) {
 		matWorld = g_matWorld004;
-		draw_face = g_colMaterialDiffuse004;
+		draw_face = g_draw_face004;
 	} else if (index == 4) {
 		matWorld = g_matWorld005;
-		draw_face = g_colMaterialDiffuse005;
+		draw_face = g_draw_face005;
 	} else if (index == 5) {
 		matWorld = g_matWorld006;
-		draw_face = g_colMaterialDiffuse006;
+		draw_face = g_draw_face006;
 	} else if (index == 6) {
 		matWorld = g_matWorld007;
-		draw_face = g_colMaterialDiffuse007;
+		draw_face = g_draw_face007;
 	} else if (index == 7) {
 		matWorld = g_matWorld008;
-		draw_face = g_colMaterialDiffuse008;
+		draw_face = g_draw_face008;
 	} else if (index == 8) {
 		matWorld = g_matWorld009;
-		draw_face = g_colMaterialDiffuse009;
+		draw_face = g_draw_face009;
 	} else if (index == 9) {
 		matWorld = g_matWorld010;
-		draw_face = g_colMaterialDiffuse010;
+		draw_face = g_draw_face010;
 	} else if (index == 10) {
 		matWorld = g_matWorld011;
-		draw_face = g_colMaterialDiffuse011;
+		draw_face = g_draw_face011;
 	} else if (index == 11) {
 		matWorld = g_matWorld012;
-		draw_face = g_colMaterialDiffuse012;
+		draw_face = g_draw_face012;
 	} else if (index == 12) {
 		matWorld = g_matWorld013;
-		draw_face = g_colMaterialDiffuse013;
+		draw_face = g_draw_face013;
 	} else if (index == 13) {
 		matWorld = g_matWorld014;
-		draw_face = g_colMaterialDiffuse014;
+		draw_face = g_draw_face014;
 	} else { //if (index == 14) {
 		matWorld = g_matWorld015;
-		draw_face = g_colMaterialDiffuse015;
+		draw_face = g_draw_face015;
 	}
 //	} else {
 //		matWorld = g_matWorld016;
-//		draw_face = g_colMaterialDiffuse016;
+//		draw_face = g_draw_face016;
 //	}
 //float g_box_dep;
 //float g_box_width;
@@ -179,53 +179,72 @@ OUT_VS GgafDx9VS_GroundBox(
     //                   |e
     //                   | \
     //                   |  \   
-          
-    //                              00abcdef
-  	if (draw_face & 32 == 0) {  //&b00100000
+
+    //                          00abcdef
+  	if (draw_face >= 32) {  //&b00100000
+        draw_face -= 32;
+    } else {
         //上面(面a)が描画不要の場合
         if (prm_pos.y > g_box_height/2) {
-            prm_pos = 0;
-            prm_uv = 0;
+//            prm_pos.xyz = 0;
+//            out_vs.col.a = 0;
+//        	return out_vs;
         }
     }
-    //                              00abcdef
-  	if (draw_face & 16 == 0) {  //&b00010000
+
+    //                          00abcdef
+  	if (draw_face >= 16) {  //&b00010000
+        draw_face -= 16;
+    } else {
         //正面(面b)が描画不要の場合
         if (prm_pos.x < -g_box_dep/2) {
-            prm_pos = 0;
-            prm_uv = 0;
+//            prm_pos.xyz = 0;
+//             out_vs.col.a = 0;
+//         	return out_vs;
         }
     }
-    //                              00abcdef
-  	if (draw_face & 8 == 0) {   //&b00001000
+    //                          00abcdef
+  	if (draw_face >= 8) {   //&b00001000
+        draw_face -= 8;
+    } else {
         //左側面(面c)が描画不要の場合
         if (prm_pos.z > g_box_width/2) {
-            prm_pos = 0;
-            prm_uv = 0;
+//            prm_pos.xyz = 0;
+//             out_vs.col.a = 0;
+//         	return out_vs;
         }
     }
-    //                              00abcdef
-   	if (draw_face & 4 == 0) {   //&b00000100
+    //                          00abcdef
+   	if (draw_face >= 4) {   //&b00000100
+        draw_face -= 4;
+    } else {
         //底面(面d)が描画不要の場合
         if (prm_pos.y < -g_box_height/2) {
-            prm_pos = 0;
-            prm_uv = 0;
+//            prm_pos.xyz = 0;
+//             out_vs.col.a = 0;
+//         	return out_vs;
         }
     }
-    //                              00abcdef
-  	if (draw_face & 2 == 0) {   //&b00000010
+    //                          00abcdef
+  	if (draw_face >= 2) {   //&b00000010
+        draw_face -= 2;
+    } else {
         //右側面(面e)が描画不要の場合
         if (prm_pos.z < -g_box_width/2) {
-            prm_pos = 0;
-            prm_uv = 0;
+//            prm_pos.xyz = 0;
+//             out_vs.col.a = 0;
+//         	return out_vs;
         }   
     }
-    //                              00abcdef
-  	if (draw_face & 1 == 0) {   //&b00000001
+    //                          00abcdef
+  	if (draw_face >= 1) {   //&b00000001
+        draw_face -= 1;
+    } else {
         //向こう正面(面f)が描画不要の場合
         if (prm_pos.x > g_box_dep/2) {
-            prm_pos = 0;
-            prm_uv = 0;
+//            prm_pos.xyz = 0;
+//             out_vs.col.a = 0;
+//         	return out_vs;
         }
     }
 

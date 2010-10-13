@@ -157,11 +157,82 @@ end
 #ŠO“h‚è‚Â‚Ô‚µ
 exArea.fullfull
 r01_exArea = exArea.getAnalyze01
-r01_exArea.dump01
-r01_exArea.dump02
+#r01_exArea.dump01
+#r01_exArea.dump02
 
 r02_exArea = r01_exArea.getAnalyze02
 
-r02_exArea.dump02
+#r02_exArea.dump02
+
+#    struct BoxInfo {
+#        int _Y;
+#        int _Z;
+#        int _box_draw_face;
+#        int _aColliBoxStretch[6];
+#    };
+#    BoxInfo a[2][24*32] = {
+#                    { {1,2,4,{0,11,0,0,0,0}}, {2,4,44,{0,0,21,0,0,0}} },
+#                    { {3,5,34,{11,22,33,44,55,66}}, {4,4,44,{99,91,92,93,94,0}} }
+#    };
+
+box_info_len = Array.new
+
+print "_area_len = ",$area_len,";\n"
+print "_area_height = ",$area_height,";\n"
+print "_area_width = ",$area_width,";\n"
+print "BoxInfo area[",$area_len,"][",$area_height,"*",$area_width,"] =\n"
+print "{\n"
+    for l in 0..$area_len-1
+      first00 = true
+      print "\t{ "
+
+      first01 = true
+
+
+      len = 0
+      for h in 0..$area_height-1
+         for w in 0..$area_width-1
+           if r01_exArea.area[l][h][w] >= 0 then
+             len += 1;
+             if (first01) then
+               print "{"
+               first01 = false
+             else
+               print ",{"
+             end
+             print h,",",w,",",r01_exArea.area[l][h][w],","
+             print "{",r02_exArea.area[l][h][w][0],",",
+                       r02_exArea.area[l][h][w][1],",",
+                       r02_exArea.area[l][h][w][2],",",
+                       r02_exArea.area[l][h][w][3],",",
+                       r02_exArea.area[l][h][w][4],",",
+                       r02_exArea.area[l][h][w][5],"}"
+             print "}"
+           end
+        end #w
+      end #h
+      box_info_len[l] = len
+
+      if l == $area_len-1 then
+        print " } \n"
+      else
+        print " }, \n"
+      end
+
+    end
+print "};\n"
+
+
+print "int aBoxInfoLen[] = {"
+
+    for l in 0..$area_len-1
+      if (l == $area_len-1) then
+        print box_info_len[l]
+      else
+        print box_info_len[l],","
+      end
+    end
+print '};'
+
 
 
