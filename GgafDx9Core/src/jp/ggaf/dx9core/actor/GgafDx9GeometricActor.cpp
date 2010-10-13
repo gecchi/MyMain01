@@ -232,7 +232,7 @@ int GgafDx9GeometricActor::isOutOfView() {
             if (_fDist_VpPlnBottom <= _fBoundingSphereRadius) {
                 if (_fDist_VpPlnLeft <= _fBoundingSphereRadius) {
                     if (_fDist_VpPlnRight <= _fBoundingSphereRadius) {
-                        if (_fDist_VpPlnFront <= _fBoundingSphereRadius) {
+                        if (_fDist_VpPlnFront <= _fBoundingSphereRadius*1.5) {
                             if (_fDist_VpPlnBack <= _fBoundingSphereRadius) {
                                 //Viewport”ÍˆÍ“à
                                 _offscreenkind = 0;
