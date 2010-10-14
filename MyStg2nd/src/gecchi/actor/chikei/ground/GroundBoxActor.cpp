@@ -62,8 +62,8 @@ void GroundBoxActor::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -_box_dep/2, -_box_height/2, -_box_width/2,
                                         _box_dep/2,  _box_height/2,  _box_width/2);
-    _SX=_SY=_SZ = 1000;
-    setBoundingSphereRadiusRate(1.0);
+    _SX=_SY=_SZ = 2000;
+    setBoundingSphereRadiusRate(2.0);
 }
 
 void GroundBoxActor::onActive() {

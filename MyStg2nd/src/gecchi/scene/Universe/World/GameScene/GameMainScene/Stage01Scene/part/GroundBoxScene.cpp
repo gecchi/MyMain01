@@ -121,5 +121,10 @@ void GroundBoxScene::processFinal() {
 }
 
 GroundBoxScene::~GroundBoxScene() {
+    for (int i = 0; i < _area_len; i++) {
+        DELETEARR_IMPOSSIBLE_NULL(_papaBoxInfo[i]);
+    }
+    DELETEARR_IMPOSSIBLE_NULL(_papaBoxInfo);
+    DELETEARR_IMPOSSIBLE_NULL(_paBoxInfoLen);
 
 }

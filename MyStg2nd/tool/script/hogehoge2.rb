@@ -180,12 +180,58 @@ box_info_len = Array.new
 print "_area_len = ",$area_len,";\n"
 print "_area_height = ",$area_height,";\n"
 print "_area_width = ",$area_width,";\n"
-print "BoxInfo area[",$area_len,"][",$area_height,"*",$area_width,"] =\n"
-print "{\n"
+#print "BoxInfo area[",$area_len,"][",$area_height,"*",$area_width,"] =\n"
+##print "{\n"
+#    for l in 0..$area_len-1
+#      first00 = true
+#      print "BoxInfo area#{l}[] = { "
+#
+#      first01 = true
+#
+#
+#      len = 0
+#      for h in 0..$area_height-1
+#         for w in 0..$area_width-1
+#           if r01_exArea.area[l][h][w] >= 0 then
+#             len += 1;
+#             if (first01) then
+#               print "{"
+#               first01 = false
+#             else
+#               print ",{"
+#             end
+#             print h,",",w,",",r01_exArea.area[l][h][w],","
+#             print "{",r02_exArea.area[l][h][w][0],",",
+#                       r02_exArea.area[l][h][w][1],",",
+#                       r02_exArea.area[l][h][w][2],",",
+#                       r02_exArea.area[l][h][w][3],",",
+#                       r02_exArea.area[l][h][w][4],",",
+#                       r02_exArea.area[l][h][w][5],"}"
+#             print "}"
+#           end
+#        end #w
+#      end #h
+#      box_info_len[l] = len
+#      print " }; \n"
+#
+#
+#    end
+##print "};\n"
+
+
+
+
+
+print <<EOS1      # Ž¯•ÊŽq EOS ‚Ü‚Å‚ªƒŠƒeƒ‰ƒ‹‚É‚È‚é
+_papaBoxInfo = NEW BoxInfo*[_area_len];
+for (int i = 0; i < _area_len; i++) {
+    _papaBoxInfo[i] = NEW BoxInfo[aBoxInfoLen[i]];
+}
+
+EOS1
+
     for l in 0..$area_len-1
       first00 = true
-      print "\t{ "
-
       first01 = true
 
 
@@ -193,13 +239,9 @@ print "{\n"
       for h in 0..$area_height-1
          for w in 0..$area_width-1
            if r01_exArea.area[l][h][w] >= 0 then
-             len += 1;
-             if (first01) then
-               print "{"
-               first01 = false
-             else
-               print ",{"
-             end
+
+             print "_papaBoxInfo[#{l}][#{len}] = {"
+
              print h,",",w,",",r01_exArea.area[l][h][w],","
              print "{",r02_exArea.area[l][h][w][0],",",
                        r02_exArea.area[l][h][w][1],",",
@@ -207,20 +249,28 @@ print "{\n"
                        r02_exArea.area[l][h][w][3],",",
                        r02_exArea.area[l][h][w][4],",",
                        r02_exArea.area[l][h][w][5],"}"
-             print "}"
+             print "};\n"
+             len += 1;
            end
         end #w
       end #h
       box_info_len[l] = len
+      #print " }; \n"
 
-      if l == $area_len-1 then
-        print " } \n"
-      else
-        print " }, \n"
-      end
 
     end
-print "};\n"
+
+
+
+
+
+
+
+
+
+#for l in 0..$area_len-1
+#_papaBoxInfo[#{l}][j] = area#{l}[j]; \n"
+#end
 
 
 print "int aBoxInfoLen[] = {"
@@ -232,7 +282,11 @@ print "int aBoxInfoLen[] = {"
         print box_info_len[l],","
       end
     end
-print '};'
+print "};\n"
+print <<EOS2
 
-
-
+_paBoxInfoLen = NEW int[_area_len];
+for (int i = 0; i < _area_len; i++) {
+    _paBoxInfoLen[i] = aBoxInfoLen[i];
+}
+EOS2
