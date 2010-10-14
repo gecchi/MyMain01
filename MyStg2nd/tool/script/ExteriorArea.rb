@@ -300,7 +300,6 @@ class ExteriorArea
         end
       end
     end
-    print "\n"
 
   end
 

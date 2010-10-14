@@ -62,8 +62,8 @@ void GroundBoxActor::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -_box_dep/2, -_box_height/2, -_box_width/2,
                                         _box_dep/2,  _box_height/2,  _box_width/2);
-    _SX=_SY=_SZ = 2000;
-    setBoundingSphereRadiusRate(2.0);
+    _SX=_SY=_SZ = 4000;
+    setBoundingSphereRadiusRate(4.0);
 }
 
 void GroundBoxActor::onActive() {
@@ -78,7 +78,11 @@ void GroundBoxActor::onActive() {
 void GroundBoxActor::processBehavior() {
     _X = _X - _ground_speed;
 }
-
+void GroundBoxActor::processJudgement() {
+    if (isOutOfUniverse()) {
+        sayonara();
+    }
+}
 
 void GroundBoxActor::processDraw() {
     _draw_set_num = 1; //GgafDx9MeshSetActorの同じモデルで同じテクニックが

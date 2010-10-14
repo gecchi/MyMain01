@@ -56,8 +56,7 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void processJudgement() override {
-    }
+    virtual void processJudgement() override;
 
 //    /**
 //     * フレームワークオーバーライド

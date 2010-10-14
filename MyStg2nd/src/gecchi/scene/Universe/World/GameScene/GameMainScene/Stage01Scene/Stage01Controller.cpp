@@ -13,12 +13,12 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,3};
-	_paFrame_NextEvent = new frame[2];
-	for (int i = 0; i < 2; i++) {
-		_paFrame_NextEvent[i] = f[i];
-	}
-	orderSceneToFactory(110173, GroundBoxScene, "GroundBoxScene");
+    frame f[] = {1,3};
+    _paFrame_NextEvent = new frame[2];
+    for (int i = 0; i < 2; i++) {
+        _paFrame_NextEvent[i] = f[i];
+    }
+    orderSceneToFactory(110173, GroundBoxScene, "GroundBoxScene");
     // gen01 end
 }
 
@@ -32,21 +32,21 @@ void Stage01Controller::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
-		switch (getActivePartFrame()) {
-			case 1:
-				break;
-			case 3:
-				{
-				GroundBoxScene* pScene = (GroundBoxScene*)obtainSceneFromFactory(110173);
-				addSubLast(pScene);
-				}
-				break;
-			default :
-				break;
-		}
-		_iCnt_Event = (_iCnt_Event < 2-1 ? _iCnt_Event+1 : _iCnt_Event);
-	}
+    if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
+        switch (getActivePartFrame()) {
+            case 1:
+                break;
+            case 3:
+                {
+                GroundBoxScene* pScene = (GroundBoxScene*)obtainSceneFromFactory(110173);
+                addSubLast(pScene);
+                }
+                break;
+            default :
+                break;
+        }
+        _iCnt_Event = (_iCnt_Event < 2-1 ? _iCnt_Event+1 : _iCnt_Event);
+    }
     // gen02 end
 
     if (onChangeProgressAt(STAGE01CONTROLLER_PROG_INIT)) {
