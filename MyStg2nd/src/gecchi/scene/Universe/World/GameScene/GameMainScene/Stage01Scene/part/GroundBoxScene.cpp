@@ -6,6 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 GroundBoxScene::GroundBoxScene(const char* prm_name) : DefaultScene(prm_name) {
+//gecchi@dv9200-xp ~/workspace/MyStg2nd (520)$ ruby tool/script/make_stage_data.rb > stage_data.txt
 
     ifstream ifs("../MyStg2nd/stage_data.txt");
     ifs >> _area_len >> _area_height >> _area_width;
@@ -35,14 +36,14 @@ GroundBoxScene::GroundBoxScene(const char* prm_name) : DefaultScene(prm_name) {
     }
     ifs.close();
 
-    _ground_speed = 16000;
+    _ground_speed = 32000;
 
-    _box_dep = 1600000;
-    _box_width = 400000;
-    _box_height = 400000;
+    _box_dep = 800000;
+    _box_width = 200000;
+    _box_height = 200000;
     _frame_of_launch_interval = (frame)(_box_dep /_ground_speed);
 
-    _box_stock = 3000;
+    _box_stock = 4000;
     _pDispatcher_Box = NEW GgafActorDispatcher("Dp_Box");
     for (int i = 0; i < _box_stock; i++) {
         GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox","g_box001",
