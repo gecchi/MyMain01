@@ -124,7 +124,7 @@ class CommonScene;
 class BackGround01;
 class BackGroundChipBoard;
 
-class GroundBoxActor;
+
 
 
 class PreDrawScene;
@@ -149,7 +149,7 @@ class Stage01_03;
 class Stage01_Climax;
 
 class GroundBoxScene;
-
+class GroundBoxActor;
 
 class Stage02Controller;
 class Stage02_01;
@@ -311,8 +311,6 @@ class LaserChipEffectActor;
 
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/GroundBoxScene.h"
 
-
-#include "gecchi/actor/chikei/ground/GroundBoxActor.h"
 
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
 #include "gecchi/actor/common/shot/Shot001.h"

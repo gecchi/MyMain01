@@ -13,6 +13,17 @@ namespace MyStg2nd {
 class GroundBoxScene : public GgafDx9LibStg::WalledScene {
 
 
+    class GroundBoxActor : public GgafDx9LibStg::WallActor {
+
+    public:
+        GroundBoxActor(const char* prm_name);
+
+        virtual void initialize() override;
+
+        virtual ~GroundBoxActor() {
+        }
+    };
+
 public:
 
     GroundBoxScene(const char* prm_name);
