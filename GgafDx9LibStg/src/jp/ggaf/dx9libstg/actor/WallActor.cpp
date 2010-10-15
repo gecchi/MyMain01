@@ -36,9 +36,6 @@ WallActor::WallActor(const char* prm_name, const char* prm_model) :
     _ahDrawFace[13] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_draw_face014" );
     _ahDrawFace[14] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_draw_face015" );
     _ahDrawFace[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_draw_face016" );
-    _h_wall_dep = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_wall_dep" );
-    _h_wall_width = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_wall_width" );
-    _h_wall_height = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_wall_height" );
     _h_distance_AlphaTarget = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_distance_AlphaTarget" );
     _pWalledScene = NULL;
     _pTarget_FrontAlpha = NULL;

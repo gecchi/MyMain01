@@ -23,14 +23,9 @@ public:
     int _wall_dep;
     int _wall_width;
     int _wall_height;
-
     int _ground_speed;
 
     D3DXHANDLE _ahDrawFace[16];
-    D3DXHANDLE _h_wall_dep;
-    D3DXHANDLE _h_wall_width;
-    D3DXHANDLE _h_wall_height;
-
     D3DXHANDLE _h_distance_AlphaTarget;
     GgafDx9Core::GgafDx9GeometricActor* _pTarget_FrontAlpha;
     WalledScene* _pWalledScene;
