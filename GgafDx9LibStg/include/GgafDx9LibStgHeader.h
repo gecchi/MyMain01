@@ -13,6 +13,8 @@ class GeoElement;
 class GeometryChain;
 class DefaultScene;
 class ActorTableScene;
+class WalledScene;
+
 class DefaultGeometricActor;
 class DefaultD3DXMeshActor;
 class DefaultD3DXAniMeshActor;
@@ -26,7 +28,6 @@ class DefaultSpriteSetActor;
 class DefaultBoardActor;
 class DefaultBoardSetActor;
 class DefaultPointSpriteActor;
-
 class FontSpriteActor;
 //class FontSpriteString;
 class CubeEx;
@@ -34,6 +35,7 @@ class SphereEx;
 class SpriteMeshActor;
 class SpriteMeshSetActor;
 class StringBoardActor;
+class WallActor;
 class WorldBoundActor;
 class ColliAAB;
 class ColliSphere;
@@ -59,6 +61,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/util/GeometryChain.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
 #include "jp/ggaf/dx9libstg/scene/ActorTableScene.h"
+#include "jp/ggaf/dx9libstg/scene/WalledScene.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultUniverse.h"
 
 #include "jp/ggaf/dx9libstg/actor/DefaultGeometricActor.h"
@@ -81,6 +84,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/actor/SpriteMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/SpriteMeshSetActor.h"
 #include "jp/ggaf/dx9libstg/actor/StringBoardActor.h"
+#include "jp/ggaf/dx9libstg/actor/WallActor.h"
 #include "jp/ggaf/dx9libstg/actor/WorldBoundActor.h"
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/ColliAAB.h"
