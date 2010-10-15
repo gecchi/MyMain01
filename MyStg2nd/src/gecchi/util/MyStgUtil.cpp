@@ -407,6 +407,18 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_DominantDefenceRate, 9999999 );  //優性時の防御率
 		p->set(STAT_RecessiveDefenceRate, 9999999 );  //劣性時の防御率
 	}
+	void MyStgUtil::resetGroundBoxActorStatus(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_CHIKEI);  //種別(デフォルト)
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
+		p->set(STAT_AddScorePoint, 0 );  //加算得点
+		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
+		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
+		p->set(STAT_Stamina, 9999999 );  //体力
+		p->set(STAT_Attack, 9999999 );  //攻撃力
+		p->set(STAT_DefaultDefenceRate, 9999999 );  //基準防御率
+		p->set(STAT_DominantDefenceRate, 9999999 );  //優性時の防御率
+		p->set(STAT_RecessiveDefenceRate, 9999999 );  //劣性時の防御率
+	}
 	void MyStgUtil::resetEnemyPallasStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否

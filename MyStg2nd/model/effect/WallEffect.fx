@@ -28,10 +28,6 @@ float4x4 g_matView;
 //射影変換行列  
 float4x4 g_matProj;  
 
-float g_box_dep;
-float g_box_width;
-float g_box_height;
-
 int g_draw_face001;
 int g_draw_face002;
 int g_draw_face003;
@@ -99,7 +95,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //頂点シェーダー
-OUT_VS GgafDx9VS_GroundBox(
+OUT_VS GgafDx9VS_Wall(
       float4 prm_pos    : POSITION,      // モデルの頂点
       float  prm_index  : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
       float3 prm_normal : NORMAL,        // モデルの頂点の法線
@@ -162,9 +158,6 @@ OUT_VS GgafDx9VS_GroundBox(
 		matWorld = g_matWorld016;
 		draw_face = g_draw_face016;
 	}
-//float g_box_dep;
-//float g_box_width;
-//float g_box_height;
 
     //draw_faceは壁部分にビットが立っている
     //&b 00abcdef
@@ -298,7 +291,7 @@ OUT_VS GgafDx9VS_GroundBox(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDx9PS_GroundBox(
+float4 GgafDx9PS_Wall(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_col    : COLOR0
 ) : COLOR  {
@@ -324,14 +317,14 @@ float4 PS_Flush(
 	return out_color;
 }
 
-technique GroundBoxTechnique
+technique WallTechnique
 {
 	pass P0 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_GroundBox();
-		PixelShader  = compile ps_2_0 GgafDx9PS_GroundBox();
+		VertexShader = compile vs_2_0 GgafDx9VS_Wall();
+		PixelShader  = compile ps_2_0 GgafDx9PS_Wall();
 	}
 }
 
@@ -341,8 +334,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_GroundBox();
-		PixelShader  = compile ps_2_0 GgafDx9PS_GroundBox();
+		VertexShader = compile vs_2_0 GgafDx9VS_Wall();
+		PixelShader  = compile ps_2_0 GgafDx9PS_Wall();
 	}
 }
 
@@ -352,7 +345,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_GroundBox();
+		VertexShader = compile vs_2_0 GgafDx9VS_Wall();
 		PixelShader  = compile ps_2_0 PS_Flush();
 	}
 }
