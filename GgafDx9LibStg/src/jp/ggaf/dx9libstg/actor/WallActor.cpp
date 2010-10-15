@@ -54,9 +54,6 @@ void WallActor::initialize() {
         _wall_height = _pWalledScene->_wall_height;
         _ground_speed = _pWalledScene->_ground_speed;
     }
-
-//    _pCollisionChecker->setColliAAB(0, -_wall_dep/2, -_wall_height/2, -_wall_width/2,
-//                                        _wall_dep/2,  _wall_height/2,  _wall_width/2);
 }
 
 void WallActor::onActive() {
