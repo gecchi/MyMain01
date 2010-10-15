@@ -43,7 +43,7 @@ public:
     int _wall_width;
     int _wall_height;
 
-
+    int _wall_start_X;
     frame _frame_of_launch_interval;
 
     int _cnt_area_len;

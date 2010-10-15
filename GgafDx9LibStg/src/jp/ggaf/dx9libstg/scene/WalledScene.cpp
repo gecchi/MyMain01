@@ -44,25 +44,14 @@ WalledScene::WalledScene(const char* prm_name,
     }
     ifs.close();
 
-
-
-//
-//    _wall_stock = 4000;
-//    _pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Box");
-//    for (int i = 0; i < _wall_stock; i++) {
-//        WallActor* pWallActor =  NEW WallActor("GroundBox","g_box001",
-//                                                              _wall_dep, _wall_width, _wall_height);
-//        pWallActor->_ground_speed = _ground_speed;
-//        pWallActor->inactivateTreeImmediately();
-//        _pDispatcher_Wall->addSubLast(pWallActor);
-//    }
+    _wall_start_X = 0;
     _pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
     getLordActor()->addSubGroup(_pDispatcher_Wall);
 }
 
 void WalledScene::initialize() {
     if (_pDispatcher_Wall->getSubFirst() == NULL) {
-        throwGgafCriticalException("WalledScene::initialize() 実装クラスのコンストラクタで _pDispatcher_Wallに壁オブジェクトをセットして下さい。")
+        throwGgafCriticalException("WalledScene::initialize()   WallActor実装クラスのコンストラクタで _pDispatcher_Wallに壁オブジェクトをセットして下さい。")
     }
 //    for (int i = 0; i < _area_len; i++) {
 //        for (int j = 0; j < _paWallInfoLen[i]; j++) {
@@ -85,6 +74,7 @@ void WalledScene::initialize() {
 void WalledScene::onActive() {
     _frame_of_launch_interval = (frame)(_wall_dep /_ground_speed);
     _cnt_area_len = 0;
+    _wall_start_X = GgafDx9Universe::_X_goneRight-_wall_dep;
 }
 
 
@@ -96,7 +86,7 @@ void WalledScene::processBehavior() {
             if (pWall) {
                 pWall->config(_papaWallInfo[_cnt_area_len][n]._wall_draw_face,
                              _papaWallInfo[_cnt_area_len][n]._aColliBoxStretch);
-                pWall->setGeometry(10000000,
+                pWall->setGeometry(_wall_start_X,
                                   ((-_area_height/2) + _papaWallInfo[_cnt_area_len][n]._Y) * _wall_height,
                                   ((-_area_width/2) + _papaWallInfo[_cnt_area_len][n]._Z) * _wall_width);
                 pWall->activate();
@@ -110,11 +100,6 @@ void WalledScene::processFinal() {
 }
 
 WalledScene::~WalledScene() {
-
-
-     //void creatNewWall() =  6)
-
-
     for (int i = 0; i < _area_len; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papaWallInfo[i]);
     }
