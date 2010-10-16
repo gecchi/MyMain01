@@ -14,7 +14,13 @@ WalledScene::WalledScene(const char* prm_name,
     _wall_width = prm_wall_width;
     _wall_height = prm_wall_height;
     _ground_speed = prm_ground_speed;
-    ifstream ifs(prm_data_filename);
+	string data_filename = STG_PROPERTY(DIR_SCENE_DATA) + string(prm_data_filename);
+	ifstream ifs(data_filename.c_str());
+    if (ifs.fail()) {
+        throwGgafCriticalException("WalledScene::WalledScene "<<prm_data_filename<<" ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+    }
+
+
     ifs >> _area_len >>
            _area_height >>
            _area_width;
@@ -46,7 +52,6 @@ WalledScene::WalledScene(const char* prm_name,
 
     _wall_start_X = 0;
     _pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
-    getLordActor()->addSubGroup(_pDispatcher_Wall);
 }
 
 void WalledScene::initialize() {

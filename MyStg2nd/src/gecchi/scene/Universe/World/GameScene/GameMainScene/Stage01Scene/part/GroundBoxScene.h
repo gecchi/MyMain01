@@ -18,8 +18,6 @@ class GroundBoxScene : public GgafDx9LibStg::WalledScene {
     public:
         GroundBoxActor(const char* prm_name);
 
-        virtual void initialize() override;
-
         virtual ~GroundBoxActor() {
         }
     };

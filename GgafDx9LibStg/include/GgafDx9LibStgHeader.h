@@ -15,6 +15,8 @@ class DefaultScene;
 class ActorTableScene;
 class WalledScene;
 
+class StgProperties;
+
 class DefaultGeometricActor;
 class DefaultD3DXMeshActor;
 class DefaultD3DXAniMeshActor;
@@ -62,8 +64,10 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
 #include "jp/ggaf/dx9libstg/scene/ActorTableScene.h"
 #include "jp/ggaf/dx9libstg/scene/WalledScene.h"
-#include "jp/ggaf/dx9libstg/scene/DefaultUniverse.h"
 
+#include "jp/ggaf/dx9libstg/StgProperties.h";
+
+#include "jp/ggaf/dx9libstg/scene/DefaultUniverse.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultD3DXMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultD3DXAniMeshActor.h"

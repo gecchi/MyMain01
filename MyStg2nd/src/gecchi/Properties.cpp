@@ -39,7 +39,7 @@ string* Properties::MY_JOY_UI_CANCEL = NULL;
 
 
 void Properties::load(string prm_ini_filename) {
-    GgafDx9Properties::load(prm_ini_filename);
+    StgProperties::load(prm_ini_filename);
     MY_KEY_SHOT1      = getStr("MY_KEY_SHOT1");
     MY_KEY_SHOT2      = getStr("MY_KEY_SHOT2");
     MY_KEY_OPTION     = getStr("MY_KEY_OPTION");
@@ -107,7 +107,7 @@ void Properties::load(string prm_ini_filename) {
 }
 
 void Properties::clean() {
-    GgafDx9Properties::clean();
+    StgProperties::clean();
     DELETE_IMPOSSIBLE_NULL(MY_KEY_SHOT1);
     DELETE_IMPOSSIBLE_NULL(MY_KEY_SHOT2);
     DELETE_IMPOSSIBLE_NULL(MY_KEY_OPTION);

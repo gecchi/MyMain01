@@ -51,6 +51,7 @@ void WallActor::initialize() {
         _wall_height = _pWalledScene->_wall_height;
         _ground_speed = _pWalledScene->_ground_speed;
     }
+    setHitAble(true);
 }
 
 void WallActor::onActive() {

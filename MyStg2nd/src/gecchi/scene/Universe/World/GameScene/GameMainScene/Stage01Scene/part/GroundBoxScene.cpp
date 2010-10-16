@@ -11,20 +11,14 @@ GroundBoxScene::GroundBoxActor::GroundBoxActor(const char* prm_name) :
     WallActor(prm_name, "16/g_box001") {
     _class_name = "GroundBoxActor";
     MyStgUtil::resetGroundBoxActorStatus(_pStatus);
-    setHitAble(true);
-    setZEnable(true);        //Zバッファは考慮有り
-    setZWriteEnable(true);  //Zバッファは書き込み有り
-}
-
-
-void GroundBoxScene::GroundBoxActor::initialize() {
     _SX=_SY=_SZ = 2000;
     setBoundingSphereRadiusRate(2.0);
 }
 
 
+
 GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
-                                                                   "../MyStg2nd/stage_data.txt",
+                                                                   "stage_data.txt",
                                                                    800000, 200000,200000,
                                                                    32000
                                                                    ) {
@@ -36,6 +30,7 @@ GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
         pGroundBoxActor->inactivateTreeImmediately();
         _pDispatcher_Wall->addSubLast(pGroundBoxActor);
     }
+    getLordActor()->addSubGroup(_pDispatcher_Wall);
 
 }
 
