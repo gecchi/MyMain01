@@ -9,7 +9,7 @@ WalledScene::WalledScene(const char* prm_name,
                             const char* prm_data_filename,
                             int prm_wall_dep, int prm_wall_width, int prm_wall_height,
                             int prm_ground_speed) : DefaultScene(prm_name) {
-//gecchi@dv9200-xp ~/workspace/MyStg2nd (520)$ ruby tool/script/make_stage_data.rb > stage_data.txt
+//ruby tool/script/make_stage_data.rb > scene/stage_data.txt
     _wall_dep = prm_wall_dep;
     _wall_width = prm_wall_width;
     _wall_height = prm_wall_height;
@@ -58,22 +58,22 @@ void WalledScene::initialize() {
     if (_pDispatcher_Wall->getSubFirst() == NULL) {
         throwGgafCriticalException("WalledScene::initialize()   WallActor実装クラスのコンストラクタで _pDispatcher_Wallに壁オブジェクトをセットして下さい。")
     }
-//    for (int i = 0; i < _area_len; i++) {
-//        for (int j = 0; j < _paWallInfoLen[i]; j++) {
-//            _TRACE_("_papaWallInfo["<<i<<"]["<<j<<"]:--------------");
-//            _TRACE_("{"<<_papaWallInfo[i][j]._Y <<","<<_papaWallInfo[i][j]._Z<<","<<_papaWallInfo[i][j]._wall_draw_face<<","<<
-//                    "{"<<
-//                    _papaWallInfo[i][j]._aColliBoxStretch[0]<<","<<
-//                    _papaWallInfo[i][j]._aColliBoxStretch[1]<<","<<
-//                    _papaWallInfo[i][j]._aColliBoxStretch[2]<<","<<
-//                    _papaWallInfo[i][j]._aColliBoxStretch[3]<<","<<
-//                    _papaWallInfo[i][j]._aColliBoxStretch[4]<<","<<
-//                    _papaWallInfo[i][j]._aColliBoxStretch[5]<<""<<
-//                    "}"<<
-//                    "}");
-//
-//        }
-//    }
+    for (int i = 0; i < _area_len; i++) {
+        for (int j = 0; j < _paWallInfoLen[i]; j++) {
+            _TRACE_("_papaWallInfo["<<i<<"]["<<j<<"]:--------------");
+            _TRACE_("{"<<_papaWallInfo[i][j]._Y <<","<<_papaWallInfo[i][j]._Z<<","<<_papaWallInfo[i][j]._wall_draw_face<<","<<
+                    "{"<<
+                    _papaWallInfo[i][j]._aColliBoxStretch[0]<<","<<
+                    _papaWallInfo[i][j]._aColliBoxStretch[1]<<","<<
+                    _papaWallInfo[i][j]._aColliBoxStretch[2]<<","<<
+                    _papaWallInfo[i][j]._aColliBoxStretch[3]<<","<<
+                    _papaWallInfo[i][j]._aColliBoxStretch[4]<<","<<
+                    _papaWallInfo[i][j]._aColliBoxStretch[5]<<""<<
+                    "}"<<
+                    "}");
+
+        }
+    }
 }
 
 void WalledScene::onActive() {

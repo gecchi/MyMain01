@@ -273,6 +273,157 @@ class ExteriorArea
     return ret
   end
 
+
+
+
+
+  def getAnalyze03
+    ret = ExteriorArea.new(@len, @height, @width)
+
+    for x in 0..@len-1
+      for y in 0..@height-1
+        for z in 0..@width-1
+
+#           p "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"
+#    p "ret.area[",x,"][",y,"][",z,"]=",ret.area[x][y][z],"\n"
+
+          if @area[x][y][z] == KARA_VAL then
+             next
+          elsif @area[x][y][z] == FULL_VAL then
+             next
+          elsif  @area[x][y][z] == [0,0,0,0,0,0] then
+             next
+          elsif ret.area[x][y][z] == [0,0,0,0,0,0] then
+             next
+          else
+
+
+            ret.area[x][y][z] = @area[x][y][z]
+
+
+            #    c
+            # a b d f
+            #      e
+
+            # 543210
+            # abcdef
+
+            #+Y -Y +Z -Z の当たり判定と連結できるか考える
+
+            #+Y方向の検討
+            same_Y_inc = 0
+            if (y+1 <= @height-1) then
+              (y+1).upto(@height-1) do |iy|
+                if (ret.area[x][y][z] ==  @area[x][iy][z]) then
+                  same_Y_inc += 1
+                end
+              end
+            end
+            if (same_Y_inc > 0) then
+              #面a方向にも広がりを持たせる
+              ret.area[x][y][z][FACE_A_IDX] += same_Y_inc
+              #面a方向広がりによってまかなわれる残りの当たり判定は不要
+              (y+1).upto((y+1)+(same_Y_inc-1)) do |iy|
+                ret.area[x][iy][z] = [0,0,0,0,0,0]
+              end
+            end
+            #-Y方向の検討
+            same_Y_dec = 0
+            if (y-1 >= 0) then
+              (y-1).downto(0) do |iy|
+                if (ret.area[x][y][z] ==  @area[x][iy][z]) then
+                  same_Y_dec += 1
+                end
+              end
+            end
+            if (same_Y_dec > 0) then
+              #面d方向にも広がりを持たせる
+              ret.area[x][y][z][FACE_C_IDX] += same_Y_dec
+              #面d方向広がりによってまかなわれる残りの当たり判定は不要
+              (y-1).downto((y-1)-(same_Y_dec-1)) do |iy|
+                ret.area[x][iy][z] = [0,0,0,0,0,0]
+              end
+            end
+
+            #+Z方向の検討
+            same_Z_inc = 0
+            if (z+1 <= @width-1) then
+              (z+1).upto(@width-1) do |iz|
+                if (ret.area[x][y][z] ==  @area[x][y][iz]) then
+                  same_Z_inc += 1
+                end
+              end
+            end
+            if (same_Z_inc > 0) then
+              #面c方向にも広がりを持たせる
+              ret.area[x][y][z][FACE_C_IDX] += same_Z_inc
+              #面c方向広がりによってまかなわれる残りの当たり判定は不要
+              (z+1).upto((z+1)+(same_Z_inc-1)) do |iz|
+                ret.area[x][y][iz] = [0,0,0,0,0,0]
+              end
+            end
+
+            #-Z方向の検討
+            same_Z_dec = 0
+            if (z-1 >= 0) then
+              (z-1).downto(0) do |iz|
+                if (ret.area[x][y][z] ==  @area[x][y][iz]) then
+                  same_Z_dec += 1
+                end
+              end
+            end
+            if (same_Z_dec > 0) then
+              #面e方向にも広がりを持たせる
+              ret.area[x][y][z][FACE_E_IDX] += same_Z_dec
+              #面e方向広がりによってまかなわれる残りの当たり判定は不要
+              (z-1).downto((z-1)-(same_Z_dec-1)) do |iz|
+                ret.area[x][y][iz] = [0,0,0,0,0,0]
+              end
+            end
+
+
+
+          end
+
+
+
+
+
+#           print "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"
+#           print "@area[",x,"][",y,"][",z,"] & FACE_C_BIT=",(@area[x][y][z] & FACE_C_BIT),"\n"
+
+        end
+      end
+    end
+    return ret
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   def fullfull
 
     @area[0][0][0] = FULL_VAL

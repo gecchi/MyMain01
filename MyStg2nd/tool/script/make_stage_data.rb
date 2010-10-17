@@ -132,8 +132,8 @@ box = box.sort{|e1, e2|  (e1.X <=> e2.X).nonzero? or   #X¸‡
 
 
 $area_len = ((box[box_index-1].X - ($box_dep/2))/$box_dep)+1
-$area_height = 32
-$area_width = 32
+$area_height = 34
+$area_width = 34
 
 area = Array.new( $area_len, 0 )
 area.each_index { |x|
@@ -159,8 +159,13 @@ exArea.fullfull
 r01_exArea = exArea.getAnalyze01
 #r01_exArea.dump01
 #r01_exArea.dump02
-
+#print "r02_exArea.dump02---------------\n"
 r02_exArea = r01_exArea.getAnalyze02
+#r02_exArea.dump02
+
+#print "r03_exArea.dump02---------------\n"
+r03_exArea = r02_exArea.getAnalyze03
+#r03_exArea.dump02
 
 #r02_exArea.dump02
 
@@ -176,6 +181,7 @@ r02_exArea = r01_exArea.getAnalyze02
 #    };
 
 
+#print "data---------------\n"
 
 print $area_len," ",$area_height," ",$area_width
 
@@ -209,12 +215,12 @@ box_info_len = Array.new
          for w in 0..$area_width-1
            if r01_exArea.area[l][h][w] >= 0 then
              print h," ",w," ",r01_exArea.area[l][h][w]," "
-             print r02_exArea.area[l][h][w][0]," ",
-                   r02_exArea.area[l][h][w][1]," ",
-                   r02_exArea.area[l][h][w][2]," ",
-                   r02_exArea.area[l][h][w][3]," ",
-                   r02_exArea.area[l][h][w][4]," ",
-                   r02_exArea.area[l][h][w][5]
+             print r03_exArea.area[l][h][w][0]," ",
+                   r03_exArea.area[l][h][w][1]," ",
+                   r03_exArea.area[l][h][w][2]," ",
+                   r03_exArea.area[l][h][w][3]," ",
+                   r03_exArea.area[l][h][w][4]," ",
+                   r03_exArea.area[l][h][w][5]
              print "\t"
            end
         end #w
