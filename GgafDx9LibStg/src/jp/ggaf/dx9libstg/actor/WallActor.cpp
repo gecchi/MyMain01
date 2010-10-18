@@ -166,14 +166,22 @@ void WallActor::config(int prm_wall_draw_face, int* prm_aColliBoxStretch) {
         _wall_height = _pWalledScene->_wall_height;
         _ground_speed = _pWalledScene->_ground_speed;
     }
-
-
+/*
+_TRACE_("prm_aColliBoxStretch[0]="<<prm_aColliBoxStretch[0]<<"");
+_TRACE_("prm_aColliBoxStretch[1]="<<prm_aColliBoxStretch[1]<<"");
+_TRACE_("prm_aColliBoxStretch[2]="<<prm_aColliBoxStretch[2]<<"");
+_TRACE_("prm_aColliBoxStretch[3]="<<prm_aColliBoxStretch[3]<<"");
+_TRACE_("prm_aColliBoxStretch[4]="<<prm_aColliBoxStretch[4]<<"");
+_TRACE_("prm_aColliBoxStretch[5]="<<prm_aColliBoxStretch[5]<<"");
+*/
     _wall_draw_face = prm_wall_draw_face;
-
+//_TRACE_("_pCollisionChecker="<<_pCollisionChecker<<" prm_aColliBoxStretch[0]="<<prm_aColliBoxStretch[0]<<"");
     if (prm_aColliBoxStretch[0] == 0) {
+        
+        _pCollisionChecker->setColliAAB(0, 0,0,0, 0,0,0);
         _pCollisionChecker->disable(0);
     } else {
-        _pCollisionChecker->enable(0);
+        
         _pCollisionChecker->setColliAAB(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                            -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                            -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
@@ -181,6 +189,7 @@ void WallActor::config(int prm_wall_draw_face, int* prm_aColliBoxStretch) {
                                             (_wall_height/2) + (_wall_height * (prm_aColliBoxStretch[FACE_A_IDX]-1)),
                                             (_wall_width/2)  + (_wall_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1))
                                        );
+         _pCollisionChecker->enable(0);
     }
 }
 
