@@ -27,7 +27,7 @@ bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
 GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
                                                                    "stage_data.txt",
                                                                    800000, 200000,200000,
-                                                                   32000
+                                                                   8000
                                                                    ) {
 // cd workspace/MyStg2nd
 // ruby tool/script/make_stage_data.rb > scene/stage_data.txt

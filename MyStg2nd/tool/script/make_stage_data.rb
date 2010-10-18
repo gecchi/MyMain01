@@ -169,11 +169,12 @@ r02_exArea = r01_exArea.getAnalyze02
 r03_exArea = r02_exArea.getAnalyze03
 #print "r03_exArea.dump02---------------\n"
 #r03_exArea.dump02
+r03_2_exArea = r03_exArea.getAnalyze03 #Z•ûŒü˜AŒ‹‚ğs‚¤‚½‚ß‚à‚¤ˆê‰ñgetAnalyze03
 
 
 
 
-r04_exArea = r03_exArea.getAnalyze04
+r04_exArea = r03_2_exArea.getAnalyze04
 #print "r04_exArea.dump02---------------\n"
 #r04_exArea.dump02
 

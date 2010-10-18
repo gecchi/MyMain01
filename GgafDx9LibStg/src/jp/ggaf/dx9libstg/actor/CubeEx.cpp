@@ -8,6 +8,7 @@ CubeEx* CubeEx::_pObj = NULL;
 
 CubeEx::CubeEx(const char* prm_name) : GgafDx9CubeEx(prm_name) {
     _class_name = "CubeEx";
+    setAlpha(0.8);
 }
 
 CubeEx* CubeEx::get() {
