@@ -18,6 +18,8 @@ class GroundBoxScene : public GgafDx9LibStg::WalledScene {
     public:
         GroundBoxActor(const char* prm_name);
 
+        bool isOutOfUniverse() override;
+
         virtual ~GroundBoxActor() {
         }
     };

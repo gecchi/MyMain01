@@ -16,6 +16,13 @@ GroundBoxScene::GroundBoxActor::GroundBoxActor(const char* prm_name) :
 }
 
 
+bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
+    if (GgafDx9Universe::_X_goneLeft/2 < _X) {
+        return false;
+    }
+    return true;
+}
+
 
 GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
                                                                    "stage_data.txt",

@@ -317,8 +317,15 @@ class ExteriorArea
             same_Y_inc = 0
             if (y+1 <= @height-1) then
               (y+1).upto(@height-1) do |iy|
-                if (ret.area[x][y][z] ==  @area[x][iy][z]) then
+                if (ret.area[x][y][z] ==  @area[x][iy][z]) then #“¯‚¶‘å‚«‚³‚È‚ç‚Î˜AŒ‹
                   same_Y_inc += 1
+                elsif (ret.area[x][y][z][FACE_B_IDX] == @area[x][iy][z][FACE_B_IDX] &&
+                       ret.area[x][y][z][FACE_C_IDX] == @area[x][iy][z][FACE_C_IDX] &&
+                       ret.area[x][y][z][FACE_D_IDX] == @area[x][iy][z][FACE_D_IDX] &&
+                       ret.area[x][y][z][FACE_E_IDX] == @area[x][iy][z][FACE_E_IDX] &&
+                       ret.area[x][y][z][FACE_F_IDX] == @area[x][iy][z][FACE_F_IDX] ) then
+
+                  same_Y_inc += @area[x][iy][z][FACE_A_IDX]
                 else
                   break
                 end
@@ -339,6 +346,13 @@ class ExteriorArea
               (y-1).downto(0) do |iy|
                 if (ret.area[x][y][z] ==  @area[x][iy][z]) then
                   same_Y_dec += 1
+                elsif (ret.area[x][y][z][FACE_A_IDX] == @area[x][iy][z][FACE_A_IDX] &&
+                       ret.area[x][y][z][FACE_B_IDX] == @area[x][iy][z][FACE_B_IDX] &&
+                       ret.area[x][y][z][FACE_C_IDX] == @area[x][iy][z][FACE_C_IDX] &&
+                       ret.area[x][y][z][FACE_E_IDX] == @area[x][iy][z][FACE_E_IDX] &&
+                       ret.area[x][y][z][FACE_F_IDX] == @area[x][iy][z][FACE_F_IDX] ) then
+
+                  same_Y_dec += @area[x][iy][z][FACE_D_IDX]
                 else
                   break
                 end
@@ -363,6 +377,13 @@ class ExteriorArea
               (z+1).upto(@width-1) do |iz|
                 if (ret.area[x][y][z] ==  @area[x][y][iz]) then
                   same_Z_inc += 1
+                elsif (ret.area[x][y][z][FACE_A_IDX] == @area[x][y][iz][FACE_A_IDX] &&
+                       ret.area[x][y][z][FACE_B_IDX] == @area[x][y][iz][FACE_B_IDX] &&
+                       ret.area[x][y][z][FACE_D_IDX] == @area[x][y][iz][FACE_D_IDX] &&
+                       ret.area[x][y][z][FACE_E_IDX] == @area[x][y][iz][FACE_E_IDX] &&
+                       ret.area[x][y][z][FACE_F_IDX] == @area[x][y][iz][FACE_F_IDX] ) then
+
+                  same_Z_inc += @area[x][y][iz][FACE_C_IDX]
                 else
                   break
                 end
@@ -383,6 +404,13 @@ class ExteriorArea
               (z-1).downto(0) do |iz|
                 if (ret.area[x][y][z] ==  @area[x][y][iz]) then
                   same_Z_dec += 1
+                elsif (ret.area[x][y][z][FACE_A_IDX] == @area[x][y][iz][FACE_A_IDX] &&
+                       ret.area[x][y][z][FACE_B_IDX] == @area[x][y][iz][FACE_B_IDX] &&
+                       ret.area[x][y][z][FACE_C_IDX] == @area[x][y][iz][FACE_C_IDX] &&
+                       ret.area[x][y][z][FACE_D_IDX] == @area[x][y][iz][FACE_D_IDX] &&
+                       ret.area[x][y][z][FACE_F_IDX] == @area[x][y][iz][FACE_F_IDX] ) then
+
+                  same_Z_dec += @area[x][y][iz][FACE_E_IDX]
                 else
                   break
                 end
