@@ -157,74 +157,67 @@ end
 #外塗りつぶし
 exArea.fullfull
 r01_exArea = exArea.getAnalyze01
+#print "r01_exArea.dump01---------------\n"
 #r01_exArea.dump01
 #r01_exArea.dump02
-#print "r02_exArea.dump02---------------\n"
+
 r02_exArea = r01_exArea.getAnalyze02
+#print "r02_exArea.dump02---------------\n"
 #r02_exArea.dump02
 
-#print "r03_exArea.dump02---------------\n"
+
 r03_exArea = r02_exArea.getAnalyze03
+#print "r03_exArea.dump02---------------\n"
 #r03_exArea.dump02
 
-#r02_exArea.dump02
-
-#    struct BoxInfo {
-#        int _Y;
-#        int _Z;
-#        int _box_draw_face;
-#        int _aColliBoxStretch[6];
-#    };
-#    BoxInfo a[2][24*32] = {
-#                    { {1,2,4,{0,11,0,0,0,0}}, {2,4,44,{0,0,21,0,0,0}} },
-#                    { {3,5,34,{11,22,33,44,55,66}}, {4,4,44,{99,91,92,93,94,0}} }
-#    };
 
 
+
+r04_exArea = r03_exArea.getAnalyze04
+#print "r04_exArea.dump02---------------\n"
+#r04_exArea.dump02
+
+#データ出力開始
 #print "data---------------\n"
-
 print $area_len," ",$area_height," ",$area_width
 
-    print "\n"
-    print "\n"
+print "\n"
+print "\n"
 
 box_info_len = Array.new
-
-    for l in 0..$area_len-1
-      len = 0
-      for h in 0..$area_height-1
-         for w in 0..$area_width-1
-           if r01_exArea.area[l][h][w] >= 0 then
-             len += 1;
-           end
-        end #w
-      end #h
-      box_info_len[l] = len
-    end
-
-
-    for l in 0..$area_len-1
-      print box_info_len[l]," "
-    end
-    print "\n"
-    print "\n"
+for l in 0..$area_len-1
+  len = 0
+  for h in 0..$area_height-1
+    for w in 0..$area_width-1
+      if r01_exArea.area[l][h][w] >= 0 then
+        len += 1;
+      end
+    end #w
+  end #h
+  box_info_len[l] = len
+end
 
 
-    for l in 0..$area_len-1
-      for h in 0..$area_height-1
-         for w in 0..$area_width-1
-           if r01_exArea.area[l][h][w] >= 0 then
-             print h," ",w," ",r01_exArea.area[l][h][w]," "
-             print r03_exArea.area[l][h][w][0]," ",
-                   r03_exArea.area[l][h][w][1]," ",
-                   r03_exArea.area[l][h][w][2]," ",
-                   r03_exArea.area[l][h][w][3]," ",
-                   r03_exArea.area[l][h][w][4]," ",
-                   r03_exArea.area[l][h][w][5]
-             print "\t"
-           end
-        end #w
-      end #h
-      print "\n"
-    end
+for l in 0..$area_len-1
+  print box_info_len[l]," "
+end
+print "\n"
+print "\n"
+for l in 0..$area_len-1
+  for h in 0..$area_height-1
+     for w in 0..$area_width-1
+       if r01_exArea.area[l][h][w] >= 0 then
+         print h," ",w," ",r01_exArea.area[l][h][w]," "
+         print r04_exArea.area[l][h][w][0]," ",
+               r04_exArea.area[l][h][w][1]," ",
+               r04_exArea.area[l][h][w][2]," ",
+               r04_exArea.area[l][h][w][3]," ",
+               r04_exArea.area[l][h][w][4]," ",
+               r04_exArea.area[l][h][w][5]
+         print "\t"
+       end
+    end #w
+  end #h
+  print "\n"
+end
 

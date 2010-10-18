@@ -23,7 +23,8 @@ GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
                                                                    32000
                                                                    ) {
 // cd workspace/MyStg2nd
-// ruby tool/script/make_stage_data.rb > stage_data.txt
+// ruby tool/script/make_stage_data.rb > scene/stage_data.txt
+
 
     for (int i = 0; i < 4000; i++) {
         GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox");

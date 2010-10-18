@@ -1,3 +1,4 @@
+
 class Veartex
   attr_accessor :X ,:Y, :Z
   def initialize
@@ -43,7 +44,6 @@ class ExteriorArea
     @width = prm_width
     @height = prm_height
     @len = prm_len
-
 
 
     @area = Array.new( @len, KARA_VAL )
@@ -292,6 +292,7 @@ class ExteriorArea
           elsif @area[x][y][z] == FULL_VAL then
              next
           elsif  @area[x][y][z] == [0,0,0,0,0,0] then
+             ret.area[x][y][z] = @area[x][y][z]
              next
           elsif ret.area[x][y][z] == [0,0,0,0,0,0] then
              next
@@ -310,12 +311,16 @@ class ExteriorArea
 
             #+Y -Y +Z -Z の当たり判定と連結できるか考える
 
+
+
             #+Y方向の検討
             same_Y_inc = 0
             if (y+1 <= @height-1) then
               (y+1).upto(@height-1) do |iy|
                 if (ret.area[x][y][z] ==  @area[x][iy][z]) then
                   same_Y_inc += 1
+                else
+                  break
                 end
               end
             end
@@ -327,12 +332,15 @@ class ExteriorArea
                 ret.area[x][iy][z] = [0,0,0,0,0,0]
               end
             end
+
             #-Y方向の検討
             same_Y_dec = 0
             if (y-1 >= 0) then
               (y-1).downto(0) do |iy|
                 if (ret.area[x][y][z] ==  @area[x][iy][z]) then
                   same_Y_dec += 1
+                else
+                  break
                 end
               end
             end
@@ -345,12 +353,18 @@ class ExteriorArea
               end
             end
 
+            if same_Y_dec > 0 || same_Y_inc > 0 then
+              next
+            end
+
             #+Z方向の検討
             same_Z_inc = 0
             if (z+1 <= @width-1) then
               (z+1).upto(@width-1) do |iz|
                 if (ret.area[x][y][z] ==  @area[x][y][iz]) then
                   same_Z_inc += 1
+                else
+                  break
                 end
               end
             end
@@ -369,6 +383,8 @@ class ExteriorArea
               (z-1).downto(0) do |iz|
                 if (ret.area[x][y][z] ==  @area[x][y][iz]) then
                   same_Z_dec += 1
+                else
+                  break
                 end
               end
             end
@@ -381,12 +397,7 @@ class ExteriorArea
               end
             end
 
-
-
           end
-
-
-
 
 
 #           print "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"
@@ -400,8 +411,87 @@ class ExteriorArea
 
 
 
+  def getAnalyze04
+
+    max_x_colliwall_num = 5
+    ret = ExteriorArea.new(@len, @height, @width)
+
+    (@len-1).downto(0) do |x| #お尻からループ
+      for y in 0..@height-1
+        for z in 0..@width-1
+          if @area[x][y][z] == [0,0,0,0,0,0] then
+            ret.area[x][y][z] = @area[x][y][z]
+            next
+          elsif ret.area[x][y][z] == [0,0,0,0,0,0] then
+            next
+          else
+            ret.area[x][y][z] = @area[x][y][z]
+
+            #    c
+            # a b d f
+            #      e
+
+            # 543210
+            # abcdef
+
+            #+X -X の当たり判定と連結できるか考える
+            #-X方向の検討
+            same_X_dec = 0
+            if (x-1 >= 0) then
+              (x-1).downto(0) do |ix|
+                if (ret.area[x][y][z] ==  @area[ix][y][z]) then
+                  same_X_dec += 1
+                  if same_X_dec >= max_x_colliwall_num then
+                    # print "break! [",x,"][",y,"][",z,"] same_X_dec >= max_x_colliwall_num  same_X_dec=",same_X_dec," max_x_colliwall_num=",max_x_colliwall_num,"\n"
+                    # p ret.area[x][y][z]
+                    break #最高 max_x_colliwall_num 個までしか連結しないようにする
+                  end
+                else
+                  break
+                end
+              end
+            end
+            if (same_X_dec > 0) then
+              #面b方向にも広がりを持たせる
+              ret.area[x][y][z][FACE_B_IDX] += same_X_dec
+              #面b方向広がりによってまかなわれる残りの当たり判定は不要
+              (x-1).downto((x-1)-(same_X_dec-1)) do |ix|
+                ret.area[ix][y][z] = [0,0,0,0,0,0]
+              end
+            end
+
+            #+X方向の検討
+            same_X_inc = 0
+            if (x+1 <= @len-1) then
+              (x+1).upto(@len-1) do |ix|
+                if (ret.area[x][y][z] == @area[ix][y][z]) then
+                  same_X_inc += 1
+                  if same_X_inc >= max_x_colliwall_num then
+                   # print "break! [",x,"][",y,"][",z,"] same_X_inc >= max_x_colliwall_num  same_X_inc=",same_X_inc," max_x_colliwall_num=",max_x_colliwall_num,"\n"
+                   # p ret.area[x][y][z]
+                    break #最高 max_x_colliwall_num 個までしか連結しないようにする
+                  end
+                else
+                  break
+                end
+              end
+            end
+            if (same_X_inc > 0) then
+              #面f方向にも広がりを持たせる
+              ret.area[x][y][z][FACE_F_IDX] += same_X_inc
+              #面f方向広がりによってまかなわれる残りの当たり判定は不要
+              (x+1).upto((x+1)+(same_X_inc-1)) do |ix|
+                ret.area[ix][y][z] = [0,0,0,0,0,0]
+              end
+            end
 
 
+          end
+        end
+      end
+    end
+    return ret
+  end
 
 
 
