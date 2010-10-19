@@ -1,19 +1,24 @@
+################################################################
+#  外壁情報データ作成スクリプト
+#                                    since 2010/10/19 by Gecchi
+#
+# 【書式】
+# $ ruby makeSceneWallData.rb <入力Xファイル> <Y軸方向AAB数> <Z軸方向AAB数> <当たり判定AABのX方向最大連結数>
+# (※AAB とは 軸並行直方体：Axis-Aligned Box の省略)
+#
+# 【使用例】
+# $ ruby makeSceneWallData.rb scene3_2_wall.X 34 36 4 > scene3_2_wall.dat
+################################################################
 
 require './ExteriorArea'
-#http://download.aptana.com/tools/radrails/plugin/install/radrails-bundle
 
-
-
-
-
-xfile= ARGV[0] #"STAGE3_2.X"
-max_x_colliwall_num = ARGV[1].to_i
+xfile= ARGV[0]
+max_x_colliwall_num = ARGV[3].to_i
 #読み込み
 f = open(xfile)
 
-
 while line = f.gets
-  if line =~ /^\s*Mesh/
+  if line =~ /^\s*Mesh/ then   #Xファイルの 行頭"Mesh" という文字列を頼りにしている
     break;
   end
 end
@@ -36,8 +41,6 @@ while line = f.gets
 end
 
 
-
-
 box_index = 0
 box = Array.new
 break_flg = false
@@ -52,7 +55,7 @@ min_z = 0;
 
 while break_flg == false
 
-  for v in 0..11 #6面*2
+  for v in 0..11 #AABのモデル頂点数は12個としている。6面*2
     line = f.gets
 
     if line.length < 3 then
@@ -99,23 +102,18 @@ while break_flg == false
   end
 
   box[box_index] = Box.new
-  #BOXの中心点を代入
+  #AABの中心点を代入
   box[box_index].X = (min_x+((max_x-min_x) / 2)).round
   box[box_index].Y = (min_y+((max_y-min_y) / 2)).round
   box[box_index].Z = (min_z+((max_z-min_z) / 2)).round
 
   box_index += 1
 end
-
 f.close
 
 $box_dep = max_x-min_x
 $box_width = max_y-min_y
 $box_height = max_z-min_z
-
-
-
-
 
 #ソート
 box = box.sort{|e1, e2|  (e1.X <=> e2.X).nonzero? or   #X昇順
@@ -123,17 +121,10 @@ box = box.sort{|e1, e2|  (e1.X <=> e2.X).nonzero? or   #X昇順
                           e1.Z <=> e2.Z                #Z昇順
                          }
 
-#for bbb in 0..box_index-1
-#  print "[",bbb,"]=(",box[bbb].X,",",box[bbb].Y,",",box[bbb].Z,")\n"
-#end
-
-
 #オブジェクト構築
-
-
 $area_len = ((box[box_index-1].X - ($box_dep/2))/$box_dep)+1
-$area_height = 34
-$area_width = 34
+$area_height = ARGV[1].to_i
+$area_width = ARGV[2].to_i
 
 area = Array.new( $area_len, 0 )
 area.each_index { |x|
@@ -143,9 +134,9 @@ area.each_index { |x|
   }
 }
 
-#BOX設定
+#BOX設定&当たり判定AAB最適化解析
 exArea = ExteriorArea.new($area_len, $area_height, $area_width)
-
+#BOX設定
 for idx in 0..box_index-1
     iX = (box[idx].X - ($box_dep/2))/$box_dep
     iY = ((box[idx].Y-($box_height/2))/$box_height) + ($area_height/2)
@@ -153,37 +144,24 @@ for idx in 0..box_index-1
     #print idx,",(",iX,",",iY,",",iZ,") box[idx].X=",box[idx].X,"\n"
     exArea.area[iX][iY][iZ] = ExteriorArea::KABE_VAL
 end
+
 #exArea.dump
-#外塗りつぶし
-exArea.fullfull
+exArea.fullfull #外塗りつぶし
 r01_exArea = exArea.getAnalyze01
 #print "r01_exArea.dump01---------------\n"
 #r01_exArea.dump01
 #r01_exArea.dump02
-
 r02_exArea = r01_exArea.getAnalyze02
-#print "r02_exArea.dump02---------------\n"
-#r02_exArea.dump02
-
-
 r03_exArea = r02_exArea.getAnalyze03
-#print "r03_exArea.dump02---------------\n"
-#r03_exArea.dump02
 r03_2_exArea = r03_exArea.getAnalyze03 #Z方向連結を行うためもう一回getAnalyze03
-
-
-
-
 r04_exArea = r03_2_exArea.getAnalyze04(max_x_colliwall_num)
-#print "r04_exArea.dump02---------------\n"
-#r04_exArea.dump02
 
 #データ出力開始
-#print "data---------------\n"
 print $area_len," ",$area_height," ",$area_width
 
 print "\n"
 print "\n"
+
 
 box_info_len = Array.new
 for l in 0..$area_len-1
@@ -197,7 +175,6 @@ for l in 0..$area_len-1
   end #h
   box_info_len[l] = len
 end
-
 
 for l in 0..$area_len-1
   print box_info_len[l]," "

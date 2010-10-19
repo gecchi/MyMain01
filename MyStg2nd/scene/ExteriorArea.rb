@@ -55,7 +55,7 @@ class ExteriorArea
     }
   end
 
-
+  #BOX６面の内、最低限描画しなければいけない面を解析
   def getAnalyze01
      ret = ExteriorArea.new(@len, @height, @width)
 
@@ -107,7 +107,6 @@ class ExteriorArea
               type = type ^ FACE_C_BIT
             end
 
-
 #            ret.area[x][y][z] = sprintf("%02d ", type)
             ret.area[x][y][z] = type
           end
@@ -119,7 +118,8 @@ class ExteriorArea
 
   end
 
-
+  #BOXの描画不要の面（開いている面と呼ぶ）方向に、
+  #当たり判定AABを伸ばせるかどうか解析
   def getAnalyze02
     ret = ExteriorArea.new(@len, @height, @width)
 
@@ -134,19 +134,14 @@ class ExteriorArea
 
           elsif @area[x][y][z] == FULL_VAL then
              next
-
-
           else
-
             ret.area[x][y][z] = [1,1,1,1,1,1]
-
             #6面の開いている方向の当たり判定長さを設定
             #abcdef
 
             #    c
             # a b d f
             #      e
-
 
             #bが開いている        543210
             #                     abcdef
@@ -216,7 +211,6 @@ class ExteriorArea
               ret.area[x][y][z][FACE_A_IDX] = hitarea_len
             end
 
-
             #eが開いている        543210
             #                     abcdef
             if @area[x][y][z] & FACE_E_BIT == 0 then
@@ -233,8 +227,6 @@ class ExteriorArea
               end
               ret.area[x][y][z][FACE_E_IDX] = hitarea_len
             end
-
-
 
             #cが開いている        543210
             #                     abcdef
@@ -257,13 +249,8 @@ class ExteriorArea
             end
 
 
-
-
 #           print "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"
 #           print "@area[",x,"][",y,"][",z,"] & FACE_C_BIT=",(@area[x][y][z] & FACE_C_BIT),"\n"
-
-
-
 
           end
 
@@ -275,18 +262,14 @@ class ExteriorArea
 
 
 
-
-
+  #getAnalyze02 で開いている面方向に伸びた当たり判定AABを
+  #+Y -Y +Z -Z 方向に連結できるかどうか解析
   def getAnalyze03
     ret = ExteriorArea.new(@len, @height, @width)
 
     for x in 0..@len-1
       for y in 0..@height-1
         for z in 0..@width-1
-
-#           p "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"
-#    p "ret.area[",x,"][",y,"][",z,"]=",ret.area[x][y][z],"\n"
-
           if @area[x][y][z] == KARA_VAL then
              next
           elsif @area[x][y][z] == FULL_VAL then
@@ -297,11 +280,7 @@ class ExteriorArea
           elsif ret.area[x][y][z] == [0,0,0,0,0,0] then
              next
           else
-
-
             ret.area[x][y][z] = @area[x][y][z]
-
-
             #    c
             # a b d f
             #      e
@@ -310,8 +289,6 @@ class ExteriorArea
             # abcdef
 
             #+Y -Y +Z -Z の当たり判定と連結できるか考える
-
-
 
             #+Y方向の検討
             same_Y_inc = 0
@@ -367,6 +344,7 @@ class ExteriorArea
               end
             end
 
+            #Y方向に連結したならば、Z軸方向へは単純連結出来ないのでこれで終了とする
             if same_Y_dec > 0 || same_Y_inc > 0 then
               next
             end
@@ -426,11 +404,8 @@ class ExteriorArea
             end
 
           end
-
-
 #           print "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"
 #           print "@area[",x,"][",y,"][",z,"] & FACE_C_BIT=",(@area[x][y][z] & FACE_C_BIT),"\n"
-
         end
       end
     end
@@ -438,7 +413,9 @@ class ExteriorArea
   end
 
 
-
+  #getAnalyze03 により連結された当たり判定AABについて
+  #+X -X 方向に連結できるかどうか解析
+  #引数：最大連結数
   def getAnalyze04(prm_max_x_colliwall_num)
 
     max_x_colliwall_num = prm_max_x_colliwall_num
@@ -470,8 +447,6 @@ class ExteriorArea
                 if (ret.area[x][y][z] ==  @area[ix][y][z]) then
                   same_X_dec += 1
                   if same_X_dec >= max_x_colliwall_num then
-                    # print "break! [",x,"][",y,"][",z,"] same_X_dec >= max_x_colliwall_num  same_X_dec=",same_X_dec," max_x_colliwall_num=",max_x_colliwall_num,"\n"
-                    # p ret.area[x][y][z]
                     break #最高 max_x_colliwall_num 個までしか連結しないようにする
                   end
                 else
@@ -495,8 +470,6 @@ class ExteriorArea
                 if (ret.area[x][y][z] == @area[ix][y][z]) then
                   same_X_inc += 1
                   if same_X_inc >= max_x_colliwall_num then
-                   # print "break! [",x,"][",y,"][",z,"] same_X_inc >= max_x_colliwall_num  same_X_inc=",same_X_inc," max_x_colliwall_num=",max_x_colliwall_num,"\n"
-                   # p ret.area[x][y][z]
                     break #最高 max_x_colliwall_num 個までしか連結しないようにする
                   end
                 else
@@ -513,7 +486,6 @@ class ExteriorArea
               end
             end
 
-
           end
         end
       end
@@ -522,26 +494,7 @@ class ExteriorArea
   end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  #[0][0][0]から FULL_VAL で塗りつぶす
   def fullfull
 
     @area[0][0][0] = FULL_VAL
@@ -560,12 +513,10 @@ class ExteriorArea
             begin
               full(x, y, z, FULL_VAL)
             rescue Exception
-              #スタックオーバーを潰す
-              #print "."
+              #再帰によるスタックオーバー例外を無理やり潰している
             end
 
           end
-
         end
       end
     end
@@ -573,7 +524,6 @@ class ExteriorArea
   end
 
   def full(x, y, z, val)
-
     return if x < 0 || x > @len-1
     return if y < 0 || y > @height-1
     return if z < 0 || z > @width-1
@@ -606,6 +556,7 @@ class ExteriorArea
   end
 
 
+  #デバッグ用出力その１
   def dump01
     for l in 0..@len-1
       print l,")------------------\n"
@@ -627,6 +578,7 @@ class ExteriorArea
     end
   end
 
+  #デバッグ用出力その２
   def dump02
     for l in 0..@len-1
       print l,")------------------\n"
