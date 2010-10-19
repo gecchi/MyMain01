@@ -28,6 +28,8 @@ public:
 
     GroundBoxScene(const char* prm_name);
 
+    void processBehavior() override;
+
     virtual ~GroundBoxScene();
 };
 

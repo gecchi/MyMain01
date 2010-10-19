@@ -17,7 +17,7 @@ GroundBoxScene::GroundBoxActor::GroundBoxActor(const char* prm_name) :
 
 
 bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
-    if (GgafDx9Universe::_X_goneLeft/2 < _X) {
+    if (GgafDx9Universe::_X_goneLeft < _X) {
         return false;
     }
     return true;
@@ -25,7 +25,7 @@ bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
 
 
 GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
-                                                                   "stage_data.txt",
+                                                                   "scene3_2_wall.dat",
                                                                    800000, 200000,200000,
                                                                    8000
                                                                    ) {
@@ -35,13 +35,17 @@ GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
 
     for (int i = 0; i < 4000; i++) {
         GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox");
-        pGroundBoxActor->enableFrontAlpha(pMYSHIP);
         pGroundBoxActor->inactivateTreeImmediately();
         _pDispatcher_Wall->addSubLast(pGroundBoxActor);
     }
     getLordActor()->addSubGroup(_pDispatcher_Wall);
-
+    enableFrontAlpha(pMYSHIP);
 }
+
+void GroundBoxScene::processBehavior() {
+    WalledScene::processBehavior();
+}
+
 
 GroundBoxScene::~GroundBoxScene() {
 
