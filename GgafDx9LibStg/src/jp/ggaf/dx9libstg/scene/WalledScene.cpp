@@ -10,6 +10,7 @@ WalledScene::WalledScene(const char* prm_name,
                             int prm_wall_dep, int prm_wall_width, int prm_wall_height,
                             int prm_ground_speed) : DefaultScene(prm_name) {
 //ruby tool/script/make_stage_data.rb > scene/stage_data.txt
+    _pTarget_FrontAlpha = NULL;
     _wall_dep = prm_wall_dep;
     _wall_width = prm_wall_width;
     _wall_height = prm_wall_height;

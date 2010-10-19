@@ -13,34 +13,39 @@
 namespace GgafDx9LibStg {
 
 /**
+ * 外壁シーン(WalledScene)の壁ブロック基底クラス .
+ * 外壁シーン(WalledScene)の構成要素の壁ブロックは本クラスを継承する必要がある。
+ * @version 1.00
+ * @since 2010/10/18
+ * @author Masatoshi Tsuge
  */
 class WallActor : public GgafDx9Core::GgafDx9MeshSetActor {
+    friend class GgafDx9EffectManager;
+
+private:
+    /** [r]壁ブロック表示面情報 */
+    int _wall_draw_face;
+    /** [r]壁ブロックの長さ（X座標軸長さ）*/
+    int _wall_dep;
+    /** [r]壁ブロックの高さ（Y座標軸長さ）*/
+    int _wall_height;
+    /** [r]壁ブロックの幅（Z座標軸長さ）*/
+    int _wall_width;
+    /** [r]壁ブロック移動スピード(値は正、但し移動方向はX軸負の方向) */
+    int _ground_speed;
 
 public:
+    GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
+    GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 
-    int _wall_draw_face;
-
-    int _wall_dep;
-    int _wall_width;
-    int _wall_height;
-    int _ground_speed;
+    /** [r]外壁シーン */
+    WalledScene* _pWalledScene;
 
     D3DXHANDLE _ahDrawFace[16];
     D3DXHANDLE _h_distance_AlphaTarget;
-    GgafDx9Core::GgafDx9GeometricActor* _pTarget_FrontAlpha;
-    WalledScene* _pWalledScene;
-    GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 
-    frame _frame_offset;
-
-    GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 
     WallActor(const char* prm_name, const char* prm_model);
-
-
-    virtual void config(int prm_wall_draw_face, int* prm_aColliBoxStretch);
-
-
 
     virtual void onCreateModel() override {
     }
@@ -66,9 +71,13 @@ public:
 
     virtual void drawHitArea() override;
 
-    void enableFrontAlpha(GgafDx9Core::GgafDx9GeometricActor* prm_pTarget_FrontAlpha) {
-        _pTarget_FrontAlpha = prm_pTarget_FrontAlpha;
-    }
+    /**
+     * 壁ブロックを設定する
+     * @param prm_wall_draw_face 壁ブロック表示面情報
+     * @param prm_aColliBoxStretch 壁ブロック当たり判定情報
+     */
+    virtual void config(int prm_wall_draw_face, int* prm_aColliBoxStretch);
+
 
     virtual ~WallActor();
 };

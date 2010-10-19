@@ -12,7 +12,6 @@ WallActor::WallActor(const char* prm_name, const char* prm_model) :
                          NEW CollisionChecker(this) ) {
     _class_name = "WallActor";
     _pMeshSetModel->_set_num = 16; //WallActor最大セット数は16。
-    _frame_offset = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pCollisionChecker->makeCollision(1);
 
@@ -38,8 +37,7 @@ WallActor::WallActor(const char* prm_name, const char* prm_model) :
     _ahDrawFace[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_draw_face016" );
     _h_distance_AlphaTarget = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_distance_AlphaTarget" );
     _pWalledScene = NULL;
-    _pTarget_FrontAlpha = NULL;
-    setZEnable(true);        //Zバッファは考慮有り
+    setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り
 }
 
@@ -98,8 +96,8 @@ void WallActor::processDraw() {
     pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
     HRESULT hr;
-    if (_pTarget_FrontAlpha) {
-        hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pTarget_FrontAlpha->_fDist_VpPlnFront));
+    if (_pWalledScene->_pTarget_FrontAlpha) {
+        hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledScene->_pTarget_FrontAlpha->_fDist_VpPlnFront));
         checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     } else {
         hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -1.0f);
@@ -177,11 +175,11 @@ _TRACE_("prm_aColliBoxStretch[5]="<<prm_aColliBoxStretch[5]<<"");
     _wall_draw_face = prm_wall_draw_face;
 //_TRACE_("_pCollisionChecker="<<_pCollisionChecker<<" prm_aColliBoxStretch[0]="<<prm_aColliBoxStretch[0]<<"");
     if (prm_aColliBoxStretch[0] == 0) {
-        
+
         _pCollisionChecker->setColliAAB(0, 0,0,0, 0,0,0);
         _pCollisionChecker->disable(0);
     } else {
-        
+
         _pCollisionChecker->setColliAAB(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                            -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                            -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
