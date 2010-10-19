@@ -29,10 +29,6 @@ GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
                                                                    800000, 200000,200000,
                                                                    8000
                                                                    ) {
-// cd workspace/MyStg2nd
-// ruby tool/script/make_stage_data.rb > scene/stage_data.txt
-
-
     for (int i = 0; i < 4000; i++) {
         GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox");
         pGroundBoxActor->inactivateTreeImmediately();
@@ -42,18 +38,14 @@ GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
 
 
     _bound_alpha = -pCAM->_cameraZ_org*0.7; //背面時カメラは_cameraZ_org*0.6に由来している
-
-
-//    enableFrontAlpha(pMYSHIP);
-//    enableFrontAlpha(NULL);
 }
 
 void GroundBoxScene::processBehavior() {
     WalledScene::processBehavior();
-    if (_bound_alpha - (-(pMYSHIP->_fDist_VpPlnFront) < 0)) {
+    if (_bound_alpha - (-(pMYSHIP->_fDist_VpPlnFront)) < 0) {
         enableFrontAlpha(pMYSHIP);
     } else {
-        enableFrontAlpha(NULL);
+        enableFrontAlpha(NULL); //背面カメラの近さならアルファ無し
     }
 }
 
