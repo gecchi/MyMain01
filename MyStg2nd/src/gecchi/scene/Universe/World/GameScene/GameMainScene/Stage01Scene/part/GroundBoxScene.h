@@ -26,6 +26,8 @@ class GroundBoxScene : public GgafDx9LibStg::WalledScene {
 
 public:
 
+    float _bound_alpha;
+
     GroundBoxScene(const char* prm_name);
 
     void processBehavior() override;

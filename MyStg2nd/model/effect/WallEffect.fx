@@ -264,7 +264,10 @@ OUT_VS GgafDx9VS_Wall(
 	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);
 	//UVはそのまま
 	out_vs.uv = prm_uv;
-
+    if (prm_pos.x == 0) {
+        out_vs.col.a = 0;
+        return out_vs;
+    }
     //頂点カラー計算
 
 	//法線を World 変換して正規化
@@ -295,6 +298,9 @@ float4 GgafDx9PS_Wall(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_col    : COLOR0
 ) : COLOR  {
+    if (prm_col.a == 0) {
+        return 0;
+    }
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
 	float4 out_color = tex_color * prm_col;
