@@ -35,8 +35,6 @@ GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
         _pDispatcher_Wall->addSubLast(pGroundBoxActor);
     }
     getLordActor()->addSubGroup(_pDispatcher_Wall);
-
-
     _bound_alpha = -pCAM->_cameraZ_org*0.7; //”w–ÊŽžƒJƒƒ‰‚Í_cameraZ_org*0.6‚É—R—ˆ‚µ‚Ä‚¢‚é
 }
 
