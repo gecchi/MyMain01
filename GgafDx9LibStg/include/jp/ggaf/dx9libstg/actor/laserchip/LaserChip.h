@@ -46,6 +46,7 @@ public:
     /** レーザーテクスチャ種別  1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */
     int _chip_kind;
 
+    bool _can_chikei_hit;
 
     LaserChip(const char* prm_name, const char* prm_model);
 

@@ -10,9 +10,9 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
                          string(string("11/") + string(prm_model)).c_str(),
                          "LaserChipEffect",
                          "LaserChipTechnique",
-                         NEW CollisionChecker(this) ) {
+                         NEW CollisionCheckerLaserChip(this) ) {
     _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
-
+    _actor_class |= Obj_LaserChip;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _class_name = "LaserChip";
     _pChip_front = NULL;
@@ -22,7 +22,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _is_regist_hitarea = false;
     _hitarea_edge_length = 0;
     _harf_hitarea_edge_length = 0;
-
+    _can_chikei_hit = false;
     _ahKind[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind001" );
     _ahKind[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind002" );
     _ahKind[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind003" );

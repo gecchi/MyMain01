@@ -55,7 +55,7 @@ min_z = 0;
 
 while break_flg == false
 
-  for v in 0..11 #AABのモデル頂点数は12個としている。6面*2
+  for v in 0..11 #AABのモデル頂点数インデックスは12個としている。6面*2
     line = f.gets
 
     if line.length < 3 then
@@ -145,13 +145,15 @@ for idx in 0..box_index-1
     exArea.area[iX][iY][iZ] = ExteriorArea::KABE_VAL
 end
 
-#exArea.dump
+#exArea.dump01
 exArea.fullfull #外塗りつぶし
+exArea.fullfull #２回以上でほとんどの場合は大丈夫だが・・
 r01_exArea = exArea.getAnalyze01
 #print "r01_exArea.dump01---------------\n"
 #r01_exArea.dump01
 #r01_exArea.dump02
 r02_exArea = r01_exArea.getAnalyze02
+#r02_exArea.dump02
 r03_exArea = r02_exArea.getAnalyze03
 r03_2_exArea = r03_exArea.getAnalyze03 #Z方向連結を行うためもう一回getAnalyze03
 r04_exArea = r03_2_exArea.getAnalyze04(max_x_colliwall_num)

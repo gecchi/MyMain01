@@ -337,7 +337,7 @@ class ExteriorArea
             end
             if (same_Y_dec > 0) then
               #–Êd•ûŒü‚É‚àL‚ª‚è‚ğ‚½‚¹‚é
-              ret.area[x][y][z][FACE_C_IDX] += same_Y_dec
+              ret.area[x][y][z][FACE_D_IDX] += same_Y_dec
               #–Êd•ûŒüL‚ª‚è‚É‚æ‚Á‚Ä‚Ü‚©‚È‚í‚ê‚éc‚è‚Ì“–‚½‚è”»’è‚Í•s—v
               (y-1).downto((y-1)-(same_Y_dec-1)) do |iy|
                 ret.area[x][iy][z] = [0,0,0,0,0,0]

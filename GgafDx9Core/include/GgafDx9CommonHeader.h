@@ -165,24 +165,20 @@ enum GgafDx9BlinkerMethod {
 #define Obj_GgafDx9D3DXMeshActor        (0x2000)           //&B 00000000 00000000 00100000 00000000
 #define Obj_GgafDx9DynaD3DXMeshActor    (0x4000)           //&B 00000000 00000000 01000000 00000000
 #define Obj_GgafDx9D3DXAniMeshActor     (0x8000)           //&B 00000000 00000000 10000000 00000000
-#define Obj_GgafDx9CubeActor            (0x10000)          //&B 00000000 00000001 00000000 00000000
-#define Obj_GgafDx9CubeEx               (0x20000)          //&B 00000000 00000010 00000000 00000000
-#define Obj_GgafDx9SpriteMeshActor      (0x40000)          //&B 00000000 00000100 00000000 00000000
-#define Obj_GgafDx9SpriteMeshSetActor   (0x80000)          //&B 00000000 00001000 00000000 00000000
-#define Obj_GgafDx9SphereActor          (0x100000)         //&B 00000000 00010000 00000000 00000000
-#define Obj_GgafDx9SphereEx             (0x200000)         //&B 00000000 00100000 00000000 00000000
-#define Obj_GgafDx9SpriteActor          (0x400000)         //&B 00000000 01000000 00000000 00000000
-#define Obj_GgafDx9SpriteSetActor       (0x800000)         //&B 00000000 10000000 00000000 00000000
-#define Obj_GgafDx9Camera               (0x1000000)        //&B 00000001 00000000 00000000 00000000
-#define Obj_GgafDx9CameraViewPoint      (0x2000000)        //&B 00000010 00000000 00000000 00000000
-#define Obj_GgafDx9BoardActor           (0x4000000)        //&B 00000100 00000000 00000000 00000000
-#define Obj_GgafDx9BoardSetActor        (0x8000000)        //&B 00001000 00000000 00000000 00000000
-#define Obj_GgafDx9PointSpriteActor     (0x10000000)       //&B 00010000 00000000 00000000 00000000
-#define Obj_GgafDx9StringBoardActor     (0x20000000)       //&B 00100000 00000000 00000000 00000000
-#define Obj_GgafDx9StringSpriteActor    (0x40000000)       //&B 01000000 00000000 00000000 00000000
-#define Obj_GgafDx9FormationActor       (0x80000000)       //&B 10000000 00000000 00000000 00000000
-
-
+#define Obj_GgafDx9SpriteMeshActor      (0x10000)          //&B 00000000 00000001 00000000 00000000
+#define Obj_GgafDx9SpriteMeshSetActor   (0x20000)          //&B 00000000 00000010 00000000 00000000
+#define Obj_GgafDx9SphereActor          (0x40000)          //&B 00000000 00000100 00000000 00000000
+#define Obj_GgafDx9SphereEx             (0x80000)          //&B 00000000 00001000 00000000 00000000
+#define Obj_GgafDx9SpriteActor          (0x100000)         //&B 00000000 00010000 00000000 00000000
+#define Obj_GgafDx9SpriteSetActor       (0x200000)         //&B 00000000 00100000 00000000 00000000
+#define Obj_GgafDx9Camera               (0x400000)         //&B 00000000 01000000 00000000 00000000
+#define Obj_GgafDx9CameraViewPoint      (0x800000)         //&B 00000000 10000000 00000000 00000000
+#define Obj_GgafDx9BoardActor           (0x1000000)        //&B 00000001 00000000 00000000 00000000
+#define Obj_GgafDx9BoardSetActor        (0x2000000)        //&B 00000010 00000000 00000000 00000000
+#define Obj_GgafDx9PointSpriteActor     (0x4000000)        //&B 00000100 00000000 00000000 00000000
+#define Obj_GgafDx9StringBoardActor     (0x8000000)        //&B 00001000 00000000 00000000 00000000
+#define Obj_GgafDx9StringSpriteActor    (0x10000000)       //&B 00010000 00000000 00000000 00000000
+#define Obj_GgafDx9FormationActor       (0x20000000)       //&B 00100000 00000000 00000000 00000000
 namespace GgafDx9Core {
 
 class GgafDx9CriticalException;

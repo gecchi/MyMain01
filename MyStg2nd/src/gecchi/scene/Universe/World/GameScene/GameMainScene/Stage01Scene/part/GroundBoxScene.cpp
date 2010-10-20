@@ -25,7 +25,7 @@ bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
 
 
 GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
-                                                                   "scene3_2_wall.dat",
+                                                                   "scene1_wall.dat",
                                                                    800000, 200000,200000,
                                                                    8000
                                                                    ) {

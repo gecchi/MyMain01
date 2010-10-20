@@ -229,7 +229,7 @@ public:
      * @param prm_pOtherChecker ‘¼‚Ì“–‚½‚è”»’è—Ìˆæ
      * @return true:“–‚½‚Á‚Ä‚¢‚é / false:“–‚½‚Á‚Ä‚¢‚È‚¢
      */
-    inline bool isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker);
+    virtual bool isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) override;
 
     virtual ~CollisionChecker();
 };

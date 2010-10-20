@@ -44,6 +44,7 @@ class ColliSphere;
 class LinearOctreeForActor;
 class LinearOctreeActorElem;
 class CollisionChecker;
+class CollisionCheckerLaserChip;
 
 class LaserChip;
 class CurveLaserChip;
@@ -96,6 +97,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h"
 #include "jp/ggaf/dx9libstg/util/CollisionChecker.h"
+#include "jp/ggaf/dx9libstg/util/CollisionCheckerLaserChip.h"
 
 #include "jp/ggaf/dx9libstg/actor/laserchip/LaserChip.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/CurveLaserChip.h"
@@ -109,6 +111,12 @@ class LaserChipDispatcherDispatcher;
 
 #define COLLI_AAB 1
 #define COLLI_SPHERE 2
+
+#define Obj_LaserChip     (0x40000000)       //&B 01000000 00000000 00000000 00000000
+#define Obj_WallActor     (0x80000000)       //&B 10000000 00000000 00000000 00000000
+
+
+
 
 
 #endif /*GGAFDX9LIBSTGHEADER_H_*/
