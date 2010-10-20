@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 
 
 GroundBoxScene::GroundBoxActor::GroundBoxActor(const char* prm_name) :
-    WallActor(prm_name, "16/g_box001") {
+    WallActor(prm_name, "g_box001") {
     _class_name = "GroundBoxActor";
     MyStgUtil::resetGroundBoxActorStatus(_pStatus);
     _SX=_SY=_SZ = 2000;

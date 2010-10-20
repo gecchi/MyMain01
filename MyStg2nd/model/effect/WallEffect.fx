@@ -1,17 +1,15 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDx9MeshSetModel用シェーダー
+// WallActor用シェーダー
 // 【概要】
-// 頂点バッファに、同じモデルキャラの頂点情報が、複数個分繰り返し詰め込んである。
+// 外壁ブロックの描画を行う。
+// 頂点バッファに、外壁ブロック情報が、２０個分繰り返し詰め込んである。
 // ステートやレジスタの更新を行わず、１回の 描画で、最大
-// 16オブジェクトまで描画。高速化を狙う。
-// 大量の同じ敵や弾には、このシェーダーで描画することとする。
-// 但し、１オブジェクトにつきマテリアル設定は１つだけという制限がある。
+// 20オブジェクトまで描画。高速化を狙う。
 // author : Masatoshi Tsuge
-// date:2009/03/06 
+// date:2010/10/20
 ////////////////////////////////////////////////////////////////////////////////
 
 
-int g_vertexs_num;
 float g_distance_AlphaTarget;
 float g_zf;
 float g_tex_blink_power;   
@@ -27,23 +25,6 @@ float4 g_colLightDiffuse;
 float4x4 g_matView; 
 //射影変換行列  
 float4x4 g_matProj;  
-
-int g_draw_face001;
-int g_draw_face002;
-int g_draw_face003;
-int g_draw_face004;
-int g_draw_face005;
-int g_draw_face006;
-int g_draw_face007;
-int g_draw_face008;
-int g_draw_face009;
-int g_draw_face010;
-int g_draw_face011;
-int g_draw_face012;
-int g_draw_face013;
-int g_draw_face014;
-int g_draw_face015;
-int g_draw_face016;
 
 //ワールド変換行列
 float4x4 g_matWorld001;
@@ -62,23 +43,10 @@ float4x4 g_matWorld013;
 float4x4 g_matWorld014;
 float4x4 g_matWorld015;
 float4x4 g_matWorld016;
-//オブジェクトのマテリアル色（Diffuse反射色と、Ambien反射色共通）
-//float4 g_draw_face001;
-//float4 g_draw_face002;
-//float4 g_draw_face003;
-//float4 g_draw_face004;
-//float4 g_draw_face005;
-//float4 g_draw_face006;
-//float4 g_draw_face007;
-//float4 g_draw_face008;
-//float4 g_draw_face009;
-//float4 g_draw_face010;
-//float4 g_draw_face011;
-//float4 g_draw_face012;
-//float4 g_draw_face013;
-//float4 g_draw_face014;
-//float4 g_draw_face015;
-//float4 g_draw_face016;
+float4x4 g_matWorld017;
+float4x4 g_matWorld018;
+float4x4 g_matWorld019;
+float4x4 g_matWorld020;
 
 //テクスチャのサンプラ(s0レジスタ)
 sampler MyTextureSampler : register(s0);
@@ -97,67 +65,58 @@ struct OUT_VS
 //頂点シェーダー
 OUT_VS GgafDx9VS_Wall(
       float4 prm_pos    : POSITION,      // モデルの頂点
-      float  prm_index  : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
+      float  prm_object_index  : PSIZE , // モデルのインデックス（何個目のオブジェクトか）
       float3 prm_normal : NORMAL,        // モデルの頂点の法線
       float2 prm_uv     : TEXCOORD0      // モデルの頂点のUV
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	int index = (int)prm_index;
-
-	//頂点計算
+	//ワールド変換行列を割り当てる
 	float4x4 matWorld;
-	int draw_face;
-
-	if (index == 0) {
+	if (prm_object_index == 0) {
 		matWorld = g_matWorld001;
-		draw_face = g_draw_face001;
-	} else if (index == 1) {
+	} else if (prm_object_index == 1) {
 		matWorld = g_matWorld002;
-		draw_face = g_draw_face002;
-	} else if (index == 2) {
+	} else if (prm_object_index == 2) {
 		matWorld = g_matWorld003;
-		draw_face = g_draw_face003;
-	} else if (index == 3) {
+	} else if (prm_object_index == 3) {
 		matWorld = g_matWorld004;
-		draw_face = g_draw_face004;
-	} else if (index == 4) {
+	} else if (prm_object_index == 4) {
 		matWorld = g_matWorld005;
-		draw_face = g_draw_face005;
-	} else if (index == 5) {
+	} else if (prm_object_index == 5) {
 		matWorld = g_matWorld006;
-		draw_face = g_draw_face006;
-	} else if (index == 6) {
+	} else if (prm_object_index == 6) {
 		matWorld = g_matWorld007;
-		draw_face = g_draw_face007;
-	} else if (index == 7) {
+	} else if (prm_object_index == 7) {
 		matWorld = g_matWorld008;
-		draw_face = g_draw_face008;
-	} else if (index == 8) {
+	} else if (prm_object_index == 8) {
 		matWorld = g_matWorld009;
-		draw_face = g_draw_face009;
-	} else if (index == 9) {
+	} else if (prm_object_index == 9) {
 		matWorld = g_matWorld010;
-		draw_face = g_draw_face010;
-	} else if (index == 10) {
+	} else if (prm_object_index == 10) {
 		matWorld = g_matWorld011;
-		draw_face = g_draw_face011;
-	} else if (index == 11) {
+	} else if (prm_object_index == 11) {
 		matWorld = g_matWorld012;
-		draw_face = g_draw_face012;
-	} else if (index == 12) {
+	} else if (prm_object_index == 12) {
 		matWorld = g_matWorld013;
-		draw_face = g_draw_face013;
-	} else if (index == 13) {
+	} else if (prm_object_index == 13) {
 		matWorld = g_matWorld014;
-		draw_face = g_draw_face014;
-	} else if (index == 14) {
+	} else if (prm_object_index == 14) {
 		matWorld = g_matWorld015;
-		draw_face = g_draw_face015;
-	} else {
+	} else if (prm_object_index == 15) {
 		matWorld = g_matWorld016;
-		draw_face = g_draw_face016;
-	}
+	} else if (prm_object_index == 16) {
+		matWorld = g_matWorld017;
+	} else if (prm_object_index == 17) {
+		matWorld = g_matWorld018;
+	} else if (prm_object_index == 18) {
+		matWorld = g_matWorld019;
+	} else {
+		matWorld = g_matWorld020;
+	} 
+    //描画面番号情報が、ワールド変換行列のmatWorld._14 に埋め込まれている
+	int draw_face = matWorld._14;
+    matWorld._14 = 0;
 
     //draw_faceは壁部分にビットが立っている
     //&b 00abcdef
@@ -198,7 +157,8 @@ OUT_VS GgafDx9VS_Wall(
         if (0.25 < prm_uv.x && 
             0.5  < prm_uv.y && prm_uv.y < 0.75 ) 
 		{
-            prm_pos.xyz = 0;
+            out_vs.col.a = 0;
+            return out_vs;
         }
     }
 
@@ -210,7 +170,8 @@ OUT_VS GgafDx9VS_Wall(
         if (                   prm_uv.x < 0.25 &&
             0.5  < prm_uv.y                       ) 
 		{
-            prm_pos.xyz = 0;
+            out_vs.col.a = 0;
+            return out_vs;
         }
     }
     //                          00abcdef
@@ -221,7 +182,8 @@ OUT_VS GgafDx9VS_Wall(
         if (0.25 < prm_uv.x && 
                                prm_uv.y < 0.25 ) 
 		{
-            prm_pos.xyz = 0;
+            out_vs.col.a = 0;
+            return out_vs;
         }
     }
     //                          00abcdef
@@ -232,7 +194,8 @@ OUT_VS GgafDx9VS_Wall(
         if (0.25 < prm_uv.x &&
             0.25 < prm_uv.y && prm_uv.y < 0.5 ) 
 		{
-            prm_pos.xyz = 0;
+            out_vs.col.a = 0;
+            return out_vs;
         }
     }
     //                          00abcdef
@@ -243,39 +206,37 @@ OUT_VS GgafDx9VS_Wall(
         if (0.25 < prm_uv.x &&
             0.75 < prm_uv.y                    ) 
 		{
-            prm_pos.xyz = 0;
+            out_vs.col.a = 0;
+            return out_vs;
         } 
     }
     //                          00abcdef
   	if (draw_face >= 1) {   //&b00000001
-        draw_face -= 1;
+       // draw_face -= 1;
     } else {
         //向こう正面(面f)が描画不要の場合
         if (                    prm_uv.x < 0.25 &&
                                 prm_uv.y < 0.5    ) 
 		{
-            prm_pos.xyz = 0;
+            out_vs.col.a = 0;
+            return out_vs;
         }
     }
 
-//    float4 colMaterialDiffuse = float4(1.0, 1.0, 1.0, 1.0);
-
 	//World*View*射影変換
 	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);
+
 	//UVはそのまま
 	out_vs.uv = prm_uv;
-    if (prm_pos.x == 0) {
-        out_vs.col.a = 0;
-        return out_vs;
-    }
+
     //頂点カラー計算
 
 	//法線を World 変換して正規化
     float3 normal = normalize(mul(prm_normal, matWorld)); 	
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 	float power = max(dot(normal, -g_vecLightDirection ), 0);      
-	//Ambientライト色、Diffuseライト色、Diffuseライト方向、マテリアル色 を考慮したカラー作成。      
-	out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power));// * colMaterialDiffuse;
+	//Ambientライト色、Diffuseライト色、Diffuseライト方向 を考慮したカラー作成。      
+	out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power));// * マテリアル色無しcolMaterialDiffuse;
 	//αフォグ
 	//out_vs.col.a = colMaterialDiffuse.a;
 	if (out_vs.pos.z > g_zf*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
