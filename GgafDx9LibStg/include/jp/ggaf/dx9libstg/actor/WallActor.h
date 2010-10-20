@@ -40,10 +40,7 @@ public:
 
     /** [r]äOï«ÉVÅ[Éì */
     WalledScene* _pWalledScene;
-
-    D3DXHANDLE _ahDrawFace[16];
     D3DXHANDLE _h_distance_AlphaTarget;
-
 
     WallActor(const char* prm_name, const char* prm_model);
 

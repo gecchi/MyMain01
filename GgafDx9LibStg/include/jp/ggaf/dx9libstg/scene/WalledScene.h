@@ -1,18 +1,6 @@
 #ifndef WALLEDSCENE_H_
 #define WALLEDSCENE_H_
 
-//struct st_samp2{
-//    int      a;
-//    int   b[4];
-//    char  c[8];
-//    float    d;
-//};
-//
-//ÇÃÇ∆Ç´ÇÕÅA
-//
-//struct st_samp s1={1,{2,3,4,5},"abcdefg",3.0};
-
-
 #define FULL_VAL (-2)
 #define KARA_VAL (-2)
 
