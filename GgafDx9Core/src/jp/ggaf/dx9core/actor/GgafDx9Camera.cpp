@@ -200,8 +200,8 @@ void GgafDx9Camera::processBehavior() {
         &_plnBack,
         D3DXPlaneFromPoints(&_plnBack, &(_vecFar[3]), &(_vecFar[0]), &(_vecFar[2]))
     );
-    // 右 ( F右下、N右上、N右下 )
-    //になぞって作成
+
+    // 中心垂直面 （ボリュームパンで使用）
     _vecVerticalCenter[0] = D3DXVECTOR3( (_vecFar[1].x + _vecFar[0].x)/2.0,
                                          (_vecFar[1].y + _vecFar[0].y)/2.0,
                                          (_vecFar[1].z + _vecFar[0].z)/2.0
@@ -214,8 +214,6 @@ void GgafDx9Camera::processBehavior() {
                                          (_vecNear[1].y + _vecNear[0].y)/2.0,
                                          (_vecNear[1].z + _vecNear[0].z)/2.0
                                        );
-    // 右 ( F右下、N右上、N右下 )
-    //になぞって作成
     D3DXPlaneNormalize(
         &_plnVerticalCenter,
         D3DXPlaneFromPoints(&_plnVerticalCenter, &(_vecVerticalCenter[0]),
