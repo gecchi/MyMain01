@@ -708,6 +708,8 @@ public:
      */
     virtual int getProgressOnChange();
 
+
+    virtual void execDownFunction(void (*pFunc)(void*, void*, void*), void* prm1, void* prm2);
     //進捗管理支援メソッド===================
 
 };
@@ -1480,7 +1482,25 @@ template<class T>
 UINT32 GgafElement<T>::getActivePartFrame() {
    return _frame_of_behaving_since_onActive;
 }
-
+template<class T>
+void GgafElement<T>::execDownFunction(void (*pFunc)(void*, void*, void*), void* prm1, void* prm2) {
+    if (_can_live_flg) {
+        if (_was_initialize_flg) {
+            pFunc(this, prm1, prm2);
+        }
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
+            while(true) {
+                pElementTemp->execDownFunction(pFunc, prm1, prm2);
+                if (pElementTemp->_is_last_flg) {
+                    break;
+                } else {
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+                }
+            }
+        }
+    }
+}
 
 template<class T>
 void GgafElement<T>::throwDownEvent(UINT32 prm_no, void* prm_pSource) {
