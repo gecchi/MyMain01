@@ -87,6 +87,9 @@ public:
      */
     virtual void onActive() override;
 
+    virtual void processSettlementBehavior() override;
+
+
     /**
      * 外壁を出現させ、移動させる.
      * オーバーライドする場合、その処理の中で WalledScene::processBehavior() も呼び出して下さい。
@@ -103,6 +106,9 @@ public:
     void enableFrontAlpha(GgafDx9Core::GgafDx9GeometricActor* prm_pTarget_FrontAlpha) {
         _pTarget_FrontAlpha = prm_pTarget_FrontAlpha;
     }
+
+
+    static void moveX(void* pThis, void* p1, void* p2);
 
     virtual ~WalledScene();
 };

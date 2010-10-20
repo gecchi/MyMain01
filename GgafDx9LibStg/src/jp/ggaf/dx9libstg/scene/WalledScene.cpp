@@ -91,9 +91,22 @@ void WalledScene::onActive() {
     _wall_start_X = GgafDx9Universe::_X_goneRight-_wall_dep;
 }
 
+void WalledScene::moveX(void* pThis, void* p1, void* p2) {
+    GgafActor* pActor = (GgafActor*)pThis;
+    if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {
+        if (pActor->_actor_class & Obj_GgafDx9GeometricActor) {
+            ((GgafDx9GeometricActor*)pActor)->_X -= (*((int*)p1));
+        }
+    }
+}
+
+void WalledScene::processSettlementBehavior() {
+    DefaultScene::processSettlementBehavior();
+    getLordActor()->execDownFunction(WalledScene::moveX, &_ground_speed, NULL);
+
+}
 
 void WalledScene::processBehavior() {
-
     if (_cnt_area_len < _area_len && getActivePartFrame() % _frame_of_launch_interval == 0) {
         for (int n = 0; n < _paWallInfoLen[_cnt_area_len]; n++) {
             WallActor* pWall = (WallActor*)_pDispatcher_Wall->employ();

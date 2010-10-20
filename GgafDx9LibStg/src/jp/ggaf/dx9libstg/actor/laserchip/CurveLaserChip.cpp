@@ -85,7 +85,7 @@ void CurveLaserChip::processSettlementBehavior() {
         _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
         _pMover->_veloVxMv = (pF->_pMover->_veloVxMv + _pMover->_veloVxMv + pB->_pMover->_veloVxMv) / 3;
         _pMover->_veloVyMv = (pF->_pMover->_veloVyMv + _pMover->_veloVyMv + pB->_pMover->_veloVyMv) / 3;
-        _pMover->_veloVxMv = (pF->_pMover->_veloVxMv + _pMover->_veloVxMv + pB->_pMover->_veloVxMv) / 3;
+        _pMover->_veloVzMv = (pF->_pMover->_veloVzMv + _pMover->_veloVzMv + pB->_pMover->_veloVzMv) / 3;
     }
     LaserChip::processSettlementBehavior();
 }

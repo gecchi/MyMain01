@@ -41,7 +41,7 @@ void WallActor::onActive() {
 }
 
 void WallActor::processBehavior() {
-    _X = _X - _ground_speed;
+    //_X = _X - _ground_speed;
 }
 
 void WallActor::processJudgement() {
@@ -76,7 +76,7 @@ void WallActor::processDraw() {
         }
     }
 
-    static ID3DXEffect* pID3DXEffect;
+    ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
     HRESULT hr;
