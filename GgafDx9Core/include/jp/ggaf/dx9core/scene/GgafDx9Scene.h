@@ -27,14 +27,6 @@ private :
     void draw() override {
     }
 
-    /**
-     * processSettlementBehavior() のオーバーライド禁止 .
-     * 本クラスのprocessSettlementBehavior()で、 GgafDx9AlphaCurtainとGgafDx9BgmPerformerを<BR>
-     * behave() しています。オーバーライドすると、画面フェード、BGMフェードが働きません。<BR>
-     * 誤ってオーバーライドしないために private で実装。<BR>
-     */
-    void processSettlementBehavior() override;
-
 public :
     /** αカーテン */
     GgafDx9AlphaCurtain* _pAlphaCurtain;
@@ -47,6 +39,15 @@ public :
      * @return
      */
     GgafDx9Scene(const char* prm_name);
+
+    /**
+     * 画面フェード、BGMフェード処理 .
+     * 本クラスのprocessSettlementBehavior()で、 GgafDx9AlphaCurtainとGgafDx9BgmPerformerを<BR>
+     * behave() しています。オーバーライドすると、画面フェード、BGMフェードが働きません。<BR>
+     * オーバーライドする場合は、必ず処理中で上位メソッドを呼び出して下さい。<BR>
+     */
+    virtual void processSettlementBehavior() override;
+
 
     /**
      * 自ツリーシーンをフェードインさせる .
