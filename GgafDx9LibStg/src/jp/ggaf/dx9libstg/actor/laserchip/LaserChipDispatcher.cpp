@@ -79,8 +79,8 @@ LaserChip* LaserChipDispatcher::employ() {
             }
             _pChip_prev_employ = pChip;
             _frame_of_behaving_prev_employ = pChip->getBehaveingFrame();
-            //10回に一回は地形ヒットありのチップとする
-            if (_num_continual_employ_count % 10 == 0) {
+            //20回に一回は地形ヒットありのチップとする
+            if (_num_continual_employ_count % 20 == 0) {
                 pChip->_can_chikei_hit = true;
             } else {
                 pChip->_can_chikei_hit = false;

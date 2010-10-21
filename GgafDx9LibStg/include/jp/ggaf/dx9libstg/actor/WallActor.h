@@ -44,6 +44,9 @@ public:
 
     WallActor(const char* prm_name, const char* prm_model);
 
+
+    virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor);
+
     virtual void onCreateModel() override {
     }
     virtual void initialize() override;

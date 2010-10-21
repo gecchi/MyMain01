@@ -9,7 +9,7 @@ WallActor::WallActor(const char* prm_name, const char* prm_model) :
                         string(string("20/") + string(prm_model)).c_str(),
                          "WallEffect",
                          "WallTechnique",
-                         NEW CollisionCheckerLaserChip(this) ) {
+                         NEW CollisionChecker(this) ) {
     _class_name = "WallActor";
     _actor_class |= Obj_WallActor;
     _pMeshSetModel->_set_num = 20; //WallActor最大セット数は16。
@@ -25,6 +25,21 @@ WallActor::WallActor(const char* prm_name, const char* prm_model) :
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り
 }
+
+void WallActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
+    if (prm_pOtherActor->_actor_class & Obj_LaserChip) {
+        LaserChip* pLaserChip = (LaserChip*)prm_pOtherActor;
+        if (pLaserChip->_chip_kind != 2 || pLaserChip->_can_chikei_hit) {
+            GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+        } else {
+            return;
+        }
+    } else {
+        GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+    }
+}
+
+
 
 void WallActor::initialize() {
     if (_pWalledScene == NULL) {

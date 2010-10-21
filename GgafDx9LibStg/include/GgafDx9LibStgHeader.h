@@ -4,6 +4,14 @@
 
 namespace GgafDx9LibStg {
 
+#define DISP_HITAREA 1
+
+#define COLLI_AAB 1
+#define COLLI_SPHERE 2
+
+#define Obj_LaserChip     (0x40000000)       //&B 01000000 00000000 00000000 00000000
+#define Obj_WallActor     (0x80000000)       //&B 10000000 00000000 00000000 00000000
+
 class DefaultGod;
 class DefaultUniverse;
 class StgUtil;
@@ -107,13 +115,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/actor/laserchip/LaserChipDispatcher.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/LaserChipDispatcherDispatcher.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/SingleLaser.h"
-#define DISP_HITAREA 1
 
-#define COLLI_AAB 1
-#define COLLI_SPHERE 2
-
-#define Obj_LaserChip     (0x40000000)       //&B 01000000 00000000 00000000 00000000
-#define Obj_WallActor     (0x80000000)       //&B 10000000 00000000 00000000 00000000
 
 
 
