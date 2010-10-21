@@ -39,6 +39,7 @@ GgafGod::GgafGod() : GgafObject(),
     _is_being = false;
     _can_be = true;
     _was_cleaned = false;
+    _skip_count_of_frame = 0;
 }
 
 void GgafGod::be() {
