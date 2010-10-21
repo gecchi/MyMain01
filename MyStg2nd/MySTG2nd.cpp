@@ -217,7 +217,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                             pGod->_can_be = false;
                             while (pGod->_is_being) {
                                 Sleep(2);
-                                _TRACE_("神 being yet");
+                                _TRACE_("Wait! 神 is being yet..");
                             }
                             delete pGod; //神さようなら
 
@@ -260,7 +260,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                     ::TranslateMessage(&msg);
                     ::DispatchMessage(&msg);
                 } else {
-                    if (can_be_god) {
+                    if (can_be_god && pGod->_is_being == false) {
                         pGod->be(); //神が存在したらしめる（この世が動く）
                     }
 

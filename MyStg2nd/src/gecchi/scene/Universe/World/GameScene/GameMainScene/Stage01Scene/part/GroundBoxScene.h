@@ -15,6 +15,7 @@ class GroundBoxScene : public GgafDx9LibStg::WalledScene {
     class GroundBoxActor : public GgafDx9LibStg::WallActor {
     public:
         GroundBoxActor(const char* prm_name);
+        void onCreateModel() override;
         bool isOutOfUniverse() override;
         virtual ~GroundBoxActor() {}
     };

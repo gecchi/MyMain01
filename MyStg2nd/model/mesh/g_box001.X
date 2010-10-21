@@ -555,7 +555,7 @@ Frame Box01 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "g_box001.png";
+     "Torus.png";
     }
    }
   }

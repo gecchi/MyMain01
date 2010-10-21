@@ -15,6 +15,13 @@ GroundBoxScene::GroundBoxActor::GroundBoxActor(const char* prm_name) :
     setBoundingSphereRadiusRate(2.0);
 }
 
+void GroundBoxScene::GroundBoxActor::onCreateModel() {
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.2, 3.0);
+    _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
+    _pGgafDx9Model->_pTextureBlinker->beat(60*20, 60*9, 60*3, -1);
+    _pGgafDx9Model->_fBlinkThreshold = 0.7;
+}
+
 
 bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
     if (GgafDx9Universe::_X_goneLeft < _X) {
@@ -27,7 +34,7 @@ bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
 GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
                                                                    "scene1_wall.dat",
                                                                    800000, 200000,200000,
-                                                                   8000
+                                                                   10000
                                                                    ) {
     for (int i = 0; i < 4000; i++) {
         GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox");
