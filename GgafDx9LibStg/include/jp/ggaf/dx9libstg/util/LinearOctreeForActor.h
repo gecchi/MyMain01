@@ -35,16 +35,11 @@ public:
          * @param prm_pActor 積むアクター
          */
         void push(GgafCore::GgafActor* prm_pActor) {
+            if (_p > 3000-1) {
+                throwGgafCriticalException("LinearOctreeForActor::push("<<prm_pActor->getName()<<") スタックを使い切りました、一箇所に当たり判定が塊過ぎです。");
+            }
             _apActor[_p] = prm_pActor;
             _p++;
-
-            if (_p > 3000) {
-#ifdef MY_DEBUG
-                _TRACE_("スタックを使い切りました、このままではメモリを破壊し異常終了するでしょう。_p-- やっときます。");
-#endif
-                _p--;
-            }
-
         }
         /**
          * スタックから取り出す .
