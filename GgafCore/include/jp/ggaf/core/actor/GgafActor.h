@@ -122,7 +122,7 @@ public:
      * 自アクターと他アクターの１対１の当たり判定処理を行う。
      * @param prm_pOtherActor 他アクター
      */
-    inline void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
+    virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
         if (prm_pOtherActor == this) {
             return;
         } else {
