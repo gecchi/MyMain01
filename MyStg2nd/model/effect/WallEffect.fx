@@ -116,7 +116,10 @@ OUT_VS GgafDx9VS_Wall(
 	} 
     //描画面番号情報が、ワールド変換行列のmatWorld._14 に埋め込まれている
 	int draw_face = matWorld._14;
-    matWorld._14 = 0;
+    matWorld._14 = 0; //元の行列値に戻しておく
+
+    //UVによりどの面の頂点か判断し、
+    //描画不要な面の頂点の場合は何とかする（ジオメトリシェーダー使いたい；）
 
     //draw_faceは壁部分にビットが立っている
     //&b 00abcdef
@@ -233,8 +236,10 @@ OUT_VS GgafDx9VS_Wall(
 
 	//法線を World 変換して正規化
     float3 normal = normalize(mul(prm_normal, matWorld)); 	
+    normal.x+=0.5; //値0.5は壁面にも無理やり光を当てるため
+                   //ライトベクトルは XYZ=0.819232,-0.573462,0
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(normal, -g_vecLightDirection ), 0);      
+	float power = max(dot(normal, float3(-0.819232,0.573462,0)), 0);      
 	//Ambientライト色、Diffuseライト色、Diffuseライト方向 を考慮したカラー作成。      
 	out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power));// * マテリアル色無しcolMaterialDiffuse;
 	//αフォグ

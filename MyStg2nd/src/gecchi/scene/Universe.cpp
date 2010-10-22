@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-Universe::Universe(const char* prm_name) : DefaultUniverse(prm_name) {
+Universe::Universe(const char* prm_name, GgafDx9Camera* prm_pCamera) : DefaultUniverse(prm_name, prm_pCamera) {
     _TRACE_("Universe::Universe()");
 
     GgafRepeatSeq::create("CH_bomb1", 0, 20);
@@ -14,8 +14,8 @@ Universe::Universe(const char* prm_name) : DefaultUniverse(prm_name) {
     GgafRepeatSeq::create("CH_break_glass01", 0, 20);
     GgafRepeatSeq::create("CH_a_shot", 0, 5);
     GgafRepeatSeq::create("CH_laser001", 0, 8); //オプションレーザー
-	GgafRepeatSeq::create("CH_cm-22", 0, 8); //Juno発射音
-	GgafRepeatSeq::create("CH_MetisDestroy", 0, 20); //Metis爆発
+    GgafRepeatSeq::create("CH_cm-22", 0, 8); //Juno発射音
+    GgafRepeatSeq::create("CH_MetisDestroy", 0, 20); //Metis爆発
     GgafRepeatSeq::create("CH_explos3", 0, 3); //Vesta爆発
     GgafRepeatSeq::create("CH_humei10", 0, 1); //Lockon
     GgafRepeatSeq::create("CH_fire01", 0, 16); //自機ショット

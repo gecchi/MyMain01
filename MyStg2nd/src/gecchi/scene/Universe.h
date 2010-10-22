@@ -22,7 +22,7 @@ class Universe : public GgafDx9LibStg::DefaultUniverse {
 public:
     World* _pWorld;
 
-    Universe(const char* prm_name);
+    Universe(const char* prm_name, GgafDx9Core::GgafDx9Camera* prm_pCamera);
 
     /**
      * ‰Šúˆ—

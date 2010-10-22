@@ -160,7 +160,7 @@ class Stage02_Climax;
 
 
 
-
+class Camera;
 
 class GroundMeshActor;
 class Torus;
@@ -311,7 +311,7 @@ class LaserChipEffectActor;
 
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/GroundBoxScene.h"
 
-
+#include "gecchi/actor/Camera.h"
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
 #include "gecchi/actor/common/shot/Shot001.h"
 #include "gecchi/actor/common/shot/Shot002.h"
