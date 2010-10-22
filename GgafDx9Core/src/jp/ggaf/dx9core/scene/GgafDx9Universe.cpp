@@ -38,14 +38,16 @@ void GgafDx9Universe::SeArray::play(int index) {
     _apSe[index] = NULL;
 }
 
-GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) {
+GgafDx9Universe::GgafDx9Universe(const char* prm_name, GgafDx9Camera* prm_pCamera) : GgafUniverse(prm_name) {
     _scene_class |= Obj_GgafDx9Universe;
     _class_name = "GgafDx9Universe";
     for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL; i++) {
         _apAlphaActorList_DrawDepthLevel[i] = NULL;
     }
     //æ‚ÉƒJƒƒ‰‚ÍNEW‚µ‚Ä‚¨‚©‚È‚¢‚Æ‚¢‚¯‚È‚¢B
-    _pCamera = NEW GgafDx9Camera("CAMERA", PI * 80.0f / 180.0f, GGAFDX9_PROPERTY(GAME_SPACE_DEPTH));    //FovXŽ‹–ìŠp80“xA[‚³~15.0
+    _pCamera = prm_pCamera;
+
+
     getLordActor()->addSubGroup(_pCamera);
     _pActor_DrawActive = NULL;
 
