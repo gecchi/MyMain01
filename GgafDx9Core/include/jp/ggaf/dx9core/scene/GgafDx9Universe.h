@@ -1,8 +1,6 @@
 #ifndef GGAFDX9UNIVERSE_H_
 #define GGAFDX9UNIVERSE_H_
 
-#define pCAM (GgafDx9Universe::_pCamera)
-
 namespace GgafDx9Core {
 
 //#define MAX_DRAW_DEPTH_LEVEL 1000
