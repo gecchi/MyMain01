@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultUniverse::DefaultUniverse(const char* prm_name) : GgafDx9Universe(prm_name) {
+DefaultUniverse::DefaultUniverse(const char* prm_name, GgafDx9Camera* prm_pCamera) : GgafDx9Universe(prm_name, prm_pCamera) {
     _class_name = "DefaultUniverse";
 #ifdef MY_DEBUG
     CubeEx::get();   //当たり判定領域表示用直方体、プリロード

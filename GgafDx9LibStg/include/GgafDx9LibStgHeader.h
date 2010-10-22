@@ -14,6 +14,7 @@ namespace GgafDx9LibStg {
 
 class DefaultGod;
 class DefaultUniverse;
+class DefaultCamera;
 class StgUtil;
 class VirtualButton;
 class VBRecorder;
@@ -77,6 +78,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/StgProperties.h";
 
 #include "jp/ggaf/dx9libstg/scene/DefaultUniverse.h"
+#include "jp/ggaf/dx9libstg/actor/DefaultCamera.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultD3DXMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultD3DXAniMeshActor.h"
