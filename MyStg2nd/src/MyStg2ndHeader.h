@@ -277,7 +277,6 @@ class Formation001;
 class LaserChipEffectActor;
 
 }
-#include "gecchi/actor/GameActor.h"
 
 #include "gecchi/God.h"
 #include "gecchi/scene/Universe.h"

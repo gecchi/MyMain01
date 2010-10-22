@@ -23,7 +23,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     //chengeEffectTechnique("DestBlendOne"); //加算合成Technique指定
 
     GameGlobal::init();
-    GameGlobal::_pMyShip = this;
+
     //画面の大きさに伴って、移動範囲を決定
     //このあたりはFovXに依存するので微調整。
     _lim_top     = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*5*LEN_UNIT / 2;      //上下は画面高さの大体５画面分
@@ -84,7 +84,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (UINT32 i = 0; i < 100; i++) {
-        _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
+        _pRing_GeoHistory->addLast(NEW GeoElement(this));
     }
 
     _iMoveVelo = 0;
@@ -176,13 +176,12 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 }
 
 void MyShip::onActive() {
+
     MyStgUtil::resetMyShipStatus(_pStatus);
 }
 
 
 void MyShip::initialize() {
-
-
 
     //種別に振り分け
 //    getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDispatcher_MyShots001->extract());
@@ -221,7 +220,7 @@ void MyShip::processBehavior() {
     //VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
     _stc = VB_PLAY->getBeingPressedStick();
-    if (pCOMMONSCENE->_pos_camera == CAM_POS_RIGHT) {
+    if (pCAM->_pos_camera == CAM_POS_RIGHT) {
         //右サイドビュー(右から左へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
@@ -235,7 +234,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (pCOMMONSCENE->_pos_camera == CAM_POS_LEFT) {
+    } else if (pCAM->_pos_camera == CAM_POS_LEFT) {
         //左サイドビュー(左から右へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
@@ -249,7 +248,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (pCOMMONSCENE->_pos_camera == CAM_POS_TOP) {
+    } else if (pCAM->_pos_camera == CAM_POS_TOP) {
         //トップビュー(上から下へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //前方
@@ -263,7 +262,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
-    } else if (pCOMMONSCENE->_pos_camera == CAM_POS_BOTTOM) {
+    } else if (pCAM->_pos_camera == CAM_POS_BOTTOM) {
         //ボトムビュー(下から上へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //後方
@@ -277,7 +276,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
-    } else if (pCOMMONSCENE->_pos_camera > CAM_POS_TO_BEHIND) {
+    } else if (pCAM->_pos_camera > CAM_POS_TO_BEHIND) {
         //背後ビュー（奥から手前にスクロール）
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上

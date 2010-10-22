@@ -101,7 +101,7 @@ MyOptionController::MyOptionController(const char* prm_name) :
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (DWORD i = 0; i < 100; i++) {
-        _pRing_GeoHistory->addLast(NEW GeoElement(pMYSHIP));
+        _pRing_GeoHistory->addLast(NEW GeoElement(this));
     }
 
 }
