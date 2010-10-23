@@ -146,7 +146,6 @@ void GameMainScene::processBehavior() {
     _pFont8_JIKI_Y->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*2-1, _buf);
     sprintf(_buf, "Z:%8d", pMYSHIP->_Z);
     _pFont8_JIKI_Z->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*1-1, _buf);
-    //ƒJƒƒ‰ƒ[ƒNŠÖ˜A
 
     if (getProgress() == GAMEMAIN_PROG_PLAY || getProgress() == GAMEMAIN_PROG_BEGIN) {
 
@@ -156,6 +155,7 @@ void GameMainScene::processBehavior() {
             _TRACE_("PAUSE!");
             pGOD->setVB(VB_UI);  //“ü—Í‚Í‚t‚h‚ÉØ‚è‘Ö‚¦
             pause();     //©g”z‰º‚ğˆê’â~‚·‚éBˆê’â~‰ğœ‚ÍGameScene‚Ås‚í‚ê‚é
+            pCAM->pause();
         }
     }
 }
