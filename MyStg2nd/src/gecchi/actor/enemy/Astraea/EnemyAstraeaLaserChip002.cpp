@@ -61,7 +61,7 @@ void EnemyAstraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
         _pMover->addRzMvAng(sgn(out_d_angRz)*10000);
         _pMover->addRyMvAng(sgn(out_d_angRy)*10000);
 //        _pMover->execTagettingMvAngSequence(
-//                        GameGlobal::_pMyShip,
+//                        pMYSHIP,
 //                        90000, 0,
 //                        TURN_CLOSE_TO, false);
 

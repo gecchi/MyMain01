@@ -7,7 +7,6 @@ using namespace MyStg2nd;
 
 
 boolean GameGlobal::_isInit = false;
-MyShip* GameGlobal::_pMyShip = NULL;
 CommonScene* GameGlobal::_pSceneCommon = NULL;
 GameScene*   GameGlobal::_pSceneGame = NULL;
 double GameGlobal::_rank = 0.0;

@@ -36,7 +36,7 @@ void EnemyAstraeaLaserChip001::onActive() {
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     if (getActivePartFrame() == 40) {
         _pMover->execTagettingMvAngSequence(
-                    GameGlobal::_pMyShip,
+                    pMYSHIP,
                     7000, 0,
                     TURN_ANTICLOSE_TO, false);
     }
@@ -44,14 +44,14 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
 
     if (_pMover->_mv_ang_ry_target_flg == false && _pMover->_mv_ang_rz_target_flg == false) {
         _pMover->execTagettingMvAngSequence(
-                    GameGlobal::_pMyShip,
+                    pMYSHIP,
                     100, 0,
                     TURN_CLOSE_TO, false);
     }
 //
 //    if (_frame_of_behaving_from_onActive == 35) {
 //        _pMover->execTagettingMvAngSequence(
-//                    GameGlobal::_pMyShip,
+//                    pMYSHIP,
 //                    20000, TURN_ANTICLOSE_TO);
 //    }
 

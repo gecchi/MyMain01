@@ -48,14 +48,14 @@ void MyWave001::processBehavior() {
         _pScaler->intoTargetScaleLinerStep(100000,100);
         _pScaler->behave();
         setHitAble(true);
-        setGeometry(GameGlobal::_pMyShip);
-        _pMover->setFaceAng(AXIS_Z, GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Z]);
-        _pMover->setFaceAng(AXIS_Y, GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Y]);
-        _pMover->setRzRyMvAng(GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Z],
-                                     GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Y]);
-        //		_X = GameGlobal::_pMyShip->_X;
-        //		_Y = GameGlobal::_pMyShip->_Y;
-        //		_Z = GameGlobal::_pMyShip->_Z;
+        setGeometry(pMYSHIP);
+        _pMover->setFaceAng(AXIS_Z, pMYSHIP->_pMover->_angFace[AXIS_Z]);
+        _pMover->setFaceAng(AXIS_Y, pMYSHIP->_pMover->_angFace[AXIS_Y]);
+        _pMover->setRzRyMvAng(pMYSHIP->_pMover->_angFace[AXIS_Z],
+                                     pMYSHIP->_pMover->_angFace[AXIS_Y]);
+        //		_X = pMYSHIP->_X;
+        //		_Y = pMYSHIP->_Y;
+        //		_Z = pMYSHIP->_Z;
     } else {
         //’Êíˆ—
         //behaveUvFlip();

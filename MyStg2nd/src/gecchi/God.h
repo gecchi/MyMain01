@@ -4,7 +4,11 @@
 namespace MyStg2nd {
 
 #define pGOD ((God*)GgafGod::_pGod)
+
+#define pWORLD (((Universe*)(GgafGod::_pGod->_pUniverse))->_pWorld)
 #define pUNIVERSE ((Universe*)(GgafGod::_pGod->_pUniverse))
+
+
 /** ƒQ[ƒ€‚ÌVirtualButton */
 #define VB_PLAY God::_pVbtn_PLAY
 /** UI‘€ì‚ÌVirtualButton */

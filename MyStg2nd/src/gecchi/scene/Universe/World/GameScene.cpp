@@ -11,6 +11,12 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pCommonScene = NEW CommonScene("Common");
     addSubLast(_pCommonScene);
 
+    _pMyShipScene = NEW MyShipScene("MyShipScene");
+    addSubLast(_pMyShipScene);
+
+    _pCommonScene = NEW CommonScene("Common");
+    addSubLast(_pCommonScene);
+
     _pScene_GameDemo = NEW GameDemoScene("GameDemo");
     addSubLast(_pScene_GameDemo);
 
@@ -68,7 +74,8 @@ void GameScene::processBehavior() {
         if (VB_UI->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
             pGOD->setVB(VB_PLAY);
             _pScene_GameMain->unpause();     //GameMainScene‚Å‚Ìˆê’â~‰ğœ
-            pCAM->unpause();
+            pVAM->unpause();
+            pMYSHIP->unpause();
         }
     }
 

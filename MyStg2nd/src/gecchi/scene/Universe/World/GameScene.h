@@ -22,7 +22,8 @@ namespace MyStg2nd {
 class GameScene : public GgafDx9LibStg::DefaultScene {
 
 public:
-
+    CommonScene* _pCommonScene;
+    MyShipScene* _pMyShipScene;
 
     GameDemoScene*      _pScene_GameDemo;
     GameBeginningScene* _pScene_GameBeginning;
@@ -37,7 +38,7 @@ public:
     int _stage;
     GgafDx9LibStg::DefaultScene* _pSceneCannel;
 
-    CommonScene* _pCommonScene;
+
 
     GameScene(const char* prm_name);
     virtual ~GameScene();

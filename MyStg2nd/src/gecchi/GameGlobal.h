@@ -3,7 +3,6 @@
 namespace MyStg2nd {
 #define _RANK_ (GameGlobal::_rank)
 #define _SCORE_ (GameGlobal::_score)
-#define pMYSHIP (GameGlobal::_pMyShip)
 #define pCOMMONSCENE (GameGlobal::_pSceneCommon)
 #define pGAMESCENE (GameGlobal::_pSceneGame)
 
@@ -17,10 +16,6 @@ public:
     static int _iScene;
     /** ランク（0.0 ～ 1.0。 1.0がMAXランクとする) */
     static double _rank;
-
-    /** 自機へのポインタ */
-    static MyShip* _pMyShip;
-    /** */
 
     static CommonScene* _pSceneCommon;
     static GameScene* _pSceneGame;

@@ -42,7 +42,7 @@ void Shot002::processBehavior() {
 
     if (_my_frame > 70 && _pMover->_mv_ang_ry_target_flg == false && _pMover->_mv_ang_rz_target_flg == false) {
         _pMover->execTagettingMvAngSequence(
-                    GameGlobal::_pMyShip,
+                    pMYSHIP,
                     100, 0,
                     TURN_CLOSE_TO);
     }

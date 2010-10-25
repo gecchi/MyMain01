@@ -10,8 +10,12 @@ namespace MyStg2nd {
 #define getParentActor(X) ((X##Actor*)getParent(#X))
 #define getSubActor(X) ((X##Actor*)getSub(#X))
 
-#define pWORLD (((Universe*)(GgafGod::_pGod->_pUniverse))->_pWorld)
-#define pUNIVERSE ((Universe*)(GgafGod::_pGod->_pUniverse))
+#ifdef pCAM
+#undef pCAM
+#endif
+#define pCAM ((Camera*)GgafDx9Universe::_pCamera)
+
+
 /**
  * ‚±‚Ì¢ƒV[ƒ“ .
  * ‚Ü‚¸‚±‚Ì¢‚ª‚ ‚è‚Ü‚µ‚½B<BR>

@@ -1,8 +1,7 @@
-#ifndef MYSHIPSCENE_H_
-#define MYSHIPSCENE_H_
-namespace MyStg2nd {
+#ifndef COMMONSCENE_H_
+#define COMMONSCENE_H_
 
-#define pMYSHIP (CommonScene::_pMyShip)
+namespace MyStg2nd {
 
 /**
  * 共通シーンクラス .
@@ -11,7 +10,6 @@ namespace MyStg2nd {
 class CommonScene : public GgafDx9LibStg::DefaultScene {
 
 public:
-    static MyShip* _pMyShip;
 
     GgafCore::GgafActorDispatcher* _pDispatcher_EnemyShots001;
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion001;
@@ -33,4 +31,4 @@ public:
 };
 
 }
-#endif /*MYSHIPSCENE_H_*/
+#endif /*COMMONSCENE_H_*/

@@ -5,19 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyShip* CommonScene::_pMyShip = NULL;
-
 
 CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
-
-
-    { //MyShip
-        pMYSHIP = NEW MyShip("MYSHIP");
-        pMYSHIP->inactivateImmediately(); //配下に仮登録のアクター発送者とかあるし
-        getLordActor()->addSubGroup(KIND_MY_BODY_NOMAL, pMYSHIP);
-
-    }
-
 
     { //EnemyShot001
         _pDispatcher_EnemyShots001 = NEW GgafActorDispatcher("TAMAS001");

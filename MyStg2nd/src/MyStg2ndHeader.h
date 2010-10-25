@@ -129,6 +129,7 @@ class BackGroundChipBoard;
 
 class PreDrawScene;
 class GameScene;
+class MyShipScene;
 class GameDemoScene;
 class GameBeginningScene;
 class GameMainScene;
@@ -178,6 +179,7 @@ class Shot004;
 class EnemyCurveLaserChip001;
 class EnemyStraightLaserChip001;
 
+class VamSysCamWorker;
 class MyCurveLaserChip001;
 class MyStraightLaserChip001;
 class MyShip;
@@ -283,6 +285,8 @@ class LaserChipEffectActor;
 #include "gecchi/scene/Universe/World.h"
 #include "gecchi/scene/Universe/World/PreDrawScene.h"
 #include "gecchi/scene/Universe/World/GameScene.h"
+
+#include "gecchi/scene/Universe/World/GameScene/MyShipScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameDemoScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameBeginningScene.h"
 #include "gecchi/scene/Universe/World/GameScene/CommonScene.h"
@@ -319,6 +323,7 @@ class LaserChipEffectActor;
 #include "gecchi/actor/common/laserchip/EnemyCurveLaserChip001.h"
 #include "gecchi/actor/common/laserchip/EnemyStraightLaserChip001.h"
 
+#include "gecchi/actor/my/VamSysCamWorker.h"
 #include "gecchi/actor/my/MyShip.h"
 #include "gecchi/actor/my/MyOptionController.h"
 #include "gecchi/actor/my/MyOptionControllerGizmo.h"

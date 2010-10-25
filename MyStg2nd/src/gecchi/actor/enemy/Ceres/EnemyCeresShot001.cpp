@@ -56,7 +56,7 @@ void EnemyCeresShot001::processBehavior() {
     //•ûŒü“]Š·ŠJŽn
     if (getActivePartFrame() == _frame_TurnBegin) {
 
-        _pMover->execTagettingMvAngSequence(GameGlobal::_pMyShip,
+        _pMover->execTagettingMvAngSequence(pMYSHIP,
                                                    _angVelo_Turn, 0,
                                                    TURN_CLOSE_TO);
         _pMover->setMvAcce(_iMoveAcce_2nd);

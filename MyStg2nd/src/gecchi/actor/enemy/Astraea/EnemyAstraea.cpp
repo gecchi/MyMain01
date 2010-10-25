@@ -158,7 +158,7 @@ void EnemyAstraea::processBehavior() {
         _iMovePatternNo++;
     } else if (_iMovePatternNo == 1 && _X > pMYSHIP->_X-400000) {
         if (getBehaveingFrame() % _laser_interval == 0) {
-            _pMover->execTagettingFaceAngSequence(GameGlobal::_pMyShip,
+            _pMover->execTagettingFaceAngSequence(pMYSHIP,
                                                 _angveloTurn*20, 0,
                                                 TURN_COUNTERCLOCKWISE, false);
             _iMovePatternNo++;
