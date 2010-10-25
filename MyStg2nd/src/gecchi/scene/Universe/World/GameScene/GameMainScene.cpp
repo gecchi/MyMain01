@@ -155,7 +155,8 @@ void GameMainScene::processBehavior() {
             _TRACE_("PAUSE!");
             pGOD->setVB(VB_UI);  //“ü—Í‚Í‚t‚h‚ÉØ‚è‘Ö‚¦
             pause();     //©g”z‰º‚ğˆê’â~‚·‚éBˆê’â~‰ğœ‚ÍGameScene‚Ås‚í‚ê‚é
-            pCAM_WORKER->pause();
+            pUNIVERSE->pushCameraWork("PauseCamWorker");
+//            pCAM_WORKER->pause();
             pMYSHIP->pause();
         }
     }

@@ -40,9 +40,7 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pScene_GameOver->inactivateImmediately();
     //たまご
     //addSubLast(NEW TamagoScene("TamagoScene"));
-
     _is_frame_advance = false;
-
 }
 
 void GameScene::initialize() {
@@ -74,72 +72,18 @@ void GameScene::processBehavior() {
         if (VB_UI->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
             pGOD->setVB(VB_PLAY);
             _pScene_GameMain->unpause();     //GameMainSceneでの一時停止解除
-            pCAM_WORKER->unpause();
+            pUNIVERSE->popCameraWork();
+//            pCAM_WORKER->unpause();
             pMYSHIP->unpause();
         }
     }
 
-     //おまけ機能。一時停止していれば、カメラ操作できる。
-     if (_pScene_GameMain->canBehave() ) {
-         //一時停止していない状態。
-         //スルー
-     } else {
-         //コマ送り
-         if (VB_UI->isPushedDown(VB_BUTTON7)) {
-             _is_frame_advance = true;
-         }
-
-
-         //一時停止してい状態
-         GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
-         if (GgafDx9Input::isBeingPressedKey(DIK_V)) {
-             //V＋方向で注視点操作
-             if (GgafDx9Input::isBeingPressedKey(DIK_UP)) {
-                 pVP->_Y += 8000;
-             } else if (GgafDx9Input::isBeingPressedKey(DIK_DOWN)) {
-                 pVP->_Y -= 8000;
-             } else {
-
-             }
-
-             if (GgafDx9Input::isBeingPressedKey(DIK_RIGHT)) {
-                 pVP->_X += 8000;
-             } else if (GgafDx9Input::isBeingPressedKey(DIK_LEFT)) {
-                 pVP->_X -= 8000;
-             } else {
-             }
-
-             if (GgafDx9Input::isBeingPressedKey(DIK_PGUP)) {
-                 pVP->_Z += 8000;
-             } else if (GgafDx9Input::isBeingPressedKey(DIK_PGDN)) {
-                 pVP->_Z -= 8000;
-             } else {
-             }
-         } else if (GgafDx9Input::isBeingPressedKey(DIK_C)) {
-             //C＋方向でカメラ操作
-             if (GgafDx9Input::isBeingPressedKey(DIK_UP)) {
-                 pCAM->_Y += 8000;
-             } else if (GgafDx9Input::isBeingPressedKey(DIK_DOWN)) {
-                 pCAM->_Y -= 8000;
-             } else {
-
-             }
-
-             if (GgafDx9Input::isBeingPressedKey(DIK_RIGHT)) {
-                 pCAM->_X += 8000;
-             } else if (GgafDx9Input::isBeingPressedKey(DIK_LEFT)) {
-                 pCAM->_X -= 8000;
-             } else {
-             }
-
-             if (GgafDx9Input::isBeingPressedKey(DIK_PGUP)) {
-                 pCAM->_Z += 8000;
-             } else if (GgafDx9Input::isBeingPressedKey(DIK_PGDN)) {
-                 pCAM->_Z -= 8000;
-             } else {
-             }
-         }
-     }
+//     //おまけ機能。一時停止していれば、カメラ操作できる。
+//     if (_pScene_GameMain->canBehave() ) {
+//         //一時停止していない状態。
+//         //スルー
+//     } else {
+//     }
 
     //サブシーンの切替えや平行実行のための、初期化、事前処理、フラグ処理等
     if (_pSceneCannel == _pScene_GameDemo) {

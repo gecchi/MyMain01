@@ -11,7 +11,6 @@ Universe::Universe(const char* prm_name, GgafDx9Camera* prm_pCamera) : DefaultUn
     _TRACE_("Universe::Universe()");
     _pCameraWorkerManager = NEW CameraWorkerManager("CameraWorkerManager");
     GgafResourceConnection<CameraWorker>* pCameraWorkerCon = _pCameraWorkerManager->getConnection("DefaultCamWorker");
-    _stack_CameraWorkerCon.push(pCameraWorkerCon);
     _pActiveCameraWorker = pCameraWorkerCon->refer();
     getLordActor()->addSubGroup(_pActiveCameraWorker);
 
@@ -51,29 +50,42 @@ void Universe::processJudgement() {
 }
 
 void Universe::pushCameraWork(const char* prm_pID) {
-    GgafResourceConnection<CameraWorker>* pCameraWorkerCon = _pCameraWorkerManager->getConnection(prm_pID);
-    CameraWorker* pCameraWorker = pCameraWorkerCon->refer();
+    _TRACE_("COMMING Universe::pushCameraWork("<<prm_pID<<")");
+    _TRACE_("Now _pActiveCameraWorker="<<_pActiveCameraWorker->getName()<<")");
+
+    CameraWorker* pCameraWorker = _pCameraWorkerManager->getConnection(prm_pID)->refer();
+    _TRACE_("then refer="<<pCameraWorker->getName()<<")");
+
     if (pCameraWorker != _pActiveCameraWorker) {
+        _TRACE_("then pCameraWorker != _pActiveCameraWorker");
         if (getLordActor()->getSubFirst()->getSub(pCameraWorker)) {
-            _pActiveCameraWorker->inactivate();
+            _TRACE_("Its known CameraWorker!!");
             pCameraWorker->activate();
-            _pActiveCameraWorker = pCameraWorker;
         } else {
-            _pActiveCameraWorker->inactivate();
+            _TRACE_("Its new CameraWorker!!");
             getLordActor()->addSubGroup(pCameraWorker);
-            _pActiveCameraWorker = pCameraWorker;
         }
+        _TRACE_("then _pActiveCameraWorker="<<_pActiveCameraWorker->getName()<<" was inactivateand push");
+        _pActiveCameraWorker->inactivate();
+        _stack_CameraWorker.push(_pActiveCameraWorker);
+        _pActiveCameraWorker = pCameraWorker;
     } else {
         _TRACE_("ìØÇ∂ÉJÉÅÉâÉèÅ[ÉNÇpush()ÇµÇƒÇ¢Ç‹Ç∑"<<pCameraWorker->getName());
     }
-    _stack_CameraWorkerCon.push(pCameraWorkerCon);
+
 }
 
 void Universe::popCameraWork() {
-    GgafResourceConnection<CameraWorker>* pCameraWorkerCon = _stack_CameraWorkerCon.pop();
-    if (pCameraWorkerCon) {
-        CameraWorker* pCameraWorker = pCameraWorkerCon->refer();
+    _TRACE_("COMMING Universe::popCameraWork() ");
+    _TRACE_("Now _pActiveCameraWorker="<<_pActiveCameraWorker->getName()<<")");
+
+    CameraWorker* pCameraWorker = _stack_CameraWorker.pop();
+    if (pCameraWorker) {
+        _TRACE_("then poped CameraWorker="<<pCameraWorker->getName()<<")");
+
         if (pCameraWorker != _pActiveCameraWorker) {
+            _TRACE_("yes pCameraWorker != _pActiveCameraWorker");
+
             _pActiveCameraWorker->inactivate();
             pCameraWorker->activate();
             _pActiveCameraWorker = pCameraWorker;
@@ -82,13 +94,12 @@ void Universe::popCameraWork() {
         }
     } else {
         //popÇµÇ∑Ç¨
-        throwGgafCriticalException("Universe::popCameraWork()  _stack_CameraWorkerCon Ç©ÇÁ pop() ÇµÇ∑Ç¨");
+        throwGgafCriticalException("Universe::popCameraWork()  _stack_CameraWorker Ç©ÇÁ pop() ÇµÇ∑Ç¨");
     }
 }
 
 
 
 Universe::~Universe() {
-    _pActiveCameraWorker->extract();
     DELETE_IMPOSSIBLE_NULL(_pCameraWorkerManager);
 }
