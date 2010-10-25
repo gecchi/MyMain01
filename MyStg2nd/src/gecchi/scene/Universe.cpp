@@ -49,7 +49,7 @@ void Universe::processJudgement() {
     DefaultUniverse::processJudgement();
 }
 
-void Universe::pushCameraWork(const char* prm_pID) {
+CameraWorker* Universe::pushCameraWork(const char* prm_pID) {
 //    _TRACE_("COMMING Universe::pushCameraWork("<<prm_pID<<")");
 //    _TRACE_("Now _pActiveCameraWorker="<<_pActiveCameraWorker->getName()<<")");
 
@@ -72,10 +72,12 @@ void Universe::pushCameraWork(const char* prm_pID) {
     } else {
         _TRACE_("“¯‚¶ƒJƒƒ‰ƒ[ƒN‚ðpush()‚µ‚Ä‚¢‚Ü‚·"<<pCameraWorker->getName());
     }
+    pCameraWorker->onPushed();
+    return pCameraWorker;
 
 }
 
-void Universe::popCameraWork() {
+CameraWorker* Universe::popCameraWork() {
 //    _TRACE_("COMMING Universe::popCameraWork() ");
 //    _TRACE_("Now _pActiveCameraWorker="<<_pActiveCameraWorker->getName()<<")");
 
@@ -96,6 +98,8 @@ void Universe::popCameraWork() {
         //pop‚µ‚·‚¬
         throwGgafCriticalException("Universe::popCameraWork()  _stack_CameraWorker ‚©‚ç pop() ‚µ‚·‚¬");
     }
+    pCameraWorker->onPoped();
+    return pCameraWorker;
 }
 
 

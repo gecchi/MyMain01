@@ -68,9 +68,9 @@ public:
 
     void processJudgement() override;
 
-    void pushCameraWork(const char* prm_pID);
+    CameraWorker* pushCameraWork(const char* prm_pID);
 
-    void popCameraWork();
+    CameraWorker* popCameraWork();
 
 
 

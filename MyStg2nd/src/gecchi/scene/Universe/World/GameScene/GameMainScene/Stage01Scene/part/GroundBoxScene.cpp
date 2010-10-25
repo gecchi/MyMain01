@@ -64,6 +64,14 @@ void GroundBoxScene::processBehavior() {
         pUNIVERSE->popCameraWork();
     }
 
+    if (getActivePartFrame() == 700) {
+        pUNIVERSE->pushCameraWork("TestCamWorker");
+    }
+
+    if (getActivePartFrame() == 1000) {
+        pUNIVERSE->popCameraWork();
+    }
+
 
 }
 

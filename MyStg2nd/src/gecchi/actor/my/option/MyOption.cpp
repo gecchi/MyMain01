@@ -255,7 +255,7 @@ void MyOption::processBehavior() {
     } else {
         //ƒIƒvƒVƒ‡ƒ“L‚ª‚è‚ÆŒü‚«§Œä
         if (VB_PLAY->isBeingPressed(VB_OPTION) && VB_PLAY->isBeingPressed(VB_TURBO)) {
-            if (pCAM_WORKER->_pos_camera == VAM_POS_RIGHT) {
+            if (pVAM->_pos_camera == VAM_POS_RIGHT) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
@@ -270,7 +270,7 @@ void MyOption::processBehavior() {
                     addRadiusPosition(-2000 * (_radiusPosition_base/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
-            } else if (pCAM_WORKER->_pos_camera == VAM_POS_LEFT) {
+            } else if (pVAM->_pos_camera == VAM_POS_LEFT) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
@@ -285,7 +285,7 @@ void MyOption::processBehavior() {
                     addRadiusPosition(-2000 * (_radiusPosition_base/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
-            } else if (pCAM_WORKER->_pos_camera == VAM_POS_TOP) {
+            } else if (pVAM->_pos_camera == VAM_POS_TOP) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     addRadiusPosition(2000 * (_radiusPosition_base/60000));
                     //_angExpanse += _angveloExpanseSlow;
@@ -300,7 +300,7 @@ void MyOption::processBehavior() {
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
-            } else if (pCAM_WORKER->_pos_camera == VAM_POS_BOTTOM) {
+            } else if (pVAM->_pos_camera == VAM_POS_BOTTOM) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     addRadiusPosition(-2000 * (_radiusPosition_base/60000));
                     //_angExpanse -= _angveloExpanseSlow;
@@ -315,7 +315,7 @@ void MyOption::processBehavior() {
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
-            } else if (pCAM_WORKER->_pos_camera > VAM_POS_TO_BEHIND) {
+            } else if (pVAM->_pos_camera > VAM_POS_TO_BEHIND) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse += _angveloExpanseNomal;
                 }

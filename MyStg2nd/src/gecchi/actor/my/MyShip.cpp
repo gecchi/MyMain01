@@ -220,7 +220,7 @@ void MyShip::processBehavior() {
     //VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
     _stc = VB_PLAY->getBeingPressedStick();
-    if (pCAM_WORKER->_pos_camera == VAM_POS_RIGHT) {
+    if (pVAM->_pos_camera == VAM_POS_RIGHT) {
         //右サイドビュー(右から左へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
@@ -234,7 +234,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (pCAM_WORKER->_pos_camera == VAM_POS_LEFT) {
+    } else if (pVAM->_pos_camera == VAM_POS_LEFT) {
         //左サイドビュー(左から右へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
@@ -248,7 +248,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (pCAM_WORKER->_pos_camera == VAM_POS_TOP) {
+    } else if (pVAM->_pos_camera == VAM_POS_TOP) {
         //トップビュー(上から下へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //前方
@@ -262,7 +262,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
-    } else if (pCAM_WORKER->_pos_camera == VAM_POS_BOTTOM) {
+    } else if (pVAM->_pos_camera == VAM_POS_BOTTOM) {
         //ボトムビュー(下から上へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //後方
@@ -276,7 +276,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
-    } else if (pCAM_WORKER->_pos_camera > VAM_POS_TO_BEHIND) {
+    } else if (pVAM->_pos_camera > VAM_POS_TO_BEHIND) {
         //背後ビュー（奥から手前にスクロール）
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上

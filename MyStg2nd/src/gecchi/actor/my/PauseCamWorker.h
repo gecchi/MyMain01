@@ -17,6 +17,12 @@ public:
 
     virtual void initialize() override;
 
+    virtual void onPushed() override {
+    }
+
+    virtual void onPoped() override {
+    }
+
     virtual void processBehavior() override;
 
     virtual void processJudgement() override {

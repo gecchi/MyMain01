@@ -18,6 +18,11 @@ public:
     virtual void initialize() override {
     }
 
+    void onPushed() override;
+
+    void onPoped() override {
+    }
+
     void onActive() override;
 
     void processBehavior() override;

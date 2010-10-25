@@ -12,7 +12,7 @@ MyShipScene::MyShipScene(const char* prm_name) : DefaultScene(prm_name) {
     pMYSHIP = NEW MyShip("MYSHIP");
     pMYSHIP->inactivateImmediately(); //配下に仮登録のアクター発送者とかあるし
     getLordActor()->addSubGroup(KIND_MY_BODY_NOMAL, pMYSHIP);
-    pUNIVERSE->pushCameraWork("VamSysCamWorker");
+    _pVamSysCamWorker = (VamSysCamWorker*)pUNIVERSE->pushCameraWork("VamSysCamWorker");
 }
 
 void MyShipScene::initialize() {

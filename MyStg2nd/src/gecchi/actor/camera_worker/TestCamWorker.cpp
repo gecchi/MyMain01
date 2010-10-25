@@ -10,6 +10,10 @@ TestCamWorker::TestCamWorker(const char* prm_name) : CameraWorker(prm_name) {
 }
 
 void TestCamWorker::onActive() {
+
+}
+
+void TestCamWorker::onPushed() {
     pCAM->setGeometry(pMYSHIP);
     GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
     pVP->setGeometry(pMYSHIP);

@@ -16,6 +16,12 @@ public:
 
     DefaultCamWorker(const char* prm_name);
 
+    virtual void onPushed() override {
+    }
+
+    virtual void onPoped() override {
+    }
+
     virtual ~DefaultCamWorker(); //デストラクタ
 };
 

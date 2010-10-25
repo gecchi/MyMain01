@@ -23,6 +23,10 @@ public:
     virtual void initialize() override {
     }
 
+    virtual void onPushed() = 0;
+
+    virtual void onPoped() = 0;
+
     virtual void processBehavior() override {
     }
 
