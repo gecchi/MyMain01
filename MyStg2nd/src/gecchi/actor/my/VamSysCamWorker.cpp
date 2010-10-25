@@ -476,10 +476,10 @@ void VamSysCamWorker::processBehavior() {
     if (_angXY_nowCamUp != move_target_XY_CAM_UP) {
         //_TRACE_("_angXY_nowCamUp="<<_angXY_nowCamUp<<" / move_target_XY_CAM_UP="<<move_target_XY_CAM_UP);
         angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, move_target_XY_CAM_UP);
-        if (-1000 < da && da < 1000) {
+        if (-1500 < da && da < 1500) {
             _angXY_nowCamUp = move_target_XY_CAM_UP;
         } else {
-            _angXY_nowCamUp += (1000 * sgn(da));
+            _angXY_nowCamUp += (1500 * sgn(da));
         }
         _angXY_nowCamUp = GgafDx9Util::simplifyAng(_angXY_nowCamUp);
         pCAM->_pVecCamUp->x = GgafDx9Util::COS[_angXY_nowCamUp/ANGLE_RATE];

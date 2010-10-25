@@ -162,6 +162,8 @@ class Stage02_Climax;
 class Camera;
 class CameraWorker;
 class DefaultCamWorker;
+class TestCamWorker;
+
 class GroundMeshActor;
 class Torus;
 class VarietyTorus001;
@@ -317,6 +319,9 @@ class LaserChipEffectActor;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/GroundBoxScene.h"
 
 #include "gecchi/actor/Camera.h"
+#include "gecchi/actor/camera_worker/TestCamWorker.h"
+
+
 #include "gecchi/actor/common/DefaultCamWorker.h"
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
 #include "gecchi/actor/common/shot/Shot001.h"

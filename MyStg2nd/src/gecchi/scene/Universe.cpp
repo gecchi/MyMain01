@@ -50,22 +50,22 @@ void Universe::processJudgement() {
 }
 
 void Universe::pushCameraWork(const char* prm_pID) {
-    _TRACE_("COMMING Universe::pushCameraWork("<<prm_pID<<")");
-    _TRACE_("Now _pActiveCameraWorker="<<_pActiveCameraWorker->getName()<<")");
+//    _TRACE_("COMMING Universe::pushCameraWork("<<prm_pID<<")");
+//    _TRACE_("Now _pActiveCameraWorker="<<_pActiveCameraWorker->getName()<<")");
 
     CameraWorker* pCameraWorker = _pCameraWorkerManager->getConnection(prm_pID)->refer();
-    _TRACE_("then refer="<<pCameraWorker->getName()<<")");
+//    _TRACE_("then refer="<<pCameraWorker->getName()<<")");
 
     if (pCameraWorker != _pActiveCameraWorker) {
-        _TRACE_("then pCameraWorker != _pActiveCameraWorker");
+//        _TRACE_("then pCameraWorker != _pActiveCameraWorker");
         if (getLordActor()->getSubFirst()->getSub(pCameraWorker)) {
-            _TRACE_("Its known CameraWorker!!");
+//            _TRACE_("Its known CameraWorker!!");
             pCameraWorker->activate();
         } else {
-            _TRACE_("Its new CameraWorker!!");
+//            _TRACE_("Its new CameraWorker!!");
             getLordActor()->addSubGroup(pCameraWorker);
         }
-        _TRACE_("then _pActiveCameraWorker="<<_pActiveCameraWorker->getName()<<" was inactivateand push");
+//        _TRACE_("then _pActiveCameraWorker="<<_pActiveCameraWorker->getName()<<" was inactivateand push");
         _pActiveCameraWorker->inactivate();
         _stack_CameraWorker.push(_pActiveCameraWorker);
         _pActiveCameraWorker = pCameraWorker;
@@ -76,15 +76,15 @@ void Universe::pushCameraWork(const char* prm_pID) {
 }
 
 void Universe::popCameraWork() {
-    _TRACE_("COMMING Universe::popCameraWork() ");
-    _TRACE_("Now _pActiveCameraWorker="<<_pActiveCameraWorker->getName()<<")");
+//    _TRACE_("COMMING Universe::popCameraWork() ");
+//    _TRACE_("Now _pActiveCameraWorker="<<_pActiveCameraWorker->getName()<<")");
 
     CameraWorker* pCameraWorker = _stack_CameraWorker.pop();
     if (pCameraWorker) {
-        _TRACE_("then poped CameraWorker="<<pCameraWorker->getName()<<")");
+//        _TRACE_("then poped CameraWorker="<<pCameraWorker->getName()<<")");
 
         if (pCameraWorker != _pActiveCameraWorker) {
-            _TRACE_("yes pCameraWorker != _pActiveCameraWorker");
+//            _TRACE_("yes pCameraWorker != _pActiveCameraWorker");
 
             _pActiveCameraWorker->inactivate();
             pCameraWorker->activate();

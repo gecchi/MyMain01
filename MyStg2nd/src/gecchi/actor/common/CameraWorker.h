@@ -6,9 +6,9 @@
 namespace MyStg2nd {
 
 /**
- * ƒJƒƒ‰.
+ * ƒJƒƒ‰ƒ}ƒ“ .
  * @version 1.00
- * @since 2009/02/12
+ * @since 2010/10/25
  * @author Masatoshi Tsuge
  */
 class CameraWorker : public GgafCore::GgafMainActor {

@@ -52,6 +52,19 @@ void GroundBoxScene::processBehavior() {
     } else {
         enableFrontAlpha(NULL); //背面カメラの近さならアルファ無し
     }
+
+
+
+
+    if (getActivePartFrame() == 300) {
+        pUNIVERSE->pushCameraWork("TestCamWorker");
+    }
+
+    if (getActivePartFrame() == 500) {
+        pUNIVERSE->popCameraWork();
+    }
+
+
 }
 
 
