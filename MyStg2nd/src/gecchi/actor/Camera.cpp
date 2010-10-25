@@ -21,7 +21,7 @@ void Camera::initialize() {
 //    _correction_width = 0;//(GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)/4;
 //    _correction_height = 0;//(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)/4;
 //
-//    _pos_camera = CAM_POS_RIGHT;
+//    _pos_camera = VAM_POS_RIGHT;
 //    GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
 ////    pCAM->_X = 0;
 ////    pCAM->_Y = 0;
@@ -75,21 +75,21 @@ void Camera::processBehavior() {
 //    //カメラ位置番号を決定処理
 //    if (VB_PLAY->isPushedDown(VB_VIEW)) {
 //        _TRACE_("VB_VIEW!! now _pos_camera="<<_pos_camera);
-//        if (_pos_camera < CAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
-//            _pos_camera += CAM_POS_TO_BEHIND;  //それぞれの対応背面ビューポイントへ
-//        } else if (_pos_camera > CAM_POS_TO_BEHIND) {//背面ビューポイントの場合
+//        if (_pos_camera < VAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
+//            _pos_camera += VAM_POS_TO_BEHIND;  //それぞれの対応背面ビューポイントへ
+//        } else if (_pos_camera > VAM_POS_TO_BEHIND) {//背面ビューポイントの場合
 //            //方向入力により新たなビューポイントへ
 //            if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-//                _pos_camera = CAM_POS_LEFT;
+//                _pos_camera = VAM_POS_LEFT;
 //            } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-//                _pos_camera = CAM_POS_RIGHT;
+//                _pos_camera = VAM_POS_RIGHT;
 //            } else if (VB_PLAY->isBeingPressed(VB_UP)) {
-//                _pos_camera = CAM_POS_BOTTOM;
+//                _pos_camera = VAM_POS_BOTTOM;
 //            } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-//                _pos_camera = CAM_POS_TOP;
+//                _pos_camera = VAM_POS_TOP;
 //            } else {
 //                //方向未入力の場合、元のビューポイントへ
-//                _pos_camera -= CAM_POS_TO_BEHIND;
+//                _pos_camera -= VAM_POS_TO_BEHIND;
 //            }
 //        }
 //        _TRACE_("VB_VIEW!!  -> _pos_camera="<<_pos_camera);
@@ -106,8 +106,8 @@ void Camera::processBehavior() {
 //    static int Dx = (int)((GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)/4*2);
 //    static int Ddx_hw = (int)((GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2) - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2));
 //    static int Dd = 30000;
-//    if (_pos_camera < CAM_POS_TO_BEHIND) {
-//        if (_pos_camera == CAM_POS_RIGHT) {
+//    if (_pos_camera < VAM_POS_TO_BEHIND) {
+//        if (_pos_camera == VAM_POS_RIGHT) {
 ////            move_target_X_CAM = 0;
 ////            move_target_Y_CAM = 0;
 ////            move_target_Z_CAM = -_dZ_camera_init;
@@ -136,7 +136,7 @@ void Camera::processBehavior() {
 //            move_target_Y_VP = pMYSHIP->_Y;
 //            move_target_Z_VP = pMYSHIP->_Z;
 //            move_target_XY_CAM_UP = ANGLE90;
-//        } else if (_pos_camera == CAM_POS_LEFT) {
+//        } else if (_pos_camera == VAM_POS_LEFT) {
 //            move_target_X_CAM = -Dx + (-pMYSHIP->_X-180000)*2;
 //            if (-Dx > move_target_X_CAM) {
 //                move_target_X_CAM = -Dx;
@@ -154,7 +154,7 @@ void Camera::processBehavior() {
 //            move_target_Y_VP = pMYSHIP->_Y;
 //            move_target_Z_VP = pMYSHIP->_Z;
 //            move_target_XY_CAM_UP = ANGLE90;
-//        } else if (_pos_camera == CAM_POS_TOP) {
+//        } else if (_pos_camera == VAM_POS_TOP) {
 //            move_target_X_CAM = -Dx - Ddx_hw + (-pMYSHIP->_X-125000)*2;
 //            if ((-Dx - Ddx_hw) > move_target_X_CAM) {
 //                move_target_X_CAM = -Dx - Ddx_hw;
@@ -176,7 +176,7 @@ void Camera::processBehavior() {
 //            } else {
 //                move_target_XY_CAM_UP = ANGLE315;
 //            }
-//        } else if (_pos_camera == CAM_POS_BOTTOM) {
+//        } else if (_pos_camera == VAM_POS_BOTTOM) {
 //            move_target_X_CAM = -Dx - Ddx_hw + (-pMYSHIP->_X-125000)*2;
 //            if ((-Dx - Ddx_hw) > move_target_X_CAM) {
 //                move_target_X_CAM = -Dx - Ddx_hw;
@@ -199,7 +199,7 @@ void Camera::processBehavior() {
 //                move_target_XY_CAM_UP = ANGLE225;
 //            }
 //        }
-//    } else if (_pos_camera > CAM_POS_TO_BEHIND) {
+//    } else if (_pos_camera > VAM_POS_TO_BEHIND) {
 //        move_target_X_CAM = pMYSHIP->_X - (_dZ_camera_init*0.6);
 //        move_target_Y_CAM = pMYSHIP->_Y;
 //        move_target_Z_CAM = pMYSHIP->_Z;
@@ -207,13 +207,13 @@ void Camera::processBehavior() {
 //        move_target_Y_VP = pMYSHIP->_Y;
 //        move_target_Z_VP = pMYSHIP->_Z;
 //        move_target_XY_CAM_UP = ANGLE90;
-////        if (_pos_camera == CAM_POS_BEHIND_RIGHT) {
+////        if (_pos_camera == VAM_POS_BEHIND_RIGHT) {
 ////            move_target_Z_CAM -= Dd;
-////        } else if (_pos_camera == CAM_POS_BEHIND_LEFT) {
+////        } else if (_pos_camera == VAM_POS_BEHIND_LEFT) {
 ////            move_target_Z_CAM += Dd;
-////        } else if (_pos_camera == CAM_POS_BEHIND_TOP) {
+////        } else if (_pos_camera == VAM_POS_BEHIND_TOP) {
 ////            move_target_Y_CAM += Dd;
-////        } else if (_pos_camera == CAM_POS_BEHIND_BOTTOM) {
+////        } else if (_pos_camera == VAM_POS_BEHIND_BOTTOM) {
 ////            move_target_Y_CAM -= Dd;
 ////        }
 //    } else {
@@ -243,12 +243,12 @@ void Camera::processBehavior() {
 //            //チョン押しの場合、なにもしない（普通にビューポイント移動となる）
 //        } else {
 //            //長押しをしたた後、VB_VIEW離した時
-//            if (_pos_camera < CAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
+//            if (_pos_camera < VAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
 //                //それぞれの元の対応ビューポイントへ戻る。
-//                _pos_camera += CAM_POS_TO_BEHIND;
-//            } else if (_pos_camera > CAM_POS_TO_BEHIND) {//背面ビューポイントだった場合
+//                _pos_camera += VAM_POS_TO_BEHIND;
+//            } else if (_pos_camera > VAM_POS_TO_BEHIND) {//背面ビューポイントだった場合
 //                //それぞれの元の対応背面ビューポイントへ戻る。
-//                _pos_camera -= CAM_POS_TO_BEHIND;
+//                _pos_camera -= VAM_POS_TO_BEHIND;
 //            }
 //        }
 //    }
@@ -262,29 +262,29 @@ void Camera::processBehavior() {
 //
 //    //カメラとビューポイントの移動座標を制限。
 //    //自機移動範囲に応じて、画面端の感じを演出するため。(無くとも問題ない？)
-//    if (_pos_camera < CAM_POS_TO_BEHIND) {
-//        if (_pos_camera == CAM_POS_RIGHT) {
+//    if (_pos_camera < VAM_POS_TO_BEHIND) {
+//        if (_pos_camera == VAM_POS_RIGHT) {
 //            if (move_target_Y_CAM > _lim_CAM_top) {
 //                move_target_Y_CAM = _lim_CAM_top;
 //            }
 //            if (move_target_Y_CAM < _lim_CAM_bottom ) {
 //                move_target_Y_CAM = _lim_CAM_bottom;
 //            }
-//        } else if (_pos_camera == CAM_POS_LEFT) {
+//        } else if (_pos_camera == VAM_POS_LEFT) {
 //            if (move_target_Y_CAM > _lim_CAM_top) {
 //                move_target_Y_CAM = _lim_CAM_top;
 //            }
 //            if (move_target_Y_CAM < _lim_CAM_bottom ) {
 //                move_target_Y_CAM = _lim_CAM_bottom;
 //            }
-//        } else if (_pos_camera == CAM_POS_TOP) {
+//        } else if (_pos_camera == VAM_POS_TOP) {
 //            if (move_target_Z_CAM > _lim_CAM_zleft) {
 //                move_target_Z_CAM = _lim_CAM_zleft;
 //            }
 //            if (move_target_Z_CAM < _lim_CAM_zright) {
 //                move_target_Z_CAM = _lim_CAM_zright;
 //            }
-//        } else if (_pos_camera == CAM_POS_BOTTOM) {
+//        } else if (_pos_camera == VAM_POS_BOTTOM) {
 //            if (move_target_Z_CAM > _lim_CAM_zleft) {
 //                move_target_Z_CAM = _lim_CAM_zleft;
 //            }
@@ -292,7 +292,7 @@ void Camera::processBehavior() {
 //                move_target_Z_CAM = _lim_CAM_zright;
 //            }
 //        }
-//    } else if (_pos_camera > CAM_POS_TO_BEHIND) {
+//    } else if (_pos_camera > VAM_POS_TO_BEHIND) {
 //        if (move_target_Y_CAM > _lim_CAM_top - _correction_height) {
 //            move_target_Y_CAM = _lim_CAM_top - _correction_height;
 //        }
@@ -306,29 +306,29 @@ void Camera::processBehavior() {
 //            move_target_Z_CAM = _lim_CAM_zright + _correction_width;
 //        }
 //    }
-//    if (_pos_camera < CAM_POS_TO_BEHIND) {
-//        if (_pos_camera == CAM_POS_RIGHT) {
+//    if (_pos_camera < VAM_POS_TO_BEHIND) {
+//        if (_pos_camera == VAM_POS_RIGHT) {
 //            if (move_target_Y_VP > _lim_VP_top) {
 //                move_target_Y_VP = _lim_VP_top;
 //            }
 //            if (move_target_Y_VP < _lim_VP_bottom ) {
 //                move_target_Y_VP = _lim_VP_bottom;
 //            }
-//        } else if (_pos_camera == CAM_POS_LEFT) {
+//        } else if (_pos_camera == VAM_POS_LEFT) {
 //            if (move_target_Y_VP > _lim_VP_top) {
 //                move_target_Y_VP = _lim_VP_top;
 //            }
 //            if (move_target_Y_VP < _lim_VP_bottom ) {
 //                move_target_Y_VP = _lim_VP_bottom;
 //            }
-//        } else if (_pos_camera == CAM_POS_TOP) {
+//        } else if (_pos_camera == VAM_POS_TOP) {
 //            if (move_target_Z_VP > _lim_VP_zleft) {
 //                move_target_Z_VP = _lim_VP_zleft;
 //            }
 //            if (move_target_Z_VP < _lim_VP_zright) {
 //                move_target_Z_VP = _lim_VP_zright;
 //            }
-//        } else if (_pos_camera == CAM_POS_BOTTOM) {
+//        } else if (_pos_camera == VAM_POS_BOTTOM) {
 //            if (move_target_Z_VP > _lim_VP_zleft) {
 //                move_target_Z_VP = _lim_VP_zleft;
 //            }
@@ -336,7 +336,7 @@ void Camera::processBehavior() {
 //                move_target_Z_VP = _lim_VP_zright;
 //            }
 //        }
-//    } else if (_pos_camera > CAM_POS_TO_BEHIND) {
+//    } else if (_pos_camera > VAM_POS_TO_BEHIND) {
 //        if (move_target_Y_VP > _lim_VP_top - _correction_height) {
 //            move_target_Y_VP = _lim_VP_top - _correction_height;
 //        }
@@ -364,7 +364,7 @@ void Camera::processBehavior() {
 //    velo veloVxRenge = 4000;
 //    velo veloVyRenge = 4000;
 //    velo veloVzRenge = 4000;
-//    if (_pos_camera == CAM_POS_BEHIND_RIGHT || _pos_camera == CAM_POS_BEHIND_LEFT) {
+//    if (_pos_camera == VAM_POS_BEHIND_RIGHT || _pos_camera == VAM_POS_BEHIND_LEFT) {
 //        if (pMYSHIP->_X > -Dx) {
 //            //ややZ軸移動を早くする
 //            veloVzRenge *= 1.8;
@@ -374,7 +374,7 @@ void Camera::processBehavior() {
 //            veloVzRenge *= 0.2;
 //            veloVxRenge *= 1.8;
 //        }
-//    } else if (_pos_camera == CAM_POS_BEHIND_TOP || _pos_camera == CAM_POS_BEHIND_BOTTOM) {
+//    } else if (_pos_camera == VAM_POS_BEHIND_TOP || _pos_camera == VAM_POS_BEHIND_BOTTOM) {
 //        if (pMYSHIP->_X > -Dx) {
 //            //ややY軸移動を早くする
 //            veloVyRenge *= 1.8;
@@ -384,7 +384,7 @@ void Camera::processBehavior() {
 //            veloVyRenge *= 0.2;
 //            veloVxRenge *= 1.8;
 //        }
-//    } else if (_pos_camera == CAM_POS_RIGHT || _pos_camera == CAM_POS_LEFT) {
+//    } else if (_pos_camera == VAM_POS_RIGHT || _pos_camera == VAM_POS_LEFT) {
 //        if (pMYSHIP->_X > -Dx) {
 //            //ややX軸移動を早くする
 //            veloVxRenge *= 1.8;
@@ -394,7 +394,7 @@ void Camera::processBehavior() {
 //            veloVxRenge *= 0.2;
 //            veloVzRenge *= 1.8;
 //        }
-//    } else if (_pos_camera == CAM_POS_TOP || _pos_camera == CAM_POS_BOTTOM) {
+//    } else if (_pos_camera == VAM_POS_TOP || _pos_camera == VAM_POS_BOTTOM) {
 //        if (pMYSHIP->_X > -Dx) {
 //            //ややX軸移動を早くする
 //            veloVxRenge *= 1.8;

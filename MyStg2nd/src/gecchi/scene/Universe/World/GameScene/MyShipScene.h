@@ -2,7 +2,6 @@
 #define MYSHIPSCENE_H_
 
 #define pMYSHIP (MyStg2nd::MyShipScene::_pMyShip)
-#define pVAM (MyStg2nd::MyShipScene::_pVamSysCamWorker)
 namespace MyStg2nd {
 
 /**

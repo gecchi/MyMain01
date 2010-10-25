@@ -74,7 +74,7 @@ void GameScene::processBehavior() {
         if (VB_UI->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
             pGOD->setVB(VB_PLAY);
             _pScene_GameMain->unpause();     //GameMainScene‚Å‚Ìˆê’â~‰ğœ
-            pVAM->unpause();
+            pCAM_WORKER->unpause();
             pMYSHIP->unpause();
         }
     }

@@ -14,8 +14,7 @@ namespace MyStg2nd {
 #undef pCAM
 #endif
 #define pCAM ((Camera*)GgafDx9Universe::_pCamera)
-
-
+#define pCAM_WORKER (Universe::_pActiveCameraWorker)
 /**
  * この世シーン .
  * まずこの世がありました。<BR>
@@ -23,25 +22,57 @@ namespace MyStg2nd {
  */
 class Universe : public GgafDx9LibStg::DefaultUniverse {
 
+    class CamWorkerConStack {
+    public:
+        GgafCore::GgafResourceConnection<CameraWorker>* _apCameraWorkerCon[30];
+        UINT32 _p;
+        CamWorkerConStack() {
+            _p = 0;
+        }
+        void push(GgafCore::GgafResourceConnection<CameraWorker>* prm_pCameraWorkerCon) {
+            if (_p > 30-1) {
+                throwGgafCriticalException("CamWorkerStack::push("<<prm_pCameraWorkerCon->getIdStr()<<") スタックを使い切りました、一箇所に当たり判定が塊過ぎです。");
+            }
+            _apCameraWorkerCon[_p] = prm_pCameraWorkerCon;
+            _p++;
+        }
+        GgafCore::GgafResourceConnection<CameraWorker>* pop() {
+            if (_p == 0) {
+                return NULL;
+            } else {
+                _p--;
+                return _apCameraWorkerCon[_p];
+            }
+        }
+        void clear() {
+            _p = 0;
+        }
+        ~CamWorkerConStack() {
+            clear();
+        }
+    };
+
+
 public:
+
+    static CameraWorker* _pActiveCameraWorker;
+    CameraWorkerManager* _pCameraWorkerManager;
     World* _pWorld;
+    CamWorkerConStack _stack_CameraWorkerCon;
 
     Universe(const char* prm_name, GgafDx9Core::GgafDx9Camera* prm_pCamera);
 
-    /**
-     * 初期処理
-     */
     void initialize() override;
 
-     /**
-     * ＜OverRide です＞
-     */
     void processBehavior() override;
 
-     /**
-     * ＜OverRide です＞
-     */
     void processJudgement() override;
+
+    void pushCameraWork(const char* prm_pID);
+
+    void popCameraWork();
+
+
 
     virtual ~Universe();
 };

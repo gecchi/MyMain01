@@ -113,8 +113,6 @@ AVAILABLE_EVENT(STAGE02CONTROLLER_WAS_END)
 namespace MyStg2nd {
 
 //その他のヘッダファイルはここに記述
-template<class P>
-class GameActor;
 
 class God;
 class World;
@@ -162,7 +160,8 @@ class Stage02_Climax;
 
 
 class Camera;
-
+class CameraWorker;
+class DefaultCamWorker;
 class GroundMeshActor;
 class Torus;
 class VarietyTorus001;
@@ -260,7 +259,8 @@ class DispatcherConnection;
 class DispatcherManager;
 class Spline3DConnection;
 class Spline3DManager;
-
+class CameraWorkerManager;
+class CameraWorkerConnection;
 
 
 class TestDispatcher;
@@ -315,6 +315,8 @@ class LaserChipEffectActor;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/GroundBoxScene.h"
 
 #include "gecchi/actor/Camera.h"
+#include "gecchi/actor/common/CameraWorker.h"
+#include "gecchi/actor/common/DefaultCamWorker.h"
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
 #include "gecchi/actor/common/shot/Shot001.h"
 #include "gecchi/actor/common/shot/Shot002.h"
@@ -411,6 +413,8 @@ class LaserChipEffectActor;
 #include "gecchi/manager/DispatcherConnection.h"
 #include "gecchi/manager/Spline3DManager.h"
 #include "gecchi/manager/Spline3DConnection.h"
+#include "gecchi/manager/CameraWorkerManager.h"
+#include "gecchi/manager/CameraWorkerConnection.h"
 #include "gecchi/actor/common/template/Formation001.hpp"
 
 #include "gecchi/actor/_predrawer/LaserChipEffectActor.h"

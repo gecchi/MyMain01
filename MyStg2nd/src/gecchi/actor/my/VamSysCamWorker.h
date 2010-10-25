@@ -1,16 +1,15 @@
 #ifndef VAMSYSCAMWORKER_H_
 #define VAMSYSCAMWORKER_H_
 
-
-#define CAM_POS_RIGHT 1
-#define CAM_POS_LEFT 2
-#define CAM_POS_TOP 3
-#define CAM_POS_BOTTOM 4
-#define CAM_POS_TO_BEHIND 10
-#define CAM_POS_BEHIND_RIGHT 11
-#define CAM_POS_BEHIND_LEFT 12
-#define CAM_POS_BEHIND_TOP 13
-#define CAM_POS_BEHIND_BOTTOM 14
+#define VAM_POS_RIGHT 1
+#define VAM_POS_LEFT 2
+#define VAM_POS_TOP 3
+#define VAM_POS_BOTTOM 4
+#define VAM_POS_TO_BEHIND 10
+#define VAM_POS_BEHIND_RIGHT 11
+#define VAM_POS_BEHIND_LEFT 12
+#define VAM_POS_BEHIND_TOP 13
+#define VAM_POS_BEHIND_BOTTOM 14
 
 namespace MyStg2nd {
 
@@ -20,7 +19,7 @@ namespace MyStg2nd {
  * @since 2009/02/12
  * @author Masatoshi Tsuge
  */
-class VamSysCamWorker : public GgafCore::GgafMainActor {
+class VamSysCamWorker : public CameraWorker {
 
 public:
     MyShip* _pMyShip;
@@ -59,8 +58,6 @@ public:
     int _correction_width;
     /** 画面背後時用Y軸補正範囲差分 */
     int _correction_height;
-    /** カメラ位置番号 */
-    int _pos_camera;
     /** カメラの最高速度（上限、負数で下限） */
     int _cam_velo_renge;
     /** カメラの速度が、丁度自機の通常移動速度の1.0倍となるカメラ目標座標からの距離。 */
