@@ -6,7 +6,7 @@ using namespace GgafDx9Core;
 
 GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
                                              GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name) {
-    _actor_class |= Obj_GgafDx9GeometricActor;
+    _obj_class |= Obj_GgafDx9GeometricActor;
     _class_name = "GgafDx9GeometricActor";
     _isTransformed = false;
     _X = _Y = _Z = 0;
@@ -205,7 +205,7 @@ GgafGroupActor* GgafDx9GeometricActor::addSubBone(GgafDx9GeometricActor* prm_pGe
 }
 
 bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
-    if (_actor_class & Obj_GgafDx9GeometricActor) {
+    if (_obj_class & Obj_GgafDx9GeometricActor) {
         if (_pChecker) {
             return _pChecker->isHit(((GgafDx9GeometricActor*)prm_pOtherActor)->_pChecker);
         }

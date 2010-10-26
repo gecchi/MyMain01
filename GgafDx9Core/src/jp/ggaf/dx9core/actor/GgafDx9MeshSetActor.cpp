@@ -15,7 +15,7 @@ GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
                                                                   "x",
                                                                   prm_technique,
                                                                   prm_pChecker) {
-    _actor_class |= Obj_GgafDx9MeshSetActor;
+    _obj_class |= Obj_GgafDx9MeshSetActor;
     _class_name = "GgafDx9MeshSetActor";
     _pMeshSetModel = (GgafDx9MeshSetModel*)_pGgafDx9Model;
     _pMeshSetEffect = (GgafDx9MeshSetEffect*)_pGgafDx9Effect;

@@ -11,7 +11,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
                                            const char* prm_technique,
                                            GgafDx9Checker* prm_pChecker) :
   GgafDx9GeometricActor(prm_name, prm_pChecker) {
-    _actor_class |= Obj_GgafDx9DrawableActor;
+    _obj_class |= Obj_GgafDx9DrawableActor;
     _class_name = "GgafDx9DrawableActor";
 
     //_TRACE_("GgafDx9DrawableActor::GgafDx9DrawableActor(");

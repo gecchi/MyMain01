@@ -11,7 +11,6 @@ GgafDx9StringSpriteActor::GgafDx9StringSpriteActor(const char* prm_name, const c
                           "StringSpriteTechnique",
                           NULL) {
 
-    _actor_class |= Obj_GgafDx9StringSpriteActor;
     _class_name = "GgafDx9StringSpriteActor";
     _draw_string = NULL;
     _len = 0;

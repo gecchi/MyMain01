@@ -11,7 +11,7 @@ GgafDx9CubeActor::GgafDx9CubeActor(const char* prm_name,
                                                     "DefaultMeshEffect",
                                                     "DefaultMeshTechnique",
                                                     prm_pChecker) {
-    //_actor_class |= Obj_GgafDx9CubeActor;
+    //_obj_class |= Obj_GgafDx9CubeActor;
     _class_name = "GgafDx9CubeActor";
 }
 

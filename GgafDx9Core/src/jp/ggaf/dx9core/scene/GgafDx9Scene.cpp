@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9Scene::GgafDx9Scene(const char* prm_name) : GgafMainScene(prm_name) {
-    _scene_class |= Obj_GgafDx9Scene;
+    _obj_class |= Obj_GgafDx9Scene;
     _class_name = "GgafDx9Scene";
     _pAlphaCurtain = NEW GgafDx9AlphaCurtain(this);
     _pBgmPerformer = NEW GgafDx9BgmPerformer();
@@ -24,7 +24,7 @@ void GgafDx9Scene::fadeinSceneTree(int prm_frame_fade) {
         }
         if (getSubFirst() != NULL) {
 #ifdef MY_DEBUG
-            if (getSubFirst()->_scene_class & Obj_GgafDx9Scene) {
+            if (getSubFirst()->_obj_class & Obj_GgafDx9Scene) {
                 //OK
             } else {
                 throwGgafCriticalException("GgafDx9Scene::fadeinSceneTree() サブシーンが、GgafDx9Scene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName()) );
@@ -37,7 +37,7 @@ void GgafDx9Scene::fadeinSceneTree(int prm_frame_fade) {
                     break;
                 } else {
 #ifdef MY_DEBUG
-                    if (pScene->getNext()->_scene_class & Obj_GgafDx9Scene) {
+                    if (pScene->getNext()->_obj_class & Obj_GgafDx9Scene) {
                         //OK
                     } else {
                         throwGgafCriticalException("GgafDx9Scene::fadeinSceneTree() pScene["<<(pScene->getName())<<"->getNext()["<<(pScene->getNext()->getName())<<"]が、GgafDx9Scene に変換不可です。this="<<getName());
@@ -72,10 +72,10 @@ void GgafDx9Scene::fadeoutSceneTree(int prm_frame_fade) {
         }
         if (getSubFirst() != NULL) {
 #ifdef MY_DEBUG
-            if (getSubFirst()->_scene_class & Obj_GgafDx9Scene) {
+            if (getSubFirst()->_obj_class & Obj_GgafDx9Scene) {
                 //OK
             } else {
-                _TRACE_("GgafDx9Scene::fadeoutSceneTree() サブシーンが、GgafDx9Scene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName())<<" class="<<(getSubFirst()->_scene_class));
+                _TRACE_("GgafDx9Scene::fadeoutSceneTree() サブシーンが、GgafDx9Scene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName())<<" class="<<(getSubFirst()->_obj_class));
                 throwGgafCriticalException("GgafDx9Scene::fadeoutSceneTree() サブシーンが、GgafDx9Scene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName()) );
             }
 #endif
@@ -86,7 +86,7 @@ void GgafDx9Scene::fadeoutSceneTree(int prm_frame_fade) {
                     break;
                 } else {
 #ifdef MY_DEBUG
-                    if (pScene->getNext()->_scene_class & Obj_GgafDx9Scene) {
+                    if (pScene->getNext()->_obj_class & Obj_GgafDx9Scene) {
                         //OK
                     } else {
                         throwGgafCriticalException("GgafDx9Scene::fadeinSceneTree() pScene["<<(pScene->getName())<<"->getNext()["<<(pScene->getNext()->getName())<<"]が、GgafDx9Scene に変換不可です。this="<<getName());

@@ -39,7 +39,7 @@ void GgafDx9Universe::SeArray::play(int index) {
 }
 
 GgafDx9Universe::GgafDx9Universe(const char* prm_name, GgafDx9Camera* prm_pCamera) : GgafUniverse(prm_name) {
-    _scene_class |= Obj_GgafDx9Universe;
+    _obj_class |= Obj_GgafDx9Universe;
     _class_name = "GgafDx9Universe";
     for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL; i++) {
         _apAlphaActorList_DrawDepthLevel[i] = NULL;
@@ -120,7 +120,7 @@ void GgafDx9Universe::draw() {
         }
         //マスターαを設定する。
 #ifdef MY_DEBUG
-            if (_pActor_DrawActive->getPlatformScene()->_scene_class & Obj_GgafDx9Scene) {
+            if (_pActor_DrawActive->getPlatformScene()->_obj_class & Obj_GgafDx9Scene) {
                 //OK
             } else {
                 throwGgafCriticalException("GgafDx9Universe::draw() err1. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDx9Scene に変換不可です。this="<<getName());
@@ -160,7 +160,7 @@ void GgafDx9Universe::draw() {
             }
 
 #ifdef MY_DEBUG
-            if (_pActor_DrawActive->getPlatformScene()->_scene_class & Obj_GgafDx9Scene) {
+            if (_pActor_DrawActive->getPlatformScene()->_obj_class & Obj_GgafDx9Scene) {
                 //OK
             } else {
                 throwGgafCriticalException("GgafDx9Universe::draw() err2. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDx9Scene に変換不可です。this="<<getName());

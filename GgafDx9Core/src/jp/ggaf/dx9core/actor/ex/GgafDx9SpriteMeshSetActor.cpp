@@ -13,7 +13,7 @@ GgafDx9SpriteMeshSetActor::GgafDx9SpriteMeshSetActor(const char* prm_name,
                                                            "SpriteMeshSetTechnique",
                                                            prm_pChecker) {
 
-    _actor_class |= Obj_GgafDx9SpriteMeshSetActor;
+    _obj_class |= Obj_GgafDx9SpriteMeshSetActor;
     _class_name = "GgafDx9SpriteMeshSetActor";
     _pUvFlipper = NEW GgafDx9UvFlipper(this);
     _pUvFlipper->forcePtnNoRange(0, 1);
@@ -69,7 +69,7 @@ void GgafDx9SpriteMeshSetActor::processDraw() {
         hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[i], &(pDrawActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 #ifdef MY_DEBUG
-        if (pDrawActor->_actor_class & Obj_GgafDx9SpriteMeshSetActor) {
+        if (pDrawActor->_obj_class & Obj_GgafDx9SpriteMeshSetActor) {
             //OK
         } else {
             throwGgafCriticalException("GgafDx9SpriteMeshSetActor::processDraw() pDrawActor["<<pDrawActor->getName()<<"] ‚ÍGgafDx9SpriteMeshSetActor‚Å‚Í‚ ‚è‚Ü‚¹‚ñB");

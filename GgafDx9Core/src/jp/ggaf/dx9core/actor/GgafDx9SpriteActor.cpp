@@ -16,7 +16,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
                                                                 "S",
                                                                 prm_technique,
                                                                 prm_pChecker) {
-    _actor_class |= Obj_GgafDx9SpriteActor;
+    _obj_class |= Obj_GgafDx9SpriteActor;
     _class_name = "GgafDx9SpriteActor";
 
     _pSpriteModel = (GgafDx9SpriteModel*)_pGgafDx9Model;

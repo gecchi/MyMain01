@@ -18,7 +18,7 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
                                                                             "X",
                                                                             prm_technique,
                                                                             prm_pChecker) {
-    _actor_class |= Obj_GgafDx9DynaD3DXMeshActor;
+    _obj_class |= Obj_GgafDx9DynaD3DXMeshActor;
     _class_name = "GgafDx9DynaD3DXMeshActor";
 
     _pD3DXMeshModel = (GgafDx9D3DXMeshModel*)_pGgafDx9Model;

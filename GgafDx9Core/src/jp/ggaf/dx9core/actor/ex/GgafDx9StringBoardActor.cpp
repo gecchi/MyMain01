@@ -7,7 +7,6 @@ GgafDx9StringBoardActor::GgafDx9StringBoardActor(const char* prm_name, const cha
 //: GgafDx9BoardSetActor(prm_name, prm_model, "DefaultBoardSetEffect", "DefaultBoardSetTechnique") {
   : GgafDx9BoardSetActor(prm_name, prm_model, "StringBoardEffect", "StringBoardTechnique") {
 
-    _actor_class |= Obj_GgafDx9StringBoardActor;
     _class_name = "GgafDx9StringBoardActor";
     _draw_string = NULL;
     _len = 0;

@@ -16,7 +16,7 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
                                                                 "s",
                                                                 prm_technique,
                                                                 prm_pChecker) {
-    _actor_class |= Obj_GgafDx9SpriteSetActor;
+    _obj_class |= Obj_GgafDx9SpriteSetActor;
     _class_name = "GgafDx9SpriteSetActor";
 
     //ƒ‚ƒfƒ‹Žæ“¾
