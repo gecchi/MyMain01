@@ -30,7 +30,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
     _pSeTransmitter->set(1, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));     //”š”­
-    _veloTopMv = 10000;
+    _veloTopMv = 20000;
 
 }
 
@@ -127,15 +127,23 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
     if (getProgress() == THALIA_PROG_IN_FIRE) {
         chengeEffectTechniqueInterim("Flush", 2); //ƒtƒ‰ƒbƒVƒ…
-        if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-            EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-            if (pExplo001 != NULL) {
-                pExplo001->activate();
-                pExplo001->setGeometry(this);
-            }
-            _pSeTransmitter->play3D(0);
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        if (pExplo001 != NULL) {
+            pExplo001->activate();
+            pExplo001->setGeometry(this);
         }
-        sayonara();
+        _pSeTransmitter->play3D(0);
+
+
+//        if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+//            EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+//            if (pExplo001 != NULL) {
+//                pExplo001->activate();
+//                pExplo001->setGeometry(this);
+//            }
+//            _pSeTransmitter->play3D(0);
+//        }
+//        sayonara();
     } else {
 
     }

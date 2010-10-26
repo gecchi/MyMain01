@@ -34,7 +34,7 @@ bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
 GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledSectionScene(prm_name,
                                                                    "scene1_wall.dat",
                                                                    800000, 200000,200000,
-                                                                   10000
+                                                                   5000
                                                                    ) {
     for (int i = 0; i < 4000; i++) {
         GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox");
@@ -43,6 +43,9 @@ GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledSectionScene(prm_na
     }
     getLordActor()->addSubGroup(_pDispatcher_Wall);
     _bound_alpha = -pCAM->_cameraZ_org*0.7; //”w–ÊŽžƒJƒƒ‰‚Í_cameraZ_org*0.6‚É—R—ˆ‚µ‚Ä‚¢‚é
+
+    orderActorToFactory(9999999, FormationThalia, "FormationThalia_1");
+
 }
 
 void GroundBoxScene::processBehavior() {
@@ -54,7 +57,10 @@ void GroundBoxScene::processBehavior() {
     }
 
 
-
+    if (getActivePartFrame() == 10) {
+    FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(21037100);
+    getLordActor()->addSubGroup(pActor);
+    }
 
     if (getActivePartFrame() == 300) {
         pUNIVERSE->pushCameraWork("TestCamWorker");
@@ -73,16 +79,16 @@ void GroundBoxScene::processBehavior() {
     }
 
     if (getActivePartFrame() == 1100) {
-        _ground_speed = 40000;
+        _ground_speed = 20000;
     }
 
     if (getActivePartFrame() == 1300) {
-        _ground_speed = 1000;
+        _ground_speed = 500;
     }
 
 
     if (getActivePartFrame() == 1800) {
-        _ground_speed = 10000;
+        _ground_speed = 5000;
     }
 
 

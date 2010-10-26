@@ -10,7 +10,7 @@
 # $ ruby makeSceneWallData.rb scene3_2_wall.X 34 36 4 > scene3_2_wall.dat
 ################################################################
 
-require './ExteriorArea'
+require './_botsu_ExteriorArea'
 
 xfile= ARGV[0]
 max_x_colliwall_num = ARGV[3].to_i
