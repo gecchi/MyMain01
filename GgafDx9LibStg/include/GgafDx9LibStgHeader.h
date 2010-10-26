@@ -22,7 +22,7 @@ class GeoElement;
 class GeometryChain;
 class DefaultScene;
 class ActorTableScene;
-class WalledScene;
+class WalledSectionScene;
 
 class StgProperties;
 
@@ -73,7 +73,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/util/GeometryChain.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
 #include "jp/ggaf/dx9libstg/scene/ActorTableScene.h"
-#include "jp/ggaf/dx9libstg/scene/WalledScene.h"
+#include "jp/ggaf/dx9libstg/scene/WalledSectionScene.h"
 
 #include "jp/ggaf/dx9libstg/StgProperties.h";
 

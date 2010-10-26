@@ -17,11 +17,10 @@ WallActor::WallActor(const char* prm_name, const char* prm_model) :
     _pCollisionChecker->makeCollision(1);
 
     _pScaler = NEW GgafDx9GeometryScaler(this);
-    _ground_speed = 0;
     _wall_draw_face = 0;
 
     _h_distance_AlphaTarget = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_distance_AlphaTarget" );
-    _pWalledScene = NULL;
+    _pWalledSectionScene = NULL;
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り
 }
@@ -42,12 +41,11 @@ void WallActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 
 void WallActor::initialize() {
-    if (_pWalledScene == NULL) {
-        _pWalledScene = (WalledScene*)getPlatformScene();
-        _wall_dep = _pWalledScene->_wall_dep;
-        _wall_width = _pWalledScene->_wall_width;
-        _wall_height = _pWalledScene->_wall_height;
-        _ground_speed = _pWalledScene->_ground_speed;
+    if (_pWalledSectionScene == NULL) {
+        _pWalledSectionScene = (WalledSectionScene*)getPlatformScene();
+        _wall_dep = _pWalledSectionScene->_wall_dep;
+        _wall_width = _pWalledSectionScene->_wall_width;
+        _wall_height = _pWalledSectionScene->_wall_height;
     }
     setHitAble(true);
 }
@@ -57,7 +55,6 @@ void WallActor::onActive() {
 }
 
 void WallActor::processBehavior() {
-    //_X = _X - _ground_speed;
 }
 
 void WallActor::processJudgement() {
@@ -65,6 +62,13 @@ void WallActor::processJudgement() {
         sayonara();
     }
 }
+bool WallActor::isOutOfUniverse() {
+    if (GgafDx9Universe::_X_goneLeft < _X) {
+        return false;
+    }
+    return true;
+}
+
 
 
 void WallActor::processDraw() {
@@ -96,8 +100,8 @@ void WallActor::processDraw() {
     pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
     HRESULT hr;
-    if (_pWalledScene->_pTarget_FrontAlpha) {
-        hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledScene->_pTarget_FrontAlpha->_fDist_VpPlnFront));
+    if (_pWalledSectionScene->_pTarget_FrontAlpha) {
+        hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledSectionScene->_pTarget_FrontAlpha->_fDist_VpPlnFront));
         checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     } else {
         hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -100.0f);
@@ -128,12 +132,11 @@ void WallActor::drawHitArea() {
 }
 
 void WallActor::config(int prm_wall_draw_face, int* prm_aColliBoxStretch) {
-    if (_pWalledScene == NULL) {
-        _pWalledScene = (WalledScene*)getPlatformScene();
-        _wall_dep = _pWalledScene->_wall_dep;
-        _wall_width = _pWalledScene->_wall_width;
-        _wall_height = _pWalledScene->_wall_height;
-        _ground_speed = _pWalledScene->_ground_speed;
+    if (_pWalledSectionScene == NULL) {
+        _pWalledSectionScene = (WalledSectionScene*)getPlatformScene();
+        _wall_dep = _pWalledSectionScene->_wall_dep;
+        _wall_width = _pWalledSectionScene->_wall_width;
+        _wall_height = _pWalledSectionScene->_wall_height;
     }
     _wall_draw_face = prm_wall_draw_face;
     if (prm_aColliBoxStretch[0] == 0) {

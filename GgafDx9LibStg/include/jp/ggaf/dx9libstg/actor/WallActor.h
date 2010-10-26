@@ -13,8 +13,8 @@
 namespace GgafDx9LibStg {
 
 /**
- * 外壁シーン(WalledScene)の壁ブロック基底クラス .
- * 外壁シーン(WalledScene)の構成要素の壁ブロックは本クラスを継承する必要がある。
+ * 外壁シーン(WalledSectionScene)の壁ブロック基底クラス .
+ * 外壁シーン(WalledSectionScene)の構成要素の壁ブロックは本クラスを継承する必要がある。
  * @version 1.00
  * @since 2010/10/18
  * @author Masatoshi Tsuge
@@ -39,7 +39,7 @@ public:
     GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 
     /** [r]外壁シーン */
-    WalledScene* _pWalledScene;
+    WalledSectionScene* _pWalledSectionScene;
     D3DXHANDLE _h_distance_AlphaTarget;
 
     WallActor(const char* prm_name, const char* prm_model);
@@ -59,6 +59,7 @@ public:
 
     virtual void processJudgement() override;
 
+    virtual bool isOutOfUniverse() override;
 
     virtual void catchEvent(UINT32 prm_no, void* prm_pSource) override {
     }

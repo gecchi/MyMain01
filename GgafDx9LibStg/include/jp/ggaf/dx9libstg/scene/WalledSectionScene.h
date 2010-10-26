@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
  * @since 2010/10/18
  * @author Masatoshi Tsuge
  */
-class WalledScene : public DefaultScene {
+class WalledSectionScene : public DefaultScene {
 
     /**
      * 壁ブロック(WallActor)の配置情報構造体
@@ -44,6 +44,10 @@ public:
     int _wall_start_X;
     /** [r]外壁移動スピード(値は正、但し移動方向はX軸負の方向) */
     int _ground_speed;
+    /** [r]繰り返し回数 */
+    int _loop_num;
+    /** [r]繰り返しカウンタ */
+    int _cnt_loop;
     /** [r]外壁表示間隔時間 */
     frame _frame_of_launch_interval;
     /** [r]表示済み外壁シーンの長さ */
@@ -56,6 +60,10 @@ public:
     GgafCore::GgafActorDispatcher* _pDispatcher_Wall;
     /** [r]手前ブロックの透過機能有効時の基準となるアクター */
     GgafDx9Core::GgafDx9GeometricActor* _pTarget_FrontAlpha;
+
+
+    WallActor* _pWallLast;
+
 
     /**
      * コンストラクタ .
@@ -71,10 +79,10 @@ public:
      * @param prm_ground_speed 外壁移動スピード(値は正、但し移動方向はX軸負の方向)
      * @return
      */
-    WalledScene(const char* prm_name,
+    WalledSectionScene(const char* prm_name,
                 const char* prm_data_filename,
                 int prm_wall_dep, int prm_wall_width, int prm_wall_height,
-                int prm_ground_speed);
+                int prm_ground_speed, int prm_loop_num = 1);
     /**
      * 初期処理 .
      * ディスパッチャー(_pDispatcher_Wall)のチェックを行っているのみ .
@@ -83,7 +91,7 @@ public:
 
     /**
      * 外壁表示間隔時間等を計算し設定 .
-     * オーバーライドする場合、その処理の中で WalledScene::onActive() も呼び出して下さい。
+     * オーバーライドする場合、その処理の中で WalledSectionScene::onActive() も呼び出して下さい。
      */
     virtual void onActive() override;
 
@@ -92,7 +100,7 @@ public:
 
     /**
      * 外壁を出現させ、移動させる.
-     * オーバーライドする場合、その処理の中で WalledScene::processBehavior() も呼び出して下さい。
+     * オーバーライドする場合、その処理の中で WalledSectionScene::processBehavior() も呼び出して下さい。
      */
     virtual void processBehavior() override;
 
@@ -110,7 +118,7 @@ public:
 
     static void moveX(void* pThis, void* p1, void* p2);
 
-    virtual ~WalledScene();
+    virtual ~WalledSectionScene();
 };
 
 }
