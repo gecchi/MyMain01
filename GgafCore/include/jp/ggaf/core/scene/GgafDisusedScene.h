@@ -14,7 +14,7 @@ class GgafDisusedScene : public GgafScene {
 public:
     GgafDisusedScene() :
         GgafScene("DisusedScene") {
-        _scene_class |= Obj_GgafDisusedScene;
+        _obj_class |= Obj_GgafDisusedScene;
         _class_name = "GgafDisusedScene";
     }
     void initialize() override {

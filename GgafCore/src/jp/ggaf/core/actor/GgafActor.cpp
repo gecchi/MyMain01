@@ -7,7 +7,7 @@ GgafActor::GgafActor(const char* prm_name) :
     GgafElement<GgafActor> (prm_name) {
     TRACE("GgafActor::GgafActor("<<this<<") "<<prm_name);
     _class_name = "GgafActor";
-    _actor_class = Obj_GgafActor;
+    _obj_class = Obj_GgafActor;
 
     _pStatus = NEW GgafStatus(12);
     _pStatus->set(0, 0);

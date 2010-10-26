@@ -4,7 +4,7 @@ using namespace std;
 using namespace GgafCore;
 
 GgafGroupActor::GgafGroupActor(actorkind prm_kind) : GgafActor("GROUP") {
-    _actor_class |= Obj_GgafGroupActor;
+    _obj_class |= Obj_GgafGroupActor;
     _class_name = "GgafGroupActor";
 
     char aChar_strbit[33];
@@ -25,11 +25,11 @@ GgafLordActor* GgafGroupActor::getLordActor() {
             _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
             _TRACE_("yŒxzGgafGroupActor::getLordActor Š‘®‚µ‚Ä‚¢‚È‚¢‚½‚ßALordActor‚ª‚Æ‚ê‚Ü‚¹‚ñI("<<getName()<<")B‚»‚±‚ÅŸè‚É‚±‚Ì¢(GgafUniverse)Š‘®‚ÌLordActor‚ğ•Ô‚µ‚Ü‚µ‚½");
         } else {
-            if (_pParent->_actor_class & Obj_GgafMainActor) {
+            if (_pParent->_obj_class & Obj_GgafMainActor) {
                 _pLordActor = ((GgafMainActor*)(_pParent))->getLordActor();
-            } else if (_pParent->_actor_class & Obj_GgafGroupActor) {
+            } else if (_pParent->_obj_class & Obj_GgafGroupActor) {
                 _pLordActor = ((GgafGroupActor*)(_pParent))->getLordActor();
-            } else if (_pParent->_actor_class & Obj_GgafLordActor) {
+            } else if (_pParent->_obj_class & Obj_GgafLordActor) {
                 return (GgafLordActor*)_pParent;
             }
             _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
@@ -44,9 +44,9 @@ void GgafGroupActor::setLordActor(GgafLordActor* prm_pLordActor) {
     if (_pSubFirst != NULL) {
         GgafActor* pActor = getSubFirst();
         while (true) {
-            if (pActor->_actor_class & Obj_GgafMainActor) {
+            if (pActor->_obj_class & Obj_GgafMainActor) {
                 ((GgafMainActor*)(pActor))->setLordActor(prm_pLordActor);
-            } else if (pActor->_actor_class & Obj_GgafGroupActor) {
+            } else if (pActor->_obj_class & Obj_GgafGroupActor) {
                 ((GgafGroupActor*)(pActor))->setLordActor(prm_pLordActor);
             }
             if (pActor->_is_last_flg) {

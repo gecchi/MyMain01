@@ -64,8 +64,6 @@ private:
     void setScenePlatform(GgafScene* prm_pScene_Platform);
 
 public:
-    /** [r]アクターのインスタンス種類 */
-    UINT32 _actor_class;
     /** [r]所属ディスパッチャー(NULLは未所属) */
     GgafActorDispatcher* _pDependenceDispcher;
     /** [r]アクター開始システム時刻 */

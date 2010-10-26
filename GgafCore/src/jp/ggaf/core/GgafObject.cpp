@@ -5,7 +5,7 @@ using namespace GgafCore;
 //int GgafObject::_iSeq = 0;
 
 GgafObject::GgafObject() {
-    //_iObjectNo = (_iSeq++);
+    _obj_class = 0;
 }
 
 string GgafObject::toString() {

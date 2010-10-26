@@ -708,9 +708,47 @@ public:
      */
     virtual int getProgressOnChange();
 
-
-    virtual void execDownFunction(void (*pFunc)(void*, void*, void*), void* prm1, void* prm2);
-    //進捗管理支援メソッド===================
+    /**
+     * 配下全てのオブジェクトに対して指定の関数を実行させる .
+     * 配下オブジェクト（アクターかシーン）のポインタが、引数関数ポインタの pFuncの第１引数に渡ってくる。<BR>
+     * 引数関数ポインタの pFunc の第２引数には、execDownFunction 呼び出し時の prm1(引数１)のポインタが渡ってくる。<BR>
+     * 引数関数ポインタの pFunc の第３引数には、execDownFunction 呼び出し時の prm2(引数２)のポインタが渡ってくる。<BR>
+     * 配下のオブジェクトが何であるのか判っている上で使用しないと危険である。<BR>
+     * あと、早くC++でラムダ式を使わせてください。<BR>
+     *
+     * ＜使用例＞<BR>
+     * XXXXScene 配下のオブジェクト全てのアクター(但しGgafDx9GeometricActor)のメンバ変数 _X に、
+     * XXXXSceneメンバ変数 _velo の値を加算させる。<BR>
+     * XXXXScene クラスの実装サンプルを以下に記す<BR>
+     * <code><pre>
+     *
+     * class XXXXScene : public GgafScene {
+     *
+     *     int _velo;
+     *
+     *     static void addX(GgafObject* pThat, void* p1, void* p2) { //p1に_veloが渡る
+     *         if (pThat->_obj_class >= Obj_GgafScene) {
+     *             return; //シーンならば無視
+     *         }
+     *         GgafActor* pActor = (GgafActor*)pThat;
+     *         if (pActor->_obj_class & Obj_GgafDx9GeometricActor) {
+     *             //GgafDx9GeometricActorならば _X を加算
+     *             ((GgafDx9GeometricActor*)pActor)->_X += (*((int*)p1));
+     *         }
+     *     }
+     *
+     *     void processBehavior() {
+     *         //配下アクター全てにaddX実行
+     *         execDownFunction(XXXXScene::addX, _velo, NULL);
+     *     }
+     * }
+     *
+     * </pre></code>
+     * @param pFunc オブジェクトに実行させたい関数
+     * @param prm1 同時に渡したい引数その１
+     * @param prm2 同時に渡したい引数その２
+     */
+    virtual void execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
 
 };
 
@@ -1483,7 +1521,7 @@ UINT32 GgafElement<T>::getActivePartFrame() {
    return _frame_of_behaving_since_onActive;
 }
 template<class T>
-void GgafElement<T>::execDownFunction(void (*pFunc)(void*, void*, void*), void* prm1, void* prm2) {
+void GgafElement<T>::execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
     if (_can_live_flg) {
         if (_was_initialize_flg) {
             pFunc(this, prm1, prm2);

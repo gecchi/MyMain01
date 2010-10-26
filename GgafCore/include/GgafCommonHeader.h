@@ -256,19 +256,18 @@
 typedef UINT32 actorkind;
 typedef unsigned int frame;
 
-#define Obj_GgafScene             (0x1)              //&B 00000000 00000000 00000000 00000001
-#define Obj_GgafMainScene         (0x2)              //&B 00000000 00000000 00000000 00000010
-#define Obj_GgafDisusedScene      (0x4)              //&B 00000000 00000000 00000000 00000100
-#define Obj_GgafUniverse          (0x8)              //&B 00000000 00000000 00000000 00001000
+#define Obj_GgafScene             (0x80000001)       //0b 10000000 00000000 00000000 00000001
+#define Obj_GgafMainScene         (0x80000002)       //0b 10000000 00000000 00000000 00000010
+#define Obj_GgafDisusedScene      (0x80000004)       //0b 10000000 00000000 00000000 00000100
+#define Obj_GgafUniverse          (0x80000008)       //0b 10000000 00000000 00000000 00001000
 
-#define Obj_GgafActor             (0x1)              //&B 00000000 00000000 00000000 00000001
-#define Obj_GgafMainActor         (0x2)              //&B 00000000 00000000 00000000 00000010
-#define Obj_GgafDummyActor        (0x4)              //&B 00000000 00000000 00000000 00000100
-#define Obj_GgafLordActor         (0x8)              //&B 00000000 00000000 00000000 00001000
-#define Obj_GgafGroupActor        (0x10)             //&B 00000000 00000000 00000000 00010000
-#define Obj_GgafDisusedActor      (0x20)             //&B 00000000 00000000 00000000 00100000
-#define Obj_GgafActorDispatcher   (0x40)             //&B 00000000 00000000 00000000 01000000
-
+#define Obj_GgafActor             (0x1)              //0b 00000000 00000000 00000000 00000001
+#define Obj_GgafMainActor         (0x2)              //0b 00000000 00000000 00000000 00000010
+#define Obj_GgafDummyActor        (0x4)              //0b 00000000 00000000 00000000 00000100
+#define Obj_GgafLordActor         (0x8)              //0b 00000000 00000000 00000000 00001000
+#define Obj_GgafGroupActor        (0x10)             //0b 00000000 00000000 00000000 00010000
+#define Obj_GgafDisusedActor      (0x20)             //0b 00000000 00000000 00000000 00100000
+#define Obj_GgafActorDispatcher   (0x40)             //0b 00000000 00000000 00000000 01000000
 
 namespace GgafCore {
 class GgafUtil;

@@ -4,7 +4,7 @@ using namespace std;
 using namespace GgafCore;
 
 GgafMainActor::GgafMainActor(const char* prm_name) : GgafActor(prm_name) {
-    _actor_class |= Obj_GgafMainActor;
+    _obj_class |= Obj_GgafMainActor;
     _class_name = "GgafMainActor";
     _pGroupActor = NULL;
     _pLordActor = NULL;
@@ -31,9 +31,9 @@ void GgafMainActor::setLordActor(GgafLordActor* prm_pLordActor) {
     if (_pSubFirst != NULL) {
         GgafActor* pActor = getSubFirst();
         while (true) {
-            if (pActor->_actor_class & Obj_GgafMainActor) {
+            if (pActor->_obj_class & Obj_GgafMainActor) {
                 ((GgafMainActor*)(pActor))->setLordActor(prm_pLordActor);
-            } else if (pActor->_actor_class & Obj_GgafGroupActor) {
+            } else if (pActor->_obj_class & Obj_GgafGroupActor) {
                 ((GgafGroupActor*)(pActor))->setLordActor(prm_pLordActor);
             }
             if (pActor->_is_last_flg) {
@@ -50,9 +50,9 @@ void GgafMainActor::setGroupActor(GgafGroupActor* prm_pGroupActor) {
     if (_pSubFirst != NULL) {
         GgafActor* pActor = getSubFirst();
         while (true) {
-            if (pActor->_actor_class & Obj_GgafMainActor) {
+            if (pActor->_obj_class & Obj_GgafMainActor) {
                 ((GgafMainActor*)(pActor))->setGroupActor(prm_pGroupActor);
-            } else if (pActor->_actor_class & Obj_GgafGroupActor) {
+            } else if (pActor->_obj_class & Obj_GgafGroupActor) {
                 //スルーする
                 //下位ツリーにGgafGroupActorがあれば、そのツリーには影響させないこととする
             }
@@ -89,9 +89,9 @@ GgafGroupActor* GgafMainActor::getGroupActor() {
             throwGgafCriticalException("GgafMainActor::getGroupActor 所属していないため、GroupActorがとれません！("<<getName()<<")");
         }
 #endif
-        if (_pParent->_actor_class & Obj_GgafMainActor) {
+        if (_pParent->_obj_class & Obj_GgafMainActor) {
             _pGroupActor = ((GgafMainActor*)(_pParent))->getGroupActor();
-        } else if (_pParent->_actor_class & Obj_GgafGroupActor) {
+        } else if (_pParent->_obj_class & Obj_GgafGroupActor) {
             return (GgafGroupActor*)_pParent;
         }
     }
@@ -105,11 +105,11 @@ GgafLordActor* GgafMainActor::getLordActor() {
             _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor(); //この世の管理者アクターに仮所属
 //            _TRACE_("【警告】GgafMainActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")。そこで勝手にこの世(Universe)のLordActorを返しました");
         } else {
-            if (_pParent->_actor_class & Obj_GgafMainActor) {
+            if (_pParent->_obj_class & Obj_GgafMainActor) {
                 _pLordActor = ((GgafMainActor*)(_pParent))->getLordActor();
-            } else if (_pParent->_actor_class & Obj_GgafGroupActor) {
+            } else if (_pParent->_obj_class & Obj_GgafGroupActor) {
                 _pLordActor = ((GgafGroupActor*)(_pParent))->getLordActor();
-            } else if (_pParent->_actor_class & Obj_GgafLordActor) { //ありえんかな
+            } else if (_pParent->_obj_class & Obj_GgafLordActor) { //ありえんかな
                 return (GgafLordActor*)_pParent;
             } else {
                 _pLordActor = NULL;
@@ -154,7 +154,7 @@ GgafGroupActor* GgafMainActor::getSubGroupActor(actorkind prm_kind) {
         GgafActor* pSubActor = _pSubFirst;
         GgafGroupActor* pSubGroupActor_ret = NULL;
         do {
-            if (pSubActor->_actor_class & Obj_GgafGroupActor) {
+            if (pSubActor->_obj_class & Obj_GgafGroupActor) {
                 pSubGroupActor_ret = (GgafGroupActor*)pSubActor;
                 if (pSubGroupActor_ret->_kind == prm_kind) {
                     return pSubGroupActor_ret;

@@ -4,7 +4,7 @@ using namespace std;
 using namespace GgafCore;
 
 GgafLordActor::GgafLordActor(GgafScene* prm_pScene_Platform) : GgafActor(prm_pScene_Platform->getName()) {
-    _actor_class |= Obj_GgafLordActor;
+    _obj_class |= Obj_GgafLordActor;
     _class_name = "GgafLordActor";
 
     _pScene_Platform = prm_pScene_Platform;
@@ -47,7 +47,7 @@ GgafGroupActor* GgafLordActor::getSubGroupActor(actorkind prm_kind) {
         GgafActor* pSubActor = _pSubFirst;
         GgafGroupActor* pSubGroupActor_ret = NULL;
         do {
-            if (pSubActor->_actor_class & Obj_GgafGroupActor) {
+            if (pSubActor->_obj_class & Obj_GgafGroupActor) {
                 pSubGroupActor_ret = (GgafGroupActor*)pSubActor;
                 if (pSubGroupActor_ret->_kind == prm_kind) {
                     return pSubGroupActor_ret;

@@ -97,9 +97,6 @@ protected:
     GgafLordActor* _pLordActor;
 
 public:
-    /** [r]シーンのインスタンス種類 */
-    UINT32 _scene_class;
-
 
     /**
      * コンストラクタ .
@@ -151,7 +148,7 @@ public:
     virtual void unpause() override;
     virtual void unpauseTreeImmediately() override;
     virtual void unpauseImmediately() override;
-
+    virtual void execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) override;
     /**
      * 自ツリーシーンをnフレーム後にゴミ箱へ移動 .
      * @param prm_frame_offset ゴミ箱へ移動タイミング残りフレーム数(デフォルト=1)

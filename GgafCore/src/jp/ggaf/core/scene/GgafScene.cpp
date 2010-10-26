@@ -9,7 +9,7 @@ using namespace GgafCore;
 GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     TRACE("GgafScene::GgafScene() " << prm_name);
     _class_name = "GgafScene";
-    _scene_class = Obj_GgafScene;
+    _obj_class = Obj_GgafScene;
 
     _pLordActor = NEW GgafLordActor(this);
 
@@ -172,6 +172,12 @@ void GgafScene::unpauseImmediately() {
     GgafElement<GgafScene>::unpauseImmediately();
     _pLordActor->unpauseImmediately();
 }
+
+void GgafScene::execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
+    GgafElement<GgafScene>::execDownFunction(pFunc, prm1, prm2);
+    _pLordActor->execDownFunction(pFunc, prm1, prm2);
+}
+
 
 void GgafScene::end(frame prm_frame_offset) {
     _pLordActor->end(prm_frame_offset);
