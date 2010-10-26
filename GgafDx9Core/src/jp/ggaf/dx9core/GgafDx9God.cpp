@@ -580,8 +580,9 @@ void GgafDx9God::clean() {
 
         CmRandomNumberGenerator::getInstance()->release();
         //•Ûƒ‚ƒfƒ‹‰ğ•ú
-        DELETE_IMPOSSIBLE_NULL(_pModelManager);
         DELETE_IMPOSSIBLE_NULL(_pEffectManager);
+        DELETE_IMPOSSIBLE_NULL(_pModelManager);
+
 
 
         _TRACE_("GgafDx9God::clean() end");

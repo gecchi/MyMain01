@@ -134,12 +134,21 @@
     /** NULLかどうか不明なRelease() */
     #define RELEASE_POSSIBLE_NULL(POINTER) { \
         if (POINTER) { \
-            int rc = (POINTER)->Release(); \
-            if (rc > 0) { \
+            int rc = (POINTER)->AddRef(); \
+            rc = (POINTER)->Release(); \
+            if (rc == 0) { \
                 std::stringstream ss; \
                 ss << "RELEASE_POSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
-                      #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
+                      #POINTER << "は、既に参照カウンタ0です。Release() は行いませんでした。調査が必要です！"; \
                 GgafCore::GgafLogger::writeln(ss); \
+            } else { \
+                rc = (POINTER)->Release(); \
+                if (rc > 0) { \
+                    std::stringstream ss; \
+                    ss << "RELEASE_POSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                          #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
+                    GgafCore::GgafLogger::writeln(ss); \
+                } \
             } \
             (POINTER) = NULL; \
         } else { \
@@ -175,12 +184,21 @@
     /** NULLはありえないRelease() */
     #define RELEASE_IMPOSSIBLE_NULL(POINTER) { \
         if (POINTER) { \
-            int rc = (POINTER)->Release(); \
-            if (rc > 0) { \
+            int rc = (POINTER)->AddRef(); \
+            rc = (POINTER)->Release(); \
+            if (rc == 0) { \
                 std::stringstream ss; \
-                ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
-                      #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
+                ss << "RELEASE_POSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                      #POINTER << "は、既に参照カウンタ0です。リリースをやむなく無視しました。調査が必要です！"; \
                 GgafCore::GgafLogger::writeln(ss); \
+            } else { \
+                rc = (POINTER)->Release(); \
+                if (rc > 0) { \
+                    std::stringstream ss; \
+                    ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                          #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
+                    GgafCore::GgafLogger::writeln(ss); \
+                } \
             } \
             (POINTER) = NULL; \
         } else { \
@@ -224,8 +242,8 @@
     #define TRACE4(X)
     #define TRACE5(X)
     #define TEXT5(X)
-    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    //#define _TRACE_(X)
+    //#define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    #define _TRACE_(X)
     #define _TEXT_(X)
     #define _TRACEORE(X)
 

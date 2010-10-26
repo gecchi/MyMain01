@@ -30,7 +30,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
     _pSeTransmitter->set(1, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));     //”š”­
-    _veloTopMv = 20000;
+    _veloTopMv = 40000;
 
 }
 
@@ -104,7 +104,7 @@ void EnemyThalia::processBehavior() {
         } else {
             setProgress(THALIA_PROG_MOVE);
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
-            _pMover->execSmoothMvVeloSequence(_veloTopMv, 200, 1500000);
+            _pMover->execSmoothMvVeloSequence(_veloTopMv, 200, 4000000);
              _TRACE_("execSmoothMvVeloSequence START ("<<_X<<","<<_Y<<","<<_Z<<") –Ú•W‹——£=1500000 veloMv="<<(_pMover->_veloMv));
 
             _pMover->setFaceAngVelo(AXIS_X, 1000);

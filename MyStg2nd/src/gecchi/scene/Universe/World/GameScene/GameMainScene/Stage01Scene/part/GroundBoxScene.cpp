@@ -34,7 +34,7 @@ bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
 GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledSectionScene(prm_name,
                                                                    "scene1_wall.dat",
                                                                    800000, 200000,200000,
-                                                                   5000
+                                                                   5000, 10
                                                                    ) {
     for (int i = 0; i < 4000; i++) {
         GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox");
@@ -58,7 +58,7 @@ void GroundBoxScene::processBehavior() {
 
 
     if (getActivePartFrame() == 10) {
-    FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(21037100);
+    FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(9999999);
     getLordActor()->addSubGroup(pActor);
     }
 
