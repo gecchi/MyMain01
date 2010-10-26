@@ -10,7 +10,7 @@ namespace MyStg2nd {
  * @since 2010/08/18
  * @author Masatoshi Tsuge
  */
-class GroundBoxScene : public GgafDx9LibStg::WalledScene {
+class GroundBoxScene : public GgafDx9LibStg::WalledSectionScene {
 
     class GroundBoxActor : public GgafDx9LibStg::WallActor {
     public:

@@ -31,7 +31,7 @@ bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
 }
 
 
-GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
+GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledSectionScene(prm_name,
                                                                    "scene1_wall.dat",
                                                                    800000, 200000,200000,
                                                                    10000
@@ -46,7 +46,7 @@ GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledScene(prm_name,
 }
 
 void GroundBoxScene::processBehavior() {
-    WalledScene::processBehavior();
+    WalledSectionScene::processBehavior();
     if (_bound_alpha - (-(pMYSHIP->_fDist_VpPlnFront)) < 0) {
         enableFrontAlpha(pMYSHIP);
     } else {
@@ -70,6 +70,19 @@ void GroundBoxScene::processBehavior() {
 
     if (getActivePartFrame() == 1000) {
         pUNIVERSE->popCameraWork();
+    }
+
+    if (getActivePartFrame() == 1100) {
+        _ground_speed = 40000;
+    }
+
+    if (getActivePartFrame() == 1300) {
+        _ground_speed = 1000;
+    }
+
+
+    if (getActivePartFrame() == 1800) {
+        _ground_speed = 10000;
     }
 
 
