@@ -9,14 +9,14 @@ using namespace GgafDx9LibStg;
 //
 //bool CollisionCheckerLaserChip::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
 //    GgafDx9Core::GgafDx9GeometricActor* pOppActor = prm_pOppChecker->getTargetActor();
-//    if ((_pActor->_actor_class & Obj_LaserChip) && (pOppActor->_actor_class & Obj_WallActor)) {
+//    if ((_pActor->_obj_class & Obj_LaserChip) && (pOppActor->_obj_class & Obj_WallActor)) {
 //        LaserChip* pLaserChip = (LaserChip*)_pActor;
 //        if (pLaserChip->_chip_kind != 2 || pLaserChip->_can_chikei_hit) {
 //            return CollisionChecker::isHit(prm_pOppChecker);
 //        } else {
 //            return false;
 //        }
-//    } else if ((_pActor->_actor_class & Obj_WallActor) && (pOppActor->_actor_class & Obj_LaserChip)) {
+//    } else if ((_pActor->_obj_class & Obj_WallActor) && (pOppActor->_obj_class & Obj_LaserChip)) {
 //        LaserChip* pLaserChip = (LaserChip*)pOppActor;
 //        if (pLaserChip->_chip_kind != 2 || pLaserChip->_can_chikei_hit) {
 //            return CollisionChecker::isHit(prm_pOppChecker);

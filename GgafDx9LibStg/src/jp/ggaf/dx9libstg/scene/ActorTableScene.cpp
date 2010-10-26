@@ -11,9 +11,9 @@ ActorTableScene::ActorTableScene(const char* prm_name) : GgafDx9Scene(prm_name) 
 
 
 GgafGroupActor* ActorTableScene::addToTable(GgafMainActor* prm_pMainActor, frame prm_max_delay_offset) {
-    if (prm_pMainActor->_actor_class | Obj_GgafDx9FormationActor) {
+    if (prm_pMainActor->_obj_class | Obj_GgafDx9FormationActor) {
         //OK
-    } else if (prm_pMainActor->_actor_class | Obj_GgafDx9DrawableActor) {
+    } else if (prm_pMainActor->_obj_class | Obj_GgafDx9DrawableActor) {
         //OK
     } else {
         _TRACE_("ActorTableScene::processBehavior() GgafDx9FormationActor,Obj_GgafDx9DrawableActor ˆÈŠO‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚·B")
@@ -52,14 +52,14 @@ void ActorTableScene::processBehavior() {
         GgafMainActor* pActiveActor = e->_pActor;
         //‘S–Å”»’è
         bool was_destroyed = false;
-        if (pActiveActor->_actor_class | Obj_GgafDx9FormationActor) {
+        if (pActiveActor->_obj_class | Obj_GgafDx9FormationActor) {
             GgafDx9FormationActor* pF = (GgafDx9FormationActor*)pActiveActor;
             if (pF->_num_sub == 0) {
                 was_destroyed = true;
             } else {
                 was_destroyed = false;
             }
-        } else if (pActiveActor->_actor_class | Obj_GgafDx9DrawableActor) {
+        } else if (pActiveActor->_obj_class | Obj_GgafDx9DrawableActor) {
             if (pActiveActor->isDisappear()) {
                 was_destroyed = true;
             } else {

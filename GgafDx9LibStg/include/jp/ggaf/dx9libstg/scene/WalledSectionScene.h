@@ -60,7 +60,8 @@ public:
     GgafCore::GgafActorDispatcher* _pDispatcher_Wall;
     /** [r]手前ブロックの透過機能有効時の基準となるアクター */
     GgafDx9Core::GgafDx9GeometricActor* _pTarget_FrontAlpha;
-
+    /** [r/w]毎フレームprocessSettlementBehavior()で、配下アクター全てに実行される関数。*/
+    void (*_pFuncWallMove)(GgafCore::GgafObject*, void*, void*);
 
     WallActor* _pWallLast;
 
@@ -95,6 +96,10 @@ public:
      */
     virtual void onActive() override;
 
+    /**
+     * 配下アクター全てに_pFuncWallMove を実行。
+     * オーバーライドする場合、DefaultScene::processSettlementBehavior(); を呼び出すことを忘れずに。
+     */
     virtual void processSettlementBehavior() override;
 
 
@@ -115,8 +120,14 @@ public:
         _pTarget_FrontAlpha = prm_pTarget_FrontAlpha;
     }
 
-
-    static void moveX(void* pThis, void* p1, void* p2);
+    /**
+     * _pFuncWallMove にデフォルトで設定されている関数 .
+     * アクターをX軸の負の方向に_ground_speedスクロールさせる
+     * @param pThat アクターのポインタ
+     * @param p1 _ground_speedのポインタ
+     * @param p2 NULL（未使用）
+     */
+    static void moveX(GgafCore::GgafObject* pThat, void* p1, void* p2);
 
     virtual ~WalledSectionScene();
 };

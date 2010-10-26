@@ -17,6 +17,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name,
     _ground_speed = prm_ground_speed;
     _loop_num = prm_loop_num;
     _cnt_loop = 0;
+    _pFuncWallMove = WalledSectionScene::moveX;
     string data_filename = STG_PROPERTY(DIR_SCENE_DATA) + string(prm_data_filename);
     ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
@@ -78,10 +79,13 @@ void WalledSectionScene::onActive() {
     _wall_start_X = GgafDx9Universe::_X_goneRight;
 }
 
-void WalledSectionScene::moveX(void* pThis, void* p1, void* p2) {
-    GgafActor* pActor = (GgafActor*)pThis;
+void WalledSectionScene::moveX(GgafObject* pThat, void* p1, void* p2) {
+    if (pThat->_obj_class >= Obj_GgafScene) {
+        return; //ƒV[ƒ“‚È‚ç‚Î–³Ž‹
+    }
+    GgafActor* pActor = (GgafActor*)pThat;
     if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {
-        if (pActor->_actor_class & Obj_GgafDx9GeometricActor) {
+        if (pActor->_obj_class & Obj_GgafDx9GeometricActor) {
             ((GgafDx9GeometricActor*)pActor)->_X -= (*((int*)p1));
         }
     }
@@ -89,7 +93,7 @@ void WalledSectionScene::moveX(void* pThis, void* p1, void* p2) {
 
 void WalledSectionScene::processSettlementBehavior() {
     DefaultScene::processSettlementBehavior();
-    getLordActor()->execDownFunction(WalledSectionScene::moveX, &_ground_speed, NULL);
+    getLordActor()->execDownFunction(_pFuncWallMove, &_ground_speed, NULL);
 
 }
 

@@ -11,7 +11,7 @@ WallActor::WallActor(const char* prm_name, const char* prm_model) :
                          "WallTechnique",
                          NEW CollisionChecker(this) ) {
     _class_name = "WallActor";
-    _actor_class |= Obj_WallActor;
+    _obj_class |= Obj_WallActor;
     _pMeshSetModel->_set_num = 20; //WallActor最大セット数は16。
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pCollisionChecker->makeCollision(1);
@@ -26,7 +26,7 @@ WallActor::WallActor(const char* prm_name, const char* prm_model) :
 }
 
 void WallActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
-    if (prm_pOtherActor->_actor_class & Obj_LaserChip) {
+    if (prm_pOtherActor->_obj_class & Obj_LaserChip) {
         LaserChip* pLaserChip = (LaserChip*)prm_pOtherActor;
         if (pLaserChip->_chip_kind != 2 || pLaserChip->_can_chikei_hit) {
             GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);

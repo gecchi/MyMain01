@@ -19,7 +19,7 @@ LaserChipDispatcher* LaserChipDispatcherDispatcher::employ() {
 #endif
         GgafMainActor* p = GgafActorDispatcher::employ();
 #ifdef MY_DEBUG
-        if (p->_actor_class & Obj_GgafActorDispatcher) {
+        if (p->_obj_class & Obj_GgafActorDispatcher) {
             //OK
         } else {
             throwGgafCriticalException("LaserChipDispatcherDispatcher::employ() DispatcherÇ≈ÇÕÇ†ÇËÇ‹ÇπÇÒÅB");
