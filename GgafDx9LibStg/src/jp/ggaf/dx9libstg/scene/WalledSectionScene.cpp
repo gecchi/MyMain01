@@ -12,7 +12,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     _wall_dep = 0;
     _wall_width = 0;
     _wall_height = 0;
-    ground_speed = 0;
+    _ground_speed = 0;
     _loop_num = 1;
     _cnt_loop = 0;
     _pFuncWallMove = WalledSectionScene::moveX;
@@ -66,11 +66,12 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
 void WalledSectionScene::config(
         GgafActorDispatcher* prm_pDispatcher_Wall,
         int prm_wall_dep, int prm_wall_width, int prm_wall_height,
-        int prm_loop_num) {
+        int prm_ground_speed, int prm_loop_num) {
     _pDispatcher_Wall = prm_pDispatcher_Wall;
     _wall_dep = prm_wall_dep;
     _wall_width = prm_wall_width;
     _wall_height = prm_wall_height;
+    _ground_speed = prm_ground_speed;
     _loop_num = prm_loop_num;
 }
 
@@ -81,15 +82,31 @@ void WalledSectionScene::initialize() {
 }
 
 void WalledSectionScene::onActive() {
-    _frame_of_launch_interval = (frame)(_wall_dep /ground_speed);
+    _frame_of_launch_interval = (frame)(_wall_dep /_ground_speed);
     _cnt_area_len = 0;
     _cnt_loop = 0;
     _wall_start_X = 0;//GgafDx9Universe::_X_goneRight;
 }
-
+//
+//void WalledSectionScene::moveX(GgafObject* pThat, void* p1, void* p2) {
+//    if (pThat->_obj_class >= Obj_GgafScene) {
+//        return; //ƒV[ƒ“‚È‚ç‚Î–³Ž‹
+//    }
+//    GgafActor* pActor = (GgafActor*)pThat;
+//    if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {
+//        if (pActor->_obj_class & Obj_GgafDx9GeometricActor) {
+//            ((GgafDx9GeometricActor*)pActor)->_X -= (*((int*)p1));
+//        }
+//    }
+//}
+//
+//void WalledSectionScene::processSettlementBehavior() {
+//    DefaultScene::processSettlementBehavior();
+//    getLordActor()->execDownFunction(_pFuncWallMove, &_ground_speed, NULL);
+//
+//}
 
 void WalledSectionScene::processBehavior() {
-    int ground_speed =
     if (_cnt_loop < _loop_num) {
         if (_cnt_area_len >= _area_len) {
             _cnt_area_len = 0;
@@ -97,7 +114,7 @@ void WalledSectionScene::processBehavior() {
         }
         if (getActivePartFrame() % _frame_of_launch_interval == 0) {
             if (_pWallLast) {
-                _wall_start_X = _pWallLast->_X + _wall_dep - ground_speed;
+                _wall_start_X = _pWallLast->_X + _wall_dep - _ground_speed;
             }
             for (int n = 0; n < _paWallInfoLen[_cnt_area_len]; n++) {
                 WallActor* pWall = (WallActor*)_pDispatcher_Wall->employ();
@@ -111,7 +128,7 @@ void WalledSectionScene::processBehavior() {
                     _pWallLast = pWall;
                 }
             }
-            _frame_of_launch_interval = (frame)(_wall_dep /ground_speed);
+            _frame_of_launch_interval = (frame)(_wall_dep /_ground_speed);
             _cnt_area_len++;
         }
     } else {
