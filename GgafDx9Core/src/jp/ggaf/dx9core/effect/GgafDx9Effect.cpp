@@ -15,6 +15,7 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 #else
     DWORD dwFlags = D3DXSHADER_SKIPVALIDATION;
 #endif
+
     string effect_file_name = GGAFDX9_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
     HRESULT hr = D3DXCreateEffectFromFile(
                      GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
@@ -29,15 +30,13 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
     if (hr != D3D_OK && pError == NULL) {
         throwGgafCriticalException("GgafDx9Effect::GgafDx9Effect "<<effect_file_name<<" が存在しないのではないだろうか・・・");
     }
-    const char* err = pError->GetBufferPointer();
-    checkDxException(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<effect_file_name<<"]\n"<<err);
+    checkDxException(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<effect_file_name<<"]\n"<<((char*)pError->GetBufferPointer()));
     TRACE3(" GgafDx9Effect::GgafDx9Effect "<<prm_effect_name<<" のエフェクトを生成しました。");
     _h_alpha_master = _pID3DXEffect->GetParameterByName( NULL, "g_alpha_master" ); //マスターα
 }
 
 GgafDx9Effect::~GgafDx9Effect() {
-    TRACE3("GgafDx9Effect::~GgafDx9Effect() " << _effect_name << " start-->");
-    DELETEARR_IMPOSSIBLE_NULL(_effect_name);
     RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);
+    DELETEARR_IMPOSSIBLE_NULL(_effect_name);
 }
 
