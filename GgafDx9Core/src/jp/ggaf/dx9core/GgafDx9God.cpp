@@ -257,7 +257,6 @@ HRESULT GgafDx9God::init() {
     GgafDx9Util::init(); //ユーティリティ準備
     GgafDx9Input::init(); //DirectInput準備
     GgafDx9Sound::init(); //DirectSound準備
-    RELEASE_IMPOSSIBLE_NULL(_pID3D9);
     return initDx9Device();
 
 }
@@ -592,15 +591,15 @@ void GgafDx9God::clean() {
 GgafDx9God::~GgafDx9God() {
     clean();
     _was_cleaned = true;
-    Sleep(10);
+
     //DirectSound解放
     GgafDx9Sound::release();
     //DirectInput解放
     GgafDx9Input::release();
-    _TRACE_("_pID3DDevice9 解放はWindowsに任せる事にする。");
-
-//    RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9); //本来はこれが必要
-
+    _TRACE_("_pID3DDevice9 解放きたー");
+    Sleep(180);
+    RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9); //本来はこれが必要
+    RELEASE_IMPOSSIBLE_NULL(_pID3D9);
 //    デバイス(_pID3DDevice9)の解放はWindowsに任せる事にする。
 //    理由：フルスクリーンで終了時、極まれにブルースクリーンになる。
 //    かなりの時間を使って調査したが結局原因不明。

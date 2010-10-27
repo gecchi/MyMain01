@@ -232,6 +232,6 @@ void GgafDx9D3DXAniMeshModel::release() {
 }
 
 GgafDx9D3DXAniMeshModel::~GgafDx9D3DXAniMeshModel() {
-    TRACE3("GgafDx9D3DXAniMeshModel::~GgafDx9D3DXAniMeshModel() " << _model_name << " start");
-    release();
+    //release();
+    //‚ÍGgafDx9ModelConnection::processReleaseResource(GgafDx9Model* prm_pResource) ‚ÅŒÄ‚Ño‚³‚ê‚é
 }

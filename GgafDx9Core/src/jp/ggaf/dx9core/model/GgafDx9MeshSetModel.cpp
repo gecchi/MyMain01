@@ -183,7 +183,7 @@ void GgafDx9MeshSetModel::release() {
 
 }
 GgafDx9MeshSetModel::~GgafDx9MeshSetModel() {
-    TRACE3("GgafDx9MeshSetModel::~GgafDx9MeshSetModel() " << _model_name << " start");
-    release();
+    //release();
+    //‚ÍGgafDx9ModelConnection::processReleaseResource(GgafDx9Model* prm_pResource) ‚ÅŒÄ‚Ño‚³‚ê‚é
 }
 

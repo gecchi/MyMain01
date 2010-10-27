@@ -103,7 +103,7 @@ public:
 
     virtual void onDeviceLost() override;
 
-    virtual void release() override;
+    void release() override;
 
     void changeVertexAlpha(int prm_vertex_alpha);
 

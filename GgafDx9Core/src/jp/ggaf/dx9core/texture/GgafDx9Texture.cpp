@@ -27,7 +27,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                      0,                         // [in] D3DCOLOR ColorKey,
                      _pD3DXIMAGE_INFO,                      // [in] D3DXIMAGE_INFO *pSrcInfo,
                      NULL,                      // [in] PALETTEENTRY *pPalette,
-                     &_pIDirect3DTexture9    // [out] GgafDx9TextureConnection* *ppTextureCon
+                     &_pIDirect3DTexture9       // [out] LPDIRECT3DTEXTURE9* ppTexture
                 );
     if (hr != D3D_OK) {
         _TRACE_("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileExé∏îsÅBëŒè€="<<prm_texture_name);

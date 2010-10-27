@@ -47,7 +47,7 @@ public:
 
     virtual void onDeviceLost() override;
 
-    virtual void release() override;
+    void release() override;
 
     /**
      * デストラクタ<BR>

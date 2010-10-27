@@ -8,6 +8,7 @@ GgafDx9ModelConnection::GgafDx9ModelConnection(char* prm_idstr, GgafDx9Model* pr
 }
 
 void GgafDx9ModelConnection::processReleaseResource(GgafDx9Model* prm_pResource) {
+    prm_pResource->release(); //èdóv
     DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }
 

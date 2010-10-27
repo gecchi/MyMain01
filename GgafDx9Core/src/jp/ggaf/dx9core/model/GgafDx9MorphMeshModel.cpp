@@ -197,7 +197,7 @@ void GgafDx9MorphMeshModel::release() {
 
 }
 GgafDx9MorphMeshModel::~GgafDx9MorphMeshModel() {
-    TRACE3("GgafDx9MorphMeshModel::~GgafDx9MorphMeshModel() " << _model_name << " start");
-    release();
+    //release();
+    //‚ÍGgafDx9ModelConnection::processReleaseResource(GgafDx9Model* prm_pResource) ‚ÅŒÄ‚Ño‚³‚ê‚é
 }
 

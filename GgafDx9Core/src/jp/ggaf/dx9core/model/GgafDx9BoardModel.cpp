@@ -121,6 +121,6 @@ void GgafDx9BoardModel::onDeviceLost() {
 }
 
 GgafDx9BoardModel::~GgafDx9BoardModel() {
-    TRACE3("GgafDx9BoardModel::~GgafDx9BoardModel() " << _model_name << " start");
-    release();
+    //release();
+    //‚ÍGgafDx9ModelConnection::processReleaseResource(GgafDx9Model* prm_pResource) ‚ÅŒÄ‚Ño‚³‚ê‚é
 }

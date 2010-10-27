@@ -29,9 +29,9 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
     if (hr != D3D_OK && pError == NULL) {
         throwGgafCriticalException("GgafDx9Effect::GgafDx9Effect "<<effect_file_name<<" が存在しないのではないだろうか・・・");
     }
-    checkDxException(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
+    const char* err = pError->GetBufferPointer();
+    checkDxException(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<effect_file_name<<"]\n"<<err);
     TRACE3(" GgafDx9Effect::GgafDx9Effect "<<prm_effect_name<<" のエフェクトを生成しました。");
-
     _h_alpha_master = _pID3DXEffect->GetParameterByName( NULL, "g_alpha_master" ); //マスターα
 }
 

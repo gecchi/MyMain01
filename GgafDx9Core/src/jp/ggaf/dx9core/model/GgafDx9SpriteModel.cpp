@@ -118,7 +118,7 @@ void GgafDx9SpriteModel::release() {
 }
 
 GgafDx9SpriteModel::~GgafDx9SpriteModel() {
-    TRACE3("GgafDx9SpriteModel::~GgafDx9SpriteModel() " << _model_name << " start");
-    release();
+    //release();
+    //‚ÍGgafDx9ModelConnection::processReleaseResource(GgafDx9Model* prm_pResource) ‚ÅŒÄ‚Ño‚³‚ê‚é
 }
 

@@ -136,7 +136,7 @@ void GgafDx9BoardSetModel::release() {
 }
 
 GgafDx9BoardSetModel::~GgafDx9BoardSetModel() {
-    TRACE3("GgafDx9BoardSetModel::~GgafDx9BoardSetModel() " << _model_name << " start");
-    release();
+    //release();
+    //‚ÍGgafDx9ModelConnection::processReleaseResource(GgafDx9Model* prm_pResource) ‚ÅŒÄ‚Ño‚³‚ê‚é
 }
 
