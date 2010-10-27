@@ -18,7 +18,7 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     for (int i = 0; i < 2; i++) {
         _paFrame_NextEvent[i] = f[i];
     }
-    orderSceneToFactory(110173, GroundBoxScene, "GroundBoxScene");
+    orderSceneToFactory(110173, WalledScene, "WalledScene");
     // gen01 end
 }
 
@@ -38,7 +38,7 @@ void Stage01Controller::processBehavior() {
                 break;
             case 3:
                 {
-                GroundBoxScene* pScene = (GroundBoxScene*)obtainSceneFromFactory(110173);
+                    WalledScene* pScene = (WalledScene*)obtainSceneFromFactory(110173);
                 addSubLast(pScene);
                 }
                 break;

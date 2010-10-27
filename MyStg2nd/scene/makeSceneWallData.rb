@@ -121,6 +121,13 @@ box = box.sort{|e1, e2|  (e1.X <=> e2.X).nonzero? or   #X昇順
                           e1.Z <=> e2.Z                #Z昇順
                          }
 
+#X=0合わせ
+offsetX = box[0].X - ($box_dep/2);
+for idx in 0..box_index-1
+  box[idx].X -= offsetX;
+end
+
+
 #オブジェクト構築
 $area_len = ((box[box_index-1].X - ($box_dep/2))/$box_dep)+1
 $area_height = ARGV[1].to_i

@@ -5,9 +5,9 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+////////////////////////////////////////////////////////////////////////////
 
-
-GroundBoxScene::GroundBoxActor::GroundBoxActor(const char* prm_name) :
+GroundBoxActor::GroundBoxActor(const char* prm_name) :
     WallActor(prm_name, "g_box001") {
     _class_name = "GroundBoxActor";
     MyStgUtil::resetGroundBoxActorStatus(_pStatus);
@@ -15,7 +15,7 @@ GroundBoxScene::GroundBoxActor::GroundBoxActor(const char* prm_name) :
     setBoundingSphereRadiusRate(2.0);
 }
 
-void GroundBoxScene::GroundBoxActor::onCreateModel() {
+void GroundBoxActor::onCreateModel() {
     _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.2, 3.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
     _pGgafDx9Model->_pTextureBlinker->beat(60*20, 60*9, 60*3, -1);
@@ -23,7 +23,7 @@ void GroundBoxScene::GroundBoxActor::onCreateModel() {
 }
 
 
-bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
+bool GroundBoxActor::isOutOfUniverse() {
     if (GgafDx9Universe::_X_goneLeft < _X) {
         return false;
     }
@@ -31,17 +31,21 @@ bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
 }
 
 
+///////////////////////////////////////////////////////////////////////////
+
+
 GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledSectionScene(prm_name,
-                                                                   "scene1_wall.dat",
-                                                                   800000, 200000,200000,
-                                                                   5000, 10
-                                                                   ) {
-    for (int i = 0; i < 4000; i++) {
-        GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox");
-        pGroundBoxActor->inactivateTreeImmediately();
-        _pDispatcher_Wall->addSubLast(pGroundBoxActor);
-    }
-    getLordActor()->addSubGroup(_pDispatcher_Wall);
+                                                                   "scene2_wall.dat") {
+    _class_name = "GroundBoxScene";
+    //    for (int i = 0; i < 4000; i++) {
+//        GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox");
+//        pGroundBoxActor->inactivateTreeImmediately();
+//        _pDispatcher_Wall->addSubLast(pGroundBoxActor);
+//    }
+//    getLordActor()->addSubGroup(_pDispatcher_Wall);
+//    config( NULL,
+//    800000, 200000,200000,
+//    5000, 10);
     _bound_alpha = -pCAM->_cameraZ_org*0.7; //îwñ éûÉJÉÅÉâÇÕ_cameraZ_org*0.6Ç…óRóàÇµÇƒÇ¢ÇÈ
 
     orderActorToFactory(9999999, FormationThalia, "FormationThalia_1");

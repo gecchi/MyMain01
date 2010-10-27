@@ -3,6 +3,13 @@
 
 
 namespace MyStg2nd {
+class GroundBoxActor : public GgafDx9LibStg::WallActor {
+public:
+    GroundBoxActor(const char* prm_name);
+    void onCreateModel() override;
+    bool isOutOfUniverse() override;
+    virtual ~GroundBoxActor() {}
+};
 
 /**
  * GROUNDBOX .
@@ -12,13 +19,7 @@ namespace MyStg2nd {
  */
 class GroundBoxScene : public GgafDx9LibStg::WalledSectionScene {
 
-    class GroundBoxActor : public GgafDx9LibStg::WallActor {
-    public:
-        GroundBoxActor(const char* prm_name);
-        void onCreateModel() override;
-        bool isOutOfUniverse() override;
-        virtual ~GroundBoxActor() {}
-    };
+
 
 public:
 
