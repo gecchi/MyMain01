@@ -82,19 +82,6 @@ void GroundBoxScene::processBehavior() {
         pUNIVERSE->popCameraWork();
     }
 
-    if (getActivePartFrame() == 1100) {
-        _ground_speed = 20000;
-    }
-
-    if (getActivePartFrame() == 1300) {
-        _ground_speed = 500;
-    }
-
-
-    if (getActivePartFrame() == 1800) {
-        _ground_speed = 5000;
-    }
-
 
 }
 

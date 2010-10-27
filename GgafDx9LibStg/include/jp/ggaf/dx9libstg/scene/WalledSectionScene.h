@@ -42,8 +42,6 @@ public:
     int _wall_width;
     /** [r]外壁表示X座標位置 */
     int _wall_start_X;
-    /** [r]外壁移動スピード(値は正、但し移動方向はX軸負の方向) */
-    int _ground_speed;
     /** [r]繰り返し回数 */
     int _loop_num;
     /** [r]繰り返しカウンタ */
@@ -102,12 +100,6 @@ public:
      */
     virtual void onActive() override;
 
-    /**
-     * 配下アクター全てに_pFuncWallMove を実行。
-     * オーバーライドする場合、DefaultScene::processSettlementBehavior(); を呼び出すことを忘れずに。
-     */
-    virtual void processSettlementBehavior() override;
-
 
     /**
      * 外壁を出現させ、移動させる.
@@ -126,14 +118,6 @@ public:
         _pTarget_FrontAlpha = prm_pTarget_FrontAlpha;
     }
 
-    /**
-     * _pFuncWallMove にデフォルトで設定されている関数 .
-     * アクターをX軸の負の方向に_ground_speedスクロールさせる
-     * @param pThat アクターのポインタ
-     * @param p1 _ground_speedのポインタ
-     * @param p2 NULL（未使用）
-     */
-    static void moveX(GgafCore::GgafObject* pThat, void* p1, void* p2);
 
     virtual ~WalledSectionScene();
 };
