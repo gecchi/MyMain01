@@ -5,17 +5,15 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 
-WalledSectionScene::WalledSectionScene(const char* prm_name,
-                            const char* prm_data_filename,
-                            int prm_wall_dep, int prm_wall_width, int prm_wall_height,
-                            int prm_ground_speed, int prm_loop_num) : DefaultScene(prm_name) {
+WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_data_filename) : DefaultScene(prm_name) {
 //ruby tool/script/make_stage_data.rb > scene/stage_data.txt
+    _class_name = "WalledSectionScene";
     _pTarget_FrontAlpha = NULL;
-    _wall_dep = prm_wall_dep;
-    _wall_width = prm_wall_width;
-    _wall_height = prm_wall_height;
-    _ground_speed = prm_ground_speed;
-    _loop_num = prm_loop_num;
+    _wall_dep = 0;
+    _wall_width = 0;
+    _wall_height = 0;
+    _ground_speed = 0;
+    _loop_num = 1;
     _cnt_loop = 0;
     _pFuncWallMove = WalledSectionScene::moveX;
     string data_filename = STG_PROPERTY(DIR_SCENE_DATA) + string(prm_data_filename);
@@ -63,12 +61,23 @@ WalledSectionScene::WalledSectionScene(const char* prm_name,
     ifs.close();
     _pWallLast = NULL;;
     _wall_start_X = 0;
-    _pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
+    _pDispatcher_Wall = NULL;
+}
+void WalledSectionScene::config(
+        GgafActorDispatcher* prm_pDispatcher_Wall,
+        int prm_wall_dep, int prm_wall_width, int prm_wall_height,
+        int prm_ground_speed, int prm_loop_num) {
+    _pDispatcher_Wall = prm_pDispatcher_Wall;
+    _wall_dep = prm_wall_dep;
+    _wall_width = prm_wall_width;
+    _wall_height = prm_wall_height;
+    _ground_speed = prm_ground_speed;
+    _loop_num = prm_loop_num;
 }
 
 void WalledSectionScene::initialize() {
-    if (_pDispatcher_Wall->getSubFirst() == NULL) {
-        throwGgafCriticalException("WalledSectionScene::initialize()   WallActor実装クラスのコンストラクタで _pDispatcher_Wallに壁オブジェクトをセットして下さい。")
+    if (_pDispatcher_Wall == NULL) {
+        throwGgafCriticalException("WalledSectionScene::initialize()   GgafActorDispatcher* _pDispatcher_Wall をセットして下さい。")
     }
 }
 
@@ -76,7 +85,7 @@ void WalledSectionScene::onActive() {
     _frame_of_launch_interval = (frame)(_wall_dep /_ground_speed);
     _cnt_area_len = 0;
     _cnt_loop = 0;
-    _wall_start_X = GgafDx9Universe::_X_goneRight;
+    _wall_start_X = 0;//GgafDx9Universe::_X_goneRight;
 }
 
 void WalledSectionScene::moveX(GgafObject* pThat, void* p1, void* p2) {
@@ -122,6 +131,9 @@ void WalledSectionScene::processBehavior() {
             _frame_of_launch_interval = (frame)(_wall_dep /_ground_speed);
             _cnt_area_len++;
         }
+    } else {
+        //終了
+        //
     }
 }
 

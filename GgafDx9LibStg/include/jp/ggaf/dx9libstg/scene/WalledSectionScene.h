@@ -1,5 +1,5 @@
-#ifndef WALLEDSCENE_H_
-#define WALLEDSCENE_H_
+#ifndef WALLEDSECTIONSCENE_H_
+#define WALLEDSECTIONSCENE_H_
 
 #define FULL_VAL (-2)
 #define KARA_VAL (-2)
@@ -69,21 +69,27 @@ public:
     /**
      * コンストラクタ .
      * 壁ブロック情報ファイルを読み込み、オブジェクトに展開します。
-     * 【使用上注意】
-     * コンストラクタ実行後、initialize() までの間に、壁ブロック(WallActor)ディスパッチャー(_pDispatcher_Wall)に
-     * お好きな壁ブロック（WallActor実装クラスのオブジェクト）を登録し下さい。
      * @param prm_name シーン名
      * @param prm_data_filename 壁ブロック情報ファイル
+     * @return
+     */
+    WalledSectionScene(const char* prm_name, const char* prm_data_filename);
+
+
+
+    /**
+     * 外壁シーンを設定.
+     * new した後、initialize() が実行されるまでに config して下さい。
+     * @param prm_pDispatcher_Wall 壁ブロック（WallActor実装クラスのオブジェクト）が登録されているディスパッチャー
      * @param prm_wall_dep 壁ブロックの長さ（１つのWallActorオブジェクトのX座標軸長さ）
      * @param prm_wall_width 壁ブロックの高さ（１つのWallActorオブジェクトのY座標軸長さ）
      * @param prm_wall_height 壁ブロックの高さ（１つのWallActorオブジェクトのZ座標軸長さ）
      * @param prm_ground_speed 外壁移動スピード(値は正、但し移動方向はX軸負の方向)
-     * @return
      */
-    WalledSectionScene(const char* prm_name,
-                const char* prm_data_filename,
-                int prm_wall_dep, int prm_wall_width, int prm_wall_height,
-                int prm_ground_speed, int prm_loop_num = 1);
+    virtual void config(
+            GgafCore::GgafActorDispatcher* prm_pDispatcher_Wall,
+            int prm_wall_dep, int prm_wall_width, int prm_wall_height,
+            int prm_ground_speed, int prm_loop_num = 1);
     /**
      * 初期処理 .
      * ディスパッチャー(_pDispatcher_Wall)のチェックを行っているのみ .
@@ -133,4 +139,4 @@ public:
 };
 
 }
-#endif /*WALLEDSCENE_H_*/
+#endif /*WALLEDSECTIONSCENE_H_*/
