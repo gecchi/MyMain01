@@ -6,6 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 GameEndingScene::GameEndingScene(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "GameEndingScene";
 }
 
 void GameEndingScene::reset() {

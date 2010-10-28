@@ -6,6 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 Stage02Scene::Stage02Scene(const char* prm_name) : StageScene(prm_name) {
+    _class_name = "Stage02Scene";
+
     _pScene_Stage02Controller = NEW Stage02Controller("Stage02Ctrl");
     _pScene_Stage02Controller->inactivate();
     addSubLast(_pScene_Stage02Controller);

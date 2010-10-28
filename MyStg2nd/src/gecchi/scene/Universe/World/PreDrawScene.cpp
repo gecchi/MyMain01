@@ -6,6 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "PreDrawScene";
+
 //    orderActorToFactory(10, LaserChipEffectActor, "LaserChipEffectActor");
 }
 

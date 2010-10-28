@@ -25,7 +25,7 @@ public:
 
     float _bound_alpha;
 
-    GroundBoxScene(const char* prm_name);
+    GroundBoxScene(const char* prm_name,  GgafDx9LibStg::ScrolledScene* prm_pScrolledScene);
 
     void processBehavior() override;
 

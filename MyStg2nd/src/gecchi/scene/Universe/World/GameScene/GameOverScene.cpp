@@ -6,6 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "GameOverScene";
 }
 
 void GameOverScene::reset() {

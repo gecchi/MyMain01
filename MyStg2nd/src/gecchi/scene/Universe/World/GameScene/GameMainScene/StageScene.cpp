@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 bool StageScene::_pause = false;
 
 StageScene::StageScene(const char* prm_name) : DefaultScene(prm_name) {
-
+    _class_name = "StageScene";
 }
 
 void StageScene::initialize() {

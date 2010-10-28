@@ -6,6 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 Stage02Controller::Stage02Controller(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "Stage02Controller";
+
     _pBgmPerformer->useBgm(3);
     _pBgmPerformer->set(0, "BGM_01_01");
     _pBgmPerformer->set(1, "BGM_01_02");

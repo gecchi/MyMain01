@@ -6,6 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "TamagoScene";
+
     //orderActorToFactory(100000001, HoshiBoshi001, "HoshiBoshi001");
 //    orderActorToFactory(100000002, EnemyTamago01, "gyoku2");
 //    orderActorToFactory(100000003, EnemyTamago01, "gyoku3");

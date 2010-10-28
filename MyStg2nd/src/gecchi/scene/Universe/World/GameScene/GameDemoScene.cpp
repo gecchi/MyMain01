@@ -6,6 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "GameDemoScene";
+
     setProgress(GAMEDEMO_PROG_INIT);
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);

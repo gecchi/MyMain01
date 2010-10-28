@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 Stage02_Climax::Stage02_Climax(const char* prm_name) : DefaultScene(prm_name) {
-
+    _class_name = "Stage02_Climax";
     orderActorToFactory(11111111, EnemyAstraea, "STG1BOSS");
     // gen01 end
     _waiting = false;

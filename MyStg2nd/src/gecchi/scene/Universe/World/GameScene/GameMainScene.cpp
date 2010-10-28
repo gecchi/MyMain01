@@ -10,6 +10,8 @@ using namespace MyStg2nd;
 GameMainScene* GameMainScene::_pGameMainScene = NULL;
 
 GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "GameMainScene";
+
     _pFont16_SCORE = NEW LabelGecchi16Font("SCORE");
     getLordActor()->addSubGroup(KIND_EFFECT, _pFont16_SCORE);
     _pFont16_RANK = NEW LabelGecchi16Font("RANK");

@@ -124,7 +124,7 @@ void EnemyTamago01::processBehavior() {
         if (_pDispatcher_Shot) {
             //•úŽËóƒVƒ‡ƒbƒg”­ŽË
             int way = 8;
-            angle* paAngWay = new angle[way];
+            angle* paAngWay = NEW angle[way];
             angle target_RzRy_Rz, target_RzRy_Ry;
             GgafDx9Util::getRzRyAng(pMYSHIP->_X - _X, pMYSHIP->_Y - _Y, pMYSHIP->_Z - _Z, target_RzRy_Rz, target_RzRy_Ry);
             angle target_RyRz_Ry, target_RyRz_Rz;

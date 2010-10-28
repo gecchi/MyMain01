@@ -65,7 +65,7 @@ void EnemyIris::processBehavior() {
             if (_pDispatcher_Shot) {
                 //放射状ショット
                 int way = 10+_RANK_*10; //ショットWAY数
-                angle* paAngWay = new angle[way];
+                angle* paAngWay = NEW angle[way];
                 GgafDx9Util::getRadialAngle2D(0, way, paAngWay);
                 GgafDx9DrawableActor* pActor_Shot;
                 for (int i = 0; i < way; i++) {

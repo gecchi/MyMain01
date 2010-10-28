@@ -6,6 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 World::World(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "World";
     _TRACE_("World::World");
     _is_create_GameScene = false;
     _pFont16_Debug = NULL;

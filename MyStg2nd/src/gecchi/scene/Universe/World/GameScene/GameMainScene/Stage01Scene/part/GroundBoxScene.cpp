@@ -34,8 +34,8 @@ bool GroundBoxActor::isOutOfUniverse() {
 ///////////////////////////////////////////////////////////////////////////
 
 
-GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledSectionScene(prm_name,
-                                                                   "scene2_wall.dat") {
+GroundBoxScene::GroundBoxScene(const char* prm_name, ScrolledScene* prm_pScrolledScene)
+     : WalledSectionScene(prm_name,"scene2_wall.dat", prm_pScrolledScene) {
     _class_name = "GroundBoxScene";
     //    for (int i = 0; i < 4000; i++) {
 //        GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox");
@@ -48,7 +48,7 @@ GroundBoxScene::GroundBoxScene(const char* prm_name) : WalledSectionScene(prm_na
 //    5000, 10);
     _bound_alpha = -pCAM->_cameraZ_org*0.7; //”w–ÊŽžƒJƒƒ‰‚Í_cameraZ_org*0.6‚É—R—ˆ‚µ‚Ä‚¢‚é
 
-    orderActorToFactory(9999999, FormationThalia, "FormationThalia_1");
+    //orderActorToFactory(9999999+_id, FormationThalia, "FormationThalia_1");
 
 }
 
@@ -61,27 +61,18 @@ void GroundBoxScene::processBehavior() {
     }
 
 
-    if (getActivePartFrame() == 10) {
-    FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(9999999);
-    getLordActor()->addSubGroup(pActor);
-    }
+//    if (getActivePartFrame() == 10) {
+//    FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(9999999+_id);
+//    getLordActor()->addSubGroup(pActor);
+//    }
 
     if (getActivePartFrame() == 300) {
         pUNIVERSE->pushCameraWork("TestCamWorker");
     }
 
-    if (getActivePartFrame() == 500) {
+    if (getActivePartFrame() == 1200) {
         pUNIVERSE->popCameraWork();
     }
-
-    if (getActivePartFrame() == 700) {
-        pUNIVERSE->pushCameraWork("TestCamWorker");
-    }
-
-    if (getActivePartFrame() == 1000) {
-        pUNIVERSE->popCameraWork();
-    }
-
 
 }
 

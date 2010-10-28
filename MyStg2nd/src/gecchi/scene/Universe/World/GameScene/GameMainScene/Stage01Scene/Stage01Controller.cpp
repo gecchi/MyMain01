@@ -6,6 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "Stage01Controller";
+
     _pBgmPerformer->useBgm(3);
     _pBgmPerformer->set(0, "BGM_01_01");
     _pBgmPerformer->set(1, "BGM_01_02");
@@ -18,7 +20,7 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     for (int i = 0; i < 2; i++) {
         _paFrame_NextEvent[i] = f[i];
     }
-    orderSceneToFactory(110173, WalledScene, "WalledScene");
+    orderSceneToFactory(110173, Stage01WalledScene, "Stage01WalledScene");
     // gen01 end
 }
 
@@ -38,7 +40,7 @@ void Stage01Controller::processBehavior() {
                 break;
             case 3:
                 {
-                    WalledScene* pScene = (WalledScene*)obtainSceneFromFactory(110173);
+                    Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(110173);
                 addSubLast(pScene);
                 }
                 break;

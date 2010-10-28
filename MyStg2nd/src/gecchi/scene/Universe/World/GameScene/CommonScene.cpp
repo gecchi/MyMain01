@@ -7,6 +7,7 @@ using namespace MyStg2nd;
 
 
 CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "CommonScene";
 
     { //EnemyShot001
         _pDispatcher_EnemyShots001 = NEW GgafActorDispatcher("TAMAS001");
