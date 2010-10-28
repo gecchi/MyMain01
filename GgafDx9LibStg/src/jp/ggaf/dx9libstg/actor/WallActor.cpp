@@ -41,12 +41,13 @@ void WallActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 
 void WallActor::initialize() {
-    if (_pWalledSectionScene == NULL) {
-        _pWalledSectionScene = (WalledSectionScene*)getPlatformScene();
-        _wall_dep = _pWalledSectionScene->_wall_dep;
-        _wall_width = _pWalledSectionScene->_wall_width;
-        _wall_height = _pWalledSectionScene->_wall_height;
-    }
+//    if (_pWalledSectionScene == NULL) {
+//        _pWalledSectionScene = (WalledSectionScene*)getPlatformScene();
+//        _TRACE_("ini getPlatformScene() = _pWalledSectionScene = "<<_pWalledSectionScene->getName());
+//        _wall_dep = _pWalledSectionScene->_wall_dep;
+//        _wall_width = _pWalledSectionScene->_wall_width;
+//        _wall_height = _pWalledSectionScene->_wall_height;
+//    }
     setHitAble(true);
 }
 
@@ -131,13 +132,11 @@ void WallActor::drawHitArea() {
     CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
 }
 
-void WallActor::config(int prm_wall_draw_face, int* prm_aColliBoxStretch) {
-    if (_pWalledSectionScene == NULL) {
-        _pWalledSectionScene = (WalledSectionScene*)getPlatformScene();
-        _wall_dep = _pWalledSectionScene->_wall_dep;
-        _wall_width = _pWalledSectionScene->_wall_width;
-        _wall_height = _pWalledSectionScene->_wall_height;
-    }
+void WallActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
+    _pWalledSectionScene =prm_pWalledSectionScene;
+    _wall_dep = _pWalledSectionScene->_wall_dep;
+    _wall_width = _pWalledSectionScene->_wall_width;
+    _wall_height = _pWalledSectionScene->_wall_height;
     _wall_draw_face = prm_wall_draw_face;
     if (prm_aColliBoxStretch[0] == 0) {
         _pCollisionChecker->setColliAAB(0, 0,0,0, 0,0,0);

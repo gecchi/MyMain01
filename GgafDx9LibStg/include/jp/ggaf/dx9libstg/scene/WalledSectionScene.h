@@ -47,7 +47,7 @@ public:
     /** [r]繰り返しカウンタ */
     int _cnt_loop;
     /** [r]外壁表示間隔時間 */
-    frame _frame_of_launch_interval;
+    frame _frame_of_launch_next;
     /** [r]表示済み外壁シーンの長さ */
     int _cnt_area_len;
     /** [r]全壁ブロック(WallActor)の配置情報 */
@@ -58,11 +58,10 @@ public:
     GgafCore::GgafActorDispatcher* _pDispatcher_Wall;
     /** [r]手前ブロックの透過機能有効時の基準となるアクター */
     GgafDx9Core::GgafDx9GeometricActor* _pTarget_FrontAlpha;
-    /** [r/w]毎フレームprocessSettlementBehavior()で、配下アクター全てに実行される関数。*/
-    void (*_pFuncWallMove)(GgafCore::GgafObject*, void*, void*);
 
     WallActor* _pWallLast;
 
+    ScrolledScene*  _pScrolledScene;
 
     /**
      * コンストラクタ .
@@ -71,7 +70,7 @@ public:
      * @param prm_data_filename 壁ブロック情報ファイル
      * @return
      */
-    WalledSectionScene(const char* prm_name, const char* prm_data_filename);
+    WalledSectionScene(const char* prm_name, const char* prm_data_filename, ScrolledScene* prm_pScrolledScene);
 
 
 
@@ -82,12 +81,12 @@ public:
      * @param prm_wall_dep 壁ブロックの長さ（１つのWallActorオブジェクトのX座標軸長さ）
      * @param prm_wall_width 壁ブロックの高さ（１つのWallActorオブジェクトのY座標軸長さ）
      * @param prm_wall_height 壁ブロックの高さ（１つのWallActorオブジェクトのZ座標軸長さ）
-     * @param prm_ground_speed 外壁移動スピード(値は正、但し移動方向はX軸負の方向)
+     * @param prm_loop_num セクション繰り返し回数
      */
     virtual void config(
             GgafCore::GgafActorDispatcher* prm_pDispatcher_Wall,
             int prm_wall_dep, int prm_wall_width, int prm_wall_height,
-            int prm_ground_speed, int prm_loop_num = 1);
+            int prm_loop_num = 1);
     /**
      * 初期処理 .
      * ディスパッチャー(_pDispatcher_Wall)のチェックを行っているのみ .

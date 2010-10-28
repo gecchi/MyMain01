@@ -77,7 +77,7 @@ public:
      * @param prm_wall_draw_face 壁ブロック表示面情報
      * @param prm_aColliBoxStretch 壁ブロック当たり判定情報
      */
-    virtual void config(int prm_wall_draw_face, int* prm_aColliBoxStretch);
+    virtual void config(WalledSectionScene* prm_pWalledSectionScene, int prm_wall_draw_face, int* prm_aColliBoxStretch);
 
 
     virtual ~WallActor();
