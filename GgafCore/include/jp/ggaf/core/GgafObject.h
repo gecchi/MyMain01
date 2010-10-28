@@ -10,7 +10,10 @@ namespace GgafCore {
  */
 class GgafObject {
 
+    static int _iSeq;
 public:
+
+    int _id;
     /** [r]インスタンス種類 */
     UINT32 _obj_class;
     GgafObject();

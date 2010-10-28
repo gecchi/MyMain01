@@ -78,8 +78,6 @@ private:
     T* _pNodeTemp;
 
 public:
-    /** [r]ID */
-    char* _id;
     /** [r]ノード識別名(50文字まで) */
     char* _name;
     /** [r]クラス名 */
@@ -313,7 +311,6 @@ public:
 template<class T>
 GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
 _pNodeTemp(NULL),
-_id(0),
 _name("NOT_OBJECT_YET"),
 _class_name("GgafNode<T>"),
 _pParent(NULL),
@@ -325,7 +322,6 @@ _is_last_flg(false)
 {
     _name = NEW char[51];
     strcpy(_name, prm_name);
-    //_id = GgafUtil::itos(GgafObject::_iObjectNo);
     TRACE("template<class T> GgafNode<T>::GgafNode(" << _name << ")");
 }
 
