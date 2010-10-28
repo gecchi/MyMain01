@@ -106,30 +106,17 @@ void WalledSectionScene::onActive() {
 
 void WalledSectionScene::processBehavior() {
     if (_cnt_loop < _loop_num) {
-        _TRACE_("_cnt_area_len="<<_cnt_area_len<<" _area_len="<<_area_len<<" _cnt_loop="<<_cnt_loop<<" _loop_num="<<_loop_num );
-        if (_cnt_area_len >= _area_len) {
-            _cnt_area_len = 0;
-            _cnt_loop++;
-        }
-//_TRACE_("getActivePartFrame()="<<getActivePartFrame()<<" _frame_of_launch_next="<<_frame_of_launch_next);
-        if (_pWallLast) {
-        _TRACE_("_wall_start_X="<<_wall_start_X<<" _pWallLast->_X="<<(_pWallLast->_X)<<" (_wall_start_X - _pWallLast->_X)="<<(_wall_start_X - _pWallLast->_X)<<" _wall_dep="<<_wall_dep);
-        }
 
-//        if (_pWallLast != NULL) {
-//            if ((_wall_start_X - _pWallLast->_X) >= _wall_dep) {
-//                _TRACE_("11");
-//            } else {
-//                _TRACE_("22");
-//            }
-//        } else {
-//            _TRACE_("33");
-//        }
-//        if (_pWallLast == NULL || (_wall_start_X - _pWallLast->_X) >= _wall_dep) {
-//            _TRACE_("WW");
-//        }
 
         if (_pWallLast == NULL || (_wall_start_X - _pWallLast->_X) >= _wall_dep) {
+            _cnt_area_len++;
+            if (_cnt_area_len > _area_len) {
+                _cnt_area_len = 1;
+                _cnt_loop++;
+            }
+
+
+
             _TRACE_("YES!!");
             WallActor* pWall;
             for (int n = 0; n < _paWallInfoLen[_cnt_area_len]; n++) {
@@ -146,7 +133,7 @@ void WalledSectionScene::processBehavior() {
             }
             _pWallLast = pWall;
             _frame_of_launch_next = (frame)(_wall_dep / _pScrolledScene->_ground_speed);
-            _cnt_area_len++;
+
         }
     } else {
         //èIóπ
