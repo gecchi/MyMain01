@@ -59,6 +59,7 @@ public:
     /** [r]手前ブロックの透過機能有効時の基準となるアクター */
     GgafDx9Core::GgafDx9GeometricActor* _pTarget_FrontAlpha;
 
+    bool _is_loop_end;
     WallActor* _pWallLast;
 
     ScrolledScene*  _pScrolledScene;
@@ -107,6 +108,10 @@ public:
     virtual void processBehavior() override;
 
     virtual void processFinal() override;
+
+    WallActor* getLastWall();
+
+
 
     /**
      * 手前ブロックの透過機能を有効にする。

@@ -48,7 +48,7 @@ GroundBoxScene::GroundBoxScene(const char* prm_name, ScrolledScene* prm_pScrolle
 //    5000, 10);
     _bound_alpha = -pCAM->_cameraZ_org*0.7; //”w–ÊŽžƒJƒƒ‰‚Í_cameraZ_org*0.6‚É—R—ˆ‚µ‚Ä‚¢‚é
 
-    //orderActorToFactory(9999999+_id, FormationThalia, "FormationThalia_1");
+    orderActorToFactory(9999999+_id, FormationThalia, "FormationThalia_1");
 
 }
 
@@ -61,10 +61,10 @@ void GroundBoxScene::processBehavior() {
     }
 
 
-//    if (getActivePartFrame() == 10) {
-//    FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(9999999+_id);
-//    getLordActor()->addSubGroup(pActor);
-//    }
+    if (getActivePartFrame() == 10) {
+    FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(9999999+_id);
+    getLordActor()->addSubGroup(pActor);
+    }
 
     if (getActivePartFrame() == 300) {
         pUNIVERSE->pushCameraWork("TestCamWorker");

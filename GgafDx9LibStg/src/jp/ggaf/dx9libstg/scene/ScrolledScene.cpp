@@ -16,7 +16,7 @@ ScrolledScene::ScrolledScene(const char* prm_name) : DefaultScene(prm_name) {
 void ScrolledScene::processSettlementBehavior() {
     DefaultScene::processSettlementBehavior();
     if (_pFuncWallMove) {
-        getLordActor()->execDownFunction(_pFuncWallMove, &_ground_speed, NULL);
+        execDownFunction(_pFuncWallMove, &_ground_speed, NULL);
     }
 
 }

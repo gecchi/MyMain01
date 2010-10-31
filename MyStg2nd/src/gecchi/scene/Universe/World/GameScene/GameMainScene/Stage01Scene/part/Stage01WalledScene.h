@@ -21,7 +21,7 @@ class Stage01WalledScene : public GgafDx9LibStg::ScrolledScene {
 public:
 
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::WalledSectionScene>* _pRingSection;
-
+    GgafCore::GgafActorDispatcher* _pDispatcher_Wall;
     Stage01WalledScene(const char* prm_name);
     static void moveX(GgafObject* pThat, void* p1, void* p2);
     /**

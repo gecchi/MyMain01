@@ -15,6 +15,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     _wall_height = 0;
     _loop_num = 1;
     _cnt_loop = 0;
+    _is_loop_end = false;
     string data_filename = STG_PROPERTY(DIR_SCENE_DATA) + string(prm_data_filename);
     ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
@@ -83,6 +84,7 @@ void WalledSectionScene::onActive() {
     _frame_of_launch_next = (frame)(_wall_dep /_pScrolledScene->_ground_speed);
     _cnt_area_len = 0;
     _cnt_loop = 0;
+    _is_loop_end = false;
     _wall_start_X = GgafDx9Universe::_X_goneRight;
 }
 //
@@ -105,17 +107,20 @@ void WalledSectionScene::onActive() {
 //}
 
 void WalledSectionScene::processBehavior() {
-    if (_cnt_loop < _loop_num) {
+    if (!_is_loop_end) {
 
 
         if (_pWallLast == NULL || (_wall_start_X - _pWallLast->_X) >= _wall_dep) {
-            _cnt_area_len++;
-            if (_cnt_area_len > _area_len) {
-                _cnt_area_len = 1;
-                _cnt_loop++;
+            if (_cnt_area_len >= _area_len && _cnt_loop+1 >= _loop_num) {
+                //I—¹
+                _is_loop_end = true;
+                return;
+            } else {
+                if (_cnt_area_len >= _area_len) {
+                    _cnt_area_len = 0;
+                    _cnt_loop++;
+                }
             }
-
-
 
             _TRACE_("YES!!");
             WallActor* pWall;
@@ -124,7 +129,7 @@ void WalledSectionScene::processBehavior() {
                 if (pWall) {
                     pWall->config(this,
                                   _papaWallInfo[_cnt_area_len][n]._wall_draw_face,
-                                 _papaWallInfo[_cnt_area_len][n]._aColliBoxStretch);
+                                  _papaWallInfo[_cnt_area_len][n]._aColliBoxStretch);
                     pWall->setGeometry(_pWallLast==NULL ? _wall_start_X : _pWallLast->_X + _wall_dep - _pScrolledScene->_ground_speed,
                                       ((-_area_height/2) + _papaWallInfo[_cnt_area_len][n]._Y) * _wall_height,
                                       ((-_area_width/2) + _papaWallInfo[_cnt_area_len][n]._Z) * _wall_width);
@@ -133,6 +138,7 @@ void WalledSectionScene::processBehavior() {
             }
             _pWallLast = pWall;
             _frame_of_launch_next = (frame)(_wall_dep / _pScrolledScene->_ground_speed);
+            _cnt_area_len++;
 
         }
     } else {
@@ -142,6 +148,11 @@ void WalledSectionScene::processBehavior() {
 }
 
 void WalledSectionScene::processFinal() {
+}
+
+
+WallActor* WalledSectionScene::getLastWall() {
+    return _pWallLast;
 }
 
 WalledSectionScene::~WalledSectionScene() {

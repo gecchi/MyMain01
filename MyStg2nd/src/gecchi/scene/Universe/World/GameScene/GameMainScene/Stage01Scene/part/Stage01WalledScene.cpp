@@ -10,7 +10,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : ScrolledScene(prm
     WallActor* pWallActor;
     _ground_speed = 5000;
 
-    GgafActorDispatcher* _pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
+    _pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
     for (int i = 0; i < 4000; i++) {
         pWallActor =  NEW GroundBoxActor("GroundBox");
         pWallActor->inactivateTreeImmediately();
@@ -25,11 +25,11 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : ScrolledScene(prm
     addSubLast(pSection02);
     addSubLast(pSection03);
     pSection01->config(_pDispatcher_Wall,
-                       800000, 200000,200000, 1);
+                       800000, 200000,200000, 2);
     pSection02->config(_pDispatcher_Wall,
-                       800000, 200000,200000, 1);
+                       800000, 200000,200000, 2);
     pSection03->config(_pDispatcher_Wall,
-                       800000, 200000,200000, 1);
+                       800000, 200000,200000, 2);
 
     pSection01->inactivateImmediately();
     pSection02->inactivateImmediately();
@@ -73,28 +73,33 @@ void Stage01WalledScene::processBehavior() {
     WalledSectionScene* pCurrentSection = _pRingSection->getCurrent();
     if (!pCurrentSection->isLast()) {
 //        _TRACE_("pCurrentSection->_cnt_loop="<<pCurrentSection->_cnt_loop<<" pCurrentSection->_loop_num="<<pCurrentSection->_loop_num );
-        if (pCurrentSection->_cnt_loop >= pCurrentSection->_loop_num) {
+        if (pCurrentSection->_is_loop_end) {
             _TRACE_("NewSection!!!!!!!!!!!!!");
             WalledSectionScene* pNewSection = _pRingSection->next();
             pNewSection->activate();
-            pCurrentSection->inactivateDelay(
-                    (GgafDx9Universe::_X_goneRight - GgafDx9Universe::_X_goneLeft) / _ground_speed
-                 ); //TODO:inactivateタイミングを考える
+            pNewSection->_pWallLast = pCurrentSection->getLastWall();
+            pCurrentSection->end(
+                    120 + (GgafDx9Universe::_X_goneRight - GgafDx9Universe::_X_goneLeft) / _ground_speed
+                 );
+        }
+    } else {
+        if (pCurrentSection->_is_loop_end) {
+            end(120 + (GgafDx9Universe::_X_goneRight - GgafDx9Universe::_X_goneLeft) / _ground_speed);
         }
     }
 
 
-    if (getActivePartFrame() == 1100) {
-        _ground_speed = 20000;
-    }
-
-    if (getActivePartFrame() == 1300) {
-        _ground_speed = 500;
-    }
-
-
-    if (getActivePartFrame() == 1800) {
+    if (getActivePartFrame() % 1100 == 0) {
         _ground_speed = 10000;
+    }
+
+    if (getActivePartFrame() % 1300 == 0) {
+        _ground_speed = 2000;
+    }
+
+
+    if (getActivePartFrame() % 1800 == 0) {
+        _ground_speed = 5000;
     }
 }
 
