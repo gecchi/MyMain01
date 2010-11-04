@@ -34,8 +34,8 @@ bool GroundBoxActor::isOutOfUniverse() {
 ///////////////////////////////////////////////////////////////////////////
 
 
-GroundBoxScene::GroundBoxScene(const char* prm_name, ScrolledScene* prm_pScrolledScene)
-     : WalledSectionScene(prm_name,"scene2_wall.dat", prm_pScrolledScene) {
+GroundBoxScene::GroundBoxScene(const char* prm_name, ScrolledScene* prm_pScrolledScene, const char* prm_data_filename)
+     : WalledSectionScene(prm_name, prm_data_filename, prm_pScrolledScene) {
     _class_name = "GroundBoxScene";
     //    for (int i = 0; i < 4000; i++) {
 //        GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox");
