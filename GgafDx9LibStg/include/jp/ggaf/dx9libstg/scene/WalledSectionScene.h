@@ -86,8 +86,7 @@ public:
      */
     virtual void config(
             GgafCore::GgafActorDispatcher* prm_pDispatcher_Wall,
-            int prm_wall_dep, int prm_wall_width, int prm_wall_height,
-            int prm_loop_num = 1);
+            int prm_wall_dep, int prm_wall_width, int prm_wall_height);
     /**
      * 初期処理 .
      * ディスパッチャー(_pDispatcher_Wall)のチェックを行っているのみ .

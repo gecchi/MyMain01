@@ -21,6 +21,8 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     if (ifs.fail()) {
         throwGgafCriticalException("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" ‚ªŠJ‚¯‚Ü‚¹‚ñ");
     }
+    ifs >> _loop_num;
+
 
     ifs >> _area_len >>
            _area_height >>
@@ -65,13 +67,11 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
 }
 void WalledSectionScene::config(
         GgafActorDispatcher* prm_pDispatcher_Wall,
-        int prm_wall_dep, int prm_wall_width, int prm_wall_height,
-        int prm_loop_num) {
+        int prm_wall_dep, int prm_wall_width, int prm_wall_height) {
     _pDispatcher_Wall = prm_pDispatcher_Wall;
     _wall_dep = prm_wall_dep;
     _wall_width = prm_wall_width;
     _wall_height = prm_wall_height;
-    _loop_num = prm_loop_num;
 }
 
 void WalledSectionScene::initialize() {
