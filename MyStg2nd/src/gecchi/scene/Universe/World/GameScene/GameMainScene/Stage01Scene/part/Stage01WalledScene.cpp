@@ -31,7 +31,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : ScrolledScene(prm
         addSubLast(pSection);
         pSection->config(_pDispatcher_Wall, 800000, 200000,200000);
         pSection->inactivateImmediately();
-        _pRingSection->addLast(pSection01, false);
+        _pRingSection->addLast(pSection, false);
     }
     _pRingSection->first();
 

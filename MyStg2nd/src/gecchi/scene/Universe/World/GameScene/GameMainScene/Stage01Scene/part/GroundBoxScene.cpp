@@ -66,13 +66,13 @@ void GroundBoxScene::processBehavior() {
     getLordActor()->addSubGroup(pActor);
     }
 
-    if (getActivePartFrame() == 300) {
-        pUNIVERSE->pushCameraWork("TestCamWorker");
-    }
-
-    if (getActivePartFrame() == 1200) {
-        pUNIVERSE->popCameraWork();
-    }
+//    if (getActivePartFrame() == 300) {
+//        pUNIVERSE->pushCameraWork("TestCamWorker");
+//    }
+//
+//    if (getActivePartFrame() == 1200) {
+//        pUNIVERSE->popCameraWork();
+//    }
 
 }
 
