@@ -122,8 +122,7 @@ void WalledSectionScene::processBehavior() {
                 }
             }
 
-            _TRACE_("YES!!");
-            WallActor* pWall;
+            WallActor* pWall = NULL;
             for (int n = 0; n < _paWallInfoLen[_cnt_area_len]; n++) {
                 pWall = (WallActor*)_pDispatcher_Wall->employ();
                 if (pWall) {

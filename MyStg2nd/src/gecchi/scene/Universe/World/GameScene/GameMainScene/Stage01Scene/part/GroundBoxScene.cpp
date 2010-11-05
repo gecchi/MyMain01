@@ -7,15 +7,15 @@ using namespace MyStg2nd;
 
 ////////////////////////////////////////////////////////////////////////////
 
-GroundBoxActor::GroundBoxActor(const char* prm_name) :
+GroundBoxScene::GroundBoxActor::GroundBoxActor(const char* prm_name) :
     WallActor(prm_name, "g_box001") {
     _class_name = "GroundBoxActor";
     MyStgUtil::resetGroundBoxActorStatus(_pStatus);
-    _SX=_SY=_SZ = 2000;
+
     setBoundingSphereRadiusRate(2.0);
 }
 
-void GroundBoxActor::onCreateModel() {
+void GroundBoxScene::GroundBoxActor::onCreateModel() {
     _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.2, 3.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
     _pGgafDx9Model->_pTextureBlinker->beat(60*20, 60*9, 60*3, -1);
@@ -23,7 +23,7 @@ void GroundBoxActor::onCreateModel() {
 }
 
 
-bool GroundBoxActor::isOutOfUniverse() {
+bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
     if (GgafDx9Universe::_X_goneLeft < _X) {
         return false;
     }
@@ -37,15 +37,6 @@ bool GroundBoxActor::isOutOfUniverse() {
 GroundBoxScene::GroundBoxScene(const char* prm_name, ScrolledScene* prm_pScrolledScene, const char* prm_data_filename)
      : WalledSectionScene(prm_name, prm_data_filename, prm_pScrolledScene) {
     _class_name = "GroundBoxScene";
-    //    for (int i = 0; i < 4000; i++) {
-//        GroundBoxActor* pGroundBoxActor =  NEW GroundBoxActor("GroundBox");
-//        pGroundBoxActor->inactivateTreeImmediately();
-//        _pDispatcher_Wall->addSubLast(pGroundBoxActor);
-//    }
-//    getLordActor()->addSubGroup(_pDispatcher_Wall);
-//    config( NULL,
-//    800000, 200000,200000,
-//    5000, 10);
     _bound_alpha = -pCAM->_cameraZ_org*0.7; //”w–ÊƒJƒƒ‰‚Í_cameraZ_org*0.6‚É—R—ˆ‚µ‚Ä‚¢‚é
 
     orderActorToFactory(9999999+_id, FormationThalia, "FormationThalia_1");

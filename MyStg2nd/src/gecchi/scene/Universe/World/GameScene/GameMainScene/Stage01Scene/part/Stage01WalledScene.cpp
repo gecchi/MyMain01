@@ -12,7 +12,10 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : ScrolledScene(prm
 
     _pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
     for (int i = 0; i < 4000; i++) {
-        pWallActor =  NEW GroundBoxActor("GroundBox");
+		pWallActor =  NEW GroundBoxScene::GroundBoxActor("GroundBox");
+		pWallActor->_SX = 4000;
+		pWallActor->_SY = 4000;
+		pWallActor->_SZ = 4000;
         pWallActor->inactivateTreeImmediately();
         _pDispatcher_Wall->addSubLast(pWallActor);
     }
@@ -29,35 +32,11 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : ScrolledScene(prm
     for (int i = 0; i < 5; i++) {
         WalledSectionScene* pSection = NEW GroundBoxScene("gbs", this, section_dat[i].c_str());
         addSubLast(pSection);
-        pSection->config(_pDispatcher_Wall, 800000, 200000,200000);
+        pSection->config(_pDispatcher_Wall, 1600000, 400000, 400000);
         pSection->inactivateImmediately();
         _pRingSection->addLast(pSection, false);
     }
     _pRingSection->first();
-
-//    WalledSectionScene* pSection01 = NEW GroundBoxScene("gbs01", this, "scene3_wall_0.dat");
-//    WalledSectionScene* pSection02 = NEW GroundBoxScene("gbs02", this, "scene3_wall_1.dat");
-//    WalledSectionScene* pSection03 = NEW GroundBoxScene("gbs03", this, "scene3_wall_2.dat");
-//    addSubLast(pSection01);
-//    addSubLast(pSection02);
-//    addSubLast(pSection03);
-//    pSection01->config(_pDispatcher_Wall,
-//                       800000, 200000,200000);
-//    pSection02->config(_pDispatcher_Wall,
-//                       800000, 200000,200000);
-//    pSection03->config(_pDispatcher_Wall,
-//                       800000, 200000,200000);
-//
-//    pSection01->inactivateImmediately();
-//    pSection02->inactivateImmediately();
-//    pSection03->inactivateImmediately();
-//
-//
-//    _pRingSection = NEW GgafLinkedListRing<WalledSectionScene>();
-//    _pRingSection->addLast(pSection01, false);
-//    _pRingSection->addLast(pSection02, false);
-//    _pRingSection->addLast(pSection03, false);
-//    _pRingSection->first();
 
     _pFuncWallMove = Stage01WalledScene::moveX;
 }
@@ -106,18 +85,20 @@ void Stage01WalledScene::processBehavior() {
     }
 
 
-    if (getActivePartFrame() % 1100 == 0) {
-        _ground_speed = 10000;
+    if (getActivePartFrame() % 60 == 0) {
+		if (_ground_speed < 200000) {
+			_ground_speed += 1000;
+		}
     }
 
-    if (getActivePartFrame() % 1300 == 0) {
-        _ground_speed = 2000;
-    }
-
-
-    if (getActivePartFrame() % 1800 == 0) {
-        _ground_speed = 5000;
-    }
+//    if (getActivePartFrame() % 1300 == 0) {
+//        _ground_speed = 2000;
+//    }
+//
+//
+//    if (getActivePartFrame() % 1800 == 0) {
+//        _ground_speed = 5000;
+//    }
 }
 
 void Stage01WalledScene::processFinal() {
