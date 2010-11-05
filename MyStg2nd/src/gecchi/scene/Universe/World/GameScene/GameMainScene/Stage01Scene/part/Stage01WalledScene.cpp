@@ -5,40 +5,32 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-Stage01WalledScene::Stage01WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
+Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_name) {
     _class_name = "Stage01WalledScene";
-    WallActor* pWallActor;
-    _ground_speed = 5000;
 
-    _pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
+    _ground_speed = 5000;
+    float scale_r = 4.0f; //壁ブロックの元モデルからの拡大率
+    WallActor* pWallActor;
+    GgafActorDispatcher* pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
     for (int i = 0; i < 4000; i++) {
-		pWallActor =  NEW GroundBoxScene::GroundBoxActor("GroundBox");
-		pWallActor->_SX = 4000;
-		pWallActor->_SY = 4000;
-		pWallActor->_SZ = 4000;
+        pWallActor = NEW GroundBoxScene::GroundBoxActor("GroundBox");
+        pWallActor->setScaleRate(scale_r);
         pWallActor->inactivateTreeImmediately();
-        _pDispatcher_Wall->addSubLast(pWallActor);
+        pDispatcher_Wall->addSubLast(pWallActor);
     }
-    getLordActor()->addSubGroup(_pDispatcher_Wall);
-    string section_dat[] = {
-        "scene3_wall_0.dat",
-        "scene3_wall_1.dat",
-        "scene3_wall_2.dat",
-        "scene3_wall_3.dat",
-        "scene3_wall_4.dat"
+
+    WalledSectionScene* apSection[] = {
+      NEW GroundBoxScene("gbs", this, "scene3_wall_0.dat"),
+      NEW GroundBoxScene("gbs", this, "scene3_wall_1.dat"),
+      NEW GroundBoxScene("gbs", this, "scene3_wall_2.dat"),
+      NEW GroundBoxScene("gbs", this, "scene3_wall_3.dat"),
+      NEW GroundBoxScene("gbs", this, "scene3_wall_4.dat"),
     };
 
-    _pRingSection = NEW GgafLinkedListRing<WalledSectionScene>();
-    for (int i = 0; i < 5; i++) {
-        WalledSectionScene* pSection = NEW GroundBoxScene("gbs", this, section_dat[i].c_str());
-        addSubLast(pSection);
-        pSection->config(_pDispatcher_Wall, 1600000, 400000, 400000);
-        pSection->inactivateImmediately();
-        _pRingSection->addLast(pSection, false);
-    }
-    _pRingSection->first();
-
-    _pFuncWallMove = Stage01WalledScene::moveX;
+    WalledScene::build(
+            400000*scale_r, 100000*scale_r, 100000*scale_r,
+            (WalledSectionScene**)&apSection, 5,
+            pDispatcher_Wall, Stage01WalledScene::moveX);
 }
 
 void Stage01WalledScene::moveX(GgafObject* pThat, void* p1, void* p2) {
@@ -61,34 +53,16 @@ void Stage01WalledScene::initialize() {
 
 
 void Stage01WalledScene::onActive() {
-    WalledSectionScene* pCurrentSection = _pRingSection->getCurrent();
-    pCurrentSection->activate();
+    WalledScene::onActive();
 }
 
 void Stage01WalledScene::processBehavior() {
-    WalledSectionScene* pCurrentSection = _pRingSection->getCurrent();
-    if (!pCurrentSection->isLast()) {
-//        _TRACE_("pCurrentSection->_cnt_loop="<<pCurrentSection->_cnt_loop<<" pCurrentSection->_loop_num="<<pCurrentSection->_loop_num );
-        if (pCurrentSection->_is_loop_end) {
-            _TRACE_("NewSection!!!!!!!!!!!!!");
-            WalledSectionScene* pNewSection = _pRingSection->next();
-            pNewSection->activate();
-            pNewSection->_pWallLast = pCurrentSection->getLastWall();
-            pCurrentSection->end(
-                    120 + (GgafDx9Universe::_X_goneRight - GgafDx9Universe::_X_goneLeft) / _ground_speed
-                 );
-        }
-    } else {
-        if (pCurrentSection->_is_loop_end) {
-            end(120 + (GgafDx9Universe::_X_goneRight - GgafDx9Universe::_X_goneLeft) / _ground_speed);
-        }
-    }
-
+    WalledScene::processBehavior();
 
     if (getActivePartFrame() % 60 == 0) {
-		if (_ground_speed < 200000) {
-			_ground_speed += 1000;
-		}
+        if (_ground_speed < 200000) {
+            _ground_speed += 1000;
+        }
     }
 
 //    if (getActivePartFrame() % 1300 == 0) {
