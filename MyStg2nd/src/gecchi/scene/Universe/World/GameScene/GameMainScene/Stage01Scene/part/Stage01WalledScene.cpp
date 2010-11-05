@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_name) {
     _class_name = "Stage01WalledScene";
 
-    _ground_speed = 5000;
+    _scrool_speed = 5000;
     float scale_r = 4.0f; //壁ブロックの元モデルからの拡大率
     WallActor* pWallActor;
     GgafActorDispatcher* pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
@@ -60,18 +60,18 @@ void Stage01WalledScene::processBehavior() {
     WalledScene::processBehavior();
 
     if (getActivePartFrame() % 60 == 0) {
-        if (_ground_speed < 200000) {
-            _ground_speed += 1000;
+        if (_scrool_speed < 200000) {
+            _scrool_speed += 1000;
         }
     }
 
 //    if (getActivePartFrame() % 1300 == 0) {
-//        _ground_speed = 2000;
+//        _scrool_speed = 2000;
 //    }
 //
 //
 //    if (getActivePartFrame() % 1800 == 0) {
-//        _ground_speed = 5000;
+//        _scrool_speed = 5000;
 //    }
 }
 

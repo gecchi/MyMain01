@@ -8,21 +8,11 @@ namespace MyStg2nd {
  * @author Masatoshi Tsuge
  */
 class Stage01WalledScene : public GgafDx9LibStg::WalledScene {
-//    class Section {
-//    public :
-//        GgafDx9LibStg::WalledSectionScene* _pScene;
-//        int _repeat;
-//        Section(GgafDx9LibStg::WalledSectionScene* prm_pScene, int prm_repeat) {
-//            _pScene = prm_pScene;
-//            _repeat = prm_repeat;
-//        }
-//    };
 
 public:
 
-//    GgafCore::GgafLinkedListRing<GgafDx9LibStg::WalledSectionScene>* _pRingSection;
-//    GgafCore::GgafActorDispatcher* _pDispatcher_Wall;
     Stage01WalledScene(const char* prm_name);
+
     static void moveX(GgafObject* pThat, void* p1, void* p2);
     /**
      * èâä˙èàóù

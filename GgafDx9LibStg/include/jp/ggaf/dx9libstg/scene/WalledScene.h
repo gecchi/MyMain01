@@ -3,20 +3,12 @@
 namespace GgafDx9LibStg {
 
 /**
+ * 壁ブロックシーン .
  * @version 1.00
  * @since 2010/11/05
  * @author Masatoshi Tsuge
  */
 class WalledScene : public GgafDx9LibStg::ScrolledScene {
-//    class Section {
-//    public :
-//        GgafDx9LibStg::WalledSectionScene* _pScene;
-//        int _repeat;
-//        Section(GgafDx9LibStg::WalledSectionScene* prm_pScene, int prm_repeat) {
-//            _pScene = prm_pScene;
-//            _repeat = prm_repeat;
-//        }
-//    };
 
 public:
 
@@ -24,6 +16,16 @@ public:
     GgafCore::GgafActorDispatcher* _pDispatcher_Wall;
     WalledScene(const char* prm_name);
 
+    /**
+     *
+     * @param prm_wall_dep
+     * @param prm_wall_width
+     * @param prm_wall_height
+     * @param prm_papSection
+     * @param prm_section_num
+     * @param prm_pDispatcher_Wall
+     * @param prm_pFuncWallMove
+     */
     void build(
             int prm_wall_dep, int prm_wall_width, int prm_wall_height,
             WalledSectionScene** prm_papSection, int prm_section_num,

@@ -3,6 +3,7 @@
 namespace GgafDx9LibStg {
 
 /**
+ * スクロールシーン .
  * @version 1.00
  * @since 2010/08/23
  * @author Masatoshi Tsuge
@@ -10,7 +11,8 @@ namespace GgafDx9LibStg {
 class ScrolledScene : public DefaultScene {
 
 public:
-    int _ground_speed;
+    /** スクロール速度 */
+    int _scrool_speed;
 
     /** [r/w]毎フレームprocessSettlementBehavior()で、配下アクター全てに実行される関数。*/
     void (*_pFuncWallMove)(GgafCore::GgafObject*, void*, void*);

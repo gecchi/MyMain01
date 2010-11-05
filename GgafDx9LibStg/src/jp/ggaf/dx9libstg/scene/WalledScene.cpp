@@ -7,7 +7,7 @@ using namespace GgafDx9LibStg;
 WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
     _class_name = "WalledScene";
     WallActor* pWallActor;
-    _ground_speed = 5000;
+    _scrool_speed = 5000;
 
     _pDispatcher_Wall = NULL;
     _pRingSection = NEW GgafLinkedListRing<WalledSectionScene>();
@@ -29,6 +29,40 @@ void WalledScene::build(
         prm_papSection[i]->inactivateImmediately();
         _pRingSection->addLast(prm_papSection[i], false);
     }
+    // 0b 00abcdef
+    //
+    //    c
+    // a b d f
+    //      e
+    //    FACE_A_BIT = 0b100000
+    //    FACE_B_BIT = 0b010000
+    //    FACE_C_BIT = 0b001000
+    //    FACE_D_BIT = 0b000100
+    //    FACE_E_BIT = 0b000010
+    //    FACE_F_BIT = 0b000001
+    //    A          = 0b111110 = 62
+    //    A          = 0b101111 = 47
+
+    //セクションつなぎ目のBOX描画の処理
+    if (prm_section_num >= 2) {
+        //最初、中間、各セクションの最末尾ブロック面の全BOXのFACE_F描画を潰す
+        for (int i = 0; i < prm_section_num-1; i++) {
+            WalledSectionScene* pSection = prm_papSection[i];
+            for (int j = 0; j < pSection->_paWallInfoLen[pSection->_area_len-1]; j++) {
+                pSection->_papaWallInfo[pSection->_area_len-1][j]._wall_draw_face &= 62; //FACE_Fを潰す 0b111110
+            }
+        }
+        //中間、最後、各セクションの最前ブロック面の全BOXのFACE_B描画を潰す
+        for (int i = 1; i < prm_section_num; i++) {
+            WalledSectionScene* pSection = prm_papSection[i];
+            for (int j = 0; j < pSection->_paWallInfoLen[0]; j++) {
+                pSection->_papaWallInfo[0][j]._wall_draw_face &= 47; //FACE_Bを潰す 0b111110
+            }
+        }
+
+    }
+
+
     _pRingSection->first();
 
     _pFuncWallMove = prm_pFuncWallMove;
@@ -51,12 +85,12 @@ void WalledScene::processBehavior() {
             pNewSection->activate();
             pNewSection->_pWallLast = pCurrentSection->getLastWall();
             pCurrentSection->end(
-                    120 + (GgafDx9Universe::_X_goneRight - GgafDx9Universe::_X_goneLeft) / _ground_speed
+                    120 + (GgafDx9Universe::_X_goneRight - GgafDx9Universe::_X_goneLeft) / _scrool_speed
                  );
         }
     } else {
         if (pCurrentSection->_is_loop_end) {
-            end(120 + (GgafDx9Universe::_X_goneRight - GgafDx9Universe::_X_goneLeft) / _ground_speed);
+            end(120 + (GgafDx9Universe::_X_goneRight - GgafDx9Universe::_X_goneLeft) / _scrool_speed);
         }
     }
 

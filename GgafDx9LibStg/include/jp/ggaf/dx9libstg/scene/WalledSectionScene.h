@@ -7,7 +7,9 @@
 namespace GgafDx9LibStg {
 
 /**
- * 外壁シーン .
+ * 外壁セクションシーン .
+ * 「外壁シーン」を構成するシーンであり、
+ * 外壁セクションシーンが連って一つの「外壁シーン」を構成します。
  * @version 1.00
  * @since 2010/10/18
  * @author Masatoshi Tsuge
@@ -24,7 +26,7 @@ class WalledSectionScene : public DefaultScene {
         int _Z;
         /** 可視表示面情報 */
         int _wall_draw_face;
-        /** 当たり判定領域AAB情報         */
+        /** 当たり判定領域AAB情報 */
         int _aColliBoxStretch[6];
     };
 public:

@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 
 ScrolledScene::ScrolledScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "ScrolledScene";
-    _ground_speed = 0;
+    _scrool_speed = 0;
     _pFuncWallMove = NULL;
 }
 
@@ -16,7 +16,7 @@ ScrolledScene::ScrolledScene(const char* prm_name) : DefaultScene(prm_name) {
 void ScrolledScene::processSettlementBehavior() {
     DefaultScene::processSettlementBehavior();
     if (_pFuncWallMove) {
-        execDownFunction(_pFuncWallMove, &_ground_speed, NULL);
+        execDownFunction(_pFuncWallMove, &_scrool_speed, NULL);
     }
 
 }
