@@ -127,35 +127,35 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
 //        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
 //        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
         //Ž‹‘ä
-        _fDist_VpPlnTop    = GgafDx9Universe::_pCamera->_plnTop.a*_fX +
-                             GgafDx9Universe::_pCamera->_plnTop.b*_fY +
-                             GgafDx9Universe::_pCamera->_plnTop.c*_fZ +
-                             GgafDx9Universe::_pCamera->_plnTop.d;
+        _fDist_VpPlnTop    = pCAM->_plnTop.a*_fX +
+                             pCAM->_plnTop.b*_fY +
+                             pCAM->_plnTop.c*_fZ +
+                             pCAM->_plnTop.d;
 
-        _fDist_VpPlnBottom = GgafDx9Universe::_pCamera->_plnBottom.a*_fX +
-                             GgafDx9Universe::_pCamera->_plnBottom.b*_fY +
-                             GgafDx9Universe::_pCamera->_plnBottom.c*_fZ +
-                             GgafDx9Universe::_pCamera->_plnBottom.d;
+        _fDist_VpPlnBottom = pCAM->_plnBottom.a*_fX +
+                             pCAM->_plnBottom.b*_fY +
+                             pCAM->_plnBottom.c*_fZ +
+                             pCAM->_plnBottom.d;
 
-        _fDist_VpPlnLeft   = GgafDx9Universe::_pCamera->_plnLeft.a*_fX +
-                             GgafDx9Universe::_pCamera->_plnLeft.b*_fY +
-                             GgafDx9Universe::_pCamera->_plnLeft.c*_fZ +
-                             GgafDx9Universe::_pCamera->_plnLeft.d;
+        _fDist_VpPlnLeft   = pCAM->_plnLeft.a*_fX +
+                             pCAM->_plnLeft.b*_fY +
+                             pCAM->_plnLeft.c*_fZ +
+                             pCAM->_plnLeft.d;
 
-        _fDist_VpPlnRight  = GgafDx9Universe::_pCamera->_plnRight.a*_fX +
-                             GgafDx9Universe::_pCamera->_plnRight.b*_fY +
-                             GgafDx9Universe::_pCamera->_plnRight.c*_fZ +
-                             GgafDx9Universe::_pCamera->_plnRight.d;
+        _fDist_VpPlnRight  = pCAM->_plnRight.a*_fX +
+                             pCAM->_plnRight.b*_fY +
+                             pCAM->_plnRight.c*_fZ +
+                             pCAM->_plnRight.d;
 
-        _fDist_VpPlnFront  = GgafDx9Universe::_pCamera->_plnFront.a*_fX +
-                             GgafDx9Universe::_pCamera->_plnFront.b*_fY +
-                             GgafDx9Universe::_pCamera->_plnFront.c*_fZ +
-                             GgafDx9Universe::_pCamera->_plnFront.d;
+        _fDist_VpPlnFront  = pCAM->_plnFront.a*_fX +
+                             pCAM->_plnFront.b*_fY +
+                             pCAM->_plnFront.c*_fZ +
+                             pCAM->_plnFront.d;
 
-        _fDist_VpPlnBack   = GgafDx9Universe::_pCamera->_plnBack.a*_fX +
-                             GgafDx9Universe::_pCamera->_plnBack.b*_fY +
-                             GgafDx9Universe::_pCamera->_plnBack.c*_fZ +
-                             GgafDx9Universe::_pCamera->_plnBack.d;
+        _fDist_VpPlnBack   = pCAM->_plnBack.a*_fX +
+                             pCAM->_plnBack.b*_fY +
+                             pCAM->_plnBack.c*_fZ +
+                             pCAM->_plnBack.d;
         _offscreenkind = -1;
     }
 

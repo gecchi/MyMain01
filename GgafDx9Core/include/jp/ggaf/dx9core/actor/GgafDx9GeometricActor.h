@@ -228,6 +228,25 @@ public:
         _Z = Z;
     }
 
+    virtual void setScale(int SX, int SY, int SZ) {
+        _SX = SX;
+        _SY = SY;
+        _SZ = SZ;
+    }
+
+    virtual void setScale(int S) {
+        _SX = S;
+        _SY = S;
+        _SZ = S;
+    }
+
+    virtual void setScaleRate(float prm_rate) {
+        _SX = 1000*prm_rate;
+        _SY = 1000*prm_rate;
+        _SZ = 1000*prm_rate;
+        setBoundingSphereRadiusRate(prm_rate);
+    }
+
     /**
      * 未変換座標をコピーして設定 .
      * @param prm_pActor コピー元アクター
