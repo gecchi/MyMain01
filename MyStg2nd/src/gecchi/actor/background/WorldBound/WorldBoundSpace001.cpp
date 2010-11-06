@@ -16,7 +16,8 @@ void WorldBoundSpace001::initialize() {
     setHitAble(false);
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
-    _SX = _SY = _SZ = ((pCAM->_zf-pCAM->_zn)*1000)*0.98;
+    //WorldBoundSpace001‚Ìƒ‚ƒfƒ‹‚Í”¼ŒaDIRECTX‹——£1(10px‘Š“–)‚Å‚ ‚é
+    _SX = _SY = _SZ = ((pCAM->_zf-pCAM->_zn)*1000);
 }
 
 void WorldBoundSpace001::onActive() {

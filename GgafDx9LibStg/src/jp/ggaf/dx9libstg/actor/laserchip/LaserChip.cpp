@@ -203,6 +203,9 @@ void LaserChip::processSettlementBehavior() {
 }
 
 void LaserChip::processJudgement() {
+    if (_chip_kind == 4 && _pChip_behind == NULL) {
+        sayonara();
+    }
     //_TRACE_("LaserChip::processJudgement()st "<<getName()<<" bump="<<canHit());
     if (isOutOfUniverse()) {
         sayonara();
@@ -294,8 +297,6 @@ void LaserChip::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void LaserChip::onInactive() {
-
-
 
     //ÁŽ¸Žž
     _pDispatcher->_num_chip_active--;

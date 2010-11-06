@@ -44,8 +44,7 @@ void GgafDx9MeshSetActor::addAlpha(float prm_fAlpha) {
 void GgafDx9MeshSetActor::processDraw() {
     _draw_set_num = 1; //GgafDx9MeshSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
-    GgafDx9DrawableActor* _pNextDrawActor;
-    _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
+    GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
         if (_pNextDrawActor != NULL)  {
             if (_pNextDrawActor->_pGgafDx9Model == _pMeshSetModel &&

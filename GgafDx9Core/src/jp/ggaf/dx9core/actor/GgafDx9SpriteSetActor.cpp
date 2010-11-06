@@ -32,8 +32,7 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
 void GgafDx9SpriteSetActor::processDraw() {
     _draw_set_num = 1; //同一描画深度に、GgafDx9SpriteSetActorの同じモデルかつ同じテクニックが
                        //連続しているカウント数
-    GgafDx9DrawableActor* _pNextDrawActor;
-    _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
+    GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
         if (_pNextDrawActor != NULL)  {
             if (_pNextDrawActor->_pGgafDx9Model == _pSpriteSetModel &&
