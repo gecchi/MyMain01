@@ -4,7 +4,7 @@
 namespace GgafDx9Core {
 
 //#define MAX_DRAW_DEPTH_LEVEL 1000
-#define MAX_DRAW_DEPTH_LEVEL 600
+#define MAX_DRAW_DEPTH_LEVEL 300
 #define MAX_SE_AT_ONCE 10
 #define MAX_SE_DELAY 240
 

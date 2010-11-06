@@ -6,7 +6,6 @@ using namespace GgafDx9LibStg;
 
 WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
     _class_name = "WalledScene";
-    WallActor* pWallActor;
     _scrool_speed = 5000;
 
     _pDispatcher_Wall = NULL;
