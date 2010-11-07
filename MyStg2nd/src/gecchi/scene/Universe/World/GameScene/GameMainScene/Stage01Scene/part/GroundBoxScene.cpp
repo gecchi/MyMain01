@@ -39,7 +39,6 @@ GroundBoxScene::GroundBoxScene(const char* prm_name, ScrolledScene* prm_pScrolle
     _class_name = "GroundBoxScene";
     _bound_alpha = -pCAM->_cameraZ_org*0.7; //背面時カメラは_cameraZ_org*0.6に由来している
 
-//    orderActorToFactory(9999999+_id, FormationThalia, "FormationThalia_1");
 
 }
 
@@ -51,11 +50,6 @@ void GroundBoxScene::processBehavior() {
         enableFrontAlpha(NULL); //背面カメラの近さならアルファ無し
     }
 
-
-//    if (getActivePartFrame() == 10) {
-//    FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(9999999+_id);
-//    getLordActor()->addSubGroup(pActor);
-//    }
 
 //    if (getActivePartFrame() == 300) {
 //        pUNIVERSE->pushCameraWork("TestCamWorker");

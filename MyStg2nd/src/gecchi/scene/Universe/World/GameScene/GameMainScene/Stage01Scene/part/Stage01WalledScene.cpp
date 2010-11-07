@@ -31,6 +31,9 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
             400000*scale_r, 100000*scale_r, 100000*scale_r,
             (WalledSectionScene**)&apSection, 5,
             pDispatcher_Wall, Stage01WalledScene::moveX);
+
+
+    orderActorToFactory(9999999+_id, FormationThalia, "FormationThalia_1");
 }
 
 void Stage01WalledScene::moveX(GgafObject* pThat, void* p1, void* p2) {
@@ -60,9 +63,14 @@ void Stage01WalledScene::processBehavior() {
     WalledScene::processBehavior();
 
     if (getActivePartFrame() % 60 == 0) {
-        if (_scrool_speed < 200000) {
+        if (_scrool_speed < 100000) {
             _scrool_speed += 1000;
         }
+    }
+
+    if (getActivePartFrame() == 10) {
+    FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(9999999+_id);
+    getLordActor()->addSubGroup(pActor);
     }
 
 //    if (getActivePartFrame() % 1300 == 0) {
