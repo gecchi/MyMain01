@@ -5,7 +5,7 @@ namespace GgafDx9LibStg {
 /**
  * スクロールシーン .
  * @version 1.00
- * @since 2010/08/23
+ * @since 2010/11/05
  * @author Masatoshi Tsuge
  */
 class ScrolledScene : public DefaultScene {
