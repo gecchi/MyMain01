@@ -11,34 +11,47 @@ namespace GgafDx9LibStg {
 class WalledScene : public GgafDx9LibStg::ScrolledScene {
 
 public:
-
+    /** セクションシーンのリスト */
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::WalledSectionScene>* _pRingSection;
+    /** 壁ブロックを供給するディスパッチャー(buildWalledScene()で設定される) */
     GgafCore::GgafActorDispatcher* _pDispatcher_Wall;
+
+    /**
+     * コンストラクタ
+     * @param prm_name
+     * @return
+     */
     WalledScene(const char* prm_name);
 
     /**
-     *
-     * @param prm_wall_dep
-     * @param prm_wall_width
-     * @param prm_wall_height
-     * @param prm_papSection
-     * @param prm_section_num
-     * @param prm_pDispatcher_Wall
-     * @param prm_pFuncScrolling
+     * WalledSceneを構築する。
+     * 本クラス new 後 initialize() までに、必ず１回実行する必要があります。
+     * @param prm_wall_dep      壁ブロック１個のX軸方向の幅
+     * @param prm_wall_width    壁ブロック１個のZ軸方向の幅
+     * @param prm_wall_height   壁ブロック１個のY軸方向の幅
+     * @param prm_papSection    セクションシーン配列へのポインタ
+     * @param prm_section_num   セクションシーン数
+     * @param prm_pDispatcher_Wall 壁ブロックを供給するディスパッチャー
      */
-    void build(
+    void buildWalledScene(
             int prm_wall_dep, int prm_wall_width, int prm_wall_height,
             WalledSectionScene** prm_papSection, int prm_section_num,
             GgafCore::GgafActorDispatcher* prm_pDispatcher_Wall
          );
 
     /**
-     * 初期処理
+     * 処理実装済み。下位でオーバーライドする場合は、上位initialize()を呼び出して下さい。
      */
-    void initialize() override;
+    virtual void initialize() override;
 
+    /**
+     * 処理実装済み。下位でオーバーライドする場合は、上位onActive()を呼び出して下さい。
+     */
     virtual void onActive() override;
 
+    /**
+     * 処理実装済み。下位でオーバーライドする場合は、上位processBehavior()を呼び出して下さい。
+     */
     virtual void processBehavior() override;
 
     virtual void processFinal() override;

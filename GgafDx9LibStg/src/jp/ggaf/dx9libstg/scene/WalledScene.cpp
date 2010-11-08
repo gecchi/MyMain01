@@ -10,14 +10,13 @@ WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
     _pRingSection = NEW GgafLinkedListRing<WalledSectionScene>();
 }
 
-void WalledScene::build(
+void WalledScene::buildWalledScene(
         int prm_wall_dep, int prm_wall_width, int prm_wall_height,
         WalledSectionScene** prm_papSection, int prm_section_num,
         GgafActorDispatcher* prm_pDispatcher_Wall) {
     _pDispatcher_Wall = prm_pDispatcher_Wall;
     getLordActor()->addSubGroup(_pDispatcher_Wall);
 
-    _pRingSection = NEW GgafLinkedListRing<WalledSectionScene>();
     for (int i = 0; i < prm_section_num; i++) {
         addSubLast(prm_papSection[i]);
         prm_papSection[i]->config(_pDispatcher_Wall, prm_wall_dep, prm_wall_width, prm_wall_height);
@@ -61,7 +60,9 @@ void WalledScene::build(
 }
 
 void WalledScene::initialize() {
-
+    if (_pDispatcher_Wall == NULL) {
+        throwGgafCriticalException("WalledScene["<<getName()<<"] オブジェクトが未完成です。buildWalledScene()を実行し構築してください。");
+    }
 }
 
 void WalledScene::onActive() {
@@ -92,5 +93,5 @@ void WalledScene::processFinal() {
 }
 
 WalledScene::~WalledScene() {
-
+    DELETE_IMPOSSIBLE_NULL(_pRingSection);
 }
