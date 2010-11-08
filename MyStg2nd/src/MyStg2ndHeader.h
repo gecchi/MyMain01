@@ -147,7 +147,7 @@ class Stage01_02;
 class Stage01_03;
 class Stage01_Climax;
 
-class GroundBoxScene;
+class Stage01WalledSection001;
 class Stage01WalledScene;
 class Wall001;
 
@@ -317,7 +317,7 @@ class LaserChipEffectActor;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage02Scene/part/Stage02_Climax.h"
 
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01WalledScene.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/GroundBoxScene.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01WalledSection001.h"
 #include "gecchi/actor/wall/Wall001.h"
 
 #include "gecchi/actor/Camera.h"

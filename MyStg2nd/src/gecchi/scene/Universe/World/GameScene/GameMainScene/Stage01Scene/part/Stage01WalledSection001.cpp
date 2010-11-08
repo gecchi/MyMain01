@@ -5,80 +5,35 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_name) {
-    _class_name = "Stage01WalledScene";
 
-    //壁ブロックディスパッチャー生成
-    float scale_r = 4.0f; //壁ブロックの元モデルからの拡大率
-    WallActor* pWallActor;
-    GgafActorDispatcher* pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
-    for (int i = 0; i < 4000; i++) {
-        pWallActor = NEW Wall001("GroundBox");
-        pWallActor->setScaleRate(scale_r);
-        pWallActor->inactivateTreeImmediately();
-        pDispatcher_Wall->addSubLast(pWallActor);
-    }
-
-    //シーンセクション生成
-    WalledSectionScene* apSection[] = {
-      NEW GroundBoxScene("gbs", this, "scene3_wall_0.dat"),
-      NEW GroundBoxScene("gbs", this, "scene3_wall_1.dat"),
-      NEW GroundBoxScene("gbs", this, "scene3_wall_2.dat"),
-      NEW GroundBoxScene("gbs", this, "scene3_wall_3.dat"),
-      NEW GroundBoxScene("gbs", this, "scene3_wall_4.dat"),
-    };
-
-    //構築
-    buildWalledScene(
-        400000*scale_r, 100000*scale_r, 100000*scale_r,
-        (WalledSectionScene**)&apSection, 5,
-        pDispatcher_Wall
-    );
-
-    //初期スクロールスピード
-    setScroolSpeed(5000);
+Stage01WalledSection001::Stage01WalledSection001(const char* prm_name, ScrolledScene* prm_pScrolledScene, const char* prm_data_filename)
+     : WalledSectionScene(prm_name, prm_data_filename, prm_pScrolledScene) {
+    _class_name = "Stage01WalledSection001";
+    _bound_alpha = -pCAM->_cameraZ_org*0.7; //背面時カメラは_cameraZ_org*0.6に由来している
 
 
-    orderActorToFactory(9999999+_id, FormationThalia, "FormationThalia_1");
 }
 
-
-void Stage01WalledScene::initialize() {
-}
-
-
-
-void Stage01WalledScene::onActive() {
-    WalledScene::onActive();
-}
-
-void Stage01WalledScene::processBehavior() {
-    WalledScene::processBehavior();
-
-    if (getActivePartFrame() % 60 == 0) {
-        if (getScroolSpeed() < 50000) {
-            addScroolSpeed(1000);
-        }
+void Stage01WalledSection001::processBehavior() {
+    WalledSectionScene::processBehavior();
+    if (_bound_alpha - (-(pMYSHIP->_fDist_VpPlnFront)) < 0) {
+        enableFrontAlpha(pMYSHIP);
+    } else {
+        enableFrontAlpha(NULL); //背面カメラの近さならアルファ無し
     }
 
-    if (getActivePartFrame() == 10) {
-    FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(9999999+_id);
-    getLordActor()->addSubGroup(pActor);
-    }
 
-//    if (getActivePartFrame() % 1300 == 0) {
-//        _scrool_speed = 2000;
+//    if (getActivePartFrame() == 300) {
+//        pUNIVERSE->pushCameraWork("TestCamWorker");
 //    }
 //
-//
-//    if (getActivePartFrame() % 1800 == 0) {
-//        _scrool_speed = 5000;
+//    if (getActivePartFrame() == 1200) {
+//        pUNIVERSE->popCameraWork();
 //    }
+
 }
 
-void Stage01WalledScene::processFinal() {
-}
 
-Stage01WalledScene::~Stage01WalledScene() {
+Stage01WalledSection001::~Stage01WalledSection001() {
 
 }

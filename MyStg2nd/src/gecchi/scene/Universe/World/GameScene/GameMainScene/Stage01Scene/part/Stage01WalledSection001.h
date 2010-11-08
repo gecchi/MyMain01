@@ -1,5 +1,5 @@
-#ifndef GROUNDBOXSCENE_H_
-#define GROUNDBOXSCENE_H_
+#ifndef STAGE01WALLEDSECTION001_H_
+#define STAGE01WALLEDSECTION001_H_
 
 
 namespace MyStg2nd {
@@ -11,18 +11,18 @@ namespace MyStg2nd {
  * @since 2010/08/18
  * @author Masatoshi Tsuge
  */
-class GroundBoxScene : public GgafDx9LibStg::WalledSectionScene {
+class Stage01WalledSection001 : public GgafDx9LibStg::WalledSectionScene {
 
 public:
 
     float _bound_alpha;
 
-    GroundBoxScene(const char* prm_name,  GgafDx9LibStg::ScrolledScene* prm_pScrolledScene, const char* prm_data_filename);
+    Stage01WalledSection001(const char* prm_name,  GgafDx9LibStg::ScrolledScene* prm_pScrolledScene, const char* prm_data_filename);
 
     void processBehavior() override;
 
-    virtual ~GroundBoxScene();
+    virtual ~Stage01WalledSection001();
 };
 
 }
-#endif /*STAGE01_01_H_*/
+#endif /*STAGE01WALLEDSECTION001_H_*/
