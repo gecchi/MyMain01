@@ -13,7 +13,7 @@ public:
 
     Stage01WalledScene(const char* prm_name);
 
-    static void moveX(GgafObject* pThat, void* p1, void* p2);
+//    static void scroll_X(GgafObject* pThat, void* p1, void* p2);
     /**
      * ‰Šúˆ—
      */

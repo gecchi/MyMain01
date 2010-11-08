@@ -11,8 +11,6 @@ GroundBoxScene::GroundBoxActor::GroundBoxActor(const char* prm_name) :
     WallActor(prm_name, "g_box001") {
     _class_name = "GroundBoxActor";
     MyStgUtil::resetGroundBoxActorStatus(_pStatus);
-
-    setBoundingSphereRadiusRate(2.0);
 }
 
 void GroundBoxScene::GroundBoxActor::onCreateModel() {
