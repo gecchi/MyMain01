@@ -13,7 +13,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     WallActor* pWallActor;
     GgafActorDispatcher* pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
     for (int i = 0; i < 4000; i++) {
-        pWallActor = NEW GroundBoxScene::GroundBoxActor("GroundBox");
+        pWallActor = NEW Wall001("GroundBox");
         pWallActor->setScaleRate(scale_r);
         pWallActor->inactivateTreeImmediately();
         pDispatcher_Wall->addSubLast(pWallActor);

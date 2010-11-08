@@ -5,32 +5,6 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-////////////////////////////////////////////////////////////////////////////
-
-GroundBoxScene::GroundBoxActor::GroundBoxActor(const char* prm_name) :
-    WallActor(prm_name, "g_box001") {
-    _class_name = "GroundBoxActor";
-    MyStgUtil::resetGroundBoxActorStatus(_pStatus);
-}
-
-void GroundBoxScene::GroundBoxActor::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.2, 3.0);
-    _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
-    _pGgafDx9Model->_pTextureBlinker->beat(60*20, 60*9, 60*3, -1);
-    _pGgafDx9Model->_fBlinkThreshold = 0.7;
-}
-
-
-bool GroundBoxScene::GroundBoxActor::isOutOfUniverse() {
-    if (GgafDx9Universe::_X_goneLeft < _X) {
-        return false;
-    }
-    return true;
-}
-
-
-///////////////////////////////////////////////////////////////////////////
-
 
 GroundBoxScene::GroundBoxScene(const char* prm_name, ScrolledScene* prm_pScrolledScene, const char* prm_data_filename)
      : WalledSectionScene(prm_name, prm_data_filename, prm_pScrolledScene) {
