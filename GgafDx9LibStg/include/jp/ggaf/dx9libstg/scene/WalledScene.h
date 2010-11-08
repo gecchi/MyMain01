@@ -24,12 +24,12 @@ public:
      * @param prm_papSection
      * @param prm_section_num
      * @param prm_pDispatcher_Wall
-     * @param prm_pFuncWallMove
+     * @param prm_pFuncScrolling
      */
     void build(
             int prm_wall_dep, int prm_wall_width, int prm_wall_height,
             WalledSectionScene** prm_papSection, int prm_section_num,
-            GgafCore::GgafActorDispatcher* prm_pDispatcher_Wall, void (*prm_pFuncWallMove)(GgafObject*, void*, void*)
+            GgafCore::GgafActorDispatcher* prm_pDispatcher_Wall
          );
 
     /**

@@ -9,14 +9,37 @@ namespace GgafDx9LibStg {
  * @author Masatoshi Tsuge
  */
 class ScrolledScene : public DefaultScene {
-
-public:
     /** スクロール速度 */
-    int _scrool_speed;
-
+    velo _scrool_speed;
     /** [r/w]毎フレームprocessSettlementBehavior()で、配下アクター全てに実行される関数。*/
-    void (*_pFuncWallMove)(GgafCore::GgafObject*, void*, void*);
+    void (*_pFuncScrolling)(GgafCore::GgafObject*, void*, void*);
+public:
 
+    static void scroll_X(GgafObject* pThat, void* p1, void* p2);
+
+
+    void setScrollingFunction(void (*prm_pFuncScrolling)(GgafCore::GgafObject*, void*, void*)) {
+        _pFuncScrolling = prm_pFuncScrolling;
+    }
+
+    void setScroolSpeed(velo prm_scrool_speed) {
+        _scrool_speed = prm_scrool_speed;
+    }
+
+    velo getScroolSpeed() {
+        return _scrool_speed;
+    }
+
+    void addScroolSpeed(acce prm_acce) {
+        _scrool_speed += prm_acce;
+    }
+
+
+    /**
+     *
+     * @param prm_name
+     * @return
+     */
     ScrolledScene(const char* prm_name);
 
 
