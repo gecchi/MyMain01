@@ -109,7 +109,6 @@ void GgafDx9Universe::draw() {
         pModelCon = (GgafDx9ModelConnection*)(pModelCon->getNext());
     }
 
-
     //段階レンダリング不要（最深部等、背景、最善面の文字等）の描画。
     //※TODO:本来は手前から描画のほうが効率良い。が、その内最適化
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
@@ -131,6 +130,8 @@ void GgafDx9Universe::draw() {
                 _pActor_DrawActive->_pGgafDx9Effect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha);
         //描画
         _pActor_DrawActive->processDraw();
+
+
         if (_pActor_DrawActive->_fAlpha < 1.0) {
             GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //カリング有りに戻す
         }
@@ -204,6 +205,7 @@ void GgafDx9Universe::draw() {
         GgafDx9ModelManager::_pModelLastDraw = NULL;
         GgafDx9DrawableActor::_hash_technique_last_draw = 0;
     }
+
 }
 
 //void GgafDx9Universe::setDrawDepthMaxLevel(GgafDx9DrawableActor* prm_pActor) {
@@ -242,7 +244,7 @@ int GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawable
         //表示順が固定にならないように、お尻から追加(キュー)、或いは、前に積み上げ(スタック)を、フレームよって交互に行う。
         //何故そんなことをするかというと、Zバッファ有りのテクスチャに透明があるオブジェクトや、半透明オブジェクトが交差した場合、
         //同一深度なので、プライオリティ（描画順）によって透けない部分が生じてしまう。
-        //これを描画順を毎フレーム返ることで、交互表示でちらつかせ若干のごまかしを行う。
+        //これを描画順を毎フレーム変化させることで、交互表示でちらつかせ若干のごまかしを行う。
         //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
         if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 1) {
             //お尻に追加

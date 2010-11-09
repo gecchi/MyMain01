@@ -182,8 +182,8 @@ void GgafDx9DrawableActor::processPreDraw() {
                 if (_specal_drawdepth < 0) { //特別な描画深度指定無し
 
                     float dep = -_fDist_VpPlnFront; //オブジェクトの視点からの距離(DIRECTX距離)
-                    static float roughly_dep_point1 = ((pCAM->_zf * (pCAM->_dep+1)) * 0.3); //荒くなるポイント１(カメラ可視奥行の 3/10 の地点)( 300 DIRECTX距離)
-                    static float roughly_dep_point2 = ((pCAM->_zf * (pCAM->_dep+1)) * 0.6); //荒くなるポイント２(カメラ可視奥行の 8/10 の地点)( 600 DIRECTX距離)
+                    static float roughly_dep_point1 = (pCAM->_zf * 0.3); //荒くなるポイント１(カメラ可視奥行の 3/10 の地点)(約 300 DIRECTX距離)
+                    static float roughly_dep_point2 = (pCAM->_zf * 0.6); //荒くなるポイント２(カメラ可視奥行の 6/10 の地点)(約 600 DIRECTX距離)
 
                     if (dep <= roughly_dep_point1) { //depが ～ roughly_dep_point1 までの距離のオブジェクトは
 
@@ -205,9 +205,16 @@ void GgafDx9DrawableActor::processPreDraw() {
 
                         _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(offset_DRAW_DEPTH_LEVEL  + ((dep - roughly_dep_point2) * 0.01), this); //0.01倍。つまりDirectXの距離100が深さ1。よって1000px間隔で段階レンダ
                     }
+//                    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+//                        _TRACE_("setDep ["<<_now_drawdepth<<"]:dep="<<dep<<" roughly_dep_point1="<<roughly_dep_point1<<" roughly_dep_point2="<<roughly_dep_point2<<" name="<<this->getName());
+//                    }
                 } else { //特別な描画深度指定有り
                     _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(_specal_drawdepth, this);
+//                    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+//                        _TRACE_("_specal_drawdepth ["<<_now_drawdepth<<"]: name="<<this->getName());
+//                    }
                 }
+
             }
         }
     }
