@@ -1,8 +1,11 @@
 #ifndef WALL001_H_
 #define WALL001_H_
 
-namespace MyStg2nd {
+namespace MyStg2nd  {
 
+/**
+ * ï«ÉuÉçÉbÉNÇªÇÃÇP
+ */
 class Wall001 : public GgafDx9LibStg::WallActor {
 public:
     Wall001(const char* prm_name);
