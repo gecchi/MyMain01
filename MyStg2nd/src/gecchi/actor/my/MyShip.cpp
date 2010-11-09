@@ -392,9 +392,9 @@ void MyShip::processBehavior() {
 
 void MyShip::processJudgement() {
     //自機消滅テスト
-    if (VB_PLAY->isBeingPressed(MY_KEY_BUTTON8)) {
-        _TRACE_("自機消滅テスト");
-    }
+//    if (VB_PLAY->isBeingPressed(MY_KEY_BUTTON8)) {
+//        _TRACE_("自機消滅テスト");
+//   }
 
 
     //ショット関連処理
