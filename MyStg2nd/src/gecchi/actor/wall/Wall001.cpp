@@ -9,7 +9,7 @@ using namespace MyStg2nd;
 Wall001::Wall001(const char* prm_name) :
     WallActor(prm_name, "g_box001") {
     _class_name = "Wall001";
-    MyStgUtil::resetWall001Status(_pStatus);
+    MyStgUtil::resetWall001Status(_pStatus);//éÌï ÅFKIND_CHIKEI
 }
 
 void Wall001::onCreateModel() {

@@ -391,6 +391,12 @@ void MyShip::processBehavior() {
 }
 
 void MyShip::processJudgement() {
+    //自機消滅テスト
+    if (VB_PLAY->isBeingPressed(MY_KEY_BUTTON8)) {
+        _TRACE_("自機消滅テスト");
+    }
+
+
     //ショット関連処理
     _is_shooting_laser = false;
     if (VB_PLAY->isBeingPressed(VB_SHOT1)) {
@@ -478,13 +484,11 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     _pSeTransmitter->play3D(0);
     EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
-        pExplo001->setGeometry(pOther);
+        pExplo001->setGeometry(this);
         pExplo001->activate();
     }
     if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
-
-
     }
 
 }
