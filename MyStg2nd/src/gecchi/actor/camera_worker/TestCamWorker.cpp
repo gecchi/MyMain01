@@ -14,14 +14,14 @@ void TestCamWorker::onActive() {
 }
 
 void TestCamWorker::onPushed() {
-    pCAM->setGeometry(pMYSHIP);
+    pCAM->setCoordinate(pMYSHIP);
     GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
-    pVP->setGeometry(pMYSHIP);
+    pVP->setCoordinate(pMYSHIP);
 }
 
 void TestCamWorker::processBehavior() {
     GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
-    pVP->setGeometry(pMYSHIP);
+    pVP->setCoordinate(pMYSHIP);
     pCAM->_X += 2000;
     pCAM->_Y += 2000;
     pCAM->_Z += 2000;

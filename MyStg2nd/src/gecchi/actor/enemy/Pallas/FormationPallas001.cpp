@@ -32,7 +32,7 @@ void FormationPallas001::initialize() {
 //    int t = 0;
 //    do {
 //        pPallas = (EnemyPallas*)pActor;
-//        pPallas->setGeometry(_pSplineCon->refer()->_X_basepoint[0], 0, 0);
+//        pPallas->setCoordinate(_pSplineCon->refer()->_X_basepoint[0], 0, 0);
 //        pPallas->_pMover->setMvVelo(_mv_velo);
 //        pPallas->activateDelay(t*_frame_interval + 1);//_frame_intervalä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
 //        t++;
@@ -41,7 +41,7 @@ void FormationPallas001::initialize() {
 
 //
 //    for (GgafMainActor* pActor = getSubFirst(); i < _num_Pallas; i++) {
-//        _papPallas[i]->setGeometry(_pSplineCon->refer()->_X_basepoint[0] ,
+//        _papPallas[i]->setCoordinate(_pSplineCon->refer()->_X_basepoint[0] ,
 //                                   0,
 //                                   0);
 //        _papPallas[i]->_pMover->setMvVelo(_mv_velo);
@@ -55,7 +55,7 @@ void FormationPallas001::onActive() {
     int t = 0;
     do {
         pPallas = (EnemyPallas*)pActor;
-        pPallas->setGeometry(_pSplineCon->refer()->_X_basepoint[0], 0, 0);
+        pPallas->setCoordinate(_pSplineCon->refer()->_X_basepoint[0], 0, 0);
         pPallas->_pMover->setMvVelo(_mv_velo);
         pPallas->activateDelay(t*_frame_interval + 1);//_frame_intervalä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
         t++;
@@ -66,9 +66,9 @@ void FormationPallas001::onActive() {
 }
 void FormationPallas001::wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) {
     //ï“ë‡è¡ñ≈éûÇÃé¿å±
-    EffectTurbo002* pTurbo002 = (EffectTurbo002*)pCOMMONSCENE->_pDispatcher_EffectTurbo002->employForce();
+    EffectTurbo002* pTurbo002 = (EffectTurbo002*)pCOMMON_SCENE->_pDispatcher_EffectTurbo002->employForce();
      if (pTurbo002 != NULL) {
-         pTurbo002->setGeometry(prm_pActorLast);
+         pTurbo002->setCoordinate(prm_pActorLast);
          pTurbo002->activate();
      }
 }

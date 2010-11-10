@@ -43,11 +43,11 @@ void Shot003::onHit(GgafActor* prm_pOtherActor) {
 //    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 //        //破壊された場合
 //        //・・・ココに破壊されたエフェクト
-//        EffectExplosion003* pExplo003 = (EffectExplosion003*)pCOMMONSCENE->_pDispatcher_EffectExplosion003->employ();
+//        EffectExplosion003* pExplo003 = (EffectExplosion003*)pCOMMON_SCENE->_pDispatcher_EffectExplosion003->employ();
 //        playSe3D1();
 //        if (pExplo003 != NULL) {
 //            pExplo003->activate();
-//            pExplo003->setGeometry(this);
+//            pExplo003->setCoordinate(this);
 //        }
 //        sayonara();
 //    }

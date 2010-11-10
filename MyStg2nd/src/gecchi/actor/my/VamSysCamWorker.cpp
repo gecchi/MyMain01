@@ -7,11 +7,14 @@ using namespace MyStg2nd;
 
 VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) {
     _class_name = "VamSysCamWorker";
+    _pMyShip = NULL; //MyShipSceneに設定してもらう
 }
 void VamSysCamWorker::initialize() {
+    GgafDx9Camera* pCam = pCAM;
+    GgafDx9CameraViewPoint* pVP = pCam->_pViewPoint;
 
     //初期カメラZ位置
-    _dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
+    _dZ_camera_init = -1 * pCam->_cameraZ_org * LEN_UNIT * PX_UNIT;
 
 
     //画面背後用範囲差分
@@ -20,17 +23,17 @@ void VamSysCamWorker::initialize() {
     _correction_height = 0;//(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)/4;
 
     _pos_camera = VAM_POS_RIGHT;
-    GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
-//    pCAM->_X = 0;
-//    pCAM->_Y = 0;
-//    pCAM->_Z = 0;
-//    pCAM->setViewPoint(0,0,0);
-//    pCAM->_pMover->setMvAng(0,0,0);
+
+//    pCam->_X = 0;
+//    pCam->_Y = 0;
+//    pCam->_Z = 0;
+//    pCam->setViewPoint(0,0,0);
+//    pCam->_pMover->setMvAng(0,0,0);
 
     _cam_velo_renge = 30000;
-    pCAM->_pMover->forceVxMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
-    pCAM->_pMover->forceVyMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
-    pCAM->_pMover->forceVzMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
+    pCam->_pMover->forceVxMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
+    pCam->_pMover->forceVyMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
+    pCam->_pMover->forceVzMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pVP->_pMover->forceVxMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pVP->_pMover->forceVyMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pVP->_pMover->forceVzMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
@@ -49,26 +52,27 @@ void VamSysCamWorker::processBehavior() {
     //DefaultVamSysCamWorker::processBehavior();
 
     //ゲーム内カメラワーク処理
-    if (pMYSHIP == NULL) {
-        return; //顧問シーンが未だならカメラワーク禁止
-    } else {
-        //初期カメラ移動範囲制限
-        float revise = 0.7; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
-        _lim_CAM_top     = MyShip::_lim_top     - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)*revise;
-        _lim_CAM_bottom  = MyShip::_lim_bottom  + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)*revise;
-        _lim_CAM_front   = MyShip::_lim_front   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-        _lim_CAM_behaind = MyShip::_lim_behaind + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-        _lim_CAM_zleft   = MyShip::_lim_zleft   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-        _lim_CAM_zright  = MyShip::_lim_zright  + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-
-        _lim_VP_top     = MyShip::_lim_top     - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)*revise;
-        _lim_VP_bottom  = MyShip::_lim_bottom  + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)*revise;
-        _lim_VP_front   = MyShip::_lim_front   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-        _lim_VP_behaind = MyShip::_lim_behaind + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-        _lim_VP_zleft   = MyShip::_lim_zleft   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-        _lim_VP_zright  = MyShip::_lim_zright  + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
+    if (_pMyShip == NULL) {
+        return; //MyShipSceneシーンが未だならカメラワーク禁止
     }
-    GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
+
+    //初期カメラ移動範囲制限
+    float revise = 0.7; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
+    _lim_CAM_top     = MyShip::_lim_top     - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)*revise;
+    _lim_CAM_bottom  = MyShip::_lim_bottom  + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)*revise;
+    _lim_CAM_front   = MyShip::_lim_front   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_CAM_behaind = MyShip::_lim_behaind + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_CAM_zleft   = MyShip::_lim_zleft   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_CAM_zright  = MyShip::_lim_zright  + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
+
+    _lim_VP_top     = MyShip::_lim_top     - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)*revise;
+    _lim_VP_bottom  = MyShip::_lim_bottom  + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)*revise;
+    _lim_VP_front   = MyShip::_lim_front   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_VP_behaind = MyShip::_lim_behaind + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_VP_zleft   = MyShip::_lim_zleft   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_VP_zright  = MyShip::_lim_zright  + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
+    GgafDx9Camera* pCam = pCAM;
+    GgafDx9CameraViewPoint* pVP = pCam->_pViewPoint;
 
     //カメラ位置番号を決定処理
     if (VB_PLAY->isPushedDown(VB_VIEW)) {
@@ -113,97 +117,97 @@ void VamSysCamWorker::processBehavior() {
 //            move_target_Y_VP = 0;
 //            move_target_Z_VP = 0;
 
-            move_target_X_CAM = -Dx + (-pMYSHIP->_X-180000)*2;
+            move_target_X_CAM = -Dx + (-_pMyShip->_X-180000)*2;
             //↑ -180000 はカメラ移動位置、
             //   *2 は自機が後ろに下がった時のカメラのパン具合。
             //   この辺りの数値は納得いくまで調整を繰した。
-            //   TODO:ゲーム領域の大きさから計算で求ることは断念。いつかそうしたい。
+            //   TODO:本当はゲーム領域の大きさから動的に計算できる。いつかそうしたい。
             if (-Dx > move_target_X_CAM) {
                 move_target_X_CAM = -Dx;
             } else if (move_target_X_CAM > Dx/2) {
                 move_target_X_CAM = Dx/2;
             }
-            move_target_Y_CAM = pMYSHIP->_Y;
-            move_target_Z_CAM = pMYSHIP->_Z - _dZ_camera_init;
-            move_target_X_VP = Dx - (-pMYSHIP->_X-180000)*2;
+            move_target_Y_CAM = _pMyShip->_Y;
+            move_target_Z_CAM = _pMyShip->_Z - _dZ_camera_init;
+            move_target_X_VP = Dx - (-_pMyShip->_X-180000)*2;
             if (Dx < move_target_X_VP) {
                 move_target_X_VP = Dx;
             } else if ( move_target_X_VP < -Dx/2) {
                 move_target_X_VP = -Dx/2;
             }
-            move_target_Y_VP = pMYSHIP->_Y;
-            move_target_Z_VP = pMYSHIP->_Z;
+            move_target_Y_VP = _pMyShip->_Y;
+            move_target_Z_VP = _pMyShip->_Z;
             move_target_XY_CAM_UP = ANGLE90;
         } else if (_pos_camera == VAM_POS_LEFT) {
-            move_target_X_CAM = -Dx + (-pMYSHIP->_X-180000)*2;
+            move_target_X_CAM = -Dx + (-_pMyShip->_X-180000)*2;
             if (-Dx > move_target_X_CAM) {
                 move_target_X_CAM = -Dx;
             } else if (move_target_X_CAM > Dx/2) {
                 move_target_X_CAM = Dx/2;
             }
-            move_target_Y_CAM = pMYSHIP->_Y;
-            move_target_Z_CAM = pMYSHIP->_Z + _dZ_camera_init;
-            move_target_X_VP = Dx - (-pMYSHIP->_X-180000)*2;
+            move_target_Y_CAM = _pMyShip->_Y;
+            move_target_Z_CAM = _pMyShip->_Z + _dZ_camera_init;
+            move_target_X_VP = Dx - (-_pMyShip->_X-180000)*2;
             if (Dx < move_target_X_VP) {
                 move_target_X_VP = Dx;
             } else if ( move_target_X_VP < -Dx/2) {
                 move_target_X_VP = -Dx/2;
             }
-            move_target_Y_VP = pMYSHIP->_Y;
-            move_target_Z_VP = pMYSHIP->_Z;
+            move_target_Y_VP = _pMyShip->_Y;
+            move_target_Z_VP = _pMyShip->_Z;
             move_target_XY_CAM_UP = ANGLE90;
         } else if (_pos_camera == VAM_POS_TOP) {
-            move_target_X_CAM = -Dx - Ddx_hw + (-pMYSHIP->_X-125000)*2;
+            move_target_X_CAM = -Dx - Ddx_hw + (-_pMyShip->_X-125000)*2;
             if ((-Dx - Ddx_hw) > move_target_X_CAM) {
                 move_target_X_CAM = -Dx - Ddx_hw;
             } else if (move_target_X_CAM > (Dx + Ddx_hw)/2) {
                 move_target_X_CAM = (Dx + Ddx_hw)/2;
             }
-            move_target_Y_CAM = pMYSHIP->_Y + _dZ_camera_init + Ddx_hw;
-            move_target_Z_CAM = pMYSHIP->_Z;
-            move_target_X_VP = Dx + Ddx_hw - (-pMYSHIP->_X-125000)*2;
+            move_target_Y_CAM = _pMyShip->_Y + _dZ_camera_init + Ddx_hw;
+            move_target_Z_CAM = _pMyShip->_Z;
+            move_target_X_VP = Dx + Ddx_hw - (-_pMyShip->_X-125000)*2;
             if (Dx + Ddx_hw < move_target_X_VP) {
                 move_target_X_VP = Dx + Ddx_hw;
             } else if ( move_target_X_VP < -(Dx + Ddx_hw)/2) {
                 move_target_X_VP = -(Dx + Ddx_hw)/2;
             }
-            move_target_Y_VP = pMYSHIP->_Y;
-            move_target_Z_VP = pMYSHIP->_Z;
-            if (pCAM->_X < pVP->_X) {
+            move_target_Y_VP = _pMyShip->_Y;
+            move_target_Z_VP = _pMyShip->_Z;
+            if (pCam->_X < pVP->_X) {
                 move_target_XY_CAM_UP = ANGLE45;
             } else {
                 move_target_XY_CAM_UP = ANGLE315;
             }
         } else if (_pos_camera == VAM_POS_BOTTOM) {
-            move_target_X_CAM = -Dx - Ddx_hw + (-pMYSHIP->_X-125000)*2;
+            move_target_X_CAM = -Dx - Ddx_hw + (-_pMyShip->_X-125000)*2;
             if ((-Dx - Ddx_hw) > move_target_X_CAM) {
                 move_target_X_CAM = -Dx - Ddx_hw;
             } else if (move_target_X_CAM > (Dx + Ddx_hw)/2) {
                 move_target_X_CAM = (Dx + Ddx_hw)/2;
             }
-            move_target_Y_CAM = pMYSHIP->_Y - _dZ_camera_init - Ddx_hw;
-            move_target_Z_CAM = pMYSHIP->_Z;
-            move_target_X_VP = Dx + Ddx_hw - (-pMYSHIP->_X-125000)*2;
+            move_target_Y_CAM = _pMyShip->_Y - _dZ_camera_init - Ddx_hw;
+            move_target_Z_CAM = _pMyShip->_Z;
+            move_target_X_VP = Dx + Ddx_hw - (-_pMyShip->_X-125000)*2;
             if (Dx + Ddx_hw < move_target_X_VP) {
                 move_target_X_VP = Dx + Ddx_hw;
             } else if ( move_target_X_VP < -(Dx + Ddx_hw)/2) {
                 move_target_X_VP = -(Dx + Ddx_hw)/2;
             }
-            move_target_Y_VP = pMYSHIP->_Y;
-            move_target_Z_VP = pMYSHIP->_Z;
-            if (pCAM->_X < pVP->_X) {
+            move_target_Y_VP = _pMyShip->_Y;
+            move_target_Z_VP = _pMyShip->_Z;
+            if (pCam->_X < pVP->_X) {
                 move_target_XY_CAM_UP = ANGLE135;
             } else {
                 move_target_XY_CAM_UP = ANGLE225;
             }
         }
     } else if (_pos_camera > VAM_POS_TO_BEHIND) {
-        move_target_X_CAM = pMYSHIP->_X - (_dZ_camera_init*0.6);
-        move_target_Y_CAM = pMYSHIP->_Y;
-        move_target_Z_CAM = pMYSHIP->_Z;
-        move_target_X_VP = pMYSHIP->_X + (_dZ_camera_init);
-        move_target_Y_VP = pMYSHIP->_Y;
-        move_target_Z_VP = pMYSHIP->_Z;
+        move_target_X_CAM = _pMyShip->_X - (_dZ_camera_init*0.6);
+        move_target_Y_CAM = _pMyShip->_Y;
+        move_target_Z_CAM = _pMyShip->_Z;
+        move_target_X_VP = _pMyShip->_X + (_dZ_camera_init);
+        move_target_Y_VP = _pMyShip->_Y;
+        move_target_Z_VP = _pMyShip->_Z;
         move_target_XY_CAM_UP = ANGLE90;
 //        if (_pos_camera == VAM_POS_BEHIND_RIGHT) {
 //            move_target_Z_CAM -= Dd;
@@ -218,8 +222,8 @@ void VamSysCamWorker::processBehavior() {
         throwGgafCriticalException("World::processBehavior() 不正な_pos_camera="<<_pos_camera);
     }
     //カメラの目標座標、ビューポイントの目標座標について、現在の動いている方向への若干画面寄りを行う。（ﾅﾝﾉｺｯﾁｬ）
-    GeoElement* pGeoMyShip = pMYSHIP->_pRing_GeoHistory->getCurrent(); //現在の自機座標
-    GeoElement* pGeoMyShip_prev= pMYSHIP->_pRing_GeoHistory->getPrev(); //現在のひとつ前のフレームの自機座標
+    GeoElement* pGeoMyShip = _pMyShip->_pRing_GeoHistory->getCurrent(); //現在の自機座標
+    GeoElement* pGeoMyShip_prev= _pMyShip->_pRing_GeoHistory->getPrev(); //現在のひとつ前のフレームの自機座標
     _stop_dZ += (pGeoMyShip_prev->_Z - pGeoMyShip->_Z)*0.1; //自機の移動量の1割の移動量を
     _stop_dY += (pGeoMyShip_prev->_Y - pGeoMyShip->_Y)*0.1; //カメラの目標座標に加算してます。
     move_target_Z_CAM += _stop_dZ;
@@ -251,9 +255,9 @@ void VamSysCamWorker::processBehavior() {
         }
     }
     //カメラの移動速度の最大、最小制限を設定
-    pCAM->_pMover->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pCAM->_pMover->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pCAM->_pMover->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pCam->_pMover->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pCam->_pMover->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pCam->_pMover->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
     pVP->_pMover->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
     pVP->_pMover->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
     pVP->_pMover->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
@@ -352,9 +356,9 @@ void VamSysCamWorker::processBehavior() {
     //カメラ、及びビューポイントの移動速度を求める。
 
     //カメラの目標座標までの各軸の距離（座標差分）
-    int dX_CAM = move_target_X_CAM - pCAM->_X;
-    int dY_CAM = move_target_Y_CAM - pCAM->_Y;
-    int dZ_CAM = move_target_Z_CAM - pCAM->_Z;
+    int dX_CAM = move_target_X_CAM - pCam->_X;
+    int dY_CAM = move_target_Y_CAM - pCam->_Y;
+    int dZ_CAM = move_target_Z_CAM - pCam->_Z;
     //ビューポイントの目標座標までの各軸の距離（座標差分）
     int dX_VP = move_target_X_VP - pVP->_X;
     int dY_VP = move_target_Y_VP - pVP->_Y;
@@ -363,7 +367,7 @@ void VamSysCamWorker::processBehavior() {
     velo veloVyRenge = 4000;
     velo veloVzRenge = 4000;
     if (_pos_camera == VAM_POS_BEHIND_RIGHT || _pos_camera == VAM_POS_BEHIND_LEFT) {
-        if (pMYSHIP->_X > -Dx) {
+        if (_pMyShip->_X > -Dx) {
             //ややZ軸移動を早くする
             veloVzRenge *= 1.8;
             veloVxRenge *= 0.2;
@@ -373,7 +377,7 @@ void VamSysCamWorker::processBehavior() {
             veloVxRenge *= 1.8;
         }
     } else if (_pos_camera == VAM_POS_BEHIND_TOP || _pos_camera == VAM_POS_BEHIND_BOTTOM) {
-        if (pMYSHIP->_X > -Dx) {
+        if (_pMyShip->_X > -Dx) {
             //ややY軸移動を早くする
             veloVyRenge *= 1.8;
             veloVxRenge *= 0.2;
@@ -383,7 +387,7 @@ void VamSysCamWorker::processBehavior() {
             veloVxRenge *= 1.8;
         }
     } else if (_pos_camera == VAM_POS_RIGHT || _pos_camera == VAM_POS_LEFT) {
-        if (pMYSHIP->_X > -Dx) {
+        if (_pMyShip->_X > -Dx) {
             //ややX軸移動を早くする
             veloVxRenge *= 1.8;
             veloVzRenge *= 0.2;
@@ -393,7 +397,7 @@ void VamSysCamWorker::processBehavior() {
             veloVzRenge *= 1.8;
         }
     } else if (_pos_camera == VAM_POS_TOP || _pos_camera == VAM_POS_BOTTOM) {
-        if (pMYSHIP->_X > -Dx) {
+        if (_pMyShip->_X > -Dx) {
             //ややX軸移動を早くする
             veloVxRenge *= 1.8;
             veloVyRenge *= 0.2;
@@ -403,19 +407,19 @@ void VamSysCamWorker::processBehavior() {
             veloVyRenge *= 1.8;
         }
     }
-    velo last_CAM_veloVxMv = pCAM->_pMover->_veloVxMv;
-    velo  new_CAM_veloVxMv = pMYSHIP->_iMoveSpeed*(dX_CAM*1.0 / _stop_renge);
+    velo last_CAM_veloVxMv = pCam->_pMover->_veloVxMv;
+    velo  new_CAM_veloVxMv = _pMyShip->_iMoveSpeed*(dX_CAM*1.0 / _stop_renge);
     if (last_CAM_veloVxMv-veloVxRenge <= new_CAM_veloVxMv && new_CAM_veloVxMv <= last_CAM_veloVxMv+veloVxRenge) {
-        pCAM->_pMover->setVxMvVelo(new_CAM_veloVxMv);
+        pCam->_pMover->setVxMvVelo(new_CAM_veloVxMv);
     } else {
         if (last_CAM_veloVxMv-veloVxRenge > new_CAM_veloVxMv) {
-            pCAM->_pMover->setVxMvVelo(last_CAM_veloVxMv-veloVxRenge);
+            pCam->_pMover->setVxMvVelo(last_CAM_veloVxMv-veloVxRenge);
         } else if (new_CAM_veloVxMv > last_CAM_veloVxMv+veloVxRenge) {
-            pCAM->_pMover->setVxMvVelo(last_CAM_veloVxMv+veloVxRenge);
+            pCam->_pMover->setVxMvVelo(last_CAM_veloVxMv+veloVxRenge);
         }
     }
     velo last_VP_veloVxMv = pVP->_pMover->_veloVxMv;
-    velo  new_VP_veloVxMv = pMYSHIP->_iMoveSpeed*(dX_VP*1.0 / _stop_renge);
+    velo  new_VP_veloVxMv = _pMyShip->_iMoveSpeed*(dX_VP*1.0 / _stop_renge);
     if (last_VP_veloVxMv-veloVxRenge <= new_VP_veloVxMv && new_VP_veloVxMv <= last_VP_veloVxMv+veloVxRenge) {
         pVP->_pMover->setVxMvVelo(new_VP_veloVxMv);
     } else {
@@ -426,19 +430,19 @@ void VamSysCamWorker::processBehavior() {
         }
     }
 
-    velo last_CAM_veloVyMv = pCAM->_pMover->_veloVyMv;
-    velo  new_CAM_veloVyMv = pMYSHIP->_iMoveSpeed*(dY_CAM*1.0 / _stop_renge);
+    velo last_CAM_veloVyMv = pCam->_pMover->_veloVyMv;
+    velo  new_CAM_veloVyMv = _pMyShip->_iMoveSpeed*(dY_CAM*1.0 / _stop_renge);
     if (last_CAM_veloVyMv-veloVyRenge <= new_CAM_veloVyMv && new_CAM_veloVyMv <= last_CAM_veloVyMv+veloVyRenge) {
-        pCAM->_pMover->setVyMvVelo(new_CAM_veloVyMv);
+        pCam->_pMover->setVyMvVelo(new_CAM_veloVyMv);
     } else {
         if (last_CAM_veloVyMv-veloVyRenge > new_CAM_veloVyMv) {
-            pCAM->_pMover->setVyMvVelo(last_CAM_veloVyMv-veloVyRenge);
+            pCam->_pMover->setVyMvVelo(last_CAM_veloVyMv-veloVyRenge);
         } else if (new_CAM_veloVyMv > last_CAM_veloVyMv+veloVyRenge) {
-            pCAM->_pMover->setVyMvVelo(last_CAM_veloVyMv+veloVyRenge);
+            pCam->_pMover->setVyMvVelo(last_CAM_veloVyMv+veloVyRenge);
         }
     }
     velo last_VP_veloVyMv = pVP->_pMover->_veloVyMv;
-    velo  new_VP_veloVyMv = pMYSHIP->_iMoveSpeed*(dY_VP*1.0 / _stop_renge);
+    velo  new_VP_veloVyMv = _pMyShip->_iMoveSpeed*(dY_VP*1.0 / _stop_renge);
     if (last_VP_veloVyMv-veloVyRenge <= new_VP_veloVyMv && new_VP_veloVyMv <= last_VP_veloVyMv+veloVyRenge) {
         pVP->_pMover->setVyMvVelo(new_VP_veloVyMv);
     } else {
@@ -449,19 +453,19 @@ void VamSysCamWorker::processBehavior() {
         }
     }
 
-    velo last_CAM_veloVzMv = pCAM->_pMover->_veloVzMv;
-    velo  new_CAM_veloVzMv = pMYSHIP->_iMoveSpeed*(dZ_CAM*1.0 / _stop_renge);
+    velo last_CAM_veloVzMv = pCam->_pMover->_veloVzMv;
+    velo  new_CAM_veloVzMv = _pMyShip->_iMoveSpeed*(dZ_CAM*1.0 / _stop_renge);
     if (last_CAM_veloVzMv-veloVzRenge <= new_CAM_veloVzMv && new_CAM_veloVzMv <= last_CAM_veloVzMv+veloVzRenge) {
-        pCAM->_pMover->setVzMvVelo(new_CAM_veloVzMv);
+        pCam->_pMover->setVzMvVelo(new_CAM_veloVzMv);
     } else {
         if (last_CAM_veloVzMv-veloVzRenge > new_CAM_veloVzMv) {
-            pCAM->_pMover->setVzMvVelo(last_CAM_veloVzMv-veloVzRenge);
+            pCam->_pMover->setVzMvVelo(last_CAM_veloVzMv-veloVzRenge);
         } else if (new_CAM_veloVzMv > last_CAM_veloVzMv+veloVzRenge) {
-            pCAM->_pMover->setVzMvVelo(last_CAM_veloVzMv+veloVzRenge);
+            pCam->_pMover->setVzMvVelo(last_CAM_veloVzMv+veloVzRenge);
         }
     }
     velo last_VP_veloVzMv = pVP->_pMover->_veloVzMv;
-    velo  new_VP_veloVzMv = pMYSHIP->_iMoveSpeed*(dZ_VP*1.0 / _stop_renge);
+    velo  new_VP_veloVzMv = _pMyShip->_iMoveSpeed*(dZ_VP*1.0 / _stop_renge);
     if (last_VP_veloVzMv-veloVzRenge <= new_VP_veloVzMv && new_VP_veloVzMv <= last_VP_veloVzMv+veloVzRenge) {
         pVP->_pMover->setVzMvVelo(new_VP_veloVzMv);
     } else {
@@ -473,21 +477,23 @@ void VamSysCamWorker::processBehavior() {
     }
 
     //カメラのUPを計算
+    angvelo angvelo_cam_up = cam_velo_renge/20; //cam_velo_rengeはVB_VIEW押しっぱで超低速になる方の速度
+
     if (_angXY_nowCamUp != move_target_XY_CAM_UP) {
         //_TRACE_("_angXY_nowCamUp="<<_angXY_nowCamUp<<" / move_target_XY_CAM_UP="<<move_target_XY_CAM_UP);
         angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, move_target_XY_CAM_UP);
-        if (-1500 < da && da < 1500) {
+        if (-angvelo_cam_up < da && da < angvelo_cam_up) {
             _angXY_nowCamUp = move_target_XY_CAM_UP;
         } else {
-            _angXY_nowCamUp += (1500 * sgn(da));
+            _angXY_nowCamUp += (angvelo_cam_up * sgn(da));
         }
         _angXY_nowCamUp = GgafDx9Util::simplifyAng(_angXY_nowCamUp);
-        pCAM->_pVecCamUp->x = GgafDx9Util::COS[_angXY_nowCamUp/ANGLE_RATE];
-        pCAM->_pVecCamUp->y = GgafDx9Util::SIN[_angXY_nowCamUp/ANGLE_RATE];
-        pCAM->_pVecCamUp->z = 0.0f;
+        pCam->_pVecCamUp->x = GgafDx9Util::COS[_angXY_nowCamUp/ANGLE_RATE];
+        pCam->_pVecCamUp->y = GgafDx9Util::SIN[_angXY_nowCamUp/ANGLE_RATE];
+        pCam->_pVecCamUp->z = 0.0f;
     }
 
-    pCAM->_pMover->behave();
+    pCam->_pMover->behave();
     pVP->_pMover->behave();
 
 }

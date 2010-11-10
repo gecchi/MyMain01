@@ -5,19 +5,24 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
+GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) ,
+_pCommonScene(NULL),
+_pMyShipScene(NULL),
+_pScene_GameDemo(NULL),
+_pScene_GameBeginning(NULL),
+_pScene_GameMain(NULL),
+_pScene_GameEnding(NULL),
+_pScene_GameOver(NULL) {
+
     _class_name = "GameScene";
 
-    GameGlobal::_pSceneGame = this;
+//    GameGlobal::_pSceneGame = this;
 
     _pCommonScene = NEW CommonScene("Common");
     addSubLast(_pCommonScene);
 
     _pMyShipScene = NEW MyShipScene("MyShipScene");
     addSubLast(_pMyShipScene);
-
-    _pCommonScene = NEW CommonScene("Common");
-    addSubLast(_pCommonScene);
 
     _pScene_GameDemo = NEW GameDemoScene("GameDemo");
     addSubLast(_pScene_GameDemo);
@@ -75,7 +80,7 @@ void GameScene::processBehavior() {
             pGOD->setVB(VB_PLAY);
             _pScene_GameMain->unpause();     //GameMainScene‚Å‚Ìˆê’â~‰ğœ
             pUNIVERSE->popCameraWork();
-//            pCAM_WORKER->unpause();
+//            pACTIVE_CAMWORKER->unpause();
             pMYSHIP->unpause();
         }
     }

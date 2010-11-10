@@ -65,6 +65,12 @@
 //1/ã2
 #define NANAME 0.70710
 
+#undef pGOD
+#define pGOD ((MyStg2nd::God*)MyStg2nd::God::_pGod)
+#undef pUNIVERSE
+#define pUNIVERSE ((MyStg2nd::Universe*)(pGOD->_pUniverse))
+
+
 enum MoveWay {
     WAY_ZRIGHT_DOWN_BEHIND = 0,   //0    TN(-1,-1,-1)
     WAY_DOWN_BEHIND,              //1    TN(-1,-1, 0)
@@ -429,5 +435,7 @@ class LaserChipEffectActor;
 #include "gecchi/actor/_predrawer/LaserChipEffectActor.h"
 
 #include "gecchi/actor/common/TestDispatcher.h"
+
+
 
 #endif /*MYSTG2NDHEADER_H_*/

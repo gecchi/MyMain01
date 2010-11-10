@@ -10,6 +10,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     _TRACE_("World::World");
     _is_create_GameScene = false;
     _pFont16_Debug = NULL;
+
     //【めも】
     //ここでActorやSceneのNEWをはしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。
@@ -17,6 +18,10 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 
 void World::initialize() {
     _TRACE_("World::initialize()");
+#ifdef MY_DEBUG
+    CubeEx::get();   //当たり判定領域表示用直方体、プリロード
+    SphereEx::get(); //当たり判定領域表示用球、プリロード
+#endif
 #ifdef MY_DEBUG
     orderActorToFactory(0, LabelGecchi16Font, "DebugStr");
     _pFont16_Debug = (LabelGecchi16Font*)obtainActorFromFactory(0);
@@ -46,8 +51,8 @@ void World::processBehavior() {
         }
     } else {
         if (MyFactory::chkProgress(2) == 2) {
-            GameScene* pGameScene = (GameScene*)obtainSceneFromFactory(2);
-            addSubLast(pGameScene);
+            _pGameScene = (GameScene*)obtainSceneFromFactory(2);
+            addSubLast(_pGameScene);
             PreDrawScene* pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
             addSubLast(pPreDrawScene);
             _is_create_GameScene = true;

@@ -10,11 +10,6 @@ namespace MyStg2nd {
 #define getParentActor(X) ((X##Actor*)getParent(#X))
 #define getSubActor(X) ((X##Actor*)getSub(#X))
 
-#ifdef pCAM
-#undef pCAM
-#endif
-#define pCAM ((Camera*)GgafDx9Universe::_pCamera)
-#define pCAM_WORKER (Universe::_pActiveCameraWorker)
 /**
  * Ç±ÇÃê¢ÉVÅ[Éì .
  * Ç‹Ç∏Ç±ÇÃê¢Ç™Ç†ÇËÇ‹ÇµÇΩÅB<BR>
@@ -55,7 +50,7 @@ class Universe : public GgafDx9LibStg::DefaultUniverse {
 
 public:
 
-    static CameraWorker* _pActiveCameraWorker;
+    CameraWorker* _pActiveCameraWorker;
     CameraWorkerManager* _pCameraWorkerManager;
     World* _pWorld;
     CameraWorkerStack _stack_CameraWorker;

@@ -55,7 +55,7 @@ God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd)
 }
 
 GgafUniverse* God::createUniverse() {
-    Camera* pCamera = NEW Camera("CAMERA", PI * 80.0f / 180.0f, GGAFDX9_PROPERTY(GAME_SPACE_DEPTH));    //FovXéãñÏäp80ìxÅAê[Ç≥Å~15.0
+    Camera* pCamera = NEW Camera("CAMERA", PI * 80.0f / 180.0f, GGAFDX9_PROPERTY(GAME_SPACE_DEPTH));    //FovXéãñÏäp80ìxÅAê[Ç≥Å~GAME_SPACE_DEPTH
 
     Universe* pUniverse = NEW Universe("MYUNIVERSE", pCamera);
     return (GgafUniverse*)pUniverse;

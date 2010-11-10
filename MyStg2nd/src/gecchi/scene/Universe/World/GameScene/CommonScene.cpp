@@ -75,8 +75,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 //        }
 //        getLordActor()->addSubGroup(_pDispatcher_LaserChipDispatcher);
 //    }
-
-    pCOMMONSCENE = this;
 }
 
 void CommonScene::initialize() {

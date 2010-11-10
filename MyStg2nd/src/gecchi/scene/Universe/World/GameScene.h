@@ -7,6 +7,12 @@
 #define GAME_PROG_MAIN      4
 #define GAME_PROG_ENDING    5
 
+#ifdef pWORLD
+    #define pGAMESCENE (pWORLD->_pGameScene)
+#else
+    #error pWORLD isnt define
+#endif
+
 namespace MyStg2nd {
 
 

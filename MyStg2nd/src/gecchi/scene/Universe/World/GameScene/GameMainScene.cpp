@@ -78,7 +78,7 @@ void GameMainScene::processBehavior() {
         VB_UI->clear();
         VB_PLAY->clear();
         pGOD->setVB(VB_PLAY); //•Û‘¶‚Ì‚½‚ßƒvƒŒƒC—p‚É•ÏX
-        GgafScene* pCommon = pCOMMONSCENE->extract();
+        GgafScene* pCommon = pCOMMON_SCENE->extract();
         addSubLast(pCommon); // ‹¤’ÊƒV[ƒ“‚ğ”z‰º‚ÉˆÚ“®iˆê’â~‚ğ‚¤‚Ü‚­§Œä‚³‚¹‚é‚½‚ßIj
         setProgress(GAMEMAIN_PROG_BEGIN);
     }
@@ -158,7 +158,7 @@ void GameMainScene::processBehavior() {
             pGOD->setVB(VB_UI);  //“ü—Í‚Í‚t‚h‚ÉØ‚è‘Ö‚¦
             pause();     //©g”z‰º‚ğˆê’â~‚·‚éBˆê’â~‰ğœ‚ÍGameScene‚Ås‚í‚ê‚é
             pUNIVERSE->pushCameraWork("PauseCamWorker");
-//            pCAM_WORKER->pause();
+//            pACTIVE_CAMWORKER->pause();
             pMYSHIP->pause();
         }
     }

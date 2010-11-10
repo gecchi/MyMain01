@@ -1,8 +1,17 @@
 #ifndef MYSHIPSCENE_H_
 #define MYSHIPSCENE_H_
 
-#define pMYSHIP (MyStg2nd::MyShipScene::_pMyShip)
-#define pVAM (MyStg2nd::MyShipScene::_pVamSysCamWorker)
+
+#ifdef pGAMESCENE
+    #define pMYSHIP_SCENE (pGAMESCENE->_pMyShipScene)
+    #define pMYSHIP (pMYSHIP_SCENE->_pMyShip)
+    #define pVAM (pMYSHIP_SCENE->_pVamSysCamWorker)
+#else
+    #error pGAMESCENE isnt define
+#endif
+
+
+
 namespace MyStg2nd {
 
 /**
@@ -12,8 +21,8 @@ namespace MyStg2nd {
 class MyShipScene : public GgafDx9LibStg::DefaultScene {
 
 public:
-    static MyShip* _pMyShip;
-    static VamSysCamWorker* _pVamSysCamWorker;
+    MyShip* _pMyShip;
+    VamSysCamWorker* _pVamSysCamWorker;
 
     MyShipScene(const char* prm_name);
     /**

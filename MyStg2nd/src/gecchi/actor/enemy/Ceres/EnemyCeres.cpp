@@ -78,7 +78,7 @@ void EnemyCeres::processBehavior() {
         for (int i = 0; i < 16; i++) {
             pTama = (GgafDx9DrawableActor*)_pDispatcher_EnemyCeresShots001->employ();
             if (pTama != NULL) {
-                pTama->setGeometry(_X, _Y, _Z);
+                pTama->setCoordinate(_X, _Y, _Z);
                 pTama->_pMover->setRzRyMvAng(-ANGLE90 + way[i], ANGLE90);
                 pTama->activate();
             }
@@ -86,7 +86,7 @@ void EnemyCeres::processBehavior() {
         for (int i = 16; i < 32; i++) {
             pTama = (GgafDx9DrawableActor*)_pDispatcher_EnemyCeresShots001->employ();
             if (pTama != NULL) {
-                pTama->setGeometry(_X, _Y, _Z);
+                pTama->setCoordinate(_X, _Y, _Z);
                 pTama->_pMover->setRzRyMvAng(-ANGLE90 - way[i], -ANGLE90);
                 pTama->activate();
             }
@@ -114,9 +114,9 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
         //”j‰ó‚³‚ê‚½ê‡
         setHitAble(false);
         _pSeTransmitter->play3D(0);
-        GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
+        GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
-            pExplo001->setGeometry(this);
+            pExplo001->setCoordinate(this);
             pExplo001->activate();
         }
         sayonara();

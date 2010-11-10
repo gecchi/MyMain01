@@ -11,6 +11,16 @@ namespace MyStg2nd {
 #define getSubActor(X) ((X##Actor*)getSub(#X))
 
 
+
+
+#ifdef pUNIVERSE
+    #define pWORLD ((MyStg2nd::World*)(pUNIVERSE->_pWorld))
+    #define pACTIVE_CAMWORKER (pUNIVERSE->_pActiveCameraWorker)
+#else
+    #error pUNIVERSE isnt define
+#endif
+
+
 /**
  * 世界シーンクラス .
  * 本クラスは、アプリ上の「この世」の振る舞い等を実装しています。<BR>
@@ -21,6 +31,7 @@ public:
     bool _is_create_GameScene;
     char _aBufDebug[80];
     LabelGecchi16Font* _pFont16_Debug;
+    GameScene* _pGameScene;
 
     World(const char* prm_name);
 

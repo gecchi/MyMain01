@@ -24,7 +24,7 @@ void WorldBoundSpace002::onActive() {
 }
 
 void WorldBoundSpace002::processBehavior() {
-    setGeometry(pCAM);
+    setCoordinate(pCAM);
     //_pUvFlipper->behave();
 }
 void WorldBoundSpace002::processJudgement() {

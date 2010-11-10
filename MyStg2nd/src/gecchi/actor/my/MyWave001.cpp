@@ -48,7 +48,7 @@ void MyWave001::processBehavior() {
         _pScaler->intoTargetScaleLinerStep(100000,100);
         _pScaler->behave();
         setHitAble(true);
-        setGeometry(pMYSHIP);
+        setCoordinate(pMYSHIP);
         _pMover->setFaceAng(AXIS_Z, pMYSHIP->_pMover->_angFace[AXIS_Z]);
         _pMover->setFaceAng(AXIS_Y, pMYSHIP->_pMover->_angFace[AXIS_Y]);
         _pMover->setRzRyMvAng(pMYSHIP->_pMover->_angFace[AXIS_Z],

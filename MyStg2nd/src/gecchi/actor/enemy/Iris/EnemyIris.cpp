@@ -71,7 +71,7 @@ void EnemyIris::processBehavior() {
                 for (int i = 0; i < way; i++) {
                     pActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                     if (pActor_Shot) {
-                        pActor_Shot->setGeometry(this);
+                        pActor_Shot->setCoordinate(this);
                         pActor_Shot->_pMover->setRzRyMvAng(paAngWay[i], ANGLE90);
                         pActor_Shot->activate();
                     }
@@ -81,7 +81,7 @@ void EnemyIris::processBehavior() {
                 if (_pDispatcher_ShotEffect) {
                     GgafDx9DrawableActor* pEffectActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
                     if (pEffectActor_Shot) {
-                        pEffectActor_Shot->setGeometry(this);
+                        pEffectActor_Shot->setCoordinate(this);
                         pEffectActor_Shot->activate();
                     }
                 }
@@ -135,11 +135,11 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
             ((GgafDx9FormationActor*)getParent())->wasDestroyedFollower(this);
         }
 
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         _pSeTransmitter->play3D(0);
         if (pExplo001 != NULL) {
             pExplo001->activate();
-            pExplo001->setGeometry(this);
+            pExplo001->setCoordinate(this);
         }
         setHitAble(false); //同一フレーム内で複数回ヒットさせないため重要
         sayonara();

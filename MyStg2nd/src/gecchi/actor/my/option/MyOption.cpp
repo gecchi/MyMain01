@@ -114,7 +114,7 @@ void MyOption::onActive() {
     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
-    //pCOMMONSCENE->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
+    //pCOMMON_SCENE->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
     _angPosition = _pMover->_angRzMv;
 
     _adjust_angPos_seq_progress = 0;
@@ -396,7 +396,7 @@ void MyOption::processBehavior() {
     _Zorg = _Z;
 
     //＜メモ＞
-    //ここまでで、GgafDx9GeometryMoverの機能のみで、
+    //ここまでで、GgafDx9GeometricMoverの機能のみで、
     //以下のような状態までもっていく。
     //(100,0,0) から原点を見たイメージ、自は原点
     //↑y軸  →z軸  ・x軸（奥から手前、手前が正）
@@ -476,7 +476,7 @@ void MyOption::processBehavior() {
         MyCurveLaserChip001* pLaserChip = (MyCurveLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaserChip != NULL) {
             if (_pLaserChipDispatcher->_pEffectActor_Irradiate) {
-                _pLaserChipDispatcher->_pEffectActor_Irradiate->setGeometry(this);
+                _pLaserChipDispatcher->_pEffectActor_Irradiate->setCoordinate(this);
             }
             pLaserChip->_pMover->_vX = _Q._x;
             pLaserChip->_pMover->_vY = _Q._y;
@@ -526,7 +526,7 @@ void MyOption::processBehavior() {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot != NULL) {
             _pSeTransmitter->play3D(1);
-            pShot->setGeometry(this);
+            pShot->setCoordinate(this);
             pShot->_pMover->_angFace[AXIS_X] = _RX;
             pShot->_pMover->_angFace[AXIS_Z] = _RZ;
             pShot->_pMover->_angFace[AXIS_Y] = _RY;
@@ -539,7 +539,7 @@ void MyOption::processBehavior() {
 //        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
 //        if (pShot != NULL) {
 //            _pSeTransmitter->play3D(1);
-//            pShot->setGeometry(this);
+//            pShot->setCoordinate(this);
 //            pShot->_pMover->_angFace[AXIS_X] = _RX;
 //            pShot->_pMover->_angFace[AXIS_Z] = _RZ;
 //            pShot->_pMover->_angFace[AXIS_Y] = _RY;

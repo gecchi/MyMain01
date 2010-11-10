@@ -316,9 +316,9 @@ void MyShip::processBehavior() {
 
     if (VB_PLAY->isPushedDown(VB_TURBO)) {
         //ターボ開始時
-        EffectTurbo002* pTurbo002 = (EffectTurbo002*)pCOMMONSCENE->_pDispatcher_EffectTurbo002->employForce();
+        EffectTurbo002* pTurbo002 = (EffectTurbo002*)pCOMMON_SCENE->_pDispatcher_EffectTurbo002->employForce();
          if (pTurbo002 != NULL) {
-             pTurbo002->setGeometry(this);
+             pTurbo002->setCoordinate(this);
              pTurbo002->activate();
          }
         (this->*paFuncTurbo[_way])();
@@ -443,7 +443,7 @@ void MyShip::processJudgement() {
             MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
             if (pShot != NULL) {
                 _pSeTransmitter->play3D(2);
-                pShot->setGeometry(this);
+                pShot->setCoordinate(this);
                 pShot->activate();
             }
             if (_frame_soft_rapidshot >= 12) {
@@ -482,9 +482,9 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
     _pSeTransmitter->play3D(0);
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
-        pExplo001->setGeometry(this);
+        pExplo001->setCoordinate(this);
         pExplo001->activate();
     }
     if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

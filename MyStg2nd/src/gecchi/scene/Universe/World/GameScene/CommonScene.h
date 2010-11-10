@@ -1,6 +1,14 @@
 #ifndef COMMONSCENE_H_
 #define COMMONSCENE_H_
 
+
+#ifdef pGAMESCENE
+    #define pCOMMON_SCENE (pGAMESCENE->_pCommonScene)
+#else
+    #error pGAMESCENE isnt define
+#endif
+
+
 namespace MyStg2nd {
 
 /**

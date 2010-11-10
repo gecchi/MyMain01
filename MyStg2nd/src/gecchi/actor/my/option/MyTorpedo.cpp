@@ -76,7 +76,7 @@ void MyTorpedo::processBehavior() {
         if (_pTailEffectDispatcher->_num_chip_active < _length_TailEffect) {
             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)_pTailEffectDispatcher->employ();
             if (pTailEffect) {
-                pTailEffect->setGeometry(_begin_X,_begin_Y,_begin_Z);
+                pTailEffect->setCoordinate(_begin_X,_begin_Y,_begin_Z);
                 pTailEffect->activate();
             }
         }
@@ -220,7 +220,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //”š•—”­¶
     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)_pMyOptionTorpedoController->_pDispatcher_TorpedoBlast->employ();
     if (pBlast) {
-        pBlast->setGeometry(this);
+        pBlast->setCoordinate(this);
         pBlast->activate();
     }
 

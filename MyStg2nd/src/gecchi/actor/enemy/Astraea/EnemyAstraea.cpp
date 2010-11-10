@@ -187,7 +187,7 @@ void EnemyAstraea::processBehavior() {
             for (int i = 0; i < _laser_way; i++) {
                 for (int j = 0; j < _laser_way; j++) {
                     if (_papapLaserChipDispatcher[i][j] == NULL) {
-                        GgafMainActor* p = pCOMMONSCENE->_pDispatcher_LaserChipDispatcher->employ();
+                        GgafMainActor* p = pCOMMON_SCENE->_pDispatcher_LaserChipDispatcher->employ();
                         if (p == NULL) {
                             //レーザーセットは借入出来ない
                             continue;
@@ -219,7 +219,7 @@ void EnemyAstraea::processBehavior() {
                         GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //現在の最終的な向きを、RzRyで取得
 
 
-                        pLaserChip->setGeometry(_X+vX, _Y+vY, _Z+vZ);
+                        pLaserChip->setCoordinate(_X+vX, _Y+vY, _Z+vZ);
                         pLaserChip->_pMover->setRzRyMvAng(Rz, Ry);
                         pLaserChip->_pMover->_angFace[AXIS_Z] = Rz;
                         pLaserChip->_pMover->_angFace[AXIS_Y] = Ry;
@@ -260,10 +260,10 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->activate();
-            pExplo001->setGeometry(this);
+            pExplo001->setCoordinate(this);
         }
         _pSeTransmitter->play3D(1);
         sayonara();

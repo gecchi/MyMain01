@@ -68,7 +68,7 @@ void EnemyVesta::processBehavior() {
     //・ローカル座標     ・・・ 親アクターの基点(0,0,0)からの相対的な座標系を意味します。
     //                          座標計算はこちらで行って下さい。
     //＜方針＞
-    //  ①座標計算は主にローカル座標系の計算である。GgafDx9GeometryMover でローカル座標系の操作を行うこととする。
+    //  ①座標計算は主にローカル座標系の計算である。GgafDx9GeometricMover でローカル座標系の操作を行うこととする。
     //    しかし、８分木登録や、当たり判定や、ターゲット座標など、他のオブジェクトからワールド座標を参照することが多いため。
     //    基本的にprocessBehavior()開始時は 最終（絶対）座標系(chengeGeoFinal())の状態とする。
     //  ②processBehavior()内で必要に応じて chengeGeoLocal() で _X, _Y, _Z, _RX, _RY, _RZ の切り替えを行い座標計算を行う。
@@ -95,10 +95,10 @@ void EnemyVesta::processBehavior() {
     //                       他のオブジェクトから、ボーンにあたるアクターを参照するとき、_RX, _RY, _RZは全く信用できません。
 
     //＜注意＞
-    //・GgafDx9GeometryMover(_pMover)の behave() 以外メソッドは、常にローカル座標の操作とする。
+    //・GgafDx9GeometricMover(_pMover)の behave() 以外メソッドは、常にローカル座標の操作とする。
     //  behave()以外メソッドは実際に座標計算しているわけではないので、
     //  chengeGeoFinal()時、chengeGeoLocal()時に関係なく、呼び出し可能。
-    //・GgafDx9GeometryMover(_pMover)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
+    //・GgafDx9GeometricMover(_pMover)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
     //  したがって、次のように ローカル座標時(chengeGeoLocal()時)で呼び出す事とする。
     //    chengeGeoLocal();
     //    _pMover->behave();
@@ -139,7 +139,7 @@ void EnemyVesta::processBehavior() {
             if (_pDispatcher_Fired) {
                 GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDispatcher_Fired->employ();
                 if (pActor) {
-                    pActor->setGeometry(this);
+                    pActor->setCoordinate(this);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
                     //＜現在の最終的な向きを、RzRyで取得する＞
                     //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
@@ -242,11 +242,11 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
 
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMONSCENE->_pDispatcher_EffectExplosion001->employ();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
 
     if (pExplo001 != NULL) {
         pExplo001->activate();
-        pExplo001->setGeometry(this);
+        pExplo001->setCoordinate(this);
     }
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
