@@ -13,7 +13,7 @@ class SpriteMeshActor : public GgafDx9Core::GgafDx9SpriteMeshActor {
 
 public:
     /** 拡大縮小支援オブジェクト */
-    GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
+    GgafDx9Core::GgafDx9GeometricScaler* _pScaler;
 
     frame _frame_offset;
 

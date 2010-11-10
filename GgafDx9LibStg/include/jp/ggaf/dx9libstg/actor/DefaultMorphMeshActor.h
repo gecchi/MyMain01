@@ -14,7 +14,7 @@ class DefaultMorphMeshActor : public GgafDx9Core::GgafDx9MorphMeshActor {
 public:
     frame _frame_offset;
     /** 拡大縮小支援オブジェクト */
-    GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
+    GgafDx9Core::GgafDx9GeometricScaler* _pScaler;
 	/** モーフィング支援オブジェクト */
     GgafDx9Core::GgafDx9Morpher* _pMorpher;
 	/** チェッカー */

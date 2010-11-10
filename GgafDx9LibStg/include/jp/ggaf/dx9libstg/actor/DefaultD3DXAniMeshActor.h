@@ -17,7 +17,7 @@ public:
 
     CollisionChecker* _pCollisionChecker;
     /** 拡大縮小支援オブジェクト */
-    GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
+    GgafDx9Core::GgafDx9GeometricScaler* _pScaler;
 
 
     DefaultD3DXAniMeshActor(const char* prm_name, const char* prm_model);

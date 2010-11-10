@@ -13,7 +13,7 @@ DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_mod
     _class_name = "DefaultSpriteActor";
     _frame_offset = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
-    _pScaler = NEW GgafDx9GeometryScaler(this);
+    _pScaler = NEW GgafDx9GeometricScaler(this);
     setZWriteEnable(false);
 }
 

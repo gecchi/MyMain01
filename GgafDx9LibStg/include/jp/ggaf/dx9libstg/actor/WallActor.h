@@ -35,7 +35,7 @@ private:
 //    int _scrool_speed;
 
 public:
-    GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
+    GgafDx9Core::GgafDx9GeometricScaler* _pScaler;
     GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 
     /** [r]äOï«ÉVÅ[Éì */

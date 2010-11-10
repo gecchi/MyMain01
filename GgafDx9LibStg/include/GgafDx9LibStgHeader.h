@@ -11,7 +11,10 @@ namespace GgafDx9LibStg {
 
 #define Obj_LaserChip     (0x1000000)      //0b 00000001 00000000 00000000 00000000
 #define Obj_WallActor     (0x2000000)      //0b 00000010 00000000 00000000 00000000
-
+#undef pGOD
+#define pGOD ((GgafDx9LibStg::DefaultGod*)GgafCore::GgafGod::_pGod)
+#undef pUNIVERSE
+#define pUNIVERSE ((GgafDx9LibStg::DefaultUniverse*)(pGOD->_pUniverse))
 
 
 class DefaultGod;

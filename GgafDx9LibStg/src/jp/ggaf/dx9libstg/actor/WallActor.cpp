@@ -16,7 +16,7 @@ WallActor::WallActor(const char* prm_name, const char* prm_model) :
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pCollisionChecker->makeCollision(1);
 
-    _pScaler = NEW GgafDx9GeometryScaler(this);
+    _pScaler = NEW GgafDx9GeometricScaler(this);
     _wall_draw_face = 0;
 
     _h_distance_AlphaTarget = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_distance_AlphaTarget" );

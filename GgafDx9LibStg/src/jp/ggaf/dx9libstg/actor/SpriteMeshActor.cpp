@@ -12,7 +12,7 @@ SpriteMeshActor::SpriteMeshActor(const char* prm_name, const char* prm_model) :
     _class_name = "SpriteMeshActor";
     _frame_offset = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
-    _pScaler = NEW GgafDx9GeometryScaler(this);
+    _pScaler = NEW GgafDx9GeometricScaler(this);
 }
 
 void SpriteMeshActor::drawHitArea() {

@@ -163,7 +163,7 @@ void RefractionLaserChip::processBehavior() {
                             _pRefractionEffect = (GgafDx9DrawableActor*)_pDispatche_RefractionEffect->employ();
                             //_TRACE_("_pRefractionEffect->employ();");
                             if (_pRefractionEffect) {
-                                _pRefractionEffect->setGeometry(this);
+                                _pRefractionEffect->setCoordinate(this);
                                 _pRefractionEffect->activate();
                                 //最長時間の解除予約。
                                 //何かの拍子でレーザーチップが消滅した場合、正しくsayonara()出来ない場合がある。その場合の保険。

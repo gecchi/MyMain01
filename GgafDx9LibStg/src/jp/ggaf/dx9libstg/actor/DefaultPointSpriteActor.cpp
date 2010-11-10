@@ -13,7 +13,7 @@ DefaultPointSpriteActor::DefaultPointSpriteActor(const char* prm_name, const cha
     _class_name = "DefaultPointSpriteActor";
     _frame_offset = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
-    _pScaler = NEW GgafDx9GeometryScaler(this);
+    _pScaler = NEW GgafDx9GeometricScaler(this);
 }
 
 void DefaultPointSpriteActor::drawHitArea() {
