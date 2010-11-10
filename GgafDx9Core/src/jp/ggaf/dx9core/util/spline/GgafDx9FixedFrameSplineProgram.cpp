@@ -163,7 +163,7 @@ void GgafDx9FixedFrameSplineProgram::begin(int prm_option) {
 
 void GgafDx9FixedFrameSplineProgram::behave() {
     if (_is_executing) {
-        GgafDx9GeometryMover* _pActorMover = _pActor_target->_pMover;
+        GgafDx9GeometricMover* _pActorMover = _pActor_target->_pMover;
 
         //åªç›ÇÃì_INDEX
         int SPPointIndex = _SPframe/_SPframe_segment;

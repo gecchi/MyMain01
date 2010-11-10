@@ -1,5 +1,5 @@
-#ifndef GGAFDX9GEOMETRYMOVER_H_
-#define GGAFDX9GEOMETRYMOVER_H_
+#ifndef GGAFDX9GEOMETRICMOVER_H_
+#define GGAFDX9GEOMETRICMOVER_H_
 namespace GgafDx9Core {
 
 //軸X
@@ -21,7 +21,7 @@ namespace GgafDx9Core {
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class GgafDx9GeometryMover : public GgafCore::GgafObject {
+class GgafDx9GeometricMover : public GgafCore::GgafObject {
     float _dummy1, _dummy2, _dummy3;
 
 public:
@@ -31,7 +31,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor);
+    GgafDx9GeometricMover(GgafDx9GeometricActor* prm_pActor);
 
 
 
@@ -875,9 +875,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      */
     virtual void behave();
 
-    virtual ~GgafDx9GeometryMover();
+    virtual ~GgafDx9GeometricMover();
 };
 
 }
-#endif /*GGAFDX9GEOMETRYMOVER_H_*/
+#endif /*GGAFDX9GEOMETRICMOVER_H_*/
 

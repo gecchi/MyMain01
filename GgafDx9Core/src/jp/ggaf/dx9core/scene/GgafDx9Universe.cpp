@@ -6,7 +6,6 @@ using namespace GgafDx9Core;
 GgafDx9DrawableActor* GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL];
 GgafDx9DrawableActor* GgafDx9Universe::_pActors_DrawMaxDrawDepth = NULL;
 GgafDx9DrawableActor* GgafDx9Universe::_pActor_DrawActive = NULL;
-GgafDx9Camera* GgafDx9Universe::_pCamera = NULL;
 
 int GgafDx9Universe::_X_goneLeft   = 0;
 int GgafDx9Universe::_X_goneRight  = 0;
@@ -52,8 +51,8 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name, GgafDx9Camera* prm_pCamer
     _pActor_DrawActive = NULL;
 
     //ƒJƒƒ‰‚ÌŽÊ‚·‚¿‚å‚Á‚Æ—]—T‚ð‚à‚Á‚½”ÍˆÍB
-    _X_goneLeft   = -_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
     _X_goneRight  = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _X_goneLeft   = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
     _Y_goneTop    = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
     _Y_goneBottom = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
     _Z_goneFar   = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);

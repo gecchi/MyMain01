@@ -8,6 +8,13 @@ namespace GgafDx9Core {
 #define MAX_SE_AT_ONCE 10
 #define MAX_SE_DELAY 240
 
+
+#ifdef pUNIVERSE
+    #define pCAM (pUNIVERSE->_pCamera)
+#else
+    #error pUNIVERSE isnt define
+#endif
+
 /**
  * GgafDx9Core名前空間のこの世クラス.
  * GgafDx9Core名前空間内では、このクラスを基底のこの世クラスとします。<BR>
@@ -47,7 +54,7 @@ public:
 public:
 
     /** カメラ */
-    static GgafDx9Camera* _pCamera;
+    GgafDx9Camera* _pCamera;
 
     /** アクター順序レンダリングのための遠さ別のグループ */
     static GgafDx9DrawableActor* _apAlphaActorList_DrawDepthLevel[];

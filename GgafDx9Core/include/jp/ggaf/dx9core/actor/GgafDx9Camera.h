@@ -1,11 +1,12 @@
 #ifndef GGAFDX9CAMERAACTOR_H_
 #define GGAFDX9CAMERAACTOR_H_
+
+
 namespace GgafDx9Core {
 
 // (2009/2/12 の脳みそ)
 // ２～３個 new して、１カメ、２カメみたいな切り替え操作ができたら良いかもな
 
-#define pCAM (GgafDx9Universe::_pCamera)
 
 /**
  * カメラアクター.

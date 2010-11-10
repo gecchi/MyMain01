@@ -4,7 +4,7 @@
 namespace GgafDx9Core {
 
 /**
- * 座標情報を持ったアクター.
+ * 座標、回転、スケール情報を持ったアクター.
  * ワールド座標、或いは変換済み座標の何れかを持ち、<BR>
  * 座標関連メソッドを備えたアクターです。<BR>
  * (旧GgafDx9UntranceformedActor とGgafDx9TranceformedActor を統合)
@@ -40,7 +40,7 @@ public:
     /** [r/w]ワールドZ軸方向スケール(_SZ : 倍率 = 1000 : 1.0倍) */
     int _SZ;
     /** [r]ワールド座標計算支援オブジェクト */
-    GgafDx9GeometryMover* _pMover;
+    GgafDx9GeometricMover* _pMover;
     /** [r]チェッカーオブジェクト */
     GgafDx9Checker* _pChecker;
     /** [r]効果音発生管理オブジェクト */
@@ -222,7 +222,7 @@ public:
      * @param Y
      * @param Z
      */
-    virtual void setGeometry(int X, int Y, int Z) {
+    virtual void setCoordinate(int X, int Y, int Z) {
         _X = X;
         _Y = Y;
         _Z = Z;
@@ -251,7 +251,7 @@ public:
      * 未変換座標をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void setGeometry(GgafDx9GeometricActor* prm_pActor) {
+    virtual void setCoordinate(GgafDx9GeometricActor* prm_pActor) {
         _X = prm_pActor->_X;
         _Y = prm_pActor->_Y;
         _Z = prm_pActor->_Z;

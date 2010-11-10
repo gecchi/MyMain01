@@ -35,8 +35,7 @@ void GgafDx9SeTransmitter::play(int prm_id) {
     if (prm_id < 0 || prm_id >= _se_num) {
         throwGgafCriticalException("GgafDx9SeTransmitter::play() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
-    GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
-    pUniverse->registSe(_papSeCon[prm_id]->refer(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
+    pUNIVERSE->registSe(_papSeCon[prm_id]->refer(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
 }
 void GgafDx9SeTransmitter::play3D(int prm_id) {
     if (prm_id < 0 || prm_id >= _se_num) {
@@ -46,15 +45,15 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
     static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
     static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
-
+    GgafDx9Camera* pCam = pCAM;
     //距離計算
     //遅延なし、音量100％の場所をpCAMの場所とする
     //自身とpCAMの距離
-    int DX = (pCAM->_X - _pActor->_X) / LEN_UNIT;
-    int DY = (pCAM->_Y - _pActor->_Y) / LEN_UNIT;
-    int DZ = (pCAM->_Z - _pActor->_Z) / LEN_UNIT;
+    int DX = (pCam->_X - _pActor->_X) / LEN_UNIT;
+    int DY = (pCam->_Y - _pActor->_Y) / LEN_UNIT;
+    int DZ = (pCam->_Z - _pActor->_Z) / LEN_UNIT;
     double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
-    LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCAM->_zf*PX_UNIT))) * VOLUME_RANGE_3D);
+    LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT))) * VOLUME_RANGE_3D);
     if (VOLUME_MAX_3D < vol) {
         vol = VOLUME_MAX_3D;
     } else if (VOLUME_MIN_3D > vol) {
@@ -62,22 +61,22 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
     }
 
     float fDist_VpVerticalCenter  =
-         GgafDx9Universe::_pCamera->_plnVerticalCenter.a*_pActor->_fX +
-         GgafDx9Universe::_pCamera->_plnVerticalCenter.b*_pActor->_fY +
-         GgafDx9Universe::_pCamera->_plnVerticalCenter.c*_pActor->_fZ +
-         GgafDx9Universe::_pCamera->_plnVerticalCenter.d;
+            pCam->_plnVerticalCenter.a*_pActor->_fX +
+            pCam->_plnVerticalCenter.b*_pActor->_fY +
+            pCam->_plnVerticalCenter.c*_pActor->_fZ +
+            pCam->_plnVerticalCenter.d;
 
     angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
     LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
 
-    int delay = (d / (pCAM->_zf*PX_UNIT))*MAX_SE_DELAY-10; //10フレーム底上げ
+    int delay = (d / (pCam->_zf*PX_UNIT))*MAX_SE_DELAY-10; //10フレーム底上げ
     if (delay < 0) {
         delay = 0;
     } else if (delay > MAX_SE_DELAY) {
         delay = MAX_SE_DELAY;
     }
 
-    ((GgafDx9Universe*)(GgafGod::_pGod->_pUniverse))->registSe(_papSeCon[prm_id]->refer(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
+    pUNIVERSE->registSe(_papSeCon[prm_id]->refer(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
     //真ん中からの距離
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);
@@ -100,32 +99,31 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
     static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
     static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
-
+    GgafDx9Camera* pCam = pCAM;
     //距離計算
     //遅延なし、音量100％の場所をpCAMの場所とする
     //自身とpCAMの距離
-    int DX = (pCAM->_X - _pActor->_X) / LEN_UNIT;
-    int DY = (pCAM->_Y - _pActor->_Y) / LEN_UNIT;
-    int DZ = (pCAM->_Z - _pActor->_Z) / LEN_UNIT;
+    int DX = (pCam->_X - _pActor->_X) / LEN_UNIT;
+    int DY = (pCam->_Y - _pActor->_Y) / LEN_UNIT;
+    int DZ = (pCam->_Z - _pActor->_Z) / LEN_UNIT;
 
     //備忘録
     //例えば消滅時の爆発だった場合、_pActor->_X みたいに、消滅後も値を参照したい。
     //そこで GGAF_SAYONARA_DELAY が重要になっている
 
     double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
-    LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCAM->_zf*PX_UNIT))) * VOLUME_RANGE_3D);
+    LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT))) * VOLUME_RANGE_3D);
     if (VOLUME_MAX_3D < vol) {
         vol = VOLUME_MAX_3D;
     } else if (VOLUME_MIN_3D > vol) {
         vol = VOLUME_MIN_3D;
     }
 
-
     float fDist_VpVerticalCenter  =
-         GgafDx9Universe::_pCamera->_plnVerticalCenter.a*_pActor->_fX +
-         GgafDx9Universe::_pCamera->_plnVerticalCenter.b*_pActor->_fY +
-         GgafDx9Universe::_pCamera->_plnVerticalCenter.c*_pActor->_fZ +
-         GgafDx9Universe::_pCamera->_plnVerticalCenter.d;
+            pCam->_plnVerticalCenter.a*_pActor->_fX +
+            pCam->_plnVerticalCenter.b*_pActor->_fY +
+            pCam->_plnVerticalCenter.c*_pActor->_fZ +
+            pCam->_plnVerticalCenter.d;
     angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
     LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
     for (int i = 0; i < _se_num; i++) {

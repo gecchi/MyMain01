@@ -244,7 +244,7 @@ void GgafDx9Camera::setViewPoint(int prm_tX, int prm_tY, int prm_tZ) {
 }
 
 void GgafDx9Camera::setViewPoint(GgafDx9GeometricActor* prm_pActor) {
-    _pViewPoint->setGeometry(prm_pActor);
+    _pViewPoint->setCoordinate(prm_pActor);
 }
 
 

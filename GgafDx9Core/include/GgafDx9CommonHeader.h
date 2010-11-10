@@ -174,6 +174,11 @@ enum GgafDx9BlinkerMethod {
 #define Obj_GgafDx9PointSpriteActor     (0x400000)       //0b 00000000 01000000 00000000 00000000
 #define Obj_GgafDx9FormationActor       (0x800000)       //0b 00000000 10000000 00000000 00000000
 
+#undef pGOD
+#define pGOD ((GgafDx9Core::GgafDx9God*)GgafDx9Core::GgafDx9God::_pGod)
+#undef pUNIVERSE
+#define pUNIVERSE ((GgafDx9Core::GgafDx9Universe*)(pGOD->_pUniverse))
+
 namespace GgafDx9Core {
 
 class GgafDx9CriticalException;
@@ -258,9 +263,9 @@ class GgafDx9Quaternion;
 class GgafDx9CollisionArea;
 class GgafDx9CollisionPart;
 class GgafDx9Properties;
-class GgafDx9GeometryMover;
+class GgafDx9GeometricMover;
 class GgafDx9Checker;
-class GgafDx9GeometryScaler;
+class GgafDx9GeometricScaler;
 class GgafDx9Morpher;
 class GgafDx9SeTransmitter;
 class GgafDx9BgmPerformer;
@@ -362,9 +367,9 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/GgafDx9CollisionArea.h"
 #include "jp/ggaf/dx9core/util/GgafDx9CollisionPart.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Properties.h"
-#include "jp/ggaf/dx9core/actor/supporter/GgafDx9GeometryMover.h"
+#include "jp/ggaf/dx9core/actor/supporter/GgafDx9GeometricMover.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Checker.h"
-#include "jp/ggaf/dx9core/actor/supporter/GgafDx9GeometryScaler.h"
+#include "jp/ggaf/dx9core/actor/supporter/GgafDx9GeometricScaler.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Morpher.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9SeTransmitter.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9UvFlipper.h"
@@ -382,5 +387,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/manager/GgafDx9BgmConnection.h"
 #include "jp/ggaf/dx9core/manager/GgafDx9BgmManager.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9Sound.h"
+
+
 
 #endif /*GGAFDX9COMMONHEADER_H_*/

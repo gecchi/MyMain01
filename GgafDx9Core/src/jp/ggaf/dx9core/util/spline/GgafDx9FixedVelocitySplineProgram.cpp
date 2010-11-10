@@ -161,7 +161,7 @@ void GgafDx9FixedVelocitySplineProgram::begin(int prm_option) {
 
 void GgafDx9FixedVelocitySplineProgram::behave() {
     if (_is_executing) {
-        GgafDx9GeometryMover* _pActorMover = _pActor_target->_pMover;
+        GgafDx9GeometricMover* _pActorMover = _pActor_target->_pMover;
 
         //•Ï‚í‚è–Ú
         if (_fFrame_executing >= _fFrame_next_point) {

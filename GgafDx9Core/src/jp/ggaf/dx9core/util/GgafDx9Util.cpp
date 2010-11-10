@@ -1066,23 +1066,25 @@ void GgafDx9Util::updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pActor, D3DXMA
 void GgafDx9Util::setWorldMatrix_BxyzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     static float fRateScale = 1.0f * LEN_UNIT;
     static float Sx, Sy, Sz;
+    GgafDx9Camera* pCam = pCAM;
+
     Sx = prm_pActor->_SX / fRateScale;
     Sy = prm_pActor->_SY / fRateScale;
     Sz = prm_pActor->_SZ / fRateScale;
 
-    out_matWorld._11 = pCAM->_vMatrixView._11 * Sx;
-    out_matWorld._12 = pCAM->_vMatrixView._21 * Sy;
-    out_matWorld._13 = pCAM->_vMatrixView._31 * Sz;
+    out_matWorld._11 = pCam->_vMatrixView._11 * Sx;
+    out_matWorld._12 = pCam->_vMatrixView._21 * Sy;
+    out_matWorld._13 = pCam->_vMatrixView._31 * Sz;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = pCAM->_vMatrixView._12 * Sx;
-    out_matWorld._22 = pCAM->_vMatrixView._22 * Sy;
-    out_matWorld._23 = pCAM->_vMatrixView._32 * Sz;
+    out_matWorld._21 = pCam->_vMatrixView._12 * Sx;
+    out_matWorld._22 = pCam->_vMatrixView._22 * Sy;
+    out_matWorld._23 = pCam->_vMatrixView._32 * Sz;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = pCAM->_vMatrixView._13 * Sx;
-    out_matWorld._32 = pCAM->_vMatrixView._23 * Sy;
-    out_matWorld._33 = pCAM->_vMatrixView._33 * Sz;
+    out_matWorld._31 = pCam->_vMatrixView._13 * Sx;
+    out_matWorld._32 = pCam->_vMatrixView._23 * Sy;
+    out_matWorld._33 = pCam->_vMatrixView._33 * Sz;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1099,25 +1101,27 @@ void GgafDx9Util::setWorldMatrix_BxyzScMv(GgafDx9GeometricActor* prm_pActor, D3D
 void GgafDx9Util::setWorldMatrix_ScRzBxyzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     static float fRateScale = 1.0f * LEN_UNIT;
     static float sinRz, cosRz, Sx, Sy, Sz;
+    GgafDx9Camera* pCam = pCAM;
+
     sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
     cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
     Sx = prm_pActor->_SX / fRateScale;
     Sy = prm_pActor->_SY / fRateScale;
     Sz = prm_pActor->_SZ / fRateScale;
 
-    out_matWorld._11 = Sx*cosRz*pCAM->_vMatrixView._11 + Sx*sinRz*pCAM->_vMatrixView._12;
-    out_matWorld._12 = Sx*cosRz*pCAM->_vMatrixView._21 + Sx*sinRz*pCAM->_vMatrixView._22;
-    out_matWorld._13 = Sx*cosRz*pCAM->_vMatrixView._31 + Sx*sinRz*pCAM->_vMatrixView._32;
+    out_matWorld._11 = Sx*cosRz*pCam->_vMatrixView._11 + Sx*sinRz*pCam->_vMatrixView._12;
+    out_matWorld._12 = Sx*cosRz*pCam->_vMatrixView._21 + Sx*sinRz*pCam->_vMatrixView._22;
+    out_matWorld._13 = Sx*cosRz*pCam->_vMatrixView._31 + Sx*sinRz*pCam->_vMatrixView._32;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = Sy*-sinRz*pCAM->_vMatrixView._11 + Sy*cosRz*pCAM->_vMatrixView._12;
-    out_matWorld._22 = Sy*-sinRz*pCAM->_vMatrixView._21 + Sy*cosRz*pCAM->_vMatrixView._22;
-    out_matWorld._23 = Sy*-sinRz*pCAM->_vMatrixView._31 + Sy*cosRz*pCAM->_vMatrixView._32;
+    out_matWorld._21 = Sy*-sinRz*pCam->_vMatrixView._11 + Sy*cosRz*pCam->_vMatrixView._12;
+    out_matWorld._22 = Sy*-sinRz*pCam->_vMatrixView._21 + Sy*cosRz*pCam->_vMatrixView._22;
+    out_matWorld._23 = Sy*-sinRz*pCam->_vMatrixView._31 + Sy*cosRz*pCam->_vMatrixView._32;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = Sz*pCAM->_vMatrixView._13;
-    out_matWorld._32 = Sz*pCAM->_vMatrixView._32;
-    out_matWorld._33 = Sz*pCAM->_vMatrixView._33;
+    out_matWorld._31 = Sz*pCam->_vMatrixView._13;
+    out_matWorld._32 = Sz*pCam->_vMatrixView._32;
+    out_matWorld._33 = Sz*pCam->_vMatrixView._33;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1222,22 +1226,23 @@ void GgafDx9Util::setWorldMatrix_RxRzRyMv(GgafDx9GeometricActor* prm_pActor, D3D
 
 void GgafDx9Util::setWorldMatrix_RzBxyzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     static float sinRz, cosRz;
+    GgafDx9Camera* pCam = pCAM;
     sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
     cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
 
-    out_matWorld._11 = cosRz*pCAM->_vMatrixView._11 + sinRz*pCAM->_vMatrixView._12;
-    out_matWorld._12 = cosRz*pCAM->_vMatrixView._21 + sinRz*pCAM->_vMatrixView._22;
-    out_matWorld._13 = cosRz*pCAM->_vMatrixView._31 + sinRz*pCAM->_vMatrixView._32;
+    out_matWorld._11 = cosRz*pCam->_vMatrixView._11 + sinRz*pCam->_vMatrixView._12;
+    out_matWorld._12 = cosRz*pCam->_vMatrixView._21 + sinRz*pCam->_vMatrixView._22;
+    out_matWorld._13 = cosRz*pCam->_vMatrixView._31 + sinRz*pCam->_vMatrixView._32;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = -sinRz*pCAM->_vMatrixView._11 + cosRz*pCAM->_vMatrixView._12;
-    out_matWorld._22 = -sinRz*pCAM->_vMatrixView._21 + cosRz*pCAM->_vMatrixView._22;
-    out_matWorld._23 = -sinRz*pCAM->_vMatrixView._31 + cosRz*pCAM->_vMatrixView._32;
+    out_matWorld._21 = -sinRz*pCam->_vMatrixView._11 + cosRz*pCam->_vMatrixView._12;
+    out_matWorld._22 = -sinRz*pCam->_vMatrixView._21 + cosRz*pCam->_vMatrixView._22;
+    out_matWorld._23 = -sinRz*pCam->_vMatrixView._31 + cosRz*pCam->_vMatrixView._32;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = pCAM->_vMatrixView._13;
-    out_matWorld._32 = pCAM->_vMatrixView._32;
-    out_matWorld._33 = pCAM->_vMatrixView._33;
+    out_matWorld._31 = pCam->_vMatrixView._13;
+    out_matWorld._32 = pCam->_vMatrixView._32;
+    out_matWorld._33 = pCam->_vMatrixView._33;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;

@@ -17,7 +17,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _fBoundingSphereRadius = 0;
     _fRate_BoundingSphereRadius = 1.0f;
     _pChecker = prm_pChecker;
-    _pMover = NEW GgafDx9GeometryMover(this);
+    _pMover = NEW GgafDx9GeometricMover(this);
     _pSeTransmitter = NEW GgafDx9SeTransmitter(this);
 
     _offscreenkind = -1;
@@ -122,40 +122,41 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
 
     //メンバー更新
     if (_isTransformed == false) {
+        GgafDx9Camera* pCam = pCAM;
         //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
 //        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
 //        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
 //        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
         //視錐台
-        _fDist_VpPlnTop    = pCAM->_plnTop.a*_fX +
-                             pCAM->_plnTop.b*_fY +
-                             pCAM->_plnTop.c*_fZ +
-                             pCAM->_plnTop.d;
+        _fDist_VpPlnTop    = pCam->_plnTop.a*_fX +
+                             pCam->_plnTop.b*_fY +
+                             pCam->_plnTop.c*_fZ +
+                             pCam->_plnTop.d;
 
-        _fDist_VpPlnBottom = pCAM->_plnBottom.a*_fX +
-                             pCAM->_plnBottom.b*_fY +
-                             pCAM->_plnBottom.c*_fZ +
-                             pCAM->_plnBottom.d;
+        _fDist_VpPlnBottom = pCam->_plnBottom.a*_fX +
+                             pCam->_plnBottom.b*_fY +
+                             pCam->_plnBottom.c*_fZ +
+                             pCam->_plnBottom.d;
 
-        _fDist_VpPlnLeft   = pCAM->_plnLeft.a*_fX +
-                             pCAM->_plnLeft.b*_fY +
-                             pCAM->_plnLeft.c*_fZ +
-                             pCAM->_plnLeft.d;
+        _fDist_VpPlnLeft   = pCam->_plnLeft.a*_fX +
+                             pCam->_plnLeft.b*_fY +
+                             pCam->_plnLeft.c*_fZ +
+                             pCam->_plnLeft.d;
 
-        _fDist_VpPlnRight  = pCAM->_plnRight.a*_fX +
-                             pCAM->_plnRight.b*_fY +
-                             pCAM->_plnRight.c*_fZ +
-                             pCAM->_plnRight.d;
+        _fDist_VpPlnRight  = pCam->_plnRight.a*_fX +
+                             pCam->_plnRight.b*_fY +
+                             pCam->_plnRight.c*_fZ +
+                             pCam->_plnRight.d;
 
-        _fDist_VpPlnFront  = pCAM->_plnFront.a*_fX +
-                             pCAM->_plnFront.b*_fY +
-                             pCAM->_plnFront.c*_fZ +
-                             pCAM->_plnFront.d;
+        _fDist_VpPlnFront  = pCam->_plnFront.a*_fX +
+                             pCam->_plnFront.b*_fY +
+                             pCam->_plnFront.c*_fZ +
+                             pCam->_plnFront.d;
 
-        _fDist_VpPlnBack   = pCAM->_plnBack.a*_fX +
-                             pCAM->_plnBack.b*_fY +
-                             pCAM->_plnBack.c*_fZ +
-                             pCAM->_plnBack.d;
+        _fDist_VpPlnBack   = pCam->_plnBack.a*_fX +
+                             pCam->_plnBack.b*_fY +
+                             pCam->_plnBack.c*_fZ +
+                             pCam->_plnBack.d;
         _offscreenkind = -1;
     }
 
@@ -262,7 +263,6 @@ int GgafDx9GeometricActor::isOutOfView() {
             //上平面より上で範囲外
             _offscreenkind = 1;
         }
-        //return (pCAM->canView(this) > 0);
     }
     return _offscreenkind;
 }
