@@ -56,7 +56,7 @@ void Stage01WalledScene::processBehavior() {
     WalledScene::processBehavior();
 
     if (getActivePartFrame() % 60 == 0) {
-        if (getScroolSpeed() < 50000) {
+        if (getScroolSpeed() < 5000) {
             addScroolSpeed(1000);
         }
     }
