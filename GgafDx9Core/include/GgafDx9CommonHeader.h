@@ -174,10 +174,10 @@ enum GgafDx9BlinkerMethod {
 #define Obj_GgafDx9PointSpriteActor     (0x400000)       //0b 00000000 01000000 00000000 00000000
 #define Obj_GgafDx9FormationActor       (0x800000)       //0b 00000000 10000000 00000000 00000000
 
-#undef pGOD
-#define pGOD ((GgafDx9Core::GgafDx9God*)GgafDx9Core::GgafDx9God::_pGod)
-#undef pUNIVERSE
-#define pUNIVERSE ((GgafDx9Core::GgafDx9Universe*)(pGOD->_pUniverse))
+#undef P_GOD
+#define P_GOD ((GgafDx9Core::GgafDx9God*)GgafDx9Core::GgafDx9God::_pGod)
+#undef P_UNIVERSE
+#define P_UNIVERSE ((GgafDx9Core::GgafDx9Universe*)(P_GOD->_pUniverse))
 
 namespace GgafDx9Core {
 

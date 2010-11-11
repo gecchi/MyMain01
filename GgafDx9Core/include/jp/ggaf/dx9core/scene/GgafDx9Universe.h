@@ -9,10 +9,10 @@ namespace GgafDx9Core {
 #define MAX_SE_DELAY 240
 
 
-#ifdef pUNIVERSE
-    #define pCAM (pUNIVERSE->_pCamera)
+#ifdef P_UNIVERSE
+    #define P_CAM (P_UNIVERSE->_pCamera)
 #else
-    #error pUNIVERSE isnt define
+    #error P_UNIVERSE isnt define
 #endif
 
 /**

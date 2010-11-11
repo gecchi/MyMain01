@@ -122,7 +122,7 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
 
     //メンバー更新
     if (_isTransformed == false) {
-        GgafDx9Camera* pCam = pCAM;
+        GgafDx9Camera* pCam = P_CAM;
         //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
 //        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
 //        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);

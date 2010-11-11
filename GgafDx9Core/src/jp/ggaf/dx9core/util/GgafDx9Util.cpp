@@ -1066,7 +1066,7 @@ void GgafDx9Util::updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pActor, D3DXMA
 void GgafDx9Util::setWorldMatrix_BxyzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     static float fRateScale = 1.0f * LEN_UNIT;
     static float Sx, Sy, Sz;
-    GgafDx9Camera* pCam = pCAM;
+    GgafDx9Camera* pCam = P_CAM;
 
     Sx = prm_pActor->_SX / fRateScale;
     Sy = prm_pActor->_SY / fRateScale;
@@ -1101,7 +1101,7 @@ void GgafDx9Util::setWorldMatrix_BxyzScMv(GgafDx9GeometricActor* prm_pActor, D3D
 void GgafDx9Util::setWorldMatrix_ScRzBxyzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     static float fRateScale = 1.0f * LEN_UNIT;
     static float sinRz, cosRz, Sx, Sy, Sz;
-    GgafDx9Camera* pCam = pCAM;
+    GgafDx9Camera* pCam = P_CAM;
 
     sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
     cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
@@ -1226,7 +1226,7 @@ void GgafDx9Util::setWorldMatrix_RxRzRyMv(GgafDx9GeometricActor* prm_pActor, D3D
 
 void GgafDx9Util::setWorldMatrix_RzBxyzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     static float sinRz, cosRz;
-    GgafDx9Camera* pCam = pCAM;
+    GgafDx9Camera* pCam = P_CAM;
     sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
     cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
 

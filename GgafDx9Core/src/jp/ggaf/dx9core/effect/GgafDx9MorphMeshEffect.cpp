@@ -9,7 +9,7 @@ GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect(char* prm_effect_name) : GgafDx9E
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
-    hr = _pID3DXEffect->SetMatrix("g_matProj", &pCAM->_vMatrixProj );
+    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_vMatrixProj );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MorphMeshEffect SetMatrix() に失敗しました。");
     //ライト方向
     hr = _pID3DXEffect->SetValue("g_vecLightDirection", &(GgafDx9God::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
@@ -21,7 +21,7 @@ GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect(char* prm_effect_name) : GgafDx9E
     hr = _pID3DXEffect->SetValue("g_colLightAmbient", &(GgafDx9God::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
     checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_colLightAmbient) に失敗しました。");
 
-    hr = _pID3DXEffect->SetFloat("g_zf", pCAM->_zf );
+    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf );
     checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9SpriteEffect SetFloat(g_zf) に失敗しました。");
 
 

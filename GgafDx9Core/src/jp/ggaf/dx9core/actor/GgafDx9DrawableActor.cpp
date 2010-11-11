@@ -182,8 +182,8 @@ void GgafDx9DrawableActor::processPreDraw() {
                 if (_specal_drawdepth < 0) { //特別な描画深度指定無し
 
                     float dep = -_fDist_VpPlnFront; //オブジェクトの視点からの距離(DIRECTX距離)
-                    static float roughly_dep_point1 = (pCAM->_zf * 0.3); //荒くなるポイント１(カメラ可視奥行の 3/10 の地点)(約 300 DIRECTX距離)
-                    static float roughly_dep_point2 = (pCAM->_zf * 0.6); //荒くなるポイント２(カメラ可視奥行の 6/10 の地点)(約 600 DIRECTX距離)
+                    static float roughly_dep_point1 = (P_CAM->_zf * 0.3); //荒くなるポイント１(カメラ可視奥行の 3/10 の地点)(約 300 DIRECTX距離)
+                    static float roughly_dep_point2 = (P_CAM->_zf * 0.6); //荒くなるポイント２(カメラ可視奥行の 6/10 の地点)(約 600 DIRECTX距離)
 
                     if (dep <= roughly_dep_point1) { //depが ～ roughly_dep_point1 までの距離のオブジェクトは
 

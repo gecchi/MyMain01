@@ -35,7 +35,7 @@ void GgafDx9SeTransmitter::play(int prm_id) {
     if (prm_id < 0 || prm_id >= _se_num) {
         throwGgafCriticalException("GgafDx9SeTransmitter::play() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
-    pUNIVERSE->registSe(_papSeCon[prm_id]->refer(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
+    P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
 }
 void GgafDx9SeTransmitter::play3D(int prm_id) {
     if (prm_id < 0 || prm_id >= _se_num) {
@@ -45,10 +45,10 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
     static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
     static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
-    GgafDx9Camera* pCam = pCAM;
+    GgafDx9Camera* pCam = P_CAM;
     //距離計算
-    //遅延なし、音量100％の場所をpCAMの場所とする
-    //自身とpCAMの距離
+    //遅延なし、音量100％の場所をP_CAMの場所とする
+    //自身とP_CAMの距離
     int DX = (pCam->_X - _pActor->_X) / LEN_UNIT;
     int DY = (pCam->_Y - _pActor->_Y) / LEN_UNIT;
     int DZ = (pCam->_Z - _pActor->_Z) / LEN_UNIT;
@@ -76,7 +76,7 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
         delay = MAX_SE_DELAY;
     }
 
-    pUNIVERSE->registSe(_papSeCon[prm_id]->refer(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
+    P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
     //真ん中からの距離
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);
@@ -99,10 +99,10 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
     static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
     static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
-    GgafDx9Camera* pCam = pCAM;
+    GgafDx9Camera* pCam = P_CAM;
     //距離計算
-    //遅延なし、音量100％の場所をpCAMの場所とする
-    //自身とpCAMの距離
+    //遅延なし、音量100％の場所をP_CAMの場所とする
+    //自身とP_CAMの距離
     int DX = (pCam->_X - _pActor->_X) / LEN_UNIT;
     int DY = (pCam->_Y - _pActor->_Y) / LEN_UNIT;
     int DZ = (pCam->_Z - _pActor->_Z) / LEN_UNIT;

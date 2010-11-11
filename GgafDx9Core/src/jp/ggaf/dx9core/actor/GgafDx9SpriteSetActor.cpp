@@ -56,7 +56,7 @@ void GgafDx9SpriteSetActor::processDraw() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pSpriteSetEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_h_matView, &pCAM->_vMatrixView );
+    hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_h_matView, &P_CAM->_vMatrixView );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     GgafDx9DrawableActor *pDrawActor;

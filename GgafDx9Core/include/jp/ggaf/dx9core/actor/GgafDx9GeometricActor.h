@@ -228,16 +228,11 @@ public:
         _Z = Z;
     }
 
-    virtual void setScale(int SX, int SY, int SZ) {
-        _SX = SX;
-        _SY = SY;
-        _SZ = SZ;
-    }
-
     virtual void setScale(int S) {
         _SX = S;
         _SY = S;
         _SZ = S;
+        setBoundingSphereRadiusRate((1.0*S)/1000);
     }
 
     virtual void setScaleRate(float prm_rate) {
@@ -251,13 +246,13 @@ public:
      * 未変換座標をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void setCoordinate(GgafDx9GeometricActor* prm_pActor) {
+    virtual void setCoordinateBy(GgafDx9GeometricActor* prm_pActor) {
         _X = prm_pActor->_X;
         _Y = prm_pActor->_Y;
         _Z = prm_pActor->_Z;
     }
 
-    virtual void setRotation(GgafDx9GeometricActor* prm_pActor) {
+    virtual void setRotationBy(GgafDx9GeometricActor* prm_pActor) {
         _RX = prm_pActor->_RX;
         _RY = prm_pActor->_RY;
         _RZ = prm_pActor->_RZ;

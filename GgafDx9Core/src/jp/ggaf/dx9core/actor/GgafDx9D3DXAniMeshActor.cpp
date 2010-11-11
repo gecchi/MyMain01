@@ -47,7 +47,7 @@ void GgafDx9D3DXAniMeshActor::processDraw() {
     pID3DXEffect = _pD3DXAniMeshEffect->_pID3DXEffect;
     HRESULT hr;
     //ビュー変換行列
-    hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_h_matView, &pCAM->_vMatrixView );
+    hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_h_matView, &P_CAM->_vMatrixView );
     checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
     //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
 

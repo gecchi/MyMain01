@@ -11,10 +11,10 @@ GgafDx9SpriteEffect::GgafDx9SpriteEffect(char* prm_effect_name) : GgafDx9Effect(
 //    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_vMatrixView );
 //    checkDxException(hr, D3D_OK, "GgafDx9SpriteEffect::GgafDx9SpriteEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //éÀâeïœä∑çsóÒ
-    hr = _pID3DXEffect->SetMatrix("g_matProj", &pCAM->_vMatrixProj );
+    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_vMatrixProj );
     checkDxException(hr, D3D_OK, "GgafDx9SpriteEffect::GgafDx9SpriteEffect SetMatrix() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-    hr = _pID3DXEffect->SetFloat("g_zf", pCAM->_zf );
+    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf );
     checkDxException(hr, D3D_OK, "GgafDx9SpriteEffect::GgafDx9SpriteEffect SetFloat(g_zf) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 

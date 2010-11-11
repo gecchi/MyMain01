@@ -11,16 +11,16 @@ GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect(char* prm_effect_name) : Ggaf
 //    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_vMatrixView );
 //    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetMatrix(g_matView) に失敗しました。");
     //射影変換行列
-    hr = _pID3DXEffect->SetMatrix("g_matProj", &pCAM->_vMatrixProj );
+    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_vMatrixProj );
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetMatrix(g_matProj) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_dist_CamZ_default", -(pCAM->_cameraZ_org));
+    hr = _pID3DXEffect->SetFloat("g_dist_CamZ_default", -(P_CAM->_cameraZ_org));
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_dist_CamZ_default) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_zn", pCAM->_zn);
+    hr = _pID3DXEffect->SetFloat("g_zn", P_CAM->_zn);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_zn) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_zf", pCAM->_zf );
+    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf );
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9SpriteEffect SetFloat(g_zf) に失敗しました。");
 
-    //_TRACE_("GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect g_dist_CamZ_default="<<pCAM->_zn<<" g_dist_CamZ_default="<<( -(pCAM->_cameraZ_org))<<"");
+    //_TRACE_("GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect g_dist_CamZ_default="<<P_CAM->_zn<<" g_dist_CamZ_default="<<( -(P_CAM->_cameraZ_org))<<"");
     //checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_zn) に失敗しました。");
     //シェーダーハンドル
     _h_matView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
