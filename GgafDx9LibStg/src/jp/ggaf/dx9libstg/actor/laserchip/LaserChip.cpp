@@ -238,7 +238,7 @@ void LaserChip::processDraw() {
 
     HRESULT hr;
     //VIEWïœä∑çsóÒ
-    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_h_matView, &pCAM->_vMatrixView);
+    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_h_matView, &P_CAM->_vMatrixView);
     checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     LaserChip *pDrawLaserChipActor;

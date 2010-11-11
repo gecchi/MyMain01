@@ -54,8 +54,8 @@ void DefaultUniverse::processFinal() {
 //    D3DXVECTOR3* pVecFar;
 //
 //    for (int i = 0; i < 4; i++) {
-//        pVecNear =  &(pCAM->_vecNear[i]);
-//        pVecFar  =  &(pCAM->_vecFar[i]);
+//        pVecNear =  &(P_CAM->_vecNear[i]);
+//        pVecFar  =  &(P_CAM->_vecFar[i]);
 //
 //
 //        if (x1 > pVecNear->x) {

@@ -109,7 +109,7 @@ void WallActor::processDraw() {
         checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     //VIEWïœä∑çsóÒ
-    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_h_matView, &pCAM->_vMatrixView);
+    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_h_matView, &P_CAM->_vMatrixView);
     checkDxException(hr, D3D_OK, "WallActor::processDraw() SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     WallActor* pDrawActor;
