@@ -12,8 +12,8 @@ FormationIris002::FormationIris002(const char* prm_name) :
     _frame_interval = 25-_RANK_*20;   //イリスの間隔(frame)
     _mv_velo  = 16000+_RANK_*1600; //速度
     //スプライン移動の定義
-    _pSplineCon = (Spline3DConnection*)(pGOD->_pSpline3DManager->getConnection("SpCon_002_02"));
-    _pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_Shot002"));
+    _pSplineCon = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_002_02"));
+    _pDispatcherCon = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_Shot002"));
     //イリス編隊作成
     _papIris = NEW EnemyIris*[_num_Iris];
     for (int i = 0; i < _num_Iris; i++) {

@@ -11,8 +11,8 @@ FormationIris001::FormationIris001(const char* prm_name) : GgafDx9FormationActor
     _frame_interval = 25-_RANK_*20;   //イリスの間隔(frame)
     _mv_velo  = 8000+_RANK_*8000; //速度
     //イリス編隊作成
-    _pSplineCon     = (Spline3DConnection*)(pGOD->_pSpline3DManager->getConnection("SpCon_002_01")); //スプライン定義
-    _pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_Shot001"));
+    _pSplineCon     = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_002_01")); //スプライン定義
+    _pDispatcherCon = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_Shot001"));
     _papIris = NEW EnemyIris*[_num_Iris];
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i] = NEW EnemyIris("Iris01");

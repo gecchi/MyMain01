@@ -14,11 +14,11 @@ void PauseCamWorker::initialize() {
 void PauseCamWorker::processBehavior() {
     //ƒRƒ}‘—‚è
     if (VB_UI->isPushedDown(VB_BUTTON7)) {
-        pGAMESCENE->_is_frame_advance = true;
+        P_GAME_SCENE->_is_frame_advance = true;
     }
 
     //ˆêŽž’âŽ~‚µ‚Ä‚¢ó‘Ô
-    GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
+    GgafDx9CameraViewPoint* pVP = P_CAM->_pViewPoint;
     if (GgafDx9Input::isBeingPressedKey(DIK_V)) {
         //V{•ûŒü‚Å’Ž‹“_‘€ì
         if (GgafDx9Input::isBeingPressedKey(DIK_UP)) {
@@ -45,24 +45,24 @@ void PauseCamWorker::processBehavior() {
     } else if (GgafDx9Input::isBeingPressedKey(DIK_C)) {
         //C{•ûŒü‚ÅƒJƒƒ‰‘€ì
         if (GgafDx9Input::isBeingPressedKey(DIK_UP)) {
-            pCAM->_Y += 8000;
+            P_CAM->_Y += 8000;
         } else if (GgafDx9Input::isBeingPressedKey(DIK_DOWN)) {
-            pCAM->_Y -= 8000;
+            P_CAM->_Y -= 8000;
         } else {
 
         }
 
         if (GgafDx9Input::isBeingPressedKey(DIK_RIGHT)) {
-            pCAM->_X += 8000;
+            P_CAM->_X += 8000;
         } else if (GgafDx9Input::isBeingPressedKey(DIK_LEFT)) {
-            pCAM->_X -= 8000;
+            P_CAM->_X -= 8000;
         } else {
         }
 
         if (GgafDx9Input::isBeingPressedKey(DIK_PGUP)) {
-            pCAM->_Z += 8000;
+            P_CAM->_Z += 8000;
         } else if (GgafDx9Input::isBeingPressedKey(DIK_PGDN)) {
-            pCAM->_Z -= 8000;
+            P_CAM->_Z -= 8000;
         } else {
         }
     }

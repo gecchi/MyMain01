@@ -77,8 +77,8 @@ void GameMainScene::processBehavior() {
     if (getProgress() == GAMEMAIN_PROG_INIT) {
         VB_UI->clear();
         VB_PLAY->clear();
-        pGOD->setVB(VB_PLAY); //•Û‘¶‚Ì‚½‚ßƒvƒŒƒC—p‚É•ÏX
-        GgafScene* pCommon = pCOMMON_SCENE->extract();
+        P_GOD->setVB(VB_PLAY); //•Û‘¶‚Ì‚½‚ßƒvƒŒƒC—p‚É•ÏX
+        GgafScene* pCommon = P_COMMON_SCENE->extract();
         addSubLast(pCommon); // ‹¤’ÊƒV[ƒ“‚ğ”z‰º‚ÉˆÚ“®iˆê’â~‚ğ‚¤‚Ü‚­§Œä‚³‚¹‚é‚½‚ßIj
         setProgress(GAMEMAIN_PROG_BEGIN);
     }
@@ -127,7 +127,7 @@ void GameMainScene::processBehavior() {
     //I—¹ˆ—
     if (onChangeProgressAt(GAMEMAIN_PROG_END)) {
          VB_UI->clear();
-         pGOD->setVB(VB_UI);  //–ß‚·
+         P_GOD->setVB(VB_UI);  //–ß‚·
         _TRACE_("ƒIƒƒ^");
     } else if (getProgress() == GAMEMAIN_PROG_END) {
         //GAMEMAIN_PROG_END‚Í‚È‚É‚à‚Å‚«‚È‚¢
@@ -139,27 +139,27 @@ void GameMainScene::processBehavior() {
     _pFont16_SCORE->update(550, 1, _buf);
     sprintf(_buf, "RANK %.7f", _RANK_);
     _pFont16_RANK->update(550, 20, _buf);
-    sprintf(_buf, "STAMINA %7d", pMYSHIP->_pStatus->get(STAT_Stamina));
+    sprintf(_buf, "STAMINA %7d", P_MYSHIP->_pStatus->get(STAT_Stamina));
     _pFont16_STAMINA->update(550, 40, _buf);
 
-    sprintf(_buf, "X:%8d", pMYSHIP->_X);
+    sprintf(_buf, "X:%8d", P_MYSHIP->_X);
     _pFont8_JIKI_X->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*3-1, _buf);
-    sprintf(_buf, "Y:%8d", pMYSHIP->_Y);
+    sprintf(_buf, "Y:%8d", P_MYSHIP->_Y);
     _pFont8_JIKI_Y->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*2-1, _buf);
-    sprintf(_buf, "Z:%8d", pMYSHIP->_Z);
+    sprintf(_buf, "Z:%8d", P_MYSHIP->_Z);
     _pFont8_JIKI_Z->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*1-1, _buf);
 
     if (getProgress() == GAMEMAIN_PROG_PLAY || getProgress() == GAMEMAIN_PROG_BEGIN) {
 
         //ˆê’â~
-        if (VB_PLAY->isReleasedUp(VB_PAUSE) || pGAMESCENE->_is_frame_advance) {
-            pGAMESCENE->_is_frame_advance = false;
+        if (VB_PLAY->isReleasedUp(VB_PAUSE) || P_GAME_SCENE->_is_frame_advance) {
+            P_GAME_SCENE->_is_frame_advance = false;
             _TRACE_("PAUSE!");
-            pGOD->setVB(VB_UI);  //“ü—Í‚Í‚t‚h‚ÉØ‚è‘Ö‚¦
+            P_GOD->setVB(VB_UI);  //“ü—Í‚Í‚t‚h‚ÉØ‚è‘Ö‚¦
             pause();     //©g”z‰º‚ğˆê’â~‚·‚éBˆê’â~‰ğœ‚ÍGameScene‚Ås‚í‚ê‚é
-            pUNIVERSE->pushCameraWork("PauseCamWorker");
-//            pACTIVE_CAMWORKER->pause();
-            pMYSHIP->pause();
+            P_UNIVERSE->pushCameraWork("PauseCamWorker");
+//            P_ACTIVE_CAMWORKER->pause();
+            P_MYSHIP->pause();
         }
     }
 }

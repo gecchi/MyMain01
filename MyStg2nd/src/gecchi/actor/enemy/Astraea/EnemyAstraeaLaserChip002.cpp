@@ -12,7 +12,7 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
 
     //‹üÜƒŒ[ƒU[Ý’è
-    _pDispatcherCon_RefractionEffect = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_EffRefraction001"));
+    _pDispatcherCon_RefractionEffect = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_EffRefraction001"));
     config(50, 10, 5, _pDispatcherCon_RefractionEffect->refer());
 }
 
@@ -51,9 +51,9 @@ void EnemyAstraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
         angle out_angRy_Target;
         angle out_d_angRz;
         angle out_d_angRy;
-        GgafDx9Util::getRzRyAng(pMYSHIP->_X - _X,
-                                pMYSHIP->_Y - _Y,
-                                pMYSHIP->_Z - _Z,
+        GgafDx9Util::getRzRyAng(P_MYSHIP->_X - _X,
+                                P_MYSHIP->_Y - _Y,
+                                P_MYSHIP->_Z - _Z,
                                 out_angRz_Target,
                                 out_angRy_Target);
         out_d_angRz = _pMover->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
@@ -61,11 +61,11 @@ void EnemyAstraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
         _pMover->addRzMvAng(sgn(out_d_angRz)*10000);
         _pMover->addRyMvAng(sgn(out_d_angRy)*10000);
 //        _pMover->execTagettingMvAngSequence(
-//                        pMYSHIP,
+//                        P_MYSHIP,
 //                        90000, 0,
 //                        TURN_CLOSE_TO, false);
 
-//        _pMover->setMvAng(pMYSHIP);
+//        _pMover->setMvAng(P_MYSHIP);
     }
 }
 

@@ -23,7 +23,7 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
 
     //chengeEffectTechnique("DestBlendOne"); //â¡éZçáê¨
     setHitAble(false);
-    _CAM_ZF = abs(pCAM->_zf * PX_UNIT * LEN_UNIT);
+    _CAM_ZF = abs(P_CAM->_zf * PX_UNIT * LEN_UNIT);
     _TRACE_("HoshiBoshi001::HoshiBoshi001 _CAM_ZF="<<_CAM_ZF);
     //ì∆é©ÉèÅ[ÉãÉhïœä∑
     defineRotMvWorldMatrix(HoshiBoshi001::setWorldMatrix_HoshiBoshi001);
@@ -93,11 +93,11 @@ void HoshiBoshi001::processDraw() {
     ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetFloat(_h_fX_MyShip, pMYSHIP->_fX);
+    hr = pID3DXEffect->SetFloat(_h_fX_MyShip, P_MYSHIP->_fX);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_fX_MyShip) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_h_fY_MyShip, pMYSHIP->_fY);
+    hr = pID3DXEffect->SetFloat(_h_fY_MyShip, P_MYSHIP->_fY);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_fY_MyShip) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_h_fZ_MyShip, pMYSHIP->_fZ);
+    hr = pID3DXEffect->SetFloat(_h_fZ_MyShip, P_MYSHIP->_fZ);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_fZ_MyShip) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     GgafDx9PointSpriteActor::processDraw();
 }

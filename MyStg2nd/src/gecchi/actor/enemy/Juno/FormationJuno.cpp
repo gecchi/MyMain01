@@ -20,10 +20,10 @@ FormationJuno::FormationJuno(
             int prm_nJunoStock,
             int prm_frame_app_interval) : GgafDx9FormationActor(prm_name) {
     _class_name = "FormationJuno";
-    _pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_Shot004")); //Juno‚Ì’e
+    _pDispatcherCon = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_Shot004")); //Juno‚Ì’e
 
     _pRndGen = CmRandomNumberGenerator::getInstance();
-    _pRndGen->changeSeed(pMYSHIP->_Z);
+    _pRndGen->changeSeed(P_MYSHIP->_Z);
 
     _X1_app = prm_X1_app;
     _Y1_app = prm_Y1_app;

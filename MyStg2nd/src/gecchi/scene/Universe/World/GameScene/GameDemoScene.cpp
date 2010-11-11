@@ -34,13 +34,13 @@ void GameDemoScene::initialize() {
 
 void GameDemoScene::processBehavior() {
     if (getProgress() == GAMEDEMO_PROG_INIT) {
-//        pCAM->setDefaultPosition();
+//        P_CAM->setDefaultPosition();
 
 //        TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(111111);
 //        getLordActor()->addSubGroup(KIND_ENEMY_BODY, pActor);
 
         //自機表示
-        pMYSHIP->activate(); //下位にオプション等があるし
+        P_MYSHIP->activate(); //下位にオプション等があるし
 
         //TODO:kesu
         //テスト

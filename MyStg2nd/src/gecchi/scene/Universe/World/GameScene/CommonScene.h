@@ -2,10 +2,10 @@
 #define COMMONSCENE_H_
 
 
-#ifdef pGAMESCENE
-    #define pCOMMON_SCENE (pGAMESCENE->_pCommonScene)
+#ifdef P_GAME_SCENE
+    #define P_COMMON_SCENE (P_GAME_SCENE->_pCommonScene)
 #else
-    #error pGAMESCENE isnt define
+    #error P_GAME_SCENE isnt define
 #endif
 
 

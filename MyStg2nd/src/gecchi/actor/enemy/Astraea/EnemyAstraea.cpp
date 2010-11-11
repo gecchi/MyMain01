@@ -156,9 +156,9 @@ void EnemyAstraea::processBehavior() {
         _pMover->setFaceAngVelo(AXIS_Y, _angveloTurn*0.5);
         _pMover->setMvVelo(-3000);
         _iMovePatternNo++;
-    } else if (_iMovePatternNo == 1 && _X > pMYSHIP->_X-400000) {
+    } else if (_iMovePatternNo == 1 && _X > P_MYSHIP->_X-400000) {
         if (getBehaveingFrame() % _laser_interval == 0) {
-            _pMover->execTagettingFaceAngSequence(pMYSHIP,
+            _pMover->execTagettingFaceAngSequence(P_MYSHIP,
                                                 _angveloTurn*20, 0,
                                                 TURN_COUNTERCLOCKWISE, false);
             _iMovePatternNo++;
@@ -187,7 +187,7 @@ void EnemyAstraea::processBehavior() {
             for (int i = 0; i < _laser_way; i++) {
                 for (int j = 0; j < _laser_way; j++) {
                     if (_papapLaserChipDispatcher[i][j] == NULL) {
-                        GgafMainActor* p = pCOMMON_SCENE->_pDispatcher_LaserChipDispatcher->employ();
+                        GgafMainActor* p = P_COMMON_SCENE->_pDispatcher_LaserChipDispatcher->employ();
                         if (p == NULL) {
                             //レーザーセットは借入出来ない
                             continue;
@@ -260,10 +260,10 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->activate();
-            pExplo001->setCoordinate(this);
+            pExplo001->setCoordinateBy(this);
         }
         _pSeTransmitter->play3D(1);
         sayonara();

@@ -114,7 +114,7 @@ void MyOption::onActive() {
     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
-    //pCOMMON_SCENE->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
+    //P_COMMON_SCENE->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
     _angPosition = _pMover->_angRzMv;
 
     _adjust_angPos_seq_progress = 0;
@@ -255,7 +255,7 @@ void MyOption::processBehavior() {
     } else {
         //ƒIƒvƒVƒ‡ƒ“L‚ª‚è‚ÆŒü‚«§Œä
         if (VB_PLAY->isBeingPressed(VB_OPTION) && VB_PLAY->isBeingPressed(VB_TURBO)) {
-            if (pVAM->_pos_camera == VAM_POS_RIGHT) {
+            if (P_VAM->_pos_camera == VAM_POS_RIGHT) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
@@ -270,7 +270,7 @@ void MyOption::processBehavior() {
                     addRadiusPosition(-2000 * (_radiusPosition_base/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
-            } else if (pVAM->_pos_camera == VAM_POS_LEFT) {
+            } else if (P_VAM->_pos_camera == VAM_POS_LEFT) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
@@ -285,7 +285,7 @@ void MyOption::processBehavior() {
                     addRadiusPosition(-2000 * (_radiusPosition_base/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
-            } else if (pVAM->_pos_camera == VAM_POS_TOP) {
+            } else if (P_VAM->_pos_camera == VAM_POS_TOP) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     addRadiusPosition(2000 * (_radiusPosition_base/60000));
                     //_angExpanse += _angveloExpanseSlow;
@@ -300,7 +300,7 @@ void MyOption::processBehavior() {
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
-            } else if (pVAM->_pos_camera == VAM_POS_BOTTOM) {
+            } else if (P_VAM->_pos_camera == VAM_POS_BOTTOM) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     addRadiusPosition(-2000 * (_radiusPosition_base/60000));
                     //_angExpanse -= _angveloExpanseSlow;
@@ -315,7 +315,7 @@ void MyOption::processBehavior() {
                 if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
-            } else if (pVAM->_pos_camera > VAM_POS_TO_BEHIND) {
+            } else if (P_VAM->_pos_camera > VAM_POS_TO_BEHIND) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
@@ -470,13 +470,13 @@ void MyOption::processBehavior() {
     _pMover->setVyMvVelo(0);
     _pMover->setVzMvVelo(0);
             //_TRACE_("_pVBMap_Active->_state="<<(vbsta)(VB_PLAY->_pVBMap_Active->_state));
-    if (pMYSHIP->_is_shooting_laser && VB_PLAY->isBeingPressed(VB_SHOT1)) {
+    if (P_MYSHIP->_is_shooting_laser && VB_PLAY->isBeingPressed(VB_SHOT1)) {
 
 
         MyCurveLaserChip001* pLaserChip = (MyCurveLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaserChip != NULL) {
             if (_pLaserChipDispatcher->_pEffectActor_Irradiate) {
-                _pLaserChipDispatcher->_pEffectActor_Irradiate->setCoordinate(this);
+                _pLaserChipDispatcher->_pEffectActor_Irradiate->setCoordinateBy(this);
             }
             pLaserChip->_pMover->_vX = _Q._x;
             pLaserChip->_pMover->_vY = _Q._y;
@@ -522,11 +522,11 @@ void MyOption::processBehavior() {
 //        _pLockonTarget = NULL;
 //    }
 
-    if (pMYSHIP->_just_shot) {
+    if (P_MYSHIP->_just_shot) {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot != NULL) {
             _pSeTransmitter->play3D(1);
-            pShot->setCoordinate(this);
+            pShot->setCoordinateBy(this);
             pShot->_pMover->_angFace[AXIS_X] = _RX;
             pShot->_pMover->_angFace[AXIS_Z] = _RZ;
             pShot->_pMover->_angFace[AXIS_Y] = _RY;

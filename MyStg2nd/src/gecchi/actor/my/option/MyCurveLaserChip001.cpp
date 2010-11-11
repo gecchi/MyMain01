@@ -175,7 +175,7 @@ void MyCurveLaserChip001::processBehavior() {
 
     //根元からレーザー表示のため強制的に座標補正
     if (onChangeToActive()) {
-        setCoordinate(_pOrg);
+        setCoordinateBy(_pOrg);
         _tmpX = _X;
         _tmpY = _Y;
         _tmpZ = _Z;
@@ -211,9 +211,9 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //一撃でチップ消滅の攻撃力
 
             //破壊されたエフェクト
-            EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
             if (pExplo001 != NULL) {
-                pExplo001->setCoordinate(this);
+                pExplo001->setCoordinateBy(this);
                 pExplo001->activate();
             }
             //ロックオン可能アクターならロックオン
@@ -233,9 +233,9 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         //地形相手は無条件さようなら
 
         //破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
-            pExplo001->setCoordinate(this);
+            pExplo001->setCoordinateBy(this);
             pExplo001->activate();
         }
         sayonara();

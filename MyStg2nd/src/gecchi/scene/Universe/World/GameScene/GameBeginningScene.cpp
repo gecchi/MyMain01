@@ -29,7 +29,7 @@ void GameBeginningScene::initialize() {
 
 void GameBeginningScene::processBehavior() {
     if (getProgress() == GAMEBEGINNING_PROG_INIT) {
-//        pCAM->setDefaultPosition();
+//        P_CAM->setDefaultPosition();
         setProgress(GAMEBEGINNING_PROG_BEGIN);
     }
 

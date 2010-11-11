@@ -16,7 +16,7 @@ void WorldBoundSpace002::initialize() {
     setHitAble(false);
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
-    _SX = _SY = _SZ = ((pCAM->_zf-pCAM->_zn)*1000)*0.98;
+    _SX = _SY = _SZ = ((P_CAM->_zf-P_CAM->_zn)*1000)*0.98;
 }
 
 void WorldBoundSpace002::onActive() {
@@ -24,7 +24,7 @@ void WorldBoundSpace002::onActive() {
 }
 
 void WorldBoundSpace002::processBehavior() {
-    setCoordinate(pCAM);
+    setCoordinateBy(P_CAM);
     //_pUvFlipper->behave();
 }
 void WorldBoundSpace002::processJudgement() {

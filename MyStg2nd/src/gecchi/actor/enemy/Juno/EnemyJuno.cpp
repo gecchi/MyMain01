@@ -46,7 +46,7 @@ void EnemyJuno::onActive() {
     _frame_when_shot = 0;
     _veloMv_begin = _pMover->_veloMv; //初期移動速度を保存
     _pMover->setFaceAng(AXIS_X, 0);
-    //_pMover->execTagettingMvAngSequence(pMYSHIP, 50, 0, TURN_CLOSE_TO, false);
+    //_pMover->execTagettingMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
 }
 
 void EnemyJuno::processBehavior() {
@@ -62,9 +62,9 @@ void EnemyJuno::processBehavior() {
                 GgafDx9DrawableActor* pShot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pShot) {
                     _nShot++;
-                    pShot->setCoordinate(this);
+                    pShot->setCoordinateBy(this);
                     pShot->_pMover->relateRzRyFaceAngToMvAng(true);
-                    pShot->_pMover->setMvAng(pMYSHIP);
+                    pShot->_pMover->setMvAng(P_MYSHIP);
                     pShot->activate();
                     _do_Shot = false;
                     chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
@@ -79,8 +79,8 @@ void EnemyJuno::processBehavior() {
         }
     } else {
         if (_can_Shot) {
-            if (pMYSHIP->_Z - 500000 < _Z && _Z < pMYSHIP->_Z + 500000 &&
-                pMYSHIP->_Y - 500000 < _Y && _Y < pMYSHIP->_Y + 500000 &&
+            if (P_MYSHIP->_Z - 500000 < _Z && _Z < P_MYSHIP->_Z + 500000 &&
+                P_MYSHIP->_Y - 500000 < _Y && _Y < P_MYSHIP->_Y + 500000 &&
                 _nMaxShot > _nShot
             ) {
                 _frame_when_shot = getActivePartFrame() + (CmRandomNumberGenerator::getInstance()->genrand_int32() % 60) + 1;
@@ -110,10 +110,10 @@ void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         _pSeTransmitter->play3D(0);
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->activate();
-            pExplo001->setCoordinate(this);
+            pExplo001->setCoordinateBy(this);
         }
         sayonara();
     }

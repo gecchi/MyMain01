@@ -37,7 +37,7 @@ void EnemyCirce::onActive() {
 void EnemyCirce::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pMover->execTagettingMvAngSequence(pMYSHIP, 50, 0, TURN_CLOSE_TO);
+    _pMover->execTagettingMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO);
     _pMover->behave();
     _pScaler->behave();
     //_pSeTransmitter->behave();
@@ -53,11 +53,11 @@ void EnemyCirce::processJudgement() {
 void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 =
-            (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+            (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
     _pSeTransmitter->play3D(0);
     if (pExplo001 != NULL) {
         pExplo001->activate();
-        pExplo001->setCoordinate(this);
+        pExplo001->setCoordinateBy(this);
     }
 
 //    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

@@ -23,7 +23,7 @@ EnemyVesta::EnemyVesta(const char* prm_name)
     _frame_of_morph_interval   = 60;
 
     _pDispatcher_Fired = NULL;
-    _pDpcon = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_Shot004"));
+    _pDpcon = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_Shot004"));
 
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
@@ -139,7 +139,7 @@ void EnemyVesta::processBehavior() {
             if (_pDispatcher_Fired) {
                 GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDispatcher_Fired->employ();
                 if (pActor) {
-                    pActor->setCoordinate(this);
+                    pActor->setCoordinateBy(this);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
                     //＜現在の最終的な向きを、RzRyで取得する＞
                     //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
@@ -195,9 +195,9 @@ void EnemyVesta::processBehavior() {
         //
 
         //MvX MvY MvZ を求める
-        int MvX = pMYSHIP->_X - _X;
-        int MvY = pMYSHIP->_Y - _Y;
-        int MvZ = pMYSHIP->_Z - _Z;
+        int MvX = P_MYSHIP->_X - _X;
+        int MvY = P_MYSHIP->_Y - _Y;
+        int MvZ = P_MYSHIP->_Z - _Z;
         //逆行列取得
         D3DXMATRIX* pBaseInvMatRM = _pActor_Base->gatInvMatWorldRotMv();
         //ローカル座標でのターゲットとなる方向ベクトル計算
@@ -242,11 +242,11 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
 
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
 
     if (pExplo001 != NULL) {
         pExplo001->activate();
-        pExplo001->setCoordinate(this);
+        pExplo001->setCoordinateBy(this);
     }
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

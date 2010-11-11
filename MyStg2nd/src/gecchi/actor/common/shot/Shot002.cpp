@@ -35,14 +35,14 @@ void Shot002::processBehavior() {
 
 
     if (_my_frame == 70) {
-        _pMover->execTagettingMvAngSequence(pMYSHIP,
+        _pMover->execTagettingMvAngSequence(P_MYSHIP,
                                                    3000, 0,
                                                    TURN_CLOSE_TO);
     }
 
     if (_my_frame > 70 && _pMover->_mv_ang_ry_target_flg == false && _pMover->_mv_ang_rz_target_flg == false) {
         _pMover->execTagettingMvAngSequence(
-                    pMYSHIP,
+                    P_MYSHIP,
                     100, 0,
                     TURN_CLOSE_TO);
     }
@@ -64,11 +64,11 @@ void Shot002::onHit(GgafActor* prm_pOtherActor) {
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         _pSeTransmitter->play3D(0);
         if (pExplo001 != NULL) {
             pExplo001->activate();
-            pExplo001->setCoordinate(this);
+            pExplo001->setCoordinateBy(this);
         }
         sayonara();
     }

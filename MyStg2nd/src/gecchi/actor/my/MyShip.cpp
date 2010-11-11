@@ -220,7 +220,7 @@ void MyShip::processBehavior() {
     //VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
     _stc = VB_PLAY->getBeingPressedStick();
-    if (pVAM->_pos_camera == VAM_POS_RIGHT) {
+    if (P_VAM->_pos_camera == VAM_POS_RIGHT) {
         //右サイドビュー(右から左へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
@@ -234,7 +234,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (pVAM->_pos_camera == VAM_POS_LEFT) {
+    } else if (P_VAM->_pos_camera == VAM_POS_LEFT) {
         //左サイドビュー(左から右へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
@@ -248,7 +248,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (pVAM->_pos_camera == VAM_POS_TOP) {
+    } else if (P_VAM->_pos_camera == VAM_POS_TOP) {
         //トップビュー(上から下へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //前方
@@ -262,7 +262,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
-    } else if (pVAM->_pos_camera == VAM_POS_BOTTOM) {
+    } else if (P_VAM->_pos_camera == VAM_POS_BOTTOM) {
         //ボトムビュー(下から上へスクロール)
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //後方
@@ -276,7 +276,7 @@ void MyShip::processBehavior() {
         if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
-    } else if (pVAM->_pos_camera > VAM_POS_TO_BEHIND) {
+    } else if (P_VAM->_pos_camera > VAM_POS_TO_BEHIND) {
         //背後ビュー（奥から手前にスクロール）
         if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
@@ -316,9 +316,9 @@ void MyShip::processBehavior() {
 
     if (VB_PLAY->isPushedDown(VB_TURBO)) {
         //ターボ開始時
-        EffectTurbo002* pTurbo002 = (EffectTurbo002*)pCOMMON_SCENE->_pDispatcher_EffectTurbo002->employForce();
+        EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDispatcher_EffectTurbo002->employForce();
          if (pTurbo002 != NULL) {
-             pTurbo002->setCoordinate(this);
+             pTurbo002->setCoordinateBy(this);
              pTurbo002->activate();
          }
         (this->*paFuncTurbo[_way])();
@@ -443,7 +443,7 @@ void MyShip::processJudgement() {
             MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
             if (pShot != NULL) {
                 _pSeTransmitter->play3D(2);
-                pShot->setCoordinate(this);
+                pShot->setCoordinateBy(this);
                 pShot->activate();
             }
             if (_frame_soft_rapidshot >= 12) {
@@ -482,9 +482,9 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
     _pSeTransmitter->play3D(0);
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
-        pExplo001->setCoordinate(this);
+        pExplo001->setCoordinateBy(this);
         pExplo001->activate();
     }
     if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

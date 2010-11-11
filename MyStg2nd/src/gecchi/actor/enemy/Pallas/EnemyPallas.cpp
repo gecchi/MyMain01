@@ -86,7 +86,7 @@ void EnemyPallas::processBehavior() {
                 for (int i = 0; i < way; i++) {
                     pActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                     if (pActor_Shot) {
-                        pActor_Shot->setCoordinate(this);
+                        pActor_Shot->setCoordinateBy(this);
                         pActor_Shot->_pMover->setRzRyMvAng(paAngWay[i], ANGLE90);
                         pActor_Shot->activate();
                     }
@@ -96,13 +96,13 @@ void EnemyPallas::processBehavior() {
                 if (_pDispatcher_ShotEffect) {
                     GgafDx9DrawableActor* pEffectActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
                     if (pEffectActor_Shot) {
-                        pEffectActor_Shot->setCoordinate(this);
+                        pEffectActor_Shot->setCoordinateBy(this);
                         pEffectActor_Shot->activate();
                     }
                 }
             }
 //            //自機へ方向転換
-            _pMover->execTagettingMvAngSequence(pMYSHIP->_X, _Y, pMYSHIP->_Z,
+            _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
                                                 2000, 0,
                                                 TURN_CLOSE_TO);
             _iMovePatternNo++; //次の行動パターンへ
@@ -135,11 +135,11 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion003* pExplo003 = (EffectExplosion003*)pCOMMON_SCENE->_pDispatcher_EffectExplosion003->employ();
+        EffectExplosion003* pExplo003 = (EffectExplosion003*)P_COMMON_SCENE->_pDispatcher_EffectExplosion003->employ();
         _pSeTransmitter->play3D(0);
         if (pExplo003 != NULL) {
             pExplo003->activate();
-            pExplo003->setCoordinate(this);
+            pExplo003->setCoordinateBy(this);
         }
 
         //自機側に撃たれて消滅、かつフォメーション所属の場合、

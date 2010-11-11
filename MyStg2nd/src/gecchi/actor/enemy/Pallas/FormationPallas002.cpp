@@ -11,8 +11,8 @@ FormationPallas002::FormationPallas002(const char* prm_name) : GgafDx9FormationA
     _frame_interval = 10-_RANK_*5;  //パラスの間隔(frame)
     _mv_velo        = 10000+_RANK_*10000; //速度
     //パラス編隊作成
-    _pSplineCon     = (Spline3DConnection*)(pGOD->_pSpline3DManager->getConnection("SpCon_Pallas01")); //スプライン定義
-    //_pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_Shot002"));
+    _pSplineCon     = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_Pallas01")); //スプライン定義
+    //_pDispatcherCon = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_Shot002"));
     _pDispatcherCon = NULL;
     _papPallas = NEW EnemyPallas*[_num_Pallas];
     for (int i = 0; i < _num_Pallas; i++) {
@@ -28,7 +28,7 @@ FormationPallas002::FormationPallas002(const char* prm_name) : GgafDx9FormationA
 
 void FormationPallas002::onActive() {
     for (int i = 0; i < _num_Pallas; i++) {
-        _papPallas[i]->setCoordinate(MyShip::_lim_behaind *2 , pMYSHIP->_Y+300000,  pMYSHIP->_Z);
+        _papPallas[i]->setCoordinate(MyShip::_lim_behaind *2 , P_MYSHIP->_Y+300000,  P_MYSHIP->_Z);
         _papPallas[i]->_pMover->setMvVelo(_mv_velo);
         _papPallas[i]->activateDelay(i*_frame_interval + 1);//_frame_interval間隔でActiveにする。
     }

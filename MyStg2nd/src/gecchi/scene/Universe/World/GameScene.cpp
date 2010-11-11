@@ -77,11 +77,11 @@ void GameScene::processBehavior() {
     //一時停止解除
     if (_pScene_GameMain->wasPause()) {
         if (VB_UI->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
-            pGOD->setVB(VB_PLAY);
+            P_GOD->setVB(VB_PLAY);
             _pScene_GameMain->unpause();     //GameMainSceneでの一時停止解除
-            pUNIVERSE->popCameraWork();
-//            pACTIVE_CAMWORKER->unpause();
-            pMYSHIP->unpause();
+            P_UNIVERSE->popCameraWork();
+//            P_ACTIVE_CAMWORKER->unpause();
+            P_MYSHIP->unpause();
         }
     }
 
@@ -96,13 +96,13 @@ void GameScene::processBehavior() {
     if (_pSceneCannel == _pScene_GameDemo) {
         if (_pScene_GameDemo->getProgressOnChange() == GAMEDEMO_PROG_BEGIN) {
             VB_UI->clear();
-            pGOD->setVB(VB_UI);
+            P_GOD->setVB(VB_UI);
             _pScene_GameBeginning->reset();
             _pScene_GameBeginning->ready();
         }
         if (_pScene_GameDemo->getProgressOnChange() == GAMEDEMO_PROG_DECIDE) {
             VB_UI->clear();
-            pGOD->setVB(VB_UI);
+            P_GOD->setVB(VB_UI);
             _pScene_GameBeginning->activate();
             _pSceneCannel = _pScene_GameBeginning;
         }
@@ -110,20 +110,20 @@ void GameScene::processBehavior() {
     } else if (_pSceneCannel == _pScene_GameBeginning) {
         if (_pScene_GameBeginning->getProgressOnChange() == GAMEBEGINNING_PROG_BEGIN) {
             VB_UI->clear();
-            pGOD->setVB(VB_UI);
+            P_GOD->setVB(VB_UI);
             _pScene_GameMain->reset();
         }
 
         if (_pScene_GameBeginning->getProgressOnChange() == GAMEBEGINNING_PROG_DECIDE) {
             VB_UI->clear();
-            pGOD->setVB(VB_UI);
+            P_GOD->setVB(VB_UI);
             _stage = _pScene_GameBeginning->_selected_stage;
             _pScene_GameMain->ready(_stage); //先行準備
         }
 
         if (_pScene_GameBeginning->getProgressOnChange() == GAMEBEGINNING_PROG_END) {
             VB_UI->clear();
-            pGOD->setVB(VB_UI);
+            P_GOD->setVB(VB_UI);
             _pScene_GameMain->activate();
             _pSceneCannel = _pScene_GameMain;
         }
@@ -132,7 +132,7 @@ void GameScene::processBehavior() {
         if (_pScene_GameMain->getProgressOnChange() == GAMEMAIN_PROG_BEGIN) {
 //            VB_UI->clear();
 //            VB_PLAY->clear();
-//            pGOD->setVB(VB_PLAY); //保存のためプレイ用に変更
+//            P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
 
             //GameOverかGameEnding 先行準備
             _pScene_GameOver->reset();
@@ -143,7 +143,7 @@ void GameScene::processBehavior() {
         }
         if (_pScene_GameMain->getProgressOnChange() == GAMEMAIN_PROG_END) {
 //            VB_UI->clear();
-//            pGOD->setVB(VB_UI);  //戻す
+//            P_GOD->setVB(VB_UI);  //戻す
 //            _pScene_GameEnding->activate();
 //            _pSceneCannel = _pScene_GameEnding;
 
@@ -157,27 +157,27 @@ void GameScene::processBehavior() {
     } else if (_pSceneCannel == _pScene_GameEnding) {
         if (_pScene_GameEnding->getProgressOnChange() == GAMEENDING_PROG_BEGIN) {
             VB_UI->clear();
-            pGOD->setVB(VB_UI);
+            P_GOD->setVB(VB_UI);
             _pScene_GameDemo->reset();
             _pScene_GameDemo->ready();
 
         }
         if (_pScene_GameMain->getProgressOnChange() == GAMEENDING_PROG_END) {
             VB_UI->clear();
-            pGOD->setVB(VB_UI);
+            P_GOD->setVB(VB_UI);
             _pSceneCannel = _pScene_GameDemo;
         }
 
     } else if (_pSceneCannel == _pScene_GameOver) {
         if (_pScene_GameMain->getProgressOnChange() == GAMEOVER_PROG_BEGIN) {
             VB_UI->clear();
-            pGOD->setVB(VB_UI);
+            P_GOD->setVB(VB_UI);
             _pScene_GameDemo->reset();
             _pScene_GameDemo->ready();
         }
         if (_pScene_GameMain->getProgressOnChange() == GAMEOVER_PROG_END) {
             VB_UI->clear();
-            pGOD->setVB(VB_UI);
+            P_GOD->setVB(VB_UI);
             _pSceneCannel = _pScene_GameDemo;
         }
 

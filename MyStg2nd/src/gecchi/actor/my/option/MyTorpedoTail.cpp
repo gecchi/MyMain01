@@ -29,8 +29,8 @@ void MyTorpedoTail::onInactive() {
 }
 void MyTorpedoTail::processBehaviorHeadChip() {
 
-    setCoordinate(_pMyTorpedo);
-    setRotation(_pMyTorpedo);
+    setCoordinateBy(_pMyTorpedo);
+    setRotationBy(_pMyTorpedo);
 }
 
 MyTorpedoTail::~MyTorpedoTail() {

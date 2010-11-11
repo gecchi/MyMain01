@@ -14,7 +14,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
 
-    _pDispatcherCon = (DispatcherConnection*)(pGOD->_pDispatcherManager->getConnection("DpCon_Shot001"));
+    _pDispatcherCon = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_Shot001"));
     _pDispatcher_Shot = _pDispatcherCon->refer();
 
     _pSeTransmitter->useSe(1);
@@ -105,7 +105,7 @@ void EnemyTamago01::processBehavior() {
 
     if (_iMovePatternNo == 1) {
         //スプライン移動終了時
-        _pMover->execTagettingMvAngSequence(pMYSHIP->_X+800000, pMYSHIP->_Y, pMYSHIP->_Z,
+        _pMover->execTagettingMvAngSequence(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                    2000, 0,
                                                    TURN_CLOSE_TO);
         _iMovePatternNo++; //次の行動パターンへ
@@ -119,14 +119,14 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (getBehaveingFrame() % 30 == 0) {
-        _pMover->execTagettingMvAngSequence(pMYSHIP, 2000,0,TURN_CLOSE_TO);
+        _pMover->execTagettingMvAngSequence(P_MYSHIP, 2000,0,TURN_CLOSE_TO);
 
         if (_pDispatcher_Shot) {
             //放射状ショット発射
             int way = 8;
             angle* paAngWay = NEW angle[way];
             angle target_RzRy_Rz, target_RzRy_Ry;
-            GgafDx9Util::getRzRyAng(pMYSHIP->_X - _X, pMYSHIP->_Y - _Y, pMYSHIP->_Z - _Z, target_RzRy_Rz, target_RzRy_Ry);
+            GgafDx9Util::getRzRyAng(P_MYSHIP->_X - _X, P_MYSHIP->_Y - _Y, P_MYSHIP->_Z - _Z, target_RzRy_Rz, target_RzRy_Ry);
             angle target_RyRz_Ry, target_RyRz_Rz;
             GgafDx9Util::convRzRyToRyRz(target_RzRy_Rz, target_RzRy_Ry, target_RyRz_Ry, target_RyRz_Rz);
             GgafDx9Util::getWayAngle2D(target_RyRz_Ry, way, 10000, paAngWay);
@@ -136,7 +136,7 @@ void EnemyTamago01::processBehavior() {
                 if (pActor) {
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
                     pActor->_pMover->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
-                    pActor->setCoordinate(this);
+                    pActor->setCoordinateBy(this);
                     pActor->activate();
                 }
             }
@@ -168,11 +168,11 @@ void EnemyTamago01::processJudgement() {
 
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
     _pSeTransmitter->play3D(0);
     if (pExplo001 != NULL) {
         pExplo001->activate();
-        pExplo001->setCoordinate(this);
+        pExplo001->setCoordinateBy(this);
     }
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

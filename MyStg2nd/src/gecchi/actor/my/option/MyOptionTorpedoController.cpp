@@ -62,7 +62,7 @@ void MyOptionTorpedoController::fire() {
         angle* pa_angWay = NEW angle[ _firing_num+2];
         GgafDx9Util::getWayAngle2D(angFireCenter, _firing_num+1, angRenge / _firing_num, pa_angWay);
         for (int i = 0; i < _firing_num; i++) { //—¼’[‚Ì•ûŒü‚Í•s—v
-            _papMyTorpedo[i]->setCoordinate(pMYSHIP);
+            _papMyTorpedo[i]->setCoordinateBy(P_MYSHIP);
             if (target_num == 0) {
                 _papMyTorpedo[i]->_pTarget = NULL;
             } else {

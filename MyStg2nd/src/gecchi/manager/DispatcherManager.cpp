@@ -20,7 +20,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
             pShot001->inactivateImmediately();
             pResource->addSubLast(pShot001);
         }
-        pCOMMON_SCENE->getLordActor()->addSubGroup(pResource); //最後にaddSubGroupすべし（さもないと直ぐに削除対象になる）
+        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource); //最後にaddSubGroupすべし（さもないと直ぐに削除対象になる）
     }
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot002", prm_idstr) == 0) {
@@ -31,7 +31,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
             pShot002->inactivateImmediately();
             pResource->addSubLast(pShot002);
         }
-        pCOMMON_SCENE->getLordActor()->addSubGroup(pResource);
+        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
     }
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot003", prm_idstr) == 0) {
@@ -43,7 +43,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
             pResource->addSubLast(pShot003);
             if (i % 20 == 0) { Sleep(1); }
         }
-        pCOMMON_SCENE->getLordActor()->addSubGroup(pResource);
+        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
     }
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot004", prm_idstr) == 0) {
@@ -55,7 +55,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
             pResource->addSubLast(pShot004);
             if (i % 20 == 0) { Sleep(1); }
         }
-        pCOMMON_SCENE->getLordActor()->addSubGroup(pResource);
+        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
     }
 
     if (GgafUtil::strcmp_ascii("DpCon_EffRefraction001", prm_idstr) == 0) {
@@ -66,7 +66,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
             p->inactivateImmediately();
             pResource->addSubLast(p);
         }
-        pCOMMON_SCENE->getLordActor()->addSubGroup(pResource);
+        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
     }
 
 //    //敵カーブレーザー01
@@ -90,7 +90,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
 //            pResource->addSubLast(pLaserChipDispatcher);
 //
 //        }
-//        pCOMMON_SCENE->getLordActor()->addSubGroup(pResource);
+//        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
 //    }
 
 

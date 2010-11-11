@@ -65,10 +65,10 @@
 //1/ã2
 #define NANAME 0.70710
 
-#undef pGOD
-#define pGOD ((MyStg2nd::God*)MyStg2nd::God::_pGod)
-#undef pUNIVERSE
-#define pUNIVERSE ((MyStg2nd::Universe*)(pGOD->_pUniverse))
+#undef P_GOD
+#define P_GOD ((MyStg2nd::God*)MyStg2nd::God::_pGod)
+#undef P_UNIVERSE
+#define P_UNIVERSE ((MyStg2nd::Universe*)(P_GOD->_pUniverse))
 
 
 enum MoveWay {

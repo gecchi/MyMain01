@@ -92,7 +92,7 @@ void MyTorpedo::processBehavior() {
                                 TURN_ANTICLOSE_TO, false);
                 } else {
                     _pMover->execTagettingMvAngSequence(
-                                GgafDx9Universe::_X_goneRight, pMYSHIP->_Y, pMYSHIP->_Z,
+                                GgafDx9Universe::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                 2000, 100,
                                 TURN_ANTICLOSE_TO, false);
                 }
@@ -220,7 +220,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //”š•—”­¶
     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)_pMyOptionTorpedoController->_pDispatcher_TorpedoBlast->employ();
     if (pBlast) {
-        pBlast->setCoordinate(this);
+        pBlast->setCoordinateBy(this);
         pBlast->activate();
     }
 

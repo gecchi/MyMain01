@@ -10,7 +10,7 @@ DefaultPointSpriteActor(prm_name, "hoshitest") {
     _class_name = "HoshiBoshi002";
     chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     setHitAble(false);
-    _CAM_ZF = abs(pCAM->_zf * PX_UNIT * LEN_UNIT);
+    _CAM_ZF = abs(P_CAM->_zf * PX_UNIT * LEN_UNIT);
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-1);
     _TRACE_("HoshiBoshi002::HoshiBoshi002 _CAM_ZF="<<_CAM_ZF);
 }

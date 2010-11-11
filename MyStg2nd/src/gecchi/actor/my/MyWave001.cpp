@@ -48,14 +48,14 @@ void MyWave001::processBehavior() {
         _pScaler->intoTargetScaleLinerStep(100000,100);
         _pScaler->behave();
         setHitAble(true);
-        setCoordinate(pMYSHIP);
-        _pMover->setFaceAng(AXIS_Z, pMYSHIP->_pMover->_angFace[AXIS_Z]);
-        _pMover->setFaceAng(AXIS_Y, pMYSHIP->_pMover->_angFace[AXIS_Y]);
-        _pMover->setRzRyMvAng(pMYSHIP->_pMover->_angFace[AXIS_Z],
-                                     pMYSHIP->_pMover->_angFace[AXIS_Y]);
-        //		_X = pMYSHIP->_X;
-        //		_Y = pMYSHIP->_Y;
-        //		_Z = pMYSHIP->_Z;
+        setCoordinateBy(P_MYSHIP);
+        _pMover->setFaceAng(AXIS_Z, P_MYSHIP->_pMover->_angFace[AXIS_Z]);
+        _pMover->setFaceAng(AXIS_Y, P_MYSHIP->_pMover->_angFace[AXIS_Y]);
+        _pMover->setRzRyMvAng(P_MYSHIP->_pMover->_angFace[AXIS_Z],
+                                     P_MYSHIP->_pMover->_angFace[AXIS_Y]);
+        //		_X = P_MYSHIP->_X;
+        //		_Y = P_MYSHIP->_Y;
+        //		_Z = P_MYSHIP->_Z;
     } else {
         //’Êíˆ—
         //behaveUvFlip();

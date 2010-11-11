@@ -14,17 +14,17 @@ void TestCamWorker::onActive() {
 }
 
 void TestCamWorker::onPushed() {
-    pCAM->setCoordinate(pMYSHIP);
-    GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
-    pVP->setCoordinate(pMYSHIP);
+    P_CAM->setCoordinateBy(P_MYSHIP);
+    GgafDx9CameraViewPoint* pVP = P_CAM->_pViewPoint;
+    pVP->setCoordinateBy(P_MYSHIP);
 }
 
 void TestCamWorker::processBehavior() {
-    GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
-    pVP->setCoordinate(pMYSHIP);
-    pCAM->_X += 2000;
-    pCAM->_Y += 2000;
-    pCAM->_Z += 2000;
+    GgafDx9CameraViewPoint* pVP = P_CAM->_pViewPoint;
+    pVP->setCoordinateBy(P_MYSHIP);
+    P_CAM->_X += 2000;
+    P_CAM->_Y += 2000;
+    P_CAM->_Z += 2000;
 }
 
 void TestCamWorker::processJudgement() {

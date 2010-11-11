@@ -2,12 +2,12 @@
 #define MYSHIPSCENE_H_
 
 
-#ifdef pGAMESCENE
-    #define pMYSHIP_SCENE (pGAMESCENE->_pMyShipScene)
-    #define pMYSHIP (pMYSHIP_SCENE->_pMyShip)
-    #define pVAM (pMYSHIP_SCENE->_pVamSysCamWorker)
+#ifdef P_GAME_SCENE
+    #define P_MYSHIP_SCENE (P_GAME_SCENE->_pMyShipScene)
+    #define P_MYSHIP (P_MYSHIP_SCENE->_pMyShip)
+    #define P_VAM (P_MYSHIP_SCENE->_pVamSysCamWorker)
 #else
-    #error pGAMESCENE isnt define
+    #error P_GAME_SCENE isnt define
 #endif
 
 

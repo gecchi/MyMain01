@@ -38,7 +38,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDispatcher* prm_pDispatche
         _createGgafActorDispatcher = false;
     }
 
-    _pSplineCon = (Spline3DConnection*)(pGOD->_pSpline3DManager->getConnection("SpCon_001"));
+    _pSplineCon = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_001"));
     //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //ˆÚ“®‘¬“xŒÅ’è
     _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(this, _pSplineCon->refer(), 600, 5000); //ˆÚ“®ƒtƒŒ[ƒ€”ŒÅ’è
 
@@ -114,9 +114,9 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
         //”j‰ó‚³‚ê‚½ê‡
         setHitAble(false);
         _pSeTransmitter->play3D(0);
-        GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+        GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
-            pExplo001->setCoordinate(this);
+            pExplo001->setCoordinateBy(this);
             pExplo001->activate();
         }
         sayonara();

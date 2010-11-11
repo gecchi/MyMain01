@@ -12,7 +12,7 @@ _pVamSysCamWorker(NULL) {
     _pMyShip = NEW MyShip("MYSHIP");
     _pMyShip->inactivateImmediately(); //配下に仮登録のアクター発送者とかあるし
     getLordActor()->addSubGroup(KIND_MY_BODY_NOMAL, _pMyShip);
-    _pVamSysCamWorker = (VamSysCamWorker*)pUNIVERSE->pushCameraWork("VamSysCamWorker");
+    _pVamSysCamWorker = (VamSysCamWorker*)P_UNIVERSE->pushCameraWork("VamSysCamWorker");
     _pVamSysCamWorker->_pMyShip = _pMyShip;
 }
 

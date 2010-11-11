@@ -70,7 +70,7 @@ void EnemyThalia::processBehavior() {
             _TRACE_("execSmoothMvVeloSequence END ("<<_X<<","<<_Y<<","<<_Z<<") veloMv="<<(_pMover->_veloMv));
 
             _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0005);
-            _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
+            _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                 0, 100,
                                                 TURN_CLOSE_TO);
             setProgress(THALIA_PROG_TURN_OPEN);
@@ -84,14 +84,14 @@ void EnemyThalia::processBehavior() {
     }
 
     if (getProgress() == THALIA_PROG_FIRE_BEGIN) {
-        _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
+        _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                             100, 0,
                                             TURN_CLOSE_TO);
         setProgress(THALIA_PROG_IN_FIRE);
     }
 
     if (getProgress() == THALIA_PROG_IN_FIRE) {
-        _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
+        _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                             100, 0,
                                             TURN_CLOSE_TO);
         EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)_pLaserChipDispatcher->employ();
@@ -127,19 +127,19 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
     if (getProgress() == THALIA_PROG_IN_FIRE) {
         chengeEffectTechniqueInterim("Flush", 2); //ƒtƒ‰ƒbƒVƒ…
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->activate();
-            pExplo001->setCoordinate(this);
+            pExplo001->setCoordinateBy(this);
         }
         _pSeTransmitter->play3D(0);
 
 
 //        if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-//            EffectExplosion001* pExplo001 = (EffectExplosion001*)pCOMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+//            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
 //            if (pExplo001 != NULL) {
 //                pExplo001->activate();
-//                pExplo001->setCoordinate(this);
+//                pExplo001->setCoordinateBy(this);
 //            }
 //            _pSeTransmitter->play3D(0);
 //        }

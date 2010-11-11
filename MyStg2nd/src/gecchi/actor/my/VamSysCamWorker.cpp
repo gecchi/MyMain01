@@ -10,7 +10,7 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
     _pMyShip = NULL; //MyShipSceneに設定してもらう
 }
 void VamSysCamWorker::initialize() {
-    GgafDx9Camera* pCam = pCAM;
+    GgafDx9Camera* pCam = P_CAM;
     GgafDx9CameraViewPoint* pVP = pCam->_pViewPoint;
 
     //初期カメラZ位置
@@ -71,7 +71,7 @@ void VamSysCamWorker::processBehavior() {
     _lim_VP_behaind = MyShip::_lim_behaind + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
     _lim_VP_zleft   = MyShip::_lim_zleft   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
     _lim_VP_zright  = MyShip::_lim_zright  + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-    GgafDx9Camera* pCam = pCAM;
+    GgafDx9Camera* pCam = P_CAM;
     GgafDx9CameraViewPoint* pVP = pCam->_pViewPoint;
 
     //カメラ位置番号を決定処理

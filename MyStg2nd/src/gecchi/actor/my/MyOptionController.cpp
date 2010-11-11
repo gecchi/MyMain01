@@ -112,7 +112,7 @@ void MyOptionController::initialize() {
     _pMover->forceRyMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
     _pMover->forceRzMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
     _pMover->setRzRyMvAng(0,0);
-    _way_myship_prev = pMYSHIP->_way;
+    _way_myship_prev = P_MYSHIP->_way;
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->behave();
 }
@@ -188,15 +188,15 @@ void MyOptionController::processBehavior() {
     } else {
         if (_return_to_default_position_seq) {
             //Œ³‚ÌˆÊ’u‚Ö
-            int dx = pMYSHIP->_X - (_X + _pMover->_veloVxMv*6);
-            int dy = pMYSHIP->_Y - (_Y + _pMover->_veloVyMv*6);
-            int dz = pMYSHIP->_Z - (_Z + _pMover->_veloVzMv*6);
+            int dx = P_MYSHIP->_X - (_X + _pMover->_veloVxMv*6);
+            int dy = P_MYSHIP->_Y - (_Y + _pMover->_veloVyMv*6);
+            int dz = P_MYSHIP->_Z - (_Z + _pMover->_veloVzMv*6);
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
-            if (abs(_X - pMYSHIP->_X) < 10000 &&
-                abs(_Y - pMYSHIP->_Y) < 10000 &&
-                abs(_Z - pMYSHIP->_Z) < 10000 &&
+            if (abs(_X - P_MYSHIP->_X) < 10000 &&
+                abs(_Y - P_MYSHIP->_Y) < 10000 &&
+                abs(_Z - P_MYSHIP->_Z) < 10000 &&
                 abs(_pMover->_veloVxMv) < 20000 &&
                 abs(_pMover->_veloVyMv) < 20000 &&
                 abs(_pMover->_veloVzMv) < 20000    ) {
@@ -208,12 +208,12 @@ void MyOptionController::processBehavior() {
                 _pMover->setVxMvAcce(0);
                 _pMover->setVyMvAcce(0);
                 _pMover->setVzMvAcce(0);
-                setCoordinate(pMYSHIP);
+                setCoordinateBy(P_MYSHIP);
                 _return_to_default_position_seq = false;
             }
 
         } else {
-            setCoordinate(pMYSHIP);
+            setCoordinateBy(P_MYSHIP);
         }
     }
 
@@ -237,7 +237,7 @@ void MyOptionController::processBehavior() {
 
 
     //ƒMƒYƒ‚
-    _pDirectionVector->setCoordinate(this);
+    _pDirectionVector->setCoordinateBy(this);
     _pDirectionVector->_pMover->setRzRyMvAng(_pMover->_angRzMv, _pMover->_angRyMv);
 
     _pMover->behave();
