@@ -73,9 +73,9 @@ void GgafScene::afterDraw() {
     _pLordActor->afterDraw();
 }
 
-void GgafScene::throwDownEvent(UINT32 prm_no, void* prm_pSource) {
-    GgafElement<GgafScene>::throwDownEvent(prm_no, prm_pSource);
-    _pLordActor->throwDownEvent(prm_no, prm_pSource);
+void GgafScene::throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) {
+    GgafElement<GgafScene>::throwEventToLowerTree(prm_no, prm_pSource);
+    _pLordActor->throwEventToLowerTree(prm_no, prm_pSource);
 }
 
 void GgafScene::doFinally() {

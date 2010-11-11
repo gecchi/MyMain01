@@ -127,7 +127,7 @@ public:
     virtual void draw() override;
     virtual void afterDraw() override;
     virtual void doFinally() override;
-    virtual void throwDownEvent(UINT32 prm_no, void* prm_pSource) override;
+    virtual void throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) override;
     virtual void activateTree() override;
     virtual void activateDelay(frame prm_frame_offset = 1) override;
     virtual void activate() override;

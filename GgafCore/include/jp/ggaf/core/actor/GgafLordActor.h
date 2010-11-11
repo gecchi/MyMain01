@@ -55,10 +55,10 @@ public:
         throwGgafCriticalException("GgafLordActor に extract() は実行できません。name="<<getName());
     }
 
-    virtual void throwUpEvent(UINT32 prm_no, void* prm_pSource) {
+    virtual void throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
         GgafScene* s = getPlatformScene();
         if (s != NULL) {
-            s->throwUpEvent(prm_no, this); //自分より上位は居ない。そこで所属シーンへ投げる
+            s->throwEventToUpperTree(prm_no, this); //自分より上位は居ない。そこで所属シーンへ投げる
         }
     }
 

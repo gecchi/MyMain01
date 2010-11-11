@@ -323,15 +323,24 @@ public:
     /**
      * ノードの何かの処理(自ツリー)(フレーム毎ではない) .
      * 活動フラグがセット、( _is_active_flg = true )の場合 <BR>
-     * 直ちに catchEvent(int) をコールした後、配下のノード全てについて throwDownEvent() を再帰的に実行する。<BR>
+     * 直ちに catchEvent(int) をコールした後、配下のノード全てについて throwEventToLowerTree() を再帰的に実行する。<BR>
      * @param   prm_no 何かの番号
      */
-    virtual void throwDownEvent(UINT32 prm_no, void* prm_pSource);
+    virtual void throwEventToLowerTree(UINT32 prm_no, void* prm_pSource);
 
-    virtual void throwUpEvent(UINT32 prm_no, void* prm_pSource);
+    virtual void throwEventToUpperTree(UINT32 prm_no, void* prm_pSource);
+
+    virtual void throwEventToLowerTree(UINT32 prm_no) {
+        throwEventToLowerTree(prm_no, this);
+    }
+
+    virtual void throwEventToUpperTree(UINT32 prm_no) {
+        throwEventToUpperTree(prm_no, this);
+    }
+
     /**
      * ノードの個別何かの処理を記述。(単体)
-     * throwDownEvent() 時の処理先頭でコールバックされる。
+     * throwEventToLowerTree() 時の処理先頭でコールバックされる。
      * 利用目的不定の汎用イベント用コールバック
      * @param prm_no 何かの番号
      */
@@ -675,7 +684,9 @@ public:
      * @param prm_progress 進捗ID(1～99)
      * @return 引数の直近の進捗IDが起こったときのフレーム
      */
-    virtual UINT32 getFrameAtProgress(int prm_progress);
+    virtual UINT32 getFrameAtChengedProgress(int prm_progress);
+
+    virtual UINT32 getActivePartFrameInProgress();
 
     /**
      * 進捗IDを設定 .
@@ -698,7 +709,9 @@ public:
      * @param prm_progress 切り替わったかどうか調べたい進捗ID
      * @return true:引数の進捗IDに切り替わった／false:それ以外
      */
-    virtual bool onChangeProgressAt(int prm_progress);
+    virtual bool onActiveProgressAt(int prm_progress);
+
+    virtual bool onInactiveProgressAt(int prm_progress);
 
     /**
      * 進捗IDが変化したか（前回と同じかどうか）調べる .
@@ -706,8 +719,9 @@ public:
      *         0    ：変化していない
      *         0以外：変化が有りで、その新しい進捗ID
      */
-    virtual int getProgressOnChange();
+    virtual int getProgressOnActive();
 
+    virtual int getProgressOnInactive();
     /**
      * 配下全てのオブジェクトに対して指定の関数を実行させる .
      * 配下オブジェクト（アクターかシーン）のポインタが、引数関数ポインタの pFuncの第１引数に渡ってくる。<BR>
@@ -1541,7 +1555,7 @@ void GgafElement<T>::execDownFunction(void (*pFunc)(GgafObject*, void*, void*), 
 }
 
 template<class T>
-void GgafElement<T>::throwDownEvent(UINT32 prm_no, void* prm_pSource) {
+void GgafElement<T>::throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
@@ -1550,7 +1564,7 @@ void GgafElement<T>::throwDownEvent(UINT32 prm_no, void* prm_pSource) {
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
-                pElementTemp->throwDownEvent(prm_no, this);
+                pElementTemp->throwEventToLowerTree(prm_no, this);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -1562,7 +1576,7 @@ void GgafElement<T>::throwDownEvent(UINT32 prm_no, void* prm_pSource) {
 }
 
 template<class T>
-void GgafElement<T>::throwUpEvent(UINT32 prm_no, void* prm_pSource) {
+void GgafElement<T>::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
@@ -1570,7 +1584,7 @@ void GgafElement<T>::throwUpEvent(UINT32 prm_no, void* prm_pSource) {
         }
         if (GGAF_NODE::_pParent != NULL) {
             T* pElementTemp = GGAF_NODE::_pParent;
-            pElementTemp->throwUpEvent(prm_no, this);
+            pElementTemp->throwEventToUpperTree(prm_no, this);
         } else {
             //てっぺん
         }
@@ -1584,9 +1598,15 @@ int GgafElement<T>::getProgress() {
 }
 
 template<class T>
-UINT32 GgafElement<T>::getFrameAtProgress(int prm_progress) {
+UINT32 GgafElement<T>::getFrameAtChengedProgress(int prm_progress) {
     return _aFrame_ProgressChange[prm_progress];
 }
+
+template<class T>
+UINT32 GgafElement<T>::getActivePartFrameInProgress() {
+    return getActivePartFrame() - _aFrame_ProgressChange[_progress];
+}
+
 
 template<class T>
 void GgafElement<T>::setProgress(int prm_progress) {
@@ -1601,7 +1621,7 @@ void GgafElement<T>::nextProgress() {
 }
 
 template<class T>
-bool GgafElement<T>::onChangeProgressAt(int prm_progress) {
+bool GgafElement<T>::onActiveProgressAt(int prm_progress) {
     if (_progress != _progress_prev) {
         if (prm_progress == _progress) {
             return true;
@@ -1614,13 +1634,38 @@ bool GgafElement<T>::onChangeProgressAt(int prm_progress) {
 }
 
 template<class T>
-int GgafElement<T>::getProgressOnChange() {
+bool GgafElement<T>::onInactiveProgressAt(int prm_progress) {
+    if (_progress != _progress_prev) {
+        if (prm_progress == _progress_prev) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+template<class T>
+int GgafElement<T>::getProgressOnActive() {
     if (_progress != _progress_prev) {
         return _progress;
     } else {
         return 0; // = false
     }
 }
+
+template<class T>
+int GgafElement<T>::getProgressOnInactive() {
+    if (_progress != _progress_prev) {
+        return _progress_prev;
+    } else {
+        return 0; // = false
+    }
+}
+
+
 template<class T>
 bool GgafElement<T>::isDisappear() {
     if (_is_active_flg == false) {

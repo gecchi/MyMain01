@@ -54,9 +54,9 @@
 #include <sstream>
 #include <cstddef>
 
-#ifdef _MSC_VER
-#else
-#include "sal.h"
+#ifndef _MSC_VER
+    //GCCの場合、sal.hを別途インクルード
+    #include "sal.h"
 #endif
 
 //自分用デバッグビルド(コメントを外せば使用可能)
@@ -267,9 +267,7 @@
 
 
 
-#define AVAILABLE_EVENT(X) const static UINT32 X = GgafCore::GgafUtil::easy_hash(#X);
-
-//#define MAX_GROUPACTOR_PER_SCENE 16
+#define AVAILABLE_EVENT(X) const static UINT32 X = GgafCore::GgafUtil::easy_hash(#X)
 
 typedef UINT32 actorkind;
 typedef unsigned int frame;
@@ -339,11 +337,13 @@ class GgafLinearOctreeElem;
 class GgafCurtain;
 }
 
-#ifdef _MSC_VER
-
-#else
 //GCCの場合sal.hで何故かNULL が __null で 未定義のため強制的に再定義(ナンノコッチャ)
-#define NULL 0
+#ifndef NULL
+    #ifdef __cplusplus
+        #define NULL 0
+    #else
+        #define NULL ((void*)0)
+    #endif
 #endif
 
 #include "jp/ggaf/core/util/GgafUtil.h"

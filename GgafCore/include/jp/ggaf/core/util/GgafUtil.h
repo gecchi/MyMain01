@@ -80,7 +80,7 @@ public:
      * @param str 文字列
      * @return ハッシュ値
      */
-    static UINT32 easy_hash(const char* str) {
+    static const UINT32 easy_hash(const char* str) {
         UINT32 hash = 5381;
         char c;
         while (c = *str++) { //strの\0までループ （演算子 "==" と間違えていません）
