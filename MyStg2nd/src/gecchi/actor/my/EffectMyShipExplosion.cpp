@@ -35,7 +35,6 @@ void EffectMyShipExplosion::processBehavior() {
 
 void EffectMyShipExplosion::processJudgement() {
     if (_pUvFlipper->_uvflip_method == NOT_ANIMATED) {
-        throwEventToUpperTree(MY_SHIP_WAS_DESTROYED_FINISH);
         inactivate();
     }
 }

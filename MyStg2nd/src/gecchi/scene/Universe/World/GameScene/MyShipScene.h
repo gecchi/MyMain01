@@ -14,6 +14,7 @@
 #define MYSHIPSCENE_PROG_BEGIN  2
 #define MYSHIPSCENE_PROG_APPEARANCE_NOMAL   3
 #define MYSHIPSCENE_PROG_PLAY   4
+#define MYSHIPSCENE_PROG_DESTROY   3
 #define MYSHIPSCENE_PROG_END    5
 
 
@@ -28,6 +29,7 @@ class MyShipScene : public GgafDx9LibStg::DefaultScene {
 public:
     MyShip* _pMyShip;
     VamSysCamWorker* _pVamSysCamWorker;
+    MyShipDivingCamWorker* _pMyShipDivingCamWorker;
 
     MyShipScene(const char* prm_name);
     /**
@@ -35,6 +37,7 @@ public:
      */
     void initialize() override;
 
+    void onActive() override;
     void processBehavior() override;
 
     void catchEvent(UINT32 prm_no, void* prm_pSource) override;

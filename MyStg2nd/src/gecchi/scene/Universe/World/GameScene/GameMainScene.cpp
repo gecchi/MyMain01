@@ -83,7 +83,7 @@ void GameMainScene::processBehavior() {
         setProgress(GAMEMAIN_PROG_BEGIN);
     }
 
-    if (onChangeProgressAt(GAMEMAIN_PROG_BEGIN)) {
+    if (onActiveProgressAt(GAMEMAIN_PROG_BEGIN)) {
         _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
         _pFont1602->update(300, 350, "DESTOROY ALL THEM!!");
 
@@ -109,7 +109,7 @@ void GameMainScene::processBehavior() {
         }
     }
 
-    if (onChangeProgressAt(GAMEMAIN_PROG_PLAY)) {
+    if (onActiveProgressAt(GAMEMAIN_PROG_PLAY)) {
         _pFont1601->update(300, 300, "");
         _pFont1602->update(300, 350, "");
 
@@ -125,7 +125,7 @@ void GameMainScene::processBehavior() {
     }
 
     //I—¹ˆ—
-    if (onChangeProgressAt(GAMEMAIN_PROG_END)) {
+    if (onActiveProgressAt(GAMEMAIN_PROG_END)) {
          VB_UI->clear();
          P_GOD->setVB(VB_UI);  //–ß‚·
         _TRACE_("ƒIƒƒ^");

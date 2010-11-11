@@ -49,7 +49,7 @@ void Stage01Scene::processBehavior() {
         }
     }
 
-    if (onChangeProgressAt(STAGE_PROG_END)) {
+    if (onActiveProgressAt(STAGE_PROG_END)) {
         _TRACE_("Stage01Scene::processBehavior()  STAGE_PROG_END‚É‚È‚è‚Ü‚·‚½I");
         _pMessage->activateImmediately();
         _pMessage->update(300, 300, "SCENE 01 CLEAR!!");

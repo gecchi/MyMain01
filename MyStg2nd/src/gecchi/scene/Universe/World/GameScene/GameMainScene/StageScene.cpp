@@ -15,24 +15,24 @@ void StageScene::initialize() {
     setProgress(STAGE_PROG_INIT);
 }
 void StageScene::processBehavior() {
-    if (onChangeProgressAt(STAGE_PROG_INIT)) {
+    if (onActiveProgressAt(STAGE_PROG_INIT)) {
     } else if (getProgress() == STAGE_PROG_INIT) {
     }
 
-    if (onChangeProgressAt(STAGE_PROG_BEGIN)) {
+    if (onActiveProgressAt(STAGE_PROG_BEGIN)) {
         _frame_Begin = 0;
     } else if (getProgress() == STAGE_PROG_BEGIN) {
         //活動ループ
         _frame_Begin++;
     }
 
-    if (onChangeProgressAt(STAGE_PROG_PLAYING)) {
+    if (onActiveProgressAt(STAGE_PROG_PLAYING)) {
         _frame_Play = 0;
     } else if (getProgress() == STAGE_PROG_PLAYING) {
         _frame_Play++;
     }
 
-    if (onChangeProgressAt(STAGE_PROG_END)) {
+    if (onActiveProgressAt(STAGE_PROG_END)) {
         _frame_End = 0;
         throwEventToUpperTree(PREPARE_NEXT_STAGE, this); //次ステージ準備へ
     } else if (getProgress() == STAGE_PROG_END) {

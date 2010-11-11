@@ -34,7 +34,7 @@ void GameBeginningScene::processBehavior() {
     }
 
     //ゲーム開始直前の自機選択等、導入部
-    if (onChangeProgressAt(GAMEBEGINNING_PROG_BEGIN)) {
+    if (onActiveProgressAt(GAMEBEGINNING_PROG_BEGIN)) {
         _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE BEGIN");
         _pStringBoard02->update(200, 250, "YOKUKITANA!");
         _frame_Begin = 0;
@@ -48,7 +48,7 @@ void GameBeginningScene::processBehavior() {
     }
 
     //ゲーム開始直前の自機選択等
-    if (onChangeProgressAt(GAMEBEGINNING_PROG_OPE)) {
+    if (onActiveProgressAt(GAMEBEGINNING_PROG_OPE)) {
         _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE OPE");
         _pStringBoard02->update(200, 250, "SELECT YOUR EQ!");
         _frame_Ope = 0;
@@ -63,7 +63,7 @@ void GameBeginningScene::processBehavior() {
     }
 
     //ゲーム開始直前の自機選択等、決定後のフェードアウト部
-    if (onChangeProgressAt(GAMEBEGINNING_PROG_DECIDE)) {
+    if (onActiveProgressAt(GAMEBEGINNING_PROG_DECIDE)) {
         _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE DECIDE");
         _pStringBoard02->update(200, 250, "OK. ARE YOU READY!");
         _frame_Decide = 0;
@@ -76,7 +76,7 @@ void GameBeginningScene::processBehavior() {
         }
     }
 
-    if (onChangeProgressAt(GAMEBEGINNING_PROG_END)) {
+    if (onActiveProgressAt(GAMEBEGINNING_PROG_END)) {
         _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE END");
         _pStringBoard02->update(200, 250, "GOOD LUCK");
         end(140);

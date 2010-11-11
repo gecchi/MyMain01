@@ -50,7 +50,7 @@ void GameDemoScene::processBehavior() {
         setProgress(GAMEDEMO_PROG_BEGIN);
     }
 
-    if (onChangeProgressAt(GAMEDEMO_PROG_BEGIN)) {
+    if (onActiveProgressAt(GAMEDEMO_PROG_BEGIN)) {
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE BEGIN");
         _pStringBoard02->update(100, 150, "HAJIMARI HAJIMARI!");
         _frame_Begin = 0;
@@ -66,7 +66,7 @@ void GameDemoScene::processBehavior() {
 
     //ループ----->
 
-    if (onChangeProgressAt(GAMEDEMO_PROG_TITLE)) {
+    if (onActiveProgressAt(GAMEDEMO_PROG_TITLE)) {
          //タイトル開始
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE TITLE");
         _pStringBoard02->update(100, 150, "PUSH A UI_EXECUTE BUTTON");
@@ -88,7 +88,7 @@ void GameDemoScene::processBehavior() {
         }
     }
 
-    if (onChangeProgressAt(GAMEDEMO_PROG_DEMOPLAY)) {
+    if (onActiveProgressAt(GAMEDEMO_PROG_DEMOPLAY)) {
         //デモプレイ開始
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE DEMOPLAY");
         _pStringBoard02->update(100, 150, "GAME OVER");
@@ -109,7 +109,7 @@ void GameDemoScene::processBehavior() {
 
 
 
-    if (onChangeProgressAt(GAMEDEMO_PROG_RANKING)) {
+    if (onActiveProgressAt(GAMEDEMO_PROG_RANKING)) {
         //ランキング表示
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE RANKING");
         _pStringBoard02->update(100, 150, "WE ARE THE WORLD. DESTORY ALL THEM. POWER UP");
@@ -136,7 +136,7 @@ void GameDemoScene::processBehavior() {
 
 
     //ゲームスタート
-    if (onChangeProgressAt(GAMEDEMO_PROG_DECIDE)) {
+    if (onActiveProgressAt(GAMEDEMO_PROG_DECIDE)) {
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE DECIDE");
         _pStringBoard02->update(100, 150, "OK HJIMARIMASU!");
         _frame_Decide = 0;
@@ -150,7 +150,7 @@ void GameDemoScene::processBehavior() {
         }
     }
 
-    if (onChangeProgressAt(GAMEDEMO_PROG_END)) {
+    if (onActiveProgressAt(GAMEDEMO_PROG_END)) {
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE END");
         _pStringBoard02->update(100, 150, "SRABA");
         end(200);

@@ -51,12 +51,12 @@ void Stage01Controller::processBehavior() {
     }
     // gen02 end
 
-    if (onChangeProgressAt(STAGE01CONTROLLER_PROG_INIT)) {
+    if (onActiveProgressAt(STAGE01CONTROLLER_PROG_INIT)) {
         _TRACE_("Stage01Controller::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
 
     }
 
-    if (onChangeProgressAt(STAGE01CONTROLLER_PROG_STG01_01_BEGIN)) {
+    if (onActiveProgressAt(STAGE01CONTROLLER_PROG_STG01_01_BEGIN)) {
         //STG01_01開始処理
 
         setProgress(STAGE01CONTROLLER_PROG_STG01_01_PLAYING);
@@ -65,7 +65,7 @@ void Stage01Controller::processBehavior() {
 
     }
 
-    if (onChangeProgressAt(STAGE01CONTROLLER_PROG_STG01_02_BEGIN)) {
+    if (onActiveProgressAt(STAGE01CONTROLLER_PROG_STG01_02_BEGIN)) {
         //STG01_02開始処理
         _pBgmPerformer->fadeout_stop(0, 420);        //BGM０番フェードアウト
         _pBgmPerformer->play(1, DSBVOLUME_MIN, true);//BGM１番フェードイン
@@ -76,7 +76,7 @@ void Stage01Controller::processBehavior() {
 
     }
 
-    if (onChangeProgressAt(STAGE01CONTROLLER_PROG_STG01_03_BEGIN)) {
+    if (onActiveProgressAt(STAGE01CONTROLLER_PROG_STG01_03_BEGIN)) {
         //STG01_03開始処理
 
         setProgress(STAGE01CONTROLLER_PROG_STG01_03_PLAYING);
@@ -85,7 +85,7 @@ void Stage01Controller::processBehavior() {
 
     }
 
-    if (onChangeProgressAt(STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN)) {
+    if (onActiveProgressAt(STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN)) {
         //STG01_Climax開始処理
         _pBgmPerformer->fadeout_stop(1, 420);  //BGM１番フェードアウト
         _pBgmPerformer->play(2, DSBVOLUME_MIN, true); //BGM２番フェードイン
@@ -96,7 +96,7 @@ void Stage01Controller::processBehavior() {
 
     }
 
-    if (onChangeProgressAt(STAGE01CONTROLLER_PROG_FAINAL)) {
+    if (onActiveProgressAt(STAGE01CONTROLLER_PROG_FAINAL)) {
         //STG01_Climax終焉の処理
         _TRACE_("STG01_Climax終焉のSTAGE01CONTROLLER_PROG_FAINALきた");
         _pBgmPerformer->fadeout_stop(2, 420); //BGM１番フェードアウト

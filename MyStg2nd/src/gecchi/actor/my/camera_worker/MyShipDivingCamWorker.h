@@ -1,22 +1,12 @@
-#ifndef VAMSYSCAMWORKER_H_
-#define VAMSYSCAMWORKER_H_
-
-#define VAM_POS_RIGHT 1
-#define VAM_POS_LEFT 2
-#define VAM_POS_TOP 3
-#define VAM_POS_BOTTOM 4
-#define VAM_POS_TO_BEHIND 10
-#define VAM_POS_BEHIND_RIGHT 11
-#define VAM_POS_BEHIND_LEFT 12
-#define VAM_POS_BEHIND_TOP 13
-#define VAM_POS_BEHIND_BOTTOM 14
+#ifndef MYSHIPDIVINGCAMWORKER_H_
+#define MYSHIPDIVINGCAMWORKER_H_
 
 namespace MyStg2nd {
 
 /**
- * VamSystemのカメラマン .
+ * ステージ突入時のカメラマン .
  * @version 1.00
- * @since 2010/10/25
+ * @since 2010/11/11
  * @author Masatoshi Tsuge
  */
 class MyShipDivingCamWorker : public CameraWorker {
@@ -26,52 +16,26 @@ public:
 
     /** 原点から初期カメラZ位置の距離 */
     int _dZ_camera_init;
-
-    /** カメラY座標上限 */
-    int _lim_CAM_top;
-    /** カメラY座標下限 */
-    int _lim_CAM_bottom;
-    /** カメラX座標上限 */
-    int _lim_CAM_front;
-    /** カメラX座標下限 */
-    int _lim_CAM_behaind;
-    /** カメラZ座標上限 */
-    int _lim_CAM_zleft;
-    /** カメラZ座標下限 */
-    int _lim_CAM_zright;
-    /** ビューポイントY座標上限 */
-    int _lim_VP_top;
-    /** ビューポイントY座標下限 */
-    int _lim_VP_bottom;
-    /** ビューポイントX座標上限 */
-    int _lim_VP_front;
-    /** ビューポイントX座標下限 */
-    int _lim_VP_behaind;
-    /** ビューポイントZ座標上限 */
-    int _lim_VP_zleft;
-    /** ビューポイントZ座標下限 */
-    int _lim_VP_zright;
-
-    /** 現在のカメラのUPのアングル値 */
+    //カメラの移動目標座標
+    int _move_target_X_CAM, _move_target_Y_CAM, _move_target_Z_CAM;
+    //カメラのビューポイントの移動目標座標
+    int _move_target_X_VP, _move_target_Y_VP, _move_target_Z_VP;
+    //カメラの目標UPアングル値
+    angle _move_target_XY_CAM_UP;
     angle _angXY_nowCamUp;
-    /** 画面背後時用Z軸補正範囲差分 */
-    int _correction_width;
-    /** 画面背後時用Y軸補正範囲差分 */
-    int _correction_height;
+
     /** カメラの最高速度（上限、負数で下限） */
     int _cam_velo_renge;
     /** カメラの速度が、丁度自機の通常移動速度の1.0倍となるカメラ目標座標からの距離。 */
     int _stop_renge; //カメラ目標座標距離が、これより小さいと、     1.0倍より減
                      //カメラ目標座標距離が、これより大きいとさいと 1.0倍より超
-    /** カメラ目標座標に加えられるZ軸座標オフセット補正値 */
-    int _stop_dZ;
-    /** カメラ目標座標に加えられるY軸座標オフセット補正値 */
-    int _stop_dY;
 
 
     MyShipDivingCamWorker(const char* prm_name);
 
     virtual void initialize() override;
+
+
 
     virtual void onPushed() override {
     }
@@ -83,9 +47,13 @@ public:
 
     virtual void processJudgement() override {
     }
+    void setMoveTargetCamBy(GgafDx9Core::GgafDx9GeometricActor* pTarget);
+    void setMoveTargetCamVpBy(GgafDx9Core::GgafDx9GeometricActor* pTarget);
+    void setMoveTargetCam(int X, int Y, int Z);
+    void setMoveTargetCamVp(int X, int Y, int Z);
 
     virtual ~MyShipDivingCamWorker(); //デストラクタ
 };
 
 }
-#endif /*CAMERA_H_*/
+#endif /*MYSHIPDIVINGCAMWORKER_H_*/

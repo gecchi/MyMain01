@@ -39,6 +39,7 @@ _pScene_GameOver(NULL) {
     _pScene_GameOver = NEW GameOverScene("GameOver");
     addSubLast(_pScene_GameOver);
 
+    _pMyShipScene->inactivateImmediately();
 
     _pScene_GameDemo->inactivateImmediately();        //最初のアクティブなサブシーンはデモシーン
     _pScene_GameBeginning->inactivateImmediately();
@@ -94,13 +95,13 @@ void GameScene::processBehavior() {
 
     //サブシーンの切替えや平行実行のための、初期化、事前処理、フラグ処理等
     if (_pSceneCannel == _pScene_GameDemo) {
-        if (_pScene_GameDemo->getProgressOnChange() == GAMEDEMO_PROG_BEGIN) {
+        if (_pScene_GameDemo->getProgressOnActive() == GAMEDEMO_PROG_BEGIN) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
             _pScene_GameBeginning->reset();
             _pScene_GameBeginning->ready();
         }
-        if (_pScene_GameDemo->getProgressOnChange() == GAMEDEMO_PROG_DECIDE) {
+        if (_pScene_GameDemo->getProgressOnActive() == GAMEDEMO_PROG_DECIDE) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
             _pScene_GameBeginning->activate();
@@ -108,20 +109,20 @@ void GameScene::processBehavior() {
         }
 
     } else if (_pSceneCannel == _pScene_GameBeginning) {
-        if (_pScene_GameBeginning->getProgressOnChange() == GAMEBEGINNING_PROG_BEGIN) {
+        if (_pScene_GameBeginning->getProgressOnActive() == GAMEBEGINNING_PROG_BEGIN) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
             _pScene_GameMain->reset();
         }
 
-        if (_pScene_GameBeginning->getProgressOnChange() == GAMEBEGINNING_PROG_DECIDE) {
+        if (_pScene_GameBeginning->getProgressOnActive() == GAMEBEGINNING_PROG_DECIDE) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
             _stage = _pScene_GameBeginning->_selected_stage;
             _pScene_GameMain->ready(_stage); //先行準備
         }
 
-        if (_pScene_GameBeginning->getProgressOnChange() == GAMEBEGINNING_PROG_END) {
+        if (_pScene_GameBeginning->getProgressOnActive() == GAMEBEGINNING_PROG_END) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
             _pScene_GameMain->activate();
@@ -129,7 +130,8 @@ void GameScene::processBehavior() {
         }
 
     } else if (_pSceneCannel == _pScene_GameMain) {
-        if (_pScene_GameMain->getProgressOnChange() == GAMEMAIN_PROG_BEGIN) {
+        if (_pScene_GameMain->getProgressOnActive() == GAMEMAIN_PROG_BEGIN) {
+            _pMyShipScene->activate();
 //            VB_UI->clear();
 //            VB_PLAY->clear();
 //            P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
@@ -141,7 +143,7 @@ void GameScene::processBehavior() {
             _pScene_GameEnding->ready();
 
         }
-        if (_pScene_GameMain->getProgressOnChange() == GAMEMAIN_PROG_END) {
+        if (_pScene_GameMain->getProgressOnActive() == GAMEMAIN_PROG_END) {
 //            VB_UI->clear();
 //            P_GOD->setVB(VB_UI);  //戻す
 //            _pScene_GameEnding->activate();
@@ -155,27 +157,27 @@ void GameScene::processBehavior() {
         }
 
     } else if (_pSceneCannel == _pScene_GameEnding) {
-        if (_pScene_GameEnding->getProgressOnChange() == GAMEENDING_PROG_BEGIN) {
+        if (_pScene_GameEnding->getProgressOnActive() == GAMEENDING_PROG_BEGIN) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
             _pScene_GameDemo->reset();
             _pScene_GameDemo->ready();
 
         }
-        if (_pScene_GameMain->getProgressOnChange() == GAMEENDING_PROG_END) {
+        if (_pScene_GameMain->getProgressOnActive() == GAMEENDING_PROG_END) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
             _pSceneCannel = _pScene_GameDemo;
         }
 
     } else if (_pSceneCannel == _pScene_GameOver) {
-        if (_pScene_GameMain->getProgressOnChange() == GAMEOVER_PROG_BEGIN) {
+        if (_pScene_GameMain->getProgressOnActive() == GAMEOVER_PROG_BEGIN) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
             _pScene_GameDemo->reset();
             _pScene_GameDemo->ready();
         }
-        if (_pScene_GameMain->getProgressOnChange() == GAMEOVER_PROG_END) {
+        if (_pScene_GameMain->getProgressOnActive() == GAMEOVER_PROG_END) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
             _pSceneCannel = _pScene_GameDemo;

@@ -267,7 +267,7 @@ public:
     frame _frame_shot_pressed;
 
 
-    bool isBakuhatsu;
+    bool _isNoControl;
 
     MyShip(const char* prm_name);
 

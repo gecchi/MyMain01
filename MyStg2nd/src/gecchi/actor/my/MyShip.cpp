@@ -180,7 +180,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _is_shooting_laser = false;
     _frame_shot_pressed = 0;
 
-    isBakuhatsu = false;
+    _isNoControl = false;
 }
 
 void MyShip::onActive() {
@@ -224,7 +224,7 @@ void MyShip::initialize() {
 }
 
 void MyShip::processBehavior() {
-    if (isBakuhatsu) {
+    if (_isNoControl) {
 
         return;
     }
@@ -403,7 +403,7 @@ void MyShip::processBehavior() {
 }
 
 void MyShip::processJudgement() {
-    if (isBakuhatsu) {
+    if (_isNoControl) {
         return;
     }
     //自機消滅テスト
@@ -585,8 +585,7 @@ bool MyShip::isDoublePushedDown(vbsta prm_VB) {
 
 void MyShip::catchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == MY_SHIP_WAS_DESTROYED_BEGIN) {
-        _pEffectMyShipExplosion->activate();
-        isBakuhatsu = true;
+
     } else if (prm_no == MY_SHIP_WAS_DESTROYED_FINISH) {
 
     }
