@@ -235,6 +235,7 @@ public:
         setBoundingSphereRadiusRate((1.0*S)/1000);
     }
 
+
     virtual void setScaleRate(float prm_rate) {
         _SX = 1000*prm_rate;
         _SY = 1000*prm_rate;

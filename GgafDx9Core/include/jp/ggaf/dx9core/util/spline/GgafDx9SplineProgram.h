@@ -17,7 +17,7 @@ public:
     /** begin()からの経過フレーム数 */
     frame _SPframe;
     /** 現在プログラム実行中であるかどうか */
-    boolean _is_executing;
+    bool _is_executing;
     /** 座標を操作する対象となるアクター */
     GgafDx9GeometricActor* _pActor_target;
     /** コンストラクタ内部でGgafDx9Spline3Dを生成した場合true/コンストラクタ引数にGgafDx9Spline3Dが渡された場合、false */

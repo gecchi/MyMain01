@@ -457,7 +457,7 @@ void GgafDx9God::makeUniversalMaterialize() {
             //モデル解放
             GgafDx9God::_pModelManager->onDeviceLostAll();
             //全ノードに解放しなさいイベント発令
-            getUniverse()->throwDownEvent(GGAF_EVENT_ON_DEVICE_LOST, this);
+            getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
 
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
@@ -470,7 +470,7 @@ void GgafDx9God::makeUniversalMaterialize() {
             //モデル再設定
             GgafDx9God::_pModelManager->restoreAll();
             //全ノードに再設定しなさいイベント発令
-            getUniverse()->throwDownEvent(GGAF_EVENT_DEVICE_LOST_RESTORE, this);
+            getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_RESTORE, this);
             //前回描画モデル情報を無効にする
             GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
             _is_device_lost_flg = false;
@@ -550,7 +550,7 @@ void GgafDx9God::presentUniversalVisualize() {
             //モデル解放
             GgafDx9God::_pModelManager->onDeviceLostAll();
             //全ノードに解放しなさいイベント発令
-            getUniverse()->throwDownEvent(GGAF_EVENT_ON_DEVICE_LOST, this);
+            getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
             checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset() を試しましが、駄目でした。");
@@ -561,7 +561,7 @@ void GgafDx9God::presentUniversalVisualize() {
             //モデル再設定
             GgafDx9God::_pModelManager->restoreAll();
             //全ノードに再設定しなさいイベント発令
-            getUniverse()->throwDownEvent(GGAF_EVENT_DEVICE_LOST_RESTORE, this);
+            getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_RESTORE, this);
             //前回描画モデル情報を無効にする
             GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
 
