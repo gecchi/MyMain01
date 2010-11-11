@@ -81,6 +81,13 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     addSubGroup(_pEffectTurbo001);
 //    _pEffectTurbo002 = NEW EffectTurbo002("EffectTurbo002");
 //    addSubGroup(_pEffectTurbo002);
+
+
+    _pEffectMyShipExplosion = NEW EffectMyShipExplosion("EffectMyShipExplosion");
+    _pEffectMyShipExplosion->inactivateImmediately();
+    addSubGroup(_pEffectMyShipExplosion);
+
+
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (UINT32 i = 0; i < 100; i++) {
@@ -173,6 +180,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _is_shooting_laser = false;
     _frame_shot_pressed = 0;
 
+    isBakuhatsu = false;
 }
 
 void MyShip::onActive() {
@@ -216,6 +224,10 @@ void MyShip::initialize() {
 }
 
 void MyShip::processBehavior() {
+    if (isBakuhatsu) {
+
+        return;
+    }
 
     //VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
@@ -391,10 +403,14 @@ void MyShip::processBehavior() {
 }
 
 void MyShip::processJudgement() {
+    if (isBakuhatsu) {
+        return;
+    }
     //自機消滅テスト
-//    if (VB_PLAY->isBeingPressed(MY_KEY_BUTTON8)) {
-//        _TRACE_("自機消滅テスト");
-//   }
+    if (VB_PLAY->isBeingPressed(VB_BUTTON8)) {
+        _TRACE_("自機消滅テスト");
+        throwEventToUpperTree(MY_SHIP_WAS_DESTROYED_BEGIN);
+    }
 
 
     //ショット関連処理
@@ -567,6 +583,14 @@ bool MyShip::isDoublePushedDown(vbsta prm_VB) {
 
 }
 
+void MyShip::catchEvent(UINT32 prm_no, void* prm_pSource) {
+    if (prm_no == MY_SHIP_WAS_DESTROYED_BEGIN) {
+        _pEffectMyShipExplosion->activate();
+        isBakuhatsu = true;
+    } else if (prm_no == MY_SHIP_WAS_DESTROYED_FINISH) {
+
+    }
+}
 
 MyShip::~MyShip() {
     DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);

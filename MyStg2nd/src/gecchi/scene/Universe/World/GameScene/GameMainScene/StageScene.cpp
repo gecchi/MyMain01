@@ -34,7 +34,7 @@ void StageScene::processBehavior() {
 
     if (onChangeProgressAt(STAGE_PROG_END)) {
         _frame_End = 0;
-        throwUpEvent(PREPARE_NEXT_STAGE, this); //次ステージ準備へ
+        throwEventToUpperTree(PREPARE_NEXT_STAGE, this); //次ステージ準備へ
     } else if (getProgress() == STAGE_PROG_END) {
         _frame_End++;
     }

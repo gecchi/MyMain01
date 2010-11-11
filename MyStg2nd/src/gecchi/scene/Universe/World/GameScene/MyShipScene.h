@@ -10,6 +10,11 @@
     #error P_GAME_SCENE isnt define
 #endif
 
+#define MYSHIPSCENE_PROG_INIT   1
+#define MYSHIPSCENE_PROG_BEGIN  2
+#define MYSHIPSCENE_PROG_APPEARANCE_NOMAL   3
+#define MYSHIPSCENE_PROG_PLAY   4
+#define MYSHIPSCENE_PROG_END    5
 
 
 namespace MyStg2nd {
@@ -30,7 +35,9 @@ public:
      */
     void initialize() override;
 
-    virtual void processBehavior() override;
+    void processBehavior() override;
+
+    void catchEvent(UINT32 prm_no, void* prm_pSource) override;
 
     virtual ~MyShipScene();
 };

@@ -36,7 +36,7 @@ _pScene_GameOver(NULL) {
     _pScene_GameEnding = NEW GameEndingScene("GameEnding");
     addSubLast(_pScene_GameEnding);
 
-    _pScene_GameOver = NEW GameOverScene("GameEnding");
+    _pScene_GameOver = NEW GameOverScene("GameOver");
     addSubLast(_pScene_GameOver);
 
 

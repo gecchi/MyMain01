@@ -104,18 +104,21 @@ enum MoveWay {
 
 
 //イベント用 UINT32 数値宣言
-AVAILABLE_EVENT(PREPARE_NEXT_STAGE)
-AVAILABLE_EVENT(JUST_GAME_OVER)
-AVAILABLE_EVENT(STG01_01_WAS_BROKEN)
-AVAILABLE_EVENT(STG01_02_WAS_BROKEN)
-AVAILABLE_EVENT(STG01_03_WAS_BROKEN)
-AVAILABLE_EVENT(STG01_CLIMAX_WAS_BROKEN)
-AVAILABLE_EVENT(STAGE01CONTROLLER_WAS_END)
-AVAILABLE_EVENT(STG02_01_WAS_BROKEN)
-AVAILABLE_EVENT(STG02_02_WAS_BROKEN)
-AVAILABLE_EVENT(STG02_03_WAS_BROKEN)
-AVAILABLE_EVENT(STG02_CLIMAX_WAS_BROKEN)
-AVAILABLE_EVENT(STAGE02CONTROLLER_WAS_END)
+AVAILABLE_EVENT(PREPARE_NEXT_STAGE);
+AVAILABLE_EVENT(JUST_GAME_OVER);
+AVAILABLE_EVENT(STG01_01_WAS_BROKEN);
+AVAILABLE_EVENT(STG01_02_WAS_BROKEN);
+AVAILABLE_EVENT(STG01_03_WAS_BROKEN);
+AVAILABLE_EVENT(STG01_CLIMAX_WAS_BROKEN);
+AVAILABLE_EVENT(STAGE01CONTROLLER_WAS_END);
+AVAILABLE_EVENT(STG02_01_WAS_BROKEN);
+AVAILABLE_EVENT(STG02_02_WAS_BROKEN);
+AVAILABLE_EVENT(STG02_03_WAS_BROKEN);
+AVAILABLE_EVENT(STG02_CLIMAX_WAS_BROKEN);
+AVAILABLE_EVENT(STAGE02CONTROLLER_WAS_END);
+AVAILABLE_EVENT(MY_SHIP_WAS_DESTROYED_BEGIN);
+AVAILABLE_EVENT(MY_SHIP_WAS_DESTROYED_FINISH);
+
 namespace MyStg2nd {
 
 //その他のヘッダファイルはここに記述
@@ -189,6 +192,7 @@ class EnemyStraightLaserChip001;
 
 class VamSysCamWorker;
 class PauseCamWorker;
+class MyShipDivingCamWorker;
 class MyCurveLaserChip001;
 class MyStraightLaserChip001;
 class MyShip;
@@ -203,6 +207,8 @@ class MyTorpedo;
 class MyTorpedoBlast;
 class MyShot001;
 class MyWave001;
+class EffectMyShipExplosion;
+
 class EffectExplosion001;
 class EffectExplosion002;
 class EffectExplosion003;
@@ -339,8 +345,9 @@ class LaserChipEffectActor;
 #include "gecchi/actor/common/laserchip/EnemyCurveLaserChip001.h"
 #include "gecchi/actor/common/laserchip/EnemyStraightLaserChip001.h"
 
-#include "gecchi/actor/my/VamSysCamWorker.h"
-#include "gecchi/actor/my/PauseCamWorker.h"
+#include "gecchi/actor/my/camera_worker/VamSysCamWorker.h"
+#include "gecchi/actor/my/camera_worker/PauseCamWorker.h"
+#include "gecchi/actor/my/camera_worker/MyShipDivingCamWorker.h"
 #include "gecchi/actor/my/MyShip.h"
 #include "gecchi/actor/my/MyOptionController.h"
 #include "gecchi/actor/my/MyOptionControllerGizmo.h"
@@ -350,6 +357,8 @@ class LaserChipEffectActor;
 #include "gecchi/actor/my/MyWave001.h"
 
 #include "gecchi/actor/my/MyStraightLaserChip001.h"
+#include "gecchi/actor/my/EffectMyShipExplosion.h"
+
 #include "gecchi/actor/effect/EffectExplosion001.h"
 #include "gecchi/actor/effect/EffectExplosion002.h"
 #include "gecchi/actor/effect/EffectExplosion003.h"

@@ -106,7 +106,7 @@ void Stage01Controller::processBehavior() {
         _frame_prog_fainal++;
 
         if (_frame_prog_fainal == 420) { //BGMフェードアウトを待つ。
-            throwUpEvent(STAGE01CONTROLLER_WAS_END, this); //ステージエンドを上位に伝える
+            throwEventToUpperTree(STAGE01CONTROLLER_WAS_END, this); //ステージエンドを上位に伝える
         }
     }
 

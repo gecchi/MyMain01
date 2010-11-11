@@ -253,17 +253,21 @@ public:
 
     MyOptionController* _pMyOptionController;
     EffectTurbo001* _pEffectTurbo001;
+    EffectMyShipExplosion* _pEffectMyShipExplosion;
 
     /** ソフト連射開始からの経過フレーム数 */
     frame _frame_soft_rapidshot;
     /** ソフト連射中であるか否か */
-    boolean _is_being_soft_rapidshot;
+    bool _is_being_soft_rapidshot;
     /** ショットしたフレームのみ true になる */
-    boolean _just_shot;
+    bool _just_shot;
     /** レーザー発射かどうか */
-    boolean _is_shooting_laser;
+    bool _is_shooting_laser;
     /** SHOTボタン押しっぱなし経過フレーム数（レーザー発射開始判定のため） */
     frame _frame_shot_pressed;
+
+
+    bool isBakuhatsu;
 
     MyShip(const char* prm_name);
 
@@ -737,6 +741,9 @@ public:
 
     /**オプション追加*/
     void equipOption();
+
+
+    void catchEvent(UINT32 prm_no, void* prm_pSource) override;
 
     virtual ~MyShip();
 

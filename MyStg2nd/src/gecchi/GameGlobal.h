@@ -7,7 +7,7 @@ namespace MyStg2nd {
 
 class GameGlobal {
 public:
-    static boolean _isInit;
+    static bool _isInit;
     /** ÉXÉRÉA */
     static UINT32 _score;
 

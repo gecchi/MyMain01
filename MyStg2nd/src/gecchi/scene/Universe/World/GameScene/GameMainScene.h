@@ -43,7 +43,7 @@ public:
 
     int _stage;
 
-    boolean _had_ready_stage;
+    bool _had_ready_stage;
     frame _frame_ready_stage;
     GameMainScene(const char* prm_name);
 

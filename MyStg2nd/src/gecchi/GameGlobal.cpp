@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-boolean GameGlobal::_isInit = false;
+bool GameGlobal::_isInit = false;
 double GameGlobal::_rank = 0.0;
 UINT32 GameGlobal::_score = 0;
 
