@@ -285,11 +285,11 @@ class CWaveDecorder;
 
 }
 
-#include "jp/ggaf/core/util/XFile/framework/frm_mesh.h"
-#include "jp/ggaf/core/util/XFile/framework/Frm_Tbuff.h"
-#include "jp/ggaf/core/util/XFile/ToolBox/IOModel_X.h"
-#include "jp/ggaf/core/util/XFile/ToolBox/IOTexture_Bmp.h"
-#include "jp/ggaf/core/util/XFile/ToolBox/TBox_Textures.h"
+#include "jp/ggaf/dx9core/util/XFile/framework/frm_mesh.h"
+#include "jp/ggaf/dx9core/util/XFile/framework/Frm_Tbuff.h"
+#include "jp/ggaf/dx9core/util/XFile/ToolBox/IOModel_X.h"
+#include "jp/ggaf/dx9core/util/XFile/ToolBox/IOTexture_Bmp.h"
+#include "jp/ggaf/dx9core/util/XFile/ToolBox/TBox_Textures.h"
 
 #include "jp/ggaf/dx9core/exception/GgafDx9CriticalException.h"
 #include "jp/ggaf/dx9core/util/CmRandomNumberGenerator.h"

@@ -40,14 +40,12 @@ void MyShipScene::processBehavior() {
     } else if (onInactiveProgressAt(MYSHIPSCENE_PROG_APPEARANCE_NOMAL)) {
         _TRACE_("MyShipScene onInactiveProgressAt(MYSHIPSCENE_PROG_APPEARANCE_NOMAL)");
         P_UNIVERSE->popCameraWork();
-    }
-    if (onInactiveProgressAt(MYSHIPSCENE_PROG_PLAY)) {
+    } else if (onInactiveProgressAt(MYSHIPSCENE_PROG_PLAY)) {
         _TRACE_("MyShipScene onInactiveProgressAt(MYSHIPSCENE_PROG_PLAY)");
         P_UNIVERSE->popCameraWork();
-    }
-    if (onInactiveProgressAt(MYSHIPSCENE_PROG_DESTROY)) {
+    } else if (onInactiveProgressAt(MYSHIPSCENE_PROG_DESTROY)) {
         _TRACE_("MyShipScene onInactiveProgressAt(MYSHIPSCENE_PROG_DESTROY)");
-        }
+    }
 
     if (onActiveProgressAt(MYSHIPSCENE_PROG_BEGIN)) {
         _TRACE_("MyShipScene onActiveProgressAt(MYSHIPSCENE_PROG_BEGIN)");
@@ -70,7 +68,7 @@ void MyShipScene::processBehavior() {
         if (_pMyShip->_X > 0) {
             setProgress(MYSHIPSCENE_PROG_PLAY);
         }
-    } else
+    } 
 
 
     if (onActiveProgressAt(MYSHIPSCENE_PROG_PLAY)) {
@@ -79,7 +77,7 @@ void MyShipScene::processBehavior() {
         _pMyShip->_isNoControl = false;
     } else if (getProgress() == MYSHIPSCENE_PROG_PLAY) {
 
-    } else
+    } 
 
     if (onActiveProgressAt(MYSHIPSCENE_PROG_DESTROY)) {
         _TRACE_("MyShipScene onActiveProgressAt(MYSHIPSCENE_PROG_DESTROY)");
@@ -91,7 +89,7 @@ void MyShipScene::processBehavior() {
             throwEventToUpperTree(MY_SHIP_WAS_DESTROYED_FINISH);
             setProgress(MYSHIPSCENE_PROG_BEGIN);
         }
-    } else
+    } 
 }
 
 void MyShipScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
