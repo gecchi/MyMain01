@@ -143,18 +143,6 @@ void GameScene::processBehavior() {
             _pScene_GameEnding->ready();
 
         }
-        if (_pScene_GameMain->getProgressOnActive() == GAMEMAIN_PROG_END) {
-//            VB_UI->clear();
-//            P_GOD->setVB(VB_UI);  //–ß‚·
-//            _pScene_GameEnding->activate();
-//            _pSceneCannel = _pScene_GameEnding;
-
-            if (true) { //GameOver‚©‚Ç‚¤‚©•ªŠò
-                _pSceneCannel = _pScene_GameOver;
-            } else {
-                _pSceneCannel = _pScene_GameEnding;
-            }
-        }
 
     } else if (_pSceneCannel == _pScene_GameEnding) {
         if (_pScene_GameEnding->getProgressOnActive() == GAMEENDING_PROG_BEGIN) {
@@ -170,7 +158,7 @@ void GameScene::processBehavior() {
             _pSceneCannel = _pScene_GameDemo;
         }
 
-    } else if (_pSceneCannel == _pScene_GameOver) {
+    } else if (_pSceneCannel == _pScene_GameOver) { //—]’n‚Ì‚È‚¢GAME_OVER
         if (_pScene_GameMain->getProgressOnActive() == GAMEOVER_PROG_BEGIN) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
@@ -228,6 +216,25 @@ void GameScene::processFinal() {
         _pScene_GameDemo->activate();
     }
 
+}
+
+void GameScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
+    if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
+        _TRACE_("GameScene EVENT_ALL_MY_SHIP_WAS_DESTROYED was Catch!!");
+        if (true) { //GameOver‚©‚Ç‚¤‚©•ªŠò
+            _pSceneCannel = _pScene_GameOver;
+            _pSceneCannel->activate();
+            _pSceneCannel->changeProgress(GAMEOVER_PROG_BEGIN);
+        } else {
+            _pSceneCannel = _pScene_GameEnding;
+        }
+
+
+    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
+        _TRACE_("GameScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
+    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {
+        _TRACE_("GameScene EVENT_MY_SHIP_WAS_DESTROYED_FINISH was Catch!!");
+    }
 }
 
 GameScene::~GameScene() {

@@ -83,6 +83,7 @@ void GameMainScene::processBehavior() {
         changeProgress(GAMEMAIN_PROG_BEGIN);
     }
 
+    //GAMEMAIN_PROG_BEGIN
     if (onActiveProgress(GAMEMAIN_PROG_BEGIN)) {
         _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
         _pFont1602->update(300, 350, "DESTOROY ALL THEM!!");
@@ -98,9 +99,8 @@ void GameMainScene::processBehavior() {
 
         _had_ready_stage = false;
         _frame_Begin = 0;
-
-
-    } else if (getProgress() == GAMEMAIN_PROG_BEGIN) {
+    }
+    if (getProgress() == GAMEMAIN_PROG_BEGIN) {
         //活動ループ
         _frame_Begin++;
 
@@ -109,11 +109,13 @@ void GameMainScene::processBehavior() {
         }
     }
 
+    //GAMEMAIN_PROG_PLAY
     if (onActiveProgress(GAMEMAIN_PROG_PLAY)) {
         _pFont1601->update(300, 300, "");
         _pFont1602->update(300, 350, "");
 
-    } else if (getProgress() == GAMEMAIN_PROG_PLAY) {
+    }
+    if (getProgress() == GAMEMAIN_PROG_PLAY) {
         //活動ループ
         if (_had_ready_stage) {
             _frame_ready_stage++;
@@ -124,12 +126,14 @@ void GameMainScene::processBehavior() {
         }
     }
 
-    //終了処理
+    //GAMEMAIN_PROG_END 終了処理
     if (onActiveProgress(GAMEMAIN_PROG_END)) {
          VB_UI->clear();
          P_GOD->setVB(VB_UI);  //戻す
         _TRACE_("オワタ");
-    } else if (getProgress() == GAMEMAIN_PROG_END) {
+        //ここでコンテニュー判断
+    }
+    if (getProgress() == GAMEMAIN_PROG_END) {
         //GAMEMAIN_PROG_END時はなにもできない
     }
 
@@ -165,6 +169,15 @@ void GameMainScene::processBehavior() {
 }
 
 void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
+    if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
+        _TRACE_("GameMainScene EVENT_ALL_MY_SHIP_WAS_DESTROYED was Catch!!");
+        changeProgress(GAMEMAIN_PROG_END);
+    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
+        _TRACE_("GameMainScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
+    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {
+        _TRACE_("GameMainScene EVENT_MY_SHIP_WAS_DESTROYED_FINISH was Catch!!");
+    }
+
 
     if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
         //次のステージを工場に注文していいよというイベント
@@ -180,9 +193,9 @@ void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
         }
     }
 
-    if (prm_no == EVENT_JUST_GAME_OVER) {
-        changeProgress(GAMEMAIN_PROG_END);
-    }
+//    if (prm_no == EVENT_JUST_GAME_OVER) {
+//
+//    }
 
 }
 

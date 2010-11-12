@@ -7,6 +7,8 @@ using namespace MyStg2nd;
 
 GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameOverScene";
+    _pStringBoard01 = NEW LabelGecchi16Font("STR01");
+    getLordActor()->addSubGroup(_pStringBoard01);
 }
 
 void GameOverScene::reset() {
@@ -20,6 +22,9 @@ void GameOverScene::initialize() {
 }
 
 void GameOverScene::processBehavior() {
+    if (getActivePartFrame() == 10) {
+        _pStringBoard01->update(100, 100, "GAME OVER");
+    }
 }
 
 void GameOverScene::processFinal() {

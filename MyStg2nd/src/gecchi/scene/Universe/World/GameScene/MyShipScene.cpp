@@ -76,14 +76,19 @@ void MyShipScene::processBehavior() {
         _pMyShip->_pEffectMyShipExplosion->activate();
         _pMyShip->_isNoControl = true;
         fadeoutSceneTree(120);
+        _zanki -= 1;
     }
     if (getProgress() == MYSHIPSCENE_PROG_DESTROY) {
-        if (getActivePartFrameInProgress() == 120) {
+        if (_zanki == 0) {
+            throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
+            changeProgress(PROG_NOTHING);
+        } else if (getActivePartFrameInProgress() == 120) {
             throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
             changeProgress(MYSHIPSCENE_PROG_BEGIN);
         }
     }
     if (onInactiveProgress(MYSHIPSCENE_PROG_DESTROY)) {
+
     }
 }
 
