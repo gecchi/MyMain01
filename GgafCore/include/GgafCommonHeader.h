@@ -57,6 +57,13 @@
 #ifndef _MSC_VER
     //GCCの場合、sal.hを別途インクルード
     #include "sal.h"
+    //GCCの場合sal.hで何故かNULL が __null で 未定義のため強制的に再定義(ナンノコッチャ)
+    #undef NULL
+    #ifdef __cplusplus
+        #define NULL 0
+    #else
+        #define NULL ((void*)0)
+    #endif
 #endif
 
 //自分用デバッグビルド(コメントを外せば使用可能)
@@ -337,14 +344,6 @@ class GgafLinearOctreeElem;
 class GgafCurtain;
 }
 
-//GCCの場合sal.hで何故かNULL が __null で 未定義のため強制的に再定義(ナンノコッチャ)
-#ifndef NULL
-    #ifdef __cplusplus
-        #define NULL 0
-    #else
-        #define NULL ((void*)0)
-    #endif
-#endif
 
 #include "jp/ggaf/core/util/GgafUtil.h"
 #include "jp/ggaf/core/util/GgafRepeatSeq.h"
