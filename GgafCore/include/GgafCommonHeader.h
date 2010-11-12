@@ -277,7 +277,7 @@
 #define AVAILABLE_EVENT(X) const static UINT32 X = GgafCore::GgafUtil::easy_hash(#X)
 
 typedef UINT32 actorkind;
-typedef unsigned int frame;
+typedef UINT32 frame;
 
 #define Obj_GgafScene             (0x80000001)       //0b 10000000 00000000 00000000 00000001
 #define Obj_GgafMainScene         (0x80000002)       //0b 10000000 00000000 00000000 00000010

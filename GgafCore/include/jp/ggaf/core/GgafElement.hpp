@@ -101,7 +101,7 @@ public:
     /** [r]次フレーム加算時に反映予定の進捗ID(1～99) */
     int _progress_nextframe;
     /** [r]進捗IDイベント時フレームストック */
-    UINT32 _aFrame_ProgressChange[100];
+    frame _aFrame_ProgressChange[100];
 
 
 
@@ -684,9 +684,9 @@ public:
      * @param prm_progress 進捗ID(1～99)
      * @return 引数の直近の進捗IDが起こったときのフレーム
      */
-    virtual UINT32 getFrameAtChengedProgress(int prm_progress);
+    virtual frame getFrameAtChengedProgress(int prm_progress);
 
-    virtual UINT32 getActivePartFrameInProgress();
+    virtual frame getActivePartFrameInProgress();
 
     /**
      * 進捗IDを設定 .
@@ -1598,13 +1598,13 @@ int GgafElement<T>::getProgress() {
 }
 
 template<class T>
-UINT32 GgafElement<T>::getFrameAtChengedProgress(int prm_progress) {
+frame GgafElement<T>::getFrameAtChengedProgress(int prm_progress) {
     return _aFrame_ProgressChange[prm_progress];
 }
 
 template<class T>
-UINT32 GgafElement<T>::getActivePartFrameInProgress() {
-    return getActivePartFrame() - _aFrame_ProgressChange[_progress];
+frame GgafElement<T>::getActivePartFrameInProgress() {
+    return _frame_of_behaving+1 - _aFrame_ProgressChange[_progress];
 }
 
 
