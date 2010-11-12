@@ -15,6 +15,8 @@ _pVamSysCamWorker(NULL) {
     _pVamSysCamWorker = (VamSysCamWorker*)P_UNIVERSE->_pCameraWorkerManager->getConnection("VamSysCamWorker")->refer();
     _pVamSysCamWorker->_pMyShip = _pMyShip;
     _pMyShipDivingCamWorker = (MyShipDivingCamWorker*)P_UNIVERSE->_pCameraWorkerManager->getConnection("MyShipDivingCamWorker")->refer();
+    _zanki = 2;
+
 }
 
 void MyShipScene::initialize() {
@@ -47,7 +49,7 @@ void MyShipScene::processBehavior() {
         _pMyShipDivingCamWorker->setMoveTargetCamVpBy(_pMyShip);
     }
     if (getProgress() == MYSHIPSCENE_PROG_APPEARANCE_NOMAL) {
-        _pMyShip->_X += 10000;
+        _pMyShip->_X += 30000;
         _pMyShipDivingCamWorker->setMoveTargetCamVpBy(_pMyShip);
         if (_pMyShip->_X > 0) {
             changeProgress(MYSHIPSCENE_PROG_PLAY);

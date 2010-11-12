@@ -8,32 +8,34 @@ using namespace MyStg2nd;
 MyShipDivingCamWorker::MyShipDivingCamWorker(const char* prm_name) : CameraWorker(prm_name) {
     _class_name = "MyShipDivingCamWorker";
     _pMyShip = NULL; //MyShipScene‚ÉÝ’è‚µ‚Ä‚à‚ç‚¤
-    _move_target_X_CAM = 0;
-    _move_target_Y_CAM = 0;
-    _move_target_Z_CAM = 0;
-    _move_target_X_VP = 0;
-    _move_target_Y_VP = 0;
-    _move_target_Z_VP = 0;
     _move_target_XY_CAM_UP = ANGLE90;
     _angXY_nowCamUp = ANGLE90;
     _burenai_speed = 10000;
 }
 void MyShipDivingCamWorker::initialize() {
+    _cam_velo_renge = 30000;
+    _stop_renge = 60000;
+}
+
+void MyShipDivingCamWorker::onPushed() {
     GgafDx9Camera* pCam = P_CAM;
     GgafDx9CameraViewPoint* pVP = pCam->_pViewPoint;
-    setMoveTargetCamBy(P_CAM);
-    setMoveTargetCamVpBy(pVP);
-
-    _cam_velo_renge = 30000;
     pCam->_pMover->forceVxMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pCam->_pMover->forceVyMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pCam->_pMover->forceVzMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pVP->_pMover->forceVxMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pVP->_pMover->forceVyMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pVP->_pMover->forceVzMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
-
-    _stop_renge = 60000;
+    _move_target_X_CAM = P_CAM->_X;
+    _move_target_Y_CAM = P_CAM->_Y;
+    _move_target_Z_CAM = P_CAM->_Z;
+    _move_target_X_VP = pVP->_X;
+    _move_target_Y_VP = pVP->_Y;
+    _move_target_Z_VP = pVP->_Z;
 }
+void MyShipDivingCamWorker::onPoped() {
+}
+
 void MyShipDivingCamWorker::setMoveTargetCamBy(GgafDx9Core::GgafDx9GeometricActor* pTarget) {
     _move_target_X_CAM = pTarget->_X;
     _move_target_Y_CAM = pTarget->_Y;

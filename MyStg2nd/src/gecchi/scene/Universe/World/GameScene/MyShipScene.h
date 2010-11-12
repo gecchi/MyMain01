@@ -31,6 +31,8 @@ public:
     VamSysCamWorker* _pVamSysCamWorker;
     MyShipDivingCamWorker* _pMyShipDivingCamWorker;
 
+    int _zanki;
+
     MyShipScene(const char* prm_name);
     /**
      * ‰Šúˆ—

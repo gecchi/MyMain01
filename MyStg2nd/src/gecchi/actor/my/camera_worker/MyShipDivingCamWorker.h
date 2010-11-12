@@ -39,11 +39,10 @@ public:
 
 
 
-    virtual void onPushed() override {
-    }
 
-    virtual void onPoped() override {
-    }
+    virtual void onPushed() override;
+
+    virtual void onPoped() override;
 
     virtual void processBehavior() override;
 
