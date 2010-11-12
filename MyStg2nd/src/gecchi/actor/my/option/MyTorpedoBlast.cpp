@@ -9,7 +9,7 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name)
                : DefaultMeshSetActor(prm_name, "donatu_0") {
     _class_name = "MyTorpedoBlast";
     MyStgUtil::resetMyTorpedoBlastStatus(_pStatus);
-    chengeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
+    changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
     setMaterialColor(1.0, 0.3, 0.3);
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り

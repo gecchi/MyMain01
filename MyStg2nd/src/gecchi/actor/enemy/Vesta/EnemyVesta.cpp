@@ -70,39 +70,39 @@ void EnemyVesta::processBehavior() {
     //＜方針＞
     //  ①座標計算は主にローカル座標系の計算である。GgafDx9GeometricMover でローカル座標系の操作を行うこととする。
     //    しかし、８分木登録や、当たり判定や、ターゲット座標など、他のオブジェクトからワールド座標を参照することが多いため。
-    //    基本的にprocessBehavior()開始時は 最終（絶対）座標系(chengeGeoFinal())の状態とする。
-    //  ②processBehavior()内で必要に応じて chengeGeoLocal() で _X, _Y, _Z, _RX, _RY, _RZ の切り替えを行い座標計算を行う。
-    //  ③但し processBehavior() を抜ける際には必ず最終座標(chengeGeoFinal())の状態に戻しておく事。
+    //    基本的にprocessBehavior()開始時は 最終（絶対）座標系(changeGeoFinal())の状態とする。
+    //  ②processBehavior()内で必要に応じて changeGeoLocal() で _X, _Y, _Z, _RX, _RY, _RZ の切り替えを行い座標計算を行う。
+    //  ③但し processBehavior() を抜ける際には必ず最終座標(changeGeoFinal())の状態に戻しておく事。
     //  ④オブジェクト自体のワールド変換行列は、ローカル座標系の行列積で変換行列が作成される。
 
-    //＜chengeGeoLocal(); 実行時＞
+    //＜changeGeoLocal(); 実行時＞
     //ローカル座標系に切替えます。
     //・_X, _Y, _Z     ・・・ は、ローカル座標を意味するようになります。
-    //                        chengeGeoLocal(); を実行すると自動的に_X, _Y, _Z に
+    //                        changeGeoLocal(); を実行すると自動的に_X, _Y, _Z に
     //                        ローカル座標値に切り替わります。
     //・_RX, _RY, _RZ  ・・・ は、ローカル座標での軸回転値を意味するようになります。
-    //                        chengeGeoLocal(); を実行すると自動的に_RX, _RY, _RZに
+    //                        changeGeoLocal(); を実行すると自動的に_RX, _RY, _RZに
     //                        ローカル座標軸回転値に切り替わります。
 
-    //＜chengeGeoFinal(); 実行時＞
+    //＜changeGeoFinal(); 実行時＞
     //最終（絶対）座標系に切り替えます。
     //・_X, _Y, _Z    ・・・ 毎フレーム GgafDx9GeometricActor::processSettlementBehavior() で計算され自動更新されてます。
-    //                       processBehavior() で chengeGeoFinal() を行うと、１フレーム前の_X, _Y, _Zに切り替わる事になります。
+    //                       processBehavior() で changeGeoFinal() を行うと、１フレーム前の_X, _Y, _Zに切り替わる事になります。
     //                       _X, _Y, _Z は参照専用。値を代入しても意味が有りません
     //・_RX, _RY, _RZ ・・・ 毎フレーム GgafDx9GeometricActor::processSettlementBehavior() 自動代入されません！
-    //                       chengeGeoFinal(); を実行しても、_RX, _RY, _RZ は以前の最終（絶対）座標系の値が
+    //                       changeGeoFinal(); を実行しても、_RX, _RY, _RZ は以前の最終（絶対）座標系の値が
     //                       入りっぱなしで変化しません。
     //                       他のオブジェクトから、ボーンにあたるアクターを参照するとき、_RX, _RY, _RZは全く信用できません。
 
     //＜注意＞
     //・GgafDx9GeometricMover(_pMover)の behave() 以外メソッドは、常にローカル座標の操作とする。
     //  behave()以外メソッドは実際に座標計算しているわけではないので、
-    //  chengeGeoFinal()時、chengeGeoLocal()時に関係なく、呼び出し可能。
+    //  changeGeoFinal()時、changeGeoLocal()時に関係なく、呼び出し可能。
     //・GgafDx9GeometricMover(_pMover)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
-    //  したがって、次のように ローカル座標時(chengeGeoLocal()時)で呼び出す事とする。
-    //    chengeGeoLocal();
+    //  したがって、次のように ローカル座標時(changeGeoLocal()時)で呼び出す事とする。
+    //    changeGeoLocal();
     //    _pMover->behave();
-    //    chengeGeoFinal();
+    //    changeGeoFinal();
     //TODO:混在感をもっとなくす。
 
     switch (_iMovePatternNo) {
@@ -218,9 +218,9 @@ void EnemyVesta::processBehavior() {
     //_pSeTransmitter->behave();
 
     //_pMoverの計算はローカルで行う
-    chengeGeoLocal();
+    changeGeoLocal();
     _pMover->behave();
-    chengeGeoFinal();
+    changeGeoFinal();
 
 }
 
@@ -239,7 +239,7 @@ void EnemyVesta::processJudgement() {
 }
 
 void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
-    chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
+    changeEffectTechniqueInterim("Flush", 2); //フラッシュ
 
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();

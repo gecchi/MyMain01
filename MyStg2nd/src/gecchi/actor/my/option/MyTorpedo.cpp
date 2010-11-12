@@ -23,7 +23,7 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOpti
         _pTailEffectDispatcher->addSubLast(pChip);
     }
     addSubGroup(_pTailEffectDispatcher);
-    chengeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
+    changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
     _pTarget = NULL;
@@ -57,7 +57,7 @@ void MyTorpedo::onActive() {
     _begin_Y = _Y;
     _begin_Z = _Z;
     setHitAble(true);
-    setProgress(MyTorpedo_IN_FIRE);
+    changeProgress(MyTorpedo_IN_FIRE);
     _move_section = 0;
 }
 
@@ -185,7 +185,7 @@ void MyTorpedo::processBehavior() {
 void MyTorpedo::processJudgement() {
     if (isOutOfUniverse() && getProgress() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
-        setProgress(MyTorpedo_RELEASE);
+        changeProgress(MyTorpedo_RELEASE);
         GgafMainActor* pTailEffect = _pTailEffectDispatcher->getSubFirst();
         for (int i = 0; i < _length_TailEffect; i++) {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
@@ -207,7 +207,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //ヒット時通貫はしません
     int sta = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
     setHitAble(false);
-    setProgress(MyTorpedo_RELEASE);
+    changeProgress(MyTorpedo_RELEASE);
     GgafMainActor* pTailEffect = _pTailEffectDispatcher->getSubFirst();
     for (int i = 0; i < _length_TailEffect; i++) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約

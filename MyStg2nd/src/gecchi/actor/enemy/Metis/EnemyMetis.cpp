@@ -70,7 +70,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
     //ここにヒットエフェクト
-    chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
+    changeEffectTechniqueInterim("Flush", 2); //フラッシュ
     _pSeTransmitter->play3D(0);
         //ここに消滅エフェクト
     if (pOther->getKind() & KIND_MY) {

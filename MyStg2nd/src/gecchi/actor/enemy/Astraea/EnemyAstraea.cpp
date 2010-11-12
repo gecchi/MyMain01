@@ -228,7 +228,7 @@ void EnemyAstraea::processBehavior() {
 
                         if (i == 0 && j == 0 && pLaserChip->_pChip_front == NULL) {
                             _pSeTransmitter->play3D(0); //発射音
-                            chengeEffectTechniqueInterim("Flush", 5); //フラッシュ
+                            changeEffectTechniqueInterim("Flush", 5); //フラッシュ
                         }
                     }
                 }
@@ -255,7 +255,7 @@ void EnemyAstraea::processJudgement() {
 
 void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
+    changeEffectTechniqueInterim("Flush", 2); //フラッシュ
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合

@@ -67,7 +67,7 @@ void EnemyJuno::processBehavior() {
                     pShot->_pMover->setMvAng(P_MYSHIP);
                     pShot->activate();
                     _do_Shot = false;
-                    chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
+                    changeEffectTechniqueInterim("Flush", 2); //フラッシュ
                     _pSeTransmitter->play3D(1);
 
                 }

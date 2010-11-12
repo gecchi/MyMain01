@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EffectExplosion002::EffectExplosion002(const char* prm_name) : DefaultSpriteSetActor(prm_name, "EffectExplosion002") {
     _class_name = "EffectExplosion002";
-    chengeEffectTechnique("DestBlendOne"); //â¡éZçáê¨Ç∑ÇÈTechniqueéwíË
+    changeEffectTechnique("DestBlendOne"); //â¡éZçáê¨Ç∑ÇÈTechniqueéwíË
 }
 
 void EffectExplosion002::initialize() {

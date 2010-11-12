@@ -6464,7 +6464,7 @@ void Stage01_01::processBehavior() {
                 EnemyMetis* pActor = (EnemyMetis*)obtainActorFromFactory(2117730000);
                 getLordActor()->addSubGroup(pActor);
                 }
-                throwEventToUpperTree(STG01_01_WAS_BROKEN,this);
+                throwEventToUpperTree(EVENT_STG01_01_WAS_BROKEN,this);
                 break;
             default :
                 break;

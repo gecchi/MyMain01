@@ -69,7 +69,7 @@ void GameMainScene::ready(int prm_stage) {
 
 void GameMainScene::initialize() {
 
-    setProgress(GAMEMAIN_PROG_INIT);
+    changeProgress(GAMEMAIN_PROG_INIT);
     //initialize()時はinactive()であることに注意する事
 }
 
@@ -80,10 +80,10 @@ void GameMainScene::processBehavior() {
         P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
         GgafScene* pCommon = P_COMMON_SCENE->extract();
         addSubLast(pCommon); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
-        setProgress(GAMEMAIN_PROG_BEGIN);
+        changeProgress(GAMEMAIN_PROG_BEGIN);
     }
 
-    if (onActiveProgressAt(GAMEMAIN_PROG_BEGIN)) {
+    if (onActiveProgress(GAMEMAIN_PROG_BEGIN)) {
         _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
         _pFont1602->update(300, 350, "DESTOROY ALL THEM!!");
 
@@ -105,11 +105,11 @@ void GameMainScene::processBehavior() {
         _frame_Begin++;
 
         if (_frame_Begin == 180) {
-            setProgress(GAMEMAIN_PROG_PLAY); //
+            changeProgress(GAMEMAIN_PROG_PLAY); //
         }
     }
 
-    if (onActiveProgressAt(GAMEMAIN_PROG_PLAY)) {
+    if (onActiveProgress(GAMEMAIN_PROG_PLAY)) {
         _pFont1601->update(300, 300, "");
         _pFont1602->update(300, 350, "");
 
@@ -119,13 +119,13 @@ void GameMainScene::processBehavior() {
             _frame_ready_stage++;
             if (_frame_ready_stage == 5*60) {
                 _TRACE_("新ステージCOMEING!!");
-                setProgress(GAMEMAIN_PROG_BEGIN);
+                changeProgress(GAMEMAIN_PROG_BEGIN);
             }
         }
     }
 
     //終了処理
-    if (onActiveProgressAt(GAMEMAIN_PROG_END)) {
+    if (onActiveProgress(GAMEMAIN_PROG_END)) {
          VB_UI->clear();
          P_GOD->setVB(VB_UI);  //戻す
         _TRACE_("オワタ");
@@ -166,22 +166,22 @@ void GameMainScene::processBehavior() {
 
 void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
 
-    if (prm_no == PREPARE_NEXT_STAGE) {
+    if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
         //次のステージを工場に注文していいよというイベント
-        _TRACE_("GameMainScene::catchEvent() PREPARE_NEXT_STAGE準備きた");
+        _TRACE_("GameMainScene::catchEvent() EVENT_PREPARE_NEXT_STAGE準備きた");
         if (_stage < 5) {
             _stage++;
             ready(_stage);
 
         } else {
             _TRACE_("最終面クリア");
-            setProgress(GAMEMAIN_PROG_END);
+            changeProgress(GAMEMAIN_PROG_END);
             //TODO:エデニング？
         }
     }
 
-    if (prm_no == JUST_GAME_OVER) {
-        setProgress(GAMEMAIN_PROG_END);
+    if (prm_no == EVENT_JUST_GAME_OVER) {
+        changeProgress(GAMEMAIN_PROG_END);
     }
 
 }

@@ -21,7 +21,7 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
     _pScaler = NEW GgafDx9GeometricScaler(this);
 
 
-    //chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
+    //changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     setHitAble(false);
     _CAM_ZF = abs(P_CAM->_zf * PX_UNIT * LEN_UNIT);
     _TRACE_("HoshiBoshi001::HoshiBoshi001 _CAM_ZF="<<_CAM_ZF);

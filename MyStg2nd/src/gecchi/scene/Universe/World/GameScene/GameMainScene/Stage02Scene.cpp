@@ -34,7 +34,7 @@ void Stage02Scene::initialize() {
 void Stage02Scene::processBehavior() {
     StageScene::processBehavior();
     if (getProgress() == STAGE_PROG_INIT) {
-       setProgress(STAGE_PROG_BEGIN);
+       changeProgress(STAGE_PROG_BEGIN);
     }
 
     if (getProgress() == STAGE_PROG_BEGIN) {
@@ -45,11 +45,11 @@ void Stage02Scene::processBehavior() {
             _pWorldBoundSpace->activateTree();
             _pScene_Stage02Controller->activate();
             fadeinScene(240);
-            setProgress(STAGE_PROG_PLAYING);
+            changeProgress(STAGE_PROG_PLAYING);
         }
     }
 
-    if (onActiveProgressAt(STAGE_PROG_END)) {
+    if (onActiveProgress(STAGE_PROG_END)) {
         _TRACE_("Stage02Scene::processBehavior()  STAGE_PROG_ENDになりますた！");
         _pMessage->activateImmediately();
         _pMessage->update(300, 300, "SCENE 02 CLEAR!!");
@@ -65,9 +65,9 @@ void Stage02Scene::processFinal() {
 }
 
 void Stage02Scene::catchEvent(UINT32 prm_no, void* prm_pSource) {
-    if (prm_no == STAGE02CONTROLLER_WAS_END ) {
+    if (prm_no == EVENT_STAGE02CONTROLLER_WAS_END ) {
         _TRACE_("Stage02Scene::catchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_PROG_ENDへ");
-        setProgress(STAGE_PROG_END);
+        changeProgress(STAGE_PROG_END);
     } else {
 
     }

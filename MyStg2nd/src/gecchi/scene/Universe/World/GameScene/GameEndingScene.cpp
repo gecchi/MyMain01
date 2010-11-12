@@ -10,7 +10,7 @@ GameEndingScene::GameEndingScene(const char* prm_name) : DefaultScene(prm_name) 
 }
 
 void GameEndingScene::reset() {
-    //setProgress(GAMEENDING_PROG_INIT);
+    //changeProgress(GAMEENDING_PROG_INIT);
 }
 void GameEndingScene::ready() {
     _TRACE_("GameEndingScene::ready()");

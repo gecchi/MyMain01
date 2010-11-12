@@ -56,7 +56,7 @@ void EnemyThalia::onActive() {
     _pMover->execSmoothMvVeloSequence(_veloTopMv, 300, MyShip::_lim_front - _X);
 //    _TRACE_("execSmoothMvVeloSequence START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離="<<(MyShip::_lim_front - _X)<<" veloMv="<<(_pMover->_veloMv));
 
-    setProgress(THALIA_PROG_MOVE);
+    changeProgress(THALIA_PROG_MOVE);
     _iMovePatternNo = 0; //行動パターンリセット
 
 }
@@ -73,13 +73,13 @@ void EnemyThalia::processBehavior() {
             _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                 0, 100,
                                                 TURN_CLOSE_TO);
-            setProgress(THALIA_PROG_TURN_OPEN);
+            changeProgress(THALIA_PROG_TURN_OPEN);
         }
     }
 
     if (getProgress() == THALIA_PROG_TURN_OPEN) {
         if (_pMorpher->_method[1] == NOMORPH ) {
-            setProgress(THALIA_PROG_FIRE_BEGIN);
+            changeProgress(THALIA_PROG_FIRE_BEGIN);
         }
     }
 
@@ -87,7 +87,7 @@ void EnemyThalia::processBehavior() {
         _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                             100, 0,
                                             TURN_CLOSE_TO);
-        setProgress(THALIA_PROG_IN_FIRE);
+        changeProgress(THALIA_PROG_IN_FIRE);
     }
 
     if (getProgress() == THALIA_PROG_IN_FIRE) {
@@ -102,7 +102,7 @@ void EnemyThalia::processBehavior() {
                 _pMover->setFaceAngVelo(AXIS_X, 4000);
             }
         } else {
-            setProgress(THALIA_PROG_MOVE);
+            changeProgress(THALIA_PROG_MOVE);
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
             _pMover->execSmoothMvVeloSequence(_veloTopMv, 200, 4000000);
 //             _TRACE_("execSmoothMvVeloSequence START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離=1500000 veloMv="<<(_pMover->_veloMv));
@@ -126,7 +126,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
     if (getProgress() == THALIA_PROG_IN_FIRE) {
-        chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
+        changeEffectTechniqueInterim("Flush", 2); //フラッシュ
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->activate();

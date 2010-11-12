@@ -63,7 +63,7 @@ void Stage01_02::processBehavior() {
                 }
                 break;
             case 2500:
-                throwEventToUpperTree(STG01_02_WAS_BROKEN,this);
+                throwEventToUpperTree(EVENT_STG01_02_WAS_BROKEN,this);
                 break;
             default :
                 break;

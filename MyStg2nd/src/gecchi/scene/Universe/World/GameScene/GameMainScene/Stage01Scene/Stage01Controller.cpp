@@ -27,7 +27,7 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
 void Stage01Controller::initialize() {
     _pBgmPerformer->play(0, DSBVOLUME_MIN, true);
     _pBgmPerformer->fadein(0, 420);
-    setProgress(STAGE01CONTROLLER_PROG_INIT);
+    changeProgress(STAGE01CONTROLLER_PROG_INIT);
 }
 
 void Stage01Controller::processBehavior() {
@@ -51,52 +51,52 @@ void Stage01Controller::processBehavior() {
     }
     // gen02 end
 
-    if (onActiveProgressAt(STAGE01CONTROLLER_PROG_INIT)) {
+    if (onActiveProgress(STAGE01CONTROLLER_PROG_INIT)) {
         _TRACE_("Stage01Controller::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
 
     }
 
-    if (onActiveProgressAt(STAGE01CONTROLLER_PROG_STG01_01_BEGIN)) {
+    if (onActiveProgress(STAGE01CONTROLLER_PROG_STG01_01_BEGIN)) {
         //STG01_01開始処理
 
-        setProgress(STAGE01CONTROLLER_PROG_STG01_01_PLAYING);
+        changeProgress(STAGE01CONTROLLER_PROG_STG01_01_PLAYING);
     } else if (getProgress() == STAGE01CONTROLLER_PROG_STG01_01_PLAYING) {
         //STG01_01最中の処理
 
     }
 
-    if (onActiveProgressAt(STAGE01CONTROLLER_PROG_STG01_02_BEGIN)) {
+    if (onActiveProgress(STAGE01CONTROLLER_PROG_STG01_02_BEGIN)) {
         //STG01_02開始処理
         _pBgmPerformer->fadeout_stop(0, 420);        //BGM０番フェードアウト
         _pBgmPerformer->play(1, DSBVOLUME_MIN, true);//BGM１番フェードイン
         _pBgmPerformer->fadein(1, 420);
-        setProgress(STAGE01CONTROLLER_PROG_STG01_02_PLAYING);
+        changeProgress(STAGE01CONTROLLER_PROG_STG01_02_PLAYING);
     } else if (getProgress() == STAGE01CONTROLLER_PROG_STG01_02_PLAYING) {
         //STG01_02最中の処理
 
     }
 
-    if (onActiveProgressAt(STAGE01CONTROLLER_PROG_STG01_03_BEGIN)) {
+    if (onActiveProgress(STAGE01CONTROLLER_PROG_STG01_03_BEGIN)) {
         //STG01_03開始処理
 
-        setProgress(STAGE01CONTROLLER_PROG_STG01_03_PLAYING);
+        changeProgress(STAGE01CONTROLLER_PROG_STG01_03_PLAYING);
     } else if (getProgress() == STAGE01CONTROLLER_PROG_STG01_03_PLAYING) {
         //STG01_03最中の処理
 
     }
 
-    if (onActiveProgressAt(STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN)) {
+    if (onActiveProgress(STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN)) {
         //STG01_Climax開始処理
         _pBgmPerformer->fadeout_stop(1, 420);  //BGM１番フェードアウト
         _pBgmPerformer->play(2, DSBVOLUME_MIN, true); //BGM２番フェードイン
         _pBgmPerformer->fadein(2, 420);
-        setProgress(STAGE01CONTROLLER_PROG_STG01_CLIMAX_PLAYING);
+        changeProgress(STAGE01CONTROLLER_PROG_STG01_CLIMAX_PLAYING);
     } else if (getProgress() == STAGE01CONTROLLER_PROG_STG01_CLIMAX_PLAYING) {
         //STG01_Climax最中の処理
 
     }
 
-    if (onActiveProgressAt(STAGE01CONTROLLER_PROG_FAINAL)) {
+    if (onActiveProgress(STAGE01CONTROLLER_PROG_FAINAL)) {
         //STG01_Climax終焉の処理
         _TRACE_("STG01_Climax終焉のSTAGE01CONTROLLER_PROG_FAINALきた");
         _pBgmPerformer->fadeout_stop(2, 420); //BGM１番フェードアウト
@@ -106,7 +106,7 @@ void Stage01Controller::processBehavior() {
         _frame_prog_fainal++;
 
         if (_frame_prog_fainal == 420) { //BGMフェードアウトを待つ。
-            throwEventToUpperTree(STAGE01CONTROLLER_WAS_END, this); //ステージエンドを上位に伝える
+            throwEventToUpperTree(EVENT_STAGE01CONTROLLER_WAS_END, this); //ステージエンドを上位に伝える
         }
     }
 
@@ -120,19 +120,19 @@ void Stage01Controller::processFinal() {
 }
 
 void Stage01Controller::catchEvent(UINT32 prm_no, void* prm_pSource) {
-    if (prm_no == STG01_01_WAS_BROKEN) {
-        _TRACE_("Stage01Controller::catchEvent() STG01_01_WAS_BROKEN");
+    if (prm_no == EVENT_STG01_01_WAS_BROKEN) {
+        _TRACE_("Stage01Controller::catchEvent() EVENT_STG01_01_WAS_BROKEN");
         ((Stage01_01*)prm_pSource)->end(3000*60);
-    } else if (prm_no == STG01_02_WAS_BROKEN) {
-        _TRACE_("Stage01Controller::catchEvent() STG01_02_WAS_BROKEN");
+    } else if (prm_no == EVENT_STG01_02_WAS_BROKEN) {
+        _TRACE_("Stage01Controller::catchEvent() EVENT_STG01_02_WAS_BROKEN");
         ((Stage01_02*)prm_pSource)->end(30*60);
-    } else if (prm_no == STG01_03_WAS_BROKEN) {
-        _TRACE_("Stage01Controller::catchEvent() STG01_03_WAS_BROKEN");
+    } else if (prm_no == EVENT_STG01_03_WAS_BROKEN) {
+        _TRACE_("Stage01Controller::catchEvent() EVENT_STG01_03_WAS_BROKEN");
         ((Stage01_03*)prm_pSource)->end(30*60);
-    } else if (prm_no == STG01_CLIMAX_WAS_BROKEN) {
-        _TRACE_("Stage01Controller::catchEvent() STG01_CLIMAX_WAS_BROKENキャッチした。STAGE01CONTROLLER_ENDINGを投げる");
+    } else if (prm_no == EVENT_STG01_CLIMAX_WAS_BROKEN) {
+        _TRACE_("Stage01Controller::catchEvent() EVENT_STG01_CLIMAX_WAS_BROKENキャッチした。STAGE01CONTROLLER_ENDINGを投げる");
         ((Stage01_Climax*)prm_pSource)->end(30*60);
-        setProgress(STAGE01CONTROLLER_PROG_FAINAL); //進捗をSTAGE01CONTROLLER_PROG_FAINALに切り替える
+        changeProgress(STAGE01CONTROLLER_PROG_FAINAL); //進捗をSTAGE01CONTROLLER_PROG_FAINALに切り替える
     } else {
 
     }

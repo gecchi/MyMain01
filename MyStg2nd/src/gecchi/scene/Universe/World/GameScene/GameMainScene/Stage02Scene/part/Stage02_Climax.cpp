@@ -31,8 +31,8 @@ void Stage02_Climax::processBehavior() {
     if (getActivePartFrame() > 60) {
         if (_pBoss->isDisappear()) {
             //isDisappear()‚É‚È‚è‚Á•ú‚µ‚ð‚È‚ñ‚Æ‚©‚·‚é
-            _TRACE_("Stage02_Climax::processBehavior() STG02_CLIMAX_WAS_BROKEN!!!!");
-            throwEventToUpperTree(STG02_CLIMAX_WAS_BROKEN,this);
+            _TRACE_("Stage02_Climax::processBehavior() EVENT_STG02_CLIMAX_WAS_BROKEN!!!!");
+            throwEventToUpperTree(EVENT_STG02_CLIMAX_WAS_BROKEN,this);
             _waiting = true;
         }
     }

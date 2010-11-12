@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 EffectTurbo002::EffectTurbo002(const char* prm_name) : DefaultSpriteActor(prm_name, "Turbo002") {
     _class_name = "EffectTurbo002";
     inactivateImmediately();
-    chengeEffectTechnique("DestBlendOne"); //‰ÁZ‡¬
+    changeEffectTechnique("DestBlendOne"); //‰ÁZ‡¬
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
 }
 

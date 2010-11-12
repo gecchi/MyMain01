@@ -30,6 +30,8 @@ public:
     int _stop_renge; //カメラ目標座標距離が、これより小さいと、     1.0倍より減
                      //カメラ目標座標距離が、これより大きいとさいと 1.0倍より超
 
+    /** 等速でブレないスピード */
+    velo _burenai_speed;
 
     MyShipDivingCamWorker(const char* prm_name);
 

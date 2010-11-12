@@ -20,7 +20,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
     MyStgUtil::resetMyShipStatus(_pStatus);
-    //chengeEffectTechnique("DestBlendOne"); //加算合成Technique指定
+    //changeEffectTechnique("DestBlendOne"); //加算合成Technique指定
 
     GameGlobal::init();
 
@@ -409,7 +409,7 @@ void MyShip::processJudgement() {
     //自機消滅テスト
     if (VB_PLAY->isBeingPressed(VB_BUTTON8)) {
         _TRACE_("自機消滅テスト");
-        throwEventToUpperTree(MY_SHIP_WAS_DESTROYED_BEGIN);
+        throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
 
 
@@ -584,9 +584,9 @@ bool MyShip::isDoublePushedDown(vbsta prm_VB) {
 }
 
 void MyShip::catchEvent(UINT32 prm_no, void* prm_pSource) {
-    if (prm_no == MY_SHIP_WAS_DESTROYED_BEGIN) {
+    if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
 
-    } else if (prm_no == MY_SHIP_WAS_DESTROYED_FINISH) {
+    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {
 
     }
 }
