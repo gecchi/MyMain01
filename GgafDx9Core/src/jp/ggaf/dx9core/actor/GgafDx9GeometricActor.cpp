@@ -56,7 +56,7 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
 
     if (_pActor_Base) {
         //土台あり時ローカル座標に一旦戻す
-        chengeGeoLocal();
+        changeGeoLocal();
     }
 
     //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
@@ -102,7 +102,7 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
         //絶対座標に変換
         D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Base->_matWorldRotMv)); //合成
         D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //合成
-        chengeGeoFinal();
+        changeGeoFinal();
         //ワールド変換行列から飛行移動を取り出し最終的な座標とする
         _X = _matWorld._41*PX_UNIT*LEN_UNIT;
         _Y = _matWorld._42*PX_UNIT*LEN_UNIT;
@@ -173,7 +173,7 @@ GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
                                                   int prm_RY_init_local) {
     GgafGroupActor* pGroupActor = addSubGroup(prm_kind, prm_pGeoActor);
     prm_pGeoActor->_pActor_Base = this;
-    prm_pGeoActor->chengeGeoLocal();
+    prm_pGeoActor->changeGeoLocal();
     prm_pGeoActor->_X = prm_X_init_local;
     prm_pGeoActor->_Y = prm_Y_init_local;
     prm_pGeoActor->_Z = prm_Z_init_local;
@@ -185,7 +185,7 @@ GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
     prm_pGeoActor->_RX = prm_RX_init_local;
     prm_pGeoActor->_RZ = prm_RZ_init_local;
     prm_pGeoActor->_RY = prm_RY_init_local;
-    prm_pGeoActor->chengeGeoFinal();
+    prm_pGeoActor->changeGeoFinal();
     return pGroupActor;
 }
 GgafGroupActor* GgafDx9GeometricActor::addSubBone(GgafDx9GeometricActor* prm_pGeoActor,

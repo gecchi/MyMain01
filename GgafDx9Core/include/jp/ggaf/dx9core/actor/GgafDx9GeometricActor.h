@@ -293,7 +293,7 @@ public:
                                                  int prm_RZ_init_local,
                                                  int prm_RY_init_local);
 
-    virtual void chengeGeoLocal() {
+    virtual void changeGeoLocal() {
         if (_is_local) {
             return;
         } else {
@@ -312,7 +312,7 @@ public:
             _is_local = true;
         }
     }
-    virtual void chengeGeoFinal() {
+    virtual void changeGeoFinal() {
         if (_is_local) {
             _X_local = _X;
             _Y_local = _Y;

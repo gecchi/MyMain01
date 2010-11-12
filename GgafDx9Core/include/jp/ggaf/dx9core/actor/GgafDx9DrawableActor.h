@@ -107,7 +107,7 @@ public:
      * 随時可能。
      * @param prm_technique テクニック名
      */
-    void chengeEffectTechnique(const char* prm_technique) {
+    void changeEffectTechnique(const char* prm_technique) {
         _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
         strcpy(_technique, prm_technique);
     }
@@ -118,13 +118,13 @@ public:
      * 既に一時テクニック使用中に強制的に一時テクニックを変更したい場合次のようにできる。
      * <code>
      * if (_is_temp_technique == false) {
-     *     chengeEffectTechnique("変更したいテクニック名");
+     *     changeEffectTechnique("変更したいテクニック名");
      * }
      * </code>
      * @param prm_technique テクニック名
      * @param prm_frame 変更テクニックの継続フレーム数
      */
-    void chengeEffectTechniqueInterim(const char* prm_technique, frame prm_frame) {
+    void changeEffectTechniqueInterim(const char* prm_technique, frame prm_frame) {
         if (_is_temp_technique == false) { //すでに一時テクニック使用時は無視
             //元々のテクニックを退避
             _hash_technique_temp = _hash_technique;
