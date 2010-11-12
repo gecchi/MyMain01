@@ -684,7 +684,7 @@ public:
      * @param prm_progress 進捗ID(1～99)
      * @return 引数の直近の進捗IDが起こったときのフレーム
      */
-    virtual frame getFrameAtChengedProgress(int prm_progress);
+    virtual frame getFrameAtChangedProgress(int prm_progress);
 
     virtual frame getActivePartFrameInProgress();
 
@@ -693,7 +693,7 @@ public:
      * 但し、同一フレーム内では反映されず、nextFrame() 時に反映される。
      * @param prm_progress 進捗ID(1～99)
      */
-    virtual void setProgress(int prm_progress);
+    virtual void changeProgress(int prm_progress);
 
     /**
      * 進捗IDを+1する .
@@ -709,9 +709,9 @@ public:
      * @param prm_progress 切り替わったかどうか調べたい進捗ID
      * @return true:引数の進捗IDに切り替わった／false:それ以外
      */
-    virtual bool onActiveProgressAt(int prm_progress);
+    virtual bool onActiveProgress(int prm_progress);
 
-    virtual bool onInactiveProgressAt(int prm_progress);
+    virtual bool onInactiveProgress(int prm_progress);
 
     /**
      * 進捗IDが変化したか（前回と同じかどうか）調べる .
@@ -1598,7 +1598,7 @@ int GgafElement<T>::getProgress() {
 }
 
 template<class T>
-frame GgafElement<T>::getFrameAtChengedProgress(int prm_progress) {
+frame GgafElement<T>::getFrameAtChangedProgress(int prm_progress) {
     return _aFrame_ProgressChange[prm_progress];
 }
 
@@ -1609,7 +1609,7 @@ frame GgafElement<T>::getActivePartFrameInProgress() {
 
 
 template<class T>
-void GgafElement<T>::setProgress(int prm_progress) {
+void GgafElement<T>::changeProgress(int prm_progress) {
     _progress_nextframe = prm_progress;
     _aFrame_ProgressChange[prm_progress] = _frame_of_behaving+1;
 }
@@ -1621,7 +1621,7 @@ void GgafElement<T>::nextProgress() {
 }
 
 template<class T>
-bool GgafElement<T>::onActiveProgressAt(int prm_progress) {
+bool GgafElement<T>::onActiveProgress(int prm_progress) {
     if (_progress != _progress_prev) {
         if (prm_progress == _progress) {
             return true;
@@ -1634,9 +1634,9 @@ bool GgafElement<T>::onActiveProgressAt(int prm_progress) {
 }
 
 template<class T>
-bool GgafElement<T>::onInactiveProgressAt(int prm_progress) {
-    if (_progress != _progress_prev) {
-        if (prm_progress == _progress_prev) {
+bool GgafElement<T>::onInactiveProgress(int prm_progress) {
+    if (_progress != _progress_nextframe) {
+        if (_progress == prm_progress) {
             return true;
         } else {
             return false;
