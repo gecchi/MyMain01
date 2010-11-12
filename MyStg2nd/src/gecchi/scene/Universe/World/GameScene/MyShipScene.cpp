@@ -23,8 +23,14 @@ void MyShipScene::initialize() {
     _TRACE_("MyShipScene initialize()");
 }
 
+void MyShipScene::reset() {
+
+    _TRACE_("MyShipScene initialize()");
+}
 void MyShipScene::onActive() {
     _TRACE_("MyShipScene onActive()");
+    _zanki = 2;
+    fadeinSceneTree(1);
     changeProgress(MYSHIPSCENE_PROG_BEGIN);
 }
 
@@ -79,12 +85,16 @@ void MyShipScene::processBehavior() {
         _zanki -= 1;
     }
     if (getProgress() == MYSHIPSCENE_PROG_DESTROY) {
-        if (_zanki == 0) {
-            throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
-            changeProgress(PROG_NOTHING);
-        } else if (getActivePartFrameInProgress() == 120) {
-            throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
-            changeProgress(MYSHIPSCENE_PROG_BEGIN);
+        if (getActivePartFrameInProgress() == 120) {
+
+            if (_zanki == 0) {
+                throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
+                changeProgress(PROG_NOTHING);
+                inactivateDelay(60);
+            } else {
+                throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
+                changeProgress(MYSHIPSCENE_PROG_BEGIN);
+            }
         }
     }
     if (onInactiveProgress(MYSHIPSCENE_PROG_DESTROY)) {

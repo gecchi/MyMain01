@@ -79,7 +79,7 @@ void GameBeginningScene::processBehavior() {
     if (onActiveProgress(GAMEBEGINNING_PROG_END)) {
         _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE END");
         _pStringBoard02->update(200, 250, "GOOD LUCK");
-        end(140);
+        inactivateDelay(140);
     }
 }
 

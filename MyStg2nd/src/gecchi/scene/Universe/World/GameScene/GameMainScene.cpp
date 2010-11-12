@@ -91,7 +91,7 @@ void GameMainScene::processBehavior() {
         if (_pSceneMainCannnel) {
             //2面目以降はこのタイミングで前ステージをend
             _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
-            _pSceneMainCannnel->end(30*60);
+            _pSceneMainCannnel->extract()->end(180);
         }
 
         _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);

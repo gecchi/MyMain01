@@ -74,7 +74,8 @@ void GameDemoScene::processBehavior() {
         _pBgmPerformer->play(0, true);
 
         _frame_Title = 0;
-    } else if (getProgress() == GAMEDEMO_PROG_TITLE) {
+    }
+    if (getProgress() == GAMEDEMO_PROG_TITLE) {
         //タイトル活動ループ
         _frame_Title++;
 
@@ -114,7 +115,8 @@ void GameDemoScene::processBehavior() {
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE RANKING");
         _pStringBoard02->update(100, 150, "WE ARE THE WORLD. DESTORY ALL THEM. POWER UP");
         _frame_Ranking = 0;
-    } else if (getProgress() == GAMEDEMO_PROG_RANKING) {
+    }
+    if (getProgress() == GAMEDEMO_PROG_RANKING) {
         //ランキング活動ループ
         _frame_Ranking++;
 
@@ -153,7 +155,7 @@ void GameDemoScene::processBehavior() {
     if (onActiveProgress(GAMEDEMO_PROG_END)) {
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE END");
         _pStringBoard02->update(100, 150, "SRABA");
-        end(200);
+        inactivateDelay(200);
     }
 
 

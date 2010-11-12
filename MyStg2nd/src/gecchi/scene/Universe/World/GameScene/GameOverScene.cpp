@@ -25,6 +25,12 @@ void GameOverScene::processBehavior() {
     if (getActivePartFrame() == 10) {
         _pStringBoard01->update(100, 100, "GAME OVER");
     }
+
+    if (VB->isPushedDown(VB_UI_EXECUTE)) { //VB_UI_EXECUTE‚Åƒ^ƒCƒgƒ‹‚Ö
+        throwEventToUpperTree(EVENT_GAME_OVER_FINISH);
+        inactivateDelay(120);
+    }
+
 }
 
 void GameOverScene::processFinal() {

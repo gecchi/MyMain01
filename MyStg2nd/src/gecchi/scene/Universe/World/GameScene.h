@@ -6,7 +6,7 @@
 #define GAME_PROG_BEGINNING 3
 #define GAME_PROG_MAIN      4
 #define GAME_PROG_ENDING    5
-
+#define GAME_PROG_GAME_OVER 6
 #ifdef P_WORLD
     #define P_GAME_SCENE (P_WORLD->_pGameScene)
 #else

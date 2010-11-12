@@ -54,6 +54,7 @@ _pScene_GameOver(NULL) {
 void GameScene::initialize() {
     _TRACE_("GameScene::initialize() いきますよDemoSceneさん");
     _pScene_GameDemo->reset();
+    _pScene_GameDemo->ready();
     _pSceneCannel = _pScene_GameDemo;
 }
 
@@ -131,7 +132,9 @@ void GameScene::processBehavior() {
 
     } else if (_pSceneCannel == _pScene_GameMain) {
         if (_pScene_GameMain->getProgressOnActive() == GAMEMAIN_PROG_BEGIN) {
+            _pMyShipScene->reset();
             _pMyShipScene->activate();
+            _TRACE_("_pMyShipScene activateしました！");
 //            VB_UI->clear();
 //            VB_PLAY->clear();
 //            P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
@@ -222,6 +225,9 @@ void GameScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
         _TRACE_("GameScene EVENT_ALL_MY_SHIP_WAS_DESTROYED was Catch!!");
         if (true) { //GameOverかどうか分岐
+            _pMyShipScene->fadeoutScene(180);
+            _pMyShipScene->inactivateDelay(180);
+            _pScene_GameMain->_pSceneMainCannnel->fadeoutScene(180);
             _pSceneCannel = _pScene_GameOver;
             _pSceneCannel->activate();
             _pSceneCannel->changeProgress(GAMEOVER_PROG_BEGIN);
@@ -234,6 +240,13 @@ void GameScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
         _TRACE_("GameScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
     } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {
         _TRACE_("GameScene EVENT_MY_SHIP_WAS_DESTROYED_FINISH was Catch!!");
+    } else if (prm_no == EVENT_GAME_OVER_FINISH) {
+        _TRACE_("GameScene EVENT_GAME_OVER_FINISH was Catch!!");
+        _pSceneCannel = _pScene_GameDemo;
+        _pScene_GameDemo->reset();
+        _pScene_GameDemo->ready();
+        _pScene_GameDemo->activate();
+        _pScene_GameDemo->changeProgress(GAMEDEMO_PROG_BEGIN);
     }
 }
 
