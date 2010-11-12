@@ -90,7 +90,7 @@ void MyShipDivingCamWorker::processBehavior() {
     velo veloVzRenge = 4000;
 
     velo last_CAM_veloVxMv = pCam->_pMover->_veloVxMv;
-    velo  new_CAM_veloVxMv = dX_CAM*1.0 / _stop_renge;
+    velo  new_CAM_veloVxMv = 10000*(dX_CAM*1.0 / _stop_renge);
     if (last_CAM_veloVxMv-veloVxRenge <= new_CAM_veloVxMv && new_CAM_veloVxMv <= last_CAM_veloVxMv+veloVxRenge) {
         pCam->_pMover->setVxMvVelo(new_CAM_veloVxMv);
     } else {
@@ -101,7 +101,7 @@ void MyShipDivingCamWorker::processBehavior() {
         }
     }
     velo last_VP_veloVxMv = pVP->_pMover->_veloVxMv;
-    velo  new_VP_veloVxMv = dX_VP*1.0 / _stop_renge;
+    velo  new_VP_veloVxMv = 10000*(dX_VP*1.0 / _stop_renge);
     if (last_VP_veloVxMv-veloVxRenge <= new_VP_veloVxMv && new_VP_veloVxMv <= last_VP_veloVxMv+veloVxRenge) {
         pVP->_pMover->setVxMvVelo(new_VP_veloVxMv);
     } else {
@@ -113,7 +113,7 @@ void MyShipDivingCamWorker::processBehavior() {
     }
 
     velo last_CAM_veloVyMv = pCam->_pMover->_veloVyMv;
-    velo  new_CAM_veloVyMv = dY_CAM*1.0 / _stop_renge;
+    velo  new_CAM_veloVyMv = 10000*(dY_CAM*1.0 / _stop_renge);
     if (last_CAM_veloVyMv-veloVyRenge <= new_CAM_veloVyMv && new_CAM_veloVyMv <= last_CAM_veloVyMv+veloVyRenge) {
         pCam->_pMover->setVyMvVelo(new_CAM_veloVyMv);
     } else {
@@ -124,7 +124,7 @@ void MyShipDivingCamWorker::processBehavior() {
         }
     }
     velo last_VP_veloVyMv = pVP->_pMover->_veloVyMv;
-    velo  new_VP_veloVyMv = dY_VP*1.0 / _stop_renge;
+    velo  new_VP_veloVyMv = 10000*(dY_VP*1.0 / _stop_renge);
     if (last_VP_veloVyMv-veloVyRenge <= new_VP_veloVyMv && new_VP_veloVyMv <= last_VP_veloVyMv+veloVyRenge) {
         pVP->_pMover->setVyMvVelo(new_VP_veloVyMv);
     } else {
@@ -136,7 +136,7 @@ void MyShipDivingCamWorker::processBehavior() {
     }
 
     velo last_CAM_veloVzMv = pCam->_pMover->_veloVzMv;
-    velo  new_CAM_veloVzMv = dZ_CAM*1.0 / _stop_renge;
+    velo  new_CAM_veloVzMv = 10000*(dZ_CAM*1.0 / _stop_renge);
     if (last_CAM_veloVzMv-veloVzRenge <= new_CAM_veloVzMv && new_CAM_veloVzMv <= last_CAM_veloVzMv+veloVzRenge) {
         pCam->_pMover->setVzMvVelo(new_CAM_veloVzMv);
     } else {
@@ -147,7 +147,7 @@ void MyShipDivingCamWorker::processBehavior() {
         }
     }
     velo last_VP_veloVzMv = pVP->_pMover->_veloVzMv;
-    velo  new_VP_veloVzMv = dZ_VP*1.0 / _stop_renge;
+    velo  new_VP_veloVzMv = 10000*(dZ_VP*1.0 / _stop_renge);
     if (last_VP_veloVzMv-veloVzRenge <= new_VP_veloVzMv && new_VP_veloVzMv <= last_VP_veloVzMv+veloVzRenge) {
         pVP->_pMover->setVzMvVelo(new_VP_veloVzMv);
     } else {

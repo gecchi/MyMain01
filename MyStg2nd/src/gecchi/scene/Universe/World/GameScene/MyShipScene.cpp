@@ -35,61 +35,75 @@ void MyShipScene::processBehavior() {
 //        }
 //    }
 
-    if (onInactiveProgressAt(MYSHIPSCENE_PROG_BEGIN)) {
-        _TRACE_("MyShipScene onInactiveProgressAt(MYSHIPSCENE_PROG_BEGIN)");
-    } else if (onInactiveProgressAt(MYSHIPSCENE_PROG_APPEARANCE_NOMAL)) {
+    //前回Progress の onInactiveProgressAt() と、次のProgress の onActiveProgressAt() は
+    //同一フレームで条件が成立するため、
+    //onInactiveProgressAt(前回Progress) → onActiveProgressAt(今のProgress)
+    //の順に処理するために、onInactive系を纏めて先に処理されるよう上にもってくるしかない
+    //TODO:もっと直感的な書き方はないものか
+//    if (onInactiveProgressAt(MYSHIPSCENE_PROG_BEGIN)) {
+//        _TRACE_("MyShipScene onInactiveProgressAt(MYSHIPSCENE_PROG_BEGIN)");
+//    }
+    if (onInactiveProgressAt(MYSHIPSCENE_PROG_APPEARANCE_NOMAL)) {
         _TRACE_("MyShipScene onInactiveProgressAt(MYSHIPSCENE_PROG_APPEARANCE_NOMAL)");
         P_UNIVERSE->popCameraWork();
-    } else if (onInactiveProgressAt(MYSHIPSCENE_PROG_PLAY)) {
+    }
+    if (onInactiveProgressAt(MYSHIPSCENE_PROG_PLAY)) {
         _TRACE_("MyShipScene onInactiveProgressAt(MYSHIPSCENE_PROG_PLAY)");
         P_UNIVERSE->popCameraWork();
-    } else if (onInactiveProgressAt(MYSHIPSCENE_PROG_DESTROY)) {
-        _TRACE_("MyShipScene onInactiveProgressAt(MYSHIPSCENE_PROG_DESTROY)");
     }
+//    if (onInactiveProgressAt(MYSHIPSCENE_PROG_DESTROY)) {
+//        _TRACE_("MyShipScene onInactiveProgressAt(MYSHIPSCENE_PROG_DESTROY)");
+//    }
 
+    //MYSHIPSCENE_PROG_BEGIN 時の処理
     if (onActiveProgressAt(MYSHIPSCENE_PROG_BEGIN)) {
         _TRACE_("MyShipScene onActiveProgressAt(MYSHIPSCENE_PROG_BEGIN)");
         fadeinSceneTree(60);
         _pMyShip->_X = Universe::_X_goneLeft;
         _pMyShip->_isNoControl = true;
-    } else if (getProgress() == MYSHIPSCENE_PROG_BEGIN) {
+    }
+    if (getProgress() == MYSHIPSCENE_PROG_BEGIN) {
         setProgress(MYSHIPSCENE_PROG_APPEARANCE_NOMAL);
     }
 
-
+    //MYSHIPSCENE_PROG_APPEARANCE_NOMAL 時の処理
     if (onActiveProgressAt(MYSHIPSCENE_PROG_APPEARANCE_NOMAL)) {
         _TRACE_("MyShipScene onActiveProgressAt(MYSHIPSCENE_PROG_APPEARANCE_NOMAL)");
         P_UNIVERSE->pushCameraWork("MyShipDivingCamWorker");
         _pMyShipDivingCamWorker->setMoveTargetCam(-1000000, 1000000, 1000000);
         _pMyShipDivingCamWorker->setMoveTargetCamVpBy(_pMyShip);
-    } else if (getProgress() == MYSHIPSCENE_PROG_APPEARANCE_NOMAL) {
+    }
+    if (getProgress() == MYSHIPSCENE_PROG_APPEARANCE_NOMAL) {
         _pMyShip->_X += 10000;
-
+        _pMyShipDivingCamWorker->setMoveTargetCamVpBy(_pMyShip);
         if (_pMyShip->_X > 0) {
             setProgress(MYSHIPSCENE_PROG_PLAY);
         }
-    } 
+    }
 
-
+    //MYSHIPSCENE_PROG_PLAY 時の処理
     if (onActiveProgressAt(MYSHIPSCENE_PROG_PLAY)) {
         _TRACE_("MyShipScene onActiveProgressAt(MYSHIPSCENE_PROG_PLAY)");
         P_UNIVERSE->pushCameraWork("VamSysCamWorker");
         _pMyShip->_isNoControl = false;
-    } else if (getProgress() == MYSHIPSCENE_PROG_PLAY) {
+    }
+    if (getProgress() == MYSHIPSCENE_PROG_PLAY) {
 
-    } 
+    }
 
+    //MYSHIPSCENE_PROG_DESTROY 時の処理
     if (onActiveProgressAt(MYSHIPSCENE_PROG_DESTROY)) {
         _TRACE_("MyShipScene onActiveProgressAt(MYSHIPSCENE_PROG_DESTROY)");
         _pMyShip->_pEffectMyShipExplosion->activate();
         _pMyShip->_isNoControl = true;
-        fadeoutSceneTree(180);
-    } else if (getProgress() == MYSHIPSCENE_PROG_DESTROY) {
-        if (getActivePartFrameInProgress() == 240) {
+        fadeoutSceneTree(120);
+    }
+    if (getProgress() == MYSHIPSCENE_PROG_DESTROY) {
+        if (getActivePartFrameInProgress() == 120) {
             throwEventToUpperTree(MY_SHIP_WAS_DESTROYED_FINISH);
             setProgress(MYSHIPSCENE_PROG_BEGIN);
         }
-    } 
+    }
 }
 
 void MyShipScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
