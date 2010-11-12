@@ -40,6 +40,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameMainScene::reset() {
+    changeProgress(GAMEMAIN_PROG_INIT);
 }
 
 void GameMainScene::ready(int prm_stage) {
@@ -132,6 +133,7 @@ void GameMainScene::processBehavior() {
          P_GOD->setVB(VB_UI);  //戻す
         _TRACE_("オワタ");
         //ここでコンテニュー判断
+        inactivateDelay(180);
     }
     if (getProgress() == GAMEMAIN_PROG_END) {
         //GAMEMAIN_PROG_END時はなにもできない
@@ -169,14 +171,15 @@ void GameMainScene::processBehavior() {
 }
 
 void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
-        _TRACE_("GameMainScene EVENT_ALL_MY_SHIP_WAS_DESTROYED was Catch!!");
-        changeProgress(GAMEMAIN_PROG_END);
-    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
-        _TRACE_("GameMainScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
-    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {
-        _TRACE_("GameMainScene EVENT_MY_SHIP_WAS_DESTROYED_FINISH was Catch!!");
-    }
+//ここにMyshipのイベントはこないよ！
+//    if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
+//        _TRACE_("GameMainScene EVENT_ALL_MY_SHIP_WAS_DESTROYED was Catch!!");
+//        changeProgress(GAMEMAIN_PROG_END);
+//    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
+//        _TRACE_("GameMainScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
+//    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {
+//        _TRACE_("GameMainScene EVENT_MY_SHIP_WAS_DESTROYED_FINISH was Catch!!");
+//    }
 
 
     if (prm_no == EVENT_PREPARE_NEXT_STAGE) {

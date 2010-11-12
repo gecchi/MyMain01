@@ -113,7 +113,7 @@ void GameScene::processBehavior() {
         if (_pScene_GameBeginning->getProgressOnActive() == GAMEBEGINNING_PROG_BEGIN) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
-            _pScene_GameMain->reset();
+
         }
 
         if (_pScene_GameBeginning->getProgressOnActive() == GAMEBEGINNING_PROG_DECIDE) {
@@ -121,11 +121,13 @@ void GameScene::processBehavior() {
             P_GOD->setVB(VB_UI);
             _stage = _pScene_GameBeginning->_selected_stage;
             _pScene_GameMain->ready(_stage); //æs€”õ
+
         }
 
         if (_pScene_GameBeginning->getProgressOnActive() == GAMEBEGINNING_PROG_END) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
+            _pScene_GameMain->reset();
             _pScene_GameMain->activate();
             _pSceneCannel = _pScene_GameMain;
         }
@@ -155,20 +157,20 @@ void GameScene::processBehavior() {
             _pScene_GameDemo->ready();
 
         }
-        if (_pScene_GameMain->getProgressOnActive() == GAMEENDING_PROG_END) {
+        if (_pScene_GameEnding->getProgressOnActive() == GAMEENDING_PROG_END) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
             _pSceneCannel = _pScene_GameDemo;
         }
 
     } else if (_pSceneCannel == _pScene_GameOver) { //—]’n‚Ì‚È‚¢GAME_OVER
-        if (_pScene_GameMain->getProgressOnActive() == GAMEOVER_PROG_BEGIN) {
+        if (_pScene_GameOver->getProgressOnActive() == GAMEOVER_PROG_BEGIN) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
             _pScene_GameDemo->reset();
             _pScene_GameDemo->ready();
         }
-        if (_pScene_GameMain->getProgressOnActive() == GAMEOVER_PROG_END) {
+        if (_pScene_GameOver->getProgressOnActive() == GAMEOVER_PROG_END) {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);
             _pSceneCannel = _pScene_GameDemo;
@@ -227,7 +229,9 @@ void GameScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
         if (true) { //GameOver‚©‚Ç‚¤‚©•ªŠò
             _pMyShipScene->fadeoutScene(180);
             _pMyShipScene->inactivateDelay(180);
-            _pScene_GameMain->_pSceneMainCannnel->fadeoutScene(180);
+            _pScene_GameMain->changeProgress(GAMEMAIN_PROG_END);
+            _pScene_GameMain->_pSceneMainCannnel->fadeoutSceneTree(180);
+            _TRACE_(_pScene_GameMain->_pSceneMainCannnel->getName()<<" ‚ðfadeoutScene‚µ‚Ü‚·");
             _pSceneCannel = _pScene_GameOver;
             _pSceneCannel->activate();
             _pSceneCannel->changeProgress(GAMEOVER_PROG_BEGIN);

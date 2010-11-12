@@ -90,7 +90,7 @@ void MyShipScene::processBehavior() {
             if (_zanki == 0) {
                 throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
                 changeProgress(PROG_NOTHING);
-                inactivateDelay(60);
+                inactivateDelay(180);
             } else {
                 throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
                 changeProgress(MYSHIPSCENE_PROG_BEGIN);
