@@ -82,6 +82,11 @@ void GameMainScene::processBehavior() {
         GgafScene* pCommon = P_COMMON_SCENE->extract();
         addSubLast(pCommon); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
         changeProgress(GAMEMAIN_PROG_BEGIN);
+        if (_pSceneMainCannnel) {
+            //2面目以降はこのタイミングで前ステージをend
+            _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
+            _pSceneMainCannnel->end();
+        }
     }
 
     //GAMEMAIN_PROG_BEGIN
@@ -89,11 +94,7 @@ void GameMainScene::processBehavior() {
         _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
         _pFont1602->update(300, 350, "DESTOROY ALL THEM!!");
 
-        if (_pSceneMainCannnel) {
-            //2面目以降はこのタイミングで前ステージをend
-            _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
-            _pSceneMainCannnel->extract()->end(180);
-        }
+
 
         _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
         addSubLast(_pSceneMainCannnel); //ステージシーン追加

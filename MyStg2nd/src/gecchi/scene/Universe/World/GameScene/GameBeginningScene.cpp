@@ -12,6 +12,7 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard02);
+    _selected_stage = 0;
 }
 
 
@@ -57,7 +58,7 @@ void GameBeginningScene::processBehavior() {
         _frame_Ope++;
 
         if (VB->isPushedDown(VB_UI_EXECUTE)) {
-            _selected_stage = 1;
+            _selected_stage += 1; //ƒeƒXƒg
             changeProgress(GAMEBEGINNING_PROG_DECIDE);
         }
     }

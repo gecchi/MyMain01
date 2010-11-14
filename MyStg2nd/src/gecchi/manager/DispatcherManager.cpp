@@ -69,30 +69,31 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
         P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
     }
 
-//    //敵カーブレーザー01
-//    if (GgafUtil::strcmp_ascii("DpCon_EneCurveLaser001Dp", prm_idstr) == 0) {
-//        pResource = NEW LaserChipDispatcherDispatcher("DPDP_EneCurveLaser001");
-//        LaserChipDispatcher* pLaserChipDispatcher;
-//        EnemyCurveLaserChip001* pChip;
-//        for (int set = 0; set < 20; set++) {
-//            stringstream name;
-//            name <<  "EneCurveLaser001Dp["<<set<<"]";
-//            pLaserChipDispatcher = NEW LaserChipDispatcher(name.str().c_str());
-//            for (int n = 0; n < 50; n++) {
-//                stringstream name;
-//                name <<  "EneCurveLaser001["<<set<<"]["<<n<<"]";
-//                pChip = NEW EnemyCurveLaserChip001(name.str().c_str());
-//                pChip->inactivateImmediately();
-//                pLaserChipDispatcher->addSubLast(pChip);
-//                if (n % 20 == 0) { Sleep(1); }
-//            }
-//            pLaserChipDispatcher->inactivateImmediately();
-//            pResource->addSubLast(pLaserChipDispatcher);
-//
-//        }
-//        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
-//    }
+    //敵カーブレーザー01未使用。こぴぺのために残す
+	/*
+    if (GgafUtil::strcmp_ascii("DpCon_EneCurveLaser001Dp", prm_idstr) == 0) {
+        pResource = NEW LaserChipDispatcherDispatcher("DPDP_EneCurveLaser001");
+        LaserChipDispatcher* pLaserChipDispatcher;
+        EnemyCurveLaserChip001* pChip;
+        for (int set = 0; set < 20; set++) {
+            stringstream name;
+            name <<  "EneCurveLaser001Dp["<<set<<"]";
+            pLaserChipDispatcher = NEW LaserChipDispatcher(name.str().c_str());
+            for (int n = 0; n < 50; n++) {
+                stringstream name;
+                name <<  "EneCurveLaser001["<<set<<"]["<<n<<"]";
+                pChip = NEW EnemyCurveLaserChip001(name.str().c_str());
+                pChip->inactivateImmediately();
+                pLaserChipDispatcher->addSubLast(pChip);
+                if (n % 20 == 0) { Sleep(1); }
+            }
+            pLaserChipDispatcher->inactivateImmediately();
+            pResource->addSubLast(pLaserChipDispatcher);
 
+        }
+        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
+    }
+*/
 
     if (pResource == NULL) {
         throwGgafCriticalException("DispatcherManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。Dispatcherが作成できません。");
