@@ -40,7 +40,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameMainScene::reset() {
-    changeProgress(GAMEMAIN_PROG_INIT);
+    changeProgress(GAMEMAIN_SCENE_PROG_INIT);
 }
 
 void GameMainScene::ready(int prm_stage) {
@@ -70,18 +70,18 @@ void GameMainScene::ready(int prm_stage) {
 
 void GameMainScene::initialize() {
 
-    changeProgress(GAMEMAIN_PROG_INIT);
+    changeProgress(GAMEMAIN_SCENE_PROG_INIT);
     //initialize()時はinactive()であることに注意する事
 }
 
 void GameMainScene::processBehavior() {
-    if (getProgress() == GAMEMAIN_PROG_INIT) {
+    if (getProgress() == GAMEMAIN_SCENE_PROG_INIT) {
         VB_UI->clear();
         VB_PLAY->clear();
         P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
         GgafScene* pCommon = P_COMMON_SCENE->extract();
         addSubLast(pCommon); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
-        changeProgress(GAMEMAIN_PROG_BEGIN);
+        changeProgress(GAMEMAIN_SCENE_PROG_BEGIN);
         if (_pSceneMainCannnel) {
             //2面目以降はこのタイミングで前ステージをend
             _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
@@ -89,8 +89,8 @@ void GameMainScene::processBehavior() {
         }
     }
 
-    //GAMEMAIN_PROG_BEGIN
-    if (onActiveProgress(GAMEMAIN_PROG_BEGIN)) {
+    //GAMEMAIN_SCENE_PROG_BEGIN
+    if (onActiveProgress(GAMEMAIN_SCENE_PROG_BEGIN)) {
         _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
         _pFont1602->update(300, 350, "DESTOROY ALL THEM!!");
 
@@ -102,42 +102,42 @@ void GameMainScene::processBehavior() {
         _had_ready_stage = false;
         _frame_Begin = 0;
     }
-    if (getProgress() == GAMEMAIN_PROG_BEGIN) {
+    if (getProgress() == GAMEMAIN_SCENE_PROG_BEGIN) {
         //活動ループ
         _frame_Begin++;
 
         if (_frame_Begin == 180) {
-            changeProgress(GAMEMAIN_PROG_PLAY); //
+            changeProgress(GAMEMAIN_SCENE_PROG_PLAY); //
         }
     }
 
-    //GAMEMAIN_PROG_PLAY
-    if (onActiveProgress(GAMEMAIN_PROG_PLAY)) {
+    //GAMEMAIN_SCENE_PROG_PLAY
+    if (onActiveProgress(GAMEMAIN_SCENE_PROG_PLAY)) {
         _pFont1601->update(300, 300, "");
         _pFont1602->update(300, 350, "");
 
     }
-    if (getProgress() == GAMEMAIN_PROG_PLAY) {
+    if (getProgress() == GAMEMAIN_SCENE_PROG_PLAY) {
         //活動ループ
         if (_had_ready_stage) {
             _frame_ready_stage++;
             if (_frame_ready_stage == 5*60) {
                 _TRACE_("新ステージCOMEING!!");
-                changeProgress(GAMEMAIN_PROG_BEGIN);
+                changeProgress(GAMEMAIN_SCENE_PROG_BEGIN);
             }
         }
     }
 
-    //GAMEMAIN_PROG_END 終了処理
-    if (onActiveProgress(GAMEMAIN_PROG_END)) {
+    //GAMEMAIN_SCENE_PROG_END 終了処理
+    if (onActiveProgress(GAMEMAIN_SCENE_PROG_END)) {
          VB_UI->clear();
          P_GOD->setVB(VB_UI);  //戻す
         _TRACE_("オワタ");
         //ここでコンテニュー判断
         inactivateDelay(180);
     }
-    if (getProgress() == GAMEMAIN_PROG_END) {
-        //GAMEMAIN_PROG_END時はなにもできない
+    if (getProgress() == GAMEMAIN_SCENE_PROG_END) {
+        //GAMEMAIN_SCENE_PROG_END時はなにもできない
     }
 
 
@@ -156,7 +156,7 @@ void GameMainScene::processBehavior() {
     sprintf(_buf, "Z:%8d", P_MYSHIP->_Z);
     _pFont8_JIKI_Z->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*1-1, _buf);
 
-    if (getProgress() == GAMEMAIN_PROG_PLAY || getProgress() == GAMEMAIN_PROG_BEGIN) {
+    if (getProgress() == GAMEMAIN_SCENE_PROG_PLAY || getProgress() == GAMEMAIN_SCENE_PROG_BEGIN) {
 
         //一時停止
         if (VB_PLAY->isReleasedUp(VB_PAUSE) || P_GAME_SCENE->_is_frame_advance) {
@@ -175,7 +175,7 @@ void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
 //ここにMyshipのイベントはこないよ！
 //    if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
 //        _TRACE_("GameMainScene EVENT_ALL_MY_SHIP_WAS_DESTROYED was Catch!!");
-//        changeProgress(GAMEMAIN_PROG_END);
+//        changeProgress(GAMEMAIN_SCENE_PROG_END);
 //    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
 //        _TRACE_("GameMainScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
 //    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {
@@ -192,7 +192,7 @@ void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
 
         } else {
             _TRACE_("最終面クリア");
-            changeProgress(GAMEMAIN_PROG_END);
+            changeProgress(GAMEMAIN_SCENE_PROG_END);
             //TODO:エデニング？
         }
     }

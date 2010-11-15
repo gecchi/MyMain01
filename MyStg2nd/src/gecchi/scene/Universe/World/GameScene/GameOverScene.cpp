@@ -12,7 +12,7 @@ GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameOverScene::reset() {
-    //changeProgress(GAMEENDING_PROG_INIT);
+    //changeProgress(GAMEENDING_SCENE_PROG_INIT);
 }
 void GameOverScene::ready() {
     _TRACE_("GameOverScene::ready()");

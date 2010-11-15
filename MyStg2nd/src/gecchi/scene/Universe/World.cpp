@@ -50,6 +50,7 @@ void World::processBehavior() {
             //TODO:I—¹ˆ—
         }
     } else {
+        //GameSceneì¬Š®—¹‚Ü‚Å‘Ò‚Â
         if (MyFactory::chkProgress(2) == 2) {
             _pGameScene = (GameScene*)obtainSceneFromFactory(2);
             addSubLast(_pGameScene);

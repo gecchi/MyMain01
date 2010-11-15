@@ -56,7 +56,7 @@ void EnemyThalia::onActive() {
     _pMover->execSmoothMvVeloSequence(_veloTopMv, 300, MyShip::_lim_front - _X);
 //    _TRACE_("execSmoothMvVeloSequence START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離="<<(MyShip::_lim_front - _X)<<" veloMv="<<(_pMover->_veloMv));
 
-    changeProgress(THALIA_PROG_MOVE);
+    changeProgress(THALIA_SCENE_PROG_MOVE);
     _iMovePatternNo = 0; //行動パターンリセット
 
 }
@@ -65,7 +65,7 @@ void EnemyThalia::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    if (getProgress() == THALIA_PROG_MOVE) {
+    if (getProgress() == THALIA_SCENE_PROG_MOVE) {
         if (!_pMover->isMoveingSmooth()) {
 //            _TRACE_("execSmoothMvVeloSequence END ("<<_X<<","<<_Y<<","<<_Z<<") veloMv="<<(_pMover->_veloMv));
 
@@ -73,24 +73,24 @@ void EnemyThalia::processBehavior() {
             _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                 0, 100,
                                                 TURN_CLOSE_TO);
-            changeProgress(THALIA_PROG_TURN_OPEN);
+            changeProgress(THALIA_SCENE_PROG_TURN_OPEN);
         }
     }
 
-    if (getProgress() == THALIA_PROG_TURN_OPEN) {
+    if (getProgress() == THALIA_SCENE_PROG_TURN_OPEN) {
         if (_pMorpher->_method[1] == NOMORPH ) {
-            changeProgress(THALIA_PROG_FIRE_BEGIN);
+            changeProgress(THALIA_SCENE_PROG_FIRE_BEGIN);
         }
     }
 
-    if (getProgress() == THALIA_PROG_FIRE_BEGIN) {
+    if (getProgress() == THALIA_SCENE_PROG_FIRE_BEGIN) {
         _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                             100, 0,
                                             TURN_CLOSE_TO);
-        changeProgress(THALIA_PROG_IN_FIRE);
+        changeProgress(THALIA_SCENE_PROG_IN_FIRE);
     }
 
-    if (getProgress() == THALIA_PROG_IN_FIRE) {
+    if (getProgress() == THALIA_SCENE_PROG_IN_FIRE) {
         _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                             100, 0,
                                             TURN_CLOSE_TO);
@@ -102,7 +102,7 @@ void EnemyThalia::processBehavior() {
                 _pMover->setFaceAngVelo(AXIS_X, 4000);
             }
         } else {
-            changeProgress(THALIA_PROG_MOVE);
+            changeProgress(THALIA_SCENE_PROG_MOVE);
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
             _pMover->execSmoothMvVeloSequence(_veloTopMv, 200, 4000000);
 //             _TRACE_("execSmoothMvVeloSequence START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離=1500000 veloMv="<<(_pMover->_veloMv));
@@ -125,7 +125,7 @@ void EnemyThalia::processJudgement() {
 void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
-    if (getProgress() == THALIA_PROG_IN_FIRE) {
+    if (getProgress() == THALIA_SCENE_PROG_IN_FIRE) {
         changeEffectTechniqueInterim("Flush", 2); //フラッシュ
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {

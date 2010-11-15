@@ -122,6 +122,10 @@ AVAILABLE_EVENT(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
 AVAILABLE_EVENT(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
 AVAILABLE_EVENT(EVENT_GAME_OVER_FINISH);
 
+
+AVAILABLE_EVENT(EVENT_GAMETITLE_SCENE_FINISH);
+AVAILABLE_EVENT(EVENT_GAMETITLE_SCENE_GAMESTART);
+
 namespace MyStg2nd {
 
 //その他のヘッダファイルはここに記述
@@ -131,15 +135,13 @@ class World;
 
 class CommonScene;
 
-class BackGround01;
-class BackGroundChipBoard;
-
-
+class TitleBoard;
 
 
 class PreDrawScene;
 class GameScene;
 class MyShipScene;
+class GameTitleScene;
 class GameDemoScene;
 class GameBeginningScene;
 class GameMainScene;
@@ -307,6 +309,7 @@ class LaserChipEffectActor;
 #include "gecchi/scene/Universe/World/GameScene.h"
 
 #include "gecchi/scene/Universe/World/GameScene/MyShipScene.h"
+#include "gecchi/scene/Universe/World/GameScene/GameTitleScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameDemoScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameBeginningScene.h"
 #include "gecchi/scene/Universe/World/GameScene/CommonScene.h"
@@ -383,8 +386,7 @@ class LaserChipEffectActor;
 
 #include "gecchi/actor/enemy/Tamago/TamagoActor.h"
 #include "gecchi/actor/enemy/Tamago/EnemyTamago01.h"
-#include "gecchi/actor/background/BackGround01.h"
-#include "gecchi/actor/background/board/BackGroundChipBoard.h"
+#include "gecchi/actor/title/TitleBoard.h"
 #include "gecchi/actor/background/board/TurboMeter.h"
 #include "gecchi/actor/background/HoshiBoshi001.h"
 #include "gecchi/actor/background/HoshiBoshi002.h"

@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EffectLockon001_Sub::EffectLockon001_Sub(const char* prm_name) : EffectLockon001(prm_name, "8/Lockon001_Sub") {
     _class_name = "EffectLockon001_Sub";
-    changeProgress(EffectLockon001_PROG_LOCK);
+    changeProgress(EffectLockon001_SCENE_PROG_LOCK);
 }
 
 void EffectLockon001_Sub::initialize() {
@@ -26,17 +26,17 @@ void EffectLockon001_Sub::onActive() {
     //_pSeTransmitter->play3D(0); //ÉçÉbÉNÉIÉìSE
     setCoordinateBy(_pTarget);
 
-    changeProgress(EffectLockon001_PROG_LOCK);
+    changeProgress(EffectLockon001_SCENE_PROG_LOCK);
 }
 
 void EffectLockon001_Sub::processBehavior() {
     EffectLockon001::processBehavior();
 
-    if (getProgress() == EffectLockon001_PROG_LOCK) {
+    if (getProgress() == EffectLockon001_SCENE_PROG_LOCK) {
         if (getAlpha() < 0.7) {
-            if (_pEffectLockon001_Main->getProgress() == EffectLockon001_PROG_LOCK) {
+            if (_pEffectLockon001_Main->getProgress() == EffectLockon001_SCENE_PROG_LOCK) {
                 addAlpha(0.07);
-            } else if (_pEffectLockon001_Main->getProgress() == EffectLockon001_PROG_FIRST_LOCK) {
+            } else if (_pEffectLockon001_Main->getProgress() == EffectLockon001_SCENE_PROG_FIRST_LOCK) {
                 addAlpha(0.01);
             } else {
                 addAlpha(0.01);
@@ -57,14 +57,14 @@ void EffectLockon001_Sub::processBehavior() {
                      _pMover->setMvVelo(200000);
                  }
              } else {
-                 changeProgress(EffectLockon001_PROG_RELEASE);
+                 changeProgress(EffectLockon001_SCENE_PROG_RELEASE);
              }
          } else {
-             changeProgress(EffectLockon001_PROG_RELEASE);
+             changeProgress(EffectLockon001_SCENE_PROG_RELEASE);
          }
     }
 
-    if (getProgress() == EffectLockon001_PROG_RELEASE) {
+    if (getProgress() == EffectLockon001_SCENE_PROG_RELEASE) {
         _pTarget = NULL;
         addAlpha(-0.05);
         _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
@@ -92,19 +92,19 @@ void EffectLockon001_Sub::lockon(GgafDx9GeometricActor* prm_pTarget) {
     }
     _pTarget = prm_pTarget;
 
-    if (getProgress() == EffectLockon001_PROG_LOCK) {
-    } else if (getProgress() == EffectLockon001_PROG_RELEASE) {
+    if (getProgress() == EffectLockon001_SCENE_PROG_LOCK) {
+    } else if (getProgress() == EffectLockon001_SCENE_PROG_RELEASE) {
         _pMover->setFaceAngVelo(AXIS_Z, 1000);   //âEâÒì]
-        changeProgress(EffectLockon001_PROG_LOCK);
+        changeProgress(EffectLockon001_SCENE_PROG_LOCK);
     }
 
 }
 void EffectLockon001_Sub::releaseLockon() {
     if (isActive()) {
-        if (getProgress() == EffectLockon001_PROG_LOCK) {
+        if (getProgress() == EffectLockon001_SCENE_PROG_LOCK) {
             _pMover->setFaceAngVelo(AXIS_Z, _pMover->_angveloFace[AXIS_Z]*-3); //ë¨Ç≠ãtâÒì]
-            changeProgress(EffectLockon001_PROG_RELEASE);
-        } else if (getProgress() == EffectLockon001_PROG_RELEASE) {
+            changeProgress(EffectLockon001_SCENE_PROG_RELEASE);
+        } else if (getProgress() == EffectLockon001_SCENE_PROG_RELEASE) {
             //âΩÇ‡ñ≥Çµ
         }
     }

@@ -31,60 +31,60 @@ void MyShipScene::onActive() {
     _TRACE_("MyShipScene onActive()");
     _zanki = 2;
     fadeinSceneTree(1);
-    changeProgress(MYSHIPSCENE_PROG_BEGIN);
+    changeProgress(MYSHIPSCENE_SCENE_PROG_BEGIN);
 }
 
 void MyShipScene::processBehavior() {
 
-    //MYSHIPSCENE_PROG_BEGIN Žž‚Ìˆ—
-    if (onActiveProgress(MYSHIPSCENE_PROG_BEGIN)) {
+    //MYSHIPSCENE_SCENE_PROG_BEGIN Žž‚Ìˆ—
+    if (onActiveProgress(MYSHIPSCENE_SCENE_PROG_BEGIN)) {
         fadeinSceneTree(60);
         _pMyShip->_X = Universe::_X_goneLeft;
         _pMyShip->_isNoControl = true;
     }
-    if (getProgress() == MYSHIPSCENE_PROG_BEGIN) {
-        changeProgress(MYSHIPSCENE_PROG_APPEARANCE_NOMAL);
+    if (getProgress() == MYSHIPSCENE_SCENE_PROG_BEGIN) {
+        changeProgress(MYSHIPSCENE_SCENE_PROG_APPEARANCE_NOMAL);
     }
-    if (onInactiveProgress(MYSHIPSCENE_PROG_BEGIN)) {
+    if (onInactiveProgress(MYSHIPSCENE_SCENE_PROG_BEGIN)) {
     }
 
-    //MYSHIPSCENE_PROG_APPEARANCE_NOMAL Žž‚Ìˆ—
-    if (onActiveProgress(MYSHIPSCENE_PROG_APPEARANCE_NOMAL)) {
+    //MYSHIPSCENE_SCENE_PROG_APPEARANCE_NOMAL Žž‚Ìˆ—
+    if (onActiveProgress(MYSHIPSCENE_SCENE_PROG_APPEARANCE_NOMAL)) {
         P_UNIVERSE->pushCameraWork("MyShipDivingCamWorker");
         _pMyShipDivingCamWorker->setMoveTargetCam(-1000000, 1000000, 1000000);
         _pMyShipDivingCamWorker->setMoveTargetCamVpBy(_pMyShip);
     }
-    if (getProgress() == MYSHIPSCENE_PROG_APPEARANCE_NOMAL) {
+    if (getProgress() == MYSHIPSCENE_SCENE_PROG_APPEARANCE_NOMAL) {
         _pMyShip->_X += 30000;
         _pMyShipDivingCamWorker->setMoveTargetCamVpBy(_pMyShip);
         if (_pMyShip->_X > 0) {
-            changeProgress(MYSHIPSCENE_PROG_PLAY);
+            changeProgress(MYSHIPSCENE_SCENE_PROG_PLAY);
         }
     }
-    if (onInactiveProgress(MYSHIPSCENE_PROG_APPEARANCE_NOMAL)) {
+    if (onInactiveProgress(MYSHIPSCENE_SCENE_PROG_APPEARANCE_NOMAL)) {
         P_UNIVERSE->popCameraWork();
     }
 
-    //MYSHIPSCENE_PROG_PLAY Žž‚Ìˆ—
-    if (onActiveProgress(MYSHIPSCENE_PROG_PLAY)) {
+    //MYSHIPSCENE_SCENE_PROG_PLAY Žž‚Ìˆ—
+    if (onActiveProgress(MYSHIPSCENE_SCENE_PROG_PLAY)) {
         P_UNIVERSE->pushCameraWork("VamSysCamWorker");
         _pMyShip->_isNoControl = false;
     }
-    if (getProgress() == MYSHIPSCENE_PROG_PLAY) {
+    if (getProgress() == MYSHIPSCENE_SCENE_PROG_PLAY) {
 
     }
-    if (onInactiveProgress(MYSHIPSCENE_PROG_PLAY)) {
+    if (onInactiveProgress(MYSHIPSCENE_SCENE_PROG_PLAY)) {
         P_UNIVERSE->popCameraWork();
     }
 
-    //MYSHIPSCENE_PROG_DESTROY Žž‚Ìˆ—
-    if (onActiveProgress(MYSHIPSCENE_PROG_DESTROY)) {
+    //MYSHIPSCENE_SCENE_PROG_DESTROY Žž‚Ìˆ—
+    if (onActiveProgress(MYSHIPSCENE_SCENE_PROG_DESTROY)) {
         _pMyShip->_pEffectMyShipExplosion->activate();
         _pMyShip->_isNoControl = true;
         fadeoutSceneTree(120);
         _zanki -= 1;
     }
-    if (getProgress() == MYSHIPSCENE_PROG_DESTROY) {
+    if (getProgress() == MYSHIPSCENE_SCENE_PROG_DESTROY) {
         if (getActivePartFrameInProgress() == 120) {
 
             if (_zanki == 0) {
@@ -93,11 +93,11 @@ void MyShipScene::processBehavior() {
                 inactivateDelay(180);
             } else {
                 throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
-                changeProgress(MYSHIPSCENE_PROG_BEGIN);
+                changeProgress(MYSHIPSCENE_SCENE_PROG_BEGIN);
             }
         }
     }
-    if (onInactiveProgress(MYSHIPSCENE_PROG_DESTROY)) {
+    if (onInactiveProgress(MYSHIPSCENE_SCENE_PROG_DESTROY)) {
 
     }
 }
@@ -106,7 +106,7 @@ void MyShipScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
         _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
 
-        changeProgress(MYSHIPSCENE_PROG_DESTROY);
+        changeProgress(MYSHIPSCENE_SCENE_PROG_DESTROY);
     } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {
         _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_FINISH was Catch!!");
         //changeProgress()

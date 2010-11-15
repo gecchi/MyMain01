@@ -1,13 +1,12 @@
 #ifndef GAMEDEMOSCENE_H_
 #define GAMEDEMOSCENE_H_
 
-#define GAMEDEMO_PROG_INIT              1
-#define GAMEDEMO_PROG_BEGIN             2
-#define GAMEDEMO_PROG_TITLE             3
-#define GAMEDEMO_PROG_DEMOPLAY          4
-#define GAMEDEMO_PROG_RANKING           5
-#define GAMEDEMO_PROG_DECIDE  6
-#define GAMEDEMO_PROG_END     7
+#define GAMEDEMO_SCENE_PROG_INIT              1
+#define GAMEDEMO_SCENE_PROG_BEGIN             2
+#define GAMEDEMO_SCENE_PROG_TITLE             3
+#define GAMEDEMO_SCENE_PROG_DEMOPLAY          4
+#define GAMEDEMO_SCENE_PROG_RANKING           5
+#define GAMEDEMO_SCENE_PROG_DECIDE  6
 
 namespace MyStg2nd {
 
@@ -34,12 +33,13 @@ public:
     frame _frame_End;
 
     GameDemoScene(const char* prm_name);
-    void reset();
-    void ready();
+    void reset() override;
+//    void ready();
 
     void initialize() override;
-    virtual void processBehavior() override;
-    virtual void processFinal() override;
+    void onActive() override;
+    void processBehavior() override;
+    void processFinal() override;
     virtual ~GameDemoScene();
 };
 
