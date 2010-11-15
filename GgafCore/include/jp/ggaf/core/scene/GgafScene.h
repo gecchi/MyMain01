@@ -1,7 +1,7 @@
 #ifndef GGAFSCENE_H_
 #define GGAFSCENE_H_
 
-#define SCENE_PROG_NEW -1
+#define SCENE_SCENE_PROG_NEW -1
 #define SCENE_NOTHING_EVENT 0
 
 namespace GgafCore {
