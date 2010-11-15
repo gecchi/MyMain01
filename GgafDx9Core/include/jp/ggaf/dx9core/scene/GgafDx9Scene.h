@@ -89,6 +89,11 @@ public :
      */
     void fadeoutScene(int prm_frame_fade);
 
+    /**
+     * ˆÃ“]
+     */
+    void blackoutScene();
+
     virtual ~GgafDx9Scene();
 };
 

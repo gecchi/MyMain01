@@ -109,6 +109,11 @@ void GgafDx9Scene::fadeoutScene(int prm_frame_fade){
     }
 }
 
+void GgafDx9Scene::blackoutScene() {
+    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+
+    }
+}
 
 GgafDx9Scene::~GgafDx9Scene() {
     DELETE_IMPOSSIBLE_NULL(_pAlphaCurtain);

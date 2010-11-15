@@ -7,7 +7,9 @@ GgafDx9AlphaCurtain::GgafDx9AlphaCurtain(GgafDx9Scene* prm_pDxScene) : GgafCurta
     _pDxScene = prm_pDxScene;
     _alpha = 1.0;
 }
-
+void GgafDx9AlphaCurtain::closeRightNow() {
+‚±‚±‚±‚±
+}
 
 GgafDx9AlphaCurtain::~GgafDx9AlphaCurtain() {
 }
