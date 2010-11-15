@@ -92,7 +92,10 @@ public :
     /**
      * ˆÃ“]
      */
-    void blackoutScene();
+    void openCurtain();
+    void openCurtainTree();
+    void closeCurtain();
+    void closeCurtainTree();
 
     virtual ~GgafDx9Scene();
 };

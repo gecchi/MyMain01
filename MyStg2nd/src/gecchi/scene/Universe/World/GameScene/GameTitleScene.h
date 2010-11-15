@@ -4,6 +4,7 @@
 #define GAMETITLE_SCENE_PROG_INIT          1
 #define GAMETITLE_SCENE_PROG_PRE_TITLE     2
 #define GAMETITLE_SCENE_PROG_TITLE         3
+#define GAMETITLE_SCENE_PROG_FINISH        4
 
 namespace MyStg2nd {
 

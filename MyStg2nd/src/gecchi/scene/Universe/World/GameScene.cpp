@@ -58,7 +58,7 @@ _pScene_GameOver(NULL) {
 void GameScene::initialize() {
     _TRACE_("GameScene::initialize() ‚¢‚«‚Ü‚·‚æDemoScene‚³‚ñ");
     _pScene_GameDemo->reset();
-    _pScene_GameDemo->ready();
+//    _pScene_GameDemo->ready();
 //    _pSceneCannel = _pScene_GameDemo;
 }
 
@@ -108,11 +108,10 @@ void GameScene::processBehavior() {
 
     //GAME_SCENE_PROG_TITLE Žž‚Ìˆ—
     if (onActiveProgress(GAME_SCENE_PROG_TITLE)) {
+        _TRACE_("GameScene onActiveProgress(GAME_SCENE_PROG_TITLE)");
         VB_UI->clear();
         P_GOD->setVB(VB_UI);
         _pScene_GameTitle->activate();
-        _pScene_GameTitle->fadeinScene(100);
-        _pScene_GameTitle->fadeinScene(100);
     }
     if (getProgress() == GAME_SCENE_PROG_TITLE) {
         //ƒCƒxƒ“ƒg‘Ò‚¿
@@ -120,21 +119,20 @@ void GameScene::processBehavior() {
         //EVENT_GAMETITLE_SCENE_GAMESTART
     }
     if (onInactiveProgress(GAME_SCENE_PROG_TITLE)) {
-        _pScene_GameTitle->fadeoutSceneTree(100);
-        _pScene_GameTitle->inactivateDelay(100);
+        _TRACE_("GameScene onInactiveProgress(GAME_SCENE_PROG_TITLE)");
     }
 
     //GAME_SCENE_PROG_DEMO Žž‚Ìˆ—
     if (onActiveProgress(GAME_SCENE_PROG_DEMO)) {
         VB_UI->clear();
         P_GOD->setVB(VB_UI);
-        _pScene_GameBeginning->activate();
+//        _pScene_GameBeginning->activate();
     }
     if (getProgress() == GAME_SCENE_PROG_DEMO) {
     }
     if (onInactiveProgress(GAME_SCENE_PROG_DEMO)) {
-        _pScene_GameTitle->fadeoutSceneTree(120);
-        _pScene_GameTitle->inactivateDelay(120);
+//        _pScene_GameTitle->fadeoutSceneTree(120);
+//        _pScene_GameTitle->inactivateDelay(120);
     }
 
 

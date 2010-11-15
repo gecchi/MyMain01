@@ -18,10 +18,23 @@ void GgafCurtain::open(float prm_opening_velocity) {
     _state = OPEN;
 }
 
+void GgafCurtain::open() {
+    _now_curtain_length = 0.0f;
+    _state = OPENED;
+    processOpenDone();
+}
+
 void GgafCurtain::close(float prm_closeing_velocity) {
     _closeing_velocity = prm_closeing_velocity;
     _state = CLOSE;
 }
+
+void GgafCurtain::close() {
+    _now_curtain_length = _curtain_length;
+    _state = CLOSED;
+    processCloseDone();
+}
+
 
 void GgafCurtain::behave() {
 

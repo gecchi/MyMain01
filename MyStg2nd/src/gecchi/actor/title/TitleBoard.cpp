@@ -15,8 +15,7 @@ void TitleBoard::initialize() {
 }
 
 void TitleBoard::onActive() {
-    setAlpha(0.0);
-    changeProgress(TITLEBOARD_PROG_INIT);
+//    changeProgress(TITLEBOARD_PROG_INIT);
 }
 
 void TitleBoard::processBehavior() {
@@ -26,11 +25,9 @@ void TitleBoard::processBehavior() {
 
     //タイトル表示アクション TITLEBOARD_PROG_ENTRANCE 時の処理
     if (onActiveProgress(TITLEBOARD_PROG_ENTRANCE)) {
-        setAlpha(0.0);
         setCoordinate(200, 1000);
     }
     if (getProgress() == TITLEBOARD_PROG_ENTRANCE) {
-        addAlpha(0.01);
         _y -= 1;
         if (_y <= 150) {
             changeProgress(TITLEBOARD_PROG_DISP);
@@ -41,7 +38,6 @@ void TitleBoard::processBehavior() {
 
     //タイトル表示静止 TITLEBOARD_PROG_DISP 時の処理
     if (onActiveProgress(TITLEBOARD_PROG_DISP)) {
-        setAlpha(1.0);
         setCoordinate(200, 150);
     }
     if (getProgress() == TITLEBOARD_PROG_DISP) {

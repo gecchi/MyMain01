@@ -44,16 +44,26 @@ public:
     GgafCurtain(GgafScene* prm_pScene);
 
     /**
-     * カーテンを開ける .
+     * カーテンを徐々に開ける .
      * @param prm_opening_velocity カーテンを開ける速度
      */
-    virtual void open(float prm_opening_velocity = 1.0f);
+    virtual void open(float prm_opening_velocity);
+
+    /**
+     * カーテンを最大に開ける .
+     */
+    virtual void open();
+
+    /**
+     * カーテンを徐々に閉める .
+     * @param prm_closeing_velocity カーテンを閉める速度
+     */
+    virtual void close(float prm_closeing_velocity);
 
     /**
      * カーテンを閉める .
-     * @param prm_closeing_velocity カーテンを閉める速度
      */
-    virtual void close(float prm_closeing_velocity = 1.0f);
+    virtual void close();
 
     /**
      * カーテンを動かす .

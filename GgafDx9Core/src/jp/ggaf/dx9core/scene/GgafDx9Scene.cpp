@@ -109,11 +109,52 @@ void GgafDx9Scene::fadeoutScene(int prm_frame_fade){
     }
 }
 
-void GgafDx9Scene::blackoutScene() {
-    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
 
+void GgafDx9Scene::openCurtain() {
+    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+        _pAlphaCurtain->open();
     }
 }
+void GgafDx9Scene::openCurtainTree() {
+    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+        _pAlphaCurtain->open();
+        if (getSubFirst() != NULL) {
+            GgafDx9Scene* pScene = (GgafDx9Scene*)getSubFirst();
+            while(true) {
+                pScene->openCurtainTree();
+                if (pScene->isLast()) {
+                    break;
+                } else {
+                    pScene = (GgafDx9Scene*)(pScene->getNext());
+                }
+            }
+        }
+    }
+}
+void GgafDx9Scene::closeCurtain() {
+    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+        _pAlphaCurtain->close();
+    }
+}
+void GgafDx9Scene::closeCurtainTree() {
+    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+        _pAlphaCurtain->close();
+        if (getSubFirst() != NULL) {
+            GgafDx9Scene* pScene = (GgafDx9Scene*)getSubFirst();
+            while(true) {
+                pScene->closeCurtainTree();
+                if (pScene->isLast()) {
+                    break;
+                } else {
+                    pScene = (GgafDx9Scene*)(pScene->getNext());
+                }
+            }
+        }
+    }
+}
+
+
+
 
 GgafDx9Scene::~GgafDx9Scene() {
     DELETE_IMPOSSIBLE_NULL(_pAlphaCurtain);

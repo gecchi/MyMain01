@@ -15,25 +15,23 @@ public:
     float _alpha;
     GgafDx9AlphaCurtain(GgafDx9Scene* prm_pScene);
 
-    void closeRightNow();
+    void processOpenBegin() override {}
 
-    virtual void processOpenBegin() override {}
-
-    virtual void processOpening() override {
+    void processOpening() override {
         _alpha = 1.0 - _now_curtain_length;
     }
 
-    virtual void processOpenDone() override {
+    void processOpenDone() override {
         _alpha = 1.0f;
     }
 
-    virtual void processCloseBegin() override {}
+    void processCloseBegin() override {}
 
-    virtual void processClosing() override {
+    void processClosing() override {
         _alpha = 1.0 - _now_curtain_length;
     }
 
-    virtual void processCloseDone() override {
+    void processCloseDone() override {
         _alpha = 0.0f;
     }
 
