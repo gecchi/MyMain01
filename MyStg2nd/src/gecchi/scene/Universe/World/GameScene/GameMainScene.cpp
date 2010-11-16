@@ -43,7 +43,7 @@ void GameMainScene::reset() {
     changeProgress(GAMEMAIN_SCENE_PROG_INIT);
 }
 
-void GameMainScene::ready(int prm_stage) {
+void GameMainScene::readyStage(int prm_stage) {
     _stage = prm_stage;
     _had_ready_stage = true;
     _frame_ready_stage = 0;
@@ -82,7 +82,7 @@ void GameMainScene::processBehavior() {
         GgafScene* pCommon = P_COMMON_SCENE->extract();
         addSubLast(pCommon); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
         changeProgress(GAMEMAIN_SCENE_PROG_BEGIN);
-        if (_pSceneMainCannnel) {
+        if (_pSceneMainCannnel && !_pSceneMainCannnel->wasDeclaredEnd()) {
             //2面目以降はこのタイミングで前ステージをend
             _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
             _pSceneMainCannnel->end();
@@ -171,7 +171,7 @@ void GameMainScene::processBehavior() {
     }
 }
 
-void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
+void GameMainScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 //ここにMyshipのイベントはこないよ！
 //    if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
 //        _TRACE_("GameMainScene EVENT_ALL_MY_SHIP_WAS_DESTROYED was Catch!!");
@@ -185,7 +185,7 @@ void GameMainScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
 
     if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
         //次のステージを工場に注文していいよというイベント
-        _TRACE_("GameMainScene::catchEvent() EVENT_PREPARE_NEXT_STAGE準備きた");
+        _TRACE_("GameMainScene::onCatchEvent() EVENT_PREPARE_NEXT_STAGE準備きた");
         if (_stage < 5) {
             _stage++;
             ready(_stage);

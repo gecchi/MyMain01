@@ -42,7 +42,7 @@ public:
     void onActive() override;
     void processBehavior() override;
 
-    void catchEvent(UINT32 prm_no, void* prm_pSource) override;
+    void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
 
     virtual ~MyShipScene();
 };

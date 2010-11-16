@@ -64,9 +64,9 @@ void Stage02Scene::processJudgement() {
 void Stage02Scene::processFinal() {
 }
 
-void Stage02Scene::catchEvent(UINT32 prm_no, void* prm_pSource) {
+void Stage02Scene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STAGE02CONTROLLER_WAS_END ) {
-        _TRACE_("Stage02Scene::catchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_SCENE_PROG_ENDへ");
+        _TRACE_("Stage02Scene::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_SCENE_PROG_ENDへ");
         changeProgress(STAGE_SCENE_PROG_END);
     } else {
 

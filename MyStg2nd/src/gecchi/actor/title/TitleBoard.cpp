@@ -19,31 +19,31 @@ void TitleBoard::onActive() {
 }
 
 void TitleBoard::processBehavior() {
-    if (getProgress() == TITLEBOARD_PROG_INIT) {
-        changeProgress(TITLEBOARD_PROG_ENTRANCE);
-    }
-
-    //タイトル表示アクション TITLEBOARD_PROG_ENTRANCE 時の処理
-    if (onActiveProgress(TITLEBOARD_PROG_ENTRANCE)) {
-        setCoordinate(200, 1000);
-    }
-    if (getProgress() == TITLEBOARD_PROG_ENTRANCE) {
-        _y -= 1;
-        if (_y <= 150) {
-            changeProgress(TITLEBOARD_PROG_DISP);
-        }
-    }
-    if (onInactiveProgress(TITLEBOARD_PROG_ENTRANCE)) {
-    }
-
-    //タイトル表示静止 TITLEBOARD_PROG_DISP 時の処理
-    if (onActiveProgress(TITLEBOARD_PROG_DISP)) {
-        setCoordinate(200, 150);
-    }
-    if (getProgress() == TITLEBOARD_PROG_DISP) {
-    }
-    if (onInactiveProgress(TITLEBOARD_PROG_DISP)) {
-    }
+//    if (getProgress() == TITLEBOARD_PROG_INIT) {
+//        changeProgress(TITLEBOARD_PROG_ENTRANCE);
+//    }
+//
+//    //タイトル表示アクション TITLEBOARD_PROG_ENTRANCE 時の処理
+//    if (onActiveProgress(TITLEBOARD_PROG_ENTRANCE)) {
+//        setCoordinate(200, 1000);
+//    }
+//    if (getProgress() == TITLEBOARD_PROG_ENTRANCE) {
+//        _y -= 1;
+//        if (_y <= 150) {
+//            changeProgress(TITLEBOARD_PROG_DISP);
+//        }
+//    }
+//    if (onInactiveProgress(TITLEBOARD_PROG_ENTRANCE)) {
+//    }
+//
+//    //タイトル表示静止 TITLEBOARD_PROG_DISP 時の処理
+//    if (onActiveProgress(TITLEBOARD_PROG_DISP)) {
+//        setCoordinate(200, 150);
+//    }
+//    if (getProgress() == TITLEBOARD_PROG_DISP) {
+//    }
+//    if (onInactiveProgress(TITLEBOARD_PROG_DISP)) {
+//    }
 
 
 }

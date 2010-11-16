@@ -33,7 +33,7 @@ public:
 //    virtual void processPreDraw() override;
     virtual void processDraw() override;
 
-    virtual void catchEvent(UINT32 prm_no, void* prm_pSource) override {
+    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
     }
 
     virtual void processFinal() override {

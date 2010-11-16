@@ -583,7 +583,7 @@ bool MyShip::isDoublePushedDown(vbsta prm_VB) {
 
 }
 
-void MyShip::catchEvent(UINT32 prm_no, void* prm_pSource) {
+void MyShip::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
 
     } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {

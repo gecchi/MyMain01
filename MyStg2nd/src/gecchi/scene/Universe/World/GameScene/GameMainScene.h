@@ -47,20 +47,20 @@ public:
     frame _frame_ready_stage;
     GameMainScene(const char* prm_name);
 
-    void setStage(int prm_stage) {
-        _stage = prm_stage;
-    }
+//    void setStage(int prm_stage) {
+//        _stage = prm_stage;
+//    }
 
     void reset();
-    void ready(int prm_stage);
+    void readyStage(int prm_stage);
 
 
-    void cannelStage(int prm_stage);
+//    void cannelStage(int prm_stage);
 
     void initialize() override;
     virtual void processBehavior() override;
     virtual void processFinal() override;
-    virtual void catchEvent(UINT32 prm_no, void* prm_pSource) override;
+    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
     virtual ~GameMainScene();
 
 };

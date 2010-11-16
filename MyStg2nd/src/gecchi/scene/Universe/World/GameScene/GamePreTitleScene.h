@@ -1,10 +1,9 @@
-#ifndef GAMETITLESCENE_H_
-#define GAMETITLESCENE_H_
+#ifndef GAMEPRETITLESCENE_H_
+#define GAMEPRETITLESCENE_H_
 
-#define GAMETITLE_SCENE_PROG_INIT          1
-#define GAMETITLE_SCENE_PROG_TITLE         3
-#define GAMETITLE_SCENE_PROG_GAMESTART         4
-#define GAMETITLE_SCENE_PROG_FINISH        5
+#define GAMEPRETITLE_SCENE_PROG_INIT          1
+#define GAMEPRETITLE_SCENE_PROG_EXEC     2
+#define GAMEPRETITLE_SCENE_PROG_FINISH        4
 
 namespace MyStg2nd {
 
@@ -15,7 +14,7 @@ namespace MyStg2nd {
  * @since 2010/11/15
  * @author Masatoshi Tsuge
  */
-class GameTitleScene : public GgafDx9LibStg::DefaultScene {
+class GamePreTitleScene : public GgafDx9LibStg::DefaultScene {
 
 public:
 
@@ -23,14 +22,14 @@ public:
     LabelGecchi16Font* _pStringBoard02;
     TitleBoard* _pTitleBoard;
 
-    GameTitleScene(const char* prm_name);
+    GamePreTitleScene(const char* prm_name);
     void reset() override;
     void initialize() override;
     void onActive() override;
     void processBehavior() override;
     void processFinal() override;
-    virtual ~GameTitleScene();
+    virtual ~GamePreTitleScene();
 };
 
 }
-#endif /*GAMETITLESCENE_H_*/
+#endif /*GAMEPRETITLESCENE_H_*/

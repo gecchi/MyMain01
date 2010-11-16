@@ -71,6 +71,7 @@
 #define P_UNIVERSE ((MyStg2nd::Universe*)(P_GOD->_pUniverse))
 
 #define PROG_NOTHING 0
+#define FADE_FRAME 60
 
 enum MoveWay {
     WAY_ZRIGHT_DOWN_BEHIND = 0,   //0    TN(-1,-1,-1)
@@ -122,9 +123,14 @@ AVAILABLE_EVENT(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
 AVAILABLE_EVENT(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
 AVAILABLE_EVENT(EVENT_GAME_OVER_FINISH);
 
-
+AVAILABLE_EVENT(EVENT_PREGAMETITLE_SCENE_FINISH);
 AVAILABLE_EVENT(EVENT_GAMETITLE_SCENE_FINISH);
-AVAILABLE_EVENT(EVENT_GAMETITLE_SCENE_GAMESTART);
+AVAILABLE_EVENT(EVENT_GAMEDEMO_SCENE_FINISH);
+AVAILABLE_EVENT(EVENT_GAMESTART);
+AVAILABLE_EVENT(EVENT_GOTO_GAMETITLE);
+AVAILABLE_EVENT(EVENT_GAMEMODE_DECIDE);
+
+
 
 namespace MyStg2nd {
 
@@ -141,6 +147,7 @@ class TitleBoard;
 class PreDrawScene;
 class GameScene;
 class MyShipScene;
+class GamePreTitleScene;
 class GameTitleScene;
 class GameDemoScene;
 class GameBeginningScene;
@@ -309,6 +316,7 @@ class LaserChipEffectActor;
 #include "gecchi/scene/Universe/World/GameScene.h"
 
 #include "gecchi/scene/Universe/World/GameScene/MyShipScene.h"
+#include "gecchi/scene/Universe/World/GameScene/GamePreTitleScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameTitleScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameDemoScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameBeginningScene.h"

@@ -36,7 +36,7 @@ public:
 
     virtual void processFinal() override;
 
-    virtual void catchEvent(UINT32 prm_no, void* prm_pSource) override;
+    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
 
     virtual ~Stage02Controller();
 };

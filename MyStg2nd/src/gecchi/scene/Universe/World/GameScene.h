@@ -2,12 +2,13 @@
 #define GAMESCENE_H_
 
 #define GAME_SCENE_PROG_INIT      1
-#define GAME_SCENE_PROG_TITLE     2
-#define GAME_SCENE_PROG_DEMO      3
-#define GAME_SCENE_PROG_BEGINNING 4
-#define GAME_SCENE_PROG_MAIN      5
-#define GAME_SCENE_PROG_ENDING    6
-#define GAME_SCENE_PROG_GAME_OVER 7
+#define GAME_SCENE_PROG_PRE_TITLE 2
+#define GAME_SCENE_PROG_TITLE     3
+#define GAME_SCENE_PROG_DEMO      4
+#define GAME_SCENE_PROG_BEGINNING 5
+#define GAME_SCENE_PROG_MAIN      6
+#define GAME_SCENE_PROG_ENDING    7
+#define GAME_SCENE_PROG_GAME_OVER 8
 #ifdef P_WORLD
     #define P_GAME_SCENE (P_WORLD->_pGameScene)
 #else
@@ -31,6 +32,7 @@ class GameScene : public GgafDx9LibStg::DefaultScene {
 public:
     CommonScene* _pCommonScene;
     MyShipScene* _pMyShipScene;
+    GamePreTitleScene*   _pScene_PreGameTitle;
     GameTitleScene*      _pScene_GameTitle;
     GameDemoScene*      _pScene_GameDemo;
     GameBeginningScene* _pScene_GameBeginning;
@@ -57,7 +59,7 @@ public:
     void processJudgement() override;
     void processFinal() override;
 
-    void catchEvent(UINT32 prm_no, void* prm_pSource) override;
+    void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
 
     virtual ~GameScene();
 

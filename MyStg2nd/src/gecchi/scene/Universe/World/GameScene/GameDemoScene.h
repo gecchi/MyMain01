@@ -2,11 +2,9 @@
 #define GAMEDEMOSCENE_H_
 
 #define GAMEDEMO_SCENE_PROG_INIT              1
-#define GAMEDEMO_SCENE_PROG_BEGIN             2
-#define GAMEDEMO_SCENE_PROG_TITLE             3
-#define GAMEDEMO_SCENE_PROG_DEMOPLAY          4
-#define GAMEDEMO_SCENE_PROG_RANKING           5
-#define GAMEDEMO_SCENE_PROG_DECIDE  6
+#define GAMEDEMO_SCENE_PROG_DEMOPLAY          2
+#define GAMEDEMO_SCENE_PROG_RANKING           3
+#define GAMEDEMO_SCENE_PROG_FINISH            4
 
 namespace MyStg2nd {
 
@@ -25,12 +23,12 @@ public:
     LabelGecchi16Font* _pStringBoard01;
     LabelGecchi16Font* _pStringBoard02;
 
-    frame _frame_Begin;
-    frame _frame_Title;
-    frame _frame_Demoplay;
-    frame _frame_Ranking;
-    frame _frame_Decide;
-    frame _frame_End;
+//    frame _frame_Begin;
+//    frame _frame_Title;
+//    frame _frame_Demoplay;
+//    frame _frame_Ranking;
+//    frame _frame_Decide;
+//    frame _frame_End;
 
     GameDemoScene(const char* prm_name);
     void reset() override;

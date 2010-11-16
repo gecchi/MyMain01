@@ -130,12 +130,12 @@ void Stage02Controller::processBehavior() {
 void Stage02Controller::processFinal() {
 }
 
-void Stage02Controller::catchEvent(UINT32 prm_no, void* prm_pSource) {
+void Stage02Controller::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG02_01_WAS_BROKEN) {
-        _TRACE_("Stage02Controller::catchEvent() EVENT_STG02_01_WAS_BROKEN");
+        _TRACE_("Stage02Controller::onCatchEvent() EVENT_STG02_01_WAS_BROKEN");
         ((Stage02_01*)prm_pSource)->end(30*60);
     } else if (prm_no == EVENT_STG02_CLIMAX_WAS_BROKEN) {
-        _TRACE_("Stage02Controller::catchEvent() EVENT_STG02_CLIMAX_WAS_BROKENキャッチした。STAGE02CONTROLLER_ENDINGを投げる");
+        _TRACE_("Stage02Controller::onCatchEvent() EVENT_STG02_CLIMAX_WAS_BROKENキャッチした。STAGE02CONTROLLER_ENDINGを投げる");
         ((Stage02_Climax*)prm_pSource)->end(30*60);
         changeProgress(STAGE02CONTROLLER_SCENE_PROG_FAINAL); //進捗をSTAGE02CONTROLLER_SCENE_PROG_FAINALに切り替える
     } else {

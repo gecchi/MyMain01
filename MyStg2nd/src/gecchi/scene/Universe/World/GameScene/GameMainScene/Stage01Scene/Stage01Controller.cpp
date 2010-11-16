@@ -119,18 +119,18 @@ void Stage01Controller::processBehavior() {
 void Stage01Controller::processFinal() {
 }
 
-void Stage01Controller::catchEvent(UINT32 prm_no, void* prm_pSource) {
+void Stage01Controller::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG01_01_WAS_BROKEN) {
-        _TRACE_("Stage01Controller::catchEvent() EVENT_STG01_01_WAS_BROKEN");
+        _TRACE_("Stage01Controller::onCatchEvent() EVENT_STG01_01_WAS_BROKEN");
         ((Stage01_01*)prm_pSource)->end(3000*60);
     } else if (prm_no == EVENT_STG01_02_WAS_BROKEN) {
-        _TRACE_("Stage01Controller::catchEvent() EVENT_STG01_02_WAS_BROKEN");
+        _TRACE_("Stage01Controller::onCatchEvent() EVENT_STG01_02_WAS_BROKEN");
         ((Stage01_02*)prm_pSource)->end(30*60);
     } else if (prm_no == EVENT_STG01_03_WAS_BROKEN) {
-        _TRACE_("Stage01Controller::catchEvent() EVENT_STG01_03_WAS_BROKEN");
+        _TRACE_("Stage01Controller::onCatchEvent() EVENT_STG01_03_WAS_BROKEN");
         ((Stage01_03*)prm_pSource)->end(30*60);
     } else if (prm_no == EVENT_STG01_CLIMAX_WAS_BROKEN) {
-        _TRACE_("Stage01Controller::catchEvent() EVENT_STG01_CLIMAX_WAS_BROKENキャッチした。STAGE01CONTROLLER_ENDINGを投げる");
+        _TRACE_("Stage01Controller::onCatchEvent() EVENT_STG01_CLIMAX_WAS_BROKENキャッチした。STAGE01CONTROLLER_ENDINGを投げる");
         ((Stage01_Climax*)prm_pSource)->end(30*60);
         changeProgress(STAGE01CONTROLLER_SCENE_PROG_FAINAL); //進捗をSTAGE01CONTROLLER_SCENE_PROG_FAINALに切り替える
     } else {

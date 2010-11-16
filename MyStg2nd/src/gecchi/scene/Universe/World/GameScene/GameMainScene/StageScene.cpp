@@ -41,11 +41,11 @@ void StageScene::processBehavior() {
 
 }
 
-void StageScene::catchEvent(UINT32 prm_no, void* prm_pSource) {
+void StageScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STAGE01CONTROLLER_WAS_END ||
         prm_no == EVENT_STAGE02CONTROLLER_WAS_END
     ) {
-        _TRACE_("StageScene::catchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_SCENE_PROG_ENDへ");
+        _TRACE_("StageScene::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_SCENE_PROG_ENDへ");
         changeProgress(STAGE_SCENE_PROG_END);
     } else {
 
