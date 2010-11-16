@@ -87,6 +87,7 @@ void GameBeginningScene::processBehavior() {
     //GAMEBEGINNING_SCENE_PROG_FINISH éûÇÃèàóù
     if (onActiveProgress(GAMEBEGINNING_SCENE_PROG_FINISH)) {
         _TRACE_("GameBeginningScene onActiveProgress(GAMEBEGINNING_SCENE_PROG_FINISH)");
+        inactivate();
     }
     if (getProgress() == GAMEBEGINNING_SCENE_PROG_FINISH) {
     }

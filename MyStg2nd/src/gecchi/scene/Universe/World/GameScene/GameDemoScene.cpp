@@ -18,6 +18,8 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 void GameDemoScene::reset() {
     changeProgress(GAMEDEMO_SCENE_PROG_INIT);
+    _pStringBoard01->update("");
+    _pStringBoard02->update("");
     unblindScene();
 }
 void GameDemoScene::onActive() {
@@ -66,14 +68,14 @@ void GameDemoScene::processBehavior() {
     }
     if (onInactiveProgress(GAMEDEMO_SCENE_PROG_RANKING)) {
         _TRACE_("GameDemoScene onInactiveProgress(GAMEDEMO_SCENE_PROG_RANKING)");
-        _pStringBoard01->inactivateDelay(FADE_FRAME);
-        _pStringBoard02->inactivateDelay(FADE_FRAME);
     }
 
     //ÉâÉìÉLÉìÉO GAMEDEMO_SCENE_PROG_RANKING éûÇÃèàóù
     if (onActiveProgress(GAMEDEMO_SCENE_PROG_FINISH)) {
-        throwEventToUpperTree(EVENT_GAMEDEMO_SCENE_FINISH);
         _TRACE_("GameDemoScene onActiveProgress(GAMEDEMO_SCENE_PROG_FINISH)");
+        fadeoutSceneTree(FADE_FRAME);
+        inactivateDelay(FADE_FRAME);
+        throwEventToUpperTree(EVENT_GAMEDEMO_SCENE_FINISH);
     }
     if (getProgress() == GAMEDEMO_SCENE_PROG_FINISH) {
     }

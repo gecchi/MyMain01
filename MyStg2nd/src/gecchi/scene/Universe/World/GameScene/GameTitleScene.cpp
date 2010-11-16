@@ -22,6 +22,8 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 void GameTitleScene::reset() {
     _TRACE_("GameTitleScene::reset()");
+    _pStringBoard01->update("");
+    _pStringBoard02->update("");
     changeProgress(GAMETITLE_SCENE_PROG_INIT);
     unblindScene();
 }
@@ -71,7 +73,6 @@ void GameTitleScene::processBehavior() {
     //GAMETITLE_SCENE_PROG_GAMESTART
     if (onActiveProgress(GAMETITLE_SCENE_PROG_GAMESTART)) {
         _TRACE_("GameTitleScene throwEventToUpperTree(GAMETITLE_SCENE_PROG_GAMESTART)");
-
     }
     if (getProgress() == GAMETITLE_SCENE_PROG_GAMESTART) {
         if (getActivePartFrameInProgress() == 90) {
@@ -92,6 +93,7 @@ void GameTitleScene::processBehavior() {
     if (onActiveProgress(GAMETITLE_SCENE_PROG_FINISH)) {
         _TRACE_("GameTitleScene throwEventToUpperTree(GAMETITLE_SCENE_PROG_FINISH)");
         fadeoutSceneTree(FADE_FRAME);
+        inactivateDelay(FADE_FRAME);
     }
     if (getProgress() == GAMETITLE_SCENE_PROG_FINISH) {
         //Ç®ÇµÇ‹Ç¢ë“ÇøÇ⁄Ç§ÇØÉãÅ[Év

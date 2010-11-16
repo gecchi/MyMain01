@@ -22,7 +22,8 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
 void GamePreTitleScene::reset() {
     _TRACE_("GamePreTitleScene::reset()");
     _pTitleBoard->setCoordinate(200, 600);
-    _pTitleBoard->activate();
+    _pStringBoard01->update("");
+    _pStringBoard02->update("");
     changeProgress(GAMEPRETITLE_SCENE_PROG_INIT);
 }
 
@@ -73,13 +74,12 @@ void GamePreTitleScene::processBehavior() {
     }
     if (onInactiveProgress(GAMEPRETITLE_SCENE_PROG_EXEC)) {
         _TRACE_("GamePreTitleScene onInactiveProgress(GAMEPRETITLE_SCENE_PROG_EXEC)");
-        _pStringBoard01->update(100, 50, "");
-        _pTitleBoard->inactivateDelay(3);
     }
 
     //GAMEPRETITLE_SCENE_PROG_FINISH Ç®ÇµÇ‹Ç¢
     if (onActiveProgress(GAMEPRETITLE_SCENE_PROG_FINISH)) {
         _TRACE_("GamePreTitleScene throwEventToUpperTree(GAMEPRETITLE_SCENE_PROG_FINISH)");
+        inactivate();
     }
     if (getProgress() == GAMEPRETITLE_SCENE_PROG_FINISH) {
         //Ç®ÇµÇ‹Ç¢ë“ÇøÇ⁄Ç§ÇØÉãÅ[Év

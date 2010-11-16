@@ -114,7 +114,6 @@ void GameScene::processBehavior() {
         _TRACE_("GameScene onActiveProgress(GAME_SCENE_PROG_PRE_TITLE)");
         VB_UI->clear();
         P_GOD->setVB(VB_UI);
-        _pScene_PreGameTitle->reset();
         _pScene_PreGameTitle->activate();
     }
     if (getProgress() == GAME_SCENE_PROG_PRE_TITLE) {
@@ -122,11 +121,11 @@ void GameScene::processBehavior() {
 
         if (VB->isPushedDown(VB_UI_EXECUTE)) { //スキップしてTITLEへ
             changeProgress(GAME_SCENE_PROG_TITLE);
+            _pScene_PreGameTitle->inactivate();
         }
     }
     if (onInactiveProgress(GAME_SCENE_PROG_PRE_TITLE)) {
         _TRACE_("GameScene onInactiveProgress(GAME_SCENE_PROG_PRE_TITLE)");
-        _pScene_PreGameTitle->inactivateDelay(FADE_FRAME);
     }
 
     //GAME_SCENE_PROG_TITLE 時の処理
@@ -134,7 +133,6 @@ void GameScene::processBehavior() {
         _TRACE_("GameScene onActiveProgress(GAME_SCENE_PROG_TITLE)");
         VB_UI->clear();
         P_GOD->setVB(VB_UI);
-        _pScene_GameTitle->reset();
         _pScene_GameTitle->activate();
     }
     if (getProgress() == GAME_SCENE_PROG_TITLE) {
@@ -142,7 +140,6 @@ void GameScene::processBehavior() {
     }
     if (onInactiveProgress(GAME_SCENE_PROG_TITLE)) {
         _TRACE_("GameScene onInactiveProgress(GAME_SCENE_PROG_TITLE)");
-        _pScene_GameTitle->inactivateDelay(FADE_FRAME);
     }
 
     //GAME_SCENE_PROG_DEMO 時の処理
@@ -150,7 +147,6 @@ void GameScene::processBehavior() {
         _TRACE_("GameScene onActiveProgress(GAME_SCENE_PROG_DEMO)");
         VB_UI->clear();
         P_GOD->setVB(VB_UI);
-        _pScene_GameDemo->reset();
         _pScene_GameDemo->activate();
     }
     if (getProgress() == GAME_SCENE_PROG_DEMO) {
@@ -158,11 +154,11 @@ void GameScene::processBehavior() {
 
         if (VB->isPushedDown(VB_UI_EXECUTE)) { //スキップしてTITLEへ
             changeProgress(GAME_SCENE_PROG_TITLE);
+            _pScene_GameDemo->inactivate();
         }
     }
     if (onInactiveProgress(GAME_SCENE_PROG_DEMO)) {
         _TRACE_("GameScene onInactiveProgress(GAME_SCENE_PROG_DEMO)");
-        _pScene_GameDemo->inactivateDelay(FADE_FRAME);
     }
 
 
@@ -171,7 +167,6 @@ void GameScene::processBehavior() {
         _TRACE_("GameScene onActiveProgress(GAME_SCENE_PROG_BEGINNING)");
         VB_UI->clear();
         P_GOD->setVB(VB_UI);
-        _pScene_GameBeginning->reset();
         _pScene_GameBeginning->activate();
         //先行準備
         _stage = 1;
@@ -182,7 +177,6 @@ void GameScene::processBehavior() {
     }
     if (onInactiveProgress(GAME_SCENE_PROG_BEGINNING)) {
         _TRACE_("GameScene onInactiveProgress(GAME_SCENE_PROG_BEGINNING)");
-        _pScene_GameBeginning->inactivateDelay(FADE_FRAME);
     }
 
     //GAME_SCENE_PROG_MAIN 時の処理
@@ -196,7 +190,6 @@ void GameScene::processBehavior() {
     if (getProgress() == GAME_SCENE_PROG_MAIN) {
     }
     if (onInactiveProgress(GAME_SCENE_PROG_MAIN)) {
-        _pScene_GameMain->inactivateDelay(FADE_FRAME);
     }
 
 
