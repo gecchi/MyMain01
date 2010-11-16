@@ -48,7 +48,7 @@ public:
     }
 
 
-    void catchEvent(UINT32 prm_no, void* prm_pSource) override {
+    void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
     }
 
     GgafLordActor* extract() override {

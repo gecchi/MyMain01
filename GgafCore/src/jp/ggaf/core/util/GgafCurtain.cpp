@@ -9,7 +9,7 @@ GgafCurtain::GgafCurtain(GgafScene* prm_pScene) : GgafObject() {
     _now_curtain_length = 0.0f; //Å‰‚ÍŠJ‚¢‚Ä‚¢‚Ü‚·
     _state = OPENED;
     _opening_velocity = 0.0f;
-    _closeing_velocity = 0.0f;
+    _closing_velocity = 0.0f;
 
 }
 
@@ -24,8 +24,8 @@ void GgafCurtain::open() {
     processOpenDone();
 }
 
-void GgafCurtain::close(float prm_closeing_velocity) {
-    _closeing_velocity = prm_closeing_velocity;
+void GgafCurtain::close(float prm_closing_velocity) {
+    _closing_velocity = prm_closing_velocity;
     _state = CLOSE;
 }
 
@@ -55,7 +55,7 @@ void GgafCurtain::behave() {
         processCloseBegin();
         _state = CLOSING;
     } else if (_state == CLOSING) {
-        _now_curtain_length += _closeing_velocity;
+        _now_curtain_length += _closing_velocity;
         if (_now_curtain_length > _curtain_length) {
             _now_curtain_length = _curtain_length;
             _state = CLOSED;

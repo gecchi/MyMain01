@@ -331,7 +331,7 @@ public:
     /**
      * ノードの何かの処理(自ツリー)(フレーム毎ではない) .
      * 活動フラグがセット、( _is_active_flg = true )の場合 <BR>
-     * 直ちに catchEvent(int) をコールした後、配下のノード全てについて throwEventToLowerTree() を再帰的に実行する。<BR>
+     * 直ちに onCatchEvent(int) をコールした後、配下のノード全てについて throwEventToLowerTree() を再帰的に実行する。<BR>
      * @param   prm_no 何かの番号
      */
     virtual void throwEventToLowerTree(UINT32 prm_no, void* prm_pSource);
@@ -352,7 +352,7 @@ public:
      * 利用目的不定の汎用イベント用コールバック
      * @param prm_no 何かの番号
      */
-    virtual void catchEvent(UINT32 prm_no, void* prm_pSource) = 0;
+    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) = 0;
 
 
     virtual bool isDisappear();
@@ -1164,7 +1164,10 @@ void GgafElement<T>::activateTreeImmediately() {
 template<class T>
 void GgafElement<T>::activateDelay(frame prm_frame_offset) {
     if (_can_live_flg) {
-        //既にactivateDelay()実行済みの場合でも、後勝ちとする。
+        //既にinactivateDelay()実行済みの場合は無効化される。
+        _will_inactivate_after_flg = false;
+
+        //既にactivateDelay()実行済みの場合は、今回指定算フレームで上書きする（後勝ち）。
         //(※inactivateDelay() と優先の考えが違うため注意)
         _will_activate_after_flg = true;
         _frame_of_life_when_activation = _frame_of_life + prm_frame_offset;
@@ -1217,10 +1220,13 @@ void GgafElement<T>::inactivateTree() {
 template<class T>
 void GgafElement<T>::inactivateDelay(frame prm_frame_offset) {
     if (_can_live_flg) {
+        //既にactivateDelay()実行済みの場合は無効化される。
+        _will_activate_after_flg = false;
+
         if (_will_inactivate_after_flg) {
             //既にinactivateDelay()実行済みの場合、より早く inactivate するならば有効とする
             if (_frame_of_life_when_inactivation < _frame_of_life + prm_frame_offset) {
-                //今回指定算フレームの方が遅いため無視
+                //今回指定算フレームの方が遅い場合は無視される。
                 return;
             }
         }
@@ -1567,7 +1573,7 @@ void GgafElement<T>::throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
-            catchEvent(prm_no, prm_pSource);
+            onCatchEvent(prm_no, prm_pSource);
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
@@ -1588,7 +1594,7 @@ void GgafElement<T>::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
-            catchEvent(prm_no, prm_pSource);
+            onCatchEvent(prm_no, prm_pSource);
         }
         if (GGAF_NODE::_pParent != NULL) {
             T* pElementTemp = GGAF_NODE::_pParent;

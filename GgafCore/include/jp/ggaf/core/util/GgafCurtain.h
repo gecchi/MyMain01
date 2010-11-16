@@ -32,7 +32,7 @@ public:
     /** [r]カーテンを開く際の速度 */
     float _opening_velocity;
     /** [r]カーテンを閉める際の速度 */
-    float _closeing_velocity;
+    float _closing_velocity;
 
     /**
      * コンストラクタ .
@@ -50,18 +50,18 @@ public:
     virtual void open(float prm_opening_velocity);
 
     /**
-     * カーテンを最大に開ける .
+     * カーテンを即座に最大に開ける .
      */
     virtual void open();
 
     /**
      * カーテンを徐々に閉める .
-     * @param prm_closeing_velocity カーテンを閉める速度
+     * @param prm_closing_velocity カーテンを閉める速度
      */
-    virtual void close(float prm_closeing_velocity);
+    virtual void close(float prm_closing_velocity);
 
     /**
-     * カーテンを閉める .
+     * カーテンを即座に閉めきる .
      */
     virtual void close();
 
@@ -85,40 +85,41 @@ public:
      * open() 時に１度だけ呼び出されます。 <BR>
      * 下位で実際の処理を実装してください。<BR>
      */
-    virtual void processOpenBegin() {}
+    virtual void processOpenBegin() = 0;
 
     /**
      * カーテンが開いていく途中の処理 .
      * 下位で実際の処理を実装してください。<BR>
      */
-    virtual void processOpening() {}
+    virtual void processOpening() = 0;
 
     /**
      * カーテンが開ききった時の処理 .
      * _now_curtain_lengthが0になった際１度だけ呼び出されます。 <BR>
      * 下位で実際の処理を実装してください。<BR>
      */
-    virtual void processOpenDone() {}
+    virtual void processOpenDone() = 0;
 
     /**
      * カーテンが閉まり始める瞬間の処理 .
      * close() 時に１度だけ呼び出されます。 <BR>
      * 下位で実際の処理を実装してください。<BR>
      */
-    virtual void processCloseBegin() {}
+    virtual void processCloseBegin() = 0;
 
     /**
      * カーテンが閉まっていく途中の処理 .
      * 下位で実際の処理を実装してください。<BR>
      */
-    virtual void processClosing() {}
+    virtual void processClosing() = 0;
 
     /**
      * カーテンが閉まった時の処理 .
      * _now_curtain_length が _curtain_length になった際１度だけ呼び出されます。 <BR>
      * 下位で実際の処理を実装してください。<BR>
      */
-    virtual void processCloseDone() {}
+    virtual void processCloseDone() = 0;
+
 
     virtual ~GgafCurtain();
 };
