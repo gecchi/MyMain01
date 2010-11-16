@@ -45,6 +45,8 @@ public :
      * 本クラスのprocessSettlementBehavior()で、 GgafDx9AlphaCurtainとGgafDx9BgmPerformerを<BR>
      * behave() しています。オーバーライドすると、画面フェード、BGMフェードが働きません。<BR>
      * オーバーライドする場合は、必ず処理中で上位メソッドを呼び出して下さい。<BR>
+     * 逆にGgafDx9AlphaCurtainとGgafDx9BgmPerformerの機能を使用しない事が明らかなシーンは、<BR>
+     * オーバーライドして潰すことにより、僅かにパフォーマンス改善できるかも知れません<BR>
      */
     virtual void processSettlementBehavior() override;
 
@@ -90,12 +92,29 @@ public :
     void fadeoutScene(int prm_frame_fade);
 
     /**
-     * 暗転
+     * 自シーンのみ即非表示 .
+     * 内部的処理は０フレームフェードアウトを行う .
      */
-    void openCurtain();
-    void openCurtainTree();
-    void closeCurtain();
-    void closeCurtainTree();
+    void blindScene();
+
+    /**
+     * 自ツリーシーンを即非表示 .
+     */
+    void blindSceneTree();
+
+
+    /**
+     * 自シーンのみ即表示 .
+     * 内部的処理は０フレームフェードインを行う .
+     */
+    void unblindScene();
+
+    /**
+     * 自ツリーシーンを即非表示 .
+     */
+    void unblindSceneTree();
+
+
 
     virtual ~GgafDx9Scene();
 };

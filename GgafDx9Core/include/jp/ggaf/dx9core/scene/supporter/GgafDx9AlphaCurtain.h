@@ -13,9 +13,11 @@ class GgafDx9AlphaCurtain : public GgafCore::GgafCurtain {
 public:
     GgafDx9Scene* _pDxScene;
     float _alpha;
+
     GgafDx9AlphaCurtain(GgafDx9Scene* prm_pScene);
 
-    void processOpenBegin() override {}
+    void processOpenBegin() override {
+    }
 
     void processOpening() override {
         _alpha = 1.0 - _now_curtain_length;
@@ -25,7 +27,8 @@ public:
         _alpha = 1.0f;
     }
 
-    void processCloseBegin() override {}
+    void processCloseBegin() override {
+    }
 
     void processClosing() override {
         _alpha = 1.0 - _now_curtain_length;
