@@ -67,8 +67,6 @@ void GameBeginningScene::processBehavior() {
     if (onActiveProgress(GAMEBEGINNING_SCENE_PROG_DECIDE)) {
         _TRACE_("GameBeginningScene onActiveProgress(GAMEBEGINNING_SCENE_PROG_DECIDE)");
         fadeoutScene(FADE_FRAME);
-        _pStringBoard01->inactivate(FADE_FRAME);
-        _pStringBoard02->inactivate(FADE_FRAME);
         throwEventToUpperTree(EVENT_GAMEMODE_DECIDE);
     }
     if (getProgress() == GAMEBEGINNING_SCENE_PROG_DECIDE) {

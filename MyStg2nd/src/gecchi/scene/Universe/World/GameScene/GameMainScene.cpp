@@ -188,7 +188,7 @@ void GameMainScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         _TRACE_("GameMainScene::onCatchEvent() EVENT_PREPARE_NEXT_STAGE€”õ‚«‚½");
         if (_stage < 5) {
             _stage++;
-            ready(_stage);
+            readyStage(_stage);
 
         } else {
             _TRACE_("ÅI–ÊƒNƒŠƒA");
