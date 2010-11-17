@@ -857,7 +857,7 @@ void GgafElement<T>::nextFrame() {
             _frame_of_life_when_activation = 0;
             _will_activate_after_flg = false;
         } else if (_will_activate_after_flg) {
-            if (_is_active_flg) {
+            if (_is_active_flg) { //もともと活動中
                 _frame_of_behaving++;
                 _frame_of_behaving_since_onActive++;
             } else if(_frame_of_life == _frame_of_life_when_activation) {
@@ -1164,7 +1164,8 @@ void GgafElement<T>::activateTreeImmediately() {
 template<class T>
 void GgafElement<T>::activateDelay(frame prm_frame_offset) {
     if (_can_live_flg) {
-        //既にinactivateDelay()実行済みの場合は無効化される。
+        //既にinactivateDelay()実行済みの場合は
+        //そのinactivateDelay()は無効化される。
         _will_inactivate_after_flg = false;
 
         //既にactivateDelay()実行済みの場合は、今回指定算フレームで上書きする（後勝ち）。
