@@ -56,16 +56,33 @@ _pScene_GameOver(NULL) {
     //たまご
     //addSubLast(NEW TamagoScene("TamagoScene"));
     _is_frame_advance = false;
+
+    _stage = 1;
 }
 
 void GameScene::initialize() {
     _TRACE_("GameScene::initialize() いきますよDemoSceneさん");
-    _pScene_GameDemo->reset();
+    reset();
+//    _pScene_GameDemo->reset();
 //    _pScene_GameDemo->ready();
 //    _pSceneCannel = _pScene_GameDemo;
 }
 
 void GameScene::reset() {
+    VB_UI->clear();
+    P_GOD->setVB(VB_UI);
+    _pMyShipScene->inactivateImmediately();
+    _pScene_PreGameTitle->inactivateImmediately();
+    _pScene_GameTitle->inactivateImmediately();
+    _pScene_GameDemo->inactivateImmediately();
+    _pScene_GameBeginning->inactivateImmediately();
+    _pScene_GameMain->inactivateImmediately();
+    _pScene_GameEnding->inactivateImmediately();
+    _pScene_GameOver->inactivateImmediately();
+    //先行準備
+    if (!_pScene_GameMain->_had_ready_stage) {
+        _pScene_GameMain->readyStage(_stage);
+    }
     changeProgress(GAME_SCENE_PROG_INIT);
 }
 
@@ -84,41 +101,19 @@ void GameScene::processBehavior() {
     }
 #endif
 
-    //GAME_SCENE_PROG_INIT 時の処理
-    if (onActiveProgress(GAME_SCENE_PROG_INIT)) {
-        _pMyShipScene->reset();
-        _pMyShipScene->inactivateImmediately();
-        _pScene_PreGameTitle->reset();
-        _pScene_PreGameTitle->inactivateImmediately();
-        _pScene_GameTitle->reset();
-        _pScene_GameTitle->inactivateImmediately();
-        _pScene_GameDemo->reset();
-        _pScene_GameDemo->inactivateImmediately();
-        _pScene_GameBeginning->reset();
-        _pScene_GameBeginning->inactivateImmediately();
-        _pScene_GameMain->reset();
-        _pScene_GameMain->inactivateImmediately();
-        _pScene_GameEnding->reset();
-        _pScene_GameEnding->inactivateImmediately();
-        _pScene_GameOver->reset();
-        _pScene_GameOver->inactivateImmediately();
-    }
+    //########## GAME_SCENE_PROG_INIT ##########
     if (getProgress() == GAME_SCENE_PROG_INIT) {
         changeProgress(GAME_SCENE_PROG_PRE_TITLE); //デモへ
     }
-    if (onInactiveProgress(GAME_SCENE_PROG_INIT)) {
-    }
 
-    //GAME_SCENE_PROG_PRE_TITLE 時の処理
+    //##########  タイトル前演出(GAME_SCENE_PROG_PRE_TITLE)  ##########
     if (onActiveProgress(GAME_SCENE_PROG_PRE_TITLE)) {
         _TRACE_("GameScene onActiveProgress(GAME_SCENE_PROG_PRE_TITLE)");
-        VB_UI->clear();
-        P_GOD->setVB(VB_UI);
+        _pScene_PreGameTitle->reset();
         _pScene_PreGameTitle->activate();
     }
     if (getProgress() == GAME_SCENE_PROG_PRE_TITLE) {
-        //イベント待ち EVENT_PREGAMETITLE_SCENE_FINISH
-
+        // EVENT_PREGAMETITLE_SCENE_FINISH イベント受付
         if (VB->isPushedDown(VB_UI_EXECUTE)) { //スキップしてTITLEへ
             changeProgress(GAME_SCENE_PROG_TITLE);
             _pScene_PreGameTitle->inactivate();
@@ -128,11 +123,11 @@ void GameScene::processBehavior() {
         _TRACE_("GameScene onInactiveProgress(GAME_SCENE_PROG_PRE_TITLE)");
     }
 
-    //GAME_SCENE_PROG_TITLE 時の処理
+
+    //##########  タイトル(GAME_SCENE_PROG_TITLE)  ##########
     if (onActiveProgress(GAME_SCENE_PROG_TITLE)) {
         _TRACE_("GameScene onActiveProgress(GAME_SCENE_PROG_TITLE)");
-        VB_UI->clear();
-        P_GOD->setVB(VB_UI);
+        _pScene_GameTitle->reset();
         _pScene_GameTitle->activate();
     }
     if (getProgress() == GAME_SCENE_PROG_TITLE) {
@@ -142,11 +137,11 @@ void GameScene::processBehavior() {
         _TRACE_("GameScene onInactiveProgress(GAME_SCENE_PROG_TITLE)");
     }
 
-    //GAME_SCENE_PROG_DEMO 時の処理
+
+    //##########  デモ(GAME_SCENE_PROG_DEMO)  ##########
     if (onActiveProgress(GAME_SCENE_PROG_DEMO)) {
         _TRACE_("GameScene onActiveProgress(GAME_SCENE_PROG_DEMO)");
-        VB_UI->clear();
-        P_GOD->setVB(VB_UI);
+        _pScene_GameDemo->reset();
         _pScene_GameDemo->activate();
     }
     if (getProgress() == GAME_SCENE_PROG_DEMO) {
@@ -161,16 +156,11 @@ void GameScene::processBehavior() {
         _TRACE_("GameScene onInactiveProgress(GAME_SCENE_PROG_DEMO)");
     }
 
-
-    //GAME_SCENE_PROG_BEGINNING 時の処理
+    //##########  GAME_SCENE_PROG_BEGINNING(ゲーム開始)  ##########
     if (onActiveProgress(GAME_SCENE_PROG_BEGINNING)) {
         _TRACE_("GameScene onActiveProgress(GAME_SCENE_PROG_BEGINNING)");
-        VB_UI->clear();
-        P_GOD->setVB(VB_UI);
+        _pScene_GameBeginning->reset();
         _pScene_GameBeginning->activate();
-        //先行準備
-        _stage = 1;
-        _pScene_GameMain->readyStage(_stage);
     }
     if (getProgress() == GAME_SCENE_PROG_BEGINNING) {
         //イベント待ち EVENT_GAMEMODE_DECIDE
@@ -179,17 +169,23 @@ void GameScene::processBehavior() {
         _TRACE_("GameScene onInactiveProgress(GAME_SCENE_PROG_BEGINNING)");
     }
 
-    //GAME_SCENE_PROG_MAIN 時の処理
+    //##########  GAME_SCENE_PROG_MAIN(メイン)  ##########
     if (onActiveProgress(GAME_SCENE_PROG_MAIN)) {
         _TRACE_("GameScene onActiveProgress(GAME_SCENE_PROG_MAIN)");
-        VB_UI->clear();
         VB_PLAY->clear();
-        P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
+        P_GOD->setVB(VB_PLAY); //プレイ用に変更
+        _pScene_GameMain->reset();
         _pScene_GameMain->activate();
+
+        _pMyShipScene->reset();
+        _pMyShipScene->activate();
     }
     if (getProgress() == GAME_SCENE_PROG_MAIN) {
     }
     if (onInactiveProgress(GAME_SCENE_PROG_MAIN)) {
+        _TRACE_("GameScene onInactiveProgress(GAME_SCENE_PROG_MAIN)");
+        VB_UI->clear();
+        P_GOD->setVB(VB_UI);  //元に戻す
     }
 
 

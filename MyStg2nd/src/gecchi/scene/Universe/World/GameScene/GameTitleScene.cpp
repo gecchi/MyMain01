@@ -14,7 +14,6 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");
     getLordActor()->addSubGroup(_pStringBoard02);
     _pTitleBoard = NEW TitleBoard("TitleBoard");
-    _pTitleBoard->setCoordinate(200, 150);
     getLordActor()->addSubGroup(_pTitleBoard);
 
     _pBgmPerformer->useBgm(1);
@@ -24,15 +23,17 @@ void GameTitleScene::reset() {
     _TRACE_("GameTitleScene::reset()");
     _pStringBoard01->update("");
     _pStringBoard02->update("");
+    _pTitleBoard->setCoordinate(200, 150);
     changeProgress(GAMETITLE_SCENE_PROG_INIT);
     unblindScene();
 }
 
 void GameTitleScene::onActive() {
-    reset();
 }
 
 void GameTitleScene::initialize() {
+    _TRACE_("GameTitleScene::initialize()");
+    reset();
 }
 
 void GameTitleScene::processBehavior() {

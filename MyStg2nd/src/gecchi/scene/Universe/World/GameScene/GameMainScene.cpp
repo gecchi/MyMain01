@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 #define ORDER_ID_STAGESCENE 11
 
-GameMainScene* GameMainScene::_pGameMainScene = NULL;
+//GameMainScene* GameMainScene::_pGameMainScene = NULL;
 
 GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameMainScene";
@@ -28,25 +28,30 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     getLordActor()->addSubGroup(_pFont8_JIKI_Y);
     _pFont8_JIKI_Z = NEW LabelGecchi8Font("JIKI_Z");
     getLordActor()->addSubGroup(_pFont8_JIKI_Z);
-    _pScene_Stage01 = NULL;
-    _pScene_Stage02 = NULL;
-    _pScene_Stage03 = NULL;
-    _pScene_Stage04 = NULL;
-    _pScene_Stage05 = NULL;
 
     _pSceneMainCannnel = NULL;
-
-    GameMainScene::_pGameMainScene = this;
+    _had_ready_stage = false;
+//    GameMainScene::_pGameMainScene = this;
 }
 
 void GameMainScene::reset() {
+    _pFont1601->update("");
+    _pFont1602->update("");
     changeProgress(GAMEMAIN_SCENE_PROG_INIT);
+}
+void GameMainScene::readyNextStage() {
+    _stage++;
+    readyStage(_stage);
 }
 
 void GameMainScene::readyStage(int prm_stage) {
+    if (_had_ready_stage) {
+        throwGgafCriticalException("GameMainScene::readyStage 既に準備済みのステージがあります。_stage="<<_stage<<" prm_stage="<<prm_stage);
+    }
+
     _stage = prm_stage;
     _had_ready_stage = true;
-    _frame_ready_stage = 0;
+//    _frame_ready_stage = 0;
     switch (prm_stage) {
         case 1:
             orderSceneToFactory(ORDER_ID_STAGESCENE, Stage01Scene, "Stage01");
@@ -69,77 +74,73 @@ void GameMainScene::readyStage(int prm_stage) {
 }
 
 void GameMainScene::initialize() {
+    VB_UI->clear();
+    VB_PLAY->clear();
+    P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
+    reset();
 
-    changeProgress(GAMEMAIN_SCENE_PROG_INIT);
+//    GgafScene* pCommon = P_COMMON_SCENE->extract();
+//    addSubLast(pCommon); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
     //initialize()時はinactive()であることに注意する事
 }
 
 void GameMainScene::processBehavior() {
     if (getProgress() == GAMEMAIN_SCENE_PROG_INIT) {
-        VB_UI->clear();
-        VB_PLAY->clear();
-        P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
-        GgafScene* pCommon = P_COMMON_SCENE->extract();
-        addSubLast(pCommon); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
         changeProgress(GAMEMAIN_SCENE_PROG_BEGIN);
+    }
+
+    //GAMEMAIN_SCENE_PROG_BEGIN
+    if (onActiveProgress(GAMEMAIN_SCENE_PROG_BEGIN)) {
         if (_pSceneMainCannnel && !_pSceneMainCannnel->wasDeclaredEnd()) {
             //2面目以降はこのタイミングで前ステージをend
             _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
             _pSceneMainCannnel->end();
         }
     }
-
-    //GAMEMAIN_SCENE_PROG_BEGIN
-    if (onActiveProgress(GAMEMAIN_SCENE_PROG_BEGIN)) {
-        _pFont1601->update(300, 300, "GAME_MAIN_SCENE BEGIN");
-        _pFont1602->update(300, 350, "DESTOROY ALL THEM!!");
-
-
-
-        _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
-        addSubLast(_pSceneMainCannnel); //ステージシーン追加
-
-        _had_ready_stage = false;
-        _frame_Begin = 0;
-    }
     if (getProgress() == GAMEMAIN_SCENE_PROG_BEGIN) {
-        //活動ループ
-        _frame_Begin++;
-
-        if (_frame_Begin == 180) {
-            changeProgress(GAMEMAIN_SCENE_PROG_PLAY); //
+        if (getActivePartFrameInProgress() == 120) { //deleteを考慮し２秒遊ぶ
+            changeProgress(GAMEMAIN_SCENE_PROG_PLAY);
         }
+    }
+    if (onInactiveProgress(GAMEMAIN_SCENE_PROG_BEGIN)) {
     }
 
     //GAMEMAIN_SCENE_PROG_PLAY
     if (onActiveProgress(GAMEMAIN_SCENE_PROG_PLAY)) {
-        _pFont1601->update(300, 300, "");
-        _pFont1602->update(300, 350, "");
-
+        if (_had_ready_stage) {
+            _had_ready_stage = false;
+            _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
+            addSubLast(_pSceneMainCannnel); //ステージシーン追加
+        } else {
+            throwGgafCriticalException("GameMainScene::processBehavior GAMEMAIN_SCENE_PROG_BEGIN 準備済みステージがありません。_stage="<<_stage);
+        }
     }
     if (getProgress() == GAMEMAIN_SCENE_PROG_PLAY) {
         //活動ループ
-        if (_had_ready_stage) {
-            _frame_ready_stage++;
-            if (_frame_ready_stage == 5*60) {
-                _TRACE_("新ステージCOMEING!!");
-                changeProgress(GAMEMAIN_SCENE_PROG_BEGIN);
-            }
-        }
+//        if (_had_ready_stage) {
+////            _frame_ready_stage++;
+////            if (_frame_ready_stage == 5*60) {
+//                _TRACE_("新ステージCOMEING!!");
+//                changeProgress(GAMEMAIN_SCENE_PROG_BEGIN);
+////            }
+//        }
+    }
+    if (onInactiveProgress(GAMEMAIN_SCENE_PROG_PLAY)) {
     }
 
     //GAMEMAIN_SCENE_PROG_END 終了処理
     if (onActiveProgress(GAMEMAIN_SCENE_PROG_END)) {
-         VB_UI->clear();
-         P_GOD->setVB(VB_UI);  //戻す
-        _TRACE_("オワタ");
-        //ここでコンテニュー判断
-        inactivateDelay(180);
+//         VB_UI->clear();
+//         P_GOD->setVB(VB_UI);  //戻す
+//        _TRACE_("オワタ");
+//        //ここでコンテニュー判断
+//        inactivateDelay(180);
     }
     if (getProgress() == GAMEMAIN_SCENE_PROG_END) {
         //GAMEMAIN_SCENE_PROG_END時はなにもできない
     }
-
+    if (onInactiveProgress(GAMEMAIN_SCENE_PROG_END)) {
+    }
 
     //SCORE表示
     sprintf(_buf, "SCORE %07u", _SCORE_);
@@ -156,19 +157,19 @@ void GameMainScene::processBehavior() {
     sprintf(_buf, "Z:%8d", P_MYSHIP->_Z);
     _pFont8_JIKI_Z->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*1-1, _buf);
 
-    if (getProgress() == GAMEMAIN_SCENE_PROG_PLAY || getProgress() == GAMEMAIN_SCENE_PROG_BEGIN) {
-
-        //一時停止
-        if (VB_PLAY->isReleasedUp(VB_PAUSE) || P_GAME_SCENE->_is_frame_advance) {
-            P_GAME_SCENE->_is_frame_advance = false;
-            _TRACE_("PAUSE!");
-            P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
-            pause();     //自身配下を一時停止する。一時停止解除はGameSceneで行われる
-            P_UNIVERSE->pushCameraWork("PauseCamWorker");
-//            P_ACTIVE_CAMWORKER->pause();
-            P_MYSHIP->pause();
-        }
-    }
+//    if (getProgress() == GAMEMAIN_SCENE_PROG_PLAY || getProgress() == GAMEMAIN_SCENE_PROG_BEGIN) {
+//
+//        //一時停止
+//        if (VB_PLAY->isReleasedUp(VB_PAUSE) || P_GAME_SCENE->_is_frame_advance) {
+//            P_GAME_SCENE->_is_frame_advance = false;
+//            _TRACE_("PAUSE!");
+//            P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
+//            pause();     //自身配下を一時停止する。一時停止解除はGameSceneで行われる
+//            P_UNIVERSE->pushCameraWork("PauseCamWorker");
+////            P_ACTIVE_CAMWORKER->pause();
+//            P_MYSHIP->pause();
+//        }
+//    }
 }
 
 void GameMainScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
@@ -185,14 +186,12 @@ void GameMainScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 
     if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
         //次のステージを工場に注文していいよというイベント
-        _TRACE_("GameMainScene::onCatchEvent() EVENT_PREPARE_NEXT_STAGE準備きた");
+        _TRACE_("GameMainScene::onCatchEvent() EVENT_PREPARE_NEXT_STAGE 準備きた");
         if (_stage < 5) {
-            _stage++;
-            readyStage(_stage);
-
+            readyNextStage();
         } else {
-            _TRACE_("最終面クリア");
-            changeProgress(GAMEMAIN_SCENE_PROG_END);
+//            _TRACE_("最終面クリア");
+//            changeProgress(GAMEMAIN_SCENE_PROG_END);
             //TODO:エデニング？
         }
     }

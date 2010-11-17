@@ -23,9 +23,9 @@ void GameDemoScene::reset() {
     unblindScene();
 }
 void GameDemoScene::onActive() {
-    reset();
 }
 void GameDemoScene::initialize() {
+    reset();
 }
 
 void GameDemoScene::processBehavior() {

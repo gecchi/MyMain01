@@ -18,6 +18,9 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 
 void World::initialize() {
     _TRACE_("World::initialize()");
+    _pStringBoard01 = NEW LabelGecchi16Font("STR01");
+    getLordActor()->addSubGroup(_pStringBoard01);
+    _pStringBoard01->update(0,50,"WATE A MOMENT PLASE...");
 #ifdef MY_DEBUG
     CubeEx::get();   //当たり判定領域表示用直方体、プリロード
     SphereEx::get(); //当たり判定領域表示用球、プリロード
@@ -57,6 +60,7 @@ void World::processBehavior() {
             PreDrawScene* pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
             addSubLast(pPreDrawScene);
             _is_create_GameScene = true;
+            _pStringBoard01->end();
         }
     }
 

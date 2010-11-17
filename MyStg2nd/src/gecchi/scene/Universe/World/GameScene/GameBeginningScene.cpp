@@ -27,10 +27,10 @@ void GameBeginningScene::reset() {
 //    _TRACE_("GameBeginningScene::ready()");
 //}
 void GameBeginningScene::onActive() {
-    reset();
 }
 
 void GameBeginningScene::initialize() {
+    reset();
 }
 
 void GameBeginningScene::processBehavior() {

@@ -16,7 +16,7 @@ namespace MyStg2nd {
 class GameMainScene : public GgafDx9LibStg::DefaultScene {
 
 public:
-    static GameMainScene* _pGameMainScene;
+//    static GameMainScene* _pGameMainScene;
 
     char _buf[20];
     LabelGecchi16Font* _pFont16_SCORE;
@@ -28,23 +28,15 @@ public:
     LabelGecchi16Font* _pFont1601;
     LabelGecchi16Font* _pFont1602;
 
-
-
-    Stage01Scene* _pScene_Stage01;
-    Stage02Scene* _pScene_Stage02;
-    Stage03Scene* _pScene_Stage03;
-    Stage04Scene* _pScene_Stage04;
-    Stage05Scene* _pScene_Stage05;
     StageScene* _pSceneMainCannnel;
 
-    frame _frame_Begin;
-    frame _frame_Play;
-    frame _frame_End;
+//    frame _frame_Begin;
+//    frame _frame_Play;
+//    frame _frame_End;
 
     int _stage;
-
     bool _had_ready_stage;
-    frame _frame_ready_stage;
+//    frame _frame_ready_stage;
     GameMainScene(const char* prm_name);
 
 //    void setStage(int prm_stage) {
@@ -53,14 +45,13 @@ public:
 
     void reset();
     void readyStage(int prm_stage);
-
-
+    void readyNextStage();
 //    void cannelStage(int prm_stage);
 
     void initialize() override;
-    virtual void processBehavior() override;
-    virtual void processFinal() override;
-    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
+    void processBehavior() override;
+    void processFinal() override;
+    void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
     virtual ~GameMainScene();
 
 };

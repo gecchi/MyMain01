@@ -28,10 +28,11 @@ void GamePreTitleScene::reset() {
 }
 
 void GamePreTitleScene::onActive() {
-    reset();
 }
 
 void GamePreTitleScene::initialize() {
+    _TRACE_("GamePreTitleScene::initialize()");
+    reset();
 }
 
 void GamePreTitleScene::processBehavior() {
