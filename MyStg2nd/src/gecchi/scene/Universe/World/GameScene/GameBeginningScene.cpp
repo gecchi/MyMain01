@@ -53,11 +53,10 @@ void GameBeginningScene::processBehavior() {
         _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE BEGIN");
         _pStringBoard02->update(200, 250, "SELECT MODE!");
     }
-    if (getProgress() == GAMEBEGINNING_SCENE_PROG_INIT) {
-        if (VB->isPushedDown(VB_UI_EXECUTE)) {
+    if (getProgress() == GAMEBEGINNING_SCENE_PROG_SELECT_MODE) {
+        if (VB->isPushedDown(VB_UI_EXECUTE) || getActivePartFrameInProgress() == 300) {
             changeProgress(GAMEBEGINNING_SCENE_PROG_DECIDE);
         }
-        changeProgress(GAMEBEGINNING_SCENE_PROG_DECIDE);
     }
     if (onInactiveProgress(GAMEBEGINNING_SCENE_PROG_SELECT_MODE)) {
         _TRACE_("GameBeginningScene onInactiveProgress(GAMEBEGINNING_SCENE_PROG_SELECT_MODE)");

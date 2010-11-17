@@ -9,6 +9,8 @@
 #define GAME_SCENE_PROG_MAIN      6
 #define GAME_SCENE_PROG_ENDING    7
 #define GAME_SCENE_PROG_GAME_OVER 8
+#define GAME_SCENE_PROG_FINISH    9
+
 #ifdef P_WORLD
     #define P_GAME_SCENE (P_WORLD->_pGameScene)
 #else

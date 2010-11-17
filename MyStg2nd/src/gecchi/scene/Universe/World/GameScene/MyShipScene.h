@@ -38,7 +38,7 @@ public:
      * ‰Šúˆ—
      */
     void initialize() override;
-    void reset();
+    void reset() override;
     void onActive() override;
     void processBehavior() override;
 

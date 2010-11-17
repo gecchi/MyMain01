@@ -2,10 +2,8 @@
 #define GAMEOVERSCENE_H_
 
 #define GAMEOVER_SCENE_PROG_INIT   1
-#define GAMEOVER_SCENE_PROG_BEGIN  2
-#define GAMEOVER_SCENE_PROG_OPE    3
-#define GAMEOVER_SCENE_PROG_DECIDE 4
-#define GAMEOVER_SCENE_PROG_END    5
+#define GAMEOVER_SCENE_PROG_DISP   2
+#define GAMEOVER_SCENE_PROG_FINISH    5
 
 
 
@@ -16,8 +14,7 @@ class GameOverScene : public GgafDx9LibStg::DefaultScene {
 public:
     LabelGecchi16Font* _pStringBoard01;
     GameOverScene(const char* prm_name);
-    void reset();
-    void ready();
+    void reset() override;
     virtual void initialize() override;
     virtual void processBehavior() override;
     virtual void processFinal() override;

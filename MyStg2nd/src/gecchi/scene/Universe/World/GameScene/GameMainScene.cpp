@@ -35,8 +35,15 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameMainScene::reset() {
+//    VB_UI->clear();
+//    VB_PLAY->clear();
+//    P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
+
     _pFont1601->update("");
     _pFont1602->update("");
+    if (_pSceneMainCannnel) {
+        _pSceneMainCannnel->inactivateImmediately();
+    }
     changeProgress(GAMEMAIN_SCENE_PROG_INIT);
 }
 void GameMainScene::readyNextStage() {
@@ -74,9 +81,7 @@ void GameMainScene::readyStage(int prm_stage) {
 }
 
 void GameMainScene::initialize() {
-    VB_UI->clear();
-    VB_PLAY->clear();
-    P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
+
     reset();
 
 //    GgafScene* pCommon = P_COMMON_SCENE->extract();

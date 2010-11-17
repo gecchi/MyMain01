@@ -12,23 +12,47 @@ GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameOverScene::reset() {
-    //changeProgress(GAMEENDING_SCENE_PROG_INIT);
-}
-void GameOverScene::ready() {
-    _TRACE_("GameOverScene::ready()");
+    blindScene();
+    _pStringBoard01->update("");
+    changeProgress(GAMEOVER_SCENE_PROG_INIT);
 }
 void GameOverScene::initialize() {
     _TRACE_("GameOverScene::initialize()");
+    reset();
 }
 
 void GameOverScene::processBehavior() {
-    if (getActivePartFrame() == 10) {
-        _pStringBoard01->update(100, 100, "GAME OVER");
+    //GAMEOVER_SCENE_PROG_INIT éûÇÃèàóù
+    if (getProgress() == GAMEOVER_SCENE_PROG_INIT) {
+        changeProgress(GAMEOVER_SCENE_PROG_DISP);
     }
 
-    if (VB->isPushedDown(VB_UI_EXECUTE)) { //VB_UI_EXECUTEÇ≈É^ÉCÉgÉãÇ÷
-        throwEventToUpperTree(EVENT_GAME_OVER_FINISH);
-        inactivateDelay(120);
+    //GAMEOVER_SCENE_PROG_DISP éûÇÃèàóù
+    if (onActiveProgress(GAMEOVER_SCENE_PROG_DISP)) {
+        _TRACE_("GameOverScene onActiveProgress(GAMEOVER_SCENE_PROG_DISP)");
+        _pStringBoard01->update(500, 500, "GAME OVER (-_-;)");
+        fadeinScene(FADE_FRAME);
+    }
+    if (getProgress() == GAMEOVER_SCENE_PROG_DISP) {
+        if (VB->isPushedDown(VB_UI_EXECUTE) || getActivePartFrameInProgress() == 300) {
+            throwEventToUpperTree(EVENT_GAME_OVER_FINISH);
+            changeProgress(GAMEOVER_SCENE_PROG_FINISH);
+        }
+    }
+    if (onInactiveProgress(GAMEOVER_SCENE_PROG_DISP)) {
+        fadeoutScene(FADE_FRAME);
+        inactivateDelay(FADE_FRAME);
+        _TRACE_("GameOverScene onInactiveProgress(GAMEOVER_SCENE_PROG_DISP)");
+    }
+
+    //GAMEOVER_SCENE_PROG_FINISH éûÇÃèàóù
+    if (onActiveProgress(GAMEOVER_SCENE_PROG_FINISH)) {
+        _TRACE_("GameOverScene onActiveProgress(GAMEOVER_SCENE_PROG_DISP)");
+    }
+    if (getProgress() == GAMEOVER_SCENE_PROG_FINISH) {
+    }
+    if (onInactiveProgress(GAMEOVER_SCENE_PROG_FINISH)) {
+        _TRACE_("GameOverScene onInactiveProgress(GAMEOVER_SCENE_PROG_FINISH)");
     }
 
 }

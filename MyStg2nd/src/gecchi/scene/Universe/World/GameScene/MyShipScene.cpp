@@ -27,7 +27,7 @@ void MyShipScene::initialize() {
 void MyShipScene::reset() {
     _TRACE_("MyShipScene reset()");
     _zanki = 2;
-//    blindScene();
+    unblindScene();
     changeProgress(MYSHIPSCENE_SCENE_PROG_INIT);
 }
 void MyShipScene::onActive() {
@@ -46,6 +46,7 @@ void MyShipScene::processBehavior() {
 
     //MYSHIPSCENE_SCENE_PROG_BEGIN Žž‚Ìˆ—
     if (onActiveProgress(MYSHIPSCENE_SCENE_PROG_BEGIN)) {
+        unblindScene();
         _pMyShip->reset();
         _pMyShip->activate();
         _TRACE_("MyShipScene onActiveProgress(MYSHIPSCENE_SCENE_PROG_BEGIN)");
@@ -99,16 +100,15 @@ void MyShipScene::processBehavior() {
         _TRACE_("MyShipScene onActiveProgress(MYSHIPSCENE_SCENE_PROG_DESTROY)");
         _pMyShip->_pEffectMyShipExplosion->activate();
         _pMyShip->_isNoControl = true;
-        fadeoutSceneTree(120);
+        fadeoutSceneTree(60);
         _zanki -= 1;
     }
     if (getProgress() == MYSHIPSCENE_SCENE_PROG_DESTROY) {
         if (getActivePartFrameInProgress() == 120) {
-
             if (_zanki == 0) {
                 throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
                 changeProgress(PROG_NOTHING);
-                inactivateDelay(180);
+                inactivate();
             } else {
                 throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
                 changeProgress(MYSHIPSCENE_SCENE_PROG_BEGIN);
@@ -124,9 +124,6 @@ void MyShipScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
         _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
         changeProgress(MYSHIPSCENE_SCENE_PROG_DESTROY);
-    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {
-        _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_FINISH was Catch!!");
-        //changeProgress()
     }
 }
 

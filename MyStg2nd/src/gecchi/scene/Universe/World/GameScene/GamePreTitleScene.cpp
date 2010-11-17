@@ -24,6 +24,7 @@ void GamePreTitleScene::reset() {
     _pTitleBoard->setCoordinate(200, 600);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
+    blindScene();
     changeProgress(GAMEPRETITLE_SCENE_PROG_INIT);
 }
 
@@ -51,8 +52,7 @@ void GamePreTitleScene::processBehavior() {
 
     //タイトル前デモ GAMEPRETITLE_SCENE_PROG_EXEC 時の処理
     if (onActiveProgress(GAMEPRETITLE_SCENE_PROG_EXEC)) {
-        blindSceneTree();
-        fadeinSceneTree(FADE_FRAME);
+        fadeinScene(FADE_FRAME);
         _TRACE_("GamePreTitleScene onActiveProgress(GAMEPRETITLE_SCENE_PROG_EXEC)");
     }
     if (getProgress() == GAMEPRETITLE_SCENE_PROG_EXEC) {
