@@ -61,12 +61,14 @@ public :
      * _pAlphaCurtain->open(1.0 / prm_frame_fade); //αカーテンオープン
      * </pre>
      * とすることで可能です。<BR>
+     * 注意：シーンが非活動状態時は、呼び出し自体が無視される。
      * @param prm_frame_fade 0% -> 100%になるまでの実行フレーム数
      */
     void fadeinSceneTree(int prm_frame_fade);
 
     /**
      * 自シーンのみのフェードイン .
+     * 注意：シーンが非活動状態時は、呼び出し自体が無視される。
      * @param prm_frame_fade 0% -> 100%になるまでの実行フレーム数
      */
     void fadeinScene(int prm_frame_fade);
@@ -81,12 +83,14 @@ public :
      * _pAlphaCurtain->close(1.0 / prm_frame_fade); //αカーテンクローズ
      * </pre>
      * とすることで可能です。<BR>
+     * 注意：シーンが非活動状態時は、呼び出し自体が無視される。
      * @param prm_frame_fade 100% -> 0%になるまでの実行フレーム数
      */
     void fadeoutSceneTree(int prm_frame_fade);
 
     /**
      * 自シーンのみのフェードアウト .
+     * 注意：シーンが非活動状態時は、呼び出し自体が無視される。
      * @param prm_frame_fade 100% -> 0%になるまでの実行フレーム数
      */
     void fadeoutScene(int prm_frame_fade);
@@ -94,11 +98,13 @@ public :
     /**
      * 自シーンのみ即非表示 .
      * 内部的処理は０フレームフェードアウトを行う .
+     * 注意：シーンが非活動状態時でも有効である。
      */
     void blindScene();
 
     /**
      * 自ツリーシーンを即非表示 .
+     * 注意：シーンが非活動状態時でも有効である。
      */
     void blindSceneTree();
 
@@ -106,11 +112,13 @@ public :
     /**
      * 自シーンのみ即表示 .
      * 内部的処理は０フレームフェードインを行う .
+     * 注意：シーンが非活動状態時でも有効である。
      */
     void unblindScene();
 
     /**
      * 自ツリーシーンを即非表示 .
+     * 注意：シーンが非活動状態時でも有効である。
      */
     void unblindSceneTree();
 
