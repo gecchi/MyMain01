@@ -30,7 +30,21 @@ void GgafFactory::order(unsigned long prm_id,
                         void* prm_pArg2,
                         void* prm_pArg3) {
     TRACE2("GgafFactory::order ＜客＞ 別スレッドの工場さん、[" << prm_id << "]を作っといて～。");
-    static GgafOrder* pOrder_New;
+    //既に注文していないかチェック
+    GgafOrder* pOrder;
+    pOrder = ROOT_ORDER;
+    while (pOrder != NULL) {
+        if (pOrder->_id == prm_id) {
+            _TRACE_("＜警告＞ GgafFactory::order [" << prm_id << "]は、既に注文してるのでスルーします。意図していなければオカシイですよ！");
+            return;
+        }
+        if (pOrder->_is_last_order_flg) {
+            break;
+        }
+        pOrder = pOrder->_pOrder_Next;
+    }
+    //既は未だであるようなのでストック
+    GgafOrder* pOrder_New;
     pOrder_New = NEW GgafOrder(prm_id);
     pOrder_New->_pObject_Creation=NULL;
     pOrder_New->_pFunc = prm_pFunc;
@@ -50,7 +64,7 @@ void GgafFactory::order(unsigned long prm_id,
         TRACE2("GgafFactory::order ＜客＞ 注文たまってますね、次々注文恐れ入ります。");
         pOrder_New->_is_first_order_flg = false;
         pOrder_New->_is_last_order_flg = true;
-        static GgafOrder* pOrder_Last;
+        GgafOrder* pOrder_Last;
         pOrder_Last = ROOT_ORDER->_pOrder_Prev;
         pOrder_Last->_is_last_order_flg = false;
         pOrder_Last->_pOrder_Next = pOrder_New;
