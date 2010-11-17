@@ -88,15 +88,15 @@ void MyShipScene::processBehavior() {
         _pMyShip->_isNoControl = false;
     }
     if (getProgress() == MYSHIPSCENE_SCENE_PROG_PLAY) {
-
+       ‡@
     }
     if (onInactiveProgress(MYSHIPSCENE_SCENE_PROG_PLAY)) {
         _TRACE_("MyShipScene onInactiveProgress(MYSHIPSCENE_SCENE_PROG_PLAY)");
-        P_UNIVERSE->popCameraWork();
+  ‚±‚±‚ªŽÀs‚³‚ê‚ñ P_UNIVERSE->popCameraWork();
     }
 
     //MYSHIPSCENE_SCENE_PROG_DESTROY Žž‚Ìˆ—
-    if (onActiveProgress(MYSHIPSCENE_SCENE_PROG_DESTROY)) {
+    ‡B‚Ì‡‚É‚È‚Á‚Ä‚Ü‚¤     if (onActiveProgress(MYSHIPSCENE_SCENE_PROG_DESTROY)) {
         _TRACE_("MyShipScene onActiveProgress(MYSHIPSCENE_SCENE_PROG_DESTROY)");
         _pMyShip->_pEffectMyShipExplosion->activate();
         _pMyShip->_isNoControl = true;
@@ -123,7 +123,7 @@ void MyShipScene::processBehavior() {
 void MyShipScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
         _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
-        changeProgress(MYSHIPSCENE_SCENE_PROG_DESTROY);
+‡A        changeProgress(MYSHIPSCENE_SCENE_PROG_DESTROY);
     }
 }
 
