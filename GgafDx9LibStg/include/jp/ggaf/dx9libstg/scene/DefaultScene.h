@@ -22,6 +22,13 @@ public:
     virtual void initialize() override {
     }
 
+    /**
+     * シーンをリセットし、再利用可能にする .
+     * 下位で実装してください。
+     */
+    virtual void reset() {
+    }
+
     virtual void processBehavior() override {
         TRACE("DefaultScene::processBehavior " << getName() << "frame:" << _frame_of_behaving);
     }
