@@ -715,7 +715,7 @@ public:
         if (_pProgress == NULL) {
             _pProgress = NEW GgafProgress(&_frame_of_behaving, prm_num);
         } else {
-            _TRACE_("["<<getName()<<"] ‚ÍŠù‚É useProgresss ‚µ‚Ä‚¢‚Ü‚·Bprm_num="<<prm_num);
+            _TRACE_("["<<GGAF_NODE::getName()<<"] ‚ÍŠù‚É useProgresss ‚µ‚Ä‚¢‚Ü‚·Bprm_num="<<prm_num);
         }
     }
 

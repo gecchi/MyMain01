@@ -9,10 +9,10 @@ _progress_prev(-2),
 _progress_nextframe(-3),
 _pFrame_behaving(prm_pFrame_behaving)
 {
-    _paFrame_ProgressChange = NEW frame[prm_num];
+    _paFrame_ProgressChanged = NEW frame[prm_num];
     DWORD x = UINT_MAX/2;
     for (int i = 0; i < prm_num; i++) {
-        _paFrame_ProgressChange[i] = x; //有りえないフレームなら良い
+        _paFrame_ProgressChanged[i] = x; //有りえないフレームなら良い
     }
 }
 
@@ -21,27 +21,27 @@ int GgafProgress::get() {
     return _progress;
 }
 
-frame GgafProgress::getFrameAtChanged(int prm_progress) {
-    return _paFrame_ProgressChange[prm_progress];
+frame GgafProgress::getFrameWhenChanged(int prm_progress) {
+    return _paFrame_ProgressChanged[prm_progress];
 }
 
-frame GgafProgress::getActivePartFrameIn() {
-    return (*_pFrame_behaving)+1 - _paFrame_ProgressChange[_progress];
+frame GgafProgress::getActivePartFrameInProgress() {
+    return (*_pFrame_behaving)+1 - _paFrame_ProgressChanged[_progress];
 }
 
 
 void GgafProgress::change(int prm_progress) {
     _progress_nextframe = prm_progress;
-    _paFrame_ProgressChange[prm_progress] = (*_pFrame_behaving)+1;
+    _paFrame_ProgressChanged[prm_progress] = (*_pFrame_behaving)+1;
 }
 
 void GgafProgress::changeNext() {
     _progress_nextframe = _progress+1;
-    _paFrame_ProgressChange[_progress+1] = (*_pFrame_behaving)+1;
+    _paFrame_ProgressChanged[_progress+1] = (*_pFrame_behaving)+1;
 }
 
 
-bool GgafProgress::onActive(int prm_progress) {
+bool GgafProgress::wasChangedTo(int prm_progress) {
     if (_progress != _progress_prev) {
         if (prm_progress == _progress) {
             return true;
@@ -52,8 +52,15 @@ bool GgafProgress::onActive(int prm_progress) {
         return false;
     }
 }
+bool GgafProgress::isJustChanged() {
+    if (_progress != _progress_prev) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
-bool GgafProgress::onInactive(int prm_progress) {
+bool GgafProgress::wasChangedFrom(int prm_progress) {
     if (_progress != _progress_prev) {
         if (prm_progress == _progress_prev) {
             return true;
@@ -66,7 +73,7 @@ bool GgafProgress::onInactive(int prm_progress) {
 }
 
 
-int GgafProgress::getOnActive() {
+int GgafProgress::getChangedTo() {
     if (_progress != _progress_prev) {
         return _progress;
     } else {
@@ -74,7 +81,7 @@ int GgafProgress::getOnActive() {
     }
 }
 
-int GgafProgress::getOnInactive() {
+int GgafProgress::getChangedFrom() {
     if (_progress != _progress_prev) {
         return _progress_prev;
     } else {
@@ -90,7 +97,7 @@ void GgafProgress::update() {
 }
 
 GgafProgress::~GgafProgress() {
-    DELETEARR_IMPOSSIBLE_NULL(_paFrame_ProgressChange);
+    DELETEARR_IMPOSSIBLE_NULL(_paFrame_ProgressChanged);
 
 }
 
