@@ -67,7 +67,7 @@
 #endif
 
 //自分用デバッグビルド(コメントを外せば使用可能)
-#define MY_DEBUG 1
+//#define MY_DEBUG 1
 
 
 #ifdef MY_DEBUG
