@@ -14,6 +14,7 @@ EnemyPallas::EnemyPallas(const char* prm_name) : DefaultMeshSetActor(prm_name, "
     _pDispatcher_ShotEffect = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    useProgress(10);
 }
 
 void EnemyPallas::onCreateModel() {
@@ -35,7 +36,7 @@ void EnemyPallas::onActive() {
     MyStgUtil::resetEnemyPallasStatus(_pStatus);
 
     _iMovePatternNo = 0; //行動パターンリセット
-    changeProgress(1);
+    _pProgress->change(1);
 }
 
 void EnemyPallas::processBehavior() {
@@ -43,15 +44,15 @@ void EnemyPallas::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     //【パターン1：スプライン移動】
-    if (onActiveProgress(1)) {
+    if (_pProgress->onActive(1)) {
         _pSplineProgram->begin(0); //スプライン移動を開始(1:座標相対)
     }
-    if (getProgress() == 1) {
+    if (_pProgress->get() == 1) {
         //スプライン移動終了待ち
         if (_pSplineProgram->isExecuting()) {
             //待ちぼうけ
         } else {
-            nextProgress(); //次のパターンへ
+            _pProgress->changeNext(); //次のパターンへ
         }
     }
 

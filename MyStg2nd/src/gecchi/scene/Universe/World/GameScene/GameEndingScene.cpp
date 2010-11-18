@@ -7,10 +7,11 @@ using namespace MyStg2nd;
 
 GameEndingScene::GameEndingScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameEndingScene";
+    useProgress(10);
 }
 
 void GameEndingScene::reset() {
-    //changeProgress(GAMEENDING_SCENE_PROG_INIT);
+    //_pProgress->change(GAMEENDING_SCENE_PROG_INIT);
 }
 void GameEndingScene::ready() {
     _TRACE_("GameEndingScene::ready()");

@@ -10,39 +10,40 @@ TitleBoard::TitleBoard(const char* prm_name) : DefaultBoardSetActor(prm_name, "t
     _class_name = "TitleBoard";
     //_z = 0.99;//たぶん最背面 （0 <= _z < 1.0）Z=(0～+1)
     _z = 0.9999999f;
+    useProgress(10);
 }
 void TitleBoard::initialize() {
 }
 
 void TitleBoard::onActive() {
-//    changeProgress(TITLEBOARD_PROG_INIT);
+//    _pProgress->change(TITLEBOARD_PROG_INIT);
 }
 
 void TitleBoard::processBehavior() {
-//    if (getProgress() == TITLEBOARD_PROG_INIT) {
-//        changeProgress(TITLEBOARD_PROG_ENTRANCE);
+//    if (_pProgress->get() == TITLEBOARD_PROG_INIT) {
+//        _pProgress->change(TITLEBOARD_PROG_ENTRANCE);
 //    }
 //
 //    //タイトル表示アクション TITLEBOARD_PROG_ENTRANCE 時の処理
-//    if (onActiveProgress(TITLEBOARD_PROG_ENTRANCE)) {
+//    if (_pProgress->onActive(TITLEBOARD_PROG_ENTRANCE)) {
 //        setCoordinate(200, 1000);
 //    }
-//    if (getProgress() == TITLEBOARD_PROG_ENTRANCE) {
+//    if (_pProgress->get() == TITLEBOARD_PROG_ENTRANCE) {
 //        _y -= 1;
 //        if (_y <= 150) {
-//            changeProgress(TITLEBOARD_PROG_DISP);
+//            _pProgress->change(TITLEBOARD_PROG_DISP);
 //        }
 //    }
-//    if (onInactiveProgress(TITLEBOARD_PROG_ENTRANCE)) {
+//    if (_pProgress->onInactive(TITLEBOARD_PROG_ENTRANCE)) {
 //    }
 //
 //    //タイトル表示静止 TITLEBOARD_PROG_DISP 時の処理
-//    if (onActiveProgress(TITLEBOARD_PROG_DISP)) {
+//    if (_pProgress->onActive(TITLEBOARD_PROG_DISP)) {
 //        setCoordinate(200, 150);
 //    }
-//    if (getProgress() == TITLEBOARD_PROG_DISP) {
+//    if (_pProgress->get() == TITLEBOARD_PROG_DISP) {
 //    }
-//    if (onInactiveProgress(TITLEBOARD_PROG_DISP)) {
+//    if (_pProgress->onInactive(TITLEBOARD_PROG_DISP)) {
 //    }
 
 

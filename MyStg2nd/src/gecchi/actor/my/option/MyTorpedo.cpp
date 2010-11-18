@@ -27,6 +27,7 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOpti
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
     _pTarget = NULL;
+    useProgress(10);
 }
 
 void MyTorpedo::initialize() {
@@ -57,12 +58,12 @@ void MyTorpedo::onActive() {
     _begin_Y = _Y;
     _begin_Z = _Z;
     setHitAble(true);
-    changeProgress(MyTorpedo_IN_FIRE);
+    _pProgress->change(MyTorpedo_IN_FIRE);
     _move_section = 0;
 }
 
 void MyTorpedo::processBehavior() {
-    if (getProgress() == MyTorpedo_RELEASE) {
+    if (_pProgress->get() == MyTorpedo_RELEASE) {
         if (_pTailEffectDispatcher->_num_chip_active == 0) {
             //軌跡エフェクトが全て非活動になった場合
             inactivate(); //自身を最後にinactivate()
@@ -71,7 +72,7 @@ void MyTorpedo::processBehavior() {
         }
     }
 
-    if (getProgress() == MyTorpedo_IN_FIRE) {
+    if (_pProgress->get() == MyTorpedo_IN_FIRE) {
         //尾っぽエフェクト追加処理
         if (_pTailEffectDispatcher->_num_chip_active < _length_TailEffect) {
             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)_pTailEffectDispatcher->employ();
@@ -183,9 +184,9 @@ void MyTorpedo::processBehavior() {
 }
 
 void MyTorpedo::processJudgement() {
-    if (isOutOfUniverse() && getProgress() == MyTorpedo_IN_FIRE) {
+    if (isOutOfUniverse() && _pProgress->get() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
-        changeProgress(MyTorpedo_RELEASE);
+        _pProgress->change(MyTorpedo_RELEASE);
         GgafMainActor* pTailEffect = _pTailEffectDispatcher->getSubFirst();
         for (int i = 0; i < _length_TailEffect; i++) {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
@@ -207,7 +208,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //ヒット時通貫はしません
     int sta = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
     setHitAble(false);
-    changeProgress(MyTorpedo_RELEASE);
+    _pProgress->change(MyTorpedo_RELEASE);
     GgafMainActor* pTailEffect = _pTailEffectDispatcher->getSubFirst();
     for (int i = 0; i < _length_TailEffect; i++) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約

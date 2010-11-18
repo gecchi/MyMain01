@@ -19,7 +19,7 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
     _pSeTransmitter->useSe(1);                                                //Žg—pŒø‰Ê‰¹”éŒ¾
     _pSeTransmitter->set(0, "humei10", GgafRepeatSeq::nextVal("CH_humei10")); //Œø‰Ê‰¹’è‹`
-
+    useProgress(10);
 }
 
 void EffectLockon001::initialize() {
@@ -64,9 +64,6 @@ void EffectLockon001::dump() {
                                                                                ","<<
                                                                                _will_end_after_flg<<
                                                                                "("<<_frame_of_life_when_end<<")"<<
-                                                                               ","<<
-                                                                               _progress<<
-                                                                               "("<<_progress_nextframe<<")"<<
                                                                                ","<<
                                                                                _was_paused_flg<<
                                                                                _was_paused_flg_in_next_frame<<
@@ -115,9 +112,6 @@ void EffectLockon001::dump(string prm_parent) {
                                                                          ","<<
                                                                          _will_end_after_flg<<
                                                                          "("<<_frame_of_life_when_end<<")"<<
-                                                                         ","<<
-                                                                         _progress<<
-                                                                         "("<<_progress_nextframe<<")"<<
                                                                          ","<<
                                                                          _was_paused_flg<<
                                                                          _was_paused_flg_in_next_frame<<

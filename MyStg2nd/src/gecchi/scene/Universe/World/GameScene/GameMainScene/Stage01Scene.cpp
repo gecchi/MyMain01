@@ -25,6 +25,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     _pMessage->inactivate();
 
     fadeoutScene(0); //最初は非表示
+    useProgress(10);
 }
 
 void Stage01Scene::initialize() {
@@ -33,11 +34,11 @@ void Stage01Scene::initialize() {
 
 void Stage01Scene::processBehavior() {
     StageScene::processBehavior();
-    if (getProgress() == STAGE_SCENE_PROG_INIT) {
-       changeProgress(STAGE_SCENE_PROG_BEGIN);
+    if (_pProgress->get() == STAGE_SCENE_PROG_INIT) {
+       _pProgress->change(STAGE_SCENE_PROG_BEGIN);
     }
 
-    if (getProgress() == STAGE_SCENE_PROG_BEGIN) {
+    if (_pProgress->get() == STAGE_SCENE_PROG_BEGIN) {
         if (_frame_Begin == 180) { //ステージ１開始！
             _pMessage->activateImmediately();
             _pMessage->update(300, 300, "SCENE 01 START!");
@@ -45,11 +46,11 @@ void Stage01Scene::processBehavior() {
             _pWorldBoundSpace->activateTree();    //背景ON
             _pScene_Stage01Controller->activate();
             fadeinScene(240);
-            changeProgress(STAGE_SCENE_PROG_PLAYING);
+            _pProgress->change(STAGE_SCENE_PROG_PLAYING);
         }
     }
 
-    if (onActiveProgress(STAGE_SCENE_PROG_END)) {
+    if (_pProgress->onActive(STAGE_SCENE_PROG_END)) {
         _TRACE_("Stage01Scene::processBehavior()  STAGE_SCENE_PROG_ENDになりますた！");
         _pMessage->activateImmediately();
         _pMessage->update(300, 300, "SCENE 01 CLEAR!!");
@@ -69,7 +70,7 @@ void Stage01Scene::processFinal() {
 void Stage01Scene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STAGE01CONTROLLER_WAS_END ) {
         _TRACE_("Stage01Scene::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_SCENE_PROG_ENDへ");
-        changeProgress(STAGE_SCENE_PROG_END);
+        _pProgress->change(STAGE_SCENE_PROG_END);
     } else {
 
     }
