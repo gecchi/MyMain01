@@ -95,6 +95,7 @@ void MyShipScene::processBehavior() {
                    _pProgress->change(MYSHIPSCENE_SCENE_PROG_BEGIN);
                 }
             }
+            break;
 
         default:
             break;

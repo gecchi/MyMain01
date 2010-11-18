@@ -49,6 +49,7 @@ void GameDemoScene::processBehavior() {
             if (_pProgress->getActivePartFrameInProgress() == 180) {
                 _pProgress->change(GAMEDEMO_SCENE_PROG_RANKING);
             }
+            break;
 
         case GAMEDEMO_SCENE_PROG_RANKING:
             if (_pProgress->isJustChanged()) {
@@ -58,6 +59,7 @@ void GameDemoScene::processBehavior() {
             if (_pProgress->getActivePartFrameInProgress() == 180) {
                 _pProgress->change(GAMEDEMO_SCENE_PROG_FINISH);
             }
+            break;
 
         case GAMEDEMO_SCENE_PROG_FINISH:
             if (_pProgress->isJustChanged()) {
@@ -65,6 +67,7 @@ void GameDemoScene::processBehavior() {
                 inactivateDelay(FADE_FRAME);
                 throwEventToUpperTree(EVENT_GAMEDEMO_SCENE_FINISH); //終わったイベント発動
             }
+            break;
 
         default:
             break;

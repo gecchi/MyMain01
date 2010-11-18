@@ -57,6 +57,7 @@ void GameBeginningScene::processBehavior() {
                     _pProgress->change(GAMEBEGINNING_SCENE_PROG_DECIDE);
                 }
             }
+            break;
 
         case GAMEBEGINNING_SCENE_PROG_DECIDE:
             if (_pProgress->isJustChanged()) {
@@ -71,11 +72,13 @@ void GameBeginningScene::processBehavior() {
             if (_pProgress->getActivePartFrameInProgress() == FADE_FRAME) {
                 _pProgress->change(GAMEBEGINNING_SCENE_PROG_FINISH);
             }
+            break;
 
         case GAMEBEGINNING_SCENE_PROG_FINISH:
             if (_pProgress->isJustChanged()) {
                 inactivate();
             }
+            break;
 
         default:
             break;

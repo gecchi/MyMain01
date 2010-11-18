@@ -80,7 +80,7 @@ void GamePreTitleScene::processBehavior() {
             break;
 
         default:
-             break;
+            break;
      }
 
 

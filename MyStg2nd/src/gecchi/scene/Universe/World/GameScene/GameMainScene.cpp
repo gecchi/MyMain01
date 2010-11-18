@@ -110,9 +110,9 @@ void GameMainScene::processBehavior() {
                     _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
                     _pSceneMainCannnel->end();
                 }
-                if (_pProgress->getActivePartFrameInProgress() == 120) { //delete‚ðl—¶‚µ‚Q•b—V‚Ô
-                    _pProgress->change(GAMEMAIN_SCENE_PROG_PLAY);
-                }
+            }
+            if (_pProgress->getActivePartFrameInProgress() == 120) { //delete‚ðl—¶‚µ‚Q•b—V‚Ô
+                _pProgress->change(GAMEMAIN_SCENE_PROG_PLAY);
             }
             break;
 
