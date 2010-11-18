@@ -319,7 +319,7 @@ class GgafLinkedListRing;
 
 class GgafFactory;
 class GgafGarbageBox;
-
+class GgafProgress;
 class GgafScene;
 class GgafDisusedScene;
 class GgafActor;
@@ -360,7 +360,7 @@ class GgafCurtain;
 
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/GgafGarbageBox.h"
-
+#include "jp/ggaf/core/GgafProgress.h"
 #include "jp/ggaf/core/GgafNode.hpp"
 #include "jp/ggaf/core/GgafElement.hpp"
 #include "jp/ggaf/core/GgafLinkedListRing.hpp"

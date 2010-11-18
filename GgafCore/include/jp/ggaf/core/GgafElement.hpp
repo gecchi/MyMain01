@@ -96,23 +96,7 @@ public:
     /** [r]末尾ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが末尾ノードに移動する */
     bool _will_mv_last_in_next_frame_flg;
 
-
-
-    /** [r]進捗ID(1～99) */
-    int _progress;
-    /** [r]１フレーム前進捗ID(1～99) */
-    int _progress_prev;
-    /** [r]次フレーム加算時に反映予定の進捗ID(1～99) */
-    int _progress_nextframe;
-    /** [r]進捗IDイベント時フレームストック */
-    frame _aFrame_ProgressChange[100];
-
-
-
-
-
-
-
+    GgafProgress* _pProgress;
 
     /**
      * コンストラクタ
@@ -683,57 +667,7 @@ public:
 
 
 
-    //進捗管理支援メソッド===================
 
-    /**
-     * 現在の進捗ID取得 .
-     * @return 進捗ID(1～99)
-     */
-    virtual int getProgress();
-
-    /**
-     * 進捗IDが起こった時のフレーム取得 .
-     * @param prm_progress 進捗ID(1～99)
-     * @return 引数の直近の進捗IDが起こったときのフレーム
-     */
-    virtual frame getFrameAtChangedProgress(int prm_progress);
-
-    virtual frame getActivePartFrameInProgress();
-
-    /**
-     * 進捗IDを設定 .
-     * 但し、同一フレーム内では反映されず、nextFrame() 時に反映される。
-     * @param prm_progress 進捗ID(1～99)
-     */
-    virtual void changeProgress(int prm_progress);
-
-    /**
-     * 進捗IDを+1する .
-     * 1～99 の範囲となるように注意すること。
-     * 但し、同一フレーム内では反映されず、nextFrame() 時に反映される。
-     */
-
-    virtual void nextProgress();
-
-    /**
-     * 引数の進捗IDに切り替わったかどうか調べる。.
-     * 切り替わった nextFrame() 時に1フレームだけtrueになります。
-     * @param prm_progress 切り替わったかどうか調べたい進捗ID
-     * @return true:引数の進捗IDに切り替わった／false:それ以外
-     */
-    virtual bool onActiveProgress(int prm_progress);
-
-    virtual bool onInactiveProgress(int prm_progress);
-
-    /**
-     * 進捗IDが変化したか（前回と同じかどうか）調べる .
-     * @return 0 又は 進捗ID
-     *         0    ：変化していない
-     *         0以外：変化が有りで、その新しい進捗ID
-     */
-    virtual int getProgressOnActive();
-
-    virtual int getProgressOnInactive();
     /**
      * 配下全てのオブジェクトに対して指定の関数を実行させる .
      * 配下オブジェクト（アクターかシーン）のポインタが、引数関数ポインタの pFuncの第１引数に渡ってくる。<BR>
@@ -776,6 +710,15 @@ public:
      */
     virtual void execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
 
+
+    virtual void useProgress(int prm_num) {
+        if (_pProgress == NULL) {
+            _pProgress = NEW GgafProgress(&_frame_of_behaving, prm_num);
+        } else {
+            _TRACE_("["<<getName()<<"] は既に useProgresss しています。prm_num="<<prm_num);
+        }
+    }
+
 };
 
 ///////////////////////////////////////////////////////////////// ここからは実装部
@@ -804,14 +747,9 @@ _on_change_to_active_flg(false),
 _on_change_to_inactive_flg(false),
 _will_mv_first_in_next_frame_flg(false),
 _will_mv_last_in_next_frame_flg(false),
-_progress(-1),
-_progress_prev(-2),
-_progress_nextframe(-3)
+_pProgress(NULL)
 {
-    DWORD x = UINT_MAX/2;
-    for (int i = 0; i < 100; i++) {
-        _aFrame_ProgressChange[i] = x; //有りえないフレームなら良い
-    }
+
 }
 
 template<class T>
@@ -903,10 +841,6 @@ void GgafElement<T>::nextFrame() {
             }
         }
 
-        //進捗を反映する
-        _progress_prev = _progress;
-        _progress = _progress_nextframe;
-
     }
 
     //配下のnextFrame()実行
@@ -936,6 +870,11 @@ void GgafElement<T>::nextFrame() {
         GGAF_NODE::moveFirst();
         //moveFirstを一番最後にすることは重要。
         //これは nextFrame() の２重実行を避けるため。
+    }
+
+    // 進捗を反映
+    if (_pProgress) {
+        _pProgress->update();
     }
 
     TRACE("GgafElement::nextFrame END _frame_of_behaving="<<_frame_of_behaving<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
@@ -1612,80 +1551,6 @@ void GgafElement<T>::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
 
 
 template<class T>
-int GgafElement<T>::getProgress() {
-    return _progress;
-}
-
-template<class T>
-frame GgafElement<T>::getFrameAtChangedProgress(int prm_progress) {
-    return _aFrame_ProgressChange[prm_progress];
-}
-
-template<class T>
-frame GgafElement<T>::getActivePartFrameInProgress() {
-    return _frame_of_behaving+1 - _aFrame_ProgressChange[_progress];
-}
-
-
-template<class T>
-void GgafElement<T>::changeProgress(int prm_progress) {
-    _progress_nextframe = prm_progress;
-    _aFrame_ProgressChange[prm_progress] = _frame_of_behaving+1;
-}
-
-template<class T>
-void GgafElement<T>::nextProgress() {
-    _progress_nextframe = _progress+1;
-    _aFrame_ProgressChange[_progress+1] = _frame_of_behaving+1;
-}
-
-template<class T>
-bool GgafElement<T>::onActiveProgress(int prm_progress) {
-    if (_progress != _progress_prev) {
-        if (prm_progress == _progress) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
-
-template<class T>
-bool GgafElement<T>::onInactiveProgress(int prm_progress) {
-    if (_progress != _progress_nextframe) {
-        if (_progress == prm_progress) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
-
-
-template<class T>
-int GgafElement<T>::getProgressOnActive() {
-    if (_progress != _progress_prev) {
-        return _progress;
-    } else {
-        return 0; // = false
-    }
-}
-
-template<class T>
-int GgafElement<T>::getProgressOnInactive() {
-    if (_progress != _progress_prev) {
-        return _progress_prev;
-    } else {
-        return 0; // = false
-    }
-}
-
-
-template<class T>
 bool GgafElement<T>::isDisappear() {
     if (_is_active_flg == false) {
 //    if (_will_inactivate_after_flg ||
@@ -1700,6 +1565,7 @@ bool GgafElement<T>::isDisappear() {
 
 template<class T>
 GgafElement<T>::~GgafElement() {
+    DELETE_POSSIBLE_NULL(_pProgress);
 }
 
 }

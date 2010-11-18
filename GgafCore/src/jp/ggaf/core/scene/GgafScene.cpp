@@ -295,10 +295,7 @@ void GgafScene::dump() {
                                                                 _will_end_after_flg<<
                                                                 "("<<_frame_of_life_when_end<<")"<<
                                                                 ","<<
-                                                                _progress<<
-                                                                "("<<_progress_nextframe<<")"<<
-                                                                ","<<
-                                                                _was_paused_flg<<
+                                                                 _was_paused_flg<<
                                                                 _was_paused_flg_in_next_frame<<
                                                                 _will_mv_first_in_next_frame_flg<<
                                                                 _will_mv_last_in_next_frame_flg
@@ -345,9 +342,6 @@ void GgafScene::dump(string prm_parent) {
                                                                            ","<<
                                                                            _will_end_after_flg<<
                                                                            "("<<_frame_of_life_when_end<<")"<<
-                                                                           ","<<
-                                                                           _progress<<
-                                                                           "("<<_progress_nextframe<<")"<<
                                                                            ","<<
                                                                            _was_paused_flg<<
                                                                            _was_paused_flg_in_next_frame<<
