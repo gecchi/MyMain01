@@ -59,54 +59,6 @@ void GameOverScene::processBehavior() {
         default:
             break;
      }
-
-
-
-
-
-
-
-
-//
-//
-//
-//
-//
-//
-//
-//    //GAMEOVER_SCENE_PROG_INIT Žž‚Ìˆ—
-//    if (_pProgress->get() == GAMEOVER_SCENE_PROG_INIT) {
-//        _pProgress->change(GAMEOVER_SCENE_PROG_DISP);
-//    }
-//
-//    //GAMEOVER_SCENE_PROG_DISP Žž‚Ìˆ—
-//    if (_pProgress->wasChangedTo(GAMEOVER_SCENE_PROG_DISP)) {
-//        _TRACE_("GameOverScene _pProgress->wasChangedTo(GAMEOVER_SCENE_PROG_DISP)");
-//        _pStringBoard01->update(500, 500, "GAME OVER (-_-;)");
-//        fadeinScene(FADE_FRAME);
-//    }
-//    if (_pProgress->get() == GAMEOVER_SCENE_PROG_DISP) {
-//        if (VB->isPushedDown(VB_UI_EXECUTE) || _pProgress->getActivePartFrameInProgress() == 300) {
-//            throwEventToUpperTree(EVENT_GAME_OVER_FINISH);
-//            _pProgress->change(GAMEOVER_SCENE_PROG_FINISH);
-//        }
-//    }
-//    if (_pProgress->wasChangedFrom(GAMEOVER_SCENE_PROG_DISP)) {
-//        fadeoutScene(FADE_FRAME);
-//        inactivateDelay(FADE_FRAME);
-//        _TRACE_("GameOverScene _pProgress->wasChangedFrom(GAMEOVER_SCENE_PROG_DISP)");
-//    }
-//
-//    //GAMEOVER_SCENE_PROG_FINISH Žž‚Ìˆ—
-//    if (_pProgress->wasChangedTo(GAMEOVER_SCENE_PROG_FINISH)) {
-//        _TRACE_("GameOverScene _pProgress->wasChangedTo(GAMEOVER_SCENE_PROG_DISP)");
-//    }
-//    if (_pProgress->get() == GAMEOVER_SCENE_PROG_FINISH) {
-//    }
-//    if (_pProgress->wasChangedFrom(GAMEOVER_SCENE_PROG_FINISH)) {
-//        _TRACE_("GameOverScene _pProgress->wasChangedFrom(GAMEOVER_SCENE_PROG_FINISH)");
-//    }
-
 }
 
 void GameOverScene::processFinal() {

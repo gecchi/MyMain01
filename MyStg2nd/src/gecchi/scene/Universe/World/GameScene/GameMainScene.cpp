@@ -91,11 +91,20 @@ void GameMainScene::initialize() {
 }
 
 void GameMainScene::processBehavior() {
+    //SCORE表示
+    sprintf(_buf, "SCORE %07u", _SCORE_);
+    _pFont16_SCORE->update(550, 1, _buf);
+    sprintf(_buf, "RANK %.7f", _RANK_);
+    _pFont16_RANK->update(550, 20, _buf);
+    sprintf(_buf, "STAMINA %7d", P_MYSHIP->_pStatus->get(STAT_Stamina));
+    _pFont16_STAMINA->update(550, 40, _buf);
 
-    switch (_pProgress->getChangedFrom()) {
-        default:
-            break;
-    }
+    sprintf(_buf, "X:%8d", P_MYSHIP->_X);
+    _pFont8_JIKI_X->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*3-1, _buf);
+    sprintf(_buf, "Y:%8d", P_MYSHIP->_Y);
+    _pFont8_JIKI_Y->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*2-1, _buf);
+    sprintf(_buf, "Z:%8d", P_MYSHIP->_Z);
+    _pFont8_JIKI_Z->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*1-1, _buf);
 
 
     switch (_pProgress->get()) {
@@ -137,113 +146,9 @@ void GameMainScene::processBehavior() {
             break;
     }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_INIT) {
-//        _pProgress->change(GAMEMAIN_SCENE_PROG_BEGIN);
-//    }
-//
-//    //GAMEMAIN_SCENE_PROG_BEGIN
-//    if (_pProgress->wasChangedTo(GAMEMAIN_SCENE_PROG_BEGIN)) {
-//        if (_pSceneMainCannnel && !_pSceneMainCannnel->wasDeclaredEnd()) {
-//            //2面目以降はこのタイミングで前ステージをend
-//            _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
-//            _pSceneMainCannnel->end();
-//        }
-//    }
-//    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_BEGIN) {
-//        if (_pProgress->getActivePartFrameInProgress() == 120) { //deleteを考慮し２秒遊ぶ
-//            _pProgress->change(GAMEMAIN_SCENE_PROG_PLAY);
-//        }
-//    }
-//    if (_pProgress->wasChangedFrom(GAMEMAIN_SCENE_PROG_BEGIN)) {
-//    }
-//
-//    //GAMEMAIN_SCENE_PROG_PLAY
-//    if (_pProgress->wasChangedTo(GAMEMAIN_SCENE_PROG_PLAY)) {
-//        if (_had_ready_stage) {
-//            _had_ready_stage = false;
-//            _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
-//            addSubLast(_pSceneMainCannnel); //ステージシーン追加
-//        } else {
-//            throwGgafCriticalException("GameMainScene::processBehavior GAMEMAIN_SCENE_PROG_BEGIN 準備済みステージがありません。_stage="<<_stage);
-//        }
-//    }
-//    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_PLAY) {
-//        //活動ループ
-////        if (_had_ready_stage) {
-//////            _frame_ready_stage++;
-//////            if (_frame_ready_stage == 5*60) {
-////                _TRACE_("新ステージCOMEING!!");
-////                _pProgress->change(GAMEMAIN_SCENE_PROG_BEGIN);
-//////            }
-////        }
-//    }
-//    if (_pProgress->wasChangedFrom(GAMEMAIN_SCENE_PROG_PLAY)) {
-//    }
-//
-//    //GAMEMAIN_SCENE_PROG_END 終了処理
-//    if (_pProgress->wasChangedTo(GAMEMAIN_SCENE_PROG_END)) {
-////         VB_UI->clear();
-////         P_GOD->setVB(VB_UI);  //戻す
-////        _TRACE_("オワタ");
-////        //ここでコンテニュー判断
-////        inactivateDelay(180);
-//    }
-//    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_END) {
-//        //GAMEMAIN_SCENE_PROG_END時はなにもできない
-//    }
-//    if (_pProgress->wasChangedFrom(GAMEMAIN_SCENE_PROG_END)) {
-//    }
-
-    //SCORE表示
-    sprintf(_buf, "SCORE %07u", _SCORE_);
-    _pFont16_SCORE->update(550, 1, _buf);
-    sprintf(_buf, "RANK %.7f", _RANK_);
-    _pFont16_RANK->update(550, 20, _buf);
-    sprintf(_buf, "STAMINA %7d", P_MYSHIP->_pStatus->get(STAT_Stamina));
-    _pFont16_STAMINA->update(550, 40, _buf);
-
-    sprintf(_buf, "X:%8d", P_MYSHIP->_X);
-    _pFont8_JIKI_X->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*3-1, _buf);
-    sprintf(_buf, "Y:%8d", P_MYSHIP->_Y);
-    _pFont8_JIKI_Y->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*2-1, _buf);
-    sprintf(_buf, "Z:%8d", P_MYSHIP->_Z);
-    _pFont8_JIKI_Z->update(1, GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 8*1-1, _buf);
-
-//    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_PLAY || _pProgress->get() == GAMEMAIN_SCENE_PROG_BEGIN) {
-//
-//        //一時停止
-//        if (VB_PLAY->isReleasedUp(VB_PAUSE) || P_GAME_SCENE->_is_frame_advance) {
-//            P_GAME_SCENE->_is_frame_advance = false;
-//            _TRACE_("PAUSE!");
-//            P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
-//            pause();     //自身配下を一時停止する。一時停止解除はGameSceneで行われる
-//            P_UNIVERSE->pushCameraWork("PauseCamWorker");
-////            P_ACTIVE_CAMWORKER->pause();
-//            P_MYSHIP->pause();
-//        }
-//    }
 }
 
 void GameMainScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
-//ここにMyshipのイベントはこないよ！
-//    if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
-//        _TRACE_("GameMainScene EVENT_ALL_MY_SHIP_WAS_DESTROYED was Catch!!");
-//        _pProgress->change(GAMEMAIN_SCENE_PROG_END);
-//    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
-//        _TRACE_("GameMainScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
-//    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {
-//        _TRACE_("GameMainScene EVENT_MY_SHIP_WAS_DESTROYED_FINISH was Catch!!");
-//    }
-
-
     if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
         //次のステージを工場に注文していいよというイベント
         _TRACE_("GameMainScene::onCatchEvent() EVENT_PREPARE_NEXT_STAGE 準備きた");
@@ -256,9 +161,6 @@ void GameMainScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         }
     }
 
-//    if (prm_no == EVENT_JUST_GAME_OVER) {
-//
-//    }
 
 }
 
