@@ -36,64 +36,111 @@ void GameBeginningScene::initialize() {
 
 void GameBeginningScene::processBehavior() {
 
-    //GAMEPRETITLE_SCENE_PROG_INIT 時の処理
-    if (_pProgress->onActive(GAMEBEGINNING_SCENE_PROG_INIT)) {
-        _TRACE_("GameBeginningScene _pProgress->onActive(GAMEBEGINNING_SCENE_PROG_INIT)");
-    }
-    if (_pProgress->get() == GAMEBEGINNING_SCENE_PROG_INIT) {
-        _pProgress->change(GAMEBEGINNING_SCENE_PROG_SELECT_MODE);
-    }
-    if (_pProgress->onInactive(GAMEBEGINNING_SCENE_PROG_INIT)) {
-        _TRACE_("GameBeginningScene _pProgress->onInactive(GAMEPRETITLE_SCENE_PROG_INIT)");
+    switch (_pProgress->getChangedFrom()) {
+        default:
+            break;
     }
 
 
-    //GAMEBEGINNING_SCENE_PROG_SELECT_MODE 時の処理
-    if (_pProgress->onActive(GAMEBEGINNING_SCENE_PROG_SELECT_MODE)) {
-        _TRACE_("GameBeginningScene _pProgress->onActive(GAMEBEGINNING_SCENE_PROG_SELECT_MODE)");
-        _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE BEGIN");
-        _pStringBoard02->update(200, 250, "SELECT MODE!");
-    }
-    if (_pProgress->get() == GAMEBEGINNING_SCENE_PROG_SELECT_MODE) {
-        if (VB->isPushedDown(VB_UI_EXECUTE) || _pProgress->getActivePartFrameIn() == 300) {
-            _pProgress->change(GAMEBEGINNING_SCENE_PROG_DECIDE);
-        }
-    }
-    if (_pProgress->onInactive(GAMEBEGINNING_SCENE_PROG_SELECT_MODE)) {
-        _TRACE_("GameBeginningScene _pProgress->onInactive(GAMEBEGINNING_SCENE_PROG_SELECT_MODE)");
+    switch (_pProgress->get()) {
+        case GAMEBEGINNING_SCENE_PROG_INIT:
+            _pProgress->change(GAMEBEGINNING_SCENE_PROG_SELECT_MODE);
+            break;
+
+        case GAMEBEGINNING_SCENE_PROG_SELECT_MODE:
+            if (_pProgress->isJustChanged()) {
+                _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE BEGIN");
+                _pStringBoard02->update(200, 250, "SELECT MODE!");
+            }
+            if (_pProgress->get() == GAMEBEGINNING_SCENE_PROG_SELECT_MODE) {
+                if (VB->isPushedDown(VB_UI_EXECUTE) || _pProgress->getActivePartFrameInProgress() == 300) {
+                    _pProgress->change(GAMEBEGINNING_SCENE_PROG_DECIDE);
+                }
+            }
+
+        case GAMEBEGINNING_SCENE_PROG_DECIDE:
+            if (_pProgress->isJustChanged()) {
+                fadeoutScene(FADE_FRAME);
+                throwEventToUpperTree(EVENT_GAMEMODE_DECIDE);
+            }
+            if (_pProgress->getActivePartFrameInProgress() % 10 < 5 ) {
+                _pStringBoard02->update(400, 500, "OK OK OK");
+            } else {
+                _pStringBoard02->update(400, 500, "");
+            }
+            if (_pProgress->getActivePartFrameInProgress() == FADE_FRAME) {
+                _pProgress->change(GAMEBEGINNING_SCENE_PROG_FINISH);
+            }
+
+        case GAMEBEGINNING_SCENE_PROG_FINISH:
+            if (_pProgress->isJustChanged()) {
+                inactivate();
+            }
+
+        default:
+            break;
     }
 
-    //GAMEBEGINNING_SCENE_PROG_DECIDE 時の処理
-    if (_pProgress->onActive(GAMEBEGINNING_SCENE_PROG_DECIDE)) {
-        _TRACE_("GameBeginningScene _pProgress->onActive(GAMEBEGINNING_SCENE_PROG_DECIDE)");
-        fadeoutScene(FADE_FRAME);
-        throwEventToUpperTree(EVENT_GAMEMODE_DECIDE);
-    }
-    if (_pProgress->get() == GAMEBEGINNING_SCENE_PROG_DECIDE) {
-        if (_pProgress->getActivePartFrameIn() % 10 < 5 ) {
-            _pStringBoard02->update(400, 500, "OK OK OK");
-        } else {
-            _pStringBoard02->update(400, 500, "");
-        }
-        if (_pProgress->getActivePartFrameIn() == FADE_FRAME) {
-            _pProgress->change(GAMEBEGINNING_SCENE_PROG_FINISH); //タイトルシーン終了へ
-        }
-    }
-    if (_pProgress->onInactive(GAMEBEGINNING_SCENE_PROG_DECIDE)) {
-        _TRACE_("GameBeginningScene _pProgress->onInactive(GAMEBEGINNING_SCENE_PROG_DECIDE)");
 
-    }
 
-    //GAMEBEGINNING_SCENE_PROG_FINISH 時の処理
-    if (_pProgress->onActive(GAMEBEGINNING_SCENE_PROG_FINISH)) {
-        _TRACE_("GameBeginningScene _pProgress->onActive(GAMEBEGINNING_SCENE_PROG_FINISH)");
-        inactivate();
-    }
-    if (_pProgress->get() == GAMEBEGINNING_SCENE_PROG_FINISH) {
-    }
-    if (_pProgress->onInactive(GAMEBEGINNING_SCENE_PROG_FINISH)) {
-        _TRACE_("GameBeginningScene _pProgress->onInactive(GAMEBEGINNING_SCENE_PROG_FINISH)");
-    }
+//    //GAMEPRETITLE_SCENE_PROG_INIT 時の処理
+//    if (_pProgress->wasChangedTo(GAMEBEGINNING_SCENE_PROG_INIT)) {
+//        _TRACE_("GameBeginningScene _pProgress->wasChangedTo(GAMEBEGINNING_SCENE_PROG_INIT)");
+//    }
+//    if (_pProgress->get() == GAMEBEGINNING_SCENE_PROG_INIT) {
+//        _pProgress->change(GAMEBEGINNING_SCENE_PROG_SELECT_MODE);
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEBEGINNING_SCENE_PROG_INIT)) {
+//        _TRACE_("GameBeginningScene _pProgress->wasChangedFrom(GAMEPRETITLE_SCENE_PROG_INIT)");
+//    }
+//
+//
+//    //GAMEBEGINNING_SCENE_PROG_SELECT_MODE 時の処理
+//    if (_pProgress->wasChangedTo(GAMEBEGINNING_SCENE_PROG_SELECT_MODE)) {
+//        _TRACE_("GameBeginningScene _pProgress->wasChangedTo(GAMEBEGINNING_SCENE_PROG_SELECT_MODE)");
+//        _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE BEGIN");
+//        _pStringBoard02->update(200, 250, "SELECT MODE!");
+//    }
+//    if (_pProgress->get() == GAMEBEGINNING_SCENE_PROG_SELECT_MODE) {
+//        if (VB->isPushedDown(VB_UI_EXECUTE) || _pProgress->getActivePartFrameInProgress() == 300) {
+//            _pProgress->change(GAMEBEGINNING_SCENE_PROG_DECIDE);
+//        }
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEBEGINNING_SCENE_PROG_SELECT_MODE)) {
+//        _TRACE_("GameBeginningScene _pProgress->wasChangedFrom(GAMEBEGINNING_SCENE_PROG_SELECT_MODE)");
+//    }
+//
+//    //GAMEBEGINNING_SCENE_PROG_DECIDE 時の処理
+//    if (_pProgress->wasChangedTo(GAMEBEGINNING_SCENE_PROG_DECIDE)) {
+//        _TRACE_("GameBeginningScene _pProgress->wasChangedTo(GAMEBEGINNING_SCENE_PROG_DECIDE)");
+//        fadeoutScene(FADE_FRAME);
+//        throwEventToUpperTree(EVENT_GAMEMODE_DECIDE);
+//    }
+//    if (_pProgress->get() == GAMEBEGINNING_SCENE_PROG_DECIDE) {
+//        if (_pProgress->getActivePartFrameInProgress() % 10 < 5 ) {
+//            _pStringBoard02->update(400, 500, "OK OK OK");
+//        } else {
+//            _pStringBoard02->update(400, 500, "");
+//        }
+//        if (_pProgress->getActivePartFrameInProgress() == FADE_FRAME) {
+//            _pProgress->change(GAMEBEGINNING_SCENE_PROG_FINISH); //タイトルシーン終了へ
+//        }
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEBEGINNING_SCENE_PROG_DECIDE)) {
+//        _TRACE_("GameBeginningScene _pProgress->wasChangedFrom(GAMEBEGINNING_SCENE_PROG_DECIDE)");
+//
+//    }
+//
+//    //GAMEBEGINNING_SCENE_PROG_FINISH 時の処理
+//    if (_pProgress->wasChangedTo(GAMEBEGINNING_SCENE_PROG_FINISH)) {
+//        _TRACE_("GameBeginningScene _pProgress->wasChangedTo(GAMEBEGINNING_SCENE_PROG_FINISH)");
+//        inactivate();
+//    }
+//    if (_pProgress->get() == GAMEBEGINNING_SCENE_PROG_FINISH) {
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEBEGINNING_SCENE_PROG_FINISH)) {
+//        _TRACE_("GameBeginningScene _pProgress->wasChangedFrom(GAMEBEGINNING_SCENE_PROG_FINISH)");
+//    }
 
 
 
@@ -108,7 +155,7 @@ void GameBeginningScene::processBehavior() {
 //    }
 //
 //    //ゲーム開始直前の自機選択等、導入部
-//    if (_pProgress->onActive(GAMEBEGINNING_SCENE_PROG_BEGIN)) {
+//    if (_pProgress->wasChangedTo(GAMEBEGINNING_SCENE_PROG_BEGIN)) {
 //        _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE BEGIN");
 //        _pStringBoard02->update(200, 250, "YOKUKITANA!");
 //        _frame_Begin = 0;
@@ -122,7 +169,7 @@ void GameBeginningScene::processBehavior() {
 //    }
 //
 //    //ゲーム開始直前の自機選択等
-//    if (_pProgress->onActive(GAMEBEGINNING_SCENE_PROG_OPE)) {
+//    if (_pProgress->wasChangedTo(GAMEBEGINNING_SCENE_PROG_OPE)) {
 //        _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE OPE");
 //        _pStringBoard02->update(200, 250, "SELECT YOUR EQ!");
 //        _frame_Ope = 0;
@@ -137,7 +184,7 @@ void GameBeginningScene::processBehavior() {
 //    }
 //
 //    //ゲーム開始直前の自機選択等、決定後のフェードアウト部
-//    if (_pProgress->onActive(GAMEBEGINNING_SCENE_PROG_DECIDE)) {
+//    if (_pProgress->wasChangedTo(GAMEBEGINNING_SCENE_PROG_DECIDE)) {
 //        _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE DECIDE");
 //        _pStringBoard02->update(200, 250, "OK. ARE YOU READY!");
 //        _frame_Decide = 0;
@@ -150,7 +197,7 @@ void GameBeginningScene::processBehavior() {
 //        }
 //    }
 //
-//    if (_pProgress->onActive(GAMEBEGINNING_SCENE_PROG_END)) {
+//    if (_pProgress->wasChangedTo(GAMEBEGINNING_SCENE_PROG_END)) {
 //        _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE END");
 //        _pStringBoard02->update(200, 250, "GOOD LUCK");
 //        inactivateDelay(140);

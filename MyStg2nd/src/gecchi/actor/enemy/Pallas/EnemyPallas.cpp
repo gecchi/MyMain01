@@ -44,7 +44,7 @@ void EnemyPallas::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     //【パターン1：スプライン移動】
-    if (_pProgress->onActive(1)) {
+    if (_pProgress->wasChangedTo(1)) {
         _pSplineProgram->begin(0); //スプライン移動を開始(1:座標相対)
     }
     if (_pProgress->get() == 1) {

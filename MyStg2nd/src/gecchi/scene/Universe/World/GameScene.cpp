@@ -108,261 +108,118 @@ void GameScene::processBehavior() {
     }
 #endif
 
-    //########## GAME_SCENE_PROG_INIT ##########
-    if (_pProgress->get() == GAME_SCENE_PROG_INIT) {
-        //先行準備
-        if (!_pScene_GameMain->_had_ready_stage) {
-            _pScene_GameMain->readyStage(_stage);
-        }
-        _pProgress->change(GAME_SCENE_PROG_PRE_TITLE); //デモへ
-    }
-
-    //##########  タイトル前演出(GAME_SCENE_PROG_PRE_TITLE)  ##########
-    if (_pProgress->onActive(GAME_SCENE_PROG_PRE_TITLE)) {
-        _TRACE_("GameScene _pProgress->onActive(GAME_SCENE_PROG_PRE_TITLE)");
-        _pScene_PreGameTitle->reset();
-        _pScene_PreGameTitle->activate();
-    }
-    if (_pProgress->get() == GAME_SCENE_PROG_PRE_TITLE) {
-        // EVENT_PREGAMETITLE_SCENE_FINISH イベント受付
-        if (VB->isPushedDown(VB_UI_EXECUTE)) { //スキップしてTITLEへ
-            _pProgress->change(GAME_SCENE_PROG_TITLE);
-            _pScene_PreGameTitle->inactivate();
-        }
-    }
-    if (_pProgress->onInactive(GAME_SCENE_PROG_PRE_TITLE)) {
-        _TRACE_("GameScene _pProgress->onInactive(GAME_SCENE_PROG_PRE_TITLE)");
+    switch (_pProgress->getChangedFrom()) {
+        case GAME_SCENE_PROG_MAIN:
+            VB_UI->clear();
+            P_GOD->setVB(VB_UI);  //元に戻す
+            break;
+        default:
+            break;
     }
 
 
-    //##########  タイトル(GAME_SCENE_PROG_TITLE)  ##########
-    if (_pProgress->onActive(GAME_SCENE_PROG_TITLE)) {
-        _TRACE_("GameScene _pProgress->onActive(GAME_SCENE_PROG_TITLE)");
-        _pScene_GameTitle->reset();
-        _pScene_GameTitle->activate();
-    }
-    if (_pProgress->get() == GAME_SCENE_PROG_TITLE) {
-        //イベント待ち EVENT_GAMETITLE_SCENE_FINISH or EVENT_GAMESTART
-    }
-    if (_pProgress->onInactive(GAME_SCENE_PROG_TITLE)) {
-        _TRACE_("GameScene _pProgress->onInactive(GAME_SCENE_PROG_TITLE)");
-    }
+    switch (_pProgress->get()) {
+        case GAME_SCENE_PROG_INIT:
+            //先行準備
+            if (!_pScene_GameMain->_had_ready_stage) {
+                _pScene_GameMain->readyStage(_stage);
+            }
+            _pProgress->change(GAME_SCENE_PROG_PRE_TITLE);
+            break;
 
+        case GAME_SCENE_PROG_PRE_TITLE:
+            //##########  タイトル前演出  ##########
+            if (_pProgress->isJustChanged()) {
+                _pScene_PreGameTitle->reset();
+                _pScene_PreGameTitle->activate();
+            }
+            //VB_UI_EXECUTE で、スキップしてTITLEへ
+            if (VB->isPushedDown(VB_UI_EXECUTE)) {
+                _pScene_PreGameTitle->inactivate();
+                _pProgress->change(GAME_SCENE_PROG_TITLE);
+            }
+            //或いは EVENT_PREGAMETITLE_SCENE_FINISH イベント受付
+            break;
 
-    //##########  デモ(GAME_SCENE_PROG_DEMO)  ##########
-    if (_pProgress->onActive(GAME_SCENE_PROG_DEMO)) {
-        _TRACE_("GameScene _pProgress->onActive(GAME_SCENE_PROG_DEMO)");
-        _pScene_GameDemo->reset();
-        _pScene_GameDemo->activate();
-    }
-    if (_pProgress->get() == GAME_SCENE_PROG_DEMO) {
-        //イベント待ち EVENT_GAMEDEMO_SCENE_FINISH
+        case GAME_SCENE_PROG_TITLE:
+            //##########  タイトル  ##########
+            if (_pProgress->isJustChanged()) {
+                _pScene_GameTitle->reset();
+                _pScene_GameTitle->activate();
+            }
+            //イベント待ち EVENT_GAMETITLE_SCENE_FINISH or EVENT_GAMESTART
+            break;
 
-        if (VB->isPushedDown(VB_UI_EXECUTE)) { //スキップしてTITLEへ
-            _pProgress->change(GAME_SCENE_PROG_TITLE);
-            _pScene_GameDemo->inactivate();
-        }
-    }
-    if (_pProgress->onInactive(GAME_SCENE_PROG_DEMO)) {
-        _TRACE_("GameScene _pProgress->onInactive(GAME_SCENE_PROG_DEMO)");
-    }
+        case GAME_SCENE_PROG_DEMO:
+            //##########  デモ  ##########
+            if (_pProgress->isJustChanged()) {
+                _pScene_GameDemo->reset();
+                _pScene_GameDemo->activate();
+            }
+            //VB_UI_EXECUTE で、スキップしてTITLEへ
+            if (VB->isPushedDown(VB_UI_EXECUTE)) {
+                _pProgress->change(GAME_SCENE_PROG_TITLE);
+                _pScene_GameDemo->inactivate();
+            }
+            //或いは EVENT_GAMEDEMO_SCENE_FINISH イベント受付
+            break;
 
-    //##########  GAME_SCENE_PROG_BEGINNING(ゲーム開始)  ##########
-    if (_pProgress->onActive(GAME_SCENE_PROG_BEGINNING)) {
-        _TRACE_("GameScene _pProgress->onActive(GAME_SCENE_PROG_BEGINNING)");
-        _pScene_GameBeginning->reset();
-        _pScene_GameBeginning->activate();
-    }
-    if (_pProgress->get() == GAME_SCENE_PROG_BEGINNING) {
-        //イベント待ち EVENT_GAMEMODE_DECIDE
-    }
-    if (_pProgress->onInactive(GAME_SCENE_PROG_BEGINNING)) {
-        _TRACE_("GameScene _pProgress->onInactive(GAME_SCENE_PROG_BEGINNING)");
-    }
+        case GAME_SCENE_PROG_BEGINNING:
+            //##########  ゲーム開始（モード選択等）  ##########
+            if (_pProgress->isJustChanged()) {
+                _pScene_GameBeginning->reset();
+                _pScene_GameBeginning->activate();
+            }
+            //イベント待ち EVENT_GAMEMODE_DECIDE
+            break;
 
-    //##########  GAME_SCENE_PROG_MAIN(メイン)  ##########
-    if (_pProgress->onActive(GAME_SCENE_PROG_MAIN)) {
-        _TRACE_("GameScene _pProgress->onActive(GAME_SCENE_PROG_MAIN)");
-        VB_PLAY->clear();
-        P_GOD->setVB(VB_PLAY); //プレイ用に変更
-        _pScene_GameMain->reset();
-        _pScene_GameMain->activate();
+        case GAME_SCENE_PROG_MAIN:
+            //##########  ゲームメイン  ##########
+            if (_pProgress->isJustChanged()) {
+                VB_PLAY->clear();
+                P_GOD->setVB(VB_PLAY); //プレイ用に変更
+                _pScene_GameMain->reset();
+                _pScene_GameMain->activate();
+                _pMyShipScene->reset();
+                _pMyShipScene->activate();
+            }
+            //イベント待ち EVENT_ALL_MY_SHIP_WAS_DESTROYED
+            break;
 
-        _pMyShipScene->reset();
-        _pMyShipScene->activate();
-    }
-    if (_pProgress->get() == GAME_SCENE_PROG_MAIN) {
-        //イベント待ち EVENT_ALL_MY_SHIP_WAS_DESTROYED
-    }
-    if (_pProgress->onInactive(GAME_SCENE_PROG_MAIN)) {
-        _TRACE_("GameScene _pProgress->onInactive(GAME_SCENE_PROG_MAIN)");
-        VB_UI->clear();
-        P_GOD->setVB(VB_UI);  //元に戻す
-    }
+        case GAME_SCENE_PROG_ENDING:
+            if (_pProgress->isJustChanged()) {
+            }
+            break;
 
+        case GAME_SCENE_PROG_GAME_OVER:
+            //##########  ゲームオーバー  ##########
+            if (_pProgress->isJustChanged()) {
+                _pScene_GameOver->reset();
+                _pScene_GameOver->activate();
+            }
+            //イベント待ち EVENT_GAME_OVER_FINISH
+            break;
 
-    //GAME_SCENE_PROG_ENDING 時の処理
-    if (_pProgress->onActive(GAME_SCENE_PROG_ENDING)) {
-    }
-    if (_pProgress->get() == GAME_SCENE_PROG_ENDING) {
-    }
-    if (_pProgress->onInactive(GAME_SCENE_PROG_ENDING)) {
-    }
+        case GAME_SCENE_PROG_FINISH:
+            //##########  ゲームシーン終了  ##########
+            if (_pProgress->isJustChanged()) {
+                _pMyShipScene->fadeoutSceneTree(FADE_FRAME);
+                _pScene_PreGameTitle->fadeoutSceneTree(FADE_FRAME);
+                _pScene_GameTitle->fadeoutSceneTree(FADE_FRAME);
+                _pScene_GameDemo->fadeoutSceneTree(FADE_FRAME);
+                _pScene_GameBeginning->fadeoutSceneTree(FADE_FRAME);
+                _pScene_GameMain->fadeoutSceneTree(FADE_FRAME);
+                _pScene_GameEnding->fadeoutSceneTree(FADE_FRAME);
+                _pScene_GameOver->fadeoutSceneTree(FADE_FRAME);
+            }
+            if (_pProgress->getActivePartFrameInProgress() == FADE_FRAME) {
+                reset(); //リセット（最初の進捗状態に戻る）
+            }
+            break;
 
-
-    //GAME_SCENE_PROG_GAME_OVER 時の処理
-    if (_pProgress->onActive(GAME_SCENE_PROG_GAME_OVER)) {
-        _TRACE_("GameScene _pProgress->onActive(GAME_SCENE_PROG_GAME_OVER)");
-        _pScene_GameOver->reset();
-        _pScene_GameOver->activate();
+        default:
+            break;
     }
-    if (_pProgress->get() == GAME_SCENE_PROG_GAME_OVER) {
-        //イベント待ち EVENT_GAME_OVER_FINISH
-    }
-    if (_pProgress->onInactive(GAME_SCENE_PROG_GAME_OVER)) {
-        _TRACE_("GameScene _pProgress->onInactive(GAME_SCENE_PROG_GAME_OVER)");
-    }
-
-    //GAME_SCENE_PROG_GAME_OVER 時の処理
-    if (_pProgress->onActive(GAME_SCENE_PROG_FINISH)) {
-        _TRACE_("GameScene _pProgress->onActive(GAME_SCENE_PROG_FINISH)");
-        _pMyShipScene->fadeoutSceneTree(FADE_FRAME);
-        _pScene_PreGameTitle->fadeoutSceneTree(FADE_FRAME);
-        _pScene_GameTitle->fadeoutSceneTree(FADE_FRAME);
-        _pScene_GameDemo->fadeoutSceneTree(FADE_FRAME);
-        _pScene_GameBeginning->fadeoutSceneTree(FADE_FRAME);
-        _pScene_GameMain->fadeoutSceneTree(FADE_FRAME);
-        _pScene_GameEnding->fadeoutSceneTree(FADE_FRAME);
-        _pScene_GameOver->fadeoutSceneTree(FADE_FRAME);
-    }
-    if (_pProgress->get() == GAME_SCENE_PROG_FINISH) {
-        if (_pProgress->getActivePartFrameIn() == FADE_FRAME) {
-            reset();
-        }
-    }
-    if (_pProgress->onInactive(GAME_SCENE_PROG_FINISH)) {
-        _TRACE_("GameScene _pProgress->onInactive(GAME_SCENE_PROG_FINISH)");
-    }
-
-//#ifdef MY_DEBUG
-//    //ワイヤフレーム表示切替
-//    if (VB->isPushedDown(VB_UI_DEBUG)) {
-//        if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
-//            GgafDx9God::_d3dfillmode = D3DFILL_SOLID;
-//        } else {
-//            GgafDx9God::_d3dfillmode = D3DFILL_WIREFRAME;
-//        }
-//    }
-//#endif
-////    if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
-////        fadeinSceneTree(2*60);
-////    }
-////    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
-////        fadeoutSceneTree(2*60);
-////    }
-//
-//    //一時停止解除
-//    if (_pScene_GameMain->wasPause()) {
-//        if (VB_UI->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
-//            P_GOD->setVB(VB_PLAY);
-//            _pScene_GameMain->unpause();     //GameMainSceneでの一時停止解除
-//            P_UNIVERSE->popCameraWork();
-////            P_ACTIVE_CAMWORKER->unpause();
-//            P_MYSHIP->unpause();
-//        }
-//    }
-//
-////     //おまけ機能。一時停止していれば、カメラ操作できる。
-////     if (_pScene_GameMain->canBehave() ) {
-////         //一時停止していない状態。
-////         //スルー
-////     } else {
-////     }
-//
-//    //サブシーンの切替えや平行実行のための、初期化、事前処理、フラグ処理等
-//    if (_pSceneCannel == _pScene_GameDemo) {
-//        if (_pScene_GameDemo->getProgressOnActive() == GAMEDEMO_SCENE_PROG_BEGIN) {
-//            VB_UI->clear();
-//            P_GOD->setVB(VB_UI);
-//            _pScene_GameBeginning->reset();
-//            _pScene_GameBeginning->ready();
-//        }
-//        if (_pScene_GameDemo->getProgressOnActive() == GAMEDEMO_SCENE_PROG_DECIDE) {
-//            VB_UI->clear();
-//            P_GOD->setVB(VB_UI);
-//            _pScene_GameBeginning->activate();
-//            _pSceneCannel = _pScene_GameBeginning;
-//        }
-//
-//    } else if (_pSceneCannel == _pScene_GameBeginning) {
-//        if (_pScene_GameBeginning->getProgressOnActive() == GAMEBEGINNING_SCENE_PROG_BEGIN) {
-//            VB_UI->clear();
-//            P_GOD->setVB(VB_UI);
-//
-//        }
-//
-//        if (_pScene_GameBeginning->getProgressOnActive() == GAMEBEGINNING_SCENE_PROG_DECIDE) {
-//            VB_UI->clear();
-//            P_GOD->setVB(VB_UI);
-//            _stage = _pScene_GameBeginning->_selected_stage;
-//            _pScene_GameMain->ready(_stage); //先行準備
-//
-//        }
-//
-//        if (_pScene_GameBeginning->getProgressOnActive() == GAMEBEGINNING_SCENE_PROG_END) {
-//            VB_UI->clear();
-//            P_GOD->setVB(VB_UI);
-//            _pScene_GameMain->reset();
-//            _pScene_GameMain->activate();
-//            _pSceneCannel = _pScene_GameMain;
-//        }
-//
-//    } else if (_pSceneCannel == _pScene_GameMain) {
-//        if (_pScene_GameMain->getProgressOnActive() == GAMEMAIN_SCENE_PROG_BEGIN) {
-//            _pMyShipScene->reset();
-//            _pMyShipScene->activate();
-//            _TRACE_("_pMyShipScene activateしました！");
-////            VB_UI->clear();
-////            VB_PLAY->clear();
-////            P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
-//
-//            //GameOverかGameEnding 先行準備
-//            _pScene_GameOver->reset();
-//            _pScene_GameOver->ready();
-//            _pScene_GameEnding->reset();
-//            _pScene_GameEnding->ready();
-//
-//        }
-//
-//    } else if (_pSceneCannel == _pScene_GameEnding) {
-//        if (_pScene_GameEnding->getProgressOnActive() == GAMEENDING_SCENE_PROG_BEGIN) {
-//            VB_UI->clear();
-//            P_GOD->setVB(VB_UI);
-//            _pScene_GameDemo->reset();
-//            _pScene_GameDemo->ready();
-//
-//        }
-//        if (_pScene_GameEnding->getProgressOnActive() == GAMEENDING_SCENE_PROG_END) {
-//            VB_UI->clear();
-//            P_GOD->setVB(VB_UI);
-//            _pSceneCannel = _pScene_GameDemo;
-//        }
-//
-//    } else if (_pSceneCannel == _pScene_GameOver) { //余地のないGAME_OVER
-//        if (_pScene_GameOver->getProgressOnActive() == GAMEOVER_SCENE_PROG_BEGIN) {
-//            VB_UI->clear();
-//            P_GOD->setVB(VB_UI);
-//            _pScene_GameDemo->reset();
-//            _pScene_GameDemo->ready();
-//        }
-//        if (_pScene_GameOver->getProgressOnActive() == GAMEOVER_SCENE_PROG_END) {
-//            VB_UI->clear();
-//            P_GOD->setVB(VB_UI);
-//            _pSceneCannel = _pScene_GameDemo;
-//        }
-//
-//    }
-
 }
 
 void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
@@ -402,35 +259,6 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GAME_OVER_FINISH)");
         _pProgress->change(GAME_SCENE_PROG_FINISH);
     }
-
-//    if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
-//        _TRACE_("GameScene EVENT_ALL_MY_SHIP_WAS_DESTROYED was Catch!!");
-//        if (true) { //GameOverかどうか分岐
-//            _pMyShipScene->fadeoutScene(180);
-//            _pMyShipScene->inactivateDelay(180);
-//            _pScene_GameMain->_pProgress->change(GAMEMAIN_SCENE_PROG_END);
-//            _pScene_GameMain->_pSceneMainCannnel->fadeoutSceneTree(180);
-//            _TRACE_(_pScene_GameMain->_pSceneMainCannnel->getName()<<" をfadeoutSceneします");
-//            _pSceneCannel = _pScene_GameOver;
-//            _pSceneCannel->activate();
-//            _pSceneCannel->_pProgress->change(GAMEOVER_SCENE_PROG_BEGIN);
-//        } else {
-//            _pSceneCannel = _pScene_GameEnding;
-//        }
-//
-//
-//    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
-//        _TRACE_("GameScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
-//    } else if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_FINISH) {
-//        _TRACE_("GameScene EVENT_MY_SHIP_WAS_DESTROYED_FINISH was Catch!!");
-//    } else if (prm_no == EVENT_GAME_OVER_FINISH) {
-//        _TRACE_("GameScene EVENT_GAME_OVER_FINISH was Catch!!");
-//        _pSceneCannel = _pScene_GameDemo;
-//        _pScene_GameDemo->reset();
-//        _pScene_GameDemo->ready();
-//        _pScene_GameDemo->activate();
-//        _pScene_GameDemo->_pProgress->change(GAMEDEMO_SCENE_PROG_BEGIN);
-//    }
 }
 
 
@@ -469,12 +297,6 @@ void GameScene::processJudgement() {
 
 
 void GameScene::processFinal() {
-
-//    if (getBehaveingFrame() == 120) {
-//        //デモ開始
-//        _pScene_GameDemo->activate();
-//    }
-
 }
 
 

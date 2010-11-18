@@ -31,57 +31,99 @@ void GameDemoScene::initialize() {
 
 void GameDemoScene::processBehavior() {
 
-    //GAMEDEMO_SCENE_PROG_INIT 時の処理
-    if (_pProgress->onActive(GAMEDEMO_SCENE_PROG_INIT)) {
+    switch (_pProgress->getChangedFrom()) {
+        default:
+            break;
     }
-    if (_pProgress->get() == GAMEDEMO_SCENE_PROG_INIT) {
-        _pProgress->change(GAMEDEMO_SCENE_PROG_DEMOPLAY);
-    }
-    if (_pProgress->onInactive(GAMEDEMO_SCENE_PROG_INIT)) {
+
+    switch (_pProgress->get()) {
+        case GAMEDEMO_SCENE_PROG_INIT:
+            _pProgress->change(GAMEDEMO_SCENE_PROG_DEMOPLAY);
+            break;
+
+        case GAMEDEMO_SCENE_PROG_DEMOPLAY:
+            if (_pProgress->isJustChanged()) {
+                _pStringBoard01->update(100, 100, "DEMOPLAY NOW");
+                _pStringBoard02->update(100, 150, "GAME OVER");
+            }
+            if (_pProgress->getActivePartFrameInProgress() == 180) {
+                _pProgress->change(GAMEDEMO_SCENE_PROG_RANKING);
+            }
+
+        case GAMEDEMO_SCENE_PROG_RANKING:
+            if (_pProgress->isJustChanged()) {
+                _pStringBoard01->update(100, 100, "RANKING NOW");
+                _pStringBoard02->update(100, 150, "GAME OVER");
+            }
+            if (_pProgress->getActivePartFrameInProgress() == 180) {
+                _pProgress->change(GAMEDEMO_SCENE_PROG_FINISH);
+            }
+
+        case GAMEDEMO_SCENE_PROG_FINISH:
+            if (_pProgress->isJustChanged()) {
+                fadeoutSceneTree(FADE_FRAME);
+                inactivateDelay(FADE_FRAME);
+                throwEventToUpperTree(EVENT_GAMEDEMO_SCENE_FINISH); //終わったイベント発動
+            }
+
+        default:
+            break;
     }
 
 
-    //デモプレイ GAMEDEMO_SCENE_PROG_DEMOPLAY 時の処理
-    if (_pProgress->onActive(GAMEDEMO_SCENE_PROG_DEMOPLAY)) {
-        _TRACE_("GameDemoScene _pProgress->onActive(GAMEDEMO_SCENE_PROG_DEMOPLAY)");
-        _pStringBoard01->update(100, 100, "DEMOPLAY NOW");
-        _pStringBoard02->update(100, 150, "GAME OVER");
-    }
-    if (_pProgress->get() == GAMEDEMO_SCENE_PROG_DEMOPLAY) {
-        if (_pProgress->getActivePartFrameIn() == 180) {
-            _pProgress->change(GAMEDEMO_SCENE_PROG_RANKING);
-        }
-    }
-    if (_pProgress->onInactive(GAMEDEMO_SCENE_PROG_DEMOPLAY)) {
-        _TRACE_("GameDemoScene _pProgress->onInactive(GAMEDEMO_SCENE_PROG_DEMOPLAY)");
-    }
-
-    //ランキング GAMEDEMO_SCENE_PROG_RANKING 時の処理
-    if (_pProgress->onActive(GAMEDEMO_SCENE_PROG_RANKING)) {
-        _TRACE_("GameDemoScene _pProgress->onActive(GAMEDEMO_SCENE_PROG_RANKING)");
-        _pStringBoard01->update(100, 100, "RANKING NOW");
-        _pStringBoard02->update(100, 150, "GAME OVER");
-    }
-    if (_pProgress->get() == GAMEDEMO_SCENE_PROG_RANKING) {
-        if (_pProgress->getActivePartFrameIn() == 180) {
-            _pProgress->change(GAMEDEMO_SCENE_PROG_FINISH);
-        }
-    }
-    if (_pProgress->onInactive(GAMEDEMO_SCENE_PROG_RANKING)) {
-        _TRACE_("GameDemoScene _pProgress->onInactive(GAMEDEMO_SCENE_PROG_RANKING)");
-    }
-
-    //ランキング GAMEDEMO_SCENE_PROG_RANKING 時の処理
-    if (_pProgress->onActive(GAMEDEMO_SCENE_PROG_FINISH)) {
-        _TRACE_("GameDemoScene _pProgress->onActive(GAMEDEMO_SCENE_PROG_FINISH)");
-        fadeoutSceneTree(FADE_FRAME);
-        inactivateDelay(FADE_FRAME);
-        throwEventToUpperTree(EVENT_GAMEDEMO_SCENE_FINISH);
-    }
-    if (_pProgress->get() == GAMEDEMO_SCENE_PROG_FINISH) {
-    }
-    if (_pProgress->onInactive(GAMEDEMO_SCENE_PROG_FINISH)) {
-    }
+//
+//
+//    //GAMEDEMO_SCENE_PROG_INIT 時の処理
+//    if (_pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_INIT)) {
+//    }
+//    if (_pProgress->get() == GAMEDEMO_SCENE_PROG_INIT) {
+//        _pProgress->change(GAMEDEMO_SCENE_PROG_DEMOPLAY);
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEDEMO_SCENE_PROG_INIT)) {
+//    }
+//
+//
+//    //デモプレイ GAMEDEMO_SCENE_PROG_DEMOPLAY 時の処理
+//    if (_pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_DEMOPLAY)) {
+//        _TRACE_("GameDemoScene _pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_DEMOPLAY)");
+//        _pStringBoard01->update(100, 100, "DEMOPLAY NOW");
+//        _pStringBoard02->update(100, 150, "GAME OVER");
+//    }
+//    if (_pProgress->get() == GAMEDEMO_SCENE_PROG_DEMOPLAY) {
+//        if (_pProgress->getActivePartFrameInProgress() == 180) {
+//            _pProgress->change(GAMEDEMO_SCENE_PROG_RANKING);
+//        }
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEDEMO_SCENE_PROG_DEMOPLAY)) {
+//        _TRACE_("GameDemoScene _pProgress->wasChangedFrom(GAMEDEMO_SCENE_PROG_DEMOPLAY)");
+//    }
+//
+//    //ランキング GAMEDEMO_SCENE_PROG_RANKING 時の処理
+//    if (_pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_RANKING)) {
+//        _TRACE_("GameDemoScene _pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_RANKING)");
+//        _pStringBoard01->update(100, 100, "RANKING NOW");
+//        _pStringBoard02->update(100, 150, "GAME OVER");
+//    }
+//    if (_pProgress->get() == GAMEDEMO_SCENE_PROG_RANKING) {
+//        if (_pProgress->getActivePartFrameInProgress() == 180) {
+//            _pProgress->change(GAMEDEMO_SCENE_PROG_FINISH);
+//        }
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEDEMO_SCENE_PROG_RANKING)) {
+//        _TRACE_("GameDemoScene _pProgress->wasChangedFrom(GAMEDEMO_SCENE_PROG_RANKING)");
+//    }
+//
+//    //ランキング GAMEDEMO_SCENE_PROG_RANKING 時の処理
+//    if (_pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_FINISH)) {
+//        _TRACE_("GameDemoScene _pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_FINISH)");
+//        fadeoutSceneTree(FADE_FRAME);
+//        inactivateDelay(FADE_FRAME);
+//        throwEventToUpperTree(EVENT_GAMEDEMO_SCENE_FINISH);
+//    }
+//    if (_pProgress->get() == GAMEDEMO_SCENE_PROG_FINISH) {
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEDEMO_SCENE_PROG_FINISH)) {
+//    }
 
 
 
@@ -108,7 +150,7 @@ void GameDemoScene::processBehavior() {
 //        _pProgress->change(GAMEDEMO_SCENE_PROG_BEGIN);
 //    }
 //
-//    if (_pProgress->onActive(GAMEDEMO_SCENE_PROG_BEGIN)) {
+//    if (_pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_BEGIN)) {
 //        _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE BEGIN");
 //        _pStringBoard02->update(100, 150, "HAJIMARI HAJIMARI!");
 //        _frame_Begin = 0;
@@ -124,7 +166,7 @@ void GameDemoScene::processBehavior() {
 //
 //    //ループ----->
 //
-//    if (_pProgress->onActive(GAMEDEMO_SCENE_PROG_TITLE)) {
+//    if (_pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_TITLE)) {
 //         //タイトル開始
 //        _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE TITLE");
 //        _pStringBoard02->update(100, 150, "PUSH A UI_EXECUTE BUTTON");
@@ -147,7 +189,7 @@ void GameDemoScene::processBehavior() {
 //        }
 //    }
 //
-//    if (_pProgress->onActive(GAMEDEMO_SCENE_PROG_DEMOPLAY)) {
+//    if (_pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_DEMOPLAY)) {
 //        //デモプレイ開始
 //        _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE DEMOPLAY");
 //        _pStringBoard02->update(100, 150, "GAME OVER");
@@ -168,7 +210,7 @@ void GameDemoScene::processBehavior() {
 //
 //
 //
-//    if (_pProgress->onActive(GAMEDEMO_SCENE_PROG_RANKING)) {
+//    if (_pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_RANKING)) {
 //        //ランキング表示
 //        _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE RANKING");
 //        _pStringBoard02->update(100, 150, "WE ARE THE WORLD. DESTORY ALL THEM. POWER UP");
@@ -196,7 +238,7 @@ void GameDemoScene::processBehavior() {
 //
 //
 //    //ゲームスタート
-//    if (_pProgress->onActive(GAMEDEMO_SCENE_PROG_DECIDE)) {
+//    if (_pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_DECIDE)) {
 //        _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE DECIDE");
 //        _pStringBoard02->update(100, 150, "OK HJIMARIMASU!");
 //        _frame_Decide = 0;
@@ -210,7 +252,7 @@ void GameDemoScene::processBehavior() {
 //        }
 //    }
 //
-//    if (_pProgress->onActive(GAMEDEMO_SCENE_PROG_END)) {
+//    if (_pProgress->wasChangedTo(GAMEDEMO_SCENE_PROG_END)) {
 //        _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE END");
 //        _pStringBoard02->update(100, 150, "SRABA");
 //        inactivateDelay(200);

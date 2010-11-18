@@ -39,69 +39,128 @@ void GameTitleScene::initialize() {
 
 void GameTitleScene::processBehavior() {
 
-    //GAMETITLE_SCENE_PROG_INIT 時の処理
-    if (_pProgress->onActive(GAMETITLE_SCENE_PROG_INIT)) {
-        _TRACE_("GameTitleScene _pProgress->onActive(GAMETITLE_SCENE_PROG_INIT)");
-    }
-    if (_pProgress->get() == GAMETITLE_SCENE_PROG_INIT) {
-        _pProgress->change(GAMETITLE_SCENE_PROG_TITLE);
-    }
-    if (_pProgress->onInactive(GAMETITLE_SCENE_PROG_INIT)) {
-        _TRACE_("GameTitleScene _pProgress->onInactive(GAMETITLE_SCENE_PROG_INIT)");
+    switch (_pProgress->getChangedFrom()) {
+        default:
+            break;
     }
 
 
-    //タイトル GAMETITLE_SCENE_PROG_TITLE 時の処理
-    if (_pProgress->onActive(GAMETITLE_SCENE_PROG_TITLE)) {
-        _TRACE_("GameTitleScene _pProgress->onActive(GAMETITLE_SCENE_PROG_TITLE)");
-        _pStringBoard02->update(400, 500, "PUSH UI_EXECUTE TO START!");
-    }
-    if (_pProgress->get() == GAMETITLE_SCENE_PROG_TITLE) {
+    switch (_pProgress->get()) {
+        case GAMETITLE_SCENE_PROG_INIT:
+            _pProgress->change(GAMETITLE_SCENE_PROG_TITLE);
+            break;
 
-        if (VB->isPushedDown(VB_UI_EXECUTE)) {
-            _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMESTART)");
-            _pProgress->change(GAMETITLE_SCENE_PROG_GAMESTART);
-        } else if (_pProgress->getActivePartFrameIn() == 240) {
-            //ボーっと見てた場合
-            _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLE_SCENE_FINISH)");
-            throwEventToUpperTree(EVENT_GAMETITLE_SCENE_FINISH); //普通に終了イベント
-            _pProgress->change(GAMETITLE_SCENE_PROG_FINISH); //タイトルシーン終了へ
-        }
-    }
-    if (_pProgress->onInactive(GAMETITLE_SCENE_PROG_TITLE)) {
-        _TRACE_("GameTitleScene _pProgress->onInactive(GAMETITLE_SCENE_PROG_TITLE)");
+        case GAMETITLE_SCENE_PROG_TITLE:
+            if (_pProgress->isJustChanged()) {
+                _pStringBoard02->update(400, 500, "PUSH UI_EXECUTE TO START!");
+            }
+            if (VB->isPushedDown(VB_UI_EXECUTE)) {
+                _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMESTART)");
+                _pProgress->change(GAMETITLE_SCENE_PROG_GAMESTART);
+            } else if (_pProgress->getActivePartFrameInProgress() == 240) {
+                //ボーっと見てた場合
+                _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLE_SCENE_FINISH)");
+                throwEventToUpperTree(EVENT_GAMETITLE_SCENE_FINISH); //普通に終了イベント
+                _pProgress->change(GAMETITLE_SCENE_PROG_FINISH); //タイトルシーン終了へ
+            }
+            break;
+
+        case GAMETITLE_SCENE_PROG_GAMESTART:
+            if (_pProgress->isJustChanged()) {
+            }
+            if (_pProgress->getActivePartFrameInProgress() == 90) {
+                throwEventToUpperTree(EVENT_GAMESTART);      //スタートでに終了イベント
+                _pProgress->change(GAMETITLE_SCENE_PROG_FINISH); //タイトルシーン終了へ
+            }
+            //点滅
+            if (_pProgress->getActivePartFrameInProgress() % 10 < 5 ) {
+                _pStringBoard02->update(400, 500, "READY GO!");
+            } else {
+                _pStringBoard02->update(400, 500, "");
+            }
+            break;
+
+        case GAMETITLE_SCENE_PROG_FINISH:
+            if (_pProgress->isJustChanged()) {
+                fadeoutSceneTree(FADE_FRAME);
+                inactivateDelay(FADE_FRAME);
+            }
+            //おしまい待ちぼうけループ
+            break;
+
+        default:
+            break;
     }
 
-    //GAMETITLE_SCENE_PROG_GAMESTART
-    if (_pProgress->onActive(GAMETITLE_SCENE_PROG_GAMESTART)) {
-        _TRACE_("GameTitleScene throwEventToUpperTree(GAMETITLE_SCENE_PROG_GAMESTART)");
-    }
-    if (_pProgress->get() == GAMETITLE_SCENE_PROG_GAMESTART) {
-        if (_pProgress->getActivePartFrameIn() == 90) {
-            throwEventToUpperTree(EVENT_GAMESTART);      //スタートでに終了イベント
-            _pProgress->change(GAMETITLE_SCENE_PROG_FINISH); //タイトルシーン終了へ
-        }
-        //点滅
-        if (_pProgress->getActivePartFrameIn() % 10 < 5 ) {
-            _pStringBoard02->update(400, 500, "READY GO!");
-        } else {
-            _pStringBoard02->update(400, 500, "");
-        }
-    }
-    if (_pProgress->onInactive(GAMETITLE_SCENE_PROG_GAMESTART)) {
-    }
 
-    //GAMETITLE_SCENE_PROG_FINISH おしまい
-    if (_pProgress->onActive(GAMETITLE_SCENE_PROG_FINISH)) {
-        _TRACE_("GameTitleScene throwEventToUpperTree(GAMETITLE_SCENE_PROG_FINISH)");
-        fadeoutSceneTree(FADE_FRAME);
-        inactivateDelay(FADE_FRAME);
-    }
-    if (_pProgress->get() == GAMETITLE_SCENE_PROG_FINISH) {
-        //おしまい待ちぼうけループ
-    }
-    if (_pProgress->onInactive(GAMETITLE_SCENE_PROG_FINISH)) {
-    }
+//
+//
+//
+//
+//
+//    //GAMETITLE_SCENE_PROG_INIT 時の処理
+//    if (_pProgress->wasChangedTo(GAMETITLE_SCENE_PROG_INIT)) {
+//        _TRACE_("GameTitleScene _pProgress->wasChangedTo(GAMETITLE_SCENE_PROG_INIT)");
+//    }
+//    if (_pProgress->get() == GAMETITLE_SCENE_PROG_INIT) {
+//        _pProgress->change(GAMETITLE_SCENE_PROG_TITLE);
+//    }
+//    if (_pProgress->wasChangedFrom(GAMETITLE_SCENE_PROG_INIT)) {
+//        _TRACE_("GameTitleScene _pProgress->wasChangedFrom(GAMETITLE_SCENE_PROG_INIT)");
+//    }
+//
+//
+//    //タイトル GAMETITLE_SCENE_PROG_TITLE 時の処理
+//    if (_pProgress->wasChangedTo(GAMETITLE_SCENE_PROG_TITLE)) {
+//        _TRACE_("GameTitleScene _pProgress->wasChangedTo(GAMETITLE_SCENE_PROG_TITLE)");
+//        _pStringBoard02->update(400, 500, "PUSH UI_EXECUTE TO START!");
+//    }
+//    if (_pProgress->get() == GAMETITLE_SCENE_PROG_TITLE) {
+//
+//        if (VB->isPushedDown(VB_UI_EXECUTE)) {
+//            _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMESTART)");
+//            _pProgress->change(GAMETITLE_SCENE_PROG_GAMESTART);
+//        } else if (_pProgress->getActivePartFrameInProgress() == 240) {
+//            //ボーっと見てた場合
+//            _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLE_SCENE_FINISH)");
+//            throwEventToUpperTree(EVENT_GAMETITLE_SCENE_FINISH); //普通に終了イベント
+//            _pProgress->change(GAMETITLE_SCENE_PROG_FINISH); //タイトルシーン終了へ
+//        }
+//    }
+//    if (_pProgress->wasChangedFrom(GAMETITLE_SCENE_PROG_TITLE)) {
+//        _TRACE_("GameTitleScene _pProgress->wasChangedFrom(GAMETITLE_SCENE_PROG_TITLE)");
+//    }
+//
+//    //GAMETITLE_SCENE_PROG_GAMESTART
+//    if (_pProgress->wasChangedTo(GAMETITLE_SCENE_PROG_GAMESTART)) {
+//        _TRACE_("GameTitleScene throwEventToUpperTree(GAMETITLE_SCENE_PROG_GAMESTART)");
+//    }
+//    if (_pProgress->get() == GAMETITLE_SCENE_PROG_GAMESTART) {
+//        if (_pProgress->getActivePartFrameInProgress() == 90) {
+//            throwEventToUpperTree(EVENT_GAMESTART);      //スタートでに終了イベント
+//            _pProgress->change(GAMETITLE_SCENE_PROG_FINISH); //タイトルシーン終了へ
+//        }
+//        //点滅
+//        if (_pProgress->getActivePartFrameInProgress() % 10 < 5 ) {
+//            _pStringBoard02->update(400, 500, "READY GO!");
+//        } else {
+//            _pStringBoard02->update(400, 500, "");
+//        }
+//    }
+//    if (_pProgress->wasChangedFrom(GAMETITLE_SCENE_PROG_GAMESTART)) {
+//    }
+//
+//    //GAMETITLE_SCENE_PROG_FINISH おしまい
+//    if (_pProgress->wasChangedTo(GAMETITLE_SCENE_PROG_FINISH)) {
+//        _TRACE_("GameTitleScene throwEventToUpperTree(GAMETITLE_SCENE_PROG_FINISH)");
+//        fadeoutSceneTree(FADE_FRAME);
+//        inactivateDelay(FADE_FRAME);
+//    }
+//    if (_pProgress->get() == GAMETITLE_SCENE_PROG_FINISH) {
+//        //おしまい待ちぼうけループ
+//    }
+//    if (_pProgress->wasChangedFrom(GAMETITLE_SCENE_PROG_FINISH)) {
+//    }
 
 
 }

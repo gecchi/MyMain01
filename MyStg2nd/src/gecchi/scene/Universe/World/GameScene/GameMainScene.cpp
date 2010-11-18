@@ -91,62 +91,116 @@ void GameMainScene::initialize() {
 }
 
 void GameMainScene::processBehavior() {
-    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_INIT) {
-        _pProgress->change(GAMEMAIN_SCENE_PROG_BEGIN);
+
+    switch (_pProgress->getChangedFrom()) {
+        default:
+            break;
     }
 
-    //GAMEMAIN_SCENE_PROG_BEGIN
-    if (_pProgress->onActive(GAMEMAIN_SCENE_PROG_BEGIN)) {
-        if (_pSceneMainCannnel && !_pSceneMainCannnel->wasDeclaredEnd()) {
-            //2面目以降はこのタイミングで前ステージをend
-            _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
-            _pSceneMainCannnel->end();
-        }
-    }
-    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_BEGIN) {
-        if (_pProgress->getActivePartFrameIn() == 120) { //deleteを考慮し２秒遊ぶ
-            _pProgress->change(GAMEMAIN_SCENE_PROG_PLAY);
-        }
-    }
-    if (_pProgress->onInactive(GAMEMAIN_SCENE_PROG_BEGIN)) {
+
+    switch (_pProgress->get()) {
+        case GAMEMAIN_SCENE_PROG_INIT:
+            _pProgress->change(GAMEMAIN_SCENE_PROG_BEGIN);
+            break;
+
+        case GAMEMAIN_SCENE_PROG_BEGIN:
+            if (_pProgress->isJustChanged()) {
+                if (_pSceneMainCannnel && !_pSceneMainCannnel->wasDeclaredEnd()) {
+                    //2面目以降はこのタイミングで前ステージをend
+                    _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
+                    _pSceneMainCannnel->end();
+                }
+                if (_pProgress->getActivePartFrameInProgress() == 120) { //deleteを考慮し２秒遊ぶ
+                    _pProgress->change(GAMEMAIN_SCENE_PROG_PLAY);
+                }
+            }
+            break;
+
+        case GAMEMAIN_SCENE_PROG_PLAY:
+            if (_pProgress->isJustChanged()) {
+                if (_had_ready_stage) {
+                    _had_ready_stage = false;
+                    _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
+                    addSubLast(_pSceneMainCannnel); //ステージシーン追加
+                } else {
+                    throwGgafCriticalException("GameMainScene::processBehavior GAMEMAIN_SCENE_PROG_BEGIN 準備済みステージがありません。_stage="<<_stage);
+                }
+            }
+            break;
+
+        case GAMEMAIN_SCENE_PROG_FINISH:
+            if (_pProgress->isJustChanged()) {
+            }
+            break;
+
+        default:
+            break;
     }
 
-    //GAMEMAIN_SCENE_PROG_PLAY
-    if (_pProgress->onActive(GAMEMAIN_SCENE_PROG_PLAY)) {
-        if (_had_ready_stage) {
-            _had_ready_stage = false;
-            _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
-            addSubLast(_pSceneMainCannnel); //ステージシーン追加
-        } else {
-            throwGgafCriticalException("GameMainScene::processBehavior GAMEMAIN_SCENE_PROG_BEGIN 準備済みステージがありません。_stage="<<_stage);
-        }
-    }
-    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_PLAY) {
-        //活動ループ
-//        if (_had_ready_stage) {
-////            _frame_ready_stage++;
-////            if (_frame_ready_stage == 5*60) {
-//                _TRACE_("新ステージCOMEING!!");
-//                _pProgress->change(GAMEMAIN_SCENE_PROG_BEGIN);
-////            }
+//
+//
+//
+//
+//
+//
+//
+//
+//    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_INIT) {
+//        _pProgress->change(GAMEMAIN_SCENE_PROG_BEGIN);
+//    }
+//
+//    //GAMEMAIN_SCENE_PROG_BEGIN
+//    if (_pProgress->wasChangedTo(GAMEMAIN_SCENE_PROG_BEGIN)) {
+//        if (_pSceneMainCannnel && !_pSceneMainCannnel->wasDeclaredEnd()) {
+//            //2面目以降はこのタイミングで前ステージをend
+//            _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
+//            _pSceneMainCannnel->end();
 //        }
-    }
-    if (_pProgress->onInactive(GAMEMAIN_SCENE_PROG_PLAY)) {
-    }
-
-    //GAMEMAIN_SCENE_PROG_END 終了処理
-    if (_pProgress->onActive(GAMEMAIN_SCENE_PROG_END)) {
-//         VB_UI->clear();
-//         P_GOD->setVB(VB_UI);  //戻す
-//        _TRACE_("オワタ");
-//        //ここでコンテニュー判断
-//        inactivateDelay(180);
-    }
-    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_END) {
-        //GAMEMAIN_SCENE_PROG_END時はなにもできない
-    }
-    if (_pProgress->onInactive(GAMEMAIN_SCENE_PROG_END)) {
-    }
+//    }
+//    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_BEGIN) {
+//        if (_pProgress->getActivePartFrameInProgress() == 120) { //deleteを考慮し２秒遊ぶ
+//            _pProgress->change(GAMEMAIN_SCENE_PROG_PLAY);
+//        }
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEMAIN_SCENE_PROG_BEGIN)) {
+//    }
+//
+//    //GAMEMAIN_SCENE_PROG_PLAY
+//    if (_pProgress->wasChangedTo(GAMEMAIN_SCENE_PROG_PLAY)) {
+//        if (_had_ready_stage) {
+//            _had_ready_stage = false;
+//            _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
+//            addSubLast(_pSceneMainCannnel); //ステージシーン追加
+//        } else {
+//            throwGgafCriticalException("GameMainScene::processBehavior GAMEMAIN_SCENE_PROG_BEGIN 準備済みステージがありません。_stage="<<_stage);
+//        }
+//    }
+//    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_PLAY) {
+//        //活動ループ
+////        if (_had_ready_stage) {
+//////            _frame_ready_stage++;
+//////            if (_frame_ready_stage == 5*60) {
+////                _TRACE_("新ステージCOMEING!!");
+////                _pProgress->change(GAMEMAIN_SCENE_PROG_BEGIN);
+//////            }
+////        }
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEMAIN_SCENE_PROG_PLAY)) {
+//    }
+//
+//    //GAMEMAIN_SCENE_PROG_END 終了処理
+//    if (_pProgress->wasChangedTo(GAMEMAIN_SCENE_PROG_END)) {
+////         VB_UI->clear();
+////         P_GOD->setVB(VB_UI);  //戻す
+////        _TRACE_("オワタ");
+////        //ここでコンテニュー判断
+////        inactivateDelay(180);
+//    }
+//    if (_pProgress->get() == GAMEMAIN_SCENE_PROG_END) {
+//        //GAMEMAIN_SCENE_PROG_END時はなにもできない
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEMAIN_SCENE_PROG_END)) {
+//    }
 
     //SCORE表示
     sprintf(_buf, "SCORE %07u", _SCORE_);

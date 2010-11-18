@@ -39,55 +39,100 @@ void GamePreTitleScene::initialize() {
 
 void GamePreTitleScene::processBehavior() {
 
-    //GAMEPRETITLE_SCENE_PROG_INIT 時の処理
-    if (_pProgress->onActive(GAMEPRETITLE_SCENE_PROG_INIT)) {
-        _TRACE_("GamePreTitleScene _pProgress->onActive(GAMEPRETITLE_SCENE_PROG_INIT)");
-    }
-    if (_pProgress->get() == GAMEPRETITLE_SCENE_PROG_INIT) {
-        _pProgress->change(GAMEPRETITLE_SCENE_PROG_EXEC);
-    }
-    if (_pProgress->onInactive(GAMEPRETITLE_SCENE_PROG_INIT)) {
-        _TRACE_("GamePreTitleScene _pProgress->onInactive(GAMEPRETITLE_SCENE_PROG_INIT)");
+    switch (_pProgress->getChangedFrom()) {
+        default:
+            break;
     }
 
 
-    //タイトル前デモ GAMEPRETITLE_SCENE_PROG_EXEC 時の処理
-    if (_pProgress->onActive(GAMEPRETITLE_SCENE_PROG_EXEC)) {
-        fadeinScene(FADE_FRAME);
-        _TRACE_("GamePreTitleScene _pProgress->onActive(GAMEPRETITLE_SCENE_PROG_EXEC)");
-    }
-    if (_pProgress->get() == GAMEPRETITLE_SCENE_PROG_EXEC) {
-        if (_pProgress->getActivePartFrameIn() == 1) {
-            _pStringBoard01->update(100, 50, "[STORY]");
-        } else if (_pProgress->getActivePartFrameIn() == 120) {
-            _pStringBoard01->update(100, 50, "MUKASHI MUKASHI ARU TOKORONI.");
-        } else if (_pProgress->getActivePartFrameIn() == 240) {
-            _pStringBoard01->update(100, 50, "MA SORE HA OITOITE...");
-        } else if (_pProgress->getActivePartFrameIn() == 360) {
-            _pStringBoard01->update(100, 50, "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
-        } else if (_pProgress->getActivePartFrameIn() > 600) {
-            //タイトルが下からニューっと
-            _pTitleBoard->_y -= 2;
-            if (_pTitleBoard->_y <= 150) {
-                throwEventToUpperTree(EVENT_PREGAMETITLE_SCENE_FINISH);
-                _pProgress->change(GAMEPRETITLE_SCENE_PROG_FINISH);
+    switch (_pProgress->get()) {
+        case GAMEPRETITLE_SCENE_PROG_INIT:
+            _pProgress->change(GAMEPRETITLE_SCENE_PROG_EXEC);
+            break;
+
+        case GAMEPRETITLE_SCENE_PROG_EXEC:
+            if (_pProgress->isJustChanged()) {
+                fadeinScene(FADE_FRAME);
             }
-        }
-    }
-    if (_pProgress->onInactive(GAMEPRETITLE_SCENE_PROG_EXEC)) {
-        _TRACE_("GamePreTitleScene _pProgress->onInactive(GAMEPRETITLE_SCENE_PROG_EXEC)");
-    }
+            if (_pProgress->getActivePartFrameInProgress() == 1) {
+                _pStringBoard01->update(100, 50, "[STORY]");
+            } else if (_pProgress->getActivePartFrameInProgress() == 120) {
+                _pStringBoard01->update(100, 50, "MUKASHI MUKASHI ARU TOKORONI.");
+            } else if (_pProgress->getActivePartFrameInProgress() == 240) {
+                _pStringBoard01->update(100, 50, "MA SORE HA OITOITE...");
+            } else if (_pProgress->getActivePartFrameInProgress() == 360) {
+                _pStringBoard01->update(100, 50, "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
+            } else if (_pProgress->getActivePartFrameInProgress() > 600) {
+                //タイトルが下からニューっと
+                _pTitleBoard->_y -= 2;
+                if (_pTitleBoard->_y <= 150) {
+                    throwEventToUpperTree(EVENT_PREGAMETITLE_SCENE_FINISH);
+                    _pProgress->change(GAMEPRETITLE_SCENE_PROG_FINISH);
+                }
+            }
+            break;
 
-    //GAMEPRETITLE_SCENE_PROG_FINISH おしまい
-    if (_pProgress->onActive(GAMEPRETITLE_SCENE_PROG_FINISH)) {
-        _TRACE_("GamePreTitleScene throwEventToUpperTree(GAMEPRETITLE_SCENE_PROG_FINISH)");
-        inactivate();
-    }
-    if (_pProgress->get() == GAMEPRETITLE_SCENE_PROG_FINISH) {
-        //おしまい待ちぼうけループ
-    }
-    if (_pProgress->onInactive(GAMEPRETITLE_SCENE_PROG_FINISH)) {
-    }
+        case GAMEPRETITLE_SCENE_PROG_FINISH:
+            if (_pProgress->isJustChanged()) {
+                inactivate();
+            }
+            //おしまい待ちぼうけループ
+            break;
+
+        default:
+             break;
+     }
+
+
+//    //GAMEPRETITLE_SCENE_PROG_INIT 時の処理
+//    if (_pProgress->wasChangedTo(GAMEPRETITLE_SCENE_PROG_INIT)) {
+//        _TRACE_("GamePreTitleScene _pProgress->wasChangedTo(GAMEPRETITLE_SCENE_PROG_INIT)");
+//    }
+//    if (_pProgress->get() == GAMEPRETITLE_SCENE_PROG_INIT) {
+//        _pProgress->change(GAMEPRETITLE_SCENE_PROG_EXEC);
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEPRETITLE_SCENE_PROG_INIT)) {
+//        _TRACE_("GamePreTitleScene _pProgress->wasChangedFrom(GAMEPRETITLE_SCENE_PROG_INIT)");
+//    }
+//
+//
+//    //タイトル前デモ GAMEPRETITLE_SCENE_PROG_EXEC 時の処理
+//    if (_pProgress->wasChangedTo(GAMEPRETITLE_SCENE_PROG_EXEC)) {
+//        fadeinScene(FADE_FRAME);
+//        _TRACE_("GamePreTitleScene _pProgress->wasChangedTo(GAMEPRETITLE_SCENE_PROG_EXEC)");
+//    }
+//    if (_pProgress->get() == GAMEPRETITLE_SCENE_PROG_EXEC) {
+//        if (_pProgress->getActivePartFrameInProgress() == 1) {
+//            _pStringBoard01->update(100, 50, "[STORY]");
+//        } else if (_pProgress->getActivePartFrameInProgress() == 120) {
+//            _pStringBoard01->update(100, 50, "MUKASHI MUKASHI ARU TOKORONI.");
+//        } else if (_pProgress->getActivePartFrameInProgress() == 240) {
+//            _pStringBoard01->update(100, 50, "MA SORE HA OITOITE...");
+//        } else if (_pProgress->getActivePartFrameInProgress() == 360) {
+//            _pStringBoard01->update(100, 50, "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
+//        } else if (_pProgress->getActivePartFrameInProgress() > 600) {
+//            //タイトルが下からニューっと
+//            _pTitleBoard->_y -= 2;
+//            if (_pTitleBoard->_y <= 150) {
+//                throwEventToUpperTree(EVENT_PREGAMETITLE_SCENE_FINISH);
+//                _pProgress->change(GAMEPRETITLE_SCENE_PROG_FINISH);
+//            }
+//        }
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEPRETITLE_SCENE_PROG_EXEC)) {
+//        _TRACE_("GamePreTitleScene _pProgress->wasChangedFrom(GAMEPRETITLE_SCENE_PROG_EXEC)");
+//    }
+//
+//    //GAMEPRETITLE_SCENE_PROG_FINISH おしまい
+//    if (_pProgress->wasChangedTo(GAMEPRETITLE_SCENE_PROG_FINISH)) {
+//        _TRACE_("GamePreTitleScene throwEventToUpperTree(GAMEPRETITLE_SCENE_PROG_FINISH)");
+//        inactivate();
+//    }
+//    if (_pProgress->get() == GAMEPRETITLE_SCENE_PROG_FINISH) {
+//        //おしまい待ちぼうけループ
+//    }
+//    if (_pProgress->wasChangedFrom(GAMEPRETITLE_SCENE_PROG_FINISH)) {
+//    }
 
 
 }
