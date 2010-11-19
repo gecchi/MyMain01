@@ -872,12 +872,13 @@
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.1881221530" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="  -c -fmessage-length=0 -s -mno-cygwin -mwindows -Winit-self --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
 								<option id="gnu.cpp.compiler.option.optimization.level.1459603765" name="最適化レベル" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.debugging.level.1945206449" name="デバッグ・レベル" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.warnings.nowarn.979421592" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="false" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.debugging.level.1945206449" name="デバッグ・レベル" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.warnings.nowarn.979421592" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.590074274" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="BUILD_MINGW"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.warnings.syntax.1915728804" name="構文のみ検査 (-fsyntax-only)" superClass="gnu.cpp.compiler.option.warnings.syntax" value="false" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.warnings.allwarn.1998557060" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1983855229" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.base.1424121243" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.base">
@@ -894,7 +895,9 @@
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1598473941" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value=" -c -fmessage-length=0 -s -mno-cygwin -mwindows -fstack-protector -Winit-self --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
 								<option id="gnu.c.compiler.option.optimization.level.878338432" name="最適化レベル" superClass="gnu.c.compiler.option.optimization.level" value="gnu.c.optimization.level.most" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.debugging.level.152989291" name="デバッグ・レベル" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.default" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.debugging.level.152989291" name="デバッグ・レベル" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.warnings.allwarn.573189201" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.warnings.nowarn.1008720038" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1137665352" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1685351344" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
