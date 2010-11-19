@@ -105,7 +105,7 @@ void GgafDx9StringBoardActor::processDraw() {
                 pattno = _draw_string[strindex] - ' '; //í èÌï∂éöóÒ
             }
             if (strindex > 0) {
-                x += _aWidthPx[_draw_string[strindex-1]];
+                x += _aWidthPx[(unsigned char)(_draw_string[strindex-1])];
             }
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], x);
             checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

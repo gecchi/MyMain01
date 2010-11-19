@@ -105,7 +105,7 @@ void GgafDx9StringSpriteActor::processDraw() {
                 pattno = _draw_string[strindex] - ' '; //’Êí•¶Žš—ñ
             }
             if (strindex > 0) {
-                X += _aWidthPx[_draw_string[strindex-1]];
+                X += _aWidthPx[(unsigned char)(_draw_string[strindex-1])];
             }
 
             _matWorld._41 = X;

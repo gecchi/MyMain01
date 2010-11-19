@@ -343,7 +343,6 @@ namespace {
 
     //! 停止
     void PCMPlayer::stop() {
-        _TRACE_("PCMPlayer::stop()");
         if ( isReady() == false ) {
             return;
         }
@@ -352,7 +351,7 @@ namespace {
 
         // バッファの頭出し
         bool r = initializeBuffer();
-        _TRACE_("initializeBuffer() = "<<r);
+        _TRACE_("PCMPlayer::stop() initializeBuffer() = "<<r);
     }
 
     //! 音量を変える
