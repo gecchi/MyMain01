@@ -7,6 +7,13 @@
  * @since 2007/11/14
  * @author Masatoshi Tsuge
  */
+
+//MY_DEBUGは自分用のデバッグビルド
+#ifdef _DEBUG
+    #define MY_DEBUG _DEBUG
+#endif
+
+
 #ifdef _MSC_VER
     #ifdef _DEBUG
         #define _CRTDBG_MAP_ALLOC
@@ -65,9 +72,6 @@
         #define NULL ((void*)0)
     #endif
 #endif
-
-//自分用デバッグビルド(コメントを外せば使用可能)
-//#define MY_DEBUG 1
 
 
 #ifdef MY_DEBUG

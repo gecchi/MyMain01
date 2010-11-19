@@ -311,7 +311,7 @@ public:
 template<class T>
 GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
 _pNodeTemp(NULL),
-_name("NOT_OBJECT_YET"),
+_name(NULL),
 _class_name("GgafNode<T>"),
 _pParent(NULL),
 _pNext((T*)this),

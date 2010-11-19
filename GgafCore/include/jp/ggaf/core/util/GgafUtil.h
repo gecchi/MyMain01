@@ -30,7 +30,13 @@ public:
      * @param s2
      * @return
      */
-    static int strcmp_ascii(char* s1, char* s2) {
+    static int strcmp_ascii(const char* s1, const char* s2) {
+        while (*s1 == *s2++)
+            if (*s1++ == 0) return (0);
+        return (*s1 - *(s2 - 1));
+    }
+
+    static int strcmp_ascii(char* s1, const char* s2) {
         while (*s1 == *s2++)
             if (*s1++ == 0) return (0);
         return (*s1 - *(s2 - 1));
@@ -83,7 +89,7 @@ public:
     static const UINT32 easy_hash(const char* str) {
         UINT32 hash = 5381;
         char c;
-        while (c = *str++) { //strの\0までループ （演算子 "==" と間違えていません）
+        while ((c = *str++) > 0) { //strの\0までループ （演算子 "==" と間違えていません）
             hash = ((hash << 5) + hash) + c; // hash * 33 + c  33倍してます
         }
         return hash;
