@@ -8,10 +8,12 @@
  * @author Masatoshi Tsuge
  */
 
-//MY_DEBUGは自分用のデバッグビルド
+
 #ifdef _DEBUG
     #define MY_DEBUG _DEBUG
 #endif
+
+//#ifdef MY_DEBUG //自分用デバッグビルド
 
 
 #ifdef _MSC_VER
@@ -73,9 +75,6 @@
     #endif
 #endif
 
-
-#ifdef MY_DEBUG
-//自分用デバッグビルドの場合
 
     #ifdef _MSC_VER
         #ifdef _DEBUG

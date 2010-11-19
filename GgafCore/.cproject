@@ -644,7 +644,7 @@
 							<tool errorParsers="" id="cdt.managedbuild.tool.gnu.archiver.mingw.lib.debug.740229111" name="GCC アーカイバー" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.lib.debug"/>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.debug.1782339635" name="GCC C++ コンパイラー" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.debug">
 								<option id="gnu.cpp.compiler.mingw.lib.debug.option.optimization.level.566616877" name="最適化レベル" superClass="gnu.cpp.compiler.mingw.lib.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.mingw.lib.debug.option.debugging.level.380788586" name="デバッグ・レベル" superClass="gnu.cpp.compiler.mingw.lib.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.mingw.lib.debug.option.debugging.level.380788586" name="デバッグ・レベル" superClass="gnu.cpp.compiler.mingw.lib.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1330414472" name="インクルード・パス (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/MSVC_include}&quot;"/>
@@ -652,11 +652,13 @@
 								<option id="gnu.cpp.compiler.option.other.other.630276346" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows -Winit-self --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.pedantic.1472037371" name="ペダンティック (-pedantic)" superClass="gnu.cpp.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1570298481" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols"/>
+								<option id="gnu.cpp.compiler.option.warnings.allwarn.512977306" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.warnings.nowarn.537564010" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1778348319" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug.149050819" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug">
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.mingw.lib.debug.option.optimization.level.2001945558" name="最適化レベル" superClass="gnu.c.compiler.mingw.lib.debug.option.optimization.level" value="gnu.c.optimization.level.most" valueType="enumerated"/>
-								<option id="gnu.c.compiler.mingw.lib.debug.option.debugging.level.1208538825" name="デバッグ・レベル" superClass="gnu.c.compiler.mingw.lib.debug.option.debugging.level" value="gnu.c.debugging.level.default" valueType="enumerated"/>
+								<option id="gnu.c.compiler.mingw.lib.debug.option.debugging.level.1208538825" name="デバッグ・レベル" superClass="gnu.c.compiler.mingw.lib.debug.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.165004538" name="インクルード・パス (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/MSVC_include}&quot;"/>
@@ -665,6 +667,8 @@
 								<option id="gnu.c.compiler.option.warnings.pedantic.1231272271" name="ペダンティック (-pedantic)" superClass="gnu.c.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.preprocessor.preprocess.1503927238" name="プリプロセスのみ (-E)" superClass="gnu.c.compiler.option.preprocessor.preprocess" value="false" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.preprocessor.nostdinc.721658700" name="システム・ディレクトリーを検索しない (-nostdinc)" superClass="gnu.c.compiler.option.preprocessor.nostdinc" value="false" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.warnings.allwarn.593410" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.warnings.nowarn.1018053574" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1053129091" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.485267731" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
