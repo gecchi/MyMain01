@@ -878,7 +878,7 @@
 									<listOptionValue builtIn="false" value="BUILD_MINGW"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.warnings.syntax.1915728804" name="構文のみ検査 (-fsyntax-only)" superClass="gnu.cpp.compiler.option.warnings.syntax" value="false" valueType="boolean"/>
-								<option id="gnu.cpp.compiler.option.warnings.allwarn.1998557060" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.warnings.allwarn.1998557060" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1983855229" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.base.1424121243" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.base">
@@ -896,8 +896,8 @@
 								<option id="gnu.c.compiler.option.misc.other.1598473941" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value=" -c -fmessage-length=0 -s -mno-cygwin -mwindows -fstack-protector -Winit-self --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
 								<option id="gnu.c.compiler.option.optimization.level.878338432" name="最適化レベル" superClass="gnu.c.compiler.option.optimization.level" value="gnu.c.optimization.level.most" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.152989291" name="デバッグ・レベル" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.warnings.allwarn.573189201" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
-								<option id="gnu.c.compiler.option.warnings.nowarn.1008720038" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.warnings.allwarn.573189201" name="すべての警告 (-Wall)" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.warnings.nowarn.1008720038" name="すべての警告を禁止 (-w)" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1137665352" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1685351344" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
@@ -921,12 +921,12 @@
 								</option>
 								<option id="gnu.cpp.link.option.paths.1816202992" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/MyStg2nd/VClib}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/DebugCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/ReleaseCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/DebugCdt}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/DebugCdt}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/DebugCdt}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/DebugCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/ReleaseCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/ReleaseCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/ReleaseCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/ReleaseCdt}&quot;"/>
 								</option>
 								<option id="gnu.cpp.link.option.flags.629476324" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/MyStg2nd/VClib/chkstk.o}&quot; -Wl,--enable-auto-import -mno-cygwin -mwindows  --input-charset=cp932 --exec-charset=cp932  -std=gnu++0x " valueType="string"/>
 								<option id="gnu.cpp.link.option.userobjs.1186631775" name="その他のオブジェクト" superClass="gnu.cpp.link.option.userobjs"/>

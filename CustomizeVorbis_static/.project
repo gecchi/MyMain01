@@ -3,6 +3,7 @@
 	<name>CustomizeVorbis_static</name>
 	<comment></comment>
 	<projects>
+		<project>CustomizeOgg_static</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
