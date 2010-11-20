@@ -36,6 +36,7 @@ public:
     /** デバイスロストフラグ (true=ロスト中) */
     static bool _is_device_lost_flg;
 
+    static bool _adjustGameScreen;
 
 //    /** 射影変換魚売れる */
 //    static D3DXMATRIX _vMatrixProj;
@@ -46,6 +47,8 @@ public:
     static GgafDx9ModelManager* _pModelManager;
     static GgafDx9EffectManager* _pEffectManager;
     static bool _FULLSCRREEN;
+
+
     /**
      * コンストラクタ<BR>
      */
@@ -66,6 +69,8 @@ public:
      * ＜OverRide です＞<BR>
      */
     virtual void presentUniversalVisualize();
+
+    void adjustGameScreen();
 
     D3DXMATRIX getInvRotateMat();
     //    /**

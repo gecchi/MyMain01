@@ -31,6 +31,7 @@ GgafDx9EffectManager* GgafDx9God::_pEffectManager = NULL;
 //int const GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) = 600;
 D3DPRESENT_PARAMETERS GgafDx9God::_structD3dPresent_Parameters;
 bool GgafDx9God::_is_device_lost_flg = false;
+bool GgafDx9God::_adjustGameScreen = false;
 bool GgafDx9God::_FULLSCRREEN = false;
 
 GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
@@ -39,6 +40,7 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
     GgafDx9God::_hWnd = _hWnd;
     GgafDx9God::_hInstance = prm_hInstance;
     _is_device_lost_flg = false;
+    _adjustGameScreen = false;
     CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 Seed
 }
 
@@ -170,33 +172,34 @@ HRESULT GgafDx9God::init() {
         }
     }
 
-    // NVIDIA PerfHUD 用 begin --------------------------------------------->
 
     //default
     UINT AdapterToUse = D3DADAPTER_DEFAULT;
     D3DDEVTYPE DeviceType = D3DDEVTYPE_HAL;
-#ifdef MY_DEBUG
-
-#if SHIPPING_VERSION
-    // When building a shipping version, disable PerfHUD (opt-out)
-#else
-    _TRACE_("Look for 'NVIDIA PerfHUD' adapter...");
-    // If it is present, override default settings
-    for (UINT Adapter = 0; Adapter < GgafDx9God::_pID3D9->GetAdapterCount(); Adapter++) {
-        D3DADAPTER_IDENTIFIER9 Identifier;
-        HRESULT Res;
-        Res = GgafDx9God::_pID3D9->GetAdapterIdentifier(Adapter, 0, &Identifier);
-        if (strstr(Identifier.Description, "PerfHUD") != 0) {
-            _TRACE_("found NVIDIA PerfHUD!");
-            AdapterToUse = Adapter;
-            DeviceType = D3DDEVTYPE_REF;
-            break;
-        }
-    }
-#endif
-
-#endif
-    // <------------------------------------------------ NVIDIA PerfHUD 用 end
+//    // NVIDIA PerfHUD 用 begin --------------------------------------------->
+//
+//#ifdef MY_DEBUG
+//
+//#if SHIPPING_VERSION
+//    // When building a shipping version, disable PerfHUD (opt-out)
+//#else
+//    _TRACE_("Look for 'NVIDIA PerfHUD' adapter...");
+//    // If it is present, override default settings
+//    for (UINT Adapter = 0; Adapter < GgafDx9God::_pID3D9->GetAdapterCount(); Adapter++) {
+//        D3DADAPTER_IDENTIFIER9 Identifier;
+//        HRESULT Res;
+//        Res = GgafDx9God::_pID3D9->GetAdapterIdentifier(Adapter, 0, &Identifier);
+//        if (strstr(Identifier.Description, "PerfHUD") != 0) {
+//            _TRACE_("found NVIDIA PerfHUD!");
+//            AdapterToUse = Adapter;
+//            DeviceType = D3DDEVTYPE_REF;
+//            break;
+//        }
+//    }
+//#endif
+//
+//#endif
+//    // <------------------------------------------------ NVIDIA PerfHUD 用 end
 
 
     //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
@@ -257,6 +260,7 @@ HRESULT GgafDx9God::init() {
     GgafDx9Util::init(); //ユーティリティ準備
     GgafDx9Input::init(); //DirectInput準備
     GgafDx9Sound::init(); //DirectSound準備
+    _adjustGameScreen = true;
     return initDx9Device();
 
 }
@@ -332,8 +336,8 @@ HRESULT GgafDx9God::initDx9Device() {
     // ディザリング
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DITHERENABLE, TRUE );
     // マルチサンプリングアンチエイリアス(といってもフルスクリーンだけ？)↓TODO:まだ謎
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK, 0x00ffffff);
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK, 0x00ffffff);
 
     //ピクセル単位のアルファテストを有効
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
@@ -525,6 +529,10 @@ void GgafDx9God::presentUniversalVisualize() {
         if (_FULLSCRREEN) {
             hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
         } else {
+            if (_adjustGameScreen) {
+                adjustGameScreen();
+                _adjustGameScreen = false;
+            }
             hr = GgafDx9God::_pID3DDevice9->Present(NULL, &_rectPresentDest, NULL, NULL);
         }
         if (hr == D3DERR_DEVICELOST) {
@@ -585,6 +593,34 @@ void GgafDx9God::clean() {
 
 
         _TRACE_("GgafDx9God::clean() end");
+    }
+}
+
+void GgafDx9God::adjustGameScreen() {
+    if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
+        RECT rect;
+        ::GetClientRect(_hWnd, &rect); //あるいは？
+        if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)) {
+            //より横長になってしまっている
+            float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT); //縮小率=縦幅の比率
+            GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)
+                    * rate / 2.0f);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
+            GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
+                    + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate / 2.0f);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate;
+        } else {
+            //より縦長になってしまっている
+            float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_SPACE_WIDTH); //縮小率=横幅の比率
+            GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
+            GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
+                    - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate;
+            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
+                    + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
+        }
+    } else {
+		::GetClientRect(_hWnd, &(GgafDx9Core::GgafDx9God::_rectPresentDest));
     }
 }
 
