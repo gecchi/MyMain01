@@ -127,6 +127,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         hWnd = CreateWindow(
                 szWindowClass, //WINDOW_CLASS,			// ウインドウクラス名
                 szTitle,//WINDOW_TITLE,				// ウインドウのタイトル名
+                //WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX, // ウインドウスタイル
                 WS_OVERLAPPEDWINDOW, // ウインドウスタイル
                 CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
                 CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
@@ -268,20 +269,24 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         }
     } catch (GgafCore::GgafCriticalException& e) {
         //異常終了時
-        _TRACE_("＜例外＞"<<e.getMsg());
-        string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能性があります。\n誠に申し訳ございません。\n";
-        string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-        MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
-        _TRACE_("[GgafCriticalException]:"<<e.getMsg());
+		if (can_be_god) {
+			_TRACE_("＜例外＞"<<e.getMsg());
+			string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能性があります。\n誠に申し訳ございません。\n";
+			string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+			MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
+			_TRACE_("[GgafCriticalException]:"<<e.getMsg());
+		}
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     } catch (exception& e2) {
-        string what(e2.what());
-        _TRACE_("＜致命的な例外＞"<<what);
-        string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかったエラーです。\n誠に申し訳ございません。\n";
-        string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-        MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP);
-        _TRACE_("[exception]:"<<what);
+		if (can_be_god) {
+			string what(e2.what());
+			_TRACE_("＜致命的な例外＞"<<what);
+			string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかったエラーです。\n誠に申し訳ございません。\n";
+			string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+			MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP);
+			_TRACE_("[exception]:"<<what);
+		}
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     }
@@ -408,18 +413,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 }
             }
             break;
+
             //    case WM_KEYDOWN:
             //        //エスケープキーを押したら終了させる
             //        case VK_ESCAPE:
             //            PostMessage(hWnd,WM_CLOSE,0,0);
             //            return 0;
             //
-        case WM_PAINT:
-            if (can_be_god) {
-                hdc = BeginPaint(hWnd, &ps);
-                EndPaint(hWnd, &ps);
-            }
-            break;
+//        case WM_PAINT:
+//            if (can_be_god) {
+//                hdc = BeginPaint(hWnd, &ps);
+//                EndPaint(hWnd, &ps);
+//            }
+//            break;
         case WM_SYSCOMMAND:
             if(wParam == SC_CLOSE){
 //                if (can_be_god) {
@@ -434,11 +440,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 //                    MyStg2nd::Properties::clean();
 //                }
                 PostQuitMessage(0);
-                break;
-            } else {
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
 
+            }
+            break;
 
         case WM_DESTROY:
             //                        SetActiveWindow(hWnd);
@@ -459,9 +463,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             PostQuitMessage(0);
             break;
         default:
-            return DefWindowProc(hWnd, message, wParam, lParam);
+            break;
     }
-    return 0;
+    return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
 // バージョン情報ボックスのメッセージ ハンドラです。

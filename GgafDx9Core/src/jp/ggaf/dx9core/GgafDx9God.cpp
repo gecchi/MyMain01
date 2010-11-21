@@ -70,11 +70,11 @@ HRESULT GgafDx9God::init() {
     //デバイス作成
     ZeroMemory(&_structD3dPresent_Parameters, sizeof(D3DPRESENT_PARAMETERS));
     //バックバッファの縦サイズ
-    //_structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT);
-    _structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT);
+    _structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT);
+    //_structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT);
     //バックバッファの横サイズ
-    //_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH);
-    _structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH);
+    _structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH);
+    //_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH);
     //バックバッファのフォーマット
     if (_FULLSCRREEN) {
         _structD3dPresent_Parameters.BackBufferFormat = D3DFMT_X8R8G8B8;//D3DFMT_A8R8G8B8;//D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
