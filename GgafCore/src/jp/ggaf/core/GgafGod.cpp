@@ -186,6 +186,11 @@ void GgafGod::clean() {
                 }
             }
             //”r‘¼‚Ì‰ðœ
+			_TRACE_("GgafGod::~GgafGod() ”r‘¼‚ªŽæ‚ê‚é‚©ƒ`ƒFƒbƒN‚µ‚Ä‚¢‚Ü‚·EEE");
+			___BeginSynchronized; // ----->”r‘¼ŠJŽn
+			___EndSynchronized; // <----- ”r‘¼I—¹
+			_TRACE_("GgafGod::~GgafGod() ”r‘¼OK");
+
             CloseHandle(_handleFactory01);
             DeleteCriticalSection(&(GgafGod::CS2));
             DeleteCriticalSection(&(GgafGod::CS1));

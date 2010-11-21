@@ -86,7 +86,12 @@ HRESULT GgafDx9God::init() {
     _structD3dPresent_Parameters.BackBufferCount = 1;
 
     //スワップ効果を指定する
-    _structD3dPresent_Parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
+    if (_FULLSCRREEN) {
+        _structD3dPresent_Parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
+    } else {
+        _structD3dPresent_Parameters.SwapEffect = D3DSWAPEFFECT_COPY;
+    }
+
     //ウィンドウハンドル
     _structD3dPresent_Parameters.hDeviceWindow = NULL;
     //ウィンドウモード
@@ -143,7 +148,7 @@ HRESULT GgafDx9God::init() {
     //マルチサンプルの数
     _structD3dPresent_Parameters.MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
     //マルチサンプルの品質レベル
-    _structD3dPresent_Parameters.MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+    _structD3dPresent_Parameters.MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
 
     //フルスクリーンに出来るか調べる
     if (_FULLSCRREEN) {
@@ -437,7 +442,9 @@ D3DXMATRIX GgafDx9God::getInvRotateMat() {
 
 void GgafDx9God::makeUniversalMaterialize() {
     TRACE("GgafDx9God::materialize() start");
-
+    if (_adjustGameScreen) {
+        adjustGameScreen();
+    }
     HRESULT hr;
     if (_is_device_lost_flg) {
         //正常デバイスロスト処理。デバイスリソースの解放→復帰処理を試みる。
@@ -529,10 +536,6 @@ void GgafDx9God::presentUniversalVisualize() {
         if (_FULLSCRREEN) {
             hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
         } else {
-            if (_adjustGameScreen) {
-                adjustGameScreen();
-                _adjustGameScreen = false;
-            }
             hr = GgafDx9God::_pID3DDevice9->Present(NULL, &_rectPresentDest, NULL, NULL);
         }
         if (hr == D3DERR_DEVICELOST) {
@@ -597,30 +600,40 @@ void GgafDx9God::clean() {
 }
 
 void GgafDx9God::adjustGameScreen() {
+	 RECT rect;
     if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
-        RECT rect;
-        ::GetClientRect(_hWnd, &rect); //あるいは？
-        if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)) {
-            //より横長になってしまっている
-            float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT); //縮小率=縦幅の比率
-            GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)
-                    * rate / 2.0f);
-            GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
-            GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
-                    + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate / 2.0f);
-            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate;
-        } else {
-            //より縦長になってしまっている
-            float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_SPACE_WIDTH); //縮小率=横幅の比率
-            GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
-            GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
-                    - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
-            GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate;
-            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
-                    + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
+
+        if (::GetClientRect(_hWnd, &rect)) {
+
+            if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)) {
+                //より横長になってしまっている
+                float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT); //縮小率=縦幅の比率
+                GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)
+                        * rate / 2.0f);
+                GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
+                GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
+                        + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate / 2.0f);
+                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate;
+            } else {
+                //より縦長になってしまっている
+                float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_SPACE_WIDTH); //縮小率=横幅の比率
+                GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
+                GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
+                        - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
+                GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate;
+                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
+                        + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
+            }
+            _adjustGameScreen = false;
         }
     } else {
-		::GetClientRect(_hWnd, &(GgafDx9Core::GgafDx9God::_rectPresentDest));
+        if (::GetClientRect(_hWnd, &rect)) {
+            GgafDx9Core::GgafDx9God::_rectPresentDest.top = rect.top;
+            GgafDx9Core::GgafDx9God::_rectPresentDest.left = rect.left;
+            GgafDx9Core::GgafDx9God::_rectPresentDest.right = rect.right;
+            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = rect.bottom;
+            _adjustGameScreen = false;
+        }
     }
 }
 

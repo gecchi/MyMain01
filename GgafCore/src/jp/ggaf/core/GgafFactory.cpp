@@ -180,6 +180,11 @@ void GgafFactory::clean() {
         TRACE2("GgafFactory::clean ＜神＞ しかし工場に何も無い！！");
         return;
     }
+	while (_is_working_flg || _was_finished_flg == false) {
+		Sleep(10);
+		_TRACE_("GgafFactory::clean ＜神＞ 工場がまだ動いています・・・");
+	}
+
     while (true) {
         if (pOrder->_is_last_order_flg) {
             TRACE2("GgafFactory::clean ＜神＞ 製品削除["<<pOrder->_id<<"]、最後のストック");
