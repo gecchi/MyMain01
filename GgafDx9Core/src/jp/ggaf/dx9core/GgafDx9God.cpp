@@ -80,8 +80,9 @@ HRESULT GgafDx9God::init() {
         _structD3dPresent_Parameters.BackBufferFormat = D3DFMT_X8R8G8B8;//D3DFMT_A8R8G8B8;//D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
     } else {
         _structD3dPresent_Parameters.BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
+        //_structD3dPresent_Parameters.BackBufferFormat = D3DFMT_UNKNOWN;   //現在の画面モードを利用
     }
-    //_structD3dPresent_Parameters.BackBufferFormat = D3DFMT_UNKNOWN;	//現在の画面モードを利用
+
     //バックバッファの数
     _structD3dPresent_Parameters.BackBufferCount = 1;
 
@@ -442,9 +443,6 @@ D3DXMATRIX GgafDx9God::getInvRotateMat() {
 
 void GgafDx9God::makeUniversalMaterialize() {
     TRACE("GgafDx9God::materialize() start");
-    if (_adjustGameScreen) {
-        adjustGameScreen();
-    }
     HRESULT hr;
     if (_is_device_lost_flg) {
         //正常デバイスロスト処理。デバイスリソースの解放→復帰処理を試みる。
@@ -532,14 +530,25 @@ void GgafDx9God::presentUniversalVisualize() {
         //                Sleep(1);
         //            }
         //        }
-        HRESULT hr;
-        if (_FULLSCRREEN) {
-            hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
-        } else {
-            hr = GgafDx9God::_pID3DDevice9->Present(NULL, &_rectPresentDest, NULL, NULL);
+
+        if (_adjustGameScreen) {
+            adjustGameScreen();
         }
+
+        HRESULT hr;
+        hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+
+//        if (_FULLSCRREEN) {
+//            hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+//        } else {
+//            if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
+//                hr = GgafDx9God::_pID3DDevice9->Present(NULL, &_rectPresentDest, NULL, NULL);
+//            } else {
+//                hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+//            }
+//        }
         if (hr == D3DERR_DEVICELOST) {
-            //出刃異巣露酢斗！
+            //出刃異素露巣斗！
             _TRACE_("通常デバイスロスト！Present()");
             _is_device_lost_flg = true;
         } else if (hr == D3DERR_DRIVERINTERNALERROR) {
@@ -600,30 +609,81 @@ void GgafDx9God::clean() {
 }
 
 void GgafDx9God::adjustGameScreen() {
-	 RECT rect;
+     RECT rect;
     if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
 
-        if (::GetClientRect(_hWnd, &rect)) {
+        D3DVIEWPORT9 vClient;
+        vClient.MinZ = 0.0f;
+        vClient.MaxZ = 1.0f;
+        vClient.X = (DWORD)0;
+        vClient.Y = (DWORD)0;
+        vClient.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_WIDTH));
+        vClient.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT));
+        _pID3DDevice9->SetViewport(&vClient);
+        HRESULT hr;
+        hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
+                                              NULL, // 矩形領域
+                                              D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+                                              //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
+                                              D3DCOLOR_RGBA(0, 0, 0, 0), //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
+                                              1.0f, // Zバッファのクリア値
+                                              0 // ステンシルバッファのクリア値
+                );
+        checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
 
-            if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)) {
+
+        if (::GetClientRect(_hWnd, &rect)) {
+            _TRACE_("adjustGameScreen!!!!!!");
+            _TRACE_("rect="<<rect.left<<","<<rect.top<<","<<rect.right<<","<<rect.bottom);
+            D3DVIEWPORT9 vClient;
+            _pID3DDevice9->GetViewport(&vClient);
+            _TRACE_("vClient="<<vClient.X<<","<<vClient.Y<<","<<vClient.Width<<","<<vClient.Height);
+
+            D3DVIEWPORT9 vp;    //ビューポート
+            vp.MinZ = 0.0f;
+            vp.MaxZ = 1.0f;
+            double aspect_client = 1.0 * rect.right / rect.bottom;
+            double aspect_buffer = 1.0 * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT);
+            _TRACE_("aspect_client = "<<aspect_client<<" aspect_buffer="<<aspect_buffer);
+            if (aspect_client > aspect_buffer) {
                 //より横長になってしまっている
-                float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT); //縮小率=縦幅の比率
-                GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)
-                        * rate / 2.0f);
-                GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
-                GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
-                        + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate / 2.0f);
-                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate;
+                float rate = (1.0 * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) / (1.0 *rect.right / rect.bottom));
+                vp.X = (DWORD)((GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / 2.0) - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate / 2.0)) ;
+                vp.Y = (DWORD)0;
+                vp.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate);
+                vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT));
             } else {
                 //より縦長になってしまっている
-                float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_SPACE_WIDTH); //縮小率=横幅の比率
-                GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
-                GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
-                        - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
-                GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate;
-                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
-                        + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
+                float rate = (1.0 * GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) / GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / (1.0 *rect.bottom / rect.right));
+                vp.X = (DWORD)0;
+                vp.Y = (DWORD)((GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) / 2.0) - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0)) ;;
+                vp.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_WIDTH));
+                vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate);
+
             }
+            _TRACE_("new vp="<<vp.X<<","<<vp.Y<<","<<vp.Width<<","<<vp.Height);
+            _pID3DDevice9->SetViewport(&vp);
+
+//            if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)) {
+//                //より横長になってしまっている
+//                float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT); //縮小率=縦幅の比率
+//                GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)
+//                        * rate / 2.0f);
+//                GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
+//                GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
+//                        + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate / 2.0f);
+//                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate;
+//            } else {
+//                //より縦長になってしまっている
+//                float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_SPACE_WIDTH); //縮小率=横幅の比率
+//                GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
+//                GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
+//                        - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
+//                GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate;
+//                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
+//                        + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
+//            }
+
             _adjustGameScreen = false;
         }
     } else {
