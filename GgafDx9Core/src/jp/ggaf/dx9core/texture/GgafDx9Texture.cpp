@@ -21,7 +21,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                      D3DX_DEFAULT,              // [in] UINT MipLevels,
                      0,                         // [in] DWORD Usage,
                      D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
-                     D3DPOOL_MANAGED,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
+                     D3DPOOL_DEFAULT,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
                      D3DX_FILTER_POINT,         // [in] DWORD Filter, D3DX_FILTER_POINTでボヤケナイ
                      D3DX_DEFAULT,              // [in] DWORD MipFilter,
                      0,                         // [in] D3DCOLOR ColorKey,
@@ -41,7 +41,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                          D3DX_DEFAULT,              // [in] UINT MipLevels,
                          0,                         // [in] DWORD Usage,
                          D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
-                         D3DPOOL_MANAGED,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
+                         D3DPOOL_DEFAULT,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
                          D3DX_FILTER_POINT,         // [in] DWORD Filter, D3DX_FILTER_POINTでボヤケナイ
                          D3DX_DEFAULT,              // [in] DWORD MipFilter,
                          0,                         // [in] D3DCOLOR ColorKey,

@@ -470,7 +470,7 @@ void GgafDx9God::makeUniversalMaterialize() {
 
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
-            checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセットでに失敗しました。");
+            checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセットに失敗しました。");
 
             //デバイス再設定
             GgafDx9God::initDx9Device();
@@ -633,18 +633,19 @@ void GgafDx9God::adjustGameScreen() {
 
 
         if (::GetClientRect(_hWnd, &rect)) {
-            _TRACE_("adjustGameScreen!!!!!!");
-            _TRACE_("rect="<<rect.left<<","<<rect.top<<","<<rect.right<<","<<rect.bottom);
-            D3DVIEWPORT9 vClient;
-            _pID3DDevice9->GetViewport(&vClient);
-            _TRACE_("vClient="<<vClient.X<<","<<vClient.Y<<","<<vClient.Width<<","<<vClient.Height);
+
+//            _TRACE_("adjustGameScreen!!!!!!");
+//            _TRACE_("rect="<<rect.left<<","<<rect.top<<","<<rect.right<<","<<rect.bottom);
+//            D3DVIEWPORT9 vClient;
+//            _pID3DDevice9->GetViewport(&vClient);
+//            _TRACE_("vClient="<<vClient.X<<","<<vClient.Y<<","<<vClient.Width<<","<<vClient.Height);
 
             D3DVIEWPORT9 vp;    //ビューポート
             vp.MinZ = 0.0f;
             vp.MaxZ = 1.0f;
             double aspect_client = 1.0 * rect.right / rect.bottom;
             double aspect_buffer = 1.0 * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT);
-            _TRACE_("aspect_client = "<<aspect_client<<" aspect_buffer="<<aspect_buffer);
+//            _TRACE_("aspect_client = "<<aspect_client<<" aspect_buffer="<<aspect_buffer);
             if (aspect_client > aspect_buffer) {
                 //より横長になってしまっている
                 float rate = (1.0 * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) / (1.0 *rect.right / rect.bottom));
@@ -661,8 +662,54 @@ void GgafDx9God::adjustGameScreen() {
                 vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate);
 
             }
-            _TRACE_("new vp="<<vp.X<<","<<vp.Y<<","<<vp.Width<<","<<vp.Height);
+//            _TRACE_("new vp="<<vp.X<<","<<vp.Y<<","<<vp.Width<<","<<vp.Height);
             _pID3DDevice9->SetViewport(&vp);
+
+
+
+//
+//
+//            //工場休止
+//            GgafFactory::beginRest();
+//
+//            ___EndSynchronized; // <----- 排他終了
+//            for (int i = 0; GgafFactory::isResting() == false; i++) {
+//                Sleep(60); //工場が落ち着くまで待つ
+//                if (i > 2000) {
+//                    _TRACE_("GgafDx9God::makeUniversalMaterialize() ２分待機しましたが、工場から反応がありません。breakします。要調査");
+//                }
+//            }
+//            //            while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
+//            //                Sleep(10);
+//            //            }
+//            ___BeginSynchronized; // ----->排他開始
+//            //エフェクト、デバイスロスト処理
+//            GgafDx9God::_pEffectManager->onDeviceLostAll();
+//            //モデル解放
+//            GgafDx9God::_pModelManager->onDeviceLostAll();
+//            //全ノードに解放しなさいイベント発令
+//            getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
+//
+//            //デバイスリセットを試みる
+//            hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
+//            checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセットに失敗しました。");
+//
+//            //デバイス再設定
+//            GgafDx9God::initDx9Device();
+//            //エフェクトリセット
+//            GgafDx9God::_pEffectManager->restoreAll();
+//            //モデル再設定
+//            GgafDx9God::_pModelManager->restoreAll();
+//            //全ノードに再設定しなさいイベント発令
+//            getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_RESTORE, this);
+//            //前回描画モデル情報を無効にする
+//            GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
+//
+//            //工場再開
+//            GgafFactory::finishRest();
+
+
+
 
 //            if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)) {
 //                //より横長になってしまっている

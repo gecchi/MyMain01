@@ -584,7 +584,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 prm_pMeshModel->_size_vertices,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9MeshModel::FVF,
-                D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pMeshModel->_pIDirect3DVertexBuffer9),
                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pMeshModel->_model_name));
@@ -606,7 +606,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                                sizeof(WORD) * nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
-                                D3DPOOL_MANAGED,
+                                D3DPOOL_DEFAULT,
                                 &(prm_pMeshModel->_pIDirect3DIndexBuffer9),
                                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pMeshModel->_model_name));
@@ -757,6 +757,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
     //　　　　・テクスチャ配列(要素数＝マテリアル数。プライマリメッシュのみ)
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数。プライマリメッシュのみ)
     int morph_target_num = prm_pMorphMeshModel->_morph_target_num;
+
     string* paXfileName = NEW string[morph_target_num+1];
 
     for(int i = 0; i < morph_target_num+1; i++) {
@@ -813,6 +814,14 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 //            _TRACE_("pattern="<<pattern<<"/nFaces="<<nFaces);
             nFaceNormals = model_papMeshesFront[pattern]->_nFaceNormals;
 //            _TRACE_("pattern="<<pattern<<"/nFaceNormals="<<nFaceNormals);
+
+            if (nVertices*(morph_target_num+1) > 65535) {
+                throwGgafCriticalException("[GgafDx9ModelManager::restoreMorphMeshModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pMorphMeshModel->getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(morph_target_num+1));
+            }
+            if (nFaces * 3 * (morph_target_num+1) > 65535) {
+                throwGgafCriticalException("[GgafDx9ModelManager::restoreMorphMeshModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pMorphMeshModel->getName()<<"  nFaces:"<<nFaces<<"(*3)  セット数:"<<(morph_target_num+1));
+            }
+
             if (pattern == 0) {
                 //プライマリメッシュ
                 model_paVtxBuffer_org_primary = NEW GgafDx9MorphMeshModel::VERTEX_PRIMARY[nVertices];
@@ -1308,7 +1317,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                         prm_pMorphMeshModel->_size_vertices_primary,
                         D3DUSAGE_WRITEONLY,
                         0, //GgafDx9MorphMeshModel::FVF,
-                        D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                        D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                         &(prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary),
                         NULL);
                 checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateVertexBuffer 失敗（プライマリ） model="<<(prm_pMorphMeshModel->_model_name));
@@ -1323,7 +1332,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                         prm_pMorphMeshModel->_size_vertices_morph,
                         D3DUSAGE_WRITEONLY,
                         0, //GgafDx9MorphMeshModel::FVF,
-                        D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                        D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                         &(prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph[pattern-1]),
                         NULL);
                 checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateVertexBuffer 失敗（モーフ:"<<pattern-1<<"） model="<<(prm_pMorphMeshModel->_model_name));
@@ -1345,7 +1354,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                                sizeof(WORD) * nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
-                                D3DPOOL_MANAGED,
+                                D3DPOOL_DEFAULT,
                                 &(prm_pMorphMeshModel->_pIDirect3DIndexBuffer9),
                                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pMorphMeshModel->_model_name));
@@ -1700,7 +1709,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
                 prm_pSpriteModel->_size_vertices,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9SpriteModel::FVF,
-                D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pSpriteModel->_pIDirect3DVertexBuffer9),
                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteModel->_model_name));
@@ -1762,6 +1771,14 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
 void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpriteSetModel) {
     TRACE3("GgafDx9ModelManager::restoreSpriteSetModel(" << prm_pSpriteSetModel->_model_name << ")");
+
+    if (4*prm_pSpriteSetModel->_set_num > 65535) {
+        throwGgafCriticalException("X[GgafDx9ModelManager::restoreSpriteSetModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pSpriteSetModel->getName()<<"  nVertices:4  セット数:"<<(prm_pSpriteSetModel->_set_num));
+    }
+
+    if ( 2 * 3 * prm_pSpriteSetModel->_set_num > 65535) {
+		throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pSpriteSetModel->getName()<<"  nFaces:2(*3)  セット数:"<<(prm_pSpriteSetModel->_set_num));
+    }
 
     prm_pSpriteSetModel->_papTextureCon = NULL;
     prm_pSpriteSetModel->_paRectUV = NULL;
@@ -1903,7 +1920,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                 prm_pSpriteSetModel->_size_vertices * prm_pSpriteSetModel->_set_num,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9SpriteSetModel::FVF,
-                D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pSpriteSetModel->_pIDirect3DVertexBuffer9),
                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _p1ID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteSetModel->_model_name));
@@ -1957,7 +1974,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                                sizeof(WORD) * nFaces * 3 * prm_pSpriteSetModel->_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
-                                D3DPOOL_MANAGED,
+                                D3DPOOL_DEFAULT,
                                 &(prm_pSpriteSetModel->_pIDirect3DIndexBuffer9),
                                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pSpriteSetModel->_model_name));
@@ -2126,7 +2143,7 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
                 prm_pBoardModel->_size_vertices,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9BoardModel::FVF,
-                D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pBoardModel->_pIDirect3DVertexBuffer9),
                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pBoardModel->_model_name));
@@ -2188,6 +2205,13 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
 
 void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardSetModel) {
     TRACE3("GgafDx9ModelManager::restoreBoardSetModel(" << prm_pBoardSetModel->_model_name << ")");
+
+    if (4*prm_pBoardSetModel->_set_num > 65535) {
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardSetModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pBoardSetModel->getName()<<"  nVertices:4  セット数:"<<(prm_pBoardSetModel->_set_num));
+    }
+    if ( 2 * 3 * prm_pBoardSetModel->_set_num > 65535) {
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pBoardSetModel->getName()<<"  nFaces:2(*3)  セット数:"<<(prm_pBoardSetModel->_set_num));
+    }
 
     prm_pBoardSetModel->_papTextureCon = NULL;
     prm_pBoardSetModel->_paRectUV = NULL;
@@ -2298,7 +2322,7 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
                 prm_pBoardSetModel->_size_vertices * prm_pBoardSetModel->_set_num,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9BoardSetModel::FVF,
-                D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pBoardSetModel->_pIDirect3DVertexBuffer9),
                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardSetModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pBoardSetModel->_model_name));
@@ -2350,7 +2374,7 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
                                sizeof(WORD) * nFaces * 3 * prm_pBoardSetModel->_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
-                                D3DPOOL_MANAGED,
+                                D3DPOOL_DEFAULT,
                                 &(prm_pBoardSetModel->_pIDirect3DIndexBuffer9),
                                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardSetModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pBoardSetModel->_model_name));
@@ -2485,6 +2509,15 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         nFaces = model_pMeshesFront->_nFaces;
         nFaceNormals = model_pMeshesFront->_nFaceNormals;
         unit_paVtxBuffer_org = NEW GgafDx9MeshSetModel::VERTEX[nVertices];
+
+        if (nVertices*prm_pMeshSetModel->_set_num > 65535) {
+            throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshSetModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pMeshSetModel->getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(prm_pMeshSetModel->_set_num));
+        }
+
+        if ( nFaces * 3 * prm_pMeshSetModel->_set_num > 65535) {
+            throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pMeshSetModel->getName()<<"  nFaces:"<<nFaces<<"(*3)  セット数:"<<(prm_pMeshSetModel->_set_num));
+        }
+
         prm_pMeshSetModel->_nVertices = nVertices;
         prm_pMeshSetModel->_nFaces = nFaces;
         prm_pMeshSetModel->_size_vertices = sizeof(GgafDx9MeshSetModel::VERTEX) * nVertices;
@@ -2868,7 +2901,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                 prm_pMeshSetModel->_size_vertices * prm_pMeshSetModel->_set_num,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9MeshSetModel::FVF,
-                D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pMeshSetModel->_pIDirect3DVertexBuffer9),
                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshSetModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pMeshSetModel->_model_name));
@@ -2905,7 +2938,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                                sizeof(WORD) * nFaces * 3 * prm_pMeshSetModel->_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
-                                D3DPOOL_MANAGED,
+                                D3DPOOL_DEFAULT,
                                 &(prm_pMeshSetModel->_pIDirect3DIndexBuffer9),
                                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshSetModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pMeshSetModel->_model_name));
@@ -3101,7 +3134,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
                 model_size_vertices,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9PointSpriteModel::FVF,
-                D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(prm_pPointSpriteModel->_pIDirect3DVertexBuffer9),
                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restorePointSpriteModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pPointSpriteModel->_model_name));

@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 
 
 GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
-    TRACE("GgafDx9Effect::GgafDx9Effect(" << prm_effect_name << ")");
+    _TRACE_("GgafDx9Effect::GgafDx9Effect(" << prm_effect_name << ")");
     _effect_name = NEW char[51];
     strcpy(_effect_name, prm_effect_name);
 
@@ -15,6 +15,8 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 #else
     DWORD dwFlags = D3DXSHADER_SKIPVALIDATION;
 #endif
+
+
 
     string effect_file_name = GGAFDX9_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
     HRESULT hr = D3DXCreateEffectFromFile(
@@ -36,7 +38,13 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 }
 
 GgafDx9Effect::~GgafDx9Effect() {
+    _TRACE_("GgafDx9Effect::~GgafDx9Effect("<<_effect_name<<")");
+    HRESULT hr;
+    hr = _pID3DXEffect->EndPass();
+    //checkDxException(hr, D3D_OK, "GgafDx9Effect::~GgafDx9Effect() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = _pID3DXEffect->End();
+    //checkDxException(hr, D3D_OK, "GgafDx9Effect::~GgafDx9Effect() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+	DELETEARR_IMPOSSIBLE_NULL(_effect_name);
     RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);
-    DELETEARR_IMPOSSIBLE_NULL(_effect_name);
 }
 
