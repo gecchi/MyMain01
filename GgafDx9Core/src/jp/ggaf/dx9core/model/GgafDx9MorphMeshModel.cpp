@@ -99,13 +99,21 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 
         if ((GgafDx9EffectManager::_pEffect_Active != pMorphMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
-                TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
+               TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-            }
 
+                ////
+                if (GgafDx9EffectManager::_pEffect_Active->_begin == false) {
+                    throwGgafCriticalException("begin ÇµÇƒÇ¢Ç‹ÇπÇÒ "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
+                } else {
+                    GgafDx9EffectManager::_pEffect_Active->_begin = false;
+                }
+                ////
+
+             }
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDx9MorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -122,6 +130,15 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             //à»â∫ç≈ëÂÇXÇ‹Ç≈
             hr = pID3DXEffect->BeginPass(_morph_target_num);
             checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() BeginPass("<<_morph_target_num<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
+            ////
+            if (pMorphMeshEffect->_begin == true) {
+                throwGgafCriticalException("End ÇµÇƒÇ¢Ç‹ÇπÇÒ "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
+            } else {
+                pMorphMeshEffect->_begin = true;
+            }
+            ////
+
         } else {
             hr = pID3DXEffect->CommitChanges();
             checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw()CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

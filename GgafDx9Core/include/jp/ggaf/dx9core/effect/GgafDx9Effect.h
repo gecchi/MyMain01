@@ -18,6 +18,8 @@ public:
     /** エフェクト定義の識別名。(50文字まで) */
     char* _effect_name;
     ID3DXEffect* _pID3DXEffect;
+
+    bool _begin;
     /**
      * コンストラクタ<BR>
      * @param prm_effect_name エフェクト定義の識別名。".fx"を追加するとエフェクトファイル名になる。

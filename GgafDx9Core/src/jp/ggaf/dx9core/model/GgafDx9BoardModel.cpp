@@ -65,8 +65,16 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
             checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-        }
 
+            ////
+            if (GgafDx9EffectManager::_pEffect_Active->_begin == false) {
+                throwGgafCriticalException("begin ÇµÇƒÇ¢Ç‹ÇπÇÒ "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
+            } else {
+                GgafDx9EffectManager::_pEffect_Active->_begin = false;
+            }
+            ////
+
+        }
         TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "GgafDx9BoardModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -77,6 +85,15 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
+        ////
+        if (pBoardEffect->_begin == true) {
+            throwGgafCriticalException("End ÇµÇƒÇ¢Ç‹ÇπÇÒ "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
+        } else {
+            pBoardEffect->_begin = true;
+        }
+        ////
+
     } else {
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

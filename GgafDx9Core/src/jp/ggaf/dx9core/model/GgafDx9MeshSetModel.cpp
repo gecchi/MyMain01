@@ -105,6 +105,15 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
                 checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() EndPass() В…ОЄФsВµВ№ВµВљБB");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() End() В…ОЄФsВµВ№ВµВљБB");
+
+                ////
+                if (GgafDx9EffectManager::_pEffect_Active->_begin == false) {
+                    throwGgafCriticalException("begin ВµВƒВҐВ№ВєВс "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
+                } else {
+                    GgafDx9EffectManager::_pEffect_Active->_begin = false;
+                }
+                ////
+
             }
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
@@ -116,6 +125,15 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() Begin() В…ОЄФsВµВ№ВµВљБB");
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() BeginPass(0) В…ОЄФsВµВ№ВµВљБB");
+
+            ////
+            if (pMeshSetEffect->_begin == true) {
+                throwGgafCriticalException("End ВµВƒВҐВ№ВєВс "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
+            } else {
+                pMeshSetEffect->_begin = true;
+            }
+            ////
+
         } else {
             hr = pID3DXEffect->CommitChanges();
             checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() CommitChanges() В…ОЄФsВµВ№ВµВљБB");

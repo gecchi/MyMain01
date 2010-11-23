@@ -62,6 +62,15 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() EndPass() В…ОЄФsВµВ№ВµВљБB");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
             checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() End() В…ОЄФsВµВ№ВµВљБB");
+
+            ////
+            if (GgafDx9EffectManager::_pEffect_Active->_begin == false) {
+                throwGgafCriticalException("begin ВµВƒВҐВ№ВєВс "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
+            } else {
+                GgafDx9EffectManager::_pEffect_Active->_begin = false;
+            }
+            ////
+
         }
 
         TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
@@ -74,6 +83,17 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() Begin() В…ОЄФsВµВ№ВµВљБB");
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() BeginPass(0) В…ОЄФsВµВ№ВµВљБB");
+
+
+        ////
+        if (pSpriteEffect->_begin == true) {
+            throwGgafCriticalException("End ВµВƒВҐВ№ВєВс "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
+        } else {
+            pSpriteEffect->_begin = true;
+        }
+        ////
+
+
     } else {
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "GgafDx9SpriteModel::draw() CommitChanges() В…ОЄФsВµВ№ВµВљБB");

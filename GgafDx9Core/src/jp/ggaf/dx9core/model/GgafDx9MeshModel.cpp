@@ -76,8 +76,16 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
                 checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() EndPass() に失敗しました。");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() End() に失敗しました。");
-            }
 
+                ////
+                if (GgafDx9EffectManager::_pEffect_Active->_begin == false) {
+                    throwGgafCriticalException("begin していません "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
+                } else {
+                    GgafDx9EffectManager::_pEffect_Active->_begin = false;
+                }
+                ////
+
+            }
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDx9MeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
@@ -88,6 +96,15 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() Begin() に失敗しました。");
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() BeginPass(0) に失敗しました。");
+
+            ////
+            if (pMeshEffect->_begin == true) {
+                throwGgafCriticalException("End していません "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
+            } else {
+                pMeshEffect->_begin = true;
+            }
+            ////
+
         } else {
             //前回描画と同じモデル
             hr = pID3DXEffect->CommitChanges(); //マテリアルをコミットしなければいけない。

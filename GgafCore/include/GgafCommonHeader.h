@@ -108,8 +108,8 @@
     #define TRACE3(X)
 
     /** エフェクト、パス、Draw関連ログ */
-    //#define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
-    #define TRACE4(X)
+    #define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define TRACE4(X)
 
     /** ８分木、あたり判定関連ログ */
     //#define TRACE5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
