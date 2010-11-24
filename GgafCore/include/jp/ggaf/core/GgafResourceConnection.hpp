@@ -229,15 +229,16 @@ int GgafResourceConnection<T>::close() {
             return 0;
         } else {
             //別スレッドでconnet()待ち状態では無いので安心して開放するとしよう。
+            _is_closing_resource = false; //thisポインタを使用していないので代入可能
             delete[] _idstr;
             delete this;
-            if (GgafResourceManager<T>::_is_waiting_to_connect) {
-                //ここに来て、connet()待ちに変わっていたら、もう諦める。
-                //現在の排他が完全ではないと考えるのは、このあたりの処理も含む
-                //TODO:完全対応には、getConnection()を却下する機構を作らねばならぬ。
-                _TRACE_("＜警告＞GgafResourceConnection<T>::close() delete this 中に getConnection() しようとしました。大丈夫でしょうか。・・・もはやどうしようも無いのですが！");
-            }
-            _is_closing_resource = false;
+//            if (GgafResourceManager<T>::_is_waiting_to_connect) {
+//                //ここに来て、connet()待ちに変わっていたら、もう諦める。
+//                //現在の排他が完全ではないと考えるのは、このあたりの処理も含む
+//                //TODO:完全対応には、getConnection()を却下する機構を作らねばならぬ。
+//                _TRACE_("＜警告＞GgafResourceConnection<T>::close() delete this 中に getConnection() しようとしました。大丈夫でしょうか。・・・もはやどうしようも無いのですが！");
+//            }
+//            _is_closing_resource = false; //thisポインタを使用していないので代入可能
             return 0;
         }
     } else {

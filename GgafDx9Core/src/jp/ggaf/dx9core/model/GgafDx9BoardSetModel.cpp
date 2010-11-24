@@ -50,6 +50,12 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     //対象エフェクト
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
+
+
+
+	    _TRACE_("1 GgafDx9BoardSetModel::draw pBoardSetEffect->_begin="<<pBoardSetEffect->_begin);
+
+
     int draw_set_num = pTargetActor->_draw_set_num;
 
     static HRESULT hr;
@@ -68,7 +74,7 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 
     if (GgafDx9EffectManager::_pEffect_Active != pBoardSetEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)  {
         if (GgafDx9EffectManager::_pEffect_Active != NULL) {
-           TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
+           TRACE4("EndPass("<<GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDx9BoardSetActor::draw() EndPass() に失敗しました。");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
@@ -79,6 +85,9 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
                 throwGgafCriticalException("begin していません "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 GgafDx9EffectManager::_pEffect_Active->_begin = false;
+
+//					    _TRACE_("2 GgafDx9BoardSetModel::draw pBoardSetEffect("<<pBoardSetEffect<<")->_begin="<<pBoardSetEffect->_begin);
+//						_TRACE_("2 GgafDx9EffectManager::_pEffect_Active("<<GgafDx9EffectManager::_pEffect_Active<<")->_begin="<<GgafDx9EffectManager::_pEffect_Active->_begin);
             }
             ////
 
@@ -87,7 +96,7 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "GgafDx9BoardSetActor::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name<<"("<<pBoardSetEffect<<")");
+        TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name<<"("<<pBoardSetEffect<<")");
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "GgafDx9BoardSetActor::draw() Begin() に失敗しました。");
@@ -99,6 +108,13 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             throwGgafCriticalException("End していません "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
         } else {
             pBoardSetEffect->_begin = true;
+
+//					    _TRACE_("3 GgafDx9BoardSetModel::draw pBoardSetEffect("<<pBoardSetEffect<<")->_begin="<<pBoardSetEffect->_begin);
+//						if (GgafDx9EffectManager::_pEffect_Active) {
+//						_TRACE_("3 GgafDx9EffectManager::_pEffect_Active("<<GgafDx9EffectManager::_pEffect_Active<<")->_begin="<<GgafDx9EffectManager::_pEffect_Active->_begin);
+//							} else {
+//						_TRACE_("3 GgafDx9EffectManager::_pEffect_Active("<<GgafDx9EffectManager::_pEffect_Active<<")");
+//							}
         }
         ////
 

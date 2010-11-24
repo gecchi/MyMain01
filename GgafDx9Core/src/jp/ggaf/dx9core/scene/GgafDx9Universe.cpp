@@ -195,14 +195,24 @@ void GgafDx9Universe::draw() {
     //ç≈å„ÇÃEndPass
     HRESULT hr;
     if (GgafDx9EffectManager::_pEffect_Active != NULL) {
-        TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
+
+        TRACE4("EndPass("<<GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
         hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
         checkDxException(hr, D3D_OK, "GgafDx9Universe::processDraw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
         checkDxException(hr, D3D_OK, "GgafDx9Universe::processDraw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        ////
+        if (GgafDx9EffectManager::_pEffect_Active->_begin == false) {
+            throwGgafCriticalException("begin ÇµÇƒÇ¢Ç‹ÇπÇÒ "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
+        } else {
+            GgafDx9EffectManager::_pEffect_Active->_begin = false;
+        }
+        ////
         GgafDx9EffectManager::_pEffect_Active = NULL;
         GgafDx9ModelManager::_pModelLastDraw = NULL;
         GgafDx9DrawableActor::_hash_technique_last_draw = 0;
+
+
     }
 
 }

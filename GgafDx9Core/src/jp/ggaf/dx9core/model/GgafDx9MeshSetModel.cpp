@@ -100,7 +100,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 
         if (material_grp_index == 0 && (GgafDx9EffectManager::_pEffect_Active != pMeshSetEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
-                TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
+                TRACE4("EndPass("<<GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
@@ -119,7 +119,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDx9MeshSetModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-            TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name<<"("<<pMeshSetEffect<<")");
+            TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name<<"("<<pMeshSetEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

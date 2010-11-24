@@ -52,7 +52,6 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
     int draw_set_num = pTargetActor->_draw_set_num;
-
     static HRESULT hr;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
     if (GgafDx9ModelManager::_pModelLastDraw  != this) {
@@ -69,7 +68,7 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 
     if (GgafDx9EffectManager::_pEffect_Active != pSpriteSetEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)  {
         if (GgafDx9EffectManager::_pEffect_Active != NULL) {
-            TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
+            TRACE4("EndPass("<<GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() EndPass() に失敗しました。");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
@@ -88,7 +87,7 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "GgafDx9SpriteSetActor::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name<<"("<<pSpriteSetEffect<<")");
+        TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name<<"("<<pSpriteSetEffect<<")");
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() Begin() に失敗しました。");

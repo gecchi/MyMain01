@@ -595,12 +595,21 @@ void GgafDx9God::presentUniversalVisualize() {
 void GgafDx9God::clean() {
     if (!_was_cleaned) {
         _TRACE_("GgafDx9God::clean() begin");
+
+        for( int i=0; i<8; ++i ) { GgafDx9God::_pID3DDevice9->SetTexture( i, NULL ); }
+        for( int i=0; i<8; ++i ) { GgafDx9God::_pID3DDevice9->SetStreamSource( i, NULL, 0, 0 ); }
+        GgafDx9God::_pID3DDevice9->SetIndices( NULL );
+        GgafDx9God::_pID3DDevice9->SetPixelShader( NULL );
+        GgafDx9God::_pID3DDevice9->SetVertexShader( NULL );
+        GgafDx9God::_pID3DDevice9->SetVertexDeclaration( NULL );
+
         GgafGod::clean();
 
         CmRandomNumberGenerator::getInstance()->release();
         //ï€éùÉÇÉfÉãâï˙
-        DELETE_IMPOSSIBLE_NULL(_pEffectManager);
         DELETE_IMPOSSIBLE_NULL(_pModelManager);
+        DELETE_IMPOSSIBLE_NULL(_pEffectManager);
+
 
 
 
@@ -745,6 +754,7 @@ void GgafDx9God::adjustGameScreen() {
 }
 
 GgafDx9God::~GgafDx9God() {
+
     clean();
     _was_cleaned = true;
 
