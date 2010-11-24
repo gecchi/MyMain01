@@ -71,7 +71,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             //本モデル描画初回
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
                 TRACE4("前回_pEffect_Active != pMeshEffect (" <<(GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"!="<<(pMeshEffect->_effect_name)<<")");
-                TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
+                TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() EndPass() に失敗しました。");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
@@ -90,7 +90,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDx9MeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-            TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+            TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() Begin() に失敗しました。");

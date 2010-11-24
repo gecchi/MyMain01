@@ -60,7 +60,7 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 
     if (GgafDx9EffectManager::_pEffect_Active != pBoardEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) {
         if (GgafDx9EffectManager::_pEffect_Active != NULL) {
-            TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
+            TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
@@ -98,7 +98,7 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
-    TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
+    TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name<<"("<<pBoardEffect<<")");
     GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
     //ëOâÒï`âÊÉÇÉfÉãï€éù
     GgafDx9ModelManager::_pModelLastDraw = this;

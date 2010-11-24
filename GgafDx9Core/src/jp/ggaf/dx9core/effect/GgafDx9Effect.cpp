@@ -33,19 +33,19 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
         throwGgafCriticalException("GgafDx9Effect::GgafDx9Effect "<<effect_file_name<<" が存在しないのではないだろうか・・・");
     }
     checkDxException(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
-    TRACE3(" GgafDx9Effect::GgafDx9Effect "<<prm_effect_name<<" のエフェクトを生成しました。");
+    _TRACE_(" GgafDx9Effect::GgafDx9Effect "<<prm_effect_name<<" のエフェクトを生成しました。ADD:"<<this);
     _h_alpha_master = _pID3DXEffect->GetParameterByName( NULL, "g_alpha_master" ); //マスターα
     _begin = false;
 }
 
 GgafDx9Effect::~GgafDx9Effect() {
-    _TRACE_("GgafDx9Effect::~GgafDx9Effect("<<_effect_name<<")");
+    _TRACE_("GgafDx9Effect::~GgafDx9Effect("<<_effect_name<<") ADD:"<<this);
     HRESULT hr;
     hr = _pID3DXEffect->EndPass();
     //checkDxException(hr, D3D_OK, "GgafDx9Effect::~GgafDx9Effect() EndPass() に失敗しました。");
     hr = _pID3DXEffect->End();
     //checkDxException(hr, D3D_OK, "GgafDx9Effect::~GgafDx9Effect() End() に失敗しました。");
-	DELETEARR_IMPOSSIBLE_NULL(_effect_name);
+    DELETEARR_IMPOSSIBLE_NULL(_effect_name);
     RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);
 }
 

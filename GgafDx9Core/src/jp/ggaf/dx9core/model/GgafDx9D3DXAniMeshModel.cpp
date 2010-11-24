@@ -85,7 +85,7 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
 
-            TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
+            TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name<<"("<<pD3DXAniMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() Begin() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -165,7 +165,7 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 //        //•`‰æ
 //        if (GgafDx9EffectManager::_pEffect_Active != pD3DXAniMeshEffect && i == 0) {
 //            if (GgafDx9EffectManager::_pEffect_Active != NULL) {
-//                TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
+//                TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
 //                hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
 //                checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 //                hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
