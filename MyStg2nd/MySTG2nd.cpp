@@ -89,8 +89,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     LoadString(hInstance, IDC_MYSTG2ND, szWindowClass, MAX_LOADSTRING);
     _TRACE_("szWindowClass = "<<szWindowClass);
     //LoadStringができん！
-    strcpy(szTitle,"MyStg2nd"); //無理やり
-    strcpy(szWindowClass,"MYSTG2ND"); //ですよ！
+//    strcpy(szTitle,"MyStg2nd"); //無理やり
+//    strcpy(szWindowClass,"MYSTG2ND"); //ですよ！
 
 
     //プロパティファイル読込み
@@ -116,8 +116,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
             WS_POPUP | WS_VISIBLE,
             CW_USEDEFAULT,
             CW_USEDEFAULT,
-            GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH), // ウィンドウの幅
-            GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT), // ウィンドウの幅
+            GGAFDX9_PROPERTY(GAME_SPACE_WIDTH), // ウィンドウの幅
+            GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT), // ウィンドウの幅
             HWND_DESKTOP,
             NULL,
             hInstance,
@@ -147,35 +147,39 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         return FALSE;
     }
 
-    RECT wRect, cRect; // ウィンドウ全体の矩形、クライアント領域の矩形
-    int ww, wh; // ウィンドウ全体の幅、高さ
-    int cw, ch; // クライアント領域の幅、高さ
-    int fw, fh; // フレームの幅、高さ
-    // ウィンドウ全体の幅・高さを計算
-    GetWindowRect(hWnd, &wRect);
-    ww = wRect.right - wRect.left;
-    wh = wRect.bottom - wRect.top;
-    // クライアント領域の幅・高さを計算
-    GetClientRect(hWnd, &cRect);
-    cw = cRect.right - cRect.left;
-    ch = cRect.bottom - cRect.top;
-    // クライアント領域以外に必要なサイズを計算
-    fw = ww - cw;
-    fh = wh - ch;
-    // 計算した幅と高さをウィンドウに設定
-    SetWindowPos(
-            hWnd,
-            HWND_TOP,
-            wRect.left,
-            wRect.top,
-            GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) + fw,
-            GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) + fh,
-            SWP_NOMOVE
-    );
+    if (GGAFDX9_PROPERTY(FULL_SCREEN)) {
 
-    ShowWindow(hWnd, nCmdShow);
-    UpdateWindow(hWnd);
-    //hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MTSTG17_031));//ショートカットロード
+    } else {
+        RECT wRect, cRect; // ウィンドウ全体の矩形、クライアント領域の矩形
+        int ww, wh; // ウィンドウ全体の幅、高さ
+        int cw, ch; // クライアント領域の幅、高さ
+        int fw, fh; // フレームの幅、高さ
+        // ウィンドウ全体の幅・高さを計算
+        GetWindowRect(hWnd, &wRect);
+        ww = wRect.right - wRect.left;
+        wh = wRect.bottom - wRect.top;
+        // クライアント領域の幅・高さを計算
+        GetClientRect(hWnd, &cRect);
+        cw = cRect.right - cRect.left;
+        ch = cRect.bottom - cRect.top;
+        // クライアント領域以外に必要なサイズを計算
+        fw = ww - cw;
+        fh = wh - ch;
+        // 計算した幅と高さをウィンドウに設定
+        SetWindowPos(
+                hWnd,
+                HWND_TOP,
+                wRect.left,
+                wRect.top,
+                GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) + fw,
+                GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) + fh,
+                SWP_NOMOVE
+        );
+
+        ShowWindow(hWnd, nCmdShow);
+        UpdateWindow(hWnd);
+        //hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MTSTG17_031));//ショートカットロード
+    }
 
 #ifdef MY_DEBUG
     #ifdef _MSC_VER
@@ -333,7 +337,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
     wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MYSTG2ND));
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
     wcex.hbrBackground = CreateSolidBrush(RGB(30, 30, 30)); //0~255
-    wcex.lpszMenuName = NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
+    wcex.lpszMenuName = NULL;//MAKEINTRESOURCE(IDC_MYSTG2ND);//NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
     wcex.lpszClassName = szWindowClass;
     wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 

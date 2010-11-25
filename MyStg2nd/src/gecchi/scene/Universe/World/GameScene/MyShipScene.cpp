@@ -7,14 +7,17 @@ using namespace MyStg2nd;
 
 MyShipScene::MyShipScene(const char* prm_name) : DefaultScene(prm_name) ,
 _pMyShip(NULL),
-_pVamSysCamWorker(NULL) {
+_pCon_MyShipDivingCamWorker(NULL),
+_pCon_VamSysCamWorker(NULL) {
     _class_name = "MyShipScene";
     _pMyShip = NEW MyShip("MYSHIP");
     _pMyShip->inactivateImmediately(); //配下に仮登録のアクター発送者とかあるし
     getLordActor()->addSubGroup(KIND_MY_BODY_NOMAL, _pMyShip);
-    _pVamSysCamWorker = (VamSysCamWorker*)P_UNIVERSE->_pCameraWorkerManager->getConnection("VamSysCamWorker")->refer();
+    _pCon_VamSysCamWorker = P_UNIVERSE->_pCameraWorkerManager->getConnection("VamSysCamWorker");
+    _pCon_MyShipDivingCamWorker = P_UNIVERSE->_pCameraWorkerManager->getConnection("MyShipDivingCamWorker");
+    _pVamSysCamWorker = _pCon_MyShipDivingCamWorker->refer();
     _pVamSysCamWorker->_pMyShip = _pMyShip;
-    _pMyShipDivingCamWorker = (MyShipDivingCamWorker*)P_UNIVERSE->_pCameraWorkerManager->getConnection("MyShipDivingCamWorker")->refer();
+    _pMyShipDivingCamWorker = _pCon_VamSysCamWorker->refer();
     _zanki = 2;
     useProgress(10);
 }
@@ -59,11 +62,11 @@ void MyShipScene::processBehavior() {
                 _pMyShip->_X = Universe::_X_goneLeft;
                 _pMyShip->_isNoControl = true;
                 P_UNIVERSE->pushCameraWork("MyShipDivingCamWorker");
-                _pMyShipDivingCamWorker->setMoveTargetCam(-1000000, 1000000, 1000000);
-                _pMyShipDivingCamWorker->setMoveTargetCamVpBy(_pMyShip);
+                _pVamSysCamWorker->setMoveTargetCam(-1000000, 1000000, 1000000);
+                _pVamSysCamWorker->setMoveTargetCamVpBy(_pMyShip);
             }
             _pMyShip->_X += 30000;
-            _pMyShipDivingCamWorker->setMoveTargetCamVpBy(_pMyShip);
+            _pCon_VamSysCamWorker->refer()->setMoveTargetCamVpBy(_pMyShip);
             if (_pMyShip->_X > 0) {
                 _pMyShip->_X = 0;
                 _pProgress->change(MYSHIPSCENE_SCENE_PROG_PLAY);
@@ -111,4 +114,6 @@ void MyShipScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 }
 
 MyShipScene::~MyShipScene() {
+    _pCon_VamSysCamWorker->close();
+    _pCon_MyShipDivingCamWorker->close();
 }

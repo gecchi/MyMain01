@@ -70,6 +70,7 @@ CameraWorker* Universe::pushCameraWork(const char* prm_pID) {
 }
 
 CameraWorker* Universe::popCameraWork() {
+    //TODO:_pCameraWorkerManagerコネクションをcloseが良いな
     CameraWorker* pCameraWorker = _stack_CameraWorker.pop();
     if (pCameraWorker) {
         if (pCameraWorker != _pActiveCameraWorker) {
