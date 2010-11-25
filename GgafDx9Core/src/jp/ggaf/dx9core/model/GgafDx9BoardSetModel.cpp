@@ -53,7 +53,7 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 
 
 
-	    _TRACE_("1 GgafDx9BoardSetModel::draw pBoardSetEffect->_begin="<<pBoardSetEffect->_begin);
+//	    _TRACE_("1 GgafDx9BoardSetModel::draw pBoardSetEffect->_begin="<<pBoardSetEffect->_begin);
 
 
     int draw_set_num = pTargetActor->_draw_set_num;
