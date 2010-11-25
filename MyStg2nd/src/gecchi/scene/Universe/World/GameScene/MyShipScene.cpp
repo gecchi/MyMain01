@@ -13,11 +13,11 @@ _pCon_VamSysCamWorker(NULL) {
     _pMyShip = NEW MyShip("MYSHIP");
     _pMyShip->inactivateImmediately(); //配下に仮登録のアクター発送者とかあるし
     getLordActor()->addSubGroup(KIND_MY_BODY_NOMAL, _pMyShip);
-    _pCon_VamSysCamWorker = P_UNIVERSE->_pCameraWorkerManager->getConnection("VamSysCamWorker");
-    _pCon_MyShipDivingCamWorker = P_UNIVERSE->_pCameraWorkerManager->getConnection("MyShipDivingCamWorker");
-    _pVamSysCamWorker = _pCon_MyShipDivingCamWorker->refer();
+    _pCon_VamSysCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("VamSysCamWorker");
+    _pCon_MyShipDivingCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("MyShipDivingCamWorker");
+    _pVamSysCamWorker = (VamSysCamWorker*)_pCon_VamSysCamWorker->refer();
     _pVamSysCamWorker->_pMyShip = _pMyShip;
-    _pMyShipDivingCamWorker = _pCon_VamSysCamWorker->refer();
+    _pMyShipDivingCamWorker = (MyShipDivingCamWorker*)_pCon_MyShipDivingCamWorker->refer();
     _zanki = 2;
     useProgress(10);
 }
@@ -62,11 +62,11 @@ void MyShipScene::processBehavior() {
                 _pMyShip->_X = Universe::_X_goneLeft;
                 _pMyShip->_isNoControl = true;
                 P_UNIVERSE->pushCameraWork("MyShipDivingCamWorker");
-                _pVamSysCamWorker->setMoveTargetCam(-1000000, 1000000, 1000000);
-                _pVamSysCamWorker->setMoveTargetCamVpBy(_pMyShip);
+                _pMyShipDivingCamWorker->setMoveTargetCam(-1000000, 1000000, 1000000);
+                _pMyShipDivingCamWorker->setMoveTargetCamVpBy(_pMyShip);
             }
             _pMyShip->_X += 30000;
-            _pCon_VamSysCamWorker->refer()->setMoveTargetCamVpBy(_pMyShip);
+            _pMyShipDivingCamWorker->setMoveTargetCamVpBy(_pMyShip);
             if (_pMyShip->_X > 0) {
                 _pMyShip->_X = 0;
                 _pProgress->change(MYSHIPSCENE_SCENE_PROG_PLAY);

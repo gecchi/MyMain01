@@ -27,8 +27,8 @@ class MyShipScene : public GgafDx9LibStg::DefaultScene {
 
 public:
     MyShip* _pMyShip;
-    GgafCore::GgafResourceConnection<VamSysCamWorker>* _pCon_VamSysCamWorker;
-    GgafCore::GgafResourceConnection<MyShipDivingCamWorker>* _pCon_MyShipDivingCamWorker;
+    CameraWorkerConnection* _pCon_VamSysCamWorker;
+    CameraWorkerConnection* _pCon_MyShipDivingCamWorker;
     VamSysCamWorker* _pVamSysCamWorker;
     MyShipDivingCamWorker* _pMyShipDivingCamWorker;
     int _zanki;
