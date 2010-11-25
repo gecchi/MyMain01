@@ -247,11 +247,11 @@ template<class T>
 void GgafResourceManager<T>::dump() {
     GgafResourceConnection<T>* pCurrent = _pFirstConnection;
     if (_pFirstConnection == NULL) {
-        TRACE3("GgafResourceManager::dump[" << _manager_name << "] 保持リストにはなにもありません。");
+        _TRACE_("GgafResourceManager::dump[" << _manager_name << "] 保持リストにはなにもありません。");
     } else {
         GgafResourceConnection<T>* pCurrent_Next;
         while (pCurrent != NULL) {
-            TRACE3("GgafResourceManager::dump[" << _manager_name << "] [" << pCurrent->_idstr << "←" << pCurrent->_num_connection << "Connection]");
+            _TRACE_("GgafResourceManager::dump[" << _manager_name << "] [" << pCurrent->_idstr << "←" << pCurrent->_num_connection << "Connection]");
             pCurrent_Next = pCurrent->_pNext;
             if (pCurrent_Next == NULL) {
                 pCurrent = NULL;
