@@ -180,7 +180,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 #ifdef MY_DEBUG
     #ifdef _MSC_VER
         #ifdef _DEBUG
-            //特に何も無し
+            ::_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
         #else
             //特に何も無し
         #endif
@@ -191,7 +191,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 #else
     #ifdef _MSC_VER
         #ifdef _DEBUG
-            //特に何も無し
+            ::_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
         #else
             //特に何も無し
         #endif
@@ -232,7 +232,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     #ifdef _MSC_VER
         #ifdef _DEBUG
                         //ダンプ
-                        _CrtDumpMemoryLeaks();
+                        //_CrtDumpMemoryLeaks();
         #else
                         //特に何も無し
         #endif
@@ -269,24 +269,24 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         }
     } catch (GgafCore::GgafCriticalException& e) {
         //異常終了時
-		if (can_be_god) {
-			_TRACE_("＜例外＞"<<e.getMsg());
-			string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能性があります。\n誠に申し訳ございません。\n";
-			string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-			MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
-			_TRACE_("[GgafCriticalException]:"<<e.getMsg());
-		}
+        if (can_be_god) {
+            _TRACE_("＜例外＞"<<e.getMsg());
+            string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能性があります。\n誠に申し訳ございません。\n";
+            string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+            MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
+            _TRACE_("[GgafCriticalException]:"<<e.getMsg());
+        }
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     } catch (exception& e2) {
-		if (can_be_god) {
-			string what(e2.what());
-			_TRACE_("＜致命的な例外＞"<<what);
-			string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかったエラーです。\n誠に申し訳ございません。\n";
-			string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-			MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP);
-			_TRACE_("[exception]:"<<what);
-		}
+        if (can_be_god) {
+            string what(e2.what());
+            _TRACE_("＜致命的な例外＞"<<what);
+            string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかったエラーです。\n誠に申し訳ございません。\n";
+            string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+            MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP);
+            _TRACE_("[exception]:"<<what);
+        }
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     }
