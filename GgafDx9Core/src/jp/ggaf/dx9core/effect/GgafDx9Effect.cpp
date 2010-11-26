@@ -11,9 +11,9 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 
     ID3DXBuffer* pError = NULL;
 #ifdef _DEBUG
-    DWORD dwFlags = D3DXSHADER_DEBUG;
+    DWORD dwFlags = D3DXSHADER_DEBUG|D3DXFX_NOT_CLONEABLE;
 #else
-    DWORD dwFlags = D3DXSHADER_SKIPVALIDATION;
+    DWORD dwFlags = D3DXSHADER_SKIPVALIDATION|D3DXFX_NOT_CLONEABLE;
 #endif
 
 
@@ -48,7 +48,7 @@ GgafDx9Effect::~GgafDx9Effect() {
     DELETEARR_IMPOSSIBLE_NULL(_effect_name);
 
     //TODO：本来ここで_pID3DXEffectは解放するべきと考えるが、マネージャ解放時に任せる。
-//    RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);
+    RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);
 
     //開発機環境(HP DV9200, Vista, GeForce go 7600) の場合、ID3DXEffectを解放しようとすると nvd3dum.dll 内で稀に落ちる。
     //特にフルスクリーンかつ高負荷処理後の解放時にクラッシュする確率が高いようだ。
