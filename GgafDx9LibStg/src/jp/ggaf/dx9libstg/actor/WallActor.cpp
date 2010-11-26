@@ -6,13 +6,13 @@ using namespace GgafDx9LibStg;
 
 WallActor::WallActor(const char* prm_name, const char* prm_model) :
     GgafDx9MeshSetActor(prm_name,
-                        string(string("20/") + string(prm_model)).c_str(),
+                        string(string("19/") + string(prm_model)).c_str(),
                          "WallEffect",
                          "WallTechnique",
                          NEW CollisionChecker(this) ) {
     _class_name = "WallActor";
     _obj_class |= Obj_WallActor;
-    _pMeshSetModel->_set_num = 20; //WallActor最大セット数は20。
+    _pMeshSetModel->_set_num = 19; //WallActor最大セット数は20。
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pCollisionChecker->makeCollision(1);
 

@@ -8,6 +8,7 @@ using namespace MyStg2nd;
 MyShipDivingCamWorker::MyShipDivingCamWorker(const char* prm_name) : CameraWorker(prm_name) {
     _class_name = "MyShipDivingCamWorker";
     _pMyShip = NULL; //MyShipSceneに設定してもらう
+    _pLockOnTarget = NULL;
     _move_target_XY_CAM_UP = ANGLE90;
     _angXY_nowCamUp = ANGLE90;
     _burenai_speed = 10000;
@@ -57,7 +58,12 @@ void MyShipDivingCamWorker::setMoveTargetCamVp(int X, int Y, int Z) {
     _move_target_Y_VP = Y;
     _move_target_Z_VP = Z;
 }
-
+void MyShipDivingCamWorker::lockCamVp(GgafDx9Core::GgafDx9GeometricActor* pTarget) {
+    _pLockOnTarget = pTarget;
+}
+void MyShipDivingCamWorker::unlockCamVp() {
+    _pLockOnTarget = NULL;
+}
 
 
 void MyShipDivingCamWorker::processBehavior() {
@@ -84,6 +90,11 @@ void MyShipDivingCamWorker::processBehavior() {
     int dX_CAM = _move_target_X_CAM - pCam->_X;
     int dY_CAM = _move_target_Y_CAM - pCam->_Y;
     int dZ_CAM = _move_target_Z_CAM - pCam->_Z;
+    if ( _pLockOnTarget) {
+        _move_target_X_VP = _pLockOnTarget->_X;
+        _move_target_Y_VP = _pLockOnTarget->_Y;
+        _move_target_Z_VP = _pLockOnTarget->_Z;
+    }
     //ビューポイントの目標座標までの各軸の距離（座標差分）
     int dX_VP = _move_target_X_VP - pVP->_X;
     int dY_VP = _move_target_Y_VP - pVP->_Y;

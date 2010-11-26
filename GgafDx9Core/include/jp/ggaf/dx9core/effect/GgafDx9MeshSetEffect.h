@@ -16,10 +16,10 @@ public:
     D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _h_matView;
     //D3DXHANDLE _h_matWorld;
-    D3DXHANDLE _ah_matWorld[20];
-    D3DXHANDLE _ah_materialDiffuse[20];
-    D3DXHANDLE _ahOffsetU[20];
-    D3DXHANDLE _ahOffsetV[20];
+    D3DXHANDLE _ah_matWorld[19];
+    D3DXHANDLE _ah_materialDiffuse[19];
+    D3DXHANDLE _ahOffsetU[19];
+    D3DXHANDLE _ahOffsetV[19];
     D3DXHANDLE _h_vertexs_num;
 
 public:

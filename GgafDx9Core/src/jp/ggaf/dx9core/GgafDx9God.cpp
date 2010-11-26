@@ -182,36 +182,38 @@ HRESULT GgafDx9God::init() {
     //default
     UINT AdapterToUse = D3DADAPTER_DEFAULT;
     D3DDEVTYPE DeviceType = D3DDEVTYPE_HAL;
-//    // NVIDIA PerfHUD 用 begin --------------------------------------------->
-//
-//#ifdef MY_DEBUG
-//
-//#if SHIPPING_VERSION
-//    // When building a shipping version, disable PerfHUD (opt-out)
-//#else
-//    _TRACE_("Look for 'NVIDIA PerfHUD' adapter...");
-//    // If it is present, override default settings
-//    for (UINT Adapter = 0; Adapter < GgafDx9God::_pID3D9->GetAdapterCount(); Adapter++) {
-//        D3DADAPTER_IDENTIFIER9 Identifier;
-//        HRESULT Res;
-//        Res = GgafDx9God::_pID3D9->GetAdapterIdentifier(Adapter, 0, &Identifier);
-//        if (strstr(Identifier.Description, "PerfHUD") != 0) {
-//            _TRACE_("found NVIDIA PerfHUD!");
-//            AdapterToUse = Adapter;
-//            DeviceType = D3DDEVTYPE_REF;
-//            break;
-//        }
-//    }
-//#endif
-//
-//#endif
-//    // <------------------------------------------------ NVIDIA PerfHUD 用 end
+    // NVIDIA PerfHUD 用 begin --------------------------------------------->
+
+#ifdef MY_DEBUG
+
+#if SHIPPING_VERSION
+    // When building a shipping version, disable PerfHUD (opt-out)
+#else
+    _TRACE_("Look for 'NVIDIA PerfHUD' adapter...");
+    // If it is present, override default settings
+    for (UINT Adapter = 0; Adapter < GgafDx9God::_pID3D9->GetAdapterCount(); Adapter++) {
+        D3DADAPTER_IDENTIFIER9 Identifier;
+        HRESULT Res;
+        Res = GgafDx9God::_pID3D9->GetAdapterIdentifier(Adapter, 0, &Identifier);
+        if (strstr(Identifier.Description, "PerfHUD") != 0) {
+            _TRACE_("found NVIDIA PerfHUD!");
+            AdapterToUse = Adapter;
+            DeviceType = D3DDEVTYPE_REF;
+            break;
+        }
+    }
+#endif
+
+#endif
+    // <------------------------------------------------ NVIDIA PerfHUD 用 end
 
 
     //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
     //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
     hr = GgafDx9God::_pID3D9->CreateDevice(AdapterToUse, DeviceType, GgafDx9God::_hWnd,
-                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
+                                           D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED,
+//                                           D3DCREATE_MIXED_VERTEXPROCESSING|D3DCREATE_MULTITHREADED,
+//                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
                                            &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
 
     if (hr != D3D_OK) {
@@ -237,7 +239,7 @@ HRESULT GgafDx9God::init() {
         }
 
     } else {
-        _TRACE_("GgafDx9God::init デバイスは HAL(pure vp) で初期化できました。");
+        _TRACE_("GgafDx9God::init デバイスは HAL(mix vp) で初期化できました。");
     }
     //    //参照カウンタを余分増やす。理由はデストラクタのデバイス解放処理参照。
     //    GgafDx9God::_pID3DDevice9->AddRef();

@@ -39,7 +39,10 @@ void MyShipScene::processBehavior() {
 
     switch (_pProgress->getChangedFrom()) {
         case MYSHIPSCENE_SCENE_PROG_BEGIN:
-            P_UNIVERSE->popCameraWork();
+            {
+            MyShipDivingCamWorker* pCamWorker = (MyShipDivingCamWorker*)P_UNIVERSE->popCameraWork();
+            pCamWorker->unlockCamVp();
+            }
             break;
         default:
             break;
@@ -51,20 +54,15 @@ void MyShipScene::processBehavior() {
             break;
 
         case MYSHIPSCENE_SCENE_PROG_BEGIN:
-
-            MyShipDivingCamWorker* pCamWorker = NULL;
             if (_pProgress->isJustChanged()) {
                 unblindScene();
                 _pMyShip->reset();
                 _pMyShip->activate();
                 _pMyShip->_X = Universe::_X_goneLeft;
                 _pMyShip->_isNoControl = true;
-                pCamWorker = (MyShipDivingCamWorker*)P_UNIVERSE->pushCameraWork("MyShipDivingCamWorker");
+                MyShipDivingCamWorker* pCamWorker = (MyShipDivingCamWorker*)P_UNIVERSE->pushCameraWork("MyShipDivingCamWorker");
                 pCamWorker->setMoveTargetCam(-1000000, 1000000, 1000000);
-                pCamWorker->setMoveTargetCamVpBy(_pMyShip);
-            }
-            if (pCamWorker) {
-                pCamWorker->setMoveTargetCamVpBy(_pMyShip);
+                pCamWorker->lockCamVp(_pMyShip);
             }
             _pMyShip->_X += 30000;
             if (_pMyShip->_X > 0) {
@@ -113,7 +111,7 @@ void MyShipScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 }
 
 MyShipScene::~MyShipScene() {
-    P_UNIVERSE->popCameraWork();
+    //P_UNIVERSE->popCameraWork();
 //    _pCon_VamSysCamWorker->close();
 //    _pCon_MyShipDivingCamWorker->close();
 }

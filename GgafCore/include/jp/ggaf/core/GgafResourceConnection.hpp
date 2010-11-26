@@ -143,7 +143,7 @@ int GgafResourceConnection<T>::close() {
 
     if (_num_connection <= 0) {
         TRACE3("GgafResourceManager::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << _num_connection << "Connection] ＜警告＞既にコネクションは無いにもかかわらず、close() しようとしてます。");
-        TRACE3("何も行なわずreturnしますが、意図的でない場合は何かがおかしいでしょう。リークの可能\性が大。調査すべし！");
+        TRACE3("何も行なわずreturnしますが、意図的でない場合は何かがおかしいでしょう。リークの可能性が大。調査すべし！");
         return _num_connection;
     }
 
@@ -224,7 +224,7 @@ int GgafResourceConnection<T>::close() {
         if (GgafResourceManager<T>::_is_waiting_to_connect) {
             //別スレッドで既にconnet()待ち状態に入っていれば開放しない。
             //これは、いずれ次の瞬間 new されることが確定しているので、無駄なdelete を行わないようにするといった意図。
-            //むしろこのようにしないと、一瞬無効ポインタ状態になるので、connet()側で処理に寄っては落ちてしまう（と思う）。
+            //むしろこのようにしないと、一瞬無効ポインタ状態になるので、connet()側で処理によっては落ちてしまう（と思う）。
             _is_closing_resource = false;
             return 0;
         } else {

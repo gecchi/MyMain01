@@ -46,7 +46,7 @@ float4x4 g_matWorld016;
 float4x4 g_matWorld017;
 float4x4 g_matWorld018;
 float4x4 g_matWorld019;
-float4x4 g_matWorld020;
+//float4x4 g_matWorld020;
 
 //テクスチャのサンプラ(s0レジスタ)
 sampler MyTextureSampler : register(s0);
@@ -109,10 +109,10 @@ OUT_VS GgafDx9VS_Wall(
 		matWorld = g_matWorld017;
 	} else if (prm_object_index == 17) {
 		matWorld = g_matWorld018;
-	} else if (prm_object_index == 18) {
-		matWorld = g_matWorld019;
+//	} else if (prm_object_index == 18) {
+//		matWorld = g_matWorld019;
 	} else {
-		matWorld = g_matWorld020;
+		matWorld = g_matWorld019;
 	} 
     //描画面番号情報が、ワールド変換行列のmatWorld._14 に埋め込まれている
 	int draw_face = matWorld._14;

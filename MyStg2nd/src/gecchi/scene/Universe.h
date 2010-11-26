@@ -91,7 +91,7 @@ public:
 
     CameraWorker* popCameraWork();
 
-    CameraWorker* resetCameraWork();
+    void resetCameraWork();
 
     virtual ~Universe();
 };

@@ -14,6 +14,8 @@ class MyShipDivingCamWorker : public CameraWorker {
 public:
     MyShip* _pMyShip;
 
+    GgafDx9Core::GgafDx9GeometricActor* _pLockOnTarget;
+
     /** 原点から初期カメラZ位置の距離 */
     int _dZ_camera_init;
     //カメラの移動目標座標
@@ -52,6 +54,8 @@ public:
     void setMoveTargetCamVpBy(GgafDx9Core::GgafDx9GeometricActor* pTarget);
     void setMoveTargetCam(int X, int Y, int Z);
     void setMoveTargetCamVp(int X, int Y, int Z);
+    void lockCamVp(GgafDx9Core::GgafDx9GeometricActor* pTarget);
+    void unlockCamVp();
 
     virtual ~MyShipDivingCamWorker(); //デストラクタ
 };

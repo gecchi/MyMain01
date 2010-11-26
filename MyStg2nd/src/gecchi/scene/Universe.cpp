@@ -100,7 +100,7 @@ CameraWorker* Universe::popCameraWork() {
     }
 }
 
-CameraWorker* Universe::resetCameraWork() {
+void Universe::resetCameraWork() {
     //DefaultCamWorker‚Ü‚ÅƒLƒŒƒC‚É‚·‚é
     for (int i = 0; i < 30; i++) {
         if (_stack_CameraWorkerCon._p == 1) {
