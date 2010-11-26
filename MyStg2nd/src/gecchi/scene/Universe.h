@@ -17,32 +17,53 @@ namespace MyStg2nd {
  */
 class Universe : public GgafDx9LibStg::DefaultUniverse {
 
-    class CameraWorkerStack {
+    class CameraWorkerConnectionStack {
     public:
-        CameraWorker* _apCameraWorker[30];
+        CameraWorkerConnection* _apCameraWorkerCon[30];
         UINT32 _p;
-        CameraWorkerStack() {
+        CameraWorkerConnectionStack() {
             _p = 0;
-        }
-        void push(CameraWorker* prm_pCameraWorker) {
-            if (_p > 30-1) {
-                throwGgafCriticalException("CameraWorkerStack::push("<<prm_pCameraWorker->getName()<<") スタックを使い切りました。");
+            for (int i = 0; i < 30; i++) {
+                _apCameraWorkerCon[i] = NULL;
             }
-            _apCameraWorker[_p] = prm_pCameraWorker;
-            _p++;
         }
-        CameraWorker* pop() {
+        CameraWorkerConnection* getLast() {
             if (_p == 0) {
                 return NULL;
             } else {
+                return _apCameraWorkerCon[_p-1];
+            }
+        }
+        void push(CameraWorkerConnection* prm_pCameraWorkerCon) {
+            if (_p > 30-1) {
+                throwGgafCriticalException("CameraWorkerConnectionStack::push("<<prm_pCameraWorkerCon->getIdStr()<<") スタックを使い切りました。");
+            }
+            _apCameraWorkerCon[_p] = prm_pCameraWorkerCon;
+            _p++;
+        }
+        CameraWorkerConnection* pop() {
+            if (_p == 0) {
+                throwGgafCriticalException("CameraWorkerConnectionStack::pop() ポップしすぎです");
+            } else {
                 _p--;
-                return _apCameraWorker[_p];
+                CameraWorkerConnection* r = _apCameraWorkerCon[_p];
+                _apCameraWorkerCon[_p] = NULL;
+                return r;
             }
         }
         void clear() {
             _p = 0;
         }
-        ~CameraWorkerStack() {
+
+        void dump() {
+            _TRACE_("CameraWorkerConnectionStack _p="<<_p);
+            for (int i = 0; i < 30; i++) {
+                if (_apCameraWorkerCon[i]) {
+                    _TRACE_("_apCameraWorkerCon["<<i<<"]="<<(_apCameraWorkerCon[i]->getIdStr()));
+                }
+            }
+        }
+        ~CameraWorkerConnectionStack() {
             clear();
         }
     };
@@ -53,7 +74,7 @@ public:
     CameraWorker* _pActiveCameraWorker;
     CameraWorkerManager* _pCameraWorkerManager;
     World* _pWorld;
-    CameraWorkerStack _stack_CameraWorker;
+    CameraWorkerConnectionStack _stack_CameraWorkerCon;
 
     Universe(const char* prm_name, GgafDx9Core::GgafDx9Camera* prm_pCamera);
 

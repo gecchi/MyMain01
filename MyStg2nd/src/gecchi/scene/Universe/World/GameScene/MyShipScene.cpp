@@ -20,6 +20,7 @@ _pCon_VamSysCamWorker(NULL) {
     _pMyShipDivingCamWorker = (MyShipDivingCamWorker*)_pCon_MyShipDivingCamWorker->refer();
     _zanki = 2;
     useProgress(10);
+    P_UNIVERSE->pushCameraWork("VamSysCamWorker");
 }
 
 void MyShipScene::initialize() {
@@ -40,9 +41,6 @@ void MyShipScene::processBehavior() {
 
     switch (_pProgress->getChangedFrom()) {
         case MYSHIPSCENE_SCENE_PROG_BEGIN:
-            P_UNIVERSE->popCameraWork();
-            break;
-        case MYSHIPSCENE_SCENE_PROG_PLAY:
             P_UNIVERSE->popCameraWork();
             break;
         default:
@@ -75,7 +73,6 @@ void MyShipScene::processBehavior() {
 
         case MYSHIPSCENE_SCENE_PROG_PLAY:
             if (_pProgress->isJustChanged()) {
-                P_UNIVERSE->pushCameraWork("VamSysCamWorker");
                 _pMyShip->_isNoControl = false;
             }
             //ƒCƒxƒ“ƒg EVENT_MY_SHIP_WAS_DESTROYED_BEGIN ‘Ò‚¿
@@ -114,6 +111,7 @@ void MyShipScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 }
 
 MyShipScene::~MyShipScene() {
+    P_UNIVERSE->popCameraWork();
     _pCon_VamSysCamWorker->close();
     _pCon_MyShipDivingCamWorker->close();
 }

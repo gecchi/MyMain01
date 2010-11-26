@@ -309,6 +309,8 @@ class LaserChipEffectActor;
 }
 
 #include "gecchi/God.h"
+#include "gecchi/manager/CameraWorkerManager.h"
+#include "gecchi/manager/CameraWorkerConnection.h"
 #include "gecchi/actor/common/CameraWorker.h"
 #include "gecchi/scene/Universe.h"
 #include "gecchi/scene/Universe/World.h"
@@ -450,8 +452,6 @@ class LaserChipEffectActor;
 #include "gecchi/manager/DispatcherConnection.h"
 #include "gecchi/manager/Spline3DManager.h"
 #include "gecchi/manager/Spline3DConnection.h"
-#include "gecchi/manager/CameraWorkerManager.h"
-#include "gecchi/manager/CameraWorkerConnection.h"
 #include "gecchi/actor/common/template/Formation001.hpp"
 
 #include "gecchi/actor/_predrawer/LaserChipEffectActor.h"
