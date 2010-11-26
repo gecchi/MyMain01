@@ -40,23 +40,9 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 
 GgafDx9Effect::~GgafDx9Effect() {
     _TRACE_("GgafDx9Effect::~GgafDx9Effect("<<_effect_name<<") ADD:"<<this);
-    HRESULT hr;
-    hr = _pID3DXEffect->EndPass();
-    //checkDxException(hr, D3D_OK, "GgafDx9Effect::~GgafDx9Effect() EndPass() に失敗しました。");
-    hr = _pID3DXEffect->End();
-    //checkDxException(hr, D3D_OK, "GgafDx9Effect::~GgafDx9Effect() End() に失敗しました。");
+    _pID3DXEffect->EndPass();
+    _pID3DXEffect->End();
     DELETEARR_IMPOSSIBLE_NULL(_effect_name);
-
-    //TODO：本来ここで_pID3DXEffectは解放するべきと考えるが、マネージャ解放時に任せる。
     RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);
-
-    //開発機環境(HP DV9200, Vista, GeForce go 7600) の場合、ID3DXEffectを解放しようとすると nvd3dum.dll 内で稀に落ちる。
-    //特にフルスクリーンかつ高負荷処理後の解放時にクラッシュする確率が高いようだ。
-    //暫定的にコメントにしている。
-
-    //かなりの時間を費やしてあらゆるパターンを調査した。
-    //私の知る限りの他の環境ではコメントを外し ID3DXEffect の解放処理を行ってもけっしてクラッシュしない。
-    //結局真の原因はわからず、悲しいことに「ビデオカードかドライバが悪い」という結論で自分を納得させることにした。
-    //誰か教えてください。
 }
 
