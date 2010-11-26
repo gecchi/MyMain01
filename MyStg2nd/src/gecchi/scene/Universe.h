@@ -53,6 +53,9 @@ class Universe : public GgafDx9LibStg::DefaultUniverse {
         }
         void clear() {
             _p = 0;
+            for (int i = 0; i < 30; i++) {
+                _apCameraWorkerCon[i] = NULL;
+            }
         }
 
         void dump() {
@@ -88,7 +91,7 @@ public:
 
     CameraWorker* popCameraWork();
 
-
+    CameraWorker* resetCameraWork();
 
     virtual ~Universe();
 };

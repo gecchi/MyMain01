@@ -100,6 +100,17 @@ CameraWorker* Universe::popCameraWork() {
     }
 }
 
+CameraWorker* Universe::resetCameraWork() {
+    //DefaultCamWorker‚Ü‚ÅƒLƒŒƒC‚É‚·‚é
+    for (int i = 0; i < 30; i++) {
+        if (_stack_CameraWorkerCon._p == 1) {
+            break;
+        } else {
+            CameraWorkerConnection* pCon = _stack_CameraWorkerCon.pop();
+            pCon->close();
+        }
+    }
+}
 
 
 Universe::~Universe() {

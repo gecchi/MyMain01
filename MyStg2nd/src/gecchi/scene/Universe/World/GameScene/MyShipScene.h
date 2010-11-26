@@ -27,10 +27,10 @@ class MyShipScene : public GgafDx9LibStg::DefaultScene {
 
 public:
     MyShip* _pMyShip;
-    CameraWorkerConnection* _pCon_VamSysCamWorker;
-    CameraWorkerConnection* _pCon_MyShipDivingCamWorker;
+//    CameraWorkerConnection* _pCon_VamSysCamWorker;
+//    CameraWorkerConnection* _pCon_MyShipDivingCamWorker;
     VamSysCamWorker* _pVamSysCamWorker;
-    MyShipDivingCamWorker* _pMyShipDivingCamWorker;
+//    MyShipDivingCamWorker* _pMyShipDivingCamWorker;
     int _zanki;
 
     MyShipScene(const char* prm_name);
