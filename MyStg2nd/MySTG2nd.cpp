@@ -116,8 +116,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
             WS_POPUP | WS_VISIBLE,
             CW_USEDEFAULT,
             CW_USEDEFAULT,
-            GGAFDX9_PROPERTY(GAME_SPACE_WIDTH), // ウィンドウの幅
-            GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT), // ウィンドウの幅
+            GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH), // ウィンドウの幅
+            GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT), // ウィンドウの幅
             HWND_DESKTOP,
             NULL,
             hInstance,
@@ -499,24 +499,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 //    if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
 //        RECT rect;
 //        GetClientRect(hWnd, &rect); //あるいは？
-//        if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)) {
+//        if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)) {
 //            //より横長になってしまっている
-//            float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT); //縮小率=縦幅の比率
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)
+//            float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT); //縮小率=縦幅の比率
+//            GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)
 //                    * rate / 2.0f);
 //            GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
 //            GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
-//                    + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate / 2.0f);
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate;
+//                    + (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
+//            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate;
 //        } else {
 //            //より縦長になってしまっている
-//            float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_SPACE_WIDTH); //縮小率=横幅の比率
+//            float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH); //縮小率=横幅の比率
 //            GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
 //            GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
-//                    - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate;
+//                    - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
+//            GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate;
 //            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
-//                    + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
+//                    + (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
 //        }
 //    } else {
 //        GetClientRect(hWnd, &(GgafDx9Core::GgafDx9God::_rectPresentDest));

@@ -201,13 +201,13 @@ void GgafDx9Universe::draw() {
         checkDxException(hr, D3D_OK, "GgafDx9Universe::processDraw() EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
         checkDxException(hr, D3D_OK, "GgafDx9Universe::processDraw() End() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        ////
+#ifdef MY_DEBUG
         if (GgafDx9EffectManager::_pEffect_Active->_begin == false) {
             throwGgafCriticalException("begin ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
         } else {
             GgafDx9EffectManager::_pEffect_Active->_begin = false;
         }
-        ////
+#endif
         GgafDx9EffectManager::_pEffect_Active = NULL;
         GgafDx9ModelManager::_pModelLastDraw = NULL;
         GgafDx9DrawableActor::_hash_technique_last_draw = 0;

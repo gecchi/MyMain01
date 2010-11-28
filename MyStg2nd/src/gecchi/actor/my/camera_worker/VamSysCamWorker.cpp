@@ -11,19 +11,19 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
 
     //初期カメラ移動範囲制限
     float revise = 0.7; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
-    _lim_CAM_top     = MyShip::_lim_top     - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)*revise;
-    _lim_CAM_bottom  = MyShip::_lim_bottom  + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)*revise;
-    _lim_CAM_front   = MyShip::_lim_front   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-    _lim_CAM_behaind = MyShip::_lim_behaind + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-    _lim_CAM_zleft   = MyShip::_lim_zleft   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-    _lim_CAM_zright  = MyShip::_lim_zright  + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_CAM_top     = MyShip::_lim_top     - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2)*revise;
+    _lim_CAM_bottom  = MyShip::_lim_bottom  + (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2)*revise;
+    _lim_CAM_front   = MyShip::_lim_front   - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_CAM_behaind = MyShip::_lim_behaind + (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_CAM_zleft   = MyShip::_lim_zleft   - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_CAM_zright  = MyShip::_lim_zright  + (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
 
-    _lim_VP_top     = MyShip::_lim_top     - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)*revise;
-    _lim_VP_bottom  = MyShip::_lim_bottom  + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)*revise;
-    _lim_VP_front   = MyShip::_lim_front   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-    _lim_VP_behaind = MyShip::_lim_behaind + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-    _lim_VP_zleft   = MyShip::_lim_zleft   - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
-    _lim_VP_zright  = MyShip::_lim_zright  + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_VP_top     = MyShip::_lim_top     - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2)*revise;
+    _lim_VP_bottom  = MyShip::_lim_bottom  + (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2)*revise;
+    _lim_VP_front   = MyShip::_lim_front   - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_VP_behaind = MyShip::_lim_behaind + (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_VP_zleft   = MyShip::_lim_zleft   - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_VP_zright  = MyShip::_lim_zright  + (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
 }
 void VamSysCamWorker::initialize() {
     GgafDx9Camera* pCam = P_CAM;
@@ -35,8 +35,8 @@ void VamSysCamWorker::initialize() {
 
     //画面背後用範囲差分
     //背後のZ座標は_dZ_camera_init/2
-    _correction_width = 0;//(GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)/4;
-    _correction_height = 0;//(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2)/4;
+    _correction_width = 0;//(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)/4;
+    _correction_height = 0;//(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2)/4;
 
     _pos_camera = VAM_POS_RIGHT;
 
@@ -106,8 +106,8 @@ void VamSysCamWorker::processBehavior() {
     angle move_target_XY_CAM_UP;
 
     //カメラの目標座標、ビューポイントの目標座標を設定
-    static int Dx = (int)((GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2)/4*2);
-    static int Ddx_hw = (int)((GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)*LEN_UNIT/2) - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2));
+    static int Dx = (int)((GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)/4*2);
+    static int Ddx_hw = (int)((GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2) - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2));
     static int Dd = 30000;
     if (_pos_camera < VAM_POS_TO_BEHIND) {
         if (_pos_camera == VAM_POS_RIGHT) {

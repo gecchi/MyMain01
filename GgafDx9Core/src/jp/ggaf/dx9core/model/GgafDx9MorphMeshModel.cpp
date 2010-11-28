@@ -105,13 +105,13 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() End() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-                ////
+#ifdef MY_DEBUG
                 if (GgafDx9EffectManager::_pEffect_Active->_begin == false) {
                     throwGgafCriticalException("begin ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
                 } else {
                     GgafDx9EffectManager::_pEffect_Active->_begin = false;
                 }
-                ////
+#endif
 
              }
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
@@ -131,13 +131,13 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             hr = pID3DXEffect->BeginPass(_morph_target_num);
             checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() BeginPass("<<_morph_target_num<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-            ////
+#ifdef MY_DEBUG
             if (pMorphMeshEffect->_begin == true) {
                 throwGgafCriticalException("End ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 pMorphMeshEffect->_begin = true;
             }
-            ////
+#endif
 
         } else {
             hr = pID3DXEffect->CommitChanges();

@@ -24,7 +24,6 @@ GgafDx9MeshModel::GgafDx9MeshModel(char* prm_model_name) : GgafDx9Model(prm_mode
 
 //描画
 HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
-
     //対象アクター
     static GgafDx9MeshActor* pTargetActor;
     pTargetActor = (GgafDx9MeshActor*)prm_pActor_Target;
@@ -51,7 +50,6 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     }
 
     //描画
-
     for (UINT i = 0; i < _nMaterialListGrp; i++) {
         material_no = _paIndexParam[i].MaterialNo;
         if (GgafDx9ModelManager::_pModelLastDraw != this || _nMaterialListGrp != 1) {
@@ -77,13 +75,13 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() End() に失敗しました。");
 
-                ////
+#ifdef MY_DEBUG
                 if (GgafDx9EffectManager::_pEffect_Active->_begin == false) {
                     throwGgafCriticalException("begin していません "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
                 } else {
                     GgafDx9EffectManager::_pEffect_Active->_begin = false;
                 }
-                ////
+#endif
 
             }
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
@@ -97,13 +95,13 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() BeginPass(0) に失敗しました。");
 
-            ////
+#ifdef MY_DEBUG
             if (pMeshEffect->_begin == true) {
                 throwGgafCriticalException("End していません "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 pMeshEffect->_begin = true;
             }
-            ////
+#endif
 
         } else {
             //前回描画と同じモデル

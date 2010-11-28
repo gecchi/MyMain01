@@ -10,8 +10,8 @@ GgafDx9BoardSetEffect::GgafDx9BoardSetEffect(char* prm_effect_name) : GgafDx9Eff
 //    static float view_width = (float)(GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH));
 //    static float view_height = (float)(GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT));
 
-    static float view_width = (float)(GGAFDX9_PROPERTY(GAME_SPACE_WIDTH));
-    static float view_height = (float)(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT));
+    static float view_width = (float)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH));
+    static float view_height = (float)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT));
 
     hr = _pID3DXEffect->SetFloat("g_view_width", view_width);
     checkDxException(hr, D3D_OK, "GgafDx9BoardEffect::GgafDx9BoardEffect SetFloat(g_view_width) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

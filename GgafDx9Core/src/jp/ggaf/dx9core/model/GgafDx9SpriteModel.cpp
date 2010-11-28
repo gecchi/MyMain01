@@ -63,13 +63,13 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
             checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() End() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-            ////
+#ifdef MY_DEBUG
             if (GgafDx9EffectManager::_pEffect_Active->_begin == false) {
                 throwGgafCriticalException("begin ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
             } else {
                 GgafDx9EffectManager::_pEffect_Active->_begin = false;
             }
-            ////
+#endif
 
         }
 
@@ -85,13 +85,13 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() BeginPass(0) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 
-        ////
+#ifdef MY_DEBUG
         if (pSpriteEffect->_begin == true) {
             throwGgafCriticalException("End ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
         } else {
             pSpriteEffect->_begin = true;
         }
-        ////
+#endif
 
 
     } else {

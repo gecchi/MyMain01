@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 
 
 GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
-    _TRACE_("GgafDx9Effect::GgafDx9Effect(" << prm_effect_name << ")");
+    TRACE4("GgafDx9Effect::GgafDx9Effect(" << prm_effect_name << ")");
     _effect_name = NEW char[51];
     strcpy(_effect_name, prm_effect_name);
 
@@ -39,10 +39,10 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 }
 
 GgafDx9Effect::~GgafDx9Effect() {
-    _TRACE_("GgafDx9Effect::~GgafDx9Effect("<<_effect_name<<") ADD:"<<this);
+    TRACE4("GgafDx9Effect::~GgafDx9Effect("<<_effect_name<<") Adr:"<<this);
     _pID3DXEffect->EndPass();
     _pID3DXEffect->End();
     DELETEARR_IMPOSSIBLE_NULL(_effect_name);
-    RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);
+    RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);  //
 }
 

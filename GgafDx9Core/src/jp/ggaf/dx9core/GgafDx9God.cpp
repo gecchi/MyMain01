@@ -27,8 +27,8 @@ D3DFILLMODE GgafDx9God::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFI
 
 GgafDx9ModelManager* GgafDx9God::_pModelManager = NULL;
 GgafDx9EffectManager* GgafDx9God::_pEffectManager = NULL;
-//int const GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)  = 1024;
-//int const GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) = 600;
+//int const GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)  = 1024;
+//int const GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) = 600;
 D3DPRESENT_PARAMETERS GgafDx9God::_structD3dPresent_Parameters;
 bool GgafDx9God::_is_device_lost_flg = false;
 bool GgafDx9God::_adjustGameScreen = false;
@@ -48,8 +48,8 @@ HRESULT GgafDx9God::init() {
     _FULLSCRREEN = GGAFDX9_PROPERTY(FULL_SCREEN);
     _rectPresentDest.left = 0;
     _rectPresentDest.top = 0;
-    _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH);
-    _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT);
+    _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
+    _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
 
     HRESULT hr;
 
@@ -70,10 +70,10 @@ HRESULT GgafDx9God::init() {
     //デバイス作成
     ZeroMemory(&_structD3dPresent_Parameters, sizeof(D3DPRESENT_PARAMETERS));
     //バックバッファの縦サイズ
-    _structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT);
+    _structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
     //_structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT);
     //バックバッファの横サイズ
-    _structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH);
+    _structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
     //_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH);
     //バックバッファのフォーマット
     if (_FULLSCRREEN) {
@@ -282,7 +282,7 @@ HRESULT GgafDx9God::initDx9Device() {
      GgafDx9God::_d3dlight9_default.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
      GgafDx9God::_d3dlight9_default.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
      //下は平行光では関係ない
-     //GgafDx9God::_d3dlight9_default.Position = D3DXVECTOR3(-1*GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)/2, -1*GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)/2, -1*GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)/2);
+     //GgafDx9God::_d3dlight9_default.Position = D3DXVECTOR3(-1*GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2, -1*GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2, -1*GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2);
      //GgafDx9God::_d3dlight9_default.Range = 1000;
      */
 
@@ -629,8 +629,8 @@ void GgafDx9God::adjustGameScreen() {
         vClient.MaxZ = 1.0f;
         vClient.X = (DWORD)0;
         vClient.Y = (DWORD)0;
-        vClient.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_WIDTH));
-        vClient.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT));
+        vClient.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH));
+        vClient.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT));
         _pID3DDevice9->SetViewport(&vClient);
         HRESULT hr;
         hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
@@ -656,22 +656,22 @@ void GgafDx9God::adjustGameScreen() {
             vp.MinZ = 0.0f;
             vp.MaxZ = 1.0f;
             double aspect_client = 1.0 * rect.right / rect.bottom;
-            double aspect_buffer = 1.0 * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT);
+            double aspect_buffer = 1.0 * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
 //            _TRACE_("aspect_client = "<<aspect_client<<" aspect_buffer="<<aspect_buffer);
             if (aspect_client > aspect_buffer) {
                 //より横長になってしまっている
-                float rate = (1.0 * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) / (1.0 *rect.right / rect.bottom));
-                vp.X = (DWORD)((GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / 2.0) - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate / 2.0)) ;
+                float rate = (1.0 * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / (1.0 *rect.right / rect.bottom));
+                vp.X = (DWORD)((GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / 2.0) - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0)) ;
                 vp.Y = (DWORD)0;
-                vp.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate);
-                vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT));
+                vp.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate);
+                vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT));
             } else {
                 //より縦長になってしまっている
-                float rate = (1.0 * GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) / GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / (1.0 *rect.bottom / rect.right));
+                float rate = (1.0 * GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / (1.0 *rect.bottom / rect.right));
                 vp.X = (DWORD)0;
-                vp.Y = (DWORD)((GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) / 2.0) - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0)) ;;
-                vp.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_WIDTH));
-                vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate);
+                vp.Y = (DWORD)((GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / 2.0) - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0)) ;;
+                vp.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH));
+                vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate);
 
             }
 //            _TRACE_("new vp="<<vp.X<<","<<vp.Y<<","<<vp.Width<<","<<vp.Height);
@@ -723,24 +723,24 @@ void GgafDx9God::adjustGameScreen() {
 
 
 
-//            if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)) {
+//            if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)) {
 //                //より横長になってしまっている
-//                float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT); //縮小率=縦幅の比率
-//                GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH)
+//                float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT); //縮小率=縦幅の比率
+//                GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)
 //                        * rate / 2.0f);
 //                GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
 //                GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
-//                        + (GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate / 2.0f);
-//                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate;
+//                        + (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
+//                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate;
 //            } else {
 //                //より縦長になってしまっている
-//                float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_SPACE_WIDTH); //縮小率=横幅の比率
+//                float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH); //縮小率=横幅の比率
 //                GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
 //                GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
-//                        - (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
-//                GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SPACE_WIDTH) * rate;
+//                        - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
+//                GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate;
 //                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
-//                        + (GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT) * rate / 2.0f);
+//                        + (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
 //            }
 
             _adjustGameScreen = false;

@@ -12,7 +12,7 @@ FormationCeres002::FormationCeres002(const char* prm_name) : GgafDx9FormationAct
         Sleep(1);
         _pEnemyCeres[i] = NEW EnemyCeres("Ceres01");
         _pEnemyCeres[i]->inactivate();
-        _pEnemyCeres[i]->_Y_turn = -1*(GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT/2) + (i * ((GGAFDX9_PROPERTY(GAME_SPACE_HEIGHT)*LEN_UNIT)/NUM_CERES_FORMATION002));
+        _pEnemyCeres[i]->_Y_turn = -1*(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2) + (i * ((GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT)/NUM_CERES_FORMATION002));
         _pEnemyCeres[i]->_veloBegin = 5000;
         _pEnemyCeres[i]->_Z = -1500000;
         addSubLast(_pEnemyCeres[i] );

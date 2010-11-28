@@ -29,7 +29,7 @@ public:
     /** Present領域 */
     static RECT _rectPresentDest;
     /* スクリーン高さ（ピクセル） */
-    //static int const GAME_SPACE_HEIGHT;
+    //static int const GAME_BUFFER_HEIGHT;
 
     static D3DPRESENT_PARAMETERS _structD3dPresent_Parameters;
 
