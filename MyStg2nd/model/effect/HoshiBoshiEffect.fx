@@ -114,13 +114,13 @@ OUT_VS VS_HoshiBoshi(
 //
 // 自機座標を(X,Y,Z)とした場合。
 // f(x,y,z) = abs(X-x)+abs(Y-y)+abs(Z-z)　と置くと
-// f(x,y,z) = D を満たす(x,y,z)は、距離がDのラミエルとなる。
+// f(x,y,z) = D を満たす(x,y,z)は、距離がDのラミエルな領域となる。
 // f(x,y,z) = g_dist_CamZ_default はつまり ① のような範囲である。（g_dist_CamZ_defaultは自機からカメラの初期距離）
 // ①を式変形して
 // {abs(X-x)+abs(Y-y)+abs(Z-z)} / g_dist_CamZ_default = 1.0 … ① 
 // これより、以下の範囲を考える
-// {abs(X-x)/4 + abs(Y-y)/2 + abs(Z-z)/2} / g_dist_CamZ_default = 1.0 …② 
-// {abs(X-x)/4 + abs(Y-y)/2 + abs(Z-z)/2} / g_dist_CamZ_default = 2.0 …③
+// {abs(X-x)/15 + abs(Y-y)/2 + abs(Z-z)/2} / g_dist_CamZ_default = 1.0 …② 
+// {abs(X-x)/15 + abs(Y-y)/2 + abs(Z-z)/2} / g_dist_CamZ_default = 2.0 …③
 // [真上からのイメージ（図の比率がオカシイが；）]
 //
 //      Z
@@ -137,7 +137,7 @@ OUT_VS VS_HoshiBoshi(
 //     |               ／             ＼                              ￣＝＿                  ￣＝＿
 //     |             ／                 ＼                                ￣＝＿                  ￣＝＿
 // ----+--------------------- 自機→ --------------------------------------------------------------------------------> X
-//    0|   (-dCamZ,0)＼        ^        ／  (dCamZ,0)                     ＿＝￣ (4*dCamZ,0)      ＿＝￣(8*dCamZ,0)
+//    0|   (-dCamZ,0)＼        ^        ／  (dCamZ,0)                     ＿＝￣ (15*dCamZ,0)     ＿＝￣(30*dCamZ,0)
 //     |               ＼      |dCamZ ／                              ＿＝￣                  ＿＝￣
 //     |                 ＼    |    ／      この領域(A領域)では   ＿＝￣                  ＿＝￣
 //     |                   ＼  |  ／        星は非表示        ＿＝￣        ●        ＿＝￣                    ●
@@ -159,9 +159,9 @@ OUT_VS VS_HoshiBoshi(
 //
 // ここで (x,y,z) に星の座標を代入して、③→②へ移動中にアルファを減らそうとした。
 
-	float r2 = ( abs(out_vs.pos.x-g_fX_MyShip)/4 + 
-               abs(out_vs.pos.y-g_fY_MyShip)/2 + 
-               abs(out_vs.pos.z-g_fZ_MyShip)/2  ) / g_dist_CamZ_default;
+	float r2 = ( abs(out_vs.pos.x-g_fX_MyShip)/15.0 + 
+               abs(out_vs.pos.y-g_fY_MyShip)/2.0 + 
+               abs(out_vs.pos.z-g_fZ_MyShip)/2.0  ) / g_dist_CamZ_default;
 	// r2 < 1.0         がA領域
 	// 1.0 < r2 < 2.0   がB領域  となる
 

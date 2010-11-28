@@ -82,14 +82,14 @@ void GameScene::reset() {
     _pScene_GameEnding->unblindSceneTree();
     _pScene_GameOver->unblindSceneTree();
 
-    _pMyShipScene->inactivateImmediately();
-    _pScene_PreGameTitle->inactivateImmediately();
-    _pScene_GameTitle->inactivateImmediately();
-    _pScene_GameDemo->inactivateImmediately();
-    _pScene_GameBeginning->inactivateImmediately();
-    _pScene_GameMain->inactivateImmediately();
-    _pScene_GameEnding->inactivateImmediately();
-    _pScene_GameOver->inactivateImmediately();
+    _pMyShipScene->inactivate();
+    _pScene_PreGameTitle->inactivate();
+    _pScene_GameTitle->inactivate();
+    _pScene_GameDemo->inactivate();
+    _pScene_GameBeginning->inactivate();
+    _pScene_GameMain->inactivate();
+    _pScene_GameEnding->inactivate();
+    _pScene_GameOver->inactivate();
     _pProgress->change(GAME_SCENE_PROG_INIT);
 }
 

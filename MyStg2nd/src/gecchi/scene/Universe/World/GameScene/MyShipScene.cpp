@@ -29,6 +29,7 @@ void MyShipScene::initialize() {
 void MyShipScene::reset() {
     _TRACE_("MyShipScene reset()");
     _zanki = 2;
+    _pMyShip->inactivate();
     unblindScene();
     _pProgress->change(MYSHIPSCENE_SCENE_PROG_INIT);
 }

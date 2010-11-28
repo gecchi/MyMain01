@@ -281,6 +281,8 @@ public:
      */
     void onActive() override;
 
+    void reset() override;
+
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */

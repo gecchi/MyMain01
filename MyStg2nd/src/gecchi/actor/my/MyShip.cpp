@@ -182,10 +182,13 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 
     _isNoControl = false;
 }
+void MyShip::reset() {
+    _X = _Y = _Z = 0;
+    MyStgUtil::resetMyShipStatus(_pStatus);
+}
 
 void MyShip::onActive() {
 
-    MyStgUtil::resetMyShipStatus(_pStatus);
 }
 
 
