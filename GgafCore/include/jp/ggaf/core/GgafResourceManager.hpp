@@ -43,7 +43,7 @@ private:
      * 資源のを生成。.
      * @param prm_idstr 識別名
      */
-    T* createResource(char* prm_idstr);
+    T* createResource(char* prm_idstr, void* prm_p);
 
     /**
      * 資源接続オブジェクトを生成.
@@ -83,7 +83,7 @@ protected:
      * @param prm_idstr この識別名が渡された時、どういう資源を生成(new)するか？ という識別名
      * @return 資源インスタンスのポインタ
      */
-    virtual T* processCreateResource(char* prm_idstr) = 0;
+    virtual T* processCreateResource(char* prm_idstr, void* prm_p) = 0;
 
 
 public:
@@ -107,17 +107,21 @@ public:
      * 保持リストから取得した場合、接続カウンタが増えます。<BR>
      * new した場合、接続カウンタは1です。<BR>
      * @param prm_idstr 識別名
+     * @param prm_p 何らかの引数
      */
-    virtual GgafResourceConnection<T>* getConnection(char* prm_idstr);
+    virtual GgafResourceConnection<T>* getConnection(char* prm_idstr, void* prm_p);
 
-    /**
-     * GgafResourceConnectionオブジェクトを取得。<BR>
-     * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
-     * 保持リストから取得した場合、接続カウンタが増えます。<BR>
-     * new した場合、接続カウンタは1です。<BR>
-     * @param prm_idstr 識別名
-     */
-    virtual GgafResourceConnection<T>* getConnection(const char* prm_idstr);
+    virtual GgafResourceConnection<T>* getConnection(char* prm_idstr) {
+        return this->getConnection(prm_idstr, NULL);
+    }
+    virtual GgafResourceConnection<T>* getConnection(const char* prm_idstr) {
+        return this->getConnection((char*)prm_idstr, NULL);
+    }
+    virtual GgafResourceConnection<T>* getConnection(const char* prm_idstr, void* prm_p) {
+        return this->getConnection((char*)prm_idstr, prm_p);
+    }
+
+
 
 
     /**
@@ -174,8 +178,7 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_New) {
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr) {
-
+GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr, void* prm_p) {
     if (prm_idstr == NULL) {
         TRACE3("警告 GgafResourceManager<T>::getConnection(NULL) [" << _manager_name << "]");
     }
@@ -207,7 +210,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr
     pObj = find(prm_idstr);
     if (pObj == NULL) {
         //未生成ならば生成。接続カウンタを１
-        T* pResource = createResource(prm_idstr);
+        T* pResource = createResource(prm_idstr, prm_p);
         pObj = createResourceConnection(prm_idstr, pResource);
         pObj->_num_connection = 1;
         add(pObj);
@@ -224,14 +227,9 @@ GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(const char* prm_idstr) {
-    return this->getConnection((char*)prm_idstr);
-}
-
-template<class T>
-T* GgafResourceManager<T>::createResource(char* prm_idstr) {
+T* GgafResourceManager<T>::createResource(char* prm_idstr, void* prm_p) {
     TRACE3("GgafResourceManager<T>::createResource [" << _manager_name << "]" << prm_idstr << "を生成しましょう");
-    T* p = processCreateResource(prm_idstr);
+    T* p = processCreateResource(prm_idstr, prm_p);
     return p;
 }
 
