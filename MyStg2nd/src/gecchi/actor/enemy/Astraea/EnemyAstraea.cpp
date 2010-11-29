@@ -29,6 +29,15 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
         }
     }
 
+    //屈折レーザー設定(コンストラクタに持っていけない。
+    //CommonSceneで本EnemyAstraeaLaserChip002をNEWしているので、CommonSceneがまだ完成していないうちに
+    //_pDispatcherManagerは使用不可。なんかいい方法を考えるべし
+    _pDispatcherCon_RefractionEffect = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_EffRefraction001"));
+    _TRACE_("EnemyAstraea::EnemyAstraea _pDispatcherCon_RefractionEffect->refer()="<<_pDispatcherCon_RefractionEffect->refer());
+
+    _pDispatcherCon_DpEnemyAstraeaLaserChip002 =
+            (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_DpEnemyAstraeaLaserChip002", _pDispatcherCon_RefractionEffect->refer()));
+
 
     _papaPosLaser = NEW PosLaser*[_laser_way];
     angle* paAngWay = NEW angle[_laser_way];
@@ -187,7 +196,7 @@ void EnemyAstraea::processBehavior() {
             for (int i = 0; i < _laser_way; i++) {
                 for (int j = 0; j < _laser_way; j++) {
                     if (_papapLaserChipDispatcher[i][j] == NULL) {
-                        GgafMainActor* p = P_COMMON_SCENE->_pDispatcher_LaserChipDispatcher->employ();
+                        GgafMainActor* p = _pDispatcherCon_DpEnemyAstraeaLaserChip002->refer()->employ();
                         if (p == NULL) {
                             //レーザーセットは借入出来ない
                             continue;
@@ -289,7 +298,8 @@ void EnemyAstraea::onInactive() {
 
 
 EnemyAstraea::~EnemyAstraea() {
-
+    _pDispatcherCon_RefractionEffect->close();
+    _pDispatcherCon_DpEnemyAstraeaLaserChip002->close();
     for (int i = 0; i < _laser_way; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser[i]);
         DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipDispatcher[i]);

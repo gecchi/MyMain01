@@ -33,6 +33,12 @@ public:
     /** レーザー発射ローカル座標 */
     PosLaser** _papaPosLaser;
 
+    DispatcherConnection* _pDispatcherCon_RefractionEffect;
+
+    DispatcherConnection* _pDispatcherCon_DpEnemyAstraeaLaserChip002;
+
+
+
     GgafDx9LibStg::LaserChipDispatcher*** _papapLaserChipDispatcher;
 
     /** 出現エフェクト */

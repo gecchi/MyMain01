@@ -10,17 +10,10 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
         RefractionLaserChip(prm_name, "AstraeaLaserChip001") {
     _class_name = "EnemyAstraeaLaserChip002";
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
-    _pDispatcherCon_RefractionEffect = NULL;
 
 }
 
 void EnemyAstraeaLaserChip002::initialize() {
-    //屈折レーザー設定(コンストラクタに持っていけない。
-    //CommonSceneで本EnemyAstraeaLaserChip002をNEWしているので、CommonSceneがまだ完成していないうちに
-    //_pDispatcherManagerは使用不可。なんかいい方法を考えるべし
-    _pDispatcherCon_RefractionEffect = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_EffRefraction001"));
-    config(50, 10, 5, _pDispatcherCon_RefractionEffect->refer());
-
     registHitAreaCube(10000);
     setHitAble(true);
     _SX = _SY = _SZ = 5*1000;
@@ -87,9 +80,5 @@ void EnemyAstraeaLaserChip002::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EnemyAstraeaLaserChip002::~EnemyAstraeaLaserChip002() {
-    if (_pDispatcherCon_RefractionEffect) {
-        _pDispatcherCon_RefractionEffect->close();
-    }
-
 }
 

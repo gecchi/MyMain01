@@ -25,7 +25,7 @@ public:
      * @param prm_idstr
      * @return ディスパッチャー
      */
-    GgafCore::GgafActorDispatcher* processCreateResource(char* prm_idstr);
+    GgafCore::GgafActorDispatcher* processCreateResource(char* prm_idstr, void* prm_p);
 
     GgafCore::GgafResourceConnection<GgafCore::GgafActorDispatcher>* processCreateConnection(char* prm_idstr, GgafCore::GgafActorDispatcher* prm_pResource);
 

@@ -9,7 +9,7 @@ CameraWorkerManager::CameraWorkerManager(const char* prm_manager_name) :
     GgafResourceManager<CameraWorker> (prm_manager_name) {
 }
 
-CameraWorker* CameraWorkerManager::processCreateResource(char* prm_idstr) {
+CameraWorker* CameraWorkerManager::processCreateResource(char* prm_idstr, void* prm_p) {
     CameraWorker* pResource = NULL;
 
     if (GgafUtil::strcmp_ascii("DefaultCamWorker", prm_idstr) == 0) {

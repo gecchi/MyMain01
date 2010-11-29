@@ -36,10 +36,18 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     );
 
     //初期スクロールスピード
-    setScroolSpeed(5000);
+    setScroolSpeed(10000);
 
-
-    orderActorToFactory(9999999+_id, FormationThalia, "FormationThalia_1");
+    // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
+    // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
+    // gen01 start
+	frame f[] = {1,100};
+	_paFrame_NextEvent = new frame[2];
+	for (int i = 0; i < 2; i++) {
+		_paFrame_NextEvent[i] = f[i];
+	}
+	orderActorToFactory(21037100, FormationThalia, "FormationThalia_1");
+    // gen01 end
 }
 
 
@@ -55,25 +63,26 @@ void Stage01WalledScene::onActive() {
 void Stage01WalledScene::processBehavior() {
     WalledScene::processBehavior();
 
-    if (getActivePartFrame() % 60 == 0) {
-        if (getScroolSpeed() < 5000) {
-            addScroolSpeed(1000);
-        }
-    }
 
-    if (getActivePartFrame() == 10) {
-    FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(9999999+_id);
-    getLordActor()->addSubGroup(pActor);
-    }
-
-//    if (getActivePartFrame() % 1300 == 0) {
-//        _scrool_speed = 2000;
-//    }
-//
-//
-//    if (getActivePartFrame() % 1800 == 0) {
-//        _scrool_speed = 5000;
-//    }
+    // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
+    // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
+    // gen02 start
+	if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
+		switch (getActivePartFrame()) {
+			case 1:
+				break;
+			case 100:
+				{
+				FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(21037100);
+				getLordActor()->addSubGroup(pActor);
+				}
+				break;
+			default :
+				break;
+		}
+		_iCnt_Event = (_iCnt_Event < 2-1 ? _iCnt_Event+1 : _iCnt_Event);
+	}
+    // gen02 end
 }
 
 void Stage01WalledScene::processFinal() {

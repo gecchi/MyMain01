@@ -75,8 +75,11 @@ class MyShip : public GgafDx9LibStg::DefaultMeshActor {
         WaySwitch() {
             _way.X = _way.Y = _way.Z = SW_NOP;
             _sw_UP = _sw_LEFT = _sw_RIGHT = _sw_DOWN = false;
+        }
 
-
+        void reset() {
+            _way.X = _way.Y = _way.Z = SW_NOP;
+            _sw_UP = _sw_LEFT = _sw_RIGHT = _sw_DOWN = false;
         }
         void ON_UP(Switch swX, Switch swY, Switch swZ) {
             if (!_sw_UP) {
@@ -251,9 +254,8 @@ public:
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion001;
     GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
 
-    MyOptionController* _pMyOptionController;
+//    MyOptionController* _pMyOptionController;
     EffectTurbo001* _pEffectTurbo001;
-    EffectMyShipExplosion* _pEffectMyShipExplosion;
 
     /** ソフト連射開始からの経過フレーム数 */
     frame _frame_soft_rapidshot;
@@ -266,8 +268,12 @@ public:
     /** SHOTボタン押しっぱなし経過フレーム数（レーザー発射開始判定のため） */
     frame _frame_shot_pressed;
 
+    /** シーン突入時かどうか */
+    bool _is_diving;
 
-    bool _isNoControl;
+    /** 操作可否 */
+    bool _can_control;
+
 
     MyShip(const char* prm_name);
 

@@ -9,7 +9,7 @@ Spline3DManager::Spline3DManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDx9Core::GgafDx9Spline3D> (prm_manager_name) {
 }
 
-GgafDx9Spline3D* Spline3DManager::processCreateResource(char* prm_idstr) {
+GgafDx9Spline3D* Spline3DManager::processCreateResource(char* prm_idstr, void* prm_p) {
     GgafDx9Spline3D* pResource = NULL;
 
     if (GgafUtil::strcmp_ascii("SpCon_001", prm_idstr) == 0) {

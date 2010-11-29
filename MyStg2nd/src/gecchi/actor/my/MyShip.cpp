@@ -50,9 +50,8 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _iMvVelo_BeginMT = 40000; //Turbo移動開始時の移動速度の初速度
     _iMvAcce_MT = -200; //Turbo移動中の移動速度の加速度
 
-    _way = WAY_FRONT;
-    _pMyOptionController = NEW MyOptionController("MY_OPTION_PARENT");
-    addSubLast(_pMyOptionController);
+//    _pMyOptionController = NEW MyOptionController("MY_OPTION_PARENT");
+//    addSubLast(_pMyOptionController);
 
     _pDispatcher_MyShots001 = NEW GgafActorDispatcher("RotShot001");
     MyShot001* pShot;
@@ -83,9 +82,6 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 //    addSubGroup(_pEffectTurbo002);
 
 
-    _pEffectMyShipExplosion = NEW EffectMyShipExplosion("EffectMyShipExplosion");
-    _pEffectMyShipExplosion->inactivateImmediately();
-    addSubGroup(_pEffectMyShipExplosion);
 
 
     //トレース用履歴
@@ -174,16 +170,18 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _iMvVelo_TurboTop = 30000;
     _iMvVelo_TurboBottom = 10000;
 
+    _can_control = true;
+    _is_diving = false;
+}
+void MyShip::reset() {
     _frame_soft_rapidshot = 0;
     _is_being_soft_rapidshot = false;
     _just_shot = false;
     _is_shooting_laser = false;
     _frame_shot_pressed = 0;
-
-    _isNoControl = false;
-}
-void MyShip::reset() {
     _X = _Y = _Z = 0;
+    _way = WAY_NONE;
+    _way_switch.reset();
     MyStgUtil::resetMyShipStatus(_pStatus);
 }
 
@@ -227,8 +225,7 @@ void MyShip::initialize() {
 }
 
 void MyShip::processBehavior() {
-    if (_isNoControl) {
-
+    if (!_can_control) {
         return;
     }
 
@@ -382,31 +379,33 @@ void MyShip::processBehavior() {
     _pMover->behave();
     _pSeTransmitter->behave();
 
-    if (_Y > MyShip::_lim_top) {
-        _Y = MyShip::_lim_top;
-    }
-    if (_Y < MyShip::_lim_bottom ) {
-        _Y = MyShip::_lim_bottom;
-    }
+    if (!_is_diving) {
+        if (_Y > MyShip::_lim_top) {
+            _Y = MyShip::_lim_top;
+        }
+        if (_Y < MyShip::_lim_bottom ) {
+            _Y = MyShip::_lim_bottom;
+        }
 
-    if (_X > MyShip::_lim_front) {
-        _X = MyShip::_lim_front;
-    }
-    if (_X < MyShip::_lim_behaind) {
-        _X = MyShip::_lim_behaind;
-    }
+        if (_X > MyShip::_lim_front) {
+            _X = MyShip::_lim_front;
+        }
+        if (_X < MyShip::_lim_behaind) {
+            _X = MyShip::_lim_behaind;
+        }
 
-    if (_Z > MyShip::_lim_zleft) {
-        _Z = MyShip::_lim_zleft;
-    }
-    if (_Z < MyShip::_lim_zright) {
-        _Z = MyShip::_lim_zright;
+        if (_Z > MyShip::_lim_zleft) {
+            _Z = MyShip::_lim_zleft;
+        }
+        if (_Z < MyShip::_lim_zright) {
+            _Z = MyShip::_lim_zright;
+        }
     }
     _pRing_GeoHistory->next()->set(this);
 }
 
 void MyShip::processJudgement() {
-    if (_isNoControl) {
+    if (!_can_control) {
         return;
     }
     //自機消滅テスト
@@ -479,16 +478,16 @@ void MyShip::processJudgement() {
     //    if (VB_PLAY->isPushedDown(VB_SHOT2)) {
     if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
         bool can_fire = true;
-        for (int i = 0; i < _pMyOptionController->_now_option_num; i++) {
-            if (_pMyOptionController->_papMyOption[i]->_pTorpedoController->_in_firing) {
+        for (int i = 0; i < P_MYOPTIONCON->_now_option_num; i++) {
+            if (P_MYOPTIONCON->_papMyOption[i]->_pTorpedoController->_in_firing) {
                 can_fire = false;
                 break;
             }
         }
         if (can_fire) {
             _pSeTransmitter->play3D(3);
-            for (int i = 0; i < _pMyOptionController->_now_option_num; i++) {
-                _pMyOptionController->_papMyOption[i]->_pTorpedoController->fire();
+            for (int i = 0; i < P_MYOPTIONCON->_now_option_num; i++) {
+                P_MYOPTIONCON->_papMyOption[i]->_pTorpedoController->fire();
             }
         }
     }

@@ -18,11 +18,12 @@ namespace MyStg2nd {
 class CommonScene : public GgafDx9LibStg::DefaultScene {
 
 public:
-
+    /** ”Ä—p’e */
     GgafCore::GgafActorDispatcher* _pDispatcher_EnemyShots001;
+    /** ”Ä—p”š”­ */
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion001;
-    GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion003;
-    GgafCore::GgafActorDispatcher* _pDispatcher_LaserChipDispatcher;
+//    GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion003;
+//    GgafCore::GgafActorDispatcher* _pDispatcher_LaserChipDispatcher;
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectTurbo002;
 
 

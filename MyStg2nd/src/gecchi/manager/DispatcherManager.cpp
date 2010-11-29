@@ -9,7 +9,7 @@ DispatcherManager::DispatcherManager(const char* prm_manager_name) :
     GgafResourceManager<GgafActorDispatcher> (prm_manager_name) {
 }
 
-GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
+GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr, void* prm_p) {
     GgafActorDispatcher* pResource = NULL;
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot001", prm_idstr) == 0) {
@@ -62,15 +62,39 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
         pResource = NEW GgafActorDispatcher("DP_EffRefraction001");
         EffectLaserRefraction001* p;
         for (int i = 0; i < 100; i++) {
-            p = NEW EffectLaserRefraction001("Shot004");
+            p = NEW EffectLaserRefraction001("EffRefraction001");
             p->inactivateImmediately();
             pResource->addSubLast(p);
         }
         P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
     }
 
+    if (GgafUtil::strcmp_ascii("DpCon_DpEnemyAstraeaLaserChip002", prm_idstr) == 0) {
+        pResource = NEW GgafActorDispatcher("LCDD");
+        LaserChipDispatcher* pLaserChipDispatcher;
+        EnemyAstraeaLaserChip002* pChip;
+        for (int nLaser = 0; nLaser < 27; nLaser++) {
+            stringstream name;
+            name <<  "LaserChipDispatcher["<<nLaser<<"]";
+            pLaserChipDispatcher = NEW LaserChipDispatcher(name.str().c_str());
+            for (int nChip = 0; nChip < 50; nChip++) {
+                stringstream name;
+                name <<  "EnemyAstraeaLaserChip002["<<nLaser<<"]["<<nChip<<"]";
+                pChip = NEW EnemyAstraeaLaserChip002(name.str().c_str());
+                pChip->config(50, 10, 5, (GgafActorDispatcher*)prm_p);
+                pChip->inactivateImmediately();
+                pLaserChipDispatcher->addSubLast(pChip);
+            }
+            pLaserChipDispatcher->inactivateImmediately();
+            pResource->addSubLast(pLaserChipDispatcher);
+        }
+        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
+    }
+
+
+
     //敵カーブレーザー01未使用。こぴぺのために残す
-	/*
+    /*
     if (GgafUtil::strcmp_ascii("DpCon_EneCurveLaser001Dp", prm_idstr) == 0) {
         pResource = NEW LaserChipDispatcherDispatcher("DPDP_EneCurveLaser001");
         LaserChipDispatcher* pLaserChipDispatcher;

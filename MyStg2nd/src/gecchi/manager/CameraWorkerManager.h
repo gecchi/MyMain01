@@ -25,7 +25,7 @@ public:
      * @param prm_idstr
      * @return CameraWorker
      */
-    CameraWorker* processCreateResource(char* prm_idstr);
+    CameraWorker* processCreateResource(char* prm_idstr, void* prm_p);
 
     GgafCore::GgafResourceConnection<CameraWorker>* processCreateConnection(char* prm_idstr, CameraWorker* prm_pResource);
 

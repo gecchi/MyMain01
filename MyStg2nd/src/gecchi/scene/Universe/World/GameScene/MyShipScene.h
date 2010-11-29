@@ -5,6 +5,7 @@
 #ifdef P_GAME_SCENE
     #define P_MYSHIP_SCENE (P_GAME_SCENE->_pMyShipScene)
     #define P_MYSHIP (P_MYSHIP_SCENE->_pMyShip)
+    #define P_MYOPTIONCON (P_MYSHIP_SCENE->_pMyOptionController)
     #define P_VAM (P_MYSHIP_SCENE->_pVamSysCamWorker)
 #else
     #error P_GAME_SCENE isnt define
@@ -26,11 +27,14 @@ namespace MyStg2nd {
 class MyShipScene : public GgafDx9LibStg::DefaultScene {
 
 public:
+    /** 自機 */
     MyShip* _pMyShip;
-//    CameraWorkerConnection* _pCon_VamSysCamWorker;
-//    CameraWorkerConnection* _pCon_MyShipDivingCamWorker;
+    /** 自機オプション部 */
+    MyOptionController* _pMyOptionController;
+    /** 自機爆発エフェクト */
+    EffectMyShipExplosion* _pEffectMyShipExplosion;
+    /** VAMSYSTEM カメラワーク */
     VamSysCamWorker* _pVamSysCamWorker;
-//    MyShipDivingCamWorker* _pMyShipDivingCamWorker;
     int _zanki;
 
     MyShipScene(const char* prm_name);
