@@ -74,7 +74,7 @@ public:
      * @param prm_idstr モデル識別ID
      * @return モデルオブジェクト
      */
-    GgafDx9Model* processCreateResource(char* prm_idstr) override;
+    GgafDx9Model* processCreateResource(char* prm_idstr, void* prm_p) override;
 
     /**
      * GgafDx9D3DXMeshModel オブジェクトを再構築する。 .

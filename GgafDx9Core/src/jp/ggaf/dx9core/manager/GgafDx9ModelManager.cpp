@@ -52,7 +52,7 @@ GgafDx9ModelManager::GgafDx9ModelManager(const char* prm_manager_name) :
 
 }
 
-GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
+GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr, void* prm_p) {
     //振り分け
     char model_type = *prm_idstr; //頭一文字
     char* model_name = prm_idstr + 2; //３文字目以降
@@ -818,9 +818,9 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             if (nVertices*(morph_target_num+1) > 65535) {
                 throwGgafCriticalException("[GgafDx9ModelManager::restoreMorphMeshModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pMorphMeshModel->getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(morph_target_num+1));
             }
-            if (nFaces * 3 * (morph_target_num+1) > 65535) {
-                throwGgafCriticalException("[GgafDx9ModelManager::restoreMorphMeshModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pMorphMeshModel->getName()<<"  nFaces:"<<nFaces<<"(*3)  セット数:"<<(morph_target_num+1));
-            }
+//            if (nFaces * 3 * (morph_target_num+1) > 65535) {
+//                throwGgafCriticalException("[GgafDx9ModelManager::restoreMorphMeshModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pMorphMeshModel->getName()<<"  nFaces:"<<nFaces<<"(*3)  セット数:"<<(morph_target_num+1));
+//            }
 
             if (pattern == 0) {
                 //プライマリメッシュ
@@ -1777,7 +1777,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     }
 
     if ( 2 * 3 * prm_pSpriteSetModel->_set_num > 65535) {
-		throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pSpriteSetModel->getName()<<"  nFaces:2(*3)  セット数:"<<(prm_pSpriteSetModel->_set_num));
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pSpriteSetModel->getName()<<"  nFaces:2(*3)  セット数:"<<(prm_pSpriteSetModel->_set_num));
     }
 
     prm_pSpriteSetModel->_papTextureCon = NULL;
@@ -2209,9 +2209,9 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     if (4*prm_pBoardSetModel->_set_num > 65535) {
         throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardSetModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pBoardSetModel->getName()<<"  nVertices:4  セット数:"<<(prm_pBoardSetModel->_set_num));
     }
-    if ( 2 * 3 * prm_pBoardSetModel->_set_num > 65535) {
-        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pBoardSetModel->getName()<<"  nFaces:2(*3)  セット数:"<<(prm_pBoardSetModel->_set_num));
-    }
+//    if ( 2 * 3 * prm_pBoardSetModel->_set_num > 65535) {
+//        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pBoardSetModel->getName()<<"  nFaces:2(*3)  セット数:"<<(prm_pBoardSetModel->_set_num));
+//    }
 
     prm_pBoardSetModel->_papTextureCon = NULL;
     prm_pBoardSetModel->_paRectUV = NULL;
@@ -2514,9 +2514,9 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshSetModel] 頂点が 65535を超えたかもしれません。\n対象Model："<<prm_pMeshSetModel->getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(prm_pMeshSetModel->_set_num));
         }
 
-        if ( nFaces * 3 * prm_pMeshSetModel->_set_num > 65535) {
-            throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pMeshSetModel->getName()<<"  nFaces:"<<nFaces<<"(*3)  セット数:"<<(prm_pMeshSetModel->_set_num));
-        }
+//        if ( nFaces * 3 * prm_pMeshSetModel->_set_num > 65535) {
+//            throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshSetModel] 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<prm_pMeshSetModel->getName()<<"  nFaces:"<<nFaces<<"(*3)  セット数:"<<(prm_pMeshSetModel->_set_num));
+//        }
 
         prm_pMeshSetModel->_nVertices = nVertices;
         prm_pMeshSetModel->_nFaces = nFaces;

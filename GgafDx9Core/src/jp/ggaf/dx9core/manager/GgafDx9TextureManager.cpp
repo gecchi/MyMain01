@@ -7,7 +7,7 @@ GgafDx9TextureManager::GgafDx9TextureManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDx9Texture> (prm_manager_name) {
 }
 
-GgafDx9Texture* GgafDx9TextureManager::processCreateResource(char* prm_idstr) {
+GgafDx9Texture* GgafDx9TextureManager::processCreateResource(char* prm_idstr, void* prm_p) {
     GgafDx9Texture* pResourceTexture;
     pResourceTexture = NEW GgafDx9Texture(prm_idstr);
     TRACE3(" GgafDx9TextureManager::processCreateResource "<<prm_idstr<<" のテクスチャ生成しました。");

@@ -7,7 +7,7 @@ GgafDx9SeManager::GgafDx9SeManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDx9Se> (prm_manager_name) {
 }
 
-GgafDx9Se* GgafDx9SeManager::processCreateResource(char* prm_idstr) {
+GgafDx9Se* GgafDx9SeManager::processCreateResource(char* prm_idstr, void* prm_p) {
     // prm_idstr = "1/laser" の場合、モデルマネージャーのキーには"1/laser"で登録し
     // 読み込むwaveファイルは"laser.wav"とする。
     // これは、同一waveを複数チャンネルで鳴らしたい場合等、最初の数値を変化されば、資源が複数

@@ -7,7 +7,7 @@ GgafDx9BgmManager::GgafDx9BgmManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDx9Bgm> (prm_manager_name) {
 }
 
-GgafDx9Bgm* GgafDx9BgmManager::processCreateResource(char* prm_idstr) {
+GgafDx9Bgm* GgafDx9BgmManager::processCreateResource(char* prm_idstr, void* prm_p) {
     GgafDx9Bgm* pResourceBgm = NEW GgafDx9Bgm(prm_idstr);
     return pResourceBgm;
 }

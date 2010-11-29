@@ -19,7 +19,7 @@ public:
      */
     GgafDx9BgmManager(const char* prm_manager_name);
 
-    GgafDx9Bgm* processCreateResource(char* prm_idstr);
+    GgafDx9Bgm* processCreateResource(char* prm_idstr, void* prm_p);
 
     GgafCore::GgafResourceConnection<GgafDx9Bgm>* processCreateConnection(char* prm_idstr, GgafDx9Bgm* prm_pResource);
 

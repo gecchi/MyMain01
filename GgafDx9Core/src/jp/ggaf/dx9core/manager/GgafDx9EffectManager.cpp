@@ -10,7 +10,7 @@ GgafDx9EffectManager::GgafDx9EffectManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDx9Effect> (prm_manager_name) {
 }
 
-GgafDx9Effect* GgafDx9EffectManager::processCreateResource(char* prm_idstr) {
+GgafDx9Effect* GgafDx9EffectManager::processCreateResource(char* prm_idstr, void* prm_p) {
     //U‚è•ª‚¯
     char effect_type = *prm_idstr; //“ªˆê•¶š
     char* effect_name = prm_idstr + 2; //‚R•¶š–ÚˆÈ~

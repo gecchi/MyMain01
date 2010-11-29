@@ -45,7 +45,7 @@ public:
      * @param prm_idstr エフェクト識別ID
      * @return エフェクトオブジェクト
      */
-    GgafDx9Effect* processCreateResource(char* prm_idstr);
+    GgafDx9Effect* processCreateResource(char* prm_idstr, void* prm_p);
 
     /**
      * オーバーライド

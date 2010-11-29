@@ -22,7 +22,7 @@ public:
     /**
      * オーバーライド
      */
-    GgafDx9Texture* processCreateResource(char* prm_idstr);
+    GgafDx9Texture* processCreateResource(char* prm_idstr, void* prm_p);
 
     /**
      * オーバーライド
