@@ -19,7 +19,7 @@ GgafGroupActor* ActorTableScene::addToTable(GgafMainActor* prm_pMainActor, frame
         _TRACE_("ActorTableScene::processBehavior() GgafDx9FormationActor,Obj_GgafDx9DrawableActor ˆÈŠO‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚·B")
     }
     prm_pMainActor->inactivateImmediately();
-    _table.addLast(NEW TblElem(prm_pMainActor, prm_max_delay_offset), false);
+    _table.addLast(NEW TblElem(prm_pMainActor, prm_max_delay_offset), true);
     return getLordActor()->addSubGroup(prm_pMainActor);
 }
 
