@@ -17,7 +17,7 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _pBgmPerformer->set(0, "BGM_DEMO");
 
 }
-void GameDemoScene::reset() {
+void GameDemoScene::processReset() {
     _pProgress->change(GAMEDEMO_SCENE_PROG_INIT);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
@@ -27,7 +27,7 @@ void GameDemoScene::onActive() {
 }
 
 void GameDemoScene::initialize() {
-    reset();
+    resetImmediately();
 }
 
 void GameDemoScene::processBehavior() {

@@ -41,7 +41,7 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
 //    orderActorToFactory(900000001, VarietyTorus001, "Torus001");
 }
 
-void TamagoScene::reset() {
+void TamagoScene::processReset() {
 }
 void TamagoScene::ready() {
 }

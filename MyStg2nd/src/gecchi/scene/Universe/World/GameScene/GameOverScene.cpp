@@ -12,14 +12,14 @@ GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
     useProgress(10);
 }
 
-void GameOverScene::reset() {
+void GameOverScene::processReset() {
     blindScene();
     _pStringBoard01->update("");
     _pProgress->change(GAMEOVER_SCENE_PROG_INIT);
 }
 void GameOverScene::initialize() {
     _TRACE_("GameOverScene::initialize()");
-    reset();
+    resetImmediately();
 }
 
 void GameOverScene::processBehavior() {

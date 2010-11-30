@@ -173,7 +173,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _can_control = true;
     _is_diving = false;
 }
-void MyShip::reset() {
+void MyShip::processReset() {
     _frame_soft_rapidshot = 0;
     _is_being_soft_rapidshot = false;
     _just_shot = false;
@@ -182,6 +182,8 @@ void MyShip::reset() {
     _X = _Y = _Z = 0;
     _way = WAY_NONE;
     _way_switch.reset();
+    _pDispatcher_MyShots001->inactivateTreeImmediately();
+    _pLaserChipDispatcher->inactivateTreeImmediately();
     MyStgUtil::resetMyShipStatus(_pStatus);
 }
 

@@ -127,6 +127,8 @@ public:
 
     void initialize() override;
 
+    void processReset() override;
+
     void onActive() override;
 
     void processBehavior() override;

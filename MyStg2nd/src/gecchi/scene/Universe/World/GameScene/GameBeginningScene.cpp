@@ -17,8 +17,8 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
 }
 
 
-void GameBeginningScene::reset() {
-    _TRACE_("GamePreTitleScene::reset()");
+void GameBeginningScene::processReset() {
+    _TRACE_("GamePreTitleScene::processReset()");
     _pProgress->change(GAMEBEGINNING_SCENE_PROG_INIT);
     unblindScene();
     _pStringBoard01->update("");
@@ -31,7 +31,7 @@ void GameBeginningScene::onActive() {
 }
 
 void GameBeginningScene::initialize() {
-    reset();
+    resetImmediately();
 }
 
 void GameBeginningScene::processBehavior() {

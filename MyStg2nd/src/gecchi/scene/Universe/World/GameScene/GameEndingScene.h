@@ -16,9 +16,9 @@ class GameEndingScene : public GgafDx9LibStg::DefaultScene {
 public:
 
     GameEndingScene(const char* prm_name);
-    void reset() override;
+    void processReset() override;
     void ready();
-   virtual void initialize() override;
+    virtual void initialize() override;
     virtual void processBehavior() override;
     virtual void processFinal() override;
     virtual ~GameEndingScene();

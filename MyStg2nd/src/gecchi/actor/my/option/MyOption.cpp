@@ -99,7 +99,7 @@ void MyOption::initialize() {
     _SX=_SY=_SZ=100;
 }
 
-void MyOption::onActive() {
+void MyOption::processReset() {
     _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
     _pMover->setMvVelo(_veloMv);
     _pMover->setRzMvAng(_angPosition+ANGLE90);
@@ -122,6 +122,10 @@ void MyOption::onActive() {
     _adjust_angPos_seq_spent_frame = 0;
     _adjust_angPos_seq_angPosition = 0;
 }
+
+void MyOption::onActive() {
+}
+
 void MyOption::addRadiusPosition(int prm_radius_offset) {
     //    _X = _Xorg;
     //    _Y = _Yorg;

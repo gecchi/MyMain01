@@ -106,8 +106,12 @@ MyOptionController::MyOptionController(const char* prm_name) :
 
 }
 
-void MyOptionController::initialize() {
 
+void MyOptionController::initialize() {
+}
+
+
+void MyOptionController::processReset() {
     _pMover->setMvVelo(0);
     _pMover->forceRyMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
     _pMover->forceRzMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
@@ -115,6 +119,10 @@ void MyOptionController::initialize() {
     _way_myship_prev = P_MYSHIP->_way;
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->behave();
+}
+
+void MyOptionController::onActive() {
+    resetImmediately();
 }
 
 void MyOptionController::processBehavior() {

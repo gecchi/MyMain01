@@ -24,7 +24,7 @@ public:
     TitleBoard* _pTitleBoard;
 
     GameTitleScene(const char* prm_name);
-    void reset() override;
+    void processReset() override;
     void initialize() override;
     void onActive() override;
     void processBehavior() override;

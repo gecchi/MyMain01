@@ -64,15 +64,24 @@ _pScene_GameOver(NULL) {
 
 void GameScene::initialize() {
     _TRACE_("GameScene::initialize() いきますよDemoSceneさん");
-    reset();
+    resetImmediately();
 //    _pScene_GameDemo->reset();
 //    _pScene_GameDemo->ready();
 //    _pSceneCannel = _pScene_GameDemo;
 }
 
-void GameScene::reset() {
+void GameScene::processReset() {
     VB_UI->clear();
     P_GOD->setVB(VB_UI);
+    _pMyShipScene->resetImmediately();
+    _pScene_PreGameTitle->resetImmediately();
+    _pScene_GameTitle->resetImmediately();
+    _pScene_GameDemo->resetImmediately();
+    _pScene_GameBeginning->resetImmediately();
+    _pScene_GameMain->resetImmediately();
+    _pScene_GameEnding->resetImmediately();
+    _pScene_GameOver->resetImmediately();
+
     _pMyShipScene->unblindSceneTree();
     _pScene_PreGameTitle->unblindSceneTree();
     _pScene_GameTitle->unblindSceneTree();
@@ -82,14 +91,14 @@ void GameScene::reset() {
     _pScene_GameEnding->unblindSceneTree();
     _pScene_GameOver->unblindSceneTree();
 
-    _pMyShipScene->inactivate();
-    _pScene_PreGameTitle->inactivate();
-    _pScene_GameTitle->inactivate();
-    _pScene_GameDemo->inactivate();
-    _pScene_GameBeginning->inactivate();
-    _pScene_GameMain->inactivate();
-    _pScene_GameEnding->inactivate();
-    _pScene_GameOver->inactivate();
+    _pMyShipScene->inactivateImmediately();
+    _pScene_PreGameTitle->inactivateImmediately();
+    _pScene_GameTitle->inactivateImmediately();
+    _pScene_GameDemo->inactivateImmediately();
+    _pScene_GameBeginning->inactivateImmediately();
+    _pScene_GameMain->inactivateImmediately();
+    _pScene_GameEnding->inactivateImmediately();
+    _pScene_GameOver->inactivateImmediately();
     _pProgress->change(GAME_SCENE_PROG_INIT);
 }
 
@@ -130,7 +139,7 @@ void GameScene::processBehavior() {
         case GAME_SCENE_PROG_PRE_TITLE:
             //##########  タイトル前演出  ##########
             if (_pProgress->isJustChanged()) {
-                _pScene_PreGameTitle->reset();
+                _pScene_PreGameTitle->resetImmediately();
                 _pScene_PreGameTitle->activate();
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
@@ -144,7 +153,7 @@ void GameScene::processBehavior() {
         case GAME_SCENE_PROG_TITLE:
             //##########  タイトル  ##########
             if (_pProgress->isJustChanged()) {
-                _pScene_GameTitle->reset();
+                _pScene_GameTitle->resetImmediately();
                 _pScene_GameTitle->activate();
             }
             //イベント待ち EVENT_GAMETITLE_SCENE_FINISH or EVENT_GAMESTART
@@ -153,7 +162,7 @@ void GameScene::processBehavior() {
         case GAME_SCENE_PROG_DEMO:
             //##########  デモ  ##########
             if (_pProgress->isJustChanged()) {
-                _pScene_GameDemo->reset();
+                _pScene_GameDemo->resetImmediately();
                 _pScene_GameDemo->activate();
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
@@ -167,7 +176,7 @@ void GameScene::processBehavior() {
         case GAME_SCENE_PROG_BEGINNING:
             //##########  ゲーム開始（モード選択等）  ##########
             if (_pProgress->isJustChanged()) {
-                _pScene_GameBeginning->reset();
+                _pScene_GameBeginning->resetImmediately();
                 _pScene_GameBeginning->activate();
             }
             //イベント待ち EVENT_GAMEMODE_DECIDE
@@ -178,9 +187,9 @@ void GameScene::processBehavior() {
             if (_pProgress->isJustChanged()) {
                 VB_PLAY->clear();
                 P_GOD->setVB(VB_PLAY); //プレイ用に変更
-                _pScene_GameMain->reset();
+                _pScene_GameMain->resetImmediately();
                 _pScene_GameMain->activate();
-                _pMyShipScene->reset();
+                _pMyShipScene->resetImmediately();
                 _pMyShipScene->activate();
             }
             //イベント待ち EVENT_ALL_MY_SHIP_WAS_DESTROYED
@@ -194,7 +203,7 @@ void GameScene::processBehavior() {
         case GAME_SCENE_PROG_GAME_OVER:
             //##########  ゲームオーバー  ##########
             if (_pProgress->isJustChanged()) {
-                _pScene_GameOver->reset();
+                _pScene_GameOver->resetImmediately();
                 _pScene_GameOver->activate();
             }
             //イベント待ち EVENT_GAME_OVER_FINISH
@@ -213,7 +222,7 @@ void GameScene::processBehavior() {
                 _pScene_GameOver->fadeoutSceneTree(FADE_FRAME);
             }
             if (_pProgress->getActivePartFrameInProgress() == FADE_FRAME) {
-                reset(); //リセット（最初の進捗状態に戻る）
+                resetImmediately(); //リセット（最初の進捗状態に戻る）
             }
             break;
 

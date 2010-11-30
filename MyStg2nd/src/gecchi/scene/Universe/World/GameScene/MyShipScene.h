@@ -42,7 +42,7 @@ public:
      * ‰Šúˆ—
      */
     void initialize() override;
-    void reset() override;
+    void processReset() override;
     void onActive() override;
     void processBehavior() override;
 

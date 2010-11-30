@@ -287,7 +287,7 @@ public:
      */
     void onActive() override;
 
-    void reset() override;
+    void processReset() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ

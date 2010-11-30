@@ -41,6 +41,10 @@ public:
 
     virtual void initialize() override;
 
+    virtual void processReset() override;
+
+    virtual void onActive() override;
+
     virtual void processBehavior() override;
 
     virtual void processJudgement() override {}

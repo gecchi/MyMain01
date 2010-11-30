@@ -32,13 +32,14 @@ _pMyOptionController(NULL) {
 
 void MyShipScene::initialize() {
     _TRACE_("MyShipScene initialize()");
-    reset();
+    resetImmediately();
 }
 
-void MyShipScene::reset() {
-    _TRACE_("MyShipScene reset()");
+void MyShipScene::processReset() {
+    _TRACE_("MyShipScene processReset()");
     _zanki = 3;
-    _pMyShip->inactivate();
+    _pMyShip->resetTreeImmediately();
+    _pMyOptionController->resetTreeImmediately();
     unblindScene();
     _pProgress->change(MYSHIPSCENE_SCENE_PROG_INIT);
 }
@@ -65,7 +66,7 @@ void MyShipScene::processBehavior() {
         case MYSHIPSCENE_SCENE_PROG_BEGIN:
             if (_pProgress->isJustChanged()) {
                 unblindScene();
-                _pMyShip->reset();
+                _pMyShip->resetImmediately();
                 _pMyShip->activate();
                 _pMyShip->_X = Universe::_X_goneLeft;
                 _pMyShip->_can_control = true;

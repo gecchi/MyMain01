@@ -20,8 +20,8 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _pBgmPerformer->set(0, "BGM_DEMO");
 
 }
-void GameTitleScene::reset() {
-    _TRACE_("GameTitleScene::reset()");
+void GameTitleScene::processReset() {
+    _TRACE_("GameTitleScene::processReset()");
     _pStringBoard01->update("");
     _pStringBoard02->update("");
     _pTitleBoard->setCoordinate(200, 150);
@@ -34,7 +34,7 @@ void GameTitleScene::onActive() {
 
 void GameTitleScene::initialize() {
     _TRACE_("GameTitleScene::initialize()");
-    reset();
+    resetImmediately();
 }
 
 void GameTitleScene::processBehavior() {
