@@ -178,6 +178,16 @@ void GgafScene::execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void*
     _pLordActor->execDownFunction(pFunc, prm1, prm2);
 }
 
+void GgafScene::resetImmediately() {
+    GgafElement<GgafScene>::resetImmediately();
+    _pLordActor->resetImmediately();
+
+}
+void GgafScene::resetTreeImmediately() {
+    GgafElement<GgafScene>::resetTreeImmediately();
+    _pLordActor->resetTreeImmediately();
+}
+
 
 void GgafScene::end(frame prm_frame_offset) {
     _pLordActor->end(prm_frame_offset);

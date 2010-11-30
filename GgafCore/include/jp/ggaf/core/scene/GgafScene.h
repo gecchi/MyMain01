@@ -148,6 +148,10 @@ public:
     virtual void unpause() override;
     virtual void unpauseTreeImmediately() override;
     virtual void unpauseImmediately() override;
+
+    virtual void resetImmediately() override;
+    virtual void resetTreeImmediately() override;
+
     virtual void execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) override;
     /**
      * 自ツリーシーンをnフレーム後にゴミ箱へ移動 .

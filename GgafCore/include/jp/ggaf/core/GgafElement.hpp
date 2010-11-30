@@ -96,6 +96,8 @@ public:
     /** [r]末尾ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが末尾ノードに移動する */
     bool _will_mv_last_in_next_frame_flg;
 
+    bool _is_already_reset;
+
     GgafProgress* _pProgress;
 
     /**
@@ -149,14 +151,6 @@ public:
      * 神(GgafGod)は、この世(GgafUniverse)に対して behave() 実行後、次は settleBehavior() を実行することになる。<BR>
      */
     virtual void behave();
-
-    /**
-     * 状態をリセットする。
-     * 状態をリセットするような実装を行って下さい。
-     */
-    virtual void reset() {
-    }
-
 
     /**
      * 非活動→活動時に切り替わった時の処理(単体) .
@@ -314,6 +308,7 @@ public:
      * 本メンバ関数がコールバックされると言う事は、全ノード対して、processJudgement() が実行済みで 描画処理は終了していることを保証する。<BR>
      */
     virtual void processFinal() = 0;
+
 
 
     /**
@@ -535,6 +530,13 @@ public:
      */
     virtual void unpauseImmediately();
     //===================
+    /**
+     * 状態をリセットする。
+     */
+    virtual void resetImmediately();
+    virtual void resetTreeImmediately();
+    virtual void processReset() {}
+
 
     /**
      * 終了します。(自ツリー) .
@@ -748,6 +750,7 @@ _on_change_to_active_flg(false),
 _on_change_to_inactive_flg(false),
 _will_mv_first_in_next_frame_flg(false),
 _will_mv_last_in_next_frame_flg(false),
+_is_already_reset(false),
 _pProgress(NULL)
 {
 
@@ -841,7 +844,7 @@ void GgafElement<T>::nextFrame() {
 
             }
         }
-
+        _is_already_reset = false;
     }
 
     //配下のnextFrame()実行
@@ -1045,6 +1048,42 @@ void GgafElement<T>::doFinally() {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->doFinally();
+                if (pElementTemp->_is_last_flg) {
+                    break;
+                } else {
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+                }
+            }
+        }
+    }
+}
+
+template<class T>
+void GgafElement<T>::resetImmediately() {
+    if (_can_live_flg) {
+        if (_is_already_reset == false) {
+            _frame_of_behaving = 0;
+            _frame_of_behaving_since_onActive = 0;
+            processReset();
+            _is_already_reset = true;
+        }
+    }
+}
+
+
+template<class T>
+void GgafElement<T>::resetTreeImmediately() {
+    if (_can_live_flg) {
+        if (_is_already_reset == false) {
+            _frame_of_behaving = 0;
+            _frame_of_behaving_since_onActive = 0;
+            processReset();
+            _is_already_reset = true;
+        }
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
+            while(true) {
+                pElementTemp->resetTreeImmediately();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {

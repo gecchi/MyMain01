@@ -26,6 +26,25 @@ void GgafActorDispatcher::addSubLast(GgafActor* prm_pSub) {
     GgafDummyActor::addSubLast(prm_pSub);
 }
 
+void GgafActorDispatcher::processReset() {
+    if (_pSubFirst == NULL) {
+        return;
+    }
+    GgafMainActor* pActor = getSubFirst();
+    while (true) {
+        pActor->inactivateImmediately();
+        if (pActor->isLast()) {
+            pActor = NULL;
+            break;
+        } else {
+            pActor = pActor->getNext();
+            continue;
+        }
+    }
+}
+
+
+
 //＜最適化案＞
 //TODO:GgafActorDispatcherは、GgafGroupActorを継承して、
 //特別なGgafGroupActorという扱いにすればアクターの数を減らせれるのではないか
