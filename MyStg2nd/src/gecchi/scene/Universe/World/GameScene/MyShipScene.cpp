@@ -19,11 +19,9 @@ _pMyOptionController(NULL) {
     _pEffectMyShipExplosion = NEW EffectMyShipExplosion("EffectMyShipExplosion");
     _pEffectMyShipExplosion->inactivateImmediately();
     getLordActor()->addSubGroup(_pEffectMyShipExplosion);
-
+    _pVamSysCamWorker = NULL;
 //    _pCon_VamSysCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("VamSysCamWorker");
 //    _pCon_MyShipDivingCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("MyShipDivingCamWorker");
-    _pVamSysCamWorker = (VamSysCamWorker*)P_UNIVERSE->switchCameraWork("VamSysCamWorker");
-    _pVamSysCamWorker->_pMyShip = _pMyShip;
 //    _pMyShipDivingCamWorker = (MyShipDivingCamWorker*)_pCon_MyShipDivingCamWorker->refer();
     _zanki = 3;
     useProgress(10);
@@ -60,6 +58,8 @@ void MyShipScene::processBehavior() {
 
     switch (_pProgress->get()) {
         case MYSHIPSCENE_SCENE_PROG_INIT:
+            _pVamSysCamWorker = (VamSysCamWorker*)P_UNIVERSE->switchCameraWork("VamSysCamWorker");
+            _pVamSysCamWorker->_pMyShip = _pMyShip;
             _pProgress->change(MYSHIPSCENE_SCENE_PROG_BEGIN);
             break;
 
@@ -72,7 +72,7 @@ void MyShipScene::processBehavior() {
                 _pMyShip->_can_control = true;
                 _pMyShip->_is_diving = true;
                 MyShipDivingCamWorker* pCamWorker = (MyShipDivingCamWorker*)P_UNIVERSE->switchCameraWork("MyShipDivingCamWorker");
-                pCamWorker->setMoveTargetCam(1000000, 1000000, -1000000);
+                pCamWorker->setMoveTargetCam(-1000000, 1000000, -1000000);
                 pCamWorker->lockCamVp(_pMyShip);
             }
             _pMyShip->_X += 30000;
@@ -103,6 +103,7 @@ void MyShipScene::processBehavior() {
                 if (_zanki == 0) {
                    throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
                    _pProgress->change(PROG_NOTHING);
+                   P_UNIVERSE->undoCameraWork();
                    inactivate();
                 } else {
                    throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);

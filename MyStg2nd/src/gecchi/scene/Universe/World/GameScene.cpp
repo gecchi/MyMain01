@@ -64,7 +64,7 @@ _pScene_GameOver(NULL) {
 
 void GameScene::initialize() {
     _TRACE_("GameScene::initialize() いきますよDemoSceneさん");
-    resetImmediately();
+
 //    _pScene_GameDemo->reset();
 //    _pScene_GameDemo->ready();
 //    _pSceneCannel = _pScene_GameDemo;
@@ -99,10 +99,12 @@ void GameScene::processReset() {
     _pScene_GameMain->inactivateImmediately();
     _pScene_GameEnding->inactivateImmediately();
     _pScene_GameOver->inactivateImmediately();
+
     _pProgress->change(GAME_SCENE_PROG_INIT);
 }
 
 void GameScene::onActive() {
+    resetImmediately();
 }
 
 void GameScene::processBehavior() {
@@ -192,6 +194,63 @@ void GameScene::processBehavior() {
                 _pMyShipScene->resetImmediately();
                 _pMyShipScene->activate();
             }
+            if (VB_PLAY->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
+                _is_frame_advance = false;
+                _TRACE_("PAUSE!");
+                P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
+                P_ACTIVE_CAMWORKER->pause();
+                _pScene_GameMain->pause();
+                _pMyShipScene->pause();
+                _pCommonScene->pause();
+                P_UNIVERSE->switchCameraWork("PauseCamWorker");
+            }
+
+            if (_pScene_GameMain->wasPause()) {
+                if (VB_UI->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
+                    P_GOD->setVB(VB_PLAY);
+                    _pScene_GameMain->unpause();
+                    _pMyShipScene->unpause();
+                    _pCommonScene->unpause();
+                    P_UNIVERSE->undoCameraWork();
+                    P_ACTIVE_CAMWORKER->unpause();
+                }
+            }
+
+            //    if (getProgress() == GAMEMAIN_SCENE_PROG_PLAY || getProgress() == GAMEMAIN_SCENE_PROG_BEGIN) {
+            //
+            //        //一時停止
+            //        if (VB_PLAY->isReleasedUp(VB_PAUSE) || P_GAME_SCENE->_is_frame_advance) {
+            //            P_GAME_SCENE->_is_frame_advance = false;
+            //            _TRACE_("PAUSE!");
+            //            P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
+            //            pause();     //自身配下を一時停止する。一時停止解除はGameSceneで行われる
+            //            P_UNIVERSE->pushCameraWork("PauseCamWorker");
+            ////            P_ACTIVE_CAMWORKER->pause();
+            //            P_MYSHIP->pause();
+            //        }
+            //    }
+
+
+            //    //一時停止解除
+            //    if (_pScene_GameMain->wasPause()) {
+            //        if (VB_UI->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
+            //            P_GOD->setVB(VB_PLAY);
+            //            _pScene_GameMain->unpause();     //GameMainSceneでの一時停止解除
+            //            P_UNIVERSE->popCameraWork();
+            ////            P_ACTIVE_CAMWORKER->unpause();
+            //            P_MYSHIP->unpause();
+            //        }
+            //    }
+            //
+            ////     //おまけ機能。一時停止していれば、カメラ操作できる。
+            ////     if (_pScene_GameMain->canBehave() ) {
+            ////         //一時停止していない状態。
+            ////         //スルー
+            ////     } else {
+            ////     }
+
+
+
             //イベント待ち EVENT_ALL_MY_SHIP_WAS_DESTROYED
             break;
 
