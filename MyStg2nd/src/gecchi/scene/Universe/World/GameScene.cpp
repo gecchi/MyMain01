@@ -194,25 +194,28 @@ void GameScene::processBehavior() {
                 _pMyShipScene->resetImmediately();
                 _pMyShipScene->activate();
             }
-            if (VB_PLAY->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
-                _is_frame_advance = false;
-                _TRACE_("PAUSE!");
-                P_GOD->setVB(VB_UI);  //“ü—Í‚Í‚t‚h‚ÉØ‚è‘Ö‚¦
-                P_ACTIVE_CAMWORKER->pause();
-                _pScene_GameMain->pause();
-                _pMyShipScene->pause();
-                _pCommonScene->pause();
-                P_UNIVERSE->switchCameraWork("PauseCamWorker");
-            }
+            if (!_pScene_GameMain->wasPause()) {
+                if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
+                    _is_frame_advance = false;
+                    _TRACE_("PAUSE!");
+                    P_GOD->setVB(VB_UI);  //“ü—Í‚Í‚t‚h‚ÉØ‚è‘Ö‚¦
 
-            if (_pScene_GameMain->wasPause()) {
-                if (VB_UI->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
+                    _pScene_GameMain->pauseImmediately();
+                    _pMyShipScene->pauseImmediately();
+                    _pCommonScene->pauseImmediately();
+
+                    P_ACTIVE_CAMWORKER->pauseImmediately();
+                    P_UNIVERSE->switchCameraWork("PauseCamWorker");
+                }
+            } else if (_pScene_GameMain->wasPause()) {
+                if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
                     P_GOD->setVB(VB_PLAY);
-                    _pScene_GameMain->unpause();
-                    _pMyShipScene->unpause();
-                    _pCommonScene->unpause();
+                    _pScene_GameMain->unpauseImmediately();
+                    _pMyShipScene->unpauseImmediately();
+                    _pCommonScene->unpauseImmediately();
+
                     P_UNIVERSE->undoCameraWork();
-                    P_ACTIVE_CAMWORKER->unpause();
+                    P_ACTIVE_CAMWORKER->unpauseImmediately();
                 }
             }
 
