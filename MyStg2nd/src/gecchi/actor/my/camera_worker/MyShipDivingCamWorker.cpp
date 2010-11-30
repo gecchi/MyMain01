@@ -18,7 +18,7 @@ void MyShipDivingCamWorker::initialize() {
     _stop_renge = 60000;
 }
 
-void MyShipDivingCamWorker::onPushed() {
+void MyShipDivingCamWorker::onSwitchedCameraWork() {
     GgafDx9Camera* pCam = P_CAM;
     GgafDx9CameraViewPoint* pVP = pCam->_pViewPoint;
     pCam->_pMover->forceVxMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
@@ -34,7 +34,7 @@ void MyShipDivingCamWorker::onPushed() {
     _move_target_Y_VP = pVP->_Y;
     _move_target_Z_VP = pVP->_Z;
 }
-void MyShipDivingCamWorker::onPoped() {
+void MyShipDivingCamWorker::onUndoneCameraWork() {
 }
 
 void MyShipDivingCamWorker::setMoveTargetCamBy(GgafDx9Core::GgafDx9GeometricActor* pTarget) {

@@ -16,10 +16,10 @@ public:
 
     DefaultCamWorker(const char* prm_name);
 
-    virtual void onPushed() override {
+    virtual void onSwitchedCameraWork() override {
     }
 
-    virtual void onPoped() override {
+    virtual void onUndoneCameraWork() override {
     }
 
     virtual ~DefaultCamWorker(); //デストラクタ

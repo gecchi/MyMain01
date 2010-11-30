@@ -10,7 +10,6 @@ CameraWorkerConnection::CameraWorkerConnection(char* prm_idstr, CameraWorker* pr
 }
 
 void CameraWorkerConnection::processReleaseResource(CameraWorker* prm_pResource) {
-    //CameraWorkerは全てUniverseに所属しているため、解放不要
-    //DELETE_IMPOSSIBLE_NULL(prm_pResource);
+    prm_pResource->end();
 }
 

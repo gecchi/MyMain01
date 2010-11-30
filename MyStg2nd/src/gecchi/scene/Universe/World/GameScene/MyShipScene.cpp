@@ -22,7 +22,7 @@ _pMyOptionController(NULL) {
 
 //    _pCon_VamSysCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("VamSysCamWorker");
 //    _pCon_MyShipDivingCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("MyShipDivingCamWorker");
-    _pVamSysCamWorker = (VamSysCamWorker*)P_UNIVERSE->pushCameraWork("VamSysCamWorker");
+    _pVamSysCamWorker = (VamSysCamWorker*)P_UNIVERSE->switchCameraWork("VamSysCamWorker");
     _pVamSysCamWorker->_pMyShip = _pMyShip;
 //    _pMyShipDivingCamWorker = (MyShipDivingCamWorker*)_pCon_MyShipDivingCamWorker->refer();
     _zanki = 3;
@@ -50,8 +50,7 @@ void MyShipScene::processBehavior() {
     switch (_pProgress->getChangedFrom()) {
         case MYSHIPSCENE_SCENE_PROG_BEGIN:
             {
-            MyShipDivingCamWorker* pCamWorker = (MyShipDivingCamWorker*)P_UNIVERSE->popCameraWork();
-            pCamWorker->unlockCamVp();
+                P_UNIVERSE->undoCameraWork();
             }
             break;
         default:
@@ -71,7 +70,7 @@ void MyShipScene::processBehavior() {
                 _pMyShip->_X = Universe::_X_goneLeft;
                 _pMyShip->_can_control = true;
                 _pMyShip->_is_diving = true;
-                MyShipDivingCamWorker* pCamWorker = (MyShipDivingCamWorker*)P_UNIVERSE->pushCameraWork("MyShipDivingCamWorker");
+                MyShipDivingCamWorker* pCamWorker = (MyShipDivingCamWorker*)P_UNIVERSE->switchCameraWork("MyShipDivingCamWorker");
                 pCamWorker->setMoveTargetCam(1000000, 1000000, -1000000);
                 pCamWorker->lockCamVp(_pMyShip);
             }
@@ -125,7 +124,7 @@ void MyShipScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 }
 
 MyShipScene::~MyShipScene() {
-    //P_UNIVERSE->popCameraWork();
+    //P_UNIVERSE->undoCameraWork();
 //    _pCon_VamSysCamWorker->close();
 //    _pCon_MyShipDivingCamWorker->close();
 }

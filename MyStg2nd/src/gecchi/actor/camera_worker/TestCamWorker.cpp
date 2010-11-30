@@ -13,7 +13,7 @@ void TestCamWorker::onActive() {
 
 }
 
-void TestCamWorker::onPushed() {
+void TestCamWorker::onSwitchedCameraWork() {
     P_CAM->setCoordinateBy(P_MYSHIP);
     GgafDx9CameraViewPoint* pVP = P_CAM->_pViewPoint;
     pVP->setCoordinateBy(P_MYSHIP);

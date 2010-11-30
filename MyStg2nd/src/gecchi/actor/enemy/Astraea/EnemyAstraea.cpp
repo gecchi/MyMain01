@@ -29,14 +29,15 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
         }
     }
 
-    //屈折レーザー設定(コンストラクタに持っていけない。
-    //CommonSceneで本EnemyAstraeaLaserChip002をNEWしているので、CommonSceneがまだ完成していないうちに
-    //_pDispatcherManagerは使用不可。なんかいい方法を考えるべし
-    _pDispatcherCon_RefractionEffect = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_EffRefraction001"));
-    _TRACE_("EnemyAstraea::EnemyAstraea _pDispatcherCon_RefractionEffect->refer()="<<_pDispatcherCon_RefractionEffect->refer());
+    _pDispatcherCon_RefractionEffect =
+            (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_EffRefraction001"));
 
     _pDispatcherCon_DpEnemyAstraeaLaserChip002 =
-            (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_DpEnemyAstraeaLaserChip002", _pDispatcherCon_RefractionEffect->refer()));
+            (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection(
+                                                                   "DpCon_DpEnemyAstraeaLaserChip002",
+                                                                   _pDispatcherCon_RefractionEffect->refer()
+                                                                )
+                                   );
 
 
     _papaPosLaser = NEW PosLaser*[_laser_way];

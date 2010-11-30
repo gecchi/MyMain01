@@ -42,9 +42,9 @@ public:
 
 
 
-    virtual void onPushed() override;
+    virtual void onSwitchedCameraWork() override;
 
-    virtual void onPoped() override;
+    virtual void onUndoneCameraWork() override;
 
     virtual void processBehavior() override;
 

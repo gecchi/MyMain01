@@ -24,11 +24,11 @@ void Stage01WalledSection001::processBehavior() {
 
 
 //    if (getActivePartFrame() == 300) {
-//        P_UNIVERSE->pushCameraWork("TestCamWorker");
+//        P_UNIVERSE->switchCameraWork("TestCamWorker");
 //    }
 //
 //    if (getActivePartFrame() == 1200) {
-//        P_UNIVERSE->popCameraWork();
+//        P_UNIVERSE->undoCameraWork();
 //    }
 
 }

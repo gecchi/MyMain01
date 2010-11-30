@@ -52,51 +52,72 @@ void Universe::processJudgement() {
     DefaultUniverse::processJudgement();
 }
 
-CameraWorker* Universe::pushCameraWork(const char* prm_pID) {
+CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
+
+    //    |      |                             |      |
+    //    |      |                             +------+
+    //    |      |            push ConC        | ConC | ←Active(return)
+    //    +------+            --------->       +------+
+    //    | ConB | ←Active                    | ConB |
+    //    +------+                             +------+
+    //    | ConA |                             | ConA |
+    //    +------+                             +------+
+
     CameraWorkerConnection* pCon = (CameraWorkerConnection*)_pCameraWorkerManager->getConnection(prm_pID);
     CameraWorker* pCameraWorker = pCon->refer();
     if (pCameraWorker != _pActiveCameraWorker) {
-        _pActiveCameraWorker->inactivate();
+        _pActiveCameraWorker->inactivate(); //現在を非活動へ
+        pCameraWorker->activate();
+        pCameraWorker->onSwitchedCameraWork();
         if (getLordActor()->getSubFirst()->getSub(pCameraWorker)) {
-            pCameraWorker->activate();
+            //２回目以降の
         } else {
-            pCameraWorker->activate();
-            getLordActor()->addSubGroup(pCameraWorker);
+            getLordActor()->addSubGroup(pCameraWorker); //初回はツリーに追加
         }
         _stack_CameraWorkerCon.push(pCon);
         _pActiveCameraWorker = pCameraWorker;
     } else {
         _stack_CameraWorkerCon.dump();
-        throwGgafCriticalException("Universe::pushCameraWork("<<prm_pID<<") 同じカメラワークを連続でpush()しています。_pActiveCameraWorker="<<_pActiveCameraWorker->getName());
+        throwGgafCriticalException("Universe::switchCameraWork("<<prm_pID<<") 同じカメラワークを連続でpush()しています。_pActiveCameraWorker="<<_pActiveCameraWorker->getName());
     }
-    pCameraWorker->onPushed();
     return pCameraWorker;
 
 }
 
-CameraWorker* Universe::popCameraWork() {
-    CameraWorkerConnection* pCon = _stack_CameraWorkerCon.pop();
+CameraWorker* Universe::undoCameraWork() {
+
+    //    |      |                       |      |
+    //    +------+                       |      |
+    //    | ConC | ←Active      pop     |      |
+    //    +------+           --------->  +------+
+    //    | ConB |                       | ConB | ←Active(return)
+    //    +------+                       +------+
+    //    | ConA |                       | ConA |
+    //    +------+                       +------+
+
+    CameraWorkerConnection* pCon_now = _stack_CameraWorkerCon.pop(); //pCon_nowは上図のConCが返る
+    CameraWorkerConnection* pCon = _stack_CameraWorkerCon.getLast(); //pConは上図で言うとConBが返る
     if (pCon) {
         CameraWorker* pCameraWorker = pCon->refer();
-        if (_stack_CameraWorkerCon.getLast()->refer() != _pActiveCameraWorker) {
+        if (pCameraWorker != _pActiveCameraWorker) {
             _pActiveCameraWorker->inactivate();
-            _pActiveCameraWorker = _stack_CameraWorkerCon.getLast()->refer();
+            _pActiveCameraWorker->onUndoneCameraWork();
+            _pActiveCameraWorker = pCameraWorker;
             if (_pActiveCameraWorker) {
                 _pActiveCameraWorker->activate();
             } else {
                 _stack_CameraWorkerCon.dump();
-                throwGgafCriticalException("Universe::popCameraWork()  _stack_CameraWorker から pop() しすぎ。");
+                throwGgafCriticalException("Universe::undoCameraWork()  _stack_CameraWorker から pop() しすぎ。");
             }
-            pCon->close();
-            pCameraWorker->onPoped();
-            return pCameraWorker;
+            pCon_now->close();
+            return _pActiveCameraWorker;
         } else {
             _stack_CameraWorkerCon.dump();
-            throwGgafCriticalException("Universe::popCameraWork() pop()したカメラワークは、pop()前と同じカメラワークです。pCameraWorker="<<pCameraWorker->getName());
+            throwGgafCriticalException("Universe::undoCameraWork() pop()したカメラワークは、pop()前と同じカメラワークです。pCameraWorker="<<pCameraWorker->getName());
         }
     } else {
         _stack_CameraWorkerCon.dump();
-        throwGgafCriticalException("Universe::popCameraWork()  _stack_CameraWorker から pop() しすぎにも程がある");
+        throwGgafCriticalException("Universe::undoCameraWork()  _stack_CameraWorker から pop() しすぎにも程がある");
     }
 }
 
