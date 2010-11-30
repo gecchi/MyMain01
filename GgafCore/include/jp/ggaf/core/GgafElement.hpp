@@ -386,7 +386,7 @@ public:
     virtual void activateTreeDelay(frame prm_frame_offset = 1);
 
 
-    virtual void activateForOnly(frame prm_frame_offset = 1);
+    virtual void activateOnlyFor(frame prm_frame_offset = 1);
     /**
      * 活動状態にする(単体・即時・コールバック無し) .
      * 自ノードについて、即座に活動状態にする。通常、初期化以外で本メソッドの使用は非推奨。<BR>
@@ -1119,7 +1119,7 @@ void GgafElement<T>::activateDelay(frame prm_frame_offset) {
     }
 }
 template<class T>
-void GgafElement<T>::activateForOnly(frame prm_frame_offset) {
+void GgafElement<T>::activateOnlyFor(frame prm_frame_offset) {
     if (_can_live_flg) {
         _will_activate_after_flg = true;
         _frame_of_life_when_activation = _frame_of_life + 1;
