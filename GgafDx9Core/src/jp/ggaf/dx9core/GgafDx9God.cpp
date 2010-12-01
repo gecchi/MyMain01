@@ -609,11 +609,7 @@ void GgafDx9God::clean() {
 
         CmRandomNumberGenerator::getInstance()->release();
         //•ÛŽƒ‚ƒfƒ‹‰ð•ú
-        _TRACE_("_pModelManager Dumping ...");
-        _pModelManager->dump();
         DELETE_IMPOSSIBLE_NULL(_pModelManager);
-        _TRACE_("_pEffectManager Dumping ...");
-        _pEffectManager->dump();
         DELETE_IMPOSSIBLE_NULL(_pEffectManager);
 
         _TRACE_("GgafDx9God::clean() end");

@@ -3180,7 +3180,6 @@ GgafDx9ModelManager::~GgafDx9ModelManager() {
     TRACE3("GgafDx9ModelManager::~GgafDx9ModelManager() start-->");
     RELEASE_IMPOSSIBLE_NULL(_pIDirectXFile_sprx);
     RELEASE_IMPOSSIBLE_NULL(_pIDirectXFile_psprx);
-    _pTextureManager->dump();
     DELETE_IMPOSSIBLE_NULL(_pTextureManager);
     TRACE3("GgafDx9ModelManager::releaseAll() ‚·‚é‚¯‚Ç‚àA‚±‚±‚Å‚ÍŠù‚É‰½‚à‰ğ•ú‚·‚é‚à‚Ì‚ª‚È‚¢‚Í‚¸‚Å‚·");
     releaseAll();
