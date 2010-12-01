@@ -531,10 +531,26 @@ public:
     virtual void unpauseImmediately();
     //===================
     /**
-     * 状態をリセットする。
+     * 状態をリセットする .
+     * 即座に内部フレームカウンタをリセットした後 processReset() を呼び出します。<BR>
+     * 各オブジェクトの状態リセット処理を、下位クラスで
+     * processReset() をオーバーライドして実装してください。<BR>
+     * また、同一フレーム内で何度 resetImmediately() を呼び出しても、<BR>
+     * processReset() が呼び出されるのは最初の１回のみとする仕組みも備わっています。<BR>
      */
     virtual void resetImmediately();
+
+    /**
+     * 状態をリセットする（自ツリー） .
+     * 自ツリー全てのオブジェクトに対し resetImmediately() を実行します。
+     */
     virtual void resetTreeImmediately();
+
+    /**
+     * 状態をリセットする(ユーザー実装用) .
+     * resetImmediately() 或いは、resetTreeImmediately() を実行することで呼び出されます。
+     * 個別のの状態リセット処理を、下位クラスでオーバーライドしてください。
+     */
     virtual void processReset() {}
 
 

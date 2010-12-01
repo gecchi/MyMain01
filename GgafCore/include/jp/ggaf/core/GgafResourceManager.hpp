@@ -264,6 +264,11 @@ void GgafResourceManager<T>::dump() {
 template<class T>
 GgafResourceManager<T>::~GgafResourceManager() {
     TRACE3("GgafResourceManager<T>::~GgafResourceManager[" << _manager_name << "] " << _manager_name << " ");
+#ifdef MY_DEBUG
+    _TRACE_("GgafResourceManager<T>::~GgafResourceManager()["<<_manager_name<<"] begin --->");
+    _TRACE_("＜解放前Dumping＞");
+    dump();
+#endif
     GgafResourceConnection<T>* pCurrent = _pFirstConnection;
     if (_pFirstConnection == NULL) {
         TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストにはなにもありません。");
@@ -289,6 +294,9 @@ GgafResourceManager<T>::~GgafResourceManager() {
             }
         }
     }
+#ifdef MY_DEBUG
+    _TRACE_("<--- GgafResourceManager<T>::~GgafResourceManager() ["<<_manager_name<<"] end");
+#endif
 }
 
 }

@@ -27,14 +27,14 @@ void GgafActorDispatcher::addSubLast(GgafActor* prm_pSub) {
 }
 
 void GgafActorDispatcher::processReset() {
+    _TRACE_("GgafActorDispatcher::processReset() ["<<getName()<<"]");
     if (_pSubFirst == NULL) {
         return;
     }
     GgafMainActor* pActor = getSubFirst();
     while (true) {
-        pActor->inactivateImmediately();
+        pActor->inactivate();
         if (pActor->isLast()) {
-            pActor = NULL;
             break;
         } else {
             pActor = pActor->getNext();
