@@ -9,17 +9,11 @@ namespace MyStg2nd {
 #define VAM_POS_CAM_MYSHIP_BEHIND 5
 #define VAM_POS_CAM_MYSHIP_FRONT  6
 
-#define VAM_WAY_CAM_UP_SX    1
-#define VAM_WAY_CAM_UP_UX    2
-#define VAM_WAY_CAM_UP_SY    3
-#define VAM_WAY_CAM_UP_UY    4
-#define VAM_WAY_CAM_UP_SZ    5
-#define VAM_WAY_CAM_UP_UZ    6
-
 class VamSysCamPosition : public GgafCore::GgafObject {
 
-
+public:
     class Pos {
+    public:
         int _pos_cam;
         angle _Rz_up;
         angle _Ry_up;
@@ -42,7 +36,7 @@ class VamSysCamPosition : public GgafCore::GgafObject {
             _pDown  = prm_pDown;
         }
     };
-public:
+
 
     Pos* _pPos;
 

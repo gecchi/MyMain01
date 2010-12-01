@@ -6,22 +6,6 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-#define VAM_POS_CAM_MYSHIP_RIGHT  1
-#define VAM_POS_CAM_MYSHIP_LEFT   2
-#define VAM_POS_CAM_MYSHIP_TOP    3
-#define VAM_POS_CAM_MYSHIP_BOTTOM 4
-#define VAM_POS_CAM_MYSHIP_BEHIND 5
-#define VAM_POS_CAM_MYSHIP_FRONT  6
-
-#define VAM_WAY_CAM_UP_SX    1
-#define VAM_WAY_CAM_UP_UX    2
-#define VAM_WAY_CAM_UP_SY    3
-#define VAM_WAY_CAM_UP_UY    4
-#define VAM_WAY_CAM_UP_SZ    5
-#define VAM_WAY_CAM_UP_UZ    6
-
-
-
 VamSysCamPosition::VamSysCamPosition(MyShip* prm_pMyShip)  : GgafObject() {
     Pos* pPos_Right_SX = NEW Pos(VAM_POS_CAM_MYSHIP_RIGHT, ANGLE0, ANGLE90);
     Pos* pPos_Right_UX = NEW Pos(VAM_POS_CAM_MYSHIP_RIGHT, ANGLE0, ANGLE90);
