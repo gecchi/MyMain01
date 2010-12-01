@@ -68,7 +68,7 @@ void MyShipScene::processBehavior() {
                 unblindScene();
                 _pMyShip->resetImmediately();
                 _pMyShip->activate();
-                _pMyShip->_X = Universe::_X_goneLeft;
+                _pMyShip->_X = Universe::_X_goneLeft + 1000;
                 _pMyShip->_can_control = true;
                 _pMyShip->_is_diving = true;
                 MyShipDivingCamWorker* pCamWorker = (MyShipDivingCamWorker*)P_UNIVERSE->switchCameraWork("MyShipDivingCamWorker");

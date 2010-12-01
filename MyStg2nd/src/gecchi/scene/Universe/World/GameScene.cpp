@@ -58,7 +58,7 @@ _pScene_GameOver(NULL) {
     _is_frame_advance = false;
 
     _stage = 1;
-
+    _was_paused_flg_GameMainScene_prev_frame = false;
     useProgress(10);
 }
 
@@ -74,6 +74,7 @@ void GameScene::processReset() {
     VB_UI->clear();
     P_GOD->setVB(VB_UI);
     _pMyShipScene->resetImmediately();
+    _pCommonScene->resetImmediately();
     _pScene_PreGameTitle->resetImmediately();
     _pScene_GameTitle->resetImmediately();
     _pScene_GameDemo->resetImmediately();
@@ -83,6 +84,7 @@ void GameScene::processReset() {
     _pScene_GameOver->resetImmediately();
 
     _pMyShipScene->unblindSceneTree();
+    _pCommonScene->unblindSceneTree();
     _pScene_PreGameTitle->unblindSceneTree();
     _pScene_GameTitle->unblindSceneTree();
     _pScene_GameDemo->unblindSceneTree();
@@ -91,14 +93,14 @@ void GameScene::processReset() {
     _pScene_GameEnding->unblindSceneTree();
     _pScene_GameOver->unblindSceneTree();
 
-    _pMyShipScene->inactivateImmediately();
-    _pScene_PreGameTitle->inactivateImmediately();
-    _pScene_GameTitle->inactivateImmediately();
-    _pScene_GameDemo->inactivateImmediately();
-    _pScene_GameBeginning->inactivateImmediately();
-    _pScene_GameMain->inactivateImmediately();
-    _pScene_GameEnding->inactivateImmediately();
-    _pScene_GameOver->inactivateImmediately();
+    _pMyShipScene->inactivate();
+    _pScene_PreGameTitle->inactivate();
+    _pScene_GameTitle->inactivate();
+    _pScene_GameDemo->inactivate();
+    _pScene_GameBeginning->inactivate();
+    _pScene_GameMain->inactivate();
+    _pScene_GameEnding->inactivate();
+    _pScene_GameOver->inactivate();
 
     _pProgress->change(GAME_SCENE_PROG_INIT);
 }
@@ -194,65 +196,35 @@ void GameScene::processBehavior() {
                 _pMyShipScene->resetImmediately();
                 _pMyShipScene->activate();
             }
-            if (!_pScene_GameMain->wasPause()) {
+
+            if (!_pScene_GameMain->_was_paused_flg) {
+                if (_was_paused_flg_GameMainScene_prev_frame == true)  {
+                    P_UNIVERSE->undoCameraWork();
+                    P_ACTIVE_CAMWORKER->unpause();
+                }
                 if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
                     _is_frame_advance = false;
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //“ü—Í‚Í‚t‚h‚ÉØ‚è‘Ö‚¦
 
-                    _pScene_GameMain->pauseImmediately();
-                    _pMyShipScene->pauseImmediately();
-                    _pCommonScene->pauseImmediately();
-
-                    P_ACTIVE_CAMWORKER->pauseImmediately();
-                    P_UNIVERSE->switchCameraWork("PauseCamWorker");
-                }
-            } else if (_pScene_GameMain->wasPause()) {
-                if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
-                    P_GOD->setVB(VB_PLAY);
-                    _pScene_GameMain->unpauseImmediately();
-                    _pMyShipScene->unpauseImmediately();
-                    _pCommonScene->unpauseImmediately();
-
-                    P_UNIVERSE->undoCameraWork();
-                    P_ACTIVE_CAMWORKER->unpauseImmediately();
+                    _pScene_GameMain->pause();
+                    _pMyShipScene->pause();
+                    _pCommonScene->pause();
                 }
             }
-
-            //    if (getProgress() == GAMEMAIN_SCENE_PROG_PLAY || getProgress() == GAMEMAIN_SCENE_PROG_BEGIN) {
-            //
-            //        //ˆêŽž’âŽ~
-            //        if (VB_PLAY->isReleasedUp(VB_PAUSE) || P_GAME_SCENE->_is_frame_advance) {
-            //            P_GAME_SCENE->_is_frame_advance = false;
-            //            _TRACE_("PAUSE!");
-            //            P_GOD->setVB(VB_UI);  //“ü—Í‚Í‚t‚h‚ÉØ‚è‘Ö‚¦
-            //            pause();     //Ž©g”z‰º‚ðˆêŽž’âŽ~‚·‚éBˆêŽž’âŽ~‰ðœ‚ÍGameScene‚Ås‚í‚ê‚é
-            //            P_UNIVERSE->pushCameraWork("PauseCamWorker");
-            ////            P_ACTIVE_CAMWORKER->pause();
-            //            P_MYSHIP->pause();
-            //        }
-            //    }
-
-
-            //    //ˆêŽž’âŽ~‰ðœ
-            //    if (_pScene_GameMain->wasPause()) {
-            //        if (VB_UI->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
-            //            P_GOD->setVB(VB_PLAY);
-            //            _pScene_GameMain->unpause();     //GameMainScene‚Å‚ÌˆêŽž’âŽ~‰ðœ
-            //            P_UNIVERSE->popCameraWork();
-            ////            P_ACTIVE_CAMWORKER->unpause();
-            //            P_MYSHIP->unpause();
-            //        }
-            //    }
-            //
-            ////     //‚¨‚Ü‚¯‹@”\BˆêŽž’âŽ~‚µ‚Ä‚¢‚ê‚ÎAƒJƒƒ‰‘€ì‚Å‚«‚éB
-            ////     if (_pScene_GameMain->canBehave() ) {
-            ////         //ˆêŽž’âŽ~‚µ‚Ä‚¢‚È‚¢ó‘ÔB
-            ////         //ƒXƒ‹[
-            ////     } else {
-            ////     }
-
-
+            if (_pScene_GameMain->_was_paused_flg) {
+                if (_was_paused_flg_GameMainScene_prev_frame == false) {
+                    P_ACTIVE_CAMWORKER->pause();
+                    P_UNIVERSE->switchCameraWork("PauseCamWorker");
+                }
+                if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
+                    P_GOD->setVB(VB_PLAY);
+                    _pScene_GameMain->unpause();
+                    _pMyShipScene->unpause();
+                    _pCommonScene->unpause();
+                }
+            }
+            _was_paused_flg_GameMainScene_prev_frame = _pScene_GameMain->_was_paused_flg;
 
             //ƒCƒxƒ“ƒg‘Ò‚¿ EVENT_ALL_MY_SHIP_WAS_DESTROYED
             break;

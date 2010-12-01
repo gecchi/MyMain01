@@ -43,7 +43,7 @@ void GameMainScene::processReset() {
     _pFont1601->update("");
     _pFont1602->update("");
     if (_pSceneMainCannnel) {
-        _pSceneMainCannnel->inactivateImmediately();
+        _pSceneMainCannnel->inactivate();
     }
     _pProgress->change(GAMEMAIN_SCENE_PROG_INIT);
 }

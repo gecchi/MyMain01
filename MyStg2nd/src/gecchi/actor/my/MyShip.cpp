@@ -182,8 +182,6 @@ void MyShip::processReset() {
     _X = _Y = _Z = 0;
     _way = WAY_NONE;
     _way_switch.reset();
-    _pDispatcher_MyShots001->inactivateTreeImmediately();
-    _pLaserChipDispatcher->inactivateTreeImmediately();
     MyStgUtil::resetMyShipStatus(_pStatus);
 }
 
