@@ -306,6 +306,7 @@ class Formation001;
 
 class LaserChipEffectActor;
 
+class VamSysCamPosition;
 }
 
 #include "gecchi/God.h"
@@ -447,6 +448,7 @@ class LaserChipEffectActor;
 #include "gecchi/magic/OptionMagic.h"
 #include "gecchi/Properties.h"
 #include "gecchi/util/MyStgUtil.h"
+#include "gecchi/util/VamSysCamPosition.h"
 #include "gecchi/MyFactory.h"
 #include "gecchi/manager/DispatcherManager.h"
 #include "gecchi/manager/DispatcherConnection.h"

@@ -1,0 +1,61 @@
+#include "stdafx.h"
+using namespace std;
+using namespace GgafCore;
+using namespace GgafDx9Core;
+using namespace GgafDx9LibStg;
+using namespace MyStg2nd;
+
+
+#define VAM_POS_CAM_MYSHIP_RIGHT  1
+#define VAM_POS_CAM_MYSHIP_LEFT   2
+#define VAM_POS_CAM_MYSHIP_TOP    3
+#define VAM_POS_CAM_MYSHIP_BOTTOM 4
+#define VAM_POS_CAM_MYSHIP_BEHIND 5
+#define VAM_POS_CAM_MYSHIP_FRONT  6
+
+#define VAM_WAY_CAM_UP_SX    1
+#define VAM_WAY_CAM_UP_UX    2
+#define VAM_WAY_CAM_UP_SY    3
+#define VAM_WAY_CAM_UP_UY    4
+#define VAM_WAY_CAM_UP_SZ    5
+#define VAM_WAY_CAM_UP_UZ    6
+
+
+
+VamSysCamPosition::VamSysCamPosition(MyShip* prm_pMyShip)  : GgafObject() {
+    Pos* pPos_Right_SX = NEW Pos(VAM_POS_CAM_MYSHIP_RIGHT, ANGLE0, ANGLE90);
+    Pos* pPos_Right_UX = NEW Pos(VAM_POS_CAM_MYSHIP_RIGHT, ANGLE0, ANGLE90);
+    Pos* pPos_Right_SY = NEW Pos(VAM_POS_CAM_MYSHIP_RIGHT, ANGLE0, ANGLE90);
+    Pos* pPos_Right_UY = NEW Pos(VAM_POS_CAM_MYSHIP_RIGHT, ANGLE0, ANGLE90);
+
+    Pos* pPos_Behind_SY = NEW Pos(VAM_POS_CAM_MYSHIP_BEHIND, ANGLE0, ANGLE90);
+    Pos* pPos_Behind_UY = NEW Pos(VAM_POS_CAM_MYSHIP_BEHIND, ANGLE0, ANGLE90);
+    Pos* pPos_Behind_SZ = NEW Pos(VAM_POS_CAM_MYSHIP_BEHIND, ANGLE0, ANGLE90);
+    Pos* pPos_Behind_UZ = NEW Pos(VAM_POS_CAM_MYSHIP_BEHIND, ANGLE0, ANGLE90);
+
+    Pos* pPos_Left_SX = NEW Pos(VAM_POS_CAM_MYSHIP_LEFT, ANGLE0, ANGLE90);
+    Pos* pPos_Left_UX = NEW Pos(VAM_POS_CAM_MYSHIP_LEFT, ANGLE0, ANGLE90);
+    Pos* pPos_Left_SY = NEW Pos(VAM_POS_CAM_MYSHIP_LEFT, ANGLE0, ANGLE90);
+    Pos* pPos_Left_UY = NEW Pos(VAM_POS_CAM_MYSHIP_LEFT, ANGLE0, ANGLE90);
+
+    Pos* pPos_Front_SY = NEW Pos(VAM_POS_CAM_MYSHIP_FRONT, ANGLE0, ANGLE90);
+    Pos* pPos_Front_UY = NEW Pos(VAM_POS_CAM_MYSHIP_FRONT, ANGLE0, ANGLE90);
+    Pos* pPos_Front_SZ = NEW Pos(VAM_POS_CAM_MYSHIP_FRONT, ANGLE0, ANGLE90);
+    Pos* pPos_Front_UZ = NEW Pos(VAM_POS_CAM_MYSHIP_FRONT, ANGLE0, ANGLE90);
+
+
+    Pos* pPos_Top_SX = NEW Pos(VAM_POS_CAM_MYSHIP_TOP, ANGLE0, ANGLE90);
+    Pos* pPos_Top_UX = NEW Pos(VAM_POS_CAM_MYSHIP_TOP, ANGLE0, ANGLE90);
+    Pos* pPos_Top_SZ = NEW Pos(VAM_POS_CAM_MYSHIP_TOP, ANGLE0, ANGLE90);
+    Pos* pPos_Top_UZ = NEW Pos(VAM_POS_CAM_MYSHIP_TOP, ANGLE0, ANGLE90);
+
+    Pos* pPos_Bottom_SX = NEW Pos(VAM_POS_CAM_MYSHIP_BOTTOM, ANGLE0, ANGLE90);
+    Pos* pPos_Bottom_UX = NEW Pos(VAM_POS_CAM_MYSHIP_BOTTOM, ANGLE0, ANGLE90);
+    Pos* pPos_Bottom_SZ = NEW Pos(VAM_POS_CAM_MYSHIP_BOTTOM, ANGLE0, ANGLE90);
+    Pos* pPos_Bottom_UZ = NEW Pos(VAM_POS_CAM_MYSHIP_BOTTOM, ANGLE0, ANGLE90);
+
+
+}
+
+VamSysCamPosition::~VamSysCamPosition() {
+}
