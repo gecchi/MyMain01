@@ -121,5 +121,13 @@ void LaserChipDispatcher::addSubLast(LaserChip* prm_pLaserChip) {
     GgafActorDispatcher::addSubLast(prm_pLaserChip);
 }
 
+void LaserChipDispatcher::processReset() {
+    _is_tear_laser = true;
+    _num_continual_employ_count = 0;
+    _num_chip_active = 0;
+    _frame_of_behaving_prev_employ = 0;
+    GgafActorDispatcher::processReset();
+}
+
 LaserChipDispatcher::~LaserChipDispatcher() {
 }

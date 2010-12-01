@@ -67,6 +67,13 @@ public:
      */
     void addSubLast(LaserChip* prm_pLaserChip);
 
+    /**
+     * リセット時の処理 .
+     * メンバーを全てinactivateImmediately()します。
+     */
+    virtual void processReset() override;
+
+
      virtual ~LaserChipDispatcher();
 
 };
