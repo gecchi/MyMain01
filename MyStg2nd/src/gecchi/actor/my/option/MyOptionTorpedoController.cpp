@@ -54,7 +54,9 @@ void MyOptionTorpedoController::fire() {
     if (!_in_firing) {
         _in_firing = true;
         int target_num = _pMyOption->_pLockonController->_pRingTarget->length();
-        _firing_num = MyOption::_max_lockon_num; //target_num == 0 ? MyOption::_max_lockon_num : target_num;
+        _firing_num = target_num == 0 ? 1 : target_num;
+                 // = MyOption::_max_lockon_num;
+                 // = target_num == 0 ? MyOption::_max_lockon_num : target_num;
         angle angBegin = ANGLE90;
         angle angRenge  = ANGLE360 / _pMyOption->_pMyOptionController->_now_option_num;
         angle angFireCenter = angBegin + (ANGLE360*(_pMyOption->_no-1) / _pMyOption->_pMyOptionController->_now_option_num);
