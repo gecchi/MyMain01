@@ -241,9 +241,6 @@ HRESULT GgafDx9God::init() {
     } else {
         _TRACE_("GgafDx9God::init デバイスは HAL(mix vp) で初期化できました。");
     }
-    //    //参照カウンタを余分増やす。理由はデストラクタのデバイス解放処理参照。
-    //    GgafDx9God::_pID3DDevice9->AddRef();
-    //    GgafDx9God::_pID3DDevice9->AddRef();
 
     //ピクセルシェーダー、頂点シェーダーバージョンチェック
     D3DCAPS9 caps;
@@ -762,13 +759,12 @@ GgafDx9God::~GgafDx9God() {
     //DirectInput解放
     GgafDx9Input::release();
     _TRACE_("_pID3DDevice9 解放きたー");
-    Sleep(180);
+    Sleep(60);
     RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9); //本来はこれが必要
     RELEASE_IMPOSSIBLE_NULL(_pID3D9);
-//    デバイス(_pID3DDevice9)の解放はWindowsに任せる事にする。
-//    理由：フルスクリーンで終了時、極まれにブルースクリーンになる。
-//    かなりの時間を使って調査したが結局原因不明。
-//    開発環境：WindowsXp, GeForce go 7600 （ハード、HP DV9200) で起こる。
+//    フルスクリーンで終了時、極まれにブルースクリーンになる。
+//    かなりの時間を使って調査したが結局原因不明もういやだ。
+//    VISTA, GeForce go 7600 （開発マシン、HP DV9200) で起こる。
 //    他の環境では起こったことがない。ビデオカードドライバのせいなのか、DV9200固有の問題なのか？！
 
 
