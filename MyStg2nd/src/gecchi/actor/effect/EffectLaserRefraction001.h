@@ -29,15 +29,15 @@ public:
 
     void onInactive() override;
 
-    int isOutOfView() override {
-        //画面外判定無し
-        return 0;
-    }
-
-    bool isOutOfUniverse() override {
-        //ゲーム座標範囲外判定無し
-        return false;
-    }
+//    int isOutOfView() override {
+//        //画面外判定無し
+//        return 0;
+//    }
+//
+//    bool isOutOfUniverse() override {
+//        //ゲーム座標範囲外判定無し
+//        return false;
+//    }
 
     virtual ~EffectLaserRefraction001();
 };

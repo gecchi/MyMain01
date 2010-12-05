@@ -9,7 +9,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     _class_name = "Stage01WalledScene";
 
     //壁ブロックディスパッチャー生成
-    float scale_r = 4.0f; //壁ブロックの元モデルからの拡大率
+    float scale_r = 8.0f; //壁ブロックの元モデルからの拡大率
     WallActor* pWallActor;
     GgafActorDispatcher* pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
     for (int i = 0; i < 4000; i++) {
@@ -30,7 +30,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 
     //構築
     buildWalledScene(
-        400000*scale_r, 100000*scale_r, 100000*scale_r,
+        800000*scale_r, 200000*scale_r, 200000*scale_r,
         (WalledSectionScene**)&apSection, 5,
         pDispatcher_Wall
     );
