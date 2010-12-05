@@ -143,6 +143,7 @@ void GameScene::processBehavior() {
         case GAME_SCENE_PROG_PRE_TITLE:
             //##########  タイトル前演出  ##########
             if (_pProgress->isJustChanged()) {
+                P_GOD->syncTimeFrame();
                 _pScene_PreGameTitle->resetImmediately();
                 _pScene_PreGameTitle->activate();
             }
