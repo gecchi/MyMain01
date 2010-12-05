@@ -64,7 +64,9 @@ public:
     /** [r]元フレームの描画回数 */
     static int _num_actor_drawing;
 
-
+    int _max_skip_frame;
+    /** 時間とフレームの動機調整モード中はtrue */
+    bool _sync_frame_time;
     bool _was_cleaned;
     /**
      * コンストラクタ .
@@ -119,6 +121,13 @@ public:
      * @return この世
      */
     virtual GgafUniverse* createUniverse() = 0;
+    
+    /**
+     * 描画を一時停止し、フレームと時間の同期を行う
+     */
+    void syncTimeFrame() {
+        _sync_frame_time = true;
+    }
 
     virtual void clean();
 

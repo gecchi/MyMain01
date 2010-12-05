@@ -40,6 +40,8 @@ GgafGod::GgafGod() : GgafObject(),
     _can_be = true;
     _was_cleaned = false;
     _skip_count_of_frame = 0;
+    _max_skip_frame = (int)GGAF_PROPERTY(MAX_SKIP_FRAME);
+    _sync_frame_time = false;
 }
 
 void GgafGod::be() {
@@ -101,7 +103,7 @@ void GgafGod::be() {
             if (_time_at_beginning_frame > _expected_time_of_next_frame + _aTime_OffsetOfNextFrame[_frame_of_God % 60]) {
                 //大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
                 _skip_count_of_frame++;
-                if (_skip_count_of_frame >= (int)GGAF_PROPERTY(MAX_SKIP_FRAME)) {
+                if (_skip_count_of_frame >= _max_skip_frame && _sync_frame_time == false) {
                     //スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
                     _skip_count_of_frame = 0;
                     _frame_of_visualize++;
@@ -123,6 +125,7 @@ void GgafGod::be() {
                 }
             } else {
                 //通常時描画（スキップなし）
+                _sync_frame_time = false;
                 _frame_of_visualize++;
              ___BeginSynchronized; // ----->排他開始
                 if (_is_materialized_flg) {
