@@ -20,7 +20,7 @@ GgafDx9D3DXAniMeshEffect::GgafDx9D3DXAniMeshEffect(char* prm_effect_name) : Ggaf
     //Ambient反射
     hr = _pID3DXEffect->SetValue("g_colLightAmbient", &(GgafDx9God::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
     checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshEffect::GgafDx9D3DXAniMeshEffect SetValue(g_colLightAmbient) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf );
+    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf*0.8);
     checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshEffect::GgafDx9SpriteEffect SetFloat(g_zf) に失敗しました。");
     //シェーダーハンドル
     _h_matView = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );

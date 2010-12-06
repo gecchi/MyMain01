@@ -17,7 +17,7 @@ GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect(char* prm_effect_name) : Ggaf
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_dist_CamZ_default) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = _pID3DXEffect->SetFloat("g_zn", P_CAM->_zn);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_zn) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf );
+    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf*0.8);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9SpriteEffect SetFloat(g_zf) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     //_TRACE_("GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect g_dist_CamZ_default="<<P_CAM->_zn<<" g_dist_CamZ_default="<<( -(P_CAM->_cameraZ_org))<<"");
