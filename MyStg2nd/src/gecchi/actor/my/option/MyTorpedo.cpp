@@ -90,12 +90,12 @@ void MyTorpedo::processBehavior() {
                     _pMover->execTagettingMvAngSequence(
                                 _pTarget,
                                 2000, 100,
-                                TURN_ANTICLOSE_TO, false);
+                                TURN_CLOSE_TO, false);
                 } else {
                     _pMover->execTagettingMvAngSequence(
                                 GgafDx9Universe::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                 2000, 100,
-                                TURN_ANTICLOSE_TO, false);
+                                TURN_CLOSE_TO, false);
                 }
                 _move_section++;
             }
@@ -104,8 +104,9 @@ void MyTorpedo::processBehavior() {
         //ムーブ１
         if (_move_section == 1) {
             if (_pMover->isTagettingMvAng()) {
-                //そのまま
+                //ターゲット完了を待つ
             } else {
+                //ターゲット完了
                 _move_section++;
             }
 
