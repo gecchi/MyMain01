@@ -16,8 +16,8 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
     TRACE5("_kind_groupB="<<_kind_groupB);
     if (((_paSpace[0]._kindinfobit & _kind_groupA) > 0) && ((_paSpace[0]._kindinfobit & _kind_groupB) > 0)) {
         //では八分木を巡る旅へ行ってらっしゃい
-        executeHitChk(0); //ルート空間のチェック
-        //お帰りなさい。
+        executeHitChk(0); //いってきます
+        //はいお帰りなさい。
         _stackParentSpaceActor_GroupA.clear();
         _stackParentSpaceActor_GroupB.clear();
     }
@@ -62,7 +62,7 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
         _stackCurrentSpaceActor_GroupB.clear();
         return; //親空間へ戻る
     } else {
-        //もぐる。その前に、親空間アクターのスタックへ追加(現空間スタックも開放)
+        //もぐる。が、その前に親空間アクターのスタックへ追加(現空間スタックも開放)
         int add_num_GroupA, add_num_GroupB;
         add_num_GroupA = add_num_GroupB = 0;
         GgafActor* pActor;
@@ -118,12 +118,9 @@ void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA,
         pActor_A = prm_pStackA->_apActor[i];
         for (UINT32 j = 0; j < prm_pStackB->_p; j++) {
             pActor_B = prm_pStackB->_apActor[j];
-#ifdef MY_DEBUG
-//        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-//            _TRACE_("HitChk("<<pActor_A->getName()<<" x "<<pActor_B->getName()<<")");
-//        }
-#endif
-
+//            if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+//                _TRACE_("HitChk("<<pActor_A->getName()<<" x "<<pActor_B->getName()<<")");
+//            }
             pActor_A->executeHitChk_MeAnd(pActor_B);
         }
     }

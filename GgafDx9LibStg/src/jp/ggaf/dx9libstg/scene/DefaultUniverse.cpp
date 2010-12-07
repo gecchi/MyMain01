@@ -6,27 +6,12 @@ using namespace GgafDx9LibStg;
 
 DefaultUniverse::DefaultUniverse(const char* prm_name, GgafDx9Camera* prm_pCamera) : GgafDx9Universe(prm_name, prm_pCamera) {
     _class_name = "DefaultUniverse";
-
-
+    //‚W•ª–Øì¬
     _pLinearOctree = NEW LinearOctreeForActor(6);
-
     //_pLinearOctree->setRootSpace(-8000000 ,-8000000 ,-8000000 ,8000000 ,8000000 ,8000000);
     _pLinearOctree->setRootSpace(_X_goneLeft  ,_Y_goneBottom, _Z_goneNear  ,
                                  _X_goneRight ,_Y_goneTop   , _Z_goneFar);
 
-//
-//
-//    GgafLinearOctree<GgafDx9GeometricActor>* pLinearOctree =
-//            NEW GgafLinearOctree<GgafDx9GeometricActor>
-//                (
-//                    5,
-//                    -8000000 ,-8000000 ,-8000000 ,8000000 ,8000000 ,8000000
-//                );
-//    GgafLinearOctree<GgafDx9GeometricActor>::Elem* pElem = NEW GgafLinearOctree<GgafDx9GeometricActor>::Elem(this);
-//    pLinearOctree->registElem(pElem, 1000,1000,1000,1500,1500,1500);
-//
-//    _TRACE_("----------------------------------------------------------------”ª•ª–Ø")
-//    pLinearOctree->putTree();
 }
 
 void DefaultUniverse::nextFrame() {
