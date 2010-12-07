@@ -96,6 +96,9 @@
 								</option>
 								<option id="gnu.cpp.link.option.flags.184456478" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/MyStg2nd/VClib/chkstk.o}&quot; -Wl,--enable-auto-import -mno-cygwin -mwindows  --input-charset=cp932 --exec-charset=cp932  -std=gnu++0x " valueType="string"/>
 								<option id="gnu.cpp.link.option.userobjs.599840029" name="その他のオブジェクト" superClass="gnu.cpp.link.option.userobjs"/>
+								<option id="gnu.cpp.link.option.other.144572081" superClass="gnu.cpp.link.option.other" valueType="stringList">
+									<listOptionValue builtIn="false" value="MySTG2nd_rc.o "/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.265070194" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

@@ -1,7 +1,7 @@
 #ifndef VBRTUALBUTTON_H_
 #define VBRTUALBUTTON_H_
 
-typedef map<string, int> keymap;
+typedef _MAP_<string, int> keymap;
 typedef unsigned long int vbsta;
 
 namespace GgafDx9LibStg {

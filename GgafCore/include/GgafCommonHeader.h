@@ -61,6 +61,14 @@
 #include <sstream>
 #include <cstddef>
 
+
+#ifdef _MSC_VER
+#define _MAP_ map
+#else
+#include <unordered_map>
+#define _MAP_ unordered_map
+#endif
+
 #ifndef _MSC_VER
     //GCCの場合、sal.hを別途インクルード
     #include "sal.h"

@@ -11,9 +11,9 @@ namespace GgafCore {
  */
 class GgafRepeatSeq {
 public:
-    static std::map<std::string, int> mapNowval;
-    static std::map<std::string, int> mapMaxval;
-    static std::map<std::string, int> mapMinval;
+    static std::_MAP_<std::string, int> mapNowval;
+    static std::_MAP_<std::string, int> mapMaxval;
+    static std::_MAP_<std::string, int> mapMinval;
 
     /**
      * 順序オブジェクトを作成 .

@@ -21,7 +21,7 @@ public:
     static void load(std::string prm_properties_filename);
     static void clean();
 
-    static std::map<std::string, std::string>* _pMapProperties;
+    static std::_MAP_<std::string, std::string>* _pMapProperties;
 
     static int read(std::string prm_properties_filename);
     static void parse(char* p);

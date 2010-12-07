@@ -2,9 +2,9 @@
 using namespace std;
 
 using namespace GgafCore;
-std::map<std::string, int> GgafRepeatSeq::mapNowval;
-std::map<std::string, int> GgafRepeatSeq::mapMaxval;
-std::map<std::string, int> GgafRepeatSeq::mapMinval;
+std::_MAP_<std::string, int> GgafRepeatSeq::mapNowval;
+std::_MAP_<std::string, int> GgafRepeatSeq::mapMaxval;
+std::_MAP_<std::string, int> GgafRepeatSeq::mapMinval;
 
 void GgafRepeatSeq::create(string ID, int min, int max) {
     if (isExist(ID)) {
@@ -18,7 +18,7 @@ void GgafRepeatSeq::create(string ID, int min, int max) {
 
 
 bool GgafRepeatSeq::isExist(string ID) {
-    map<string, int>::iterator i = mapNowval.find(ID);
+    _MAP_<string, int>::iterator i = mapNowval.find(ID);
     if(i != mapNowval.end()){
         return true;
     } else {

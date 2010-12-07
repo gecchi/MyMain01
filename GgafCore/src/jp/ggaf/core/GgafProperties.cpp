@@ -3,13 +3,13 @@ using namespace std;
 
 using namespace GgafCore;
 
-map<string, string>* GgafProperties::_pMapProperties = NULL;
+_MAP_<string, string>* GgafProperties::_pMapProperties = NULL;
 
 UINT32* GgafProperties::MAX_SKIP_FRAME = NULL;
 
 void GgafProperties::load(string prm_properties_filename) {
     if (_pMapProperties == NULL) {
-        _pMapProperties = NEW map<string, string>();
+        _pMapProperties = NEW _MAP_<string, string>();
         int ret = read(prm_properties_filename);
         if (ret != 0) {
             throwGgafCriticalException("GgafProperties::load() Error! "<<prm_properties_filename<<"のread()に失敗。ステート→"<<ret);
@@ -78,7 +78,7 @@ void GgafProperties::parse(char* p) {
             }
             *p = '\0';
             value = pChar_Token;
-            _pMapProperties->insert(map<string, string>::value_type(key, value));
+            _pMapProperties->insert(_MAP_<string, string>::value_type(key, value));
             pChar_Token = NULL;
         } else {
             if (!pChar_Token) {
@@ -153,7 +153,7 @@ double* GgafProperties::getDouble(string prm_key) {
 }
 
 bool GgafProperties::isExistKey(string prm_key) {
-    map<string, string>::iterator itr;
+    _MAP_<string, string>::iterator itr;
     itr = _pMapProperties->find(prm_key);
     if (itr != _pMapProperties->end()) {
         return true;
