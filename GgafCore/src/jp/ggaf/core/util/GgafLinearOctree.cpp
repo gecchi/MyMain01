@@ -6,14 +6,15 @@ using namespace GgafCore;
 GgafLinearOctree::GgafLinearOctree(int prm_level) {
     _top_space_level = prm_level;
     //べき乗作成
-    _paPow = NEW UINT32[SPACE_MAXLEVEL+1];
+    _paPow = NEW UINT32[(prm_level+1)+1];
     _paPow[0] = 1;
-    for(int i = 1; i < SPACE_MAXLEVEL + 1; i++) {
+    for(int i = 1; i < (prm_level+1)+1; i++) {
         _paPow[i] = _paPow[i-1] * 8;
+        //_TRACE_("_paPow["<<i<<"]="<<_paPow[i]);
     }
     //線形８分木配列作成
     _num_space = (int)((_paPow[_top_space_level+1] -1) / 7); //空間数
-    _TRACE_("_num_space="<<_num_space);
+    _TRACE_("線形８分木空間配列要素数 _num_space="<<_num_space);
     _paSpace = NEW GgafLinearOctreeSpace[_num_space];
     for (UINT32 i = 0; i < _num_space; i++) {
         _paSpace[i]._my_index = i;
@@ -29,9 +30,9 @@ void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int 
     _root_X2 = X2;
     _root_Y2 = Y2;
     _root_Z2 = Z2;
-    _top_level_dX = (_root_X2-_root_X1) / ((float)(1<<_top_space_level));
-    _top_level_dY = (_root_Y2-_root_Y1) / ((float)(1<<_top_space_level));
-    _top_level_dZ = (_root_Z2-_root_Z1) / ((float)(1<<_top_space_level));
+    _top_level_dX = ((_root_X2-_root_X1) / ((float)(1<<_top_space_level))) + 1;
+    _top_level_dY = ((_root_Y2-_root_Y1) / ((float)(1<<_top_space_level))) + 1;
+    _top_level_dZ = ((_root_Z2-_root_Z1) / ((float)(1<<_top_space_level))) + 1; //+1は空間数をオーバーしないように余裕をもたせるため
 }
 
 void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
@@ -39,6 +40,7 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int 
     if (index == 0xffffffff) {
         return; //空間外は登録しない
     }
+
 #ifdef MY_DEBUG
     if (index > _num_space-1) {
         throwGgafCriticalException(
@@ -50,7 +52,6 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int 
         );
     }
 #endif
-
 
     if (prm_pElem->_pSpace_Current == NULL) {
         //登録Elemリストに追加
@@ -93,21 +94,30 @@ void GgafLinearOctree::clearElem() {
 }
 
 UINT32 GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
-    //tX1 - _root_X1 などが負になった場合ルート空間よりはみ出てしまう。その場合は-1を返す
-    if (tX1 <= _root_X1 || tX2 >= _root_X2 || tY1 <= _root_Y1 || tY2 >= _root_Y2 || tZ1 <= _root_Z1 || tZ2 >= _root_Z2) {
+
+    //はみ出る場合は補正
+    if (tX1 <= _root_X1)  { tX1 = _root_X1+1; }
+    if (tX2 >= _root_X2)  { tX2 = _root_X2-1; }
+    if (tY1 <= _root_Y1)  { tY1 = _root_Y1+1; }
+    if (tY2 >= _root_Y2)  { tY2 = _root_Y2-1; }
+    if (tZ1 <= _root_Z1)  { tZ1 = _root_Z1+1; }
+    if (tZ2 >= _root_Z2)  { tZ2 = _root_Z2-1; }
+
+    //軸座標が裏返った場合、つまりLevel0より完全に外になる場合は無視するために0xffffffffを返す
+    if (tX1 >= tX2 || tY1 >= tY2 || tZ1 >= tZ2) {
         return 0xffffffff;
     }
 
     //まず、BOXの所属空間 Level と、その空間Levelのモートン順序通し空間番号を求める
 
-    //BOXの左上手前のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
+    //BOXの左下手前のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
     UINT32 minnum_in_toplevel = getMortonOrderNumFromXYZindex(
                                   (UINT32)((tX1 - _root_X1) / _top_level_dX),
                                   (UINT32)((tY1 - _root_Y1) / _top_level_dY),
                                   (UINT32)((tZ1 - _root_Z1) / _top_level_dZ)
                                 );
 
-    //BOXの右下奥のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
+    //BOXの右上奥のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
     UINT32 maxnum_in_toplevel = getMortonOrderNumFromXYZindex(
                                   (UINT32)((tX2 - _root_X1) / _top_level_dX),
                                   (UINT32)((tY2 - _root_Y1) / _top_level_dY),
@@ -210,6 +220,30 @@ UINT32 GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int
     //所望の所属空間レベルは 2の最初の空間は配列は 9+1 の10番目から始まる。
     //配列の10番目とは、配列要素番号は-1して9になる。
     //+1 して -1 するので結局、所属空間レベルxの最初の配列要素番号は  (8^x - 1) / 7 となる
+
+
+#ifdef MY_DEBUG
+    if (index > _num_space-1) {
+
+        _TRACE_(
+           "GgafLinearOctree::registElem() 空間オーバー !. \n"<<
+           "Root=("<<_root_X1<<","<<_root_Y1<<","<<_root_Z1<<")-("<<_root_X2<<","<<_root_Y2<<","<<_root_Z2<<")\n"<<
+           "Elem=("<<tX1<<","<<tY1<<","<<tZ1<<")-("<<tX2<<","<<tY2<<","<<tZ2<<")\n"<<
+           "_top_level_dX="<<_top_level_dX<<" _top_level_dY="<<_top_level_dY<<" _top_level_dZ="<<_top_level_dZ<<"\n"<<
+           "minnum_in_toplevel="<<minnum_in_toplevel<<" maxnum_in_toplevel="<<maxnum_in_toplevel<<"\n"<<
+           "differ_bit_pos="<<differ_bit_pos<<" shift_num="<<shift_num<<" morton_order_space_num="<<morton_order_space_num<<"\n"<<
+           "index="<<index<<" _num_space="<<_num_space
+        );
+        _TRACE_("Min_X_index="<<((UINT32)((tX1 - _root_X1) / _top_level_dX)));
+        _TRACE_("Min_Y_index="<<((UINT32)((tY1 - _root_Y1) / _top_level_dY)));
+        _TRACE_("Min_Z_index="<<((UINT32)((tZ1 - _root_Z1) / _top_level_dZ)));
+        _TRACE_("Man_X_index="<<((UINT32)((tX2 - _root_X1) / _top_level_dX)));
+        _TRACE_("Man_Y_index="<<((UINT32)((tY2 - _root_Y1) / _top_level_dY)));
+        _TRACE_("Man_Z_index="<<((UINT32)((tZ2 - _root_Z1) / _top_level_dZ)));
+    }
+#endif
+
+
     return index;
 }
 

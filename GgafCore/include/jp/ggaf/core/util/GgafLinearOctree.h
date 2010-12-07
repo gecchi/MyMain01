@@ -10,7 +10,7 @@ namespace GgafCore {
 //                                            2009/01/13 Masatoshi Tsuge
 
 
-#define SPACE_MAXLEVEL 7
+//#define SPACE_MAXLEVEL 6
 /**
  * 線形八分木クラス .
  * 線形八分木とは、八分木空間分割手法の各空間を、一列の配列(線形)に並べた状態を意味します。
