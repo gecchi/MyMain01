@@ -26,6 +26,8 @@ public:
 
     void onActive() override;
 
+    void onInactive() override;
+
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */

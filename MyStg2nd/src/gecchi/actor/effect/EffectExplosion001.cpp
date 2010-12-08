@@ -39,5 +39,10 @@ void EffectExplosion001::processJudgement() {
     }
 }
 
+void EffectExplosion001::onInactive() {
+    _pMover->resetMv();
+}
+
+
 EffectExplosion001::~EffectExplosion001() {
 }

@@ -141,6 +141,7 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
         if (pExplo001 != NULL) {
             pExplo001->activate();
             pExplo001->setCoordinateBy(this);
+            pExplo001->_pMover->takeoverMvFrom(_pMover);
         }
 
         //自機側に撃たれて消滅、かつフォメーション所属の場合、

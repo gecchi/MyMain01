@@ -44,8 +44,8 @@ void MyTorpedo::onActive() {
     _pMover->setFaceAngVelo(AXIS_X, 3*1000);
     _pMover->setFaceAngVelo(AXIS_Y, 5*1000);
     _pMover->setFaceAngVelo(AXIS_Z, 7*1000);
-    _pMover->setMvVelo(5000);
-    _pMover->setMvAcce(-200);
+    _pMover->setMvVelo(20000);
+    _pMover->setMvAcce(-1000);
     _pMover->setRzMvAngVelo(0);
     _pMover->setRyMvAngVelo(0);
     _pMover->setRzMvAngAcce(0);
@@ -89,12 +89,12 @@ void MyTorpedo::processBehavior() {
                 if (_pTarget) {
                     _pMover->execTagettingMvAngSequence(
                                 _pTarget,
-                                2000, 100,
+                                2000, 200,
                                 TURN_CLOSE_TO, false);
                 } else {
                     _pMover->execTagettingMvAngSequence(
                                 GgafDx9Universe::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
-                                2000, 100,
+                                2000, 200,
                                 TURN_CLOSE_TO, false);
                 }
                 _move_section++;
@@ -119,7 +119,7 @@ void MyTorpedo::processBehavior() {
                         if (_pTarget->isActive())  {
                             _pMover->execTagettingMvAngSequence(
                                         _pTarget,
-                                        2000, 500,
+                                        1000, 200,
                                         TURN_CLOSE_TO, false);
                         } else {
                             //‚Ü‚Á‚·‚®
@@ -131,7 +131,7 @@ void MyTorpedo::processBehavior() {
                     } else {
                             _pMover->execTagettingMvAngSequence(
                                         GgafDx9Universe::_X_goneRight, _Y, _Z,
-                                        2000, 500,
+                                        1000, 200,
                                         TURN_CLOSE_TO, false);
                     }
                 } else {

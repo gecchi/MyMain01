@@ -140,6 +140,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
         if (pExplo001 != NULL) {
             pExplo001->activate();
             pExplo001->setCoordinateBy(this);
+            pExplo001->_pMover->takeoverMvFrom(_pMover);
         }
         setHitAble(false); //同一フレーム内で複数回ヒットさせないため重要
         sayonara();
