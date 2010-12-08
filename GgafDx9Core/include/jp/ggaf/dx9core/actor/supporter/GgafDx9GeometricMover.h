@@ -868,6 +868,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     bool isMoveingSmooth();
 
 
+    void takeoverMvFrom(GgafDx9GeometricMover* prm_pMover);
+
+    void resetMv();
+
 
     /**
      * 毎フレームのActorの振る舞い。<BR>

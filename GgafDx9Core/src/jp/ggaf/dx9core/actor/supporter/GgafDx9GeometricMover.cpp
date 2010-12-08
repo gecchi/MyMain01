@@ -1730,6 +1730,126 @@ void GgafDx9GeometricMover::execTagettingRyMvAngSequence(angle prm_angRy_Target,
 }
 
 
+void GgafDx9GeometricMover::takeoverMvFrom(GgafDx9GeometricMover* prm_pMover) {
+    // キャラの移動方角単位ベクトル
+    _vX = prm_pMover->_vX;
+    _vY = prm_pMover->_vY;
+    _vZ = prm_pMover->_vZ;
+    // 移動方角のZ軸回転角
+    _angRzMv = prm_pMover->_angRzMv;
+    // 移動方角のY軸回転角
+    _angRyMv = prm_pMover->_angRyMv;
+    // 移動速度
+    _veloMv = prm_pMover->_veloMv;
+    // 移動速度上限
+    _veloTopMv = prm_pMover->_veloTopMv;
+    // 移動速度下限
+    _veloBottomMv = prm_pMover->_veloBottomMv;
+    // 移動加速度
+    _accMv = prm_pMover->_accMv;
+    // 移動躍度
+    _jerkMv = prm_pMover->_jerkMv;
+
+    // X軸方向移動速度
+    _veloVxMv = prm_pMover->_veloVxMv;
+    // X軸方向移動速度上限
+    _veloTopVxMv = prm_pMover->_veloTopVxMv;
+    // X軸方向移動速度下限
+    _veloBottomVxMv = prm_pMover->_veloBottomVxMv;
+    // X軸方向移動加速度
+    _acceVxMv = prm_pMover->_acceVxMv;
+    // X軸方向移動加速度上限
+    _acceTopVxMv = prm_pMover->_acceTopVxMv;
+    // X軸方向移動加速度下限
+    _acceBottomVxMv = prm_pMover->_acceBottomVxMv;
+    // Y軸方向移動速度
+    _veloVyMv = prm_pMover->_veloVyMv;
+    // Y軸方向移動速度上限
+    _veloTopVyMv = prm_pMover->_veloTopVyMv;
+    // Y軸方向移動速度下限
+    _veloBottomVyMv = prm_pMover->_veloBottomVyMv;
+    // Y軸方向移動加速度
+    _acceVyMv = prm_pMover->_acceVyMv;
+    // Y軸方向移動加速度上限
+    _acceTopVyMv = prm_pMover->_acceTopVyMv;
+    // Y軸方向移動加速度下限
+    _acceBottomVyMv = prm_pMover->_acceBottomVyMv;
+    // Z軸方向移動速度
+    _veloVzMv = prm_pMover->_veloVzMv;
+    // Z軸方向移動速度上限
+    _veloTopVzMv = prm_pMover->_veloTopVzMv;
+    // Z軸方向移動速度下限
+    _veloBottomVzMv = prm_pMover->_veloBottomVzMv;
+    // Z軸方向移動加速度
+    _acceVzMv = prm_pMover->_acceVzMv;
+    // Z軸方向移動加速度上限
+    _acceTopVzMv = prm_pMover->_acceTopVzMv;
+    // Z軸方向移動加速度下限
+    _acceBottomVzMv = prm_pMover->_acceBottomVzMv;
+
+}
+
+void GgafDx9GeometricMover::resetMv() {
+    //キャラの移動方角単位ベクトル
+    _vX = _vY = _vZ = 0.0f;
+    //移動方角のZ軸回転
+    _angRzMv = 0;
+    //移動方角のY軸回転
+    _angRyMv = 0;
+    //移動速度
+    _veloMv = 0;
+    //移動速度上限 = 256 px/fream
+    _veloTopMv = 256 * LEN_UNIT; //_veloMv が 256000(=256px) を上回る移動量であっても、強制的に座標増分は 256px に抑えられる。
+    //移動速度下限 = 0   px/fream
+    _veloBottomMv = -256 * LEN_UNIT; //_veloMv が -256000(-256px) を下回る移動量があっても、強制的に座標増分は -256000px に抑えられる。
+    //移動加速度（移動速度の増分） = 0 px/fream^2
+    _accMv = 0; //_veloMv の増分。デフォルトは加速無し
+
+    _jerkMv = 0;
+    //移動方角（Z軸回転）の角速度 = 0 angle/fream
+    _angveloRzMv = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
+    //移動方角（Z軸回転）の角速度上限 = +360,000 angle/fream
+    _angveloRzTopMv = ANGLE360; //_angveloRzMv の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+    //移動方角（Z軸回転）の角速度下限 = -360,000 angle/fream
+    _angveloRzBottomMv = ANGLE360 * -1; //_angveloRzMv の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+    //移動方角（Z軸回転）の角加速度 = 0 angle/fream^2
+    _angacceRzMv = 0; //_angveloRzMv の増分。デフォルトは移動方角の角加速度無し
+
+    _angjerkRzMv = 0;
+
+    //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
+    _veloVxMv = 0;
+    //X軸方向移動速度上限 ＝ 256 px/fream
+    _veloTopVxMv = 256 * LEN_UNIT;
+    //X軸方向移動速度下限 ＝ 256 px/fream
+    _veloBottomVxMv = -256 * LEN_UNIT;
+    //X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
+    _acceVxMv = 0;
+    _acceTopVxMv = 256 * LEN_UNIT;
+    _acceBottomVxMv = -256 * LEN_UNIT;
+    //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
+    _veloVyMv = 0;
+    //Y軸方向移動速度上限 ＝ 256 px/fream
+    _veloTopVyMv = 256 * LEN_UNIT;
+    //Y軸方向移動速度下限 ＝ 256 px/fream
+    _veloBottomVyMv = -256 * LEN_UNIT;
+    //Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
+    _acceVyMv = 0;
+
+    _acceTopVyMv = 256 * LEN_UNIT;
+    _acceBottomVyMv = -256 * LEN_UNIT;
+
+    //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
+    _veloVzMv = 0;
+    //Z軸方向移動速度上限 ＝ 256 px/fream
+    _veloTopVzMv = 256 * LEN_UNIT;
+    //Z軸方向移動速度下限 ＝ 256 px/fream
+    _veloBottomVzMv = -256 * LEN_UNIT;
+    //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
+    _acceVzMv = 0;
+    _acceTopVzMv = 256 * LEN_UNIT;
+    _acceBottomVzMv = -256 * LEN_UNIT;
+}
 
 GgafDx9GeometricMover::~GgafDx9GeometricMover() {
 }
