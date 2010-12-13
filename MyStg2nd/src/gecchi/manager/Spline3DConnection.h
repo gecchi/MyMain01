@@ -1,5 +1,5 @@
-#ifndef DEFINITESPLINECONNECTION_H_
-#define DEFINITESPLINECONNECTION_H_
+#ifndef SPLINE3DCONNECTION_H_
+#define SPLINE3DCONNECTION_H_
 namespace MyStg2nd {
 
 /**
@@ -12,6 +12,12 @@ class Spline3DConnection : public GgafCore::GgafResourceConnection<GgafDx9Core::
 
 public:
 
+    double _accuracy;
+    frame _spent_frame;
+    angvelo _angveloRzRyMv;
+    std::string _classname;
+
+
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名
@@ -21,9 +27,11 @@ public:
 
     void processReleaseResource(GgafDx9Core::GgafDx9Spline3D* prm_pResource);
 
+    GgafDx9Core::GgafDx9SplineProgram* makeSplineProgram();
+
     virtual ~Spline3DConnection() {
     }
 };
 
 }
-#endif /*DEFINITESPLINECONNECTION_H_*/
+#endif /*SPLINE3DCONNECTION_H_*/

@@ -14,8 +14,8 @@ public:
     /** パラスの発射弾の借り入れ元Dispatcher資源への接続 */
     DispatcherConnection* _pDispatcherCon;
     /** スプライン定義資源への接続 */
-    Spline3DConnection* _pSplineCon;
-
+//    Spline3DConnection* _pSplineCon;
+    SplineProgramConnection* _pSpProgCon;
     /** 編隊数(RANK変動) */
     int _num_Pallas;
     /** パラスの配列(RANK変動) */

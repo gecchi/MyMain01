@@ -1,5 +1,5 @@
-#ifndef DEFINITESPLINEMANAGER_H_
-#define DEFINITESPLINEMANAGER_H_
+#ifndef SPLINE3DMANAGER_H_
+#define SPLINE3DMANAGER_H_
 namespace MyStg2nd {
 
 /**
@@ -29,9 +29,10 @@ public:
 
     GgafCore::GgafResourceConnection<GgafDx9Core::GgafDx9Spline3D>* processCreateConnection(char* prm_idstr, GgafDx9Core::GgafDx9Spline3D* prm_pResource);
 
+
     virtual ~Spline3DManager() {
     }
 };
 
 }
-#endif /*GGAFDX9BGMMANAGER_H_*/
+#endif /*SPLINE3DMANAGER_H_*/
