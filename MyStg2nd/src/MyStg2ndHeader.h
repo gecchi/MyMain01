@@ -285,10 +285,13 @@ class FormationThalia;
 
 class DispatcherConnection;
 class DispatcherManager;
+
+class SplineSource;
 class Spline3DConnection;
 class Spline3DManager;
-class SplineProgramConnection;
-class SplineProgramManager;
+class SplineConnection;
+class SplineManager;
+
 class CameraWorkerManager;
 class CameraWorkerConnection;
 
@@ -452,12 +455,13 @@ class VamSysCamPosition;
 #include "gecchi/util/MyStgUtil.h"
 #include "gecchi/util/VamSysCamPosition.h"
 #include "gecchi/MyFactory.h"
+#include "gecchi/util/SplineSource.h"
 #include "gecchi/manager/DispatcherManager.h"
 #include "gecchi/manager/DispatcherConnection.h"
 #include "gecchi/manager/Spline3DManager.h"
 #include "gecchi/manager/Spline3DConnection.h"
-#include "gecchi/manager/SplineProgramManager.h"
-#include "gecchi/manager/SplineProgramConnection.h"
+#include "gecchi/manager/SplineManager.h"
+#include "gecchi/manager/SplineConnection.h"
 #include "gecchi/actor/common/template/Formation001.hpp"
 
 #include "gecchi/actor/_predrawer/LaserChipEffectActor.h"

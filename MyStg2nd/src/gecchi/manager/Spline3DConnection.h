@@ -12,10 +12,10 @@ class Spline3DConnection : public GgafCore::GgafResourceConnection<GgafDx9Core::
 
 public:
 
-    double _accuracy;
-    frame _spent_frame;
-    angvelo _angveloRzRyMv;
-    std::string _classname;
+//    double _accuracy;
+//    frame _spent_frame;
+//    angvelo _angveloRzRyMv;
+//    std::string _classname;
 
 
     /**
@@ -27,7 +27,7 @@ public:
 
     void processReleaseResource(GgafDx9Core::GgafDx9Spline3D* prm_pResource);
 
-    GgafDx9Core::GgafDx9SplineProgram* makeSplineProgram();
+//    GgafDx9Core::GgafDx9SplineProgram* makeSplineProgram();
 
     virtual ~Spline3DConnection() {
     }

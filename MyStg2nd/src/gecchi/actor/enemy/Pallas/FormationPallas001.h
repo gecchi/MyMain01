@@ -15,7 +15,8 @@ public:
     DispatcherConnection* _pDispatcherCon;
     /** スプライン定義資源への接続 */
 //    Spline3DConnection* _pSplineCon;
-    SplineProgramConnection* _pSpProgCon;
+//    SplineConnection* _pSpProgCon;
+    SplineConnection* _pSplineCon;
     /** 編隊数(RANK変動) */
     int _num_Pallas;
     /** パラスの配列(RANK変動) */
