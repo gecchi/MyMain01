@@ -2,6 +2,12 @@
 #define SPLINESOURCE_H_
 namespace MyStg2nd {
 
+/**
+ * Splineオブジェクトソース .
+ * @version 1.00
+ * @since 2010/12/14
+ * @author Masatoshi Tsuge
+ */
 class SplineSource : public GgafCore::GgafObject {
 
 public:

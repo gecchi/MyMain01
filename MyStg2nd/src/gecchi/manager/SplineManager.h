@@ -6,7 +6,7 @@ namespace MyStg2nd {
  * Spline 管理クラス .
  * 生成済み SplineSource オブジェクトを登録しておき、使いまわします。
  * @version 1.00
- * @since 2010/05/31
+ * @since 2010/12/14
  * @author Masatoshi Tsuge
  */
 class SplineManager : public GgafCore::GgafResourceManager<SplineSource> {

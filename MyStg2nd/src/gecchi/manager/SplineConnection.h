@@ -5,7 +5,7 @@ namespace MyStg2nd {
 /**
  * SplineSource資源コネクション.
  * @version 1.00
- * @since 2010/05/31
+ * @since 2010/12/14
  * @author Masatoshi Tsuge
  */
 class SplineConnection : public GgafCore::GgafResourceConnection<SplineSource> {
