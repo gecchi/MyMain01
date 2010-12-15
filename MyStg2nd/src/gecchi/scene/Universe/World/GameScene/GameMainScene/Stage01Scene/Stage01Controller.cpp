@@ -15,14 +15,14 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,200,1000,1200,2000,2200,3000,4000};
+	frame f[] = {1,100,1000,2200,4000,6200,8000,8200,10000};
 	_paFrame_NextEvent = new frame[9];
 	for (int i = 0; i < 9; i++) {
 		_paFrame_NextEvent[i] = f[i];
 	}
-	orderSceneToFactory(11017100, Stage01_01, "Stage01_01");
-	orderSceneToFactory(110271000, Stage01WalledScene, "GroStage01WalledScene");
-	orderActorToFactory(11076100, EnemyAstraea, "Astraea_1");
+	orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
+	orderSceneToFactory(10000001, Stage01WalledScene, "GroStage01WalledScene");
+	orderActorToFactory(10000005, EnemyAstraea, "Astraea_1");
     // gen01 end
     useProgress(10);
 }
@@ -39,57 +39,54 @@ void Stage01Controller::processBehavior() {
     // gen02 start
 	if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
 		switch (getActivePartFrame()) {
-			case 1:
+			case 1: {
 				break;
-			case 100:
-				{
-				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(11017100);
+			}
+			case 100: {
+				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
 				addSubLast(pScene);
 				_pProgress->change(STAGE01CONTROLLER_SCENE_PROG_STG01_01_BEGIN);
-				}
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11076100);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(10000005);
 				getLordActor()->addSubGroup(pActor);
 				pActor->_Z = -1800000;
 				pActor->_Y = -100000;
-				}
 				break;
-			case 200:
-				orderSceneToFactory(110372000, Stage01_02, "Stage01_02");
-				break;
-			case 1000:
-				{
-				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(110271000);
+			}
+			case 1000: {
+				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000001);
 				addSubLast(pScene);
-				}
 				break;
-			case 1200:
-				orderSceneToFactory(110473000, Stage01_03, "Stage01_03");
+			}
+			case 2200: {
+				orderSceneToFactory(10000002, Stage01_02, "Stage01_02");
 				break;
-			case 2000:
-				{
-				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(110372000);
+			}
+			case 4000: {
+				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000002);
 				addSubLast(pScene);
 				_pProgress->change(STAGE01CONTROLLER_SCENE_PROG_STG01_02_BEGIN);
-				}
 				break;
-			case 2200:
-				orderSceneToFactory(110574000, Stage01_Climax, "Stage01_Climax");
+			}
+			case 6200: {
+				orderSceneToFactory(10000003, Stage01_03, "Stage01_03");
 				break;
-			case 3000:
-				{
-				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(110473000);
+			}
+			case 8000: {
+				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000003);
 				addSubLast(pScene);
 				_pProgress->change(STAGE01CONTROLLER_SCENE_PROG_STG01_03_BEGIN);
-				}
 				break;
-			case 4000:
-				{
-				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(110574000);
+			}
+			case 8200: {
+				orderSceneToFactory(10000004, Stage01_Climax, "Stage01_Climax");
+				break;
+			}
+			case 10000: {
+				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000004);
 				addSubLast(pScene);
 				_pProgress->change(STAGE01CONTROLLER_SCENE_PROG_STG01_CLIMAX_BEGIN);
-				}
 				break;
+			}
 			default :
 				break;
 		}

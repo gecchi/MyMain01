@@ -41,12 +41,12 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-    frame f[] = {1,100};
-    _paFrame_NextEvent = new frame[2];
-    for (int i = 0; i < 2; i++) {
-        _paFrame_NextEvent[i] = f[i];
-    }
-    orderActorToFactory(21037100, FormationThalia, "FormationThalia_1");
+	frame f[] = {1,100};
+	_paFrame_NextEvent = new frame[2];
+	for (int i = 0; i < 2; i++) {
+		_paFrame_NextEvent[i] = f[i];
+	}
+	orderActorToFactory(20000000, FormationThalia, "FormationThalia_1");
     // gen01 end
 }
 
@@ -67,21 +67,21 @@ void Stage01WalledScene::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-    if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
-        switch (getActivePartFrame()) {
-            case 1:
-                break;
-            case 100:
-                {
-                FormationThalia* pActor = (FormationThalia*)obtainActorFromFactory(21037100);
-                getLordActor()->addSubGroup(pActor);
-                }
-                break;
-            default :
-                break;
-        }
-        _iCnt_Event = (_iCnt_Event < 2-1 ? _iCnt_Event+1 : _iCnt_Event);
-    }
+	if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
+		switch (getActivePartFrame()) {
+			case 1: {
+				break;
+			}
+			case 100: {
+				FormationThalia* pF = (FormationThalia*)obtainActorFromFactory(20000000);
+				getLordActor()->addSubGroup(pF);
+				break;
+			}
+			default :
+				break;
+		}
+		_iCnt_Event = (_iCnt_Event < 2-1 ? _iCnt_Event+1 : _iCnt_Event);
+	}
     // gen02 end
 }
 

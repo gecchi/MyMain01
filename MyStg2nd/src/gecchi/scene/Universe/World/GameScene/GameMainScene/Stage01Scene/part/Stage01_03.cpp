@@ -11,21 +11,21 @@ Stage01_03::Stage01_03(const char* prm_name) : DefaultScene(prm_name) {
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,200,4000};
-	_paFrame_NextEvent = new frame[4];
-	for (int i = 0; i < 4; i++) {
+	frame f[] = {1,100,200,2200,4000,8000};
+	_paFrame_NextEvent = new frame[6];
+	for (int i = 0; i < 6; i++) {
 		_paFrame_NextEvent[i] = f[i];
 	}
-	orderActorToFactory(51027200, FormationIris002, "F002_Iris_1");
-	orderActorToFactory(51037100, FormationIris002, "F002_Iris_2");
+	orderActorToFactory(50000000, FormationIris002, "F002_Iris_1");
+	orderActorToFactory(50000001, FormationIris002, "F002_Iris_2");
 	
-	orderActorToFactory(51087100, FormationIris002, "F002_Iris_3");
-	orderActorToFactory(51097100, FormationIris001, "F001_Iris_4");
-	orderActorToFactory(51107100, FormationIris001, "F001_Iris_5");
-	orderActorToFactory(51117100, FormationIris002, "F002_Iris_6");
-	orderActorToFactory(51127100, FormationIris001, "F001_Iris_7");
-	orderActorToFactory(51137100, FormationIris002, "F002_Iris_8");
-	orderActorToFactory(51207100, VarietyTorus001, "VarietyTorus001_9");
+	orderActorToFactory(50000003, FormationIris002, "F002_Iris_3");
+	orderActorToFactory(50000004, FormationIris001, "F001_Iris_4");
+	orderActorToFactory(50000005, FormationIris001, "F001_Iris_5");
+	orderActorToFactory(50000006, FormationIris002, "F002_Iris_6");
+	orderActorToFactory(50000007, FormationIris001, "F001_Iris_7");
+	orderActorToFactory(50000008, FormationIris002, "F002_Iris_8");
+	orderActorToFactory(50000009, VarietyTorus001, "VarietyTorus001_9");
     // gen01 end
 }
 
@@ -39,42 +39,49 @@ void Stage01_03::processBehavior() {
     // gen02 start
 	if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
 		switch (getActivePartFrame()) {
-			case 1:
+			case 1: {
 				break;
-			case 100:
+			}
+			case 100: {
+				FormationIris002* pF2 = (FormationIris002*)obtainActorFromFactory(50000001);
+				getLordActor()->addSubGroup(pF2);
 				{
-				FormationIris002* pActor = (FormationIris002*)obtainActorFromFactory(51037100);
-				getLordActor()->addSubGroup(pActor);
-				}
-				{
-				ActorTableScene* ta = NEW ActorTableScene("TableScene_51077100");
+				ActorTableScene* ta = NEW ActorTableScene("TableScene_50000002");
 				ta->setMaxPerformFrame(2000);
 				addSubLast(ta);
-				ta->addToTable(((FormationIris002*)obtainActorFromFactory(51087100)), 400);
-				ta->addToTable(((FormationIris001*)obtainActorFromFactory(51097100)), 400);
-				ta->addToTable(((FormationIris001*)obtainActorFromFactory(51107100)), 400);
-				ta->addToTable(((FormationIris002*)obtainActorFromFactory(51117100)), 400);
-				ta->addToTable(((FormationIris001*)obtainActorFromFactory(51127100)), 400);
-				ta->addToTable(((FormationIris002*)obtainActorFromFactory(51137100)), 400);
+				ta->addToTable(((FormationIris002*)obtainActorFromFactory(50000003)), 400);
+				ta->addToTable(((FormationIris001*)obtainActorFromFactory(50000004)), 400);
+				ta->addToTable(((FormationIris001*)obtainActorFromFactory(50000005)), 400);
+				ta->addToTable(((FormationIris002*)obtainActorFromFactory(50000006)), 400);
+				ta->addToTable(((FormationIris001*)obtainActorFromFactory(50000007)), 400);
+				ta->addToTable(((FormationIris002*)obtainActorFromFactory(50000008)), 400);
 				}
-				{
-				VarietyTorus001* pActor = (VarietyTorus001*)obtainActorFromFactory(51207100);
-				getLordActor()->addSubGroup(pActor);
-				}
+				VarietyTorus001* pTorus = (VarietyTorus001*)obtainActorFromFactory(50000009);
+				getLordActor()->addSubGroup(pTorus);
 				break;
-			case 200:
-				{
-				FormationIris002* pActor = (FormationIris002*)obtainActorFromFactory(51027200);
-				getLordActor()->addSubGroup(pActor);
-				}
+			}
+			case 200: {
+				FormationIris002* pF1 = (FormationIris002*)obtainActorFromFactory(50000000);
+				getLordActor()->addSubGroup(pF1);
 				break;
-			case 4000:
+			}
+			case 2200: {
+				orderActorToFactory(50000010, VarietyTorus002, "VarietyTorus002_10");
+				break;
+			}
+			case 4000: {
+				VarietyTorus002* pTorus = (VarietyTorus002*)obtainActorFromFactory(50000010);
+				getLordActor()->addSubGroup(pTorus);
+				break;
+			}
+			case 8000: {
 				throwEventToUpperTree(EVENT_STG01_03_WAS_BROKEN,this);
 				break;
+			}
 			default :
 				break;
 		}
-		_iCnt_Event = (_iCnt_Event < 4-1 ? _iCnt_Event+1 : _iCnt_Event);
+		_iCnt_Event = (_iCnt_Event < 6-1 ? _iCnt_Event+1 : _iCnt_Event);
 	}
     // gen02 end
 }
