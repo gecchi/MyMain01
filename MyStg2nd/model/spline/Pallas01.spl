@@ -1,7 +1,4 @@
-[CLASS]
-GgafDx9FixedFrameSplineProgram 360 6000
-
-[POINT]
+[BASEPOINT]
 #       X         Y         Z
 -1.724577  0.000000  0.000000
 -0.964337 -0.088378 -0.344892
@@ -23,4 +20,7 @@ GgafDx9FixedFrameSplineProgram 360 6000
 
 [ACCURACY]
 0.2
+
+[CLASS]
+GgafDx9FixedFrameSplineProgram 420 6000
 

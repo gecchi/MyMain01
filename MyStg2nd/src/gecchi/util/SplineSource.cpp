@@ -22,23 +22,31 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
     string line;
     int n = 0;
     while( getline(ifs,line) ) {
-        if ( line.size() == 0 ) { continue; }
-        if ( line.c_str()[0] == '#' ) { continue; }
-        if ( line == "[CLASS]") {
-            getline(ifs,line);
-            istringstream iss(line);
-            iss >> _classname;
-            if ( _classname == "GgafDx9FixedFrameSplineProgram") {
-                iss >> _spent_frame;
-                iss >> _angveloRzRyMv;
-            } else if ( _classname == "GgafDx9FixedVelocitySplineProgram") {
-                iss >> _angveloRzRyMv;
-                _spent_frame = 0;
-            }
-        } else if ( line == "[POINT]") {
+        if (line.size() == 0 ) continue;
+        if (line.c_str()[0] == '#') continue;
+
+        LOOP_SPLFILE:
+        if (line.find("[CLASS]") != string::npos) {
             while( getline(ifs,line) ) {
-                if ( line.size() == 0 ) break;
-                if ( line.c_str()[0] == '#' ) continue;
+                if (line.size() == 0 ) break;
+                if (line.c_str()[0] == '#') continue;
+                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
+                istringstream iss(line);
+                iss >> _classname;
+                if (_classname == "GgafDx9FixedFrameSplineProgram") {
+                    iss >> _spent_frame;
+                    iss >> _angveloRzRyMv;
+                } else if (_classname == "GgafDx9FixedVelocitySplineProgram") {
+                    iss >> _angveloRzRyMv;
+                    _spent_frame = 0;
+                }
+            }
+        }
+        if (line.find("[BASEPOINT]") != string::npos) {
+            while( getline(ifs,line) ) {
+                if (line.size() == 0 ) break;
+                if (line.c_str()[0] == '#') continue;
+                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
                 istringstream iss(line);
                 iss >> p[n][0];
                 iss >> p[n][1];
@@ -50,10 +58,12 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
                 }
 #endif
             }
-        } else if ( line == "[ACCURACY]") {
+        }
+        if (line.find("[ACCURACY]") != string::npos) {
             while( getline(ifs,line) ) {
-                if ( line.size() == 0 ) break;
-                if ( line.c_str()[0] == '#' ) continue;
+                if (line.size() == 0 ) break;
+                if (line.c_str()[0] == '#') continue;
+                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
                 istringstream iss(line);
                 iss >> _accuracy;
             }
@@ -61,13 +71,13 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
     }
 #ifdef MY_DEBUG
     if (_classname.length() == 0) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" _classname がNULLです。");
+        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" _classname が指定されてません。");
     }
     if (n == 0) {
         throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" ポイントがありません。");
     }
 #endif
-    //-1.0 ～ 1.0 が 自機の移動可能範囲となる
+    //-1.0 ～ 1.0 が 自機の移動可能範囲とする
     for (int i = 0; i < n; i++) {
         p[i][0] = p[i][0] * MyShip::_lim_front; //X
         p[i][1] = p[i][1] * MyShip::_lim_top;   //Y
@@ -80,12 +90,14 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 
 GgafDx9SplineProgram* SplineSource::makeSplineProgram(GgafDx9GeometricActor* prm_pActor) {
     GgafDx9SplineProgram* pSpProg = NULL;
-    if ( _classname == "GgafDx9FixedFrameSplineProgram") {
+    if (_classname.find("GgafDx9FixedFrameSplineProgram") != string::npos) {
         pSpProg = NEW GgafDx9FixedFrameSplineProgram(prm_pActor, _pSp, _spent_frame, _angveloRzRyMv);
         //_TRACE_("pSpProg = NEW GgafDx9FixedFrameSplineProgram("<<prm_pActor->getName()<<", _pSp, "<<_accuracy<<", "<<_spent_frame<<", "<<_angveloRzRyMv<<");");
-    } else if ( _classname == "GgafDx9FixedVelocitySplineProgram") {
+    } else if (_classname.find("GgafDx9FixedVelocitySplineProgram") != string::npos) {
         pSpProg = NEW GgafDx9FixedVelocitySplineProgram(prm_pActor, _pSp, _angveloRzRyMv);
         //_TRACE_("pSpProg = NEW GgafDx9FixedVelocitySplineProgram("<<prm_pActor->getName()<<", _pSp, "<<_accuracy<<", "<<_angveloRzRyMv<<");");
+    } else {
+        throwGgafCriticalException("SplineSource::makeSplineProgram _classname="<<_classname<< "は不明なクラスです");
     }
     return pSpProg;
 }

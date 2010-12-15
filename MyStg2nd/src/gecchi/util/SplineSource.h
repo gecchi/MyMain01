@@ -19,7 +19,6 @@ public:
 
     SplineSource(char* prm_idstr);
 
-
     GgafDx9Core::GgafDx9SplineProgram* makeSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
 
 

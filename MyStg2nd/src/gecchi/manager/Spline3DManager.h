@@ -19,12 +19,6 @@ public:
      */
     Spline3DManager(const char* prm_manager_name);
 
-    /**
-     * ディスパッチャーを識別文字列から生成。
-     * 本アプリのスプライン座標セットはココに集約しようと思っている。
-     * @param prm_idstr
-     * @return GgafDx9Spline3Dオブジェクト
-     */
     GgafDx9Core::GgafDx9Spline3D* processCreateResource(char* prm_idstr, void* prm_p);
 
     GgafCore::GgafResourceConnection<GgafDx9Core::GgafDx9Spline3D>* processCreateConnection(char* prm_idstr, GgafDx9Core::GgafDx9Spline3D* prm_pResource);
