@@ -59,7 +59,7 @@ public:
                          double prm_accuracy);
     /**
      * コンストラクタ .
-     * 引数のGgafDx9Spline3Dを利用します。GgafDx9Spline3Dの解放は、呼び出し元で行ってください。
+     * 引数の生成済みGgafDx9Spline3Dオブジェクトを利用します。GgafDx9Spline3Dの解放は、呼び出し元で行ってください。
      * たくさんのオブジェクトに同じ動きをさせる場合は、こちらのコンストラクタで生成すべきです。
      * @param prm_pActor_target 対象のアクター
      * @param prm_sp スプライン曲線の補完点生成、保持クラスのインスタンス
