@@ -137,7 +137,7 @@ void GgafActor::dump() {
             if (pActor_tmp->_pNext != NULL) {
                 pActor_tmp = pActor_tmp->_pNext;
             } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
             if (pActor_tmp->_is_first_flg) {
@@ -184,7 +184,7 @@ void GgafActor::dump(string prm_parent) {
             if (pActor_tmp->_pNext != NULL) {
                 pActor_tmp = pActor_tmp->_pNext;
             } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
             if (pActor_tmp->_is_first_flg) {

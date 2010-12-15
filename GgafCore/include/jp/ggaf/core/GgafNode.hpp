@@ -417,7 +417,7 @@ template<class T>
 T* GgafNode<T>::getParent() {
 #ifdef MY_DEBUG
     if (_pParent == NULL) {
-        _TRACE_("[GgafNode<" << _class_name << ">::getParent()] ＜警告＞ 親ノードがありません。NULLを返します。");
+        //_TRACE_("[GgafNode<" << _class_name << ">::getParent()] ＜警告＞ 親ノードがありません。NULLを返します。");
     }
 #endif
     return (T*)_pParent;
@@ -430,7 +430,7 @@ T* GgafNode<T>::getParent(char* prm_parent_name) {
         _pNodeTemp = _pNodeTemp->_pParent;
         if (_pNodeTemp == NULL) {
 #ifdef MY_DEBUG
-            _TRACE_("[GgafNode<" << _class_name << ">::getParent("<<prm_parent_name<<")] ＜警告＞ 親ノードを遡って検索しましたがありません。NULLを返します。");
+            //_TRACE_("[GgafNode<" << _class_name << ">::getParent("<<prm_parent_name<<")] ＜警告＞ 親ノードを遡って検索しましたがありません。NULLを返します。");
 #endif
             return NULL;
         } else if (GgafUtil::strcmp_ascii(_pNodeTemp->_name, prm_parent_name) == 0) {

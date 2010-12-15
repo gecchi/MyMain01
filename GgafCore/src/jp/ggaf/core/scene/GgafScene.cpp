@@ -319,7 +319,7 @@ void GgafScene::dump() {
                 if (pScene_tmp->_pNext) {
                     pScene_tmp = pScene_tmp->_pNext;
                 } else {
-                    _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+                    _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ¢Ç‹Ç∑");
                     break;
                 }
                 if (pScene_tmp->_is_first_flg) {
@@ -367,7 +367,7 @@ void GgafScene::dump(string prm_parent) {
                 if (pScene_tmp->_pNext) {
                     pScene_tmp = pScene_tmp->_pNext;
                 } else {
-                    _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+                    _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ¢Ç‹Ç∑");
                     break;
                 }
                 if (pScene_tmp->_is_first_flg) {
