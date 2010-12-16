@@ -8,6 +8,7 @@ DefaultScene::DefaultScene(const char* prm_name) : GgafDx9Scene(prm_name) {
     _class_name = "DefaultScene";
     _paFrame_NextEvent = NULL;
     _iCnt_Event = 0;
+    _event_num = 0;
 }
 
 DefaultScene::~DefaultScene() {

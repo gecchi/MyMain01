@@ -12,9 +12,11 @@ namespace GgafDx9LibStg {
 class DefaultScene : public GgafDx9Core::GgafDx9Scene {
 public:
 
-    /** シーンイベント用のフレーム値の配列 */
+    /** シーンイベント用のフレーム値の配列(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     UINT32* _paFrame_NextEvent;
-    /** シーンのイベント数（_paFrame_NextEventの要素数） */
+    /** シーンのイベント数（_paFrame_NextEventの要素数）(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
+    int _event_num;
+    /** シーンの現在イベント(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     int _iCnt_Event;
 
     DefaultScene(const char* prm_name);
