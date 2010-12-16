@@ -68,6 +68,8 @@ gofiletop;
 
 $sepa = ",";
 gofiletop;
+insert "X , Y , Z\n";
+gofiletop;
 
 //データ最長文字数、レコード中りの最長データ数を求める
 #idx_col = 0;
@@ -125,31 +127,37 @@ insertreturn;
 insertreturn;
 
 //結果表示
+insert "[BASEPOINT]\n";
 #i = 0;
 while (#i < #source_line) {
 	#j = 0;
-	insert "{ ";
+	//insert ""; //{
 	while (#j < #idx_col+1) {
 		call PadStr $data[#i][#j], #max_datalen[#j];
 		insert $$return;
 		if (#j == #idx_col) {
 			//最後は区切り文字を入れない
 			if (#i == #source_line-1) {
-               insert " }";
+               //insert ""; //}
 			} else {
-				insert " },";
+				//insert "";//},
 			}
 		} else {
-			insert $sepa;
+			//insert $sepa; //,
 		}
 		#j = #j + 1;
+	}
+	if (#i == 0) {
+		golinetop2;
+		overwrite "#";
+		golineend2;
 	}
 	insert "\n";
 	#i = #i + 1;
 }
 //コピー
 gofiletop;
-searchdown "{" , casesense;
+searchdown "[" , casesense;
 beginsel
 down;
 gofileend;
