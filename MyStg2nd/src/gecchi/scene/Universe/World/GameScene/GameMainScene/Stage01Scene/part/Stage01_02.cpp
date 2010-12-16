@@ -12,9 +12,8 @@ Stage01_02::Stage01_02(const char* prm_name) : DefaultScene(prm_name) {
     // gen01 start
 	frame f[] = {1,100,200,500,800,1100,1400,1700,2000,2300,2600,2900,4000};
 	_paFrame_NextEvent = new frame[13];
-	for (int i = 0; i < 13; i++) {
-		_paFrame_NextEvent[i] = f[i];
-	}
+	memcpy(_paFrame_NextEvent, f, sizeof(f));
+	_event_num = 13;
 	orderActorToFactory(40000000, EnemyAstraea, "Astraea_1");
 	
 	orderActorToFactory(40000002, FormationPallas001a, "F001a_Pallas_2");
