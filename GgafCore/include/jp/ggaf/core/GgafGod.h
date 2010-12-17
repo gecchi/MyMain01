@@ -4,6 +4,9 @@ namespace GgafCore {
 
 #define  ___BeginSynchronized ::EnterCriticalSection(&(GgafCore::GgafGod::CS1))
 #define  ___EndSynchronized ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
+#define  SLOWDOWN_MODE_DEFAULT 0
+#define  SLOWDOWN_MODE_40FPS 1
+#define  SLOWDOWN_MODE_30FPS 2
 /**
  * 神クラス.
  * 主にこの世(GgafUniverse)を管理し操作することを目的とするクラスです。一番えらい。<BR>

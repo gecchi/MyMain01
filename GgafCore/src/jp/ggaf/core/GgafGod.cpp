@@ -43,7 +43,7 @@ GgafGod::GgafGod() : GgafObject(),
     _was_cleaned = false;
     _skip_count_of_frame = 0;
     _max_skip_frame = (int)GGAF_PROPERTY(MAX_SKIP_FRAME);
-    _slowdown_mode = 0;
+    _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     _sync_frame_time = false;
 }
 
@@ -68,20 +68,28 @@ void GgafGod::be() {
 
         if (_is_behaved_flg == false) {
             _is_behaved_flg = true;
-         ___BeginSynchronized; // ----->排他開始
+        ___BeginSynchronized; // ----->排他開始
             _frame_of_God++;
             presentUniversalMoment();
             executeUniversalJudge();
-         ___EndSynchronized; // <----- 排他終了
+        ___EndSynchronized; // <----- 排他終了
             //描画タイミングフレーム加算
-            //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_frame_of_God % 60]; //予定は変わらない
-            if (_num_actor_drawing > 500) {
-                _expected_time_of_next_frame += (DWORD)(_aaTime_OffsetOfNextFrame[0][_frame_of_God % 60] * 2);
-            } else if (_num_actor_drawing > 400) {
-                _expected_time_of_next_frame += (DWORD)(_aaTime_OffsetOfNextFrame[0][_frame_of_God % 60] * 1.5);
+            if (_num_actor_drawing > GGAF_PROPERTY(DRAWNUM_TO_SLOWDOWN2)) {
+                _slowdown_mode = SLOWDOWN_MODE_30FPS;
+            } else if (_num_actor_drawing > GGAF_PROPERTY(DRAWNUM_TO_SLOWDOWN1)) {
+                _slowdown_mode = SLOWDOWN_MODE_40FPS;
             } else {
-                _expected_time_of_next_frame += _aaTime_OffsetOfNextFrame[0][_frame_of_God % 60];
+                _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
             }
+            _expected_time_of_next_frame += _aaTime_OffsetOfNextFrame[_slowdown_mode][_frame_of_God % 60];
+
+            //            //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_frame_of_God % 60]; //予定は変わらない
+            //            if (_num_actor_drawing > 500) {
+            //                _expected_time_of_next_frame += (DWORD)(_aaTime_OffsetOfNextFrame[0][_frame_of_God % 60] * 2);
+            //            } else if (_num_actor_drawing > 400) {
+            //                _expected_time_of_next_frame += (DWORD)(_aaTime_OffsetOfNextFrame[0][_frame_of_God % 60] * 1.5);
+            //            } else {
+            //                _expected_time_of_next_frame += _aaTime_OffsetOfNextFrame[0][_frame_of_God % 60];
 
 
             if (_expected_time_of_next_frame <= timeGetTime()) { //描画タイミングフレームになった、或いは過ぎている場合
@@ -104,7 +112,7 @@ void GgafGod::be() {
 
         if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //描画タイミングフレームになった、或いは過ぎている場合
 
-            if (_time_at_beginning_frame > _expected_time_of_next_frame + _aaTime_OffsetOfNextFrame[0][_frame_of_God % 60]) {
+            if (_time_at_beginning_frame > _expected_time_of_next_frame + _aaTime_OffsetOfNextFrame[_slowdown_mode][_frame_of_God % 60]) {
                 //大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
                 _skip_count_of_frame++;
                 if (_skip_count_of_frame >= _max_skip_frame && _sync_frame_time == false) {
