@@ -14,12 +14,14 @@ GgafGarbageBox::GgafGarbageBox() : GgafObject() {
 void GgafGarbageBox::add(GgafActor* prm_pActor) {
     ::EnterCriticalSection(&CS);
     _pDisusedActor->addSubLast(prm_pActor->extract());
+    _TRACE_("ÉSÉ~î†(Actor) GgafGarbageBox::add("<<prm_pActor->getName()<<")");
     ::LeaveCriticalSection(&CS);
 }
 
 void GgafGarbageBox::add(GgafScene* prm_pScene) {
     ::EnterCriticalSection(&CS);
     _pDisusedScene->addSubLast(prm_pScene->extract());
+    _TRACE_("ÉSÉ~î†(Scene) GgafGarbageBox::add("<<prm_pScene->getName()<<")");
     ::LeaveCriticalSection(&CS);
 }
 

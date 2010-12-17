@@ -8,10 +8,12 @@ CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::_num_actor_drawing = 0;
 GgafGod* GgafGod::_pGod = NULL;
-DWORD GgafGod::_aTime_OffsetOfNextFrame[] = {17, 17, 16, 17, 17, 16, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
-                                             17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 16,
-                                             17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
-                                             17, 17, 16, 17, 17, 17};
+DWORD GgafGod::_aaTime_OffsetOfNextFrame[3][60] = {
+        {17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16},
+        {25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25},
+        {33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34}
+};
+
 GgafGod::GgafGod() : GgafObject(),
   _pUniverse(NULL),
   _fps(0) {
@@ -41,6 +43,7 @@ GgafGod::GgafGod() : GgafObject(),
     _was_cleaned = false;
     _skip_count_of_frame = 0;
     _max_skip_frame = (int)GGAF_PROPERTY(MAX_SKIP_FRAME);
+    _slowdown_mode = 0;
     _sync_frame_time = false;
 }
 
@@ -49,18 +52,19 @@ void GgafGod::be() {
         _is_being = true;
         if (_pUniverse == NULL) {
             _pUniverse = createUniverse();
-    #ifdef MY_DEBUG
+#ifdef MY_DEBUG
             if (_pUniverse == NULL) {
                 throwGgafCriticalException("GgafGod::be() Error! この世を実装して下さい！");
             }
-    #endif
+#endif
             _pUniverse->_pGod = this;
         }
-
+#ifdef MY_DEBUG
         //工場（別スレッド）例外をチェック
         if (_pException_Factory != NULL) {
             throw *_pException_Factory;
         }
+#endif
 
         if (_is_behaved_flg == false) {
             _is_behaved_flg = true;
@@ -72,11 +76,11 @@ void GgafGod::be() {
             //描画タイミングフレーム加算
             //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_frame_of_God % 60]; //予定は変わらない
             if (_num_actor_drawing > 500) {
-                _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_frame_of_God % 60] * 2);
+                _expected_time_of_next_frame += (DWORD)(_aaTime_OffsetOfNextFrame[0][_frame_of_God % 60] * 2);
             } else if (_num_actor_drawing > 400) {
-                _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_frame_of_God % 60] * 1.5);
+                _expected_time_of_next_frame += (DWORD)(_aaTime_OffsetOfNextFrame[0][_frame_of_God % 60] * 1.5);
             } else {
-                _expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_frame_of_God % 60];
+                _expected_time_of_next_frame += _aaTime_OffsetOfNextFrame[0][_frame_of_God % 60];
             }
 
 
@@ -100,7 +104,7 @@ void GgafGod::be() {
 
         if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //描画タイミングフレームになった、或いは過ぎている場合
 
-            if (_time_at_beginning_frame > _expected_time_of_next_frame + _aTime_OffsetOfNextFrame[_frame_of_God % 60]) {
+            if (_time_at_beginning_frame > _expected_time_of_next_frame + _aaTime_OffsetOfNextFrame[0][_frame_of_God % 60]) {
                 //大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
                 _skip_count_of_frame++;
                 if (_skip_count_of_frame >= _max_skip_frame && _sync_frame_time == false) {
@@ -189,10 +193,10 @@ void GgafGod::clean() {
                 }
             }
             //排他の解除
-			_TRACE_("GgafGod::~GgafGod() 排他が取れるかチェックしています・・・");
-			___BeginSynchronized; // ----->排他開始
-			___EndSynchronized; // <----- 排他終了
-			_TRACE_("GgafGod::~GgafGod() 排他OK");
+            _TRACE_("GgafGod::~GgafGod() 排他が取れるかチェックしています・・・");
+            ___BeginSynchronized; // ----->排他開始
+            ___EndSynchronized; // <----- 排他終了
+            _TRACE_("GgafGod::~GgafGod() 排他OK");
 
             CloseHandle(_handleFactory01);
             DeleteCriticalSection(&(GgafGod::CS2));

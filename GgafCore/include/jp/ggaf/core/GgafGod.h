@@ -34,7 +34,7 @@ public:
     /** [r]生成工場(別スレッド)のエラー状態。NULL＝正常稼働中／not NULL＝異常発生 */
     static GgafCriticalException* _pException_Factory;
     /** [r]次にこの世を活動させる時間のオフセット */
-    static DWORD _aTime_OffsetOfNextFrame[];
+    static DWORD _aaTime_OffsetOfNextFrame[3][60];
     /** [r]GgafFactory::work スレッドハンドル  */
     HANDLE _handleFactory01;
     /** [r]GgafFactory::work スレッドID  */
@@ -65,6 +65,8 @@ public:
     static int _num_actor_drawing;
 
     int _max_skip_frame;
+    /** 現在の処理落ちモード 0:60fps 1:40fps 2:30fps。_aaTime_OffsetOfNextFrameの一つ目の要素 */
+    int _slowdown_mode;
     /** 時間とフレームの動機調整モード中はtrue */
     bool _sync_frame_time;
     bool _was_cleaned;
@@ -121,7 +123,7 @@ public:
      * @return この世
      */
     virtual GgafUniverse* createUniverse() = 0;
-    
+
     /**
      * 描画を一時停止し、フレームと時間の同期を行う
      */

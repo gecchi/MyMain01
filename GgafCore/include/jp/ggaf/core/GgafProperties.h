@@ -1,7 +1,7 @@
 #ifndef GGAFPROPERTIES
 #define GGAFPROPERTIES
 
-#define GGAF_PROPERTY(X) (*GgafCore::GgafProperties::X)
+#define GGAF_PROPERTY(X) (GgafCore::GgafProperties::X)
 
 
 namespace GgafCore {
@@ -16,7 +16,9 @@ namespace GgafCore {
 class GgafProperties {
 
 public:
-    static UINT32* MAX_SKIP_FRAME;
+    static UINT32 MAX_SKIP_FRAME;
+    static int DRAWNUM_TO_SLOWDOWN1;
+    static int DRAWNUM_TO_SLOWDOWN2;
 
     static void load(std::string prm_properties_filename);
     static void clean();
@@ -26,12 +28,12 @@ public:
     static int read(std::string prm_properties_filename);
     static void parse(char* p);
     static bool isExistKey(std::string prm_key);
-    static std::string* getStr(std::string prm_key);
-    static bool* getBool(std::string prm_key);
-    static float* getFloat(std::string prm_key);
-    static int* getInt(std::string prm_key);
-    static UINT32* getUInt(std::string prm_key);
-    static double* getDouble(std::string prm_key);
+    static std::string getStr(std::string prm_key);
+    static bool getBool(std::string prm_key);
+    static float getFloat(std::string prm_key);
+    static int getInt(std::string prm_key);
+    static UINT32 getUInt(std::string prm_key);
+    static double getDouble(std::string prm_key);
 };
 
 }
