@@ -18,7 +18,7 @@ public:
     /** モデル定義の識別名。(50文字まで) */
     char* _texture_name;
     D3DXIMAGE_INFO* _pD3DXIMAGE_INFO;
-    LPDIRECT3DTEXTURE9 _pIDirect3DTexture9;
+    LPDIRECT3DBASETEXTURE9 _pIDirect3DBaseTexture9;
     /**
      * コンストラクタ<BR>
      * @param prm_texture_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。

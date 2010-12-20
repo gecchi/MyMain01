@@ -108,6 +108,8 @@ void GgafDx9Universe::draw() {
         pModelCon = (GgafDx9ModelConnection*)(pModelCon->getNext());
     }
 
+    ここでEffectManagerで回してVew変換をいっかい設定するようにする
+
     //段階レンダリング不要（最深部等、背景、最善面の文字等）の描画。
     //※TODO:本来は手前から描画のほうが効率良い。が、その内最適化
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
