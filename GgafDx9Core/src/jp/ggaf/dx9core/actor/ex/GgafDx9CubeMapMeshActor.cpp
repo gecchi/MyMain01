@@ -21,7 +21,7 @@ GgafDx9CubeMapMeshActor::GgafDx9CubeMapMeshActor(const char* prm_name,
     _class_name = "GgafDx9CubeMapMeshActor";
     _pCubeMapMeshModel = (GgafDx9CubeMapMeshModel*)_pGgafDx9Model;
     _pCubeMapMeshEffect = (GgafDx9CubeMapMeshEffect*)_pGgafDx9Effect;
-    _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
+//    _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
 }
 
 

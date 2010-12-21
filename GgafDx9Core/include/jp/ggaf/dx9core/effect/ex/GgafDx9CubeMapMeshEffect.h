@@ -12,6 +12,10 @@ class GgafDx9CubeMapMeshEffect : public GgafDx9MeshEffect {
     friend class GgafDx9EffectManager;
 
 public:
+
+    D3DXHANDLE _h_cameraPosW;
+
+
     GgafDx9CubeMapMeshEffect(char* prm_effect_name);
 
     virtual void setParamPerFrame() override;
