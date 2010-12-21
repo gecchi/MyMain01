@@ -27,6 +27,8 @@ public:
     GgafDx9D3DXAniMeshEffect(char* prm_effect_name);
 
 
+    virtual void setParamPerFrame() override;
+
     /**
      * デストラクタ<BR>
      * deleteするのはGgafDx9D3DXAniMeshEffectManagerである<BR>

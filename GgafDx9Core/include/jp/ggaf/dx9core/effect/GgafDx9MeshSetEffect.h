@@ -30,6 +30,7 @@ public:
      */
     GgafDx9MeshSetEffect(char* prm_effect_name);
 
+    virtual void setParamPerFrame() override;
 
     /**
      * デストラクタ<BR>

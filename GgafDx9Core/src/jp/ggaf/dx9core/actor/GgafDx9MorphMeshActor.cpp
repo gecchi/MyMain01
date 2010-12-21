@@ -46,8 +46,7 @@ void GgafDx9MorphMeshActor::addAlpha(float prm_fAlpha) {
 }
 
 void GgafDx9MorphMeshActor::processDraw() {
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pMorphMeshEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = _pMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_h_matView, &P_CAM->_vMatrixView );
     checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

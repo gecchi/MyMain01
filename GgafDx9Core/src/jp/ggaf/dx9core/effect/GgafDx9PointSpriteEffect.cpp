@@ -34,6 +34,11 @@ GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect(char* prm_effect_name) : Ggaf
     _hUvFlipPtnNo = _pID3DXEffect->GetParameterByName( NULL, "g_UvFlipPtnNo" );
 }
 
+void GgafDx9PointSpriteEffect::setParamPerFrame() {
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &P_CAM->_vMatrixView );
+    checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+}
+
 GgafDx9PointSpriteEffect::~GgafDx9PointSpriteEffect() {
 }
 

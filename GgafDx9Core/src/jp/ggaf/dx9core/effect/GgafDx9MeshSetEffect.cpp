@@ -121,6 +121,10 @@ GgafDx9MeshSetEffect::GgafDx9MeshSetEffect(char* prm_effect_name) : GgafDx9Effec
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
 }
 
+void GgafDx9MeshSetEffect::setParamPerFrame() {
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &P_CAM->_vMatrixView );
+    checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+}
 
 GgafDx9MeshSetEffect::~GgafDx9MeshSetEffect() {
 }

@@ -52,10 +52,14 @@ public:
      */
     GgafCore::GgafResourceConnection<GgafDx9Effect>* processCreateConnection(char* prm_idstr, GgafDx9Effect* prm_pResource);
 
+    void setParamPerFrameAll();
 
     void restoreAll();
 
     void onDeviceLostAll();
+
+
+
 
     virtual ~GgafDx9EffectManager() {
     }

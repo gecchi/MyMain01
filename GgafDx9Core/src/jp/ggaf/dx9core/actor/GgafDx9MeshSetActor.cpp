@@ -65,14 +65,13 @@ void GgafDx9MeshSetActor::processDraw() {
         }
     }
 
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
     HRESULT hr;
 
     //VIEW変換行列
-    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_h_matView, &P_CAM->_vMatrixView);
-    checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(_h_matView) に失敗しました。");
+//    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_h_matView, &P_CAM->_vMatrixView);
+//    checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(_h_matView) に失敗しました。");
     //基本モデル頂点数
     hr = pID3DXEffect->SetInt(_pMeshSetEffect->_h_vertexs_num, _pMeshSetModel->_nVertices);
     checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetInt(_h_vertexs_num) に失敗しました。2");

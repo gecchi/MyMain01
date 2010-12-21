@@ -28,6 +28,11 @@ GgafDx9SpriteEffect::GgafDx9SpriteEffect(char* prm_effect_name) : GgafDx9Effect(
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
 }
 
+void GgafDx9SpriteEffect::setParamPerFrame() {
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &P_CAM->_vMatrixView );
+    checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+}
+
 GgafDx9SpriteEffect::~GgafDx9SpriteEffect() {
 }
 

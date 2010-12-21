@@ -33,6 +33,8 @@ public:
     GgafDx9BoardEffect(char* prm_effect_name);
 
 
+    virtual void setParamPerFrame() override {};
+
     /**
      * デストラクタ<BR>
      * deleteするのはGgafDx9BoardEffectManagerである<BR>

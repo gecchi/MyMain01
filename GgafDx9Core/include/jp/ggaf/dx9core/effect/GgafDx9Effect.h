@@ -30,6 +30,7 @@ public:
         return _effect_name;
     }
 
+    virtual void setParamPerFrame() = 0;
 
     /**
      * デストラクタ<BR>

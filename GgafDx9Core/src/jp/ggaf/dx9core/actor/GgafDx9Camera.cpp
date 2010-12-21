@@ -229,7 +229,7 @@ void GgafDx9Camera::processBehavior() {
 //   -dot(xaxis, eye)  -dot(yaxis, eye)  -dot(zaxis, eye)  1
 
 
-    _TRACE_(_vMatrixView._14<<","<<_vMatrixView._24<<","<<_vMatrixView._34);
+    //_TRACE_(_vMatrixView._14<<","<<_vMatrixView._24<<","<<_vMatrixView._34);
 
 }
 

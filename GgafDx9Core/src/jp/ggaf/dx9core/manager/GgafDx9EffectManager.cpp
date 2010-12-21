@@ -80,8 +80,13 @@ void GgafDx9EffectManager::restoreAll() {
     }
     TRACE3("GgafDx9EffectManager::restoreAll() end<--");
 }
-
-
+void GgafDx9EffectManager::setParamPerFrameAll() {
+    GgafResourceConnection<GgafDx9Effect>* pCurrent = _pFirstConnection;
+    while (pCurrent != NULL) {
+        pCurrent->refer()->setParamPerFrame();
+        pCurrent = pCurrent->getNext();
+    }
+}
 GgafResourceConnection<GgafDx9Effect>* GgafDx9EffectManager::processCreateConnection(char* prm_idstr,
                                                                                      GgafDx9Effect* prm_pResource) {
     TRACE3(" GgafDx9EffectManager::processCreateConnection "<<prm_idstr<<" ‚ð¶¬ŠJŽnB");

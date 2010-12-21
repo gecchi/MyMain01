@@ -53,8 +53,7 @@ void GgafDx9BoardSetActor::processDraw() {
         }
     }
 
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
 
     GgafDx9DrawableActor *pDrawActor;

@@ -32,6 +32,8 @@ public:
     GgafDx9PointSpriteEffect(char* prm_effect_name);
 
 
+    virtual void setParamPerFrame() override;
+
     /**
      * デストラクタ<BR>
      * deleteするのはGgafDx9PointSpriteEffectManagerである<BR>

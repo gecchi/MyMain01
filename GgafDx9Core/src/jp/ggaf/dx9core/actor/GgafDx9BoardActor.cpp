@@ -32,8 +32,7 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
 }
 
 void GgafDx9BoardActor::processDraw() {
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pBoardEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = _pBoardEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, _x);
     checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
