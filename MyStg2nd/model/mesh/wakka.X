@@ -2810,7 +2810,7 @@ Frame Torus01 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "uffizi_cross_cubemap.dds";
+     "BkSpace_cubemap.dds";
     }
    }
   }
