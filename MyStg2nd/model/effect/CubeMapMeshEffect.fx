@@ -8,7 +8,7 @@
  * @since 2009/03/06 
  */
 
-float3 cameraPosW; 
+float3 pos_camera; 
 
 /** モデルのWorld変換行列 */
 float4x4 g_matWorld;
@@ -64,7 +64,7 @@ OUT_VS GgafDx9VS_CubeMapMesh(
 	OUT_VS out_vs = (OUT_VS)0;
 	//頂点計算
 	out_vs.pos = mul(prm_pos, g_matWorld);  //World
-    out_vs.viewVecW = out_vs.pos.xyz - cameraPosW;
+    out_vs.viewVecW = out_vs.pos.xyz - pos_camera;
 	out_vs.pos = mul( mul( mul(prm_pos, g_matWorld), g_matView), g_matProj);  //View*射影変換
     out_vs.normalW = normalize(mul(prm_normal, g_matWorld)); 
 //	//UV計算

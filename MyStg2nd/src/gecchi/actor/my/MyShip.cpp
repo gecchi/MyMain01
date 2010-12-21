@@ -17,7 +17,7 @@ int MyShip::_lim_zright  =  0;
 
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper") {
 //MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
-MyShip::MyShip(const char* prm_name) : DefaultCubeMapMeshActor(prm_name, "wakka") {
+MyShip::MyShip(const char* prm_name) : CubeMapMeshActor(prm_name, "wakka") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
     MyStgUtil::resetMyShipStatus(_pStatus);
