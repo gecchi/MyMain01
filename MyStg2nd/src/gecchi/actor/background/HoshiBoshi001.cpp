@@ -117,18 +117,16 @@ HoshiBoshi001::~HoshiBoshi001() {
 void HoshiBoshi001::setWorldMatrix_HoshiBoshi001(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ 2”{Z²‰ñ“] ~ 2”{Y²‰ñ“] ~ 1/2”{•½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
-    static float sinRx, cosRx, sinRy, cosRy, sinRz, cosRz;
     static float fRateScale = 1.0f * LEN_UNIT;
-    static float Sx, Sy, Sz;
-    sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
-    cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
-    sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
-    sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
-    Sx = prm_pActor->_SX / fRateScale;
-    Sy = prm_pActor->_SY / fRateScale;
-    Sz = prm_pActor->_SZ / fRateScale;
+    float sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
+    float cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
+    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
+    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
+    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
+    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+    float Sx = prm_pActor->_SX / fRateScale;
+    float Sy = prm_pActor->_SY / fRateScale;
+    float Sz = prm_pActor->_SZ / fRateScale;
 
     out_matWorld._11 = Sx * cosRz *cosRy;
     out_matWorld._12 = Sx * sinRz;
