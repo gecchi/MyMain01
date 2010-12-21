@@ -180,10 +180,10 @@ void GgafFactory::clean() {
         TRACE2("GgafFactory::clean ＜神＞ しかし工場に何も無い！！");
         return;
     }
-	while (_is_working_flg || _was_finished_flg == false) {
-		Sleep(10);
-		_TRACE_("GgafFactory::clean ＜神＞ 工場がまだ動いています・・・");
-	}
+    while (_is_working_flg || _was_finished_flg == false) {
+        Sleep(10);
+        _TRACE_("GgafFactory::clean ＜神＞ 工場がまだ動いています・・・");
+    }
 
     while (true) {
         if (pOrder->_is_last_order_flg) {
@@ -208,9 +208,9 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
     //_CrtSetBreakAlloc(95299);
 
     try {
-        static GgafObject* (*func)(void*, void*, void*);
-        static GgafObject* pObject;
-        static GgafOrder* pOrder_InManufacturing_save;
+        GgafObject* (*func)(void*, void*, void*) = NULL;
+        GgafObject* pObject = NULL;
+        GgafOrder* pOrder_InManufacturing_save = NULL;
         Sleep(1000); //god のインスタンスが完成するまでほんのちょっと待つ必要があるかもしれない
         while (_is_working_flg) {
             if (_have_to_rest_flg) {
