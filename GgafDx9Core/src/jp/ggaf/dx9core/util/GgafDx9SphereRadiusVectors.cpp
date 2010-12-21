@@ -36,7 +36,7 @@ void GgafDx9SphereRadiusVectors::getFaceAngClosely(UINT32 prm_x,
     target.set(0, prm_y, 0);
 
     //rZ(y要素)のバイナリサーチ
-    static int top, bottom, center, center_prev;
+    int top, bottom, center, center_prev;
     top = 0;
     bottom = (S_ANG90+1)*(S_ANG90+1) - 1;
 
@@ -86,8 +86,7 @@ void GgafDx9SphereRadiusVectors::getVectorClosely(s_ang prm_angFaceY_rev,
                                                   UINT32& out_x,
                                                   UINT32& out_y,
                                                   UINT32& out_z) {
-    static int index;
-    index = prm_angFaceZ*(S_ANG90+1)+prm_angFaceY_rev;
+    int index = prm_angFaceZ*(S_ANG90+1)+prm_angFaceY_rev;
     out_x = _sr[index].vec.x;
     out_y = _sr[index].vec.y;
     out_z = _sr[index].vec.z;

@@ -27,8 +27,7 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
 }
 
 void GgafDx9DynaD3DXMeshActor::processDraw() {
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pMeshEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
     HRESULT hr;
 //    hr = pID3DXEffect->SetMatrix( _pMeshEffect->_h_matView, &P_CAM->_vMatrixView );

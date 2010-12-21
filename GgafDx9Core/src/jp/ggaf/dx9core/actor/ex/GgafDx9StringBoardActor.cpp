@@ -71,8 +71,7 @@ void GgafDx9StringBoardActor::processDraw() {
     if (_len == 0) {
         return;
     }
-    ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     GgafDx9RectUV* pRectUV_Active;
     HRESULT hr;
 

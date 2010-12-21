@@ -253,7 +253,7 @@ GgafDx9GeometricMover::GgafDx9GeometricMover(GgafDx9GeometricActor* prm_pActor) 
 void GgafDx9GeometricMover::behave() {
 
     //é≤âÒì]ï˚äpèàóù
-    static angle angDistance;
+    angle angDistance;
     for (int i = 0; i < 3; i++) {
         if (_face_ang_targeting_flg[i]) { //É^Å[ÉQÉbÉgï˚å¸Ç™Ç†ÇÈèÍçá
             _angveloFace[i] += _angacceFace[i];
@@ -493,7 +493,7 @@ void GgafDx9GeometricMover::setFaceAng(int prm_tX, int prm_tY, int prm_tZ) {
 }
 
 void GgafDx9GeometricMover::addFaceAng(int prm_axis, angle prm_angDistance) {
-    static angle angOffsetrot_FaceAng;
+    angle angOffsetrot_FaceAng;
     angOffsetrot_FaceAng = prm_angDistance;
     if (_angveloBottomFace[prm_axis] > prm_angDistance) {
         angOffsetrot_FaceAng = _angveloBottomFace[prm_axis];
@@ -559,7 +559,7 @@ angle GgafDx9GeometricMover::getFaceAngDistance(int prm_axis, int prm_tX, int pr
 }
 
 angle GgafDx9GeometricMover::getFaceAngDistance(int prm_axis, angle prm_angTargetRot, int prm_way) {
-    static angle _angTargetRot;
+    angle _angTargetRot;
     _angTargetRot = GgafDx9Util::simplifyAng(prm_angTargetRot);
     if (prm_way == TURN_CLOSE_TO) { //ãﬂÇ¢ÇŸÇ§âÒì]
         if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < ANGLE180) {
@@ -1056,7 +1056,7 @@ angle GgafDx9GeometricMover::getRyMvAngDistance(int prm_tX, int prm_tY, int prm_
 }
 
 angle GgafDx9GeometricMover::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
-    static angle angTargetRyMv;
+    angle angTargetRyMv;
     angTargetRyMv = GgafDx9Util::simplifyAng(prm_angTargetRyMv);
     if (prm_way == TURN_CLOSE_TO) { //ãﬂÇ¢ÇŸÇ§âÒì]
         if (0 <= _angRyMv && _angRyMv < ANGLE180) {

@@ -26,7 +26,7 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     ID3DXEffect* pID3DXEffect = pPointSpriteEffect->_pID3DXEffect;
 
     //¡‰ñ•`‰æ‚ÌUV
-    static HRESULT hr;
+    HRESULT hr;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PointSpriteModel::FVF);

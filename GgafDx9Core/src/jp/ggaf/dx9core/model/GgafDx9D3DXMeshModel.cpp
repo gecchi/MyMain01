@@ -25,9 +25,7 @@ HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     ID3DXEffect* pID3DXEffect = pMeshEffect->_pID3DXEffect;
 
     GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9D3DXMeshActor::FVF);
-    static HRESULT hr;
-
-
+    HRESULT hr;
 
     for (DWORD i = 0; i < _dwNumMaterials; i++) {
         if (GgafDx9ModelManager::_pModelLastDraw != this || _dwNumMaterials != 1) {

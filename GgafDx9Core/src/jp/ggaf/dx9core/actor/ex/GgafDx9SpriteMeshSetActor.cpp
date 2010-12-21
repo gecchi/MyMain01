@@ -44,8 +44,7 @@ void GgafDx9SpriteMeshSetActor::processDraw() {
         }
     }
 
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
     HRESULT hr;
 

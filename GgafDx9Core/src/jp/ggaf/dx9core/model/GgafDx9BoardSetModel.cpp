@@ -50,7 +50,7 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 
     int draw_set_num = pTargetActor->_draw_set_num;
 
-    static HRESULT hr;
+    HRESULT hr;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
     if (GgafDx9ModelManager::_pModelLastDraw  != this) {
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);

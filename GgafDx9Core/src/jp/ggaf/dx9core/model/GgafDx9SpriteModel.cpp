@@ -33,7 +33,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     ID3DXEffect* pID3DXEffect = pSpriteEffect->_pID3DXEffect;
 
     //¡‰ñ•`‰æ‚ÌUV
-    static GgafDx9RectUV* pRectUV_Active;
+    GgafDx9RectUV* pRectUV_Active;
     pRectUV_Active = _paRectUV + (pTargetActor->_pUvFlipper->_pattno_uvflip_now);
 
     static HRESULT hr;
