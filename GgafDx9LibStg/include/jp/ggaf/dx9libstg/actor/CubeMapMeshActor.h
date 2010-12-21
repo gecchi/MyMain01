@@ -9,7 +9,7 @@ namespace GgafDx9LibStg {
  * @since 2009/02/19
  * @author Masatoshi Tsuge
  */
-class DefaultCubeMapMeshActor : public GgafDx9Core::GgafDx9CubeMapMeshActor {
+class CubeMapMeshActor : public GgafDx9Core::GgafDx9CubeMapMeshActor {
 
 public:
     /** 拡大縮小支援オブジェクト */
@@ -19,7 +19,7 @@ public:
 
     CollisionChecker* _pCollisionChecker;
 
-    DefaultCubeMapMeshActor(const char* prm_name, const char* prm_model);
+    CubeMapMeshActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }
@@ -45,7 +45,7 @@ public:
     virtual void drawHitArea() override;
 
 
-    virtual ~DefaultCubeMapMeshActor();
+    virtual ~CubeMapMeshActor();
 };
 
 }
