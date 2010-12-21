@@ -121,7 +121,7 @@ void LaserChip::processSettlementBehavior() {
     //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
     //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
 
-    static int dX, dY, dZ,cX, cY, cZ,h;
+    int dX, dY, dZ,cX, cY, cZ,h;
     //_TRACE_("LaserChip::processBehavior()st "<<getName()<<" bump="<<canHit());
     if (_is_regist_hitarea) { //registHitAreaCubeメソッドによって登録された場合。
         if (_pChip_front != NULL && _pChip_front->_pChip_front != NULL) {
@@ -233,8 +233,7 @@ void LaserChip::processDraw() {
             break;
         }
     }
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
     HRESULT hr;
     //VIEW変換行列
