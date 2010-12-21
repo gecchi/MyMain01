@@ -16,7 +16,8 @@ int MyShip::_lim_zleft   =  0;
 int MyShip::_lim_zright  =  0;
 
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper") {
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
+//MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
+MyShip::MyShip(const char* prm_name) : DefaultCubeMapMeshActor(prm_name, "wakka") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
     MyStgUtil::resetMyShipStatus(_pStatus);
@@ -207,7 +208,7 @@ void MyShip::initialize() {
 //    _pCollisionChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
 
     _pMover->setMvVelo(0);
-    _pScaler->setScale(1000);
+    _pScaler->setScale(2000);
     _pScaler->forceScaleRange(1000, 7000);
 
     _pMover->forceVxMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
@@ -377,6 +378,7 @@ void MyShip::processBehavior() {
 
     //À•W‚É”½‰f
     _pMover->behave();
+    _pScaler->behave();
     _pSeTransmitter->behave();
 
     if (!_is_diving) {

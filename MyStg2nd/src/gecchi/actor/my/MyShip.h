@@ -28,7 +28,8 @@ enum Switch {
  * @author Masatoshi Tsuge
  */
 //class MyShip : public GgafDx9LibStg::DefaultD3DXMeshActor {
-class MyShip : public GgafDx9LibStg::DefaultMeshActor {
+//class MyShip : public GgafDx9LibStg::DefaultMeshActor {
+class MyShip : public GgafDx9LibStg::DefaultCubeMapMeshActor {
 //class MyShip : public GgafDx9LibStg::DefaultD3DXAniMeshActor {
 
 
