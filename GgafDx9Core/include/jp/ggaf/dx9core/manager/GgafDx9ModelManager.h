@@ -30,6 +30,7 @@ private:
     GgafDx9BoardSetModel*    createBoardSetModel(char* prm_model_name);
     GgafDx9MeshModel*        createMeshModel(char* prm_model_name);
     GgafDx9MeshSetModel*     createMeshSetModel(char* prm_model_name);
+    GgafDx9CubeMapMeshModel* createCubeMapMeshModel(char* prm_model_name);
     GgafDx9MorphMeshModel*   createMorphMeshModel(char* prm_model_name);
     GgafDx9PointSpriteModel* createPointSpriteModel(char* prm_model_name);
 

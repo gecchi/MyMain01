@@ -239,6 +239,7 @@ class GgafDx9SpriteModel;
 class GgafDx9SpriteSetModel;
 class GgafDx9MeshModel;
 class GgafDx9MeshSetModel;
+class GgafDx9CubeMapMeshModel;
 class GgafDx9MorphMeshModel;
 class GgafDx9BoardModel;
 class GgafDx9BoardSetModel;
@@ -246,6 +247,7 @@ class GgafDx9PointSpriteModel;
 
 class GgafDx9Effect;
 class GgafDx9MeshEffect;
+class GgafDx9CubeMapMeshEffect;
 class GgafDx9D3DXAniMeshEffect;
 class GgafDx9MeshSetEffect;
 class GgafDx9MorphMeshEffect;
@@ -339,10 +341,10 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SphereEx.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SpriteMeshActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SpriteMeshSetActor.h"
-#include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMeshActor.h"
-//#include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMeshSetActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9StringBoardActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9StringSpriteActor.h"
+#include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMeshActor.h"
+//#include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMeshSetActor.h"
 
 #include "jp/ggaf/dx9core/model/GgafDx9Model.h"
 #include "jp/ggaf/dx9core/model/GgafDx9D3DXMeshModel.h"
@@ -355,9 +357,11 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/model/GgafDx9BoardModel.h"
 #include "jp/ggaf/dx9core/model/GgafDx9BoardSetModel.h"
 #include "jp/ggaf/dx9core/model/GgafDx9PointSpriteModel.h"
+#include "jp/ggaf/dx9core/model/ex/GgafDx9CubeMapMeshModel.h"
 
 #include "jp/ggaf/dx9core/effect/GgafDx9Effect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9MeshEffect.h"
+
 #include "jp/ggaf/dx9core/effect/GgafDx9D3DXAniMeshEffect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9MeshSetEffect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9MorphMeshEffect.h"
@@ -366,6 +370,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/effect/GgafDx9BoardEffect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9BoardSetEffect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9PointSpriteEffect.h"
+#include "jp/ggaf/dx9core/effect/ex/GgafDx9CubeMapMeshEffect.h"
 
 #include "jp/ggaf/dx9core/texture/GgafDx9Texture.h"
 

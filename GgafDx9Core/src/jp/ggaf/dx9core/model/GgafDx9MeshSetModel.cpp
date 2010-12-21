@@ -46,15 +46,11 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(pr
 HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
     //対象アクター
-    static GgafDx9MeshSetActor* pTargetActor;
-    pTargetActor = (GgafDx9MeshSetActor*)prm_pActor_Target;
+    GgafDx9MeshSetActor* pTargetActor = (GgafDx9MeshSetActor*)prm_pActor_Target;
     //対象MeshSetActorのエフェクトラッパ
-    static GgafDx9MeshSetEffect* pMeshSetEffect;
-    pMeshSetEffect = pTargetActor->_pMeshSetEffect;
+    GgafDx9MeshSetEffect* pMeshSetEffect = (GgafDx9MeshSetEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = pMeshSetEffect->_pID3DXEffect;
-
+    ID3DXEffect* pID3DXEffect = pMeshSetEffect->_pID3DXEffect;
 
     HRESULT hr;
     UINT material_no;

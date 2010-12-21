@@ -24,6 +24,9 @@ GgafDx9Effect* GgafDx9EffectManager::processCreateResource(char* prm_idstr, void
         case 'x':
             pResourceEffect = NEW GgafDx9MeshSetEffect(effect_name);
             break;
+        case 'G':
+            pResourceEffect = NEW GgafDx9CubeMapMeshEffect(effect_name);
+            break;
         case 'A':
             pResourceEffect = NEW GgafDx9D3DXAniMeshEffect(effect_name);
             break;

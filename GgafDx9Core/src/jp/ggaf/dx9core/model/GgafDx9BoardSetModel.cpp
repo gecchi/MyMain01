@@ -42,14 +42,11 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9BoardSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
 
     //対象Actor
-    static GgafDx9BoardSetActor* pTargetActor;
-    pTargetActor = (GgafDx9BoardSetActor*)prm_pActor_Target;
+    GgafDx9BoardSetActor* pTargetActor = (GgafDx9BoardSetActor*)prm_pActor_Target;
     //対象BoardSetActorのエフェクトラッパ
-    static GgafDx9BoardSetEffect* pBoardSetEffect;
-    pBoardSetEffect = pTargetActor->_pBoardSetEffect;
+    GgafDx9BoardSetEffect* pBoardSetEffect = (GgafDx9BoardSetEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
 
     int draw_set_num = pTargetActor->_draw_set_num;
 

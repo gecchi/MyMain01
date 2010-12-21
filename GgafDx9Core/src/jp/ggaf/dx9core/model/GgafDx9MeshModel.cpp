@@ -25,15 +25,12 @@ GgafDx9MeshModel::GgafDx9MeshModel(char* prm_model_name) : GgafDx9Model(prm_mode
 //描画
 HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     //対象アクター
-    static GgafDx9MeshActor* pTargetActor;
-    pTargetActor = (GgafDx9MeshActor*)prm_pActor_Target;
+    //GgafDx9MeshActor* pTargetActor = (GgafDx9MeshActor*)prm_pActor_Target;
+    GgafDx9DrawableActor* pTargetActor = prm_pActor_Target;
     //対象MeshActorのエフェクトラッパ
-    static GgafDx9MeshEffect* pMeshEffect;
-    pMeshEffect = pTargetActor->_pMeshEffect;
-    TRACE4("GgafDx9MeshModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName()<<" pTargetActor->_pMeshEffect="<<(pTargetActor->_pMeshEffect->_effect_name));
+    GgafDx9MeshEffect* pMeshEffect = (GgafDx9MeshEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = pMeshEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = pMeshEffect->_pID3DXEffect;
 
     HRESULT hr;
     UINT material_no;

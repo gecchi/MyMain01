@@ -19,14 +19,11 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9PointSpriteModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
 
     //対象Actor
-    static GgafDx9PointSpriteActor* pTargetActor;
-    pTargetActor = (GgafDx9PointSpriteActor*)prm_pActor_Target;
+    GgafDx9PointSpriteActor* pTargetActor = (GgafDx9PointSpriteActor*)prm_pActor_Target;
     //対象PointSpriteActorのエフェクトラッパ
-    static GgafDx9PointSpriteEffect* pPointSpriteEffect;
-    pPointSpriteEffect = pTargetActor->_pPointSpriteEffect;
+    GgafDx9PointSpriteEffect* pPointSpriteEffect = (GgafDx9PointSpriteEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = pPointSpriteEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = pPointSpriteEffect->_pID3DXEffect;
 
     //今回描画のUV
     static HRESULT hr;

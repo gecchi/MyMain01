@@ -78,7 +78,10 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr, void* 
             //MeshSetModel
             pResourceModel = createMeshSetModel(model_name);
             break;
-
+        case 'G':
+            //CubeMapMeshModel
+            pResourceModel = createCubeMapMeshModel(model_name);
+            break;
         case 'M':
             //MorphMeshModel "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createMorphMeshModel(model_name);
@@ -163,6 +166,13 @@ GgafDx9MeshSetModel* GgafDx9ModelManager::createMeshSetModel(char* prm_model_nam
     restoreMeshSetModel(pMeshSetModel_New);
     return pMeshSetModel_New;
 }
+
+GgafDx9CubeMapMeshModel* GgafDx9ModelManager::createCubeMapMeshModel(char* prm_model_name) {
+    GgafDx9CubeMapMeshModel* pMeshCubeMapModel_New = NEW GgafDx9CubeMapMeshModel(prm_model_name);
+    restoreMeshModel((GgafDx9MeshModel*)pMeshCubeMapModel_New);
+    return pMeshCubeMapModel_New;
+}
+
 
 GgafDx9MorphMeshModel* GgafDx9ModelManager::createMorphMeshModel(char* prm_model_name) {
     // "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味

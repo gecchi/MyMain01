@@ -28,17 +28,13 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     //↑TODO なぜここでクリアしようと考えが湧いたのかわからなくなった。
 
     //対象Actor
-    static GgafDx9BoardActor* pTargetActor;
-    pTargetActor = (GgafDx9BoardActor*)prm_pActor_Target;
+    GgafDx9BoardActor* pTargetActor = (GgafDx9BoardActor*)prm_pActor_Target;
     //対象BoardActorのエフェクトラッパ
-    static GgafDx9BoardEffect* pBoardEffect;
-    pBoardEffect = pTargetActor->_pBoardEffect;
+    GgafDx9BoardEffect* pBoardEffect = (GgafDx9BoardEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = pBoardEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = pBoardEffect->_pID3DXEffect;
     //今回描画のUV
-    static GgafDx9RectUV* pRectUV_Active;
-    pRectUV_Active = _paRectUV + (pTargetActor->_pUvFlipper->_pattno_uvflip_now);
+    GgafDx9RectUV* pRectUV_Active = _paRectUV + (pTargetActor->_pUvFlipper->_pattno_uvflip_now);
 
     static HRESULT hr;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {

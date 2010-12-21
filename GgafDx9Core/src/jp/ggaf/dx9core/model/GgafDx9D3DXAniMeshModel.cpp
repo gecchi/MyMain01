@@ -18,15 +18,12 @@ GgafDx9D3DXAniMeshModel::GgafDx9D3DXAniMeshModel(char* prm_model_name) : GgafDx9
 
 HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9D3DXAniMeshModel::draw("<<prm_pActor_Target->getName()<<")");
-    GgafDx9D3DXAniMeshActor* pTargetActor;
     //対象アクター
-    pTargetActor = (GgafDx9D3DXAniMeshActor*)prm_pActor_Target;
+    GgafDx9D3DXAniMeshActor* pTargetActor = (GgafDx9D3DXAniMeshActor*)prm_pActor_Target;
     //対象MeshActorのエフェクトラッパ
-    GgafDx9D3DXAniMeshEffect* pD3DXAniMeshEffect;
-    pD3DXAniMeshEffect = pTargetActor->_pD3DXAniMeshEffect;
+    GgafDx9D3DXAniMeshEffect* pD3DXAniMeshEffect = (GgafDx9D3DXAniMeshEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
-    ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = pD3DXAniMeshEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = pD3DXAniMeshEffect->_pID3DXEffect;
     GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9D3DXAniMeshActor::FVF);
     static HRESULT hr;
 

@@ -28,10 +28,18 @@ public:
      * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
      */
     GgafDx9MeshActor(const char* prm_name,
-                       const char* prm_model_id,
-                       const char* prm_effect_id,
-                       const char* prm_technique,
-                       GgafDx9Checker* prm_pChecker );
+                     const char* prm_model_id,
+                     const char* prm_effect_id,
+                     const char* prm_technique,
+                     GgafDx9Checker* prm_pChecker );
+
+    GgafDx9MeshActor(const char* prm_name,
+                     const char* prm_model_id,
+                     const char* prm_model_type,
+                     const char* prm_effect_id,
+                     const char* prm_effect_type,
+                     const char* prm_technique,
+                     GgafDx9Checker* prm_pChecker);
 
     virtual void processDraw() override;
 

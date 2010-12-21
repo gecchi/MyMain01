@@ -43,14 +43,12 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9SpriteSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
 
     //対象Actor
-    static GgafDx9SpriteSetActor* pTargetActor;
-    pTargetActor = (GgafDx9SpriteSetActor*)prm_pActor_Target;
+    GgafDx9SpriteSetActor* pTargetActor = (GgafDx9SpriteSetActor*)prm_pActor_Target;
     //対象SpriteSetActorのエフェクトラッパ
-    static GgafDx9SpriteSetEffect* pSpriteSetEffect;
-    pSpriteSetEffect = pTargetActor->_pSpriteSetEffect;
+    GgafDx9SpriteSetEffect* pSpriteSetEffect = (GgafDx9SpriteSetEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
+
     int draw_set_num = pTargetActor->_draw_set_num;
     static HRESULT hr;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる

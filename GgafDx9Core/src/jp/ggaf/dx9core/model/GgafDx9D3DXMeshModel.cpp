@@ -17,15 +17,13 @@ GgafDx9D3DXMeshModel::GgafDx9D3DXMeshModel(char* prm_model_name, DWORD prm_dwOpt
 HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9D3DXMeshModel::draw("<<prm_pActor_Target->getName()<<")");
 
-    GgafDx9D3DXMeshActor* pTargetActor;
     //対象アクター
-    pTargetActor = (GgafDx9D3DXMeshActor*)prm_pActor_Target;
+    GgafDx9D3DXMeshActor* pTargetActor = (GgafDx9D3DXMeshActor*)prm_pActor_Target;
     //対象MeshActorのエフェクトラッパ
-    GgafDx9MeshEffect* pMeshEffect;
-    pMeshEffect = pTargetActor->_pMeshEffect;
+    GgafDx9MeshEffect* pMeshEffect = (GgafDx9MeshEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
-    ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = pMeshEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = pMeshEffect->_pID3DXEffect;
+
     GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9D3DXMeshActor::FVF);
     static HRESULT hr;
 

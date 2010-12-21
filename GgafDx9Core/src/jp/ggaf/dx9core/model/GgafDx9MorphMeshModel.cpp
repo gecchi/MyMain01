@@ -54,14 +54,11 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9MorphMeshModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
 
     //対象アクター
-    static GgafDx9MorphMeshActor* pTargetActor;
-    pTargetActor = (GgafDx9MorphMeshActor*)prm_pActor_Target;
+    GgafDx9MorphMeshActor* pTargetActor = (GgafDx9MorphMeshActor*)prm_pActor_Target;
     //対象アクターのエフェクトラッパ
-    static GgafDx9MorphMeshEffect* pMorphMeshEffect;
-    pMorphMeshEffect = pTargetActor->_pMorphMeshEffect;
+    GgafDx9MorphMeshEffect* pMorphMeshEffect = (GgafDx9MorphMeshEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
 
     HRESULT hr;
     UINT material_no;
