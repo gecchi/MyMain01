@@ -3,9 +3,9 @@
 namespace GgafDx9Core {
 
 /**
- * GgafDx9Mesh用エフェクトクラス.
+ * GgafDx9CubeMapMeshModel用エフェクトクラス.
  * @version 1.00
- * @since 2009/03/09
+ * @since 2010/12/21
  * @author Masatoshi Tsuge
  */
 class GgafDx9CubeMapMeshEffect : public GgafDx9MeshEffect {
@@ -13,8 +13,7 @@ class GgafDx9CubeMapMeshEffect : public GgafDx9MeshEffect {
 
 public:
 
-    D3DXHANDLE _h_cameraPosW;
-
+    D3DXHANDLE _h_pos_camera;
 
     GgafDx9CubeMapMeshEffect(char* prm_effect_name);
 

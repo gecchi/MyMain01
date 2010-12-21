@@ -2,6 +2,12 @@
 #define GGAFDX9CUBEMAPMESHMODEL_H_
 namespace GgafDx9Core {
 
+/**
+ * 環境マップメッシュモデル .
+ * @version 1.00
+ * @since 2010/12/21
+ * @author Masatoshi Tsuge
+ */
 class GgafDx9CubeMapMeshModel : public GgafDx9MeshModel {
     friend class GgafDx9ModelManager;
 

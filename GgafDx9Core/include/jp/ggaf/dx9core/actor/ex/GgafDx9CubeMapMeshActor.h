@@ -3,11 +3,10 @@
 namespace GgafDx9Core {
 
 /**
- * メッシュアクター.
- * GgafDx9DrawableActor を継承し、独自のXファイル定義のメッシュ表示機能を<BR>
- * 追加したアクターです。<BR>
+ * 環境マップメッシュアクター.
+ * GgafDx9MeshActor を継承し、環境マップテクスチャを実装したアクターです。<BR>
  * @version 1.00
- * @since 2009/02/26
+ * @since 2010/12/21
  * @author Masatoshi Tsuge
  */
 class GgafDx9CubeMapMeshActor : public GgafDx9MeshActor {
