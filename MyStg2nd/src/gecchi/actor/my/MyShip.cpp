@@ -211,6 +211,10 @@ void MyShip::initialize() {
     _pScaler->setScale(2000);
     _pScaler->forceScaleRange(1000, 7000);
 
+    setMaterialColor(1.0, 0.5, 0.5);
+    setAlpha(0.4);
+
+
     _pMover->forceVxMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
     _pMover->forceVyMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
     _pMover->forceVzMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
