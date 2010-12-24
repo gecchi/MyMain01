@@ -41,7 +41,9 @@ class DefaultD3DXAniMeshActor;
 class DefaultMeshActor;
 class DefaultMeshSetActor;
 class CubeMapMeshActor;
+class CubeMapMeshSetActor;
 class DefaultMorphMeshActor;
+class CubeMapMorphMeshActor;
 class DefaultDynaD3DXMeshActor;
 class DefaultCubeActor;
 class DefaultSpriteActor;
@@ -97,7 +99,9 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/actor/DefaultMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultMeshSetActor.h"
 #include "jp/ggaf/dx9libstg/actor/CubeMapMeshActor.h"
+#include "jp/ggaf/dx9libstg/actor/CubeMapMeshSetActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultMorphMeshActor.h"
+#include "jp/ggaf/dx9libstg/actor/CubeMapMorphMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultDynaD3DXMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultCubeActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultSpriteActor.h"
