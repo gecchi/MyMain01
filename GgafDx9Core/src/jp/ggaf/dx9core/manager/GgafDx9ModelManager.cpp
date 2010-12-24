@@ -82,9 +82,17 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr, void* 
             //CubeMapMeshModel
             pResourceModel = createCubeMapMeshModel(model_name);
             break;
+        case 'g':
+            //CubeMapMeshSetModel
+            pResourceModel = createCubeMapMeshSetModel(model_name);
+            break;
         case 'M':
             //MorphMeshModel "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createMorphMeshModel(model_name);
+            break;
+        case 'H':
+            //CubeMapMorphMeshModel "H/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+            pResourceModel = createCubeMapMorphMeshModel(model_name);
             break;
         case 'S':
             //SpriteModel
@@ -173,6 +181,12 @@ GgafDx9CubeMapMeshModel* GgafDx9ModelManager::createCubeMapMeshModel(char* prm_m
     return pMeshCubeMapModel_New;
 }
 
+GgafDx9CubeMapMeshSetModel* GgafDx9ModelManager::createCubeMapMeshSetModel(char* prm_model_name) {
+    GgafDx9CubeMapMeshSetModel* pMeshCubeMapSetModel_New = NEW GgafDx9CubeMapMeshSetModel(prm_model_name);
+    restoreMeshSetModel((GgafDx9MeshSetModel*)pMeshCubeMapSetModel_New);
+    return pMeshCubeMapSetModel_New;
+}
+
 
 GgafDx9MorphMeshModel* GgafDx9ModelManager::createMorphMeshModel(char* prm_model_name) {
     // "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
@@ -182,6 +196,16 @@ GgafDx9MorphMeshModel* GgafDx9ModelManager::createMorphMeshModel(char* prm_model
     restoreMorphMeshModel(pMorphMeshModel_New);
     return pMorphMeshModel_New;
 }
+
+GgafDx9CubeMapMorphMeshModel* GgafDx9ModelManager::createCubeMapMorphMeshModel(char* prm_model_name) {
+    // "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+    // ここでprm_model_name は "4/xxxxx" という文字列になっている。
+    // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残す。
+    GgafDx9CubeMapMorphMeshModel* pCubeMapMorphMeshModel_New = NEW GgafDx9CubeMapMorphMeshModel(prm_model_name);
+    restoreMorphMeshModel((GgafDx9MorphMeshModel*)pCubeMapMorphMeshModel_New);
+    return pCubeMapMorphMeshModel_New;
+}
+
 
 GgafDx9PointSpriteModel* GgafDx9ModelManager::createPointSpriteModel(char* prm_model_name) {
     GgafDx9PointSpriteModel* pPointSpriteModel_New = NEW GgafDx9PointSpriteModel(prm_model_name);

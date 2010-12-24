@@ -21,18 +21,20 @@ private:
     IDirectXFile* _pIDirectXFile_psprx;
     GgafDx9TextureManager* _pTextureManager;
 
-    GgafDx9D3DXMeshModel*    createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions);
-    GgafDx9D3DXAniMeshModel* createD3DXAniMeshModel(char* prm_model_name);
-    GgafDx9D3DXMeshModel*    createDynaMeshModel(char* prm_model_name);
-    GgafDx9SpriteModel*      createSpriteModel(char* prm_model_name);
-    GgafDx9SpriteSetModel*   createSpriteSetModel(char* prm_model_name);
-    GgafDx9BoardModel*       createBoardModel(char* prm_model_name);
-    GgafDx9BoardSetModel*    createBoardSetModel(char* prm_model_name);
-    GgafDx9MeshModel*        createMeshModel(char* prm_model_name);
-    GgafDx9MeshSetModel*     createMeshSetModel(char* prm_model_name);
-    GgafDx9CubeMapMeshModel* createCubeMapMeshModel(char* prm_model_name);
-    GgafDx9MorphMeshModel*   createMorphMeshModel(char* prm_model_name);
-    GgafDx9PointSpriteModel* createPointSpriteModel(char* prm_model_name);
+    GgafDx9D3DXMeshModel*         createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions);
+    GgafDx9D3DXAniMeshModel*      createD3DXAniMeshModel(char* prm_model_name);
+    GgafDx9D3DXMeshModel*         createDynaMeshModel(char* prm_model_name);
+    GgafDx9SpriteModel*           createSpriteModel(char* prm_model_name);
+    GgafDx9SpriteSetModel*        createSpriteSetModel(char* prm_model_name);
+    GgafDx9BoardModel*            createBoardModel(char* prm_model_name);
+    GgafDx9BoardSetModel*         createBoardSetModel(char* prm_model_name);
+    GgafDx9MeshModel*             createMeshModel(char* prm_model_name);
+    GgafDx9MeshSetModel*          createMeshSetModel(char* prm_model_name);
+    GgafDx9CubeMapMeshModel*      createCubeMapMeshModel(char* prm_model_name);
+    GgafDx9CubeMapMeshSetModel*   createCubeMapMeshSetModel(char* prm_model_name);
+    GgafDx9MorphMeshModel*        createMorphMeshModel(char* prm_model_name);
+    GgafDx9CubeMapMorphMeshModel* createCubeMapMorphMeshModel(char* prm_model_name);
+    GgafDx9PointSpriteModel*      createPointSpriteModel(char* prm_model_name);
 
     /**
      * ãÛä‘ÇÃ3ì_v0 v1 v2 ÇÊÇËÅAíºê¸ v0v1 Ç∆ v1v2 ÇÃê¨Ç∑äp(äpv1)ÇãÅÇﬂÇÈ

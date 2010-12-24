@@ -37,8 +37,24 @@ public:
                           GgafDx9Checker* prm_pChecker );
 
     /**
-     * ＜OverRide です＞<BR>
+     * 下位継承用コンストラクタ
+     * @param prm_name アクター名称（任意）
+     * @param prm_model_id モデル定義名
+     * @param prm_model_type モデルタイプ
+     * @param prm_effect_id エフェクト定義名
+     * @param prm_effect_type エフェクトタイプ
+     * @param prm_technique エフェクトのテクニック
+     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
+     * @return
      */
+    GgafDx9MorphMeshActor(const char* prm_name,
+                          const char* prm_model_id,
+                          const char* prm_model_type,
+                          const char* prm_effect_id,
+                          const char* prm_effect_type,
+                          const char* prm_technique,
+                          GgafDx9Checker* prm_pChecker);
+
     virtual void processDraw() override;
 
     /**

@@ -153,29 +153,29 @@ enum GgafDx9BlinkerMethod {
     BEAT_BLINK_PARABOLA_REV   //!< BEAT_BLINK_PARABOLA_REV
 };
 
-#define Obj_GgafDx9Scene                (0x80000010)     //0b 10000000 00000000 00000000 00010000
-#define Obj_GgafDx9Universe             (0x80000020)     //0b 10000000 00000000 00000000 00100000
+#define Obj_GgafDx9Scene                 (0x80000010)     //0b 10000000 00000000 00000000 00010000
+#define Obj_GgafDx9Universe              (0x80000020)     //0b 10000000 00000000 00000000 00100000
 
-#define Obj_GgafDx9BaseActor            (0x80)           //0b 00000000 00000000 00000000 10000000
-#define Obj_GgafDx9GeometricActor       (0x100)          //0b 00000000 00000000 00000001 00000000
-#define Obj_GgafDx9DrawableActor        (0x200)          //0b 00000000 00000000 00000010 00000000
-#define Obj_GgafDx9MeshActor            (0x400)          //0b 00000000 00000000 00000100 00000000
-#define Obj_GgafDx9MeshSetActor         (0x800)          //0b 00000000 00000000 00001000 00000000
-#define Obj_GgafDx9MorphMeshActor       (0x1000)         //0b 00000000 00000000 00010000 00000000
-#define Obj_GgafDx9D3DXMeshActor        (0x2000)         //0b 00000000 00000000 00100000 00000000
-#define Obj_GgafDx9DynaD3DXMeshActor    (0x4000)         //0b 00000000 00000000 01000000 00000000
-#define Obj_GgafDx9D3DXAniMeshActor     (0x8000)         //0b 00000000 00000000 10000000 00000000
-#define Obj_GgafDx9SpriteMeshActor      (0x10000)        //0b 00000000 00000001 00000000 00000000
-#define Obj_GgafDx9SpriteMeshSetActor   (0x20000)        //0b 00000000 00000010 00000000 00000000
-#define Obj_GgafDx9CubeMapMeshActor     (0x40000)        //0b 00000000 00000100 00000000 00000000
-#define Obj_GgafDx9CubeMapMeshSetActor  (0x80000)        //0b 00000000 00001000 00000000 00000000
-#define Obj_GgafDx9SpriteActor          (0x100000)       //0b 00000000 00010000 00000000 00000000
-#define Obj_GgafDx9SpriteSetActor       (0x200000)       //0b 00000000 00100000 00000000 00000000
-#define Obj_GgafDx9BoardActor           (0x400000)       //0b 00000000 01000000 00000000 00000000
-#define Obj_GgafDx9BoardSetActor        (0x800000)       //0b 00000000 10000000 00000000 00000000
-#define Obj_GgafDx9PointSpriteActor     (0x1000000)      //0b 00000001 00000000 00000000 00000000
-#define Obj_GgafDx9FormationActor       (0x2000000)      //0b 00000010 00000000 00000000 00000000
-
+#define Obj_GgafDx9BaseActor             (0x80)           //0b 00000000 00000000 00000000 10000000
+#define Obj_GgafDx9GeometricActor        (0x100)          //0b 00000000 00000000 00000001 00000000
+#define Obj_GgafDx9DrawableActor         (0x200)          //0b 00000000 00000000 00000010 00000000
+#define Obj_GgafDx9MeshActor             (0x400)          //0b 00000000 00000000 00000100 00000000
+#define Obj_GgafDx9MeshSetActor          (0x800)          //0b 00000000 00000000 00001000 00000000
+#define Obj_GgafDx9MorphMeshActor        (0x1000)         //0b 00000000 00000000 00010000 00000000
+#define Obj_GgafDx9D3DXMeshActor         (0x2000)         //0b 00000000 00000000 00100000 00000000
+#define Obj_GgafDx9DynaD3DXMeshActor     (0x4000)         //0b 00000000 00000000 01000000 00000000
+#define Obj_GgafDx9D3DXAniMeshActor      (0x8000)         //0b 00000000 00000000 10000000 00000000
+#define Obj_GgafDx9SpriteMeshActor       (0x10000)        //0b 00000000 00000001 00000000 00000000
+#define Obj_GgafDx9SpriteMeshSetActor    (0x20000)        //0b 00000000 00000010 00000000 00000000
+#define Obj_GgafDx9CubeMapMeshActor      (0x40000)        //0b 00000000 00000100 00000000 00000000
+#define Obj_GgafDx9CubeMapMeshSetActor   (0x80000)        //0b 00000000 00001000 00000000 00000000
+#define Obj_GgafDx9CubeMapMorphMeshActor (0x100000)       //0b 00000000 00010000 00000000 00000000
+#define Obj_GgafDx9SpriteActor           (0x200000)       //0b 00000000 00100000 00000000 00000000
+#define Obj_GgafDx9SpriteSetActor        (0x400000)       //0b 00000000 01000000 00000000 00000000
+#define Obj_GgafDx9BoardActor            (0x800000)       //0b 00000000 10000000 00000000 00000000
+#define Obj_GgafDx9BoardSetActor         (0x1000000)      //0b 00000001 00000000 00000000 00000000
+#define Obj_GgafDx9PointSpriteActor      (0x2000000)      //0b 00000010 00000000 00000000 00000000
+#define Obj_GgafDx9FormationActor        (0x8000000)      //0b 00000100 00000000 00000000 00000000
 
 #undef P_GOD
 #define P_GOD ((GgafDx9Core::GgafDx9God*)GgafDx9Core::GgafDx9God::_pGod)
@@ -221,6 +221,7 @@ class GgafDx9SpriteMeshActor;
 class GgafDx9SpriteMeshSetActor;
 class GgafDx9CubeMapMeshActor;
 class GgafDx9CubeMapMeshSetActor;
+class GgafDx9CubeMapMorphMeshActor;
 class GgafDx9SphereActor;
 class GgafDx9SphereEx;
 class GgafDx9SpriteActor;
@@ -239,18 +240,22 @@ class GgafDx9SpriteModel;
 class GgafDx9SpriteSetModel;
 class GgafDx9MeshModel;
 class GgafDx9MeshSetModel;
-class GgafDx9CubeMapMeshModel;
 class GgafDx9MorphMeshModel;
+class GgafDx9CubeMapMeshModel;
+class GgafDx9CubeMapMeshSetModel;
+class GgafDx9CubeMapMorphMeshModel;
 class GgafDx9BoardModel;
 class GgafDx9BoardSetModel;
 class GgafDx9PointSpriteModel;
 
 class GgafDx9Effect;
 class GgafDx9MeshEffect;
-class GgafDx9CubeMapMeshEffect;
 class GgafDx9D3DXAniMeshEffect;
 class GgafDx9MeshSetEffect;
 class GgafDx9MorphMeshEffect;
+class GgafDx9CubeMapMeshEffect;
+class GgafDx9CubeMapMeshSetEffect;
+class GgafDx9CubeMapMorphMeshEffect;
 class GgafDx9SpriteEffect;
 class GgafDx9SpriteSetEffect;
 class GgafDx9BoardEffect;
@@ -344,7 +349,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9StringBoardActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9StringSpriteActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMeshActor.h"
-//#include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMeshSetActor.h"
+#include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMeshSetActor.h"
+#include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMorphMeshActor.h"
 
 #include "jp/ggaf/dx9core/model/GgafDx9Model.h"
 #include "jp/ggaf/dx9core/model/GgafDx9D3DXMeshModel.h"
@@ -358,6 +364,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/model/GgafDx9BoardSetModel.h"
 #include "jp/ggaf/dx9core/model/GgafDx9PointSpriteModel.h"
 #include "jp/ggaf/dx9core/model/ex/GgafDx9CubeMapMeshModel.h"
+#include "jp/ggaf/dx9core/model/ex/GgafDx9CubeMapMeshSetModel.h"
+#include "jp/ggaf/dx9core/model/ex/GgafDx9CubeMapMorphMeshModel.h"
 
 #include "jp/ggaf/dx9core/effect/GgafDx9Effect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9MeshEffect.h"
@@ -371,6 +379,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/effect/GgafDx9BoardSetEffect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9PointSpriteEffect.h"
 #include "jp/ggaf/dx9core/effect/ex/GgafDx9CubeMapMeshEffect.h"
+#include "jp/ggaf/dx9core/effect/ex/GgafDx9CubeMapMeshSetEffect.h"
+#include "jp/ggaf/dx9core/effect/ex/GgafDx9CubeMapMorphMeshEffect.h"
 
 #include "jp/ggaf/dx9core/texture/GgafDx9Texture.h"
 

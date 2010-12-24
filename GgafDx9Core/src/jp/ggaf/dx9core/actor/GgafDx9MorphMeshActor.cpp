@@ -27,6 +27,41 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
     }
 }
 
+
+
+
+
+
+GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
+                                             const char* prm_model_id,
+                                             const char* prm_model_type,
+                                             const char* prm_effect_id,
+                                             const char* prm_effect_type,
+                                             const char* prm_technique,
+                                             GgafDx9Checker* prm_pChecker) :
+
+                                                 GgafDx9DrawableActor(prm_name,
+                                                                       prm_model_id,
+                                                                       prm_model_type,
+                                                                       prm_effect_id,
+                                                                       prm_effect_type,
+                                                                       prm_technique,
+                                                                       prm_pChecker) {
+    _obj_class |= Obj_GgafDx9MorphMeshActor;
+    _class_name = "GgafDx9MorphMeshActor";
+    _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pGgafDx9Model;
+    _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pGgafDx9Effect;
+    _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
+    //重み初期化
+    for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
+        _weight[i] = 0.0f;
+    }
+}
+
+
+
+
+
 void GgafDx9MorphMeshActor::setAlpha(float prm_fAlpha) {
     _fAlpha = prm_fAlpha;
     //GgafDx9MorphMeshActorはメッシュαも設定（シェーダーで参照するため）

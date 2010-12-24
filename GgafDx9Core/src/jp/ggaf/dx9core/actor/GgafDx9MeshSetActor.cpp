@@ -8,6 +8,7 @@ GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
                                          const char* prm_effect_id,
                                          const char* prm_technique,
                                          GgafDx9Checker* prm_pChecker) :
+
                                              GgafDx9DrawableActor(prm_name,
                                                                   prm_model_id,
                                                                   "x",
@@ -22,6 +23,27 @@ GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
 }
 
+GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
+                                         const char* prm_model_id,
+                                         const char* prm_model_type,
+                                         const char* prm_effect_id,
+                                         const char* prm_effect_type,
+                                         const char* prm_technique,
+                                         GgafDx9Checker* prm_pChecker) :
+
+                                             GgafDx9DrawableActor(prm_name,
+                                                                  prm_model_id,
+                                                                  prm_model_type,
+                                                                  prm_effect_id,
+                                                                  prm_effect_type,
+                                                                  prm_technique,
+                                                                  prm_pChecker) {
+    _obj_class |= Obj_GgafDx9MeshSetActor;
+    _class_name = "GgafDx9MeshSetActor";
+    _pMeshSetModel = (GgafDx9MeshSetModel*)_pGgafDx9Model;
+    _pMeshSetEffect = (GgafDx9MeshSetEffect*)_pGgafDx9Effect;
+    _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
+}
 
 void GgafDx9MeshSetActor::setAlpha(float prm_fAlpha) {
     _fAlpha = prm_fAlpha;
