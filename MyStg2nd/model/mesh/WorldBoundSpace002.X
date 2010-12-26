@@ -680,7 +680,7 @@ Frame _05 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "BkSpace_top.png";
+     "BkSky_top.png";
     }
    }
   }
@@ -1273,7 +1273,7 @@ Frame _01 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "BkSpace_zleft.png";
+     "BkSky_zleft.png";
     }
    }
   }
@@ -1866,7 +1866,7 @@ Frame _02 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "BkSpace_front.png";
+     "BkSky_front.png";
     }
    }
   }
@@ -2459,7 +2459,7 @@ Frame _03 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "BkSpace_zright.png";
+     "BkSky_zright.png";
     }
    }
   }
@@ -3052,7 +3052,7 @@ Frame _04 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "BkSpace_behind.png";
+     "BkSky_behind.png";
     }
    }
   }
@@ -3645,7 +3645,7 @@ Frame _06 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "BkSpace_bottom.png";
+     "BkSky_bottom.png";
     }
    }
   }

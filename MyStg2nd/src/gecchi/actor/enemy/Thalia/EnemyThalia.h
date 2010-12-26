@@ -42,12 +42,12 @@ public:
     void onCreateModel() override;
 
     /**
-     * タリアのが初期処理（インスタンス生成後保証）
+     * タリアの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 
     /**
-     * タリアのがアクティブになった瞬間の処理 .
+     * タリアがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 

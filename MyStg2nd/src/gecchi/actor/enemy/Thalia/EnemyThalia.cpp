@@ -138,15 +138,16 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
         _pSeTransmitter->play3D(0);
 
 
-//        if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-//            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
-//            if (pExplo001 != NULL) {
-//                pExplo001->activate();
-//                pExplo001->setCoordinateBy(this);
-//            }
-//            _pSeTransmitter->play3D(0);
-//        }
-//        sayonara();
+        if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+            if (pExplo001 != NULL) {
+                pExplo001->activate();
+                pExplo001->setCoordinateBy(this);
+            }
+            _pSeTransmitter->play3D(0);
+            sayonara();
+        }
+
     } else {
 
     }
