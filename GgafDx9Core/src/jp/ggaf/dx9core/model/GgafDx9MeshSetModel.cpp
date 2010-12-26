@@ -56,7 +56,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     UINT material_no;
 
     int draw_set_num = pTargetActor->_draw_set_num;
-    TRACE4("GgafDx9MeshSetModel  draw_set_num="<<draw_set_num);
+    TRACE("GgafDx9MeshSetModel  draw_set_num="<<draw_set_num);
 
     //モデルが同じでかつ、セット数も同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     if (GgafDx9ModelManager::_pModelLastDraw  != this) {

@@ -18,6 +18,7 @@ throw (std::bad_alloc)
             //TRACE("new: " << strFileName << ":" << nLineNum << " size=" << size << " address=" << address );
             std::ostringstream oss;
             oss << strFileName << ":" << nLineNum << " size=" << size << " address=" << address;
+            //detectMemoryLeaksMemoryMap.insert(detectMemoryLeaksMemoryMap.end(), std::pair<std::size_t, std::string>((std::size_t)address, oss.str()));
             detectMemoryLeaksMemoryMap.insert(std::pair<std::size_t, std::string>((std::size_t)address, oss.str()));
         }
         return address;

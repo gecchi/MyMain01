@@ -7,8 +7,8 @@ using namespace GgafDx9LibStg;
 CubeMapMorphMeshActor::CubeMapMorphMeshActor(const char* prm_name, const char* prm_model_id) :
     GgafDx9CubeMapMorphMeshActor(prm_name,
                      prm_model_id,
-                     "DefaultMorphMeshEffect",
-                     "DefaultMorphMeshTechnique",
+                     "CubeMapMorphMeshEffect",
+                     "CubeMapMorphMeshTechnique",
                      NEW CollisionChecker(this) ) {
 
     _class_name = "CubeMapMorphMeshActor";

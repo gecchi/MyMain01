@@ -5757,7 +5757,7 @@ Frame Torus01 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "Torus.png";
+     "uffizi_cross_cubemap.dds";
     }
    }
   }

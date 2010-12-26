@@ -9,8 +9,8 @@ namespace MyStg2nd {
  * @since 2010/05/08
  * @author Masatoshi Tsuge
  */
-class Torus : public GroundMeshActor {
-
+//class Torus : public GroundMeshActor {
+class Torus : public GgafDx9LibStg::CubeMapMeshActor {
 public:
     /** ÉgÅ[ÉâÉXîºåa1(ó÷) */
     int _r1;

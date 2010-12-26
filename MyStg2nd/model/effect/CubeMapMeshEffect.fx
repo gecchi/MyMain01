@@ -49,7 +49,7 @@ struct OUT_VS {
  */
 OUT_VS GgafDx9VS_CubeMapMesh(
       float4 prm_pos    : POSITION, 
-      float3 prm_normal : NORMAL,   
+      float3 prm_normal : NORMAL   
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	//’¸“_ŒvŽZ

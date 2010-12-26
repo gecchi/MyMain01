@@ -3,6 +3,8 @@
 // author : Masatoshi Tsuge
 // date:2009/05/12 
 ////////////////////////////////////////////////////////////////////////////////
+/** カメラのWorld位置 */
+float3 pos_camera; 
 
 float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
@@ -35,35 +37,47 @@ sampler MyTextureSampler : register(s0);
 //};
 
 //頂点シェーダー、出力構造体
-struct OUT_VS
-{
-    float4 pos    : POSITION;
-	float2 uv     : TEXCOORD0;
-	float3 normal : TEXCOORD1;   // ワールド変換した法線
-};
+//struct OUT_VS
+//{
+//    float4 pos    : POSITION;
+//	float2 uv     : TEXCOORD0;
+//	float3 normal : TEXCOORD1;   // ワールド変換した法線
+//};
 
+struct OUT_VS {                   
+    float4 pos   : POSITION;      
+    float3 normal: TEXCOORD0;    	// ワールド空間の法線
+    float3 viewVecW: TEXCOORD1;  	// ワールド空間での視線ベクトル
+};  
 
 ///////////////////////////////////////////////////////////////////////////
 
 //モーフターゲットなし
-OUT_VS GgafDx9VS_DefaultMorphMesh0(
+OUT_VS GgafDx9VS_CubeMapMorphMesh0(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0       // モデルの頂点のUV
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
+
 	//頂点計算
-	out_vs.pos = mul( mul(mul( prm_pos0, g_matWorld ), g_matView ), g_matProj);//
-    //法線計算
-    out_vs.normal = normalize(mul(prm_normal0, g_matWorld)); 	//法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
+	out_vs.pos = mul(prm_pos0, g_matWorld);  //World
+    out_vs.viewVecW = out_vs.pos.xyz - pos_camera;
+	out_vs.pos = mul( mul(out_vs.pos , g_matView), g_matProj);  //View*射影変換
+    out_vs.normal = normalize(mul(prm_normal0, g_matWorld)); 
+
+//	//頂点計算
+//	out_vs.pos = mul( mul(mul( prm_pos0, g_matWorld ), g_matView ), g_matProj);//
+//    //法線計算
+//    out_vs.normal = normalize(mul(prm_normal0, g_matWorld)); 	//法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
 	return out_vs;
 }
 
 //モーフターゲット１つ
-OUT_VS GgafDx9VS_DefaultMorphMesh1(
+OUT_VS GgafDx9VS_CubeMapMorphMesh1(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -80,19 +94,26 @@ OUT_VS GgafDx9VS_DefaultMorphMesh1(
 		pos += ((prm_pos1 - prm_pos0) * g_weight1);
 		normal = lerp(normal, prm_normal1, g_weight1);
 	}
-	//頂点出力設定
-	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
-	//法線出力設定
-	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
+
+	//頂点計算
+	out_vs.pos = mul(pos, g_matWorld);  //World
+    out_vs.viewVecW = out_vs.pos.xyz - pos_camera;
+	out_vs.pos = mul( mul(out_vs.pos , g_matView), g_matProj);  //View*射影変換
+    out_vs.normal = normalize(mul(normal, g_matWorld)); 
+
+//	//頂点出力設定
+//	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
+//	//法線出力設定
+//	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
 
 	return out_vs;
 }
 
 
 //モーフターゲット２つ
-OUT_VS GgafDx9VS_DefaultMorphMesh2(
+OUT_VS GgafDx9VS_CubeMapMorphMesh2(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -114,18 +135,26 @@ OUT_VS GgafDx9VS_DefaultMorphMesh2(
 		pos += ((prm_pos2 - prm_pos0) * g_weight2);
 		normal = lerp(normal, prm_normal2, g_weight2);
 	}
-	//頂点出力設定
-	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
-	//法線出力設定
-	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
+
+	//頂点計算
+	out_vs.pos = mul(pos, g_matWorld);  //World
+    out_vs.viewVecW = out_vs.pos.xyz - pos_camera;
+	out_vs.pos = mul( mul(out_vs.pos , g_matView), g_matProj);  //View*射影変換
+    out_vs.normal = normalize(mul(normal, g_matWorld)); 
+
+
+//	//頂点出力設定
+//	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
+//	//法線出力設定
+//	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
 
 	return out_vs;
 }
 
 //モーフターゲット３つ
-OUT_VS GgafDx9VS_DefaultMorphMesh3(
+OUT_VS GgafDx9VS_CubeMapMorphMesh3(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -153,18 +182,25 @@ OUT_VS GgafDx9VS_DefaultMorphMesh3(
 		pos += ((prm_pos3 - prm_pos0) * g_weight3);
 		normal = lerp(normal, prm_normal3, g_weight3);
 	}
-	//頂点出力設定
-	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
-	//法線出力設定
-	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
+
+	//頂点計算
+	out_vs.pos = mul(pos, g_matWorld);  //World
+    out_vs.viewVecW = out_vs.pos.xyz - pos_camera;
+	out_vs.pos = mul( mul(out_vs.pos , g_matView), g_matProj);  //View*射影変換
+    out_vs.normal = normalize(mul(normal, g_matWorld)); 
+
+//	//頂点出力設定
+//	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
+//	//法線出力設定
+//	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
 
 	return out_vs;
 }
 
 //モーフターゲット４つ
-OUT_VS GgafDx9VS_DefaultMorphMesh4(
+OUT_VS GgafDx9VS_CubeMapMorphMesh4(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -198,18 +234,26 @@ OUT_VS GgafDx9VS_DefaultMorphMesh4(
 		pos += ((prm_pos4 - prm_pos0) * g_weight4);
 		normal = lerp(normal, prm_normal4, g_weight4);
 	}
-	//頂点出力設定
-	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
-	//法線出力設定
-	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
+
+	//頂点計算
+	out_vs.pos = mul(pos, g_matWorld);  //World
+    out_vs.viewVecW = out_vs.pos.xyz - pos_camera;
+	out_vs.pos = mul( mul(out_vs.pos , g_matView), g_matProj);  //View*射影変換
+    out_vs.normal = normalize(mul(normal, g_matWorld)); 
+
+//
+//	//頂点出力設定
+//	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
+//	//法線出力設定
+//	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
 
 	return out_vs;
 }
 
 //モーフターゲット５つ
-OUT_VS GgafDx9VS_DefaultMorphMesh5(
+OUT_VS GgafDx9VS_CubeMapMorphMesh5(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -249,18 +293,27 @@ OUT_VS GgafDx9VS_DefaultMorphMesh5(
 		pos += ((prm_pos5 - prm_pos0) * g_weight5);
 		normal = lerp(normal, prm_normal5, g_weight5);
 	}
-	//頂点出力設定
-	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
-	//法線出力設定
-	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
+
+	//頂点計算
+	out_vs.pos = mul(pos, g_matWorld);  //World
+    out_vs.viewVecW = out_vs.pos.xyz - pos_camera;
+	out_vs.pos = mul( mul(out_vs.pos , g_matView), g_matProj);  //View*射影変換
+    out_vs.normal = normalize(mul(normal, g_matWorld)); 
+
+
+
+//	//頂点出力設定
+//	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
+//	//法線出力設定
+//	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
 
 	return out_vs;
 }
 
 //モーフターゲット６つ
-OUT_VS GgafDx9VS_DefaultMorphMesh6(
+OUT_VS GgafDx9VS_CubeMapMorphMesh6(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -307,18 +360,26 @@ OUT_VS GgafDx9VS_DefaultMorphMesh6(
 		pos += ((prm_pos6 - prm_pos0) * g_weight6);
 		normal = lerp(normal, prm_normal6, g_weight6);
 	}
-	//頂点出力設定
-	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
-	//法線出力設定
-	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
+
+	//頂点計算
+	out_vs.pos = mul(pos, g_matWorld);  //World
+    out_vs.viewVecW = out_vs.pos.xyz - pos_camera;
+	out_vs.pos = mul( mul(out_vs.pos , g_matView), g_matProj);  //View*射影変換
+    out_vs.normal = normalize(mul(normal, g_matWorld)); 
+
+
+//	//頂点出力設定
+//	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
+//	//法線出力設定
+//	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
 
 	return out_vs;
 }
 
 ////モーフターゲット７つ
-//OUT_VS GgafDx9VS_DefaultMorphMesh7(
+//OUT_VS GgafDx9VS_CubeMapMorphMesh7(
 //      float4 prm_pos0    : POSITION0,      // モデルの頂点
 //      float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
 //      float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -380,18 +441,18 @@ OUT_VS GgafDx9VS_DefaultMorphMesh6(
 //	return out_vs;
 //}
 
-float4 GgafDx9PS_DefaultMorphMesh(
-	float2 prm_uv	  : TEXCOORD0,
-	float3 prm_normal : TEXCOORD1
+float4 GgafDx9PS_CubeMapMorphMesh(
+     float3 prm_normal: TEXCOORD0,
+	 float3 prm_viewVecW: TEXCOORD1
 ) : COLOR  {
-	//求める色
-	float4 out_color; 
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 	float power = max(dot(prm_normal, -g_vecLightDirection ), 0);          
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
+
+ 	float3 vReflect = reflect( prm_viewVecW, prm_normal );
+    float4 tex_color = texCUBE(MyTextureSampler, vReflect);
+
 	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-	out_color = g_colLightDiffuse * g_colMaterialDiffuse * tex_color * power; 
+	float4 out_color = g_colLightDiffuse * g_colMaterialDiffuse * tex_color * power; 
 	//Ambient色を加算。マテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
 	out_color =  (g_colLightAmbient * g_colMaterialDiffuse * tex_color) + out_color;  
 	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
@@ -400,26 +461,30 @@ float4 GgafDx9PS_DefaultMorphMesh(
 	//α計算、αは法線およびライト方向に依存しない事とするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
 	out_color.a = g_colMaterialDiffuse.a * tex_color.a * g_alpha_master; 
 
-	return out_color;
+	return out_color * float4(2.0, 2.0, 2.0, 1.0); //全体的に明るくする;
 }
 
 float4 PS_DestBlendOne( 
-	float2 prm_uv	  : TEXCOORD0
+     float3 prm_normal: TEXCOORD0,
+	 float3 prm_viewVecW: TEXCOORD1
 ) : COLOR  {
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_colMaterialDiffuse;
-	out_color.a = out_color.a * g_alpha_master; 
-	return 	out_color;
+ 	float3 vReflect = reflect( prm_viewVecW, prm_normal );
+    float4 tex_color = texCUBE(MyTextureSampler, vReflect);
+	tex_color.a = tex_color.a * g_alpha_master; 
+	return 	tex_color;
 }
 
 float4 PS_Flush( 
-	float2 prm_uv	  : TEXCOORD0
+     float3 prm_normal: TEXCOORD0,
+	 float3 prm_viewVecW: TEXCOORD1
 ) : COLOR  {
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_colMaterialDiffuse * float4(7.0, 7.0, 7.0, 1.0);
-	out_color.a = out_color.a * g_alpha_master; 
-	return 	out_color;
+ 	float3 vReflect = reflect( prm_viewVecW, prm_normal );
+    float4 tex_color = texCUBE(MyTextureSampler, vReflect) * float4(7.0, 7.0, 7.0, 1.0);
+	tex_color.a = tex_color.a * g_alpha_master; 
+	return 	tex_color;
 }
 
-technique DefaultMorphMeshTechnique
+technique CubeMapMorphMeshTechnique
 {
 	//「メッシュ標準シェーダー」
 	//メッシュを描画する
@@ -453,8 +518,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh0();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh0();
+		PixelShader  = compile ps_2_0 GgafDx9PS_CubeMapMorphMesh();
 	}
 
 	//モーフターゲット１つ
@@ -462,8 +527,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh1();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh1();
+		PixelShader  = compile ps_2_0 GgafDx9PS_CubeMapMorphMesh();
 	}
 
 	//モーフターゲット２つ
@@ -471,8 +536,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh2();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh2();
+		PixelShader  = compile ps_2_0 GgafDx9PS_CubeMapMorphMesh();
 	}
 
 	//モーフターゲット３つ
@@ -480,8 +545,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh3();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh3();
+		PixelShader  = compile ps_2_0 GgafDx9PS_CubeMapMorphMesh();
 	}
 
 	//モーフターゲット４つ
@@ -489,8 +554,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh4();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh4();
+		PixelShader  = compile ps_2_0 GgafDx9PS_CubeMapMorphMesh();
 	}
 
 	//モーフターゲット５つ
@@ -498,8 +563,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh5();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh5();
+		PixelShader  = compile ps_2_0 GgafDx9PS_CubeMapMorphMesh();
 	}
 
 	//モーフターゲット６つ
@@ -507,8 +572,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh6();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh6();
+		PixelShader  = compile ps_2_0 GgafDx9PS_CubeMapMorphMesh();
 	}
 
 //	//モーフターゲット７つ
@@ -516,8 +581,8 @@ technique DefaultMorphMeshTechnique
 //		AlphaBlendEnable = true;
 //		SrcBlend  = SrcAlpha;
 //		DestBlend = InvSrcAlpha;
-//		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh7();
-//		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+//		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh7();
+//		PixelShader  = compile ps_2_0 GgafDx9PS_CubeMapMorphMesh();
 //	}
 }
 
@@ -529,7 +594,7 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh0();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh0();
 		PixelShader  = compile ps_2_0 PS_DestBlendOne();
 	}
 
@@ -538,7 +603,7 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh1();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh1();
 		PixelShader  = compile ps_2_0 PS_DestBlendOne();
 	}
 
@@ -547,7 +612,7 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh2();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh2();
 		PixelShader  = compile ps_2_0 PS_DestBlendOne();
 	}
 
@@ -556,7 +621,7 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh3();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh3();
 		PixelShader  = compile ps_2_0 PS_DestBlendOne();
 	}
 
@@ -565,7 +630,7 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh4();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh4();
 		PixelShader  = compile ps_2_0 PS_DestBlendOne();
 	}
 
@@ -574,7 +639,7 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh5();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh5();
 		PixelShader  = compile ps_2_0 PS_DestBlendOne();
 	}
 
@@ -583,7 +648,7 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh6();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh6();
 		PixelShader  = compile ps_2_0 PS_DestBlendOne();
 	}
 
@@ -592,7 +657,7 @@ technique DestBlendOne
 //		AlphaBlendEnable = true;
 //		SrcBlend  = SrcAlpha;
 //		DestBlend = One; //加算合成
-//		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh7();
+//		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh7();
 //		PixelShader  = compile ps_2_0 PS_DestBlendOne();
 //	}
 
@@ -605,7 +670,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh0();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh0();
 		PixelShader  = compile ps_2_0 PS_Flush();
 	}
 
@@ -614,7 +679,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh1();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh1();
 		PixelShader  = compile ps_2_0 PS_Flush();
 	}
 
@@ -623,7 +688,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh2();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh2();
 		PixelShader  = compile ps_2_0 PS_Flush();
 	}
 
@@ -632,7 +697,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh3();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh3();
 		PixelShader  = compile ps_2_0 PS_Flush();
 	}
 
@@ -641,7 +706,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh4();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh4();
 		PixelShader  = compile ps_2_0 PS_Flush();
 	}
 
@@ -650,7 +715,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh5();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh5();
 		PixelShader  = compile ps_2_0 PS_Flush();
 	}
 
@@ -659,7 +724,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh6();
+		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh6();
 		PixelShader  = compile ps_2_0 PS_Flush();
 	}
 
@@ -668,7 +733,7 @@ technique Flush
 //		AlphaBlendEnable = true;
 //		SrcBlend  = SrcAlpha;
 //		DestBlend = One; //加算合成
-//		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh7();
+//		VertexShader = compile vs_2_0 GgafDx9VS_CubeMapMorphMesh7();
 //		PixelShader  = compile ps_2_0 PS_Flush();
 //	}
 

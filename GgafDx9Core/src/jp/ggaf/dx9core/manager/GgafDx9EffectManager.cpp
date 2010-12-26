@@ -27,11 +27,17 @@ GgafDx9Effect* GgafDx9EffectManager::processCreateResource(char* prm_idstr, void
         case 'G':
             pResourceEffect = NEW GgafDx9CubeMapMeshEffect(effect_name);
             break;
+        case 'g':
+            pResourceEffect = NEW GgafDx9CubeMapMeshSetEffect(effect_name);
+            break;
         case 'A':
             pResourceEffect = NEW GgafDx9D3DXAniMeshEffect(effect_name);
             break;
         case 'M':
             pResourceEffect = NEW GgafDx9MorphMeshEffect(effect_name);
+            break;
+        case 'H':
+            pResourceEffect = NEW GgafDx9CubeMapMorphMeshEffect(effect_name);
             break;
         case 'S':
             pResourceEffect = NEW GgafDx9SpriteEffect(effect_name);

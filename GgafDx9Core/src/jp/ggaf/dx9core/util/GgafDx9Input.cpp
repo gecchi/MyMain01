@@ -188,7 +188,8 @@ void GgafDx9Input::updateKeyboardState() {
     }
 
     HRESULT hr;
-    again: hr = _pIDirectInputDevice8_Keyboard->Poll(); //キーボードは通常Poll不用と思うが、必要なキーボードもあるかもしれない。
+    again:
+    hr = _pIDirectInputDevice8_Keyboard->Poll(); //キーボードは通常Poll不用と思うが、必要なキーボードもあるかもしれない。
     hr = _pIDirectInputDevice8_Keyboard->GetDeviceState(256, (void*)&_caKeyboardState);
     if (FAILED(hr)) {
         //_TRACE_("GetDeviceState is FAILED");
