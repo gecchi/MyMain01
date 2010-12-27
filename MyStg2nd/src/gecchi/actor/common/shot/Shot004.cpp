@@ -18,11 +18,12 @@ void Shot004::initialize() {
     setAlpha(0.99); //半透明にすることで両面レンダリング
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+    _pMover->setMvVelo(50000);             //移動速度
 }
 
 void Shot004::onActive() {
     setHitAble(true);
-    _pMover->setMvVelo(50000);             //移動速度
+
 }
 
 void Shot004::processBehavior() {

@@ -91,7 +91,7 @@ void EnemyThalia::processBehavior() {
             break;
         }
         case THALIA_SCENE_PROG_FIRE_BEGIN: {
-            if ( _X - P_MYSHIP->_X > -_dZ_camera_init*0.6) {
+            if ( _X - P_MYSHIP->_X > -_dZ_camera_init) {
                 _pProgress->change(THALIA_SCENE_PROG_IN_FIRE);
             } else {
                 _pProgress->change(THALIA_SCENE_PROG_CLOSE);
@@ -144,7 +144,7 @@ void EnemyThalia::processJudgement() {
 void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
-    if (_pProgress->get() == THALIA_SCENE_PROG_IN_FIRE) {
+    if (_pProgress->get() != THALIA_SCENE_PROG_MOVE) {
         changeEffectTechniqueInterim("Flush", 2); //フラッシュ
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
@@ -161,6 +161,30 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
                 pExplo001->setCoordinateBy(this);
             }
             _pSeTransmitter->play3D(0);
+
+
+            //打ち返し弾
+            if (_pDispatcher_Shot) {
+                int way = 10+_RANK_*10; //ショットWAY数
+                angle* paAngWay = NEW angle[way];
+                angle rz,ry;
+                GgafDx9Util::getRzRyAng(P_MYSHIP->_X-_X, P_MYSHIP->_Y-_Y, P_MYSHIP->_Z-_Z,
+                                        rz, ry);
+                GgafDx9Util::getWayAngle2D(0,way,10000,paAngWay);
+                GgafDx9DrawableActor* pActor_Shot;
+                for (int i = 0; i < way; i++) {
+                    pActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                    if (pActor_Shot) {
+                        pActor_Shot->setCoordinateBy(this);
+                        pActor_Shot->_pMover->setRzRyMvAng(rz+paAngWay[i], ry);
+                        pActor_Shot->_pMover->setMvVelo(2000);
+                        pActor_Shot->_pMover->setMvAcce(200);
+                        pActor_Shot->activate();
+                    }
+                }
+                DELETEARR_IMPOSSIBLE_NULL(paAngWay);
+            }
+
             sayonara();
         }
 
