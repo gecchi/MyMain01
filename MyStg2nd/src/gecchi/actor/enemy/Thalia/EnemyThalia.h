@@ -25,6 +25,9 @@ class EnemyThalia : public GgafDx9LibStg::CubeMapMorphMeshActor {
     GgafCore::GgafActorDispatcher* _pDispatcher_Shot;
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDispatcher* _pDispatcher_ShotEffect;
+
+    /** 原点から初期カメラZ位置の距離 */
+    int _dZ_camera_init;
 public:
     /** 行動パターン番号 */
     int _iMovePatternNo;

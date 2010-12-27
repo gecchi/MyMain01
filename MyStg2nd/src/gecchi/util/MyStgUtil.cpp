@@ -314,7 +314,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	void MyStgUtil::resetEnemyThaliaStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
-		p->set(STAT_AddScorePoint, 20 );  //加算得点
+		p->set(STAT_AddScorePoint, 300 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 1000 );  //体力

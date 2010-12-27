@@ -248,6 +248,7 @@ void GameScene::processBehavior() {
             //##########  ゲームシーン終了  ##########
             if (_pProgress->isJustChanged()) {
                 _pMyShipScene->fadeoutSceneTree(FADE_FRAME);
+                _pCommonScene->fadeoutSceneTree(FADE_FRAME);
                 _pScene_PreGameTitle->fadeoutSceneTree(FADE_FRAME);
                 _pScene_GameTitle->fadeoutSceneTree(FADE_FRAME);
                 _pScene_GameDemo->fadeoutSceneTree(FADE_FRAME);
@@ -271,23 +272,28 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         //プレタイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLE_SCENE_FINISH)");
         _pProgress->change(GAME_SCENE_PROG_TITLE); //タイトルへ
+
     } else if (prm_no == EVENT_GAMETITLE_SCENE_FINISH) {
         //タイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLE_SCENE_FINISH)");
         _pProgress->change(GAME_SCENE_PROG_DEMO); //デモへ
+
     } else if (prm_no == EVENT_GAMEDEMO_SCENE_FINISH) {
         //デモシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMO_SCENE_FINISH)");
         _pProgress->change(GAME_SCENE_PROG_INIT); //最初へ
+
     } else if (prm_no == EVENT_GAMESTART) {
         //スタート
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMESTART)");
         _pProgress->change(GAME_SCENE_PROG_BEGINNING); //オープニング（ゲームモードセレクト）へ
+
     } else if (prm_no == EVENT_GAMEMODE_DECIDE) {
         //ゲームモードセレクト完了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEMODE_DECIDE)");
         _stage = 1;
         _pProgress->change(GAME_SCENE_PROG_MAIN); //メインへ
+
     } else if (prm_no == EVENT_GOTO_GAMETITLE) {
         //とにかくタイトルへイベント発生
         _TRACE_("GameScene::onCatchEvent(EVENT_GOTO_GAMETITLE)");

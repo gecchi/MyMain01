@@ -19,7 +19,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) : CubeMapMorphMeshActor(prm_name,
     _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
     _pLaserChipDispatcher->config(100, 0, NULL);
     EnemyStraightLaserChip001* pChip;
-    for (int i = 0; i < 100; i++) { //レーザーストック
+    for (int i = 0; i < 60; i++) { //レーザーストック
         stringstream name;
         name <<  "EnemyStraightLaserChip001" << i;
         string name2 = name.str();
@@ -35,6 +35,8 @@ EnemyThalia::EnemyThalia(const char* prm_name) : CubeMapMorphMeshActor(prm_name,
     _pSeTransmitter->set(1, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));     //爆発
     _veloTopMv = 40000;
     useProgress(10);
+    //初期カメラZ位置
+    _dZ_camera_init = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 }
 
 void EnemyThalia::onCreateModel() {
@@ -68,51 +70,65 @@ void EnemyThalia::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    if (_pProgress->get() == THALIA_SCENE_PROG_MOVE) {
-        if (!_pMover->isMoveingSmooth()) {
-//            _TRACE_("execSmoothMvVeloSequence END ("<<_X<<","<<_Y<<","<<_Z<<") veloMv="<<(_pMover->_veloMv));
 
-            _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0005);
-            _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
-                                                0, 100,
-                                                TURN_CLOSE_TO);
-            _pProgress->change(THALIA_SCENE_PROG_TURN_OPEN);
-        }
-    }
 
-    if (_pProgress->get() == THALIA_SCENE_PROG_TURN_OPEN) {
-        if (_pMorpher->_method[1] == NOMORPH ) {
-            _pProgress->change(THALIA_SCENE_PROG_FIRE_BEGIN);
-        }
-    }
+    switch (_pProgress->get()) {
+        case THALIA_SCENE_PROG_MOVE: {
+            if (!_pMover->isMoveingSmooth()) {
+                _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0005);
+                _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+                                                    0, 100,
+                                                    TURN_CLOSE_TO);
 
-    if (_pProgress->get() == THALIA_SCENE_PROG_FIRE_BEGIN) {
-        _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
-                                            100, 0,
-                                            TURN_CLOSE_TO);
-        _pProgress->change(THALIA_SCENE_PROG_IN_FIRE);
-    }
-
-    if (_pProgress->get() == THALIA_SCENE_PROG_IN_FIRE) {
-        _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
-                                            100, 0,
-                                            TURN_CLOSE_TO);
-        EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)_pLaserChipDispatcher->employ();
-        if (pLaser != NULL) {
-            pLaser->activate();
-            if (pLaser->_pChip_front == NULL) {
-                _pSeTransmitter->play3D(1);
-                _pMover->setFaceAngVelo(AXIS_X, 4000);
+                _pProgress->change(THALIA_SCENE_PROG_TURN_OPEN);
             }
-        } else {
-            _pProgress->change(THALIA_SCENE_PROG_MOVE);
+            break;
+        }
+        case THALIA_SCENE_PROG_TURN_OPEN: {
+            if (_pMorpher->_method[1] == NOMORPH ) {
+                _pProgress->change(THALIA_SCENE_PROG_FIRE_BEGIN);
+            }
+            break;
+        }
+        case THALIA_SCENE_PROG_FIRE_BEGIN: {
+            if ( _X - P_MYSHIP->_X > -_dZ_camera_init*0.6) {
+                _pProgress->change(THALIA_SCENE_PROG_IN_FIRE);
+            } else {
+                _pProgress->change(THALIA_SCENE_PROG_CLOSE);
+            }
+            break;
+        }
+        case THALIA_SCENE_PROG_IN_FIRE: {
+            if (getActivePartFrame() % 10 == 0) {
+                _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+                                                    100, 0,
+                                                    TURN_CLOSE_TO);
+            }
+            EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)_pLaserChipDispatcher->employ();
+            if (pLaser != NULL) {
+                pLaser->activate();
+                if (pLaser->_pChip_front == NULL) {
+                    _pSeTransmitter->play3D(1);
+                    _pMover->setFaceAngVelo(AXIS_X, 4000);
+                }
+            } else {
+                _pProgress->change(THALIA_SCENE_PROG_CLOSE);
+            }
+            break;
+        }
+        case THALIA_SCENE_PROG_CLOSE: {
+            //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
             _pMover->execSmoothMvVeloSequence(_veloTopMv, 200, 4000000);
-//             _TRACE_("execSmoothMvVeloSequence START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離=1500000 veloMv="<<(_pMover->_veloMv));
-
             _pMover->setFaceAngVelo(AXIS_X, 1000);
+            _pProgress->change(THALIA_SCENE_PROG_MOVE);
         }
+        default:
+            break;
+
+
     }
+
 
     _pMover->behave();
     _pMorpher->behave();
