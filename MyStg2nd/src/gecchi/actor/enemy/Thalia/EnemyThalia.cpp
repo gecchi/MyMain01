@@ -165,24 +165,11 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
             //‘Å‚¿•Ô‚µ’e
             if (_pDispatcher_Shot) {
-                int way = 10+_RANK_*10; //ƒVƒ‡ƒbƒgWAY”
-                angle* paAngWay = NEW angle[way];
-                angle rz,ry;
-                GgafDx9Util::getRzRyAng(P_MYSHIP->_X-_X, P_MYSHIP->_Y-_Y, P_MYSHIP->_Z-_Z,
-                                        rz, ry);
-                GgafDx9Util::getWayAngle2D(0,way,10000,paAngWay);
-                GgafDx9DrawableActor* pActor_Shot;
-                for (int i = 0; i < way; i++) {
-                    pActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
-                    if (pActor_Shot) {
-                        pActor_Shot->setCoordinateBy(this);
-                        pActor_Shot->_pMover->setRzRyMvAng(rz+paAngWay[i], ry);
-                        pActor_Shot->_pMover->setMvVelo(2000);
-                        pActor_Shot->_pMover->setMvAcce(200);
-                        pActor_Shot->activate();
-                    }
-                }
-                DELETEARR_IMPOSSIBLE_NULL(paAngWay);
+                MyStgUtil::shotWay001(this,
+                                       _pDispatcher_Shot,
+                                       P_MYSHIP,
+                                       10+_RANK_*10, 10000,
+                                       2000, 200);
             }
 
             sayonara();
