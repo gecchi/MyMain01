@@ -117,41 +117,6 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 
 
 
-
-
-
-void MyStgUtil::shotWay001(GgafDx9DrawableActor* prm_pFrom,
-                       GgafActorDispatcher* prm_pDispatcher_Shot,
-                       GgafDx9DrawableActor* prm_pTarget,
-                       int prm_way, angle prm_angClearance,
-                       velo prm_velo, acce prm_acce) {
-    angle* paAngWay = NEW angle[prm_way];
-    angle rz,ry;
-    GgafDx9Util::getRzRyAng(prm_pTarget->_X - prm_pFrom->_X,
-                            prm_pTarget->_Y - prm_pFrom->_Y,
-                            prm_pTarget->_Z - prm_pFrom->_Z,
-                            rz, ry);
-    GgafDx9Util::getWayAngle2D(0,prm_way, prm_angClearance, paAngWay);
-    GgafDx9DrawableActor* pActor_Shot;
-    for (int i = 0; i < prm_way; i++) {
-        pActor_Shot = (GgafDx9DrawableActor*)prm_pDispatcher_Shot->employ();
-        if (pActor_Shot) {
-            pActor_Shot->setCoordinateBy(prm_pFrom);
-            pActor_Shot->_pMover->setRzRyMvAng(rz+paAngWay[i], ry);
-            pActor_Shot->_pMover->setMvVelo(prm_velo);
-            pActor_Shot->_pMover->setMvAcce(prm_acce);
-            pActor_Shot->activate();
-        }
-    }
-    DELETEARR_IMPOSSIBLE_NULL(paAngWay);
-
-}
-
-
-
-
-
-
 // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
 // コード変更は「ステータスCreater.xls」から行っていただきたい。
 // gen02 start

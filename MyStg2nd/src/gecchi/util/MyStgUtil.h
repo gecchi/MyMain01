@@ -176,22 +176,6 @@ public:
     }
 
 
-    /**
-     * Rz変化による nWay弾を打つ .
-     * @param prm_pFrom 発射元
-     * @param prm_pDispatcher_Shot 発射するショットのディスパッチャー
-     * @param prm_pTarget 目標
-     * @param prm_way Way数
-     * @param prm_angClearance Wayの間隔
-     * @param prm_velo 初期速度
-     * @param prm_acce 加速度
-     */
-    static void shotWay001(GgafDx9Core::GgafDx9DrawableActor* prm_pFrom,
-                           GgafCore::GgafActorDispatcher*     prm_pDispatcher_Shot,
-                           GgafDx9Core::GgafDx9DrawableActor* prm_pTarget,
-                           int prm_way, angle prm_angClearance,
-                           velo prm_velo, acce prm_acce);
-
 
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。

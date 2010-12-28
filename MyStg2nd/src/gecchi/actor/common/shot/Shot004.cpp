@@ -19,6 +19,7 @@ void Shot004::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
     _pMover->setMvVelo(50000);             //ˆÚ“®‘¬“x
+    _pMover->relateRzRyFaceAngToMvAng(true);
 }
 
 void Shot004::onActive() {

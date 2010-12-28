@@ -165,11 +165,29 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
             //‘Å‚¿•Ô‚µ’e
             if (_pDispatcher_Shot) {
-                MyStgUtil::shotWay001(this,
+//                MyStgUtil::shotWay001(this,
+//                                       _pDispatcher_Shot,
+//                                       P_MYSHIP,
+//                                       10+_RANK_*10, 10000,
+//                                       2000, 200);
+//                MyStgUtil::shotWay001v2(this,
+//                                       _pDispatcher_Shot,
+//                                       P_MYSHIP,
+//                                       10+_RANK_*10, 10000,
+//                                       3000, 200,
+//                                       5, 0.8);
+//                MyStgUtil::shotWay002(this,
+//                                       _pDispatcher_Shot,
+//                                       P_MYSHIP,
+//                                       20+_RANK_*10, 0,
+//                                       2000, 200);
+                  StgUtil::shotWay002v2(this,
                                        _pDispatcher_Shot,
                                        P_MYSHIP,
-                                       10+_RANK_*10, 10000,
-                                       2000, 200);
+                                       20+_RANK_*10, 0,
+                                       2000, 200,
+                                       5, 0.8);
+
             }
 
             sayonara();
