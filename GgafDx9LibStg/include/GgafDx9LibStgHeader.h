@@ -8,6 +8,7 @@ namespace GgafDx9LibStg {
 
 #define COLLI_AAB 1
 #define COLLI_SPHERE 2
+#define COLLI_AAPRISM 3
 
 #define Obj_LaserChip     (0x1000000)      //0b 00000001 00000000 00000000 00000000
 #define Obj_WallActor     (0x2000000)      //0b 00000010 00000000 00000000 00000000
@@ -62,6 +63,7 @@ class WallActor;
 class WorldBoundActor;
 class ColliAAB;
 class ColliSphere;
+class ColliAAPrism;
 class LinearOctreeForActor;
 class LinearOctreeActorElem;
 class CollisionChecker;
@@ -121,6 +123,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/ColliAAB.h"
 #include "jp/ggaf/dx9libstg/util/ColliSphere.h"
+#include "jp/ggaf/dx9libstg/util/ColliAAPrism.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h"
 #include "jp/ggaf/dx9libstg/util/CollisionChecker.h"

@@ -158,111 +158,29 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
 
                         if (pColliPart->_shape_kind == COLLI_AAB && pOppColliPart->_shape_kind == COLLI_AAB) {
                             //＜AAB と AAB＞
-                            ColliAAB* pAAB = (ColliAAB*)pColliPart;
-                            ColliAAB* pOppABB = (ColliAAB*)pOppColliPart;
-                            //軸が一致しない確率が高そうな順番(Z>Y>X)に判定
-                            if (_pActor->_Z + pAAB->_z2 >= pOppActor->_Z + pOppABB->_z1) {
-                                if (_pActor->_Z + pAAB->_z1 <= pOppActor->_Z + pOppABB->_z2) {
-                                    if (_pActor->_Y + pAAB->_y2 >= pOppActor->_Y + pOppABB->_y1) {
-                                        if (_pActor->_Y + pAAB->_y1 <= pOppActor->_Y + pOppABB->_y2) {
-                                            if (_pActor->_X + pAAB->_x2 >= pOppActor->_X + pOppABB->_x1) {
-                                                if (_pActor->_X + pAAB->_x1 <= pOppActor->_X + pOppABB->_x2) {
-                                                    return true;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                            if (StgUtil::isHit(_pActor  , (ColliAAB*)pColliPart,
+                                               pOppActor, (ColliAAB*)pOppColliPart)) {
+                                return true;
                             }
 
                         } else if (pColliPart->_shape_kind == COLLI_SPHERE && pOppColliPart->_shape_kind == COLLI_SPHERE) {
                             //＜球 と 球＞
-                            ColliSphere* pSphere = (ColliSphere*)pColliPart;
-                            ColliSphere* pOppSphere = (ColliSphere*)pOppColliPart;
-                            //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
-                            //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
-                            //(x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2 <= (r1+r2)^2
-                            if (
-                                (double)((pOppActor->_X+pOppSphere->_x) - (_pActor->_X+pSphere->_x)) * ((pOppActor->_X+pOppSphere->_x) - (_pActor->_X+pSphere->_x)) +
-                                (double)((pOppActor->_Y+pOppSphere->_y) - (_pActor->_Y+pSphere->_y)) * ((pOppActor->_Y+pOppSphere->_y) - (_pActor->_Y+pSphere->_y)) +
-                                (double)((pOppActor->_Z+pOppSphere->_z) - (_pActor->_Z+pSphere->_z)) * ((pOppActor->_Z+pOppSphere->_z) - (_pActor->_Z+pSphere->_z))
-                                  <=
-                                (double)(pOppSphere->_r + pSphere->_r) * (pOppSphere->_r + pSphere->_r)
-                            ) {
+                            if (StgUtil::isHit(_pActor  , (ColliSphere*)pColliPart,
+                                               pOppActor, (ColliSphere*)pOppColliPart)) {
                                 return true;
                             }
 
                         } else if (pColliPart->_shape_kind == COLLI_AAB && pOppColliPart->_shape_kind == COLLI_SPHERE) {
                             //＜AAB と 球＞
-                            ColliAAB* pAAB = (ColliAAB*)pColliPart;
-                            ColliSphere* pOppSphere = (ColliSphere*)pOppColliPart;
-                            int o_scx =  pOppActor->_X+pOppSphere->_cx;
-                            int o_scy =  pOppActor->_Y+pOppSphere->_cy;
-                            int o_scz =  pOppActor->_Z+pOppSphere->_cz;
-                            int bx1 = _pActor->_X+pAAB->_x1;
-                            int bx2 = _pActor->_X+pAAB->_x2;
-                            int by1 = _pActor->_Y+pAAB->_y1;
-                            int by2 = _pActor->_Y+pAAB->_y2;
-                            int bz1 = _pActor->_Z+pAAB->_z1;
-                            int bz2 = _pActor->_Z+pAAB->_z2;
-                            double square_length = 0; //球の中心とAABの最短距離を二乗した値
-                            if(o_scx < bx1) {
-                                square_length += (double)(o_scx - bx1) * (o_scx - bx1);
-                            }
-                            if(o_scx > bx2) {
-                                square_length += (double)(o_scx - bx2) * (o_scx - bx2);
-                            }
-                            if(o_scy < by1) {
-                                square_length += (double)(o_scy - by1) * (o_scy - by1);
-                            }
-                            if(o_scy > by2) {
-                                square_length += (double)(o_scy - by2) * (o_scy - by2);
-                            }
-                            if(o_scz < bz1) {
-                                square_length += (double)(o_scz - bz1) * (o_scz - bz1);
-                            }
-                            if(o_scz > bz2) {
-                                square_length += (double)(o_scz - bz2) * (o_scz - bz2);
-                            }
-                            //square_lengthが球の半径（の二乗）よりも短ければ衝突している
-                            if (square_length <= (double)pOppSphere->_r * pOppSphere->_r) {
+                            if (StgUtil::isHit(_pActor , (ColliAAB*)pColliPart,
+                                              pOppActor, (ColliSphere*)pOppColliPart)) {
                                 return true;
                             }
+
                         } else if (pColliPart->_shape_kind == COLLI_SPHERE && pOppColliPart->_shape_kind == COLLI_AAB) {
                             //＜球 と AAB＞
-                            ColliSphere* pSphere = (ColliSphere*)pColliPart;
-                            ColliAAB* pOppABB = (ColliAAB*)pOppColliPart;
-                            int scx =  _pActor->_X+pSphere->_cx;
-                            int scy =  _pActor->_Y+pSphere->_cy;
-                            int scz =  _pActor->_Z+pSphere->_cz;
-                            int o_bx1 = pOppActor->_X+pOppABB->_x1;
-                            int o_bx2 = pOppActor->_X+pOppABB->_x2;
-                            int o_by1 = pOppActor->_Y+pOppABB->_y1;
-                            int o_by2 = pOppActor->_Y+pOppABB->_y2;
-                            int o_bz1 = pOppActor->_Z+pOppABB->_z1;
-                            int o_bz2 = pOppActor->_Z+pOppABB->_z2;
-                            double square_length = 0; //球の中心とAABの最短距離を二乗した値
-
-                            if(scx < o_bx1) {
-                                square_length += (double)(scx - o_bx1) * (scx - o_bx1);
-                            }
-                            if(scx > o_bx2) {
-                                square_length += (double)(scx - o_bx2) * (scx - o_bx2);
-                            }
-                            if(scy < o_by1) {
-                                square_length += (double)(scy - o_by1) * (scy - o_by1);
-                            }
-                            if(scy > o_by2) {
-                                square_length += (double)(scy - o_by2) * (scy - o_by2);
-                            }
-                            if(scz < o_bz1) {
-                                square_length += (double)(scz - o_bz1) * (scz - o_bz1);
-                            }
-                            if(scz > o_bz2) {
-                                square_length += (double)(scz - o_bz2) * (scz - o_bz2);
-                            }
-                            //square_lengthが球の半径（の二乗）よりも短ければ衝突している
-                            if (square_length <= (double)pSphere->_r * pSphere->_r) {
+                            if (StgUtil::isHit(pOppActor, (ColliAAB*)pOppColliPart,
+                                               _pActor  , (ColliSphere*)pColliPart)) {
                                 return true;
                             }
                         }

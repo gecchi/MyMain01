@@ -5,6 +5,14 @@ namespace GgafDx9LibStg {
 class StgUtil: public GgafDx9Core::GgafDx9Util {
 public:
 
+    static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB* pAAB,
+                         GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppABB);
+
+    static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliSphere* pSphere,
+                         GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere);
+
+    static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB*    pAAB,
+                         GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere);
     /**
      * Rz•Ï‰»‚É‚æ‚é nWay’e‚ðŒ‚‚Â .
      * @param prm_pFrom ”­ŽËŒ³

@@ -6,6 +6,85 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 
+boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB* pAAB,
+                       GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppABB) {
+
+    //軸が一致しない確率が高そうな順番(Z>Y>X)に判定
+    if (pActor->_Z + pAAB->_z2 >= pOppActor->_Z + pOppABB->_z1) {
+        if (pActor->_Z + pAAB->_z1 <= pOppActor->_Z + pOppABB->_z2) {
+            if (pActor->_Y + pAAB->_y2 >= pOppActor->_Y + pOppABB->_y1) {
+                if (pActor->_Y + pAAB->_y1 <= pOppActor->_Y + pOppABB->_y2) {
+                    if (pActor->_X + pAAB->_x2 >= pOppActor->_X + pOppABB->_x1) {
+                        if (pActor->_X + pAAB->_x1 <= pOppActor->_X + pOppABB->_x2) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliSphere* pSphere,
+                     GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere) {
+    //＜球 と 球＞
+    //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
+    //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
+    //(x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2 <= (r1+r2)^2
+    if (
+        (double)((pOppActor->_X+pOppSphere->_x) - (pActor->_X+pSphere->_x)) * ((pOppActor->_X+pOppSphere->_x) - (pActor->_X+pSphere->_x)) +
+        (double)((pOppActor->_Y+pOppSphere->_y) - (pActor->_Y+pSphere->_y)) * ((pOppActor->_Y+pOppSphere->_y) - (pActor->_Y+pSphere->_y)) +
+        (double)((pOppActor->_Z+pOppSphere->_z) - (pActor->_Z+pSphere->_z)) * ((pOppActor->_Z+pOppSphere->_z) - (pActor->_Z+pSphere->_z))
+          <=
+        (double)(pOppSphere->_r + pSphere->_r) * (pOppSphere->_r + pSphere->_r)
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB*    pAAB,
+                       GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere) {
+    //＜AAB と 球＞
+    int o_scx =  pOppActor->_X+pOppSphere->_cx;
+    int o_scy =  pOppActor->_Y+pOppSphere->_cy;
+    int o_scz =  pOppActor->_Z+pOppSphere->_cz;
+    int bx1 = pActor->_X+pAAB->_x1;
+    int bx2 = pActor->_X+pAAB->_x2;
+    int by1 = pActor->_Y+pAAB->_y1;
+    int by2 = pActor->_Y+pAAB->_y2;
+    int bz1 = pActor->_Z+pAAB->_z1;
+    int bz2 = pActor->_Z+pAAB->_z2;
+    double square_length = 0; //球の中心とAABの最短距離を二乗した値
+    if(o_scx < bx1) {
+        square_length += (double)(o_scx - bx1) * (o_scx - bx1);
+    }
+    if(o_scx > bx2) {
+        square_length += (double)(o_scx - bx2) * (o_scx - bx2);
+    }
+    if(o_scy < by1) {
+        square_length += (double)(o_scy - by1) * (o_scy - by1);
+    }
+    if(o_scy > by2) {
+        square_length += (double)(o_scy - by2) * (o_scy - by2);
+    }
+    if(o_scz < bz1) {
+        square_length += (double)(o_scz - bz1) * (o_scz - bz1);
+    }
+    if(o_scz > bz2) {
+        square_length += (double)(o_scz - bz2) * (o_scz - bz2);
+    }
+    //square_lengthが球の半径（の二乗）よりも短ければ衝突している
+    if (square_length <= (double)pOppSphere->_r * pOppSphere->_r) {
+        return true;
+    } else {
+        return false;
+    }
+
+
+}
 void StgUtil::shotWay001(GgafDx9GeometricActor* prm_pFrom,
                        GgafActorDispatcher* prm_pDispatcher_Shot,
                        GgafDx9GeometricActor* prm_pTarget,
