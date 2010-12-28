@@ -40,13 +40,13 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
 
     _pos_prism = pos_prism;
 
-    int _slant_x1;
-    int _slant_y1;
-    int _slant_x2;
-    int _slant_y2;
-    int _slant_cal;
-    _slant_x1 =
-    _slant_prism =
+//    int _slant_x1;
+//    int _slant_y1;
+//    int _slant_x2;
+//    int _slant_y2;
+//    int _slant_cal;
+//    _slant_x1 =
+//    _slant_prism =
 
 
     //基底クラスメンバの更新

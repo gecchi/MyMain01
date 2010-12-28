@@ -144,7 +144,7 @@ void EnemyThalia::processJudgement() {
 void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
-    if (_pProgress->get() != THALIA_SCENE_PROG_MOVE) {
+    if (_pProgress->get() != THALIA_SCENE_PROG_MOVE && (pOther->getKind() & KIND_MY) ) {
         changeEffectTechniqueInterim("Flush", 2); //ƒtƒ‰ƒbƒVƒ…
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
