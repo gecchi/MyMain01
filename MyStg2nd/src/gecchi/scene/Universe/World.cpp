@@ -22,8 +22,8 @@ void World::initialize() {
     getLordActor()->addSubGroup(_pStringBoard01);
     _pStringBoard01->update(0,50,"WATE A MOMENT PLASE...");
 #ifdef MY_DEBUG
-    CubeEx::get();   //当たり判定領域表示用直方体、プリロード
-    SphereEx::get(); //当たり判定領域表示用球、プリロード
+    ColliAABActor::get();   //当たり判定領域表示用直方体、プリロード
+    ColliSphereActor::get(); //当たり判定領域表示用球、プリロード
 #endif
 #ifdef MY_DEBUG
     orderActorToFactory(0, LabelGecchi16Font, "DebugStr");

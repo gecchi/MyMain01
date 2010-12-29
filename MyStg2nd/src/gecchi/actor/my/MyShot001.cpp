@@ -61,7 +61,7 @@ void MyShot001::onHit(GgafActor* prm_pOtherActor) {
 
 
 void MyShot001::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
 }
 MyShot001::~MyShot001() {
 }

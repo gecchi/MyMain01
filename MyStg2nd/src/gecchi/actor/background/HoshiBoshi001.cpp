@@ -104,7 +104,7 @@ void HoshiBoshi001::processDraw() {
 
 
 void HoshiBoshi001::drawHitArea() {
-    //CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
+    //ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
 }
 
 
