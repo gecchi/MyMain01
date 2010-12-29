@@ -763,12 +763,11 @@ void GgafDx9Util::setWorldMatrix_RxRzRy(GgafDx9GeometricActor* prm_pActor, D3DXM
 
 void GgafDx9Util::setWorldMatrix_ScRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     static float fRateScale = 1.0f * LEN_UNIT;
-    //float sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
-    //float cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
-    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
     float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
     float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
+    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
+
     float Sx = prm_pActor->_SX / fRateScale;
     float Sy = prm_pActor->_SY / fRateScale;
     float Sz = prm_pActor->_SZ / fRateScale;
@@ -796,7 +795,40 @@ void GgafDx9Util::setWorldMatrix_ScRzRyMv(GgafDx9GeometricActor* prm_pActor, D3D
 
 
 
+void GgafDx9Util::mulWorldMatrix_RzRyScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+    //    |  cosRz*cosRy*Sx  sinRz*Sy   cosRz*-sinRy*Sz   0 |
+    //    | -sinRz*cosRy*Sx  cosRz*Sy  -sinRz*-sinRy*Sz   0 |
+    //    |  sinRy*Sx        0          cosRy*Sz          0 |
+    //    |  dx              dy         dz                1 |
+    static float fRateScale = 1.0f * LEN_UNIT;
+    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
+    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
+    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
+    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+    float Sx = prm_pActor->_SX / fRateScale;
+    float Sy = prm_pActor->_SY / fRateScale;
+    float Sz = prm_pActor->_SZ / fRateScale;
 
+    out_matWorld._11 = cosRz*cosRy*Sx;
+    out_matWorld._12 = sinRz*Sy;
+    out_matWorld._13 = cosRz*-sinRy*Sz;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = -sinRz*cosRy*Sx;
+    out_matWorld._22 = cosRz*Sy;
+    out_matWorld._23 = -sinRz*-sinRy*Sz;
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = sinRy*Sx;
+    out_matWorld._32 = 0.0f;
+    out_matWorld._33 = cosRy*Sz;
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
+    out_matWorld._44 = 1.0f;
+}
 
 void GgafDx9Util::setWorldMatrix_RxRzRyScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·

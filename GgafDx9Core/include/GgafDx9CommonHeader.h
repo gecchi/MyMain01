@@ -215,13 +215,17 @@ class GgafDx9MorphMeshActor;
 class GgafDx9D3DXMeshActor;
 class GgafDx9DynaD3DXMeshActor;
 class GgafDx9D3DXAniMeshActor;
-class GgafDx9BoxActor;
+
 class GgafDx9SpriteMeshActor;
 class GgafDx9SpriteMeshSetActor;
 class GgafDx9CubeMapMeshActor;
 class GgafDx9CubeMapMeshSetActor;
 class GgafDx9CubeMapMorphMeshActor;
+
+class GgafDx9AABActor;
+class GgafDx9AAPrismActor;
 class GgafDx9SphereActor;
+
 class GgafDx9SpriteActor;
 class GgafDx9SpriteSetActor;
 class GgafDx9Camera;
@@ -338,7 +342,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/GgafDx9BoardSetActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9PointSpriteActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9FormationActor.h"
-#include "jp/ggaf/dx9core/actor/ex/GgafDx9BoxActor.h"
+#include "jp/ggaf/dx9core/actor/ex/GgafDx9AABActor.h"
+#include "jp/ggaf/dx9core/actor/ex/GgafDx9AAPrismActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SphereActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SpriteMeshActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SpriteMeshSetActor.h"

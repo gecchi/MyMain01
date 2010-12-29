@@ -17,7 +17,7 @@ namespace GgafDx9Core {
 class GgafDx9CollisionPart : public GgafCore::GgafObject {
 
 public:
-    /** 当たり判定種別(COLLI_AAB:辺が各軸に並行な直方体 / COLLI_SPHERE:球) */
+    /** 当たり判定種別(COLLI_AAB:辺が各軸に並行な直方体 / COLLI_AAPRISM:辺が各軸に並行なプリズム/COLLI_SPHERE:球) */
     int _shape_kind;
     /** 有効フラグ */
     bool _is_valid_flg;

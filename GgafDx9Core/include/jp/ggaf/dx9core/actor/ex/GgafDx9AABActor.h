@@ -10,10 +10,10 @@ namespace GgafDx9Core {
  * @since 2008/10/10
  * @author Masatoshi Tsuge
  */
-class GgafDx9BoxActor : public GgafDx9MeshActor {
+class GgafDx9AABActor : public GgafDx9MeshActor {
 
 public:
-    GgafDx9BoxActor(const char* prm_name,
+    GgafDx9AABActor(const char* prm_name,
                      GgafDx9Checker* prm_pChecker);
 
 ///**
@@ -23,7 +23,7 @@ public:
 //
     void drawBox(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2, int prm_z2);
 
-    virtual ~GgafDx9BoxActor(); //デストラクタ
+    virtual ~GgafDx9AABActor(); //デストラクタ
 };
 
 }
