@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 
 ColliAABActor* ColliAABActor::_pObj = NULL;
 
-ColliAABActor::ColliAABActor(const char* prm_name) : GgafDx9CubeActor(prm_name, NULL) {
+ColliAABActor::ColliAABActor(const char* prm_name) : GgafDx9BoxActor(prm_name, NULL) {
     _class_name = "ColliAABActor";
     setAlpha(0.8);
 }

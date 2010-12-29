@@ -9,7 +9,7 @@ namespace GgafDx9LibStg {
  * @since 2009/08/25
  * @author Masatoshi Tsuge
  */
-class ColliAABActor : public GgafDx9Core::GgafDx9CubeActor {
+class ColliAABActor : public GgafDx9Core::GgafDx9BoxActor {
     static ColliAABActor* _pObj;
 
 public:
