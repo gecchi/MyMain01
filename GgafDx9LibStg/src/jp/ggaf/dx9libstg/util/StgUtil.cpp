@@ -113,9 +113,9 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                             //この時点でAAB と AAB ならばヒット
                             int pos = pAAPrism->_pos_prism;
                             int a = pAAPrism->_a;
-                            if (pos & PRISM_XY) { //XY平面スライスのプリズム
+                            if (pos & POS_PRISM_XY) { //XY平面スライスのプリズム
                                 int b = pAAPrism->_b + pActor->_Y; //プリズム境界線の切片は縦方向成分を加えておけば良い
-                                if (pos & PRISM_nn) {
+                                if (pos & POS_PRISM_nn) {
                                     //            ↑ y+
                                     //              ┌─┐
                                     //        ┌──┼┐│Opp
@@ -134,7 +134,7 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                                     }
 
 
-                                } else if (pos & PRISM_np) {
+                                } else if (pos & POS_PRISM_np) {
                                     //            ↑ y+
                                     //
                                     //        ┌───┐
@@ -152,7 +152,7 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                                         return true;
                                     }
 
-                                } else if (pos & PRISM_pn) {
+                                } else if (pos & POS_PRISM_pn) {
                                     //            ↑ y+
                                     //      ┌─┐
                                     //      │┌┼──┐
@@ -170,7 +170,7 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                                         return true;
                                     }
 
-                                } else if (pos & PRISM_pp) {
+                                } else if (pos & POS_PRISM_pp) {
                                     //            ↑ y+
                                     //
                                     //        ┌───┐
@@ -189,10 +189,10 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                                     }
 
                                 }
-                            } else if (pos & PRISM_YZ) {//YZ平面スライスのプリズム
+                            } else if (pos & POS_PRISM_YZ) {//YZ平面スライスのプリズム
 
                                 int b = pAAPrism->_b + pActor->_Z; //プリズム境界線の切片は縦方向成分を加えておけば良い
-                                if (pos & PRISM_nn) {
+                                if (pos & POS_PRISM_nn) {
                                     //            ↑ z+
                                     //              ┌─┐
                                     //        ┌──┼┐│Opp
@@ -211,7 +211,7 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                                     }
 
 
-                                } else if (pos & PRISM_np) {
+                                } else if (pos & POS_PRISM_np) {
                                     //            ↑ z+
                                     //
                                     //        ┌───┐
@@ -229,7 +229,7 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                                         return true;
                                     }
 
-                                } else if (pos & PRISM_pn) {
+                                } else if (pos & POS_PRISM_pn) {
                                     //            ↑ z+
                                     //      ┌─┐
                                     //      │┌┼──┐
@@ -247,7 +247,7 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                                         return true;
                                     }
 
-                                } else if (pos & PRISM_pp) {
+                                } else if (pos & POS_PRISM_pp) {
                                     //            ↑ z+
                                     //
                                     //        ┌───┐
@@ -267,9 +267,9 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
 
                                 }
 
-                            } else if (pos & PRISM_ZX) {
+                            } else if (pos & POS_PRISM_ZX) {
                                 int b = pAAPrism->_b + pActor->_X; //プリズム境界線の切片は縦方向成分を加えておけば良い
-                                if (pos & PRISM_nn) {
+                                if (pos & POS_PRISM_nn) {
                                     //            ↑ x+
                                     //              ┌─┐
                                     //        ┌──┼┐│Opp
@@ -288,7 +288,7 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                                     }
 
 
-                                } else if (pos & PRISM_np) {
+                                } else if (pos & POS_PRISM_np) {
                                     //            ↑ x+
                                     //
                                     //        ┌───┐
@@ -306,7 +306,7 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                                         return true;
                                     }
 
-                                } else if (pos & PRISM_pn) {
+                                } else if (pos & POS_PRISM_pn) {
                                     //            ↑ x+
                                     //      ┌─┐
                                     //      │┌┼──┐
@@ -324,7 +324,7 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                                         return true;
                                     }
 
-                                } else if (pos & PRISM_pp) {
+                                } else if (pos & POS_PRISM_pp) {
                                     //            ↑ x+
                                     //
                                     //        ┌───┐

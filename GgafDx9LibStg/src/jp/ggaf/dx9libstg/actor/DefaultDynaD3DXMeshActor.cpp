@@ -19,7 +19,7 @@ DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const c
 }
 
 void DefaultDynaD3DXMeshActor::drawHitArea() {
-    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliAAPrismActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
 }
 
 

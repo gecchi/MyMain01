@@ -54,6 +54,7 @@ class DefaultPointSpriteActor;
 class FontSpriteActor;
 //class FontSpriteString;
 class ColliAABActor;
+class ColliAAPrismActor;
 class ColliSphereActor;
 class SpriteMeshActor;
 class SpriteMeshSetActor;
@@ -112,6 +113,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/actor/DefaultPointSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/FontSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/ColliAABActor.h"
+#include "jp/ggaf/dx9libstg/actor/ColliAAPrismActor.h"
 #include "jp/ggaf/dx9libstg/actor/ColliSphereActor.h"
 #include "jp/ggaf/dx9libstg/actor/SpriteMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/SpriteMeshSetActor.h"

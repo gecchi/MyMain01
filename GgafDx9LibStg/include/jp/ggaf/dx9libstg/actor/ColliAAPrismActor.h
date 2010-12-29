@@ -1,5 +1,5 @@
-#ifndef COLLIAABACTER_H_
-#define COLLIAABACTER_H_
+#ifndef COLLIAAPRISMACTOR_H_
+#define COLLIAAPRISMACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
@@ -9,14 +9,14 @@ namespace GgafDx9LibStg {
  * @since 2009/08/25
  * @author Masatoshi Tsuge
  */
-class ColliAABActor : public GgafDx9Core::GgafDx9AABActor {
-    static ColliAABActor* _pObj;
+class ColliAAPrismActor : public GgafDx9Core::GgafDx9AAPrismActor {
+    static ColliAAPrismActor* _pObj;
 
 public:
-    static ColliAABActor* get();
+    static ColliAAPrismActor* get();
     static void release();
 
-    ColliAABActor(const char* prm_name);
+    ColliAAPrismActor(const char* prm_name);
 
     //void processDraw() {} //オーバーライド未実装にする。
     virtual void onCreateModel() override {
@@ -46,7 +46,7 @@ public:
 
     void drawHitarea(CollisionChecker* prm_pChecker);
 
-    virtual ~ColliAABActor();
+    virtual ~ColliAAPrismActor();
 
 };
 

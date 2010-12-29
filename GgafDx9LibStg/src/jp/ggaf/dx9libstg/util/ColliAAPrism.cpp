@@ -19,11 +19,11 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
     //   y  = {(y2-y1)/(x2-x1)} (x-x1) + y1
 
 //    _pos_prism = pos_prism;
-    if (_pos_prism & PRISM_XY) {
+    if (_pos_prism & POS_PRISM_XY) {
         _a = 1.0*(_y2 - _y1) / (_x2 - _x1);
         _b = (_x1*_y2 - _x2*_y1) / (_x1 - _x2);
 
-        if (_pos_prism & PRISM_nn) {
+        if (_pos_prism & POS_PRISM_nn) {
             //            Å™ y+
             //
             //        Ñ°ÑüÑüÑüÑ¢
@@ -36,7 +36,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
 
 
 
-        } else if (_pos_prism & PRISM_np) {
+        } else if (_pos_prism & POS_PRISM_np) {
             //            Å™ y+
             //
             //        Ñ°ÑüÑüÑüÑ¢
@@ -48,7 +48,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             //            Å´ y-
 
 
-        } else if (_pos_prism & PRISM_pn) {
+        } else if (_pos_prism & POS_PRISM_pn) {
             //            Å™ y+
             //
             //        Ñ°ÑüÑüÑüÑ¢
@@ -59,7 +59,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             //
             //            Å´ y-
 
-        } else if (_pos_prism & PRISM_pp) {
+        } else if (_pos_prism & POS_PRISM_pp) {
             //            Å™ y+
             //
             //        Ñ°ÑüÑüÑüÑ¢
@@ -72,11 +72,11 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
 
 
         }
-    } else if (_pos_prism & PRISM_YZ) {
+    } else if (_pos_prism & POS_PRISM_YZ) {
         _a = 1.0*(_z2 - _z1) / (_y2 - _y1);
         _b = (_y1*_z2 - _y2*_z1) / (_y1 - _y2);
 
-    } else if (_pos_prism & PRISM_ZX) {
+    } else if (_pos_prism & POS_PRISM_ZX) {
         _a = 1.0*(_x2 - _x1) / (_z2 - _z1);
         _b = (_z1*_x2 - _z2*_x1) / (_z1 - _z2);
     }

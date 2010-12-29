@@ -129,7 +129,7 @@ void WallActor::processDraw() {
 
 
 void WallActor::drawHitArea() {
-    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliAAPrismActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
 }
 
 void WallActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
