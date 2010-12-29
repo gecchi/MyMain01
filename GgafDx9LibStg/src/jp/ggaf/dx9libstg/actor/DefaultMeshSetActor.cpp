@@ -18,7 +18,7 @@ DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_m
 }
 
 void DefaultMeshSetActor::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
 }
 
 DefaultMeshSetActor::~DefaultMeshSetActor() {

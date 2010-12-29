@@ -18,7 +18,7 @@ CubeMapMeshActor::CubeMapMeshActor(const char* prm_name, const char* prm_model) 
 }
 
 void CubeMapMeshActor::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
 }
 
 CubeMapMeshActor::~CubeMapMeshActor() {

@@ -18,8 +18,8 @@ DefaultD3DXAniMeshActor::DefaultD3DXAniMeshActor(const char* prm_name, const cha
 }
 
 void DefaultD3DXAniMeshActor::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pCollisionChecker);
-    SphereEx::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pCollisionChecker);
+    ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
 }
 
 DefaultD3DXAniMeshActor::~DefaultD3DXAniMeshActor() {

@@ -288,7 +288,7 @@ void LaserChip::processDraw() {
 
 void LaserChip::drawHitArea() {
     //_TRACE_("LaserChip::drawHitArea()st "<<getName()<<" bump="<<canHit());
-    CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
     //_TRACE_("LaserChip::drawHitArea()ed "<<getName()<<" bump="<<canHit());
 }
 

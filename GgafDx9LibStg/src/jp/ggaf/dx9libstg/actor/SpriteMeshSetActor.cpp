@@ -16,7 +16,7 @@ SpriteMeshSetActor::SpriteMeshSetActor(const char* prm_name, const char* prm_mod
 }
 
 void SpriteMeshSetActor::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
 }
 
 SpriteMeshSetActor::~SpriteMeshSetActor() {

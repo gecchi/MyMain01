@@ -17,7 +17,7 @@ DefaultPointSpriteActor::DefaultPointSpriteActor(const char* prm_name, const cha
 }
 
 void DefaultPointSpriteActor::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
+    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
 }
 
 DefaultPointSpriteActor::~DefaultPointSpriteActor() {

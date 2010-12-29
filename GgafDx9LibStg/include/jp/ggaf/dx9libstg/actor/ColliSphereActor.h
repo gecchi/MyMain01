@@ -1,5 +1,5 @@
-#ifndef SPHEREEX_H_
-#define SPHEREEX_H_
+#ifndef COLLISPHEREACTOR_H_
+#define COLLISPHEREACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
@@ -9,14 +9,14 @@ namespace GgafDx9LibStg {
  * @since 2010/01/21
  * @author Masatoshi Tsuge
  */
-class SphereEx : public GgafDx9Core::GgafDx9SphereActor {
-    static SphereEx* _pObj;
+class ColliSphereActor : public GgafDx9Core::GgafDx9SphereActor {
+    static ColliSphereActor* _pObj;
 
 public:
-    static SphereEx* get();
+    static ColliSphereActor* get();
     static void release();
 
-    SphereEx(const char* prm_name);
+    ColliSphereActor(const char* prm_name);
 
     virtual void onCreateModel() override {
     }
@@ -46,9 +46,9 @@ public:
 
     void drawHitarea(CollisionChecker* prm_pChecker);
 
-    virtual ~SphereEx();
+    virtual ~ColliSphereActor();
 
 };
 
 }
-#endif /*SPHEREEX_H_*/
+#endif /*COLLISPHEREACTOR_H_*/

@@ -107,8 +107,8 @@ DefaultUniverse::~DefaultUniverse() {
 #ifdef MY_DEBUG
     _pLinearOctree->putTree();
 
-    CubeEx::release();
-    SphereEx::release();
+    ColliAABActor::release();
+    ColliSphereActor::release();
 #endif
     DELETE_IMPOSSIBLE_NULL(_pLinearOctree);
 

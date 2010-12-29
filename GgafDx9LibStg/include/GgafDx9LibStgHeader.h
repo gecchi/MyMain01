@@ -46,7 +46,6 @@ class CubeMapMeshSetActor;
 class DefaultMorphMeshActor;
 class CubeMapMorphMeshActor;
 class DefaultDynaD3DXMeshActor;
-class DefaultCubeActor;
 class DefaultSpriteActor;
 class DefaultSpriteSetActor;
 class DefaultBoardActor;
@@ -54,8 +53,8 @@ class DefaultBoardSetActor;
 class DefaultPointSpriteActor;
 class FontSpriteActor;
 //class FontSpriteString;
-class CubeEx;
-class SphereEx;
+class ColliAABActor;
+class ColliSphereActor;
 class SpriteMeshActor;
 class SpriteMeshSetActor;
 class StringBoardActor;
@@ -105,7 +104,6 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/actor/DefaultMorphMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/CubeMapMorphMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultDynaD3DXMeshActor.h"
-#include "jp/ggaf/dx9libstg/actor/DefaultCubeActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultSpriteSetActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultBoardActor.h"
@@ -113,8 +111,8 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/actor/DefaultSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultPointSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/FontSpriteActor.h"
-#include "jp/ggaf/dx9libstg/actor/CubeEx.h"
-#include "jp/ggaf/dx9libstg/actor/SphereEx.h"
+#include "jp/ggaf/dx9libstg/actor/ColliAABActor.h"
+#include "jp/ggaf/dx9libstg/actor/ColliSphereActor.h"
 #include "jp/ggaf/dx9libstg/actor/SpriteMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/SpriteMeshSetActor.h"
 #include "jp/ggaf/dx9libstg/actor/StringBoardActor.h"
