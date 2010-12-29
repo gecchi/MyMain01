@@ -1,5 +1,5 @@
-#ifndef GGAFDX9CUBEACTORD_H_
-#define GGAFDX9CUBEACTORD_H_
+#ifndef GGAFDX9BOXACTOR_H_
+#define GGAFDX9BOXACTOR_H_
 namespace GgafDx9Core {
 
 /**
@@ -10,10 +10,10 @@ namespace GgafDx9Core {
  * @since 2008/10/10
  * @author Masatoshi Tsuge
  */
-class GgafDx9CubeActor : public GgafDx9MeshActor {
+class GgafDx9BoxActor : public GgafDx9MeshActor {
 
 public:
-    GgafDx9CubeActor(const char* prm_name,
+    GgafDx9BoxActor(const char* prm_name,
                      GgafDx9Checker* prm_pChecker);
 
 ///**
@@ -23,8 +23,8 @@ public:
 //
     void drawBox(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2, int prm_z2);
 
-    virtual ~GgafDx9CubeActor(); //デストラクタ
+    virtual ~GgafDx9BoxActor(); //デストラクタ
 };
 
 }
-#endif /*GGAFDX9CUBEACTORD_H_*/
+#endif /*GGAFDX9BOXACTOR_H_*/
