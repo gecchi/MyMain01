@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 
 SphereEx* SphereEx::_pObj = NULL;
 
-SphereEx::SphereEx(const char* prm_name) : GgafDx9SphereEx(prm_name) {
+SphereEx::SphereEx(const char* prm_name) : GgafDx9SphereActor(prm_name, NULL) {
     _class_name = "SphereEx";
 }
 

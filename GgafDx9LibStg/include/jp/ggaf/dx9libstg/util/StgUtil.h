@@ -13,6 +13,11 @@ public:
 
     static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB*    pAAB,
                          GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere);
+
+    static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPrism* pAAPrism,
+                         GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppABB);
+
+    
     /**
      * Rz•Ï‰»‚É‚æ‚é nWay’e‚ðŒ‚‚Â .
      * @param prm_pFrom ”­ŽËŒ³

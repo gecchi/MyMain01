@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 
 CubeEx* CubeEx::_pObj = NULL;
 
-CubeEx::CubeEx(const char* prm_name) : GgafDx9CubeEx(prm_name) {
+CubeEx::CubeEx(const char* prm_name) : GgafDx9CubeActor(prm_name, NULL) {
     _class_name = "CubeEx";
     setAlpha(0.8);
 }
