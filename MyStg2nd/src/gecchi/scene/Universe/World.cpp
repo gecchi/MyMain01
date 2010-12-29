@@ -23,6 +23,7 @@ void World::initialize() {
     _pStringBoard01->update(0,50,"WATE A MOMENT PLASE...");
 #ifdef MY_DEBUG
     ColliAABActor::get();   //当たり判定領域表示用直方体、プリロード
+    ColliAAPrismActor::get();   //当たり判定領域表示用直方体、プリロード
     ColliSphereActor::get(); //当たり判定領域表示用球、プリロード
 #endif
 #ifdef MY_DEBUG
