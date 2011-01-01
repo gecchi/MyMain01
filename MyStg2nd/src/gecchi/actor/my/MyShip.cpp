@@ -201,8 +201,9 @@ void MyShip::initialize() {
 
     setHitAble(true);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliSphere(0, 10000);
-//    _pCollisionChecker->setColliAAB(0, -20000, -20000, -20000, 20000, 20000, 20000);
+//    _pCollisionChecker->setColliSphere(0, 10000);
+//    _pCollisionChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    _pCollisionChecker->setColliAAB_Cube(0, 100000);
 //    _pCollisionChecker->setColliSphere(1, 0,-100000,0, 30000, true, true, true);
 //    _pCollisionChecker->setColliSphere(2, 0,100000,0, 30000, true, true, true);
 //    _pCollisionChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);

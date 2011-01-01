@@ -6,6 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name, "8/Flora") { //8/‚ð‚¢‚ê‚Æ‚©‚È‚¢‚Æƒ†ƒj[ƒN‚É‚È‚ç‚È‚¢
+
     _class_name = "EnemyTamago01";
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     _iMovePatternNo = 0;
@@ -15,8 +16,8 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     _pDispatcher_ShotEffect = NULL;
 
     _pDispatcherCon = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_Shot001"));
-    _pDispatcher_Shot = _pDispatcherCon->refer();
-
+    //_pDispatcher_Shot = _pDispatcherCon->refer();
+_pDispatcher_Shot = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
@@ -30,19 +31,20 @@ void EnemyTamago01::onCreateModel() {
 
 void EnemyTamago01::initialize() {
 
-    setHitAble(false);
+    setHitAble(true);
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->setFaceAngVelo(AXIS_X, 1000);
     _pMover->setMvAng(900000, 300000, 300000);
     _pMover->setMvVelo(0);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliSphere(0, 90000);
+    _pCollisionChecker->setColliAAPrism_Cube(0, 100000,POS_PRISM_XY_nn);
+//    _pCollisionChecker->setColliAAB_Cube(0, 50000);
 
 
     //_pCollisionChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
-//    _X = 300000;
-//    _Y = 300000;
-//    _Z = 300000;
+    _X = 300000;
+    _Y = 300000;
+    _Z = 300000;
     _pScaler->setScale(5000);
 }
 
@@ -61,12 +63,12 @@ void EnemyTamago01::onActive() {
 
 void EnemyTamago01::processBehavior() {
 
-    if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
-        _pScaler->addScale(500);
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
-        _pScaler->addScale(-500);
-    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
+//        _pScaler->addScale(500);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
+//        _pScaler->addScale(-500);
+//    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
 //        _pGgafDx9Model->_pTextureBlinker->->addScale(2000);
 //    }
