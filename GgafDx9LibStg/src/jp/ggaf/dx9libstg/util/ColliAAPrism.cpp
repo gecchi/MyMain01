@@ -18,60 +18,12 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
 
     //   y  = {(y2-y1)/(x2-x1)} (x-x1) + y1
 
-//    _pos_prism = pos_prism;
+    _pos_prism = pos_prism;
     if (_pos_prism & POS_PRISM_XY) {
         _a = 1.0*(_y2 - _y1) / (_x2 - _x1);
         _b = (_x1*_y2 - _x2*_y1) / (_x1 - _x2);
 
-        if (_pos_prism & POS_PRISM_nn) {
-            //            ↑ y+
-            //
-            //        ┌───┐
-            //        │＼　　│
-            // x- ←  │こ＼　│  → x+
-            //        │ちら＼│
-            //        └───┘
-            //
-            //            ↓ y-
 
-
-
-        } else if (_pos_prism & POS_PRISM_np) {
-            //            ↑ y+
-            //
-            //        ┌───┐
-            //        │こち／│
-            // x- ←  │ら／　│  → x+
-            //        │／　　│
-            //        └───┘
-            //
-            //            ↓ y-
-
-
-        } else if (_pos_prism & POS_PRISM_pn) {
-            //            ↑ y+
-            //
-            //        ┌───┐
-            //        │　　／│
-            // x- ←  │　／こ│  → x+
-            //        │／ちら│
-            //        └───┘
-            //
-            //            ↓ y-
-
-        } else if (_pos_prism & POS_PRISM_pp) {
-            //            ↑ y+
-            //
-            //        ┌───┐
-            //        │＼こち│
-            // x- ←  │　＼ら│  → x+
-            //        │　　＼│
-            //        └───┘
-            //
-            //            ↓ y-
-
-
-        }
     } else if (_pos_prism & POS_PRISM_YZ) {
         _a = 1.0*(_z2 - _z1) / (_y2 - _y1);
         _b = (_y1*_z2 - _y2*_z1) / (_y1 - _y2);
@@ -80,6 +32,51 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
         _a = 1.0*(_x2 - _x1) / (_z2 - _z1);
         _b = (_z1*_x2 - _z2*_x1) / (_z1 - _z2);
     }
+   if (_pos_prism & POS_PRISM_pp) {
+        //            ↑ y+
+        //
+        //        ┌───┐
+        //        │＼こち│
+        // x- ←  │　＼ら│  → x+
+        //        │　　＼│
+        //        └───┘
+        //
+        //            ↓ y-
+        _a = -1.0*_a; //傾きは右下がりになるため
+    } else if (_pos_prism & POS_PRISM_np) {
+        //            ↑ y+
+        //
+        //        ┌───┐
+        //        │こち／│
+        // x- ←  │ら／　│  → x+
+        //        │／　　│
+        //        └───┘
+        //
+        //            ↓ y-
+        
+    } else if (_pos_prism & POS_PRISM_pn) {
+        //            ↑ y+
+        //
+        //        ┌───┐
+        //        │　　／│
+        // x- ←  │　／こ│  → x+
+        //        │／ちら│
+        //        └───┘
+        //
+        //            ↓ y-
+
+    } else { // のこりは POS_PRISM_nn
+        //            ↑ y+
+        //
+        //        ┌───┐
+        //        │＼　　│
+        // x- ←  │こ＼　│  → x+
+        //        │ちら＼│
+        //        └───┘
+        //
+        //            ↓ y-
+        _a = -1.0*_a; //傾きは右下がりになるため
+    } 
 }
 
 
