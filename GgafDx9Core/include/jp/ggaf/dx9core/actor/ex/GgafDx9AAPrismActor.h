@@ -1,27 +1,26 @@
 #ifndef GGAFDX9AAPRISMACTOR_H_
 #define GGAFDX9AAPRISMACTOR_H_
 
-                                  //   XYZxx
-#define POS_PRISM_XY_nn   (0x18)  //0b 11000
-#define POS_PRISM_XY_np   (0x19)  //0b 11001
-#define POS_PRISM_XY_pn   (0x1a)  //0b 11010
-#define POS_PRISM_XY_pp   (0x1b)  //0b 11011
-#define POS_PRISM_YZ_nn   (0xc)   //0b 01100
-#define POS_PRISM_YZ_np   (0xd)   //0b 01101
-#define POS_PRISM_YZ_pn   (0xe)   //0b 01110
-#define POS_PRISM_YZ_pp   (0xf)   //0b 01111
-#define POS_PRISM_ZX_nn   (0x14)  //0b 10100
-#define POS_PRISM_ZX_np   (0x15)  //0b 10101
-#define POS_PRISM_ZX_pn   (0x16)  //0b 10110
-#define POS_PRISM_ZX_pp   (0x17)  //0b 10111
+#define POS_PRISM_XY_nn   (0x11) //0b 0010001
+#define POS_PRISM_XY_np   (0x12) //0b 0010010
+#define POS_PRISM_XY_pn   (0x14) //0b 0010100
+#define POS_PRISM_XY_pp   (0x18) //0b 0011000
+#define POS_PRISM_YZ_nn   (0x21) //0b 0100001
+#define POS_PRISM_YZ_np   (0x22) //0b 0100010
+#define POS_PRISM_YZ_pn   (0x24) //0b 0100100
+#define POS_PRISM_YZ_pp   (0x28) //0b 0101000
+#define POS_PRISM_ZX_nn   (0x41) //0b 1000001
+#define POS_PRISM_ZX_np   (0x42) //0b 1000010
+#define POS_PRISM_ZX_pn   (0x44) //0b 1000100
+#define POS_PRISM_ZX_pp   (0x48) //0b 1001000
 
-#define POS_PRISM_nn      (0x0)    //0b 00000
-#define POS_PRISM_np      (0x1)    //0b 00001
-#define POS_PRISM_pn      (0x2)    //0b 00010
-#define POS_PRISM_pp      (0x3)    //0b 00011
-#define POS_PRISM_XY      (0x18)   //0b 11000
-#define POS_PRISM_YZ      (0xc)    //0b 01100
-#define POS_PRISM_ZX      (0x14)   //0b 10100
+#define POS_PRISM_nn      (0x1)  //0b 0000001
+#define POS_PRISM_np      (0x2)  //0b 0000010
+#define POS_PRISM_pn      (0x4)  //0b 0000100
+#define POS_PRISM_pp      (0x8)  //0b 0001000
+#define POS_PRISM_XY      (0x10) //0b 0010000
+#define POS_PRISM_YZ      (0x20) //0b 0100000
+#define POS_PRISM_ZX      (0x40) //0b 1000000
 
 //補足
 //プリズム位置を表す定数は以下のようになっている

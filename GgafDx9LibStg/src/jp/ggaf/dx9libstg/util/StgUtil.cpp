@@ -114,12 +114,9 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                             int pos = pAAPrism->_pos_prism;
                             int a = pAAPrism->_a;
                             if (pos & POS_PRISM_XY) { //XY平面スライスのプリズム
-                                int b = pAAPrism->_b + pActor->_Y; //プリズム境界線の切片は縦方向成分を加えておけば良い
-                                ↑はうそで
-                                    切片を毎回求める
-                                    b=y/ax で計算せよ
+                                //ワールド座標でのプリズム境界線の切片を求める b = y - ax
+                                int b = (pActor->_Y - pAAPrism->_a * pActor->_X) + pAAPrism->_b;
 
-                                
                                 if (pos & POS_PRISM_pp) {
                                     //            ↑ y+
                                     //
@@ -195,8 +192,8 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
 
                                 }
                             } else if (pos & POS_PRISM_YZ) {//YZ平面スライスのプリズム
-
-                                int b = pAAPrism->_b + pActor->_Z; //プリズム境界線の切片は縦方向成分を加えておけば良い
+                                //ワールド座標でのプリズム境界線の切片を求める b = z - ay
+                                int b = (pActor->_Z - pAAPrism->_a * pActor->_Y) + pAAPrism->_b;
                                 if (pos & POS_PRISM_pp) {
                                     //            ↑ z+
                                     //
@@ -268,12 +265,11 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                                     if (bZ1 < a * bY1 +  b) {
                                         return true;
                                     }
-
-
                                 }
 
                             } else if (pos & POS_PRISM_ZX) {
-                                int b = pAAPrism->_b + pActor->_X; //プリズム境界線の切片は縦方向成分を加えておけば良い
+                                //ワールド座標でのプリズム境界線の切片を求める b = x - az
+                                int b = (pActor->_X - pAAPrism->_a * pActor->_Z) + pAAPrism->_b;
                                 if (pos & POS_PRISM_pp) {
                                     //            ↑ x+
                                     //
