@@ -48,8 +48,8 @@ GgafDx9AAPrismActor::GgafDx9AAPrismActor(const char* prm_name,
         pos2r[POS_PRISM_YZ_pp] = RotPosPrism(ANGLE0  , ANGLE270, ANGLE90 );
 
         pos2r[POS_PRISM_ZX_nn] = RotPosPrism(ANGLE90 , ANGLE0  , ANGLE0  );
-        pos2r[POS_PRISM_ZX_np] = RotPosPrism(ANGLE90 , ANGLE0  , ANGLE90 );
-        pos2r[POS_PRISM_ZX_pn] = RotPosPrism(ANGLE90 , ANGLE0  , ANGLE270);
+        pos2r[POS_PRISM_ZX_np] = RotPosPrism(ANGLE90 , ANGLE0  , ANGLE270);
+        pos2r[POS_PRISM_ZX_pn] = RotPosPrism(ANGLE90 , ANGLE0  , ANGLE90 );
         pos2r[POS_PRISM_ZX_pp] = RotPosPrism(ANGLE90 , ANGLE0  , ANGLE180);
         init = true;
     }
@@ -73,7 +73,7 @@ void GgafDx9AAPrismActor::drawPrism(int prm_x1, int prm_y1, int prm_z1, int prm_
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-    
+
     //GgafDx9Util::setWorldMatrix_ScRzMv(this, _matWorld);
     GgafDx9Util::setWorldMatrix_RxRzRyScMv(this, _matWorld); //回転後にスケールがポイント
     processDraw();
