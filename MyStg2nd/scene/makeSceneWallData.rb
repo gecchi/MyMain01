@@ -26,6 +26,7 @@ while true
       break
     end
     if line =~ /^Frame / then   #Xファイルの 行頭"Frame " という文字列を頼りにしている
+      #"Frame _200_8 {"
       break
     end
   end
@@ -34,12 +35,10 @@ while true
     break
   end
 
+  #"Frame _200_8 {" の "200" と "8" を取り出す
   no_loop = line.sub(/^[^0-9]+/,'').sub(/[^0-9]+$/,'').split(/_/)
   seq_no = no_loop[0]
   loop_num = no_loop[1]
-
-  puts "seq_no=",seq_no
-  puts "loop_num=",loop_num
 
   while line = f.gets
     if line =~ /^\s*Mesh/ then   #Xファイルの 行頭"Mesh" という文字列を頼りにしている
@@ -47,14 +46,17 @@ while true
     end
   end
 
-  line = f.gets
+  line = f.gets #頂点数読み飛ばし
 
+  #頂点情報をVeartex配列に貯めこむ
   i = 0
   vtx = Array.new
   while line = f.gets
+    #"50.000000;0.000002;-20.000004;," を
+    #50.000000 と 0.000002 と -20.000004 に分割
     data = line.split(/\s*;\s*/)
     if data.length < 3 then
-      break
+      break  #  1248;  の頂点インデックス数の列で読み飛ばし
     end
     vtx[i] = Veartex.new
         #print "data[12]=",data[12]," data[12].to_f.round   =",(data[12].to_f.round   )," \n"
@@ -80,6 +82,11 @@ while true
   while break_flg == false
 
     for v in 0..11 #AABのモデル頂点数インデックスは12個としている。6面*2
+      #3;0,1,2;,
+      #3;1,0,3;,
+      #3;4,5,6;,
+      #3;5,4,7;,
+      #3;8,9,10;,
       line = f.gets
 
       if line.length < 3 then
@@ -89,16 +96,18 @@ while true
       data = line.split(/\s*;\s*/)
       vtx_index = data[1].split(/\s*,\s*/)
       for fv in 0..2 #
+        #頂点インデックスの頂点情報
         x = vtx[vtx_index[fv].to_i].X
         y = vtx[vtx_index[fv].to_i].Y
         z = vtx[vtx_index[fv].to_i].Z
         if v == 0 && fv == 0 then
-          max_x = x;
-          max_y = y;
-          max_z = z;
-          min_x = x;
-          min_y = y;
-          min_z = z;
+          #初回は代入
+          max_x = x
+          max_y = y
+          max_z = z
+          min_x = x
+          min_y = y
+          min_z = z
         else
           if x > max_x then
             max_x = x

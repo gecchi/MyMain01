@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 boolean GgafDx9AAPrismActor::init = false;
-map<int, GgafDx9AAPrismActor::RotPosPrism> GgafDx9AAPrismActor::pos2r;
+_MAP_<int, GgafDx9AAPrismActor::RotPosPrism> GgafDx9AAPrismActor::pos2r;
 
 
 GgafDx9AAPrismActor::GgafDx9AAPrismActor(const char* prm_name,
@@ -18,7 +18,7 @@ GgafDx9AAPrismActor::GgafDx9AAPrismActor(const char* prm_name,
     //_obj_class |= Obj_GgafDx9AAPrismActor;
     _class_name = "GgafDx9AAPrismActor";
     if (init == false) {
-        //基本となるプリズム型
+        //基本となるプリズム型の姿勢
         //
         //                 ^
         //              y+ |    ﾍ
