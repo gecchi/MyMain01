@@ -11,7 +11,7 @@ GgafDx9AAPrismActor::GgafDx9AAPrismActor(const char* prm_name,
                                    GgafDx9Checker* prm_pChecker) :
 
                                    GgafDx9MeshActor(prm_name,
-                                                    "cube",
+                                                    "prism",
                                                     "DefaultMeshEffect",
                                                     "DefaultMeshTechnique",
                                                     prm_pChecker) {
@@ -73,6 +73,8 @@ void GgafDx9AAPrismActor::drawPrism(int prm_x1, int prm_y1, int prm_z1, int prm_
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+    
+    //GgafDx9Util::setWorldMatrix_ScRzMv(this, _matWorld);
     GgafDx9Util::setWorldMatrix_RxRzRyScMv(this, _matWorld); //回転後にスケールがポイント
     processDraw();
 }
