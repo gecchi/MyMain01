@@ -7,15 +7,15 @@ using namespace GgafDx9LibStg;
 
 
 boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB* pAAB,
-                       GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppABB) {
+                       GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppAAB) {
     //＜AAB と AAB＞
     //軸が一致しない確率が高そうな順番(Z>Y>X)に判定
-    if (pActor->_Z + pAAB->_z2 >= pOppActor->_Z + pOppABB->_z1) {
-        if (pActor->_Z + pAAB->_z1 <= pOppActor->_Z + pOppABB->_z2) {
-            if (pActor->_Y + pAAB->_y2 >= pOppActor->_Y + pOppABB->_y1) {
-                if (pActor->_Y + pAAB->_y1 <= pOppActor->_Y + pOppABB->_y2) {
-                    if (pActor->_X + pAAB->_x2 >= pOppActor->_X + pOppABB->_x1) {
-                        if (pActor->_X + pAAB->_x1 <= pOppActor->_X + pOppABB->_x2) {
+    if (pActor->_Z + pAAB->_z2 >= pOppActor->_Z + pOppAAB->_z1) {
+        if (pActor->_Z + pAAB->_z1 <= pOppActor->_Z + pOppAAB->_z2) {
+            if (pActor->_Y + pAAB->_y2 >= pOppActor->_Y + pOppAAB->_y1) {
+                if (pActor->_Y + pAAB->_y1 <= pOppActor->_Y + pOppAAB->_y2) {
+                    if (pActor->_X + pAAB->_x2 >= pOppActor->_X + pOppAAB->_x1) {
+                        if (pActor->_X + pAAB->_x1 <= pOppActor->_X + pOppAAB->_x2) {
                             return true;
                         }
                     }
@@ -86,7 +86,7 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB* 
 
 
 boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPrism* pAAPrism,
-                       GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppABB) {
+                       GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppAAB) {
     //＜プリズム と AAB＞
     int aX1 = pActor->_X + pAAPrism->_x1;
     int aY1 = pActor->_Y + pAAPrism->_y1;
@@ -95,12 +95,12 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
     int aY2 = pActor->_Y + pAAPrism->_y2;
     int aZ2 = pActor->_Z + pAAPrism->_z2;
 
-    int bX1 = pOppActor->_X + pOppABB->_x1;
-    int bY1 = pOppActor->_Y + pOppABB->_y1;
-    int bZ1 = pOppActor->_Z + pOppABB->_z1;
-    int bX2 = pOppActor->_X + pOppABB->_x2;
-    int bY2 = pOppActor->_Y + pOppABB->_y2;
-    int bZ2 = pOppActor->_Z + pOppABB->_z2;
+    int bX1 = pOppActor->_X + pOppAAB->_x1;
+    int bY1 = pOppActor->_Y + pOppAAB->_y1;
+    int bZ1 = pOppActor->_Z + pOppAAB->_z1;
+    int bX2 = pOppActor->_X + pOppAAB->_x2;
+    int bY2 = pOppActor->_Y + pOppAAB->_y2;
+    int bZ2 = pOppActor->_Z + pOppAAB->_z2;
 
 
 
@@ -116,6 +116,286 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                             if (pos & POS_PRISM_XY) { //XY平面スライスのプリズム
                                 //ワールド座標でのプリズム境界線の切片を求める b = y - ax
                                 double b = ((pActor->_Y+pAAPrism->_cy) - pAAPrism->_a * (pActor->_X+pAAPrism->_cx)) + pAAPrism->_b;
+
+                                if (pos & POS_PRISM_pp) {
+                                    //            ↑ y+
+                                    //
+                                    //        ┌───┐
+                                    //        │＼こち│
+                                    // x- ←  │　＼ら│  → x+
+                                    //      ┌┼○　＼│
+                                    //      │└┼──┘
+                                    //      └─┘
+                                    //            ↓ y-
+                                    //
+                                    //プリズム境界線 y = ax + b と
+                                    //○の座標(bX2, bY2)、との位置関係を考える
+                                    //y > ax + b であればヒット
+                                    if (bY2 > a * bX2 +  b) {
+                                        return true;
+                                    }
+
+                                } else if (pos & POS_PRISM_np) {
+                                    //            ↑ y+
+                                    //
+                                    //        ┌───┐
+                                    //        │こち／│
+                                    // x- ←  │ら／　│  → x+
+                                    //        │／　○┼┐
+                                    //        └──┼┘│Opp
+                                    //              └─┘
+                                    //            ↓ y-
+                                    //
+                                    //プリズム境界線 y = ax + b と
+                                    //○の座標(bX1, bY2)、との位置関係を考える
+                                    //y > ax + b であればヒット
+                                    if (bY2 > a * bX1 +  b) {
+                                        return true;
+                                    }
+
+                                } else if (pos & POS_PRISM_pn) {
+                                    //            ↑ y+
+                                    //      ┌─┐
+                                    //      │┌┼──┐
+                                    //      └┼○　／│
+                                    // x- ←  │　／こ│  → x+
+                                    //        │／ちら│
+                                    //        └───┘
+                                    //
+                                    //            ↓ y-
+                                    //
+                                    //プリズム境界線 y = ax + b と
+                                    //○の座標(bX2, bY1)、との位置関係を考える
+                                    //y < ax + b であればヒット
+                                    if (bY1 < a * bX2 +  b) {
+                                        return true;
+                                    }
+
+                                } else { // のこりは POS_PRISM_nn のみである
+                                    //            ↑ y+
+                                    //              ┌─┐
+                                    //        ┌──┼┐│Opp
+                                    //        │＼　○┼┘
+                                    // x- ←  │こ＼　│  → x+
+                                    //        │ちら＼│
+                                    //        └───┘
+                                    //
+                                    //            ↓ y-
+                                    //
+                                    //プリズム境界線 y = ax + b と
+                                    //○の座標(bX1, bY1)、との位置関係を考える
+                                    //y < ax + b であればヒット
+                                    if (bY1 < a * bX1 +  b) {
+                                        return true;
+                                    }
+
+
+                                }
+                            } else if (pos & POS_PRISM_YZ) {//YZ平面スライスのプリズム
+                                //ワールド座標でのプリズム境界線の切片を求める b = z - ay
+                                int b = ((pActor->_Z+pAAPrism->_cz) - pAAPrism->_a * (pActor->_Y+pAAPrism->_cy)) + pAAPrism->_b;
+                                if (pos & POS_PRISM_pp) {
+                                    //            ↑ z+
+                                    //
+                                    //        ┌───┐
+                                    //        │＼こち│
+                                    // y- ←  │　＼ら│  → y+
+                                    //      ┌┼○　＼│
+                                    //      │└┼──┘
+                                    //      └─┘
+                                    //            ↓ z-
+                                    //
+                                    //プリズム境界線 z = ay + b と
+                                    //○の座標(bY2, bZ2)、との位置関係を考える
+                                    //z > ay + b であればヒット
+                                    if (bZ2 > a * bY2 +  b) {
+                                        return true;
+                                    }
+
+                                } else if (pos & POS_PRISM_np) {
+                                    //            ↑ z+
+                                    //
+                                    //        ┌───┐
+                                    //        │こち／│
+                                    // y- ←  │ら／　│  → y+
+                                    //        │／　○┼┐
+                                    //        └──┼┘│Opp
+                                    //              └─┘
+                                    //            ↓ z-
+                                    //
+                                    //プリズム境界線 z = ay + b と
+                                    //○の座標(bY1, bZ2)、との位置関係を考える
+                                    //z > ay + b であればヒット
+                                    if (bZ2 > a * bY1 +  b) {
+                                        return true;
+                                    }
+
+                                } else if (pos & POS_PRISM_pn) {
+                                    //            ↑ z+
+                                    //      ┌─┐
+                                    //      │┌┼──┐
+                                    //      └┼○　／│
+                                    // y- ←  │　／こ│  → y+
+                                    //        │／ちら│
+                                    //        └───┘
+                                    //
+                                    //            ↓ z-
+                                    //
+                                    //プリズム境界線 z = ay + b と
+                                    //○の座標(bY2, bZ1)、との位置関係を考える
+                                    //z < ay + b であればヒット
+                                    if (bZ1 < a * bY2 +  b) {
+                                        return true;
+                                    }
+
+                                } else { //のこりは POS_PRISM_nn のみである
+                                    //            ↑ z+
+                                    //              ┌─┐
+                                    //        ┌──┼┐│Opp
+                                    //        │＼　○┼┘
+                                    // y- ←  │こ＼　│  → y+
+                                    //        │ちら＼│
+                                    //        └───┘
+                                    //
+                                    //            ↓ z-
+                                    //
+                                    //プリズム境界線 z = ay + b と
+                                    //○の座標(bY1, bZ1)、との位置関係を考える
+                                    //z < ay + b であればヒット
+                                    if (bZ1 < a * bY1 +  b) {
+                                        return true;
+                                    }
+                                }
+
+                            } else if (pos & POS_PRISM_ZX) {
+                                //ワールド座標でのプリズム境界線の切片を求める b = x - az
+                                int b = ((pActor->_X+pAAPrism->_cx) - pAAPrism->_a * (pActor->_Z+pAAPrism->_cz)) + pAAPrism->_b;
+                                if (pos & POS_PRISM_pp) {
+                                    //            ↑ x+
+                                    //
+                                    //        ┌───┐
+                                    //        │＼こち│
+                                    // z- ←  │　＼ら│  → z+
+                                    //      ┌┼○　＼│
+                                    //      │└┼──┘
+                                    //      └─┘
+                                    //            ↓ x-
+                                    //
+                                    //プリズム境界線 x = az + b と
+                                    //○の座標(bZ2, bX2)、との位置関係を考える
+                                    //x > az + b であればヒット
+                                    if (bX2 > a * bZ2 +  b) {
+                                        return true;
+                                    }
+
+                                } else if (pos & POS_PRISM_np) {
+                                    //            ↑ x+
+                                    //
+                                    //        ┌───┐
+                                    //        │こち／│
+                                    // z- ←  │ら／　│  → z+
+                                    //        │／　○┼┐
+                                    //        └──┼┘│Opp
+                                    //              └─┘
+                                    //            ↓ x-
+                                    //
+                                    //プリズム境界線 x = az + b と
+                                    //○の座標(bZ1, bX2)、との位置関係を考える
+                                    //x > az + b であればヒット
+                                    if (bX2 > a * bZ1 +  b) {
+                                        return true;
+                                    }
+
+                                } else if (pos & POS_PRISM_pn) {
+                                    //            ↑ x+
+                                    //      ┌─┐
+                                    //      │┌┼──┐
+                                    //      └┼○　／│
+                                    // z- ←  │　／こ│  → z+
+                                    //        │／ちら│
+                                    //        └───┘
+                                    //
+                                    //            ↓ x-
+                                    //
+                                    //プリズム境界線 x = az + b と
+                                    //○の座標(bZ2, bX1)、との位置関係を考える
+                                    //x < az + b であればヒット
+                                    if (bX1 < a * bZ2 +  b) {
+                                        return true;
+                                    }
+
+                                } else { //残りは POS_PRISM_nn のみである
+                                    //            ↑ x+
+                                    //              ┌─┐
+                                    //        ┌──┼┐│Opp
+                                    //        │＼　○┼┘
+                                    // z- ←  │こ＼　│  → z+
+                                    //        │ちら＼│
+                                    //        └───┘
+                                    //
+                                    //            ↓ x-
+                                    //
+                                    //プリズム境界線 x = az + b と
+                                    //○の座標(bZ1, bX1)、との位置関係を考える
+                                    //x < az + b であればヒット
+                                    if (bX1 < a * bZ1 +  b) {
+                                        return true;
+                                    }
+
+
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+
+boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPrism* pAAPrism,
+                       GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere) {
+    //＜プリズム と Sphere＞
+    int aX1 = pActor->_X + pAAPrism->_x1;
+    int aY1 = pActor->_Y + pAAPrism->_y1;
+    int aZ1 = pActor->_Z + pAAPrism->_z1;
+    int aX2 = pActor->_X + pAAPrism->_x2;
+    int aY2 = pActor->_Y + pAAPrism->_y2;
+    int aZ2 = pActor->_Z + pAAPrism->_z2;
+
+    int bX1 = pOppActor->_X + pOppSphere->_aab_x1;
+    int bY1 = pOppActor->_Y + pOppSphere->_aab_y1;
+    int bZ1 = pOppActor->_Z + pOppSphere->_aab_z1;
+    int bX2 = pOppActor->_X + pOppSphere->_aab_x2;
+    int bY2 = pOppActor->_Y + pOppSphere->_aab_y2;
+    int bZ2 = pOppActor->_Z + pOppSphere->_aab_z2;
+
+
+
+    if (aZ2 >= bZ1) {
+        if (aZ1 <= bZ2) {
+            if (aY2 >= bY1) {
+                if (aY1 <= bY2) {
+                    if (aX2 >= bX1) {
+                        if (aX1 <= bX2) {
+                            //この時点でSphere と Sphere ならばヒット
+                            int pos = pAAPrism->_pos_prism;
+                            double a = pAAPrism->_a;
+                            if (pos & POS_PRISM_XY) { //XY平面スライスのプリズム
+                                //ワールド座標でのプリズム境界線の切片を求める b = y - ax
+                                double b = ((pActor->_Y+pAAPrism->_cy) - pAAPrism->_a * (pActor->_X+pAAPrism->_cx)) + pAAPrism->_b;
+                                //プリズム斜辺と最短距離の円周の座標を求める
+                                pAAPrism->_vIH_x
+
+                                pAAPrism->_vIH_y
+これをつかって
+なんとかこっからするべし
+
 
                                 if (pos & POS_PRISM_pp) {
                                     //            ↑ y+
