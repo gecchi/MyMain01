@@ -15,8 +15,8 @@ int MyShip::_lim_behaind =  0;
 int MyShip::_lim_zleft   =  0;
 int MyShip::_lim_zright  =  0;
 
-//MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper") {
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
+MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper") {
+//MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 //MyShip::MyShip(const char* prm_name) : CubeMapMeshActor(prm_name, "wakka") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
@@ -203,14 +203,14 @@ void MyShip::initialize() {
     _pCollisionChecker->makeCollision(1);
 //    _pCollisionChecker->setColliSphere(0, 10000);
  _pCollisionChecker->setColliAAB(0, -100000, -50000, 20000, 10000, 40000, 80000);
-   // _pCollisionChecker->setColliAAB_Cube(0, 100000);
+//      _pCollisionChecker->setColliAAB_Cube(0, 100000);
 //    _pCollisionChecker->setColliSphere(1, 0,-100000,0, 30000, true, true, true);
 //    _pCollisionChecker->setColliSphere(2, 0,100000,0, 30000, true, true, true);
 //    _pCollisionChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
 //    _pCollisionChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
 
     _pMover->setMvVelo(0);
-    _pScaler->setScale(2000);
+    _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 7000);
 
     setMaterialColor(1.0, 0.5, 0.5);

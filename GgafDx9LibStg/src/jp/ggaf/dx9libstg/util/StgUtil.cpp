@@ -112,10 +112,10 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                         if (aX1 <= bX2) {
                             //この時点でAAB と AAB ならばヒット
                             int pos = pAAPrism->_pos_prism;
-                            int a = pAAPrism->_a;
+                            double a = pAAPrism->_a;
                             if (pos & POS_PRISM_XY) { //XY平面スライスのプリズム
                                 //ワールド座標でのプリズム境界線の切片を求める b = y - ax
-                                int b = (pActor->_Y - pAAPrism->_a * pActor->_X) + pAAPrism->_b;
+                                double b = ((pActor->_Y+pAAPrism->_cy) - pAAPrism->_a * (pActor->_X+pAAPrism->_cx)) + pAAPrism->_b;
 
                                 if (pos & POS_PRISM_pp) {
                                     //            ↑ y+
@@ -193,7 +193,7 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                                 }
                             } else if (pos & POS_PRISM_YZ) {//YZ平面スライスのプリズム
                                 //ワールド座標でのプリズム境界線の切片を求める b = z - ay
-                                int b = (pActor->_Z - pAAPrism->_a * pActor->_Y) + pAAPrism->_b;
+                                int b = ((pActor->_Z+pAAPrism->_cz) - pAAPrism->_a * (pActor->_Y+pAAPrism->_cy)) + pAAPrism->_b;
                                 if (pos & POS_PRISM_pp) {
                                     //            ↑ z+
                                     //
@@ -269,7 +269,7 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
 
                             } else if (pos & POS_PRISM_ZX) {
                                 //ワールド座標でのプリズム境界線の切片を求める b = x - az
-                                int b = (pActor->_X - pAAPrism->_a * pActor->_Z) + pAAPrism->_b;
+                                int b = ((pActor->_X+pAAPrism->_cx) - pAAPrism->_a * (pActor->_Z+pAAPrism->_cz)) + pAAPrism->_b;
                                 if (pos & POS_PRISM_pp) {
                                     //            ↑ x+
                                     //

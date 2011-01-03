@@ -4,7 +4,7 @@ namespace MyStg2nd {
 
 
 //class MyOption : public GgafDx9LibStg::DefaultMorphMeshActor {
-class MyOption : public GgafDx9LibStg::CubeMapMeshSetActor {
+class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 
     //ˆê•Ï”’B
     int _Xorg,_Yorg,_Zorg;

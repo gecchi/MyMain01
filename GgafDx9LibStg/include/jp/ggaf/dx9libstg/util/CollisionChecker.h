@@ -246,9 +246,9 @@ public:
      * 当たり判定領域要素を軸並行直方体として定義 .
      * オブジェクトの基点を中心として、幅、高さ、奥行で指定
      * @param prm_index 当たり判定領域の要素番号
-     * @param prm_width 幅
-     * @param prm_height 高さ
-     * @param prm_depth 深さ（奥行）
+     * @param prm_width 幅(X軸方向幅)
+     * @param prm_height 高さ(Y軸方向幅)
+     * @param prm_depth 深さ(Z軸方向幅)
      * @param pos_prism プリズム位置（GgafDx9AAPrismActor の #define 定義参照)
      */
     void setColliAAPrism_WHD(int prm_index, int prm_width, int prm_height, int prm_depth, int pos_prism) {
