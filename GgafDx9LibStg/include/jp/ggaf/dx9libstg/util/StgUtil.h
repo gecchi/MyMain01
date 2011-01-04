@@ -6,7 +6,7 @@ class StgUtil: public GgafDx9Core::GgafDx9Util {
 public:
 
     static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB* pAAB,
-                         GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppABB);
+                         GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppAAB);
 
     static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliSphere* pSphere,
                          GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere);
@@ -15,9 +15,11 @@ public:
                          GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere);
 
     static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPrism* pAAPrism,
-                         GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppABB);
+                         GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppAAB);
 
-    
+    static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPrism* pAAPrism,
+                         GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere*  pOppSphere);
+
     /**
      * Rz•Ï‰»‚É‚æ‚é nWay’e‚ðŒ‚‚Â .
      * @param prm_pFrom ”­ŽËŒ³

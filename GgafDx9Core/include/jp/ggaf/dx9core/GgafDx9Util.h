@@ -34,19 +34,19 @@ public:
     /**
      * cosテーブル .
      * 要素番号範囲：0 ~ S_ANG360
-     * angle値 r の cosは、COS_UNITLEN[r/ANGLE_RATE]
+     * angle値 r の cosは、COS[r/ANGLE_RATE]
      */
     static float COS[];
     /**
      * sinテーブル .
      * 要素番号範囲：0 ~ S_ANG360
-     * angle値 r の sin は、SIN_UNITLEN[r/ANGLE_RATE]
+     * angle値 r の sin は、SIN[r/ANGLE_RATE]
      */
     static float SIN[];
     /**
      * 弧度法変換テーブル .
      * 要素番号範囲：0 ~ S_ANG360
-     * angle値 r のラディアンは、RAD_UNITLEN[r/ANGLE_RATE]
+     * angle値 r のラディアンは、RAD[r/ANGLE_RATE]
      */
     static float RAD[];
 

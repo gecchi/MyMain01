@@ -213,8 +213,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
         );
     
     
-    _vIH_x = GgafDx9Util::COS[angIH*ANGLE_RATE];
-    _vIH_y = GgafDx9Util::SIN[angIH*ANGLE_RATE];
+    _vIH_x = GgafDx9Util::COS[angIH/ANGLE_RATE];
+    _vIH_y = GgafDx9Util::SIN[angIH/ANGLE_RATE];
 
 }
 

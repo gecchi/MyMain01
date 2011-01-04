@@ -231,7 +231,19 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                                                pOppActor, (ColliAAB*)pOppColliPart)) {
                                 return true;
                             }
+                        } else if (pColliPart->_shape_kind == COLLI_SPHERE && pOppColliPart->_shape_kind == COLLI_AAPRISM) {
+                            //ÅÉãÖ Ç∆ AAPrismÅÑ
+                            if (StgUtil::isHit( pOppActor, (ColliAAPrism*)pOppColliPart,
+                                                _pActor  , (ColliSphere*)pColliPart)) {
+                                return true;
+                            }
 
+                        } else if (pColliPart->_shape_kind == COLLI_AAPRISM && pOppColliPart->_shape_kind == COLLI_SPHERE) {
+                            //ÅÉAAPrism Ç∆ ãÖÅÑ
+                            if (StgUtil::isHit(_pActor  , (ColliAAPrism*)pColliPart,
+                                               pOppActor, (ColliSphere*)pOppColliPart)) {
+                                return true;
+                            }
                         }
 
                     }
