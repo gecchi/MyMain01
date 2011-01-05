@@ -5,18 +5,58 @@ namespace GgafDx9LibStg {
 class StgUtil: public GgafDx9Core::GgafDx9Util {
 public:
 
+    /**
+     * AAB 対 AAB のヒットチェックを行う .
+     * @param pActor
+     * @param pAAB
+     * @param pOppActor
+     * @param pOppAAB
+     * @return
+     */
     static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB* pAAB,
                          GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppAAB);
 
+    /**
+     *  球 対 球 のヒットチェックを行う .
+     * @param pActor
+     * @param pSphere
+     * @param pOppActor
+     * @param pOppSphere
+     * @return
+     */
     static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliSphere* pSphere,
                          GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere);
 
+    /**
+     * AAB 対 球 のヒットチェックを行う .
+     * @param pActor
+     * @param pAAB
+     * @param pOppActor
+     * @param pOppSphere
+     * @return
+     */
     static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB*    pAAB,
                          GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere);
 
+    /**
+     * プリズム 対 AAB のヒットチェックを行う .
+     * @param pActor
+     * @param pAAPrism
+     * @param pOppActor
+     * @param pOppAAB
+     * @return
+     */
     static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPrism* pAAPrism,
                          GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppAAB);
 
+    /**
+     * プリズム 対 球 のヒットチェックを行う .
+     * @param pActor
+     * @param pAAPrism
+     * @param pOppActor
+     * @param pOppSphere
+     * @return
+     */
     static boolean isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPrism* pAAPrism,
                          GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere*  pOppSphere);
 

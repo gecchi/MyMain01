@@ -166,10 +166,6 @@ void CollisionChecker::updateHitArea() {
 
 bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
     //TODO: だんだん肥大化してきた
-    //もし球、AAB 以外に当たり判定要素が増えたなら、
-    //当たり判定チェックメソッドを、GgafDx9CollisionArea と GgafDx9CollisionPart へ
-    //分散させて持たせて、ココでは呼び出すだけにしよう・・・
-
     //当たり判定を行う相手のアクター
     GgafDx9Core::GgafDx9GeometricActor* pOppActor = prm_pOppChecker->getTargetActor();
     //相手の当たり判定領域
@@ -180,77 +176,86 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
 
     if (_pCollisionArea == NULL || pOppCollisionArea == NULL) {
         return false;
-    } else {
-        GgafDx9CollisionPart* pColliPart;     //自身の当たり判定要素
-        GgafDx9CollisionPart* pOppColliPart;  //相手の当たり判定要素
-        for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
-            pColliPart = _pCollisionArea->_papColliPart[i];
-            if (pColliPart->_is_valid_flg) {
-                for (int j = 0; j < pOppCollisionArea->_nColliPart; j++) {
-                    pOppColliPart = pOppCollisionArea->_papColliPart[j];
-                    if (pOppColliPart->_is_valid_flg) {
-                        CollisionChecker::_num_check++;
+    }
 
-                        if (pColliPart->_shape_kind == COLLI_AAB && pOppColliPart->_shape_kind == COLLI_AAB) {
-                            //＜AAB と AAB＞
-                            if (StgUtil::isHit(_pActor  , (ColliAAB*)pColliPart,
-                                               pOppActor, (ColliAAB*)pOppColliPart)) {
-                                return true;
-                            }
+    GgafDx9CollisionPart* pColliPart;     //自身の当たり判定要素
+    GgafDx9CollisionPart* pOppColliPart;  //相手の当たり判定要素
 
-                        } else if (pColliPart->_shape_kind == COLLI_SPHERE && pOppColliPart->_shape_kind == COLLI_SPHERE) {
-                            //＜球 と 球＞
-                            if (StgUtil::isHit(_pActor  , (ColliSphere*)pColliPart,
-                                               pOppActor, (ColliSphere*)pOppColliPart)) {
-                                return true;
-                            }
+    for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
+        pColliPart = _pCollisionArea->_papColliPart[i];
+        if (!pColliPart->_is_valid_flg) { continue; }
 
-                        } else if (pColliPart->_shape_kind == COLLI_AAB && pOppColliPart->_shape_kind == COLLI_SPHERE) {
-                            //＜AAB と 球＞
-                            if (StgUtil::isHit(_pActor , (ColliAAB*)pColliPart,
-                                              pOppActor, (ColliSphere*)pOppColliPart)) {
-                                return true;
-                            }
+        for (int j = 0; j < pOppCollisionArea->_nColliPart; j++) {
+            pOppColliPart = pOppCollisionArea->_papColliPart[j];
+            if (!pOppColliPart->_is_valid_flg) { continue; }
 
-                        } else if (pColliPart->_shape_kind == COLLI_SPHERE && pOppColliPart->_shape_kind == COLLI_AAB) {
-                            //＜球 と AAB＞
-                            if (StgUtil::isHit(pOppActor, (ColliAAB*)pOppColliPart,
-                                               _pActor  , (ColliSphere*)pColliPart)) {
-                                return true;
-                            }
-                        } else if (pColliPart->_shape_kind == COLLI_AAB && pOppColliPart->_shape_kind == COLLI_AAPRISM) {
-                            //＜AAB と AAPrism＞
-                            if (StgUtil::isHit( pOppActor, (ColliAAPrism*)pOppColliPart,
-                                                _pActor  , (ColliAAB*)pColliPart)) {
-                                return true;
-                            }
+            CollisionChecker::_num_check++;
+            if (pColliPart->_shape_kind == COLLI_AAB) {
+                if (pOppColliPart->_shape_kind == COLLI_AAB) {
+                    //＜AAB と AAB＞
+                    if (StgUtil::isHit(_pActor  , (ColliAAB*)pColliPart,
+                                       pOppActor, (ColliAAB*)pOppColliPart)) {
+                        return true;
+                    }
+                 } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
+                     //＜AAB と 球＞
+                     if (StgUtil::isHit(_pActor , (ColliAAB*)pColliPart,
+                                        pOppActor, (ColliSphere*)pOppColliPart)) {
+                         return true;
+                     }
+                 } else if (pOppColliPart->_shape_kind == COLLI_AAPRISM) {
+                     //＜AAB と AAPrism＞
+                     if (StgUtil::isHit(pOppActor, (ColliAAPrism*)pOppColliPart,
+                                        _pActor  , (ColliAAB*)pColliPart)) {
+                         return true;
+                     }
+                 }
 
-                        } else if (pColliPart->_shape_kind == COLLI_AAPRISM && pOppColliPart->_shape_kind == COLLI_AAB) {
-                            //＜AAPrism と AAB＞
-                            if (StgUtil::isHit(_pActor  , (ColliAAPrism*)pColliPart,
-                                               pOppActor, (ColliAAB*)pOppColliPart)) {
-                                return true;
-                            }
-                        } else if (pColliPart->_shape_kind == COLLI_SPHERE && pOppColliPart->_shape_kind == COLLI_AAPRISM) {
-                            //＜球 と AAPrism＞
-                            if (StgUtil::isHit( pOppActor, (ColliAAPrism*)pOppColliPart,
-                                                _pActor  , (ColliSphere*)pColliPart)) {
-                                return true;
-                            }
-
-                        } else if (pColliPart->_shape_kind == COLLI_AAPRISM && pOppColliPart->_shape_kind == COLLI_SPHERE) {
-                            //＜AAPrism と 球＞
-                            if (StgUtil::isHit(_pActor  , (ColliAAPrism*)pColliPart,
-                                               pOppActor, (ColliSphere*)pOppColliPart)) {
-                                return true;
-                            }
-                        }
-
+            } else if (pColliPart->_shape_kind == COLLI_SPHERE) {
+                if (pOppColliPart->_shape_kind == COLLI_AAB) {
+                    //＜球 と AAB＞
+                    if (StgUtil::isHit(pOppActor, (ColliAAB*)pOppColliPart,
+                                       _pActor  , (ColliSphere*)pColliPart)) {
+                        return true;
+                    }
+                } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
+                    //＜球 と 球＞
+                    if (StgUtil::isHit(_pActor  , (ColliSphere*)pColliPart,
+                                       pOppActor, (ColliSphere*)pOppColliPart)) {
+                        return true;
+                    }
+                } else if (pOppColliPart->_shape_kind == COLLI_AAPRISM) {
+                    //＜球 と AAPrism＞
+                    if (StgUtil::isHit(pOppActor, (ColliAAPrism*)pOppColliPart,
+                                       _pActor  , (ColliSphere*)pColliPart)) {
+                        return true;
                     }
                 }
+
+            } else if (pColliPart->_shape_kind == COLLI_AAPRISM) {
+                if (pOppColliPart->_shape_kind == COLLI_AAB) {
+                    //＜AAPrism と AAB＞
+                    if (StgUtil::isHit(_pActor  , (ColliAAPrism*)pColliPart,
+                                      pOppActor, (ColliAAB*)pOppColliPart)) {
+                       return true;
+                    }
+                } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
+                    //＜AAPrism と 球＞
+                    if (StgUtil::isHit(_pActor  , (ColliAAPrism*)pColliPart,
+                                      pOppActor, (ColliSphere*)pOppColliPart)) {
+                       return true;
+                    }
+                }  else if (pOppColliPart->_shape_kind == COLLI_AAPRISM) {
+                   //＜AAPrism と AAPrism＞
+                   //TODO: 非常に重たくなってしまう、というか考えるだけでめんどくさそうな感じがする；。
+                   //時間があれば考えよう・・・。今は未対応。
+                   return false;
+                }
             }
-        }
-    }
+
+        } //for (int j = 0; j < pOppCollisionArea->_nColliPart; j++)
+
+    } //for (int i = 0; i < _pCollisionArea->_nColliPart; i++)
     return false;
 }
 
