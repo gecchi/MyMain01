@@ -183,6 +183,7 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
     _pSeTransmitter->play3D(0);
+    _TRACE_("HIT!!!");
     if (pExplo001 != NULL) {
         pExplo001->activate();
         pExplo001->setCoordinateBy(this);
