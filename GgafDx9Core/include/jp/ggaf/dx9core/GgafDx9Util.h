@@ -58,6 +58,11 @@ public:
 
     static AngleSet ROTY_ANGLE[S_ANG360+1];
 
+
+    /**  1/4 â~ÇÃâÅBy = Å„(1^2-x^2) */
+    static float ROOT_1_MINUS_XX[1000];
+
+
     static GgafDx9SphereRadiusVectors _srv;
 
     static bool _was_inited_flg;

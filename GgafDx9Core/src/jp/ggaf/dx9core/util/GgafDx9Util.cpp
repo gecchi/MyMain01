@@ -66,6 +66,9 @@ float GgafDx9Util::COS[S_ANG360+1];
 float GgafDx9Util::SIN[S_ANG360+1];
 float GgafDx9Util::RAD[S_ANG360+1];
 
+float GgafDx9Util::ROOT_1_MINUS_XX[1000];
+
+
 angle GgafDx9Util::SLANT2ANG[100000 + 1];
 
 //Ç±ÇÒÇ»ÇÒÇ¢ÇÈÇÃÇ≈ÇÕÅI
@@ -261,6 +264,11 @@ void GgafDx9Util::init() {
            //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_Z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_Y_REV[prj_ang_xy][prj_ang_xz]<<")");
 
         }
+    }
+
+    //ROOT_1_MINUS_XXÇÃê›íË
+    for (int i = 0; i < 1000; i++) {
+        ROOT_1_MINUS_XX[i] = sqrt(1.0 - ((double)i/1000.0) * ((double)i/1000.0));
     }
 }
 
