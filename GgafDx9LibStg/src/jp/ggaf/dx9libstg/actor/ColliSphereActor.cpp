@@ -8,6 +8,7 @@ ColliSphereActor* ColliSphereActor::_pObj = NULL;
 
 ColliSphereActor::ColliSphereActor(const char* prm_name) : GgafDx9SphereActor(prm_name, NULL) {
     _class_name = "ColliSphereActor";
+    setAlpha(0.8);
 }
 
 ColliSphereActor* ColliSphereActor::get() {

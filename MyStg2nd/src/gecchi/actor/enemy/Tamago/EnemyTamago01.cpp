@@ -36,16 +36,16 @@ void EnemyTamago01::initialize() {
     _pMover->setFaceAngVelo(AXIS_X, 1000);
     _pMover->setMvAng(900000, 300000, 300000);
     _pMover->setMvVelo(2);
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_XY_nn);
-//        _pCollisionChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_pn);
+    _pCollisionChecker->makeCollision(2);
+//    _pCollisionChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_pp);
+        _pCollisionChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_pn);
 
     //ヒットしない理由を探せ！！
 //      _pCollisionChecker->setColliAAPrism_WHD(0,20000,-30000,50000,
 //                                                90000,140000,60000,POS_PRISM_XY_nn);
 //
-//      _pCollisionChecker->setColliAAPrism_WHD(1,-20000,-30000,-50000,
-//                                                 60000,90000,140000,POS_PRISM_ZX_pp);
+      _pCollisionChecker->setColliAAPrism_WHD(1,-20000,-30000,-50000,
+                                                 60000,90000,140000,POS_PRISM_ZX_pp);
 
 //    _pCollisionChecker->setColliAAB_WHD(0,20000,-30000,50000,
 //                                              90000,140000,60000);
@@ -53,7 +53,7 @@ void EnemyTamago01::initialize() {
 
 
     //_pCollisionChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    _X = -100000;
+    _X = -50000;
     _Y = 200000;
     _Z = 100000;
     _pScaler->setScale(5000);
