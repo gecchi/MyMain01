@@ -3,17 +3,22 @@
 #                                    since 2010/10/19 by Gecchi
 #
 # 【書式】
-# $ ruby makeSceneWallData.rb <入力Xファイル> <Y軸方向AAB数> <Z軸方向AAB数> <当たり判定AABのX方向最大連結数>
+# $ ruby makeSceneWallData.rb <入力Xファイル> <Y軸方向AAB数> <Z軸方向AAB数> <当たり判定AABのX方向最大連結数> <FULLFULLモード> <プリズムモード>
+# FULLFULLモード "Yes":FULLFULLを行う（内部塗りつぶし） "Yes"以外:FULLFULLしない
+# プリズムモード "Yes":プリズム形のみを拾い上げる  "Yes"以外:通常のBOXのみ拾い上げる
 # (※AAB とは 軸並行直方体：Axis-Aligned Box の省略)
 #
 # 【使用例】
-# $ ruby makeSceneWallData.rb scene3_2_wall.X 34 36 4 > scene3_2_wall.dat
+# $ ruby makeSceneWallData.rb scene3_2_wall.X 34 36 4
+# 実行すると
+# scene3_2_wall_0.dat, scene3_2_wall_1.dat, ・・・ , scene3_2_wall_[N].dat が作成される
 ################################################################
 
 require './ExteriorArea'
 
 xfile= ARGV[0]
 max_x_colliwall_num = ARGV[3].to_i
+
 outputfiles = Array.new
 outputfile_index = 0
 
@@ -186,8 +191,12 @@ while true
   end
 
   #exArea.dump01
-  exArea.fullfull #外塗りつぶし
-  exArea.fullfull #２回以上でほとんどの場合は大丈夫だが・・
+
+  if ARGV[4] == "Yes" || ARGV[4] == "yes" then
+    exArea.fullfull #外塗りつぶし
+    exArea.fullfull #２回以上でほとんどの場合は大丈夫だが・・
+  end
+
 
   r01_exArea = exArea.getAnalyze01
 
