@@ -361,12 +361,12 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
 boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPrism* pAAPrism,
                        GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere*  pOppSphere) {
     //＜プリズム と Sphere＞
-//    int aX1 = pActor->_X + pAAPrism->_x1;
-//    int aY1 = pActor->_Y + pAAPrism->_y1;
-//    int aZ1 = pActor->_Z + pAAPrism->_z1;
-//    int aX2 = pActor->_X + pAAPrism->_x2;
-//    int aY2 = pActor->_Y + pAAPrism->_y2;
-//    int aZ2 = pActor->_Z + pAAPrism->_z2;
+    int aX1 = pActor->_X + pAAPrism->_x1;
+    int aY1 = pActor->_Y + pAAPrism->_y1;
+    int aZ1 = pActor->_Z + pAAPrism->_z1;
+    int aX2 = pActor->_X + pAAPrism->_x2;
+    int aY2 = pActor->_Y + pAAPrism->_y2;
+    int aZ2 = pActor->_Z + pAAPrism->_z2;
 //
 //    int bX1 = pOppActor->_X + pOppSphere->_aab_x1;
 //    int bY1 = pOppActor->_Y + pOppSphere->_aab_y1;
@@ -391,27 +391,26 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                             if (pos & POS_PRISM_XY) { //XY平面スライスのプリズム
                                 //ワールド座標でのプリズム境界線の切片を求める b = y - ax
                                 double b = ((pActor->_Y+pAAPrism->_cy) - pAAPrism->_a * (pActor->_X+pAAPrism->_cx)) + pAAPrism->_b;
-                                //プリズム斜辺と最短距離の円周の座標を求める
+                                //プリズム斜辺と最短距離の円周上の座標を求める
                                 int oppX, oppY;
-                                if ( pActor->_Z + pAAPrism->_z1 < pOppActor->_Z + pOppSphere->_z && pOppActor->_Z + pOppSphere->_z < pActor->_Z + pAAPrism->_z2) {
+                                int bZc = pOppActor->_Z + pOppSphere->_cz;
+                                if (aZ1 < bZc && bZc < aZ2) {
                                     oppX = (pOppActor->_X + pOppSphere->_x) + pAAPrism->_vIH_x * pOppSphere->_r;
                                     oppY = (pOppActor->_Y + pOppSphere->_y) + pAAPrism->_vIH_y * pOppSphere->_r;
                                 } else {
-                                    //斜辺厚みZ範囲外は仕方ないので最短距離の円周の座標をベクトルから求める
-ここどうしよう；
-                                    //                 |
-                                    //                 ＼
-                                    //        ┌───┐ `─
-                                    // z- ←  │      │  → z+
-                                    angle angIH = GgafDx9Util::simplifyAng(
-                                        GgafDx9Util::getAngle2D(x2_e-x1_s, y2_e-y1_s)
-                                        + ANGLE180
-                                        );
-
-
-                                    _vIH_x = GgafDx9Util::COS[angIH/ANGLE_RATE];
-                                    _vIH_y = GgafDx9Util::SIN[angIH/ANGLE_RATE];
-
+                                    if (bZc >= aZ2) {
+                                        //                 |
+                                        //                 ＼
+                                        //        ┌───┐ `─
+                                        // z- ←  │      │  → z+
+                                        int r = pOppSphere->_r * GgafDx9Util::ROOT_1_MINUS_XX[(int)((1.0*(bZc - aZ2) / pOppSphere->_r)*1000)];
+                                        oppX = (pOppActor->_X + pOppSphere->_x) + pAAPrism->_vIH_x * r;
+                                        oppY = (pOppActor->_Y + pOppSphere->_y) + pAAPrism->_vIH_y * r;
+                                    } else if (aZ1 >= bZc) {
+                                        int r = pOppSphere->_r * GgafDx9Util::ROOT_1_MINUS_XX[(int)((1.0*(aZ1 - bZc) / pOppSphere->_r)*1000)];
+                                        oppX = (pOppActor->_X + pOppSphere->_x) + pAAPrism->_vIH_x * r;
+                                        oppY = (pOppActor->_Y + pOppSphere->_y) + pAAPrism->_vIH_y * r;
+                                    }
                                 }
 
                                 if (pos & POS_PRISM_pp) {
@@ -491,9 +490,23 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                             } else if (pos & POS_PRISM_YZ) {//YZ平面スライスのプリズム
                                 //ワールド座標でのプリズム境界線の切片を求める b = z - ay
                                 int b = ((pActor->_Z+pAAPrism->_cz) - pAAPrism->_a * (pActor->_Y+pAAPrism->_cy)) + pAAPrism->_b;
+                                int oppY, oppZ;
 
-                                int oppY = (pOppActor->_Y + pOppSphere->_y) + pAAPrism->_vIH_x * pOppSphere->_r;
-                                int oppZ = (pOppActor->_Z + pOppSphere->_z) + pAAPrism->_vIH_y * pOppSphere->_r;
+                                int bXc = pOppActor->_X + pOppSphere->_cx;
+                                if (aX1 < bXc && bXc < aX2) {
+                                    oppY = (pOppActor->_Y + pOppSphere->_y) + pAAPrism->_vIH_x * pOppSphere->_r;
+                                    oppZ = (pOppActor->_Z + pOppSphere->_z) + pAAPrism->_vIH_y * pOppSphere->_r;
+                                } else {
+                                    if (bXc >= aX2) {
+                                        int r = pOppSphere->_r * GgafDx9Util::ROOT_1_MINUS_XX[(int)((1.0*(bXc - aX2) / pOppSphere->_r)*1000)];
+                                        oppY = (pOppActor->_Y + pOppSphere->_y) + pAAPrism->_vIH_x * r;
+                                        oppZ = (pOppActor->_Z + pOppSphere->_z) + pAAPrism->_vIH_y * r;
+                                    } else if (aX1 >= bXc) {
+                                        int r = pOppSphere->_r * GgafDx9Util::ROOT_1_MINUS_XX[(int)((1.0*(aX1 - bXc) / pOppSphere->_r)*1000)];
+                                        oppY = (pOppActor->_Y + pOppSphere->_y) + pAAPrism->_vIH_x * r;
+                                        oppZ = (pOppActor->_Z + pOppSphere->_z) + pAAPrism->_vIH_y * r;
+                                    }
+                                }
                                 if (pos & POS_PRISM_pp) {
                                     //            ↑ z+
                                     //
@@ -570,10 +583,22 @@ boolean StgUtil::isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPri
                             } else if (pos & POS_PRISM_ZX) {
                                 //ワールド座標でのプリズム境界線の切片を求める b = x - az
                                 int b = ((pActor->_X+pAAPrism->_cx) - pAAPrism->_a * (pActor->_Z+pAAPrism->_cz)) + pAAPrism->_b;
-
-                                int oppZ = (pOppActor->_Z + pOppSphere->_z) + pAAPrism->_vIH_x * pOppSphere->_r;
-                                int oppX = (pOppActor->_X + pOppSphere->_x) + pAAPrism->_vIH_y * pOppSphere->_r;
-
+                                int oppZ,oppX;
+                                int bYc = pOppActor->_Y + pOppSphere->_cy;
+                                if (aY1 < bYc && bYc < aY2) {
+                                    oppZ = (pOppActor->_Z + pOppSphere->_z) + pAAPrism->_vIH_x * pOppSphere->_r;
+                                    oppX = (pOppActor->_X + pOppSphere->_x) + pAAPrism->_vIH_y * pOppSphere->_r;
+                                } else {
+                                    if (bYc >= aY2) {
+                                        int r = pOppSphere->_r * GgafDx9Util::ROOT_1_MINUS_XX[(int)((1.0*(bYc - aY2) / pOppSphere->_r)*1000)];
+                                        oppZ = (pOppActor->_Z + pOppSphere->_z) + pAAPrism->_vIH_x * r;
+                                        oppX = (pOppActor->_X + pOppSphere->_x) + pAAPrism->_vIH_y * r;
+                                    } else if (aY1 >= bYc) {
+                                        int r = pOppSphere->_r * GgafDx9Util::ROOT_1_MINUS_XX[(int)((1.0*(aY1 - bYc) / pOppSphere->_r)*1000)];
+                                        oppZ = (pOppActor->_Z + pOppSphere->_z) + pAAPrism->_vIH_x * r;
+                                        oppX = (pOppActor->_X + pOppSphere->_x) + pAAPrism->_vIH_y * r;
+                                    }
+                                }
                                 if (pos & POS_PRISM_pp) {
                                     //            ↑ x+
                                     //
