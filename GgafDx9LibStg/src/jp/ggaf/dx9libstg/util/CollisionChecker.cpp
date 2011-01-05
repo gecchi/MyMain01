@@ -167,7 +167,7 @@ void CollisionChecker::updateHitArea() {
 bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
     //TODO: だんだん肥大化してきた
     //当たり判定を行う相手のアクター
-    GgafDx9Core::GgafDx9GeometricActor* pOppActor = prm_pOppChecker->getTargetActor();
+    GgafDx9GeometricActor* pOppActor = prm_pOppChecker->getTargetActor();
     //相手の当たり判定領域
     GgafDx9CollisionArea* pOppCollisionArea = ((CollisionChecker*)prm_pOppChecker)->_pCollisionArea;
 
@@ -188,8 +188,9 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
         for (int j = 0; j < pOppCollisionArea->_nColliPart; j++) {
             pOppColliPart = pOppCollisionArea->_papColliPart[j];
             if (!pOppColliPart->_is_valid_flg) { continue; }
-
+#ifdef MY_DEBUG
             CollisionChecker::_num_check++;
+#endif
             if (pColliPart->_shape_kind == COLLI_AAB) {
                 if (pOppColliPart->_shape_kind == COLLI_AAB) {
                     //＜AAB と AAB＞
@@ -199,7 +200,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                     }
                  } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
                      //＜AAB と 球＞
-                     if (StgUtil::isHit(_pActor , (ColliAAB*)pColliPart,
+                     if (StgUtil::isHit(_pActor  , (ColliAAB*)pColliPart,
                                         pOppActor, (ColliSphere*)pOppColliPart)) {
                          return true;
                      }
