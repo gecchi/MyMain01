@@ -1,4 +1,24 @@
 
+POS_PRISM_XY_nn = (0x11) #0b 0010001
+POS_PRISM_XY_np = (0x12) #0b 0010010
+POS_PRISM_XY_pn = (0x14) #0b 0010100
+POS_PRISM_XY_pp = (0x18) #0b 0011000
+POS_PRISM_YZ_nn = (0x21) #0b 0100001
+POS_PRISM_YZ_np = (0x22) #0b 0100010
+POS_PRISM_YZ_pn = (0x24) #0b 0100100
+POS_PRISM_YZ_pp = (0x28) #0b 0101000
+POS_PRISM_ZX_nn = (0x41) #0b 1000001
+POS_PRISM_ZX_np = (0x42) #0b 1000010
+POS_PRISM_ZX_pn = (0x44) #0b 1000100
+POS_PRISM_ZX_pp = (0x48) #0b 1001000
+POS_PRISM_nn    = (0x1)  #0b 0000001
+POS_PRISM_np    = (0x2)  #0b 0000010
+POS_PRISM_pn    = (0x4)  #0b 0000100
+POS_PRISM_pp    = (0x8)  #0b 0001000
+POS_PRISM_XY    = (0x10) #0b 0010000
+POS_PRISM_YZ    = (0x20) #0b 0100000
+POS_PRISM_ZX    = (0x40) #0b 1000000
+
 class Veartex
   attr_accessor :X ,:Y, :Z
   def initialize
@@ -9,11 +29,12 @@ class Veartex
 end
 
 class Box
-  attr_accessor :X ,:Y, :Z
+  attr_accessor :X ,:Y, :Z, :pos_prism
   def initialize
     @X = 0
     @Y = 0
     @Z = 0
+    @pos_prism = 0
   end
 end
 
@@ -22,7 +43,7 @@ class ExteriorArea
   attr_accessor :area
 
   KARA_VAL = -1
-  KABE_VAL = 1
+  KABE_BOX_VAL = 0   #Box.@pos_prismの値
   FULL_VAL = -2
 
   FACE_A_BIT = 0b100000
@@ -55,6 +76,105 @@ class ExteriorArea
     }
   end
 
+  def isXY(pos)
+    if ((pos == POS_PRISM_XY_nn) ||
+        (pos == POS_PRISM_XY_np) ||
+        (pos == POS_PRISM_XY_pn) ||
+        (pos == POS_PRISM_XY_pp)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isYZ(pos)
+    if ((pos == POS_PRISM_YZ_nn) ||
+        (pos == POS_PRISM_YZ_np) ||
+        (pos == POS_PRISM_YZ_pn) ||
+        (pos == POS_PRISM_YZ_pp)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isZX(pos)
+    if ((pos == POS_PRISM_ZX_nn) ||
+        (pos == POS_PRISM_ZX_np) ||
+        (pos == POS_PRISM_ZX_pn) ||
+        (pos == POS_PRISM_ZX_pp)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isXpositive(pos)
+    if ((pos == POS_PRISM_XY_pp) ||
+        (pos == POS_PRISM_XY_pn) ||
+        (pos == POS_PRISM_ZX_pp) ||
+        (pos == POS_PRISM_ZX_np)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isXnigative(pos)
+    if ((pos == POS_PRISM_XY_np) ||
+        (pos == POS_PRISM_XY_nn) ||
+        (pos == POS_PRISM_ZX_pn) ||
+        (pos == POS_PRISM_ZX_nn)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isYpositive(pos)
+    if ((pos == POS_PRISM_XY_pp) ||
+        (pos == POS_PRISM_XY_np) ||
+        (pos == POS_PRISM_YZ_pp) ||
+        (pos == POS_PRISM_YZ_pn)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isYnigative(pos)
+    if ((pos == POS_PRISM_XY_pn) ||
+        (pos == POS_PRISM_XY_nn) ||
+        (pos == POS_PRISM_YZ_np) ||
+        (pos == POS_PRISM_YZ_nn)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isZpositive(pos)
+    if ((pos == POS_PRISM_YZ_pp) ||
+        (pos == POS_PRISM_YZ_np) ||
+        (pos == POS_PRISM_ZX_pp) ||
+        (pos == POS_PRISM_ZX_pn)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isZnigative(pos)
+    if ((pos == POS_PRISM_YZ_pn) ||
+        (pos == POS_PRISM_YZ_nn) ||
+        (pos == POS_PRISM_ZX_np) ||
+        (pos == POS_PRISM_ZX_nn)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
   #BOX６面の内、最低限描画しなければいけない面を解析
   def getAnalyze01
      ret = ExteriorArea.new(@len, @height, @width)
@@ -67,8 +187,7 @@ class ExteriorArea
             ret.area[x][y][z] = KARA_VAL
           elsif @area[x][y][z] == FULL_VAL then
             ret.area[x][y][z] = FULL_VAL
-
-          elsif @area[x][y][z] == KABE_VAL then
+          elsif @area[x][y][z] == KABE_BOX_VAL then
             #6面の開き具合を調べる
             #開いているビットがセットされる
             # 0b 00abcdef
@@ -76,39 +195,206 @@ class ExteriorArea
             #    c
             # a b d f
             #      e
-
-            if (x-1 >= 0 && @area[x-1][y][z] != KARA_VAL) then #bが開いている
-              #               abcdef
+            #BOX(自身)とBOXが隣り合わせ
+            if (x-1 >= 0 && (@area[x-1][y][z] == KABE_BOX_VAL || @area[x-1][y][z] == FULL_VAL)) then #bが開いている
               type = type ^ FACE_B_BIT
             end
 
-            if (x+1 <= @len-1 && @area[x+1][y][z] != KARA_VAL) then #fが開いている
-              #               abcdef
+            if (x+1 <= @len-1 && (@area[x+1][y][z] == KABE_BOX_VAL || @area[x+1][y][z] == FULL_VAL)) then #fが開いている
               type = type ^ FACE_F_BIT
             end
 
-            if (y-1 >= 0 && @area[x][y-1][z] != KARA_VAL) then #dが開いている
-              #               abcdef
+            if (y-1 >= 0 && (@area[x][y-1][z] == KABE_BOX_VAL || @area[x][y-1][z] == FULL_VAL)) then #dが開いている
               type = type ^ FACE_D_BIT
             end
 
-            if (y+1 <= @height-1 && @area[x][y+1][z] != KARA_VAL) then #aが開いている
-              #               abcdef
+            if (y+1 <= @height-1 && (@area[x][y+1][z] == KABE_BOX_VAL || @area[x][y+1][z] == FULL_VAL)) then #aが開いている
               type = type ^ FACE_A_BIT
             end
 
-            if (z-1 >= 0         && @area[x][y][z-1] != KARA_VAL) then #eが開いている
-              #               abcdef
+            if (z-1 >= 0         && (@area[x][y][z-1] == KABE_BOX_VAL || @area[x][y][z-1] == FULL_VAL)) then #eが開いている
               type = type ^ FACE_E_BIT
             end
 
-            if (z+1 <= @width-1  && @area[x][y][z+1] != KARA_VAL) then #cが開いている
-              #               abcdef
+            if (z+1 <= @width-1  && (@area[x][y][z+1] == KABE_BOX_VAL || @area[x][y][z+1] == FULL_VAL)) then #cが開いている
               type = type ^ FACE_C_BIT
+            end
+
+            #BOX(自身)とプリズムと隣り合わせ
+            #    c
+            # a b d f
+            #      e
+            if (x-1 >= 0 && @area[x-1][y][z] > KABE_BOX_VAL) then #bが開けれるか
+              #bが開けれるプリズムか判断
+              if (isXpositive(@area[x-1][y][z])) then
+                type = type ^ FACE_B_BIT
+              end
+            end
+
+            if (x+1 <= @len-1 && @area[x+1][y][z] > KABE_BOX_VAL) then #fが開けれるか
+              if (isXnigative(@area[x+1][y][z])) then
+                type = type ^ FACE_F_BIT
+              end
+            end
+
+            if (y-1 >= 0 && @area[x][y-1][z] > KABE_BOX_VAL) then #dが開けれるか
+              if (isYpositive(@area[x][y-1][z])) then
+                type = type ^ FACE_D_BIT
+              end
+            end
+
+            if (y+1 <= @height-1 && @area[x][y+1][z] > KABE_BOX_VAL) then #aが開けれるか
+              if (isYnigative(@area[x][y+1][z])) then
+                type = type ^ FACE_A_BIT
+              end
+            end
+
+            if (z-1 >= 0         && @area[x][y][z-1] > KABE_BOX_VAL) then #eが開けれるか
+              if (isZpositive(@area[x][y][z-1])) then
+                type = type ^ FACE_E_BIT
+              end
+            end
+
+            if (z+1 <= @width-1  && @area[x][y][z+1] > KABE_BOX_VAL) then #cが開けれるか
+              if (isZnigative(@area[x][y][z+1])) then
+                type = type ^ FACE_C_BIT
+              end
             end
 
 #            ret.area[x][y][z] = sprintf("%02d ", type)
             ret.area[x][y][z] = type
+
+          elsif @area[x][y][z] > KABE_BOX_VAL then
+            #自身がプリズムの場合
+            #    c
+            # a b d f
+            #      e
+            #プリズム(自身)とBOXが隣り合わせ
+            if (x-1 >= 0 && (@area[x-1][y][z] == KABE_BOX_VAL || @area[x-1][y][z] == FULL_VAL)) then #bが開けれるか
+              if (isXnigative(@area[x][y][z])) then
+                type = type ^ FACE_B_BIT
+              end
+            end
+
+            if (x+1 <= @len-1 && (@area[x+1][y][z] == KABE_BOX_VAL || @area[x+1][y][z] == FULL_VAL)) then #fが開けれるか
+              if (isXpositive(@area[x][y][z])) then
+                type = type ^ FACE_F_BIT
+              end
+            end
+
+            if (y-1 >= 0 && (@area[x][y-1][z] == KABE_BOX_VAL || @area[x][y-1][z] == FULL_VAL)) then #dが開けれるか
+              if (isYnigative(@area[x][y][z])) then
+                type = type ^ FACE_D_BIT
+              end
+            end
+
+            if (y+1 <= @height-1 && (@area[x][y+1][z] == KABE_BOX_VAL || @area[x][y+1][z] == FULL_VAL)) then #aが開けれるか
+              if (isYpositive(@area[x][y][z])) then
+                type = type ^ FACE_A_BIT
+              end
+            end
+
+            if (z-1 >= 0         && (@area[x][y][z-1] == KABE_BOX_VAL || @area[x][y][z-1] == FULL_VAL)) then #eが開けれるか
+              if (isZnigative(@area[x][y][z])) then
+                type = type ^ FACE_E_BIT
+              end
+            end
+
+            if (z+1 <= @width-1  && (@area[x][y][z+1] == KABE_BOX_VAL || @area[x][y][z+1] == FULL_VAL)) then #cが開けれるか
+              if (isZpositive(@area[x][y][z])) then
+                type = type ^ FACE_C_BIT
+              end
+            end
+
+            #プリズム（自身）とプリズムが隣り合わせ
+            #    c
+            # a b d f
+            #      e
+            if (x-1 >= 0 && @area[x-1][y][z] > KABE_BOX_VAL) then #bが開けれるか
+              #bが開けれるプリズムか判断
+              if (isXnegative(@area[x][y][z]) && isXpositive(@area[x-1][y][z])) then
+                #bをあける為には 自身がXnegative 相手が Xpositeve であればOK
+                type = type ^ FACE_B_BIT
+              elsif (isYZ(@area[x][y][z]) && isXpositive(@area[x-1][y][z])) then
+                #自身がYZで相手が Xpositeve であればOK
+                type = type ^ FACE_B_BIT
+              elsif (isYZ(@area[x][y][z]) && isYZ(@area[x-1][y][z]) && @area[x][y][z] == @area[x-1][y][z]) then
+                #YZ同士で同じプリズムであってもOK
+                type = type ^ FACE_B_BIT
+              end
+            end
+
+            if (x+1 <= @len-1 && @area[x+1][y][z] > KABE_BOX_VAL) then #fが開けれるか
+              #fが開けれるプリズムか判断
+              if (isXpositeve(@area[x][y][z]) && isXnegative(@area[x+1][y][z])) then
+                #fをあける為には 自身が Xpositeve 相手が Xnegative であればOK
+                type = type ^ FACE_F_BIT
+              elsif (isYZ(@area[x][y][z]) && isXnegative(@area[x+1][y][z])) then
+                #自身がYZで相手が Xnegative であればOK
+                type = type ^ FACE_F_BIT
+              elsif (isYZ(@area[x][y][z]) && isYZ(@area[x+1][y][z]) && @area[x][y][z] == @area[x+1][y][z]) then
+                #YZ同士で同じプリズムであってもOK
+                type = type ^ FACE_F_BIT
+              end
+            end
+
+            if (y-1 >= 0 && @area[x][y-1][z] > KABE_BOX_VAL) then #dが開けれるか
+              #dが開けれるプリズムか判断
+              if (isYnegative(@area[x][y][z]) && isYpositeve(@area[x][y-1][z])) then
+                #dをあける為には 自身が Ynegative  相手が Ypositeve であればOK
+                type = type ^ FACE_D_BIT
+              elsif (isZX(@area[x][y][z]) && isYpositeve(@area[x][y-1][z])) then
+                #自身がZXで相手が Ypositeve であればOK
+                type = type ^ FACE_D_BIT
+              elsif (isZX(@area[x][y][z]) && isZX(@area[x][y-1][z]) && @area[x][y][z] == @area[x][y-1][z]) then
+                #XY同士で同じプリズムであってもOK
+                type = type ^ FACE_D_BIT
+              end
+            end
+
+            if (y+1 <= @height-1 && @area[x][y+1][z] > KABE_BOX_VAL) then #aが開けれるか
+              #aが開けれるプリズムか判断
+              if (isYpositeve(@area[x][y][z]) && isYnegative(@area[x][y+1][z])) then
+                #aをあける為には 自身が Ypositeve 相手が Ynegative であればOK
+                type = type ^ FACE_A_BIT
+              elsif (isZX(@area[x][y][z]) && isYnegative(@area[x][y+1][z])) then
+                #自身がZXで相手が Ynegative であればOK
+                type = type ^ FACE_A_BIT
+              elsif (isZX(@area[x][y][z]) && isZX(@area[x][y+1][z]) && @area[x][y][z] == @area[x][y+1][z]) then
+                #YZ同士で同じプリズムであってもOK
+                type = type ^ FACE_A_BIT
+              end
+            end
+
+            if (z-1 >= 0         && @area[x][y][z-1] > KABE_BOX_VAL) then #eが開けれるか
+              #eが開けれるプリズムか判断
+              if (isZnegative(@area[x][y][z]) && isZpositeve(@area[x][y][z-1])) then
+                #eをあける為には 自身が Znegative  相手が Zpositeve であればOK
+                type = type ^ FACE_E_BIT
+              elsif (isXY(@area[x][y][z]) && isZpositeve(@area[x][y][z-1])) then
+                #自身がXYで相手が Ypositeve であればOK
+                type = type ^ FACE_E_BIT
+              elsif (isXY(@area[x][y][z]) && isXY(@area[x][y][z-1]) && @area[x][y][z] == @area[x][y][z-1]) then
+                #XY同士で同じプリズムであってもOK
+                type = type ^ FACE_E_BIT
+              end
+            end
+
+            if (z+1 <= @width-1  && @area[x][y][z+1] > KABE_BOX_VAL) then #cが開けれるか
+              #cが開けれるプリズムか判断
+              if (isZpositeve(@area[x][y][z]) && isZnegative(@area[x][y][z+1])) then
+                #cをあける為には 自身が Zpositeve 相手が Znegative であればOK
+                type = type ^ FACE_C_BIT
+              elsif (isXY(@area[x][y][z]) && isZnegative(@area[x][y][z+1])) then
+                #自身がXYで相手が Ynegative であればOK
+                type = type ^ FACE_C_BIT
+              elsif (isXY(@area[x][y][z]) && isXY(@area[x][y][z+1]) && @area[x][y][z] == @area[x][y][z+1]) then
+                #YZ同士で同じプリズムであってもOK
+                type = type ^ FACE_C_BIT
+              end
+            end
+
+
           end
         end
       end

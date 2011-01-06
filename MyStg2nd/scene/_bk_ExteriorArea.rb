@@ -9,11 +9,12 @@ class Veartex
 end
 
 class Box
-  attr_accessor :X ,:Y, :Z
+  attr_accessor :X ,:Y, :Z, :pos_prism
   def initialize
     @X = 0
     @Y = 0
     @Z = 0
+    @pos_prism = 0
   end
 end
 

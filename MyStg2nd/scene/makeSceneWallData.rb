@@ -85,7 +85,10 @@ while true
 
 
   while break_flg == false
-
+    boxvtx = Array.new
+    for vidx in 0..35
+      boxvtx[vidx] = Veartex.new
+    end
     for v in 0..11 #AABのモデル頂点数インデックスは12個としている。6面*2
       #3;0,1,2;,
       #3;1,0,3;,
@@ -105,6 +108,12 @@ while true
         x = vtx[vtx_index[fv].to_i].X
         y = vtx[vtx_index[fv].to_i].Y
         z = vtx[vtx_index[fv].to_i].Z
+
+        #頂点情報保持
+        boxvtx[v*3+fv].X = x
+        boxvtx[v*3+fv].Y = y
+        boxvtx[v*3+fv].Z = z
+
         if v == 0 && fv == 0 then
           #初回は代入
           max_x = x
@@ -139,13 +148,92 @@ while true
 
     end
 
-    box[box_index] = Box.new
-    #AABの中心点を代入
-    box[box_index].X = (min_x+((max_x-min_x) / 2)).round
-    box[box_index].Y = (min_y+((max_y-min_y) / 2)).round
-    box[box_index].Z = (min_z+((max_z-min_z) / 2)).round
+    if break_flg == false then
 
-    box_index += 1
+      box[box_index] = Box.new
+      #AABの中心点を代入
+      box[box_index].X = (min_x+((max_x-min_x) / 2)).round
+      box[box_index].Y = (min_y+((max_y-min_y) / 2)).round
+      box[box_index].Z = (min_z+((max_z-min_z) / 2)).round
+
+
+      #どういうプリズムか調査
+      counter = [0,0,0,0,0,0,0,0]
+      for vidx in 0..35
+        x = boxvtx[vidx].X
+        y = boxvtx[vidx].Y
+        z = boxvtx[vidx].Z
+        if    x > box[box_index].X && y > box[box_index].Y && z > box[box_index].Z then     #0
+          counter[0] = counter[0] + 1
+        elsif x > box[box_index].X && y > box[box_index].Y && z < box[box_index].Z then  #1
+          counter[1] = counter[1] + 1
+        elsif x > box[box_index].X && y < box[box_index].Y && z > box[box_index].Z then  #2
+          counter[2] = counter[2] + 1
+        elsif x > box[box_index].X && y < box[box_index].Y && z < box[box_index].Z then  #3
+          counter[3] = counter[3] + 1
+        elsif x < box[box_index].X && y > box[box_index].Y && z > box[box_index].Z then  #4
+          counter[4] = counter[4] + 1
+        elsif x < box[box_index].X && y > box[box_index].Y && z < box[box_index].Z then  #5
+          counter[5] = counter[5] + 1
+        elsif x < box[box_index].X && y < box[box_index].Y && z > box[box_index].Z then  #6
+          counter[6] = counter[6] + 1
+        elsif x < box[box_index].X && y < box[box_index].Y && z < box[box_index].Z then  #7
+          counter[7] = counter[7] + 1
+        end
+      end
+      if counter[0] > 0 &&
+         counter[1] > 0 &&
+         counter[2] > 0 &&
+         counter[3] > 0 &&
+         counter[4] > 0 &&
+         counter[5] > 0 &&
+         counter[6] > 0 &&
+         counter[7] > 0   then
+        #プリズムではなくてBOX
+        box[box_index].pos_prism = 0
+      elsif counter[0] == 0 && counter[1] == 0 then
+        box[box_index].pos_prism = POS_PRISM_XY_nn
+      elsif counter[2] == 0 && counter[3] == 0 then
+        box[box_index].pos_prism = POS_PRISM_XY_np
+      elsif counter[4] == 0 && counter[5] == 0 then
+        box[box_index].pos_prism = POS_PRISM_XY_pn
+      elsif counter[6] == 0 && counter[7] == 0 then
+        box[box_index].pos_prism = POS_PRISM_XY_pp
+
+      elsif counter[0] == 0 && counter[4] == 0 then
+        box[box_index].pos_prism = POS_PRISM_YZ_nn
+      elsif counter[5] == 0 && counter[1] == 0 then
+        box[box_index].pos_prism = POS_PRISM_YZ_np
+      elsif counter[2] == 0 && counter[6] == 0 then
+        box[box_index].pos_prism = POS_PRISM_YZ_pn
+      elsif counter[3] == 0 && counter[7] == 0 then
+        box[box_index].pos_prism = POS_PRISM_YZ_pp
+
+      elsif counter[0] == 0 && counter[2] == 0 then
+        box[box_index].pos_prism = POS_PRISM_ZX_nn
+      elsif counter[4] == 0 && counter[6] == 0 then
+        box[box_index].pos_prism = POS_PRISM_ZX_np
+      elsif counter[1] == 0 && counter[3] == 0 then
+        box[box_index].pos_prism = POS_PRISM_ZX_pn
+      elsif counter[5] == 0 && counter[7] == 0 then
+        box[box_index].pos_prism = POS_PRISM_ZX_pp
+      else
+        #ありえない
+        puts "not prism and not box!!!"
+        p "counter=",counter
+        p "boxvtx=",boxvtx
+        exit(1)
+
+      end
+
+      if box[box_index].pos_prism != 0 then
+        p counter
+        p "boxvtx=",boxvtx
+
+      end
+      box_index += 1
+    end
+
   end
 
 
@@ -187,7 +275,7 @@ while true
       iY = ((box[idx].Y-($box_height/2))/$box_height) + ($area_height/2)
       iZ = ((box[idx].Z-($box_width/2))/$box_width)  + ($area_width/2)
       #print idx,",(",iX,",",iY,",",iZ,") box[idx].X=",box[idx].X,"\n"
-      exArea.area[iX][iY][iZ] = ExteriorArea::KABE_VAL
+      exArea.area[iX][iY][iZ] = box[idx].pos_prism  #ExteriorArea::KABE_BOX_VAL
   end
 
   #exArea.dump01
