@@ -292,7 +292,7 @@ while true
   #r01_exArea.dump01
   #r01_exArea.dump02
 
-  r02_exArea = r01_exArea.getAnalyze02
+  r02_exArea = r01_exArea.getAnalyze02(exArea)
 
   #r02_exArea.dump02
 

@@ -389,11 +389,12 @@ class ExteriorArea
                 #自身がXYで相手が Ynegative であればOK
                 type = type ^ FACE_C_BIT
               elsif (isXY(@area[x][y][z]) && isXY(@area[x][y][z+1]) && @area[x][y][z] == @area[x][y][z+1]) then
-                #YZ同士で同じプリズムであってもOK
+                #XY同士で同じプリズムであってもOK
                 type = type ^ FACE_C_BIT
               end
             end
-
+#            ret.area[x][y][z] = sprintf("%02d ", type)
+            ret.area[x][y][z] = type
 
           end
         end
@@ -404,23 +405,21 @@ class ExteriorArea
 
   end
 
-  #BOXの描画不要の面（開いている面と呼ぶ）方向に、
+  #+Y -Y +Z -Z 方向についてBOXの描画不要の面（開いている面と呼ぶ）方向に、
   #当たり判定AABを伸ばせるかどうか解析
-  def getAnalyze02
+  def getAnalyze02(exArea)
     ret = ExteriorArea.new(@len, @height, @width)
 
     for x in 0..@len-1
       for y in 0..@height-1
         for z in 0..@width-1
           ret.area[x][y][z] = [0,0,0,0,0,0]
-
-          if @area[x][y][z] == KARA_VAL then
-
+          if exArea.area[x][y][z] == KARA_VAL then
             ret.area[x][y][z] = [0,0,0,0,0,0]
-
-          elsif @area[x][y][z] == FULL_VAL then
+          elsif exArea.area[x][y][z] == FULL_VAL then
              next
-          else
+          elsif exArea.area[x][y][z] == KABE_BOX_VAL then
+            #自身がBOXの場合
             ret.area[x][y][z] = [1,1,1,1,1,1]
             #6面の開いている方向の当たり判定長さを設定
             #abcdef
@@ -428,40 +427,6 @@ class ExteriorArea
             #    c
             # a b d f
             #      e
-
-            #bが開いている        543210
-            #                     abcdef
-
-#            if @area[x][y][z] & FACE_B_BIT == 0 then
-#              #b方向にどのぐらい当たり判定を伸ばせばいいか？
-#              hitarea_idx = 1
-#              hitarea_len = 1
-#              while true
-#                if (x-hitarea_idx > 0 &&  @area[x-hitarea_idx][y][z] == FULL_VAL) then
-#                  hitarea_len += 1
-#                else
-#                  break;
-#                end
-#                hitarea_idx += 1
-#              end
-#              ret.area[x][y][z][FACE_B_IDX] = hitarea_len
-#            end
-#
-#            #fが開いている        543210
-#            if @area[x][y][z] & FACE_F_BIT == 0 then
-#              #f方向にどのぐらい当たり判定を伸ばせばいいか？
-#              hitarea_idx = 1
-#              hitarea_len = 1
-#              while true
-#                if (x+hitarea_idx <= @len-1 &&  @area[x+hitarea_idx][y][z] == FULL_VAL) then
-#                  hitarea_len += 1
-#                else
-#                  break;
-#                end
-#                hitarea_idx += 1
-#              end
-#              ret.area[x][y][z][FACE_F_IDX] = hitarea_len
-#            end
 
             #dが開いている        543210
             #                     abcdef
@@ -537,6 +502,8 @@ class ExteriorArea
 
 #           print "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"
 #           print "@area[",x,"][",y,"][",z,"] & FACE_C_BIT=",(@area[x][y][z] & FACE_C_BIT),"\n"
+          elsif exArea.area[x][y][z] > KABE_BOX_VAL then
+            #自身がプリズムの場合
 
           end
 
@@ -548,7 +515,7 @@ class ExteriorArea
 
 
 
-  #getAnalyze02 で開いている面方向に伸びた当たり判定AABを
+  #getAnalyze02 で開いている面方向に伸びた当たり判定を
   #+Y -Y +Z -Z 方向に連結できるかどうか解析
   def getAnalyze03
     ret = ExteriorArea.new(@len, @height, @width)

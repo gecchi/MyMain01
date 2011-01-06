@@ -15,11 +15,11 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,102};
+	frame f[] = {1,1000};
 	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 2;
-	orderActorToFactory(10000000, EnemyTamago01, "EnemyTamago01_1");
+	orderSceneToFactory(10000000, Stage01WalledScene, "GroStage01WalledScene");
     // gen01 end
     useProgress(10);
 }
@@ -39,9 +39,9 @@ void Stage01Controller::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 102: {
-				EnemyTamago01* pActor = (EnemyTamago01*)obtainActorFromFactory(10000000);
-				getLordActor()->addSubGroup(pActor);
+			case 1000: {
+				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000000);
+				addSubLast(pScene);
 				break;
 			}
 			default :
