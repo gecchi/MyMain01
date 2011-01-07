@@ -225,12 +225,11 @@ while true
         exit(1)
 
       end
-
-      if box[box_index].pos_prism != 0 then
-        p counter
-        p "boxvtx=",boxvtx
-
-      end
+#        #プリズムと判定された要素表示
+#      if box[box_index].pos_prism != 0 then
+#        p counter
+#        p "boxvtx=",boxvtx
+#      end
       box_index += 1
     end
 
@@ -285,7 +284,7 @@ while true
     exArea.fullfull #２回以上でほとんどの場合は大丈夫だが・・
   end
 
-
+  #BOX６面の内、最低限描画しなければいけない面を解析
   r01_exArea = exArea.getAnalyze01
 
   #print "r01_exArea.dump01---------------\n"
@@ -296,9 +295,10 @@ while true
 
   #r02_exArea.dump02
 
-  r03_exArea = r02_exArea.getAnalyze03
-  r03_2_exArea = r03_exArea.getAnalyze03 #Z方向連結を行うためもう一回getAnalyze03
-  r04_exArea = r03_2_exArea.getAnalyze04(max_x_colliwall_num)
+  r03_exArea = r02_exArea.getAnalyze03(exArea)
+  r03_2_exArea = r03_exArea.getAnalyze03(exArea) #Z方向連結を行うためもう一回getAnalyze03
+  #r03_2_exArea.dump02
+  r04_exArea = r03_2_exArea.getAnalyze04(max_x_colliwall_num, exArea)
 
 
   #データ出力開始
@@ -340,13 +340,14 @@ while true
     for h in 0..$area_height-1
        for w in 0..$area_width-1
          if r01_exArea.area[l][h][w] >= 0 then
+           fw.print exArea.area[l][h][w]," "
            fw.print h," ",w," ",r01_exArea.area[l][h][w]," "
            fw.print r04_exArea.area[l][h][w][0]," ",
-                 r04_exArea.area[l][h][w][1]," ",
-                 r04_exArea.area[l][h][w][2]," ",
-                 r04_exArea.area[l][h][w][3]," ",
-                 r04_exArea.area[l][h][w][4]," ",
-                 r04_exArea.area[l][h][w][5]
+                     r04_exArea.area[l][h][w][1]," ",
+                     r04_exArea.area[l][h][w][2]," ",
+                     r04_exArea.area[l][h][w][3]," ",
+                     r04_exArea.area[l][h][w][4]," ",
+                     r04_exArea.area[l][h][w][5]
            fw.print "\t"
          end
       end #w

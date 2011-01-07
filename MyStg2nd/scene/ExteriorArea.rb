@@ -120,7 +120,7 @@ class ExteriorArea
     end
   end
 
-  def isXnigative(pos)
+  def isXnegative(pos)
     if ((pos == POS_PRISM_XY_np) ||
         (pos == POS_PRISM_XY_nn) ||
         (pos == POS_PRISM_ZX_pn) ||
@@ -142,7 +142,7 @@ class ExteriorArea
     end
   end
 
-  def isYnigative(pos)
+  def isYnegative(pos)
     if ((pos == POS_PRISM_XY_pn) ||
         (pos == POS_PRISM_XY_nn) ||
         (pos == POS_PRISM_YZ_np) ||
@@ -164,7 +164,7 @@ class ExteriorArea
     end
   end
 
-  def isZnigative(pos)
+  def isZnegative(pos)
     if ((pos == POS_PRISM_YZ_pn) ||
         (pos == POS_PRISM_YZ_nn) ||
         (pos == POS_PRISM_ZX_np) ||
@@ -189,7 +189,7 @@ class ExteriorArea
             ret.area[x][y][z] = FULL_VAL
           elsif @area[x][y][z] == KABE_BOX_VAL then
             #6面の開き具合を調べる
-            #開いているビットがセットされる
+            #開いているビットがアンセットされる
             # 0b 00abcdef
 
             #    c
@@ -232,7 +232,7 @@ class ExteriorArea
             end
 
             if (x+1 <= @len-1 && @area[x+1][y][z] > KABE_BOX_VAL) then #fが開けれるか
-              if (isXnigative(@area[x+1][y][z])) then
+              if (isXnegative(@area[x+1][y][z])) then
                 type = type ^ FACE_F_BIT
               end
             end
@@ -244,7 +244,7 @@ class ExteriorArea
             end
 
             if (y+1 <= @height-1 && @area[x][y+1][z] > KABE_BOX_VAL) then #aが開けれるか
-              if (isYnigative(@area[x][y+1][z])) then
+              if (isYnegative(@area[x][y+1][z])) then
                 type = type ^ FACE_A_BIT
               end
             end
@@ -256,7 +256,7 @@ class ExteriorArea
             end
 
             if (z+1 <= @width-1  && @area[x][y][z+1] > KABE_BOX_VAL) then #cが開けれるか
-              if (isZnigative(@area[x][y][z+1])) then
+              if (isZnegative(@area[x][y][z+1])) then
                 type = type ^ FACE_C_BIT
               end
             end
@@ -271,37 +271,37 @@ class ExteriorArea
             #      e
             #プリズム(自身)とBOXが隣り合わせ
             if (x-1 >= 0 && (@area[x-1][y][z] == KABE_BOX_VAL || @area[x-1][y][z] == FULL_VAL)) then #bが開けれるか
-              if (isXnigative(@area[x][y][z])) then
+              if (isYZ(@area[x][y][z]) || isXnegative(@area[x][y][z])) then
                 type = type ^ FACE_B_BIT
               end
             end
 
             if (x+1 <= @len-1 && (@area[x+1][y][z] == KABE_BOX_VAL || @area[x+1][y][z] == FULL_VAL)) then #fが開けれるか
-              if (isXpositive(@area[x][y][z])) then
+              if (isYZ(@area[x][y][z]) || isXpositive(@area[x][y][z])) then
                 type = type ^ FACE_F_BIT
               end
             end
 
             if (y-1 >= 0 && (@area[x][y-1][z] == KABE_BOX_VAL || @area[x][y-1][z] == FULL_VAL)) then #dが開けれるか
-              if (isYnigative(@area[x][y][z])) then
+              if (isZX(@area[x][y][z]) || isYnegative(@area[x][y][z])) then
                 type = type ^ FACE_D_BIT
               end
             end
 
             if (y+1 <= @height-1 && (@area[x][y+1][z] == KABE_BOX_VAL || @area[x][y+1][z] == FULL_VAL)) then #aが開けれるか
-              if (isYpositive(@area[x][y][z])) then
+              if (isZX(@area[x][y][z]) || isYpositive(@area[x][y][z])) then
                 type = type ^ FACE_A_BIT
               end
             end
 
             if (z-1 >= 0         && (@area[x][y][z-1] == KABE_BOX_VAL || @area[x][y][z-1] == FULL_VAL)) then #eが開けれるか
-              if (isZnigative(@area[x][y][z])) then
+              if (isXY(@area[x][y][z]) || isZnegative(@area[x][y][z])) then
                 type = type ^ FACE_E_BIT
               end
             end
 
             if (z+1 <= @width-1  && (@area[x][y][z+1] == KABE_BOX_VAL || @area[x][y][z+1] == FULL_VAL)) then #cが開けれるか
-              if (isZpositive(@area[x][y][z])) then
+              if (isXY(@area[x][y][z]) || isZpositive(@area[x][y][z])) then
                 type = type ^ FACE_C_BIT
               end
             end
@@ -313,10 +313,10 @@ class ExteriorArea
             if (x-1 >= 0 && @area[x-1][y][z] > KABE_BOX_VAL) then #bが開けれるか
               #bが開けれるプリズムか判断
               if (isXnegative(@area[x][y][z]) && isXpositive(@area[x-1][y][z])) then
-                #bをあける為には 自身がXnegative 相手が Xpositeve であればOK
+                #bをあける為には 自身がXnegative 相手が Xpositive であればOK
                 type = type ^ FACE_B_BIT
               elsif (isYZ(@area[x][y][z]) && isXpositive(@area[x-1][y][z])) then
-                #自身がYZで相手が Xpositeve であればOK
+                #自身がYZで相手が Xpositive であればOK
                 type = type ^ FACE_B_BIT
               elsif (isYZ(@area[x][y][z]) && isYZ(@area[x-1][y][z]) && @area[x][y][z] == @area[x-1][y][z]) then
                 #YZ同士で同じプリズムであってもOK
@@ -326,8 +326,8 @@ class ExteriorArea
 
             if (x+1 <= @len-1 && @area[x+1][y][z] > KABE_BOX_VAL) then #fが開けれるか
               #fが開けれるプリズムか判断
-              if (isXpositeve(@area[x][y][z]) && isXnegative(@area[x+1][y][z])) then
-                #fをあける為には 自身が Xpositeve 相手が Xnegative であればOK
+              if (isXpositive(@area[x][y][z]) && isXnegative(@area[x+1][y][z])) then
+                #fをあける為には 自身が Xpositive 相手が Xnegative であればOK
                 type = type ^ FACE_F_BIT
               elsif (isYZ(@area[x][y][z]) && isXnegative(@area[x+1][y][z])) then
                 #自身がYZで相手が Xnegative であればOK
@@ -340,11 +340,11 @@ class ExteriorArea
 
             if (y-1 >= 0 && @area[x][y-1][z] > KABE_BOX_VAL) then #dが開けれるか
               #dが開けれるプリズムか判断
-              if (isYnegative(@area[x][y][z]) && isYpositeve(@area[x][y-1][z])) then
-                #dをあける為には 自身が Ynegative  相手が Ypositeve であればOK
+              if (isYnegative(@area[x][y][z]) && isYpositive(@area[x][y-1][z])) then
+                #dをあける為には 自身が Ynegative  相手が Ypositive であればOK
                 type = type ^ FACE_D_BIT
-              elsif (isZX(@area[x][y][z]) && isYpositeve(@area[x][y-1][z])) then
-                #自身がZXで相手が Ypositeve であればOK
+              elsif (isZX(@area[x][y][z]) && isYpositive(@area[x][y-1][z])) then
+                #自身がZXで相手が Ypositive であればOK
                 type = type ^ FACE_D_BIT
               elsif (isZX(@area[x][y][z]) && isZX(@area[x][y-1][z]) && @area[x][y][z] == @area[x][y-1][z]) then
                 #XY同士で同じプリズムであってもOK
@@ -354,8 +354,8 @@ class ExteriorArea
 
             if (y+1 <= @height-1 && @area[x][y+1][z] > KABE_BOX_VAL) then #aが開けれるか
               #aが開けれるプリズムか判断
-              if (isYpositeve(@area[x][y][z]) && isYnegative(@area[x][y+1][z])) then
-                #aをあける為には 自身が Ypositeve 相手が Ynegative であればOK
+              if (isYpositive(@area[x][y][z]) && isYnegative(@area[x][y+1][z])) then
+                #aをあける為には 自身が Ypositive 相手が Ynegative であればOK
                 type = type ^ FACE_A_BIT
               elsif (isZX(@area[x][y][z]) && isYnegative(@area[x][y+1][z])) then
                 #自身がZXで相手が Ynegative であればOK
@@ -368,11 +368,11 @@ class ExteriorArea
 
             if (z-1 >= 0         && @area[x][y][z-1] > KABE_BOX_VAL) then #eが開けれるか
               #eが開けれるプリズムか判断
-              if (isZnegative(@area[x][y][z]) && isZpositeve(@area[x][y][z-1])) then
-                #eをあける為には 自身が Znegative  相手が Zpositeve であればOK
+              if (isZnegative(@area[x][y][z]) && isZpositive(@area[x][y][z-1])) then
+                #eをあける為には 自身が Znegative  相手が Zpositive であればOK
                 type = type ^ FACE_E_BIT
-              elsif (isXY(@area[x][y][z]) && isZpositeve(@area[x][y][z-1])) then
-                #自身がXYで相手が Ypositeve であればOK
+              elsif (isXY(@area[x][y][z]) && isZpositive(@area[x][y][z-1])) then
+                #自身がXYで相手が Ypositive であればOK
                 type = type ^ FACE_E_BIT
               elsif (isXY(@area[x][y][z]) && isXY(@area[x][y][z-1]) && @area[x][y][z] == @area[x][y][z-1]) then
                 #XY同士で同じプリズムであってもOK
@@ -382,8 +382,8 @@ class ExteriorArea
 
             if (z+1 <= @width-1  && @area[x][y][z+1] > KABE_BOX_VAL) then #cが開けれるか
               #cが開けれるプリズムか判断
-              if (isZpositeve(@area[x][y][z]) && isZnegative(@area[x][y][z+1])) then
-                #cをあける為には 自身が Zpositeve 相手が Znegative であればOK
+              if (isZpositive(@area[x][y][z]) && isZnegative(@area[x][y][z+1])) then
+                #cをあける為には 自身が Zpositive 相手が Znegative であればOK
                 type = type ^ FACE_C_BIT
               elsif (isXY(@area[x][y][z]) && isZnegative(@area[x][y][z+1])) then
                 #自身がXYで相手が Ynegative であればOK
@@ -504,7 +504,7 @@ class ExteriorArea
 #           print "@area[",x,"][",y,"][",z,"] & FACE_C_BIT=",(@area[x][y][z] & FACE_C_BIT),"\n"
           elsif exArea.area[x][y][z] > KABE_BOX_VAL then
             #自身がプリズムの場合
-
+            ret.area[x][y][z] = [1,1,1,1,1,1]
           end
 
         end
@@ -517,7 +517,7 @@ class ExteriorArea
 
   #getAnalyze02 で開いている面方向に伸びた当たり判定を
   #+Y -Y +Z -Z 方向に連結できるかどうか解析
-  def getAnalyze03
+  def getAnalyze03(exArea)
     ret = ExteriorArea.new(@len, @height, @width)
 
     for x in 0..@len-1
@@ -532,6 +532,7 @@ class ExteriorArea
              next
           elsif ret.area[x][y][z] == [0,0,0,0,0,0] then
              next
+          #elsif exArea.area[x][y][z] == KABE_BOX_VAL then
           else
             ret.area[x][y][z] = @area[x][y][z]
             #    c
@@ -547,13 +548,16 @@ class ExteriorArea
             same_Y_inc = 0
             if (y+1 <= @height-1) then
               (y+1).upto(@height-1) do |iy|
-                if (ret.area[x][y][z] ==  @area[x][iy][z]) then #同じ大きさならば連結
+                if (ret.area[x][y][z] == @area[x][iy][z] &&
+                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][iy][z])
+                    ) then #同じ大きさならば連結
                   same_Y_inc += 1
                 elsif (ret.area[x][y][z][FACE_B_IDX] == @area[x][iy][z][FACE_B_IDX] &&
                        ret.area[x][y][z][FACE_C_IDX] == @area[x][iy][z][FACE_C_IDX] &&
                        ret.area[x][y][z][FACE_D_IDX] == @area[x][iy][z][FACE_D_IDX] &&
                        ret.area[x][y][z][FACE_E_IDX] == @area[x][iy][z][FACE_E_IDX] &&
-                       ret.area[x][y][z][FACE_F_IDX] == @area[x][iy][z][FACE_F_IDX] ) then
+                       ret.area[x][y][z][FACE_F_IDX] == @area[x][iy][z][FACE_F_IDX] &&
+                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][iy][z]) ) then
 
                   same_Y_inc += @area[x][iy][z][FACE_A_IDX]
                 else
@@ -574,13 +578,15 @@ class ExteriorArea
             same_Y_dec = 0
             if (y-1 >= 0) then
               (y-1).downto(0) do |iy|
-                if (ret.area[x][y][z] ==  @area[x][iy][z]) then
+                if (ret.area[x][y][z] ==  @area[x][iy][z] &&
+                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][iy][z]) ) then
                   same_Y_dec += 1
                 elsif (ret.area[x][y][z][FACE_A_IDX] == @area[x][iy][z][FACE_A_IDX] &&
                        ret.area[x][y][z][FACE_B_IDX] == @area[x][iy][z][FACE_B_IDX] &&
                        ret.area[x][y][z][FACE_C_IDX] == @area[x][iy][z][FACE_C_IDX] &&
                        ret.area[x][y][z][FACE_E_IDX] == @area[x][iy][z][FACE_E_IDX] &&
-                       ret.area[x][y][z][FACE_F_IDX] == @area[x][iy][z][FACE_F_IDX] ) then
+                       ret.area[x][y][z][FACE_F_IDX] == @area[x][iy][z][FACE_F_IDX] &&
+                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][iy][z]) ) then
 
                   same_Y_dec += @area[x][iy][z][FACE_D_IDX]
                 else
@@ -606,13 +612,15 @@ class ExteriorArea
             same_Z_inc = 0
             if (z+1 <= @width-1) then
               (z+1).upto(@width-1) do |iz|
-                if (ret.area[x][y][z] ==  @area[x][y][iz]) then
+                if (ret.area[x][y][z] ==  @area[x][y][iz] &&
+                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][y][iz]) ) then
                   same_Z_inc += 1
                 elsif (ret.area[x][y][z][FACE_A_IDX] == @area[x][y][iz][FACE_A_IDX] &&
                        ret.area[x][y][z][FACE_B_IDX] == @area[x][y][iz][FACE_B_IDX] &&
                        ret.area[x][y][z][FACE_D_IDX] == @area[x][y][iz][FACE_D_IDX] &&
                        ret.area[x][y][z][FACE_E_IDX] == @area[x][y][iz][FACE_E_IDX] &&
-                       ret.area[x][y][z][FACE_F_IDX] == @area[x][y][iz][FACE_F_IDX] ) then
+                       ret.area[x][y][z][FACE_F_IDX] == @area[x][y][iz][FACE_F_IDX] &&
+                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][y][iz]) ) then
 
                   same_Z_inc += @area[x][y][iz][FACE_C_IDX]
                 else
@@ -633,13 +641,15 @@ class ExteriorArea
             same_Z_dec = 0
             if (z-1 >= 0) then
               (z-1).downto(0) do |iz|
-                if (ret.area[x][y][z] ==  @area[x][y][iz]) then
+                if (ret.area[x][y][z] ==  @area[x][y][iz] &&
+                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][y][iz]) ) then
                   same_Z_dec += 1
                 elsif (ret.area[x][y][z][FACE_A_IDX] == @area[x][y][iz][FACE_A_IDX] &&
                        ret.area[x][y][z][FACE_B_IDX] == @area[x][y][iz][FACE_B_IDX] &&
                        ret.area[x][y][z][FACE_C_IDX] == @area[x][y][iz][FACE_C_IDX] &&
                        ret.area[x][y][z][FACE_D_IDX] == @area[x][y][iz][FACE_D_IDX] &&
-                       ret.area[x][y][z][FACE_F_IDX] == @area[x][y][iz][FACE_F_IDX] ) then
+                       ret.area[x][y][z][FACE_F_IDX] == @area[x][y][iz][FACE_F_IDX] &&
+                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][y][iz]) ) then
 
                   same_Z_dec += @area[x][y][iz][FACE_E_IDX]
                 else
@@ -656,6 +666,8 @@ class ExteriorArea
               end
             end
 
+          #elsif exArea.area[x][y][z] > KABE_BOX_VAL then
+
           end
 #           print "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"
 #           print "@area[",x,"][",y,"][",z,"] & FACE_C_BIT=",(@area[x][y][z] & FACE_C_BIT),"\n"
@@ -669,7 +681,7 @@ class ExteriorArea
   #getAnalyze03 により連結された当たり判定AABについて
   #+X -X 方向に連結できるかどうか解析
   #引数：最大連結数
-  def getAnalyze04(prm_max_x_colliwall_num)
+  def getAnalyze04(prm_max_x_colliwall_num, exArea)
 
     max_x_colliwall_num = prm_max_x_colliwall_num
     ret = ExteriorArea.new(@len, @height, @width)
@@ -697,7 +709,8 @@ class ExteriorArea
             same_X_dec = 0
             if (x-1 >= 0) then
               (x-1).downto(0) do |ix|
-                if (ret.area[x][y][z] ==  @area[ix][y][z]) then
+                if (ret.area[x][y][z] ==  @area[ix][y][z] &&
+                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[ix][y][z]) ) then
                   same_X_dec += 1
                   if same_X_dec >= max_x_colliwall_num then
                     break #最高 max_x_colliwall_num 個までしか連結しないようにする
@@ -720,7 +733,8 @@ class ExteriorArea
             same_X_inc = 0
             if (x+1 <= @len-1) then
               (x+1).upto(@len-1) do |ix|
-                if (ret.area[x][y][z] == @area[ix][y][z]) then
+                if (ret.area[x][y][z] == @area[ix][y][z] &&
+                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[ix][y][z])) then
                   same_X_inc += 1
                   if same_X_inc >= max_x_colliwall_num then
                     break #最高 max_x_colliwall_num 個までしか連結しないようにする
