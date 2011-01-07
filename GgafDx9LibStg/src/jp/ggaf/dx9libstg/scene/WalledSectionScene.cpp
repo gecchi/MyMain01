@@ -45,7 +45,8 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
         _TRACE_("WalledSectionScene read..."<<i);
         _papaWallInfo[i] = NEW WallInfo[_paWallInfoLen[i]];
         for (int j = 0; j < _paWallInfoLen[i]; j++) {
-            ifs >> _papaWallInfo[i][j]._Y >>
+            ifs >> _papaWallInfo[i][j]._pos_prism >>
+                   _papaWallInfo[i][j]._Y >>
                    _papaWallInfo[i][j]._Z >>
                    _papaWallInfo[i][j]._wall_draw_face >>
                    _papaWallInfo[i][j]._aColliBoxStretch[0] >>
@@ -110,6 +111,7 @@ void WalledSectionScene::processBehavior() {
                 if (pWall) {
 
                     pWall->config(this,
+                                  _papaWallInfo[_cnt_area_len][n]._pos_prism,
                                   _papaWallInfo[_cnt_area_len][n]._wall_draw_face,
                                   _papaWallInfo[_cnt_area_len][n]._aColliBoxStretch);
                     pWall->setCoordinate(_pWallLast==NULL ? _wall_start_X : _pWallLast->_X + _wall_dep - parent_scroll_speed,

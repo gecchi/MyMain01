@@ -199,10 +199,16 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             y2_e = _x1;
         }
     }
-    //プリズム斜辺の境界線傾き
-    _a = 1.0*(y2_e - y1_s) / (x2_e - x1_s);
-    //プリズム斜辺の境界線の切片
-    _b = (x1_s*y2_e - x2_e*y1_s) / (x1_s - x2_e);
+
+    if (x2_e == x1_s) {
+        _a = 0;
+        _b = 0;
+    } else {
+        //プリズム斜辺の境界線傾き
+        _a = 1.0*(y2_e - y1_s) / (x2_e - x1_s);
+        //プリズム斜辺の境界線の切片
+        _b = (x1_s*y2_e - x2_e*y1_s) / (x1_s - x2_e);
+    }
 
     //斜辺ベクトル(x2_e-x1_s, y2_e-y1_s)に90度加えると
     //斜辺面法線ベクトルとなるようにしてある。
@@ -211,8 +217,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
         GgafDx9Util::getAngle2D(x2_e-x1_s, y2_e-y1_s)
         + ANGLE270
         );
-    
-    
+
+
     _vIH_x = GgafDx9Util::COS[angIH/ANGLE_RATE];
     _vIH_y = GgafDx9Util::SIN[angIH/ANGLE_RATE];
 

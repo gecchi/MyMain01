@@ -20,6 +20,8 @@ class WalledSectionScene : public DefaultScene {
      * 壁ブロック(WallActor)の配置情報構造体
      */
     struct WallInfo {
+        /** プリズム位置情報(> 0の場合はプリズム、0の場合はBOX) */
+        int _pos_prism;
         /** 表示時のY座標 */
         int _Y;
         /** 表示時のZ座標 */
