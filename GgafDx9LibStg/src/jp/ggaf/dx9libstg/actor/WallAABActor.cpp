@@ -8,9 +8,9 @@ WallAABActor::WallAABActor(const char* prm_name,
                            const char* prm_model) :
 
                           WallActor(prm_name,
-                                    string(string("19/") + string(prm_model)).c_str(),
-                                    "WallEffect",
-                                    "WallTechnique") {
+                                    string("19/" + string(prm_model)).c_str(),
+                                    "WallAABEffect",
+                                    "WallAABTechnique") {
 
     _class_name = "WallAABActor";
     _pMeshSetModel->_set_num = 19; //WallActor最大セット数は20。

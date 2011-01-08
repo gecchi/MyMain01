@@ -7,7 +7,7 @@ using namespace GgafDx9LibStg;
 
 SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id) :
              GgafDx9MeshSetActor(prm_name,
-                                 string(string("27/") + string(prm_model_id)).c_str(),
+                                 string("27/" + string(prm_model_id)).c_str(),
                                  "SingleLaserEffect",
                                  "SingleLaserTechnique",
                                  NEW CollisionChecker(this) ) {

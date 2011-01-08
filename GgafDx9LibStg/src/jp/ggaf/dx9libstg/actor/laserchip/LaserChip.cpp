@@ -7,7 +7,7 @@ using namespace GgafDx9LibStg;
 
 LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
      GgafDx9MeshSetActor(prm_name,
-                         string(string("11/") + string(prm_model)).c_str(),
+                         string("11/" + string(prm_model)).c_str(),
                          "LaserChipEffect",
                          "LaserChipTechnique",
                          NEW CollisionChecker(this) ) {

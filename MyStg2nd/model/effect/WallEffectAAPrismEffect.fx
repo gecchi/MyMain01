@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// WallActor用シェーダー
+// WallAAPrismActor用シェーダー
 // 【概要】
 // 外壁ブロックの描画を行う。
 // 頂点バッファに、外壁ブロック情報が、２０個分繰り返し詰め込んである。
@@ -63,7 +63,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //頂点シェーダー
-OUT_VS GgafDx9VS_Wall(
+OUT_VS GgafDx9VS_WallAAPrism(
       float4 prm_pos    : POSITION,      // モデルの頂点
       float  prm_object_index  : PSIZE , // モデルのインデックス（何個目のオブジェクトか）
       float3 prm_normal : NORMAL,        // モデルの頂点の法線
@@ -260,7 +260,7 @@ OUT_VS GgafDx9VS_Wall(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDx9PS_Wall(
+float4 GgafDx9PS_WallAAPrism(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_col    : COLOR0
 ) : COLOR  {
@@ -289,14 +289,14 @@ float4 PS_Flush(
 	return out_color;
 }
 
-technique WallTechnique
+technique WallAAPrismTechnique
 {
 	pass P0 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_Wall();
-		PixelShader  = compile ps_2_0 GgafDx9PS_Wall();
+		VertexShader = compile vs_2_0 GgafDx9VS_WallAAPrism();
+		PixelShader  = compile ps_2_0 GgafDx9PS_WallAAPrism();
 	}
 }
 
@@ -306,8 +306,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_Wall();
-		PixelShader  = compile ps_2_0 GgafDx9PS_Wall();
+		VertexShader = compile vs_2_0 GgafDx9VS_WallAAPrism();
+		PixelShader  = compile ps_2_0 GgafDx9PS_WallAAPrism();
 	}
 }
 
@@ -317,7 +317,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_Wall();
+		VertexShader = compile vs_2_0 GgafDx9VS_WallAAPrism();
 		PixelShader  = compile ps_2_0 PS_Flush();
 	}
 }

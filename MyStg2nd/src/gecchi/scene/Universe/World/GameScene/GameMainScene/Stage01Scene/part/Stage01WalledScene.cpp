@@ -10,13 +10,21 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 
     //壁ブロックディスパッチャー生成
     float scale_r = 3.0f; //壁ブロックの元モデルからの拡大率
-    WallActor* pWallActor;
-    GgafActorDispatcher* pDispatcher_WallAAB = NEW GgafActorDispatcher("Dp_Wall");
+    WallAABActor* pWallAABActor;
+    GgafActorDispatcher* pDispatcher_WallAAB = NEW GgafActorDispatcher("Dp_WallAAB");
     for (int i = 0; i < 1500; i++) {
-        pWallActor = NEW Wall001("GroundBox");
-        pWallActor->setScaleRate(scale_r);
-        pWallActor->inactivateTreeImmediately();
-        pDispatcher_WallAAB->addSubLast(pWallActor);
+        pWallAABActor = NEW Wall001("GroundBox");
+        pWallAABActor->setScaleRate(scale_r);
+        pWallAABActor->inactivateTreeImmediately();
+        pDispatcher_WallAAB->addSubLast(pWallAABActor);
+    }
+    WallAAPrismActor* pWallAAPrismActor;
+    GgafActorDispatcher* pDispatcher_WallAAPrism = NEW GgafActorDispatcher("Dp_WallAAPrism");
+    for (int i = 0; i < 100; i++) {
+        pWallAAPrismActor = NEW Wall001Prism("GroundBox");
+        pWallAAPrismActor->setScaleRate(scale_r);
+        pWallAAPrismActor->inactivateTreeImmediately();
+        pDispatcher_WallAAPrism->addSubLast(pWallAAPrismActor);
     }
 
     //シーンセクション生成
@@ -32,7 +40,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     buildWalledScene(
         400000*scale_r, 100000*scale_r, 100000*scale_r,
         (WalledSectionScene**)&apSection, 5,
-        pDispatcher_WallAAB //,pDispatcher_WallAAPrism
+        pDispatcher_WallAAB ,pDispatcher_WallAAPrism
 
     );
 

@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 
 Wall001Prism::Wall001Prism(const char* prm_name) :
-        WallAAPrismActor(prm_name, "g_box001") {
+        WallAAPrismActor(prm_name, "g_box001Prism") {
     _class_name = "Wall001Prism";
-    MyStgUtil::resetWall001PrismStatus(_pStatus);//éÌï ÅFKIND_CHIKEI
+    MyStgUtil::resetWall001Status(_pStatus);//éÌï ÅFKIND_CHIKEI
 }
 
 void Wall001Prism::onCreateModel() {
