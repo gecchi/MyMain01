@@ -284,9 +284,9 @@ public:
      * @param rotZ 当たり判定の立方体を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
      * @param pos_prism プリズム位置（GgafDx9AAPrismActor の #define 定義参照)
      */
-    void setColliAAPrism_Cube(int prm_index, int x, int y, int z, int prm_edge, bool rotX, bool rotY, bool rotZ, int pos_prism) {
+    void setColliAAPrism_Cube(int prm_index, int x, int y, int z, int prm_edge, int pos_prism, bool rotX, bool rotY, bool rotZ) {
         int h = prm_edge / 2;
-        setColliAAPrism(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, rotX, rotY, rotZ, pos_prism);
+        setColliAAPrism(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_prism, rotX, rotY, rotZ);
     }
 
     /**

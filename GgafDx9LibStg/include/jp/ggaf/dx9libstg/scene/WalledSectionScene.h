@@ -59,7 +59,8 @@ public:
     /** [r]全壁ブロック(WallActor)の配置情報の、外壁シーンの長さ別個数 */
     int* _paWallInfoLen;
     /** [r]壁ブロック(WallActor)ディスパッチャー */
-    GgafCore::GgafActorDispatcher* _pDispatcher_Wall;
+    GgafCore::GgafActorDispatcher* _pDispatcher_WallAAB;
+    GgafCore::GgafActorDispatcher* _pDispatcher_WallAAPrism;
     /** [r]手前ブロックの透過機能有効時の基準となるアクター */
     GgafDx9Core::GgafDx9GeometricActor* _pTarget_FrontAlpha;
 
@@ -89,7 +90,8 @@ public:
      * @param prm_loop_num セクション繰り返し回数
      */
     virtual void config(
-            GgafCore::GgafActorDispatcher* prm_pDispatcher_Wall,
+            GgafCore::GgafActorDispatcher* prm_pDispatcher_WallAAB,
+            GgafCore::GgafActorDispatcher* prm_pDispatcher_WallAAPrism,
             int prm_wall_dep, int prm_wall_width, int prm_wall_height);
     /**
      * 初期処理 .

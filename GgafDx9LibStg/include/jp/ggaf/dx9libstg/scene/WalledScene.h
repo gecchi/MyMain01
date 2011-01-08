@@ -14,7 +14,8 @@ public:
     /** セクションシーンのリスト */
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::WalledSectionScene>* _pRingSection;
     /** 壁ブロックを供給するディスパッチャー(buildWalledScene()で設定される) */
-    GgafCore::GgafActorDispatcher* _pDispatcher_Wall;
+    GgafCore::GgafActorDispatcher* _pDispatcher_WallAAB;
+    GgafCore::GgafActorDispatcher* _pDispatcher_WallAAPrism;
 
     /**
      * コンストラクタ
@@ -36,7 +37,8 @@ public:
     void buildWalledScene(
             int prm_wall_dep, int prm_wall_width, int prm_wall_height,
             WalledSectionScene** prm_papSection, int prm_section_num,
-            GgafCore::GgafActorDispatcher* prm_pDispatcher_Wall
+            GgafCore::GgafActorDispatcher* prm_pDispatcher_WallAABox,
+            GgafCore::GgafActorDispatcher* prm_pDispatcher_WallAAPrism = NULL
          );
 
     /**

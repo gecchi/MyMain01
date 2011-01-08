@@ -125,6 +125,7 @@ public:
     virtual GgafCore::GgafMainActor* employForce() {
         GgafMainActor* pActor = employ();
         if (pActor == NULL) {
+            getSubFirst()->moveLastImmediately(); //‚¨K‚É‰ñ‚·
             pActor = getSubFirst();
         }
         return pActor;

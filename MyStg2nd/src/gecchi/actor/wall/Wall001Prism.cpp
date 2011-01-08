@@ -6,13 +6,13 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-Wall001::Wall001(const char* prm_name) :
-        WallAABActor(prm_name, "g_box001") {
-    _class_name = "Wall001";
-    MyStgUtil::resetWall001Status(_pStatus);//Ží•ÊFKIND_CHIKEI
+Wall001Prism::Wall001Prism(const char* prm_name) :
+        WallAAPrismActor(prm_name, "g_box001") {
+    _class_name = "Wall001Prism";
+    MyStgUtil::resetWall001PrismStatus(_pStatus);//Ží•ÊFKIND_CHIKEI
 }
 
-void Wall001::onCreateModel() {
+void Wall001Prism::onCreateModel() {
     _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.2, 3.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
     _pGgafDx9Model->_pTextureBlinker->beat(10*20, 10*9, 10*3, -1);
@@ -20,7 +20,7 @@ void Wall001::onCreateModel() {
 }
 
 
-bool Wall001::isOutOfUniverse() {
+bool Wall001Prism::isOutOfUniverse() {
     if (GgafDx9Universe::_X_goneLeft < _X) {
         return false;
     }

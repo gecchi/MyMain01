@@ -171,6 +171,7 @@ class Stage01_Climax;
 class Stage01WalledSection001;
 class Stage01WalledScene;
 class Wall001;
+class Wall001Prism;
 
 class Stage02Controller;
 class Stage02_01;
@@ -353,6 +354,7 @@ class VamSysCamPosition;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01WalledScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01WalledSection001.h"
 #include "gecchi/actor/wall/Wall001.h"
+#include "gecchi/actor/wall/Wall001Prism.h"
 
 #include "gecchi/actor/Camera.h"
 #include "gecchi/actor/camera_worker/TestCamWorker.h"

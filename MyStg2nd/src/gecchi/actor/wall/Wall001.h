@@ -6,7 +6,7 @@ namespace MyStg2nd  {
 /**
  * ï«ÉuÉçÉbÉNÇªÇÃÇP
  */
-class Wall001 : public GgafDx9LibStg::WallActor {
+class Wall001 : public GgafDx9LibStg::WallAABActor {
 public:
     Wall001(const char* prm_name);
 

@@ -22,7 +22,7 @@ namespace GgafDx9LibStg {
 class WallActor : public GgafDx9Core::GgafDx9MeshSetActor {
     friend class GgafDx9EffectManager;
 
-private:
+public:
     /** [r]壁ブロックプリズム位置情報(> 0の場合はプリズム、0の場合はBOX) */
     int _pos_prism;
     /** [r]壁ブロック表示面情報 */
@@ -36,15 +36,18 @@ private:
 //    /** [r]壁ブロック移動スピード(値は正、但し移動方向はX軸負の方向) */
 //    int _scrool_speed;
 
-public:
+
     GgafDx9Core::GgafDx9GeometricScaler* _pScaler;
     GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 
     /** [r]外壁シーン */
     WalledSectionScene* _pWalledSectionScene;
-    D3DXHANDLE _h_distance_AlphaTarget;
 
-    WallActor(const char* prm_name, const char* prm_model);
+
+    WallActor(const char* prm_name,
+              const char* prm_model_id,
+              const char* prm_effect_id,
+              const char* prm_technique);
 
 
     virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor);
@@ -55,7 +58,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void processDraw() override;
+    virtual void processDraw() = 0;
 
     virtual void processBehavior() override;
 

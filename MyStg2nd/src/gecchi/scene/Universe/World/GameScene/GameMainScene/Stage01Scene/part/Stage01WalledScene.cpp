@@ -9,14 +9,14 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     _class_name = "Stage01WalledScene";
 
     //壁ブロックディスパッチャー生成
-    float scale_r = 5.0f; //壁ブロックの元モデルからの拡大率
+    float scale_r = 3.0f; //壁ブロックの元モデルからの拡大率
     WallActor* pWallActor;
-    GgafActorDispatcher* pDispatcher_Wall = NEW GgafActorDispatcher("Dp_Wall");
-    for (int i = 0; i < 1000; i++) {
+    GgafActorDispatcher* pDispatcher_WallAAB = NEW GgafActorDispatcher("Dp_Wall");
+    for (int i = 0; i < 1500; i++) {
         pWallActor = NEW Wall001("GroundBox");
         pWallActor->setScaleRate(scale_r);
         pWallActor->inactivateTreeImmediately();
-        pDispatcher_Wall->addSubLast(pWallActor);
+        pDispatcher_WallAAB->addSubLast(pWallActor);
     }
 
     //シーンセクション生成
@@ -32,11 +32,12 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     buildWalledScene(
         400000*scale_r, 100000*scale_r, 100000*scale_r,
         (WalledSectionScene**)&apSection, 5,
-        pDispatcher_Wall
+        pDispatcher_WallAAB //,pDispatcher_WallAAPrism
+
     );
 
     //初期スクロールスピード
-    setScroolSpeed(10000);
+    setScroolSpeed(30000);
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。

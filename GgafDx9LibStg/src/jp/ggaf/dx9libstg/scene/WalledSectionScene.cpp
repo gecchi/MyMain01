@@ -64,20 +64,23 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     ifs.close();
     _pWallLast = NULL;;
     _wall_start_X = 0;
-    _pDispatcher_Wall = NULL;
+    _pDispatcher_WallAAB = NULL;
+    _pDispatcher_WallAAPrism = NULL;
 }
 void WalledSectionScene::config(
-        GgafActorDispatcher* prm_pDispatcher_Wall,
+        GgafActorDispatcher* prm_pDispatcher_WallAAB,
+        GgafActorDispatcher* prm_pDispatcher_WallAAPrism,
         int prm_wall_dep, int prm_wall_width, int prm_wall_height) {
-    _pDispatcher_Wall = prm_pDispatcher_Wall;
+    _pDispatcher_WallAAB = prm_pDispatcher_WallAAB;
+    _pDispatcher_WallAAPrism = prm_pDispatcher_WallAAPrism;
     _wall_dep = prm_wall_dep;
     _wall_width = prm_wall_width;
     _wall_height = prm_wall_height;
 }
 
 void WalledSectionScene::initialize() {
-    if (_pDispatcher_Wall == NULL) {
-        throwGgafCriticalException("WalledSectionScene::initialize()   GgafActorDispatcher* _pDispatcher_Wall をセットして下さい。")
+    if (_pDispatcher_WallAAB == NULL) {
+        throwGgafCriticalException("WalledSectionScene::initialize()   GgafActorDispatcher* _pDispatcher_WallAAB をセットして下さい。")
     }
 }
 
@@ -107,18 +110,28 @@ void WalledSectionScene::processBehavior() {
 
             WallActor* pWall = NULL;
             for (int n = 0; n < _paWallInfoLen[_cnt_area_len]; n++) {
-                pWall = (WallActor*)_pDispatcher_Wall->employ();
-                if (pWall) {
-
-                    pWall->config(this,
-                                  _papaWallInfo[_cnt_area_len][n]._pos_prism,
-                                  _papaWallInfo[_cnt_area_len][n]._wall_draw_face,
-                                  _papaWallInfo[_cnt_area_len][n]._aColliBoxStretch);
-                    pWall->setCoordinate(_pWallLast==NULL ? _wall_start_X : _pWallLast->_X + _wall_dep - parent_scroll_speed,
-                                      ((-_area_height/2) + _papaWallInfo[_cnt_area_len][n]._Y) * _wall_height,
-                                      ((-_area_width/2) + _papaWallInfo[_cnt_area_len][n]._Z) * _wall_width);
-                    pWall->activate();
+                if (_papaWallInfo[_cnt_area_len][n]._pos_prism == 0) {
+                    pWall = (WallActor*)_pDispatcher_WallAAB->employForce();
+                } else {
+                    if (_pDispatcher_WallAAPrism) {
+                        pWall = (WallActor*)_pDispatcher_WallAAPrism->employForce();
+                    } else {
+                        continue;
+                    }
                 }
+                if (pWall->isActive()) {
+                    pWall->inactivateImmediately();
+                    pWall->onInactive();
+                }
+
+                pWall->config(this,
+                              _papaWallInfo[_cnt_area_len][n]._pos_prism,
+                              _papaWallInfo[_cnt_area_len][n]._wall_draw_face,
+                              _papaWallInfo[_cnt_area_len][n]._aColliBoxStretch);
+                pWall->setCoordinate(_pWallLast==NULL ? _wall_start_X : _pWallLast->_X + _wall_dep - parent_scroll_speed,
+                                  ((-_area_height/2) + _papaWallInfo[_cnt_area_len][n]._Y) * _wall_height,
+                                  ((-_area_width/2) + _papaWallInfo[_cnt_area_len][n]._Z) * _wall_width);
+                pWall->activate();
             }
             _pWallLast = pWall;
             _frame_of_launch_next = (frame)(_wall_dep / parent_scroll_speed);

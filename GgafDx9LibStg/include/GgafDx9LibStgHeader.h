@@ -60,6 +60,8 @@ class SpriteMeshActor;
 class SpriteMeshSetActor;
 class StringBoardActor;
 class WallActor;
+class WallAABctor;
+class WallAAPrismctor;
 class WorldBoundActor;
 class ColliAAB;
 class ColliSphere;
@@ -119,6 +121,8 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/actor/SpriteMeshSetActor.h"
 #include "jp/ggaf/dx9libstg/actor/StringBoardActor.h"
 #include "jp/ggaf/dx9libstg/actor/WallActor.h"
+#include "jp/ggaf/dx9libstg/actor/WallAABActor.h"
+#include "jp/ggaf/dx9libstg/actor/WallAAPrismActor.h"
 #include "jp/ggaf/dx9libstg/actor/WorldBoundActor.h"
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/ColliAAB.h"
