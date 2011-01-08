@@ -108,6 +108,7 @@ DefaultUniverse::~DefaultUniverse() {
     _pLinearOctree->putTree();
 
     ColliAABActor::release();
+    ColliAAPrismActor::release();
     ColliSphereActor::release();
 #endif
     DELETE_IMPOSSIBLE_NULL(_pLinearOctree);

@@ -9,8 +9,8 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
 
                                       WallActor(prm_name,
                                                 string("19/" + string(prm_model)).c_str(),
-                                                "WallPrismEffect",
-                                                "WallPrismTechnique") {
+                                                "WallAAPrismEffect",
+                                                "WallAAPrismTechnique") {
 
     _class_name = "WallAAPrismActor";
     _pMeshSetModel->_set_num = 19; //WallActor最大セット数は20。
