@@ -106,11 +106,9 @@ void DefaultUniverse::processFinal() {
 DefaultUniverse::~DefaultUniverse() {
 #ifdef MY_DEBUG
     _pLinearOctree->putTree();
-
     ColliAABActor::release();
     ColliAAPrismActor::release();
     ColliSphereActor::release();
 #endif
     DELETE_IMPOSSIBLE_NULL(_pLinearOctree);
-
 }
