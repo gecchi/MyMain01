@@ -12,7 +12,7 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
                                    const char* prm_model) :
 
                                       WallActor(prm_name,
-                                                string("17/" + string(prm_model)).c_str(),
+                                                string("11/" + string(prm_model)).c_str(),
                                                 "WallAAPrismEffect",
                                                 "WallAAPrismTechnique") {
 
