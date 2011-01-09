@@ -14,6 +14,11 @@ class WallAAPrismActor : public WallActor {
 
 public:
     D3DXHANDLE _h_distance_AlphaTarget;
+    D3DXHANDLE _h_wall_dep;
+    D3DXHANDLE _h_wall_height;
+    D3DXHANDLE _h_wall_width;
+    D3DXHANDLE _h_pos_prism;
+
 
     WallAAPrismActor(const char* prm_name, const char* prm_model);
 

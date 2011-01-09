@@ -11,6 +11,12 @@
 
 
 float g_distance_AlphaTarget;
+float g_wall_dep;    //壁ブロックの長さ（X座標軸長さ）
+float g_wall_height; //壁ブロックの高さ（Y座標軸長さ）
+float g_wall_width;  //壁ブロックの幅（Z座標軸長さ)
+int g_pos_prism;
+
+
 float g_zf;
 float g_tex_blink_power;   
 float g_tex_blink_threshold;
@@ -44,9 +50,17 @@ float4x4 g_matWorld014;
 float4x4 g_matWorld015;
 float4x4 g_matWorld016;
 float4x4 g_matWorld017;
-float4x4 g_matWorld018;
-float4x4 g_matWorld019;
+//float4x4 g_matWorld018;
+//float4x4 g_matWorld019;
 //float4x4 g_matWorld020;
+
+#define POS_PRISM_nn    1 
+#define POS_PRISM_np    2 
+#define POS_PRISM_pn    4 
+#define POS_PRISM_pp    8 
+#define POS_PRISM_XY    16
+#define POS_PRISM_YZ    32
+#define POS_PRISM_ZX    64
 
 //テクスチャのサンプラ(s0レジスタ)
 sampler MyTextureSampler : register(s0);
@@ -103,16 +117,16 @@ OUT_VS GgafDx9VS_WallAAPrism(
 		matWorld = g_matWorld014;
 	} else if (prm_object_index == 14) {
 		matWorld = g_matWorld015;
-	} else if (prm_object_index == 15) {
-		matWorld = g_matWorld016;
-	} else if (prm_object_index == 16) {
-		matWorld = g_matWorld017;
-	} else if (prm_object_index == 17) {
-		matWorld = g_matWorld018;
+//	} else if (prm_object_index == 15) {
+//		matWorld = g_matWorld016;
+//	} else if (prm_object_index == 16) {
+//		matWorld = g_matWorld017;
+//	} else if (prm_object_index == 17) {
+//		matWorld = g_matWorld018;
 //	} else if (prm_object_index == 18) {
 //		matWorld = g_matWorld019;
 	} else {
-		matWorld = g_matWorld019;
+		matWorld = g_matWorld016;
 	} 
     //描画面番号情報が、ワールド変換行列のmatWorld._14 に埋め込まれている
 	int draw_face = matWorld._14;
@@ -225,6 +239,47 @@ OUT_VS GgafDx9VS_WallAAPrism(
             return out_vs;
         }
     }
+
+	float a = 0.0;
+	int pos_prism = (int)g_pos_prism;
+//	if (pos_prism >= POS_PRISM_ZX) {   
+//		pos_prism -= POS_PRISM_ZX;
+//		//＋X -X の面がプリズムの斜め面にならないように ZX は XZ平面と見る
+//		a = g_wall_width / g_wall_dep; //傾き x/z （傾き x/z ではなくて）
+//		if (pos_prism >= POS_PRISM_pp) {
+//			prm_pos.z *= ((-1.0*a*prm_pos.x) + 0.5);  
+//		} else if (pos_prism >= POS_PRISM_pn) {
+//			prm_pos.z *= (( a*prm_pos.x) + 0.5);  
+//		} else if (pos_prism >= POS_PRISM_np) { 
+//            prm_pos.z *= (( a*prm_pos.x) + 0.5);  
+//		} else  {  //if (pos_prism >= POS_PRISM_nn)
+//			prm_pos.z *= ((-1.0*a*prm_pos.x) + 0.5);
+//		}
+//	} else if (pos_prism >= POS_PRISM_YZ) {   
+//		pos_prism -= POS_PRISM_YZ;
+//        a = g_wall_width / g_wall_height; //傾き z/y
+//		if (pos_prism >= POS_PRISM_pp) {
+//			prm_pos.z *= ((-1.0*a*prm_pos.y) + 0.5);  
+//		} else if (pos_prism >= POS_PRISM_pn) {
+//			prm_pos.z *= (( a*prm_pos.y) + 0.5);  
+//		} else if (pos_prism >= POS_PRISM_np) { 
+//            prm_pos.z *= (( a*prm_pos.y) + 0.5);  
+//		} else {  //if (pos_prism >= POS_PRISM_nn)
+//			prm_pos.z *= ((-1.0*a*prm_pos.y) + 0.5);
+//		}
+//	} else { //if (pos_prism >= POS_PRISM_XY) {   
+		pos_prism -= POS_PRISM_XY;
+		a = g_wall_height / g_wall_dep; //傾き y/x
+		if (pos_prism >= POS_PRISM_pp) {
+			prm_pos.y *= ((-1.0*a*prm_pos.x) + (g_wall_height/2.0));  
+		} else if (pos_prism >= POS_PRISM_pn) {
+			prm_pos.y *= (( a*prm_pos.x) + (g_wall_height/2.0));  
+		} else if (pos_prism >= POS_PRISM_np) { 
+            prm_pos.y *= (( a*prm_pos.x) + (g_wall_height/2.0));  
+		} else {  //if (pos_prism >= POS_PRISM_nn)
+			prm_pos.y *= ((-1.0*a*prm_pos.x) + (g_wall_height/2.0));
+		}
+//	}
 
 	//World*View*射影変換
 	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);

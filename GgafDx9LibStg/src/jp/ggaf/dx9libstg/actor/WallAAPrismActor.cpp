@@ -8,17 +8,32 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
                                    const char* prm_model) :
 
                                       WallActor(prm_name,
-                                                string("19/" + string(prm_model)).c_str(),
+                                                string("17/" + string(prm_model)).c_str(),
                                                 "WallAAPrismEffect",
                                                 "WallAAPrismTechnique") {
 
     _class_name = "WallAAPrismActor";
-    _pMeshSetModel->_set_num = 19; //WallActor最大セット数は20。
-    _h_distance_AlphaTarget = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_distance_AlphaTarget" );
+    _pMeshSetModel->_set_num = 16; //WallActor最大セット数は20。
+
+
     _pCollisionChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
     _pCollisionChecker->setColliAAPrism(0, 0,0,0, 0,0,0, 0);
     setZEnable(true);       //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り
+    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    HRESULT hr;
+    _h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( NULL, "g_distance_AlphaTarget" );
+    _h_wall_dep    = pID3DXEffect->GetParameterByName( NULL, "g_wall_dep" );
+    _h_wall_height = pID3DXEffect->GetParameterByName( NULL, "g_wall_height" );
+    _h_wall_width  = pID3DXEffect->GetParameterByName( NULL, "g_wall_width" );
+    _h_pos_prism = pID3DXEffect->GetParameterByName( NULL, "g_pos_prism" );
+
+    hr = pID3DXEffect->SetFloat(_h_wall_dep, 1.0*_wall_dep/LEN_UNIT/PX_UNIT);
+    checkDxException(hr, D3D_OK, "WallAAPrismActor::WallAAPrismActor() SetInt(_h_wall_dep) に失敗しました。");
+    hr = pID3DXEffect->SetFloat(_h_wall_height, 1.0*_wall_height/LEN_UNIT/PX_UNIT);
+    checkDxException(hr, D3D_OK, "WallAAPrismActor::WallAAPrismActor() SetInt(_h_wall_height) に失敗しました。");
+    hr = pID3DXEffect->SetFloat(_h_wall_width, 1.0*_wall_width/LEN_UNIT/PX_UNIT);
+    checkDxException(hr, D3D_OK, "WallAAPrismActor::WallAAPrismActor() SetInt(_h_wall_width) に失敗しました。");
 }
 
 void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
@@ -38,6 +53,9 @@ void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int p
 
          _pCollisionChecker->enable(0);
     }
+    HRESULT hr;
+    hr = _pMeshSetEffect->_pID3DXEffect->SetInt(_h_pos_prism, _pos_prism);
+    checkDxException(hr, D3D_OK, "WallAAPrismActor::config() SetInt(_h_wall_dep) に失敗しました。");
 }
 
 void WallAAPrismActor::processDraw() {
@@ -65,20 +83,19 @@ void WallAAPrismActor::processDraw() {
         }
     }
 
-    ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
     HRESULT hr;
     if (_pWalledSectionScene->_pTarget_FrontAlpha) {
         hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -(_pWalledSectionScene->_pTarget_FrontAlpha->_fDist_VpPlnFront));
-        checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
+        checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     } else {
         hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -100.0f);
-        checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
+        checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     }
     //VIEW変換行列
 //    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_h_matView, &P_CAM->_vMatrixView);
-//    checkDxException(hr, D3D_OK, "WallActor::processDraw() SetMatrix(_h_matView) に失敗しました。");
+//    checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(_h_matView) に失敗しました。");
 
     WallActor* pDrawActor;
     pDrawActor = this;
@@ -86,7 +103,7 @@ void WallAAPrismActor::processDraw() {
         pDrawActor->_matWorld._14 = pDrawActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
         //pDrawActor->_matWorld._24 = pDrawActor->_pos_prism;  //プリズム位置情報ををワールド変換行列のmatWorld._24 に埋め込む
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[i], &(pDrawActor->_matWorld));
-        checkDxException(hr, D3D_OK, "WallActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+        checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
         pDrawActor = (WallActor*)(pDrawActor -> _pNext_TheSameDrawDepthLevel);
         if (i > 0) {
             //アクティブを進める
