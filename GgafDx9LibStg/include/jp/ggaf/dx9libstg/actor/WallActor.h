@@ -9,6 +9,12 @@
 #define FACE_E_IDX 1
 #define FACE_F_IDX 0
 
+#define FACE_A_BIT 32  // 0b100000
+#define FACE_B_BIT 16  // 0b010000
+#define FACE_C_BIT 8   // 0b001000
+#define FACE_D_BIT 4   // 0b000100
+#define FACE_E_BIT 2   // 0b000010
+#define FACE_F_BIT 1   // 0b000001
 
 namespace GgafDx9LibStg {
 

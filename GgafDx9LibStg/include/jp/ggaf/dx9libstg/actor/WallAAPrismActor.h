@@ -17,7 +17,11 @@ public:
     D3DXHANDLE _h_wall_dep;
     D3DXHANDLE _h_wall_height;
     D3DXHANDLE _h_wall_width;
-    D3DXHANDLE _h_pos_prism;
+//    D3DXHANDLE _h_pos_prism;
+    static boolean init;
+    /** プリズム無条件追加描画不要面テーブル */
+    static _MAP_<int, UINT> _delface;
+//    int _aAddFace[12];
 
 
     WallAAPrismActor(const char* prm_name, const char* prm_model);

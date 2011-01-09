@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // WallAAPrismActor用シェーダー
 // 【概要】
-// 外壁ブロックの描画を行う。
-// 頂点バッファに、外壁ブロック情報が、２０個分繰り返し詰め込んである。
+// 外壁プリズムの描画を行う。
+// 頂点バッファに、外壁プリズム情報が、10個分繰り返し詰め込んである。
 // ステートやレジスタの更新を行わず、１回の 描画で、最大
-// 20オブジェクトまで描画。高速化を狙う。
+// 10オブジェクトまで描画。高速化を狙う。
 // author : Masatoshi Tsuge
-// date:2010/10/20
+// date:2011/01/10
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -107,16 +107,16 @@ OUT_VS GgafDx9VS_WallAAPrism(
 		matWorld = g_matWorld009;
 	} else if (prm_object_index == 9) {
 		matWorld = g_matWorld010;
-	} else if (prm_object_index == 10) {
-		matWorld = g_matWorld011;
-	} else if (prm_object_index == 11) {
-		matWorld = g_matWorld012;
-	} else if (prm_object_index == 12) {
-		matWorld = g_matWorld013;
-	} else if (prm_object_index == 13) {
-		matWorld = g_matWorld014;
-	} else if (prm_object_index == 14) {
-		matWorld = g_matWorld015;
+//	} else if (prm_object_index == 10) {
+//		matWorld = g_matWorld011;
+//	} else if (prm_object_index == 11) {
+//		matWorld = g_matWorld012;
+//	} else if (prm_object_index == 12) {
+//		matWorld = g_matWorld013;
+//	} else if (prm_object_index == 13) {
+//		matWorld = g_matWorld014;
+//	} else if (prm_object_index == 14) {
+//		matWorld = g_matWorld015;
 //	} else if (prm_object_index == 15) {
 //		matWorld = g_matWorld016;
 //	} else if (prm_object_index == 16) {
@@ -126,11 +126,14 @@ OUT_VS GgafDx9VS_WallAAPrism(
 //	} else if (prm_object_index == 18) {
 //		matWorld = g_matWorld019;
 	} else {
-		matWorld = g_matWorld016;
+		matWorld = g_matWorld011;
 	} 
     //描画面番号情報が、ワールド変換行列のmatWorld._14 に埋め込まれている
 	int draw_face = matWorld._14;
-    matWorld._14 = 0; //元の行列値に戻しておく
+	int pos_prism = matWorld._24;
+	//元の行列値に戻しておく
+    matWorld._14 = 0; 
+    matWorld._24 = 0; //元の行列値に戻しておく
 
     //UVによりどの面の頂点か判断し、
     //描画不要な面の頂点の場合は何とかする（ジオメトリシェーダー使いたい；）
@@ -240,46 +243,56 @@ OUT_VS GgafDx9VS_WallAAPrism(
         }
     }
 
-	float a = 0.0;
-	int pos_prism = (int)g_pos_prism;
-//	if (pos_prism >= POS_PRISM_ZX) {   
-//		pos_prism -= POS_PRISM_ZX;
-//		//＋X -X の面がプリズムの斜め面にならないように ZX は XZ平面と見る
-//		a = g_wall_width / g_wall_dep; //傾き x/z （傾き x/z ではなくて）
-//		if (pos_prism >= POS_PRISM_pp) {
-//			prm_pos.z *= ((-1.0*a*prm_pos.x) + 0.5);  
-//		} else if (pos_prism >= POS_PRISM_pn) {
-//			prm_pos.z *= (( a*prm_pos.x) + 0.5);  
-//		} else if (pos_prism >= POS_PRISM_np) { 
-//            prm_pos.z *= (( a*prm_pos.x) + 0.5);  
-//		} else  {  //if (pos_prism >= POS_PRISM_nn)
-//			prm_pos.z *= ((-1.0*a*prm_pos.x) + 0.5);
-//		}
-//	} else if (pos_prism >= POS_PRISM_YZ) {   
-//		pos_prism -= POS_PRISM_YZ;
-//        a = g_wall_width / g_wall_height; //傾き z/y
-//		if (pos_prism >= POS_PRISM_pp) {
-//			prm_pos.z *= ((-1.0*a*prm_pos.y) + 0.5);  
-//		} else if (pos_prism >= POS_PRISM_pn) {
-//			prm_pos.z *= (( a*prm_pos.y) + 0.5);  
-//		} else if (pos_prism >= POS_PRISM_np) { 
-//            prm_pos.z *= (( a*prm_pos.y) + 0.5);  
-//		} else {  //if (pos_prism >= POS_PRISM_nn)
-//			prm_pos.z *= ((-1.0*a*prm_pos.y) + 0.5);
-//		}
-//	} else { //if (pos_prism >= POS_PRISM_XY) {   
-		pos_prism -= POS_PRISM_XY;
-		a = g_wall_height / g_wall_dep; //傾き y/x
-		if (pos_prism >= POS_PRISM_pp) {
-			prm_pos.y *= ((-1.0*a*prm_pos.x) + (g_wall_height/2.0));  
-		} else if (pos_prism >= POS_PRISM_pn) {
-			prm_pos.y *= (( a*prm_pos.x) + (g_wall_height/2.0));  
-		} else if (pos_prism >= POS_PRISM_np) { 
-            prm_pos.y *= (( a*prm_pos.x) + (g_wall_height/2.0));  
-		} else {  //if (pos_prism >= POS_PRISM_nn)
-			prm_pos.y *= ((-1.0*a*prm_pos.x) + (g_wall_height/2.0));
+    //BOXの１面を無理やり閉じてプリズム型に変形させる
+	float ah,fh;
+	if (pos_prism >= POS_PRISM_ZX) {   
+		//＋X -X の面がプリズムの斜め面にならないようにする
+		// ZX は XZ平面と見る
+		pos_prism -= POS_PRISM_ZX;
+		ah = g_wall_width / g_wall_dep / 2.0; //傾き z/x （傾き x/z ではなくて）
+		//ah = g_wall_height / g_wall_dep / 2.0; //傾き y/x
+		fh = g_wall_dep/2.0;
+		if (pos_prism == POS_PRISM_pp) {
+			prm_pos.z = (prm_pos.z * ((prm_pos.x+fh)/g_wall_dep))       - ((prm_pos.x-fh)*ah);
+		} else if (pos_prism == POS_PRISM_pn) {
+			prm_pos.z = (prm_pos.z * (1.0-((prm_pos.x+fh)/g_wall_dep))) + ((prm_pos.x+fh)*ah);
+		} else if (pos_prism == POS_PRISM_np) { 
+			prm_pos.z = (prm_pos.z * ((prm_pos.x+fh)/g_wall_dep))       + ((prm_pos.x-fh)*ah);
+		} else { //if (pos_prism == POS_PRISM_nn) {
+			prm_pos.z = (prm_pos.z * (1.0-((prm_pos.x+fh)/g_wall_dep))) - ((prm_pos.x+fh)*ah);
 		}
-//	}
+	} else if (pos_prism >= POS_PRISM_YZ) {   
+		//＋Z -Z の面がプリズムの斜め面にならないようにする
+		pos_prism -= POS_PRISM_YZ;
+		ah = g_wall_height / g_wall_width / 2.0; //傾き y/z
+		fh = g_wall_width/2.0;                   //傾く軸
+		if (pos_prism == POS_PRISM_pp) {
+			prm_pos.y = (prm_pos.y * ((prm_pos.z+fh)/g_wall_width))       - ((prm_pos.z-fh)*ah);
+		} else if (pos_prism == POS_PRISM_pn) {
+			prm_pos.y = (prm_pos.y * (1.0-((prm_pos.z+fh)/g_wall_width))) + ((prm_pos.z+fh)*ah);
+		} else if (pos_prism == POS_PRISM_np) { 
+			prm_pos.y = (prm_pos.y * ((prm_pos.z+fh)/g_wall_width))       + ((prm_pos.z-fh)*ah);
+		} else { //if (pos_prism == POS_PRISM_nn) {
+			prm_pos.y = (prm_pos.y * (1.0-((prm_pos.z+fh)/g_wall_width))) - ((prm_pos.z+fh)*ah);
+		}
+	} else { //if (pos_prism >= POS_PRISM_XY) {   
+		//＋X -X の面がプリズムの斜め面にならないようにする
+		pos_prism -= POS_PRISM_XY;
+		ah = g_wall_height / g_wall_dep / 2.0; //傾き y/x
+		fh = g_wall_dep/2.0;                   //傾く軸
+		if (pos_prism == POS_PRISM_pp) {
+			prm_pos.y = (prm_pos.y * ((prm_pos.x+fh)/g_wall_dep))       - ((prm_pos.x-fh)*ah);
+		} else if (pos_prism == POS_PRISM_pn) {
+			prm_pos.y = (prm_pos.y * ((prm_pos.x+fh)/g_wall_dep))       + ((prm_pos.x-fh)*ah);
+		} else if (pos_prism == POS_PRISM_np) { 
+			prm_pos.y = (prm_pos.y * (1.0-((prm_pos.x+fh)/g_wall_dep))) + ((prm_pos.x+fh)*ah);
+		} else { //if (pos_prism == POS_PRISM_nn) {
+			prm_pos.y = (prm_pos.y * (1.0-((prm_pos.x+fh)/g_wall_dep))) - ((prm_pos.x+fh)*ah);
+		}
+	}
+	//メモ
+	//(prm_pos.y * ((prm_pos.x+fh)/g_wall_dep))   ・・・ 先端をキュッとまとめる計算
+	//+ ((prm_pos.x-fh)*ah);                      ・・・ 先端を水平にする計算
 
 	//World*View*射影変換
 	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);
