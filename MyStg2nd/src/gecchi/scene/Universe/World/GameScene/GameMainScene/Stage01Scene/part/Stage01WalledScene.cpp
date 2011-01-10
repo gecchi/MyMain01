@@ -20,7 +20,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     }
     WallAAPrismActor* pWallAAPrismActor;
     GgafActorDispatcher* pDispatcher_WallAAPrism = NEW GgafActorDispatcher("Dp_WallAAPrism");
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 500; i++) {
         pWallAAPrismActor = NEW Wall001Prism("GroundBox");
         pWallAAPrismActor->setScaleRate(scale_r);
         pWallAAPrismActor->inactivateTreeImmediately();
@@ -29,23 +29,23 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 
     //シーンセクション生成
     WalledSectionScene* apSection[] = {
-      NEW Stage01WalledSection001("gbs", this, "scene4_wall_0.dat"),
-      NEW Stage01WalledSection001("gbs", this, "scene4_wall_1.dat"),
-      NEW Stage01WalledSection001("gbs", this, "scene4_wall_2.dat"),
-      NEW Stage01WalledSection001("gbs", this, "scene4_wall_3.dat"),
-      NEW Stage01WalledSection001("gbs", this, "scene4_wall_4.dat"),
+      NEW Stage01WalledSection001("gbs", this, "scene5_wall_0.dat"),
+      NEW Stage01WalledSection001("gbs", this, "scene5_wall_1.dat"),
+      NEW Stage01WalledSection001("gbs", this, "scene5_wall_2.dat"),
+      NEW Stage01WalledSection001("gbs", this, "scene5_wall_3.dat"),
+
     };
 
     //構築
     buildWalledScene(
         400000*scale_r, 100000*scale_r, 100000*scale_r,
-        (WalledSectionScene**)&apSection, 5,
+        (WalledSectionScene**)&apSection, 4,
         pDispatcher_WallAAB ,pDispatcher_WallAAPrism
 
     );
 
     //初期スクロールスピード
-    setScroolSpeed(30000);
+    setScroolSpeed(20000);
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。

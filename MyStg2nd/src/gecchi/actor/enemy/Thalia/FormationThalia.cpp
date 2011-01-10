@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 FormationThalia::FormationThalia(const char* prm_name) : GgafDx9FormationActor(prm_name, 30*60) {
     _class_name = "FormationThalia";
-    _num_Thalia     = 9+_RANK_*4;    //ï“ë‡êî
+    _num_Thalia     = 1+_RANK_*4;    //ï“ë‡êî
     _frame_interval = 20-_RANK_*5;  //É^ÉäÉAÇÃä‘äu(frame)
     _mv_velo        = 14000+_RANK_*10000; //ë¨ìx
 
