@@ -35,6 +35,9 @@ public:
     EffectMyShipExplosion* _pEffectMyShipExplosion;
     /** VAMSYSTEM ƒJƒƒ‰ƒ[ƒN */
     VamSysCamWorker* _pVamSysCamWorker;
+
+
+    MagicMeter* _pMagicMeter;
     int _zanki;
 
     MyShipScene(const char* prm_name);

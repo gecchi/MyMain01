@@ -8,10 +8,15 @@ namespace MyStg2nd {
 #define MAGIC_EXPIRING 3
 #define MAGIC_ABANDONING 9
 
-class Magic : public GgafDx9LibStg::DefaultSpriteActor {
+class Magic : public GgafDx9LibStg::GgafDx9BoardSetActor {
 public:
     GgafDx9Core::GgafDx9GeometricActor* _pCaster;
     GgafDx9Core::GgafDx9GeometricActor* _pReceiver;
+
+    /** レベル */
+    int _level;
+    int _max_level;
+    int _order;
 
     /** 現在のコスト */
     int _cost;
@@ -25,9 +30,9 @@ public:
     int _dec_cost;
 
 public:
-    Magic(const char* prm_name,
-          GgafDx9Core::GgafDx9GeometricActor* prm_pCaster,
-          GgafDx9Core::GgafDx9GeometricActor* prm_pReceiver);
+    Magic(const char* prm_name, int prm_order, int prm_max_level);
+//          GgafDx9Core::GgafDx9GeometricActor* prm_pCaster,
+//          GgafDx9Core::GgafDx9GeometricActor* prm_pReceiver);
 
     void processBehavior() override;
 
@@ -68,6 +73,7 @@ public:
     virtual void processAbandonBegin() = 0;
 
     virtual void processAbandoningBehavior() = 0;
+
 
     virtual ~Magic();
 };

@@ -5,9 +5,14 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-Magic::Magic(const char* prm_name,
-             GgafDx9GeometricActor* prm_pCaster,
-             GgafDx9GeometricActor* prm_pReceiver) : DefaultSpriteActor(prm_name, "magic") {
+Magic::Magic(const char* prm_name, int prm_order, int prm_max_level) : GgafDx9BoardSetActor(prm_name, "magic") {
+//    GgafDx9GeometricActor* prm_pCaster,
+//     GgafDx9GeometricActor* prm_pReceiver) : GgafDx9BoardSetActor(prm_name, "magic") {
+
+
+    _level = 0;
+    _max_level = prm_max_level;
+    _order = prm_order;
     _cost = 10000000;
     _cast_speed = 60;
     _duration = 1;
@@ -51,7 +56,9 @@ void Magic::processBehavior() {
             processAbandoningBehavior();
         }
     }
+
 }
+
 
 Magic::~Magic() {
 }

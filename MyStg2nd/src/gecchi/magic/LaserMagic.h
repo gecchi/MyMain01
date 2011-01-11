@@ -1,11 +1,11 @@
-#ifndef OPTIONMAGIC_H_
-#define OPTIONMAGIC_H_
+#ifndef LASERMAGIC_H_
+#define LASERMAGIC_H_
 namespace MyStg2nd {
 
-class OptionMagic : public DefaultMagic {
+class LaserMagic : public Magic {
 
 public:
-    OptionMagic(const char* prm_name);
+    LaserMagic(const char* prm_name);
 
     virtual void processCastBegin() {
     }
@@ -31,8 +31,8 @@ public:
     virtual void processAbandoningBehavior() {
     }
 
-    virtual ~OptionMagic();
+    virtual ~LaserMagic();
 };
 
 }
-#endif /*OPTIONMAGIC_H_*/
+#endif /*LASERMAGIC_H_*/

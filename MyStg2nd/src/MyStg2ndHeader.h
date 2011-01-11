@@ -302,6 +302,9 @@ class TestDispatcher;
 class Magic;
 class DefaultMagic;
 class OptionMagic;
+class LaserMagic;
+
+
 class Properties;
 class MyStgUtil;
 class MyFactory;
@@ -313,6 +316,9 @@ class Formation001;
 class LaserChipEffectActor;
 
 class VamSysCamPosition;
+
+class MagicMeter;
+
 }
 
 #include "gecchi/God.h"
@@ -450,9 +456,12 @@ class VamSysCamPosition;
 #include "gecchi/actor/chikei/Torus/VarietyTorus003.h"
 #include "gecchi/actor/chikei/Torus/VarietyTorus004.h"
 
+
+
 #include "gecchi/magic/Magic.h"
 #include "gecchi/magic/DefaultMagic.h"
 #include "gecchi/magic/OptionMagic.h"
+#include "gecchi/magic/LaserMagic.h"
 #include "gecchi/Properties.h"
 #include "gecchi/util/MyStgUtil.h"
 #include "gecchi/util/VamSysCamPosition.h"
@@ -470,6 +479,6 @@ class VamSysCamPosition;
 
 #include "gecchi/actor/common/TestDispatcher.h"
 
-
+#include "gecchi/actor/system/MagicMeter.h"
 
 #endif /*MYSTG2NDHEADER_H_*/

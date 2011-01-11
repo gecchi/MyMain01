@@ -23,6 +23,10 @@ _pMyOptionController(NULL) {
 //    _pCon_VamSysCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("VamSysCamWorker");
 //    _pCon_MyShipDivingCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("MyShipDivingCamWorker");
 //    _pMyShipDivingCamWorker = (MyShipDivingCamWorker*)_pCon_MyShipDivingCamWorker->refer();
+
+    _pMagicMeter = NEW MagicMeter("MagicMeter");
+    getLordActor()->addSubGroup(_pMagicMeter);
+
     _zanki = 3;
     useProgress(10);
 
