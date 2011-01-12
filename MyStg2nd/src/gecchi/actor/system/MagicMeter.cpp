@@ -5,17 +5,17 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-#define NUM_MMETER 3
-#define MMETER_POS_X 20
-#define MMETER_POS_Y (600-32)
-MagicMeter::MagicMeter(const char* prm_name) : DefaultBoardSetActor(prm_name, "MagicMeter") {
+
+MagicMeter::MagicMeter(const char* prm_name)
+: GgafDx9BoardSetActor(prm_name, prm_model, "MagicMeterEffect", "MagicMeterTechnique") {
     _class_name = "MagicMeter";
     //_z = 0.99;//たぶん最背面 （0 <= _z < 1.0）Z=(0～+1)
     //_z = 0.9999999f;
     _z = 0.00000001f;
-    _sx = _sy = 10.0f;
-
-
+    _width = _pBoardSetModel->_fSize_BoardSetModelWidthPx;
+    _height = _pBoardSetModel->_fSize_BoardSetModelHeightPx/9;
+    _x = 100;
+    _h_active_magic = _pID3DXEffect->GetParameterByName( NULL, "_g_active_magic" ); //マスターα
 
 
 
@@ -40,7 +40,7 @@ MagicMeter::MagicMeter(const char* prm_name) : DefaultBoardSetActor(prm_name, "M
 //    [4][8]  [5][8]  [6][8]  [7][8]
 //
 
-    int pno[8][8] = { { 0,  1,   2,   3},
+    int pno[9][8] = { { 0,  1,   2,   3},
                       { 4,  5,   6,   7},
                       { 8,  9,  10,  11},
                       {12, 13,  14,  15},
@@ -58,7 +58,7 @@ MagicMeter::MagicMeter(const char* prm_name) : DefaultBoardSetActor(prm_name, "M
                       {60, 61,  62,  63},
                       {64, 65,  66,  67},
                       {68, 69,  70,  71} };
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < MMETER_MAX_LEVEL_Y; i++) {
         for(int j = 0; j < 8; j++) {
             _pos_pattern_no[i][j] = pno[i][j];
         }
@@ -74,17 +74,14 @@ MagicMeter::MagicMeter(const char* prm_name) : DefaultBoardSetActor(prm_name, "M
 //    SpeedMagic*  pSpeedMagic  = NEW SpeedMagic();
 //    PhotonMagic* pPhotonMagic = NEW PhotonMagic();
 //    LockonMagic* pLockonMagic = NEW LockonMagic();
-    _pLaserMagic  = NEW LaserMagic();
-    _pOptionMagic = NEW OptionMagic();
 
 //    addSubLast(pSpeedMagic);
 //    addSubLast(pPhotonMagic);
 //    addSubLast(pLockonMagic);
-    addSubLast(_pLaserMagic);
-    addSubLast(_pOptionMagic);
 
-    _activeMagicKind = 0;
-    _activeMagicLevel = 0;
+
+    _ringMagics.addLast(NEW OptionMagic("OPTION"));
+    _ringMagics.addLast(NEW LaserMagic("LASER"));
 }
 
 void MagicMeter::initialize() {
@@ -104,7 +101,7 @@ void MagicMeter::processJudgement() {
 void MagicMeter::onInactive() {
 }
 void MagicMeter::processDraw() {
-    _draw_set_num = NUM_METER; //同一描画深度に、GgafDx9BoardSetActorの同じモデルかつ同じテクニックが
+    _draw_set_num = _ringMagics.length(); //同一描画深度に、GgafDx9BoardSetActorの同じモデルかつ同じテクニックが
 //                       //連続しているカウント数
 //    GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
 //    while (true) {
@@ -134,29 +131,34 @@ void MagicMeter::processDraw() {
 //    GgafDx9RectUV* pRectUV_Active;
 
 
-    pDrawActor = this;
-    for (int i = 0; i < NUM_METER; i++) {
-
+    Magic* pMagic;
+    GgafLinkedListRing<Magic>::Elem* pElem = _ringMagics.getElemFirst();
+    hr = pID3DXEffect->SetFloat(_h_active_magic, _ringMagics->ge);
+    checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) に失敗しました。");
+    for (int i = 0; i < _draw_set_num; i++) {
+        pMagic = pElem->_pValue;
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], _x+_width*i);
         checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[i], _y);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[i], _y - (_height*MMETER_MAX_LEVEL_Y) + (_height*pMagic->_flevel));
         checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedY) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[i], _z);
         checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahDepthZ) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[i], pDrawActor->_fAlpha);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[i], _fAlpha);
         checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahAlpha) に失敗しました。");
-
-        pRectUV_Active = _pBoardSetModel->_paRectUV + (((GgafDx9BoardSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[i], pRectUV_Active->_aUV[0].tu);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[i], _pBoardSetModel->_paRectUV[i]->_aUV[0].tu);
         checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetU) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[i], pRectUV_Active->_aUV[0].tv);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[i], _pBoardSetModel->_paRectUV[i]->_aUV[0].tv);
         checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetV) に失敗しました。");
-        pDrawActor = pDrawActor -> _pNext_TheSameDrawDepthLevel;
-        if (i > 0) {
-            //アクティブを進める
-            GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
+        if (pMagic != _ringMagics.getCurrent()) {
+            hr = pID3DXEffect->SetInt(_h_active_magic, i);
+            checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetInt(_h_active_magic) に失敗しました。");
         }
+        hr = pID3DXEffect->SetInt(_h_magic_no, i);
+        checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetInt(_h_magic_no) に失敗しました。");
+        pElem = pElem->_pNext;
     }
+
+
     _pBoardSetModel->draw(this);
 }
 

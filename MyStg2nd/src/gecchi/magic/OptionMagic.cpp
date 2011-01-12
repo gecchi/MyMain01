@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-OptionMagic::OptionMagic(const char* prm_name) : Magic(prm_name, 1, 8) {
+OptionMagic::OptionMagic(const char* prm_name) : Magic(prm_name, 8) {
 //TODO:–‚–@‚Å‘•”õHI
 }
 

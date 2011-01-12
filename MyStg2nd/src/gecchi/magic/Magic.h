@@ -8,15 +8,16 @@ namespace MyStg2nd {
 #define MAGIC_EXPIRING 3
 #define MAGIC_ABANDONING 9
 
-class Magic : public GgafDx9LibStg::GgafDx9BoardSetActor {
+class Magic : public GgafCore::GgafObject {
 public:
     GgafDx9Core::GgafDx9GeometricActor* _pCaster;
     GgafDx9Core::GgafDx9GeometricActor* _pReceiver;
-
+    char* _name;
     /** レベル */
     int _level;
+    int _prev_level;
+    float _flevel;
     int _max_level;
-    int _order;
 
     /** 現在のコスト */
     int _cost;
@@ -29,13 +30,17 @@ public:
 
     int _dec_cost;
 
+    float _velo_move_level;
+    boolean _is_move_level;
+
 public:
-    Magic(const char* prm_name, int prm_order, int prm_max_level);
+    Magic(const char* prm_name, int prm_max_level);
 //          GgafDx9Core::GgafDx9GeometricActor* prm_pCaster,
 //          GgafDx9Core::GgafDx9GeometricActor* prm_pReceiver);
 
-    void processBehavior() override;
+    void behave();
 
+    void setLevel(int prm_new_level);
 
     virtual void cast() {
         _dec_cost = _cost / _cast_speed;

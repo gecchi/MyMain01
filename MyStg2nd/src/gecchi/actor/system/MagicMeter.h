@@ -2,16 +2,16 @@
 #define MAGICMETER_H_
 namespace MyStg2nd {
 
+#define MMETER_MAX_LEVEL_Y 9
 
-class MagicMeter : public GgafDx9LibStg::GgafDx9BoardSetActor {
+class MagicMeter : public GgafDx9Core::GgafDx9BoardSetActor {
 
 public:
-    LaserMagic*  _pLaserMagic;
-    OptionMagic* _pOptionMagic;
+    D3DXHANDLE _h_active_magic;
 
-    int _pos_pattern_no[9][8];
-    int _activeMagicKind;
-    int _activeMagicLevel;
+    GgafCore::GgafLinkedListRing<Magic> _ringMagics;
+
+    int _pos_pattern_no[MMETER_MAX_LEVEL_Y][8];
     float _width;
     float _height;
     MagicMeter(const char* prm_name);
