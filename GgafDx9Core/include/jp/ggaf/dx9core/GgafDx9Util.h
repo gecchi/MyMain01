@@ -49,8 +49,12 @@ public:
      * angle値 r のラディアンは、RAD[r/ANGLE_RATE]
      */
     static float RAD[];
-
+    /**
+     * 傾き→angle値変換テーブル
+     * 傾き a の 直線 y = ax の成す角のアングル値は SLANT2ANG[(int)a*10000]
+     */
     static angle SLANT2ANG[];
+
     static angle PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
     static angle PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
     static angle PROJANG_ZY_ZX_TO_ROTANG_X_REV[S_ANG90+1][S_ANG90+1];
@@ -265,7 +269,8 @@ public:
     /**
      * 原点からパラメータ座標を向く方向ベクトル(単位ベクトル)に対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
      * 本クラスの中核とも言うべきメソッドその１<BR>
-     * 方向ベクトル -> Z軸Y軸回転方角 の変換<BR>
+     * 方向ベクトル -> Z軸Y軸回転方角 の変換。<BR>
+     * 計算せずにテーブル参照で高速に行う。<BR>
      * 処理中で、方向ベクトルの正規化を行わないので <BR>
      * getRzRyAng(int, int, int , angle&, angle&);
      * よりやや高速。単位ベクトルが求まっているときはこちらを使用しましょう。<BR>
@@ -298,6 +303,7 @@ public:
      * Z軸回転+Y軸回転値から単位方向ベクトルを取得
      * 本クラスの中核とも言うべきメソッドその2<BR>
      * Z軸Y軸回転方角 -> 方向ベクトル の変換<BR>
+     * 計算せずにテーブル参照で高速に行う。<BR>
      * @param prm_angFaceZ [in]Z軸回転アングル値
      * @param prm_angFaceY [in]Y軸回転アングル値
      * @param out_nvx [out]単位ベクトルX要素
