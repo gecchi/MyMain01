@@ -129,6 +129,16 @@ public:
         }
     }
 
+    static int abs(int x) {
+        if (x < 0) {
+            return -x;
+        } else if (x > 0) {
+            return x;
+        } else {
+            return 0;
+        }
+    }
+
     /**
      * 平方根の近似を求める .
      * 標準sqrtよりも計算が速いが、アバウト。

@@ -112,6 +112,13 @@ public:
      */
     virtual ~GgafLinkedListRing();
 
+    Elem* getElemFirst() {
+        return _pElemFirst;
+    }
+
+    Elem* getElemActive() {
+        return _pElemActive;
+    }
 
     /**
      * カレント要素の値（保持している内容）を取得する .
