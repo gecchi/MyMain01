@@ -27,7 +27,6 @@ MagicMeter::MagicMeter(const char* prm_name)
 //    [0][5]  [1][5]  [2][5]  [3][5]
 //    [0][6]  [1][6]  [2][6]  [3][6]
 //    [0][7]  [1][7]  [2][7]  [3][7]
-//    [0][8]  [1][8]  [2][8]  [3][8]
 //
 //    [4][0]  [5][0]  [6][0]  [7][0]
 //    [4][1]  [5][1]  [6][1]  [7][1]
@@ -37,7 +36,6 @@ MagicMeter::MagicMeter(const char* prm_name)
 //    [4][5]  [5][5]  [6][5]  [7][5]
 //    [4][6]  [5][6]  [6][6]  [7][6]
 //    [4][7]  [5][7]  [6][7]  [7][7]
-//    [4][8]  [5][8]  [6][8]  [7][8]
 //
 
     int pno[9][8] = { { 0,  1,   2,   3},
@@ -102,39 +100,13 @@ void MagicMeter::onInactive() {
 }
 void MagicMeter::processDraw() {
     _draw_set_num = _ringMagics.length(); //同一描画深度に、GgafDx9BoardSetActorの同じモデルかつ同じテクニックが
-//                       //連続しているカウント数
-//    GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
-//    while (true) {
-//        if (_pNextDrawActor != NULL)  {
-//            if (_pNextDrawActor->_pGgafDx9Model == _pBoardSetModel &&
-//                _pNextDrawActor->_hash_technique == _hash_technique &&
-//                _pNextDrawActor->isActive()
-//            ) {
-//                _draw_set_num++;
-//                if (_draw_set_num > _pBoardSetModel->_set_num) {
-//                    _draw_set_num = _pBoardSetModel->_set_num;
-//                    break;
-//                }
-//                _pNextDrawActor = _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
-//            } else {
-//                break;
-//            }
-//        } else {
-//            break;
-//        }
-//    }
-//
-//    ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
-//    HRESULT hr;
-//
-//    GgafDx9DrawableActor *pDrawActor;
-//    GgafDx9RectUV* pRectUV_Active;
-
-
+    ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     Magic* pMagic;
     GgafLinkedListRing<Magic>::Elem* pElem = _ringMagics.getElemFirst();
+
     hr = pID3DXEffect->SetFloat(_h_active_magic, _ringMagics->ge);
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) に失敗しました。");
+
     for (int i = 0; i < _draw_set_num; i++) {
         pMagic = pElem->_pValue;
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], _x+_width*i);
@@ -159,7 +131,7 @@ void MagicMeter::processDraw() {
     }
 
 
-    _pBoardSetModel->draw(this);
+    _pBoardSetModel->draw(this, _draw_set_num);
 }
 
 MagicMeter::~MagicMeter() {

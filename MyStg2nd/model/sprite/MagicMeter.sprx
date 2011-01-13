@@ -2,8 +2,8 @@ xof 0303txt 0032
 
 SpriteDef TurboMeter {
    64.0;
-   128.0;
+   16.0;
    "MagicMeter.png";
-   2;
+   16;
    4;
 } 
