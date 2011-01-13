@@ -15,7 +15,7 @@ GgafDx9PointSpriteModel::GgafDx9PointSpriteModel(char* prm_model_name) : GgafDx9
 }
 
 //•`‰æ
-HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
+HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_draw_set_num) {
     TRACE4("GgafDx9PointSpriteModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
 
     //‘ÎÛActor

@@ -115,7 +115,7 @@ void GgafDx9StringBoardActor::processDraw() {
             checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetV) ‚É¸”s‚µ‚Ü‚µ‚½B");
 
         }
-        _pBoardSetModel->draw(this);
+        _pBoardSetModel->draw(this, _draw_set_num);
     }
 }
 

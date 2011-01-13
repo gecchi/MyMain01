@@ -31,8 +31,7 @@ void GgafDx9CubeMapMeshSetActor::processDraw() {
     while (true) {
         if (_pNextDrawActor != NULL)  {
             if (_pNextDrawActor->_pGgafDx9Model == _pCubeMapMeshSetModel &&
-                _pNextDrawActor->_hash_technique == _hash_technique &&
-                _pNextDrawActor->isActive()
+                _pNextDrawActor->_hash_technique == _hash_technique
             ) {
                 _draw_set_num++;
                 if (_draw_set_num > _pCubeMapMeshSetModel->_set_num) {
@@ -69,7 +68,7 @@ void GgafDx9CubeMapMeshSetActor::processDraw() {
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
     }
-    _pCubeMapMeshSetModel->draw(this);
+    _pCubeMapMeshSetModel->draw(this, _draw_set_num);
 }
 
 GgafDx9CubeMapMeshSetActor::~GgafDx9CubeMapMeshSetActor() {

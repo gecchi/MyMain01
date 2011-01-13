@@ -49,8 +49,6 @@ public:
 
     /** 前回表示の同時描画したセット数（キャラクタ数）*/
     static int _draw_set_num_LastDraw;
-    /** 最大同時描画セット数（キャラクタ数）、現在は16キャラ同時描画可能 */
-    int _set_num;
 
     /** 頂点のFVF */
     static DWORD FVF;
@@ -98,7 +96,7 @@ public:
      * @param	prm_pActor_Target 描画するGgafDx9MeshSetActor
      * @return	HRESULT
      */
-    virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) override;
+    virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;
 

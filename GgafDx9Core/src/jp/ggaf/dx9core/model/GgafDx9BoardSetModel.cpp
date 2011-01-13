@@ -38,7 +38,7 @@ GgafDx9BoardSetModel::GgafDx9BoardSetModel(char* prm_model_name) : GgafDx9Model(
 }
 
 //描画
-HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
+HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_draw_set_num) {
     TRACE4("GgafDx9BoardSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
 
     //対象Actor
@@ -47,8 +47,6 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     GgafDx9BoardSetEffect* pBoardSetEffect = (GgafDx9BoardSetEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
-
-    int draw_set_num = pTargetActor->_draw_set_num;
 
     HRESULT hr;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
@@ -106,15 +104,15 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     }
     TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
     GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                    _paIndexParam[draw_set_num-1].BaseVertexIndex,
-                                                    _paIndexParam[draw_set_num-1].MinIndex,
-                                                    _paIndexParam[draw_set_num-1].NumVertices,
-                                                    _paIndexParam[draw_set_num-1].StartIndex,
-                                                    _paIndexParam[draw_set_num-1].PrimitiveCount);
+                                                    _paIndexParam[prm_draw_set_num-1].BaseVertexIndex,
+                                                    _paIndexParam[prm_draw_set_num-1].MinIndex,
+                                                    _paIndexParam[prm_draw_set_num-1].NumVertices,
+                                                    _paIndexParam[prm_draw_set_num-1].StartIndex,
+                                                    _paIndexParam[prm_draw_set_num-1].PrimitiveCount);
 
     //前回描画モデル保持
     GgafDx9ModelManager::_pModelLastDraw = this;
-    GgafDx9BoardSetModel::_draw_set_num_LastDraw = draw_set_num;
+    GgafDx9BoardSetModel::_draw_set_num_LastDraw = prm_draw_set_num;
     GgafDx9EffectManager::_pEffect_Active = pBoardSetEffect;
     GgafDx9DrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
     GgafGod::_num_actor_drawing++;

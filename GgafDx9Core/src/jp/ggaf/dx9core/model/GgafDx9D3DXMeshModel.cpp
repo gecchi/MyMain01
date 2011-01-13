@@ -14,7 +14,7 @@ GgafDx9D3DXMeshModel::GgafDx9D3DXMeshModel(char* prm_model_name, DWORD prm_dwOpt
     //で行うようにした。要参照。
 }
 
-HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
+HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_draw_set_num) {
     TRACE4("GgafDx9D3DXMeshModel::draw("<<prm_pActor_Target->getName()<<")");
 
     //対象アクター

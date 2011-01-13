@@ -36,8 +36,7 @@ void GgafDx9BoardSetActor::processDraw() {
     while (true) {
         if (_pNextDrawActor != NULL)  {
             if (_pNextDrawActor->_pGgafDx9Model == _pBoardSetModel &&
-                _pNextDrawActor->_hash_technique == _hash_technique &&
-                _pNextDrawActor->isActive()
+                _pNextDrawActor->_hash_technique == _hash_technique
             ) {
                 _draw_set_num++;
                 if (_draw_set_num > _pBoardSetModel->_set_num) {
@@ -83,7 +82,7 @@ void GgafDx9BoardSetActor::processDraw() {
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
     }
-    _pBoardSetModel->draw(this);
+    _pBoardSetModel->draw(this, _draw_set_num);
 }
 
 

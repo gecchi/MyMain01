@@ -21,7 +21,7 @@ GgafDx9BoardModel::GgafDx9BoardModel(char* prm_model_name) :
     //で行っている。
 }
 
-HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
+HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_draw_set_num) {
     TRACE4("GgafDx9BoardModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
     //TODO クリアするかどうか
     //GgafDx9God::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0x000000, 1.0, 0);

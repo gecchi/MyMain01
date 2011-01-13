@@ -14,7 +14,6 @@ class GgafDx9SpriteSetModel : public GgafDx9Model {
 protected:
 public:
     static int _draw_set_num_LastDraw;
-    int _set_num;
     struct INDEXPARAM {
         UINT MaterialNo;
         INT BaseVertexIndex;
@@ -64,7 +63,7 @@ public:
      * @param	prm_pActor_Target •`‰æ‚·‚éGgafDx9SpriteSetActor
      * @return	HRESULT
      */
-    virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) override;
+    virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
 
     virtual void restore() override;
 

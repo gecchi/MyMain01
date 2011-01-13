@@ -23,7 +23,7 @@ GgafDx9MeshModel::GgafDx9MeshModel(char* prm_model_name) : GgafDx9Model(prm_mode
 }
 
 //描画
-HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
+HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_draw_set_num) {
     //対象アクター
     //GgafDx9MeshActor* pTargetActor = (GgafDx9MeshActor*)prm_pActor_Target;
     GgafDx9DrawableActor* pTargetActor = prm_pActor_Target;

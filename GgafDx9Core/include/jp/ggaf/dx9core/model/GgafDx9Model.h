@@ -16,7 +16,8 @@ protected:
 public:
     /** [r]ID */
     int _id;
-
+    /** [r]最大可能同時描画セット数（キャラクタ数）*/
+    int _set_num;
     /** [r]モデル定義の識別名。(50文字まで) */
     char* _model_name;
 
@@ -58,7 +59,7 @@ public:
      * @param prm_pActor_Target 描画するモデルのアクター
      * @return HRESULT
      */
-    virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) = 0;
+    virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) = 0;
 
     /**
      * モデルを再構築します.

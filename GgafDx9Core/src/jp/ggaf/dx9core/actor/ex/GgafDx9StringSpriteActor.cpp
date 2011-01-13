@@ -120,7 +120,7 @@ void GgafDx9StringSpriteActor::processDraw() {
             checkDxException(hr, D3D_OK, "GgafDx9SpriteModel::draw() SetFloat(_hOffsetV) ‚É¸”s‚µ‚Ü‚µ‚½B");
 
         }
-        _pSpriteSetModel->draw(this);
+        _pSpriteSetModel->draw(this, _draw_set_num);
     }
 
 

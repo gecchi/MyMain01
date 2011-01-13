@@ -16,7 +16,7 @@ GgafDx9D3DXAniMeshModel::GgafDx9D3DXAniMeshModel(char* prm_model_name) : GgafDx9
     _Ang = 0.0f;
 }
 
-HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
+HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_draw_set_num) {
     TRACE4("GgafDx9D3DXAniMeshModel::draw("<<prm_pActor_Target->getName()<<")");
     //対象アクター
     GgafDx9D3DXAniMeshActor* pTargetActor = (GgafDx9D3DXAniMeshActor*)prm_pActor_Target;
