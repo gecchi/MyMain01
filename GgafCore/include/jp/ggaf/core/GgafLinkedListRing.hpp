@@ -44,7 +44,7 @@ namespace GgafCore {
 template<class T>
 class GgafLinkedListRing : public GgafObject {
 
-private:
+public:
 
     /**
      * 専用の要素値ラップクラス .
@@ -89,7 +89,6 @@ private:
         }
     };
 
-protected:
     /** [r]先頭要素 */
     Elem* _pElemFirst;
 
@@ -99,7 +98,6 @@ protected:
     /** [r]要素数 */
     int _num_elem;
 
-public:
     /**
      * コンストラクタ
      */
