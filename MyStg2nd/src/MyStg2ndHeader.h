@@ -459,7 +459,7 @@ class MagicMeter;
 
 #include "gecchi/actor/system/magic/MagicMeter.h"
 #include "gecchi/actor/system/magic/Magic.h"
-#include "gecchi/actor/system/magic/DefaultMagic.h"
+
 #include "gecchi/actor/system/magic/OptionMagic.h"
 #include "gecchi/actor/system/magic/LaserMagic.h"
 #include "gecchi/Properties.h"
