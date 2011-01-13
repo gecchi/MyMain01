@@ -47,8 +47,7 @@ void WallAABActor::processDraw() {
     while (true) {
         if (_pNextDrawActor != NULL)  {
             if (_pNextDrawActor->_pGgafDx9Model == _pMeshSetModel &&
-                _pNextDrawActor->_hash_technique == _hash_technique &&
-                _pNextDrawActor->isActive()
+                _pNextDrawActor->_hash_technique == _hash_technique
             ) {
                 _draw_set_num++;
                 if (_draw_set_num > _pMeshSetModel->_set_num) {
@@ -92,7 +91,7 @@ void WallAABActor::processDraw() {
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
     }
-    _pMeshSetModel->draw(this);
+    _pMeshSetModel->draw(this, _draw_set_num);
 }
 
 

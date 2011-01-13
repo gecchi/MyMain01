@@ -84,8 +84,8 @@ void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int p
 
          _pCollisionChecker->enable(0);
     }
-	HRESULT hr;
-	ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    HRESULT hr;
+    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     hr = pID3DXEffect->SetFloat(_h_wall_dep, 1.0*_wall_dep/LEN_UNIT/PX_UNIT/_fRate_BoundingSphereRadius);
     checkDxException(hr, D3D_OK, "WallAAPrismActor::WallAAPrismActor() SetInt(_h_wall_dep) ‚É¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_h_wall_height, 1.0*_wall_height/LEN_UNIT/PX_UNIT/_fRate_BoundingSphereRadius);
@@ -103,8 +103,7 @@ void WallAAPrismActor::processDraw() {
     while (true) {
         if (_pNextDrawActor != NULL)  {
             if (_pNextDrawActor->_pGgafDx9Model == _pMeshSetModel &&
-                _pNextDrawActor->_hash_technique == _hash_technique &&
-                _pNextDrawActor->isActive()
+                _pNextDrawActor->_hash_technique == _hash_technique
             ) {
                 _draw_set_num++;
                 if (_draw_set_num > _pMeshSetModel->_set_num) {
@@ -149,7 +148,7 @@ void WallAAPrismActor::processDraw() {
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
     }
-    _pMeshSetModel->draw(this);
+    _pMeshSetModel->draw(this, _draw_set_num);
 }
 
 

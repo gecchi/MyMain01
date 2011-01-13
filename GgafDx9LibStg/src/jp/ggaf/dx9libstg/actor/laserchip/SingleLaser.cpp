@@ -64,7 +64,7 @@ void SingleLaser::processDraw() {
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
         if (_pNextDrawActor != NULL)  {
-            if (_pNextDrawActor->_pGgafDx9Model == _pMeshSetModel && _pNextDrawActor->isActive()) {
+            if (_pNextDrawActor->_pGgafDx9Model == _pMeshSetModel) {
                 _draw_set_num++;
                 if (_draw_set_num > _pMeshSetModel->_set_num) {
                     _draw_set_num = _pMeshSetModel->_set_num;
@@ -107,7 +107,7 @@ void SingleLaser::processDraw() {
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
     // Zバッファ書き込み不可
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
-    _pMeshSetModel->draw(this);
+    _pMeshSetModel->draw(this, _draw_set_num);
     // Zバッファを有効に
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
     // Zバッファ書き込み可
