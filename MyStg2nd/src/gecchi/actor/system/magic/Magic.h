@@ -10,14 +10,26 @@ namespace MyStg2nd {
 
 class Magic : public GgafCore::GgafObject {
 public:
+    class LevelInfo {
+    public:
+        float _y;
+        float _z;
+        float _alpha;
+        int _pno;
+    };
     GgafDx9Core::GgafDx9GeometricActor* _pCaster;
     GgafDx9Core::GgafDx9GeometricActor* _pReceiver;
+
+    float _x;
+
     char* _name;
     /** レベル */
     int _level;
     int _prev_level;
     float _flevel;
     int _max_level;
+
+    LevelInfo _lvinfo[MMETER_MAX_LEVEL_Y];
 
     /** 現在のコスト */
     int _cost;

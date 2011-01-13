@@ -2,7 +2,7 @@
 #define OPTIONMAGIC_H_
 namespace MyStg2nd {
 
-class OptionMagic : public DefaultMagic {
+class OptionMagic : public Magic {
 
 public:
     OptionMagic(const char* prm_name);

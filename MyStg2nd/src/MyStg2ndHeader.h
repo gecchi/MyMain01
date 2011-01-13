@@ -457,11 +457,11 @@ class MagicMeter;
 #include "gecchi/actor/chikei/Torus/VarietyTorus004.h"
 
 
-
-#include "gecchi/magic/Magic.h"
-#include "gecchi/magic/DefaultMagic.h"
-#include "gecchi/magic/OptionMagic.h"
-#include "gecchi/magic/LaserMagic.h"
+#include "gecchi/actor/system/magic/MagicMeter.h"
+#include "gecchi/actor/system/magic/Magic.h"
+#include "gecchi/actor/system/magic/DefaultMagic.h"
+#include "gecchi/actor/system/magic/OptionMagic.h"
+#include "gecchi/actor/system/magic/LaserMagic.h"
 #include "gecchi/Properties.h"
 #include "gecchi/util/MyStgUtil.h"
 #include "gecchi/util/VamSysCamPosition.h"
@@ -479,6 +479,6 @@ class MagicMeter;
 
 #include "gecchi/actor/common/TestDispatcher.h"
 
-#include "gecchi/actor/system/MagicMeter.h"
+
 
 #endif /*MYSTG2NDHEADER_H_*/

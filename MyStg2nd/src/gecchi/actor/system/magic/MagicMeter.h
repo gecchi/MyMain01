@@ -4,7 +4,7 @@ namespace MyStg2nd {
 
 #define MMETER_MAX_LEVEL_Y 9
 
-class MagicMeter : public GgafDx9Core::GgafDx9BoardSetActor {
+class MagicMeter : public GgafDx9LibStg::DefaultBoardSetActor {
 
 public:
     D3DXHANDLE _h_active_magic;
