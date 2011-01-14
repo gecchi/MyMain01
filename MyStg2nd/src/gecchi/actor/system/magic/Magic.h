@@ -12,13 +12,13 @@ class Magic : public GgafCore::GgafObject {
 public:
     class LevelInfo {
     public:
-        float _y;
         float _z;
         float _alpha;
         int _pno;
     };
     GgafDx9Core::GgafDx9GeometricActor* _pCaster;
     GgafDx9Core::GgafDx9GeometricActor* _pReceiver;
+
 
     float _x;
 
@@ -52,6 +52,8 @@ public:
 
     void behave();
 
+    void incLevel();
+    void decLevel();
     void setLevel(int prm_new_level);
 
     virtual void cast() {

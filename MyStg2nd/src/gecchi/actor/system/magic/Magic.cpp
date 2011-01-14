@@ -20,7 +20,20 @@ Magic::Magic(const char* prm_name, int prm_max_level) : GgafObject() {
     _pReceiver = NULL;
 
 }
-
+void Magic::incLevel() {
+    if (_level == _max_level) {
+        return;
+    } else {
+        setLevel(_level+1);
+    }
+}
+void Magic::decLevel() {
+    if (_level == 0) {
+        return;
+    } else {
+        setLevel(_level-1);
+    }
+}
 void Magic::setLevel(int prm_new_level) {
     if (_level == prm_new_level) {
         return;
