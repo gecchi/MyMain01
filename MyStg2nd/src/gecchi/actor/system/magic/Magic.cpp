@@ -10,6 +10,7 @@ Magic::Magic(const char* prm_name, int prm_max_level) : GgafObject() {
 //     GgafDx9GeometricActor* prm_pReceiver) : GgafDx9BoardSetActor(prm_name, "magic") {
     _name = NEW char[20];
     strcpy(_name, prm_name);
+    _new_level = 0;
     _level = 0;
     _max_level = prm_max_level;
     _cost = 10000000;
@@ -20,42 +21,42 @@ Magic::Magic(const char* prm_name, int prm_max_level) : GgafObject() {
     _pReceiver = NULL;
 
 }
-void Magic::incLevel() {
-    if (_level == _max_level) {
-        return;
-    } else {
-        setLevel(_level+1);
-    }
-}
-void Magic::decLevel() {
-    if (_level == 0) {
-        return;
-    } else {
-        setLevel(_level-1);
-    }
-}
+
 void Magic::setLevel(int prm_new_level) {
     if (_level == prm_new_level) {
         return;
-    } else {
-        _velo_move_level = (_level-prm_new_level)*0.1;//10ƒtƒŒ‚Å
     }
-    _prev_level = _level;
-    _level = prm_new_level;
-    _flevel = _prev_level;
-    _is_move_level = true;
+    _new_level = prm_new_level;
+    _is_leveling = true;
+    if (_level < prm_new_level) {
+        cast();
+    } else {
+        abandon();
+    }
+}
+void Magic::cast() {
+    _dec_cost = _cost / _cast_speed;
+    _state = MAGIC_CASTING;
+    processCastBegin();
 }
 
+void Magic::invoke() {
+    _state = MAGIC_INVOKEING;
+    processInvokeBegin();
+}
+
+void Magic::expire() {
+    _state = MAGIC_EXPIRING;
+    processExpireBegin();
+}
+
+void Magic::abandon() {
+    _state = MAGIC_ABANDONING;
+    processAbandonBegin();
+}
 
 void Magic::behave() {
-    if (_is_move_level) {
-        _flevel += _velo_move_level;
-        if (_level < _flevel) {
-            _flevel = _level;
-            _is_move_level = false;
-        }
-    }
-    if (_pCaster->isActive() && _pReceiver->isActive() ) {
+    if (_is_leveling) {
         switch (_state) {
             case MAGIC_STAND_BY:
                 break;
@@ -78,20 +79,31 @@ void Magic::behave() {
             case MAGIC_EXPIRING:
                 processExpiringBehavior();
                 break;
+            case MAGIC_ABANDONING:
+                processAbandoningBehavior();
+                break;
             default :
                 _TRACE_("Magic::processBehavior ‚¨‚©‚µ‚¢‚Å‚·‚º _state="<<_state);
                 break;
-        }
-    } else {
-        if (_state != MAGIC_ABANDONING) {
-            abandon();
-        } else {
-            processAbandoningBehavior();
         }
     }
 
 }
 
+void Magic::cancel() {
+    _new_level = _level;
+    _is_leveling = false;
+    _state = MAGIC_STAND_BY;
+}
+
+void Magic::commit() {
+    if (_is_leveling) {
+        _level = _new_level;
+        _is_leveling = false;
+        _state = MAGIC_STAND_BY;
+    }
+}
 
 Magic::~Magic() {
+	DELETEARR_IMPOSSIBLE_NULL(_name);
 }

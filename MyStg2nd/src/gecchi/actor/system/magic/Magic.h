@@ -23,10 +23,9 @@ public:
     float _x;
 
     char* _name;
+    int _new_level;
     /** ƒŒƒxƒ‹ */
     int _level;
-    int _prev_level;
-    float _flevel;
     int _max_level;
 
     LevelInfo _lvinfo[MMETER_MAX_LEVEL_Y];
@@ -42,8 +41,7 @@ public:
 
     int _dec_cost;
 
-    float _velo_move_level;
-    boolean _is_move_level;
+    boolean _is_leveling;
 
 public:
     Magic(const char* prm_name, int prm_max_level);
@@ -52,30 +50,15 @@ public:
 
     void behave();
 
-    void incLevel();
-    void decLevel();
     void setLevel(int prm_new_level);
 
-    virtual void cast() {
-        _dec_cost = _cost / _cast_speed;
-        _state = MAGIC_INVOKEING;
-        processCastBegin();
-    }
+    virtual void cast();
 
-    virtual void invoke() {
-        _state = MAGIC_INVOKEING;
-        processInvokeBegin();
-    }
+    virtual void invoke();
 
-    virtual void expire() {
-        _state = MAGIC_EXPIRING;
-        processExpireBegin();
-    };
+    virtual void expire();
 
-    virtual void abandon() {
-         _state = MAGIC_ABANDONING;
-         processAbandonBegin();
-     };
+    virtual void abandon();
 
     virtual void processCastBegin() = 0;
 
@@ -93,7 +76,8 @@ public:
 
     virtual void processAbandoningBehavior() = 0;
 
-
+    virtual void commit();
+    virtual void cancel();
     virtual ~Magic();
 };
 

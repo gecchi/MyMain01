@@ -22,15 +22,23 @@ OptionMagic::OptionMagic(const char* prm_name) : Magic(prm_name, 8) {
 //    | 52,  53,  54,  55 |
 //    | 56,  57,  58,  59 |
 //    | 60,  61,  62,  63 |
-    _lvinfo[0]._pno = 63;
-    _lvinfo[1]._pno = 59;
-    _lvinfo[2]._pno = 55;
-    _lvinfo[3]._pno = 51;
-    _lvinfo[4]._pno = 47;
-    _lvinfo[5]._pno = 43;
-    _lvinfo[6]._pno = 39;
-    _lvinfo[7]._pno = 35;
-    _lvinfo[8]._pno = 31;
+    _lvinfo[0]._pno = 3;
+    _lvinfo[1]._pno = 61;
+    _lvinfo[2]._pno = 57;
+    _lvinfo[3]._pno = 53;
+    _lvinfo[4]._pno = 49;
+    _lvinfo[5]._pno = 45;
+    _lvinfo[6]._pno = 49;
+    _lvinfo[7]._pno = 45;
+    _lvinfo[8]._pno = 41;
+}
+void OptionMagic::processCastBegin() {
+    P_MYOPTIONCON->setNumOption(_new_level);
+    commit();
+}
+void OptionMagic::processAbandonBegin() {
+    P_MYOPTIONCON->setNumOption(_new_level);
+    commit();
 }
 
 OptionMagic::~OptionMagic() {

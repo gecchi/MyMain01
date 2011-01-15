@@ -20,28 +20,43 @@ void GgafDx9SeTransmitter::useSe(int prm_se_num) {
 }
 
 void GgafDx9SeTransmitter::set(int prm_id, const char* prm_se_name, int prm_cannel) {
+#ifdef MY_DEBUG
     if (_se_num <= 0) {
         throwGgafCriticalException("GgafDx9SeTransmitter::set() useSeで使用するSe数を事前に宣言してください。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
     if (prm_id < 0 || prm_id >= _se_num) {
         throwGgafCriticalException("GgafDx9SeTransmitter::set() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
+#endif
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
     _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection(idstr);
 }
 
-void GgafDx9SeTransmitter::play(int prm_id) {
+void GgafDx9SeTransmitter::playImmediately(int prm_id) {
+#ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _se_num) {
         throwGgafCriticalException("GgafDx9SeTransmitter::play() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
+#endif
+    _papSeCon[prm_id]->refer()->play(DSBVOLUME_MAX, DSBPAN_CENTER);
+}
+
+
+void GgafDx9SeTransmitter::play(int prm_id) {
+#ifdef MY_DEBUG
+    if (prm_id < 0 || prm_id >= _se_num) {
+        throwGgafCriticalException("GgafDx9SeTransmitter::play() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
+    }
+#endif
     P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
 }
 void GgafDx9SeTransmitter::play3D(int prm_id) {
+#ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _se_num) {
         throwGgafCriticalException("GgafDx9SeTransmitter::play3D() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
-
+#endif
     static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
     static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;

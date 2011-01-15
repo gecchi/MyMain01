@@ -7,28 +7,26 @@ class OptionMagic : public Magic {
 public:
     OptionMagic(const char* prm_name);
 
-    virtual void processCastBegin() {
+    virtual void processCastBegin() override;
+
+    virtual void processCastingBehavior() override {
     }
 
-    virtual void processCastingBehavior() {
+    virtual void processInvokeBegin() override {
     }
 
-    virtual void processInvokeBegin() {
+    virtual void processInvokeingBehavior() override {
     }
 
-    virtual void processInvokeingBehavior() {
+    virtual void processExpireBegin() override {
     }
 
-    virtual void processExpireBegin() {
+    virtual void processExpiringBehavior() override {
     }
 
-    virtual void processExpiringBehavior() {
-    }
+    virtual void processAbandonBegin() override;
 
-    virtual void processAbandonBegin() {
-    }
-
-    virtual void processAbandoningBehavior() {
+    virtual void processAbandoningBehavior() override {
     }
 
     virtual ~OptionMagic();

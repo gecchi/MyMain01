@@ -61,6 +61,7 @@ public:
 
     //void setTerget(angle prm_angRz_Target, angle prm_angRy_Target);
 
+    void setNumOption(int prm_num);
 
     virtual ~MyOptionController();
 

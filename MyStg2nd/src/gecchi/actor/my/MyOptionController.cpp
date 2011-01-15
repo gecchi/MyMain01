@@ -252,6 +252,30 @@ void MyOptionController::processBehavior() {
     _pRing_GeoHistory->next()->set(this);
 }
 
+void MyOptionController::setNumOption(int prm_num) {
+    _now_option_num = prm_num;
+    for (int i = 0; i < _max_option_num; i++) {
+        if (i >= _now_option_num) {
+            _papMyOption[i]->inactivate();
+        }
+        if (i < _now_option_num) {
+            _papMyOption[i]->activate();
+        }
+    }
+
+    if (_now_option_num <= 4) {
+        for (int i = 0; i < _now_option_num; i++) {
+            _papMyOption[i]->adjustAngPosition((ANGLE360/_now_option_num)*i,60);
+        }
+    } else if (_now_option_num > 4) {
+        for (int i = 0; i < 4; i++) {
+            _papMyOption[i]->adjustAngPosition((ANGLE360/4)*i, 60);
+        }
+        for (int i = 4; i < _now_option_num; i++) {
+            _papMyOption[i]->adjustAngPosition((ANGLE360/(_now_option_num-4))*(i-4), 60);
+        }
+    }
+}
 
 
 MyOptionController::~MyOptionController() {

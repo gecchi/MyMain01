@@ -88,7 +88,7 @@ void MyOptionLockonController::processJudgement() {
 void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
     if (_pRingTarget->indexOf(prm_pTarget) == -1) { //ロックオン済みに無ければ
 
-        if (_pRingTarget->length() >= MyOption::_max_lockon_num) {
+        if (_pRingTarget->length() >= MyOption::_lockon_num) {
             //ターゲットのリストが既に満員の場合
             //ロックオンターゲットローテート
             _pRingTarget->prev();

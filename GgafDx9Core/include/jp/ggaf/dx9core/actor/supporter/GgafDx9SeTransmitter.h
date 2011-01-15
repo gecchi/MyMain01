@@ -37,8 +37,15 @@ public:
      * @param prm_cannel ƒ`ƒƒƒ“ƒlƒ‹
      */
     void set(int prm_id, const char* prm_se_name, int prm_cannel = 1);
+
     /**
-     * SE‚ğÄ¶‚·‚éB
+     * ‘¦À‚ÉSE‚ğÄ¶‚·‚éB
+     * @param prm_id SE‚ÌID ( 0 ` SE”-1 )
+     */
+    void playImmediately(int prm_id);
+
+    /**
+     * SE‚ğÄ¶‚·‚é(‹[—‚RD–³‚µ)B
      * @param prm_id SE‚ÌID ( 0 ` SE”-1 )
      */
     void play(int prm_id);

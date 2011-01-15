@@ -7,8 +7,8 @@ using namespace MyStg2nd;
 
 
 /** １オプション当たりの最大可能ロックオン数 */
-int MyOption::_max_lockon_num = 9;
-
+int MyOption::_max_lockon_num = 7;
+int MyOption::_lockon_num = 1;
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
 MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMeshSetActor(prm_name, "4/Core4") {
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : CubeMapMeshSetActor(prm_name, "4/Core4_cm") {
@@ -382,6 +382,7 @@ void MyOption::processBehavior() {
                 //誤差修正のため理想位置に再設定
                 _angveloMove = ((1.0*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
                 _pMover->setMvVelo(_veloMv);
+                _pMover->setRzMvAng(GgafDx9Util::simplifyAng(_angPosition_base + ANGLE90));
                 _pMover->setRzMvAngVelo(_angveloMove);//∵半径Ｒ＝速度Ｖ／角速度ω
                 _Z = GgafDx9Util::COS[_angPosition_base/ANGLE_RATE]*_radiusPosition; //X軸中心回転なのでXYではなくてZY
                 _Y = GgafDx9Util::SIN[_angPosition_base/ANGLE_RATE]*_radiusPosition; //X軸の正の方向を向いて時計回りに配置

@@ -12,6 +12,7 @@ public:
     GgafCore::GgafLinkedListRing<Magic> _ringMagics;
 
     int _pos_pattern_no[MMETER_MAX_LEVEL_Y][8];
+    int* _paLevelCursor;
     float _width;
     float _height;
     MagicMeter(const char* prm_name);

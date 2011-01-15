@@ -40,6 +40,8 @@ public:
     int _no;
     /** [r]１オプション当たりの最大可能ロックオン数 */
     static int _max_lockon_num;
+    /** [r]１オプション当たりの現在可能ロックオン数 */
+    static int _lockon_num;
     /** [r]ロックオンコントローラー */
     MyOptionLockonController* _pLockonController;
     /** [r]魚雷コントローラー */
