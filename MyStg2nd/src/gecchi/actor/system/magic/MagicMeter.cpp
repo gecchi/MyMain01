@@ -50,7 +50,7 @@ MagicMeter::MagicMeter(const char* prm_name)
         _paLevelCursor[i] = _ringMagics.getNextFromFirst(i)->_level;
     }
     _pSeTransmitter->useSe(4);
-    _pSeTransmitter->set(0, "click07"); //メーター移動
+    _pSeTransmitter->set(0, "click07_2"); //メーター移動
     _pSeTransmitter->set(1, "G_EFC5");  //レベル移動
     _pSeTransmitter->set(2, "warp");  //決定
     _pSeTransmitter->set(3, "SwingA@11"); //キャンセル
@@ -70,7 +70,7 @@ void MagicMeter::processBehavior() {
         pElem->_pValue->behave();
         pElem = pElem->_pNext;
     }
-    _pSeTransmitter->behave();
+    //updatePanVolume3D しないため _pSeTransmitter->behave(); は不要
 }
 
 void MagicMeter::processJudgement() {
@@ -83,12 +83,16 @@ void MagicMeter::processJudgement() {
 
         if (VB_PLAY->isPushedDown(VB_RIGHT)) {
             _paLevelCursor[i] = pActiveMagic->_level;
+//            _pSeTransmitter->_papSeCon[0]->refer()->_pIDirectSoundBuffer->SetCurrentPosition(0);
+//            _pSeTransmitter->_papSeCon[0]->refer()->_pIDirectSoundBuffer->Play(0, 0, 0x00000000);
             _pSeTransmitter->playImmediately(0);
             pActiveMagic->rollClose();
             _ringMagics.next();
             _ringMagics.getCurrent()->rollOpen();
         } else if (VB_PLAY->isPushedDown(VB_LEFT)) {
             _paLevelCursor[i] = pActiveMagic->_level;
+//            _pSeTransmitter->_papSeCon[0]->refer()->_pIDirectSoundBuffer->SetCurrentPosition(0);
+//            _pSeTransmitter->_papSeCon[0]->refer()->_pIDirectSoundBuffer->Play(0, 0, 0x00000000);
             _pSeTransmitter->playImmediately(0);
             pActiveMagic->rollClose();
             _ringMagics.prev();

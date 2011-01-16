@@ -9,12 +9,12 @@ namespace GgafDx9Core {
  * @author Masatoshi Tsuge
  */
 class GgafDx9SeTransmitter : public GgafCore::GgafObject {
-
+public:
     /** SE‘Œ¹Ú‘± */
     GgafDx9SeConnection** _papSeCon;
 
 
-public:
+
     int _se_num;
     GgafDx9GeometricActor* _pActor;
     /**

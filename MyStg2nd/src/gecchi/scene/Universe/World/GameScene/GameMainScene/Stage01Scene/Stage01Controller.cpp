@@ -25,8 +25,8 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
 }
 
 void Stage01Controller::initialize() {
-    _pBgmPerformer->play(0, DSBVOLUME_MIN, true);
-    _pBgmPerformer->fadein(0, 420);
+//    _pBgmPerformer->play(0, DSBVOLUME_MIN, true);
+//    _pBgmPerformer->fadein(0, 420);
     _pProgress->change(STAGE01CONTROLLER_SCENE_PROG_INIT);
 }
 
