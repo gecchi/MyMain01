@@ -462,6 +462,9 @@ class MagicMeter;
 
 #include "gecchi/actor/system/magic/OptionMagic.h"
 #include "gecchi/actor/system/magic/LaserMagic.h"
+#include "gecchi/actor/system/magic/SpeedMagic.h"
+#include "gecchi/actor/system/magic/LockonMagic.h"
+#include "gecchi/actor/system/magic/TorpedoMagic.h"
 #include "gecchi/Properties.h"
 #include "gecchi/util/MyStgUtil.h"
 #include "gecchi/util/VamSysCamPosition.h"

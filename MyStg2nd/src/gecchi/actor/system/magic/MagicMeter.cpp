@@ -37,8 +37,14 @@ MagicMeter::MagicMeter(const char* prm_name)
 //    [4][6]  [5][6]  [6][6]  [7][6]
 //    [4][7]  [5][7]  [6][7]  [7][7]
 //
-    _ringMagics.addLast(NEW OptionMagic("OPTION"));
+
+    _ringMagics.addLast(NEW SpeedMagic("SPEED"));
+    _ringMagics.addLast(NEW LockonMagic("LOCKON"));
+    _ringMagics.addLast(NEW TorpedoMagic("TORPEDO"));
     _ringMagics.addLast(NEW LaserMagic("LASER"));
+    _ringMagics.addLast(NEW OptionMagic("OPTION"));
+
+
     _paLevelCursor = NEW int[_ringMagics.length()];
     for (int i = 0; i < _ringMagics.length(); i++) {
         _paLevelCursor[i] = _ringMagics.getNextFromFirst(i)->_level;
