@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-LockonMagic::LockonMagic(const char* prm_name) : Magic(prm_name, 2) {
+LockonMagic::LockonMagic(const char* prm_name) : Magic(prm_name, 5) {
     //    |  0,   1,   2,   3 |
     //    |  4,   5,   6,   7 |
     //    |  8,   9,  10,  11 |

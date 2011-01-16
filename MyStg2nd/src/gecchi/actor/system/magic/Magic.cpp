@@ -19,7 +19,14 @@ Magic::Magic(const char* prm_name, int prm_max_level) : GgafObject() {
     _state = MAGIC_STAND_BY;
     _pCaster = NULL;
     _pReceiver = NULL;
-
+    _rr = 0.0f;
+    _velo_rr = 0.0f;
+}
+void Magic::rollOpen() {
+    _velo_rr = 0.1;
+}
+void Magic::rollClose() {
+    _velo_rr = -0.02;
 }
 
 void Magic::setLevel(int prm_new_level) {
@@ -56,6 +63,15 @@ void Magic::abandon() {
 }
 
 void Magic::behave() {
+    _rr += _velo_rr;
+    if (_rr < 0.0f) {
+        _rr = 0.0f;
+        _velo_rr = 0.0f;
+    }
+    if (_rr > 1.0f) {
+        _rr = 1.0f;
+        _velo_rr = 0.0f;
+    }
     if (_is_leveling) {
         switch (_state) {
             case MAGIC_STAND_BY:

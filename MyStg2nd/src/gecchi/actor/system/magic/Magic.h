@@ -40,8 +40,9 @@ public:
     int _state;
 
     int _dec_cost;
-
     boolean _is_leveling;
+    float _rr;
+    float _velo_rr;
 
 public:
     Magic(const char* prm_name, int prm_max_level);
@@ -49,6 +50,9 @@ public:
 //          GgafDx9Core::GgafDx9GeometricActor* prm_pReceiver);
 
     void behave();
+
+    void rollOpen();
+    void rollClose();
 
     void setLevel(int prm_new_level);
 
