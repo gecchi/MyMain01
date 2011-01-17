@@ -34,7 +34,7 @@ public:
     virtual void processAbandonBegin() {
     }
 
-    virtual void processAbandoningBehavior() {
+    virtual void processOnAbandon(int prm_last_level) {
     }
 
     virtual ~SpeedMagic();

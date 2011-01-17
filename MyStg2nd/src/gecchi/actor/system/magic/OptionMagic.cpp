@@ -5,7 +5,12 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-OptionMagic::OptionMagic(const char* prm_name) : Magic(prm_name, 8) {
+OptionMagic::OptionMagic(const char* prm_name) : Magic(prm_name,
+                                                          8,          //max_level
+                                                          4*1000,     //cost_base
+                                                          5*60*60,  //time_of_casting_base
+                                                          1*60*60   //time_of_invoking
+                                                    ) {
 //    |  0,   1,   2,   3 |
 //    |  4,   5,   6,   7 |
 //    |  8,   9,  10,  11 |
@@ -31,11 +36,35 @@ OptionMagic::OptionMagic(const char* prm_name) : Magic(prm_name, 8) {
     _lvinfo[6]._pno = 49;
     _lvinfo[7]._pno = 45;
     _lvinfo[8]._pno = 41;
+
+    _lvinfo[0]._time_of_abandon = 300*60*60;
+    _lvinfo[1]._time_of_abandon = 300*60*60;
+    _lvinfo[2]._time_of_abandon = 300*60*60;
+    _lvinfo[3]._time_of_abandon = 300*60*60;
+    _lvinfo[4]._time_of_abandon = 300*60*60;
+    _lvinfo[5]._time_of_abandon = 300*60*60;
+    _lvinfo[6]._time_of_abandon = 300*60*60;
+    _lvinfo[7]._time_of_abandon = 300*60*60;
+    _lvinfo[8]._time_of_abandon = 300*60*60;
+
 }
 void OptionMagic::processCastBegin() {
+    _cast_speed = 1000;
+    if (_new_level > _level) {
+        _cost = _cost_base * (_new_level - _level) * 0.8 ; //‚QŠ„ˆø
+    } else {
+        _cost = -1.0f * _cost_base * (_level - _new_level) * 0.5;
+    }
+
+
     P_MYOPTIONCON->setNumOption(_new_level);
     commit();
 }
+
+void OptionMagic::processCastingBehavior() {
+
+}
+
 void OptionMagic::processAbandonBegin() {
     P_MYOPTIONCON->setNumOption(_new_level);
     commit();

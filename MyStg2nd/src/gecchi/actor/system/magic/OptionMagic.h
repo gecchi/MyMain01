@@ -15,8 +15,7 @@ public:
 
     virtual void processCastBegin() override;
 
-    virtual void processCastingBehavior() override {
-    }
+    virtual void processCastingBehavior() override;
 
     virtual void processInvokeBegin() override {
     }
@@ -32,7 +31,7 @@ public:
 
     virtual void processAbandonBegin() override;
 
-    virtual void processAbandoningBehavior() override {
+    virtual void processOnAbandon(int prm_last_level) override {
     }
 
     virtual ~OptionMagic();

@@ -74,6 +74,8 @@ void MagicMeter::processBehavior() {
 }
 
 void MagicMeter::processJudgement() {
+
+
     if (VB_PLAY->isBeingPressed(VB_POWERUP)) {
         Magic* pActiveMagic = _ringMagics.getCurrent();
         int i = _ringMagics.indexOf(pActiveMagic);
@@ -109,10 +111,14 @@ void MagicMeter::processJudgement() {
         int i = _ringMagics.indexOf(pActiveMagic);
         if (pActiveMagic->_level < _paLevelCursor[i]) {
             _pSeTransmitter->playImmediately(2);
-            pActiveMagic->setLevel(_paLevelCursor[i]);
+            if (pActiveMagic->setLevel(_paLevelCursor[i])) {
+                pActiveMagic->cast(); //レベルアップ魔法実行！
+            }
         } else if (pActiveMagic->_level > _paLevelCursor[i]) {
             _pSeTransmitter->playImmediately(3);
-            pActiveMagic->setLevel(_paLevelCursor[i]);
+            if (pActiveMagic->setLevel(_paLevelCursor[i])) {
+                pActiveMagic->cast(); //レベルダウン魔法実行！
+            }
         }
         pActiveMagic->rollClose();
     }
