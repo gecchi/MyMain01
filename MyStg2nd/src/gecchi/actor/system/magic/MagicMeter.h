@@ -4,6 +4,12 @@ namespace MyStg2nd {
 
 #define MMETER_MAX_LEVEL_Y 9
 
+/**
+ * 魔法メーター .
+ * @version 1.00
+ * @since 2011/01/11
+ * @author Masatoshi Tsuge
+ */
 class MagicMeter : public GgafDx9LibStg::DefaultBoardSetActor {
 
 public:

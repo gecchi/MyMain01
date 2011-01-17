@@ -5,6 +5,9 @@ namespace MyStg2nd  {
 
 /**
  * ï«ÉuÉçÉbÉNÇªÇÃÇP
+ * @version 1.00
+ * @since 2010/11/08
+ * @author Masatoshi Tsuge
  */
 class Wall001 : public GgafDx9LibStg::WallAABActor {
 public:

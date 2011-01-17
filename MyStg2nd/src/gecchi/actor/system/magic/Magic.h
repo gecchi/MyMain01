@@ -8,6 +8,12 @@ namespace MyStg2nd {
 #define MAGIC_EXPIRING 3
 #define MAGIC_ABANDONING 9
 
+/**
+ * íäè€ñÇñ@ÉNÉâÉX .
+ * @version 1.00
+ * @since 2009/05/19
+ * @author Masatoshi Tsuge
+ */
 class Magic : public GgafCore::GgafObject {
 public:
     class LevelInfo {
@@ -18,9 +24,6 @@ public:
     };
     GgafDx9Core::GgafDx9GeometricActor* _pCaster;
     GgafDx9Core::GgafDx9GeometricActor* _pReceiver;
-
-
-    float _x;
 
     char* _name;
     int _new_level;

@@ -2,6 +2,12 @@
 #define SPEEDMAGIC_H_
 namespace MyStg2nd {
 
+/**
+ * 魔法「スピード」 .
+ * @version 1.00
+ * @since 2011/01/16
+ * @author Masatoshi Tsuge
+ */
 class SpeedMagic : public Magic {
 
 public:

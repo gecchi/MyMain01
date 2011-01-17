@@ -2,6 +2,12 @@
 #define OPTIONMAGIC_H_
 namespace MyStg2nd {
 
+/**
+ * 魔法「オプション」 .
+ * @version 1.00
+ * @since 2009/05/20
+ * @author Masatoshi Tsuge
+ */
 class OptionMagic : public Magic {
 
 public:

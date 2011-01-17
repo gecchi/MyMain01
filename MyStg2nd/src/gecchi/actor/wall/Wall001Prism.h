@@ -4,7 +4,10 @@
 namespace MyStg2nd  {
 
 /**
- * 壁ブロックその１
+ * 壁ブロック(プリズム型)その１
+ * @version 1.00
+ * @since 2011/01/09
+ * @author Masatoshi Tsuge
  */
 class Wall001Prism : public GgafDx9LibStg::WallAAPrismActor {
 public:

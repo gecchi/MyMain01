@@ -2,6 +2,12 @@
 #define TORPEDOMAGIC_H_
 namespace MyStg2nd {
 
+/**
+ * –‚–@u‹›—‹v .
+ * @version 1.00
+ * @since 2011/01/16
+ * @author Masatoshi Tsuge
+ */
 class TorpedoMagic : public Magic {
 
 public:
