@@ -4,10 +4,10 @@
 namespace GgafDx9LibStg {
 
 /**
- * 外壁シーン(WalledSectionScene)の壁ブロック基底クラス .
- * 外壁シーン(WalledSectionScene)の構成要素の壁ブロックは本クラスを継承する必要がある。
+ * 外壁シーン(WalledSectionScene)の壁ブロック(プリズム型)基底クラス .
+ * 外壁シーン(WalledSectionScene)の構成要素の壁ブロック(プリズム型)は本クラスを継承する必要がある。
  * @version 1.00
- * @since 2010/10/18
+ * @since 2011/01/09
  * @author Masatoshi Tsuge
  */
 class WallAAPrismActor : public WallActor {
