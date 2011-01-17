@@ -114,42 +114,50 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
     static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
     static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
-    GgafDx9Camera* pCam = P_CAM;
-    //距離計算
-    //遅延なし、音量100％の場所をP_CAMの場所とする
-    //自身とP_CAMの距離
-    int DX = (pCam->_X - _pActor->_X) / LEN_UNIT;
-    int DY = (pCam->_Y - _pActor->_Y) / LEN_UNIT;
-    int DZ = (pCam->_Z - _pActor->_Z) / LEN_UNIT;
-
-    //備忘録
-    //例えば消滅時の爆発だった場合、_pActor->_X みたいに、消滅後も値を参照したい。
-    //そこで GGAF_SAYONARA_DELAY が重要になっている
-
-    double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
-    LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT))) * VOLUME_RANGE_3D);
-    if (VOLUME_MAX_3D < vol) {
-        vol = VOLUME_MAX_3D;
-    } else if (VOLUME_MIN_3D > vol) {
-        vol = VOLUME_MIN_3D;
-    }
-
-    float fDist_VpVerticalCenter  =
-            pCam->_plnVerticalCenter.a*_pActor->_fX +
-            pCam->_plnVerticalCenter.b*_pActor->_fY +
-            pCam->_plnVerticalCenter.c*_pActor->_fZ +
-            pCam->_plnVerticalCenter.d;
-    angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
-    LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
+    LONG pan, vol;
+    bool calc_flg = true;
     for (int i = 0; i < _se_num; i++) {
-        _papSeCon[i]->refer()->setPan(pan);
-        _papSeCon[i]->refer()->setVolume(vol);
-    }
+        if (_papSeCon[i]->refer()->isPlaying()) {
+            if (calc_flg) {
+                calc_flg = false;
+                GgafDx9Camera* pCam = P_CAM;
+                //距離計算
+                //遅延なし、音量100％の場所をP_CAMの場所とする
+                //自身とP_CAMの距離
+                int DX = (pCam->_X - _pActor->_X) / LEN_UNIT;
+                int DY = (pCam->_Y - _pActor->_Y) / LEN_UNIT;
+                int DZ = (pCam->_Z - _pActor->_Z) / LEN_UNIT;
 
+                //備忘録
+                //例えば消滅時の爆発だった場合、_pActor->_X みたいに、消滅後も値を参照したい。
+                //そこで GGAF_SAYONARA_DELAY が重要になっている
+
+                double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
+                vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT))) * VOLUME_RANGE_3D);
+                if (VOLUME_MAX_3D < vol) {
+                    vol = VOLUME_MAX_3D;
+                } else if (VOLUME_MIN_3D > vol) {
+                    vol = VOLUME_MIN_3D;
+                }
+
+                float fDist_VpVerticalCenter  =
+                        pCam->_plnVerticalCenter.a*_pActor->_fX +
+                        pCam->_plnVerticalCenter.b*_pActor->_fY +
+                        pCam->_plnVerticalCenter.c*_pActor->_fZ +
+                        pCam->_plnVerticalCenter.d;
+                angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
+                pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
+            }
+            _papSeCon[i]->refer()->setPan(pan);
+            _papSeCon[i]->refer()->setVolume(vol);
+        }
+    }
 }
 
 void GgafDx9SeTransmitter::behave() {
-    updatePanVolume3D();
+    if (_pActor->_frame_of_life % 5 == 0) {
+        updatePanVolume3D();
+    }
 }
 
 GgafDx9SeTransmitter::~GgafDx9SeTransmitter() {

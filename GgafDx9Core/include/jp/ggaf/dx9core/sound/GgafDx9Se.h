@@ -64,6 +64,9 @@ public:
         play(DSBVOLUME_MAX, DSBPAN_CENTER);
     }
 
+    bool isPlaying();
+
+
     void setVolume(int prm_iVolume);
 
     void setPan(int prm_iPan);

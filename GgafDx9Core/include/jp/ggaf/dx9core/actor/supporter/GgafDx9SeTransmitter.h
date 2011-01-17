@@ -67,7 +67,8 @@ public:
 
     /**
      * 毎フレームの処理 .
-     * updatePanVolume3D() を呼び出しを行っている .
+     * updatePanVolume3D() を呼び出しを行っている。
+     * play3D()を使用していないのであれば、呼び出す必要はない。
      */
     void behave();
 

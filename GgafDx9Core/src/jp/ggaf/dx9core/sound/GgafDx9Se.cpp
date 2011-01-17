@@ -139,6 +139,15 @@ int GgafDx9Se::restore(void) {
     return true;
 }
 
+bool GgafDx9Se::isPlaying() {
+    DWORD dwStatus = 0;
+    _pIDirectSoundBuffer->GetStatus( &dwStatus );
+    if( dwStatus & DSBSTATUS_PLAYING ) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 
 GgafDx9Se::~GgafDx9Se() {
