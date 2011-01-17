@@ -61,6 +61,14 @@ void WallActor::processJudgement() {
         sayonara();
     }
 }
+
+void WallActor::processPreDraw() {
+    if (_wall_draw_face > 0) {
+        //•`‰æ–Ê‚ª‚ ‚éê‡‚Í•\¦‘ÎÛ‚É‚·‚é
+        GgafDx9DrawableActor::processPreDraw();
+    }
+}
+
 bool WallActor::isOutOfUniverse() {
     if (GgafDx9Universe::_X_goneLeft < _X) {
         return false;

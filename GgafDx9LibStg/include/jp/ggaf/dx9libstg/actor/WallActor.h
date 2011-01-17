@@ -70,6 +70,8 @@ public:
 
     virtual void processJudgement() override;
 
+    virtual void processPreDraw() override;
+
     virtual bool isOutOfUniverse() override;
 
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {

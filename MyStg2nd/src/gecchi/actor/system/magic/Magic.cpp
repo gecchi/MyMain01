@@ -69,7 +69,7 @@ void Magic::expire() {
 }
 
 void Magic::abandon(int prm_last_level) {
-    _lvinfo[i]._is_working = false;
+    _lvinfo[prm_last_level]._is_working = false;
     processOnAbandon(prm_last_level);
 }
 

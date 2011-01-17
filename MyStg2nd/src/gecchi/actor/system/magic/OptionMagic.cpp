@@ -8,8 +8,8 @@ using namespace MyStg2nd;
 OptionMagic::OptionMagic(const char* prm_name) : Magic(prm_name,
                                                           8,          //max_level
                                                           4*1000,     //cost_base
-                                                          5*60*60,  //time_of_casting_base
-                                                          1*60*60   //time_of_invoking
+                                                          5*60*60,    //time_of_casting_base
+                                                          1*60*60     //time_of_invoking
                                                     ) {
 //    |  0,   1,   2,   3 |
 //    |  4,   5,   6,   7 |
@@ -49,7 +49,7 @@ OptionMagic::OptionMagic(const char* prm_name) : Magic(prm_name,
 
 }
 void OptionMagic::processCastBegin() {
-    _cast_speed = 1000;
+    _cast_speed = 60;
     if (_new_level > _level) {
         _cost = _cost_base * (_new_level - _level) * 0.8 ; //‚QŠ„ˆø
     } else {
@@ -65,7 +65,7 @@ void OptionMagic::processCastingBehavior() {
 
 }
 
-void OptionMagic::processAbandonBegin() {
+void OptionMagic::processOnAbandon(int prm_last_level) {
     P_MYOPTIONCON->setNumOption(_new_level);
     commit();
 }

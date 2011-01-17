@@ -13,28 +13,25 @@ class LockonMagic : public Magic {
 public:
     LockonMagic(const char* prm_name);
 
-    virtual void processCastBegin() {
+    virtual void processCastBegin() override {
     }
 
-    virtual void processCastingBehavior() {
+    virtual void processCastingBehavior() override {
     }
 
-    virtual void processInvokeBegin() {
+    virtual void processInvokeBegin() override {
     }
 
-    virtual void processInvokeingBehavior() {
+    virtual void processInvokeingBehavior() override {
     }
 
-    virtual void processExpireBegin() {
+    virtual void processExpireBegin() override {
     }
 
-    virtual void processExpiringBehavior() {
+    virtual void processExpiringBehavior() override {
     }
 
-    virtual void processAbandonBegin() {
-    }
-
-    virtual void processOnAbandon(int prm_last_level) {
+    virtual void processOnAbandon(int prm_last_level) override {
     }
 
     virtual ~LockonMagic();

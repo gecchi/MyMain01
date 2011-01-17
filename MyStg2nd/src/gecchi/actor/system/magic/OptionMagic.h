@@ -29,10 +29,8 @@ public:
     virtual void processExpiringBehavior() override {
     }
 
-    virtual void processAbandonBegin() override;
-
-    virtual void processOnAbandon(int prm_last_level) override {
-    }
+    virtual void processOnAbandon(int prm_last_level) override;
+    
 
     virtual ~OptionMagic();
 };
