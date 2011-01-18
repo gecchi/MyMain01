@@ -214,18 +214,41 @@ void LaserChip::processJudgement() {
 
 
 void LaserChip::processDraw() {
-    //_TRACE_("LaserChip::processDraw()st "<<getName()<<" bump="<<canHit());
-    _draw_set_num = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
-    GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
+
+    _draw_set_num = 0; //GgafDx9MeshSetActorの同じモデルで同じテクニックが
+                       //連続しているカウント数。同一描画深度は一度に描画する。
+    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+    HRESULT hr;
+    //基本モデル頂点数
+    GgafDx9DrawableActor* pDrawActor = this;
+    LaserChip* pLaserChip;
     while (true) {
-        if (_pNextDrawActor != NULL)  {
-            if (_pNextDrawActor->_pGgafDx9Model == _pMeshSetModel) {
+        if (pDrawActor)  {
+            if (pDrawActor->_pGgafDx9Model == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+                pLaserChip = (LaserChip*)pDrawActor;
+
+                hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[_draw_set_num], &(pLaserChip->_matWorld));
+                checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+
+                if (pLaserChip->_pChip_front != NULL) {
+                    hr = pID3DXEffect->SetInt(this->_ahKind[_draw_set_num], pLaserChip->_chip_kind);
+                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
+                    hr = pID3DXEffect->SetMatrix(this->_ah_matWorld_front[_draw_set_num], &(pLaserChip->_pChip_front->_matWorld));
+                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matWorld_front) に失敗しました。1");
+                } else {
+                    hr = pID3DXEffect->SetInt(this->_ahKind[_draw_set_num], pLaserChip->_chip_kind);
+                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
+                    hr = pID3DXEffect->SetMatrix(this->_ah_matWorld_front[_draw_set_num], &(pLaserChip->_matWorld) ); //先頭がないので自信の_matWorld
+                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matWorld_front) に失敗しました。2");
+                }
+                //もしここらへんで意味不明なエラーになったら、
+                //GgafDx9SpriteLaserChipActorの[MEMO]を読み直せ！
+
                 _draw_set_num++;
-                if (_draw_set_num > _pMeshSetModel->_set_num) {
-                    _draw_set_num = _pMeshSetModel->_set_num;
+                if (_draw_set_num >= _pMeshSetModel->_set_num) {
                     break;
                 }
-                _pNextDrawActor= _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
+                pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
             } else {
                 break;
             }
@@ -233,57 +256,82 @@ void LaserChip::processDraw() {
             break;
         }
     }
-    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
-
-    HRESULT hr;
-    //VIEW変換行列
-//    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_h_matView, &P_CAM->_vMatrixView);
-//    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matView) に失敗しました。");
-
-    LaserChip *pDrawLaserChipActor;
-    pDrawLaserChipActor = this;
-
-    for (int i = 0; i < _draw_set_num; i++) {
-        hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[i], &(pDrawLaserChipActor->_matWorld));
-        checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-
-        if (pDrawLaserChipActor->_pChip_front != NULL) {
-            //テクスチャ種類
-            hr = pID3DXEffect->SetInt(this->_ahKind[i], pDrawLaserChipActor->_chip_kind);
-            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
-            hr = pID3DXEffect->SetMatrix(this->_ah_matWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
-            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matWorld_front) に失敗しました。1");
-        } else {
-            //テクスチャ種類
-            hr = pID3DXEffect->SetInt(this->_ahKind[i], pDrawLaserChipActor->_chip_kind);
-            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
-            hr = pID3DXEffect->SetMatrix(this->_ah_matWorld_front[i], &(pDrawLaserChipActor->_matWorld) ); //先頭がないので自信の_matWorld
-            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matWorld_front) に失敗しました。2");
-        }
-        //このキャストは危険である
-        pDrawLaserChipActor = (LaserChip*)(pDrawLaserChipActor -> _pNext_TheSameDrawDepthLevel);
-        //もしここらへんで意味不明なエラーになったら、
-        //GgafDx9SpriteMeshSetActorの[MEMO]を読み直せ！
-
-        if (i > 0) {
-            //アクティブを進める
-            GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
-        }
-    }
-
-    //Zバッファは考慮して描画するが、Zバッファは書き込まない。
-    // Zバッファを無効に
-    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    // Zバッファ書き込み不可
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
-
+    GgafDx9Universe::_pActor_DrawActive = pLaserChip; //描画セットの最後アクターをセット
     _pMeshSetModel->draw(this, _draw_set_num);
 
-    // Zバッファを有効に
-    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    // Zバッファ書き込み可
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-    //_TRACE_("LaserChip::processDraw()ed "<<getName()<<" bump="<<canHit());
+/////////////////////////////////////////////////////////////////
+//
+//
+//    //_TRACE_("LaserChip::processDraw()st "<<getName()<<" bump="<<canHit());
+//    _draw_set_num = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
+//    GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
+//    while (true) {
+//        if (_pNextDrawActor != NULL)  {
+//            if (_pNextDrawActor->_pGgafDx9Model == _pMeshSetModel) {
+//                _draw_set_num++;
+//                if (_draw_set_num > _pMeshSetModel->_set_num) {
+//                    _draw_set_num = _pMeshSetModel->_set_num;
+//                    break;
+//                }
+//                _pNextDrawActor= _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
+//            } else {
+//                break;
+//            }
+//        } else {
+//            break;
+//        }
+//    }
+//    ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
+//
+//    HRESULT hr;
+//    //VIEW変換行列
+////    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_h_matView, &P_CAM->_vMatrixView);
+////    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matView) に失敗しました。");
+//
+//    LaserChip *pDrawLaserChipActor;
+//    pDrawLaserChipActor = this;
+//
+//    for (int i = 0; i < _draw_set_num; i++) {
+//        hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[i], &(pDrawLaserChipActor->_matWorld));
+//        checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+//
+//        if (pDrawLaserChipActor->_pChip_front != NULL) {
+//            //テクスチャ種類
+//            hr = pID3DXEffect->SetInt(this->_ahKind[i], pDrawLaserChipActor->_chip_kind);
+//            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
+//            hr = pID3DXEffect->SetMatrix(this->_ah_matWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
+//            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matWorld_front) に失敗しました。1");
+//        } else {
+//            //テクスチャ種類
+//            hr = pID3DXEffect->SetInt(this->_ahKind[i], pDrawLaserChipActor->_chip_kind);
+//            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
+//            hr = pID3DXEffect->SetMatrix(this->_ah_matWorld_front[i], &(pDrawLaserChipActor->_matWorld) ); //先頭がないので自信の_matWorld
+//            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matWorld_front) に失敗しました。2");
+//        }
+//        //このキャストは危険である
+//        pDrawLaserChipActor = (LaserChip*)(pDrawLaserChipActor -> _pNext_TheSameDrawDepthLevel);
+//        //もしここらへんで意味不明なエラーになったら、
+//        //GgafDx9SpriteMeshSetActorの[MEMO]を読み直せ！
+//
+//        if (i > 0) {
+//            //アクティブを進める
+//            GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
+//        }
+//    }
+//
+//    //Zバッファは考慮して描画するが、Zバッファは書き込まない。
+//    // Zバッファを無効に
+//    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+//    // Zバッファ書き込み不可
+////    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+//
+//    _pMeshSetModel->draw(this, _draw_set_num);
+//
+//    // Zバッファを有効に
+//    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+//    // Zバッファ書き込み可
+////    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+//    //_TRACE_("LaserChip::processDraw()ed "<<getName()<<" bump="<<canHit());
 }
 
 void LaserChip::drawHitArea() {

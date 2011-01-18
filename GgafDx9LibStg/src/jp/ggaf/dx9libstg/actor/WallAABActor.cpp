@@ -51,12 +51,12 @@ void WallAABActor::processDraw() {
         hr = pID3DXEffect->SetFloat(_h_distance_AlphaTarget, -100.0f);
         checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
-    GgafDx9DrawableActor* _pDrawActor = this;
+    GgafDx9DrawableActor* pDrawActor = this;
     WallActor* pWallActor;
     while (true) {
-        if (_pDrawActor)  {
-            if (_pDrawActor->_pGgafDx9Model == _pMeshSetModel && _pDrawActor->_hash_technique == _hash_technique) {
-                pWallActor = (WallActor*)_pDrawActor;
+        if (pDrawActor)  {
+            if (pDrawActor->_pGgafDx9Model == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+                pWallActor = (WallActor*)pDrawActor;
                 pWallActor->_matWorld._14 = pWallActor->_wall_draw_face;  //•`‰æ–Ê”Ô†‚ðƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ÌmatWorld._14 ‚É–„‚ßž‚Þ
                 hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[_draw_set_num], &(pWallActor->_matWorld));
                 checkDxException(hr, D3D_OK, "WallActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -64,7 +64,7 @@ void WallAABActor::processDraw() {
                 if (_draw_set_num >= _pMeshSetModel->_set_num) {
                     break;
                 }
-                _pDrawActor = _pDrawActor->_pNext_TheSameDrawDepthLevel;
+                pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
             } else {
                 break;
             }
