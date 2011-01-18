@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class LockonMagic : public Magic {
 
 public:
-    LockonMagic(const char* prm_name);
+    LockonMagic(const char* prm_name, MagicMeter* prm_pMagicMeter);
 
     virtual void processCastBegin() override {
     }

@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class TorpedoMagic : public Magic {
 
 public:
-    TorpedoMagic(const char* prm_name);
+    TorpedoMagic(const char* prm_name, MagicMeter* prm_pMagicMeter);
 
     virtual void processCastBegin() override {
     }

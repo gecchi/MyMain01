@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class SpeedMagic : public Magic {
 
 public:
-    SpeedMagic(const char* prm_name);
+    SpeedMagic(const char* prm_name, MagicMeter* prm_pMagicMeter);
 
     virtual void processCastBegin() override {
     }

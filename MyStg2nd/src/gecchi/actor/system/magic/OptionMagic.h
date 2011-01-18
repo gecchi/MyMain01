@@ -11,26 +11,25 @@ namespace MyStg2nd {
 class OptionMagic : public Magic {
 
 public:
-    OptionMagic(const char* prm_name);
+    GgafDx9Core::GgafDx9DrawableActor** _papEffect;
+    float _r_effect;
+    int _old_level;
+    OptionMagic(const char* prm_name, MagicMeter* prm_pMagicMeter);
 
     virtual void processCastBegin() override;
 
     virtual void processCastingBehavior() override;
 
-    virtual void processInvokeBegin() override {
-    }
+    virtual void processInvokeBegin() override;
 
-    virtual void processInvokeingBehavior() override {
-    }
+    virtual void processInvokeingBehavior() override;
 
-    virtual void processExpireBegin() override {
-    }
+    virtual void processExpireBegin() override;
 
-    virtual void processExpiringBehavior() override {
-    }
+    virtual void processExpiringBehavior() override;
 
     virtual void processOnAbandon(int prm_last_level) override;
-    
+
 
     virtual ~OptionMagic();
 };

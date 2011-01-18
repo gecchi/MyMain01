@@ -6,6 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 Magic::Magic(const char*      prm_name,
+                 MagicMeter*  prm_pMagicMeter,
                  int          prm_max_level,
                  magic_point  prm_cost_base,
                  magic_time   prm_time_of_casting_base,
@@ -14,7 +15,7 @@ Magic::Magic(const char*      prm_name,
 //     GgafDx9GeometricActor* prm_pReceiver) : GgafDx9BoardSetActor(prm_name, "magic") {
     _name = NEW char[20];
     strcpy(_name, prm_name);
-
+    _pMagicMeter = prm_pMagicMeter;
     _new_level = 0;
     _level = 0;
     _max_level = prm_max_level;

@@ -38,11 +38,11 @@ MagicMeter::MagicMeter(const char* prm_name)
 //    [4][7]  [5][7]  [6][7]  [7][7]
 //
 
-    _ringMagics.addLast(NEW SpeedMagic("SPEED"));
-    _ringMagics.addLast(NEW LockonMagic("LOCKON"));
-    _ringMagics.addLast(NEW TorpedoMagic("TORPEDO"));
-    _ringMagics.addLast(NEW LaserMagic("LASER"));
-    _ringMagics.addLast(NEW OptionMagic("OPTION"));
+    _ringMagics.addLast(NEW SpeedMagic("SPEED", this));
+    _ringMagics.addLast(NEW LockonMagic("LOCKON", this));
+    _ringMagics.addLast(NEW TorpedoMagic("TORPEDO", this));
+    _ringMagics.addLast(NEW LaserMagic("LASER", this));
+    _ringMagics.addLast(NEW OptionMagic("OPTION", this));
 
 
     _paLevelCursor = NEW int[_ringMagics.length()];

@@ -30,7 +30,7 @@ public:
     GgafDx9Core::GgafDx9GeometricActor* _pReceiver;
 
     char* _name;
-
+    MagicMeter*  _pMagicMeter;
     int _new_level;
     /** ƒŒƒxƒ‹ */
     int _level;
@@ -66,6 +66,7 @@ public:
 
 public:
     Magic(const char* prm_name,
+          MagicMeter* prm_pMagicMeter,
                 int   prm_max_level,
                 int   prm_cost_base,
                 int   prm_time_of_casting_base,

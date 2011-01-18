@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-OptionMagic::OptionMagic(const char* prm_name) : Magic(prm_name,
+OptionMagic::OptionMagic(const char* prm_name, MagicMeter* prm_pMagicMeter) : Magic(prm_name, prm_pMagicMeter,
                                                           8,          //max_level
                                                           4*1000,     //cost_base
                                                           5*60*60,    //time_of_casting_base
@@ -46,7 +46,12 @@ OptionMagic::OptionMagic(const char* prm_name) : Magic(prm_name,
     _lvinfo[6]._time_of_abandon = 300*60*60;
     _lvinfo[7]._time_of_abandon = 300*60*60;
     _lvinfo[8]._time_of_abandon = 300*60*60;
-
+    _papEffect = NEW GgafDx9DrawableActor*[8];
+    for (int i = 0; i < 8; i++) {
+        _papEffect[i] = NEW EffectLaserRefraction001("EF");
+        _papEffect[i]->inactivateImmediately();
+        _pMagicMeter->addSubGroup(_papEffect[i]);
+    }
 }
 void OptionMagic::processCastBegin() {
     _cast_speed = 60;
@@ -56,13 +61,49 @@ void OptionMagic::processCastBegin() {
         _cost = -1.0f * _cost_base * (_level - _new_level) * 0.5;
     }
 
+    _old_level = _level;
+    for (int i = _old_level; i < _new_level; i++) {
+        _papEffect[i]->activate();
+        _papEffect[i]->setAlpha(0.9);
+    }
+    _r_effect = 0.01;
+}
 
+void OptionMagic::processCastingBehavior() {
+    for (int i = _old_level; i < _new_level; i++) {
+        _r_effect += 0.03;
+        _papEffect[i]->setScaleRate(_r_effect);
+        _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
+    }
+}
+
+void OptionMagic::processInvokeBegin() {
+
+}
+
+void OptionMagic::processInvokeingBehavior()  {
+    for (int i = _old_level; i < _new_level; i++) {
+        _r_effect += 0.1;
+        _papEffect[i]->setScaleRate(_r_effect);
+        _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
+    }
+}
+
+void OptionMagic::processExpireBegin()  {
+    _r_effect += 1.0;
     P_MYOPTIONCON->setNumOption(_new_level);
     commit();
 }
 
-void OptionMagic::processCastingBehavior() {
-
+void OptionMagic::processExpiringBehavior() {
+    for (int i = _old_level; i < _new_level; i++) {
+        _r_effect -= 0.02;
+        _papEffect[i]->setAlpha(_r_effect);
+        if (_r_effect < 0) {
+            _papEffect[i]->inactivate();
+        }
+        _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
+    }
 }
 
 void OptionMagic::processOnAbandon(int prm_last_level) {
@@ -71,4 +112,6 @@ void OptionMagic::processOnAbandon(int prm_last_level) {
 }
 
 OptionMagic::~OptionMagic() {
+    DELETEARR_IMPOSSIBLE_NULL(_papEffect);
+
 }

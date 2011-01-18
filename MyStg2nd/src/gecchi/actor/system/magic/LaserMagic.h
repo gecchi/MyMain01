@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class LaserMagic : public Magic {
 
 public:
-    LaserMagic(const char* prm_name);
+    LaserMagic(const char* prm_name, MagicMeter* prm_pMagicMeter);
 
     virtual void processCastBegin() override {
     }
