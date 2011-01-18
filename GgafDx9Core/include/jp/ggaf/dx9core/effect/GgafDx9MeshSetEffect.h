@@ -20,7 +20,6 @@ public:
     D3DXHANDLE _ah_materialDiffuse[19];
     D3DXHANDLE _ahOffsetU[19];
     D3DXHANDLE _ahOffsetV[19];
-    D3DXHANDLE _h_vertexs_num;
 
 public:
     /**

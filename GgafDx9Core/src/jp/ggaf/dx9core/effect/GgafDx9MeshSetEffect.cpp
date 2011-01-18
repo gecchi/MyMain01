@@ -116,7 +116,6 @@ GgafDx9MeshSetEffect::GgafDx9MeshSetEffect(char* prm_effect_name) : GgafDx9Effec
 //    _ahOffsetV[19] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV020" );
 
 
-    _h_vertexs_num = _pID3DXEffect->GetParameterByName( NULL, "g_vertexs_num" );
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
 }
