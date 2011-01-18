@@ -54,7 +54,7 @@ void Shot001::onHit(GgafActor* prm_pOtherActor) {
         //・・・ココに破壊されたエフェクト
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         _pSeTransmitter->play3D(0);
-        if (pExplo001 != NULL) {
+        if (pExplo001) {
             pExplo001->activate();
             pExplo001->setCoordinateBy(this);
         }

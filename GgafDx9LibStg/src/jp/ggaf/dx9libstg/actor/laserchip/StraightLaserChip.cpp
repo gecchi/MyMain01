@@ -52,7 +52,7 @@ void StraightLaserChip::processBehavior() {
 /*
     //’†ŠÔ’n“_‚É‚à“–‚½‚è”»’è
     static int centerX, centerY, centerZ;
-    if (_pChip_front != NULL) {
+    if (_pChip_front) {
       centerX = (_X - _pChip_front->_X) / 2;
       centerY = (_Y - _pChip_front->_Y) / 2;
       centerZ = (_Z - _pChip_front->_Z) / 2;

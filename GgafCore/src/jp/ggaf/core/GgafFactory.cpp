@@ -33,7 +33,7 @@ void GgafFactory::order(unsigned long prm_id,
     //既に注文していないかチェック
     GgafOrder* pOrder;
     pOrder = ROOT_ORDER;
-    while (pOrder != NULL) {
+    while (pOrder) {
         if (pOrder->_id == prm_id) {
             _TRACE_("＜警告＞ GgafFactory::order [" << prm_id << "]は、既に注文してるのでスルーします。意図していなければオカシイですよ！");
             return;
@@ -165,7 +165,7 @@ void* GgafFactory::obtain(unsigned long prm_id) {
             }
         }
     }
-    if (GgafGod::_pException_Factory != NULL) {
+    if (GgafGod::_pException_Factory) {
         throw *(GgafGod::_pException_Factory);
     }
     return NULL;
@@ -222,7 +222,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
             }
 
          ___BeginSynchronized; // ----->排他開始
-            if (CREATING_ORDER != NULL) {
+            if (CREATING_ORDER) {
                 if (CREATING_ORDER->_progress == 0) { //未着手ならまず作る
                     TRACE2("GgafFactory::work ＜工場＞ よし、注文["<<CREATING_ORDER->_id<<"]は未着手(_progress == "<<CREATING_ORDER->_progress<<")だな。ゆえに今から作ります！");
                     CREATING_ORDER->_progress = 1; //ステータスを製造中へ

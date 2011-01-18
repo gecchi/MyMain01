@@ -209,7 +209,7 @@ void EnemyAstraea::processBehavior() {
                     }
 
                     pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
-                    if (pLaserChip != NULL) {
+                    if (pLaserChip) {
                         //レーザーの向きを計算
                         //ローカルでのショットの方向ベクトルを(_Xorg,_Yorg,_Zorg)、
                         //ワールド変換行列の回転部分（matWorldRot)の成分を mat_xx、
@@ -271,7 +271,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
-        if (pExplo001 != NULL) {
+        if (pExplo001) {
             pExplo001->activate();
             pExplo001->setCoordinateBy(this);
         }

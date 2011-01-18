@@ -27,7 +27,7 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
 void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
     TRACE5("InSpaceNo="<<prm_index);
     LinearOctreeActorElem* pElem = ((LinearOctreeActorElem*)(_paSpace[prm_index]._pElemFirst));
-    if (pElem != NULL) {
+    if (pElem) {
         GgafActor* pActor_ElemValue = pElem->_pActor;
         TRACE5("pActor_ElemValue="<<pActor_ElemValue->getName());
         while(true) {

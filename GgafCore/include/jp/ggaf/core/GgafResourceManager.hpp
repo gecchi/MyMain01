@@ -152,7 +152,7 @@ template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_idstr) {
     GgafResourceConnection<T>* pCurrent = _pFirstConnection;
 
-    while (pCurrent != NULL) {
+    while (pCurrent) {
         //_TRACE_("pCurrent->_idstr -> "<<(pCurrent->_idstr)<<" prm_idstr="<<prm_idstr);
         if (GgafUtil::strcmp_ascii(pCurrent->_idstr, prm_idstr) == 0) {
             return pCurrent;
@@ -169,7 +169,7 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_New) {
         return;
     } else {
         GgafResourceConnection<T>* pCurrent = _pFirstConnection;
-        while (pCurrent->_pNext != NULL) {
+        while (pCurrent->_pNext) {
             pCurrent = pCurrent->_pNext;
         }
         pCurrent->_pNext = prm_pResource_New;
@@ -248,7 +248,7 @@ void GgafResourceManager<T>::dump() {
         _TRACE_("GgafResourceManager::dump[" << _manager_name << "] 保持リストにはなにもありません。");
     } else {
         GgafResourceConnection<T>* pCurrent_Next;
-        while (pCurrent != NULL) {
+        while (pCurrent) {
             _TRACE_("GgafResourceManager::dump[" << _manager_name << "] [" << pCurrent->_idstr << "←" << pCurrent->_num_connection << "Connection]");
             pCurrent_Next = pCurrent->_pNext;
             if (pCurrent_Next == NULL) {
@@ -274,13 +274,13 @@ GgafResourceManager<T>::~GgafResourceManager() {
         TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストにはなにもありません。");
     } else {
         GgafResourceConnection<T>* pCurrent_Next;
-        while (pCurrent != NULL) {
+        while (pCurrent) {
             int rnum = pCurrent->_num_connection;
             TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストに[" << pCurrent->_idstr << "←" << rnum
                     << "Connection]が残ってます。強制削除しますが、本来あってはいけません。特別に" << rnum << "回 close()を発行します");
 //            T* r = pCurrent->refer();
             pCurrent_Next = pCurrent->_pNext;
-//            if (r != NULL) {
+//            if (r) {
 //                pCurrent->processReleaseResource(r); //リソースの解放
 //            }
             for (int i = 0; i < rnum; i++) {

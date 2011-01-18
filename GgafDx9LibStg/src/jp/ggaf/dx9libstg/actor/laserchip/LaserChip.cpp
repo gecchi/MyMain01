@@ -124,7 +124,7 @@ void LaserChip::processSettlementBehavior() {
     int dX, dY, dZ,cX, cY, cZ,h;
     //_TRACE_("LaserChip::processBehavior()st "<<getName()<<" bump="<<canHit());
     if (_is_regist_hitarea) { //registHitAreaCubeƒƒ\ƒbƒh‚É‚æ‚Á‚Ä“o˜^‚³‚ê‚½ê‡B
-        if (_pChip_front != NULL && _pChip_front->_pChip_front != NULL) {
+        if (_pChip_front != NULL && _pChip_front->_pChip_front) {
             dX = _pChip_front->_X - _X;
             dY = _pChip_front->_Y - _Y;
             dZ = _pChip_front->_Z - _Z;

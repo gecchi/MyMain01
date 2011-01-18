@@ -60,7 +60,7 @@ public:
      * ＜使用例＞
      * <pre><code>
      * GgafMainActor* pActor = pDispatcher->employ();
-     * if (pActor != NULL) {
+     * if (pActor) {
      *     //アクターの初期処理
      *     //・・・
      *

@@ -52,9 +52,9 @@ LaserChip* LaserChipDispatcher::employ() {
         return NULL;
     } else {
         LaserChip* pChip = (LaserChip*)GgafActorDispatcher::employ();
-        if (pChip != NULL) {
+        if (pChip) {
             pChip->activate();
-            if (_pChip_prev_employ != NULL) {
+            if (_pChip_prev_employ) {
                 //以前のemploy()したチップ
                 if (_frame_of_behaving_prev_employ+1 == _pChip_prev_employ->getBehaveingFrame()) {
                     //2フレーム連続でemployの場合連結とみなす

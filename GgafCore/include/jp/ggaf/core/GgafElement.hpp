@@ -864,7 +864,7 @@ void GgafElement<T>::nextFrame() {
     }
 
     //配下のnextFrame()実行
-    if (GGAF_NODE::_pSubFirst != NULL) {
+    if (GGAF_NODE::_pSubFirst) {
         T* pElementTemp = GGAF_NODE::_pSubFirst;
         while(true) {
 
@@ -912,7 +912,7 @@ void GgafElement<T>::behave() {
             _frameEnd = 0;
             processBehavior();    //ユーザー実装用
         }
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->behave();
@@ -938,7 +938,7 @@ void GgafElement<T>::settleBehavior() {
             _frameEnd = 0;
             processSettlementBehavior(); //フレームワーク用
         }
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->settleBehavior();
@@ -965,7 +965,7 @@ void GgafElement<T>::judge() {
             _frameEnd = 0;
             processJudgement();    //ユーザー実装用
         }
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->judge();
@@ -991,7 +991,7 @@ void GgafElement<T>::preDraw() {
             _frameEnd = 0;
             processPreDraw();
         }
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->preDraw();
@@ -1012,7 +1012,7 @@ void GgafElement<T>::draw() {
             _frameEnd = 0;
             processDraw();
         }
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->draw();
@@ -1033,7 +1033,7 @@ void GgafElement<T>::afterDraw() {
             _frameEnd = 0;
             processAfterDraw();
         }
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->afterDraw();
@@ -1060,7 +1060,7 @@ void GgafElement<T>::doFinally() {
             _frameEnd = 0;
             processFinal();
         }
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->doFinally();
@@ -1096,7 +1096,7 @@ void GgafElement<T>::resetTreeImmediately() {
             processReset();
             _is_already_reset = true;
         }
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->resetTreeImmediately();
@@ -1121,7 +1121,7 @@ template<class T>
 void GgafElement<T>::activateTree() {
     if (_can_live_flg) {
         activateDelay(1);
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->activateTree();
@@ -1146,7 +1146,7 @@ template<class T>
 void GgafElement<T>::activateTreeImmediately() {
     if (_can_live_flg) {
         activateImmediately();
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->activateTreeImmediately();
@@ -1188,7 +1188,7 @@ template<class T>
 void GgafElement<T>::activateTreeDelay(frame prm_frame_offset) {
     if (_can_live_flg) {
         activateDelay(prm_frame_offset);
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->activateTree();
@@ -1213,7 +1213,7 @@ template<class T>
 void GgafElement<T>::inactivateTree() {
     if (_can_live_flg) {
         inactivateDelay(1);
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->inactivateTree();
@@ -1249,7 +1249,7 @@ template<class T>
 void GgafElement<T>::inactivateTreeDelay(frame prm_frame_offset) {
     if (_can_live_flg) {
         inactivateDelay(prm_frame_offset);
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->inactivateTreeDelay(prm_frame_offset);
@@ -1274,7 +1274,7 @@ template<class T>
 void GgafElement<T>::inactivateTreeImmediately() {
     if (_can_live_flg) {
         inactivateImmediately();
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->inactivateTreeImmediately();
@@ -1293,7 +1293,7 @@ void GgafElement<T>::pauseTree() {
     if (_can_live_flg) {
         _was_paused_flg_in_next_frame = true;
         //_is_active_flg = false;
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->pauseTree();
@@ -1319,7 +1319,7 @@ void GgafElement<T>::pauseTreeImmediately() {
     if (_can_live_flg) {
         _was_paused_flg = true;
         _was_paused_flg_in_next_frame = true;
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->pauseTreeImmediately();
@@ -1345,7 +1345,7 @@ template<class T>
 void GgafElement<T>::unpauseTree() {
     if (_can_live_flg) {
         _was_paused_flg_in_next_frame = false;
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->unpauseTree();
@@ -1371,7 +1371,7 @@ void GgafElement<T>::unpauseTreeImmediately() {
     if (_can_live_flg) {
         _was_paused_flg = false;
         _was_paused_flg_in_next_frame = false;
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->unpauseTreeImmediately();
@@ -1404,7 +1404,7 @@ void GgafElement<T>::end(frame prm_frame_offset) {
     _will_end_after_flg = true;
     _frame_of_life_when_end = _frame_of_life + prm_frame_offset + GGAF_SAYONARA_DELAY;
     inactivateDelay(prm_frame_offset); //指定フレームにはinactivateが行われる
-    if (GGAF_NODE::_pSubFirst != NULL) {
+    if (GGAF_NODE::_pSubFirst) {
         T* pElementTemp = GGAF_NODE::_pSubFirst;
         while(true) {
             if (prm_frame_offset > 2) {
@@ -1564,7 +1564,7 @@ void GgafElement<T>::execDownFunction(void (*pFunc)(GgafObject*, void*, void*), 
         if (_was_initialize_flg) {
             pFunc(this, prm1, prm2);
         }
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->execDownFunction(pFunc, prm1, prm2);
@@ -1585,7 +1585,7 @@ void GgafElement<T>::throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) {
             _frameEnd = 0;
             onCatchEvent(prm_no, prm_pSource);
         }
-        if (GGAF_NODE::_pSubFirst != NULL) {
+        if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->throwEventToLowerTree(prm_no, this);
@@ -1606,7 +1606,7 @@ void GgafElement<T>::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
             _frameEnd = 0;
             onCatchEvent(prm_no, prm_pSource);
         }
-        if (GGAF_NODE::_pParent != NULL) {
+        if (GGAF_NODE::_pParent) {
             T* pElementTemp = GGAF_NODE::_pParent;
             pElementTemp->throwEventToUpperTree(prm_no, this);
         } else {

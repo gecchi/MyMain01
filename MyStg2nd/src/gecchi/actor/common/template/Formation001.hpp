@@ -43,7 +43,7 @@ Formation001<T>::Formation001(const char* prm_name, GgafCore::GgafActorDispatche
 
 template<class T>
 void Formation001<T>::initialize() {
-    if (_pParent != NULL){
+    if (_pParent){
     }
 }
 

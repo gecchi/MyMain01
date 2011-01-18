@@ -72,10 +72,10 @@ void EffectLockon001::dump() {
                                                                                );
 
     GgafActor* pActor_tmp = _pSubFirst;
-    if (_pSubFirst != NULL) {
+    if (_pSubFirst) {
         while (true) {
             pActor_tmp->dump("\t\t\t\t\t\t\t\tÅb");
-            if (pActor_tmp->_pNext != NULL) {
+            if (pActor_tmp->_pNext) {
                 pActor_tmp = pActor_tmp->_pNext;
             } else {
                 _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ¢Ç‹Ç∑");
@@ -120,10 +120,10 @@ void EffectLockon001::dump(string prm_parent) {
                                                                          );
 
     GgafActor* pActor_tmp = _pSubFirst;
-    if (_pSubFirst != NULL) {
+    if (_pSubFirst) {
         while (true) {
             pActor_tmp->dump(prm_parent + "Åb");
-            if (pActor_tmp->_pNext != NULL) {
+            if (pActor_tmp->_pNext) {
                 pActor_tmp = pActor_tmp->_pNext;
             } else {
                 _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ¢Ç‹Ç∑");

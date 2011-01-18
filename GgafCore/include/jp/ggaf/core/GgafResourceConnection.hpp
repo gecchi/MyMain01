@@ -167,7 +167,7 @@ int GgafResourceConnection<T>::close() {
 
     pCurrent = _pManager->_pFirstConnection;
     pPrev = NULL;
-    while (pCurrent != NULL) {
+    while (pCurrent) {
         if (pCurrent == this) {
             //”­Œ©‚µ‚½ê‡
             int rnum = _num_connection;
@@ -215,7 +215,7 @@ int GgafResourceConnection<T>::close() {
 
     if (_num_connection == 0) {
         T* r = pCurrent->refer();
-        if (r != NULL) {
+        if (r) {
             TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "] //–{“–‚Ì‰ğ•ú processReleaseResource[" << _idstr << "©" << _num_connection <<"]");
             pCurrent->processReleaseResource(r); //–{“–‚Ì‰ğ•ú
         }

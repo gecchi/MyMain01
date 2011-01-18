@@ -130,7 +130,7 @@ void GgafDx9FixedVelocitySplineProgram::init() {
 }
 
 void GgafDx9FixedVelocitySplineProgram::begin(int prm_option) {
-    if (_sp != NULL) {
+    if (_sp) {
         _is_executing = true;
         _option = prm_option;
         _fFrame_executing = 0;

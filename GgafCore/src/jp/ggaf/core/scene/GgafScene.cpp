@@ -221,7 +221,7 @@ GgafLordActor* GgafScene::getLordActor() {
 //
 //    do {
 //        pGroupActor = (GgafGroupActor*)(pScene->getLordActor()->_pSubFirst);
-//        if (pGroupActor != NULL) {
+//        if (pGroupActor) {
 //            do {
 //                if ((pGroupActor->_kind & prm_actorkindmask01) > 0) {
 //                    _apGroupActor01[index01] = pGroupActor;
@@ -240,7 +240,7 @@ GgafLordActor* GgafScene::getLordActor() {
 //            } while (true);
 //        }
 //
-//        if (pScene->_pSubFirst != NULL) {
+//        if (pScene->_pSubFirst) {
 //            pScene = pScene->_pSubFirst;
 //            continue;
 //        }
@@ -313,7 +313,7 @@ void GgafScene::dump() {
     if (_pLordActor) {
         _pLordActor->dump();
         GgafScene* pScene_tmp = _pSubFirst;
-        if (_pSubFirst != NULL) {
+        if (_pSubFirst) {
             while (true) {
                 pScene_tmp->dump("\t");
                 if (pScene_tmp->_pNext) {
@@ -361,7 +361,7 @@ void GgafScene::dump(string prm_parent) {
     if (_pLordActor) {
         _pLordActor->dump(prm_parent + "\t\t\t\t\t\t\t\t");
         GgafScene* pScene_tmp = _pSubFirst;
-        if (_pSubFirst != NULL) {
+        if (_pSubFirst) {
             while (true) {
                 pScene_tmp->dump(prm_parent + "\t");
                 if (pScene_tmp->_pNext) {

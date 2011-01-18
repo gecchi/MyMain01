@@ -214,7 +214,7 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
     return false;
 
 //        GgafDx9GeometricActor* pOtherActor = dynamic_cast<GgafDx9GeometricActor*> (prm_pOtherActor);
-//        if (pOtherActor != NULL && pOtherActor->_pChecker != NULL) {
+//        if (pOtherActor != NULL && pOtherActor->_pChecker) {
 //            return _pChecker->isHit(pOtherActor->_pChecker);
 //        } else {
 //            _TRACE_("GgafDx9GeometricActor::processHitChkLogic prm_pOtherActor("<<(prm_pOtherActor->getName())<<") is not GgafDx9GeometricActor")
@@ -320,10 +320,10 @@ void GgafDx9GeometricActor::dump() {
                                                                                                           );
 
     GgafActor* pActor_tmp = _pSubFirst;
-    if (_pSubFirst != NULL) {
+    if (_pSubFirst) {
         while (true) {
             pActor_tmp->dump("\t\t\t\t\t\t\t\tÅb");
-            if (pActor_tmp->getNext() != NULL) {
+            if (pActor_tmp->getNext()) {
                 pActor_tmp = pActor_tmp->getNext();
             } else {
                 _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ‹Ç∑");
@@ -366,10 +366,10 @@ void GgafDx9GeometricActor::dump(string prm_parent) {
                                                                                                      _will_mv_last_in_next_frame_flg
                                                                                                      );
     GgafActor* pActor_tmp = _pSubFirst;
-    if (_pSubFirst != NULL) {
+    if (_pSubFirst) {
         while (true) {
             pActor_tmp->dump(prm_parent + "Åb");
-            if (pActor_tmp->getNext() != NULL) {
+            if (pActor_tmp->getNext()) {
                 pActor_tmp = pActor_tmp->getNext();
             } else {
                 _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ‹Ç∑");

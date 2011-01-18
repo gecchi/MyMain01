@@ -78,7 +78,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int p
             _pa_nMaterialListGrp[prm_draw_set_num-1] != 1)
         {
             material_no = _papaIndexParam[prm_draw_set_num-1][material_grp_index].MaterialNo;
-            if (_papTextureCon[material_no] != NULL) {
+            if (_papTextureCon[material_no]) {
                 //テクスチャをs0レジスタにセット
                 GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->refer()->_pIDirect3DBaseTexture9);
             } else {
@@ -92,7 +92,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int p
 
 
         if (material_grp_index == 0 && (GgafDx9EffectManager::_pEffect_Active != pMeshSetEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)) {
-            if (GgafDx9EffectManager::_pEffect_Active != NULL) {
+            if (GgafDx9EffectManager::_pEffect_Active) {
                 TRACE4("EndPass("<<GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() EndPass() に失敗しました。");

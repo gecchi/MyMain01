@@ -92,7 +92,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
 
         EffectExplosion001* pExplo001 =
                 (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
-        if (pExplo001 != NULL) {
+        if (pExplo001) {
             pExplo001->setCoordinateBy(this);
             pExplo001->activate();
         }

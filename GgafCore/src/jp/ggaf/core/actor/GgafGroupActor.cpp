@@ -41,7 +41,7 @@ GgafLordActor* GgafGroupActor::getLordActor() {
 
 void GgafGroupActor::setLordActor(GgafLordActor* prm_pLordActor) {
     _pLordActor = prm_pLordActor;
-    if (_pSubFirst != NULL) {
+    if (_pSubFirst) {
         GgafActor* pActor = getSubFirst();
         while (true) {
             if (pActor->_obj_class & Obj_GgafMainActor) {

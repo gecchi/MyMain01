@@ -128,7 +128,7 @@ void GgafDx9FixedFrameSplineProgram::init() {
 }
 
 void GgafDx9FixedFrameSplineProgram::begin(int prm_option) {
-    if (_sp != NULL) {
+    if (_sp) {
         _is_executing = true;
         _option = prm_option;
         _SPframe = 0;

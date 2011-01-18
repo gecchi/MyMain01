@@ -50,7 +50,7 @@ void GgafDx9SplineProgram::setSpline(GgafDx9Spline3D* prm_sp) {
 }
 
 void GgafDx9SplineProgram::begin(int prm_option) {
-    if (_sp != NULL) {
+    if (_sp) {
         _is_executing = true;
 
         _SPframe = 0;

@@ -35,7 +35,7 @@ GgafActor::~GgafActor() {
 
 void GgafActor::setScenePlatform(GgafScene* prm_pScene_Platform) {
     _pScene_Platform = prm_pScene_Platform;
-    if (_pSubFirst != NULL) {
+    if (_pSubFirst) {
         _pActor_tmp = _pSubFirst;
         while (true) {
             _pActor_tmp->setScenePlatform(prm_pScene_Platform);
@@ -56,7 +56,7 @@ void GgafActor::setHitAble(bool prm_can_hit_flg) {
 void GgafActor::setHitAbleTree(bool prm_can_hit_flg) {
     TRACE("GgafActor::setHitAble() " << getName());
     _can_hit_flg = prm_can_hit_flg;
-    if (_pSubFirst != NULL) {
+    if (_pSubFirst) {
         _pActor_tmp = _pSubFirst;
         while (true) {
             _pActor_tmp->setHitAble(prm_can_hit_flg);
@@ -88,7 +88,7 @@ void GgafActor::sayonara(frame prm_frame_offset) {
         end(prm_frame_offset);
     }
     GgafActor* pActor;
-    if (_pSubFirst != NULL) {
+    if (_pSubFirst) {
         pActor = _pSubFirst;
         while (true) {
             pActor->sayonara(prm_frame_offset);
@@ -131,10 +131,10 @@ void GgafActor::dump() {
                                                                                );
 
     GgafActor* pActor_tmp = _pSubFirst;
-    if (_pSubFirst != NULL) {
+    if (_pSubFirst) {
         while (true) {
             pActor_tmp->dump("\t\t\t\t\t\t\t\tÅb");
-            if (pActor_tmp->_pNext != NULL) {
+            if (pActor_tmp->_pNext) {
                 pActor_tmp = pActor_tmp->_pNext;
             } else {
                 _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ¢Ç‹Ç∑");
@@ -178,10 +178,10 @@ void GgafActor::dump(string prm_parent) {
                                                                          );
 
     GgafActor* pActor_tmp = _pSubFirst;
-    if (_pSubFirst != NULL) {
+    if (_pSubFirst) {
         while (true) {
             pActor_tmp->dump(prm_parent + "Åb");
-            if (pActor_tmp->_pNext != NULL) {
+            if (pActor_tmp->_pNext) {
                 pActor_tmp = pActor_tmp->_pNext;
             } else {
                 _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ¢Ç‹Ç∑");

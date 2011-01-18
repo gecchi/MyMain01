@@ -138,7 +138,7 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         _pSeTransmitter->play3D(0);
-        if (pExplo001 != NULL) {
+        if (pExplo001) {
             pExplo001->activate();
             pExplo001->setCoordinateBy(this);
             pExplo001->_pMover->takeoverMvFrom(_pMover);

@@ -16,8 +16,8 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     _pWorldBoundSpace->inactivateTree();
     getLordActor()->addSubGroup(KIND_EFFECT, _pWorldBoundSpace);
 
-//    _pHoshiBoshi = NEW HoshiBoshi001("HoshiBoshi001");
-//    getLordActor()->addSubGroup(KIND_EFFECT, _pHoshiBoshi);
+    _pHoshiBoshi = NEW HoshiBoshi001("HoshiBoshi001");
+    getLordActor()->addSubGroup(KIND_EFFECT, _pHoshiBoshi);
 
     _pMessage = NEW LabelGecchi16Font("Stage01Msg");
     getLordActor()->addSubGroup(KIND_EFFECT, _pMessage);

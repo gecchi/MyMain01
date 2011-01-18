@@ -43,7 +43,7 @@ void GgafDx9Spline3D::init(double prm_paaEstablish[][3], int prm_num, double prm
 
 void GgafDx9Spline3D::compute(double prm_accuracy) {
     _rnum = _num_basepoint/prm_accuracy;
-    if (_X_compute != NULL) {
+    if (_X_compute) {
         DELETEARR_IMPOSSIBLE_NULL(_X_compute);
         DELETEARR_IMPOSSIBLE_NULL(_Y_compute);
         DELETEARR_IMPOSSIBLE_NULL(_Z_compute);

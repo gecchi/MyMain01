@@ -336,7 +336,7 @@ void MyShip::processBehavior() {
     if (VB_PLAY->isPushedDown(VB_TURBO)) {
         //ターボ開始時
         EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDispatcher_EffectTurbo002->employForce();
-         if (pTurbo002 != NULL) {
+         if (pTurbo002) {
              pTurbo002->setCoordinateBy(this);
              pTurbo002->activate();
          }
@@ -439,7 +439,7 @@ void MyShip::processJudgement() {
         if (VB_PLAY->isBeingPressed(VB_SHOT1)) {//isBeingPressed
             //GgafActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
             MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
-            if (pLaser != NULL) {
+            if (pLaser) {
                 pLaser->activate();
                 if (pLaser->_pChip_front == NULL) {
                     _pSeTransmitter->play3D(1);
@@ -467,7 +467,7 @@ void MyShip::processJudgement() {
         if (_frame_soft_rapidshot % 4 == 0) {
             _just_shot = true;//たった今ショットしましたフラグ
             MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
-            if (pShot != NULL) {
+            if (pShot) {
                 _pSeTransmitter->play3D(2);
                 pShot->setCoordinateBy(this);
                 pShot->activate();
@@ -509,7 +509,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
     _pSeTransmitter->play3D(0);
     EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
-    if (pExplo001 != NULL) {
+    if (pExplo001) {
         pExplo001->setCoordinateBy(this);
         pExplo001->activate();
     }

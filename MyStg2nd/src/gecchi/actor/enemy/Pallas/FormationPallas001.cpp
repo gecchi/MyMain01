@@ -44,7 +44,7 @@ void FormationPallas001::onActive() {
 void FormationPallas001::wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) {
     //•Ò‘àÁ–ÅŽž‚ÌŽÀŒ±
     EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDispatcher_EffectTurbo002->employForce();
-     if (pTurbo002 != NULL) {
+     if (pTurbo002) {
          pTurbo002->setCoordinateBy(prm_pActorLast);
          pTurbo002->activate();
      }

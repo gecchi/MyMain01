@@ -481,7 +481,7 @@ void MyOption::processBehavior() {
 
 
         MyCurveLaserChip001* pLaserChip = (MyCurveLaserChip001*)_pLaserChipDispatcher->employ();
-        if (pLaserChip != NULL) {
+        if (pLaserChip) {
             if (_pLaserChipDispatcher->_pEffectActor_Irradiate) {
                 _pLaserChipDispatcher->_pEffectActor_Irradiate->setCoordinateBy(this);
             }
@@ -531,7 +531,7 @@ void MyOption::processBehavior() {
 
     if (P_MYSHIP->_just_shot) {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
-        if (pShot != NULL) {
+        if (pShot) {
             _pSeTransmitter->play3D(1);
             pShot->setCoordinateBy(this);
             pShot->_pMover->_angFace[AXIS_X] = _RX;
@@ -544,7 +544,7 @@ void MyOption::processBehavior() {
 
 //    if (VB_PLAY->isPushedDown(VB_SHOT1)) {
 //        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
-//        if (pShot != NULL) {
+//        if (pShot) {
 //            _pSeTransmitter->play3D(1);
 //            pShot->setCoordinate(this);
 //            pShot->_pMover->_angFace[AXIS_X] = _RX;

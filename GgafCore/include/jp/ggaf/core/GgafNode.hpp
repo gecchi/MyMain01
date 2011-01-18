@@ -327,7 +327,7 @@ _is_last_flg(false)
 
 template<class T>
 T* GgafNode<T>::extract() {
-    if (_pParent != NULL) {
+    if (_pParent) {
         //連結から外す
         T* pMyNext = _pNext;
         T* pMyPrev = _pPrev;
@@ -521,7 +521,7 @@ int GgafNode<T>::getNumSub() {
 template<class T>
 void GgafNode<T>::addSubLast(T* prm_pSub) {
 #ifdef MY_DEBUG
-    if (prm_pSub->_pParent != NULL) {
+    if (prm_pSub->_pParent) {
         throwGgafCriticalException("[GgafNode<" << _class_name << ">::addSubLast()] Error! ノードは既に所属("
                 << prm_pSub->_pParent->_name << "に所属)しています(this=" << _name << "/prm_pSub=" << prm_pSub->getName() << ")");
     }

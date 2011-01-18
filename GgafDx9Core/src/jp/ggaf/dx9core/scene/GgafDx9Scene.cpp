@@ -24,7 +24,7 @@ void GgafDx9Scene::fadeinSceneTree(int prm_frame_fade) {
         } else {
             _pAlphaCurtain->open(1.0 / prm_frame_fade);
         }
-        if (getSubFirst() != NULL) {
+        if (getSubFirst()) {
 #ifdef MY_DEBUG
             if (getSubFirst()->_obj_class & Obj_GgafDx9Scene) {
                 //OK
@@ -72,7 +72,7 @@ void GgafDx9Scene::fadeoutSceneTree(int prm_frame_fade) {
         } else {
             _pAlphaCurtain->close(1.0 / prm_frame_fade);
         }
-        if (getSubFirst() != NULL) {
+        if (getSubFirst()) {
 #ifdef MY_DEBUG
             if (getSubFirst()->_obj_class & Obj_GgafDx9Scene) {
                 //OK
@@ -117,7 +117,7 @@ void GgafDx9Scene::unblindScene() {
 }
 void GgafDx9Scene::unblindSceneTree() {
     _pAlphaCurtain->open();
-    if (getSubFirst() != NULL) {
+    if (getSubFirst()) {
 #ifdef MY_DEBUG
         if (getSubFirst()->_obj_class & Obj_GgafDx9Scene) {
             //OK
@@ -149,7 +149,7 @@ void GgafDx9Scene::blindScene() {
 }
 void GgafDx9Scene::blindSceneTree() {
     _pAlphaCurtain->close();
-    if (getSubFirst() != NULL) {
+    if (getSubFirst()) {
 #ifdef MY_DEBUG
         if (getSubFirst()->_obj_class & Obj_GgafDx9Scene) {
             //OK

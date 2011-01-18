@@ -61,7 +61,7 @@ void GgafGod::be() {
         }
 #ifdef MY_DEBUG
         //工場（別スレッド）例外をチェック
-        if (_pException_Factory != NULL) {
+        if (_pException_Factory) {
             throw *_pException_Factory;
         }
 #endif
@@ -189,7 +189,7 @@ void GgafGod::finalizeUniversal() {
 void GgafGod::clean() {
     if (!_was_cleaned) {
         _TRACE_("GgafGod::clean() start");
-        if (_pUniverse != NULL) {
+        if (_pUniverse) {
             _TRACE_("_pUniverse != NULL");
             //工場を止める
             Sleep(10);

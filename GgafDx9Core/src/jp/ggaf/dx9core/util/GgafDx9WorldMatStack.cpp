@@ -35,7 +35,7 @@ void GgafDx9WorldMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame) {
 
     D3DXMatrixMultiply(&(frame->WorldTransMatrix), &(frame->TransformationMatrix), pStackMat);
 
-    if (frame->pMeshContainer != NULL) {
+    if (frame->pMeshContainer) {
         //_TRACE_("フレームにメッシュコンテナがあり");
         // 引数のフレームに対応するワールド変換行列を計算
         m_DrawFrameList.push_back(frame);
@@ -43,7 +43,7 @@ void GgafDx9WorldMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame) {
 
 
 //    // フレームにメッシュコンテナがあれば、このフレームをリストに追加する
-//    if (frame->pMeshContainer != NULL) {
+//    if (frame->pMeshContainer) {
 //        _TRACE_("フレームにメッシュコンテナがあり");
 //        // 引数のフレームに対応するワールド変換行列を計算
 //        D3DXMatrixMultiply(&frame->WorldTransMatrix, &frame->TransformationMatrix, pStackMat);
@@ -54,14 +54,14 @@ void GgafDx9WorldMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame) {
 //    }
 
     // 子フレームがあればスタックを積んで、子フレームのワールド変換座標の計算へ
-    if (frame->pFrameFirstChild != NULL) {
+    if (frame->pFrameFirstChild) {
         m_MatrixStack.push(&(frame->WorldTransMatrix));
         CalcFrameWorldMatrix((D3DXFRAME_WORLD*)frame->pFrameFirstChild);
         m_MatrixStack.pop(); // 子フレームがもう終わったのでスタックを1つ外す
     }
 
     // 兄弟フレームがあれば「現在の」スタックを利用
-    if (frame->pFrameSibling != NULL) {
+    if (frame->pFrameSibling) {
         //_TRACE_("兄弟フレームへいきます");
         CalcFrameWorldMatrix((D3DXFRAME_WORLD*)frame->pFrameSibling);
     }

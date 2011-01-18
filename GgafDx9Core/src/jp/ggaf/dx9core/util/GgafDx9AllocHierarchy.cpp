@@ -148,7 +148,7 @@ using namespace GgafDx9Core;
 //
 //        for (iMaterial = 0; iMaterial < NumMaterials; iMaterial++)
 //        {
-//            if (pMeshContainer->pMaterials[iMaterial].pTextureFilename != NULL)
+//            if (pMeshContainer->pMaterials[iMaterial].pTextureFilename)
 //            {
 //                WCHAR str[MAX_PATH];
 //
@@ -173,7 +173,7 @@ using namespace GgafDx9Core;
 //    }
 //
 //    //スキン情報があれば、ハードウェアスキニングのためにそれを使う
-//    if (pSkinInfo != NULL)
+//    if (pSkinInfo)
 //    {
 //        //まず最初にデータはスキン情報とメッシュに保存される
 //        pMeshContainer->pSkinInfo = pSkinInfo;
@@ -210,7 +210,7 @@ using namespace GgafDx9Core;
 //    SAFE_RELEASE(pd3dDevice);
 //
 //    //適当に割り当てられたデータをきれいにする
-//    if (pMeshContainer != NULL)
+//    if (pMeshContainer)
 //    {
 //        DestroyMeshContainer(pMeshContainer);
 //    }
@@ -240,7 +240,7 @@ using namespace GgafDx9Core;
 //    SAFE_DELETE_ARRAY(pMeshContainer->pBoneOffsetMatrices);
 //
 //    //割り当てられた全てのテクスチャを解放する
-//    if (pMeshContainer->ppTextures != NULL) {
+//    if (pMeshContainer->ppTextures) {
 //        for (iMaterial = 0; iMaterial < pMeshContainer->NumMaterials; iMaterial++) {
 //            SAFE_RELEASE(pMeshContainer->ppTextures[iMaterial]);
 //        }

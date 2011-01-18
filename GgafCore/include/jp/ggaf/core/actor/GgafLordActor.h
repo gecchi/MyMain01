@@ -57,7 +57,7 @@ public:
 
     virtual void throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
         GgafScene* s = getPlatformScene();
-        if (s != NULL) {
+        if (s) {
             s->throwEventToUpperTree(prm_no, this); //Ž©•ª‚æ‚èãˆÊ‚Í‹‚È‚¢B‚»‚±‚ÅŠ‘®ƒV[ƒ“‚Ö“Š‚°‚é
         }
     }

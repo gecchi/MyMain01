@@ -337,7 +337,7 @@ void GgafDx9Input::release() {
             _pIDirectInputDevice8_Keyboard->Unacquire();
             RELEASE_IMPOSSIBLE_NULL(_pIDirectInputDevice8_Keyboard);
         }
-        if (_pIDirectInputDevice8_Joystick != NULL) {
+        if (_pIDirectInputDevice8_Joystick) {
             _pIDirectInputDevice8_Joystick->Unacquire();
             RELEASE_IMPOSSIBLE_NULL(_pIDirectInputDevice8_Joystick);
         }

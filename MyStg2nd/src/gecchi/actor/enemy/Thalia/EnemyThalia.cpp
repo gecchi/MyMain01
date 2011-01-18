@@ -105,7 +105,7 @@ void EnemyThalia::processBehavior() {
                                                     TURN_CLOSE_TO);
             }
             EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)_pLaserChipDispatcher->employ();
-            if (pLaser != NULL) {
+            if (pLaser) {
                 pLaser->activate();
                 if (pLaser->_pChip_front == NULL) {
                     _pSeTransmitter->play3D(1);
@@ -147,7 +147,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
     if (_pProgress->get() != THALIA_SCENE_PROG_MOVE && (pOther->getKind() & KIND_MY) ) {
         changeEffectTechniqueInterim("Flush", 2); //ƒtƒ‰ƒbƒVƒ…
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
-        if (pExplo001 != NULL) {
+        if (pExplo001) {
             pExplo001->activate();
             pExplo001->setCoordinateBy(this);
         }
@@ -156,7 +156,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
         if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
             EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
-            if (pExplo001 != NULL) {
+            if (pExplo001) {
                 pExplo001->activate();
                 pExplo001->setCoordinateBy(this);
             }

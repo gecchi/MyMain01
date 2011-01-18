@@ -28,7 +28,7 @@ bool GgafMainActor::isActive() {
 
 void GgafMainActor::setLordActor(GgafLordActor* prm_pLordActor) {
     _pLordActor = prm_pLordActor;
-    if (_pSubFirst != NULL) {
+    if (_pSubFirst) {
         GgafActor* pActor = getSubFirst();
         while (true) {
             if (pActor->_obj_class & Obj_GgafMainActor) {
@@ -47,7 +47,7 @@ void GgafMainActor::setLordActor(GgafLordActor* prm_pLordActor) {
 
 void GgafMainActor::setGroupActor(GgafGroupActor* prm_pGroupActor) {
     _pGroupActor = prm_pGroupActor;
-    if (_pSubFirst != NULL) {
+    if (_pSubFirst) {
         GgafActor* pActor = getSubFirst();
         while (true) {
             if (pActor->_obj_class & Obj_GgafMainActor) {
@@ -103,7 +103,7 @@ GgafLordActor* GgafMainActor::getLordActor() {
     if (_pLordActor == NULL) {
         if (_pParent == NULL) {
             _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor(); //この世の管理者アクターに仮所属
-//            _TRACE_("【警告】GgafMainActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")。そこで勝手にこの世(Universe)のLordActorを返しました");
+            _TRACE_("【警告】GgafMainActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")。そこで勝手にこの世(Universe)のLordActorを返しました");
         } else {
             if (_pParent->_obj_class & Obj_GgafMainActor) {
                 _pLordActor = ((GgafMainActor*)(_pParent))->getLordActor();
@@ -115,7 +115,7 @@ GgafLordActor* GgafMainActor::getLordActor() {
                 _pLordActor = NULL;
             }
            _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor(); //この世の管理者アクターに仮所属
-//            _TRACE_("【警告】GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")。そこで勝手にこの世(Universe)のLordActorを返しました");
+            _TRACE_("【警告】GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")。そこで勝手にこの世(Universe)のLordActorを返しました");
         }
     }
     return _pLordActor;
@@ -124,7 +124,7 @@ GgafLordActor* GgafMainActor::getLordActor() {
 
 
 GgafGroupActor* GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
-    if (prm_pMainActor->_pLordActor != NULL) {
+    if (prm_pMainActor->_pLordActor) {
         //_TRACE_("【警告】GgafLordActor::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pLordActor->_pScene_Platform->getName()<<"シーンの管理者に所属しています。が、"<<_pScene_Platform->getName()<<"シーンの管理者に乗り換えます");
         prm_pMainActor->extract();
     }

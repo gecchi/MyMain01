@@ -75,7 +75,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
         //ここに消滅エフェクト
     if (pOther->getKind() & KIND_MY) {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
-        if (pExplo001 != NULL) {
+        if (pExplo001) {
             pExplo001->setCoordinateBy((GgafDx9GeometricActor*)prm_pOtherActor);
             pExplo001->activate();
         }
@@ -87,7 +87,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
 
         EffectExplosion001* pExplo001_2 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
         _pSeTransmitter->play3D(1);
-        if (pExplo001_2 != NULL) {
+        if (pExplo001_2) {
             pExplo001_2->setCoordinateBy((GgafDx9GeometricActor*)prm_pOtherActor);
             pExplo001_2->activate();
         }

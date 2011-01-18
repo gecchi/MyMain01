@@ -103,7 +103,7 @@ void GgafDx9Universe::processSettlementBehavior() {
 
 void GgafDx9Universe::draw() {
     GgafDx9ModelConnection* pModelCon = GgafDx9God::_pModelManager->getFirstConnection();
-    while (pModelCon != NULL) {
+    while (pModelCon) {
         pModelCon->refer()->_pTextureBlinker->behave();
         pModelCon = (GgafDx9ModelConnection*)(pModelCon->getNext());
     }
@@ -111,9 +111,10 @@ void GgafDx9Universe::draw() {
     //ここでEffectManagerで回してVew変換をいっかい設定するようにする
     GgafDx9God::_pEffectManager->setParamPerFrameAll();
 
-    //段階レンダリング不要（最深部等、背景、最善面の文字等）の描画。
+    //段階レンダリング不要（最深部等、背景）の描画。
     //※TODO:本来は手前から描画のほうが効率良い。が、その内最適化
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
+	GgafDx9Scene* pScene;
     while (_pActor_DrawActive) {
         if (_pActor_DrawActive->_fAlpha < 1.0) {
             GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリングを一時OFF
@@ -127,7 +128,7 @@ void GgafDx9Universe::draw() {
                 throwGgafCriticalException("GgafDx9Universe::draw() err1. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDx9Scene に変換不可です。this="<<getName());
             }
 #endif
-        GgafDx9Scene* pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
+        pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
         _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
                 _pActor_DrawActive->_pGgafDx9Effect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha);
         //描画
@@ -170,7 +171,7 @@ void GgafDx9Universe::draw() {
             }
 #endif
             //各所属シーンのαカーテンを設定する。
-            GgafDx9Scene* pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
+            pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
             _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
                     _pActor_DrawActive->_pGgafDx9Effect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha);
             _pActor_DrawActive->processDraw();
@@ -197,7 +198,7 @@ void GgafDx9Universe::draw() {
 
     //最後のEndPass
     HRESULT hr;
-    if (GgafDx9EffectManager::_pEffect_Active != NULL) {
+    if (GgafDx9EffectManager::_pEffect_Active) {
 
         TRACE4("EndPass("<<GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
         hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
@@ -237,7 +238,7 @@ void GgafDx9Universe::draw() {
 //}
 int GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9DrawableActor* prm_pActor) {
     int draw_depth_level;
-    static GgafDx9DrawableActor* pActorTmp;
+    GgafDx9DrawableActor* pActorTmp;
     //上限下限カット
     if (prm_draw_depth_level > MAX_DRAW_DEPTH_LEVEL - 1) {
         draw_depth_level = MAX_DRAW_DEPTH_LEVEL - 1;
@@ -266,7 +267,7 @@ int GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawable
         } else {
             //前に追加
             pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
-            while(pActorTmp->_pNext_TheSameDrawDepthLevel != NULL) {
+            while(pActorTmp->_pNext_TheSameDrawDepthLevel) {
                 pActorTmp = pActorTmp->_pNext_TheSameDrawDepthLevel;
             }
             pActorTmp->_pNext_TheSameDrawDepthLevel = prm_pActor;

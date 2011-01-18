@@ -16,7 +16,7 @@ void GgafLordActor::remove() {
 }
 
 GgafGroupActor* GgafLordActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
-    if (prm_pMainActor->_pLordActor != NULL) {
+    if (prm_pMainActor->_pLordActor) {
         //_TRACE_("【警告】GgafLordActor::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pLordActor->_pScene_Platform->getName()<<"シーンの管理者に所属しています。が、"<<_pScene_Platform->getName()<<"シーンの管理者に乗り換えます");
         prm_pMainActor->extract();
     }

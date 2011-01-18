@@ -87,7 +87,7 @@ namespace {
         terminateThread();
         memset( &DSBufferDesc_, 0, sizeof( DSBufferDesc_ ) );
         memset( &waveFormat_, 0, sizeof( waveFormat_ ) );
-        if (pDSBuffer_ != NULL) {
+        if (pDSBuffer_) {
             RELEASE_IMPOSSIBLE_NULL(pDSBuffer_);
             pDSBuffer_ = NULL;
         }

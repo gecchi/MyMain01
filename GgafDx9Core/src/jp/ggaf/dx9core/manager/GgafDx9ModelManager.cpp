@@ -439,7 +439,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
 
             //XファイルのFrameTransformMatrix(0フレーム目の初期化アニメーション)を考慮
-            if ((*iteBone) != NULL) {
+            if ((*iteBone)) {
                 Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
                 if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
                     //FrameTransformMatrix は単位行列
@@ -1064,7 +1064,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     iteBone != model_papModel3D[pattern]->_toplevel_Skelettons.end(); iteBone++) {
                 _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
 
-                if ((*iteBone) != NULL) {
+                if ((*iteBone)) {
                     Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
                     if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
                         //FrameTransformMatrix は単位行列
@@ -2719,7 +2719,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
             _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
             //XファイルのFrameTransformMatrix(0フレーム目の初期化アニメーション)を考慮
-            if ((*iteBone) != NULL) {
+            if ((*iteBone)) {
                 Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
                 if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
                     //FrameTransformMatrix は単位行列
@@ -3224,7 +3224,7 @@ void GgafDx9ModelManager::restoreAll() {
     TRACE3("GgafDx9ModelManager::restoreAll() start-->");
     GgafResourceConnection<GgafDx9Model>* pCurrent = _pFirstConnection;
     TRACE3("restoreAll pCurrent="<<pCurrent);
-    while (pCurrent != NULL) {
+    while (pCurrent) {
         pCurrent->refer()->restore();
         pCurrent = pCurrent->getNext();
     }
@@ -3235,7 +3235,7 @@ void GgafDx9ModelManager::onDeviceLostAll() {
     TRACE3("GgafDx9ModelManager::onDeviceLostAll() start-->");
     GgafResourceConnection<GgafDx9Model>* pCurrent = _pFirstConnection;
     TRACE3("onDeviceLostAll pCurrent="<<pCurrent);
-    while (pCurrent != NULL) {
+    while (pCurrent) {
         pCurrent->refer()->onDeviceLost();
         pCurrent = pCurrent->getNext();
     }
@@ -3245,7 +3245,7 @@ void GgafDx9ModelManager::onDeviceLostAll() {
 void GgafDx9ModelManager::releaseAll() {
     TRACE3("GgafDx9ModelManager::releaseAll() start-->");
     GgafResourceConnection<GgafDx9Model>* pCurrent = _pFirstConnection;
-    while (pCurrent != NULL) {
+    while (pCurrent) {
         pCurrent->refer()->release();
         pCurrent = pCurrent->getNext();
     }
