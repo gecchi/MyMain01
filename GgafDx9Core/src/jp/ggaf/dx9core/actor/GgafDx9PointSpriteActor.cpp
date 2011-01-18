@@ -29,6 +29,8 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
     _pUvFlipper->forcePtnNoRange(0, _pPointSpriteModel->_texture_split_rowcol * _pPointSpriteModel->_texture_split_rowcol - 1);
     _pUvFlipper->setPtnNo(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+    setZEnable(false);
+    setZWriteEnable(false);
 }
 
 
@@ -59,9 +61,6 @@ void GgafDx9PointSpriteActor::processDraw() {
     hr = pID3DXEffect->SetInt(_pPointSpriteEffect->_hUvFlipPtnNo, _pUvFlipper->_pattno_uvflip_now);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetInt(_hUvFlipPtnNo) に失敗しました。");
     // Zバッファを無効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    // Zバッファ書き込み不可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
     //ポイントスプライトON
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
     //ポイントスケールON
@@ -71,10 +70,6 @@ void GgafDx9PointSpriteActor::processDraw() {
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
     //ポイントスケールOFF
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSCALEENABLE, FALSE);
-    // Zバッファを有効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    // Zバッファ書き込み可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 }
 
 GgafDx9PointSpriteActor::~GgafDx9PointSpriteActor() {
