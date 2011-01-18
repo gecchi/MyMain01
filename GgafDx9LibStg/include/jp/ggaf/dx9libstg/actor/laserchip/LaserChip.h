@@ -64,6 +64,8 @@ public:
 
     virtual void processJudgement() override;
 
+    virtual void processPreDraw() override;
+
     virtual void processDraw() override;
 
     virtual void processFinal() override {}
