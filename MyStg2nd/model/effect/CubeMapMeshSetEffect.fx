@@ -5,7 +5,6 @@
 /** ƒJƒƒ‰‚ÌWorldˆÊ’u */
 float3 pos_camera; 
 
-int g_vertexs_num;
 float g_zf;
 float g_tex_blink_power;   
 float g_tex_blink_threshold;
