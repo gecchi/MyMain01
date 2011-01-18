@@ -248,10 +248,6 @@ void LaserChip::processDraw() {
                     //先端チップは描画不要
                     pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
                     continue;
-//                    hr = pID3DXEffect->SetInt(this->_ahKind[_draw_set_num], pLaserChip->_chip_kind);
-//                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
-//                    hr = pID3DXEffect->SetMatrix(this->_ah_matWorld_front[_draw_set_num], &(pLaserChip->_matWorld) ); //先頭がないので自信の_matWorld
-//                    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_h_matWorld_front) に失敗しました。2");
                 }
 
                 _draw_set_num++;
