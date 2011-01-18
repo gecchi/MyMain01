@@ -48,7 +48,7 @@ OptionMagic::OptionMagic(const char* prm_name, MagicMeter* prm_pMagicMeter) : Ma
     _lvinfo[8]._time_of_abandon = 300*60*60;
     _papEffect = NEW GgafDx9DrawableActor*[8];
     for (int i = 0; i < 8; i++) {
-        _papEffect[i] = NEW EffectLaserRefraction001("EF");
+        _papEffect[i] = NEW EffectMagic001("EF");
         _papEffect[i]->inactivateImmediately();
         _pMagicMeter->addSubGroup(_papEffect[i]);
     }
@@ -90,9 +90,8 @@ void OptionMagic::processInvokeingBehavior()  {
 }
 
 void OptionMagic::processExpireBegin()  {
-    _r_effect += 1.0;
+    _r_effect = 1.0;
     P_MYOPTIONCON->setNumOption(_new_level);
-    commit();
 }
 
 void OptionMagic::processExpiringBehavior() {
@@ -101,6 +100,7 @@ void OptionMagic::processExpiringBehavior() {
         _papEffect[i]->setAlpha(_r_effect);
         if (_r_effect < 0) {
             _papEffect[i]->inactivate();
+            commit();
         }
         _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
     }

@@ -298,11 +298,14 @@ class CameraWorkerConnection;
 
 
 class TestDispatcher;
-
+class MagicMeter;
 class Magic;
-class DefaultMagic;
 class OptionMagic;
 class LaserMagic;
+class SpeedMagic;
+class LockonMagic;
+class TorpedoMagic;
+class EffectMagic001;
 
 
 class Properties;
@@ -465,6 +468,7 @@ class MagicMeter;
 #include "gecchi/actor/system/magic/SpeedMagic.h"
 #include "gecchi/actor/system/magic/LockonMagic.h"
 #include "gecchi/actor/system/magic/TorpedoMagic.h"
+#include "gecchi/actor/system/magic/EffectMagic001.h"
 #include "gecchi/Properties.h"
 #include "gecchi/util/MyStgUtil.h"
 #include "gecchi/util/VamSysCamPosition.h"
