@@ -28,7 +28,6 @@ void EffectMagic001::onActive() {
 
 void EffectMagic001::processBehavior() {
     _pMover->behave();
-    _pScaler->behave();
 }
 
 void EffectMagic001::processJudgement() {

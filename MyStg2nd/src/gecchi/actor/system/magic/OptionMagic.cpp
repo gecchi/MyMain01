@@ -68,19 +68,19 @@ void OptionMagic::processCastBegin() {
         _papEffect[i]->setAlpha(0.9);
     }
     _r_effect = 1;
-    P_MYOPTIONCON->setNumOption(_new_level);
+
 }
 
 void OptionMagic::processCastingBehavior() {
     for (int i = _old_level; i < _new_level; i++) {
-        _r_effect += 0.03;
+        _r_effect += 0.01;
         _papEffect[i]->setScaleRate(_r_effect);
         _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
     }
 }
 
 void OptionMagic::processInvokeBegin() {
-
+    P_MYOPTIONCON->setNumOption(_new_level);
 }
 
 void OptionMagic::processInvokeingBehavior()  {
