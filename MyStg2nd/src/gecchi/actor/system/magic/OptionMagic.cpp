@@ -97,14 +97,13 @@ void OptionMagic::processExpireBegin()  {
 }
 
 void OptionMagic::processExpiringBehavior() {
+    _r_effect -= 0.02;
     for (int i = _old_level; i < _new_level; i++) {
-        _r_effect -= 0.02;
         _papEffect[i]->setAlpha(_r_effect);
-        if (_r_effect < 0) {
-            _papEffect[i]->inactivate();
-            commit();
-        }
         _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
+    }
+    if (_r_effect < 0) {
+        commit();
     }
 }
 
