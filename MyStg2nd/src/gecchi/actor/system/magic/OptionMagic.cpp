@@ -63,10 +63,12 @@ void OptionMagic::processCastBegin() {
 
     _old_level = _level;
     for (int i = _old_level; i < _new_level; i++) {
+        _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
         _papEffect[i]->activate();
         _papEffect[i]->setAlpha(0.9);
     }
-    _r_effect = 0.01;
+    _r_effect = 1;
+    P_MYOPTIONCON->setNumOption(_new_level);
 }
 
 void OptionMagic::processCastingBehavior() {
@@ -83,7 +85,7 @@ void OptionMagic::processInvokeBegin() {
 
 void OptionMagic::processInvokeingBehavior()  {
     for (int i = _old_level; i < _new_level; i++) {
-        _r_effect += 0.1;
+        _r_effect += 0.2;
         _papEffect[i]->setScaleRate(_r_effect);
         _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
     }
@@ -91,7 +93,7 @@ void OptionMagic::processInvokeingBehavior()  {
 
 void OptionMagic::processExpireBegin()  {
     _r_effect = 1.0;
-    P_MYOPTIONCON->setNumOption(_new_level);
+    P_MYOPTIONCON->adjustDefaltAngPosition(60);
 }
 
 void OptionMagic::processExpiringBehavior() {

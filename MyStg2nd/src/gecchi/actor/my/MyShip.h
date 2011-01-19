@@ -196,8 +196,6 @@ public:
     /** ターボ中、移動方角 */
     MoveWay _way;
 
-    /** 移動スピードレベル */
-    int _lv_MoveSpeed;
     /** 移動スピードレベルに相応する移動スピード */
     int _iMoveSpeed;
 
@@ -226,32 +224,31 @@ public:
     //但し 値 < 0 であること。
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
-    /** 奥又は手前へ通常移動開始時のX軸回転角速度の初速度 */
+    /** 奥(+Z)又は手前(-Z)へ通常移動開始時のX軸回転角速度の初速度 */
     angle _angRXVelo_BeginMZ; //Rotation axisX angle Velo when I Begin To Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
 
-    /** 奥又は手前へ通常移動中のX軸回転角速度の角加速度 */
+    /** 奥(+Z)又は手前(-Z)へ通常移動中のX軸回転角速度の角加速度 */
     angle _angRXAcce_MZ; //Rotation axisX angle Acce while I Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
 
-    /** 奥又は手前へ移動中のX軸回転角速度の上限角速度 */
+    /** 奥(+Z)又は手前(-Z)へ移動中のX軸回転角速度の上限角速度 */
     angle _angRXTopVelo_MZ; //Rotation axisX Top angle Velo while I Move Z
     //下限角速度はこれに -1 を乗ずる
 
-    /** 奥又は手前へ通常Z移動中のX軸回転角の停止角度 */
+    /** 奥(+Z)又は手前(-Z)へ通常Z移動中のX軸回転角の停止角度 */
     angle _angRXStop_MZ; //Rotation axisX Stop angle while I Move Z
 
 
-    /** 上又は下へTurbo移動開始時のZ軸回転角速度の初速度 */
+    /** 上(+Y)又は下(-Y)へTurbo移動開始時のZ軸回転角速度の初速度 */
     angle _angRXVelo_BeginMZT; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
 
     State _state;
 
-    GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
+    GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeoElem>* _pRing_GeoHistory;
 
     GgafCore::GgafActorDispatcher* _pDispatcher_MyShots001;
-    GgafCore::GgafActorDispatcher* _pDispatcher_EnemyShots001;
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion001;
     GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
 
@@ -278,36 +275,21 @@ public:
 
     MyShip(const char* prm_name);
 
-    /**
-     * ＜OverRide です＞
-     */
     void initialize() override;
-    /**
-     *
-     * 自機がアクティブになった瞬間の処理 .
-     */
+
     void onActive() override;
 
     void processReset() override;
 
-    /**
-     * ＜OverRide です＞
-     */
     void processBehavior() override;
 
-    /**
-     * ＜OverRide です＞
-     */
     void processJudgement() override;
 
-    /**
-     * ＜OverRide です＞
-     */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     void setMoveSpeedLv(int lv) {
-        _lv_MoveSpeed = lv;
-        _iMoveSpeed = _lv_MoveSpeed * 1000;
+        //_lv_MoveSpeed = lv;
+        _iMoveSpeed = lv * 1000;
     }
 
     //画面手前へ移動初めX軸回転処理
@@ -744,24 +726,11 @@ public:
     }
 
 
-
-
-    static void transactShot(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
-
-    /**オプション追加*/
-    void equipOption();
-
-
     void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
 
     virtual ~MyShip();
 
     static bool isDoublePushedDown(vbsta prm_VB);
-
-
-
-
-
 
 };
 

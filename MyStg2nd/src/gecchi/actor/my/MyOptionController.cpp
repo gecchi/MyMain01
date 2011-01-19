@@ -99,9 +99,9 @@ MyOptionController::MyOptionController(const char* prm_name) :
     addSubGroup(_pDirectionVector);
 
     //トレース用履歴
-    _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
+    _pRing_GeoHistory = NEW GgafLinkedListRing<GgafDx9GeoElem>();
     for (DWORD i = 0; i < 100; i++) {
-        _pRing_GeoHistory->addLast(NEW GeoElement(this));
+        _pRing_GeoHistory->addLast(NEW GgafDx9GeoElem(this));
     }
 
 }
@@ -143,7 +143,7 @@ void MyOptionController::processBehavior() {
         _is_free_from_myship_mode = false;
         _is_handle_move_mode = false;
         _return_to_default_position_seq = true;
-
+        adjustDefaltAngPosition(60);
         for (int i = 0; i < _now_option_num; i++) {
             //オプションの半径位置を元に戻す指示
             _papMyOption[i]->_return_to_base_radiusPosition_seq = true;
@@ -194,17 +194,18 @@ void MyOptionController::processBehavior() {
             _pMover->setMvVelo(0);
         }
     } else {
+        GgafDx9GeoElem* pGeoMyShip = P_MYSHIP->_pRing_GeoHistory->getPrev(4); //自機にすこしおくれて追従
         if (_return_to_default_position_seq) {
             //元の位置へ
-            int dx = P_MYSHIP->_X - (_X + _pMover->_veloVxMv*6);
-            int dy = P_MYSHIP->_Y - (_Y + _pMover->_veloVyMv*6);
-            int dz = P_MYSHIP->_Z - (_Z + _pMover->_veloVzMv*6);
+            int dx = pGeoMyShip->_X - (_X + _pMover->_veloVxMv*6);
+            int dy = pGeoMyShip->_Y - (_Y + _pMover->_veloVyMv*6);
+            int dz = pGeoMyShip->_Z - (_Z + _pMover->_veloVzMv*6);
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
-            if (abs(_X - P_MYSHIP->_X) < 10000 &&
-                abs(_Y - P_MYSHIP->_Y) < 10000 &&
-                abs(_Z - P_MYSHIP->_Z) < 10000 &&
+            if (abs(_X - pGeoMyShip->_X) < 10000 &&
+                abs(_Y - pGeoMyShip->_Y) < 10000 &&
+                abs(_Z - pGeoMyShip->_Z) < 10000 &&
                 abs(_pMover->_veloVxMv) < 20000 &&
                 abs(_pMover->_veloVyMv) < 20000 &&
                 abs(_pMover->_veloVzMv) < 20000    ) {
@@ -216,30 +217,12 @@ void MyOptionController::processBehavior() {
                 _pMover->setVxMvAcce(0);
                 _pMover->setVyMvAcce(0);
                 _pMover->setVzMvAcce(0);
-                setCoordinateBy(P_MYSHIP);
+                setCoordinateBy(pGeoMyShip);
                 _return_to_default_position_seq = false;
             }
 
         } else {
-            setCoordinateBy(P_MYSHIP);
-        }
-    }
-
-    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-        for (int i = 0; i < _now_option_num; i++) {
-            _papMyOption[i]->adjustAngPosition(ANGLE45*i, 300);
-        }
-    }
-
-    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-        for (int i = 0; i < _now_option_num; i++) {
-            _papMyOption[i]->adjustAngPosition(30000*i, 300);
-        }
-    }
-
-    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-        for (int i = 0; i < _now_option_num; i++) {
-            _papMyOption[i]->adjustAngPosition(ANGLE90*i, 300);
+            setCoordinateBy(pGeoMyShip);
         }
     }
 
@@ -262,22 +245,22 @@ void MyOptionController::setNumOption(int prm_num) {
             _papMyOption[i]->activate();
         }
     }
+}
 
+void MyOptionController::adjustDefaltAngPosition(frame prm_spent_frame) {
     if (_now_option_num <= 4) {
         for (int i = 0; i < _now_option_num; i++) {
-            _papMyOption[i]->adjustAngPosition((ANGLE360/_now_option_num)*i,60);
+            _papMyOption[i]->adjustAngPosition((ANGLE360/_now_option_num)*i,prm_spent_frame);
         }
     } else if (_now_option_num > 4) {
         for (int i = 0; i < 4; i++) {
-            _papMyOption[i]->adjustAngPosition((ANGLE360/4)*i, 60);
+            _papMyOption[i]->adjustAngPosition((ANGLE360/4)*i, prm_spent_frame);
         }
         for (int i = 4; i < _now_option_num; i++) {
-            _papMyOption[i]->adjustAngPosition((ANGLE360/(_now_option_num-4))*(i-4), 60);
+            _papMyOption[i]->adjustAngPosition((ANGLE360/(_now_option_num-4))*(i-4), prm_spent_frame);
         }
     }
 }
-
-
 MyOptionController::~MyOptionController() {
     DELETEARR_IMPOSSIBLE_NULL(_papMyOption);
     DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);

@@ -34,8 +34,7 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     _lim_zleft   = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2;       //奥手前は画面幅の大体５画面分
     _lim_zright  = -(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2);
 
-    /** 移動スピードレベル */
-    _lv_MoveSpeed = 2;
+
     /** 移動スピードレベルに相応する移動スピード */
     _iMoveSpeed = 5000;
     //CommonSceneがnewの場合設定
@@ -86,9 +85,9 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
 
 
     //トレース用履歴
-    _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
+    _pRing_GeoHistory = NEW GgafLinkedListRing<GgafDx9GeoElem>();
     for (UINT32 i = 0; i < 100; i++) {
-        _pRing_GeoHistory->addLast(NEW GeoElement(this));
+        _pRing_GeoHistory->addLast(NEW GgafDx9GeoElem(this));
     }
 
     _iMoveVelo = 0;
@@ -524,32 +523,6 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
 void MyShip::doNotingMoveInput() {
 
 }
-
-void MyShip::transactShot(GgafDx9GeometricActor* prm_pActor) {
-
-}
-
-void MyShip::equipOption() {
-//
-//    if (_state.eq_option >= EQ_MAX_OPTION) {
-//        return;
-//    }
-//    MyOption* pOption = (MyOption*)_pSubFirst;
-//    for (int i = 0; i < _state.eq_option; i++) {
-//        pOption = (MyOption*)(pOption->getNext());
-//    }
-//    if (_state.eq_option == 0) {
-//        pOption->setRadicalActor(this);
-//    } else {
-//        pOption->setRadicalActor((GgafDx9GeometricActor*)pOption->getPrev());
-//    }
-//
-//    _state.eq_option++;
-//    pOption->activate();
-
-}
-
-
 
 
 bool MyShip::isDoublePushedDown(vbsta prm_VB) {

@@ -23,7 +23,7 @@ public:
     MyOptionControllerGizmo* _pGizmo;
     MyOptionControllerDirectionVector* _pDirectionVector;
 
-    GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
+    GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeoElem>* _pRing_GeoHistory;
     velo _veloOptionsMv;
     MoveWay _way_myship_prev;
     static int _max_option_num;
@@ -62,6 +62,8 @@ public:
     //void setTerget(angle prm_angRz_Target, angle prm_angRy_Target);
 
     void setNumOption(int prm_num);
+
+    void adjustDefaltAngPosition(frame prm_spent_frame);
 
     virtual ~MyOptionController();
 
