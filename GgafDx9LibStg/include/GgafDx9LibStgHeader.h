@@ -24,8 +24,6 @@ class DefaultCamera;
 class StgUtil;
 class VirtualButton;
 class VBRecorder;
-class GeoElement;
-class GeometryChain;
 class DefaultScene;
 class ActorTableScene;
 class ScrolledScene;
@@ -85,8 +83,7 @@ class LaserChipDispatcherDispatcher;
 
 #include "jp/ggaf/dx9libstg/util/VirtualButton.h"
 #include "jp/ggaf/dx9libstg/util/VBRecorder.h"
-#include "jp/ggaf/dx9libstg/util/GeoElement.h"
-#include "jp/ggaf/dx9libstg/util/GeometryChain.h"
+
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
 #include "jp/ggaf/dx9libstg/scene/ActorTableScene.h"
 #include "jp/ggaf/dx9libstg/scene/ScrolledScene.h"
