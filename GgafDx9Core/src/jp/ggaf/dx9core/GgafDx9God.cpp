@@ -399,6 +399,7 @@ HRESULT GgafDx9God::initDx9Device() {
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS,TRUE);
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK,0x7fffffff);
 
+    //色合成も全てシェーダーで処理になったのでコメント
     //SetTextureStageStateは廃止？
     //  1段階目ポリゴンとテクスチャの合成方法設定
     //    //テクスチャーの色と、頂点カラーのDIFFUSE色を乗算するように設定
@@ -411,18 +412,16 @@ HRESULT GgafDx9God::initDx9Device() {
     //    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
 
 
+    //GgafDx9Cameraへ移動した
     // VIEW変換（カメラ位置）設定
     //D3DXMATRIX _vMatrixView; // ビュー変換行列
-
     //    DELETE_POSSIBLE_NULL(_pVecCamFromPoint);
     //    DELETE_POSSIBLE_NULL(_pVecCamLookatPoint);
     //    DELETE_POSSIBLE_NULL(_pVecCamUp);
 
-
+    //GgafDx9Cameraへ移動した
     // 射影変換（３Ｄ→平面）
     //D3DXMATRIX _vMatrixProj; // 射影変換行列
-
-
     //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_vMatrixProj);
 
 
@@ -487,9 +486,9 @@ void GgafDx9God::makeUniversalMaterialize() {
             GgafFactory::finishRest();
             _TRACE_("正常デバイスロスト処理。End");
         }
-    }
+    } else {
+        //通常時（デバイスロストではない）の処理
 
-    if (_is_device_lost_flg != true) {
         //バッファクリア
         hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                               NULL, // 矩形領域
@@ -535,17 +534,21 @@ void GgafDx9God::presentUniversalVisualize() {
         }
 
         HRESULT hr;
-        hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+//        hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
 
-//        if (_FULLSCRREEN) {
-//            hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
-//        } else {
-//            if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
-//                hr = GgafDx9God::_pID3DDevice9->Present(NULL, &_rectPresentDest, NULL, NULL);
-//            } else {
-//                hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
-//            }
-//        }
+        if (_FULLSCRREEN) {
+            //フルスクリーン
+            hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+        } else {
+            //ウィンドウモード
+            if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
+                //縦横比固定モード
+                hr = GgafDx9God::_pID3DDevice9->Present(NULL, &_rectPresentDest, NULL, NULL);
+            } else {
+                //縦横ストレッチモード
+                hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+            }
+        }
         if (hr == D3DERR_DEVICELOST) {
             //出刃異素露巣斗！
             _TRACE_("通常デバイスロスト！Present()");
@@ -616,15 +619,6 @@ void GgafDx9God::clean() {
 void GgafDx9God::adjustGameScreen() {
      RECT rect;
     if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
-
-        D3DVIEWPORT9 vClient;
-        vClient.MinZ = 0.0f;
-        vClient.MaxZ = 1.0f;
-        vClient.X = (DWORD)0;
-        vClient.Y = (DWORD)0;
-        vClient.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH));
-        vClient.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT));
-        _pID3DDevice9->SetViewport(&vClient);
         HRESULT hr;
         hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                               NULL, // 矩形領域
@@ -635,107 +629,26 @@ void GgafDx9God::adjustGameScreen() {
                                               0 // ステンシルバッファのクリア値
                 );
         checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
-
-
         if (::GetClientRect(_hWnd, &rect)) {
-
-//            _TRACE_("adjustGameScreen!!!!!!");
-//            _TRACE_("rect="<<rect.left<<","<<rect.top<<","<<rect.right<<","<<rect.bottom);
-//            D3DVIEWPORT9 vClient;
-//            _pID3DDevice9->GetViewport(&vClient);
-//            _TRACE_("vClient="<<vClient.X<<","<<vClient.Y<<","<<vClient.Width<<","<<vClient.Height);
-
-            D3DVIEWPORT9 vp;    //ビューポート
-            vp.MinZ = 0.0f;
-            vp.MaxZ = 1.0f;
-            double aspect_client = 1.0 * rect.right / rect.bottom;
-            double aspect_buffer = 1.0 * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
-//            _TRACE_("aspect_client = "<<aspect_client<<" aspect_buffer="<<aspect_buffer);
-            if (aspect_client > aspect_buffer) {
+            if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)) {
                 //より横長になってしまっている
-                float rate = (1.0 * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / (1.0 *rect.right / rect.bottom));
-                vp.X = (DWORD)((GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / 2.0) - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0)) ;
-                vp.Y = (DWORD)0;
-                vp.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate);
-                vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT));
+                float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT); //縮小率=縦幅の比率
+                GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f)
+                        - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
+                GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
+                GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
+                        + (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
+                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate;
             } else {
                 //より縦長になってしまっている
-                float rate = (1.0 * GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / (1.0 *rect.bottom / rect.right));
-                vp.X = (DWORD)0;
-                vp.Y = (DWORD)((GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / 2.0) - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0)) ;;
-                vp.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH));
-                vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate);
-
+                float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH); //縮小率=横幅の比率
+                GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
+                GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
+                        - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
+                GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate;
+                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
+                        + (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
             }
-//            _TRACE_("new vp="<<vp.X<<","<<vp.Y<<","<<vp.Width<<","<<vp.Height);
-            _pID3DDevice9->SetViewport(&vp);
-
-
-
-//
-//
-//            //工場休止
-//            GgafFactory::beginRest();
-//
-//            ___EndSynchronized; // <----- 排他終了
-//            for (int i = 0; GgafFactory::isResting() == false; i++) {
-//                Sleep(60); //工場が落ち着くまで待つ
-//                if (i > 2000) {
-//                    _TRACE_("GgafDx9God::makeUniversalMaterialize() ２分待機しましたが、工場から反応がありません。breakします。要調査");
-//                }
-//            }
-//            //            while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
-//            //                Sleep(10);
-//            //            }
-//            ___BeginSynchronized; // ----->排他開始
-//            //エフェクト、デバイスロスト処理
-//            GgafDx9God::_pEffectManager->onDeviceLostAll();
-//            //モデル解放
-//            GgafDx9God::_pModelManager->onDeviceLostAll();
-//            //全ノードに解放しなさいイベント発令
-//            getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
-//
-//            //デバイスリセットを試みる
-//            hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
-//            checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセットに失敗しました。");
-//
-//            //デバイス再設定
-//            GgafDx9God::initDx9Device();
-//            //エフェクトリセット
-//            GgafDx9God::_pEffectManager->restoreAll();
-//            //モデル再設定
-//            GgafDx9God::_pModelManager->restoreAll();
-//            //全ノードに再設定しなさいイベント発令
-//            getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_RESTORE, this);
-//            //前回描画モデル情報を無効にする
-//            GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
-//
-//            //工場再開
-//            GgafFactory::finishRest();
-
-
-
-
-//            if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)) {
-//                //より横長になってしまっている
-//                float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT); //縮小率=縦幅の比率
-//                GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)
-//                        * rate / 2.0f);
-//                GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
-//                GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
-//                        + (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
-//                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate;
-//            } else {
-//                //より縦長になってしまっている
-//                float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH); //縮小率=横幅の比率
-//                GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
-//                GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
-//                        - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
-//                GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate;
-//                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
-//                        + (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
-//            }
-
             _adjustGameScreen = false;
         }
     } else {
@@ -748,6 +661,68 @@ void GgafDx9God::adjustGameScreen() {
         }
     }
 }
+
+//void GgafDx9God::adjustGameScreen() {
+//     RECT rect;
+//    if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
+//
+//        D3DVIEWPORT9 vClient;
+//        vClient.MinZ = 0.0f;
+//        vClient.MaxZ = 1.0f;
+//        vClient.X = (DWORD)0;
+//        vClient.Y = (DWORD)0;
+//        vClient.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH));
+//        vClient.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT));
+//        _pID3DDevice9->SetViewport(&vClient);
+//        HRESULT hr;
+//        hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
+//                                              NULL, // 矩形領域
+//                                              D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+//                                              //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
+//                                              D3DCOLOR_RGBA(0, 0, 0, 0), //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
+//                                              1.0f, // Zバッファのクリア値
+//                                              0 // ステンシルバッファのクリア値
+//                );
+//        checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
+//
+//
+//        if (::GetClientRect(_hWnd, &rect)) {
+//            D3DVIEWPORT9 vp;    //ビューポート
+//            vp.MinZ = 0.0f;
+//            vp.MaxZ = 1.0f;
+//            double aspect_client = 1.0 * rect.right / rect.bottom;
+//            double aspect_buffer = 1.0 * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
+////            _TRACE_("aspect_client = "<<aspect_client<<" aspect_buffer="<<aspect_buffer);
+//            if (aspect_client > aspect_buffer) {
+//                //より横長になってしまっている
+//                float rate = (1.0 * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / (1.0 *rect.right / rect.bottom));
+//                vp.X = (DWORD)((GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / 2.0) - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0)) ;
+//                vp.Y = (DWORD)0;
+//                vp.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate);
+//                vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT));
+//            } else {
+//                //より縦長になってしまっている
+//                float rate = (1.0 * GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / (1.0 *rect.bottom / rect.right));
+//                vp.X = (DWORD)0;
+//                vp.Y = (DWORD)((GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / 2.0) - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0)) ;;
+//                vp.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH));
+//                vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate);
+//
+//            }
+////            _TRACE_("new vp="<<vp.X<<","<<vp.Y<<","<<vp.Width<<","<<vp.Height);
+//            _pID3DDevice9->SetViewport(&vp);
+//            _adjustGameScreen = false;
+//        }
+//    } else {
+//        if (::GetClientRect(_hWnd, &rect)) {
+//            GgafDx9Core::GgafDx9God::_rectPresentDest.top = rect.top;
+//            GgafDx9Core::GgafDx9God::_rectPresentDest.left = rect.left;
+//            GgafDx9Core::GgafDx9God::_rectPresentDest.right = rect.right;
+//            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = rect.bottom;
+//            _adjustGameScreen = false;
+//        }
+//    }
+//}
 
 GgafDx9God::~GgafDx9God() {
 
