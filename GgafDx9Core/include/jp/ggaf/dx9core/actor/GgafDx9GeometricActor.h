@@ -260,17 +260,11 @@ public:
      * 未変換座標をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void setCoordinateBy(GgafDx9GeometricActor* prm_pActor) {
-        _X = prm_pActor->_X;
-        _Y = prm_pActor->_Y;
-        _Z = prm_pActor->_Z;
-    }
+    virtual void setCoordinateBy(GgafDx9GeometricActor* prm_pActor);
 
-    virtual void setRotationBy(GgafDx9GeometricActor* prm_pActor) {
-        _RX = prm_pActor->_RX;
-        _RY = prm_pActor->_RY;
-        _RZ = prm_pActor->_RZ;
-    }
+    virtual void setCoordinateBy(GgafDx9GeoElem* prm_pGgafDx9GeoElem);
+
+    virtual void setRotationBy(GgafDx9GeometricActor* prm_pActor);
 
     /**
      * _matInvWorldRotMvの逆行列を返す。
