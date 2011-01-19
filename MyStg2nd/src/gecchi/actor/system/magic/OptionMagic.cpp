@@ -103,6 +103,9 @@ void OptionMagic::processExpiringBehavior() {
         _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
     }
     if (_r_effect < 0) {
+        for (int i = _old_level; i < _new_level; i++) {
+            _papEffect[i]->inactivate();
+        }
         commit();
     }
 }

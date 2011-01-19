@@ -79,6 +79,9 @@ class LaserChipDispatcherDispatcher;
 }
 
 #include "jp/ggaf/dx9libstg/DefaultGod.h"
+#include "jp/ggaf/dx9libstg/util/ColliAAB.h"
+#include "jp/ggaf/dx9libstg/util/ColliSphere.h"
+#include "jp/ggaf/dx9libstg/util/ColliAAPrism.h"
 #include "jp/ggaf/dx9libstg/util/StgUtil.h"
 
 #include "jp/ggaf/dx9libstg/util/VirtualButton.h"
@@ -122,9 +125,6 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/actor/WallAAPrismActor.h"
 #include "jp/ggaf/dx9libstg/actor/WorldBoundActor.h"
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
-#include "jp/ggaf/dx9libstg/util/ColliAAB.h"
-#include "jp/ggaf/dx9libstg/util/ColliSphere.h"
-#include "jp/ggaf/dx9libstg/util/ColliAAPrism.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h"
 #include "jp/ggaf/dx9libstg/util/CollisionChecker.h"

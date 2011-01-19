@@ -34,7 +34,7 @@ public:
          * スタックに積む .
          * @param prm_pActor 積むアクター
          */
-        void push(GgafCore::GgafActor* prm_pActor) {
+        inline void push(GgafCore::GgafActor* prm_pActor) {
             if (_p > 3000-1) {
                 throwGgafCriticalException("LinearOctreeForActor::push("<<prm_pActor->getName()<<") スタックを使い切りました、一箇所に当たり判定が塊過ぎです。");
             }
@@ -45,7 +45,7 @@ public:
          * スタックから取り出す .
          * @return 取り出されたアクター
          */
-        GgafCore::GgafActor* pop() {
+        inline GgafCore::GgafActor* pop() {
             if (_p == 0) {
                 return NULL;
             } else {
@@ -56,7 +56,7 @@ public:
         /**
          * 積んだスタックをなかった事にする。 .
          */
-        void clear() {
+        inline void clear() {
             _p = 0;
         }
         ~CollisionStack() {
