@@ -9,7 +9,7 @@ OptionMagic::OptionMagic(const char* prm_name, MagicMeter* prm_pMagicMeter) : Ma
                                                           8,          //max_level
                                                           4*1000,     //cost_base
                                                           5*60*60,    //time_of_casting_base
-                                                          1*60*60     //time_of_invoking
+                                                          3600*60 //1*60*60     //time_of_invoking èàóùÇ≈invokingäÆóπÇ≥ÇπÇÈ
                                                     ) {
 //    |  0,   1,   2,   3 |
 //    |  4,   5,   6,   7 |
@@ -62,49 +62,94 @@ void OptionMagic::processCastBegin() {
     }
 
     _old_level = _level;
+    angle* paAngWay = NEW angle[_level-_old_level];
+    GgafDx9Util::getRadialAngle2D(0, _level-_old_level, paAngWay);
     for (int i = _old_level; i < _new_level; i++) {
-        _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
+        _papEffect[i]->setCoordinateBy(P_MYSHIP);
+        _papEffect[i]->_pMover->setRzRyMvAng(ANGLE45, paAngWay[i]);
+        _papEffect[i]->_pMover->setMvVelo(200000 / (_time_of_casting/_cast_speed));
+        _papEffect[i]->_pMover->setMvAcce(0);
         _papEffect[i]->activate();
-        _papEffect[i]->setAlpha(0.9);
+        _papEffect[i]->setAlpha(0.2);
+        _papEffect[i]->setScaleRate(1.0f);
     }
     _r_effect = 1;
 
 }
 
 void OptionMagic::processCastingBehavior() {
+    _r_effect += 0.02;
     for (int i = _old_level; i < _new_level; i++) {
-        _r_effect += 0.01;
         _papEffect[i]->setScaleRate(_r_effect);
-        _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
     }
 }
 
 void OptionMagic::processInvokeBegin() {
-    P_MYOPTIONCON->setNumOption(_new_level);
+
+    for (int i = _old_level; i < _new_level; i++) {
+        _papEffect[i]->_pMover->setMvVelo(1000);
+        _papEffect[i]->_pMover->setMvAcce(100);
+        _papEffect[i]->_pMover->execTagettingMvAngSequence(P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
+                                                           P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[i]->_Yorg,
+                                                           P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg,
+                                                           3000,
+                                                           0,TURN_CLOSE_TO,true);
+
+
+
+        _papEffect[i]->_pMover->forceMvVeloRange(P_MYOPTIONCON->_papMyOption[i]->_veloMv*5.0);
+//                                SmoothMvVeloSequence2(2000, 0, _time_of_casting, true);
+    }
+
 }
 
 void OptionMagic::processInvokeingBehavior()  {
+    if ((_time_of_invoking - _left_time_to_expire) < (ANGLE180/3000)) {
+        return;
+    }
+    int targetX,targetY,targetZ;
+    int ok = 0;
     for (int i = _old_level; i < _new_level; i++) {
-        _r_effect += 0.2;
-        _papEffect[i]->setScaleRate(_r_effect);
-        _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
+        targetX = P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg;
+        targetY = P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[i]->_Yorg;
+        targetZ = P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg;
+        if (GgafUtil::abs(_papEffect[i]->_X - targetX) + GgafUtil::abs(_papEffect[i]->_Y - targetY) + GgafUtil::abs(_papEffect[i]->_Z - targetZ)/3  < GgafUtil::abs(P_MYOPTIONCON->_papMyOption[i]->_veloMv)*5) {
+            ok++;
+            _papEffect[i]->_pMover->setMvVelo(500);
+        }
+        _papEffect[i]->_pMover->execTagettingMvAngSequence(targetX,
+                                                           targetY,
+                                                           targetZ,
+                                                           40000,
+                                                           0,TURN_CLOSE_TO,true);
+    }
+    if (ok == (_new_level - _old_level)) {
+        expire();
     }
 }
 
 void OptionMagic::processExpireBegin()  {
-    _r_effect = 1.0;
+    P_MYOPTIONCON->setNumOption(_new_level);
     P_MYOPTIONCON->adjustDefaltAngPosition(60);
-}
-
-void OptionMagic::processExpiringBehavior() {
-    _r_effect -= 0.02;
     for (int i = _old_level; i < _new_level; i++) {
         _papEffect[i]->setAlpha(_r_effect);
         _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
+        P_MYOPTIONCON->_papMyOption[i]->setAlpha(0.0);
+    }
+    _r_effect = 1.0f;
+}
+
+void OptionMagic::processExpiringBehavior() {
+    _r_effect -= 0.03;
+    for (int i = _old_level; i < _new_level; i++) {
+        _papEffect[i]->setAlpha(_r_effect);
+        _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
+        P_MYOPTIONCON->_papMyOption[i]->setAlpha(1.0f-_r_effect);
     }
     if (_r_effect < 0) {
         for (int i = _old_level; i < _new_level; i++) {
             _papEffect[i]->inactivate();
+            P_MYOPTIONCON->_papMyOption[i]->setAlpha(1.0);
         }
         commit();
     }

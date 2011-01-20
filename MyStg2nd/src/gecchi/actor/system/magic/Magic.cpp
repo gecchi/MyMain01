@@ -105,7 +105,7 @@ void Magic::behave() {
                 }
                 break;
             case MAGIC_INVOKING:
-                _left_time_to_expire -= _cast_speed;
+                _left_time_to_expire --;
                 if (_left_time_to_expire < 0) {
                     expire();
                 } else {

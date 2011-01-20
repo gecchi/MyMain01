@@ -6,10 +6,7 @@ namespace MyStg2nd {
 //class MyOption : public GgafDx9LibStg::DefaultMorphMeshActor {
 class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 
-    //一時変数達
-    int _Xorg,_Yorg,_Zorg;
-    //angle _RXorg,_RYorg,_RZorg;
-    float _vXwk,_vYwk,_vZwk;
+
     GgafDx9Core::GgafDx9Quaternion _Q;
 
 private:
@@ -32,7 +29,10 @@ private:
 
 
 public:
-
+    //一時変数達
+    int _Xorg,_Yorg,_Zorg;
+    //angle _RXorg,_RYorg,_RZorg;
+    float _vXwk,_vYwk,_vZwk;
 
     /** [r]親アクター */
     MyOptionController* _pMyOptionController;
