@@ -255,10 +255,14 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     int  _smooth_mv_velo_seq_distance_of_target;
     /** なめらかな移動シークエンスに開始から現在までの移動距離 */
     int  _smooth_mv_velo_seq_mv_distance;
-    /** なめらかな移動シークエンスで設定された加速～等速へ切り替わる距離の位置 */
-    int  _smooth_mv_velo_seq_distance_of_p1;
-    /** なめらかな移動シークエンスで設定された等速～減速へ切り替わる距離の位置 */
-    int  _smooth_mv_velo_seq_distance_of_p2;
+    /** なめらかな移動シークエンスで設定された目標時間 */
+    int  _smooth_mv_velo_seq_frame_of_spend;
+    /** なめらかな移動シークエンスに開始から現在までの経過時間 */
+    int  _smooth_mv_velo_seq_spend_frame;
+    /** なめらかな移動シークエンスで設定された加速～等速へ切り替わる位置 */
+    int  _smooth_mv_velo_seq_p1;
+    /** なめらかな移動シークエンスで設定された等速～減速へ切り替わる位置 */
+    int  _smooth_mv_velo_seq_p2;
     /** なめらかな移動シークエンスの進捗状況 */
     int  _smooth_mv_velo_seq_progress;
 
@@ -282,7 +286,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_veloMv02  移動速度２
      */
     void forceMvVeloRange(velo prm_veloMv01, velo prm_veloMv02);
-
+    void forceMvVeloRange(velo prm_veloMv);
     /**
      * 移動加速度を設定 .
      * @param prm_acceMove 移動加速度
@@ -352,6 +356,36 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      */
     void setMvAcce(int prm_distance_of_target, velo prm_velo_target);
 
+
+    /**
+     * 移動加速度を、「目標到達速度」「費やす時間」により設定 .
+     * <pre><code>
+     *
+     *    速度
+     *     ^        a:加速度
+     *     |        S:移動距離
+     *     |       v0:現時点の速度
+     *     |       vx:目標到達速度
+     *     |       t:目標到達速度に達した時の時間（フレーム数）
+     *   vx|........
+     *     |      ／|
+     *     |    ／  |
+     *     |  ／    |   傾きはa
+     *     |／      |
+     *   v0|  S     |
+     *     |        |
+     *   --+--------+---> 時間(フレーム)
+     *   0 |        t
+     *
+     *    a = (vx-v0) / t
+     *    Sは無視
+     * </code></pre>
+     * 具体的には、の上図のような状態を想定し、加速度(a)を計算し設定している。<BR>
+     * 捕捉：setMvAcce(0, d) は setMvAcceToStop(d) と同じである
+     * @param prm_frame_of_spend 費やす時間
+     * @param prm_distance_of_target  目標到達速度に達するまでに費やす距離
+     */
+    void setMvAcce2(int prm_frame_of_spend, velo prm_velo_target);
 
     /**
      * Actorの移動方角（Z軸回転）を設定。<BR>
@@ -855,22 +889,39 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     }
 
     /**
-     * なめらかな移動速度で移動するシークエンスを実行 .
+     * なめらかな移動速度を変化させるシークエンスを実行(目標直線移動距離指定) .
      * 引数の移動距離を４分割し、次のような速度制御を自動的に行う。<BR>
      * 距離 0    ～距離 1/4 まで ・・・ 現在の速度からトップスピードまで加速(or減速)<BR>
      * 距離 1/4 ～ 距離 3/4 まで ・・・ トップスピードで等速<BR>
      * 距離 3/4 ～ 距離 4/4 まで ・・・ トップスピードから最終スピードへ減速(or加速)<BR>
      * @param prm_top_velo トップスピード
      * @param prm_end_velo 最終スピード
-     * @param prm_distance_of_target 目標移動距離
-     * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０にする/false:加速度はそのままにしておく
+     * @param prm_distance_of_target 目標直線移動距離
+     * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void execSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
                                   bool prm_endacc_flg = true);
 
+    /**
+     * なめらかな移動速度を変化させるシークエンスを実行(目標時間指定) .
+     * 引数の移動距離を４分割し、次のような速度制御を自動的に行う。<BR>
+     * 時間 0    ～時間 1/4 まで ・・・ 現在の速度からトップスピードまで加速(or減速)<BR>
+     * 時間 1/4 ～ 時間 3/4 まで ・・・ トップスピードで等速<BR>
+     * 時間 3/4 ～ 時間 4/4 まで ・・・ トップスピードから最終スピードへ減速(or加速)<BR>
+     * @param prm_top_velo トップスピード
+     * @param prm_end_velo 最終スピード
+     * @param prm_frame_of_spend 費やす時間(フレーム数を指定、負の数は不可)
+     * @param prm_endacc_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
+     */
+    void execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
+                                   bool prm_endacc_flg = true);
+
     bool isMoveingSmooth();
 
-
+    /**
+     * 他の GgafDx9GeometricMover オブジェクトを状態を自身に引継ぐ .
+     * @param prm_pMover 引継元
+     */
     void takeoverMvFrom(GgafDx9GeometricMover* prm_pMover);
 
     void resetMv();

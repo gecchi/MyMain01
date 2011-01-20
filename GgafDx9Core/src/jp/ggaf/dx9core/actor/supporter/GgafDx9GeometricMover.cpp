@@ -251,8 +251,10 @@ GgafDx9GeometricMover::GgafDx9GeometricMover(GgafDx9GeometricActor* prm_pActor) 
     _smooth_mv_velo_seq_end_velo = 0;
     _smooth_mv_velo_seq_distance_of_target = 0;
     _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_distance_of_p1 = 0;
-    _smooth_mv_velo_seq_distance_of_p2 = 0;
+    _smooth_mv_velo_seq_frame_of_spend = 0;
+    _smooth_mv_velo_seq_spend_frame = 0;
+    _smooth_mv_velo_seq_p1 = 0;
+    _smooth_mv_velo_seq_p2 = 0;
     _smooth_mv_velo_seq_progress = -1;
 }
 
@@ -331,37 +333,76 @@ void GgafDx9GeometricMover::behave() {
 
     //なめらか移動シークエンス起動時
     if (_smooth_mv_velo_seq_flg) {
-        if (_smooth_mv_velo_seq_progress == 0) {
-            //加速設定
-            setMvAcce(_smooth_mv_velo_seq_distance_of_p1, _smooth_mv_velo_seq_top_velo);
-            _smooth_mv_velo_seq_progress++;
-        } else if (_smooth_mv_velo_seq_progress == 1) {
-            //加速中
-            if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_distance_of_p1) {
-                //p1 に到達すれば 等速へ
-                setMvAcce(0);
-                setMvVelo(_smooth_mv_velo_seq_top_velo);
+        if (_smooth_mv_velo_seq_frame_of_spend < 0) {
+            //目標距離指定の場合
+            if (_smooth_mv_velo_seq_progress == 0) {
+                //加速設定
+                setMvAcce(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
                 _smooth_mv_velo_seq_progress++;
-            }
-        } else if (_smooth_mv_velo_seq_progress == 2) {
-            //等速中
-            if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_distance_of_p2) {
-                //p2 に到達すれば 次回フレームから減速へ
-                setMvAcce(_smooth_mv_velo_seq_distance_of_target - _smooth_mv_velo_seq_mv_distance, _smooth_mv_velo_seq_end_velo);
-                _smooth_mv_velo_seq_progress++;
-            }
-        } else if (_smooth_mv_velo_seq_progress == 3) {
-            //減速中
-            if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_distance_of_target) {
-                //目標距離へ到達
-                setMvVelo(_smooth_mv_velo_seq_end_velo);
-                if (_smooth_mv_velo_seq_endacc_flg) {
+            } else if (_smooth_mv_velo_seq_progress == 1) {
+                //加速中
+                if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_p1) {
+                    //p1 に到達すれば 等速へ
                     setMvAcce(0);
+                    setMvVelo(_smooth_mv_velo_seq_top_velo);
+                    _smooth_mv_velo_seq_progress++;
                 }
-                _smooth_mv_velo_seq_progress++;
-                _smooth_mv_velo_seq_flg = false; //おしまい
+            } else if (_smooth_mv_velo_seq_progress == 2) {
+                //等速中
+                if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_p2) {
+                    //p2 に到達すれば 次回フレームから減速へ
+                    setMvAcce(_smooth_mv_velo_seq_distance_of_target - _smooth_mv_velo_seq_mv_distance, _smooth_mv_velo_seq_end_velo);
+                    _smooth_mv_velo_seq_progress++;
+                }
+            } else if (_smooth_mv_velo_seq_progress == 3) {
+                //減速中
+                if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_distance_of_target) {
+                    //目標距離へ到達
+                    setMvVelo(_smooth_mv_velo_seq_end_velo);
+                    if (_smooth_mv_velo_seq_endacc_flg) {
+                        setMvAcce(0);
+                    }
+                    _smooth_mv_velo_seq_progress++;
+                    _smooth_mv_velo_seq_flg = false; //おしまい
+                }
             }
+        } else {
+            //目標時間指定の場合
+            if (_smooth_mv_velo_seq_progress == 0) {
+                //加速設定
+                setMvAcce(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
+                _smooth_mv_velo_seq_progress++;
+            } else if (_smooth_mv_velo_seq_progress == 1) {
+                //加速中
+                if (_smooth_mv_velo_seq_spend_frame >= _smooth_mv_velo_seq_p1) {
+                    //p1 に到達すれば 等速へ
+                    setMvAcce(0);
+                    setMvVelo(_smooth_mv_velo_seq_top_velo);
+                    _smooth_mv_velo_seq_progress++;
+                }
+            } else if (_smooth_mv_velo_seq_progress == 2) {
+                //等速中
+                if (_smooth_mv_velo_seq_spend_frame >= _smooth_mv_velo_seq_p2) {
+                    //p2 に到達すれば 次回フレームから減速へ
+                    setMvAcce2(_smooth_mv_velo_seq_frame_of_spend - _smooth_mv_velo_seq_spend_frame, _smooth_mv_velo_seq_end_velo);
+                    _smooth_mv_velo_seq_progress++;
+                }
+            } else if (_smooth_mv_velo_seq_progress == 3) {
+                //減速中
+                if (_smooth_mv_velo_seq_spend_frame >= _smooth_mv_velo_seq_frame_of_spend) {
+                    //目標距離へ到達
+                    setMvVelo(_smooth_mv_velo_seq_end_velo);
+                    if (_smooth_mv_velo_seq_endacc_flg) {
+                        setMvAcce(0);
+                    }
+                    _smooth_mv_velo_seq_progress++;
+                    _smooth_mv_velo_seq_flg = false; //おしまい
+                }
+            }
+
         }
+
+
     }
 
     _accMv += _jerkMv;
@@ -370,7 +411,11 @@ void GgafDx9GeometricMover::behave() {
     setMvVelo(_veloMv);
 
     if (_smooth_mv_velo_seq_flg) {
-        _smooth_mv_velo_seq_mv_distance+=abs(_veloMv);
+        if (_smooth_mv_velo_seq_frame_of_spend < 0) {
+            _smooth_mv_velo_seq_mv_distance+=abs(_veloMv);
+        } else {
+            _smooth_mv_velo_seq_spend_frame++;
+        }
     }
 
     ///////////
@@ -680,6 +725,9 @@ angle GgafDx9GeometricMover::getFaceAngDistance(int prm_axis, angle prm_angTarge
     throwGgafCriticalException("GgafDx9GeometricMover::getFaceAngDistance() 何故かしら角の距離が求めれません(2)。_pActor="<<_pActor->getName());
 }
 
+void GgafDx9GeometricMover::forceMvVeloRange(int prm_velo) {
+    forceMvVeloRange(-prm_velo, prm_velo);
+}
 
 void GgafDx9GeometricMover::forceMvVeloRange(int prm_veloMv01, int prm_veloMv02) {
     if (prm_veloMv01 < prm_veloMv02) {
@@ -720,10 +768,13 @@ void GgafDx9GeometricMover::setMvAcceToStop(int prm_distance_of_target) {
     }
     //(frame)((2.0*prm_distance_of_target) / _veloMv); //使用フレーム数
 }
-
+void GgafDx9GeometricMover::setMvAcce2(int prm_frame_of_spend, velo prm_velo_target) {
+    //a = (vx-v0) / t
+    _accMv = (prm_velo_target - _veloMv) / (1.0f*prm_velo_target);
+}
 void GgafDx9GeometricMover::setMvAcce(int prm_distance_of_target, velo prm_velo_target) {
     // a = (vx^2 - v0^2) / 2S
-    _accMv =  ((1.0*prm_velo_target*prm_velo_target) - (1.0*_veloMv*_veloMv)) / (2.0*prm_distance_of_target);
+    _accMv =  ((1.0f*prm_velo_target*prm_velo_target) - (1.0f*_veloMv*_veloMv)) / (2.0f*prm_distance_of_target);
     if (_accMv < 0) {
         _accMv += 1;
     } else {
@@ -786,7 +837,6 @@ void GgafDx9GeometricMover::setMvAcce(int prm_distance_of_target, velo prm_velo_
 
 }
 
-
 void GgafDx9GeometricMover::execSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
                                                     bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
@@ -795,8 +845,26 @@ void GgafDx9GeometricMover::execSmoothMvVeloSequence(velo prm_top_velo, velo prm
     _smooth_mv_velo_seq_end_velo = prm_end_velo;
     _smooth_mv_velo_seq_distance_of_target = prm_distance_of_target;
     _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_distance_of_p1 = (int)(prm_distance_of_target*1.0 / 4.0);
-    _smooth_mv_velo_seq_distance_of_p2 = (int)(prm_distance_of_target*3.0 / 4.0);
+    _smooth_mv_velo_seq_frame_of_spend = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
+    _smooth_mv_velo_seq_spend_frame = 0;
+    _smooth_mv_velo_seq_p1 = (int)(prm_distance_of_target*1.0 / 4.0);
+    _smooth_mv_velo_seq_p2 = (int)(prm_distance_of_target*3.0 / 4.0);
+    _smooth_mv_velo_seq_progress = 0;
+}
+
+
+void GgafDx9GeometricMover::execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
+                                                    bool prm_endacc_flg) {
+    _smooth_mv_velo_seq_flg = true;
+    _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
+    _smooth_mv_velo_seq_top_velo = prm_top_velo;
+    _smooth_mv_velo_seq_end_velo = prm_end_velo;
+    _smooth_mv_velo_seq_distance_of_target = 0;
+    _smooth_mv_velo_seq_mv_distance = 0;
+    _smooth_mv_velo_seq_frame_of_spend = prm_frame_of_spend;
+    _smooth_mv_velo_seq_spend_frame = 0;
+    _smooth_mv_velo_seq_p1 = (int)(prm_frame_of_spend*1.0 / 4.0);
+    _smooth_mv_velo_seq_p2 = (int)(prm_frame_of_spend*3.0 / 4.0);
     _smooth_mv_velo_seq_progress = 0;
 }
 
