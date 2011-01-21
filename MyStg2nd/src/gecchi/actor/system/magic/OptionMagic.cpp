@@ -59,6 +59,9 @@ void OptionMagic::processCastBegin() {
         _cost = _cost_base * (_new_level - _level) * 0.8 ; //‚QŠ„ˆø
     } else {
         _cost = -1.0f * _cost_base * (_level - _new_level) * 0.5;
+		P_MYOPTIONCON->setNumOption(_new_level);
+		commit();
+
     }
 
     _old_level = _level;
@@ -70,9 +73,10 @@ void OptionMagic::processCastBegin() {
         _papEffect[i]->_pMover->setMvVelo(200000 / (_time_of_casting/_cast_speed));
         _papEffect[i]->_pMover->setMvAcce(0);
         _papEffect[i]->activate();
-        _papEffect[i]->setAlpha(0.2);
-        _papEffect[i]->setScaleRate(1.0f);
+        _papEffect[i]->setAlpha(0.9);
+        _papEffect[i]->setScaleRate(2.0f);
     }
+	DELETEARR_IMPOSSIBLE_NULL(paAngWay);
     _r_effect = 1;
 
 }
@@ -131,18 +135,20 @@ void OptionMagic::processInvokeingBehavior()  {
 void OptionMagic::processExpireBegin()  {
     P_MYOPTIONCON->setNumOption(_new_level);
     P_MYOPTIONCON->adjustDefaltAngPosition(60);
+	_r_effect = 1.0f;
     for (int i = _old_level; i < _new_level; i++) {
         _papEffect[i]->setAlpha(_r_effect);
         _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
         P_MYOPTIONCON->_papMyOption[i]->setAlpha(0.0);
     }
-    _r_effect = 1.0f;
+
 }
 
 void OptionMagic::processExpiringBehavior() {
-    _r_effect -= 0.03;
+    _r_effect -= 0.01f;
     for (int i = _old_level; i < _new_level; i++) {
         _papEffect[i]->setAlpha(_r_effect);
+		_papEffect[i]->setScaleRate(3.0f+(1.0f-_r_effect)*4.0);
         _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
         P_MYOPTIONCON->_papMyOption[i]->setAlpha(1.0f-_r_effect);
     }
