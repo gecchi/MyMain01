@@ -868,6 +868,44 @@ void GgafDx9GeometricMover::execSmoothMvVeloSequence2(velo prm_top_velo, velo pr
     _smooth_mv_velo_seq_progress = 0;
 }
 
+void GgafDx9GeometricMover::execSmoothMvVeloSequence3(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
+                                                      bool prm_endacc_flg) {
+    _smooth_mv_velo_seq_flg = true;
+    _smooth_mv_velo_seq_p1 = (int)(prm_distance_of_target*1.0 / 4.0);
+    _smooth_mv_velo_seq_p2 = (int)(prm_distance_of_target*3.0 / 4.0);
+    _smooth_mv_velo_seq_end_velo = prm_end_velo;
+    _smooth_mv_velo_seq_distance_of_target = prm_distance_of_target;
+    _smooth_mv_velo_seq_mv_distance = 0;
+    _smooth_mv_velo_seq_frame_of_spend = -1; //目標時間は使わない(_smooth_mv_velo_seq_top_velo計算で考慮されるため)
+    _smooth_mv_velo_seq_spend_frame = 0;
+    _smooth_mv_velo_seq_progress = 0;
+
+    //    速度
+    //     ^
+    //     |                          S:移動距離
+    //     |                         vs:現時点の速度
+    //     |                         vx:距離1/4 ～ 3/4 の速度
+    //     |                         ve:最終目標到達速度
+    //   vx|....＿＿＿＿＿            t:目標到達速度に達した時の時間（フレーム数）
+    //     |   /|         |＼
+    //   ve|../.|.........|..＼
+    //     | /  |         |    |
+    //     |/   |         |    |
+    //   vs|    |    S    |    |
+    //     |    |         |    |
+    //   --+----+----+----+----+-----> 時間(フレーム)
+    //   0 | (1/4)t    (3/4)t  t
+
+    // 距離は 台形＋長方形＋台形 の面積
+    // S  = (1/2) (vs + vx) (1/4)t  + vx (2/4)t  +  (1/2) (ve + vx) (1/4)t
+    // これをvxについて解く
+    // 8S = (vs + vx)t + 4 vx t + (ve + vx)t
+    // 8S/t = vs + vx + 4vx + ve + vx
+    // 6vx = 8S/t - vs - ve
+    // vx = (8S/t - vs - ve) / 6
+    _smooth_mv_velo_seq_top_velo = (8.0*prm_distance_of_target/prm_frame_of_spend - _veloMv - prm_end_velo) / 6.0;
+}
+
 bool GgafDx9GeometricMover::isMoveingSmooth() {
     return _smooth_mv_velo_seq_flg;
 }
