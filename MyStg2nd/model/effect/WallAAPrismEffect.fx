@@ -86,44 +86,45 @@ OUT_VS GgafDx9VS_WallAAPrism(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	//ÉèÅ[ÉãÉhïœä∑çsóÒÇäÑÇËìñÇƒÇÈ
+	int index = (int)prm_object_index; 
 	float4x4 matWorld;
-	if (prm_object_index == 0) {
+	[branch] if (index == 0) {
 		matWorld = g_matWorld001;
-	} else if (prm_object_index == 1) {
+	} else if (index == 1) {
 		matWorld = g_matWorld002;
-	} else if (prm_object_index == 2) {
+	} else if (index == 2) {
 		matWorld = g_matWorld003;
-	} else if (prm_object_index == 3) {
+	} else if (index == 3) {
 		matWorld = g_matWorld004;
-	} else if (prm_object_index == 4) {
+	} else if (index == 4) {
 		matWorld = g_matWorld005;
-	} else if (prm_object_index == 5) {
+	} else if (index == 5) {
 		matWorld = g_matWorld006;
-	} else if (prm_object_index == 6) {
+	} else if (index == 6) {
 		matWorld = g_matWorld007;
-	} else if (prm_object_index == 7) {
+	} else if (index == 7) {
 		matWorld = g_matWorld008;
-	} else if (prm_object_index == 8) {
+	} else if (index == 8) {
 		matWorld = g_matWorld009;
-	} else if (prm_object_index == 9) {
+	} else if (index == 9) {
 		matWorld = g_matWorld010;
-//	} else if (prm_object_index == 10) {
+//	} else if (index == 10) {
 //		matWorld = g_matWorld011;
-//	} else if (prm_object_index == 11) {
+//	} else if (index == 11) {
 //		matWorld = g_matWorld012;
-//	} else if (prm_object_index == 12) {
+//	} else if (index == 12) {
 //		matWorld = g_matWorld013;
-//	} else if (prm_object_index == 13) {
+//	} else if (index == 13) {
 //		matWorld = g_matWorld014;
-//	} else if (prm_object_index == 14) {
+//	} else if (index == 14) {
 //		matWorld = g_matWorld015;
-//	} else if (prm_object_index == 15) {
+//	} else if (index == 15) {
 //		matWorld = g_matWorld016;
-//	} else if (prm_object_index == 16) {
+//	} else if (index == 16) {
 //		matWorld = g_matWorld017;
-//	} else if (prm_object_index == 17) {
+//	} else if (index == 17) {
 //		matWorld = g_matWorld018;
-//	} else if (prm_object_index == 18) {
+//	} else if (index == 18) {
 //		matWorld = g_matWorld019;
 	} else {
 		matWorld = g_matWorld011;
@@ -177,7 +178,6 @@ OUT_VS GgafDx9VS_WallAAPrism(
         if (0.25 < prm_uv.x && 
             0.5  < prm_uv.y && prm_uv.y < 0.75 ) 
 		{
-            out_vs.col.a = 0;
             return out_vs;
         }
     }
@@ -190,7 +190,6 @@ OUT_VS GgafDx9VS_WallAAPrism(
         if (                   prm_uv.x < 0.25 &&
             0.5  < prm_uv.y                       ) 
 		{
-            out_vs.col.a = 0;
             return out_vs;
         }
     }
@@ -202,7 +201,6 @@ OUT_VS GgafDx9VS_WallAAPrism(
         if (0.25 < prm_uv.x && 
                                prm_uv.y < 0.25 ) 
 		{
-            out_vs.col.a = 0;
             return out_vs;
         }
     }
@@ -214,7 +212,6 @@ OUT_VS GgafDx9VS_WallAAPrism(
         if (0.25 < prm_uv.x &&
             0.25 < prm_uv.y && prm_uv.y < 0.5 ) 
 		{
-            out_vs.col.a = 0;
             return out_vs;
         }
     }
@@ -226,7 +223,6 @@ OUT_VS GgafDx9VS_WallAAPrism(
         if (0.25 < prm_uv.x &&
             0.75 < prm_uv.y                    ) 
 		{
-            out_vs.col.a = 0;
             return out_vs;
         } 
     }
@@ -238,7 +234,6 @@ OUT_VS GgafDx9VS_WallAAPrism(
         if (                    prm_uv.x < 0.25 &&
                                 prm_uv.y < 0.5    ) 
 		{
-            out_vs.col.a = 0;
             return out_vs;
         }
     }
