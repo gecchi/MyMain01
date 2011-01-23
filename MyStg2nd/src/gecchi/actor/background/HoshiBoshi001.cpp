@@ -45,14 +45,15 @@ void HoshiBoshi001::initialize() {
 }
 
 void HoshiBoshi001::onActive() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5);
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 30);
+    //TODO:星のフリップ順番がおかしい。あとでなおせ！！
 }
 
 void HoshiBoshi001::processBehavior() {
     if (_X < -_CAM_ZF) {
         _X += (_CAM_ZF*2);
     } else {
-        _X -= 1000;
+        _X -= 3000;
     }
 
     _pUvFlipper->behave();

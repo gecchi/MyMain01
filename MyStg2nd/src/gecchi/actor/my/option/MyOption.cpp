@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 int MyOption::_max_lockon_num = 7;
 int MyOption::_lockon_num = 1;
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
-MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMeshSetActor(prm_name, "4/Core4") {
+MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMeshSetActor(prm_name, "8/Astraea") {
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : CubeMapMeshSetActor(prm_name, "4/Core4_cm") {
 
 
@@ -425,12 +425,10 @@ void MyOption::processBehavior() {
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、Quaternionは便利だが避けたい。いつか汎用化
 
-    static float sinRY, cosRY, sinRZ, cosRZ;
-
-    sinRZ = GgafDx9Util::SIN[_pMyOptionController->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
-    cosRZ = GgafDx9Util::COS[_pMyOptionController->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
-    sinRY = GgafDx9Util::SIN[_pMyOptionController->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
-    cosRY = GgafDx9Util::COS[_pMyOptionController->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
+    float sinRZ = GgafDx9Util::SIN[_pMyOptionController->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
+    float cosRZ = GgafDx9Util::COS[_pMyOptionController->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
+    float sinRY = GgafDx9Util::SIN[_pMyOptionController->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
+    float cosRY = GgafDx9Util::COS[_pMyOptionController->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
     //全オプションを一つの塊としてOptionControllerを中心にWORLD変換のような旋廻
     _X = cosRY*cosRZ*_Xorg + cosRY*-sinRZ*_Yorg + sinRY*_Zorg;
     _Y = sinRZ*_Xorg + cosRZ*_Yorg;
@@ -439,34 +437,29 @@ void MyOption::processBehavior() {
 
 
     //懐中電灯の照射角が広がるような回転（Quaternionで実現）
-    static float vX_axis,vY_axis,vZ_axis; //回転させたい軸ベクトル
-    vX_axis = cosRY*cosRZ*_pMover->_vX + cosRY*-sinRZ*_pMover->_vY + sinRY*_pMover->_vZ;
-    vY_axis = sinRZ*_pMover->_vX + cosRZ*_pMover->_vY;
-    vZ_axis = -sinRY*cosRZ*_pMover->_vX + -sinRY*-sinRZ*_pMover->_vY + cosRY*_pMover->_vZ;
-    static float sinHalf, cosHalf;
-
-    sinHalf = GgafDx9Util::SIN[_angExpanse/ANGLE_RATE/2]; //_angExpanse=回転させたい角度
-    cosHalf = GgafDx9Util::COS[_angExpanse/ANGLE_RATE/2];
+    float vX_axis = cosRY*cosRZ*_pMover->_vX + cosRY*-sinRZ*_pMover->_vY + sinRY*_pMover->_vZ;
+    float vY_axis = sinRZ*_pMover->_vX + cosRZ*_pMover->_vY;
+    float vZ_axis = -sinRY*cosRZ*_pMover->_vX + -sinRY*-sinRZ*_pMover->_vY + cosRY*_pMover->_vZ;
+    float sinHalf = GgafDx9Util::SIN[_angExpanse/ANGLE_RATE/2]; //_angExpanse=回転させたい角度
+    float cosHalf = GgafDx9Util::COS[_angExpanse/ANGLE_RATE/2];
 
     //計算
-    _Q.set( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-    _Q.mul(0,
+    GgafDx9Quaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+//    _Q.set( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+    Q.mul(0,
            _pMyOptionController->_pMover->_vX,
            _pMyOptionController->_pMover->_vY,
            _pMyOptionController->_pMover->_vZ); //R*P 回転軸が現在の進行方向ベクトルとなる
-    _Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-    //_Q._x, _Q._y, _Q._z が回転後の座標となる
+    Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
+    //Q._x, Q._y, Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
     GgafDx9Util::getRzRyAng(
-        (float)_Q._x,
-        (float)_Q._y,
-        (float)_Q._z,
-        _RZ,
-        _RY
+        Q._x, Q._y, Q._z,
+        _RZ, _RY
      );
 
-    _RZ = GgafDx9Util::simplifyAng(_RZ);
-    _RY = GgafDx9Util::simplifyAng(_RY);
+//    _RZ = GgafDx9Util::simplifyAng(_RZ);
+//    _RY = GgafDx9Util::simplifyAng(_RY);
     _X += _pMyOptionController->_X;
     _Y += _pMyOptionController->_Y;
     _Z += _pMyOptionController->_Z;
@@ -485,17 +478,17 @@ void MyOption::processBehavior() {
             if (_pLaserChipDispatcher->_pEffectActor_Irradiate) {
                 _pLaserChipDispatcher->_pEffectActor_Irradiate->setCoordinateBy(this);
             }
-            pLaserChip->_pMover->_vX = _Q._x;
-            pLaserChip->_pMover->_vY = _Q._y;
-            pLaserChip->_pMover->_vZ = _Q._z;
+            pLaserChip->_pMover->_vX = Q._x;
+            pLaserChip->_pMover->_vY = Q._y;
+            pLaserChip->_pMover->_vZ = Q._z;
             pLaserChip->_pMover->_angRzMv = _RZ;
             pLaserChip->_pMover->_angRyMv = _RY;
-//            pLaserChip->_pMover->_angFace[AXIS_X] = angWk;
+//            pLaserChip->_pMover->_angFace[AXIS_X] = _pMover->_angFace[AXIS_X];
             pLaserChip->_pMover->_angFace[AXIS_Z] = _RZ;
             pLaserChip->_pMover->_angFace[AXIS_Y] = _RY;
-            pLaserChip->_pMover->setVxMvVelo(_Q._x*150000);
-            pLaserChip->_pMover->setVyMvVelo(_Q._y*150000);
-            pLaserChip->_pMover->setVzMvVelo(_Q._z*150000);
+            pLaserChip->_pMover->setVxMvVelo(Q._x*150000);
+            pLaserChip->_pMover->setVyMvVelo(Q._y*150000);
+            pLaserChip->_pMover->setVzMvVelo(Q._z*150000);
             pLaserChip->_pMover->setVxMvAcce(0);
             pLaserChip->_pMover->setVyMvAcce(0);
             pLaserChip->_pMover->setVzMvAcce(0);

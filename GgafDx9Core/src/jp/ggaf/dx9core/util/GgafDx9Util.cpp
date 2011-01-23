@@ -453,8 +453,8 @@ int GgafDx9Util::getDistance(int x1, int y1, int x2, int y2) {
 void GgafDx9Util::getRzRyAng(int vx,
                              int vy,
                              int vz,
-                             angle& out_angFaceZ,
-                             angle& out_angFaceY ) {
+                             angle& out_angRZ,
+                             angle& out_angRY ) {
     //何れかの要素が0の場合、getAngle2Dの結果が大きくずれてしまう。
     //とりあえず１を設定して近似させておこう。
     //TODO:0 が来ても大丈夫にする。
@@ -469,11 +469,11 @@ void GgafDx9Util::getRzRyAng(int vx,
 
     angle rotZ, rotY_rev, rotY;
     if (0 <= prj_rXZ && prj_rXZ <= ANGLE45) {
-        rotZ = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
-        rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
+        rotZ = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100.0f)][(int)(prj_rXZ/100.0f)];
+        rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0f)][(int)(prj_rXZ/100.0f)];
     } else if (ANGLE45 <= prj_rXZ && prj_rXZ <= ANGLE90) {
-        rotZ = PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY/100.0)][(int)(prj_rZX/100.0)];
-        rotY = PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY/100.0)][(int)(prj_rZX/100.0)];
+        rotZ = PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY/100.0f)][(int)(prj_rZX/100.0f)];
+        rotY = PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY/100.0f)][(int)(prj_rZX/100.0f)];
         rotY_rev = ANGLE90 - rotY;
     } else {
         throwGgafCriticalException("GgafDx9Util::getRzRyAng 範囲が破錠してます。prj_rXZ="<<prj_rXZ);
@@ -488,34 +488,40 @@ void GgafDx9Util::getRzRyAng(int vx,
     }
     //象限によって回転角を補正
     if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
-        out_angFaceZ = rotZ;
-        out_angFaceY = (ANGLE360 - rotY_rev);
+        out_angRZ = rotZ;
+        out_angRY = (ANGLE360 - rotY_rev);
     } else if (vx <= 0 && vy >= 0 && vz >= 0) { //第二象限
-        out_angFaceZ = rotZ;
-        out_angFaceY = (ANGLE180 + rotY_rev);
+        out_angRZ = rotZ;
+        out_angRY = (ANGLE180 + rotY_rev);
     } else if (vx <= 0 && vy <= 0 && vz >= 0) { //第三象限
-        out_angFaceZ = (ANGLE360 - rotZ);
-        out_angFaceY = (ANGLE180 + rotY_rev);
+        out_angRZ = (ANGLE360 - rotZ);
+        out_angRY = (ANGLE180 + rotY_rev);
     } else if (vx >= 0 && vy <= 0 && vz >= 0) { //第四象限
-        out_angFaceZ = (ANGLE360 - rotZ);
-        out_angFaceY = (ANGLE360 - rotY_rev);
+        out_angRZ = (ANGLE360 - rotZ);
+        out_angRY = (ANGLE360 - rotY_rev);
     } else if (vx >= 0 && vy >= 0 && vz <= 0) { //第五象限
-        out_angFaceZ = rotZ;
-        out_angFaceY = rotY_rev;
+        out_angRZ = rotZ;
+        out_angRY = rotY_rev;
     } else if (vx <= 0 && vy >= 0 && vz <= 0) { //第六象限
-        out_angFaceZ = rotZ;
-        out_angFaceY = (ANGLE180 - rotY_rev);
+        out_angRZ = rotZ;
+        out_angRY = (ANGLE180 - rotY_rev);
     } else if (vx <= 0 && vy <= 0 && vz <= 0) { //第七象限
-        out_angFaceZ = (ANGLE360 - rotZ);
-        out_angFaceY = (ANGLE180 - rotY_rev);
+        out_angRZ = (ANGLE360 - rotZ);
+        out_angRY = (ANGLE180 - rotY_rev);
     } else if (vx >= 0 && vy <= 0 && vz <= 0) { //第八象限
-        out_angFaceZ = (ANGLE360 - rotZ);
-        out_angFaceY = rotY_rev;
+        out_angRZ = (ANGLE360 - rotZ);
+        out_angRY = rotY_rev;
     } else {
         throwGgafCriticalException("GgafDx9Util::getRzRyAng ありえません。vx,vy,vz="<<vx<<","<<vy<<","<<vz);
     }
-    out_angFaceZ = simplifyAng(out_angFaceZ);
-    out_angFaceY = simplifyAng(out_angFaceY);
+
+#if MY_DEBUG
+    if (ANGLE360 < out_angRZ || 0 > out_angRZ || ANGLE360 < out_angRY || 0 > out_angRY) {
+        throwGgafCriticalException("GgafDx9Util::getRzRyAng 範囲外です要調査。\n out_angRZ,out_angRY="<<out_angRZ<<","<<out_angRY<<" vx,vy,vz="<<vx<<","<<vy<<","<<vz);
+    }
+#endif
+//    out_angRZ = simplifyAng(out_angRZ);
+//    out_angRY = simplifyAng(out_angRY);
 }
 
 

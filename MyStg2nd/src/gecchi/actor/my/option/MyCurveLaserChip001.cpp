@@ -170,7 +170,7 @@ void MyCurveLaserChip001::processBehavior() {
 //        _isLockon = true;
 //    }
 
-
+//    _pMover->_angFace[AXIS_X] =  _pOrg->_pMover->_angFace[AXIS_Y];
     CurveLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 
     //根元からレーザー表示のため強制的に座標補正
