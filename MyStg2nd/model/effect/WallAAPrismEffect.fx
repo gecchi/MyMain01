@@ -88,7 +88,7 @@ OUT_VS GgafDx9VS_WallAAPrism(
 	//ƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ğŠ„‚è“–‚Ä‚é
 	int index = (int)prm_object_index; 
 	float4x4 matWorld;
-	[branch] if (index == 0) {
+	if (index == 0) {
 		matWorld = g_matWorld001;
 	} else if (index == 1) {
 		matWorld = g_matWorld002;
