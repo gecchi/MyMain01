@@ -43,7 +43,7 @@ class ExteriorArea
   attr_accessor :area
 
   KARA_VAL = -1
-  KABE_BOX_VAL = 0   #Box.@pos_prism‚Ì’l
+  KABE_BOX_VAL = 0   #Box.@pos_prismã®å€¤
   FULL_VAL = -2
 
   FACE_A_BIT = 0b100000
@@ -175,7 +175,7 @@ class ExteriorArea
     end
   end
 
-  #BOX‚U–Ê‚Ì“àAÅ’áŒÀ•`‰æ‚µ‚È‚¯‚ê‚Î‚¢‚¯‚È‚¢–Ê‚ğ‰ğÍ
+  #BOXï¼–é¢ã®å†…ã€æœ€ä½é™æç”»ã—ãªã‘ã‚Œã°ã„ã‘ãªã„é¢ã‚’è§£æ
   def getAnalyze01
      ret = ExteriorArea.new(@len, @height, @width)
 
@@ -188,74 +188,74 @@ class ExteriorArea
           elsif @area[x][y][z] == FULL_VAL then
             ret.area[x][y][z] = FULL_VAL
           elsif @area[x][y][z] == KABE_BOX_VAL then
-            #6–Ê‚ÌŠJ‚«‹ï‡‚ğ’²‚×‚é
-            #ŠJ‚¢‚Ä‚¢‚éƒrƒbƒg‚ªƒAƒ“ƒZƒbƒg‚³‚ê‚é
+            #6é¢ã®é–‹ãå…·åˆã‚’èª¿ã¹ã‚‹
+            #é–‹ã„ã¦ã„ã‚‹ãƒ“ãƒƒãƒˆãŒã‚¢ãƒ³ã‚»ãƒƒãƒˆã•ã‚Œã‚‹
             # 0b 00abcdef
 
             #    c
             # a b d f
             #      e
-            #BOX(©g)‚ÆBOX‚ª—×‚è‡‚í‚¹
-            if (x-1 >= 0 && (@area[x-1][y][z] == KABE_BOX_VAL || @area[x-1][y][z] == FULL_VAL)) then #b‚ªŠJ‚¢‚Ä‚¢‚é
+            #BOX(è‡ªèº«)ã¨BOXãŒéš£ã‚Šåˆã‚ã›
+            if (x-1 >= 0 && (@area[x-1][y][z] == KABE_BOX_VAL || @area[x-1][y][z] == FULL_VAL)) then #bãŒé–‹ã„ã¦ã„ã‚‹
               type = type ^ FACE_B_BIT
             end
 
-            if (x+1 <= @len-1 && (@area[x+1][y][z] == KABE_BOX_VAL || @area[x+1][y][z] == FULL_VAL)) then #f‚ªŠJ‚¢‚Ä‚¢‚é
+            if (x+1 <= @len-1 && (@area[x+1][y][z] == KABE_BOX_VAL || @area[x+1][y][z] == FULL_VAL)) then #fãŒé–‹ã„ã¦ã„ã‚‹
               type = type ^ FACE_F_BIT
             end
 
-            if (y-1 >= 0 && (@area[x][y-1][z] == KABE_BOX_VAL || @area[x][y-1][z] == FULL_VAL)) then #d‚ªŠJ‚¢‚Ä‚¢‚é
+            if (y-1 >= 0 && (@area[x][y-1][z] == KABE_BOX_VAL || @area[x][y-1][z] == FULL_VAL)) then #dãŒé–‹ã„ã¦ã„ã‚‹
               type = type ^ FACE_D_BIT
             end
 
-            if (y+1 <= @height-1 && (@area[x][y+1][z] == KABE_BOX_VAL || @area[x][y+1][z] == FULL_VAL)) then #a‚ªŠJ‚¢‚Ä‚¢‚é
+            if (y+1 <= @height-1 && (@area[x][y+1][z] == KABE_BOX_VAL || @area[x][y+1][z] == FULL_VAL)) then #aãŒé–‹ã„ã¦ã„ã‚‹
               type = type ^ FACE_A_BIT
             end
 
-            if (z-1 >= 0         && (@area[x][y][z-1] == KABE_BOX_VAL || @area[x][y][z-1] == FULL_VAL)) then #e‚ªŠJ‚¢‚Ä‚¢‚é
+            if (z-1 >= 0         && (@area[x][y][z-1] == KABE_BOX_VAL || @area[x][y][z-1] == FULL_VAL)) then #eãŒé–‹ã„ã¦ã„ã‚‹
               type = type ^ FACE_E_BIT
             end
 
-            if (z+1 <= @width-1  && (@area[x][y][z+1] == KABE_BOX_VAL || @area[x][y][z+1] == FULL_VAL)) then #c‚ªŠJ‚¢‚Ä‚¢‚é
+            if (z+1 <= @width-1  && (@area[x][y][z+1] == KABE_BOX_VAL || @area[x][y][z+1] == FULL_VAL)) then #cãŒé–‹ã„ã¦ã„ã‚‹
               type = type ^ FACE_C_BIT
             end
 
-            #BOX(©g)‚ÆƒvƒŠƒYƒ€‚Æ—×‚è‡‚í‚¹
+            #BOX(è‡ªèº«)ã¨ãƒ—ãƒªã‚ºãƒ ã¨éš£ã‚Šåˆã‚ã›
             #    c
             # a b d f
             #      e
-            if (x-1 >= 0 && @area[x-1][y][z] > KABE_BOX_VAL) then #b‚ªŠJ‚¯‚ê‚é‚©
-              #b‚ªŠJ‚¯‚ê‚éƒvƒŠƒYƒ€‚©”»’f
+            if (x-1 >= 0 && @area[x-1][y][z] > KABE_BOX_VAL) then #bãŒé–‹ã‘ã‚Œã‚‹ã‹
+              #bãŒé–‹ã‘ã‚Œã‚‹ãƒ—ãƒªã‚ºãƒ ã‹åˆ¤æ–­
               if (isXpositive(@area[x-1][y][z])) then
                 type = type ^ FACE_B_BIT
               end
             end
 
-            if (x+1 <= @len-1 && @area[x+1][y][z] > KABE_BOX_VAL) then #f‚ªŠJ‚¯‚ê‚é‚©
+            if (x+1 <= @len-1 && @area[x+1][y][z] > KABE_BOX_VAL) then #fãŒé–‹ã‘ã‚Œã‚‹ã‹
               if (isXnegative(@area[x+1][y][z])) then
                 type = type ^ FACE_F_BIT
               end
             end
 
-            if (y-1 >= 0 && @area[x][y-1][z] > KABE_BOX_VAL) then #d‚ªŠJ‚¯‚ê‚é‚©
+            if (y-1 >= 0 && @area[x][y-1][z] > KABE_BOX_VAL) then #dãŒé–‹ã‘ã‚Œã‚‹ã‹
               if (isYpositive(@area[x][y-1][z])) then
                 type = type ^ FACE_D_BIT
               end
             end
 
-            if (y+1 <= @height-1 && @area[x][y+1][z] > KABE_BOX_VAL) then #a‚ªŠJ‚¯‚ê‚é‚©
+            if (y+1 <= @height-1 && @area[x][y+1][z] > KABE_BOX_VAL) then #aãŒé–‹ã‘ã‚Œã‚‹ã‹
               if (isYnegative(@area[x][y+1][z])) then
                 type = type ^ FACE_A_BIT
               end
             end
 
-            if (z-1 >= 0         && @area[x][y][z-1] > KABE_BOX_VAL) then #e‚ªŠJ‚¯‚ê‚é‚©
+            if (z-1 >= 0         && @area[x][y][z-1] > KABE_BOX_VAL) then #eãŒé–‹ã‘ã‚Œã‚‹ã‹
               if (isZpositive(@area[x][y][z-1])) then
                 type = type ^ FACE_E_BIT
               end
             end
 
-            if (z+1 <= @width-1  && @area[x][y][z+1] > KABE_BOX_VAL) then #c‚ªŠJ‚¯‚ê‚é‚©
+            if (z+1 <= @width-1  && @area[x][y][z+1] > KABE_BOX_VAL) then #cãŒé–‹ã‘ã‚Œã‚‹ã‹
               if (isZnegative(@area[x][y][z+1])) then
                 type = type ^ FACE_C_BIT
               end
@@ -265,131 +265,131 @@ class ExteriorArea
             ret.area[x][y][z] = type
 
           elsif @area[x][y][z] > KABE_BOX_VAL then
-            #©g‚ªƒvƒŠƒYƒ€‚Ìê‡
+            #è‡ªèº«ãŒãƒ—ãƒªã‚ºãƒ ã®å ´åˆ
             #    c
             # a b d f
             #      e
-            #ƒvƒŠƒYƒ€(©g)‚ÆBOX‚ª—×‚è‡‚í‚¹
-            if (x-1 >= 0 && (@area[x-1][y][z] == KABE_BOX_VAL || @area[x-1][y][z] == FULL_VAL)) then #b‚ªŠJ‚¯‚ê‚é‚©
+            #ãƒ—ãƒªã‚ºãƒ (è‡ªèº«)ã¨BOXãŒéš£ã‚Šåˆã‚ã›
+            if (x-1 >= 0 && (@area[x-1][y][z] == KABE_BOX_VAL || @area[x-1][y][z] == FULL_VAL)) then #bãŒé–‹ã‘ã‚Œã‚‹ã‹
               if (isYZ(@area[x][y][z]) || isXnegative(@area[x][y][z])) then
                 type = type ^ FACE_B_BIT
               end
             end
 
-            if (x+1 <= @len-1 && (@area[x+1][y][z] == KABE_BOX_VAL || @area[x+1][y][z] == FULL_VAL)) then #f‚ªŠJ‚¯‚ê‚é‚©
+            if (x+1 <= @len-1 && (@area[x+1][y][z] == KABE_BOX_VAL || @area[x+1][y][z] == FULL_VAL)) then #fãŒé–‹ã‘ã‚Œã‚‹ã‹
               if (isYZ(@area[x][y][z]) || isXpositive(@area[x][y][z])) then
                 type = type ^ FACE_F_BIT
               end
             end
 
-            if (y-1 >= 0 && (@area[x][y-1][z] == KABE_BOX_VAL || @area[x][y-1][z] == FULL_VAL)) then #d‚ªŠJ‚¯‚ê‚é‚©
+            if (y-1 >= 0 && (@area[x][y-1][z] == KABE_BOX_VAL || @area[x][y-1][z] == FULL_VAL)) then #dãŒé–‹ã‘ã‚Œã‚‹ã‹
               if (isZX(@area[x][y][z]) || isYnegative(@area[x][y][z])) then
                 type = type ^ FACE_D_BIT
               end
             end
 
-            if (y+1 <= @height-1 && (@area[x][y+1][z] == KABE_BOX_VAL || @area[x][y+1][z] == FULL_VAL)) then #a‚ªŠJ‚¯‚ê‚é‚©
+            if (y+1 <= @height-1 && (@area[x][y+1][z] == KABE_BOX_VAL || @area[x][y+1][z] == FULL_VAL)) then #aãŒé–‹ã‘ã‚Œã‚‹ã‹
               if (isZX(@area[x][y][z]) || isYpositive(@area[x][y][z])) then
                 type = type ^ FACE_A_BIT
               end
             end
 
-            if (z-1 >= 0         && (@area[x][y][z-1] == KABE_BOX_VAL || @area[x][y][z-1] == FULL_VAL)) then #e‚ªŠJ‚¯‚ê‚é‚©
+            if (z-1 >= 0         && (@area[x][y][z-1] == KABE_BOX_VAL || @area[x][y][z-1] == FULL_VAL)) then #eãŒé–‹ã‘ã‚Œã‚‹ã‹
               if (isXY(@area[x][y][z]) || isZnegative(@area[x][y][z])) then
                 type = type ^ FACE_E_BIT
               end
             end
 
-            if (z+1 <= @width-1  && (@area[x][y][z+1] == KABE_BOX_VAL || @area[x][y][z+1] == FULL_VAL)) then #c‚ªŠJ‚¯‚ê‚é‚©
+            if (z+1 <= @width-1  && (@area[x][y][z+1] == KABE_BOX_VAL || @area[x][y][z+1] == FULL_VAL)) then #cãŒé–‹ã‘ã‚Œã‚‹ã‹
               if (isXY(@area[x][y][z]) || isZpositive(@area[x][y][z])) then
                 type = type ^ FACE_C_BIT
               end
             end
 
-            #ƒvƒŠƒYƒ€i©gj‚ÆƒvƒŠƒYƒ€‚ª—×‚è‡‚í‚¹
+            #ãƒ—ãƒªã‚ºãƒ ï¼ˆè‡ªèº«ï¼‰ã¨ãƒ—ãƒªã‚ºãƒ ãŒéš£ã‚Šåˆã‚ã›
             #    c
             # a b d f
             #      e
-            if (x-1 >= 0 && @area[x-1][y][z] > KABE_BOX_VAL) then #b‚ªŠJ‚¯‚ê‚é‚©
-              #b‚ªŠJ‚¯‚ê‚éƒvƒŠƒYƒ€‚©”»’f
+            if (x-1 >= 0 && @area[x-1][y][z] > KABE_BOX_VAL) then #bãŒé–‹ã‘ã‚Œã‚‹ã‹
+              #bãŒé–‹ã‘ã‚Œã‚‹ãƒ—ãƒªã‚ºãƒ ã‹åˆ¤æ–­
               if (isXnegative(@area[x][y][z]) && isXpositive(@area[x-1][y][z])) then
-                #b‚ğ‚ ‚¯‚éˆ×‚É‚Í ©g‚ªXnegative ‘Šè‚ª Xpositive ‚Å‚ ‚ê‚ÎOK
+                #bã‚’ã‚ã‘ã‚‹ç‚ºã«ã¯ è‡ªèº«ãŒXnegative ç›¸æ‰‹ãŒ Xpositive ã§ã‚ã‚Œã°OK
                 type = type ^ FACE_B_BIT
               elsif (isYZ(@area[x][y][z]) && isXpositive(@area[x-1][y][z])) then
-                #©g‚ªYZ‚Å‘Šè‚ª Xpositive ‚Å‚ ‚ê‚ÎOK
+                #è‡ªèº«ãŒYZã§ç›¸æ‰‹ãŒ Xpositive ã§ã‚ã‚Œã°OK
                 type = type ^ FACE_B_BIT
               elsif (isYZ(@area[x][y][z]) && isYZ(@area[x-1][y][z]) && @area[x][y][z] == @area[x-1][y][z]) then
-                #YZ“¯m‚Å“¯‚¶ƒvƒŠƒYƒ€‚Å‚ ‚Á‚Ä‚àOK
+                #YZåŒå£«ã§åŒã˜ãƒ—ãƒªã‚ºãƒ ã§ã‚ã£ã¦ã‚‚OK
                 type = type ^ FACE_B_BIT
               end
             end
 
-            if (x+1 <= @len-1 && @area[x+1][y][z] > KABE_BOX_VAL) then #f‚ªŠJ‚¯‚ê‚é‚©
-              #f‚ªŠJ‚¯‚ê‚éƒvƒŠƒYƒ€‚©”»’f
+            if (x+1 <= @len-1 && @area[x+1][y][z] > KABE_BOX_VAL) then #fãŒé–‹ã‘ã‚Œã‚‹ã‹
+              #fãŒé–‹ã‘ã‚Œã‚‹ãƒ—ãƒªã‚ºãƒ ã‹åˆ¤æ–­
               if (isXpositive(@area[x][y][z]) && isXnegative(@area[x+1][y][z])) then
-                #f‚ğ‚ ‚¯‚éˆ×‚É‚Í ©g‚ª Xpositive ‘Šè‚ª Xnegative ‚Å‚ ‚ê‚ÎOK
+                #fã‚’ã‚ã‘ã‚‹ç‚ºã«ã¯ è‡ªèº«ãŒ Xpositive ç›¸æ‰‹ãŒ Xnegative ã§ã‚ã‚Œã°OK
                 type = type ^ FACE_F_BIT
               elsif (isYZ(@area[x][y][z]) && isXnegative(@area[x+1][y][z])) then
-                #©g‚ªYZ‚Å‘Šè‚ª Xnegative ‚Å‚ ‚ê‚ÎOK
+                #è‡ªèº«ãŒYZã§ç›¸æ‰‹ãŒ Xnegative ã§ã‚ã‚Œã°OK
                 type = type ^ FACE_F_BIT
               elsif (isYZ(@area[x][y][z]) && isYZ(@area[x+1][y][z]) && @area[x][y][z] == @area[x+1][y][z]) then
-                #YZ“¯m‚Å“¯‚¶ƒvƒŠƒYƒ€‚Å‚ ‚Á‚Ä‚àOK
+                #YZåŒå£«ã§åŒã˜ãƒ—ãƒªã‚ºãƒ ã§ã‚ã£ã¦ã‚‚OK
                 type = type ^ FACE_F_BIT
               end
             end
 
-            if (y-1 >= 0 && @area[x][y-1][z] > KABE_BOX_VAL) then #d‚ªŠJ‚¯‚ê‚é‚©
-              #d‚ªŠJ‚¯‚ê‚éƒvƒŠƒYƒ€‚©”»’f
+            if (y-1 >= 0 && @area[x][y-1][z] > KABE_BOX_VAL) then #dãŒé–‹ã‘ã‚Œã‚‹ã‹
+              #dãŒé–‹ã‘ã‚Œã‚‹ãƒ—ãƒªã‚ºãƒ ã‹åˆ¤æ–­
               if (isYnegative(@area[x][y][z]) && isYpositive(@area[x][y-1][z])) then
-                #d‚ğ‚ ‚¯‚éˆ×‚É‚Í ©g‚ª Ynegative  ‘Šè‚ª Ypositive ‚Å‚ ‚ê‚ÎOK
+                #dã‚’ã‚ã‘ã‚‹ç‚ºã«ã¯ è‡ªèº«ãŒ Ynegative  ç›¸æ‰‹ãŒ Ypositive ã§ã‚ã‚Œã°OK
                 type = type ^ FACE_D_BIT
               elsif (isZX(@area[x][y][z]) && isYpositive(@area[x][y-1][z])) then
-                #©g‚ªZX‚Å‘Šè‚ª Ypositive ‚Å‚ ‚ê‚ÎOK
+                #è‡ªèº«ãŒZXã§ç›¸æ‰‹ãŒ Ypositive ã§ã‚ã‚Œã°OK
                 type = type ^ FACE_D_BIT
               elsif (isZX(@area[x][y][z]) && isZX(@area[x][y-1][z]) && @area[x][y][z] == @area[x][y-1][z]) then
-                #XY“¯m‚Å“¯‚¶ƒvƒŠƒYƒ€‚Å‚ ‚Á‚Ä‚àOK
+                #XYåŒå£«ã§åŒã˜ãƒ—ãƒªã‚ºãƒ ã§ã‚ã£ã¦ã‚‚OK
                 type = type ^ FACE_D_BIT
               end
             end
 
-            if (y+1 <= @height-1 && @area[x][y+1][z] > KABE_BOX_VAL) then #a‚ªŠJ‚¯‚ê‚é‚©
-              #a‚ªŠJ‚¯‚ê‚éƒvƒŠƒYƒ€‚©”»’f
+            if (y+1 <= @height-1 && @area[x][y+1][z] > KABE_BOX_VAL) then #aãŒé–‹ã‘ã‚Œã‚‹ã‹
+              #aãŒé–‹ã‘ã‚Œã‚‹ãƒ—ãƒªã‚ºãƒ ã‹åˆ¤æ–­
               if (isYpositive(@area[x][y][z]) && isYnegative(@area[x][y+1][z])) then
-                #a‚ğ‚ ‚¯‚éˆ×‚É‚Í ©g‚ª Ypositive ‘Šè‚ª Ynegative ‚Å‚ ‚ê‚ÎOK
+                #aã‚’ã‚ã‘ã‚‹ç‚ºã«ã¯ è‡ªèº«ãŒ Ypositive ç›¸æ‰‹ãŒ Ynegative ã§ã‚ã‚Œã°OK
                 type = type ^ FACE_A_BIT
               elsif (isZX(@area[x][y][z]) && isYnegative(@area[x][y+1][z])) then
-                #©g‚ªZX‚Å‘Šè‚ª Ynegative ‚Å‚ ‚ê‚ÎOK
+                #è‡ªèº«ãŒZXã§ç›¸æ‰‹ãŒ Ynegative ã§ã‚ã‚Œã°OK
                 type = type ^ FACE_A_BIT
               elsif (isZX(@area[x][y][z]) && isZX(@area[x][y+1][z]) && @area[x][y][z] == @area[x][y+1][z]) then
-                #YZ“¯m‚Å“¯‚¶ƒvƒŠƒYƒ€‚Å‚ ‚Á‚Ä‚àOK
+                #YZåŒå£«ã§åŒã˜ãƒ—ãƒªã‚ºãƒ ã§ã‚ã£ã¦ã‚‚OK
                 type = type ^ FACE_A_BIT
               end
             end
 
-            if (z-1 >= 0         && @area[x][y][z-1] > KABE_BOX_VAL) then #e‚ªŠJ‚¯‚ê‚é‚©
-              #e‚ªŠJ‚¯‚ê‚éƒvƒŠƒYƒ€‚©”»’f
+            if (z-1 >= 0         && @area[x][y][z-1] > KABE_BOX_VAL) then #eãŒé–‹ã‘ã‚Œã‚‹ã‹
+              #eãŒé–‹ã‘ã‚Œã‚‹ãƒ—ãƒªã‚ºãƒ ã‹åˆ¤æ–­
               if (isZnegative(@area[x][y][z]) && isZpositive(@area[x][y][z-1])) then
-                #e‚ğ‚ ‚¯‚éˆ×‚É‚Í ©g‚ª Znegative  ‘Šè‚ª Zpositive ‚Å‚ ‚ê‚ÎOK
+                #eã‚’ã‚ã‘ã‚‹ç‚ºã«ã¯ è‡ªèº«ãŒ Znegative  ç›¸æ‰‹ãŒ Zpositive ã§ã‚ã‚Œã°OK
                 type = type ^ FACE_E_BIT
               elsif (isXY(@area[x][y][z]) && isZpositive(@area[x][y][z-1])) then
-                #©g‚ªXY‚Å‘Šè‚ª Ypositive ‚Å‚ ‚ê‚ÎOK
+                #è‡ªèº«ãŒXYã§ç›¸æ‰‹ãŒ Ypositive ã§ã‚ã‚Œã°OK
                 type = type ^ FACE_E_BIT
               elsif (isXY(@area[x][y][z]) && isXY(@area[x][y][z-1]) && @area[x][y][z] == @area[x][y][z-1]) then
-                #XY“¯m‚Å“¯‚¶ƒvƒŠƒYƒ€‚Å‚ ‚Á‚Ä‚àOK
+                #XYåŒå£«ã§åŒã˜ãƒ—ãƒªã‚ºãƒ ã§ã‚ã£ã¦ã‚‚OK
                 type = type ^ FACE_E_BIT
               end
             end
 
-            if (z+1 <= @width-1  && @area[x][y][z+1] > KABE_BOX_VAL) then #c‚ªŠJ‚¯‚ê‚é‚©
-              #c‚ªŠJ‚¯‚ê‚éƒvƒŠƒYƒ€‚©”»’f
+            if (z+1 <= @width-1  && @area[x][y][z+1] > KABE_BOX_VAL) then #cãŒé–‹ã‘ã‚Œã‚‹ã‹
+              #cãŒé–‹ã‘ã‚Œã‚‹ãƒ—ãƒªã‚ºãƒ ã‹åˆ¤æ–­
               if (isZpositive(@area[x][y][z]) && isZnegative(@area[x][y][z+1])) then
-                #c‚ğ‚ ‚¯‚éˆ×‚É‚Í ©g‚ª Zpositive ‘Šè‚ª Znegative ‚Å‚ ‚ê‚ÎOK
+                #cã‚’ã‚ã‘ã‚‹ç‚ºã«ã¯ è‡ªèº«ãŒ Zpositive ç›¸æ‰‹ãŒ Znegative ã§ã‚ã‚Œã°OK
                 type = type ^ FACE_C_BIT
               elsif (isXY(@area[x][y][z]) && isZnegative(@area[x][y][z+1])) then
-                #©g‚ªXY‚Å‘Šè‚ª Ynegative ‚Å‚ ‚ê‚ÎOK
+                #è‡ªèº«ãŒXYã§ç›¸æ‰‹ãŒ Ynegative ã§ã‚ã‚Œã°OK
                 type = type ^ FACE_C_BIT
               elsif (isXY(@area[x][y][z]) && isXY(@area[x][y][z+1]) && @area[x][y][z] == @area[x][y][z+1]) then
-                #XY“¯m‚Å“¯‚¶ƒvƒŠƒYƒ€‚Å‚ ‚Á‚Ä‚àOK
+                #XYåŒå£«ã§åŒã˜ãƒ—ãƒªã‚ºãƒ ã§ã‚ã£ã¦ã‚‚OK
                 type = type ^ FACE_C_BIT
               end
             end
@@ -405,8 +405,8 @@ class ExteriorArea
 
   end
 
-  #+Y -Y +Z -Z •ûŒü‚É‚Â‚¢‚ÄBOX‚Ì•`‰æ•s—v‚Ì–ÊiŠJ‚¢‚Ä‚¢‚é–Ê‚ÆŒÄ‚Ôj•ûŒü‚ÉA
-  #“–‚½‚è”»’èAAB‚ğL‚Î‚¹‚é‚©‚Ç‚¤‚©‰ğÍ
+  #+Y -Y +Z -Z æ–¹å‘ã«ã¤ã„ã¦BOXã®æç”»ä¸è¦ã®é¢ï¼ˆé–‹ã„ã¦ã„ã‚‹é¢ã¨å‘¼ã¶ï¼‰æ–¹å‘ã«ã€
+  #å½“ãŸã‚Šåˆ¤å®šAABã‚’ä¼¸ã°ã›ã‚‹ã‹ã©ã†ã‹è§£æ
   def getAnalyze02(exArea)
     ret = ExteriorArea.new(@len, @height, @width)
 
@@ -419,19 +419,19 @@ class ExteriorArea
           elsif exArea.area[x][y][z] == FULL_VAL then
              next
           elsif exArea.area[x][y][z] == KABE_BOX_VAL then
-            #©g‚ªBOX‚Ìê‡
+            #è‡ªèº«ãŒBOXã®å ´åˆ
             ret.area[x][y][z] = [1,1,1,1,1,1]
-            #6–Ê‚ÌŠJ‚¢‚Ä‚¢‚é•ûŒü‚Ì“–‚½‚è”»’è’·‚³‚ğİ’è
+            #6é¢ã®é–‹ã„ã¦ã„ã‚‹æ–¹å‘ã®å½“ãŸã‚Šåˆ¤å®šé•·ã•ã‚’è¨­å®š
             #abcdef
 
             #    c
             # a b d f
             #      e
 
-            #d‚ªŠJ‚¢‚Ä‚¢‚é        543210
+            #dãŒé–‹ã„ã¦ã„ã‚‹        543210
             #                     abcdef
             if @area[x][y][z] & FACE_D_BIT == 0 then
-              #d•ûŒü‚É‚Ç‚Ì‚®‚ç‚¢“–‚½‚è”»’è‚ğL‚Î‚¹‚Î‚¢‚¢‚©H
+              #dæ–¹å‘ã«ã©ã®ãã‚‰ã„å½“ãŸã‚Šåˆ¤å®šã‚’ä¼¸ã°ã›ã°ã„ã„ã‹ï¼Ÿ
               hitarea_idx = 1
               hitarea_len = 1
               while true
@@ -445,10 +445,10 @@ class ExteriorArea
               ret.area[x][y][z][FACE_D_IDX] = hitarea_len
             end
 
-            #a‚ªŠJ‚¢‚Ä‚¢‚é        543210
+            #aãŒé–‹ã„ã¦ã„ã‚‹        543210
             #                     abcdef
             if @area[x][y][z] & FACE_A_BIT == 0 then
-              #a•ûŒü‚É‚Ç‚Ì‚®‚ç‚¢“–‚½‚è”»’è‚ğL‚Î‚¹‚Î‚¢‚¢‚©H
+              #aæ–¹å‘ã«ã©ã®ãã‚‰ã„å½“ãŸã‚Šåˆ¤å®šã‚’ä¼¸ã°ã›ã°ã„ã„ã‹ï¼Ÿ
               hitarea_idx = 1
               hitarea_len = 1
               while true
@@ -462,10 +462,10 @@ class ExteriorArea
               ret.area[x][y][z][FACE_A_IDX] = hitarea_len
             end
 
-            #e‚ªŠJ‚¢‚Ä‚¢‚é        543210
+            #eãŒé–‹ã„ã¦ã„ã‚‹        543210
             #                     abcdef
             if @area[x][y][z] & FACE_E_BIT == 0 then
-              #e•ûŒü‚É‚Ç‚Ì‚®‚ç‚¢“–‚½‚è”»’è‚ğL‚Î‚¹‚Î‚¢‚¢‚©H
+              #eæ–¹å‘ã«ã©ã®ãã‚‰ã„å½“ãŸã‚Šåˆ¤å®šã‚’ä¼¸ã°ã›ã°ã„ã„ã‹ï¼Ÿ
               hitarea_idx = 1
               hitarea_len = 1
               while true
@@ -479,10 +479,10 @@ class ExteriorArea
               ret.area[x][y][z][FACE_E_IDX] = hitarea_len
             end
 
-            #c‚ªŠJ‚¢‚Ä‚¢‚é        543210
+            #cãŒé–‹ã„ã¦ã„ã‚‹        543210
             #                     abcdef
             if @area[x][y][z] & FACE_C_BIT == 0 then
-              #e•ûŒü‚É‚Ç‚Ì‚®‚ç‚¢“–‚½‚è”»’è‚ğL‚Î‚¹‚Î‚¢‚¢‚©H
+              #eæ–¹å‘ã«ã©ã®ãã‚‰ã„å½“ãŸã‚Šåˆ¤å®šã‚’ä¼¸ã°ã›ã°ã„ã„ã‹ï¼Ÿ
               hitarea_idx = 1
               hitarea_len = 1
               while true
@@ -503,7 +503,7 @@ class ExteriorArea
 #           print "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"
 #           print "@area[",x,"][",y,"][",z,"] & FACE_C_BIT=",(@area[x][y][z] & FACE_C_BIT),"\n"
           elsif exArea.area[x][y][z] > KABE_BOX_VAL then
-            #©g‚ªƒvƒŠƒYƒ€‚Ìê‡
+            #è‡ªèº«ãŒãƒ—ãƒªã‚ºãƒ ã®å ´åˆ
             ret.area[x][y][z] = [1,1,1,1,1,1]
           end
 
@@ -515,8 +515,8 @@ class ExteriorArea
 
 
 
-  #getAnalyze02 ‚ÅŠJ‚¢‚Ä‚¢‚é–Ê•ûŒü‚ÉL‚Ñ‚½“–‚½‚è”»’è‚ğ
-  #+Y -Y +Z -Z •ûŒü‚É˜AŒ‹‚Å‚«‚é‚©‚Ç‚¤‚©‰ğÍ
+  #getAnalyze02 ã§é–‹ã„ã¦ã„ã‚‹é¢æ–¹å‘ã«ä¼¸ã³ãŸå½“ãŸã‚Šåˆ¤å®šã‚’
+  #+Y -Y +Z -Z æ–¹å‘ã«é€£çµã§ãã‚‹ã‹ã©ã†ã‹è§£æ
   def getAnalyze03(exArea)
     ret = ExteriorArea.new(@len, @height, @width)
 
@@ -542,15 +542,15 @@ class ExteriorArea
             # 543210
             # abcdef
 
-            #+Y -Y +Z -Z ‚Ì“–‚½‚è”»’è‚Æ˜AŒ‹‚Å‚«‚é‚©l‚¦‚é
+            #+Y -Y +Z -Z ã®å½“ãŸã‚Šåˆ¤å®šã¨é€£çµã§ãã‚‹ã‹è€ƒãˆã‚‹
 
-            #+Y•ûŒü‚ÌŒŸ“¢
+            #+Yæ–¹å‘ã®æ¤œè¨
             same_Y_inc = 0
             if (y+1 <= @height-1) then
               (y+1).upto(@height-1) do |iy|
                 if (ret.area[x][y][z] == @area[x][iy][z] &&
                     ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][iy][z])
-                    ) then #“¯‚¶‘å‚«‚³‚È‚ç‚Î˜AŒ‹
+                    ) then #åŒã˜å¤§ãã•ãªã‚‰ã°é€£çµ
                   same_Y_inc += 1
                 elsif (ret.area[x][y][z][FACE_B_IDX] == @area[x][iy][z][FACE_B_IDX] &&
                        ret.area[x][y][z][FACE_C_IDX] == @area[x][iy][z][FACE_C_IDX] &&
@@ -566,15 +566,15 @@ class ExteriorArea
               end
             end
             if (same_Y_inc > 0) then
-              #–Êa•ûŒü‚É‚àL‚ª‚è‚ğ‚½‚¹‚é
+              #é¢aæ–¹å‘ã«ã‚‚åºƒãŒã‚Šã‚’æŒãŸã›ã‚‹
               ret.area[x][y][z][FACE_A_IDX] += same_Y_inc
-              #–Êa•ûŒüL‚ª‚è‚É‚æ‚Á‚Ä‚Ü‚©‚È‚í‚ê‚éc‚è‚Ì“–‚½‚è”»’è‚Í•s—v
+              #é¢aæ–¹å‘åºƒãŒã‚Šã«ã‚ˆã£ã¦ã¾ã‹ãªã‚ã‚Œã‚‹æ®‹ã‚Šã®å½“ãŸã‚Šåˆ¤å®šã¯ä¸è¦
               (y+1).upto((y+1)+(same_Y_inc-1)) do |iy|
                 ret.area[x][iy][z] = [0,0,0,0,0,0]
               end
             end
 
-            #-Y•ûŒü‚ÌŒŸ“¢
+            #-Yæ–¹å‘ã®æ¤œè¨
             same_Y_dec = 0
             if (y-1 >= 0) then
               (y-1).downto(0) do |iy|
@@ -595,20 +595,20 @@ class ExteriorArea
               end
             end
             if (same_Y_dec > 0) then
-              #–Êd•ûŒü‚É‚àL‚ª‚è‚ğ‚½‚¹‚é
+              #é¢dæ–¹å‘ã«ã‚‚åºƒãŒã‚Šã‚’æŒãŸã›ã‚‹
               ret.area[x][y][z][FACE_D_IDX] += same_Y_dec
-              #–Êd•ûŒüL‚ª‚è‚É‚æ‚Á‚Ä‚Ü‚©‚È‚í‚ê‚éc‚è‚Ì“–‚½‚è”»’è‚Í•s—v
+              #é¢dæ–¹å‘åºƒãŒã‚Šã«ã‚ˆã£ã¦ã¾ã‹ãªã‚ã‚Œã‚‹æ®‹ã‚Šã®å½“ãŸã‚Šåˆ¤å®šã¯ä¸è¦
               (y-1).downto((y-1)-(same_Y_dec-1)) do |iy|
                 ret.area[x][iy][z] = [0,0,0,0,0,0]
               end
             end
 
-            #Y•ûŒü‚É˜AŒ‹‚µ‚½‚È‚ç‚ÎAZ²•ûŒü‚Ö‚Í’Pƒ˜AŒ‹o—ˆ‚È‚¢‚Ì‚Å‚±‚ê‚ÅI—¹‚Æ‚·‚é
+            #Yæ–¹å‘ã«é€£çµã—ãŸãªã‚‰ã°ã€Zè»¸æ–¹å‘ã¸ã¯å˜ç´”é€£çµå‡ºæ¥ãªã„ã®ã§ã“ã‚Œã§çµ‚äº†ã¨ã™ã‚‹
             if same_Y_dec > 0 || same_Y_inc > 0 then
               next
             end
 
-            #+Z•ûŒü‚ÌŒŸ“¢
+            #+Zæ–¹å‘ã®æ¤œè¨
             same_Z_inc = 0
             if (z+1 <= @width-1) then
               (z+1).upto(@width-1) do |iz|
@@ -629,15 +629,15 @@ class ExteriorArea
               end
             end
             if (same_Z_inc > 0) then
-              #–Êc•ûŒü‚É‚àL‚ª‚è‚ğ‚½‚¹‚é
+              #é¢cæ–¹å‘ã«ã‚‚åºƒãŒã‚Šã‚’æŒãŸã›ã‚‹
               ret.area[x][y][z][FACE_C_IDX] += same_Z_inc
-              #–Êc•ûŒüL‚ª‚è‚É‚æ‚Á‚Ä‚Ü‚©‚È‚í‚ê‚éc‚è‚Ì“–‚½‚è”»’è‚Í•s—v
+              #é¢cæ–¹å‘åºƒãŒã‚Šã«ã‚ˆã£ã¦ã¾ã‹ãªã‚ã‚Œã‚‹æ®‹ã‚Šã®å½“ãŸã‚Šåˆ¤å®šã¯ä¸è¦
               (z+1).upto((z+1)+(same_Z_inc-1)) do |iz|
                 ret.area[x][y][iz] = [0,0,0,0,0,0]
               end
             end
 
-            #-Z•ûŒü‚ÌŒŸ“¢
+            #-Zæ–¹å‘ã®æ¤œè¨
             same_Z_dec = 0
             if (z-1 >= 0) then
               (z-1).downto(0) do |iz|
@@ -658,9 +658,9 @@ class ExteriorArea
               end
             end
             if (same_Z_dec > 0) then
-              #–Êe•ûŒü‚É‚àL‚ª‚è‚ğ‚½‚¹‚é
+              #é¢eæ–¹å‘ã«ã‚‚åºƒãŒã‚Šã‚’æŒãŸã›ã‚‹
               ret.area[x][y][z][FACE_E_IDX] += same_Z_dec
-              #–Êe•ûŒüL‚ª‚è‚É‚æ‚Á‚Ä‚Ü‚©‚È‚í‚ê‚éc‚è‚Ì“–‚½‚è”»’è‚Í•s—v
+              #é¢eæ–¹å‘åºƒãŒã‚Šã«ã‚ˆã£ã¦ã¾ã‹ãªã‚ã‚Œã‚‹æ®‹ã‚Šã®å½“ãŸã‚Šåˆ¤å®šã¯ä¸è¦
               (z-1).downto((z-1)-(same_Z_dec-1)) do |iz|
                 ret.area[x][y][iz] = [0,0,0,0,0,0]
               end
@@ -678,15 +678,15 @@ class ExteriorArea
   end
 
 
-  #getAnalyze03 ‚É‚æ‚è˜AŒ‹‚³‚ê‚½“–‚½‚è”»’èAAB‚É‚Â‚¢‚Ä
-  #+X -X •ûŒü‚É˜AŒ‹‚Å‚«‚é‚©‚Ç‚¤‚©‰ğÍ
-  #ˆø”FÅ‘å˜AŒ‹”
+  #getAnalyze03 ã«ã‚ˆã‚Šé€£çµã•ã‚ŒãŸå½“ãŸã‚Šåˆ¤å®šAABã«ã¤ã„ã¦
+  #+X -X æ–¹å‘ã«é€£çµã§ãã‚‹ã‹ã©ã†ã‹è§£æ
+  #å¼•æ•°ï¼šæœ€å¤§é€£çµæ•°
   def getAnalyze04(prm_max_x_colliwall_num, exArea)
 
     max_x_colliwall_num = prm_max_x_colliwall_num
     ret = ExteriorArea.new(@len, @height, @width)
 
-    (@len-1).downto(0) do |x| #‚¨K‚©‚çƒ‹[ƒv
+    (@len-1).downto(0) do |x| #ãŠå°»ã‹ã‚‰ãƒ«ãƒ¼ãƒ—
       for y in 0..@height-1
         for z in 0..@width-1
           if @area[x][y][z] == [0,0,0,0,0,0] then
@@ -704,8 +704,8 @@ class ExteriorArea
             # 543210
             # abcdef
 
-            #+X -X ‚Ì“–‚½‚è”»’è‚Æ˜AŒ‹‚Å‚«‚é‚©l‚¦‚é
-            #-X•ûŒü‚ÌŒŸ“¢
+            #+X -X ã®å½“ãŸã‚Šåˆ¤å®šã¨é€£çµã§ãã‚‹ã‹è€ƒãˆã‚‹
+            #-Xæ–¹å‘ã®æ¤œè¨
             same_X_dec = 0
             if (x-1 >= 0) then
               (x-1).downto(0) do |ix|
@@ -713,7 +713,7 @@ class ExteriorArea
                     ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[ix][y][z]) ) then
                   same_X_dec += 1
                   if same_X_dec >= max_x_colliwall_num then
-                    break #Å‚ max_x_colliwall_num ŒÂ‚Ü‚Å‚µ‚©˜AŒ‹‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+                    break #æœ€é«˜ max_x_colliwall_num å€‹ã¾ã§ã—ã‹é€£çµã—ãªã„ã‚ˆã†ã«ã™ã‚‹
                   end
                 else
                   break
@@ -721,15 +721,15 @@ class ExteriorArea
               end
             end
             if (same_X_dec > 0) then
-              #–Êb•ûŒü‚É‚àL‚ª‚è‚ğ‚½‚¹‚é
+              #é¢bæ–¹å‘ã«ã‚‚åºƒãŒã‚Šã‚’æŒãŸã›ã‚‹
               ret.area[x][y][z][FACE_B_IDX] += same_X_dec
-              #–Êb•ûŒüL‚ª‚è‚É‚æ‚Á‚Ä‚Ü‚©‚È‚í‚ê‚éc‚è‚Ì“–‚½‚è”»’è‚Í•s—v
+              #é¢bæ–¹å‘åºƒãŒã‚Šã«ã‚ˆã£ã¦ã¾ã‹ãªã‚ã‚Œã‚‹æ®‹ã‚Šã®å½“ãŸã‚Šåˆ¤å®šã¯ä¸è¦
               (x-1).downto((x-1)-(same_X_dec-1)) do |ix|
                 ret.area[ix][y][z] = [0,0,0,0,0,0]
               end
             end
 
-            #+X•ûŒü‚ÌŒŸ“¢
+            #+Xæ–¹å‘ã®æ¤œè¨
             same_X_inc = 0
             if (x+1 <= @len-1) then
               (x+1).upto(@len-1) do |ix|
@@ -737,7 +737,7 @@ class ExteriorArea
                     ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[ix][y][z])) then
                   same_X_inc += 1
                   if same_X_inc >= max_x_colliwall_num then
-                    break #Å‚ max_x_colliwall_num ŒÂ‚Ü‚Å‚µ‚©˜AŒ‹‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+                    break #æœ€é«˜ max_x_colliwall_num å€‹ã¾ã§ã—ã‹é€£çµã—ãªã„ã‚ˆã†ã«ã™ã‚‹
                   end
                 else
                   break
@@ -745,9 +745,9 @@ class ExteriorArea
               end
             end
             if (same_X_inc > 0) then
-              #–Êf•ûŒü‚É‚àL‚ª‚è‚ğ‚½‚¹‚é
+              #é¢fæ–¹å‘ã«ã‚‚åºƒãŒã‚Šã‚’æŒãŸã›ã‚‹
               ret.area[x][y][z][FACE_F_IDX] += same_X_inc
-              #–Êf•ûŒüL‚ª‚è‚É‚æ‚Á‚Ä‚Ü‚©‚È‚í‚ê‚éc‚è‚Ì“–‚½‚è”»’è‚Í•s—v
+              #é¢fæ–¹å‘åºƒãŒã‚Šã«ã‚ˆã£ã¦ã¾ã‹ãªã‚ã‚Œã‚‹æ®‹ã‚Šã®å½“ãŸã‚Šåˆ¤å®šã¯ä¸è¦
               (x+1).upto((x+1)+(same_X_inc-1)) do |ix|
                 ret.area[ix][y][z] = [0,0,0,0,0,0]
               end
@@ -761,7 +761,7 @@ class ExteriorArea
   end
 
 
-  #[0][0][0]‚©‚ç FULL_VAL ‚Å“h‚è‚Â‚Ô‚·
+  #[0][0][0]ã‹ã‚‰ FULL_VAL ã§å¡—ã‚Šã¤ã¶ã™
   def fullfull
 
     @area[0][0][0] = FULL_VAL
@@ -780,7 +780,7 @@ class ExteriorArea
             begin
               full(x, y, z, FULL_VAL)
             rescue Exception
-              #Ä‹A‚É‚æ‚éƒXƒ^ƒbƒNƒI[ƒo[—áŠO‚ğ–³—‚â‚è’×‚µ‚Ä‚¢‚é
+              #å†å¸°ã«ã‚ˆã‚‹ã‚¹ã‚¿ãƒƒã‚¯ã‚ªãƒ¼ãƒãƒ¼ä¾‹å¤–ã‚’ç„¡ç†ã‚„ã‚Šæ½°ã—ã¦ã„ã‚‹
             end
 
           end
@@ -823,13 +823,13 @@ class ExteriorArea
   end
 
 
-  #ƒfƒoƒbƒO—po—Í‚»‚Ì‚P
+  #ãƒ‡ãƒãƒƒã‚°ç”¨å‡ºåŠ›ãã®ï¼‘
   def dump01
     for l in 0..@len-1
       print l,")------------------\n"
       #for h in (@height-1..0).include?(-1)
-      (@height-1).downto(0) do |h| #Y²‚Í‰º‚©‚çã‚ª³
-        (@width-1).downto(0) do |w| #Z²‚Í‰E‚©‚ç¶‚ª³(³–Ê‚©‚çŒ©‚½ê‡)
+      (@height-1).downto(0) do |h| #Yè»¸ã¯ä¸‹ã‹ã‚‰ä¸ŠãŒæ­£
+        (@width-1).downto(0) do |w| #Zè»¸ã¯å³ã‹ã‚‰å·¦ãŒæ­£(æ­£é¢ã‹ã‚‰è¦‹ãŸå ´åˆ)
            printf("%02d ", @area[l][h][w])
 #          print "(",@area[l][h][w],")"
 #          print "[",l,"][",h,"][",w,"]="
@@ -838,20 +838,20 @@ class ExteriorArea
         printf(" [%02d] ", h)
         print  "\n"
       end
-      (@width-1).downto(0) do |w| #Z²‚Í‰E‚©‚ç¶‚ª³(³–Ê‚©‚çŒ©‚½ê‡)
+      (@width-1).downto(0) do |w| #Zè»¸ã¯å³ã‹ã‚‰å·¦ãŒæ­£(æ­£é¢ã‹ã‚‰è¦‹ãŸå ´åˆ)
         printf("%02d,", w)
       end
       print  "\n"
     end
   end
 
-  #ƒfƒoƒbƒO—po—Í‚»‚Ì‚Q
+  #ãƒ‡ãƒãƒƒã‚°ç”¨å‡ºåŠ›ãã®ï¼’
   def dump02
     for l in 0..@len-1
       print l,")------------------\n"
       #for h in (@height-1..0).include?(-1)
-      (@height-1).downto(0) do |h| #Y²‚Í‰º‚©‚çã‚ª³
-         (@width-1).downto(0) do |w| #Z²‚Í‰E‚©‚ç¶‚ª³(³–Ê‚©‚çŒ©‚½ê‡)
+      (@height-1).downto(0) do |h| #Yè»¸ã¯ä¸‹ã‹ã‚‰ä¸ŠãŒæ­£
+         (@width-1).downto(0) do |w| #Zè»¸ã¯å³ã‹ã‚‰å·¦ãŒæ­£(æ­£é¢ã‹ã‚‰è¦‹ãŸå ´åˆ)
 #          printf("%02d", @area[l][h][w])
 #          print "(",@area[l][h][w],")"
           print "[",l,"][",h,"][",w,"]="

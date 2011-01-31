@@ -1,17 +1,17 @@
 ################################################################
-#  ŠO•Çî•ñƒf[ƒ^ì¬ƒXƒNƒŠƒvƒg
+#  å¤–å£æƒ…å ±ãƒ‡ãƒ¼ã‚¿ä½œæˆã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 #                                    since 2010/10/19 by Gecchi
 #
-# y‘®z
-# $ ruby makeSceneWallData.rb <“ü—ÍXƒtƒ@ƒCƒ‹> <Y²•ûŒüAAB”> <Z²•ûŒüAAB”> <“–‚½‚è”»’èAAB‚ÌX•ûŒüÅ‘å˜AŒ‹”> <FULLFULLƒ‚[ƒh> <ƒvƒŠƒYƒ€ƒ‚[ƒh>
-# FULLFULLƒ‚[ƒh "Yes":FULLFULL‚ğs‚¤i“à•”“h‚è‚Â‚Ô‚µj "Yes"ˆÈŠO:FULLFULL‚µ‚È‚¢
-# ƒvƒŠƒYƒ€ƒ‚[ƒh "Yes":ƒvƒŠƒYƒ€Œ`‚Ì‚İ‚ğE‚¢ã‚°‚é  "Yes"ˆÈŠO:’Êí‚ÌBOX‚Ì‚İE‚¢ã‚°‚é
-# (¦AAB ‚Æ‚Í ²•Às’¼•û‘ÌFAxis-Aligned Box ‚ÌÈ—ª)
+# ã€æ›¸å¼ã€‘
+# $ ruby makeSceneWallData.rb <å…¥åŠ›Xãƒ•ã‚¡ã‚¤ãƒ«> <Yè»¸æ–¹å‘AABæ•°> <Zè»¸æ–¹å‘AABæ•°> <å½“ãŸã‚Šåˆ¤å®šAABã®Xæ–¹å‘æœ€å¤§é€£çµæ•°> <FULLFULLãƒ¢ãƒ¼ãƒ‰> <ãƒ—ãƒªã‚ºãƒ ãƒ¢ãƒ¼ãƒ‰>
+# FULLFULLãƒ¢ãƒ¼ãƒ‰ "Yes":FULLFULLã‚’è¡Œã†ï¼ˆå†…éƒ¨å¡—ã‚Šã¤ã¶ã—ï¼‰ "Yes"ä»¥å¤–:FULLFULLã—ãªã„
+# ãƒ—ãƒªã‚ºãƒ ãƒ¢ãƒ¼ãƒ‰ "Yes":ãƒ—ãƒªã‚ºãƒ å½¢ã®ã¿ã‚’æ‹¾ã„ä¸Šã’ã‚‹  "Yes"ä»¥å¤–:é€šå¸¸ã®BOXã®ã¿æ‹¾ã„ä¸Šã’ã‚‹
+# (â€»AAB ã¨ã¯ è»¸ä¸¦è¡Œç›´æ–¹ä½“ï¼šAxis-Aligned Box ã®çœç•¥)
 #
-# yg—p—áz
+# ã€ä½¿ç”¨ä¾‹ã€‘
 # $ ruby makeSceneWallData.rb scene3_2_wall.X 34 36 4
-# Às‚·‚é‚Æ
-# scene3_2_wall_0.dat, scene3_2_wall_1.dat, EEE , scene3_2_wall_[N].dat ‚ªì¬‚³‚ê‚é
+# å®Ÿè¡Œã™ã‚‹ã¨
+# scene3_2_wall_0.dat, scene3_2_wall_1.dat, ãƒ»ãƒ»ãƒ» , scene3_2_wall_[N].dat ãŒä½œæˆã•ã‚Œã‚‹
 ################################################################
 
 require './ExteriorArea'
@@ -22,7 +22,7 @@ max_x_colliwall_num = ARGV[3].to_i
 outputfiles = Array.new
 outputfile_index = 0
 
-#“Ç‚İ‚İ
+#èª­ã¿è¾¼ã¿
 f = open(xfile)
 while true
 
@@ -30,7 +30,7 @@ while true
     if line == nil then
       break
     end
-    if line =~ /^Frame / then   #Xƒtƒ@ƒCƒ‹‚Ì s“ª"Frame " ‚Æ‚¢‚¤•¶š—ñ‚ğ—Š‚è‚É‚µ‚Ä‚¢‚é
+    if line =~ /^Frame / then   #Xãƒ•ã‚¡ã‚¤ãƒ«ã® è¡Œé ­"Frame " ã¨ã„ã†æ–‡å­—åˆ—ã‚’é ¼ã‚Šã«ã—ã¦ã„ã‚‹
       #"Frame _200_8 {"
       break
     end
@@ -40,32 +40,32 @@ while true
     break
   end
 
-  #"Frame _200_8 {" ‚Ì "200" ‚Æ "8" ‚ğæ‚èo‚·
+  #"Frame _200_8 {" ã® "200" ã¨ "8" ã‚’å–ã‚Šå‡ºã™
   no_loop = line.sub(/^[^0-9]+/,'').sub(/[^0-9]+$/,'').split(/_/)
   seq_no = no_loop[0]
   loop_num = no_loop[1]
 
   while line = f.gets
-    if line =~ /^\s*Mesh/ then   #Xƒtƒ@ƒCƒ‹‚Ì s“ª"Mesh" ‚Æ‚¢‚¤•¶š—ñ‚ğ—Š‚è‚É‚µ‚Ä‚¢‚é
+    if line =~ /^\s*Mesh/ then   #Xãƒ•ã‚¡ã‚¤ãƒ«ã® è¡Œé ­"Mesh" ã¨ã„ã†æ–‡å­—åˆ—ã‚’é ¼ã‚Šã«ã—ã¦ã„ã‚‹
       break;
     end
   end
 
-  line = f.gets #’¸“_”“Ç‚İ”ò‚Î‚µ
+  line = f.gets #é ‚ç‚¹æ•°èª­ã¿é£›ã°ã—
 
-  #’¸“_î•ñ‚ğVeartex”z—ñ‚É’™‚ß‚±‚Ş
+  #é ‚ç‚¹æƒ…å ±ã‚’Veartexé…åˆ—ã«è²¯ã‚ã“ã‚€
   i = 0
   vtx = Array.new
   while line = f.gets
-    #"50.000000;0.000002;-20.000004;," ‚ğ
-    #50.000000 ‚Æ 0.000002 ‚Æ -20.000004 ‚É•ªŠ„
+    #"50.000000;0.000002;-20.000004;," ã‚’
+    #50.000000 ã¨ 0.000002 ã¨ -20.000004 ã«åˆ†å‰²
     data = line.split(/\s*;\s*/)
     if data.length < 3 then
-      break  #  1248;  ‚Ì’¸“_ƒCƒ“ƒfƒbƒNƒX”‚Ì—ñ‚Å“Ç‚İ”ò‚Î‚µ
+      break  #  1248;  ã®é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°ã®åˆ—ã§èª­ã¿é£›ã°ã—
     end
     vtx[i] = Veartex.new
         #print "data[12]=",data[12]," data[12].to_f.round   =",(data[12].to_f.round   )," \n"
-    vtx[i].X = data[0].to_f.round     #int ‚ÉŠÛ‚ß
+    vtx[i].X = data[0].to_f.round     #int ã«ä¸¸ã‚
     vtx[i].Y = data[1].to_f.round
     vtx[i].Z = data[2].to_f.round
     i += 1
@@ -89,7 +89,7 @@ while true
     for vidx in 0..35
       boxvtx[vidx] = Veartex.new
     end
-    for v in 0..11 #AAB‚Ìƒ‚ƒfƒ‹’¸“_”ƒCƒ“ƒfƒbƒNƒX‚Í12ŒÂ‚Æ‚µ‚Ä‚¢‚éB6–Ê*2
+    for v in 0..11 #AABã®ãƒ¢ãƒ‡ãƒ«é ‚ç‚¹æ•°ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã¯12å€‹ã¨ã—ã¦ã„ã‚‹ã€‚6é¢*2
       #3;0,1,2;,
       #3;1,0,3;,
       #3;4,5,6;,
@@ -104,18 +104,18 @@ while true
       data = line.split(/\s*;\s*/)
       vtx_index = data[1].split(/\s*,\s*/)
       for fv in 0..2 #
-        #’¸“_ƒCƒ“ƒfƒbƒNƒX‚Ì’¸“_î•ñ
+        #é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®é ‚ç‚¹æƒ…å ±
         x = vtx[vtx_index[fv].to_i].X
         y = vtx[vtx_index[fv].to_i].Y
         z = vtx[vtx_index[fv].to_i].Z
 
-        #’¸“_î•ñ•Û
+        #é ‚ç‚¹æƒ…å ±ä¿æŒ
         boxvtx[v*3+fv].X = x
         boxvtx[v*3+fv].Y = y
         boxvtx[v*3+fv].Z = z
 
         if v == 0 && fv == 0 then
-          #‰‰ñ‚Í‘ã“ü
+          #åˆå›ã¯ä»£å…¥
           max_x = x
           max_y = y
           max_z = z
@@ -151,13 +151,13 @@ while true
     if break_flg == false then
 
       box[box_index] = Box.new
-      #AAB‚Ì’†S“_‚ğ‘ã“ü
+      #AABã®ä¸­å¿ƒç‚¹ã‚’ä»£å…¥
       box[box_index].X = (min_x+((max_x-min_x) / 2)).round
       box[box_index].Y = (min_y+((max_y-min_y) / 2)).round
       box[box_index].Z = (min_z+((max_z-min_z) / 2)).round
 
 
-      #‚Ç‚¤‚¢‚¤ƒvƒŠƒYƒ€‚©’²¸
+      #ã©ã†ã„ã†ãƒ—ãƒªã‚ºãƒ ã‹èª¿æŸ»
       counter = [0,0,0,0,0,0,0,0]
       for vidx in 0..35
         x = boxvtx[vidx].X
@@ -189,7 +189,7 @@ while true
          counter[5] > 0 &&
          counter[6] > 0 &&
          counter[7] > 0   then
-        #ƒvƒŠƒYƒ€‚Å‚Í‚È‚­‚ÄBOX
+        #ãƒ—ãƒªã‚ºãƒ ã§ã¯ãªãã¦BOX
         box[box_index].pos_prism = 0
       elsif counter[0] == 0 && counter[1] == 0 then
         box[box_index].pos_prism = POS_PRISM_XY_nn
@@ -218,14 +218,14 @@ while true
       elsif counter[5] == 0 && counter[7] == 0 then
         box[box_index].pos_prism = POS_PRISM_ZX_pp
       else
-        #‚ ‚è‚¦‚È‚¢
+        #ã‚ã‚Šãˆãªã„
         puts "not prism and not box!!!"
         p "counter=",counter
         p "boxvtx=",boxvtx
         exit(1)
 
       end
-#        #ƒvƒŠƒYƒ€‚Æ”»’è‚³‚ê‚½—v‘f•\¦
+#        #ãƒ—ãƒªã‚ºãƒ ã¨åˆ¤å®šã•ã‚ŒãŸè¦ç´ è¡¨ç¤º
 #      if box[box_index].pos_prism != 0 then
 #        p counter
 #        p "boxvtx=",boxvtx
@@ -240,20 +240,20 @@ while true
   $box_width = max_y-min_y
   $box_height = max_z-min_z
 
-  #ƒ\[ƒg
-  box = box.sort{|e1, e2|  (e1.X <=> e2.X).nonzero? or   #X¸‡
-                           (e1.Y <=> e2.Y).nonzero? or   #Y¸‡
-                            e1.Z <=> e2.Z                #Z¸‡
+  #ã‚½ãƒ¼ãƒˆ
+  box = box.sort{|e1, e2|  (e1.X <=> e2.X).nonzero? or   #Xæ˜‡é †
+                           (e1.Y <=> e2.Y).nonzero? or   #Yæ˜‡é †
+                            e1.Z <=> e2.Z                #Zæ˜‡é †
                            }
 
-  #X=0‡‚í‚¹
+  #X=0åˆã‚ã›
   offsetX = box[0].X - ($box_dep/2);
   for idx in 0..box_index-1
     box[idx].X -= offsetX;
   end
 
 
-  #ƒIƒuƒWƒFƒNƒg\’z
+  #ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ§‹ç¯‰
   $area_len = ((box[box_index-1].X - ($box_dep/2))/$box_dep)+1
   $area_height = ARGV[1].to_i
   $area_width = ARGV[2].to_i
@@ -266,9 +266,9 @@ while true
     }
   }
 
-  #BOXİ’è&“–‚½‚è”»’èAABÅ“K‰»‰ğÍ
+  #BOXè¨­å®š&å½“ãŸã‚Šåˆ¤å®šAABæœ€é©åŒ–è§£æ
   exArea = ExteriorArea.new($area_len, $area_height, $area_width)
-  #BOXİ’è
+  #BOXè¨­å®š
   for idx in 0..box_index-1
       iX = (box[idx].X - ($box_dep/2))/$box_dep
       iY = ((box[idx].Y-($box_height/2))/$box_height) + ($area_height/2)
@@ -280,11 +280,11 @@ while true
   #exArea.dump01
 
   if ARGV[4] == "Yes" || ARGV[4] == "yes" then
-    exArea.fullfull #ŠO“h‚è‚Â‚Ô‚µ
-    exArea.fullfull #‚Q‰ñˆÈã‚Å‚Ù‚Æ‚ñ‚Ç‚Ìê‡‚Í‘åä•v‚¾‚ªEE
+    exArea.fullfull #å¤–å¡—ã‚Šã¤ã¶ã—
+    exArea.fullfull #ï¼’å›ä»¥ä¸Šã§ã»ã¨ã‚“ã©ã®å ´åˆã¯å¤§ä¸ˆå¤«ã ãŒãƒ»ãƒ»
   end
 
-  #BOX‚U–Ê‚Ì“àAÅ’áŒÀ•`‰æ‚µ‚È‚¯‚ê‚Î‚¢‚¯‚È‚¢–Ê‚ğ‰ğÍ
+  #BOXï¼–é¢ã®å†…ã€æœ€ä½é™æç”»ã—ãªã‘ã‚Œã°ã„ã‘ãªã„é¢ã‚’è§£æ
   r01_exArea = exArea.getAnalyze01
 
   #print "r01_exArea.dump01---------------\n"
@@ -296,12 +296,12 @@ while true
   #r02_exArea.dump02
 
   r03_exArea = r02_exArea.getAnalyze03(exArea)
-  r03_2_exArea = r03_exArea.getAnalyze03(exArea) #Z•ûŒü˜AŒ‹‚ğs‚¤‚½‚ß‚à‚¤ˆê‰ñgetAnalyze03
+  r03_2_exArea = r03_exArea.getAnalyze03(exArea) #Zæ–¹å‘é€£çµã‚’è¡Œã†ãŸã‚ã‚‚ã†ä¸€å›getAnalyze03
   #r03_2_exArea.dump02
   r04_exArea = r03_2_exArea.getAnalyze04(max_x_colliwall_num, exArea)
 
 
-  #ƒf[ƒ^o—ÍŠJn
+  #ãƒ‡ãƒ¼ã‚¿å‡ºåŠ›é–‹å§‹
   outputfiles[outputfile_index] = seq_no.to_s + "." + xfile +".dat"
   fw = File.open(outputfiles[outputfile_index],'w')
 
