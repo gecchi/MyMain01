@@ -18,13 +18,6 @@ GgafMainActor* GgafMainActor::extract() {
     return pActor;
 }
 
-bool GgafMainActor::isActive() {
-    if (GgafActor::isActive() && getPlatformScene() && getPlatformScene()->isActive()) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 void GgafMainActor::setLordActor(GgafLordActor* prm_pLordActor) {
     _pLordActor = prm_pLordActor;

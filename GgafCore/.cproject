@@ -55,6 +55,7 @@
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1093427632" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="_DEBUG"/>
 								</option>
+								<option id="gnu.cpp.compiler.option.debugging.gprof.1695053499" name="gprof 情報の生成 (-pg)" superClass="gnu.cpp.compiler.option.debugging.gprof" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.452194199" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug.466012546" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug">
@@ -68,6 +69,7 @@
 								<option id="gnu.c.compiler.option.warnings.pedantic.1923472672" name="ペダンティック (-pedantic)" superClass="gnu.c.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.preprocessor.preprocess.626361796" name="プリプロセスのみ (-E)" superClass="gnu.c.compiler.option.preprocessor.preprocess" value="false" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.preprocessor.nostdinc.606496992" name="システム・ディレクトリーを検索しない (-nostdinc)" superClass="gnu.c.compiler.option.preprocessor.nostdinc" value="false" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.debugging.gprof.1095793787" name="gprof 情報の生成 (-pg)" superClass="gnu.c.compiler.option.debugging.gprof" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1900115219" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1005005156" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
@@ -1201,16 +1203,94 @@
 				</scannerConfigBuildInfo>
 			</storageModule>
 		</cconfiguration>
-		<cconfiguration id="cdt.managedbuild.config.gnu.mingw.lib.release.2064985689">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.mingw.lib.release.2064985689" moduleId="org.eclipse.cdt.core.settings" name="リリース">
-				<externalSettings/>
+		<cconfiguration id="cdt.managedbuild.config.gnu.mingw.lib.debug.602817255.774477837.213696624">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.mingw.lib.debug.602817255.774477837.213696624" moduleId="org.eclipse.cdt.core.settings" name="Release whit gprof">
+				<externalSettings>
+					<externalSetting>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/GgafCore"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="デバッグ"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/GgafCore/ReleaseCdt"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/GgafCore/Release whit gprof"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="GgafCore"/>
+					</externalSetting>
+					<externalSetting languages="cdt.managedbuild.tool.gnu.cpp.compiler.input.452194199">
+						<entry flags="BUILTIN|READONLY|RESOLVED" kind="includePath" name="C:/MinGW/include/c++/3.4.5"/>
+						<entry flags="BUILTIN|READONLY|RESOLVED" kind="includePath" name="C:/MinGW/include/c++/3.4.5/mingw32"/>
+					</externalSetting>
+					<externalSetting languages="cdt.managedbuild.tool.gnu.c.compiler.input.1900115219">
+						<entry flags="BUILTIN|READONLY|RESOLVED" kind="includePath" name="C:/MinGW/lib/gcc/mingw32/3.4.5/include"/>
+						<entry flags="BUILTIN|READONLY|RESOLVED" kind="includePath" name="c:/cygwin/mingw/include"/>
+						<entry flags="BUILTIN|READONLY|RESOLVED" kind="includePath" name="c:/cygwin/mingw/lib/gcc/mingw32/4.4.0/include"/>
+						<entry flags="BUILTIN|READONLY|RESOLVED" kind="includePath" name="c:/cygwin/mingw/lib/gcc/mingw32/4.4.0/include-fixed"/>
+						<entry flags="BUILTIN|READONLY|RESOLVED" kind="includePath" name="c:/cygwin/mingw/lib/gcc/mingw32/4.3.0/include"/>
+						<entry flags="BUILTIN|READONLY|RESOLVED" kind="includePath" name="c:/cygwin/mingw/lib/gcc/mingw32/4.3.0/include-fixed"/>
+					</externalSetting>
+				</externalSettings>
 				<extensions>
 					<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GNU_ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="a" artifactName="GgafCore" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.config.gnu.mingw.lib.debug.602817255.774477837.213696624" name="Release whit gprof" parent="cdt.managedbuild.config.gnu.mingw.lib.debug" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="">
+					<folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.debug.602817255.774477837.213696624." name="/" resourcePath="">
+						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.lib.debug.1252093233" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.debug">
+							<targetPlatform binaryParser="org.eclipse.cdt.core.PE;org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="cdt.managedbuild.target.gnu.platform.mingw.lib.debug.1691946048" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.debug"/>
+							<builder buildPath="${workspace_loc:/GgafCore/DebugCdt}" id="org.eclipse.cdt.build.core.internal.builder.1373060522" keepEnvironmentInBuildfile="false" name="CDT 内部ビルダー" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug.809848175" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug">
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1268009418" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
+							<tool errorParsers="" id="cdt.managedbuild.tool.gnu.archiver.mingw.lib.debug.560461944" name="GCC アーカイバー" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.lib.debug"/>
+							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.debug.574199754" name="GCC C++ コンパイラー" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.debug">
+								<option id="gnu.cpp.compiler.mingw.lib.debug.option.optimization.level.1395283488" name="最適化レベル" superClass="gnu.cpp.compiler.mingw.lib.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.mingw.lib.debug.option.debugging.level.690998458" name="デバッグ・レベル" superClass="gnu.cpp.compiler.mingw.lib.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.include.paths.1553467260" name="インクルード・パス (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/MSVC_include}&quot;"/>
+								</option>
+								<option id="gnu.cpp.compiler.option.other.other.954222566" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows -Winit-self --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
+								<option id="gnu.cpp.compiler.option.warnings.pedantic.1830487455" name="ペダンティック (-pedantic)" superClass="gnu.cpp.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.1285223030" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def"/>
+								<option id="gnu.cpp.compiler.option.warnings.allwarn.19226082" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.warnings.nowarn.623338077" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.debugging.gprof.892350374" name="gprof 情報の生成 (-pg)" superClass="gnu.cpp.compiler.option.debugging.gprof" value="true" valueType="boolean"/>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.2054655512" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+							</tool>
+							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug.1989568396" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug">
+								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.mingw.lib.debug.option.optimization.level.599726226" name="最適化レベル" superClass="gnu.c.compiler.mingw.lib.debug.option.optimization.level" value="gnu.c.optimization.level.none" valueType="enumerated"/>
+								<option id="gnu.c.compiler.mingw.lib.debug.option.debugging.level.57478766" name="デバッグ・レベル" superClass="gnu.c.compiler.mingw.lib.debug.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.include.paths.16609317" name="インクルード・パス (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/MSVC_include}&quot;"/>
+								</option>
+								<option id="gnu.c.compiler.option.misc.other.1301740945" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows -Winit-self --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
+								<option id="gnu.c.compiler.option.warnings.pedantic.812065441" name="ペダンティック (-pedantic)" superClass="gnu.c.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.preprocessor.preprocess.149532707" name="プリプロセスのみ (-E)" superClass="gnu.c.compiler.option.preprocessor.preprocess" value="false" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.preprocessor.nostdinc.215164404" name="システム・ディレクトリーを検索しない (-nostdinc)" superClass="gnu.c.compiler.option.preprocessor.nostdinc" value="false" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.warnings.allwarn.293122506" name="すべての警告 (-Wall)" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.warnings.nowarn.1877640998" name="すべての警告を禁止 (-w)" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.debugging.gprof.1549387829" name="gprof 情報の生成 (-pg)" superClass="gnu.c.compiler.option.debugging.gprof" value="true" valueType="boolean"/>
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1417966052" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1431617861" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.1315212165" name="MinGW C++ リンカー" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base"/>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 			<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
+			<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+			<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings">
+				<doc-comment-owner id="org.eclipse.cdt.ui.doxygen">
+					<path value=""/>
+				</doc-comment-owner>
+			</storageModule>
 			<storageModule moduleId="scannerConfiguration">
 				<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile"/>
 				<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
@@ -1725,38 +1805,6 @@
 						</scannerInfoProvider>
 					</profile>
 				</scannerConfigBuildInfo>
-			</storageModule>
-			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="GgafCore" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.mingw.lib.release.2064985689" name="リリース" parent="cdt.managedbuild.config.gnu.mingw.lib.release">
-					<folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.release.2064985689." name="/" resourcePath="">
-						<toolChain id="cdt.managedbuild.toolchain.gnu.mingw.lib.release.119430916" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.release">
-							<targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.lib.release.2039044780" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.release"/>
-							<builder buildPath="${workspace_loc:/GgafCore/リリース}" id="cdt.managedbuild.tool.gnu.builder.mingw.base.1072217686" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT 内部ビルダー" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
-							<tool id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.release.1443980634" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.release">
-								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1269317439" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
-							</tool>
-							<tool id="cdt.managedbuild.tool.gnu.archiver.mingw.lib.release.1484763647" name="GCC アーカイバー" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.lib.release"/>
-							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.release.1818499599" name="GCC C++ コンパイラー" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.release">
-								<option id="gnu.cpp.compiler.mingw.lib.release.option.optimization.level.1057284508" name="最適化レベル" superClass="gnu.cpp.compiler.mingw.lib.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.mingw.lib.release.option.debugging.level.1054919872" name="デバッグ・レベル" superClass="gnu.cpp.compiler.mingw.lib.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
-								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.751210556" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
-							</tool>
-							<tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.release.1758312180" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.release">
-								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.mingw.lib.release.option.optimization.level.939538305" name="最適化レベル" superClass="gnu.c.compiler.mingw.lib.release.option.optimization.level" valueType="enumerated"/>
-								<option id="gnu.c.compiler.mingw.lib.release.option.debugging.level.1544042655" name="デバッグ・レベル" superClass="gnu.c.compiler.mingw.lib.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
-								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.2136018322" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
-							</tool>
-							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1641029891" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
-							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.2054498343" name="MinGW C++ リンカー" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base"/>
-						</toolChain>
-					</folderInfo>
-				</configuration>
-			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
-			<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings">
-				<doc-comment-owner id="org.eclipse.cdt.ui.doxygen">
-					<path value=""/>
-				</doc-comment-owner>
 			</storageModule>
 		</cconfiguration>
 	</storageModule>
