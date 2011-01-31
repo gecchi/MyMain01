@@ -25,7 +25,7 @@ public:
 
     /**
      * 次のノード取得する。 .
-     * @return	次ノード
+     * @return  次ノード
      */
     virtual GgafMainActor* getNext() override {
         return (GgafMainActor*)GgafActor::getNext();
@@ -33,7 +33,7 @@ public:
 
     /**
      * 前のノード取得する。 .
-     * @return	前ノード
+     * @return  前ノード
      */
     virtual GgafMainActor* getPrev() override {
         return (GgafMainActor*)GgafActor::getPrev();
@@ -42,7 +42,7 @@ public:
     /**
      * 子ノードのグループの先頭ノードを取得する .
      * 子ノードが存在しない場合はエラー。
-     * @return	子ノードの先頭ノード
+     * @return  子ノードの先頭ノード
      */
     virtual GgafMainActor* getSubFirst() override {
         return (GgafMainActor*)GgafActor::getSubFirst();
@@ -52,7 +52,7 @@ public:
      * 自ツリーノードを連結リストから切り離し、独立する。 .
      * 切り離され穴が開いた部分は、周りのノードが穴を埋めます（再連結します）<BR>
      * 自ノードに子がぶら下がっていた場合、それらも切り離されたことになります。<BR>
-     * @return	自ノードのポインタ
+     * @return  自ノードのポインタ
      */
     virtual GgafMainActor* extract() override;
 
@@ -64,13 +64,8 @@ public:
      * TODO:厳密には、シーンの親シーンも全て調査する必要があるのだが、そのようなぶった切りは行わないように工夫する。
      * @return アクターが活動中（かつ所属元シーンも活動中）
      */
-    inline bool isActive() {
-        if (GgafActor::isActive() && getPlatformScene() && getPlatformScene()->isActive()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    virtual bool isActive() override;
+
     /**
      * シーン管理者を設定する。 .
      */
@@ -123,7 +118,7 @@ public:
 
     /**
      * 神に謁見 .
-     * @return	呼ばれて出てきた神
+     * @return  呼ばれて出てきた神
      */
     virtual GgafGod* askGod();
 
