@@ -36,8 +36,6 @@ Formation001<T>::Formation001(const char* prm_name, GgafCore::GgafActorDispatche
     } else {
         _was_create_dispatcher = false;
         _pDispatcher = prm_pDispatcher;
-
-
     }
 }
 
