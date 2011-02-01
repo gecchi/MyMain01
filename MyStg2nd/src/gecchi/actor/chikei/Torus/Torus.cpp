@@ -18,11 +18,13 @@ void Torus::addSubBoneOnSurface(GgafDx9GeometricActor* prm_pGeoActor, angle prm_
     s_ang angPos1 = prm_angPos1 /ANGLE_RATE;
     s_ang angPos2 = prm_angPos2 /ANGLE_RATE;
     //à íuÇãÅÇﬂÇÈ
-    //ïΩçsà⁄ìÆ( +_r2, +0, +0) > angPos2ÇÃYé≤âÒì] > ïΩçsà⁄ìÆ( +0, +0, -_r1) > angPos1ÇÃXé≤âÒì] ïœä∑çsóÒÇÃ dx, dy, dz Çégóp
+    //ïΩçsà⁄ìÆ( +_r2, +0, +0) > angPos2ÇÃYé≤âÒì] > ïΩçsà⁄ìÆ( +0, +0, -_r1) > angPos1ÇÃXé≤âÒì] ïœä∑çsóÒÇÃ dx, dy, dz Ç™ó~ÇµÇ¢
+    //
     //    | COS[angPos2]    , -SIN[angPos2]*-SIN[angPos1]             , -SIN[angPos2]*COS[angPos1]             , 0 |
-    //    | 0               , COS[angPos1]                            , SIN[angPos1]                           , 0 |
-    //    | SIN[angPos2]    , COS[angPos2]*-SIN[angPos1]              , COS[angPos2]*COS[angPos1]              , 0 |
+    //    | 0               ,  COS[angPos1]                           ,  SIN[angPos1]                          , 0 |
+    //    | SIN[angPos2]    ,  COS[angPos2]*-SIN[angPos1]             ,  COS[angPos2]*COS[angPos]              , 0 |
     //    | _r2*COS[angPos2], (_r2*-SIN[angPos2] + -_r1)*-SIN[angPos1], (_r2*-SIN[angPos2] + -_r1)*COS[angPos1], 1 |
+    //ÇÊÇË
     double X = _r2*GgafDx9Util::COS[angPos2];
     double Y = (_r2*-GgafDx9Util::SIN[angPos2] - _r1) * -GgafDx9Util::SIN[angPos1];
     double Z = (_r2*-GgafDx9Util::SIN[angPos2] - _r1) *  GgafDx9Util::COS[angPos1];
@@ -33,6 +35,7 @@ void Torus::addSubBoneOnSurface(GgafDx9GeometricActor* prm_pGeoActor, angle prm_
     //    | 0, COS[angPos1]      , SIN[angPos1]     , 0 |
     //    | 0, -SIN[angPos1]     , COS[angPos1]     , 0 |
     //    | 0, -_r1*-SIN[angPos1], -_r1*COS[angPos1], 1 |
+    //ÇÊÇË
     double CX = 0;
     double CY = -_r1*-GgafDx9Util::SIN[angPos1];
     double CZ = -_r1*GgafDx9Util::COS[angPos1];
