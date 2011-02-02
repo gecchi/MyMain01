@@ -23,10 +23,19 @@ _pMyOptionController(NULL) {
 //    _pCon_VamSysCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("VamSysCamWorker");
 //    _pCon_MyShipDivingCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("MyShipDivingCamWorker");
 //    _pMyShipDivingCamWorker = (MyShipDivingCamWorker*)_pCon_MyShipDivingCamWorker->refer();
-
+    //_z = 0.99;//たぶん最背面 （0 <= _z < 1.0）Z=(0～+1)
+    //_z = 0.9999999f;
+    //魔法メーター設置
     _pMagicMeter = NEW MagicMeter("MagicMeter");
+    _pMagicMeter->setCoordinate(100.0f, Properties::VIEW_SCREEN_HEIGHT - 100.0f,
+                                0.00000001f );
     getLordActor()->addSubGroup(_pMagicMeter);
 
+    //エネルギーバー設置
+    _pEnagyBar = NEW EnagyBar("EnagyBar");
+    _pEnagyBar->setCoordinate(100.0f, Properties::VIEW_SCREEN_HEIGHT - 50.0f,
+                              0.00000001f );
+    getLordActor()->addSubGroup(_pEnagyBar);
     _zanki = 3;
     useProgress(10);
 

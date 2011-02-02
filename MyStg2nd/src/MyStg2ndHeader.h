@@ -299,6 +299,8 @@ class CameraWorkerConnection;
 
 class TestDispatcher;
 class MagicMeter;
+class EnagyBar;
+
 class Magic;
 class OptionMagic;
 class LaserMagic;
@@ -460,15 +462,19 @@ class MagicMeter;
 #include "gecchi/actor/chikei/Torus/VarietyTorus004.h"
 
 
-#include "gecchi/actor/system/magic/MagicMeter.h"
-#include "gecchi/actor/system/magic/Magic.h"
+#include "gecchi/actor/system/instrument/MagicMeter.h"
+#include "gecchi/actor/system/instrument/EnagyBar.h"
 
+#include "gecchi/actor/system/magic/Magic.h"
 #include "gecchi/actor/system/magic/OptionMagic.h"
 #include "gecchi/actor/system/magic/LaserMagic.h"
 #include "gecchi/actor/system/magic/SpeedMagic.h"
 #include "gecchi/actor/system/magic/LockonMagic.h"
 #include "gecchi/actor/system/magic/TorpedoMagic.h"
 #include "gecchi/actor/system/magic/EffectMagic001.h"
+
+
+
 #include "gecchi/Properties.h"
 #include "gecchi/util/MyStgUtil.h"
 #include "gecchi/util/VamSysCamPosition.h"

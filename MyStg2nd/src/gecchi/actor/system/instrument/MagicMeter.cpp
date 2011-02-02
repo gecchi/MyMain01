@@ -9,14 +9,10 @@ using namespace MyStg2nd;
 MagicMeter::MagicMeter(const char* prm_name)
 : DefaultBoardSetActor(prm_name, "MagicMeter") {
     _class_name = "MagicMeter";
-    //_z = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
-    //_z = 0.9999999f;
-    _z = 0.00000001f;
     _width = _pBoardSetModel->_fSize_BoardSetModelWidthPx + 1.0f;
     _height = _pBoardSetModel->_fSize_BoardSetModelHeightPx + 1.0f;
     _x = 100;
     _y = Properties::VIEW_SCREEN_HEIGHT - (_height*2);
-
 
 
 //    [0][0]  [1][0]  [2][0]  [3][0]
