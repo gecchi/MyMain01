@@ -25,33 +25,41 @@ public:
      * コンストラクタ .
      * @return
      */
-    QuantityUnit();
+    QuantityUnit() : GgafCore::GgafObject() {
+        _max_val_px = 100.0f;
+        _max_val = 100.0f;
+        _val = 0.0f;
+        _val_px = 0.0f;
+    }
 
-    /**
-     * コンストラクタ .
-     * @param prm_max_val_px  メーター値が100%時の幅ピクセル
-     * @param prm_max_val     メーター値が100%とする実際の値(メーター値)
-     */
-    QuantityUnit(float prm_max_val_px, float prm_max_val);
+//    /**
+//     * コンストラクタ .
+//     * @param prm_max_val_px  メーター値が100%時の幅ピクセル
+//     * @param prm_max_val     メーター値が100%とする実際の値(メーター値)
+//     */
+//    QuantityUnit(float prm_max_val_px, float prm_max_val);
 
     /**
      * メーターの目盛りを定義 .
      * @param prm_max_val_px  メーター値が100%時の幅ピクセル
      * @param prm_max_val     メーター値が100%とする実際の値(メーター値)
      */
-    void config(float prm_max_val_px, float prm_max_val);
-
+    void config(float prm_max_val_px, float prm_max_val) {
+        _max_val_px = prm_max_val_px;
+        _max_val = prm_max_val;
+    }
     /**
      * メーター量を設定 .
      * 設定すると、現在のメーターの長さ(px)が更新される
      * @param prm_val メーター値
      */
-    inline void set(float prm_val) {
+    void set(float prm_val) {
         _val = prm_val;
         _val_px = (_max_val / _val) * _max_val_px;
     }
 
-    virtual ~QuantityUnit();
+    virtual ~QuantityUnit() {
+    }
 };
 
 }
