@@ -3,9 +3,8 @@
 namespace MyStg2nd {
 
 class EnagyBar : public GgafDx9LibStg::DefaultBoardActor {
-
-    GgafDx9LibStg::QuantityUnit _qu;
     float _enagy;
+    GgafDx9LibStg::QuantityUnit _qu;
     float _fSize_BoardModelWidthPx;
 public:
 

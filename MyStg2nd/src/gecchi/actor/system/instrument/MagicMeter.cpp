@@ -13,8 +13,12 @@ MagicMeter::MagicMeter(const char* prm_name)
     _height = _pBoardSetModel->_fSize_BoardSetModelHeightPx + 1.0f;
     _x = 100;
     _y = Properties::VIEW_SCREEN_HEIGHT - (_height*2);
-
-
+//    QuantityUnit _qu;
+//    _qu.set(1.0);
+//    _qu.config(400.0, 1.0);
+//    float _enagy = 1000;
+//    _qu.config(400.0f, _enagy);
+//    QuantityUnit _qu();
 //    [0][0]  [1][0]  [2][0]  [3][0]
 //    [0][1]  [1][1]  [2][1]  [3][1]
 //    [0][2]  [1][2]  [2][2]  [3][2]
