@@ -43,7 +43,7 @@ public:
     void setVolume(int volume);
     void setPan(int pan);
     void clear();
-    bool isActive();
+    bool isActiveActor();
 
     virtual ~GgafDx9Bgm();
 };
