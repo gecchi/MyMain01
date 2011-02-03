@@ -1,4 +1,4 @@
-*** File C:\cygwin\workspace\CustomizeOgg_static\Release whit gprof/../src/bitwise.c:
+*** File D:\workspace\CustomizeOgg_static\Release whit gprof/../src/bitwise.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE Ogg CONTAINER SOURCE CODE.              *
@@ -264,7 +264,7 @@
                 }
                 
                 /* Read in bits without advancing the bitptr; bits <= 32 */
-      380021 -> long oggpack_look(oggpack_buffer *b,int bits){
+      380066 -> long oggpack_look(oggpack_buffer *b,int bits){
                   unsigned long ret;
                   unsigned long m;
                 
@@ -336,7 +336,7 @@
                   return((b->ptr[0]>>(7-b->endbit))&1);
                 }
                 
-      230630 -> void oggpack_adv(oggpack_buffer *b,int bits){
+      230573 -> void oggpack_adv(oggpack_buffer *b,int bits){
                   bits+=b->endbit;
                 
                   if(b->endbyte > b->storage-((bits+7)>>3)) goto overflow;
@@ -369,7 +369,7 @@
                 }
                 
                 /* bits <= 32 */
-       97189 -> long oggpack_read(oggpack_buffer *b,int bits){
+       97186 -> long oggpack_read(oggpack_buffer *b,int bits){
                   long ret;
                   unsigned long m;
                 
@@ -862,9 +862,9 @@ Top 10 Lines:
 
      Line      Count
 
-      266     380021
-      338     230630
-      371      97189
+      266     380066
+      338     230573
+      371      97186
       255        957
       499        744
 
@@ -874,11 +874,11 @@ Execution Summary:
        36   Lines executed
     97.30   Percent of the file executed
 
-   709541   Total number of line executions
- 19176.78   Average executions per line
+   709526   Total number of line executions
+ 19176.38   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeOgg_static\Release whit gprof/../src/framing.c:
+*** File D:\workspace\CustomizeOgg_static\Release whit gprof/../src/framing.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE Ogg CONTAINER SOURCE CODE.              *
@@ -919,7 +919,7 @@ Execution Summary:
                   return((int)(og->header[5]&0x02));
                 }
                 
-         123 -> int ogg_page_eos(const ogg_page *og){
+         122 -> int ogg_page_eos(const ogg_page *og){
                   return((int)(og->header[5]&0x04));
                 }
                 
@@ -1066,7 +1066,7 @@ Execution Summary:
                 
                 /* init the encode/decode logical stream state */
                 
-          24 -> int ogg_stream_init(ogg_stream_state *os,int serialno){
+          23 -> int ogg_stream_init(ogg_stream_state *os,int serialno){
                   if(os){
                     memset(os,0,sizeof(*os));
                     os->body_storage=16*1024;
@@ -1089,7 +1089,7 @@ Execution Summary:
                 } 
                 
                 /* async/delayed error detection for the ogg_stream_state */
-        1246 -> int ogg_stream_check(ogg_stream_state *os){
+        1245 -> int ogg_stream_check(ogg_stream_state *os){
                   if(!os || !os->body_data) return -1;
                   return 0;
                 }
@@ -1158,7 +1158,7 @@ Execution Summary:
                 /* Direct table CRC; note that this will be faster in the future if we
                    perform the checksum simultaneously with other copies */
                 
-         286 -> void ogg_page_checksum_set(ogg_page *og){
+         285 -> void ogg_page_checksum_set(ogg_page *og){
                   if(og){
                     ogg_uint32_t crc_reg=0;
                     int i;
@@ -1475,12 +1475,12 @@ Execution Summary:
                   return(0);
                 }
                 
-        2187 -> int ogg_sync_check(ogg_sync_state *oy){
+        2181 -> int ogg_sync_check(ogg_sync_state *oy){
                   if(oy->storage<0) return -1;
                   return 0;
                 }
                 
-         585 -> char *ogg_sync_buffer(ogg_sync_state *oy, long size){
+         584 -> char *ogg_sync_buffer(ogg_sync_state *oy, long size){
                   if(ogg_sync_check(oy)) return NULL;
                 
                   /* first, clear out any space that has been previously returned */
@@ -1512,7 +1512,7 @@ Execution Summary:
                   return((char *)oy->data+oy->fill);
                 }
                 
-         585 -> int ogg_sync_wrote(ogg_sync_state *oy, long bytes){
+         578 -> int ogg_sync_wrote(ogg_sync_state *oy, long bytes){
                   if(ogg_sync_check(oy))return -1;
                   if(oy->fill+bytes>oy->storage)return -1;
                   oy->fill+=bytes;
@@ -1529,7 +1529,7 @@ Execution Summary:
                    
                 */
                 
-         985 -> long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
+         977 -> long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
                   unsigned char *page=oy->data+oy->returned;
                   unsigned char *next;
                   long bytes=oy->fill-oy->returned;
@@ -1821,7 +1821,7 @@ Execution Summary:
                   return(0);
                 }
                 
-        1072 -> int ogg_stream_reset_serialno(ogg_stream_state *os,int serialno){
+        1071 -> int ogg_stream_reset_serialno(ogg_stream_state *os,int serialno){
                   if(ogg_stream_check(os)) return -1;
                   ogg_stream_reset(os);
                   os->serialno=serialno;
@@ -2974,16 +2974,16 @@ Top 10 Lines:
 
      Line      Count
 
-      597       2187
-      211       1246
-      943       1072
+      597       2181
+      211       1245
+      943       1071
      1004        992
-      651        985
-      602        585
-      634        585
+      651        977
+      602        584
+      634        578
        58        409
        45        322
-      280        286
+      280        285
 
 Execution Summary:
 
@@ -2991,11 +2991,11 @@ Execution Summary:
        34   Lines executed
     89.47   Percent of the file executed
 
-     9821   Total number of line executions
-   258.45   Average executions per line
+     9794   Total number of line executions
+   257.74   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeVorbis_static\Release whit gprof/../lib/res0.c:
+*** File D:\workspace\CustomizeVorbis_static\Release whit gprof/../lib/res0.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
@@ -3801,7 +3801,7 @@ Execution Summary:
                 
                 /* duplicate code here as speed is somewhat more important */
                 int res2_inverse(vorbis_block *vb,vorbis_look_residue *vl,
-         825 ->                  float **in,int *nonzero,int ch){
+         826 ->                  float **in,int *nonzero,int ch){
                   long i,k,l,s;
                   vorbis_look_residue0 *look=(vorbis_look_residue0 *)vl;
                   vorbis_info_residue0 *info=look->info;
@@ -3891,7 +3891,7 @@ Top 10 Lines:
 
      Line      Count
 
-      806        825
+      806        826
        77        328
        69         24
       204         24
@@ -3903,11 +3903,11 @@ Execution Summary:
        12   Lines executed
     60.00   Percent of the file executed
 
-     1209   Total number of line executions
-    60.45   Average executions per line
+     1210   Total number of line executions
+    60.50   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeVorbis_static\Release whit gprof/../lib/floor1.c:
+*** File D:\workspace\CustomizeVorbis_static\Release whit gprof/../lib/floor1.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
@@ -4677,7 +4677,7 @@ Execution Summary:
                 
                 int floor1_encode(oggpack_buffer *opb,vorbis_block *vb,
                                   vorbis_look_floor1 *look,
-        1459 ->                   int *post,int *ilogmask){
+        1456 ->                   int *post,int *ilogmask){
                 
                   long i,j;
                   vorbis_info_floor1 *info=look->vi;
@@ -5013,7 +5013,7 @@ Top 10 Lines:
 
      Line      Count
 
-      770       1459
+      770       1456
 
 Execution Summary:
 
@@ -5021,11 +5021,11 @@ Execution Summary:
         3   Lines executed
     14.29   Percent of the file executed
 
-     1459   Total number of line executions
-    69.48   Average executions per line
+     1456   Total number of line executions
+    69.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeVorbis_static\Release whit gprof/../lib/window.c:
+*** File D:\workspace\CustomizeVorbis_static\Release whit gprof/../lib/window.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
@@ -7123,12 +7123,12 @@ Execution Summary:
                   vwin8192,
                 };
                 
-         729 -> const float *_vorbis_window_get(int n){
+         727 -> const float *_vorbis_window_get(int n){
                   return vwin[n];
                 }
                 
                 void _vorbis_apply_window(float *d,int *winno,long *blocksizes,
-       22007 ->                           int lW,int W,int nW){
+       21986 ->                           int lW,int W,int nW){
                   lW=(W?lW:0);
                   nW=(W?nW:0);
                 
@@ -7167,8 +7167,8 @@ Top 10 Lines:
 
      Line      Count
 
-     2103      22007
-     2098        729
+     2103      21986
+     2098        727
 
 Execution Summary:
 
@@ -7176,11 +7176,11 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-    22736   Total number of line executions
- 11368.00   Average executions per line
+    22713   Total number of line executions
+ 11356.50   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeVorbis_static\Release whit gprof/../lib/bitrate.c:
+*** File D:\workspace\CustomizeVorbis_static\Release whit gprof/../lib/bitrate.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
@@ -7452,7 +7452,7 @@ Execution Summary:
      0.80   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeVorbis_static\Release whit gprof/../lib/smallft.c:
+*** File D:\workspace\CustomizeVorbis_static\Release whit gprof/../lib/smallft.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
@@ -8726,7 +8726,7 @@ Execution Summary:
      0.53   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeVorbis_static\Release whit gprof/../lib/mdct.c:
+*** File D:\workspace\CustomizeVorbis_static\Release whit gprof/../lib/mdct.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
@@ -8778,7 +8778,7 @@ Execution Summary:
                 /* build lookups for trig functions; also pre-figure scaling and
                    some window function algebra. */
                 
-       89645 -> void mdct_init(mdct_lookup *lookup,int n){
+       89417 -> void mdct_init(mdct_lookup *lookup,int n){
                   int   *bitrev=_ogg_malloc(sizeof(*bitrev)*(n/4));
                   DATA_TYPE *T=_ogg_malloc(sizeof(*T)*(n+n/4));
                 
@@ -9065,7 +9065,7 @@ Execution Summary:
                 
                 }
                 
-         738 -> void mdct_clear(mdct_lookup *l){
+         735 -> void mdct_clear(mdct_lookup *l){
                   if(l){
                     if(l->trig)_ogg_free(l->trig);
                     if(l->bitrev)_ogg_free(l->bitrev);
@@ -9123,7 +9123,7 @@ Execution Summary:
                   }while(w0<w1);
                 }
                 
-         727 -> void mdct_backward(mdct_lookup *init, DATA_TYPE *in, DATA_TYPE *out){
+         728 -> void mdct_backward(mdct_lookup *init, DATA_TYPE *in, DATA_TYPE *out){
                   int n=init->n;
                   int n2=n>>1;
                   int n4=n>>2;
@@ -9296,9 +9296,9 @@ Top 10 Lines:
 
      Line      Count
 
-       52      89645
-      339        738
-      397        727
+       52      89417
+      339        735
+      397        728
 
 Execution Summary:
 
@@ -9306,11 +9306,11 @@ Execution Summary:
         4   Lines executed
     36.36   Percent of the file executed
 
-    91110   Total number of line executions
-  8282.73   Average executions per line
+    90880   Total number of line executions
+  8261.82   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeVorbis_static\Release whit gprof/../lib/codebook.c:
+*** File D:\workspace\CustomizeVorbis_static\Release whit gprof/../lib/codebook.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
@@ -9584,7 +9584,7 @@ Execution Summary:
                 }
                 
                 /* returns the number of bits ************************************************/
-      379393 -> int vorbis_book_encode(codebook *book, int a, oggpack_buffer *b){
+      379446 -> int vorbis_book_encode(codebook *book, int a, oggpack_buffer *b){
                   if(a<0 || a>=book->c->entries)return(0);
                   oggpack_write(b,book->codelist[a],book->c->lengthlist[a]);
                   return(book->c->lengthlist[a]);
@@ -9668,7 +9668,7 @@ Execution Summary:
                    addmul==2 -> multiplicitive */
                 
                 /* returns the [original, not compacted] entry number or -1 on eof *********/
-       17381 -> long vorbis_book_decode(codebook *book, oggpack_buffer *b){
+       17390 -> long vorbis_book_decode(codebook *book, oggpack_buffer *b){
                   if(book->used_entries>0){
                     long packed_entry=decode_packed_entry_number(book,b);
                     if(packed_entry>=0)
@@ -9768,7 +9768,7 @@ Execution Summary:
                 }
                 
                 long vorbis_book_decodevv_add(codebook *book,float **a,long offset,int ch,
-       15848 ->                               oggpack_buffer *b,int n){
+       15833 ->                               oggpack_buffer *b,int n){
                 
                   long i,j,entry;
                   int chptr=0;
@@ -9796,9 +9796,9 @@ Top 10 Lines:
 
      Line      Count
 
-      274     379393
-      358      17381
-      458      15848
+      274     379446
+      358      17390
+      458      15833
       149        528
 
 Execution Summary:
@@ -9807,11 +9807,11 @@ Execution Summary:
         8   Lines executed
     80.00   Percent of the file executed
 
-   413150   Total number of line executions
- 41315.00   Average executions per line
+   413197   Total number of line executions
+ 41319.70   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeVorbis_static\Release whit gprof/../lib/sharedbook.c:
+*** File D:\workspace\CustomizeVorbis_static\Release whit gprof/../lib/sharedbook.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
@@ -9873,7 +9873,7 @@ Execution Summary:
                   return(sign|exp|mant);
                 }
                 
-         118 -> float _float32_unpack(long val){
+         120 -> float _float32_unpack(long val){
                   double mant=val&0x1fffff;
                   int    sign=val&0x80000000;
                   long   exp =(val&0x7fe00000L)>>VQ_FMAN;
@@ -9884,7 +9884,7 @@ Execution Summary:
                 /* given a list of word lengths, generate a list of codewords.  Works
                    for length ordered or unordered, always assigns the lowest valued
                    codewords first.  Extended to handle unused entries (length 0) */
-         175 -> ogg_uint32_t *_make_words(long *l,long n,long sparsecount){
+         176 -> ogg_uint32_t *_make_words(long *l,long n,long sparsecount){
                   long i,j,count=0;
                   ogg_uint32_t marker[33];
                   ogg_uint32_t *r=_ogg_malloc((sparsecount?sparsecount:n)*sizeof(*r));
@@ -9974,7 +9974,7 @@ Execution Summary:
                 /* there might be a straightforward one-line way to do the below
                    that's portable and totally safe against roundoff, but I haven't
                    thought of it.  Therefore, we opt on the side of caution */
-         240 -> long _book_maptype1_quantvals(const static_codebook *b){
+         239 -> long _book_maptype1_quantvals(const static_codebook *b){
                   long vals=floor(pow((float)b->entries,1.f/b->dim));
                 
                   /* the above *should* be reliable, but we'll not assume that FP is
@@ -10007,7 +10007,7 @@ Execution Summary:
                    generated algorithmically (each column of the vector counts through
                    the values in the quant vector). in map type 2, all the values came
                    in in an explicit list.  Both value lists must be unpacked */
-         175 -> float *_book_unquantize(const static_codebook *b,int n,int *sparsemap){
+         176 -> float *_book_unquantize(const static_codebook *b,int n,int *sparsemap){
                   long j,k,count=0;
                   if(b->maptype==1 || b->maptype==2){
                     int quantvals;
@@ -10094,7 +10094,7 @@ Execution Summary:
                   memset(b,0,sizeof(*b));
                 }
                 
-       26672 -> int vorbis_book_init_encode(codebook *c,const static_codebook *s){
+       26699 -> int vorbis_book_init_encode(codebook *c,const static_codebook *s){
                 
                   memset(c,0,sizeof(*c));
                   c->c=s;
@@ -10397,15 +10397,15 @@ Top 10 Lines:
 
      Line      Count
 
-      283      26672
+      283      26699
        29       1304
       261        528
-      163        240
+      163        239
+       73        176
+      196        176
       270        176
       313        176
-       73        175
-      196        175
-       62        118
+       62        120
 
 Execution Summary:
 
@@ -10413,11 +10413,11 @@ Execution Summary:
        12   Lines executed
     85.71   Percent of the file executed
 
-    29564   Total number of line executions
-  2111.71   Average executions per line
+    29594   Total number of line executions
+  2113.86   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeVorbis_static\Release whit gprof/../lib/block.c:
+*** File D:\workspace\CustomizeVorbis_static\Release whit gprof/../lib/block.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
@@ -10530,7 +10530,7 @@ Execution Summary:
                   return(0);
                 }
                 
-        2109 -> void *_vorbis_block_alloc(vorbis_block *vb,long bytes){
+        2106 -> void *_vorbis_block_alloc(vorbis_block *vb,long bytes){
                   bytes=(bytes+(WORD_ALIGN-1)) & ~(WORD_ALIGN-1);
                   if(bytes+vb->localtop>vb->localalloc){
                     /* can't just _ogg_realloc... there are outstanding pointers */
@@ -11138,7 +11138,7 @@ Execution Summary:
                    block.  The time domain envelope is not yet handled at the point of
                    calling (as it relies on the previous block). */
                 
-         365 -> int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
+         363 -> int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
                   vorbis_info *vi=v->vi;
                   codec_setup_info *ci=vi->codec_setup;
                   private_state *b=v->backend_state;
@@ -11354,7 +11354,7 @@ Execution Summary:
                 }
                 
                 /* pcm==NULL indicates we just want the pending samples, no more */
-        1497 -> int vorbis_synthesis_pcmout(vorbis_dsp_state *v,float ***pcm){
+        1495 -> int vorbis_synthesis_pcmout(vorbis_dsp_state *v,float ***pcm){
                   vorbis_info *vi=v->vi;
                 
                   if(v->pcm_returned>-1 && v->pcm_returned<v->pcm_current){
@@ -11470,10 +11470,10 @@ Top 10 Lines:
 
      Line      Count
 
-      113       2109
-      937       1497
+      113       2106
+      937       1495
       137        389
-      721        365
+      721        363
       952        361
       159         28
       315         24
@@ -11487,11 +11487,11 @@ Execution Summary:
        16   Lines executed
     84.21   Percent of the file executed
 
-     4801   Total number of line executions
-   252.68   Average executions per line
+     4794   Total number of line executions
+   252.32   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeVorbis_static\Release whit gprof/../lib/synthesis.c:
+*** File D:\workspace\CustomizeVorbis_static\Release whit gprof/../lib/synthesis.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
@@ -11634,7 +11634,7 @@ Execution Summary:
                   return(0);
                 }
                 
-         544 -> long vorbis_packet_blocksize(vorbis_info *vi,ogg_packet *op){
+         543 -> long vorbis_packet_blocksize(vorbis_info *vi,ogg_packet *op){
                   codec_setup_info     *ci=vi->codec_setup;
                   oggpack_buffer       opb;
                   int                  mode;
@@ -11683,7 +11683,7 @@ Top 10 Lines:
      Line      Count
 
       181        781
-      143        544
+      143        543
        26        365
 
 Execution Summary:
@@ -11692,11 +11692,11 @@ Execution Summary:
         5   Lines executed
    100.00   Percent of the file executed
 
-     1690   Total number of line executions
-   338.00   Average executions per line
+     1689   Total number of line executions
+   337.80   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeVorbis_static\Release whit gprof/../lib/info.c:
+*** File D:\workspace\CustomizeVorbis_static\Release whit gprof/../lib/info.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
@@ -12385,7 +12385,7 @@ Execution Summary:
      5.44   Average executions per line
 
 
-*** File C:\cygwin\workspace\CustomizeVorbis_static\Release whit gprof/../lib/vorbisfile.c:
+*** File D:\workspace\CustomizeVorbis_static\Release whit gprof/../lib/vorbisfile.c:
                 /********************************************************************
                  *                                                                  *
                  * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
@@ -14393,7 +14393,7 @@ Execution Summary:
                 }
                 
                 long ov_read(OggVorbis_File *vf,char *buffer,int length,
-         361 ->              int bigendianp,int word,int sgned,int *bitstream){
+         360 ->              int bigendianp,int word,int sgned,int *bitstream){
                   return ov_read_filter(vf, buffer, length, bigendianp, word, sgned, bitstream, NULL, NULL);
                 }
                 
@@ -14732,7 +14732,7 @@ Top 10 Lines:
      1791        369
      1809        361
      1871        361
-     2008        361
+     2008        360
      2335         96
       955         24
       994         12
@@ -14746,11 +14746,11 @@ Execution Summary:
        36   Lines executed
     59.02   Percent of the file executed
 
-     1644   Total number of line executions
-    26.95   Average executions per line
+     1643   Total number of line executions
+    26.93   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/util/GgafLinearOctreeSpace.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/util/GgafLinearOctreeSpace.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -14793,7 +14793,7 @@ Execution Summary:
 149796.50   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/GgafOrder.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/GgafOrder.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
@@ -14837,7 +14837,7 @@ Execution Summary:
      5.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/actor/GgafGroupActor.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/actor/GgafGroupActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
@@ -14931,7 +14931,7 @@ Execution Summary:
    101.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/util/GgafCurtain.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/util/GgafCurtain.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
@@ -15022,7 +15022,7 @@ Execution Summary:
     12.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/scene/GgafMainScene.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/scene/GgafMainScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
@@ -15054,7 +15054,7 @@ Execution Summary:
     13.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/scene/GgafUniverse.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/scene/GgafUniverse.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
@@ -15087,7 +15087,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/util/GgafLinearOctree.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/util/GgafLinearOctree.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -15473,7 +15473,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/util/GgafLinearOctreeSpace.h:
+*** File D:/workspace/GgafCore/include/jp/ggaf/core/util/GgafLinearOctreeSpace.h:
                 #ifndef GGAFLINEAROCTREESPACE_H_
                 #define GGAFLINEAROCTREESPACE_H_
                 namespace GgafCore {
@@ -15533,13 +15533,13 @@ Execution Summary:
 299593.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/util/GgafLinearOctreeElem.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/util/GgafLinearOctreeElem.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 
                 
-        4531 -> GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_kindbit) {
+        4446 -> GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_kindbit) {
                     _pSpace_Current = NULL;
                     _pNext = NULL;
                     _pPrev = NULL;
@@ -15664,7 +15664,7 @@ Top 10 Lines:
      Line      Count
 
       122       4553
-        6       4531
+        6       4446
 
 Execution Summary:
 
@@ -15672,11 +15672,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     9084   Total number of line executions
-  3028.00   Average executions per line
+     8999   Total number of line executions
+  2999.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/actor/GgafDummyActor.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/actor/GgafDummyActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
@@ -15709,7 +15709,7 @@ Execution Summary:
     70.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/GgafGarbageBox.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/GgafGarbageBox.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -15771,7 +15771,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/actor/GgafDisusedActor.h:
+*** File D:/workspace/GgafCore/include/jp/ggaf/core/actor/GgafDisusedActor.h:
                 #ifndef GGAFDISUSEDACTOR_H_
                 #define GGAFDISUSEDACTOR_H_
                 namespace GgafCore {
@@ -15838,7 +15838,7 @@ Execution Summary:
      1.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/scene/GgafDisusedScene.h:
+*** File D:/workspace/GgafCore/include/jp/ggaf/core/scene/GgafDisusedScene.h:
                 #ifndef GGAFDISUSEDSCENE_H_
                 #define GGAFDISUSEDSCENE_H_
                 namespace GgafCore {
@@ -15899,13 +15899,13 @@ Execution Summary:
      1.50   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/actor/GgafActor.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/actor/GgafActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
                 using namespace GgafCore;
                 
-        4797 -> GgafActor::GgafActor(const char* prm_name) :
+        4788 -> GgafActor::GgafActor(const char* prm_name) :
                     GgafElement<GgafActor> (prm_name) {
                     TRACE("GgafActor::GgafActor("<<this<<") "<<prm_name);
                     _class_name = "GgafActor";
@@ -16104,7 +16104,7 @@ Top 10 Lines:
      Line      Count
 
        27       4813
-        6       4797
+        6       4788
 
 Execution Summary:
 
@@ -16112,11 +16112,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     9610   Total number of line executions
-  3203.33   Average executions per line
+     9601   Total number of line executions
+  3200.33   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/util/GgafStatus.h:
+*** File D:/workspace/GgafCore/include/jp/ggaf/core/util/GgafStatus.h:
                 #ifndef GGAFSTATUS_H_
                 #define GGAFSTATUS_H_
                 namespace GgafCore {
@@ -16152,7 +16152,7 @@ Execution Summary:
                      * @param n 最大ステータス要素数。
                      * @return
                      */
-        4767 ->     GgafStatus(int n) {
+        4639 ->     GgafStatus(int n) {
                         _len = n;
                         _paValue = NEW VALUE[n];
                         for (int i = 0; i < n; i++) {
@@ -16252,7 +16252,7 @@ Top 10 Lines:
      Line      Count
 
       120       4813
-       36       4767
+       36       4639
 
 Execution Summary:
 
@@ -16260,17 +16260,17 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-     9580   Total number of line executions
-  4790.00   Average executions per line
+     9452   Total number of line executions
+  4726.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/actor/GgafMainActor.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/actor/GgafMainActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
                 using namespace GgafCore;
                 
-        4671 -> GgafMainActor::GgafMainActor(const char* prm_name) : GgafActor(prm_name) {
+        4662 -> GgafMainActor::GgafMainActor(const char* prm_name) : GgafActor(prm_name) {
                     _obj_class |= Obj_GgafMainActor;
                     _class_name = "GgafMainActor";
                     _pGroupActor = NULL;
@@ -16462,7 +16462,7 @@ Top 10 Lines:
      Line      Count
 
       189       4690
-        6       4671
+        6       4662
 
 Execution Summary:
 
@@ -16470,16 +16470,16 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     9361   Total number of line executions
-  3120.33   Average executions per line
+     9352   Total number of line executions
+  3117.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/actor/GgafActorDispatcher.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/actor/GgafActorDispatcher.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 
-          89 -> GgafActorDispatcher::GgafActorDispatcher(const char* prm_name) : GgafDummyActor(prm_name) {
+          88 -> GgafActorDispatcher::GgafActorDispatcher(const char* prm_name) : GgafDummyActor(prm_name) {
                     _obj_class |= Obj_GgafActorDispatcher;
                     _class_name = "GgafActorDispatcher";
                     setHitAble(false);
@@ -16532,7 +16532,7 @@ Top 10 Lines:
 
      Line      Count
 
-        5         89
+        5         88
 
 Execution Summary:
 
@@ -16540,11 +16540,11 @@ Execution Summary:
         1   Lines executed
     50.00   Percent of the file executed
 
-       89   Total number of line executions
-    44.50   Average executions per line
+       88   Total number of line executions
+    44.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/GgafGod.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/GgafGod.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
@@ -16812,7 +16812,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/GgafProgress.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/GgafProgress.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
@@ -16935,7 +16935,7 @@ Execution Summary:
    126.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/actor/GgafLordActor.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/actor/GgafLordActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
@@ -17039,7 +17039,7 @@ Execution Summary:
     21.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/GgafNode.hpp:
+*** File D:/workspace/GgafCore/include/jp/ggaf/core/GgafNode.hpp:
                 #ifndef GGAFNODE_H_
                 #define GGAFNODE_H_
                 namespace GgafCore {
@@ -17351,7 +17351,7 @@ Execution Summary:
                  * ここからは実装部
                  */
                 template<class T>
-        4815 -> GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
+        4806 -> GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
                 _pNodeTemp(NULL),
                 _name(NULL),
                 _class_name("GgafNode<T>"),
@@ -17671,7 +17671,7 @@ Top 10 Lines:
      Line      Count
 
       563       4834
-      312       4815
+      312       4806
 
 Execution Summary:
 
@@ -17679,11 +17679,11 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-     9649   Total number of line executions
-  4824.50   Average executions per line
+     9640   Total number of line executions
+  4820.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/GgafElement.hpp:
+*** File D:/workspace/GgafCore/include/jp/ggaf/core/GgafElement.hpp:
                 #ifndef GGAFELEMENT_H_
                 #define GGAFELEMENT_H_
                 namespace GgafCore {
@@ -18429,7 +18429,7 @@ Execution Summary:
                 ///////////////////////////////////////////////////////////////// ここからは実装部
                 
                 template<class T>
-        4811 -> GgafElement<T>::GgafElement(const char* prm_name) : GgafCore::GgafNode<T>(prm_name),
+        4810 -> GgafElement<T>::GgafElement(const char* prm_name) : GgafCore::GgafNode<T>(prm_name),
                 _pGod(NULL),
                 _was_initialize_flg(false),
                 _frame_of_life(0),
@@ -19329,7 +19329,7 @@ Top 10 Lines:
      Line      Count
 
      1633       4834
-      746       4811
+      746       4810
 
 Execution Summary:
 
@@ -19337,11 +19337,11 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-     9645   Total number of line executions
-  4822.50   Average executions per line
+     9644   Total number of line executions
+  4822.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/scene/GgafScene.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/scene/GgafScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
@@ -19741,7 +19741,7 @@ Execution Summary:
     14.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/DetectMemoryLeaks.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/DetectMemoryLeaks.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -19788,7 +19788,7 @@ Execution Summary:
                     }
                 }
                 
-       41880 -> void operator delete(void * address) {
+       41875 -> void operator delete(void * address) {
                     if (address == 0) // Depends on environment.
                     return;
                 
@@ -19807,7 +19807,7 @@ Execution Summary:
                     free(address);
                 }
                 
-       37855 -> void operator delete[](void * address) {
+       37895 -> void operator delete[](void * address) {
                     if (address == 0) // Depends on environment.
                     return;
                 
@@ -19857,8 +19857,8 @@ Top 10 Lines:
 
      Line      Count
 
-       47      41880
-       66      37855
+       47      41875
+       66      37895
 
 Execution Summary:
 
@@ -19866,18 +19866,18 @@ Execution Summary:
         6   Lines executed
     75.00   Percent of the file executed
 
-    79735   Total number of line executions
-  9966.88   Average executions per line
+    79770   Total number of line executions
+  9971.25   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/GgafObject.cpp:
+*** File D:\workspace\GgafCore\Release whit gprof/../src/jp/ggaf/core/GgafObject.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 
                 int GgafObject::_iSeq = 0;
                 
-       97191 -> GgafObject::GgafObject() {
+      113742 -> GgafObject::GgafObject() {
                     _obj_class = 0;
                     _id = (_iSeq++);
                 }
@@ -19887,7 +19887,7 @@ Execution Summary:
                     return "ちょっとまってよ";
                 }
                 
-       97364 -> GgafObject::~GgafObject() {
+      114156 -> GgafObject::~GgafObject() {
                 }
 
 
@@ -19895,8 +19895,8 @@ Top 10 Lines:
 
      Line      Count
 
-       17      97364
-        7      97191
+       17     114156
+        7     113742
 
 Execution Summary:
 
@@ -19904,11 +19904,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-   194555   Total number of line executions
- 64851.67   Average executions per line
+   227898   Total number of line executions
+ 75966.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/IkdLib/PCMDecoder.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/IkdLib/PCMDecoder.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -20019,7 +20019,7 @@ Execution Summary:
      5.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9SeConnection.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9SeConnection.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -20051,7 +20051,7 @@ Execution Summary:
     24.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9SeConnection.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9SeConnection.h:
                 #ifndef GGAFDX9SECONNECTION_H_
                 #define GGAFDX9SECONNECTION_H_
                 namespace GgafDx9Core {
@@ -20099,7 +20099,7 @@ Execution Summary:
     98.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9BgmConnection.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9BgmConnection.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -20131,7 +20131,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9BgmConnection.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9BgmConnection.h:
                 #ifndef GGAFDX9BGMCONNECTION_H_
                 #define GGAFDX9BGMCONNECTION_H_
                 namespace GgafDx9Core {
@@ -20179,7 +20179,7 @@ Execution Summary:
      8.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9TextureConnection.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9TextureConnection.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -20213,7 +20213,7 @@ Execution Summary:
     14.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9TextureConnection.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9TextureConnection.h:
                 #ifndef GGAFDX9TEXTURECONNECTION_H_
                 #define GGAFDX9TEXTURECONNECTION_H_
                 namespace GgafDx9Core {
@@ -20261,7 +20261,7 @@ Execution Summary:
     56.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/texture/GgafDx9Texture.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/texture/GgafDx9Texture.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -20373,14 +20373,14 @@ Execution Summary:
     28.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9Model.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9Model.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
                 
-          26 -> GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
+          25 -> GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
                     TRACE3("GgafDx9Model::GgafDx9Model(" << prm_model_name << ")");
                     _id = GgafDx9ModelManager::getNextId();
                     _model_name = NEW char[51];
@@ -20411,8 +20411,8 @@ Top 10 Lines:
 
      Line      Count
 
-        7         26
        25         26
+        7         25
 
 Execution Summary:
 
@@ -20420,11 +20420,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-       52   Total number of line executions
-    17.33   Average executions per line
+       51   Total number of line executions
+    17.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9Effect.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9Effect.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -20496,7 +20496,7 @@ Execution Summary:
      9.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/CWaveDecorder.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/CWaveDecorder.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -20586,7 +20586,7 @@ Execution Summary:
                     Close();
                 }
                 
-          48 -> CWaveDecorder::CWaveDecorder(void) :
+          49 -> CWaveDecorder::CWaveDecorder(void) :
                     m_pwfx(NULL), m_hmmioIn(NULL) {
                 }
                 
@@ -20705,7 +20705,7 @@ Top 10 Lines:
      Line      Count
 
        86         49
-       90         48
+       90         49
 
 Execution Summary:
 
@@ -20713,11 +20713,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-       97   Total number of line executions
-    32.33   Average executions per line
+       98   Total number of line executions
+    32.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/IkdLib/PCMPlayer.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/IkdLib/PCMPlayer.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -21123,7 +21123,7 @@ Execution Summary:
      2.40   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/IkdLib/OggDecoder.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/IkdLib/OggDecoder.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -21296,7 +21296,7 @@ Execution Summary:
      6.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/IkdLib/OggVorbisFile.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/IkdLib/OggVorbisFile.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -21382,7 +21382,7 @@ Execution Summary:
      9.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/sound/IkdLib/OggVorbisResource.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/sound/IkdLib/OggVorbisResource.h:
                 // 本プログラムは、<BR>
                 // 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html <BR>
                 // サイト内コンテンツの 「Ogg Vorbis入門編」 http://marupeke296.com/OGG_main.html <BR>
@@ -21455,7 +21455,7 @@ Execution Summary:
     12.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9SeManager.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9SeManager.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -21509,7 +21509,7 @@ Execution Summary:
      0.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9SeManager.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9SeManager.h:
                 #ifndef GGAFDX9SEMANAGER_H_
                 #define GGAFDX9SEMANAGER_H_
                 namespace GgafDx9Core {
@@ -21559,7 +21559,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9BgmManager.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9BgmManager.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -21598,7 +21598,7 @@ Execution Summary:
      0.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9BgmManager.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9BgmManager.h:
                 #ifndef GGAFDX9BGMMANAGER_H_
                 #define GGAFDX9BGMMANAGER_H_
                 namespace GgafDx9Core {
@@ -21648,7 +21648,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9ModelConnection.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9ModelConnection.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -21681,7 +21681,7 @@ Execution Summary:
     13.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9ModelConnection.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9ModelConnection.h:
                 #ifndef GGAFDX9MODELCONNECTION_H_
                 #define GGAFDX9MODELCONNECTION_H_
                 namespace GgafDx9Core {
@@ -21728,7 +21728,7 @@ Execution Summary:
     52.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9RectUV.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9RectUV.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -21758,7 +21758,7 @@ Execution Summary:
    193.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/util/XFile/framework/Frm_Mesh.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/util/XFile/framework/Frm_Mesh.cpp:
                 #include "stdafx.h"
                 /////////////////////////////////////////////////////////
                 // Frm_Mesh.cpp
@@ -22099,7 +22099,7 @@ Execution Summary:
      9.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/ex/GgafDx9CubeMapMorphMeshModel.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/ex/GgafDx9CubeMapMorphMeshModel.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -22133,7 +22133,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9MorphMeshModel.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9MorphMeshModel.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -22370,7 +22370,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9D3DXMeshModel.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9D3DXMeshModel.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -22547,7 +22547,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9TextureManager.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9TextureManager.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -22589,7 +22589,7 @@ Execution Summary:
      0.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9TextureManager.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9TextureManager.h:
                 #ifndef GGAFDX9TEXTUREMANAGER_H_
                 #define GGAFDX9TEXTUREMANAGER_H_
                 namespace GgafDx9Core {
@@ -22645,7 +22645,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9PointSpriteModel.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9PointSpriteModel.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -22794,7 +22794,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9MeshSetModel.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9MeshSetModel.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -22805,7 +22805,7 @@ Execution Summary:
                 int GgafDx9MeshSetModel::_draw_set_num_LastDraw = -1;
                 //LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = NULL;
                 
-          11 -> GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(prm_model_name) {
+          10 -> GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(prm_model_name) {
                     TRACE3("GgafDx9MeshSetModel::GgafDx9MeshSetModel(" << _model_name << ")");
                     _pModel3D = NULL;
                     _pMeshesFront = NULL;
@@ -23002,7 +23002,7 @@ Top 10 Lines:
      Line      Count
 
       196         22
-       11         11
+       11         10
 
 Execution Summary:
 
@@ -23010,11 +23010,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-       33   Total number of line executions
-    11.00   Average executions per line
+       32   Total number of line executions
+    10.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9BoardSetModel.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9BoardSetModel.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -23189,7 +23189,7 @@ Execution Summary:
      4.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9BoardModel.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9BoardModel.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -23348,7 +23348,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9SpriteSetModel.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9SpriteSetModel.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -23524,7 +23524,7 @@ Execution Summary:
      3.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9SpriteModel.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9SpriteModel.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -23685,7 +23685,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9MeshModel.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/GgafDx9MeshModel.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -25125,7 +25125,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/XFile/framework/../framework/frm_Material.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/XFile/framework/../framework/frm_Material.h:
                 /////////////////////////////////////////////////////////
                 // Frm_Material.h
                 //
@@ -25180,7 +25180,7 @@ Execution Summary:
     21.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9EffectConnection.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9EffectConnection.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -25213,7 +25213,7 @@ Execution Summary:
      7.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9EffectConnection.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9EffectConnection.h:
                 #ifndef GGAFDX9EFFECTCONNECTION_H_
                 #define GGAFDX9EFFECTCONNECTION_H_
                 namespace GgafDx9Core {
@@ -25268,7 +25268,7 @@ Execution Summary:
     28.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9PointSpriteEffect.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9PointSpriteEffect.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -25332,7 +25332,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9BoardSetEffect.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9BoardSetEffect.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -25554,7 +25554,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9BoardEffect.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9BoardEffect.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -25608,7 +25608,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9SpriteSetEffect.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9SpriteSetEffect.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -25762,7 +25762,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9SpriteEffect.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9SpriteEffect.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -25820,7 +25820,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/ex/GgafDx9CubeMapMorphMeshEffect.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/ex/GgafDx9CubeMapMorphMeshEffect.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -25859,7 +25859,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9MorphMeshEffect.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9MorphMeshEffect.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -25934,7 +25934,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9MeshSetEffect.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9MeshSetEffect.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -26084,7 +26084,7 @@ Execution Summary:
      5.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9MeshEffect.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/effect/GgafDx9MeshEffect.cpp:
                 #include "stdafx.h"
                 
                 using namespace std;
@@ -26148,7 +26148,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9CameraViewPoint.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9CameraViewPoint.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -26187,7 +26187,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/GgafDx9Se.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/GgafDx9Se.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -26362,7 +26362,7 @@ Execution Summary:
     48.67   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/GgafDx9SphereRadiusVectors.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/GgafDx9SphereRadiusVectors.h:
                 #ifndef GGAFDX9SPHERERADIUSVECTORS_H_
                 #define GGAFDX9SPHERERADIUSVECTORS_H_
                 namespace GgafDx9Core {
@@ -26499,13 +26499,13 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9BaseActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9BaseActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-        4561 -> GgafDx9BaseActor::GgafDx9BaseActor(const char* prm_name) : GgafMainActor(prm_name) {
+        4537 -> GgafDx9BaseActor::GgafDx9BaseActor(const char* prm_name) : GgafMainActor(prm_name) {
                     _obj_class |= Obj_GgafDx9BaseActor;
                     _class_name = "GgafDx9BaseActor";
                 }
@@ -26519,7 +26519,7 @@ Top 10 Lines:
      Line      Count
 
        11       4582
-        6       4561
+        6       4537
 
 Execution Summary:
 
@@ -26527,11 +26527,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     9143   Total number of line executions
-  3047.67   Average executions per line
+     9119   Total number of line executions
+  3039.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/GgafDx9Bgm.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/sound/GgafDx9Bgm.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -26634,7 +26634,7 @@ Execution Summary:
      4.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/scene/supporter/GgafDx9AlphaCurtain.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/scene/supporter/GgafDx9AlphaCurtain.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -26666,7 +26666,7 @@ Execution Summary:
     19.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/XFile/framework/../framework/../framework/Frm_3dMath.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/XFile/framework/../framework/../framework/Frm_3dMath.h:
                 /////////////////////////////////////////////////////////
                 // Frm_3DMath.h
                 // Declares vector, matrix, rectangles and defines special
@@ -26688,13 +26688,13 @@ Execution Summary:
                 class vector {
                 public:
                     T x, y, z;
-        7217 ->     vector(void) :
+        7297 ->     vector(void) :
                         x(0), y(0), z(0) {
                     }
-       25223 ->     vector(T px, T py, T pz) :
+       25220 ->     vector(T px, T py, T pz) :
                         x(px), y(py), z(pz) {
                     }
-       12612 ->     vector(const vector<T> &pv) :
+       12611 ->     vector(const vector<T> &pv) :
                         x(pv.x), y(pv.y), z(pv.z) {
                     }
                     vector(const T* &pv) {
@@ -27313,9 +27313,9 @@ Top 10 Lines:
      Line      Count
 
       109      42777
-       25      25223
-       28      12612
-       22       7217
+       25      25220
+       28      12611
+       22       7297
       112       2256
       174         38
 
@@ -27325,11 +27325,11 @@ Execution Summary:
         7   Lines executed
    100.00   Percent of the file executed
 
-    90123   Total number of line executions
- 12874.71   Average executions per line
+    90199   Total number of line executions
+ 12885.57   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/XFile/ToolBox/../framework/frm_IO.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/XFile/ToolBox/../framework/frm_IO.h:
                 /////////////////////////////////////////////////////////
                 // FRM_IO.h
                 // provides a load/save base class to be derived
@@ -27454,7 +27454,7 @@ Execution Summary:
     15.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9ModelManager.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9ModelManager.cpp:
                 
                 // 本プログラムは Paul Coppens さんの作成された、Xファイルを読み込むサンプル
                 // を元に、独自に改良修正（やデバッグ）したクラスを使用しています。
@@ -30791,7 +30791,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/XFile/ToolBox/IOModel_X.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/XFile/ToolBox/IOModel_X.h:
                 /////////////////////////////////////////////////////////
                 // IOModel_X.h
                 // load/save X file descriptions
@@ -30815,7 +30815,7 @@ Execution Summary:
                 
           15 -> class IO_Model_X: Frm::IO<Frm::Model3D*> {
                 public:
-          15 ->     IO_Model_X(void) :
+          14 ->     IO_Model_X(void) :
                         _LoadSkeletton(0) { //tsuge add
                         _Type = IO_3DX;
                         token_next = 0; //add tsuge
@@ -30881,7 +30881,7 @@ Top 10 Lines:
      Line      Count
 
        22         15
-       24         15
+       24         14
 
 Execution Summary:
 
@@ -30889,11 +30889,11 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-       30   Total number of line executions
-    15.00   Average executions per line
+       29   Total number of line executions
+    14.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/XFile/framework/frm_mesh.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/XFile/framework/frm_mesh.h:
                 /////////////////////////////////////////////////////////
                 // Frm_Mesh.h
                 //
@@ -31042,7 +31042,7 @@ Execution Summary:
                 
                 class Model3D {
                 public:
-          15 ->     Model3D(void) :
+          14 ->     Model3D(void) :
                         _Skeletton(0) {
                     }
                     ~Model3D(void);
@@ -31072,7 +31072,7 @@ Top 10 Lines:
 
        54         23
        27         19
-      149         15
+      149         14
       133          1
 
 Execution Summary:
@@ -31081,8 +31081,8 @@ Execution Summary:
         5   Lines executed
     55.56   Percent of the file executed
 
-       58   Total number of line executions
-     6.44   Average executions per line
+       57   Total number of line executions
+     6.33   Average executions per line
 
 
 *** File c:/cygwin/mingw/bin/../lib/gcc/mingw32/4.5.2/include/c++/bits/stl_list.h:
@@ -31213,7 +31213,7 @@ Execution Summary:
                       : _M_node() { }
                 
                       explicit
-         483 ->       _List_iterator(_List_node_base* __x)
+         482 ->       _List_iterator(_List_node_base* __x)
                       : _M_node(__x) { }
                 
                       // Must downcast from List_node_base to _List_node to get to _M_data.
@@ -32640,7 +32640,7 @@ Top 10 Lines:
 
      Line      Count
 
-      128        483
+      128        482
       300        111
       303        111
       341        111
@@ -32657,11 +32657,11 @@ Execution Summary:
        10   Lines executed
    100.00   Percent of the file executed
 
-     1389   Total number of line executions
-   138.90   Average executions per line
+     1388   Total number of line executions
+   138.80   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9EffectManager.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/manager/GgafDx9EffectManager.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -32786,7 +32786,7 @@ Execution Summary:
      0.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9EffectManager.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/manager/GgafDx9EffectManager.h:
                 #ifndef GGAFDX9EFFECTMANAGER_H_
                 #define GGAFDX9EFFECTMANAGER_H_
                 namespace GgafDx9Core {
@@ -32874,13 +32874,13 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/util/GgafDx9CollisionPart.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/util/GgafDx9CollisionPart.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-        4805 -> GgafDx9CollisionPart::GgafDx9CollisionPart() : GgafObject() {
+        4789 -> GgafDx9CollisionPart::GgafDx9CollisionPart() : GgafObject() {
                     _shape_kind = 0;
                     _is_valid_flg = false;
                     _dx = _dy = _dz = 0;
@@ -32900,7 +32900,7 @@ Top 10 Lines:
      Line      Count
 
        16       4827
-        6       4805
+        6       4789
 
 Execution Summary:
 
@@ -32908,17 +32908,17 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     9632   Total number of line executions
-  3210.67   Average executions per line
+     9616   Total number of line executions
+  3205.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/util/GgafDx9CollisionArea.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/util/GgafDx9CollisionArea.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-        3968 -> GgafDx9CollisionArea::GgafDx9CollisionArea(int prm_nColliPart) : GgafObject() {
+        3797 -> GgafDx9CollisionArea::GgafDx9CollisionArea(int prm_nColliPart) : GgafObject() {
                     if (prm_nColliPart > 0) {
                         _nColliPart = prm_nColliPart;
                         _papColliPart = NEW GgafDx9CollisionPart*[_nColliPart];
@@ -32975,7 +32975,7 @@ Top 10 Lines:
      Line      Count
 
        48       7974
-        6       3968
+        6       3797
 
 Execution Summary:
 
@@ -32983,17 +32983,17 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-    11942   Total number of line executions
-  3980.67   Average executions per line
+    11771   Total number of line executions
+  3923.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9Checker.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9Checker.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-        4529 -> GgafDx9Checker::GgafDx9Checker(GgafDx9GeometricActor* prm_pActor) :
+        4471 -> GgafDx9Checker::GgafDx9Checker(GgafDx9GeometricActor* prm_pActor) :
                     GgafObject() {
                     _pCollisionArea = NULL;
                     _pActor = prm_pActor;
@@ -33009,7 +33009,7 @@ Top 10 Lines:
      Line      Count
 
        13       4553
-        6       4529
+        6       4471
 
 Execution Summary:
 
@@ -33017,11 +33017,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     9082   Total number of line executions
-  3027.33   Average executions per line
+     9024   Total number of line executions
+  3008.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9PointSpriteActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9PointSpriteActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -33118,7 +33118,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/ex/GgafDx9SpriteMeshActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/ex/GgafDx9SpriteMeshActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -33185,7 +33185,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/GgafDx9God.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/GgafDx9God.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -33951,7 +33951,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9SpriteActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9SpriteActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -34044,7 +34044,7 @@ Execution Summary:
      7.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9Camera.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9Camera.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -34337,7 +34337,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/util/CmRandomNumberGenerator.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/util/CmRandomNumberGenerator.cpp:
                 // このプログラムは松本眞氏、西村拓士氏らによって開発された
                 // Mersenne Twister法のCプログラムがオリジナルです。
                 // CmRandomNumberGenerator クラスは、Takayuki HARUKI により
@@ -34566,7 +34566,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMorphMeshActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMorphMeshActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -34630,7 +34630,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9FormationActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9FormationActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -34709,13 +34709,13 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9Morpher.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9Morpher.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-           1 -> GgafDx9Morpher::GgafDx9Morpher(GgafDx9MorphMeshActor* prm_pActor) :
+       ##### -> GgafDx9Morpher::GgafDx9Morpher(GgafDx9MorphMeshActor* prm_pActor) :
                     GgafObject() {
                     _pActor = prm_pActor;
                     for (int i = 0; i <= MAX_MORPH_TARGET; i++) {
@@ -34852,7 +34852,6 @@ Top 10 Lines:
      Line      Count
 
       134          2
-        6          1
 
 Execution Summary:
 
@@ -34860,11 +34859,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-        3   Total number of line executions
-     1.00   Average executions per line
+        2   Total number of line executions
+     0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9MorphMeshActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9MorphMeshActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -34990,7 +34989,7 @@ Execution Summary:
      0.50   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/ex/GgafDx9StringBoardActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/ex/GgafDx9StringBoardActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -35135,7 +35134,7 @@ Execution Summary:
     12.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9D3DXMeshActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9D3DXMeshActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -35224,7 +35223,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9MeshActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9MeshActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -35326,7 +35325,7 @@ Execution Summary:
      1.50   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9SpriteSetActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9SpriteSetActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -35435,13 +35434,13 @@ Execution Summary:
    208.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/util/GgafDx9Quaternion.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/util/GgafDx9Quaternion.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-       66112 -> GgafDx9Quaternion::GgafDx9Quaternion(double prm_t, double prm_x, double prm_y, double prm_z) : GgafObject(),
+       82903 -> GgafDx9Quaternion::GgafDx9Quaternion(double prm_t, double prm_x, double prm_y, double prm_z) : GgafObject(),
                     _t(prm_t),
                     _x(prm_x),
                     _y(prm_y),
@@ -35449,7 +35448,7 @@ Execution Summary:
                 }
                 
                 
-       66120 -> GgafDx9Quaternion::~GgafDx9Quaternion() {
+       82912 -> GgafDx9Quaternion::~GgafDx9Quaternion() {
                 }
 
 
@@ -35457,8 +35456,8 @@ Top 10 Lines:
 
      Line      Count
 
-       14      66120
-        6      66112
+       14      82912
+        6      82903
 
 Execution Summary:
 
@@ -35466,17 +35465,17 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-   132232   Total number of line executions
- 44077.33   Average executions per line
+   165815   Total number of line executions
+ 55271.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9GeometricScaler.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9GeometricScaler.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-        2740 -> GgafDx9GeometricScaler::GgafDx9GeometricScaler(GgafDx9GeometricActor* prm_pActor) :
+        2586 -> GgafDx9GeometricScaler::GgafDx9GeometricScaler(GgafDx9GeometricActor* prm_pActor) :
                     GgafObject() {
                     _pActor = prm_pActor;
                 
@@ -35691,7 +35690,7 @@ Top 10 Lines:
      Line      Count
 
       212       5532
-        6       2740
+        6       2586
 
 Execution Summary:
 
@@ -35699,11 +35698,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     8272   Total number of line executions
-  2757.33   Average executions per line
+     8118   Total number of line executions
+  2706.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9BoardActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9BoardActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -35777,7 +35776,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9UvFlipper.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9UvFlipper.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -35956,14 +35955,14 @@ Execution Summary:
    349.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9SeTransmitter.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9SeTransmitter.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
                 
-        4545 -> GgafDx9SeTransmitter::GgafDx9SeTransmitter(GgafDx9GeometricActor* prm_pActor) :
+        4394 -> GgafDx9SeTransmitter::GgafDx9SeTransmitter(GgafDx9GeometricActor* prm_pActor) :
                                                        GgafObject() {
                     _pActor = prm_pActor;
                     _se_num = 0;
@@ -36135,7 +36134,7 @@ Top 10 Lines:
      Line      Count
 
       163       9164
-        7       4545
+        7       4394
 
 Execution Summary:
 
@@ -36143,11 +36142,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-    13709   Total number of line executions
-  4569.67   Average executions per line
+    13558   Total number of line executions
+  4519.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9GeometricMover.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9GeometricMover.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -36273,7 +36272,7 @@ Execution Summary:
                 //任意軸回転（クォータニオン）
                 //
                 
-        4547 -> GgafDx9GeometricMover::GgafDx9GeometricMover(GgafDx9GeometricActor* prm_pActor) :
+        4408 -> GgafDx9GeometricMover::GgafDx9GeometricMover(GgafDx9GeometricActor* prm_pActor) :
                     GgafObject() {
                     _pActor = prm_pActor;
                 
@@ -38122,7 +38121,7 @@ Top 10 Lines:
      Line      Count
 
      1966       9164
-      126       4547
+      126       4408
 
 Execution Summary:
 
@@ -38130,11 +38129,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-    13711   Total number of line executions
-  4570.33   Average executions per line
+    13572   Total number of line executions
+  4524.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9BoardSetActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9BoardSetActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -38233,13 +38232,13 @@ Execution Summary:
     14.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9MeshSetActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9MeshSetActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-        4173 -> GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
+        4105 -> GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
                                                          const char* prm_model_id,
                                                          const char* prm_effect_id,
                                                          const char* prm_technique,
@@ -38347,7 +38346,7 @@ Top 10 Lines:
      Line      Count
 
       105       4225
-        6       4173
+        6       4105
 
 Execution Summary:
 
@@ -38355,11 +38354,11 @@ Execution Summary:
         3   Lines executed
     75.00   Percent of the file executed
 
-     8398   Total number of line executions
-  2099.50   Average executions per line
+     8330   Total number of line executions
+  2082.50   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9DrawableActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9DrawableActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -38411,7 +38410,7 @@ Execution Summary:
                 }
                 
                 
-        4532 -> GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
+        4496 -> GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
                                                            const char* prm_model_id,
                                                            const char* prm_model_type,
                                                            const char* prm_effect_id,
@@ -38652,7 +38651,7 @@ Top 10 Lines:
      Line      Count
 
       279       4578
-       52       4532
+       52       4496
 
 Execution Summary:
 
@@ -38660,18 +38659,18 @@ Execution Summary:
         3   Lines executed
     75.00   Percent of the file executed
 
-     9110   Total number of line executions
-  2277.50   Average executions per line
+     9074   Total number of line executions
+  2268.50   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9GeometricActor.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/actor/GgafDx9GeometricActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
                 
-        4566 -> GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
+        4524 -> GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
                                                              GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name) {
                     _obj_class |= Obj_GgafDx9GeometricActor;
                     _class_name = "GgafDx9GeometricActor";
@@ -39076,7 +39075,7 @@ Top 10 Lines:
      Line      Count
 
       306       4582
-        7       4566
+        7       4524
 
 Execution Summary:
 
@@ -39084,17 +39083,17 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     9148   Total number of line executions
-  3049.33   Average executions per line
+     9106   Total number of line executions
+  3035.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/supporter/GgafDx9TextureBlinker.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/model/supporter/GgafDx9TextureBlinker.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-          26 -> GgafDx9TextureBlinker::GgafDx9TextureBlinker(GgafDx9Model* prm_pModel) :
+          25 -> GgafDx9TextureBlinker::GgafDx9TextureBlinker(GgafDx9Model* prm_pModel) :
                     GgafObject() {
                     _pModel = prm_pModel;
                     _fPowerBlink = 1.0f;
@@ -39264,7 +39263,7 @@ Top 10 Lines:
      Line      Count
 
       167         52
-        6         26
+        6         25
 
 Execution Summary:
 
@@ -39272,11 +39271,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-       78   Total number of line executions
-    26.00   Average executions per line
+       77   Total number of line executions
+    25.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/scene/supporter/GgafDx9BgmPerformer.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/scene/supporter/GgafDx9BgmPerformer.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -39285,7 +39284,7 @@ Execution Summary:
                 int GgafDx9BgmPerformer::_active_bgm_bpm = 120;
                 
                 
-          18 -> GgafDx9BgmPerformer::GgafDx9BgmPerformer() : GgafObject() {
+          19 -> GgafDx9BgmPerformer::GgafDx9BgmPerformer() : GgafObject() {
                 
                     _bgm_num = 0;
                     _papBgmCon = NULL;
@@ -39400,7 +39399,7 @@ Top 10 Lines:
      Line      Count
 
       101         38
-        9         18
+        9         19
 
 Execution Summary:
 
@@ -39408,11 +39407,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-       56   Total number of line executions
-    18.67   Average executions per line
+       57   Total number of line executions
+    19.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/scene/GgafDx9Scene.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/scene/GgafDx9Scene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -39618,7 +39617,7 @@ Execution Summary:
     12.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/scene/GgafDx9Universe.cpp:
+*** File D:\workspace\GgafDx9Core\Release whit gprof/../src/jp/ggaf/dx9core/scene/GgafDx9Universe.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -39924,14 +39923,14 @@ Execution Summary:
     60.50   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/util/ColliAAPrism.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/util/ColliAAPrism.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 using namespace GgafDx9LibStg;
                 
-         495 -> ColliAAPrism::ColliAAPrism() : ColliAAB() {
+         451 -> ColliAAPrism::ColliAAPrism() : ColliAAB() {
                     _pos_prism = 0;
                     _shape_kind = COLLI_AAPRISM;
                 }
@@ -40162,7 +40161,7 @@ Top 10 Lines:
      Line      Count
 
       228       1000
-        7        495
+        7        451
 
 Execution Summary:
 
@@ -40170,18 +40169,18 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     1495   Total number of line executions
-   498.33   Average executions per line
+     1451   Total number of line executions
+   483.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/util/ColliAAB.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/util/ColliAAB.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 using namespace GgafDx9LibStg;
                 
-        4692 -> ColliAAB::ColliAAB() : GgafDx9CollisionPart() {
+        4571 -> ColliAAB::ColliAAB() : GgafDx9CollisionPart() {
                     _x1 = 0;
                     _y1 = 0;
                     _z1 = 0;
@@ -40309,7 +40308,7 @@ Top 10 Lines:
      Line      Count
 
       125       8928
-        7       4692
+        7       4571
 
 Execution Summary:
 
@@ -40317,11 +40316,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-    13620   Total number of line executions
-  4540.00   Average executions per line
+    13499   Total number of line executions
+  4499.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/util/ColliSphere.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/util/ColliSphere.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -40449,7 +40448,7 @@ Execution Summary:
    113.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/DefaultGod.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/DefaultGod.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -40491,7 +40490,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultCamera.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultCamera.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -40523,7 +40522,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/WorldBoundActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/WorldBoundActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -40590,7 +40589,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultSpriteActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultSpriteActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -40637,7 +40636,7 @@ Execution Summary:
      7.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/CubeMapMorphMeshActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/CubeMapMorphMeshActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -40688,7 +40687,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/StringBoardActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/StringBoardActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -40723,7 +40722,7 @@ Execution Summary:
     12.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultD3DXMeshActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultD3DXMeshActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -40770,7 +40769,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/laserchip/SingleLaser.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/laserchip/SingleLaser.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -40778,7 +40777,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 
                 
-         724 -> SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id) :
+         718 -> SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id) :
                              GgafDx9MeshSetActor(prm_name,
                                                  string("27/" + string(prm_model_id)).c_str(),
                                                  "SingleLaserEffect",
@@ -40877,7 +40876,7 @@ Top 10 Lines:
      Line      Count
 
        97        725
-        8        724
+        8        718
 
 Execution Summary:
 
@@ -40885,11 +40884,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     1449   Total number of line executions
-   483.00   Average executions per line
+     1443   Total number of line executions
+   481.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/laserchip/StraightLaserChip.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/laserchip/StraightLaserChip.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -40897,7 +40896,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 
                 
-         119 -> StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model) :
+         117 -> StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model) :
                     LaserChip(prm_name, prm_model) {
                 //    _pPosSourceActor = NULL;
                 //    _pAngleSourceActor = NULL;
@@ -40984,7 +40983,7 @@ Top 10 Lines:
      Line      Count
 
        84        120
-        8        119
+        8        117
 
 Execution Summary:
 
@@ -40992,11 +40991,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      239   Total number of line executions
-    79.67   Average executions per line
+      237   Total number of line executions
+    79.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultMeshActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultMeshActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -41043,7 +41042,7 @@ Execution Summary:
      1.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultSpriteSetActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultSpriteSetActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -41091,7 +41090,7 @@ Execution Summary:
    208.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/laserchip/CurveLaserChip.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/laserchip/CurveLaserChip.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -41099,7 +41098,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 
                 
-         718 -> CurveLaserChip::CurveLaserChip(const char* prm_name, const char* prm_model) :
+         720 -> CurveLaserChip::CurveLaserChip(const char* prm_name, const char* prm_model) :
                     LaserChip(prm_name, prm_model) {
                     _class_name = "CurveLaserChip";
                     _tmpX = 0;
@@ -41198,8 +41197,8 @@ Top 10 Lines:
 
      Line      Count
 
+        8        720
        98        720
-        8        718
 
 Execution Summary:
 
@@ -41207,11 +41206,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     1438   Total number of line executions
-   479.33   Average executions per line
+     1440   Total number of line executions
+   480.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/laserchip/LaserChip.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/laserchip/LaserChip.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -41219,7 +41218,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 
                 
-        1062 -> LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
+        1060 -> LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
                      GgafDx9MeshSetActor(prm_name,
                                          string("11/" + string(prm_model)).c_str(),
                                          "LaserChipEffect",
@@ -41665,7 +41664,7 @@ Top 10 Lines:
      Line      Count
 
       442       1064
-        8       1062
+        8       1060
 
 Execution Summary:
 
@@ -41673,11 +41672,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     2126   Total number of line executions
-   708.67   Average executions per line
+     2124   Total number of line executions
+   708.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/laserchip/HomingLaserChip.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/laserchip/HomingLaserChip.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -41888,7 +41887,7 @@ Execution Summary:
    149.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultBoardActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultBoardActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -41923,14 +41922,14 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultMeshSetActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultMeshSetActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 using namespace GgafDx9LibStg;
                 
-         434 -> DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_model) :
+         435 -> DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_model) :
                     GgafDx9MeshSetActor(prm_name,
                                         prm_model,
                                         "DefaultMeshSetEffect",
@@ -41958,7 +41957,7 @@ Top 10 Lines:
      Line      Count
 
        24        436
-        7        434
+        7        435
 
 Execution Summary:
 
@@ -41966,11 +41965,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      870   Total number of line executions
-   290.00   Average executions per line
+      871   Total number of line executions
+   290.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultBoardSetActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/DefaultBoardSetActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -42005,14 +42004,14 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/WallAABActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/WallAABActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 using namespace GgafDx9LibStg;
                 
-        1491 -> WallAABActor::WallAABActor(const char* prm_name,
+        1428 -> WallAABActor::WallAABActor(const char* prm_name,
                                            const char* prm_model) :
                 
                                           WallActor(prm_name,
@@ -42111,7 +42110,7 @@ Top 10 Lines:
      Line      Count
 
        97       1500
-        7       1491
+        7       1428
 
 Execution Summary:
 
@@ -42119,18 +42118,18 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     2991   Total number of line executions
-   997.00   Average executions per line
+     2928   Total number of line executions
+   976.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/WallActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/WallActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 using namespace GgafDx9LibStg;
                 
-        1971 -> WallActor::WallActor(const char* prm_name,
+        1846 -> WallActor::WallActor(const char* prm_name,
                                      const char* prm_model_id,
                                      const char* prm_effect_id,
                                      const char* prm_technique) :
@@ -42226,7 +42225,7 @@ Top 10 Lines:
      Line      Count
 
        92       2000
-        7       1971
+        7       1846
 
 Execution Summary:
 
@@ -42234,11 +42233,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     3971   Total number of line executions
-  1323.67   Average executions per line
+     3846   Total number of line executions
+  1282.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/WallAAPrismActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/WallAAPrismActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -42249,7 +42248,7 @@ Execution Summary:
                 
                 _MAP_<int, UINT> WallAAPrismActor::_delface;
                 
-         494 -> WallAAPrismActor::WallAAPrismActor(const char* prm_name,
+         473 -> WallAAPrismActor::WallAAPrismActor(const char* prm_name,
                                                    const char* prm_model) :
                 
                                                       WallActor(prm_name,
@@ -42384,7 +42383,7 @@ Top 10 Lines:
      Line      Count
 
       137        500
-       11        494
+       11        473
 
 Execution Summary:
 
@@ -42392,18 +42391,18 @@ Execution Summary:
         2   Lines executed
     50.00   Percent of the file executed
 
-      994   Total number of line executions
-   248.50   Average executions per line
+      973   Total number of line executions
+   243.25   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/laserchip/LaserChipDispatcher.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/actor/laserchip/LaserChipDispatcher.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 using namespace GgafDx9LibStg;
                 
-          66 -> LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : GgafActorDispatcher(prm_name) {
+          65 -> LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : GgafActorDispatcher(prm_name) {
                     _class_name = "LaserChipDispatcher";
                     _num_continual_employ_count = 0;
                     _num_chip_active = 0;
@@ -42537,7 +42536,7 @@ Top 10 Lines:
      Line      Count
 
       132        132
-        7         66
+        7         65
 
 Execution Summary:
 
@@ -42545,11 +42544,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      198   Total number of line executions
-    66.00   Average executions per line
+      197   Total number of line executions
+    65.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/scene/ScrolledScene.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/scene/ScrolledScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -42604,7 +42603,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/scene/WalledScene.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/scene/WalledScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -42726,7 +42725,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/scene/WalledSectionScene.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/scene/WalledSectionScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -42908,7 +42907,7 @@ Execution Summary:
      2.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/util/LinearOctreeForActor.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/util/LinearOctreeForActor.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -43062,7 +43061,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9LibStg/include/jp/ggaf/dx9libstg/util/LinearOctreeForActor.h:
+*** File D:/workspace/GgafDx9LibStg/include/jp/ggaf/dx9libstg/util/LinearOctreeForActor.h:
                 #ifndef LINEAROCTREEFORACTOR_H_
                 #define LINEAROCTREEFORACTOR_H_
                 namespace GgafDx9LibStg {
@@ -43208,7 +43207,7 @@ Execution Summary:
      4.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/util/CollisionChecker.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/util/CollisionChecker.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -43217,7 +43216,7 @@ Execution Summary:
                 
                 int CollisionChecker::_num_check = 0;
                 LinearOctreeForActor* CollisionChecker::_pLinearOctree = NULL;
-        4529 -> CollisionChecker::CollisionChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_pActor) {
+        4393 -> CollisionChecker::CollisionChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_pActor) {
                     if (CollisionChecker::_pLinearOctree == NULL) {
                         CollisionChecker::_pLinearOctree  = ((DefaultUniverse*)(GgafGod::_pGod->_pUniverse))->_pLinearOctree;
                     }
@@ -43486,7 +43485,7 @@ Top 10 Lines:
      Line      Count
 
       265       9106
-        9       4529
+        9       4393
 
 Execution Summary:
 
@@ -43494,11 +43493,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-    13635   Total number of line executions
-  4545.00   Average executions per line
+    13499   Total number of line executions
+  4499.67   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9LibStg/include/jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h:
+*** File D:/workspace/GgafDx9LibStg/include/jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h:
                 #ifndef LINEAROCTREEACTORELEM_H_
                 #define LINEAROCTREEACTORELEM_H_
                 namespace GgafDx9LibStg {
@@ -43513,7 +43512,7 @@ Execution Summary:
         9106 -> class LinearOctreeActorElem : public GgafCore::GgafLinearOctreeElem {
                 public:
                     GgafCore::GgafActor* _pActor;
-        4525 ->     LinearOctreeActorElem(GgafCore::GgafObject* prm_pObject, UINT32 prm_kindbit) : GgafCore::GgafLinearOctreeElem(prm_pObject,prm_kindbit) {
+        4369 ->     LinearOctreeActorElem(GgafCore::GgafObject* prm_pObject, UINT32 prm_kindbit) : GgafCore::GgafLinearOctreeElem(prm_pObject,prm_kindbit) {
                         _pActor = (GgafCore::GgafActor*)prm_pObject;
                     }
                 };
@@ -43529,7 +43528,7 @@ Top 10 Lines:
      Line      Count
 
        12       9106
-       15       4525
+       15       4369
 
 Execution Summary:
 
@@ -43537,8 +43536,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-    13631   Total number of line executions
-  6815.50   Average executions per line
+    13475   Total number of line executions
+  6737.50   Average executions per line
 
 
 *** File c:/cygwin/mingw/bin/../lib/gcc/mingw32/4.5.2/include/c++/bits/hashtable.h:
@@ -45176,7 +45175,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/util/VirtualButton.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/util/VirtualButton.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 
@@ -45946,7 +45945,7 @@ Execution Summary:
      1.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9LibStg/include/jp/ggaf/dx9libstg/util/VirtualButton.h:
+*** File D:/workspace/GgafDx9LibStg/include/jp/ggaf/dx9libstg/util/VirtualButton.h:
                 #ifndef VBRTUALBUTTON_H_
                 #define VBRTUALBUTTON_H_
                 
@@ -46214,14 +46213,14 @@ Execution Summary:
    240.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/scene/DefaultScene.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/scene/DefaultScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 using namespace GgafDx9LibStg;
                 
-          18 -> DefaultScene::DefaultScene(const char* prm_name) : GgafDx9Scene(prm_name) {
+          19 -> DefaultScene::DefaultScene(const char* prm_name) : GgafDx9Scene(prm_name) {
                     _class_name = "DefaultScene";
                     _paFrame_NextEvent = NULL;
                     _iCnt_Event = 0;
@@ -46238,8 +46237,8 @@ Top 10 Lines:
 
      Line      Count
 
+        7         19
        14         19
-        7         18
 
 Execution Summary:
 
@@ -46247,11 +46246,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-       37   Total number of line executions
-    12.33   Average executions per line
+       38   Total number of line executions
+    12.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/scene/DefaultUniverse.cpp:
+*** File D:\workspace\GgafDx9LibStg\Release whit gprof/../src/jp/ggaf/dx9libstg/scene/DefaultUniverse.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -46385,7 +46384,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../MySTG2nd.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../MySTG2nd.cpp:
                 // MySTG2nd.cpp : アプリケーションのエントリ ポイントを定義します。
                 //
                 #include "stdafx.h"
@@ -48573,7 +48572,7 @@ Execution Summary:
    682.40   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/God.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/God.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -48807,7 +48806,7 @@ Execution Summary:
    121.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/Camera.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/Camera.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -48849,7 +48848,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/background/HoshiBoshi001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/background/HoshiBoshi001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -49020,7 +49019,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/background/WorldBound/WorldBoundSpace001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/background/WorldBound/WorldBoundSpace001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -49076,7 +49075,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/common/CameraWorker.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/common/CameraWorker.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -49109,7 +49108,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/common/DefaultCamWorker.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/common/DefaultCamWorker.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -49142,7 +49141,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/actor/GgafActorDispatcher.h:
+*** File D:/workspace/GgafCore/include/jp/ggaf/core/actor/GgafActorDispatcher.h:
                 #ifndef ACTORDISPATCHER_H_
                 #define ACTORDISPATCHER_H_
                 namespace GgafCore {
@@ -49307,7 +49306,7 @@ Execution Summary:
    112.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/common/laserchip/EnemyStraightLaserChip001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/common/laserchip/EnemyStraightLaserChip001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -49316,7 +49315,7 @@ Execution Summary:
                 using namespace MyStg2nd;
                 
                 
-          59 -> EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :
+          57 -> EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :
                         StraightLaserChip(prm_name, "EnemyCurveLaserChip001") {
                     _class_name = "EnemyStraightLaserChip001";
                     MyStgUtil::resetEnemyStraightLaserChip001Status(_pStatus);
@@ -49362,7 +49361,7 @@ Top 10 Lines:
      Line      Count
 
        45        120
-        9         59
+        9         57
 
 Execution Summary:
 
@@ -49370,11 +49369,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      179   Total number of line executions
-    59.67   Average executions per line
+      177   Total number of line executions
+    59.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/common/shot/Shot004.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/common/shot/Shot004.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -49382,7 +49381,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-         500 -> Shot004::Shot004(const char* prm_name) :
+         486 -> Shot004::Shot004(const char* prm_name) :
                         SingleLaser(prm_name, "MyShot001") { //SingleLaserは最大27セットである
                         //SingleLaser(prm_name, "27/laser_single") { //SingleLaserは最大27セットである
                     _class_name = "Shot004";
@@ -49447,7 +49446,7 @@ Top 10 Lines:
      Line      Count
 
        64       1000
-        8        500
+        8        486
 
 Execution Summary:
 
@@ -49455,11 +49454,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     1500   Total number of line executions
-   500.00   Average executions per line
+     1486   Total number of line executions
+   495.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/effect/EffectExplosion001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/effect/EffectExplosion001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -49527,7 +49526,7 @@ Execution Summary:
    256.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/effect/EffectTurbo001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/effect/EffectTurbo001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -49592,7 +49591,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/effect/EffectTurbo002.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/effect/EffectTurbo002.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -49660,7 +49659,7 @@ Execution Summary:
     10.00   Average executions per line
 
 
-*** File C:/Program Files/Microsoft DirectX SDK (February 2010)/Include/d3dx9math.h:
+*** File D:/Program Files/Microsoft DirectX SDK (June 2010)/Include/d3dx9math.h:
                 //////////////////////////////////////////////////////////////////////////////
                 //
                 //  Copyright (C) Microsoft Corporation.  All Rights Reserved.
@@ -49825,7 +49824,7 @@ Execution Summary:
                 typedef struct D3DXVECTOR3 : public D3DVECTOR
                 {
                 public:
-          19 ->     D3DXVECTOR3() {};
+          17 ->     D3DXVECTOR3() {};
                     D3DXVECTOR3( CONST FLOAT * );
                     D3DXVECTOR3( CONST D3DVECTOR& );
                     D3DXVECTOR3( CONST D3DXFLOAT16 * );
@@ -49975,7 +49974,7 @@ Execution Summary:
                 typedef struct D3DXMATRIX : public D3DMATRIX
                 {
                 public:
-       13632 ->     D3DXMATRIX() {};
+       13619 ->     D3DXMATRIX() {};
                     D3DXMATRIX( CONST FLOAT * );
                     D3DXMATRIX( CONST D3DMATRIX& );
                     D3DXMATRIX( CONST D3DXFLOAT16 * );
@@ -51463,9 +51462,9 @@ Top 10 Lines:
 
      Line      Count
 
-      315      13632
+      315      13619
       475       2263
-      165         19
+      165         17
 
 Execution Summary:
 
@@ -51473,11 +51472,11 @@ Execution Summary:
         3   Lines executed
    100.00   Percent of the file executed
 
-    15914   Total number of line executions
-  5304.67   Average executions per line
+    15899   Total number of line executions
+  5299.67   Average executions per line
 
 
-*** File C:/Program Files/Microsoft DirectX SDK (February 2010)/Include/d3d9types.h:
+*** File D:/Program Files/Microsoft DirectX SDK (June 2010)/Include/d3d9types.h:
                 /*==========================================================================;
                  *
                  *  Copyright (C) Microsoft Corporation.  All Rights Reserved.
@@ -51528,7 +51527,7 @@ Execution Summary:
                 
                 
                 #ifndef D3DVECTOR_DEFINED
-      118358 -> typedef struct _D3DVECTOR {
+      139046 -> typedef struct _D3DVECTOR {
                     float x;
                     float y;
                     float z;
@@ -51557,7 +51556,7 @@ Execution Summary:
                 #endif
                 
                 #ifndef D3DMATRIX_DEFINED
-       13673 -> typedef struct _D3DMATRIX {
+       13704 -> typedef struct _D3DMATRIX {
                     union {
                         struct {
                             float        _11, _12, _13, _14;
@@ -52952,8 +52951,13 @@ Execution Summary:
                     D3DSWAPEFFECT_DISCARD           = 1,
                     D3DSWAPEFFECT_FLIP              = 2,
                     D3DSWAPEFFECT_COPY              = 3,
+                
+                /* D3D9Ex only -- */
+                #if !defined(D3D_DISABLE_9EX)
                     D3DSWAPEFFECT_OVERLAY           = 4,
                     D3DSWAPEFFECT_FLIPEX            = 5,
+                #endif // !D3D_DISABLE_9EX
+                /* -- D3D9Ex only */
                 
                     D3DSWAPEFFECT_FORCE_DWORD       = 0x7fffffff
                 } D3DSWAPEFFECT;
@@ -53413,6 +53417,7 @@ Execution Summary:
                     FLOAT PostTransformVertexCacheHitRate;
                 } D3DDEVINFO_D3D9CACHEUTILIZATION;
                 
+                /* D3D9Ex only -- */
                 #if !defined(D3D_DISABLE_9EX)
                 
                 typedef struct _D3DMEMORYPRESSURE
@@ -53421,11 +53426,6 @@ Execution Summary:
                     UINT64  SizeOfInefficientAllocation;
                     DWORD   LevelOfEfficiency;
                 } D3DMEMORYPRESSURE;
-                
-                #endif
-                
-                /* D3D9Ex only -- */
-                #if !defined(D3D_DISABLE_9EX)
                 
                 typedef enum _D3DCOMPOSERECTSOP{
                     D3DCOMPOSERECTS_COPY     = 1,
@@ -53899,8 +53899,8 @@ Top 10 Lines:
 
      Line      Count
 
-       51     118358
-       80      13673
+       51     139046
+       80      13704
 
 Execution Summary:
 
@@ -53908,11 +53908,11 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-   132031   Total number of line executions
- 66015.50   Average executions per line
+   152750   Total number of line executions
+ 76375.00   Average executions per line
 
 
-*** File C:/Program Files/Microsoft DirectX SDK (February 2010)/Include/d3dx9math.inl:
+*** File D:/Program Files/Microsoft DirectX SDK (June 2010)/Include/d3dx9math.inl:
                 //////////////////////////////////////////////////////////////////////////////
                 //
                 //  Copyright (C) Microsoft Corporation.  All Rights Reserved.
@@ -54214,7 +54214,7 @@ Execution Summary:
                 }
                 
                 D3DXINLINE
-      118331 -> D3DXVECTOR3::D3DXVECTOR3( FLOAT fx, FLOAT fy, FLOAT fz )
+      139015 -> D3DXVECTOR3::D3DXVECTOR3( FLOAT fx, FLOAT fy, FLOAT fz )
                 {
                     x = fx;
                     y = fy;
@@ -55900,7 +55900,7 @@ Execution Summary:
                 
                 D3DXINLINE D3DXMATRIX* D3DXMatrixIdentity
                     ( D3DXMATRIX *pOut )
-       10142 -> {
+       12022 -> {
                 #ifdef D3DX_DEBUG
                     if(!pOut)
                         return NULL;
@@ -56170,8 +56170,8 @@ Top 10 Lines:
 
      Line      Count
 
-      302     118331
-     1988      10142
+      302     139015
+     1988      12022
 
 Execution Summary:
 
@@ -56179,11 +56179,11 @@ Execution Summary:
         3   Lines executed
    100.00   Percent of the file executed
 
-   128473   Total number of line executions
- 42824.33   Average executions per line
+   151037   Total number of line executions
+ 50345.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/enemy/Ceres/EnemyCeresShot001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/enemy/Ceres/EnemyCeresShot001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -56191,7 +56191,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-         250 -> EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "myvic") {
+         249 -> EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "myvic") {
                     _class_name = "EnemyCeresShot001";
                     MyStgUtil::resetEnemyCeresShot001Status(_pStatus);
                     inactivateTree();
@@ -56300,7 +56300,7 @@ Top 10 Lines:
      Line      Count
 
       108        504
-        8        250
+        8        249
 
 Execution Summary:
 
@@ -56308,11 +56308,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      754   Total number of line executions
-   251.33   Average executions per line
+      753   Total number of line executions
+   251.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/enemy/Thalia/EnemyThalia.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/enemy/Thalia/EnemyThalia.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -56540,7 +56540,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/enemy/Thalia/FormationThalia.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/enemy/Thalia/FormationThalia.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -56603,7 +56603,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/label/LabelGecchi16Font.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/label/LabelGecchi16Font.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -56711,7 +56711,7 @@ Execution Summary:
     16.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/label/LabelGecchi8Font.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/label/LabelGecchi8Font.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -56750,7 +56750,7 @@ Execution Summary:
      3.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/EffectMyShipExplosion.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/EffectMyShipExplosion.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -56813,7 +56813,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/MyOptionController.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/MyOptionController.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -57101,7 +57101,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/MyOptionControllerDirectionVector.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/MyOptionControllerDirectionVector.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -57155,7 +57155,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/MyOptionControllerGizmo.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/MyOptionControllerGizmo.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -57219,7 +57219,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/MyShip.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/MyShip.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -57820,7 +57820,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/MyStg2nd/src/gecchi/actor/my/MyShip.h:
+*** File D:/workspace/MyStg2nd/src/gecchi/actor/my/MyShip.h:
                 #ifndef MYSHIP_H_
                 #define MYSHIP_H_
                 namespace MyStg2nd {
@@ -58580,7 +58580,7 @@ Execution Summary:
      2.33   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/GgafDx9GeoElem.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/GgafDx9GeoElem.h:
                 #ifndef GGAFDX9GEOELEM_H_
                 #define GGAFDX9GEOELEM_H_
                 namespace GgafDx9Core {
@@ -58690,7 +58690,7 @@ Execution Summary:
    300.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/MyShot001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/MyShot001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -58698,7 +58698,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-         224 -> MyShot001::MyShot001(const char* prm_name) :
+         225 -> MyShot001::MyShot001(const char* prm_name) :
                         SingleLaser(prm_name, "MyShot001") { //SingleLaserは最大27セットである
                     _class_name = "MyShot001";
                     MyStgUtil::resetMyShot001Status(_pStatus);
@@ -58765,7 +58765,7 @@ Top 10 Lines:
      Line      Count
 
        66        450
-        8        224
+        8        225
 
 Execution Summary:
 
@@ -58773,11 +58773,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      674   Total number of line executions
-   224.67   Average executions per line
+      675   Total number of line executions
+   225.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/MyStraightLaserChip001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/MyStraightLaserChip001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -58877,7 +58877,7 @@ Execution Summary:
     60.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/camera_worker/MyShipDivingCamWorker.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/camera_worker/MyShipDivingCamWorker.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -59093,7 +59093,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/camera_worker/VamSysCamWorker.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/camera_worker/VamSysCamWorker.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -59619,7 +59619,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/EffectLockon001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/EffectLockon001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -59778,7 +59778,7 @@ Execution Summary:
     37.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/EffectLockon001_Main.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/EffectLockon001_Main.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -59928,7 +59928,7 @@ Execution Summary:
      8.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/EffectLockon001_Sub.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/EffectLockon001_Sub.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -60064,7 +60064,7 @@ Execution Summary:
     48.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyCurveLaserChip001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyCurveLaserChip001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -60072,7 +60072,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-         717 -> MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
+         720 -> MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
                         CurveLaserChip(prm_name, "MyCurveLaserChip001") {
                     _class_name = "MyCurveLaserChip001";
                     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
@@ -60333,7 +60333,7 @@ Top 10 Lines:
      Line      Count
 
       259       1440
-        8        717
+        8        720
 
 Execution Summary:
 
@@ -60341,11 +60341,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     2157   Total number of line executions
-   719.00   Average executions per line
+     2160   Total number of line executions
+   720.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyOption.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyOption.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -60939,7 +60939,7 @@ Execution Summary:
      8.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/GgafDx9Quaternion.h:
+*** File D:/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/GgafDx9Quaternion.h:
                 #ifndef GGAFDX9QUATERNION_H_
                 #define GGAFDX9QUATERNION_H_
                 namespace GgafDx9Core {
@@ -61008,7 +61008,7 @@ Execution Summary:
      8.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyOptionLockonController.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyOptionLockonController.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -61355,7 +61355,7 @@ Execution Summary:
      8.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyOptionTorpedoController.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyOptionTorpedoController.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -61464,7 +61464,7 @@ Execution Summary:
      8.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyTorpedo.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyTorpedo.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -61716,7 +61716,7 @@ Execution Summary:
     56.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyTorpedoBlast.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyTorpedoBlast.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -61795,7 +61795,7 @@ Execution Summary:
    112.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyTorpedoTail.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/my/option/MyTorpedoTail.cpp:
                 
                 #include "stdafx.h"
                 using namespace std;
@@ -61854,7 +61854,7 @@ Execution Summary:
    224.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/instrument/EnagyBar.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/instrument/EnagyBar.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -61918,7 +61918,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafDx9LibStg/include/jp/ggaf/dx9libstg/util/QuantityUnit.h:
+*** File D:/workspace/GgafDx9LibStg/include/jp/ggaf/dx9libstg/util/QuantityUnit.h:
                 #ifndef QUANTITYUNIT_H_
                 #define QUANTITYUNIT_H_
                 
@@ -62005,7 +62005,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/GgafLinkedListRing.hpp:
+*** File D:/workspace/GgafCore/include/jp/ggaf/core/GgafLinkedListRing.hpp:
                 #ifndef GGAFLINKEDLISTRING_H_
                 #define GGAFLINKEDLISTRING_H_
                 namespace GgafCore {
@@ -62079,7 +62079,7 @@ Execution Summary:
                          * @param prm_is_delete_value true  : GgafLinkedListRingインスタンスdelete時に、要素(_pValue)もdeleteする。
                          *                            false : 要素(_pValue)をdeleteしない。
                          */
-         456 ->         Elem(T* prm_pValue, bool prm_is_delete_value = true) {
+         451 ->         Elem(T* prm_pValue, bool prm_is_delete_value = true) {
                             _pValue = prm_pValue;
                             _pNext = _pPrev = NULL;
                             _is_first_flg = _is_last_flg = false;
@@ -62090,7 +62090,7 @@ Execution Summary:
                          * デストラクタ.
                          * 内部保持する要素の値もdeleteされます。<BR>
                          */
-         456 ->         ~Elem() {
+         451 ->         ~Elem() {
                             if (_is_delete_value) {
                                 DELETE_IMPOSSIBLE_NULL(_pValue);
                             }
@@ -62955,8 +62955,8 @@ Top 10 Lines:
 
      Line      Count
 
-       74        456
-       85        456
+       74        451
+       85        451
       910         25
       615         13
 
@@ -62966,11 +62966,11 @@ Execution Summary:
         4   Lines executed
    100.00   Percent of the file executed
 
-      950   Total number of line executions
-   237.50   Average executions per line
+      940   Total number of line executions
+   235.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/instrument/MagicMeter.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/instrument/MagicMeter.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -63230,7 +63230,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/EffecMagic001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/EffecMagic001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -63293,7 +63293,7 @@ Execution Summary:
      8.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/LaserMagic.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/LaserMagic.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -63349,7 +63349,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/LockonMagic.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/LockonMagic.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -63409,7 +63409,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/Magic.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/Magic.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -63573,7 +63573,7 @@ Execution Summary:
      3.33   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/OptionMagic.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/OptionMagic.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -63765,7 +63765,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/SpeedMagic.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/SpeedMagic.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -63824,7 +63824,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/TorpedoMagic.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/system/magic/TorpedoMagic.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -63880,7 +63880,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/title/TitleBoard.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/title/TitleBoard.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -63957,7 +63957,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/wall/Wall001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/wall/Wall001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -63966,7 +63966,7 @@ Execution Summary:
                 using namespace MyStg2nd;
                 
                 
-        1486 -> Wall001::Wall001(const char* prm_name) :
+        1410 -> Wall001::Wall001(const char* prm_name) :
                         WallAABActor(prm_name, "g_box001") {
                     _class_name = "Wall001";
                     MyStgUtil::resetWall001Status(_pStatus);//種別：KIND_CHIKEI
@@ -63993,7 +63993,7 @@ Top 10 Lines:
 
      Line      Count
 
-        9       1486
+        9       1410
 
 Execution Summary:
 
@@ -64001,11 +64001,11 @@ Execution Summary:
         1   Lines executed
     50.00   Percent of the file executed
 
-     1486   Total number of line executions
-   743.00   Average executions per line
+     1410   Total number of line executions
+   705.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/MyStg2nd/src/gecchi/actor/wall/Wall001.h:
+*** File D:/workspace/MyStg2nd/src/gecchi/actor/wall/Wall001.h:
                 #ifndef WALL001_H_
                 #define WALL001_H_
                 
@@ -64048,7 +64048,7 @@ Execution Summary:
   3000.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/wall/Wall001Prism.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/actor/wall/Wall001Prism.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -64057,7 +64057,7 @@ Execution Summary:
                 using namespace MyStg2nd;
                 
                 
-         492 -> Wall001Prism::Wall001Prism(const char* prm_name) :
+         468 -> Wall001Prism::Wall001Prism(const char* prm_name) :
                         WallAAPrismActor(prm_name, "g_box001Prism") {
                     _class_name = "Wall001Prism";
                     MyStgUtil::resetWall001Status(_pStatus);//種別：KIND_CHIKEI
@@ -64084,7 +64084,7 @@ Top 10 Lines:
 
      Line      Count
 
-        9        492
+        9        468
 
 Execution Summary:
 
@@ -64092,11 +64092,11 @@ Execution Summary:
         1   Lines executed
     50.00   Percent of the file executed
 
-      492   Total number of line executions
-   246.00   Average executions per line
+      468   Total number of line executions
+   234.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/MyStg2nd/src/gecchi/actor/wall/Wall001Prism.h:
+*** File D:/workspace/MyStg2nd/src/gecchi/actor/wall/Wall001Prism.h:
                 #ifndef WALL001PRISM_H_
                 #define WALL001PRISM_H_
                 
@@ -64139,7 +64139,7 @@ Execution Summary:
   1000.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/manager/CameraWorkerConnection.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/manager/CameraWorkerConnection.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -64173,7 +64173,7 @@ Execution Summary:
      1.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/MyStg2nd/src/gecchi/manager/CameraWorkerConnection.h:
+*** File D:/workspace/MyStg2nd/src/gecchi/manager/CameraWorkerConnection.h:
                 #ifndef CAMERAWORKERCONNECTION_H_
                 #define CAMERAWORKERCONNECTION_H_
                 namespace MyStg2nd {
@@ -64221,7 +64221,7 @@ Execution Summary:
      6.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/manager/CameraWorkerManager.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/manager/CameraWorkerManager.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -64287,7 +64287,7 @@ Execution Summary:
      0.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/MyStg2nd/src/gecchi/manager/CameraWorkerManager.h:
+*** File D:/workspace/MyStg2nd/src/gecchi/manager/CameraWorkerManager.h:
                 #ifndef CAMERAWORKERMANAGER_H_
                 #define CAMERAWORKERMANAGER_H_
                 namespace MyStg2nd {
@@ -64343,7 +64343,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/manager/DispatcherConnection.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/manager/DispatcherConnection.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -64383,7 +64383,7 @@ Execution Summary:
      0.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/MyStg2nd/src/gecchi/manager/DispatcherConnection.h:
+*** File D:/workspace/MyStg2nd/src/gecchi/manager/DispatcherConnection.h:
                 #ifndef DISPATCHERCONNECTION_H_
                 #define DISPATCHERCONNECTION_H_
                 namespace MyStg2nd {
@@ -64431,7 +64431,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/manager/DispatcherManager.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/manager/DispatcherManager.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -64584,7 +64584,7 @@ Execution Summary:
      0.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/MyStg2nd/src/gecchi/manager/DispatcherManager.h:
+*** File D:/workspace/MyStg2nd/src/gecchi/manager/DispatcherManager.h:
                 #ifndef DISPATCHERMANAGER_H_
                 #define DISPATCHERMANAGER_H_
                 namespace MyStg2nd {
@@ -64640,7 +64640,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/manager/Spline3DManager.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/manager/Spline3DManager.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -64799,7 +64799,7 @@ Execution Summary:
      0.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/MyStg2nd/src/gecchi/manager/Spline3DManager.h:
+*** File D:/workspace/MyStg2nd/src/gecchi/manager/Spline3DManager.h:
                 #ifndef SPLINE3DMANAGER_H_
                 #define SPLINE3DMANAGER_H_
                 namespace MyStg2nd {
@@ -64850,7 +64850,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/GgafResourceConnection.hpp:
+*** File D:/workspace/GgafCore/include/jp/ggaf/core/GgafResourceConnection.hpp:
                 #ifndef GGAFRESOURCECONNECTION_H_
                 #define GGAFRESOURCECONNECTION_H_
                 namespace GgafCore {
@@ -64965,7 +64965,7 @@ Execution Summary:
                 }
                 
                 template<class T>
-         124 -> GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResource) : GgafObject() {
+         125 -> GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResource) : GgafObject() {
                     TRACE3("GgafResourceConnection::GgafResourceConnection(prm_idstr = " <<  prm_idstr << ")");
                     _is_closing_resource = false;
                     _pResource = prm_pResource;
@@ -65110,7 +65110,7 @@ Top 10 Lines:
      Line      Count
 
        54        125
-      115        124
+      115        125
 
 Execution Summary:
 
@@ -65118,11 +65118,11 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-      249   Total number of line executions
-   124.50   Average executions per line
+      250   Total number of line executions
+   125.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/GgafResourceManager.hpp:
+*** File D:/workspace/GgafCore/include/jp/ggaf/core/GgafResourceManager.hpp:
                 #ifndef GGAFRESOURCEMANAGER_H_
                 #define GGAFRESOURCEMANAGER_H_
                 namespace GgafCore {
@@ -65445,7 +65445,7 @@ Execution Summary:
      9.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/manager/SplineManager.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/manager/SplineManager.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -65488,7 +65488,7 @@ Execution Summary:
      0.50   Average executions per line
 
 
-*** File C:/cygwin/workspace/MyStg2nd/src/gecchi/manager/SplineManager.h:
+*** File D:/workspace/MyStg2nd/src/gecchi/manager/SplineManager.h:
                 #ifndef SPLINEPROGRAMMANAGER_H_
                 #define SPLINEPROGRAMMANAGER_H_
                 namespace MyStg2nd {
@@ -65544,7 +65544,7 @@ Execution Summary:
      2.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/CommonScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/CommonScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -65653,7 +65653,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameBeginningScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameBeginningScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -65760,7 +65760,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameDemoScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameDemoScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -65859,7 +65859,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameEndingScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameEndingScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -65909,7 +65909,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/Stage01Controller.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/Stage01Controller.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -66072,7 +66072,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01WalledScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01WalledScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -66194,7 +66194,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01WalledSection001.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01WalledSection001.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -66253,7 +66253,7 @@ Execution Summary:
      4.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -66354,7 +66354,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameMainScene/StageScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameMainScene/StageScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -66451,7 +66451,7 @@ Execution Summary:
      0.67   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameMainScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameMainScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -66643,7 +66643,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameOverScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameOverScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -66731,7 +66731,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GamePreTitleScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GamePreTitleScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -66837,7 +66837,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameTitleScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/GameTitleScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -66958,7 +66958,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/MyShipScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene/MyShipScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -67122,7 +67122,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/GameScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -67130,7 +67130,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-       ##### -> GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) ,
+           1 -> GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) ,
                 _pCommonScene(NULL),
                 _pMyShipScene(NULL),
                 _pScene_GameTitle(NULL),
@@ -67485,6 +67485,7 @@ Top 10 Lines:
      Line      Count
 
       354          2
+        8          1
 
 Execution Summary:
 
@@ -67492,11 +67493,11 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-        2   Total number of line executions
-     0.67   Average executions per line
+        3   Total number of line executions
+     1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/PreDrawScene.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World/PreDrawScene.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -67547,7 +67548,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe/World.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -67653,7 +67654,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:\cygwin\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe.cpp:
+*** File D:\workspace\MyStg2nd\Release whit gprof/../src/gecchi/scene/Universe.cpp:
                 #include "stdafx.h"
                 using namespace std;
                 using namespace GgafCore;
@@ -67812,7 +67813,7 @@ Execution Summary:
      1.00   Average executions per line
 
 
-*** File C:/cygwin/workspace/MyStg2nd/src/gecchi/scene/Universe.h:
+*** File D:/workspace/MyStg2nd/src/gecchi/scene/Universe.h:
                 #ifndef UNIVERSE_H_
                 #define UNIVERSE_H_
                 namespace MyStg2nd {

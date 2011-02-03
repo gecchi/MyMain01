@@ -13,13 +13,13 @@ class QuantityUnit : public GgafCore::GgafObject {
 
 public:
     /** 100%のメーター値 */
-    float _max_val;
+    int _max_val;
     /** 現在のメーター値 */
-    float _val;
+    int _val;
     /** 100%のメーターの長さ(px) */
-    float _max_val_px;
+    int _max_val_px;
     /** 現在のメーターの長さ(px) */
-    float _val_px;
+    int _val_px;
 
     /**
      * コンストラクタ .
@@ -44,7 +44,7 @@ public:
      * @param prm_max_val_px  メーター値が100%時の幅ピクセル
      * @param prm_max_val     メーター値が100%とする実際の値(メーター値)
      */
-    void config(float prm_max_val_px, float prm_max_val) {
+    void config(int prm_max_val_px, int prm_max_val) {
         _max_val_px = prm_max_val_px;
         _max_val = prm_max_val;
     }
@@ -53,9 +53,9 @@ public:
      * 設定すると、現在のメーターの長さ(px)が更新される
      * @param prm_val メーター値
      */
-    void set(float prm_val) {
+    void set(int prm_val) {
         _val = prm_val;
-        _val_px = (_max_val / _val) * _max_val_px;
+        _val_px = _max_val * _max_val_px / _val / ;
     }
 
     virtual ~QuantityUnit() {

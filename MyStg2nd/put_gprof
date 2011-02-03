@@ -1,7 +1,8 @@
 /mingw/bin/gprof "Release whit gprof\MyStg2nd.exe" gmon.out -p > gprofp_result.txt
 /mingw/bin/gprof "Release whit gprof\MyStg2nd.exe" gmon.out -q > gprofq_result.txt
 /mingw/bin/gprof "Release whit gprof\MyStg2nd.exe" gmon.out -A > gprofA_result.txt
-/mingw/bin/gprof "Release whit gprof\MyStg2nd.exe" gmon.out | gprof2dot.py -n0.05 -e0.0 | dot -Tpng -o gprofdot_result.png
+/mingw/bin/gprof "Release whit gprof\MyStg2nd.exe" gmon.out | ./gprof2dot.py -n0.05 -e0.0 | dot -Tpng -o gprofdot_result.png
 cygstart gprofp_result.txt
 cygstart gprofq_result.txt
 cygstart gprofA_result.txt
+cygstart gprofdot_result.png

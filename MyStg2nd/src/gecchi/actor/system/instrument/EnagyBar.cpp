@@ -16,20 +16,24 @@ EnagyBar::EnagyBar(const char* prm_name) : DefaultBoardActor(prm_name, "TurboMet
 void EnagyBar::initialize() {
     _pUvFlipper->forcePtnNoRange(0, 10);
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //アニメ順序
-    _sx = _qu._val_px / _fSize_BoardModelWidthPx;
+
     processReset();
 }
 
 void EnagyBar::processReset() {
-    _enagy = 1000.0f;
-    _qu.config(400.0f, _enagy); //初期値は400pxでフルエネルキー
+    _enagy = 1000;
+    _qu.config(400, _enagy); //初期値は400pxでフルエネルキー
+    _qu.set(_enagy);
+    _sx = _qu._val_px / _fSize_BoardModelWidthPx;
 }
 
 void EnagyBar::onActive() {
 }
 
 void EnagyBar::processBehavior() {
-//    _sx = _qu._val_px / _fSize_BoardModelWidthPx;
+    _enagy--;
+    _qu.set(_enagy);
+    _sx = _qu._val_px / _fSize_BoardModelWidthPx;
     _pUvFlipper->behave();
 }
 
