@@ -1767,7 +1767,7 @@
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.292368525" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="  -c -fmessage-length=0 -s -mno-cygwin -mwindows -Winit-self --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
 								<option id="gnu.cpp.compiler.option.optimization.level.1659538196" name="最適化レベル" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.debugging.level.1165447547" name="デバッグ・レベル" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.debugging.level.1165447547" name="デバッグ・レベル" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.warnings.nowarn.12007169" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1035833187" name="定義済みのシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="BUILD_MINGW"/>
@@ -1791,7 +1791,7 @@
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1651500053" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value=" -c -fmessage-length=0 -s -mno-cygwin -mwindows -fstack-protector -Winit-self --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x " valueType="string"/>
 								<option id="gnu.c.compiler.option.optimization.level.1533202804" name="最適化レベル" superClass="gnu.c.compiler.option.optimization.level" value="gnu.c.optimization.level.none" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.debugging.level.638188299" name="デバッグ・レベル" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.debugging.level.638188299" name="デバッグ・レベル" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.default" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.warnings.allwarn.1969904280" name="すべての警告 (-Wall)" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.warnings.nowarn.2095264308" name="すべての警告を禁止 (-w)" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.debugging.gprof.1923788066" name="gprof 情報の生成 (-pg)" superClass="gnu.c.compiler.option.debugging.gprof" value="true" valueType="boolean"/>
@@ -1818,14 +1818,14 @@
 								</option>
 								<option id="gnu.cpp.link.option.paths.1319535778" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/MyStg2nd/VClib}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/ReleaseCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/Release whit gprof}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/ReleaseCdt}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/ReleaseCdt}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/ReleaseCdt}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/ReleaseCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/Release whit gprof}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/Release whit gprof}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/Release whit gprof}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/Release whit gprof}&quot;"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.163018919" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/MyStg2nd/VClib/chkstk.o}&quot; -Wl,--enable-auto-import -mno-cygwin -mwindows --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x -pg " valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.163018919" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/MyStg2nd/VClib/chkstk.o}&quot; -Wl,--enable-auto-import -mno-cygwin -mwindows --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x -g -pg " valueType="string"/>
 								<option id="gnu.cpp.link.option.userobjs.1168997606" name="その他のオブジェクト" superClass="gnu.cpp.link.option.userobjs"/>
 								<option id="gnu.cpp.link.option.other.2131437724" name="その他のオプション (-Xlinker [option])" superClass="gnu.cpp.link.option.other" valueType="stringList">
 									<listOptionValue builtIn="false" value="MySTG2nd_rc.o "/>

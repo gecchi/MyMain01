@@ -31,7 +31,7 @@
 //    _pMover->setVxMvAcce(0);
 //    _pMover->setVyMvAcce(0);
 //    _pMover->setVzMvAcce(0);
-//    if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive()) {
+//    if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActiveActor()) {
 //        if (_pChip_front == NULL) {
 //            //先端チップ
 //            _lockon = 1;
@@ -66,7 +66,7 @@
 //            _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
 //            _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
 //            _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
-//            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive()) {
+//            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActiveActor()) {
 //                float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
 //                rate = rate > 0 ? rate : 0;
 //                int fdx = _pOrg->_pLockonTarget->_X - (_X + _pMover->_veloVxMv*rate);

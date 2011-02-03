@@ -509,8 +509,8 @@ void MyOption::processBehavior() {
     }
 
 //    if (_pLockonTarget) {
-//        //if (_pLockonTarget->isOutOfView() || _pLockonTarget->isActive() == false) { //非アクティブのみと視野外はロックオン解除
-//        if (_pLockonTarget->isActive() == false) {  //非アクティブのみ解除（視野外でもロックオン維持）
+//        //if (_pLockonTarget->isOutOfView() || _pLockonTarget->isActiveActor() == false) { //非アクティブのみと視野外はロックオン解除
+//        if (_pLockonTarget->isActiveActor() == false) {  //非アクティブのみ解除（視野外でもロックオン維持）
 //            _pLockonController->releaseLockon();
 //            _pLockonTarget = NULL;
 //        } else {

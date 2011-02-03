@@ -45,7 +45,7 @@ void EffectLockon001_Main::processBehavior() {
              _pProgress->change(EffectLockon001_SCENE_PROG_LOCK);
          }
          if (_pTarget) {
-             if (_pTarget->isActive() || _pTarget->_will_activate_after_flg) {
+             if (_pTarget->isActiveActor() || _pTarget->_will_activate_after_flg) {
                  if (abs(_pTarget->_X-_X) <= 200000 &&
                      abs(_pTarget->_Y-_Y) <= 200000 &&
                      abs(_pTarget->_Z-_Z) <= 200000) {
@@ -107,7 +107,7 @@ void EffectLockon001_Main::lockon(GgafDx9GeometricActor* prm_pTarget) {
 
 }
 void EffectLockon001_Main::releaseLockon() {
-    if (isActive()) {
+    if (isActiveActor()) {
         if (_pProgress->get() == EffectLockon001_SCENE_PROG_FIRST_LOCK) {
             _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
             _pScaler->intoTargetScaleLinerUntil(60000, 60);//スケーリング

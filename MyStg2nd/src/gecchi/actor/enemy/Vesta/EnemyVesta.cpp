@@ -225,7 +225,7 @@ void EnemyVesta::processBehavior() {
 }
 
 void EnemyVesta::processJudgement() {
-    if (_pActor_Base != NULL && _pActor_Base->isActive()) {
+    if (_pActor_Base != NULL && _pActor_Base->isActiveActor()) {
 //        (*(_pActor_Base->_pFunc_calcRotMvWorldMatrix))(_pActor_Base, _matWorld);
     } else {
         //“y‘ä‚ª‚È‚¯‚ê‚ÎŽ©•ª‚àŽ€‚Ê

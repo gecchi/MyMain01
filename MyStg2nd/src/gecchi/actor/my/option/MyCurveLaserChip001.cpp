@@ -35,7 +35,7 @@ void MyCurveLaserChip001::onActive() {
     _pMover->setVyMvAcce(0);
     _pMover->setVzMvAcce(0);
     _isLockon = false;
-    if (pMainLockOnTarget && pMainLockOnTarget->isActive()) {
+    if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
         if (_pChip_front == NULL) {
             //先端チップ
             _lockon = 1;
@@ -76,10 +76,10 @@ void MyCurveLaserChip001::processBehavior() {
             _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
             _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
             _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
-//            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive() && _pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) > 0) {
+//            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActiveActor() && _pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) > 0) {
                                                                                  //体力の判定はオプション側で行うことにした
             if (pMainLockOnTarget) {
-                if (pMainLockOnTarget->isActive()) {
+                if (pMainLockOnTarget->isActiveActor()) {
                     float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
                     rate = rate > 0 ? rate : 0;
                     int fdx = pMainLockOnTarget->_X - (_X + _pMover->_veloVxMv*rate);
@@ -165,7 +165,7 @@ void MyCurveLaserChip001::processBehavior() {
         _pSeTransmitter->behave();
     }
 
-//    if (pMainLockOnTarget && pMainLockOnTarget->isActive()) {
+//    if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
 //        _lockon = 1;
 //        _isLockon = true;
 //    }
