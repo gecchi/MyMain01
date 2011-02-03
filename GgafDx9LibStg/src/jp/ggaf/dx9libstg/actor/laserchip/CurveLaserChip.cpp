@@ -58,7 +58,7 @@ void CurveLaserChip::processSettlementBehavior() {
 
     if (_pChip_front == NULL) {
         //先端
-        if (_pChip_behind != NULL && _pChip_behind->isActive()) {
+        if (_pChip_behind != NULL && _pChip_behind->isActiveActor()) {
             //普通の先端
         } else {
             //先端で末端
@@ -66,15 +66,15 @@ void CurveLaserChip::processSettlementBehavior() {
         }
     } else if (_pChip_behind == NULL) {
         //末端
-        if (_pChip_front != NULL && _pChip_front->isActive()) {
+        if (_pChip_front != NULL && _pChip_front->isActiveActor()) {
             //普通の末端
 
         } else {
             //末端で先端
             //どこへでもいきなはれ
         }
-    } else if (_pChip_front->isActive() && _pChip_behind->isActive()) {
-        //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->isActive()と判定すること
+    } else if (_pChip_front->isActiveActor() && _pChip_behind->isActiveActor()) {
+        //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->isActiveActor()と判定すること
         //なぜならemployの瞬間に_pChip_behind != NULL となるが、active()により有効になるのは次フレームだから
         //_X,_Y,_Z にはまだ変な値が入っている。
         CurveLaserChip* pF = (CurveLaserChip*)_pChip_front;

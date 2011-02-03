@@ -119,8 +119,8 @@ void CollisionChecker::updateHitArea() {
     if (_pActor == NULL || _pCollisionArea == NULL) {
         return;
     }
-    //if (_pActor->_can_hit_flg && _pActor->isActive() && _pActor->isOutOfView() == 0 ) {  //Ž‹–ìŠO‚Í“o˜^‚µ‚È‚¢
-    if (_pActor->_can_hit_flg && _pActor->isActive() ) {
+    //if (_pActor->_can_hit_flg && _pActor->isActiveActor() && _pActor->isOutOfView() == 0 ) {  //Ž‹–ìŠO‚Í“o˜^‚µ‚È‚¢
+    if (_pActor->_can_hit_flg && _pActor->isActiveActor() ) {
         GgafDx9CollisionPart* pColliPart;
         for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
 #ifdef MY_DEBUG

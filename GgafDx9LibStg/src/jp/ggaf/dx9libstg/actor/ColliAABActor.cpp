@@ -27,7 +27,7 @@ void ColliAABActor::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
     if (prm_pCollisionChecker != NULL &&
         prm_pCollisionChecker->_pCollisionArea != NULL &&
         prm_pCollisionChecker->getTargetActor()->canHit() &&
-        prm_pCollisionChecker->getTargetActor()->isActive()) {
+        prm_pCollisionChecker->getTargetActor()->isActiveActor()) {
 
         GgafDx9GeometricActor* pActor = prm_pCollisionChecker->getTargetActor();
         GgafDx9CollisionArea* pCollisionArea = prm_pCollisionChecker->_pCollisionArea;
