@@ -107,13 +107,13 @@ public:
      * employ() を試みて取り出せない場合、強制的に先頭のアクターを返します。<BR>
      * <b>＜注意＞</b><BR>
      * 取り出し後、アクターに active() を実行しても、そのアクターが既に
-     * isActive() == true の状態もありうるため、onActive() コールバックは
+     * isActiveActor() == true の状態もありうるため、onActive() コールバックは
      * 呼ばれない可能性がある。<BR>
      * 強制的にonActive() コールバックを呼び出したい場合に次のようなコードに
      * しなければいけないかも知れない。
      * <pre><code>
      * GgafMainActor* pActor = pDispatcher->employForce();
-     * if (pActor->isActive()) {
+     * if (pActor->isActiveActor()) {
      *     pActor->inactivateImmediately();
      *     pActor->onInactive();
      * }

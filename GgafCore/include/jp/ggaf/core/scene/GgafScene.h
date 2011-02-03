@@ -177,6 +177,14 @@ public:
      */
     virtual GgafLordActor* getLordActor();
 
+    inline bool isActiveScene() {
+         if (_can_live_flg && _is_active_flg) {
+             return true;
+         } else {
+             return false;
+         }
+     }
+
     /**
      * デバッグ用：ツリー構造を表示 .
      */

@@ -103,13 +103,20 @@ public:
      * @return	bool true:衝突可能状況／false:衝突不可能状況
      */
     inline bool canHit() {
-        if (isActive() && _can_hit_flg) {
+        if (_can_live_flg && _is_active_flg && _can_hit_flg) {
             return true;
         } else {
             return false;
         }
     }
 
+    inline bool isActiveActor() {
+        if (_can_live_flg && _is_active_flg && getPlatformScene() && getPlatformScene()->isActiveScene()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      * 所属しているシーンを取得。 .
      * @return	GgafScene*	所属しているシーン

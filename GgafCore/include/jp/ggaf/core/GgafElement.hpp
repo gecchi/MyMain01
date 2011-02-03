@@ -634,7 +634,7 @@ public:
      * Šˆ“®’†‚©’²‚×‚é
      * @return  bool true:Šˆ“®’†^false:”ñŠˆ“®’†
      */
-    virtual bool isActive();
+//    virtual bool isActive();
 
     /**
      * U‚é•‘‚¢‰Â”\‚©’²‚×‚éiˆê’â~‚³‚ê‚Ä‚¢‚È‚¢‚©j
@@ -1422,14 +1422,14 @@ void GgafElement<T>::end(frame prm_frame_offset) {
 }
 
 
-template<class T>
-bool GgafElement<T>::isActive() {
-    if (_can_live_flg && _is_active_flg) {
-        return true;
-    } else {
-        return false;
-    }
-}
+//template<class T>
+//bool GgafElement<T>::isActive() {
+//    if (_can_live_flg && _is_active_flg) {
+//        return true;
+//    } else {
+//        return false;
+//    }
+//}
 
 template<class T>
 bool GgafElement<T>::onChangeToActive() {
