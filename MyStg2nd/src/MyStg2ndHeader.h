@@ -222,6 +222,9 @@ class MyShot001;
 class MyWave001;
 class EffectMyShipExplosion;
 
+class Item001;
+
+
 class EffectExplosion001;
 class EffectExplosion002;
 class EffectExplosion003;
@@ -393,6 +396,8 @@ class MagicMeter;
 
 #include "gecchi/actor/my/MyStraightLaserChip001.h"
 #include "gecchi/actor/my/EffectMyShipExplosion.h"
+
+#include "gecchi/actor/item/Item001.h"
 
 #include "gecchi/actor/effect/EffectExplosion001.h"
 #include "gecchi/actor/effect/EffectExplosion002.h"

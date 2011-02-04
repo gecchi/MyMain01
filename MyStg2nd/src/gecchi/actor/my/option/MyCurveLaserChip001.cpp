@@ -56,13 +56,9 @@ void MyCurveLaserChip001::onActive() {
         }
     }
     _renge = 150000;
-    _pMover->forceVxMvVeloRange(-_renge, _renge);
-    _pMover->forceVyMvVeloRange(-_renge, _renge);
-    _pMover->forceVzMvVeloRange(-_renge, _renge);
+    _pMover->forceVxyzMvVeloRange(-_renge, _renge);
     _maxAcceRange= _renge / 30;
-    _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
-    _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
-    _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
+    _pMover->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 
 
 }
@@ -73,9 +69,7 @@ void MyCurveLaserChip001::processBehavior() {
     if (_lockon == 1) {
         if (getActivePartFrame() < 120) {
             _maxAcceRange+=100;
-            _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
-            _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
-            _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
+            _pMover->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 //            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActiveActor() && _pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) > 0) {
                                                                                  //体力の判定はオプション側で行うことにした
             if (pMainLockOnTarget) {
@@ -123,10 +117,7 @@ void MyCurveLaserChip001::processBehavior() {
 
 
         _maxAcceRange+=100;
-        _pMover->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
-        _pMover->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
-        _pMover->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
-
+        _pMover->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
         if (_pChip_front == NULL) {
             _maxAcceRange+=100;
             //上の処理１回と、毎回 _maxAcceRange+=100;
