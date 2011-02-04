@@ -635,6 +635,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     void addVzMvAcce(acce prm_acceVzMv);
     void forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02);
 
+    void forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxyzMv02);
+    void forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxyzMv02);
+
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRz_Target 目標軸回転方角(Z軸)

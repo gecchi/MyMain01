@@ -1670,6 +1670,22 @@ void GgafDx9GeometricMover::forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acc
     setVzMvAcce(_acceVzMv); //�Đݒ肵�Ĕ͈͓��ɕ␳
 }
 
+
+
+void GgafDx9GeometricMover::forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxyzMv02) {
+    forceVxMvVeloRange(prm_veloVxyzMv01, prm_veloVxyzMv02);
+    forceVyMvVeloRange(prm_veloVxyzMv01, prm_veloVxyzMv02);
+    forceVzMvVeloRange(prm_veloVxyzMv01, prm_veloVxyzMv02);
+}
+void GgafDx9GeometricMover::forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxyzMv02) {
+    forceVxMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
+    forceVyMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
+    forceVzMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
+}
+
+
+
+
 void GgafDx9GeometricMover::execTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way, bool prm_optimize_ang) {
