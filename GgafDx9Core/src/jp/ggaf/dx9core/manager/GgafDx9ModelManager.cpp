@@ -3118,17 +3118,17 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     GgafDx9PointSpriteModel::VERTEX* model_paVtxBuffer_org = NEW GgafDx9PointSpriteModel::VERTEX[model_vertices_num];
 
 
-    GgafDx9UvFlipper uvflipper(NULL);
-    uvflipper.setTextureUvRotation(model_texture_split_rowcol,
-                                   1.0f / model_texture_split_rowcol,
-                                   1.0f / model_texture_split_rowcol );
-    uvflipper.forcePtnNoRange(0, model_texture_split_rowcol * model_texture_split_rowcol);
-    float u = 0;
-    float v = 0;
+//    GgafDx9UvFlipper uvflipper(NULL);
+//    uvflipper.setTextureUvRotation(model_texture_split_rowcol,
+//                                   1.0f / model_texture_split_rowcol,
+//                                   1.0f / model_texture_split_rowcol );
+//    uvflipper.forcePtnNoRange(0, model_texture_split_rowcol * model_texture_split_rowcol-1);
+//    float u = 0;
+//    float v = 0;
     float dis;
     for (int i = 0; i < model_vertices_num; i++) {
-        uvflipper.setPtnNo(paInt_InitUvPtnNo[i]);
-        uvflipper.getUV(u, v);
+//        uvflipper.setPtnNo(paInt_InitUvPtnNo[i]);
+//        uvflipper.getUV(u, v);
         model_paVtxBuffer_org[i].x = paD3DVECTOR_Vertices[i].x;
         model_paVtxBuffer_org[i].y = paD3DVECTOR_Vertices[i].y;
         model_paVtxBuffer_org[i].z = paD3DVECTOR_Vertices[i].z;

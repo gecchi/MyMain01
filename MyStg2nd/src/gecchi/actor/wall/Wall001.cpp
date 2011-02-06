@@ -21,7 +21,7 @@ void Wall001::onCreateModel() {
 
 
 bool Wall001::isOutOfUniverse() {
-    if (GgafDx9Universe::_X_goneLeft < _X) {
+    if (GgafDx9Universe::_X_goneLeft/2 < _X) {
         return false;
     }
     return true;

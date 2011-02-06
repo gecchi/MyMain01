@@ -50,13 +50,13 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name, GgafDx9Camera* prm_pCamer
     getLordActor()->addSubGroup(_pCamera);
     _pActor_DrawActive = NULL;
 
-    //カメラの写すちょっと余裕をもった範囲。
-    _X_goneRight  = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-    _X_goneLeft   = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-    _Y_goneTop    = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-    _Y_goneBottom = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-    _Z_goneFar   = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-    _Z_goneNear  = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    //カメラの写す範囲。
+    _X_goneRight  = +_pCamera->_zf*PX_UNIT*LEN_UNIT;// + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _X_goneLeft   = -_pCamera->_zf*PX_UNIT*LEN_UNIT;// - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _Y_goneTop    = +_pCamera->_zf*PX_UNIT*LEN_UNIT;// + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _Y_goneBottom = -_pCamera->_zf*PX_UNIT*LEN_UNIT;// - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _Z_goneFar    = +_pCamera->_zf*PX_UNIT*LEN_UNIT;// + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _Z_goneNear   = -_pCamera->_zf*PX_UNIT*LEN_UNIT;// - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
     _TRACE_("Gone=X ("<<_X_goneLeft<<" ~ "<<_X_goneRight<<") Y("<<_Y_goneBottom<<" ~ "<<_Y_goneTop<<") Z("<<_Z_goneFar<<" ~ "<<_Z_goneNear<<")");
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();

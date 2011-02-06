@@ -26,14 +26,14 @@ void World::initialize() {
     ColliAAPrismActor::get();   //当たり判定領域表示用直方体、プリロード
     ColliSphereActor::get(); //当たり判定領域表示用球、プリロード
 #endif
-#ifdef MY_DEBUG
+//#ifdef MY_DEBUG
     orderActorToFactory(0, LabelGecchi16Font, "DebugStr");
     _pFont16_Debug = (LabelGecchi16Font*)obtainActorFromFactory(0);
     getLordActor()->addSubGroup(_pFont16_Debug);
 //    orderActorWithModelToFactory(3, DispFpsActor, "FPS_STRING", "28/GECCHI_16FONT");
 //    DispFpsActor* pDispFpsActor = (DispFpsActor*)obtainActorFromFactory(3);
 //    getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
-#endif
+//#endif
 
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
     orderSceneToFactory(2, GameScene, "Game");
@@ -75,7 +75,12 @@ void World::processBehavior() {
     if (getActivePartFrame() % 60 == 0) {
         _TRACE_("_aBufDebug="<<_aBufDebug);
     }
+#else
+    sprintf(_aBufDebug, "%05uDRAW / %.1fFPS", GgafGod::_num_actor_drawing, askGod()->_fps);
+    _pFont16_Debug->update(1, 1, _aBufDebug);
 #endif
+
+
 }
 
 void World::processJudgement() {

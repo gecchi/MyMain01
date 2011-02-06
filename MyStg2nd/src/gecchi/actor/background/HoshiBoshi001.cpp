@@ -45,7 +45,7 @@ void HoshiBoshi001::initialize() {
 }
 
 void HoshiBoshi001::onActive() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 30);
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 60);
     //TODO:星のフリップ順番がおかしい。あとでなおせ！！
 }
 
