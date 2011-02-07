@@ -37,9 +37,12 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
         hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_h_tex_blink_threshold, _fBlinkThreshold);
         checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::draw() SetFloat(_h_tex_blink_threshold) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_hTexSize, _fTexSize);
+                _TRACE_("_fTexSize="<<_fTexSize);
         checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::draw() SetFloat(_hTexSize) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetInt(pPointSpriteEffect->_hTextureSplitRowcol, _texture_split_rowcol);
+                _TRACE_("_texture_split_rowcol="<<_texture_split_rowcol);
         checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::draw() SetInt(_hTextureSplitRowcol) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+
     }
 
 

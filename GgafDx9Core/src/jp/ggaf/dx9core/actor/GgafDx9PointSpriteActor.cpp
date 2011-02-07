@@ -59,6 +59,7 @@ void GgafDx9PointSpriteActor::processDraw() {
     hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_h_dist_VpFrontPlane, -_fDist_VpPlnFront);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(g_h_dist_VpFrontPlane) に失敗しました。");
     hr = pID3DXEffect->SetInt(_pPointSpriteEffect->_hUvFlipPtnNo, _pUvFlipper->_pattno_uvflip_now);
+    _TRACE_("_pUvFlipper->_pattno_uvflip_now="<<_pUvFlipper->_pattno_uvflip_now);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetInt(_hUvFlipPtnNo) に失敗しました。");
     // Zバッファを無効に
     //ポイントスプライトON
