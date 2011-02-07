@@ -21,7 +21,7 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
     //対象Actor
     GgafDx9PointSpriteActor* pTargetActor = (GgafDx9PointSpriteActor*)prm_pActor_Target;
     //対象PointSpriteActorのエフェクトラッパ
-    GgafDx9PointSpriteEffect* pPointSpriteEffect = (GgafDx9PointSpriteEffect*)prm_pActor_Target->_pGgafDx9Effect;
+    GgafDx9PointSpriteEffect* pPointSpriteEffect = pTargetActor->_pPointSpriteEffect; //(GgafDx9PointSpriteEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pPointSpriteEffect->_pID3DXEffect;
 

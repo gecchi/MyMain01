@@ -29,9 +29,9 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 //#endif
 
     string effect_file_name = GGAFDX9_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
-    if (prm_effect_name == "HoshiBoshiEffect") {
-        dwFlags = D3DXSHADER_DEBUG|D3DXSHADER_SKIPOPTIMIZATION;
-    }
+//    if (prm_effect_name == "HoshiBoshiEffect") {
+//        dwFlags = D3DXSHADER_DEBUG|D3DXSHADER_SKIPOPTIMIZATION;
+//    }
     HRESULT hr = D3DXCreateEffectFromFile(
                      GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
                      effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile

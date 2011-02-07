@@ -3169,7 +3169,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
                 model_size_vertices,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9PointSpriteModel::FVF,
-                D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
+                D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT D3DPOOL_MANAGED
                 &(prm_pPointSpriteModel->_pIDirect3DVertexBuffer9),
                 NULL);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restorePointSpriteModel] _pID3DDevice9->CreateVertexBuffer Ž¸”s model="<<(prm_pPointSpriteModel->_model_name));
