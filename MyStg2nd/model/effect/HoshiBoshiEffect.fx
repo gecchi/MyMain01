@@ -25,7 +25,7 @@ int g_TextureSplitRowcol; //テクスチャの縦横分割数。
                             //3：縦横３分割＝９個のアニメパターン
 float g_offsetU;        //テクスチャU座標増分
 float g_offsetV;         //テクスチャV座標増分
-float g_UvFlipPtnNo;
+int g_UvFlipPtnNo;
 
 float3 g_vecLightDirection; // ライトの方向
 float4 g_colLightAmbient;   // Ambienライト色（入射色）
@@ -186,9 +186,14 @@ OUT_VS VS_HoshiBoshi(
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 
 	//奥ほど小さく表示するために縮小率計算
+
 	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;  //通常の奥行きの縮小率
-    int ptnno = ((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
+
+    int ptnno = (int)(((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % ((int)(g_TextureSplitRowcol*g_TextureSplitRowcol)));
+
 	//スペキュラセマンテックス(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
+
+
 	out_vs.uv_ps.x = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
 	out_vs.uv_ps.y = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
 

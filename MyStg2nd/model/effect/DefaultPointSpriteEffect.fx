@@ -75,8 +75,9 @@ struct OUT_VS
 OUT_VS GgafDx9VS_DefaultPointSprite(
       float4 prm_pos         : POSITION,  //ポイントスプライトのポイント群
       float  prm_psize_rate  : PSIZE,     //PSIZEでは無くて、スケールの率(0.0～N (1.0=等倍)) が入ってくる
-      float2 prm_ptn_no      : TEXCOORD0, //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
-      float4 prm_col         : COLOR0     //オブジェクトのカラー
+      float4 prm_col         : COLOR0,     //オブジェクトのカラー
+      float2 prm_ptn_no      : TEXCOORD0 //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
+
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
@@ -98,7 +99,7 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_DefaultPointSprite(
-	float2 prm_uv_pointsprite	  : TEXCOORD0,     
+	float2 prm_uv_pointsprite	  : TEXCOORD0,   //(0.F, 0.F), (0.F, 1.F), (1.F, 0.F), (1.F, 1.F)が来る   
 	float4 prm_col                : COLOR0,
 	float4 prm_uv_ps              : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
 ) : COLOR  {
