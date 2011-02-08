@@ -89,10 +89,19 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;
 
-    int ptnno = ((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
-	//スペキュラ(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
-	out_vs.uv_ps.x = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
-	out_vs.uv_ps.y = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
+	//スペキュラセマンテックス(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
+	int ptnno = prm_ptn_no.x + g_UvFlipPtnNo;
+    if (ptnno >= g_TextureSplitRowcol*g_TextureSplitRowcol) {
+        ptnno -= (g_TextureSplitRowcol*g_TextureSplitRowcol);
+    }
+	out_vs.uv_ps.x = fmod(ptnno, g_TextureSplitRowcol) / g_TextureSplitRowcol;
+	out_vs.uv_ps.y = trunc(ptnno / g_TextureSplitRowcol) / g_TextureSplitRowcol;
+
+//    int ptnno = ((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
+//	//スペキュラ(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
+//	out_vs.uv_ps.x = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
+//	out_vs.uv_ps.y = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
+
 	out_vs.col = prm_col;
 	return out_vs;
 }

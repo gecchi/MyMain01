@@ -173,8 +173,6 @@ OUT_VS VS_HoshiBoshi(
         out_vs.col.a = r2 - 1.0;
 	}
 
-out_vs.col.a = 1.0;//test
-
 	out_vs.pos = mul(out_vs.pos , g_matView);  //View
 //	float dep = out_vs.pos.z + 1.0; //+1.0の意味は
 //                                    //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
@@ -191,15 +189,13 @@ out_vs.col.a = 1.0;//test
 
 	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;  //通常の奥行きの縮小率
 
-    //int ptnno = (int)(((int)(((int)prm_ptn_no.x) + g_UvFlipPtnNo)) % ((int)(g_TextureSplitRowcol*g_TextureSplitRowcol)));
- //   int ptnno = trunc(prm_ptn_no.x + 0.00001);
 	//スペキュラセマンテックス(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
-	int ptnno = fmod((prm_ptn_no.x + g_UvFlipPtnNo), (g_TextureSplitRowcol*g_TextureSplitRowcol));
-
-	out_vs.uv_ps.x = (fmod(ptnno , g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
-	out_vs.uv_ps.y = (trunc(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
-//	out_vs.uv_ps.x = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
-//	out_vs.uv_ps.y = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
+	int ptnno = prm_ptn_no.x + g_UvFlipPtnNo;
+    if (ptnno >= g_TextureSplitRowcol*g_TextureSplitRowcol) {
+        ptnno -= (g_TextureSplitRowcol*g_TextureSplitRowcol);
+    }
+	out_vs.uv_ps.x = fmod(ptnno, g_TextureSplitRowcol) / g_TextureSplitRowcol;
+	out_vs.uv_ps.y = trunc(ptnno / g_TextureSplitRowcol) / g_TextureSplitRowcol;
 
 	return out_vs;
 }
@@ -211,8 +207,8 @@ float4 PS_HoshiBoshi(
 	float4 prm_uv_ps              : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
 ) : COLOR  {
 	float2 uv = (float2)0;
-	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
-	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
+	uv.x = prm_uv_pointsprite.x / g_TextureSplitRowcol + prm_uv_ps.x;
+	uv.y = prm_uv_pointsprite.y / g_TextureSplitRowcol + prm_uv_ps.y;
 	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col; // * g_colMaterialDiffuse;
 	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;

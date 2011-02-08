@@ -15,11 +15,11 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,1000};
-	_paFrame_NextEvent = new frame[2];
-	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 2;
-	orderSceneToFactory(10000000, Stage01WalledScene, "GroStage01WalledScene");
+    frame f[] = {1,1000};
+    _paFrame_NextEvent = new frame[2];
+    memcpy(_paFrame_NextEvent, f, sizeof(f));
+    _event_num = 2;
+    orderSceneToFactory(10000000, Stage01WalledScene, "GroStage01WalledScene");
     // gen01 end
     useProgress(10);
 }
@@ -34,21 +34,21 @@ void Stage01Controller::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
-		switch (getActivePartFrame()) {
-			case 1: {
-				break;
-			}
-			case 1000: {
-				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000000);
-				addSubLast(pScene);
-				break;
-			}
-			default :
-				break;
-		}
-		_iCnt_Event = (_iCnt_Event < 2-1 ? _iCnt_Event+1 : _iCnt_Event);
-	}
+    if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
+        switch (getActivePartFrame()) {
+            case 1: {
+                break;
+            }
+            case 1000: {
+                Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000000);
+                addSubLast(pScene);
+                break;
+            }
+            default :
+                break;
+        }
+        _iCnt_Event = (_iCnt_Event < 2-1 ? _iCnt_Event+1 : _iCnt_Event);
+    }
     // gen02 end
 
     if (_pProgress->wasChangedTo(STAGE01CONTROLLER_SCENE_PROG_INIT)) {

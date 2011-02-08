@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
         GgafDx9PointSpriteActor(prm_name,
-                               "pstest",
+                               "hoshitest",
                                "HoshiBoshiEffect",
                                "HoshiBoshiTechnique",
                                NULL ) {
@@ -45,17 +45,15 @@ void HoshiBoshi001::initialize() {
 }
 
 void HoshiBoshi001::onActive() {
-//    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 60);
-    //TODO:星のフリップ順番がおかしい。あとでなおせ！！
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5);
 }
 
 void HoshiBoshi001::processBehavior() {
     if (_X < -_CAM_ZF) {
         _X += (_CAM_ZF*2);
     } else {
-        _X -= 100;
+        _X -= 3000;
     }
-    _pUvFlipper->setPtnNo(5);
     _pUvFlipper->behave();
 }
 
