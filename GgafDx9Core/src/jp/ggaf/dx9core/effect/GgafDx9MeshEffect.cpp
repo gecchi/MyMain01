@@ -21,7 +21,7 @@ GgafDx9MeshEffect::GgafDx9MeshEffect(char* prm_effect_name) : GgafDx9Effect(prm_
     hr = _pID3DXEffect->SetValue("g_colLightAmbient", &(GgafDx9God::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
     checkDxException(hr, D3D_OK, "GgafDx9MeshEffect::GgafDx9MeshEffect SetValue(g_colLightAmbient) に失敗しました。");
 
-    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf*0.8);
+    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf);
     checkDxException(hr, D3D_OK, "GgafDx9MeshEffect::GgafDx9SpriteEffect SetFloat(g_zf) に失敗しました。");
     //シェーダーハンドル
     _h_matView = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );

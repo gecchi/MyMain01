@@ -14,7 +14,7 @@ GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect(char* prm_effect_name) : GgafDx9E
     hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_vMatrixProj );
     checkDxException(hr, D3D_OK, "GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect SetMatrix() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf*0.8);
+    hr = _pID3DXEffect->SetFloat("g_zf", P_CAM->_zf);
     checkDxException(hr, D3D_OK, "GgafDx9SpriteEffect::GgafDx9SpriteEffect SetFloat(g_zf) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 

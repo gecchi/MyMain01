@@ -21,7 +21,7 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
     //対象Actor
     GgafDx9PointSpriteActor* pTargetActor = (GgafDx9PointSpriteActor*)prm_pActor_Target;
     //対象PointSpriteActorのエフェクトラッパ
-    GgafDx9PointSpriteEffect* pPointSpriteEffect = pTargetActor->_pPointSpriteEffect; //(GgafDx9PointSpriteEffect*)prm_pActor_Target->_pGgafDx9Effect;
+    GgafDx9PointSpriteEffect* pPointSpriteEffect = (GgafDx9PointSpriteEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pPointSpriteEffect->_pID3DXEffect;
 
@@ -37,10 +37,10 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
         hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_h_tex_blink_threshold, _fBlinkThreshold);
         checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_hTexSize, _fTexSize);
-                _TRACE_("_fTexSize="<<_fTexSize);
+//                _TRACE_("_fTexSize="<<_fTexSize);
         checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::draw() SetFloat(_hTexSize) に失敗しました。");
         hr = pID3DXEffect->SetInt(pPointSpriteEffect->_hTextureSplitRowcol, _texture_split_rowcol);
-                _TRACE_("_texture_split_rowcol="<<_texture_split_rowcol);
+//                _TRACE_("_texture_split_rowcol="<<_texture_split_rowcol);
         checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::draw() SetInt(_hTextureSplitRowcol) に失敗しました。");
 
     }

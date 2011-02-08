@@ -23,34 +23,17 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                          texture_file_name.c_str(), // [in] LPCTSTR pSrcFile,
                          D3DX_DEFAULT,              // [in] UINT Width,
                          D3DX_DEFAULT,              // [in] UINT Height,
-                         1,              // [in] UINT MipLevels,
+                         0,                         // [in] UINT MipLevels,  //D3DX_DEFAULT,
                          0,                         // [in] DWORD Usage,
                          D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
-                         D3DPOOL_MANAGED,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
-                         D3DX_FILTER_POINT,         // [in] DWORD Filter, D3DX_FILTER_POINTでボヤケナイ
+                         D3DPOOL_DEFAULT,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
+                         D3DX_DEFAULT,              // [in] DWORD Filter, D3DX_FILTER_POINTでボヤケナイ. D3DX_FILTER_LINEAR
                          D3DX_DEFAULT,              // [in] DWORD MipFilter,
                          0,                         // [in] D3DCOLOR ColorKey,
-                         _pD3DXIMAGE_INFO,                      // [in] D3DXIMAGE_INFO *pSrcInfo,
+                         _pD3DXIMAGE_INFO,          // [out] D3DXIMAGE_INFO *pSrcInfo,
                          NULL,                      // [in] PALETTEENTRY *pPalette,
-                         &pIDirect3DTexture9    // [out] GgafDx9TextureConnection* *ppTextureCon
+                         &pIDirect3DTexture9        // [out] LPDIRECT3DTEXTURE9* ppTexture
                     );
-
-//        HRESULT hr = D3DXCreateTextureFromFileEx(
-//                         GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
-//                         texture_file_name.c_str(), // [in] LPCTSTR pSrcFile,
-//                         D3DX_DEFAULT,              // [in] UINT Width,
-//                         D3DX_DEFAULT,              // [in] UINT Height,
-//                         0,                         // [in] UINT MipLevels,  //D3DX_DEFAULT,
-//                         0,                         // [in] DWORD Usage,
-//                         D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
-//                         D3DPOOL_DEFAULT,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
-//                         D3DX_DEFAULT,              // [in] DWORD Filter, D3DX_FILTER_POINTでボヤケナイ. D3DX_FILTER_LINEAR
-//                         D3DX_DEFAULT,              // [in] DWORD MipFilter,
-//                         0,                         // [in] D3DCOLOR ColorKey,
-//                         _pD3DXIMAGE_INFO,          // [out] D3DXIMAGE_INFO *pSrcInfo,
-//                         NULL,                      // [in] PALETTEENTRY *pPalette,
-//                         &pIDirect3DTexture9        // [out] LPDIRECT3DTEXTURE9* ppTexture
-//                    );
         if (hr != D3D_OK) {
             _TRACE_("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_texture_name);
             //失敗用テクスチャ"GgafDx9IlligalTexture.png"を設定
