@@ -3201,7 +3201,9 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     prm_pPointSpriteModel->_size_vertex_unit = model_size_vertex_unit;
     prm_pPointSpriteModel->_paVtxBuffer_org = model_paVtxBuffer_org;
     prm_pPointSpriteModel->_fBoundingSphereRadius = model_fBoundingSphereRadius;
-
+‚±‚ê
+    RELEASE_SAFETY(pIDirectXFileData);
+    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }
 
 
