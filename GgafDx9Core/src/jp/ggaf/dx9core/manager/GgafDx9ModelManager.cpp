@@ -1671,7 +1671,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     } else {
         throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<" のGUIDが一致しません。");
     }
-
+    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
     //テクスチャ取得しモデルに保持させる
     //string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
     GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
@@ -1867,7 +1867,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     } else {
         throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteSetModel] "<<xfile_name<<" のGUIDが一致しません。");
     }
-
+    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
     //テクスチャ取得しモデルに保持させる
     GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
@@ -3097,6 +3097,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     } else {
         throwGgafCriticalException("[GgafDx9ModelManager::restorePointSpriteModel] "<<xfile_name<<" のGUIDが一致しません。");
     }
+    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
     //退避
     float model_fSquareSize = *pFloat_SquareSize;
     int model_texture_split_rowcol = *pInt_TextureSplitRowCol;
