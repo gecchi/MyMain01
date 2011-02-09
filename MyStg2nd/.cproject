@@ -1731,7 +1731,7 @@
 			</storageModule>
 		</cconfiguration>
 		<cconfiguration id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.2114002915">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.2114002915" moduleId="org.eclipse.cdt.core.settings" name="Release whit gprof">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.2114002915" moduleId="org.eclipse.cdt.core.settings" name="GprofCdt">
 				<externalSettings/>
 				<extensions>
 					<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
@@ -1744,7 +1744,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="exe" artifactName="MyStg2nd" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.2114002915" name="Release whit gprof" parent="cdt.managedbuild.config.gnu.cygwin.exe.debug" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="windres ../MySTG2nd.rc -o MySTG2nd_rc.o ">
+				<configuration artifactExtension="exe" artifactName="MyStg2nd" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.2114002915" name="GprofCdt" parent="cdt.managedbuild.config.gnu.cygwin.exe.debug" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="windres ../MySTG2nd.rc -o MySTG2nd_rc.o ">
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.2114002915." name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.base.1232095885" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.PE;org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="cdt.managedbuild.target.gnu.platform.mingw.base.1415112105" name="デバッグ・プラットフォーム" osList="win32" superClass="cdt.managedbuild.target.gnu.platform.mingw.base"/>
@@ -1818,12 +1818,12 @@
 								</option>
 								<option id="gnu.cpp.link.option.paths.1319535778" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/MyStg2nd/VClib}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/Release whit gprof}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/GprofCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/Release whit gprof}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/Release whit gprof}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/Release whit gprof}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/Release whit gprof}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/GprofCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/GprofCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/GprofCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/GprofCdt}&quot;"/>
 								</option>
 								<option id="gnu.cpp.link.option.flags.163018919" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/MyStg2nd/VClib/chkstk.o}&quot; -Wl,--enable-auto-import -mno-cygwin -mwindows --input-charset=cp932 --exec-charset=cp932 -std=gnu++0x -g -pg " valueType="string"/>
 								<option id="gnu.cpp.link.option.userobjs.1168997606" name="その他のオブジェクト" superClass="gnu.cpp.link.option.userobjs"/>
