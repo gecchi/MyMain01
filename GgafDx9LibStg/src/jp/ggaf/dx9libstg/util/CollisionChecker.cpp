@@ -166,13 +166,6 @@ void CollisionChecker::updateHitArea() {
 
 bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
     CollisionChecker* pOppCChecker = (CollisionChecker*)prm_pOppChecker;
-    _blown_sgn_vX = 0;
-    _blown_sgn_vY = 0;
-    _blown_sgn_vZ = 0;
-    pOppCChecker->_blown_sgn_vX = 0;
-    pOppCChecker->_blown_sgn_vY = 0;
-    pOppCChecker->_blown_sgn_vZ = 0;
-
     //TODO: だんだん肥大化してきた
     //当たり判定を行う相手のアクター
     GgafDx9GeometricActor* pOppActor = pOppCChecker->getTargetActor();

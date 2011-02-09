@@ -73,27 +73,27 @@ public:
                         if (pActor->_X + pAAB->_x2 >= pOppActor->_X + pOppAAB->_x1) {
                             if (pActor->_X + pAAB->_x1 <= pOppActor->_X + pOppAAB->_x2) {
 
-                                if (pActor->_Z + pAAB->_z1 < pOppActor->_Z + pOppAAB->_z1) {
-                                    pCChecker->_blown_sgn_vZ -= 1;
-                                }
-                                if (pActor->_Z + pAAB->_z2 > pOppActor->_Z + pOppAAB->_z2) {
+                                if (pActor->_Z + pAAB->_z1 <= pOppActor->_Z + pOppAAB->_z1) {
                                     pCChecker->_blown_sgn_vZ += 1;
                                 }
-                                if (pActor->_Y + pAAB->_y1 < pOppActor->_Y + pOppAAB->_y1) {
-                                    pCChecker->_blown_sgn_vY -= 1;
+                                if (pActor->_Z + pAAB->_z2 >= pOppActor->_Z + pOppAAB->_z2) {
+                                    pCChecker->_blown_sgn_vZ -= 1;
                                 }
-                                if (pActor->_Y + pAAB->_y2 > pOppActor->_Y + pOppAAB->_y2) {
+                                if (pActor->_Y + pAAB->_y1 <= pOppActor->_Y + pOppAAB->_y1) {
                                     pCChecker->_blown_sgn_vY += 1;
                                 }
-                                if (pActor->_X + pAAB->_x1 < pOppActor->_X + pOppAAB->_x1) {
-                                    pCChecker->_blown_sgn_vX -= 1;
+                                if (pActor->_Y + pAAB->_y2 >= pOppActor->_Y + pOppAAB->_y2) {
+                                    pCChecker->_blown_sgn_vY -= 1;
                                 }
-                                if (pActor->_X + pAAB->_x2 > pOppActor->_X + pOppAAB->_x2) {
+                                if (pActor->_X + pAAB->_x1 <= pOppActor->_X + pOppAAB->_x1) {
                                     pCChecker->_blown_sgn_vX += 1;
                                 }
-                                pOppCChecker->_blown_sgn_vX = -pCChecker->_blown_sgn_vX;
-                                pOppCChecker->_blown_sgn_vY = -pCChecker->_blown_sgn_vY;
-                                pOppCChecker->_blown_sgn_vZ = -pCChecker->_blown_sgn_vZ;
+                                if (pActor->_X + pAAB->_x2 >= pOppActor->_X + pOppAAB->_x2) {
+                                    pCChecker->_blown_sgn_vX -= 1;
+                                }
+                                pOppCChecker->_blown_sgn_vX += -pCChecker->_blown_sgn_vX;
+                                pOppCChecker->_blown_sgn_vY += -pCChecker->_blown_sgn_vY;
+                                pOppCChecker->_blown_sgn_vZ += -pCChecker->_blown_sgn_vZ;
 
                                 return true;
                             }

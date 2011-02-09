@@ -81,6 +81,8 @@ class LaserChipDispatcherDispatcher;
 }
 
 #include "jp/ggaf/dx9libstg/DefaultGod.h"
+#include "jp/ggaf/dx9libstg/util/CollisionChecker.h"
+#include "jp/ggaf/dx9libstg/util/CollisionCheckerLaserChip.h"
 #include "jp/ggaf/dx9libstg/util/ColliAAB.h"
 #include "jp/ggaf/dx9libstg/util/ColliSphere.h"
 #include "jp/ggaf/dx9libstg/util/ColliAAPrism.h"
@@ -130,8 +132,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h"
-#include "jp/ggaf/dx9libstg/util/CollisionChecker.h"
-#include "jp/ggaf/dx9libstg/util/CollisionCheckerLaserChip.h"
+
 
 #include "jp/ggaf/dx9libstg/actor/laserchip/LaserChip.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/CurveLaserChip.h"
