@@ -29,7 +29,6 @@ public:
     /** 線形８分木登録用要素 */
     LinearOctreeActorElem* _pElem;
 
-
     /**
      * コンストラクタ<BR>
      * @param	prm_pActor	当たり判定機能を追加するActor

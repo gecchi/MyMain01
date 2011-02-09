@@ -165,11 +165,19 @@ void CollisionChecker::updateHitArea() {
 
 
 bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
+    CollisionChecker* pOppCChecker = (CollisionChecker*)prm_pOppChecker;
+    _blown_sgn_vX = 0;
+    _blown_sgn_vY = 0;
+    _blown_sgn_vZ = 0;
+    pOppCChecker->_blown_sgn_vX = 0;
+    pOppCChecker->_blown_sgn_vY = 0;
+    pOppCChecker->_blown_sgn_vZ = 0;
+
     //TODO: だんだん肥大化してきた
     //当たり判定を行う相手のアクター
-    GgafDx9GeometricActor* pOppActor = prm_pOppChecker->getTargetActor();
+    GgafDx9GeometricActor* pOppActor = pOppCChecker->getTargetActor();
     //相手の当たり判定領域
-    GgafDx9CollisionArea* pOppCollisionArea = ((CollisionChecker*)prm_pOppChecker)->_pCollisionArea;
+    GgafDx9CollisionArea* pOppCollisionArea = pOppCChecker->_pCollisionArea;
 
 //    if (_pCollisionArea == NULL || pOppCollisionArea == NULL ||
 //        _pActor->isOutOfView() > 0 || pOppActor->isOutOfView() > 0 ) {  //視野外は判定しない
@@ -194,20 +202,20 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
             if (pColliPart->_shape_kind == COLLI_AAB) {
                 if (pOppColliPart->_shape_kind == COLLI_AAB) {
                     //＜AAB と AAB＞
-                    if (StgUtil::isHit(_pActor  , (ColliAAB*)pColliPart,
-                                       pOppActor, (ColliAAB*)pOppColliPart)) {
+                    if (StgUtil::isHit(this        , _pActor  , (ColliAAB*)pColliPart,
+                                       pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart)) {
                         return true;
                     }
                  } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
                      //＜AAB と 球＞
-                     if (StgUtil::isHit(_pActor  , (ColliAAB*)pColliPart,
-                                        pOppActor, (ColliSphere*)pOppColliPart)) {
+                     if (StgUtil::isHit(this        , _pActor  , (ColliAAB*)pColliPart,
+                                        pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
                          return true;
                      }
                  } else if (pOppColliPart->_shape_kind == COLLI_AAPRISM) {
                      //＜AAB と AAPrism＞
-                     if (StgUtil::isHit(pOppActor, (ColliAAPrism*)pOppColliPart,
-                                        _pActor  , (ColliAAB*)pColliPart)) {
+                     if (StgUtil::isHit(pOppCChecker, pOppActor, (ColliAAPrism*)pOppColliPart,
+                                        this        , _pActor  , (ColliAAB*)pColliPart)) {
                          return true;
                      }
                  }
@@ -215,20 +223,20 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
             } else if (pColliPart->_shape_kind == COLLI_SPHERE) {
                 if (pOppColliPart->_shape_kind == COLLI_AAB) {
                     //＜球 と AAB＞
-                    if (StgUtil::isHit(pOppActor, (ColliAAB*)pOppColliPart,
-                                       _pActor  , (ColliSphere*)pColliPart)) {
+                    if (StgUtil::isHit(pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart,
+                                       this        , _pActor  , (ColliSphere*)pColliPart)) {
                         return true;
                     }
                 } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
                     //＜球 と 球＞
-                    if (StgUtil::isHit(_pActor  , (ColliSphere*)pColliPart,
-                                       pOppActor, (ColliSphere*)pOppColliPart)) {
+                    if (StgUtil::isHit(this        , _pActor  , (ColliSphere*)pColliPart,
+                                       pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
                         return true;
                     }
                 } else if (pOppColliPart->_shape_kind == COLLI_AAPRISM) {
                     //＜球 と AAPrism＞
-                    if (StgUtil::isHit(pOppActor, (ColliAAPrism*)pOppColliPart,
-                                       _pActor  , (ColliSphere*)pColliPart)) {
+                    if (StgUtil::isHit(pOppCChecker, pOppActor, (ColliAAPrism*)pOppColliPart,
+                                       this        , _pActor  , (ColliSphere*)pColliPart)) {
                         return true;
                     }
                 }
@@ -236,14 +244,14 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
             } else if (pColliPart->_shape_kind == COLLI_AAPRISM) {
                 if (pOppColliPart->_shape_kind == COLLI_AAB) {
                     //＜AAPrism と AAB＞
-                    if (StgUtil::isHit(_pActor  , (ColliAAPrism*)pColliPart,
-                                      pOppActor, (ColliAAB*)pOppColliPart)) {
+                    if (StgUtil::isHit(this        , _pActor  , (ColliAAPrism*)pColliPart,
+                                       pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart)) {
                        return true;
                     }
                 } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
                     //＜AAPrism と 球＞
-                    if (StgUtil::isHit(_pActor  , (ColliAAPrism*)pColliPart,
-                                      pOppActor, (ColliSphere*)pOppColliPart)) {
+                    if (StgUtil::isHit(this        , _pActor  , (ColliAAPrism*)pColliPart,
+                                       pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
                        return true;
                     }
                 }  else if (pOppColliPart->_shape_kind == COLLI_AAPRISM) {

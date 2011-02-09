@@ -62,8 +62,8 @@ public:
 
 
 
-    static inline bool isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB* pAAB,
-                           GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppAAB) {
+    static inline bool isHit(CollisionChecker* pCChecker   , GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB* pAAB,
+                             CollisionChecker* pOppCChecker, GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppAAB) {
         //＜AAB と AAB＞
         //軸が一致しない確率が高そうな順番(Z>Y>X)に判定
         if (pActor->_Z + pAAB->_z2 >= pOppActor->_Z + pOppAAB->_z1) {
@@ -72,6 +72,29 @@ public:
                     if (pActor->_Y + pAAB->_y1 <= pOppActor->_Y + pOppAAB->_y2) {
                         if (pActor->_X + pAAB->_x2 >= pOppActor->_X + pOppAAB->_x1) {
                             if (pActor->_X + pAAB->_x1 <= pOppActor->_X + pOppAAB->_x2) {
+
+                                if (pActor->_Z + pAAB->_z1 < pOppActor->_Z + pOppAAB->_z1) {
+                                    pCChecker->_blown_sgn_vZ -= 1;
+                                }
+                                if (pActor->_Z + pAAB->_z2 > pOppActor->_Z + pOppAAB->_z2) {
+                                    pCChecker->_blown_sgn_vZ += 1;
+                                }
+                                if (pActor->_Y + pAAB->_y1 < pOppActor->_Y + pOppAAB->_y1) {
+                                    pCChecker->_blown_sgn_vY -= 1;
+                                }
+                                if (pActor->_Y + pAAB->_y2 > pOppActor->_Y + pOppAAB->_y2) {
+                                    pCChecker->_blown_sgn_vY += 1;
+                                }
+                                if (pActor->_X + pAAB->_x1 < pOppActor->_X + pOppAAB->_x1) {
+                                    pCChecker->_blown_sgn_vX -= 1;
+                                }
+                                if (pActor->_X + pAAB->_x2 > pOppActor->_X + pOppAAB->_x2) {
+                                    pCChecker->_blown_sgn_vX += 1;
+                                }
+                                pOppCChecker->_blown_sgn_vX = -pCChecker->_blown_sgn_vX;
+                                pOppCChecker->_blown_sgn_vY = -pCChecker->_blown_sgn_vY;
+                                pOppCChecker->_blown_sgn_vZ = -pCChecker->_blown_sgn_vZ;
+
                                 return true;
                             }
                         }
@@ -82,8 +105,8 @@ public:
         return false;
     }
 
-    static inline bool isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliSphere* pSphere,
-                           GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere) {
+    static inline bool isHit(CollisionChecker* pCChecker   , GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliSphere* pSphere,
+                             CollisionChecker* pOppCChecker, GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere) {
         //＜球 と 球＞
         //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
         //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
@@ -101,8 +124,8 @@ public:
         }
     }
 
-    static inline bool isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB*    pAAB,
-                           GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere) {
+    static inline bool isHit(CollisionChecker* pCChecker   , GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAB*    pAAB,
+                             CollisionChecker* pOppCChecker, GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere* pOppSphere) {
         //＜AAB と 球＞
         int o_scx =  pOppActor->_X+pOppSphere->_cx;
         int o_scy =  pOppActor->_Y+pOppSphere->_cy;
@@ -141,8 +164,8 @@ public:
     }
 
 
-    static inline bool isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPrism* pAAPrism,
-                           GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppAAB) {
+    static inline bool isHit(CollisionChecker* pCChecker   , GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPrism* pAAPrism,
+                             CollisionChecker* pOppCChecker, GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliAAB* pOppAAB) {
         //＜プリズム と AAB＞
         int aX1 = pActor->_X + pAAPrism->_x1;
         int aY1 = pActor->_Y + pAAPrism->_y1;
@@ -398,8 +421,8 @@ public:
 
 
 
-    static inline bool isHit(GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPrism* pAAPrism,
-                           GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere*  pOppSphere) {
+    static inline bool isHit(CollisionChecker* pCChecker   , GgafDx9Core::GgafDx9GeometricActor* pActor   , ColliAAPrism* pAAPrism,
+                             CollisionChecker* pOppCChecker, GgafDx9Core::GgafDx9GeometricActor* pOppActor, ColliSphere*  pOppSphere) {
         //＜プリズム と 球＞
         int aX1 = pActor->_X + pAAPrism->_x1;
         int aY1 = pActor->_Y + pAAPrism->_y1;
@@ -409,7 +432,8 @@ public:
         int aZ2 = pActor->_Z + pAAPrism->_z2;
 
         //AAB 対 球でまず判定する
-        if (isHit(pActor, (ColliAAB*)pAAPrism, pOppActor, pOppSphere)) {
+        if (isHit(pCChecker   , pActor   , (ColliAAB*)pAAPrism,
+                  pOppCChecker, pOppActor, pOppSphere)          ) {
             //この時点でAAB 対 球でヒット。ここからプリズムでもヒットか検証する
             int pos = pAAPrism->_pos_prism;
             double a = pAAPrism->_a;
