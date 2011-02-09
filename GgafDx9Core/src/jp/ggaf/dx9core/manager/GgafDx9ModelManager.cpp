@@ -956,7 +956,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                 paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
             }
 
-            static float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
+            float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
             for (int i = 0; i < nFaces; i++) {
                 for (int j = 0; j < 3; j++) {
                     indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];       //面に対する頂点インデックス３つ
@@ -1058,7 +1058,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             int n = 0;
             int nVertices_begin = 0;
             int nVertices_end = 0;
-            static D3DXMATRIX FrameTransformMatrix;
+            D3DXMATRIX FrameTransformMatrix;
 
             for (std::list<Frm::Bone*>::iterator iteBone = model_papModel3D[pattern]->_toplevel_Skelettons.begin() ;
                     iteBone != model_papModel3D[pattern]->_toplevel_Skelettons.end(); iteBone++) {
@@ -1096,8 +1096,8 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                             nVertices_end += paNumVertices[n];
                         }
 
-                        static D3DXVECTOR3 vecVertex;
-                        static D3DXVECTOR3 vecNormal;
+                        D3DXVECTOR3 vecVertex;
+                        D3DXVECTOR3 vecNormal;
                         if (pattern == 0) {
                             for (int i = nVertices_begin; i < nVertices_end; i++) {
                                 vecVertex.x = model_paVtxBuffer_org_primary[i].x;
@@ -1142,7 +1142,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             DELETE_IMPOSSIBLE_NULL(paNumVertices);
 
             //最後に法線正規化して設定
-            static D3DXVECTOR3 vec;
+            D3DXVECTOR3 vec;
             for (int i = 0; i < nVertices; i++) {
                 if (pattern == 0) { //プライマリメッシュ
                     vec.x = model_paVtxBuffer_org_primary[i].nx;
@@ -2063,8 +2063,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     prm_pSpriteSetModel->_paRectUV = model_paRectUV;
     prm_pSpriteSetModel->_pattno_uvflip_Max=pattnum-1;
     prm_pSpriteSetModel->_dwNumMaterials = 1;
-    D3DMATERIAL9* model_paD3DMaterial9;
-    model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pSpriteSetModel->_dwNumMaterials];
+    D3DMATERIAL9* model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pSpriteSetModel->_dwNumMaterials];
     for( DWORD i = 0; i < prm_pSpriteSetModel->_dwNumMaterials; i++){
         //model_paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
         model_paD3DMaterial9[i].Diffuse.r = 1.0f;
@@ -2406,7 +2405,7 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
         }
 
         hr = GgafDx9God::_pID3DDevice9->CreateIndexBuffer(
-                               sizeof(WORD) * nFaces * 3 * prm_pBoardSetModel->_set_num,
+                                sizeof(WORD) * nFaces * 3 * prm_pBoardSetModel->_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
@@ -2464,8 +2463,7 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     prm_pBoardSetModel->_paRectUV = model_paRectUV;
     prm_pBoardSetModel->_pattno_max = pattnum-1;
     prm_pBoardSetModel->_dwNumMaterials = 1;
-    D3DMATERIAL9* model_paD3DMaterial9;
-    model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pBoardSetModel->_dwNumMaterials];
+    D3DMATERIAL9* model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pBoardSetModel->_dwNumMaterials];
     for( DWORD i = 0; i < prm_pBoardSetModel->_dwNumMaterials; i++){
         //model_paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
         model_paD3DMaterial9[i].Diffuse.r = 1.0f;
@@ -2600,8 +2598,8 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             paRadSum_Vtx[i] = 0;
         }
         std::fill_n(paRadSum_Vtx, nVertices, 0);
-        static unsigned short indexVertices_per_Face[3];
-        static unsigned short indexNormals_per_Face[3];
+        unsigned short indexVertices_per_Face[3];
+        unsigned short indexNormals_per_Face[3];
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
                 //面に対する頂点インデックス３つ(A,B,Cとする)
@@ -2639,7 +2637,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
         }
 
-        static float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
+        float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
                 indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ
@@ -2726,7 +2724,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                     _TRACE_("FrameTransformMatrix is Identity");
                 } else {
                     _TRACE_("Execute FrameTransform!");
-                    static D3DXMATRIX FrameTransformMatrix;
+                    D3DXMATRIX FrameTransformMatrix;
                     FrameTransformMatrix._11 = pMatPos->data[0];
                     FrameTransformMatrix._12 = pMatPos->data[1];
                     FrameTransformMatrix._13 = pMatPos->data[2];
@@ -2752,8 +2750,8 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                         nVertices_end += paNumVertices[n];
                     }
 
-                    static D3DXVECTOR3 vecVertex;
-                    static D3DXVECTOR3 vecNormal;
+                    D3DXVECTOR3 vecVertex;
+                    D3DXVECTOR3 vecNormal;
                     for (int i = nVertices_begin; i < nVertices_end; i++) {
                         vecVertex.x = unit_paVtxBuffer_org[i].x;
                         vecVertex.y = unit_paVtxBuffer_org[i].y;
@@ -2778,7 +2776,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         DELETE_IMPOSSIBLE_NULL(paNumVertices);
 
         //最後に法線正規化して設定
-        static D3DXVECTOR3 vec;
+        D3DXVECTOR3 vec;
         for (int i = 0; i < nVertices; i++) {
             vec.x = unit_paVtxBuffer_org[i].nx;
             vec.y = unit_paVtxBuffer_org[i].ny;
@@ -3201,7 +3199,6 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     prm_pPointSpriteModel->_size_vertex_unit = model_size_vertex_unit;
     prm_pPointSpriteModel->_paVtxBuffer_org = model_paVtxBuffer_org;
     prm_pPointSpriteModel->_fBoundingSphereRadius = model_fBoundingSphereRadius;
-これ
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }
@@ -3256,15 +3253,15 @@ void GgafDx9ModelManager::releaseAll() {
 }
 
 float GgafDx9ModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2) {
-    static Frm::Vector V0;
-    static Frm::Vector V1;
-    static Frm::Vector V2;
+    Frm::Vector V0;
+    Frm::Vector V1;
+    Frm::Vector V2;
     V0.x = v0.data[0]; V0.y = v0.data[1]; V0.z = v0.data[2];
     V1.x = v1.data[0]; V1.y = v1.data[1]; V1.z = v1.data[2];
     V2.x = v2.data[0]; V2.y = v2.data[1]; V2.z = v2.data[2];
-    static Frm::Vector V;
+    Frm::Vector V;
     V = V2 - V1;
-    static Frm::Vector W;
+    Frm::Vector W;
     W = V0 - V1;
     //ベクトル V W の成す角を求める
     //    V=(vx,vy,vz)=(bx-ax,by-ay,bz-az)
@@ -3273,7 +3270,7 @@ float GgafDx9ModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm
     //    cosα=(V、Wベクトルの内積）÷（Vの大きさ）÷（Wの大きさ）
     //        =(vx*wx+vy*wy+vz*wz)
     //         ÷ルート(vx^2+vy^2+vz^2)÷ルート(wx^2+wy^2+wz^2)
-    static float DOT, LV, LW, cosV1;
+    float DOT, LV, LW, cosV1;
     //TRACE3("V=("<<V.x<<"."<<V.y<<","<<V.z<<")");
     //TRACE3("W=("<<W.x<<"."<<W.y<<","<<W.z<<")");
     DOT = V.Dot(W);
