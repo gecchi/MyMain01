@@ -272,6 +272,14 @@ public:
     /** ‘€ì‰Â”Û */
     bool _can_control;
 
+    /** ‚Á”ò‚ÑX¬•ª */
+    int _blown_veloX;
+    /** ‚Á”ò‚ÑY¬•ª */
+    int _blown_veloY;
+    /** ‚Á”ò‚ÑZ¬•ª */
+    int _blown_veloZ;
+    /** ‚Á”ò‚Ñ‚ğ—}‚¦‚é—Í */
+    int _anti_blown_velo;
 
     MyShip(const char* prm_name);
 

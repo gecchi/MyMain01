@@ -172,6 +172,11 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
 
     _can_control = true;
     _is_diving = false;
+
+    _blown_veloX = 0;
+    _blown_veloY = 0;
+    _blown_veloZ = 0;
+    _anti_blown_velo = 100;
 }
 void MyShip::processReset() {
     _frame_soft_rapidshot = 0;
@@ -381,10 +386,20 @@ void MyShip::processBehavior() {
 
     ////////////////////////////////////////////////////
 
+
+
     //座標に反映
     _pMover->behave();
     _pScaler->behave();
     _pSeTransmitter->behave();
+
+    //吹っ飛び
+    _blown_veloX = _blown_veloX > _anti_blown_velo ? _blown_veloX - _anti_blown_velo : 0;
+    _blown_veloY = _blown_veloY > _anti_blown_velo ? _blown_veloY - _anti_blown_velo : 0;
+    _blown_veloZ = _blown_veloZ > _anti_blown_velo ? _blown_veloZ - _anti_blown_velo : 0;
+    _X += _blown_veloX;
+    _Y += _blown_veloY;
+    _Z += _blown_veloZ;
 
     if (!_is_diving) {
         if (_Y > MyShip::_lim_top) {
@@ -512,8 +527,16 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
         pExplo001->setCoordinateBy(this);
         pExplo001->activate();
     }
+
     if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
+    }
+
+    //壁の場合特別な処理
+    if (prm_pOtherActor->_obj_class & Obj_WallActor > 0) {
+        _blown_veloX = sgn(_pCollisionChecker->_blown_sgn_vX)*30000;
+        _blown_veloY = sgn(_pCollisionChecker->_blown_sgn_vY)*30000;
+        _blown_veloZ = sgn(_pCollisionChecker->_blown_sgn_vZ)*30000;
     }
 
 }
