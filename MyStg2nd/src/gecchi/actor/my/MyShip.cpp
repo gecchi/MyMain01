@@ -534,9 +534,9 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
 
     //•Ç‚Ìê‡“Á•Ê‚Èˆ—
     if (prm_pOtherActor->_obj_class & Obj_WallActor > 0) {
-        _blown_veloX = sgn(_pCollisionChecker->_blown_sgn_vX)*30000;
-        _blown_veloY = sgn(_pCollisionChecker->_blown_sgn_vY)*30000;
-        _blown_veloZ = sgn(_pCollisionChecker->_blown_sgn_vZ)*30000;
+        _blown_veloX += sgn(_pCollisionChecker->_blown_sgn_vX)*10000;
+        _blown_veloY += sgn(_pCollisionChecker->_blown_sgn_vY)*10000;
+        _blown_veloZ += sgn(_pCollisionChecker->_blown_sgn_vZ)*10000;
     }
 
 }
