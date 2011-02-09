@@ -960,7 +960,7 @@
 			</storageModule>
 		</cconfiguration>
 		<cconfiguration id="cdt.managedbuild.config.gnu.mingw.lib.release.1756257423.1694006970.409929585">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.mingw.lib.release.1756257423.1694006970.409929585" moduleId="org.eclipse.cdt.core.settings" name="Release whit gprof">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.mingw.lib.release.1756257423.1694006970.409929585" moduleId="org.eclipse.cdt.core.settings" name="GprofCdt">
 				<externalSettings>
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/CustomizeOgg_static"/>
@@ -979,7 +979,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="CustomizeOgg_static" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.mingw.lib.release.1756257423.1694006970.409929585" name="Release whit gprof" parent="cdt.managedbuild.config.gnu.mingw.lib.release">
+				<configuration artifactExtension="a" artifactName="CustomizeOgg_static" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.mingw.lib.release.1756257423.1694006970.409929585" name="GprofCdt" parent="cdt.managedbuild.config.gnu.mingw.lib.release">
 					<folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.release.1756257423.1694006970.409929585." name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.lib.release.941778524" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.release">
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.lib.release.536492961" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.release"/>
