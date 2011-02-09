@@ -16,7 +16,12 @@ protected:
     GgafDx9GeometricActor* _pActor;
 
 public:
-
+    /** ‚Á”ò‚ÑX¬•ª */
+    int _blown_sgn_vX;
+    /** ‚Á”ò‚ÑY¬•ª */
+    int _blown_sgn_vY;
+    /** ‚Á”ò‚ÑZ¬•ª */
+    int _blown_sgn_vZ;
     /** “–‚½‚è”»’è—Ìˆæ */
     GgafDx9Core::GgafDx9CollisionArea* _pCollisionArea;
 
