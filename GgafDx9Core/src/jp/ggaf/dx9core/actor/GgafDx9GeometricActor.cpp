@@ -117,6 +117,9 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
 
     //‚W•ª–Ø“o˜^
     if (_pChecker) {
+		_pChecker->_blown_sgn_vX = 0;
+		_pChecker->_blown_sgn_vY = 0;
+		_pChecker->_blown_sgn_vZ = 0;
         _pChecker->updateHitArea();
     }
 

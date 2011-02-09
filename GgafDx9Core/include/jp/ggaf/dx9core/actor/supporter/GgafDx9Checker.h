@@ -16,15 +16,15 @@ protected:
     GgafDx9GeometricActor* _pActor;
 
 public:
+
+    /** 当たり判定領域 */
+    GgafDx9Core::GgafDx9CollisionArea* _pCollisionArea;
     /** 吹っ飛びX成分 */
     int _blown_sgn_vX;
     /** 吹っ飛びY成分 */
     int _blown_sgn_vY;
     /** 吹っ飛びZ成分 */
     int _blown_sgn_vZ;
-    /** 当たり判定領域 */
-    GgafDx9Core::GgafDx9CollisionArea* _pCollisionArea;
-
     /**
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
