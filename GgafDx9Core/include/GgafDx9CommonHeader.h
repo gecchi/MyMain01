@@ -45,6 +45,7 @@
 #define ANGLE_PI (180000)
 #define ANGLE_2PI (360000)
 
+//プリズム位置定数
 #define POS_PRISM_XY_nn   (0x11) //0b 0010001
 #define POS_PRISM_XY_np   (0x12) //0b 0010010
 #define POS_PRISM_XY_pn   (0x14) //0b 0010100
@@ -65,6 +66,7 @@
 #define POS_PRISM_XY      (0x10) //0b 0010000
 #define POS_PRISM_YZ      (0x20) //0b 0100000
 #define POS_PRISM_ZX      (0x40) //0b 1000000
+
 //DirectXの3D空間の座標単位１に対しての原点付近の画面px相当数（画面高さ(px)などを、PX_UNITで割ると3D空間の座標単位１になる）
 #define PX_UNIT (10)
 //原点付近の画面上の１px相当に対してのPG内での座標単位の比率（PG内での座標単位を LEN_UNITで割ると3D空間のpxになる）

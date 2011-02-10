@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
  */
 class ColliAAPrism : public ColliAAB {
 public:
-
+    /** プリズム位置 */
     int _pos_prism;
     /** プリズム斜辺の境界線傾き */
     double _a;

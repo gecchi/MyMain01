@@ -17,7 +17,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
     //   b  = (x1y2-x2y1) / (x1-x2)
 
     //   y  = {(y2-y1)/(x2-x1)} (x-x1) + y1
-    //+90度で法泉で行こう
+    //+90度で法線で行こう
     int x1_s, y1_s, x2_e, y2_e;
     _pos_prism = pos_prism;
     if (_pos_prism & POS_PRISM_XY) {
@@ -210,6 +210,9 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
         _b = (x1_s*y2_e - x2_e*y1_s) / (x1_s - x2_e);
     }
 
+
+    //当たり判定時に使用する計算用値 _vIH_x, _vIH_yを求めておく
+
     //斜辺ベクトル(x2_e-x1_s, y2_e-y1_s)に90度加えると
     //斜辺面法線ベクトルとなるようにしてある。
     //ここで保持しておきたいのは-90度(+270度)のベクトルである
@@ -217,8 +220,6 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
         GgafDx9Util::getAngle2D(x2_e-x1_s, y2_e-y1_s)
         + ANGLE270
         );
-
-
     _vIH_x = GgafDx9Util::COS[angIH/ANGLE_RATE];
     _vIH_y = GgafDx9Util::SIN[angIH/ANGLE_RATE];
 
