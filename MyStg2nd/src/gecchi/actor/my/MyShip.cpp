@@ -394,12 +394,15 @@ void MyShip::processBehavior() {
     _pSeTransmitter->behave();
 
     //‚Á”ò‚Ñ
-    _blown_veloX = _blown_veloX > _anti_blown_velo ? _blown_veloX - _anti_blown_velo : 0;
-    _blown_veloY = _blown_veloY > _anti_blown_velo ? _blown_veloY - _anti_blown_velo : 0;
-    _blown_veloZ = _blown_veloZ > _anti_blown_velo ? _blown_veloZ - _anti_blown_velo : 0;
-    _X += _blown_veloX;
-    _Y += _blown_veloY;
-    _Z += _blown_veloZ;
+    if (_blown_veloX != 0) {
+        _X += (_blown_veloX /= 2);
+    }
+    if (_blown_veloY != 0) {
+        _Y += (_blown_veloY /= 2);
+    }
+    if (_blown_veloZ != 0) {
+        _Z += (_blown_veloZ /= 2);
+    }
 
     if (!_is_diving) {
         if (_Y > MyShip::_lim_top) {
@@ -534,9 +537,9 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
 
     //•Ç‚Ìê‡“Á•Ê‚Èˆ—
     if (prm_pOtherActor->_obj_class & Obj_WallActor > 0) {
-        _blown_veloX += sgn(_pCollisionChecker->_blown_sgn_vX)*10000;
-        _blown_veloY += sgn(_pCollisionChecker->_blown_sgn_vY)*10000;
-        _blown_veloZ += sgn(_pCollisionChecker->_blown_sgn_vZ)*10000;
+        _blown_veloX += (sgn(_pCollisionChecker->_blown_sgn_vX)*10000);
+        _blown_veloY += (sgn(_pCollisionChecker->_blown_sgn_vY)*10000);
+        _blown_veloZ += (sgn(_pCollisionChecker->_blown_sgn_vZ)*10000);
     }
 
 }
