@@ -19,7 +19,15 @@ public:
 
     SplineSource(char* prm_idstr);
 
-    GgafDx9Core::GgafDx9SplineProgram* makeSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
+    /**
+     * GgafDx9SplineProgram オブジェクトを作成する .
+     * 定義ファイルにより、GgafDx9FixedFrameSplineProgram か GgafDx9FixedVelocitySplineProgram の
+     * いづれかのオブジェクトを生成し、それを返す。<BR>
+     * 内部スプライン座標情報は共通、いくら呼び出してもインスタンスは一つ。<BR>
+     * @param prm_pForWhichActor どのアクターの為の GgafDx9SplineProgram なのかを指定
+     * @return
+     */
+    GgafDx9Core::GgafDx9SplineProgram* makeSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor);
 
 
     virtual ~SplineSource();

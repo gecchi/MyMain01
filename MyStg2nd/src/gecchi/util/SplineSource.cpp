@@ -88,14 +88,12 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 }
 
 
-GgafDx9SplineProgram* SplineSource::makeSplineProgram(GgafDx9GeometricActor* prm_pActor) {
+GgafDx9SplineProgram* SplineSource::makeSplineProgram(GgafDx9GeometricActor* prm_pForWhichActor) {
     GgafDx9SplineProgram* pSpProg = NULL;
     if (_classname.find("GgafDx9FixedFrameSplineProgram") != string::npos) {
-        pSpProg = NEW GgafDx9FixedFrameSplineProgram(prm_pActor, _pSp, _spent_frame, _angveloRzRyMv);
-        //_TRACE_("pSpProg = NEW GgafDx9FixedFrameSplineProgram("<<prm_pActor->getName()<<", _pSp, "<<_accuracy<<", "<<_spent_frame<<", "<<_angveloRzRyMv<<");");
+        pSpProg = NEW GgafDx9FixedFrameSplineProgram(prm_pForWhichActor, _pSp, _spent_frame, _angveloRzRyMv);
     } else if (_classname.find("GgafDx9FixedVelocitySplineProgram") != string::npos) {
-        pSpProg = NEW GgafDx9FixedVelocitySplineProgram(prm_pActor, _pSp, _angveloRzRyMv);
-        //_TRACE_("pSpProg = NEW GgafDx9FixedVelocitySplineProgram("<<prm_pActor->getName()<<", _pSp, "<<_accuracy<<", "<<_angveloRzRyMv<<");");
+        pSpProg = NEW GgafDx9FixedVelocitySplineProgram(prm_pForWhichActor, _pSp, _angveloRzRyMv);
     } else {
         throwGgafCriticalException("SplineSource::makeSplineProgram _classname="<<_classname<< "‚Í•s–¾‚ÈƒNƒ‰ƒX‚Å‚·");
     }

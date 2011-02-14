@@ -264,6 +264,12 @@ class FormationPallas001c;
 class FormationPallas001d;
 class FormationPallas002;
 
+class EnemyEunomia;
+class FormationEunomia001;
+class FormationEunomia001a;
+class FormationEunomia001b;
+
+
 class EnemyJuno;
 class FormationJuno;
 class FormationJuno001;
@@ -437,6 +443,7 @@ class MagicMeter;
 #include "gecchi/actor/enemy/Ceres/EnemyCeresShot001.h"
 #include "gecchi/actor/enemy/Ceres/FormationCeres001.h"
 #include "gecchi/actor/enemy/Ceres/FormationCeres002.h"
+
 #include "gecchi/actor/enemy/Pallas/EnemyPallas.h"
 #include "gecchi/actor/enemy/Pallas/FormationPallas001.h"
 #include "gecchi/actor/enemy/Pallas/FormationPallas001a.h"
@@ -444,6 +451,12 @@ class MagicMeter;
 #include "gecchi/actor/enemy/Pallas/FormationPallas001c.h"
 #include "gecchi/actor/enemy/Pallas/FormationPallas001d.h"
 #include "gecchi/actor/enemy/Pallas/FormationPallas002.h"
+
+#include "gecchi/actor/enemy/Eunomia/EnemyEunomia.h"
+#include "gecchi/actor/enemy/Eunomia/FormationEunomia001.h"
+#include "gecchi/actor/enemy/Eunomia/FormationEunomia001a.h"
+#include "gecchi/actor/enemy/Eunomia/FormationEunomia001b.h"
+
 #include "gecchi/actor/enemy/Juno/EnemyJuno.h"
 #include "gecchi/actor/enemy/Juno/FormationJuno.h"
 #include "gecchi/actor/enemy/Juno/FormationJuno001.h"
