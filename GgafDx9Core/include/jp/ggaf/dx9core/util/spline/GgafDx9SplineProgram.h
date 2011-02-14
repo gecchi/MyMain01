@@ -71,8 +71,21 @@ public:
 
 
     /**
+     * スプライン曲線全体を、X軸方向、Y軸方向、Z軸方向それぞれに加算し、補正することが出来ます。
+     * デフォルトは adjustAxisOffset(0, 0, 0) となります。
+     * @param prm_offset_X X軸方向補正増加分
+     * @param prm_offset_Y Y軸方向補正増加分
+     * @param prm_offset_Z Z軸方向補正増加分
+     */
+    void adjustAxisOffset(int prm_offset_X, int prm_offset_Y, int prm_offset_Z) {
+        _offset_X = prm_offset_X;
+        _offset_Y = prm_offset_Y;
+        _offset_Z = prm_offset_Z;
+    }
+
+    /**
      * スプライン曲線全体を、X軸方向、Y軸方向、Z軸方向それぞれに、割合を乗じ補正することが出来ます。
-     * デフォルトは adjustAxisRate(1.0, 1.0, 1.0)
+     * デフォルトは adjustAxisRate(1.0, 1.0, 1.0) となります。
      * @param prm_rate_X X軸方向補正割合
      * @param prm_rate_Y Y軸方向補正割合
      * @param prm_rate_Z Z軸方向補正割合
@@ -83,13 +96,20 @@ public:
         _rate_Z = prm_rate_Z;
     }
 
-    void adjustAxisOffset(int prm_offset_X, int prm_offset_Y, int prm_offset_Z) {
-        _offset_X = prm_offset_X;
-        _offset_Y = prm_offset_Y;
-        _offset_Z = prm_offset_Z;
-    }
 
+    /**
+     * 対象アクター(_pActor_target)の座標を、スプラインの一番最初の基点座標で設定する .
+     * begin(0) の場合、つまり「絶対座標移動スプライン」の場合、有効な設定となりうるでしょう。<BR>
+     * 「絶対座標移動スプライン」あまり意味がありません。<BR>
+     */
+    void setAbsoluteBeginCoordinate();
+
+    /**
+     * 後からスプラインオブジェクトを設定。
+     * @param prm_sp
+     */
     virtual void setSpline(GgafDx9Spline3D* prm_sp);
+
     /**
      * スプライン曲線の補完点を移動するプログラムを実行開始
      * @param prm_option オプション 特に意味無し。下位実装拡張用

@@ -67,6 +67,11 @@ void GgafDx9SplineProgram::begin(int prm_option) {
     }
 }
 
+void GgafDx9SplineProgram::setAbsoluteBeginCoordinate() {
+    _pActor_target->_X = _sp->_X_compute[0]*_rate_X + _offset_X;
+    _pActor_target->_Y = _sp->_Y_compute[0]*_rate_Y + _offset_Y;
+    _pActor_target->_Z = _sp->_Z_compute[0]*_rate_Z + _offset_Z;
+}
 void GgafDx9SplineProgram::behave() {
 
     if (_is_executing) {
