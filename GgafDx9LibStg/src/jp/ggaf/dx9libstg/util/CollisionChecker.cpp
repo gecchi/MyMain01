@@ -197,27 +197,27 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                     //ƒAAB ‚Æ AAB„
                     if (StgUtil::isHit(this        , _pActor  , (ColliAAB*)pColliPart,
                                        pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart)) {
-                        pOppCChecker->_blown_sgn_vX += -this->_blown_sgn_vX;
-                        pOppCChecker->_blown_sgn_vY += -this->_blown_sgn_vY;
-                        pOppCChecker->_blown_sgn_vZ += -this->_blown_sgn_vZ;
+                        pOppCChecker->_blown_sgn_vX += -(this->_blown_sgn_vX);
+                        pOppCChecker->_blown_sgn_vY += -(this->_blown_sgn_vY);
+                        pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
                         return true;
                     }
                  } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
                      //ƒAAB ‚Æ ‹…„
                      if (StgUtil::isHit(this        , _pActor  , (ColliAAB*)pColliPart,
                                         pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
-                         pOppCChecker->_blown_sgn_vX += -this->_blown_sgn_vX;
-                         pOppCChecker->_blown_sgn_vY += -this->_blown_sgn_vY;
-                         pOppCChecker->_blown_sgn_vZ += -this->_blown_sgn_vZ;
+                         pOppCChecker->_blown_sgn_vX += -(this->_blown_sgn_vX);
+                         pOppCChecker->_blown_sgn_vY += -(this->_blown_sgn_vY);
+                         pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
                          return true;
                      }
                  } else if (pOppColliPart->_shape_kind == COLLI_AAPRISM) {
                      //ƒAAB ‚Æ AAPrism„
                      if (StgUtil::isHit(pOppCChecker, pOppActor, (ColliAAPrism*)pOppColliPart,
                                         this        , _pActor  , (ColliAAB*)pColliPart)) {
-                         this->_blown_sgn_vX += -pOppCChecker->_blown_sgn_vX;
-                         this->_blown_sgn_vY += -pOppCChecker->_blown_sgn_vY;
-                         this->_blown_sgn_vZ += -pOppCChecker->_blown_sgn_vZ;
+                         this->_blown_sgn_vX += -(pOppCChecker->_blown_sgn_vX);
+                         this->_blown_sgn_vY += -(pOppCChecker->_blown_sgn_vY);
+                         this->_blown_sgn_vZ += -(pOppCChecker->_blown_sgn_vZ);
                          return true;
                      }
                  }
@@ -227,27 +227,27 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                     //ƒ‹… ‚Æ AAB„
                     if (StgUtil::isHit(pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart,
                                        this        , _pActor  , (ColliSphere*)pColliPart)) {
-                        this->_blown_sgn_vX += -pOppCChecker->_blown_sgn_vX;
-                        this->_blown_sgn_vY += -pOppCChecker->_blown_sgn_vY;
-                        this->_blown_sgn_vZ += -pOppCChecker->_blown_sgn_vZ;
+                        this->_blown_sgn_vX += -(pOppCChecker->_blown_sgn_vX);
+                        this->_blown_sgn_vY += -(pOppCChecker->_blown_sgn_vY);
+                        this->_blown_sgn_vZ += -(pOppCChecker->_blown_sgn_vZ);
                         return true;
                     }
                 } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
                     //ƒ‹… ‚Æ ‹…„
                     if (StgUtil::isHit(this        , _pActor  , (ColliSphere*)pColliPart,
                                        pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
-                        pOppCChecker->_blown_sgn_vX += -this->_blown_sgn_vX;
-                        pOppCChecker->_blown_sgn_vY += -this->_blown_sgn_vY;
-                        pOppCChecker->_blown_sgn_vZ += -this->_blown_sgn_vZ;
+                        pOppCChecker->_blown_sgn_vX += -(this->_blown_sgn_vX);
+                        pOppCChecker->_blown_sgn_vY += -(this->_blown_sgn_vY);
+                        pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
                         return true;
                     }
                 } else if (pOppColliPart->_shape_kind == COLLI_AAPRISM) {
                     //ƒ‹… ‚Æ AAPrism„
                     if (StgUtil::isHit(pOppCChecker, pOppActor, (ColliAAPrism*)pOppColliPart,
                                        this        , _pActor  , (ColliSphere*)pColliPart)) {
-                        this->_blown_sgn_vX += -pOppCChecker->_blown_sgn_vX;
-                        this->_blown_sgn_vY += -pOppCChecker->_blown_sgn_vY;
-                        this->_blown_sgn_vZ += -pOppCChecker->_blown_sgn_vZ;
+                        this->_blown_sgn_vX += -(pOppCChecker->_blown_sgn_vX);
+                        this->_blown_sgn_vY += -(pOppCChecker->_blown_sgn_vY);
+                        this->_blown_sgn_vZ += -(pOppCChecker->_blown_sgn_vZ);
                         return true;
                     }
                 }
@@ -257,18 +257,18 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                     //ƒAAPrism ‚Æ AAB„
                     if (StgUtil::isHit(this        , _pActor  , (ColliAAPrism*)pColliPart,
                                        pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart)) {
-                        pOppCChecker->_blown_sgn_vX += -this->_blown_sgn_vX;
-                        pOppCChecker->_blown_sgn_vY += -this->_blown_sgn_vY;
-                        pOppCChecker->_blown_sgn_vZ += -this->_blown_sgn_vZ;
+                        pOppCChecker->_blown_sgn_vX += -(this->_blown_sgn_vX);
+                        pOppCChecker->_blown_sgn_vY += -(this->_blown_sgn_vY);
+                        pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
                         return true;
                     }
                 } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
                     //ƒAAPrism ‚Æ ‹…„
                     if (StgUtil::isHit(this        , _pActor  , (ColliAAPrism*)pColliPart,
                                        pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
-                        pOppCChecker->_blown_sgn_vX += -this->_blown_sgn_vX;
-                        pOppCChecker->_blown_sgn_vY += -this->_blown_sgn_vY;
-                        pOppCChecker->_blown_sgn_vZ += -this->_blown_sgn_vZ;
+                        pOppCChecker->_blown_sgn_vX += -(this->_blown_sgn_vX);
+                        pOppCChecker->_blown_sgn_vY += -(this->_blown_sgn_vY);
+                        pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
                         return true;
                     }
                 }  else if (pOppColliPart->_shape_kind == COLLI_AAPRISM) {
