@@ -45,8 +45,8 @@ void FormationEunomia::initialize() {
 void FormationEunomia::processBehavior() {
     if (_n < _num_formation_row && getActivePartFrame() % _frame_interval == 0) {
         for (int i = 0; i < _num_formation_col; i++) {
-            processOnActiveEunomia(_papapEunomia[i][_n], i); //ŒÂ•ÊÀ‘•‚Ìˆ—
             _papapEunomia[i][_n]->activate();
+            processOnActiveEunomia(_papapEunomia[i][_n], i); //ŒÂ•ÊÀ‘•‚Ìˆ—
         }
         _n++;
     }

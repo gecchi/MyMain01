@@ -3,7 +3,7 @@
 namespace MyStg2nd {
 
 /**
- * 敵機エウノミア用フォーメーションその１ .
+ * 敵機エウノミア用フォーメーション002グループ .
  * @version 1.00
  * @since 2011/02/14
  * @author Masatoshi Tsuge
