@@ -1,5 +1,5 @@
-#ifndef FORMATIONEUNOMIA001_H_
-#define FORMATIONEUNOMIA001_H_
+#ifndef FORMATIONEUNOMIA002_H_
+#define FORMATIONEUNOMIA002_H_
 namespace MyStg2nd {
 
 /**
@@ -8,11 +8,11 @@ namespace MyStg2nd {
  * @since 2011/02/14
  * @author Masatoshi Tsuge
  */
-class FormationEunomia001 : public FormationEunomia {
+class FormationEunomia002 : public FormationEunomia {
 
 public:
 
-    FormationEunomia001(const char* prm_name);
+    FormationEunomia002(const char* prm_name);
 
     virtual void processBehavior() override;
 
@@ -22,8 +22,8 @@ public:
      */
     virtual void wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) override;
 
-    virtual ~FormationEunomia001();
+    virtual ~FormationEunomia002();
 };
 
 }
-#endif /*FORMATIONEUNOMIA001_H_*/
+#endif /*FORMATIONEUNOMIA002_H_*/

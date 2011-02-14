@@ -1,0 +1,61 @@
+#ifndef FORMATIONEUNOMIA_H_
+#define FORMATIONEUNOMIA_H_
+namespace MyStg2nd {
+
+/**
+ * 敵機エウノミア用フォーメーションその１ .
+ * @version 1.00
+ * @since 2011/02/14
+ * @author Masatoshi Tsuge
+ */
+class FormationEunomia : public GgafDx9Core::GgafDx9FormationActor {
+
+public:
+    /** エウノミアの発射弾の借り入れ元Dispatcher資源への接続 */
+    DispatcherConnection* _pDispatcherCon;
+    /** スプライン定義資源への接続 */
+    SplineConnection** _papSplineCon;
+    /** 編隊列数(RANK変動) */
+    int _num_formation_col;
+    /** １列の編隊数(RANK変動) */
+    int _num_formation_row;
+    /** エウノミアの2次元配列(RANK変動) */
+    EnemyEunomia*** _papapEunomia;
+    /** 編隊間隔フレーム(RANK変動) */
+    frame _frame_interval;
+    /** 移動速度(RANK変動) */
+    velo _mv_velo;
+
+    int _n;
+
+    /**
+     * コンストラクタ .
+     * @param prm_name
+     * @param prm_col            編隊列数
+     * @param prm_row            １列の編隊数
+     * @param prm_frame_interval エウノミアの間隔(frame)
+     * @param prm_mv_velo        速度
+     * @param prm_spl_id         スプライン定義ファイルプレフィクス
+     *                           "FormationEunomia001_0.spl" の "FormationEunomia001" を設定
+     * @return
+     */
+    FormationEunomia(const char* prm_name, int   prm_col,
+                                           int   prm_row,
+                                           frame prm_frame_interval,
+                                           velo  prm_mv_velo,
+                                           const char* prm_spl_id) ;
+
+    virtual void initialize() override;
+
+    virtual void processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, int col) = 0;
+
+    virtual void wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) override {
+    }
+
+    virtual void processBehavior() override;
+
+    virtual ~FormationEunomia();
+};
+
+}
+#endif /*FORMATIONEUNOMIA_H_*/
