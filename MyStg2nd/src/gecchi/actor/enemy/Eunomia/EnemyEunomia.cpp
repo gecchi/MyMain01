@@ -22,11 +22,10 @@ void EnemyEunomia::onCreateModel() {
 
 void EnemyEunomia::initialize() {
     setHitAble(true);
-    _pMover->setFaceAngVelo(AXIS_X, -2000);
+    _pMover->setFaceAngVelo(AXIS_X, -4000);
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB_Cube(0, 40000);
-    _SX = _SY = _SZ = 200;
 }
 
 void EnemyEunomia::onActive() {

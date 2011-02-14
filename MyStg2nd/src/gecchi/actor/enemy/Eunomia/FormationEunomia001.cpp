@@ -7,8 +7,8 @@ using namespace MyStg2nd;
 
 FormationEunomia001::FormationEunomia001(const char* prm_name) :
                                         FormationEunomia(prm_name,
-                                                         4  + _RANK_*2,
-                                                         15 + _RANK_*10,
+                                                         5  + _RANK_*2,
+                                                         20 + _RANK_*10,
                                                          10 - _RANK_*5,
                                                          10000 + _RANK_*10000,
                                                          "FormationEunomia001") {
