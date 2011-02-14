@@ -140,21 +140,21 @@ void GgafDx9FixedFrameSplineProgram::begin(int prm_option) {
         }
 
         if (_option == 2) {
-            _X_begin = _sp->_X_compute[0]*_rate_X - _pActor_target->_X ;
-            _Y_begin = _sp->_Y_compute[0]*_rate_Y - _pActor_target->_Y;
-            _Z_begin = _sp->_Z_compute[0]*_rate_Z - _pActor_target->_Z;
+            _X_begin = _sp->_X_compute[0]*_rate_X + _offset_X - _pActor_target->_X ;
+            _Y_begin = _sp->_Y_compute[0]*_rate_Y + _offset_Y - _pActor_target->_Y;
+            _Z_begin = _sp->_Z_compute[0]*_rate_Z + _offset_Z - _pActor_target->_Z;
             _SIN_RzMv_begin = GgafDx9Util::SIN[_pActor_target->_pMover->_angRzMv/ANGLE_RATE];
             _COS_RzMv_begin = GgafDx9Util::COS[_pActor_target->_pMover->_angRzMv/ANGLE_RATE];
             _SIN_RyMv_begin = GgafDx9Util::SIN[_pActor_target->_pMover->_angRyMv/ANGLE_RATE];
             _COS_RyMv_begin = GgafDx9Util::COS[_pActor_target->_pMover->_angRyMv/ANGLE_RATE];
         } else if (_option == 1) {
-            _X_begin = _sp->_X_compute[0]*_rate_X - _pActor_target->_X;
-            _Y_begin = _sp->_Y_compute[0]*_rate_Y - _pActor_target->_Y;
-            _Z_begin = _sp->_Z_compute[0]*_rate_Z - _pActor_target->_Z;
+            _X_begin = _sp->_X_compute[0]*_rate_X + _offset_X - _pActor_target->_X;
+            _Y_begin = _sp->_Y_compute[0]*_rate_Y + _offset_Y - _pActor_target->_Y;
+            _Z_begin = _sp->_Z_compute[0]*_rate_Z + _offset_Z - _pActor_target->_Z;
         } else {
-            _X_begin = _sp->_X_compute[0]*_rate_X;
-            _Y_begin = _sp->_Y_compute[0]*_rate_Y;
-            _Z_begin = _sp->_Z_compute[0]*_rate_Z;
+            _X_begin = _sp->_X_compute[0]*_rate_X + _offset_X;
+            _Y_begin = _sp->_Y_compute[0]*_rate_Y + _offset_Y;
+            _Z_begin = _sp->_Z_compute[0]*_rate_Z + _offset_Z;
 
         }
     }
@@ -175,9 +175,9 @@ void GgafDx9FixedFrameSplineProgram::behave() {
 
         //•Ï‚í‚è–Ú
         if (_SPframe % _SPframe_segment == 0) {
-            double dx = _sp->_X_compute[SPPointIndex]*_rate_X;
-            double dy = _sp->_Y_compute[SPPointIndex]*_rate_Y;
-            double dz = _sp->_Z_compute[SPPointIndex]*_rate_Z;
+            double dx = _sp->_X_compute[SPPointIndex]*_rate_X + _offset_X;
+            double dy = _sp->_Y_compute[SPPointIndex]*_rate_Y + _offset_Y;
+            double dz = _sp->_Z_compute[SPPointIndex]*_rate_Z + _offset_Z;
 
 
             //Ÿ‚Ì•âŠÔ“_iorŠî“_)‚ÉˆÚ“®•ûŠp‚ğŒü‚¯‚é

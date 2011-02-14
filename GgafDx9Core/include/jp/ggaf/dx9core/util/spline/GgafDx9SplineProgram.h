@@ -31,7 +31,9 @@ public:
     float _rate_X;
     float _rate_Y;
     float _rate_Z;
-
+    int _offset_X;
+    int _offset_Y;
+    int _offset_Z;
     /**
      * コンストラクタ .
      * GgafDx9Spline3Dオブジェクトの参照を後から設定して下さい。（setSpline() メソッドで）
@@ -79,6 +81,12 @@ public:
         _rate_X = prm_rate_X;
         _rate_Y = prm_rate_Y;
         _rate_Z = prm_rate_Z;
+    }
+
+    void adjustAxisOffset(int prm_offset_X, int prm_offset_Y, int prm_offset_Z) {
+        _offset_X = prm_offset_X;
+        _offset_Y = prm_offset_Y;
+        _offset_Z = prm_offset_Z;
     }
 
     virtual void setSpline(GgafDx9Spline3D* prm_sp);
