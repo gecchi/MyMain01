@@ -9,7 +9,7 @@ public:
     TurboMeter* _pTurboMeter001;
 
     TamagoScene(const char* prm_name);
-    void processReset() override;
+    void onReset() override;
     void ready();
     virtual void initialize() override;
     virtual void processBehavior() override;

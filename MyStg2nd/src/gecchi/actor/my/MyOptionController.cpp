@@ -111,7 +111,7 @@ void MyOptionController::initialize() {
 }
 
 
-void MyOptionController::processReset() {
+void MyOptionController::onReset() {
     _pMover->setMvVelo(0);
     _pMover->forceRyMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
     _pMover->forceRzMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
@@ -122,7 +122,7 @@ void MyOptionController::processReset() {
 }
 
 void MyOptionController::onActive() {
-    resetImmediately();
+    reset();
 }
 
 void MyOptionController::processBehavior() {

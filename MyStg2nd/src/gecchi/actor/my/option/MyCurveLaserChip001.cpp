@@ -202,7 +202,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
             //一撃でチップ消滅の攻撃力
 
             //破壊されたエフェクト
-            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
             if (pExplo001) {
                 pExplo001->setCoordinateBy(this);
                 pExplo001->activate();
@@ -224,7 +224,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         //地形相手は無条件さようなら
 
         //破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         if (pExplo001) {
             pExplo001->setCoordinateBy(this);
             pExplo001->activate();

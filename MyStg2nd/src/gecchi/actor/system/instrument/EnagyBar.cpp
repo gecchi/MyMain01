@@ -17,10 +17,10 @@ void EnagyBar::initialize() {
     _pUvFlipper->forcePtnNoRange(0, 10);
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //アニメ順序
 
-    processReset();
+    onReset();
 }
 
-void EnagyBar::processReset() {
+void EnagyBar::onReset() {
     _enagy = 1000;
     _qu.config(400, _enagy); //初期値は400pxでフルエネルキー
     _qu.set(_enagy);

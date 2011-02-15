@@ -43,7 +43,7 @@ public:
 //        _stage = prm_stage;
 //    }
 
-    void processReset() override;
+    void onReset() override;
     void readyStage(int prm_stage);
     void readyNextStage();
 //    void cannelStage(int prm_stage);

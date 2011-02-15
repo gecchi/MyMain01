@@ -222,8 +222,6 @@ class MyShot001;
 class MyWave001;
 class EffectMyShipExplosion;
 
-class Item001;
-
 
 class EffectExplosion001;
 class EffectExplosion002;
@@ -319,8 +317,12 @@ class LaserMagic;
 class SpeedMagic;
 class LockonMagic;
 class TorpedoMagic;
+class AssemblyMagic;
 class EffectMagic001;
 
+class Item;
+class MagicPointItem001;
+class Item001;
 
 class Properties;
 class MyStgUtil;
@@ -405,8 +407,6 @@ class MagicMeter;
 
 #include "gecchi/actor/my/MyStraightLaserChip001.h"
 #include "gecchi/actor/my/EffectMyShipExplosion.h"
-
-#include "gecchi/actor/item/Item001.h"
 
 #include "gecchi/actor/effect/EffectExplosion001.h"
 #include "gecchi/actor/effect/EffectExplosion002.h"
@@ -497,8 +497,11 @@ class MagicMeter;
 #include "gecchi/actor/system/magic/LockonMagic.h"
 #include "gecchi/actor/system/magic/TorpedoMagic.h"
 #include "gecchi/actor/system/magic/EffectMagic001.h"
+#include "gecchi/actor/system/magic/AssemblyMagic.h"
 
-
+#include "gecchi/actor/item/Item.h"
+#include "gecchi/actor/item/MagicPointItem001.h"
+#include "gecchi/actor/item/Item001.h"
 
 #include "gecchi/Properties.h"
 #include "gecchi/util/MyStgUtil.h"

@@ -31,9 +31,14 @@ public:
     void onCreateModel() override;
 
     /**
-     * エウノミアのが初期処理（インスタンス生成後保証）
+     * エウノミアの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
+
+    /**
+     * エウノミアの状態リセット処理 .
+     */
+    void onReset() override;
 
     /**
      * エウノミアのがアクティブになった瞬間の処理 .

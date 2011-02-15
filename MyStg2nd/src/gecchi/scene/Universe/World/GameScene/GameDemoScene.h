@@ -31,7 +31,7 @@ public:
 //    frame _frame_End;
 
     GameDemoScene(const char* prm_name);
-    void processReset() override;
+    void onReset() override;
     void initialize() override;
     void onActive() override;
     void processBehavior() override;

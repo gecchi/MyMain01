@@ -28,15 +28,18 @@ void EnemyEunomia::initialize() {
     _pCollisionChecker->setColliAAB_Cube(0, 40000);
 }
 
+void EnemyEunomia::onReset() {
+    MyStgUtil::resetEnemyEunomiaStatus(_pStatus);
+    _iMovePatternNo = 0; //行動パターンリセット
+    _pProgress->change(1);
+}
+
+
 void EnemyEunomia::onActive() {
     if (_pSplineProgram == NULL) {
         throwGgafCriticalException("EnemyEunomiaはスプライン必須ですconfigして下さい");
     }
-
-    MyStgUtil::resetEnemyEunomiaStatus(_pStatus);
-
-    _iMovePatternNo = 0; //行動パターンリセット
-    _pProgress->change(1);
+    onReset();
 }
 
 void EnemyEunomia::processBehavior() {
@@ -136,7 +139,7 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->activate();
@@ -151,6 +154,13 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
         }
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
         sayonara();
+
+        Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->employ();
+        if (pItem) {
+            pItem->setCoordinateBy(this);
+            pItem->reset();
+            pItem->activate();
+        }
     }
 }
 

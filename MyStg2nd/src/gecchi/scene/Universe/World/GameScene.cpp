@@ -70,18 +70,18 @@ void GameScene::initialize() {
 //    _pSceneCannel = _pScene_GameDemo;
 }
 
-void GameScene::processReset() {
+void GameScene::onReset() {
     VB_UI->clear();
     P_GOD->setVB(VB_UI);
-    _pMyShipScene->resetImmediately();
-    _pCommonScene->resetImmediately();
-    _pScene_PreGameTitle->resetImmediately();
-    _pScene_GameTitle->resetImmediately();
-    _pScene_GameDemo->resetImmediately();
-    _pScene_GameBeginning->resetImmediately();
-    _pScene_GameMain->resetImmediately();
-    _pScene_GameEnding->resetImmediately();
-    _pScene_GameOver->resetImmediately();
+    _pMyShipScene->reset();
+    _pCommonScene->reset();
+    _pScene_PreGameTitle->reset();
+    _pScene_GameTitle->reset();
+    _pScene_GameDemo->reset();
+    _pScene_GameBeginning->reset();
+    _pScene_GameMain->reset();
+    _pScene_GameEnding->reset();
+    _pScene_GameOver->reset();
 
     _pMyShipScene->unblindSceneTree();
     _pCommonScene->unblindSceneTree();
@@ -106,7 +106,7 @@ void GameScene::processReset() {
 }
 
 void GameScene::onActive() {
-    resetImmediately();
+    reset();
 }
 
 void GameScene::processBehavior() {
@@ -144,7 +144,7 @@ void GameScene::processBehavior() {
             //##########  タイトル前演出  ##########
             if (_pProgress->isJustChanged()) {
                 P_GOD->syncTimeFrame();
-                _pScene_PreGameTitle->resetImmediately();
+                _pScene_PreGameTitle->reset();
                 _pScene_PreGameTitle->activate();
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
@@ -158,7 +158,7 @@ void GameScene::processBehavior() {
         case GAME_SCENE_PROG_TITLE:
             //##########  タイトル  ##########
             if (_pProgress->isJustChanged()) {
-                _pScene_GameTitle->resetImmediately();
+                _pScene_GameTitle->reset();
                 _pScene_GameTitle->activate();
             }
             //イベント待ち EVENT_GAMETITLE_SCENE_FINISH or EVENT_GAMESTART
@@ -167,7 +167,7 @@ void GameScene::processBehavior() {
         case GAME_SCENE_PROG_DEMO:
             //##########  デモ  ##########
             if (_pProgress->isJustChanged()) {
-                _pScene_GameDemo->resetImmediately();
+                _pScene_GameDemo->reset();
                 _pScene_GameDemo->activate();
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
@@ -181,7 +181,7 @@ void GameScene::processBehavior() {
         case GAME_SCENE_PROG_BEGINNING:
             //##########  ゲーム開始（モード選択等）  ##########
             if (_pProgress->isJustChanged()) {
-                _pScene_GameBeginning->resetImmediately();
+                _pScene_GameBeginning->reset();
                 _pScene_GameBeginning->activate();
             }
             //イベント待ち EVENT_GAMEMODE_DECIDE
@@ -192,9 +192,9 @@ void GameScene::processBehavior() {
             if (_pProgress->isJustChanged()) {
                 VB_PLAY->clear();
                 P_GOD->setVB(VB_PLAY); //プレイ用に変更
-                _pScene_GameMain->resetImmediately();
+                _pScene_GameMain->reset();
                 _pScene_GameMain->activate();
-                _pMyShipScene->resetImmediately();
+                _pMyShipScene->reset();
                 _pMyShipScene->activate();
             }
 
@@ -238,7 +238,7 @@ void GameScene::processBehavior() {
         case GAME_SCENE_PROG_GAME_OVER:
             //##########  ゲームオーバー  ##########
             if (_pProgress->isJustChanged()) {
-                _pScene_GameOver->resetImmediately();
+                _pScene_GameOver->reset();
                 _pScene_GameOver->activate();
             }
             //イベント待ち EVENT_GAME_OVER_FINISH
@@ -258,7 +258,7 @@ void GameScene::processBehavior() {
                 _pScene_GameOver->fadeoutSceneTree(FADE_FRAME);
             }
             if (_pProgress->getActivePartFrameInProgress() == FADE_FRAME) {
-                resetImmediately(); //リセット（最初の進捗状態に戻る）
+                reset(); //リセット（最初の進捗状態に戻る）
             }
             break;
 

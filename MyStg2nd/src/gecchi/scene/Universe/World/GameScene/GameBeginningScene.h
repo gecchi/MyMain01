@@ -22,7 +22,7 @@ public:
     int _selected_stage;
 
     GameBeginningScene(const char* prm_name);
-    void processReset() override;
+    void onReset() override;
 //    void ready() override;
 
     void initialize() override;

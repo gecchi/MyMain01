@@ -35,7 +35,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     useProgress(10);
 }
 
-void GameMainScene::processReset() {
+void GameMainScene::onReset() {
 //    VB_UI->clear();
 //    VB_PLAY->clear();
 //    P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
@@ -83,7 +83,6 @@ void GameMainScene::readyStage(int prm_stage) {
 
 void GameMainScene::initialize() {
 
-    resetImmediately();
 
 //    GgafScene* pCommon = P_COMMON_SCENE->extract();
 //    addSubLast(pCommon); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）

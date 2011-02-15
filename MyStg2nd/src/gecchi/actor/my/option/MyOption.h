@@ -129,7 +129,7 @@ public:
 
     void initialize() override;
 
-    void processReset() override;
+    void onReset() override;
 
     void onActive() override;
 

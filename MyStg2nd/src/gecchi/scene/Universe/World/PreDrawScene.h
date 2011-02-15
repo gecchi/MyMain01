@@ -9,7 +9,7 @@ public:
     TurboMeter* _pTurboMeter001;
 
     PreDrawScene(const char* prm_name);
-    void processReset() override;
+    void onReset() override;
     void ready();
     virtual void initialize() override;
     virtual void processBehavior() override;

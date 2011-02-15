@@ -41,7 +41,7 @@ public:
 
     virtual void initialize() override;
 
-    virtual void processReset() override;
+    virtual void onReset() override;
 
     virtual void onActive() override;
 

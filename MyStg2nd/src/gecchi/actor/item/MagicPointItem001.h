@@ -1,5 +1,5 @@
-#ifndef ITEM001_H_
-#define ITEM001_H_
+#ifndef MAGICPOINTITEM001_H_
+#define MAGICPOINTITEM001_H_
 
 namespace MyStg2nd {
 
@@ -9,10 +9,10 @@ namespace MyStg2nd {
  * @since 2011/02/04
  * @author Masatoshi Tsuge
  */
-class Item001 : public GgafDx9LibStg::DefaultMeshSetActor {
+class MagicPointItem001 : public Item {
 
 public:
-    Item001(const char* prm_name);
+    MagicPointItem001(const char* prm_name);
 
     void onCreateModel() override {
     }
@@ -42,9 +42,9 @@ public:
 //        return false;
 //    }
 
-    virtual ~Item001();
+    virtual ~MagicPointItem001();
 };
 
 }
-#endif /*ITEM001_H_*/
+#endif /*MAGICPOINTITEM001_H_*/
 

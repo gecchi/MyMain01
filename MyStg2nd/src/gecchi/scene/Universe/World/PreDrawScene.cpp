@@ -11,7 +11,7 @@ PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
 //    orderActorToFactory(10, LaserChipEffectActor, "LaserChipEffectActor");
 }
 
-void PreDrawScene::processReset() {
+void PreDrawScene::onReset() {
 }
 void PreDrawScene::ready() {
 }

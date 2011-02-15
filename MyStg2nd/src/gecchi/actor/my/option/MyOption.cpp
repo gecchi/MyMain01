@@ -101,7 +101,7 @@ void MyOption::initialize() {
     _SX=_SY=_SZ=100;
 }
 
-void MyOption::processReset() {
+void MyOption::onReset() {
     _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
     _pMover->setMvVelo(_veloMv);
     _pMover->setRzMvAng(_angPosition+ANGLE90);

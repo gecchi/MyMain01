@@ -249,7 +249,7 @@ public:
     GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeoElem>* _pRing_GeoHistory;
 
     GgafCore::GgafActorDispatcher* _pDispatcher_MyShots001;
-    GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion001;
+    GgafCore::GgafActorDispatcher* _pDP_EffectExplosion001;
     GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
 
 //    MyOptionController* _pMyOptionController;
@@ -285,9 +285,9 @@ public:
 
     void initialize() override;
 
-    void onActive() override;
+    void onReset() override;
 
-    void processReset() override;
+    void onActive() override;
 
     void processBehavior() override;
 

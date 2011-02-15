@@ -178,23 +178,6 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     _blown_veloZ = 0;
     _anti_blown_velo = 100;
 }
-void MyShip::processReset() {
-    _frame_soft_rapidshot = 0;
-    _is_being_soft_rapidshot = false;
-    _just_shot = false;
-    _is_shooting_laser = false;
-    _frame_shot_pressed = 0;
-    _X = Universe::_X_goneLeft + 1000;
-    _Y = _Z = 0;
-    _way = WAY_NONE;
-    _way_switch.reset();
-    MyStgUtil::resetMyShipStatus(_pStatus);
-}
-
-void MyShip::onActive() {
-
-}
-
 
 void MyShip::initialize() {
 
@@ -234,6 +217,27 @@ void MyShip::initialize() {
 
     _pMover->setFaceAngVelo(AXIS_X, 300);
 }
+
+
+void MyShip::onReset() {
+    _frame_soft_rapidshot = 0;
+    _is_being_soft_rapidshot = false;
+    _just_shot = false;
+    _is_shooting_laser = false;
+    _frame_shot_pressed = 0;
+    _X = Universe::_X_goneLeft + 1000;
+    _Y = _Z = 0;
+    _way = WAY_NONE;
+    _way_switch.reset();
+    MyStgUtil::resetMyShipStatus(_pStatus);
+}
+
+void MyShip::onActive() {
+
+}
+
+
+
 
 void MyShip::processBehavior() {
     if (!_can_control) {
@@ -525,7 +529,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
     _pSeTransmitter->play3D(0);
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDispatcher_EffectExplosion001->employ();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
     if (pExplo001) {
         pExplo001->setCoordinateBy(this);
         pExplo001->activate();
