@@ -149,8 +149,8 @@ public:
     virtual void unpauseTreeImmediately() override;
     virtual void unpauseImmediately() override;
 
-    virtual void resetImmediately() override;
-    virtual void resetTreeImmediately() override;
+    virtual void reset() override;
+    virtual void resetTree() override;
 
     virtual void execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) override;
     /**

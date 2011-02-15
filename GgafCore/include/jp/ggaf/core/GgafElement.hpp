@@ -121,8 +121,8 @@ public:
 
     /**
      * ノード初期処理(単体) .
-     * インスタンス生成後、
-     * 何れかが呼び出される前に、最初に必ず１回だけ呼び出される。<BR>
+     * インスタンス生成後、何れかが呼び出される前に、最初に必ず１回だけ呼び出される。<BR>
+     * 補足：initialize()が呼び出された後、reset() が呼び出されます。
      */
     virtual void initialize() = 0;
 
@@ -532,26 +532,30 @@ public:
     //===================
     /**
      * 状態をリセットする .
-     * 即座に内部フレームカウンタをリセットした後 processReset() を呼び出します。<BR>
-     * 各オブジェクトの状態リセット処理を、下位クラスで
-     * processReset() をオーバーライドして実装してください。<BR>
-     * また、同一フレーム内で何度 resetImmediately() を呼び出しても、<BR>
-     * processReset() が呼び出されるのは最初の１回のみとする仕組みも備わっています。<BR>
+     * 次のような動作を行います。<BR>
+     * ① 同一フレーム内で、初めての呼び出しであるかチェック<BR>
+     *   ・初めての呼び出しである。  → ②へ<BR>
+     *   ・２回以上呼び出されている。→ 何もしないでreturn<BR>
+     * ② 次の内部フレームカウンタをリセット<BR>
+     *   ・getBehaveingFrame() を 0 にする。<BR>
+     *   ・getActivePartFrame() を 0 にする。<BR>
+     * ③ 下位実装処理の onReset() を呼び出します。<BR>
+     * 補足:内部で initialize() 呼び出し直後に、１回だけ reset() は自動的に呼び出されます。<BR>
      */
-    virtual void resetImmediately();
+    virtual void reset();
 
     /**
      * 状態をリセットする（自ツリー） .
-     * 自ツリー全てのオブジェクトに対し resetImmediately() を実行します。
+     * 自ツリー全てのオブジェクトに対し reset() を実行します。
      */
-    virtual void resetTreeImmediately();
+    virtual void resetTree();
 
     /**
      * 状態をリセットする(ユーザー実装用) .
-     * resetImmediately() 或いは、resetTreeImmediately() を実行することで呼び出されます。
+     * reset() 或いは、resetTree() を実行することで呼び出されます。
      * 個別のの状態リセット処理を、下位クラスでオーバーライドしてください。
      */
-    virtual void processReset() {}
+    virtual void onReset() {}
 
 
     /**
@@ -804,8 +808,9 @@ void GgafElement<T>::nextFrame() {
     if (_can_live_flg) {
 
         if(_was_initialize_flg == false) {
-            initialize();
+            initialize();       //初期化
             _was_initialize_flg = true;
+            reset(); //リセット
         }
 
 
@@ -1075,12 +1080,12 @@ void GgafElement<T>::doFinally() {
 }
 
 template<class T>
-void GgafElement<T>::resetImmediately() {
+void GgafElement<T>::reset() {
     if (_can_live_flg) {
         if (_is_already_reset == false) {
             _frame_of_behaving = 0;
             _frame_of_behaving_since_onActive = 0;
-            processReset();
+            onReset();
             _is_already_reset = true;
         }
     }
@@ -1088,18 +1093,18 @@ void GgafElement<T>::resetImmediately() {
 
 
 template<class T>
-void GgafElement<T>::resetTreeImmediately() {
+void GgafElement<T>::resetTree() {
     if (_can_live_flg) {
         if (_is_already_reset == false) {
             _frame_of_behaving = 0;
             _frame_of_behaving_since_onActive = 0;
-            processReset();
+            onReset();
             _is_already_reset = true;
         }
         if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
-                pElementTemp->resetTreeImmediately();
+                pElementTemp->resetTree();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {

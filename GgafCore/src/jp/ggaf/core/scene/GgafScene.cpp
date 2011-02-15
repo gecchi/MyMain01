@@ -178,14 +178,14 @@ void GgafScene::execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void*
     _pLordActor->execDownFunction(pFunc, prm1, prm2);
 }
 
-void GgafScene::resetImmediately() {
-    GgafElement<GgafScene>::resetImmediately();
-    _pLordActor->resetImmediately();
+void GgafScene::reset() {
+    GgafElement<GgafScene>::reset();
+    _pLordActor->reset();
 
 }
-void GgafScene::resetTreeImmediately() {
-    GgafElement<GgafScene>::resetTreeImmediately();
-    _pLordActor->resetTreeImmediately();
+void GgafScene::resetTree() {
+    GgafElement<GgafScene>::resetTree();
+    _pLordActor->resetTree();
 }
 
 

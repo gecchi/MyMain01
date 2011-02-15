@@ -26,8 +26,8 @@ void GgafActorDispatcher::addSubLast(GgafActor* prm_pSub) {
     GgafDummyActor::addSubLast(prm_pSub);
 }
 
-void GgafActorDispatcher::processReset() {
-    _TRACE_("GgafActorDispatcher::processReset() ["<<getName()<<"]");
+void GgafActorDispatcher::onReset() {
+    _TRACE_("GgafActorDispatcher::onReset() ["<<getName()<<"]");
     if (_pSubFirst == NULL) {
         return;
     }
