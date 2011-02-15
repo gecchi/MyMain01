@@ -147,8 +147,8 @@ OUT_VS GgafDx9VS_SingleLaser(
 	out_vs.uv = prm_uv;
 	//αフォグ
 	out_vs.col = float4(1.0, 1.0, 1.0, 1.0);
-	if (out_vs.pos.z > g_zf*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-    	out_vs.col.a *= (-1.0/(g_zf*0.5)*out_vs.pos.z + 2.0);
+	if (out_vs.pos.z > (g_zf*0.7)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
+    	out_vs.col.a *= (-1.0/((g_zf*0.7)*0.5)*out_vs.pos.z + 2.0);
 	} 
 	out_vs.col.a *= g_alpha_master;
 	return out_vs;

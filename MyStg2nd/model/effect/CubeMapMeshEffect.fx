@@ -63,8 +63,8 @@ OUT_VS GgafDx9VS_CubeMapMesh(
 	out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse * float4(2.0, 2.0, 2.0, 1.0); //全体的に明るくする;
     //αフォグ
 	out_vs.col.a = g_colMaterialDiffuse.a;
-	if (out_vs.pos.z > g_zf*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-    	out_vs.col.a *= (-1.0/(g_zf*0.5)*out_vs.pos.z + 2.0);
+	if (out_vs.pos.z > (g_zf*0.7)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
+    	out_vs.col.a *= (-1.0/((g_zf*0.7)*0.5)*out_vs.pos.z + 2.0);
 	} 
 	//マスターα
 	out_vs.col.a *= g_alpha_master;
