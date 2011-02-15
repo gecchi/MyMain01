@@ -71,7 +71,7 @@ public:
      * リセット時の処理 .
      * メンバーを全てinactivateImmediately()します。
      */
-    virtual void processReset() override;
+    virtual void onReset() override;
 
 
      virtual ~LaserChipDispatcher();

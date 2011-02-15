@@ -28,7 +28,7 @@ public:
      * シーンをリセットし、再利用可能にする .
      * 下位で実装してください。
      */
-    virtual void processReset() override {
+    virtual void onReset() override {
     }
 
     virtual void processBehavior() override {
