@@ -23,9 +23,10 @@ void MagicPointItem001::initialize() {
 void MagicPointItem001::onReset() {
     setHitAble(true);
     _pMover->setMvAng(P_MYSHIP);
-    _pMover->setFaceAngVelo(AXIS_X, 3*1000);
+    _pMover->setFaceAngVelo(AXIS_X, 1000);
     _pMover->setMvVelo(2000);
-    _pMover->setMvAcce(100);
+    _pMover->setMvAcce(10);
+    _pMover->forceMvVeloRange(0, 5000);
 }
 void MagicPointItem001::onActive() {
 //    _pMover->setFaceAngVelo(AXIS_Y, 5*1000);
@@ -33,7 +34,7 @@ void MagicPointItem001::onActive() {
 }
 
 void MagicPointItem001::processBehavior() {
-    if (getActivePartFrame() < 120 && getActivePartFrame() % 20 == 0) {
+    if (getActivePartFrame() < 60 && getActivePartFrame() % 10 == 0) {
         _pMover->execTagettingMvAngSequence(P_MYSHIP,2000,2000,TURN_CLOSE_TO);
     }
     _pMover->behave();
