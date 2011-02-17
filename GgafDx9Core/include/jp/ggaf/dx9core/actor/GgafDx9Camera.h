@@ -27,6 +27,8 @@ class GgafDx9Camera : public GgafDx9GeometricActor {
 private:
 
 public:
+    D3DVIEWPORT9 _viewport;
+
     // 視錐台の6つの面の頂点座標
     /** 視錐台面、手前の四角形の頂点(読み込み専用、毎フレーム更新) */
     D3DXVECTOR3 _vecNear[4];

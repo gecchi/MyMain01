@@ -243,28 +243,23 @@ void ToolBox::IO_Model_X::Find(uchar pChar) {
 char* ToolBox::IO_Model_X::SetUID(char pType) {
     //This is a quick hack to derive a Unique ID for blocks with
     //no identifier names like in the tiny_4anim.x example.
+    static uint32 seq = GetTickCount(); //tsuge add
+    _X_UID.Integer[0] = (seq++);        //tsuge add
+    _X_UID.Integer[1] = GetTickCount(); //This function return a 4 byte wide number
 
-    _X_UID.Integer = GetTickCount(); //This function return a 4 byte wide number
-    _X_UID.Text[4] = pType; //We set the 5th byte with a significant character
-    _X_UID.Text[5] = '\0'; //add tsuge デバッグ表示用のため
+    _X_UID.Text[8+0] = pType; //We set the 5th byte with a significant character
+    _X_UID.Text[8+1] = '\0'; //add tsuge デバッグ表示用のため
 
     //If any of the first 4 bytes are under 32 we add 32
     //We want to avoid the occurrence of the char '\0' within
     //the first 4 bytes since this would truncate the text returned.
 
 //tsuge add begin 表示可能文字に
-    _X_UID.Text[0] %= 92;
-    _X_UID.Text[1] %= 92;
-    _X_UID.Text[2] %= 92;
-    _X_UID.Text[3] %= 92;
-    while (_X_UID.Text[0] < 32)
-        _X_UID.Text[0] += 32;
-    while (_X_UID.Text[1] < 32)
-        _X_UID.Text[1] += 32;
-    while (_X_UID.Text[2] < 32)
-        _X_UID.Text[2] += 32;
-    while (_X_UID.Text[3] < 32)
-        _X_UID.Text[3] += 32;
+    for (int i = 0; i < 8; i++) {
+        _X_UID.Text[i] %= 92;
+        while (_X_UID.Text[i] < 32)
+            _X_UID.Text[i] += 32;
+    }
 
 //tsuge add end
 

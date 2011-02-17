@@ -16,11 +16,11 @@ public:
     /** メッシュ(インスタンスはモデル毎） */
     GgafDx9AllocHierarchyWorldFrame* _pAH;
     D3DXFRAME_WORLD* _pFR;
-    ID3DXAnimationController* _pAC;
+    ID3DXAnimationController* _pAcBase;
     FLOAT _Ang;
 
     /** 60フレーム(1秒)で1ループする場合の1フレーム辺りの時間 */
-    double _advanceTimePerFrame;//60フレーム(1秒)で1ループすることを標準設定とする。
+//    double _advanceTimePerFrame0;//60フレーム(1秒)で1ループすることを標準設定とする。
 
     GgafDx9WorldMatStack WTMStack;
     ///** D3DXLoadMeshFromXのオプション */

@@ -20,6 +20,8 @@ public:
     /** エフェクト資源 */
     GgafDx9D3DXAniMeshEffect* _pD3DXAniMeshEffect;
 
+    ID3DXAnimationController* _pAc;
+    double _advanceTimePerFrame0;
     GgafDx9D3DXAniMeshActor(const char* prm_name,
                          const char* prm_model_id,
                          const char* prm_effect_id,

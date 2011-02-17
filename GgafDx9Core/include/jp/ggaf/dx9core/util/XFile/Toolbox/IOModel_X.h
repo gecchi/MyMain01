@@ -53,9 +53,9 @@ private:
     //structure used by the previous function to quickly
     //convert a 32 bit number to a non-significant text.
     union {
-        uint32 Integer;
+        uint32 Integer[2]; //mod tsuge
         //char Text[5];
-        char Text[6]; //mod tsuge
+        char Text[8+2]; //mod tsuge
     } _X_UID;
 
     /** Xファイル読み込み時の次のトークン予約 */

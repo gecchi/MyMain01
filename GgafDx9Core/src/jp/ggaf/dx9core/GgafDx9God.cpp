@@ -660,6 +660,7 @@ void GgafDx9God::adjustGameScreen() {
             _adjustGameScreen = false;
         }
     }
+    GgafDx9God::_pID3DDevice9->GetViewport(&(P_CAM->_viewport));
 }
 
 //void GgafDx9God::adjustGameScreen() {

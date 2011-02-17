@@ -6,7 +6,7 @@ using namespace GgafDx9Core;
 GgafDx9D3DXAniMeshModel::GgafDx9D3DXAniMeshModel(char* prm_model_name) : GgafDx9Model(prm_model_name) {
     TRACE("GgafDx9D3DXAniMeshModel::GgafDx9D3DXAniMeshModel(" << prm_model_name << ")");
     _pFR = NULL;
-    _pAC = NULL;
+    _pAcBase = NULL;
     _dwNumMaterials = 0L;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
@@ -24,6 +24,36 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
     GgafDx9D3DXAniMeshEffect* pD3DXAniMeshEffect = (GgafDx9D3DXAniMeshEffect*)prm_pActor_Target->_pGgafDx9Effect;
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pD3DXAniMeshEffect->_pID3DXEffect;
+
+//
+//
+//    if (GgafDx9ModelManager::_pModelLastDraw != this) {
+//        //頂点バッファとインデックスバッファを設定
+//        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertex_unit);
+//        GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshModel::FVF);
+//        GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
+//
+//        hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_power, _fPowerBlink);
+//        checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
+//        hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_threshold, _fBlinkThreshold);
+//        checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
+//    }
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9D3DXAniMeshActor::FVF);
     HRESULT hr;
 
@@ -35,8 +65,8 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
     //_Ang += 0.004f;
 
 
-    // アニメーションをフレーム分進める
-    _pAC->AdvanceTime(_advanceTimePerFrame, NULL );
+//    // アニメーションをフレーム分進める
+//    _pAcBase->AdvanceTime(_advanceTimePerFrame, NULL );
 
 
     //ワールド変換行列スタックによるワールド変換行列の計算
@@ -237,7 +267,7 @@ void GgafDx9D3DXAniMeshModel::release() {
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
-    RELEASE_IMPOSSIBLE_NULL(_pAC);
+    RELEASE_IMPOSSIBLE_NULL(_pAcBase);
     DELETE_IMPOSSIBLE_NULL(_pAH);
     //TODO:いつ消すの？
     TRACE3("GgafDx9D3DXAniMeshModel::release() " << _model_name << " end");

@@ -95,6 +95,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
     _X_ScreenRight  = (int)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * LEN_UNIT / 2);
     _Y_ScreenTop    = (int)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * LEN_UNIT / 2);
     _Y_ScreenBottom = (int)(-1 * GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * LEN_UNIT / 2);
+    GgafDx9God::_pID3DDevice9->GetViewport(&_viewport);
 }
 
 void GgafDx9Camera::initialize() {
@@ -104,26 +105,24 @@ void GgafDx9Camera::initialize() {
 void GgafDx9Camera::processBehavior() {
     //if (_frame_of_behaving % 2 == 0) { //10フレームに１回だけ計算
     HRESULT hr;
-    static D3DVIEWPORT9 viewport;       //クライアント領域全体の保持
     //スクリーン全体のクライアント領域を保持。
-    hr = GgafDx9God::_pID3DDevice9->GetViewport(&viewport);
 
-    // viewport.MinZ / MaxZ は、通常それぞれ 0 / 1
-    float x1 = (float)viewport.X;
-    float y1 = (float)viewport.Y;
-    float x2 = (float)viewport.X + (float)viewport.Width;
-    float y2 = (float)viewport.Y + (float)viewport.Height;
+    // _viewport.MinZ / MaxZ は、通常それぞれ 0 / 1
+    float x1 = (float)_viewport.X;
+    float y1 = (float)_viewport.Y;
+    float x2 = (float)_viewport.X + (float)_viewport.Width;
+    float y2 = (float)_viewport.Y + (float)_viewport.Height;
 
     // 視錐台の８点が格納されるインスタンス
-    _vecNear[0] = D3DXVECTOR3( x1, y1, viewport.MinZ ); // 左下 (変換後)
-    _vecNear[1] = D3DXVECTOR3( x2, y1, viewport.MinZ ); // 右下 (変換後)
-    _vecNear[2] = D3DXVECTOR3( x1, y2, viewport.MinZ ); // 左上 (変換後)
-    _vecNear[3] = D3DXVECTOR3( x2, y2, viewport.MinZ ); // 右上 (変換後)
+    _vecNear[0] = D3DXVECTOR3( x1, y1, _viewport.MinZ ); // 左下 (変換後)
+    _vecNear[1] = D3DXVECTOR3( x2, y1, _viewport.MinZ ); // 右下 (変換後)
+    _vecNear[2] = D3DXVECTOR3( x1, y2, _viewport.MinZ ); // 左上 (変換後)
+    _vecNear[3] = D3DXVECTOR3( x2, y2, _viewport.MinZ ); // 右上 (変換後)
 
-    _vecFar[0]  = D3DXVECTOR3( x1, y1, viewport.MaxZ ); // 左下 (変換後)
-    _vecFar[1]  = D3DXVECTOR3( x2, y1, viewport.MaxZ ); // 右下 (変換後)
-    _vecFar[2]  = D3DXVECTOR3( x1, y2, viewport.MaxZ ); // 左上 (変換後)
-    _vecFar[3]  = D3DXVECTOR3( x2, y2, viewport.MaxZ ); // 右上 (変換後)
+    _vecFar[0]  = D3DXVECTOR3( x1, y1, _viewport.MaxZ ); // 左下 (変換後)
+    _vecFar[1]  = D3DXVECTOR3( x2, y1, _viewport.MaxZ ); // 右下 (変換後)
+    _vecFar[2]  = D3DXVECTOR3( x1, y2, _viewport.MaxZ ); // 左上 (変換後)
+    _vecFar[3]  = D3DXVECTOR3( x2, y2, _viewport.MaxZ ); // 右上 (変換後)
 
 
 
@@ -131,13 +130,12 @@ void GgafDx9Camera::processBehavior() {
     // 視錐台の８点の計算
     static D3DXMATRIX mat_world;
     D3DXMatrixIdentity( &mat_world );
-    D3DVIEWPORT9* pViewport = (D3DVIEWPORT9*)(&viewport);
     // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
     for( int i = 0; i < 4; ++i ) {
         D3DXVec3Unproject(
             &_vecNear[i],   //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
             &_vecNear[i],   //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。
-            pViewport,      //CONST D3DVIEWPORT9 *pViewport,  [in] ビューポートを表す D3DVIEWPORT9 構造体へのポインタ。
+            &_viewport,      //CONST D3DVIEWPORT9 *pViewport,[in] ビューポートを表す D3DVIEWPORT9 構造体へのポインタ。
             &_vMatrixProj,  //CONST D3DXMATRIX *pProjection,  [in] 射影行列を表す D3DXMATRIX 構造体へのポインタ。
             &_vMatrixView,  //CONST D3DXMATRIX *pView,        [in] ビュー行列を表す D3DXMATRIX 構造体へのポインタ。
             &mat_world      //CONST D3DXMATRIX *pWorld        [in] ワールド行列を表す D3DXMATRIX 構造体へのポインタ。
@@ -145,7 +143,7 @@ void GgafDx9Camera::processBehavior() {
         D3DXVec3Unproject(
             &_vecFar[i],
             &_vecFar[i],
-            pViewport,
+            &_viewport,
             &_vMatrixProj,
             &_vMatrixView,
             &mat_world
