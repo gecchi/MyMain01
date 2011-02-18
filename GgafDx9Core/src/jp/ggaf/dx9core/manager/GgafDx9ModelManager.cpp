@@ -1562,6 +1562,8 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     prm_pD3DXMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
     prm_pD3DXMeshModel->_papTextureCon = model_papTextureCon;
     prm_pD3DXMeshModel->_dwNumMaterials = dwNumMaterials;
+    prm_pD3DXMeshModel->_fBoundingSphereRadius = 10.0f; //TODO:境界球半径大きさとりあえず100px
+
 }
 
 void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_pD3DXAniMeshModel) {
@@ -1574,8 +1576,8 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
     //TODO:GgafDx9D3DXAniMeshModelはもう必要無いのかもしれない。
     //Xファイルのロードして必要な内容をGgafDx9D3DXAniMeshModelメンバに設定しインスタンスとして完成させたい
     LPD3DXMESH pID3DXAniMesh; //メッシュ(ID3DXAniMeshインターフェイスへのポインタ）
-    D3DMATERIAL9* model_paD3DMaterial9; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
-    GgafDx9TextureConnection** model_papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
+    D3DMATERIAL9* model_paD3DMaterial9 = NULL; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
+    GgafDx9TextureConnection** model_papTextureCon = NULL; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD dwNumMaterials;
     string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
 
@@ -1595,17 +1597,77 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
             &pAC
          );
 
+    //マテリアル配列を作成
+    list<D3DXFRAME_WORLD*> listFrame;
+    getDrawFrameList(&listFrame, pFR); //マテリアル総数を知りたいがため、フレームを廻り、リスト化
+    list<D3DXFRAME_WORLD*>::iterator it = listFrame.begin();
+    int model_nMaterials = 0;
+    //フレームリストを廻って、マテリアル総数取得
+    for (int i = 0; it != listFrame.end(); i++, it++) {
+        if ((*it)->pMeshContainer == NULL) {
+            continue;
+        } else {
+            model_nMaterials += (int)((*it)->pMeshContainer->NumMaterials);
+        }
+    }
+    //配列数がやっと解ったので作成
+    model_paD3DMaterial9 = NEW D3DMATERIAL9[model_nMaterials];
+    model_papTextureCon  = NEW GgafDx9TextureConnection*[model_nMaterials];
+    //モデル保持用マテリアル、テクスチャ作成のため、もう一度回す
+    it = listFrame.begin();
+    int n = 0;
+    char* texture_filename;
+    for (int i = 0; it != listFrame.end(); i++, it++) {
+        if ((*it)->pMeshContainer == NULL) {
+            continue;
+        } else {
+            for (int j = 0; j < (int)((*it)->pMeshContainer->NumMaterials); j++) {
+//                (*it)->pMeshContainer->pMaterials[j].MatD3D.Diffuse
+                model_paD3DMaterial9[n] = (*it)->pMeshContainer->pMaterials[j].MatD3D; //マテリアル情報コピー
+
+                texture_filename = (*it)->pMeshContainer->pMaterials[j].pTextureFilename;
+                if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
+                    model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
+                } else {
+                    //テクスチャ無し時は真っ白なテクスチャに置き換え
+                    model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection("white.png");
+                }
+                n ++;
+            }
+        }
+    }
+    //境界球
+    D3DXVECTOR3 vecCenter;
+    FLOAT model_fBoundingSphereRadius;
+    D3DXFrameCalculateBoundingSphere(pFR, &vecCenter, &model_fBoundingSphereRadius);
     //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
     prm_pD3DXAniMeshModel->_pAH = pAH;
     prm_pD3DXAniMeshModel->_pFR = pFR;
     prm_pD3DXAniMeshModel->_pAcBase = pAC;
+    prm_pD3DXAniMeshModel->_fBoundingSphereRadius = model_fBoundingSphereRadius;
+    _TRACE_("境界球半径="<<model_fBoundingSphereRadius);
 //    prm_pD3DXAniMeshModel->_advanceTimePerFrame0 =  advanceTimePerFrame0; //トラック0番１ループの時間
-    _TRACE_("アニメーションセット0番_advanceTimePerFrame");
+//    _TRACE_("アニメーションセット0番_advanceTimePerFrame");
 
 //    prm_pD3DXAniMeshModel->_pID3DXAniMesh = pID3DXAniMesh;
-//    prm_pD3DXAniMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
-//    prm_pD3DXAniMeshModel->_papTextureCon = model_papTextureCon;
-//    prm_pD3DXAniMeshModel->_dwNumMaterials = dwNumMaterials;
+    prm_pD3DXAniMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    prm_pD3DXAniMeshModel->_papTextureCon = model_papTextureCon;
+    prm_pD3DXAniMeshModel->_dwNumMaterials = model_nMaterials;
+}
+
+void GgafDx9ModelManager::getDrawFrameList(list<D3DXFRAME_WORLD*>* pList, D3DXFRAME_WORLD* pFrame) {
+    if (pFrame->pMeshContainer) {
+        //メッシュコンテナ有り
+        pList->push_back(pFrame); //リストに追加
+    }
+    if (pFrame->pFrameFirstChild) {
+        // 子フレーム有り
+        getDrawFrameList(pList, (D3DXFRAME_WORLD*)pFrame->pFrameFirstChild);
+    }
+    if (pFrame->pFrameSibling) {
+        //兄弟フレーム有り
+        getDrawFrameList(pList, (D3DXFRAME_WORLD*)pFrame->pFrameSibling);
+    }
 }
 
 void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteModel) {

@@ -86,7 +86,7 @@ public:
     void restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMeshModel);
 
     void restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_pD3DXAniMeshModel);
-
+    void getDrawFrameList(list<D3DXFRAME_WORLD*>* pList, D3DXFRAME_WORLD* frame);
     /**
      * GgafDx9SpriteModel オブジェクトを再構築する。 .
      * @param prm_pSpriteModel 再構築するGgafDx9SpriteModel

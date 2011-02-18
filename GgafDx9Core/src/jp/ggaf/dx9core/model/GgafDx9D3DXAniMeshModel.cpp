@@ -70,25 +70,53 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
 
 
     //ワールド変換行列スタックによるワールド変換行列の計算
-    D3DXMATRIX WorldMat;
-    D3DXMatrixIdentity(&WorldMat);
+//    D3DXMATRIX WorldMat;
+//    D3DXMatrixIdentity(&WorldMat);
     //D3DXMatrixRotationYawPitchRoll(&Rot, _Ang, _Ang / 2.37f, 0);
     //D3DXMatrixMultiply(&WorldMat, &WorldMat, &Rot);
     //&(pTargetActor->_matWorld)
 
 
-    WTMStack.SetWorldMatrix(&WorldMat);
+    _stackWorldMat.SetWorldMatrix(&(pTargetActor->_matWorld));
     // フレームのワールド変換行列を計算
-    WTMStack.UpdateFrame(_pFR);
+    _stackWorldMat.UpdateFrame(_pFR);
 
-    list< D3DXFRAME_WORLD* > *pDrawList;
-    pDrawList = WTMStack.GetDrawList(); // 描画リストを取得
+    list< D3DXFRAME_WORLD* > *pDrawList = _stackWorldMat.GetDrawList(); // 描画リストを取得
+//    pDrawList
 
     list<D3DXFRAME_WORLD*>::iterator it = pDrawList->begin();
     int materialnum;
 
+    int n = 0;
+    //マテリアル・テクスチャの一発目をセット、
+    LPDIRECT3DBASETEXTURE9 pTex = NULL;
+    LPDIRECT3DBASETEXTURE9 pLastTex = NULL;
+    if (_papTextureCon[n]) {
+        pLastTex = _papTextureCon[n]->refer()->_pIDirect3DBaseTexture9;
+        GgafDx9God::_pID3DDevice9->SetTexture(0, pLastTex);
+    } else {
+        //無ければテクスチャ無し
+        GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
+    }
+    hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[n].Diffuse), sizeof(D3DCOLORVALUE) );
+    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
 
     for (int i = 0; it != pDrawList->end(); i++, it++) {
+//        if (GgafDx9ModelManager::_pModelLastDraw != this || _dwNumMaterials != 1) {
+//            if (_papTextureCon[i]) {
+//                //テクスチャのセット
+//                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->refer()->_pIDirect3DBaseTexture9);
+//            } else {
+//                _TRACE_("GgafDx9D3DXAniMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
+//                //無ければテクスチャ無し
+//                GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
+//            }
+//            //マテリアルのセット
+//            //GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[i]));
+//            hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[i].Diffuse), sizeof(D3DCOLORVALUE) );
+//            checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
+//        }
+
         //描画
         if ((GgafDx9EffectManager::_pEffect_Active != pD3DXAniMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
             if (GgafDx9EffectManager::_pEffect_Active) {
@@ -130,7 +158,7 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
         //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &(*it)->WorldTransMatrix); // ワールド変換行列を設定
         //_TRACE_("["<<i<<"]○SetMatrix FrameName="<<((*it)->Name)<<" 描画！");
 
-        D3DXMatrixMultiply(&WorldMat, &((*it)->WorldTransMatrix), &(pTargetActor->_matWorld));
+//        D3DXMatrixMultiply(&WorldMat, &((*it)->WorldTransMatrix), &(pTargetActor->_matWorld));
 
 //        _TRACE_("(*it)->WorldTransMatrix=");
 //        putMat(&((*it)->WorldTransMatrix));
@@ -139,11 +167,8 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
 //        _TRACE_("WorldMat=");
 //        putMat(&WorldMat);
         //hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_h_matWorld, &((*it)->WorldTransMatrix));
-        hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_h_matWorld, &WorldMat);
+        hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_h_matWorld, &((*it)->WorldTransMatrix));
         checkDxException(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-
-
-
 
         //hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_h_matWorld, &_matWorld );
             //checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
@@ -151,19 +176,25 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
             TRACE4("["<<i<<"]×SetMatrix FrameName="<<((*it)->Name)<<" 飛ばし！");
             continue;
         } else {
-
-            materialnum = (*it)->pMeshContainer->NumMaterials;
-            for (int j = 0; j < materialnum; j++) {
+            for (int j = 0; j < (int)((*it)->pMeshContainer->NumMaterials); j++) {
+                if (n > 0) {
+                    pTex = _papTextureCon[n]->refer()->_pIDirect3DBaseTexture9;
+                    if (pTex != pLastTex) {
+                        //テクスチャが異なれば設定
+                        GgafDx9God::_pID3DDevice9->SetTexture(0, pTex);
+                        pLastTex = pTex;
+                    }
+                    hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[n].Diffuse), sizeof(D3DCOLORVALUE) );
+                    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
+                }
                 TRACE4("["<<i<<"]["<<j<<"],SetMaterial");
                 //GgafDx9God::_pID3DDevice9->SetMaterial(&(*it)->pMeshContainer->pMaterials[j].MatD3D);
 
-                hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &((*it)->pMeshContainer->pMaterials[j].MatD3D.Diffuse), sizeof(D3DCOLORVALUE) );
-                checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
-
                 hr = pID3DXEffect->CommitChanges();
                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() CommitChanges() に失敗しました。");
-
                 (*it)->pMeshContainer->MeshData.pMesh->DrawSubset(j);
+                n++;
+                GgafGod::_num_actor_drawing++;
             }
         }
     }

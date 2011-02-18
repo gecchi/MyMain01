@@ -92,12 +92,13 @@ HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int 
         }
         TRACE4("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
         hr = _pID3DXMesh->DrawSubset(i);  //なんて便利なメソッド。
+        GgafGod::_num_actor_drawing++;
     }
     //前回描画モデル名反映
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9EffectManager::_pEffect_Active = pMeshEffect;
     GgafDx9DrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
-    GgafGod::_num_actor_drawing++;
+
     return D3D_OK;
 }
 

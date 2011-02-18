@@ -112,11 +112,11 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_
                                                         _paIndexParam[i].NumVertices,
                                                         _paIndexParam[i].StartIndex,
                                                         _paIndexParam[i].PrimitiveCount);
+        GgafGod::_num_actor_drawing++;
     }
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9EffectManager::_pEffect_Active = pMeshEffect;
     GgafDx9DrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
-    GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }
 

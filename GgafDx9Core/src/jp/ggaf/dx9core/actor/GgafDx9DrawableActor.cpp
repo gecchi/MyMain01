@@ -46,6 +46,8 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     _fBoundingSphereRadius = _pGgafDx9Model->_fBoundingSphereRadius;
     _now_drawdepth = 0;
     _specal_drawdepth = -1;
+    _zenable = true;
+    _zwriteenable = true;
 }
 
 
@@ -280,6 +282,6 @@ GgafDx9DrawableActor::~GgafDx9DrawableActor() {
     DELETEARR_IMPOSSIBLE_NULL(_technique);
     DELETEARR_IMPOSSIBLE_NULL(_technique_temp);
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
-	_pGgafDx9EffectCon->close();
+    _pGgafDx9EffectCon->close();
     _pGgafDx9ModelCon->close();
 }

@@ -148,11 +148,12 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int
                                                         _paIndexParam[i].NumVertices,
                                                         _paIndexParam[i].StartIndex,
                                                         _paIndexParam[i].PrimitiveCount);
+        GgafGod::_num_actor_drawing++;
     }
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9EffectManager::_pEffect_Active = pMorphMeshEffect;
     GgafDx9DrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
-    GgafGod::_num_actor_drawing++;
+
     return D3D_OK;
 }
 

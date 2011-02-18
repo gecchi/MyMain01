@@ -138,12 +138,12 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int p
                                         _papaIndexParam[prm_draw_set_num-1][material_grp_index].NumVertices,
                                         _papaIndexParam[prm_draw_set_num-1][material_grp_index].StartIndex,
                                         _papaIndexParam[prm_draw_set_num-1][material_grp_index].PrimitiveCount);
+        GgafGod::_num_actor_drawing++;
     }
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9MeshSetModel::_draw_set_num_LastDraw = prm_draw_set_num;
     GgafDx9EffectManager::_pEffect_Active = pMeshSetEffect;
     GgafDx9DrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
-    GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }
 

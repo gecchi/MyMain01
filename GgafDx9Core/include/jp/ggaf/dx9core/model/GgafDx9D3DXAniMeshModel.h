@@ -22,7 +22,7 @@ public:
     /** 60フレーム(1秒)で1ループする場合の1フレーム辺りの時間 */
 //    double _advanceTimePerFrame0;//60フレーム(1秒)で1ループすることを標準設定とする。
 
-    GgafDx9WorldMatStack WTMStack;
+    GgafDx9WorldMatStack _stackWorldMat;
     ///** D3DXLoadMeshFromXのオプション */
     //	LPD3DXBUFFER	_pAdjacency;
 
