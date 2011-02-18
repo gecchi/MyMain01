@@ -10,7 +10,7 @@ TamagoActor::TamagoActor(const char* prm_name) : DefaultD3DXAniMeshActor(prm_nam
 }
 
 void TamagoActor::initialize() {
-    _SX = _SY = _SZ = 200;
+    setScale(100);
     LPD3DXANIMATIONSET pAnimationSet0;
     _pAc->GetAnimationSet(0, &pAnimationSet0); //ID0番のアニメーションセット
     _pAc->SetTrackAnimationSet(0, pAnimationSet0);//ID0番のアニメーションセットをトラック0番にセット（デフォルトでこうなるはず）
@@ -26,7 +26,8 @@ void TamagoActor::initialize() {
 }
 
 void TamagoActor::processBehavior() {
-
+//    setCoordinateBy(P_MYSHIP);
+    _pAc->AdvanceTime(_advanceTimePerFrame0, NULL );
 }
 
 void TamagoActor::processJudgement() {

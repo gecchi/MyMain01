@@ -26,6 +26,11 @@ public:
     int isOutOfView() override {
         return 0;
     }
+
+    bool isOutOfUniverse() override {
+        return false;
+    }
+
     virtual ~TamagoActor();
 };
 
