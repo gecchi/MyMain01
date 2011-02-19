@@ -19,8 +19,6 @@ public:
 
     DefaultUniverse(const char* prm_name, GgafDx9Core::GgafDx9Camera* prm_pCamera);
 
-    virtual void nextFrame();
-
 
     virtual void processFinal() override;
 

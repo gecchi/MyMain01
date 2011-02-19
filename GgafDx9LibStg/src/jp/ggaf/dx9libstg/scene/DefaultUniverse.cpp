@@ -14,10 +14,6 @@ DefaultUniverse::DefaultUniverse(const char* prm_name, GgafDx9Camera* prm_pCamer
 
 }
 
-void DefaultUniverse::nextFrame() {
-    GgafDx9Core::GgafDx9Universe::nextFrame();
-}
-
 
 void DefaultUniverse::processFinal() {
 //    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
