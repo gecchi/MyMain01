@@ -8,11 +8,10 @@ GgafDx9D3DXAniMeshModel::GgafDx9D3DXAniMeshModel(char* prm_model_name) : GgafDx9
     _pFR = NULL;
     _pAcBase = NULL;
     _dwNumMaterials = 0L;
-
+    _anim_ticks_per_second = 4800; //restoreD3DXAniMeshModel で上書きされる場合がある。
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel*)
     //で行うようにした。要参照。
-
     _Ang = 0.0f;
 }
 

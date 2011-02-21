@@ -28,7 +28,7 @@ GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshActor(const char* prm_name,
                                                 _pD3DXAniMeshModel->_pAcBase->GetMaxNumTracks(),
                                                 _pD3DXAniMeshModel->_pAcBase->GetMaxNumEvents(),
                                                 &_pAc);
-    _advanceTimePerFrame0 = 0;
+    _advanceTimePerFrame = 1.0 / 60.0; //60分の1秒
     checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshActor() アニメーションコントローラーのクローンに失敗しました。name="<<prm_name);
 
 }
@@ -68,7 +68,7 @@ void GgafDx9D3DXAniMeshActor::processDraw() {
     // Zバッファ書き込み可
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
-    _pAc->AdvanceTime(_advanceTimePerFrame0, NULL );
+    //_pAc->AdvanceTime(_advanceTimePerFrame0, NULL );
 
     _pD3DXAniMeshModel->draw(this);
 

@@ -1570,6 +1570,9 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
     TRACE3("GgafDx9ModelManager::restoreD3DXAniMeshModel(" << prm_pD3DXAniMeshModel->_model_name << ")");
     //TODO:作成中！！！！！！！！
 
+
+
+
     //【restoreD3DXAniMeshModel再構築（＝初期化）処理概要】
     //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
     //2)GgafDx9D3DXAniMeshModelのメンバにセット
@@ -1580,6 +1583,36 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
     GgafDx9TextureConnection** model_papTextureCon = NULL; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD dwNumMaterials;
     string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+
+
+    //AnimTicksPerSecondの値を独自に取り出す
+    ifstream ifs(xfile_name.c_str());
+    if (ifs.fail()) {
+        throwGgafCriticalException(" GgafDx9ModelManager::restoreD3DXAniMeshModel ["<<xfile_name<<"] が開けません");
+    }
+    string buf;
+    bool isdone = false;
+    int anim_ticks_per_second = 4800;
+    string data;
+    while(isdone == false && !ifs.eof()) {
+        ifs >> data;
+        if (data == "AnimTicksPerSecond" || data == "AnimTicksPerSecond{") {
+            while(isdone == false) {
+                ifs >> data;
+                if (data == "{") {
+                    continue;
+                } else if (data == "}") {
+                    isdone = true;
+                    break;
+                } else {
+                    anim_ticks_per_second = atoi(data.c_str()); //"60;" → 60を得る
+                    isdone = true;
+                    break;
+                }
+            }
+        }
+    }
+    ifs.close();
 
     LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
@@ -1641,6 +1674,13 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
     FLOAT model_fBoundingSphereRadius;
     D3DXFrameCalculateBoundingSphere(pFR, &vecCenter, &model_fBoundingSphereRadius);
     //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
+
+
+
+
+
+
+
     prm_pD3DXAniMeshModel->_pAH = pAH;
     prm_pD3DXAniMeshModel->_pFR = pFR;
     prm_pD3DXAniMeshModel->_pAcBase = pAC;
@@ -1653,6 +1693,7 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
     prm_pD3DXAniMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
     prm_pD3DXAniMeshModel->_papTextureCon = model_papTextureCon;
     prm_pD3DXAniMeshModel->_dwNumMaterials = model_nMaterials;
+    prm_pD3DXAniMeshModel->_anim_ticks_per_second = anim_ticks_per_second;
 }
 
 void GgafDx9ModelManager::getDrawFrameList(list<D3DXFRAME_WORLD*>* pList, D3DXFRAME_WORLD* pFrame) {
