@@ -65,7 +65,7 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
 
 
 //    // アニメーションをフレーム分進める
-//    _pAcBase->AdvanceTime(_advanceTimePerFrame, NULL );
+//    _pAcBase->AdvanceTime(_advance_time_per_frame, NULL );
 
 
     //ワールド変換行列スタックによるワールド変換行列の計算

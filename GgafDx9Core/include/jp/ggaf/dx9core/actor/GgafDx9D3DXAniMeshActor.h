@@ -20,13 +20,22 @@ public:
     /** エフェクト資源 */
     GgafDx9D3DXAniMeshEffect* _pD3DXAniMeshEffect;
 
-    double _advanceTimePerFrame;
+    GgafDx9AnimationController* _pAniCon;
+
+    LPD3DXANIMATIONSET* _papAnimationSet;
+
+    double _advance_time_per_draw;
+
+    double _advance_time_per_frame;
     ID3DXAnimationController* _pAc;
+    DWORD _last_track;
     GgafDx9D3DXAniMeshActor(const char* prm_name,
                          const char* prm_model_id,
                          const char* prm_effect_id,
                          const char* prm_technique,
                          GgafDx9Checker* prm_pChecker);
+
+
 
     /**
      * ＜OverRide です＞<BR>

@@ -7,7 +7,8 @@ const int GgafDx9Input::BUFFER_SIZE = 256;
 LPDIRECTINPUT8 GgafDx9Input::_pIDirectInput8 = NULL;
 LPDIRECTINPUTDEVICE8 GgafDx9Input::_pIDirectInputDevice8_Keyboard = NULL;
 LPDIRECTINPUTDEVICE8 GgafDx9Input::_pIDirectInputDevice8_Joystick = NULL;
-char GgafDx9Input::_caKeyboardState[256];
+char GgafDx9Input::_caKeyboardState[2][256];
+int GgafDx9Input::_active_KeyboardState = 0;
 DIDEVCAPS GgafDx9Input::_didevcap;
 DIJOYSTATE GgafDx9Input::_dijoystate;
 
@@ -187,10 +188,12 @@ void GgafDx9Input::updateKeyboardState() {
         return;
     }
 
+    _active_KeyboardState = !_active_KeyboardState; //ステートセットフリップ
+
     HRESULT hr;
     again:
     hr = _pIDirectInputDevice8_Keyboard->Poll(); //キーボードは通常Poll不用と思うが、必要なキーボードもあるかもしれない。
-    hr = _pIDirectInputDevice8_Keyboard->GetDeviceState(256, (void*)&_caKeyboardState);
+    hr = _pIDirectInputDevice8_Keyboard->GetDeviceState(256, (void*)&_caKeyboardState[_active_KeyboardState]);
     if (FAILED(hr)) {
         //_TRACE_("GetDeviceState is FAILED");
         //Acquire()を試みる。
@@ -211,11 +214,25 @@ bool GgafDx9Input::isBeingPressedKey(int prm_DIK) {
         _TRACE_("isBeingPressedKey:範囲外");
         return false;
     } else {
-        if (_caKeyboardState[prm_DIK] & 0x80) {
+        if (_caKeyboardState[_active_KeyboardState][prm_DIK] & 0x80) {
             return true;
         } else {
             return false;
         }
+    }
+}
+
+bool GgafDx9Input::isPushedDownKey(int prm_DIK) {
+    if (GgafDx9Input::isBeingPressedKey(prm_DIK)) { //今は押している
+        if (_caKeyboardState[!_active_KeyboardState][prm_DIK] & 0x80) {
+            //前回セット[!_active_KeyboardState]も押されている。押しっぱなし
+            return false;
+        } else {
+            //前回セット[!_active_KeyboardState]は押されていないのでOK
+            return true;
+        }
+    } else {
+        return false;
     }
 }
 

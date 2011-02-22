@@ -22,15 +22,127 @@ GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshActor(const char* prm_name,
     _pD3DXAniMeshModel = (GgafDx9D3DXAniMeshModel*)_pGgafDx9Model;
     _pD3DXAniMeshEffect = (GgafDx9D3DXAniMeshEffect*)_pGgafDx9Effect;
     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
+
     HRESULT hr = _pD3DXAniMeshModel->_pAcBase->CloneAnimationController(
                                                 _pD3DXAniMeshModel->_pAcBase->GetMaxNumAnimationOutputs(),
                                                 _pD3DXAniMeshModel->_pAcBase->GetMaxNumAnimationSets(),
                                                 _pD3DXAniMeshModel->_pAcBase->GetMaxNumTracks(),
                                                 _pD3DXAniMeshModel->_pAcBase->GetMaxNumEvents(),
                                                 &_pAc);
-    _advanceTimePerFrame = 1.0 / 60.0; //60分の1秒
     checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshActor() アニメーションコントローラーのクローンに失敗しました。name="<<prm_name);
 
+    _advance_time_per_frame = 1.0 / 60.0; //60分の1秒
+    _advance_time_per_draw = 0;
+
+
+    _last_track = 0;
+
+    _TRACE_("_pAc->GetMaxNumTracks()="<<_pAc->GetMaxNumTracks());
+    _TRACE_("_pAc->GetMaxNumAnimationSets()="<<_pAc->GetMaxNumAnimationSets());
+//
+    LPD3DXANIMATIONSET pAnimationSet0;
+    hr = _pAc->GetAnimationSet(0, &pAnimationSet0); //ID0番のアニメーションセット取得
+    checkDxException(hr, D3D_OK, "失敗しました。");
+//    LPD3DXANIMATIONSET pAnimationSet1;
+//    hr = _pAc->GetAnimationSet(2, &pAnimationSet1); //ID1番のアニメーションセット取得
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//    LPD3DXANIMATIONSET pAnimationSet2;
+//    hr = _pAc->GetAnimationSet(2, &pAnimationSet2); //ID2番のアニメーションセット取得
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//    LPD3DXANIMATIONSET pAnimationSet4;
+//    hr = _pAc->GetAnimationSet(2, &pAnimationSet4); //ID2番のアニメーションセット取得
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//
+    hr = _pAc->SetTrackAnimationSet(0, pAnimationSet0);//ID0番のアニメーションセットをトラック0番にセット（デフォルトでこうなるはず）
+    checkDxException(hr, D3D_OK, "失敗しました。");
+//    hr = _pAc->SetTrackAnimationSet(1, pAnimationSet0);//ID1番のアニメーションセットをトラック1番にセット（デフォルトでこうなるはず）
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+////    hr = _pAc->SetTrackAnimationSet(2, pAnimationSet2);//ID2番のアニメーションセットをトラック2番にセット（デフォルトでこうなるはず）
+////    checkDxException(hr, D3D_OK, "失敗しました。");
+//
+//    hr = _pAc->ResetTime();//グローバル時間を0にする
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//
+//    hr = _pAc->SetTrackPosition(0,0);//トラック0(=ID0番)のローカル時間を0にする
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//    hr = _pAc->SetTrackPosition(1,0);//トラック1(=ID1番)のローカル時間を0にする
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+////    hr = _pAc->SetTrackPosition(2,0);//トラック2(=ID2番)のローカル時間を0にする
+////    checkDxException(hr, D3D_OK, "失敗しました。");
+//
+//    hr = _pAc->SetTrackEnable(0,TRUE );//トラック0(=ID0番)を有効
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//    hr = _pAc->SetTrackEnable(1,TRUE );//トラック1(=ID1番)を有効
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+////    hr = _pAc->SetTrackEnable(2,TRUE );//トラック2(=ID2番)を有効
+////    checkDxException(hr, D3D_OK, "失敗しました。");
+//
+//    hr = _pAc->SetTrackWeight(0, 1.00);
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//    hr = _pAc->SetTrackWeight(1, 1.00);
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+////    hr = _pAc->SetTrackWeight(2, 1.00);
+////    checkDxException(hr, D3D_OK, "失敗しました。");
+//
+//    hr = _pAc->AdvanceTime(0,NULL);//0秒進める（それを反映させる）。
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//
+//    //ID0番(=トラック0)のアニメーションセットの開始～終了までの時間(秒)
+////    _advance_time_per_frame =  pAnimationSet0->GetPeriod()/60.0;
+////    double time_period0 = pAnimationSet0->GetPeriod();
+////    _TRACE_("time_period0="<<time_period0);
+////    double time_set0 = time_period0 / (60.0 / _pD3DXAniMeshModel->_anim_ticks_per_second); //そのアニメーションにかかる秒数
+//    //ID0番(=トラック0)の SetTrackSpeed が 1.0 固定ならば advanceTimePerFrame は time_period0 / (time_set0 * 60.0)
+////    _advance_time_per_frame0 = time_set0 / time_set0*60.0 ; //トラック0番のアニメーションを60分割時間を求める、つまり１ループ1秒にするための時間
+//    hr = _pAc->SetTrackSpeed(0, 1.0f);  //トラック0(=ID0番)のスピードを設定。
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//    hr = _pAc->SetTrackSpeed(1, 1.0f);
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+////    hr = _pAc->SetTrackSpeed(2, 1.0f);
+////    checkDxException(hr, D3D_OK, "失敗しました。");
+
+
+
+
+
+
+
+
+
+
+    // _pAc->GetMaxNumAnimationSets()
+
+//    if (SUCCEEDED(pAnimController->GetAnimationSetByName(szAnimSetName, &pAnimSet))) {
+//        if (SUCCEEDED(pAnimSet->QueryInterface(IID_ID3DXKeyframedAnimationSet, (LPVOID*)&pKeyFramedAnimSet))) {
+//            UINT dwNumAnimations = pKeyFramedAnimSet->GetNumAnimations();
+//            for (UINT i = 0; i < dwNumAnimations; i++)
+//                HRESULT hr = pKeyFramedAnimSet->UnregisterAnimation(i);
+//        }
+//        pAnimSet->Release();
+//    }
+
+
+
+    hr = _pAc->ResetTime();//グローバル時間を0にする
+    checkDxException(hr, D3D_OK, "失敗しました。");
+    //初期は静止
+    for (DWORD i = 0; i < (DWORD)_pAc->GetMaxNumTracks(); i++) {
+        hr = _pAc->SetTrackEnable(i, TRUE);
+        checkDxException(hr, D3D_OK, "失敗しました。");
+//        hr = _pAc->SetTrackPosition(i, 0);//トラック0(=ID0番)のローカル時間を0にする
+//        checkDxException(hr, D3D_OK, "失敗しました。");
+        hr = _pAc->SetTrackSpeed(i, 1.0f);  //トラック0(=ID0番)のスピードを設定。
+        checkDxException(hr, D3D_OK, "失敗しました。");
+        hr = _pAc->SetTrackWeight(i, 1.00);
+        checkDxException(hr, D3D_OK, "失敗しました。");
+    }
+    hr = _pAc->AdvanceTime(0,NULL);//0秒進める（それを反映させる）。
+    checkDxException(hr, D3D_OK, "失敗しました。");
+
+    for (DWORD i = 0; i < (DWORD)_pAc->GetMaxNumTracks(); i++) {
+        hr = _pAc->SetTrackEnable(i, FALSE);
+        checkDxException(hr, D3D_OK, "失敗しました。");
+    }
 }
 
 void GgafDx9D3DXAniMeshActor::setAlpha(float prm_fAlpha) {
@@ -68,8 +180,12 @@ void GgafDx9D3DXAniMeshActor::processDraw() {
     // Zバッファ書き込み可
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
-    //_pAc->AdvanceTime(_advanceTimePerFrame0, NULL );
+//    HRESULT hr = _pAc->SetTrackPosition(0,_track0time);//トラック0(=ID0番)のローカル時間を0にする
+//    checkDxException(hr, D3D_OK, "失敗しました。");
 
+    hr = _pAc->AdvanceTime(_advance_time_per_draw, NULL );
+    checkDxException(hr, D3D_OK, "失敗しました。");
+    _advance_time_per_draw = 0; //リセット
     _pD3DXAniMeshModel->draw(this);
 
     // Zバッファを無効に

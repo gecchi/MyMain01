@@ -1686,8 +1686,8 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
     prm_pD3DXAniMeshModel->_pAcBase = pAC;
     prm_pD3DXAniMeshModel->_fBoundingSphereRadius = model_fBoundingSphereRadius;
     _TRACE_("境界球半径="<<model_fBoundingSphereRadius);
-//    prm_pD3DXAniMeshModel->_advanceTimePerFrame0 =  advanceTimePerFrame0; //トラック0番１ループの時間
-//    _TRACE_("アニメーションセット0番_advanceTimePerFrame");
+//    prm_pD3DXAniMeshModel->_advance_time_per_frame0 =  advanceTimePerFrame0; //トラック0番１ループの時間
+//    _TRACE_("アニメーションセット0番_advance_time_per_frame");
 
 //    prm_pD3DXAniMeshModel->_pID3DXAniMesh = pID3DXAniMesh;
     prm_pD3DXAniMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;

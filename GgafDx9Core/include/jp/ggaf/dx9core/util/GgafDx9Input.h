@@ -23,7 +23,8 @@ public:
     static const int BUFFER_SIZE;
 
     /** キーボードの状態 */
-    static char _caKeyboardState[256];
+    static char _caKeyboardState[2][256];
+    static int _active_KeyboardState;
     /** ジョイスティックの状態 */
     static DIJOYSTATE _dijoystate;
 
@@ -39,6 +40,7 @@ public:
 
     static void updateKeyboardState();
     static bool isBeingPressedKey(int prm_DIK);
+    static bool isPushedDownKey(int prm_DIK);
 
     static void updateJoystickState();
     static bool isBeingPressedJoyRgbButton(int prm_iRgbButtonNo);
