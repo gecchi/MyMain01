@@ -1,5 +1,5 @@
-#ifndef GGAFDX9ANIMATIONCONTROLLER_H_
-#define GGAFDX9ANIMATIONCONTROLLER_H_
+#ifndef GGAFDX9MARIONNETTISTE_H_
+#define GGAFDX9MARIONNETTISTE_H_
 namespace GgafDx9Core {
 
 /**
@@ -10,16 +10,16 @@ namespace GgafDx9Core {
  * @since 2010/02/16
  * @author Masatoshi Tsuge
  */
-class GgafDx9AnimationController : public GgafCore::GgafObject {
+class GgafDx9Marionnettiste : public GgafCore::GgafObject {
 private:
 
 public:
     GgafDx9GeometricActor* _pActor;
 
-    GgafDx9AnimationController(GgafDx9GeometricActor* prm_pActor);
+    GgafDx9Marionnettiste(GgafDx9GeometricActor* prm_pActor);
 
 
-    virtual ~GgafDx9AnimationController();
+    virtual ~GgafDx9Marionnettiste();
 
 
 
