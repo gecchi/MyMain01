@@ -1,25 +1,29 @@
-#ifndef GGAFDX9MARIONNETTISTE_H_
-#define GGAFDX9MARIONNETTISTE_H_
+#ifndef GGAFDX9PUPPETEER_H_
+#define GGAFDX9PUPPETEER_H_
 namespace GgafDx9Core {
 
 /**
- * テクスチャUVフリッパー.
- * テクスチャをパラパラアニメが如く切り替える事を簡単に行うために
- * 作成したクラス。
+ * 操り人形遣い .
  * @version 1.00
- * @since 2010/02/16
+ * @since 2011/02/22
  * @author Masatoshi Tsuge
  */
-class GgafDx9Marionnettiste : public GgafCore::GgafObject {
+class GgafDx9Puppeteer : public GgafCore::GgafObject {
 private:
 
 public:
-    GgafDx9GeometricActor* _pActor;
+    /** 操られる者 */
+    GgafDx9DynaD3DXMeshActor* _pPuppet;
 
-    GgafDx9Marionnettiste(GgafDx9GeometricActor* prm_pActor);
+    /**
+     * コンストラクタ .
+     * @param prm_pActor 操られる者
+     * @return
+     */
+    GgafDx9Puppeteer(GgafDx9DynaD3DXMeshActor* prm_pPuppet);
 
 
-    virtual ~GgafDx9Marionnettiste();
+    virtual ~GgafDx9Puppeteer();
 
 
 
@@ -35,4 +39,4 @@ public:
 };
 
 }
-#endif /*GGAFDX9SPRITEMESHACTOR_H_*/
+#endif /*GGAFDX9PUPPETEER_H_*/

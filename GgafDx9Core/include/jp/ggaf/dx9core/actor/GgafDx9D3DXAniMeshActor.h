@@ -20,7 +20,7 @@ public:
     /** エフェクト資源 */
     GgafDx9D3DXAniMeshEffect* _pD3DXAniMeshEffect;
 
-    GgafDx9Marionnettiste* _pAniCon;
+    GgafDx9Puppeteer* _pAniCon;
 
     LPD3DXANIMATIONSET* _papAnimationSet;
 
