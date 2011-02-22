@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class TamagoActor : public  GgafDx9LibStg::DefaultD3DXAniMeshActor {
 
     int _rnd;
-    double _track0time;
+
 public:
     TamagoActor(const char* prm_name);
 
