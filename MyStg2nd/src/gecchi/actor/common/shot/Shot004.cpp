@@ -18,8 +18,8 @@ void Shot004::initialize() {
     setAlpha(0.99); //半透明にすることで両面レンダリング
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
-    _pMover->setMvVelo(50000);             //移動速度
-    _pMover->relateRzRyFaceAngToMvAng(true);
+    _pKuroko->setMvVelo(50000);             //移動速度
+    _pKuroko->relateRzRyFaceAngToMvAng(true);
 }
 
 void Shot004::onActive() {
@@ -33,7 +33,7 @@ void Shot004::processBehavior() {
     //弾なので不要
 
     //座標に反映
-    _pMover->behave();
+    _pKuroko->behave();
 }
 
 void Shot004::processJudgement() {

@@ -69,9 +69,9 @@ void OptionMagic::processCastBegin() {
     GgafDx9Util::getRadialAngle2D(0, _level-_old_level, paAngWay);
     for (int i = _old_level; i < _new_level; i++) {
         _papEffect[i]->setCoordinateBy(P_MYSHIP);
-        _papEffect[i]->_pMover->setRzRyMvAng(ANGLE45, paAngWay[i]);
-        _papEffect[i]->_pMover->setMvVelo(200000 / (_time_of_casting/_cast_speed));
-        _papEffect[i]->_pMover->setMvAcce(0);
+        _papEffect[i]->_pKuroko->setRzRyMvAng(ANGLE45, paAngWay[i]);
+        _papEffect[i]->_pKuroko->setMvVelo(200000 / (_time_of_casting/_cast_speed));
+        _papEffect[i]->_pKuroko->setMvAcce(0);
         _papEffect[i]->activate();
         _papEffect[i]->setAlpha(0.9);
         _papEffect[i]->setScaleRate(2.0f);
@@ -91,9 +91,9 @@ void OptionMagic::processCastingBehavior() {
 void OptionMagic::processInvokeBegin() {
 
     for (int i = _old_level; i < _new_level; i++) {
-        _papEffect[i]->_pMover->setMvVelo(1000);
-        _papEffect[i]->_pMover->setMvAcce(100);
-        _papEffect[i]->_pMover->execTagettingMvAngSequence(P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
+        _papEffect[i]->_pKuroko->setMvVelo(1000);
+        _papEffect[i]->_pKuroko->setMvAcce(100);
+        _papEffect[i]->_pKuroko->execTagettingMvAngSequence(P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
                                                            P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[i]->_Yorg,
                                                            P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg,
                                                            3000,
@@ -101,7 +101,7 @@ void OptionMagic::processInvokeBegin() {
 
 
 
-        _papEffect[i]->_pMover->forceMvVeloRange(P_MYOPTIONCON->_papMyOption[i]->_veloMv*5.0);
+        _papEffect[i]->_pKuroko->forceMvVeloRange(P_MYOPTIONCON->_papMyOption[i]->_veloMv*5.0);
 //                                SmoothMvVeloSequence2(2000, 0, _time_of_casting, true);
     }
 
@@ -119,9 +119,9 @@ void OptionMagic::processInvokeingBehavior()  {
         targetZ = P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg;
         if (GgafUtil::abs(_papEffect[i]->_X - targetX) + GgafUtil::abs(_papEffect[i]->_Y - targetY) + GgafUtil::abs(_papEffect[i]->_Z - targetZ)/3  < GgafUtil::abs(P_MYOPTIONCON->_papMyOption[i]->_veloMv)*5) {
             ok++;
-            _papEffect[i]->_pMover->setMvVelo(500);
+            _papEffect[i]->_pKuroko->setMvVelo(500);
         }
-        _papEffect[i]->_pMover->execTagettingMvAngSequence(targetX,
+        _papEffect[i]->_pKuroko->execTagettingMvAngSequence(targetX,
                                                            targetY,
                                                            targetZ,
                                                            40000,

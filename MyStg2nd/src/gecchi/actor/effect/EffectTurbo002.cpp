@@ -24,14 +24,14 @@ void EffectTurbo002::onActive() {
     _pScaler->forceScaleRange(100000, 1000); //スケーリング・範囲
     _pScaler->setScale(1000);
     _pScaler->intoTargetScaleLinerUntil(100000, 60);//スケーリング・60F費やして1000に縮小
-    _pMover->setFaceAng(AXIS_Y, ANGLE90);
-    _pMover->setFaceAngVelo(AXIS_Z, 2000);
+    _pKuroko->setFaceAng(AXIS_Y, ANGLE90);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 2000);
 }
 
 void EffectTurbo002::processBehavior() {
     addAlpha(-(1.0/60.0));
     _pUvFlipper->behave();
-    _pMover->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

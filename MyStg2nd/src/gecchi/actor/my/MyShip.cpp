@@ -196,7 +196,7 @@ void MyShip::initialize() {
 //    _pCollisionChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
 //    _pCollisionChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
 
-    _pMover->setMvVelo(0);
+    _pKuroko->setMvVelo(0);
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 7000);
 
@@ -204,18 +204,18 @@ void MyShip::initialize() {
     setAlpha(0.4);
 
 
-    _pMover->forceVxMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
-    _pMover->forceVyMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
-    _pMover->forceVzMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
+    _pKuroko->forceVxMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
+    _pKuroko->forceVyMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
+    _pKuroko->forceVzMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
 
-    _pMover->setVxMvAcce(0);
-    _pMover->setVyMvAcce(0);
-    _pMover->setVzMvAcce(0);
-    //        _pMover->forceMvVeloRange(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
-    //        _pMover->addMvVelo(_iMvVelo_BeginMT);  //速度追加
-    //        _pMover->setMvAcce(_iMvAcce_MT);
+    _pKuroko->setVxMvAcce(0);
+    _pKuroko->setVyMvAcce(0);
+    _pKuroko->setVzMvAcce(0);
+    //        _pKuroko->forceMvVeloRange(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
+    //        _pKuroko->addMvVelo(_iMvVelo_BeginMT);  //速度追加
+    //        _pKuroko->setMvAcce(_iMvAcce_MT);
 
-    _pMover->setFaceAngVelo(AXIS_X, 300);
+    _pKuroko->setFaceAngVelo(AXIS_X, 300);
 }
 
 
@@ -353,24 +353,24 @@ void MyShip::processBehavior() {
         //Notターボ開始時
         if (VB_PLAY->isBeingPressed(VB_TURBO)) {
             //ターボを押し続けることで、移動距離を伸ばす
-            _pMover->_veloVxMv *= 0.95;
-            _pMover->_veloVyMv *= 0.95;
-            _pMover->_veloVzMv *= 0.95;
+            _pKuroko->_veloVxMv *= 0.95;
+            _pKuroko->_veloVyMv *= 0.95;
+            _pKuroko->_veloVzMv *= 0.95;
         } else {
-            _pMover->_veloVxMv *= 0.9;
-            _pMover->_veloVyMv *= 0.9;
-            _pMover->_veloVzMv *= 0.9;
+            _pKuroko->_veloVxMv *= 0.9;
+            _pKuroko->_veloVyMv *= 0.9;
+            _pKuroko->_veloVzMv *= 0.9;
         }
     }
 
     //スピンが勢いよく回っているならば速度を弱める
     angvelo MZ = _angRXTopVelo_MZ-3000; //3000は通常旋回時に速度を弱めて_angRXTopVelo_MZを超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
-    if (_pMover->_angveloFace[AXIS_X] >= MZ) {
-        _pMover->_angveloFace[AXIS_X] *= 0.93;
-        //_pMover->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ*2);
-    } else if (_pMover->_angveloFace[AXIS_X] <= -MZ) {
-        _pMover->_angveloFace[AXIS_X] *= 0.93;
-        //_pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ*2);
+    if (_pKuroko->_angveloFace[AXIS_X] >= MZ) {
+        _pKuroko->_angveloFace[AXIS_X] *= 0.93;
+        //_pKuroko->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ*2);
+    } else if (_pKuroko->_angveloFace[AXIS_X] <= -MZ) {
+        _pKuroko->_angveloFace[AXIS_X] *= 0.93;
+        //_pKuroko->setFaceAngAcce(AXIS_X, _angRXAcce_MZ*2);
     }
 
     //左右が未入力なら、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTarget_FaceAngの第4引数より角速度がゆるい場合受け入れ）
@@ -378,14 +378,14 @@ void MyShip::processBehavior() {
 
     } else {
 
-        angle dist = _pMover->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
+        angle dist = _pKuroko->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < ANGLE180) {
-            _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
+            _pKuroko->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         } else if (-1*ANGLE180 < dist && dist < 0) {
-            _pMover->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
+            _pKuroko->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setMvAcce(0);
-        _pMover->setStopTarget_FaceAng(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+        _pKuroko->setMvAcce(0);
+        _pKuroko->setStopTarget_FaceAng(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
     }
 
     ////////////////////////////////////////////////////
@@ -393,7 +393,7 @@ void MyShip::processBehavior() {
 
 
     //座標に反映
-    _pMover->behave();
+    _pKuroko->behave();
     _pScaler->behave();
     _pSeTransmitter->behave();
 

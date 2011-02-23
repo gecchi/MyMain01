@@ -11,34 +11,58 @@ TamagoActor::TamagoActor(const char* prm_name) : DefaultD3DXAniMeshActor(prm_nam
 
 void TamagoActor::initialize() {
     setScale(4000);
-
+//    HRESULT hr = _pAc->GetAnimationSet(0, &pAnimationSet0); //ID0番のアニメーションセット取得
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//    _last_time =  pAnimationSet0->GetPeriod();
+//    hr = _pAc->SetTrackEnable(0, TRUE);//トラック有効
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//    hr = _pAc->SetTrackPosition(0,_last_time);//トラック0(=ID0番)のローカル時間を0にする
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//    hr = _pAc->GetAnimationSet(0, &pAnimationSet0); //ID0番のアニメーションセット取得
+//    checkDxException(hr, D3D_OK, "失敗しました。");
 }
 
 void TamagoActor::processBehavior() {
+    if (GgafDx9Input::isPushedDownKey(DIK_1)) {
+        _pPuppeteer->play(1);
+    }
+    if (GgafDx9Input::isPushedDownKey(DIK_2)) {
+        _pPuppeteer->play(2);
+    }
+    if (GgafDx9Input::isPushedDownKey(DIK_3)) {
+        _pPuppeteer->play(3);
+    }
+    if (GgafDx9Input::isPushedDownKey(DIK_4)) {
+        _pPuppeteer->play(4);
+    }
+
 //    _TRACE_("GgafDx9Input::isBeingPressedKey(DIK_E)="<<(GgafDx9Input::isBeingPressedKey(DIK_E)));
     if (GgafDx9Input::isPushedDownKey(DIK_E)) {
-        _TRACE_("GgafDx9Input::isPushedDownKey(DIK_E)!!!!!!");
-        HRESULT hr;
+        _pPuppeteer->stop();
+//        _TRACE_("GgafDx9Input::isPushedDownKey(DIK_E)!!!!!!");
+//        HRESULT hr;
 //        LPD3DXANIMATIONSET pAnimationSet;
 //        HRESULT hr = _pAc->GetAnimationSet(1, &pAnimationSet); //ID1番のアニメーションセット取得
 //        checkDxException(hr, D3D_OK, "失敗しました。");
 //        hr = _pAc->SetTrackAnimationSet(0, pAnimationSet);//ID1番のアニメーションセットをトラック0番にセット
 //        checkDxException(hr, D3D_OK, "失敗しました。");
-        hr = _pAc->SetTrackEnable(0, TRUE);//トラック有効
-        checkDxException(hr, D3D_OK, "失敗しました。");
+//        HRESULT hr = _pAc->SetTrackEnable(0, TRUE);//トラック有効
+//        checkDxException(hr, D3D_OK, "失敗しました。");
     }
 
     if (GgafDx9Input::isPushedDownKey(DIK_R)) {
         _TRACE_("GgafDx9Input::isPushedDownKey(DIK_R)!!!!!!");
-        HRESULT hr = _pAc->SetTrackEnable(0, FALSE);//トラック無効
-        checkDxException(hr, D3D_OK, "失敗しました。");
+        _pPuppeteer->play();
+//        HRESULT hr = _pAc->SetTrackEnable(0, FALSE);//トラック無効
+//        checkDxException(hr, D3D_OK, "失敗しました。");
+//    } else {
+//        HRESULT hr = _pAc->SetTrackPosition(0,_last_time);//トラック0(=ID0番)のローカル時間を0にする
+//        checkDxException(hr, D3D_OK, "失敗しました。");
+//        _last_time -= (1.0/60.0);
     }
 
+    _pPuppeteer->behave();
 
-
-
-
-    _advance_time_per_draw += _advance_time_per_frame;
 }
 
 void TamagoActor::processJudgement() {

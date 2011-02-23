@@ -14,14 +14,14 @@ MyOptionControllerDirectionVector::MyOptionControllerDirectionVector(const char*
 void MyOptionControllerDirectionVector::initialize() {
     setAlpha(0.3);
     setHitAble(false);
-    _pMover->relateRzRyFaceAngToMvAng(true);
+    _pKuroko->relateRzRyFaceAngToMvAng(true);
 }
 
 void MyOptionControllerDirectionVector::onActive() {
 }
 
 void MyOptionControllerDirectionVector::processBehavior() {
-    _pMover->behave();
+    _pKuroko->behave();
 }
 
 void MyOptionControllerDirectionVector::processJudgement() {

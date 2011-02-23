@@ -20,15 +20,15 @@ void VarietyTorus001::initialize() {
     setHitAble(true);
     setAlpha(1.00);
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight+_r1+_r2;
-    _pMover->setRzRyMvAng(ANGLE180, 0);
-    _pMover->setMvVelo(3000);
-    _pMover->setFaceAngVelo(AXIS_Z, 100);
-    _pMover->setFaceAngVelo(AXIS_Y, 200);
+    _pKuroko->setRzRyMvAng(ANGLE180, 0);
+    _pKuroko->setMvVelo(3000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 100);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 200);
 }
 
 void VarietyTorus001::processBehavior() {
     //À•W‚É”½‰f
-    _pMover->behave();
+    _pKuroko->behave();
 }
 
 VarietyTorus001::~VarietyTorus001() {

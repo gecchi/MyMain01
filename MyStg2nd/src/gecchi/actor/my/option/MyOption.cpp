@@ -103,21 +103,21 @@ void MyOption::initialize() {
 
 void MyOption::onReset() {
     _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
-    _pMover->setMvVelo(_veloMv);
-    _pMover->setRzMvAng(_angPosition+ANGLE90);
-    _pMover->setRyMvAng(-ANGLE90);
-    _pMover->setRzMvAngVelo(_angveloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
-    _pMover->setRyMvAngVelo(0);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
+    _pKuroko->setMvVelo(_veloMv);
+    _pKuroko->setRzMvAng(_angPosition+ANGLE90);
+    _pKuroko->setRyMvAng(-ANGLE90);
+    _pKuroko->setRzMvAngVelo(_angveloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
+    _pKuroko->setRyMvAngVelo(0);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
     _Z = GgafDx9Util::COS[_angPosition/ANGLE_RATE]*_radiusPosition; //X²’†S‰ñ“]‚È‚Ì‚ÅXY‚Å‚Í‚È‚­‚ÄZY
     _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radiusPosition; //X²‚Ì³‚Ì•ûŒü‚ğŒü‚¢‚ÄŒv‰ñ‚è‚É”z’u
                                                                     //ƒ[ƒ‹ƒh•ÏŠ·‚Ìi¶è–@j‚ÌX²‰ñ“]‚Æ‚Í‚Æ‹t‚Ì‰ñ“]‚È‚Ì‚Å’ˆÓ
     _X = 0;
-    _pMover->setFaceAngVelo(AXIS_X, 4000);
+    _pKuroko->setFaceAngVelo(AXIS_X, 4000);
     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
     //P_COMMON_SCENE->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
-    _angPosition = _pMover->_angRzMv;
+    _angPosition = _pKuroko->_angRzMv;
 
     _adjust_angPos_seq_progress = 0;
     _adjust_angPos_seq_new_angPosition_base = _angPosition;
@@ -198,9 +198,9 @@ void MyOption::setRadiusPosition(int prm_radius) {
     //‚à‚µprm_len‚ª0‚Ìê‡A—˜_“I‚É‚ÍŒ³‚ÌˆÊ’u‚É–ß‚é‚Í‚¸‚È‚Ì‚¾‚ªA
     //Œë·ŠÛ‚ß‚İ‚Ì‚½‚ßA”÷–­‚ÉˆÊ’u‚ª•Ï‚í‚éB
     //‚æ‚Á‚ÄAˆÚ“®•ûŠpAˆÚ“®Šp‘¬“x‚ğŒ»İ‚ÌˆÊ’u(_Z,_Y)‚ÅÄİ’è‚µ‚È‚¯‚ê‚ÎƒYƒŒ‚éB
-    _pMover->setRzMvAng(GgafDx9Util::simplifyAng(angZY_ROTANG_X + ANGLE90));
+    _pKuroko->setRzMvAng(GgafDx9Util::simplifyAng(angZY_ROTANG_X + ANGLE90));
     _angveloMove = ((1.0*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
-    _pMover->setRzMvAngVelo(_angveloMove);
+    _pKuroko->setRzMvAngVelo(_angveloMove);
 }
 
 
@@ -371,17 +371,17 @@ void MyOption::processBehavior() {
             //•K—v‚ÈŠp‘¬“x·•ª‚É‘Î‰‚·‚éˆÚ“®‘¬“x‚ğ‹‚ß‚é
             velo veloMv_offset =  (2.0*PI*_radiusPosition * angvelo_offset) / ANGLE360;
             //‘¬“xİ’è
-            _pMover->setRzMvAngVelo(_angveloMove + angvelo_offset);
-            _pMover->setMvVelo(_veloMv + veloMv_offset);
+            _pKuroko->setRzMvAngVelo(_angveloMove + angvelo_offset);
+            _pKuroko->setMvVelo(_veloMv + veloMv_offset);
             _adjust_angPos_seq_spent_frame --;
 
             if (_adjust_angPos_seq_spent_frame == 0) {
                 _angPosition_base = _adjust_angPos_seq_new_angPosition_base;
                 //Œë·C³‚Ì‚½‚ß—‘zˆÊ’u‚ÉÄİ’è
                 _angveloMove = ((1.0*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
-                _pMover->setMvVelo(_veloMv);
-                _pMover->setRzMvAng(GgafDx9Util::simplifyAng(_angPosition_base + ANGLE90));
-                _pMover->setRzMvAngVelo(_angveloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
+                _pKuroko->setMvVelo(_veloMv);
+                _pKuroko->setRzMvAng(GgafDx9Util::simplifyAng(_angPosition_base + ANGLE90));
+                _pKuroko->setRzMvAngVelo(_angveloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
                 _Z = GgafDx9Util::COS[_angPosition_base/ANGLE_RATE]*_radiusPosition; //X²’†S‰ñ“]‚È‚Ì‚ÅXY‚Å‚Í‚È‚­‚ÄZY
                 _Y = GgafDx9Util::SIN[_angPosition_base/ANGLE_RATE]*_radiusPosition; //X²‚Ì³‚Ì•ûŒü‚ğŒü‚¢‚ÄŒv‰ñ‚è‚É”z’u
                 _X = 0;
@@ -390,18 +390,18 @@ void MyOption::processBehavior() {
         }
     } else {
          //’Êí
-        _pMover->setMvVelo(_veloMv);
+        _pKuroko->setMvVelo(_veloMv);
     }
     _angPosition = GgafDx9Util::simplifyAng(_angPosition+_angveloMove);
 
-    _pMover->behave();
+    _pKuroko->behave();
 
     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
 
     //ƒƒƒ‚„
-    //‚±‚±‚Ü‚Å‚ÅAGgafDx9GeometricMover‚Ì‹@”\‚Ì‚İ‚ÅA
+    //‚±‚±‚Ü‚Å‚ÅAGgafDx9Kuroko‚Ì‹@”\‚Ì‚İ‚ÅA
     //ˆÈ‰º‚Ì‚æ‚¤‚Èó‘Ô‚Ü‚Å‚à‚Á‚Ä‚¢‚­B
     //(100,0,0) ‚©‚çŒ´“_‚ğŒ©‚½ƒCƒ[ƒWA©‚ÍŒ´“_
     //ªy²  ¨z²  Ex²i‰œ‚©‚çè‘OAè‘O‚ª³j
@@ -423,10 +423,10 @@ void MyOption::processBehavior() {
     //ƒ_ƒ~[‚ÌƒAƒNƒ^[‚ğ˜AŒ‹‚µ‚æ‚¤‚Æ‚µ‚½‚ª‚¢‚ë‚¢‚ë“ï‚µ‚¢AQuaternion ‚ğg‚í‚´‚é‚ğ“¾‚È‚¢i‚Ì‚Å‚Í‚È‚¢‚©GjB
     //TODO:Å“K‰»‚·‚×‚µAQuaternion‚Í•Ö—˜‚¾‚ª”ğ‚¯‚½‚¢B‚¢‚Â‚©”Ä—p‰»
 
-    float sinRZ = GgafDx9Util::SIN[_pMyOptionController->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
-    float cosRZ = GgafDx9Util::COS[_pMyOptionController->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
-    float sinRY = GgafDx9Util::SIN[_pMyOptionController->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
-    float cosRY = GgafDx9Util::COS[_pMyOptionController->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
+    float sinRZ = GgafDx9Util::SIN[_pMyOptionController->_pKuroko->_angFace[AXIS_Z] / ANGLE_RATE];
+    float cosRZ = GgafDx9Util::COS[_pMyOptionController->_pKuroko->_angFace[AXIS_Z] / ANGLE_RATE];
+    float sinRY = GgafDx9Util::SIN[_pMyOptionController->_pKuroko->_angFace[AXIS_Y] / ANGLE_RATE];
+    float cosRY = GgafDx9Util::COS[_pMyOptionController->_pKuroko->_angFace[AXIS_Y] / ANGLE_RATE];
     //‘SƒIƒvƒVƒ‡ƒ“‚ğˆê‚Â‚Ì‰ò‚Æ‚µ‚ÄOptionController‚ğ’†S‚ÉWORLD•ÏŠ·‚Ì‚æ‚¤‚Èù‰ô
     _X = cosRY*cosRZ*_Xorg + cosRY*-sinRZ*_Yorg + sinRY*_Zorg;
     _Y = sinRZ*_Xorg + cosRZ*_Yorg;
@@ -435,9 +435,9 @@ void MyOption::processBehavior() {
 
 
     //‰ù’†“d“”‚ÌÆËŠp‚ªL‚ª‚é‚æ‚¤‚È‰ñ“]iQuaternion‚ÅÀŒ»j
-    float vX_axis = cosRY*cosRZ*_pMover->_vX + cosRY*-sinRZ*_pMover->_vY + sinRY*_pMover->_vZ;
-    float vY_axis = sinRZ*_pMover->_vX + cosRZ*_pMover->_vY;
-    float vZ_axis = -sinRY*cosRZ*_pMover->_vX + -sinRY*-sinRZ*_pMover->_vY + cosRY*_pMover->_vZ;
+    float vX_axis = cosRY*cosRZ*_pKuroko->_vX + cosRY*-sinRZ*_pKuroko->_vY + sinRY*_pKuroko->_vZ;
+    float vY_axis = sinRZ*_pKuroko->_vX + cosRZ*_pKuroko->_vY;
+    float vZ_axis = -sinRY*cosRZ*_pKuroko->_vX + -sinRY*-sinRZ*_pKuroko->_vY + cosRY*_pKuroko->_vZ;
     float sinHalf = GgafDx9Util::SIN[_angExpanse/ANGLE_RATE/2]; //_angExpanse=‰ñ“]‚³‚¹‚½‚¢Šp“x
     float cosHalf = GgafDx9Util::COS[_angExpanse/ANGLE_RATE/2];
 
@@ -445,9 +445,9 @@ void MyOption::processBehavior() {
     GgafDx9Quaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
 //    _Q.set( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
     Q.mul(0,
-           _pMyOptionController->_pMover->_vX,
-           _pMyOptionController->_pMover->_vY,
-           _pMyOptionController->_pMover->_vZ); //R*P ‰ñ“]²‚ªŒ»İ‚Ìis•ûŒüƒxƒNƒgƒ‹‚Æ‚È‚é
+           _pMyOptionController->_pKuroko->_vX,
+           _pMyOptionController->_pKuroko->_vY,
+           _pMyOptionController->_pKuroko->_vZ); //R*P ‰ñ“]²‚ªŒ»İ‚Ìis•ûŒüƒxƒNƒgƒ‹‚Æ‚È‚é
     Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
     //Z²‰ñ“]AY²‰ñ“]Šp“x‚ğŒvZ
@@ -464,9 +464,9 @@ void MyOption::processBehavior() {
 
     //TODO
     //Å“K‰»
-    _pMover->_veloVxMv = 0;
-    _pMover->_veloVyMv = 0;
-    _pMover->_veloVzMv = 0;
+    _pKuroko->_veloVxMv = 0;
+    _pKuroko->_veloVyMv = 0;
+    _pKuroko->_veloVzMv = 0;
             //_TRACE_("_pVBMap_Active->_state="<<(vbsta)(VB_PLAY->_pVBMap_Active->_state));
     if (pMyShip->_is_shooting_laser && VB_PLAY->isBeingPressed(VB_SHOT1)) {
 
@@ -476,21 +476,21 @@ void MyOption::processBehavior() {
             if (_pLaserChipDispatcher->_pEffectActor_Irradiate) {
                 _pLaserChipDispatcher->_pEffectActor_Irradiate->setCoordinateBy(this);
             }
-            pLaserChip->_pMover->_vX = Q._x;
-            pLaserChip->_pMover->_vY = Q._y;
-            pLaserChip->_pMover->_vZ = Q._z;
-            pLaserChip->_pMover->_angRzMv = _RZ;
-            pLaserChip->_pMover->_angRyMv = _RY;
-//            pLaserChip->_pMover->_angFace[AXIS_X] = _pMover->_angFace[AXIS_X];
-            pLaserChip->_pMover->_angFace[AXIS_Z] = _RZ;
-            pLaserChip->_pMover->_angFace[AXIS_Y] = _RY;
-            pLaserChip->_pMover->setVxMvVelo(Q._x*150000);
-            pLaserChip->_pMover->setVyMvVelo(Q._y*150000);
-            pLaserChip->_pMover->setVzMvVelo(Q._z*150000);
-            pLaserChip->_pMover->setVxMvAcce(0);
-            pLaserChip->_pMover->setVyMvAcce(0);
-            pLaserChip->_pMover->setVzMvAcce(0);
-            pLaserChip->_pMover->behave();
+            pLaserChip->_pKuroko->_vX = Q._x;
+            pLaserChip->_pKuroko->_vY = Q._y;
+            pLaserChip->_pKuroko->_vZ = Q._z;
+            pLaserChip->_pKuroko->_angRzMv = _RZ;
+            pLaserChip->_pKuroko->_angRyMv = _RY;
+//            pLaserChip->_pKuroko->_angFace[AXIS_X] = _pKuroko->_angFace[AXIS_X];
+            pLaserChip->_pKuroko->_angFace[AXIS_Z] = _RZ;
+            pLaserChip->_pKuroko->_angFace[AXIS_Y] = _RY;
+            pLaserChip->_pKuroko->setVxMvVelo(Q._x*150000);
+            pLaserChip->_pKuroko->setVyMvVelo(Q._y*150000);
+            pLaserChip->_pKuroko->setVzMvVelo(Q._z*150000);
+            pLaserChip->_pKuroko->setVxMvAcce(0);
+            pLaserChip->_pKuroko->setVyMvAcce(0);
+            pLaserChip->_pKuroko->setVzMvAcce(0);
+            pLaserChip->_pKuroko->behave();
             pLaserChip->_X = _X;
             pLaserChip->_Y = _Y;
             pLaserChip->_Z = _Z;
@@ -525,10 +525,10 @@ void MyOption::processBehavior() {
         if (pShot) {
             _pSeTransmitter->play3D(1);
             pShot->setCoordinateBy(this);
-            pShot->_pMover->_angFace[AXIS_X] = _RX;
-            pShot->_pMover->_angFace[AXIS_Z] = _RZ;
-            pShot->_pMover->_angFace[AXIS_Y] = _RY;
-            pShot->_pMover->setRzRyMvAng(_RZ, _RY);
+            pShot->_pKuroko->_angFace[AXIS_X] = _RX;
+            pShot->_pKuroko->_angFace[AXIS_Z] = _RZ;
+            pShot->_pKuroko->_angFace[AXIS_Y] = _RY;
+            pShot->_pKuroko->setRzRyMvAng(_RZ, _RY);
             pShot->activate();
         }
     }
@@ -538,10 +538,10 @@ void MyOption::processBehavior() {
 //        if (pShot) {
 //            _pSeTransmitter->play3D(1);
 //            pShot->setCoordinate(this);
-//            pShot->_pMover->_angFace[AXIS_X] = _RX;
-//            pShot->_pMover->_angFace[AXIS_Z] = _RZ;
-//            pShot->_pMover->_angFace[AXIS_Y] = _RY;
-//            pShot->_pMover->setRzRyMvAng(_RZ, _RY);
+//            pShot->_pKuroko->_angFace[AXIS_X] = _RX;
+//            pShot->_pKuroko->_angFace[AXIS_Z] = _RZ;
+//            pShot->_pKuroko->_angFace[AXIS_Y] = _RY;
+//            pShot->_pKuroko->setRzRyMvAng(_RZ, _RY);
 //            pShot->activate();
 //        }
 //    }

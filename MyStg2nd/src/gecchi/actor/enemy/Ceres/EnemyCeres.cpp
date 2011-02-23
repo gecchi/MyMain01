@@ -56,10 +56,10 @@ void EnemyCeres::onActive() {
     MyStgUtil::resetEnemyCeresStatus(_pStatus);
     _iMovePatternNo = 0;
     _frame_Active = 0;
-    _pMover->relateRzRyFaceAngToMvAng(true);
-    _pMover->setFaceAngVelo(AXIS_X, 6000);
-    _pMover->setFaceAngVelo(AXIS_X, 6000);
-    _pMover->setMvVelo(8000);
+    _pKuroko->relateRzRyFaceAngToMvAng(true);
+    _pKuroko->setFaceAngVelo(AXIS_X, 6000);
+    _pKuroko->setFaceAngVelo(AXIS_X, 6000);
+    _pKuroko->setMvVelo(8000);
     _pProgram_CeresMove->begin(0); //スプライン移動を開始
     _frame_Active = 0;
 }
@@ -79,7 +79,7 @@ void EnemyCeres::processBehavior() {
             pTama = (GgafDx9DrawableActor*)_pDispatcher_EnemyCeresShots001->employ();
             if (pTama) {
                 pTama->setCoordinate(_X, _Y, _Z);
-                pTama->_pMover->setRzRyMvAng(-ANGLE90 + way[i], ANGLE90);
+                pTama->_pKuroko->setRzRyMvAng(-ANGLE90 + way[i], ANGLE90);
                 pTama->activate();
             }
         }
@@ -87,7 +87,7 @@ void EnemyCeres::processBehavior() {
             pTama = (GgafDx9DrawableActor*)_pDispatcher_EnemyCeresShots001->employ();
             if (pTama) {
                 pTama->setCoordinate(_X, _Y, _Z);
-                pTama->_pMover->setRzRyMvAng(-ANGLE90 - way[i], -ANGLE90);
+                pTama->_pKuroko->setRzRyMvAng(-ANGLE90 - way[i], -ANGLE90);
                 pTama->activate();
             }
         }
@@ -95,7 +95,7 @@ void EnemyCeres::processBehavior() {
         _iMovePatternNo++;
     }
     _pProgram_CeresMove->behave(); //スプライン移動を進める
-    _pMover->behave(); //次の座標へ移動
+    _pKuroko->behave(); //次の座標へ移動
     //_pSeTransmitter->behave();
     _frame_Active++;
 }

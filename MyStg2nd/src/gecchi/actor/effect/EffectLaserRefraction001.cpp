@@ -23,16 +23,16 @@ void EffectLaserRefraction001::onActive() {
     //_pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
     setAlpha(0.5);
     _pScaler->setScale(6*1000);
-    _pMover->setFaceAngVelo(AXIS_X, 3*1000);
-    _pMover->setFaceAngVelo(AXIS_Y, 5*1000);
-    _pMover->setFaceAngVelo(AXIS_Z, 7*1000);
+    _pKuroko->setFaceAngVelo(AXIS_X, 3*1000);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 5*1000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 7*1000);
 }
 
 void EffectLaserRefraction001::processBehavior() {
     _pScaler->addScale(100);
 
     //_pUvFlipper->behave();
-    _pMover->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

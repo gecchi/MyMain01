@@ -22,7 +22,7 @@ void EffectLockon001_Sub::onActive() {
     _pUvFlipper->setPtnNoToTop();
     setAlpha(0.01);
     _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
-    _pMover->setFaceAngVelo(AXIS_Z, 1000);        //‰E‰ñ“]
+    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //‰E‰ñ“]
     //_pSeTransmitter->play3D(0); //ƒƒbƒNƒIƒ“SE
     setCoordinateBy(_pTarget);
 
@@ -44,17 +44,17 @@ void EffectLockon001_Sub::processBehavior() {
          }
          //k¬Š®—¹ŒãAMain‚Ìƒr[ƒg‚É‡‚í‚¹‚é
          _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
-         _pMover->_angveloFace[AXIS_Z] = _pEffectLockon001_Main->_pMover->_angveloFace[AXIS_Z];
+         _pKuroko->_angveloFace[AXIS_Z] = _pEffectLockon001_Main->_pKuroko->_angveloFace[AXIS_Z];
          if (_pTarget) {
              if (_pTarget->isActiveActor() || _pTarget->_will_activate_after_flg) {
                  if (abs(_pTarget->_X-_X) <= 200000 &&
                      abs(_pTarget->_Y-_Y) <= 200000 &&
                      abs(_pTarget->_Z-_Z) <= 200000) {
                      setCoordinateBy(_pTarget);
-                     _pMover->setMvVelo(0);
+                     _pKuroko->setMvVelo(0);
                  } else {
-                     _pMover->setMvAng(_pTarget);
-                     _pMover->setMvVelo(200000);
+                     _pKuroko->setMvAng(_pTarget);
+                     _pKuroko->setMvVelo(200000);
                  }
              } else {
                  _pProgress->change(EffectLockon001_SCENE_PROG_RELEASE);
@@ -68,14 +68,14 @@ void EffectLockon001_Sub::processBehavior() {
         _pTarget = NULL;
         addAlpha(-0.05);
         _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
-        _pMover->_angveloFace[AXIS_Z] = _pEffectLockon001_Main->_pMover->_angveloFace[AXIS_Z];
+        _pKuroko->_angveloFace[AXIS_Z] = _pEffectLockon001_Main->_pKuroko->_angveloFace[AXIS_Z];
         if (getAlpha() <= 0.0) {
             inactivate();
         }
     }
 
     _pUvFlipper->behave();
-    _pMover->behave();
+    _pKuroko->behave();
 }
 
 void EffectLockon001_Sub::processJudgement() {
@@ -94,7 +94,7 @@ void EffectLockon001_Sub::lockon(GgafDx9GeometricActor* prm_pTarget) {
 
     if (_pProgress->get() == EffectLockon001_SCENE_PROG_LOCK) {
     } else if (_pProgress->get() == EffectLockon001_SCENE_PROG_RELEASE) {
-        _pMover->setFaceAngVelo(AXIS_Z, 1000);   //‰E‰ñ“]
+        _pKuroko->setFaceAngVelo(AXIS_Z, 1000);   //‰E‰ñ“]
         _pProgress->change(EffectLockon001_SCENE_PROG_LOCK);
     }
 
@@ -102,7 +102,7 @@ void EffectLockon001_Sub::lockon(GgafDx9GeometricActor* prm_pTarget) {
 void EffectLockon001_Sub::releaseLockon() {
     if (isActiveActor()) {
         if (_pProgress->get() == EffectLockon001_SCENE_PROG_LOCK) {
-            _pMover->setFaceAngVelo(AXIS_Z, _pMover->_angveloFace[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
+            _pKuroko->setFaceAngVelo(AXIS_Z, _pKuroko->_angveloFace[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
             _pProgress->change(EffectLockon001_SCENE_PROG_RELEASE);
         } else if (_pProgress->get() == EffectLockon001_SCENE_PROG_RELEASE) {
             //‰½‚à–³‚µ

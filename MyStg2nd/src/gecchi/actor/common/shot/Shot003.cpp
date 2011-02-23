@@ -21,14 +21,14 @@ void Shot003::initialize() {
 
 void Shot003::onActive() {
     setHitAble(true);
-    _pMover->setMvVelo(20000);             //移動速度
+    _pKuroko->setMvVelo(20000);             //移動速度
 
 }
 
 void Shot003::processBehavior() {
     //加算ランクポイントを減少
     //座標に反映
-    _pMover->behave();
+    _pKuroko->behave();
 }
 
 void Shot003::processJudgement() {

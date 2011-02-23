@@ -35,9 +35,9 @@ void EnemyMetis::onActive() {
     MyStgUtil::resetEnemyMetisStatus(_pStatus);
     _iMovePatternNo = 0;
     setAlpha(0.6);
-    _pMover->setMvVelo(0);
-    _pMover->setVxMvVelo(-3000);
-    _pMover->setFaceAngVelo(AXIS_Z, 1000);
+    _pKuroko->setMvVelo(0);
+    _pKuroko->setVxMvVelo(-3000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);
 
     CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
     pRndGen->changeSeed(P_GAME_SCENE->_frame_of_behaving);
@@ -53,7 +53,7 @@ void EnemyMetis::processBehavior() {
     //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //À•W‚É”½‰f
-    _pMover->behave();
+    _pKuroko->behave();
     //_pSeTransmitter->behave();
 }
 

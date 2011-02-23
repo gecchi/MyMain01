@@ -22,14 +22,14 @@ void EffectMyShipExplosion::onActive() {
     setCoordinateBy(P_MYSHIP);
     _fAlpha = 0.99;
     _pScaler->setScale(8000);
-    _pMover->setFaceAngVelo(AXIS_Z, 2000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 2000);
 }
 
 void EffectMyShipExplosion::processBehavior() {
     _fAlpha -= 0.01;
     setCoordinateBy(P_MYSHIP);
     _pUvFlipper->behave();
-    _pMover->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 

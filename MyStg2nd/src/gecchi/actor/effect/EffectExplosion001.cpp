@@ -29,7 +29,7 @@ void EffectExplosion001::processBehavior() {
     _SX+= 100;
     _SY+= 100;
     _pUvFlipper->behave();
-    _pMover->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 }
 
@@ -40,7 +40,7 @@ void EffectExplosion001::processJudgement() {
 }
 
 void EffectExplosion001::onInactive() {
-    _pMover->resetMv();
+    _pKuroko->resetMv();
 }
 
 

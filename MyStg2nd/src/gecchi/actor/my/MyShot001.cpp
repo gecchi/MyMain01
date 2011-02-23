@@ -19,13 +19,13 @@ void MyShot001::initialize() {
     setAlpha(0.99); //半透明にすることで両面レンダリング
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -50000, -40000, -40000, 50000, 40000, 40000);
-    _pMover->setFaceAngVelo(AXIS_X, 12000);
+    _pKuroko->setFaceAngVelo(AXIS_X, 12000);
 }
 
 void MyShot001::onActive() {
     setHitAble(true);
-    _pMover->setMvVelo(70000);             //移動速度
-    _pMover->setMvAcce(100);
+    _pKuroko->setMvVelo(70000);             //移動速度
+    _pKuroko->setMvAcce(100);
 }
 
 void MyShot001::processBehavior() {
@@ -37,7 +37,7 @@ void MyShot001::processBehavior() {
     //if (onChangeToActive()) {
 
     //} else {
-        _pMover->behave();
+        _pKuroko->behave();
     //}
 }
 

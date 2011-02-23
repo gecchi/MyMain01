@@ -25,8 +25,8 @@ void EnemyIris::onCreateModel() {
 
 void EnemyIris::initialize() {
     setHitAble(true);
-    _pMover->relateRzRyFaceAngToMvAng(true);
-    _pMover->setFaceAngVelo(AXIS_X, 5000);
+    _pKuroko->relateRzRyFaceAngToMvAng(true);
+    _pKuroko->setFaceAngVelo(AXIS_X, 5000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
 }
@@ -72,7 +72,7 @@ void EnemyIris::processBehavior() {
                     pActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                     if (pActor_Shot) {
                         pActor_Shot->setCoordinateBy(this);
-                        pActor_Shot->_pMover->setRzRyMvAng(paAngWay[i], ANGLE90);
+                        pActor_Shot->_pKuroko->setRzRyMvAng(paAngWay[i], ANGLE90);
                         pActor_Shot->activate();
                     }
                 }
@@ -87,7 +87,7 @@ void EnemyIris::processBehavior() {
                 }
             }
             //自機へ方向転換
-            _pMover->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+            _pKuroko->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                 3000, 0,
                                                 TURN_CLOSE_TO);
             _iMovePatternNo++; //次の行動パターンへ
@@ -96,10 +96,10 @@ void EnemyIris::processBehavior() {
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
             if (_Z-10000 < P_MYSHIP->_Z && P_MYSHIP->_Z < _Z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
-                _pMover->execTagettingMvAngSequence(MyShip::_lim_behaind - 500000 , _Y, _Z,
+                _pKuroko->execTagettingMvAngSequence(MyShip::_lim_behaind - 500000 , _Y, _Z,
                                                    10000, 0,
                                                    TURN_CLOSE_TO);
-                _pMover->setMvAcce(100);
+                _pKuroko->setMvAcce(100);
                 _iMovePatternNo++;
             } else {
                 //自機とZ軸が接近するまで待つ
@@ -113,7 +113,7 @@ void EnemyIris::processBehavior() {
     if (_pSplineProgram) {
         _pSplineProgram->behave(); //スプライン移動を振る舞い
     }
-    _pMover->behave();
+    _pKuroko->behave();
     //_pSeTransmitter->behave();
 }
 
@@ -140,7 +140,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
         if (pExplo001) {
             pExplo001->activate();
             pExplo001->setCoordinateBy(this);
-            pExplo001->_pMover->takeoverMvFrom(_pMover);
+            pExplo001->_pKuroko->takeoverMvFrom(_pKuroko);
         }
         setHitAble(false); //同一フレーム内で複数回ヒットさせないため重要
         sayonara();

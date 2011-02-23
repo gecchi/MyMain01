@@ -41,19 +41,19 @@ void MyTorpedo::onActive() {
     _SX = _SY = _SZ = 100;
     _pScaler->setScale(100);
     _pScaler->intoTargetScaleLinerStep(7000, 500);
-    _pMover->setFaceAngVelo(AXIS_X, 3*1000);
-    _pMover->setFaceAngVelo(AXIS_Y, 5*1000);
-    _pMover->setFaceAngVelo(AXIS_Z, 7*1000);
-    _pMover->setMvVelo(20000);
-    _pMover->setMvAcce(-1000);
-    _pMover->setRzMvAngVelo(0);
-    _pMover->setRyMvAngVelo(0);
-    _pMover->setRzMvAngAcce(0);
-    _pMover->setRyMvAngAcce(0);
-    _pMover->forceMvVeloRange(200, 80000);
-    _pMover->forceRzMvAngVeloRange(-40000, 40000);
-    _pMover->forceRyMvAngVeloRange(-40000, 40000);
-    _pMover->stopTagettingMvAngSequence();
+    _pKuroko->setFaceAngVelo(AXIS_X, 3*1000);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 5*1000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 7*1000);
+    _pKuroko->setMvVelo(20000);
+    _pKuroko->setMvAcce(-1000);
+    _pKuroko->setRzMvAngVelo(0);
+    _pKuroko->setRyMvAngVelo(0);
+    _pKuroko->setRzMvAngAcce(0);
+    _pKuroko->setRyMvAngAcce(0);
+    _pKuroko->forceMvVeloRange(200, 80000);
+    _pKuroko->forceRzMvAngVeloRange(-40000, 40000);
+    _pKuroko->forceRyMvAngVeloRange(-40000, 40000);
+    _pKuroko->stopTagettingMvAngSequence();
     _begin_X = _X;
     _begin_Y = _Y;
     _begin_Z = _Z;
@@ -83,16 +83,16 @@ void MyTorpedo::processBehavior() {
         }
         //魚雷のムーブ
         if (_move_section == 0) {
-            if (_pMover->_veloMv == _pMover->_veloBottomMv) {
+            if (_pKuroko->_veloMv == _pKuroko->_veloBottomMv) {
                 //減速終了
-                _pMover->setMvAcce(500);
+                _pKuroko->setMvAcce(500);
                 if (_pTarget) {
-                    _pMover->execTagettingMvAngSequence(
+                    _pKuroko->execTagettingMvAngSequence(
                                 _pTarget,
                                 2000, 200,
                                 TURN_CLOSE_TO, false);
                 } else {
-                    _pMover->execTagettingMvAngSequence(
+                    _pKuroko->execTagettingMvAngSequence(
                                 GgafDx9Universe::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                 2000, 200,
                                 TURN_CLOSE_TO, false);
@@ -103,7 +103,7 @@ void MyTorpedo::processBehavior() {
 
         //ムーブ１
         if (_move_section == 1) {
-            if (_pMover->isTagettingMvAng()) {
+            if (_pKuroko->isTagettingMvAng()) {
                 //ターゲット完了を待つ
             } else {
                 //ターゲット完了
@@ -117,19 +117,19 @@ void MyTorpedo::processBehavior() {
                 if (getActivePartFrame() % 10 == 0) {
                     if (_pTarget) {
                         if (_pTarget->isActiveActor())  {
-                            _pMover->execTagettingMvAngSequence(
+                            _pKuroko->execTagettingMvAngSequence(
                                         _pTarget,
                                         1000, 200,
                                         TURN_CLOSE_TO, false);
                         } else {
                             //まっすぐ
-                            _pMover->setRzMvAngVelo(0);
-                            _pMover->setRyMvAngVelo(0);
-                            _pMover->setRzMvAngAcce(0);
-                            _pMover->setRyMvAngAcce(0);
+                            _pKuroko->setRzMvAngVelo(0);
+                            _pKuroko->setRyMvAngVelo(0);
+                            _pKuroko->setRzMvAngAcce(0);
+                            _pKuroko->setRyMvAngAcce(0);
                         }
                     } else {
-                            _pMover->execTagettingMvAngSequence(
+                            _pKuroko->execTagettingMvAngSequence(
                                         GgafDx9Universe::_X_goneRight, _Y, _Z,
                                         1000, 200,
                                         TURN_CLOSE_TO, false);
@@ -147,19 +147,19 @@ void MyTorpedo::processBehavior() {
                 if (getActivePartFrame() % 20 == 0) {
                     if (_pTarget) {
                         if (_pTarget->isActiveActor())  {
-                            _pMover->execTagettingMvAngSequence(
+                            _pKuroko->execTagettingMvAngSequence(
                                         _pTarget,
                                         300, 0,
                                         TURN_CLOSE_TO, false);
                         } else {
                             //まっすぐ
-                            _pMover->setRzMvAngVelo(0);
-                            _pMover->setRyMvAngVelo(0);
-                            _pMover->setRzMvAngAcce(0);
-                            _pMover->setRyMvAngAcce(0);
+                            _pKuroko->setRzMvAngVelo(0);
+                            _pKuroko->setRyMvAngVelo(0);
+                            _pKuroko->setRzMvAngAcce(0);
+                            _pKuroko->setRyMvAngAcce(0);
                         }
                     } else {
-                            _pMover->execTagettingMvAngSequence(
+                            _pKuroko->execTagettingMvAngSequence(
                                         GgafDx9Universe::_X_goneRight, _Y, _Z,
                                         300, 0,
                                         TURN_CLOSE_TO, false);
@@ -173,13 +173,13 @@ void MyTorpedo::processBehavior() {
         }
         //ムーブ４
         if (_move_section == 4) {
-            _pMover->setRzMvAngVelo(0);
-            _pMover->setRyMvAngVelo(0);
-            _pMover->setRzMvAngAcce(0);
-            _pMover->setRyMvAngAcce(0);
+            _pKuroko->setRzMvAngVelo(0);
+            _pKuroko->setRyMvAngVelo(0);
+            _pKuroko->setRzMvAngAcce(0);
+            _pKuroko->setRyMvAngAcce(0);
         }
 
-        _pMover->behave();
+        _pKuroko->behave();
         _pScaler->behave();
     }
 }
@@ -193,7 +193,7 @@ void MyTorpedo::processJudgement() {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
             pTailEffect = pTailEffect->getNext();
         }
-        _pMover->setMvVelo(0);
+        _pKuroko->setMvVelo(0);
         //自身のinactive()はprocessBehavior()で行われ
         //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
     }
@@ -215,7 +215,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
         pTailEffect = pTailEffect->getNext();
     }
-    _pMover->setMvVelo(0);
+    _pKuroko->setMvVelo(0);
     //自身のinactive()はprocessBehavior()で行われ
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 

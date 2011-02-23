@@ -20,7 +20,7 @@ void MyOptionControllerGizmo::onActive() {
 }
 
 void MyOptionControllerGizmo::processBehavior() {
-    _pMover->behave();
+    _pKuroko->behave();
 }
 
 void MyOptionControllerGizmo::processJudgement() {

@@ -21,13 +21,13 @@ void EffectMagic001::initialize() {
 }
 
 void EffectMagic001::onActive() {
-    _pMover->setFaceAngVelo(AXIS_X, 3*1000);
-    _pMover->setFaceAngVelo(AXIS_Y, 5*1000);
-    _pMover->setFaceAngVelo(AXIS_Z, 7*1000);
+    _pKuroko->setFaceAngVelo(AXIS_X, 3*1000);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 5*1000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 7*1000);
 }
 
 void EffectMagic001::processBehavior() {
-    _pMover->behave();
+    _pKuroko->behave();
 }
 
 void EffectMagic001::processJudgement() {

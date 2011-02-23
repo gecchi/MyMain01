@@ -18,14 +18,14 @@ void Item001::initialize() {
 
 void Item001::onReset() {
     setHitAble(true);
-    _pMover->setFaceAngVelo(AXIS_X, 3*1000);
+    _pKuroko->setFaceAngVelo(AXIS_X, 3*1000);
 }
 
 void Item001::onActive() {
 }
 
 void Item001::processBehavior() {
-    _pMover->behave();
+    _pKuroko->behave();
 }
 
 void Item001::processJudgement() {

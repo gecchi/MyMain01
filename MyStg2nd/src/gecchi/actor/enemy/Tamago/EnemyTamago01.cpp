@@ -32,10 +32,10 @@ void EnemyTamago01::onCreateModel() {
 void EnemyTamago01::initialize() {
 
     setHitAble(true);
-    _pMover->relateRzRyFaceAngToMvAng(true);
-    _pMover->setFaceAngVelo(AXIS_X, 1000);
-    _pMover->setMvAng(900000, 300000, 300000);
-    _pMover->setMvVelo(2);
+    _pKuroko->relateRzRyFaceAngToMvAng(true);
+    _pKuroko->setFaceAngVelo(AXIS_X, 1000);
+    _pKuroko->setMvAng(900000, 300000, 300000);
+    _pKuroko->setMvVelo(2);
     _pCollisionChecker->makeCollision(2);
 //    _pCollisionChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_pp);
         _pCollisionChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_pn);
@@ -118,7 +118,7 @@ void EnemyTamago01::processBehavior() {
 
     if (_iMovePatternNo == 1) {
         //スプライン移動終了時
-        _pMover->execTagettingMvAngSequence(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
+        _pKuroko->execTagettingMvAngSequence(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                    2000, 0,
                                                    TURN_CLOSE_TO);
         _iMovePatternNo++; //次の行動パターンへ
@@ -132,7 +132,7 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (getBehaveingFrame() % 30 == 0) {
-        _pMover->execTagettingMvAngSequence(P_MYSHIP, 2000,0,TURN_CLOSE_TO);
+        _pKuroko->execTagettingMvAngSequence(P_MYSHIP, 2000,0,TURN_CLOSE_TO);
 
         if (_pDispatcher_Shot) {
             //放射状ショット発射
@@ -147,8 +147,8 @@ void EnemyTamago01::processBehavior() {
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
-                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
-                    pActor->_pMover->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
+                    pActor->_pKuroko->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pKuroko->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
                     pActor->setCoordinateBy(this);
                     pActor->activate();
                 }
@@ -167,7 +167,7 @@ void EnemyTamago01::processBehavior() {
     if (_pProgram_Tamago01Move) {
         _pProgram_Tamago01Move->behave();
     }
-    _pMover->behave();
+    _pKuroko->behave();
     _pScaler->behave();
     _pUvFlipper->behave();
     //_pSeTransmitter->behave();

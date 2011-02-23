@@ -23,7 +23,7 @@ void EffectLockon001_Main::onActive() {
     _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
     _pScaler->setScale(60000); //(6000%)
     _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
-    _pMover->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //回転
     _pSeTransmitter->play3D(0); //ロックオンSE
     setCoordinateBy(_pTarget);
     _pProgress->change(EffectLockon001_SCENE_PROG_FIRST_LOCK);
@@ -50,12 +50,12 @@ void EffectLockon001_Main::processBehavior() {
                      abs(_pTarget->_Y-_Y) <= 200000 &&
                      abs(_pTarget->_Z-_Z) <= 200000) {
                      setCoordinateBy(_pTarget);
-                     _pMover->setMvVelo(0);
-                     _pMover->_angveloFace[AXIS_Z] = 1000;
+                     _pKuroko->setMvVelo(0);
+                     _pKuroko->_angveloFace[AXIS_Z] = 1000;
                  } else {
-                     _pMover->_angveloFace[AXIS_Z] = 3000; //速周り
-                     _pMover->setMvAng(_pTarget);
-                     _pMover->setMvVelo(200000);
+                     _pKuroko->_angveloFace[AXIS_Z] = 3000; //速周り
+                     _pKuroko->setMvAng(_pTarget);
+                     _pKuroko->setMvVelo(200000);
                  }
              } else {
                  _pProgress->change(EffectLockon001_SCENE_PROG_RELEASE);
@@ -75,7 +75,7 @@ void EffectLockon001_Main::processBehavior() {
     }
 
     _pUvFlipper->behave();
-    _pMover->behave();
+    _pKuroko->behave();
     _pScaler->behave();
 
 }
@@ -100,7 +100,7 @@ void EffectLockon001_Main::lockon(GgafDx9GeometricActor* prm_pTarget) {
     } else if (_pProgress->get() == EffectLockon001_SCENE_PROG_RELEASE) {
         _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
         _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
-        _pMover->setFaceAngVelo(AXIS_Z, 1000);   //回転
+        _pKuroko->setFaceAngVelo(AXIS_Z, 1000);   //回転
         _pSeTransmitter->play3D(0); //ロックオンSE
         _pProgress->change(EffectLockon001_SCENE_PROG_FIRST_LOCK);
     }
@@ -111,12 +111,12 @@ void EffectLockon001_Main::releaseLockon() {
         if (_pProgress->get() == EffectLockon001_SCENE_PROG_FIRST_LOCK) {
             _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
             _pScaler->intoTargetScaleLinerUntil(60000, 60);//スケーリング
-            _pMover->setFaceAngVelo(AXIS_Z, _pMover->_angveloFace[AXIS_Z]*-3); //速く逆回転
+            _pKuroko->setFaceAngVelo(AXIS_Z, _pKuroko->_angveloFace[AXIS_Z]*-3); //速く逆回転
             _pProgress->change(EffectLockon001_SCENE_PROG_RELEASE);
         } else if (_pProgress->get() == EffectLockon001_SCENE_PROG_LOCK) {
             _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
             _pScaler->intoTargetScaleLinerUntil(60000, 60);//スケーリング
-            _pMover->setFaceAngVelo(AXIS_Z, _pMover->_angveloFace[AXIS_Z]*-3); //速く逆回転
+            _pKuroko->setFaceAngVelo(AXIS_Z, _pKuroko->_angveloFace[AXIS_Z]*-3); //速く逆回転
             _pProgress->change(EffectLockon001_SCENE_PROG_RELEASE);
         } else if (_pProgress->get() == EffectLockon001_SCENE_PROG_RELEASE) {
             //何も無し

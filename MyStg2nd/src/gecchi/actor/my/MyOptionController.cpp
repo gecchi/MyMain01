@@ -21,13 +21,13 @@ MyOptionController::MyOptionController(const char* prm_name) :
     _now_option_num = 0;
 
     _renge = 80000;
-    _pMover->forceVxMvVeloRange(-_renge, _renge);
-    _pMover->forceVyMvVeloRange(-_renge, _renge);
-    _pMover->forceVzMvVeloRange(-_renge, _renge);
+    _pKuroko->forceVxMvVeloRange(-_renge, _renge);
+    _pKuroko->forceVyMvVeloRange(-_renge, _renge);
+    _pKuroko->forceVzMvVeloRange(-_renge, _renge);
 
-    _pMover->forceVxMvAcceRange(-_renge / 30, _renge / 30);
-    _pMover->forceVyMvAcceRange(-_renge / 30, _renge / 30);
-    _pMover->forceVzMvAcceRange(-_renge / 30, _renge / 30);
+    _pKuroko->forceVxMvAcceRange(-_renge / 30, _renge / 30);
+    _pKuroko->forceVyMvAcceRange(-_renge / 30, _renge / 30);
+    _pKuroko->forceVzMvAcceRange(-_renge / 30, _renge / 30);
 
     _papMyOption = NEW MyOption*[_max_option_num];
     for (int i = 0; i < _max_option_num; i++) {
@@ -112,13 +112,13 @@ void MyOptionController::initialize() {
 
 
 void MyOptionController::onReset() {
-    _pMover->setMvVelo(0);
-    _pMover->forceRyMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
-    _pMover->forceRzMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
-    _pMover->setRzRyMvAng(0,0);
+    _pKuroko->setMvVelo(0);
+    _pKuroko->forceRyMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
+    _pKuroko->forceRzMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
+    _pKuroko->setRzRyMvAng(0,0);
     _way_myship_prev = P_MYSHIP->_way;
-    _pMover->relateRzRyFaceAngToMvAng(true);
-    _pMover->behave();
+    _pKuroko->relateRzRyFaceAngToMvAng(true);
+    _pKuroko->behave();
 }
 
 void MyOptionController::onActive() {
@@ -133,7 +133,7 @@ void MyOptionController::processBehavior() {
 
     if (VB_PLAY->isDoublePushedDown(VB_OPTION,8,8)) {
         //もとに戻す
-        _pMover->execTagettingMvAngSequence(
+        _pKuroko->execTagettingMvAngSequence(
                         0,
                         0,
                         20000, 0,
@@ -154,16 +154,16 @@ void MyOptionController::processBehavior() {
     } else if (VB_PLAY->isBeingPressed(VB_OPTION) && !VB_PLAY->isBeingPressed(VB_TURBO)) {
         //オプション向き操作
         if (VB_PLAY->isBeingPressed(VB_UP)) {
-            _pMover->addRzMvAng(_angVelo_Turn);
+            _pKuroko->addRzMvAng(_angVelo_Turn);
         }
         if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-            _pMover->addRzMvAng(-_angVelo_Turn);
+            _pKuroko->addRzMvAng(-_angVelo_Turn);
         }
         if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-            _pMover->addRyMvAng(_angVelo_Turn);
+            _pKuroko->addRyMvAng(_angVelo_Turn);
         }
         if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-            _pMover->addRyMvAng(-_angVelo_Turn);
+            _pKuroko->addRyMvAng(-_angVelo_Turn);
         }
 
     }
@@ -173,12 +173,12 @@ void MyOptionController::processBehavior() {
         if (_papMyOption[0]) {
             _is_free_from_myship_mode = true;
             _is_handle_move_mode = true;
-            _pMover->setVxMvAcce(0);
-            _pMover->setVyMvAcce(0);
-            _pMover->setVzMvAcce(0);
-            _pMover->setVxMvVelo(0);
-            _pMover->setVyMvVelo(0);
-            _pMover->setVzMvVelo(0);
+            _pKuroko->setVxMvAcce(0);
+            _pKuroko->setVyMvAcce(0);
+            _pKuroko->setVzMvAcce(0);
+            _pKuroko->setVxMvVelo(0);
+            _pKuroko->setVyMvVelo(0);
+            _pKuroko->setVzMvVelo(0);
 
         }
     }
@@ -187,36 +187,36 @@ void MyOptionController::processBehavior() {
         if (VB_PLAY->isBeingPressed(VB_OPTION) && _is_handle_move_mode) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちのオプション移動速度のみを設定。
-            _pMover->setMvVelo(GgafDx9Util::COS[_papMyOption[0]->_angExpanse/ ANGLE_RATE] * _veloOptionsMv);
+            _pKuroko->setMvVelo(GgafDx9Util::COS[_papMyOption[0]->_angExpanse/ ANGLE_RATE] * _veloOptionsMv);
             //旋回半径増加速度の処理はMyOptionクラスで行う。
         } else {
             _is_handle_move_mode = false;
-            _pMover->setMvVelo(0);
+            _pKuroko->setMvVelo(0);
         }
     } else {
         GgafDx9GeoElem* pGeoMyShip = P_MYSHIP->_pRing_GeoHistory->getPrev(4); //自機にすこしおくれて追従
         if (_return_to_default_position_seq) {
             //元の位置へ
-            int dx = pGeoMyShip->_X - (_X + _pMover->_veloVxMv*6);
-            int dy = pGeoMyShip->_Y - (_Y + _pMover->_veloVyMv*6);
-            int dz = pGeoMyShip->_Z - (_Z + _pMover->_veloVzMv*6);
-            _pMover->setVxMvAcce(dx);
-            _pMover->setVyMvAcce(dy);
-            _pMover->setVzMvAcce(dz);
+            int dx = pGeoMyShip->_X - (_X + _pKuroko->_veloVxMv*6);
+            int dy = pGeoMyShip->_Y - (_Y + _pKuroko->_veloVyMv*6);
+            int dz = pGeoMyShip->_Z - (_Z + _pKuroko->_veloVzMv*6);
+            _pKuroko->setVxMvAcce(dx);
+            _pKuroko->setVyMvAcce(dy);
+            _pKuroko->setVzMvAcce(dz);
             if (abs(_X - pGeoMyShip->_X) < 10000 &&
                 abs(_Y - pGeoMyShip->_Y) < 10000 &&
                 abs(_Z - pGeoMyShip->_Z) < 10000 &&
-                abs(_pMover->_veloVxMv) < 20000 &&
-                abs(_pMover->_veloVyMv) < 20000 &&
-                abs(_pMover->_veloVzMv) < 20000    ) {
+                abs(_pKuroko->_veloVxMv) < 20000 &&
+                abs(_pKuroko->_veloVyMv) < 20000 &&
+                abs(_pKuroko->_veloVzMv) < 20000    ) {
 
                 _TRACE_("もどった！");
-                _pMover->setVxMvVelo(0);
-                _pMover->setVyMvVelo(0);
-                _pMover->setVzMvVelo(0);
-                _pMover->setVxMvAcce(0);
-                _pMover->setVyMvAcce(0);
-                _pMover->setVzMvAcce(0);
+                _pKuroko->setVxMvVelo(0);
+                _pKuroko->setVyMvVelo(0);
+                _pKuroko->setVzMvVelo(0);
+                _pKuroko->setVxMvAcce(0);
+                _pKuroko->setVyMvAcce(0);
+                _pKuroko->setVzMvAcce(0);
                 setCoordinateBy(pGeoMyShip);
                 _return_to_default_position_seq = false;
             }
@@ -229,9 +229,9 @@ void MyOptionController::processBehavior() {
 
     //ギズモ
     _pDirectionVector->setCoordinateBy(this);
-    _pDirectionVector->_pMover->setRzRyMvAng(_pMover->_angRzMv, _pMover->_angRyMv);
+    _pDirectionVector->_pKuroko->setRzRyMvAng(_pKuroko->_angRzMv, _pKuroko->_angRyMv);
 
-    _pMover->behave();
+    _pKuroko->behave();
     _pRing_GeoHistory->next()->set(this);
 }
 

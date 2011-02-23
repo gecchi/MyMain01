@@ -31,8 +31,8 @@ void FormationThalia::initialize() {
 void FormationThalia::onActive() {
     for (int i = 0; i < _num_Thalia; i++) {
         _papThalia[i]->setCoordinate(MyShip::_lim_behaind, -2000000 + (i * 400000), 0);
-        _papThalia[i]->_pMover->setRzRyMvAng(0,0);
-        _papThalia[i]->_pMover->setMvVelo(80000);
+        _papThalia[i]->_pKuroko->setRzRyMvAng(0,0);
+        _papThalia[i]->_pKuroko->setMvVelo(80000);
         _papThalia[i]->activateDelay(i*_frame_interval + 1);//_frame_intervalä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
     }
 }

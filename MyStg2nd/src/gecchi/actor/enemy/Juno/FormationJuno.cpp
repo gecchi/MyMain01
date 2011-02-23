@@ -35,8 +35,8 @@ FormationJuno::FormationJuno(
     _X = prm_X;
     _Y = prm_Y;
     _Z = prm_Z;
-    _pMover->setMvVelo(prm_veloMv_App);
-    _pMover->setRzRyMvAng(prm_angRzMv_AppBox, prm_angRyMv_AppBox);
+    _pKuroko->setMvVelo(prm_veloMv_App);
+    _pKuroko->setRzRyMvAng(prm_angRzMv_AppBox, prm_angRyMv_AppBox);
     float vX_AppBox, vY_AppBox, vZ_AppBox;
     GgafDx9Util::getNormalizeVectorZY(prm_angRzMv_AppBox, prm_angRyMv_AppBox,
                                       vX_AppBox, vY_AppBox, vZ_AppBox);
@@ -47,12 +47,12 @@ FormationJuno::FormationJuno(
     for (int i = 0; i < prm_nJunoStock; i++) {
         EnemyJuno* pEnemyJuno = NEW EnemyJuno("Juno01");
         pEnemyJuno->setDispatcher_Shot(_pDispatcherCon->refer()); //’eÝ’è
-        pEnemyJuno->_pMover->relateRzRyFaceAngToMvAng(true);
-        pEnemyJuno->_pMover->setMvVelo(prm_veloMv_Juno);
-        pEnemyJuno->_pMover->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);
-        pEnemyJuno->_pMover->setVxMvVelo(vX_AppBox*prm_veloMv_App);
-        pEnemyJuno->_pMover->setVyMvVelo(vY_AppBox*prm_veloMv_App);
-        pEnemyJuno->_pMover->setVzMvVelo(vZ_AppBox*prm_veloMv_App);
+        pEnemyJuno->_pKuroko->relateRzRyFaceAngToMvAng(true);
+        pEnemyJuno->_pKuroko->setMvVelo(prm_veloMv_Juno);
+        pEnemyJuno->_pKuroko->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);
+        pEnemyJuno->_pKuroko->setVxMvVelo(vX_AppBox*prm_veloMv_App);
+        pEnemyJuno->_pKuroko->setVyMvVelo(vY_AppBox*prm_veloMv_App);
+        pEnemyJuno->_pKuroko->setVzMvVelo(vZ_AppBox*prm_veloMv_App);
         pEnemyJuno->inactivateTreeImmediately();
         _pDispatcher_EnemyJuno->addSubLast(pEnemyJuno);
     }
@@ -72,7 +72,7 @@ void FormationJuno::processBehavior() {
             pEnemyJuno->activate();
         }
     }
-    _pMover->behave();
+    _pKuroko->behave();
 }
 
 FormationJuno::~FormationJuno() {
