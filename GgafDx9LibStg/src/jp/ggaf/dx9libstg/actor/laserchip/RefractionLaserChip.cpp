@@ -28,7 +28,7 @@ void RefractionLaserChip::initialize() {
     //当たり判定あり。
     //α＝0.99
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-    _pMover->setMvVelo(30000);
+    _pKuroko->setMvVelo(30000);
     _fAlpha = 0.99;
 }
 
@@ -88,15 +88,15 @@ void RefractionLaserChip::onInactive() {
     //ちょっと無駄っぽいけど、さもなば先頭の次のチップが領域外に向かって移動するとは限らないので、やはり必要。
     if (_pChip_behind) {
         RefractionLaserChip* pChip_behind = (RefractionLaserChip*)_pChip_behind;
-        pChip_behind->_pMover->_vX = _pMover->_vX;
-        pChip_behind->_pMover->_vY = _pMover->_vY;
-        pChip_behind->_pMover->_vZ = _pMover->_vZ;
-        pChip_behind->_pMover->_angRzMv = _pMover->_angRzMv;
-        pChip_behind->_pMover->_angRyMv = _pMover->_angRyMv;
-        pChip_behind->_pMover->_veloMv = _pMover->_veloMv;
-        pChip_behind->_pMover->_angFace[AXIS_X] = _pMover->_angFace[AXIS_X];
-        pChip_behind->_pMover->_angFace[AXIS_Y] = _pMover->_angFace[AXIS_Y];
-        pChip_behind->_pMover->_angFace[AXIS_Z] = _pMover->_angFace[AXIS_Z];
+        pChip_behind->_pKuroko->_vX = _pKuroko->_vX;
+        pChip_behind->_pKuroko->_vY = _pKuroko->_vY;
+        pChip_behind->_pKuroko->_vZ = _pKuroko->_vZ;
+        pChip_behind->_pKuroko->_angRzMv = _pKuroko->_angRzMv;
+        pChip_behind->_pKuroko->_angRyMv = _pKuroko->_angRyMv;
+        pChip_behind->_pKuroko->_veloMv = _pKuroko->_veloMv;
+        pChip_behind->_pKuroko->_angFace[AXIS_X] = _pKuroko->_angFace[AXIS_X];
+        pChip_behind->_pKuroko->_angFace[AXIS_Y] = _pKuroko->_angFace[AXIS_Y];
+        pChip_behind->_pKuroko->_angFace[AXIS_Z] = _pKuroko->_angFace[AXIS_Z];
         pChip_behind->_cnt_refraction = _cnt_refraction;
         pChip_behind->_frame_refraction_enter = _frame_refraction_enter;
         pChip_behind->_frame_refraction_out = _frame_refraction_out;
@@ -179,7 +179,7 @@ void RefractionLaserChip::processBehavior() {
                     //座標を変えず方向だけ転換
                     int X, Y, Z;
                     X = _X; Y = _Y; Z = _Z;
-                    _pMover->behave(); //
+                    _pKuroko->behave(); //
                     _X = X; _Y = Y; _Z = Z;
                     _isRefracting = false;
 
@@ -188,9 +188,9 @@ void RefractionLaserChip::processBehavior() {
             }
 
             if (!_isRefracting) {
-                //_isRefracting中は停止しなくてはいけないため_pMover->behave()を実行しない。
-                //_pMover->behave();以外で座標を操作している場合は、完全な停止にならないので注意
-                _pMover->behave();
+                //_isRefracting中は停止しなくてはいけないため_pKuroko->behave()を実行しない。
+                //_pKuroko->behave();以外で座標を操作している場合は、完全な停止にならないので注意
+                _pKuroko->behave();
             }
 
         } else {

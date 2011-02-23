@@ -25,9 +25,9 @@ void StgUtil::shotWay001(GgafDx9GeometricActor* prm_pFrom,
         pActor_Shot = (GgafDx9DrawableActor*)prm_pDispatcher_Shot->employ();
         if (pActor_Shot) {
             pActor_Shot->setCoordinateBy(prm_pFrom);
-            pActor_Shot->_pMover->setRzRyMvAng(rz+paAngWay[i], ry);
-            pActor_Shot->_pMover->setMvVelo(prm_velo);
-            pActor_Shot->_pMover->setMvAcce(prm_acce);
+            pActor_Shot->_pKuroko->setRzRyMvAng(rz+paAngWay[i], ry);
+            pActor_Shot->_pKuroko->setMvVelo(prm_velo);
+            pActor_Shot->_pKuroko->setMvAcce(prm_acce);
             pActor_Shot->activate();
         }
     }
@@ -55,9 +55,9 @@ void StgUtil::shotWay001v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
             pActor_Shot = (GgafDx9DrawableActor*)prm_pDispatcher_Shot->employ();
             if (pActor_Shot) {
                 pActor_Shot->setCoordinateBy(prm_pFrom);
-                pActor_Shot->_pMover->setRzRyMvAng(rz+paAngWay[i], ry);
-                pActor_Shot->_pMover->setMvVelo(now_velo);
-                pActor_Shot->_pMover->setMvAcce(now_acce);
+                pActor_Shot->_pKuroko->setRzRyMvAng(rz+paAngWay[i], ry);
+                pActor_Shot->_pKuroko->setMvVelo(now_velo);
+                pActor_Shot->_pKuroko->setMvAcce(now_acce);
                 pActor_Shot->activate();
             }
         }
@@ -84,9 +84,9 @@ void StgUtil::shotWay002(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
         pActor_Shot = (GgafDx9DrawableActor*)prm_pDispatcher_Shot->employ();
         if (pActor_Shot) {
             pActor_Shot->setCoordinateBy(prm_pFrom);
-            pActor_Shot->_pMover->setRzRyMvAng(rz+paAngWay[i], ry+ANGLE90);
-            pActor_Shot->_pMover->setMvVelo(prm_velo);
-            pActor_Shot->_pMover->setMvAcce(prm_acce);
+            pActor_Shot->_pKuroko->setRzRyMvAng(rz+paAngWay[i], ry+ANGLE90);
+            pActor_Shot->_pKuroko->setMvVelo(prm_velo);
+            pActor_Shot->_pKuroko->setMvAcce(prm_acce);
             pActor_Shot->activate();
         }
     }
@@ -113,9 +113,9 @@ void StgUtil::shotWay002v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
             pActor_Shot = (GgafDx9DrawableActor*)prm_pDispatcher_Shot->employ();
             if (pActor_Shot) {
                 pActor_Shot->setCoordinateBy(prm_pFrom);
-                pActor_Shot->_pMover->setRzRyMvAng(rz+paAngWay[i], ry+ANGLE90);
-                pActor_Shot->_pMover->setMvVelo(now_velo);
-                pActor_Shot->_pMover->setMvAcce(now_acce);
+                pActor_Shot->_pKuroko->setRzRyMvAng(rz+paAngWay[i], ry+ANGLE90);
+                pActor_Shot->_pKuroko->setMvVelo(now_velo);
+                pActor_Shot->_pKuroko->setMvAcce(now_acce);
                 pActor_Shot->activate();
             }
         }
