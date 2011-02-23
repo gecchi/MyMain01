@@ -22,12 +22,12 @@ GgafDx9Puppeteer::GgafDx9Puppeteer(GgafDx9D3DXAniMeshActor* prm_pPuppet) : GgafO
     _advance_time_per_draw = 0.0;
 
 
-    _papAnimationSet = NEW ID3DXAnimationSet*[_num_animation_set];
+    _papAnimationSet = NEW LPD3DXANIMATIONSET[_num_animation_set];
     _pa_as_anime_time = NEW double[_num_animation_set];
     _pa_as_anime_speed = NEW float[_num_animation_set];
     _pa_as_weight = NEW float[_num_animation_set];
     for (UINT i = 0; i < _num_animation_set; i++) {
-        hr = _pAc->GetAnimationSet(0, &(_papAnimationSet[i])); //アニメーションセット保持
+        hr = _pAc->GetAnimationSet(i, &(_papAnimationSet[i])); //アニメーションセット保持
         checkDxException(hr, D3D_OK, "失敗しました。");
         _pa_as_anime_time[i] = 0.0;
         _pa_as_anime_speed[i] = 1.0;

@@ -22,7 +22,7 @@ public:
     GgafDx9D3DXAniMeshModel* _pModel;
     ID3DXAnimationController* _pAc;
 
-    ID3DXAnimationSet** _papAnimationSet;
+    LPD3DXANIMATIONSET* _papAnimationSet;
     double* _pa_as_anime_time;
     float* _pa_as_anime_speed;
     float* _pa_as_weight;
@@ -31,7 +31,7 @@ public:
     UINT _num_tracks;
 
     /** アクティブな手 0:右手／1:左手 */
-    DWORD _hand;
+    UINT _hand;
 
     double _advance_time_per_draw;
 

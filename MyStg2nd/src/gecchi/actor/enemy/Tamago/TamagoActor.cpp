@@ -23,6 +23,9 @@ void TamagoActor::initialize() {
 }
 
 void TamagoActor::processBehavior() {
+    if (GgafDx9Input::isPushedDownKey(DIK_0)) {
+        _pPuppeteer->play(0);
+    }
     if (GgafDx9Input::isPushedDownKey(DIK_1)) {
         _pPuppeteer->play(1);
     }
