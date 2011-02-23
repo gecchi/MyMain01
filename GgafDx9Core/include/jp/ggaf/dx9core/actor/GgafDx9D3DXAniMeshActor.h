@@ -3,8 +3,9 @@
 namespace GgafDx9Core {
 
 /**
- * フレームアニメーションメッシュアクター.
- * GgafDx9DrawableActor を継承し、Xファイル定義のメッシュ表示機能を<BR>
+ * フレームアニメーション付きメッシュアクター.
+ * GgafDx9DrawableActor を継承し、Xファイル定義の
+ * フレームアニメーションメッシュ表示機能を<BR>
  * 追加したアクターです<BR>
  * @version 1.00
  * @since 2009/11/25
@@ -20,20 +21,15 @@ public:
     /** エフェクト資源 */
     GgafDx9D3DXAniMeshEffect* _pD3DXAniMeshEffect;
 
-    GgafDx9Puppeteer* _pAniCon;
+    GgafDx9Puppeteer* _pPuppeteer;
 
     LPD3DXANIMATIONSET* _papAnimationSet;
 
-    double _advance_time_per_draw;
-
-    double _advance_time_per_frame;
-    ID3DXAnimationController* _pAc;
-    DWORD _last_track;
     GgafDx9D3DXAniMeshActor(const char* prm_name,
-                         const char* prm_model_id,
-                         const char* prm_effect_id,
-                         const char* prm_technique,
-                         GgafDx9Checker* prm_pChecker);
+                             const char* prm_model_id,
+                             const char* prm_effect_id,
+                             const char* prm_technique,
+                             GgafDx9Checker* prm_pChecker);
 
 
 

@@ -1,5 +1,5 @@
-#ifndef GGAFDX9GEOMETRICMOVER_H_
-#define GGAFDX9GEOMETRICMOVER_H_
+#ifndef GGAFDX9KUROKO_H_
+#define GGAFDX9KUROKO_H_
 namespace GgafDx9Core {
 
 //軸X
@@ -11,17 +11,25 @@ namespace GgafDx9Core {
 
 
 /**
- * 座標計算支援クラス .
+ * 黒子 .
+ * 黒子は舞台には見えないですが、演者(アクター)を持ち上げて、移動、回転させる人々です。<BR>
+ * 演者は自らは特に動作せずとも、黒子のおかげで舞台を飛び回まわることもできます。<BR>
+ * 黒子が頑張っても対応できない複雑な動作は、演者(アクター)自身も協力して動きましょう。<BR>
+ * 演者一人ににつき、黒子が一人付いています。<BR>
+ * <BR>
+ * それは置いといて、つまりは、座標計算支援クラスです。<BR>
  * GgafDx9GeometricActor のメンバの<BR>
  *  _X ,  _Y,  _Z  ・・・ アクターの座標<BR>
  * _RX , _RY, _RZ  ・・・ アクターの軸回転角度<BR>
- * を、簡単に操作するために設計。<BR>
+ * を、簡単に操作するために作成。<BR>
+ * アクターの processBehave() には、通常移動は黒子に任せ、<BR>
+ * 特殊な座標計算のみを実装するという設計思想。<BR>
  * TODO:いつの間にか肥大化。分割せよ。
  * @version 1.00
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class GgafDx9GeometricMover : public GgafCore::GgafObject {
+class GgafDx9Kuroko : public GgafCore::GgafObject {
     float _dummy1, _dummy2, _dummy3;
 
 public:
@@ -31,7 +39,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    GgafDx9GeometricMover(GgafDx9GeometricActor* prm_pActor);
+    GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor);
 
 
 
@@ -938,23 +946,24 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     bool isMoveingSmooth();
 
     /**
-     * 他の GgafDx9GeometricMover オブジェクトを状態を自身に引継ぐ .
-     * @param prm_pMover 引継元
+     * 黒子の引継ぎ .
+     * 他の GgafDx9Kuroko オブジェクトを状態を自身に引継ぐ .
+     * @param prm_pKuroko 引継元
      */
-    void takeoverMvFrom(GgafDx9GeometricMover* prm_pMover);
+    void takeoverMvFrom(GgafDx9Kuroko* prm_pKuroko);
 
     void resetMv();
 
 
     /**
-     * 毎フレームのActorの振る舞い。<BR>
-     * 本クラスを機能を利用する場合は、このbehave() を毎フレーム呼び出し実行してください。<BR>
+     * 黒子が動く .
+     * 黒子機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
      */
     virtual void behave();
 
-    virtual ~GgafDx9GeometricMover();
+    virtual ~GgafDx9Kuroko();
 };
 
 }
-#endif /*GGAFDX9GEOMETRICMOVER_H_*/
+#endif /*GGAFDX9KUROKO_H_*/
 

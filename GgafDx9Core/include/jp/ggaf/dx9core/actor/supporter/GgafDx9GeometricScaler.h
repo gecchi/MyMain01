@@ -16,7 +16,7 @@ namespace GgafDx9Core {
  * 本クラスでは、スケールとスケーリングという単語を次の意味で使用している箇所がある。
  * スケール・・・現在（のフレーム）の拡大縮小状態、スケール値
  * スケーリング・・・フレーム間の拡大縮小状態の遷移
- * 2009/05/22 GgafDx9GeometricMover から分割した。
+ * 2009/05/22 GgafDx9Kuroko から分割した。
  * @version 1.00
  * @since 2009/05/22
  * @author Masatoshi Tsuge

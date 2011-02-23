@@ -22,27 +22,11 @@ GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshActor(const char* prm_name,
     _pD3DXAniMeshModel = (GgafDx9D3DXAniMeshModel*)_pGgafDx9Model;
     _pD3DXAniMeshEffect = (GgafDx9D3DXAniMeshEffect*)_pGgafDx9Effect;
     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
-
-    HRESULT hr = _pD3DXAniMeshModel->_pAcBase->CloneAnimationController(
-                                                _pD3DXAniMeshModel->_pAcBase->GetMaxNumAnimationOutputs(),
-                                                _pD3DXAniMeshModel->_pAcBase->GetMaxNumAnimationSets(),
-                                                _pD3DXAniMeshModel->_pAcBase->GetMaxNumTracks(),
-                                                _pD3DXAniMeshModel->_pAcBase->GetMaxNumEvents(),
-                                                &_pAc);
-    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshActor() アニメーションコントローラーのクローンに失敗しました。name="<<prm_name);
-
-    _advance_time_per_frame = 1.0 / 60.0; //60分の1秒
-    _advance_time_per_draw = 0;
-
-
-    _last_track = 0;
-
-    _TRACE_("_pAc->GetMaxNumTracks()="<<_pAc->GetMaxNumTracks());
-    _TRACE_("_pAc->GetMaxNumAnimationSets()="<<_pAc->GetMaxNumAnimationSets());
+    _pPuppeteer = NEW GgafDx9Puppeteer(this);
 //
-    LPD3DXANIMATIONSET pAnimationSet0;
-    hr = _pAc->GetAnimationSet(0, &pAnimationSet0); //ID0番のアニメーションセット取得
-    checkDxException(hr, D3D_OK, "失敗しました。");
+//    LPD3DXANIMATIONSET pAnimationSet0;
+//    hr = _pAc->GetAnimationSet(0, &pAnimationSet0); //ID0番のアニメーションセット取得
+//    checkDxException(hr, D3D_OK, "失敗しました。");
 //    LPD3DXANIMATIONSET pAnimationSet1;
 //    hr = _pAc->GetAnimationSet(2, &pAnimationSet1); //ID1番のアニメーションセット取得
 //    checkDxException(hr, D3D_OK, "失敗しました。");
@@ -53,8 +37,8 @@ GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshActor(const char* prm_name,
 //    hr = _pAc->GetAnimationSet(2, &pAnimationSet4); //ID2番のアニメーションセット取得
 //    checkDxException(hr, D3D_OK, "失敗しました。");
 //
-    hr = _pAc->SetTrackAnimationSet(0, pAnimationSet0);//ID0番のアニメーションセットをトラック0番にセット（デフォルトでこうなるはず）
-    checkDxException(hr, D3D_OK, "失敗しました。");
+//    hr = _pAc->SetTrackAnimationSet(0, pAnimationSet0);//ID0番のアニメーションセットをトラック0番にセット（デフォルトでこうなるはず）
+//    checkDxException(hr, D3D_OK, "失敗しました。");
 //    hr = _pAc->SetTrackAnimationSet(1, pAnimationSet0);//ID1番のアニメーションセットをトラック1番にセット（デフォルトでこうなるはず）
 //    checkDxException(hr, D3D_OK, "失敗しました。");
 ////    hr = _pAc->SetTrackAnimationSet(2, pAnimationSet2);//ID2番のアニメーションセットをトラック2番にセット（デフォルトでこうなるはず）
@@ -123,26 +107,6 @@ GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshActor(const char* prm_name,
 
 
 
-    hr = _pAc->ResetTime();//グローバル時間を0にする
-    checkDxException(hr, D3D_OK, "失敗しました。");
-    //初期は静止
-    for (DWORD i = 0; i < (DWORD)_pAc->GetMaxNumTracks(); i++) {
-        hr = _pAc->SetTrackEnable(i, TRUE);
-        checkDxException(hr, D3D_OK, "失敗しました。");
-//        hr = _pAc->SetTrackPosition(i, 0);//トラック0(=ID0番)のローカル時間を0にする
-//        checkDxException(hr, D3D_OK, "失敗しました。");
-        hr = _pAc->SetTrackSpeed(i, 1.0f);  //トラック0(=ID0番)のスピードを設定。
-        checkDxException(hr, D3D_OK, "失敗しました。");
-        hr = _pAc->SetTrackWeight(i, 1.00);
-        checkDxException(hr, D3D_OK, "失敗しました。");
-    }
-    hr = _pAc->AdvanceTime(0,NULL);//0秒進める（それを反映させる）。
-    checkDxException(hr, D3D_OK, "失敗しました。");
-
-    for (DWORD i = 0; i < (DWORD)_pAc->GetMaxNumTracks(); i++) {
-        hr = _pAc->SetTrackEnable(i, FALSE);
-        checkDxException(hr, D3D_OK, "失敗しました。");
-    }
 }
 
 void GgafDx9D3DXAniMeshActor::setAlpha(float prm_fAlpha) {
@@ -183,9 +147,6 @@ void GgafDx9D3DXAniMeshActor::processDraw() {
 //    HRESULT hr = _pAc->SetTrackPosition(0,_track0time);//トラック0(=ID0番)のローカル時間を0にする
 //    checkDxException(hr, D3D_OK, "失敗しました。");
 
-    hr = _pAc->AdvanceTime(_advance_time_per_draw, NULL );
-    checkDxException(hr, D3D_OK, "失敗しました。");
-    _advance_time_per_draw = 0; //リセット
     _pD3DXAniMeshModel->draw(this);
 
     // Zバッファを無効に
@@ -196,4 +157,5 @@ void GgafDx9D3DXAniMeshActor::processDraw() {
 }
 
 GgafDx9D3DXAniMeshActor::~GgafDx9D3DXAniMeshActor() {
+    DELETE_IMPOSSIBLE_NULL(_pPuppeteer);
 }

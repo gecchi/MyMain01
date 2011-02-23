@@ -140,10 +140,10 @@ void GgafDx9FixedVelocitySplineProgram::begin(int prm_option) {
             _X_begin = _sp->_X_compute[0]*_rate_X + _offset_X - _pActor_target->_X ;
             _Y_begin = _sp->_Y_compute[0]*_rate_Y + _offset_Y - _pActor_target->_Y;
             _Z_begin = _sp->_Z_compute[0]*_rate_Z + _offset_Z - _pActor_target->_Z;
-            _SIN_RzMv_begin = GgafDx9Util::SIN[_pActor_target->_pMover->_angRzMv/ANGLE_RATE];
-            _COS_RzMv_begin = GgafDx9Util::COS[_pActor_target->_pMover->_angRzMv/ANGLE_RATE];
-            _SIN_RyMv_begin = GgafDx9Util::SIN[_pActor_target->_pMover->_angRyMv/ANGLE_RATE];
-            _COS_RyMv_begin = GgafDx9Util::COS[_pActor_target->_pMover->_angRyMv/ANGLE_RATE];
+            _SIN_RzMv_begin = GgafDx9Util::SIN[_pActor_target->_pKuroko->_angRzMv/ANGLE_RATE];
+            _COS_RzMv_begin = GgafDx9Util::COS[_pActor_target->_pKuroko->_angRzMv/ANGLE_RATE];
+            _SIN_RyMv_begin = GgafDx9Util::SIN[_pActor_target->_pKuroko->_angRyMv/ANGLE_RATE];
+            _COS_RyMv_begin = GgafDx9Util::COS[_pActor_target->_pKuroko->_angRyMv/ANGLE_RATE];
         } else if (_option == 1) {
             _X_begin = _sp->_X_compute[0]*_rate_X + _offset_X - _pActor_target->_X;
             _Y_begin = _sp->_Y_compute[0]*_rate_Y + _offset_Y - _pActor_target->_Y;
@@ -161,7 +161,7 @@ void GgafDx9FixedVelocitySplineProgram::begin(int prm_option) {
 
 void GgafDx9FixedVelocitySplineProgram::behave() {
     if (_is_executing) {
-        GgafDx9GeometricMover* _pActorMover = _pActor_target->_pMover;
+        GgafDx9Kuroko* _pActorMover = _pActor_target->_pKuroko;
 
         //•Ï‚í‚è–Ú
         if (_fFrame_executing >= _fFrame_next_point) {

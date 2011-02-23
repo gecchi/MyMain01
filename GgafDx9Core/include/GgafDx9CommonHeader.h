@@ -300,7 +300,7 @@ class GgafDx9CollisionPart;
 class GgafDx9Properties;
 class GgafDx9GeoElem;
 class GgafDx9GeoChain;
-class GgafDx9GeometricMover;
+class GgafDx9Kuroko;
 class GgafDx9Checker;
 class GgafDx9GeometricScaler;
 class GgafDx9Morpher;
@@ -420,7 +420,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/GgafDx9Properties.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeoElem.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeoChain.h"
-#include "jp/ggaf/dx9core/actor/supporter/GgafDx9GeometricMover.h"
+#include "jp/ggaf/dx9core/actor/supporter/GgafDx9Kuroko.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Checker.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9GeometricScaler.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Morpher.h"

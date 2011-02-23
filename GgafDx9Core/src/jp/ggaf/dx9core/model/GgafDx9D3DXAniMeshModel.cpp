@@ -75,14 +75,8 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
     //D3DXMatrixMultiply(&WorldMat, &WorldMat, &Rot);
     //&(pTargetActor->_matWorld)
 
-
-    _stackWorldMat.SetWorldMatrix(&(pTargetActor->_matWorld));
-    // フレームのワールド変換行列を計算
-    _stackWorldMat.UpdateFrame(_pFR);
-
+    pTargetActor->_pPuppeteer->work(); //アニメーション反映
     list< D3DXFRAME_WORLD* > *pDrawList = _stackWorldMat.GetDrawList(); // 描画リストを取得
-//    pDrawList
-
     list<D3DXFRAME_WORLD*>::iterator it = pDrawList->begin();
     int materialnum;
 

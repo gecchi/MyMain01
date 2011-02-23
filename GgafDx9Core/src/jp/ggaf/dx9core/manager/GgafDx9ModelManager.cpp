@@ -1629,7 +1629,10 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
             (D3DXFRAME**)(&pFR),
             &pAC
          );
-
+    checkDxException(hr, D3D_OK, "GgafDx9ModelManager::restoreD3DXAniMeshModel "<<xfile_name<<" 読み込みに失敗しました。対象="<<xfile_name);
+    if (pFR == NULL) {
+        throwGgafCriticalException("GgafDx9ModelManager::restoreD3DXAniMeshModel "<<xfile_name<<" のフレーム情報が取得できません！");
+    }
     //マテリアル配列を作成
     list<D3DXFRAME_WORLD*> listFrame;
     getDrawFrameList(&listFrame, pFR); //マテリアル総数を知りたいがため、フレームを廻り、リスト化

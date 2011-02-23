@@ -40,7 +40,7 @@ public:
     /** [r/w]ワールドZ軸方向スケール(_SZ : 倍率 = 1000 : 1.0倍) */
     int _SZ;
     /** [r]座標計算支援オブジェクト */
-    GgafDx9GeometricMover* _pMover;
+    GgafDx9Kuroko* _pKuroko;
     /** [r]チェッカー */
     GgafDx9Checker* _pChecker;
     /** [r]効果音発生管理オブジェクト */
