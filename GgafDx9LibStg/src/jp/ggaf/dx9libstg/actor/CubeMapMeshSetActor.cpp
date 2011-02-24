@@ -14,7 +14,7 @@ CubeMapMeshSetActor::CubeMapMeshSetActor(const char* prm_name, const char* prm_m
     _class_name = "CubeMapMeshSetActor";
     _frame_offset = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
-    _pScaler = NEW GgafDx9GeometricScaler(this);
+    _pScaler = NEW GgafDx9Scaler(this);
 }
 
 void CubeMapMeshSetActor::drawHitArea() {

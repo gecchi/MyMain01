@@ -43,7 +43,7 @@ public:
 //    int _scrool_speed;
 
 
-    GgafDx9Core::GgafDx9GeometricScaler* _pScaler;
+    GgafDx9Core::GgafDx9Scaler* _pScaler;
     GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 
     /** [r]äOï«ÉVÅ[Éì */

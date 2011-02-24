@@ -17,7 +17,7 @@ WallActor::WallActor(const char* prm_name,
     _class_name = "WallActor";
     _obj_class |= Obj_WallActor;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
-    _pScaler = NEW GgafDx9GeometricScaler(this);
+    _pScaler = NEW GgafDx9Scaler(this);
     _wall_draw_face = 0;
     _pos_prism = 0;
     _pWalledSectionScene = NULL;

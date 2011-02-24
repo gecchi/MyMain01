@@ -15,7 +15,7 @@ CubeMapMorphMeshActor::CubeMapMorphMeshActor(const char* prm_name, const char* p
     _frame_offset = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
 
-    _pScaler = NEW GgafDx9GeometricScaler(this);
+    _pScaler = NEW GgafDx9Scaler(this);
     _pMorpher = NEW GgafDx9Morpher(this);
 }
 

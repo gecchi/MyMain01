@@ -14,7 +14,7 @@ DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_m
     _class_name = "DefaultMeshSetActor";
     _frame_offset = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
-    _pScaler = NEW GgafDx9GeometricScaler(this);
+    _pScaler = NEW GgafDx9Scaler(this);
 }
 
 void DefaultMeshSetActor::drawHitArea() {
