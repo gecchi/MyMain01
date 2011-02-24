@@ -37,11 +37,12 @@ private:
         double _local_time;
         double _target_time;
         double _speed;
-        double _weight;
+//        double _weight;
     };
 
     struct Stick {
         UINT _no;
+        double _weight;
         Performance* _pPerformance;
     };
 public:
@@ -57,9 +58,14 @@ public:
     Stick _aStick[2];
     /** アクティブな操り棒 */
     Stick* _pStickActive;
+    int _active_hand;
 
     double _advance_time_per_draw;
 
+    bool _is_shifting_performance;
+    frame _shift_duaration;
+    double _weight_per_frame_for_shift;
+    frame _shifted;
     /**
      * コンストラクタ .
      * @param prm_pActor 操られる者
@@ -70,10 +76,10 @@ public:
 
     virtual ~GgafDx9Puppeteer();
 
-    void setStickSpeed(double prm_speed);
-
+    void exchangStick();
+    void shift(UINT performance_no, frame shift_duaration, GgafDx9MotionMethod method);
+    void play(UINT performance_no, double speed, GgafDx9MotionMethod method);
     void play(UINT performance_no, GgafDx9MotionMethod method);
-
     void play();
     void stop();
 
