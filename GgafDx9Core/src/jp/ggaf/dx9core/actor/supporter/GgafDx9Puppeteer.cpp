@@ -88,10 +88,10 @@ void GgafDx9Puppeteer::shift(UINT performance_no, frame shift_duaration, GgafDx9
     play(performance_no, method);
 }
 void GgafDx9Puppeteer::play(UINT performance_no, double speed, GgafDx9MotionMethod method) {
+	play(performance_no, method);
     _paPerformances[performance_no]._speed = speed;
     HRESULT hr = _pAc->SetTrackSpeed(_pStickActive->_no, _pStickActive->_pPerformance->_speed);  //トラックスピードを設定。
     checkDxException(hr, D3D_OK, "失敗しました。");
-    play(performance_no, method);
 }
 
 
@@ -100,18 +100,21 @@ void GgafDx9Puppeteer::play(UINT performance_no, GgafDx9MotionMethod method) {
     _pStickActive->_pPerformance = &(_paPerformances[performance_no]);
     HRESULT hr = _pAc->SetTrackAnimationSet(_pStickActive->_no, _pStickActive->_pPerformance->_pAnimationSet);//motion_id番のアニメーションセットをトラック0番にセット
     checkDxException(hr, D3D_OK, "失敗しました。");
-
     play();
 }
 void GgafDx9Puppeteer::play() {
-    _pStickActive->_pPerformance->_is_playing = true;
-    HRESULT hr = _pAc->SetTrackEnable(_pStickActive->_no, TRUE);
-    checkDxException(hr, D3D_OK, "失敗しました。");
+	if (_pStickActive->_pPerformance) {
+		_pStickActive->_pPerformance->_is_playing = true;
+		HRESULT hr = _pAc->SetTrackEnable(_pStickActive->_no, TRUE);
+		checkDxException(hr, D3D_OK, "失敗しました。");
+	}
 }
 void GgafDx9Puppeteer::stop() {
-    _pStickActive->_pPerformance->_is_playing = false;
-    HRESULT hr = _pAc->SetTrackEnable(_pStickActive->_no, FALSE);
-    checkDxException(hr, D3D_OK, "失敗しました。");
+	if (_pStickActive->_pPerformance) {
+		_pStickActive->_pPerformance->_is_playing = false;
+		HRESULT hr = _pAc->SetTrackEnable(_pStickActive->_no, FALSE);
+		checkDxException(hr, D3D_OK, "失敗しました。");
+	}
 }
 
 void GgafDx9Puppeteer::behave() {

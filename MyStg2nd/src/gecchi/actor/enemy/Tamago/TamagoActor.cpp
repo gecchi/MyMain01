@@ -10,7 +10,7 @@ TamagoActor::TamagoActor(const char* prm_name) : DefaultD3DXAniMeshActor(prm_nam
 }
 
 void TamagoActor::initialize() {
-    setScale(4000);
+    setScale(2000);
 //    HRESULT hr = _pAc->GetAnimationSet(0, &pAnimationSet0); //ID0番のアニメーションセット取得
 //    checkDxException(hr, D3D_OK, "失敗しました。");
 //    _last_time =  pAnimationSet0->GetPeriod();
@@ -30,10 +30,10 @@ void TamagoActor::processBehavior() {
         _pPuppeteer->play(0, -1.0, LOOP_MOTION_LINER);
     }
     if (GgafDx9Input::isPushedDownKey(DIK_8)) {
-        _pPuppeteer->play(2, 1.0, LOOP_MOTION_LINER);
+        _pPuppeteer->play(1, 1.0, LOOP_MOTION_LINER);
     }
     if (GgafDx9Input::isPushedDownKey(DIK_7)) {
-        _pPuppeteer->play(3, -1.0, LOOP_MOTION_LINER);
+        _pPuppeteer->play(1, -1.0, LOOP_MOTION_LINER);
     }
     if (GgafDx9Input::isPushedDownKey(DIK_6)) {
         _pPuppeteer->exchangStick();
