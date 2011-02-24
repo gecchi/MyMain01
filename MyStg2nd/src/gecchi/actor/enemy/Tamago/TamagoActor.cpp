@@ -24,19 +24,19 @@ void TamagoActor::initialize() {
 
 void TamagoActor::processBehavior() {
     if (GgafDx9Input::isPushedDownKey(DIK_0)) {
-        _pPuppeteer->play(0);
+        _pPuppeteer->play(0, LOOP_MOTION_LINER);
     }
-    if (GgafDx9Input::isPushedDownKey(DIK_1)) {
-        _pPuppeteer->play(1);
+    if (GgafDx9Input::isPushedDownKey(DIK_9)) {
+        _pPuppeteer->play(1, LOOP_MOTION_LINER);
     }
-    if (GgafDx9Input::isPushedDownKey(DIK_2)) {
-        _pPuppeteer->play(2);
+    if (GgafDx9Input::isPushedDownKey(DIK_8)) {
+        _pPuppeteer->play(2, LOOP_MOTION_LINER);
     }
-    if (GgafDx9Input::isPushedDownKey(DIK_3)) {
-        _pPuppeteer->play(3);
+    if (GgafDx9Input::isPushedDownKey(DIK_7)) {
+        _pPuppeteer->play(3, LOOP_MOTION_LINER);
     }
-    if (GgafDx9Input::isPushedDownKey(DIK_4)) {
-        _pPuppeteer->play(4);
+    if (GgafDx9Input::isPushedDownKey(DIK_6)) {
+        _pPuppeteer->play(4, LOOP_MOTION_LINER);
     }
 
 //    _TRACE_("GgafDx9Input::isBeingPressedKey(DIK_E)="<<(GgafDx9Input::isBeingPressedKey(DIK_E)));
