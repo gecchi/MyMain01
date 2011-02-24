@@ -14,7 +14,7 @@ public:
     frame _frame_offset;
 
     /** 拡大縮小支援オブジェクト */
-    GgafDx9Core::GgafDx9GeometricScaler* _pScaler;
+    GgafDx9Core::GgafDx9Scaler* _pScaler;
 
 
     int _CAM_ZF;

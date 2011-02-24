@@ -18,7 +18,7 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
 
 
     _frame_offset = 0;
-    _pScaler = NEW GgafDx9GeometricScaler(this);
+    _pScaler = NEW GgafDx9Scaler(this);
 
 
     changeEffectTechnique("DestBlendOne"); //â¡éZçáê¨

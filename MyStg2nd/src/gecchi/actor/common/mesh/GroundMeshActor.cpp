@@ -15,7 +15,7 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model) :
     _class_name = "GroundMeshActor";
     _frame_offset = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
-    _pScaler = NEW GgafDx9GeometricScaler(this);
+    _pScaler = NEW GgafDx9Scaler(this);
 
 //    if (_pMeshModel->_paVtxBuffer_org[0].nx == 0 &&
 //        _pMeshModel->_paVtxBuffer_org[0].ny == 0 &&
