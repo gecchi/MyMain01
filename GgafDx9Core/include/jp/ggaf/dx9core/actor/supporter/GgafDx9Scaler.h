@@ -1,5 +1,5 @@
-#ifndef GGAFDX9GEOMETRICSCALER_H_
-#define GGAFDX9GEOMETRICSCALER_H_
+#ifndef GGAFDX9SCALER_H_
+#define GGAFDX9SCALER_H_
 namespace GgafDx9Core {
 
 /**
@@ -21,7 +21,7 @@ namespace GgafDx9Core {
  * @since 2009/05/22
  * @author Masatoshi Tsuge
  */
-class GgafDx9GeometricScaler : public GgafCore::GgafObject {
+class GgafDx9Scaler : public GgafCore::GgafObject {
 
 public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     /** 対象アクター */
@@ -59,7 +59,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用対象のActor
      */
-    GgafDx9GeometricScaler(GgafDx9GeometricActor* prm_pActor);
+    GgafDx9Scaler(GgafDx9GeometricActor* prm_pActor);
 
     /**
      * スケールを相対指定（全軸指定）
@@ -136,7 +136,7 @@ public:
     }
     /**
      * スケールをリセット （全軸指定） .
-     * 本オブジェクト(GgafDx9GeometricScaler)によって変化さえる前の
+     * 本オブジェクト(GgafDx9Scaler)によって変化さえる前の
      * 初期の大きさに戻す。
      */
     void setScaleToBottom() {
@@ -146,7 +146,7 @@ public:
     }
     /**
      * スケールをリセット （軸単位で指定）
-     * 本オブジェクト(GgafDx9GeometricScaler)によって変化さえる前の
+     * 本オブジェクト(GgafDx9Scaler)によって変化さえる前の
      * 初期の大きさに戻す。
      * @param prm_axis 軸
      */
@@ -301,9 +301,9 @@ public:
      */
     virtual void behave();
 
-    virtual ~GgafDx9GeometricScaler();
+    virtual ~GgafDx9Scaler();
 };
 
 }
-#endif /*GGAFDX9GEOMETRICSCALER_H_*/
+#endif /*GGAFDX9SCALER_H_*/
 
