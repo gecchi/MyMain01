@@ -95,6 +95,7 @@ void GgafDx9UvFlipper::behave() {
                 _uvflip_method = NOT_ANIMATED;
             }
         } else if (_uvflip_method == FLIP_OSCILLATE_LOOP) { //例：0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
+            //TODO: 未検証（使う機会があればする）
             if (_is_reverse_order_in_oscillate_animation_flg) { //逆順序時
                 if (_pattno_uvflip_top < _pattno_uvflip_now) {
                     _pattno_uvflip_now--;
@@ -111,6 +112,7 @@ void GgafDx9UvFlipper::behave() {
                 }
             }
         } else if (_uvflip_method == FLIP_CUSTOMIZED_LOOP) {
+            //TODO: 未検証（使う機会があればする）
             if (_paInt_PtnOffset_Customized) {
                 _pattno_uvflip_now = _paInt_PtnOffset_Customized[_cnt_Customized];
                 _cnt_Customized ++;
@@ -119,6 +121,7 @@ void GgafDx9UvFlipper::behave() {
                 }
             }
         } else if (_uvflip_method == FLIP_CUSTOMIZED_NOLOOP) {
+            //TODO: 未検証（使う機会があればする）
             if (_paInt_PtnOffset_Customized) {
                 _pattno_uvflip_now = _paInt_PtnOffset_Customized[_cnt_Customized];
                 _cnt_Customized ++;
