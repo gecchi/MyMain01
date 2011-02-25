@@ -24,24 +24,37 @@ void TamagoActor::initialize() {
 
 void TamagoActor::processBehavior() {
     if (GgafDx9Input::isPushedDownKey(DIK_0)) {
-        _pPuppeteer->play(0, 1.0, LOOP_MOTION_LINER);
+        _pPuppeteer->play(LEFT_HAND,
+                            0,          //UINT   prm_performance_no,
+                            1.8,        //double prm_loopnum,
+                            3.0,        //double prm_target_speed,
+                            0,          //frame  prm_frame_duaration_of_shift_speed,
+                            1.0,        //double prm_target_weight,
+                            0    );     //frame  prm_frame_duaration_of_shift_weight
+
     }
     if (GgafDx9Input::isPushedDownKey(DIK_9)) {
-        _pPuppeteer->play(0, -1.0, LOOP_MOTION_LINER);
+        _pPuppeteer->play(LEFT_HAND,
+                            0,          //UINT   prm_performance_no,
+                            1.8,        //double prm_loopnum,
+                            -3.0,       //double prm_target_speed,
+                            0,          //frame  prm_frame_duaration_of_shift_speed,
+                            1.0,        //double prm_target_weight,
+                            0    );     //frame  prm_frame_duaration_of_shift_weight
     }
     if (GgafDx9Input::isPushedDownKey(DIK_8)) {
-        _pPuppeteer->play(1, 1.0, LOOP_MOTION_LINER);
+//        _pPuppeteer->play(1, 1.0, LOOP_MOTION_LINER);
     }
     if (GgafDx9Input::isPushedDownKey(DIK_7)) {
-        _pPuppeteer->play(1, -1.0, LOOP_MOTION_LINER);
+//        _pPuppeteer->play(1, -1.0, LOOP_MOTION_LINER);
     }
     if (GgafDx9Input::isPushedDownKey(DIK_6)) {
-        _pPuppeteer->exchangStick();
+//        _pPuppeteer->exchangStick();
     }
 
 //    _TRACE_("GgafDx9Input::isBeingPressedKey(DIK_E)="<<(GgafDx9Input::isBeingPressedKey(DIK_E)));
     if (GgafDx9Input::isPushedDownKey(DIK_E)) {
-        _pPuppeteer->stop();
+//        _pPuppeteer->stop();
 //        _TRACE_("GgafDx9Input::isPushedDownKey(DIK_E)!!!!!!");
 //        HRESULT hr;
 //        LPD3DXANIMATIONSET pAnimationSet;
@@ -55,7 +68,7 @@ void TamagoActor::processBehavior() {
 
     if (GgafDx9Input::isPushedDownKey(DIK_R)) {
         _TRACE_("GgafDx9Input::isPushedDownKey(DIK_R)!!!!!!");
-        _pPuppeteer->play();
+//        _pPuppeteer->play();
 //        HRESULT hr = _pAc->SetTrackEnable(0, FALSE);//トラック無効
 //        checkDxException(hr, D3D_OK, "失敗しました。");
 //    } else {
