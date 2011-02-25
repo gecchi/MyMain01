@@ -1,9 +1,6 @@
 #ifndef GGAFDX9PUPPETEER_H_
 #define GGAFDX9PUPPETEER_H_
 
-#define LEFT_HANDED 0
-#define RIGHT_HANDED 1
-
 namespace GgafDx9Core {
 
 /**
@@ -31,18 +28,22 @@ private:
      */
     struct Performance {
         LPD3DXANIMATIONSET _pAnimationSet;
-        GgafDx9MotionMethod _method;
-        bool _is_playing;
-        double _total_time;
+        double _time_of_one_loop;
         double _local_time;
-        double _target_time;
+        double _target_loop;
+//        double _loop;
+        double _target_speed;
         double _speed;
-//        double _weight;
+        double _inc_speed;
+        bool   _is_shifting_speed;
+        double _target_weight;
+        double _weight;
+        double _inc_weight;
+        bool   _is_shifting_weight;
     };
 
     struct Stick {
         UINT _no;
-        double _weight;
         Performance* _pPerformance;
     };
 public:
@@ -53,19 +54,16 @@ public:
 
     /** 持ちネタ芸 */
     Performance* _paPerformances;
-    UINT _num_tricks;
+    UINT _num_perform;
     /** パペッターの操り棒  [0]:左手用／[1]:右手用  */
     Stick _aStick[2];
-    /** アクティブな操り棒 */
-    Stick* _pStickActive;
-    int _active_hand;
 
-    double _advance_time_per_draw;
+//    double _advance_time_per_draw;
 
-    bool _is_shifting_performance;
-    frame _shift_duaration;
-    double _weight_per_frame_for_shift;
-    frame _shifted;
+//    bool _is_shifting_performance;
+//    frame _shift_duaration;
+//    double _weight_per_frame_for_shift;
+//    frame _shifted;
     /**
      * コンストラクタ .
      * @param prm_pActor 操られる者
@@ -76,13 +74,23 @@ public:
 
     virtual ~GgafDx9Puppeteer();
 
-    void exchangStick();
-    void shift(UINT performance_no, frame shift_duaration, GgafDx9MotionMethod method);
-    void play(UINT performance_no, double speed, GgafDx9MotionMethod method);
-    void play(UINT performance_no, GgafDx9MotionMethod method);
-    void play();
-    void stop();
+//    void exchangStick();
+//    void shift(UINT prm_prm_performance_no, frame prm_shift_duaration, GgafDx9MotionMethod prm_method);
+    void play(GgafDx9PuppeteerStick prm_handed,
+              UINT prm_prm_performance_no,
+              double prm_loopnum,
+              double prm_target_speed,
+              frame prm_frame_duaration_of_shift_speed,
+              double prm_target_weight,
+              frame prm_frame_duaration_of_shift_weight
+              );
 
+
+
+
+    void unpause(GgafDx9PuppeteerStick prm_handed);
+    void pause(GgafDx9PuppeteerStick prm_handed);
+    void stop();
 
     virtual void behave();
     virtual void work();

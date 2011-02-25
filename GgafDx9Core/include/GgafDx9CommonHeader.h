@@ -174,14 +174,20 @@ enum GgafDx9BlinkerMethod {
     BEAT_BLINK_PARABOLA_REV    //!< –¢ŽÀ‘•
 };
 
-enum GgafDx9MotionMethod {
-    NO_MOTION,
-    TARGET_MOTION_LINER,
-    LOOP_MOTION_LINER,
-    TARGET_MOTION_ACCELERATION,
-    LOOP_MOTION_TRIANGLEWAVE
+enum GgafDx9PuppeteerSpeedMethod {
+    SPEED_FIXED,
+    SPEED_ACCELERATION,
 };
 
+enum GgafDx9PuppeteerWeightMethod {
+    WEIGHT_FIXED,
+    WEIGHT_ACCELERATION,
+};
+
+enum GgafDx9PuppeteerStick {
+    LEFT_HAND  = 0,
+    RIGHT_HAND = 1
+};
 
 
 #define Obj_GgafDx9Scene                 (0x80000010)     //0b 10000000 00000000 00000000 00010000
