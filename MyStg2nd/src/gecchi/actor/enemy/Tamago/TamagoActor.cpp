@@ -17,7 +17,7 @@ void TamagoActor::processBehavior() {
     if (GgafDx9Input::isPushedDownKey(DIK_0)) {
         _pPuppeteer->play(LEFT_HAND,
                             0,          //UINT   prm_performance_no,
-                            1.8,        //double prm_loopnum,
+                            -1,        //double prm_loopnum,
                             3.0,        //double prm_target_speed,
                             0,          //frame  prm_frame_duaration_of_shift_speed,
                             1.0,        //double prm_target_weight,
