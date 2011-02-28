@@ -39,7 +39,7 @@ public:
     int _SY;
     /** [r/w]ワールドZ軸方向スケール(_SZ : 倍率 = 1000 : 1.0倍) */
     int _SZ;
-    /** [r]座標計算支援オブジェクト */
+    /** [r]黒子 */
     GgafDx9Kuroko* _pKuroko;
     /** [r]チェッカー */
     GgafDx9Checker* _pChecker;
@@ -235,7 +235,7 @@ public:
      * @param Y
      * @param Z
      */
-    virtual void setCoordinate(int X, int Y, int Z) {
+    virtual void locate(int X, int Y, int Z) {
         _X = X;
         _Y = Y;
         _Z = Z;
@@ -272,11 +272,11 @@ public:
      * 未変換座標をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void setCoordinateBy(GgafDx9GeometricActor* prm_pActor);
+    virtual void locateWith(GgafDx9GeometricActor* prm_pActor);
 
-    virtual void setCoordinateBy(GgafDx9GeoElem* prm_pGgafDx9GeoElem);
+    virtual void locateWith(GgafDx9GeoElem* prm_pGgafDx9GeoElem);
 
-    virtual void setRotationBy(GgafDx9GeometricActor* prm_pActor);
+    virtual void rotateWith(GgafDx9GeometricActor* prm_pActor);
 
     /**
      * _matInvWorldRotMvの逆行列を返す。

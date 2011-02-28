@@ -14,16 +14,17 @@ namespace GgafDx9Core {
  * 黒子 .
  * 黒子は舞台には見えないですが、演者(アクター)を持ち上げて、移動、回転させる人々です。<BR>
  * 演者は自らは特に動作せずとも、黒子のおかげで舞台を飛び回まわることもできます。<BR>
- * 黒子が頑張っても対応できない複雑な動作は、演者(アクター)自身も協力して動きましょう。<BR>
+ * 基本的な動作は黒子でほとんどカバーできますが、万能ではありません。<BR>
+ * 黒子が頑張っても対応できない複雑な動作は、演者(アクター)自身も協力して移動、回転擦る必要があります。<BR>
  * 演者一人ににつき、黒子が一人付いています。<BR>
  * <BR>
- * それは置いといて、つまりは、座標計算支援クラスです。<BR>
+ * それはさて置き、つまり座標計算支援（共通化）クラスです。<BR>
  * GgafDx9GeometricActor のメンバの<BR>
  *  _X ,  _Y,  _Z  ・・・ アクターの座標<BR>
  * _RX , _RY, _RZ  ・・・ アクターの軸回転角度<BR>
  * を、簡単に操作するために作成。<BR>
- * アクターの processBehave() には、通常移動は黒子に任せ、<BR>
- * 特殊な座標計算のみを実装するという設計思想。<BR>
+ * 基本的な移動、回転は黒子に任せ、<BR>
+ * 特殊な移動、回転のみ直接アクターの processBehave() に実装。という設計思想。<BR>
  * TODO:いつの間にか肥大化。分割せよ。
  * @version 1.00
  * @since 2008/08/20
@@ -663,7 +664,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void execTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+    void orderTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way, bool prm_optimize_ang = true);
 
@@ -685,7 +686,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void execTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+    void orderTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way, bool prm_optimize_ang = true);
 
@@ -706,10 +707,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void execTagettingFaceAngSequence(GgafDx9GeometricActor* prm_pActor_Target,
+    void orderTagettingFaceAngSequence(GgafDx9GeometricActor* prm_pActor_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way, bool prm_optimize_ang = true) {
-        execTagettingFaceAngSequence(
+        orderTagettingFaceAngSequence(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
                 prm_pActor_Target->_Z,
@@ -728,7 +729,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void execTagettingRzFaceAngSequence(angle prm_angRz_Target,
+    void orderTagettingRzFaceAngSequence(angle prm_angRz_Target,
                                         angvelo prm_angVelo, angacce prm_angAcce,
                                         int prm_way);
 
@@ -740,7 +741,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void execTagettingRyFaceAngSequence(angle prm_angRy_Target,
+    void orderTagettingRyFaceAngSequence(angle prm_angRy_Target,
                                         angvelo prm_angVelo, angacce prm_angAcce,
                                         int prm_way);
 
@@ -752,7 +753,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void execTagettingRxSpinAngleSequence(angle prm_angRx_Target,
+    void orderTagettingRxSpinAngleSequence(angle prm_angRx_Target,
                                           angvelo prm_angVelo, angacce prm_angAcce,
                                           int prm_way);
 
@@ -773,7 +774,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void execTagettingMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+    void orderTagettingMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                     angvelo prm_angVelo, angacce prm_angAcce,
                                     int prm_way, bool prm_optimize_ang = true);
 
@@ -795,7 +796,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void execTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+    void orderTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                     angvelo prm_angVelo, angacce prm_angAcce,
                                     int prm_way, bool prm_optimize_ang = true);
 
@@ -816,10 +817,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void execTagettingMvAngSequence(GgafDx9GeometricActor* prm_pActor_Target,
+    void orderTagettingMvAngSequence(GgafDx9GeometricActor* prm_pActor_Target,
                                     angvelo prm_angVelo, angacce prm_angAcce,
                                     int prm_way, bool prm_optimize_ang = true) {
-        execTagettingMvAngSequence(
+        orderTagettingMvAngSequence(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
                 prm_pActor_Target->_Z,
@@ -838,7 +839,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void execTagettingRzMvAngSequence(angle prm_angRz_Target,
+    void orderTagettingRzMvAngSequence(angle prm_angRz_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way);
 
@@ -850,7 +851,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void execTagettingRyMvAngSequence(angle prm_angRy_Target,
+    void orderTagettingRyMvAngSequence(angle prm_angRy_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way);
 
@@ -910,7 +911,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_distance_of_target 目標直線移動距離
      * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void execSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
+    void orderSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
                                   bool prm_endacc_flg = true);
 
     /**
@@ -924,7 +925,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_frame_of_spend 費やす時間(フレーム数を指定、負の数は不可)
      * @param prm_endacc_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
+    void orderSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
                                    bool prm_endacc_flg = true);
 
 
@@ -939,14 +940,14 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_frame_of_spend 費やす時間(フレーム数を指定、負の数は不可)
      * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void execSmoothMvVeloSequence3(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
+    void orderSmoothMvVeloSequence3(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
                                    bool prm_endacc_flg = true);
 
 
     bool isMoveingSmooth();
 
     /**
-     * 黒子の引継ぎ .
+     * 黒子の仕事を引継ぐ .
      * 他の GgafDx9Kuroko オブジェクトを状態を自身に引継ぐ .
      * @param prm_pKuroko 引継元
      */
@@ -958,6 +959,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * 黒子が動く .
      * 黒子機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
+     * 逆に黒子を必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
      */
     virtual void behave();
 

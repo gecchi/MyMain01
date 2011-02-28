@@ -6,29 +6,23 @@ using namespace GgafDx9Core;
 // 【メモ】本クラスの考え方と単語の表現
 //
 // ＜２種類の方向＞
-// 「方向」には２種類意味があり、「移動方角（方向）」と「軸回転方角（方向）」とする。
+// 「キャラの方向」という言葉が曖昧なため、次の２種類の単語を定義する。「移動方角（方向）」と「軸回転方角（方向）」。
 // 「移動方角（方向）」はキャラの進行方向のみを表現する。これは「移動速度」と伴って、キャラは座標内を移動することとする。
-// 「軸回転方角」はキャラの向きのみを表せる。
+// 「軸回転方角（方向）」はキャラの向き（前方方向等）のみを表現する事とする。
 // キャラクタが画面の上部から下部へ移動しても、キャラクタは下を向くとは限らず自機に向いてほしい場合もある。
-// 右にキャラを向かせて、左に移動させたいこともある。それぞれ設定が必要。
-// 「軸回転方角（方向）」は以下。
+// または、右にキャラを向かせて、左に移動させたいこともある。それぞれ２つの方向設定が必要。
 //
-// ＜移動方角:AngMv＞
+// ＜移動方角（方向）の２種類の表現方法＞
 // キャラが進む方向、つまり移動方角の方向は、原点から単位球の表面に向かって伸びるベクトル (_vX, _vY, _vZ) で表す方法と、
-// ２つの軸回転アングル値 (_angRzMv, _angRyMv) で表す方法の２種類用意した。
-// 単に「移動方角」と呼ぶ場合は、世間一般は移動方向の方向ベクトル（XYZの値）のことを指す。
-// しかしこのクラスでは、２つのアングル値のセットの方を主に移動方角と呼んでいる。
+// ２つの軸回転アングル値 (_angRzMv, _angRyMv) で表す方法の２種類用意した。クォータニオンは今のところ無し。
 // _angRzMv は Z軸回転角、 _angRyMv は Y軸回転角 を意味している。両方とも0度を、方向ベクトル(1, 0, 0) の方向と定義する。
-// これは方向ベクトルを、緯度と経度、（仰角とアジマス）の関係に対応させようとした設計。
-// Y軸回転角＝経度 は常に成り立つが、Z軸回転角＝緯度 は、Z軸回転角 → Y軸回転角の順番である場合に限り成り立つ。
-// そこで２つの軸回転アングル値で表す移動方角は、必ず Z軸回転 → Y軸回転の順番であると定義する。
-// しかしここでは簡略して、緯度経度の、「緯度」＝「Z軸回転角」 と表現します。
+// これは方向ベクトルを、緯度と経度、（仰角とアジマス）の関係に見立て、対応させようとした設計。
+// 注意することは、Y軸回転角＝経度 は常に成り立つが、Z軸回転角＝緯度 は、Z軸回転角 → Y軸回転角の順番である場合に限り成り立つ。
+// (※ Y軸回転角 → Z軸回転角 の順番で回転させた場合、Z軸回転角＝緯度 とならないという意味)
+// 本クラスでは、「Z軸回転 → Y軸回転の順番でのZ軸回転角」を簡略して、単に「Z軸回転角」と表現する事とする。
 // 成分を個別に表現したい場合は、それぞれ「移動方角（Z軸）」「移動方角（Y軸）」と書くことにする。
-// 本クラスで単に「移動方角」と書いてある場合は、2つのアングル値を指していることが多い。
-// さて、これらを踏まえて「移動方角（Z軸）」という言葉の語彙は、まわりくどく一気に説明すると、
-// 「原点から単位球表面に伸びる方向ベクトルを、XYZ座標では無く球表面に緯度経度の座標を引いた２つの数値で表現するとして、
-//  緯度＝Z軸回転角、経度＝Y軸回転角 とみなした（∵Z軸回転 → Y軸回転の順番）場合のZ軸回転角成分のみのアングル値」
-// ということになる。
+//
+// ソースコード中の、変数やメソッドの
 // 「Rz」という表記は「移動方角（Z軸）（但しZ軸回転 → Y軸回転の順番）」を意味している。
 // 「Ry」という表記は「移動方角（Y軸）」を意味している。
 // 「RzRy」という表現は「Z軸回転 → Y軸回転の順番の移動方角」を表している。
@@ -37,13 +31,15 @@ using namespace GgafDx9Core;
 // Z軸回転角の正の増加は、Z軸の正の方向を向いて反時計回り。
 // Y軸回転角の正の増加は、Y軸の正の方向を向いて反時計回り。とする。
 //
-// 移動方角にはZ軸回転角とY軸回転角による指定(_angRzMv, _angRyMv)と単位ベクトル指定(_vX, _vY, _vZ) があるとしたが、
-// よく使うのは前者の方で、本クラスのメソッドも _angRzMv と _angRyMv を操作するものがほとんどである。
-// しかし、最終的には ワールド変換行列の行列を作成するため、「単位ベクトル(_vX, _vY, _vZ)*移動速度 」  という計算をする必要がある。
-// 結局最後は単位ベクトル求めているのだが、移動中の座標計算などは、さんざん_angRzMv と _angRyMvで行って、最後に１回単位ベクトルを
-// 求める、というのが理想。未だ最適化の余地だいぶ残っている（が、またいつか）。
+// 「移動方角」にはZ軸回転角とY軸回転角による指定(_angRzMv, _angRyMv)と単位ベクトル指定(_vX, _vY, _vZ) があると説明したが、
+// 「方角」を普通に考えた場合は、世間一般では方向ベクトル（XYZの値）のことを指すことが多いと思う。
+// しかしこのクラスでは、よく使うのは前者の方で、本クラスのメソッドも _angRzMv と _angRyMv を操作するものがほとんどである。
+// しかし、最終的には ワールド変換行列を作成するため、「単位ベクトル(_vX, _vY, _vZ)*移動速度 」という計算をする必要がある。
+// 結局は単位ベクトルを求めているのだが、座標回転計算を、整数型の _angRzMv と _angRyMv でさんざん行ってから、
+// 最後に１回単位ベクトルを求める。という方が速いのではと考えたため、このような設計になった。
+// TODO:最適化の余地だいぶ残っている（が、またいつか）。
 //
-// 本クラスライブラリでは、この(_angRzMv, _angRyMv)を主に操作して、内部で方向ベクトル(_vX, _vY, _vZ) を自動計算している。
+// 本クラスライブラリでは、この(_angRzMv, _angRyMv)を主に操作して、内部で方向ベクトル(_vX, _vY, _vZ) を同期させている。
 // (_vX, _vY, _vZ)のみをメソッドを使わず直接操作すると、(_angRzMv, _angRyMv)との同期が崩れるので注意。
 // 本クラスのメソッドを使用する限りでは、そんなことは起こらないこととする。
 //
@@ -54,35 +50,33 @@ using namespace GgafDx9Core;
 // よって、(_vX*_veloMv*LEN_UNIT, _vY*_veloMv*LEN_UNIT, _vZ*_veloMv*LEN_UNIT)が１フレーム後の座標。
 
 // ＜軸回転方角:AngFace＞
-// キャラが向いている方角（方向）、を「軸回転方角」と呼ぶことにする。「ローカル軸回転方角」の略です。
-//「軸回転方角」は、ワールド変換行列の軸回転と対応している（倍率が違うけど）。
+// キャラのローカル座標で向いている方角（方向）を「軸回転方角」と呼ぶことにする。
+//「軸回転方角」は、ワールド変換行列の軸回転と同じ回転方法とする。
 // ワールド変換行列の軸回転とは、X軸回転角、Y軸回転角、Z軸回転角のことで、それぞれ、
 // _angFace[AXIS_X], _angFace[AXIS_Y], _angFace[AXIS_Z] が保持している。
 // 本ライブラリでは、キャラ毎のローカル座標系の単位球の表面に向かって伸びるベクトル(1, 0, 0) をキャラの「前方」と設定している。
-// XファイルなどのモデルもX軸の正の方向に向いているモノとする。モデル「上方向は」は（0, 1, 0)。
-// また、ワールド変換行列の回転行列のかける順番は、基本的に 「X軸回転行列 > Z軸回転行列 > Y軸回転行列 > 移動行列 > (拡大縮小) 」 とする。
+// Xファイルなどのメッシュモデルも、X軸の正の方向に向いているモノとする。また、モデル「上方向は」は（0, 1, 0)とする。
+// ワールド変換行列の回転行列の掛ける順番は、基本的に 「X軸回転行列 > Z軸回転行列 > Y軸回転行列 > 移動行列 > (拡大縮小) 」 とする。
 // (※  X軸 > Y軸 > Z軸 の順ではないよ！）
 // よって、X軸回転角は幾ら回転させようとも、キャラが向いている方向は変わらず、残りのZ軸回転角と、Y軸回転角でキャラが向いている方向を決定することとする。
 // X軸回転角はキャラのスピン、のこり２角（Z軸回転角・Y軸回転角）でキャラの「前方」方角がを決定するとした場合、
 // 「軸回転方角」も先ほどの「移動方角」と同じように、Z軸回転角とY軸回転角（緯度と経度)の２つのアングル値
 // (_angFace[AXIS_Z], _angFace[AXIS_Y])で表現できる。
-// つまり、「前方」は Z軸回転角・Y軸回転角共に0度とし、例えば「前方を向いて後ろ方向」は[Z軸回転角,Y軸回転角]=[0度,180度] と表現する。。
+// つまり、「前方」は Z軸回転角・Y軸回転角共に0度とし、例えば「後ろ」は[Z軸回転角,Y軸回転角]=[0度,180度] と表現する。。
 // 単に「Z軸回転角」などと書くと、「移動方角」のZ軸回転角なのか、「軸回転方角」のZ軸回転角なのか曖昧になるため、
 // 「軸回転方角(Z軸)」「軸回転方角(Y軸)」と書くこととする。（※「軸回転方角(X軸)」もあるが、これはスピンを表し向きへの影響は無し）
 // ここで注意は、１つのキャラが向いている方角に対して、実は２通りのアクセスする方法があるということ。例えば、
 // 「前方(1, 0, 0)を向いて真右向き」 は [軸回転方角(Z軸), 軸回転方角(Y軸)]=[0, 90度] or [180度,270度] とで表現できる。
 // （※軸回転方角(Y軸)は左手系座標のためY軸の正方向を向いて反時計回り）
 // 実は 「前方」 も [180度,180度]とも表現できるし、「真後ろ」 は [0度,180度] とも [180度,0度] とも表現できる。
-// どちらも向いている方向は同じ、但し姿勢(キャラの上方向)は異なる。姿勢が異なるとまずいキャラは注意すること。
+// どちらも向いている方向は同じだが、姿勢(キャラの上方向)が異なる。姿勢が異なるとまずいキャラは注意すること。
 // 当然、「移動方角」でも、２通りのアクセスする方法があるのだが、こちらは見た目は差が無い。差が無いが角度計算するときに影響がでるやもしれない。
 
-// ＜移動方角と軸回転方角で同期＞
-// ここで 「移動方角（Z軸）」を「軸回転方角(Z軸)」へ、「移動方角（Y軸）」を「軸回転方角(Y軸)」 へコピーしてやると、
-// なんと移動方角と、キャラクタの向きの同期が簡単に取れるじゃまいか！
-// 逆にキャラが向いている方向に移動を追従させることも可能となる。
 
 // ＜自動前方向き機能＞
-// 自動前方向き機能とは「移動方角」を設定すると、それに伴って自動的に「軸回転方角」を設定する事を意味している。
+// さてここで 「移動方角（Z軸）」「移動方角（Y軸）」を、それぞれ「軸回転方角(Z軸)」「軸回転方角(Y軸)」 へコピーしてやると、
+// なんと移動方角と、キャラクタの向きの同期が簡単に取れるじゃないか！
+// 「自動前方向き機能」とは、「移動方角」を設定すると、それに伴って自動的に「軸回転方角」を設定する事とする。
 // 具体的には、以下のようにフレーム毎に、アングル値を上書きコピー（同期）。或いは差分を加算（向き方向を滑らかに描画）していく。
 //  ・移動方角（Z軸） → 軸回転方角(Z軸)
 //  ・移動方角（Y軸） → 軸回転方角(Y軸)
@@ -93,7 +87,7 @@ using namespace GgafDx9Core;
 // 例えば90度右に向きたい場合、キャラがいきなりカクっと向きを変えては悲しいので、毎フレーム角速度だけ角を加算するようにして、
 // 滑らかに向きを変えるようにする。
 // 「角速度」は正負の注意が必要。正の場合は反時計回り、負の場合は時計回りになる。
-// 方向転換する場合、ターゲットとなる角度への到達する方法の考え方は、5通りある。（アクセス方法は２通りしかない）
+// 方向転換する場合、ターゲットとなる角度への到達するアクセス方法は２通りだが、考え方は常に5通りある。
 // 「常に反時計回で行く」「常に時計回りで行く」「近い角の周り方向で行く」「遠回りな角の周り方向で行く」「現在回っている方向で行く」
 // である。それぞれ用途があるので、オプション引数などで、選択できるようにしたいな。→できた。
 
@@ -104,11 +98,11 @@ using namespace GgafDx9Core;
 
 //＜その他追記＞
 //・移動速度、移動方角角速度、軸回転角角速度には、それぞれ加速度も設定できる。
-//・スプラインの基点、補間点を自動で通過するような動きも最近可能。（いつの事だ）
+//・スプラインの基点、補間点を自動で通過するような動きも最近可能になった。（最近っていつ；）
 //・軸回転は、本当は Z > X > Y の軸回転順番にするのが一般的のようだ。つまり前方の概念はZ軸で奥であるわけだ、なるほどわかりやすい。
 //  現在の X > Z > Y は、奥はZ軸だが前方はX軸である。
 //  もともと2Dの横スクロールシューティングを作ろうと思っており、当初 X > Z だけで設計を行っていたのが原因であるが、もうもどれない。
-//  まさか3Dなシューティングにするとは自分でも思ってもみなかったなぁ
+//  まさか、3Dシューティングにするとは自分でも思ってもみなかった・・・
 
 //2010/02/19追記
 // ※たまに「RyRz」という表現が存在する（「RzRy」と異なる）が、これは「Y軸回転 → Z軸回転の順番の移動方角」を表しているので注意。
@@ -121,7 +115,10 @@ using namespace GgafDx9Core;
 //TODO:
 //躍度（加加速度）の追加
 //任意軸回転（クォータニオン）
-//
+//クラスの肥大化
+//【メモ】を纏める
+
+
 
 GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
     GgafObject() {
@@ -837,7 +834,7 @@ void GgafDx9Kuroko::setMvAcce(int prm_distance_of_target, velo prm_velo_target) 
 
 }
 
-void GgafDx9Kuroko::execSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
+void GgafDx9Kuroko::orderSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
                                                     bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
@@ -853,7 +850,7 @@ void GgafDx9Kuroko::execSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_vel
 }
 
 
-void GgafDx9Kuroko::execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
+void GgafDx9Kuroko::orderSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
                                                     bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
@@ -868,7 +865,7 @@ void GgafDx9Kuroko::execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_ve
     _smooth_mv_velo_seq_progress = 0;
 }
 
-void GgafDx9Kuroko::execSmoothMvVeloSequence3(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
+void GgafDx9Kuroko::orderSmoothMvVeloSequence3(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
                                                       bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_p1 = (int)(prm_distance_of_target*1.0 / 4.0);
@@ -1686,7 +1683,7 @@ void GgafDx9Kuroko::forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxy
 
 
 
-void GgafDx9Kuroko::execTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+void GgafDx9Kuroko::orderTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way, bool prm_optimize_ang) {
     angle out_d_angRz;
@@ -1720,7 +1717,7 @@ void GgafDx9Kuroko::execTagettingFaceAngSequence(angle prm_angRz_Target, angle p
     setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
 }
 
-void GgafDx9Kuroko::execTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+void GgafDx9Kuroko::orderTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
@@ -1730,12 +1727,12 @@ void GgafDx9Kuroko::execTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm
                             prm_tZ - _pActor->_Z,
                             out_angRz_Target,
                             out_angRy_Target);
-    execTagettingFaceAngSequence(out_angRz_Target, out_angRy_Target,
+    orderTagettingFaceAngSequence(out_angRz_Target, out_angRy_Target,
                                  prm_angVelo, prm_angAcce,
                                  prm_way, prm_optimize_ang);
 }
 
-void GgafDx9Kuroko::execTagettingRzFaceAngSequence(angle prm_angRz_Target,
+void GgafDx9Kuroko::orderTagettingRzFaceAngSequence(angle prm_angRz_Target,
                                                           angvelo prm_angVelo, angacce prm_angAcce,
                                                           int prm_way) {
     if (getFaceAngDistance(AXIS_Z, prm_angRz_Target, prm_way) > 0) {
@@ -1749,7 +1746,7 @@ void GgafDx9Kuroko::execTagettingRzFaceAngSequence(angle prm_angRz_Target,
 
 }
 
-void GgafDx9Kuroko::execTagettingRyFaceAngSequence(angle prm_angRy_Target,
+void GgafDx9Kuroko::orderTagettingRyFaceAngSequence(angle prm_angRy_Target,
                                                           angvelo prm_angVelo, angacce prm_angAcce,
                                                           int prm_way) {
     if (getFaceAngDistance(AXIS_Y, prm_angRy_Target, prm_way) > 0) {
@@ -1762,7 +1759,7 @@ void GgafDx9Kuroko::execTagettingRyFaceAngSequence(angle prm_angRy_Target,
     setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
 }
 
-void GgafDx9Kuroko::execTagettingRxSpinAngleSequence(angle prm_angRx_Target,
+void GgafDx9Kuroko::orderTagettingRxSpinAngleSequence(angle prm_angRx_Target,
                                                             angvelo prm_angVelo, angacce prm_angAcce,
                                                             int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_angRx_Target, prm_way) > 0) {
@@ -1775,7 +1772,7 @@ void GgafDx9Kuroko::execTagettingRxSpinAngleSequence(angle prm_angRx_Target,
     setStopTarget_FaceAng(AXIS_X, prm_angRx_Target);
 }
 
-void GgafDx9Kuroko::execTagettingMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+void GgafDx9Kuroko::orderTagettingMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                                       angvelo prm_angVelo, angacce prm_angAcce,
                                                       int prm_way, bool prm_optimize_ang) {
     angle out_d_angRz;
@@ -1814,7 +1811,7 @@ void GgafDx9Kuroko::execTagettingMvAngSequence(angle prm_angRz_Target, angle prm
 }
 
 
-void GgafDx9Kuroko::execTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+void GgafDx9Kuroko::orderTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                                       angvelo prm_angVelo, angacce prm_angAcce,
                                                       int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
@@ -1824,13 +1821,13 @@ void GgafDx9Kuroko::execTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_t
                             prm_tZ - _pActor->_Z,
                             out_angRz_Target,
                             out_angRy_Target);
-    execTagettingMvAngSequence(out_angRz_Target, out_angRy_Target,
+    orderTagettingMvAngSequence(out_angRz_Target, out_angRy_Target,
                                prm_angVelo, prm_angAcce,
                                prm_way, prm_optimize_ang);
 }
 
 
-void GgafDx9Kuroko::execTagettingRzMvAngSequence(angle prm_angRz_Target,
+void GgafDx9Kuroko::orderTagettingRzMvAngSequence(angle prm_angRz_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way) {
     if (getRzMvAngDistance(prm_angRz_Target, prm_way) > 0) {
@@ -1844,7 +1841,7 @@ void GgafDx9Kuroko::execTagettingRzMvAngSequence(angle prm_angRz_Target,
 
 }
 
-void GgafDx9Kuroko::execTagettingRyMvAngSequence(angle prm_angRy_Target,
+void GgafDx9Kuroko::orderTagettingRyMvAngSequence(angle prm_angRy_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way) {
     if (getRyMvAngDistance(prm_angRy_Target, prm_way) > 0) {

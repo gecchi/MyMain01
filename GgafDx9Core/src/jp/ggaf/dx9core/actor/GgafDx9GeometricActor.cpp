@@ -287,19 +287,19 @@ bool GgafDx9GeometricActor::isOutOfUniverse() {
     return true;
 }
 
-void GgafDx9GeometricActor::setCoordinateBy(GgafDx9GeometricActor* prm_pActor) {
+void GgafDx9GeometricActor::locateWith(GgafDx9GeometricActor* prm_pActor) {
     _X = prm_pActor->_X;
     _Y = prm_pActor->_Y;
     _Z = prm_pActor->_Z;
 }
 
-void GgafDx9GeometricActor::setCoordinateBy(GgafDx9GeoElem* prm_pGgafDx9GeoElem) {
+void GgafDx9GeometricActor::locateWith(GgafDx9GeoElem* prm_pGgafDx9GeoElem) {
     _X = prm_pGgafDx9GeoElem->_X;
     _Y = prm_pGgafDx9GeoElem->_Y;
     _Z = prm_pGgafDx9GeoElem->_Z;
 }
 
-void GgafDx9GeometricActor::setRotationBy(GgafDx9GeometricActor* prm_pActor) {
+void GgafDx9GeometricActor::rotateWith(GgafDx9GeometricActor* prm_pActor) {
     _RX = prm_pActor->_RX;
     _RY = prm_pActor->_RY;
     _RZ = prm_pActor->_RZ;

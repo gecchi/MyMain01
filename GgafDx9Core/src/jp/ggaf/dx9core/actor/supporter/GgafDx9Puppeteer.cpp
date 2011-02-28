@@ -20,25 +20,23 @@ GgafDx9Puppeteer::GgafDx9Puppeteer(GgafDx9D3DXAniMeshActor* prm_pPuppet) : GgafO
     _TRACE_("_pAc->GetMaxNumTracks()="<<_pAc->GetMaxNumTracks());
     _TRACE_("_pAc->GetMaxNumAnimationSets()="<<_pAc->GetMaxNumAnimationSets());
 
-    //_advance_time_per_draw = 0.0;
-
     //モーション情報初期化
     _paPerformances = NEW Performance[_num_perform];
     for (UINT i = 0; i < _num_perform; i++) {
         hr = _pAc->GetAnimationSet(i, &(_paPerformances[i]._pAnimationSet)); //アニメーションセット保持
         checkDxException(hr, D3D_OK, "失敗しました。");
-        _paPerformances[i]._time_of_one_loop               = _paPerformances[i]._pAnimationSet->GetPeriod();
-        _paPerformances[i]._local_time                     = 0.0;
-        _paPerformances[i]._target_loop                    = -1;
-//        _paPerformances[i]._loop                           = 0.0;
-        _paPerformances[i]._target_speed                   = 1.0;
-        _paPerformances[i]._speed                          = 1.0;
-        _paPerformances[i]._inc_speed                      = 0.0;
-        _paPerformances[i]._is_shifting_speed              = false;
-        _paPerformances[i]._target_weight                  = 1.0;
-        _paPerformances[i]._weight                         = 1.0;
-        _paPerformances[i]._inc_weight                     = 0.0;
-        _paPerformances[i]._is_shifting_weight             = false;
+        _paPerformances[i]._time_of_one_loop   = _paPerformances[i]._pAnimationSet->GetPeriod();
+        _paPerformances[i]._local_time         = 0.0;
+        _paPerformances[i]._target_loop        = -1;
+        _paPerformances[i]._target_speed       = 1.0;
+        _paPerformances[i]._speed              = 1.0;
+        _paPerformances[i]._inc_speed          = 0.0;
+        _paPerformances[i]._is_shifting_speed  = false;
+        _paPerformances[i]._target_weight      = 1.0;
+        _paPerformances[i]._weight             = 1.0;
+        _paPerformances[i]._inc_weight         = 0.0;
+        _paPerformances[i]._is_shifting_weight = false;
+        _paPerformances[i]._method             = PLAY_LOOPING;
     }
 
     //グローバル時間を0にする
@@ -79,49 +77,35 @@ GgafDx9Puppeteer::GgafDx9Puppeteer(GgafDx9D3DXAniMeshActor* prm_pPuppet) : GgafO
     //右手の操り棒
     _aStick[GgafDx9PuppeteerStick::RIGHT_HAND]._no = 1;
     _aStick[GgafDx9PuppeteerStick::RIGHT_HAND]._pPerformance = NULL;
-//    _active_hand = LEFT_HAND;
-
-//    _is_shifting_performance = false;
-//    _weight_per_frame_for_shift = 0;
-//    _shift_duaration = 0;
-//    _shifted = 0;
-
-//    for (DWORD i = 0; i < (DWORD)_pAc->GetMaxNumTracks(); i++) {
-//        hr = _pAc->SetTrackEnable(i, FALSE);
-//        checkDxException(hr, D3D_OK, "失敗しました。");
-//    }
-
 }
 
-//void GgafDx9Puppeteer::exchangStick() {
-//}
-//void GgafDx9Puppeteer::shift(UINT prm_performance_no, frame shift_duaration, GgafDx9MotionMethod prm_method) {
-//    _is_shifting_performance = true;
-//    _shift_duaration = shift_duaration;
-//    _shifted = 0;
-//    _weight_per_frame_for_shift = 1.0 / shift_duaration;
-//    exchangStick();
-//    play(prm_performance_no, prm_method);
-//}
+void GgafDx9Puppeteer::exchangPerformance() {
+    Performance* p2 = _aStick[RIGHT_HAND]._pPerformance;
+    _aStick[RIGHT_HAND]._pPerformance = _aStick[LEFT_HAND]._pPerformance;
+    _aStick[LEFT_HAND]._pPerformance = p2;
 
-//void GgafDx9Puppeteer::play(GgafDx9PuppeteerStick prm_handed,
-//                            UINT prm_performance_no,
-//                            double prm_speed,
-//                            GgafDx9MotionMethod prm_method) {
-//    HRESULT hr;
-//    _aStick[prm_handed]._pPerformance = &(_paPerformances[prm_performance_no]);
-//    _aStick[prm_handed]._pPerformance->_speed = prm_speed;
-//    _aStick[prm_handed]._pPerformance->_method = prm_method;
-//
-//    hr = _pAc->SetTrackEnable(_aStick[prm_handed]._no, TRUE);
-//    checkDxException(hr, D3D_OK, "失敗しました。");
-//    hr = _pAc->SetTrackSpeed(_aStick[prm_handed]._no, _aStick[prm_handed]._pPerformance->_speed);
-//    checkDxException(hr, D3D_OK, "失敗しました。");
-//    hr = _pAc->SetTrackAnimationSet(_aStick[prm_handed]._no, _aStick[prm_handed]._pPerformance->_pAnimationSet);
-//    checkDxException(hr, D3D_OK, "失敗しました。");
-//}
+    HRESULT hr;
+    if (_aStick[RIGHT_HAND]._pPerformance) {
+        hr = _pAc->SetTrackAnimationSet(_aStick[RIGHT_HAND]._no, _aStick[RIGHT_HAND]._pPerformance->_pAnimationSet);
+        checkDxException(hr, D3D_OK, "失敗しました。");
+        hr = _pAc->SetTrackEnable(_aStick[RIGHT_HAND]._no, TRUE);
+        checkDxException(hr, D3D_OK, "失敗しました。");
+    } else {
+        hr = _pAc->SetTrackEnable(_aStick[RIGHT_HAND]._no, FALSE);
+        checkDxException(hr, D3D_OK, "失敗しました。");
+    }
 
+    if (_aStick[LEFT_HAND]._pPerformance) {
+        hr = _pAc->SetTrackAnimationSet(_aStick[LEFT_HAND]._no, _aStick[LEFT_HAND]._pPerformance->_pAnimationSet);
+        checkDxException(hr, D3D_OK, "失敗しました。");
+        hr = _pAc->SetTrackEnable(_aStick[LEFT_HAND]._no, TRUE);
+        checkDxException(hr, D3D_OK, "失敗しました。");
+    } else {
+        hr = _pAc->SetTrackEnable(_aStick[LEFT_HAND]._no, FALSE);
+        checkDxException(hr, D3D_OK, "失敗しました。");
+    }
 
+}
 
 void GgafDx9Puppeteer::play(GgafDx9PuppeteerStick prm_handed,
                               UINT prm_performance_no,
@@ -129,7 +113,8 @@ void GgafDx9Puppeteer::play(GgafDx9PuppeteerStick prm_handed,
                               double prm_target_speed,
                               frame prm_frame_duaration_of_shift_speed,
                               double prm_target_weight,
-                              frame prm_frame_duaration_of_shift_weight ) {
+                              frame prm_frame_duaration_of_shift_weight,
+                              GgafDx9PuppeteerPlayMethod prm_method ) {
     _aStick[prm_handed]._pPerformance = &(_paPerformances[prm_performance_no]);
     Performance* p = _aStick[prm_handed]._pPerformance;
     p->_time_of_one_loop                   = p->_pAnimationSet->GetPeriod();
@@ -180,6 +165,9 @@ void GgafDx9Puppeteer::play(GgafDx9PuppeteerStick prm_handed,
     } else {
         p->_local_time = 0.0;
     }
+
+    p->_method = (prm_method == NO_CHENGE ? p->_method : prm_method);
+
     HRESULT hr;
     hr = _pAc->SetTrackAnimationSet(_aStick[prm_handed]._no, p->_pAnimationSet);
     checkDxException(hr, D3D_OK, "失敗しました。");
@@ -216,7 +204,26 @@ void GgafDx9Puppeteer::behave() {
                 }
             }
             p->_local_time += (p->_speed / 60.0);
+
+            //ループ完判定
+            if (p->_target_loop > 0 && p->_target_loop < abs(p->_local_time) / p->_time_of_one_loop) {
+                if (p->_local_time > 0) {
+                    //理想値に補正
+                    p->_local_time = p->_target_loop * p->_time_of_one_loop;
+                } else {
+                    //理想値に補正
+                    p->_local_time = - (p->_target_loop * p->_time_of_one_loop);
+                }
+                p->_inc_speed                      = 0;
+                p->_is_shifting_speed              = false;
+
+                p->_inc_weight                     = 0;
+                p->_is_shifting_weight             = false;
+
+                _aStick[i]._pPerformance = NULL;
+            }
         }
+
 
     }
 
@@ -294,23 +301,6 @@ void GgafDx9Puppeteer::work() {
         if (p) {
             HRESULT hr = _pAc->SetTrackPosition(i, p->_local_time); //トラックローカル時間
             checkDxException(hr, D3D_OK, "失敗しました。");
-            //ループ完判定
-            if (p->_target_loop > 0 && p->_target_loop < abs(p->_local_time) / p->_time_of_one_loop) {
-                if (p->_local_time > 0) {
-                    //理想値に補正
-                    p->_local_time = p->_target_loop * p->_time_of_one_loop;
-                } else {
-                    //理想値に補正
-                    p->_local_time = - (p->_target_loop * p->_time_of_one_loop);
-                }
-                p->_inc_speed                      = 0;
-                p->_is_shifting_speed              = false;
-
-                p->_inc_weight                     = 0;
-                p->_is_shifting_weight             = false;
-
-                _aStick[i]._pPerformance = NULL;
-            }
         }
     }
 
@@ -325,8 +315,4 @@ void GgafDx9Puppeteer::work() {
 GgafDx9Puppeteer::~GgafDx9Puppeteer() {
     DELETEARR_IMPOSSIBLE_NULL(_paPerformances);
 }
-
-
-
-
 

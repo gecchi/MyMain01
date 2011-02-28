@@ -55,7 +55,7 @@ public:
      * @param x
      * @param y
      */
-    virtual void setCoordinate(float x, float y) {
+    virtual void locate(float x, float y) {
         _x = x;
         _y = y;
     }
@@ -66,7 +66,7 @@ public:
      * @param y
      * @param z 深度
      */
-    virtual void setCoordinate(int x, int y, int z) override {
+    virtual void locate(int x, int y, int z) override {
         _x = (float)x;
         _y = (float)y;
         _z = (float)z;
@@ -78,7 +78,7 @@ public:
      * @param y
      * @param z 深度
      */
-    virtual void setCoordinate(float x, float y, float z) {
+    virtual void locate(float x, float y, float z) {
         _x = x;
         _y = y;
         _z = z;
@@ -88,7 +88,7 @@ public:
      * アクターの変換済み座標をコピーして設定 .
      * @param prm_pActor
      */
-    virtual void setCoordinateBy(GgafDx9GeometricActor* prm_pActor) override {
+    virtual void locateWith(GgafDx9GeometricActor* prm_pActor) override {
         _z = prm_pActor->_z;
         _y = prm_pActor->_y;
         _x = prm_pActor->_x;

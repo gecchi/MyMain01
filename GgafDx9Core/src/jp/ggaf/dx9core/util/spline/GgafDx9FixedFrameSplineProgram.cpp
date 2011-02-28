@@ -163,7 +163,7 @@ void GgafDx9FixedFrameSplineProgram::begin(int prm_option) {
 
 void GgafDx9FixedFrameSplineProgram::behave() {
     if (_is_executing) {
-        GgafDx9Kuroko* _pActorMover = _pActor_target->_pKuroko;
+        GgafDx9Kuroko* _pKuroko = _pActor_target->_pKuroko;
 
         //現在の点INDEX
         int SPPointIndex = _SPframe/_SPframe_segment;
@@ -187,7 +187,7 @@ void GgafDx9FixedFrameSplineProgram::behave() {
                 //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
                 //    | sinRy                                  , 0                    , cosRy                                   , 0 |
                 //    | (dx*cosRz + dy*-sinRz)*cosRy + dz*sinRy, (dx*sinRz + dy*cosRz), (dx*cosRz + dy*-sinRz)*-sinRy + dz*cosRy, 1 |
-                _pActorMover->execTagettingMvAngSequence(
+                _pKuroko->orderTagettingMvAngSequence(
                                 ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * _COS_RyMv_begin + dz * _SIN_RyMv_begin) - _X_begin,
                                 (dx * _SIN_RzMv_begin + dy * _COS_RzMv_begin) - _Y_begin,
                                 ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz * _COS_RyMv_begin) - _Z_begin,
@@ -196,14 +196,14 @@ void GgafDx9FixedFrameSplineProgram::behave() {
                               );
             } else if (_option == 1) {
                 //相対座標ターゲット
-                _pActorMover->execTagettingMvAngSequence(
+                _pKuroko->orderTagettingMvAngSequence(
                                 dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
                                 _angveloRzRyMv, 0,
                                 TURN_CLOSE_TO, true
                               );
             } else {
                 //絶対座標ターゲット
-                _pActorMover->execTagettingMvAngSequence(
+                _pKuroko->orderTagettingMvAngSequence(
                                 dx, dy, dz,
                                 _angveloRzRyMv, 0,
                                 TURN_CLOSE_TO, true

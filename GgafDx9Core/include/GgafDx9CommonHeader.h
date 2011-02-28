@@ -174,14 +174,10 @@ enum GgafDx9BlinkerMethod {
     BEAT_BLINK_PARABOLA_REV    //!< –¢ŽÀ‘•
 };
 
-enum GgafDx9PuppeteerSpeedMethod {
-    SPEED_FIXED,
-    SPEED_ACCELERATION,
-};
-
-enum GgafDx9PuppeteerWeightMethod {
-    WEIGHT_FIXED,
-    WEIGHT_ACCELERATION,
+enum GgafDx9PuppeteerPlayMethod {
+    NO_CHENGE = 0,
+    PLAY_LOOPING = 1,
+    PLAY_OSCILLATING = 2
 };
 
 enum GgafDx9PuppeteerStick {
