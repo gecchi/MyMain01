@@ -128,7 +128,7 @@ void WalledSectionScene::processBehavior() {
                               _papaWallInfo[_cnt_area_len][n]._pos_prism,
                               _papaWallInfo[_cnt_area_len][n]._wall_draw_face,
                               _papaWallInfo[_cnt_area_len][n]._aColliBoxStretch);
-                pWall->setCoordinate(_pWallLast==NULL ? _wall_start_X : _pWallLast->_X + _wall_dep - parent_scroll_speed,
+                pWall->locate(_pWallLast==NULL ? _wall_start_X : _pWallLast->_X + _wall_dep - parent_scroll_speed,
                                   ((-_area_height/2) + _papaWallInfo[_cnt_area_len][n]._Y) * _wall_height,
                                   ((-_area_width/2) + _papaWallInfo[_cnt_area_len][n]._Z) * _wall_width);
                 pWall->activate();
