@@ -56,7 +56,7 @@ void EnemyCeresShot001::processBehavior() {
     //•ûŒü“]Š·ŠJŽn
     if (getActivePartFrame() == _frame_TurnBegin) {
 
-        _pKuroko->execTagettingMvAngSequence(P_MYSHIP,
+        _pKuroko->orderTagettingMvAngSequence(P_MYSHIP,
                                                    _angVelo_Turn, 0,
                                                    TURN_CLOSE_TO);
         _pKuroko->setMvAcce(_iMoveAcce_2nd);
@@ -93,7 +93,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
         EffectExplosion001* pExplo001 =
                 (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         if (pExplo001) {
-            pExplo001->setCoordinateBy(this);
+            pExplo001->locateWith(this);
             pExplo001->activate();
         }
 

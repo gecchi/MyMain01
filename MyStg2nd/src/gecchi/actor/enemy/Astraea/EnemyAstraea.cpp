@@ -168,7 +168,7 @@ void EnemyAstraea::processBehavior() {
         _iMovePatternNo++;
     } else if (_iMovePatternNo == 1 && _X > P_MYSHIP->_X-400000) {
         if (getBehaveingFrame() % _laser_interval == 0) {
-            _pKuroko->execTagettingFaceAngSequence(P_MYSHIP,
+            _pKuroko->orderTagettingFaceAngSequence(P_MYSHIP,
                                                 _angveloTurn*20, 0,
                                                 TURN_COUNTERCLOCKWISE, false);
             _iMovePatternNo++;
@@ -229,7 +229,7 @@ void EnemyAstraea::processBehavior() {
                         GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //Œ»İ‚ÌÅI“I‚ÈŒü‚«‚ğARzRy‚Åæ“¾
 
 
-                        pLaserChip->setCoordinate(_X+vX, _Y+vY, _Z+vZ);
+                        pLaserChip->locate(_X+vX, _Y+vY, _Z+vZ);
                         pLaserChip->_pKuroko->setRzRyMvAng(Rz, Ry);
                         pLaserChip->_pKuroko->_angFace[AXIS_Z] = Rz;
                         pLaserChip->_pKuroko->_angFace[AXIS_Y] = Ry;
@@ -273,7 +273,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         if (pExplo001) {
             pExplo001->activate();
-            pExplo001->setCoordinateBy(this);
+            pExplo001->locateWith(this);
         }
         _pSeTransmitter->play3D(1);
         sayonara();

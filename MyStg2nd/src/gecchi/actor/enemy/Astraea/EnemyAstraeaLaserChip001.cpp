@@ -35,7 +35,7 @@ void EnemyAstraeaLaserChip001::onActive() {
 
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     if (getActivePartFrame() == 40) {
-        _pKuroko->execTagettingMvAngSequence(
+        _pKuroko->orderTagettingMvAngSequence(
                     P_MYSHIP,
                     7000, 0,
                     TURN_ANTICLOSE_TO, false);
@@ -43,14 +43,14 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
 
 
     if (_pKuroko->_mv_ang_ry_target_flg == false && _pKuroko->_mv_ang_rz_target_flg == false) {
-        _pKuroko->execTagettingMvAngSequence(
+        _pKuroko->orderTagettingMvAngSequence(
                     P_MYSHIP,
                     100, 0,
                     TURN_CLOSE_TO, false);
     }
 //
 //    if (_frame_of_behaving_from_onActive == 35) {
-//        _pKuroko->execTagettingMvAngSequence(
+//        _pKuroko->orderTagettingMvAngSequence(
 //                    P_MYSHIP,
 //                    20000, TURN_ANTICLOSE_TO);
 //    }

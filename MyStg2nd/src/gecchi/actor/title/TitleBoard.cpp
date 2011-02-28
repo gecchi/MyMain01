@@ -26,7 +26,7 @@ void TitleBoard::processBehavior() {
 //
 //    //タイトル表示アクション TITLEBOARD_PROG_ENTRANCE 時の処理
 //    if (_pProgress->wasChangedTo(TITLEBOARD_PROG_ENTRANCE)) {
-//        setCoordinate(200, 1000);
+//        locate(200, 1000);
 //    }
 //    if (_pProgress->get() == TITLEBOARD_PROG_ENTRANCE) {
 //        _y -= 1;
@@ -39,7 +39,7 @@ void TitleBoard::processBehavior() {
 //
 //    //タイトル表示静止 TITLEBOARD_PROG_DISP 時の処理
 //    if (_pProgress->wasChangedTo(TITLEBOARD_PROG_DISP)) {
-//        setCoordinate(200, 150);
+//        locate(200, 150);
 //    }
 //    if (_pProgress->get() == TITLEBOARD_PROG_DISP) {
 //    }

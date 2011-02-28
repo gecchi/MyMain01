@@ -51,7 +51,7 @@ void Shot004::onHit(GgafActor* prm_pOtherActor) {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         if (pExplo001) {
             pExplo001->activate();
-            pExplo001->setCoordinateBy(this);
+            pExplo001->locateWith(this);
         }
         sayonara();
     }

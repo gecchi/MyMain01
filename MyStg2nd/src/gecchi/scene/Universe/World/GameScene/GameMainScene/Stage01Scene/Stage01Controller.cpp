@@ -44,19 +44,19 @@ void Stage01Controller::processBehavior() {
             case 100: {
                 TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(10000000);
                 getLordActor()->addSubGroup(pActor);
-                pActor->setCoordinate(-200*1000,0,-200*1000);
+                pActor->locate(-200*1000,0,-200*1000);
                 break;
             }
             case 120: {
                 TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(10000001);
                 getLordActor()->addSubGroup(pActor);
-                pActor->setCoordinate(0,0,0);
+                pActor->locate(0,0,0);
                 break;
             }
             case 130: {
                 TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(10000002);
                 getLordActor()->addSubGroup(pActor);
-                pActor->setCoordinate(200*1000,0,200*1000);
+                pActor->locate(200*1000,0,200*1000);
                 break;
             }
             default :

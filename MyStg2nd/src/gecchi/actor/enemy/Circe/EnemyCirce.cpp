@@ -37,7 +37,7 @@ void EnemyCirce::onActive() {
 void EnemyCirce::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pKuroko->execTagettingMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO);
+    _pKuroko->orderTagettingMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO);
     _pKuroko->behave();
     _pScaler->behave();
     //_pSeTransmitter->behave();
@@ -57,7 +57,7 @@ void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
     _pSeTransmitter->play3D(0);
     if (pExplo001) {
         pExplo001->activate();
-        pExplo001->setCoordinateBy(this);
+        pExplo001->locateWith(this);
         pExplo001->_pKuroko->takeoverMvFrom(_pKuroko);
     }
 

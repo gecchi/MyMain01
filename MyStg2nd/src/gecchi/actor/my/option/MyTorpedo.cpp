@@ -77,7 +77,7 @@ void MyTorpedo::processBehavior() {
         if (_pTailEffectDispatcher->_num_chip_active < _length_TailEffect) {
             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)_pTailEffectDispatcher->employ();
             if (pTailEffect) {
-                pTailEffect->setCoordinate(_begin_X,_begin_Y,_begin_Z);
+                pTailEffect->locate(_begin_X,_begin_Y,_begin_Z);
                 pTailEffect->activate();
             }
         }
@@ -87,12 +87,12 @@ void MyTorpedo::processBehavior() {
                 //Œ¸‘¬I—¹
                 _pKuroko->setMvAcce(500);
                 if (_pTarget) {
-                    _pKuroko->execTagettingMvAngSequence(
+                    _pKuroko->orderTagettingMvAngSequence(
                                 _pTarget,
                                 2000, 200,
                                 TURN_CLOSE_TO, false);
                 } else {
-                    _pKuroko->execTagettingMvAngSequence(
+                    _pKuroko->orderTagettingMvAngSequence(
                                 GgafDx9Universe::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                 2000, 200,
                                 TURN_CLOSE_TO, false);
@@ -117,7 +117,7 @@ void MyTorpedo::processBehavior() {
                 if (getActivePartFrame() % 10 == 0) {
                     if (_pTarget) {
                         if (_pTarget->isActiveActor())  {
-                            _pKuroko->execTagettingMvAngSequence(
+                            _pKuroko->orderTagettingMvAngSequence(
                                         _pTarget,
                                         1000, 200,
                                         TURN_CLOSE_TO, false);
@@ -129,7 +129,7 @@ void MyTorpedo::processBehavior() {
                             _pKuroko->setRyMvAngAcce(0);
                         }
                     } else {
-                            _pKuroko->execTagettingMvAngSequence(
+                            _pKuroko->orderTagettingMvAngSequence(
                                         GgafDx9Universe::_X_goneRight, _Y, _Z,
                                         1000, 200,
                                         TURN_CLOSE_TO, false);
@@ -147,7 +147,7 @@ void MyTorpedo::processBehavior() {
                 if (getActivePartFrame() % 20 == 0) {
                     if (_pTarget) {
                         if (_pTarget->isActiveActor())  {
-                            _pKuroko->execTagettingMvAngSequence(
+                            _pKuroko->orderTagettingMvAngSequence(
                                         _pTarget,
                                         300, 0,
                                         TURN_CLOSE_TO, false);
@@ -159,7 +159,7 @@ void MyTorpedo::processBehavior() {
                             _pKuroko->setRyMvAngAcce(0);
                         }
                     } else {
-                            _pKuroko->execTagettingMvAngSequence(
+                            _pKuroko->orderTagettingMvAngSequence(
                                         GgafDx9Universe::_X_goneRight, _Y, _Z,
                                         300, 0,
                                         TURN_CLOSE_TO, false);
@@ -222,7 +222,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //”š•—”­¶
     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)_pMyOptionTorpedoController->_pDispatcher_TorpedoBlast->employ();
     if (pBlast) {
-        pBlast->setCoordinateBy(this);
+        pBlast->locateWith(this);
         pBlast->activate();
     }
 

@@ -25,7 +25,7 @@ void EffectLockon001_Main::onActive() {
     _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //回転
     _pSeTransmitter->play3D(0); //ロックオンSE
-    setCoordinateBy(_pTarget);
+    locateWith(_pTarget);
     _pProgress->change(EffectLockon001_SCENE_PROG_FIRST_LOCK);
 }
 
@@ -49,7 +49,7 @@ void EffectLockon001_Main::processBehavior() {
                  if (abs(_pTarget->_X-_X) <= 200000 &&
                      abs(_pTarget->_Y-_Y) <= 200000 &&
                      abs(_pTarget->_Z-_Z) <= 200000) {
-                     setCoordinateBy(_pTarget);
+                     locateWith(_pTarget);
                      _pKuroko->setMvVelo(0);
                      _pKuroko->_angveloFace[AXIS_Z] = 1000;
                  } else {

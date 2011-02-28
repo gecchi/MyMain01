@@ -27,13 +27,13 @@ _pMyOptionController(NULL) {
     //_z = 0.9999999f;
     //魔法メーター設置
     _pMagicMeter = NEW MagicMeter("MagicMeter");
-    _pMagicMeter->setCoordinate(100.0f, Properties::VIEW_SCREEN_HEIGHT - 100.0f,
+    _pMagicMeter->locate(100.0f, Properties::VIEW_SCREEN_HEIGHT - 100.0f,
                                 0.00000001f );
     getLordActor()->addSubGroup(_pMagicMeter);
 
     //エネルギーバー設置
     _pEnagyBar = NEW EnagyBar("EnagyBar");
-    _pEnagyBar->setCoordinate(100.0f, Properties::VIEW_SCREEN_HEIGHT - 50.0f,
+    _pEnagyBar->locate(100.0f, Properties::VIEW_SCREEN_HEIGHT - 50.0f,
                               0.00000001f );
     getLordActor()->addSubGroup(_pEnagyBar);
     _zanki = 3;

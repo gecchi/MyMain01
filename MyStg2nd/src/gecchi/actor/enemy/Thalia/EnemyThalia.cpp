@@ -58,8 +58,8 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pKuroko->setFaceAngVelo(AXIS_X, 1000);
-    _pKuroko->execSmoothMvVeloSequence(_veloTopMv, 300, MyShip::_lim_front - _X);
-//    _TRACE_("execSmoothMvVeloSequence START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離="<<(MyShip::_lim_front - _X)<<" veloMv="<<(_pKuroko->_veloMv));
+    _pKuroko->orderSmoothMvVeloSequence(_veloTopMv, 300, MyShip::_lim_front - _X);
+//    _TRACE_("orderSmoothMvVeloSequence START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離="<<(MyShip::_lim_front - _X)<<" veloMv="<<(_pKuroko->_veloMv));
 
     _pProgress->change(THALIA_SCENE_PROG_MOVE);
     _iMovePatternNo = 0; //行動パターンリセット
@@ -76,7 +76,7 @@ void EnemyThalia::processBehavior() {
         case THALIA_SCENE_PROG_MOVE: {
             if (!_pKuroko->isMoveingSmooth()) {
                 _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0005);
-                _pKuroko->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+                _pKuroko->orderTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                     0, 100,
                                                     TURN_CLOSE_TO);
 
@@ -100,7 +100,7 @@ void EnemyThalia::processBehavior() {
         }
         case THALIA_SCENE_PROG_IN_FIRE: {
             if (getActivePartFrame() % 10 == 0) {
-                _pKuroko->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+                _pKuroko->orderTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                     100, 0,
                                                     TURN_CLOSE_TO);
             }
@@ -119,7 +119,7 @@ void EnemyThalia::processBehavior() {
         case THALIA_SCENE_PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
-            _pKuroko->execSmoothMvVeloSequence(_veloTopMv, 200, 4000000);
+            _pKuroko->orderSmoothMvVeloSequence(_veloTopMv, 200, 4000000);
             _pKuroko->setFaceAngVelo(AXIS_X, 1000);
             _pProgress->change(THALIA_SCENE_PROG_MOVE);
         }
@@ -149,7 +149,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         if (pExplo001) {
             pExplo001->activate();
-            pExplo001->setCoordinateBy(this);
+            pExplo001->locateWith(this);
         }
         _pSeTransmitter->play3D(0);
 
@@ -158,7 +158,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
             EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
             if (pExplo001) {
                 pExplo001->activate();
-                pExplo001->setCoordinateBy(this);
+                pExplo001->locateWith(this);
             }
             _pSeTransmitter->play3D(0);
 

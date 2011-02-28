@@ -11,7 +11,7 @@ FormationPallas001d::FormationPallas001d(const char* prm_name) : FormationPallas
 void FormationPallas001d::onActive() {
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i]->_pSplineProgram->adjustAxisRate(1.0, -1.0, -1.0);
-        _papPallas[i]->setCoordinate(_pSplineCon->refer()->_pSp->_X_basepoint[0] ,
+        _papPallas[i]->locate(_pSplineCon->refer()->_pSp->_X_basepoint[0] ,
                                    0,
                                    0);
         _papPallas[i]->_pKuroko->setMvVelo(_mv_velo);

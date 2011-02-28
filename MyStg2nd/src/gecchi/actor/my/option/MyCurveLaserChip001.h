@@ -2,6 +2,14 @@
 #define MYLASERCHIP001_H_
 namespace MyStg2nd {
 
+/**
+ * オプションレーザーのチップ .
+ * CurveLaserChip に ロックオン機能を追加。
+ * (CurveLaserChipから分離した)
+ * @version 1.00
+ * @since 2010/10/6
+ * @author Masatoshi Tsuge
+ */
 class MyCurveLaserChip001 : public GgafDx9LibStg::CurveLaserChip {
 
 public:

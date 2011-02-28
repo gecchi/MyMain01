@@ -118,7 +118,7 @@ void EnemyTamago01::processBehavior() {
 
     if (_iMovePatternNo == 1) {
         //スプライン移動終了時
-        _pKuroko->execTagettingMvAngSequence(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
+        _pKuroko->orderTagettingMvAngSequence(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                    2000, 0,
                                                    TURN_CLOSE_TO);
         _iMovePatternNo++; //次の行動パターンへ
@@ -132,7 +132,7 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (getBehaveingFrame() % 30 == 0) {
-        _pKuroko->execTagettingMvAngSequence(P_MYSHIP, 2000,0,TURN_CLOSE_TO);
+        _pKuroko->orderTagettingMvAngSequence(P_MYSHIP, 2000,0,TURN_CLOSE_TO);
 
         if (_pDispatcher_Shot) {
             //放射状ショット発射
@@ -149,7 +149,7 @@ void EnemyTamago01::processBehavior() {
                 if (pActor) {
                     pActor->_pKuroko->relateRzRyFaceAngToMvAng(true);
                     pActor->_pKuroko->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
-                    pActor->setCoordinateBy(this);
+                    pActor->locateWith(this);
                     pActor->activate();
                 }
             }
@@ -158,7 +158,7 @@ void EnemyTamago01::processBehavior() {
             if (_pDispatcher_ShotEffect) {
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
-                    pActor->setCoordinate(_X, _Y, _Z);
+                    pActor->locate(_X, _Y, _Z);
                 }
             }
         }
@@ -186,7 +186,7 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     _TRACE_("HIT!!!");
     if (pExplo001) {
         pExplo001->activate();
-        pExplo001->setCoordinateBy(this);
+        pExplo001->locateWith(this);
     }
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

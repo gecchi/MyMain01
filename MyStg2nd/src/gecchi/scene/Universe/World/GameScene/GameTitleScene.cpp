@@ -24,7 +24,7 @@ void GameTitleScene::onReset() {
     _TRACE_("GameTitleScene::onReset()");
     _pStringBoard01->update("");
     _pStringBoard02->update("");
-    _pTitleBoard->setCoordinate(200, 150);
+    _pTitleBoard->locate(200, 150);
     _pProgress->change(GAMETITLE_SCENE_PROG_INIT);
     unblindScene();
 }

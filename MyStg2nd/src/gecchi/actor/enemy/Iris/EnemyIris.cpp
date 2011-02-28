@@ -71,7 +71,7 @@ void EnemyIris::processBehavior() {
                 for (int i = 0; i < way; i++) {
                     pActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                     if (pActor_Shot) {
-                        pActor_Shot->setCoordinateBy(this);
+                        pActor_Shot->locateWith(this);
                         pActor_Shot->_pKuroko->setRzRyMvAng(paAngWay[i], ANGLE90);
                         pActor_Shot->activate();
                     }
@@ -81,13 +81,13 @@ void EnemyIris::processBehavior() {
                 if (_pDispatcher_ShotEffect) {
                     GgafDx9DrawableActor* pEffectActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
                     if (pEffectActor_Shot) {
-                        pEffectActor_Shot->setCoordinateBy(this);
+                        pEffectActor_Shot->locateWith(this);
                         pEffectActor_Shot->activate();
                     }
                 }
             }
             //自機へ方向転換
-            _pKuroko->execTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+            _pKuroko->orderTagettingMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                 3000, 0,
                                                 TURN_CLOSE_TO);
             _iMovePatternNo++; //次の行動パターンへ
@@ -96,7 +96,7 @@ void EnemyIris::processBehavior() {
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
             if (_Z-10000 < P_MYSHIP->_Z && P_MYSHIP->_Z < _Z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
-                _pKuroko->execTagettingMvAngSequence(MyShip::_lim_behaind - 500000 , _Y, _Z,
+                _pKuroko->orderTagettingMvAngSequence(MyShip::_lim_behaind - 500000 , _Y, _Z,
                                                    10000, 0,
                                                    TURN_CLOSE_TO);
                 _pKuroko->setMvAcce(100);
@@ -139,7 +139,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->activate();
-            pExplo001->setCoordinateBy(this);
+            pExplo001->locateWith(this);
             pExplo001->_pKuroko->takeoverMvFrom(_pKuroko);
         }
         setHitAble(false); //同一フレーム内で複数回ヒットさせないため重要

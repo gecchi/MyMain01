@@ -47,7 +47,7 @@ void Shot003::onHit(GgafActor* prm_pOtherActor) {
 //        playSe3D1();
 //        if (pExplo003) {
 //            pExplo003->activate();
-//            pExplo003->setCoordinateBy(this);
+//            pExplo003->locateWith(this);
 //        }
 //        sayonara();
 //    }

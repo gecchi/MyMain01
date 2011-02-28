@@ -35,13 +35,13 @@ void Shot002::processBehavior() {
 
 
     if (_my_frame == 70) {
-        _pKuroko->execTagettingMvAngSequence(P_MYSHIP,
+        _pKuroko->orderTagettingMvAngSequence(P_MYSHIP,
                                                    3000, 0,
                                                    TURN_CLOSE_TO);
     }
 
     if (_my_frame > 70 && _pKuroko->_mv_ang_ry_target_flg == false && _pKuroko->_mv_ang_rz_target_flg == false) {
-        _pKuroko->execTagettingMvAngSequence(
+        _pKuroko->orderTagettingMvAngSequence(
                     P_MYSHIP,
                     100, 0,
                     TURN_CLOSE_TO);
@@ -68,7 +68,7 @@ void Shot002::onHit(GgafActor* prm_pOtherActor) {
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->activate();
-            pExplo001->setCoordinateBy(this);
+            pExplo001->locateWith(this);
         }
         sayonara();
     }

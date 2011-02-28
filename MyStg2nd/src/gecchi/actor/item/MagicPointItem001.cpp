@@ -35,7 +35,7 @@ void MagicPointItem001::onActive() {
 
 void MagicPointItem001::processBehavior() {
     if (getActivePartFrame() < 60 && getActivePartFrame() % 10 == 0) {
-        _pKuroko->execTagettingMvAngSequence(P_MYSHIP,2000,2000,TURN_CLOSE_TO);
+        _pKuroko->orderTagettingMvAngSequence(P_MYSHIP,2000,2000,TURN_CLOSE_TO);
     }
     _pKuroko->behave();
 }

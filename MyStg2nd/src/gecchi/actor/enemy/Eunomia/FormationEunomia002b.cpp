@@ -11,7 +11,7 @@ FormationEunomia002b::FormationEunomia002b(const char* prm_name) : FormationEuno
 
 void FormationEunomia002b::processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, int col) {
     pEnemyEunomia->_pSplineProgram->adjustAxisRate(1.0, -1.0, 1.0);
-    pEnemyEunomia->setCoordinate(_papSplineCon[col]->refer()->_pSp->_X_basepoint[0], 0, 0);
+    pEnemyEunomia->locate(_papSplineCon[col]->refer()->_pSp->_X_basepoint[0], 0, 0);
     pEnemyEunomia->_pKuroko->setMvVelo(_mv_velo);
 }
 

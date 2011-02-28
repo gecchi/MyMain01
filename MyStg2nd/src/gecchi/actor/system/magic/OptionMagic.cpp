@@ -68,7 +68,7 @@ void OptionMagic::processCastBegin() {
     angle* paAngWay = NEW angle[_level-_old_level];
     GgafDx9Util::getRadialAngle2D(0, _level-_old_level, paAngWay);
     for (int i = _old_level; i < _new_level; i++) {
-        _papEffect[i]->setCoordinateBy(P_MYSHIP);
+        _papEffect[i]->locateWith(P_MYSHIP);
         _papEffect[i]->_pKuroko->setRzRyMvAng(ANGLE45, paAngWay[i]);
         _papEffect[i]->_pKuroko->setMvVelo(200000 / (_time_of_casting/_cast_speed));
         _papEffect[i]->_pKuroko->setMvAcce(0);
@@ -93,7 +93,7 @@ void OptionMagic::processInvokeBegin() {
     for (int i = _old_level; i < _new_level; i++) {
         _papEffect[i]->_pKuroko->setMvVelo(1000);
         _papEffect[i]->_pKuroko->setMvAcce(100);
-        _papEffect[i]->_pKuroko->execTagettingMvAngSequence(P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
+        _papEffect[i]->_pKuroko->orderTagettingMvAngSequence(P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
                                                            P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[i]->_Yorg,
                                                            P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg,
                                                            3000,
@@ -121,7 +121,7 @@ void OptionMagic::processInvokeingBehavior()  {
             ok++;
             _papEffect[i]->_pKuroko->setMvVelo(500);
         }
-        _papEffect[i]->_pKuroko->execTagettingMvAngSequence(targetX,
+        _papEffect[i]->_pKuroko->orderTagettingMvAngSequence(targetX,
                                                            targetY,
                                                            targetZ,
                                                            40000,
@@ -138,7 +138,7 @@ void OptionMagic::processExpireBegin()  {
 	_r_effect = 1.0f;
     for (int i = _old_level; i < _new_level; i++) {
         _papEffect[i]->setAlpha(_r_effect);
-        _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
+        _papEffect[i]->locateWith(P_MYOPTIONCON->_papMyOption[i]);
         P_MYOPTIONCON->_papMyOption[i]->setAlpha(0.0);
     }
 
@@ -149,7 +149,7 @@ void OptionMagic::processExpiringBehavior() {
     for (int i = _old_level; i < _new_level; i++) {
         _papEffect[i]->setAlpha(_r_effect);
 		_papEffect[i]->setScaleRate(3.0f+(1.0f-_r_effect)*4.0);
-        _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
+        _papEffect[i]->locateWith(P_MYOPTIONCON->_papMyOption[i]);
         P_MYOPTIONCON->_papMyOption[i]->setAlpha(1.0f-_r_effect);
     }
     if (_r_effect < 0) {

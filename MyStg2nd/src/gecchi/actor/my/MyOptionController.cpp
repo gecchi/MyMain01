@@ -133,7 +133,7 @@ void MyOptionController::processBehavior() {
 
     if (VB_PLAY->isDoublePushedDown(VB_OPTION,8,8)) {
         //‚à‚Æ‚É–ß‚·
-        _pKuroko->execTagettingMvAngSequence(
+        _pKuroko->orderTagettingMvAngSequence(
                         0,
                         0,
                         20000, 0,
@@ -217,18 +217,18 @@ void MyOptionController::processBehavior() {
                 _pKuroko->setVxMvAcce(0);
                 _pKuroko->setVyMvAcce(0);
                 _pKuroko->setVzMvAcce(0);
-                setCoordinateBy(pGeoMyShip);
+                locateWith(pGeoMyShip);
                 _return_to_default_position_seq = false;
             }
 
         } else {
-            setCoordinateBy(pGeoMyShip);
+            locateWith(pGeoMyShip);
         }
     }
 
 
     //ƒMƒYƒ‚
-    _pDirectionVector->setCoordinateBy(this);
+    _pDirectionVector->locateWith(this);
     _pDirectionVector->_pKuroko->setRzRyMvAng(_pKuroko->_angRzMv, _pKuroko->_angRyMv);
 
     _pKuroko->behave();

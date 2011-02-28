@@ -57,7 +57,7 @@ void EnemyAstraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
         out_d_angRy = _pKuroko->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
         _pKuroko->addRzMvAng(sgn(out_d_angRz)*10000);
         _pKuroko->addRyMvAng(sgn(out_d_angRy)*10000);
-//        _pKuroko->execTagettingMvAngSequence(
+//        _pKuroko->orderTagettingMvAngSequence(
 //                        P_MYSHIP,
 //                        90000, 0,
 //                        TURN_CLOSE_TO, false);

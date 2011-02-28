@@ -46,7 +46,7 @@ void EnemyJuno::onActive() {
     _frame_when_shot = 0;
     _veloMv_begin = _pKuroko->_veloMv; //‰ŠúˆÚ“®‘¬“x‚ð•Û‘¶
     _pKuroko->setFaceAng(AXIS_X, 0);
-    //_pKuroko->execTagettingMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
+    //_pKuroko->orderTagettingMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
 }
 
 void EnemyJuno::processBehavior() {
@@ -56,13 +56,13 @@ void EnemyJuno::processBehavior() {
     if (_do_Shot) {
         if (getActivePartFrame() == _frame_when_shot) {
             _pKuroko->setMvVelo(500); //Œ¸‘¬
-            _pKuroko->execTagettingRxSpinAngleSequence(ANGLE180, 8000, 0, TURN_CLOCKWISE);
+            _pKuroko->orderTagettingRxSpinAngleSequence(ANGLE180, 8000, 0, TURN_CLOCKWISE);
         } else if (getActivePartFrame() == _frame_when_shot + 20) {
             if (_pDispatcher_Shot) {
                 GgafDx9DrawableActor* pShot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pShot) {
                     _nShot++;
-                    pShot->setCoordinateBy(this);
+                    pShot->locateWith(this);
                     pShot->_pKuroko->relateRzRyFaceAngToMvAng(true);
                     pShot->_pKuroko->setMvAng(P_MYSHIP);
                     pShot->activate();
@@ -113,7 +113,7 @@ void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         if (pExplo001) {
             pExplo001->activate();
-            pExplo001->setCoordinateBy(this);
+            pExplo001->locateWith(this);
             pExplo001->_pKuroko->takeoverMvFrom(_pKuroko);
         }
         sayonara();
