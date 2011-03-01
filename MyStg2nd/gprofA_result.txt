@@ -264,7 +264,7 @@
                 }
                 
                 /* Read in bits without advancing the bitptr; bits <= 32 */
-      380004 -> long oggpack_look(oggpack_buffer *b,int bits){
+      379942 -> long oggpack_look(oggpack_buffer *b,int bits){
                   unsigned long ret;
                   unsigned long m;
                 
@@ -336,7 +336,7 @@
                   return((b->ptr[0]>>(7-b->endbit))&1);
                 }
                 
-      230601 -> void oggpack_adv(oggpack_buffer *b,int bits){
+      230575 -> void oggpack_adv(oggpack_buffer *b,int bits){
                   bits+=b->endbit;
                 
                   if(b->endbyte > b->storage-((bits+7)>>3)) goto overflow;
@@ -369,7 +369,7 @@
                 }
                 
                 /* bits <= 32 */
-       97165 -> long oggpack_read(oggpack_buffer *b,int bits){
+       97025 -> long oggpack_read(oggpack_buffer *b,int bits){
                   long ret;
                   unsigned long m;
                 
@@ -497,7 +497,7 @@
                   return -1L;
                 }
                 
-         743 -> long oggpack_bytes(oggpack_buffer *b){
+         740 -> long oggpack_bytes(oggpack_buffer *b){
                   return(b->endbyte+(b->endbit+7)/8);
                 }
                 
@@ -862,11 +862,11 @@ Top 10 Lines:
 
      Line      Count
 
-      266     380004
-      338     230601
-      371      97165
+      266     379942
+      338     230575
+      371      97025
       255        957
-      499        743
+      499        740
 
 Execution Summary:
 
@@ -874,8 +874,8 @@ Execution Summary:
        36   Lines executed
     97.30   Percent of the file executed
 
-   709470   Total number of line executions
- 19174.86   Average executions per line
+   709239   Total number of line executions
+ 19168.62   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeOgg_static\GprofCdt/../src/framing.c:
@@ -911,7 +911,7 @@ Execution Summary:
                   return((int)(og->header[4]));
                 }
                 
-         110 -> int ogg_page_continued(const ogg_page *og){
+         111 -> int ogg_page_continued(const ogg_page *og){
                   return((int)(og->header[5]&0x01));
                 }
                 
@@ -936,14 +936,14 @@ Execution Summary:
                   return(granulepos);
                 }
                 
-         409 -> int ogg_page_serialno(const ogg_page *og){
+         408 -> int ogg_page_serialno(const ogg_page *og){
                   return(og->header[14] |
                          (og->header[15]<<8) |
                          (og->header[16]<<16) |
                          (og->header[17]<<24));
                 }
                  
-         111 -> long ogg_page_pageno(const ogg_page *og){
+         110 -> long ogg_page_pageno(const ogg_page *og){
                   return(og->header[18] |
                          (og->header[19]<<8) |
                          (og->header[20]<<16) |
@@ -1066,7 +1066,7 @@ Execution Summary:
                 
                 /* init the encode/decode logical stream state */
                 
-          23 -> int ogg_stream_init(ogg_stream_state *os,int serialno){
+          24 -> int ogg_stream_init(ogg_stream_state *os,int serialno){
                   if(os){
                     memset(os,0,sizeof(*os));
                     os->body_storage=16*1024;
@@ -1089,7 +1089,7 @@ Execution Summary:
                 } 
                 
                 /* async/delayed error detection for the ogg_stream_state */
-        1246 -> int ogg_stream_check(ogg_stream_state *os){
+        1245 -> int ogg_stream_check(ogg_stream_state *os){
                   if(!os || !os->body_data) return -1;
                   return 0;
                 }
@@ -1106,7 +1106,7 @@ Execution Summary:
                   return(0);
                 } 
                 
-         222 -> int ogg_stream_destroy(ogg_stream_state *os){
+         220 -> int ogg_stream_destroy(ogg_stream_state *os){
                   if(os){
                     ogg_stream_clear(os);
                     _ogg_free(os);
@@ -1450,7 +1450,7 @@ Execution Summary:
                    ogg_stream_state. */
                 
                 /* initialize the struct to a known state */
-          12 -> int ogg_sync_init(ogg_sync_state *oy){
+          11 -> int ogg_sync_init(ogg_sync_state *oy){
                   if(oy){
                     oy->storage = -1; /* used as a readiness flag */
                     memset(oy,0,sizeof(*oy));
@@ -1475,12 +1475,12 @@ Execution Summary:
                   return(0);
                 }
                 
-        2184 -> int ogg_sync_check(ogg_sync_state *oy){
+        2186 -> int ogg_sync_check(ogg_sync_state *oy){
                   if(oy->storage<0) return -1;
                   return 0;
                 }
                 
-         584 -> char *ogg_sync_buffer(ogg_sync_state *oy, long size){
+         585 -> char *ogg_sync_buffer(ogg_sync_state *oy, long size){
                   if(ogg_sync_check(oy)) return NULL;
                 
                   /* first, clear out any space that has been previously returned */
@@ -1529,7 +1529,7 @@ Execution Summary:
                    
                 */
                 
-         981 -> long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
+         983 -> long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
                   unsigned char *page=oy->data+oy->returned;
                   unsigned char *next;
                   long bytes=oy->fill-oy->returned;
@@ -1821,7 +1821,7 @@ Execution Summary:
                   return(0);
                 }
                 
-        1072 -> int ogg_stream_reset_serialno(ogg_stream_state *os,int serialno){
+        1071 -> int ogg_stream_reset_serialno(ogg_stream_state *os,int serialno){
                   if(ogg_stream_check(os)) return -1;
                   ogg_stream_reset(os);
                   os->serialno=serialno;
@@ -2974,14 +2974,14 @@ Top 10 Lines:
 
      Line      Count
 
-      597       2184
-      211       1246
-      943       1072
+      597       2186
+      211       1245
+      943       1071
      1004        991
-      651        981
-      602        584
+      651        983
+      602        585
       634        584
-       58        409
+       58        408
        45        322
       280        286
 
@@ -3072,7 +3072,7 @@ Execution Summary:
                   }
                 }
                 
-         328 -> void res0_free_look(vorbis_look_residue *i){
+         324 -> void res0_free_look(vorbis_look_residue *i){
                   int j;
                   if(i){
                 
@@ -3801,7 +3801,7 @@ Execution Summary:
                 
                 /* duplicate code here as speed is somewhat more important */
                 int res2_inverse(vorbis_block *vb,vorbis_look_residue *vl,
-         825 ->                  float **in,int *nonzero,int ch){
+         826 ->                  float **in,int *nonzero,int ch){
                   long i,k,l,s;
                   vorbis_look_residue0 *look=(vorbis_look_residue0 *)vl;
                   vorbis_info_residue0 *info=look->info;
@@ -3891,8 +3891,8 @@ Top 10 Lines:
 
      Line      Count
 
-      806        825
-       77        328
+      806        826
+       77        324
        69         24
       204         24
       269          8
@@ -3903,8 +3903,8 @@ Execution Summary:
        12   Lines executed
     60.00   Percent of the file executed
 
-     1209   Total number of line executions
-    60.45   Average executions per line
+     1206   Total number of line executions
+    60.30   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/floor1.c:
@@ -4677,7 +4677,7 @@ Execution Summary:
                 
                 int floor1_encode(oggpack_buffer *opb,vorbis_block *vb,
                                   vorbis_look_floor1 *look,
-        1457 ->                   int *post,int *ilogmask){
+        1460 ->                   int *post,int *ilogmask){
                 
                   long i,j;
                   vorbis_info_floor1 *info=look->vi;
@@ -5013,7 +5013,7 @@ Top 10 Lines:
 
      Line      Count
 
-      770       1457
+      770       1460
 
 Execution Summary:
 
@@ -5021,8 +5021,8 @@ Execution Summary:
         3   Lines executed
     14.29   Percent of the file executed
 
-     1457   Total number of line executions
-    69.38   Average executions per line
+     1460   Total number of line executions
+    69.52   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/window.c:
@@ -7123,12 +7123,12 @@ Execution Summary:
                   vwin8192,
                 };
                 
-         728 -> const float *_vorbis_window_get(int n){
+         730 -> const float *_vorbis_window_get(int n){
                   return vwin[n];
                 }
                 
                 void _vorbis_apply_window(float *d,int *winno,long *blocksizes,
-       22013 ->                           int lW,int W,int nW){
+       22010 ->                           int lW,int W,int nW){
                   lW=(W?lW:0);
                   nW=(W?nW:0);
                 
@@ -7167,8 +7167,8 @@ Top 10 Lines:
 
      Line      Count
 
-     2103      22013
-     2098        728
+     2103      22010
+     2098        730
 
 Execution Summary:
 
@@ -7176,8 +7176,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-    22741   Total number of line executions
- 11370.50   Average executions per line
+    22740   Total number of line executions
+ 11370.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/bitrate.c:
@@ -8778,7 +8778,7 @@ Execution Summary:
                 /* build lookups for trig functions; also pre-figure scaling and
                    some window function algebra. */
                 
-       89599 -> void mdct_init(mdct_lookup *lookup,int n){
+       89638 -> void mdct_init(mdct_lookup *lookup,int n){
                   int   *bitrev=_ogg_malloc(sizeof(*bitrev)*(n/4));
                   DATA_TYPE *T=_ogg_malloc(sizeof(*T)*(n+n/4));
                 
@@ -9065,7 +9065,7 @@ Execution Summary:
                 
                 }
                 
-         738 -> void mdct_clear(mdct_lookup *l){
+         737 -> void mdct_clear(mdct_lookup *l){
                   if(l){
                     if(l->trig)_ogg_free(l->trig);
                     if(l->bitrev)_ogg_free(l->bitrev);
@@ -9296,8 +9296,8 @@ Top 10 Lines:
 
      Line      Count
 
-       52      89599
-      339        738
+       52      89638
+      339        737
       397        730
 
 Execution Summary:
@@ -9306,8 +9306,8 @@ Execution Summary:
         4   Lines executed
     36.36   Percent of the file executed
 
-    91067   Total number of line executions
-  8278.82   Average executions per line
+    91105   Total number of line executions
+  8282.27   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/codebook.c:
@@ -9584,7 +9584,7 @@ Execution Summary:
                 }
                 
                 /* returns the number of bits ************************************************/
-      379344 -> int vorbis_book_encode(codebook *book, int a, oggpack_buffer *b){
+      379284 -> int vorbis_book_encode(codebook *book, int a, oggpack_buffer *b){
                   if(a<0 || a>=book->c->entries)return(0);
                   oggpack_write(b,book->codelist[a],book->c->lengthlist[a]);
                   return(book->c->lengthlist[a]);
@@ -9668,7 +9668,7 @@ Execution Summary:
                    addmul==2 -> multiplicitive */
                 
                 /* returns the [original, not compacted] entry number or -1 on eof *********/
-       17386 -> long vorbis_book_decode(codebook *book, oggpack_buffer *b){
+       17387 -> long vorbis_book_decode(codebook *book, oggpack_buffer *b){
                   if(book->used_entries>0){
                     long packed_entry=decode_packed_entry_number(book,b);
                     if(packed_entry>=0)
@@ -9796,8 +9796,8 @@ Top 10 Lines:
 
      Line      Count
 
-      274     379344
-      358      17386
+      274     379284
+      358      17387
       458      15855
       149        528
 
@@ -9807,8 +9807,8 @@ Execution Summary:
         8   Lines executed
     80.00   Percent of the file executed
 
-   413113   Total number of line executions
- 41311.30   Average executions per line
+   413054   Total number of line executions
+ 41305.40   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/sharedbook.c:
@@ -9840,7 +9840,7 @@ Execution Summary:
                 #include "scales.h"
                 
                 /**** pack/unpack helpers ******************************************/
-        1302 -> int _ilog(unsigned int v){
+        1303 -> int _ilog(unsigned int v){
                   int ret=0;
                   while(v){
                     ret++;
@@ -9884,7 +9884,7 @@ Execution Summary:
                 /* given a list of word lengths, generate a list of codewords.  Works
                    for length ordered or unordered, always assigns the lowest valued
                    codewords first.  Extended to handle unused entries (length 0) */
-         173 -> ogg_uint32_t *_make_words(long *l,long n,long sparsecount){
+         176 -> ogg_uint32_t *_make_words(long *l,long n,long sparsecount){
                   long i,j,count=0;
                   ogg_uint32_t marker[33];
                   ogg_uint32_t *r=_ogg_malloc((sparsecount?sparsecount:n)*sizeof(*r));
@@ -10072,7 +10072,7 @@ Execution Summary:
                   return(NULL);
                 }
                 
-         527 -> void vorbis_staticbook_destroy(static_codebook *b){
+         528 -> void vorbis_staticbook_destroy(static_codebook *b){
                   if(b->allocedp){
                     if(b->quantlist)_ogg_free(b->quantlist);
                     if(b->lengthlist)_ogg_free(b->lengthlist);
@@ -10094,7 +10094,7 @@ Execution Summary:
                   memset(b,0,sizeof(*b));
                 }
                 
-       26640 -> int vorbis_book_init_encode(codebook *c,const static_codebook *s){
+       26708 -> int vorbis_book_init_encode(codebook *c,const static_codebook *s){
                 
                   memset(c,0,sizeof(*c));
                   c->c=s;
@@ -10124,7 +10124,7 @@ Execution Summary:
                 }
                 
                 /* decode codebook arrangement is more heavily optimized than encode */
-         175 -> int vorbis_book_init_decode(codebook *c,const static_codebook *s){
+         176 -> int vorbis_book_init_decode(codebook *c,const static_codebook *s){
                   int i,j,n=0,tabn;
                   int *sortindex;
                   memset(c,0,sizeof(*c));
@@ -10397,14 +10397,14 @@ Top 10 Lines:
 
      Line      Count
 
-      283      26640
-       29       1302
-      261        527
+      283      26708
+       29       1303
+      261        528
       163        240
+       73        176
       196        176
       270        176
-      313        175
-       73        173
+      313        176
        62        120
 
 Execution Summary:
@@ -10413,8 +10413,8 @@ Execution Summary:
        12   Lines executed
     85.71   Percent of the file executed
 
-    29529   Total number of line executions
-  2109.21   Average executions per line
+    29603   Total number of line executions
+  2114.50   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/block.c:
@@ -10530,7 +10530,7 @@ Execution Summary:
                   return(0);
                 }
                 
-        2107 -> void *_vorbis_block_alloc(vorbis_block *vb,long bytes){
+        2110 -> void *_vorbis_block_alloc(vorbis_block *vb,long bytes){
                   bytes=(bytes+(WORD_ALIGN-1)) & ~(WORD_ALIGN-1);
                   if(bytes+vb->localtop>vb->localalloc){
                     /* can't just _ogg_realloc... there are outstanding pointers */
@@ -10554,7 +10554,7 @@ Execution Summary:
                 }
                 
                 /* reap the chain, pull the ripcord */
-         388 -> void _vorbis_block_ripcord(vorbis_block *vb){
+         389 -> void _vorbis_block_ripcord(vorbis_block *vb){
                   /* reap the chain */
                   struct alloc_chain *reap=vb->reap;
                   while(reap){
@@ -11138,7 +11138,7 @@ Execution Summary:
                    block.  The time domain envelope is not yet handled at the point of
                    calling (as it relies on the previous block). */
                 
-         364 -> int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
+         365 -> int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
                   vorbis_info *vi=v->vi;
                   codec_setup_info *ci=vi->codec_setup;
                   private_state *b=v->backend_state;
@@ -11354,7 +11354,7 @@ Execution Summary:
                 }
                 
                 /* pcm==NULL indicates we just want the pending samples, no more */
-        1493 -> int vorbis_synthesis_pcmout(vorbis_dsp_state *v,float ***pcm){
+        1496 -> int vorbis_synthesis_pcmout(vorbis_dsp_state *v,float ***pcm){
                   vorbis_info *vi=v->vi;
                 
                   if(v->pcm_returned>-1 && v->pcm_returned<v->pcm_current){
@@ -11470,10 +11470,10 @@ Top 10 Lines:
 
      Line      Count
 
-      113       2107
-      937       1493
-      137        388
-      721        364
+      113       2110
+      937       1496
+      137        389
+      721        365
       952        360
       159         28
       315         24
@@ -11487,8 +11487,8 @@ Execution Summary:
        16   Lines executed
     84.21   Percent of the file executed
 
-     4792   Total number of line executions
-   252.21   Average executions per line
+     4800   Total number of line executions
+   252.63   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/synthesis.c:
@@ -14176,7 +14176,7 @@ Execution Summary:
                     current bitstream.  NULL in the case that the machine is not
                     initialized */
                 
-         368 -> vorbis_info *ov_info(OggVorbis_File *vf,int link){
+         369 -> vorbis_info *ov_info(OggVorbis_File *vf,int link){
                   if(vf->seekable){
                     if(link<0)
                       if(vf->ready_state>=STREAMSET)
@@ -14729,7 +14729,7 @@ Top 10 Lines:
 
      Line      Count
 
-     1791        368
+     1791        369
      1809        360
      1871        360
      2008        360
@@ -14746,8 +14746,8 @@ Execution Summary:
        36   Lines executed
     59.02   Percent of the file executed
 
-     1640   Total number of line executions
-    26.89   Average executions per line
+     1641   Total number of line executions
+    26.90   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafCore\GprofCdt/../src/jp/ggaf/core/util/GgafLinearOctreeSpace.cpp:
@@ -15539,7 +15539,7 @@ Execution Summary:
                 using namespace GgafCore;
                 
                 
-        1686 -> GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_kindbit) {
+        1685 -> GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_kindbit) {
                     _pSpace_Current = NULL;
                     _pNext = NULL;
                     _pPrev = NULL;
@@ -15664,7 +15664,7 @@ Top 10 Lines:
      Line      Count
 
       122       1687
-        6       1686
+        6       1685
 
 Execution Summary:
 
@@ -15672,8 +15672,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     3373   Total number of line executions
-  1124.33   Average executions per line
+     3372   Total number of line executions
+  1124.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafCore\GprofCdt/../src/jp/ggaf/core/actor/GgafDummyActor.cpp:
@@ -15905,7 +15905,7 @@ Execution Summary:
                 
                 using namespace GgafCore;
                 
-        1934 -> GgafActor::GgafActor(const char* prm_name) :
+        1931 -> GgafActor::GgafActor(const char* prm_name) :
                     GgafElement<GgafActor> (prm_name) {
                     TRACE("GgafActor::GgafActor("<<this<<") "<<prm_name);
                     _class_name = "GgafActor";
@@ -16103,8 +16103,8 @@ Top 10 Lines:
 
      Line      Count
 
-        6       1934
        27       1934
+        6       1931
 
 Execution Summary:
 
@@ -16112,8 +16112,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     3868   Total number of line executions
-  1289.33   Average executions per line
+     3865   Total number of line executions
+  1288.33   Average executions per line
 
 
 *** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/util/GgafStatus.h:
@@ -16152,7 +16152,7 @@ Execution Summary:
                      * @param n 最大ステータス要素数。
                      * @return
                      */
-        1934 ->     GgafStatus(int n) {
+        1931 ->     GgafStatus(int n) {
                         _len = n;
                         _paValue = NEW VALUE[n];
                         for (int i = 0; i < n; i++) {
@@ -16251,8 +16251,8 @@ Top 10 Lines:
 
      Line      Count
 
-       36       1934
       120       1934
+       36       1931
 
 Execution Summary:
 
@@ -16260,8 +16260,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-     3868   Total number of line executions
-  1934.00   Average executions per line
+     3865   Total number of line executions
+  1932.50   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafCore\GprofCdt/../src/jp/ggaf/core/actor/GgafMainActor.cpp:
@@ -16270,7 +16270,7 @@ Execution Summary:
                 
                 using namespace GgafCore;
                 
-        1820 -> GgafMainActor::GgafMainActor(const char* prm_name) : GgafActor(prm_name) {
+        1817 -> GgafMainActor::GgafMainActor(const char* prm_name) : GgafActor(prm_name) {
                     _obj_class |= Obj_GgafMainActor;
                     _class_name = "GgafMainActor";
                     _pGroupActor = NULL;
@@ -16461,8 +16461,8 @@ Top 10 Lines:
 
      Line      Count
 
-        6       1820
       189       1820
+        6       1817
 
 Execution Summary:
 
@@ -16470,8 +16470,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     3640   Total number of line executions
-  1213.33   Average executions per line
+     3637   Total number of line executions
+  1212.33   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafCore\GprofCdt/../src/jp/ggaf/core/actor/GgafActorDispatcher.cpp:
@@ -17351,7 +17351,7 @@ Execution Summary:
                  * ここからは実装部
                  */
                 template<class T>
-        1950 -> GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
+        1948 -> GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
                 _pNodeTemp(NULL),
                 _name(NULL),
                 _class_name("GgafNode<T>"),
@@ -17670,8 +17670,8 @@ Top 10 Lines:
 
      Line      Count
 
-      312       1950
       563       1950
+      312       1948
 
 Execution Summary:
 
@@ -17679,8 +17679,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-     3900   Total number of line executions
-  1950.00   Average executions per line
+     3898   Total number of line executions
+  1949.00   Average executions per line
 
 
 *** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/GgafElement.hpp:
@@ -19793,7 +19793,7 @@ Execution Summary:
                     }
                 }
                 
-       34114 -> void operator delete(void * address) {
+       84217 -> void operator delete(void * address) {
                     if (address == 0) // Depends on environment.
                     return;
                 
@@ -19862,7 +19862,7 @@ Top 10 Lines:
 
      Line      Count
 
-       47      34114
+       47      84217
        66      14552
 
 Execution Summary:
@@ -19871,8 +19871,8 @@ Execution Summary:
         6   Lines executed
     75.00   Percent of the file executed
 
-    48666   Total number of line executions
-  6083.25   Average executions per line
+    98769   Total number of line executions
+ 12346.12   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafCore\GprofCdt/../src/jp/ggaf/core/GgafObject.cpp:
@@ -19882,7 +19882,7 @@ Execution Summary:
                 
                 int GgafObject::_iSeq = 0;
                 
-       11549 -> GgafObject::GgafObject() {
+      215362 -> GgafObject::GgafObject() {
                     _obj_class = 0;
                     _id = (_iSeq++);
                 }
@@ -19892,7 +19892,7 @@ Execution Summary:
                     return "ちょっとまってよ";
                 }
                 
-       11550 -> GgafObject::~GgafObject() {
+      215373 -> GgafObject::~GgafObject() {
                 }
 
 
@@ -19900,8 +19900,8 @@ Top 10 Lines:
 
      Line      Count
 
-       17      11550
-        7      11549
+       17     215373
+        7     215362
 
 Execution Summary:
 
@@ -19909,8 +19909,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-    23099   Total number of line executions
-  7699.67   Average executions per line
+   430735   Total number of line executions
+143578.33   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/sound/IkdLib/PCMDecoder.cpp:
@@ -22250,7 +22250,7 @@ Execution Summary:
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-         290 -> GgafDx9RectUV::GgafDx9RectUV() : GgafObject() {
+         289 -> GgafDx9RectUV::GgafDx9RectUV() : GgafObject() {
                 }
                 
          290 -> GgafDx9RectUV::~GgafDx9RectUV() {
@@ -22261,8 +22261,8 @@ Top 10 Lines:
 
      Line      Count
 
-        6        290
         9        290
+        6        289
 
 Execution Summary:
 
@@ -22270,8 +22270,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      580   Total number of line executions
-   193.33   Average executions per line
+      579   Total number of line executions
+   193.00   Average executions per line
 
 
 *** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/GgafDx9AllocHierarchyWorldFrame.h:
@@ -24019,64 +24019,20 @@ Execution Summary:
                 
                 HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_draw_set_num) {
                     TRACE4("GgafDx9D3DXAniMeshModel::draw("<<prm_pActor_Target->getName()<<")");
+                    HRESULT hr;
                     //対象アクター
                     GgafDx9D3DXAniMeshActor* pTargetActor = (GgafDx9D3DXAniMeshActor*)prm_pActor_Target;
                     //対象MeshActorのエフェクトラッパ
                     GgafDx9D3DXAniMeshEffect* pD3DXAniMeshEffect = (GgafDx9D3DXAniMeshEffect*)prm_pActor_Target->_pGgafDx9Effect;
                     //対象エフェクト
                     ID3DXEffect* pID3DXEffect = pD3DXAniMeshEffect->_pID3DXEffect;
-                
-                //
-                //
-                //    if (GgafDx9ModelManager::_pModelLastDraw != this) {
-                //        //頂点バッファとインデックスバッファを設定
-                //        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertex_unit);
-                //        GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshModel::FVF);
-                //        GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
-                //
-                //        hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_power, _fPowerBlink);
-                //        checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
-                //        hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_threshold, _fBlinkThreshold);
-                //        checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
-                //    }
-                //
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                    GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9D3DXAniMeshActor::FVF);
-                    HRESULT hr;
-                
-                    //checkDxException(hr, S_OK, "GgafDx9D3DXAniMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
-                    hr = pID3DXEffect->SetFloat(pD3DXAniMeshEffect->_h_tex_blink_power, _fPowerBlink);
-                    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
-                    hr = pID3DXEffect->SetFloat(pD3DXAniMeshEffect->_h_tex_blink_threshold, _fBlinkThreshold);
-                    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
-                    //_Ang += 0.004f;
-                
-                
-                //    // アニメーションをフレーム分進める
-                //    _pAcBase->AdvanceTime(_advance_time_per_frame, NULL );
-                
-                
-                    //ワールド変換行列スタックによるワールド変換行列の計算
-                //    D3DXMATRIX WorldMat;
-                //    D3DXMatrixIdentity(&WorldMat);
-                    //D3DXMatrixRotationYawPitchRoll(&Rot, _Ang, _Ang / 2.37f, 0);
-                    //D3DXMatrixMultiply(&WorldMat, &WorldMat, &Rot);
-                    //&(pTargetActor->_matWorld)
-                
+                    if (GgafDx9ModelManager::_pModelLastDraw != this) {
+                        GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9D3DXAniMeshActor::FVF);
+                        hr = pID3DXEffect->SetFloat(pD3DXAniMeshEffect->_h_tex_blink_power, _fPowerBlink);
+                        checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
+                        hr = pID3DXEffect->SetFloat(pD3DXAniMeshEffect->_h_tex_blink_threshold, _fBlinkThreshold);
+                        checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
+                    }
                     pTargetActor->_pPuppeteer->work(); //アニメーション反映
                     list< D3DXFRAME_WORLD* > *pDrawList = _stackWorldMat.GetDrawList(); // 描画リストを取得
                     list<D3DXFRAME_WORLD*>::iterator it = pDrawList->begin();
@@ -24097,21 +24053,6 @@ Execution Summary:
                     checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
                 
                     for (int i = 0; it != pDrawList->end(); i++, it++) {
-                //        if (GgafDx9ModelManager::_pModelLastDraw != this || _dwNumMaterials != 1) {
-                //            if (_papTextureCon[i]) {
-                //                //テクスチャのセット
-                //                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->refer()->_pIDirect3DBaseTexture9);
-                //            } else {
-                //                _TRACE_("GgafDx9D3DXAniMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
-                //                //無ければテクスチャ無し
-                //                GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
-                //            }
-                //            //マテリアルのセット
-                //            //GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[i]));
-                //            hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[i].Diffuse), sizeof(D3DCOLORVALUE) );
-                //            checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
-                //        }
-                
                         //描画
                         if ((GgafDx9EffectManager::_pEffect_Active != pD3DXAniMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
                             if (GgafDx9EffectManager::_pEffect_Active) {
@@ -24149,24 +24090,8 @@ Execution Summary:
                 #endif
                 
                         }
-                
-                        //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &(*it)->WorldTransMatrix); // ワールド変換行列を設定
-                        //_TRACE_("["<<i<<"]○SetMatrix FrameName="<<((*it)->Name)<<" 描画！");
-                
-                //        D3DXMatrixMultiply(&WorldMat, &((*it)->WorldTransMatrix), &(pTargetActor->_matWorld));
-                
-                //        _TRACE_("(*it)->WorldTransMatrix=");
-                //        putMat(&((*it)->WorldTransMatrix));
-                //        _TRACE_("pTargetActor->_matWorld=");
-                //        putMat(&(pTargetActor->_matWorld));
-                //        _TRACE_("WorldMat=");
-                //        putMat(&WorldMat);
-                        //hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_h_matWorld, &((*it)->WorldTransMatrix));
                         hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_h_matWorld, &((*it)->WorldTransMatrix));
                         checkDxException(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-                
-                        //hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_h_matWorld, &_matWorld );
-                            //checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
                         if ((*it)->pMeshContainer == NULL) {
                             TRACE4("["<<i<<"]×SetMatrix FrameName="<<((*it)->Name)<<" 飛ばし！");
                             continue;
@@ -24183,8 +24108,6 @@ Execution Summary:
                                     checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
                                 }
                                 TRACE4("["<<i<<"]["<<j<<"],SetMaterial");
-                                //GgafDx9God::_pID3DDevice9->SetMaterial(&(*it)->pMeshContainer->pMaterials[j].MatD3D);
-                
                                 hr = pID3DXEffect->CommitChanges();
                                 checkDxException(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() CommitChanges() に失敗しました。");
                                 (*it)->pMeshContainer->MeshData.pMesh->DrawSubset(j);
@@ -24193,53 +24116,6 @@ Execution Summary:
                             }
                         }
                     }
-                
-                //
-                //
-                //
-                //    for (DWORD i = 0; i < _dwNumMaterials; i++) {
-                //        if (GgafDx9ModelManager::_pModelLastDraw != this || _dwNumMaterials != 1) {
-                //            if (_papTextureCon[i]) {
-                //                //テクスチャのセット
-                //                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->refer()->_pIDirect3DBaseTexture9);
-                //            } else {
-                //                _TRACE_("GgafDx9D3DXAniMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
-                //                //無ければテクスチャ無し
-                //                GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
-                //            }
-                //            //マテリアルのセット
-                //            //GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[i]));
-                //            hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[i].Diffuse), sizeof(D3DCOLORVALUE) );
-                //            checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
-                //        }
-                //
-                //        //描画
-                //        if (GgafDx9EffectManager::_pEffect_Active != pD3DXAniMeshEffect && i == 0) {
-                //            if (GgafDx9EffectManager::_pEffect_Active) {
-                //                TRACE4("EndPass("<<GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
-                //                hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-                //                checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() EndPass() に失敗しました。");
-                //                hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-                //                checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() End() に失敗しました。");
-                //            }
-                //
-                //            TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
-                //            hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-                //            checkDxException(hr, S_OK, "GgafDx9D3DXAniMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
-                //            TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
-                //            UINT numPass;
-                //            hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-                //            checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() Begin() に失敗しました。");
-                //            hr = pID3DXEffect->BeginPass(0);
-                //            checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() BeginPass(0) に失敗しました。");
-                //        } else {
-                //            hr = pID3DXEffect->CommitChanges();
-                //            checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() CommitChanges() に失敗しました。");
-                //        }
-                //        TRACE4("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
-                //        hr = _pID3DXAniMesh->DrawSubset(i);
-                //
-                //    }
                     //前回描画モデル名反映
                     GgafDx9ModelManager::_pModelLastDraw = this;
                     GgafDx9EffectManager::_pEffect_Active = pD3DXAniMeshEffect;
@@ -24247,20 +24123,6 @@ Execution Summary:
                     GgafGod::_num_actor_drawing++;
                     return D3D_OK;
                 }
-                
-                //シェーダー実装前
-                //        if (pTargetActor->_SX == LEN_UNIT &&
-                //            pTargetActor->_SY == LEN_UNIT &&
-                //            pTargetActor->_SZ == LEN_UNIT)
-                //        {
-                //            hr = _pID3DXAniMesh->DrawSubset(i); //なんて便利なメソッド！
-                //        } else {
-                //            //拡大縮小がなされているため、カメラ空間にトランスフォームされた後で頂点法線の正規化するように設定（負荷高）
-                //            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
-                //            hr = _pID3DXAniMesh->DrawSubset(i); //なんて便利なメソッド！
-                //            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_NORMALIZENORMALS, FALSE);
-                //        }
-                
                 
                 void GgafDx9D3DXAniMeshModel::restore() {
                     TRACE3("GgafDx9D3DXAniMeshModel::restore() " << _model_name << " start");
@@ -24309,7 +24171,7 @@ Top 10 Lines:
 
      Line      Count
 
-      300          2
+      162          2
         6          1
 
 Execution Summary:
@@ -28222,7 +28084,7 @@ Execution Summary:
            4 ->       _Deque_iterator()
                       : _M_cur(0), _M_first(0), _M_last(0), _M_node(0) { }
                 
-       17712 ->       _Deque_iterator(const iterator& __x)
+       67815 ->       _Deque_iterator(const iterator& __x)
                       : _M_cur(__x._M_cur), _M_first(__x._M_first),
                         _M_last(__x._M_last), _M_node(__x._M_node) { }
                 
@@ -29985,7 +29847,7 @@ Top 10 Lines:
 
      Line      Count
 
-      132      17712
+      132      67815
       129          4
       487          2
       546          2
@@ -30002,8 +29864,8 @@ Execution Summary:
        11   Lines executed
    100.00   Percent of the file executed
 
-    17728   Total number of line executions
-  1611.64   Average executions per line
+    67831   Total number of line executions
+  6166.45   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/util/GgafDx9WorldMatStack.cpp:
@@ -30909,13 +30771,13 @@ Execution Summary:
                 class vector {
                 public:
                     T x, y, z;
-       37132 ->     vector(void) :
+       37008 ->     vector(void) :
                         x(0), y(0), z(0) {
                     }
-       12728 ->     vector(T px, T py, T pz) :
+       12678 ->     vector(T px, T py, T pz) :
                         x(px), y(py), z(pz) {
                     }
-        6364 ->     vector(const vector<T> &pv) :
+        6337 ->     vector(const vector<T> &pv) :
                         x(pv.x), y(pv.y), z(pv.z) {
                     }
                     vector(const T* &pv) {
@@ -31533,10 +31395,10 @@ Top 10 Lines:
 
      Line      Count
 
-       22      37132
+       22      37008
       109      30742
-       25      12728
-       28       6364
+       25      12678
+       28       6337
       112       2256
       174         32
 
@@ -31546,8 +31408,8 @@ Execution Summary:
         7   Lines executed
    100.00   Percent of the file executed
 
-    89254   Total number of line executions
- 12750.57   Average executions per line
+    89053   Total number of line executions
+ 12721.86   Average executions per line
 
 
 *** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/XFile/ToolBox/../framework/frm_IO.h:
@@ -35493,13 +35355,13 @@ Execution Summary:
                   /// An actual node in the %list.
                   template<typename _Tp>
                     struct _List_node : public _List_node_base
-       17793 ->     {
+       67896 ->     {
                       ///< User's data.
                       _Tp _M_data;
                 
                 #ifdef __GXX_EXPERIMENTAL_CXX0X__
                       template<typename... _Args>
-       17791 ->         _List_node(_Args&&... __args)
+       67896 ->         _List_node(_Args&&... __args)
                 	: _List_node_base(), _M_data(std::forward<_Args>(__args)...) { }
                 #endif
                     };
@@ -35525,7 +35387,7 @@ Execution Summary:
                       : _M_node() { }
                 
                       explicit
-       71263 ->       _List_iterator(_List_node_base* __x)
+      271678 ->       _List_iterator(_List_node_base* __x)
                       : _M_node(__x) { }
                 
                       // Must downcast from List_node_base to _List_node to get to _M_data.
@@ -36952,9 +36814,9 @@ Top 10 Lines:
 
      Line      Count
 
-      128      71263
-       96      17793
-      102      17791
+      128     271678
+       96      67896
+      102      67896
       300         87
       303         87
       341         87
@@ -36969,8 +36831,8 @@ Execution Summary:
        10   Lines executed
    100.00   Percent of the file executed
 
-   107429   Total number of line executions
- 10742.90   Average executions per line
+   408052   Total number of line executions
+ 40805.20   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/manager/GgafDx9EffectManager.cpp:
@@ -37305,7 +37167,7 @@ Execution Summary:
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-        1687 -> GgafDx9Checker::GgafDx9Checker(GgafDx9GeometricActor* prm_pActor) :
+        1685 -> GgafDx9Checker::GgafDx9Checker(GgafDx9GeometricActor* prm_pActor) :
                     GgafObject() {
                     _pCollisionArea = NULL;
                     _pActor = prm_pActor;
@@ -37323,8 +37185,8 @@ Top 10 Lines:
 
      Line      Count
 
-        6       1687
        16       1687
+        6       1685
 
 Execution Summary:
 
@@ -37332,8 +37194,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     3374   Total number of line executions
-  1124.67   Average executions per line
+     3372   Total number of line executions
+  1124.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/actor/GgafDx9PointSpriteActor.cpp:
@@ -38614,7 +38476,7 @@ Execution Summary:
                 }
                 
                 void GgafDx9Camera::setViewPoint(GgafDx9GeometricActor* prm_pActor) {
-                    _pViewPoint->setCoordinateBy(prm_pActor);
+                    _pViewPoint->locateWith(prm_pActor);
                 }
                 
                 
@@ -38907,90 +38769,6 @@ Execution Summary:
                     _pD3DXAniMeshEffect = (GgafDx9D3DXAniMeshEffect*)_pGgafDx9Effect;
                     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
                     _pPuppeteer = NEW GgafDx9Puppeteer(this);
-                //
-                //    LPD3DXANIMATIONSET pAnimationSet0;
-                //    hr = _pAc->GetAnimationSet(0, &pAnimationSet0); //ID0番のアニメーションセット取得
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    LPD3DXANIMATIONSET pAnimationSet1;
-                //    hr = _pAc->GetAnimationSet(2, &pAnimationSet1); //ID1番のアニメーションセット取得
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    LPD3DXANIMATIONSET pAnimationSet2;
-                //    hr = _pAc->GetAnimationSet(2, &pAnimationSet2); //ID2番のアニメーションセット取得
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    LPD3DXANIMATIONSET pAnimationSet4;
-                //    hr = _pAc->GetAnimationSet(2, &pAnimationSet4); //ID2番のアニメーションセット取得
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //
-                //    hr = _pAc->SetTrackAnimationSet(0, pAnimationSet0);//ID0番のアニメーションセットをトラック0番にセット（デフォルトでこうなるはず）
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    hr = _pAc->SetTrackAnimationSet(1, pAnimationSet0);//ID1番のアニメーションセットをトラック1番にセット（デフォルトでこうなるはず）
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                ////    hr = _pAc->SetTrackAnimationSet(2, pAnimationSet2);//ID2番のアニメーションセットをトラック2番にセット（デフォルトでこうなるはず）
-                ////    checkDxException(hr, D3D_OK, "失敗しました。");
-                //
-                //    hr = _pAc->ResetTime();//グローバル時間を0にする
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //
-                //    hr = _pAc->SetTrackPosition(0,0);//トラック0(=ID0番)のローカル時間を0にする
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    hr = _pAc->SetTrackPosition(1,0);//トラック1(=ID1番)のローカル時間を0にする
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                ////    hr = _pAc->SetTrackPosition(2,0);//トラック2(=ID2番)のローカル時間を0にする
-                ////    checkDxException(hr, D3D_OK, "失敗しました。");
-                //
-                //    hr = _pAc->SetTrackEnable(0,TRUE );//トラック0(=ID0番)を有効
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    hr = _pAc->SetTrackEnable(1,TRUE );//トラック1(=ID1番)を有効
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                ////    hr = _pAc->SetTrackEnable(2,TRUE );//トラック2(=ID2番)を有効
-                ////    checkDxException(hr, D3D_OK, "失敗しました。");
-                //
-                //    hr = _pAc->SetTrackWeight(0, 1.00);
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    hr = _pAc->SetTrackWeight(1, 1.00);
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                ////    hr = _pAc->SetTrackWeight(2, 1.00);
-                ////    checkDxException(hr, D3D_OK, "失敗しました。");
-                //
-                //    hr = _pAc->AdvanceTime(0,NULL);//0秒進める（それを反映させる）。
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //
-                //    //ID0番(=トラック0)のアニメーションセットの開始～終了までの時間(秒)
-                ////    _advance_time_per_frame =  pAnimationSet0->GetPeriod()/60.0;
-                ////    double time_period0 = pAnimationSet0->GetPeriod();
-                ////    _TRACE_("time_period0="<<time_period0);
-                ////    double time_set0 = time_period0 / (60.0 / _pD3DXAniMeshModel->_anim_ticks_per_second); //そのアニメーションにかかる秒数
-                //    //ID0番(=トラック0)の SetTrackSpeed が 1.0 固定ならば advanceTimePerFrame は time_period0 / (time_set0 * 60.0)
-                ////    _advance_time_per_frame0 = time_set0 / time_set0*60.0 ; //トラック0番のアニメーションを60分割時間を求める、つまり１ループ1秒にするための時間
-                //    hr = _pAc->SetTrackSpeed(0, 1.0f);  //トラック0(=ID0番)のスピードを設定。
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    hr = _pAc->SetTrackSpeed(1, 1.0f);
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                ////    hr = _pAc->SetTrackSpeed(2, 1.0f);
-                ////    checkDxException(hr, D3D_OK, "失敗しました。");
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                    // _pAc->GetMaxNumAnimationSets()
-                
-                //    if (SUCCEEDED(pAnimController->GetAnimationSetByName(szAnimSetName, &pAnimSet))) {
-                //        if (SUCCEEDED(pAnimSet->QueryInterface(IID_ID3DXKeyframedAnimationSet, (LPVOID*)&pKeyFramedAnimSet))) {
-                //            UINT dwNumAnimations = pKeyFramedAnimSet->GetNumAnimations();
-                //            for (UINT i = 0; i < dwNumAnimations; i++)
-                //                HRESULT hr = pKeyFramedAnimSet->UnregisterAnimation(i);
-                //        }
-                //        pAnimSet->Release();
-                //    }
-                
-                
-                
                 }
                 
                 void GgafDx9D3DXAniMeshActor::setAlpha(float prm_fAlpha) {
@@ -39012,32 +38790,7 @@ Execution Summary:
                 }
                 
                 void GgafDx9D3DXAniMeshActor::processDraw() {
-                    ID3DXEffect* pID3DXEffect = _pD3DXAniMeshEffect->_pID3DXEffect;
-                    HRESULT hr;
-                    //ビュー変換行列
-                //    hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_h_matView, &P_CAM->_vMatrixView );
-                //    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
-                    //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
-                
-                    //hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_h_matWorld, &_matWorld );
-                    //checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-                    //SetMatrixはモデルでせざるをえない
-                
-                    // Zバッファを有効に
-                    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-                    // Zバッファ書き込み可
-                    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-                
-                //    HRESULT hr = _pAc->SetTrackPosition(0,_track0time);//トラック0(=ID0番)のローカル時間を0にする
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                
                     _pD3DXAniMeshModel->draw(this);
-                
-                    // Zバッファを無効に
-                    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-                    // Zバッファ書き込み不可
-                    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
-                
                 }
                 
            3 -> GgafDx9D3DXAniMeshActor::~GgafDx9D3DXAniMeshActor() {
@@ -39050,7 +38803,7 @@ Top 10 Lines:
      Line      Count
 
         7          3
-      159          3
+       50          3
 
 Execution Summary:
 
@@ -39085,25 +38838,23 @@ Execution Summary:
                     _TRACE_("_pAc->GetMaxNumTracks()="<<_pAc->GetMaxNumTracks());
                     _TRACE_("_pAc->GetMaxNumAnimationSets()="<<_pAc->GetMaxNumAnimationSets());
                 
-                    //_advance_time_per_draw = 0.0;
-                
                     //モーション情報初期化
                     _paPerformances = NEW Performance[_num_perform];
                     for (UINT i = 0; i < _num_perform; i++) {
                         hr = _pAc->GetAnimationSet(i, &(_paPerformances[i]._pAnimationSet)); //アニメーションセット保持
                         checkDxException(hr, D3D_OK, "失敗しました。");
-                        _paPerformances[i]._time_of_one_loop               = _paPerformances[i]._pAnimationSet->GetPeriod();
-                        _paPerformances[i]._local_time                     = 0.0;
-                        _paPerformances[i]._target_loop                    = -1;
-                //        _paPerformances[i]._loop                           = 0.0;
-                        _paPerformances[i]._target_speed                   = 1.0;
-                        _paPerformances[i]._speed                          = 1.0;
-                        _paPerformances[i]._inc_speed                      = 0.0;
-                        _paPerformances[i]._is_shifting_speed              = false;
-                        _paPerformances[i]._target_weight                  = 1.0;
-                        _paPerformances[i]._weight                         = 1.0;
-                        _paPerformances[i]._inc_weight                     = 0.0;
-                        _paPerformances[i]._is_shifting_weight             = false;
+                        _paPerformances[i]._time_of_one_loop   = _paPerformances[i]._pAnimationSet->GetPeriod();
+                        _paPerformances[i]._local_time         = 0.0;
+                        _paPerformances[i]._target_loop        = -1;
+                        _paPerformances[i]._target_speed       = 1.0;
+                        _paPerformances[i]._speed              = 1.0;
+                        _paPerformances[i]._inc_speed          = 0.0;
+                        _paPerformances[i]._is_shifting_speed  = false;
+                        _paPerformances[i]._target_weight      = 1.0;
+                        _paPerformances[i]._weight             = 1.0;
+                        _paPerformances[i]._inc_weight         = 0.0;
+                        _paPerformances[i]._is_shifting_weight = false;
+                        _paPerformances[i]._method             = PLAY_LOOPING;
                     }
                 
                     //グローバル時間を0にする
@@ -39144,55 +38895,35 @@ Execution Summary:
                     //右手の操り棒
                     _aStick[GgafDx9PuppeteerStick::RIGHT_HAND]._no = 1;
                     _aStick[GgafDx9PuppeteerStick::RIGHT_HAND]._pPerformance = NULL;
-                //    _active_hand = LEFT_HAND;
-                
-                //    _is_shifting_performance = false;
-                //    _weight_per_frame_for_shift = 0;
-                //    _shift_duaration = 0;
-                //    _shifted = 0;
-                
-                //    for (DWORD i = 0; i < (DWORD)_pAc->GetMaxNumTracks(); i++) {
-                //        hr = _pAc->SetTrackEnable(i, FALSE);
-                //        checkDxException(hr, D3D_OK, "失敗しました。");
-                //    }
-                
                 }
-                
-                //void GgafDx9Puppeteer::exchangStick() {
-                //}
-                //void GgafDx9Puppeteer::shift(UINT prm_performance_no, frame shift_duaration, GgafDx9MotionMethod prm_method) {
-                //    _is_shifting_performance = true;
-                //    _shift_duaration = shift_duaration;
-                //    _shifted = 0;
-                //    _weight_per_frame_for_shift = 1.0 / shift_duaration;
-                //    exchangStick();
-                //    play(prm_performance_no, prm_method);
-                //}
-                
-                //void GgafDx9Puppeteer::play(GgafDx9PuppeteerStick prm_handed,
-                //                            UINT prm_performance_no,
-                //                            double prm_speed,
-                //                            GgafDx9MotionMethod prm_method) {
-                //    HRESULT hr;
-                //    _aStick[prm_handed]._pPerformance = &(_paPerformances[prm_performance_no]);
-                //    _aStick[prm_handed]._pPerformance->_speed = prm_speed;
-                //    _aStick[prm_handed]._pPerformance->_method = prm_method;
-                //
-                //    hr = _pAc->SetTrackEnable(_aStick[prm_handed]._no, TRUE);
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    hr = _pAc->SetTrackSpeed(_aStick[prm_handed]._no, _aStick[prm_handed]._pPerformance->_speed);
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    hr = _pAc->SetTrackAnimationSet(_aStick[prm_handed]._no, _aStick[prm_handed]._pPerformance->_pAnimationSet);
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //}
-                
                 
                 void GgafDx9Puppeteer::exchangPerformance() {
                     Performance* p2 = _aStick[RIGHT_HAND]._pPerformance;
                     _aStick[RIGHT_HAND]._pPerformance = _aStick[LEFT_HAND]._pPerformance;
                     _aStick[LEFT_HAND]._pPerformance = p2;
-                }
                 
+                    HRESULT hr;
+                    if (_aStick[RIGHT_HAND]._pPerformance) {
+                        hr = _pAc->SetTrackAnimationSet(_aStick[RIGHT_HAND]._no, _aStick[RIGHT_HAND]._pPerformance->_pAnimationSet);
+                        checkDxException(hr, D3D_OK, "失敗しました。");
+                        hr = _pAc->SetTrackEnable(_aStick[RIGHT_HAND]._no, TRUE);
+                        checkDxException(hr, D3D_OK, "失敗しました。");
+                    } else {
+                        hr = _pAc->SetTrackEnable(_aStick[RIGHT_HAND]._no, FALSE);
+                        checkDxException(hr, D3D_OK, "失敗しました。");
+                    }
+                
+                    if (_aStick[LEFT_HAND]._pPerformance) {
+                        hr = _pAc->SetTrackAnimationSet(_aStick[LEFT_HAND]._no, _aStick[LEFT_HAND]._pPerformance->_pAnimationSet);
+                        checkDxException(hr, D3D_OK, "失敗しました。");
+                        hr = _pAc->SetTrackEnable(_aStick[LEFT_HAND]._no, TRUE);
+                        checkDxException(hr, D3D_OK, "失敗しました。");
+                    } else {
+                        hr = _pAc->SetTrackEnable(_aStick[LEFT_HAND]._no, FALSE);
+                        checkDxException(hr, D3D_OK, "失敗しました。");
+                    }
+                
+                }
                 
                 void GgafDx9Puppeteer::play(GgafDx9PuppeteerStick prm_handed,
                                               UINT prm_performance_no,
@@ -39200,7 +38931,8 @@ Execution Summary:
                                               double prm_target_speed,
                                               frame prm_frame_duaration_of_shift_speed,
                                               double prm_target_weight,
-                                              frame prm_frame_duaration_of_shift_weight ) {
+                                              frame prm_frame_duaration_of_shift_weight,
+                                              GgafDx9PuppeteerPlayMethod prm_method ) {
                     _aStick[prm_handed]._pPerformance = &(_paPerformances[prm_performance_no]);
                     Performance* p = _aStick[prm_handed]._pPerformance;
                     p->_time_of_one_loop                   = p->_pAnimationSet->GetPeriod();
@@ -39251,6 +38983,9 @@ Execution Summary:
                     } else {
                         p->_local_time = 0.0;
                     }
+                
+                    p->_method = (prm_method == NO_CHENGE ? p->_method : prm_method);
+                
                     HRESULT hr;
                     hr = _pAc->SetTrackAnimationSet(_aStick[prm_handed]._no, p->_pAnimationSet);
                     checkDxException(hr, D3D_OK, "失敗しました。");
@@ -39287,7 +39022,26 @@ Execution Summary:
                                 }
                             }
                             p->_local_time += (p->_speed / 60.0);
+                
+                            //ループ完判定
+                            if (p->_target_loop > 0 && p->_target_loop < abs(p->_local_time) / p->_time_of_one_loop) {
+                                if (p->_local_time > 0) {
+                                    //理想値に補正
+                                    p->_local_time = p->_target_loop * p->_time_of_one_loop;
+                                } else {
+                                    //理想値に補正
+                                    p->_local_time = - (p->_target_loop * p->_time_of_one_loop);
+                                }
+                                p->_inc_speed                      = 0;
+                                p->_is_shifting_speed              = false;
+                
+                                p->_inc_weight                     = 0;
+                                p->_is_shifting_weight             = false;
+                
+                                _aStick[i]._pPerformance = NULL;
+                            }
                         }
+                
                 
                     }
                 
@@ -39365,23 +39119,6 @@ Execution Summary:
                         if (p) {
                             HRESULT hr = _pAc->SetTrackPosition(i, p->_local_time); //トラックローカル時間
                             checkDxException(hr, D3D_OK, "失敗しました。");
-                            //ループ完判定
-                            if (p->_target_loop > 0 && p->_target_loop < abs(p->_local_time) / p->_time_of_one_loop) {
-                                if (p->_local_time > 0) {
-                                    //理想値に補正
-                                    p->_local_time = p->_target_loop * p->_time_of_one_loop;
-                                } else {
-                                    //理想値に補正
-                                    p->_local_time = - (p->_target_loop * p->_time_of_one_loop);
-                                }
-                                p->_inc_speed                      = 0;
-                                p->_is_shifting_speed              = false;
-                
-                                p->_inc_weight                     = 0;
-                                p->_is_shifting_weight             = false;
-                
-                                _aStick[i]._pPerformance = NULL;
-                            }
                         }
                     }
                 
@@ -39397,17 +39134,13 @@ Execution Summary:
                     DELETEARR_IMPOSSIBLE_NULL(_paPerformances);
                 }
                 
-                
-                
-                
-                
 
 
 Top 10 Lines:
 
      Line      Count
 
-      331          6
+      315          6
         6          3
 
 Execution Summary:
@@ -39762,7 +39495,7 @@ Execution Summary:
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-         157 -> GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
+         155 -> GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
                                                        const char* prm_model_id,
                                                        const char* prm_effect_id,
                                                        const char* prm_technique,
@@ -39852,8 +39585,8 @@ Top 10 Lines:
 
      Line      Count
 
-        6        157
        87        157
+        6        155
 
 Execution Summary:
 
@@ -39861,8 +39594,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      314   Total number of line executions
-   104.67   Average executions per line
+      312   Total number of line executions
+   104.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/util/GgafDx9Quaternion.cpp:
@@ -39874,7 +39607,7 @@ Execution Summary:
                 
                 
                 
-           8 -> GgafDx9Quaternion::~GgafDx9Quaternion() {
+      203831 -> GgafDx9Quaternion::~GgafDx9Quaternion() {
                 }
 
 
@@ -39882,7 +39615,7 @@ Top 10 Lines:
 
      Line      Count
 
-        9          8
+        9     203831
 
 Execution Summary:
 
@@ -39890,8 +39623,8 @@ Execution Summary:
         1   Lines executed
     50.00   Percent of the file executed
 
-        8   Total number of line executions
-     4.00   Average executions per line
+   203831   Total number of line executions
+101915.50   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9Scaler.cpp:
@@ -39900,7 +39633,7 @@ Execution Summary:
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-         460 -> GgafDx9Scaler::GgafDx9Scaler(GgafDx9GeometricActor* prm_pActor) :
+         459 -> GgafDx9Scaler::GgafDx9Scaler(GgafDx9GeometricActor* prm_pActor) :
                     GgafObject() {
                     _pActor = prm_pActor;
                 
@@ -40115,7 +39848,7 @@ Top 10 Lines:
      Line      Count
 
       212        920
-        6        460
+        6        459
 
 Execution Summary:
 
@@ -40123,8 +39856,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     1380   Total number of line executions
-   460.00   Average executions per line
+     1379   Total number of line executions
+   459.67   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/actor/GgafDx9BoardActor.cpp:
@@ -40390,7 +40123,7 @@ Execution Summary:
                 using namespace GgafDx9Core;
                 
                 
-        1716 -> GgafDx9SeTransmitter::GgafDx9SeTransmitter(GgafDx9GeometricActor* prm_pActor) :
+        1713 -> GgafDx9SeTransmitter::GgafDx9SeTransmitter(GgafDx9GeometricActor* prm_pActor) :
                                                        GgafObject() {
                     _pActor = prm_pActor;
                     _se_num = 0;
@@ -40562,7 +40295,7 @@ Top 10 Lines:
      Line      Count
 
       163       3432
-        7       1716
+        7       1713
 
 Execution Summary:
 
@@ -40570,8 +40303,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     5148   Total number of line executions
-  1716.00   Average executions per line
+     5145   Total number of line executions
+  1715.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9Kuroko.cpp:
@@ -40583,29 +40316,23 @@ Execution Summary:
                 // 【メモ】本クラスの考え方と単語の表現
                 //
                 // ＜２種類の方向＞
-                // 「方向」には２種類意味があり、「移動方角（方向）」と「軸回転方角（方向）」とする。
+                // 「キャラの方向」という言葉が曖昧なため、次の２種類の単語を定義する。「移動方角（方向）」と「軸回転方角（方向）」。
                 // 「移動方角（方向）」はキャラの進行方向のみを表現する。これは「移動速度」と伴って、キャラは座標内を移動することとする。
-                // 「軸回転方角」はキャラの向きのみを表せる。
+                // 「軸回転方角（方向）」はキャラの向き（前方方向等）のみを表現する事とする。
                 // キャラクタが画面の上部から下部へ移動しても、キャラクタは下を向くとは限らず自機に向いてほしい場合もある。
-                // 右にキャラを向かせて、左に移動させたいこともある。それぞれ設定が必要。
-                // 「軸回転方角（方向）」は以下。
+                // または、右にキャラを向かせて、左に移動させたいこともある。それぞれ２つの方向設定が必要。
                 //
-                // ＜移動方角:AngMv＞
+                // ＜移動方角（方向）の２種類の表現方法＞
                 // キャラが進む方向、つまり移動方角の方向は、原点から単位球の表面に向かって伸びるベクトル (_vX, _vY, _vZ) で表す方法と、
-                // ２つの軸回転アングル値 (_angRzMv, _angRyMv) で表す方法の２種類用意した。
-                // 単に「移動方角」と呼ぶ場合は、世間一般は移動方向の方向ベクトル（XYZの値）のことを指す。
-                // しかしこのクラスでは、２つのアングル値のセットの方を主に移動方角と呼んでいる。
+                // ２つの軸回転アングル値 (_angRzMv, _angRyMv) で表す方法の２種類用意した。クォータニオンは今のところ無し。
                 // _angRzMv は Z軸回転角、 _angRyMv は Y軸回転角 を意味している。両方とも0度を、方向ベクトル(1, 0, 0) の方向と定義する。
-                // これは方向ベクトルを、緯度と経度、（仰角とアジマス）の関係に対応させようとした設計。
-                // Y軸回転角＝経度 は常に成り立つが、Z軸回転角＝緯度 は、Z軸回転角 → Y軸回転角の順番である場合に限り成り立つ。
-                // そこで２つの軸回転アングル値で表す移動方角は、必ず Z軸回転 → Y軸回転の順番であると定義する。
-                // しかしここでは簡略して、緯度経度の、「緯度」＝「Z軸回転角」 と表現します。
+                // これは方向ベクトルを、緯度と経度、（仰角とアジマス）の関係に見立て、対応させようとした設計。
+                // 注意することは、Y軸回転角＝経度 は常に成り立つが、Z軸回転角＝緯度 は、Z軸回転角 → Y軸回転角の順番である場合に限り成り立つ。
+                // (※ Y軸回転角 → Z軸回転角 の順番で回転させた場合、Z軸回転角＝緯度 とならないという意味)
+                // 本クラスでは、「Z軸回転 → Y軸回転の順番でのZ軸回転角」を簡略して、単に「Z軸回転角」と表現する事とする。
                 // 成分を個別に表現したい場合は、それぞれ「移動方角（Z軸）」「移動方角（Y軸）」と書くことにする。
-                // 本クラスで単に「移動方角」と書いてある場合は、2つのアングル値を指していることが多い。
-                // さて、これらを踏まえて「移動方角（Z軸）」という言葉の語彙は、まわりくどく一気に説明すると、
-                // 「原点から単位球表面に伸びる方向ベクトルを、XYZ座標では無く球表面に緯度経度の座標を引いた２つの数値で表現するとして、
-                //  緯度＝Z軸回転角、経度＝Y軸回転角 とみなした（∵Z軸回転 → Y軸回転の順番）場合のZ軸回転角成分のみのアングル値」
-                // ということになる。
+                //
+                // ソースコード中の、変数やメソッドの
                 // 「Rz」という表記は「移動方角（Z軸）（但しZ軸回転 → Y軸回転の順番）」を意味している。
                 // 「Ry」という表記は「移動方角（Y軸）」を意味している。
                 // 「RzRy」という表現は「Z軸回転 → Y軸回転の順番の移動方角」を表している。
@@ -40614,13 +40341,15 @@ Execution Summary:
                 // Z軸回転角の正の増加は、Z軸の正の方向を向いて反時計回り。
                 // Y軸回転角の正の増加は、Y軸の正の方向を向いて反時計回り。とする。
                 //
-                // 移動方角にはZ軸回転角とY軸回転角による指定(_angRzMv, _angRyMv)と単位ベクトル指定(_vX, _vY, _vZ) があるとしたが、
-                // よく使うのは前者の方で、本クラスのメソッドも _angRzMv と _angRyMv を操作するものがほとんどである。
-                // しかし、最終的には ワールド変換行列の行列を作成するため、「単位ベクトル(_vX, _vY, _vZ)*移動速度 」  という計算をする必要がある。
-                // 結局最後は単位ベクトル求めているのだが、移動中の座標計算などは、さんざん_angRzMv と _angRyMvで行って、最後に１回単位ベクトルを
-                // 求める、というのが理想。未だ最適化の余地だいぶ残っている（が、またいつか）。
+                // 「移動方角」にはZ軸回転角とY軸回転角による指定(_angRzMv, _angRyMv)と単位ベクトル指定(_vX, _vY, _vZ) があると説明したが、
+                // 「方角」を普通に考えた場合は、世間一般では方向ベクトル（XYZの値）のことを指すことが多いと思う。
+                // しかしこのクラスでは、よく使うのは前者の方で、本クラスのメソッドも _angRzMv と _angRyMv を操作するものがほとんどである。
+                // しかし、最終的には ワールド変換行列を作成するため、「単位ベクトル(_vX, _vY, _vZ)*移動速度 」という計算をする必要がある。
+                // 結局は単位ベクトルを求めているのだが、座標回転計算を、整数型の _angRzMv と _angRyMv でさんざん行ってから、
+                // 最後に１回単位ベクトルを求める。という方が速いのではと考えたため、このような設計になった。
+                // TODO:最適化の余地だいぶ残っている（が、またいつか）。
                 //
-                // 本クラスライブラリでは、この(_angRzMv, _angRyMv)を主に操作して、内部で方向ベクトル(_vX, _vY, _vZ) を自動計算している。
+                // 本クラスライブラリでは、この(_angRzMv, _angRyMv)を主に操作して、内部で方向ベクトル(_vX, _vY, _vZ) を同期させている。
                 // (_vX, _vY, _vZ)のみをメソッドを使わず直接操作すると、(_angRzMv, _angRyMv)との同期が崩れるので注意。
                 // 本クラスのメソッドを使用する限りでは、そんなことは起こらないこととする。
                 //
@@ -40631,35 +40360,33 @@ Execution Summary:
                 // よって、(_vX*_veloMv*LEN_UNIT, _vY*_veloMv*LEN_UNIT, _vZ*_veloMv*LEN_UNIT)が１フレーム後の座標。
                 
                 // ＜軸回転方角:AngFace＞
-                // キャラが向いている方角（方向）、を「軸回転方角」と呼ぶことにする。「ローカル軸回転方角」の略です。
-                //「軸回転方角」は、ワールド変換行列の軸回転と対応している（倍率が違うけど）。
+                // キャラのローカル座標で向いている方角（方向）を「軸回転方角」と呼ぶことにする。
+                //「軸回転方角」は、ワールド変換行列の軸回転と同じ回転方法とする。
                 // ワールド変換行列の軸回転とは、X軸回転角、Y軸回転角、Z軸回転角のことで、それぞれ、
                 // _angFace[AXIS_X], _angFace[AXIS_Y], _angFace[AXIS_Z] が保持している。
                 // 本ライブラリでは、キャラ毎のローカル座標系の単位球の表面に向かって伸びるベクトル(1, 0, 0) をキャラの「前方」と設定している。
-                // XファイルなどのモデルもX軸の正の方向に向いているモノとする。モデル「上方向は」は（0, 1, 0)。
-                // また、ワールド変換行列の回転行列のかける順番は、基本的に 「X軸回転行列 > Z軸回転行列 > Y軸回転行列 > 移動行列 > (拡大縮小) 」 とする。
+                // Xファイルなどのメッシュモデルも、X軸の正の方向に向いているモノとする。また、モデル「上方向は」は（0, 1, 0)とする。
+                // ワールド変換行列の回転行列の掛ける順番は、基本的に 「X軸回転行列 > Z軸回転行列 > Y軸回転行列 > 移動行列 > (拡大縮小) 」 とする。
                 // (※  X軸 > Y軸 > Z軸 の順ではないよ！）
                 // よって、X軸回転角は幾ら回転させようとも、キャラが向いている方向は変わらず、残りのZ軸回転角と、Y軸回転角でキャラが向いている方向を決定することとする。
                 // X軸回転角はキャラのスピン、のこり２角（Z軸回転角・Y軸回転角）でキャラの「前方」方角がを決定するとした場合、
                 // 「軸回転方角」も先ほどの「移動方角」と同じように、Z軸回転角とY軸回転角（緯度と経度)の２つのアングル値
                 // (_angFace[AXIS_Z], _angFace[AXIS_Y])で表現できる。
-                // つまり、「前方」は Z軸回転角・Y軸回転角共に0度とし、例えば「前方を向いて後ろ方向」は[Z軸回転角,Y軸回転角]=[0度,180度] と表現する。。
+                // つまり、「前方」は Z軸回転角・Y軸回転角共に0度とし、例えば「後ろ」は[Z軸回転角,Y軸回転角]=[0度,180度] と表現する。。
                 // 単に「Z軸回転角」などと書くと、「移動方角」のZ軸回転角なのか、「軸回転方角」のZ軸回転角なのか曖昧になるため、
                 // 「軸回転方角(Z軸)」「軸回転方角(Y軸)」と書くこととする。（※「軸回転方角(X軸)」もあるが、これはスピンを表し向きへの影響は無し）
                 // ここで注意は、１つのキャラが向いている方角に対して、実は２通りのアクセスする方法があるということ。例えば、
                 // 「前方(1, 0, 0)を向いて真右向き」 は [軸回転方角(Z軸), 軸回転方角(Y軸)]=[0, 90度] or [180度,270度] とで表現できる。
                 // （※軸回転方角(Y軸)は左手系座標のためY軸の正方向を向いて反時計回り）
                 // 実は 「前方」 も [180度,180度]とも表現できるし、「真後ろ」 は [0度,180度] とも [180度,0度] とも表現できる。
-                // どちらも向いている方向は同じ、但し姿勢(キャラの上方向)は異なる。姿勢が異なるとまずいキャラは注意すること。
+                // どちらも向いている方向は同じだが、姿勢(キャラの上方向)が異なる。姿勢が異なるとまずいキャラは注意すること。
                 // 当然、「移動方角」でも、２通りのアクセスする方法があるのだが、こちらは見た目は差が無い。差が無いが角度計算するときに影響がでるやもしれない。
                 
-                // ＜移動方角と軸回転方角で同期＞
-                // ここで 「移動方角（Z軸）」を「軸回転方角(Z軸)」へ、「移動方角（Y軸）」を「軸回転方角(Y軸)」 へコピーしてやると、
-                // なんと移動方角と、キャラクタの向きの同期が簡単に取れるじゃまいか！
-                // 逆にキャラが向いている方向に移動を追従させることも可能となる。
                 
                 // ＜自動前方向き機能＞
-                // 自動前方向き機能とは「移動方角」を設定すると、それに伴って自動的に「軸回転方角」を設定する事を意味している。
+                // さてここで 「移動方角（Z軸）」「移動方角（Y軸）」を、それぞれ「軸回転方角(Z軸)」「軸回転方角(Y軸)」 へコピーしてやると、
+                // なんと移動方角と、キャラクタの向きの同期が簡単に取れるじゃないか！
+                // 「自動前方向き機能」とは、「移動方角」を設定すると、それに伴って自動的に「軸回転方角」を設定する事とする。
                 // 具体的には、以下のようにフレーム毎に、アングル値を上書きコピー（同期）。或いは差分を加算（向き方向を滑らかに描画）していく。
                 //  ・移動方角（Z軸） → 軸回転方角(Z軸)
                 //  ・移動方角（Y軸） → 軸回転方角(Y軸)
@@ -40670,7 +40397,7 @@ Execution Summary:
                 // 例えば90度右に向きたい場合、キャラがいきなりカクっと向きを変えては悲しいので、毎フレーム角速度だけ角を加算するようにして、
                 // 滑らかに向きを変えるようにする。
                 // 「角速度」は正負の注意が必要。正の場合は反時計回り、負の場合は時計回りになる。
-                // 方向転換する場合、ターゲットとなる角度への到達する方法の考え方は、5通りある。（アクセス方法は２通りしかない）
+                // 方向転換する場合、ターゲットとなる角度への到達するアクセス方法は２通りだが、考え方は常に5通りある。
                 // 「常に反時計回で行く」「常に時計回りで行く」「近い角の周り方向で行く」「遠回りな角の周り方向で行く」「現在回っている方向で行く」
                 // である。それぞれ用途があるので、オプション引数などで、選択できるようにしたいな。→できた。
                 
@@ -40681,11 +40408,11 @@ Execution Summary:
                 
                 //＜その他追記＞
                 //・移動速度、移動方角角速度、軸回転角角速度には、それぞれ加速度も設定できる。
-                //・スプラインの基点、補間点を自動で通過するような動きも最近可能。（いつの事だ）
+                //・スプラインの基点、補間点を自動で通過するような動きも最近可能になった。（最近っていつ；）
                 //・軸回転は、本当は Z > X > Y の軸回転順番にするのが一般的のようだ。つまり前方の概念はZ軸で奥であるわけだ、なるほどわかりやすい。
                 //  現在の X > Z > Y は、奥はZ軸だが前方はX軸である。
                 //  もともと2Dの横スクロールシューティングを作ろうと思っており、当初 X > Z だけで設計を行っていたのが原因であるが、もうもどれない。
-                //  まさか3Dなシューティングにするとは自分でも思ってもみなかったなぁ
+                //  まさか、3Dシューティングにするとは自分でも思ってもみなかった・・・
                 
                 //2010/02/19追記
                 // ※たまに「RyRz」という表現が存在する（「RzRy」と異なる）が、これは「Y軸回転 → Z軸回転の順番の移動方角」を表しているので注意。
@@ -40698,9 +40425,12 @@ Execution Summary:
                 //TODO:
                 //躍度（加加速度）の追加
                 //任意軸回転（クォータニオン）
-                //
+                //クラスの肥大化
+                //【メモ】を纏める
                 
-        1716 -> GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
+                
+                
+        1715 -> GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
                     GgafObject() {
                     _pActor = prm_pActor;
                 
@@ -41414,7 +41144,7 @@ Execution Summary:
                 
                 }
                 
-                void GgafDx9Kuroko::execSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
+                void GgafDx9Kuroko::orderSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
                                                                     bool prm_endacc_flg) {
                     _smooth_mv_velo_seq_flg = true;
                     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
@@ -41430,7 +41160,7 @@ Execution Summary:
                 }
                 
                 
-                void GgafDx9Kuroko::execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
+                void GgafDx9Kuroko::orderSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
                                                                     bool prm_endacc_flg) {
                     _smooth_mv_velo_seq_flg = true;
                     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
@@ -41445,7 +41175,7 @@ Execution Summary:
                     _smooth_mv_velo_seq_progress = 0;
                 }
                 
-                void GgafDx9Kuroko::execSmoothMvVeloSequence3(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
+                void GgafDx9Kuroko::orderSmoothMvVeloSequence3(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
                                                                       bool prm_endacc_flg) {
                     _smooth_mv_velo_seq_flg = true;
                     _smooth_mv_velo_seq_p1 = (int)(prm_distance_of_target*1.0 / 4.0);
@@ -42263,7 +41993,7 @@ Execution Summary:
                 
                 
                 
-                void GgafDx9Kuroko::execTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+                void GgafDx9Kuroko::orderTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                                         int prm_way, bool prm_optimize_ang) {
                     angle out_d_angRz;
@@ -42297,7 +42027,7 @@ Execution Summary:
                     setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
                 }
                 
-                void GgafDx9Kuroko::execTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+                void GgafDx9Kuroko::orderTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                                         int prm_way, bool prm_optimize_ang) {
                     angle out_angRz_Target;
@@ -42307,12 +42037,12 @@ Execution Summary:
                                             prm_tZ - _pActor->_Z,
                                             out_angRz_Target,
                                             out_angRy_Target);
-                    execTagettingFaceAngSequence(out_angRz_Target, out_angRy_Target,
+                    orderTagettingFaceAngSequence(out_angRz_Target, out_angRy_Target,
                                                  prm_angVelo, prm_angAcce,
                                                  prm_way, prm_optimize_ang);
                 }
                 
-                void GgafDx9Kuroko::execTagettingRzFaceAngSequence(angle prm_angRz_Target,
+                void GgafDx9Kuroko::orderTagettingRzFaceAngSequence(angle prm_angRz_Target,
                                                                           angvelo prm_angVelo, angacce prm_angAcce,
                                                                           int prm_way) {
                     if (getFaceAngDistance(AXIS_Z, prm_angRz_Target, prm_way) > 0) {
@@ -42326,7 +42056,7 @@ Execution Summary:
                 
                 }
                 
-                void GgafDx9Kuroko::execTagettingRyFaceAngSequence(angle prm_angRy_Target,
+                void GgafDx9Kuroko::orderTagettingRyFaceAngSequence(angle prm_angRy_Target,
                                                                           angvelo prm_angVelo, angacce prm_angAcce,
                                                                           int prm_way) {
                     if (getFaceAngDistance(AXIS_Y, prm_angRy_Target, prm_way) > 0) {
@@ -42339,7 +42069,7 @@ Execution Summary:
                     setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
                 }
                 
-                void GgafDx9Kuroko::execTagettingRxSpinAngleSequence(angle prm_angRx_Target,
+                void GgafDx9Kuroko::orderTagettingRxSpinAngleSequence(angle prm_angRx_Target,
                                                                             angvelo prm_angVelo, angacce prm_angAcce,
                                                                             int prm_way) {
                     if (getFaceAngDistance(AXIS_X, prm_angRx_Target, prm_way) > 0) {
@@ -42352,7 +42082,7 @@ Execution Summary:
                     setStopTarget_FaceAng(AXIS_X, prm_angRx_Target);
                 }
                 
-                void GgafDx9Kuroko::execTagettingMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+                void GgafDx9Kuroko::orderTagettingMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                                                       angvelo prm_angVelo, angacce prm_angAcce,
                                                                       int prm_way, bool prm_optimize_ang) {
                     angle out_d_angRz;
@@ -42391,7 +42121,7 @@ Execution Summary:
                 }
                 
                 
-                void GgafDx9Kuroko::execTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+                void GgafDx9Kuroko::orderTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                                                       angvelo prm_angVelo, angacce prm_angAcce,
                                                                       int prm_way, bool prm_optimize_ang) {
                     angle out_angRz_Target;
@@ -42401,13 +42131,13 @@ Execution Summary:
                                             prm_tZ - _pActor->_Z,
                                             out_angRz_Target,
                                             out_angRy_Target);
-                    execTagettingMvAngSequence(out_angRz_Target, out_angRy_Target,
+                    orderTagettingMvAngSequence(out_angRz_Target, out_angRy_Target,
                                                prm_angVelo, prm_angAcce,
                                                prm_way, prm_optimize_ang);
                 }
                 
                 
-                void GgafDx9Kuroko::execTagettingRzMvAngSequence(angle prm_angRz_Target,
+                void GgafDx9Kuroko::orderTagettingRzMvAngSequence(angle prm_angRz_Target,
                                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                                         int prm_way) {
                     if (getRzMvAngDistance(prm_angRz_Target, prm_way) > 0) {
@@ -42421,7 +42151,7 @@ Execution Summary:
                 
                 }
                 
-                void GgafDx9Kuroko::execTagettingRyMvAngSequence(angle prm_angRy_Target,
+                void GgafDx9Kuroko::orderTagettingRyMvAngSequence(angle prm_angRy_Target,
                                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                                         int prm_way) {
                     if (getRyMvAngDistance(prm_angRy_Target, prm_way) > 0) {
@@ -42564,8 +42294,8 @@ Top 10 Lines:
 
      Line      Count
 
-     1982       3432
-      126       1716
+     1979       3432
+      123       1715
 
 Execution Summary:
 
@@ -42573,8 +42303,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     5148   Total number of line executions
-  1716.00   Average executions per line
+     5147   Total number of line executions
+  1715.67   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/actor/GgafDx9BoardSetActor.cpp:
@@ -42682,7 +42412,7 @@ Execution Summary:
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-        1512 -> GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
+        1513 -> GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
                                                          const char* prm_model_id,
                                                          const char* prm_effect_id,
                                                          const char* prm_technique,
@@ -42789,8 +42519,8 @@ Top 10 Lines:
 
      Line      Count
 
+        6       1513
       105       1513
-        6       1512
 
 Execution Summary:
 
@@ -42798,8 +42528,8 @@ Execution Summary:
         3   Lines executed
     75.00   Percent of the file executed
 
-     3025   Total number of line executions
-   756.25   Average executions per line
+     3026   Total number of line executions
+   756.50   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/actor/GgafDx9DrawableActor.cpp:
@@ -43116,7 +42846,7 @@ Execution Summary:
                 using namespace GgafDx9Core;
                 
                 
-        1716 -> GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
+        1715 -> GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
                                                              GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name) {
                     _obj_class |= Obj_GgafDx9GeometricActor;
                     _class_name = "GgafDx9GeometricActor";
@@ -43399,19 +43129,19 @@ Execution Summary:
                     return true;
                 }
                 
-                void GgafDx9GeometricActor::setCoordinateBy(GgafDx9GeometricActor* prm_pActor) {
+                void GgafDx9GeometricActor::locateWith(GgafDx9GeometricActor* prm_pActor) {
                     _X = prm_pActor->_X;
                     _Y = prm_pActor->_Y;
                     _Z = prm_pActor->_Z;
                 }
                 
-                void GgafDx9GeometricActor::setCoordinateBy(GgafDx9GeoElem* prm_pGgafDx9GeoElem) {
+                void GgafDx9GeometricActor::locateWith(GgafDx9GeoElem* prm_pGgafDx9GeoElem) {
                     _X = prm_pGgafDx9GeoElem->_X;
                     _Y = prm_pGgafDx9GeoElem->_Y;
                     _Z = prm_pGgafDx9GeoElem->_Z;
                 }
                 
-                void GgafDx9GeometricActor::setRotationBy(GgafDx9GeometricActor* prm_pActor) {
+                void GgafDx9GeometricActor::rotateWith(GgafDx9GeometricActor* prm_pActor) {
                     _RX = prm_pActor->_RX;
                     _RY = prm_pActor->_RY;
                     _RZ = prm_pActor->_RZ;
@@ -43523,8 +43253,8 @@ Top 10 Lines:
 
      Line      Count
 
-        7       1716
       309       1716
+        7       1715
 
 Execution Summary:
 
@@ -43532,8 +43262,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     3432   Total number of line executions
-  1144.00   Average executions per line
+     3431   Total number of line executions
+  1143.67   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/model/supporter/GgafDx9TextureBlinker.cpp:
@@ -44795,7 +44525,7 @@ Execution Summary:
                 using namespace GgafDx9Core;
                 using namespace GgafDx9LibStg;
                 
-          11 -> DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model_id) :
+          10 -> DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model_id) :
                     GgafDx9SpriteActor(prm_name,
                                        prm_model_id,
                                        "DefaultSpriteEffect",
@@ -44822,8 +44552,8 @@ Top 10 Lines:
 
      Line      Count
 
-        7         11
        24         11
+        7         10
 
 Execution Summary:
 
@@ -44831,8 +44561,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-       22   Total number of line executions
-     7.33   Average executions per line
+       21   Total number of line executions
+     7.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9LibStg\GprofCdt/../src/jp/ggaf/dx9libstg/actor/DefaultD3DXAniMeshActor.cpp:
@@ -45294,7 +45024,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 
                 
-         720 -> CurveLaserChip::CurveLaserChip(const char* prm_name, const char* prm_model) :
+         719 -> CurveLaserChip::CurveLaserChip(const char* prm_name, const char* prm_model) :
                     LaserChip(prm_name, prm_model) {
                     _class_name = "CurveLaserChip";
                     _tmpX = 0;
@@ -45393,8 +45123,8 @@ Top 10 Lines:
 
      Line      Count
 
-        8        720
        98        720
+        8        719
 
 Execution Summary:
 
@@ -45402,8 +45132,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     1440   Total number of line executions
-   480.00   Average executions per line
+     1439   Total number of line executions
+   479.67   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9LibStg\GprofCdt/../src/jp/ggaf/dx9libstg/actor/laserchip/LaserChip.cpp:
@@ -45414,7 +45144,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 
                 
-        1004 -> LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
+        1003 -> LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
                      GgafDx9MeshSetActor(prm_name,
                                          string("11/" + string(prm_model)).c_str(),
                                          "LaserChipEffect",
@@ -45859,8 +45589,8 @@ Top 10 Lines:
 
      Line      Count
 
-        8       1004
       442       1004
+        8       1003
 
 Execution Summary:
 
@@ -45868,8 +45598,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     2008   Total number of line executions
-   669.33   Average executions per line
+     2007   Total number of line executions
+   669.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9LibStg\GprofCdt/../src/jp/ggaf/dx9libstg/actor/laserchip/HomingLaserChip.cpp:
@@ -46662,7 +46392,7 @@ Execution Summary:
                 
                 int CollisionChecker::_num_check = 0;
                 LinearOctreeForActor* CollisionChecker::_pLinearOctree = NULL;
-        1687 -> CollisionChecker::CollisionChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_pActor) {
+        1683 -> CollisionChecker::CollisionChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_pActor) {
                     if (CollisionChecker::_pLinearOctree == NULL) {
                         CollisionChecker::_pLinearOctree  = ((DefaultUniverse*)(GgafGod::_pGod->_pUniverse))->_pLinearOctree;
                     }
@@ -46956,7 +46686,7 @@ Top 10 Lines:
      Line      Count
 
       290       3374
-        9       1687
+        9       1683
 
 Execution Summary:
 
@@ -46964,8 +46694,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     5061   Total number of line executions
-  1687.00   Average executions per line
+     5057   Total number of line executions
+  1685.67   Average executions per line
 
 
 *** File C:/cygwin/workspace/GgafDx9LibStg/include/jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h:
@@ -52245,7 +51975,7 @@ Execution Summary:
                 void operator delete[](void*, const std::nothrow_t&) throw();
                 
                 // Default placement versions of operator new.
-       35769 -> inline void* operator new(std::size_t, void* __p) throw() { return __p; }
+      135976 -> inline void* operator new(std::size_t, void* __p) throw() { return __p; }
                 inline void* operator new[](std::size_t, void* __p) throw() { return __p; }
                 
                 // Default placement versions of operator delete.
@@ -52263,7 +51993,7 @@ Top 10 Lines:
 
      Line      Count
 
-      103      35769
+      103     135976
 
 Execution Summary:
 
@@ -52271,8 +52001,8 @@ Execution Summary:
         3   Lines executed
    100.00   Percent of the file executed
 
-    35769   Total number of line executions
- 11923.00   Average executions per line
+   135976   Total number of line executions
+ 45325.33   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/Camera.cpp:
@@ -52514,7 +52244,7 @@ Execution Summary:
                 }
                 
                 void WorldBoundSpace001::processBehavior() {
-                    setCoordinateBy(P_CAM);
+                    locateWith(P_CAM);
                     //_pUvFlipper->behave();
                 }
                 void WorldBoundSpace001::processJudgement() {
@@ -52781,7 +52511,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-         100 -> EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "EffectExplosion001") {
+          98 -> EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "EffectExplosion001") {
                     _class_name = "EffectExplosion001";
                     changeEffectTechnique("DestBlendOne"); //加算合成Technique指定
                     defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv);
@@ -52829,7 +52559,7 @@ Top 10 Lines:
      Line      Count
 
        47        200
-        8        100
+        8         98
 
 Execution Summary:
 
@@ -52837,8 +52567,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      300   Total number of line executions
-   100.00   Average executions per line
+      298   Total number of line executions
+    99.33   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/effect/EffectTurbo001.cpp:
@@ -52914,7 +52644,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-          10 -> EffectTurbo002::EffectTurbo002(const char* prm_name) : DefaultSpriteActor(prm_name, "Turbo002") {
+           9 -> EffectTurbo002::EffectTurbo002(const char* prm_name) : DefaultSpriteActor(prm_name, "Turbo002") {
                     _class_name = "EffectTurbo002";
                     inactivateImmediately();
                     changeEffectTechnique("DestBlendOne"); //加算合成
@@ -52962,7 +52692,7 @@ Top 10 Lines:
      Line      Count
 
        47         20
-        8         10
+        8          9
 
 Execution Summary:
 
@@ -52970,8 +52700,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-       30   Total number of line executions
-    10.00   Average executions per line
+       29   Total number of line executions
+     9.67   Average executions per line
 
 
 *** File C:/Program Files/Microsoft DirectX SDK (February 2010)/Include/d3dx9math.h:
@@ -53289,7 +53019,7 @@ Execution Summary:
                 typedef struct D3DXMATRIX : public D3DMATRIX
                 {
                 public:
-        5160 ->     D3DXMATRIX() {};
+        5153 ->     D3DXMATRIX() {};
                     D3DXMATRIX( CONST FLOAT * );
                     D3DXMATRIX( CONST D3DMATRIX& );
                     D3DXMATRIX( CONST D3DXFLOAT16 * );
@@ -54777,7 +54507,7 @@ Top 10 Lines:
 
      Line      Count
 
-      315       5160
+      315       5153
       475       2263
       165         32
 
@@ -54787,8 +54517,8 @@ Execution Summary:
         3   Lines executed
    100.00   Percent of the file executed
 
-     7455   Total number of line executions
-  2485.00   Average executions per line
+     7448   Total number of line executions
+  2482.67   Average executions per line
 
 
 *** File C:/Program Files/Microsoft DirectX SDK (February 2010)/Include/d3d9types.h:
@@ -54842,7 +54572,7 @@ Execution Summary:
                 
                 
                 #ifndef D3DVECTOR_DEFINED
-       97411 -> typedef struct _D3DVECTOR {
+      334449 -> typedef struct _D3DVECTOR {
                     float x;
                     float y;
                     float z;
@@ -54871,7 +54601,7 @@ Execution Summary:
                 #endif
                 
                 #ifndef D3DMATRIX_DEFINED
-        5160 -> typedef struct _D3DMATRIX {
+        5150 -> typedef struct _D3DMATRIX {
                     union {
                         struct {
                             float        _11, _12, _13, _14;
@@ -57213,8 +56943,8 @@ Top 10 Lines:
 
      Line      Count
 
-       51      97411
-       80       5160
+       51     334449
+       80       5150
 
 Execution Summary:
 
@@ -57222,8 +56952,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-   102571   Total number of line executions
- 51285.50   Average executions per line
+   339599   Total number of line executions
+169799.50   Average executions per line
 
 
 *** File C:/Program Files/Microsoft DirectX SDK (February 2010)/Include/d3dx9math.inl:
@@ -57528,7 +57258,7 @@ Execution Summary:
                 }
                 
                 D3DXINLINE
-       97377 -> D3DXVECTOR3::D3DXVECTOR3( FLOAT fx, FLOAT fy, FLOAT fz )
+      334411 -> D3DXVECTOR3::D3DXVECTOR3( FLOAT fx, FLOAT fy, FLOAT fz )
                 {
                     x = fx;
                     y = fy;
@@ -59214,7 +58944,7 @@ Execution Summary:
                 
                 D3DXINLINE D3DXMATRIX* D3DXMatrixIdentity
                     ( D3DXMATRIX *pOut )
-        8237 -> {
+       29786 -> {
                 #ifdef D3DX_DEBUG
                     if(!pOut)
                         return NULL;
@@ -59484,8 +59214,8 @@ Top 10 Lines:
 
      Line      Count
 
-      302      97377
-     1988       8237
+      302     334411
+     1988      29786
 
 Execution Summary:
 
@@ -59493,8 +59223,8 @@ Execution Summary:
         3   Lines executed
    100.00   Percent of the file executed
 
-   105614   Total number of line executions
- 35204.67   Average executions per line
+   364197   Total number of line executions
+121399.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/enemy/Tamago/TamagoActor.cpp:
@@ -59511,22 +59241,13 @@ Execution Summary:
                 
                 void TamagoActor::initialize() {
                     setScale(2000);
-                //    HRESULT hr = _pAc->GetAnimationSet(0, &pAnimationSet0); //ID0番のアニメーションセット取得
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    _last_time =  pAnimationSet0->GetPeriod();
-                //    hr = _pAc->SetTrackEnable(0, TRUE);//トラック有効
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    hr = _pAc->SetTrackPosition(0,_last_time);//トラック0(=ID0番)のローカル時間を0にする
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
-                //    hr = _pAc->GetAnimationSet(0, &pAnimationSet0); //ID0番のアニメーションセット取得
-                //    checkDxException(hr, D3D_OK, "失敗しました。");
                 }
                 
                 void TamagoActor::processBehavior() {
                     if (GgafDx9Input::isPushedDownKey(DIK_0)) {
                         _pPuppeteer->play(LEFT_HAND,
                                             0,          //UINT   prm_performance_no,
-                                            1.8,        //double prm_loopnum,
+                                            -1,         //double prm_loopnum,
                                             3.0,        //double prm_target_speed,
                                             0,          //frame  prm_frame_duaration_of_shift_speed,
                                             1.0,        //double prm_target_weight,
@@ -59537,9 +59258,9 @@ Execution Summary:
                         _pPuppeteer->exchangPerformance();
                         _pPuppeteer->play(LEFT_HAND,
                                             1,          //UINT   prm_performance_no,
-                                            -1,        //double prm_loopnum,
-                                            -3.0,       //double prm_target_speed,
-                                            0,          //frame  prm_frame_duaration_of_shift_speed,
+                                            -1,         //double prm_loopnum,
+                                            -10.0,      //double prm_target_speed,
+                                            120,        //frame  prm_frame_duaration_of_shift_speed,
                                             1.0,        //double prm_target_weight,
                                             0    );     //frame  prm_frame_duaration_of_shift_weight
                     }
@@ -59553,29 +59274,10 @@ Execution Summary:
                 //        _pPuppeteer->exchangStick();
                     }
                 
-                //    _TRACE_("GgafDx9Input::isBeingPressedKey(DIK_E)="<<(GgafDx9Input::isBeingPressedKey(DIK_E)));
                     if (GgafDx9Input::isPushedDownKey(DIK_E)) {
-                //        _pPuppeteer->stop();
-                //        _TRACE_("GgafDx9Input::isPushedDownKey(DIK_E)!!!!!!");
-                //        HRESULT hr;
-                //        LPD3DXANIMATIONSET pAnimationSet;
-                //        HRESULT hr = _pAc->GetAnimationSet(1, &pAnimationSet); //ID1番のアニメーションセット取得
-                //        checkDxException(hr, D3D_OK, "失敗しました。");
-                //        hr = _pAc->SetTrackAnimationSet(0, pAnimationSet);//ID1番のアニメーションセットをトラック0番にセット
-                //        checkDxException(hr, D3D_OK, "失敗しました。");
-                //        HRESULT hr = _pAc->SetTrackEnable(0, TRUE);//トラック有効
-                //        checkDxException(hr, D3D_OK, "失敗しました。");
                     }
                 
                     if (GgafDx9Input::isPushedDownKey(DIK_R)) {
-                        _TRACE_("GgafDx9Input::isPushedDownKey(DIK_R)!!!!!!");
-                //        _pPuppeteer->play();
-                //        HRESULT hr = _pAc->SetTrackEnable(0, FALSE);//トラック無効
-                //        checkDxException(hr, D3D_OK, "失敗しました。");
-                //    } else {
-                //        HRESULT hr = _pAc->SetTrackPosition(0,_last_time);//トラック0(=ID0番)のローカル時間を0にする
-                //        checkDxException(hr, D3D_OK, "失敗しました。");
-                //        _last_time -= (1.0/60.0);
                     }
                 
                     _pPuppeteer->behave();
@@ -59597,7 +59299,7 @@ Top 10 Lines:
 
      Line      Count
 
-       92          6
+       64          6
         8          3
 
 Execution Summary:
@@ -59702,7 +59404,7 @@ Execution Summary:
                 
                 void MagicPointItem001::processBehavior() {
                     if (getActivePartFrame() < 60 && getActivePartFrame() % 10 == 0) {
-                        _pKuroko->execTagettingMvAngSequence(P_MYSHIP,2000,2000,TURN_CLOSE_TO);
+                        _pKuroko->orderTagettingMvAngSequence(P_MYSHIP,2000,2000,TURN_CLOSE_TO);
                     }
                     _pKuroko->behave();
                 }
@@ -59906,7 +59608,7 @@ Execution Summary:
                 void EffectMyShipExplosion::onActive() {
                     _pUvFlipper->setPtnNoToTop();
                     _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 20);
-                    setCoordinateBy(P_MYSHIP);
+                    locateWith(P_MYSHIP);
                     _fAlpha = 0.99;
                     _pScaler->setScale(8000);
                     _pKuroko->setFaceAngVelo(AXIS_Z, 2000);
@@ -59914,7 +59616,7 @@ Execution Summary:
                 
                 void EffectMyShipExplosion::processBehavior() {
                     _fAlpha -= 0.01;
-                    setCoordinateBy(P_MYSHIP);
+                    locateWith(P_MYSHIP);
                     _pUvFlipper->behave();
                     _pKuroko->behave();
                     _pScaler->behave();
@@ -60083,7 +59785,7 @@ Execution Summary:
                 
                     if (VB_PLAY->isDoublePushedDown(VB_OPTION,8,8)) {
                         //もとに戻す
-                        _pKuroko->execTagettingMvAngSequence(
+                        _pKuroko->orderTagettingMvAngSequence(
                                         0,
                                         0,
                                         20000, 0,
@@ -60167,18 +59869,18 @@ Execution Summary:
                                 _pKuroko->setVxMvAcce(0);
                                 _pKuroko->setVyMvAcce(0);
                                 _pKuroko->setVzMvAcce(0);
-                                setCoordinateBy(pGeoMyShip);
+                                locateWith(pGeoMyShip);
                                 _return_to_default_position_seq = false;
                             }
                 
                         } else {
-                            setCoordinateBy(pGeoMyShip);
+                            locateWith(pGeoMyShip);
                         }
                     }
                 
                 
                     //ギズモ
-                    _pDirectionVector->setCoordinateBy(this);
+                    _pDirectionVector->locateWith(this);
                     _pDirectionVector->_pKuroko->setRzRyMvAng(_pKuroko->_angRzMv, _pKuroko->_angRyMv);
                 
                     _pKuroko->behave();
@@ -60701,7 +60403,7 @@ Execution Summary:
                         //ターボ開始時
                         EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDispatcher_EffectTurbo002->employForce();
                          if (pTurbo002) {
-                             pTurbo002->setCoordinateBy(this);
+                             pTurbo002->locateWith(this);
                              pTurbo002->activate();
                          }
                         (this->*paFuncTurbo[_way])();
@@ -60846,7 +60548,7 @@ Execution Summary:
                             MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
                             if (pShot) {
                                 _pSeTransmitter->play3D(2);
-                                pShot->setCoordinateBy(this);
+                                pShot->locateWith(this);
                                 pShot->activate();
                             }
                             if (_frame_soft_rapidshot >= 12) {
@@ -60887,7 +60589,7 @@ Execution Summary:
                     _pSeTransmitter->play3D(0);
                     EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
                     if (pExplo001) {
-                        pExplo001->setCoordinateBy(this);
+                        pExplo001->locateWith(this);
                         pExplo001->activate();
                     }
                 
@@ -61803,7 +61505,7 @@ Execution Summary:
                         _next = NULL;
                     }
                 
-         199 ->     GgafDx9GeoElem(GgafDx9GeometricActor* prm_pActor) {
+         200 ->     GgafDx9GeoElem(GgafDx9GeometricActor* prm_pActor) {
                         _X = prm_pActor->_X;
                         _Y = prm_pActor->_Y;
                         _Z = prm_pActor->_Z;
@@ -61850,7 +61552,7 @@ Top 10 Lines:
      Line      Count
 
        84        400
-       51        199
+       51        200
 
 Execution Summary:
 
@@ -61858,8 +61560,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-      599   Total number of line executions
-   299.50   Average executions per line
+      600   Total number of line executions
+   300.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/my/MyShot001.cpp:
@@ -61870,7 +61572,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-         225 -> MyShot001::MyShot001(const char* prm_name) :
+         224 -> MyShot001::MyShot001(const char* prm_name) :
                         SingleLaser(prm_name, "MyShot001") { //SingleLaserは最大27セットである
                     _class_name = "MyShot001";
                     MyStgUtil::resetMyShot001Status(_pStatus);
@@ -61918,7 +61620,7 @@ Execution Summary:
                         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
                         if (pExplo001) {
                             pExplo001->activate();
-                            pExplo001->setCoordinateBy(this);
+                            pExplo001->locateWith(this);
                         }
                         sayonara();
                     //}
@@ -61937,7 +61639,7 @@ Top 10 Lines:
      Line      Count
 
        66        450
-        8        225
+        8        224
 
 Execution Summary:
 
@@ -61945,8 +61647,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      675   Total number of line executions
-   225.00   Average executions per line
+      674   Total number of line executions
+   224.67   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/my/MyStraightLaserChip001.cpp:
@@ -61979,7 +61681,7 @@ Execution Summary:
                     StraightLaserChip::processBehavior();
                     //根元からレーザー表示のため強敵に座標補正
                     if (onChangeToActive()) {
-                        setCoordinateBy(P_MYSHIP);
+                        locateWith(P_MYSHIP);
                     }
                 }
                 
@@ -62005,7 +61707,7 @@ Execution Summary:
                             //破壊されたエフェクト
                             EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
                             if (pExplo001) {
-                                pExplo001->setCoordinateBy(this);
+                                pExplo001->locateWith(this);
                                 pExplo001->activate();
                             }
                             sayonara();
@@ -62018,7 +61720,7 @@ Execution Summary:
                         //破壊されたエフェクト
                         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
                         if (pExplo001) {
-                            pExplo001->setCoordinateBy(this);
+                            pExplo001->locateWith(this);
                             pExplo001->activate();
                         }
                         sayonara();
@@ -62978,7 +62680,7 @@ Execution Summary:
                     _pScaler->intoTargetScaleLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
                     _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //回転
                     _pSeTransmitter->play3D(0); //ロックオンSE
-                    setCoordinateBy(_pTarget);
+                    locateWith(_pTarget);
                     _pProgress->change(EffectLockon001_SCENE_PROG_FIRST_LOCK);
                 }
                 
@@ -63002,7 +62704,7 @@ Execution Summary:
                                  if (abs(_pTarget->_X-_X) <= 200000 &&
                                      abs(_pTarget->_Y-_Y) <= 200000 &&
                                      abs(_pTarget->_Z-_Z) <= 200000) {
-                                     setCoordinateBy(_pTarget);
+                                     locateWith(_pTarget);
                                      _pKuroko->setMvVelo(0);
                                      _pKuroko->_angveloFace[AXIS_Z] = 1000;
                                  } else {
@@ -63127,7 +62829,7 @@ Execution Summary:
                     _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
                     _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //右回転
                     //_pSeTransmitter->play3D(0); //ロックオンSE
-                    setCoordinateBy(_pTarget);
+                    locateWith(_pTarget);
                 
                     _pProgress->change(EffectLockon001_SCENE_PROG_LOCK);
                 }
@@ -63153,7 +62855,7 @@ Execution Summary:
                                  if (abs(_pTarget->_X-_X) <= 200000 &&
                                      abs(_pTarget->_Y-_Y) <= 200000 &&
                                      abs(_pTarget->_Z-_Z) <= 200000) {
-                                     setCoordinateBy(_pTarget);
+                                     locateWith(_pTarget);
                                      _pKuroko->setMvVelo(0);
                                  } else {
                                      _pKuroko->setMvAng(_pTarget);
@@ -63244,7 +62946,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-         720 -> MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
+         719 -> MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
                         CurveLaserChip(prm_name, "MyCurveLaserChip001") {
                     _class_name = "MyCurveLaserChip001";
                     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
@@ -63405,7 +63107,7 @@ Execution Summary:
                 
                     //根元からレーザー表示のため強制的に座標補正
                     if (onChangeToActive()) {
-                        setCoordinateBy(_pOrg);
+                        locateWith(_pOrg);
                         _tmpX = _X;
                         _tmpY = _Y;
                         _tmpZ = _Z;
@@ -63443,7 +63145,7 @@ Execution Summary:
                             //破壊されたエフェクト
                             EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
                             if (pExplo001) {
-                                pExplo001->setCoordinateBy(this);
+                                pExplo001->locateWith(this);
                                 pExplo001->activate();
                             }
                             //ロックオン可能アクターならロックオン
@@ -63465,7 +63167,7 @@ Execution Summary:
                         //破壊されたエフェクト
                         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
                         if (pExplo001) {
-                            pExplo001->setCoordinateBy(this);
+                            pExplo001->locateWith(this);
                             pExplo001->activate();
                         }
                         sayonara();
@@ -63496,7 +63198,7 @@ Top 10 Lines:
      Line      Count
 
       250       1440
-        8        720
+        8        719
 
 Execution Summary:
 
@@ -63504,8 +63206,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     2160   Total number of line executions
-   720.00   Average executions per line
+     2159   Total number of line executions
+   719.67   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/my/option/MyOption.cpp:
@@ -63985,7 +63687,7 @@ Execution Summary:
                         MyCurveLaserChip001* pLaserChip = (MyCurveLaserChip001*)_pLaserChipDispatcher->employ();
                         if (pLaserChip) {
                             if (_pLaserChipDispatcher->_pEffectActor_Irradiate) {
-                                _pLaserChipDispatcher->_pEffectActor_Irradiate->setCoordinateBy(this);
+                                _pLaserChipDispatcher->_pEffectActor_Irradiate->locateWith(this);
                             }
                             pLaserChip->_pKuroko->_vX = Q._x;
                             pLaserChip->_pKuroko->_vY = Q._y;
@@ -64035,7 +63737,7 @@ Execution Summary:
                         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
                         if (pShot) {
                             _pSeTransmitter->play3D(1);
-                            pShot->setCoordinateBy(this);
+                            pShot->locateWith(this);
                             pShot->_pKuroko->_angFace[AXIS_X] = _RX;
                             pShot->_pKuroko->_angFace[AXIS_Z] = _RZ;
                             pShot->_pKuroko->_angFace[AXIS_Y] = _RY;
@@ -64048,7 +63750,7 @@ Execution Summary:
                 //        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
                 //        if (pShot) {
                 //            _pSeTransmitter->play3D(1);
-                //            pShot->setCoordinate(this);
+                //            pShot->locate(this);
                 //            pShot->_pKuroko->_angFace[AXIS_X] = _RX;
                 //            pShot->_pKuroko->_angFace[AXIS_Z] = _RZ;
                 //            pShot->_pKuroko->_angFace[AXIS_Y] = _RY;
@@ -64128,7 +63830,7 @@ Execution Summary:
                 
                 //    GgafDx9Quaternion(float prm_t, float prm_x, float prm_y, float prm_z);
                 
-       ##### ->     GgafDx9Quaternion(float prm_t, float prm_x, float prm_y, float prm_z) : GgafObject(),
+      203822 ->     GgafDx9Quaternion(float prm_t, float prm_x, float prm_y, float prm_z) : GgafObject(),
                         _t(prm_t),
                         _x(prm_x),
                         _y(prm_y),
@@ -64164,6 +63866,7 @@ Top 10 Lines:
 
      Line      Count
 
+       28     203822
        19          8
 
 Execution Summary:
@@ -64172,8 +63875,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-        8   Total number of line executions
-     4.00   Average executions per line
+   203830   Total number of line executions
+101915.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/my/option/MyOptionLockonController.cpp:
@@ -64590,7 +64293,7 @@ Execution Summary:
                         angle* pa_angWay = NEW angle[ _firing_num+2];
                         GgafDx9Util::getWayAngle2D(angFireCenter, _firing_num+1, angRenge / _firing_num, pa_angWay);
                         for (int i = 0; i < _firing_num; i++) { //両端の方向は不要
-                            _papMyTorpedo[i]->setCoordinateBy(P_MYSHIP);
+                            _papMyTorpedo[i]->locateWith(P_MYSHIP);
                             if (target_num == 0) {
                                 _papMyTorpedo[i]->_pTarget = NULL;
                             } else {
@@ -64712,7 +64415,7 @@ Execution Summary:
                         if (_pTailEffectDispatcher->_num_chip_active < _length_TailEffect) {
                             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)_pTailEffectDispatcher->employ();
                             if (pTailEffect) {
-                                pTailEffect->setCoordinate(_begin_X,_begin_Y,_begin_Z);
+                                pTailEffect->locate(_begin_X,_begin_Y,_begin_Z);
                                 pTailEffect->activate();
                             }
                         }
@@ -64722,12 +64425,12 @@ Execution Summary:
                                 //減速終了
                                 _pKuroko->setMvAcce(500);
                                 if (_pTarget) {
-                                    _pKuroko->execTagettingMvAngSequence(
+                                    _pKuroko->orderTagettingMvAngSequence(
                                                 _pTarget,
                                                 2000, 200,
                                                 TURN_CLOSE_TO, false);
                                 } else {
-                                    _pKuroko->execTagettingMvAngSequence(
+                                    _pKuroko->orderTagettingMvAngSequence(
                                                 GgafDx9Universe::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                 2000, 200,
                                                 TURN_CLOSE_TO, false);
@@ -64752,7 +64455,7 @@ Execution Summary:
                                 if (getActivePartFrame() % 10 == 0) {
                                     if (_pTarget) {
                                         if (_pTarget->isActiveActor())  {
-                                            _pKuroko->execTagettingMvAngSequence(
+                                            _pKuroko->orderTagettingMvAngSequence(
                                                         _pTarget,
                                                         1000, 200,
                                                         TURN_CLOSE_TO, false);
@@ -64764,7 +64467,7 @@ Execution Summary:
                                             _pKuroko->setRyMvAngAcce(0);
                                         }
                                     } else {
-                                            _pKuroko->execTagettingMvAngSequence(
+                                            _pKuroko->orderTagettingMvAngSequence(
                                                         GgafDx9Universe::_X_goneRight, _Y, _Z,
                                                         1000, 200,
                                                         TURN_CLOSE_TO, false);
@@ -64782,7 +64485,7 @@ Execution Summary:
                                 if (getActivePartFrame() % 20 == 0) {
                                     if (_pTarget) {
                                         if (_pTarget->isActiveActor())  {
-                                            _pKuroko->execTagettingMvAngSequence(
+                                            _pKuroko->orderTagettingMvAngSequence(
                                                         _pTarget,
                                                         300, 0,
                                                         TURN_CLOSE_TO, false);
@@ -64794,7 +64497,7 @@ Execution Summary:
                                             _pKuroko->setRyMvAngAcce(0);
                                         }
                                     } else {
-                                            _pKuroko->execTagettingMvAngSequence(
+                                            _pKuroko->orderTagettingMvAngSequence(
                                                         GgafDx9Universe::_X_goneRight, _Y, _Z,
                                                         300, 0,
                                                         TURN_CLOSE_TO, false);
@@ -64857,7 +64560,7 @@ Execution Summary:
                     //爆風発生
                     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)_pMyOptionTorpedoController->_pDispatcher_TorpedoBlast->employ();
                     if (pBlast) {
-                        pBlast->setCoordinateBy(this);
+                        pBlast->locateWith(this);
                         pBlast->activate();
                     }
                 
@@ -64995,8 +64698,8 @@ Execution Summary:
                 }
                 void MyTorpedoTail::processBehaviorHeadChip() {
                 
-                    setCoordinateBy(_pMyTorpedo);
-                    setRotationBy(_pMyTorpedo);
+                    locateWith(_pMyTorpedo);
+                    rotateWith(_pMyTorpedo);
                 }
                 
          448 -> MyTorpedoTail::~MyTorpedoTail() {
@@ -66836,7 +66539,7 @@ Execution Summary:
                     angle* paAngWay = NEW angle[_level-_old_level];
                     GgafDx9Util::getRadialAngle2D(0, _level-_old_level, paAngWay);
                     for (int i = _old_level; i < _new_level; i++) {
-                        _papEffect[i]->setCoordinateBy(P_MYSHIP);
+                        _papEffect[i]->locateWith(P_MYSHIP);
                         _papEffect[i]->_pKuroko->setRzRyMvAng(ANGLE45, paAngWay[i]);
                         _papEffect[i]->_pKuroko->setMvVelo(200000 / (_time_of_casting/_cast_speed));
                         _papEffect[i]->_pKuroko->setMvAcce(0);
@@ -66861,7 +66564,7 @@ Execution Summary:
                     for (int i = _old_level; i < _new_level; i++) {
                         _papEffect[i]->_pKuroko->setMvVelo(1000);
                         _papEffect[i]->_pKuroko->setMvAcce(100);
-                        _papEffect[i]->_pKuroko->execTagettingMvAngSequence(P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
+                        _papEffect[i]->_pKuroko->orderTagettingMvAngSequence(P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
                                                                            P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[i]->_Yorg,
                                                                            P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg,
                                                                            3000,
@@ -66889,7 +66592,7 @@ Execution Summary:
                             ok++;
                             _papEffect[i]->_pKuroko->setMvVelo(500);
                         }
-                        _papEffect[i]->_pKuroko->execTagettingMvAngSequence(targetX,
+                        _papEffect[i]->_pKuroko->orderTagettingMvAngSequence(targetX,
                                                                            targetY,
                                                                            targetZ,
                                                                            40000,
@@ -66906,7 +66609,7 @@ Execution Summary:
                 	_r_effect = 1.0f;
                     for (int i = _old_level; i < _new_level; i++) {
                         _papEffect[i]->setAlpha(_r_effect);
-                        _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
+                        _papEffect[i]->locateWith(P_MYOPTIONCON->_papMyOption[i]);
                         P_MYOPTIONCON->_papMyOption[i]->setAlpha(0.0);
                     }
                 
@@ -66917,7 +66620,7 @@ Execution Summary:
                     for (int i = _old_level; i < _new_level; i++) {
                         _papEffect[i]->setAlpha(_r_effect);
                 		_papEffect[i]->setScaleRate(3.0f+(1.0f-_r_effect)*4.0);
-                        _papEffect[i]->setCoordinateBy(P_MYOPTIONCON->_papMyOption[i]);
+                        _papEffect[i]->locateWith(P_MYOPTIONCON->_papMyOption[i]);
                         P_MYOPTIONCON->_papMyOption[i]->setAlpha(1.0f-_r_effect);
                     }
                     if (_r_effect < 0) {
@@ -67101,7 +66804,7 @@ Execution Summary:
                 //
                 //    //タイトル表示アクション TITLEBOARD_PROG_ENTRANCE 時の処理
                 //    if (_pProgress->wasChangedTo(TITLEBOARD_PROG_ENTRANCE)) {
-                //        setCoordinate(200, 1000);
+                //        locate(200, 1000);
                 //    }
                 //    if (_pProgress->get() == TITLEBOARD_PROG_ENTRANCE) {
                 //        _y -= 1;
@@ -67114,7 +66817,7 @@ Execution Summary:
                 //
                 //    //タイトル表示静止 TITLEBOARD_PROG_DISP 時の処理
                 //    if (_pProgress->wasChangedTo(TITLEBOARD_PROG_DISP)) {
-                //        setCoordinate(200, 150);
+                //        locate(200, 150);
                 //    }
                 //    if (_pProgress->get() == TITLEBOARD_PROG_DISP) {
                 //    }
@@ -68902,19 +68605,19 @@ Execution Summary:
                             case 100: {
                                 TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(10000000);
                                 getLordActor()->addSubGroup(pActor);
-                                pActor->setCoordinate(-200*1000,0,-200*1000);
+                                pActor->locate(-200*1000,0,-200*1000);
                                 break;
                             }
                             case 120: {
                                 TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(10000001);
                                 getLordActor()->addSubGroup(pActor);
-                                pActor->setCoordinate(0,0,0);
+                                pActor->locate(0,0,0);
                                 break;
                             }
                             case 130: {
                                 TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(10000002);
                                 getLordActor()->addSubGroup(pActor);
-                                pActor->setCoordinate(200*1000,0,200*1000);
+                                pActor->locate(200*1000,0,200*1000);
                                 break;
                             }
                             default :
@@ -69534,7 +69237,7 @@ Execution Summary:
                 }
                 void GamePreTitleScene::onReset() {
                     _TRACE_("GamePreTitleScene::onReset()");
-                    _pTitleBoard->setCoordinate(200, 600);
+                    _pTitleBoard->locate(200, 600);
                     _pStringBoard01->update("");
                     _pStringBoard02->update("");
                     blindScene();
@@ -69641,7 +69344,7 @@ Execution Summary:
                     _TRACE_("GameTitleScene::onReset()");
                     _pStringBoard01->update("");
                     _pStringBoard02->update("");
-                    _pTitleBoard->setCoordinate(200, 150);
+                    _pTitleBoard->locate(200, 150);
                     _pProgress->change(GAMETITLE_SCENE_PROG_INIT);
                     unblindScene();
                 }
@@ -69764,13 +69467,13 @@ Execution Summary:
                     //_z = 0.9999999f;
                     //魔法メーター設置
                     _pMagicMeter = NEW MagicMeter("MagicMeter");
-                    _pMagicMeter->setCoordinate(100.0f, Properties::VIEW_SCREEN_HEIGHT - 100.0f,
+                    _pMagicMeter->locate(100.0f, Properties::VIEW_SCREEN_HEIGHT - 100.0f,
                                                 0.00000001f );
                     getLordActor()->addSubGroup(_pMagicMeter);
                 
                     //エネルギーバー設置
                     _pEnagyBar = NEW EnagyBar("EnagyBar");
-                    _pEnagyBar->setCoordinate(100.0f, Properties::VIEW_SCREEN_HEIGHT - 50.0f,
+                    _pEnagyBar->locate(100.0f, Properties::VIEW_SCREEN_HEIGHT - 50.0f,
                                               0.00000001f );
                     getLordActor()->addSubGroup(_pEnagyBar);
                     _zanki = 3;
