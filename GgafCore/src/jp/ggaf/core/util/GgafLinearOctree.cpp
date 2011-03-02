@@ -20,7 +20,6 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) {
         _paSpace[i]._my_index = i;
     }
     _pRegElemFirst = NULL;
-
 }
 
 void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int Z2) {

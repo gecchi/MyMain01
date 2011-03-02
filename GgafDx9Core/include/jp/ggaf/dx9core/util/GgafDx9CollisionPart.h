@@ -67,8 +67,7 @@ public:
      * @param rZ ローカルZ軸回転アングル値(0~360000)
      * @return
      */
-    virtual bool rotateRxRzRy(angle rX, angle rY, angle rZ) {
-        return false;
+    virtual void rotateRxRzRy(angle rX, angle rY, angle rZ) {
     }
 
     virtual ~GgafDx9CollisionPart();

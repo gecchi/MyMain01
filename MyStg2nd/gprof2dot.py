@@ -2270,8 +2270,8 @@ class Theme:
             fontname = "Arial",
             minfontsize = 10.0,
             maxfontsize = 10.0,
-            minpenwidth = 0.5,
-            maxpenwidth = 4.0,
+            minpenwidth = 1.0,
+            maxpenwidth = 5.0,
             gamma = 2.2,
             skew = 1.0):
         self.bgcolor = bgcolor
@@ -2422,7 +2422,7 @@ class DotWriter:
 
         fontname = theme.graph_fontname()
 
-        self.attr('graph', fontname=fontname, ranksep=2.8, nodesep=0.8)
+        self.attr('graph', fontname=fontname, ranksep=0.5, nodesep=0.5, rankdir="LR", normalize="true", concentrate="true")
         self.attr('node', fontname=fontname, shape="box", style="filled", fontcolor="white", width=0, height=0)
         self.attr('edge', fontname=fontname)
 

@@ -23,7 +23,7 @@ public:
 
     void set(int x, int y, int z, int r, bool rotX, bool rotY, bool rotZ);
 
-    bool rotateRxRzRy(angle rX, angle rY, angle rZ) override;
+    void rotateRxRzRy(angle rX, angle rY, angle rZ) override;
 
     virtual ~ColliSphere();
 };

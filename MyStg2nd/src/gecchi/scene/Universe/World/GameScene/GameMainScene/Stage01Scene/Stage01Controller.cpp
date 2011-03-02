@@ -15,13 +15,11 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-    frame f[] = {1,100,120,130};
-    _paFrame_NextEvent = new frame[4];
-    memcpy(_paFrame_NextEvent, f, sizeof(f));
-    _event_num = 4;
-    orderActorToFactory(10000000, TamagoActor, "TamagoActor_1");
-    orderActorToFactory(10000001, TamagoActor, "TamagoActor_2");
-    orderActorToFactory(10000002, TamagoActor, "TamagoActor_3");
+	frame f[] = {1,100,2200,4000};
+	_paFrame_NextEvent = new frame[4];
+	memcpy(_paFrame_NextEvent, f, sizeof(f));
+	_event_num = 4;
+	orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
     // gen01 end
     useProgress(10);
 }
@@ -36,34 +34,32 @@ void Stage01Controller::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-    if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
-        switch (getActivePartFrame()) {
-            case 1: {
-                break;
-            }
-            case 100: {
-                TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(10000000);
-                getLordActor()->addSubGroup(pActor);
-                pActor->locate(-200*1000,0,-200*1000);
-                break;
-            }
-            case 120: {
-                TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(10000001);
-                getLordActor()->addSubGroup(pActor);
-                pActor->locate(0,0,0);
-                break;
-            }
-            case 130: {
-                TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(10000002);
-                getLordActor()->addSubGroup(pActor);
-                pActor->locate(200*1000,0,200*1000);
-                break;
-            }
-            default :
-                break;
-        }
-        _iCnt_Event = (_iCnt_Event < 4-1 ? _iCnt_Event+1 : _iCnt_Event);
-    }
+	if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
+		switch (getActivePartFrame()) {
+			case 1: {
+				break;
+			}
+			case 100: {
+				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
+				addSubLast(pScene);
+				_pProgress->change(STAGE01CONTROLLER_SCENE_PROG_STG01_01_BEGIN);
+				break;
+			}
+			case 2200: {
+				orderSceneToFactory(10000001, Stage01_02, "Stage01_02");
+				break;
+			}
+			case 4000: {
+				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000001);
+				addSubLast(pScene);
+				_pProgress->change(STAGE01CONTROLLER_SCENE_PROG_STG01_02_BEGIN);
+				break;
+			}
+			default :
+				break;
+		}
+		_iCnt_Event = (_iCnt_Event < 4-1 ? _iCnt_Event+1 : _iCnt_Event);
+	}
     // gen02 end
 
     if (_pProgress->wasChangedTo(STAGE01CONTROLLER_SCENE_PROG_INIT)) {

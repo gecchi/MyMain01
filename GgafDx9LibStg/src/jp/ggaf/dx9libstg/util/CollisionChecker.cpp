@@ -129,13 +129,16 @@ void CollisionChecker::updateHitArea() {
             }
 #endif
             pColliPart = _pCollisionArea->_papColliPart[i];
-            if (pColliPart->rotateRxRzRy(_pActor->_RX, _pActor->_RY, _pActor->_RZ)) {
+
+            if (pColliPart->_rotX || pColliPart->_rotY || pColliPart->_rotZ) {
+                pColliPart->rotateRxRzRy(_pActor->_RX, _pActor->_RY, _pActor->_RZ);
                 _need_update_aabb = true;
             }
         }
         if (_need_update_aabb) {
             //ÅŠOˆæ‚ÌAABBXV
             _pCollisionArea->updateAABB();
+            _need_update_aabb = false;
         }
 
         //‚W•ª–Ø‚É“o˜^I
