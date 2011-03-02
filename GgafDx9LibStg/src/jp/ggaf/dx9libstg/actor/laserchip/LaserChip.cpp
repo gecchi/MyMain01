@@ -198,6 +198,7 @@ void LaserChip::processSettlementBehavior() {
     }
 
     GgafDx9MeshSetActor::processSettlementBehavior(); //‚W•ª–Ø“o˜^
+    //TODO:‚W•ª–Ø“o˜^‚¾‚¯‚È‚çprocessSettlementBehavior()‚ğŒÄ‚Ño‚·‚Ì‚Í­‚µŒø—¦‚ªˆ«‚©‚à‚µ‚ê‚È‚¢B
     //“–‚½‚è”»’è—Ìˆæ‚ğXV‚µ‚Ä‚©‚çprocessSettlementBehavior‚Å‚W•ª–Ø“o˜^‚·‚é‚±‚ÆB
 
 }
