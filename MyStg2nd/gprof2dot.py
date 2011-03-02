@@ -2422,7 +2422,7 @@ class DotWriter:
 
         fontname = theme.graph_fontname()
 
-        self.attr('graph', fontname=fontname, ranksep=0.25, nodesep=0.125)
+        self.attr('graph', fontname=fontname, ranksep=2.8, nodesep=0.8)
         self.attr('node', fontname=fontname, shape="box", style="filled", fontcolor="white", width=0, height=0)
         self.attr('edge', fontname=fontname)
 
@@ -2479,6 +2479,7 @@ class DotWriter:
                     penwidth = "%.2f" % theme.edge_penwidth(weight), 
                     labeldistance = "%.2f" % theme.edge_penwidth(weight), 
                     arrowsize = "%.2f" % theme.edge_arrowsize(weight),
+                    labelangle = 30,
                 )
 
         self.end_graph()

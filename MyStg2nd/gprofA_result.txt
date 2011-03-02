@@ -264,7 +264,7 @@
                 }
                 
                 /* Read in bits without advancing the bitptr; bits <= 32 */
-      379942 -> long oggpack_look(oggpack_buffer *b,int bits){
+      379989 -> long oggpack_look(oggpack_buffer *b,int bits){
                   unsigned long ret;
                   unsigned long m;
                 
@@ -336,7 +336,7 @@
                   return((b->ptr[0]>>(7-b->endbit))&1);
                 }
                 
-      230575 -> void oggpack_adv(oggpack_buffer *b,int bits){
+      230557 -> void oggpack_adv(oggpack_buffer *b,int bits){
                   bits+=b->endbit;
                 
                   if(b->endbyte > b->storage-((bits+7)>>3)) goto overflow;
@@ -369,7 +369,7 @@
                 }
                 
                 /* bits <= 32 */
-       97025 -> long oggpack_read(oggpack_buffer *b,int bits){
+       97186 -> long oggpack_read(oggpack_buffer *b,int bits){
                   long ret;
                   unsigned long m;
                 
@@ -497,7 +497,7 @@
                   return -1L;
                 }
                 
-         740 -> long oggpack_bytes(oggpack_buffer *b){
+         744 -> long oggpack_bytes(oggpack_buffer *b){
                   return(b->endbyte+(b->endbit+7)/8);
                 }
                 
@@ -862,11 +862,11 @@ Top 10 Lines:
 
      Line      Count
 
-      266     379942
-      338     230575
-      371      97025
+      266     379989
+      338     230557
+      371      97186
       255        957
-      499        740
+      499        744
 
 Execution Summary:
 
@@ -874,8 +874,8 @@ Execution Summary:
        36   Lines executed
     97.30   Percent of the file executed
 
-   709239   Total number of line executions
- 19168.62   Average executions per line
+   709433   Total number of line executions
+ 19173.86   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeOgg_static\GprofCdt/../src/framing.c:
@@ -923,7 +923,7 @@ Execution Summary:
                   return((int)(og->header[5]&0x04));
                 }
                 
-         322 -> ogg_int64_t ogg_page_granulepos(const ogg_page *og){
+         321 -> ogg_int64_t ogg_page_granulepos(const ogg_page *og){
                   unsigned char *page=og->header;
                   ogg_int64_t granulepos=page[13]&(0xff);
                   granulepos= (granulepos<<8)|(page[12]&0xff);
@@ -936,14 +936,14 @@ Execution Summary:
                   return(granulepos);
                 }
                 
-         408 -> int ogg_page_serialno(const ogg_page *og){
+         409 -> int ogg_page_serialno(const ogg_page *og){
                   return(og->header[14] |
                          (og->header[15]<<8) |
                          (og->header[16]<<16) |
                          (og->header[17]<<24));
                 }
                  
-         110 -> long ogg_page_pageno(const ogg_page *og){
+         111 -> long ogg_page_pageno(const ogg_page *og){
                   return(og->header[18] |
                          (og->header[19]<<8) |
                          (og->header[20]<<16) |
@@ -1089,7 +1089,7 @@ Execution Summary:
                 } 
                 
                 /* async/delayed error detection for the ogg_stream_state */
-        1245 -> int ogg_stream_check(ogg_stream_state *os){
+        1247 -> int ogg_stream_check(ogg_stream_state *os){
                   if(!os || !os->body_data) return -1;
                   return 0;
                 }
@@ -1106,7 +1106,7 @@ Execution Summary:
                   return(0);
                 } 
                 
-         220 -> int ogg_stream_destroy(ogg_stream_state *os){
+         222 -> int ogg_stream_destroy(ogg_stream_state *os){
                   if(os){
                     ogg_stream_clear(os);
                     _ogg_free(os);
@@ -1158,7 +1158,7 @@ Execution Summary:
                 /* Direct table CRC; note that this will be faster in the future if we
                    perform the checksum simultaneously with other copies */
                 
-         286 -> void ogg_page_checksum_set(ogg_page *og){
+         284 -> void ogg_page_checksum_set(ogg_page *og){
                   if(og){
                     ogg_uint32_t crc_reg=0;
                     int i;
@@ -1450,7 +1450,7 @@ Execution Summary:
                    ogg_stream_state. */
                 
                 /* initialize the struct to a known state */
-          11 -> int ogg_sync_init(ogg_sync_state *oy){
+          12 -> int ogg_sync_init(ogg_sync_state *oy){
                   if(oy){
                     oy->storage = -1; /* used as a readiness flag */
                     memset(oy,0,sizeof(*oy));
@@ -1475,12 +1475,12 @@ Execution Summary:
                   return(0);
                 }
                 
-        2186 -> int ogg_sync_check(ogg_sync_state *oy){
+        2184 -> int ogg_sync_check(ogg_sync_state *oy){
                   if(oy->storage<0) return -1;
                   return 0;
                 }
                 
-         585 -> char *ogg_sync_buffer(ogg_sync_state *oy, long size){
+         584 -> char *ogg_sync_buffer(ogg_sync_state *oy, long size){
                   if(ogg_sync_check(oy)) return NULL;
                 
                   /* first, clear out any space that has been previously returned */
@@ -1529,7 +1529,7 @@ Execution Summary:
                    
                 */
                 
-         983 -> long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
+         984 -> long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
                   unsigned char *page=oy->data+oy->returned;
                   unsigned char *next;
                   long bytes=oy->fill-oy->returned;
@@ -1821,7 +1821,7 @@ Execution Summary:
                   return(0);
                 }
                 
-        1071 -> int ogg_stream_reset_serialno(ogg_stream_state *os,int serialno){
+        1072 -> int ogg_stream_reset_serialno(ogg_stream_state *os,int serialno){
                   if(ogg_stream_check(os)) return -1;
                   ogg_stream_reset(os);
                   os->serialno=serialno;
@@ -1882,7 +1882,7 @@ Execution Summary:
                   return(1);
                 }
                 
-         991 -> int ogg_stream_packetout(ogg_stream_state *os,ogg_packet *op){
+         992 -> int ogg_stream_packetout(ogg_stream_state *os,ogg_packet *op){
                   if(ogg_stream_check(os)) return 0;
                   return _packetout(os,op,1);
                 }
@@ -2974,16 +2974,16 @@ Top 10 Lines:
 
      Line      Count
 
-      597       2186
-      211       1245
-      943       1071
-     1004        991
-      651        983
-      602        585
+      597       2184
+      211       1247
+      943       1072
+     1004        992
+      651        984
+      602        584
       634        584
-       58        408
-       45        322
-      280        286
+       58        409
+       45        321
+      280        284
 
 Execution Summary:
 
@@ -2991,8 +2991,8 @@ Execution Summary:
        34   Lines executed
     89.47   Percent of the file executed
 
-     9809   Total number of line executions
-   258.13   Average executions per line
+     9813   Total number of line executions
+   258.24   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/res0.c:
@@ -3072,7 +3072,7 @@ Execution Summary:
                   }
                 }
                 
-         324 -> void res0_free_look(vorbis_look_residue *i){
+         328 -> void res0_free_look(vorbis_look_residue *i){
                   int j;
                   if(i){
                 
@@ -3892,7 +3892,7 @@ Top 10 Lines:
      Line      Count
 
       806        826
-       77        324
+       77        328
        69         24
       204         24
       269          8
@@ -3903,8 +3903,8 @@ Execution Summary:
        12   Lines executed
     60.00   Percent of the file executed
 
-     1206   Total number of line executions
-    60.30   Average executions per line
+     1210   Total number of line executions
+    60.50   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/floor1.c:
@@ -4677,7 +4677,7 @@ Execution Summary:
                 
                 int floor1_encode(oggpack_buffer *opb,vorbis_block *vb,
                                   vorbis_look_floor1 *look,
-        1460 ->                   int *post,int *ilogmask){
+        1458 ->                   int *post,int *ilogmask){
                 
                   long i,j;
                   vorbis_info_floor1 *info=look->vi;
@@ -5013,7 +5013,7 @@ Top 10 Lines:
 
      Line      Count
 
-      770       1460
+      770       1458
 
 Execution Summary:
 
@@ -5021,8 +5021,8 @@ Execution Summary:
         3   Lines executed
     14.29   Percent of the file executed
 
-     1460   Total number of line executions
-    69.52   Average executions per line
+     1458   Total number of line executions
+    69.43   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/window.c:
@@ -7123,12 +7123,12 @@ Execution Summary:
                   vwin8192,
                 };
                 
-         730 -> const float *_vorbis_window_get(int n){
+         729 -> const float *_vorbis_window_get(int n){
                   return vwin[n];
                 }
                 
                 void _vorbis_apply_window(float *d,int *winno,long *blocksizes,
-       22010 ->                           int lW,int W,int nW){
+       21992 ->                           int lW,int W,int nW){
                   lW=(W?lW:0);
                   nW=(W?nW:0);
                 
@@ -7167,8 +7167,8 @@ Top 10 Lines:
 
      Line      Count
 
-     2103      22010
-     2098        730
+     2103      21992
+     2098        729
 
 Execution Summary:
 
@@ -7176,8 +7176,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-    22740   Total number of line executions
- 11370.00   Average executions per line
+    22721   Total number of line executions
+ 11360.50   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/bitrate.c:
@@ -8778,7 +8778,7 @@ Execution Summary:
                 /* build lookups for trig functions; also pre-figure scaling and
                    some window function algebra. */
                 
-       89638 -> void mdct_init(mdct_lookup *lookup,int n){
+       89595 -> void mdct_init(mdct_lookup *lookup,int n){
                   int   *bitrev=_ogg_malloc(sizeof(*bitrev)*(n/4));
                   DATA_TYPE *T=_ogg_malloc(sizeof(*T)*(n+n/4));
                 
@@ -9065,7 +9065,7 @@ Execution Summary:
                 
                 }
                 
-         737 -> void mdct_clear(mdct_lookup *l){
+         734 -> void mdct_clear(mdct_lookup *l){
                   if(l){
                     if(l->trig)_ogg_free(l->trig);
                     if(l->bitrev)_ogg_free(l->bitrev);
@@ -9123,7 +9123,7 @@ Execution Summary:
                   }while(w0<w1);
                 }
                 
-         730 -> void mdct_backward(mdct_lookup *init, DATA_TYPE *in, DATA_TYPE *out){
+         728 -> void mdct_backward(mdct_lookup *init, DATA_TYPE *in, DATA_TYPE *out){
                   int n=init->n;
                   int n2=n>>1;
                   int n4=n>>2;
@@ -9296,9 +9296,9 @@ Top 10 Lines:
 
      Line      Count
 
-       52      89638
-      339        737
-      397        730
+       52      89595
+      339        734
+      397        728
 
 Execution Summary:
 
@@ -9306,8 +9306,8 @@ Execution Summary:
         4   Lines executed
     36.36   Percent of the file executed
 
-    91105   Total number of line executions
-  8282.27   Average executions per line
+    91057   Total number of line executions
+  8277.91   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/codebook.c:
@@ -9584,7 +9584,7 @@ Execution Summary:
                 }
                 
                 /* returns the number of bits ************************************************/
-      379284 -> int vorbis_book_encode(codebook *book, int a, oggpack_buffer *b){
+      379260 -> int vorbis_book_encode(codebook *book, int a, oggpack_buffer *b){
                   if(a<0 || a>=book->c->entries)return(0);
                   oggpack_write(b,book->codelist[a],book->c->lengthlist[a]);
                   return(book->c->lengthlist[a]);
@@ -9668,7 +9668,7 @@ Execution Summary:
                    addmul==2 -> multiplicitive */
                 
                 /* returns the [original, not compacted] entry number or -1 on eof *********/
-       17387 -> long vorbis_book_decode(codebook *book, oggpack_buffer *b){
+       17379 -> long vorbis_book_decode(codebook *book, oggpack_buffer *b){
                   if(book->used_entries>0){
                     long packed_entry=decode_packed_entry_number(book,b);
                     if(packed_entry>=0)
@@ -9768,7 +9768,7 @@ Execution Summary:
                 }
                 
                 long vorbis_book_decodevv_add(codebook *book,float **a,long offset,int ch,
-       15855 ->                               oggpack_buffer *b,int n){
+       15852 ->                               oggpack_buffer *b,int n){
                 
                   long i,j,entry;
                   int chptr=0;
@@ -9796,9 +9796,9 @@ Top 10 Lines:
 
      Line      Count
 
-      274     379284
-      358      17387
-      458      15855
+      274     379260
+      358      17379
+      458      15852
       149        528
 
 Execution Summary:
@@ -9807,8 +9807,8 @@ Execution Summary:
         8   Lines executed
     80.00   Percent of the file executed
 
-   413054   Total number of line executions
- 41305.40   Average executions per line
+   413019   Total number of line executions
+ 41301.90   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/sharedbook.c:
@@ -9840,7 +9840,7 @@ Execution Summary:
                 #include "scales.h"
                 
                 /**** pack/unpack helpers ******************************************/
-        1303 -> int _ilog(unsigned int v){
+        1304 -> int _ilog(unsigned int v){
                   int ret=0;
                   while(v){
                     ret++;
@@ -10094,7 +10094,7 @@ Execution Summary:
                   memset(b,0,sizeof(*b));
                 }
                 
-       26708 -> int vorbis_book_init_encode(codebook *c,const static_codebook *s){
+       26635 -> int vorbis_book_init_encode(codebook *c,const static_codebook *s){
                 
                   memset(c,0,sizeof(*c));
                   c->c=s;
@@ -10397,8 +10397,8 @@ Top 10 Lines:
 
      Line      Count
 
-      283      26708
-       29       1303
+      283      26635
+       29       1304
       261        528
       163        240
        73        176
@@ -10413,8 +10413,8 @@ Execution Summary:
        12   Lines executed
     85.71   Percent of the file executed
 
-    29603   Total number of line executions
-  2114.50   Average executions per line
+    29531   Total number of line executions
+  2109.36   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/block.c:
@@ -10530,7 +10530,7 @@ Execution Summary:
                   return(0);
                 }
                 
-        2110 -> void *_vorbis_block_alloc(vorbis_block *vb,long bytes){
+        2107 -> void *_vorbis_block_alloc(vorbis_block *vb,long bytes){
                   bytes=(bytes+(WORD_ALIGN-1)) & ~(WORD_ALIGN-1);
                   if(bytes+vb->localtop>vb->localalloc){
                     /* can't just _ogg_realloc... there are outstanding pointers */
@@ -11138,7 +11138,7 @@ Execution Summary:
                    block.  The time domain envelope is not yet handled at the point of
                    calling (as it relies on the previous block). */
                 
-         365 -> int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
+         364 -> int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
                   vorbis_info *vi=v->vi;
                   codec_setup_info *ci=vi->codec_setup;
                   private_state *b=v->backend_state;
@@ -11354,7 +11354,7 @@ Execution Summary:
                 }
                 
                 /* pcm==NULL indicates we just want the pending samples, no more */
-        1496 -> int vorbis_synthesis_pcmout(vorbis_dsp_state *v,float ***pcm){
+        1491 -> int vorbis_synthesis_pcmout(vorbis_dsp_state *v,float ***pcm){
                   vorbis_info *vi=v->vi;
                 
                   if(v->pcm_returned>-1 && v->pcm_returned<v->pcm_current){
@@ -11369,7 +11369,7 @@ Execution Summary:
                   return(0);
                 }
                 
-         360 -> int vorbis_synthesis_read(vorbis_dsp_state *v,int n){
+         361 -> int vorbis_synthesis_read(vorbis_dsp_state *v,int n){
                   if(n && v->pcm_returned+n>v->pcm_current)return(OV_EINVAL);
                   v->pcm_returned+=n;
                   return(0);
@@ -11470,11 +11470,11 @@ Top 10 Lines:
 
      Line      Count
 
-      113       2110
-      937       1496
+      113       2107
+      937       1491
       137        389
-      721        365
-      952        360
+      721        364
+      952        361
       159         28
       315         24
       685         20
@@ -11487,8 +11487,8 @@ Execution Summary:
        16   Lines executed
     84.21   Percent of the file executed
 
-     4800   Total number of line executions
-   252.63   Average executions per line
+     4792   Total number of line executions
+   252.21   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/synthesis.c:
@@ -11517,7 +11517,7 @@ Execution Summary:
                 #include "misc.h"
                 #include "os.h"
                 
-         364 -> int vorbis_synthesis(vorbis_block *vb,ogg_packet *op){
+         365 -> int vorbis_synthesis(vorbis_block *vb,ogg_packet *op){
                   vorbis_dsp_state     *vd= vb ? vb->vd : 0;
                   private_state        *b= vd ? vd->backend_state : 0;
                   vorbis_info          *vi= vd ? vd->vi : 0;
@@ -11672,7 +11672,7 @@ Execution Summary:
                   return 0;
                 }
                 
-         779 -> int vorbis_synthesis_halfrate_p(vorbis_info *vi){
+         781 -> int vorbis_synthesis_halfrate_p(vorbis_info *vi){
                   codec_setup_info     *ci=vi->codec_setup;
                   return ci->halfrate_flag;
                 }
@@ -11682,9 +11682,9 @@ Top 10 Lines:
 
      Line      Count
 
-      181        779
+      181        781
       143        544
-       26        364
+       26        365
 
 Execution Summary:
 
@@ -11692,8 +11692,8 @@ Execution Summary:
         5   Lines executed
    100.00   Percent of the file executed
 
-     1687   Total number of line executions
-   337.40   Average executions per line
+     1690   Total number of line executions
+   338.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\CustomizeVorbis_static\GprofCdt/../lib/info.c:
@@ -14176,7 +14176,7 @@ Execution Summary:
                     current bitstream.  NULL in the case that the machine is not
                     initialized */
                 
-         369 -> vorbis_info *ov_info(OggVorbis_File *vf,int link){
+         368 -> vorbis_info *ov_info(OggVorbis_File *vf,int link){
                   if(vf->seekable){
                     if(link<0)
                       if(vf->ready_state>=STREAMSET)
@@ -14194,7 +14194,7 @@ Execution Summary:
                 }
                 
                 /* grr, strong typing, grr, no templates/inheritence, grr */
-         360 -> vorbis_comment *ov_comment(OggVorbis_File *vf,int link){
+         361 -> vorbis_comment *ov_comment(OggVorbis_File *vf,int link){
                   if(vf->seekable){
                     if(link<0)
                       if(vf->ready_state>=STREAMSET)
@@ -14393,7 +14393,7 @@ Execution Summary:
                 }
                 
                 long ov_read(OggVorbis_File *vf,char *buffer,int length,
-         360 ->              int bigendianp,int word,int sgned,int *bitstream){
+         361 ->              int bigendianp,int word,int sgned,int *bitstream){
                   return ov_read_filter(vf, buffer, length, bigendianp, word, sgned, bitstream, NULL, NULL);
                 }
                 
@@ -14729,10 +14729,10 @@ Top 10 Lines:
 
      Line      Count
 
-     1791        369
-     1809        360
+     1791        368
+     1809        361
+     2008        361
      1871        360
-     2008        360
      2335         96
       955         24
       994         12
@@ -14746,8 +14746,8 @@ Execution Summary:
        36   Lines executed
     59.02   Percent of the file executed
 
-     1641   Total number of line executions
-    26.90   Average executions per line
+     1642   Total number of line executions
+    26.92   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafCore\GprofCdt/../src/jp/ggaf/core/util/GgafLinearOctreeSpace.cpp:
@@ -15539,7 +15539,7 @@ Execution Summary:
                 using namespace GgafCore;
                 
                 
-        1685 -> GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_kindbit) {
+        1687 -> GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, UINT32 prm_kindbit) {
                     _pSpace_Current = NULL;
                     _pNext = NULL;
                     _pPrev = NULL;
@@ -15663,8 +15663,8 @@ Top 10 Lines:
 
      Line      Count
 
+        6       1687
       122       1687
-        6       1685
 
 Execution Summary:
 
@@ -15672,8 +15672,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     3372   Total number of line executions
-  1124.00   Average executions per line
+     3374   Total number of line executions
+  1124.67   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafCore\GprofCdt/../src/jp/ggaf/core/actor/GgafDummyActor.cpp:
@@ -15905,7 +15905,7 @@ Execution Summary:
                 
                 using namespace GgafCore;
                 
-        1931 -> GgafActor::GgafActor(const char* prm_name) :
+        1934 -> GgafActor::GgafActor(const char* prm_name) :
                     GgafElement<GgafActor> (prm_name) {
                     TRACE("GgafActor::GgafActor("<<this<<") "<<prm_name);
                     _class_name = "GgafActor";
@@ -16103,8 +16103,8 @@ Top 10 Lines:
 
      Line      Count
 
+        6       1934
        27       1934
-        6       1931
 
 Execution Summary:
 
@@ -16112,8 +16112,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     3865   Total number of line executions
-  1288.33   Average executions per line
+     3868   Total number of line executions
+  1289.33   Average executions per line
 
 
 *** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/util/GgafStatus.h:
@@ -16152,7 +16152,7 @@ Execution Summary:
                      * @param n 最大ステータス要素数。
                      * @return
                      */
-        1931 ->     GgafStatus(int n) {
+        1932 ->     GgafStatus(int n) {
                         _len = n;
                         _paValue = NEW VALUE[n];
                         for (int i = 0; i < n; i++) {
@@ -16252,7 +16252,7 @@ Top 10 Lines:
      Line      Count
 
       120       1934
-       36       1931
+       36       1932
 
 Execution Summary:
 
@@ -16260,8 +16260,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-     3865   Total number of line executions
-  1932.50   Average executions per line
+     3866   Total number of line executions
+  1933.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafCore\GprofCdt/../src/jp/ggaf/core/actor/GgafMainActor.cpp:
@@ -16270,7 +16270,7 @@ Execution Summary:
                 
                 using namespace GgafCore;
                 
-        1817 -> GgafMainActor::GgafMainActor(const char* prm_name) : GgafActor(prm_name) {
+        1820 -> GgafMainActor::GgafMainActor(const char* prm_name) : GgafActor(prm_name) {
                     _obj_class |= Obj_GgafMainActor;
                     _class_name = "GgafMainActor";
                     _pGroupActor = NULL;
@@ -16461,8 +16461,8 @@ Top 10 Lines:
 
      Line      Count
 
+        6       1820
       189       1820
-        6       1817
 
 Execution Summary:
 
@@ -16470,8 +16470,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     3637   Total number of line executions
-  1212.33   Average executions per line
+     3640   Total number of line executions
+  1213.33   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafCore\GprofCdt/../src/jp/ggaf/core/actor/GgafActorDispatcher.cpp:
@@ -17351,7 +17351,7 @@ Execution Summary:
                  * ここからは実装部
                  */
                 template<class T>
-        1948 -> GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
+        1949 -> GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
                 _pNodeTemp(NULL),
                 _name(NULL),
                 _class_name("GgafNode<T>"),
@@ -17671,7 +17671,7 @@ Top 10 Lines:
      Line      Count
 
       563       1950
-      312       1948
+      312       1949
 
 Execution Summary:
 
@@ -17679,8 +17679,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-     3898   Total number of line executions
-  1949.00   Average executions per line
+     3899   Total number of line executions
+  1949.50   Average executions per line
 
 
 *** File C:/cygwin/workspace/GgafCore/include/jp/ggaf/core/GgafElement.hpp:
@@ -19793,7 +19793,7 @@ Execution Summary:
                     }
                 }
                 
-       84217 -> void operator delete(void * address) {
+      347868 -> void operator delete(void * address) {
                     if (address == 0) // Depends on environment.
                     return;
                 
@@ -19812,7 +19812,7 @@ Execution Summary:
                     free(address);
                 }
                 
-       14552 -> void operator delete[](void * address) {
+       18969 -> void operator delete[](void * address) {
                     if (address == 0) // Depends on environment.
                     return;
                 
@@ -19862,8 +19862,8 @@ Top 10 Lines:
 
      Line      Count
 
-       47      84217
-       66      14552
+       47     347868
+       66      18969
 
 Execution Summary:
 
@@ -19871,8 +19871,8 @@ Execution Summary:
         6   Lines executed
     75.00   Percent of the file executed
 
-    98769   Total number of line executions
- 12346.12   Average executions per line
+   366837   Total number of line executions
+ 45854.62   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafCore\GprofCdt/../src/jp/ggaf/core/GgafObject.cpp:
@@ -19882,7 +19882,7 @@ Execution Summary:
                 
                 int GgafObject::_iSeq = 0;
                 
-      215362 -> GgafObject::GgafObject() {
+     1040068 -> GgafObject::GgafObject() {
                     _obj_class = 0;
                     _id = (_iSeq++);
                 }
@@ -19892,7 +19892,7 @@ Execution Summary:
                     return "ちょっとまってよ";
                 }
                 
-      215373 -> GgafObject::~GgafObject() {
+     1040070 -> GgafObject::~GgafObject() {
                 }
 
 
@@ -19900,8 +19900,8 @@ Top 10 Lines:
 
      Line      Count
 
-       17     215373
-        7     215362
+       17    1040070
+        7    1040068
 
 Execution Summary:
 
@@ -19909,8 +19909,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-   430735   Total number of line executions
-143578.33   Average executions per line
+  2080138   Total number of line executions
+693379.33   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/sound/IkdLib/PCMDecoder.cpp:
@@ -22250,7 +22250,7 @@ Execution Summary:
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-         289 -> GgafDx9RectUV::GgafDx9RectUV() : GgafObject() {
+         290 -> GgafDx9RectUV::GgafDx9RectUV() : GgafObject() {
                 }
                 
          290 -> GgafDx9RectUV::~GgafDx9RectUV() {
@@ -22261,8 +22261,8 @@ Top 10 Lines:
 
      Line      Count
 
+        6        290
         9        290
-        6        289
 
 Execution Summary:
 
@@ -22270,8 +22270,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      579   Total number of line executions
-   193.00   Average executions per line
+      580   Total number of line executions
+   193.33   Average executions per line
 
 
 *** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/GgafDx9AllocHierarchyWorldFrame.h:
@@ -28084,7 +28084,7 @@ Execution Summary:
            4 ->       _Deque_iterator()
                       : _M_cur(0), _M_first(0), _M_last(0), _M_node(0) { }
                 
-       67815 ->       _Deque_iterator(const iterator& __x)
+      331466 ->       _Deque_iterator(const iterator& __x)
                       : _M_cur(__x._M_cur), _M_first(__x._M_first),
                         _M_last(__x._M_last), _M_node(__x._M_node) { }
                 
@@ -29847,7 +29847,7 @@ Top 10 Lines:
 
      Line      Count
 
-      132      67815
+      132     331466
       129          4
       487          2
       546          2
@@ -29864,8 +29864,8 @@ Execution Summary:
        11   Lines executed
    100.00   Percent of the file executed
 
-    67831   Total number of line executions
-  6166.45   Average executions per line
+   331482   Total number of line executions
+ 30134.73   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/util/GgafDx9WorldMatStack.cpp:
@@ -30771,13 +30771,13 @@ Execution Summary:
                 class vector {
                 public:
                     T x, y, z;
-       37008 ->     vector(void) :
+       37132 ->     vector(void) :
                         x(0), y(0), z(0) {
                     }
-       12678 ->     vector(T px, T py, T pz) :
+       12728 ->     vector(T px, T py, T pz) :
                         x(px), y(py), z(pz) {
                     }
-        6337 ->     vector(const vector<T> &pv) :
+        6364 ->     vector(const vector<T> &pv) :
                         x(pv.x), y(pv.y), z(pv.z) {
                     }
                     vector(const T* &pv) {
@@ -31395,10 +31395,10 @@ Top 10 Lines:
 
      Line      Count
 
-       22      37008
+       22      37132
       109      30742
-       25      12678
-       28       6337
+       25      12728
+       28       6364
       112       2256
       174         32
 
@@ -31408,8 +31408,8 @@ Execution Summary:
         7   Lines executed
    100.00   Percent of the file executed
 
-    89053   Total number of line executions
- 12721.86   Average executions per line
+    89254   Total number of line executions
+ 12750.57   Average executions per line
 
 
 *** File C:/cygwin/workspace/GgafDx9Core/include/jp/ggaf/dx9core/util/XFile/ToolBox/../framework/frm_IO.h:
@@ -35355,13 +35355,13 @@ Execution Summary:
                   /// An actual node in the %list.
                   template<typename _Tp>
                     struct _List_node : public _List_node_base
-       67896 ->     {
+      331547 ->     {
                       ///< User's data.
                       _Tp _M_data;
                 
                 #ifdef __GXX_EXPERIMENTAL_CXX0X__
                       template<typename... _Args>
-       67896 ->         _List_node(_Args&&... __args)
+      331547 ->         _List_node(_Args&&... __args)
                 	: _List_node_base(), _M_data(std::forward<_Args>(__args)...) { }
                 #endif
                     };
@@ -35387,7 +35387,7 @@ Execution Summary:
                       : _M_node() { }
                 
                       explicit
-      271678 ->       _List_iterator(_List_node_base* __x)
+     1326279 ->       _List_iterator(_List_node_base* __x)
                       : _M_node(__x) { }
                 
                       // Must downcast from List_node_base to _List_node to get to _M_data.
@@ -36814,9 +36814,9 @@ Top 10 Lines:
 
      Line      Count
 
-      128     271678
-       96      67896
-      102      67896
+      128    1326279
+       96     331547
+      102     331547
       300         87
       303         87
       341         87
@@ -36831,8 +36831,8 @@ Execution Summary:
        10   Lines executed
    100.00   Percent of the file executed
 
-   408052   Total number of line executions
- 40805.20   Average executions per line
+  1989955   Total number of line executions
+198995.50   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/manager/GgafDx9EffectManager.cpp:
@@ -37167,7 +37167,7 @@ Execution Summary:
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-        1685 -> GgafDx9Checker::GgafDx9Checker(GgafDx9GeometricActor* prm_pActor) :
+        1687 -> GgafDx9Checker::GgafDx9Checker(GgafDx9GeometricActor* prm_pActor) :
                     GgafObject() {
                     _pCollisionArea = NULL;
                     _pActor = prm_pActor;
@@ -37185,8 +37185,8 @@ Top 10 Lines:
 
      Line      Count
 
+        6       1687
        16       1687
-        6       1685
 
 Execution Summary:
 
@@ -37194,8 +37194,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     3372   Total number of line executions
-  1124.00   Average executions per line
+     3374   Total number of line executions
+  1124.67   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/actor/GgafDx9PointSpriteActor.cpp:
@@ -39495,7 +39495,7 @@ Execution Summary:
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-         155 -> GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
+         157 -> GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
                                                        const char* prm_model_id,
                                                        const char* prm_effect_id,
                                                        const char* prm_technique,
@@ -39585,8 +39585,8 @@ Top 10 Lines:
 
      Line      Count
 
+        6        157
        87        157
-        6        155
 
 Execution Summary:
 
@@ -39594,8 +39594,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      312   Total number of line executions
-   104.00   Average executions per line
+      314   Total number of line executions
+   104.67   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/util/GgafDx9Quaternion.cpp:
@@ -39607,7 +39607,7 @@ Execution Summary:
                 
                 
                 
-      203831 -> GgafDx9Quaternion::~GgafDx9Quaternion() {
+     1028528 -> GgafDx9Quaternion::~GgafDx9Quaternion() {
                 }
 
 
@@ -39615,7 +39615,7 @@ Top 10 Lines:
 
      Line      Count
 
-        9     203831
+        9    1028528
 
 Execution Summary:
 
@@ -39623,8 +39623,8 @@ Execution Summary:
         1   Lines executed
     50.00   Percent of the file executed
 
-   203831   Total number of line executions
-101915.50   Average executions per line
+  1028528   Total number of line executions
+514264.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9Scaler.cpp:
@@ -39633,7 +39633,7 @@ Execution Summary:
                 using namespace GgafCore;
                 using namespace GgafDx9Core;
                 
-         459 -> GgafDx9Scaler::GgafDx9Scaler(GgafDx9GeometricActor* prm_pActor) :
+         460 -> GgafDx9Scaler::GgafDx9Scaler(GgafDx9GeometricActor* prm_pActor) :
                     GgafObject() {
                     _pActor = prm_pActor;
                 
@@ -39848,7 +39848,7 @@ Top 10 Lines:
      Line      Count
 
       212        920
-        6        459
+        6        460
 
 Execution Summary:
 
@@ -39856,8 +39856,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     1379   Total number of line executions
-   459.67   Average executions per line
+     1380   Total number of line executions
+   460.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/actor/GgafDx9BoardActor.cpp:
@@ -40123,7 +40123,7 @@ Execution Summary:
                 using namespace GgafDx9Core;
                 
                 
-        1713 -> GgafDx9SeTransmitter::GgafDx9SeTransmitter(GgafDx9GeometricActor* prm_pActor) :
+        1716 -> GgafDx9SeTransmitter::GgafDx9SeTransmitter(GgafDx9GeometricActor* prm_pActor) :
                                                        GgafObject() {
                     _pActor = prm_pActor;
                     _se_num = 0;
@@ -40295,7 +40295,7 @@ Top 10 Lines:
      Line      Count
 
       163       3432
-        7       1713
+        7       1716
 
 Execution Summary:
 
@@ -40303,8 +40303,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     5145   Total number of line executions
-  1715.00   Average executions per line
+     5148   Total number of line executions
+  1716.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/actor/supporter/GgafDx9Kuroko.cpp:
@@ -40430,7 +40430,7 @@ Execution Summary:
                 
                 
                 
-        1715 -> GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
+        1714 -> GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
                     GgafObject() {
                     _pActor = prm_pActor;
                 
@@ -42295,7 +42295,7 @@ Top 10 Lines:
      Line      Count
 
      1979       3432
-      123       1715
+      123       1714
 
 Execution Summary:
 
@@ -42303,8 +42303,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     5147   Total number of line executions
-  1715.67   Average executions per line
+     5146   Total number of line executions
+  1715.33   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/actor/GgafDx9BoardSetActor.cpp:
@@ -42586,7 +42586,7 @@ Execution Summary:
                 }
                 
                 
-        1712 -> GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
+        1713 -> GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
                                                            const char* prm_model_id,
                                                            const char* prm_model_type,
                                                            const char* prm_effect_id,
@@ -42826,8 +42826,8 @@ Top 10 Lines:
 
      Line      Count
 
+       54       1713
       281       1713
-       54       1712
 
 Execution Summary:
 
@@ -42835,8 +42835,8 @@ Execution Summary:
         3   Lines executed
     75.00   Percent of the file executed
 
-     3425   Total number of line executions
-   856.25   Average executions per line
+     3426   Total number of line executions
+   856.50   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/actor/GgafDx9GeometricActor.cpp:
@@ -42846,7 +42846,7 @@ Execution Summary:
                 using namespace GgafDx9Core;
                 
                 
-        1715 -> GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
+        1716 -> GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
                                                              GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name) {
                     _obj_class |= Obj_GgafDx9GeometricActor;
                     _class_name = "GgafDx9GeometricActor";
@@ -43253,8 +43253,8 @@ Top 10 Lines:
 
      Line      Count
 
+        7       1716
       309       1716
-        7       1715
 
 Execution Summary:
 
@@ -43262,8 +43262,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     3431   Total number of line executions
-  1143.67   Average executions per line
+     3432   Total number of line executions
+  1144.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9Core\GprofCdt/../src/jp/ggaf/dx9core/model/supporter/GgafDx9TextureBlinker.cpp:
@@ -44525,7 +44525,7 @@ Execution Summary:
                 using namespace GgafDx9Core;
                 using namespace GgafDx9LibStg;
                 
-          10 -> DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model_id) :
+          11 -> DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model_id) :
                     GgafDx9SpriteActor(prm_name,
                                        prm_model_id,
                                        "DefaultSpriteEffect",
@@ -44552,8 +44552,8 @@ Top 10 Lines:
 
      Line      Count
 
+        7         11
        24         11
-        7         10
 
 Execution Summary:
 
@@ -44561,8 +44561,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-       21   Total number of line executions
-     7.00   Average executions per line
+       22   Total number of line executions
+     7.33   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9LibStg\GprofCdt/../src/jp/ggaf/dx9libstg/actor/DefaultD3DXAniMeshActor.cpp:
@@ -45024,7 +45024,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 
                 
-         719 -> CurveLaserChip::CurveLaserChip(const char* prm_name, const char* prm_model) :
+         720 -> CurveLaserChip::CurveLaserChip(const char* prm_name, const char* prm_model) :
                     LaserChip(prm_name, prm_model) {
                     _class_name = "CurveLaserChip";
                     _tmpX = 0;
@@ -45123,8 +45123,8 @@ Top 10 Lines:
 
      Line      Count
 
+        8        720
        98        720
-        8        719
 
 Execution Summary:
 
@@ -45132,8 +45132,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     1439   Total number of line executions
-   479.67   Average executions per line
+     1440   Total number of line executions
+   480.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9LibStg\GprofCdt/../src/jp/ggaf/dx9libstg/actor/laserchip/LaserChip.cpp:
@@ -45144,7 +45144,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 
                 
-        1003 -> LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
+        1004 -> LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
                      GgafDx9MeshSetActor(prm_name,
                                          string("11/" + string(prm_model)).c_str(),
                                          "LaserChipEffect",
@@ -45589,8 +45589,8 @@ Top 10 Lines:
 
      Line      Count
 
+        8       1004
       442       1004
-        8       1003
 
 Execution Summary:
 
@@ -45598,8 +45598,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     2007   Total number of line executions
-   669.00   Average executions per line
+     2008   Total number of line executions
+   669.33   Average executions per line
 
 
 *** File C:\cygwin\workspace\GgafDx9LibStg\GprofCdt/../src/jp/ggaf/dx9libstg/actor/laserchip/HomingLaserChip.cpp:
@@ -46392,7 +46392,7 @@ Execution Summary:
                 
                 int CollisionChecker::_num_check = 0;
                 LinearOctreeForActor* CollisionChecker::_pLinearOctree = NULL;
-        1683 -> CollisionChecker::CollisionChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_pActor) {
+        1687 -> CollisionChecker::CollisionChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_pActor) {
                     if (CollisionChecker::_pLinearOctree == NULL) {
                         CollisionChecker::_pLinearOctree  = ((DefaultUniverse*)(GgafGod::_pGod->_pUniverse))->_pLinearOctree;
                     }
@@ -46686,7 +46686,7 @@ Top 10 Lines:
      Line      Count
 
       290       3374
-        9       1683
+        9       1687
 
 Execution Summary:
 
@@ -46694,8 +46694,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     5057   Total number of line executions
-  1685.67   Average executions per line
+     5061   Total number of line executions
+  1687.00   Average executions per line
 
 
 *** File C:/cygwin/workspace/GgafDx9LibStg/include/jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h:
@@ -46713,7 +46713,7 @@ Execution Summary:
         3374 -> class LinearOctreeActorElem : public GgafCore::GgafLinearOctreeElem {
                 public:
                     GgafCore::GgafActor* _pActor;
-        1685 ->     LinearOctreeActorElem(GgafCore::GgafObject* prm_pObject, UINT32 prm_kindbit) : GgafCore::GgafLinearOctreeElem(prm_pObject,prm_kindbit) {
+        1687 ->     LinearOctreeActorElem(GgafCore::GgafObject* prm_pObject, UINT32 prm_kindbit) : GgafCore::GgafLinearOctreeElem(prm_pObject,prm_kindbit) {
                         _pActor = (GgafCore::GgafActor*)prm_pObject;
                     }
                 };
@@ -46729,7 +46729,7 @@ Top 10 Lines:
      Line      Count
 
        12       3374
-       15       1685
+       15       1687
 
 Execution Summary:
 
@@ -46737,8 +46737,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-     5059   Total number of line executions
-  2529.50   Average executions per line
+     5061   Total number of line executions
+  2530.50   Average executions per line
 
 
 *** File c:/cygwin/mingw/bin/../lib/gcc/mingw32/4.5.2/include/c++/bits/hashtable.h:
@@ -51975,7 +51975,7 @@ Execution Summary:
                 void operator delete[](void*, const std::nothrow_t&) throw();
                 
                 // Default placement versions of operator new.
-      135976 -> inline void* operator new(std::size_t, void* __p) throw() { return __p; }
+      663279 -> inline void* operator new(std::size_t, void* __p) throw() { return __p; }
                 inline void* operator new[](std::size_t, void* __p) throw() { return __p; }
                 
                 // Default placement versions of operator delete.
@@ -51993,7 +51993,7 @@ Top 10 Lines:
 
      Line      Count
 
-      103     135976
+      103     663279
 
 Execution Summary:
 
@@ -52001,8 +52001,8 @@ Execution Summary:
         3   Lines executed
    100.00   Percent of the file executed
 
-   135976   Total number of line executions
- 45325.33   Average executions per line
+   663279   Total number of line executions
+221093.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/Camera.cpp:
@@ -52511,7 +52511,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-          98 -> EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "EffectExplosion001") {
+         100 -> EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "EffectExplosion001") {
                     _class_name = "EffectExplosion001";
                     changeEffectTechnique("DestBlendOne"); //加算合成Technique指定
                     defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv);
@@ -52559,7 +52559,7 @@ Top 10 Lines:
      Line      Count
 
        47        200
-        8         98
+        8        100
 
 Execution Summary:
 
@@ -52567,8 +52567,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      298   Total number of line executions
-    99.33   Average executions per line
+      300   Total number of line executions
+   100.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/effect/EffectTurbo001.cpp:
@@ -52644,7 +52644,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-           9 -> EffectTurbo002::EffectTurbo002(const char* prm_name) : DefaultSpriteActor(prm_name, "Turbo002") {
+          10 -> EffectTurbo002::EffectTurbo002(const char* prm_name) : DefaultSpriteActor(prm_name, "Turbo002") {
                     _class_name = "EffectTurbo002";
                     inactivateImmediately();
                     changeEffectTechnique("DestBlendOne"); //加算合成
@@ -52692,7 +52692,7 @@ Top 10 Lines:
      Line      Count
 
        47         20
-        8          9
+        8         10
 
 Execution Summary:
 
@@ -52700,8 +52700,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-       29   Total number of line executions
-     9.67   Average executions per line
+       30   Total number of line executions
+    10.00   Average executions per line
 
 
 *** File C:/Program Files/Microsoft DirectX SDK (February 2010)/Include/d3dx9math.h:
@@ -53019,7 +53019,7 @@ Execution Summary:
                 typedef struct D3DXMATRIX : public D3DMATRIX
                 {
                 public:
-        5153 ->     D3DXMATRIX() {};
+        5159 ->     D3DXMATRIX() {};
                     D3DXMATRIX( CONST FLOAT * );
                     D3DXMATRIX( CONST D3DMATRIX& );
                     D3DXMATRIX( CONST D3DXFLOAT16 * );
@@ -54507,7 +54507,7 @@ Top 10 Lines:
 
      Line      Count
 
-      315       5153
+      315       5159
       475       2263
       165         32
 
@@ -54517,8 +54517,8 @@ Execution Summary:
         3   Lines executed
    100.00   Percent of the file executed
 
-     7448   Total number of line executions
-  2482.67   Average executions per line
+     7454   Total number of line executions
+  2484.67   Average executions per line
 
 
 *** File C:/Program Files/Microsoft DirectX SDK (February 2010)/Include/d3d9types.h:
@@ -54572,7 +54572,7 @@ Execution Summary:
                 
                 
                 #ifndef D3DVECTOR_DEFINED
-      334449 -> typedef struct _D3DVECTOR {
+     1450881 -> typedef struct _D3DVECTOR {
                     float x;
                     float y;
                     float z;
@@ -54601,7 +54601,7 @@ Execution Summary:
                 #endif
                 
                 #ifndef D3DMATRIX_DEFINED
-        5150 -> typedef struct _D3DMATRIX {
+        5160 -> typedef struct _D3DMATRIX {
                     union {
                         struct {
                             float        _11, _12, _13, _14;
@@ -56943,8 +56943,8 @@ Top 10 Lines:
 
      Line      Count
 
-       51     334449
-       80       5150
+       51    1450881
+       80       5160
 
 Execution Summary:
 
@@ -56952,8 +56952,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-   339599   Total number of line executions
-169799.50   Average executions per line
+  1456041   Total number of line executions
+728020.50   Average executions per line
 
 
 *** File C:/Program Files/Microsoft DirectX SDK (February 2010)/Include/d3dx9math.inl:
@@ -57258,7 +57258,7 @@ Execution Summary:
                 }
                 
                 D3DXINLINE
-      334411 -> D3DXVECTOR3::D3DXVECTOR3( FLOAT fx, FLOAT fy, FLOAT fz )
+     1450846 -> D3DXVECTOR3::D3DXVECTOR3( FLOAT fx, FLOAT fy, FLOAT fz )
                 {
                     x = fx;
                     y = fy;
@@ -58944,7 +58944,7 @@ Execution Summary:
                 
                 D3DXINLINE D3DXMATRIX* D3DXMatrixIdentity
                     ( D3DXMATRIX *pOut )
-       29786 -> {
+      131280 -> {
                 #ifdef D3DX_DEBUG
                     if(!pOut)
                         return NULL;
@@ -59214,8 +59214,8 @@ Top 10 Lines:
 
      Line      Count
 
-      302     334411
-     1988      29786
+      302    1450846
+     1988     131280
 
 Execution Summary:
 
@@ -59223,8 +59223,8 @@ Execution Summary:
         3   Lines executed
    100.00   Percent of the file executed
 
-   364197   Total number of line executions
-121399.00   Average executions per line
+  1582126   Total number of line executions
+527375.33   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/enemy/Tamago/TamagoActor.cpp:
@@ -61572,7 +61572,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-         224 -> MyShot001::MyShot001(const char* prm_name) :
+         225 -> MyShot001::MyShot001(const char* prm_name) :
                         SingleLaser(prm_name, "MyShot001") { //SingleLaserは最大27セットである
                     _class_name = "MyShot001";
                     MyStgUtil::resetMyShot001Status(_pStatus);
@@ -61639,7 +61639,7 @@ Top 10 Lines:
      Line      Count
 
        66        450
-        8        224
+        8        225
 
 Execution Summary:
 
@@ -61647,8 +61647,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-      674   Total number of line executions
-   224.67   Average executions per line
+      675   Total number of line executions
+   225.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/my/MyStraightLaserChip001.cpp:
@@ -62946,7 +62946,7 @@ Execution Summary:
                 using namespace GgafDx9LibStg;
                 using namespace MyStg2nd;
                 
-         719 -> MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
+         720 -> MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
                         CurveLaserChip(prm_name, "MyCurveLaserChip001") {
                     _class_name = "MyCurveLaserChip001";
                     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
@@ -63198,7 +63198,7 @@ Top 10 Lines:
      Line      Count
 
       250       1440
-        8        719
+        8        720
 
 Execution Summary:
 
@@ -63206,8 +63206,8 @@ Execution Summary:
         2   Lines executed
     66.67   Percent of the file executed
 
-     2159   Total number of line executions
-   719.67   Average executions per line
+     2160   Total number of line executions
+   720.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/my/option/MyOption.cpp:
@@ -63830,7 +63830,7 @@ Execution Summary:
                 
                 //    GgafDx9Quaternion(float prm_t, float prm_x, float prm_y, float prm_z);
                 
-      203822 ->     GgafDx9Quaternion(float prm_t, float prm_x, float prm_y, float prm_z) : GgafObject(),
+     1028520 ->     GgafDx9Quaternion(float prm_t, float prm_x, float prm_y, float prm_z) : GgafObject(),
                         _t(prm_t),
                         _x(prm_x),
                         _y(prm_y),
@@ -63866,7 +63866,7 @@ Top 10 Lines:
 
      Line      Count
 
-       28     203822
+       28    1028520
        19          8
 
 Execution Summary:
@@ -63875,8 +63875,8 @@ Execution Summary:
         2   Lines executed
    100.00   Percent of the file executed
 
-   203830   Total number of line executions
-101915.00   Average executions per line
+  1028528   Total number of line executions
+514264.00   Average executions per line
 
 
 *** File C:\cygwin\workspace\MyStg2nd\GprofCdt/../src/gecchi/actor/my/option/MyOptionLockonController.cpp:
