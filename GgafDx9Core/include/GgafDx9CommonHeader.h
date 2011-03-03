@@ -208,7 +208,7 @@ enum GgafDx9PuppeteerStick {
 #define Obj_GgafDx9BoardActor            (0x800000)       //0b 00000000 10000000 00000000 00000000
 #define Obj_GgafDx9BoardSetActor         (0x1000000)      //0b 00000001 00000000 00000000 00000000
 #define Obj_GgafDx9PointSpriteActor      (0x2000000)      //0b 00000010 00000000 00000000 00000000
-#define Obj_GgafDx9FormationActor        (0x8000000)      //0b 00000100 00000000 00000000 00000000
+#define Obj_GgafDx9FormationActor        (0x4000000)      //0b 00000100 00000000 00000000 00000000
 
 #undef P_GOD
 #define P_GOD ((GgafDx9Core::GgafDx9God*)GgafDx9Core::GgafDx9God::_pGod)

@@ -82,7 +82,7 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
             pCam->_plnVerticalCenter.d;
 
     angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
-    LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
+    LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT * 0.8; //0.8は完全に右のみ或いは左のみから聞こえるのを避けようとした
 
     int delay = (d / (pCam->_zf*PX_UNIT))*MAX_SE_DELAY-10; //10フレーム底上げ
     if (delay < 0) {
@@ -91,7 +91,13 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
         delay = MAX_SE_DELAY;
     }
 
-    P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
+    float rate_frequency = 1.0;
+    if (_pActor->_fDist_VpPlnFront > 0) {
+        rate_frequency = 0.8;
+    }
+
+
+    P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), vol, pan, delay, rate_frequency); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
     //真ん中からの距離
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);
@@ -115,9 +121,11 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
     static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
     LONG pan, vol;
+    float rate_frequency;
     bool calc_flg = true;
     for (int i = 0; i < _se_num; i++) {
         if (_papSeCon[i]->refer()->isPlaying()) {
+            rate_frequency = 1.0;
             if (calc_flg) {
                 calc_flg = false;
                 GgafDx9Camera* pCam = P_CAM;
@@ -146,16 +154,21 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
                         pCam->_plnVerticalCenter.c*_pActor->_fZ +
                         pCam->_plnVerticalCenter.d;
                 angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
-                pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
+                pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT * 0.8;
+
+                if (_pActor->_fDist_VpPlnFront > 0) {
+                    rate_frequency = 0.8;
+                }
             }
             _papSeCon[i]->refer()->setPan(pan);
             _papSeCon[i]->refer()->setVolume(vol);
+            _papSeCon[i]->refer()->setFrequencyRate(rate_frequency);
         }
     }
 }
 
 void GgafDx9SeTransmitter::behave() {
-    if (_pActor->_frame_of_life % 5 == 0) {
+    if (_pActor->_frame_of_life % 4 == 0) {
         updatePanVolume3D();
     }
 }

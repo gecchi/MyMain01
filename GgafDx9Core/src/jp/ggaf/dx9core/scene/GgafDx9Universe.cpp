@@ -114,7 +114,7 @@ void GgafDx9Universe::draw() {
     //段階レンダリング不要（最深部等、背景）の描画。
     //※TODO:本来は手前から描画のほうが効率良い。が、その内最適化
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
-	GgafDx9Scene* pScene;
+    GgafDx9Scene* pScene;
     while (_pActor_DrawActive) {
         if (_pActor_DrawActive->_fAlpha < 1.0) {
             GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリングを一時OFF
