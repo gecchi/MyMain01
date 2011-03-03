@@ -51,13 +51,30 @@ public:
         //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
         //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
         //(x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2 <= (r1+r2)^2
-        if (
-            (double)((pActor02->_X+pSphere02->_x) - (pActor01->_X+pSphere01->_x)) * ((pActor02->_X+pSphere02->_x) - (pActor01->_X+pSphere01->_x)) +
-            (double)((pActor02->_Y+pSphere02->_y) - (pActor01->_Y+pSphere01->_y)) * ((pActor02->_Y+pSphere02->_y) - (pActor01->_Y+pSphere01->_y)) +
-            (double)((pActor02->_Z+pSphere02->_z) - (pActor01->_Z+pSphere01->_z)) * ((pActor02->_Z+pSphere02->_z) - (pActor01->_Z+pSphere01->_z))
-              <=
-            (double)(pSphere02->_r + pSphere01->_r) * (pSphere02->_r + pSphere01->_r)
+        double d2 = (double)((pActor02->_X+pSphere02->_x) - (pActor01->_X+pSphere01->_x)) * ((pActor02->_X+pSphere02->_x) - (pActor01->_X+pSphere01->_x)) +
+                    (double)((pActor02->_Y+pSphere02->_y) - (pActor01->_Y+pSphere01->_y)) * ((pActor02->_Y+pSphere02->_y) - (pActor01->_Y+pSphere01->_y)) +
+                    (double)((pActor02->_Z+pSphere02->_z) - (pActor01->_Z+pSphere01->_z)) * ((pActor02->_Z+pSphere02->_z) - (pActor01->_Z+pSphere01->_z));
+        if (d2 <= (double)(pSphere02->_r + pSphere01->_r) * (pSphere02->_r + pSphere01->_r)
         ) {
+            //ヒット
+            if (pActor01->_Z + pSphere01->_aab_z1 < pActor02->_Z + pSphere02->_aab_z1) {
+                pCChecker01->_blown_sgn_vZ -= 1;
+            }
+            if (pActor01->_Z + pSphere01->_aab_z2 > pActor02->_Z + pSphere02->_aab_z2) {
+                pCChecker01->_blown_sgn_vZ += 1;
+            }
+            if (pActor01->_Y + pSphere01->_aab_y1 < pActor02->_Y + pSphere02->_aab_y1) {
+                pCChecker01->_blown_sgn_vY -= 1;
+            }
+            if (pActor01->_Y + pSphere01->_aab_y2 > pActor02->_Y + pSphere02->_aab_y2) {
+                pCChecker01->_blown_sgn_vY += 1;
+            }
+            if (pActor01->_X + pSphere01->_aab_x1 < pActor02->_X + pSphere02->_aab_x1) {
+                pCChecker01->_blown_sgn_vX -= 1;
+            }
+            if (pActor01->_X + pSphere01->_aab_x2 > pActor02->_X + pSphere02->_aab_x2) {
+                pCChecker01->_blown_sgn_vX += 1;
+            }
             return true;
         } else {
             return false;
@@ -97,6 +114,25 @@ public:
         }
         //square_lengthが球の半径（の二乗）よりも短ければ衝突している
         if (square_length <= (double)pSphere02->_r * pSphere02->_r) {
+            //ヒット
+            if (pActor01->_Z + pAAB01->_aab_z1 < pActor02->_Z + pSphere02->_aab_z1) {
+                pCChecker01->_blown_sgn_vZ -= 1;
+            }
+            if (pActor01->_Z + pAAB01->_aab_z2 > pActor02->_Z + pSphere02->_aab_z2) {
+                pCChecker01->_blown_sgn_vZ += 1;
+            }
+            if (pActor01->_Y + pAAB01->_aab_y1 < pActor02->_Y + pSphere02->_aab_y1) {
+                pCChecker01->_blown_sgn_vY -= 1;
+            }
+            if (pActor01->_Y + pAAB01->_aab_y2 > pActor02->_Y + pSphere02->_aab_y2) {
+                pCChecker01->_blown_sgn_vY += 1;
+            }
+            if (pActor01->_X + pAAB01->_aab_x1 < pActor02->_X + pSphere02->_aab_x1) {
+                pCChecker01->_blown_sgn_vX -= 1;
+            }
+            if (pActor01->_X + pAAB01->_aab_x2 > pActor02->_X + pSphere02->_aab_x2) {
+                pCChecker01->_blown_sgn_vX += 1;
+            }
             return true;
         } else {
             return false;

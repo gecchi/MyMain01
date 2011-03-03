@@ -10,8 +10,8 @@ namespace GgafDx9LibStg {
 #define COLLI_SPHERE 2
 #define COLLI_AAPRISM 3
 
-#define Obj_LaserChip     (0x1000000)      //0b 00000001 00000000 00000000 00000000
-#define Obj_WallActor     (0x2000000)      //0b 00000010 00000000 00000000 00000000
+#define Obj_LaserChip     (0x40000000)      //0b 01000000 00000000 00000000 00000000
+#define Obj_WallActor     (0x80000000)      //0b 10000000 00000000 00000000 00000000
 #undef P_GOD
 #define P_GOD ((GgafDx9LibStg::DefaultGod*)GgafCore::GgafGod::_pGod)
 #undef P_UNIVERSE
