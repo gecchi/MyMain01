@@ -40,10 +40,10 @@ except ImportError:
 
 
 def times(x):
-    return u"%u\xd7" % (x,)
+    return u"%s\xd7" %  (format_number(x,))
 
 def percentage(p):
-    return "%.02f%%" % (p*100.0,)
+    return "%.03f%%" % (p*100.0,)
 
 def add(a, b):
     return a + b
@@ -2422,8 +2422,8 @@ class DotWriter:
 
         fontname = theme.graph_fontname()
 
-        self.attr('graph', fontname=fontname, ranksep=0.5, nodesep=0.5, rankdir="LR", normalize="true", concentrate="true")
-        self.attr('node', fontname=fontname, shape="box", style="filled", fontcolor="white", width=0, height=0)
+        self.attr('graph', fontname=fontname, ranksep=0.5, nodesep=0.4, rankdir="LR", normalize="true", concentrate="true", overlap="scalexy")
+        self.attr('node', fontname=fontname, shape="box", style="filled,rounded", fontcolor="white", width=0, height=0)
         self.attr('edge', fontname=fontname)
 
         for function in profile.functions.itervalues():
@@ -2438,7 +2438,7 @@ class DotWriter:
                     label = event.format(function[event])
                     labels.append(label)
             if function.called is not None:
-                labels.append(u"%u\xd7" % (function.called,))
+                labels.append(u"%s\xd7" % (format_number(function.called,)))
 
             if function.weight is not None:
                 weight = function.weight
@@ -2758,6 +2758,31 @@ class Main:
             function.name = self.compress_function_name(function.name)
 
         dot.graph(profile, self.theme)
+
+def format_number(value):
+    if not type(value) in (int, float, long, complex):
+        return value
+    isminus = (value < 0)
+    if isminus:
+        value *= -1
+    s = str(value)
+    index = s.find(r'.')
+    isfloat = (index > -1)
+    if isfloat:
+        f = s[index:]
+        s = s[:index]
+    s = s[::-1]
+    result = ''
+    for i, c in enumerate(s):
+        result += c
+        if (i + 1) % 3 == 0 and (i + 1) != len(s):
+            result += ','
+    if isminus: 
+        result += '-'
+    result = result[::-1]
+    if isfloat:
+        result += f
+    return result
 
 
 if __name__ == '__main__':
