@@ -399,13 +399,13 @@ void MyShip::processBehavior() {
 
     //‚Á”ò‚Ñ
     if (_blown_veloX != 0) {
-        _X += (_blown_veloX /= 2);
+        _X += (_blown_veloX -= 1000);
     }
     if (_blown_veloY != 0) {
-        _Y += (_blown_veloY /= 2);
+        _Y += (_blown_veloY -= 1000);
     }
     if (_blown_veloZ != 0) {
-        _Z += (_blown_veloZ /= 2);
+        _Z += (_blown_veloZ -= 1000);
     }
 
     if (!_is_diving) {
@@ -540,12 +540,15 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     }
 
     //•Ç‚Ìê‡“Á•Ê‚Èˆ—
-    if (prm_pOtherActor->_obj_class & Obj_WallActor > 0) {
-        _blown_veloX += (sgn(_pCollisionChecker->_blown_sgn_vX)*10000);
-        _blown_veloY += (sgn(_pCollisionChecker->_blown_sgn_vY)*10000);
-        _blown_veloZ += (sgn(_pCollisionChecker->_blown_sgn_vZ)*10000);
+    if (pOther->_obj_class & Obj_WallActor) {
+        _blown_veloX += (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vX)*(10000+GgafUtil::abs(_pKuroko->_veloVxMv)));
+        _blown_veloY += (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vY)*(10000+GgafUtil::abs(_pKuroko->_veloVyMv)));
+        _blown_veloZ += (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vZ)*(10000+GgafUtil::abs(_pKuroko->_veloVzMv)));
     }
 
+    if (pOther->getKind() & KIND_ITEM)  {
+
+    }
 }
 
 

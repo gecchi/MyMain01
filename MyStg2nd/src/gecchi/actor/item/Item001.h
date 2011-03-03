@@ -41,6 +41,8 @@ public:
 //        //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
 //        return false;
 //    }
+    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+
 
     virtual ~Item001();
 };

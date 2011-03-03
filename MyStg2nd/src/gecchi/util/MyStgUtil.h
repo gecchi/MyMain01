@@ -237,6 +237,8 @@ public:
 	static void resetEnemyEunomiaStatus(GgafCore::GgafStatus* p);
 	//自機ショット
 	static void resetMyShot001Status(GgafCore::GgafStatus* p);
+	//アイテム
+	static void resetMagicPointItem001Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

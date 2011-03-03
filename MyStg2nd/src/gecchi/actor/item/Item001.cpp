@@ -17,8 +17,6 @@ void Item001::initialize() {
 }
 
 void Item001::onReset() {
-    setHitAble(true);
-    _pKuroko->setFaceAngVelo(AXIS_X, 3*1000);
 }
 
 void Item001::onActive() {
@@ -29,9 +27,32 @@ void Item001::processBehavior() {
 }
 
 void Item001::processJudgement() {
+    if (isOutOfUniverse()) {
+        sayonara();
+    }
 }
 
 void Item001::onInactive() {
+}
+
+void Item001::onHit(GgafActor* prm_pOtherActor) {
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    //ここにヒットエフェクト
+
+
+    if (pOther->getKind() & KIND_MY_BODY)  {
+        P_MYSHIP_SCENE->_pEnagyBar->_enagy += 10;
+        _pSeTransmitter->playImmediately(0);
+        setHitAble(false);
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
+        if (pExplo001) {
+            pExplo001->locateWith(this);
+            pExplo001->activate();
+        }
+        sayonara();
+    }
+
+
 }
 
 Item001::~Item001() {
