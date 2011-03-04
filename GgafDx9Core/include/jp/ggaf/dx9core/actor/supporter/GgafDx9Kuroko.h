@@ -275,6 +275,14 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /** なめらかな移動シークエンスの進捗状況 */
     int  _smooth_mv_velo_seq_progress;
 
+    int _gravitation_mv_seq_target_X;
+    int _gravitation_mv_seq_target_Y;
+    int _gravitation_mv_seq_target_Z;
+    GgafDx9GeometricActor* _gravitation_mv_seq_pActor_target;
+    velo _gravitation_mv_seq_max_velo;
+    acce _gravitation_mv_seq_acce;
+    int _gravitation_mv_seq_stop_renge;
+    bool _gravitation_mv_seq_flg;
 
     /**
      * 移動速度を設定 .
@@ -945,6 +953,27 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
 
     bool isMoveingSmooth();
+
+
+    void orderGravitationMvSequence(
+            int prm_tX, int prm_tY, int prm_tZ,
+            velo prm_max_velo,
+            acce prm_acce,
+            int prm_stop_renge
+            );
+
+
+    void orderGravitationMvSequence(
+            GgafDx9GeometricActor* prm_pActor_target,
+            velo prm_max_velo,
+            acce prm_acce,
+            int prm_stop_renge
+            );
+
+
+
+
+
 
     /**
      * 黒子の仕事を引継ぐ .
