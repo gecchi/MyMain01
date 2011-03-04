@@ -469,6 +469,7 @@ void VamSysCamWorker::processBehavior() {
             pCam->_pKuroko->setVzMvVelo(last_CAM_veloVzMv+veloVzRenge);
         }
     }
+
     velo last_VP_veloVzMv = pVP->_pKuroko->_veloVzMv;
     velo  new_VP_veloVzMv = _pMyShip->_iMoveSpeed*(dZ_VP*1.0 / _stop_renge);
     if (last_VP_veloVzMv-veloVzRenge <= new_VP_veloVzMv && new_VP_veloVzMv <= last_VP_veloVzMv+veloVzRenge) {
