@@ -8,7 +8,7 @@ _MAP_<string, string>* GgafProperties::_pMapProperties = NULL;
 UINT32 GgafProperties::MAX_SKIP_FRAME = 0;
 int GgafProperties::DRAWNUM_TO_SLOWDOWN1 = 0;
 int GgafProperties::DRAWNUM_TO_SLOWDOWN2 = 0;
-
+float GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = 55.0f;
 void GgafProperties::load(string prm_properties_filename) {
     if (_pMapProperties == NULL) {
         _pMapProperties = NEW _MAP_<string, string>();
@@ -18,13 +18,14 @@ void GgafProperties::load(string prm_properties_filename) {
         }
     }
 
-    MAX_SKIP_FRAME = getUInt("MAX_SKIP_FRAME");
+    GgafProperties::MAX_SKIP_FRAME = getUInt("MAX_SKIP_FRAME");
     GgafProperties::DRAWNUM_TO_SLOWDOWN1 = getInt("DRAWNUM_TO_SLOWDOWN1");
     GgafProperties::DRAWNUM_TO_SLOWDOWN2 = getInt("DRAWNUM_TO_SLOWDOWN2");
-
+    GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = getFloat("FPS_TO_CLEAN_GARBAGE_BOX");
     _TRACE_("GgafProperties::MAX_SKIP_FRAME="<<GgafProperties::MAX_SKIP_FRAME);
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN1="<<GgafProperties::DRAWNUM_TO_SLOWDOWN1);
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN2="<<GgafProperties::DRAWNUM_TO_SLOWDOWN2);
+    _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN2="<<GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX);
 }
 
 int GgafProperties::read(string prm_properties_filename) {

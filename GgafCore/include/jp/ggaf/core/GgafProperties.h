@@ -19,7 +19,7 @@ public:
     static UINT32 MAX_SKIP_FRAME;
     static int DRAWNUM_TO_SLOWDOWN1;
     static int DRAWNUM_TO_SLOWDOWN2;
-
+    static float FPS_TO_CLEAN_GARBAGE_BOX;
     static void load(std::string prm_properties_filename);
     static void clean();
 
