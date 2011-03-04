@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 MagicPointItem001::MagicPointItem001(const char* prm_name)
-               : Item(prm_name, "EffectMagic001") {
+               : Item(prm_name, "MagicPointItem001") {
     _class_name = "MagicPointItem001";
     MyStgUtil::resetMagicPointItem001Status(_pStatus);
     setZEnable(true);        //Zバッファは考慮有り
@@ -56,6 +56,7 @@ void MagicPointItem001::onActive() {
 }
 
 void MagicPointItem001::processBehavior() {
+    MyShip* pMyShip = P_MYSHIP;
     if (_pProgress->get() == 0) {
 //        if (getActivePartFrame() < 60 && getActivePartFrame() % 10 == 0) {
 //            _pKuroko->orderTagettingMvAngSequence(P_MYSHIP,2000,2000,TURN_CLOSE_TO);
@@ -69,12 +70,12 @@ void MagicPointItem001::processBehavior() {
             _pKuroko->setMvVelo(0);
             _pKuroko->setMvAcce(0);
             _pKuroko->orderGravitationMvSequence(
-                    P_MYSHIP, 20000, 1000, 100000);
+                    pMyShip, 20000, 1000, 100000);
         }
 
-        if (abs(_X - P_MYSHIP->_X) < 2000 &&
-            abs(_Y - P_MYSHIP->_Y) < 2000 &&
-            abs(_Z - P_MYSHIP->_Z) < 2000 ) {
+        if (abs(_X - pMyShip->_X) < 2000 &&
+            abs(_Y - pMyShip->_Y) < 2000 &&
+            abs(_Z - pMyShip->_Z) < 2000 ) {
             _pProgress->change(2);
         }
     }
@@ -86,12 +87,12 @@ void MagicPointItem001::processBehavior() {
             _pKuroko->setVzMvVelo(0);
             _pKuroko->_gravitation_mv_seq_flg = false;
         }
-        _X = P_MYSHIP->_X;
-        _Y = P_MYSHIP->_Y;
-        _Z = P_MYSHIP->_Z;
-        _SX -= 1;
-        _SY -= 1;
-        _SZ -= 1;
+        _X = pMyShip->_X;
+        _Y = pMyShip->_Y;
+        _Z = pMyShip->_Z;
+        _SX -= 100;
+        _SY -= 100;
+        _SZ -= 100;
         if (_SX < 5) {
             sayonara();
         }

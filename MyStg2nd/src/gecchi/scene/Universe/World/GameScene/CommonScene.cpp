@@ -28,7 +28,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //_pDP_MagicPointItem001
         _pDP_MagicPointItem001 = NEW GgafActorDispatcher("DpMpItem001");
         MagicPointItem001* pMpItem001;
-        for (int i = 0; i < 100; i++) { //ストック100個
+        for (int i = 0; i < 255; i++) { //ストック100個
             pMpItem001 = NEW MagicPointItem001("MP001");
             pMpItem001->inactivateTreeImmediately(); //最初非表示
             _pDP_MagicPointItem001->addSubLast(pMpItem001);
