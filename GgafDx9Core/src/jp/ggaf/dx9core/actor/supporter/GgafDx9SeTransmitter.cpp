@@ -49,7 +49,7 @@ void GgafDx9SeTransmitter::play(int prm_id) {
         throwGgafCriticalException("GgafDx9SeTransmitter::play() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
 #endif
-    P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
+    P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), GGAF_MAX_VOLUME, 0.0, 1.0, 0);
 }
 void GgafDx9SeTransmitter::play3D(int prm_id) {
 #ifdef MY_DEBUG
@@ -57,8 +57,8 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
         throwGgafCriticalException("GgafDx9SeTransmitter::play3D() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
 #endif
-    static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
-    static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
+    static const int VOLUME_MAX_3D = GGAF_MAX_VOLUME;
+    static const int VOLUME_MIN_3D = GGAF_MIN_VOLUME;
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
     GgafDx9Camera* pCam = P_CAM;
     //距離計算
@@ -82,7 +82,7 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
             pCam->_plnVerticalCenter.d;
 
     angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
-    LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT * 0.8; //0.8は完全に右のみ或いは左のみから聞こえるのを避けようとした
+    float pan = GgafDx9Util::COS[ang/ANGLE_RATE] * 0.7; //0.7は完全に右のみ或いは左のみから聞こえるのを避けるため
 
     int delay = (d / (pCam->_zf*PX_UNIT))*MAX_SE_DELAY-10; //10フレーム底上げ
     if (delay < 0) {
@@ -93,11 +93,11 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
 
     float rate_frequency = 1.0;
     if (_pActor->_fDist_VpPlnFront > 0) {
-        rate_frequency = 0.8;
+        rate_frequency = 0.9; //背後の場合周波数を下げ、音を少しぐぐもらせる。
     }
 
 
-    P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), vol, pan, delay, rate_frequency); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
+    P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), vol, pan, rate_frequency, delay); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
     //真ん中からの距離
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);
@@ -117,8 +117,8 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
 }
 
 void GgafDx9SeTransmitter::updatePanVolume3D() {
-    static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
-    static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
+    static const int VOLUME_MAX_3D = GGAF_MAX_VOLUME;
+    static const int VOLUME_MIN_3D = GGAF_MIN_VOLUME;
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
     LONG pan, vol;
     float rate_frequency;
@@ -154,10 +154,10 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
                         pCam->_plnVerticalCenter.c*_pActor->_fZ +
                         pCam->_plnVerticalCenter.d;
                 angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
-                pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT * 0.8;
+                pan = GgafDx9Util::COS[ang/ANGLE_RATE] * 0.7; //0.7は完全に右のみ或いは左のみから聞こえるのを避けるため
 
                 if (_pActor->_fDist_VpPlnFront > 0) {
-                    rate_frequency = 0.8;
+                    rate_frequency = 0.9; //背後の場合周波数を下げ、音を少しぐぐもらせる。
                 }
             }
             _papSeCon[i]->refer()->setPan(pan);

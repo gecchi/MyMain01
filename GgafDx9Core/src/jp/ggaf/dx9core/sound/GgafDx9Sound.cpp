@@ -7,7 +7,7 @@ IDirectSound8* GgafDx9Sound::_pIDirectSound8 = NULL;
 
 GgafDx9BgmManager* GgafDx9Sound::_pBgmManager = NULL;
 GgafDx9SeManager* GgafDx9Sound::_pSeManager = NULL;
-
+LONG GgafDx9Sound::aDbVolume[101];
 
 DSCAPS GgafDx9Sound::_dsCaps;
 
@@ -34,9 +34,28 @@ void GgafDx9Sound::init() {
     _pBgmManager = NEW GgafDx9BgmManager("OggBgmManager");
     _pSeManager = NEW GgafDx9SeManager("SoundEffectManager");
 
-    GgafDx9Sound::setBgmVolume(GGAFDX9_PROPERTY(BGM_VOLUME)/100.0);
-    GgafDx9Sound::setSeVolume(GGAFDX9_PROPERTY(SE_VOLUME)/100.0);
-    GgafDx9Sound::setMasterVolume(GGAFDX9_PROPERTY(MASTER_VOLUME)/100.0);
+    GgafDx9Sound::setBgmVolume(1.0*GGAFDX9_PROPERTY(BGM_VOLUME)/GGAF_MAX_VOLUME);
+    GgafDx9Sound::setSeVolume(1.0*GGAFDX9_PROPERTY(SE_VOLUME)/GGAF_MAX_VOLUME);
+    GgafDx9Sound::setMasterVolume(1.0*GGAFDX9_PROPERTY(MASTER_VOLUME)/GGAF_MAX_VOLUME);
+
+    //ボリューム(0~100)、減衰デシベル(DSBVOLUME_MIN~DSBVOLUME_MAX)変換配列
+    //DirectSounndのSetVolumeの引数の値(単位：1/100dB) ＝ 33.22f * 100.0 * log10(volume)   但し0.0 < volume <= 1.0
+    //<音量とデシベルの関係>
+    //    100%    0db
+    //    90% -1.52db
+    //    80% -3.22db
+    //    70% -5.15db
+    //    60% -7.37db
+    //    50% -10.00db
+    //    40% -13.22db
+    //    30% -17.37db
+    //    20% -23.22db
+    //    10% -33.22db
+    aDbVolume[GGAF_MIN_VOLUME] = DSBVOLUME_MIN;
+    for (int i = 1; i <= GGAF_MAX_VOLUME-1; i++) {
+        aDbVolume[i] = (int)(33.22f * 100.0 * log10(1.0*i / GGAF_MAX_VOLUME));
+    }
+    aDbVolume[GGAF_MAX_VOLUME] = DSBVOLUME_MAX;
 }
 
 void GgafDx9Sound::release() {

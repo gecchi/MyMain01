@@ -53,8 +53,8 @@ public:
 
     /**
      * ボリュームとパンを指定してSEを1回再生
-     * @param prm_iVolume ボリューム(min:-9600 max:0)
-     * @param prm_iPan    パン(left:-10000 right:10000)
+     * @param prm_iVolume ボリューム(min:0 max:100)
+     * @param prm_iPan    パン(left:-1.0 center:0 right:1.0)
      */
     virtual void play(int prm_iVolume, int prm_iPan) {
         play(prm_iVolume, prm_iPan, 1.0);

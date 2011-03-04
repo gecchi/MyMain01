@@ -22,7 +22,7 @@ GgafDx9Universe::SeArray::SeArray() {
     }
 }
 
-void GgafDx9Universe::SeArray::add(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, float prm_rate_frequency) {
+void GgafDx9Universe::SeArray::add(GgafDx9Se* prm_pSe, LONG prm_volume, float prm_pan, float prm_rate_frequency) {
     if (_p < MAX_SE_AT_ONCE) {
         _apSe[_p] = prm_pSe;
         _rate_frequency[_p] = prm_rate_frequency;
@@ -66,7 +66,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name, GgafDx9Camera* prm_pCamer
     GgafRepeatSeq::create("_SE_D_", 0, 8); //ズレSE再生フレーム
 }
 
-void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, int prm_delay, float prm_rate_frequency) {
+void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, LONG prm_volume, float prm_pan, float prm_rate_frequency, int prm_delay ) {
     int bpm = GgafDx9BgmPerformer::_active_bgm_bpm;
     //ズレフレーム数計算
     //1分間は60*60=3600フレーム

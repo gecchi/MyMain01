@@ -1,5 +1,9 @@
 #ifndef GGAFDX9SOUND_H_
 #define GGAFDX9SOUND_H_
+
+#define GGAF_MAX_VOLUME 100
+#define GGAF_MIN_VOLUME 0
+
 namespace GgafDx9Core {
 /**
  * サウンドクラス.
@@ -20,6 +24,7 @@ public:
     static float _master_volume_rate;
     static float _bgm_volume_rate;
     static float _se_volume_rate;
+    static LONG aDbVolume[GGAF_MAX_VOLUME+1];
 
     /**
      * マスタボリューム設定(現在未実装).

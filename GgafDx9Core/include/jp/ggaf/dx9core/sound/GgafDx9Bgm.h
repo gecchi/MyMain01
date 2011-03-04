@@ -34,6 +34,12 @@ public:
      */
     GgafDx9Bgm(char* prm_bgm_key);
 
+    /**
+     *
+     * @param prm_volume 0~100
+     * @param prm_pan    -1.0 ~ 0 ~ 1.0
+     * @param prm_isLoop
+     */
     void play(int prm_volume, int prm_pan, bool prm_isLoop);
     void play(bool prm_isLoop) {
         play(DSBVOLUME_MAX, DSBPAN_CENTER, prm_isLoop);
