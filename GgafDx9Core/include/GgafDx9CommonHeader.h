@@ -17,7 +17,8 @@
 //http://www.ogre3d.org/forums/viewtopic.php?f=2&t=45140
 //à”ñ°ÇñYÇÍÇΩÇÁÅAéQè∆ÇπÇÊ
 
-
+#define GGAF_MAX_VOLUME (100)
+#define GGAF_MIN_VOLUME (0)
 
 #define ANGLE0 (0)
 #define ANGLE360 (360000)

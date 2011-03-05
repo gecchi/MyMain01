@@ -65,6 +65,7 @@ void EnemyJuno::processBehavior() {
                     pShot->locateWith(this);
                     pShot->_pKuroko->relateRzRyFaceAngToMvAng(true);
                     pShot->_pKuroko->setMvAng(P_MYSHIP);
+                    pShot->reset();
                     pShot->activate();
                     _do_Shot = false;
                     changeEffectTechniqueInterim("Flush", 2); //ƒtƒ‰ƒbƒVƒ…

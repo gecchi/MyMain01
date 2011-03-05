@@ -27,7 +27,7 @@ Stage02Controller::Stage02Controller(const char* prm_name) : DefaultScene(prm_na
 }
 
 void Stage02Controller::initialize() {
-    _pBgmPerformer->play(0, DSBVOLUME_MIN, true);
+    _pBgmPerformer->play(0, GGAF_MIN_VOLUME, true);
     _pBgmPerformer->fadein(0, 420);
     _pProgress->change(STAGE02CONTROLLER_SCENE_PROG_INIT);
 }
@@ -88,7 +88,7 @@ void Stage02Controller::processBehavior() {
 //    if (_pProgress->wasChangedTo(STAGE02CONTROLLER_SCENE_PROG_STG02_02_BEGIN)) {
 //        //STG02_02開始処理
 //        _pBgmPerformer->fadeout_stop(0, 420);        //BGM０番フェードアウト
-//        _pBgmPerformer->play(1, DSBVOLUME_MIN, true);//BGM１番フェードイン
+//        _pBgmPerformer->play(1, GGAF_MIN_VOLUME, true);//BGM１番フェードイン
 //        _pBgmPerformer->fadein(1, 420);
 //        _pProgress->change(STAGE02CONTROLLER_SCENE_PROG_STG02_02_PLAYING);
 //    } else if (_pProgress->get() == STAGE02CONTROLLER_SCENE_PROG_STG02_02_PLAYING) {
@@ -108,7 +108,7 @@ void Stage02Controller::processBehavior() {
     if (_pProgress->wasChangedTo(STAGE02CONTROLLER_SCENE_PROG_STG02_CLIMAX_BEGIN)) {
         //STG02_Climax開始処理
         _pBgmPerformer->fadeout_stop(1, 420);  //BGM１番フェードアウト
-        _pBgmPerformer->play(2, DSBVOLUME_MIN, true); //BGM２番フェードイン
+        _pBgmPerformer->play(2, GGAF_MIN_VOLUME, true); //BGM２番フェードイン
         _pBgmPerformer->fadein(2, 420);
         _pProgress->change(STAGE02CONTROLLER_SCENE_PROG_STG02_CLIMAX_PLAYING);
     } else if (_pProgress->get() == STAGE02CONTROLLER_SCENE_PROG_STG02_CLIMAX_PLAYING) {

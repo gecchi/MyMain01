@@ -1,9 +1,6 @@
 #ifndef GGAFDX9SOUND_H_
 #define GGAFDX9SOUND_H_
 
-#define GGAF_MAX_VOLUME 100
-#define GGAF_MIN_VOLUME 0
-
 namespace GgafDx9Core {
 /**
  * サウンドクラス.

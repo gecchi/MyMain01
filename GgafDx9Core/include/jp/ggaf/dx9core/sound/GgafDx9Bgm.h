@@ -40,14 +40,14 @@ public:
      * @param prm_pan    -1.0 ~ 0 ~ 1.0
      * @param prm_isLoop
      */
-    void play(int prm_volume, int prm_pan, bool prm_isLoop);
+    void play(int prm_volume, float prm_pan, bool prm_isLoop);
     void play(bool prm_isLoop) {
-        play(DSBVOLUME_MAX, DSBPAN_CENTER, prm_isLoop);
+        play(GGAF_MAX_VOLUME, 0.0f, prm_isLoop);
     }
     void pause();
     void stop();
     void setVolume(int volume);
-    void setPan(int pan);
+    void setPan(float pan);
     void clear();
     bool isActiveActor();
 

@@ -37,21 +37,21 @@ public:
     void fade(int prm_id, frame prm_frame, int prm_target_volume);
 
     void fadein(int prm_id, int prm_frame) {
-        fade(prm_id, prm_frame, DSBVOLUME_MAX);
+        fade(prm_id, prm_frame, GGAF_MAX_VOLUME);
     }
     void fadeout(int prm_id, int prm_frame) {
-        fade(prm_id, prm_frame, DSBVOLUME_MIN);
+        fade(prm_id, prm_frame, GGAF_MIN_VOLUME);
         _pa_is_fadeout_stop[prm_id] = false;
     }
     void fadeout_stop(int prm_id, int prm_frame) {
-        fade(prm_id, prm_frame, DSBVOLUME_MIN);
+        fade(prm_id, prm_frame, GGAF_MIN_VOLUME);
         _pa_is_fadeout_stop[prm_id] = true;
     }
 
     void prepare(int prm_id, const char* prm_se_name) ;
     void setVolume(int prm_id, int prm_volume);
     void play(int prm_id, bool prm_is_loop) {
-        play(prm_id, DSBVOLUME_MAX, prm_is_loop);
+        play(prm_id, GGAF_MAX_VOLUME, prm_is_loop);
     }
 
     void play(int prm_id, int prm_volume, bool prm_is_loop);

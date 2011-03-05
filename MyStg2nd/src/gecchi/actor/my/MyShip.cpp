@@ -528,12 +528,7 @@ void MyShip::processJudgement() {
 void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
-    _pSeTransmitter->play3D(0);
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
-    if (pExplo001) {
-        pExplo001->locateWith(this);
-        pExplo001->activate();
-    }
+
 
     if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
@@ -544,6 +539,15 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
         _blown_veloX += (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vX)*(10000+GgafUtil::abs(_pKuroko->_veloVxMv)));
         _blown_veloY += (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vY)*(10000+GgafUtil::abs(_pKuroko->_veloVyMv)));
         _blown_veloZ += (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vZ)*(10000+GgafUtil::abs(_pKuroko->_veloVzMv)));
+    }
+    if (pOther->getKind() & KIND_ITEM)  {
+    } else {
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
+        if (pExplo001) {
+            pExplo001->locateWith(this);
+            pExplo001->activate();
+        }
+        _pSeTransmitter->play3D(0);
     }
 
     if (pOther->getKind() & KIND_ITEM)  {

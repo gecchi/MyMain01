@@ -46,22 +46,22 @@ public:
     /**
      * ボリュームとパンと周波数の率を指定してSEを１回再生
      * @param prm_iVolume ボリューム(min:-9600 max:0)
-     * @param prm_iPan    パン(left:-10000 right:10000)
+     * @param prm_fPan    パン(left:-10000 right:10000)
      * @param prm_fRate_Frequency 元の周波数に乗ずる率
      */
-    virtual void play(int prm_iVolume, int prm_iPan, float prm_fRate_Frequency);
+    virtual void play(int prm_iVolume, float prm_fPan, float prm_fRate_Frequency);
 
     /**
      * ボリュームとパンを指定してSEを1回再生
      * @param prm_iVolume ボリューム(min:0 max:100)
-     * @param prm_iPan    パン(left:-1.0 center:0 right:1.0)
+     * @param prm_fPan    パン(left:-1.0 center:0 right:1.0)
      */
-    virtual void play(int prm_iVolume, int prm_iPan) {
-        play(prm_iVolume, prm_iPan, 1.0);
+    virtual void play(int prm_iVolume, float prm_fPan) {
+        play(prm_iVolume, prm_fPan, 1.0f);
     }
 
     virtual void play() {
-        play(DSBVOLUME_MAX, DSBPAN_CENTER);
+        play(GGAF_MAX_VOLUME, 0.0f);
     }
 
     bool isPlaying();
@@ -69,7 +69,7 @@ public:
 
     void setVolume(int prm_iVolume);
 
-    void setPan(int prm_iPan);
+    void setPan(float prm_fPan);
 
     void setFrequencyRate(float prm_fRate_Frequency);
 

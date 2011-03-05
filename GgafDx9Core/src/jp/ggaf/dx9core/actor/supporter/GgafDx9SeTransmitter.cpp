@@ -39,7 +39,7 @@ void GgafDx9SeTransmitter::playImmediately(int prm_id) {
         throwGgafCriticalException("GgafDx9SeTransmitter::play() IDÇ™îÕàÕäOÇ≈Ç∑ÅB0~"<<(_se_num-1)<<"Ç≈Ç®äËÇ¢ÇµÇ‹Ç∑ÅB_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
 #endif
-    _papSeCon[prm_id]->refer()->play(DSBVOLUME_MAX, DSBPAN_CENTER);
+    _papSeCon[prm_id]->refer()->play(GGAF_MAX_VOLUME, 0.0);
 }
 
 
@@ -120,7 +120,8 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
     static const int VOLUME_MAX_3D = GGAF_MAX_VOLUME;
     static const int VOLUME_MIN_3D = GGAF_MIN_VOLUME;
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
-    LONG pan, vol;
+    float pan;
+    LONG vol;
     float rate_frequency;
     bool calc_flg = true;
     for (int i = 0; i < _se_num; i++) {

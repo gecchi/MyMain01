@@ -8,8 +8,8 @@ using namespace MyStg2nd;
 Item::Item(const char* prm_name, const char* prm_model)
                : DefaultMeshSetActor(prm_name, prm_model) {
     _class_name = "Item";
-    setZEnable(true);        //Zバッファは考慮有り
-    setZWriteEnable(true);  //Zバッファは書き込み有り
+    _no_hitchk_out_of_view = true; //視野外は当たり判定無効
+
 }
 
 void Item::initialize() {

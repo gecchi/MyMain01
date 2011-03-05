@@ -47,7 +47,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _RZ_offset = 0;
     _is_local = false;
     _wasCalc_matInvWorldRotMv = false;
-
+    _no_hitchk_out_of_view = false;
 }
 
 
@@ -115,12 +115,17 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
 
     }
 
+
     //‚W•ª–Ø“o˜^
     if (_pChecker) {
-        _pChecker->_blown_sgn_vX = 0;
-        _pChecker->_blown_sgn_vY = 0;
-        _pChecker->_blown_sgn_vZ = 0;
-        _pChecker->updateHitArea();
+        if (_no_hitchk_out_of_view && isOutOfView()) {
+            //‹–ìŠO“–‚½‚è”»’è–³Œø‚Ìê‡‚Í“o˜^‚µ‚È‚¢
+        } else {
+            _pChecker->_blown_sgn_vX = 0;
+            _pChecker->_blown_sgn_vY = 0;
+            _pChecker->_blown_sgn_vZ = 0;
+            _pChecker->updateHitArea();
+        }
     }
 
     //ƒƒ“ƒo[XV

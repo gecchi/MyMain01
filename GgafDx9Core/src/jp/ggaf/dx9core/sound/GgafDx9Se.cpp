@@ -83,7 +83,7 @@ int GgafDx9Se::writeBuffer(CWaveDecorder& WaveFile) {
     return true;
 }
 
-void GgafDx9Se::play(int prm_iVolume, int prm_iPan, float prm_fRate_Frequency) {
+void GgafDx9Se::play(int prm_iVolume, float prm_fPan, float prm_fRate_Frequency) {
     if (_pIDirectSoundBuffer == NULL) {
         _TRACE_("_pIDirectSoundBuffer==NULL;!");
     }
@@ -100,7 +100,7 @@ void GgafDx9Se::play(int prm_iVolume, int prm_iPan, float prm_fRate_Frequency) {
         }
     }
     setVolume(prm_iVolume);
-    setPan(prm_iPan);
+    setPan(prm_fPan);
     setFrequencyRate(prm_fRate_Frequency);
     HRESULT hr;
     hr = _pIDirectSoundBuffer->SetCurrentPosition(0); //バッファ頭だし
@@ -115,9 +115,9 @@ void GgafDx9Se::setVolume(int prm_iVolume) {
     checkDxException(hr, DS_OK, "GgafDx9Se::setVolume() SetVolume("<<prm_iVolume<<") が失敗しました。");
 }
 
-void GgafDx9Se::setPan(int prm_iPan) {
-    HRESULT hr = _pIDirectSoundBuffer->SetPan(prm_iPan*DSBPAN_RIGHT);
-    checkDxException(hr, DS_OK, "GgafDx9Se::setPan() SetPan("<<prm_iPan<<") が失敗しました。");
+void GgafDx9Se::setPan(float prm_fPan) {
+    HRESULT hr = _pIDirectSoundBuffer->SetPan(prm_fPan*DSBPAN_RIGHT);
+    checkDxException(hr, DS_OK, "GgafDx9Se::setPan() SetPan("<<prm_fPan<<") が失敗しました。");
 }
 
 void GgafDx9Se::setFrequencyRate(float prm_fRate_Frequency) {

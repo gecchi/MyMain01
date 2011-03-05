@@ -6,11 +6,16 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 MagicPointItem001::MagicPointItem001(const char* prm_name)
-               : Item(prm_name, "MagicPointItem001") {
+               : Item(prm_name, "EffectMagic001") {
     _class_name = "MagicPointItem001";
     MyStgUtil::resetMagicPointItem001Status(_pStatus);
+//    setZEnable(true);        //Zバッファは考慮有り
+//    setZWriteEnable(true);  //Zバッファは書き込み有り
+    changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
-    setZWriteEnable(true);  //Zバッファは書き込み有り
+    setZWriteEnable(false);  //Zバッファは書き込み無し
+    setAlpha(0.9);
+
     _pKuroko->setFaceAngVelo(AXIS_X, 3*1000);
     _pKuroko->setFaceAngVelo(AXIS_Y, 5*1000);
     _pKuroko->setFaceAngVelo(AXIS_Z, 7*1000);
@@ -20,9 +25,9 @@ MagicPointItem001::MagicPointItem001(const char* prm_name)
 void MagicPointItem001::initialize() {
     setHitAble(true);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB_Cube(0, 200000);
+    _pCollisionChecker->setColliAAB_Cube(0, 300000);
     _pSeTransmitter->useSe(1);
-    _pSeTransmitter->set(0, "yume_ashi_022");
+    _pSeTransmitter->set(0, "decide1");
     useProgress(3);
 }
 
@@ -49,6 +54,7 @@ void MagicPointItem001::onReset() {
     _pKuroko->setVzMvAcce(0);
     _pKuroko->_gravitation_mv_seq_flg = false;
     _pProgress->change(0);
+    _SX= _SY= _SZ= 1000;
 }
 void MagicPointItem001::onActive() {
 //    _pKuroko->setFaceAngVelo(AXIS_Y, 5*1000);
@@ -82,6 +88,7 @@ void MagicPointItem001::processBehavior() {
 
     if (_pProgress->get() == 2) {
         if (_pProgress->isJustChanged()) {
+            _pSeTransmitter->playImmediately(0);
             _pKuroko->setVxMvVelo(0);
             _pKuroko->setVyMvVelo(0);
             _pKuroko->setVzMvVelo(0);

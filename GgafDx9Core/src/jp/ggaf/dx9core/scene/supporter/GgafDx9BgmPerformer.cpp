@@ -28,8 +28,8 @@ void GgafDx9BgmPerformer::useBgm(int prm_bgm_num) {
         _papBgmCon[i] = NULL;
         _pa_is_fade[i] = false;
         _pa_is_fadeout_stop[i] = true;
-        _pa_now_volume[i] = DSBVOLUME_MAX;
-        _pa_target_volume[i] = DSBVOLUME_MAX;
+        _pa_now_volume[i] = GGAF_MAX_VOLUME;
+        _pa_target_volume[i] = GGAF_MAX_VOLUME;
         _pa_inc_volume[i] = 0;
     }
 }
@@ -52,7 +52,7 @@ void GgafDx9BgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {
     }
     _pa_now_volume[prm_id] = (double)prm_volume;
     _pa_is_fade[prm_id] = false;
-    _papBgmCon[prm_id]->refer()->play(prm_volume, DSBPAN_CENTER, prm_is_loop);
+    _papBgmCon[prm_id]->refer()->play(prm_volume, 0.0f, prm_is_loop);
     GgafDx9BgmPerformer::_active_bgm_bpm = _papBgmCon[prm_id]->refer()->_bpm; //ÅV‚ÌBGM‚ÌBPMƒŠƒYƒ€
 }
 
