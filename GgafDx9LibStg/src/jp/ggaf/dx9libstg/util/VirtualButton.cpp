@@ -238,6 +238,10 @@ void VirtualButton::init() {
     _mapDIK["JOY_BUTTON_07"]    = 7;
     _mapDIK["JOY_BUTTON_08"]    = 8;
     _mapDIK["JOY_BUTTON_09"]    = 9;
+    _mapDIK["JOY_BUTTON_10"]    = 10;
+    _mapDIK["JOY_BUTTON_11"]    = 11;
+    _mapDIK["JOY_BUTTON_12"]    = 12;
+
 }
 
 
