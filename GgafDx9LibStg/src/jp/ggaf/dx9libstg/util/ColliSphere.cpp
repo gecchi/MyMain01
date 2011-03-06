@@ -9,6 +9,7 @@ ColliSphere::ColliSphere() : GgafDx9CollisionPart() {
     _y = 0;
     _z = 0;
     _r = 0;
+    _rr = 0.0;
     _shape_kind = COLLI_SPHERE;
 }
 
@@ -17,7 +18,7 @@ void ColliSphere::set(int x, int y, int z, int r, bool rotX, bool rotY, bool rot
     _y = y;
     _z = z;
     _r = r;
-
+    _rr = 1.0*r*r;
     //基底クラスメンバの更新
     _dx = _r*2;
     _dy = _r*2;

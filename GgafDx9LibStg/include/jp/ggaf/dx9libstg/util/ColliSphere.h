@@ -18,6 +18,8 @@ public:
     int _z;
     /** ”¼Œa */
     int _r;
+    /** ”¼Œa‚Ì‚Qæ */
+    double _rr;
 
     ColliSphere();
 

@@ -113,8 +113,9 @@ public:
             square_length += (double)(o_scz - bz2) * (o_scz - bz2);
         }
         //square_lengthが球の半径（の二乗）よりも短ければ衝突している
-        if (square_length <= (double)pSphere02->_r * pSphere02->_r) {
+        if (square_length <= pSphere02->_rr) {
             //ヒット
+            //吹っ飛方向を考慮
             if (pActor01->_Z + pAAB01->_aab_z1 < pActor02->_Z + pSphere02->_aab_z1) {
                 pCChecker01->_blown_sgn_vZ -= 1;
             }
