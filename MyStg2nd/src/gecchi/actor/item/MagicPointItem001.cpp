@@ -59,6 +59,7 @@ void MagicPointItem001::onReset() {
 void MagicPointItem001::onActive() {
 //    _pKuroko->setFaceAngVelo(AXIS_Y, 5*1000);
 //    _pKuroko->setFaceAngVelo(AXIS_Z, 7*1000);
+    reset();
 }
 
 void MagicPointItem001::processBehavior() {

@@ -25,8 +25,9 @@ public:
 
     void onCreateModel() override {
     }
-
     void initialize() override;
+
+    void onReset() override;
 
     void onActive() override;
 

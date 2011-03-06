@@ -6,37 +6,41 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 MyTorpedoBlast::MyTorpedoBlast(const char* prm_name)
-               : DefaultMeshSetActor(prm_name, "donatu_0") {
+               : DefaultMeshSetActor(prm_name, "MyTorpedoBlast") {
     _class_name = "MyTorpedoBlast";
     MyStgUtil::resetMyTorpedoBlastStatus(_pStatus);
     changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
-    setMaterialColor(1.0, 0.3, 0.3);
+    setAlpha(0.2);
     setZEnable(true);        //Zバッファは考慮有り
-    setZWriteEnable(true);  //Zバッファは書き込み有り
+    setZWriteEnable(false);  //Zバッファは書き込み無し
 }
 
 void MyTorpedoBlast::initialize() {
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliSphere(0, 100);
+    _pKuroko->setFaceAngVelo(AXIS_X, 27*1000);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 33*1000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 17*1000);
+    setHitAble(true);
+}
+
+void MyTorpedoBlast::onReset() {
+    MyStgUtil::resetMyTorpedoBlastStatus(_pStatus);
+    _pCollisionChecker->setColliSphere(0, 1000);
+    _pKuroko->setMvVelo(0);
+    _pScaler->setScale(1000);
+    _pScaler->forceScaleRange(1000, 200*1000);
+
 }
 
 void MyTorpedoBlast::onActive() {
-    MyStgUtil::resetMyTorpedoBlastStatus(_pStatus);
-    setAlpha(1.0);
-    _pKuroko->setFaceAngVelo(AXIS_X, 1*1000);
-    _pKuroko->setFaceAngVelo(AXIS_Y, 3*1000);
-    _pKuroko->setFaceAngVelo(AXIS_Z, 2*1000);
-    _pKuroko->setMvVelo(0);
-    setHitAble(true);
-    _pScaler->setScale(100);
-    _pScaler->intoTargetScaleAcceStep(99, 30, -1); //膨らんでしぼむ
+    _pScaler->beat(60, 60/2, 0, 1); //1回膨らんでしぼむ
 }
 
 void MyTorpedoBlast::processBehavior() {
     if (_pScaler->_method[AXIS_X] == NOSCALE) {
         sayonara();//膨らんでしぼむが終了時
     } else {
-        _pCollisionChecker->setColliSphere(0, _pScaler->_scale[AXIS_X]*1000); //当たり判定も変化
+        _pCollisionChecker->setColliSphere(0, _pScaler->_scale[AXIS_X]); //当たり判定も変化
         _pKuroko->behave();
         _pScaler->behave();
     }

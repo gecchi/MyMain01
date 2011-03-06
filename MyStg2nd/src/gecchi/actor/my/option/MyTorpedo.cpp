@@ -223,6 +223,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)_pMyOptionTorpedoController->_pDispatcher_TorpedoBlast->employ();
     if (pBlast) {
         pBlast->locateWith(this);
+        pBlast->reset();
         pBlast->activate();
     }
 

@@ -1082,6 +1082,10 @@ void GgafElement<T>::doFinally() {
 template<class T>
 void GgafElement<T>::reset() {
     if (_can_live_flg) {
+        if(_was_initialize_flg == false) {
+            initialize();       //‰Šú‰»
+            _was_initialize_flg = true;
+        }
         if (_is_already_reset == false) {
             _frame_of_behaving = 0;
             _frame_of_behaving_since_onActive = 0;
@@ -1095,6 +1099,10 @@ void GgafElement<T>::reset() {
 template<class T>
 void GgafElement<T>::resetTree() {
     if (_can_live_flg) {
+        if(_was_initialize_flg == false) {
+            initialize();       //‰Šú‰»
+            _was_initialize_flg = true;
+        }
         if (_is_already_reset == false) {
             _frame_of_behaving = 0;
             _frame_of_behaving_since_onActive = 0;

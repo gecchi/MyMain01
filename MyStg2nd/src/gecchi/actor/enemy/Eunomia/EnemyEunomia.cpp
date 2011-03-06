@@ -39,7 +39,7 @@ void EnemyEunomia::onActive() {
     if (_pSplineProgram == NULL) {
         throwGgafCriticalException("EnemyEunomiaはスプライン必須ですconfigして下さい");
     }
-    onReset();
+    reset();
 }
 
 void EnemyEunomia::processBehavior() {
@@ -158,7 +158,6 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
         Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->employ();
         if (pItem) {
             pItem->locateWith(this);
-            pItem->reset();
             pItem->activate();
         }
     }
