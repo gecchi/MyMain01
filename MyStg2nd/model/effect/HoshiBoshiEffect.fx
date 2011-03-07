@@ -87,7 +87,7 @@ OUT_VS VS_HoshiBoshi(
 	OUT_VS out_vs = (OUT_VS)0;
 
 	out_vs.col = prm_col;
-	out_vs.pos = mul(prm_pos    , g_matWorld);  //World
+	out_vs.pos = mul(prm_pos, g_matWorld);  //World
 
 	//カメラの最大視野範囲(-_zf ～ _zf, -_zf ～ _zf, -_zf ～ _zf)
 	//を超えている場合、ループする。
@@ -174,11 +174,7 @@ OUT_VS VS_HoshiBoshi(
 	}
 
 	out_vs.pos = mul(out_vs.pos , g_matView);  //View
-//	float dep = out_vs.pos.z + 1.0; //+1.0の意味は
-//                                    //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
-//                                    //距離に加える。
-    // out_vs.pos.z/2.0 奥行きを半分にして 縮小率計算             
-	float dep = (out_vs.pos.z*0.7) + 1.0; //+1.0の意味は
+	float dep = out_vs.pos.z + 1.0; //+1.0の意味は
                                           //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
                                           //距離に加える。
 
@@ -186,8 +182,11 @@ OUT_VS VS_HoshiBoshi(
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 
 	//奥ほど小さく表示するために縮小率計算
-
-	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;  //通常の奥行きの縮小率
+    //	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;  //通常の奥行きの縮小率
+    out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep ) * prm_psize_rate + (-(g_dist_CamZ_default - dep) * 0.001);  
+    //通常の奥行きの縮小率では、星がもともと小さいため、遠くの星はほとんど見えなくなってしまう。
+    //そこで (-(g_dist_CamZ_default - dep) * 0.001) を縮小率に加算し、奥行きに対する縮小率を緩やかにし、
+    //遠くの星でも存在が解るようにした。
 
 	//スペキュラセマンテックス(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
 	int ptnno = prm_ptn_no.x + g_UvFlipPtnNo;
