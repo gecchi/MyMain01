@@ -92,12 +92,13 @@ void GgafDx9StringBoardActor::processDraw() {
             _draw_set_num = remainder_len;
         }
 
+        int pattno;
         for (int i = 0; i < _draw_set_num; i++) {
             strindex = pack * _pBoardSetModel->_set_num + i;
             if (_draw_string[strindex] == '\0') {
-              break;
+                break;
             }
-            int pattno;
+
             if (_draw_string[strindex] - ' ' < 0) {
                 pattno = '?' - ' '; //”ÍˆÍŠO‚Í"?"
             } else {

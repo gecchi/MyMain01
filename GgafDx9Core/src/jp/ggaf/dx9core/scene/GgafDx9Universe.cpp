@@ -116,9 +116,9 @@ void GgafDx9Universe::draw() {
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
     GgafDx9Scene* pScene;
     while (_pActor_DrawActive) {
-        if (_pActor_DrawActive->_fAlpha < 1.0) {
-            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリングを一時OFF
-            //但し、段階レンダリング不要であるにもかかわらず、半透明表示は、前後がうまく表示されないので避けるべき。
+        if (_pActor_DrawActive->_fAlpha <= 0.0f) {
+            _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
+            continue;
         }
         //マスターαを設定する。
 #ifdef MY_DEBUG
@@ -129,13 +129,24 @@ void GgafDx9Universe::draw() {
             }
 #endif
         pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
-        _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
-                _pActor_DrawActive->_pGgafDx9Effect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha);
+        if (pScene->_pAlphaCurtain->_alpha  <= 0.0f) {
+            _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
+            continue;
+        } else {
+            _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
+                    _pActor_DrawActive->_pGgafDx9Effect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha
+            );
+        }
+
+        if (_pActor_DrawActive->_fAlpha < 1.0f) {
+            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリングを一時OFF
+            //但し、段階レンダリング不要であるにもかかわらず、半透明表示は、前後がうまく表示されないので避けるべき。
+        }
+
         //描画
         _pActor_DrawActive->processDraw();
 
-
-        if (_pActor_DrawActive->_fAlpha < 1.0) {
+        if (_pActor_DrawActive->_fAlpha < 1.0f) {
             GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //カリング有りに戻す
         }
         _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
@@ -148,10 +159,29 @@ void GgafDx9Universe::draw() {
     for (int i = MAX_DRAW_DEPTH_LEVEL - 1; i >= 0; i--) {
         _pActor_DrawActive = _apAlphaActorList_DrawDepthLevel[i];
         while (_pActor_DrawActive) {
-
+            if (_pActor_DrawActive->_fAlpha <= 0.0f) {
+                _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
+                continue;
+            }
+#ifdef MY_DEBUG
+            if (_pActor_DrawActive->getPlatformScene()->_obj_class & Obj_GgafDx9Scene) {
+                //OK
+            } else {
+                throwGgafCriticalException("GgafDx9Universe::draw() err2. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDx9Scene に変換不可です。this="<<getName());
+            }
+#endif
+            //各所属シーンのαカーテンを設定する。
+            pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
+            if (pScene->_pAlphaCurtain->_alpha <= 0.0f) {
+                _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
+                continue;
+            } else {
+                _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
+                        _pActor_DrawActive->_pGgafDx9Effect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha);
+            }
 
             //半透明要素ありの場合カリングを一時OFF
-            if (_pActor_DrawActive->_fAlpha < 1.0) {
+            if (_pActor_DrawActive->_fAlpha < 1.0f) {
                 GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
             }
             //Zバッファを考慮無効設定
@@ -163,21 +193,10 @@ void GgafDx9Universe::draw() {
                 GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
             }
 
-#ifdef MY_DEBUG
-            if (_pActor_DrawActive->getPlatformScene()->_obj_class & Obj_GgafDx9Scene) {
-                //OK
-            } else {
-                throwGgafCriticalException("GgafDx9Universe::draw() err2. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]が、GgafDx9Scene に変換不可です。this="<<getName());
-            }
-#endif
-            //各所属シーンのαカーテンを設定する。
-            pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
-            _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
-                    _pActor_DrawActive->_pGgafDx9Effect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha);
             _pActor_DrawActive->processDraw();
 
             //カリング有りに戻す
-            if (_pActor_DrawActive->_fAlpha < 1.0) {
+            if (_pActor_DrawActive->_fAlpha < 1.0f) {
                 GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
             }
             //Zバッファを考慮無効設定
