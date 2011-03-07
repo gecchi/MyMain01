@@ -2422,9 +2422,9 @@ class DotWriter:
 
         fontname = theme.graph_fontname()
 
-        self.attr('graph', fontname=fontname, ranksep=0.5, nodesep=0.4, rankdir="LR", normalize="true", concentrate="true", overlap="scalexy")
+        self.attr('graph', fontname=fontname, ranksep=0.6, nodesep=0.7, rankdir="LR", normalize="true", concentrate="true", overlap="scalexy")
         self.attr('node', fontname=fontname, shape="box", style="filled,rounded", fontcolor="white", width=0, height=0)
-        self.attr('edge', fontname=fontname)
+        self.attr('edge', fontname=fontname, splines="true" )
 
         for function in profile.functions.itervalues():
             labels = []
@@ -2439,6 +2439,8 @@ class DotWriter:
                     labels.append(label)
             if function.called is not None:
                 labels.append(u"%s\xd7" % (format_number(function.called,)))
+                labels.append("%.03f pmc" % ((function[TOTAL_TIME_RATIO] * 100.0)/(function.called/1000000.0)))
+                labels.append("(%.03f pmc)" % ((function[TIME_RATIO] * 100.0)/(function.called/1000000.0)))
 
             if function.weight is not None:
                 weight = function.weight

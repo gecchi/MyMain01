@@ -168,18 +168,20 @@ void MyOptionController::processBehavior() {
 
     }
 
-    if (VB_PLAY->isRoundPushDown(VB_OPTION)) {
-    //if (VB_PLAY->isPushedDown(VB_OPTION) && GgafDx9Input::isBeingPressedKey(DIK_S)) {
-        if (_papMyOption[0]) {
-            _is_free_from_myship_mode = true;
-            _is_handle_move_mode = true;
-            _pKuroko->setVxMvAcce(0);
-            _pKuroko->setVyMvAcce(0);
-            _pKuroko->setVzMvAcce(0);
-            _pKuroko->setVxMvVelo(0);
-            _pKuroko->setVyMvVelo(0);
-            _pKuroko->setVzMvVelo(0);
+    if (VB_PLAY->isPushedDown(VB_OPTION)) {
+        if (VB_PLAY->isRoundPushDown(VB_OPTION)) {
+        //if (VB_PLAY->isPushedDown(VB_OPTION) && GgafDx9Input::isBeingPressedKey(DIK_S)) {
+            if (_papMyOption[0]) {
+                _is_free_from_myship_mode = true;
+                _is_handle_move_mode = true;
+                _pKuroko->setVxMvAcce(0);
+                _pKuroko->setVyMvAcce(0);
+                _pKuroko->setVzMvAcce(0);
+                _pKuroko->setVxMvVelo(0);
+                _pKuroko->setVyMvVelo(0);
+                _pKuroko->setVzMvVelo(0);
 
+            }
         }
     }
 

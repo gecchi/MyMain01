@@ -9,6 +9,7 @@ using namespace std;
 #define MAX_LOADSTRING 100
 //#define WINDOW_TITLE "MyStg2nd"
 
+
 // グローバル変数:
 HINSTANCE hInst; // 現在のインターフェイス
 TCHAR szTitle[MAX_LOADSTRING]; // タイトル バーのテキスト
@@ -21,7 +22,6 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
 
 //void adjustGameScreen(HWND);
-
 /**
  * GNU GCC ならばエントリポイント
  */
