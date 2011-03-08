@@ -34,7 +34,7 @@ void MagicPointItem001::onReset() {
 
     MyStgUtil::resetMagicPointItem001Status(_pStatus);
     setHitAble(true, false);
-    _pKuroko->setMvVelo(3000);
+    _pKuroko->setMvVelo(2000);
 //    _pKuroko->forceMvVeloRange(0, 20000);
 //    _pKuroko->forceVxMvVeloRange(-20000, 20000);
 //    _pKuroko->forceVyMvVeloRange(-20000, 20000);
@@ -103,17 +103,17 @@ void MagicPointItem001::processBehavior() {
 //            _pKuroko->setMvAcce(0);
 //            _pKuroko->orderGravitationMvSequence(
 //                    pMyShip, 20000, 1000, 50000);
-            _pKuroko->keepTagetingMvAngAllTime(pMyShip, 1000, 200, TURN_CLOSE_TO);
-            _pKuroko->setMvAcce(100);
+            _pKuroko->keepTagetingMvAngAllTime(pMyShip, 1000, 100, TURN_CLOSE_TO);
+            _pKuroko->setMvVelo(5000);
         }
 
 //        _pKuroko->orderTagettingMvAngSequence(pMyShip, 1000, 500, TURN_CLOSE_TO);
 
 
 
-        if (abs(pMyShip->_X - _X) < 40000 &&
-            abs(pMyShip->_Y - _Y) < 40000 &&
-            abs(pMyShip->_Z - _Z) < 40000 ) {
+        if (abs(pMyShip->_X - _X) < 20000 &&
+            abs(pMyShip->_Y - _Y) < 20000 &&
+            abs(pMyShip->_Z - _Z) < 20000 ) {
             _kDX = pMyShip->_X - _X;
             _kDY = pMyShip->_Y - _Y;
             _kDZ = pMyShip->_Z - _Z;

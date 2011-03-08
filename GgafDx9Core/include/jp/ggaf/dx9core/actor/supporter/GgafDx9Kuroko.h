@@ -296,7 +296,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     int _taget_mv_ang_alltime_tX;
     int _taget_mv_ang_alltime_tY;
     int _taget_mv_ang_alltime_tZ;
-
+    angvelo  _taget_mv_ang_alltime_angVelo;
+    angacce _taget_mv_ang_alltime_angAcce;
+    int _taget_mv_ang_alltime_way;
+    bool _taget_mv_ang_alltime_optimize_ang;
     /**
      * 移動速度を設定 .
      * @param	prm_veloMv	移動速度
@@ -833,8 +836,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
         _taget_mv_ang_alltime_tX = prm_tX;
         _taget_mv_ang_alltime_tY = prm_tY;
         _taget_mv_ang_alltime_tZ = prm_tZ;
-        _mv_ang_rz_target_stop_flg = false;
-        _mv_ang_ry_target_stop_flg = false;
+        _taget_mv_ang_alltime_angVelo = prm_angVelo;
+        _taget_mv_ang_alltime_angAcce = prm_angAcce;
+        _taget_mv_ang_alltime_way = prm_way;
+        _taget_mv_ang_alltime_optimize_ang = prm_optimize_ang;
     }
     void keepTagetingMvAngAllTime(GgafDx9GeometricActor* prm_pActor_Target,
                             angvelo prm_angVelo, angacce prm_angAcce,
@@ -908,6 +913,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
         _mv_ang_rz_target_stop_flg = false;
         _mv_ang_ry_target_flg = false;
         _mv_ang_rz_target_stop_flg = false;
+        _taget_mv_ang_alltime_pActor = NULL;
+        _taget_mv_ang_alltime_flg = false;
     }
 
 
