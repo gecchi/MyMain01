@@ -27,7 +27,7 @@ void Shot004::onReset() {
 }
 
 void Shot004::onActive() {
-    setHitAble(true);
+    setHitAble(true, false);
 }
 
 void Shot004::processBehavior() {
