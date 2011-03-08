@@ -20,6 +20,12 @@ _pFrame_behaving(prm_pFrame_behaving)
 int GgafProgress::get() {
     return _progress;
 }
+void GgafProgress::set(int prm_progress) {
+    _progress_prev = _progress;
+    _progress = prm_progress;
+    _progress_nextframe = prm_progress;
+    _paFrame_ProgressChanged[prm_progress] = (*_pFrame_behaving);
+}
 
 frame GgafProgress::getFrameWhenChanged(int prm_progress) {
     return _paFrame_ProgressChanged[prm_progress];

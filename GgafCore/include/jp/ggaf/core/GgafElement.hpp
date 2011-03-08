@@ -734,7 +734,7 @@ public:
     virtual void execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
 
 
-    virtual void useProgress(int prm_num) {
+    virtual void useProgress(int prm_num = 10) {
         if (_pProgress == NULL) {
             _pProgress = NEW GgafProgress(&_frame_of_behaving, prm_num);
         } else {

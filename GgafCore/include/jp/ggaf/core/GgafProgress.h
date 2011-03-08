@@ -36,6 +36,16 @@ public:
     virtual int get();
 
     /**
+     * 現在の進捗を設定する .
+     * 即座に反映される。<BR>
+     * 初期化などではこの set(int) を使用し、<BR>
+     * 状態変化時は change(int) を使用する。<BR>
+     * という設計。<BR>
+     * @param prm_progress 進捗ID(1～99)
+     */
+    virtual void set(int prm_progress);
+
+    /**
      * 進捗IDが起こった時のフレーム取得 .
      * @param prm_progress 進捗ID(1～99)
      * @return 引数の直近の進捗IDが起こったときのフレーム
