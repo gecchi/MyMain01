@@ -139,8 +139,10 @@ GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
         _angacceFace[i] = 0; //_angveloFace[n] の増分。デフォルトは軸回転方角の角加速度無し
 
         _angjerkFace[i] = 0;
-        //目標軸回転方角への自動制御フラグ = 無効
+        //目標軸回転方角への自動向きフラグ = 無効
         _face_ang_targeting_flg[i] = false;
+        //目標軸回転方角への自動停止フラグ = 無効
+        _face_ang_targeting_stop_flg[i] = false;
         //目標の軸回転方角
         _angTargetFace[i] = 0; //目標軸回転方角への自動制御フラグ = 無効、の場合は無意味
         //目標の軸回転方角自動停止機能が有効になる回転方向
@@ -177,8 +179,11 @@ GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
     _angacceRzMv = 0; //_angveloRzMv の増分。デフォルトは移動方角の角加速度無し
 
     _angjerkRzMv = 0;
-    //目標移動方角（Z軸回転）への自動制御フラグ = 無効
+    //目標移動方角（Z軸回転）への自動向きフラグ = 無効
     _mv_ang_rz_target_flg = false;
+    //目標移動方角（Z軸回転）への自動停止フラグ = 無効
+    _mv_ang_rz_target_stop_flg = false;
+
     //目標の移動方角（Z軸回転）
     _angTargetRzMv = 0;
     //目標の移動方角（Z軸回転）自動停止機能が有効になる回転方向
@@ -198,8 +203,10 @@ GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
     _angacceRyMv = 0; //_angveloRyMv の増分。デフォルトは移動方角の角加速度無し
 
     _angjerkRyMv = 0;
-    //目標移動方角（Y軸回転）への自動制御フラグ = 無効
+    //目標移動方角（Y軸回転）への自動向きフラグ = 無効
     _mv_ang_ry_target_flg = false;
+    //目標移動方角（Y軸回転）への自動停止フラグ = 無効
+    _mv_ang_ry_target_stop_flg = false;
     //目標の移動方角（Y軸回転）
     _angTargetRyMv = 0;
     //目標の移動方角（Y軸回転）自動停止機能が有効になる回転方向
@@ -264,6 +271,12 @@ GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
     _gravitation_mv_seq_stop_renge = 1000;
     _gravitation_mv_seq_flg = false;
 
+    _taget_mv_ang_alltime_flg = false;
+    _taget_mv_ang_alltime_pActor = NULL;
+    _taget_mv_ang_alltime_tX = 0;
+    _taget_mv_ang_alltime_tY = 0;
+    _taget_mv_ang_alltime_tZ = 0;
+
 }
 
 void GgafDx9Kuroko::behave() {
@@ -282,7 +295,10 @@ void GgafDx9Kuroko::behave() {
 
                     //_TRACE_("STOP1 _angveloFace["<<i<<"]="<<_angveloFace[i]<<" angDistance="<<angDistance<<" _face_ang_target_allow_velo["<<i<<"]="<<_face_ang_target_allow_velo[i]<<" _angveloFace["<<i<<"]="<<_angveloFace[i]);
                     addFaceAng(i, angDistance);
-                    _face_ang_targeting_flg[i] = false; //フラグを戻して終了
+                    if (_face_ang_targeting_stop_flg[i]) {
+                        _face_ang_targeting_flg[i] = false; //フラグを戻して終了
+                        _face_ang_targeting_stop_flg[i] = false;
+                    }
                 } else {
                     addFaceAng(i, _angveloFace[i]);
                 }
@@ -291,7 +307,9 @@ void GgafDx9Kuroko::behave() {
                 if (_angveloFace[i] < angDistance && _face_ang_target_allow_way[i] != TURN_COUNTERCLOCKWISE
                         && -1 * _face_ang_target_allow_velo[i] <= _angveloFace[i]) { //目標を行き過ぎてしまいそう・・・な日
                     addFaceAng(i, angDistance);
-                    _face_ang_targeting_flg[i] = false; //フラグを戻して終了
+                    if (_face_ang_targeting_stop_flg[i]) { //停止して有りならば
+                        _face_ang_targeting_flg[i] = false; //フラグを戻して終了
+                    }
                 } else {
                     addFaceAng(i, _angveloFace[i]);
                 }
@@ -489,8 +507,31 @@ void GgafDx9Kuroko::behave() {
             angle angDistance = getRzMvAngDistance(_angTargetRzMv, TURN_COUNTERCLOCKWISE);
             if (_angveloRzMv > angDistance && _mv_ang_rz_target_allow_way != TURN_CLOCKWISE
                     && _mv_ang_rz_target_allow_velo >= _angveloRzMv) { //目標を行き過ぎてしまいそう・・・な日
-                addRzMvAng(angDistance);
-                _mv_ang_rz_target_flg = false; //フラグを戻して終了
+                if (_mv_ang_rz_target_stop_flg) { //停止指定ありならば
+                    addRzMvAng(angDistance);
+                    _mv_ang_rz_target_flg = false; //フラグを戻して終了
+                    _mv_ang_rz_target_stop_flg = false;
+                } else if (_taget_mv_ang_alltime_flg) { //ずっとターゲットフラグの場合
+                    addRzMvAng(_angveloRzMv);
+                    //目標を再設定して補足
+                    if (_taget_mv_ang_alltime_pActor) {
+                        GgafDx9Util::getRzRyAng(
+                                _taget_mv_ang_alltime_pActor->_X - _pActor->_X,
+                                _taget_mv_ang_alltime_pActor->_Y - _pActor->_Y,
+                                _taget_mv_ang_alltime_pActor->_Z - _pActor->_Z,
+                                _angTargetRzMv,
+                                _angTargetRyMv
+                         );
+                    } else {
+                        GgafDx9Util::getRzRyAng(
+                                _taget_mv_ang_alltime_tX - _pActor->_X,
+                                _taget_mv_ang_alltime_tY - _pActor->_Y,
+                                _taget_mv_ang_alltime_tZ - _pActor->_Z,
+                               _angTargetRzMv,
+                               _angTargetRyMv
+                        );
+                    }
+                }
             } else {
                 addRzMvAng(_angveloRzMv);
             }
@@ -499,8 +540,31 @@ void GgafDx9Kuroko::behave() {
             angle angDistance = getRzMvAngDistance(_angTargetRzMv, TURN_CLOCKWISE);
             if (_angveloRzMv < angDistance && _mv_ang_rz_target_allow_way != TURN_COUNTERCLOCKWISE
                     && -1*_mv_ang_rz_target_allow_velo <= _angveloRzMv) {
-                addRzMvAng(angDistance);
-                _mv_ang_rz_target_flg = false; //フラグを戻して終了
+                if (_mv_ang_rz_target_stop_flg) { //停止指定ありならば
+                    addRzMvAng(angDistance);
+                    _mv_ang_rz_target_flg = false; //フラグを戻して終了
+                    _mv_ang_rz_target_stop_flg = false;
+                } else if (_taget_mv_ang_alltime_flg) { //ずっとターゲットフラグの場合
+                    addRzMvAng(_angveloRzMv);
+                    //目標を再設定して補足
+                    if (_taget_mv_ang_alltime_pActor) {
+                        GgafDx9Util::getRzRyAng(
+                                _taget_mv_ang_alltime_pActor->_X - _pActor->_X,
+                                _taget_mv_ang_alltime_pActor->_Y - _pActor->_Y,
+                                _taget_mv_ang_alltime_pActor->_Z - _pActor->_Z,
+                                _angTargetRzMv,
+                                _angTargetRyMv
+                         );
+                    } else {
+                        GgafDx9Util::getRzRyAng(
+                                _taget_mv_ang_alltime_tX - _pActor->_X,
+                                _taget_mv_ang_alltime_tY - _pActor->_Y,
+                                _taget_mv_ang_alltime_tZ - _pActor->_Z,
+                               _angTargetRzMv,
+                               _angTargetRyMv
+                        );
+                    }
+                }
             } else {
                 addRzMvAng(_angveloRzMv);
             }
@@ -540,8 +604,31 @@ void GgafDx9Kuroko::behave() {
                 _mv_ang_ry_target_allow_way != TURN_CLOCKWISE &&
                 _mv_ang_ry_target_allow_velo >= _angveloRyMv)
             { //目標を行き過ぎてしまいそう・・・な日
-                addRyMvAng(angDistance);
-                _mv_ang_ry_target_flg = false; //フラグを戻して終了
+                if (_mv_ang_ry_target_stop_flg) { //停止指定ありならば
+                    addRyMvAng(angDistance);
+                    _mv_ang_ry_target_flg = false; //フラグを戻して終了
+                    _mv_ang_ry_target_stop_flg = false;
+                } else if (_taget_mv_ang_alltime_flg) { //ずっとターゲットフラグの場合
+                    addRyMvAng(_angveloRyMv);
+                    //目標を再設定して補足
+                    if (_taget_mv_ang_alltime_pActor) {
+                        GgafDx9Util::getRzRyAng(
+                                _taget_mv_ang_alltime_pActor->_X - _pActor->_X,
+                                _taget_mv_ang_alltime_pActor->_Y - _pActor->_Y,
+                                _taget_mv_ang_alltime_pActor->_Z - _pActor->_Z,
+                                _angTargetRzMv,
+                                _angTargetRyMv
+                         );
+                    } else {
+                        GgafDx9Util::getRzRyAng(
+                                _taget_mv_ang_alltime_tX - _pActor->_X,
+                                _taget_mv_ang_alltime_tY - _pActor->_Y,
+                                _taget_mv_ang_alltime_tZ - _pActor->_Z,
+                               _angTargetRzMv,
+                               _angTargetRyMv
+                        );
+                    }
+                }
             } else {
                 addRyMvAng(_angveloRyMv);
             }
@@ -552,8 +639,31 @@ void GgafDx9Kuroko::behave() {
                 _mv_ang_ry_target_allow_way != TURN_COUNTERCLOCKWISE &&
                 -1*_mv_ang_ry_target_allow_velo <= _angveloRyMv)
             {
-                addRyMvAng(angDistance);
-                _mv_ang_ry_target_flg = false; //フラグを戻して終了
+                if (_mv_ang_ry_target_stop_flg) { //停止指定ありならば
+                    addRyMvAng(angDistance);
+                    _mv_ang_ry_target_flg = false; //フラグを戻して終了
+                    _mv_ang_ry_target_stop_flg = false;
+                } else if (_taget_mv_ang_alltime_flg) { //ずっとターゲットフラグの場合
+                    addRyMvAng(_angveloRyMv);
+                    //目標を再設定して補足
+                    if (_taget_mv_ang_alltime_pActor) {
+                        GgafDx9Util::getRzRyAng(
+                                _taget_mv_ang_alltime_pActor->_X - _pActor->_X,
+                                _taget_mv_ang_alltime_pActor->_Y - _pActor->_Y,
+                                _taget_mv_ang_alltime_pActor->_Z - _pActor->_Z,
+                                _angTargetRzMv,
+                                _angTargetRyMv
+                         );
+                    } else {
+                        GgafDx9Util::getRzRyAng(
+                                _taget_mv_ang_alltime_tX - _pActor->_X,
+                                _taget_mv_ang_alltime_tY - _pActor->_Y,
+                                _taget_mv_ang_alltime_tZ - _pActor->_Z,
+                               _angTargetRzMv,
+                               _angTargetRyMv
+                        );
+                    }
+                }
             } else {
                 addRyMvAng(_angveloRyMv);
             }
@@ -659,6 +769,7 @@ void GgafDx9Kuroko::setStopTarget_FaceAng(int prm_axis,
                                                  int prm_way_allow,
                                                  angvelo prm_angveloAllow) {
     _face_ang_targeting_flg[prm_axis] = true;
+    _face_ang_targeting_stop_flg[prm_axis] = true;
     _angTargetFace[prm_axis] = GgafDx9Util::simplifyAng(prm_angTargetRot);
     _face_ang_target_allow_way[prm_axis] = prm_way_allow;
     _face_ang_target_allow_velo[prm_axis] = prm_angveloAllow;
@@ -1025,6 +1136,7 @@ void GgafDx9Kuroko::setStopTarget_RzMvAng(angle prm_angTargetRzMv,
                                                  int prm_way_allow,
                                                  angvelo prm_angveloAllowRyMv) {
     _mv_ang_rz_target_flg = true;
+    _mv_ang_rz_target_stop_flg = true;
     _angTargetRzMv = GgafDx9Util::simplifyAng(prm_angTargetRzMv);
     _mv_ang_rz_target_allow_way = prm_way_allow;
     _mv_ang_rz_target_allow_velo = prm_angveloAllowRyMv;
@@ -1207,9 +1319,10 @@ void GgafDx9Kuroko::forceRyMvAngVeloRange(angvelo prm_angveloRyMv01,
 }
 
 void GgafDx9Kuroko::setStopTarget_RyMvAng(angle prm_angTargetRyMv,
-                                                 int prm_way_allow,
-                                                 angvelo prm_angveloAllowRyMv) {
+                                          int prm_way_allow,
+                                          angvelo prm_angveloAllowRyMv) {
     _mv_ang_ry_target_flg = true;
+    _mv_ang_ry_target_stop_flg = true;
     _angTargetRyMv = GgafDx9Util::simplifyAng(prm_angTargetRyMv);
     _mv_ang_ry_target_allow_way = prm_way_allow;
     _mv_ang_ry_target_allow_velo = prm_angveloAllowRyMv;

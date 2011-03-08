@@ -120,9 +120,6 @@ public:
     //変換済み座標系の場合とは具体的には、GgafDx9BoardActor、GgafDx9BoardSetActor、GgafDx9StringBoardActor
     //を使用した場合の座標系を意味する。
 
-    /** true:視界外はヒットチェックを行なわなくていいオブジェクトである/false:視界外でもヒットチェックを行うブジェクトである */
-    bool _no_hitchk_out_of_view;
-
     //補足メモ
     //【_X, _Y, _Z の単位について】
     //　座標値 _X, _Y, _Z は独自の単位である。

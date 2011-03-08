@@ -122,6 +122,7 @@ HRESULT GgafDx9God::init() {
         //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
     }
 
+
     //アンチアイリアスにできるかチェック
     UINT32 qualityLevels = D3DMULTISAMPLE_NONE;
     D3DMULTISAMPLE_TYPE multiSampleType = D3DMULTISAMPLE_NONE;
@@ -451,7 +452,7 @@ void GgafDx9God::makeUniversalMaterialize() {
             for (int i = 0; GgafFactory::isResting() == false; i++) {
                 Sleep(60); //工場が落ち着くまで待つ
                 if (i > 2000) {
-                    _TRACE_("GgafDx9God::makeUniversalMaterialize() ２分待機しましたが、工場から反応がありません。breakします。要調査");
+                    _TRACE_("GgafDx9God::makeUniversalMaterialize() ２分待機しましたが、工場から反応がありません。要調査");
                 }
             }
             //            while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
@@ -633,30 +634,30 @@ void GgafDx9God::adjustGameScreen() {
             if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)) {
                 //より横長になってしまっている
                 float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT); //縮小率=縦幅の比率
-                GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f)
+                GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f)
                         - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
-                GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
-                GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
+                GgafDx9God::_rectPresentDest.top = 0;
+                GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
                         + (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
-                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate;
+                GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate;
             } else {
                 //より縦長になってしまっている
                 float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH); //縮小率=横幅の比率
-                GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
-                GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
+                GgafDx9God::_rectPresentDest.left = 0;
+                GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
                         - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
-                GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate;
-                GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
+                GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate;
+                GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
                         + (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
             }
             _adjustGameScreen = false;
         }
     } else {
         if (::GetClientRect(_hWnd, &rect)) {
-            GgafDx9Core::GgafDx9God::_rectPresentDest.top = rect.top;
-            GgafDx9Core::GgafDx9God::_rectPresentDest.left = rect.left;
-            GgafDx9Core::GgafDx9God::_rectPresentDest.right = rect.right;
-            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = rect.bottom;
+            GgafDx9God::_rectPresentDest.top = rect.top;
+            GgafDx9God::_rectPresentDest.left = rect.left;
+            GgafDx9God::_rectPresentDest.right = rect.right;
+            GgafDx9God::_rectPresentDest.bottom = rect.bottom;
             _adjustGameScreen = false;
         }
     }
@@ -716,10 +717,10 @@ void GgafDx9God::adjustGameScreen() {
 //        }
 //    } else {
 //        if (::GetClientRect(_hWnd, &rect)) {
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.top = rect.top;
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.left = rect.left;
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.right = rect.right;
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = rect.bottom;
+//            GgafDx9God::_rectPresentDest.top = rect.top;
+//            GgafDx9God::_rectPresentDest.left = rect.left;
+//            GgafDx9God::_rectPresentDest.right = rect.right;
+//            GgafDx9God::_rectPresentDest.bottom = rect.bottom;
 //            _adjustGameScreen = false;
 //        }
 //    }

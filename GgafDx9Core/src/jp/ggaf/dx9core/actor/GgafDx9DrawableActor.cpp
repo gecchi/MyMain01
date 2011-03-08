@@ -143,7 +143,7 @@ void GgafDx9DrawableActor::processPreDraw() {
                                 this
                              );
         } else {
-            if (isOutOfView()) {
+            if (isOutOfView() || _fAlpha <= 0.0f || ((GgafDx9Scene*)getPlatformScene())->_pAlphaCurtain->_alpha <= 0.0f) {
                 //•`‰æ‚µ‚È‚¢‚Ì‚Å“o˜^‚È‚µ
             } else {
                 //ƒƒƒ‚„

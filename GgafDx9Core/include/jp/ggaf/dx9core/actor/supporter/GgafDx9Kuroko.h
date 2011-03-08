@@ -58,8 +58,10 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
     angacce _angacceFace[3];
     /** 軸回転方角の角躍度（角加速度に毎フレーム加算する値） */
     angjerk _angjerkFace[3];
-    /** 目標の軸回転方角自動停止機能有効フラグ */
+    /** 目標の軸回転方角自動向き有効フラグ */
     bool _face_ang_targeting_flg[3];
+    /** 目標の軸回転方角自動停止機能有効フラグ */
+    bool _face_ang_targeting_stop_flg[3];
     /** 目標とするキャラの軸回転方角の方角(0～360,000) */
     angle _angTargetFace[3];
     /** 目標の軸回転方角自動停止機能が有効になる回転方向 */
@@ -179,8 +181,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     angacce _angacceRzMv;
     /** 移動方角（Z軸回転）の角躍度（角加速度に毎フレーム加算する値） */
     angjerk _angjerkRzMv;
-    /** 目標の移動方角（Z軸回転）自動停止機能有効フラグ */
+    /** 目標の移動方角（Z軸回転）向き有効フラグ */
     bool _mv_ang_rz_target_flg;
+    /** 目標の移動方角（Z軸回転）自動停止機能有効フラグ */
+    bool _mv_ang_rz_target_stop_flg;
     /** 目標とするキャラの移動方角（Z軸回転）の方角(0～360,000) */
     angle _angTargetRzMv;
     /** 目標の移動方角（Z軸回転）自動停止機能が有効になる進入回転方向 */
@@ -202,8 +206,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     angacce _angacceRyMv;
     /** 移動方角（Y軸回転）の角躍度（角加速度に毎フレーム加算する値） */
     angjerk _angjerkRyMv;
-    /** 目標の移動方角（Y軸回転）自動停止機能有効フラグ */
+    /** 目標の移動方角（Y軸回転）自動向き有効フラグ */
     bool _mv_ang_ry_target_flg;
+    /** 目標の移動方角（Y軸回転）自動停止機能有効フラグ */
+    bool _mv_ang_ry_target_stop_flg;
     /** 目標とするキャラの移動方角（Y軸回転）の方角(0～360,000) */
     int _angTargetRyMv;
     /** 目標の移動方角（Y軸回転）自動停止機能が有効になる進入回転方向 */
@@ -283,6 +289,13 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     acce _gravitation_mv_seq_acce;
     int _gravitation_mv_seq_stop_renge;
     bool _gravitation_mv_seq_flg;
+
+
+    bool _taget_mv_ang_alltime_flg;
+    GgafDx9GeometricActor* _taget_mv_ang_alltime_pActor;
+    int _taget_mv_ang_alltime_tX;
+    int _taget_mv_ang_alltime_tY;
+    int _taget_mv_ang_alltime_tZ;
 
     /**
      * 移動速度を設定 .
@@ -786,6 +799,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
                                     angvelo prm_angVelo, angacce prm_angAcce,
                                     int prm_way, bool prm_optimize_ang = true);
 
+
     /**
      * 移動方角を目標にターゲットするシークエンスを実行 .
      * @param prm_tX 目標X座標
@@ -808,6 +822,31 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
                                     angvelo prm_angVelo, angacce prm_angAcce,
                                     int prm_way, bool prm_optimize_ang = true);
 
+    void keepTagetingMvAngAllTime(int prm_tX, int prm_tY, int prm_tZ,
+                            angvelo prm_angVelo, angacce prm_angAcce,
+                            int prm_way, bool prm_optimize_ang = true) {
+        orderTagettingMvAngSequence(prm_tX, prm_tY, prm_tZ,
+                                    prm_angVelo,  prm_angAcce,
+                                    prm_way, prm_optimize_ang );
+        _taget_mv_ang_alltime_flg = true;
+        _taget_mv_ang_alltime_pActor = NULL;
+        _taget_mv_ang_alltime_tX = prm_tX;
+        _taget_mv_ang_alltime_tY = prm_tY;
+        _taget_mv_ang_alltime_tZ = prm_tZ;
+        _mv_ang_rz_target_stop_flg = false;
+        _mv_ang_ry_target_stop_flg = false;
+    }
+    void keepTagetingMvAngAllTime(GgafDx9GeometricActor* prm_pActor_Target,
+                            angvelo prm_angVelo, angacce prm_angAcce,
+                            int prm_way, bool prm_optimize_ang = true) {
+        keepTagetingMvAngAllTime(
+                prm_pActor_Target->_X,
+                prm_pActor_Target->_Y,
+                prm_pActor_Target->_Z,
+                prm_angVelo, prm_angAcce,
+                prm_way, prm_optimize_ang);
+        _taget_mv_ang_alltime_pActor = prm_pActor_Target;
+    }
 
     /**
      * 移動方角を目標にターゲットの座標にするシークエンスを実行
@@ -866,7 +905,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     void stopTagettingMvAngSequence() {
         _mv_ang_rz_target_flg = false;
+        _mv_ang_rz_target_stop_flg = false;
         _mv_ang_ry_target_flg = false;
+        _mv_ang_rz_target_stop_flg = false;
     }
 
 
