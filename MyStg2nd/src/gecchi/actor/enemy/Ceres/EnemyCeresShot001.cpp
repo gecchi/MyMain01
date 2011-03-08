@@ -14,7 +14,7 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshSetActor
     _iMvVelo_1st = 13000;
     /** 出現時の加速度（負で遅くなる） */
     _iMoveAcce_1st = -150;
-    /** 自身が出現してから、時機の方向に方向転換を開始するフレーム */
+    /** 自身が出現してから、自機の方向に方向転換を開始するフレーム */
     _frame_TurnBegin = 60;
     /** 移動速度上限 */
     _iMvVelo_Top = 30000;

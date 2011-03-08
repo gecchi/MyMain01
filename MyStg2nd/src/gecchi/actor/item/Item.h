@@ -1,6 +1,11 @@
 #ifndef ITEM_H_
 #define ITEM_H_
 
+#define ITEM_PROG_NOTIONG 0
+#define ITEM_PROG_DRIFT   1
+#define ITEM_PROG_ATTACH  2
+#define ITEM_PROG_ABSORB  3
+
 namespace MyStg2nd {
 
 /**

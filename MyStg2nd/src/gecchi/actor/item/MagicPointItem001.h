@@ -1,6 +1,9 @@
 #ifndef MAGICPOINTITEM001_H_
 #define MAGICPOINTITEM001_H_
 
+
+
+
 namespace MyStg2nd {
 
 /**
@@ -10,6 +13,8 @@ namespace MyStg2nd {
  * @author Masatoshi Tsuge
  */
 class MagicPointItem001 : public Item {
+    /** ãzíÖç∑ï™ç¿ïW */
+    int _kDX, _kDY, _kDZ;
 
 public:
     MagicPointItem001(const char* prm_name);

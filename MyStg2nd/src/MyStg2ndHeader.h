@@ -379,8 +379,8 @@ class MagicMeter;
 
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01WalledScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage01Scene/part/Stage01WalledSection001.h"
-#include "gecchi/actor/wall/Wall001.h"
-#include "gecchi/actor/wall/Wall001Prism.h"
+#include "gecchi/actor/chikei/wall/Wall001.h"
+#include "gecchi/actor/chikei/wall/Wall001Prism.h"
 
 #include "gecchi/actor/Camera.h"
 #include "gecchi/actor/camera_worker/TestCamWorker.h"

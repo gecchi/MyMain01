@@ -535,7 +535,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     }
 
     //•Ç‚Ìê‡“Á•Ê‚Èˆ—
-    if (pOther->_obj_class & Obj_WallActor) {
+    if (pOther->getKind() & KIND_CHIKEI) {
         _blown_veloX += (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vX)*(10000+GgafUtil::abs(_pKuroko->_veloVxMv)));
         _blown_veloY += (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vY)*(10000+GgafUtil::abs(_pKuroko->_veloVyMv)));
         _blown_veloZ += (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vZ)*(10000+GgafUtil::abs(_pKuroko->_veloVzMv)));

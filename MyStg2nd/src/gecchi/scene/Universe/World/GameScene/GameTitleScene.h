@@ -3,7 +3,7 @@
 
 #define GAMETITLE_SCENE_PROG_INIT          1
 #define GAMETITLE_SCENE_PROG_TITLE         3
-#define GAMETITLE_SCENE_PROG_GAMESTART         4
+#define GAMETITLE_SCENE_PROG_GAMESTART     4
 #define GAMETITLE_SCENE_PROG_FINISH        5
 
 namespace MyStg2nd {
