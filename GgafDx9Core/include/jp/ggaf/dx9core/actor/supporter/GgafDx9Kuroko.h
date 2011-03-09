@@ -671,6 +671,14 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     void forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxyzMv02);
     void forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxyzMv02);
 
+    void setZeroVxyzMvVelo() {
+        _veloVxMv = _veloVyMv = _veloVzMv = 0;
+    }
+
+    void setZeroVxyzMvAcce() {
+        _acceVxMv = _acceVyMv = _acceVzMv = 0;
+    }
+
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRz_Target 目標軸回転方角(Z軸)
@@ -916,7 +924,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
         _taget_mv_ang_alltime_pActor = NULL;
         _taget_mv_ang_alltime_flg = false;
     }
-
+    void stopGravitationVxyzMvSequence() {
+        _gravitation_mv_seq_flg = false;
+    }
 
     /**
      * 目標軸回転方角にターゲットするシークエンスが実行中か .
@@ -1003,7 +1013,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     bool isMoveingSmooth();
 
 
-    void orderGravitationMvSequence(
+    void orderGravitationVxyzMvSequence(
             int prm_tX, int prm_tY, int prm_tZ,
             velo prm_max_velo,
             acce prm_acce,
@@ -1011,7 +1021,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
             );
 
 
-    void orderGravitationMvSequence(
+    void orderGravitationVxyzMvSequence(
             GgafDx9GeometricActor* prm_pActor_target,
             velo prm_max_velo,
             acce prm_acce,

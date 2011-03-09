@@ -1968,7 +1968,7 @@ void GgafDx9Kuroko::orderTagettingRyMvAngSequence(angle prm_angRy_Target,
     setStopTarget_RyMvAng(prm_angRy_Target);
 }
 
-void GgafDx9Kuroko::orderGravitationMvSequence(
+void GgafDx9Kuroko::orderGravitationVxyzMvSequence(
         int prm_tX, int prm_tY, int prm_tZ,
         velo prm_max_velo,
         acce prm_acce,
@@ -1988,7 +1988,7 @@ void GgafDx9Kuroko::orderGravitationMvSequence(
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void GgafDx9Kuroko::orderGravitationMvSequence(
+void GgafDx9Kuroko::orderGravitationVxyzMvSequence(
         GgafDx9GeometricActor* prm_pActor_target,
         velo prm_max_velo,
         acce prm_acce,
