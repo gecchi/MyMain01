@@ -318,7 +318,7 @@ class LaserMagic;
 class SpeedMagic;
 class LockonMagic;
 class TorpedoMagic;
-class AssemblyMagic;
+class TractorMagic;
 class EffectMagic001;
 
 class Item;
@@ -498,7 +498,7 @@ class MagicMeter;
 #include "gecchi/actor/system/magic/LockonMagic.h"
 #include "gecchi/actor/system/magic/TorpedoMagic.h"
 #include "gecchi/actor/system/magic/EffectMagic001.h"
-#include "gecchi/actor/system/magic/AssemblyMagic.h"
+#include "gecchi/actor/system/magic/TractorMagic.h"
 
 #include "gecchi/actor/item/Item.h"
 #include "gecchi/actor/item/MagicPointItem001.h"

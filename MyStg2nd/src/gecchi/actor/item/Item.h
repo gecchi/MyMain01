@@ -1,9 +1,13 @@
 #ifndef ITEM_H_
 #define ITEM_H_
 
+/** ‰½‚à‚µ‚Ä‚¢‚È‚¢ó‘Ô */
 #define ITEM_PROG_NOTIONG 0
+/** ’ÊíˆÚ“®ó‘Ô */
 #define ITEM_PROG_DRIFT   1
+/** ‹z’…’†(–¢‹z’…)ó‘Ô */
 #define ITEM_PROG_ATTACH  2
+/** ‹z’…’†(‹z’…Ï)ó‘Ô */
 #define ITEM_PROG_ABSORB  3
 
 namespace MyStg2nd {

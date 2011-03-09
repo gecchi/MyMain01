@@ -2,10 +2,11 @@
 #define MAGIC_H_
 namespace MyStg2nd {
 
-#define MAGIC_STAND_BY 0
-#define MAGIC_CASTING 1
-#define MAGIC_INVOKING 2
-#define MAGIC_EXPIRING 3
+#define MAGIC_NOTHING 0
+#define MAGIC_STAND_BY 1
+#define MAGIC_CASTING 2
+#define MAGIC_INVOKING 3
+#define MAGIC_EFFECTING 4
 #define MAGIC_ABANDONING 9
 
 
@@ -13,46 +14,76 @@ typedef int magic_point;
 typedef int magic_time;
 /**
  * 抽象魔法クラス .
+ * 魔法についての本クラスの基本的な約束事。
+ * ①次のステップがあります。
+ * a) 詠唱：魔法詠唱開始 ～ 魔法詠唱終了
+ * b) 発動：魔法発動開始・魔法コスト発生 ～ 魔法発動終了
+ * c) 持続：魔法効果持続開始 ～ 魔法効果持続終了
+ * ②レベルの概念があります。
+ * レベルによって、a)b)c) の "～"の時間、及び魔法コストを個別で保持できます。
+ * ②機能
+ * ・a) 詠唱ならば魔法破棄（停止）が可能
+ * ・詠唱は基本詠唱時間を設定し、詠唱速度割合が調整可能
+ * ・魔法コストは基本魔法コストを設定し、コスト割合が調整可能
  * @version 1.00
  * @since 2009/05/19
  * @author Masatoshi Tsuge
  */
 class Magic : public GgafCore::GgafObject {
 public:
+    /**
+     * 各レベルの情報 .
+     */
     class LevelInfo {
     public:
-        bool _is_working;
-        magic_time _time_of_abandon;
-        magic_time _working_time;
+        /** 該当レベルで魔法が適用中であるかどうか */
+        bool _is_effecting;
+        /** 魔法効果持続終了残り時間 */
+        magic_time _remaining_time_of_effect;
+        /** 魔法効果持続中コスト  */
+        magic_point _keep_cost;
+        /** アニメパターン番号 */
         int _pno;
+        LevelInfo() : _is_effecting(false),
+                      _remaining_time_of_effect(0),
+                      _keep_cost(0),
+                      _pno(0) {
+        }
     };
     GgafDx9Core::GgafDx9GeometricActor* _pCaster;
     GgafDx9Core::GgafDx9GeometricActor* _pReceiver;
 
     char* _name;
-    MagicMeter*  _pMagicMeter;
+    magic_point* _pMP;
+    MagicMeter* _pMagicMeter;
+    /** 新しいレベル */
     int _new_level;
-    /** レベル */
+    /** 現在のレベル */
     int _level;
     /** 最高レベル 1 */
     int _max_level;
     /** 各レベル毎の情報 */
     LevelInfo _lvinfo[MMETER_MAX_LEVEL_Y];
 
-    /** 本魔法発動に必要なMPの基本単位 */
+    /** 本魔法発動に必要なコストの基本単位 */
     magic_point _cost_base;
-    /** 今回魔法発動に必要なMP */
-    magic_point _cost;
-    /** 本魔法発動に必要な詠唱時間の基本単位  */
+    /** 本魔法詠唱開始 ～ 魔法詠唱終了の基本単位時間  */
     magic_time _time_of_casting_base;
-    /** 今回魔法発動に必要な詠唱時間 */
-    magic_time _time_of_casting;
-    /** 詠唱速度（通常は１） */
-    magic_time _cast_speed;
-    /** 本魔法発動開始～終了の時間 */
-    magic_time _time_of_invoking;
-    /** 現在の魔法発動終了まで時間 */
-    magic_time _left_time_to_expire;
+    /** 本魔法発動開始 ～ 魔法発動終了の基本単位時間 */
+    magic_time _time_of_invoking_base;
+    /** 本魔法効果持続開始 ～ 魔法効果持続終了の基本単位時間  */
+    magic_time _time_of_effect_base;
+    /** 本魔法効果持続中コストの基本単位  */
+    magic_point _keep_cost_base;
+
+    float _fRate_cost;
+    float _fRate_time_of_casting;
+    float _fRate_time_of_invoking;
+    float _fRate_time_of_effecting;
+    float _fRate_keep_cost;
+
+    magic_time _executing_time;
+    magic_time _time_of_next_state;
 
     /** 状態 */
     int _state;
@@ -65,12 +96,33 @@ public:
     float _velo_rr;
 
 public:
+    /**
+     *
+     * @param prm_name 魔法名
+     * @param prm_pMagicMeter 魔法メーター
+     * @param prm_pMP
+     * @param prm_max_level 本魔法の最高レベル 1～MMETER_MAX_LEVEL_Y
+     * @param prm_cost_base 基本魔法コスト
+     * @param prm_fRate_cost 飛びレベル時の魔法コスト削減割合 0.0～1.0 (1.0:飛びレベルでも割引無し)
+     * @param prm_time_of_casting_base 基本魔法詠唱時間
+     * @param prm_fRate_time_of_casting 飛びレベル時の詠唱時間削減割合0.0～1.0 (1.0:飛びレベルでも割引無し)
+     * @param prm_time_of_invoking_base 基本魔法発動時間
+     * @param prm_fRate_time_of_invoking 飛びレベル時の発動時間削減割合0.0～1.0 (1.0:飛びレベルでも割引無し)
+     * @param prm_time_of_effect_base 基本魔法効果持続時間
+     * @param prm_fRate_time_of_effecting 飛びレベル時の果持続時間削減割合0.0～1.0 (1.0:飛びレベルでも割引無し)
+     * @param prm_keep_cost_base 基本魔法効果持続中維持コスト
+     * @param prm_fRate_keep_cost レベル毎の果持続中維持コスト増加割合 0.0～1.0 (0.0:レベルによる維持コスト増加無し)
+     * @return
+     */
     Magic(const char* prm_name,
           MagicMeter* prm_pMagicMeter,
+          magic_point* prm_pMP,
                 int   prm_max_level,
-                int   prm_cost_base,
-                int   prm_time_of_casting_base,
-                int   prm_time_of_invoking);
+                magic_point prm_cost_base, float prm_fRate_cost,
+                magic_time  prm_time_of_casting_base , float prm_fRate_time_of_casting,
+                magic_time  prm_time_of_invoking_base, float prm_fRate_time_of_invoking,
+                magic_time  prm_time_of_effect_base  , float prm_fRate_time_of_effecting,
+                magic_point prm_keep_cost_base       , float prm_fRate_keep_cost_base);
 
 
 //          GgafDx9Core::GgafDx9GeometricActor* prm_pCaster,
@@ -81,7 +133,8 @@ public:
     void rollOpen();
     void rollClose();
 
-    bool setLevel(int prm_new_level);
+    bool execute(int prm_new_level);
+
 
     /**
      * 詠唱する .
@@ -96,7 +149,7 @@ public:
     /**
      * 終了する .
      */
-    virtual void expire();
+    virtual void effect();
 
     /**
      * 遺棄する .
@@ -124,14 +177,14 @@ public:
     virtual void processInvokeingBehavior() = 0;
 
     /**
-     * 魔法発動完了時初期コールバック(１回だけコールバック) .
+     * 魔法持続開始コールバック(１回だけコールバック) .
      */
-    virtual void processExpireBegin() = 0;
+    virtual void processEffectBegin() = 0;
 
     /**
-     * 魔法発動完了中コールバック .
+     * 魔法持続中コールバック .
      */
-    virtual void processExpiringBehavior() = 0;
+    virtual void processEffectingBehavior() = 0;
 
     /**
      * 魔法破棄コールバック .

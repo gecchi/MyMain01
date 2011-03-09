@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class TorpedoMagic : public Magic {
 
 public:
-    TorpedoMagic(const char* prm_name, MagicMeter* prm_pMagicMeter);
+    TorpedoMagic(const char* prm_name, magic_point* prm_pMP, MagicMeter* prm_pMagicMeter);
 
     virtual void processCastBegin() override {
     }
@@ -25,10 +25,10 @@ public:
     virtual void processInvokeingBehavior() override {
     }
 
-    virtual void processExpireBegin() override {
+    virtual void processEffectBegin() override {
     }
 
-    virtual void processExpiringBehavior() override {
+    virtual void processEffectingBehavior() override {
     }
 
     virtual void processOnAbandon(int prm_last_level) override {

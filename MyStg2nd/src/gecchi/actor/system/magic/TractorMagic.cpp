@@ -5,8 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-TorpedoMagic::TorpedoMagic(const char* prm_name, magic_point* prm_pMP, MagicMeter* prm_pMagicMeter)
-: Magic(prm_name,  prm_pMP, prm_pMagicMeter,
+TractorMagic::TractorMagic(const char* prm_name, magic_point* prm_pMP, MagicMeter* prm_pMagicMeter)
+        : Magic(prm_name,  prm_pMP, prm_pMagicMeter,
             2,          //max_level
             1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate
             60*3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
@@ -31,9 +31,14 @@ TorpedoMagic::TorpedoMagic(const char* prm_name, magic_point* prm_pMP, MagicMete
     //    | 56,  57,  58,  59 |
     //    | 60,  61,  62,  63 |
     _lvinfo[0]._pno = 3;
-    _lvinfo[1]._pno = 36;
-    _lvinfo[2]._pno = 32;
+    _lvinfo[1]._pno = 28;
+    _lvinfo[2]._pno = 24;
+
+    _lvinfo[0]._time_of_effect = 300*60*60;
+    _lvinfo[1]._time_of_effect = 300*60*60;
+    _lvinfo[2]._time_of_effect = 300*60*60;
+
 }
 
-TorpedoMagic::~TorpedoMagic() {
+TractorMagic::~TractorMagic() {
 }

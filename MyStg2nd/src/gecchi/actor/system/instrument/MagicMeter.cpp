@@ -16,8 +16,8 @@ MagicMeter::MagicMeter(const char* prm_name)
 //    QuantityUnit _qu;
 //    _qu.set(1.0);
 //    _qu.config(400.0, 1.0);
-//    float _enagy = 1000;
-//    _qu.config(400.0f, _enagy);
+//    float _value = 1000;
+//    _qu.config(400.0f, _value);
 //    QuantityUnit _qu();
 //    [0][0]  [1][0]  [2][0]  [3][0]
 //    [0][1]  [1][1]  [2][1]  [3][1]
@@ -37,7 +37,7 @@ MagicMeter::MagicMeter(const char* prm_name)
 //    [4][6]  [5][6]  [6][6]  [7][6]
 //    [4][7]  [5][7]  [6][7]  [7][7]
 //
-
+    _ringMagics.addLast(NEW TractorMagic("TRACTOR", this));
     _ringMagics.addLast(NEW SpeedMagic("SPEED", this));
     _ringMagics.addLast(NEW LockonMagic("LOCKON", this));
     _ringMagics.addLast(NEW TorpedoMagic("TORPEDO", this));
@@ -111,13 +111,17 @@ void MagicMeter::processJudgement() {
         int i = _ringMagics.indexOf(pActiveMagic);
         if (pActiveMagic->_level < _paLevelCursor[i]) {
             _pSeTransmitter->playImmediately(2);
-            if (pActiveMagic->setLevel(_paLevelCursor[i])) {
-                pActiveMagic->cast(); //レベルアップ魔法実行！
+            if (pActiveMagic->execute(_paLevelCursor[i])) {
+                 //レベルアップ魔法実行！
+            } else {
+                //レベルアップ魔法不可！
             }
         } else if (pActiveMagic->_level > _paLevelCursor[i]) {
             _pSeTransmitter->playImmediately(3);
-            if (pActiveMagic->setLevel(_paLevelCursor[i])) {
-                pActiveMagic->cast(); //レベルダウン魔法実行！
+            if (pActiveMagic->execute(_paLevelCursor[i])) {
+                //レベルダウン魔法実行！
+            }else {
+                //レベルアップ魔法不可！
             }
         }
         pActiveMagic->rollClose();

@@ -5,12 +5,15 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-OptionMagic::OptionMagic(const char* prm_name, MagicMeter* prm_pMagicMeter) : Magic(prm_name, prm_pMagicMeter,
-                                                          8,          //max_level
-                                                          4*1000,     //cost_base
-                                                          5*60*60,    //time_of_casting_base
-                                                          3600*60 //1*60*60     //time_of_invoking 処理でinvoking完了させる
-                                                    ) {
+OptionMagic::OptionMagic(const char* prm_name, magic_point* prm_pMP, MagicMeter* prm_pMagicMeter)
+: Magic(prm_name,  prm_pMP, prm_pMagicMeter,
+    8,          //max_level
+    1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate
+    60*3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
+    60*2    , 0.9,   //基本発動時間   , 飛びレベル時の rate
+    60*60*10, 1.0,   //基本持続時間   , 飛びレベル時の rate
+    1.0     , 0.0    //基本維持コスト , 各レベル時の rate
+) {
 //    |  0,   1,   2,   3 |
 //    |  4,   5,   6,   7 |
 //    |  8,   9,  10,  11 |
@@ -37,15 +40,6 @@ OptionMagic::OptionMagic(const char* prm_name, MagicMeter* prm_pMagicMeter) : Ma
     _lvinfo[7]._pno = 45;
     _lvinfo[8]._pno = 41;
 
-    _lvinfo[0]._time_of_abandon = 300*60*60;
-    _lvinfo[1]._time_of_abandon = 300*60*60;
-    _lvinfo[2]._time_of_abandon = 300*60*60;
-    _lvinfo[3]._time_of_abandon = 300*60*60;
-    _lvinfo[4]._time_of_abandon = 300*60*60;
-    _lvinfo[5]._time_of_abandon = 300*60*60;
-    _lvinfo[6]._time_of_abandon = 300*60*60;
-    _lvinfo[7]._time_of_abandon = 300*60*60;
-    _lvinfo[8]._time_of_abandon = 300*60*60;
     _papEffect = NEW GgafDx9DrawableActor*[8];
     for (int i = 0; i < 8; i++) {
         _papEffect[i] = NEW EffectMagic001("EF");
@@ -59,8 +53,8 @@ void OptionMagic::processCastBegin() {
         _cost = _cost_base * (_new_level - _level) * 0.8 ; //２割引
     } else {
         _cost = -1.0f * _cost_base * (_level - _new_level) * 0.5;
-		P_MYOPTIONCON->setNumOption(_new_level);
-		commit();
+        P_MYOPTIONCON->setNumOption(_new_level);
+        commit();
 
     }
 
@@ -76,7 +70,7 @@ void OptionMagic::processCastBegin() {
         _papEffect[i]->setAlpha(0.9);
         _papEffect[i]->setScaleRate(2.0f);
     }
-	DELETEARR_IMPOSSIBLE_NULL(paAngWay);
+    DELETEARR_IMPOSSIBLE_NULL(paAngWay);
     _r_effect = 1;
 
 }
@@ -128,14 +122,14 @@ void OptionMagic::processInvokeingBehavior()  {
                                                            0,TURN_CLOSE_TO,true);
     }
     if (ok == (_new_level - _old_level)) {
-        expire();
+        effect();
     }
 }
 
-void OptionMagic::processExpireBegin()  {
+void OptionMagic::processEffectBegin()  {
     P_MYOPTIONCON->setNumOption(_new_level);
     P_MYOPTIONCON->adjustDefaltAngPosition(60);
-	_r_effect = 1.0f;
+    _r_effect = 1.0f;
     for (int i = _old_level; i < _new_level; i++) {
         _papEffect[i]->setAlpha(_r_effect);
         _papEffect[i]->locateWith(P_MYOPTIONCON->_papMyOption[i]);
@@ -144,11 +138,11 @@ void OptionMagic::processExpireBegin()  {
 
 }
 
-void OptionMagic::processExpiringBehavior() {
+void OptionMagic::processEffectingBehavior() {
     _r_effect -= 0.01f;
     for (int i = _old_level; i < _new_level; i++) {
         _papEffect[i]->setAlpha(_r_effect);
-		_papEffect[i]->setScaleRate(3.0f+(1.0f-_r_effect)*4.0);
+        _papEffect[i]->setScaleRate(3.0f+(1.0f-_r_effect)*4.0);
         _papEffect[i]->locateWith(P_MYOPTIONCON->_papMyOption[i]);
         P_MYOPTIONCON->_papMyOption[i]->setAlpha(1.0f-_r_effect);
     }

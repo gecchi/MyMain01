@@ -21,9 +21,9 @@ void EnagyBar::initialize() {
 }
 
 void EnagyBar::onReset() {
-    _enagy = 500;
+    _value = 500;
     _qu.config(400, 1000); //初期値は400pxでフルエネルキー
-    _qu.set(_enagy);
+    _qu.set(_value);
     _sx = _qu._val_px / _fSize_BoardModelWidthPx;
 }
 
@@ -31,7 +31,7 @@ void EnagyBar::onActive() {
 }
 
 void EnagyBar::processBehavior() {
-    _qu.set(_enagy);
+    _qu.set(_value);
     _sx = _qu._val_px / _fSize_BoardModelWidthPx;
     _pUvFlipper->behave();
 }

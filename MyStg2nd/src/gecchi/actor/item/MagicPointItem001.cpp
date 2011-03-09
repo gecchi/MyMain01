@@ -35,23 +35,16 @@ void MagicPointItem001::onReset() {
     MyStgUtil::resetMagicPointItem001Status(_pStatus);
     setHitAble(true, false);
     _pKuroko->setMvVelo(2000);
-//    _pKuroko->forceMvVeloRange(0, 20000);
-//    _pKuroko->forceVxMvVeloRange(-20000, 20000);
-//    _pKuroko->forceVyMvVeloRange(-20000, 20000);
-//    _pKuroko->forceVzMvVeloRange(-20000, 20000);
-//    _pKuroko->setVxMvVelo(0);
-//    _pKuroko->setVyMvVelo(0);
-//    _pKuroko->setVzMvVelo(0);
-//    _pKuroko->setVxMvAcce(0);
-//    _pKuroko->setVyMvAcce(0);
-//    _pKuroko->setVzMvAcce(0);
-//    _pKuroko->_gravitation_mv_seq_flg = false;
+    _pKuroko->setMvAcce(100);
+    _pKuroko->forceMvVeloRange(0, 20000);
+    _pKuroko->forceVxyzMvVeloRange(-20000, 20000);
+    _pKuroko->setZeroVxyzMvVelo();
+    _pKuroko->setZeroVxyzMvAcce();
+    _pKuroko->_gravitation_mv_seq_flg = false;
     _pProgress->set(ITEM_PROG_DRIFT);
     _SX = _SY = _SZ = 1000;
 }
 void MagicPointItem001::onActive() {
-//    _pKuroko->setFaceAngVelo(AXIS_Y, 5*1000);
-//    _pKuroko->setFaceAngVelo(AXIS_Z, 7*1000);
     reset();
     MyShip* pMyShip = P_MYSHIP;
     CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
@@ -86,49 +79,34 @@ void MagicPointItem001::onActive() {
 }
 
 void MagicPointItem001::processBehavior() {
-    MyShip* pMyShip = P_MYSHIP;
+    //TODO:尾を引くように
 
     //通常移動
     if (_pProgress->get() == ITEM_PROG_DRIFT) {
-        //ヒットするまで待ちぼうけ
+        //onHit() で状態変化するのを待つ
     }
 
-    //自機とヒットし、自機に向かう動き
+    //自機と当たり判定がヒットし、自機に向かう動き
     if (_pProgress->get() == ITEM_PROG_ATTACH) {
+        MyShip* pMyShip = P_MYSHIP;
         if (_pProgress->isJustChanged()) {
-//            _pKuroko->setVxMvVelo(_pKuroko->_vX*_pKuroko->_veloMv);
-//            _pKuroko->setVyMvVelo(_pKuroko->_vY*_pKuroko->_veloMv);
-//            _pKuroko->setVzMvVelo(_pKuroko->_vZ*_pKuroko->_veloMv);
-//            _pKuroko->setMvVelo(0);
-//            _pKuroko->setMvAcce(0);
-//            _pKuroko->orderGravitationMvSequence(
-//                    pMyShip, 20000, 1000, 50000);
-            _pKuroko->keepTagetingMvAngAllTime(pMyShip, 1000, 100, TURN_CLOSE_TO);
+            _pKuroko->setVxMvVelo(_pKuroko->_vX*_pKuroko->_veloMv);
+            _pKuroko->setVyMvVelo(_pKuroko->_vY*_pKuroko->_veloMv);
+            _pKuroko->setVzMvVelo(_pKuroko->_vZ*_pKuroko->_veloMv);
+            _pKuroko->setMvVelo(0);
+            _pKuroko->setMvAcce(0);
+            _pKuroko->orderGravitationVxyzMvSequence(pMyShip, 20000, 1000, 50000);
             _pKuroko->setMvVelo(5000);
-        }
-
-//        _pKuroko->orderTagettingMvAngSequence(pMyShip, 1000, 500, TURN_CLOSE_TO);
-
-
-
-        if (abs(pMyShip->_X - _X) < 20000 &&
-            abs(pMyShip->_Y - _Y) < 20000 &&
-            abs(pMyShip->_Z - _Z) < 20000 ) {
-            _kDX = pMyShip->_X - _X;
-            _kDY = pMyShip->_Y - _Y;
-            _kDZ = pMyShip->_Z - _Z;
-            _pKuroko->stopTagettingMvAngSequence();
-            _pProgress->change(ITEM_PROG_ABSORB);
         }
     }
 
     //自機に吸着し、吸収中の動き
     if (_pProgress->get() == ITEM_PROG_ABSORB) {
+        MyShip* pMyShip = P_MYSHIP;
         if (_pProgress->isJustChanged()) {
-            _pKuroko->setVxMvVelo(0);
-            _pKuroko->setVyMvVelo(0);
-            _pKuroko->setVzMvVelo(0);
-            _pKuroko->_gravitation_mv_seq_flg = false;
+            _pKuroko->setZeroVxyzMvVelo();
+            _pKuroko->setZeroVxyzMvAcce();
+            _pKuroko->stopGravitationVxyzMvSequence();
         }
         _X = pMyShip->_X + _kDX;
         _Y = pMyShip->_Y + _kDY;
@@ -141,7 +119,7 @@ void MagicPointItem001::processBehavior() {
             _pProgress->change(ITEM_PROG_NOTIONG);
             sayonara(); //終了
         }
-        P_MYSHIP_SCENE->_pEnagyBar->_enagy += 1;
+        P_MYSHIP_SCENE->_pEnagyBar->_value += 1;
     }
     _pKuroko->behave();
 }
@@ -149,6 +127,28 @@ void MagicPointItem001::processBehavior() {
 void MagicPointItem001::processJudgement() {
     if (isOutOfUniverse()) {
         sayonara();
+    }
+    //通常移動
+    if (_pProgress->get() == ITEM_PROG_DRIFT) {
+        //onHit() で状態変化するのを待つ
+    }
+
+    //自機と当たり判定がヒットし、自機に向かう動き
+    if (_pProgress->get() == ITEM_PROG_ATTACH) {
+        MyShip* pMyShip = P_MYSHIP;
+        if (abs(pMyShip->_X - _X) < 20000 &&
+            abs(pMyShip->_Y - _Y) < 20000 &&
+            abs(pMyShip->_Z - _Z) < 20000 ) {
+            //自機に吸着した
+            _kDX = pMyShip->_X - _X;
+            _kDY = pMyShip->_Y - _Y;
+            _kDZ = pMyShip->_Z - _Z;
+            _pProgress->change(ITEM_PROG_ABSORB);
+        }
+    }
+
+    //自機に吸着し、吸収中の動き
+    if (_pProgress->get() == ITEM_PROG_ABSORB) {
     }
 }
 
@@ -164,18 +164,6 @@ void MagicPointItem001::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         _pProgress->change(ITEM_PROG_ATTACH);
     }
-//
-//        P_MYSHIP_SCENE->_pEnagyBar->_enagy += 10;
-//        _pSeTransmitter->playImmediately(0);
-//        setHitAble(false);
-//        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
-//        if (pExplo001) {
-//            pExplo001->locateWith(this);
-//            pExplo001->activate();
-//        }
-//        sayonara();
-//    }
-
 
 }
 

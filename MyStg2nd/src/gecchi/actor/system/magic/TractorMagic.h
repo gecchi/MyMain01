@@ -1,17 +1,17 @@
-#ifndef ASSEMBLYMAGIC_H_
-#define ASSEMBLYMAGIC_H_
+#ifndef TRACTORMAGIC_H_
+#define TRACTORMAGIC_H_
 namespace MyStg2nd {
 
 /**
- * 魔法「集合」 .
+ * 魔法「アイテム引き寄せ」 .
  * @version 1.00
  * @since 2011/02/15
  * @author Masatoshi Tsuge
  */
-class AssemblyMagic : public Magic {
+class TractorMagic : public Magic {
 
 public:
-    AssemblyMagic(const char* prm_name, MagicMeter* prm_pMagicMeter);
+    TractorMagic(const char* prm_name, magic_point* prm_pMP, MagicMeter* prm_pMagicMeter);
 
     virtual void processCastBegin() override {
     }
@@ -25,17 +25,17 @@ public:
     virtual void processInvokeingBehavior() override {
     }
 
-    virtual void processExpireBegin() override {
+    virtual void processEffectBegin() override {
     }
 
-    virtual void processExpiringBehavior() override {
+    virtual void processEffectingBehavior() override {
     }
 
     virtual void processOnAbandon(int prm_last_level) override {
     }
 
-    virtual ~AssemblyMagic();
+    virtual ~TractorMagic();
 };
 
 }
-#endif /*ASSEMBLYMAGIC_H_*/
+#endif /*TRACTORMAGIC_H_*/
