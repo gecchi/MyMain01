@@ -22,18 +22,18 @@ GgafGroupActor::GgafGroupActor(actorkind prm_kind) : GgafActor("GROUP") {
 GgafLordActor* GgafGroupActor::getLordActor() {
     if (_pLordActor == NULL) {
         if (_pParent == NULL) {
-            _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
             _TRACE_("【警告】GgafGroupActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のLordActorを返しました");
+            _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
         } else {
             if (_pParent->_obj_class & Obj_GgafMainActor) {
                 _pLordActor = ((GgafMainActor*)(_pParent))->getLordActor();
             } else if (_pParent->_obj_class & Obj_GgafGroupActor) {
                 _pLordActor = ((GgafGroupActor*)(_pParent))->getLordActor();
             } else if (_pParent->_obj_class & Obj_GgafLordActor) {
-                return (GgafLordActor*)_pParent;
+                return (GgafLordActor*)_pParent; //Actorツリー頂点
             }
-            _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
             _TRACE_("【警告】GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のLordActorを返しました");
+            _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
         }
     }
     return _pLordActor;

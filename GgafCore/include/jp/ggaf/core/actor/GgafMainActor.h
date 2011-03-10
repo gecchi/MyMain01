@@ -127,7 +127,7 @@ public:
      * _‚É‰yŒ© .
      * @return  ŒÄ‚Î‚ê‚Äo‚Ä‚«‚½_
      */
-    virtual GgafGod* askGod();
+    virtual GgafGod* askGod() override;
 
     /**
      * í•Ê‚ğæ“¾‚·‚é .
