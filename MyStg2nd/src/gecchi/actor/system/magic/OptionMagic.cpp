@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 OptionMagic::OptionMagic(const char* prm_name)
 : Magic(prm_name,
     8,          //max_level
-    1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate
+    1000    , 0.9,   //基本魔法コスト , 飛びレベル時の rate
     60*3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
     60*2    , 0.9,   //基本発動時間   , 飛びレベル時の rate
     60*60*10,    0.0,   //基本持続時間, 各レベルの削減割合

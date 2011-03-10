@@ -118,7 +118,7 @@ void Magic::execute(int prm_new_level) {
             _lvinfo[_level]._is_working = false;
             _lvinfo[_level]._remaining_time_of_effect = 0;
             //”ò‚Ñ‰z‚µ
-            for (int i = _level-1; i <= prm_new_level+1; i--) {
+            for (int i = _level-1; i >= prm_new_level+1; i--) {
                 _lvinfo[i]._is_working = false; //’âŽ~‚µ
                 _lvinfo[i]._remaining_time_of_effect = 0;
             }

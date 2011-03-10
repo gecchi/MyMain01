@@ -112,6 +112,11 @@ public:
      *         |                                    |
      *         +- pActor01 -- pActor03              + pActor02
      * </pre>
+     * 補足：引数の prm_pMainActor 以下全てのアクターに関して、
+     *       ・所属シーンメンバ (_pScene_Platform)
+     *       ・管理者アクターメンバ(_pLordActor)
+     *       ・団長アクターメンバ(_pGroupActor) ※但し下位に他の団長がいた場合はそこまで
+     *       の更新を行います。
      * @param   prm_kind    種別名（＝GgafGroupActor名）
      * @param   prm_pMainActor   登録するアクター
      */

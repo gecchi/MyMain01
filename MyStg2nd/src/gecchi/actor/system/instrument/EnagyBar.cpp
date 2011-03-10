@@ -21,8 +21,8 @@ void EnagyBar::initialize() {
 }
 
 void EnagyBar::onReset() {
-    _amount.config(400, 10000); //値 10000 で表示は400pxとする。
-    _amount.set(5000);           //初期値は5000
+    _amount.config(600, 10000); //値 10000 で表示は400pxとする。
+    _amount.set(10000);           //初期値は5000
     _sx = _amount._val_px / _fSize_BoardModelWidthPx;
 }
 
