@@ -50,13 +50,6 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
         name <<  getName() << "'s MYS_LaserChip" << i;
         string name2 = name.str();
         pChip = NEW MyCurveLaserChip001(name2.c_str());
-//        pChip->setSource(this);
-//        pChip->_pSource_vX = &_Q._x;
-//        pChip->_pSource_vY = &_Q._y;
-//        pChip->_pSource_vZ = &_Q._z;
-       // pChip->_pSeTransmitter->useSe(1);
-       // pChip->_pSeTransmitter->set(0, "laser001", _no);
-        //pChip->inactivateImmediately();
         _pLaserChipDispatcher->addSubLast(pChip);
     }
     _pLaserChipDispatcher->config(
@@ -87,7 +80,6 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _pSeTransmitter->set(1, "fire01", GgafRepeatSeq::nextVal("CH_fire01"));
 
     //prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
-
 }
 
 void MyOption::onCreateModel() {
@@ -219,7 +211,6 @@ void MyOption::processBehavior() {
     _Y = _Yorg;
     _Z = _Zorg;
 
-
     if (_return_to_base_radiusPosition_seq) {
         //自動戻り
         if (_radiusPosition > _radiusPosition_base) {
@@ -261,7 +252,6 @@ void MyOption::processBehavior() {
     } else {
         //オプション広がりと向き制御
         if (VB_PLAY->isBeingPressed(VB_OPTION) && VB_PLAY->isBeingPressed(VB_TURBO)) {
-//            if (P_VAM->_pos_camera == VAM_POS_RIGHT) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse += _angveloExpanseNomal;
                 } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
@@ -274,83 +264,14 @@ void MyOption::processBehavior() {
                     addRadiusPosition(-2000 * (_radiusPosition_base/60000));
                     //_angExpanse -= _angveloExpanseSlow;
                 }
-//            } else if (P_VAM->_pos_camera == VAM_POS_LEFT) {
-//                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-//                    _angExpanse -= _angveloExpanseNomal;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-//                    _angExpanse += _angveloExpanseNomal;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_UP)) {
-//                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
-//                    //_angExpanse += _angveloExpanseSlow;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-//                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
-//                    //_angExpanse -= _angveloExpanseSlow;
-//                }
-//            } else if (P_VAM->_pos_camera == VAM_POS_TOP) {
-//                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-//                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
-//                    //_angExpanse += _angveloExpanseSlow;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-//                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
-//                    //_angExpanse -= _angveloExpanseSlow;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_UP)) {
-//                    _angExpanse += _angveloExpanseNomal;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-//                    _angExpanse -= _angveloExpanseNomal;
-//                }
-//            } else if (P_VAM->_pos_camera == VAM_POS_BOTTOM) {
-//                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-//                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
-//                    //_angExpanse -= _angveloExpanseSlow;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-//                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
-//                    //_angExpanse += _angveloExpanseSlow;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_UP)) {
-//                    _angExpanse -= _angveloExpanseNomal;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-//                    _angExpanse += _angveloExpanseNomal;
-//                }
-//            } else if (P_VAM->_pos_camera > VAM_POS_TO_BEHIND) {
-//                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-//                    _angExpanse += _angveloExpanseNomal;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-//                    _angExpanse -= _angveloExpanseNomal;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_UP)) {
-//                    addRadiusPosition(2000 * (_radiusPosition_base/60000));
-//                    //_angExpanse += _angveloExpanseSlow;
-//                }
-//                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-//                    addRadiusPosition(-2000 * (_radiusPosition_base/60000));
-//                    //_angExpanse -= _angveloExpanseSlow;
-//                }
-//            }
+
             _angExpanse = GgafDx9Util::simplifyAng(_angExpanse);
         }
     }
 
-
-//    if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
-//        addRadiusPosition(1000);
-//    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
-//        addRadiusPosition(-1000);
-//    }
-
     if (_adjust_angPos_seq_progress > 0) {
         if (_adjust_angPos_seq_progress == 1) {
             //初期処理
-
             _adjust_angPos_seq_progress = 2;
         }
 
@@ -443,7 +364,6 @@ void MyOption::processBehavior() {
 
     //計算
     GgafDx9Quaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-//    _Q.set( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
     Q.mul(0,
            _pMyOptionController->_pKuroko->_vX,
            _pMyOptionController->_pKuroko->_vY,
@@ -467,7 +387,6 @@ void MyOption::processBehavior() {
     _pKuroko->_veloVxMv = 0;
     _pKuroko->_veloVyMv = 0;
     _pKuroko->_veloVzMv = 0;
-            //_TRACE_("_pVBMap_Active->_state="<<(vbsta)(VB_PLAY->_pVBMap_Active->_state));
     if (pMyShip->_is_shooting_laser && VB_PLAY->isBeingPressed(VB_SHOT1)) {
 
 
@@ -497,29 +416,12 @@ void MyOption::processBehavior() {
             pLaserChip->_pOrg = this;
             pLaserChip->activate();
             if (pLaserChip->_pChip_front == NULL) {
-                //pLaserChip->_pSeTransmitter->play3D(0);
                 _pSeTransmitter->play3D(0);
-                //playSe3D(0);
             }
         }
     } else {
         _pLockonController->releaseAllLockon();
     }
-
-//    if (_pLockonTarget) {
-//        //if (_pLockonTarget->isOutOfView() || _pLockonTarget->isActiveActor() == false) { //非アクティブのみと視野外はロックオン解除
-//        if (_pLockonTarget->isActiveActor() == false) {  //非アクティブのみ解除（視野外でもロックオン維持）
-//            _pLockonController->releaseLockon();
-//            _pLockonTarget = NULL;
-//        } else {
-//            _pLockonController->lockon(_pLockonTarget);
-//        }
-//
-//    } else {
-//        _pLockonController->releaseLockon();
-//        _pLockonTarget = NULL;
-//    }
-
     if (pMyShip->_just_shot) {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot) {
@@ -533,18 +435,6 @@ void MyOption::processBehavior() {
         }
     }
 
-//    if (VB_PLAY->isPushedDown(VB_SHOT1)) {
-//        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
-//        if (pShot) {
-//            _pSeTransmitter->play3D(1);
-//            pShot->locate(this);
-//            pShot->_pKuroko->_angFace[AXIS_X] = _RX;
-//            pShot->_pKuroko->_angFace[AXIS_Z] = _RZ;
-//            pShot->_pKuroko->_angFace[AXIS_Y] = _RY;
-//            pShot->_pKuroko->setRzRyMvAng(_RZ, _RY);
-//            pShot->activate();
-//        }
-//    }
 
 
     _pSeTransmitter->behave();

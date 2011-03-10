@@ -41,7 +41,7 @@ void Item001::onHit(GgafActor* prm_pOtherActor) {
 
 
     if (pOther->getKind() & KIND_MY_BODY)  {
-        P_MYSHIP_SCENE->_pEnagyBar->_value += 10;
+        //P_MYSHIP_SCENE->_pEnagyBar->_value += 10;
         _pSeTransmitter->playImmediately(0);
         setHitAble(false);
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();

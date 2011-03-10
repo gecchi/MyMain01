@@ -21,18 +21,17 @@ void EnagyBar::initialize() {
 }
 
 void EnagyBar::onReset() {
-    _value = 500;
-    _qu.config(400, 1000); //初期値は400pxでフルエネルキー
-    _qu.set(_value);
-    _sx = _qu._val_px / _fSize_BoardModelWidthPx;
+    _amount.config(400, 10000); //値 10000 で表示は400pxとする。
+    _amount.set(5000);           //初期値は5000
+    _sx = _amount._val_px / _fSize_BoardModelWidthPx;
 }
 
 void EnagyBar::onActive() {
 }
 
 void EnagyBar::processBehavior() {
-    _qu.set(_value);
-    _sx = _qu._val_px / _fSize_BoardModelWidthPx;
+//    _amount.set(_value);
+    _sx = _amount._val_px / _fSize_BoardModelWidthPx;
     _pUvFlipper->behave();
 }
 

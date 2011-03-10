@@ -119,7 +119,7 @@ void MagicPointItem001::processBehavior() {
             _pProgress->change(ITEM_PROG_NOTIONG);
             sayonara(); //I—¹
         }
-        P_MYSHIP_SCENE->_pEnagyBar->_value += 1;
+        P_MYSHIP_SCENE->_pEnagyBar->_amount.inc(1);
     }
     _pKuroko->behave();
 }

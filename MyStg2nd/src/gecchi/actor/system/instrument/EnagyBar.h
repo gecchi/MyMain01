@@ -3,17 +3,12 @@
 namespace MyStg2nd {
 
 class EnagyBar : public GgafDx9LibStg::DefaultBoardActor {
-    GgafDx9LibStg::QuantityUnit _qu;
-public:
-    double _value;
-    float _fSize_BoardModelWidthPx;
 
-    void addVal(double prm_val) {
-        _value += prm_val;
-        if (_value < 0.0) {
-            _value = 0.0;
-        }
-    }
+public:
+
+    GgafDx9LibStg::AmountGraph _amount;
+
+    float _fSize_BoardModelWidthPx;
 
     EnagyBar(const char* prm_name);
 
@@ -28,6 +23,8 @@ public:
     void processJudgement() override;
 
     void onInactive() override;
+
+    void addVal(double prm_val);
 
 
     virtual ~EnagyBar();

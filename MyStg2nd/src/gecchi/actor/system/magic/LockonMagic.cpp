@@ -5,13 +5,13 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-LockonMagic::LockonMagic(const char* prm_name, magic_point* prm_pMP, MagicMeter* prm_pMagicMeter)
-: Magic(prm_name,  prm_pMP, prm_pMagicMeter,
+LockonMagic::LockonMagic(const char* prm_name)
+: Magic(prm_name,
         5,          //max_level
         1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate
         60*3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
         60*2    , 0.9,   //基本発動時間   , 飛びレベル時の rate
-        60*60*10, 1.0,   //基本持続時間   , 飛びレベル時の rate
+        60*60*10,    0.0,   //基本持続時間, 各レベルの削減割合
         1.0     , 0.0    //基本維持コスト , 各レベル時の rate
        ) {
 

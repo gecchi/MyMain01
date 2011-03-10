@@ -5,15 +5,15 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-LaserMagic::LaserMagic(const char* prm_name, magic_point* prm_pMP, MagicMeter* prm_pMagicMeter)
-: Magic(prm_name,  prm_pMP, prm_pMagicMeter,
-                    2,          //max_level
-                    1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate
-                    60*3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
-                    60*2    , 0.9,   //基本発動時間   , 飛びレベル時の rate
-                    60*60*10, 1.0,   //基本持続時間   , 飛びレベル時の rate
-                    1.0     , 0.0    //基本維持コスト , 各レベル時の rate
-                ) {
+LaserMagic::LaserMagic(const char* prm_name)
+    : Magic(prm_name,
+    2,          //max_level
+    1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate
+    60*3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
+    60*2    , 0.9,   //基本発動時間   , 飛びレベル時の rate
+    60*60*10,    0.0,   //基本持続時間, 各レベルの削減割合
+    1.0     , 0.0 ) {    //基本維持コスト , 各レベル時の rate
+
     //    |  0,   1,   2,   3 |
     //    |  4,   5,   6,   7 |
     //    |  8,   9,  10,  11 |

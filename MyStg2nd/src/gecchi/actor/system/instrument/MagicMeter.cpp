@@ -13,12 +13,12 @@ MagicMeter::MagicMeter(const char* prm_name)
     _height = _pBoardSetModel->_fSize_BoardSetModelHeightPx + 1.0f;
     _x = 100;
     _y = Properties::VIEW_SCREEN_HEIGHT - (_height*2);
-//    QuantityUnit _qu;
+//    AmountGraph _qu;
 //    _qu.set(1.0);
 //    _qu.config(400.0, 1.0);
 //    float _value = 1000;
 //    _qu.config(400.0f, _value);
-//    QuantityUnit _qu();
+//    AmountGraph _qu();
 //    [0][0]  [1][0]  [2][0]  [3][0]
 //    [0][1]  [1][1]  [2][1]  [3][1]
 //    [0][2]  [1][2]  [2][2]  [3][2]
@@ -37,12 +37,15 @@ MagicMeter::MagicMeter(const char* prm_name)
 //    [4][6]  [5][6]  [6][6]  [7][6]
 //    [4][7]  [5][7]  [6][7]  [7][7]
 //
-    _ringMagics.addLast(NEW TractorMagic("TRACTOR", this));
-    _ringMagics.addLast(NEW SpeedMagic("SPEED", this));
-    _ringMagics.addLast(NEW LockonMagic("LOCKON", this));
-    _ringMagics.addLast(NEW TorpedoMagic("TORPEDO", this));
-    _ringMagics.addLast(NEW LaserMagic("LASER", this));
-    _ringMagics.addLast(NEW OptionMagic("OPTION", this));
+    _ringMagics.addLast(NEW TractorMagic("TRACTOR"));
+    _ringMagics.addLast(NEW SpeedMagic("SPEED"));
+    _ringMagics.addLast(NEW LockonMagic("LOCKON"));
+    _ringMagics.addLast(NEW TorpedoMagic("TORPEDO"));
+    _ringMagics.addLast(NEW LaserMagic("LASER"));
+    _ringMagics.addLast(NEW OptionMagic("OPTION"));
+    for (int i = 0; i < _ringMagics.length(); i++) {
+        addSubGroup(_ringMagics.getNext(i));
+    }
 
 
     _paLevelCursor = NEW int[_ringMagics.length()];
@@ -111,18 +114,16 @@ void MagicMeter::processJudgement() {
         int i = _ringMagics.indexOf(pActiveMagic);
         if (pActiveMagic->_level < _paLevelCursor[i]) {
             _pSeTransmitter->playImmediately(2);
-            if (pActiveMagic->execute(_paLevelCursor[i])) {
+            pActiveMagic->execute(_paLevelCursor[i]);
                  //レベルアップ魔法実行！
-            } else {
-                //レベルアップ魔法不可！
-            }
+
         } else if (pActiveMagic->_level > _paLevelCursor[i]) {
             _pSeTransmitter->playImmediately(3);
-            if (pActiveMagic->execute(_paLevelCursor[i])) {
+            pActiveMagic->execute(_paLevelCursor[i]);
                 //レベルダウン魔法実行！
-            }else {
-                //レベルアップ魔法不可！
-            }
+
+        } else if (pActiveMagic->_level == _paLevelCursor[i]) {
+            //同じレベル実行＝何もしない
         }
         pActiveMagic->rollClose();
     }

@@ -91,6 +91,8 @@ public:
     frame _adjust_angPos_seq_spent_frame;
     angle _adjust_angPos_seq_angPosition;
 
+
+
     /**
      * コンストラクタ .
      * @param prm_name
