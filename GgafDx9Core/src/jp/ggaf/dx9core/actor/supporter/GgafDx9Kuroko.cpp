@@ -2009,6 +2009,7 @@ void GgafDx9Kuroko::orderGravitationVxyzMvSequence(
 }
 
 
+
 void GgafDx9Kuroko::takeoverMvFrom(GgafDx9Kuroko* prm_pKuroko) {
     // キャラの移動方角単位ベクトル
     _vX = prm_pKuroko->_vX;
