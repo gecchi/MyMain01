@@ -61,7 +61,7 @@ Magic::Magic(const char*  prm_name,
     }
 
     _time_of_next_state = 0;
-    _pProgress->set(MAGIC_NOTHING);
+
     _is_working = false;
     _pCaster = NULL;
     _pReceiver = NULL;
@@ -69,6 +69,7 @@ Magic::Magic(const char*  prm_name,
     _velo_rr = 0.0f;
 
     useProgress();
+    _pProgress->set(MAGIC_NOTHING);
 }
 
 void Magic::initialize()  {
