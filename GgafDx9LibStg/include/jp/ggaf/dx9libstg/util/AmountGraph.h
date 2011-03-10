@@ -1,5 +1,5 @@
-#ifndef QUANTITYUNIT_H_
-#define QUANTITYUNIT_H_
+#ifndef AMOUNTGRAPH_H_
+#define AMOUNTGRAPH_H_
 
 namespace GgafDx9LibStg {
 
@@ -9,7 +9,7 @@ namespace GgafDx9LibStg {
  * @since 2011/02/02
  * @author Masatoshi Tsuge
  */
-class QuantityUnit : public GgafCore::GgafObject {
+class AmountGraph : public GgafCore::GgafObject {
 
 public:
     /** 100%のメーター値(≠0) */
@@ -27,7 +27,7 @@ public:
      * コンストラクタ .
      * @return
      */
-    QuantityUnit() : GgafCore::GgafObject() {
+    AmountGraph() : GgafCore::GgafObject() {
         _max_val_px = 100.0f;
         _max_val = 100;
         _val_px = 100.0f;
@@ -40,7 +40,7 @@ public:
 //     * @param prm_max_val_px  メーター値が100%時の幅ピクセル
 //     * @param prm_max_val     メーター値が100%とする実際の値(メーター値)
 //     */
-//    QuantityUnit(float prm_max_val_px, float prm_max_val);
+//    AmountGraph(float prm_max_val_px, float prm_max_val);
 
     /**
      * メーターの目盛りを定義 .
@@ -64,6 +64,11 @@ public:
         _val_px = _max_val_px * _rate_val;
     }
 
+    int get() {
+        return _val;
+    }
+
+
     /**
      * メーター値を加算 .
      * 設定すると、現在のメーターの長さ(_val_px) 及び、
@@ -76,12 +81,16 @@ public:
         _val_px = _max_val_px * _rate_val;
     }
 
+    void dec(int prm_val) {
+        _val -= prm_val;
+        _rate_val = (float)_val /  _max_val;
+        _val_px = _max_val_px * _rate_val;
+    }
 
-
-    virtual ~QuantityUnit() {
+    virtual ~AmountGraph() {
     }
 };
 
 }
-#endif /*QUANTITYUNIT_H_*/
+#endif /*AMOUNTGRAPH_H_*/
 

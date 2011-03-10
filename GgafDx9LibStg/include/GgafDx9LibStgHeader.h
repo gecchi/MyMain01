@@ -24,7 +24,7 @@ class DefaultCamera;
 class StgUtil;
 class VirtualButton;
 class VBRecorder;
-class QuantityUnit;
+class AmountGraph;
 
 class DefaultScene;
 class ActorTableScene;
@@ -90,7 +90,7 @@ class LaserChipDispatcherDispatcher;
 
 #include "jp/ggaf/dx9libstg/util/VirtualButton.h"
 #include "jp/ggaf/dx9libstg/util/VBRecorder.h"
-#include "jp/ggaf/dx9libstg/util/QuantityUnit.h"
+#include "jp/ggaf/dx9libstg/util/AmountGraph.h"
 
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
 #include "jp/ggaf/dx9libstg/scene/ActorTableScene.h"
