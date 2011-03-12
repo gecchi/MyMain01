@@ -98,7 +98,7 @@ public:
      * @param prm_max_delay_offset 次の敵出現までの、最大待ちフレーム数
      * @return
      */
-    virtual GgafCore::GgafGroupActor* addToTable(GgafCore::GgafMainActor* prm_pMainActor, frame prm_max_delay_offset = 0);
+    virtual GgafCore::GgafGroupActor* addToTable(GgafDx9Core::GgafDx9FormationActor* prm_pFormationActor, frame prm_max_delay_offset = 0);
 
     /**
      * 早回し敵出現テーブル全体の許容フレームを設定する。

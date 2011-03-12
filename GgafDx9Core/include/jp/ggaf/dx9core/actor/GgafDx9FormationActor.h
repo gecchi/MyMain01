@@ -1,6 +1,10 @@
 #ifndef GGAFDX9FORMATIONACTOR_H_
 #define GGAFDX9FORMATIONACTOR_H_
+
+#define FORMATION_END_DELAY (30*60)
 namespace GgafDx9Core {
+
+
 
 /**
  * フォーメーションアクタークラス .
@@ -28,7 +32,7 @@ public:
      * @param prm_frame_offset_end 子が無くなったときに解放する猶予フレーム
      * @return
      */
-    GgafDx9FormationActor(const char* prm_name, frame prm_frame_offset_end = 30*60);
+    GgafDx9FormationActor(const char* prm_name, frame prm_frame_offset_end = FORMATION_END_DELAY);
 
     virtual void initialize() override {
     }

@@ -128,7 +128,7 @@ void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level) {
     //(processEffectBegin 時、 option は一度はbehave()されて座標を計算しておいてほしい）
     P_MYOPTIONCON->setNumOption(prm_new_level);
     P_MYOPTIONCON->adjustDefaltAngPosition(60);
-    for (int i = prm_now_level; i < prm_now_level; i++) {
+    for (int i = prm_now_level; i < prm_new_level; i++) {
         _papEffect[i]->inactivateDelay(120);
     }
 }

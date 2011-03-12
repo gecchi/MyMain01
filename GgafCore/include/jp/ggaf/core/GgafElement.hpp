@@ -1483,7 +1483,7 @@ bool GgafElement<T>::wasPause() {
 
 template<class T>
 bool GgafElement<T>::wasDeclaredEnd() {
-    if (_will_end_after_flg) {
+    if (_will_end_after_flg || _can_live_flg == false) {
         return true;
     } else {
         return false;

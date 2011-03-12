@@ -108,7 +108,7 @@
     #define TRACE(X)
 
     /** 工場関連関連ログ */
-    //#define TRACE2(X) {std::stringstream ss; ss << "[別スレッド]" << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define TRACE2(X) {std::stringstream ss; ss << "[製造工場]" << X; GgafCore::GgafLogger::writeln(ss); }
     #define TRACE2(X)
 
     /** 資源マネージャ、コネクション関連ログ */

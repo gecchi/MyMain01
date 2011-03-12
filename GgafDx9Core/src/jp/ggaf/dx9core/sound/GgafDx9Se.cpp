@@ -9,14 +9,15 @@ GgafDx9Se::GgafDx9Se(char* prm_wave_name) : GgafObject() {
         throwGgafCriticalException("GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") DirectSound が、まだ初期化されていません。");
     }
 
-    _wave_name = prm_wave_name;
+    _wave_name = NEW char[128];
+    strcpy(_wave_name, prm_wave_name);
     string wave_filename = GGAFDX9_PROPERTY(DIR_WAVE) + string(_wave_name) + ".wav";
 
     HRESULT hr;
     // Waveファイルを開く
     CWaveDecorder WaveFile;
     if (!WaveFile.Open((LPSTR)wave_filename.c_str())) {
-        _TRACE_("GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") ファイル "<<wave_filename<<" が開けませんでした。");
+        throwGgafCriticalException("GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") ファイル "<<wave_filename<<" が開けませんでした。");
         //return false;
     }
 
@@ -25,7 +26,7 @@ GgafDx9Se::GgafDx9Se(char* prm_wave_name) : GgafObject() {
     ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
     dsbdesc.dwSize = sizeof(DSBUFFERDESC);
     //dsbdesc.dwFlags = DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLFREQUENCY | DSBCAPS_GLOBALFOCUS | DSBCAPS_LOCSOFTWARE;//| DSBCAPS_GETCURRENTPOSITION2;// | DSBCAPS_LOCSOFTWARE; //TODO:DSBCAPS_LOCSOFTWARE or DSBCAPS_LOCDEFERかどっち？
-    dsbdesc.dwFlags = DSBCAPS_LOCDEFER | DSBCAPS_CTRLPAN | DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLVOLUME;
+    dsbdesc.dwFlags = DSBCAPS_LOCSOFTWARE | DSBCAPS_CTRLPAN | DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLVOLUME | DSBCAPS_GETCURRENTPOSITION2 | DSBCAPS_GLOBALFOCUS;
     dsbdesc.dwBufferBytes = WaveFile.GetWaveSize();
     dsbdesc.lpwfxFormat = WaveFile.GetWaveFormat();
 
@@ -39,6 +40,7 @@ GgafDx9Se::GgafDx9Se(char* prm_wave_name) : GgafObject() {
     hr = _pIDirectSoundBuffer->GetFrequency(&_dwDefaultFrequency);
     checkDxException(hr, D3D_OK, "GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") GetFrequency に失敗しました。サウンドカードは有効ですか？");
 
+	_TRACE_("GgafDx9Se::GgafDx9Se() _wave_name="<<_wave_name<<" this="<<this<<" _id="<<_id);
 }
 
 
@@ -139,10 +141,13 @@ int GgafDx9Se::restore(void) {
     return true;
 }
 
+
+
+
 bool GgafDx9Se::isPlaying() {
     DWORD dwStatus = 0;
     _pIDirectSoundBuffer->GetStatus( &dwStatus );
-    if( dwStatus & DSBSTATUS_PLAYING ) {
+    if( (dwStatus & DSBSTATUS_PLAYING) != 0 ) {
         return true;
     } else {
         return false;
@@ -151,5 +156,7 @@ bool GgafDx9Se::isPlaying() {
 
 
 GgafDx9Se::~GgafDx9Se() {
+    _TRACE_("GgafDx9Se::~GgafDx9Se() _wave_name="<<_wave_name<<" this="<<this<<" _id="<<_id);
+    DELETEARR_IMPOSSIBLE_NULL(_wave_name);
     RELEASE_IMPOSSIBLE_NULL(_pIDirectSoundBuffer);
 }

@@ -100,12 +100,12 @@ void MagicMeter::processJudgement() {
             _ringMagics.getCurrent()->rollOpen();
         } else if (VB_PLAY->isPushedDown(VB_UP)) {
             if (pActiveMagic->_max_level > _paLevelCursor[i]) {
-                _pSeTransmitter->playImmediately(1);
+                _pSeTransmitter->playImmediately(0);
                 _paLevelCursor[i] ++;
             }
         } else if (VB_PLAY->isPushedDown(VB_DOWN)) {
             if (0 < _paLevelCursor[i]) {
-                _pSeTransmitter->playImmediately(1);
+                _pSeTransmitter->playImmediately(0);
                 _paLevelCursor[i] --;
             }
         }
