@@ -33,6 +33,18 @@ void EnemyAstraeaLaserChip001::onActive() {
     _pKuroko->relateRzRyFaceAngToMvAng(true);
 }
 
+void EnemyAstraeaLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
+    if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
+        if (_chip_kind != 2 || _can_chikei_hit) {
+            GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+        } else {
+            return;
+        }
+    } else {
+        GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+    }
+}
+
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     if (getActivePartFrame() == 40) {
         _pKuroko->orderTagettingMvAngSequence(

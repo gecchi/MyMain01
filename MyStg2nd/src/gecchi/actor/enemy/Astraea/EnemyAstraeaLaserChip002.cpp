@@ -31,10 +31,20 @@ void EnemyAstraeaLaserChip002::onActive() {
     //_pKuroko->setMvAcce(300);
     //_pKuroko->forceRyMvAngVeloRange(-90000, 90000);
     _pKuroko->relateRzRyFaceAngToMvAng(true);
-
-
-
 }
+
+void EnemyAstraeaLaserChip002::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
+    if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
+        if (_chip_kind != 2 || _can_chikei_hit) {
+            GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+        } else {
+            return;
+        }
+    } else {
+        GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+    }
+}
+
 
 void EnemyAstraeaLaserChip002::onRefractionBegin(int prm_num_refraction)  {
 

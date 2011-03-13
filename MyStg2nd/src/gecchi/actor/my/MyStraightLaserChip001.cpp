@@ -31,6 +31,17 @@ void MyStraightLaserChip001::processBehavior() {
     }
 }
 
+void MyStraightLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
+    if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
+        if (_chip_kind != 2 || _can_chikei_hit) {
+            GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+        } else {
+            return;
+        }
+    } else {
+        GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+    }
+}
 
 
 void MyStraightLaserChip001::onActive() {

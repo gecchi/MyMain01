@@ -53,7 +53,7 @@ LaserChip* LaserChipDispatcher::employ() {
     } else {
         LaserChip* pChip = (LaserChip*)GgafActorDispatcher::employ();
         if (pChip) {
-            pChip->activate();
+//            pChip->activate();
             if (_pChip_prev_employ) {
                 //以前のemploy()したチップ
                 if (_frame_of_behaving_prev_employ+1 == _pChip_prev_employ->getBehaveingFrame()) {
