@@ -45,14 +45,14 @@ void HoshiBoshi001::initialize() {
 }
 
 void HoshiBoshi001::onActive() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5);
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 8);
 }
 
 void HoshiBoshi001::processBehavior() {
     if (_X < -_CAM_ZF) {
         _X += (_CAM_ZF*2);
     } else {
-        _X -= 1000;
+        _X -= 500;
     }
     _pUvFlipper->behave();
 }
