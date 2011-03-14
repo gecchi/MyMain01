@@ -97,34 +97,50 @@ public:
     static KEYBOARDMAP _tagKeymap;
     static JOYSTICKMAP _tagJoymap;
 
-    class VBMap {
+    /**
+     * 仮想ボタンコンテナ .
+     */
+    class VBRecord {
     public :
-        VBMap* _next; //時系列で次のフレームの入力状態
-        VBMap* _prev; //時系列で前のフレームの入力状態
+        VBRecord* _next; //時系列で次のフレームの入力状態
+        VBRecord* _prev; //時系列で前のフレームの入力状態
 
         vbsta _state;
 
-        VBMap() {
+        VBRecord() {
             //for (int i = 0; i < VB_NUM; i++) {_state[i] = false;}
             _next = NULL;
             _prev = NULL;
             _state = (vbsta)0;
         }
-        ~VBMap() {
+        ~VBRecord() {
         }
     };
-
+    /** オートリピート判定用カウンター */
+    _MAP_<vbsta, frame> _repeat_counter;
+    /** オートリピート中ならば true */
+    bool _is_auto_repeat;
 
     static keymap _mapDIK;
     static bool _is_init;
 
+
+
+
     VirtualButton();
 
-    VBMap* _pVBMap_Active; //現在フレームの入力状態
+    VBRecord* _pVBRecord_Active; //現在フレームの入力状態
 
-    VBMap* getPastVBMap(frame prm_frame_Ago);
+    VBRecord* getPastVBRecord(frame prm_frame_Ago);
 
     vbsta isBeingPressed(vbsta prm_VB);
+
+    /**
+     * オートリピート入力判定 .
+     * @param prm_VB 仮想ボタン(VB_ で始まる定数)
+     * @return
+     */
+    vbsta isAutoRepeat(vbsta prm_VB);
 
     vbsta wasBeingPressed(vbsta prm_VB, frame prm_frame_Ago);
 
@@ -207,9 +223,9 @@ public:
     vbsta isDoublePushedDownStick(frame prm_frame_push = 5, frame prm_frame_delay = 5);
 
     /**
-     * グルッとポンか否か
-     * @param prm_VB ポンのボダン
-     * @param prm_frame_delay グルッが成立する許容フレーム
+     * グルッとポンか否か .
+     * @param prm_VB グルッとポンのポンのボダン
+     * @param prm_frame_delay グルッとが成立する許容フレーム
      * @return
      */
     bool isRoundPushDown(vbsta prm_VB, frame prm_frame_delay=30);

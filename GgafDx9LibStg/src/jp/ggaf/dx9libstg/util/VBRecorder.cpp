@@ -12,8 +12,8 @@ VBRecorder::VBRecorder(VirtualButton* prm_vb) : GgafObject() {
 
 void VBRecorder::write() {
 
-    if (_vb->_pVBMap_Active->_state != _vb->_pVBMap_Active->_prev->_state) { //‰‰ñ‚ð‚Ì‚¼‚­‚É‚ÍH
-        VBStateNote* pVBNote = NEW VBStateNote(_vb->_pVBMap_Active->_prev->_state, _nframe);
+    if (_vb->_pVBRecord_Active->_state != _vb->_pVBRecord_Active->_prev->_state) { //‰‰ñ‚ð‚Ì‚¼‚­‚É‚ÍH
+        VBRecordNote* pVBNote = NEW VBRecordNote(_vb->_pVBRecord_Active->_prev->_state, _nframe);
         if (_pFirstVBNote) {
             _p->_pNext = pVBNote;
             _p = pVBNote;

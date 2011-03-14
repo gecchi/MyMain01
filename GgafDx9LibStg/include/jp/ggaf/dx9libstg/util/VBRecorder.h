@@ -12,20 +12,20 @@ class VBRecorder : public GgafCore::GgafObject {
 public:
 
 
-    class VBStateNote {
+    class VBRecordNote {
     public:
-        VBStateNote* _pNext;
+        VBRecordNote* _pNext;
 
         vbsta _state;
         frame _frame_of_keeping;
-        VBStateNote(vbsta state, frame frame_of_keeping) : _pNext(NULL),_state(state),_frame_of_keeping(frame_of_keeping) {
+        VBRecordNote(vbsta state, frame frame_of_keeping) : _pNext(NULL),_state(state),_frame_of_keeping(frame_of_keeping) {
         }
     };
 
 
     VirtualButton* _vb;
-    VBStateNote* _pFirstVBNote;
-    VBStateNote* _p;
+    VBRecordNote* _pFirstVBNote;
+    VBRecordNote* _p;
     frame _nframe;
 
 
