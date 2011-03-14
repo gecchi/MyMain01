@@ -25,7 +25,6 @@ void WorldBoundSpace001::onActive() {
 }
 
 void WorldBoundSpace001::processBehavior() {
-    locateWith(P_CAM);
     //_pUvFlipper->behave();
 }
 void WorldBoundSpace001::processJudgement() {

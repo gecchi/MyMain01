@@ -938,7 +938,8 @@ void GgafElement<T>::settleBehavior() {
 //        _was_initialize_flg = true;
 //    }
 
-    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+    //if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+    if (_is_active_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
             processSettlementBehavior(); //フレームワーク用
