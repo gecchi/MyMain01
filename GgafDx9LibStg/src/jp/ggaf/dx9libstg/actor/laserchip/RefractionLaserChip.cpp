@@ -221,6 +221,14 @@ void RefractionLaserChip::processBehavior() {
     }
 }
 
+void RefractionLaserChip::processSettlementBehavior() {
+    if (_was_paused_flg) {
+        GgafDx9GeometricActor::processSettlementBehavior();
+    } else {
+        LaserChip::processSettlementBehavior();
+    }
+}
+
 void RefractionLaserChip::processJudgement() {
     LaserChip::processJudgement();
     //TODO:ƒRƒƒ“ƒg–¢ŒŸØ@‚½‚Ô‚ñ–â‘è‚È‚µ

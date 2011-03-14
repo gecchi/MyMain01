@@ -42,6 +42,8 @@ public:
      */
     virtual void processBehavior() override;
 
+    virtual void processSettlementBehavior() override;
+
     /**
      * ホーミングレーザーの先頭チップの動きを実装する .
      * 本当の先頭チップの場合はもちろんコールバックされるが、

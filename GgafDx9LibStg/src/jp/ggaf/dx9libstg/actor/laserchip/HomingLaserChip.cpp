@@ -181,6 +181,14 @@ void HomingLaserChip::processBehavior() {
     }
 }
 
+void HomingLaserChip::processSettlementBehavior() {
+    if (_was_paused_flg) {
+        GgafDx9GeometricActor::processSettlementBehavior();
+    } else {
+        LaserChip::processSettlementBehavior();
+    }
+}
+
 void HomingLaserChip::processJudgement() {
     LaserChip::processJudgement();
     //GgafDx9Util::setWorldMatrix_RxRzRyScMv(this, _matWorld);

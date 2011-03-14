@@ -74,6 +74,13 @@ void StraightLaserChip::processBehavior() {
 
 }
 
+void StraightLaserChip::processSettlementBehavior() {
+    if (_was_paused_flg) {
+        GgafDx9GeometricActor::processSettlementBehavior();
+    } else {
+        LaserChip::processSettlementBehavior();
+    }
+}
 
 void StraightLaserChip::processJudgement() {
     LaserChip::processJudgement();

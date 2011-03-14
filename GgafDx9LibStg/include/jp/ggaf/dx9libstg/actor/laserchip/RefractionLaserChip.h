@@ -77,6 +77,8 @@ public:
      */
     virtual void processBehavior() override;
 
+    virtual void processSettlementBehavior() override;
+
     /**
      * 先頭チップのレーザーの直進終了～屈折開始時の処理 .
      * @param prm_num_refraction 屈折カウント(何回目の屈折開始か)(0～)
