@@ -86,24 +86,24 @@ void MagicMeter::processJudgement() {
             pActiveMagic->rollOpen();
         }
 
-        if (VB_PLAY->isPushedDown(VB_RIGHT)) {
+        if (VB_PLAY->isAutoRepeat(VB_RIGHT)) {
             _paLevelCursor[i] = pActiveMagic->_level;
             _pSeTransmitter->playImmediately(0);
             pActiveMagic->rollClose();
             _ringMagics.next();
             _ringMagics.getCurrent()->rollOpen();
-        } else if (VB_PLAY->isPushedDown(VB_LEFT)) {
+        } else if (VB_PLAY->isAutoRepeat(VB_LEFT)) {
             _paLevelCursor[i] = pActiveMagic->_level;
             _pSeTransmitter->playImmediately(0);
             pActiveMagic->rollClose();
             _ringMagics.prev();
             _ringMagics.getCurrent()->rollOpen();
-        } else if (VB_PLAY->isPushedDown(VB_UP)) {
+        } else if (VB_PLAY->isAutoRepeat(VB_UP)) {
             if (pActiveMagic->_max_level > _paLevelCursor[i]) {
                 _pSeTransmitter->playImmediately(0);
                 _paLevelCursor[i] ++;
             }
-        } else if (VB_PLAY->isPushedDown(VB_DOWN)) {
+        } else if (VB_PLAY->isAutoRepeat(VB_DOWN)) {
             if (0 < _paLevelCursor[i]) {
                 _pSeTransmitter->playImmediately(0);
                 _paLevelCursor[i] --;

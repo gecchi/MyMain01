@@ -561,48 +561,6 @@ void MyShip::doNotingMoveInput() {
 
 }
 
-
-bool MyShip::isDoublePushedDown(vbsta prm_VB) {
-    //過去に遡りながら検証
-    frame frame_Apply;
-    frame frame_Ago = 1;
-    VirtualButton::VBMap* pVBMap = VB_PLAY->getPastVBMap(frame_Ago);
-    //直前は必ず押されていては駄目、ニュートラルでなければだめ
-    if ((pVBMap->_state & prm_VB) == 0) {
-
-        frame_Ago++;
-        //その前の5フレーム以内のどこかで押していなければならない
-        frame_Apply = frame_Ago + 7;//許容フレーム
-        for ( ; frame_Ago < frame_Apply; frame_Ago++) {
-            pVBMap = VB_PLAY->getPastVBMap(frame_Ago);
-            if (pVBMap->_state & prm_VB) {
-                break;
-            }
-        }
-        if (frame_Ago >= frame_Apply) {
-            return false; //不合格
-        }
-
-        //さらにそこから以前5フレーム以内のどこかで押されていては駄目
-        frame_Apply = frame_Ago + 7;//許容フレーム
-        for ( ; frame_Ago < frame_Apply; frame_Ago++) {
-            pVBMap = VB_PLAY->getPastVBMap(frame_Ago);
-            if ((pVBMap->_state & prm_VB) == 0) {
-
-                break;
-            }
-        }
-        if (frame_Ago >= frame_Apply) {
-            return false; //不合格
-        }
-        return true;
-
-    } else {
-        return false;
-    }
-
-}
-
 void MyShip::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
 

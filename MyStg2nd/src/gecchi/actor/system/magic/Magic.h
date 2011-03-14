@@ -77,12 +77,14 @@ public:
     GgafDx9LibStg::AmountGraph* _pMP;
     MagicMeter* _pMagicMeter;
 
-    /** 各レベル毎の情報 */
-    LevelInfo _lvinfo[MMETER_MAX_LEVEL_Y];
-    /** 飛びレベル差別情報 */
-    magic_point _interest_cost[MMETER_MAX_LEVEL_Y];
-    magic_time  _interest_time_of_casting[MMETER_MAX_LEVEL_Y];
-    magic_time  _interest_time_of_invoking[MMETER_MAX_LEVEL_Y];
+    /** 各レベルの情報 0～MMETER_MAX_LEVEL */
+    LevelInfo _lvinfo[MMETER_MAX_LEVEL+1];
+    /** 飛びレベル差別魔法コスト情報 0差～MMETER_MAX_LEVEL差 */
+    magic_point _interest_cost[MMETER_MAX_LEVEL+1];
+    /** 飛びレベル差別詠唱時間情報 0差～MMETER_MAX_LEVEL差 */
+    magic_time  _interest_time_of_casting[MMETER_MAX_LEVEL+1];
+    /** 飛びレベル差別発動時間情報 0差～MMETER_MAX_LEVEL差 */
+    magic_time  _interest_time_of_invoking[MMETER_MAX_LEVEL+1];
 
     /** 本魔法発動に必要なコストの基本単位 */
     magic_point _cost_base;
@@ -118,7 +120,7 @@ public:
      *
      * 飛びレベルとはレベル差が１より大きい(レベル差２以上)を指す。
      * @param prm_name 魔法名
-     * @param prm_max_level 本魔法の最高レベル 1～MMETER_MAX_LEVEL_Y
+     * @param prm_max_level 本魔法の最高レベル 1～MMETER_MAX_LEVEL
      * @param prm_cost_base 基本魔法コスト
      * @param prm_fRate_cost 飛びレベル時の魔法コスト削減割合 0.0～1.0 (1.0:飛びレベルでも割引無し、0.8:レベル差２以上時、魔法コスト２割引)
      * @param prm_time_of_casting_base 基本魔法詠唱時間

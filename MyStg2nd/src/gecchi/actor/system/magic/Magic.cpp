@@ -46,8 +46,8 @@ Magic::Magic(const char*  prm_name,
     _interest_time_of_invoking[0] = 0;
     for (int i = 1; i <= _max_level; i++) {
         _interest_cost[i]             = (_cost_base * i) * _fRate_cost;
-        _interest_time_of_casting[i]  = (_time_of_casting_base * i) *  prm_fRate_time_of_casting;
-        _interest_time_of_invoking[i] = (_time_of_invoking_base * i) *  prm_fRate_time_of_invoking;
+        _interest_time_of_casting[i]  = (_time_of_casting_base * i) *  _fRate_time_of_casting;
+        _interest_time_of_invoking[i] = (_time_of_invoking_base * i) *  _fRate_time_of_invoking;
     }
 
     //各レベル別持続時間及び、維持コストを予め設定
@@ -55,20 +55,19 @@ Magic::Magic(const char*  prm_name,
     _lvinfo[0]._keep_cost = 0;
     _lvinfo[0]._time_of_effect = 0;
     _lvinfo[0]._keep_cost = 0;
-
     for (int i = 1; i <= _max_level; i++) {
         _lvinfo[i]._is_working = false;
         _lvinfo[i]._remaining_time_of_effect = 0;
-        _lvinfo[i]._time_of_effect = _time_of_effect_base +  ((i-1) * _time_of_effect_base * prm_fRate_time_of_effecting);
-        _lvinfo[i]._keep_cost = _keep_cost_base +  ((i-1) * _keep_cost_base * _fRate_keep_cost);
+        _lvinfo[i]._time_of_effect = _time_of_effect_base + ((i-1) * _time_of_effect_base * _fRate_time_of_effecting);
+        _lvinfo[i]._keep_cost      = _keep_cost_base      + ((i-1) * _keep_cost_base * _fRate_keep_cost);
     }
 
-    for (int i = 1; i <= _max_level; i++) {
-        _TRACE_(getName()<<":_lvinfo["<<i<<"]._is_working ="<<_lvinfo[i]._is_working);
-        _TRACE_(getName()<<":_lvinfo["<<i<<"]._remaining_time_of_effect ="<<_lvinfo[i]._remaining_time_of_effect);
-        _TRACE_(getName()<<":_lvinfo["<<i<<"]._time_of_effect ="<<_lvinfo[i]._time_of_effect);
-        _TRACE_(getName()<<":_lvinfo["<<i<<"]._keep_cost ="<<_lvinfo[i]._keep_cost);
-    }
+//    for (int i = 1; i <= _max_level; i++) {
+//        _TRACE_(getName()<<":_lvinfo["<<i<<"]._is_working ="<<_lvinfo[i]._is_working);
+//        _TRACE_(getName()<<":_lvinfo["<<i<<"]._remaining_time_of_effect ="<<_lvinfo[i]._remaining_time_of_effect);
+//        _TRACE_(getName()<<":_lvinfo["<<i<<"]._time_of_effect ="<<_lvinfo[i]._time_of_effect);
+//        _TRACE_(getName()<<":_lvinfo["<<i<<"]._keep_cost ="<<_lvinfo[i]._keep_cost);
+//    }
 
     _time_of_next_state = 0;
 

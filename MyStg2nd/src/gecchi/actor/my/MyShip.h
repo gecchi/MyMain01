@@ -738,8 +738,6 @@ public:
 
     virtual ~MyShip();
 
-    static bool isDoublePushedDown(vbsta prm_VB);
-
 };
 
 }

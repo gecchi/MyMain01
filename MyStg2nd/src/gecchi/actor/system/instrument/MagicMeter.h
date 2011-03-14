@@ -2,7 +2,7 @@
 #define MAGICMETER_H_
 namespace MyStg2nd {
 
-#define MMETER_MAX_LEVEL_Y 9
+#define MMETER_MAX_LEVEL 8
 
 /**
  * 魔法メーター .
@@ -17,7 +17,6 @@ public:
 
     GgafCore::GgafLinkedListRing<Magic> _ringMagics;
 
-    int _pos_pattern_no[MMETER_MAX_LEVEL_Y][8];
     int* _paLevelCursor;
     float _width;
     float _height;
