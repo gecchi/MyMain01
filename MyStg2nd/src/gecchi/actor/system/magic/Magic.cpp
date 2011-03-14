@@ -15,8 +15,6 @@ Magic::Magic(const char*  prm_name,
                 ) : GgafMainActor(prm_name) {
 //    GgafDx9GeometricActor* prm_pCaster,
 //     GgafDx9GeometricActor* prm_pReceiver) : GgafDx9BoardSetActor(prm_name, "magic") {
-    _name = NEW char[20];
-    strcpy(_name, prm_name);
     _pMP = NULL; //initialize()で設定する。
     _new_level = 0;
     _last_level = 0;
@@ -53,11 +51,23 @@ Magic::Magic(const char*  prm_name,
     }
 
     //各レベル別持続時間及び、維持コストを予め設定
+    _lvinfo[0]._is_working = false;
     _lvinfo[0]._keep_cost = 0;
+    _lvinfo[0]._time_of_effect = 0;
+    _lvinfo[0]._keep_cost = 0;
+
     for (int i = 1; i <= _max_level; i++) {
+        _lvinfo[i]._is_working = false;
         _lvinfo[i]._remaining_time_of_effect = 0;
-        _lvinfo[i]._time_of_effect = _time_of_effect_base +  ((i-1) * _time_of_effect_base * prm_time_of_effect_base);
+        _lvinfo[i]._time_of_effect = _time_of_effect_base +  ((i-1) * _time_of_effect_base * prm_fRate_time_of_effecting);
         _lvinfo[i]._keep_cost = _keep_cost_base +  ((i-1) * _keep_cost_base * _fRate_keep_cost);
+    }
+
+    for (int i = 1; i <= _max_level; i++) {
+        _TRACE_(getName()<<":_lvinfo["<<i<<"]._is_working ="<<_lvinfo[i]._is_working);
+        _TRACE_(getName()<<":_lvinfo["<<i<<"]._remaining_time_of_effect ="<<_lvinfo[i]._remaining_time_of_effect);
+        _TRACE_(getName()<<":_lvinfo["<<i<<"]._time_of_effect ="<<_lvinfo[i]._time_of_effect);
+        _TRACE_(getName()<<":_lvinfo["<<i<<"]._keep_cost ="<<_lvinfo[i]._keep_cost);
     }
 
     _time_of_next_state = 0;
@@ -237,6 +247,7 @@ void Magic::processBehavior() {
                     processEffectBegin(_level);
                 }
                 //持続中
+                _TRACE_("_lvinfo["<<_level<<"]._remaining_time_of_effect="<<_lvinfo[_level]._remaining_time_of_effect);
                 _lvinfo[_level]._remaining_time_of_effect --;     //効果持続残り時間
                 _pMP->inc(-1*_lvinfo[_level]._keep_cost); //維持コスト
                 processEffectingBehavior(_level);
@@ -259,5 +270,4 @@ void Magic::processBehavior() {
 
 }
 Magic::~Magic() {
-    DELETEARR_IMPOSSIBLE_NULL(_name);
 }

@@ -18,7 +18,7 @@ namespace MyStg2nd {
 #define MAGIC_EXECUTE_OK_LEVELDOWN   2
 
 typedef int magic_point;
-typedef int magic_time;
+typedef frame magic_time;
 /**
  * 抽象魔法クラス .
  * 魔法についての本クラスの基本的な約束事。
