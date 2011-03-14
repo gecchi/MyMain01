@@ -22,7 +22,7 @@ public:
 
     static const int BUFFER_SIZE;
 
-    /** キーボードの状態 */
+    /** キーボードの状態（表、裏） */
     static char _caKeyboardState[2][256];
     static int _active_KeyboardState;
     /** ジョイスティックの状態 */
