@@ -19,6 +19,12 @@ public:
     virtual void onSwitchedCameraWork() override {
     }
 
+    virtual void processBehavior() override {
+    }
+
+    virtual void processJudgement() override {
+    }
+
     virtual void onUndoneCameraWork() override {
     }
 

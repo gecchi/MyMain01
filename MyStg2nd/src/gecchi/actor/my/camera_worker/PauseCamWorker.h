@@ -13,12 +13,13 @@ namespace MyStg2nd {
 class PauseCamWorker : public CameraWorker {
 
 public:
+    int _cd;
+
     PauseCamWorker(const char* prm_name);
 
     virtual void initialize() override;
 
-    virtual void onSwitchedCameraWork() override {
-    }
+    virtual void onSwitchedCameraWork() override;
 
     virtual void onUndoneCameraWork() override {
     }

@@ -51,7 +51,7 @@ void MyShipScene::onReset() {
     _pMyShip->resetTree();
     _pMyOptionController->resetTree();
     unblindScene();
-    _pProgress->change(MYSHIPSCENE_SCENE_PROG_INIT);
+    _pProgress->set(MYSHIPSCENE_SCENE_PROG_INIT);
 }
 void MyShipScene::onActive() {
 }

@@ -119,7 +119,7 @@ void Magic::execute(int prm_new_level) {
         _is_working = true;
         if (r == MAGIC_EXECUTE_OK_LEVELUP) {
             //レベルアップ
-                        _pProgress->change(MAGIC_STAND_BY);
+            _pProgress->change(MAGIC_STAND_BY);
         } else if (r == MAGIC_EXECUTE_OK_LEVELDOWN) {
             //レベルダウン
             //TODO:MP増加
@@ -246,7 +246,7 @@ void Magic::processBehavior() {
                     processEffectBegin(_level);
                 }
                 //持続中
-                _TRACE_("_lvinfo["<<_level<<"]._remaining_time_of_effect="<<_lvinfo[_level]._remaining_time_of_effect);
+//                _TRACE_("_lvinfo["<<_level<<"]._remaining_time_of_effect="<<_lvinfo[_level]._remaining_time_of_effect);
                 _lvinfo[_level]._remaining_time_of_effect --;     //効果持続残り時間
                 _pMP->inc(-1*_lvinfo[_level]._keep_cost); //維持コスト
                 processEffectingBehavior(_level);

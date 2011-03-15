@@ -363,6 +363,14 @@ void MyOption::processBehavior() {
     float cosHalf = GgafDx9Util::COS[_angExpanse/ANGLE_RATE/2];
 
     //ŒvŽZ
+    //‚ ‚éÀ•W(x, y, z)‚É‚¨‚¢‚ÄA‰ñ“]‚ÌŽ²‚ª(ƒ¿, ƒÀ, ƒÁ)‚ÅAƒÆ‰ñ‚·‰ñ“]
+    //P = (0; x, y, z)
+    //Q = (cos(ƒÆ/2); ƒ¿ sin(ƒÆ/2), ƒÀ sin(ƒÆ/2), ƒÁ sin(ƒÆ/2))
+    //R = (cos(ƒÆ/2); -ƒ¿ sin(ƒÆ/2), -ƒÀ sin(ƒÆ/2), -ƒÁ sin(ƒÆ/2))
+    //
+    //R P Q = (0; “š‚¦)
+    //
+    //‰ñ“]Ž² ‚Í(vX_axis, vY_axis, vZ_axis) ‰ñ“]Šp‚Í _angExpanse
     GgafDx9Quaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
     Q.mul(0,
            _pMyOptionController->_pKuroko->_vX,
