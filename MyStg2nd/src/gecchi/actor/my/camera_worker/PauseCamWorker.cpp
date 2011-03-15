@@ -8,6 +8,7 @@ using namespace MyStg2nd;
 PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
     _class_name = "PauseCamWorker";
     _cd = 0;
+    _mdz_flg = false;
 }
 void PauseCamWorker::initialize() {
 }
@@ -27,7 +28,7 @@ void PauseCamWorker::processBehavior() {
     GgafDx9Input::getMousePointer(&mx, &my, &mz);
     GgafDx9Input::getMousePointer_REL(&mdx, &mdy, &mdz);
     mdy = -mdy; //Y‚ÍƒCƒ“ƒo[ƒY
-    if (GgafDx9Input::isBeingPressedMouseButton(0)) {
+    if (GgafDx9Input::isPushedDownMouseButton(0) || GgafDx9Input::isPushedDownMouseButton(1)) {
         RECT cRect; // ƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚Ì‹éŒ`
         int cw, ch; // ƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚Ì•A‚‚³
         // ƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚Ì•E‚‚³‚ðŒvŽZ
@@ -39,14 +40,20 @@ void PauseCamWorker::processBehavior() {
         } else {
             _cd = cw;
         }
+		    _move_target_X_CAM = pCam->_X;
+            _move_target_Y_CAM = pCam->_Y;
+            _move_target_Z_CAM = pCam->_Z;
+            _move_target_X_VP = pVP->_X;
+            _move_target_Y_VP = pVP->_Y;
+            _move_target_Z_VP = pVP->_Z;
     }
 
 
-    if (GgafDx9Input::isBeingPressedMouseButton(0) && (mdx != 0 || mdy != 0)) {
+    if ((GgafDx9Input::isBeingPressedMouseButton(0) || GgafDx9Input::isBeingPressedMouseButton(1)) && (mdx != 0 || mdy != 0)) {
 //    _TRACE_(GgafDx9Input::isPushedDownMouseButton(0) << GgafDx9Input::isBeingPressedMouseButton(0) << GgafDx9Input::isPushedDownMouseButton(1) << GgafDx9Input::isBeingPressedMouseButton(1));
-//    _TRACE_(mx<<","<<my<<","<<mz<<" ("<<mdx<<","<<mdy<<","<<mdz<<")");
+//    _TRACE_(mx<<","<<my<<","<<mz<<" ("<<mdx<<","<<mdy<<","<<mdz<<") _cd="<<_cd);
     //ŒvŽZ
-
+        _stop_renge = 60000;
     //
         //•½–Ê‰ñ“]Ž²(vx,vy)‚ð‹‚ß‚é
         //double a = asin(1.0*dx/dy); //a XY•½–Ê‚Ì‚È‚·Šp 90“x‰ñ“] x¨y y¨-x
@@ -87,10 +94,12 @@ void PauseCamWorker::processBehavior() {
         vY_axis = t2 * vY_axis;
         vZ_axis = t2 * vZ_axis;
 //        _TRACE_("³‹K‰»axis<<"<<vX_axis<<","<<vY_axis<<","<<vZ_axis<<"");
-        //’[‚©‚ç’[‚Ü‚Å‚Â‚Ü‚Þ‚Æ‚X‚O“x“®‚­‚±‚Æ‚É‚·‚éB
+        //’[‚©‚ç’[‚Ü‚Å‚Â‚Ü‚Þ‚Æ180“x“®‚­‚±‚Æ‚É‚·‚éB
 
-
-        double ang = (2.0*PI) * (d2/_cd);
+//_TRACE_("d="<<((int)d)<<" _cd="<<
+        double ang = (PI) * (d/_cd);
+        double sinHalf = sin(ang/2); //‰ñ“]‚³‚¹‚½‚¢Šp“x
+        double cosHalf = cos(ang/2);
 //        //ƒJƒƒ‰‚ÆVP‚Ì‹——£
 //        int d_cam_vp = GgafDx9Util::getDistance(
 //                _move_target_X_CAM,
@@ -112,47 +121,85 @@ void PauseCamWorker::processBehavior() {
 
         //(x, y, z) ƒJƒƒ‰À•W [ Ž‹“_À•W
         //(ƒ¿, ƒÀ, ƒÁ) = (vX_axis,vY_axis,vY_axis);
-
-        double x = _move_target_X_CAM - _move_target_X_VP;
-        double y = _move_target_Y_CAM - _move_target_Y_VP;
-        double z = _move_target_Z_CAM - _move_target_Z_VP;
-        double sinHalf = sin(ang); //‰ñ“]‚³‚¹‚½‚¢Šp“x
-        double cosHalf = cos(ang);
-
-        GgafDx9Quaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-        Q.mul(0,x,y,z);//R*P ‰ñ“]Ž²‚ªŒ»Ý‚Ìis•ûŒüƒxƒNƒgƒ‹‚Æ‚È‚é
-        Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-        //Q._x, Q._y, Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
-
-        //ZŽ²‰ñ“]AYŽ²‰ñ“]Šp“x‚ðŒvŽZ
-       // GgafDx9Util::getRzRyAng(
-       //     Q._x, Q._y, Q._z,
-       //     _RZ, _RY
-       //  );
+        if (GgafDx9Input::isBeingPressedMouseButton(0)) {
+            double x = _move_target_X_CAM - _move_target_X_VP;
+            double y = _move_target_Y_CAM - _move_target_Y_VP;
+            double z = _move_target_Z_CAM - _move_target_Z_VP;
 
 
-        _move_target_X_CAM = Q._x + _move_target_X_VP;
-        _move_target_Y_CAM = Q._y + _move_target_Y_VP;
-        _move_target_Z_CAM = Q._z + _move_target_Z_VP;
+            GgafDx9Quaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+            Q.mul(0,x,y,z);//R*P ‰ñ“]Ž²‚ªŒ»Ý‚Ìis•ûŒüƒxƒNƒgƒ‹‚Æ‚È‚é
+            Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
+            //Q._x, Q._y, Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
+
+            //ZŽ²‰ñ“]AYŽ²‰ñ“]Šp“x‚ðŒvŽZ
+           // GgafDx9Util::getRzRyAng(
+           //     Q._x, Q._y, Q._z,
+           //     _RZ, _RY
+           //  );
+
+
+            _move_target_X_CAM = Q._x + _move_target_X_VP;
+            _move_target_Y_CAM = Q._y + _move_target_Y_VP;
+            _move_target_Z_CAM = Q._z + _move_target_Z_VP;
+        } else if (GgafDx9Input::isBeingPressedMouseButton(1)) {
+            double x = _move_target_X_VP - _move_target_X_CAM;
+            double y = _move_target_Y_VP - _move_target_Y_CAM;
+            double z = _move_target_Z_VP - _move_target_Z_CAM;
+
+            GgafDx9Quaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+            Q.mul(0,x,y,z);//R*P ‰ñ“]Ž²‚ªŒ»Ý‚Ìis•ûŒüƒxƒNƒgƒ‹‚Æ‚È‚é
+            Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
+            //Q._x, Q._y, Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
+
+            //ZŽ²‰ñ“]AYŽ²‰ñ“]Šp“x‚ðŒvŽZ
+           // GgafDx9Util::getRzRyAng(
+           //     Q._x, Q._y, Q._z,
+           //     _RZ, _RY
+           //  );
+
+
+            _move_target_X_VP = Q._x + _move_target_X_CAM;
+            _move_target_Y_VP = Q._y + _move_target_Y_CAM;
+            _move_target_Z_VP = Q._z + _move_target_Z_CAM;
+        }
     }
 
     if (mdz != 0) {
-        double vx, vy, vz, t;
-        vx = (double)(_move_target_X_VP - _move_target_X_CAM);
-        vy = (double)(_move_target_Y_VP - _move_target_Y_CAM);
-        vz = (double)(_move_target_Z_VP - _move_target_Z_CAM);
-        t = 1.0 / sqrt(vx * vx + vy * vy + vz * vz);
-        vx = t * vx;
-        vy = t * vy;
-        vz = t * vz;
+        if (_mdz_flg == false) {
+            _mdz_total = 0;
+            _move_target_X_CAM = pCam->_X;
+            _move_target_Y_CAM = pCam->_Y;
+            _move_target_Z_CAM = pCam->_Z;
+            _move_target_X_VP = pVP->_X;
+            _move_target_Y_VP = pVP->_Y;
+            _move_target_Z_VP = pVP->_Z;
+            _cam_X = pCam->_X;
+            _cam_Y = pCam->_Y;
+            _cam_Z = pCam->_Z;
+            _vp_X = pVP->_X;
+            _vp_Y = pVP->_Y;
+            _vp_Z = pVP->_Z;
+            double vx, vy, vz, t;
+            vx = (double)(pVP->_X - pCam->_X);
+            vy = (double)(pVP->_Y - pCam->_Y);
+            vz = (double)(pVP->_Z - pCam->_Z);
+            t = 1.0 / sqrt(vx * vx + vy * vy + vz * vz);
+            _mdz_vx = t * vx;
+            _mdz_vy = t * vy;
+            _mdz_vz = t * vz;
+        }
+        _mdz_total += mdz;
 
-        _move_target_X_CAM += (vx*mdz*PX_UNIT*LEN_UNIT/10.0);
-        _move_target_Y_CAM += (vy*mdz*PX_UNIT*LEN_UNIT/10.0);
-        _move_target_Z_CAM += (vz*mdz*PX_UNIT*LEN_UNIT/10.0);
-        _move_target_X_VP += (vx*mdz*PX_UNIT*LEN_UNIT/10.0);
-        _move_target_Y_VP += (vy*mdz*PX_UNIT*LEN_UNIT/10.0);
-        _move_target_Z_VP += (vz*mdz*PX_UNIT*LEN_UNIT/10.0);
-
+        _move_target_X_CAM = _cam_X+(_mdz_vx*_mdz_total*PX_UNIT*LEN_UNIT/10.0);
+        _move_target_Y_CAM = _cam_Y+(_mdz_vy*_mdz_total*PX_UNIT*LEN_UNIT/10.0);
+        _move_target_Z_CAM = _cam_Z+(_mdz_vz*_mdz_total*PX_UNIT*LEN_UNIT/10.0);
+        _move_target_X_VP = _vp_X+(_mdz_vx*_mdz_total*PX_UNIT*LEN_UNIT/10.0);
+        _move_target_Y_VP = _vp_Y+(_mdz_vy*_mdz_total*PX_UNIT*LEN_UNIT/10.0);
+        _move_target_Z_VP = _vp_Z+(_mdz_vz*_mdz_total*PX_UNIT*LEN_UNIT/10.0);
+        _mdz_flg = true;
+    } else {
+        _mdz_flg = false;
     }
 
 
