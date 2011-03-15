@@ -28,7 +28,7 @@ void PauseCamWorker::processBehavior() {
     GgafDx9Input::getMousePointer(&mx, &my, &mz);
     GgafDx9Input::getMousePointer_REL(&mdx, &mdy, &mdz);
     mdy = -mdy; //Yはインバーズ
-    if (GgafDx9Input::isPushedDownMouseButton(0) || GgafDx9Input::isPushedDownMouseButton(1)) {
+    if (GgafDx9Input::isPushedDownMouseButton(0) || GgafDx9Input::isPushedDownMouseButton(1) || GgafDx9Input::isPushedDownMouseButton(2)) {
         RECT cRect; // クライアント領域の矩形
         int cw, ch; // クライアント領域の幅、高さ
         // クライアント領域の幅・高さを計算
@@ -49,7 +49,7 @@ void PauseCamWorker::processBehavior() {
     }
 
 
-    if ((GgafDx9Input::isBeingPressedMouseButton(0) || GgafDx9Input::isBeingPressedMouseButton(1)) && (mdx != 0 || mdy != 0)) {
+    if ((GgafDx9Input::isBeingPressedMouseButton(0) || GgafDx9Input::isBeingPressedMouseButton(1) || GgafDx9Input::isBeingPressedMouseButton(2)) && (mdx != 0 || mdy != 0)) {
 //    _TRACE_(GgafDx9Input::isPushedDownMouseButton(0) << GgafDx9Input::isBeingPressedMouseButton(0) << GgafDx9Input::isPushedDownMouseButton(1) << GgafDx9Input::isBeingPressedMouseButton(1));
 //    _TRACE_(mx<<","<<my<<","<<mz<<" ("<<mdx<<","<<mdy<<","<<mdz<<") _cd="<<_cd);
     //計算
@@ -97,9 +97,7 @@ void PauseCamWorker::processBehavior() {
         //端から端までつまむと180度動くことにする。
 
 //_TRACE_("d="<<((int)d)<<" _cd="<<
-        double ang = (PI) * (d/_cd);
-        double sinHalf = sin(ang/2); //回転させたい角度
-        double cosHalf = cos(ang/2);
+
 //        //カメラとVPの距離
 //        int d_cam_vp = GgafDx9Util::getDistance(
 //                _move_target_X_CAM,
@@ -122,6 +120,11 @@ void PauseCamWorker::processBehavior() {
         //(x, y, z) カメラ座標 ー 視点座標
         //(α, β, γ) = (vX_axis,vY_axis,vY_axis);
         if (GgafDx9Input::isBeingPressedMouseButton(0)) {
+
+            double ang = (PI) * (d/_cd);
+            double sinHalf = sin(ang/2); //回転させたい角度
+            double cosHalf = cos(ang/2);
+
             double x = _move_target_X_CAM - _move_target_X_VP;
             double y = _move_target_Y_CAM - _move_target_Y_VP;
             double z = _move_target_Z_CAM - _move_target_Z_VP;
@@ -142,7 +145,12 @@ void PauseCamWorker::processBehavior() {
             _move_target_X_CAM = Q._x + _move_target_X_VP;
             _move_target_Y_CAM = Q._y + _move_target_Y_VP;
             _move_target_Z_CAM = Q._z + _move_target_Z_VP;
-        } else if (GgafDx9Input::isBeingPressedMouseButton(1)) {
+        }
+		if (GgafDx9Input::isBeingPressedMouseButton(1)) {
+            double ang = (PI) * (d/_cd);
+            double sinHalf = sin(ang/2); //回転させたい角度
+            double cosHalf = cos(ang/2);
+
             double x = _move_target_X_VP - _move_target_X_CAM;
             double y = _move_target_Y_VP - _move_target_Y_CAM;
             double z = _move_target_Z_VP - _move_target_Z_CAM;
@@ -162,7 +170,37 @@ void PauseCamWorker::processBehavior() {
             _move_target_X_VP = Q._x + _move_target_X_CAM;
             _move_target_Y_VP = Q._y + _move_target_Y_CAM;
             _move_target_Z_VP = Q._z + _move_target_Z_CAM;
-        }
+        } 
+		if (GgafDx9Input::isBeingPressedMouseButton(2)) {
+			double ang = PI;
+			double sinHalf = sin(ang/2); //回転させたい角度
+			double cosHalf = cos(ang/2);
+
+			double x = _move_target_X_VP - _move_target_X_CAM;
+			double y = _move_target_Y_VP - _move_target_Y_CAM;
+			double z = _move_target_Z_VP - _move_target_Z_CAM;
+
+			//正規化
+			double d3 = sqrt(x * x + y * y + z * z);
+			double t3 = 1.0 / d3;
+			x = t3 * x;
+			y = t3 * y;
+			z = t3 * z;
+
+
+			GgafDx9Quaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+			Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
+			Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
+
+
+			_move_target_X_CAM += ((Q._x-_move_target_X_CAM)*((d/_cd)*d*LEN_UNIT));
+			_move_target_Y_CAM += ((Q._y-_move_target_Y_CAM)*((d/_cd)*d*LEN_UNIT));
+			_move_target_Z_CAM += ((Q._z-_move_target_Z_CAM)*((d/_cd)*d*LEN_UNIT));
+
+			_move_target_X_VP += ((Q._x-_move_target_X_CAM)*((d/_cd)*d*LEN_UNIT));
+			_move_target_Y_VP += ((Q._y-_move_target_Y_CAM)*((d/_cd)*d*LEN_UNIT));
+			_move_target_Z_VP += ((Q._z-_move_target_Z_CAM)*((d/_cd)*d*LEN_UNIT));
+		}
     }
 
     if (mdz != 0) {
