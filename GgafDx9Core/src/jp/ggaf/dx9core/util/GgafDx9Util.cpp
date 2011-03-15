@@ -567,6 +567,7 @@ void GgafDx9Util::getNormalizeVector(int x,
 }
 
 
+
 void GgafDx9Util::getNormalizeVectorZY(angle prm_angFaceZ,
                                        angle prm_angFaceY,
                                        float& out_nvx,

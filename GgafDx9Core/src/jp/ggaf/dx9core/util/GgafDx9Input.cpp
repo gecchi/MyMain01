@@ -7,6 +7,10 @@ const int GgafDx9Input::BUFFER_SIZE = 256;
 LPDIRECTINPUT8 GgafDx9Input::_pIDirectInput8 = NULL;
 LPDIRECTINPUTDEVICE8 GgafDx9Input::_pIDirectInputDevice8_Keyboard = NULL;
 LPDIRECTINPUTDEVICE8 GgafDx9Input::_pIDirectInputDevice8_Joystick = NULL;
+LPDIRECTINPUTDEVICE8 GgafDx9Input::_pIDirectInputDevice8_Mouse  = NULL;
+DIMOUSESTATE2 GgafDx9Input::_dimousestate[2];
+int  GgafDx9Input::_active_MouseState = 0;
+
 char GgafDx9Input::_caKeyboardState[2][256];
 int GgafDx9Input::_active_KeyboardState = 0;
 DIDEVCAPS GgafDx9Input::_didevcap;
@@ -18,7 +22,6 @@ BOOL CALLBACK EnumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInstance, VO
     HRESULT hr;
 
     // ゲームスティックデバイスを探すする
-
     hr = GgafDx9Input::_pIDirectInput8->CreateDevice(pDIDeviceInstance->guidInstance, &GgafDx9Input::_pIDirectInputDevice8_Joystick, NULL);
     if(hr != D3D_OK) {
         _TRACE_("EnumGameCtrlCallback ジョイスティックCreateDeviceに失敗しました");
@@ -79,6 +82,47 @@ HRESULT GgafDx9Input::init() {
         return hr;
     }
 
+    // マウスデバイスの作成
+    hr = _pIDirectInput8->CreateDevice(GUID_SysMouse, &_pIDirectInputDevice8_Mouse, NULL);
+    if (hr != D3D_OK) {
+        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() マウスデバイス作成に失敗しました"), TEXT("ERROR"), MB_OK
+                | MB_ICONSTOP);
+        return hr;
+    }
+    // マウス取得データフォーマットの設定
+    hr = _pIDirectInputDevice8_Mouse->SetDataFormat(&c_dfDIMouse2);
+    if (hr != D3D_OK) {
+        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() マウスのSetDataFormat に失敗しました"), TEXT("ERROR"),
+                   MB_OK | MB_ICONSTOP);
+        return hr;
+    }
+    // マウス強調レベル設定
+    hr = _pIDirectInputDevice8_Mouse->SetCooperativeLevel(GgafDx9God::_hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+    if (hr != D3D_OK) {
+        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() マウスのSetCooperativeLevelに失敗しました"),
+                   TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+        return hr;
+    }
+    // マウス軸モードを設定
+    DIPROPDWORD dipropword;
+    dipropword.diph.dwSize = sizeof(dipropword);
+    dipropword.diph.dwHeaderSize = sizeof(dipropword.diph);
+    dipropword.diph.dwObj = 0;
+    dipropword.diph.dwHow = DIPH_DEVICE;
+    dipropword.dwData = DIPROPAXISMODE_ABS; // 絶対値モード
+    //  dipropword.dwData       = DIPROPAXISMODE_REL;   // 相対値モード
+    hr = _pIDirectInputDevice8_Mouse->SetProperty(DIPROP_AXISMODE, &dipropword.diph);
+    if (hr != D3D_OK) {
+        _TRACE_( "軸モードの設定に失敗");
+        return FALSE;
+    }
+
+    // マウスアクセス権取得
+    if (_pIDirectInputDevice8_Mouse) {
+        _pIDirectInputDevice8_Mouse->Acquire();
+    }
+
+
     // キーボードデバイスの作成
     hr = _pIDirectInput8->CreateDevice(GUID_SysKeyboard, &_pIDirectInputDevice8_Keyboard, NULL);
     if (hr != D3D_OK) {
@@ -87,7 +131,7 @@ HRESULT GgafDx9Input::init() {
         return hr;
     }
 
-    // 取得データフォーマットの設定
+    // キーボード取得データフォーマットの設定
     hr = _pIDirectInputDevice8_Keyboard->SetDataFormat(&c_dfDIKeyboard);
     if (hr != D3D_OK) {
         MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() キーボードのSetDataFormat に失敗しました"), TEXT("ERROR"),
@@ -95,9 +139,8 @@ HRESULT GgafDx9Input::init() {
         return hr;
     }
 
-    // 強調レベル設定
-    hr = _pIDirectInputDevice8_Keyboard->SetCooperativeLevel(GgafDx9God::_hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND
-    );
+    // キーボード強調レベル設定
+    hr = _pIDirectInputDevice8_Keyboard->SetCooperativeLevel(GgafDx9God::_hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
     if (hr != D3D_OK) {
         MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() キーボードのSetCooperativeLevelに失敗しました"),
                    TEXT("ERROR"), MB_OK | MB_ICONSTOP);
@@ -120,14 +163,14 @@ HRESULT GgafDx9Input::init() {
      return hr;
      }
      */
-    // アクセス権取得
+    // キーボードアクセス権取得
     if (_pIDirectInputDevice8_Keyboard) {
         _pIDirectInputDevice8_Keyboard->Acquire();
     }
 
+
     // ゲームスティックを列挙してデバイスを得る
-    hr = _pIDirectInput8->EnumDevices(DI8DEVCLASS_GAMECTRL, EnumGameCtrlCallback, NULL, DIEDFL_ATTACHEDONLY
-    );
+    hr = _pIDirectInput8->EnumDevices(DI8DEVCLASS_GAMECTRL, EnumGameCtrlCallback, NULL, DIEDFL_ATTACHEDONLY);
     if (hr != D3D_OK || _pIDirectInputDevice8_Joystick == NULL) {
         _TRACE_("GgafDx9Input::initDx9Input() EnumDevices列挙しましたが、でジョイスティックが見つかりませんでした");
         _pIDirectInputDevice8_Joystick = NULL;
@@ -141,7 +184,7 @@ HRESULT GgafDx9Input::init() {
             return FALSE;
         }
 
-        // 協調レベルを設定する
+        // ゲームスティック協調レベルを設定する
         hr = _pIDirectInputDevice8_Joystick->SetCooperativeLevel(GgafDx9God::_hWnd, DISCL_FOREGROUND
                 | DISCL_NONEXCLUSIVE );
         if (hr != D3D_OK) {
@@ -182,8 +225,79 @@ HRESULT GgafDx9Input::init() {
     return S_OK;
 }
 
+
+void GgafDx9Input::updateMouseState() {
+    if (_pIDirectInputDevice8_Mouse == NULL) {
+        _TRACE_("GgafDx9Input::updateKeyboardState() NULLっす");
+        return;
+    }
+
+    _active_MouseState = !_active_MouseState; //ステートセットフリップ
+
+    HRESULT hr;
+    again:
+    hr = _pIDirectInputDevice8_Mouse->Poll(); //マウスは通常Poll不用と思うが呼び出しても無害と書いてあるので呼ぶ。
+    hr = _pIDirectInputDevice8_Mouse->GetDeviceState(sizeof(DIMOUSESTATE2), (void*)&_dimousestate[_active_MouseState]);
+    if (FAILED(hr)) {
+        //_TRACE_("GetDeviceState is FAILED");
+        //Acquire()を試みる。
+        hr = _pIDirectInputDevice8_Mouse->Acquire();
+        if (hr == DI_OK) {
+            //_TRACE_("Acquire is DI_OK");
+            goto again;
+        } else {
+            //_TRACE_("Acquire is not DI_OK");
+            //ダメならまた次回へ
+        }
+    }
+    return;
+}
+
+
+
+bool GgafDx9Input::isBeingPressedMouseButton(int prm_iButtonNo) {
+    if (prm_iButtonNo < 0 || 8 < prm_iButtonNo) {
+        _TRACE_("isBeingPressedMouseButton:範囲外");
+        return false;
+    } else {
+        if (_dimousestate[_active_MouseState].rgbButtons[prm_iButtonNo] & 0x80) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+bool GgafDx9Input::isPushedDownMouseButton(int prm_iButtonNo) {
+    if (GgafDx9Input::isBeingPressedMouseButton(prm_iButtonNo)) { //今は押している
+        if (_dimousestate[!_active_MouseState].rgbButtons[prm_iButtonNo] & 0x80) {
+            //前回セット[!_active_MouseState]も押されている。押しっぱなし
+            return false;
+        } else {
+            //前回セット[!_active_MouseState]は押されていないのでOK
+            return true;
+        }
+    } else {
+        return false;
+    }
+}
+void GgafDx9Input::getMousePointer(long* x, long* y, long* z) {
+    //マウスの移動
+    *x = _dimousestate[_active_MouseState].lX;
+    *y = _dimousestate[_active_MouseState].lY;
+    //ホイールの状態
+    *z = _dimousestate[_active_MouseState].lZ;
+}
+void GgafDx9Input::getMousePointer_REL(long* dx, long* dy, long* dz) {
+    //マウスの移動
+    *dx = _dimousestate[_active_MouseState].lX - _dimousestate[!_active_MouseState].lX;
+    *dy = _dimousestate[_active_MouseState].lY - _dimousestate[!_active_MouseState].lY;
+    //ホイールの状態
+    *dz = _dimousestate[_active_MouseState].lZ - _dimousestate[!_active_MouseState].lZ;
+}
+
 void GgafDx9Input::updateKeyboardState() {
-    if (_pIDirectInputDevice8_Keyboard == NULL) {
+    if (_pIDirectInputDevice8_Mouse == NULL) {
         _TRACE_("GgafDx9Input::updateKeyboardState() NULLっす");
         return;
     }

@@ -17,10 +17,17 @@ public:
     static LPDIRECTINPUTDEVICE8 _pIDirectInputDevice8_Keyboard;
     /** ジョイスティックインプットデバイス */
     static LPDIRECTINPUTDEVICE8 _pIDirectInputDevice8_Joystick;
+    /** マウスインプットデバイス */
+    static LPDIRECTINPUTDEVICE8 _pIDirectInputDevice8_Mouse;
+
     /** ジョイスティックの性能 */
     static DIDEVCAPS _didevcap;
 
     static const int BUFFER_SIZE;
+
+    /** マウス状態（表、裏）*/
+    static DIMOUSESTATE2 _dimousestate[2];
+    static int _active_MouseState;
 
     /** キーボードの状態（表、裏） */
     static char _caKeyboardState[2][256];
@@ -37,6 +44,12 @@ public:
      * 初期化<BR>
      */
     static HRESULT init();
+
+    static void updateMouseState();
+    static bool isBeingPressedMouseButton(int prm_iButtonNo);
+    static bool isPushedDownMouseButton(int prm_iButtonNo);
+    static void getMousePointer(long* x, long* y, long* z);
+    static void getMousePointer_REL(long* dx, long* dy, long* dz);
 
     static void updateKeyboardState();
     static bool isBeingPressedKey(int prm_DIK);

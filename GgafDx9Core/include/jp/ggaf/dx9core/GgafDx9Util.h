@@ -231,6 +231,20 @@ public:
     }
 
 
+    static double getDistance(GgafDx9Core::GgafDx9GeometricActor* pA1, GgafDx9Core::GgafDx9GeometricActor* pA2) {
+        return sqrt(
+                      (
+                        ((double)(pA2->_X - pA1->_X)) * ((double)(pA2->_X - pA1->_X))
+                      ) + (
+                        ((double)(pA2->_Y - pA1->_Y)) * ((double)(pA2->_Y - pA1->_Y))
+                      ) + (
+                        ((double)(pA2->_Z - pA1->_Z)) * ((double)(pA2->_Z - pA1->_Z))
+                      )
+                    );
+    }
+
+
+
     /**
      * 原点からパラメータ座標を向く方向ベクトルの、Z軸回転アングル値とY軸回転アングル値を取得 .
      * おまけで単位方向ベクトルもゲットできる。<BR>
