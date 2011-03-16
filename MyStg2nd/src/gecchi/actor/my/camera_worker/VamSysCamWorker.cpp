@@ -62,12 +62,13 @@ void VamSysCamWorker::initialize() {
 
 void VamSysCamWorker::onActive() {
     _angXY_nowCamUp = GgafDx9Util::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+	/*
 é¿çsÇ≥ÇÍÇ»Ç¢ÇÃÇÕÇ»Ç∫Çæ
     31273150 <DEBUG>                                ÅbÅbDefaultCamWorker(05993DD8)[DefaultCamWorker]@3418/3418/3418,1,10,0(0)0,0(0)0,0(4294967295),0000
     31273150 <DEBUG>                                ÅbÅbVamSysCamWorker(0398C6C0)[VamSysCamWorker]@582/917/917,1,11,0(0)0,1(918)0,0(4294967295),1100
     31273151 <DEBUG>                                ÅbÅbMyShipDivingCamWorker(0ADE1B30)[MyShipDivingCamWorker]@1115/1115/1115,1,10,0(0)0,0(0)0,1(2135),0000
     31273151 <DEBUG>                                ÅbÅbPauseCamWorker(0AE54940)[PauseCamWorker]@199/199/199,1,11,0(0)0,0(0)0,0(4294967295),0000
-
+*/
 }
 void VamSysCamWorker::processBehavior() {
 
