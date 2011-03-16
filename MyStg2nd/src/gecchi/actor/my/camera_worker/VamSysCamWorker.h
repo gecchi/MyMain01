@@ -73,6 +73,8 @@ public:
 
     virtual void initialize() override;
 
+    virtual void onActive() override;
+
     virtual void onSwitchedCameraWork() override {
     }
 
