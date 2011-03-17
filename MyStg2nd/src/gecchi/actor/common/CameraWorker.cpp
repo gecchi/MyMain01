@@ -9,17 +9,18 @@ CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name) {
     _class_name = "CameraWorker";
     _pos_camera = 0;
     _pLockOnTarget = NULL;
-    _move_target_XY_CAM_UP = ANGLE90;
-    _angXY_nowCamUp = ANGLE90;
+    Camera* pCam = P_CAM;
+    _move_target_XY_CAM_UP = GgafDx9Util::getAngle2D(pCam->_pVecCamUp->x, pCam->_pVecCamUp->y);;
+    _angXY_nowCamUp = GgafDx9Util::getAngle2D(pCam->_pVecCamUp->x, pCam->_pVecCamUp->y);;
     _burenai_speed = 10000;
     _cam_velo_renge = 30000;
     _stop_renge = 60000;
-    _move_target_X_CAM = 0;
-    _move_target_Y_CAM = 0;
-    _move_target_Z_CAM = 0;
-    _move_target_X_VP =  0;
-    _move_target_Y_VP =  0;
-    _move_target_Z_VP =  0;
+    _move_target_X_CAM = pCam->_X;
+    _move_target_Y_CAM = pCam->_Y;
+    _move_target_Z_CAM = pCam->_Z;
+    _move_target_X_VP =  pCam->_pViewPoint->_X;
+    _move_target_Y_VP =  pCam->_pViewPoint->_Y;
+    _move_target_Z_VP =  pCam->_pViewPoint->_Z;
 }
 
 void CameraWorker::setMoveTargetCamBy(GgafDx9Core::GgafDx9GeometricActor* pTarget) {

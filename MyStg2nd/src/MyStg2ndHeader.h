@@ -70,6 +70,8 @@
 #define P_GOD ((MyStg2nd::God*)MyStg2nd::God::_pGod)
 #undef P_UNIVERSE
 #define P_UNIVERSE ((MyStg2nd::Universe*)(P_GOD->_pUniverse))
+#undef P_CAM
+#define P_CAM ((MyStg2nd::Camera*)(P_UNIVERSE->_pCamera))
 
 #define PROG_NOTHING 0
 #define FADE_FRAME 60
