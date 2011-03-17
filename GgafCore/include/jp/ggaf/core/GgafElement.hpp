@@ -901,7 +901,6 @@ void GgafElement<T>::nextFrame() {
     if (_pProgress) {
         _pProgress->update();
     }
-
     TRACE("GgafElement::nextFrame END _frame_of_behaving="<<_frame_of_behaving<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
 }
 
