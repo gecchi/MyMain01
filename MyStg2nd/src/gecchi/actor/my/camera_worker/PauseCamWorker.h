@@ -24,11 +24,6 @@ public:
 
     virtual void initialize() override;
 
-    virtual void onSwitchedCameraWork() override;
-
-    virtual void onUndoneCameraWork() override {
-    }
-
     virtual void processBehavior() override;
 
     virtual void processJudgement() override {

@@ -19,15 +19,6 @@ public:
 
     virtual void initialize() override;
 
-
-
-
-    virtual void onSwitchedCameraWork() override;
-
-    virtual void onUndoneCameraWork() override;
-
-
-
     virtual ~MyShipDivingCamWorker(); //デストラクタ
 };
 

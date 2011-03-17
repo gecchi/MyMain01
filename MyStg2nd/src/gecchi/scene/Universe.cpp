@@ -66,14 +66,18 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
     CameraWorkerConnection* pCon = (CameraWorkerConnection*)_pCameraWorkerManager->getConnection(prm_pID);
     CameraWorker* pCameraWorker = pCon->refer();
     if (pCameraWorker != _pActiveCameraWorker) {
-        _pActiveCameraWorker->inactivate(); //現在を非活動へ
+        //現在の CameraWork を非活動へ
+        _pActiveCameraWorker->onSwitchToOherCameraWork(); //コールバック
+        _pActiveCameraWorker->inactivate();
+        //パラメータの CameraWork を活動へ
         pCameraWorker->activate();
-        pCameraWorker->onSwitchedCameraWork();
+        pCameraWorker->onSwitchCameraWork(); //コールバック
         if (getLordActor()->getSubFirst()->getSub(pCameraWorker)) {
             //２回目以降の
         } else {
             getLordActor()->addSubGroup(pCameraWorker); //初回はツリーに追加
         }
+        //スタックに積む
         _stack_CameraWorkerCon.push(pCon);
         _pActiveCameraWorker = pCameraWorker;
     } else {
@@ -95,15 +99,19 @@ CameraWorker* Universe::undoCameraWork() {
     //    | ConA |                       | ConA |
     //    +------+                       +------+
 
+    //スタックｋら取り出し
     CameraWorkerConnection* pCon_now = _stack_CameraWorkerCon.pop(); //pCon_nowは上図のConCが返る
     CameraWorkerConnection* pCon = _stack_CameraWorkerCon.getLast(); //pConは上図で言うとConBが返る
     if (pCon) {
         CameraWorker* pCameraWorker = pCon->refer();
         if (pCameraWorker != _pActiveCameraWorker) {
+            //現在の CameraWork を非活動へ
             _pActiveCameraWorker->inactivate();
-            _pActiveCameraWorker->onUndoneCameraWork();
+            _pActiveCameraWorker->onUndoCameraWork();  //コールバック
             _pActiveCameraWorker = pCameraWorker;
             if (_pActiveCameraWorker) {
+                //１つ前の CameraWork を活動へ
+                _pActiveCameraWorker->onCameBackFromOtherCameraWork();  //コールバック
                 _pActiveCameraWorker->activate();
             } else {
                 _stack_CameraWorkerCon.dump();

@@ -13,7 +13,7 @@ void TestCamWorker::onActive() {
 
 }
 
-void TestCamWorker::onSwitchedCameraWork() {
+void TestCamWorker::onSwitchCameraWork() {
     P_CAM->locateWith(P_MYSHIP);
     GgafDx9CameraViewPoint* pVP = P_CAM->_pViewPoint;
     pVP->locateWith(P_MYSHIP);

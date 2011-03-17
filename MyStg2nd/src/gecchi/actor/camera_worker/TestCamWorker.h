@@ -18,9 +18,9 @@ public:
     virtual void initialize() override {
     }
 
-    void onSwitchedCameraWork() override;
+    void onSwitchCameraWork() override;
 
-    void onUndoneCameraWork() override {
+    void onUndoCameraWork() override {
     }
 
     void onActive() override;

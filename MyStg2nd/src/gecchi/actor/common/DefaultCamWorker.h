@@ -16,18 +16,6 @@ public:
 
     DefaultCamWorker(const char* prm_name);
 
-    virtual void onSwitchedCameraWork() override {
-    }
-
-    virtual void processBehavior() override {
-    }
-
-    virtual void processJudgement() override {
-    }
-
-    virtual void onUndoneCameraWork() override {
-    }
-
     virtual ~DefaultCamWorker(); //デストラクタ
 };
 

@@ -15,7 +15,6 @@ namespace MyStg2nd {
 
 #ifdef P_UNIVERSE
     #define P_WORLD ((MyStg2nd::World*)(P_UNIVERSE->_pWorld))
-    #define P_ACTIVE_CAMWORKER (P_UNIVERSE->_pActiveCameraWorker)
 #else
     #error P_UNIVERSE isnt define
 #endif

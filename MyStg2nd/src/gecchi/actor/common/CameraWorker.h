@@ -43,9 +43,15 @@ public:
     virtual void initialize() override {
     }
 
-    virtual void onSwitchedCameraWork() = 0;
+    virtual void onSwitchCameraWork();
 
-    virtual void onUndoneCameraWork() = 0;
+    virtual void onUndoCameraWork();
+
+    virtual void onSwitchToOherCameraWork();
+
+    virtual void onCameBackFromOtherCameraWork();
+
+
 
     virtual void processBehavior() override;
 

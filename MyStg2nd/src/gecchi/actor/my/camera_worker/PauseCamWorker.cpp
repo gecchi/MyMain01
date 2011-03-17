@@ -13,14 +13,6 @@ PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
 void PauseCamWorker::initialize() {
 }
 
-void PauseCamWorker::onSwitchedCameraWork() {
-
-    setMoveTargetCamBy(P_CAM);
-    setMoveTargetCamVpBy(P_CAM->_pViewPoint);
-    _angXY_nowCamUp = GgafDx9Util::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
-}
-
-
 void PauseCamWorker::processBehavior() {
     GgafDx9Camera* pCam = P_CAM;
     GgafDx9CameraViewPoint* pVP = P_CAM->_pViewPoint;

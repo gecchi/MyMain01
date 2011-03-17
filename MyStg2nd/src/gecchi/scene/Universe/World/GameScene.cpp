@@ -201,7 +201,6 @@ void GameScene::processBehavior() {
             if (!_pScene_GameMain->_was_paused_flg) {
                 if (_was_paused_flg_GameMainScene_prev_frame == true)  {
                     P_UNIVERSE->undoCameraWork();
-                    P_ACTIVE_CAMWORKER->unpause();
                 }
                 if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
                     _is_frame_advance = false;
@@ -217,7 +216,6 @@ void GameScene::processBehavior() {
                 if (_was_paused_flg_GameMainScene_prev_frame == false) {
                     GgafDx9Input::updateMouseState();
                     GgafDx9Input::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
-                    P_ACTIVE_CAMWORKER->pause();
                     P_UNIVERSE->switchCameraWork("PauseCamWorker");
                 }
                 if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
