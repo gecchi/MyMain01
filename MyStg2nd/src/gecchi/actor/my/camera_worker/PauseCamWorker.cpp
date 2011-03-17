@@ -119,15 +119,10 @@ void PauseCamWorker::processBehavior() {
             angle rz2 = GgafDx9Util::getAngle2D(Q._x,Q._y);
 
             //Q._x, Q._y, Q._z Ç™âÒì]å„ÇÃç¿ïWÇ∆Ç»ÇÈ
-            _TRACE_("rz1,rz2="<<rz1<<","<<rz2);
-            _TRACE_("diff="<<GgafDx9Util::getAngDiff(rz1, rz2));
-            _TRACE_("Bfore _move_target_XY_CAM_UP="<<_move_target_XY_CAM_UP);
             if (abs(mdy) > abs(mdx)) {
                 _move_target_XY_CAM_UP += GgafDx9Util::getAngDiff(rz1, rz2);
             }
-            _TRACE_("After _move_target_XY_CAM_UP="<<_move_target_XY_CAM_UP);
             _move_target_XY_CAM_UP = GgafDx9Util::simplifyAng(_move_target_XY_CAM_UP);
-            _TRACE_("After2 _move_target_XY_CAM_UP="<<_move_target_XY_CAM_UP);
             _move_target_X_CAM = Q._x + _move_target_X_VP;
             _move_target_Y_CAM = Q._y + _move_target_Y_VP;
             _move_target_Z_CAM = Q._z + _move_target_Z_VP;
@@ -225,9 +220,9 @@ void PauseCamWorker::processBehavior() {
         _move_target_X_CAM = _cam_X + _mdz_vx*r;
         _move_target_Y_CAM = _cam_Y + _mdz_vy*r;
         _move_target_Z_CAM = _cam_Z + _mdz_vz*r;
-        _move_target_X_VP  = _vp_X  + _mdz_vx*r;
-        _move_target_Y_VP  = _vp_Y  + _mdz_vy*r;
-        _move_target_Z_VP  = _vp_Z  + _mdz_vz*r;
+        pVP->_X = _vp_X  + _mdz_vx*r;
+        pVP->_Y = _vp_Y  + _mdz_vy*r;
+        pVP->_Z = _vp_Z  + _mdz_vz*r;
         _mdz_flg = true;
     } else {
         _mdz_flg = false;

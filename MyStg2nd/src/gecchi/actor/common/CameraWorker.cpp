@@ -64,10 +64,7 @@ void CameraWorker::onSwitchToOherCameraWork() {
 }
 
 void CameraWorker::onCameBackFromOtherCameraWork() {
-    _TRACE_("onCameBackFromOtherCameraWork() before _angXY_nowCamUp="<<_angXY_nowCamUp);
-    _TRACE_("x="<<(P_CAM->_pVecCamUp->x)<<",y="<<(P_CAM->_pVecCamUp->y));
     _angXY_nowCamUp = GgafDx9Util::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
-    _TRACE_("onCameBackFromOtherCameraWork() after _angXY_nowCamUp="<<_angXY_nowCamUp);
 }
 
 void CameraWorker::processBehavior() {
