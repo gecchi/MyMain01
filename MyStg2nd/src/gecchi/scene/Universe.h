@@ -1,6 +1,5 @@
 #ifndef UNIVERSE_H_
 #define UNIVERSE_H_
-namespace MyStg2nd {
 
 //getParent getSub そして キャストマクロ。
 //下記マクロ使用するには、オブジェクトの識別名が、
@@ -9,6 +8,16 @@ namespace MyStg2nd {
 #define getSubScene(X) ((X##Scene*)getSub(#X))
 #define getParentActor(X) ((X##Actor*)getParent(#X))
 #define getSubActor(X) ((X##Actor*)getSub(#X))
+
+#ifdef P_UNIVERSE
+    #define P_CAM ((MyStg2nd::Camera*)(P_UNIVERSE->_pCamera))
+#else
+    #error P_UNIVERSE isnt define
+#endif
+
+
+namespace MyStg2nd {
+
 
 /**
  * この世シーン .

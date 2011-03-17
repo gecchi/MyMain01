@@ -483,7 +483,6 @@ void VamSysCamWorker::processBehavior() {
 
     //ƒJƒƒ‰‚ÌUP‚ğŒvZ
     angvelo angvelo_cam_up = cam_velo_renge/20; //cam_velo_renge‚ÍVB_VIEW‰Ÿ‚µ‚Á‚Ï‚Å’´’á‘¬‚É‚È‚é•û‚Ì‘¬“x
-    _TRACE_("_angXY_nowCamUp="<<_angXY_nowCamUp);
     if (_angXY_nowCamUp != move_target_XY_CAM_UP) {
         angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, move_target_XY_CAM_UP);
         if (-angvelo_cam_up < da && da < angvelo_cam_up) {

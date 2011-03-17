@@ -16,8 +16,7 @@ namespace GgafDx9LibStg {
 #define P_GOD ((GgafDx9LibStg::DefaultGod*)GgafCore::GgafGod::_pGod)
 #undef P_UNIVERSE
 #define P_UNIVERSE ((GgafDx9LibStg::DefaultUniverse*)(P_GOD->_pUniverse))
-#undef P_CAM
-#define P_CAM ((GgafDx9LibStg::DefaultCamera*)(P_UNIVERSE->_pCamera))
+
 
 class DefaultGod;
 class DefaultUniverse;

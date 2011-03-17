@@ -53,7 +53,7 @@ void PauseCamWorker::processBehavior() {
         }
 
     //計算
-        _stop_renge = 60000;
+
         //ワールド回転軸方向ベクトル、(vX_axis, vY_axis, vZ_axis) を計算 begin =======>
 
         //平面回転軸(vx,vy)を求める
@@ -101,6 +101,7 @@ void PauseCamWorker::processBehavior() {
 
         //視点を中心にカメラが回転移動
         if (GgafDx9Input::isBeingPressedMouseButton(0) && (mdx != 0 || mdy != 0)) {
+            _stop_renge = 60000;
             //視点→カメラ の方向ベクトル(x,y,z)
             double x = _move_target_X_CAM - _move_target_X_VP;
             double y = _move_target_Y_CAM - _move_target_Y_VP;
@@ -121,15 +122,15 @@ void PauseCamWorker::processBehavior() {
             //Q._x, Q._y, Q._z が回転後の座標となる
             if (abs(mdy) > abs(mdx)) {
                 _move_target_XY_CAM_UP += GgafDx9Util::getAngDiff(rz1, rz2);
+                _move_target_XY_CAM_UP = GgafDx9Util::simplifyAng(_move_target_XY_CAM_UP);
             }
-            _move_target_XY_CAM_UP = GgafDx9Util::simplifyAng(_move_target_XY_CAM_UP);
             _move_target_X_CAM = Q._x + _move_target_X_VP;
             _move_target_Y_CAM = Q._y + _move_target_Y_VP;
             _move_target_Z_CAM = Q._z + _move_target_Z_VP;
         }
         //カメラを中心に視点が回転移動
         if (GgafDx9Input::isBeingPressedMouseButton(1) && (mdx != 0 || mdy != 0)) {
-
+            _stop_renge = 60000;
             //カメラ→視点 の方向ベクトル(x,y,z)
             double x = _move_target_X_VP - _move_target_X_CAM;
             double y = _move_target_Y_VP - _move_target_Y_CAM;
@@ -145,6 +146,7 @@ void PauseCamWorker::processBehavior() {
             angle rz2 = GgafDx9Util::getAngle2D(Q._x,Q._y);
             if (abs(mdy) > abs(mdx)) {
                 _move_target_XY_CAM_UP += GgafDx9Util::getAngDiff(rz1, rz2);
+                _move_target_XY_CAM_UP = GgafDx9Util::simplifyAng(_move_target_XY_CAM_UP);
             }
             //Q._x, Q._y, Q._z が回転後の座標となる
             _move_target_X_VP = Q._x + _move_target_X_CAM;
@@ -153,6 +155,7 @@ void PauseCamWorker::processBehavior() {
         }
         //カメラをと視点が平行移動
         if (GgafDx9Input::isBeingPressedMouseButton(2) && (mdx != 0 || mdy != 0)) {
+            _stop_renge = 60000;
             double ang = -PI/2.0;
             double sinHalf = sin(ang/2); //回転させたい角度
             double cosHalf = cos(ang/2);
@@ -187,6 +190,7 @@ void PauseCamWorker::processBehavior() {
 
     //マウスホイール回転時
     if (mdz != 0) {
+        _stop_renge = 60000;
         if (_mdz_flg == false) {
             _mdz_total = 0;
             _move_target_X_CAM = pCam->_X;
@@ -220,9 +224,9 @@ void PauseCamWorker::processBehavior() {
         _move_target_X_CAM = _cam_X + _mdz_vx*r;
         _move_target_Y_CAM = _cam_Y + _mdz_vy*r;
         _move_target_Z_CAM = _cam_Z + _mdz_vz*r;
-        pVP->_X = _vp_X  + _mdz_vx*r;
-        pVP->_Y = _vp_Y  + _mdz_vy*r;
-        pVP->_Z = _vp_Z  + _mdz_vz*r;
+        _move_target_X_VP  = _vp_X  + _mdz_vx*r;
+        _move_target_Y_VP  = _vp_Y  + _mdz_vy*r;
+        _move_target_Z_VP  = _vp_Z  + _mdz_vz*r;
         _mdz_flg = true;
     } else {
         _mdz_flg = false;
