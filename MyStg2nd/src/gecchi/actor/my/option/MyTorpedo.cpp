@@ -58,7 +58,7 @@ void MyTorpedo::onActive() {
     _begin_Y = _Y;
     _begin_Z = _Z;
     setHitAble(true);
-    _pProgress->change(MyTorpedo_IN_FIRE);
+    _pProgress->set(MyTorpedo_IN_FIRE);
     _move_section = 0;
 }
 
