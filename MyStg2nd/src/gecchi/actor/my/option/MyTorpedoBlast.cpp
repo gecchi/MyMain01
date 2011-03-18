@@ -28,12 +28,12 @@ void MyTorpedoBlast::onReset() {
     _pCollisionChecker->setColliSphere(0, 1000);
     _pKuroko->setMvVelo(0);
     _pScaler->setScale(1000);
-    _pScaler->forceScaleRange(1000, 200*1000);
+    _pScaler->forceScaleRange(1000, 400*1000);
 
 }
 
 void MyTorpedoBlast::onActive() {
-    _pScaler->beat(60, 60/2, 0, 1); //1‰ñ–c‚ç‚ñ‚Å‚µ‚Ú‚Þ
+    _pScaler->beat(120, 120/2, 0, 1); //1‰ñ–c‚ç‚ñ‚Å‚µ‚Ú‚Þ
 }
 
 void MyTorpedoBlast::processBehavior() {
