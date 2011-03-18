@@ -203,32 +203,58 @@ void PauseCamWorker::processBehavior() {
             _move_target_X_VP = pVP->_X;
             _move_target_Y_VP = pVP->_Y;
             _move_target_Z_VP = pVP->_Z;
-
-            _cam_X = pCam->_X;
-            _cam_Y = pCam->_Y;
-            _cam_Z = pCam->_Z;
-            _vp_X = pVP->_X;
-            _vp_Y = pVP->_Y;
-            _vp_Z = pVP->_Z;
+//
+//            _cam_X = pCam->_X;
+//            _cam_Y = pCam->_Y;
+//            _cam_Z = pCam->_Z;
+//            _vp_X = pVP->_X;
+//            _vp_Y = pVP->_Y;
+//            _vp_Z = pVP->_Z;
             //カメラ → 視点 の方向ベクトル
-            double vx = pVP->_X - pCam->_X;
-            double vy = pVP->_Y - pCam->_Y;
-            double vz = pVP->_Z - pCam->_Z;
-            double t = 1.0 / sqrt(vx * vx + vy * vy + vz * vz);
-            _mdz_vx = t * vx;
-            _mdz_vy = t * vy;
-            _mdz_vz = t * vz;
+            if (mdz > 0) {
+                pCam->_pKuroko->setMvAng(pVP->_X - pCam->_X,
+                                         pVP->_Y - pCam->_Y,
+                                         pVP->_Z - pCam->_Z);
+                pVP->_pKuroko->setMvAng(pVP->_X - pCam->_X,
+                                        pVP->_Y - pCam->_Y,
+                                        pVP->_Z - pCam->_Z);
+            } else if (mdz < 0) {
+                pCam->_pKuroko->setMvAng(-(pVP->_X - pCam->_X),
+                                         -(pVP->_Y - pCam->_Y),
+                                         -(pVP->_Z - pCam->_Z));
+                pVP->_pKuroko->setMvAng(-(pVP->_X - pCam->_X),
+                                        -(pVP->_Y - pCam->_Y),
+                                        -(pVP->_Z - pCam->_Z));
+            }
+            pCam->_pKuroko->forceMvVeloRange(0,_cam_velo_renge);
+            pVP->_pKuroko->forceMvVeloRange(0,_cam_velo_renge);
+            pCam->_pKuroko->setMvAcce(-100);
+            pVP->_pKuroko->setMvAcce(-100);
+
+//
+//            double t = 1.0 / sqrt(vx * vx + vy * vy + vz * vz);
+//            _mdz_vx = t * vx;
+//            _mdz_vy = t * vy;
+//            _mdz_vz = t * vz;
         }
-        _mdz_total += mdz; //連続ホイール回転時、加算
-        double r = (_mdz_total*PX_UNIT*LEN_UNIT/10.0);
-        _move_target_X_CAM = _cam_X + _mdz_vx*r;
-        _move_target_Y_CAM = _cam_Y + _mdz_vy*r;
-        _move_target_Z_CAM = _cam_Z + _mdz_vz*r;
-        _move_target_X_VP  = _vp_X  + _mdz_vx*r;
-        _move_target_Y_VP  = _vp_Y  + _mdz_vy*r;
-        _move_target_Z_VP  = _vp_Z  + _mdz_vz*r;
+        _mdz_total = mdz; //連続ホイール回転時、加算
+        int r = (_mdz_total*LEN_UNIT*10);
+        pCam->_pKuroko->addMvVelo(r);
+        pVP->_pKuroko->addMvVelo(r);
+
+//
+//        _move_target_X_CAM = _cam_X + _mdz_vx*r;
+//        _move_target_Y_CAM = _cam_Y + _mdz_vy*r;
+//        _move_target_Z_CAM = _cam_Z + _mdz_vz*r;
+//        _move_target_X_VP  = _vp_X  + _mdz_vx*r;
+//        _move_target_Y_VP  = _vp_Y  + _mdz_vy*r;
+//        _move_target_Z_VP  = _vp_Z  + _mdz_vz*r;
         _mdz_flg = true;
     } else {
+//        pCam->_pKuroko->setMvVelo(0);
+//        pVP->_pKuroko->setMvVelo(0);
+        pCam->_pKuroko->setMvAcce(0);
+        pVP->_pKuroko->setMvAcce(0);
         _mdz_flg = false;
     }
 
