@@ -272,9 +272,9 @@ public:
      * 未変換座標をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
-    virtual void locateWith(GgafDx9GeometricActor* prm_pActor);
+    virtual void locateAs(GgafDx9GeometricActor* prm_pActor);
 
-    virtual void locateWith(GgafDx9GeoElem* prm_pGgafDx9GeoElem);
+    virtual void locateAs(GgafDx9GeoElem* prm_pGgafDx9GeoElem);
 
     virtual void rotateWith(GgafDx9GeometricActor* prm_pActor);
 

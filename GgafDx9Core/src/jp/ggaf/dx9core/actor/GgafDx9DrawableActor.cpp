@@ -210,8 +210,19 @@ void GgafDx9DrawableActor::processPreDraw() {
 //                    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
 //                        _TRACE_("setDep ["<<_now_drawdepth<<"]:dep="<<dep<<" roughly_dep_point1="<<roughly_dep_point1<<" roughly_dep_point2="<<roughly_dep_point2<<" name="<<this->getName());
 //                    }
-                } else { //特別な描画深度指定有り
-                    _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(_specal_drawdepth, this);
+                } else {
+                    //特別な描画深度指定有り
+                    if (GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[_specal_drawdepth] == NULL) {
+                        //そのprm_draw_depth_levelで最初のアクターの場合
+                        this->_pNext_TheSameDrawDepthLevel = NULL;
+                        GgafDx9Universe:: _apAlphaActorList_DrawDepthLevel[_specal_drawdepth] = this;
+                    } else {
+                        //前に追加
+                        GgafDx9DrawableActor* pActorTmp = GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[_specal_drawdepth];
+                        this->_pNext_TheSameDrawDepthLevel = pActorTmp;
+                        GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[_specal_drawdepth] = this;
+                    }
+                    _now_drawdepth = _specal_drawdepth;
 //                    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
 //                        _TRACE_("_specal_drawdepth ["<<_now_drawdepth<<"]: name="<<this->getName());
 //                    }

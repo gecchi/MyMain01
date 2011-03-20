@@ -13,6 +13,8 @@ namespace MyStg2nd {
 class PauseCamWorker : public CameraWorker {
 
 public:
+    ViewPointGuide* _pVPGuide;
+
     int _cd;
 
     int _cam_X,_cam_Y,_cam_Z, _vp_X, _vp_Y, _vp_Z;
@@ -24,10 +26,13 @@ public:
 
     virtual void initialize() override;
 
+
     virtual void processBehavior() override;
 
     virtual void processJudgement() override {
     }
+
+
     virtual ~PauseCamWorker(); //デストラクタ
 };
 

@@ -149,7 +149,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         if (pExplo001) {
             pExplo001->activate();
-            pExplo001->locateWith(this);
+            pExplo001->locateAs(this);
         }
         _pSeTransmitter->play3D(0);
 
@@ -158,7 +158,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
             EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
             if (pExplo001) {
                 pExplo001->activate();
-                pExplo001->locateWith(this);
+                pExplo001->locateAs(this);
             }
             _pSeTransmitter->play3D(0);
 

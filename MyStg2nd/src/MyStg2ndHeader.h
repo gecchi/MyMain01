@@ -184,6 +184,7 @@ class Stage02_Climax;
 
 
 class Camera;
+class ViewPointGuide;
 class CameraWorker;
 class DefaultCamWorker;
 class TestCamWorker;
@@ -383,6 +384,7 @@ class MagicMeter;
 #include "gecchi/actor/chikei/wall/Wall001Prism.h"
 
 #include "gecchi/actor/Camera.h"
+#include "gecchi/actor/ViewPointGuide.h"
 #include "gecchi/actor/camera_worker/TestCamWorker.h"
 
 

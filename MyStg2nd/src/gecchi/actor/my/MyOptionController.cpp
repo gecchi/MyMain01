@@ -219,18 +219,18 @@ void MyOptionController::processBehavior() {
                 _pKuroko->setVxMvAcce(0);
                 _pKuroko->setVyMvAcce(0);
                 _pKuroko->setVzMvAcce(0);
-                locateWith(pGeoMyShip);
+                locateAs(pGeoMyShip);
                 _return_to_default_position_seq = false;
             }
 
         } else {
-            locateWith(pGeoMyShip);
+            locateAs(pGeoMyShip);
         }
     }
 
 
     //ƒMƒYƒ‚
-    _pDirectionVector->locateWith(this);
+    _pDirectionVector->locateAs(this);
     _pDirectionVector->_pKuroko->setRzRyMvAng(_pKuroko->_angRzMv, _pKuroko->_angRyMv);
 
     _pKuroko->behave();

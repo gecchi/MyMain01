@@ -116,7 +116,7 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
         _pSeTransmitter->play3D(0);
         GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         if (pExplo001) {
-            pExplo001->locateWith(this);
+            pExplo001->locateAs(this);
             pExplo001->activate();
         }
         sayonara();

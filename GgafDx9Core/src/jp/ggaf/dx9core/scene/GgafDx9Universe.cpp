@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9DrawableActor* GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL];
+GgafDx9DrawableActor* GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL+1];
 GgafDx9DrawableActor* GgafDx9Universe::_pActors_DrawMaxDrawDepth = NULL;
 GgafDx9DrawableActor* GgafDx9Universe::_pActor_DrawActive = NULL;
 
@@ -147,7 +147,7 @@ void GgafDx9Universe::draw() {
     //段階レンダリングが必要なオブジェクトを描画
     //float tmpAlpah;
     //int alphapoint = MAX_DRAW_DEPTH_LEVEL/4*3;
-    for (int i = MAX_DRAW_DEPTH_LEVEL - 1; i >= 0; i--) {
+    for (int i = MAX_DRAW_DEPTH_LEVEL; i >= 0; i--) {
         _pActor_DrawActive = _apAlphaActorList_DrawDepthLevel[i];
         while (_pActor_DrawActive) {
 #ifdef MY_DEBUG
@@ -241,8 +241,8 @@ int GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawable
     int draw_depth_level;
     GgafDx9DrawableActor* pActorTmp;
     //上限下限カット
-    if (prm_draw_depth_level > MAX_DRAW_DEPTH_LEVEL - 1) {
-        draw_depth_level = MAX_DRAW_DEPTH_LEVEL - 1;
+    if (prm_draw_depth_level > MAX_DRAW_DEPTH_LEVEL - 2) {
+        draw_depth_level = MAX_DRAW_DEPTH_LEVEL - 2;
     } else if (prm_draw_depth_level < 0) {
         draw_depth_level = 0;
     } else {
@@ -261,12 +261,13 @@ int GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawable
         //これを描画順を毎フレーム変化させることで、交互表示でちらつかせ若干のごまかしを行う。
         //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
         if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 1) {
-            //お尻に追加
+
+            //前に追加
             pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
             prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
             _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
         } else {
-            //前に追加
+            //お尻に追加
             pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
             while(pActorTmp->_pNext_TheSameDrawDepthLevel) {
                 pActorTmp = pActorTmp->_pNext_TheSameDrawDepthLevel;

@@ -27,7 +27,7 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
 }
 void VamSysCamWorker::initialize() {
     GgafDx9Camera* pCam = P_CAM;
-    GgafDx9CameraViewPoint* pVP = pCam->_pViewPoint;
+    GgafDx9GeometricActor* pVP = pCam->_pViewPoint;
 
     //初期カメラZ位置
     _dZ_camera_init = -1 * pCam->_cameraZ_org * LEN_UNIT * PX_UNIT;
@@ -72,7 +72,7 @@ void VamSysCamWorker::processBehavior() {
     }
 
     GgafDx9Camera* pCam = P_CAM;
-    GgafDx9CameraViewPoint* pVP = pCam->_pViewPoint;
+    GgafDx9GeometricActor* pVP = pCam->_pViewPoint;
 
     //カメラ位置番号を決定処理
     if (VB_PLAY->isPushedDown(VB_VIEW)) {

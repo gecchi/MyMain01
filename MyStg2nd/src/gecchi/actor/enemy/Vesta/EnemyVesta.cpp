@@ -139,7 +139,7 @@ void EnemyVesta::processBehavior() {
             if (_pDispatcher_Fired) {
                 GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDispatcher_Fired->employ();
                 if (pActor) {
-                    pActor->locateWith(this);
+                    pActor->locateAs(this);
                     pActor->_pKuroko->relateRzRyFaceAngToMvAng(true);
                     //＜現在の最終的な向きを、RzRyで取得する＞
                     //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
@@ -247,7 +247,7 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
 
     if (pExplo001) {
         pExplo001->activate();
-        pExplo001->locateWith(this);
+        pExplo001->locateAs(this);
     }
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

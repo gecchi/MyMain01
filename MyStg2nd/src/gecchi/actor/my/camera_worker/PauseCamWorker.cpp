@@ -9,13 +9,18 @@ PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
     _class_name = "PauseCamWorker";
     _cd = 0;
     _mdz_flg = false;
+    _pVPGuide = NULL;
 }
 void PauseCamWorker::initialize() {
+    _pVPGuide = NEW ViewPointGuide("VPGuide");
+    _pVPGuide->inactivateImmediately();
+    P_WORLD->getLordActor()->addSubGroup(_pVPGuide);
 }
+
 
 void PauseCamWorker::processBehavior() {
     GgafDx9Camera* pCam = P_CAM;
-    GgafDx9CameraViewPoint* pVP = P_CAM->_pViewPoint;
+    GgafDx9GeometricActor* pVP = P_CAM->_pViewPoint;
     GgafDx9Input::updateMouseState();
 
     long mx,my,mz,mdx,mdy,mdz;
@@ -23,6 +28,17 @@ void PauseCamWorker::processBehavior() {
     GgafDx9Input::getMousePointer_REL(&mdx, &mdy, &mdz);
     mdy = -mdy; //Yはインバーズ
 
+    if (GgafDx9Input::isBeingPressedMouseButton(0) || GgafDx9Input::isBeingPressedMouseButton(1) || GgafDx9Input::isBeingPressedMouseButton(2) || mdz != 0) {
+        if (!_pVPGuide->isActiveActor()) {
+            _pVPGuide->activate();
+        }
+
+    } else {
+        if (_pVPGuide->isActiveActor()) {
+            _pVPGuide->inactivate();
+        }
+
+    }
 
 
     if ((GgafDx9Input::isBeingPressedMouseButton(0) || GgafDx9Input::isBeingPressedMouseButton(1) || GgafDx9Input::isBeingPressedMouseButton(2))) {
@@ -50,6 +66,7 @@ void PauseCamWorker::processBehavior() {
             _move_target_X_VP = pVP->_X;
             _move_target_Y_VP = pVP->_Y;
             _move_target_Z_VP = pVP->_Z;
+            _pVPGuide->activate();
         }
 
     //計算
@@ -186,6 +203,7 @@ void PauseCamWorker::processBehavior() {
             _move_target_Y_VP += (Q._y*r);
             _move_target_Z_VP += (Q._z*r);
         }
+    } else {
     }
 
 

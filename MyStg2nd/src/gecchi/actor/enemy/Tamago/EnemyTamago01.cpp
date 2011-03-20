@@ -149,7 +149,7 @@ void EnemyTamago01::processBehavior() {
                 if (pActor) {
                     pActor->_pKuroko->relateRzRyFaceAngToMvAng(true);
                     pActor->_pKuroko->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
-                    pActor->locateWith(this);
+                    pActor->locateAs(this);
                     pActor->activate();
                 }
             }
@@ -186,7 +186,7 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     _TRACE_("HIT!!!");
     if (pExplo001) {
         pExplo001->activate();
-        pExplo001->locateWith(this);
+        pExplo001->locateAs(this);
     }
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

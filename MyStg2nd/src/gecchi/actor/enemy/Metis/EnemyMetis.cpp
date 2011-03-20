@@ -76,7 +76,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     if (pOther->getKind() & KIND_MY) {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         if (pExplo001) {
-            pExplo001->locateWith((GgafDx9GeometricActor*)prm_pOtherActor);
+            pExplo001->locateAs((GgafDx9GeometricActor*)prm_pOtherActor);
             pExplo001->activate();
         }
     } else {
@@ -88,7 +88,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
         EffectExplosion001* pExplo001_2 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         _pSeTransmitter->play3D(1);
         if (pExplo001_2) {
-            pExplo001_2->locateWith((GgafDx9GeometricActor*)prm_pOtherActor);
+            pExplo001_2->locateAs((GgafDx9GeometricActor*)prm_pOtherActor);
             pExplo001_2->activate();
         }
         sayonara();

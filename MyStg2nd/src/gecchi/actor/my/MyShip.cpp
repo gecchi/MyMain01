@@ -345,7 +345,7 @@ void MyShip::processBehavior() {
         //ターボ開始時
         EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDispatcher_EffectTurbo002->employForce();
          if (pTurbo002) {
-             pTurbo002->locateWith(this);
+             pTurbo002->locateAs(this);
              pTurbo002->activate();
          }
         (this->*paFuncTurbo[_way])();
@@ -490,7 +490,7 @@ void MyShip::processJudgement() {
             MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
             if (pShot) {
                 _pSeTransmitter->play3D(2);
-                pShot->locateWith(this);
+                pShot->locateAs(this);
                 pShot->activate();
             }
             if (_frame_soft_rapidshot >= 12) {
@@ -544,7 +544,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     } else {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         if (pExplo001) {
-            pExplo001->locateWith(this);
+            pExplo001->locateAs(this);
             pExplo001->activate();
         }
         _pSeTransmitter->play3D(0);

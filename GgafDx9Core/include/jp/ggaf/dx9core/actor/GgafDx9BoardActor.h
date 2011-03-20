@@ -88,7 +88,7 @@ public:
      * アクターの変換済み座標をコピーして設定 .
      * @param prm_pActor
      */
-    virtual void locateWith(GgafDx9GeometricActor* prm_pActor) override {
+    virtual void locateAs(GgafDx9GeometricActor* prm_pActor) override {
         _z = prm_pActor->_z;
         _y = prm_pActor->_y;
         _x = prm_pActor->_x;

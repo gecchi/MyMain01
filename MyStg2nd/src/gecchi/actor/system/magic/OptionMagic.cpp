@@ -51,7 +51,7 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     angle* paAngWay = NEW angle[prm_new_level-prm_now_level];
     GgafDx9Util::getRadialAngle2D(0, prm_new_level-prm_now_level, paAngWay);
     for (int i = prm_now_level; i < prm_new_level; i++) {
-        _papEffect[i]->locateWith(P_MYSHIP);
+        _papEffect[i]->locateAs(P_MYSHIP);
         _papEffect[i]->_pKuroko->setRzRyMvAng(paAngWay[i], ANGLE90);
         _papEffect[i]->_pKuroko->setMvVelo(2000);
         _papEffect[i]->_pKuroko->setMvAcce(0);
@@ -148,7 +148,7 @@ void OptionMagic::processEffectingBehavior(int prm_now_level) {
 //    for (int i = _old_level; i < _new_level; i++) {
 //        _papEffect[i]->setAlpha(_r_effect);
 //        _papEffect[i]->setScaleRate(3.0f+(1.0f-_r_effect)*4.0);
-//        _papEffect[i]->locateWith(P_MYOPTIONCON->_papMyOption[i]);
+//        _papEffect[i]->locateAs(P_MYOPTIONCON->_papMyOption[i]);
 //        P_MYOPTIONCON->_papMyOption[i]->setAlpha(1.0f-_r_effect);
 //    }
 //    if (_r_effect < 0) {

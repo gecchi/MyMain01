@@ -46,7 +46,7 @@ void Item001::onHit(GgafActor* prm_pOtherActor) {
         setHitAble(false);
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
         if (pExplo001) {
-            pExplo001->locateWith(this);
+            pExplo001->locateAs(this);
             pExplo001->activate();
         }
         sayonara();

@@ -14,14 +14,14 @@ void TestCamWorker::onActive() {
 }
 
 void TestCamWorker::onSwitchCameraWork() {
-    P_CAM->locateWith(P_MYSHIP);
-    GgafDx9CameraViewPoint* pVP = P_CAM->_pViewPoint;
-    pVP->locateWith(P_MYSHIP);
+    P_CAM->locateAs(P_MYSHIP);
+    GgafDx9GeometricActor* pVP = P_CAM->_pViewPoint;
+    pVP->locateAs(P_MYSHIP);
 }
 
 void TestCamWorker::processBehavior() {
-    GgafDx9CameraViewPoint* pVP = P_CAM->_pViewPoint;
-    pVP->locateWith(P_MYSHIP);
+    GgafDx9GeometricActor* pVP = P_CAM->_pViewPoint;
+    pVP->locateAs(P_MYSHIP);
     P_CAM->_X += 2000;
     P_CAM->_Y += 2000;
     P_CAM->_Z += 2000;

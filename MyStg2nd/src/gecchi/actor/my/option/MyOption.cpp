@@ -401,7 +401,7 @@ void MyOption::processBehavior() {
         MyCurveLaserChip001* pLaserChip = (MyCurveLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaserChip) {
             if (_pLaserChipDispatcher->_pEffectActor_Irradiate) {
-                _pLaserChipDispatcher->_pEffectActor_Irradiate->locateWith(this);
+                _pLaserChipDispatcher->_pEffectActor_Irradiate->locateAs(this);
             }
             pLaserChip->_pKuroko->_vX = Q._x;
             pLaserChip->_pKuroko->_vY = Q._y;
@@ -434,7 +434,7 @@ void MyOption::processBehavior() {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot) {
             _pSeTransmitter->play3D(1);
-            pShot->locateWith(this);
+            pShot->locateAs(this);
             pShot->_pKuroko->_angFace[AXIS_X] = _RX;
             pShot->_pKuroko->_angFace[AXIS_Z] = _RZ;
             pShot->_pKuroko->_angFace[AXIS_Y] = _RY;

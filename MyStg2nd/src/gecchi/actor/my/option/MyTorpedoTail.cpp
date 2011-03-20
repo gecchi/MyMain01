@@ -29,7 +29,7 @@ void MyTorpedoTail::onInactive() {
 }
 void MyTorpedoTail::processBehaviorHeadChip() {
 
-    locateWith(_pMyTorpedo);
+    locateAs(_pMyTorpedo);
     rotateWith(_pMyTorpedo);
 }
 

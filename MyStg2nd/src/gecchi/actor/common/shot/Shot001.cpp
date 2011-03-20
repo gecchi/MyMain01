@@ -56,7 +56,7 @@ void Shot001::onHit(GgafActor* prm_pOtherActor) {
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->activate();
-            pExplo001->locateWith(this);
+            pExplo001->locateAs(this);
         }
 
         sayonara();

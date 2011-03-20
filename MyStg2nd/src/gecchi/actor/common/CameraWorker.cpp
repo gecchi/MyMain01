@@ -75,7 +75,7 @@ void CameraWorker::processBehavior() {
     //初期カメラ移動範囲制限
 //    float revise = 0.7; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
     GgafDx9Camera* pCam = P_CAM;
-    GgafDx9CameraViewPoint* pVP = pCam->_pViewPoint;
+    GgafDx9GeometricActor* pVP = pCam->_pViewPoint;
 
     int cam_velo_renge = _cam_velo_renge;  //カメラの移動速度の最大、最小敷居値
     //カメラの移動速度の最大、最小制限を設定

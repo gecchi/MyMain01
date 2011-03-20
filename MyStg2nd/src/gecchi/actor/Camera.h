@@ -14,7 +14,7 @@ class Camera : public GgafDx9LibStg::DefaultCamera {
 
 public:
 
-    Camera(const char* prm_name, float prm_rad_fovX, float prm_dep);
+    Camera(const char* prm_name);
 
     virtual void initialize() override;
 

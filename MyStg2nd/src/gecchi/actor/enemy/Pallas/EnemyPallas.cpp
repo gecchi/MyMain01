@@ -87,7 +87,7 @@ void EnemyPallas::processBehavior() {
                 for (int i = 0; i < way; i++) {
                     pActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                     if (pActor_Shot) {
-                        pActor_Shot->locateWith(this);
+                        pActor_Shot->locateAs(this);
                         pActor_Shot->_pKuroko->setRzRyMvAng(paAngWay[i], ANGLE90);
                         pActor_Shot->activate();
                     }
@@ -97,7 +97,7 @@ void EnemyPallas::processBehavior() {
                 if (_pDispatcher_ShotEffect) {
                     GgafDx9DrawableActor* pEffectActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
                     if (pEffectActor_Shot) {
-                        pEffectActor_Shot->locateWith(this);
+                        pEffectActor_Shot->locateAs(this);
                         pEffectActor_Shot->activate();
                     }
                 }
@@ -140,7 +140,7 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->activate();
-            pExplo001->locateWith(this);
+            pExplo001->locateAs(this);
             pExplo001->_pKuroko->takeoverMvFrom(_pKuroko);
         }
 

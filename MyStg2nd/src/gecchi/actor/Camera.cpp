@@ -5,7 +5,10 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-Camera::Camera(const char* prm_name, float prm_rad_fovX, float prm_dep) : DefaultCamera(prm_name, prm_rad_fovX, prm_dep) {
+Camera::Camera(const char* prm_name) :
+        DefaultCamera(prm_name,
+                      PI * 80.0f / 180.0f,
+                      GGAFDX9_PROPERTY(GAME_SPACE_DEPTH)) {
     _class_name = "Camera";
 }
 void Camera::initialize() {
