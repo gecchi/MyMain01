@@ -28,18 +28,6 @@ void PauseCamWorker::processBehavior() {
     GgafDx9Input::getMousePointer_REL(&mdx, &mdy, &mdz);
     mdy = -mdy; //Yはインバーズ
 
-    if (GgafDx9Input::isBeingPressedMouseButton(0) || GgafDx9Input::isBeingPressedMouseButton(1) || GgafDx9Input::isBeingPressedMouseButton(2) || mdz != 0) {
-        if (!_pVPGuide->isActiveActor()) {
-            _pVPGuide->activate();
-        }
-
-    } else {
-        if (_pVPGuide->isActiveActor()) {
-            _pVPGuide->inactivate();
-        }
-
-    }
-
 
     if ((GgafDx9Input::isBeingPressedMouseButton(0) || GgafDx9Input::isBeingPressedMouseButton(1) || GgafDx9Input::isBeingPressedMouseButton(2))) {
 
@@ -66,7 +54,6 @@ void PauseCamWorker::processBehavior() {
             _move_target_X_VP = pVP->_X;
             _move_target_Y_VP = pVP->_Y;
             _move_target_Z_VP = pVP->_Z;
-            _pVPGuide->activate();
         }
 
     //計算
@@ -238,14 +225,21 @@ void PauseCamWorker::processBehavior() {
             _mdz_vy = t * vy;
             _mdz_vz = t * vz;
         }
-        _mdz_total += mdz; //連続ホイール回転時、加算
-        double r = (_mdz_total*PX_UNIT*LEN_UNIT/10.0);
-        _move_target_X_CAM = _cam_X + _mdz_vx*r;
-        _move_target_Y_CAM = _cam_Y + _mdz_vy*r;
-        _move_target_Z_CAM = _cam_Z + _mdz_vz*r;
-        _move_target_X_VP  = _vp_X  + _mdz_vx*r;
-        _move_target_Y_VP  = _vp_Y  + _mdz_vy*r;
-        _move_target_Z_VP  = _vp_Z  + _mdz_vz*r;
+//        _mdz_total += mdz; //連続ホイール回転時、加算
+//        double r = (_mdz_total*PX_UNIT*LEN_UNIT/10.0);
+//        _move_target_X_CAM = _cam_X + _mdz_vx*r;
+//        _move_target_Y_CAM = _cam_Y + _mdz_vy*r;
+//        _move_target_Z_CAM = _cam_Z + _mdz_vz*r;
+//        _move_target_X_VP  = _vp_X + _mdz_vx*r;
+//        _move_target_Y_VP  = _vp_Y + _mdz_vy*r;
+//        _move_target_Z_VP  = _vp_Z + _mdz_vz*r;
+        double r = (mdz*PX_UNIT*LEN_UNIT/10.0);
+        _move_target_X_CAM += _mdz_vx*r;
+        _move_target_Y_CAM += _mdz_vy*r;
+        _move_target_Z_CAM += _mdz_vz*r;
+        _move_target_X_VP  += _mdz_vx*r;
+        _move_target_Y_VP  += _mdz_vy*r;
+        _move_target_Z_VP  += _mdz_vz*r;
         _mdz_flg = true;
     } else {
         _mdz_flg = false;
@@ -328,53 +322,63 @@ void PauseCamWorker::processBehavior() {
         P_GAME_SCENE->_is_frame_advance = true;
     }
 
+    if (GgafDx9Input::isBeingPressedKey(DIK_V)) {
+        if (!_pVPGuide->isActiveActor()) {
+            _pVPGuide->activate();
+        }
+    } else {
+        if (_pVPGuide->isActiveActor()) {
+            _pVPGuide->inactivate();
+        }
+    }
 
     if (GgafDx9Input::isBeingPressedKey(DIK_V)) {
         //V＋方向で注視点操作
         if (GgafDx9Input::isBeingPressedKey(DIK_UP)) {
-            pVP->_Y += 1000;
+            pVP->_Y += 5000;
         } else if (GgafDx9Input::isBeingPressedKey(DIK_DOWN)) {
-            pVP->_Y -= 1000;
+            pVP->_Y -= 5000;
         } else {
 
         }
 
         if (GgafDx9Input::isBeingPressedKey(DIK_RIGHT)) {
-            pVP->_X += 1000;
+            pVP->_X += 5000;
         } else if (GgafDx9Input::isBeingPressedKey(DIK_LEFT)) {
-            pVP->_X -= 1000;
+            pVP->_X -= 5000;
         } else {
         }
 
         if (GgafDx9Input::isBeingPressedKey(DIK_PGUP)) {
-            pVP->_Z += 1000;
+            pVP->_Z += 5000;
         } else if (GgafDx9Input::isBeingPressedKey(DIK_PGDN)) {
-            pVP->_Z -= 1000;
+            pVP->_Z -= 5000;
         } else {
         }
     } else if (GgafDx9Input::isBeingPressedKey(DIK_C)) {
         //C＋方向でカメラ操作
         if (GgafDx9Input::isBeingPressedKey(DIK_UP)) {
-            P_CAM->_Y += 1000;
+            P_CAM->_Y += 5000;
         } else if (GgafDx9Input::isBeingPressedKey(DIK_DOWN)) {
-            P_CAM->_Y -= 1000;
+            P_CAM->_Y -= 5000;
         } else {
 
         }
 
         if (GgafDx9Input::isBeingPressedKey(DIK_RIGHT)) {
-            P_CAM->_X += 1000;
+            P_CAM->_X += 5000;
         } else if (GgafDx9Input::isBeingPressedKey(DIK_LEFT)) {
-            P_CAM->_X -= 1000;
+            P_CAM->_X -= 5000;
         } else {
         }
 
         if (GgafDx9Input::isBeingPressedKey(DIK_PGUP)) {
-            P_CAM->_Z += 1000;
+            P_CAM->_Z += 5000;
         } else if (GgafDx9Input::isBeingPressedKey(DIK_PGDN)) {
-            P_CAM->_Z -= 1000;
+            P_CAM->_Z -= 5000;
         } else {
         }
+    } else {
     }
     CameraWorker::processBehavior();
 }
