@@ -398,15 +398,31 @@ void MyShip::processBehavior() {
     _pSeTransmitter->behave();
 
     //êÅÇ¡îÚÇ—
-    if (_blown_veloX != 0) {
-        _X += (_blown_veloX -= 1000);
+    if (GgafUtil::abs(_blown_veloX) < 1000) {
+        _blown_veloX = 0;
+    } else if (_blown_veloX > 0) {
+        _blown_veloX -= 1000;
+    } else if (_blown_veloX < 0) {
+        _blown_veloX += 1000;
     }
-    if (_blown_veloY != 0) {
-        _Y += (_blown_veloY -= 1000);
+    if (GgafUtil::abs(_blown_veloY) < 1000) {
+        _blown_veloY = 0;
+    } else if (_blown_veloY > 0) {
+        _blown_veloY -= 1000;
+    } else if (_blown_veloY < 0) {
+        _blown_veloY += 1000;
     }
-    if (_blown_veloZ != 0) {
-        _Z += (_blown_veloZ -= 1000);
+    if (GgafUtil::abs(_blown_veloZ) < 1000) {
+        _blown_veloZ = 0;
+    } else if (_blown_veloZ > 0) {
+        _blown_veloZ -= 1000;
+    } else if (_blown_veloZ < 0) {
+        _blown_veloZ += 1000;
     }
+    _X += _blown_veloX;
+    _Y += _blown_veloY;
+    _Z += _blown_veloZ;
+
 
     if (!_is_diving) {
         if (_Y > MyShip::_lim_top) {
@@ -536,9 +552,10 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
 
     //ï«ÇÃèÍçáì¡ï Ç»èàóù
     if (pOther->getKind() & KIND_CHIKEI) {
-        _blown_veloX += (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vX)*(10000+GgafUtil::abs(_pKuroko->_veloVxMv)));
-        _blown_veloY += (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vY)*(10000+GgafUtil::abs(_pKuroko->_veloVyMv)));
-        _blown_veloZ += (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vZ)*(10000+GgafUtil::abs(_pKuroko->_veloVzMv)));
+
+        _blown_veloX = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vX)*(10000+GgafUtil::abs(_pKuroko->_veloVxMv)));
+        _blown_veloY = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vY)*(10000+GgafUtil::abs(_pKuroko->_veloVyMv)));
+        _blown_veloZ = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vZ)*(10000+GgafUtil::abs(_pKuroko->_veloVzMv)));
     }
     if (pOther->getKind() & KIND_ITEM)  {
     } else {
