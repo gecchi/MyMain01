@@ -12,8 +12,10 @@ namespace MyStg2nd {
 
 #define EQ_OPTION 1
 #define EQ_MAX_OPTION 0
-
-
+/** ソフト連射数 */
+#define SOFT_RAPIDSHOT_NUM 3
+/** ソフト連射間隔 */
+#define SOFT_RAPIDSHOT_INTERVAL 4
 
 enum Switch {
     SW_ADD = 1,

@@ -486,22 +486,22 @@ void MyShip::processJudgement() {
     }
 
     //ソフト連射
-    //1プッシュで4F毎に16フレーム(最大4発)
+    //1プッシュで4F毎に最大3発
     if (VB_PLAY->isPushedDown(VB_SHOT1)) {
         _is_being_soft_rapidshot = true;
-        if (_frame_soft_rapidshot >= 4) {
-            //４フレームより遅い場合
+        if (_frame_soft_rapidshot >= SOFT_RAPIDSHOT_INTERVAL) {
+            //SOFT_RAPIDSHOT_INTERVAL フレームより遅い場合
             //連射と連射のつなぎ目が無いようにする
-            _frame_soft_rapidshot = _frame_soft_rapidshot % 4;
+            _frame_soft_rapidshot = _frame_soft_rapidshot % SOFT_RAPIDSHOT_INTERVAL;
         } else {
-            //４フレームより速い連射の場合
-            //これを受け入れて強制的に発射できる
+            //SOFT_RAPIDSHOT_INTERVAL フレームより速い連射の場合
+            //これを受け入れて強制的に発射できる(手動連射のほうが速く連射できるようにしたい。)
             _frame_soft_rapidshot = 0;
         }
     }
     _just_shot = false;
     if (_is_being_soft_rapidshot) {
-        if (_frame_soft_rapidshot % 4 == 0) {
+        if (_frame_soft_rapidshot % SOFT_RAPIDSHOT_INTERVAL == 0) {
             _just_shot = true;//たった今ショットしましたフラグ
             MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
             if (pShot) {
@@ -509,8 +509,8 @@ void MyShip::processJudgement() {
                 pShot->locateAs(this);
                 pShot->activate();
             }
-            if (_frame_soft_rapidshot >= 12) {
-                //4発打ち終えたらソフト連射終了
+            if (_frame_soft_rapidshot >= SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
+                //SOFT_RAPIDSHOT_NUM 発打ち終えたらソフト連射終了
                 _is_being_soft_rapidshot = false;
             }
         }
@@ -530,8 +530,10 @@ void MyShip::processJudgement() {
             }
         }
         if (can_fire) {
-            _pSeTransmitter->play3D(3);
             for (int i = 0; i < P_MYOPTIONCON->_now_option_num; i++) {
+                if (i == 0) {
+                    _pSeTransmitter->play3D(3);
+                }
                 P_MYOPTIONCON->_papMyOption[i]->_pTorpedoController->fire();
             }
         }
