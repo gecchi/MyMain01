@@ -69,6 +69,30 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
     }
 
+    if (GgafUtil::strcmp_ascii("DpCon_DpEnemyAstraeaLaserChip001", prm_idstr) == 0) {
+        pResource = NEW GgafActorDispatcher("LCDD");
+        LaserChipDispatcher* pLaserChipDispatcher;
+        EnemyAstraeaLaserChip001* pChip;
+        for (int nLaser = 0; nLaser < 27; nLaser++) {
+            stringstream name;
+            name <<  "LaserChipDispatcher["<<nLaser<<"]";
+            pLaserChipDispatcher = NEW LaserChipDispatcher(name.str().c_str());
+            for (int nChip = 0; nChip < 50; nChip++) {
+                stringstream name;
+                name <<  "EnemyAstraeaLaserChip001["<<nLaser<<"]["<<nChip<<"]";
+                pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
+//                pChip->config(50, 10, 5, (GgafActorDispatcher*)prm_p);
+                pChip->inactivateImmediately();
+                pLaserChipDispatcher->addSubLast(pChip);
+            }
+            pLaserChipDispatcher->inactivateImmediately();
+            pResource->addSubLast(pLaserChipDispatcher);
+        }
+        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
+    }
+
+
+
     if (GgafUtil::strcmp_ascii("DpCon_DpEnemyAstraeaLaserChip002", prm_idstr) == 0) {
         pResource = NEW GgafActorDispatcher("LCDD");
         LaserChipDispatcher* pLaserChipDispatcher;

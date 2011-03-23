@@ -32,9 +32,10 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     _pDispatcherCon_RefractionEffect =
             (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_EffRefraction001"));
 
-    _pDispatcherCon_DpEnemyAstraeaLaserChip002 =
+    _pDispatcherCon_DpEnemyAstraeaLaserChip =
             (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection(
-                                                                   "DpCon_DpEnemyAstraeaLaserChip002",
+                                                                   "DpCon_DpEnemyAstraeaLaserChip001",
+                                                                   //"DpCon_DpEnemyAstraeaLaserChip002",
                                                                    _pDispatcherCon_RefractionEffect->refer()
                                                                 )
                                    );
@@ -188,8 +189,7 @@ void EnemyAstraea::processBehavior() {
         if (_cnt_laserchip < _laser_length) {
             _cnt_laserchip++;
 
-            EnemyAstraeaLaserChip001* pLaserChip;
-
+            LaserChip* pLaserChip;
             D3DXMATRIX matWorldRot;
             GgafDx9Util::setWorldMatrix_RxRzRy(this, matWorldRot);
             angle Rz, Ry;
@@ -197,7 +197,7 @@ void EnemyAstraea::processBehavior() {
             for (int i = 0; i < _laser_way; i++) {
                 for (int j = 0; j < _laser_way; j++) {
                     if (_papapLaserChipDispatcher[i][j] == NULL) {
-                        GgafMainActor* p = _pDispatcherCon_DpEnemyAstraeaLaserChip002->refer()->employ();
+                        GgafMainActor* p = _pDispatcherCon_DpEnemyAstraeaLaserChip->refer()->employ();
                         if (p == NULL) {
                             //レーザーセットは借入出来ない
                             continue;
@@ -208,7 +208,7 @@ void EnemyAstraea::processBehavior() {
                         }
                     }
 
-                    pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
+                    pLaserChip = _papapLaserChipDispatcher[i][j]->employ();
                     if (pLaserChip) {
                         //レーザーの向きを計算
                         //ローカルでのショットの方向ベクトルを(_Xorg,_Yorg,_Zorg)、
@@ -300,7 +300,7 @@ void EnemyAstraea::onInactive() {
 
 EnemyAstraea::~EnemyAstraea() {
     _pDispatcherCon_RefractionEffect->close();
-    _pDispatcherCon_DpEnemyAstraeaLaserChip002->close();
+    _pDispatcherCon_DpEnemyAstraeaLaserChip->close();
     for (int i = 0; i < _laser_way; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser[i]);
         DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipDispatcher[i]);

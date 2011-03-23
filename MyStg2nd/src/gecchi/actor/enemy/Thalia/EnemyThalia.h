@@ -17,8 +17,8 @@ namespace MyStg2nd {
  * @since 2010/08/03
  * @author Masatoshi Tsuge
  */
-//class EnemyThalia : public GgafDx9LibStg::DefaultMorphMeshActor {
-class EnemyThalia : public GgafDx9LibStg::CubeMapMorphMeshActor {
+class EnemyThalia : public GgafDx9LibStg::DefaultMorphMeshActor {
+//class EnemyThalia : public GgafDx9LibStg::CubeMapMorphMeshActor {
     /** 移動スプラインプログラム */
     GgafDx9Core::GgafDx9SplineProgram* _pSplineProgram;
     /** 弾ストック */

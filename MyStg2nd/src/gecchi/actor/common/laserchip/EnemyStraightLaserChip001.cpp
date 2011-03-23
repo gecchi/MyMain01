@@ -16,7 +16,7 @@ EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :
 void EnemyStraightLaserChip001::initialize() {
     _pKuroko->setRzRyMvAng(0,0);
     registHitAreaCube(100000);
-    setHitAble(true);
+    setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     _SX = _SY = _SZ = 5 * 1000;
     _fAlpha = 0.99;
     _fBoundingSphereRadius = 20.0;

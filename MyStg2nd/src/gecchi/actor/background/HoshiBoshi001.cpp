@@ -5,6 +5,9 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+
+//TODO:‹óŠÔ‚Ì‘å‚«‚³‚ğ•Ï‚¦‚é‚ÆA¯‚ª•Î‚é
+
 HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
         GgafDx9PointSpriteActor(prm_name,
                                "hoshitest",

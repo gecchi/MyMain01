@@ -35,7 +35,7 @@ public:
 
     DispatcherConnection* _pDispatcherCon_RefractionEffect;
 
-    DispatcherConnection* _pDispatcherCon_DpEnemyAstraeaLaserChip002;
+    DispatcherConnection* _pDispatcherCon_DpEnemyAstraeaLaserChip;
 
 
 
