@@ -14,12 +14,10 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) :
 }
 
 void EnemyAstraeaLaserChip002::initialize() {
-    registHitAreaCube(10000);
+    registHitAreaCube(20000);
     setHitAble(true);
-    _SX = _SY = _SZ = 5*1000;
-    _fAlpha = 0.9f;
-    _fBoundingSphereRadius = 5.0f;
-    _paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0.0, 0.0, 1.0);
+    setScaleRate(5.0);
+    setAlpha(0.9);
 }
 
 void EnemyAstraeaLaserChip002::onActive() {

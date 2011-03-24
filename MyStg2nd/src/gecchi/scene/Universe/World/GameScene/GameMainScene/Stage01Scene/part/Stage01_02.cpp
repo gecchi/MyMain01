@@ -121,6 +121,7 @@ void Stage01_02::processBehavior() {
 			}
 			case 2200: {
 				orderActorToFactory(40000027, EnemyMetis, "Metis_25");
+				orderActorToFactory(40001337, FormationIris002, "F002_Iris_26");
 				break;
 			}
 			case 2500: {
@@ -133,7 +134,8 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 2700: {
-				orderActorToFactory(40000028, EnemyMetis, "Metis_26");
+				orderActorToFactory(40000028, EnemyMetis, "Metis_27");
+				orderActorToFactory(40001338, FormationIris002, "F002_Iris_28");
 				break;
 			}
 			case 3000: {
@@ -144,9 +146,8 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 3200: {
-				orderActorToFactory(40000029, EnemyMetis, "Metis_27");
-				orderActorToFactory(40001335, FormationJuno001, "F002_Juno_28");
-				orderActorToFactory(40001337, FormationIris002, "F002_Iris_29");
+				orderActorToFactory(40000029, EnemyMetis, "Metis_29");
+				orderActorToFactory(40001335, FormationJuno001, "F002_Juno_30");
 				break;
 			}
 			case 3500: {
@@ -155,13 +156,14 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 3700: {
-				orderActorToFactory(40000030, EnemyMetis, "Metis_30");
-				orderActorToFactory(40001338, FormationIris002, "F002_Iris_31");
+				orderActorToFactory(40000030, EnemyMetis, "Metis_31");
 				break;
 			}
 			case 4000: {
 				EnemyMetis* pMetis1 = (EnemyMetis*)obtainActorFromFactory(40000027);
 				getLordActor()->addSubGroup(pMetis1);
+				FormationIris002* pF1 = (FormationIris002*)obtainActorFromFactory(40001337);
+				getLordActor()->addSubGroup(pF1);
 				break;
 			}
 			case 4200: {
@@ -171,6 +173,8 @@ void Stage01_02::processBehavior() {
 			case 4500: {
 				EnemyMetis* pMetis1 = (EnemyMetis*)obtainActorFromFactory(40000028);
 				getLordActor()->addSubGroup(pMetis1);
+				FormationIris002* pF2 = (FormationIris002*)obtainActorFromFactory(40001338);
+				getLordActor()->addSubGroup(pF2);
 				break;
 			}
 			case 4700: {
@@ -182,8 +186,6 @@ void Stage01_02::processBehavior() {
 				getLordActor()->addSubGroup(pMetis1);
 				FormationJuno001* pF = (FormationJuno001*)obtainActorFromFactory(40001335);
 				getLordActor()->addSubGroup(pF);
-				FormationIris002* pF1 = (FormationIris002*)obtainActorFromFactory(40001337);
-				getLordActor()->addSubGroup(pF1);
 				break;
 			}
 			case 5200: {
@@ -193,8 +195,6 @@ void Stage01_02::processBehavior() {
 			case 5500: {
 				EnemyMetis* pMetis1 = (EnemyMetis*)obtainActorFromFactory(40000030);
 				getLordActor()->addSubGroup(pMetis1);
-				FormationIris002* pF2 = (FormationIris002*)obtainActorFromFactory(40001338);
-				getLordActor()->addSubGroup(pF2);
 				break;
 			}
 			case 5700: {

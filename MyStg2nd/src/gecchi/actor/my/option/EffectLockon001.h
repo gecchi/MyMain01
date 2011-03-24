@@ -35,15 +35,19 @@ public:
 
     virtual ~EffectLockon001();
 
-    /**
-     * デバッグ用：ツリー構造を表示<BR>
-     */
-    virtual void dump();
 
-    /**
-     * デバッグ用：dump()から使用される<BR>
-     */
-    virtual void dump(std::string prm_parent);
+//DEBUGモードアプリ終了時のツリー表示時、
+//_pTargetが不正になる場合があるため、必要なときにコメントを外して仕様することとする。
+//
+//    /**
+//     * ターゲットも表示するダンプ(デバッグ用) .
+//     */
+//    void dump();
+//
+//    /**
+//     * ターゲットも表示するダンプ(デバッグ用) .
+//     */
+//    void dump(std::string prm_parent);
 
 };
 
