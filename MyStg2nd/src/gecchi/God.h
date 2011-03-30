@@ -10,6 +10,7 @@ namespace MyStg2nd {
 /** VB_PLAY or VB_UI のどちらかで、アクティブな方のVirtualButton */
 #define VB God::_pVbtn_Active
 
+
 /**
  * 神
  * @version 1.00
@@ -28,6 +29,11 @@ public:
     static GgafDx9LibStg::VirtualButton* _pVbtn_Active;
     static GgafDx9LibStg::VirtualButton* _pVbtn_Active_next_frame;
 
+    /**
+     * コンストラクタ .
+     * @param prm_hInstance
+     * @param prm_hWnd
+     */
     God(HINSTANCE prm_hInstance, HWND prm_hWnd);
 
     /**
