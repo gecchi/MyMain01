@@ -1,2 +1,7 @@
 /.settings
 /ReleaseCdt
+/Release
+/GprofCdt
+/Debug
+/gmon.out
+/MySTG2nd.vcproj
