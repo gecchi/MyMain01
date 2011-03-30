@@ -10,6 +10,12 @@ namespace MyStg2nd {
 /** VB_PLAY or VB_UI のどちらかで、アクティブな方のVirtualButton */
 #define VB God::_pVbtn_Active
 
+/**
+ * 神
+ * @version 1.00
+ * @since 2007/11/26
+ * @author Masatoshi Tsuge
+ */
 class God : public GgafDx9LibStg::DefaultGod {
 
 public:
