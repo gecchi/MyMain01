@@ -20,9 +20,12 @@ namespace MyStg2nd {
 
 
 /**
- * この世シーン .
- * まずこの世がありました。<BR>
- * 本クラスは、この世の振る舞い等を実装しています。<BR>
+ * 具体的なこの世 .
+ * 本クラスは、この世の振る舞い等を実装ます。<BR>
+ * 主にこの世を映し出すカメラ(Camera)の制御などを行います。<BR>
+ * @version 1.00
+ * @since 2009/04/24
+ * @author Masatoshi Tsuge
  */
 class Universe : public GgafDx9LibStg::DefaultUniverse {
 
