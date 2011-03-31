@@ -11,6 +11,8 @@ namespace MyStg2nd {
 #define VB God::_pVbtn_Active
 
 
+
+
 /**
  * ê_
  * @version 1.00
