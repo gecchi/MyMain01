@@ -160,7 +160,6 @@ void GameMainScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         }
     }
 
-
 }
 
 void GameMainScene::processFinal() {
