@@ -147,6 +147,9 @@ void GameMainScene::processBehavior() {
 
 }
 
+
+
+
 void GameMainScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
         //次のステージを工場に注文していいよというイベント
