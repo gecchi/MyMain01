@@ -73,15 +73,15 @@ void GameScene::initialize() {
 void GameScene::onReset() {
     VB_UI->clear();
     P_GOD->setVB(VB_UI);
-    _pMyShipScene->reset();
-    _pCommonScene->reset();
-    _pScene_PreGameTitle->reset();
-    _pScene_GameTitle->reset();
-    _pScene_GameDemo->reset();
-    _pScene_GameBeginning->reset();
-    _pScene_GameMain->reset();
-    _pScene_GameEnding->reset();
-    _pScene_GameOver->reset();
+    _pMyShipScene->resetTree();
+    _pCommonScene->resetTree();
+    _pScene_PreGameTitle->resetTree();
+    _pScene_GameTitle->resetTree();
+    _pScene_GameDemo->resetTree();
+    _pScene_GameBeginning->resetTree();
+    _pScene_GameMain->resetTree();
+    _pScene_GameEnding->resetTree();
+    _pScene_GameOver->resetTree();
 
     _pMyShipScene->unblindSceneTree();
     _pCommonScene->unblindSceneTree();

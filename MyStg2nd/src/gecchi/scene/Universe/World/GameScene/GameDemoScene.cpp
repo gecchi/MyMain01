@@ -8,7 +8,6 @@ using namespace MyStg2nd;
 GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameDemoScene";
     useProgress(10);
-    _pProgress->change(GAMEDEMO_SCENE_PROG_INIT);
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");
@@ -18,7 +17,7 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
 
 }
 void GameDemoScene::onReset() {
-    _pProgress->change(GAMEDEMO_SCENE_PROG_INIT);
+    _pProgress->set(GAMEDEMO_SCENE_PROG_INIT);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
     unblindScene();

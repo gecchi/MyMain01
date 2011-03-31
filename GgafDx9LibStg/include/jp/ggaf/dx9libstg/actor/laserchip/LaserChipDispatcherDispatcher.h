@@ -3,7 +3,7 @@
 namespace GgafDx9LibStg {
 
 /**
- * （現在未使用。普通のDispatcher でできたし）
+ * （現在未使用。普通のDispatcher でできたし。使用する場合は onReset() 等を実装する必要あり）
  * レーザーチップディスパッチャーのディスパッチャー。
  * つまりレーザーチップディスパッチャ使いまわし管理クラス 。
  * new した後 addSubLast メソッドで LaserChipインスタンスを好きな個数登録してください。<BR>
