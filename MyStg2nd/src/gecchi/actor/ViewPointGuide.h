@@ -6,7 +6,7 @@ namespace MyStg2nd {
 /**
  * íçéãì_ .
  * @version 1.00
- * @since 2010/09/22
+ * @since 2011/03/21
  * @author Masatoshi Tsuge
  */
 class ViewPointGuide : public GgafDx9LibStg::DefaultD3DXMeshActor {

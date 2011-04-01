@@ -7,7 +7,7 @@ namespace MyStg2nd {
 /**
  * ƒJƒƒ‰.
  * @version 1.00
- * @since 2009/02/12
+ * @since 2010/10/22
  * @author Masatoshi Tsuge
  */
 class Camera : public GgafDx9LibStg::DefaultCamera {

@@ -5,7 +5,7 @@ namespace GgafDx9LibStg {
 /**
  * ƒJƒƒ‰.
  * @version 1.00
- * @since 2009/02/12
+ * @since 2010/10/22
  * @author Masatoshi Tsuge
  */
 class DefaultCamera : public GgafDx9Core::GgafDx9Camera {
