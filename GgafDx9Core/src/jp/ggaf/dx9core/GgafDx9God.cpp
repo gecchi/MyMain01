@@ -5,6 +5,7 @@ using namespace GgafDx9Core;
 
 //TODO:コメントとか多すぎる。整理する。
 
+
 HWND GgafDx9God::_hWnd = NULL;
 HINSTANCE GgafDx9God::_hInstance = NULL;
 
