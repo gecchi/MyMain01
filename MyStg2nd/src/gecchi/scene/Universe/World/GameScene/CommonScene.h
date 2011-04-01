@@ -17,6 +17,7 @@ namespace MyStg2nd {
  */
 class CommonScene : public GgafDx9LibStg::DefaultScene {
 
+
 public:
     /** ”Ä—p”š”­ */
     GgafCore::GgafActorDispatcher* _pDP_EffectExplosion001;
