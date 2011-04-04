@@ -59,7 +59,6 @@ void EnemyEunomia::processBehavior() {
         }
     }
 
-
     switch (_iMovePatternNo) {
         case 0:  //【パターン０：スプライン移動開始】
             if (_pSplineProgram) {
