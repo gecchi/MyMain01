@@ -169,3 +169,5 @@ void EnemyEunomia::onInactive() {
 EnemyEunomia::~EnemyEunomia() {
     DELETE_POSSIBLE_NULL(_pSplineProgram);
 }
+
+
