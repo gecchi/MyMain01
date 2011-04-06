@@ -164,7 +164,7 @@ void* GgafFactory::obtain(unsigned long prm_id) {
             }
         } else {
             if (pOrder->_is_last_order_flg) {
-                throwGgafCriticalException("GgafFactory::obtain Error! ＜工場長＞全部探しましたけど、そんな注文(prm_id="<<prm_id<<")は、ありません。\n oreder() と obtain() の対応が取れていません。ありえない、おかしいな～");
+                throwGgafCriticalException("GgafFactory::obtain Error! ＜工場長＞全部探しましたけど、そんな注文(prm_id="<<prm_id<<")は、ありません。\n oreder() と obtain() の対応が取れていません。同じ obtain() を２回以上してませんか？。してない？、おかしいな～");
             } else {
                 pOrder = pOrder->_pOrder_Next;
             }

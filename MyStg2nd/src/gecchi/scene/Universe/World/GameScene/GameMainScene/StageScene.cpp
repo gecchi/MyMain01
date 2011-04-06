@@ -13,30 +13,30 @@ StageScene::StageScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void StageScene::initialize() {
-    _pProgress->change(STAGE_SCENE_PROG_INIT);
+    _pPrg->change(STAGE_SCENE_PROG_INIT);
 }
 void StageScene::processBehavior() {
-    if (_pProgress->wasChangedTo(STAGE_SCENE_PROG_INIT)) {
-    } else if (_pProgress->get() == STAGE_SCENE_PROG_INIT) {
+    if (_pPrg->wasChangedTo(STAGE_SCENE_PROG_INIT)) {
+    } else if (_pPrg->get() == STAGE_SCENE_PROG_INIT) {
     }
 
-    if (_pProgress->wasChangedTo(STAGE_SCENE_PROG_BEGIN)) {
+    if (_pPrg->wasChangedTo(STAGE_SCENE_PROG_BEGIN)) {
         _frame_Begin = 0;
-    } else if (_pProgress->get() == STAGE_SCENE_PROG_BEGIN) {
+    } else if (_pPrg->get() == STAGE_SCENE_PROG_BEGIN) {
         //活動ループ
         _frame_Begin++;
     }
 
-    if (_pProgress->wasChangedTo(STAGE_SCENE_PROG_PLAYING)) {
+    if (_pPrg->wasChangedTo(STAGE_SCENE_PROG_PLAYING)) {
         _frame_Play = 0;
-    } else if (_pProgress->get() == STAGE_SCENE_PROG_PLAYING) {
+    } else if (_pPrg->get() == STAGE_SCENE_PROG_PLAYING) {
         _frame_Play++;
     }
 
-    if (_pProgress->wasChangedTo(STAGE_SCENE_PROG_END)) {
+    if (_pPrg->wasChangedTo(STAGE_SCENE_PROG_END)) {
         _frame_End = 0;
         throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, this); //次ステージ準備へ
-    } else if (_pProgress->get() == STAGE_SCENE_PROG_END) {
+    } else if (_pPrg->get() == STAGE_SCENE_PROG_END) {
         _frame_End++;
     }
 
@@ -47,7 +47,7 @@ void StageScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         prm_no == EVENT_STAGE02CONTROLLER_WAS_END
     ) {
         _TRACE_("StageScene::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_SCENE_PROG_ENDへ");
-        _pProgress->change(STAGE_SCENE_PROG_END);
+        _pPrg->change(STAGE_SCENE_PROG_END);
     } else {
 
     }

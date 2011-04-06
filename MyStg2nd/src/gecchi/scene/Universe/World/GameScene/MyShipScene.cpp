@@ -51,14 +51,14 @@ void MyShipScene::onReset() {
     _pMyShip->resetTree();
     _pMyOptionController->resetTree();
     unblindScene();
-    _pProgress->set(MYSHIPSCENE_SCENE_PROG_INIT);
+    _pPrg->set(MYSHIPSCENE_SCENE_PROG_INIT);
 }
 void MyShipScene::onActive() {
 }
 
 void MyShipScene::processBehavior() {
 
-    switch (_pProgress->getChangedFrom()) {
+    switch (_pPrg->getChangedFrom()) {
         case MYSHIPSCENE_SCENE_PROG_BEGIN:
             {
                 P_UNIVERSE->undoCameraWork();
@@ -68,15 +68,15 @@ void MyShipScene::processBehavior() {
             break;
     }
 
-    switch (_pProgress->get()) {
+    switch (_pPrg->get()) {
         case MYSHIPSCENE_SCENE_PROG_INIT:
             _pVamSysCamWorker = (VamSysCamWorker*)P_UNIVERSE->switchCameraWork("VamSysCamWorker");
             _pVamSysCamWorker->_pMyShip = _pMyShip;
-            _pProgress->change(MYSHIPSCENE_SCENE_PROG_BEGIN);
+            _pPrg->change(MYSHIPSCENE_SCENE_PROG_BEGIN);
             break;
 
         case MYSHIPSCENE_SCENE_PROG_BEGIN:
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
                 unblindScene();
                 _pMyShip->reset();
                 _pMyShip->activate();
@@ -91,34 +91,34 @@ void MyShipScene::processBehavior() {
             if (_pMyShip->_X > 0) {
                 _pMyShip->_X = 0;
                 _pMyShip->_is_diving = false;
-                _pProgress->change(MYSHIPSCENE_SCENE_PROG_PLAY);
+                _pPrg->change(MYSHIPSCENE_SCENE_PROG_PLAY);
             }
             break;
 
         case MYSHIPSCENE_SCENE_PROG_PLAY:
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
                 _pMyShip->_can_control = true;
             }
             //ƒCƒxƒ“ƒg EVENT_MY_SHIP_WAS_DESTROYED_BEGIN ‘Ò‚¿
             break;
 
         case MYSHIPSCENE_SCENE_PROG_DESTROY:
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
                 _pEffectMyShipExplosion->activate();
                 _pMyShip->inactivateDelay(60);
                 _pMyShip->_can_control = false;
                 _pMyOptionController->_is_free_from_myship_mode = true;
                 _zanki -= 1;
             }
-            if (_pProgress->getActivePartFrameInProgress() == 120) {
+            if (_pPrg->getActivePartFrameInProgress() == 120) {
                 if (_zanki == 0) {
                    throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
-                   _pProgress->change(PROG_NOTHING);
+                   _pPrg->change(PROG_NOTHING);
                    P_UNIVERSE->undoCameraWork();
                    inactivate();
                 } else {
                    throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
-                   _pProgress->change(MYSHIPSCENE_SCENE_PROG_BEGIN);
+                   _pPrg->change(MYSHIPSCENE_SCENE_PROG_BEGIN);
                 }
             }
             break;
@@ -132,7 +132,7 @@ void MyShipScene::processBehavior() {
 void MyShipScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
         _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
-       _pProgress->change(MYSHIPSCENE_SCENE_PROG_DESTROY);
+       _pPrg->change(MYSHIPSCENE_SCENE_PROG_DESTROY);
     }
 }
 

@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "PreDrawScene";
 
-    orderActorToFactory(10, LaserChipEffectActor, "LaserChipEffectActor");
+    //orderActorToFactory(10, LaserChipEffectActor, "LaserChipEffectActor");
     orderActorToFactory(11, DefaultMeshEffectActor, "DefaultMeshEffectActor");
 }
 
@@ -21,7 +21,10 @@ void PreDrawScene::initialize() {
 }
 
 void PreDrawScene::processBehavior() {
-    getLordActor()->addSubGroup(obtainActorFromFactory(10));
+    if (getActivePartFrame() == 1) {
+        //getLordActor()->addSubGroup(obtainActorFromFactory(10));
+        getLordActor()->addSubGroup(obtainActorFromFactory(11));
+    }
 }
 
 void PreDrawScene::processFinal() {

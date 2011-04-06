@@ -78,7 +78,7 @@ Magic::Magic(const char*  prm_name,
     _velo_rr = 0.0f;
 
     useProgress();
-    _pProgress->set(MAGIC_NOTHING);
+    _pPrg->set(MAGIC_NOTHING);
 }
 
 void Magic::initialize()  {
@@ -94,7 +94,7 @@ void Magic::rollClose() {
 }
 
 int Magic::chkExecuteAble(int prm_new_level) {
-    if (_pProgress->get() == MAGIC_INVOKING) {
+    if (_pPrg->get() == MAGIC_INVOKING) {
         //発動中のため実行不可
         return MAGIC_EXECUTE_NG_INVOKING;
     } else {
@@ -119,7 +119,7 @@ void Magic::execute(int prm_new_level) {
         _is_working = true;
         if (r == MAGIC_EXECUTE_OK_LEVELUP) {
             //レベルアップ
-            _pProgress->change(MAGIC_STAND_BY);
+            _pPrg->change(MAGIC_STAND_BY);
         } else if (r == MAGIC_EXECUTE_OK_LEVELDOWN) {
             //レベルダウン
             //TODO:MP増加
@@ -135,7 +135,7 @@ void Magic::execute(int prm_new_level) {
             _lvinfo[prm_new_level]._is_working = true;
             processOnLevelDown(_level, prm_new_level); //下位の処理実行
 
-            _pProgress->change(MAGIC_EFFECTING);
+            _pPrg->change(MAGIC_EFFECTING);
         }
     }
 }
@@ -145,7 +145,7 @@ void Magic::execute(int prm_new_level) {
 void Magic::cancel() {
     _new_level = _level;
     _is_working = false;
-    _pProgress->change(MAGIC_NOTHING);
+    _pPrg->change(MAGIC_NOTHING);
 }
 
 //void Magic::commit() {
@@ -154,7 +154,7 @@ void Magic::cancel() {
 //        _is_working = false;
 //        _lvinfo[_level]._is_working = true;
 ////        _lvinfo[_level]._working_time = 0;
-//        _pProgress->change(MAGIC_NOTHING);
+//        _pPrg->change(MAGIC_NOTHING);
 //    }
 //}
 
@@ -181,15 +181,15 @@ void Magic::processBehavior() {
 ////    }
     if (_is_working) {
 
-        switch (_pProgress->get()) {
+        switch (_pPrg->get()) {
             /////////////////////////////////////// 待機
             case MAGIC_STAND_BY:
-                _pProgress->change(MAGIC_CASTING);
+                _pPrg->change(MAGIC_CASTING);
                 break;
 
             /////////////////////////////////////// 詠唱
             case MAGIC_CASTING:
-                if (_pProgress->isJustChanged()) {
+                if (_pPrg->isJustChanged()) {
                     //詠唱開始、詠唱終了時間を計算
                     _time_of_next_state = _interest_time_of_casting[_new_level- _level];
                     processCastBegin(_level, _new_level);
@@ -197,16 +197,16 @@ void Magic::processBehavior() {
                 //詠唱中
                 processCastingBehavior(_level, _new_level);
 
-                if (_pProgress->getActivePartFrameInProgress() >= _time_of_next_state) {
+                if (_pPrg->getActivePartFrameInProgress() >= _time_of_next_state) {
                     //詠唱終了
                     processCastFinish(_level, _new_level);
-                    _pProgress->change(MAGIC_INVOKING);
+                    _pPrg->change(MAGIC_INVOKING);
                 }
                 break;
 
             /////////////////////////////////////// 発動
             case MAGIC_INVOKING:
-                if (_pProgress->isJustChanged()) {
+                if (_pPrg->isJustChanged()) {
                     //発動開始、
                     //発動終了時間設定
                     _time_of_next_state = _interest_time_of_invoking[_new_level- _level];
@@ -216,7 +216,7 @@ void Magic::processBehavior() {
                 //発動中
                 processInvokeingBehavior(_level, _new_level);
 
-                if (_pProgress->getActivePartFrameInProgress() >= _time_of_next_state) {
+                if (_pPrg->getActivePartFrameInProgress() >= _time_of_next_state) {
                     //発動終了
                     //レベル変更適用
                     _last_level = _level;
@@ -235,13 +235,13 @@ void Magic::processBehavior() {
                     _pMP->dec(_interest_cost[_new_level-_level]); //MP消費
 
                     processInvokeFinish(_last_level, _level);
-                    _pProgress->change(MAGIC_EFFECTING);
+                    _pPrg->change(MAGIC_EFFECTING);
                 }
                 break;
 
             /////////////////////////////////////// 持続
             case MAGIC_EFFECTING:
-                if (_pProgress->isJustChanged()) {
+                if (_pPrg->isJustChanged()) {
                     //持続開始
                     processEffectBegin(_level);
                 }
@@ -257,7 +257,7 @@ void Magic::processBehavior() {
                     if (_level > 0) {
                         execute(_level-1);
                     } else {
-                        _pProgress->change(MAGIC_NOTHING);
+                        _pPrg->change(MAGIC_NOTHING);
                     }
                 }
                 break;

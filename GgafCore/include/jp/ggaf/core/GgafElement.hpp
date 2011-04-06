@@ -98,7 +98,7 @@ public:
 
     bool _is_already_reset;
 
-    GgafProgress* _pProgress;
+    GgafProgress* _pPrg;
 
     /**
      * コンストラクタ
@@ -735,8 +735,8 @@ public:
 
 
     virtual void useProgress(int prm_num = 10) {
-        if (_pProgress == NULL) {
-            _pProgress = NEW GgafProgress(&_frame_of_behaving, prm_num);
+        if (_pPrg == NULL) {
+            _pPrg = NEW GgafProgress(&_frame_of_behaving, prm_num);
         } else {
             _TRACE_("["<<GGAF_NODE::getName()<<"] は既に useProgress しています。prm_num="<<prm_num);
         }
@@ -771,7 +771,7 @@ _on_change_to_inactive_flg(false),
 _will_mv_first_in_next_frame_flg(false),
 _will_mv_last_in_next_frame_flg(false),
 _is_already_reset(false),
-_pProgress(NULL)
+_pPrg(NULL)
 {
 
 }
@@ -898,8 +898,8 @@ void GgafElement<T>::nextFrame() {
     }
 
     // 進捗を反映
-    if (_pProgress) {
-        _pProgress->update();
+    if (_pPrg) {
+        _pPrg->update();
     }
     TRACE("GgafElement::nextFrame END _frame_of_behaving="<<_frame_of_behaving<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
 }
@@ -1644,7 +1644,7 @@ bool GgafElement<T>::isDisappear() {
 
 template<class T>
 GgafElement<T>::~GgafElement() {
-    DELETE_POSSIBLE_NULL(_pProgress);
+    DELETE_POSSIBLE_NULL(_pPrg);
 }
 
 }

@@ -36,6 +36,8 @@ void World::initialize() {
 //#endif
 
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
+    PreDrawScene* pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
+    addSubLast(pPreDrawScene);
     orderSceneToFactory(2, GameScene, "Game");
 
     //GameScene* pGameScene = NEW GameScene("Game");
@@ -51,7 +53,7 @@ void World::processBehavior() {
     if (_is_create_GameScene) {
         VB->update(); //“ü—Íî•ñXV
         if (P_GOD->_sync_frame_time) {
-            _TEXT_("S");
+            _TEXT_("z");
         }
         if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
             //TODO:I—¹ˆ—
@@ -61,8 +63,6 @@ void World::processBehavior() {
         if (MyFactory::chkProgress(2) == 2) {
             _pGameScene = (GameScene*)obtainSceneFromFactory(2);
             addSubLast(_pGameScene);
-            PreDrawScene* pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
-            addSubLast(pPreDrawScene);
             _is_create_GameScene = true;
             _pStringBoard01->end();
         }
