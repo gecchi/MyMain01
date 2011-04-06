@@ -146,6 +146,11 @@ class TitleBoard;
 
 
 class PreDrawScene;
+class LaserChipEffectActor;
+class DefaultMeshEffectActor;
+
+
+
 class GameScene;
 class MyShipScene;
 class GamePreTitleScene;
@@ -520,7 +525,7 @@ class MagicMeter;
 #include "gecchi/actor/common/template/Formation001.hpp"
 
 #include "gecchi/actor/_predrawer/LaserChipEffectActor.h"
-
+#include "gecchi/actor/_predrawer/DefaultMeshEffectActor.h"
 #include "gecchi/actor/common/TestDispatcher.h"
 
 
