@@ -65,81 +65,81 @@ void Stage01Controller::processBehavior() {
         case STAGE01CONTROLLER_SCENE_PROG_INIT: {
             _TRACE_("Stage01Controller::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
             //進捗更新待ち
+            break;
         }
 
+        //Stage01_01
         case STAGE01CONTROLLER_SCENE_PROG_STG01_01_BEGIN: {
-            //STG01_01開始時処理
             //BGM１番フェードイン
             _pBgmPerformer->play(0, 0, true);
             _pBgmPerformer->fadein(0, 420);
             _pPrg->changeNext();
+            break;
         }
         case STAGE01CONTROLLER_SCENE_PROG_STG01_01_PLAYING: {
-            //STG01_01最中の処理があればここに記述
             //進捗更新待ち
+            break;
         }
 
-
+        //Stage01_02
         case STAGE01CONTROLLER_SCENE_PROG_STG01_02_BEGIN: {
-            //STG01_02開始時処理
             //BGM０番フェードアウト
             _pBgmPerformer->fadeout_stop(0, 420);
             //BGM１番フェードイン
             _pBgmPerformer->play(1, GGAF_MIN_VOLUME, true);
             _pBgmPerformer->fadein(1, 420);
             _pPrg->changeNext();
+            break;
         }
         case STAGE01CONTROLLER_SCENE_PROG_STG01_02_PLAYING: {
-            //STG01_02最中の処理があればここに記述
             //進捗更新待ち
+            break;
         }
 
-
+        //Stage01_03
         case STAGE01CONTROLLER_SCENE_PROG_STG01_03_BEGIN: {
-            //STG01_03開始時処理があればここに記述
             _pPrg->changeNext();
+            break;
         }
         case STAGE01CONTROLLER_SCENE_PROG_STG01_03_PLAYING: {
-            //STG01_03最中の処理があればここに記述
             //進捗更新待ち
+            break;
         }
 
-
+        //Stage01_Climax
         case STAGE01CONTROLLER_SCENE_PROG_STG01_CLIMAX_BEGIN: {
-            //STG01_Climax 開始時処理
             //BGM１番フェードアウト
             _pBgmPerformer->fadeout_stop(1, 420);
             //BGM２番フェードイン
             _pBgmPerformer->play(2, GGAF_MIN_VOLUME, true);
             _pBgmPerformer->fadein(2, 420);
             _pPrg->changeNext();
+            break;
         }
         case STAGE01CONTROLLER_SCENE_PROG_STG01_CLIMAX_PLAYING: {
-            //STG01_Climax 最中の処理があればここに記述
             //進捗更新待ち
+            break;
         }
 
-
+        //Stage01_Climax の後
         case STAGE01CONTROLLER_SCENE_PROG_FAINAL: {
-            //STG01_03開始時処理があればここに記述
             if (_pPrg->isJustChanged()) {
                 //STG01_Climax終焉の処理
                 _TRACE_("STG01_Climax終焉のSTAGE01CONTROLLER_SCENE_PROG_FAINALきた");
                 _pBgmPerformer->fadeout_stop(2, 420); //BGM１番フェードアウト
                 _frame_prog_fainal = 0;
             }
-
-            //STG01_Climax終焉最中の処理
             _frame_prog_fainal++;
             if (_frame_prog_fainal == 420) { //BGMフェードアウトを待つ。
-                throwEventToUpperTree(EVENT_STAGE01CONTROLLER_WAS_END, this); //ステージエンドを上位に伝える
+                throwEventToUpperTree(EVENT_STAGE01CONTROLLER_WAS_END); //ステージエンドを上位に伝える
             }
             //イベント発生待ち
+            break;
         }
-
         default :
             break;
     }
+}
 
 void Stage01Controller::processFinal() {
 }
@@ -161,6 +161,7 @@ void Stage01Controller::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     } else {
 
     }
+
 }
 
 Stage01Controller::~Stage01Controller() {
