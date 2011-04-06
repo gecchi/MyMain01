@@ -52,10 +52,14 @@ public:
      */
     virtual frame getFrameWhenChanged(int prm_progress);
 
+    /**
+     * 進捗内経過フレームを取得 .
+     * @return 進捗内経過フレーム
+     */
     virtual frame getActivePartFrameInProgress();
 
     /**
-     * 進捗IDを設定 .
+     * 進捗IDを変更 .
      * 但し、同一フレーム内では反映されず、nextFrame() 時に反映される。
      * @param prm_progress 進捗ID(1～99)
      */
@@ -77,18 +81,38 @@ public:
      */
     virtual bool wasChangedTo(int prm_progress);
 
+    /**
+     * 現在の進捗に切り替わった直後なのかを判定。
+     * change(int) により切り替えられた際、 nextFrame() 時に1フレームだけ true になります。
+     * @return true:進捗に切り替わった直後である／false:それ以外
+     */
     virtual bool isJustChanged();
 
+    /**
+     * 引数の進捗IDから切り替わったのかどうかを調べる。.
+     * 切り替わった際に、直前の進捗IDを条件として調べることが出来る。
+     * 切り替わった nextFrame() 時に1フレームだけtrueになります。
+     * @param prm_progress 切り替わった際、前の進捗IDは何であったかどうか調べたい進捗ID
+     * @return true:切り替わった際、前の進捗IDは引数の進捗IDだった／false:それ以外
+     */
     virtual bool wasChangedFrom(int prm_progress);
 
     /**
      * 進捗IDが変化したか（前回と同じかどうか）調べる .
+     * 変化した場合、その新しい進捗IDを返す。
      * @return 0 又は 進捗ID
      *         0    ：変化していない
      *         0以外：変化が有りで、その新しい進捗ID
      */
     virtual int getChangedTo();
 
+    /**
+     * 進捗IDが変化したか（前回と同じかどうか）調べる .
+     * 変化した場合、その元の進捗IDを返す。
+     * @return 0 又は 進捗ID
+     *         0    ：変化していない
+     *         0以外：変化が有りで、変化前の元の進捗ID
+     */
     virtual int getChangedFrom();
 
 

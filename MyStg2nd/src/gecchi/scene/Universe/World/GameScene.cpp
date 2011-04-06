@@ -102,7 +102,7 @@ void GameScene::onReset() {
     _pScene_GameEnding->inactivate();
     _pScene_GameOver->inactivate();
 
-    _pProgress->change(GAME_SCENE_PROG_INIT);
+    _pPrg->change(GAME_SCENE_PROG_INIT);
 }
 
 void GameScene::onActive() {
@@ -121,7 +121,7 @@ void GameScene::processBehavior() {
     }
 #endif
 
-    switch (_pProgress->getChangedFrom()) {
+    switch (_pPrg->getChangedFrom()) {
         case GAME_SCENE_PROG_MAIN:
             VB_UI->clear();
             P_GOD->setVB(VB_UI);  //元に戻す
@@ -131,18 +131,18 @@ void GameScene::processBehavior() {
     }
 
 
-    switch (_pProgress->get()) {
+    switch (_pPrg->get()) {
         case GAME_SCENE_PROG_INIT:
             //先行準備
             if (!_pScene_GameMain->_had_ready_stage) {
                 _pScene_GameMain->readyStage(_stage);
             }
-            _pProgress->change(GAME_SCENE_PROG_PRE_TITLE);
+            _pPrg->change(GAME_SCENE_PROG_PRE_TITLE);
             break;
 
         case GAME_SCENE_PROG_PRE_TITLE:
             //##########  タイトル前演出  ##########
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
                 P_GOD->syncTimeFrame();
                 _pScene_PreGameTitle->reset();
                 _pScene_PreGameTitle->activate();
@@ -150,14 +150,14 @@ void GameScene::processBehavior() {
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 _pScene_PreGameTitle->inactivate();
-                _pProgress->change(GAME_SCENE_PROG_TITLE);
+                _pPrg->change(GAME_SCENE_PROG_TITLE);
             }
             //或いは EVENT_PREGAMETITLE_SCENE_FINISH イベント受付
             break;
 
         case GAME_SCENE_PROG_TITLE:
             //##########  タイトル  ##########
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
                 _pScene_GameTitle->reset();
                 _pScene_GameTitle->activate();
             }
@@ -166,13 +166,13 @@ void GameScene::processBehavior() {
 
         case GAME_SCENE_PROG_DEMO:
             //##########  デモ  ##########
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
                 _pScene_GameDemo->reset();
                 _pScene_GameDemo->activate();
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
-                _pProgress->change(GAME_SCENE_PROG_TITLE);
+                _pPrg->change(GAME_SCENE_PROG_TITLE);
                 _pScene_GameDemo->inactivate();
             }
             //或いは EVENT_GAMEDEMO_SCENE_FINISH イベント受付
@@ -180,7 +180,7 @@ void GameScene::processBehavior() {
 
         case GAME_SCENE_PROG_BEGINNING:
             //##########  ゲーム開始（モード選択等）  ##########
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
                 _pScene_GameBeginning->reset();
                 _pScene_GameBeginning->activate();
             }
@@ -189,7 +189,7 @@ void GameScene::processBehavior() {
 
         case GAME_SCENE_PROG_MAIN:
             //##########  ゲームメイン  ##########
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
                 VB_PLAY->clear();
                 P_GOD->setVB(VB_PLAY); //プレイ用に変更
                 _pScene_GameMain->reset();
@@ -231,13 +231,13 @@ void GameScene::processBehavior() {
             break;
 
         case GAME_SCENE_PROG_ENDING:
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
             }
             break;
 
         case GAME_SCENE_PROG_GAME_OVER:
             //##########  ゲームオーバー  ##########
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
                 _pScene_GameOver->reset();
                 _pScene_GameOver->activate();
             }
@@ -246,7 +246,7 @@ void GameScene::processBehavior() {
 
         case GAME_SCENE_PROG_FINISH:
             //##########  ゲームシーン終了  ##########
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
                 _pMyShipScene->fadeoutSceneTree(FADE_FRAME);
                 _pCommonScene->fadeoutSceneTree(FADE_FRAME);
                 _pScene_PreGameTitle->fadeoutSceneTree(FADE_FRAME);
@@ -257,7 +257,7 @@ void GameScene::processBehavior() {
                 _pScene_GameEnding->fadeoutSceneTree(FADE_FRAME);
                 _pScene_GameOver->fadeoutSceneTree(FADE_FRAME);
             }
-            if (_pProgress->getActivePartFrameInProgress() == FADE_FRAME) {
+            if (_pPrg->getActivePartFrameInProgress() == FADE_FRAME) {
                 reset(); //リセット（最初の進捗状態に戻る）
             }
             break;
@@ -271,43 +271,43 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_PREGAMETITLE_SCENE_FINISH) {
         //プレタイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLE_SCENE_FINISH)");
-        _pProgress->change(GAME_SCENE_PROG_TITLE); //タイトルへ
+        _pPrg->change(GAME_SCENE_PROG_TITLE); //タイトルへ
 
     } else if (prm_no == EVENT_GAMETITLE_SCENE_FINISH) {
         //タイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLE_SCENE_FINISH)");
-        _pProgress->change(GAME_SCENE_PROG_DEMO); //デモへ
+        _pPrg->change(GAME_SCENE_PROG_DEMO); //デモへ
 
     } else if (prm_no == EVENT_GAMEDEMO_SCENE_FINISH) {
         //デモシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMO_SCENE_FINISH)");
-        _pProgress->change(GAME_SCENE_PROG_INIT); //最初へ
+        _pPrg->change(GAME_SCENE_PROG_INIT); //最初へ
 
     } else if (prm_no == EVENT_GAMESTART) {
         //スタート
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMESTART)");
-        _pProgress->change(GAME_SCENE_PROG_BEGINNING); //オープニング（ゲームモードセレクト）へ
+        _pPrg->change(GAME_SCENE_PROG_BEGINNING); //オープニング（ゲームモードセレクト）へ
 
     } else if (prm_no == EVENT_GAMEMODE_DECIDE) {
         //ゲームモードセレクト完了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEMODE_DECIDE)");
         _stage = 1;
-        _pProgress->change(GAME_SCENE_PROG_MAIN); //メインへ
+        _pPrg->change(GAME_SCENE_PROG_MAIN); //メインへ
 
     } else if (prm_no == EVENT_GOTO_GAMETITLE) {
         //とにかくタイトルへイベント発生
         _TRACE_("GameScene::onCatchEvent(EVENT_GOTO_GAMETITLE)");
-        _pProgress->change(GAME_SCENE_PROG_TITLE); //タイトルへ
+        _pPrg->change(GAME_SCENE_PROG_TITLE); //タイトルへ
     }
 
 
 
     if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
         _TRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
-        _pProgress->change(GAME_SCENE_PROG_GAME_OVER); //ゲームオーバーへ
+        _pPrg->change(GAME_SCENE_PROG_GAME_OVER); //ゲームオーバーへ
     } else if (prm_no == EVENT_GAME_OVER_FINISH) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GAME_OVER_FINISH)");
-        _pProgress->change(GAME_SCENE_PROG_FINISH);
+        _pPrg->change(GAME_SCENE_PROG_FINISH);
     }
 }
 

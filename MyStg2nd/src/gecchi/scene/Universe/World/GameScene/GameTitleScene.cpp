@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameTitleScene";
     useProgress(10);
-    _pProgress->change(GAMEDEMO_SCENE_PROG_INIT);
+    _pPrg->change(GAMEDEMO_SCENE_PROG_INIT);
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
     getLordActor()->addSubGroup(_pStringBoard01);
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");
@@ -25,7 +25,7 @@ void GameTitleScene::onReset() {
     _pStringBoard01->update("");
     _pStringBoard02->update("");
     _pTitleBoard->locate(200, 150);
-    _pProgress->change(GAMETITLE_SCENE_PROG_INIT);
+    _pPrg->change(GAMETITLE_SCENE_PROG_INIT);
     unblindScene();
 }
 
@@ -38,41 +38,41 @@ void GameTitleScene::initialize() {
 
 void GameTitleScene::processBehavior() {
 
-    switch (_pProgress->getChangedFrom()) {
+    switch (_pPrg->getChangedFrom()) {
         default:
             break;
     }
 
 
-    switch (_pProgress->get()) {
+    switch (_pPrg->get()) {
         case GAMETITLE_SCENE_PROG_INIT:
-            _pProgress->change(GAMETITLE_SCENE_PROG_TITLE);
+            _pPrg->change(GAMETITLE_SCENE_PROG_TITLE);
             break;
 
         case GAMETITLE_SCENE_PROG_TITLE:
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
                 _pStringBoard02->update(400, 500, "PUSH UI_EXECUTE TO START!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMESTART)");
-                _pProgress->change(GAMETITLE_SCENE_PROG_GAMESTART);
-            } else if (_pProgress->getActivePartFrameInProgress() == 240) {
+                _pPrg->change(GAMETITLE_SCENE_PROG_GAMESTART);
+            } else if (_pPrg->getActivePartFrameInProgress() == 240) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLE_SCENE_FINISH)");
                 throwEventToUpperTree(EVENT_GAMETITLE_SCENE_FINISH); //普通に終了イベント
-                _pProgress->change(GAMETITLE_SCENE_PROG_FINISH); //タイトルシーン終了へ
+                _pPrg->change(GAMETITLE_SCENE_PROG_FINISH); //タイトルシーン終了へ
             }
             break;
 
         case GAMETITLE_SCENE_PROG_GAMESTART:
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
             }
-            if (_pProgress->getActivePartFrameInProgress() == 90) {
+            if (_pPrg->getActivePartFrameInProgress() == 90) {
                 throwEventToUpperTree(EVENT_GAMESTART);      //スタートでに終了イベント
-                _pProgress->change(GAMETITLE_SCENE_PROG_FINISH); //タイトルシーン終了へ
+                _pPrg->change(GAMETITLE_SCENE_PROG_FINISH); //タイトルシーン終了へ
             }
             //点滅
-            if (_pProgress->getActivePartFrameInProgress() % 10 < 5 ) {
+            if (_pPrg->getActivePartFrameInProgress() % 10 < 5 ) {
                 _pStringBoard02->update(400, 500, "READY GO!");
             } else {
                 _pStringBoard02->update(400, 500, "");
@@ -80,7 +80,7 @@ void GameTitleScene::processBehavior() {
             break;
 
         case GAMETITLE_SCENE_PROG_FINISH:
-            if (_pProgress->isJustChanged()) {
+            if (_pPrg->isJustChanged()) {
                 fadeoutSceneTree(FADE_FRAME);
                 inactivateDelay(FADE_FRAME);
             }
