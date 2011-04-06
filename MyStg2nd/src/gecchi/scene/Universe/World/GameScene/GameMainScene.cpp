@@ -45,7 +45,7 @@ void GameMainScene::onReset() {
     if (_pSceneMainCannnel) {
         _pSceneMainCannnel->inactivate();
     }
-    _pPrg->change(GAMEMAIN_SCENE_PROG_INIT);
+    _pPrg->set(GAMEMAIN_SCENE_PROG_INIT);
 }
 void GameMainScene::readyNextStage() {
     _stage++;
