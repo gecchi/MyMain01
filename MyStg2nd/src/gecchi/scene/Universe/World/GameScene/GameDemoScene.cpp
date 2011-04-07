@@ -22,6 +22,7 @@ void GameDemoScene::onReset() {
     _pStringBoard02->update("");
     unblindScene();
 }
+
 void GameDemoScene::onActive() {
 }
 

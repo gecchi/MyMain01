@@ -3,8 +3,10 @@
 
 #define GAMETITLE_SCENE_PROG_INIT          1
 #define GAMETITLE_SCENE_PROG_TITLE         3
-#define GAMETITLE_SCENE_PROG_GAMESTART     4
-#define GAMETITLE_SCENE_PROG_FINISH        5
+#define GAMETITLE_SCENE_PROG_SELECT        4
+#define GAMETITLE_SCENE_PROG_GAMESTART     5
+#define GAMETITLE_SCENE_PROG_FINISH        6
+
 
 namespace MyStg2nd {
 
@@ -19,9 +21,16 @@ class GameTitleScene : public GgafDx9LibStg::DefaultScene {
 
 public:
 
+
     LabelGecchi16Font* _pStringBoard01;
     LabelGecchi16Font* _pStringBoard02;
+
+    LabelGecchi16Font** _papStringItem;
+    Cursor001* _pCursor001;
+
     TitleBoard* _pTitleBoard;
+
+    int _max_menu_item;
 
     GameTitleScene(const char* prm_name);
     void onReset() override;

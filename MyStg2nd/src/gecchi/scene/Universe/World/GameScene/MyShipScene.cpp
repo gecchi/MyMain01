@@ -53,14 +53,14 @@ void MyShipScene::onReset() {
     unblindScene();
     _pPrg->set(MYSHIPSCENE_SCENE_PROG_INIT);
 }
+
 void MyShipScene::onActive() {
 }
 
 void MyShipScene::processBehavior() {
 
-    switch (_pPrg->getChangedFrom()) {
-        case MYSHIPSCENE_SCENE_PROG_BEGIN:
-            {
+    switch (_pPrg->getFromChange()) {
+        case MYSHIPSCENE_SCENE_PROG_BEGIN: {
                 P_UNIVERSE->undoCameraWork();
             }
             break;

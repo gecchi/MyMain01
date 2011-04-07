@@ -18,8 +18,6 @@ public:
      */
     void initialize() override;
 
-    virtual void onActive() override;
-
     virtual void processBehavior() override;
 
     virtual void processFinal() override;

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 using namespace std;
-
 using namespace GgafCore;
 
 GgafProgress::GgafProgress(frame* prm_pFrame_behaving, int prm_num) : GgafObject() ,
@@ -15,7 +14,6 @@ _pFrame_behaving(prm_pFrame_behaving)
         _paFrame_ProgressChanged[i] = x; //óLÇËÇ¶Ç»Ç¢ÉtÉåÅ[ÉÄÇ»ÇÁó«Ç¢
     }
 }
-
 
 int GgafProgress::get() {
     return _progress;
@@ -78,7 +76,6 @@ bool GgafProgress::wasChangedFrom(int prm_progress) {
     }
 }
 
-
 int GgafProgress::getChangedTo() {
     if (_progress != _progress_prev) {
         return _progress;
@@ -87,7 +84,7 @@ int GgafProgress::getChangedTo() {
     }
 }
 
-int GgafProgress::getChangedFrom() {
+int GgafProgress::getFromChange() {
     if (_progress != _progress_prev) {
         return _progress_prev;
     } else {

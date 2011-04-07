@@ -1,7 +1,7 @@
 #ifndef GGAFPROGRESS_H_
 #define GGAFPROGRESS_H_
-namespace GgafCore {
 
+namespace GgafCore {
 
 /**
  * 進捗管理クラス .
@@ -12,7 +12,6 @@ namespace GgafCore {
 class GgafProgress : public GgafObject {
 
 public:
-
     /** [r]現在進捗ID(1～99) */
     int _progress;
     /** [r]１フレーム前進捗ID(1～99) */
@@ -21,13 +20,15 @@ public:
     int _progress_nextframe;
     /** [r]進捗IDイベント時フレームストック */
     frame* _paFrame_ProgressChanged;
+    /**[r] ノードの_frame_of_behaving (毎フレーム1 増えるカウンター)の参照 */
     frame* _pFrame_behaving;
 
     /**
      * コンストラクタ .
+     * @param prm_pFrame_behaving ノードの_frame_of_behaving の参照を渡す
+     * @param prm_num 最大進捗ID数
      */
     GgafProgress(frame* prm_pFrame_behaving, int prm_num);
-
 
     /**
      * 現在の進捗ID取得 .
@@ -70,7 +71,6 @@ public:
      * 1～99 の範囲となるように注意すること。
      * 但し、同一フレーム内では反映されず、nextFrame() 時に反映される。
      */
-
     virtual void changeNext();
 
     /**
@@ -107,15 +107,18 @@ public:
     virtual int getChangedTo();
 
     /**
-     * 進捗IDが変化したか（前回と同じかどうか）調べる .
+     * 進捗IDが何から変化したか調べる .
      * 変化した場合、その元の進捗IDを返す。
      * @return 0 又は 進捗ID
      *         0    ：変化していない
      *         0以外：変化が有りで、変化前の元の進捗ID
      */
-    virtual int getChangedFrom();
+    virtual int getFromChange();
 
-
+    /**
+     * 進捗を更新 .
+     * 毎フレーム実行擦る必要があります
+     */
     virtual void update();
 
     virtual ~GgafProgress();

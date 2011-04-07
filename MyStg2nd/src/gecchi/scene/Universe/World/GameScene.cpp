@@ -106,7 +106,6 @@ void GameScene::onReset() {
 }
 
 void GameScene::onActive() {
-    reset();
 }
 
 void GameScene::processBehavior() {
@@ -121,7 +120,7 @@ void GameScene::processBehavior() {
     }
 #endif
 
-    switch (_pPrg->getChangedFrom()) {
+    switch (_pPrg->getFromChange()) {
         case GAME_SCENE_PROG_MAIN:
             VB_UI->clear();
             P_GOD->setVB(VB_UI);  //元に戻す
@@ -148,7 +147,7 @@ void GameScene::processBehavior() {
                 _pScene_PreGameTitle->activate();
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
-            if (VB->isPushedDown(VB_UI_EXECUTE)) {
+            if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
                 _pScene_PreGameTitle->inactivate();
                 _pPrg->change(GAME_SCENE_PROG_TITLE);
             }

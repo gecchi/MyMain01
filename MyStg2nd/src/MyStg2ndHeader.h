@@ -142,7 +142,7 @@ class World;
 class CommonScene;
 
 class TitleBoard;
-
+class Cursor001;
 
 class PreDrawScene;
 class LaserChipEffectActor;
@@ -436,7 +436,10 @@ class MagicMeter;
 
 #include "gecchi/actor/enemy/Tamago/TamagoActor.h"
 #include "gecchi/actor/enemy/Tamago/EnemyTamago01.h"
+
 #include "gecchi/actor/title/TitleBoard.h"
+#include "gecchi/actor/title/Cursor001.h"
+
 #include "gecchi/actor/background/board/TurboMeter.h"
 #include "gecchi/actor/background/HoshiBoshi001.h"
 #include "gecchi/actor/background/HoshiBoshi002.h"

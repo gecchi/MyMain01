@@ -59,14 +59,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     // gen01 end
 }
 
-
 void Stage01WalledScene::initialize() {
-}
-
-
-
-void Stage01WalledScene::onActive() {
-    WalledScene::onActive();
 }
 
 void Stage01WalledScene::processBehavior() {
