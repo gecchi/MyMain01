@@ -8,8 +8,7 @@ using namespace MyStg2nd;
 
 TitleBoard::TitleBoard(const char* prm_name) : DefaultBoardSetActor(prm_name, "title") {
     _class_name = "TitleBoard";
-    //_z = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
-    _z = 0.9999999f;
+    //_z = 0.9999999f;  //ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
     useProgress(10);
 }
 void TitleBoard::initialize() {
