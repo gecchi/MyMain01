@@ -67,6 +67,19 @@ void GgafDx9StringBoardActor::update(char* prm_str) {
     _len = strlen(prm_str);
 }
 
+
+void GgafDx9StringBoardActor::update(float prm_x, float prm_y, float prm_z) {
+    _x = prm_x;
+    _y = prm_y;
+    _z = prm_z;
+}
+
+void GgafDx9StringBoardActor::update(float prm_x, float prm_y) {
+    _x = prm_x;
+    _y = prm_y;
+}
+
+
 void GgafDx9StringBoardActor::processDraw() {
     if (_len == 0) {
         return;

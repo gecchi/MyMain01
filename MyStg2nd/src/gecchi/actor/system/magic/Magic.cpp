@@ -197,7 +197,7 @@ void Magic::processBehavior() {
                 //詠唱中
                 processCastingBehavior(_level, _new_level);
 
-                if (_pPrg->getActivePartFrameInProgress() >= _time_of_next_state) {
+                if (_pPrg->getFrameInProgress() >= _time_of_next_state) {
                     //詠唱終了
                     processCastFinish(_level, _new_level);
                     _pPrg->change(MAGIC_INVOKING);
@@ -216,7 +216,7 @@ void Magic::processBehavior() {
                 //発動中
                 processInvokeingBehavior(_level, _new_level);
 
-                if (_pPrg->getActivePartFrameInProgress() >= _time_of_next_state) {
+                if (_pPrg->getFrameInProgress() >= _time_of_next_state) {
                     //発動終了
                     //レベル変更適用
                     _last_level = _level;

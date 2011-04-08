@@ -12,8 +12,8 @@ class GgafDx9SeTransmitter : public GgafCore::GgafObject {
 public:
     /** SE‘Œ¹Ú‘± */
     GgafDx9SeConnection** _papSeCon;
-
-
+    /** ‹[—‚RDÄ¶‚©”Û‚© */
+    bool* _pa_is3D;
 
     int _se_num;
     GgafDx9GeometricActor* _pActor;

@@ -41,7 +41,7 @@ void GameDemoScene::processBehavior() {
                 _pStringBoard01->update(100, 100, "DEMOPLAY NOW");
                 _pStringBoard02->update(100, 150, "GAME OVER");
             }
-            if (_pPrg->getActivePartFrameInProgress() == 180) {
+            if (_pPrg->getFrameInProgress() == 180) {
                 _pPrg->change(GAMEDEMO_SCENE_PROG_RANKING);
             }
             break;
@@ -51,7 +51,7 @@ void GameDemoScene::processBehavior() {
                 _pStringBoard01->update(100, 100, "RANKING NOW");
                 _pStringBoard02->update(100, 150, "GAME OVER");
             }
-            if (_pPrg->getActivePartFrameInProgress() == 180) {
+            if (_pPrg->getFrameInProgress() == 180) {
                 _pPrg->change(GAMEDEMO_SCENE_PROG_FINISH);
             }
             break;

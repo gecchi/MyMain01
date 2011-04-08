@@ -110,7 +110,7 @@ void MyShipScene::processBehavior() {
                 _pMyOptionController->_is_free_from_myship_mode = true;
                 _zanki -= 1;
             }
-            if (_pPrg->getActivePartFrameInProgress() == 120) {
+            if (_pPrg->getFrameInProgress() == 120) {
                 if (_zanki == 0) {
                    throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
                    _pPrg->change(PROG_NOTHING);

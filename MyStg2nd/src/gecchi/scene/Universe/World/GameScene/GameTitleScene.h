@@ -7,6 +7,7 @@
 #define GAMETITLE_SCENE_PROG_GAMESTART     5
 #define GAMETITLE_SCENE_PROG_FINISH        6
 
+#define GAMETITLE_TIMEOUT 240
 
 namespace MyStg2nd {
 
@@ -20,7 +21,7 @@ namespace MyStg2nd {
 class GameTitleScene : public GgafDx9LibStg::DefaultScene {
 
 public:
-
+    GgafDx9Core::GgafDx9SeConnection* _pSeCon_exec;
 
     LabelGecchi16Font* _pStringBoard01;
     LabelGecchi16Font* _pStringBoard02;
@@ -31,6 +32,8 @@ public:
     TitleBoard* _pTitleBoard;
 
     int _max_menu_item;
+    int _active_item;
+    frame _frame_of_noinput;
 
     GameTitleScene(const char* prm_name);
     void onReset() override;

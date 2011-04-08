@@ -50,6 +50,9 @@ public:
     virtual void update(const char* prm_str);
     virtual void update(char* prm_str);
 
+    virtual void update(float prm_x, float prm_y, float prm_z);
+    virtual void update(float prm_x, float prm_y);
+
     virtual ~GgafDx9StringBoardActor();
 
 };

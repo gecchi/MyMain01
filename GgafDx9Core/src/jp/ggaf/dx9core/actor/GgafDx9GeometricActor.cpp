@@ -12,7 +12,8 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
     _SX = _SY = _SZ = LEN_UNIT;
-    _x = _y = _z = 0.0f;
+    _x = _y = 0.0f;
+    _z = 0.00000001f; //ÇŸÇ⁄ç≈ëOñ 
 
     _fBoundingSphereRadius = 0;
     _fRate_BoundingSphereRadius = 1.0f;

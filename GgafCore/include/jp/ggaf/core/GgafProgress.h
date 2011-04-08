@@ -22,13 +22,14 @@ public:
     frame* _paFrame_ProgressChanged;
     /**[r] ノードの_frame_of_behaving (毎フレーム1 増えるカウンター)の参照 */
     frame* _pFrame_behaving;
-
+    /** 管理される進捗IDの個数 */
+    int _num_progress;
     /**
      * コンストラクタ .
      * @param prm_pFrame_behaving ノードの_frame_of_behaving の参照を渡す
-     * @param prm_num 最大進捗ID数
+     * @param prm_num_progress 最大進捗ID数
      */
-    GgafProgress(frame* prm_pFrame_behaving, int prm_num);
+    GgafProgress(frame* prm_pFrame_behaving, int prm_num_progress);
 
     /**
      * 現在の進捗ID取得 .
@@ -54,10 +55,10 @@ public:
     virtual frame getFrameWhenChanged(int prm_progress);
 
     /**
-     * 進捗内経過フレームを取得 .
+     * 進捗内での経過フレームを取得 .
      * @return 進捗内経過フレーム
      */
-    virtual frame getActivePartFrameInProgress();
+    virtual frame getFrameInProgress();
 
     /**
      * 進捗IDを変更 .

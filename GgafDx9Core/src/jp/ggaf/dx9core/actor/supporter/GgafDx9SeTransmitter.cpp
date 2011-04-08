@@ -9,13 +9,16 @@ GgafDx9SeTransmitter::GgafDx9SeTransmitter(GgafDx9GeometricActor* prm_pActor) :
     _pActor = prm_pActor;
     _se_num = 0;
     _papSeCon = NULL;
+    _pa_is3D = NULL;
 }
 
 void GgafDx9SeTransmitter::useSe(int prm_se_num) {
     _se_num = prm_se_num;
     _papSeCon = NEW GgafDx9SeConnection*[_se_num];
+    _pa_is3D = NEW bool[_se_num];
     for (int i = 0; i < _se_num; i++) {
         _papSeCon[i] = NULL;
+        _pa_is3D[i] = false;
     }
 }
 
@@ -40,6 +43,7 @@ void GgafDx9SeTransmitter::playImmediately(int prm_id) {
     }
 #endif
     _papSeCon[prm_id]->refer()->play(GGAF_MAX_VOLUME, 0.0);
+    _pa_is3D[prm_id] = false;
 }
 
 
@@ -50,6 +54,7 @@ void GgafDx9SeTransmitter::play(int prm_id) {
     }
 #endif
     P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), GGAF_MAX_VOLUME, 0.0, 1.0, 0);
+    _pa_is3D[prm_id] = false;
 }
 void GgafDx9SeTransmitter::play3D(int prm_id) {
 #ifdef MY_DEBUG
@@ -98,6 +103,8 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
 
 
     P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), vol, pan, rate_frequency, delay); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
+
+    _pa_is3D[prm_id] = true;
     //真ん中からの距離
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);
@@ -125,45 +132,49 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
     float rate_frequency;
     bool calc_flg = true;
     for (int i = 0; i < _se_num; i++) {
-        if (_papSeCon[i]->refer()->isPlaying()) {
-            rate_frequency = 1.0;
-            if (calc_flg) {
-                calc_flg = false;
-                GgafDx9Camera* pCam = P_CAM;
-                //距離計算
-                //遅延なし、音量100％の場所をP_CAMの場所とする
-                //自身とP_CAMの距離
-                int DX = (pCam->_X - _pActor->_X) / LEN_UNIT;
-                int DY = (pCam->_Y - _pActor->_Y) / LEN_UNIT;
-                int DZ = (pCam->_Z - _pActor->_Z) / LEN_UNIT;
+        if (_pa_is3D[i]) {
+            if (_papSeCon[i]->refer()->isPlaying()) {
+                rate_frequency = 1.0;
+                if (calc_flg) {
+                    calc_flg = false;
+                    GgafDx9Camera* pCam = P_CAM;
+                    //距離計算
+                    //遅延なし、音量100％の場所をP_CAMの場所とする
+                    //自身とP_CAMの距離
+                    int DX = (pCam->_X - _pActor->_X) / LEN_UNIT;
+                    int DY = (pCam->_Y - _pActor->_Y) / LEN_UNIT;
+                    int DZ = (pCam->_Z - _pActor->_Z) / LEN_UNIT;
 
-                //備忘録
-                //例えば消滅時の爆発だった場合、_pActor->_X みたいに、消滅後も値を参照したい。
-                //そこで GGAF_SAYONARA_DELAY が重要になっている
+                    //備忘録
+                    //例えば消滅時の爆発だった場合、_pActor->_X みたいに、消滅後も値を参照したい。
+                    //そこで GGAF_SAYONARA_DELAY が重要になっている
 
-                double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
-                vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT*0.75))) * VOLUME_RANGE_3D);
-                if (VOLUME_MAX_3D < vol) {
-                    vol = VOLUME_MAX_3D;
-                } else if (VOLUME_MIN_3D > vol) {
-                    vol = VOLUME_MIN_3D;
+                    double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
+                    vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT*0.75))) * VOLUME_RANGE_3D);
+                    if (VOLUME_MAX_3D < vol) {
+                        vol = VOLUME_MAX_3D;
+                    } else if (VOLUME_MIN_3D > vol) {
+                        vol = VOLUME_MIN_3D;
+                    }
+
+                    float fDist_VpVerticalCenter  =
+                            pCam->_plnVerticalCenter.a*_pActor->_fX +
+                            pCam->_plnVerticalCenter.b*_pActor->_fY +
+                            pCam->_plnVerticalCenter.c*_pActor->_fZ +
+                            pCam->_plnVerticalCenter.d;
+                    angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
+                    pan = GgafDx9Util::COS[ang/ANGLE_RATE] * 0.7; //0.7は完全に右のみ或いは左のみから聞こえるのを避けるため
+
+                    if (_pActor->_fDist_VpPlnFront > 0) {
+                        rate_frequency = 0.9; //背後の場合周波数を下げ、音を少しぐぐもらせる。
+                    }
                 }
-
-                float fDist_VpVerticalCenter  =
-                        pCam->_plnVerticalCenter.a*_pActor->_fX +
-                        pCam->_plnVerticalCenter.b*_pActor->_fY +
-                        pCam->_plnVerticalCenter.c*_pActor->_fZ +
-                        pCam->_plnVerticalCenter.d;
-                angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
-                pan = GgafDx9Util::COS[ang/ANGLE_RATE] * 0.7; //0.7は完全に右のみ或いは左のみから聞こえるのを避けるため
-
-                if (_pActor->_fDist_VpPlnFront > 0) {
-                    rate_frequency = 0.9; //背後の場合周波数を下げ、音を少しぐぐもらせる。
-                }
+                _papSeCon[i]->refer()->setPan(pan);
+                _papSeCon[i]->refer()->setVolume(vol);
+                _papSeCon[i]->refer()->setFrequencyRate(rate_frequency);
+            } else {
+                _pa_is3D[i] = false;
             }
-            _papSeCon[i]->refer()->setPan(pan);
-            _papSeCon[i]->refer()->setVolume(vol);
-            _papSeCon[i]->refer()->setFrequencyRate(rate_frequency);
         }
     }
 }
@@ -181,5 +192,6 @@ GgafDx9SeTransmitter::~GgafDx9SeTransmitter() {
         }
     }
     DELETEARR_POSSIBLE_NULL(_papSeCon);
+    DELETEARR_POSSIBLE_NULL(_pa_is3D);
 }
 

@@ -131,38 +131,128 @@ public:
 
     VBRecord* _pVBRecord_Active; //現在フレームの入力状態
 
-    VBRecord* getPastVBRecord(frame prm_frame_Ago);
+    VBRecord* getPastVBRecord(frame prm_frame_ago);
 
+    /**
+     * 現在ボタンが押されているか判定 .
+     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @return true/false
+     */
     vbsta isBeingPressed(vbsta prm_VB);
 
     /**
-     * オートリピート入力判定 .
-     * @param prm_VB 仮想ボタン(VB_ で始まる定数)
-     * @return
+     * 現在ボタンが押されていないか判定 .
+     * isBeingPressed(vbsta) の否定の結果が返る。
+     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @return true/false
      */
-    vbsta isAutoRepeat(vbsta prm_VB);
-
-    vbsta wasBeingPressed(vbsta prm_VB, frame prm_frame_Ago);
-
     vbsta isNotBeingPressed(vbsta prm_VB);
 
-    vbsta wasNotBeingPressed(vbsta prm_VB, frame prm_frame_Ago);
+    /**
+     * 過去にボタンが押されていたかどうか判定 .
+     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
+     *                      1 で 1フレーム前、2 で 2フレーム前、0 は isBeingPressed(vbsta) と同じ意味になる。
+     *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
+     * @return true/false
+     */
+    vbsta wasBeingPressed(vbsta prm_VB, frame prm_frame_ago);
 
+    /**
+     * 過去にボタンが押されていなかったのかどうか判定 .
+     * wasBeingPressed(vbsta, frame) の否定の結果が返る。
+     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
+     *                      1 で 1フレーム前、2 で 2フレーム前、0 は isBeingPressed(vbsta) と同じ意味になる。
+     *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
+     * @return true/false
+     */
+    vbsta wasNotBeingPressed(vbsta prm_VB, frame prm_frame_ago);
+
+    /**
+     * 現在ボタンが押された瞬間なのかどうか判定 .
+     * 現在は押されている、かつ、１フレーム前は押されていない場合に true
+     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @return true/false
+     */
     vbsta isPushedDown(vbsta prm_VB);
 
-    vbsta isPushedUp(vbsta prm_VB, frame prm_frame_push = 5);
+    /**
+     * 過去にボタンが押された瞬間があったのかどうか判定 .
+     * prm_frame_agoフレーム前は押されていた、かつ、(prm_frame_ago+1)フレーム前は押されていなかった場合に true
+     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
+     *                      1 で 1フレーム前、2 で 2フレーム前、0 は isPushedDown(vbsta) と同じ意味になる。
+     *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
+     * @return true/false
+     */
+    vbsta wasPushedDown(vbsta prm_VB, frame prm_frame_ago);
 
-    vbsta isDoublePushedDown(vbsta prm_VB, frame prm_frame_push = 5, frame prm_frame_delay = 5);
-
-
-
-
-    vbsta wasPushedDown(vbsta prm_VB, frame prm_frame_Ago);
-
+    /**
+     * 現在ボタンを離した瞬間なのかどうか判定 .
+     * 現在は押されていない、かつ、１フレーム前は押されていた場合に true
+     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @return true/false
+     */
     vbsta isReleasedUp(vbsta prm_VB);
 
-    vbsta wasReleasedUp(vbsta prm_VB, frame prm_frame_Ago);
+    /**
+     * 過去にボタンを離した瞬間があったのかどうか判定 .
+     * prm_frame_agoフレーム前は押されていなかった、かつ、(prm_frame_ago+1)フレーム前は押されていた場合に true
+     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
+     *                      1 で 1フレーム前、2 で 2フレーム前、0 は isReleasedUp(vbsta) と同じ意味になる。
+     * @return true/false
+     */
+    vbsta wasReleasedUp(vbsta prm_VB, frame prm_frame_ago);
 
+
+    /**
+     * チョン押し判定 .
+     * 「ボタンを押していなかった→ボタンを押した→ボタンを離した」という状態遷移が、
+     * 現在成立したかどうか判定する。
+     * 但し押していた期間が prm_frame_push 以上押していると成立しない（チョン押しと認められない）。
+     * ※たとえば独歩のGボタン判定なら prm_frame_push=2 を指定。ﾅﾝﾉｺｯﾁｬ;
+     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @param prm_frame_push 許容するボタンを押していた期間フレーム(default=5)
+     * @return true/false
+     */
+    vbsta isPushedUp(vbsta prm_VB, frame prm_frame_push = 5);
+
+    /**
+     * ダブルプッシュ判定 .
+     * 「(a)ボタンを押していなかった→(b)ボタンを押した→(c)ボタンを離した→(d)ボタンを押した」という状態遷移が、
+     * 現在成立したかどうか判定する。
+     * 但し   (b)～(c)の押していた期間が prm_frame_push 以上押していると成立しない。
+     * さらに (c)～(d)の２回目のボタン押しまでの期間が prm_frame_delay 以上開いていると成立しない。
+     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @param prm_frame_push 許容する(b)～(c) の期間
+     * @param prm_frame_delay 許容する(c)～(d) の期間
+     * @return
+     */
+    vbsta isDoublePushedDown(vbsta prm_VB, frame prm_frame_push = 5, frame prm_frame_delay = 5);
+
+    /**
+     * 複数ボタン同時押し判定 .
+     * isPushedDown(vbsta) の引数に複数ボタンを指定し判定を行えば、同時押し判定は可能である。
+     * しかし、複数ボタンを押す際に1フレームでもバラツキがあれば成立せず、完全に同時に押さなければならない。
+     * そこで、本メソッドは、このバラツキを考慮した同時押し判定である。
+     * 具体的には、引数のそれぞれのボタンの現在に至るまでの４フレームの状態履歴が、
+     * 次のいずれかの状態遷移であれば1回成立という判定を行っている。
+     * <pre>
+     * ↑ > ？ > ？ > ↓
+     *       or
+     * ？ > ↑ > ？ > ↓
+     *       or
+     * ？ > ？ > ↑ > ↓
+     *
+     * ※↓：押している ／ ↑：離している ／ ？：任意
+     * ※一番右が現在の状態、左が過去
+     * </pre>
+     * @param prm_aVB 同時押し判定対象仮想ボタン配列
+     * @param prm_iButtonNum 配列の要素数
+     * @return
+     */
     vbsta arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum);
 
     vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2) {
@@ -188,6 +278,26 @@ public:
         vb[3] = prm_VB4;
         return arePushedDownAtOnce(vb, 4);
     }
+
+    /**
+     * オートリピート入力判定 .
+     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @return true/false
+     */
+    vbsta isAutoRepeat(vbsta prm_VB);
+
+    /**
+     * グルッとポンか否か判定 .
+     * ザンギエフのスクリューパイルドライバーコマンド入力判定です。
+     * 具体的には、prm_frame_delay 以内に
+     * ↑ → ↓ ← の４方向ボタン押しが成立後、isPushedDown(prm_VB) が成立。
+     * の場合に true としています。
+     * @param prm_VB 「グルッとポン」の「ポン」のボタン
+     * @param prm_frame_delay 「グルッとポン」が成立する許容フレーム
+     * @return true/false
+     */
+    bool isRoundPushDown(vbsta prm_VB, frame prm_frame_delay=30);
+
 
     /**
      * 現在押しっぱなしのスティックの番号を返す。
@@ -222,13 +332,6 @@ public:
 
     vbsta isDoublePushedDownStick(frame prm_frame_push = 5, frame prm_frame_delay = 5);
 
-    /**
-     * グルッとポンか否か .
-     * @param prm_VB グルッとポンのポンのボダン
-     * @param prm_frame_delay グルッとが成立する許容フレーム
-     * @return
-     */
-    bool isRoundPushDown(vbsta prm_VB, frame prm_frame_delay=30);
 
 //    /**
 //     * 今、prm_VB1と同時にPushedDownされたスティックの番号を返す。

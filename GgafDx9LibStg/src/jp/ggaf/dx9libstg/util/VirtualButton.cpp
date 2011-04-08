@@ -245,9 +245,9 @@ void VirtualButton::init() {
 }
 
 
-VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_Ago) {
+VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) {
     VBRecord* pVBRecord_Temp = _pVBRecord_Active;
-    for (frame i = 0; i < prm_frame_Ago; i++) {
+    for (frame i = 0; i < prm_frame_ago; i++) {
         pVBRecord_Temp = pVBRecord_Temp->_prev;
     }
     return pVBRecord_Temp;
@@ -285,8 +285,8 @@ vbsta VirtualButton::isAutoRepeat(vbsta prm_VB) {
 
 
 
-vbsta VirtualButton::wasBeingPressed(vbsta prm_VB, frame prm_frame_Ago) {
-    VBRecord* pVBRecord_Temp = getPastVBRecord(prm_frame_Ago);
+vbsta VirtualButton::wasBeingPressed(vbsta prm_VB, frame prm_frame_ago) {
+    VBRecord* pVBRecord_Temp = getPastVBRecord(prm_frame_ago);
     return pVBRecord_Temp->_state & prm_VB;
 }
 
@@ -298,8 +298,8 @@ vbsta VirtualButton::isNotBeingPressed(vbsta prm_VB) {
     }
 }
 
-vbsta VirtualButton::wasNotBeingPressed(vbsta prm_VB, frame prm_frame_Ago) {
-    if (wasBeingPressed(prm_VB, prm_frame_Ago)) {
+vbsta VirtualButton::wasNotBeingPressed(vbsta prm_VB, frame prm_frame_ago) {
+    if (wasBeingPressed(prm_VB, prm_frame_ago)) {
         return false;
     } else {
         return true;
@@ -390,12 +390,11 @@ vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum) {
 
     //３フレーム余裕を見る
     //全ボタンについて、それぞれが以下のいづれかの動作になっているかチェック。
-    //↑ > ↓ > ↓ > ↓
-    //↑ > ↑ > ↓ > ↓
-    //↑ > ↑ > ↑ > ↓
-    //↓ > ↓ > ↑ > ↓
-    //↓ > ↑ > ↑ > ↓
-    //↓ > ↑ > ↓ > ↓
+    // ↑ > ？ > ？ > ↓
+    //       or
+    // ？ > ↑ > ？ > ↓
+    //       or
+    // ？ > ？ > ↑ > ↓
     static bool prev1Flg, prev2Flg, prev3Flg;
     for (int i = 0; i < prm_iButtonNum; i++) {
         prev1Flg = wasNotBeingPressed(prm_aVB[i], 1);
@@ -413,7 +412,7 @@ vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum) {
     }
 
     //但し1つ前のフレームで、全て押されていては成立しない。
-    //（この条件入れないと、「同時押し→押しっぱなし」の場合、３フレーム連続で成立してしまう）
+    //この条件入れないと、「同時押し→押しっぱなし」の場合、最大３フレーム連続で成立してしまう場合がある。
     for (int i = 0; i < prm_iButtonNum; i++) {
         if (wasNotBeingPressed(prm_aVB[i], 1)) {
             return true;
@@ -422,8 +421,8 @@ vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum) {
     return false;
 }
 
-vbsta VirtualButton::wasPushedDown(vbsta prm_VB, frame prm_frame_Ago) {
-    if (wasBeingPressed(prm_VB, prm_frame_Ago) && wasNotBeingPressed(prm_VB, prm_frame_Ago + 1)) {
+vbsta VirtualButton::wasPushedDown(vbsta prm_VB, frame prm_frame_ago) {
+    if (wasBeingPressed(prm_VB, prm_frame_ago) && wasNotBeingPressed(prm_VB, prm_frame_ago + 1)) {
         return true;
     } else {
         return false;
@@ -439,10 +438,13 @@ vbsta VirtualButton::isReleasedUp(vbsta prm_VB) {
 }
 
 vbsta VirtualButton::isPushedUp(vbsta prm_VB, frame prm_frame_push) {
-    //-------oooo-
-    //       <-->
+    //←過去      現在
+    //            ↓
+    //---------ooo-
+    //       <--->
     //         |
     //         `-- prm_frame_push
+
     //過去に遡りながら検証
     VirtualButton::VBRecord* pVBRecord;
     pVBRecord = _pVBRecord_Active;
@@ -480,8 +482,8 @@ vbsta VirtualButton::isPushedUp(vbsta prm_VB, frame prm_frame_push) {
 }
 
 
-vbsta VirtualButton::wasReleasedUp(vbsta prm_VB, frame prm_frame_Ago) {
-    if (wasNotBeingPressed(prm_VB, prm_frame_Ago) && wasBeingPressed(prm_VB, prm_frame_Ago + 1)) {
+vbsta VirtualButton::wasReleasedUp(vbsta prm_VB, frame prm_frame_ago) {
+    if (wasNotBeingPressed(prm_VB, prm_frame_ago) && wasBeingPressed(prm_VB, prm_frame_ago + 1)) {
         return true;
     } else {
         return false;
@@ -725,17 +727,6 @@ void VirtualButton::update() {
 
     _pVBRecord_Active->_state |= (VB_UI_DEBUG * (GgafDx9Input::isBeingPressedKey(_tagKeymap.UI_DEBUG)));
 
-
-//
-//    _pVBRecord_Active->_state[VB_UP_RIGHT_STC] = false;
-//    _pVBRecord_Active->_state[VB_UP_LEFT_STC] = false;
-//    _pVBRecord_Active->_state[VB_DOWN_RIGHT_STC] = false;
-//    _pVBRecord_Active->_state[VB_DOWN_LEFT_STC] = false;
-//    _pVBRecord_Active->_state[VB_UP_STC] = false;
-//    _pVBRecord_Active->_state[VB_DOWN_STC] = false;
-//    _pVBRecord_Active->_state[VB_RIGHT_STC] = false;
-//    _pVBRecord_Active->_state[VB_LEFT_STC] = false;
-//    _pVBRecord_Active->_state[VB_NEUTRAL_STC] = false;
 
     if (_pVBRecord_Active->_state & VB_UP) {
         if (_pVBRecord_Active->_state & VB_RIGHT) {

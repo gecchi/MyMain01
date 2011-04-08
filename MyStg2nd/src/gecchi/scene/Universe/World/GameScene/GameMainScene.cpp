@@ -119,7 +119,7 @@ void GameMainScene::processBehavior() {
                     _pSceneMainCannnel->end();
                 }
             }
-            if (_pPrg->getActivePartFrameInProgress() == 120) { //delete‚ðl—¶‚µ‚Q•b—V‚Ô
+            if (_pPrg->getFrameInProgress() == 120) { //delete‚ðl—¶‚µ‚Q•b—V‚Ô
                 _pPrg->change(GAMEMAIN_SCENE_PROG_PLAY);
             }
             break;

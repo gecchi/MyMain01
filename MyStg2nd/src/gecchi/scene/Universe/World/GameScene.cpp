@@ -256,7 +256,7 @@ void GameScene::processBehavior() {
                 _pScene_GameEnding->fadeoutSceneTree(FADE_FRAME);
                 _pScene_GameOver->fadeoutSceneTree(FADE_FRAME);
             }
-            if (_pPrg->getActivePartFrameInProgress() == FADE_FRAME) {
+            if (_pPrg->getFrameInProgress() == FADE_FRAME) {
                 reset(); //リセット（最初の進捗状態に戻る）
             }
             break;
