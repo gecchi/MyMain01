@@ -121,25 +121,28 @@ void GameScene::processBehavior() {
 #endif
 
     switch (_pPrg->getFromChange()) {
-        case GAME_SCENE_PROG_MAIN:
+        case GAME_SCENE_PROG_MAIN: {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);  //元に戻す
             break;
+        }
+
         default:
             break;
     }
 
 
     switch (_pPrg->get()) {
-        case GAME_SCENE_PROG_INIT:
+        case GAME_SCENE_PROG_INIT: {
             //先行準備
             if (!_pScene_GameMain->_had_ready_stage) {
                 _pScene_GameMain->readyStage(_stage);
             }
             _pPrg->change(GAME_SCENE_PROG_PRE_TITLE);
             break;
+        }
 
-        case GAME_SCENE_PROG_PRE_TITLE:
+        case GAME_SCENE_PROG_PRE_TITLE: {
             //##########  タイトル前演出  ##########
             if (_pPrg->isJustChanged()) {
                 P_GOD->syncTimeFrame();
@@ -153,8 +156,9 @@ void GameScene::processBehavior() {
             }
             //或いは EVENT_PREGAMETITLE_SCENE_FINISH イベント受付
             break;
+        }
 
-        case GAME_SCENE_PROG_TITLE:
+        case GAME_SCENE_PROG_TITLE: {
             //##########  タイトル  ##########
             if (_pPrg->isJustChanged()) {
                 _pScene_GameTitle->reset();
@@ -162,8 +166,9 @@ void GameScene::processBehavior() {
             }
             //イベント待ち EVENT_GAMETITLE_SCENE_FINISH or EVENT_GAMESTART
             break;
+        }
 
-        case GAME_SCENE_PROG_DEMO:
+        case GAME_SCENE_PROG_DEMO: {
             //##########  デモ  ##########
             if (_pPrg->isJustChanged()) {
                 _pScene_GameDemo->reset();
@@ -176,8 +181,9 @@ void GameScene::processBehavior() {
             }
             //或いは EVENT_GAMEDEMO_SCENE_FINISH イベント受付
             break;
+        }
 
-        case GAME_SCENE_PROG_BEGINNING:
+        case GAME_SCENE_PROG_BEGINNING: {
             //##########  ゲーム開始（モード選択等）  ##########
             if (_pPrg->isJustChanged()) {
                 _pScene_GameBeginning->reset();
@@ -185,8 +191,9 @@ void GameScene::processBehavior() {
             }
             //イベント待ち EVENT_GAMEMODE_DECIDE
             break;
+        }
 
-        case GAME_SCENE_PROG_MAIN:
+        case GAME_SCENE_PROG_MAIN: {
             //##########  ゲームメイン  ##########
             if (_pPrg->isJustChanged()) {
                 VB_PLAY->clear();
@@ -225,16 +232,17 @@ void GameScene::processBehavior() {
                 }
             }
             _was_paused_flg_GameMainScene_prev_frame = _pScene_GameMain->_was_paused_flg;
-
             //イベント待ち EVENT_ALL_MY_SHIP_WAS_DESTROYED
             break;
+        }
 
-        case GAME_SCENE_PROG_ENDING:
+        case GAME_SCENE_PROG_ENDING: {
             if (_pPrg->isJustChanged()) {
             }
             break;
+        }
 
-        case GAME_SCENE_PROG_GAME_OVER:
+        case GAME_SCENE_PROG_GAME_OVER: {
             //##########  ゲームオーバー  ##########
             if (_pPrg->isJustChanged()) {
                 _pScene_GameOver->reset();
@@ -242,8 +250,9 @@ void GameScene::processBehavior() {
             }
             //イベント待ち EVENT_GAME_OVER_FINISH
             break;
+        }
 
-        case GAME_SCENE_PROG_FINISH:
+        case GAME_SCENE_PROG_FINISH: {
             //##########  ゲームシーン終了  ##########
             if (_pPrg->isJustChanged()) {
                 _pMyShipScene->fadeoutSceneTree(FADE_FRAME);
@@ -260,6 +269,7 @@ void GameScene::processBehavior() {
                 reset(); //リセット（最初の進捗状態に戻る）
             }
             break;
+        }
 
         default:
             break;
