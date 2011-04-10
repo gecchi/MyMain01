@@ -34,7 +34,7 @@ void EnemyMetis::initialize() {
 void EnemyMetis::onActive() {
     MyStgUtil::resetEnemyMetisStatus(_pStatus);
     _iMovePatternNo = 0;
-    setAlpha(0.6);
+    setAlpha(1.0);
     _pKuroko->setMvVelo(0);
     _pKuroko->setVxMvVelo(-3000);
     _pKuroko->setFaceAngVelo(AXIS_Z, 1000);

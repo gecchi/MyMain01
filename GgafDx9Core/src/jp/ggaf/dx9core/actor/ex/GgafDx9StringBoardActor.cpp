@@ -12,8 +12,9 @@ GgafDx9StringBoardActor::GgafDx9StringBoardActor(const char* prm_name, const cha
     _len = 0;
     _buf = NEW char[1024];
     for (int i = 0; i < 256; i++) {
-        _aWidthPx[i] = _pBoardSetModel->_fSize_BoardSetModelWidthPx; //ÇPï∂éöÇÃïù(px)
+        _aWidthPx[i] = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //ÇPï∂éöÇÃïù(px)
     }
+    _chr_width = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //ÇPï∂éöÇÃïù(px)
 }
 
 void GgafDx9StringBoardActor::onCreateModel() {
@@ -98,6 +99,7 @@ void GgafDx9StringBoardActor::processDraw() {
     int remainder_len = _len%_pBoardSetModel->_set_num;
     int strindex;
     int x = _x;
+    int x_next = _x;
     for (int pack = 0; pack < len_pack_num+(remainder_len == 0 ? 0 : 1); pack++) {
         if (pack < len_pack_num) {
             _draw_set_num = _pBoardSetModel->_set_num;
@@ -113,12 +115,18 @@ void GgafDx9StringBoardActor::processDraw() {
             }
 
             if (_draw_string[strindex] - ' ' < 0) {
-                pattno = '?' - ' '; //îÕàÕäOÇÕ"?"
+                pattno = '?' - ' '; //îÕàÕäOÇÕ"?Çï\é¶"
             } else {
                 pattno = _draw_string[strindex] - ' '; //í èÌï∂éöóÒ
             }
-            if (strindex > 0) {
-                x += _aWidthPx[(unsigned char)(_draw_string[strindex-1])];
+
+            //ÉvÉçÉ|Å[ÉVÉáÉiÉãÇ»ïùåvéZ
+            if (strindex == 0) {
+                x_next = x + _chr_width - ((_chr_width - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
+            } else {
+                int w = ((_chr_width - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
+                x = x_next - w;
+                x_next = x + _chr_width - w;
             }
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], x);
             checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

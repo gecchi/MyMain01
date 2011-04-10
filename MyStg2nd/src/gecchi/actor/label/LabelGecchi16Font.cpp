@@ -49,7 +49,7 @@ LabelGecchi16Font::LabelGecchi16Font(const char* prm_name) :
     _aWidthPx['F'] = 14;
     _aWidthPx['G'] = 14;
     _aWidthPx['H'] = 14;
-    _aWidthPx['I'] = 9;
+    _aWidthPx['I'] = 10;
     _aWidthPx['J'] = 14;
     _aWidthPx['K'] = 14;
     _aWidthPx['L'] = 15;
@@ -70,7 +70,7 @@ LabelGecchi16Font::LabelGecchi16Font(const char* prm_name) :
     _aWidthPx['['] = 10;
     _aWidthPx['\\'] = 12;
     _aWidthPx[']'] = 10;
-    _aWidthPx['^'] = 14;
+    _aWidthPx['^'] = 12;
     _aWidthPx['_'] = 16;
 }
 
