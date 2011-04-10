@@ -99,7 +99,7 @@ void GgafDx9StringBoardActor::processDraw() {
     int remainder_len = _len%_pBoardSetModel->_set_num;
     int strindex;
     int x = _x;
-    int x_next = _x;
+    int x_next;
     for (int pack = 0; pack < len_pack_num+(remainder_len == 0 ? 0 : 1); pack++) {
         if (pack < len_pack_num) {
             _draw_set_num = _pBoardSetModel->_set_num;
@@ -115,7 +115,7 @@ void GgafDx9StringBoardActor::processDraw() {
             }
 
             if (_draw_string[strindex] - ' ' < 0) {
-                pattno = '?' - ' '; //範囲外は"?を表示"
+                pattno = '?' - ' '; //範囲外は"?"を表示
             } else {
                 pattno = _draw_string[strindex] - ' '; //通常文字列
             }
