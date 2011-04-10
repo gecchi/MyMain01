@@ -39,11 +39,12 @@ void GamePreTitleScene::initialize() {
 void GamePreTitleScene::processBehavior() {
 
     switch (_pPrg->get()) {
-        case GAMEPRETITLE_SCENE_PROG_INIT:
+        case GAMEPRETITLE_SCENE_PROG_INIT: {
             _pPrg->change(GAMEPRETITLE_SCENE_PROG_EXEC);
             break;
+        }
 
-        case GAMEPRETITLE_SCENE_PROG_EXEC:
+        case GAMEPRETITLE_SCENE_PROG_EXEC: {
             if (_pPrg->isJustChanged()) {
                 fadeinScene(FADE_FRAME);
             }
@@ -64,13 +65,15 @@ void GamePreTitleScene::processBehavior() {
                 }
             }
             break;
+        }
 
-        case GAMEPRETITLE_SCENE_PROG_FINISH:
+        case GAMEPRETITLE_SCENE_PROG_FINISH: {
             if (_pPrg->isJustChanged()) {
                 inactivate();
             }
             //‚¨‚µ‚Ü‚¢‘Ò‚¿‚Ú‚¤‚¯ƒ‹[ƒv
             break;
+        }
 
         default:
             break;

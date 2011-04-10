@@ -107,11 +107,12 @@ void GameMainScene::processBehavior() {
 
 
     switch (_pPrg->get()) {
-        case GAMEMAIN_SCENE_PROG_INIT:
+        case GAMEMAIN_SCENE_PROG_INIT: {
             _pPrg->change(GAMEMAIN_SCENE_PROG_BEGIN);
             break;
+        }
 
-        case GAMEMAIN_SCENE_PROG_BEGIN:
+        case GAMEMAIN_SCENE_PROG_BEGIN: {
             if (_pPrg->isJustChanged()) {
                 if (_pSceneMainCannnel && !_pSceneMainCannnel->wasDeclaredEnd()) {
                     //2面目以降はこのタイミングで前ステージをend
@@ -123,8 +124,9 @@ void GameMainScene::processBehavior() {
                 _pPrg->change(GAMEMAIN_SCENE_PROG_PLAY);
             }
             break;
+        }
 
-        case GAMEMAIN_SCENE_PROG_PLAY:
+        case GAMEMAIN_SCENE_PROG_PLAY: {
             if (_pPrg->isJustChanged()) {
                 if (_had_ready_stage) {
                     _had_ready_stage = false;
@@ -135,11 +137,13 @@ void GameMainScene::processBehavior() {
                 }
             }
             break;
+        }
 
-        case GAMEMAIN_SCENE_PROG_FINISH:
+        case GAMEMAIN_SCENE_PROG_FINISH: {
             if (_pPrg->isJustChanged()) {
             }
             break;
+        }
 
         default:
             break;

@@ -16,6 +16,7 @@ void GameEndingScene::onReset() {
 void GameEndingScene::ready() {
     _TRACE_("GameEndingScene::ready()");
 }
+
 void GameEndingScene::initialize() {
     _TRACE_("GameEndingScene::initialize()");
 }

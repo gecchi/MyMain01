@@ -36,12 +36,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         getLordActor()->addSubGroup(_pDP_MagicPointItem001);
     }
 
-
-
-
-
-
-//
     { //Effect EffectTurbo002 ƒ^[ƒ{•¬ŽË
         _pDispatcher_EffectTurbo002 = NEW GgafActorDispatcher("RotExplo002");
         EffectTurbo002* pEffectTurbo;
@@ -52,9 +46,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         }
         getLordActor()->addSubGroup(_pDispatcher_EffectTurbo002);
     }
-
-
-
 
     //    { //EnemyShot001
     //        _pDispatcher_EnemyShots001 = NEW GgafActorDispatcher("TAMAS001");

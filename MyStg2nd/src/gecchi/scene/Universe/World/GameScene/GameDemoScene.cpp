@@ -32,11 +32,12 @@ void GameDemoScene::initialize() {
 void GameDemoScene::processBehavior() {
 
     switch (_pPrg->get()) {
-        case GAMEDEMO_SCENE_PROG_INIT:
+        case GAMEDEMO_SCENE_PROG_INIT: {
             _pPrg->change(GAMEDEMO_SCENE_PROG_DEMOPLAY);
             break;
+        }
 
-        case GAMEDEMO_SCENE_PROG_DEMOPLAY:
+        case GAMEDEMO_SCENE_PROG_DEMOPLAY: {
             if (_pPrg->isJustChanged()) {
                 _pStringBoard01->update(100, 100, "DEMOPLAY NOW");
                 _pStringBoard02->update(100, 150, "GAME OVER");
@@ -45,8 +46,9 @@ void GameDemoScene::processBehavior() {
                 _pPrg->change(GAMEDEMO_SCENE_PROG_RANKING);
             }
             break;
+        }
 
-        case GAMEDEMO_SCENE_PROG_RANKING:
+        case GAMEDEMO_SCENE_PROG_RANKING: {
             if (_pPrg->isJustChanged()) {
                 _pStringBoard01->update(100, 100, "RANKING NOW");
                 _pStringBoard02->update(100, 150, "GAME OVER");
@@ -55,14 +57,16 @@ void GameDemoScene::processBehavior() {
                 _pPrg->change(GAMEDEMO_SCENE_PROG_FINISH);
             }
             break;
+        }
 
-        case GAMEDEMO_SCENE_PROG_FINISH:
+        case GAMEDEMO_SCENE_PROG_FINISH: {
             if (_pPrg->isJustChanged()) {
                 fadeoutSceneTree(FADE_FRAME);
                 inactivateDelay(FADE_FRAME);
                 throwEventToUpperTree(EVENT_GAMEDEMO_SCENE_FINISH); //終わったイベント発動
             }
             break;
+        }
 
         default:
             break;

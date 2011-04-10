@@ -24,10 +24,11 @@ void GameOverScene::initialize() {
 void GameOverScene::processBehavior() {
 
     switch (_pPrg->getFromChange()) {
-        case GAMEOVER_SCENE_PROG_DISP:
+        case GAMEOVER_SCENE_PROG_DISP: {
             fadeoutScene(FADE_FRAME);
             inactivateDelay(FADE_FRAME);
             break;
+        }
 
         default:
             break;
@@ -35,11 +36,12 @@ void GameOverScene::processBehavior() {
 
 
     switch (_pPrg->get()) {
-        case GAMEOVER_SCENE_PROG_INIT:
+        case GAMEOVER_SCENE_PROG_INIT: {
             _pPrg->change(GAMEOVER_SCENE_PROG_DISP);
             break;
+        }
 
-        case GAMEOVER_SCENE_PROG_DISP:
+        case GAMEOVER_SCENE_PROG_DISP: {
             if (_pPrg->isJustChanged()) {
                 _pStringBoard01->update(500, 500, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAME);
@@ -49,11 +51,13 @@ void GameOverScene::processBehavior() {
                 _pPrg->change(GAMEOVER_SCENE_PROG_FINISH);
             }
             break;
+        }
 
-        case GAMEOVER_SCENE_PROG_FINISH:
+        case GAMEOVER_SCENE_PROG_FINISH: {
             if (_pPrg->isJustChanged()) {
             }
             break;
+        }
 
         default:
             break;

@@ -62,20 +62,21 @@ void MyShipScene::processBehavior() {
     switch (_pPrg->getFromChange()) {
         case MYSHIPSCENE_SCENE_PROG_BEGIN: {
                 P_UNIVERSE->undoCameraWork();
-            }
             break;
+        }
         default:
             break;
     }
 
     switch (_pPrg->get()) {
-        case MYSHIPSCENE_SCENE_PROG_INIT:
+        case MYSHIPSCENE_SCENE_PROG_INIT: {
             _pVamSysCamWorker = (VamSysCamWorker*)P_UNIVERSE->switchCameraWork("VamSysCamWorker");
             _pVamSysCamWorker->_pMyShip = _pMyShip;
             _pPrg->change(MYSHIPSCENE_SCENE_PROG_BEGIN);
             break;
+        }
 
-        case MYSHIPSCENE_SCENE_PROG_BEGIN:
+        case MYSHIPSCENE_SCENE_PROG_BEGIN: {
             if (_pPrg->isJustChanged()) {
                 unblindScene();
                 _pMyShip->reset();
@@ -87,22 +88,23 @@ void MyShipScene::processBehavior() {
                 pCamWorker->lockCamVp(_pMyShip);
             }
             _pMyShip->_X += 30000;
-
             if (_pMyShip->_X > 0) {
                 _pMyShip->_X = 0;
                 _pMyShip->_is_diving = false;
                 _pPrg->change(MYSHIPSCENE_SCENE_PROG_PLAY);
             }
             break;
+        }
 
-        case MYSHIPSCENE_SCENE_PROG_PLAY:
+        case MYSHIPSCENE_SCENE_PROG_PLAY: {
             if (_pPrg->isJustChanged()) {
                 _pMyShip->_can_control = true;
             }
             //ƒCƒxƒ“ƒg EVENT_MY_SHIP_WAS_DESTROYED_BEGIN ‘Ò‚¿
             break;
+        }
 
-        case MYSHIPSCENE_SCENE_PROG_DESTROY:
+        case MYSHIPSCENE_SCENE_PROG_DESTROY: {
             if (_pPrg->isJustChanged()) {
                 _pEffectMyShipExplosion->activate();
                 _pMyShip->inactivateDelay(60);
@@ -122,6 +124,7 @@ void MyShipScene::processBehavior() {
                 }
             }
             break;
+        }
 
         default:
             break;

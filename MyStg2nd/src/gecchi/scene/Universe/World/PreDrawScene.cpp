@@ -9,7 +9,7 @@ PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "PreDrawScene";
 
     //orderActorToFactory(10, LaserChipEffectActor, "LaserChipEffectActor");
-    orderActorToFactory(11, DefaultMeshEffectActor, "DefaultMeshEffectActor");
+    //orderActorToFactory(11, DefaultMeshEffectActor, "DefaultMeshEffectActor");
 }
 
 void PreDrawScene::onReset() {
@@ -23,7 +23,7 @@ void PreDrawScene::initialize() {
 void PreDrawScene::processBehavior() {
     if (getActivePartFrame() == 1) {
         //getLordActor()->addSubGroup(obtainActorFromFactory(10));
-        getLordActor()->addSubGroup(obtainActorFromFactory(11));
+        //getLordActor()->addSubGroup(obtainActorFromFactory(11));
     }
 }
 

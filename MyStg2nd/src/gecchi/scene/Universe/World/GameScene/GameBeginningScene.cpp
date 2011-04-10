@@ -36,11 +36,12 @@ void GameBeginningScene::initialize() {
 void GameBeginningScene::processBehavior() {
 
     switch (_pPrg->get()) {
-        case GAMEBEGINNING_SCENE_PROG_INIT:
+        case GAMEBEGINNING_SCENE_PROG_INIT: {
             _pPrg->change(GAMEBEGINNING_SCENE_PROG_SELECT_MODE);
             break;
+        }
 
-        case GAMEBEGINNING_SCENE_PROG_SELECT_MODE:
+        case GAMEBEGINNING_SCENE_PROG_SELECT_MODE: {
             if (_pPrg->isJustChanged()) {
                 _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE BEGIN");
                 _pStringBoard02->update(200, 250, "SELECT MODE!");
@@ -51,8 +52,9 @@ void GameBeginningScene::processBehavior() {
                 }
             }
             break;
+        }
 
-        case GAMEBEGINNING_SCENE_PROG_DECIDE:
+        case GAMEBEGINNING_SCENE_PROG_DECIDE: {
             if (_pPrg->isJustChanged()) {
                 fadeoutScene(FADE_FRAME);
                 throwEventToUpperTree(EVENT_GAMEMODE_DECIDE);
@@ -66,12 +68,14 @@ void GameBeginningScene::processBehavior() {
                 _pPrg->change(GAMEBEGINNING_SCENE_PROG_FINISH);
             }
             break;
+        }
 
-        case GAMEBEGINNING_SCENE_PROG_FINISH:
+        case GAMEBEGINNING_SCENE_PROG_FINISH: {
             if (_pPrg->isJustChanged()) {
                 inactivate();
             }
             break;
+        }
 
         default:
             break;

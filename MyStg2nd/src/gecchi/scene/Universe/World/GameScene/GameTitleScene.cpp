@@ -88,6 +88,7 @@ void GameTitleScene::processBehavior() {
             }
             break;
         }
+
         case GAMETITLE_SCENE_PROG_SELECT: {
             if (_pPrg->isJustChanged()) {
                 _pStringBoard02->update("");
@@ -104,7 +105,6 @@ void GameTitleScene::processBehavior() {
             }
             _pCursor001->locateAs(_papStringItem[_active_item]);
 
-
             if (VB->isAutoRepeat(VB_UI_UP)) {
                 _active_item--;
                 if (_active_item < 0) {
@@ -117,6 +117,9 @@ void GameTitleScene::processBehavior() {
                     _active_item = 0;
                 }
                 _frame_of_noinput = _pPrg->getFrameInProgress();
+            } if (VB->isPushedDown(VB_UI_EXECUTE)) {
+                _pSeCon_exec->refer()->play();
+                _pPrg->change(GAMETITLE_SCENE_PROG_GAMESTART);
             } else if (_pPrg->getFrameInProgress() >= _frame_of_noinput + 300) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLE_SCENE_FINISH)");
@@ -126,7 +129,7 @@ void GameTitleScene::processBehavior() {
             break;
         }
 
-        case GAMETITLE_SCENE_PROG_GAMESTART:
+        case GAMETITLE_SCENE_PROG_GAMESTART: {
             if (_pPrg->isJustChanged()) {
             }
             if (_pPrg->getFrameInProgress() == 90) {
@@ -140,14 +143,16 @@ void GameTitleScene::processBehavior() {
                 _pStringBoard02->update(400, 500, "");
             }
             break;
+        }
 
-        case GAMETITLE_SCENE_PROG_FINISH:
+        case GAMETITLE_SCENE_PROG_FINISH: {
             if (_pPrg->isJustChanged()) {
                 fadeoutSceneTree(FADE_FRAME);
                 inactivateDelay(FADE_FRAME);
             }
             //おしまい待ちぼうけループ
             break;
+        }
 
         default:
             break;
