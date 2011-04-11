@@ -6,11 +6,10 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-//TODO:空間の大きさを変えると、星が偏る
 
 HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
         GgafDx9PointSpriteActor(prm_name,
-                               "hoshitest",
+                               "HoshiBoshi001",
                                "HoshiBoshiEffect",
                                "HoshiBoshiTechnique",
                                NULL ) {
@@ -19,11 +18,6 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
     _h_fY_MyShip  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fY_MyShip" );
     _h_fZ_MyShip  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fZ_MyShip" );
 
-
-    _frame_offset = 0;
-    _pScaler = NEW GgafDx9Scaler(this);
-
-
     changeEffectTechnique("DestBlendOne"); //加算合成
     setHitAble(false);
     _CAM_ZF = abs(P_CAM->_zf * PX_UNIT * LEN_UNIT);
@@ -31,7 +25,9 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
     //独自ワールド変換
     defineRotMvWorldMatrix(HoshiBoshi001::setWorldMatrix_HoshiBoshi001);
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-10);//最深部の次くらいに・・
-
+    //星はDIRECTX距離-1.0～1.0に収まっている前提で、
+    //現空間の大きさに散らばらせる
+    _SX = _SY = _SZ =  P_CAM->_zf*1000;
 }
 
 int HoshiBoshi001::isOutOfView() {
@@ -55,7 +51,7 @@ void HoshiBoshi001::processBehavior() {
     if (_X < -_CAM_ZF) {
         _X += (_CAM_ZF*2);
     } else {
-        _X -= 500;
+        _X -= 1000;
     }
     _pUvFlipper->behave();
 }
@@ -66,34 +62,14 @@ void HoshiBoshi001::processSettlementBehavior() {
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ワールド変換行列
-
+    (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ワールド変換
 }
 
 void HoshiBoshi001::processJudgement() {
 }
 
-//void HoshiBoshi001::processPreDraw() {
-//    //画面外判定無しに伴ない処理簡略化
-//    //GgafDx9DrawableActor::processPreDraw() と同期を取る事！
-//    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL - 10,this); //最深部
-//
-////    //一時テクニック期間チェック
-////    if (_is_temp_technique) {
-////        if (_frame_temp_technique <= _frame_of_behaving) {
-////            //一時テクニック期間満了。元に戻す
-////            _hash_technique = _hash_technique_temp;
-////            strcpy(_technique, _technique_temp);
-////            _is_temp_technique = false;
-////            //これはダメ。配列領域がどこかにいくため。_technique_temp = "";
-////            _hash_technique_temp = 0;
-////        }
-////    }
-//}
-
 void HoshiBoshi001::processDraw() {
-    ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetFloat(_h_fX_MyShip, P_MYSHIP->_fX);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_fX_MyShip) に失敗しました。");
@@ -106,19 +82,15 @@ void HoshiBoshi001::processDraw() {
 
 
 void HoshiBoshi001::drawHitArea() {
-    //ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliAAPrismActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
 }
-
 
 HoshiBoshi001::~HoshiBoshi001() {
-    DELETE_IMPOSSIBLE_NULL(_pScaler);
 }
-
-
 
 void HoshiBoshi001::setWorldMatrix_HoshiBoshi001(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World変換
-    //拡大縮小 × X軸回転 × 2倍Z軸回転 × 2倍Y軸回転 × 1/2倍平行移動 の変換行列を設定<BR>
+    //拡大縮小 × X軸回転 × Z軸回転 × Y軸回転 × 平行移動 の変換行列を設定<BR>
+    //※XYZの順でないことに注意
     static float fRateScale = 1.0f * LEN_UNIT;
     float sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
     float cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
