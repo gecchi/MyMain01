@@ -108,7 +108,7 @@ public:
 //    /** 状態 */
 //    int _state;
     /** レベルアップ中かどうか */
-    boolean _is_working;
+    bool _is_working;
 
     float _discount_rate;
 

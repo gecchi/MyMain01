@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-boolean GgafDx9AAPrismActor::init = false;
+bool GgafDx9AAPrismActor::init = false;
 _MAP_<int, GgafDx9AAPrismActor::RotPosPrism> GgafDx9AAPrismActor::pos2r;
 
 
