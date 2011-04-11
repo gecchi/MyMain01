@@ -44,7 +44,7 @@ void HoshiBoshi001::initialize() {
 }
 
 void HoshiBoshi001::onActive() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 8);
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 6);
 }
 
 void HoshiBoshi001::processBehavior() {

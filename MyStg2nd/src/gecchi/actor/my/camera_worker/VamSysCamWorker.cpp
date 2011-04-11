@@ -117,8 +117,8 @@ void VamSysCamWorker::processBehavior() {
 //            move_target_Y_VP = 0;
 //            move_target_Z_VP = 0;
 
-            move_target_X_CAM = -Dx + (-_pMyShip->_X-180000)*2;
-            //↑ -180000 はカメラ移動位置、
+            move_target_X_CAM = -Dx + (-_pMyShip->_X-200000)*2;
+            //↑ -200000 はカメラ移動位置、
             //   *2 は自機が後ろに下がった時のカメラのパン具合。
             //   この辺りの数値は納得いくまで調整を繰した。
             //   TODO:本当はゲーム領域の大きさから動的に計算できる。いつかそうしたい。
@@ -129,17 +129,17 @@ void VamSysCamWorker::processBehavior() {
             }
             move_target_Y_CAM = _pMyShip->_Y;
             move_target_Z_CAM = _pMyShip->_Z - _dZ_camera_init;
-            move_target_X_VP = Dx - (-_pMyShip->_X-180000)*2;
+            move_target_X_VP = Dx - (-_pMyShip->_X-200000)*2;
             if (Dx < move_target_X_VP) {
                 move_target_X_VP = Dx;
             } else if ( move_target_X_VP < -Dx/2) {
                 move_target_X_VP = -Dx/2;
             }
             move_target_Y_VP = _pMyShip->_Y;
-            move_target_Z_VP = _pMyShip->_Z;
+            move_target_Z_VP = _pMyShip->_Z-100000;
             move_target_XY_CAM_UP = ANGLE90;
         } else if (_pos_camera == VAM_POS_LEFT) {
-            move_target_X_CAM = -Dx + (-_pMyShip->_X-180000)*2;
+            move_target_X_CAM = -Dx + (-_pMyShip->_X-200000)*2;
             if (-Dx > move_target_X_CAM) {
                 move_target_X_CAM = -Dx;
             } else if (move_target_X_CAM > Dx/2) {
@@ -147,14 +147,14 @@ void VamSysCamWorker::processBehavior() {
             }
             move_target_Y_CAM = _pMyShip->_Y;
             move_target_Z_CAM = _pMyShip->_Z + _dZ_camera_init;
-            move_target_X_VP = Dx - (-_pMyShip->_X-180000)*2;
+            move_target_X_VP = Dx - (-_pMyShip->_X-200000)*2;
             if (Dx < move_target_X_VP) {
                 move_target_X_VP = Dx;
             } else if ( move_target_X_VP < -Dx/2) {
                 move_target_X_VP = -Dx/2;
             }
             move_target_Y_VP = _pMyShip->_Y;
-            move_target_Z_VP = _pMyShip->_Z;
+            move_target_Z_VP = _pMyShip->_Z+100000;
             move_target_XY_CAM_UP = ANGLE90;
         } else if (_pos_camera == VAM_POS_TOP) {
             move_target_X_CAM = -Dx - Ddx_hw + (-_pMyShip->_X-125000)*2;
