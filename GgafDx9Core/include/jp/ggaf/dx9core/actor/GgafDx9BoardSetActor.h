@@ -14,23 +14,94 @@ namespace GgafDx9Core {
  */
 class GgafDx9BoardSetActor : public GgafDx9DrawableActor {
 private:
-
     /**
-     * 使えなくするためにprivateでoverride
+     * 使用不可のため、privateでoverride
      * @return
      */
-    virtual int isOutOfView() {
+    int isOutOfView() override {
         return 0;
     }
+
     /**
-     * 使えなくするためにprivateでoverride
+     * 使用不可のため、privateでoverride
      * @return
      */
-    virtual bool isOutOfUniverse() {
+    bool isOutOfUniverse() override {
         return false;
     }
 
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    GgafCore::GgafGroupActor* addSubBone(actorkind prm_kind,
+                                         GgafDx9GeometricActor* prm_pGeoActor,
+                                         int prm_X_init_local,
+                                         int prm_Y_init_local,
+                                         int prm_Z_init_local,
+                                         int prm_RX_init_local,
+                                         int prm_RZ_init_local,
+                                         int prm_RY_init_local) override {
+        return NULL;
+    }
 
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    GgafCore::GgafGroupActor* addSubBone(GgafDx9GeometricActor* prm_pGeoActor,
+                                         int prm_X_init_local,
+                                         int prm_Y_init_local,
+                                         int prm_Z_init_local,
+                                         int prm_RX_init_local,
+                                         int prm_RZ_init_local,
+                                         int prm_RY_init_local) override {
+        return NULL;
+    }
+
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    void changeGeoLocal() override {
+    }
+
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    void changeGeoFinal() override {
+    }
+
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    void locateAs(GgafDx9GeoElem* prm_pGgafDx9GeoElem) override {
+    }
+
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    void rotateWith(GgafDx9GeometricActor* prm_pActor) override {
+    }
+
+    /**
+     * 使用不可のため、privateでoverride
+     * ※GgafDx9BoardActor ならば拡大縮小機能有ります。
+     * @return
+     */
+    virtual void setScale(int S) override {
+    }
+
+    /**
+     * 使用不可のため、privateでoverride
+     * ※GgafDx9BoardActor ならば拡大縮小機能有ります。
+     * @return
+     */
+    virtual void setScaleRate(float prm_rate) override {
+    }
 public:
     int _draw_set_num;
     /** モデルオブジェクトへのポインタ */
@@ -45,9 +116,6 @@ public:
                          const char* prm_effect_id,
                          const char* prm_technique );
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     virtual void processDraw() override;
 
     virtual void locate(int x, int y) {
@@ -72,6 +140,8 @@ public:
         _y = prm_pActor->_y;
         _x = prm_pActor->_x;
     }
+
+
 
     virtual ~GgafDx9BoardSetActor(); //デストラクタ
 

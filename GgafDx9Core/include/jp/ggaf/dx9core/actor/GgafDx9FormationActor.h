@@ -52,28 +52,35 @@ public:
     }
 
     /**
-     * 編隊に所属したアクターが全滅した場合に呼び出すメソッドとする。 .
-     * 具体的な処理（編隊ボーナス加算や、特殊効果音等）は下位で実装すること。
-     * また、本メソッドが機能するためには、アクター側で自身がやられた場合に、
-     * wasDestroyedFollower() を呼び出す事が必須です。
-     * @param prm_pActorLast
+     * 編隊に所属したアクターが全滅した場合に呼び出されるメソッド（とする) .
+     * 編隊全滅時の具体的な処理（編隊ボーナス加算や、特殊効果音等）は下位で実装すること。 <BR>
+     * また、本メソッドが機能するためには、アクター側で自身がやられた場合に、<BR>
+     * wasDestroyedFollower() を呼び出す事が必須です。 <BR>
+     * 編隊全滅時の処理がない場合は、override する必要はありません 。 <BR>
+     * @param prm_pActorLast 最後にやられたアクター
      */
     virtual void wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) {
     }
 
 
     /**
-     * 編隊に所属したアクターは、自身が消滅する際に呼び出すメソッド .
-     * wasDestroyedFormation() が呼び出されるためには、本メソッドをアクター側で自身がやられた場合に
-     * 都度呼びだして下さい。
-     * 内部でカウンタを減らし、カウントが0になれば wasDestroyedFormation() を呼びださします。
-     * @param prm_pActor
+     * 編隊に所属したアクターが消滅する際にコールしてもらうメソッド .
+     * 編隊全滅判定を行いたい（wasDestroyedFormation(GgafDx9GeometricActor*) をコールバックさせたい）場合は、<BR>
+     * 本メソッドをアクター側で自身がやられた時に、都度呼びだを行い必要があります。<BR>
+     * 具体的に、編隊要素の各アクターの「破壊による」消滅処理時に、次のような１行を加えてください。<BR>
+     * （※「領域外による」消滅処理で呼び出してはいけません）<BR>
+     * <code>
+     *
+     * ((GgafDx9FormationActor*)getParent())->wasDestroyedFollower(this);
+     *
+     * </code>
+     * 実は、単に内部でカウンタを減らし、カウントが0になれば wasDestroyedFormation() をコールバックしているだけです。<BR>
+     * @param prm_pActor やられたアクター
      */
     virtual void wasDestroyedFollower(GgafDx9GeometricActor* prm_pActor);
 
-
     /**
-     * メンバーの登録します.
+     * 編隊のメンバーの登録します.
      * 具体的には、addSubLast() を呼び出し、種別を引き継ぎます。
      * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をaddSubLastしてください。
      * @param prm_pSub 登録アクター

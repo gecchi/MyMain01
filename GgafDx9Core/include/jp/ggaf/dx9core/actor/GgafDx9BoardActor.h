@@ -14,7 +14,7 @@ namespace GgafDx9Core {
 class GgafDx9BoardActor : public GgafDx9DrawableActor {
 private:
     /**
-     * 使えなくするためにprivateでoverride
+     * 使用不可のため、privateでoverride
      * @return
      */
     int isOutOfView() override {
@@ -22,13 +22,69 @@ private:
     }
 
     /**
-     * 使えなくするためにprivateでoverride
+     * 使用不可のため、privateでoverride
      * @return
      */
     bool isOutOfUniverse() override {
         return false;
     }
 
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    GgafCore::GgafGroupActor* addSubBone(actorkind prm_kind,
+                                         GgafDx9GeometricActor* prm_pGeoActor,
+                                         int prm_X_init_local,
+                                         int prm_Y_init_local,
+                                         int prm_Z_init_local,
+                                         int prm_RX_init_local,
+                                         int prm_RZ_init_local,
+                                         int prm_RY_init_local) override {
+        return NULL;
+    }
+
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    GgafCore::GgafGroupActor* addSubBone(GgafDx9GeometricActor* prm_pGeoActor,
+                                         int prm_X_init_local,
+                                         int prm_Y_init_local,
+                                         int prm_Z_init_local,
+                                         int prm_RX_init_local,
+                                         int prm_RZ_init_local,
+                                         int prm_RY_init_local) override {
+        return NULL;
+    }
+
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    void changeGeoLocal() override {
+    }
+
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    void changeGeoFinal() override {
+    }
+
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    void locateAs(GgafDx9GeoElem* prm_pGgafDx9GeoElem) override {
+    }
+
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    void rotateWith(GgafDx9GeometricActor* prm_pActor) override {
+    }
 
 public:
     /** [r]モデルオブジェクトへのポインタ */
@@ -92,6 +148,28 @@ public:
         _z = prm_pActor->_z;
         _y = prm_pActor->_y;
         _x = prm_pActor->_x;
+    }
+
+    /**
+     * スケールをスケール値で設定します。
+     * @param S スケール値(1.0 で 1.0倍)
+     */
+    virtual void setScale(int S) override {
+        _sx = S;
+        _sy = S;
+        setBoundingSphereRadiusRate((1.0*S)/1000);
+    }
+
+    /**
+     * スケールを倍率で設定します。
+     * 1.0 で 1.0倍。
+     * 【注意】setScale と同じ
+     * @param prm_rate 倍率
+     */
+    virtual void setScaleRate(float prm_rate) override {
+        _sx = prm_rate;
+        _sy = prm_rate;
+        setBoundingSphereRadiusRate(prm_rate);
     }
 
     virtual ~GgafDx9BoardActor(); //デストラクタ
