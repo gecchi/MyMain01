@@ -6,16 +6,16 @@ namespace GgafDx9Core {
 /**
  * パペッター(操り人形遣い) .
  * パペッターは、糸で吊るされたパペット(GgafDx9D3DXAniMeshActor)を操り棒で操り、<BR>
- * 様々な芸(アニメーション)を演じさせることが出来る人です。<BR>
+ * 様々な芸(アニメーション)を演じさせることが出来る人(オブジェクト)です。<BR>
  * 残念ながら、パペットは同時に2種類の芸までしか演じさせる事が出来ません。<BR>
  * 理由は、パペッターの腕が２本しか無いからです。しかたないですね。<BR>
  * 両手を駆使して、パペットをうまく操ってください。<BR>
  * <BR>
- * 内部的にこのクラスは、ID3DXAnimationController のラッパークラスです。<BR>
+ * 内部的には、このクラスは、ID3DXAnimationController のラッパークラスです。<BR>
  * 最大トラック数は 2 です。
  * 主な特徴は、<BR>
- * ① アニメーション「スピード」及び「重み」は、本来アニメーショントラックが持つ属性値だが、
- *    これを、AnimationSet 毎に紐付けて保持。<BR>
+ * ① アニメーション「スピード」及び「重み」は、本来アニメーショントラックが持つ属性値だが、<BR>
+ *    これを、AnimationSet 毎に紐付けて管理。<BR>
  *    アニメーション切替時に、アニメーションに紐づく「スピード」及び「重み」を
  *    トラックに設定するようにしている。<BR>
  * ② 逆再生、ループ等の機能実装<BR>
@@ -86,20 +86,16 @@ public:
      */
     GgafDx9Puppeteer(GgafDx9D3DXAniMeshActor* prm_pPuppet);
 
-    /**
-     * パペッターの右手芸と左手芸を交換 .
-     */
-    void exchangPerformance();
 
     /**
-     * パペッターにプレイしてもらう。 .
-     * @param prm_handed パペッターの操り棒 (LEFT_HAND or RIGHT_HAND)
-     * @param prm_prm_performance_no 芸番号（アニメーションコントローラーのアニメーションセットIDに一致する）
-     * @param prm_loopnum 芸のループ回数 0.0 ～ (ループ１回半は1.5という指定も可能。負の数指定(-1)で無限ループ)
-     * @param prm_target_speed 目標スピード割合 通常は -1.0 ～ 0.0 ～ 1.0 (1.0で通常スピード、それ以上も可能。負の数指定で逆アニメーションになる)
-     * @param prm_frame_duaration_of_shift_speed 目標スピード割合到達フレーム数、徐々にスピード変化する。(0 を指定で即時 prm_target_speed になる)
-     * @param prm_target_weight 目標重み 0.0 ～ 1.0 (負の数不可)
-     * @param prm_frame_duaration_of_shift_weight 目標重み到達フレーム数、徐々に重みが変化する。(0 を指定で即時 prm_target_weight になる)
+     * プレイしてもらう（＝パペットが操られる） .
+     * @param prm_handed プレイするパペッターの操り棒 (LEFT_HAND or RIGHT_HAND)
+     * @param prm_prm_performance_no プレイする芸番号（アニメーションコントローラーのアニメーションセットIDに一致する）
+     * @param prm_loopnum その芸のループ回数 0.0 ～ (１回半ループを1.5というようにも指定可能。負の数指定(-1)で無限ループアニメーション)
+     * @param prm_target_speed 目標スピード割合 通常は -1.0 ～ 0.0 ～ 1.0 (1.0で通常スピード、それ以上も可能。負の値指定で逆アニメーションになる)
+     * @param prm_frame_duaration_of_shift_speed 目標スピード割合への到達フレーム数。徐々にスピード変化します。(0 を指定で即時 prm_target_speed になる)
+     * @param prm_target_weight 目標重み（＝アニメーション合成割合） 0.0 ～ 1.0 (負の数不可)
+     * @param prm_frame_duaration_of_shift_weight 目標重へみ到達フレーム数、徐々に重みが変化する。(0 を指定で即時 prm_target_weight になる)
      * @param prm_method
      */
     void play(GgafDx9PuppeteerStick prm_handed,
@@ -112,6 +108,10 @@ public:
               GgafDx9PuppeteerPlayMethod prm_method = NO_CHENGE
     );
 
+    /**
+     * パペッターの右手芸と左手芸を交換 .
+     */
+    void exchangPerformance();
 
     void unpause(GgafDx9PuppeteerStick prm_handed);
     void pause(GgafDx9PuppeteerStick prm_handed);

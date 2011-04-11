@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-boolean WallAAPrismActor::init = false;
+bool WallAAPrismActor::init = false;
 
 _MAP_<int, UINT> WallAAPrismActor::_delface;
 

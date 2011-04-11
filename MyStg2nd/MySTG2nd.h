@@ -1,4 +1,5 @@
 #pragma once
+
 //無理やりリンクエラー回避！
 //良い方法がないものか・・・
 #ifdef  __cplusplus
@@ -15,5 +16,6 @@ extern "C" {
 #ifdef  __cplusplus
 };
 #endif
+
 
 

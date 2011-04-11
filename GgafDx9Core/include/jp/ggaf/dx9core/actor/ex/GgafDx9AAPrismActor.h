@@ -1,20 +1,6 @@
 #ifndef GGAFDX9AAPRISMACTOR_H_
 #define GGAFDX9AAPRISMACTOR_H_
 
-//補足
-//プリズム位置を表す定数は以下のようになっている
-//"POS_PRISM_" + どの平面にスライスを入れるか + "_" + スライスの仕方
-//[どの平面にスライスを入れるか]
-//XY ・・・ AABのXY平面に垂直にスライス
-//YZ ・・・ AABのYZ平面に垂直にスライス
-//ZX ・・・ AABのZX平面に垂直にスライス
-//[スライスの仕方]
-// n(negative)は負方向、p(positive)は正方向、という意味を持たしている
-//nn ・・・ 直角三角形の直角の部分が先の平面座標系の (負方向, 負方向) と言う意味
-//np ・・・ 直角三角形の直角の部分が先の平面座標系の (負方向, 正方向) と言う意味
-//pn ・・・ 直角三角形の直角の部分が先の平面座標系の (正方向, 負方向) と言う意味
-//pp ・・・ 直角三角形の直角の部分が先の平面座標系の (正方向, 正方向) と言う意味
-
 namespace GgafDx9Core {
 
 /**
@@ -38,7 +24,7 @@ public:
     };
 
 
-    static boolean init;
+    static bool init;
     static _MAP_<int, GgafDx9AAPrismActor::RotPosPrism> pos2r;
 
     GgafDx9AAPrismActor(const char* prm_name,
@@ -56,3 +42,20 @@ public:
 
 }
 #endif /*GGAFDX9BOXACTOR_H_*/
+
+//補足
+//プリズム位置(pos_prism)を、表す定数(GgafDx9CommonHeader.hで定義)は以下のような命名がなされている。
+//＜例＞
+//POS_PRISM_YZ_nn
+//＜意味＞
+//"POS_PRISM_" + どの平面にスライスを入れるか + "_" + スライスの仕方
+//[どの平面にスライスを入れるか]
+//XY ・・・ AABのXY平面に垂直にスライス
+//YZ ・・・ AABのYZ平面に垂直にスライス
+//ZX ・・・ AABのZX平面に垂直にスライス
+//[スライスの仕方]
+// n(negative)は負方向、p(positive)は正方向、という意味を持たしている
+//nn ・・・ 直角三角形の直角の部分が先の平面座標系の (負方向, 負方向) と言う意味
+//np ・・・ 直角三角形の直角の部分が先の平面座標系の (負方向, 正方向) と言う意味
+//pn ・・・ 直角三角形の直角の部分が先の平面座標系の (正方向, 負方向) と言う意味
+//pp ・・・ 直角三角形の直角の部分が先の平面座標系の (正方向, 正方向) と言う意味

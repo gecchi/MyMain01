@@ -18,7 +18,7 @@ public:
     D3DXHANDLE _h_wall_height;
     D3DXHANDLE _h_wall_width;
 //    D3DXHANDLE _h_pos_prism;
-    static boolean init;
+    static bool init;
     /** プリズム無条件追加描画不要面テーブル */
     static _MAP_<int, UINT> _delface;
 //    int _aAddFace[12];

@@ -7,6 +7,7 @@ namespace GgafDx9Core {
  * GgafDx9DrawableActor を継承し、Xファイル定義の
  * フレームアニメーションメッシュ表示機能を<BR>
  * 追加したアクターです<BR>
+ * アニメーションはパペッター(GgafDx9Puppeteer)にお願いします。<BR>
  * @version 1.00
  * @since 2009/11/25
  * @author Masatoshi Tsuge
@@ -20,7 +21,7 @@ public:
     GgafDx9D3DXAniMeshModel* _pD3DXAniMeshModel;
     /** エフェクト資源 */
     GgafDx9D3DXAniMeshEffect* _pD3DXAniMeshEffect;
-
+    /** パペッター（アニメーション操作オブジェクト) */
     GgafDx9Puppeteer* _pPuppeteer;
 
     LPD3DXANIMATIONSET* _papAnimationSet;
@@ -30,7 +31,6 @@ public:
                              const char* prm_effect_id,
                              const char* prm_technique,
                              GgafDx9Checker* prm_pChecker);
-
 
 
     /**
