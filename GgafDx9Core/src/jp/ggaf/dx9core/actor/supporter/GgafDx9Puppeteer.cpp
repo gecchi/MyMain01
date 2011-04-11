@@ -21,7 +21,7 @@ GgafDx9Puppeteer::GgafDx9Puppeteer(GgafDx9D3DXAniMeshActor* prm_pPuppet) : GgafO
     _TRACE_("_pAc->GetMaxNumAnimationSets()="<<_pAc->GetMaxNumAnimationSets());
 
 
-    int x = 'o'  ^0^  -~-  -0-  ~-~  +0+  0-0  *0*  0*0;
+    //int x = 'o'  ^0^  -~-  -0-  ~-~  +0+  0-0  *0*  0*0;
 
     //ƒ‚[ƒVƒ‡ƒ“î•ñ‰Šú‰»
     _paPerformances = NEW Performance[_num_perform];
