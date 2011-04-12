@@ -89,19 +89,16 @@ void GgafDx9StringBoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahDepthZ) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _fAlpha);
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahAlpha) に失敗しました。");
-    int strindex;
+    int strindex, pattno;
     int x = _x;
-    int x_next;
+    int x_tmp = x;
     for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
         _draw_set_num = pack < _len_pack_num ? _pBoardSetModel->_set_num : _remainder_len;
-        int pattno;
         for (int i = 0; i < _draw_set_num; i++) {
             strindex = pack * _pBoardSetModel->_set_num + i;
             if (_draw_string[strindex] == '\0') {
                 break;
-            }
-
-            if (_draw_string[strindex] - ' ' < 0) {
+            } else if (_draw_string[strindex] - ' ' < 0) {
                 pattno = '?' - ' '; //範囲外は"?"を表示
             } else {
                 pattno = _draw_string[strindex] - ' '; //通常文字列
@@ -109,12 +106,8 @@ void GgafDx9StringBoardActor::processDraw() {
 
             //プロポーショナルな幅計算
             int w = ((_chr_width - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
-            if (strindex == 0) {
-                x_next = x + w;
-            } else {
-                x = x_next - w;
-                x_next = x + _chr_width - w;
-            }
+			x = x_tmp - w;
+			x_tmp = x + _chr_width - w;
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], x);
             checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) に失敗しました。");
             pRectUV_Active = _pBoardSetModel->_paRectUV + pattno; //文字のテクスチャ

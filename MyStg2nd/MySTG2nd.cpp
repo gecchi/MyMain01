@@ -274,7 +274,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         //異常終了時
         if (can_be_god) {
             _TRACE_("＜例外＞"<<e.getMsg());
-            string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能性があります。\n誠に申し訳ございません。\n";
+            string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
             string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
             MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
             _TRACE_("[GgafCriticalException]:"<<e.getMsg());
@@ -285,7 +285,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         if (can_be_god) {
             string what(e2.what());
             _TRACE_("＜致命的な例外＞"<<what);
-            string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかったエラーです。\n誠に申し訳ございません。\n";
+            string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかった致命的エラーです。\n誠に申し訳ございません。\n";
             string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
             MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP);
             _TRACE_("[exception]:"<<what);
