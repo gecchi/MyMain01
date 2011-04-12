@@ -32,24 +32,28 @@ namespace GgafDx9Core {
  * @author Masatoshi Tsuge
  */
 class GgafDx9StringBoardActor : public GgafDx9BoardSetActor {
-
+private:
     /** 描画文字列 */
     char* _draw_string;
     /** 文字バッファ(1024固定) */
     char* _buf;
     /** 文字列長 */
     int _len;
+    /** 描画文字のパック数。(1パック = _pBoardSetModel->_set_num) */
+    int _len_pack_num;
+    /** 最終のパックで表示しなければならない文字数。*/
+    int _remainder_len;
 
 public:
-    /** [rw]各文字間隔(px) */
+    /** [r/w]各文字間隔(px) */
     int _aWidthPx[256];
-    /** [r]ベースの１文字幅(px) */
+    /** [r/w]ベースの１文字幅(px) */
     int _chr_width;
 
     /**
-     *
+     * コンストラクタ .
      * @param prm_name
-     * @param prm_model 文字セットテクスチャのモデル
+     * @param prm_model 文字セットテクスチャのモデル定義ID
      * @return
      */
     GgafDx9StringBoardActor(const char* prm_name, const char* prm_model);
@@ -68,14 +72,65 @@ public:
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) {
     }
 
-
+    /**
+     * 描画文字を更新設定 .
+     * @param prm_x 左上のX座標(px)
+     * @param prm_y 左上のY座標(px)
+     * @param prm_str 描画文字列
+     */
     virtual void update(float prm_x, float prm_y, const char* prm_str);
+
+    /**
+     * 描画文字を更新設定  .
+     * @param prm_x 左上のX座標(px)
+     * @param prm_y 左上のY座標(px)
+     * @param prm_str 描画文字列
+     */
     virtual void update(float prm_x, float prm_y, char* prm_str);
+
+    /**
+     * 描画文字を更新設定  .
+     * @param prm_x 左上のX座標(px)
+     * @param prm_y 左上のY座標(px)
+     * @param prm_z プライオリティ(0.0 <= z < 1.0 値が小さい方が手前)
+     * @param prm_str 描画文字列
+     */
     virtual void update(float prm_x, float prm_y, float prm_z, const char* prm_str);
+
+    /**
+     * 描画文字を更新設定  .
+     * @param prm_x 左上のX座標(px)
+     * @param prm_y 左上のY座標(px)
+     * @param prm_z プライオリティ(0.0 <= z < 1.0 値が小さい方が手前)
+     * @param prm_str 描画文字列
+     */
     virtual void update(float prm_x, float prm_y, float prm_z, char* prm_str);
+
+    /**
+     * 描画文字を更新設定  .
+     * @param prm_str 描画文字列
+     */
     virtual void update(const char* prm_str);
+
+    /**
+     * 描画文字を更新設定  .
+     * @param prm_str 描画文字列
+     */
     virtual void update(char* prm_str);
+
+    /**
+     * 描画位置を更新設定  .
+     * @param prm_x 左上のX座標(px)
+     * @param prm_y 左上のY座標(px)
+     * @param prm_z プライオリティ(0.0 <= z < 1.0 値が小さい方が手前)
+     */
     virtual void update(float prm_x, float prm_y, float prm_z);
+
+    /**
+     * 描画位置を更新設定  .
+     * @param prm_x 左上のX座標(px)
+     * @param prm_y 左上のY座標(px)
+     */
     virtual void update(float prm_x, float prm_y);
 
     virtual ~GgafDx9StringBoardActor();

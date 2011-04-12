@@ -4,15 +4,15 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9StringBoardActor::GgafDx9StringBoardActor(const char* prm_name, const char* prm_model)
-//: GgafDx9BoardSetActor(prm_name, prm_model, "DefaultBoardSetEffect", "DefaultBoardSetTechnique") {
   : GgafDx9BoardSetActor(prm_name, prm_model, "StringBoardEffect", "StringBoardTechnique") {
 
     _class_name = "GgafDx9StringBoardActor";
     _draw_string = NULL;
     _len = 0;
     _buf = NEW char[1024];
+    //デフォルトの１文字の幅(px)設定
     for (int i = 0; i < 256; i++) {
-        _aWidthPx[i] = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //１文字の幅(px)
+        _aWidthPx[i] = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx);
     }
     _chr_width = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //１文字の幅(px)
 }
@@ -39,10 +39,6 @@ void GgafDx9StringBoardActor::update(float prm_x, float prm_y, float prm_z, cons
     _x = prm_x;
     _y = prm_y;
     _z = prm_z;
-    //_paVertex[0].z = _z;
-    //_paVertex[1].z = _z;
-    //_paVertex[2].z = _z;
-    //_paVertex[3].z = _z;
 }
 
 void GgafDx9StringBoardActor::update(float prm_x, float prm_y, float prm_z, char* prm_str) {
@@ -50,24 +46,23 @@ void GgafDx9StringBoardActor::update(float prm_x, float prm_y, float prm_z, char
     _x = prm_x;
     _y = prm_y;
     _z = prm_z;
-    //_paVertex[0].z = _z;
-    //_paVertex[1].z = _z;
-    //_paVertex[2].z = _z;
-    //_paVertex[3].z = _z;
 
 }
 
 void GgafDx9StringBoardActor::update(const char* prm_str) {
     _draw_string = (char*)prm_str;
     _len = strlen(prm_str);
+    _len_pack_num = _len/_pBoardSetModel->_set_num;
+    _remainder_len = _len%_pBoardSetModel->_set_num;
 }
 
 void GgafDx9StringBoardActor::update(char* prm_str) {
     _draw_string = _buf;
     strcpy(_draw_string, prm_str);
     _len = strlen(prm_str);
+    _len_pack_num = _len/_pBoardSetModel->_set_num;
+    _remainder_len = _len%_pBoardSetModel->_set_num;
 }
-
 
 void GgafDx9StringBoardActor::update(float prm_x, float prm_y, float prm_z) {
     _x = prm_x;
@@ -79,7 +74,6 @@ void GgafDx9StringBoardActor::update(float prm_x, float prm_y) {
     _x = prm_x;
     _y = prm_y;
 }
-
 
 void GgafDx9StringBoardActor::processDraw() {
     if (_len == 0) {
@@ -95,18 +89,11 @@ void GgafDx9StringBoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahDepthZ) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _fAlpha);
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahAlpha) に失敗しました。");
-    int len_pack_num = _len/_pBoardSetModel->_set_num;
-    int remainder_len = _len%_pBoardSetModel->_set_num;
     int strindex;
     int x = _x;
     int x_next;
-    for (int pack = 0; pack < len_pack_num+(remainder_len == 0 ? 0 : 1); pack++) {
-        if (pack < len_pack_num) {
-            _draw_set_num = _pBoardSetModel->_set_num;
-        } else {
-            _draw_set_num = remainder_len;
-        }
-
+    for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
+        _draw_set_num = pack < _len_pack_num ? _pBoardSetModel->_set_num : _remainder_len;
         int pattno;
         for (int i = 0; i < _draw_set_num; i++) {
             strindex = pack * _pBoardSetModel->_set_num + i;
@@ -121,10 +108,10 @@ void GgafDx9StringBoardActor::processDraw() {
             }
 
             //プロポーショナルな幅計算
+            int w = ((_chr_width - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
             if (strindex == 0) {
-                x_next = x + _chr_width - ((_chr_width - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
+                x_next = x + w;
             } else {
-                int w = ((_chr_width - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
                 x = x_next - w;
                 x_next = x + _chr_width - w;
             }
@@ -135,7 +122,6 @@ void GgafDx9StringBoardActor::processDraw() {
             checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetU) に失敗しました。");
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[i], pRectUV_Active->_aUV[0].tv);
             checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetV) に失敗しました。");
-
         }
         _pBoardSetModel->draw(this, _draw_set_num);
     }
