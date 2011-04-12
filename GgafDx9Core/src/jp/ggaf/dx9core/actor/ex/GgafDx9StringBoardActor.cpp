@@ -7,7 +7,7 @@ GgafDx9StringBoardActor::GgafDx9StringBoardActor(const char* prm_name, const cha
   : GgafDx9BoardSetActor(prm_name, prm_model, "StringBoardEffect", "StringBoardTechnique") {
 
     _class_name = "GgafDx9StringBoardActor";
-    _draw_string = NULL;
+    _draw_string = '\0';
     _len = 0;
     _buf = NEW char[1024];
     //デフォルトの１文字の幅(px)設定

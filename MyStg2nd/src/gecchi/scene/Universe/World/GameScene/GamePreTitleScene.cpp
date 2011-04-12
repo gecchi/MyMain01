@@ -15,10 +15,6 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
     getLordActor()->addSubGroup(_pStringBoard02);
     _pTitleBoard = NEW TitleBoard("TitleBoard");
     getLordActor()->addSubGroup(_pTitleBoard);
-
-    _pBgmPerformer->useBgm(1);
-    _pBgmPerformer->set(0, "BGM_DEMO");
-
 }
 void GamePreTitleScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");
