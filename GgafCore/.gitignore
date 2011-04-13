@@ -1,7 +1,8 @@
 /.settings
 /ReleaseCdt
 /DebugCdt
-/GgafCore.vcproj
 /Debug
 /GprofCdt
 /Release
+/GgafCore.vcproj
+/GgafCore.vcproj.*.*.user
