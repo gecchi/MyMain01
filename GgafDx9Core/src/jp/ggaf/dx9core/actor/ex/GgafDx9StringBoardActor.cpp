@@ -103,11 +103,10 @@ void GgafDx9StringBoardActor::processDraw() {
             } else {
                 pattno = _draw_string[strindex] - ' '; //通常文字列
             }
-
             //プロポーショナルな幅計算
             int w = ((_chr_width - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
-			x = x_tmp - w;
-			x_tmp = x + _chr_width - w;
+            x = x_tmp - w;
+            x_tmp = x + _chr_width - w;
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], x);
             checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) に失敗しました。");
             pRectUV_Active = _pBoardSetModel->_paRectUV + pattno; //文字のテクスチャ
