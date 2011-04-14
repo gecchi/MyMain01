@@ -13,9 +13,8 @@ Stage01_03::Stage01_03(const char* prm_name) : DefaultScene(prm_name) {
     // gen01 start
 	frame f[] = {1,100,200,2200,4000,8000};
 	_paFrame_NextEvent = new frame[6];
-	for (int i = 0; i < 6; i++) {
-		_paFrame_NextEvent[i] = f[i];
-	}
+	memcpy(_paFrame_NextEvent, f, sizeof(f));
+	_event_num = 6;
 	orderActorToFactory(50000000, FormationIris002, "F002_Iris_1");
 	orderActorToFactory(50000001, FormationIris002, "F002_Iris_2");
 	
