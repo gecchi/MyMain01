@@ -22,11 +22,11 @@ namespace GgafCore {
 class GgafGod : public GgafObject {
 
 private:
-
     /** behaveを行ったかフラグ */
     bool _is_behaved_flg;
     /** materializeを行ったかフラグ */
     bool _is_materialized_flg;
+
 public:
     /** be() できるかどうか */
     bool _can_be;
@@ -73,6 +73,7 @@ public:
     /** 時間とフレームの動機調整モード中はtrue */
     bool _sync_frame_time;
     bool _was_cleaned;
+
     /**
      * コンストラクタ .
      * 別スレッドで工場を稼動させます。

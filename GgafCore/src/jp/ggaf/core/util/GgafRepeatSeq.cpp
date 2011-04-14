@@ -1,10 +1,10 @@
 #include "stdafx.h"
 using namespace std;
-
 using namespace GgafCore;
-std::map<std::string, int> GgafRepeatSeq::mapNowval;
-std::map<std::string, int> GgafRepeatSeq::mapMaxval;
-std::map<std::string, int> GgafRepeatSeq::mapMinval;
+
+map<string, int> GgafRepeatSeq::mapNowval;
+map<string, int> GgafRepeatSeq::mapMaxval;
+map<string, int> GgafRepeatSeq::mapMinval;
 
 void GgafRepeatSeq::create(string ID, int min, int max) {
     if (isExist(ID)) {
@@ -15,7 +15,6 @@ void GgafRepeatSeq::create(string ID, int min, int max) {
         mapMinval[ID] = min;
     }
 }
-
 
 bool GgafRepeatSeq::isExist(string ID) {
     map<string, int>::iterator i = mapNowval.find(ID);

@@ -13,7 +13,6 @@ namespace GgafDx9Core {
 class GgafDx9DrawableActor : public GgafDx9GeometricActor {
 
 private:
-
     char* _technique_temp;
     frame _frame_temp_technique;
     unsigned int _hash_technique_temp;
@@ -32,9 +31,9 @@ private:
     void draw() override {}
 
 public:
-
+    /** [r/w]描画時、Zバッファを考慮して描画を行うか否か。true:考慮する／false:Zバッファを無視して描画  */
     bool _zenable;
-
+    /** [r/w]描画時、Zバッファへ書き込みを行うか否か。true:Zバッファへ深度を書き込む／false:Zバッファへは何も書き込まない */
     bool _zwriteenable;
 
     /** 直近の描画時に使用されたテクニック名のハッシュコード */
