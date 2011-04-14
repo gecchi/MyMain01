@@ -25,7 +25,7 @@ public:
     GgafScene* _pScene;
     /** [r]現在のカーテンの状態 */
     GgafCurtainState _state;
-    /** [r]カーテンの長さ */
+    /** [r/w]カーテンの長さ */
     float _curtain_length;
     /** [r]現在のカーテンの長さ(開き具合) */
     float _now_curtain_length;
@@ -34,34 +34,47 @@ public:
     /** [r]カーテンを閉める際の速度 */
     float _closing_velocity;
 
+
     /**
      * コンストラクタ .
-     * カーテンの長さは1.0に設定されます。<BR>
+     * カーテンの長さはデフォルトで 1.0 に設定されます。<BR>
      * また、初期状態はカーテンは開いています。<BR>
      * @param prm_pScene カーテンを取り付けるシーン
-     * @return
+     * @param prm_curtain_length カーテンの長さ(デフォルト 1.0)
      */
-    GgafCurtain(GgafScene* prm_pScene);
+    GgafCurtain(GgafScene* prm_pScene, float prm_curtain_length = 1.0f);
 
     /**
      * カーテンを徐々に開ける .
+     * 本メソッドを実行すると、behave() が呼び出されるごとに
+     * prm_opening_velocity づつカーテンが開きます（長さが短くなります）。
+     * カーテンのは長さの 0.0 まです。長さ 0.0  に達すると、processCloseDone() を
+     * コールバックし open は終了します。
      * @param prm_opening_velocity カーテンを開ける速度
      */
     virtual void open(float prm_opening_velocity);
 
     /**
      * カーテンを即座に最大に開ける .
+     * 本メソッドを実行すると カーテンの長さは 0.0 になります。
+     * processOpenDone() を１回コールバックします。
      */
     virtual void open();
 
     /**
      * カーテンを徐々に閉める .
+     * 本メソッドを実行すると、behave() が呼び出されるごとに
+     * prm_closing_velocity づつカーテンがを閉じてゆきます（長さが長くなります）。<BR>
+     * カーテンの長さの最大は 1.0 です。長さ 1.0 に達すると、processCloseDone() を１回
+     * コールバックし、close は終了します。
      * @param prm_closing_velocity カーテンを閉める速度
      */
     virtual void close(float prm_closing_velocity);
 
     /**
      * カーテンを即座に閉めきる .
+     * 本メソッドを実行すると カーテンの長さは 1.0 になります。
+     * processOpenDone() を１回コールバックします。
      */
     virtual void close();
 
@@ -95,7 +108,7 @@ public:
 
     /**
      * カーテンが開ききった時の処理 .
-     * _now_curtain_lengthが0になった際１度だけ呼び出されます。 <BR>
+     * _now_curtain_length が 0.0 になった際１度だけ呼び出されます。 <BR>
      * 下位で実際の処理を実装してください。<BR>
      */
     virtual void processOpenDone() = 0;

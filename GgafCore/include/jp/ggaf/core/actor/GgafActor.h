@@ -52,9 +52,6 @@ private:
 
     /** 現在の所属シーン */
     GgafScene* _pScene_Platform;
-
-    /** ループ用 */
-    GgafActor* _pActor_tmp;
     /** ８分木登録を行うかどうかのフラグ */
     bool _use_octree;
 
@@ -89,15 +86,15 @@ public:
 
     /**
      * 自アクターの衝突判定有無を設定する。 .
-     * @param	prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
-     * @param   prm_can_hit_out_of_view_flg  衝突判定有りの場合、視野外衝突判定の有無を設定(true:画面外衝突判定有り／false:画面外衝突判定無し)
+     * @param prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
+     * @param prm_can_hit_out_of_view_flg  衝突判定有りの場合、視野外衝突判定の有無を設定(true:画面外衝突判定有り／false:画面外衝突判定無し)
      */
     void setHitAble(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg = true);
 
     /**
      * 自ツリーアクターの衝突判定有無を設定する。 .
-     * @param	prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
-     * @param   prm_can_hit_out_of_view_flg  衝突判定有りの場合、視野外衝突判定の有無を設定(true:画面外衝突判定有り／false:画面外衝突判定無し)
+     * @param prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
+     * @param prm_can_hit_out_of_view_flg  衝突判定有りの場合、視野外衝突判定の有無を設定(true:画面外衝突判定有り／false:画面外衝突判定無し)
      */
     void setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg = true);
 
@@ -121,6 +118,7 @@ public:
             return false;
         }
     }
+
     /**
      * 所属しているシーンを取得。 .
      * @return	GgafScene*	所属しているシーン
@@ -188,8 +186,6 @@ public:
      * @param prm_frame_offset 猶予フレーム(1～)
      */
     virtual void sayonara(frame prm_frame_offset = 1);
-
-
 
     /**
      * デバッグ用：ツリー構造を表示<BR>

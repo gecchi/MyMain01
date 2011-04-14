@@ -15,9 +15,6 @@ class GgafDummyActor : public GgafMainActor {
 public:
     GgafDummyActor(const char* prm_name);
 
-    /**
-     * ‰Šúˆ—<BR>
-     */
     virtual void initialize() override {
     }
 

@@ -129,7 +129,6 @@ public:
             pActor = getSubFirst();
         }
         return pActor;
-
     }
 
     /**
