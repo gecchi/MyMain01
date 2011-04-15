@@ -19,6 +19,7 @@ GgafGroupActor* ActorTableScene::addToTable(GgafDx9FormationActor* prm_pFormatio
     prm_pFormationActor->_frame_offset_end = FORMATION_END_DELAY;
     prm_pFormationActor->inactivateImmediately();
     _table.addLast(NEW TblElem(prm_pFormationActor, prm_max_delay_offset), true);
+
     return getLordActor()->addSubGroup(prm_pFormationActor);
 }
 
@@ -26,7 +27,7 @@ void ActorTableScene::onActive() {
     if (_table.length() > 0) {
         _frame_of_current_part_began = getActivePartFrame();
         _table.first();
-        _table.getCurrent()->_pActor->activate();
+        _table.getCurrent()->_pFormationActor->activate();
         //OK
         //_frame_of_current_part_began = getActivePartFrame(); todo:絶対に０になるし。相対フレームでいいっか・・・
         _TRACE_("ActorTableScene::onActive() ["<<getName()<<"] 来ました。");
@@ -48,10 +49,10 @@ void ActorTableScene::processBehavior() {
         }
 
         TblElem* e = _table.getCurrent();
-        GgafMainActor* pActiveActor = e->_pActor;
+        GgafDx9FormationActor* pF = e->_pFormationActor;
         //全滅判定
         bool was_destroyed = false;
-        GgafDx9FormationActor* pF = (GgafDx9FormationActor*)pActiveActor;
+
         if (pF->_num_sub == 0) { //編隊破壊による全滅(画面外に逃げた場合は0にはならない)
             was_destroyed = true;
         } else {
@@ -71,11 +72,11 @@ void ActorTableScene::processBehavior() {
                     //収まらないと言うわけで、以降は全て無視されてシーン終了
                     _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了１！！");
                     end(FORMATION_END_DELAY); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
-					//このend() により、本処理先頭の wasDeclaredEnd() が真となる
+                    //このend() により、本処理先頭の wasDeclaredEnd() が真となる
                 } else {
                     //余裕があるため次のパートをアクティブにする。
                     TblElem* n = _table.next(); //アクティブを次のパートへ
-                    n->_pActor->activate();     //敵アクティブ
+                    n->_pFormationActor->activate();     //敵アクティブ
                     _frame_of_current_part_began = getActivePartFrame();
                 }
             }
@@ -84,7 +85,7 @@ void ActorTableScene::processBehavior() {
             if (_table.isLast()) {
                 //最終パートは次がないのでなにもしない
                 end(FORMATION_END_DELAY); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
-				//このend() により、本処理先頭の wasDeclaredEnd() が真となる
+                //このend() により、本処理先頭の wasDeclaredEnd() が真となる
             } else {
                 //max_delay_offset過ぎれば次へ
                 if (getActivePartFrame() >= e->_max_delay_offset+_frame_of_current_part_began) {
@@ -92,10 +93,10 @@ void ActorTableScene::processBehavior() {
                         //収まらないと言うわけで、以降は全て無視され共生終了
                         _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 収まらない強制終了２！！");
                         end(FORMATION_END_DELAY); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
-						//このend() により、本処理先頭の wasDeclaredEnd() が真となる
+                        //このend() により、本処理先頭の wasDeclaredEnd() が真となる
                     } else {
                         TblElem* n = _table.next(); //アクティブを次のパートへ
-                        n->_pActor->activate();
+                        n->_pFormationActor->activate();
                         _frame_of_current_part_began = getActivePartFrame();
                     }
 

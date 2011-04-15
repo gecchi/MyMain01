@@ -51,23 +51,23 @@ class ActorTableScene : public GgafDx9Core::GgafDx9Scene {
 private:
     /**
      * 敵出現テーブル要素クラス .
-     * 敵(アクター)、最大待ちフレーム(_max_delay_offset) の情報を持ったコンテナ
+     * 編隊アクター、最大待ちフレーム(_max_delay_offset) の情報を持ったコンテナ
      */
     class TblElem {
     public:
-        /** 敵(アクター) */
-        GgafCore::GgafMainActor* _pActor;
-        /** 敵(アクター)が放置されたとしても、次の敵が出現するまでのフレーム数 */
+        /** 編隊アクター */
+        GgafDx9Core::GgafDx9FormationActor* _pFormationActor;
+        /** 編隊アクターが放置されたとしても、次の敵が出現するまでのフレーム数 */
         frame _max_delay_offset;
 
         /**
          * 要素コンストラクタ .
-         * @param prm_pActor 敵(アクター)
+         * @param prm_pFormationActor 編隊アクター
          * @param prm_max_delay_offset 次の敵が出現するまでのフレーム数(省略時は0)
          * @return
          */
-        TblElem(GgafCore::GgafMainActor* prm_pActor, frame prm_max_delay_offset = 0) {
-            _pActor = prm_pActor;
+        TblElem(GgafDx9Core::GgafDx9FormationActor* prm_pFormationActor, frame prm_max_delay_offset = 0) {
+            _pFormationActor = prm_pFormationActor;
             _max_delay_offset = prm_max_delay_offset;
         }
         virtual ~TblElem() {
