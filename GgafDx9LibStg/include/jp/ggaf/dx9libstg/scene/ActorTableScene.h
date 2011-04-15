@@ -91,10 +91,10 @@ public:
     ActorTableScene(const char* prm_name);
 
     /**
-     * 敵出現テーブルに要素追加 .
-     * 要素追加時、敵(アクター)は非活動状態(inactivateImmediately())にさせられます。<BR>
-     * 要素追加してからactivate()しないでください。<BR>
-     * @param prm_pMainActor 敵(アクター)
+     * 現テーブルに敵編隊要素追加 .
+     * 要素追加時、敵編隊アクターは非活動状態(inactivateImmediately())にさせられます。<BR>
+     * 要素追加してから activate() は、しないでください。<BR>
+     * @param prm_pFormationActor 敵編隊アクター
      * @param prm_max_delay_offset 次の敵出現までの、最大待ちフレーム数
      * @return
      */
@@ -112,9 +112,6 @@ public:
     virtual void initialize() override {
     }
 
-    /**
-     * 敵要素が追加されているかチェックする .
-     */
     virtual void onActive() override;
 
     /**
