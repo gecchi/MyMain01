@@ -66,7 +66,7 @@ void ActorTableScene::processBehavior() {
                 _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 全パート終了！！");
                 end(FORMATION_END_DELAY);
             } else {
-                _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] pActiveActor="<<pActiveActor->getName()<<" 消滅により早回しきたー！！");
+                _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] pActiveActor="<<pF->getName()<<" 消滅により早回しきたー！！");
                 //最終パートではない場合、テーブル全体の許容フレームか判断
                 if (_max_perform_frame <  getActivePartFrame()) {
                     //収まらないと言うわけで、以降は全て無視されてシーン終了
