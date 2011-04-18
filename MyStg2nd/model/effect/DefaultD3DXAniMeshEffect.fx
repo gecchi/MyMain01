@@ -33,7 +33,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //メッシュ標準頂点シェーダー
-OUT_VS GgafDx9VS_DefaultAniMesh(
+OUT_VS GgafDx9VS_DefaultD3DXAniMesh(
       float4 prm_pos    : POSITION,      // モデルの頂点
       float3 prm_normal : NORMAL,        // モデルの頂点の法線
       float2 prm_uv     : TEXCOORD0      // モデルの頂点のUV
@@ -69,7 +69,7 @@ OUT_VS GgafDx9VS_DefaultAniMesh(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDx9PS_DefaultAniMesh(
+float4 GgafDx9PS_DefaultD3DXAniMesh(
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_col    : COLOR0
 ) : COLOR  {
@@ -84,7 +84,7 @@ float4 GgafDx9PS_DefaultAniMesh(
 	return out_color;
 }
 
-float4 GgafDx9PS_DefaultAniMesh2(
+float4 GgafDx9PS_DefaultD3DXAniMesh2(
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_col    : COLOR0
 ) : COLOR  {
@@ -100,7 +100,7 @@ float4 GgafDx9PS_DefaultAniMesh2(
 }
 
 
-technique DefaultAniMeshTechnique
+technique DefaultD3DXAniMeshTechnique
 {
 	//pass P0「メッシュ標準シェーダー」
 	//メッシュを描画する
@@ -131,20 +131,20 @@ technique DefaultAniMeshTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultAniMesh();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultAniMesh();
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultD3DXAniMesh();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultD3DXAniMesh();
 	}
 }
 
-technique DefaultAniMeshTechnique2
+technique DefaultD3DXAniMeshTechnique2
 {
 	pass P0 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultAniMesh();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultAniMesh2();
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultD3DXAniMesh();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultD3DXAniMesh2();
 	}
 }
 

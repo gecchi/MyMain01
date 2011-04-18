@@ -3,10 +3,10 @@
 namespace GgafDx9LibStg {
 
 /**
- * 当たり判定表示用キューブクラス
- * DefaultCubeActor を継承し、当たり判定領域表示機能を追加したアクターです。
+ * 当たり判定表示用AAプリズムクラス
+ * GgafDx9AAPrismActor を継承し、当たり判定領域表示機能を追加したアクターです。
  * @version 1.00
- * @since 2009/08/25
+ * @since 2010/12/29
  * @author Masatoshi Tsuge
  */
 class ColliAAPrismActor : public GgafDx9Core::GgafDx9AAPrismActor {
