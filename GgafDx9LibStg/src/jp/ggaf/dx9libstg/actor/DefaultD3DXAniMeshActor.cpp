@@ -7,8 +7,8 @@ using namespace GgafDx9LibStg;
 DefaultD3DXAniMeshActor::DefaultD3DXAniMeshActor(const char* prm_name, const char* prm_model) :
     GgafDx9D3DXAniMeshActor(prm_name,
                          prm_model,
-                         "DefaultAniMeshEffect",
-                         "DefaultAniMeshTechnique",
+                         "DefaultD3DXAniMeshEffect",
+                         "DefaultD3DXAniMeshTechnique",
                          NEW CollisionChecker(this) ) {
     _class_name = "DefaultD3DXAniMeshActor";
     _frame_offset = 0;

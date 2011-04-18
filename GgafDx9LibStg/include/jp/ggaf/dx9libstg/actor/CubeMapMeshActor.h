@@ -3,10 +3,10 @@
 namespace GgafDx9LibStg {
 
 /**
- * メッシュアクターの具象クラス.
+ * 環境マップメッシュアクターの具象クラス.
  * GgafDx9Core::GgafDx9MeshActor を空実装した具象アクターです。
  * @version 1.00
- * @since 2009/02/19
+ * @since 2010/12/21
  * @author Masatoshi Tsuge
  */
 class CubeMapMeshActor : public GgafDx9Core::GgafDx9CubeMapMeshActor {

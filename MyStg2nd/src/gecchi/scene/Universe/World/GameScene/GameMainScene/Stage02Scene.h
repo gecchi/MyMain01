@@ -8,8 +8,6 @@ class Stage02Scene : public StageScene {
 public:
 
     Stage02Controller* _pScene_Stage02Controller;
-    //BackGround02* _pBackGround02;
-//    BackGroundStar* _pBackGroundStar;
     WorldBoundSpace002* _pWorldBoundSpace;
     HoshiBoshi001* _pHoshiBoshi;
 

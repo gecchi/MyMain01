@@ -1,29 +1,25 @@
-#ifndef CUBEMAPMESHSETACTOR_H_
-#define CUBEMAPMESHSETACTOR_H_
-namespace GgafDx9LibStg {
+#ifndef GROUNDMESHEFFECTACTOR_H_
+#define GROUNDMESHEFFECTACTOR_H_
+namespace MyStg2nd {
 
 /**
- * 環境マップメッシュセットアクター.の具象クラス.
- * GgafDx9Core::GgafDx9CubeMapMeshSetActor を空実装した具象アクターです。
+ * プリレンダ用テストアクター .
  * @version 1.00
- * @since 2010/12/24
+ * @since 2011/04/18
  * @author Masatoshi Tsuge
  */
-class CubeMapMeshSetActor : public GgafDx9Core::GgafDx9CubeMapMeshSetActor {
+class GroundMeshEffectActor : public GgafDx9Core::GgafDx9MeshActor {
 
 public:
-    /** 拡大縮小支援オブジェクト */
     GgafDx9Core::GgafDx9Scaler* _pScaler;
 
     frame _frame_offset;
 
-    CollisionChecker* _pCollisionChecker;
+    GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 
-    CubeMapMeshSetActor(const char* prm_name, const char* prm_model);
-
+    GroundMeshEffectActor(const char* prm_name);
     virtual void onCreateModel() override {
     }
-
     virtual void initialize() override {
     }
 
@@ -32,6 +28,12 @@ public:
 
     virtual void processJudgement() override {
     }
+
+//    /**
+//     * フレームワークオーバーライド
+//     */
+//    virtual void processPreDraw() override;
+    virtual void processDraw() override;
 
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
     }
@@ -44,8 +46,9 @@ public:
 
     virtual void drawHitArea() override;
 
-    virtual ~CubeMapMeshSetActor();
+
+    virtual ~GroundMeshEffectActor();
 };
 
 }
-#endif /*CUBEMAPMESHSETACTOR_H_*/
+#endif /*GROUNDMESHEFFECTACTOR_H_*/
