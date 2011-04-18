@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 GroundMeshEffectActor::GroundMeshEffectActor(const char* prm_name) :
         GgafDx9MeshActor(prm_name,
-                     "GroundMeshEffectTest",
+                     "_chk_GroundMeshEffectTest",
                      "GroundMeshEffect",
                      "GroundMeshEffectTechnique",
                      NULL) {

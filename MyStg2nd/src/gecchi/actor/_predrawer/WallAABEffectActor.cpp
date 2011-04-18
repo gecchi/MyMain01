@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 WallAABEffectActor::WallAABEffectActor(const char* prm_name) :
-        WallAABActor(prm_name, "g_box001") {
+        WallAABActor(prm_name, "_chk_WallAABEffectActorTest") {
     _class_name = "WallAABEffectActor";
 }
 

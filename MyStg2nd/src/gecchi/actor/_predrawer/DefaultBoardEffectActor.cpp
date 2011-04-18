@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-DefaultBoardEffectActor::DefaultBoardEffectActor(const char* prm_name) : DefaultBoardActor(prm_name, "LockOn001") {
+DefaultBoardEffectActor::DefaultBoardEffectActor(const char* prm_name) : DefaultBoardActor(prm_name, "_chk_DefaultBoardEffectTest") {
     _class_name = "DefaultBoardEffectActor";
 }
 void DefaultBoardEffectActor::initialize() {

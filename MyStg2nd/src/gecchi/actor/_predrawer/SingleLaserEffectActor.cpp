@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 SingleLaserEffectActor::SingleLaserEffectActor(const char* prm_name) :
-        SingleLaser(prm_name, "SingleLaserEffectActor") { //SingleLaserは最大27セットである
+        SingleLaser(prm_name, "_chk_SingleLaserEffectTest") { //SingleLaserは最大27セットである
         //SingleLaser(prm_name, "27/laser_single") { //SingleLaserは最大27セットである
     _class_name = "SingleLaserEffectActor";
 }

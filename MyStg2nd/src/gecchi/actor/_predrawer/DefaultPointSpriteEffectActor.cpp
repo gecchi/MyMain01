@@ -4,9 +4,8 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
-//åªç›ñ¢égóp
 DefaultPointSpriteEffectActor::DefaultPointSpriteEffectActor(const char* prm_name) :
-DefaultPointSpriteActor(prm_name, "hoshitest") {
+DefaultPointSpriteActor(prm_name, "_chk_DefaultPointSpriteEffectTest") {
     _class_name = "DefaultPointSpriteEffectActor";
     changeEffectTechnique("DestBlendOne"); //â¡éZçáê¨
     setHitAble(false);

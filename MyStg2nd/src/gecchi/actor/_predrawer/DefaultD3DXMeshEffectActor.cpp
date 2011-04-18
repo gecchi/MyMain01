@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-DefaultD3DXMeshEffectActor::DefaultD3DXMeshEffectActor(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "DefaultD3DXMeshEffectTest") {
+DefaultD3DXMeshEffectActor::DefaultD3DXMeshEffectActor(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "_chk_DefaultD3DXMeshEffectTest") {
     _class_name = "DefaultD3DXMeshEffectActor";
     setHitAble(false);
 }
