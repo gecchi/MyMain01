@@ -35,7 +35,7 @@ void GgafDx9BoardSetActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
     GgafDx9DrawableActor* pDrawActor = this;
-    GgafDx9BoardSetActor* pBoardSetActor;
+    GgafDx9BoardSetActor* pBoardSetActor = NULL;
     GgafDx9RectUV* pRectUV_Active;
     while (true) {
         if (pDrawActor)  {

@@ -227,7 +227,7 @@ void LaserChip::processDraw() {
     HRESULT hr;
     //Šî–{ƒ‚ƒfƒ‹’¸“_”
     GgafDx9DrawableActor* pDrawActor = this;
-    LaserChip* pLaserChip;
+    LaserChip* pLaserChip = NULL;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pGgafDx9Model == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {

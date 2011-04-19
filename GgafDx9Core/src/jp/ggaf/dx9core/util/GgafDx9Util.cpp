@@ -673,7 +673,7 @@ void GgafDx9Util::getNormalizeVectorZY(angle prm_angFaceZ,
             Zsign = 1;
         }
     } else {
-        _TRACE_("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
+        throwGgafCriticalException("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
     }
     UINT32 vx, vy, vz;
     //  _TRACE_("prm_angFaceZ="<<prm_angFaceZ<<"/prm_angFaceY="<<prm_angFaceY<<" rY="<<rY<<"/rZ="<<rZ<<")");

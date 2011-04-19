@@ -65,7 +65,7 @@ void SingleLaser::processDraw() {
     HRESULT hr;
     //Šî–{ƒ‚ƒfƒ‹’¸“_”
     GgafDx9DrawableActor* pDrawActor = this;
-    SingleLaser* pSingleLaserChip;
+    SingleLaser* pSingleLaserChip = NULL;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pGgafDx9Model == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {

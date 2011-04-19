@@ -52,7 +52,7 @@ void WallAABActor::processDraw() {
         checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(_h_distance_AlphaTarget) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
     GgafDx9DrawableActor* pDrawActor = this;
-    WallActor* pWallActor;
+    WallActor* pWallActor = NULL;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pGgafDx9Model == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {

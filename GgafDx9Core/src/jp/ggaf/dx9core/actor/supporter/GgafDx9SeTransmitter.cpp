@@ -168,10 +168,10 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
                     if (_pActor->_fDist_VpPlnFront > 0) {
                         rate_frequency = 0.9; //”wŒã‚Ìê‡Žü”g”‚ð‰º‚°A‰¹‚ð­‚µ‚®‚®‚à‚ç‚¹‚éB
                     }
+                    _papSeCon[i]->refer()->setPan(pan);
+                    _papSeCon[i]->refer()->setVolume(vol);
+                    _papSeCon[i]->refer()->setFrequencyRate(rate_frequency);
                 }
-                _papSeCon[i]->refer()->setPan(pan);
-                _papSeCon[i]->refer()->setVolume(vol);
-                _papSeCon[i]->refer()->setFrequencyRate(rate_frequency);
             } else {
                 _pa_is3D[i] = false;
             }

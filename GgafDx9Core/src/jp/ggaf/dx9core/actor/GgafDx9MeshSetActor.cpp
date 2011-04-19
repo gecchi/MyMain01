@@ -69,7 +69,7 @@ void GgafDx9MeshSetActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     GgafDx9DrawableActor* pDrawActor = this;
-    GgafDx9MeshSetActor* pMeshSetActor;
+    GgafDx9MeshSetActor* pMeshSetActor = NULL;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pGgafDx9Model == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {

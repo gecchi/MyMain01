@@ -34,7 +34,6 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
     pTargetActor->_pPuppeteer->work(); //アニメーション反映
     list< D3DXFRAME_WORLD* > *pDrawList = _stackWorldMat.GetDrawList(); // 描画リストを取得
     list<D3DXFRAME_WORLD*>::iterator it = pDrawList->begin();
-    int materialnum;
 
     int n = 0;
     //マテリアル・テクスチャの一発目をセット、

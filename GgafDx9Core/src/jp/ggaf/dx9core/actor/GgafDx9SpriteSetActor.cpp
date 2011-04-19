@@ -36,7 +36,7 @@ void GgafDx9SpriteSetActor::processDraw() {
     HRESULT hr;
 
     GgafDx9DrawableActor* pDrawActor = this;
-    GgafDx9SpriteSetActor* pSpriteSetActor;
+    GgafDx9SpriteSetActor* pSpriteSetActor = NULL;
     GgafDx9RectUV* pRectUV_Active;
     while (true) {
         if (pDrawActor)  {

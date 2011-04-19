@@ -104,7 +104,6 @@ void GgafDx9Camera::initialize() {
 
 void GgafDx9Camera::processBehavior() {
     //if (_frame_of_behaving % 2 == 0) { //10フレームに１回だけ計算
-    HRESULT hr;
     //スクリーン全体のクライアント領域を保持。
 
     // _viewport.MinZ / MaxZ は、通常それぞれ 0 / 1
