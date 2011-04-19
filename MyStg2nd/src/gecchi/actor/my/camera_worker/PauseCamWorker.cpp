@@ -262,20 +262,19 @@ void PauseCamWorker::processBehavior() {
 
 
     //ÉJÉÅÉâÇÃUPÇåvéZ
-      angvelo angvelo_cam_up = cam_velo_renge/20;
-
-      if (_angXY_nowCamUp != _move_target_XY_CAM_UP) {
-          angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, _move_target_XY_CAM_UP);
-          if (-angvelo_cam_up < da && da < angvelo_cam_up) {
-              _angXY_nowCamUp = _move_target_XY_CAM_UP;
-          } else {
-              _angXY_nowCamUp += (angvelo_cam_up * sgn(da));
-          }
-          _angXY_nowCamUp = GgafDx9Util::simplifyAng(_angXY_nowCamUp);
-          pCam->_pVecCamUp->x = GgafDx9Util::COS[_angXY_nowCamUp/ANGLE_RATE];
-          pCam->_pVecCamUp->y = GgafDx9Util::SIN[_angXY_nowCamUp/ANGLE_RATE];
-          pCam->_pVecCamUp->z = 0.0f;
-      }
+    angvelo angvelo_cam_up = 30000 / 20;
+    if (_angXY_nowCamUp != _move_target_XY_CAM_UP) {
+        angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, _move_target_XY_CAM_UP);
+        if (-angvelo_cam_up < da && da < angvelo_cam_up) {
+            _angXY_nowCamUp = _move_target_XY_CAM_UP;
+        } else {
+            _angXY_nowCamUp += (angvelo_cam_up * sgn(da));
+        }
+        _angXY_nowCamUp = GgafDx9Util::simplifyAng(_angXY_nowCamUp);
+        pCam->_pVecCamUp->x = GgafDx9Util::COS[_angXY_nowCamUp / ANGLE_RATE];
+        pCam->_pVecCamUp->y = GgafDx9Util::SIN[_angXY_nowCamUp / ANGLE_RATE];
+        pCam->_pVecCamUp->z = 0.0f;
+    }
 
 
     pCam->_pKuroko->behave();
