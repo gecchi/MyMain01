@@ -84,6 +84,7 @@ void ActorTableScene::processBehavior() {
             //全滅では無い場合
             if (_table.isLast()) {
                 //最終パートは次がないのでなにもしない
+                _TRACE_("ActorTableScene::processBehavior() ["<<getName()<<"] end() 全滅では無いし、最終パートで次が無いのでなにもしない");
                 end(FORMATION_END_DELAY); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
                 //このend() により、本処理先頭の wasDeclaredEnd() が真となる
             } else {

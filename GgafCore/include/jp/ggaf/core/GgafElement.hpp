@@ -1305,11 +1305,16 @@ void GgafElement<T>::inactivateTree() {
 template<class T>
 void GgafElement<T>::inactivateDelay(frame prm_frame_offset) {
     if (_can_live_flg) {
-        //既にactivateDelay()実行済みの場合は無効化される。
-        _will_activate_after_flg = false;
+        if (_will_activate_after_flg) {
+            //既にactivateDelay()実行済みの場合
+            if (_frame_of_life_when_activation >= _frame_of_life + prm_frame_offset) {
+                //inactive 予定よりも後に active 予定ならば、(activeにはならないため)無効にする。
+                _will_activate_after_flg = false;
+            }
+        }
 
         if (_will_inactivate_after_flg) {
-            //既にinactivateDelay()実行済みの場合、より早く inactivate するならば有効とする
+            //既にinactivateDelay()実行済みの場合、より早く inactivate するならば上書きする
             if (_frame_of_life_when_inactivation < _frame_of_life + prm_frame_offset) {
                 //今回指定算フレームの方が遅い場合は無視される。
                 return;
