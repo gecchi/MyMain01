@@ -17,7 +17,7 @@ namespace GgafDx9LibStg {
 class WalledSectionScene : public DefaultScene {
 
     /**
-     * 壁ブロック(WallActor)の配置情報構造体
+     * 壁ブロック(WallPartsActor)の配置情報構造体
      */
     struct WallInfo {
         /** プリズム位置情報(> 0の場合はプリズム、0の場合はBOX) */
@@ -38,11 +38,11 @@ public:
     int _area_height;
     /** [r]外壁シーンの幅（Z座標軸の壁ブロック数） */
     int _area_width;
-    /** [r]壁ブロックの長さ（１つのWallActorオブジェクトのX座標軸長さ）*/
+    /** [r]壁ブロックの長さ（１つのWallPartsActorオブジェクトのX座標軸長さ）*/
     int _wall_dep;
-    /** [r]壁ブロックの高さ（１つのWallActorオブジェクトのY座標軸長さ）*/
+    /** [r]壁ブロックの高さ（１つのWallPartsActorオブジェクトのY座標軸長さ）*/
     int _wall_height;
-    /** [r]壁ブロックの幅（１つのWallActorオブジェクトのZ座標軸長さ）*/
+    /** [r]壁ブロックの幅（１つのWallPartsActorオブジェクトのZ座標軸長さ）*/
     int _wall_width;
     /** [r]外壁表示X座標位置 */
     int _wall_start_X;
@@ -54,18 +54,18 @@ public:
     frame _frame_of_launch_next;
     /** [r]表示済み外壁シーンの長さ */
     int _cnt_area_len;
-    /** [r]全壁ブロック(WallActor)の配置情報 */
+    /** [r]全壁ブロック(WallPartsActor)の配置情報 */
     WallInfo** _papaWallInfo;
-    /** [r]全壁ブロック(WallActor)の配置情報の、外壁シーンの長さ別個数 */
+    /** [r]全壁ブロック(WallPartsActor)の配置情報の、外壁シーンの長さ別個数 */
     int* _paWallInfoLen;
-    /** [r]壁ブロック(WallActor)ディスパッチャー */
+    /** [r]壁ブロック(WallPartsActor)ディスパッチャー */
     GgafCore::GgafActorDispatcher* _pDispatcher_WallAAB;
     GgafCore::GgafActorDispatcher* _pDispatcher_WallAAPrism;
     /** [r]手前ブロックの透過機能有効時の基準となるアクター */
     GgafDx9Core::GgafDx9GeometricActor* _pTarget_FrontAlpha;
 
     bool _is_loop_end;
-    WallActor* _pWallLast;
+    WallPartsActor* _pWallPartsLast;
 
     ScrolledScene*  _pScrolledScene;
 
@@ -83,10 +83,10 @@ public:
     /**
      * 外壁シーンを設定.
      * new した後、initialize() が実行されるまでに config して下さい。
-     * @param prm_pDispatcher_Wall 壁ブロック（WallActor実装クラスのオブジェクト）が登録されているディスパッチャー
-     * @param prm_wall_dep 壁ブロックの長さ（１つのWallActorオブジェクトのX座標軸長さ）
-     * @param prm_wall_width 壁ブロックの高さ（１つのWallActorオブジェクトのY座標軸長さ）
-     * @param prm_wall_height 壁ブロックの高さ（１つのWallActorオブジェクトのZ座標軸長さ）
+     * @param prm_pDispatcher_Wall 壁ブロック（WallPartsActor実装クラスのオブジェクト）が登録されているディスパッチャー
+     * @param prm_wall_dep 壁ブロックの長さ（１つのWallPartsActorオブジェクトのX座標軸長さ）
+     * @param prm_wall_width 壁ブロックの高さ（１つのWallPartsActorオブジェクトのY座標軸長さ）
+     * @param prm_wall_height 壁ブロックの高さ（１つのWallPartsActorオブジェクトのZ座標軸長さ）
      * @param prm_loop_num セクション繰り返し回数
      */
     virtual void config(
@@ -114,7 +114,7 @@ public:
 
     virtual void processFinal() override;
 
-    WallActor* getLastWall();
+    WallPartsActor* getLastWallParts();
 
 
 

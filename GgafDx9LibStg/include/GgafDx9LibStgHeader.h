@@ -11,7 +11,7 @@ namespace GgafDx9LibStg {
 #define COLLI_AAPRISM 3
 
 #define Obj_LaserChip     (0x40000000)      //0b 01000000 00000000 00000000 00000000
-#define Obj_WallActor     (0x80000000)      //0b 10000000 00000000 00000000 00000000
+#define Obj_WallPartsActor     (0x80000000)      //0b 10000000 00000000 00000000 00000000
 #undef P_GOD
 #define P_GOD ((GgafDx9LibStg::DefaultGod*)GgafCore::GgafGod::_pGod)
 #undef P_UNIVERSE
@@ -59,7 +59,7 @@ class ColliSphereActor;
 class SpriteMeshActor;
 class SpriteMeshSetActor;
 class StringBoardActor;
-class WallActor;
+class WallPartsActor;
 class WallAABctor;
 class WallAAPrismctor;
 class WorldBoundActor;
@@ -125,7 +125,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/actor/SpriteMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/SpriteMeshSetActor.h"
 #include "jp/ggaf/dx9libstg/actor/StringBoardActor.h"
-#include "jp/ggaf/dx9libstg/actor/WallActor.h"
+#include "jp/ggaf/dx9libstg/actor/WallPartsActor.h"
 #include "jp/ggaf/dx9libstg/actor/WallAABActor.h"
 #include "jp/ggaf/dx9libstg/actor/WallAAPrismActor.h"
 #include "jp/ggaf/dx9libstg/actor/WorldBoundActor.h"

@@ -1,5 +1,5 @@
-#ifndef WALLACTOR_H_
-#define WALLACTOR_H_
+#ifndef WALLPARTSACTOR_H_
+#define WALLPARTSACTOR_H_
 
 
 #define FACE_A_IDX 5
@@ -25,7 +25,7 @@ namespace GgafDx9LibStg {
  * @since 2010/10/18
  * @author Masatoshi Tsuge
  */
-class WallActor : public GgafDx9Core::GgafDx9MeshSetActor {
+class WallPartsActor : public GgafDx9Core::GgafDx9MeshSetActor {
     friend class GgafDx9EffectManager;
 
 public:
@@ -50,7 +50,7 @@ public:
     WalledSectionScene* _pWalledSectionScene;
 
 
-    WallActor(const char* prm_name,
+    WallPartsActor(const char* prm_name,
               const char* prm_model_id,
               const char* prm_effect_id,
               const char* prm_technique);
@@ -94,8 +94,8 @@ public:
                         int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch);
 
 
-    virtual ~WallActor();
+    virtual ~WallPartsActor();
 };
 
 }
-#endif /*WALLACTOR_H_*/
+#endif /*WALLPARTSACTOR_H_*/

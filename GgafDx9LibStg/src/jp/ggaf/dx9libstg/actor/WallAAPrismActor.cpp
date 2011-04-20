@@ -11,13 +11,13 @@ _MAP_<int, UINT> WallAAPrismActor::_delface;
 WallAAPrismActor::WallAAPrismActor(const char* prm_name,
                                    const char* prm_model) :
 
-                                      WallActor(prm_name,
+                                      WallPartsActor(prm_name,
                                                 string("11/" + string(prm_model)).c_str(),
                                                 "WallAAPrismEffect",
                                                 "WallAAPrismTechnique") {
 
     _class_name = "WallAAPrismActor";
-    _pMeshSetModel->_set_num = 11; //WallActor最大セット数は20。
+    _pMeshSetModel->_set_num = 11; //WallPartsActor最大セット数は20。
 
 
     _pCollisionChecker->makeCollision(1); //0:BOX用当たり判定、1:プリズム用当たり判定
@@ -68,7 +68,7 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
 
 void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
     prm_wall_draw_face &= _delface[prm_pos_prism]; //プリズム無条件描画不要面
-    WallActor::config(prm_pWalledSectionScene, prm_pos_prism,  prm_wall_draw_face,  prm_aColliBoxStretch);
+    WallPartsActor::config(prm_pWalledSectionScene, prm_pos_prism,  prm_wall_draw_face,  prm_aColliBoxStretch);
 
     if (prm_aColliBoxStretch[0] == 0) {
         _pCollisionChecker->disable(0);
@@ -108,14 +108,14 @@ void WallAAPrismActor::processDraw() {
         checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     }
     GgafDx9DrawableActor* pDrawActor = this;
-    WallActor* pWallActor = NULL;
+    WallPartsActor* pWallPartsActor = NULL;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pGgafDx9Model == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
-                pWallActor = (WallActor*)pDrawActor;
-                pWallActor->_matWorld._14 = pWallActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
-                pWallActor->_matWorld._24 = pWallActor->_pos_prism;  //プリズム位置情報ををワールド変換行列のmatWorld._24 に埋め込む
-                hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[_draw_set_num], &(pWallActor->_matWorld));
+                pWallPartsActor = (WallPartsActor*)pDrawActor;
+                pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //描画面番号をワールド変換行列のmatWorld._14 に埋め込む
+                pWallPartsActor->_matWorld._24 = pWallPartsActor->_pos_prism;  //プリズム位置情報ををワールド変換行列のmatWorld._24 に埋め込む
+                hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[_draw_set_num], &(pWallPartsActor->_matWorld));
                 checkDxException(hr, D3D_OK, "WallAAPrismActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
                 _draw_set_num++;
                 if (_draw_set_num >= _pMeshSetModel->_set_num) {
@@ -129,7 +129,7 @@ void WallAAPrismActor::processDraw() {
             break;
         }
     }
-    GgafDx9Universe::_pActor_DrawActive = pWallActor; //描画セットの最後アクターをセット
+    GgafDx9Universe::_pActor_DrawActive = pWallPartsActor; //描画セットの最後アクターをセット
     _pMeshSetModel->draw(this, _draw_set_num);
 }
 

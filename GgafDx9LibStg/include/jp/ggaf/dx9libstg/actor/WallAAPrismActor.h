@@ -10,7 +10,7 @@ namespace GgafDx9LibStg {
  * @since 2011/01/09
  * @author Masatoshi Tsuge
  */
-class WallAAPrismActor : public WallActor {
+class WallAAPrismActor : public WallPartsActor {
 
 public:
     D3DXHANDLE _h_distance_AlphaTarget;

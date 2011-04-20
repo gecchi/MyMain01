@@ -81,7 +81,7 @@ void WalledScene::processBehavior() {
         if (pCurrentSection->_is_loop_end) {
             WalledSectionScene* pNewSection = _pRingSection->next();
             pNewSection->activate();
-            pNewSection->_pWallLast = pCurrentSection->getLastWall();
+            pNewSection->_pWallPartsLast = pCurrentSection->getLastWallParts();
             pCurrentSection->end(
                     120 + (GgafDx9Universe::_X_goneRight - GgafDx9Universe::_X_goneLeft) / getScroolSpeed()
                  );
