@@ -39,7 +39,7 @@ public:
     static bool _adjustGameScreen;
 
 //    /** Ë‰e•ÏŠ·‹›”„‚ê‚é */
-//    static D3DXMATRIX _vMatrixProj;
+//    static D3DXMATRIX _matProj;
 //    /** ³Ë‰e•ÏŠ·‹›”„‚ê‚é */
 //    static D3DXMATRIX _vMatrixOrthoProj;
 //

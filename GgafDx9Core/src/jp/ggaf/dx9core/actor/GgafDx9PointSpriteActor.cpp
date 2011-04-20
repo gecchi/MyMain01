@@ -51,7 +51,7 @@ void GgafDx9PointSpriteActor::addAlpha(float prm_fAlpha) {
 void GgafDx9PointSpriteActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;
-//    hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_h_matView, &P_CAM->_vMatrixView );
+//    hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_h_matView, &P_CAM->_matView );
 //    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_h_matWorld, &_matWorld );

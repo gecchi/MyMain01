@@ -9,7 +9,7 @@ GgafDx9MeshEffect::GgafDx9MeshEffect(char* prm_effect_name) : GgafDx9Effect(prm_
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
-    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_vMatrixProj );
+    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_matProj );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix() に失敗しました。");
     //ライト方向
     hr = _pID3DXEffect->SetValue("g_vecLightDirection", &(GgafDx9God::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
@@ -31,12 +31,14 @@ GgafDx9MeshEffect::GgafDx9MeshEffect(char* prm_effect_name) : GgafDx9Effect(prm_
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
     _h_offset_u = _pID3DXEffect->GetParameterByName( NULL, "g_offset_u" );
     _h_offset_v = _pID3DXEffect->GetParameterByName( NULL, "g_offset_v" );
-
+    _h_posCam = _pID3DXEffect->GetParameterByName( NULL, "g_posCam" );
 }
 
 void GgafDx9MeshEffect::setParamPerFrame() {
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &P_CAM->_vMatrixView );
-    checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &(P_CAM->_matView) );
+    checkDxException(hr, D3D_OK, "GgafDx9MeshEffect::setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
+    hr = _pID3DXEffect->SetValue(_h_posCam, P_CAM->_pVecCamFromPoint, sizeof(D3DXVECTOR3) );
+    checkDxException(hr, D3D_OK, "GgafDx9MeshEffect::setParamPerFrame SetValue(_h_posCam) に失敗しました。");
 }
 
 GgafDx9MeshEffect::~GgafDx9MeshEffect() {

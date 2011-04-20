@@ -417,15 +417,15 @@ HRESULT GgafDx9God::initDx9Device() {
 
     //GgafDx9Cameraへ移動した
     // VIEW変換（カメラ位置）設定
-    //D3DXMATRIX _vMatrixView; // ビュー変換行列
+    //D3DXMATRIX _matView; // ビュー変換行列
     //    DELETE_POSSIBLE_NULL(_pVecCamFromPoint);
     //    DELETE_POSSIBLE_NULL(_pVecCamLookatPoint);
     //    DELETE_POSSIBLE_NULL(_pVecCamUp);
 
     //GgafDx9Cameraへ移動した
     // 射影変換（３Ｄ→平面）
-    //D3DXMATRIX _vMatrixProj; // 射影変換行列
-    //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_vMatrixProj);
+    //D3DXMATRIX _matProj; // 射影変換行列
+    //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_matProj);
 
 
     return S_OK;

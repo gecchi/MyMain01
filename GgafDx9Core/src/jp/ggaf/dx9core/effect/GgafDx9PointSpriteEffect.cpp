@@ -8,10 +8,10 @@ GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect(char* prm_effect_name) : Ggaf
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
 //    //VIEW変換行列
-//    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_vMatrixView );
+//    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_matView );
 //    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetMatrix(g_matView) に失敗しました。");
     //射影変換行列
-    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_vMatrixProj );
+    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_matProj );
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetMatrix(g_matProj) に失敗しました。");
     hr = _pID3DXEffect->SetFloat("g_dist_CamZ_default", -(P_CAM->_cameraZ_org));
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_dist_CamZ_default) に失敗しました。");
@@ -35,7 +35,7 @@ GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect(char* prm_effect_name) : Ggaf
 }
 
 void GgafDx9PointSpriteEffect::setParamPerFrame() {
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &P_CAM->_vMatrixView );
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &P_CAM->_matView );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
 }
 

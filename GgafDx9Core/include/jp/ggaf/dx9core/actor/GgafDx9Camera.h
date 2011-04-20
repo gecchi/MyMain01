@@ -54,7 +54,7 @@ public:
     D3DXPLANE _plnVerticalCenter;
 
     /** 射影変換魚売れる */
-    D3DXMATRIX _vMatrixProj;
+    D3DXMATRIX _matProj;
     /** 正射影変換魚売れる */
     D3DXMATRIX _vMatrixOrthoProj;
 
@@ -65,7 +65,7 @@ public:
     /** カメラの上ベクトル(読み込み専用、生成後不変) */
     D3DXVECTOR3* _pVecCamUp;
     /** VIEW変換行列(読み込み専用、フレーム毎更新) */
-    D3DXMATRIX _vMatrixView;
+    D3DXMATRIX _matView;
     /** 視野角X(読み込み専用、生成後不変) */
     float _rad_fovX;
     /** 視野角Xの半分(読み込み専用、生成後不変) */

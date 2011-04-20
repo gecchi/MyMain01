@@ -30,13 +30,17 @@ public:
         return _effect_name;
     }
 
+    /**
+     * 1フレームに1回実行するだけで良いエフェクトパラメータを
+     * このメソッドに記述する。
+     */
     virtual void setParamPerFrame() = 0;
 
     /**
      * デストラクタ<BR>
      * deleteするのはGgafDx9EffectManagerである<BR>
      */
-    virtual ~GgafDx9Effect(); //デストラクタ
+    virtual ~GgafDx9Effect();
 };
 
 }

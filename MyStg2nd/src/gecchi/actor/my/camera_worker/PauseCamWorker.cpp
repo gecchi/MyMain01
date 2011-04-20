@@ -11,9 +11,11 @@ PauseCamWorker::PauseCamWorker(const char* prm_name) : CameraWorker(prm_name) {
     _mdz_flg = false;
     _pVPGuide = NULL;
     _mdz_vx = _mdz_vy = _mdz_vz = _mdz_t = 0.0;
+    orderActorToFactory(GgafUtil::easy_hash("VPGuide"), ViewPointGuide, "VPGuide");
+    _pVPGuide = (ViewPointGuide*)(obtainActorFromFactory(GgafUtil::easy_hash("VPGuide")));
 }
+
 void PauseCamWorker::initialize() {
-    _pVPGuide = NEW ViewPointGuide("VPGuide");
     _pVPGuide->inactivateImmediately();
     P_WORLD->getLordActor()->addSubGroup(_pVPGuide);
 }
@@ -80,7 +82,7 @@ void PauseCamWorker::processBehavior() {
         //VP→CAMのワールド空間方向ベクトルを法線とする平面上に回転軸ベクトルは存在する
 
         D3DXMATRIX InvView;
-        D3DXMatrixInverse( &InvView, NULL, &pCam->_vMatrixView );
+        D3DXMatrixInverse( &InvView, NULL, &pCam->_matView );
         //(vx,vy,vz) * InvView
         // _11, _12, _13, _14
         // _21, _22, _23, _24

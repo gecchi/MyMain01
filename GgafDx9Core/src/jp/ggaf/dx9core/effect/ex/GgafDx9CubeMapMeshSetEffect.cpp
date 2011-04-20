@@ -10,7 +10,7 @@ GgafDx9CubeMapMeshSetEffect::GgafDx9CubeMapMeshSetEffect(char* prm_effect_name) 
 
 void GgafDx9CubeMapMeshSetEffect::setParamPerFrame() {
     GgafDx9MeshSetEffect::setParamPerFrame();
-    HRESULT hr = _pID3DXEffect->SetValue(_h_pos_camera, &P_CAM->_pVecCamFromPoint, sizeof(D3DXVECTOR3) );
+    HRESULT hr = _pID3DXEffect->SetValue(_h_pos_camera, P_CAM->_pVecCamFromPoint, sizeof(D3DXVECTOR3) );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_pos_camera) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 }
 

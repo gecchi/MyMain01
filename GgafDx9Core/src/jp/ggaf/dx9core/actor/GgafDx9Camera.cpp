@@ -42,7 +42,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
 
     // VIEW変換行列作成
     D3DXMatrixLookAtLH(
-       &_vMatrixView,         // pOut [in, out] 演算結果である D3DXMATRIX 構造体へのポインタ。
+       &_matView,         // pOut [in, out] 演算結果である D3DXMATRIX 構造体へのポインタ。
         _pVecCamFromPoint,    // pEye [in] 視点を定義する D3DXVECTOR3 構造体へのポインタ。この値は、平行移動に使用される。
         _pVecCamLookatPoint,  // pAt  [in] カメラの注視対象を定義する D3DXVECTOR3 構造体へのポインタ。
         _pVecCamUp            // pUp  [in] カレント ワールドの上方、一般には [0, 1, 0] を定義する D3DXVECTOR3 構造体へのポインタ。
@@ -54,7 +54,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
     _zf = -_cameraZ_org*(_dep+1.0f);
     _TRACE_("GgafDx9Camera::GgafDx9Camera 範囲 ["<<_zn<<" ~ "<<_zf<<"]");
     D3DXMatrixPerspectiveFovLH(
-            &_vMatrixProj,
+            &_matProj,
             _rad_fovY,        //y方向視野角ラディアン(0～π)
             _screen_aspect,   //アスペクト比  640×480 の場合  640/480
             _zn,             //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
@@ -66,7 +66,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
     /*
      //左手座標系正射影
      D3DXMatrixOrthoLH(
-     &_vMatrixProj,
+     &_matProj,
      GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH),
      GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
      1.0f,
@@ -135,16 +135,16 @@ void GgafDx9Camera::processBehavior() {
             &_vecNear[i],   //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
             &_vecNear[i],   //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。
             &_viewport,      //CONST D3DVIEWPORT9 *pViewport,[in] ビューポートを表す D3DVIEWPORT9 構造体へのポインタ。
-            &_vMatrixProj,  //CONST D3DXMATRIX *pProjection,  [in] 射影行列を表す D3DXMATRIX 構造体へのポインタ。
-            &_vMatrixView,  //CONST D3DXMATRIX *pView,        [in] ビュー行列を表す D3DXMATRIX 構造体へのポインタ。
+            &_matProj,  //CONST D3DXMATRIX *pProjection,  [in] 射影行列を表す D3DXMATRIX 構造体へのポインタ。
+            &_matView,  //CONST D3DXMATRIX *pView,        [in] ビュー行列を表す D3DXMATRIX 構造体へのポインタ。
             &mat_world      //CONST D3DXMATRIX *pWorld        [in] ワールド行列を表す D3DXMATRIX 構造体へのポインタ。
         );
         D3DXVec3Unproject(
             &_vecFar[i],
             &_vecFar[i],
             &_viewport,
-            &_vMatrixProj,
-            &_vMatrixView,
+            &_matProj,
+            &_matView,
             &mat_world
         );
     }
@@ -226,7 +226,7 @@ void GgafDx9Camera::processBehavior() {
 //   -dot(xaxis, eye)  -dot(yaxis, eye)  -dot(zaxis, eye)  1
 
 
-    //_TRACE_(_vMatrixView._14<<","<<_vMatrixView._24<<","<<_vMatrixView._34);
+    //_TRACE_(_matView._14<<","<<_matView._24<<","<<_matView._34);
 
 }
 
@@ -239,7 +239,7 @@ void GgafDx9Camera::processJudgement() {
     _pVecCamLookatPoint->x = (1.0f * _pViewPoint->_X ) / LEN_UNIT / PX_UNIT;
     _pVecCamLookatPoint->y = (1.0f * _pViewPoint->_Y ) / LEN_UNIT / PX_UNIT;
     _pVecCamLookatPoint->z = (1.0f * _pViewPoint->_Z ) / LEN_UNIT / PX_UNIT;
-    D3DXMatrixLookAtLH(&_vMatrixView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
+    D3DXMatrixLookAtLH(&_matView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 }
 
 void GgafDx9Camera::setViewPoint(int prm_tX, int prm_tY, int prm_tZ) {

@@ -4,6 +4,8 @@
 // author : Masatoshi Tsuge
 // date:2009/03/06 
 ////////////////////////////////////////////////////////////////////////////////
+//エラー回避のためにとりあえず追加後でちゃんとする
+float3 g_posCam;
 
 float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列

@@ -9,7 +9,7 @@ GgafDx9D3DXAniMeshEffect::GgafDx9D3DXAniMeshEffect(char* prm_effect_name) : Ggaf
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
-    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_vMatrixProj );
+    hr = _pID3DXEffect->SetMatrix("g_matProj", &P_CAM->_matProj );
     checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshEffect SetMatrix() に失敗しました。");
     //ライト方向
     hr = _pID3DXEffect->SetValue("g_vecLightDirection", &(GgafDx9God::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
@@ -31,7 +31,7 @@ GgafDx9D3DXAniMeshEffect::GgafDx9D3DXAniMeshEffect(char* prm_effect_name) : Ggaf
 }
 
 void GgafDx9D3DXAniMeshEffect::setParamPerFrame() {
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &P_CAM->_vMatrixView );
+    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &P_CAM->_matView );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
 }
 

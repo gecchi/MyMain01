@@ -31,7 +31,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
 void GgafDx9SpriteActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pSpriteEffect->_pID3DXEffect;
     HRESULT hr;
-//    hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_h_matView, &P_CAM->_vMatrixView );
+//    hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_h_matView, &P_CAM->_matView );
 //    checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //(*_pFunc_calcRotMvWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_h_matWorld, &_matWorld );

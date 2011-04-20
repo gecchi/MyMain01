@@ -201,7 +201,7 @@ void MyShip::initialize() {
     _pScaler->forceScaleRange(1000, 7000);
 
     setMaterialColor(1.0, 0.5, 0.5);
-    setAlpha(0.4);
+    setAlpha(1.0);
 
 
     _pKuroko->forceVxMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);

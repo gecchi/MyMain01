@@ -19,7 +19,7 @@ public:
     D3DXHANDLE _h_colMaterialDiffuse;
     D3DXHANDLE _h_offset_u;
     D3DXHANDLE _h_offset_v;
-
+    D3DXHANDLE _h_posCam;
 public:
     /**
      * コンストラクタ<BR>
@@ -27,6 +27,7 @@ public:
      * @return
      */
     GgafDx9MeshEffect(char* prm_effect_name);
+
 
     virtual void setParamPerFrame() override;
 
