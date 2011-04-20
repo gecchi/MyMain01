@@ -287,7 +287,7 @@ HRESULT GgafDx9God::initDx9Device() {
      */
 
     //ライト構造体は、シェーダーのパラメータになる時があるため必要。
-    D3DXVECTOR3 vecDirection(1.0f, -1.0f, 1.0f);
+    D3DXVECTOR3 vecDirection(-1.0f, -1.0f, 1.0f);
     D3DXVec3Normalize(&vecDirection, &vecDirection);
     ZeroMemory(&_d3dlight9_default, sizeof(D3DLIGHT9));
     GgafDx9God::_d3dlight9_default.Direction = vecDirection;
