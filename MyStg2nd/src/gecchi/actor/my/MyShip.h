@@ -285,6 +285,8 @@ public:
 
     MyShip(const char* prm_name);
 
+    void onCreateModel() override;
+
     void initialize() override;
 
     void onReset() override;

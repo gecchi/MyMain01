@@ -19,6 +19,8 @@ public:
     D3DXHANDLE _h_colMaterialDiffuse;
     D3DXHANDLE _h_offset_u;
     D3DXHANDLE _h_offset_v;
+    D3DXHANDLE _h_specular;
+    D3DXHANDLE _h_specular_power;
     D3DXHANDLE _h_posCam;
 public:
     /**

@@ -19,6 +19,8 @@ GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
     _pTextureBlinker = NEW GgafDx9TextureBlinker(this);
     _is_init_model = false;
     _set_num = 1; //デフォルト最大同描画数１
+    _specular = 10.0f;
+    _specular_power = 0.0f;
     TRACE3("GgafDx9Model::GgafDx9Model(" << prm_model_name << ") _id="<<_id);
 }
 

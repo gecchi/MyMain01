@@ -178,6 +178,9 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "donatu_0"
     _blown_veloZ = 0;
     _anti_blown_velo = 100;
 }
+void MyShip::onCreateModel() {
+    _pGgafDx9Model->setSpecular(5.0, 1.0);
+}
 
 void MyShip::initialize() {
 
@@ -240,6 +243,22 @@ void MyShip::onActive() {
 
 
 void MyShip::processBehavior() {
+
+    //スペキュラテスト
+    if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
+        _pGgafDx9Model->_specular += 0.1;
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+        _pGgafDx9Model->_specular -= 0.1;
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
+        _pGgafDx9Model->_specular_power += 0.1;
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_P)) {
+        _pGgafDx9Model->_specular_power -= 0.1;
+    }
+
+
     if (!_can_control) {
         return;
     }

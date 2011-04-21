@@ -41,6 +41,11 @@ public:
     /** [r]点滅操作支援オブジェクト */
     GgafDx9TextureBlinker* _pTextureBlinker;
     frame _frame_blinker;
+    /** スペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
+    float _specular;
+    /** スペキュラーの強度（全体の倍率） */
+    float _specular_power;
+
     /** [r]モデル単位の初期処理が実行済みかどうか(draw時チェック＆変更) */
     bool _is_init_model;
     /**
@@ -53,7 +58,10 @@ public:
         return _model_name;
     }
 
-
+    virtual void setSpecular(float prm_specular, float prm_specular_power) {
+        _specular = prm_specular;
+        _specular_power = prm_specular_power;
+    }
     /**
      * モデルを描画します.
      * @param prm_pActor_Target 描画するモデルのアクター

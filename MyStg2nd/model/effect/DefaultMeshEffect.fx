@@ -14,31 +14,38 @@ float4x4 g_matWorld;
 float4x4 g_matView;
 /** モデルの射影変換行列 */
 float4x4 g_matProj;
-/** ライトの方向 */
+/** ライトの方向ベクトル（正規化済み） */
 float3 g_vecLightDirection;
-/** 環境光色（入射色）*/
+/** カメラ（視点）の位置ベクトル */
+float3 g_posCam;
+/** 環境光の色 */
 float4 g_colLightAmbient;
-/** 拡散光色（入射色）*/
+/** ライトの色(ライトの拡散反射時のライト自身の色) */
 float4 g_colLightDiffuse;
-/** モデルのマテリアル色（表面色）。いわゆる拡散光反射色で環境光反射色も兼ねる */
+/** モデルのマテリアル色(ライトによる拡散反射時のモデルの色) */
 float4 g_colMaterialDiffuse;
-/** モデルのテクスチャ点滅機能(GgafDx9TextureBlinker参照)の点滅強度 */
+/** スペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
+float g_specular;
+/** スペキュラーの強度 */
+float g_specular_power;
+
+/** モデルのテクスチャ色点滅機能(GgafDx9TextureBlinker参照)の点滅強度 */
 float g_tex_blink_power;   
-/** モデルのテクスチャ点滅機能(GgafDx9TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
+/** モデルのテクスチャ色点滅機能(GgafDx9TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
 float g_tex_blink_threshold;
-/** アルファカーテン(フェードイン・アウト)機能(GgafDx9AlphaCurtain参照)のマスターアルファ値(0.0～1.0) */
+/** フェードイン・アウト機能(GgafDx9AlphaCurtain参照)のためのマスターアルファ値(0.0～1.0) */
 float g_alpha_master;
 /** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
 float g_zf;
 /** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
 sampler MyTextureSampler : register(s0);
+    
 
 
+//float  g_specular = 5.0f;       //スペキュラーの範囲
+//float  g_specular_power = 1.0f;  //スペキュラーの強度
 
-float  m_Specular = 5.0f;       //スペキュラーの範囲
-float  m_SpecularPower = 1.0f;  //スペキュラーの強度
 
- float3 g_posCam;
 
 
 /** 頂点シェーダー、出力構造体 */
@@ -47,7 +54,7 @@ struct OUT_VS {
     float2 uv  : TEXCOORD0;
     float4 col : COLOR0;
     float3 normal   : TEXCOORD1;   //オブジェクトの法線ベクトル
-    float3 E   : TEXCOORD2;   //頂点 -> 視点 ベクトル
+    float3 cam  : TEXCOORD2;   //頂点 -> 視点 ベクトル
 
 };
 
@@ -67,80 +74,68 @@ OUT_VS GgafDx9VS_DefaultMesh(
       float3 prm_normal : NORMAL,   
       float2 prm_uv     : TEXCOORD0 
 ) {
-	OUT_VS out_vs = (OUT_VS)0;
-	//頂点計算
-
+    OUT_VS out_vs = (OUT_VS)0;
+    //頂点計算
     float4 posWorld = mul(prm_pos, g_matWorld);
-	out_vs.pos = mul( mul( posWorld, g_matView), g_matProj);  //World*View*射影
-
-//	out_vs.pos = mul( mul( mul(prm_pos, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
-
-	//UV計算
-	out_vs.uv = prm_uv;  //そのまま
+    out_vs.pos = mul( mul( posWorld, g_matView), g_matProj);  //World*View*射影
+    //UV計算
+    out_vs.uv = prm_uv;  //そのまま
 
     //頂点カラー計算
-	//法線を World 変換して正規化
-    out_vs.normal = normalize(mul(prm_normal, g_matWorld)); 	
+    //法線を World 変換して正規化
+    out_vs.normal = normalize(mul(prm_normal, g_matWorld));     
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
-	float power = max(dot(out_vs.normal, -g_vecLightDirection ), 0);      
-	//拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
-	out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
-
-    //out_vs.col = min( max( g_colLightAmbient, dot( out_vs.normal, -g_vecLightDirection) ), 1.0f ) * g_colMaterialDiffuse;
-
- 
+    float power = max(dot(out_vs.normal, -g_vecLightDirection ), 0);      
+    //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
+    out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
     //「頂点→カメラ視点」方向ベクトル                                                        
-    out_vs.E  = normalize(g_posCam.xyz - posWorld.xyz);
+    out_vs.cam = normalize(g_posCam.xyz - posWorld.xyz);
+    //αはマテリアルαを最優先とする（上書きする）
+    out_vs.col.a = g_colMaterialDiffuse.a;
+    //αフォグ
+    if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
+        out_vs.col.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
+    } 
+    //マスターα
+    out_vs.col.a *= g_alpha_master;
 
-
-//out_vs.col += 1.0;
-
-//αフォグ
-	out_vs.col.a = g_colMaterialDiffuse.a;
-	if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-    	out_vs.col.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
-	} 
-	//マスターα
-	out_vs.col.a *= g_alpha_master;
-
-	return out_vs;
+    return out_vs;
 }
 
 /**
- * 通常ピクセルシェーダー（テクスチャ有り）
+ * 通常ピクセルシェーダー
  */
 float4 GgafDx9PS_DefaultMesh(
-	float2 prm_uv	  : TEXCOORD0,
+    float2 prm_uv     : TEXCOORD0,
     float4 prm_col    : COLOR0,
     float3 prm_normal : TEXCOORD1,
-    float3 prm_E      : TEXCOORD2   //頂点 -> 視点 ベクトル
+    float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
 
-    //ハーフベクトル
-    //※「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル
-    float3 vecHarf = normalize(prm_E + (-g_vecLightDirection));
-    float S = pow( max(0.0f, dot(prm_normal, vecHarf)), m_Specular ) * m_SpecularPower;
-
-
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	float4 out_color = tex_color * prm_col + S;
+    //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル）
+    float3 vecHarf = normalize(prm_cam + (-g_vecLightDirection));
+    //ハーフベクトルと法線の内積よりスペキュラ具合を計算
+    float s = pow( max(0.0f, dot(prm_normal, vecHarf)), g_specular ) * g_specular_power;
+    //テクスチャをサンプリングして色取得（原色を取得）
+    float4 tex_color = tex2D( MyTextureSampler, prm_uv);
+    //テクスチャ色に        
+    float4 out_color = tex_color * prm_col + s;
 
     //Blinkerを考慮
-	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color.rgb *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
-	} 
-	return out_color;
+    if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
+        out_color.rgb *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
+    } 
+    return out_color;
 }
 
 float4 PS_Flush( 
-	float2 prm_uv	  : TEXCOORD0,
-    float4 prm_col    : COLOR0
+    float2 prm_uv  : TEXCOORD0,
+    float4 prm_col : COLOR0
 ) : COLOR  {                         
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	float4 out_color = tex_color * prm_col * float4(7.0, 7.0, 7.0, 1.0);
-	return out_color;
+    //テクスチャをサンプリングして色取得（原色を取得）
+    float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
+    float4 out_color = tex_color * prm_col * float4(7.0, 7.0, 7.0, 1.0);
+    return out_color;
 }
 
 
@@ -149,36 +144,36 @@ float4 PS_Flush(
  */
 technique DefaultMeshTechnique
 {
-	//pass P0「メッシュ標準シェーダー」
-	//メッシュを描画する
-	pass P0 {
-		AlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;
-		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMesh();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMesh();
-	}
+    //pass P0「メッシュ標準シェーダー」
+    //メッシュを描画する
+    pass P0 {
+        AlphaBlendEnable = true;
+        SrcBlend  = SrcAlpha;
+        DestBlend = InvSrcAlpha;
+        VertexShader = compile vs_2_0 GgafDx9VS_DefaultMesh();
+        PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMesh();
+    }
 }
 
 technique DestBlendOne
 {
-	pass P0 {
-		AlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;   
-		DestBlend = One; //加算合成
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMesh();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMesh();
-	}
+    pass P0 {
+        AlphaBlendEnable = true;
+        SrcBlend  = SrcAlpha;   
+        DestBlend = One; //加算合成
+        VertexShader = compile vs_2_0 GgafDx9VS_DefaultMesh();
+        PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMesh();
+    }
 }
 
 technique Flush
 {
-	pass P0 {
-		AlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;
-		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMesh();
-		PixelShader  = compile ps_2_0 PS_Flush();
-	}
+    pass P0 {
+        AlphaBlendEnable = true;
+        SrcBlend  = SrcAlpha;
+        DestBlend = InvSrcAlpha;
+        VertexShader = compile vs_2_0 GgafDx9VS_DefaultMesh();
+        PixelShader  = compile ps_2_0 PS_Flush();
+    }
 }
 
