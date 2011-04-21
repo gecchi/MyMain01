@@ -228,16 +228,17 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @param prm_frame_push 許容する(b)～(c) の期間
      * @param prm_frame_delay 許容する(c)～(d) の期間
-     * @return
+     * @return true/false
      */
     vbsta isDoublePushedDown(vbsta prm_VB, frame prm_frame_push = 5, frame prm_frame_delay = 5);
 
     /**
      * 複数ボタン同時押し判定 .
-     * isPushedDown(vbsta) の引数に複数ボタンを指定し判定を行えば、同時押し判定は可能である。
-     * しかし、複数ボタンを押す際に1フレームでもバラツキがあれば成立せず、完全に同時に押さなければならない。
+     * isPushedDown(vbsta) の引数に複数ボタンを指定して判定を行えば、同時押し判定は可能である。
+     * しかし、複数ボタンを押す際に1フレームでもバラツキがあれば成立せず、完全に同時に押さなければ
+     * ならないという問題点がある。
      * そこで、本メソッドは、このバラツキを考慮した同時押し判定である。
-     * 具体的には、引数のそれぞれのボタンの現在に至るまでの４フレームの状態履歴が、
+     * 具体的には、引数のそれぞれの各ボタンの現在に至るまでの４フレームの状態履歴が、
      * 次のいずれかの状態遷移であれば1回成立という判定を行っている。
      * <pre>
      * ↑ > ？ > ？ > ↓
@@ -251,10 +252,16 @@ public:
      * </pre>
      * @param prm_aVB 同時押し判定対象仮想ボタン配列
      * @param prm_iButtonNum 配列の要素数
-     * @return
+     * @return true/false
      */
     vbsta arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum);
 
+    /**
+     * ２つボタン同時押し判定 .
+     * @param prm_VB1 判定対象仮想ボタン１
+     * @param prm_VB2 判定対象仮想ボタン２
+     * @return true/false
+     */
     vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2) {
         vbsta vb[2];
         vb[0] = prm_VB1;
@@ -262,6 +269,13 @@ public:
         return arePushedDownAtOnce(vb, 2);
     }
 
+    /**
+     * ３つボタン同時押し判定 .
+     * @param prm_VB1 判定対象仮想ボタン１
+     * @param prm_VB2 判定対象仮想ボタン２
+     * @param prm_VB3 判定対象仮想ボタン３
+     * @return true/false
+     */
     vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2, vbsta prm_VB3) {
         vbsta vb[3];
         vb[0] = prm_VB1;
@@ -270,6 +284,14 @@ public:
         return arePushedDownAtOnce(vb, 3);
     }
 
+    /**
+     * ４つボタン同時押し判定 .
+     * @param prm_VB1 判定対象仮想ボタン１
+     * @param prm_VB2 判定対象仮想ボタン２
+     * @param prm_VB3 判定対象仮想ボタン３
+     * @param prm_VB4 判定対象仮想ボタン４
+     * @return true/false
+     */
     vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2, vbsta prm_VB3, vbsta prm_VB4) {
         vbsta vb[4];
         vb[0] = prm_VB1;

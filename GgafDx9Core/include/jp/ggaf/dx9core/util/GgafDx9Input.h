@@ -48,13 +48,14 @@ public:
     static void updateMouseState();
     static bool isBeingPressedMouseButton(int prm_iButtonNo);
     static bool isPushedDownMouseButton(int prm_iButtonNo);
+    static bool isReleasedUpMouseButton(int prm_iButtonNo);
     static void getMousePointer(long* x, long* y, long* z);
     static void getMousePointer_REL(long* dx, long* dy, long* dz);
 
     static void updateKeyboardState();
     static bool isBeingPressedKey(int prm_DIK);
     static bool isPushedDownKey(int prm_DIK);
-
+    static bool isReleasedUpDownKey(int prm_DIK);
     static void updateJoystickState();
     static bool isBeingPressedJoyRgbButton(int prm_iRgbButtonNo);
     static bool isBeingPressedJoyUp();

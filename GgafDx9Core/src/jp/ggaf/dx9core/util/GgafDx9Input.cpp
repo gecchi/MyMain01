@@ -281,6 +281,21 @@ bool GgafDx9Input::isPushedDownMouseButton(int prm_iButtonNo) {
         return false;
     }
 }
+
+bool GgafDx9Input::isReleasedUpMouseButton(int prm_iButtonNo) {
+    if (!GgafDx9Input::isBeingPressedMouseButton(prm_iButtonNo)) { //今は離している
+        if (_dimousestate[!_active_MouseState].rgbButtons[prm_iButtonNo] & 0x80) {
+            //前回セット[!_active_MouseState]も押されていた。成立。
+            return true;
+        } else {
+            //前回セット[!_active_MouseState]は押されていない。離しっぱなし。
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
 void GgafDx9Input::getMousePointer(long* x, long* y, long* z) {
     //マウスの移動
     *x = _dimousestate[_active_MouseState].lX;
@@ -344,6 +359,20 @@ bool GgafDx9Input::isPushedDownKey(int prm_DIK) {
         } else {
             //前回セット[!_active_KeyboardState]は押されていないのでOK
             return true;
+        }
+    } else {
+        return false;
+    }
+}
+
+bool GgafDx9Input::isReleasedUpDownKey(int prm_DIK) {
+    if (!GgafDx9Input::isBeingPressedKey(prm_DIK)) { //今は離している
+        if (_caKeyboardState[!_active_KeyboardState][prm_DIK] & 0x80) {
+            //前回セット[!_active_KeyboardState]は押されていた。成立
+            return true;
+        } else {
+            //前回セット[!_active_KeyboardState]も押されていない。離しっぱなし。
+            return false;
         }
     } else {
         return false;
