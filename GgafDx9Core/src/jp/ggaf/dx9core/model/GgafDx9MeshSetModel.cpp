@@ -66,6 +66,10 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int p
         checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetFloat(_h_tex_blink_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->SetFloat(pMeshSetEffect->_h_tex_blink_threshold, _fBlinkThreshold);
         checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetFloat(_h_tex_blink_threshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        hr = pID3DXEffect->SetFloat(pMeshSetEffect->_h_specular, _specular);
+        checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetFloat(_h_specular) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        hr = pID3DXEffect->SetFloat(pMeshSetEffect->_h_specular_power, _specular_power);
+        checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetFloat(_h_specular_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
 
 

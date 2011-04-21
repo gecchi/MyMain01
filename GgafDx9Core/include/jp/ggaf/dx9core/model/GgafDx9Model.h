@@ -43,7 +43,7 @@ public:
     frame _frame_blinker;
     /** スペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
     float _specular;
-    /** スペキュラーの強度（全体の倍率） */
+    /** スペキュラーの強度（全体の倍率、0.0以外を設定するとスペキュラが有効になる） */
     float _specular_power;
 
     /** [r]モデル単位の初期処理が実行済みかどうか(draw時チェック＆変更) */

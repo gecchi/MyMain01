@@ -2,6 +2,14 @@
 // author : Masatoshi Tsuge
 // date:2010/12/24
 ////////////////////////////////////////////////////////////////////////////////
+
+//エラー回避のためにとりあえず追加後でちゃんとする
+float3 g_posCam;
+float g_specular;
+float g_specular_power;
+
+
+
 /** カメラのWorld位置 */
 float3 pos_camera; 
 

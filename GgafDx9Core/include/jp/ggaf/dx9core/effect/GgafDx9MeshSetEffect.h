@@ -20,7 +20,9 @@ public:
     D3DXHANDLE _ah_materialDiffuse[19];
     D3DXHANDLE _ahOffsetU[19];
     D3DXHANDLE _ahOffsetV[19];
-
+    D3DXHANDLE _h_specular;
+    D3DXHANDLE _h_specular_power;
+    D3DXHANDLE _h_posCam;
 public:
     /**
      * コンストラクタ<BR>

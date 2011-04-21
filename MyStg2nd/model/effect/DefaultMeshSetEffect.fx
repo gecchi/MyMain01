@@ -60,6 +60,15 @@ float4 g_colMaterialDiffuse014;
 float4 g_colMaterialDiffuse015;
 //float4 g_colMaterialDiffuse016;
 
+
+/** スペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
+float g_specular;
+/** スペキュラーの強度 */
+float g_specular_power;
+/** カメラ（視点）の位置ベクトル */
+float3 g_posCam;
+
+
 //テクスチャのサンプラ(s0レジスタ)
 sampler MyTextureSampler : register(s0);
 
@@ -69,6 +78,11 @@ struct OUT_VS
     float4 pos    : POSITION;
 	float2 uv     : TEXCOORD0;
 	float4 col    : COLOR0;
+
+    float3 normal   : TEXCOORD1;   //オブジェクトの法線ベクトル
+    float3 cam  : TEXCOORD2;   //頂点 -> 視点 ベクトル
+
+
 };
 
 
@@ -135,44 +149,52 @@ OUT_VS GgafDx9VS_DefaultMeshSet(
 		matWorld = g_matWorld015;
 		colorMaterialDiffuse = g_colMaterialDiffuse015;
 	}
-//	} else {
-//		matWorld = g_matWorld016;
-//		colorMaterialDiffuse = g_colMaterialDiffuse016;
-//	}
-	//World*View*射影変換
-	out_vs.pos = mul(mul(mul( prm_pos, matWorld ), g_matView ), g_matProj);
-	//UVはそのまま
-	out_vs.uv = prm_uv;
+
+
+    //頂点計算
+    float4 posWorld = mul(prm_pos, matWorld);
+    out_vs.pos = mul( mul( posWorld, g_matView), g_matProj);  //World*View*射影
+    //UV計算
+    out_vs.uv = prm_uv;  //そのまま
 
     //頂点カラー計算
+    //法線を World 変換して正規化
+    out_vs.normal = normalize(mul(prm_normal, matWorld));     
+    //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
+    float power = max(dot(out_vs.normal, -g_vecLightDirection ), 0);      
+    //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
+    out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power)) * colorMaterialDiffuse;
+    //「頂点→カメラ視点」方向ベクトル                                                        
+    out_vs.cam = normalize(g_posCam.xyz - posWorld.xyz);
+    //αはマテリアルαを最優先とする（上書きする）
+    out_vs.col.a = colorMaterialDiffuse.a;
+    //αフォグ
+    if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
+        out_vs.col.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
+    } 
+    //マスターα
+    out_vs.col.a *= g_alpha_master;
 
-	//法線を World 変換して正規化
-    float3 normal = normalize(mul(prm_normal, matWorld)); 	
-    //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(normal, -g_vecLightDirection ), 0);      
-	//Ambientライト色、Diffuseライト色、Diffuseライト方向、マテリアル色 を考慮したカラー作成。      
-	out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power)) * colorMaterialDiffuse;
-	//αフォグ
-	out_vs.col.a = colorMaterialDiffuse.a;
-	if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-    	out_vs.col.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
-	} 
-//	if (out_vs.pos.z > g_zf*0.75) { //最遠の 3/4 より奥の場合徐々に透明に
-//    	out_vs.col.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);
-//	}
-	//マスターα
-	out_vs.col.a *= g_alpha_master;
-	return out_vs;
+    return out_vs;
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_DefaultMeshSet(
 	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_col    : COLOR0
+	float4 prm_col    : COLOR0,
+    float3 prm_normal : TEXCOORD1,
+    float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	float4 out_color = tex_color * prm_col;
+    float s = 0.0f; //スペキュラ成分
+    if (g_specular_power != 0) {
+        //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル）
+        float3 vecHarf = normalize(prm_cam + (-g_vecLightDirection));
+        //ハーフベクトルと法線の内積よりスペキュラ具合を計算
+        s = pow( max(0.0f, dot(prm_normal, vecHarf)), g_specular ) * g_specular_power;
+    }
+    float4 tex_color = tex2D( MyTextureSampler, prm_uv);
+    //テクスチャ色に        
+    float4 out_color = tex_color * prm_col + s;
 
     //Blinkerを考慮
 	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {

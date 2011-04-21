@@ -78,6 +78,7 @@ OUT_VS GgafDx9VS_DefaultMesh(
     //頂点計算
     float4 posWorld = mul(prm_pos, g_matWorld);
     out_vs.pos = mul( mul( posWorld, g_matView), g_matProj);  //World*View*射影
+
     //UV計算
     out_vs.uv = prm_uv;  //そのまま
 
@@ -111,12 +112,13 @@ float4 GgafDx9PS_DefaultMesh(
     float3 prm_normal : TEXCOORD1,
     float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
-
-    //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル）
-    float3 vecHarf = normalize(prm_cam + (-g_vecLightDirection));
-    //ハーフベクトルと法線の内積よりスペキュラ具合を計算
-    float s = pow( max(0.0f, dot(prm_normal, vecHarf)), g_specular ) * g_specular_power;
-    //テクスチャをサンプリングして色取得（原色を取得）
+    float s = 0.0f; //スペキュラ成分
+    if (g_specular_power != 0) {
+        //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル）
+        float3 vecHarf = normalize(prm_cam + (-g_vecLightDirection));
+        //ハーフベクトルと法線の内積よりスペキュラ具合を計算
+        s = pow( max(0.0f, dot(prm_normal, vecHarf)), g_specular ) * g_specular_power;
+    }
     float4 tex_color = tex2D( MyTextureSampler, prm_uv);
     //テクスチャ色に        
     float4 out_color = tex_color * prm_col + s;

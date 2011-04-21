@@ -8,7 +8,10 @@
 // author : Masatoshi Tsuge
 // date:2011/01/10
 ////////////////////////////////////////////////////////////////////////////////
-
+//エラー回避のためにとりあえず追加後でちゃんとする
+float3 g_posCam;
+float g_specular;
+float g_specular_power;
 
 float g_distance_AlphaTarget;
 float g_wall_dep;    //壁ブロックの長さ（X座標軸長さ）

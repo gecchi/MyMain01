@@ -67,6 +67,14 @@
    }
   }
 */
+//ƒGƒ‰[‰ñ”ğ‚Ì‚½‚ß‚É‚Æ‚è‚ ‚¦‚¸’Ç‰ÁŒã‚Å‚¿‚á‚ñ‚Æ‚·‚é
+float3 g_posCam;
+float g_specular;
+float g_specular_power;
+
+
+
+
 float g_tex_blink_power;   
 float g_tex_blink_threshold;
 float g_alpha_master;

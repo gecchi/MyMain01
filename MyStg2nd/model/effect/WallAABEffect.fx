@@ -8,7 +8,10 @@
 // author : Masatoshi Tsuge
 // date:2010/10/20
 ////////////////////////////////////////////////////////////////////////////////
-
+//ƒGƒ‰[‰ñ”ğ‚Ì‚½‚ß‚É‚Æ‚è‚ ‚¦‚¸’Ç‰ÁŒã‚Å‚¿‚á‚ñ‚Æ‚·‚é
+float3 g_posCam;
+float g_specular;
+float g_specular_power;
 
 float g_distance_AlphaTarget;
 float g_zf;
