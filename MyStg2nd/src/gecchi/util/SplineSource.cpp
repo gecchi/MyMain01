@@ -84,7 +84,6 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
         p[i][2] = p[i][2] * MyShip::_lim_zleft; //Z
     }
     _pSp = NEW GgafDx9Spline3D(p, n, _accuracy);
-
 }
 
 

@@ -12,6 +12,7 @@ namespace MyStg2nd {
 class VamSysCamPosition : public GgafCore::GgafObject {
 
 public:
+
     class Pos {
     public:
         int _pos_cam;

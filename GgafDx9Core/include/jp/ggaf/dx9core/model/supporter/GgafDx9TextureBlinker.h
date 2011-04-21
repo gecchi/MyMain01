@@ -16,7 +16,7 @@ namespace GgafDx9Core {
  */
 class GgafDx9TextureBlinker : public GgafCore::GgafObject {
 
-public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
+public:
     /** 対象アクター */
     GgafDx9Model* _pModel;
 
@@ -40,7 +40,7 @@ public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     frame _beat_spend_frame;
     /** 点滅を開始したフレーム */
     frame _beat_begin_frame;
-    /** ループカウント（2で点滅ワンセット、1ならば拡大or縮小の片道） */
+    /** ループカウント（2で点滅ワンセット、1ならば点灯o消灯の片道） */
     int _one_way_cnt;
     /** ストップする予定のループカウント */
     int _stop_one_way_num;
@@ -93,35 +93,37 @@ public:
         }
         //_TRACE_("forceBlinkRange _bottom_power_blink["<<prm_<<"]="<<_bottom_power_blink<<"/_top_power_blink["<<prm_<<"]="<<_top_power_blink<<"");
     }
+
     /**
-     * 色強度をリセット
-     * 本オブジェクト(GgafDx9TextureBlinker)によって変化さえる前の
-     * 初期の大きさに戻す。
+     * 色強度を下限にリセット
      */
     void setBlinkToBottom() {
         _power_blink = _bottom_power_blink;
     }
 
+    /**
+     * 色強度を上限にリセット
+     */
     void setBlinkToTop() {
         _power_blink = _top_power_blink;
     }
 
     /**
-     * 点滅を停止させる。  .
+     * 点滅を停止させる。.
      */
     void stopImmediately();
 
     /**
-     * 片道等速点滅（全軸・持続フレーム数指定） .
-     * 目標の色強度へ一定速度で点滅する
+     * 片道等速点灯（全軸・持続フレーム数指定） .
+     * 目標の色強度へ一定速度で１回点灯（消灯）する
      * @param prm_target_power_blink 目標色強度
      * @param prm_spend_frame 費やすフレーム数
      */
     void intoTargetBlinkLinerUntil(float prm_target_power_blink, frame prm_spend_frame);
 
     /**
-     * 片道等速点滅（全軸・色強度速度指定） .
-     * 目標の色強度へ一定速度で点滅する
+     * 片道等速点灯（全軸・色強度速度指定） .
+     * 目標の色強度へ一定速度で１回点灯（消灯）する
      * @param prm_target_power_blink 目標色強度
      * @param prm_velo_power_blink 毎フレーム加算する色強度差分(>0.0)。正の色強度差分を指定する事。
      *                             色強度の加算か減算かは現在の色強度より目標色強度が高いか低いかで自動判断する。
@@ -129,8 +131,8 @@ public:
     void intoTargetBlinkLinerStep(float prm_target_power_blink, float prm_velo_power_blink);
 
     /**
-     * 片道加速点滅（全軸・色強度速度・色強度加速度指定） .
-     * 目標の色強度へ加速指定で点滅する
+     * 片道加速点灯（全軸・色強度速度・色強度加速度指定） .
+     * 目標の色強度へ加速指定で１回点灯（消灯）する
      * 色強度加速度を0に指定すると intoTargetBlinkLinerStep とほぼ同じ意味になる。
      * intoTargetBlinkLinerStep の第２引数は正負を気にすること無いが、本メソッドは正負の自動判定はしないので注意して設定せよ。
      * @param prm_target_power_blink 目標色強度

@@ -32,11 +32,11 @@ void PauseCamWorker::processBehavior() {
     GgafDx9Input::getMousePointer_REL(&mdx, &mdy, &mdz);
     mdy = -mdy; //Yはインバーズ
 
-    if (GgafDx9Input::isPushedDownMouseButton(0) || GgafDx9Input::isPushedDownMouseButton(1) || GgafDx9Input::isPushedDownMouseButton(2)) {
-        _pVPGuide->activate(); //ガイドON
-    } else if(GgafDx9Input::isReleasedUpMouseButton(0) || GgafDx9Input::isReleasedUpMouseButton(1) || GgafDx9Input::isReleasedUpMouseButton(2)) {
-        _pVPGuide->inactivate(); //ガイドOFF
-    }
+//    if (GgafDx9Input::isPushedDownMouseButton(0) || GgafDx9Input::isPushedDownMouseButton(1) || GgafDx9Input::isPushedDownMouseButton(2)) {
+//        _pVPGuide->activate(); //ガイドON
+//    } else if(GgafDx9Input::isReleasedUpMouseButton(0) || GgafDx9Input::isReleasedUpMouseButton(1) || GgafDx9Input::isReleasedUpMouseButton(2)) {
+//        _pVPGuide->inactivate(); //ガイドOFF
+//    }
 
     if (GgafDx9Input::isPushedDownMouseButton(0) || GgafDx9Input::isPushedDownMouseButton(1) || GgafDx9Input::isPushedDownMouseButton(2)) {
         RECT cRect; // クライアント領域の矩形

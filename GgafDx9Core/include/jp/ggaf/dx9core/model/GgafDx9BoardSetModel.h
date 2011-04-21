@@ -11,7 +11,7 @@ namespace GgafDx9Core {
 class GgafDx9BoardSetModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
     friend class GgafDx9BoardSetActor;
-protected:
+
 public:
     static int _draw_set_num_LastDraw;
     struct INDEXPARAM {

@@ -21,7 +21,7 @@ God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd)
     God::_pVbtn_Active = God::_pVbtn_UI;
     God::_pVbtn_Active_next_frame = God::_pVbtn_UI;
 
-    //仮想ボタンを本、ゲーム用に上書きして再定義
+    //仮想ボタンを本ゲーム用に上書きして再定義
     VirtualButton::_tagKeymap.BUTTON1    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_SHOT1)      ];
     VirtualButton::_tagKeymap.BUTTON2    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_SHOT2)      ];
     VirtualButton::_tagKeymap.BUTTON3    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_OPTION)     ];
