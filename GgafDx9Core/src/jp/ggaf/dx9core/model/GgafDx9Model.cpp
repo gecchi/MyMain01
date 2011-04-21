@@ -12,10 +12,10 @@ GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
     _paD3DMaterial9_default = NULL;
     _dwNumMaterials = 0;
     _papTextureCon = NULL;
-    _fBoundingSphereRadius = 0;
-    _fPowerBlink = -1.0f;
-    _fBlinkThreshold = 1.1f;
-    _frame_blinker = 0;
+    _radius_bounding_sphere = 0;
+    _power_blink = -1.0f;
+    _blink_threshold = 1.1f;
+    _blinker_frame = 0;
     _pTextureBlinker = NEW GgafDx9TextureBlinker(this);
     _is_init_model = false;
     _set_num = 1; //デフォルト最大同描画数１

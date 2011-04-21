@@ -43,7 +43,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     }
     _fAlpha = 1.0f;
     //Å‘å‹——£’¸“_
-    _fBoundingSphereRadius = _pGgafDx9Model->_fBoundingSphereRadius;
+    _radius_bounding_sphere = _pGgafDx9Model->_radius_bounding_sphere;
     _now_drawdepth = 0;
     _specal_drawdepth = -1;
     _zenable = true;
@@ -115,7 +115,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     _fAlpha = 1.0f;
 
     //Å‘å‹——£’¸“_
-    _fBoundingSphereRadius = _pGgafDx9Model->_fBoundingSphereRadius;
+    _radius_bounding_sphere = _pGgafDx9Model->_radius_bounding_sphere;
 
     DELETEARR_IMPOSSIBLE_NULL(model_name);
     DELETEARR_IMPOSSIBLE_NULL(effelct_name);

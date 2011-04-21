@@ -43,9 +43,9 @@ HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int 
             checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetValue(g_colMaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
-            hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_power, _fPowerBlink);
+            hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_power, _power_blink);
             checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetFloat(_h_tex_blink_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-            hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_threshold, _fBlinkThreshold);
+            hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_threshold, _blink_threshold);
             checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetFloat(_h_tex_blink_threshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pID3DXEffect->SetFloat(pMeshEffect->_h_specular, _specular);
             checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetFloat(_h_specular) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

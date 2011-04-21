@@ -17,7 +17,7 @@ void MyTorpedoTail::initialize() {
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
     _SX = _SY = _SZ = 6*1000;
     setAlpha(0.3);
-    _fBoundingSphereRadius = 5.0f;
+    _radius_bounding_sphere = 5.0f;
 
 }
 

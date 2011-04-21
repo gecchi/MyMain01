@@ -72,9 +72,9 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int
         //インデックスバッファ設定
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
 
-        hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_tex_blink_power, _fPowerBlink);
+        hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_h_tex_blink_power) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_tex_blink_threshold, _fBlinkThreshold);
+        hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_tex_blink_threshold, _blink_threshold);
         checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
     }
 

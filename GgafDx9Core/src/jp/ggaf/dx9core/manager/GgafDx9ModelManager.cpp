@@ -278,7 +278,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
         //頂点バッファ作成開始！
         //法線以外設定
-        FLOAT model_fBoundingSphereRadius;
+        FLOAT model_radius_bounding_sphere;
         for (int i = 0; i < nVertices; i++) {
             model_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
             model_paVtxBuffer_org[i].y = model_pMeshesFront->_Vertices[i].data[1];
@@ -296,11 +296,11 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             }
 
             //距離
-            model_fBoundingSphereRadius = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
+            model_radius_bounding_sphere = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
                                                  model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
                                                  model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z));
-            if (prm_pMeshModel->_fBoundingSphereRadius < model_fBoundingSphereRadius) {
-                prm_pMeshModel->_fBoundingSphereRadius = model_fBoundingSphereRadius;
+            if (prm_pMeshModel->_radius_bounding_sphere < model_radius_bounding_sphere) {
+                prm_pMeshModel->_radius_bounding_sphere = model_radius_bounding_sphere;
             }
         }
 
@@ -822,7 +822,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         int nTextureCoords = 0;
         int nFaces = 0;
         int nFaceNormals = 0;
-        FLOAT model_fBoundingSphereRadius;
+        FLOAT model_radius_bounding_sphere;
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
             model_papModel3D[pattern] = NEW Frm::Model3D();
             bool r = paIOX[pattern].Load(paXfileName[pattern], model_papModel3D[pattern]);
@@ -880,11 +880,11 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     }
 
                     //距離
-                    model_fBoundingSphereRadius = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org_primary[i].x * model_paVtxBuffer_org_primary[i].x +
+                    model_radius_bounding_sphere = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org_primary[i].x * model_paVtxBuffer_org_primary[i].x +
                                                          model_paVtxBuffer_org_primary[i].y * model_paVtxBuffer_org_primary[i].y +
                                                          model_paVtxBuffer_org_primary[i].z * model_paVtxBuffer_org_primary[i].z));
-                    if (prm_pMorphMeshModel->_fBoundingSphereRadius < model_fBoundingSphereRadius) {
-                        prm_pMorphMeshModel->_fBoundingSphereRadius = model_fBoundingSphereRadius;
+                    if (prm_pMorphMeshModel->_radius_bounding_sphere < model_radius_bounding_sphere) {
+                        prm_pMorphMeshModel->_radius_bounding_sphere = model_radius_bounding_sphere;
                     }
                 }
             } else {
@@ -1562,7 +1562,7 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     prm_pD3DXMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
     prm_pD3DXMeshModel->_papTextureCon = model_papTextureCon;
     prm_pD3DXMeshModel->_dwNumMaterials = dwNumMaterials;
-    prm_pD3DXMeshModel->_fBoundingSphereRadius = 10.0f; //TODO:境界球半径大きさとりあえず100px
+    prm_pD3DXMeshModel->_radius_bounding_sphere = 10.0f; //TODO:境界球半径大きさとりあえず100px
 
 }
 
@@ -1674,8 +1674,8 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
     }
     //境界球
     D3DXVECTOR3 vecCenter;
-    FLOAT model_fBoundingSphereRadius;
-    D3DXFrameCalculateBoundingSphere(pFR, &vecCenter, &model_fBoundingSphereRadius);
+    FLOAT model_radius_bounding_sphere;
+    D3DXFrameCalculateBoundingSphere(pFR, &vecCenter, &model_radius_bounding_sphere);
     //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
 
 
@@ -1687,8 +1687,8 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
     prm_pD3DXAniMeshModel->_pAH = pAH;
     prm_pD3DXAniMeshModel->_pFR = pFR;
     prm_pD3DXAniMeshModel->_pAcBase = pAC;
-    prm_pD3DXAniMeshModel->_fBoundingSphereRadius = model_fBoundingSphereRadius;
-    _TRACE_("境界球半径="<<model_fBoundingSphereRadius);
+    prm_pD3DXAniMeshModel->_radius_bounding_sphere = model_radius_bounding_sphere;
+    _TRACE_("境界球半径="<<model_radius_bounding_sphere);
 //    prm_pD3DXAniMeshModel->_advance_time_per_frame0 =  advanceTimePerFrame0; //トラック0番１ループの時間
 //    _TRACE_("アニメーションセット0番_advance_time_per_frame");
 
@@ -1822,10 +1822,10 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
 
     //距離
-    FLOAT model_fBoundingSphereRadius = (FLOAT)(GgafDx9Util::sqrt_fast(paVertex[0].x * paVertex[0].x +
+    FLOAT model_radius_bounding_sphere = (FLOAT)(GgafDx9Util::sqrt_fast(paVertex[0].x * paVertex[0].x +
                                                paVertex[0].y * paVertex[0].y +
                                                paVertex[0].z * paVertex[0].z));
-    prm_pSpriteModel->_fBoundingSphereRadius = model_fBoundingSphereRadius;
+    prm_pSpriteModel->_radius_bounding_sphere = model_radius_bounding_sphere;
 
 
     //バッファ作成
@@ -2036,10 +2036,10 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         }
 
         //距離
-        FLOAT model_fBoundingSphereRadius = (FLOAT)(GgafDx9Util::sqrt_fast(paVertex[0].x * paVertex[0].x +
+        FLOAT model_radius_bounding_sphere = (FLOAT)(GgafDx9Util::sqrt_fast(paVertex[0].x * paVertex[0].x +
                                                    paVertex[0].y * paVertex[0].y +
                                                    paVertex[0].z * paVertex[0].z));
-        prm_pSpriteSetModel->_fBoundingSphereRadius = model_fBoundingSphereRadius;
+        prm_pSpriteSetModel->_radius_bounding_sphere = model_radius_bounding_sphere;
 
 
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
@@ -2648,7 +2648,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         prm_pMeshSetModel->_size_vertex_unit = sizeof(GgafDx9MeshSetModel::VERTEX);
 
         //法線以外設定
-        FLOAT model_fBoundingSphereRadius;
+        FLOAT model_radius_bounding_sphere;
         for (int i = 0; i < nVertices; i++) {
             unit_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
             unit_paVtxBuffer_org[i].y = model_pMeshesFront->_Vertices[i].data[1];
@@ -2667,11 +2667,11 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             unit_paVtxBuffer_org[i].index = 0; //頂点番号（むりやり埋め込み）
 
             //距離
-            model_fBoundingSphereRadius = (FLOAT)(GgafDx9Util::sqrt_fast(unit_paVtxBuffer_org[i].x * unit_paVtxBuffer_org[i].x +
+            model_radius_bounding_sphere = (FLOAT)(GgafDx9Util::sqrt_fast(unit_paVtxBuffer_org[i].x * unit_paVtxBuffer_org[i].x +
                                                  unit_paVtxBuffer_org[i].y * unit_paVtxBuffer_org[i].y +
                                                  unit_paVtxBuffer_org[i].z * unit_paVtxBuffer_org[i].z));
-            if (prm_pMeshSetModel->_fBoundingSphereRadius < model_fBoundingSphereRadius) {
-                prm_pMeshSetModel->_fBoundingSphereRadius = model_fBoundingSphereRadius;
+            if (prm_pMeshSetModel->_radius_bounding_sphere < model_radius_bounding_sphere) {
+                prm_pMeshSetModel->_radius_bounding_sphere = model_radius_bounding_sphere;
             }
         }
 
@@ -3202,7 +3202,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
 
     float texWidth  = (float)(model_papTextureCon[0]->refer()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
     float texHeight = (float)(model_papTextureCon[0]->refer()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
-    FLOAT model_fBoundingSphereRadius = 0;
+    FLOAT model_radius_bounding_sphere = 0;
 
     //頂点バッファ作成
     GgafDx9PointSpriteModel::VERTEX* model_paVtxBuffer_org = NEW GgafDx9PointSpriteModel::VERTEX[model_vertices_num];
@@ -3239,8 +3239,8 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
                        + (((model_fSquareSize/PX_UNIT) * 1.41421356 ) / 2.0)
                      );
 
-         if (model_fBoundingSphereRadius < dis) {
-             model_fBoundingSphereRadius = dis;
+         if (model_radius_bounding_sphere < dis) {
+             model_radius_bounding_sphere = dis;
          }
     }
 
@@ -3289,7 +3289,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     prm_pPointSpriteModel->_size_vertices = model_size_vertices;
     prm_pPointSpriteModel->_size_vertex_unit = model_size_vertex_unit;
     prm_pPointSpriteModel->_paVtxBuffer_org = model_paVtxBuffer_org;
-    prm_pPointSpriteModel->_fBoundingSphereRadius = model_fBoundingSphereRadius;
+    prm_pPointSpriteModel->_radius_bounding_sphere = model_radius_bounding_sphere;
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }

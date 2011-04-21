@@ -47,7 +47,7 @@ public:
     GgafDx9SeTransmitter* _pSeTransmitter;
 
     /** [r/w]境界球の半径(DirectXの単位)。画面外判定に使用される */
-    FLOAT _fBoundingSphereRadius;
+    FLOAT _radius_bounding_sphere;
     /** [rw]モデルの境界球半径倍率 */
     FLOAT _fRate_BoundingSphereRadius;
     /** [r] 内部で _X から計算されるDirectXのワールドX座標(_X : _fX = 1000 : 0.1) */

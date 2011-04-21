@@ -27,27 +27,30 @@ public:
     DWORD _dwNumMaterials;
 
     /** [rw]モデルの境界球半径。画面外判定に利用される */
-    FLOAT _fBoundingSphereRadius;
+    FLOAT _radius_bounding_sphere;
     /** [r]点滅強度 (0.0 <= _fblink <= 1.0)。GgafDx9TextureBlinkerにより操作すること */
-    FLOAT _fPowerBlink;
+    FLOAT _power_blink;
     /** [r]点滅対象RGB値(0.0 <= tex2D()のrgbの何れか <= 1.0)。GgafDx9TextureBlinkerにより操作すること */
-    FLOAT _fBlinkThreshold;
-    //_fBlinkThreshold = 1.0 と指定した場合、PSでtex2D()のサンプリングカラーの
-    //r,g,b 何れか >= 1.0 の の場合、_fPowerBlink倍数の色(rgb)を加算
+    FLOAT _blink_threshold;
+    //_blink_threshold = 1.0 と指定した場合、PSでtex2D()のサンプリングカラーの
+    //r,g,b 何れか >= 1.0 の の場合、_power_blink倍数の色(rgb)を加算
     //ゼビウスの地上物破壊後の赤い点滅のようなことをしたかった。
 
     /** [r]テクスチャ資源コネクション配列 */
     GgafDx9TextureConnection** _papTextureCon;
     /** [r]点滅操作支援オブジェクト */
     GgafDx9TextureBlinker* _pTextureBlinker;
-    frame _frame_blinker;
-    /** スペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
+    /** [r]GgafDx9TextureBlinker専用カウンター */
+    frame _blinker_frame;
+
+    /** [r/w]モデルのスペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
     float _specular;
-    /** スペキュラーの強度（全体の倍率、0.0以外を設定するとスペキュラが有効になる） */
+    /** [r/w]モデルのスペキュラーの強度（全体の倍率、0.0以外を設定するとスペキュラが有効になる） */
     float _specular_power;
 
     /** [r]モデル単位の初期処理が実行済みかどうか(draw時チェック＆変更) */
     bool _is_init_model;
+
     /**
      * コンストラクタ<BR>
      * @param prm_model_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。

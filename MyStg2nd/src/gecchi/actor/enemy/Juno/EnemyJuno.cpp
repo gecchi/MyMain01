@@ -25,7 +25,7 @@ void EnemyJuno::onCreateModel() {
 //    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.5, 2.0);
 //    _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
 //    _pGgafDx9Model->_pTextureBlinker->beat(60, 3, 1, -1);
-//    _pGgafDx9Model->_fBlinkThreshold = 0.8;
+//    _pGgafDx9Model->_blink_threshold = 0.8;
 }
 
 void EnemyJuno::initialize() {

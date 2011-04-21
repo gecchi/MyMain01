@@ -42,9 +42,9 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int pr
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteModel::FVF);
         GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->refer()->_pIDirect3DBaseTexture9);
 
-        hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_tex_blink_power, _fPowerBlink);
+        hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() SetFloat(_h_tex_blink_power) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_tex_blink_threshold, _fBlinkThreshold);
+        hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_tex_blink_threshold, _blink_threshold);
         checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() SetFloat(_h_tex_blink_threshold) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);

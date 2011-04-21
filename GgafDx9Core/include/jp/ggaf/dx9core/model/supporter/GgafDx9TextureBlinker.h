@@ -4,7 +4,7 @@ namespace GgafDx9Core {
 
 /**
  * 特定カラー点滅支援クラス.
- * GgafDx9Model のメンバの _fPowerBlink <BR>
+ * GgafDx9Model のメンバの _power_blink <BR>
  * を、簡単に操作するために設計した。<BR>
  * 最終的にピクセルシェーダーで色(float4)に乗ずる値となる。
  * 色強度 1.0 は色強度無し、
@@ -21,17 +21,17 @@ public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     GgafDx9Model* _pModel;
 
     /** 色強度(0.0 ～ 100.0) */
-    float _fPowerBlink;
+    float _power_blink;
     /** 目標の色強度 */
-    float _target_fPowerBlink;
+    float _target_power_blink;
     /** 色強度上限 */
-    float _top_fPowerBlink;
+    float _top_power_blink;
     /** 色強度下限 */
-    float _bottom_fPowerBlink;
+    float _bottom_power_blink;
     /** 毎フレームの色強度の増分 */
-    float _velo_fPowerBlink;
+    float _velo_power_blink;
     /** 毎フレームの色強度の増分の増分 */
-    float _acce_fPowerBlink;
+    float _acce_power_blink;
     /** 三角波の波形で点滅のアタックフレーム */
     frame _beat_attack_frame;
     /** 三角波の波形で点滅のレストフレーム */
@@ -56,42 +56,42 @@ public:
 
     /**
      * 色強度を相対指定
-     * @param prm_fPowerBlink_diff 色強度値増分
+     * @param prm_power_blink_diff 色強度値増分
      */
-    void addBlink(float prm_fPowerBlink_diff) {
-        setBlink(_fPowerBlink + prm_fPowerBlink_diff);
+    void addBlink(float prm_power_blink_diff) {
+        setBlink(_power_blink + prm_power_blink_diff);
     }
 
     /**
      * 色強度を絶対指定
-     * @param prm_fPowerBlink 色強度値
+     * @param prm_power_blink 色強度値
      */
-    void setBlink(float prm_fPowerBlink) {
-        //_TRACE_("setBlink ["<<prm_<<"]prm_fPowerBlink="<<prm_fPowerBlink);
-        //_TRACE_("setBlink _bottom_fPowerBlink["<<prm_<<"]="<<_bottom_fPowerBlink<<"/_top_fPowerBlink["<<prm_<<"]="<<_top_fPowerBlink<<"");
-        if (_top_fPowerBlink < prm_fPowerBlink) {
-            _fPowerBlink = _top_fPowerBlink;
-        } else if (_bottom_fPowerBlink > prm_fPowerBlink) {
-            _fPowerBlink = _bottom_fPowerBlink;
+    void setBlink(float prm_power_blink) {
+        //_TRACE_("setBlink ["<<prm_<<"]prm_power_blink="<<prm_power_blink);
+        //_TRACE_("setBlink _bottom_power_blink["<<prm_<<"]="<<_bottom_power_blink<<"/_top_power_blink["<<prm_<<"]="<<_top_power_blink<<"");
+        if (_top_power_blink < prm_power_blink) {
+            _power_blink = _top_power_blink;
+        } else if (_bottom_power_blink > prm_power_blink) {
+            _power_blink = _bottom_power_blink;
         } else {
-            _fPowerBlink = prm_fPowerBlink;
+            _power_blink = prm_power_blink;
         }
-        //_TRACE_("setBlink _fPowerBlink ["<<prm_<<"] _fPowerBlink="<<prm_fPowerBlink);
+        //_TRACE_("setBlink _power_blink ["<<prm_<<"] _power_blink="<<prm_power_blink);
     }
     /**
      * 色強度の上限下限を設定
-     * @param prm_fPowerBlink1 色強度値1
-     * @param prm_fPowerBlink2 色強度値2
+     * @param prm_power_blink1 色強度値1
+     * @param prm_power_blink2 色強度値2
      */
-    void forceBlinkRange(float prm_fPowerBlink1, float prm_fPowerBlink2) {
-        if (prm_fPowerBlink1 < prm_fPowerBlink2) {
-            _bottom_fPowerBlink = prm_fPowerBlink1;
-            _top_fPowerBlink = prm_fPowerBlink2;
+    void forceBlinkRange(float prm_power_blink1, float prm_power_blink2) {
+        if (prm_power_blink1 < prm_power_blink2) {
+            _bottom_power_blink = prm_power_blink1;
+            _top_power_blink = prm_power_blink2;
         } else {
-            _bottom_fPowerBlink = prm_fPowerBlink2;
-            _top_fPowerBlink = prm_fPowerBlink1;
+            _bottom_power_blink = prm_power_blink2;
+            _top_power_blink = prm_power_blink1;
         }
-        //_TRACE_("forceBlinkRange _bottom_fPowerBlink["<<prm_<<"]="<<_bottom_fPowerBlink<<"/_top_fPowerBlink["<<prm_<<"]="<<_top_fPowerBlink<<"");
+        //_TRACE_("forceBlinkRange _bottom_power_blink["<<prm_<<"]="<<_bottom_power_blink<<"/_top_power_blink["<<prm_<<"]="<<_top_power_blink<<"");
     }
     /**
      * 色強度をリセット
@@ -99,11 +99,11 @@ public:
      * 初期の大きさに戻す。
      */
     void setBlinkToBottom() {
-        _fPowerBlink = _bottom_fPowerBlink;
+        _power_blink = _bottom_power_blink;
     }
 
     void setBlinkToTop() {
-        _fPowerBlink = _top_fPowerBlink;
+        _power_blink = _top_power_blink;
     }
 
     /**
@@ -114,34 +114,34 @@ public:
     /**
      * 片道等速点滅（全軸・持続フレーム数指定） .
      * 目標の色強度へ一定速度で点滅する
-     * @param prm_target_fPowerBlink 目標色強度
+     * @param prm_target_power_blink 目標色強度
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetBlinkLinerUntil(float prm_target_fPowerBlink, frame prm_spend_frame);
+    void intoTargetBlinkLinerUntil(float prm_target_power_blink, frame prm_spend_frame);
 
     /**
      * 片道等速点滅（全軸・色強度速度指定） .
      * 目標の色強度へ一定速度で点滅する
-     * @param prm_target_fPowerBlink 目標色強度
-     * @param prm_velo_fPowerBlink 毎フレーム加算する色強度差分(>0.0)。正の色強度差分を指定する事。
+     * @param prm_target_power_blink 目標色強度
+     * @param prm_velo_power_blink 毎フレーム加算する色強度差分(>0.0)。正の色強度差分を指定する事。
      *                             色強度の加算か減算かは現在の色強度より目標色強度が高いか低いかで自動判断する。
      */
-    void intoTargetBlinkLinerStep(float prm_target_fPowerBlink, float prm_velo_fPowerBlink);
+    void intoTargetBlinkLinerStep(float prm_target_power_blink, float prm_velo_power_blink);
 
     /**
      * 片道加速点滅（全軸・色強度速度・色強度加速度指定） .
      * 目標の色強度へ加速指定で点滅する
      * 色強度加速度を0に指定すると intoTargetBlinkLinerStep とほぼ同じ意味になる。
      * intoTargetBlinkLinerStep の第２引数は正負を気にすること無いが、本メソッドは正負の自動判定はしないので注意して設定せよ。
-     * @param prm_target_fPowerBlink 目標色強度
-     * @param prm_velo_fPowerBlink 初期色強度速度
-     * @param prm_acce_fPowerBlink 色強度加速度
+     * @param prm_target_power_blink 目標色強度
+     * @param prm_velo_power_blink 初期色強度速度
+     * @param prm_acce_power_blink 色強度加速度
      */
-    void intoTargetBlinkAcceStep(float prm_target_fPowerBlink, float prm_velo_fPowerBlink, float prm_acce_fPowerBlink);
+    void intoTargetBlinkAcceStep(float prm_target_power_blink, float prm_velo_power_blink, float prm_acce_power_blink);
 
     /**
      * 反復等速点滅 .
-     * 目標の色強度上限（_top_fPowerBlink）へ一定速度で光り、一定速度で色強度下限（_bottom_fPowerBlink）元に戻る。
+     * 目標の色強度上限（_top_power_blink）へ一定速度で光り、一定速度で色強度下限（_bottom_power_blink）元に戻る。
      * これを１ループとし、費やすフレーム数を指定する。
      * @param prm_beat_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
@@ -166,8 +166,8 @@ public:
      * ① １ループのフレーム数<BR>
      * ② アタックまでのフレーム数<BR>
      * ③ 休憩フレーム数<BR>
-     * ④ 色強度上限(_top_fPowerBlinkが保持)<BR>
-     * ⑤ 色強度下限(_bottom_fPowerBlinkが保持)<BR>
+     * ④ 色強度上限(_top_power_blinkが保持)<BR>
+     * ⑤ 色強度下限(_bottom_power_blinkが保持)<BR>
      * <BR>
      * @param prm_beat_spend_frame 上図で①のフレーム数
      * @param prm_attack_frame 上図で②のフレーム数

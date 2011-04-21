@@ -20,7 +20,7 @@
 //    setHitAble(true);
 //    _SX = _SY = _SZ = 6 * 1000;
 //    _fAlpha = 0.99f;
-//    _fBoundingSphereRadius = 60.0f;
+//    _radius_bounding_sphere = 60.0f;
 //
 //}
 //

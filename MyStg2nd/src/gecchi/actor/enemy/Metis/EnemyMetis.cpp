@@ -17,6 +17,10 @@ EnemyMetis::EnemyMetis(const char* prm_name) : DefaultMeshSetActor(prm_name, "Me
     _pSeTransmitter->set(1, "bom10", GgafRepeatSeq::nextVal("CH_MetisDestroy"));     //”š”­
 }
 
+void EnemyMetis::onCreateModel() {
+    _pGgafDx9Model->setSpecular(5.0, 1.0);
+}
+
 void EnemyMetis::initialize() {
     int nArea = 0;
     for (int i = 0; i < (_width_X - _depth_Y) ; i+= _depth_Y) {

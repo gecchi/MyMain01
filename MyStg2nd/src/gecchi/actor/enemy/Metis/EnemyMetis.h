@@ -20,6 +20,7 @@ public:
 
     EnemyMetis(const char* prm_name);
 
+    void onCreateModel() override;
 
     void initialize() override;
 
