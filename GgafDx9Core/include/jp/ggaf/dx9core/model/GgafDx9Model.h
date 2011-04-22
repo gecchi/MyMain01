@@ -61,10 +61,19 @@ public:
         return _model_name;
     }
 
+    /**
+     * モデルのスペキュラー強度を設定 .
+     * 両方の引数に 0 以外の数値を設定すると、スペキュラーが有効になります。
+     * 次のように設定するとスペキュラーを無効に出来ます。（デフォルトはスペキュラーを無効）
+     * setSpecular(0, 0)
+     * @param prm_specular モデルのスペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗）
+     * @param prm_specular_power モデルのスペキュラーの強度（全体の倍率、0.0以外を設定するとスペキュラが有効になる）
+     */
     virtual void setSpecular(float prm_specular, float prm_specular_power) {
         _specular = prm_specular;
         _specular_power = prm_specular_power;
     }
+
     /**
      * モデルを描画します.
      * @param prm_pActor_Target 描画するモデルのアクター
