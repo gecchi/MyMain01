@@ -43,12 +43,12 @@ public:
     /**
      * activate系は子アクターへは影響させない
      */
-    virtual void activateTreeDelay(frame prm_frame_offset) override {
-        activateDelay(prm_frame_offset);
+    virtual void activateTreeDelay(frame prm_offset_frames) override {
+        activateDelay(prm_offset_frames);
     }
 
-//    virtual void inactivateTreeDelay(frame prm_frame_offset) override {
-//        inactivateDelay(prm_frame_offset);
+//    virtual void inactivateTreeDelay(frame prm_offset_frames) override {
+//        inactivateDelay(prm_offset_frames);
 //    }
 
     /**

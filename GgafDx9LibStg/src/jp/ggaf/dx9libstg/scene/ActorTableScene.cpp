@@ -16,7 +16,7 @@ GgafGroupActor* ActorTableScene::addToTable(GgafDx9FormationActor* prm_pFormatio
     } else {
         throwGgafCriticalException("ActorTableScene::processBehavior() GgafDx9FormationActor ˆÈŠO‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚·B")
     }
-    prm_pFormationActor->_frame_offset_end = FORMATION_END_DELAY;
+    prm_pFormationActor->_offset_frames_end = FORMATION_END_DELAY;
     prm_pFormationActor->inactivateImmediately();
     _table.addLast(NEW TblElem(prm_pFormationActor, prm_max_delay_offset), true);
 

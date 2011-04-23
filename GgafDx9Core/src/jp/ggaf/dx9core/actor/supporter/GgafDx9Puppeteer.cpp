@@ -114,9 +114,9 @@ void GgafDx9Puppeteer::play(GgafDx9PuppeteerStick prm_handed,
                               UINT prm_performance_no,
                               double prm_loopnum,
                               double prm_target_speed,
-                              frame prm_frame_duaration_of_shift_speed,
+                              frame prm_shift_speed_frames,
                               double prm_target_weight,
-                              frame prm_frame_duaration_of_shift_weight,
+                              frame prm_shift_weight_frames,
                               GgafDx9PuppeteerPlayMethod prm_method ) {
     _aStick[prm_handed]._pPerformance = &(_paPerformances[prm_performance_no]);
     Performance* p = _aStick[prm_handed]._pPerformance;
@@ -125,23 +125,23 @@ void GgafDx9Puppeteer::play(GgafDx9PuppeteerStick prm_handed,
     p->_target_loop                    = prm_loopnum;
 //    p->_loop                           = 0.0;
 
-    if (prm_frame_duaration_of_shift_speed == 0) {
+    if (prm_shift_speed_frames == 0) {
         p->_speed                          = prm_target_speed;
         p->_inc_speed                      = 0;
         p->_is_shifting_speed              = false;
         p->_target_speed                   = prm_target_speed;
     } else {
-        p->_inc_speed                      = (prm_target_speed - p->_speed) / prm_frame_duaration_of_shift_speed;
+        p->_inc_speed                      = (prm_target_speed - p->_speed) / prm_shift_speed_frames;
         p->_is_shifting_speed              = true;
         p->_target_speed                   = prm_target_speed;
     }
-    if (prm_frame_duaration_of_shift_weight == 0) {
+    if (prm_shift_weight_frames == 0) {
         p->_weight                         = prm_target_weight;
         p->_inc_weight                     = 0;
         p->_is_shifting_weight             = false;
         p->_target_weight                  = prm_target_weight;
     } else {
-        p->_inc_weight                     = (prm_target_weight - p->_weight) / prm_frame_duaration_of_shift_weight;
+        p->_inc_weight                     = (prm_target_weight - p->_weight) / prm_shift_weight_frames;
         p->_is_shifting_weight             = true;
         p->_target_weight                  = prm_target_weight;
     }

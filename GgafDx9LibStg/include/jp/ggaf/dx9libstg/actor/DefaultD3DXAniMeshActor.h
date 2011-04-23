@@ -13,7 +13,7 @@ class DefaultD3DXAniMeshActor : public GgafDx9Core::GgafDx9D3DXAniMeshActor {
 
 
 public:
-    frame _frame_offset;
+    frame _offset_frames;
 
     CollisionChecker* _pCollisionChecker;
     /** 拡大縮小支援オブジェクト */

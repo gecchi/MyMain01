@@ -42,7 +42,7 @@ GgafGod::GgafGod() : GgafObject(),
     _can_be = true;
     _was_cleaned = false;
     _skip_count_of_frame = 0;
-    _max_skip_frame = (int)GGAF_PROPERTY(MAX_SKIP_FRAME);
+    _max_skip_frames = (int)GGAF_PROPERTY(MAX_SKIP_FRAME);
     _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     _sync_frame_time = false;
 }
@@ -115,7 +115,7 @@ void GgafGod::be() {
             if (_time_at_beginning_frame > _expected_time_of_next_frame + _aaTime_OffsetOfNextFrame[_slowdown_mode][_frame_of_God % 60]) {
                 //大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
                 _skip_count_of_frame++;
-                if (_skip_count_of_frame >= _max_skip_frame && _sync_frame_time == false) {
+                if (_skip_count_of_frame >= _max_skip_frames && _sync_frame_time == false) {
                     //スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
                     _skip_count_of_frame = 0;
                     _frame_of_visualize++;

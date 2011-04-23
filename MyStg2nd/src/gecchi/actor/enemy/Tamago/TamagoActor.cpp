@@ -19,9 +19,9 @@ void TamagoActor::processBehavior() {
                             0,          //UINT   prm_performance_no,
                             -1,         //double prm_loopnum,
                             3.0,        //double prm_target_speed,
-                            0,          //frame  prm_frame_duaration_of_shift_speed,
+                            0,          //frame  prm_shift_speed_frames,
                             1.0,        //double prm_target_weight,
-                            0    );     //frame  prm_frame_duaration_of_shift_weight
+                            0    );     //frame  prm_shift_weight_frames
 
     }
     if (GgafDx9Input::isPushedDownKey(DIK_9)) {
@@ -30,9 +30,9 @@ void TamagoActor::processBehavior() {
                             1,          //UINT   prm_performance_no,
                             -1,         //double prm_loopnum,
                             -10.0,      //double prm_target_speed,
-                            120,        //frame  prm_frame_duaration_of_shift_speed,
+                            120,        //frame  prm_shift_speed_frames,
                             1.0,        //double prm_target_weight,
-                            0    );     //frame  prm_frame_duaration_of_shift_weight
+                            0    );     //frame  prm_shift_weight_frames
     }
     if (GgafDx9Input::isPushedDownKey(DIK_8)) {
 //        _pPuppeteer->play(1, 1.0, LOOP_MOTION_LINER);

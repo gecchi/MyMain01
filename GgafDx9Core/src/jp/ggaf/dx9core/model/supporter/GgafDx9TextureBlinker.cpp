@@ -13,10 +13,10 @@ GgafDx9TextureBlinker::GgafDx9TextureBlinker(GgafDx9Model* prm_pModel) :
     _top_power_blink = 1000.0f;
     _bottom_power_blink = 0.0f;
     _one_way_cnt = 0;
-    _beat_attack_frame = 0;
-    _beat_rest_frame = 0;
+    _beat_attack_frames = 0;
+    _beat_rest_frames = 0;
     _beat_begin_frame = 0;
-    _beat_spend_frame = 0;
+    _beat_spend_frames = 0;
     _stop_one_way_num = -1;
     _method = NOBLINK;
 }
@@ -53,14 +53,14 @@ void GgafDx9TextureBlinker::behave() {
         _power_blink += _velo_power_blink;
         if (_top_power_blink <= _power_blink) {
             _power_blink = _top_power_blink;
-            _velo_power_blink = -2.0f * (_top_power_blink - _bottom_power_blink) / (int)_beat_spend_frame;
+            _velo_power_blink = -2.0f * (_top_power_blink - _bottom_power_blink) / (int)_beat_spend_frames;
             _one_way_cnt++;
             if (_one_way_cnt == _stop_one_way_num) {
                 _method = NOBLINK;
             }
         } else if (_bottom_power_blink >= _power_blink) {
             _power_blink = _bottom_power_blink;
-            _velo_power_blink = 2.0f * (_top_power_blink - _bottom_power_blink) / (int)_beat_spend_frame;
+            _velo_power_blink = 2.0f * (_top_power_blink - _bottom_power_blink) / (int)_beat_spend_frames;
             _one_way_cnt++;
             if (_one_way_cnt == _stop_one_way_num) {
                 _method = NOBLINK;
@@ -69,10 +69,10 @@ void GgafDx9TextureBlinker::behave() {
 
     } else if (_method == BEAT_BLINK_TRIANGLEWAVE) {
         _power_blink += _velo_power_blink;
-        //_TRACE_("_beat_begin_frame="<<_beat_begin_frame<<" _beat_attack_frame="<<_beat_attack_frame<<" _pModel->_blinker_frame="<<_pModel->_blinker_frame<<" | _power_blink="<<_power_blink<<" _velo_power_blink="<<_velo_power_blink<<"");
-        if (_beat_begin_frame + _beat_attack_frame == _pModel->_blinker_frame) { //アタック頂点時
+        //_TRACE_("_beat_begin_frame="<<_beat_begin_frame<<" _beat_attack_frames="<<_beat_attack_frames<<" _pModel->_blinker_frame="<<_pModel->_blinker_frame<<" | _power_blink="<<_power_blink<<" _velo_power_blink="<<_velo_power_blink<<"");
+        if (_beat_begin_frame + _beat_attack_frames == _pModel->_blinker_frame) { //アタック頂点時
             _power_blink = _top_power_blink;
-            _velo_power_blink = (_bottom_power_blink - _top_power_blink) / ((int)_beat_spend_frame - (int)_beat_attack_frame - (int)_beat_rest_frame);
+            _velo_power_blink = (_bottom_power_blink - _top_power_blink) / ((int)_beat_spend_frames - (int)_beat_attack_frames - (int)_beat_rest_frames);
             _one_way_cnt++;
             if (_one_way_cnt == _stop_one_way_num) {
                 _method = NOBLINK;
@@ -80,9 +80,9 @@ void GgafDx9TextureBlinker::behave() {
         } else if (_bottom_power_blink > _power_blink) {  //if (_bottom_power_blink >= _power_blink) では次に行かないので駄目ですよ！
             _power_blink = _bottom_power_blink;
             _velo_power_blink = 0;
-        } else if (_beat_begin_frame + _beat_spend_frame == _pModel->_blinker_frame) { //ループ終了時
+        } else if (_beat_begin_frame + _beat_spend_frames == _pModel->_blinker_frame) { //ループ終了時
             _beat_begin_frame = _pModel->_blinker_frame;
-            _velo_power_blink = (_top_power_blink - _bottom_power_blink) / (int)_beat_attack_frame;
+            _velo_power_blink = (_top_power_blink - _bottom_power_blink) / (int)_beat_attack_frames;
             _one_way_cnt++;
             if (_one_way_cnt == _stop_one_way_num) {
                 _method = NOBLINK;
@@ -99,11 +99,11 @@ void GgafDx9TextureBlinker::behave() {
 //            _TRACE_("_pModel->_blinker_frame="<<_pModel->_blinker_frame);
 //            _TRACE_("_bottom_power_blink["<<<<"]="<<_bottom_power_blink);
 //            _TRACE_("_top_power_blink["<<<<"]="<<_top_power_blink);
-//            _TRACE_("_beat_spend_frame["<<<<"]="<<_beat_spend_frame);
-//            _TRACE_("_beat_attack_frame["<<<<"]="<<_beat_attack_frame);
-//            _TRACE_("_beat_rest_frame["<<<<"]="<<_beat_rest_frame);
-//            _TRACE_("_beat_spend_frame["<<<<"] - _beat_attack_frame["<<<<"] - _beat_rest_frame["<<<<"]) = " << (_beat_spend_frame - _beat_attack_frame - _beat_rest_frame));
-//            _TRACE_("(_bottom_power_blink["<<<<"] - _top_power_blink["<<<<"]) / (_beat_spend_frame["<<<<"] - _beat_attack_frame["<<<<"] - _beat_rest_frame["<<<<"])="<<((int)(_bottom_power_blink - _top_power_blink) / (int)(_beat_spend_frame - _beat_attack_frame - _beat_rest_frame)));
+//            _TRACE_("_beat_spend_frames["<<<<"]="<<_beat_spend_frames);
+//            _TRACE_("_beat_attack_frames["<<<<"]="<<_beat_attack_frames);
+//            _TRACE_("_beat_rest_frames["<<<<"]="<<_beat_rest_frames);
+//            _TRACE_("_beat_spend_frames["<<<<"] - _beat_attack_frames["<<<<"] - _beat_rest_frames["<<<<"]) = " << (_beat_spend_frames - _beat_attack_frames - _beat_rest_frames));
+//            _TRACE_("(_bottom_power_blink["<<<<"] - _top_power_blink["<<<<"]) / (_beat_spend_frames["<<<<"] - _beat_attack_frames["<<<<"] - _beat_rest_frames["<<<<"])="<<((int)(_bottom_power_blink - _top_power_blink) / (int)(_beat_spend_frames - _beat_attack_frames - _beat_rest_frames)));
 //            _TRACE_("_bottom_power_blink["<<<<"] - _top_power_blink["<<<<"]" << (_bottom_power_blink - _top_power_blink));
 //            _TRACE_("_power_blink["<<<<"] _velo_power_blink["<<<<"]="<<_power_blink<<" "<<_velo_power_blink);
 
@@ -132,29 +132,29 @@ void GgafDx9TextureBlinker::intoTargetBlinkLinerStep(float prm_target_power_blin
     _velo_power_blink = sgn(prm_target_power_blink - _power_blink)*prm_velo_power_blink;
 }
 
-void GgafDx9TextureBlinker::loopLiner(frame prm_beat_spend_frame, float prm_beat_num) {
+void GgafDx9TextureBlinker::loopLiner(frame prm_beat_spend_frames, float prm_beat_num) {
     _method = BEAT_BLINK_LINER;
     _one_way_cnt = 0;
     _stop_one_way_num = (int)(prm_beat_num*2.0f);
-    _beat_spend_frame = prm_beat_spend_frame;
-    _velo_power_blink = (_top_power_blink - _power_blink) / ((int)prm_beat_spend_frame / 2);
+    _beat_spend_frames = prm_beat_spend_frames;
+    _velo_power_blink = (_top_power_blink - _power_blink) / ((int)prm_beat_spend_frames / 2);
     if (_velo_power_blink == 0.0f) {
         _velo_power_blink = 0.1f; //0は困る
     }
 }
 
 
-void GgafDx9TextureBlinker::beat(frame prm_beat_spend_frame, frame prm_attack_frame, frame prm_rest_frame, float prm_beat_num) {
+void GgafDx9TextureBlinker::beat(frame prm_beat_spend_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_beat_num) {
     _method = BEAT_BLINK_TRIANGLEWAVE;
     _one_way_cnt = 0;
     _stop_one_way_num = (int)(prm_beat_num*2.0f);
 
-    _beat_attack_frame = prm_attack_frame;
-    _beat_rest_frame = prm_rest_frame;
+    _beat_attack_frames = prm_attack_frames;
+    _beat_rest_frames = prm_rest_frames;
     _beat_begin_frame = _pModel->_blinker_frame;
-    _beat_spend_frame = prm_beat_spend_frame;
+    _beat_spend_frames = prm_beat_spend_frames;
 
-    _velo_power_blink = (_top_power_blink - _power_blink) / (int)prm_attack_frame;
+    _velo_power_blink = (_top_power_blink - _power_blink) / (int)prm_attack_frames;
 //    if (_velo_power_blink == 0.0f) {
 //        _velo_power_blink = 0.0f;
 //    }

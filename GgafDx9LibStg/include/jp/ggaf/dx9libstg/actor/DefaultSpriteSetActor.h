@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
 class DefaultSpriteSetActor : public GgafDx9Core::GgafDx9SpriteSetActor {
 
 public:
-    frame _frame_offset;
+    frame _offset_frames;
 
     CollisionChecker* _pCollisionChecker;
     /** 拡大縮小支援オブジェクト */

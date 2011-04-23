@@ -11,7 +11,7 @@ DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_mod
                        "DefaultSpriteTechnique",
                        NEW CollisionChecker(this) ) {
     _class_name = "DefaultSpriteActor";
-    _frame_offset = 0;
+    _offset_frames = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDx9Scaler(this);
     setZWriteEnable(false);

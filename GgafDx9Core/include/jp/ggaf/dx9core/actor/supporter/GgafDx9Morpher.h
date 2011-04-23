@@ -32,13 +32,13 @@ public:
     float _acce_weight[MAX_MORPH_TARGET+1];
 
     /** ループ重みの１ループフレーム幅 */
-    frame _loop_spend_frame[MAX_MORPH_TARGET+1];
+    frame _loop_spend_frames[MAX_MORPH_TARGET+1];
     /** ループ重みの開始相対フレーム */
-    frame _loop_begin_frame[MAX_MORPH_TARGET+1];
-    /** 三角波ループ重みのアタックまでのフレーム幅 */
-    frame _loop_attack_frame[MAX_MORPH_TARGET+1];
+    frame _frame_of_loop_begin[MAX_MORPH_TARGET+1];
+    /** 三角波ループ重みのアタックまでのフレーム */
+    frame _loop_attack_frames[MAX_MORPH_TARGET+1];
     /** 三角波ループ重みの休息フレーム幅 */
-    frame _loop_rest_frame[MAX_MORPH_TARGET+1];
+    frame _loop_rest_framess[MAX_MORPH_TARGET+1];
     /** １ループを往復と考えた場合の片道ループ数カウンタ(１ループで２増える) */
     int _halfloop_cnt[MAX_MORPH_TARGET+1];
     /** 停止予定の片道ループ数 */
@@ -135,10 +135,10 @@ public:
     /**
      * モーフターゲットへ一定速度でモーフィングし、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .
      * @param prm_target_mesh モーフターゲットメッシュNO
-     * @param prm_loop_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
+     * @param prm_loop_spend_frames １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_loop_num ループする回数(0.5 回単位で指定可能)
      */
-    void loopLiner(int prm_target_mesh, frame prm_loop_spend_frame, float prm_loop_num = -1);
+    void loopLiner(int prm_target_mesh, frame prm_loop_spend_frames, float prm_loop_num = -1);
 
     /**
      * 三角波の波形を重みとしてモーフィングする。 .
@@ -162,15 +162,15 @@ public:
      * ⑤ 重み下限(_bottom_weight[prm_target_mesh] が保持)<BR>
      * <BR>
      * @param prm_target_mesh モーフターゲットメッシュNO
-     * @param prm_loop_spend_frame 上図で①のフレーム数
-     * @param prm_attack_frame 上図で②のフレーム数
-     * @param prm_rest_frame 上図で③のフレーム数
+     * @param prm_loop_spend_frames 上図で①のフレーム数
+     * @param prm_attack_frames 上図で②のフレーム数
+     * @param prm_rest_frames 上図で③のフレーム数
      * @param prm_loop_num ループ数(-1で無限)
      */
     void loopTriangleWave(int prm_target_mesh,
-                          frame prm_loop_spend_frame,
-                          frame prm_attack_frame,
-                          frame prm_rest_frame,
+                          frame prm_loop_spend_frames,
+                          frame prm_attack_frames,
+                          frame prm_rest_frames,
                           float prm_loop_num = -1);
 
     /**

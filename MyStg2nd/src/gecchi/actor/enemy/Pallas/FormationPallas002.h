@@ -19,7 +19,7 @@ public:
     /** イリスの配列(RANK変動) */
     EnemyPallas** _papPallas;
     /** 編隊間隔フレーム(RANK変動) */
-    frame _frame_interval;
+    frame _interval_frames;
     /** 移動速度(RANK変動) */
     velo _mv_velo;
 

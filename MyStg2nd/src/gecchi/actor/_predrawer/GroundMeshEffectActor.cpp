@@ -13,7 +13,7 @@ GroundMeshEffectActor::GroundMeshEffectActor(const char* prm_name) :
                      NULL) {
 
     _class_name = "GroundMeshEffectActor";
-    _frame_offset = 0;
+    _offset_frames = 0;
     _pCollisionChecker = NULL;
     _pScaler = NEW GgafDx9Scaler(this);
 

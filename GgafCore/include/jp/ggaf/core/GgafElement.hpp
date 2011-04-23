@@ -394,15 +394,15 @@ public:
      * 自身と配下ノード全てについて再帰的に activateDelay(UINT32) が実行される。<BR>
      * activateDelay(1) は、activate() と同じ意味になります。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
-     * @param prm_frame_offset 遅延フレーム数(1～)
+     * @param prm_offset_frames 遅延フレーム数(1～)
      */
-    virtual void activateDelay(frame prm_frame_offset = 1);
+    virtual void activateDelay(frame prm_offset_frames = 1);
 
 
-    virtual void activateTreeDelay(frame prm_frame_offset = 1);
+    virtual void activateTreeDelay(frame prm_offset_frames = 1);
 
 
-    virtual void activateOnlyFor(frame prm_frame_offset = 1);
+    virtual void activateOnlyFor(frame prm_offset_frames = 1);
     /**
      * 活動状態にする(単体・即時・コールバック無し) .
      * 自ノードについて、即座に活動状態にする。初期化以外で本メソッドの使用は非推奨。<BR>
@@ -447,13 +447,13 @@ public:
      * 自身と配下ノード全てについて再帰的に inactivateDelay(UINT32) が実行される。<BR>
      * inactivateDelay(1) は、inactivateTree() と同じ意味になります。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
-     * @param prm_frame_offset 遅延フレーム数(1～)
+     * @param prm_offset_frames 遅延フレーム数(1～)
      */
-    virtual void inactivateDelay(frame prm_frame_offset = 1);
+    virtual void inactivateDelay(frame prm_offset_frames = 1);
 
 
 
-    virtual void inactivateTreeDelay(frame prm_frame_offset = 1);
+    virtual void inactivateTreeDelay(frame prm_offset_frames = 1);
 
     /**
      * 非活動状態にする(単体・即時・コールバック無し)  .
@@ -636,9 +636,9 @@ public:
      * GgafDisusedActor 配下に移るだけ。（タスクからは除外されている）。<BR>
      * 次フレーム以降でも直ぐには delete されるとは限らない。<BR>
      * インスタンスがすぐに解放されないことに注意せよ！（内部的なバグを生みやすい）。<BR>
-     * @param prm_frame_offset 生存終了猶予フレーム(1～)
+     * @param prm_offset_frames 生存終了猶予フレーム(1～)
      */
-    virtual void end(frame prm_frame_offset = 1);
+    virtual void end(frame prm_offset_frames = 1);
 
     /**
      * 自ツリーノードを最終ノードに移動する(単体) .
@@ -1236,7 +1236,7 @@ void GgafElement<T>::activateTreeImmediately() {
 }
 
 template<class T>
-void GgafElement<T>::activateDelay(frame prm_frame_offset) {
+void GgafElement<T>::activateDelay(frame prm_offset_frames) {
     if (_can_live_flg) {
         //既にinactivateDelay()実行済みの場合は
         //そのinactivateDelay()は無効化される。
@@ -1245,24 +1245,24 @@ void GgafElement<T>::activateDelay(frame prm_frame_offset) {
         //既にactivateDelay()実行済みの場合は、今回指定算フレームで上書きする（後勝ち）。
         //(※inactivateDelay() と優先の考えが違うため注意)
         _will_activate_after_flg = true;
-        _frame_of_life_when_activation = _frame_of_life + prm_frame_offset;
+        _frame_of_life_when_activation = _frame_of_life + prm_offset_frames;
     }
 }
 template<class T>
-void GgafElement<T>::activateOnlyFor(frame prm_frame_offset) {
+void GgafElement<T>::activateOnlyFor(frame prm_offset_frames) {
     if (_can_live_flg) {
         _will_activate_after_flg = true;
         _frame_of_life_when_activation = _frame_of_life + 1;
         _will_inactivate_after_flg = true;
-        _frame_of_life_when_inactivation = _frame_of_life + prm_frame_offset;
+        _frame_of_life_when_inactivation = _frame_of_life + prm_offset_frames;
     }
 }
 
 
 template<class T>
-void GgafElement<T>::activateTreeDelay(frame prm_frame_offset) {
+void GgafElement<T>::activateTreeDelay(frame prm_offset_frames) {
     if (_can_live_flg) {
-        activateDelay(prm_frame_offset);
+        activateDelay(prm_offset_frames);
         if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
@@ -1303,11 +1303,11 @@ void GgafElement<T>::inactivateTree() {
 }
 
 template<class T>
-void GgafElement<T>::inactivateDelay(frame prm_frame_offset) {
+void GgafElement<T>::inactivateDelay(frame prm_offset_frames) {
     if (_can_live_flg) {
         if (_will_activate_after_flg) {
             //既にactivateDelay()実行済みの場合
-            if (_frame_of_life_when_activation >= _frame_of_life + prm_frame_offset) {
+            if (_frame_of_life_when_activation >= _frame_of_life + prm_offset_frames) {
                 //inactive 予定よりも後に active 予定ならば、(activeにはならないため)無効にする。
                 _will_activate_after_flg = false;
             }
@@ -1315,24 +1315,24 @@ void GgafElement<T>::inactivateDelay(frame prm_frame_offset) {
 
         if (_will_inactivate_after_flg) {
             //既にinactivateDelay()実行済みの場合、より早く inactivate するならば上書きする
-            if (_frame_of_life_when_inactivation < _frame_of_life + prm_frame_offset) {
+            if (_frame_of_life_when_inactivation < _frame_of_life + prm_offset_frames) {
                 //今回指定算フレームの方が遅い場合は無視される。
                 return;
             }
         }
         _will_inactivate_after_flg = true;
-        _frame_of_life_when_inactivation = _frame_of_life + prm_frame_offset;
+        _frame_of_life_when_inactivation = _frame_of_life + prm_offset_frames;
     }
 }
 
 template<class T>
-void GgafElement<T>::inactivateTreeDelay(frame prm_frame_offset) {
+void GgafElement<T>::inactivateTreeDelay(frame prm_offset_frames) {
     if (_can_live_flg) {
-        inactivateDelay(prm_frame_offset);
+        inactivateDelay(prm_offset_frames);
         if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
-                pElementTemp->inactivateTreeDelay(prm_frame_offset);
+                pElementTemp->inactivateTreeDelay(prm_offset_frames);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -1473,24 +1473,24 @@ void GgafElement<T>::unpauseImmediately() {
     }
 }
 template<class T>
-void GgafElement<T>::end(frame prm_frame_offset) {
+void GgafElement<T>::end(frame prm_offset_frames) {
     if (_will_end_after_flg) {
         //既にend()実行済みの場合、より早くend()するならば有効とする
-        if (_frame_of_life_when_end < _frame_of_life + prm_frame_offset + GGAF_SAYONARA_DELAY) {
+        if (_frame_of_life_when_end < _frame_of_life + prm_offset_frames + GGAF_SAYONARA_DELAY) {
             //今回指定の方が遅いフレーム指定であるため無視する。
             return;
         }
     }
     _will_end_after_flg = true;
-    _frame_of_life_when_end = _frame_of_life + prm_frame_offset + GGAF_SAYONARA_DELAY;
-    inactivateDelay(prm_frame_offset); //指定フレームにはinactivateが行われる
+    _frame_of_life_when_end = _frame_of_life + prm_offset_frames + GGAF_SAYONARA_DELAY;
+    inactivateDelay(prm_offset_frames); //指定フレームにはinactivateが行われる
     if (GGAF_NODE::_pSubFirst) {
         T* pElementTemp = GGAF_NODE::_pSubFirst;
         while(true) {
-            if (prm_frame_offset > 2) {
-                pElementTemp->end(prm_frame_offset-1); //出来るだけ末端からendする
+            if (prm_offset_frames > 2) {
+                pElementTemp->end(prm_offset_frames-1); //出来るだけ末端からendする
             } else {
-                pElementTemp->end(prm_frame_offset);
+                pElementTemp->end(prm_offset_frames);
             }
             if (pElementTemp->_is_last_flg) {
                 break;

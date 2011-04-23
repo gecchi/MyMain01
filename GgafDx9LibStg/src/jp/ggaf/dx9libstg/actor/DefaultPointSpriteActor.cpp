@@ -11,7 +11,7 @@ DefaultPointSpriteActor::DefaultPointSpriteActor(const char* prm_name, const cha
                        "DefaultPointSpriteTechnique",
                        NEW CollisionChecker(this) ) {
     _class_name = "DefaultPointSpriteActor";
-    _frame_offset = 0;
+    _offset_frames = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDx9Scaler(this);
 }

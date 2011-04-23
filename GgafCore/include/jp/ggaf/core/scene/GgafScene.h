@@ -129,12 +129,12 @@ public:
     virtual void doFinally() override;
     virtual void throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) override;
     virtual void activateTree() override;
-    virtual void activateDelay(frame prm_frame_offset = 1) override;
+    virtual void activateDelay(frame prm_offset_frames = 1) override;
     virtual void activate() override;
     virtual void activateTreeImmediately() override;
     virtual void activateImmediately() override;
     virtual void inactivateTree() override;
-    virtual void inactivateDelay(frame prm_frame_offset = 1) override;
+    virtual void inactivateDelay(frame prm_offset_frames = 1) override;
     virtual void inactivate() override;
     virtual void inactivateTreeImmediately() override;
     virtual void inactivateImmediately() override;
@@ -155,9 +155,9 @@ public:
     virtual void execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) override;
     /**
      * 自ツリーシーンをnフレーム後にゴミ箱へ移動 .
-     * @param prm_frame_offset ゴミ箱へ移動タイミング残りフレーム数(デフォルト=1)
+     * @param prm_offset_frames ゴミ箱へ移動タイミング残りフレーム数(デフォルト=1)
      */
-    virtual void end(frame prm_frame_offset = 1) override;
+    virtual void end(frame prm_offset_frames = 1) override;
 
     /**
      * 自ツリーを末端から開放する。 .

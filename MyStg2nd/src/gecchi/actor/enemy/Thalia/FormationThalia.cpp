@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 FormationThalia::FormationThalia(const char* prm_name) : GgafDx9FormationActor(prm_name, 30*60) {
     _class_name = "FormationThalia";
     _num_Thalia     = 7+_RANK_*4;    //編隊数
-    _frame_interval = 20-_RANK_*5;  //タリアの間隔(frame)
+    _interval_frames = 20-_RANK_*5;  //タリアの間隔(frame)
     _mv_velo        = 14000+_RANK_*10000; //速度
 
     _pDpcon = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_Shot004"));
@@ -33,7 +33,7 @@ void FormationThalia::onActive() {
         _papThalia[i]->locate(MyShip::_lim_behaind, -2000000 + (i * 400000), 0);
         _papThalia[i]->_pKuroko->setRzRyMvAng(0,0);
         _papThalia[i]->_pKuroko->setMvVelo(80000);
-        _papThalia[i]->activateDelay(i*_frame_interval + 1);//_frame_interval間隔でActiveにする。
+        _papThalia[i]->activateDelay(i*_interval_frames + 1);//_interval_frames間隔でActiveにする。
     }
 }
 

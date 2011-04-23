@@ -22,7 +22,7 @@ public:
     /** エウノミアの2次元配列(RANK変動) */
     EnemyEunomia*** _papapEunomia;
     /** 編隊間隔フレーム(RANK変動) */
-    frame _frame_interval;
+    frame _interval_frames;
     /** 移動速度(RANK変動) */
     velo _mv_velo;
 
@@ -33,7 +33,7 @@ public:
      * @param prm_name
      * @param prm_col            編隊列数
      * @param prm_row            １列の編隊数
-     * @param prm_frame_interval エウノミアの間隔(frame)
+     * @param prm_interval_frames エウノミアの間隔(frame)
      * @param prm_mv_velo        速度
      * @param prm_spl_id         スプライン定義ファイルプレフィクス
      *                           "FormationEunomia001_0.spl" の "FormationEunomia001" を設定
@@ -41,7 +41,7 @@ public:
      */
     FormationEunomia(const char* prm_name, int   prm_col,
                                            int   prm_row,
-                                           frame prm_frame_interval,
+                                           frame prm_interval_frames,
                                            velo  prm_mv_velo,
                                            const char* prm_spl_id) ;
 

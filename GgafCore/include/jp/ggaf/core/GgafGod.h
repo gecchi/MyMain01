@@ -67,7 +67,7 @@ public:
     /** [r]元フレームの描画回数 */
     static int _num_actor_drawing;
 
-    int _max_skip_frame;
+    int _max_skip_frames;
     /** 現在の処理落ちモード 0:60fps 1:40fps 2:30fps。_aaTime_OffsetOfNextFrameの一つ目の要素 */
     int _slowdown_mode;
     /** 時間とフレームの動機調整モード中はtrue */

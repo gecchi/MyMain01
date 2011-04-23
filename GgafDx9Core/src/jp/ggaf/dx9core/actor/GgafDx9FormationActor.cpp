@@ -3,12 +3,12 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9FormationActor::GgafDx9FormationActor(const char* prm_name, frame prm_frame_offset_end) :
+GgafDx9FormationActor::GgafDx9FormationActor(const char* prm_name, frame prm_offset_frames_end) :
     GgafDx9GeometricActor(prm_name, NULL)
 {
     _obj_class |= Obj_GgafDx9FormationActor;
     _class_name = "FormationsActor";
-    _frame_offset_end = prm_frame_offset_end;
+    _offset_frames_end = prm_offset_frames_end;
     setHitAble(false);
     _num_sub = 0;
 }
@@ -40,7 +40,7 @@ void GgafDx9FormationActor::processJudgement() {
         //èIóπÇë“Ç¬ÇÃÇ›
     } else {
         if (getSubFirst() == NULL) {
-            sayonara(_frame_offset_end);
+            sayonara(_offset_frames_end);
         }
     }
 }

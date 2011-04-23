@@ -12,7 +12,7 @@ CubeMapMorphMeshActor::CubeMapMorphMeshActor(const char* prm_name, const char* p
                      NEW CollisionChecker(this) ) {
 
     _class_name = "CubeMapMorphMeshActor";
-    _frame_offset = 0;
+    _offset_frames = 0;
     _pCollisionChecker = (CollisionChecker*)_pChecker;
 
     _pScaler = NEW GgafDx9Scaler(this);

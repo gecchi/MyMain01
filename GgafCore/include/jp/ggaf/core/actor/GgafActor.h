@@ -10,7 +10,6 @@
 
 namespace GgafCore {
 
-
 /**
  * アクターの基底クラス .
  * 本プログラムで言う『アクター』とは、主にキャラクターを表現する。<BR>
@@ -49,7 +48,6 @@ class GgafActor : public GgafElement<GgafActor> {
     friend class GgafUniverse;
 
 private:
-
     /** 現在の所属シーン */
     GgafScene* _pScene_Platform;
     /** ８分木登録を行うかどうかのフラグ */
@@ -143,7 +141,6 @@ public:
         }
     }
 
-
     /**
      * 自アクターと何かのアクターと衝突したかどうか判定するロジック。 .
      * executeHitChk_MeAnd(GgafActor*) が実行された場合に呼び出されることになる。<BR>
@@ -179,13 +176,13 @@ public:
 
     /**
      * さよならします .
-     * Dispcherに所属している場合は inactiveAfter(prm_frame_offset) <BR>
-     * Dispcherに所属していない場合は end(prm_frame_offset) <BR>
+     * Dispcherに所属している場合は inactiveAfter(prm_offset_frames) <BR>
+     * Dispcherに所属していない場合は end(prm_offset_frames) <BR>
      * が、実行されます。
      * アクターをシーンから離脱させたい場合はこのメソッドを実行すること。
-     * @param prm_frame_offset 猶予フレーム(1～)
+     * @param prm_offset_frames 猶予フレーム(1～)
      */
-    virtual void sayonara(frame prm_frame_offset = 1);
+    virtual void sayonara(frame prm_offset_frames = 1);
 
     /**
      * デバッグ用：ツリー構造を表示<BR>

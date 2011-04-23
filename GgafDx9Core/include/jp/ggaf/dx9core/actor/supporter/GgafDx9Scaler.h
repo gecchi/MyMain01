@@ -40,11 +40,11 @@ public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     /** 各軸の毎フレームのスケールの増分の増分 */
     int _acce_scale[3];
     /** 各軸の三角波の波形でスケーリングのアタックフレーム */
-    frame _beat_attack_frame[3];
+    frame _beat_attack_frames[3];
     /** 各軸の三角波の波形でスケーリングのレストフレーム */
-    frame _beat_rest_frame[3];
+    frame _beat_rest_frames[3];
     /** 各軸のスケーリングに費やすフレーム数 */
-    frame _beat_spend_frame[3];
+    frame _beat_spend_frames[3];
     /** 各軸のスケーリングを開始したフレーム */
     frame _beat_begin_frame[3];
     /** 各軸のループカウント（2で拡大縮小ワンセット、1ならば拡大or縮小の片道） */
@@ -235,20 +235,20 @@ public:
     /**
      * 反復等速スケーリング（全軸・フレーム数指定） .
      * 目標のスケールへ一定速度でスケーリングし、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .
-     * @param prm_beat_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
+     * @param prm_beat_spend_frames １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
-    void loopLiner(frame prm_beat_spend_frame, float prm_beat_num);
+    void loopLiner(frame prm_beat_spend_frames, float prm_beat_num);
 
     /**
      * 反復等速スケーリング（軸単位・フレーム数指定）
      * 目標のスケールへ一定速度でスケーリングし、一定速度で元に戻る。
      * これをループ指定する。（１ループのフレーム数指定） .
      * @param prm_axis 軸
-     * @param prm_beat_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
+     * @param prm_beat_spend_frames １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
-    void loopLiner(int prm_axis, frame prm_beat_spend_frame, float prm_beat_num);
+    void loopLiner(int prm_axis, frame prm_beat_spend_frames, float prm_beat_num);
 
     /**
      * 三角波の波形でスケーリングする。（全軸指定）.
@@ -271,27 +271,27 @@ public:
      * ④ スケール上限(_top_scale[軸] 配列が保持)<BR>
      * ⑤ スケール下限(_bottom_scale[軸] 配列が保持)<BR>
      * <BR>
-     * @param prm_beat_spend_frame 上図で①のフレーム数
-     * @param prm_attack_frame 上図で②のフレーム数
-     * @param prm_rest_frame 上図で③のフレーム数
+     * @param prm_beat_spend_frames 上図で①のフレーム数
+     * @param prm_attack_frames 上図で②のフレーム数
+     * @param prm_rest_frames 上図で③のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
-    void beat(frame prm_beat_spend_frame,
-              frame prm_attack_frame,
-              frame prm_rest_frame,
+    void beat(frame prm_beat_spend_frames,
+              frame prm_attack_frames,
+              frame prm_rest_frames,
               float prm_beat_num);
     /**
      * 三角波の波形でスケーリングする。（軸指定）.
      * @param prm_axis 軸
-     * @param prm_beat_spend_frame 上図で①のフレーム数
-     * @param prm_attack_frame 上図で②のフレーム数
-     * @param prm_rest_frame 上図で③のフレーム数
+     * @param prm_beat_spend_frames 上図で①のフレーム数
+     * @param prm_attack_frames 上図で②のフレーム数
+     * @param prm_rest_frames 上図で③のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
     void beat(int prm_axis,
-              frame prm_beat_spend_frame,
-              frame prm_attack_frame,
-              frame prm_rest_frame,
+              frame prm_beat_spend_frames,
+              frame prm_attack_frames,
+              frame prm_rest_frames,
               float prm_beat_num);
 
     /**

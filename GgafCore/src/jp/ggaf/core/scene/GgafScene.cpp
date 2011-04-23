@@ -88,9 +88,9 @@ void GgafScene::activateTree() {
     _pLordActor->activateTree();
 }
 
-void GgafScene::activateDelay(frame prm_frame_offset) {
-    GgafElement<GgafScene>::activateDelay(prm_frame_offset);
-    _pLordActor->activateDelay(prm_frame_offset);
+void GgafScene::activateDelay(frame prm_offset_frames) {
+    GgafElement<GgafScene>::activateDelay(prm_offset_frames);
+    _pLordActor->activateDelay(prm_offset_frames);
 }
 
 void GgafScene::activate() {
@@ -113,9 +113,9 @@ void GgafScene::inactivateTree() {
     _pLordActor->inactivateTree();
 }
 
-void GgafScene::inactivateDelay(frame prm_frame_offset) {
-    GgafElement<GgafScene>::inactivateDelay(prm_frame_offset);
-    _pLordActor->inactivateDelay(prm_frame_offset);
+void GgafScene::inactivateDelay(frame prm_offset_frames) {
+    GgafElement<GgafScene>::inactivateDelay(prm_offset_frames);
+    _pLordActor->inactivateDelay(prm_offset_frames);
 }
 
 void GgafScene::inactivate() {
@@ -189,9 +189,9 @@ void GgafScene::resetTree() {
 }
 
 
-void GgafScene::end(frame prm_frame_offset) {
-    _pLordActor->end(prm_frame_offset);
-    GgafElement<GgafScene>::end(prm_frame_offset);
+void GgafScene::end(frame prm_offset_frames) {
+    _pLordActor->end(prm_offset_frames);
+    GgafElement<GgafScene>::end(prm_offset_frames);
     //この順番は重要。逆にするとゴミ箱の解放時に不正ポインタになりうるため。
 }
 

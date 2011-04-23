@@ -7,13 +7,13 @@ using namespace MyStg2nd;
 
 FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
                                                          int prm_row,
-                                                         frame prm_frame_interval,
+                                                         frame prm_interval_frames,
                                                          velo prm_mv_velo,
                                                          const char* prm_spl_id) : GgafDx9FormationActor(prm_name, 30*60) {
     _class_name = "FormationEunomia";
     _num_formation_col = prm_col;   //編隊列数
     _num_formation_row = prm_row;  //１列の編隊数
-    _frame_interval    = prm_frame_interval;   //エウノミアの間隔(frame)
+    _interval_frames    = prm_interval_frames;   //エウノミアの間隔(frame)
     _mv_velo           = prm_mv_velo; //速度
     _n = 0;
     //エウノミア編隊作成
@@ -43,7 +43,7 @@ void FormationEunomia::initialize() {
 
 
 void FormationEunomia::processBehavior() {
-    if (_n < _num_formation_row && getActivePartFrame() % _frame_interval == 0) {
+    if (_n < _num_formation_row && getActivePartFrame() % _interval_frames == 0) {
         for (int i = 0; i < _num_formation_col; i++) {
             _papapEunomia[i][_n]->activate();
             processOnActiveEunomia(_papapEunomia[i][_n], i); //個別実装の処理

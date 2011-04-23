@@ -25,14 +25,14 @@ public:
     /** 所属アクター数 */
     int _num_sub;
 
-    frame _frame_offset_end;
+    frame _offset_frames_end;
     /**
      *
      * @param prm_name
-     * @param prm_frame_offset_end 子が無くなったときに解放する猶予フレーム
+     * @param prm_offset_frames_end 子が無くなったときに解放する猶予フレーム
      * @return
      */
-    GgafDx9FormationActor(const char* prm_name, frame prm_frame_offset_end = FORMATION_END_DELAY);
+    GgafDx9FormationActor(const char* prm_name, frame prm_offset_frames_end = FORMATION_END_DELAY);
 
     virtual void initialize() override {
     }

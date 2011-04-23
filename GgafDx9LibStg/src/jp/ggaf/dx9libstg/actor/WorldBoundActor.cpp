@@ -10,7 +10,7 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
                                NULL) {
 
     _class_name = "WorldBoundActor";
-    _frame_offset = 0;
+    _offset_frames = 0;
     _pScaler = NEW GgafDx9Scaler(this);
     changeEffectTechnique("NoLight"); //NoLightでベタ塗りテクニック
     defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_ScMv); //拡大×平行移動のみ

@@ -33,11 +33,11 @@ public:
     /** 毎フレームの色強度の増分の増分 */
     float _acce_power_blink;
     /** 三角波の波形で点滅のアタックフレーム */
-    frame _beat_attack_frame;
+    frame _beat_attack_frames;
     /** 三角波の波形で点滅のレストフレーム */
-    frame _beat_rest_frame;
+    frame _beat_rest_frames;
     /** 点滅に費やすフレーム数 */
-    frame _beat_spend_frame;
+    frame _beat_spend_frames;
     /** 点滅を開始したフレーム */
     frame _beat_begin_frame;
     /** ループカウント（2で点滅ワンセット、1ならば点灯o消灯の片道） */
@@ -145,10 +145,10 @@ public:
      * 反復等速点滅 .
      * 目標の色強度上限（_top_power_blink）へ一定速度で光り、一定速度で色強度下限（_bottom_power_blink）元に戻る。
      * これを１ループとし、費やすフレーム数を指定する。
-     * @param prm_beat_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
+     * @param prm_beat_spend_frames １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
-    void loopLiner(frame prm_beat_spend_frame, float prm_beat_num);
+    void loopLiner(frame prm_beat_spend_frames, float prm_beat_num);
 
     /**
      * 三角波の波形で点滅する。.
@@ -171,14 +171,14 @@ public:
      * ④ 色強度上限(_top_power_blinkが保持)<BR>
      * ⑤ 色強度下限(_bottom_power_blinkが保持)<BR>
      * <BR>
-     * @param prm_beat_spend_frame 上図で①のフレーム数
-     * @param prm_attack_frame 上図で②のフレーム数
-     * @param prm_rest_frame 上図で③のフレーム数
+     * @param prm_beat_spend_frames 上図で①のフレーム数
+     * @param prm_attack_frames 上図で②のフレーム数
+     * @param prm_rest_frames 上図で③のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
-    void beat(frame prm_beat_spend_frame,
-              frame prm_attack_frame,
-              frame prm_rest_frame,
+    void beat(frame prm_beat_spend_frames,
+              frame prm_attack_frames,
+              frame prm_rest_frames,
               float prm_beat_num);
 
 

@@ -15,7 +15,7 @@ public:
     /** 拡大縮小支援オブジェクト */
     GgafDx9Core::GgafDx9Scaler* _pScaler;
 
-    frame _frame_offset;
+    frame _offset_frames;
 
     CollisionChecker* _pCollisionChecker;
 

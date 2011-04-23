@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 FormationPallas001::FormationPallas001(const char* prm_name) : GgafDx9FormationActor(prm_name, 30*60) {
     _class_name = "FormationPallas001";
     _num_Pallas     = 12+_RANK_*8;    //編隊数
-    _frame_interval = 10-_RANK_*5;  //パラスの間隔(frame)
+    _interval_frames = 10-_RANK_*5;  //パラスの間隔(frame)
     _mv_velo        = 10000+_RANK_*10000; //速度
     //パラス編隊作成
     _pSplineCon     = (SplineConnection*)(P_GOD->_pSplineManager->getConnection("Pallas01")); //スプライン定義
@@ -34,13 +34,12 @@ void FormationPallas001::onActive() {
         pPallas = (EnemyPallas*)pActor;
         pPallas->locate(_pSplineCon->refer()->_pSp->_X_basepoint[0], 0, 0);
         pPallas->_pKuroko->setMvVelo(_mv_velo);
-        pPallas->activateDelay(t*_frame_interval + 1);//_frame_interval間隔でActiveにする。
+        pPallas->activateDelay(t*_interval_frames + 1);//_interval_frames間隔でActiveにする。
         t++;
         pActor = pActor->getNext();
     } while (!pActor->isFirst());
-
-
 }
+
 void FormationPallas001::wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) {
     //編隊消滅時の実験
     EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDispatcher_EffectTurbo002->employForce();

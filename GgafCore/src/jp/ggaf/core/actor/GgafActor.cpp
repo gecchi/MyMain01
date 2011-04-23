@@ -86,17 +86,17 @@ GgafScene* GgafActor::getPlatformScene() {
     return _pScene_Platform;
 }
 
-void GgafActor::sayonara(frame prm_frame_offset) {
+void GgafActor::sayonara(frame prm_offset_frames) {
     if (_pDependenceDispcher) {
-        inactivateDelay(prm_frame_offset);
+        inactivateDelay(prm_offset_frames);
     } else {
-        end(prm_frame_offset);
+        end(prm_offset_frames);
     }
     GgafActor* pActor;
     if (_pSubFirst) {
         pActor = _pSubFirst;
         while (true) {
-            pActor->sayonara(prm_frame_offset);
+            pActor->sayonara(prm_offset_frames);
             if (pActor->_is_last_flg) {
                 break;
             } else {

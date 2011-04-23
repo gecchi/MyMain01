@@ -9,7 +9,7 @@ FormationIris002::FormationIris002(const char* prm_name) :
         GgafDx9FormationActor(prm_name, 30*60) { //30*60後にend()する。早く開放しすぎると Dispatcher の接続が切れるため。
     _class_name = "FormationIris002";
     _num_Iris       = 10+_RANK_*10;    //編隊数
-    _frame_interval = 25-_RANK_*20;   //イリスの間隔(frame)
+    _interval_frames = 25-_RANK_*20;   //イリスの間隔(frame)
     _mv_velo  = 16000+_RANK_*1600; //速度
     //スプライン移動の定義
     _pSplineCon = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_002_02"));
@@ -35,7 +35,7 @@ void FormationIris002::onActive() {
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i]->locate(MyShip::_lim_behaind - 500000, 0, MyShip::_lim_zright * 0.8);
         _papIris[i]->_pKuroko->setMvVelo(_mv_velo);
-        _papIris[i]->activateDelay(i*_frame_interval + 1);//_frame_interval間隔でActiveにする。
+        _papIris[i]->activateDelay(i*_interval_frames + 1);//_interval_frames間隔でActiveにする。
     }
 }
 
