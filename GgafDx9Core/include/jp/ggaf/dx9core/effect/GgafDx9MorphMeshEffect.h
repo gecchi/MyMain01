@@ -19,7 +19,9 @@ public:
     D3DXHANDLE _h_matView;
     D3DXHANDLE _h_matWorld;
     D3DXHANDLE _h_colMaterialDiffuse;
-
+    D3DXHANDLE _h_specular;
+    D3DXHANDLE _h_specular_power;
+    D3DXHANDLE _h_posCam;
 public:
     /**
      * コンストラクタ<BR>

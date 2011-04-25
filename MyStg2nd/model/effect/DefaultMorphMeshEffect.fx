@@ -4,6 +4,15 @@
 // date:2009/05/12 
 ////////////////////////////////////////////////////////////////////////////////
 
+
+/** スペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
+float g_specular;
+/** スペキュラーの強度 */
+float g_specular_power;
+/** カメラ（視点）の位置ベクトル */
+float3 g_posCam;
+
+
 float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
@@ -39,7 +48,10 @@ struct OUT_VS
 {
     float4 pos    : POSITION;
 	float2 uv     : TEXCOORD0;
+	float4 col    : COLOR0;
 	float3 normal : TEXCOORD1;   // ワールド変換した法線
+    float3 cam    : TEXCOORD2;   //頂点 -> 視点 ベクトル
+
 };
 
 
@@ -52,14 +64,42 @@ OUT_VS GgafDx9VS_DefaultMorphMesh0(
       float2 prm_uv0     : TEXCOORD0       // モデルの頂点のUV
 
 ) {
-	OUT_VS out_vs = (OUT_VS)0;
-	//頂点計算
-	out_vs.pos = mul( mul(mul( prm_pos0, g_matWorld ), g_matView ), g_matProj);//
-    //法線計算
-    out_vs.normal = normalize(mul(prm_normal0, g_matWorld)); 	//法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
+    OUT_VS out_vs = (OUT_VS)0;
+    //頂点計算
+    float4 posWorld = mul(prm_pos0, g_matWorld);
+    out_vs.pos = mul( mul( posWorld, g_matView), g_matProj);  //World*View*射影
+    //UV計算
+    out_vs.uv = prm_uv0;  //そのまま
+
+    //頂点カラー計算
+    //法線を World 変換して正規化
+    out_vs.normal = normalize(mul(prm_normal0, g_matWorld));     
+    //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
+    float power = max(dot(out_vs.normal, -g_vecLightDirection ), 0);      
+    //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
+    out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
+    //「頂点→カメラ視点」方向ベクトル                                                        
+    out_vs.cam = normalize(g_posCam.xyz - posWorld.xyz);
+    //αはマテリアルαを最優先とする（上書きする）
+    out_vs.col.a = g_colMaterialDiffuse.a;
+    //αフォグ
+    if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
+        out_vs.col.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
+    } 
+    //マスターα
+    out_vs.col.a *= g_alpha_master;
 	return out_vs;
+//
+//
+//
+//	OUT_VS out_vs = (OUT_VS)0;
+//	//頂点計算
+//	out_vs.pos = mul( mul(mul( prm_pos0, g_matWorld ), g_matView ), g_matProj);//
+//    //法線計算
+//    out_vs.normal = normalize(mul(prm_normal0, g_matWorld)); 	//法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
+//	return out_vs;
 }
 
 //モーフターゲット１つ
@@ -71,7 +111,7 @@ OUT_VS GgafDx9VS_DefaultMorphMesh1(
       float3 prm_normal1 : NORMAL1         // モデルのモーフターゲット1頂点の法線
 
 ) {
-	OUT_VS out_vs = (OUT_VS)0;
+//	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点＆法線ブレンド
 	float4 pos = prm_pos0;
@@ -80,14 +120,17 @@ OUT_VS GgafDx9VS_DefaultMorphMesh1(
 		pos += ((prm_pos1 - prm_pos0) * g_weight1);
 		normal = lerp(normal, prm_normal1, g_weight1);
 	}
-	//頂点出力設定
-	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
-	//法線出力設定
-	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
 
-	return out_vs;
+    return GgafDx9VS_DefaultMorphMesh0(pos, normal, prm_uv0);
+
+//	//頂点出力設定
+//	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
+//	//法線出力設定
+//	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
+//
+//	return out_vs;
 }
 
 
@@ -101,7 +144,7 @@ OUT_VS GgafDx9VS_DefaultMorphMesh2(
       float4 prm_pos2    : POSITION2,      // モデルのモーフターゲット2頂点
       float3 prm_normal2 : NORMAL2         // モデルのモーフターゲット2頂点の法線
 ) {
-	OUT_VS out_vs = (OUT_VS)0;
+//	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点＆法線ブレンド
 	float4 pos = prm_pos0;
@@ -114,14 +157,16 @@ OUT_VS GgafDx9VS_DefaultMorphMesh2(
 		pos += ((prm_pos2 - prm_pos0) * g_weight2);
 		normal = lerp(normal, prm_normal2, g_weight2);
 	}
-	//頂点出力設定
-	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
-	//法線出力設定
-	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
+    return GgafDx9VS_DefaultMorphMesh0(pos, normal, prm_uv0);
 
-	return out_vs;
+//	//頂点出力設定
+//	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
+//	//法線出力設定
+//	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
+//
+//	return out_vs;
 }
 
 //モーフターゲット３つ
@@ -136,7 +181,7 @@ OUT_VS GgafDx9VS_DefaultMorphMesh3(
       float4 prm_pos3    : POSITION3,      // モデルのモーフターゲット3頂点
       float3 prm_normal3 : NORMAL3         // モデルのモーフターゲット3頂点の法線
 ) {
-	OUT_VS out_vs = (OUT_VS)0;
+//	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点＆法線ブレンド
 	float4 pos = prm_pos0;
@@ -153,14 +198,18 @@ OUT_VS GgafDx9VS_DefaultMorphMesh3(
 		pos += ((prm_pos3 - prm_pos0) * g_weight3);
 		normal = lerp(normal, prm_normal3, g_weight3);
 	}
-	//頂点出力設定
-	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
-	//法線出力設定
-	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
 
-	return out_vs;
+    return GgafDx9VS_DefaultMorphMesh0(pos, normal, prm_uv0);
+
+
+//	//頂点出力設定
+//	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
+//	//法線出力設定
+//	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
+//
+//	return out_vs;
 }
 
 //モーフターゲット４つ
@@ -177,7 +226,7 @@ OUT_VS GgafDx9VS_DefaultMorphMesh4(
       float4 prm_pos4    : POSITION4,      // モデルのモーフターゲット4頂点
       float3 prm_normal4 : NORMAL4         // モデルのモーフターゲット4頂点の法線
 ) {
-	OUT_VS out_vs = (OUT_VS)0;
+//	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点＆法線ブレンド
 	float4 pos = prm_pos0;
@@ -198,14 +247,16 @@ OUT_VS GgafDx9VS_DefaultMorphMesh4(
 		pos += ((prm_pos4 - prm_pos0) * g_weight4);
 		normal = lerp(normal, prm_normal4, g_weight4);
 	}
-	//頂点出力設定
-	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
-	//法線出力設定
-	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
+    return GgafDx9VS_DefaultMorphMesh0(pos, normal, prm_uv0);
 
-	return out_vs;
+//	//頂点出力設定
+//	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
+//	//法線出力設定
+//	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
+//
+//	return out_vs;
 }
 
 //モーフターゲット５つ
@@ -224,7 +275,7 @@ OUT_VS GgafDx9VS_DefaultMorphMesh5(
       float4 prm_pos5    : POSITION5,      // モデルのモーフターゲット5頂点
       float3 prm_normal5 : NORMAL5         // モデルのモーフターゲット5頂点の法線
 ) {
-	OUT_VS out_vs = (OUT_VS)0;
+//	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点＆法線ブレンド
 	float4 pos = prm_pos0;
@@ -249,14 +300,16 @@ OUT_VS GgafDx9VS_DefaultMorphMesh5(
 		pos += ((prm_pos5 - prm_pos0) * g_weight5);
 		normal = lerp(normal, prm_normal5, g_weight5);
 	}
-	//頂点出力設定
-	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
-	//法線出力設定
-	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
+    return GgafDx9VS_DefaultMorphMesh0(pos, normal, prm_uv0);
 
-	return out_vs;
+//	//頂点出力設定
+//	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
+//	//法線出力設定
+//	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
+//
+//	return out_vs;
 }
 
 //モーフターゲット６つ
@@ -278,7 +331,7 @@ OUT_VS GgafDx9VS_DefaultMorphMesh6(
       float3 prm_normal6 : NORMAL6         // モデルのモーフターゲット6頂点の法線
 
 ) {
-	OUT_VS out_vs = (OUT_VS)0;
+//	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点＆法線ブレンド
 	float4 pos = prm_pos0;
@@ -307,14 +360,16 @@ OUT_VS GgafDx9VS_DefaultMorphMesh6(
 		pos += ((prm_pos6 - prm_pos0) * g_weight6);
 		normal = lerp(normal, prm_normal6, g_weight6);
 	}
-	//頂点出力設定
-	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
-	//法線出力設定
-	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
-	//UVはそのまま
-	out_vs.uv = prm_uv0;
+    return GgafDx9VS_DefaultMorphMesh0(pos, normal, prm_uv0);
 
-	return out_vs;
+//	//頂点出力設定
+//	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
+//	//法線出力設定
+//	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+//	//UVはそのまま
+//	out_vs.uv = prm_uv0;
+//
+//	return out_vs;
 }
 
 ////モーフターゲット７つ
@@ -380,27 +435,53 @@ OUT_VS GgafDx9VS_DefaultMorphMesh6(
 //	return out_vs;
 //}
 
+//float4 GgafDx9PS_DefaultMorphMesh(
+//	float2 prm_uv	  : TEXCOORD0,
+//	float3 prm_normal : TEXCOORD1
+//) : COLOR  {
+
 float4 GgafDx9PS_DefaultMorphMesh(
 	float2 prm_uv	  : TEXCOORD0,
-	float3 prm_normal : TEXCOORD1
+	float4 prm_col    : COLOR0,
+    float3 prm_normal : TEXCOORD1,
+    float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
-	//求める色
-	float4 out_color; 
-    //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(prm_normal, -g_vecLightDirection ), 0);          
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
-	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-	out_color = g_colLightDiffuse * g_colMaterialDiffuse * tex_color * power; 
-	//Ambient色を加算。マテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
-	out_color =  (g_colLightAmbient * g_colMaterialDiffuse * tex_color) + out_color;  
-	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color.rgb *= g_tex_blink_power;
-	} 
-	//α計算、αは法線およびライト方向に依存しない事とするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
-	out_color.a = g_colMaterialDiffuse.a * tex_color.a * g_alpha_master; 
+    float s = 0.0f; //スペキュラ成分
+    if (g_specular_power != 0) {
+        //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル）
+        float3 vecHarf = normalize(prm_cam + (-g_vecLightDirection));
+        //ハーフベクトルと法線の内積よりスペキュラ具合を計算
+        s = pow( max(0.0f, dot(prm_normal, vecHarf)), g_specular ) * g_specular_power;
+    }
+    float4 tex_color = tex2D( MyTextureSampler, prm_uv);
+    //テクスチャ色に        
+    float4 out_color = tex_color * prm_col + s;
 
+    //Blinkerを考慮
+	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
+		out_color.rgb *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
+	} 
 	return out_color;
+
+
+//
+//	//求める色
+//	float4 out_color; 
+//    //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
+//	float power = max(dot(prm_normal, -g_vecLightDirection ), 0);          
+//	//テクスチャをサンプリングして色取得（原色を取得）
+//	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
+//	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
+//	out_color = g_colLightDiffuse * g_colMaterialDiffuse * tex_color * power; 
+//	//Ambient色を加算。マテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
+//	out_color =  (g_colLightAmbient * g_colMaterialDiffuse * tex_color) + out_color;  
+//	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
+//		out_color.rgb *= g_tex_blink_power;
+//	} 
+//	//α計算、αは法線およびライト方向に依存しない事とするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
+//	out_color.a = g_colMaterialDiffuse.a * tex_color.a * g_alpha_master; 
+//
+//	return out_color;
 }
 
 float4 PS_DestBlendOne( 

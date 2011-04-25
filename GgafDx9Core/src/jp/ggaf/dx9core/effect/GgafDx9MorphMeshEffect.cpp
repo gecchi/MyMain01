@@ -43,11 +43,16 @@ GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect(char* prm_effect_name) : GgafDx9E
     _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName(NULL, "g_colMaterialDiffuse");
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( NULL, "g_tex_blink_threshold" );
+    _h_specular = _pID3DXEffect->GetParameterByName( NULL, "g_specular" );
+    _h_specular_power = _pID3DXEffect->GetParameterByName( NULL, "g_specular_power" );
+    _h_posCam = _pID3DXEffect->GetParameterByName( NULL, "g_posCam" );
 }
 
 void GgafDx9MorphMeshEffect::setParamPerFrame() {
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &P_CAM->_matView );
-    checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = _pID3DXEffect->SetValue(_h_posCam, P_CAM->_pVecCamFromPoint, sizeof(D3DXVECTOR3) );
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::setParamPerFrame SetValue(_h_posCam) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 }
 
 GgafDx9MorphMeshEffect::~GgafDx9MorphMeshEffect() {

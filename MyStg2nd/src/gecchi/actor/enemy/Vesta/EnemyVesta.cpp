@@ -31,10 +31,12 @@ EnemyVesta::EnemyVesta(const char* prm_name)
 }
 
 void EnemyVesta::onCreateModel() {
-    _pGgafDx9Model->_blink_threshold = 0.9;
     _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.1, 1.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.1);
     _pGgafDx9Model->_pTextureBlinker->beat(120, 60, 1, -1);
+    _pGgafDx9Model->_blink_threshold = 0.9;
+    _pGgafDx9Model->setSpecular(5.0, 1.0);
+
 }
 
 void EnemyVesta::initialize() {
