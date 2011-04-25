@@ -111,9 +111,6 @@ class OggVorbisMemory;
 
 
 
-
-
-
 class CmRandomNumberGenerator;
 
 typedef int angle;
@@ -455,7 +452,6 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/manager/GgafDx9BgmConnection.h"
 #include "jp/ggaf/dx9core/manager/GgafDx9BgmManager.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9Sound.h"
-
 
 
 #endif /*GGAFDX9COMMONHEADER_H_*/

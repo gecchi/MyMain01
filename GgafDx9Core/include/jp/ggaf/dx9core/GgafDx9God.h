@@ -31,7 +31,7 @@ public:
     /* スクリーン高さ（ピクセル） */
     //static int const GAME_BUFFER_HEIGHT;
 
-    static D3DPRESENT_PARAMETERS _structD3dPresent_Parameters;
+    static D3DPRESENT_PARAMETERS _d3dparam[2];
 
     /** デバイスロストフラグ (true=ロスト中) */
     static bool _is_device_lost_flg;
@@ -47,7 +47,7 @@ public:
     static GgafDx9ModelManager* _pModelManager;
     static GgafDx9EffectManager* _pEffectManager;
     static bool _FULLSCRREEN;
-
+    static bool _MULTI_SCREEN;
 
     /**
      * コンストラクタ<BR>

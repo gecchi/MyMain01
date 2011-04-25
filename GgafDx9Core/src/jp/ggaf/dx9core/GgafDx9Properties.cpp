@@ -4,6 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 bool GgafDx9Properties::FULL_SCREEN = 0;
+bool GgafDx9Properties::MULTI_SCREEN = 0;
 int GgafDx9Properties::GAME_BUFFER_WIDTH = 0;
 int GgafDx9Properties::GAME_BUFFER_HEIGHT = 0;
 float GgafDx9Properties::GAME_SPACE_DEPTH = 0;
@@ -24,6 +25,7 @@ void GgafDx9Properties::load(string prm_ini_filename) {
     GgafProperties::load(prm_ini_filename);
 
     GgafDx9Properties::FULL_SCREEN = getBool("FULL_SCREEN");
+    GgafDx9Properties::MULTI_SCREEN = getBool("MULTI_SCREEN");
     GgafDx9Properties::GAME_BUFFER_WIDTH = getInt("GAME_BUFFER_WIDTH");
     GgafDx9Properties::GAME_BUFFER_HEIGHT = getInt("GAME_BUFFER_HEIGHT");
     GgafDx9Properties::GAME_SPACE_DEPTH = getFloat("GAME_SPACE_DEPTH");
@@ -42,6 +44,7 @@ void GgafDx9Properties::load(string prm_ini_filename) {
     GgafDx9Properties::DIR_WAVE = getStr("DIR_WAVE");
 
     _TRACE_("GgafDx9Properties::FULL_SCREEN="<<GgafDx9Properties::FULL_SCREEN);
+    _TRACE_("GgafDx9Properties::MULTI_SCREEN="<<GgafDx9Properties::MULTI_SCREEN);
     _TRACE_("GgafDx9Properties::GAME_BUFFER_WIDTH="<<GgafDx9Properties::GAME_BUFFER_WIDTH);
     _TRACE_("GgafDx9Properties::GAME_SPACE_DEPTH="<<GgafDx9Properties::GAME_SPACE_DEPTH);
     _TRACE_("GgafDx9Properties::GAME_BUFFER_HEIGHT="<<GgafDx9Properties::GAME_BUFFER_HEIGHT);

@@ -29,7 +29,7 @@ private:
 
 public:
     /** be() ‚Å‚«‚é‚©‚Ç‚¤‚© */
-    bool _can_be;
+    static bool _can_be;
     /** be() ’†‚©‚Ç‚¤‚© */
     bool _is_being;
     /** [r]©g */

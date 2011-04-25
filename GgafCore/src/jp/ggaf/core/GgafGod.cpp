@@ -13,6 +13,7 @@ DWORD GgafGod::_aaTime_OffsetOfNextFrame[3][60] = {
         {25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25},
         {33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34}
 };
+bool GgafGod::_can_be = false;
 
 GgafGod::GgafGod() : GgafObject(),
   _pUniverse(NULL),
@@ -39,12 +40,14 @@ GgafGod::GgafGod() : GgafObject(),
     _is_materialized_flg = false;
     GgafFactory::_pGarbageBox = NEW GgafGarbageBox();
     _is_being = false;
-    _can_be = true;
+//    _can_be = true;
     _was_cleaned = false;
     _skip_count_of_frame = 0;
     _max_skip_frames = (int)GGAF_PROPERTY(MAX_SKIP_FRAME);
     _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     _sync_frame_time = false;
+
+    _can_be = true;
 }
 
 void GgafGod::be() {

@@ -16,7 +16,7 @@ TCHAR szTitle[MAX_LOADSTRING]; // タイトル バーのテキスト
 TCHAR szWindowClass[MAX_LOADSTRING]; // メイン ウィンドウ クラス名
 
 // このコード モジュールに含まれる関数の宣言を転送します:
-ATOM MyRegisterClass(HINSTANCE hInstance);
+ATOM MyRegisterClass_Primary(HINSTANCE hInstance);
 //BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
@@ -63,7 +63,6 @@ int main(int argc, char *argv[]) {
 }
 
 static MyStg2nd::God* pGod = NULL;
-static bool can_be_god = false;
 
 /**
  * VCならばエントリポイント
@@ -102,25 +101,40 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         return EXIT_FAILURE;
     }
 
-    MyRegisterClass(hInstance);
+    MyRegisterClass_Primary(hInstance);
     HWND hWnd;
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
     if (GGAFDX9_PROPERTY(FULL_SCREEN)) {
-
         // ウインドウの生成
-        hWnd = CreateWindowEx(
-            WS_EX_APPWINDOW,
-            szWindowClass, //WINDOW_CLASS,          // ウインドウクラス名
-            szTitle,//WINDOW_TITLE,             // ウインドウのタイトル名
-            WS_POPUP | WS_VISIBLE,
-            CW_USEDEFAULT,
-            CW_USEDEFAULT,
-            GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH), // ウィンドウの幅
-            GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT), // ウィンドウの幅
-            HWND_DESKTOP,
-            NULL,
-            hInstance,
-            NULL);
+        if (GGAFDX9_PROPERTY(MULTI_SCREEN)) {
+            hWnd = CreateWindowEx(
+                WS_EX_APPWINDOW,
+                szWindowClass, //WINDOW_CLASS,
+                szTitle,//WINDOW_TITLE,
+                WS_POPUP | WS_VISIBLE,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH/2), //ウィンドウの幅、違うのはココのみ
+                GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
+                HWND_DESKTOP,
+                NULL,
+                hInstance,
+                NULL);
+        } else {
+            hWnd = CreateWindowEx(
+                WS_EX_APPWINDOW,
+                szWindowClass, //WINDOW_CLASS,
+                szTitle,//WINDOW_TITLE,
+                WS_POPUP | WS_VISIBLE,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH), // ウィンドウの幅
+                GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
+                HWND_DESKTOP,
+                NULL,
+                hInstance,
+                NULL);
+        }
 
     } else {
         hWnd = CreateWindow(
@@ -206,7 +220,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     try {
         //神の誕生！
         pGod = NEW MyStg2nd::God(hInstance, hWnd);
-        can_be_god = true;
         if (SUCCEEDED(pGod->init())) {
 
             // ループ・ザ・ループ
@@ -215,9 +228,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                 if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
                     if (msg.message == WM_QUIT) {
 
-                        if (can_be_god) {
-                            can_be_god = false;
-                            pGod->_can_be = false;
+                        if (MyStg2nd::God::_can_be) {
+                            MyStg2nd::God::_can_be = false;
+//                            pGod->_can_be = false;
                             while (pGod->_is_being) {
                                 Sleep(2);
                                 _TRACE_("Wait! 神 is being yet..");
@@ -263,7 +276,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                     ::TranslateMessage(&msg);
                     ::DispatchMessage(&msg);
                 } else {
-                    if (can_be_god && pGod->_is_being == false) {
+                    if (MyStg2nd::God::_can_be && pGod->_is_being == false) {
                         pGod->be(); //神が存在したらしめる（この世が動く）
                     }
 
@@ -272,7 +285,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         }
     } catch (GgafCore::GgafCriticalException& e) {
         //異常終了時
-        if (can_be_god) {
+        if (MyStg2nd::God::_can_be) {
             _TRACE_("＜例外＞"<<e.getMsg());
             string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
             string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
@@ -282,7 +295,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     } catch (exception& e2) {
-        if (can_be_god) {
+        if (MyStg2nd::God::_can_be) {
             string what(e2.what());
             _TRACE_("＜致命的な例外＞"<<what);
             string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかった致命的エラーです。\n誠に申し訳ございません。\n";
@@ -311,7 +324,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 }
 
 //
-//  関数: MyRegisterClass()
+//  関数: MyRegisterClass_Primary()
 //
 //  目的: ウィンドウ クラスを登録します。
 //
@@ -323,12 +336,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 //    正しい形式の小さいアイコンを取得できるようにするには、
 //    この関数を呼び出してください。
 //
-ATOM MyRegisterClass(HINSTANCE hInstance) {
+ATOM MyRegisterClass_Primary(HINSTANCE hInstance) {
     WNDCLASSEX wcex;
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
-    wcex.style = CS_HREDRAW | CS_VREDRAW; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
+    wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
     wcex.lpfnWndProc = WndProc; //ウィンドウプロシージャのアドレスを指定する。
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
@@ -341,134 +354,6 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
     wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassEx(&wcex);
-}
-
-//
-//   関数: InitInstance(HINSTANCE, int)
-//
-//   目的: インスタンス ハンドルを保存して、メイン ウィンドウを作成します。
-//
-//   コメント:
-//
-//        この関数で、グローバル変数でインスタンス ハンドルを保存し、
-//        メイン プログラム ウィンドウを作成および表示します。
-//
-/*
- BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
- {
- HWND hWnd;
-
- hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
-
- hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
- CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
-
- if (!hWnd)
- {
- return FALSE;
- }
-
- ShowWindow(hWnd, nCmdShow);
- UpdateWindow(hWnd);
-
- return TRUE;
- }
- */
-
-//
-//  関数: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  目的:  メイン ウィンドウのメッセージを処理します。
-//
-//  WM_COMMAND	- アプリケーション メニューの処理
-//  WM_PAINT	- メイン ウィンドウの描画
-//  WM_DESTROY	- 中止メッセージを表示して戻る
-//
-//
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-    //	int wmId, wmEvent;
-    PAINTSTRUCT ps;
-    HDC hdc;
-
-    switch (message) {
-        /*
-         case WM_COMMAND:
-         wmId    = LOWORD(wParam);
-         wmEvent = HIWORD(wParam);
-         // 選択されたメニューの解析:
-         switch (wmId)
-         {
-         case IDM_ABOUT:
-         DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-         break;
-         case IDM_EXIT:
-         DestroyWindow(hWnd);
-         break;
-         default:
-         return DefWindowProc(hWnd, message, wParam, lParam);
-         }
-         break;
-         */
-        case WM_SIZE:
-            if (can_be_god) {
-                if (!GGAFDX9_PROPERTY(FULL_SCREEN)) {
-                    GgafDx9Core::GgafDx9God::_adjustGameScreen = true;
-                }
-            }
-            break;
-
-            //    case WM_KEYDOWN:
-            //        //エスケープキーを押したら終了させる
-            //        case VK_ESCAPE:
-            //            PostMessage(hWnd,WM_CLOSE,0,0);
-            //            return 0;
-            //
-//        case WM_PAINT:
-//            if (can_be_god) {
-//                hdc = BeginPaint(hWnd, &ps);
-//                EndPaint(hWnd, &ps);
-//            }
-//            break;
-        case WM_SYSCOMMAND:
-            if(wParam == SC_CLOSE){
-//                if (can_be_god) {
-//                    can_be_god = false;
-//                    pGod->_can_be = false;
-//                    while (pGod->_is_being) {
-//                        Sleep(2);
-//                        _TRACE_("神 being yet");
-//                    }
-//                    delete pGod; //神さようなら
-//                    pGod = NULL;
-//                    MyStg2nd::Properties::clean();
-//                }
-                PostQuitMessage(0);
-
-            }
-            break;
-
-        case WM_DESTROY:
-            //                        SetActiveWindow(hWnd);
-            //                        SetPriorityClass( GetCurrentProcess(), HIGH_PRIORITY_CLASS );
-            //                        //優先度上げる理由。
-            //                        //非アクティブになると解放が著しく遅くなってしまうのを回避しようとした。
-//            if (can_be_god) {
-//                can_be_god = false;
-//                pGod->_can_be = false;
-//                while (pGod->_is_being) {
-//                    Sleep(2);
-//                    _TRACE_("神 being yet");
-//                }
-//                delete pGod; //神さようなら
-//                pGod = NULL;
-//                MyStg2nd::Properties::clean();
-//            }
-            PostQuitMessage(0);
-            break;
-        default:
-            break;
-    }
-    return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
 // バージョン情報ボックスのメッセージ ハンドラです。
@@ -493,31 +378,101 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
  }
  */
 
-//GgafDx9Godへ移動
-//void adjustGameScreen(HWND hWnd) {
-//    if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
-//        RECT rect;
-//        GetClientRect(hWnd, &rect); //あるいは？
-//        if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)) {
-//            //より横長になってしまっている
-//            float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT); //縮小率=縦幅の比率
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)
-//                    * rate / 2.0f);
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
-//                    + (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate;
-//        } else {
-//            //より縦長になってしまっている
-//            float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH); //縮小率=横幅の比率
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
-//                    - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate;
-//            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
-//                    + (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
-//        }
-//    } else {
-//        GetClientRect(hWnd, &(GgafDx9Core::GgafDx9God::_rectPresentDest));
-//    }
-//}
+
+
+
+//
+//  関数: WndProc(HWND, UINT, WPARAM, LPARAM)
+//
+//  目的:  メイン ウィンドウのメッセージを処理します。
+//
+//  WM_COMMAND  - アプリケーション メニューの処理
+//  WM_PAINT    - メイン ウィンドウの描画
+//  WM_DESTROY  - 中止メッセージを表示して戻る
+//
+//
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+    //  int wmId, wmEvent;
+    PAINTSTRUCT ps;
+    HDC hdc;
+
+    switch (message) {
+        /*
+         case WM_COMMAND:
+         wmId    = LOWORD(wParam);
+         wmEvent = HIWORD(wParam);
+         // 選択されたメニューの解析:
+         switch (wmId)
+         {
+         case IDM_ABOUT:
+         DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+         break;
+         case IDM_EXIT:
+         DestroyWindow(hWnd);
+         break;
+         default:
+         return DefWindowProc(hWnd, message, wParam, lParam);
+         }
+         break;
+         */
+        case WM_SIZE:
+            if (GgafDx9Core::GgafDx9God::_can_be) {
+                if (!GGAFDX9_PROPERTY(FULL_SCREEN)) {
+                    GgafDx9Core::GgafDx9God::_adjustGameScreen = true;
+                }
+            }
+            break;
+
+            //    case WM_KEYDOWN:
+            //        //エスケープキーを押したら終了させる
+            //        case VK_ESCAPE:
+            //            PostMessage(hWnd,WM_CLOSE,0,0);
+            //            return 0;
+            //
+//        case WM_PAINT:
+//            if (GgafDx9God::_can_be) {
+//                hdc = BeginPaint(hWnd, &ps);
+//                EndPaint(hWnd, &ps);
+//            }
+//            break;
+        case WM_SYSCOMMAND:
+            if(wParam == SC_CLOSE){
+//                if (GgafDx9God::_can_be) {
+//                    GgafDx9God::_can_be = false;
+//                    pGod->_can_be = false;
+//                    while (pGod->_is_being) {
+//                        Sleep(2);
+//                        _TRACE_("神 being yet");
+//                    }
+//                    delete pGod; //神さようなら
+//                    pGod = NULL;
+//                    MyStg2nd::Properties::clean();
+//                }
+                PostQuitMessage(0);
+
+            }
+            break;
+
+        case WM_DESTROY:
+            //                        SetActiveWindow(hWnd);
+            //                        SetPriorityClass( GetCurrentProcess(), HIGH_PRIORITY_CLASS );
+            //                        //優先度上げる理由。
+            //                        //非アクティブになると解放が著しく遅くなってしまうのを回避しようとした。
+//            if (GgafDx9God::_can_be) {
+//                GgafDx9God::_can_be = false;
+//                pGod->_can_be = false;
+//                while (pGod->_is_being) {
+//                    Sleep(2);
+//                    _TRACE_("神 being yet");
+//                }
+//                delete pGod; //神さようなら
+//                pGod = NULL;
+//                MyStg2nd::Properties::clean();
+//            }
+            PostQuitMessage(0);
+            break;
+        default:
+            break;
+    }
+    return DefWindowProc(hWnd, message, wParam, lParam);
+}

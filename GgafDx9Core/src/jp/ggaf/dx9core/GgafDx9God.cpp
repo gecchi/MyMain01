@@ -4,6 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 
+extern LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 //TODO:コメントとか多すぎる。整理する。
 
 
@@ -31,10 +32,12 @@ GgafDx9ModelManager* GgafDx9God::_pModelManager = NULL;
 GgafDx9EffectManager* GgafDx9God::_pEffectManager = NULL;
 //int const GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)  = 1024;
 //int const GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) = 600;
-D3DPRESENT_PARAMETERS GgafDx9God::_structD3dPresent_Parameters;
+D3DPRESENT_PARAMETERS GgafDx9God::_d3dparam[2];
+
 bool GgafDx9God::_is_device_lost_flg = false;
 bool GgafDx9God::_adjustGameScreen = false;
 bool GgafDx9God::_FULLSCRREEN = false;
+bool GgafDx9God::_MULTI_SCREEN = false;
 
 GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
     GgafGod() {
@@ -48,6 +51,7 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
 
 HRESULT GgafDx9God::init() {
     _FULLSCRREEN = GGAFDX9_PROPERTY(FULL_SCREEN);
+    _MULTI_SCREEN = GGAFDX9_PROPERTY(MULTI_SCREEN);
     _rectPresentDest.left = 0;
     _rectPresentDest.top = 0;
     _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
@@ -70,57 +74,57 @@ HRESULT GgafDx9God::init() {
     checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました");
 
     //デバイス作成
-    ZeroMemory(&_structD3dPresent_Parameters, sizeof(D3DPRESENT_PARAMETERS));
+    ZeroMemory(&_d3dparam[0], sizeof(D3DPRESENT_PARAMETERS));
     //バックバッファの縦サイズ
-    _structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
-    //_structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT);
+    _d3dparam[0].BackBufferHeight = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
+    //_d3dparam[0].BackBufferHeight = GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT);
     //バックバッファの横サイズ
-    _structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
-    //_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH);
+    _d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
+    //_d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH);
     //バックバッファのフォーマット
     if (_FULLSCRREEN) {
-        _structD3dPresent_Parameters.BackBufferFormat = D3DFMT_X8R8G8B8;//D3DFMT_A8R8G8B8;//D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
+        _d3dparam[0].BackBufferFormat = D3DFMT_X8R8G8B8;//D3DFMT_A8R8G8B8;//D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
     } else {
-        _structD3dPresent_Parameters.BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
-        //_structD3dPresent_Parameters.BackBufferFormat = D3DFMT_UNKNOWN;   //現在の画面モードを利用
+        _d3dparam[0].BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
+        //_d3dparam[0].BackBufferFormat = D3DFMT_UNKNOWN;   //現在の画面モードを利用
     }
 
     //バックバッファの数
-    _structD3dPresent_Parameters.BackBufferCount = 1;
+    _d3dparam[0].BackBufferCount = 1;
 
     //スワップ効果を指定する
     if (_FULLSCRREEN) {
-        _structD3dPresent_Parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
+        _d3dparam[0].SwapEffect = D3DSWAPEFFECT_DISCARD;
     } else {
-        _structD3dPresent_Parameters.SwapEffect = D3DSWAPEFFECT_COPY;
+        _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
     }
 
     //ウィンドウハンドル
-    _structD3dPresent_Parameters.hDeviceWindow = NULL;
+    _d3dparam[0].hDeviceWindow = NULL;
     //ウィンドウモード
     if (_FULLSCRREEN) {
-        _structD3dPresent_Parameters.Windowed = false; //フルスクリーン時
+        _d3dparam[0].Windowed = false; //フルスクリーン時
     } else {
-        _structD3dPresent_Parameters.Windowed = true; //ウィンドウ時
+        _d3dparam[0].Windowed = true; //ウィンドウ時
     }
     //深度ステンシルバッファ
-    //_structD3dPresent_Parameters.EnableAutoDepthStencil = FALSE;
-    //_structD3dPresent_Parameters.AutoDepthStencilFormat = 0;
-    _structD3dPresent_Parameters.EnableAutoDepthStencil = 1; //Z バッファの自動作成
-    _structD3dPresent_Parameters.AutoDepthStencilFormat = D3DFMT_D24S8;//D3DFMT_D16;
+    //_d3dparam[0].EnableAutoDepthStencil = FALSE;
+    //_d3dparam[0].AutoDepthStencilFormat = 0;
+    _d3dparam[0].EnableAutoDepthStencil = 1; //Z バッファの自動作成
+    _d3dparam[0].AutoDepthStencilFormat = D3DFMT_D24S8;//D3DFMT_D16;
     //0にしておく
-    _structD3dPresent_Parameters.Flags = 0;
+    _d3dparam[0].Flags = 0;
     //フルスクリーンでのリフレッシュレート(ウィンドウモードなら0を指定)
     if (_FULLSCRREEN) {
-        _structD3dPresent_Parameters.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //フルスクリーン時
+        _d3dparam[0].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //フルスクリーン時
     } else {
-        _structD3dPresent_Parameters.FullScreen_RefreshRateInHz = 0; //ウィンドウ時
+        _d3dparam[0].FullScreen_RefreshRateInHz = 0; //ウィンドウ時
     }
     //スワップのタイミング
     if (_FULLSCRREEN) {
-        _structD3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
+        _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
     } else {
-        _structD3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
+        _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
         //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
     }
 
@@ -150,20 +154,20 @@ HRESULT GgafDx9God::init() {
     //		}
     //	}
     //マルチサンプルの数
-    _structD3dPresent_Parameters.MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+    _d3dparam[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
     //マルチサンプルの品質レベル
-    _structD3dPresent_Parameters.MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
+    _d3dparam[0].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
 
     //フルスクリーンに出来るか調べる
     if (_FULLSCRREEN) {
         int cc = GgafDx9God::_pID3D9->GetAdapterModeCount(D3DADAPTER_DEFAULT,
-                                                          _structD3dPresent_Parameters.BackBufferFormat);
+                                                          _d3dparam[0].BackBufferFormat);
         if (cc) {
             D3DDISPLAYMODE adp;
             for (int i = 0; i < cc; i++) {
                 GgafDx9God::_pID3D9->EnumAdapterModes(D3DADAPTER_DEFAULT,
-                                                      _structD3dPresent_Parameters.BackBufferFormat, i, &adp);
-                if (adp.Format == _structD3dPresent_Parameters.BackBufferFormat && adp.Width
+                                                      _d3dparam[0].BackBufferFormat, i, &adp);
+                if (adp.Format == _d3dparam[0].BackBufferFormat && adp.Width
                         == (UINT)GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) && adp.Height
                         == (UINT)GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT)) {
                     //OK
@@ -211,38 +215,98 @@ HRESULT GgafDx9God::init() {
     // <------------------------------------------------ NVIDIA PerfHUD 用 end
 
 
-    //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
-    //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
-    hr = GgafDx9God::_pID3D9->CreateDevice(AdapterToUse, DeviceType, GgafDx9God::_hWnd,
-                                           D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED,
-//                                           D3DCREATE_MIXED_VERTEXPROCESSING|D3DCREATE_MULTITHREADED,
-//                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
-                                           &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
+    //2画面
+    //http://www.shader.jp/xoops/html/masafumi/directx9/3dtips/d3d15.htm
+    if (_FULLSCRREEN && _MULTI_SCREEN) {
+        _d3dparam[1] = _d3dparam[0]; //共通が多いため
+        WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L,
+                          GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
+                          "multihead", NULL };
+        RegisterClassEx( &wc );
+        //フォーカスウィンドウの指定(ここだけはアダプタごとに違うものを使うこと)
+        _d3dparam[1].hDeviceWindow = CreateWindow(
+            "multihead",
+            "multihead",
+            NULL,
+            CW_USEDEFAULT,
+            CW_USEDEFAULT,
+            GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH/2), //ウィンドウの幅、違うのはココのみ
+            GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
+            NULL,
+            NULL,
+            wc.hInstance,
+            NULL );
+    }
 
-    if (hr != D3D_OK) {
-        //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
-        hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
-                                               D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
-                                               &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
+
+    if (_FULLSCRREEN && _MULTI_SCREEN) {
+
+        //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
+        //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
+        hr = GgafDx9God::_pID3D9->CreateDevice(AdapterToUse, DeviceType, GgafDx9God::_hWnd,
+                                               D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED | D3DCREATE_ADAPTERGROUP_DEVICE,
+                                               _d3dparam, &GgafDx9God::_pID3DDevice9);
+
         if (hr != D3D_OK) {
-            //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
-            hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_hWnd,
-                                                   D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
-                                                   &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
+            //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
+            hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
+                                                   D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_ADAPTERGROUP_DEVICE,
+                                                   _d3dparam, &GgafDx9God::_pID3DDevice9);
             if (hr != D3D_OK) {
-                //どのデバイスの作成も失敗した場合
-                MessageBox(GgafDx9God::_hWnd, TEXT("Direct3Dの初期化に失敗"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
-                return E_FAIL;
+                //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
+                hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_hWnd,
+                                                       D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_ADAPTERGROUP_DEVICE,
+                                                       _d3dparam, &GgafDx9God::_pID3DDevice9);
+                if (hr != D3D_OK) {
+                    //どのデバイスの作成も失敗した場合
+                    MessageBox(GgafDx9God::_hWnd, TEXT("MULTI FULLSCRREEN Direct3Dの初期化に失敗"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                    return E_FAIL;
+                } else {
+                    _TRACE_("GgafDx9God::init デバイスは MULTI FULLSCRREEN REF で初期化できました。");
+                }
+
             } else {
-                _TRACE_("GgafDx9God::init デバイスは REF で初期化できました。");
+                _TRACE_("GgafDx9God::init デバイスは MULTI FULLSCRREEN HAL(soft vp) で初期化できました。");
             }
 
         } else {
-            _TRACE_("GgafDx9God::init デバイスは HAL(soft vp) で初期化できました。");
+            _TRACE_("GgafDx9God::init デバイスは MULTI FULLSCRREEN HAL(pure vp) で初期化できました。");
         }
 
     } else {
-        _TRACE_("GgafDx9God::init デバイスは HAL(mix vp) で初期化できました。");
+        //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
+        //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
+        hr = GgafDx9God::_pID3D9->CreateDevice(AdapterToUse, DeviceType, GgafDx9God::_hWnd,
+                                               D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED,
+    //                                           D3DCREATE_MIXED_VERTEXPROCESSING|D3DCREATE_MULTITHREADED,
+    //                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
+                                               &_d3dparam[0], &GgafDx9God::_pID3DDevice9);
+
+        if (hr != D3D_OK) {
+            //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
+            hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
+                                                   D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
+                                                   &_d3dparam[0], &GgafDx9God::_pID3DDevice9);
+            if (hr != D3D_OK) {
+                //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
+                hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_hWnd,
+                                                       D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
+                                                       &_d3dparam[0], &GgafDx9God::_pID3DDevice9);
+                if (hr != D3D_OK) {
+                    //どのデバイスの作成も失敗した場合
+                    MessageBox(GgafDx9God::_hWnd, TEXT("Direct3Dの初期化に失敗"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                    return E_FAIL;
+                } else {
+                    _TRACE_("GgafDx9God::init デバイスは REF で初期化できました。");
+                }
+
+            } else {
+                _TRACE_("GgafDx9God::init デバイスは HAL(soft vp) で初期化できました。");
+            }
+
+        } else {
+            _TRACE_("GgafDx9God::init デバイスは HAL(pure vp) で初期化できました。");
+        }
     }
 
     //ピクセルシェーダー、頂点シェーダーバージョンチェック
@@ -470,8 +534,12 @@ void GgafDx9God::makeUniversalMaterialize() {
             getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
 
             //デバイスリセットを試みる
-            hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
-            checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセットに失敗しました。");
+            hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
+            checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[0]に失敗しました。");
+            if (_FULLSCRREEN && _MULTI_SCREEN) {
+                hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[1]));
+                checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[1]に失敗しました。");
+            }
 
             //デバイス再設定
             GgafDx9God::initDx9Device();
@@ -577,8 +645,12 @@ void GgafDx9God::presentUniversalVisualize() {
             //全ノードに解放しなさいイベント発令
             getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
             //デバイスリセットを試みる
-            hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
-            checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset() を試しましが、駄目でした。");
+            hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
+            checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([0]) を試しましが、駄目でした。");
+            if (_FULLSCRREEN && _MULTI_SCREEN) {
+                hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[1]));
+                checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([1]) を試しましが、駄目でした。");
+            }
             //デバイス再設定
             GgafDx9God::initDx9Device();
             //エフェクトリセット
