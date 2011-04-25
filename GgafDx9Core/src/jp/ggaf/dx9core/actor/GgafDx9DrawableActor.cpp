@@ -24,9 +24,9 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     _hash_technique = GgafUtil::easy_hash(prm_technique);
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
-    _technique_temp = NEW char[51];
+    _temp_technique = NEW char[51];
     _hash_technique = 0;
-    _frame_temp_technique = 0;
+    _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
 
     _pNext_TheSameDrawDepthLevel = NULL;
@@ -73,9 +73,9 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     _hash_technique = GgafUtil::easy_hash(prm_technique);
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
-    _technique_temp = NEW char[51];
+    _temp_technique = NEW char[51];
     _hash_technique = 0;
-    _frame_temp_technique = 0;
+    _frame_of_behaving_temp_technique_end = 0;
     _is_temp_technique = false;
 
     char* model_name = NEW char[51];
@@ -234,13 +234,13 @@ void GgafDx9DrawableActor::processPreDraw() {
 
     //一時テクニック期間チェック
     if (_is_temp_technique) {
-        if (_frame_temp_technique <= _frame_of_behaving) {
+        if (_frame_of_behaving_temp_technique_end <= _frame_of_behaving) {
             //一時テクニック期間満了。元に戻す
-            _hash_technique = _hash_technique_temp;
-            strcpy(_technique, _technique_temp);
+            _hash_technique = _hash_temp_technique;
+            strcpy(_technique, _temp_technique);
             _is_temp_technique = false;
-            //これはダメ。配列領域がどこかにいくため。_technique_temp = "";
-            _hash_technique_temp = 0;
+            //これはダメ。配列領域がどこかにいくため。_temp_technique = "";
+            _hash_temp_technique = 0;
         }
     }
 
@@ -291,7 +291,7 @@ void GgafDx9DrawableActor::resetMaterialColor() {
 
 GgafDx9DrawableActor::~GgafDx9DrawableActor() {
     DELETEARR_IMPOSSIBLE_NULL(_technique);
-    DELETEARR_IMPOSSIBLE_NULL(_technique_temp);
+    DELETEARR_IMPOSSIBLE_NULL(_temp_technique);
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
     _pGgafDx9EffectCon->close();
     _pGgafDx9ModelCon->close();

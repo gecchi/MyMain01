@@ -59,13 +59,13 @@ void DefaultPointSpriteEffectActor::processJudgement() {
 //
 ////    //一時テクニック期間チェック
 ////    if (_is_temp_technique) {
-////        if (_frame_temp_technique <= _frame_of_behaving) {
+////        if (_frame_of_behaving_temp_technique_end <= _frame_of_behaving) {
 ////            //一時テクニック期間満了。元に戻す
-////            _hash_technique = _hash_technique_temp;
-////            strcpy(_technique, _technique_temp);
+////            _hash_technique = _hash_temp_technique;
+////            strcpy(_technique, _temp_technique);
 ////            _is_temp_technique = false;
-////            //これはダメ。配列領域がどこかにいくため。_technique_temp = "";
-////            _hash_technique_temp = 0;
+////            //これはダメ。配列領域がどこかにいくため。_temp_technique = "";
+////            _hash_temp_technique = 0;
 ////        }
 ////    }
 //}

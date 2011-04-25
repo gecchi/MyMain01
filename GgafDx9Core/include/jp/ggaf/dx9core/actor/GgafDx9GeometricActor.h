@@ -49,7 +49,7 @@ public:
     /** [r/w]境界球の半径(DirectXの単位)。画面外判定に使用される */
     FLOAT _radius_bounding_sphere;
     /** [rw]モデルの境界球半径倍率 */
-    FLOAT _fRate_BoundingSphereRadius;
+    FLOAT _rate_BoundingSphereRadius;
     /** [r] 内部で _X から計算されるDirectXのワールドX座標(_X : _fX = 1000 : 0.1) */
     FLOAT _fX;
     /** [r] 内部で _Y から計算されるDirectYのワールドY座標(_Y : _fY = 1000 : 0.1) */
@@ -96,6 +96,7 @@ public:
     angle _RY_local;
     /** 土台アクター上でのワールドZ軸回転角 */
     angle _RZ_local;
+
     int _X_final;
     int _Y_final;
     int _Z_final;
@@ -377,7 +378,7 @@ public:
      * @param prm_rate 拡大率
      */
     virtual void setBoundingSphereRadiusRate(FLOAT prm_rate) {
-        _fRate_BoundingSphereRadius = prm_rate;
+        _rate_BoundingSphereRadius = prm_rate;
     }
 
 

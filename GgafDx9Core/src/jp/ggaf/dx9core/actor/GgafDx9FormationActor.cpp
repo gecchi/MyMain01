@@ -32,9 +32,6 @@ void GgafDx9FormationActor::addSubLast(GgafActor* prm_pSub) {
 }
 
 
-void GgafDx9FormationActor::processBehavior() {
-}
-
 void GgafDx9FormationActor::processJudgement() {
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //I—¹‚ğ‘Ò‚Â‚Ì‚İ

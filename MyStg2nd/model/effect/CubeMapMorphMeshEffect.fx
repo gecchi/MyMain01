@@ -4,7 +4,17 @@
 // date:2009/05/12 
 ////////////////////////////////////////////////////////////////////////////////
 /** カメラのWorld位置 */
-float3 pos_camera; 
+float3 pos_camera;
+
+//エラーが出るのでとりあえず宣言 
+/** スペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
+float g_specular;
+/** スペキュラーの強度 */
+float g_specular_power;
+/** カメラ（視点）の位置ベクトル */
+float3 g_posCam;
+
+
 
 float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列

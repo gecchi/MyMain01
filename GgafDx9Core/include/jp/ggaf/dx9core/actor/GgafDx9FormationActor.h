@@ -22,12 +22,13 @@ private:
     virtual void processJudgement() override;
 
 public:
-    /** 所属アクター数 */
+    /** [r]所属アクター数(addSubLastにより増加) */
     int _num_sub;
 
     frame _offset_frames_end;
+
     /**
-     *
+     * コンストラクタ .
      * @param prm_name
      * @param prm_offset_frames_end 子が無くなったときに解放する猶予フレーム
      * @return
@@ -37,9 +38,10 @@ public:
     virtual void initialize() override {
     }
 
-    virtual void processBehavior() override;
+    virtual void processBehavior() override {
+    }
 
-    virtual void processDraw() {
+    virtual void processDraw() override {
     }
 
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
@@ -50,6 +52,16 @@ public:
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
+
+
+    /**
+     * 編隊のメンバーの登録します.
+     * 具体的には、addSubLast() を呼び出し、種別を引き継ぎます。
+     * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をaddSubLastしてください。
+     * @param prm_pSub 登録アクター
+     */
+    virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override;
+
 
     /**
      * 編隊に所属したアクターが全滅した場合に呼び出されるメソッド（とする) .
@@ -79,13 +91,6 @@ public:
      */
     virtual void wasDestroyedFollower(GgafDx9GeometricActor* prm_pActor);
 
-    /**
-     * 編隊のメンバーの登録します.
-     * 具体的には、addSubLast() を呼び出し、種別を引き継ぎます。
-     * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をaddSubLastしてください。
-     * @param prm_pSub 登録アクター
-     */
-    virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override;
 
     virtual ~GgafDx9FormationActor();
 };

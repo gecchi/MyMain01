@@ -16,7 +16,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _z = 0.00000001f; //ÇŸÇ⁄ç≈ëOñ 
 
     _radius_bounding_sphere = 0;
-    _fRate_BoundingSphereRadius = 1.0f;
+    _rate_BoundingSphereRadius = 1.0f;
     _pChecker = prm_pChecker;
     _pKuroko = NEW GgafDx9Kuroko(this);
     _pSeTransmitter = NEW GgafDx9SeTransmitter(this);
@@ -237,7 +237,7 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 
 int GgafDx9GeometricActor::isOutOfView() {
     //_TRACE_("name="<<getName()<<" _radius_bounding_sphere="<<_radius_bounding_sphere);
-    float bound = _radius_bounding_sphere * _fRate_BoundingSphereRadius;
+    float bound = _radius_bounding_sphere * _rate_BoundingSphereRadius;
     if (_offscreenkind == -1) {
         if (_fDist_VpPlnTop <= bound) {
             if (_fDist_VpPlnBottom <= bound) {

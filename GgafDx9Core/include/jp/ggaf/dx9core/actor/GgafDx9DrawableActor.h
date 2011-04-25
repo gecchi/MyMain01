@@ -13,9 +13,13 @@ namespace GgafDx9Core {
 class GgafDx9DrawableActor : public GgafDx9GeometricActor {
 
 private:
-    char* _technique_temp;
-    frame _frame_temp_technique;
-    unsigned int _hash_technique_temp;
+    /** [r]一時テクニック名 */
+    char* _temp_technique;
+    /** [r]一時テクニック名ハッシュ値 */
+    unsigned int _hash_temp_technique;
+    /** [r]一時テクニック終了フレーム */
+    frame _frame_of_behaving_temp_technique_end;
+    /** [r]一時テクニック適用中の場合 true */
     bool _is_temp_technique;
     /** モデル資源接続 */
     GgafDx9ModelConnection* _pGgafDx9ModelCon;
@@ -39,7 +43,7 @@ public:
     /** 直近の描画時に使用されたテクニック名のハッシュコード */
     static unsigned int _hash_technique_last_draw;
 
-    /** 同一描画レベルの次のアクター */
+    /** [r]同一描画レベルの次のアクター */
     GgafDx9DrawableActor* _pNext_TheSameDrawDepthLevel;
     /** [r]現在のマテリアルのα値 (0.0 <= _fAlpha <= 1.0) */
     float _fAlpha;
@@ -53,9 +57,9 @@ public:
     GgafDx9Model* _pGgafDx9Model;
     /** [r]エフェクト資源 */
     GgafDx9Effect* _pGgafDx9Effect;
-
+    /** [r]現在の描画深度 */
     int _now_drawdepth;
-    /** 特別な描画深度 */
+    /** [r]特別な固定描画深度、-1でなければ _now_drawdepth より優先でこの深度が適用される */
     int _specal_drawdepth;
 
     /**
@@ -126,10 +130,10 @@ public:
     void changeEffectTechniqueInterim(const char* prm_technique, frame prm_frame) {
         if (_is_temp_technique == false) { //すでに一時テクニック使用時は無視
             //元々のテクニックを退避
-            _hash_technique_temp = _hash_technique;
-            strcpy(_technique_temp, _technique);
+            _hash_temp_technique = _hash_technique;
+            strcpy(_temp_technique, _technique);
             //テクニック変更
-            _frame_temp_technique = _frame_of_behaving + prm_frame; //変更満期フレーム
+            _frame_of_behaving_temp_technique_end = _frame_of_behaving + prm_frame; //変更満期フレーム
             _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
             strcpy(_technique, prm_technique);
             _is_temp_technique = true;
@@ -145,6 +149,7 @@ public:
     void setSpecialDrawDepth(int prm_drawdepth) {
         _specal_drawdepth = prm_drawdepth;
     }
+
     /**
      * 共通の描画事前処理 .
      * 描画を行うにあたっての重要な事前処理を行ないます。
@@ -224,7 +229,6 @@ public:
     virtual GgafDx9Effect* getEffect() {
         return _pGgafDx9Effect;
     }
-
 
     /**
      * 描画時Zバッファを考慮するか .
