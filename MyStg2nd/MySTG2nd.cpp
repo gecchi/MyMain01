@@ -7,7 +7,6 @@
 using namespace std;
 
 #define MAX_LOADSTRING 100
-//#define WINDOW_TITLE "MyStg2nd"
 
 
 // グローバル変数:
@@ -17,11 +16,9 @@ TCHAR szWindowClass[MAX_LOADSTRING]; // メイン ウィンドウ クラス名
 
 // このコード モジュールに含まれる関数の宣言を転送します:
 ATOM MyRegisterClass_Primary(HINSTANCE hInstance);
-//BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
 
-//void adjustGameScreen(HWND);
 /**
  * GNU GCC ならばエントリポイント
  */
@@ -31,9 +28,6 @@ int main(int argc, char *argv[]) {
     HANDLE hPrevInstance;
     LPSTR lpCmdLine;
     int nCmdShow;
-    //WNDCLASS	wc;
-    //	HWND		hWnd;
-    //	MSG			msg;
 
     GetStartupInfo(&StatUpInfo);
     hInstance = GetModuleHandle(0);
@@ -46,17 +40,6 @@ int main(int argc, char *argv[]) {
     while (*lpCmdLine == ' ')
         lpCmdLine++;
     cout << lpCmdLine << endl;
-    /* ここからが、本来の処理 */
-    //wc.lpszClassName = "MySTG2nd";
-    /* 二重起動防止 (バグあり...)*/
-    //	if((hWnd=FindWindow(WINDOW_CLASS, NULL))!=0) {
-    //		if (IsIconic(hWnd)) {
-    //			ShowWindow(hWnd, SW_RESTORE);
-    //		}
-    //		SetForegroundWindow(hWnd);
-    //		return 0;
-    //	}
-
     //本来のWinMainへ
     WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
     return 0;
@@ -72,24 +55,16 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         LPTSTR lpCmdLine,
         int nCmdShow)
 {
-
-    //_CrtSetBreakAlloc(95299);
-
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     MSG msg;
-    //	HACCEL hAccelTable;
 
     // グローバル文字列を初期化しています。
     LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     _TRACE_("szTitle = "<<szTitle);
     LoadString(hInstance, IDC_MYSTG2ND, szWindowClass, MAX_LOADSTRING);
     _TRACE_("szWindowClass = "<<szWindowClass);
-    //LoadStringができん！
-//    strcpy(szTitle,"MyStg2nd"); //無理やり
-//    strcpy(szWindowClass,"MYSTG2ND"); //ですよ！
-
 
     //プロパティファイル読込み
     try {
@@ -306,41 +281,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     }
-    /*
-     } catch (...) {
-     _TRACE_("＜原因不明例外＞たぶんアクセス違反");
-     string message = "原因不明例外が発生しました。心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
-     MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
-     GgafCore::GgafLogger::write("＜原因不明例外＞たぶんアクセス違反");
-     ::timeEndPeriod(1);
-     try { god->_pUniverse->dump();       } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() 不可"); } //エラー無視
-     try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
-     try { GgafDx9Core::MyStg2nd::Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("MyStg2nd::Properties::clean(); 不可"); } //エラー無視
-     return EXIT_SUCCESS;
-     }
-     */
-    //_CrtDumpMemoryLeaks();	// この時点で解放されていないメモリの情報の表示
     return (int) msg.wParam;
 }
 
-//
-//  関数: MyRegisterClass_Primary()
-//
-//  目的: ウィンドウ クラスを登録します。
-//
-//  コメント:
-//
-//    この関数および使い方は、'RegisterClassEx' 関数が追加された
-//    Windows 95 より前の Win32 システムと互換させる場合にのみ必要です。
-//    アプリケーションが、関連付けられた
-//    正しい形式の小さいアイコンを取得できるようにするには、
-//    この関数を呼び出してください。
-//
 ATOM MyRegisterClass_Primary(HINSTANCE hInstance) {
     WNDCLASSEX wcex;
 
     wcex.cbSize = sizeof(WNDCLASSEX);
-
     wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
     wcex.lpfnWndProc = WndProc; //ウィンドウプロシージャのアドレスを指定する。
     wcex.cbClsExtra = 0;
@@ -356,65 +303,12 @@ ATOM MyRegisterClass_Primary(HINSTANCE hInstance) {
     return RegisterClassEx(&wcex);
 }
 
-// バージョン情報ボックスのメッセージ ハンドラです。
-/*
- INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
- {
- UNREFERENCED_PARAMETER(lParam);
- switch (message)
- {
- case WM_INITDIALOG:
- return (INT_PTR)TRUE;
-
- case WM_COMMAND:
- if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
- {
- EndDialog(hDlg, LOWORD(wParam));
- return (INT_PTR)TRUE;
- }
- break;
- }
- return (INT_PTR)FALSE;
- }
- */
-
-
-
-
-//
-//  関数: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  目的:  メイン ウィンドウのメッセージを処理します。
-//
-//  WM_COMMAND  - アプリケーション メニューの処理
-//  WM_PAINT    - メイン ウィンドウの描画
-//  WM_DESTROY  - 中止メッセージを表示して戻る
-//
-//
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     //  int wmId, wmEvent;
     PAINTSTRUCT ps;
     HDC hdc;
 
     switch (message) {
-        /*
-         case WM_COMMAND:
-         wmId    = LOWORD(wParam);
-         wmEvent = HIWORD(wParam);
-         // 選択されたメニューの解析:
-         switch (wmId)
-         {
-         case IDM_ABOUT:
-         DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-         break;
-         case IDM_EXIT:
-         DestroyWindow(hWnd);
-         break;
-         default:
-         return DefWindowProc(hWnd, message, wParam, lParam);
-         }
-         break;
-         */
         case WM_SIZE:
             if (GgafDx9Core::GgafDx9God::_can_be) {
                 if (!GGAFDX9_PROPERTY(FULL_SCREEN)) {
@@ -422,53 +316,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 }
             }
             break;
-
-            //    case WM_KEYDOWN:
-            //        //エスケープキーを押したら終了させる
-            //        case VK_ESCAPE:
-            //            PostMessage(hWnd,WM_CLOSE,0,0);
-            //            return 0;
-            //
-//        case WM_PAINT:
-//            if (GgafDx9God::_can_be) {
-//                hdc = BeginPaint(hWnd, &ps);
-//                EndPaint(hWnd, &ps);
-//            }
-//            break;
         case WM_SYSCOMMAND:
             if(wParam == SC_CLOSE){
-//                if (GgafDx9God::_can_be) {
-//                    GgafDx9God::_can_be = false;
-//                    pGod->_can_be = false;
-//                    while (pGod->_is_being) {
-//                        Sleep(2);
-//                        _TRACE_("神 being yet");
-//                    }
-//                    delete pGod; //神さようなら
-//                    pGod = NULL;
-//                    MyStg2nd::Properties::clean();
-//                }
                 PostQuitMessage(0);
-
             }
             break;
 
         case WM_DESTROY:
-            //                        SetActiveWindow(hWnd);
-            //                        SetPriorityClass( GetCurrentProcess(), HIGH_PRIORITY_CLASS );
-            //                        //優先度上げる理由。
-            //                        //非アクティブになると解放が著しく遅くなってしまうのを回避しようとした。
-//            if (GgafDx9God::_can_be) {
-//                GgafDx9God::_can_be = false;
-//                pGod->_can_be = false;
-//                while (pGod->_is_being) {
-//                    Sleep(2);
-//                    _TRACE_("神 being yet");
-//                }
-//                delete pGod; //神さようなら
-//                pGod = NULL;
-//                MyStg2nd::Properties::clean();
-//            }
             PostQuitMessage(0);
             break;
         default:

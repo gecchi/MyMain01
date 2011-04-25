@@ -4,7 +4,6 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 
-extern LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 //TODO:コメントとか多すぎる。整理する。
 
 
@@ -219,7 +218,7 @@ HRESULT GgafDx9God::init() {
     //http://www.shader.jp/xoops/html/masafumi/directx9/3dtips/d3d15.htm
     if (_FULLSCRREEN && _MULTI_SCREEN) {
         _d3dparam[1] = _d3dparam[0]; //共通が多いため
-        WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L,
+        WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, (WNDPROC)GetWindowLong(_hWnd, GWL_WNDPROC ) , 0L, 0L,
                           GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
                           "multihead", NULL };
         RegisterClassEx( &wc );
