@@ -31,13 +31,13 @@ GgafDx9ModelManager* GgafDx9God::_pModelManager = NULL;
 GgafDx9EffectManager* GgafDx9God::_pEffectManager = NULL;
 //int const GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)  = 1024;
 //int const GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) = 600;
-D3DPRESENT_PARAMETERS GgafDx9God::_d3dparam[2];
+D3DPRESENT_PARAMETERS* GgafDx9God::_d3dparam;
 
 bool GgafDx9God::_is_device_lost_flg = false;
 bool GgafDx9God::_adjustGameScreen = false;
 bool GgafDx9God::_FULLSCRREEN = false;
 bool GgafDx9God::_MULTI_SCREEN = false;
-
+int GgafDx9God::_iNumAdapter = 1;
 GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
     GgafGod() {
     TRACE("GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prmGgafDx9God::_hWnd) ");
@@ -53,7 +53,11 @@ HRESULT GgafDx9God::init() {
     _MULTI_SCREEN = GGAFDX9_PROPERTY(MULTI_SCREEN);
     _rectPresentDest.left = 0;
     _rectPresentDest.top = 0;
-    _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
+	if (_FULLSCRREEN && _MULTI_SCREEN) {
+		_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
+	} else {
+		_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
+	}
     _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
 
     HRESULT hr;
@@ -72,13 +76,25 @@ HRESULT GgafDx9God::init() {
     hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &structD3DDisplayMode);
     checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました");
 
+    D3DCAPS9 caps___;
+    GgafDx9God::_pID3D9->GetDeviceCaps(0, D3DDEVTYPE_HAL, &caps___);
+    _iNumAdapter = caps___.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
+    _TRACE_("_iNumAdapter = "<< _iNumAdapter);
+    _d3dparam = NEW D3DPRESENT_PARAMETERS[_iNumAdapter];
+
+
     //デバイス作成
     ZeroMemory(&_d3dparam[0], sizeof(D3DPRESENT_PARAMETERS));
     //バックバッファの縦サイズ
     _d3dparam[0].BackBufferHeight = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
     //_d3dparam[0].BackBufferHeight = GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT);
     //バックバッファの横サイズ
-    _d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
+	if (_FULLSCRREEN && _MULTI_SCREEN) {
+		_d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
+	} else {
+		_d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
+	}
+
     //_d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH);
     //バックバッファのフォーマット
     if (_FULLSCRREEN) {
@@ -99,7 +115,7 @@ HRESULT GgafDx9God::init() {
     }
 
     //ウィンドウハンドル
-    _d3dparam[0].hDeviceWindow = NULL;
+    _d3dparam[0].hDeviceWindow = _hWnd;
     //ウィンドウモード
     if (_FULLSCRREEN) {
         _d3dparam[0].Windowed = false; //フルスクリーン時
@@ -109,7 +125,7 @@ HRESULT GgafDx9God::init() {
     //深度ステンシルバッファ
     //_d3dparam[0].EnableAutoDepthStencil = FALSE;
     //_d3dparam[0].AutoDepthStencilFormat = 0;
-    _d3dparam[0].EnableAutoDepthStencil = 1; //Z バッファの自動作成
+    _d3dparam[0].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
     _d3dparam[0].AutoDepthStencilFormat = D3DFMT_D24S8;//D3DFMT_D16;
     //0にしておく
     _d3dparam[0].Flags = 0;
@@ -185,32 +201,36 @@ HRESULT GgafDx9God::init() {
     }
 
 
+
+
+
+
     //default
     UINT AdapterToUse = D3DADAPTER_DEFAULT;
     D3DDEVTYPE DeviceType = D3DDEVTYPE_HAL;
     // NVIDIA PerfHUD 用 begin --------------------------------------------->
 
-#ifdef MY_DEBUG
-
-#if SHIPPING_VERSION
-    // When building a shipping version, disable PerfHUD (opt-out)
-#else
-    _TRACE_("Look for 'NVIDIA PerfHUD' adapter...");
-    // If it is present, override default settings
-    for (UINT Adapter = 0; Adapter < GgafDx9God::_pID3D9->GetAdapterCount(); Adapter++) {
-        D3DADAPTER_IDENTIFIER9 Identifier;
-        HRESULT Res;
-        Res = GgafDx9God::_pID3D9->GetAdapterIdentifier(Adapter, 0, &Identifier);
-        if (strstr(Identifier.Description, "PerfHUD") != 0) {
-            _TRACE_("found NVIDIA PerfHUD!");
-            AdapterToUse = Adapter;
-            DeviceType = D3DDEVTYPE_REF;
-            break;
-        }
-    }
-#endif
-
-#endif
+//#ifdef MY_DEBUG
+//
+//#if SHIPPING_VERSION
+//    // When building a shipping version, disable PerfHUD (opt-out)
+//#else
+//    _TRACE_("Look for 'NVIDIA PerfHUD' adapter...");
+//    // If it is present, override default settings
+//    for (UINT Adapter = 0; Adapter < GgafDx9God::_pID3D9->GetAdapterCount(); Adapter++) {
+//        D3DADAPTER_IDENTIFIER9 Identifier;
+//        HRESULT Res;
+//        Res = GgafDx9God::_pID3D9->GetAdapterIdentifier(Adapter, 0, &Identifier);
+//        if (strstr(Identifier.Description, "PerfHUD") != 0) {
+//            _TRACE_("found NVIDIA PerfHUD!");
+//            AdapterToUse = Adapter;
+//            DeviceType = D3DDEVTYPE_REF;
+//            break;
+//        }
+//    }
+//#endif
+//
+//#endif
     // <------------------------------------------------ NVIDIA PerfHUD 用 end
 
 
@@ -218,23 +238,60 @@ HRESULT GgafDx9God::init() {
     //http://www.shader.jp/xoops/html/masafumi/directx9/3dtips/d3d15.htm
     if (_FULLSCRREEN && _MULTI_SCREEN) {
         _d3dparam[1] = _d3dparam[0]; //共通が多いため
-        WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, (WNDPROC)GetWindowLong(_hWnd, GWL_WNDPROC ) , 0L, 0L,
-                          GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
-                          "multihead", NULL };
-        RegisterClassEx( &wc );
+
+        WNDCLASSEX wcex;
+
+        wcex.cbSize = sizeof(WNDCLASSEX);
+        wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
+        wcex.lpfnWndProc = (WNDPROC)GetWindowLong(_hWnd, GWL_WNDPROC ); //ウィンドウプロシージャのアドレスを指定する。
+        wcex.cbClsExtra = 0;
+        wcex.cbWndExtra = 0;
+        wcex.hInstance = _hInstance;
+        wcex.hIcon = NULL;
+        wcex.hCursor = NULL;
+        wcex.hbrBackground = CreateSolidBrush(RGB(30, 30, 30)); //0~255
+        wcex.lpszMenuName = NULL;//MAKEINTRESOURCE(IDC_MYSTG2ND);//NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
+        wcex.lpszClassName = "multihead";
+        wcex.hIconSm = NULL;
+
+        RegisterClassEx(&wcex);
+
+
+//        WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, (WNDPROC)GetWindowLong(_hWnd, GWL_WNDPROC ) , 0L, 0L,
+//                          GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
+//                          "multihead", NULL };
+//        RegisterClassEx( &wc );
         //フォーカスウィンドウの指定(ここだけはアダプタごとに違うものを使うこと)
-        _d3dparam[1].hDeviceWindow = CreateWindow(
-            "multihead",
-            "multihead",
-            NULL,
+
+        _d3dparam[1].hDeviceWindow = CreateWindowEx(
+            WS_EX_APPWINDOW,
+            "multihead", //WINDOW_CLASS,
+            "multihead",//WINDOW_TITLE,
+            WS_POPUP | WS_VISIBLE,
             CW_USEDEFAULT,
             CW_USEDEFAULT,
-            GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH/2), //ウィンドウの幅、違うのはココのみ
+            GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2, //ウィンドウの幅、違うのはココのみ
             GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
+            HWND_DESKTOP,
             NULL,
-            NULL,
-            wc.hInstance,
-            NULL );
+            _hInstance,
+            NULL);
+
+
+
+
+//        _d3dparam[1].hDeviceWindow = CreateWindow(
+//            "multihead",
+//            "multihead",
+//            NULL,
+//            CW_USEDEFAULT,
+//            CW_USEDEFAULT,
+//            GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH/2), //ウィンドウの幅、違うのはココのみ
+//            GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
+//            NULL,
+//            NULL,
+//            wc.hInstance,
+//            NULL );
     }
 
 
@@ -247,16 +304,22 @@ HRESULT GgafDx9God::init() {
                                                _d3dparam, &GgafDx9God::_pID3DDevice9);
 
         if (hr != D3D_OK) {
+            _TRACE_(GgafDx9CriticalException::getHresultMsg(hr));
+
             //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
             hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
                                                    D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_ADAPTERGROUP_DEVICE,
                                                    _d3dparam, &GgafDx9God::_pID3DDevice9);
             if (hr != D3D_OK) {
+                _TRACE_(GgafDx9CriticalException::getHresultMsg(hr));
+
                 //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
                 hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_hWnd,
                                                        D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_ADAPTERGROUP_DEVICE,
                                                        _d3dparam, &GgafDx9God::_pID3DDevice9);
                 if (hr != D3D_OK) {
+                    _TRACE_(GgafDx9CriticalException::getHresultMsg(hr));
+
                     //どのデバイスの作成も失敗した場合
                     MessageBox(GgafDx9God::_hWnd, TEXT("MULTI FULLSCRREEN Direct3Dの初期化に失敗"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
                     return E_FAIL;
@@ -536,8 +599,10 @@ void GgafDx9God::makeUniversalMaterialize() {
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
             checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[0]に失敗しました。");
             if (_FULLSCRREEN && _MULTI_SCREEN) {
-                hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[1]));
-                checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[1]に失敗しました。");
+                for (int i = 1; i < _iNumAdapter; i++) {
+                    hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[i]));
+                    checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[1]に失敗しました。");
+                }
             }
 
             //デバイス再設定
@@ -647,8 +712,10 @@ void GgafDx9God::presentUniversalVisualize() {
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
             checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([0]) を試しましが、駄目でした。");
             if (_FULLSCRREEN && _MULTI_SCREEN) {
-                hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[1]));
-                checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([1]) を試しましが、駄目でした。");
+                for (int i = 1; i < _iNumAdapter; i++) {
+                    hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[i]));
+                    checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([1]) を試しましが、駄目でした。");
+                }
             }
             //デバイス再設定
             GgafDx9God::initDx9Device();
@@ -810,6 +877,7 @@ GgafDx9God::~GgafDx9God() {
     GgafDx9Input::release();
     _TRACE_("_pID3DDevice9 解放きたー");
     Sleep(60);
+    DELETEARR_IMPOSSIBLE_NULL(_d3dparam);
     RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9); //本来はこれが必要
     RELEASE_IMPOSSIBLE_NULL(_pID3D9);
 //    フルスクリーンで終了時、極まれにブルースクリーンになる。

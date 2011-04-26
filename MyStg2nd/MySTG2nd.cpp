@@ -89,7 +89,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                 WS_POPUP | WS_VISIBLE,
                 CW_USEDEFAULT,
                 CW_USEDEFAULT,
-                GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH/2), //ウィンドウの幅、違うのはココのみ
+                GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2, //ウィンドウの幅、違うのはココのみ
                 GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
                 HWND_DESKTOP,
                 NULL,

@@ -28,6 +28,8 @@ public:
     GgafDx9CriticalException(std::string prm_message, HRESULT prm_hr);
     //オーバーライド
     virtual std::string getMsg();
+
+    static std::string getHresultMsg(HRESULT prm_hr);
     virtual ~GgafDx9CriticalException();
 };
 
