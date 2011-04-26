@@ -787,6 +787,7 @@ void VirtualButton::clear() {
 }
 
 VirtualButton::~VirtualButton() {
+    DELETE_IMPOSSIBLE_NULL(_pRpy);
     VBRecord* pLast = _pVBRecord_Active->_next;
     VBRecord* pWk;
     for (VBRecord* p = _pVBRecord_Active->_prev; p != _pVBRecord_Active; p = p->_prev) {

@@ -63,20 +63,18 @@ bool VBReplayRecorder::importFile(const char* prm_filename) {
     _pFirstVBNote = p;
     _pRecNote = p;
     ifs >> (p->_state) >> (p->_frame_of_keeping);
-    _TRACE_((p->_state) << " " << (p->_frame_of_keeping));
 
     vbsta in_state;
     frame in_frame_of_keeping;
     while (!ifs.eof()) {
-        p->_pNext = NEW VBRecordNote();
-        p = p->_pNext;
         ifs >> in_state >> in_frame_of_keeping;
         if (ifs.fail()) {
             break;
         }
+        p->_pNext = NEW VBRecordNote();
+        p = p->_pNext;
         p->_state = in_state;
         p->_frame_of_keeping = in_frame_of_keeping;
-        _TRACE_("import... "<<(p->_state) << " " << (p->_frame_of_keeping));
     }
     this->first();
     return true;
