@@ -362,7 +362,6 @@ public:
         _pFunc_calcRotMvWorldMatrix = prm_pFunc;
     }
 
-
     /**
      * モデルの境界球半径の倍率設定。
      * 境界球半径とは、ローカル座標の原点から全頂点の距離で最大の長さで、
@@ -373,14 +372,13 @@ public:
      * setBoundingSphereRadiusRate(5.0)<BR>
      * <BR>
      * とすると、画面外判定が正しくなる。<BR>
-     * 注意は、モデル１に対して１つしか設定出来無いということ。<BR>
-     * 複数のアクターでバラバラの拡大表示をする場合は、最大の拡大のものを採用するしか無い。<BR>
+     * 画面外判定が正しくなるとは、具体的には、isOutOfView() の判定計算時に影響を与える
+     * という意味である。<BR>
      * @param prm_rate 拡大率
      */
     virtual void setBoundingSphereRadiusRate(FLOAT prm_rate) {
         _rate_BoundingSphereRadius = prm_rate;
     }
-
 
     /**
      * デストラクタ
