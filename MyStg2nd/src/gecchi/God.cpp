@@ -16,8 +16,8 @@ God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd)
     _pSpline3DManager = NEW Spline3DManager("Spline3DManager");
     _pSplineManager = NEW SplineManager("SplineManager");
 
-    God::_pVbtn_PLAY = NEW VirtualButton();
-    God::_pVbtn_UI   = NEW VirtualButton();
+    God::_pVbtn_PLAY = NEW VirtualButton("VB_PLAY.rep");
+    God::_pVbtn_UI   = NEW VirtualButton("VB_UI.rep");
     God::_pVbtn_Active = God::_pVbtn_UI;
     God::_pVbtn_Active_next_frame = God::_pVbtn_UI;
 
@@ -65,6 +65,15 @@ GgafUniverse* God::createUniverse() {
 
 void God::clean() {
     if (!_was_cleaned) {
+
+        if (!VB_PLAY->_is_replaying) {
+            _TRACE_("write VB_PLAY.rep");
+            VB_PLAY->_pRpy->outputFile("VB_PLAY.rep");
+        }
+        if (!VB_UI->_is_replaying) {
+            _TRACE_("write VB_UI.rep");
+            VB_UI->_pRpy->outputFile("VB_UI.rep");
+        }
         _TRACE_("God::clean() begin");
         DefaultGod::clean();
         DELETE_IMPOSSIBLE_NULL(_pVbtn_PLAY);

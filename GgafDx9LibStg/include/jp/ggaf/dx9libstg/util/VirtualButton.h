@@ -53,7 +53,7 @@ namespace GgafDx9LibStg {
  * @since 2008/09/08
  * @author Masatoshi Tsuge
  */
-class VirtualButton {
+class VirtualButton : public GgafCore::GgafObject {
 
 public:
 
@@ -121,13 +121,16 @@ public:
     /** オートリピート中ならば true */
     bool _is_auto_repeat;
 
+    VBReplayRecorder* _pRpy;
+
     static keymap _mapDIK;
     static bool _is_init;
 
+    bool _is_replaying;
 
 
 
-    VirtualButton();
+    VirtualButton(const char* prm_replay_file);
 
     VBRecord* _pVBRecord_Active; //現在フレームの入力状態
 

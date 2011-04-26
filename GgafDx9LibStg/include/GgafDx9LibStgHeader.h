@@ -23,7 +23,7 @@ class DefaultUniverse;
 class DefaultCamera;
 class StgUtil;
 class VirtualButton;
-class VBRecorder;
+class VBReplayRecorder;
 class AmountGraph;
 
 class DefaultScene;
@@ -89,7 +89,7 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/util/StgUtil.h"
 
 #include "jp/ggaf/dx9libstg/util/VirtualButton.h"
-#include "jp/ggaf/dx9libstg/util/VBRecorder.h"
+#include "jp/ggaf/dx9libstg/util/VBReplayRecorder.h"
 #include "jp/ggaf/dx9libstg/util/AmountGraph.h"
 
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
