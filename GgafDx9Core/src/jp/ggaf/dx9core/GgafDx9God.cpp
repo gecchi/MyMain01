@@ -17,7 +17,8 @@ D3DLIGHT9 GgafDx9God::_d3dlight9_temp;
 DWORD GgafDx9God::_dwAmbientBrightness_default = 0xff404040;
 
 RECT GgafDx9God::_rectPresentDest;
-
+RECT*  GgafDx9God::_pRectHarfLeft = NULL;
+RECT*  GgafDx9God::_pRectHarfRight = NULL;
 //double GgafDx9God::_cameraZ = 0;
 //double GgafDx9God::_cameraZ_org = 0;
 //double GgafDx9God::_tan_half_fovY = 0;
@@ -726,8 +727,10 @@ void GgafDx9God::presentUniversalVisualize() {
 //            }
 //            if(FAILED(m_pd3dDevice->GetDepthStencilSurface(&m_pZBuffer))){
 //            }
-
-
+            RELEASE_SAFETY(pBackBuffer00);
+            RELEASE_SAFETY(pBackBuffer01);
+            RELEASE_SAFETY(pSwapChain00);
+            RELEASE_SAFETY(pSwapChain01);
 
         } else if (_FULLSCRREEN) {
             //フルスクリーン
