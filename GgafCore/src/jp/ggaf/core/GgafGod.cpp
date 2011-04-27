@@ -200,6 +200,7 @@ void GgafGod::clean() {
             //工場を止める
             Sleep(10);
             GgafFactory::_is_working_flg = false;
+            _TRACE_("GgafGod::~GgafGod() 工場が落ち着くまで待つ・・・");
             for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
                 Sleep(60); //工場が落ち着くまで待つ
                 if (i > 3000) {
@@ -207,12 +208,13 @@ void GgafGod::clean() {
                     break;
                 }
             }
+            _TRACE_("GgafGod::~GgafGod() 工場が落ち着きました");
             //排他の解除
-            _TRACE_("GgafGod::~GgafGod() 排他を解除しようとしています・・・");
-            ___EndSynchronized; // <----- 排他終了
-            ___BeginSynchronized; // ----->排他開始
-            ___EndSynchronized; // <----- 排他終了
-            _TRACE_("GgafGod::~GgafGod() 排他解除OK");
+//            _TRACE_("GgafGod::~GgafGod() 排他を解除しようとしています・・・");
+//            ___EndSynchronized; // <----- 排他終了
+//            ___BeginSynchronized; // ----->排他開始
+//            ___EndSynchronized; // <----- 排他終了
+//            _TRACE_("GgafGod::~GgafGod() 排他解除OK");
 
             CloseHandle(_handleFactory01);
             DeleteCriticalSection(&(GgafGod::CS2));

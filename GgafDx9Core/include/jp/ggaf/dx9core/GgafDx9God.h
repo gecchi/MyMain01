@@ -51,6 +51,7 @@ public:
     static int _iNumAdapter;
     static RECT*  _pRectHarfLeft;
     static RECT*  _pRectHarfRight;
+    static POINT* _pPoint;
     /**
      * コンストラクタ<BR>
      */
