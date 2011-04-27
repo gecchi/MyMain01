@@ -63,8 +63,8 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
         return; //親空間へ戻る
     } else {
         //もぐる。が、その前に親空間アクターのスタックへ追加(現空間スタックも開放)
-        int add_num_GroupA, add_num_GroupB;
-        add_num_GroupA = add_num_GroupB = 0;
+        int add_num_GroupA = 0;
+        int add_num_GroupB = 0;
         GgafActor* pActor;
         while (true) {
             pActor = _stackCurrentSpaceActor_GroupA.pop();
@@ -108,15 +108,17 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
 void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB) {
     //TEXT5("prm_pStackA:"); prm_pStackA->dump(); TEXT5("\n");
     //TEXT5("prm_pStackB:"); prm_pStackB->dump(); TEXT5("\n");
-    //両方無ければ終了
-    if (prm_pStackA->_p == 0 || prm_pStackB->_p == 0) {
+    //どちらか無ければ終了
+    UINT32 num_stackA = prm_pStackA->_p;
+    UINT32 num_stackB = prm_pStackB->_p;
+    if (num_stackA == 0 || num_stackB == 0) {
         return;
     }
     GgafActor* pActor_A;
     GgafActor* pActor_B;
-    for (UINT32 i = 0; i < prm_pStackA->_p; i++) {
+    for (UINT32 i = 0; i < num_stackA; i++) {
         pActor_A = prm_pStackA->_apActor[i];
-        for (UINT32 j = 0; j < prm_pStackB->_p; j++) {
+        for (UINT32 j = 0; j < num_stackB; j++) {
             pActor_B = prm_pStackB->_apActor[j];
 //            if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
 //                _TRACE_("HitChk("<<pActor_A->getName()<<" x "<<pActor_B->getName()<<")");

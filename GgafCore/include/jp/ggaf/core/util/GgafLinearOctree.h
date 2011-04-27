@@ -184,7 +184,7 @@ public:
      * @param tZ2 〃
      * @return 空間配列要素番号 又は -1
      */
-    virtual UINT32 getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
+//    virtual UINT32 getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
 
 //    /**
 //     * 座標→線形8分木空間要素番号、の変換 .

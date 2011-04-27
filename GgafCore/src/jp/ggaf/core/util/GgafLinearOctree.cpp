@@ -35,64 +35,19 @@ void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int 
 }
 
 void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
-    UINT32 index = getSpatialIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
-    if (index == 0xffffffff) {
-        return; //空間外は登録しない
-    }
-
-#ifdef MY_DEBUG
-    if (index > _num_space-1) {
-        throwGgafCriticalException(
-           "GgafLinearOctree::registElem() 空間オーバー !. \n"<<
-           "ElemObj="<<(((GgafActor*)(prm_pElem->_pObject))->getName())<<"(場所:"<<(prm_pElem->_pObject)<<")\n"<<
-           "Root=("<<_root_X1<<","<<_root_Y1<<","<<_root_Z1<<")-("<<_root_X2<<","<<_root_Y2<<","<<_root_Z2<<")\n"<<
-           "Elem=("<<tX1<<","<<tY1<<","<<tZ1<<")-("<<tX2<<","<<tY2<<","<<tZ2<<")\n"<<
-           "index="<<index<<" _num_space="<<_num_space
-        );
-    }
-#endif
-
-    if (prm_pElem->_pSpace_Current == NULL) {
-        //登録Elemリストに追加
-        if (_pRegElemFirst == NULL) {
-            prm_pElem->_pRegLinkNext = NULL;
-            _pRegElemFirst = prm_pElem;
-        } else {
-            prm_pElem->_pRegLinkNext = _pRegElemFirst;
-            _pRegElemFirst = prm_pElem;
-        }
-    }
-
-    //空間座標インデックス
-    prm_pElem->_pLinearOctree = this;
-    prm_pElem->addElem(&(_paSpace[index]));
 
 
-//    if (index > _num_space-1) {
-//        //_TRACE_("over space!!");
-//        prm_pElem->extract();
-//    } else {
-//        prm_pElem->moveToSpace(_paSpace[index]);
-//    }
-}
-void GgafLinearOctree::clearElem() {
-    if (_pRegElemFirst == NULL) {
-        return;
-    }
-    GgafLinearOctreeElem* pElem = _pRegElemFirst;
-    while(true) {
 
-        pElem->extract();
-        pElem = pElem -> _pRegLinkNext;
-        if (pElem == NULL) {
-            break;
-        }
 
-    }
-    _pRegElemFirst = NULL;
-}
 
-UINT32 GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////
 
     //はみ出る場合は補正
     if (tX1 <= _root_X1)  { tX1 = _root_X1+1; }
@@ -101,11 +56,14 @@ UINT32 GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int
     if (tY2 >= _root_Y2)  { tY2 = _root_Y2-1; }
     if (tZ1 <= _root_Z1)  { tZ1 = _root_Z1+1; }
     if (tZ2 >= _root_Z2)  { tZ2 = _root_Z2-1; }
+    UINT32 index = 0xffffffff;
 
-    //軸座標が裏返った場合、つまりLevel0より完全に外になる場合は無視するために0xffffffffを返す
+    //軸座標の大小が裏返った場合、つまりLevel0より外か、Level0全体より大きい場合は無視する
     if (tX1 >= tX2 || tY1 >= tY2 || tZ1 >= tZ2) {
-        return 0xffffffff;
+        return; //空間外は登録しない
+//        index =  0xffffffff;
     }
+
 
     //まず、BOXの所属空間 Level と、その空間Levelのモートン順序通し空間番号を求める
 
@@ -197,7 +155,7 @@ UINT32 GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int
     // あとはこれを配列Indexに変換するのみ
 
     //所属空間(シフト回数)とその空間のモートン順序通し空間番号から線形八分木配列の要素番号を求める
-    int index = (int)morton_order_space_num + (_paPow[_top_space_level-shift_num]-1)/7;
+    index = morton_order_space_num + (_paPow[_top_space_level-shift_num]-1)/7;
     //(_paPow[_top_space_level-shift_num]-1)/7;
     //は、線形八分木空間配列の、所属空間レベルの最初の空間の要素番号をあらわす。
     //等比数列の和
@@ -242,9 +200,238 @@ UINT32 GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int
     }
 #endif
 
+    //return index;
+/////////////////////////////////////////////////////////////////
 
-    return index;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    UINT32 index = getSpatialIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
+//    if (index == 0xffffffff) {
+//        return; //空間外は登録しない
+//    }
+
+//#ifdef MY_DEBUG
+//    if (index > _num_space-1) {
+//        throwGgafCriticalException(
+//           "GgafLinearOctree::registElem() 空間オーバー !. \n"<<
+//           "ElemObj="<<(((GgafActor*)(prm_pElem->_pObject))->getName())<<"(場所:"<<(prm_pElem->_pObject)<<")\n"<<
+//           "Root=("<<_root_X1<<","<<_root_Y1<<","<<_root_Z1<<")-("<<_root_X2<<","<<_root_Y2<<","<<_root_Z2<<")\n"<<
+//           "Elem=("<<tX1<<","<<tY1<<","<<tZ1<<")-("<<tX2<<","<<tY2<<","<<tZ2<<")\n"<<
+//           "index="<<index<<" _num_space="<<_num_space
+//        );
+//    }
+//#endif
+
+    if (prm_pElem->_pSpace_Current == NULL) {
+        //登録Elemリストに追加
+        if (_pRegElemFirst == NULL) {
+            prm_pElem->_pRegLinkNext = NULL;
+            _pRegElemFirst = prm_pElem;
+        } else {
+            prm_pElem->_pRegLinkNext = _pRegElemFirst;
+            _pRegElemFirst = prm_pElem;
+        }
+    }
+
+    //空間座標インデックス
+    prm_pElem->_pLinearOctree = this;
+    prm_pElem->addElem(&(_paSpace[index]));
+
+
+//    if (index > _num_space-1) {
+//        //_TRACE_("over space!!");
+//        prm_pElem->extract();
+//    } else {
+//        prm_pElem->moveToSpace(_paSpace[index]);
+//    }
 }
+void GgafLinearOctree::clearElem() {
+    if (_pRegElemFirst == NULL) {
+        return;
+    }
+    GgafLinearOctreeElem* pElem = _pRegElemFirst;
+    while(true) {
+
+        pElem->extract();
+        pElem = pElem -> _pRegLinkNext;
+        if (pElem == NULL) {
+            break;
+        }
+
+    }
+    _pRegElemFirst = NULL;
+}
+
+//UINT32 GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
+//
+//    //はみ出る場合は補正
+//    if (tX1 <= _root_X1)  { tX1 = _root_X1+1; }
+//    if (tX2 >= _root_X2)  { tX2 = _root_X2-1; }
+//    if (tY1 <= _root_Y1)  { tY1 = _root_Y1+1; }
+//    if (tY2 >= _root_Y2)  { tY2 = _root_Y2-1; }
+//    if (tZ1 <= _root_Z1)  { tZ1 = _root_Z1+1; }
+//    if (tZ2 >= _root_Z2)  { tZ2 = _root_Z2-1; }
+//
+//    //軸座標が裏返った場合、つまりLevel0より完全に外になる場合は無視するために0xffffffffを返す
+//    if (tX1 >= tX2 || tY1 >= tY2 || tZ1 >= tZ2) {
+//        return 0xffffffff;
+//    }
+//
+//    //まず、BOXの所属空間 Level と、その空間Levelのモートン順序通し空間番号を求める
+//
+//    //BOXの左下手前のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
+//    UINT32 minnum_in_toplevel = getMortonOrderNumFromXYZindex(
+//                                  (UINT32)((tX1 - _root_X1) / _top_level_dX),
+//                                  (UINT32)((tY1 - _root_Y1) / _top_level_dY),
+//                                  (UINT32)((tZ1 - _root_Z1) / _top_level_dZ)
+//                                );
+//
+//    //BOXの右上奥のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
+//    UINT32 maxnum_in_toplevel = getMortonOrderNumFromXYZindex(
+//                                  (UINT32)((tX2 - _root_X1) / _top_level_dX),
+//                                  (UINT32)((tY2 - _root_Y1) / _top_level_dY),
+//                                  (UINT32)((tZ2 - _root_Z1) / _top_level_dZ)
+//                                );                 //↑_root_X2,_root_Y2,_root_Z2 と間違えていません。
+//
+//
+//    //引数のBOXは、どのレベルの空間に所属しているのか取得
+//    UINT32 differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
+//    UINT32 shift_num = 0;
+//    for(UINT32 i = 0; i < (UINT32)_top_space_level; i++) {
+//        if (((differ_bit_pos>>(i*3)) & 0x7) != 0 ) {
+//            shift_num = i+1;
+//        }
+//    }
+//    //xorしたdiffer_bit_pos を 右に3ビットシフトしつつ、マスク &B111(&H7) でANDを取り、&B000 でなくなっている位置をしらべる。
+//    //これは differ_bit_pos を ３ビットに区切り、その3ビットが食い違っている箇所をしらべている
+//    //食い違う3ビットの位置は、そのレベルのモトーン順序位置が食い違っていることを意味する。
+//    //最も遠い3ビットが食い違っている箇所(シフト回数＝shift_num)より所属空間レベルがわかる
+//    //最大空間分割Level = 5として、左下手前が6001番、右上奥を6041番に所属していたBOXを例にすると
+//    //
+//    //各レベル空間のモートン順序位置 lv0 lv1 lv2 lv3 lv4 lv5
+//    //     6001 = 00 000 000 000 000 000 001 011 101 110 001
+//    // XOR)6041 = 00 000 000 000 000 000 001 011 110 011 001
+//    // -----------------------------------------------------
+//    //      232 = 00 000 000 000 000 000 000 000 011 101 000
+//    //
+//    //                                                   111
+//    //                                               111
+//    //                                           111
+//    //                                       111
+//    //  AND)                             111     <--- ここまで行って、最も遠い3ビットが食い違っている箇所が3回目だったことが解る
+//    // ------------------------------------------------------
+//    //                                   000 000 011 101 000
+//    //                                    o   o   x   x   o      if (differ_bit_pos>>(i*3)) & 0x7 != 0 ) の判定
+//    //                                    5   4   3   2   1   0   shift_num(シフト回数)
+//    //
+//    //   上記より、6001番と6041番は空間レベル1、レベル2 までは同じ空間レベルに属していたが、
+//    //   空間レベル3からモートン順序位置が異なってしまうことが解る。したがって、
+//    //   「所属空間レベル」はLv2空間であると確定できる。これを調べるために
+//    //   XORが0以外になる最高のシフト回数  shift_num = 3回 を求める。
+//    //   求めるためには、右に3ビットシフトして 0x7 で ANDを調べることを繰り返す必要があるということだ。
+//    //   要は shift_num のシフト回数を調べれば、所属空間レベルが解る！
+//
+//    //もしXOR結果が
+//    // 000 000 000 000 000 000 000 111 の場合ならば shift_num=1
+//    //これは
+//    //最大空間分割Level=5 の場合は所属空間レベルは4(=空間レベル5で食い違う)
+//    //最大空間分割Level=8 の場合は所属空間レベルは7(=空間レベル8で食い違う)
+//
+//    // 000 000 000 111 110 000 101 111 などの場合は shift_num=5
+//    //これは
+//    //最大空間分割Level=5 の場合は所属空間レベルは0 つまりルート空間レベル所属
+//    //最大空間分割Level=8 の場合は所属空間レベルは4
+//
+//    //まとめると
+//    //最大空間分割Level = 5 の場合
+//    //shift_num   = 0 1 2 3 4 5
+//    //所属空間Level = 5 4 3 2 1 0
+//    //最大空間分割Level=8 の場合
+//    //shift_num   = 0 1 2 3 4 5 6 7 8
+//    //所属空間Level = 8 7 6 5 4 3 2 1 0
+//
+//    //所属空間のモートン順序の通し空間番号を求める
+//    UINT32 morton_order_space_num = minnum_in_toplevel>>(shift_num*3);
+//    //不揃いの下位のビットを3ビット単位で除去し、所属のモートン順序番号を求める
+//    //
+//    // minnum_in_toplevel>>(shift_num*3); について、
+//    // minnum_in_toplevel=6001 でも 6041でもどちらでもよく
+//    //        lv0 lv1 lv2 lv3 lv4 lv5          lv0 lv1 lv2
+//    // 6001 = 000 001 011 101 110 001   -->    000 001 011 = 11
+//    // 6041 = 000 001 011 110 011 001   -->    000 001 011 = 11
+//    //                    ^^^ ^^^ ^^^
+//    //                  (shift_num*3 ビット除去)
+//    //
+//    // のように不揃いのビットを右へシフトしている
+//    // これで、左下手前が6001番、右上奥を6041番としたBOXは、所属空間Lv2の場合は、モートン順序通し空間番号11番であったことがわかる。
+//    // あとはこれを配列Indexに変換するのみ
+//
+//    //所属空間(シフト回数)とその空間のモートン順序通し空間番号から線形八分木配列の要素番号を求める
+//    int index = (int)morton_order_space_num + (_paPow[_top_space_level-shift_num]-1)/7;
+//    //(_paPow[_top_space_level-shift_num]-1)/7;
+//    //は、線形八分木空間配列の、所属空間レベルの最初の空間の要素番号をあらわす。
+//    //等比数列の和
+//    //     Σr^k = r^0 + r^1 + r^2 + ... + r^n
+//    //(1-r)Σr^k = (1-r)(r^0 + r^1 + r^2 + ... + r^n)
+//    //          = (r^0 + r^1 + r^2 + ... + r^n) - (r^1 + r^2 + ... + r^n + r^(n+1))
+//    //          = 1 - r^(n+1)
+//    // ∴Σr^k = (1 - r^(n+1)) / (1 - r)
+//    //
+//    //線形8分木の配列要素の空間レベルｎまでの合計空関数は r=8 で
+//    //(1 - 8^(n+1)) / (1-8)  =  (1-8^(n+1)) / -7  =  (8^(n+1) - 1) / 7 となる
+//    //ここで、所属空間の最初の空間要素を求めるため、 n = 所属空間レベル-1 の計算値（親空間レベルまでの要素数）の、
+//    //その次の要素が所属空間レベルの先頭の要素になるはずだ！。という求め方をする。
+//    //したがって最後に値を +1 したものがほしい値であるが、配列は0番から始まるため +1 を省略してしまおう。
+//    //先の例でいうと shift_num = 3 で、最大空間分割Level(_top_space_level) = 5 であるので
+//    // 5 - 3 = 2 で所属空間レベルは 2
+//    // n = 2 - 1 = 1 を代入して  (8^(1+1) - 1) / 7 = 9 で
+//    //所属空間のレベル2より一つ親の空間レベルである、空間レベル1までの配列要素数合計は9個とわかる。
+//    //所望の所属空間レベルは 2の最初の空間は配列は 9+1 の10番目から始まる。
+//    //配列の10番目とは、配列要素番号は-1して9になる。
+//    //+1 して -1 するので結局、所属空間レベルxの最初の配列要素番号は  (8^x - 1) / 7 となる
+//
+//
+//#ifdef MY_DEBUG
+//    if (index > _num_space-1) {
+//
+//        _TRACE_(
+//           "GgafLinearOctree::registElem() 空間オーバー !. \n"<<
+//           "Root=("<<_root_X1<<","<<_root_Y1<<","<<_root_Z1<<")-("<<_root_X2<<","<<_root_Y2<<","<<_root_Z2<<")\n"<<
+//           "Elem=("<<tX1<<","<<tY1<<","<<tZ1<<")-("<<tX2<<","<<tY2<<","<<tZ2<<")\n"<<
+//           "_top_level_dX="<<_top_level_dX<<" _top_level_dY="<<_top_level_dY<<" _top_level_dZ="<<_top_level_dZ<<"\n"<<
+//           "minnum_in_toplevel="<<minnum_in_toplevel<<" maxnum_in_toplevel="<<maxnum_in_toplevel<<"\n"<<
+//           "differ_bit_pos="<<differ_bit_pos<<" shift_num="<<shift_num<<" morton_order_space_num="<<morton_order_space_num<<"\n"<<
+//           "index="<<index<<" _num_space="<<_num_space
+//        );
+//        _TRACE_("Min_X_index="<<((UINT32)((tX1 - _root_X1) / _top_level_dX)));
+//        _TRACE_("Min_Y_index="<<((UINT32)((tY1 - _root_Y1) / _top_level_dY)));
+//        _TRACE_("Min_Z_index="<<((UINT32)((tZ1 - _root_Z1) / _top_level_dZ)));
+//        _TRACE_("Man_X_index="<<((UINT32)((tX2 - _root_X1) / _top_level_dX)));
+//        _TRACE_("Man_Y_index="<<((UINT32)((tY2 - _root_Y1) / _top_level_dY)));
+//        _TRACE_("Man_Z_index="<<((UINT32)((tZ2 - _root_Z1) / _top_level_dZ)));
+//    }
+//#endif
+//
+//
+//    return index;
+//}
 
 
 GgafLinearOctree::~GgafLinearOctree() {
