@@ -51,13 +51,26 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
 HRESULT GgafDx9God::init() {
     _FULLSCRREEN = GGAFDX9_PROPERTY(FULL_SCREEN);
     _MULTI_SCREEN = GGAFDX9_PROPERTY(MULTI_SCREEN);
+
+    _pRectHarfRight = NEW RECT;
+    _pRectHarfRight->left =  GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
+    _pRectHarfRight->top = 0;
+    _pRectHarfRight->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)-1;
+    _pRectHarfRight->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
+
+    _pRectHarfLeft = NEW RECT;
+    _pRectHarfLeft->left = 0;
+    _pRectHarfLeft->top = 0;
+    _pRectHarfLeft->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
+    _pRectHarfLeft->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
+
     _rectPresentDest.left = 0;
     _rectPresentDest.top = 0;
-	if (_FULLSCRREEN && _MULTI_SCREEN) {
-		_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
-	} else {
-		_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
-	}
+    if (_FULLSCRREEN && _MULTI_SCREEN) {
+        _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
+    } else {
+        _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
+    }
     _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
 
     HRESULT hr;
@@ -89,15 +102,19 @@ HRESULT GgafDx9God::init() {
     _d3dparam[0].BackBufferHeight = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
     //_d3dparam[0].BackBufferHeight = GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT);
     //バックバッファの横サイズ
-	if (_FULLSCRREEN && _MULTI_SCREEN) {
-		_d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
-	} else {
-		_d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
-	}
+    if (_FULLSCRREEN && _MULTI_SCREEN) {
+        _d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH); // /2
+    } else if (_FULLSCRREEN) {
+        _d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH); // /2
+    } else {
+        _d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
+    }
 
     //_d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH);
     //バックバッファのフォーマット
-    if (_FULLSCRREEN) {
+    if (_FULLSCRREEN && _MULTI_SCREEN) {
+        _d3dparam[0].BackBufferFormat = D3DFMT_X8R8G8B8;
+    } else if (_FULLSCRREEN) {
         _d3dparam[0].BackBufferFormat = D3DFMT_X8R8G8B8;//D3DFMT_A8R8G8B8;//D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
     } else {
         _d3dparam[0].BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
@@ -108,7 +125,9 @@ HRESULT GgafDx9God::init() {
     _d3dparam[0].BackBufferCount = 1;
 
     //スワップ効果を指定する
-    if (_FULLSCRREEN) {
+    if (_FULLSCRREEN && _MULTI_SCREEN) {
+        _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
+    } else if (_FULLSCRREEN) {
         _d3dparam[0].SwapEffect = D3DSWAPEFFECT_DISCARD;
     } else {
         _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
@@ -117,7 +136,9 @@ HRESULT GgafDx9God::init() {
     //ウィンドウハンドル
     _d3dparam[0].hDeviceWindow = _hWnd;
     //ウィンドウモード
-    if (_FULLSCRREEN) {
+    if (_FULLSCRREEN && _MULTI_SCREEN) {
+        _d3dparam[0].Windowed = false; //フルスクリーン時
+    } else if (_FULLSCRREEN) {
         _d3dparam[0].Windowed = false; //フルスクリーン時
     } else {
         _d3dparam[0].Windowed = true; //ウィンドウ時
@@ -136,7 +157,9 @@ HRESULT GgafDx9God::init() {
         _d3dparam[0].FullScreen_RefreshRateInHz = 0; //ウィンドウ時
     }
     //スワップのタイミング
-    if (_FULLSCRREEN) {
+    if (_FULLSCRREEN && _MULTI_SCREEN) {
+        _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
+    } else if (_FULLSCRREEN) {
         _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
     } else {
         _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
@@ -234,7 +257,7 @@ HRESULT GgafDx9God::init() {
     // <------------------------------------------------ NVIDIA PerfHUD 用 end
 
 
-    //2画面
+    //2画面の設定
     //http://www.shader.jp/xoops/html/masafumi/directx9/3dtips/d3d15.htm
     if (_FULLSCRREEN && _MULTI_SCREEN) {
         _d3dparam[1] = _d3dparam[0]; //共通が多いため
@@ -277,7 +300,7 @@ HRESULT GgafDx9God::init() {
             _hInstance,
             NULL);
 
-
+        _d3dparam[1].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2; //プライマリ以外はバックバッファは一致して良い
 
 
 //        _d3dparam[1].hDeviceWindow = CreateWindow(
@@ -671,7 +694,42 @@ void GgafDx9God::presentUniversalVisualize() {
         HRESULT hr;
 //        hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
 
-        if (_FULLSCRREEN) {
+
+
+        if (_FULLSCRREEN && _MULTI_SCREEN) {
+            LPDIRECT3DSWAPCHAIN9 pSwapChain00 = NULL;//アダプタに関連付けれられたスワップチェーン
+            LPDIRECT3DSURFACE9 pBackBuffer00 = NULL;//バックバッファ２画面分
+            LPDIRECT3DSWAPCHAIN9 pSwapChain01 = NULL;//アダプタに関連付けれられたスワップチェーン
+            LPDIRECT3DSURFACE9 pBackBuffer01 = NULL;//バックバッファ１画面分
+            //アダプタに関連付けられたスワップチェーンを取得してバックバッファも取得
+            hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 1, &pSwapChain00 );
+            checkDxException(hr, D3D_OK, "0GetSwapChain() に失敗しました。");
+            hr = pSwapChain01->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer00 );
+            checkDxException(hr, D3D_OK, "0GetBackBuffer() に失敗しました。");
+
+            hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 1, &pSwapChain01 );
+            checkDxException(hr, D3D_OK, "1GetSwapChain() に失敗しました。");
+            hr = pSwapChain01->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer01 );
+            checkDxException(hr, D3D_OK, "1GetBackBuffer() に失敗しました。");
+
+
+            //プライマリバックバッファの右半分をセカンダリバックバッファへコピー
+            hr = GgafDx9God::_pID3DDevice9->UpdateSurface( pBackBuffer00, _pRectHarfRight, pBackBuffer01, NULL);
+            checkDxException(hr, D3D_OK, "UpdateSurface() に失敗しました。");
+            //コピーフリップ
+            hr = pSwapChain00->Present(_pRectHarfLeft, NULL, NULL, NULL,0);
+            checkDxException(hr, D3D_OK, "0Present() に失敗しました。");
+            hr = pSwapChain01->Present(NULL, NULL, NULL, NULL,0);
+            checkDxException(hr, D3D_OK, "1Present() に失敗しました。");
+//            //バックバッファとZバッファを取得する
+//            if(FAILED(m_pd3dDevice->GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&m_pBackBuffer))){
+//            }
+//            if(FAILED(m_pd3dDevice->GetDepthStencilSurface(&m_pZBuffer))){
+//            }
+
+
+
+        } else if (_FULLSCRREEN) {
             //フルスクリーン
             hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
         } else {

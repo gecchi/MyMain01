@@ -49,6 +49,8 @@ public:
     static bool _FULLSCRREEN;
     static bool _MULTI_SCREEN;
     static int _iNumAdapter;
+    static RECT*  _pRectHarfLeft;
+    static RECT*  _pRectHarfRight;
     /**
      * コンストラクタ<BR>
      */
