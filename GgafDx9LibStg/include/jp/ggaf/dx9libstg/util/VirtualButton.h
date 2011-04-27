@@ -108,7 +108,6 @@ public:
         vbsta _state;
 
         VBRecord() {
-            //for (int i = 0; i < VB_NUM; i++) {_state[i] = false;}
             _next = NULL;
             _prev = NULL;
             _state = (vbsta)0;

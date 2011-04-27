@@ -202,19 +202,22 @@ void GgafGod::clean() {
             GgafFactory::_is_working_flg = false;
             for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
                 Sleep(60); //工場が落ち着くまで待つ
-                if (i > 2000) {
-                    _TRACE_("GgafGod::~GgafGod() ２分待機しましたが、工場から反応がありません。breakします。要調査");
+                if (i > 3000) {
+                    _TRACE_("GgafGod::~GgafGod() ３分待機しましたが、工場から反応がありません。強制breakします。要調査");
+                    break;
                 }
             }
             //排他の解除
-            _TRACE_("GgafGod::~GgafGod() 排他が取れるかチェックしています・・・");
+            _TRACE_("GgafGod::~GgafGod() 排他を解除しようとしています・・・");
+            ___EndSynchronized; // <----- 排他終了
             ___BeginSynchronized; // ----->排他開始
             ___EndSynchronized; // <----- 排他終了
-            _TRACE_("GgafGod::~GgafGod() 排他OK");
+            _TRACE_("GgafGod::~GgafGod() 排他解除OK");
 
             CloseHandle(_handleFactory01);
             DeleteCriticalSection(&(GgafGod::CS2));
             DeleteCriticalSection(&(GgafGod::CS1));
+            _TRACE_("GgafGod::~GgafGod() クリティカルセクション解除");
 
     #ifdef MY_DEBUG
             //ツリー構造表示

@@ -33,10 +33,10 @@ void ColliAABActor::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
         GgafDx9CollisionArea* pCollisionArea = prm_pCollisionChecker->_pCollisionArea;
         int iAreaNum = pCollisionArea->_nColliPart;
         if (iAreaNum > 0) {
+            GgafDx9CollisionPart** papColliPart = pCollisionArea->_papColliPart;
             for (int i = 0; i < iAreaNum; i++) {
-
-                if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AAB) {
-                    ColliAAB* box = (ColliAAB*)pCollisionArea->_papColliPart[i];
+                if (papColliPart[i]->_is_valid_flg && papColliPart[i]->_shape_kind == COLLI_AAB) {
+                    ColliAAB* box = (ColliAAB*)papColliPart[i];
                     //_TRACE_("drawHitarea name="<<prm_pCollisionChecker->getTargetActor()->getName()<<" index="<<i);
 
                     drawBox(pActor->_X + box->_x1,

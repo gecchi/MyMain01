@@ -603,8 +603,9 @@ void GgafDx9God::makeUniversalMaterialize() {
             ___EndSynchronized; // <----- 排他終了
             for (int i = 0; GgafFactory::isResting() == false; i++) {
                 Sleep(60); //工場が落ち着くまで待つ
-                if (i > 2000) {
-                    _TRACE_("GgafDx9God::makeUniversalMaterialize() ２分待機しましたが、工場から反応がありません。要調査");
+                if (i > 3000) {
+                    _TRACE_("GgafDx9God::makeUniversalMaterialize() 3分待機しましたが、工場から反応がありません。強制breakします。要調査");
+                    break;
                 }
             }
             //            while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ

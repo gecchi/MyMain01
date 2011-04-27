@@ -116,39 +116,41 @@ void CollisionChecker::setColliAAPrism(int prm_index,
 
 
 void CollisionChecker::updateHitArea() {
-    if (_pActor == NULL || _pCollisionArea == NULL) {
+    GgafDx9GeometricActor* pActor = _pActor;
+    GgafDx9CollisionArea* pCollisionArea = _pCollisionArea;
+    if (pActor == NULL || pCollisionArea == NULL) {
         return;
     }
     //if (_pActor->_can_hit_flg && _pActor->isActiveActor() && _pActor->isOutOfView() == 0 ) {  //Ž‹–ìŠO‚Í“o˜^‚µ‚È‚¢
-    if (_pActor->_can_hit_flg && _pActor->isActiveActor() ) {
+    if (pActor->_can_hit_flg && pActor->isActiveActor() ) {
         GgafDx9CollisionPart* pColliPart;
-        for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
+        for (int i = 0; i < pCollisionArea->_nColliPart; i++) {
 #ifdef MY_DEBUG
             if (_pCollisionArea->_papColliPart[i] == NULL) {
                 throwGgafCriticalException("CollisionChecker::updateHitArea()["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]‚ªNULL‚Å‚·B");
             }
 #endif
-            pColliPart = _pCollisionArea->_papColliPart[i];
+            pColliPart = pCollisionArea->_papColliPart[i];
 
             if (pColliPart->_rotX || pColliPart->_rotY || pColliPart->_rotZ) {
-                pColliPart->rotateRxRzRy(_pActor->_RX, _pActor->_RY, _pActor->_RZ);
+                pColliPart->rotateRxRzRy(pActor->_RX, pActor->_RY, pActor->_RZ);
                 _need_update_aabb = true;
             }
         }
         if (_need_update_aabb) {
             //ÅŠOˆæ‚ÌAABBXV
-            _pCollisionArea->updateAABB();
+            pCollisionArea->updateAABB();
             _need_update_aabb = false;
         }
 
         //‚W•ª–Ø‚É“o˜^I
-        _pElem->_kindbit = _pActor->getGroupActor()->_kind;
-        _pLinearOctree->registElem(_pElem, _pActor->_X + _pCollisionArea->_AABB_X1,
-                                           _pActor->_Y + _pCollisionArea->_AABB_Y1,
-                                           _pActor->_Z + _pCollisionArea->_AABB_Z1,
-                                           _pActor->_X + _pCollisionArea->_AABB_X2,
-                                           _pActor->_Y + _pCollisionArea->_AABB_Y2,
-                                           _pActor->_Z + _pCollisionArea->_AABB_Z2);
+        _pElem->_kindbit = pActor->getGroupActor()->_kind;
+        _pLinearOctree->registElem(_pElem, pActor->_X + pCollisionArea->_AABB_X1,
+                                           pActor->_Y + pCollisionArea->_AABB_Y1,
+                                           pActor->_Z + pCollisionArea->_AABB_Z1,
+                                           pActor->_X + pCollisionArea->_AABB_X2,
+                                           pActor->_Y + pCollisionArea->_AABB_Y2,
+                                           pActor->_Z + pCollisionArea->_AABB_Z2);
 
 #ifdef MY_DEBUG
 //        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
