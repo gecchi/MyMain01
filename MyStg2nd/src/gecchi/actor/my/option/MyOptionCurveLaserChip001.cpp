@@ -5,17 +5,17 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
-        CurveLaserChip(prm_name, "MyCurveLaserChip001") {
-    _class_name = "MyCurveLaserChip001";
-    MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
+MyOptionCurveLaserChip001::MyOptionCurveLaserChip001(const char* prm_name) :
+        CurveLaserChip(prm_name, "MyOptionCurveLaserChip001") {
+    _class_name = "MyOptionCurveLaserChip001";
+    MyStgUtil::resetMyOptionCurveLaserChip001Status(_pStatus);
     _default_stamina = _pStatus->get(STAT_Stamina);
     _pOrg = NULL;
     _lockon = 0;
-
+    _isLockon = false;
 }
 
-void MyCurveLaserChip001::initialize() {
+void MyOptionCurveLaserChip001::initialize() {
     _pKuroko->relateRzRyFaceAngToMvAng(true);
     registHitAreaCube(80000);
     setHitAble(true);
@@ -25,8 +25,8 @@ void MyCurveLaserChip001::initialize() {
 
 }
 
-void MyCurveLaserChip001::onActive() {
-    MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
+void MyOptionCurveLaserChip001::onActive() {
+    MyStgUtil::resetMyOptionCurveLaserChip001Status(_pStatus);
     _default_stamina = _pStatus->get(STAT_Stamina);
     CurveLaserChip::onActive();
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
@@ -42,8 +42,8 @@ void MyCurveLaserChip001::onActive() {
             _isLockon = true;
         } else {
             //先端以外
-            _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
-            _isLockon = ((MyCurveLaserChip001*) _pChip_front)->_isLockon;//一つ前のロックオン情報を引き継ぐ
+            _lockon = ((MyOptionCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+            _isLockon = ((MyOptionCurveLaserChip001*) _pChip_front)->_isLockon;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
         if (_pChip_front == NULL) {
@@ -51,8 +51,8 @@ void MyCurveLaserChip001::onActive() {
             _lockon = 0;
         } else {
             //先端以外
-            _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
-            _isLockon = ((MyCurveLaserChip001*) _pChip_front)->_isLockon;//一つ前のロックオン情報を引き継ぐ
+            _lockon = ((MyOptionCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+            _isLockon = ((MyOptionCurveLaserChip001*) _pChip_front)->_isLockon;//一つ前のロックオン情報を引き継ぐ
         }
     }
     _renge = 150000;
@@ -63,7 +63,7 @@ void MyCurveLaserChip001::onActive() {
 
 }
 
-void MyCurveLaserChip001::processBehavior() {
+void MyOptionCurveLaserChip001::processBehavior() {
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
 
     if (_lockon == 1) {
@@ -174,7 +174,7 @@ void MyCurveLaserChip001::processBehavior() {
 
 }
 
-void MyCurveLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
+void MyOptionCurveLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
     if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
         if (_chip_kind != 2 || _can_chikei_hit) {
             GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
@@ -186,7 +186,7 @@ void MyCurveLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
     }
 }
 
-void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
+void MyOptionCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
     //ヒットエフェクト
@@ -200,7 +200,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                 _lockon = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
                 if (_pChip_front && _pChip_front->_pChip_front == NULL) {
                     //中間先頭チップがヒットした場合、先端にも伝える
-                    ((MyCurveLaserChip001*)_pChip_front)->_lockon = 2;
+                    ((MyOptionCurveLaserChip001*)_pChip_front)->_lockon = 2;
                 }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合
@@ -244,7 +244,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         sayonara();
     }
 }
-//void MyCurveLaserChip001::processFinal() {
+//void MyOptionCurveLaserChip001::processFinal() {
 //    CurveLaserChip::processFinal();
 //    //ロックオンが消滅ならば、切る
 //    if (_pOrg->_pLockonTarget) {
@@ -254,11 +254,11 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //    }
 //}
 
-void MyCurveLaserChip001::onInactive() {
+void MyOptionCurveLaserChip001::onInactive() {
     CurveLaserChip::onInactive();
     _lockon = 0;
 }
 
-MyCurveLaserChip001::~MyCurveLaserChip001() {
+MyOptionCurveLaserChip001::~MyOptionCurveLaserChip001() {
 }
 

@@ -38,6 +38,7 @@ public:
     /** ˆÚ“®‘¬“x */
     int _veloMv;
 
+    GgafDx9GeometricActor* _pSourceActor;
 
     StraightLaserChip(const char* prm_name, const char* prm_model);
 
@@ -57,6 +58,7 @@ public:
         _pSource_X = &prm_pGeoActor->_X;
         _pSource_Y = &prm_pGeoActor->_Y;
         _pSource_Z = &prm_pGeoActor->_Z;
+        _pSourceActor = prm_pGeoActor;
     }
 
     void setAngleSource(GgafDx9Core::GgafDx9GeometricActor* prm_pGeoActor) {
@@ -66,6 +68,7 @@ public:
         _pSource_vX = &prm_pGeoActor->_pKuroko->_vX;
         _pSource_vY = &prm_pGeoActor->_pKuroko->_vY;
         _pSource_vZ = &prm_pGeoActor->_pKuroko->_vZ;
+        _pSourceActor = prm_pGeoActor;
     }
 
     void setSource(GgafDx9Core::GgafDx9GeometricActor* prm_pGeoActor) {
@@ -78,6 +81,7 @@ public:
         _pSource_vX = &prm_pGeoActor->_pKuroko->_vX;
         _pSource_vY = &prm_pGeoActor->_pKuroko->_vY;
         _pSource_vZ = &prm_pGeoActor->_pKuroko->_vZ;
+        _pSourceActor = prm_pGeoActor;
     }
 
     virtual ~StraightLaserChip();

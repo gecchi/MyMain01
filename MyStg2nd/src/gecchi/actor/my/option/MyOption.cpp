@@ -44,12 +44,18 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
-    MyCurveLaserChip001* pChip;
+    MyOptionStraightLaserChip001* pChip;
     for (int i = 0; i < 90; i++) { //ƒŒ[ƒU[ƒXƒgƒbƒN
         stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;
         string name2 = name.str();
-        pChip = NEW MyCurveLaserChip001(name2.c_str());
+        //pChip = NEW MyOptionCurveLaserChip001(name2.c_str());
+        pChip = NEW MyOptionStraightLaserChip001(name2.c_str());
+        //MyOptionStraightLaserChip001‚Ìê‡ˆÈ‰º‚ª•K—v
+        pChip->setSource(this);
+        pChip->_pSource_vX = &_Q._x;
+        pChip->_pSource_vY = &_Q._y;
+        pChip->_pSource_vZ = &_Q._z;
         _pLaserChipDispatcher->addSubLast(pChip);
     }
     _pLaserChipDispatcher->config(
@@ -372,16 +378,16 @@ void MyOption::processBehavior() {
     //R P Q = (0; “š‚¦)
     //
     //‰ñ“]Ž² ‚Í(vX_axis, vY_axis, vZ_axis) ‰ñ“]Šp‚Í _angExpanse
-    GgafDx9Quaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-    Q.mul(0,
+    _Q.set(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+    _Q.mul(0,
            _pMyOptionController->_pKuroko->_vX,
            _pMyOptionController->_pKuroko->_vY,
            _pMyOptionController->_pKuroko->_vZ); //R*P ‰ñ“]Ž²‚ªŒ»Ý‚Ìis•ûŒüƒxƒNƒgƒ‹‚Æ‚È‚é
-    Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
+    _Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
     //ZŽ²‰ñ“]AYŽ²‰ñ“]Šp“x‚ðŒvŽZ
     GgafDx9Util::getRzRyAng(
-        Q._x, Q._y, Q._z,
+            _Q._x, _Q._y, _Q._z,
         _RZ, _RY
      );
 
@@ -399,31 +405,40 @@ void MyOption::processBehavior() {
     if (pMyShip->_is_shooting_laser && VB_PLAY->isBeingPressed(VB_SHOT1)) {
 
 
-        MyCurveLaserChip001* pLaserChip = (MyCurveLaserChip001*)_pLaserChipDispatcher->employ();
+//        MyOptionCurveLaserChip001* pLaserChip = (MyOptionCurveLaserChip001*)_pLaserChipDispatcher->employ();
+        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)_pLaserChipDispatcher->employ();
+
         if (pLaserChip) {
+
+
             if (_pLaserChipDispatcher->_pEffectActor_Irradiate) {
                 _pLaserChipDispatcher->_pEffectActor_Irradiate->locateAs(this);
             }
-            pLaserChip->_pKuroko->_vX = Q._x;
-            pLaserChip->_pKuroko->_vY = Q._y;
-            pLaserChip->_pKuroko->_vZ = Q._z;
-            pLaserChip->_pKuroko->_angRzMv = _RZ;
-            pLaserChip->_pKuroko->_angRyMv = _RY;
-//            pLaserChip->_pKuroko->_angFace[AXIS_X] = _pKuroko->_angFace[AXIS_X];
-            pLaserChip->_pKuroko->_angFace[AXIS_Z] = _RZ;
-            pLaserChip->_pKuroko->_angFace[AXIS_Y] = _RY;
-            pLaserChip->_pKuroko->setVxMvVelo(Q._x*150000);
-            pLaserChip->_pKuroko->setVyMvVelo(Q._y*150000);
-            pLaserChip->_pKuroko->setVzMvVelo(Q._z*150000);
-            pLaserChip->_pKuroko->setVxMvAcce(0);
-            pLaserChip->_pKuroko->setVyMvAcce(0);
-            pLaserChip->_pKuroko->setVzMvAcce(0);
             pLaserChip->_pKuroko->behave();
-            pLaserChip->_X = _X;
-            pLaserChip->_Y = _Y;
-            pLaserChip->_Z = _Z;
             pLaserChip->_pOrg = this;
             pLaserChip->activate();
+
+//            pLaserChip->_pKuroko->_vX = _Q._x;
+//            pLaserChip->_pKuroko->_vY = _Q._y;
+//            pLaserChip->_pKuroko->_vZ = _Q._z;
+//            pLaserChip->_pKuroko->_angRzMv = _RZ;
+//            pLaserChip->_pKuroko->_angRyMv = _RY;
+////            pLaserChip->_pKuroko->_angFace[AXIS_X] = _pKuroko->_angFace[AXIS_X];
+//            pLaserChip->_pKuroko->_angFace[AXIS_Z] = _RZ;
+//            pLaserChip->_pKuroko->_angFace[AXIS_Y] = _RY;
+//            pLaserChip->_pKuroko->setVxMvVelo(_Q._x*150000);
+//            pLaserChip->_pKuroko->setVyMvVelo(_Q._y*150000);
+//            pLaserChip->_pKuroko->setVzMvVelo(_Q._z*150000);
+//            pLaserChip->_pKuroko->setVxMvAcce(0);
+//            pLaserChip->_pKuroko->setVyMvAcce(0);
+//            pLaserChip->_pKuroko->setVzMvAcce(0);
+//            pLaserChip->_pKuroko->behave();
+//            pLaserChip->_X = _X;
+//            pLaserChip->_Y = _Y;
+//            pLaserChip->_Z = _Z;
+//            pLaserChip->_pOrg = this;
+//            pLaserChip->activate();
+
             if (pLaserChip->_pChip_front == NULL) {
                 _pSeTransmitter->play3D(0);
             }

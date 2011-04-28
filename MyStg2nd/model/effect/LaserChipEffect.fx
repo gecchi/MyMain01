@@ -62,7 +62,7 @@
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "MyCurveLaserChip001.png";
+     "MyOptionCurveLaserChip001.png";
     }
    }
   }

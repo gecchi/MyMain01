@@ -9,7 +9,7 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
     LaserChip(prm_name, prm_model) {
 //    _pPosSourceActor = NULL;
 //    _pAngleSourceActor = NULL;
-
+    _pSourceActor = NULL;
     _pSource_X = &_X;
     _pSource_Y = &_Y;
     _pSource_Z = &_Z;
@@ -38,7 +38,9 @@ void StraightLaserChip::onInactive() {
 
 void StraightLaserChip::processBehavior() {
     LaserChip::processBehavior();
-
+//    if (string(_pSourceActor->getName()) == "MY_OPTION04") {
+//        _TRACE_("_pSource_RX="<<_pSource_RX<<"  (*_pSource_RX)="<<(*_pSource_RX));
+//    }
     _RX = (*_pSource_RX);
     _RY = (*_pSource_RY);
     _RZ = (*_pSource_RZ);

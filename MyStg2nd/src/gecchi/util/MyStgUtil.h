@@ -183,8 +183,10 @@ public:
     // gen01 start
 	//自機レーザー
 	static void resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
-	//オプションレーザー
-	static void resetMyCurveLaserChip001Status(GgafCore::GgafStatus* p);
+	//オプションカーブレーザー
+	static void resetMyOptionCurveLaserChip001Status(GgafCore::GgafStatus* p);
+	//オプションストレートレーザー
+	static void resetMyOptionStraightLaserChip001Status(GgafCore::GgafStatus* p);
 	//トゥピード
 	static void resetMyTorpedoStatus(GgafCore::GgafStatus* p);
 	//トゥピード爆風

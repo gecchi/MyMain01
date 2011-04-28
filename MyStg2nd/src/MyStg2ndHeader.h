@@ -212,7 +212,8 @@ class EnemyStraightLaserChip001;
 class VamSysCamWorker;
 class PauseCamWorker;
 class MyShipDivingCamWorker;
-class MyCurveLaserChip001;
+class MyOptionCurveLaserChip001;
+class MyOptionStraightLaserChip001;
 class MyStraightLaserChip001;
 class MyShip;
 class MyOptionController;
@@ -452,7 +453,9 @@ class MagicMeter;
 #include "gecchi/actor/my/option/MyTorpedo.h"
 #include "gecchi/actor/my/option/MyTorpedoTail.h"
 #include "gecchi/actor/my/option/MyTorpedoBlast.h"
-#include "gecchi/actor/my/option/MyCurveLaserChip001.h"
+#include "gecchi/actor/my/option/MyOptionCurveLaserChip001.h"
+#include "gecchi/actor/my/option/MyOptionStraightLaserChip001.h"
+
 #include "gecchi/actor/my/option/EffectLockon001.h"
 #include "gecchi/actor/my/option/EffectLockon001_Main.h"
 #include "gecchi/actor/my/option/EffectLockon001_Sub.h"

@@ -91,7 +91,7 @@ public:
     frame _adjust_angPos_seq_spent_frame;
     angle _adjust_angPos_seq_angPosition;
 
-
+    //GgafDx9Core::GgafDx9Quaternion _Q;
 
     /**
      * コンストラクタ .

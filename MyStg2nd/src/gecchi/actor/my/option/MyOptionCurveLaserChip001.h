@@ -1,5 +1,5 @@
-#ifndef MYLASERCHIP001_H_
-#define MYLASERCHIP001_H_
+#ifndef MYOPTIONCURVELASERCHIP001_H_
+#define MYOPTIONCURVELASERCHIP001_H_
 namespace MyStg2nd {
 
 /**
@@ -10,7 +10,7 @@ namespace MyStg2nd {
  * @since 2010/10/6
  * @author Masatoshi Tsuge
  */
-class MyCurveLaserChip001 : public GgafDx9LibStg::CurveLaserChip {
+class MyOptionCurveLaserChip001 : public GgafDx9LibStg::CurveLaserChip {
 
 public:
     /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
@@ -26,7 +26,7 @@ public:
     bool _isLockon;
     int _default_stamina;
 
-    MyCurveLaserChip001(const char* prm_name);
+    MyOptionCurveLaserChip001(const char* prm_name);
 
     void initialize() override;
 
@@ -50,7 +50,7 @@ public:
 //        }
 //    }
 
-    virtual ~MyCurveLaserChip001();
+    virtual ~MyOptionCurveLaserChip001();
 
 };
 
