@@ -32,6 +32,8 @@ public:
     //static int const GAME_BUFFER_HEIGHT;
 
     static D3DPRESENT_PARAMETERS* _d3dparam;
+//    static LPDIRECT3DSWAPCHAIN9 _paSwapChain;
+//    static LPDIRECT3DSWAPCHAIN9 _paBackBuffer;
 
     /** デバイスロストフラグ (true=ロスト中) */
     static bool _is_device_lost_flg;

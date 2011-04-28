@@ -731,7 +731,23 @@ void GgafDx9God::presentUniversalVisualize() {
             hr = pSwapChain01->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer01 );
             checkDxException(hr, D3D_OK, "1GetBackBuffer() に失敗しました。");
 //
-//
+            //画面０バックバッファを画面１バックバッファへコピーする
+//            HRESULT StretchRect(
+//              IDirect3DSurface9 * pSourceSurface,
+//              CONST RECT * pSourceRect,
+//              IDirect3DSurface9 * pDestSurface,
+//              CONST RECT * pDestRect,
+//              D3DTEXTUREFILTERTYPE Filter
+//            );
+            GgafDx9God::_pID3DDevice9->StretchRect(
+                    pBackBuffer00,
+                    _pRectHarfRight,
+                    pBackBuffer01,
+                    _pRectHarfRight,
+                    D3DTEXF_NONE
+
+                    );
+
 //            //プライマリバックバッファの右半分をセカンダリバックバッファへコピー
             hr = GgafDx9God::_pID3DDevice9->UpdateSurface( pBackBuffer00, _pRectHarfRight, pBackBuffer01, _pPoint);
             checkDxException(hr, D3D_OK, "UpdateSurface() に失敗しました。");
@@ -961,10 +977,12 @@ GgafDx9God::~GgafDx9God() {
     DELETEARR_IMPOSSIBLE_NULL(_d3dparam);
     RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9); //本来はこれが必要
     RELEASE_IMPOSSIBLE_NULL(_pID3D9);
-//    フルスクリーンで終了時、極まれにブルースクリーンになる。
-//    かなりの時間を使って調査したが結局原因不明もういやだ。
-//    VISTA, GeForce go 7600 （開発マシン、HP DV9200) で起こる。
-//    他の環境では起こったことがない。ビデオカードドライバのせいなのか、DV9200固有の問題なのか？！
+//    D3DCREATE_HARDWARE_VERTEXPROCESSING でフルスクリーンで終了時、まれにブルースクリーンになる。
+//    開発マシンの、VISTA, GeForce go 7600 （HP DV9200) で起こる。
+//    しかし、他のマシンでは起らない事は確認出来た。
+//    ビデオカードドライバのせいなのか、DV9200固有の問題なのか？！
+//    ということにしておこう。ブルースクリーンになった方、大変申し訳ない。
+//    かなりの時間を使って調査したが結局原因不明。・・もういやだやめて～
 
 
 }

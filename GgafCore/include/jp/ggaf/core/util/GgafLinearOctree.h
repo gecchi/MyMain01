@@ -2,10 +2,10 @@
 #define GGAFLINEAROCTREE_H_
 namespace GgafCore {
 
-// 本プログラムを作成するにあたり、
+// 本プログラムは、
 // 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html
 // サイト内コンテンツの 「その15 8分木空間分割を最適化する！」 http://marupeke296.com/COL_3D_No15_Octree.html
-// の記事を参考にさせていただきました。
+// の記事を参考に作成しています。
 //                                            2009/01/13 Masatoshi Tsuge
 
 
@@ -169,38 +169,6 @@ public:
 
     virtual void clearElem();
 
-
-
-    /**
-     * 座標から空間配列要素番号（線形八分木配列の要素番号）を算出 .
-     * まず、BOXの所属空間 Level と、その空間Levelのモートン順序通し空間番号を求め
-     * 計算して配列Indexを返します
-     * ルート空間よりはみ出てしまう場合は-1を返す
-     * @param tX1 対象オブジェクトのBOX座標
-     * @param tY1 〃
-     * @param tZ1 〃
-     * @param tX2 〃
-     * @param tY2 〃
-     * @param tZ2 〃
-     * @return 空間配列要素番号 又は -1
-     */
-//    virtual UINT32 getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
-
-//    /**
-//     * 座標→線形8分木空間要素番号、の変換 .
-//     * @param tX 座標
-//     * @param tY 〃
-//     * @param tZ 〃
-//     * @return
-//     */
-//    inline int getIndex(int tX, int tY, int tZ) {
-//        return getMortonOrderNumFromXYZindex(
-//                    (tX - _root_X1) / _top_level_dX,
-//                    (tY - _root_Y1) / _top_level_dY,
-//                    (tZ - _root_Z1) / _top_level_dZ
-//               );
-//    }
-
     /**
      * 同一Level空間の八分木モートン順序の通し空間番号取得 .
      * 同一Levelとは <BR>
@@ -228,8 +196,8 @@ public:
      *                          ^^^ ^^^ ^^^ ^^^
      *                           |   |   |   |
      *                           |   |   |   &B(xph) = そのLevelの空間のモートン順序の位置 0～7
-     *             ............  |   |   +---&B(wog) = そのLevelの親空間のモートン順序の位置  0～7
-     *                           |   +-------&B(vnf) = そのLevelの親の親の空間のモートン順序の位置 0～7
+     *             ............  |   |   `---&B(wog) = そのLevelの親空間のモートン順序の位置  0～7
+     *                           |   `-------&B(vnf) = そのLevelの親の親の空間のモートン順序の位置 0～7
      * </code></pre>
      * @param x_space_index 同一のレベル空間のx座標空間インデックス (ただし 0～255 とする)
      * @param y_space_index 同一のレベル空間のy座標空間インデックス (ただし 0～255 とする)
