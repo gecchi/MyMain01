@@ -131,8 +131,8 @@ technique DefaultD3DXAniMeshTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultD3DXAniMesh();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultD3DXAniMesh();
+		VertexShader = compile vs_3_0  GgafDx9VS_DefaultD3DXAniMesh();
+		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultD3DXAniMesh();
 	}
 }
 
@@ -143,8 +143,8 @@ technique DefaultD3DXAniMeshTechnique2
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultD3DXAniMesh();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultD3DXAniMesh2();
+		VertexShader = compile vs_3_0  GgafDx9VS_DefaultD3DXAniMesh();
+		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultD3DXAniMesh2();
 	}
 }
 

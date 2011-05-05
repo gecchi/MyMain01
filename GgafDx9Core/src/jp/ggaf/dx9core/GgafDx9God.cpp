@@ -54,23 +54,10 @@ HRESULT GgafDx9God::init() {
     _FULLSCRREEN = GGAFDX9_PROPERTY(FULL_SCREEN);
     _MULTI_SCREEN = GGAFDX9_PROPERTY(MULTI_SCREEN);
 
-//    _pRectHarfRight = NEW RECT;
-//    _pRectHarfRight->left =  GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
-//    _pRectHarfRight->top = 0;
-//    _pRectHarfRight->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)-1;
-//    _pRectHarfRight->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
-//
-//    _pRectHarfLeft = NEW RECT;
-//    _pRectHarfLeft->left = 0;
-//    _pRectHarfLeft->top = 0;
-//    _pRectHarfLeft->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
-//    _pRectHarfLeft->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
-
-
     _pRectHarfRight = NEW RECT;
-    _pRectHarfRight->left = 0;
+    _pRectHarfRight->left =  GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
     _pRectHarfRight->top = 0;
-    _pRectHarfRight->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
+    _pRectHarfRight->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)-1;
     _pRectHarfRight->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
 
     _pRectHarfLeft = NEW RECT;
@@ -79,13 +66,26 @@ HRESULT GgafDx9God::init() {
     _pRectHarfLeft->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
     _pRectHarfLeft->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
 
+
+//    _pRectHarfRight = NEW RECT;
+//    _pRectHarfRight->left = 0;
+//    _pRectHarfRight->top = 0;
+//    _pRectHarfRight->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
+//    _pRectHarfRight->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
+//
+//    _pRectHarfLeft = NEW RECT;
+//    _pRectHarfLeft->left = 0;
+//    _pRectHarfLeft->top = 0;
+//    _pRectHarfLeft->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
+//    _pRectHarfLeft->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
+
     _pPoint = NEW POINT;
     _pPoint->x = 0;
     _pPoint->y = 0;
     _rectPresentDest.left = 0;
     _rectPresentDest.top = 0;
     if (_FULLSCRREEN && _MULTI_SCREEN) {
-        _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
+        _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
     } else {
         _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
     }
@@ -311,14 +311,14 @@ HRESULT GgafDx9God::init() {
             WS_POPUP | WS_VISIBLE,
             CW_USEDEFAULT,
             CW_USEDEFAULT,
-            GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH), //ウィンドウの幅、違うのはココのみ
+            GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2, //ウィンドウの幅、違うのはココのみ
             GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
             HWND_DESKTOP,
             NULL,
             _hInstance,
             NULL);
 
-        //_d3dparam[1].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2; //プライマリ以外はバックバッファは一致して良い
+        _d3dparam[1].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2; //プライマリ以外はバックバッファは一致して良い
 
 
 //        _d3dparam[1].hDeviceWindow = CreateWindow(
@@ -739,22 +739,22 @@ void GgafDx9God::presentUniversalVisualize() {
 //              CONST RECT * pDestRect,
 //              D3DTEXTUREFILTERTYPE Filter
 //            );
-            GgafDx9God::_pID3DDevice9->StretchRect(
+            hr = GgafDx9God::_pID3DDevice9->StretchRect(
                     pBackBuffer00,
-                    _pRectHarfRight,
+                    _pRectHarfLeft,
                     pBackBuffer01,
-                    _pRectHarfRight,
+                    _pRectHarfLeft,
                     D3DTEXF_NONE
 
                     );
-
+            checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
 //            //プライマリバックバッファの右半分をセカンダリバックバッファへコピー
-            hr = GgafDx9God::_pID3DDevice9->UpdateSurface( pBackBuffer00, _pRectHarfRight, pBackBuffer01, _pPoint);
-            checkDxException(hr, D3D_OK, "UpdateSurface() に失敗しました。");
+            //hr = GgafDx9God::_pID3DDevice9->UpdateSurface( pBackBuffer00, _pRectHarfRight, pBackBuffer01, _pPoint);
+            //checkDxException(hr, D3D_OK, "UpdateSurface() に失敗しました。");
 //            //コピーフリップ
             hr = pSwapChain00->Present(_pRectHarfLeft, NULL, NULL, NULL,0);
             checkDxException(hr, D3D_OK, "0Present() に失敗しました。");
-            hr = pSwapChain01->Present(_pRectHarfRight, NULL, NULL, NULL,0);
+            hr = pSwapChain01->Present(NULL, NULL, NULL, NULL,0);
             checkDxException(hr, D3D_OK, "1Present() に失敗しました。");
 ////            //バックバッファとZバッファを取得する
 ////            if(FAILED(m_pd3dDevice->GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&m_pBackBuffer))){

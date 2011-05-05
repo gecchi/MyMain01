@@ -89,7 +89,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                 WS_POPUP | WS_VISIBLE,
                 CW_USEDEFAULT,
                 CW_USEDEFAULT,
-                GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH), //ウィンドウの幅、違うのはココのみ
+                GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2, //ウィンドウの幅、違うのはココのみ
                 GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
                 HWND_DESKTOP,
                 NULL,
@@ -202,7 +202,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
             while (true) {
                 if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
                     if (msg.message == WM_QUIT) {
-
                         if (MyStg2nd::God::_can_be) {
                             MyStg2nd::God::_can_be = false;
 //                            pGod->_can_be = false;
@@ -309,6 +308,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     HDC hdc;
 
     switch (message) {
+
         case WM_SIZE:
             if (GgafDx9Core::GgafDx9God::_can_be) {
                 if (!GGAFDX9_PROPERTY(FULL_SCREEN)) {
@@ -316,7 +316,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 }
             }
             break;
+
         case WM_SYSCOMMAND:
+            if ( (wParam & 0xFFF0) == SC_SCREENSAVE ) {
+                return 1;
+            }
             if(wParam == SC_CLOSE){
                 PostQuitMessage(0);
             }

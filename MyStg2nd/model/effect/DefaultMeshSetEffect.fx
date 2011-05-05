@@ -220,8 +220,8 @@ technique DefaultMeshSetTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMeshSet();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMeshSet();
+		VertexShader = compile vs_3_0  GgafDx9VS_DefaultMeshSet();
+		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultMeshSet();
 	}
 }
 
@@ -231,8 +231,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //â¡éZçáê¨
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMeshSet();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMeshSet();
+		VertexShader = compile vs_3_0  GgafDx9VS_DefaultMeshSet();
+		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultMeshSet();
 	}
 }
 
@@ -242,7 +242,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMeshSet();
-		PixelShader  = compile ps_2_0 PS_Flush();
+		VertexShader = compile vs_3_0  GgafDx9VS_DefaultMeshSet();
+		PixelShader  = compile ps_3_0  PS_Flush();
 	}
 }

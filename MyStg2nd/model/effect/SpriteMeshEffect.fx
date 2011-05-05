@@ -172,8 +172,8 @@ technique SpriteMeshTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_2_0 GgafDx9VS_SpriteMesh();
-		PixelShader  = compile ps_2_0 GgafDx9PS_SpriteMesh();
+		VertexShader = compile vs_3_0  GgafDx9VS_SpriteMesh();
+		PixelShader  = compile ps_3_0  GgafDx9PS_SpriteMesh();
 	}
 }
 
@@ -183,8 +183,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //â¡éZçáê¨
-		VertexShader = compile vs_2_0 GgafDx9VS_SpriteMesh();
-		PixelShader  = compile ps_2_0 GgafDx9PS_SpriteMesh();
+		VertexShader = compile vs_3_0  GgafDx9VS_SpriteMesh();
+		PixelShader  = compile ps_3_0  GgafDx9PS_SpriteMesh();
 	}
 }
 
@@ -194,8 +194,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_SpriteMesh();
-		PixelShader  = compile ps_2_0 PS_Flush();
+		VertexShader = compile vs_3_0  GgafDx9VS_SpriteMesh();
+		PixelShader  = compile ps_3_0  PS_Flush();
 	}
 }
 
@@ -205,8 +205,8 @@ technique NoLight
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 VS_NoLight();
-		PixelShader  = compile ps_2_0 PS_NoLight();
+		VertexShader = compile vs_3_0  VS_NoLight();
+		PixelShader  = compile ps_3_0  PS_NoLight();
 	}
 }
 

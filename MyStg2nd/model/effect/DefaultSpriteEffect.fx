@@ -101,8 +101,8 @@ technique DefaultSpriteTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultSprite();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultSprite();
+		VertexShader = compile vs_3_0  GgafDx9VS_DefaultSprite();
+		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultSprite();
 	}
 }
 
@@ -112,8 +112,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //â¡éZçáê¨
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultSprite();
-		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultSprite();
+		VertexShader = compile vs_3_0  GgafDx9VS_DefaultSprite();
+		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultSprite();
 	}
 }
 
@@ -124,7 +124,7 @@ technique Flush
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultSprite();
-		PixelShader  = compile ps_2_0 PS_Flush();
+		VertexShader = compile vs_3_0  GgafDx9VS_DefaultSprite();
+		PixelShader  = compile ps_3_0  PS_Flush();
 	}
 }

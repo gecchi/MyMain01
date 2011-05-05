@@ -180,8 +180,8 @@ technique SingleLaserTechnique
 
 //		SrcBlend  = SrcAlpha;
 //		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_2_0 GgafDx9VS_SingleLaser();
-		PixelShader  = compile ps_2_0 GgafDx9PS_SingleLaser();
+		VertexShader = compile vs_3_0  GgafDx9VS_SingleLaser();
+		PixelShader  = compile ps_3_0  GgafDx9PS_SingleLaser();
 	}
 }
 

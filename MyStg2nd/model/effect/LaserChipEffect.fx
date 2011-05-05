@@ -319,8 +319,8 @@ technique LaserChipTechnique
 //Zero/One/SrcColor/InvSrcColor/SrcAlpha/InvSrcAlpha/DestColor/InvDestColor/DestAlpha/InvDestAlpha
 		SrcBlend  = SrcAlpha; 
 		DestBlend = One;
-		VertexShader = compile vs_2_0 GgafDx9VS_LaserChip();
-		PixelShader  = compile ps_2_0 GgafDx9PS_LaserChip();
+		VertexShader = compile vs_3_0  GgafDx9VS_LaserChip();
+		PixelShader  = compile ps_3_0  GgafDx9PS_LaserChip();
 	}
 
 }
