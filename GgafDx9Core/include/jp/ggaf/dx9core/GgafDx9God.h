@@ -51,9 +51,15 @@ public:
     static bool _FULLSCRREEN;
     static bool _MULTI_SCREEN;
     static int _iNumAdapter;
-    static RECT*  _pRectHarfLeft;
-    static RECT*  _pRectHarfRight;
-    static POINT* _pPoint;
+    static RECT*  _pRectMultiScreenLeft;
+    static RECT*  _pRectMultiScreenRight;
+    static RECT*  _pRectGameBuffer;
+    static RECT*  _pRectViewScreen;
+    static IDirect3DTexture9*  _pRenderTexture;   //テクスチャ
+//    static IDirect3DSurface9*  _pBackBuffer;      //バックバッファ
+    static IDirect3DSurface9*  _pRenderTextureSurface;     //サーフェイス
+    static IDirect3DSurface9*  _pRenderTextureZ;   //テクスチャ
+
     /**
      * コンストラクタ<BR>
      */
