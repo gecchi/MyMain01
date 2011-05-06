@@ -19,6 +19,9 @@ ATOM MyRegisterClass_Primary(HINSTANCE hInstance);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
 
+void myUnexpectedHandler();
+void myTerminateHandler();
+
 /**
  * GNU GCC ならばエントリポイント
  */
@@ -55,6 +58,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         LPTSTR lpCmdLine,
         int nCmdShow)
 {
+    std::set_unexpected(myUnexpectedHandler);
+    std::set_terminate(myTerminateHandler);
+
+
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -257,31 +264,49 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                 }
             }
         }
-    } catch (GgafCore::GgafCriticalException& e) {
+    } catch (GgafCore::GgafException& e) {
         //異常終了時
-        if (MyStg2nd::God::_can_be) {
-            _TRACE_("＜例外＞"<<e.getMsg());
-            string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
-            string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-            MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
-            _TRACE_("[GgafCriticalException]:"<<e.getMsg());
-        }
+        _TRACE_("＜例外＞"<<e.getMsg());
+        string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
+        string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+        MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
+        _TRACE_("[GgafCriticalException]:"<<e.getMsg());
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     } catch (exception& e2) {
-        if (MyStg2nd::God::_can_be) {
-            string what(e2.what());
-            _TRACE_("＜致命的な例外＞"<<what);
-            string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかった致命的エラーです。\n誠に申し訳ございません。\n";
-            string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-            MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP);
-            _TRACE_("[exception]:"<<what);
-        }
+        string what(e2.what());
+        _TRACE_("＜致命的な例外＞"<<what);
+        string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかった致命的エラーです。\n誠に申し訳ございません。\n";
+        string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+        MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP);
+        _TRACE_("[exception]:"<<what);
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     }
+    catch( ... ) {
+        _TRACE_("＜致命的な謎例外＞");
+        string message = "恐れ入りますが、不明な内部エラーが発生しました。\n誠に申し訳ございません。\n";
+        string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+        MessageBox(NULL, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP);
+        ::timeEndPeriod(1);
+        return EXIT_FAILURE;
+    }
+
+
     return (int) msg.wParam;
 }
+
+void myUnexpectedHandler() {
+    MessageBox(NULL, "myUnexpectedHandler called.","test", MB_OK|MB_ICONSTOP);
+    //std::cerr << "myUnexpectedHandler called." << std::endl;
+    terminate();
+}
+
+void myTerminateHandler() {
+    MessageBox(NULL, "myTerminateHandler called.","test", MB_OK|MB_ICONSTOP);
+    abort;
+}
+
 
 ATOM MyRegisterClass_Primary(HINSTANCE hInstance) {
     WNDCLASSEX wcex;

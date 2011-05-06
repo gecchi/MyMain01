@@ -67,12 +67,12 @@ void God::clean() {
     if (!_was_cleaned) {
 
         if (!VB_PLAY->_is_replaying) {
-            _TRACE_("write VB_PLAY.rep");
-            VB_PLAY->_pRpy->outputFile("VB_PLAY.rep");
+            _TRACE_("write VB_PLAY_LAST.rep");
+            VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST.rep");
         }
         if (!VB_UI->_is_replaying) {
-            _TRACE_("write VB_UI.rep");
-            VB_UI->_pRpy->outputFile("VB_UI.rep");
+            _TRACE_("write VB_UI_LAST.rep");
+            VB_UI->_pRpy->outputFile("VB_UI_LAST.rep");
         }
         _TRACE_("God::clean() begin");
         DefaultGod::clean();
