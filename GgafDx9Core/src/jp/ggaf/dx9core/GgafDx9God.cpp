@@ -821,14 +821,14 @@ void GgafDx9God::presentUniversalVisualize() {
     //            );
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,  _pRectMultiScreenLeft,
-                        pBackBuffer00,    &_rectPresentDest,
+                        pBackBuffer00,    _pRectMultiScreenLeft,
                         D3DTEXF_NONE
                         );
                 checkDxException(hr, D3D_OK, "StretchRect() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,  _pRectMultiScreenRight,
-                        pBackBuffer01,    &_rectPresentDest,
+                        pBackBuffer01,    _pRectMultiScreenLeft,
                         D3DTEXF_NONE
 
                         );
