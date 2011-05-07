@@ -11,7 +11,7 @@ VirtualButton* God::_pVbtn_UI = NULL;
 VirtualButton* God::_pVbtn_Active = NULL;
 VirtualButton* God::_pVbtn_Active_next_frame = NULL;
 
-God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd) {
+God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary) : DefaultGod(prm_hInstance, prm_pHWndPrimary) {
     _pDispatcherManager = NEW DispatcherManager("DispatcherManager");
     _pSpline3DManager = NEW Spline3DManager("Spline3DManager");
     _pSplineManager = NEW SplineManager("SplineManager");

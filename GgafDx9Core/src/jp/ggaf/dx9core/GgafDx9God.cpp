@@ -7,7 +7,8 @@ using namespace GgafDx9Core;
 //TODO:ÉRÉÅÉìÉgÇ∆Ç©ëΩÇ∑Ç¨ÇÈÅBêÆóùÇ∑ÇÈÅB
 
 
-HWND GgafDx9God::_hWnd = NULL;
+HWND GgafDx9God::_pHWndPrimary = NULL;
+HWND GgafDx9God::_pHWndSecondary = NULL;
 HINSTANCE GgafDx9God::_hInstance = NULL;
 
 IDirect3D9* GgafDx9God::_pID3D9 = NULL;
@@ -53,10 +54,10 @@ IDirect3DSurface9*  GgafDx9God::_pRenderTextureSurface = NULL;     //ÉTÅ[ÉtÉFÉCÉ
 IDirect3DSurface9* GgafDx9God::_pRenderTextureZ = NULL;
 
 
-GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
+GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary) :
     GgafGod() {
-    TRACE("GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prmGgafDx9God::_hWnd) ");
-    GgafDx9God::_hWnd = _hWnd;
+    TRACE("GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prmGgafDx9God::_pHWndPrimary) ");
+    GgafDx9God::_pHWndPrimary = prm_pHWndPrimary;
     GgafDx9God::_hInstance = prm_hInstance;
     _is_device_lost_flg = false;
     _adjustGameScreen = false;
@@ -187,7 +188,7 @@ HRESULT GgafDx9God::init() {
     }
 
     //ÉEÉBÉìÉhÉEÉnÉìÉhÉã
-    _d3dparam[0].hDeviceWindow = _hWnd;
+    _d3dparam[0].hDeviceWindow = _pHWndPrimary;
     //ÉEÉBÉìÉhÉEÉÇÅ[Éh
     if (_FULLSCRREEN) {
         _d3dparam[0].Windowed = false; //ÉtÉãÉXÉNÉäÅ[Éìéû
@@ -315,7 +316,7 @@ HRESULT GgafDx9God::init() {
 
         wcex.cbSize = sizeof(WNDCLASSEX);
         wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //êÖïΩÅEêÇíºï˚å¸Ç…ÉEÉCÉìÉhÉEÉTÉCÉYÇ™ïœçXÇ≥ÇÍÇΩÇ∆Ç´ÉEÉCÉìÉhÉEÇçƒçÏâÊÇ∑ÇÈÅB
-        wcex.lpfnWndProc = (WNDPROC)GetWindowLong(_hWnd, GWL_WNDPROC ); //ÉEÉBÉìÉhÉEÉvÉçÉVÅ[ÉWÉÉÇÃÉAÉhÉåÉXÇéwíËÇ∑ÇÈÅB
+        wcex.lpfnWndProc = (WNDPROC)GetWindowLong(_pHWndPrimary, GWL_WNDPROC ); //ÉEÉBÉìÉhÉEÉvÉçÉVÅ[ÉWÉÉÇÃÉAÉhÉåÉXÇéwíËÇ∑ÇÈÅB
         wcex.cbClsExtra = 0;
         wcex.cbWndExtra = 0;
         wcex.hInstance = _hInstance;
@@ -329,7 +330,7 @@ HRESULT GgafDx9God::init() {
         RegisterClassEx(&wcex);
 
 
-//        WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, (WNDPROC)GetWindowLong(_hWnd, GWL_WNDPROC ) , 0L, 0L,
+//        WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, (WNDPROC)GetWindowLong(_pHWndPrimary, GWL_WNDPROC ) , 0L, 0L,
 //                          GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
 //                          "multihead", NULL };
 //        RegisterClassEx( &wc );
@@ -371,7 +372,7 @@ HRESULT GgafDx9God::init() {
 
         //ÉfÉoÉCÉXçÏê¨ÇééÇ› GgafDx9God::_pID3DDevice9 Ç÷ê›íËÇ∑ÇÈÅB
         //ÉnÅ[ÉhÉEÉFÉAÇ…ÇÊÇÈí∏ì_èàóùÅAÉâÉXÉ^ÉâÉCÉYÇçsÇ§ÉfÉoÉCÉXçÏê¨ÇééÇ›ÇÈÅBHAL(pure vp)
-        hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
+        hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_pHWndPrimary,
                                                D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_ADAPTERGROUP_DEVICE  ,
                                                _d3dparam, &GgafDx9God::_pID3DDevice9);
         checkDxException(hr, D3D_OK, "CreateDevice() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -379,21 +380,21 @@ HRESULT GgafDx9God::init() {
             _TRACE_("D3DCREATE_PUREDEVICE: "<<GgafDx9CriticalException::getHresultMsg(hr));
 
             //É\ÉtÉgÉEÉFÉAÇ…ÇÊÇÈí∏ì_èàóùÅAÉnÅ[ÉhÉEÉFÉAÇ…ÇÊÇÈÉâÉXÉ^ÉâÉCÉYÇçsÇ§ÉfÉoÉCÉXçÏê¨ÇééÇ›ÇÈÅBHAL(soft vp)
-            hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
+            hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_pHWndPrimary,
                                                    D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_ADAPTERGROUP_DEVICE,
                                                    _d3dparam, &GgafDx9God::_pID3DDevice9);
             if (hr != D3D_OK) {
                 _TRACE_("D3DCREATE_SOFTWARE_VERTEXPROCESSING: "<<GgafDx9CriticalException::getHresultMsg(hr));
 
                 //É\ÉtÉgÉEÉFÉAÇ…ÇÊÇÈí∏ì_èàóùÅAÉâÉXÉ^ÉâÉCÉYÇçsÇ§ÉfÉoÉCÉXçÏê¨ÇééÇ›ÇÈÅBREF
-                hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_hWnd,
+                hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_pHWndPrimary,
                                                        D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_ADAPTERGROUP_DEVICE,
                                                        _d3dparam, &GgafDx9God::_pID3DDevice9);
                 if (hr != D3D_OK) {
                     _TRACE_("D3DCREATE_SOFTWARE_VERTEXPROCESSING: "<<GgafDx9CriticalException::getHresultMsg(hr));
 
                     //Ç«ÇÃÉfÉoÉCÉXÇÃçÏê¨Ç‡é∏îsÇµÇΩèÍçá
-                    MessageBox(GgafDx9God::_hWnd, TEXT("MULTI FULLSCRREEN Direct3DÇÃèâä˙âªÇ…é∏îs"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                    MessageBox(GgafDx9God::_pHWndPrimary, TEXT("MULTI FULLSCRREEN Direct3DÇÃèâä˙âªÇ…é∏îs"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
                     return E_FAIL;
                 } else {
                     _TRACE_("GgafDx9God::init ÉfÉoÉCÉXÇÕ MULTI FULLSCRREEN REF Ç≈èâä˙âªÇ≈Ç´Ç‹ÇµÇΩÅB");
@@ -410,7 +411,7 @@ HRESULT GgafDx9God::init() {
     } else {
         //ÉfÉoÉCÉXçÏê¨ÇééÇ› GgafDx9God::_pID3DDevice9 Ç÷ê›íËÇ∑ÇÈÅB
         //ÉnÅ[ÉhÉEÉFÉAÇ…ÇÊÇÈí∏ì_èàóùÅAÉâÉXÉ^ÉâÉCÉYÇçsÇ§ÉfÉoÉCÉXçÏê¨ÇééÇ›ÇÈÅBHAL(pure vp)
-        hr = GgafDx9God::_pID3D9->CreateDevice(AdapterToUse, DeviceType, GgafDx9God::_hWnd,
+        hr = GgafDx9God::_pID3D9->CreateDevice(AdapterToUse, DeviceType, GgafDx9God::_pHWndPrimary,
                                                D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED,
     //                                           D3DCREATE_MIXED_VERTEXPROCESSING|D3DCREATE_MULTITHREADED,
     //                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
@@ -418,17 +419,17 @@ HRESULT GgafDx9God::init() {
 
         if (hr != D3D_OK) {
             //É\ÉtÉgÉEÉFÉAÇ…ÇÊÇÈí∏ì_èàóùÅAÉnÅ[ÉhÉEÉFÉAÇ…ÇÊÇÈÉâÉXÉ^ÉâÉCÉYÇçsÇ§ÉfÉoÉCÉXçÏê¨ÇééÇ›ÇÈÅBHAL(soft vp)
-            hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
+            hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_pHWndPrimary,
                                                    D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
                                                    &_d3dparam[0], &GgafDx9God::_pID3DDevice9);
             if (hr != D3D_OK) {
                 //É\ÉtÉgÉEÉFÉAÇ…ÇÊÇÈí∏ì_èàóùÅAÉâÉXÉ^ÉâÉCÉYÇçsÇ§ÉfÉoÉCÉXçÏê¨ÇééÇ›ÇÈÅBREF
-                hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_hWnd,
+                hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_pHWndPrimary,
                                                        D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
                                                        &_d3dparam[0], &GgafDx9God::_pID3DDevice9);
                 if (hr != D3D_OK) {
                     //Ç«ÇÃÉfÉoÉCÉXÇÃçÏê¨Ç‡é∏îsÇµÇΩèÍçá
-                    MessageBox(GgafDx9God::_hWnd, TEXT("Direct3DÇÃèâä˙âªÇ…é∏îs"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                    MessageBox(GgafDx9God::_pHWndPrimary, TEXT("Direct3DÇÃèâä˙âªÇ…é∏îs"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
                     return E_FAIL;
                 } else {
                     _TRACE_("GgafDx9God::init ÉfÉoÉCÉXÇÕ REF Ç≈èâä˙âªÇ≈Ç´Ç‹ÇµÇΩÅB");
@@ -973,7 +974,7 @@ void GgafDx9God::adjustGameScreen() {
                                               0 // ÉXÉeÉìÉVÉãÉoÉbÉtÉ@ÇÃÉNÉäÉAíl
                 );
         checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-        if (::GetClientRect(_hWnd, &rect)) {
+        if (::GetClientRect(_pHWndPrimary, &rect)) {
             if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)) {
                 //ÇÊÇËâ°í∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
                 float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT); //èkè¨ó¶=ècïùÇÃî‰ó¶
@@ -996,7 +997,7 @@ void GgafDx9God::adjustGameScreen() {
             _adjustGameScreen = false;
         }
     } else {
-        if (::GetClientRect(_hWnd, &rect)) {
+        if (::GetClientRect(_pHWndPrimary, &rect)) {
             GgafDx9God::_rectPresentDest.top = rect.top;
             GgafDx9God::_rectPresentDest.left = rect.left;
             GgafDx9God::_rectPresentDest.right = rect.right;
@@ -1031,7 +1032,7 @@ void GgafDx9God::adjustGameScreen() {
 //        checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //
 //
-//        if (::GetClientRect(_hWnd, &rect)) {
+//        if (::GetClientRect(_pHWndPrimary, &rect)) {
 //            D3DVIEWPORT9 vp;    //ÉrÉÖÅ[É|Å[Ég
 //            vp.MinZ = 0.0f;
 //            vp.MaxZ = 1.0f;
@@ -1059,7 +1060,7 @@ void GgafDx9God::adjustGameScreen() {
 //            _adjustGameScreen = false;
 //        }
 //    } else {
-//        if (::GetClientRect(_hWnd, &rect)) {
+//        if (::GetClientRect(_pHWndPrimary, &rect)) {
 //            GgafDx9God::_rectPresentDest.top = rect.top;
 //            GgafDx9God::_rectPresentDest.left = rect.left;
 //            GgafDx9God::_rectPresentDest.right = rect.right;

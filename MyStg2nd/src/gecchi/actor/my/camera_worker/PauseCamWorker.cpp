@@ -42,7 +42,7 @@ void PauseCamWorker::processBehavior() {
         RECT cRect; // クライアント領域の矩形
         int cw, ch; // クライアント領域の幅、高さ
         // クライアント領域の幅・高さを計算
-        GetClientRect(GgafDx9God::_hWnd, &cRect);
+        GetClientRect(GgafDx9God::_pHWndPrimary, &cRect);
         cw = cRect.right - cRect.left;
         ch = cRect.bottom - cRect.top;
         if (cw > ch) {

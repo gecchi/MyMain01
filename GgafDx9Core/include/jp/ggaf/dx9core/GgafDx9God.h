@@ -10,7 +10,8 @@ namespace GgafDx9Core {
 class GgafDx9God : public GgafCore::GgafGod {
 
 public:
-    static HWND _hWnd;
+    static HWND _pHWndPrimary;
+    static HWND _pHWndSecondary;
     static HINSTANCE _hInstance;
 
     static D3DFILLMODE _d3dfillmode;
@@ -63,7 +64,7 @@ public:
     /**
      * コンストラクタ<BR>
      */
-    GgafDx9God(HINSTANCE prm_hInstance, HWND prm_hWnd);
+    GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary);
 
     /**
      * 初期化<BR>

@@ -22,7 +22,7 @@ void GgafDx9Sound::init() {
     if (hr != D3D_OK) {
         throwGgafCriticalException("GgafDx9Sound::init() GgafDx9Soundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
     }
-    hr = _pIDirectSound8->SetCooperativeLevel(GgafDx9God::_hWnd, DSSCL_PRIORITY );
+    hr = _pIDirectSound8->SetCooperativeLevel(GgafDx9God::_pHWndPrimary, DSSCL_PRIORITY );
     if (hr != D3D_OK) {
         throwGgafCriticalException("GgafDx9Sound::init() SetCooperativeLevel失敗。");
     }

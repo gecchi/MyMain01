@@ -34,9 +34,9 @@ public:
     /**
      * コンストラクタ .
      * @param prm_hInstance
-     * @param prm_hWnd
+     * @param prm_pHWndPrimary
      */
-    God(HINSTANCE prm_hInstance, HWND prm_hWnd);
+    God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary);
 
     /**
      * VBを更新を予約する。 .

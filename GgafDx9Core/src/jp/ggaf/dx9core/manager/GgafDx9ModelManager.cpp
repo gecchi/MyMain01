@@ -3032,7 +3032,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
 //        char str[256];
 //        sprintf (str, "VertexBuffer %s = %p \n",prm_pMeshSetModel->_model_name, prm_pMeshSetModel->_pIDirect3DVertexBuffer9);
-//        MessageBox(GgafDx9God::_hWnd, str, TEXT("情報"), MB_OK );
+//        MessageBox(GgafDx9God::_pHWndPrimary, str, TEXT("情報"), MB_OK );
 
         //バッファへ作成済み頂点データを流し込む
         void *pVertexBuffer;

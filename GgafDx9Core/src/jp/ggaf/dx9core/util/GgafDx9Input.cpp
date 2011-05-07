@@ -67,7 +67,7 @@ BOOL CALLBACK EnumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef
 }
 
 GgafDx9Input::GgafDx9Input() {
-    TRACE("GgafDx9Input::GgafDx9Input(HWND prm_hWnd) ");
+    TRACE("GgafDx9Input::GgafDx9Input(HWND prm_pHWndPrimary) ");
 }
 
 HRESULT GgafDx9Input::init() {
@@ -77,7 +77,7 @@ HRESULT GgafDx9Input::init() {
     hr = DirectInput8Create(GgafDx9God::_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
                             (LPVOID*)&_pIDirectInput8, NULL);
     if (hr != D3D_OK) {
-        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() いきなりDirectInput8の作成に失敗しました。も～やる気もなくなりますわ；"),
+        MessageBox(GgafDx9God::_pHWndPrimary, TEXT("GgafDx9Input::initDx9Input() いきなりDirectInput8の作成に失敗しました。も～やる気もなくなりますわ；"),
                    TEXT("ERROR"), MB_OK | MB_ICONSTOP);
         return hr;
     }
@@ -85,21 +85,21 @@ HRESULT GgafDx9Input::init() {
     // マウスデバイスの作成
     hr = _pIDirectInput8->CreateDevice(GUID_SysMouse, &_pIDirectInputDevice8_Mouse, NULL);
     if (hr != D3D_OK) {
-        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() マウスデバイス作成に失敗しました"), TEXT("ERROR"), MB_OK
+        MessageBox(GgafDx9God::_pHWndPrimary, TEXT("GgafDx9Input::initDx9Input() マウスデバイス作成に失敗しました"), TEXT("ERROR"), MB_OK
                 | MB_ICONSTOP);
         return hr;
     }
     // マウス取得データフォーマットの設定
     hr = _pIDirectInputDevice8_Mouse->SetDataFormat(&c_dfDIMouse2);
     if (hr != D3D_OK) {
-        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() マウスのSetDataFormat に失敗しました"), TEXT("ERROR"),
+        MessageBox(GgafDx9God::_pHWndPrimary, TEXT("GgafDx9Input::initDx9Input() マウスのSetDataFormat に失敗しました"), TEXT("ERROR"),
                    MB_OK | MB_ICONSTOP);
         return hr;
     }
     // マウス強調レベル設定
-    hr = _pIDirectInputDevice8_Mouse->SetCooperativeLevel(GgafDx9God::_hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+    hr = _pIDirectInputDevice8_Mouse->SetCooperativeLevel(GgafDx9God::_pHWndPrimary, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
     if (hr != D3D_OK) {
-        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() マウスのSetCooperativeLevelに失敗しました"),
+        MessageBox(GgafDx9God::_pHWndPrimary, TEXT("GgafDx9Input::initDx9Input() マウスのSetCooperativeLevelに失敗しました"),
                    TEXT("ERROR"), MB_OK | MB_ICONSTOP);
         return hr;
     }
@@ -126,7 +126,7 @@ HRESULT GgafDx9Input::init() {
     // キーボードデバイスの作成
     hr = _pIDirectInput8->CreateDevice(GUID_SysKeyboard, &_pIDirectInputDevice8_Keyboard, NULL);
     if (hr != D3D_OK) {
-        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() キーボードデバイス作成に失敗しました"), TEXT("ERROR"), MB_OK
+        MessageBox(GgafDx9God::_pHWndPrimary, TEXT("GgafDx9Input::initDx9Input() キーボードデバイス作成に失敗しました"), TEXT("ERROR"), MB_OK
                 | MB_ICONSTOP);
         return hr;
     }
@@ -134,15 +134,15 @@ HRESULT GgafDx9Input::init() {
     // キーボード取得データフォーマットの設定
     hr = _pIDirectInputDevice8_Keyboard->SetDataFormat(&c_dfDIKeyboard);
     if (hr != D3D_OK) {
-        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() キーボードのSetDataFormat に失敗しました"), TEXT("ERROR"),
+        MessageBox(GgafDx9God::_pHWndPrimary, TEXT("GgafDx9Input::initDx9Input() キーボードのSetDataFormat に失敗しました"), TEXT("ERROR"),
                    MB_OK | MB_ICONSTOP);
         return hr;
     }
 
     // キーボード強調レベル設定
-    hr = _pIDirectInputDevice8_Keyboard->SetCooperativeLevel(GgafDx9God::_hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+    hr = _pIDirectInputDevice8_Keyboard->SetCooperativeLevel(GgafDx9God::_pHWndPrimary, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
     if (hr != D3D_OK) {
-        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() キーボードのSetCooperativeLevelに失敗しました"),
+        MessageBox(GgafDx9God::_pHWndPrimary, TEXT("GgafDx9Input::initDx9Input() キーボードのSetCooperativeLevelに失敗しました"),
                    TEXT("ERROR"), MB_OK | MB_ICONSTOP);
         return hr;
     }
@@ -159,7 +159,7 @@ HRESULT GgafDx9Input::init() {
 
      hr = _pIDirectInputDevice8_Keyboard->SetProperty(DIPROP_BUFFERSIZE, &dipropdword.diph);
      if(hr != D3D_OK) {
-     MessageBox(GgafDx9God::_hWnd,TEXT("GgafDx9Input::initDx9Input() キーボードのSetPropertyに失敗しました"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+     MessageBox(GgafDx9God::_pHWndPrimary,TEXT("GgafDx9Input::initDx9Input() キーボードのSetPropertyに失敗しました"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
      return hr;
      }
      */
@@ -185,7 +185,7 @@ HRESULT GgafDx9Input::init() {
         }
 
         // ゲームスティック協調レベルを設定する
-        hr = _pIDirectInputDevice8_Joystick->SetCooperativeLevel(GgafDx9God::_hWnd, DISCL_FOREGROUND
+        hr = _pIDirectInputDevice8_Joystick->SetCooperativeLevel(GgafDx9God::_pHWndPrimary, DISCL_FOREGROUND
                 | DISCL_NONEXCLUSIVE );
         if (hr != D3D_OK) {
             _TRACE_("GgafDx9Input::initDx9Input() ジョイスティックSetCooperativeLevelに失敗しました");
