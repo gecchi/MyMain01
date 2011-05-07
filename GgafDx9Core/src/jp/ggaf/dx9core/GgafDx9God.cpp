@@ -181,8 +181,13 @@ HRESULT GgafDx9God::init() {
     _d3dparam[0].BackBufferCount = 1;
 
     //スワップ効果を指定する
+    //バックバッファ
     if (_FULLSCRREEN) {
-        _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
+        if (_MULTI_SCREEN) {
+            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
+        } else {
+            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_DISCARD;
+        }
     } else {
         _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
     }
@@ -335,8 +340,7 @@ HRESULT GgafDx9God::init() {
 //                          "multihead", NULL };
 //        RegisterClassEx( &wc );
         //フォーカスウィンドウの指定(ここだけはアダプタごとに違うものを使うこと)
-
-        _d3dparam[1].hDeviceWindow = CreateWindowEx(
+        _pHWndSecondary = CreateWindowEx(
             WS_EX_APPWINDOW,
             "multihead", //WINDOW_CLASS,
             "multihead",//WINDOW_TITLE,
@@ -349,7 +353,7 @@ HRESULT GgafDx9God::init() {
             NULL,
             _hInstance,
             NULL);
-
+        _d3dparam[1].hDeviceWindow = _pHWndSecondary;
         _d3dparam[1].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2; //プライマリ以外はバックバッファは一致して良い
 
 

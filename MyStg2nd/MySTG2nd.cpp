@@ -335,13 +335,38 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     switch (message) {
 
         case WM_SIZE:
-            if (GgafDx9Core::GgafDx9God::_can_be) {
+			if (GgafDx9Core::GgafDx9God::_can_be) {
                 if (!GGAFDX9_PROPERTY(FULL_SCREEN)) {
                     GgafDx9Core::GgafDx9God::_adjustGameScreen = true;
                 }
             }
             break;
+        case WM_SETFOCUS:
+            HRESULT hr;
+            if (GgafDx9Core::GgafDx9Input::_pIDirectInputDevice8_Mouse) {
+                hr = GgafDx9Core::GgafDx9Input::_pIDirectInputDevice8_Mouse->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+                if (hr != D3D_OK) {
+                    _TRACE_("GgafDx9Input::initDx9Input() _pHWndSecondaryマウスのSetCooperativeLevelに失敗しました");
+                }
+            }
+                // キーボード強調レベル設定
+            if (GgafDx9Core::GgafDx9Input::_pIDirectInputDevice8_Keyboard) {
+                hr = GgafDx9Core::GgafDx9Input::_pIDirectInputDevice8_Keyboard->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+                if (hr != D3D_OK) {
+                    MessageBox(hWnd, TEXT("GgafDx9Input::initDx9Input() キーボードのSetCooperativeLevelに失敗しました"),
+                               TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                }
+            }
+            if (GgafDx9Core::GgafDx9Input::_pIDirectInputDevice8_Joystick) {
+                // ゲームスティック協調レベルを設定する
+                hr = GgafDx9Core::GgafDx9Input::_pIDirectInputDevice8_Joystick->SetCooperativeLevel(hWnd, DISCL_FOREGROUND
+                        | DISCL_NONEXCLUSIVE );
+                if (hr != D3D_OK) {
+                    _TRACE_("GgafDx9Input::initDx9Input() ジョイスティックSetCooperativeLevelに失敗しました");
+                }
+            }
 
+            break;
         case WM_SYSCOMMAND:
             if ( (wParam & 0xFFF0) == SC_SCREENSAVE ) {
                 return 1;
