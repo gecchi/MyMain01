@@ -111,20 +111,20 @@ HRESULT GgafDx9God::init() {
         if (_MULTI_SCREEN) {
             _rectPresentDest.left = 0;
             _rectPresentDest.top = 0;
-            _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
-            _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
+            _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
+            _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) - 1;
         } else {
             _rectPresentDest.left = 0;
-            _rectPresentDest.top = (800/2) - GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2;
-            _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
-            _rectPresentDest.bottom = ((800/2) + GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2 );
+            _rectPresentDest.top = (800/2) - GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2 ;
+            _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) - 1;
+            _rectPresentDest.bottom = ((800/2) + GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2 ) - 1;
         }
     } else {
         //ウインドウモード
         _rectPresentDest.left = 0;
         _rectPresentDest.top = 0;
-        _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
-        _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
+        _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) - 1;
+        _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) - 1;
     }
 
 
@@ -164,7 +164,7 @@ HRESULT GgafDx9God::init() {
         }
     } else {
         //ウィンドウ
-        _d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
+        _d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
         _d3dparam[0].BackBufferHeight = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
     }
 
@@ -826,14 +826,14 @@ void GgafDx9God::presentUniversalVisualize() {
     //            );
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,  _pRectMultiScreenLeft,
-                        pBackBuffer00,    _pRectMultiScreenLeft,
+                        pBackBuffer00,    _rectPresentDest,
                         D3DTEXF_NONE
                         );
                 checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
 
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,  _pRectMultiScreenRight,
-                        pBackBuffer01,    _pRectMultiScreenLeft,
+                        pBackBuffer01,    _rectPresentDest,
                         D3DTEXF_NONE
 
                         );
