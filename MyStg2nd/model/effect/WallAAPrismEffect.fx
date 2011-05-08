@@ -1,3 +1,5 @@
+#include "GgafEffectConst.fx" 
+
 ////////////////////////////////////////////////////////////////////////////////
 // WallAAPrismActorópÉVÉFÅ[É_Å[
 // ÅyäTóvÅz
@@ -361,8 +363,8 @@ technique WallAAPrismTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_3_0  GgafDx9VS_WallAAPrism();
-		PixelShader  = compile ps_3_0  GgafDx9PS_WallAAPrism();
+		VertexShader = compile VS_VERSION GgafDx9VS_WallAAPrism();
+		PixelShader  = compile PS_VERSION GgafDx9PS_WallAAPrism();
 	}
 }
 
@@ -372,8 +374,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //â¡éZçáê¨
-		VertexShader = compile vs_3_0  GgafDx9VS_WallAAPrism();
-		PixelShader  = compile ps_3_0  GgafDx9PS_WallAAPrism();
+		VertexShader = compile VS_VERSION GgafDx9VS_WallAAPrism();
+		PixelShader  = compile PS_VERSION GgafDx9PS_WallAAPrism();
 	}
 }
 
@@ -383,7 +385,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_3_0  GgafDx9VS_WallAAPrism();
-		PixelShader  = compile ps_3_0  PS_Flush();
+		VertexShader = compile VS_VERSION GgafDx9VS_WallAAPrism();
+		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

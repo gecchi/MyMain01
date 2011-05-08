@@ -1,3 +1,4 @@
+#include "GgafEffectConst.fx" 
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、MeshModel用シェーダー
 //
@@ -234,8 +235,8 @@ technique HoshiBoshiTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_3_0  VS_HoshiBoshi();
-		PixelShader  = compile ps_3_0  PS_HoshiBoshi();
+		VertexShader = compile VS_VERSION VS_HoshiBoshi();
+		PixelShader  = compile PS_VERSION PS_HoshiBoshi();
 	}
 }
 
@@ -245,8 +246,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_3_0  VS_HoshiBoshi();
-		PixelShader  = compile ps_3_0  PS_HoshiBoshi();
+		VertexShader = compile VS_VERSION VS_HoshiBoshi();
+		PixelShader  = compile PS_VERSION PS_HoshiBoshi();
 	}
 }
 
@@ -256,8 +257,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_3_0  VS_HoshiBoshi();
-		PixelShader  = compile ps_3_0  PS_Flush();
+		VertexShader = compile VS_VERSION VS_HoshiBoshi();
+		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }
 

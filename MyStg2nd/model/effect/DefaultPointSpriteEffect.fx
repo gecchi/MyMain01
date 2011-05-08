@@ -1,3 +1,4 @@
+#include "GgafEffectConst.fx" 
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9MeshModel用シェーダー
 //
@@ -141,8 +142,8 @@ technique DefaultPointSpriteTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_3_0  GgafDx9VS_DefaultPointSprite();
-		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultPointSprite();
+		VertexShader = compile VS_VERSION GgafDx9VS_DefaultPointSprite();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultPointSprite();
 	}
 }
 
@@ -152,8 +153,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_3_0  GgafDx9VS_DefaultPointSprite();
-		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultPointSprite();
+		VertexShader = compile VS_VERSION GgafDx9VS_DefaultPointSprite();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultPointSprite();
 	}
 }
 
@@ -163,8 +164,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_3_0  GgafDx9VS_DefaultPointSprite();
-		PixelShader  = compile ps_3_0  PS_Flush();
+		VertexShader = compile VS_VERSION GgafDx9VS_DefaultPointSprite();
+		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }
 

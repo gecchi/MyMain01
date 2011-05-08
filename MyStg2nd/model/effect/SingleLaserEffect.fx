@@ -1,3 +1,4 @@
+#include "GgafEffectConst.fx" 
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9MeshSetModel用シェーダー
 // 【概要】
@@ -180,8 +181,8 @@ technique SingleLaserTechnique
 
 //		SrcBlend  = SrcAlpha;
 //		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_3_0  GgafDx9VS_SingleLaser();
-		PixelShader  = compile ps_3_0  GgafDx9PS_SingleLaser();
+		VertexShader = compile VS_VERSION GgafDx9VS_SingleLaser();
+		PixelShader  = compile PS_VERSION GgafDx9PS_SingleLaser();
 	}
 }
 

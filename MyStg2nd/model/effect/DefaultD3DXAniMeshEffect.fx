@@ -1,3 +1,4 @@
+#include "GgafEffectConst.fx" 
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9AniMeshModel用シェーダー
 //
@@ -131,8 +132,8 @@ technique DefaultD3DXAniMeshTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_3_0  GgafDx9VS_DefaultD3DXAniMesh();
-		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultD3DXAniMesh();
+		VertexShader = compile VS_VERSION GgafDx9VS_DefaultD3DXAniMesh();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultD3DXAniMesh();
 	}
 }
 
@@ -143,8 +144,8 @@ technique DefaultD3DXAniMeshTechnique2
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_3_0  GgafDx9VS_DefaultD3DXAniMesh();
-		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultD3DXAniMesh2();
+		VertexShader = compile VS_VERSION GgafDx9VS_DefaultD3DXAniMesh();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultD3DXAniMesh2();
 	}
 }
 

@@ -111,20 +111,20 @@ HRESULT GgafDx9God::init() {
         if (_MULTI_SCREEN) {
             _rectPresentDest.left = 0;
             _rectPresentDest.top = 0;
-            _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
-            _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) - 1;
+            _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
+            _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
         } else {
             _rectPresentDest.left = 0;
             _rectPresentDest.top = (800/2) - GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2;
-            _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)-1;
-            _rectPresentDest.bottom = ((800/2) + GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2 ) - 1;
+            _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
+            _rectPresentDest.bottom = ((800/2) + GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2 );
         }
     } else {
         //ウインドウモード
         _rectPresentDest.left = 0;
         _rectPresentDest.top = 0;
-        _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)-1;
-        _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
+        _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
+        _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
     }
 
 

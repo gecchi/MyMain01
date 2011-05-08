@@ -1,3 +1,4 @@
+#include "GgafEffectConst.fx" 
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9MeshModel用シェーダー
 //
@@ -172,8 +173,8 @@ technique SpriteMeshTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_3_0  GgafDx9VS_SpriteMesh();
-		PixelShader  = compile ps_3_0  GgafDx9PS_SpriteMesh();
+		VertexShader = compile VS_VERSION GgafDx9VS_SpriteMesh();
+		PixelShader  = compile PS_VERSION GgafDx9PS_SpriteMesh();
 	}
 }
 
@@ -183,8 +184,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_3_0  GgafDx9VS_SpriteMesh();
-		PixelShader  = compile ps_3_0  GgafDx9PS_SpriteMesh();
+		VertexShader = compile VS_VERSION GgafDx9VS_SpriteMesh();
+		PixelShader  = compile PS_VERSION GgafDx9PS_SpriteMesh();
 	}
 }
 
@@ -194,8 +195,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_3_0  GgafDx9VS_SpriteMesh();
-		PixelShader  = compile ps_3_0  PS_Flush();
+		VertexShader = compile VS_VERSION GgafDx9VS_SpriteMesh();
+		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }
 
@@ -205,8 +206,8 @@ technique NoLight
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_3_0  VS_NoLight();
-		PixelShader  = compile ps_3_0  PS_NoLight();
+		VertexShader = compile VS_VERSION VS_NoLight();
+		PixelShader  = compile PS_VERSION PS_NoLight();
 	}
 }
 

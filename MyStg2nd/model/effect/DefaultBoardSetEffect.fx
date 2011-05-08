@@ -1,3 +1,4 @@
+#include "GgafEffectConst.fx" 
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9BoardSetModel用シェーダー
 //
@@ -492,8 +493,8 @@ technique DefaultBoardSetTechnique
 		SrcBlend = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_3_0  GgafDx9VS_DefaultBoardSet();
-		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultBoardSet();
+		VertexShader = compile VS_VERSION GgafDx9VS_DefaultBoardSet();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultBoardSet();
 	}
 }
 
@@ -503,8 +504,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_3_0  GgafDx9VS_DefaultBoardSet();
-		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultBoardSet();
+		VertexShader = compile VS_VERSION GgafDx9VS_DefaultBoardSet();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultBoardSet();
 	}
 }
 
@@ -515,7 +516,7 @@ technique Flush
 		SrcBlend = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_3_0  GgafDx9VS_DefaultBoardSet();
-		PixelShader  = compile ps_3_0  PS_Flush();
+		VertexShader = compile VS_VERSION GgafDx9VS_DefaultBoardSet();
+		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

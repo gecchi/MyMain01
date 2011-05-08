@@ -1,3 +1,4 @@
+#include "GgafEffectConst.fx" 
 ////////////////////////////////////////////////////////////////////////////////
 // author : Masatoshi Tsuge
 // date:2010/12/24
@@ -208,8 +209,8 @@ technique CubeMapMeshSetTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_3_0  GgafDx9VS_CubeMapMeshSet();
-		PixelShader  = compile ps_3_0  GgafDx9PS_CubeMapMeshSet();
+		VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMeshSet();
+		PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMeshSet();
 	}
 }
 
@@ -219,8 +220,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //â¡éZçáê¨
-		VertexShader = compile vs_3_0  GgafDx9VS_CubeMapMeshSet();
-		PixelShader  = compile ps_3_0  GgafDx9PS_CubeMapMeshSet();
+		VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMeshSet();
+		PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMeshSet();
 	}
 }
 
@@ -230,7 +231,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_3_0  GgafDx9VS_CubeMapMeshSet();
-		PixelShader  = compile ps_3_0  PS_Flush();
+		VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMeshSet();
+		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

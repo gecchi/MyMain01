@@ -1,3 +1,4 @@
+#include "GgafEffectConst.fx" 
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9MeshSetModel用シェーダー
 // 【概要】
@@ -220,8 +221,8 @@ technique DefaultMeshSetTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_3_0  GgafDx9VS_DefaultMeshSet();
-		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultMeshSet();
+		VertexShader = compile VS_VERSION GgafDx9VS_DefaultMeshSet();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultMeshSet();
 	}
 }
 
@@ -231,8 +232,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile vs_3_0  GgafDx9VS_DefaultMeshSet();
-		PixelShader  = compile ps_3_0  GgafDx9PS_DefaultMeshSet();
+		VertexShader = compile VS_VERSION GgafDx9VS_DefaultMeshSet();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultMeshSet();
 	}
 }
 
@@ -242,7 +243,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile vs_3_0  GgafDx9VS_DefaultMeshSet();
-		PixelShader  = compile ps_3_0  PS_Flush();
+		VertexShader = compile VS_VERSION GgafDx9VS_DefaultMeshSet();
+		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

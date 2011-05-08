@@ -1,3 +1,4 @@
+#include "GgafEffectConst.fx" 
 float4x4 g_matWorld;  
 float4x4 g_matView;   
 float4x4 g_matProj;   
@@ -95,8 +96,8 @@ technique GroundMeshTechnique
 		DestBlend = InvSrcAlpha;
 		ColorVertex  = True;
 
-		VertexShader = compile vs_3_0  GgafDx9VS_GroundMesh();
-		PixelShader  = compile ps_3_0  GgafDx9PS_GroundMesh();
+		VertexShader = compile VS_VERSION GgafDx9VS_GroundMesh();
+		PixelShader  = compile PS_VERSION GgafDx9PS_GroundMesh();
 	}
 }
 
