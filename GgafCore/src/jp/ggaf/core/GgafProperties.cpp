@@ -140,7 +140,16 @@ UINT32 GgafProperties::getUInt(string prm_key) {
 bool GgafProperties::getBool(string prm_key) {
     if (isExistKey(prm_key)) {
         bool ret;
-        if (strcmp((*_pMapProperties)[prm_key].c_str(), "true") == 0 || strcmp((*_pMapProperties)[prm_key].c_str(), "yes") == 0) {
+        if (strcmp((*_pMapProperties)[prm_key].c_str(), "true") == 0 ||
+            strcmp((*_pMapProperties)[prm_key].c_str(), "on")   == 0 ||
+            strcmp((*_pMapProperties)[prm_key].c_str(), "yes")  == 0 ||
+            strcmp((*_pMapProperties)[prm_key].c_str(), "True") == 0 ||
+            strcmp((*_pMapProperties)[prm_key].c_str(), "On")   == 0 ||
+            strcmp((*_pMapProperties)[prm_key].c_str(), "Yes")  == 0 ||
+            strcmp((*_pMapProperties)[prm_key].c_str(), "TRUE") == 0 ||
+            strcmp((*_pMapProperties)[prm_key].c_str(), "ON")   == 0 ||
+            strcmp((*_pMapProperties)[prm_key].c_str(), "YES")  == 0
+        ) {
             ret = true;
         } else {
             ret = false;

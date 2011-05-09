@@ -41,7 +41,7 @@ D3DPRESENT_PARAMETERS* GgafDx9God::_d3dparam;
 bool GgafDx9God::_is_device_lost_flg = false;
 bool GgafDx9God::_adjustGameScreen = false;
 bool GgafDx9God::_FULLSCRREEN = false;
-bool GgafDx9God::_MULTI_SCREEN = false;
+bool GgafDx9God::_DUAL_DISPLAY = false;
 int GgafDx9God::_iNumAdapter = 1;
 
 
@@ -66,7 +66,7 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary) :
 
 HRESULT GgafDx9God::init() {
     _FULLSCRREEN = GGAFDX9_PROPERTY(FULL_SCREEN);
-    _MULTI_SCREEN = GGAFDX9_PROPERTY(MULTI_SCREEN);
+    _DUAL_DISPLAY = GGAFDX9_PROPERTY(DUAL_DISPLAY);
 
     _pRectMultiScreenLeft = NEW RECT;
     _pRectMultiScreenLeft->left = 0;
@@ -108,7 +108,7 @@ HRESULT GgafDx9God::init() {
 
     //バックバッファ
     if (_FULLSCRREEN) {
-        if (_MULTI_SCREEN) {
+        if (_DUAL_DISPLAY) {
             _rectPresentDest.left = 0;
             _rectPresentDest.top = 0;
             _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
@@ -155,7 +155,7 @@ HRESULT GgafDx9God::init() {
     ZeroMemory(&_d3dparam[0], sizeof(D3DPRESENT_PARAMETERS));
     //バックバッファの横サイズ
     if (_FULLSCRREEN) {
-        if(_MULTI_SCREEN) {
+        if(_DUAL_DISPLAY) {
             _d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
             _d3dparam[0].BackBufferHeight = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
         } else {
@@ -183,7 +183,7 @@ HRESULT GgafDx9God::init() {
     //スワップ効果を指定する
     //バックバッファ
     if (_FULLSCRREEN) {
-        if (_MULTI_SCREEN) {
+        if (_DUAL_DISPLAY) {
             _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
         } else {
             _d3dparam[0].SwapEffect = D3DSWAPEFFECT_DISCARD;
@@ -314,7 +314,7 @@ HRESULT GgafDx9God::init() {
 
     //2画面の設定
     //http://www.shader.jp/xoops/html/masafumi/directx9/3dtips/d3d15.htm
-    if (_FULLSCRREEN && _MULTI_SCREEN) {
+    if (_FULLSCRREEN && _DUAL_DISPLAY) {
         _d3dparam[1] = _d3dparam[0]; //共通が多いため
 
         WNDCLASSEX wcex;
@@ -372,7 +372,7 @@ HRESULT GgafDx9God::init() {
     }
 
 
-    if (_FULLSCRREEN && _MULTI_SCREEN) {
+    if (_FULLSCRREEN && _DUAL_DISPLAY) {
 
         //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
@@ -724,7 +724,7 @@ void GgafDx9God::makeUniversalMaterialize() {
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
             checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[0]に失敗しました。");
-            if (_FULLSCRREEN && _MULTI_SCREEN) {
+            if (_FULLSCRREEN && _DUAL_DISPLAY) {
                 for (int i = 1; i < _iNumAdapter; i++) {
                     hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[i]));
                     checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[1]に失敗しました。");
@@ -800,7 +800,7 @@ void GgafDx9God::presentUniversalVisualize() {
 
 
         if (_FULLSCRREEN) {
-            if (_MULTI_SCREEN) {
+            if (_DUAL_DISPLAY) {
                 LPDIRECT3DSWAPCHAIN9 pSwapChain00 = NULL;//アダプタに関連付けれられたスワップチェーン
                 LPDIRECT3DSURFACE9 pBackBuffer00 = NULL;//バックバッファ1画面分
                 LPDIRECT3DSWAPCHAIN9 pSwapChain01 = NULL;//アダプタに関連付けれられたスワップチェーン
@@ -826,14 +826,14 @@ void GgafDx9God::presentUniversalVisualize() {
     //            );
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,  _pRectMultiScreenLeft,
-                        pBackBuffer00,    _rectPresentDest,
+                        pBackBuffer00,    &_rectPresentDest,
                         D3DTEXF_NONE
                         );
                 checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
 
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,  _pRectMultiScreenRight,
-                        pBackBuffer01,    _rectPresentDest,
+                        pBackBuffer01,    &_rectPresentDest,
                         D3DTEXF_NONE
 
                         );
@@ -919,7 +919,7 @@ void GgafDx9God::presentUniversalVisualize() {
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
             checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([0]) を試しましが、駄目でした。");
-            if (_FULLSCRREEN && _MULTI_SCREEN) {
+            if (_FULLSCRREEN && _DUAL_DISPLAY) {
                 for (int i = 1; i < _iNumAdapter; i++) {
                     hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[i]));
                     checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([1]) を試しましが、駄目でした。");

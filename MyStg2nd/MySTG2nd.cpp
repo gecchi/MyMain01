@@ -88,7 +88,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
     if (GGAFDX9_PROPERTY(FULL_SCREEN)) {
         // ウインドウの生成
-        if (GGAFDX9_PROPERTY(MULTI_SCREEN)) {
+        if (GGAFDX9_PROPERTY(DUAL_DISPLAY)) {
             hWnd = CreateWindowEx(
                 WS_EX_APPWINDOW,
                 szWindowClass, //WINDOW_CLASS,
