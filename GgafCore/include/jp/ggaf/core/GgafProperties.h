@@ -1,8 +1,11 @@
 #ifndef GGAFPROPERTIES
 #define GGAFPROPERTIES
 
-#define GGAF_PROPERTY(X) (GgafCore::GgafProperties::X)
 
+#ifdef  PROPERTY
+    #undef PROPERTY
+#endif
+#define PROPERTY(X) (GgafCore::GgafProperties::X)
 
 namespace GgafCore {
 

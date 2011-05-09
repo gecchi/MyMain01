@@ -1,6 +1,9 @@
 #ifndef PROPERTIES_H_
 #define PROPERTIES_H_
 
+#ifdef  PROPERTY
+    #undef PROPERTY
+#endif
 #define PROPERTY(X) (MyStg2nd::Properties::X)
 
 namespace MyStg2nd {

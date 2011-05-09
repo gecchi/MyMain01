@@ -5,8 +5,8 @@
 // author : Masatoshi Tsuge
 // date:2009/03/06 
 ////////////////////////////////////////////////////////////////////////////////
-float g_view_width; //画面幅(px)
-float g_view_height; //画面高さ(px)
+float g_game_buffer_width; //画面幅(px)
+float g_game_buffer_height; //画面高さ(px)
 float g_tex_blink_power;   
 float g_tex_blink_threshold;
 float g_alpha_master;
@@ -254,8 +254,8 @@ OUT_VS GgafDx9VS_StringBoard(
 	} 
 
 	//X座標Y座標をを -1 ～ +1 に押し込める。
-	out_vs.pos.x = - 1 + ((2*prm_pos.x + 2*transformedX - 1) / g_view_width);
-	out_vs.pos.y =   1 - ((2*prm_pos.y + 2*g_transformedY001 - 1) / g_view_height);
+	out_vs.pos.x = - 1 + ((2*prm_pos.x + 2*transformedX - 1) / g_game_buffer_width);
+	out_vs.pos.y =   1 - ((2*prm_pos.y + 2*g_transformedY001 - 1) / g_game_buffer_height);
 	out_vs.pos.z = g_depthZ001;
 	out_vs.pos.w = 1.0;
 	//UVのオフセットを加算
@@ -312,8 +312,8 @@ float4 PS_Flush(
 // float g_transformedX		: 	変換済みX座標(px)
 // float g_transformedY		:	変換済みY座標(px)
 // float g_depthZ			:	深度Z (0 ～ +1)
-// float g_view_width		:	画面幅(px)
-// float g_view_height		:	画面高さ(px)
+// float g_game_buffer_width		:	画面幅(px)
+// float g_game_buffer_height		:	画面高さ(px)
 // float g_offsetU			:	テクスチャU座標増分
 // float g_offsetV			:	テクスチャV座標増分
 // s0レジスタ				:	2Dテクスチャ

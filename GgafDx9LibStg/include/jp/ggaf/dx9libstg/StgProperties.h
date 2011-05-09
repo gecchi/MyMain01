@@ -1,6 +1,11 @@
 #ifndef STGPROPERTIES_H_
 #define STGPROPERTIES_H_
-#define STG_PROPERTY(X) (GgafDx9LibStg::StgProperties::X)
+
+#ifdef  PROPERTY
+    #undef PROPERTY
+#endif
+#define PROPERTY(X) (GgafDx9LibStg::StgProperties::X)
+
 namespace GgafDx9LibStg {
 
 class StgProperties: public GgafDx9Core::GgafDx9Properties {

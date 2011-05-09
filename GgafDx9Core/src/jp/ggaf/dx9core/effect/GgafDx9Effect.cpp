@@ -28,7 +28,7 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 //    DWORD dwFlags = D3DXSHADER_SKIPVALIDATION|D3DXSHADER_PARTIALPRECISION|D3DXSHADER_PREFER_FLOW_CONTROL|D3DXFX_NOT_CLONEABLE;
 //#endif
 
-    string effect_file_name = GGAFDX9_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
+    string effect_file_name = PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
 //    if (prm_effect_name == "HoshiBoshiEffect") {
 //        dwFlags = D3DXSHADER_DEBUG|D3DXSHADER_SKIPOPTIMIZATION;
 //    }

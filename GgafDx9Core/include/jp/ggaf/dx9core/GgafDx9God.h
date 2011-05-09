@@ -49,8 +49,6 @@ public:
 
     static GgafDx9ModelManager* _pModelManager;
     static GgafDx9EffectManager* _pEffectManager;
-    static bool _FULLSCRREEN;
-    static bool _DUAL_DISPLAY;
     static int _iNumAdapter;
     static RECT*  _pRectMultiScreenLeft;
     static RECT*  _pRectMultiScreenRight;

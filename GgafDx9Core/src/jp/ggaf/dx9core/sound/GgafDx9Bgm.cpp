@@ -10,7 +10,7 @@ using namespace Dix;
 //        throwGgafCriticalException("GgafDx9Bgm::GgafDx9Bgm("<<prm_ogg_name<<") DirectSound ‚ªA‚Ü‚¾‰Šú‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
 //    }
 //    _file_name = string(prm_ogg_name);
-//    string ogg_filename = GGAFDX9_PROPERTY(DIR_OGG) + _file_name + ".ogg";
+//    string ogg_filename = PROPERTY(DIR_OGG) + _file_name + ".ogg";
 //    pOggResource = NEW OggVorbisFile( ogg_filename.c_str() );
 //    pOggDecoder =  NEW OggDecoder( pOggResource );
 //    pPcmPlayer = NEW PCMPlayer(GgafDx9Sound::_pIDirectSound8 , pOggDecoder);
@@ -25,7 +25,7 @@ GgafDx9Bgm::GgafDx9Bgm(char* prm_bgm_key) : GgafObject() {
     _bpm = atoi((*GgafProperties::_pMapProperties)[bgm_key+"_BPM"].c_str());
     _title = (*GgafProperties::_pMapProperties)[bgm_key+"_TITLE"];
     _TRACE_("GgafDx9Bgm::GgafDx9Bgm KEY="<<prm_bgm_key<<" _file_name="<<_ogg_file_name<<" _bpm="<<_bpm<<" _title="<<_title);
-    string full_ogg_file_name = GGAFDX9_PROPERTY(DIR_OGG) + string(_ogg_file_name);
+    string full_ogg_file_name = PROPERTY(DIR_OGG) + string(_ogg_file_name);
     pOggResource = NEW OggVorbisFile( full_ogg_file_name.c_str() );
     pOggDecoder =  NEW OggDecoder( pOggResource );
     pPcmPlayer = NEW PCMPlayer(GgafDx9Sound::_pIDirectSound8 , pOggDecoder);

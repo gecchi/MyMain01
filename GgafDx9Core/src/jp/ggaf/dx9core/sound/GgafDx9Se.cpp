@@ -11,7 +11,7 @@ GgafDx9Se::GgafDx9Se(char* prm_wave_name) : GgafObject() {
 
     _wave_name = NEW char[128];
     strcpy(_wave_name, prm_wave_name);
-    string wave_filename = GGAFDX9_PROPERTY(DIR_WAVE) + string(_wave_name) + ".wav";
+    string wave_filename = PROPERTY(DIR_WAVE) + string(_wave_name) + ".wav";
 
     HRESULT hr;
     // Waveファイルを開く
@@ -130,7 +130,7 @@ void GgafDx9Se::setFrequencyRate(float prm_fRate_Frequency) {
 }
 
 int GgafDx9Se::restore(void) {
-    string wave_filename = GGAFDX9_PROPERTY(DIR_WAVE) + _wave_name + ".wav";
+    string wave_filename = PROPERTY(DIR_WAVE) + _wave_name + ".wav";
     // Waveファイルを開く
     CWaveDecorder WaveFile;
     if (!WaveFile.Open((LPSTR)wave_filename.c_str())) {

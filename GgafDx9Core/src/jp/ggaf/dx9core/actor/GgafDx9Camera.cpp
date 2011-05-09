@@ -18,7 +18,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
     //半分を保持
     _rad_half_fovX = _rad_fovX / 2.0f;
     //画面アスペクト比(w/h)
-    _screen_aspect = (FLOAT)(1.0f * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT));
+    _screen_aspect = (FLOAT)(1.0f * PROPERTY(GAME_BUFFER_WIDTH) / PROPERTY(GAME_BUFFER_HEIGHT));
     //fovXとアスペクト比からfovYを計算して求める
     float xzRatio = tan( _rad_fovX/2 );
     float yRatio = xzRatio / _screen_aspect;
@@ -33,7 +33,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
     _tan_half_fovX = tan(_rad_fovX/2.0);
     //初期カメラ位置は視点(0,0,Z)、注視点(0,0,0)
     //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
-    _cameraZ = -1.0f * ((GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / PX_UNIT) / 2.0f) / _tan_half_fovY;
+    _cameraZ = -1.0f * ((PROPERTY(GAME_BUFFER_HEIGHT) / PX_UNIT) / 2.0f) / _tan_half_fovY;
     _cameraZ_org = _cameraZ;
     _TRACE_("GgafDx9Camera::GgafDx9Camera カメラの位置(0,0,"<<_cameraZ<<")");
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
@@ -67,10 +67,10 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
      //左手座標系正射影
      D3DXMatrixOrthoLH(
      &_matProj,
-     GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH),
-     GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
+     PROPERTY(GAME_BUFFER_WIDTH),
+     PROPERTY(GAME_BUFFER_HEIGHT),
      1.0f,
-     GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)
+     PROPERTY(GAME_BUFFER_HEIGHT)
      );
      */
 
@@ -91,10 +91,10 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
     _pViewPoint->_Y = _pVecCamLookatPoint->y * LEN_UNIT * PX_UNIT;
     _pViewPoint->_Z = _pVecCamLookatPoint->z * LEN_UNIT * PX_UNIT;
 
-    _X_ScreenLeft   = (int)(-1 * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * LEN_UNIT / 2);
-    _X_ScreenRight  = (int)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * LEN_UNIT / 2);
-    _Y_ScreenTop    = (int)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * LEN_UNIT / 2);
-    _Y_ScreenBottom = (int)(-1 * GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * LEN_UNIT / 2);
+    _X_ScreenLeft   = (int)(-1 * PROPERTY(GAME_BUFFER_WIDTH) * LEN_UNIT / 2);
+    _X_ScreenRight  = (int)(PROPERTY(GAME_BUFFER_WIDTH) * LEN_UNIT / 2);
+    _Y_ScreenTop    = (int)(PROPERTY(GAME_BUFFER_HEIGHT) * LEN_UNIT / 2);
+    _Y_ScreenBottom = (int)(-1 * PROPERTY(GAME_BUFFER_HEIGHT) * LEN_UNIT / 2);
     GgafDx9God::_pID3DDevice9->GetViewport(&_viewport);
 }
 

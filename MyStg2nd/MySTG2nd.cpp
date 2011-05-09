@@ -86,9 +86,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     MyRegisterClass_Primary(hInstance);
     HWND hWnd;
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
-    if (GGAFDX9_PROPERTY(FULL_SCREEN)) {
+    if (PROPERTY(FULL_SCREEN)) {
         // ウインドウの生成
-        if (GGAFDX9_PROPERTY(DUAL_DISPLAY)) {
+        if (PROPERTY(DUAL_DISPLAY)) {
             hWnd = CreateWindowEx(
                 WS_EX_APPWINDOW,
                 szWindowClass, //WINDOW_CLASS,
@@ -96,8 +96,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                 WS_POPUP | WS_VISIBLE,
                 CW_USEDEFAULT,
                 CW_USEDEFAULT,
-                GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2, //ウィンドウの幅、違うのはココのみ
-                GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
+                PROPERTY(GAME_BUFFER_WIDTH)/2, //ウィンドウの幅、違うのはココのみ
+                PROPERTY(GAME_BUFFER_HEIGHT),
                 HWND_DESKTOP,
                 NULL,
                 hInstance,
@@ -110,8 +110,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                 WS_POPUP | WS_VISIBLE,
                 CW_USEDEFAULT,
                 CW_USEDEFAULT,
-                GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2, // ウィンドウの幅
-                GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
+                PROPERTY(GAME_BUFFER_WIDTH)/2, // ウィンドウの幅
+                PROPERTY(GAME_BUFFER_HEIGHT),
                 HWND_DESKTOP,
                 NULL,
                 hInstance,
@@ -126,8 +126,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                 WS_OVERLAPPEDWINDOW, // ウインドウスタイル
                 CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
                 CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
-                GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH), // ウィンドウの幅
-                GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT), // ウィンドウの幅
+                PROPERTY(GAME_BUFFER_WIDTH), // ウィンドウの幅
+                PROPERTY(GAME_BUFFER_HEIGHT), // ウィンドウの幅
                 HWND_DESKTOP, // 親ウインドウ
                 NULL, // ウインドウメニュー
                 hInstance, // インスタンスハンドル
@@ -142,7 +142,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         return FALSE;
     }
 
-    if (GGAFDX9_PROPERTY(FULL_SCREEN)) {
+    if (PROPERTY(FULL_SCREEN)) {
 
     } else {
         RECT wRect, cRect; // ウィンドウ全体の矩形、クライアント領域の矩形
@@ -166,8 +166,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                 HWND_TOP,
                 wRect.left,
                 wRect.top,
-                GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) + fw,
-                GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) + fh,
+                PROPERTY(GAME_BUFFER_WIDTH) + fw,
+                PROPERTY(GAME_BUFFER_HEIGHT) + fh,
                 SWP_NOMOVE
         );
 
@@ -336,7 +336,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
         case WM_SIZE:
 			if (GgafDx9Core::GgafDx9God::_can_be) {
-                if (!GGAFDX9_PROPERTY(FULL_SCREEN)) {
+                if (!PROPERTY(FULL_SCREEN)) {
                     GgafDx9Core::GgafDx9God::_adjustGameScreen = true;
                 }
             }

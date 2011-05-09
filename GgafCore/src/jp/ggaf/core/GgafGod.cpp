@@ -43,7 +43,7 @@ GgafGod::GgafGod() : GgafObject(),
 //    _can_be = true;
     _was_cleaned = false;
     _skip_count_of_frame = 0;
-    _max_skip_frames = (int)GGAF_PROPERTY(MAX_SKIP_FRAME);
+    _max_skip_frames = (int)PROPERTY(MAX_SKIP_FRAME);
     _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     _sync_frame_time = false;
 
@@ -77,9 +77,9 @@ void GgafGod::be() {
             executeUniversalJudge();
         ___EndSynchronized; // <----- 排他終了
             //描画タイミングフレーム加算
-            if (_num_actor_drawing > GGAF_PROPERTY(DRAWNUM_TO_SLOWDOWN2)) {
+            if (_num_actor_drawing > PROPERTY(DRAWNUM_TO_SLOWDOWN2)) {
                 _slowdown_mode = SLOWDOWN_MODE_30FPS;
-            } else if (_num_actor_drawing > GGAF_PROPERTY(DRAWNUM_TO_SLOWDOWN1)) {
+            } else if (_num_actor_drawing > PROPERTY(DRAWNUM_TO_SLOWDOWN1)) {
                 _slowdown_mode = SLOWDOWN_MODE_40FPS;
             } else {
                 _slowdown_mode = SLOWDOWN_MODE_DEFAULT;

@@ -12,7 +12,7 @@ MagicMeter::MagicMeter(const char* prm_name)
     _width = _pBoardSetModel->_fSize_BoardSetModelWidthPx + 1.0f;
     _height = _pBoardSetModel->_fSize_BoardSetModelHeightPx + 1.0f;
     _x = 100;
-    _y = Properties::VIEW_SCREEN_HEIGHT - (_height*2);
+    _y = PROPERTY(GAME_BUFFER_HEIGHT) - (_height*2);
 //    AmountGraph _qu;
 //    _qu.set(1.0);
 //    _qu.config(400.0, 1.0);

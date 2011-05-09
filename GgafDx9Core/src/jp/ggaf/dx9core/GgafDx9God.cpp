@@ -34,14 +34,12 @@ D3DFILLMODE GgafDx9God::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFI
 
 GgafDx9ModelManager* GgafDx9God::_pModelManager = NULL;
 GgafDx9EffectManager* GgafDx9God::_pEffectManager = NULL;
-//int const GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)  = 1024;
-//int const GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) = 600;
+//int const PROPERTY(GAME_BUFFER_WIDTH)  = 1024;
+//int const PROPERTY(GAME_BUFFER_HEIGHT) = 600;
 D3DPRESENT_PARAMETERS* GgafDx9God::_d3dparam;
 
 bool GgafDx9God::_is_device_lost_flg = false;
 bool GgafDx9God::_adjustGameScreen = false;
-bool GgafDx9God::_FULLSCRREEN = false;
-bool GgafDx9God::_DUAL_DISPLAY = false;
 int GgafDx9God::_iNumAdapter = 1;
 
 
@@ -65,66 +63,64 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary) :
 }
 
 HRESULT GgafDx9God::init() {
-    _FULLSCRREEN = GGAFDX9_PROPERTY(FULL_SCREEN);
-    _DUAL_DISPLAY = GGAFDX9_PROPERTY(DUAL_DISPLAY);
 
     _pRectMultiScreenLeft = NEW RECT;
     _pRectMultiScreenLeft->left = 0;
     _pRectMultiScreenLeft->top = 0;
-    _pRectMultiScreenLeft->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
-    _pRectMultiScreenLeft->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
+    _pRectMultiScreenLeft->right = PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
+    _pRectMultiScreenLeft->bottom = PROPERTY(GAME_BUFFER_HEIGHT)-1;
 
 
     _pRectMultiScreenRight = NEW RECT;
-    _pRectMultiScreenRight->left =  GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
+    _pRectMultiScreenRight->left =  PROPERTY(GAME_BUFFER_WIDTH)/2;
     _pRectMultiScreenRight->top = 0;
-    _pRectMultiScreenRight->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)-1;
-    _pRectMultiScreenRight->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
+    _pRectMultiScreenRight->right = PROPERTY(GAME_BUFFER_WIDTH)-1;
+    _pRectMultiScreenRight->bottom = PROPERTY(GAME_BUFFER_HEIGHT)-1;
 
     _pRectGameBuffer = NEW RECT;
     _pRectGameBuffer->left = 0;
     _pRectGameBuffer->top = 0;
-    _pRectGameBuffer->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) - 1;
-    _pRectGameBuffer->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) - 1;
+    _pRectGameBuffer->right = PROPERTY(GAME_BUFFER_WIDTH) - 1;
+    _pRectGameBuffer->bottom = PROPERTY(GAME_BUFFER_HEIGHT) - 1;
 
     _pRectViewScreen = NEW RECT;
     _pRectViewScreen->left = 0;
     _pRectViewScreen->top = 0;
-    _pRectViewScreen->right = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) - 1;
-    _pRectViewScreen->bottom = GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 1;
+    _pRectViewScreen->right = PROPERTY(GAME_BUFFER_WIDTH) - 1;
+    _pRectViewScreen->bottom = PROPERTY(GAME_BUFFER_HEIGHT) - 1;
 
 //    _pRectMultiScreenRight = NEW RECT;
 //    _pRectMultiScreenRight->left = 0;
 //    _pRectMultiScreenRight->top = 0;
-//    _pRectMultiScreenRight->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
-//    _pRectMultiScreenRight->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
+//    _pRectMultiScreenRight->right = PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
+//    _pRectMultiScreenRight->bottom = PROPERTY(GAME_BUFFER_HEIGHT)-1;
 //
 //    _pRectMultiScreenLeft = NEW RECT;
 //    _pRectMultiScreenLeft->left = 0;
 //    _pRectMultiScreenLeft->top = 0;
-//    _pRectMultiScreenLeft->right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
-//    _pRectMultiScreenLeft->bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)-1;
+//    _pRectMultiScreenLeft->right = PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
+//    _pRectMultiScreenLeft->bottom = PROPERTY(GAME_BUFFER_HEIGHT)-1;
 
 
     //バックバッファ
-    if (_FULLSCRREEN) {
-        if (_DUAL_DISPLAY) {
+    if (PROPERTY(FULL_SCREEN)) {
+        if (PROPERTY(DUAL_DISPLAY)) {
             _rectPresentDest.left = 0;
             _rectPresentDest.top = 0;
-            _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
-            _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) - 1;
+            _rectPresentDest.right = PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
+            _rectPresentDest.bottom = PROPERTY(GAME_BUFFER_HEIGHT) - 1;
         } else {
             _rectPresentDest.left = 0;
-            _rectPresentDest.top = (800/2) - GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2 ;
-            _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) - 1;
-            _rectPresentDest.bottom = ((800/2) + GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2 ) - 1;
+            _rectPresentDest.top = (800/2) - PROPERTY(GAME_BUFFER_HEIGHT)/2 ;
+            _rectPresentDest.right = PROPERTY(GAME_BUFFER_WIDTH) - 1;
+            _rectPresentDest.bottom = ((800/2) + PROPERTY(GAME_BUFFER_HEIGHT)/2 ) - 1;
         }
     } else {
         //ウインドウモード
         _rectPresentDest.left = 0;
         _rectPresentDest.top = 0;
-        _rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) - 1;
-        _rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) - 1;
+        _rectPresentDest.right = PROPERTY(GAME_BUFFER_WIDTH) - 1;
+        _rectPresentDest.bottom = PROPERTY(GAME_BUFFER_HEIGHT) - 1;
     }
 
 
@@ -154,23 +150,23 @@ HRESULT GgafDx9God::init() {
     //デバイス作成
     ZeroMemory(&_d3dparam[0], sizeof(D3DPRESENT_PARAMETERS));
     //バックバッファの横サイズ
-    if (_FULLSCRREEN) {
-        if(_DUAL_DISPLAY) {
-            _d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2;
-            _d3dparam[0].BackBufferHeight = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
+    if (PROPERTY(FULL_SCREEN)) {
+        if(PROPERTY(DUAL_DISPLAY)) {
+            _d3dparam[0].BackBufferWidth = PROPERTY(GAME_BUFFER_WIDTH)/2;
+            _d3dparam[0].BackBufferHeight = PROPERTY(GAME_BUFFER_HEIGHT);
         } else {
-            _d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
+            _d3dparam[0].BackBufferWidth = PROPERTY(GAME_BUFFER_WIDTH);
             _d3dparam[0].BackBufferHeight = 800; //TODO:
         }
     } else {
         //ウィンドウ
-        _d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH);
-        _d3dparam[0].BackBufferHeight = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
+        _d3dparam[0].BackBufferWidth = PROPERTY(GAME_BUFFER_WIDTH);
+        _d3dparam[0].BackBufferHeight = PROPERTY(GAME_BUFFER_HEIGHT);
     }
 
-    //_d3dparam[0].BackBufferWidth = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH);
+    //_d3dparam[0].BackBufferWidth = PROPERTY(GAME_BUFFER_WIDTH);
     //バックバッファのフォーマット
-    if (_FULLSCRREEN) {
+    if (PROPERTY(FULL_SCREEN)) {
         _d3dparam[0].BackBufferFormat = D3DFMT_X8R8G8B8;//D3DFMT_A8R8G8B8;//D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
     } else {
         _d3dparam[0].BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
@@ -182,8 +178,8 @@ HRESULT GgafDx9God::init() {
 
     //スワップ効果を指定する
     //バックバッファ
-    if (_FULLSCRREEN) {
-        if (_DUAL_DISPLAY) {
+    if (PROPERTY(FULL_SCREEN)) {
+        if (PROPERTY(DUAL_DISPLAY)) {
             _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
         } else {
             _d3dparam[0].SwapEffect = D3DSWAPEFFECT_DISCARD;
@@ -195,7 +191,7 @@ HRESULT GgafDx9God::init() {
     //ウィンドウハンドル
     _d3dparam[0].hDeviceWindow = _pHWndPrimary;
     //ウィンドウモード
-    if (_FULLSCRREEN) {
+    if (PROPERTY(FULL_SCREEN)) {
         _d3dparam[0].Windowed = false; //フルスクリーン時
     } else {
         _d3dparam[0].Windowed = true; //ウィンドウ時
@@ -208,13 +204,13 @@ HRESULT GgafDx9God::init() {
     //0にしておく
     _d3dparam[0].Flags = 0;
     //フルスクリーンでのリフレッシュレート(ウィンドウモードなら0を指定)
-    if (_FULLSCRREEN) {
+    if (PROPERTY(FULL_SCREEN)) {
         _d3dparam[0].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //フルスクリーン時
     } else {
         _d3dparam[0].FullScreen_RefreshRateInHz = 0; //ウィンドウ時
     }
     //スワップのタイミング
-    if (_FULLSCRREEN) {
+    if (PROPERTY(FULL_SCREEN)) {
         _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
     } else {
         _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
@@ -230,7 +226,7 @@ HRESULT GgafDx9God::init() {
     //		D3DADAPTER_DEFAULT,
     //		D3DDEVTYPE_HAL,
     //		D3DFMT_A8R8G8B8,
-    //		_FULLSCRREEN ? FALSE : TRUE,
+    //		PROPERTY(FULL_SCREEN) ? FALSE : TRUE,
     //		D3DMULTISAMPLE_2_SAMPLES,
     //		&qualityLevels) ) )
     //	{
@@ -238,7 +234,7 @@ HRESULT GgafDx9God::init() {
     //			D3DADAPTER_DEFAULT,
     //			D3DDEVTYPE_HAL,
     //			D3DFMT_D24S8,
-    //			_FULLSCRREEN ? FALSE : TRUE,
+    //			PROPERTY(FULL_SCREEN) ? FALSE : TRUE,
     //			D3DMULTISAMPLE_2_SAMPLES,
     //			NULL) ) )
     //		{
@@ -252,7 +248,7 @@ HRESULT GgafDx9God::init() {
     _d3dparam[0].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
 
 //    //フルスクリーンに出来るか調べる
-//    if (_FULLSCRREEN) {
+//    if (PROPERTY(FULL_SCREEN)) {
 //        int cc = GgafDx9God::_pID3D9->GetAdapterModeCount(D3DADAPTER_DEFAULT,
 //                                                          _d3dparam[0].BackBufferFormat);
 //        if (cc) {
@@ -261,14 +257,14 @@ HRESULT GgafDx9God::init() {
 //                GgafDx9God::_pID3D9->EnumAdapterModes(D3DADAPTER_DEFAULT,
 //                                                      _d3dparam[0].BackBufferFormat, i, &adp);
 //                if (adp.Format == _d3dparam[0].BackBufferFormat && adp.Width
-//                        == (UINT)GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) && adp.Height
-//                        == (UINT)GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT)) {
+//                        == (UINT)PROPERTY(GAME_BUFFER_WIDTH) && adp.Height
+//                        == (UINT)PROPERTY(GAME_BUFFER_HEIGHT)) {
 //                    //OK
 //                    break;
 //                }
 //                if (cc == i) {
 //                    //要求した使える解像度が見つからない
-//                    throwGgafCriticalException(GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) <<"x"<<GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) << "のフルスクリーンモードにする事ができません。");
+//                    throwGgafCriticalException(PROPERTY(GAME_BUFFER_WIDTH) <<"x"<<PROPERTY(GAME_BUFFER_HEIGHT) << "のフルスクリーンモードにする事ができません。");
 //                    return E_FAIL;
 //                }
 //            }
@@ -314,7 +310,7 @@ HRESULT GgafDx9God::init() {
 
     //2画面の設定
     //http://www.shader.jp/xoops/html/masafumi/directx9/3dtips/d3d15.htm
-    if (_FULLSCRREEN && _DUAL_DISPLAY) {
+    if (PROPERTY(FULL_SCREEN) && PROPERTY(DUAL_DISPLAY)) {
         _d3dparam[1] = _d3dparam[0]; //共通が多いため
 
         WNDCLASSEX wcex;
@@ -347,14 +343,14 @@ HRESULT GgafDx9God::init() {
             WS_POPUP | WS_VISIBLE,
             CW_USEDEFAULT,
             CW_USEDEFAULT,
-            GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2, //ウィンドウの幅、違うのはココのみ
-            GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
+            PROPERTY(GAME_BUFFER_WIDTH)/2, //ウィンドウの幅、違うのはココのみ
+            PROPERTY(GAME_BUFFER_HEIGHT),
             HWND_DESKTOP,
             NULL,
             _hInstance,
             NULL);
         _d3dparam[1].hDeviceWindow = _pHWndSecondary;
-        _d3dparam[1].BackBufferWidth = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2; //プライマリ以外はバックバッファは一致して良い
+        _d3dparam[1].BackBufferWidth = PROPERTY(GAME_BUFFER_WIDTH)/2; //プライマリ以外はバックバッファは一致して良い
 
 
 //        _d3dparam[1].hDeviceWindow = CreateWindow(
@@ -363,8 +359,8 @@ HRESULT GgafDx9God::init() {
 //            NULL,
 //            CW_USEDEFAULT,
 //            CW_USEDEFAULT,
-//            GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH/2), //ウィンドウの幅、違うのはココのみ
-//            GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
+//            PROPERTY(GAME_BUFFER_WIDTH/2), //ウィンドウの幅、違うのはココのみ
+//            PROPERTY(GAME_BUFFER_HEIGHT),
 //            NULL,
 //            NULL,
 //            wc.hInstance,
@@ -372,7 +368,7 @@ HRESULT GgafDx9God::init() {
     }
 
 
-    if (_FULLSCRREEN && _DUAL_DISPLAY) {
+    if (PROPERTY(FULL_SCREEN) && PROPERTY(DUAL_DISPLAY)) {
 
         //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
@@ -485,7 +481,7 @@ HRESULT GgafDx9God::initDx9Device() {
      GgafDx9God::_d3dlight9_default.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
      GgafDx9God::_d3dlight9_default.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
      //下は平行光では関係ない
-     //GgafDx9God::_d3dlight9_default.Position = D3DXVECTOR3(-1*GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH)/2, -1*GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2, -1*GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)/2);
+     //GgafDx9God::_d3dlight9_default.Position = D3DXVECTOR3(-1*PROPERTY(GAME_BUFFER_WIDTH)/2, -1*PROPERTY(GAME_BUFFER_HEIGHT)/2, -1*PROPERTY(GAME_BUFFER_HEIGHT)/2);
      //GgafDx9God::_d3dlight9_default.Range = 1000;
      */
 
@@ -631,12 +627,12 @@ HRESULT GgafDx9God::initDx9Device() {
     //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_matProj);
 
 
-    if (_FULLSCRREEN) {
+    if (PROPERTY(FULL_SCREEN)) {
         HRESULT hr;
         //バックバッファ・テクスチャ作成
         hr = GgafDx9God::_pID3DDevice9->CreateTexture(
-                                                GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH),
-                                                GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
+                                                PROPERTY(GAME_BUFFER_WIDTH),
+                                                PROPERTY(GAME_BUFFER_HEIGHT),
                                                  1, //MipLevel Mip無し
                                                  D3DUSAGE_RENDERTARGET,
                                                  _d3dparam[0].BackBufferFormat,
@@ -655,8 +651,8 @@ HRESULT GgafDx9God::initDx9Device() {
         checkDxException(hr, D3D_OK, "SetRenderTarget テクスチャのサーフェイス失敗");
 
         hr = GgafDx9God::_pID3DDevice9->CreateDepthStencilSurface(
-                GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH),
-                GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT),
+                PROPERTY(GAME_BUFFER_WIDTH),
+                PROPERTY(GAME_BUFFER_HEIGHT),
                 _d3dparam[0].AutoDepthStencilFormat,   //D3DFORMAT   Format,
                 _d3dparam[0].MultiSampleType,          //D3DMULTISAMPLE_TYPE     MultiSample,
                 _d3dparam[0].MultiSampleQuality,       //DWORD   MultisampleQuality,
@@ -676,7 +672,7 @@ HRESULT GgafDx9God::initDx9Device() {
                                               1.0f, // Zバッファのクリア値
                                               0 // ステンシルバッファのクリア値
                 );
-        checkDxException(hr, D3D_OK, "_FULLSCRREEN初期化のGgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
+        checkDxException(hr, D3D_OK, "PROPERTY(FULL_SCREEN)初期化のGgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
     }
 
     return S_OK;
@@ -724,7 +720,7 @@ void GgafDx9God::makeUniversalMaterialize() {
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
             checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[0]に失敗しました。");
-            if (_FULLSCRREEN && _DUAL_DISPLAY) {
+            if (PROPERTY(FULL_SCREEN) && PROPERTY(DUAL_DISPLAY)) {
                 for (int i = 1; i < _iNumAdapter; i++) {
                     hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[i]));
                     checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[1]に失敗しました。");
@@ -799,8 +795,8 @@ void GgafDx9God::presentUniversalVisualize() {
 
 
 
-        if (_FULLSCRREEN) {
-            if (_DUAL_DISPLAY) {
+        if (PROPERTY(FULL_SCREEN)) {
+            if (PROPERTY(DUAL_DISPLAY)) {
                 LPDIRECT3DSWAPCHAIN9 pSwapChain00 = NULL;//アダプタに関連付けれられたスワップチェーン
                 LPDIRECT3DSURFACE9 pBackBuffer00 = NULL;//バックバッファ1画面分
                 LPDIRECT3DSWAPCHAIN9 pSwapChain01 = NULL;//アダプタに関連付けれられたスワップチェーン
@@ -884,7 +880,7 @@ void GgafDx9God::presentUniversalVisualize() {
 
         } else {
             //ウィンドウモード
-            if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
+            if (PROPERTY(FIXED_VIEW_ASPECT)) {
                 //縦横比固定モード
                 hr = GgafDx9God::_pID3DDevice9->Present(NULL, &_rectPresentDest, NULL, NULL);
             } else {
@@ -919,7 +915,7 @@ void GgafDx9God::presentUniversalVisualize() {
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
             checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([0]) を試しましが、駄目でした。");
-            if (_FULLSCRREEN && _DUAL_DISPLAY) {
+            if (PROPERTY(FULL_SCREEN) && PROPERTY(DUAL_DISPLAY)) {
                 for (int i = 1; i < _iNumAdapter; i++) {
                     hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[i]));
                     checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([1]) を試しましが、駄目でした。");
@@ -967,7 +963,7 @@ void GgafDx9God::clean() {
 
 void GgafDx9God::adjustGameScreen() {
      RECT rect;
-    if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
+    if (PROPERTY(FIXED_VIEW_ASPECT)) {
         HRESULT hr;
         hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                               NULL, // 矩形領域
@@ -979,24 +975,24 @@ void GgafDx9God::adjustGameScreen() {
                 );
         checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
         if (::GetClientRect(_pHWndPrimary, &rect)) {
-            if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT)) {
+            if (1.0f * rect.right / rect.bottom > 1.0f * PROPERTY(GAME_BUFFER_WIDTH) / PROPERTY(GAME_BUFFER_HEIGHT)) {
                 //より横長になってしまっている
-                float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT); //縮小率=縦幅の比率
+                float rate = 1.0f * rect.bottom / PROPERTY(GAME_BUFFER_HEIGHT); //縮小率=縦幅の比率
                 GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f)
-                        - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
+                        - (PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
                 GgafDx9God::_rectPresentDest.top = 0;
                 GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
-                        + (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
-                GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate;
+                        + (PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
+                GgafDx9God::_rectPresentDest.bottom = PROPERTY(GAME_BUFFER_HEIGHT) * rate;
             } else {
                 //より縦長になってしまっている
-                float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH); //縮小率=横幅の比率
+                float rate = 1.0f * rect.right / PROPERTY(GAME_BUFFER_WIDTH); //縮小率=横幅の比率
                 GgafDx9God::_rectPresentDest.left = 0;
                 GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
-                        - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
-                GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate;
+                        - (PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
+                GgafDx9God::_rectPresentDest.right = PROPERTY(GAME_BUFFER_WIDTH) * rate;
                 GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
-                        + (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
+                        + (PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
             }
             _adjustGameScreen = false;
         }
@@ -1014,15 +1010,15 @@ void GgafDx9God::adjustGameScreen() {
 
 //void GgafDx9God::adjustGameScreen() {
 //     RECT rect;
-//    if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
+//    if (PROPERTY(FIXED_VIEW_ASPECT)) {
 //
 //        D3DVIEWPORT9 vClient;
 //        vClient.MinZ = 0.0f;
 //        vClient.MaxZ = 1.0f;
 //        vClient.X = (DWORD)0;
 //        vClient.Y = (DWORD)0;
-//        vClient.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH));
-//        vClient.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT));
+//        vClient.Width = (DWORD)(PROPERTY(GAME_BUFFER_WIDTH));
+//        vClient.Height = (DWORD)(PROPERTY(GAME_BUFFER_HEIGHT));
 //        _pID3DDevice9->SetViewport(&vClient);
 //        HRESULT hr;
 //        hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
@@ -1041,22 +1037,22 @@ void GgafDx9God::adjustGameScreen() {
 //            vp.MinZ = 0.0f;
 //            vp.MaxZ = 1.0f;
 //            double aspect_client = 1.0 * rect.right / rect.bottom;
-//            double aspect_buffer = 1.0 * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT);
+//            double aspect_buffer = 1.0 * PROPERTY(GAME_BUFFER_WIDTH) / PROPERTY(GAME_BUFFER_HEIGHT);
 ////            _TRACE_("aspect_client = "<<aspect_client<<" aspect_buffer="<<aspect_buffer);
 //            if (aspect_client > aspect_buffer) {
 //                //より横長になってしまっている
-//                float rate = (1.0 * GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / (1.0 *rect.right / rect.bottom));
-//                vp.X = (DWORD)((GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / 2.0) - (GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0)) ;
+//                float rate = (1.0 * PROPERTY(GAME_BUFFER_WIDTH) / PROPERTY(GAME_BUFFER_HEIGHT) / (1.0 *rect.right / rect.bottom));
+//                vp.X = (DWORD)((PROPERTY(GAME_BUFFER_WIDTH) / 2.0) - (PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0)) ;
 //                vp.Y = (DWORD)0;
-//                vp.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) * rate);
-//                vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT));
+//                vp.Width = (DWORD)(PROPERTY(GAME_BUFFER_WIDTH) * rate);
+//                vp.Height = (DWORD)(PROPERTY(GAME_BUFFER_HEIGHT));
 //            } else {
 //                //より縦長になってしまっている
-//                float rate = (1.0 * GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH) / (1.0 *rect.bottom / rect.right));
+//                float rate = (1.0 * PROPERTY(GAME_BUFFER_HEIGHT) / PROPERTY(GAME_BUFFER_WIDTH) / (1.0 *rect.bottom / rect.right));
 //                vp.X = (DWORD)0;
-//                vp.Y = (DWORD)((GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) / 2.0) - (GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0)) ;;
-//                vp.Width = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_WIDTH));
-//                vp.Height = (DWORD)(GGAFDX9_PROPERTY(GAME_BUFFER_HEIGHT) * rate);
+//                vp.Y = (DWORD)((PROPERTY(GAME_BUFFER_HEIGHT) / 2.0) - (PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0)) ;;
+//                vp.Width = (DWORD)(PROPERTY(GAME_BUFFER_WIDTH));
+//                vp.Height = (DWORD)(PROPERTY(GAME_BUFFER_HEIGHT) * rate);
 //
 //            }
 ////            _TRACE_("new vp="<<vp.X<<","<<vp.Y<<","<<vp.Width<<","<<vp.Height);

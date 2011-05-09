@@ -1,7 +1,10 @@
 #ifndef GGAFDX9PROPERTIES_H_
 #define GGAFDX9PROPERTIES_H_
 
-#define GGAFDX9_PROPERTY(X) (GgafDx9Core::GgafDx9Properties::X)
+#ifdef  PROPERTY
+    #undef PROPERTY
+#endif
+#define PROPERTY(X) (GgafDx9Core::GgafDx9Properties::X)
 
 namespace GgafDx9Core {
 
@@ -12,8 +15,23 @@ public:
     static int GAME_BUFFER_WIDTH;
     static int GAME_BUFFER_HEIGHT;
     static float GAME_SPACE_DEPTH;
-    static int VIEW_SCREEN_WIDTH;
-    static int VIEW_SCREEN_HEIGHT;
+
+
+    static int SINGLE_DISPLAY_WINDOW_WIDTH;
+    static int SINGLE_DISPLAY_WINDOW_HEIGHT;
+    static int DUAL_DISPLAY_WINDOW1_WIDTH;
+    static int DUAL_DISPLAY_WINDOW1_HEIGHT;
+    static int DUAL_DISPLAY_WINDOW2_WIDTH;
+    static int DUAL_DISPLAY_WINDOW2_HEIGHT;
+
+    static int SINGLE_DISPLAY_FULL_SCREEN_WIDTH;
+    static int SINGLE_DISPLAY_FULL_SCREEN_HEIGHT;
+    static int DUAL_DISPLAY_FULL_SCREEN1_WIDTH;
+    static int DUAL_DISPLAY_FULL_SCREEN1_HEIGHT;
+    static int DUAL_DISPLAY_FULL_SCREEN2_WIDTH;
+    static int DUAL_DISPLAY_FULL_SCREEN2_HEIGHT;
+
+
     static bool FIXED_VIEW_ASPECT;
     static int MASTER_VOLUME;
     static int BGM_VOLUME;
