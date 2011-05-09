@@ -108,35 +108,35 @@ HRESULT GgafDx9God::init() {
                 //「フルスクリーンモード・２画面使用・縦横比FIX」の１画面目フロントバッファ描画領域
                 if (1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH) / PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT) > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT) / fix_height; //縮小率=縦幅の比率
-                    GgafDx9God::_rectPresent_Primary.left   = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH) / 2.0f) - (fix_width * rate / 2.0f);
+                    double rate = 1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT) / fix_height; //縮小率=縦幅の比率
+                    GgafDx9God::_rectPresent_Primary.left   = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH) / 2.0) - (fix_width * rate / 2.0);
                     GgafDx9God::_rectPresent_Primary.top    = 0;
-                    GgafDx9God::_rectPresent_Primary.right  = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH) / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
-                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.right  = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH) / 2.0) + (fix_width * rate / 2.0) - 0.6;
+                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 0.6;
                 } else {
                     //より縦長になってしまっている
-                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH) / fix_width; //縮小率=横幅の比率
+                    double rate = 1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH) / fix_width; //縮小率=横幅の比率
                     GgafDx9God::_rectPresent_Primary.left   = 0;
-                    GgafDx9God::_rectPresent_Primary.top    = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT) / 2.0f) - (fix_height * rate / 2.0f);
-                    GgafDx9God::_rectPresent_Primary.right  = fix_width * rate - 1.0f;
-                    GgafDx9God::_rectPresent_Primary.bottom = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT) / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.top    = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT) / 2.0) - (fix_height * rate / 2.0);
+                    GgafDx9God::_rectPresent_Primary.right  = fix_width * rate - 0.6;
+                    GgafDx9God::_rectPresent_Primary.bottom = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT) / 2.0) + (fix_height * rate / 2.0) - 0.6;
                 }
 
                 //「フルスクリーンモード・２画面使用・縦横比FIX」の２画面目フロントバッファ描画領域
                 if (1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH) / PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT) > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT) / fix_height; //縮小率=縦幅の比率
-                    GgafDx9God::_rectPresent_Secondary.left   = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH) / 2.0f) - (fix_width * rate / 2.0f);
+                    double rate = 1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT) / fix_height; //縮小率=縦幅の比率
+                    GgafDx9God::_rectPresent_Secondary.left   = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH) / 2.0) - (fix_width * rate / 2.0);
                     GgafDx9God::_rectPresent_Secondary.top    = 0;
-                    GgafDx9God::_rectPresent_Secondary.right  = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH) / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
-                    GgafDx9God::_rectPresent_Secondary.bottom = fix_height * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Secondary.right  = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH) / 2.0) + (fix_width * rate / 2.0) - 0.6;
+                    GgafDx9God::_rectPresent_Secondary.bottom = fix_height * rate - 0.6;
                 } else {
                     //より縦長になってしまっている
-                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH) / fix_width; //縮小率=横幅の比率
+                    double rate = 1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH) / fix_width; //縮小率=横幅の比率
                     GgafDx9God::_rectPresent_Secondary.left   = 0;
-                    GgafDx9God::_rectPresent_Secondary.top    = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT) / 2.0f) - (fix_height * rate / 2.0f);
-                    GgafDx9God::_rectPresent_Secondary.right  = fix_width * rate - 1.0f;
-                    GgafDx9God::_rectPresent_Secondary.bottom = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT) / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Secondary.top    = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT) / 2.0) - (fix_height * rate / 2.0);
+                    GgafDx9God::_rectPresent_Secondary.right  = fix_width * rate - 0.6;
+                    GgafDx9God::_rectPresent_Secondary.bottom = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT) / 2.0) + (fix_height * rate / 2.0) - 0.6;
                 }
             } else {
                 //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の１画面目フロントバッファ描画領域
@@ -158,18 +158,18 @@ HRESULT GgafDx9God::init() {
                 //「フルスクリーンモード・１画面使用・縦横比FIX」のフロントバッファ描画領域
                 if (1.0f * PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH) / PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT) > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    float rate = 1.0f * PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT) / fix_height; //縮小率=縦幅の比率
-                    GgafDx9God::_rectPresent_Primary.left   = (PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH) / 2.0f) - (fix_width * rate / 2.0f);
+                    double rate = 1.0f * PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT) / fix_height; //縮小率=縦幅の比率
+                    GgafDx9God::_rectPresent_Primary.left   = (PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH) / 2.0) - (fix_width * rate / 2.0);
                     GgafDx9God::_rectPresent_Primary.top    = 0;
-                    GgafDx9God::_rectPresent_Primary.right  = (PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH) / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
-                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.right  = (PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH) / 2.0) + (fix_width * rate / 2.0) - 0.6;
+                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 0.6;
                 } else {
                     //より縦長になってしまっている
-                    float rate = 1.0f * PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH) / fix_width; //縮小率=横幅の比率
+                    double rate = 1.0f * PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH) / fix_width; //縮小率=横幅の比率
                     GgafDx9God::_rectPresent_Primary.left   = 0;
-                    GgafDx9God::_rectPresent_Primary.top    = (PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT) / 2.0f) - (fix_height * rate / 2.0f);
-                    GgafDx9God::_rectPresent_Primary.right  = fix_width * rate - 1.0f;
-                    GgafDx9God::_rectPresent_Primary.bottom = (PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT) / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.top    = (PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT) / 2.0) - (fix_height * rate / 2.0);
+                    GgafDx9God::_rectPresent_Primary.right  = fix_width * rate - 0.6;
+                    GgafDx9God::_rectPresent_Primary.bottom = (PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT) / 2.0) + (fix_height * rate / 2.0) - 0.6;
                 }
                 _rectPresent_Secondary.left   = 0;
                 _rectPresent_Secondary.top    = 0;
@@ -197,35 +197,35 @@ HRESULT GgafDx9God::init() {
                 //「ウィンドウモード・２窓使用・縦横比FIX」の１窓目フロントバッファ描画領域
                 if (1.0f * PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) / PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) / fix_height; //縮小率=縦幅の比率
-                    GgafDx9God::_rectPresent_Primary.left   = (PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) / 2.0f) - (fix_width * rate / 2.0f);
+                    double rate = 1.0f * PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) / fix_height; //縮小率=縦幅の比率
+                    GgafDx9God::_rectPresent_Primary.left   = (PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) / 2.0) - (fix_width * rate / 2.0);
                     GgafDx9God::_rectPresent_Primary.top    = 0;
-                    GgafDx9God::_rectPresent_Primary.right  = (PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
-                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.right  = (PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) / 2.0) + (fix_width * rate / 2.0) - 0.6;
+                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 0.6;
                 } else {
                     //より縦長になってしまっている
-                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) / fix_width; //縮小率=横幅の比率
+                    double rate = 1.0f * PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) / fix_width; //縮小率=横幅の比率
                     GgafDx9God::_rectPresent_Primary.left   = 0;
-                    GgafDx9God::_rectPresent_Primary.top    = (PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) / 2.0f) - (fix_height * rate / 2.0f);
-                    GgafDx9God::_rectPresent_Primary.right  = fix_width * rate - 1.0f;
-                    GgafDx9God::_rectPresent_Primary.bottom = (PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.top    = (PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) / 2.0) - (fix_height * rate / 2.0);
+                    GgafDx9God::_rectPresent_Primary.right  = fix_width * rate - 0.6;
+                    GgafDx9God::_rectPresent_Primary.bottom = (PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) / 2.0) + (fix_height * rate / 2.0) - 0.6;
                 }
 
                 //「ウィンドウモード・２窓使用・縦横比FIX」の２窓目フロントバッファ描画領域
                 if (1.0f * PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) / PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) / fix_height; //縮小率=縦幅の比率
-                    GgafDx9God::_rectPresent_Secondary.left   = (PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) / 2.0f) - (fix_width * rate / 2.0f);
+                    double rate = 1.0f * PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) / fix_height; //縮小率=縦幅の比率
+                    GgafDx9God::_rectPresent_Secondary.left   = (PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) / 2.0) - (fix_width * rate / 2.0);
                     GgafDx9God::_rectPresent_Secondary.top    = 0;
-                    GgafDx9God::_rectPresent_Secondary.right  = (PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
-                    GgafDx9God::_rectPresent_Secondary.bottom = fix_height * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Secondary.right  = (PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) / 2.0) + (fix_width * rate / 2.0) - 0.6;
+                    GgafDx9God::_rectPresent_Secondary.bottom = fix_height * rate - 0.6;
                 } else {
                     //より縦長になってしまっている
-                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) / fix_width; //縮小率=横幅の比率
+                    double rate = 1.0f * PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) / fix_width; //縮小率=横幅の比率
                     GgafDx9God::_rectPresent_Secondary.left   = 0;
-                    GgafDx9God::_rectPresent_Secondary.top    = (PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) / 2.0f) - (fix_height * rate / 2.0f);
-                    GgafDx9God::_rectPresent_Secondary.right  = fix_width * rate - 1.0f;
-                    GgafDx9God::_rectPresent_Secondary.bottom = (PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Secondary.top    = (PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) / 2.0) - (fix_height * rate / 2.0);
+                    GgafDx9God::_rectPresent_Secondary.right  = fix_width * rate - 0.6;
+                    GgafDx9God::_rectPresent_Secondary.bottom = (PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) / 2.0) + (fix_height * rate / 2.0) - 0.6;
                 }
             } else {
                 //「ウィンドウモード・２窓使用・縦横比ストレッチ」の１窓目フロントバッファ描画領域
@@ -247,18 +247,18 @@ HRESULT GgafDx9God::init() {
                 //「ウィンドウモード・１窓使用・縦横比FIX」のフロントバッファ描画領域
                 if (1.0f * PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) / PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    float rate = 1.0f * PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) / fix_height; //縮小率=縦幅の比率
-                    GgafDx9God::_rectPresent_Primary.left   = (PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) / 2.0f) - (fix_width * rate / 2.0f);
+                    double rate = 1.0f * PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) / fix_height; //縮小率=縦幅の比率
+                    GgafDx9God::_rectPresent_Primary.left   = (PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) / 2.0) - (fix_width * rate / 2.0);
                     GgafDx9God::_rectPresent_Primary.top    = 0;
-                    GgafDx9God::_rectPresent_Primary.right  = (PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
-                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.right  = (PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) / 2.0) + (fix_width * rate / 2.0) - 0.6;
+                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 0.6;
                 } else {
                     //より縦長になってしまっている
-                    float rate = 1.0f * PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) / fix_width; //縮小率=横幅の比率
+                    double rate = 1.0f * PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) / fix_width; //縮小率=横幅の比率
                     GgafDx9God::_rectPresent_Primary.left   = 0;
-                    GgafDx9God::_rectPresent_Primary.top    = (PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) / 2.0f) - (fix_height * rate / 2.0f);
-                    GgafDx9God::_rectPresent_Primary.right  = fix_width * rate - 1.0f;
-                    GgafDx9God::_rectPresent_Primary.bottom = (PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.top    = (PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) / 2.0) - (fix_height * rate / 2.0);
+                    GgafDx9God::_rectPresent_Primary.right  = fix_width * rate - 0.6;
+                    GgafDx9God::_rectPresent_Primary.bottom = (PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) / 2.0) + (fix_height * rate / 2.0) - 0.6;
                 }
                 _rectPresent_Secondary.left   = 0;
                 _rectPresent_Secondary.top    = 0;
@@ -1090,31 +1090,31 @@ void GgafDx9God::adjustGameScreen(HWND prm_pHWnd) {
 
             if (1.0f * width / height > 1.0f * fix_width / fix_height) {
                 //より横長になってしまっている
-                float rate = 1.0f * height / fix_height; //縮小率=縦幅の比率
+                double rate = 1.0f * height / fix_height; //縮小率=縦幅の比率
                 if (prm_pHWnd == _pHWndPrimary) {
-                    GgafDx9God::_rectPresent_Primary.left = (width / 2.0f) - (fix_width * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Primary.left = (width / 2.0) - (fix_width * rate / 2.0);
                     GgafDx9God::_rectPresent_Primary.top = 0;
-                    GgafDx9God::_rectPresent_Primary.right = (width / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
-                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.right = (width / 2.0) + (fix_width * rate / 2.0) - 0.6;
+                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 0.6;
                 } else {
-                    GgafDx9God::_rectPresent_Secondary.left = (width / 2.0f) - (fix_width * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Secondary.left = (width / 2.0) - (fix_width * rate / 2.0);
                     GgafDx9God::_rectPresent_Secondary.top = 0;
-                    GgafDx9God::_rectPresent_Secondary.right = (width / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
-                    GgafDx9God::_rectPresent_Secondary.bottom = fix_height * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Secondary.right = (width / 2.0) + (fix_width * rate / 2.0) - 0.6;
+                    GgafDx9God::_rectPresent_Secondary.bottom = fix_height * rate - 0.6;
                 }
             } else {
                 //より縦長になってしまっている
-                float rate = 1.0f * width / fix_width; //縮小率=横幅の比率
+                double rate = 1.0f * width / fix_width; //縮小率=横幅の比率
                 if (prm_pHWnd == _pHWndPrimary) {
                     GgafDx9God::_rectPresent_Primary.left = 0;
-                    GgafDx9God::_rectPresent_Primary.top = (height / 2.0f) - (fix_height * rate / 2.0f);
-                    GgafDx9God::_rectPresent_Primary.right = fix_width * rate - 1.0f;
-                    GgafDx9God::_rectPresent_Primary.bottom = (height / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.top = (height / 2.0) - (fix_height * rate / 2.0);
+                    GgafDx9God::_rectPresent_Primary.right = fix_width * rate - 0.6;
+                    GgafDx9God::_rectPresent_Primary.bottom = (height / 2.0) + (fix_height * rate / 2.0) - 0.6;
                 } else {
-                    GgafDx9God::_rectPresent_Secondary.left = (width / 2.0f) - (fix_width * rate / 2.0f);
-                    GgafDx9God::_rectPresent_Secondary.top = 0;
-                    GgafDx9God::_rectPresent_Secondary.right = (width / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
-                    GgafDx9God::_rectPresent_Secondary.bottom = fix_height * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Secondary.left = 0;
+                    GgafDx9God::_rectPresent_Secondary.top = (height / 2.0) - (fix_height * rate / 2.0);
+                    GgafDx9God::_rectPresent_Secondary.right = fix_width * rate - 0.6;
+                    GgafDx9God::_rectPresent_Secondary.bottom = (height / 2.0) + (fix_height * rate / 2.0) - 0.6;
                 }
             }
         }
@@ -1166,14 +1166,14 @@ void GgafDx9God::adjustGameScreen(HWND prm_pHWnd) {
 ////            _TRACE_("aspect_client = "<<aspect_client<<" aspect_buffer="<<aspect_buffer);
 //            if (aspect_client > aspect_buffer) {
 //                //より横長になってしまっている
-//                float rate = (1.0 * PROPERTY(GAME_BUFFER_WIDTH) / PROPERTY(GAME_BUFFER_HEIGHT) / (1.0 *rect.right / rect.bottom));
+//                double rate = (1.0 * PROPERTY(GAME_BUFFER_WIDTH) / PROPERTY(GAME_BUFFER_HEIGHT) / (1.0 *rect.right / rect.bottom));
 //                vp.X = (DWORD)((PROPERTY(GAME_BUFFER_WIDTH) / 2.0) - (PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0)) ;
 //                vp.Y = (DWORD)0;
 //                vp.Width = (DWORD)(PROPERTY(GAME_BUFFER_WIDTH) * rate);
 //                vp.Height = (DWORD)(PROPERTY(GAME_BUFFER_HEIGHT));
 //            } else {
 //                //より縦長になってしまっている
-//                float rate = (1.0 * PROPERTY(GAME_BUFFER_HEIGHT) / PROPERTY(GAME_BUFFER_WIDTH) / (1.0 *rect.bottom / rect.right));
+//                double rate = (1.0 * PROPERTY(GAME_BUFFER_HEIGHT) / PROPERTY(GAME_BUFFER_WIDTH) / (1.0 *rect.bottom / rect.right));
 //                vp.X = (DWORD)0;
 //                vp.Y = (DWORD)((PROPERTY(GAME_BUFFER_HEIGHT) / 2.0) - (PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0)) ;;
 //                vp.Width = (DWORD)(PROPERTY(GAME_BUFFER_WIDTH));

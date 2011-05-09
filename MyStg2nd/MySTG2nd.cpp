@@ -220,8 +220,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     HWND_TOP,
                     wRect1.left,
                     wRect1.top,
-                    PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) + fw1 - 1,
-                    PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) + fh1 - 1,
+                    PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) + fw1,
+                    PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) + fh1,
                     SWP_NOMOVE
             );
             ShowWindow(hWnd1, nCmdShow);
@@ -248,8 +248,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     HWND_TOP,
                     wRect2.left,
                     wRect2.top,
-                    PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) + fw2 - 1,
-                    PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) + fh2 - 1,
+                    PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) + fw2,
+                    PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) + fh2,
                     SWP_NOMOVE
             );
 
@@ -277,8 +277,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     HWND_TOP,
                     wRect.left,
                     wRect.top,
-                    PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) + fw - 1,
-                    PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) + fh - 1,
+                    PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) + fw,
+                    PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) + fh,
                     SWP_NOMOVE
             );
         }
