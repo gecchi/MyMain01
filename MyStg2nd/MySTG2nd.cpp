@@ -55,15 +55,9 @@ static MyStg2nd::God* pGod = NULL;
 /**
  * VCならばエントリポイント
  */
-int APIENTRY _tWinMain(HINSTANCE hInstance,
-        HINSTANCE hPrevInstance,
-        LPTSTR lpCmdLine,
-        int nCmdShow)
-{
+int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
     std::set_unexpected(myUnexpectedHandler);
     std::set_terminate(myTerminateHandler);
-
-
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -84,27 +78,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         _TRACE_("[GgafCriticalException]:" << e.getMsg());
         return EXIT_FAILURE;
     }
-
-
-
-//
-//    //2画面目ウィンドウ作成
-//    _pHWndSecondary = CreateWindowEx(
-//        WS_EX_APPWINDOW,
-//        "multihead", //WINDOW_CLASS,
-//        "multihead",//WINDOW_TITLE,
-//        WS_POPUP | WS_VISIBLE,
-//        CW_USEDEFAULT,
-//        CW_USEDEFAULT,
-//        PROPERTY(GAME_BUFFER_WIDTH)/2, //ウィンドウの幅、違うのはココのみ
-//        PROPERTY(GAME_BUFFER_HEIGHT),
-//        HWND_DESKTOP,
-//        NULL,
-//        _hInstance,
-//        NULL);
-
-
-
     HWND hWnd1 = NULL;
     HWND hWnd2 = NULL;
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
@@ -490,21 +463,6 @@ ATOM MyRegisterClass_Secondary(HINSTANCE hInstance) {
     return RegisterClassEx(&wcex);
 }
 
-//    WNDCLASSEX wcex;
-//    wcex.cbSize = sizeof(WNDCLASSEX);
-//    wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
-//    wcex.lpfnWndProc = (WNDPROC)GetWindowLong(_pHWndPrimary, GWL_WNDPROC ); //１画面目のウィンドウプロシージャを共通指定する。
-//    wcex.cbClsExtra = 0;
-//    wcex.cbWndExtra = 0;
-//    wcex.hInstance = _hInstance;
-//    wcex.hIcon = NULL;
-//    wcex.hCursor = NULL;
-//    wcex.hbrBackground = CreateSolidBrush(RGB(30, 30, 30)); //0~255
-//    wcex.lpszMenuName = NULL;//MAKEINTRESOURCE(IDC_MYSTG2ND);//NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
-//    wcex.lpszClassName = "multihead";
-//    wcex.hIconSm = NULL;
-//
-//    RegisterClassEx(&wcex);
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     //  int wmId, wmEvent;
