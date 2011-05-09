@@ -28,7 +28,14 @@ public:
     static DWORD _dwAmbientBrightness_default;
 
     /** Present領域 */
-    static RECT _rectPresentDest;
+//    static RECT _rectDualDisplayWindow_Primary;
+//    static RECT _rectDualDisplayWindow_Secondary;
+//    static RECT _rectDualDisplayFullScreen_Primary;
+//    static RECT _rectDualDisplayFullScreen_Secondary;
+
+    static RECT _rectPresent_Primary;
+    static RECT _rectPresent_Secondary;
+
     /* スクリーン高さ（ピクセル） */
     //static int const GAME_BUFFER_HEIGHT;
 
@@ -40,7 +47,7 @@ public:
     static bool _is_device_lost_flg;
 
     static bool _adjustGameScreen;
-
+    static HWND _pHWnd_adjustScreen;
 //    /** 射影変換魚売れる */
 //    static D3DXMATRIX _matProj;
 //    /** 正射影変換魚売れる */
@@ -50,10 +57,10 @@ public:
     static GgafDx9ModelManager* _pModelManager;
     static GgafDx9EffectManager* _pEffectManager;
     static int _iNumAdapter;
-    static RECT*  _pRectMultiScreenLeft;
-    static RECT*  _pRectMultiScreenRight;
+    static RECT*  _pRectGameBuffer_HarfLeft;
+    static RECT*  _pRectGameBuffer_HarfRight;
     static RECT*  _pRectGameBuffer;
-    static RECT*  _pRectViewScreen;
+//    static RECT*  _pRectViewScreen;
     static IDirect3DTexture9*  _pRenderTexture;   //テクスチャ
 //    static IDirect3DSurface9*  _pBackBuffer;      //バックバッファ
     static IDirect3DSurface9*  _pRenderTextureSurface;     //サーフェイス
@@ -62,7 +69,7 @@ public:
     /**
      * コンストラクタ<BR>
      */
-    GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary);
+    GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
 
     /**
      * 初期化<BR>
@@ -80,7 +87,7 @@ public:
      */
     virtual void presentUniversalVisualize();
 
-    void adjustGameScreen();
+    void adjustGameScreen(HWND prm_pHWnd);
 
     D3DXMATRIX getInvRotateMat();
     //    /**

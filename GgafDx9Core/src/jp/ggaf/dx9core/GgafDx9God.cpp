@@ -17,11 +17,22 @@ D3DLIGHT9 GgafDx9God::_d3dlight9_default;
 D3DLIGHT9 GgafDx9God::_d3dlight9_temp;
 DWORD GgafDx9God::_dwAmbientBrightness_default = 0xff404040;
 
-RECT GgafDx9God::_rectPresentDest;
-RECT*  GgafDx9God::_pRectMultiScreenLeft = NULL;
-RECT*  GgafDx9God::_pRectMultiScreenRight = NULL;
+RECT GgafDx9God::_rectPresent_Primary;
+RECT GgafDx9God::_rectPresent_Secondary;
+
+//RECT GgafDx9God::_rectDualDisplayWindow_Primary;
+//RECT GgafDx9God::_rectDualDisplayWindow_Secondary;
+//RECT GgafDx9God::_rectDualDisplayFullScreen_Primary;
+//RECT GgafDx9God::_rectDualDisplayFullScreen_Secondary;
+
+
+RECT*  GgafDx9God::_pRectGameBuffer_HarfLeft = NULL;
+RECT*  GgafDx9God::_pRectGameBuffer_HarfRight = NULL;
 RECT*  GgafDx9God::_pRectGameBuffer = NULL;
-RECT*  GgafDx9God::_pRectViewScreen = NULL;
+
+
+
+//RECT*  GgafDx9God::_pRectViewScreen = NULL;
 
 //double GgafDx9God::_cameraZ = 0;
 //double GgafDx9God::_cameraZ_org = 0;
@@ -40,6 +51,8 @@ D3DPRESENT_PARAMETERS* GgafDx9God::_d3dparam;
 
 bool GgafDx9God::_is_device_lost_flg = false;
 bool GgafDx9God::_adjustGameScreen = false;
+HWND GgafDx9God::_pHWnd_adjustScreen = NULL;
+
 int GgafDx9God::_iNumAdapter = 1;
 
 
@@ -52,30 +65,19 @@ IDirect3DSurface9*  GgafDx9God::_pRenderTextureSurface = NULL;     //ÉTÅ[ÉtÉFÉCÉ
 IDirect3DSurface9* GgafDx9God::_pRenderTextureZ = NULL;
 
 
-GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary) :
+GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
     GgafGod() {
-    TRACE("GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prmGgafDx9God::_pHWndPrimary) ");
+    TRACE("GgafDx9God::GgafDx9God() ");
     GgafDx9God::_pHWndPrimary = prm_pHWndPrimary;
+    GgafDx9God::_pHWndSecondary = prm_pHWndSecondary;
     GgafDx9God::_hInstance = prm_hInstance;
     _is_device_lost_flg = false;
     _adjustGameScreen = false;
+    _pHWnd_adjustScreen = NULL;
     CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 Seed
 }
 
 HRESULT GgafDx9God::init() {
-
-    _pRectMultiScreenLeft = NEW RECT;
-    _pRectMultiScreenLeft->left = 0;
-    _pRectMultiScreenLeft->top = 0;
-    _pRectMultiScreenLeft->right = PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
-    _pRectMultiScreenLeft->bottom = PROPERTY(GAME_BUFFER_HEIGHT)-1;
-
-
-    _pRectMultiScreenRight = NEW RECT;
-    _pRectMultiScreenRight->left =  PROPERTY(GAME_BUFFER_WIDTH)/2;
-    _pRectMultiScreenRight->top = 0;
-    _pRectMultiScreenRight->right = PROPERTY(GAME_BUFFER_WIDTH)-1;
-    _pRectMultiScreenRight->bottom = PROPERTY(GAME_BUFFER_HEIGHT)-1;
 
     _pRectGameBuffer = NEW RECT;
     _pRectGameBuffer->left = 0;
@@ -83,44 +85,197 @@ HRESULT GgafDx9God::init() {
     _pRectGameBuffer->right = PROPERTY(GAME_BUFFER_WIDTH) - 1;
     _pRectGameBuffer->bottom = PROPERTY(GAME_BUFFER_HEIGHT) - 1;
 
-    _pRectViewScreen = NEW RECT;
-    _pRectViewScreen->left = 0;
-    _pRectViewScreen->top = 0;
-    _pRectViewScreen->right = PROPERTY(GAME_BUFFER_WIDTH) - 1;
-    _pRectViewScreen->bottom = PROPERTY(GAME_BUFFER_HEIGHT) - 1;
+    _pRectGameBuffer_HarfLeft = NEW RECT;
+    _pRectGameBuffer_HarfLeft->left = 0;
+    _pRectGameBuffer_HarfLeft->top = 0;
+    _pRectGameBuffer_HarfLeft->right = PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
+    _pRectGameBuffer_HarfLeft->bottom = PROPERTY(GAME_BUFFER_HEIGHT)-1;
 
-//    _pRectMultiScreenRight = NEW RECT;
-//    _pRectMultiScreenRight->left = 0;
-//    _pRectMultiScreenRight->top = 0;
-//    _pRectMultiScreenRight->right = PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
-//    _pRectMultiScreenRight->bottom = PROPERTY(GAME_BUFFER_HEIGHT)-1;
-//
-//    _pRectMultiScreenLeft = NEW RECT;
-//    _pRectMultiScreenLeft->left = 0;
-//    _pRectMultiScreenLeft->top = 0;
-//    _pRectMultiScreenLeft->right = PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
-//    _pRectMultiScreenLeft->bottom = PROPERTY(GAME_BUFFER_HEIGHT)-1;
+    _pRectGameBuffer_HarfRight = NEW RECT;
+    _pRectGameBuffer_HarfRight->left =  PROPERTY(GAME_BUFFER_WIDTH)/2;
+    _pRectGameBuffer_HarfRight->top = 0;
+    _pRectGameBuffer_HarfRight->right = PROPERTY(GAME_BUFFER_WIDTH)-1;
+    _pRectGameBuffer_HarfRight->bottom = PROPERTY(GAME_BUFFER_HEIGHT)-1;
 
-
-    //ÉoÉbÉNÉoÉbÉtÉ@
+    //ï\é¶óÃàÊê›íË
     if (PROPERTY(FULL_SCREEN)) {
+        //ÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[Éh
         if (PROPERTY(DUAL_DISPLAY)) {
-            _rectPresentDest.left = 0;
-            _rectPresentDest.top = 0;
-            _rectPresentDest.right = PROPERTY(GAME_BUFFER_WIDTH)/2 - 1;
-            _rectPresentDest.bottom = PROPERTY(GAME_BUFFER_HEIGHT) - 1;
+            //ÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[ÉhÅEÇQâÊñ égóp
+            if (PROPERTY(FIXED_VIEW_ASPECT)) {
+                LONG fix_width = PROPERTY(GAME_BUFFER_WIDTH)/2;
+                LONG fix_height = PROPERTY(GAME_BUFFER_HEIGHT);
+                //ÅuÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[ÉhÅEÇQâÊñ égópÅEècâ°î‰FIXÅvÇÃÇPâÊñ ñ⁄ÉtÉçÉìÉgÉoÉbÉtÉ@ï`âÊóÃàÊ
+                if (1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH) / PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT) > 1.0f * fix_width / fix_height) {
+                    //ÇÊÇËâ°í∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
+                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT) / fix_height; //èkè¨ó¶=ècïùÇÃî‰ó¶
+                    GgafDx9God::_rectPresent_Primary.left   = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH) / 2.0f) - (fix_width * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Primary.top    = 0;
+                    GgafDx9God::_rectPresent_Primary.right  = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH) / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 1.0f;
+                } else {
+                    //ÇÊÇËècí∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
+                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH) / fix_width; //èkè¨ó¶=â°ïùÇÃî‰ó¶
+                    GgafDx9God::_rectPresent_Primary.left   = 0;
+                    GgafDx9God::_rectPresent_Primary.top    = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT) / 2.0f) - (fix_height * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Primary.right  = fix_width * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.bottom = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT) / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                }
+
+                //ÅuÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[ÉhÅEÇQâÊñ égópÅEècâ°î‰FIXÅvÇÃÇQâÊñ ñ⁄ÉtÉçÉìÉgÉoÉbÉtÉ@ï`âÊóÃàÊ
+                if (1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH) / PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT) > 1.0f * fix_width / fix_height) {
+                    //ÇÊÇËâ°í∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
+                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT) / fix_height; //èkè¨ó¶=ècïùÇÃî‰ó¶
+                    GgafDx9God::_rectPresent_Secondary.left   = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH) / 2.0f) - (fix_width * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Secondary.top    = 0;
+                    GgafDx9God::_rectPresent_Secondary.right  = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH) / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Secondary.bottom = fix_height * rate - 1.0f;
+                } else {
+                    //ÇÊÇËècí∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
+                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH) / fix_width; //èkè¨ó¶=â°ïùÇÃî‰ó¶
+                    GgafDx9God::_rectPresent_Secondary.left   = 0;
+                    GgafDx9God::_rectPresent_Secondary.top    = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT) / 2.0f) - (fix_height * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Secondary.right  = fix_width * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Secondary.bottom = (PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT) / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                }
+            } else {
+                //ÅuÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[ÉhÅEÇQâÊñ égópÅEècâ°î‰ÉXÉgÉåÉbÉ`ÅvÇÃÇPâÊñ ñ⁄ÉtÉçÉìÉgÉoÉbÉtÉ@ï`âÊóÃàÊ
+                _rectPresent_Primary.left = 0;
+                _rectPresent_Primary.top = 0;
+                _rectPresent_Primary.right = PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH) - 1;
+                _rectPresent_Primary.bottom = PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT) - 1;
+                //ÅuÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[ÉhÅEÇQâÊñ égópÅEècâ°î‰ÉXÉgÉåÉbÉ`ÅvÇÃÇQâÊñ ñ⁄ÉtÉçÉìÉgÉoÉbÉtÉ@ï`âÊóÃàÊ
+                _rectPresent_Secondary.left = 0;
+                _rectPresent_Secondary.top = 0;
+                _rectPresent_Secondary.right = PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH) - 1;
+                _rectPresent_Secondary.bottom = PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT) - 1;
+            }
         } else {
-            _rectPresentDest.left = 0;
-            _rectPresentDest.top = (800/2) - PROPERTY(GAME_BUFFER_HEIGHT)/2 ;
-            _rectPresentDest.right = PROPERTY(GAME_BUFFER_WIDTH) - 1;
-            _rectPresentDest.bottom = ((800/2) + PROPERTY(GAME_BUFFER_HEIGHT)/2 ) - 1;
+            //ÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[ÉhÅEÇPâÊñ égóp
+            if (PROPERTY(FIXED_VIEW_ASPECT)) {
+                LONG fix_width = PROPERTY(GAME_BUFFER_WIDTH);
+                LONG fix_height = PROPERTY(GAME_BUFFER_HEIGHT);
+                //ÅuÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[ÉhÅEÇPâÊñ égópÅEècâ°î‰FIXÅvÇÃÉtÉçÉìÉgÉoÉbÉtÉ@ï`âÊóÃàÊ
+                if (1.0f * PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH) / PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT) > 1.0f * fix_width / fix_height) {
+                    //ÇÊÇËâ°í∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
+                    float rate = 1.0f * PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT) / fix_height; //èkè¨ó¶=ècïùÇÃî‰ó¶
+                    GgafDx9God::_rectPresent_Primary.left   = (PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH) / 2.0f) - (fix_width * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Primary.top    = 0;
+                    GgafDx9God::_rectPresent_Primary.right  = (PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH) / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 1.0f;
+                } else {
+                    //ÇÊÇËècí∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
+                    float rate = 1.0f * PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH) / fix_width; //èkè¨ó¶=â°ïùÇÃî‰ó¶
+                    GgafDx9God::_rectPresent_Primary.left   = 0;
+                    GgafDx9God::_rectPresent_Primary.top    = (PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT) / 2.0f) - (fix_height * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Primary.right  = fix_width * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.bottom = (PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT) / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                }
+                _rectPresent_Secondary.left   = 0;
+                _rectPresent_Secondary.top    = 0;
+                _rectPresent_Secondary.right  = 0;
+                _rectPresent_Secondary.bottom = 0;
+            } else {
+                //ÅuÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[ÉhÅEÇPâÊñ égópÅEècâ°î‰ÉXÉgÉåÉbÉ`ÅvÇÃÉtÉçÉìÉgÉoÉbÉtÉ@ï`âÊóÃàÊ
+                _rectPresent_Primary.left = 0;
+                _rectPresent_Primary.top = 0;
+                _rectPresent_Primary.right = PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH) - 1;
+                _rectPresent_Primary.bottom = PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT) - 1;
+                _rectPresent_Secondary.left   = 0;
+                _rectPresent_Secondary.top    = 0;
+                _rectPresent_Secondary.right  = 0;
+                _rectPresent_Secondary.bottom = 0;
+            }
         }
     } else {
-        //ÉEÉCÉìÉhÉEÉÇÅ[Éh
-        _rectPresentDest.left = 0;
-        _rectPresentDest.top = 0;
-        _rectPresentDest.right = PROPERTY(GAME_BUFFER_WIDTH) - 1;
-        _rectPresentDest.bottom = PROPERTY(GAME_BUFFER_HEIGHT) - 1;
+        //ÉEÉBÉìÉhÉEÉÇÅ[Éh
+        if (PROPERTY(DUAL_DISPLAY)) {
+            //ÉEÉBÉìÉhÉEÉÇÅ[ÉhÅEÇQëãégóp
+            if (PROPERTY(FIXED_VIEW_ASPECT)) {
+                LONG fix_width = PROPERTY(GAME_BUFFER_WIDTH)/2;
+                LONG fix_height = PROPERTY(GAME_BUFFER_HEIGHT);
+                //ÅuÉEÉBÉìÉhÉEÉÇÅ[ÉhÅEÇQëãégópÅEècâ°î‰FIXÅvÇÃÇPëãñ⁄ÉtÉçÉìÉgÉoÉbÉtÉ@ï`âÊóÃàÊ
+                if (1.0f * PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) / PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) > 1.0f * fix_width / fix_height) {
+                    //ÇÊÇËâ°í∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
+                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) / fix_height; //èkè¨ó¶=ècïùÇÃî‰ó¶
+                    GgafDx9God::_rectPresent_Primary.left   = (PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) / 2.0f) - (fix_width * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Primary.top    = 0;
+                    GgafDx9God::_rectPresent_Primary.right  = (PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 1.0f;
+                } else {
+                    //ÇÊÇËècí∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
+                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) / fix_width; //èkè¨ó¶=â°ïùÇÃî‰ó¶
+                    GgafDx9God::_rectPresent_Primary.left   = 0;
+                    GgafDx9God::_rectPresent_Primary.top    = (PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) / 2.0f) - (fix_height * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Primary.right  = fix_width * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.bottom = (PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                }
+
+                //ÅuÉEÉBÉìÉhÉEÉÇÅ[ÉhÅEÇQëãégópÅEècâ°î‰FIXÅvÇÃÇQëãñ⁄ÉtÉçÉìÉgÉoÉbÉtÉ@ï`âÊóÃàÊ
+                if (1.0f * PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) / PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) > 1.0f * fix_width / fix_height) {
+                    //ÇÊÇËâ°í∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
+                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) / fix_height; //èkè¨ó¶=ècïùÇÃî‰ó¶
+                    GgafDx9God::_rectPresent_Secondary.left   = (PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) / 2.0f) - (fix_width * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Secondary.top    = 0;
+                    GgafDx9God::_rectPresent_Secondary.right  = (PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Secondary.bottom = fix_height * rate - 1.0f;
+                } else {
+                    //ÇÊÇËècí∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
+                    float rate = 1.0f * PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) / fix_width; //èkè¨ó¶=â°ïùÇÃî‰ó¶
+                    GgafDx9God::_rectPresent_Secondary.left   = 0;
+                    GgafDx9God::_rectPresent_Secondary.top    = (PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) / 2.0f) - (fix_height * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Secondary.right  = fix_width * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Secondary.bottom = (PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                }
+            } else {
+                //ÅuÉEÉBÉìÉhÉEÉÇÅ[ÉhÅEÇQëãégópÅEècâ°î‰ÉXÉgÉåÉbÉ`ÅvÇÃÇPëãñ⁄ÉtÉçÉìÉgÉoÉbÉtÉ@ï`âÊóÃàÊ
+                _rectPresent_Primary.left = 0;
+                _rectPresent_Primary.top = 0;
+                _rectPresent_Primary.right = PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) - 1;
+                _rectPresent_Primary.bottom = PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) - 1;
+                //ÅuÉEÉBÉìÉhÉEÉÇÅ[ÉhÅEÇQëãégópÅEècâ°î‰ÉXÉgÉåÉbÉ`ÅvÇÃÇQëãñ⁄ÉtÉçÉìÉgÉoÉbÉtÉ@ï`âÊóÃàÊ
+                _rectPresent_Secondary.left = 0;
+                _rectPresent_Secondary.top = 0;
+                _rectPresent_Secondary.right = PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) - 1;
+                _rectPresent_Secondary.bottom = PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) - 1;
+            }
+        } else {
+            //ÉEÉBÉìÉhÉEÉÇÅ[ÉhÅEÇPëãégóp
+            if (PROPERTY(FIXED_VIEW_ASPECT)) {
+                LONG fix_width = PROPERTY(GAME_BUFFER_WIDTH);
+                LONG fix_height = PROPERTY(GAME_BUFFER_HEIGHT);
+                //ÅuÉEÉBÉìÉhÉEÉÇÅ[ÉhÅEÇPëãégópÅEècâ°î‰FIXÅvÇÃÉtÉçÉìÉgÉoÉbÉtÉ@ï`âÊóÃàÊ
+                if (1.0f * PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) / PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) > 1.0f * fix_width / fix_height) {
+                    //ÇÊÇËâ°í∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
+                    float rate = 1.0f * PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) / fix_height; //èkè¨ó¶=ècïùÇÃî‰ó¶
+                    GgafDx9God::_rectPresent_Primary.left   = (PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) / 2.0f) - (fix_width * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Primary.top    = 0;
+                    GgafDx9God::_rectPresent_Primary.right  = (PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 1.0f;
+                } else {
+                    //ÇÊÇËècí∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
+                    float rate = 1.0f * PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) / fix_width; //èkè¨ó¶=â°ïùÇÃî‰ó¶
+                    GgafDx9God::_rectPresent_Primary.left   = 0;
+                    GgafDx9God::_rectPresent_Primary.top    = (PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) / 2.0f) - (fix_height * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Primary.right  = fix_width * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.bottom = (PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                }
+                _rectPresent_Secondary.left   = 0;
+                _rectPresent_Secondary.top    = 0;
+                _rectPresent_Secondary.right  = 0;
+                _rectPresent_Secondary.bottom = 0;
+            } else {
+                //ÅuÉEÉBÉìÉhÉEÉÇÅ[ÉhÅEÇPëãégópÅEècâ°î‰ÉXÉgÉåÉbÉ`ÅvÇÃÉtÉçÉìÉgÉoÉbÉtÉ@ï`âÊóÃàÊ
+                _rectPresent_Primary.left = 0;
+                _rectPresent_Primary.top = 0;
+                _rectPresent_Primary.right = PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) - 1;
+                _rectPresent_Primary.bottom = PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) - 1;
+                _rectPresent_Secondary.left   = 0;
+                _rectPresent_Secondary.top    = 0;
+                _rectPresent_Secondary.right  = 0;
+                _rectPresent_Secondary.bottom = 0;
+            }
+        }
     }
 
 
@@ -144,58 +299,12 @@ HRESULT GgafDx9God::init() {
     GgafDx9God::_pID3D9->GetDeviceCaps(0, D3DDEVTYPE_HAL, &caps___);
     _iNumAdapter = caps___.NumberOfAdaptersInGroup;   //égÇ¶ÇÈÉAÉ_ÉvÉ^ÇÃêîéÊìæ
     _TRACE_("_iNumAdapter = "<< _iNumAdapter);
-    _d3dparam = NEW D3DPRESENT_PARAMETERS[_iNumAdapter];
 
-
-    //ÉfÉoÉCÉXçÏê¨
+    //ÉfÉoÉCÉXÉpÉâÉÅÅ[É^çÏê¨
+    _d3dparam = NEW D3DPRESENT_PARAMETERS[2];
     ZeroMemory(&_d3dparam[0], sizeof(D3DPRESENT_PARAMETERS));
-    //ÉoÉbÉNÉoÉbÉtÉ@ÇÃâ°ÉTÉCÉY
-    if (PROPERTY(FULL_SCREEN)) {
-        if(PROPERTY(DUAL_DISPLAY)) {
-            _d3dparam[0].BackBufferWidth = PROPERTY(GAME_BUFFER_WIDTH)/2;
-            _d3dparam[0].BackBufferHeight = PROPERTY(GAME_BUFFER_HEIGHT);
-        } else {
-            _d3dparam[0].BackBufferWidth = PROPERTY(GAME_BUFFER_WIDTH);
-            _d3dparam[0].BackBufferHeight = 800; //TODO:
-        }
-    } else {
-        //ÉEÉBÉìÉhÉE
-        _d3dparam[0].BackBufferWidth = PROPERTY(GAME_BUFFER_WIDTH);
-        _d3dparam[0].BackBufferHeight = PROPERTY(GAME_BUFFER_HEIGHT);
-    }
-
-    //_d3dparam[0].BackBufferWidth = PROPERTY(GAME_BUFFER_WIDTH);
-    //ÉoÉbÉNÉoÉbÉtÉ@ÇÃÉtÉHÅ[É}ÉbÉg
-    if (PROPERTY(FULL_SCREEN)) {
-        _d3dparam[0].BackBufferFormat = D3DFMT_X8R8G8B8;//D3DFMT_A8R8G8B8;//D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//ÉtÉãÉXÉNÉäÅ[Éìéû
-    } else {
-        _d3dparam[0].BackBufferFormat = structD3DDisplayMode.Format; //ÉEÉBÉìÉhÉEéû
-        //_d3dparam[0].BackBufferFormat = D3DFMT_UNKNOWN;   //åªç›ÇÃâÊñ ÉÇÅ[ÉhÇóòóp
-    }
-
     //ÉoÉbÉNÉoÉbÉtÉ@ÇÃêî
     _d3dparam[0].BackBufferCount = 1;
-
-    //ÉXÉèÉbÉvå¯â ÇéwíËÇ∑ÇÈ
-    //ÉoÉbÉNÉoÉbÉtÉ@
-    if (PROPERTY(FULL_SCREEN)) {
-        if (PROPERTY(DUAL_DISPLAY)) {
-            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
-        } else {
-            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_DISCARD;
-        }
-    } else {
-        _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
-    }
-
-    //ÉEÉBÉìÉhÉEÉnÉìÉhÉã
-    _d3dparam[0].hDeviceWindow = _pHWndPrimary;
-    //ÉEÉBÉìÉhÉEÉÇÅ[Éh
-    if (PROPERTY(FULL_SCREEN)) {
-        _d3dparam[0].Windowed = false; //ÉtÉãÉXÉNÉäÅ[Éìéû
-    } else {
-        _d3dparam[0].Windowed = true; //ÉEÉBÉìÉhÉEéû
-    }
     //ê[ìxÉXÉeÉìÉVÉãÉoÉbÉtÉ@
     //_d3dparam[0].EnableAutoDepthStencil = FALSE;
     //_d3dparam[0].AutoDepthStencilFormat = 0;
@@ -203,20 +312,29 @@ HRESULT GgafDx9God::init() {
     _d3dparam[0].AutoDepthStencilFormat = D3DFMT_D24S8;//D3DFMT_D16;
     //0Ç…ÇµÇƒÇ®Ç≠
     _d3dparam[0].Flags = 0;
-    //ÉtÉãÉXÉNÉäÅ[ÉìÇ≈ÇÃÉäÉtÉåÉbÉVÉÖÉåÅ[Ég(ÉEÉBÉìÉhÉEÉÇÅ[ÉhÇ»ÇÁ0ÇéwíË)
+
     if (PROPERTY(FULL_SCREEN)) {
-        _d3dparam[0].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //ÉtÉãÉXÉNÉäÅ[Éìéû
+        //ÉtÉãÉXÉNÉäÅ[Éìéû
+        _d3dparam[0].BackBufferFormat = D3DFMT_X8R8G8B8;
+                                        //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
+        _d3dparam[0].Windowed = false; //ÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[Éhéû
+        _d3dparam[0].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //ÉäÉtÉåÉbÉVÉÖÉåÅ[Ég
+        _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT; //ÉXÉèÉbÉvÇÃÉ^ÉCÉ~ÉìÉO
+        if (PROPERTY(DUAL_DISPLAY)) {
+            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
+        } else {
+            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_DISCARD;
+        }
     } else {
-        _d3dparam[0].FullScreen_RefreshRateInHz = 0; //ÉEÉBÉìÉhÉEéû
-    }
-    //ÉXÉèÉbÉvÇÃÉ^ÉCÉ~ÉìÉO
-    if (PROPERTY(FULL_SCREEN)) {
-        _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
-    } else {
+        //ÉEÉBÉìÉhÉEéû
+        _d3dparam[0].BackBufferFormat = structD3DDisplayMode.Format;
+                                      // D3DFMT_UNKNOWN;   //åªç›ÇÃâÊñ ÉÇÅ[ÉhÇóòóp
+        _d3dparam[0].Windowed = true; //ÉEÉBÉìÉhÉEÉÇÅ[Éhéû
+        _d3dparam[0].FullScreen_RefreshRateInHz = 0; //ÉäÉtÉåÉbÉVÉÖÉåÅ[Ég
         _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //ë¶ç¿
         //TODO:WindowÉÇÅ[ÉhÇÕÇ±ÇÍàÍëÇ»ÇÃÇ©ÅHÅAD3DPRESENT_INTERVAL_ONE Ç∆Ç©ÇΩÇﬂÇ∑ÅH
+        _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
     }
-
 
     //ÉAÉìÉ`ÉAÉCÉäÉAÉXÇ…Ç≈Ç´ÇÈÇ©É`ÉFÉbÉN
     UINT32 qualityLevels = D3DMULTISAMPLE_NONE;
@@ -247,36 +365,70 @@ HRESULT GgafDx9God::init() {
     //É}ÉãÉ`ÉTÉìÉvÉãÇÃïiéøÉåÉxÉã
     _d3dparam[0].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
 
-//    //ÉtÉãÉXÉNÉäÅ[ÉìÇ…èoóàÇÈÇ©í≤Ç◊ÇÈ
-//    if (PROPERTY(FULL_SCREEN)) {
-//        int cc = GgafDx9God::_pID3D9->GetAdapterModeCount(D3DADAPTER_DEFAULT,
-//                                                          _d3dparam[0].BackBufferFormat);
-//        if (cc) {
-//            D3DDISPLAYMODE adp;
-//            for (int i = 0; i < cc; i++) {
-//                GgafDx9God::_pID3D9->EnumAdapterModes(D3DADAPTER_DEFAULT,
-//                                                      _d3dparam[0].BackBufferFormat, i, &adp);
-//                if (adp.Format == _d3dparam[0].BackBufferFormat && adp.Width
-//                        == (UINT)PROPERTY(GAME_BUFFER_WIDTH) && adp.Height
-//                        == (UINT)PROPERTY(GAME_BUFFER_HEIGHT)) {
-//                    //OK
-//                    break;
-//                }
-//                if (cc == i) {
-//                    //óvãÅÇµÇΩégÇ¶ÇÈâëúìxÇ™å©Ç¬Ç©ÇÁÇ»Ç¢
-//                    throwGgafCriticalException(PROPERTY(GAME_BUFFER_WIDTH) <<"x"<<PROPERTY(GAME_BUFFER_HEIGHT) << "ÇÃÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[ÉhÇ…Ç∑ÇÈéñÇ™Ç≈Ç´Ç‹ÇπÇÒÅB");
-//                    return E_FAIL;
-//                }
-//            }
-//        } else {
-//            throwGgafCriticalException("GetAdapterModeCount Ç…é∏îsÇµÇ‹ÇµÇΩ");
-//            return E_FAIL;
-//        }
-//    }
+    //ÇQâÊñ égópéûÇÃç∑ï™èCê≥
+    _d3dparam[1] = _d3dparam[0]; //ã§í Ç™ëΩÇ¢ÇΩÇﬂÉRÉsÅ[
+    //WindowÉnÉìÉhÉãÇå¬ï éwíË
+    _d3dparam[0].hDeviceWindow = _pHWndPrimary;
+    _d3dparam[1].hDeviceWindow = _pHWndSecondary;
+    //ÉoÉbÉNÉoÉbÉtÉ@ÉTÉCÉY
+    if (PROPERTY(FULL_SCREEN)) {
+        if(PROPERTY(DUAL_DISPLAY)) {
+            //ÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[ÉhÅEÇQâÊñ égóp
+            _d3dparam[0].BackBufferWidth  = PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH);
+            _d3dparam[0].BackBufferHeight = PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT);
+            _d3dparam[1].BackBufferWidth  = PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH);
+            _d3dparam[1].BackBufferHeight = PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT);
+        } else {
+            //ÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[ÉhÅEÇPâÊñ égóp
+            _d3dparam[0].BackBufferWidth  = PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH);
+            _d3dparam[0].BackBufferHeight = PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT);
+            _d3dparam[1].BackBufferWidth  = 0;
+            _d3dparam[1].BackBufferHeight = 0;
+        }
+    } else {
+        if(PROPERTY(DUAL_DISPLAY)) {
+            //ÉEÉBÉìÉhÉEÉÇÅ[ÉhÅEÇQâÊñ égóp
+            _d3dparam[0].BackBufferWidth  = PROPERTY(GAME_BUFFER_WIDTH);
+            _d3dparam[0].BackBufferHeight = PROPERTY(GAME_BUFFER_HEIGHT);
+            _d3dparam[1].BackBufferWidth  = 0;
+            _d3dparam[1].BackBufferHeight = 0;
+        } else {
+            //ÉEÉBÉìÉhÉEÉÇÅ[ÉhÅEÇPâÊñ égóp
+            _d3dparam[0].BackBufferWidth  = PROPERTY(GAME_BUFFER_WIDTH);
+            _d3dparam[0].BackBufferHeight = PROPERTY(GAME_BUFFER_HEIGHT);
+            _d3dparam[1].BackBufferWidth  = 0;
+            _d3dparam[1].BackBufferHeight = 0;
+        }
+    }
 
 
 
-
+    //    //ÉtÉãÉXÉNÉäÅ[ÉìÇ…èoóàÇÈÇ©í≤Ç◊ÇÈ
+    //    if (PROPERTY(FULL_SCREEN)) {
+    //        int cc = GgafDx9God::_pID3D9->GetAdapterModeCount(D3DADAPTER_DEFAULT,
+    //                                                          _d3dparam[0].BackBufferFormat);
+    //        if (cc) {
+    //            D3DDISPLAYMODE adp;
+    //            for (int i = 0; i < cc; i++) {
+    //                GgafDx9God::_pID3D9->EnumAdapterModes(D3DADAPTER_DEFAULT,
+    //                                                      _d3dparam[0].BackBufferFormat, i, &adp);
+    //                if (adp.Format == _d3dparam[0].BackBufferFormat && adp.Width
+    //                        == (UINT)PROPERTY(GAME_BUFFER_WIDTH) && adp.Height
+    //                        == (UINT)PROPERTY(GAME_BUFFER_HEIGHT)) {
+    //                    //OK
+    //                    break;
+    //                }
+    //                if (cc == i) {
+    //                    //óvãÅÇµÇΩégÇ¶ÇÈâëúìxÇ™å©Ç¬Ç©ÇÁÇ»Ç¢
+    //                    throwGgafCriticalException(PROPERTY(GAME_BUFFER_WIDTH) <<"x"<<PROPERTY(GAME_BUFFER_HEIGHT) << "ÇÃÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[ÉhÇ…Ç∑ÇÈéñÇ™Ç≈Ç´Ç‹ÇπÇÒÅB");
+    //                    return E_FAIL;
+    //                }
+    //            }
+    //        } else {
+    //            throwGgafCriticalException("GetAdapterModeCount Ç…é∏îsÇµÇ‹ÇµÇΩ");
+    //            return E_FAIL;
+    //        }
+    //    }
 
 
     //default
@@ -306,67 +458,6 @@ HRESULT GgafDx9God::init() {
 //
 //#endif
     // <------------------------------------------------ NVIDIA PerfHUD óp end
-
-
-    //2âÊñ ÇÃê›íË
-    //http://www.shader.jp/xoops/html/masafumi/directx9/3dtips/d3d15.htm
-    if (PROPERTY(FULL_SCREEN) && PROPERTY(DUAL_DISPLAY)) {
-        _d3dparam[1] = _d3dparam[0]; //ã§í Ç™ëΩÇ¢ÇΩÇﬂ
-
-        WNDCLASSEX wcex;
-
-        wcex.cbSize = sizeof(WNDCLASSEX);
-        wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //êÖïΩÅEêÇíºï˚å¸Ç…ÉEÉCÉìÉhÉEÉTÉCÉYÇ™ïœçXÇ≥ÇÍÇΩÇ∆Ç´ÉEÉCÉìÉhÉEÇçƒçÏâÊÇ∑ÇÈÅB
-        wcex.lpfnWndProc = (WNDPROC)GetWindowLong(_pHWndPrimary, GWL_WNDPROC ); //ÉEÉBÉìÉhÉEÉvÉçÉVÅ[ÉWÉÉÇÃÉAÉhÉåÉXÇéwíËÇ∑ÇÈÅB
-        wcex.cbClsExtra = 0;
-        wcex.cbWndExtra = 0;
-        wcex.hInstance = _hInstance;
-        wcex.hIcon = NULL;
-        wcex.hCursor = NULL;
-        wcex.hbrBackground = CreateSolidBrush(RGB(30, 30, 30)); //0~255
-        wcex.lpszMenuName = NULL;//MAKEINTRESOURCE(IDC_MYSTG2ND);//NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//ÉÅÉjÉÖÅ[ÉoÅ[ÇÕÇ»Çµ
-        wcex.lpszClassName = "multihead";
-        wcex.hIconSm = NULL;
-
-        RegisterClassEx(&wcex);
-
-
-//        WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, (WNDPROC)GetWindowLong(_pHWndPrimary, GWL_WNDPROC ) , 0L, 0L,
-//                          GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
-//                          "multihead", NULL };
-//        RegisterClassEx( &wc );
-        //ÉtÉHÅ[ÉJÉXÉEÉBÉìÉhÉEÇÃéwíË(Ç±Ç±ÇæÇØÇÕÉAÉ_ÉvÉ^Ç≤Ç∆Ç…à·Ç§Ç‡ÇÃÇégÇ§Ç±Ç∆)
-        _pHWndSecondary = CreateWindowEx(
-            WS_EX_APPWINDOW,
-            "multihead", //WINDOW_CLASS,
-            "multihead",//WINDOW_TITLE,
-            WS_POPUP | WS_VISIBLE,
-            CW_USEDEFAULT,
-            CW_USEDEFAULT,
-            PROPERTY(GAME_BUFFER_WIDTH)/2, //ÉEÉBÉìÉhÉEÇÃïùÅAà·Ç§ÇÃÇÕÉRÉRÇÃÇ›
-            PROPERTY(GAME_BUFFER_HEIGHT),
-            HWND_DESKTOP,
-            NULL,
-            _hInstance,
-            NULL);
-        _d3dparam[1].hDeviceWindow = _pHWndSecondary;
-        _d3dparam[1].BackBufferWidth = PROPERTY(GAME_BUFFER_WIDTH)/2; //ÉvÉâÉCÉ}Éäà»äOÇÕÉoÉbÉNÉoÉbÉtÉ@ÇÕàÍívÇµÇƒó«Ç¢
-
-
-//        _d3dparam[1].hDeviceWindow = CreateWindow(
-//            "multihead",
-//            "multihead",
-//            NULL,
-//            CW_USEDEFAULT,
-//            CW_USEDEFAULT,
-//            PROPERTY(GAME_BUFFER_WIDTH/2), //ÉEÉBÉìÉhÉEÇÃïùÅAà·Ç§ÇÃÇÕÉRÉRÇÃÇ›
-//            PROPERTY(GAME_BUFFER_HEIGHT),
-//            NULL,
-//            NULL,
-//            wc.hInstance,
-//            NULL );
-    }
-
 
     if (PROPERTY(FULL_SCREEN) && PROPERTY(DUAL_DISPLAY)) {
 
@@ -467,7 +558,15 @@ HRESULT GgafDx9God::init() {
     GgafDx9Util::init(); //ÉÜÅ[ÉeÉBÉäÉeÉBèÄîı
     GgafDx9Input::init(); //DirectInputèÄîı
     GgafDx9Sound::init(); //DirectSoundèÄîı
-    _adjustGameScreen = true;
+
+//ÉRÉRÇ≈åƒÇ‘Ç∆ÉÅÉÇÉäà·îΩ
+//    adjustGameScreen(_pHWndPrimary);
+//    if (_pHWndSecondary) {
+//        adjustGameScreen(_pHWndSecondary);
+//    }
+
+
+//    _adjustGameScreen = true;
     return initDx9Device();
 
 }
@@ -629,7 +728,7 @@ HRESULT GgafDx9God::initDx9Device() {
 
     if (PROPERTY(FULL_SCREEN)) {
         HRESULT hr;
-        //ÉoÉbÉNÉoÉbÉtÉ@ÅEÉeÉNÉXÉ`ÉÉçÏê¨
+        //ï`âÊêÊÉeÉNÉXÉ`ÉÉçÏê¨
         hr = GgafDx9God::_pID3DDevice9->CreateTexture(
                                                 PROPERTY(GAME_BUFFER_WIDTH),
                                                 PROPERTY(GAME_BUFFER_HEIGHT),
@@ -641,7 +740,7 @@ HRESULT GgafDx9God::initDx9Device() {
                                                  NULL);
         checkDxException(hr, D3D_OK, "ÉoÉbÉNÉoÉbÉtÉ@ÅEÉeÉNÉXÉ`ÉÉçÏê¨é∏îs");
 
-        //ÉeÉNÉXÉ`ÉÉÇÃÉTÅ[ÉtÉFÉCÉXÉ|ÉCÉìÉ^
+        //ï`âÊêÊÉeÉNÉXÉ`ÉÉÇÃÉTÅ[ÉtÉFÉCÉXÉ|ÉCÉìÉ^
         hr = _pRenderTexture->GetSurfaceLevel(0, &_pRenderTextureSurface);
         checkDxException(hr, D3D_OK, "ÉeÉNÉXÉ`ÉÉÇÃÉTÅ[ÉtÉFÉCÉXÉ|ÉCÉìÉ^éÊìæé∏îs");
 
@@ -720,7 +819,7 @@ void GgafDx9God::makeUniversalMaterialize() {
             //ÉfÉoÉCÉXÉäÉZÉbÉgÇééÇ›ÇÈ
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
             checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() ÉfÉoÉCÉXÉçÉXÉgå„ÇÃÉäÉZÉbÉg[0]Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-            if (PROPERTY(FULL_SCREEN) && PROPERTY(DUAL_DISPLAY)) {
+            if (PROPERTY(DUAL_DISPLAY)) {
                 for (int i = 1; i < _iNumAdapter; i++) {
                     hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[i]));
                     checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() ÉfÉoÉCÉXÉçÉXÉgå„ÇÃÉäÉZÉbÉg[1]Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -776,7 +875,7 @@ void GgafDx9God::makeUniversalMaterialize() {
 void GgafDx9God::presentUniversalVisualize() {
     if (_is_device_lost_flg != true) {
         //ÉoÉbÉNÉoÉbÉtÉ@ÇÉvÉâÉCÉ}ÉäÉoÉbÉtÉ@Ç…ì]ëó
-        //if (GgafDx9God::_pID3DDevice9->Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {
+        //if (GgafDx9God::_pID3DDevice9->Present(NULL,&_rectPresent_Primary,NULL,NULL) == D3DERR_DEVICELOST) {
         //        static D3DRASTER_STATUS rs;
         //        while (SUCCEEDED(GgafDx9God::_pID3DDevice9->GetRasterStatus(0, &rs)) ) {
         //            if(rs.InVBlank) {
@@ -786,15 +885,12 @@ void GgafDx9God::presentUniversalVisualize() {
         //            }
         //        }
 
-        if (_adjustGameScreen) {
-            adjustGameScreen();
+        if (_adjustGameScreen && _pHWnd_adjustScreen) {
+            adjustGameScreen(_pHWnd_adjustScreen);
         }
 
         HRESULT hr;
 //        hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
-
-
-
         if (PROPERTY(FULL_SCREEN)) {
             if (PROPERTY(DUAL_DISPLAY)) {
                 LPDIRECT3DSWAPCHAIN9 pSwapChain00 = NULL;//ÉAÉ_ÉvÉ^Ç…ä÷òAïtÇØÇÍÇÁÇÍÇΩÉXÉèÉbÉvÉ`ÉFÅ[Éì
@@ -813,33 +909,24 @@ void GgafDx9God::presentUniversalVisualize() {
                 checkDxException(hr, D3D_OK, "1GetBackBuffer() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //
                 //âÊñ ÇOÉoÉbÉNÉoÉbÉtÉ@ÇâÊñ ÇPÉoÉbÉNÉoÉbÉtÉ@Ç÷ÉRÉsÅ[Ç∑ÇÈ
-    //            HRESULT StretchRect(
-    //              IDirect3DSurface9 * pSourceSurface,
-    //              CONST RECT * pSourceRect,
-    //              IDirect3DSurface9 * pDestSurface,
-    //              CONST RECT * pDestRect,
-    //              D3DTEXTUREFILTERTYPE Filter
-    //            );
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
-                        _pRenderTextureSurface,  _pRectMultiScreenLeft,
-                        pBackBuffer00,    &_rectPresentDest,
-                        D3DTEXF_NONE
-                        );
+                        _pRenderTextureSurface,  _pRectGameBuffer_HarfLeft,
+                        pBackBuffer00,           &_rectPresent_Primary,
+                        D3DTEXF_NONE);
                 checkDxException(hr, D3D_OK, "StretchRect() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
-                        _pRenderTextureSurface,  _pRectMultiScreenRight,
-                        pBackBuffer01,    &_rectPresentDest,
-                        D3DTEXF_NONE
-
-                        );
+                        _pRenderTextureSurface,  _pRectGameBuffer_HarfRight,
+                        pBackBuffer01,           &_rectPresent_Secondary,
+                        D3DTEXF_NONE);
                 checkDxException(hr, D3D_OK, "StretchRect() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     //            //ÉvÉâÉCÉ}ÉäÉoÉbÉNÉoÉbÉtÉ@ÇÃâEîºï™ÇÉZÉJÉìÉ_ÉäÉoÉbÉNÉoÉbÉtÉ@Ç÷ÉRÉsÅ[
-                //hr = GgafDx9God::_pID3DDevice9->UpdateSurface( pBackBuffer00, _pRectMultiScreenRight, pBackBuffer01, _pPoint);
+                //hr = GgafDx9God::_pID3DDevice9->UpdateSurface( pBackBuffer00, _pRectGameBuffer_HarfRight, pBackBuffer01, _pPoint);
                 //checkDxException(hr, D3D_OK, "UpdateSurface() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //            //ÉRÉsÅ[ÉtÉäÉbÉv
-                hr = pSwapChain00->Present(_pRectMultiScreenLeft, NULL, NULL, NULL,0);
+                hr = pSwapChain00->Present(NULL, NULL, NULL, NULL,0);
+    //            hr = pSwapChain00->Present(_pRectGameBuffer_HarfLeft, NULL, NULL, NULL,0);
                 checkDxException(hr, D3D_OK, "0Present() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 hr = pSwapChain01->Present(NULL, NULL, NULL, NULL,0);
                 checkDxException(hr, D3D_OK, "1Present() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -853,6 +940,7 @@ void GgafDx9God::presentUniversalVisualize() {
                 RELEASE_SAFETY(pSwapChain00);
                 RELEASE_SAFETY(pSwapChain01);
             } else {
+                //ÇPâÊñ égópÅEÉtÉãÉXÉNÉäÅ[ÉìÉÇÅ[Éh
                 LPDIRECT3DSWAPCHAIN9 pSwapChain00 = NULL;//ÉAÉ_ÉvÉ^Ç…ä÷òAïtÇØÇÍÇÁÇÍÇΩÉXÉèÉbÉvÉ`ÉFÅ[Éì
                 LPDIRECT3DSURFACE9 pBackBuffer00 = NULL;//ÉoÉbÉNÉoÉbÉtÉ@1âÊñ ï™
                 //ÉtÉãÉXÉNÉäÅ[Éì
@@ -865,7 +953,7 @@ void GgafDx9God::presentUniversalVisualize() {
                         _pRenderTextureSurface,
                         _pRectGameBuffer,
                         pBackBuffer00,
-                        &_rectPresentDest,
+                        &_rectPresent_Primary,
                         D3DTEXF_NONE
                         );
                 checkDxException(hr, D3D_OK, "FULL 1gamen StretchRect() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -876,16 +964,30 @@ void GgafDx9God::presentUniversalVisualize() {
 
                 RELEASE_SAFETY(pBackBuffer00);
                 RELEASE_SAFETY(pSwapChain00);
-            }
 
+            }
         } else {
-            //ÉEÉBÉìÉhÉEÉÇÅ[Éh
-            if (PROPERTY(FIXED_VIEW_ASPECT)) {
-                //ècâ°î‰å≈íËÉÇÅ[Éh
-                hr = GgafDx9God::_pID3DDevice9->Present(NULL, &_rectPresentDest, NULL, NULL);
+            if (PROPERTY(DUAL_DISPLAY)) {
+                //ÇPâÊñ égópÅEÉEÉBÉìÉhÉEÉÇÅ[Éh
+                if (PROPERTY(FIXED_VIEW_ASPECT)) {
+                    //ècâ°î‰å≈íËÉÇÅ[Éh
+                    hr = GgafDx9God::_pID3DDevice9->Present(_pRectGameBuffer_HarfLeft, &_rectPresent_Primary, NULL, NULL);
+                    hr = GgafDx9God::_pID3DDevice9->Present(_pRectGameBuffer_HarfRight, &_rectPresent_Secondary, _pHWndSecondary, NULL);
+
+                } else {
+                    //ècâ°ÉXÉgÉåÉbÉ`ÉÇÅ[Éh
+                    hr = GgafDx9God::_pID3DDevice9->Present(_pRectGameBuffer_HarfLeft, NULL, NULL, NULL);
+                    hr = GgafDx9God::_pID3DDevice9->Present(_pRectGameBuffer_HarfRight, NULL, _pHWndSecondary, NULL);
+                }
             } else {
-                //ècâ°ÉXÉgÉåÉbÉ`ÉÇÅ[Éh
-                hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+                //ÇPâÊñ égópÅEÉEÉBÉìÉhÉEÉÇÅ[Éh
+                if (PROPERTY(FIXED_VIEW_ASPECT)) {
+                    //ècâ°î‰å≈íËÉÇÅ[Éh
+                    hr = GgafDx9God::_pID3DDevice9->Present(NULL, &_rectPresent_Primary, NULL, NULL);
+                } else {
+                    //ècâ°ÉXÉgÉåÉbÉ`ÉÇÅ[Éh
+                    hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+                }
             }
         }
         if (hr == D3DERR_DEVICELOST) {
@@ -915,7 +1017,7 @@ void GgafDx9God::presentUniversalVisualize() {
             //ÉfÉoÉCÉXÉäÉZÉbÉgÇééÇ›ÇÈ
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
             checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR ÇÃÇΩÇﬂ Reset([0]) ÇééÇµÇ‹ÇµÇ™ÅAë ñ⁄Ç≈ÇµÇΩÅB");
-            if (PROPERTY(FULL_SCREEN) && PROPERTY(DUAL_DISPLAY)) {
+            if (PROPERTY(DUAL_DISPLAY)) {
                 for (int i = 1; i < _iNumAdapter; i++) {
                     hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[i]));
                     checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR ÇÃÇΩÇﬂ Reset([1]) ÇééÇµÇ‹ÇµÇ™ÅAë ñ⁄Ç≈ÇµÇΩÅB");
@@ -961,9 +1063,9 @@ void GgafDx9God::clean() {
     }
 }
 
-void GgafDx9God::adjustGameScreen() {
+void GgafDx9God::adjustGameScreen(HWND prm_pHWnd) {
      RECT rect;
-    if (PROPERTY(FIXED_VIEW_ASPECT)) {
+    if (!PROPERTY(FULL_SCREEN) && PROPERTY(FIXED_VIEW_ASPECT)) {
         HRESULT hr;
         hr = GgafDx9God::_pID3DDevice9->Clear(0, // ÉNÉäÉAÇ∑ÇÈãÈå`óÃàÊÇÃêî
                                               NULL, // ãÈå`óÃàÊ
@@ -974,38 +1076,61 @@ void GgafDx9God::adjustGameScreen() {
                                               0 // ÉXÉeÉìÉVÉãÉoÉbÉtÉ@ÇÃÉNÉäÉAíl
                 );
         checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-        if (::GetClientRect(_pHWndPrimary, &rect)) {
-            if (1.0f * rect.right / rect.bottom > 1.0f * PROPERTY(GAME_BUFFER_WIDTH) / PROPERTY(GAME_BUFFER_HEIGHT)) {
+        if (::GetClientRect(prm_pHWnd, &rect)) {
+            LONG width = rect.right + 1;
+            LONG height = rect.bottom + 1;
+            LONG fix_width, fix_height;
+            if (PROPERTY(DUAL_DISPLAY)) {
+                fix_width = PROPERTY(GAME_BUFFER_WIDTH)/2;
+                fix_height = PROPERTY(GAME_BUFFER_HEIGHT);
+            } else {
+                fix_width = PROPERTY(GAME_BUFFER_WIDTH);
+                fix_height = PROPERTY(GAME_BUFFER_HEIGHT);
+            }
+
+            if (1.0f * width / height > 1.0f * fix_width / fix_height) {
                 //ÇÊÇËâ°í∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
-                float rate = 1.0f * rect.bottom / PROPERTY(GAME_BUFFER_HEIGHT); //èkè¨ó¶=ècïùÇÃî‰ó¶
-                GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f)
-                        - (PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
-                GgafDx9God::_rectPresentDest.top = 0;
-                GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
-                        + (PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0f);
-                GgafDx9God::_rectPresentDest.bottom = PROPERTY(GAME_BUFFER_HEIGHT) * rate;
+                float rate = 1.0f * height / fix_height; //èkè¨ó¶=ècïùÇÃî‰ó¶
+                if (prm_pHWnd == _pHWndPrimary) {
+                    GgafDx9God::_rectPresent_Primary.left = (width / 2.0f) - (fix_width * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Primary.top = 0;
+                    GgafDx9God::_rectPresent_Primary.right = (width / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.bottom = fix_height * rate - 1.0f;
+                } else {
+                    GgafDx9God::_rectPresent_Secondary.left = (width / 2.0f) - (fix_width * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Secondary.top = 0;
+                    GgafDx9God::_rectPresent_Secondary.right = (width / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Secondary.bottom = fix_height * rate - 1.0f;
+                }
             } else {
                 //ÇÊÇËècí∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
-                float rate = 1.0f * rect.right / PROPERTY(GAME_BUFFER_WIDTH); //èkè¨ó¶=â°ïùÇÃî‰ó¶
-                GgafDx9God::_rectPresentDest.left = 0;
-                GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
-                        - (PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
-                GgafDx9God::_rectPresentDest.right = PROPERTY(GAME_BUFFER_WIDTH) * rate;
-                GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
-                        + (PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0f);
+                float rate = 1.0f * width / fix_width; //èkè¨ó¶=â°ïùÇÃî‰ó¶
+                if (prm_pHWnd == _pHWndPrimary) {
+                    GgafDx9God::_rectPresent_Primary.left = 0;
+                    GgafDx9God::_rectPresent_Primary.top = (height / 2.0f) - (fix_height * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Primary.right = fix_width * rate - 1.0f;
+                    GgafDx9God::_rectPresent_Primary.bottom = (height / 2.0f) + (fix_height * rate / 2.0f) - 1.0f;
+                } else {
+                    GgafDx9God::_rectPresent_Secondary.left = (width / 2.0f) - (fix_width * rate / 2.0f);
+                    GgafDx9God::_rectPresent_Secondary.top = 0;
+                    GgafDx9God::_rectPresent_Secondary.right = (width / 2.0f) + (fix_width * rate / 2.0f) - 1.0f;
+                    GgafDx9God::_rectPresent_Secondary.bottom = fix_height * rate - 1.0f;
+                }
             }
-            _adjustGameScreen = false;
         }
     } else {
-        if (::GetClientRect(_pHWndPrimary, &rect)) {
-            GgafDx9God::_rectPresentDest.top = rect.top;
-            GgafDx9God::_rectPresentDest.left = rect.left;
-            GgafDx9God::_rectPresentDest.right = rect.right;
-            GgafDx9God::_rectPresentDest.bottom = rect.bottom;
-            _adjustGameScreen = false;
+        if (::GetClientRect(prm_pHWnd, &rect)) {
+            if (prm_pHWnd == _pHWndPrimary) {
+                GgafDx9God::_rectPresent_Primary = rect;
+            } else {
+                GgafDx9God::_rectPresent_Secondary = rect;
+            }
+
         }
     }
     GgafDx9God::_pID3DDevice9->GetViewport(&(P_CAM->_viewport));
+    _adjustGameScreen = false;
+    _pHWnd_adjustScreen = NULL;
 }
 
 //void GgafDx9God::adjustGameScreen() {
@@ -1061,10 +1186,10 @@ void GgafDx9God::adjustGameScreen() {
 //        }
 //    } else {
 //        if (::GetClientRect(_pHWndPrimary, &rect)) {
-//            GgafDx9God::_rectPresentDest.top = rect.top;
-//            GgafDx9God::_rectPresentDest.left = rect.left;
-//            GgafDx9God::_rectPresentDest.right = rect.right;
-//            GgafDx9God::_rectPresentDest.bottom = rect.bottom;
+//            GgafDx9God::_rectPresent_Primary.top = rect.top;
+//            GgafDx9God::_rectPresent_Primary.left = rect.left;
+//            GgafDx9God::_rectPresent_Primary.right = rect.right;
+//            GgafDx9God::_rectPresent_Primary.bottom = rect.bottom;
 //            _adjustGameScreen = false;
 //        }
 //    }

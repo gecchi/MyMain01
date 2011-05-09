@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultGod::DefaultGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary) : GgafDx9God(prm_hInstance, prm_pHWndPrimary) {
+DefaultGod::DefaultGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) : GgafDx9God(prm_hInstance, prm_pHWndPrimary, prm_pHWndSecondary) {
 
 }
 

@@ -36,7 +36,7 @@ public:
      * @param prm_hInstance
      * @param prm_pHWndPrimary
      */
-    God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary);
+    God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
 
     /**
      * VB‚ğXV‚ğ—\–ñ‚·‚éB .

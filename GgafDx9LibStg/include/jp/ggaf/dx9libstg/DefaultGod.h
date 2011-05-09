@@ -6,7 +6,7 @@ class DefaultGod : public GgafDx9Core::GgafDx9God {
 
 public:
 
-    DefaultGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary);
+    DefaultGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
     virtual void clean() override;
     virtual ~DefaultGod();
 };

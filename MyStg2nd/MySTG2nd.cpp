@@ -16,6 +16,8 @@ TCHAR szWindowClass[MAX_LOADSTRING]; // メイン ウィンドウ クラス名
 
 // このコード モジュールに含まれる関数の宣言を転送します:
 ATOM MyRegisterClass_Primary(HINSTANCE hInstance);
+ATOM MyRegisterClass_Secondary(HINSTANCE hInstance);
+
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
 
@@ -83,59 +85,137 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         return EXIT_FAILURE;
     }
 
-    MyRegisterClass_Primary(hInstance);
-    HWND hWnd;
-    hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
-    if (PROPERTY(FULL_SCREEN)) {
-        // ウインドウの生成
-        if (PROPERTY(DUAL_DISPLAY)) {
-            hWnd = CreateWindowEx(
-                WS_EX_APPWINDOW,
-                szWindowClass, //WINDOW_CLASS,
-                szTitle,//WINDOW_TITLE,
-                WS_POPUP | WS_VISIBLE,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                PROPERTY(GAME_BUFFER_WIDTH)/2, //ウィンドウの幅、違うのはココのみ
-                PROPERTY(GAME_BUFFER_HEIGHT),
-                HWND_DESKTOP,
-                NULL,
-                hInstance,
-                NULL);
-        } else {
-            hWnd = CreateWindowEx(
-                WS_EX_APPWINDOW,
-                szWindowClass, //WINDOW_CLASS,
-                szTitle,//WINDOW_TITLE,
-                WS_POPUP | WS_VISIBLE,
-                CW_USEDEFAULT,
-                CW_USEDEFAULT,
-                PROPERTY(GAME_BUFFER_WIDTH)/2, // ウィンドウの幅
-                PROPERTY(GAME_BUFFER_HEIGHT),
-                HWND_DESKTOP,
-                NULL,
-                hInstance,
-                NULL);
-        }
 
+
+//
+//    //2画面目ウィンドウ作成
+//    _pHWndSecondary = CreateWindowEx(
+//        WS_EX_APPWINDOW,
+//        "multihead", //WINDOW_CLASS,
+//        "multihead",//WINDOW_TITLE,
+//        WS_POPUP | WS_VISIBLE,
+//        CW_USEDEFAULT,
+//        CW_USEDEFAULT,
+//        PROPERTY(GAME_BUFFER_WIDTH)/2, //ウィンドウの幅、違うのはココのみ
+//        PROPERTY(GAME_BUFFER_HEIGHT),
+//        HWND_DESKTOP,
+//        NULL,
+//        _hInstance,
+//        NULL);
+
+
+
+    HWND hWnd1 = NULL;
+    HWND hWnd2 = NULL;
+    hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
+
+    // ウインドウの生成
+    if (PROPERTY(FULL_SCREEN)) {
+        if (PROPERTY(DUAL_DISPLAY)) {
+            //フルスクリーンモード・２画面使用
+            MyRegisterClass_Primary(hInstance);
+            hWnd1 = CreateWindowEx(
+                        WS_EX_APPWINDOW,
+                        szWindowClass, //WINDOW_CLASS,
+                        szTitle,//WINDOW_TITLE,
+                        WS_POPUP | WS_VISIBLE,
+                        CW_USEDEFAULT,
+                        CW_USEDEFAULT,
+                        PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH),
+                        PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT),
+                        HWND_DESKTOP,
+                        NULL,
+                        hInstance,
+                        NULL
+                    );
+
+            MyRegisterClass_Secondary(hInstance);
+            hWnd2 = CreateWindowEx(
+                        WS_EX_APPWINDOW,
+                        "secondary", //WINDOW_CLASS,
+                        "secondary",//WINDOW_TITLE,
+                        WS_POPUP | WS_VISIBLE,
+                        CW_USEDEFAULT,
+                        CW_USEDEFAULT,
+                        PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH),
+                        PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT),
+                        HWND_DESKTOP,
+                        NULL,
+                        hInstance,
+                        NULL
+                    );
+
+        } else {
+            //フルスクリーンモード・１画面使用
+            MyRegisterClass_Primary(hInstance);
+            hWnd1 = CreateWindowEx(
+                        WS_EX_APPWINDOW,
+                        szWindowClass, //WINDOW_CLASS,
+                        szTitle,//WINDOW_TITLE,
+                        WS_POPUP | WS_VISIBLE,
+                        CW_USEDEFAULT,
+                        CW_USEDEFAULT,
+                        PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH),
+                        PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT),
+                        HWND_DESKTOP,
+                        NULL,
+                        hInstance,
+                        NULL
+                    );
+        }
     } else {
-        hWnd = CreateWindow(
-                szWindowClass, //WINDOW_CLASS,			// ウインドウクラス名
-                szTitle,//WINDOW_TITLE,				// ウインドウのタイトル名
-                //WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX, // ウインドウスタイル
-                WS_OVERLAPPEDWINDOW, // ウインドウスタイル
-                CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
-                CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
-                PROPERTY(GAME_BUFFER_WIDTH), // ウィンドウの幅
-                PROPERTY(GAME_BUFFER_HEIGHT), // ウィンドウの幅
-                HWND_DESKTOP, // 親ウインドウ
-                NULL, // ウインドウメニュー
-                hInstance, // インスタンスハンドル
-                NULL // WM_CREATE情報
-        );
+        if (PROPERTY(DUAL_DISPLAY)) {
+            MyRegisterClass_Primary(hInstance);
+            hWnd1 = CreateWindow(
+                    szWindowClass, //WINDOW_CLASS,          // ウインドウクラス名
+                    szTitle,//WINDOW_TITLE,             // ウインドウのタイトル名
+                    //WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX, // ウインドウスタイル
+                    WS_OVERLAPPEDWINDOW, // ウインドウスタイル
+                    CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
+                    CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
+                    PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH), // ウィンドウの幅
+                    PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT), // ウィンドウの幅
+                    HWND_DESKTOP, // 親ウインドウ
+                    NULL, // ウインドウメニュー
+                    hInstance, // インスタンスハンドル
+                    NULL // WM_CREATE情報
+            );
+
+            MyRegisterClass_Secondary(hInstance);
+            hWnd2 = CreateWindow(
+                    "secondary", //WINDOW_CLASS,
+                    "secondary",//WINDOW_TITLE,
+                    //WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX, // ウインドウスタイル
+                    WS_OVERLAPPEDWINDOW, // ウインドウスタイル
+                    CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
+                    CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
+                    PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH), // ウィンドウの幅
+                    PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT), // ウィンドウの幅
+                    HWND_DESKTOP, // 親ウインドウ
+                    NULL, // ウインドウメニュー
+                    hInstance, // インスタンスハンドル
+                    NULL // WM_CREATE情報
+            );
+        } else {
+            MyRegisterClass_Primary(hInstance);
+            hWnd1 = CreateWindow(
+                    szWindowClass, //WINDOW_CLASS,          // ウインドウクラス名
+                    szTitle,//WINDOW_TITLE,             // ウインドウのタイトル名
+                    //WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX, // ウインドウスタイル
+                    WS_OVERLAPPEDWINDOW, // ウインドウスタイル
+                    CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
+                    CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
+                    PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH), // ウィンドウの幅
+                    PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT), // ウィンドウの幅
+                    HWND_DESKTOP, // 親ウインドウ
+                    NULL, // ウインドウメニュー
+                    hInstance, // インスタンスハンドル
+                    NULL // WM_CREATE情報
+            );
+        }
     }
 
-    if (!hWnd) {
+    if (!hWnd1) {
         cout << "can't CreateWindow " << endl;
         cout << "szWindowClass=" << szWindowClass << endl;
         cout << "szTitle=" << szTitle << endl;
@@ -145,34 +225,94 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     if (PROPERTY(FULL_SCREEN)) {
 
     } else {
-        RECT wRect, cRect; // ウィンドウ全体の矩形、クライアント領域の矩形
-        int ww, wh; // ウィンドウ全体の幅、高さ
-        int cw, ch; // クライアント領域の幅、高さ
-        int fw, fh; // フレームの幅、高さ
-        // ウィンドウ全体の幅・高さを計算
-        GetWindowRect(hWnd, &wRect);
-        ww = wRect.right - wRect.left;
-        wh = wRect.bottom - wRect.top;
-        // クライアント領域の幅・高さを計算
-        GetClientRect(hWnd, &cRect);
-        cw = cRect.right - cRect.left;
-        ch = cRect.bottom - cRect.top;
-        // クライアント領域以外に必要なサイズを計算
-        fw = ww - cw;
-        fh = wh - ch;
-        // 計算した幅と高さをウィンドウに設定
-        SetWindowPos(
-                hWnd,
-                HWND_TOP,
-                wRect.left,
-                wRect.top,
-                PROPERTY(GAME_BUFFER_WIDTH) + fw,
-                PROPERTY(GAME_BUFFER_HEIGHT) + fh,
-                SWP_NOMOVE
-        );
+        if (PROPERTY(DUAL_DISPLAY)) {
+            RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
+            int ww1, wh1; // ウィンドウ全体の幅、高さ
+            int cw1, ch1; // クライアント領域の幅、高さ
+            int fw1, fh1; // フレームの幅、高さ
+            // ウィンドウ全体の幅・高さを計算
+            GetWindowRect(hWnd1, &wRect1);
+            ww1 = wRect1.right - wRect1.left;
+            wh1 = wRect1.bottom - wRect1.top;
+            // クライアント領域の幅・高さを計算
+            GetClientRect(hWnd1, &cRect1);
+            cw1 = cRect1.right - cRect1.left;
+            ch1 = cRect1.bottom - cRect1.top;
+            // クライアント領域以外に必要なサイズを計算
+            fw1 = ww1 - cw1;
+            fh1 = wh1 - ch1;
+            // 計算した幅と高さをウィンドウに設定
+            SetWindowPos(
+                    hWnd1,
+                    HWND_TOP,
+                    wRect1.left,
+                    wRect1.top,
+                    PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) + fw1 - 1,
+                    PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) + fh1 - 1,
+                    SWP_NOMOVE
+            );
+            ShowWindow(hWnd1, nCmdShow);
+            UpdateWindow(hWnd1);
 
-        ShowWindow(hWnd, nCmdShow);
-        UpdateWindow(hWnd);
+            RECT wRect2, cRect2; // ウィンドウ全体の矩形、クライアント領域の矩形
+            int ww2, wh2; // ウィンドウ全体の幅、高さ
+            int cw2, ch2; // クライアント領域の幅、高さ
+            int fw2, fh2; // フレームの幅、高さ
+            // ウィンドウ全体の幅・高さを計算
+            GetWindowRect(hWnd2, &wRect2);
+            ww2 = wRect2.right - wRect2.left;
+            wh2 = wRect2.bottom - wRect2.top;
+            // クライアント領域の幅・高さを計算
+            GetClientRect(hWnd2, &cRect2);
+            cw2 = cRect2.right - cRect2.left;
+            ch2 = cRect2.bottom - cRect2.top;
+            // クライアント領域以外に必要なサイズを計算
+            fw2 = ww2 - cw2;
+            fh2 = wh2 - ch2;
+            // 計算した幅と高さをウィンドウに設定
+            SetWindowPos(
+                    hWnd2,
+                    HWND_TOP,
+                    wRect2.left,
+                    wRect2.top,
+                    PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) + fw2 - 1,
+                    PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) + fh2 - 1,
+                    SWP_NOMOVE
+            );
+
+            ShowWindow(hWnd2, nCmdShow);
+            UpdateWindow(hWnd2);
+        } else {
+            RECT wRect, cRect; // ウィンドウ全体の矩形、クライアント領域の矩形
+            int ww, wh; // ウィンドウ全体の幅、高さ
+            int cw, ch; // クライアント領域の幅、高さ
+            int fw, fh; // フレームの幅、高さ
+            // ウィンドウ全体の幅・高さを計算
+            GetWindowRect(hWnd1, &wRect);
+            ww = wRect.right - wRect.left;
+            wh = wRect.bottom - wRect.top;
+            // クライアント領域の幅・高さを計算
+            GetClientRect(hWnd1, &cRect);
+            cw = cRect.right - cRect.left;
+            ch = cRect.bottom - cRect.top;
+            // クライアント領域以外に必要なサイズを計算
+            fw = ww - cw;
+            fh = wh - ch;
+            // 計算した幅と高さをウィンドウに設定
+            SetWindowPos(
+                    hWnd1,
+                    HWND_TOP,
+                    wRect.left,
+                    wRect.top,
+                    PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) + fw - 1,
+                    PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) + fh - 1,
+                    SWP_NOMOVE
+            );
+        }
+
+
+        ShowWindow(hWnd1, nCmdShow);
+        UpdateWindow(hWnd1);
         //hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MTSTG17_031));//ショートカットロード
     }
 
@@ -201,7 +341,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
     try {
         //神の誕生！
-        pGod = NEW MyStg2nd::God(hInstance, hWnd);
+        pGod = NEW MyStg2nd::God(hInstance, hWnd1, hWnd2);
         if (SUCCEEDED(pGod->init())) {
 
             // ループ・ザ・ループ
@@ -283,6 +423,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     }
+
+#ifndef MY_DEBUG
+    //以下のキャッチはメモリ違反をつぶす可能性があるため、DEBUG時は無効とする。
     catch( ... ) {
         _TRACE_("＜致命的な謎例外＞");
         string message = "恐れ入りますが、不明な内部エラーが発生しました。\n誠に申し訳ございません。\n";
@@ -291,7 +434,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     }
-
+#endif
 
     return (int) msg.wParam;
 }
@@ -327,6 +470,42 @@ ATOM MyRegisterClass_Primary(HINSTANCE hInstance) {
     return RegisterClassEx(&wcex);
 }
 
+ATOM MyRegisterClass_Secondary(HINSTANCE hInstance) {
+    WNDCLASSEX wcex;
+
+    wcex.cbSize = sizeof(WNDCLASSEX);
+    wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
+    wcex.lpfnWndProc = WndProc;
+                       //(WNDPROC)GetWindowLong(_pHWndPrimary, GWL_WNDPROC ); //１画面目のウィンドウプロシージャを共通指定する。
+    wcex.cbClsExtra = 0;
+    wcex.cbWndExtra = 0;
+    wcex.hInstance = hInstance;
+    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MYSTG2ND));
+    wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wcex.hbrBackground = CreateSolidBrush(RGB(30, 30, 30)); //0~255
+    wcex.lpszMenuName = NULL;//MAKEINTRESOURCE(IDC_MYSTG2ND);//NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
+    wcex.lpszClassName = "secondary";
+    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+
+    return RegisterClassEx(&wcex);
+}
+
+//    WNDCLASSEX wcex;
+//    wcex.cbSize = sizeof(WNDCLASSEX);
+//    wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
+//    wcex.lpfnWndProc = (WNDPROC)GetWindowLong(_pHWndPrimary, GWL_WNDPROC ); //１画面目のウィンドウプロシージャを共通指定する。
+//    wcex.cbClsExtra = 0;
+//    wcex.cbWndExtra = 0;
+//    wcex.hInstance = _hInstance;
+//    wcex.hIcon = NULL;
+//    wcex.hCursor = NULL;
+//    wcex.hbrBackground = CreateSolidBrush(RGB(30, 30, 30)); //0~255
+//    wcex.lpszMenuName = NULL;//MAKEINTRESOURCE(IDC_MYSTG2ND);//NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
+//    wcex.lpszClassName = "multihead";
+//    wcex.hIconSm = NULL;
+//
+//    RegisterClassEx(&wcex);
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     //  int wmId, wmEvent;
     PAINTSTRUCT ps;
@@ -335,9 +514,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     switch (message) {
 
         case WM_SIZE:
-			if (GgafDx9Core::GgafDx9God::_can_be) {
+            if (GgafDx9Core::GgafDx9God::_can_be) {
                 if (!PROPERTY(FULL_SCREEN)) {
                     GgafDx9Core::GgafDx9God::_adjustGameScreen = true;
+                    GgafDx9Core::GgafDx9God::_pHWnd_adjustScreen = hWnd;
                 }
             }
             break;
