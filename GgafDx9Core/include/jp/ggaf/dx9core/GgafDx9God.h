@@ -57,14 +57,19 @@ public:
     static GgafDx9ModelManager* _pModelManager;
     static GgafDx9EffectManager* _pEffectManager;
     static int _iNumAdapter;
-    static RECT*  _pRectGameBuffer_HarfLeft;
-    static RECT*  _pRectGameBuffer_HarfRight;
-    static RECT*  _pRectGameBuffer;
+    static RECT _rectGameBuffer_HarfLeft;
+    static RECT _rectGameBuffer_HarfRight;
+    static RECT _rectGameBuffer;
 //    static RECT*  _pRectViewScreen;
     static IDirect3DTexture9*  _pRenderTexture;   //テクスチャ
 //    static IDirect3DSurface9*  _pBackBuffer;      //バックバッファ
     static IDirect3DSurface9*  _pRenderTextureSurface;     //サーフェイス
     static IDirect3DSurface9*  _pRenderTextureZ;   //テクスチャ
+
+    LPDIRECT3DSWAPCHAIN9 pSwapChain00;//アダプタに関連付けれられたスワップチェーン
+    LPDIRECT3DSURFACE9 pBackBuffer00;//バックバッファ1画面分
+    LPDIRECT3DSWAPCHAIN9 pSwapChain01;//アダプタに関連付けれられたスワップチェーン
+    LPDIRECT3DSURFACE9 pBackBuffer01;//バックバッファ１画面分
 
     /**
      * コンストラクタ<BR>
