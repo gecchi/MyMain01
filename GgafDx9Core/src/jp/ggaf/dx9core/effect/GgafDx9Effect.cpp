@@ -32,16 +32,33 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 //    if (prm_effect_name == "HoshiBoshiEffect") {
 //        dwFlags = D3DXSHADER_DEBUG|D3DXSHADER_SKIPOPTIMIZATION;
 //    }
-    HRESULT hr = D3DXCreateEffectFromFile(
-                     GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
-                     effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
-                     0,                         // [in] CONST D3DXMACRO* pDefines
-                     0,                         // [in] LPD3DXINCLUDE pInclude
-                     dwFlags,                   // [in] DWORD Flags
-                     0,                         // [in] LPD3DXEFFECTPOOL pPool
-                     &_pID3DXEffect,         // [out] LPD3DXEFFECT* ppEffect
-                     &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
-                );
+	HRESULT hr;
+    if ( GgafDx9God::_ps_v >= D3DPS_VERSION(3, 0)) {
+        hr = D3DXCreateEffectFromFile(
+                 GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
+                 effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
+                 GgafDx9God::_effectmacro_sm, // [in] CONST D3DXMACRO* pDefines
+                 0,                         // [in] LPD3DXINCLUDE pInclude
+                 dwFlags,                   // [in] DWORD Flags
+                 0,                         // [in] LPD3DXEFFECTPOOL pPool
+                 &_pID3DXEffect,         // [out] LPD3DXEFFECT* ppEffect
+                 &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
+            );
+
+    } else {
+        hr = D3DXCreateEffectFromFile(
+                 GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
+                 effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
+                 0,                         // [in] CONST D3DXMACRO* pDefines
+                 0,                         // [in] LPD3DXINCLUDE pInclude
+                 dwFlags,                   // [in] DWORD Flags
+                 0,                         // [in] LPD3DXEFFECTPOOL pPool
+                 &_pID3DXEffect,         // [out] LPD3DXEFFECT* ppEffect
+                 &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
+            );
+
+    }
+
     if (hr != D3D_OK && pError == NULL) {
         throwGgafCriticalException("GgafDx9Effect::GgafDx9Effect "<<effect_file_name<<" ‚ª‘¶Ý‚µ‚È‚¢‚Ì‚Å‚Í‚È‚¢‚¾‚ë‚¤‚©EEE");
     }

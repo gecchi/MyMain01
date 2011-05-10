@@ -55,8 +55,15 @@ HWND GgafDx9God::_pHWnd_adjustScreen = NULL;
 
 int GgafDx9God::_iNumAdapter = 1;
 
+UINT32 GgafDx9God::_vs_v = 0;
+UINT32 GgafDx9God::_ps_v = 0;
 
-
+D3DXMACRO GgafDx9God::_effectmacro_sm[3] =
+{
+    { "VS_VERSION", "vs_3_0" },
+    { "PS_VERSION", "ps_3_0" },
+    { NULL, NULL }
+};
 
 
 IDirect3DTexture9*  GgafDx9God::_pRenderTexture = NULL;   //テクスチャ
@@ -563,11 +570,11 @@ HRESULT GgafDx9God::init() {
                                        D3DDEVTYPE_HAL, // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
                                        &caps); // [out] デバイスの能力が格納される
 
-    UINT32 vs_v = caps.VertexShaderVersion;
-    UINT32 ps_v = caps.PixelShaderVersion;
-    _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(vs_v));
-    _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(ps_v));
-    if (vs_v < D3DVS_VERSION(2, 0) || ps_v < D3DPS_VERSION(2, 0)) {
+    _vs_v = caps.VertexShaderVersion;
+    _ps_v = caps.PixelShaderVersion;
+    _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(_vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(_vs_v));
+    _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(_ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(_ps_v));
+    if (_vs_v < D3DVS_VERSION(2, 0) || _ps_v < D3DPS_VERSION(2, 0)) {
         _TRACE_("ビデオカードハードの頂点シェーダーとピンクセルシェーダーは、共にバージョン 2_0 以上でなければいけません。");
         _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
     }

@@ -71,6 +71,12 @@ public:
     LPDIRECT3DSWAPCHAIN9 pSwapChain01;//アダプタに関連付けれられたスワップチェーン
     LPDIRECT3DSURFACE9 pBackBuffer01;//バックバッファ１画面分
 
+
+    static UINT32 _vs_v;
+    static UINT32 _ps_v;
+
+    static D3DXMACRO _effectmacro_sm[3];
+
     /**
      * コンストラクタ<BR>
      */
