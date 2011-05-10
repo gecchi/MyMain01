@@ -101,7 +101,7 @@ HRESULT GgafDx9God::init() {
     _rectGameBuffer_HarfLeft.left   = 0;
     _rectGameBuffer_HarfLeft.top    = 0;
     _rectGameBuffer_HarfLeft.right  = _rectGameBuffer_HarfLeft.left  + PROPERTY(GAME_BUFFER_WIDTH)/2;
-    _rectGameBuffer_HarfLeft.bottom = _rectGameBuffer_HarfLeft.right + PROPERTY(GAME_BUFFER_HEIGHT);
+    _rectGameBuffer_HarfLeft.bottom = _rectGameBuffer_HarfLeft.top + PROPERTY(GAME_BUFFER_HEIGHT);
 
     _rectGameBuffer_HarfRight.left   = PROPERTY(GAME_BUFFER_WIDTH)/2;
     _rectGameBuffer_HarfRight.top    = 0;
@@ -791,15 +791,15 @@ HRESULT GgafDx9God::initDx9Device() {
                 );
         checkDxException(hr, D3D_OK, "PROPERTY(FULL_SCREEN)初期化のGgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
 
-
+        //            //アダプタに関連付けられたスワップチェーンを取得してバックバッファも取得
+                hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &pSwapChain00 );
+                checkDxException(hr, D3D_OK, "0GetSwapChain() に失敗しました。");
+                hr = pSwapChain00->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer00 );
+                checkDxException(hr, D3D_OK, "0GetBackBuffer() に失敗しました。");
 
         if (PROPERTY(DUAL_DISPLAY)) {
 
-    //            //アダプタに関連付けられたスワップチェーンを取得してバックバッファも取得
-            hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &pSwapChain00 );
-            checkDxException(hr, D3D_OK, "0GetSwapChain() に失敗しました。");
-            hr = pSwapChain00->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer00 );
-            checkDxException(hr, D3D_OK, "0GetBackBuffer() に失敗しました。");
+
     //
             hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 1, &pSwapChain01 );
             checkDxException(hr, D3D_OK, "1GetSwapChain() に失敗しました。");
@@ -851,11 +851,11 @@ void GgafDx9God::makeUniversalMaterialize() {
             getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
 
             //デバイスリセットを試みる
-            hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
+            hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[0]));
             checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[0]に失敗しました。");
             if (PROPERTY(DUAL_DISPLAY)) {
                 for (int i = 1; i < _iNumAdapter; i++) {
-                    hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[i]));
+                    hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[i]));
                     checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[1]に失敗しました。");
                 }
             }
@@ -933,7 +933,7 @@ void GgafDx9God::presentUniversalVisualize() {
                         _pRenderTextureSurface,  &_rectGameBuffer_HarfLeft,
                         pBackBuffer00,           &_rectPresent_Primary,
                         D3DTEXF_NONE);
-                checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
+                checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_DISPLAY 1画面目 StretchRect() に失敗しました。\n_pRenderTextureSurface="<<_pRenderTextureSurface<<"/pBackBuffer00="<<pBackBuffer00);
 
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,  &_rectGameBuffer_HarfRight,
