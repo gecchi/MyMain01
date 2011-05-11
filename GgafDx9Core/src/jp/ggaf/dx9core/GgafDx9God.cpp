@@ -1145,8 +1145,8 @@ void GgafDx9God::adjustGameScreen(HWND prm_pHWnd) {
                 } else {
                     _rectPresent_Secondary.left = 0;
                     _rectPresent_Secondary.top = (height / 2.0) - (fix_height * rate / 2.0);
-                    _rectPresent_Primary.right  = _rectPresent_Primary.left + (fix_width * rate);
-                    _rectPresent_Primary.bottom = _rectPresent_Primary.top  + (fix_height * rate);
+                    _rectPresent_Secondary.right  = _rectPresent_Secondary.left + (fix_width * rate);
+                    _rectPresent_Secondary.bottom = _rectPresent_Secondary.top  + (fix_height * rate);
                 }
             }
         }
