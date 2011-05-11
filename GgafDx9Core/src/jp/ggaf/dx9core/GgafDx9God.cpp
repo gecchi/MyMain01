@@ -493,7 +493,7 @@ HRESULT GgafDx9God::init() {
         hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_pHWndPrimary,
                                                D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_ADAPTERGROUP_DEVICE  ,
                                                _d3dparam, &GgafDx9God::_pID3DDevice9);
-        checkDxException(hr, D3D_OK, "CreateDevice() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        //checkDxException(hr, D3D_OK, "CreateDevice() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         if (hr != D3D_OK) {
             _TRACE_("D3DCREATE_PUREDEVICE: "<<GgafDx9CriticalException::getHresultMsg(hr));
 
