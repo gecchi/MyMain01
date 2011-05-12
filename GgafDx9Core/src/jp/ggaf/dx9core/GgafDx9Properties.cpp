@@ -22,7 +22,9 @@ int GgafDx9Properties::DUAL_DISPLAY_FULL_SCREEN1_HEIGHT = 0;
 int GgafDx9Properties::DUAL_DISPLAY_FULL_SCREEN2_WIDTH = 0;
 int GgafDx9Properties::DUAL_DISPLAY_FULL_SCREEN2_HEIGHT = 0;
 
-bool GgafDx9Properties::FIXED_VIEW_ASPECT = 0;
+bool GgafDx9Properties::FIXED_VIEW_ASPECT = false;
+bool GgafDx9Properties::SWAP_DISPLAY = false;
+
 int GgafDx9Properties::MASTER_VOLUME;
 int GgafDx9Properties::BGM_VOLUME;
 int GgafDx9Properties::SE_VOLUME;
@@ -57,6 +59,7 @@ void GgafDx9Properties::load(string prm_ini_filename) {
 
 
     GgafDx9Properties::FIXED_VIEW_ASPECT = getBool("FIXED_VIEW_ASPECT");
+    GgafDx9Properties::SWAP_DISPLAY = getBool("SWAP_DISPLAY");
     GgafDx9Properties::MASTER_VOLUME = getInt("MASTER_VOLUME");
     GgafDx9Properties::BGM_VOLUME = getInt("BGM_VOLUME");
     GgafDx9Properties::SE_VOLUME = getInt("SE_VOLUME");
@@ -86,9 +89,9 @@ void GgafDx9Properties::load(string prm_ini_filename) {
     _TRACE_("GgafDx9Properties::DUAL_DISPLAY_FULL_SCREEN1_HEIGHT="<<GgafDx9Properties::DUAL_DISPLAY_FULL_SCREEN1_HEIGHT);
     _TRACE_("GgafDx9Properties::DUAL_DISPLAY_FULL_SCREEN2_WIDTH="<<GgafDx9Properties::DUAL_DISPLAY_FULL_SCREEN2_WIDTH);
     _TRACE_("GgafDx9Properties::DUAL_DISPLAY_FULL_SCREEN2_HEIGHT="<<GgafDx9Properties::DUAL_DISPLAY_FULL_SCREEN2_HEIGHT);
-
-
     _TRACE_("GgafDx9Properties::FIXED_VIEW_ASPECT="<<GgafDx9Properties::FIXED_VIEW_ASPECT);
+    _TRACE_("GgafDx9Properties::SWAP_DISPLAY="<<GgafDx9Properties::SWAP_DISPLAY);
+
     _TRACE_("GgafDx9Properties::MASTER_VOLUME="<<GgafDx9Properties::MASTER_VOLUME);
     _TRACE_("GgafDx9Properties::BGM_VOLUME="<<GgafDx9Properties::BGM_VOLUME);
     _TRACE_("GgafDx9Properties::SE_VOLUME="<<GgafDx9Properties::SE_VOLUME);

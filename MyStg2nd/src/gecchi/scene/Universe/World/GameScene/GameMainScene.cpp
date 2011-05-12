@@ -99,11 +99,11 @@ void GameMainScene::processBehavior() {
     _pFont16_STAMINA->update(550, 40, _buf);
 
     sprintf(_buf, "X:%8d", P_MYSHIP->_X);
-    _pFont8_JIKI_X->update(1, PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1, _buf);
+    _pFont8_JIKI_X->update(1, CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1, _buf);
     sprintf(_buf, "Y:%8d", P_MYSHIP->_Y);
-    _pFont8_JIKI_Y->update(1, PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1, _buf);
+    _pFont8_JIKI_Y->update(1, CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1, _buf);
     sprintf(_buf, "Z:%8d", P_MYSHIP->_Z);
-    _pFont8_JIKI_Z->update(1, PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1, _buf);
+    _pFont8_JIKI_Z->update(1, CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1, _buf);
 
 
     switch (_pPrg->get()) {

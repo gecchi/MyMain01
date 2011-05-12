@@ -4,7 +4,7 @@
 #ifdef  PROPERTY
     #undef PROPERTY
 #endif
-#define PROPERTY(X) (MyStg2nd::Properties::X)
+#define CFG_PROPERTY(X) (MyStg2nd::Properties::X)
 
 namespace MyStg2nd {
 

@@ -33,9 +33,8 @@ public:
 //    static RECT _rectDualDisplayFullScreen_Primary;
 //    static RECT _rectDualDisplayFullScreen_Secondary;
 
-    static RECT _rectPresent_Primary;
-    static RECT _rectPresent_Secondary;
-
+    RECT _aRect_Present[2];
+    int _primary, _secondary;
     /* スクリーン高さ（ピクセル） */
     //static int const GAME_BUFFER_HEIGHT;
 
@@ -57,9 +56,9 @@ public:
     static GgafDx9ModelManager* _pModelManager;
     static GgafDx9EffectManager* _pEffectManager;
     static int _iNumAdapter;
-    static RECT _rectGameBuffer_HarfLeft;
-    static RECT _rectGameBuffer_HarfRight;
-    static RECT _rectGameBuffer;
+    RECT _rectGameBuffer;
+    RECT _aRect_HarfGameBuffer[2];
+
 //    static RECT*  _pRectViewScreen;
     static IDirect3DTexture9*  _pRenderTexture;   //テクスチャ
 //    static IDirect3DSurface9*  _pBackBuffer;      //バックバッファ
@@ -75,7 +74,7 @@ public:
     static UINT32 _vs_v;
     static UINT32 _ps_v;
 
-    static D3DXMACRO _effectmacro_sm[3];
+    static D3DXMACRO _aD3DXMacro_Defines[3];
 
     /**
      * コンストラクタ<BR>

@@ -83,8 +83,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
 
     // ウインドウの生成
-    if (PROPERTY(FULL_SCREEN)) {
-        if (PROPERTY(DUAL_DISPLAY)) {
+    if (CFG_PROPERTY(FULL_SCREEN)) {
+        if (CFG_PROPERTY(DUAL_DISPLAY)) {
             //フルスクリーンモード・２画面使用
             MyRegisterClass_Primary(hInstance);
             hWnd1 = CreateWindowEx(
@@ -94,8 +94,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH),
-                        PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT),
+                        CFG_PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_WIDTH),
+                        CFG_PROPERTY(DUAL_DISPLAY_FULL_SCREEN1_HEIGHT),
                         HWND_DESKTOP,
                         NULL,
                         hInstance,
@@ -110,8 +110,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH),
-                        PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT),
+                        CFG_PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_WIDTH),
+                        CFG_PROPERTY(DUAL_DISPLAY_FULL_SCREEN2_HEIGHT),
                         HWND_DESKTOP,
                         NULL,
                         hInstance,
@@ -128,8 +128,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH),
-                        PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT),
+                        CFG_PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH),
+                        CFG_PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT),
                         HWND_DESKTOP,
                         NULL,
                         hInstance,
@@ -137,7 +137,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     );
         }
     } else {
-        if (PROPERTY(DUAL_DISPLAY)) {
+        if (CFG_PROPERTY(DUAL_DISPLAY)) {
             MyRegisterClass_Primary(hInstance);
             hWnd1 = CreateWindow(
                     szWindowClass, //WINDOW_CLASS,          // ウインドウクラス名
@@ -146,8 +146,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     WS_OVERLAPPEDWINDOW, // ウインドウスタイル
                     CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
                     CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
-                    PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH), // ウィンドウの幅
-                    PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT), // ウィンドウの幅
+                    CFG_PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH), // ウィンドウの幅
+                    CFG_PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT), // ウィンドウの幅
                     HWND_DESKTOP, // 親ウインドウ
                     NULL, // ウインドウメニュー
                     hInstance, // インスタンスハンドル
@@ -162,8 +162,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     WS_OVERLAPPEDWINDOW, // ウインドウスタイル
                     CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
                     CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
-                    PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH), // ウィンドウの幅
-                    PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT), // ウィンドウの幅
+                    CFG_PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH), // ウィンドウの幅
+                    CFG_PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT), // ウィンドウの幅
                     HWND_DESKTOP, // 親ウインドウ
                     NULL, // ウインドウメニュー
                     hInstance, // インスタンスハンドル
@@ -178,8 +178,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     WS_OVERLAPPEDWINDOW, // ウインドウスタイル
                     CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
                     CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
-                    PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH), // ウィンドウの幅
-                    PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT), // ウィンドウの幅
+                    CFG_PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH), // ウィンドウの幅
+                    CFG_PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT), // ウィンドウの幅
                     HWND_DESKTOP, // 親ウインドウ
                     NULL, // ウインドウメニュー
                     hInstance, // インスタンスハンドル
@@ -195,10 +195,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         return FALSE;
     }
 
-    if (PROPERTY(FULL_SCREEN)) {
+    if (CFG_PROPERTY(FULL_SCREEN)) {
 
     } else {
-        if (PROPERTY(DUAL_DISPLAY)) {
+        if (CFG_PROPERTY(DUAL_DISPLAY)) {
             RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
             int ww1, wh1; // ウィンドウ全体の幅、高さ
             int cw1, ch1; // クライアント領域の幅、高さ
@@ -220,8 +220,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     HWND_TOP,
                     wRect1.left,
                     wRect1.top,
-                    PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) + fw1,
-                    PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) + fh1,
+                    CFG_PROPERTY(DUAL_DISPLAY_WINDOW1_WIDTH) + fw1,
+                    CFG_PROPERTY(DUAL_DISPLAY_WINDOW1_HEIGHT) + fh1,
                     SWP_NOMOVE
             );
             ShowWindow(hWnd1, nCmdShow);
@@ -248,8 +248,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     HWND_TOP,
                     wRect2.left,
                     wRect2.top,
-                    PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) + fw2,
-                    PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) + fh2,
+                    CFG_PROPERTY(DUAL_DISPLAY_WINDOW2_WIDTH) + fw2,
+                    CFG_PROPERTY(DUAL_DISPLAY_WINDOW2_HEIGHT) + fh2,
                     SWP_NOMOVE
             );
 
@@ -277,8 +277,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     HWND_TOP,
                     wRect.left,
                     wRect.top,
-                    PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) + fw,
-                    PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) + fh,
+                    CFG_PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH) + fw,
+                    CFG_PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT) + fh,
                     SWP_NOMOVE
             );
         }
@@ -473,7 +473,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
         case WM_SIZE:
             if (GgafDx9Core::GgafDx9God::_can_be) {
-                if (!PROPERTY(FULL_SCREEN)) {
+                if (!CFG_PROPERTY(FULL_SCREEN)) {
                     GgafDx9Core::GgafDx9God::_adjustGameScreen = true;
                     GgafDx9Core::GgafDx9God::_pHWnd_adjustScreen = hWnd;
                 }

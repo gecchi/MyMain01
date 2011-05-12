@@ -26,7 +26,7 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
 //    orderActorToFactory(100000016, EnemyTamago01, "gyoku16");
 
 //    _pTurboMeter001 = NEW TurboMeter("TurboMeter001");
-//    _pTurboMeter001->locate(16 , PROPERTY(GAME_BUFFER_HEIGHT) - 64);
+//    _pTurboMeter001->locate(16 , CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 64);
 //    getLordActor()->addSubGroup(_pTurboMeter001);
 //
 //    orderActorToFactory(100000001, EnemyVesta, "EnemyVesta1");

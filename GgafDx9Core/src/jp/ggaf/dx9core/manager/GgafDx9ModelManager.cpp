@@ -28,25 +28,25 @@ GgafDx9ModelManager::GgafDx9ModelManager(const char* prm_manager_name) :
     //板ポリゴン定義ファイル読込み
     HRESULT hr;
     DirectXFileCreate( &_pIDirectXFile_sprx );
-    char* paChar_SpriteModelineTemplate = GgafUtil::getFileText(PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
+    char* paChar_SpriteModelineTemplate = GgafUtil::getFileText(CFG_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
     if (paChar_SpriteModelineTemplate == NULL) {
-        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] スプライト情報読込みテンプレート\""<<PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\" が開けません。");
+        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] スプライト情報読込みテンプレート\""<<CFG_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\" が開けません。");
     }
     hr = _pIDirectXFile_sprx->RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] RegisterTemplatesに失敗しました。\""<<PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
+        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] RegisterTemplatesに失敗しました。\""<<CFG_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
     }
     DELETE_IMPOSSIBLE_NULL(paChar_SpriteModelineTemplate);
 
     //板ポリゴン定義ファイル読込み
     DirectXFileCreate( &_pIDirectXFile_psprx );
-    char* paChar_PointSpriteModelineTemplate = GgafUtil::getFileText(PROPERTY(DIR_SPRITE_MODEL) + "ggaf_pointspritemodel_define.x");
+    char* paChar_PointSpriteModelineTemplate = GgafUtil::getFileText(CFG_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_pointspritemodel_define.x");
     if (paChar_PointSpriteModelineTemplate == NULL) {
-        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] ポイントスプライト情報読込みテンプレート\""<<PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\" が開けません。");
+        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] ポイントスプライト情報読込みテンプレート\""<<CFG_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\" が開けません。");
     }
     hr = _pIDirectXFile_psprx->RegisterTemplates(paChar_PointSpriteModelineTemplate, (DWORD)(strlen(paChar_PointSpriteModelineTemplate)));
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] RegisterTemplatesに失敗しました。\""<<PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
+        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] RegisterTemplatesに失敗しました。\""<<CFG_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
     }
     DELETE_IMPOSSIBLE_NULL(paChar_PointSpriteModelineTemplate);
 
@@ -226,7 +226,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
 
 
-    string xfile_name = PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+    string xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
     HRESULT hr;
 
     //流し込む頂点バッファデータ作成
@@ -797,7 +797,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
     for(int i = 0; i < morph_target_num+1; i++) {
         char* xfilename_base = prm_pMorphMeshModel->_model_name + 2; //２文字目以降  "2/ceres" → "ceres"
-        paXfileName[i] = PROPERTY(DIR_MESH_MODEL) + string(xfilename_base) + "_" + (char)('0'+i) + ".x"; //"ceres_0.x"となる
+        paXfileName[i] = CFG_PROPERTY(DIR_MESH_MODEL) + string(xfilename_base) + "_" + (char)('0'+i) + ".x"; //"ceres_0.x"となる
     }
     HRESULT hr;
     //流し込む頂点バッファデータ作成
@@ -1478,7 +1478,7 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     D3DMATERIAL9* model_paD3DMaterial9; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDx9TextureConnection** model_papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD dwNumMaterials;
-    string xfile_name = PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+    string xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
 
     LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
@@ -1582,7 +1582,7 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
     D3DMATERIAL9* model_paD3DMaterial9 = NULL; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDx9TextureConnection** model_papTextureCon = NULL; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD dwNumMaterials;
-    string xfile_name = PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+    string xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
 
 
     //AnimTicksPerSecondの値を独自に取り出す
@@ -1722,7 +1722,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
 
     HRESULT hr;
-    string xfile_name = PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteModel->_model_name) + ".sprx";
+    string xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteModel->_model_name) + ".sprx";
 
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
@@ -1764,7 +1764,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     }
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
     //テクスチャ取得しモデルに保持させる
-    //string texture_filename = PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
+    //string texture_filename = CFG_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
     GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
     prm_pSpriteModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
@@ -1917,11 +1917,11 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
     //"12/Bomb" or "8/Bomb" or "Bomb" から "Bomb" だけ取とりだしてフルパス名取得
     if (*(prm_pSpriteSetModel->_model_name + 1) == '/') {
-        xfile_name = PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name + 2) + ".sprx";
+        xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name + 2) + ".sprx";
     } else if (*(prm_pSpriteSetModel->_model_name + 2) == '/') {
-        xfile_name = PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name + 3) + ".sprx";
+        xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name + 3) + ".sprx";
     } else {
-        xfile_name = PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name) + ".sprx";
+        xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name) + ".sprx";
     }
     hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
     checkDxException(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
@@ -2179,7 +2179,7 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     prm_pBoardModel->_paRectUV = NULL;
 
     HRESULT hr;
-    string xfile_name = PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardModel->_model_name) + ".sprx";
+    string xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardModel->_model_name) + ".sprx";
 
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
@@ -2346,11 +2346,11 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
     //TODO:数値3桁("123/Moji"とか)が来たら困る。
     if (*(prm_pBoardSetModel->_model_name + 1) == '/') {
-        xfile_name = PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name + 2) + ".sprx";
+        xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name + 2) + ".sprx";
     } else if (*(prm_pBoardSetModel->_model_name + 2) == '/') {
-        xfile_name = PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name + 3) + ".sprx";
+        xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name + 3) + ".sprx";
     } else {
-        xfile_name = PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name) + ".sprx";
+        xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name) + ".sprx";
     }
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
 
@@ -2580,11 +2580,11 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     //"12/Ceres" or "8/Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
     //TODO:数値３桁以上の時はだめ
     if (*(prm_pMeshSetModel->_model_name + 1) == '/') {
-        xfile_name = PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 2) + ".x";
+        xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 2) + ".x";
     } else if (*(prm_pMeshSetModel->_model_name + 2) == '/') {
-        xfile_name = PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 3) + ".x";
+        xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 3) + ".x";
     } else {
-        xfile_name = PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+        xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
     }
 
 
@@ -3143,7 +3143,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
 
     prm_pPointSpriteModel->_papTextureCon = NULL;
     HRESULT hr;
-    string xfile_name = PROPERTY(DIR_SPRITE_MODEL) + string(prm_pPointSpriteModel->_model_name) + ".psprx";
+    string xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pPointSpriteModel->_model_name) + ".psprx";
 
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;

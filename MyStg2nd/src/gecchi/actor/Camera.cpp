@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 Camera::Camera(const char* prm_name) :
         DefaultCamera(prm_name,
                       PI * 80.0f / 180.0f,
-                      PROPERTY(GAME_SPACE_DEPTH)) {
+                      CFG_PROPERTY(GAME_SPACE_DEPTH)) {
     _class_name = "Camera";
 }
 void Camera::initialize() {

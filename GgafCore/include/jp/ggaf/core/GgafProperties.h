@@ -5,7 +5,7 @@
 #ifdef  PROPERTY
     #undef PROPERTY
 #endif
-#define PROPERTY(X) (GgafCore::GgafProperties::X)
+#define CFG_PROPERTY(X) (GgafCore::GgafProperties::X)
 
 namespace GgafCore {
 

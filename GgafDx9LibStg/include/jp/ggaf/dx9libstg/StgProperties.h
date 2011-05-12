@@ -4,7 +4,7 @@
 #ifdef  PROPERTY
     #undef PROPERTY
 #endif
-#define PROPERTY(X) (GgafDx9LibStg::StgProperties::X)
+#define CFG_PROPERTY(X) (GgafDx9LibStg::StgProperties::X)
 
 namespace GgafDx9LibStg {
 

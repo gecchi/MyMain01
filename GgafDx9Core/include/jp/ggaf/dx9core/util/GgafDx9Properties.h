@@ -4,7 +4,7 @@
 #ifdef  PROPERTY
     #undef PROPERTY
 #endif
-#define PROPERTY(X) (GgafDx9Core::GgafDx9Properties::X)
+#define CFG_PROPERTY(X) (GgafDx9Core::GgafDx9Properties::X)
 
 namespace GgafDx9Core {
 
@@ -30,9 +30,8 @@ public:
     static int DUAL_DISPLAY_FULL_SCREEN1_HEIGHT;
     static int DUAL_DISPLAY_FULL_SCREEN2_WIDTH;
     static int DUAL_DISPLAY_FULL_SCREEN2_HEIGHT;
-
-
     static bool FIXED_VIEW_ASPECT;
+    static bool SWAP_DISPLAY;
     static int MASTER_VOLUME;
     static int BGM_VOLUME;
     static int SE_VOLUME;

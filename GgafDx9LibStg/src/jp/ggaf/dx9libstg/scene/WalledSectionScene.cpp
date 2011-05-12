@@ -16,7 +16,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     _loop_num = 1;
     _cnt_loop = 0;
     _is_loop_end = false;
-    string data_filename = PROPERTY(DIR_SCENE_DATA) + string(prm_data_filename);
+    string data_filename = CFG_PROPERTY(DIR_SCENE_DATA) + string(prm_data_filename);
     ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
         throwGgafCriticalException("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" ‚ªŠJ‚¯‚Ü‚¹‚ñ");

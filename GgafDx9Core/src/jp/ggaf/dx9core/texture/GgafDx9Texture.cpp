@@ -12,7 +12,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
     _texture_name = NEW char[51];
     strcpy(_texture_name, prm_texture_name);
     string texture_name = string(_texture_name);
-    string texture_file_name = PROPERTY(DIR_TEXTURE) + texture_name;
+    string texture_file_name = CFG_PROPERTY(DIR_TEXTURE) + texture_name;
 
     //テクスチャファイル名に "cubemap" 或いは "CubeMap" が含まれていれば、環境マップテクスチャとみなす
     if (texture_name.find("cubemap") == string::npos && texture_name.find("CubeMap") == string::npos) {
@@ -37,7 +37,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
         if (hr != D3D_OK) {
             _TRACE_("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_texture_name);
             //失敗用テクスチャ"GgafDx9IlligalTexture.png"を設定
-            string texture_file_name2 = PROPERTY(DIR_TEXTURE) + "GgafDx9IlligalTexture.png";
+            string texture_file_name2 = CFG_PROPERTY(DIR_TEXTURE) + "GgafDx9IlligalTexture.png";
             HRESULT hr2 = D3DXCreateTextureFromFileEx(
                              GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
                              texture_file_name2.c_str(),// [in] LPCTSTR pSrcFile,

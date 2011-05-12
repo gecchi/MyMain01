@@ -28,7 +28,7 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 //    DWORD dwFlags = D3DXSHADER_SKIPVALIDATION|D3DXSHADER_PARTIALPRECISION|D3DXSHADER_PREFER_FLOW_CONTROL|D3DXFX_NOT_CLONEABLE;
 //#endif
 
-    string effect_file_name = PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
+    string effect_file_name = CFG_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
 //    if (prm_effect_name == "HoshiBoshiEffect") {
 //        dwFlags = D3DXSHADER_DEBUG|D3DXSHADER_SKIPOPTIMIZATION;
 //    }
@@ -37,7 +37,7 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
         hr = D3DXCreateEffectFromFile(
                  GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
                  effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
-                 GgafDx9God::_effectmacro_sm, // [in] CONST D3DXMACRO* pDefines
+                 GgafDx9God::_aD3DXMacro_Defines, // [in] CONST D3DXMACRO* pDefines
                  0,                         // [in] LPD3DXINCLUDE pInclude
                  dwFlags,                   // [in] DWORD Flags
                  0,                         // [in] LPD3DXEFFECTPOOL pPool
