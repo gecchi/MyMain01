@@ -191,20 +191,14 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_
                     _aRect_Present[0].right  = _aRect_Present[0].left + (fix_width * rate);
                     _aRect_Present[0].bottom = _aRect_Present[0].top  + (fix_height * rate);
                 }
-                _aRect_Present[1].left   = 0;
-                _aRect_Present[1].top    = 0;
-                _aRect_Present[1].right  = 0;
-                _aRect_Present[1].bottom = 0;
+                _aRect_Present[1] = _aRect_Present[0];
             } else {
                 //「フルスクリーンモード・１画面使用・縦横比ストレッチ」のフロントバッファ描画領域
                 _aRect_Present[0].left   = 0;
                 _aRect_Present[0].top    = 0;
                 _aRect_Present[0].right  = _aRect_Present[0].left + CFG_PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_WIDTH);
                 _aRect_Present[0].bottom = _aRect_Present[0].top  + CFG_PROPERTY(SINGLE_DISPLAY_FULL_SCREEN_HEIGHT);
-                _aRect_Present[1].left   = 0;
-                _aRect_Present[1].top    = 0;
-                _aRect_Present[1].right  = 0;
-                _aRect_Present[1].bottom = 0;
+                _aRect_Present[1] = _aRect_Present[0];
             }
         }
     } else {
@@ -280,20 +274,14 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_
                     _aRect_Present[0].right  = _aRect_Present[0].left + (fix_width * rate);
                     _aRect_Present[0].bottom = _aRect_Present[0].top  + (fix_height * rate);
                 }
-                _aRect_Present[1].left   = 0;
-                _aRect_Present[1].top    = 0;
-                _aRect_Present[1].right  = 0;
-                _aRect_Present[1].bottom = 0;
+                _aRect_Present[1] = _aRect_Present[0];
             } else {
                 //「ウィンドウモード・１窓使用・縦横比ストレッチ」のフロントバッファ描画領域
                 _aRect_Present[0].left   = 0;
                 _aRect_Present[0].top    = 0;
                 _aRect_Present[0].right  = _aRect_Present[0].left + CFG_PROPERTY(SINGLE_DISPLAY_WINDOW_WIDTH);
                 _aRect_Present[0].bottom = _aRect_Present[0].top  + CFG_PROPERTY(SINGLE_DISPLAY_WINDOW_HEIGHT);
-                _aRect_Present[1].left   = 0;
-                _aRect_Present[1].top    = 0;
-                _aRect_Present[1].right  = 0;
-                _aRect_Present[1].bottom = 0;
+                _aRect_Present[1] = _aRect_Present[0];
             }
         }
     }
