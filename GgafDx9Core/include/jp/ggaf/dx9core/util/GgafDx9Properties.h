@@ -11,27 +11,30 @@ namespace GgafDx9Core {
 class GgafDx9Properties: public GgafCore::GgafProperties {
 public:
     static bool FULL_SCREEN;
-    static bool DUAL_DISPLAY;
+    static bool DUAL_VIEW;
     static int GAME_BUFFER_WIDTH;
     static int GAME_BUFFER_HEIGHT;
     static float GAME_SPACE_DEPTH;
 
 
-    static int SINGLE_DISPLAY_WINDOW_WIDTH;
-    static int SINGLE_DISPLAY_WINDOW_HEIGHT;
-    static int DUAL_DISPLAY_WINDOW1_WIDTH;
-    static int DUAL_DISPLAY_WINDOW1_HEIGHT;
-    static int DUAL_DISPLAY_WINDOW2_WIDTH;
-    static int DUAL_DISPLAY_WINDOW2_HEIGHT;
+    static int SINGLE_VIEW_WINDOW_WIDTH;
+    static int SINGLE_VIEW_WINDOW_HEIGHT;
+    static int DUAL_VIEW_WINDOW1_WIDTH;
+    static int DUAL_VIEW_WINDOW1_HEIGHT;
+    static int DUAL_VIEW_WINDOW2_WIDTH;
+    static int DUAL_VIEW_WINDOW2_HEIGHT;
 
-    static int SINGLE_DISPLAY_FULL_SCREEN_WIDTH;
-    static int SINGLE_DISPLAY_FULL_SCREEN_HEIGHT;
-    static int DUAL_DISPLAY_FULL_SCREEN1_WIDTH;
-    static int DUAL_DISPLAY_FULL_SCREEN1_HEIGHT;
-    static int DUAL_DISPLAY_FULL_SCREEN2_WIDTH;
-    static int DUAL_DISPLAY_FULL_SCREEN2_HEIGHT;
-    static bool FIXED_VIEW_ASPECT;
-    static bool SWAP_DISPLAY;
+    static int SINGLE_VIEW_FULL_SCREEN_WIDTH;
+    static int SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+    static int DUAL_VIEW_FULL_SCREEN1_WIDTH;
+    static int DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+    static int DUAL_VIEW_FULL_SCREEN2_WIDTH;
+    static int DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+    static bool FIXED_GAME_VIEW_ASPECT;
+    static bool SWAP_GAME_VIEW;
+    static int GAME_VIEW1_POSITION;
+    static int GAME_VIEW2_POSITION;
+
     static int MASTER_VOLUME;
     static int BGM_VOLUME;
     static int SE_VOLUME;

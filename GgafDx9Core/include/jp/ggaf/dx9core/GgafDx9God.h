@@ -99,6 +99,8 @@ public:
 
     void adjustGameScreen(HWND prm_pHWnd);
 
+    void positionPresentRect(int prm_pos, RECT& prm_rectPresent, int prm_screen_width, int prm_screen_height);
+
     D3DXMATRIX getInvRotateMat();
     //    /**
     //     * WorldƒV[ƒ“‚ğì¬B
