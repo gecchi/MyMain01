@@ -348,8 +348,8 @@ class GgafMainScene;
 class GgafLordActor;
 class GgafGroupActor;
 class GgafActorDispatcher;
-
 class GgafOrder;
+class GgafRgb;
 
 class GgafProperties;
 
@@ -358,6 +358,8 @@ class GgafLinearOctreeSpace;
 class GgafLinearOctreeElem;
 
 class GgafCurtain;
+
+
 }
 
 
@@ -368,6 +370,7 @@ class GgafCurtain;
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include "jp/ggaf/core/util/GgafStatus.h"
 #include "jp/ggaf/core/util/GgafLogger.h"
+#include "jp/ggaf/core/util/GgafRgb.h"
 #include "jp/ggaf/core/GgafProperties.h"
 #include "jp/ggaf/core/GgafGod.h"
 

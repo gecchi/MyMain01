@@ -425,8 +425,8 @@ void myTerminateHandler() {
 
 
 ATOM MyRegisterClass_Primary(HINSTANCE hInstance) {
+    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(CFG_PROPERTY(BG_COLOR));
     WNDCLASSEX wcex;
-
     wcex.cbSize = sizeof(WNDCLASSEX);
     wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
     wcex.lpfnWndProc = WndProc; //ウィンドウプロシージャのアドレスを指定する。
@@ -435,7 +435,9 @@ ATOM MyRegisterClass_Primary(HINSTANCE hInstance) {
     wcex.hInstance = hInstance;
     wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MYSTG2ND));
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wcex.hbrBackground = CreateSolidBrush(RGB(30, 30, 30)); //0~255
+    wcex.hbrBackground = CreateSolidBrush(
+                            RGB(rgb._R, rgb._G, rgb._B)
+                         );
     wcex.lpszMenuName = NULL;//MAKEINTRESOURCE(IDC_MYSTG2ND);//NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
     wcex.lpszClassName = szWindowClass;
     wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
@@ -444,8 +446,8 @@ ATOM MyRegisterClass_Primary(HINSTANCE hInstance) {
 }
 
 ATOM MyRegisterClass_Secondary(HINSTANCE hInstance) {
+    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(CFG_PROPERTY(BG_COLOR));
     WNDCLASSEX wcex;
-
     wcex.cbSize = sizeof(WNDCLASSEX);
     wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
     wcex.lpfnWndProc = WndProc;
@@ -455,7 +457,9 @@ ATOM MyRegisterClass_Secondary(HINSTANCE hInstance) {
     wcex.hInstance = hInstance;
     wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MYSTG2ND));
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wcex.hbrBackground = CreateSolidBrush(RGB(30, 30, 30)); //0~255
+    wcex.hbrBackground = CreateSolidBrush(
+                            RGB(rgb._R, rgb._G, rgb._B)
+                         );
     wcex.lpszMenuName = NULL;//MAKEINTRESOURCE(IDC_MYSTG2ND);//NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
     wcex.lpszClassName = "secondary";
     wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
@@ -522,3 +526,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     }
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
+
+
+

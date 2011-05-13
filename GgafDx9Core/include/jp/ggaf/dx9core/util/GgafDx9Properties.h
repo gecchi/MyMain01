@@ -34,6 +34,7 @@ public:
     static bool SWAP_GAME_VIEW;
     static int GAME_VIEW1_POSITION;
     static int GAME_VIEW2_POSITION;
+    static std::string BG_COLOR;
 
     static int MASTER_VOLUME;
     static int BGM_VOLUME;

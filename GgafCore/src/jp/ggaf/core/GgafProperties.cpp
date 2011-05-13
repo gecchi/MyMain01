@@ -169,6 +169,16 @@ double GgafProperties::getDouble(string prm_key) {
     }
 }
 
+GgafRgb GgafProperties::getRGB(std::string prm_key) {
+    if (isExistKey(prm_key)) {
+        GgafRgb rgb = GgafRgb(prm_key);
+        return rgb;
+    } else {
+        throwGgafCriticalException("GgafProperties::getRGB() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
+    }
+}
+
+
 bool GgafProperties::isExistKey(string prm_key) {
     _MAP_<string, string>::iterator itr;
     itr = _pMapProperties->find(prm_key);

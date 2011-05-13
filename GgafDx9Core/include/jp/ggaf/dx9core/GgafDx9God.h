@@ -76,6 +76,8 @@ public:
 
     static D3DXMACRO _aD3DXMacro_Defines[3];
 
+    D3DCOLOR _color_background;
+    D3DCOLOR _color_clear;
     /**
      * コンストラクタ<BR>
      */

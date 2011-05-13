@@ -1,5 +1,5 @@
-#ifndef GGAFPROPERTIES
-#define GGAFPROPERTIES
+#ifndef GGAFPROPERTIES_H_
+#define GGAFPROPERTIES_H_
 
 
 #ifdef  PROPERTY
@@ -23,6 +23,7 @@ public:
     static int DRAWNUM_TO_SLOWDOWN1;
     static int DRAWNUM_TO_SLOWDOWN2;
     static float FPS_TO_CLEAN_GARBAGE_BOX;
+
     static void load(std::string prm_properties_filename);
     static void clean();
 
@@ -37,8 +38,10 @@ public:
     static int getInt(std::string prm_key);
     static UINT32 getUInt(std::string prm_key);
     static double getDouble(std::string prm_key);
+    static GgafRgb getRGB(std::string prm_key);
+
 };
 
 }
-#endif /*GGAFPROPERTIES*/
+#endif /*GGAFPROPERTIES_H_*/
 

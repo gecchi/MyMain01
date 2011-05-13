@@ -77,8 +77,9 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_
     _adjustGameScreen = false;
     _pHWnd_adjustScreen = NULL;
     CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 Seed
-
-
+    GgafRgb rgb = GgafRgb(CFG_PROPERTY(BG_COLOR));
+    _color_background = D3DCOLOR_RGBA(rgb._R, rgb._G, rgb._B, 0);
+    _color_clear = D3DCOLOR_RGBA(0, 0, 0, 0);
     pSwapChain00 = NULL;//アダプタに関連付けれられたスワップチェーン
     pBackBuffer00 = NULL;//バックバッファ1画面分
     pSwapChain01 = NULL;//アダプタに関連付けれられたスワップチェーン
@@ -760,10 +761,21 @@ HRESULT GgafDx9God::initDx9Device() {
     // 射影変換（３Ｄ→平面）
     //D3DXMATRIX _matProj; // 射影変換行列
     //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_matProj);
-
-
+    HRESULT hr;
+    //バックバッファをウィンドウBG色でクリア
+    //ここではRenderTargetはまだ、通常のバックバッファである
+    hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
+                                          NULL, // 矩形領域
+                                          D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+                                          //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
+                                          _color_background, //ウィンドウ背景色とそろえる
+                                          1.0f, // Zバッファのクリア値
+                                          0 // ステンシルバッファのクリア値
+            );
+    checkDxException(hr, D3D_OK, "Clear失敗");
     if (CFG_PROPERTY(FULL_SCREEN)) {
-        HRESULT hr;
+
+
         //描画先となるテクスチャを別途作成（バックバッファ的な使用を行う）
         hr = GgafDx9God::_pID3DDevice9->CreateTexture(
                                                 CFG_PROPERTY(GAME_BUFFER_WIDTH),
@@ -775,11 +787,20 @@ HRESULT GgafDx9God::initDx9Device() {
                                                  &_pRenderTexture,
                                                  NULL);
         checkDxException(hr, D3D_OK, "バックバッファ・テクスチャ作成失敗");
-        //描画先をテクスチャへ変更
+        //RenderTarget(描画先)をテクスチャへ切り替え
         hr = _pRenderTexture->GetSurfaceLevel(0, &_pRenderTextureSurface);
         checkDxException(hr, D3D_OK, "テクスチャのサーフェイスポインタ取得失敗");
         hr = GgafDx9God::_pID3DDevice9->SetRenderTarget(0, _pRenderTextureSurface);
         checkDxException(hr, D3D_OK, "SetRenderTarget テクスチャのサーフェイス失敗");
+        hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
+                                              NULL, // 矩形領域
+                                              D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+                                              //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
+                                              _color_clear, //背景黒にクリア
+                                              1.0f, // Zバッファのクリア値
+                                              0 // ステンシルバッファのクリア値
+                );
+        checkDxException(hr, D3D_OK, "Clear失敗");
 
         //テクスチャに描画する際の深度バッファ用サーフェイスを別途作成
         hr = GgafDx9God::_pID3DDevice9->CreateDepthStencilSurface(
@@ -797,21 +818,14 @@ HRESULT GgafDx9God::initDx9Device() {
         hr =  GgafDx9God::_pID3DDevice9->SetDepthStencilSurface(_pRenderTextureZ);
         checkDxException(hr, D3D_OK, "SetDepthStencilSurfaceバックバッファ・テクスチャのZバッファ失敗");
         //クリア
-        hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
-                                              NULL, // 矩形領域
-                                              D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                              //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-                                              D3DCOLOR_RGBA(0, 0, 0, 0), //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
-                                              1.0f, // Zバッファのクリア値
-                                              0 // ステンシルバッファのクリア値
-                );
+
         checkDxException(hr, D3D_OK, "CFG_PROPERTY(FULL_SCREEN)初期化のGgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
 
-        //            //アダプタに関連付けられたスワップチェーンを取得してバックバッファも取得
-                hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &pSwapChain00 );
-                checkDxException(hr, D3D_OK, "0GetSwapChain() に失敗しました。");
-                hr = pSwapChain00->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer00 );
-                checkDxException(hr, D3D_OK, "0GetBackBuffer() に失敗しました。");
+//            //アダプタに関連付けられたスワップチェーンを取得してバックバッファも取得
+        hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &pSwapChain00 );
+        checkDxException(hr, D3D_OK, "0GetSwapChain() に失敗しました。");
+        hr = pSwapChain00->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer00 );
+        checkDxException(hr, D3D_OK, "0GetBackBuffer() に失敗しました。");
 
         if (CFG_PROPERTY(DUAL_VIEW)) {
 
@@ -900,7 +914,7 @@ void GgafDx9God::makeUniversalMaterialize() {
                                               NULL, // 矩形領域
                                               D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
                                               //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-                                              D3DCOLOR_RGBA(0, 0, 0, 0), //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
+                                              _color_clear, //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
                                               1.0f, // Zバッファのクリア値
                                               0 // ステンシルバッファのクリア値
                 );
@@ -1113,7 +1127,7 @@ void GgafDx9God::adjustGameScreen(HWND prm_pHWnd) {
                                               NULL, // 矩形領域
                                               D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
                                               //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-                                              D3DCOLOR_RGBA(0, 0, 0, 0), //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
+                                              _color_background, //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
                                               1.0f, // Zバッファのクリア値
                                               0 // ステンシルバッファのクリア値
                 );
@@ -1222,7 +1236,7 @@ void GgafDx9God::positionPresentRect(int prm_pos, RECT& prm_rectPresent, int prm
 //                                              NULL, // 矩形領域
 //                                              D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
 //                                              //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-//                                              D3DCOLOR_RGBA(0, 0, 0, 0), //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
+//                                              _color_background, //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
 //                                              1.0f, // Zバッファのクリア値
 //                                              0 // ステンシルバッファのクリア値
 //                );

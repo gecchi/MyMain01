@@ -28,6 +28,8 @@ bool GgafDx9Properties::SWAP_GAME_VIEW = false;
 int GgafDx9Properties::GAME_VIEW1_POSITION = 5;
 int GgafDx9Properties::GAME_VIEW2_POSITION = 5;
 
+string GgafDx9Properties::BG_COLOR = "";
+
 int GgafDx9Properties::MASTER_VOLUME;
 int GgafDx9Properties::BGM_VOLUME;
 int GgafDx9Properties::SE_VOLUME;
@@ -63,6 +65,8 @@ void GgafDx9Properties::load(string prm_ini_filename) {
     GgafDx9Properties::SWAP_GAME_VIEW = getBool("SWAP_GAME_VIEW");
     GgafDx9Properties::GAME_VIEW1_POSITION  = getInt("GAME_VIEW1_POSITION");
     GgafDx9Properties::GAME_VIEW2_POSITION  = getInt("GAME_VIEW2_POSITION");
+    GgafDx9Properties::BG_COLOR = getStr("BG_COLOR");
+
 
     GgafDx9Properties::MASTER_VOLUME = getInt("MASTER_VOLUME");
     GgafDx9Properties::BGM_VOLUME = getInt("BGM_VOLUME");
@@ -97,6 +101,7 @@ void GgafDx9Properties::load(string prm_ini_filename) {
     _TRACE_("GgafDx9Properties::SWAP_GAME_VIEW="<<GgafDx9Properties::SWAP_GAME_VIEW);
     _TRACE_("GgafDx9Properties::GAME_VIEW1_POSITION="<<GgafDx9Properties::GAME_VIEW1_POSITION);
     _TRACE_("GgafDx9Properties::GAME_VIEW2_POSITION="<<GgafDx9Properties::GAME_VIEW2_POSITION);
+    _TRACE_("GgafDx9Properties::BG_COLOR="<<GgafDx9Properties::BG_COLOR);
 
     _TRACE_("GgafDx9Properties::MASTER_VOLUME="<<GgafDx9Properties::MASTER_VOLUME);
     _TRACE_("GgafDx9Properties::BGM_VOLUME="<<GgafDx9Properties::BGM_VOLUME);
