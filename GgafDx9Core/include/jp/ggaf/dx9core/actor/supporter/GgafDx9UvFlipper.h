@@ -24,6 +24,9 @@ public:
     float _tex_height;
     int _tex_col_num;
 
+    float _base_u;
+    float _base_v;
+
     /** 現在表示中のアニメパターン番号(0～) */
     int _pattno_uvflip_now;
 
@@ -65,7 +68,7 @@ public:
      * <pre>
      * ＜例＞
      *
-     *   setTextureUvRotation(3, 1.0/5, 1.0/4);
+     *   setRotation(3, 1.0/5, 1.0/4);
      *   forcePtnNoRange(0,9);
      *   setPtnNo(5);
      *
@@ -91,6 +94,8 @@ public:
      * (※"!" は現在アクティブなパターン番号)
      *
      * ０～９はパターン番号と呼ぶこととする。
+     * パターン番号の並び順は左上から右へ、改行して再び右への順で固定。
+     * 但し、基準となる左上の座標、改行までのパターン数は設定が可能。
      * 描画時、頂点バッファの各頂点のUV座標に、
      * アクティブなパターンの左上のUV座標がオフセットとして加算されることを想定して本メソッドを作成。
      * 上の図の例では、パターン番号5がアクティブなのでこの状態で
@@ -117,7 +122,7 @@ public:
      *   GgafDx9BoardSetActor
      *   GgafDx9PointSpriteActor について・・・
      *       描画時、現在パターン番号(_pattno_uvflip_now) のみ参照されている。getUV() は内部で使用していない。
-     *       したがって、setTextureUvRotation() の呼び出しはフレームワークの描画処理では無意味。
+     *       したがって、setRotation() の呼び出しはフレームワークの描画処理では無意味。
      *       アニメーションのUV座標のオフセット情報は、定義Xファイル(拡張子.sprx)から読み取られて、モデルで保持している。
      *       上記アクター実装者は _pattno_uvflip_now の操作だけで良い。（そして実装者は俺）
      *       コンストラクタで以下の初期処理を実行している。
@@ -130,12 +135,12 @@ public:
      *
      * ・GgafDx9SpriteMeshActor
      *   GgafDx9SpriteMeshSetActor  について・・・
-     *       内部で getUV() を使用している。よって setTextureUvRotation() による設定が必須。
+     *       内部で getUV() を使用している。よって setRotation() による設定が必須。
      *       描画時頂点バッファのUV座標に getUV() で得たUVオフセット値をシェーダーへ渡し加算している。
-     *       しかし『setTextureUvRotation() は内部で実行していない』ため、継承クラス側の初期処理などで、
-     *       事前に１回は setTextureUvRotation() を呼び出して、パターンの番号とUV座標（オフセット値）の
+     *       しかし『setRotation() は内部で実行していない』ため、継承クラス側の初期処理などで、
+     *       事前に１回は setRotation() を呼び出して、パターンの番号とUV座標（オフセット値）の
      *       対応を定義しておく事が前提となる作りになっている。UV切り替えしないのであれば別の呼ばなくても大丈夫。
-     *       コンストラクタで以下の初期処理を実行している。必要に応じて下位実装クラスで setTextureUvRotation() 等を行うという仕組み。
+     *       コンストラクタで以下の初期処理を実行している。必要に応じて下位実装クラスで setRotation() 等を行うという仕組み。
      *       ----------------------------------------------------------
      *       _pUvFlipper = NEW GgafDx9UvFlipper(this);
      *       _pUvFlipper->forcePtnNoRange(0, 算出した最大アニメーションパターン番号);
@@ -148,14 +153,19 @@ public:
      *
      * 【まとめ】
      * 要は GgafDx9SpriteMeshActor, GgafDx9SpriteSetMeshActor 利用時は
-     * setTextureUvRotation() の事前実行が必要、他は不要。
+     * setRotation() の事前実行が必要、他は不要。
      * （TODO:本クラスの事前呼び出しをクラスの仕組みで強制させる仕組みは現在無い。いずれ作りたい。が、とりあえず今は自分で気を付ける）
      * </pre>
      * @param prm_tex_col_num パターンのカラム数。UV座標を改行するために使用される(自然数)
      * @param prm_tex_width １パターンの幅(0.0f～1.0f)
      * @param prm_tex_height １パターンの高さ(0.0f～1.0f)
      */
-    virtual void setTextureUvRotation(int prm_tex_col_num, float prm_tex_width, float prm_tex_height);
+    virtual void setRotation(int prm_tex_col_num, float prm_tex_width, float prm_tex_height);
+
+    virtual void setBaseUvCoordinate(float prm_base_u, float prm_base_v) {
+        _base_u = prm_base_v;
+        _base_v = prm_base_u;
+    }
 
     /**
      * アニメーションを1フレーム分進行させる .
@@ -167,7 +177,7 @@ public:
 
     /**
      * 現在のアニメーションパターン番号(_pattno_uvflip_now)に対応するUV座標を取得する。 .
-     * 事前に setTextureUvRotation() の呼び出を行ってく必要がある。
+     * 事前に setRotation() の呼び出を行ってく必要がある。
      * @param out_u [out] 座標U
      * @param out_v [out] 座標V
      */

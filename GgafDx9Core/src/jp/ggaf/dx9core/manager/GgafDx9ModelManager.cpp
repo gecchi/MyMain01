@@ -3209,7 +3209,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
 
 
 //    GgafDx9UvFlipper uvflipper(NULL);
-//    uvflipper.setTextureUvRotation(model_texture_split_rowcol,
+//    uvflipper.setRotation(model_texture_split_rowcol,
 //                                   1.0f / model_texture_split_rowcol,
 //                                   1.0f / model_texture_split_rowcol );
 //    uvflipper.forcePtnNoRange(0, model_texture_split_rowcol * model_texture_split_rowcol-1);

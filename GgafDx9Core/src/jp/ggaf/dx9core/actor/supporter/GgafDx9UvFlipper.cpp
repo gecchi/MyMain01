@@ -18,11 +18,13 @@ GgafDx9UvFlipper::GgafDx9UvFlipper(GgafDx9GeometricActor* prm_pActor) : GgafObje
     _paInt_PtnOffset_Customized = NULL;
     _nPtn_Customized = 0;
     _cnt_Customized = 0;
+    _base_u = 0.0f;
+    _base_v = 0.0f;
 }
 
-void GgafDx9UvFlipper::setTextureUvRotation(int prm_tex_col_num, float prm_tex_width, float prm_tex_height)  {
+void GgafDx9UvFlipper::setRotation(int prm_tex_col_num, float prm_tex_width, float prm_tex_height)  {
     if (prm_tex_col_num < 0) {
-        throwGgafCriticalException("GgafDx9UvFlipper::setTextureUvRotation prm_tex_col_numは0以上の整数で設定して下さい。");
+        throwGgafCriticalException("GgafDx9UvFlipper::setRotation prm_tex_col_numは0以上の整数で設定して下さい。");
     }
     _tex_width = prm_tex_width;
     _tex_height = prm_tex_height;
@@ -154,8 +156,8 @@ void GgafDx9UvFlipper::getUV(float& out_u, float& out_v) {
         throwGgafCriticalException("GgafDx9UvFlipper::getUV ゼロ割り算になってしまいます。_tex_col_numの値が不正です。");
     }
 #endif
-    out_u = ((int)(_pattno_uvflip_now % _tex_col_num)) * _tex_height;
-    out_v = ((int)(_pattno_uvflip_now / _tex_col_num)) * _tex_width;
+    out_u = _base_u + ((int)(_pattno_uvflip_now % _tex_col_num)) * _tex_height;
+    out_v = _base_v + ((int)(_pattno_uvflip_now / _tex_col_num)) * _tex_width;
 }
 
 GgafDx9UvFlipper::~GgafDx9UvFlipper() {

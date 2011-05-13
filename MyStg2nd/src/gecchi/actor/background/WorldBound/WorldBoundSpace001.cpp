@@ -9,7 +9,7 @@ WorldBoundSpace001::WorldBoundSpace001(const char* prm_name) : WorldBoundActor(p
     _class_name = "WorldBoundSpace001";
 }
 void WorldBoundSpace001::initialize() {
-    //    _pUvFlipper->setTextureUvRotation(16, 1/16.0, 1/16.0);
+    //    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);
     //    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5);
     //    _pUvFlipper->forcePtnNoRange(0, 16*16-1);
     //    _pUvFlipper->setPtnNo(0);

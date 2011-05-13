@@ -65,7 +65,7 @@ void EnemyTamago01::onActive() {
         _pProgram_Tamago01Move->begin(0); //スプライン移動をプログラムしておく
     }
 
-    _pUvFlipper->setTextureUvRotation(16, 1/16.0, 1/16.0);
+    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5);
     _pUvFlipper->forcePtnNoRange(0, 16*16-1);
     _pUvFlipper->setPtnNo(0);
