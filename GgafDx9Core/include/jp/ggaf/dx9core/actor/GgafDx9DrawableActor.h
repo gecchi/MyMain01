@@ -147,7 +147,11 @@ public:
      * @param prm_drawdepth
      */
     void setSpecialDrawDepth(int prm_drawdepth) {
-        _specal_drawdepth = prm_drawdepth;
+        if (prm_drawdepth > MAX_DRAW_DEPTH_LEVEL - 2) {
+            _specal_drawdepth = MAX_DRAW_DEPTH_LEVEL - 2;
+        } else {
+            _specal_drawdepth = prm_drawdepth;
+        }
     }
 
     /**

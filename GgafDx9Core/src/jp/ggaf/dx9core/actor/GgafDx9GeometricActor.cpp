@@ -123,7 +123,7 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
         _pChecker->_blown_sgn_vZ = 0;
         if (_can_hit_out_of_view == false && isOutOfView()) {
             //Ž‹–ìŠO“–‚½‚è”»’è–³Œø‚Ìê‡‚Í“o˜^‚µ‚È‚¢
-        } else {
+        } else if (_can_hit_flg) {
             _pChecker->updateHitArea();
         }
     }

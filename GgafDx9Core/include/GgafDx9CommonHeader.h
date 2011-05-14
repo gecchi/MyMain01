@@ -73,6 +73,11 @@
 //原点付近の画面上の１px相当に対してのPG内での座標単位の比率（PG内での座標単位を LEN_UNITで割ると3D空間のpxになる）
 #define LEN_UNIT (1000)
 #define PI (3.14159265358979)
+//#define MAX_DRAW_DEPTH_LEVEL 1000
+#define MAX_DRAW_DEPTH_LEVEL 220
+
+#define MAX_SE_AT_ONCE 10
+#define MAX_SE_DELAY 240
 
 //イベント用 UINT32 数値宣言
 AVAILABLE_EVENT(GGAF_EVENT_ON_DEVICE_LOST);

@@ -97,17 +97,25 @@ namespace {
 
     //! 再生中のスレッドを停止
     void PCMPlayer::terminateThread() {
-        isTerminate_ = true;
         if ( threadHandle_ != 0 ) {
+			isTerminate_ = true;
             bool end = false;
+			int wait = 0;
             while( !end ) {
-                DWORD flag = WaitForSingleObject( (HANDLE)(__int64)threadHandle_, 100 );
+				if (wait > 10*100) {
+					//1秒待っても駄目な場合は警告を出して強制終了
+					_TRACE_("＜警告＞ PCMPlayer::terminateThread() 失敗しました。原因不明。頻発する場合は調査が必要！！");
+                   break;
+				}
+                DWORD flag = WaitForSingleObject( (HANDLE)(__int64)threadHandle_, 10 );
                 switch( flag ) {
                 case WAIT_OBJECT_0:
                     // スレッドが終わった
                     end = true;
                     break;
                 case WAIT_TIMEOUT:
+					wait++;
+					isTerminate_ = true;
                     // まだ終了していないので待機
                     break;
                 case WAIT_FAILED:
@@ -117,9 +125,11 @@ namespace {
                 }
                 //Sleep(1);
             }
-        }
-        isTerminate_ = false;
-        threadHandle_ = 0;
+	        isTerminate_ = false;
+	        threadHandle_ = 0;
+		} else {
+			_TRACE_("PCMPlayer::terminateThread() スレッドはありません。多分。this="<<this<<"/isTerminate_="<<isTerminate_);
+		}
     }
 
     //! デバイス設定

@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 int MyOption::_max_lockon_num = 9;
 int MyOption::_lockon_num = 8;
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
-MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMeshSetActor(prm_name, "8/Core4") {
+MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMeshSetActor(prm_name, "8/option_kaku") {
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : CubeMapMeshSetActor(prm_name, "4/Core4_cm") {
 
 
@@ -36,13 +36,14 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _angveloExpanseNomal = 3000;
     _angveloExpanseSlow = 1000;
 
+    _pEffect = NEW MyOptionEffect("MyOptionEffect", this);
+    addSubGroup(_pEffect);
+
     //レーザー発射エフェクト
 //    _pEffect_LaserIrradiate = NEW EffectLockon001_Main("OP_Eff_Ref");
 //    _pEffect_LaserIrradiate->inactivateImmediately();
 //    addSubGroup(_pEffect_LaserIrradiate);
     _pEffect_LaserIrradiate = NULL;
-
-
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
     MyOptionStraightLaserChip001* pChip;
     for (int i = 0; i < 90; i++) { //レーザーストック
@@ -97,7 +98,7 @@ void MyOption::onCreateModel() {
 }
 
 void MyOption::initialize() {
-    _SX=_SY=_SZ=100;
+    _SX=_SY=_SZ=1000;
 }
 
 void MyOption::onReset() {
@@ -458,8 +459,6 @@ void MyOption::processBehavior() {
             pShot->activate();
         }
     }
-
-
 
     _pSeTransmitter->behave();
 

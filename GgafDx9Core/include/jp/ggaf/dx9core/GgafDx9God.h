@@ -59,11 +59,12 @@ public:
     RECT _rectGameBuffer;
     RECT _aRect_HarfGameBuffer[2];
 
+    RECT _aRect_ViewScreen[2];
 //    static RECT*  _pRectViewScreen;
-    static IDirect3DTexture9*  _pRenderTexture;   //テクスチャ
+    IDirect3DTexture9*  _pRenderTexture;   //テクスチャ
 //    static IDirect3DSurface9*  _pBackBuffer;      //バックバッファ
-    static IDirect3DSurface9*  _pRenderTextureSurface;     //サーフェイス
-    static IDirect3DSurface9*  _pRenderTextureZ;   //テクスチャ
+    IDirect3DSurface9*  _pRenderTextureSurface;     //サーフェイス
+    IDirect3DSurface9*  _pRenderTextureZ;   //テクスチャ
 
     LPDIRECT3DSWAPCHAIN9 pSwapChain00;//アダプタに関連付けれられたスワップチェーン
     LPDIRECT3DSURFACE9 pBackBuffer00;//バックバッファ1画面分

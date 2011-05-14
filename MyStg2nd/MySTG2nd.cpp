@@ -20,6 +20,7 @@ ATOM MyRegisterClass_Secondary(HINSTANCE hInstance);
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
+BOOL CustmizeSysMenu(HWND hWnd);
 
 void myUnexpectedHandler();
 void myTerminateHandler();
@@ -474,7 +475,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     HDC hdc;
 
     switch (message) {
+        case WM_CREATE:
 
+            // システムメニューカスタム関数を呼ぶ
+            CustmizeSysMenu(hWnd);
+            break;
         case WM_SIZE:
             if (GgafDx9Core::GgafDx9God::_can_be) {
                 if (!CFG_PROPERTY(FULL_SCREEN)) {
@@ -515,6 +520,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             }
             if(wParam == SC_CLOSE){
                 PostQuitMessage(0);
+            } else if(wParam == IDM_ABOUT) {
+//                dhwnd  = CreateDialog(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
+                DialogBox(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
             }
             break;
 
@@ -527,5 +535,55 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
+// システムメニューをカスタマイズします。
+BOOL CustmizeSysMenu(HWND hWnd)
+{
+    int i;
+    HMENU hMenu;
+    // システムメニューのハンドルを取得
+    hMenu = GetSystemMenu(hWnd, FALSE);
+//    for (i = 0; i <= 5; i++)
+//        //システムメニューの項目を消去
+//        DeleteMenu(hMenu, 0, MF_BYPOSITION);
+//    //システムメニューの項目を追加
+    InsertMenu(hMenu, 3, MF_STRING, IDM_ABOUT, "アバウト");
+//    AppendMenu(hMenu, MF_STRING, IDM_ABOUT, "アバウト");
+    //システムメニューを作成
+    DrawMenuBar(hWnd);
 
+    return TRUE;
+}
 
+// バージョン情報ボックスのメッセージ ハンドラです。
+INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
+
+    //g_hDlg = CreateDialog( g_hInst, _T("IDD_DIALOG1"), hWnd, DlgProc );
+
+    UNREFERENCED_PARAMETER(lParam);
+    switch (message) {
+        case WM_INITDIALOG:
+            return (INT_PTR) TRUE;
+
+        case WM_COMMAND:
+            if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL) {
+                EndDialog(hDlg, LOWORD(wParam));
+                return (INT_PTR) FALSE;
+            }
+            break;
+    }
+    return (INT_PTR) FALSE;
+}
+//// システムメニューの挙動を記述
+//LRESULT SysMenuProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+//{
+//switch (wParam) {
+//    case IDM_TEST:
+//        MessageBox(hWnd, (LPCSTR)"テスト項目が選ばれました。",
+//            (LPCSTR)"テスト", MB_OK);
+//        return 0L;
+//        break;
+//    default:
+//        return(DefWindowProc(hWnd, msg, wParam, lParam));
+//        break;
+//}
+//}

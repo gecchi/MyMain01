@@ -194,7 +194,9 @@ public:
      * 重要な事前処理のため、オーバーライドは推奨できない。<BR>
      * どうしてもオーバーライドが必要な場合は、オーバーライド先で、 <BR>
      * GgafDx9GeometricActor::processSettlementBehavior() を呼び出すか、 <BR>
-     * 上記①②③と同等の処理を行うようにすべきである。 <BR>
+     * 上記①②③と同等の処理を行うようにすべきである。
+     * 逆に効果エフェクトなど、上記の考慮が不要なアクターの場合は、本メソッドをオーバーライドし、
+     * _fX,_fY,_fZのみ更新等を実装することにより、パフォーマンスを向上させることができる。 <BR>
      */
     virtual void processSettlementBehavior() override;
 
