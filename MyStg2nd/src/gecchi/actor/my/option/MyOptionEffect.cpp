@@ -20,6 +20,9 @@ void MyOptionEffect::onCreateModel() {
 
 void MyOptionEffect::initialize() {
     _SX=_SY=_SZ=1000;
+    _pKuroko->setFaceAngVelo(AXIS_X, 11*1000);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 3*1000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 7*1000);
 }
 
 void MyOptionEffect::onReset() {
@@ -30,6 +33,7 @@ void MyOptionEffect::onActive() {
 
 void MyOptionEffect::processBehavior() {
     locateAs(_pMyOption);
+	_pKuroko->behave();
 }
 
 void MyOptionEffect::processJudgement() {
