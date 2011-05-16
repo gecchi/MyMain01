@@ -80,7 +80,7 @@ public:
      * <pre>
      * ＜例＞
      *
-     *   setRotation(0, 0, 1.0/5, 1.0/4, 3, 9);
+     *   setRotation(0, 0, 1.0/5, 1.0/4, 3, 10);
      *   setActivePtnNo(5);
      *
      * を実行時のパターン概念図
@@ -159,11 +159,11 @@ public:
      * @param prm_one_ptn_tex_width １パターンの幅(0.0f～1.0f)
      * @param prm_one_ptn_tex_height １パターンの高さ(0.0f～1.0f)
      * @param prm_ptn_col_num パターンのカラム数(横に並ぶパターン数)
-     * @param prm_pattno_uvflip_max 最大パターン数
+     * @param prm_num_of_max_patterns 最大パターン数 (1～)
      */
     virtual void setRotation(float prm_base_u, float prm_base_v,
                              float prm_one_ptn_tex_width, float prm_one_ptn_tex_height,
-                             int prm_ptn_col_num, int prm_pattno_uvflip_max);
+                             int prm_ptn_col_num, int prm_num_of_max_patterns);
 
     /**
      * テクスチャのフリッピングパターンの番号に対応するUV座標のズレるオフセットを定義する。 .

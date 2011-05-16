@@ -270,6 +270,9 @@ public:
      * ③ 休憩フレーム数<BR>
      * ④ スケール上限(_top_scale[軸] 配列が保持)<BR>
      * ⑤ スケール下限(_bottom_scale[軸] 配列が保持)<BR>
+     * [注意]<BR>
+     * 現在のアクターのフレームより１ループ到達フレームを割り出し内部保持するため、<BR>
+     * 直ぐにスケーリング可能な、processBehavior() や onActive() 等で実行してください。<BR>
      * <BR>
      * @param prm_beat_spend_frames 上図で①のフレーム数
      * @param prm_attack_frames 上図で②のフレーム数

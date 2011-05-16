@@ -37,6 +37,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _angveloExpanseSlow = 1000;
 
     _pEffect = NEW EffectMyOption("EffectMyOption", this);
+//    _pEffect->inactivateImmediately();
     addSubGroup(_pEffect);
 
     //レーザー発射エフェクト
@@ -126,6 +127,7 @@ void MyOption::onReset() {
 }
 
 void MyOption::onActive() {
+
 }
 
 void MyOption::addRadiusPosition(int prm_radius_offset) {

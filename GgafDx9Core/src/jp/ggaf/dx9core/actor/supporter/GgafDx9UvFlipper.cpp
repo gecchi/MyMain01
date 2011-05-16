@@ -27,7 +27,7 @@ GgafDx9UvFlipper::GgafDx9UvFlipper(GgafDx9Texture* prm_pTexture) : GgafObject() 
 
 void GgafDx9UvFlipper::setRotation(float prm_base_u, float prm_base_v,
                                    float prm_one_ptn_tex_width, float prm_one_ptn_tex_height,
-                                   int prm_ptn_col_num, int prm_pattno_uvflip_max) {
+                                   int prm_ptn_col_num, int prm_num_of_max_patterns) {
     _base_u = prm_base_v;
     _base_v = prm_base_u;
     if (prm_ptn_col_num < 0) {
@@ -36,8 +36,8 @@ void GgafDx9UvFlipper::setRotation(float prm_base_u, float prm_base_v,
     _one_ptn_tex_width = prm_one_ptn_tex_width;
     _one_ptn_tex_height = prm_one_ptn_tex_height;
     _ptn_col_num = prm_ptn_col_num;
-    _pattno_uvflip_max = prm_pattno_uvflip_max;
-    _ptn_row_num = (int)((1.0*_pattno_uvflip_max/_ptn_col_num)+0.5);
+    _pattno_uvflip_max = prm_num_of_max_patterns-1;
+    _ptn_row_num = (int)(((1.0*prm_num_of_max_patterns)/(1.0*_ptn_col_num))+0.5); //四捨五入
     if (_pattno_uvflip_bottom > _pattno_uvflip_max || _pattno_uvflip_bottom == 0) {
         _pattno_uvflip_bottom = _pattno_uvflip_max; //下限パターン番号が未設定なら最大にあわせておく
     }
@@ -66,7 +66,7 @@ void GgafDx9UvFlipper::setRotation(float prm_base_u, float prm_base_v,
 void GgafDx9UvFlipper::setRotation(int prm_ptn_col_num, int prm_ptn_row_num) {
     setRotation(0, 0,
                 1.0 / prm_ptn_col_num, 1.0 / prm_ptn_row_num,
-                prm_ptn_col_num, prm_ptn_col_num*prm_ptn_row_num-1
+                prm_ptn_col_num, prm_ptn_col_num*prm_ptn_row_num
                 );
 }
 

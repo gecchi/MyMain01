@@ -13,6 +13,8 @@ EffectMyOption::EffectMyOption(const char* prm_name, MyOption* prm_pMyOption) : 
     setZEnable(true);        //Zバッファは考慮して描画
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setHitAble(false);
+//    setScaleRate(0.1);
+    useProgress(10);
 }
 
 void EffectMyOption::onCreateModel() {
@@ -24,17 +26,23 @@ void EffectMyOption::initialize() {
 //    _pKuroko->setFaceAngVelo(AXIS_Y, 3*1000);
 //    _pKuroko->setFaceAngVelo(AXIS_Z, 7*1000);
     _pScaler->setScale(1000);
-    _pScaler->forceScaleRange(1000, 2000);
-    _pScaler->beat(30,8,2,-1);
+    _pScaler->forceScaleRange(1000, 1500);
+
 }
 
 void EffectMyOption::onReset() {
+    _pPrg->set(1);
 }
 
 void EffectMyOption::onActive() {
+
 }
 
 void EffectMyOption::processBehavior() {
+    if (_pPrg->get() == 1) {
+        _pScaler->beat(30,8,2,-1);
+        _pPrg->change(2);
+    }
     locateAs(_pMyOption);
     _pKuroko->behave();
     _pScaler->behave();

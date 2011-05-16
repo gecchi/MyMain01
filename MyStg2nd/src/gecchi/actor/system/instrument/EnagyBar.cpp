@@ -14,7 +14,7 @@ EnagyBar::EnagyBar(const char* prm_name) : DefaultBoardActor(prm_name, "TurboMet
 }
 
 void EnagyBar::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 10);
+//    /_pUvFlipper->forcePtnNoRange(0, 10);
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
 
     onReset();
