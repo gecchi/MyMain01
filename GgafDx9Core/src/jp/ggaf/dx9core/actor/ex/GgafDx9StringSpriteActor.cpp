@@ -86,6 +86,7 @@ void GgafDx9StringSpriteActor::processDraw() {
     int remainder_len = _len%_pSpriteSetModel->_set_num;
     int strindex;
     int X = _X;
+    float u, v;
     for (int pack = 0; pack < len_pack_num+(remainder_len == 0 ? 0 : 1); pack++) {
         if (pack < len_pack_num) {
             _draw_set_num = _pSpriteSetModel->_set_num;
@@ -112,11 +113,12 @@ void GgafDx9StringSpriteActor::processDraw() {
             hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ah_matWorld[i], &_matWorld );
             checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetMatrix(_h_matWorld) に失敗しました。");
 
-
-            pRectUV_Active = _pSpriteSetModel->_paRectUV + pattno; //文字のテクスチャ
-            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetU[i], pRectUV_Active->_aUV[0].tu);
+            //pRectUV_Active = _pUvFlipper->_paUV + pattno; //文字のテクスチャ
+            _pUvFlipper->getUV(pattno, u, v);
+//            pRectUV_Active = _pSpriteSetModel->_paRectUV + pattno; //文字のテクスチャ
+            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetU[i], u);
             checkDxException(hr, D3D_OK, "GgafDx9SpriteModel::draw() SetFloat(_hOffsetU) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetV[i], pRectUV_Active->_aUV[0].tv);
+            hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetV[i], v);
             checkDxException(hr, D3D_OK, "GgafDx9SpriteModel::draw() SetFloat(_hOffsetV) に失敗しました。");
 
         }

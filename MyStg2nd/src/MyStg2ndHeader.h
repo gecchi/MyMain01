@@ -220,7 +220,7 @@ class MyOptionController;
 class MyOptionControllerGizmo;
 class MyOptionControllerDirectionVector;
 class MyOption;
-class MyOptionEffect;
+class EffectMyOption;
 class MyOptionLockonController;
 class MyOptionTorpedoController;
 class MyTorpedoTail;
@@ -449,7 +449,7 @@ class MagicMeter;
 #include "gecchi/actor/effect/EffectLaserRefraction001.h"
 
 #include "gecchi/actor/my/option/MyOption.h"
-#include "gecchi/actor/my/option/MyOptionEffect.h"
+#include "gecchi/actor/my/option/EffectMyOption.h"
 #include "gecchi/actor/my/option/MyOptionLockonController.h"
 #include "gecchi/actor/my/option/MyOptionTorpedoController.h"
 #include "gecchi/actor/my/option/MyTorpedo.h"

@@ -18,7 +18,7 @@ void EffectExplosion001::initialize() {
 }
 
 void EffectExplosion001::onActive() {
-    _pUvFlipper->setPtnNoToTop();
+    _pUvFlipper->setActivePtnNoToTop();
     _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 1);
     _fAlpha = 0.99;
     _SX = _SY = _SZ = 1000;

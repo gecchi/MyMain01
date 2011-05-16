@@ -156,6 +156,15 @@ public:
 
     //static DWORD max3(DWORD a, DWORD b, DWORD c);
 
+
+    static size_t hex2dec(const std::string &prm_hex) {
+        std::istringstream iss(prm_hex);
+        size_t val;
+        iss >> std::hex >> val;
+        return val;
+    }
+
+
 };
 
 }

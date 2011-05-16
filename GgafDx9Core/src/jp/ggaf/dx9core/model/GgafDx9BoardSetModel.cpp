@@ -12,11 +12,11 @@ GgafDx9BoardSetModel::GgafDx9BoardSetModel(char* prm_model_name) : GgafDx9Model(
     _fSize_BoardSetModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pattno_max = 1;
+//    _pattno_max = 1;
 
     _pIDirect3DVertexBuffer9 = NULL;
     _pIDirect3DIndexBuffer9 = NULL;
-    _paRectUV = NULL;
+//    _paRectUV = NULL;
 
     char nm[51];
     strcpy(nm, prm_model_name);
@@ -141,7 +141,7 @@ void GgafDx9BoardSetModel::release() {
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
-    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
+//    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);

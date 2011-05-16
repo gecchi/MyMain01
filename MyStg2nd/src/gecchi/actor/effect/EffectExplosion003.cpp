@@ -20,7 +20,7 @@ void EffectExplosion003::initialize() {
 }
 
 void EffectExplosion003::onActive() {
-    _pUvFlipper->setPtnNoToTop();
+    _pUvFlipper->setActivePtnNoToTop();
     _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 1);
     _pScaler->setScale(500);
     _pScaler->intoTargetScaleLinerUntil(2000, 64);

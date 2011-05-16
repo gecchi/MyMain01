@@ -15,10 +15,18 @@ GgafDx9SpriteMeshActor::GgafDx9SpriteMeshActor(const char* prm_name,
 
     _obj_class |= Obj_GgafDx9SpriteMeshActor;
     _class_name = "GgafDx9SpriteMeshActor";
-    _pUvFlipper = NEW GgafDx9UvFlipper(this);
-    _pUvFlipper->forcePtnNoRange(0, 1);
-    _pUvFlipper->setPtnNo(0);
+//    _pUvFlipper = NEW GgafDx9UvFlipper(this);
+//    _pUvFlipper->forcePtnNoRange(0, 1);
+//    _pUvFlipper->setActivePtnNo(0);
+//    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+
+    GgafDx9Texture* pTexture = _pMeshModel->_papTextureCon[0]->refer();
+    _pUvFlipper = NEW GgafDx9UvFlipper(pTexture);
+    _pUvFlipper->setRotation(1,1);
+    _pUvFlipper->setActivePtnNo(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+
+
 }
 
 

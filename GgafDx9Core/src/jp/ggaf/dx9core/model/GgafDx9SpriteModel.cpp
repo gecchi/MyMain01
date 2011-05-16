@@ -12,9 +12,9 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(char* prm_model_name) : GgafDx9Model(prm_
     _fSize_SpriteModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pattno_uvflip_Max = 0;
+//    _pattno_uvflip_Max = 0;
     _pIDirect3DVertexBuffer9 = NULL;
-    _paRectUV = NULL;
+//    _paRectUV = NULL;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel*)
@@ -34,7 +34,10 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int pr
 
     //今回描画のUV
     GgafDx9RectUV* pRectUV_Active;
-    pRectUV_Active = _paRectUV + (pTargetActor->_pUvFlipper->_pattno_uvflip_now);
+    float u,v;
+    pTargetActor->_pUvFlipper->getUV(u,v);
+//
+//    pRectUV_Active = pTargetActor-> + (pTargetActor->_pUvFlipper->_pattno_uvflip_now);
 
     static HRESULT hr;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
@@ -47,9 +50,9 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int pr
         hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_tex_blink_threshold, _blink_threshold);
         checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
     }
-    hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
+    hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetU, u);
     checkDxException(hr, D3D_OK, "GgafDx9SpriteModel::draw() SetFloat(_hOffsetU) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
+    hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetV, v);
     checkDxException(hr, D3D_OK, "GgafDx9SpriteModel::draw() SetFloat(_hOffsetV) に失敗しました。");
 
     if (GgafDx9EffectManager::_pEffect_Active != pSpriteEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)  {
@@ -128,7 +131,7 @@ void GgafDx9SpriteModel::release() {
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
-    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
+//    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     TRACE3("GgafDx9SpriteModel::release() " << _model_name << " end");

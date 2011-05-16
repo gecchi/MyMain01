@@ -20,7 +20,7 @@ void EffectCondensation001::initialize() {
 }
 
 void EffectCondensation001::onActive() {
-    _pUvFlipper->setPtnNoToTop();
+    _pUvFlipper->setActivePtnNoToTop();
     setAlpha(0.01);
     _pScaler->forceScaleRange(30000, 1000); //スケーリング・範囲
     _pScaler->setScale(30000);

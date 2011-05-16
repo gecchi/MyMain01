@@ -36,17 +36,10 @@ public:
             std::string R = _hex.substr(0, 2);
             std::string G = _hex.substr(2, 2);
             std::string B = _hex.substr(4, 2);
-            _R = hex2dec(R);
-            _G = hex2dec(G);
-            _B = hex2dec(B);
+            _R = GgafUtil::hex2dec(R);
+            _G = GgafUtil::hex2dec(G);
+            _B = GgafUtil::hex2dec(B);
         }
-    }
-
-    static size_t hex2dec(const std::string &prm_hex) {
-        std::istringstream iss(prm_hex);
-        size_t val;
-        iss >> std::hex >> val;
-        return val;
     }
 
 };

@@ -19,10 +19,20 @@ GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
 
     _pBoardSetModel = (GgafDx9BoardSetModel*)_pGgafDx9Model;
     _pBoardSetEffect = (GgafDx9BoardSetEffect*)_pGgafDx9Effect;
-    _pUvFlipper = NEW GgafDx9UvFlipper(this);
-    _pUvFlipper->forcePtnNoRange(0, _pBoardSetModel->_pattno_max);
-    _pUvFlipper->setPtnNo(0);
+//    _pUvFlipper = NEW GgafDx9UvFlipper(this);
+//    _pUvFlipper->forcePtnNoRange(0, _pBoardSetModel->_pattno_max);
+//    _pUvFlipper->setActivePtnNo(0);
+//    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+
+    GgafDx9Texture* pTexture = _pBoardSetModel->_papTextureCon[0]->refer();
+    _pUvFlipper = NEW GgafDx9UvFlipper(_pBoardSetModel->_papTextureCon[0]->refer());
+    _pUvFlipper->setRotation(_pBoardSetModel->_col_texture_split,
+                             _pBoardSetModel->_row_texture_split
+                            );
+    _pUvFlipper->setActivePtnNo(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+
+
     _fAlpha = 1.0f;
 
     _isTransformed = true;
@@ -36,7 +46,8 @@ void GgafDx9BoardSetActor::processDraw() {
     HRESULT hr;
     GgafDx9DrawableActor* pDrawActor = this;
     GgafDx9BoardSetActor* pBoardSetActor = NULL;
-    GgafDx9RectUV* pRectUV_Active;
+    float u,v;
+//    GgafDx9RectUV* pRectUV_Active;
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pGgafDx9Model == _pBoardSetModel && pDrawActor->_hash_technique == _hash_technique) {
@@ -51,10 +62,11 @@ void GgafDx9BoardSetActor::processDraw() {
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[_draw_set_num], pDrawActor->_fAlpha);
                 checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahAlpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-                pRectUV_Active = _pBoardSetModel->_paRectUV + (((GgafDx9BoardSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[_draw_set_num], pRectUV_Active->_aUV[0].tu);
+//                pRectUV_Active = _pBoardSetModel->_paRectUV + (((GgafDx9BoardSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);
+                pBoardSetActor->_pUvFlipper->getUV(u,v);
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[_draw_set_num], u);
                 checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetU) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[_draw_set_num], pRectUV_Active->_aUV[0].tv);
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[_draw_set_num], v);
                 checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetV) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
                 _draw_set_num++;

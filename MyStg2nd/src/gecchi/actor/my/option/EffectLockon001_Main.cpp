@@ -18,7 +18,7 @@ void EffectLockon001_Main::initialize() {
 
 void EffectLockon001_Main::onActive() {
     EffectLockon001::onActive();
-    _pUvFlipper->setPtnNoToTop();
+    _pUvFlipper->setActivePtnNoToTop();
     setAlpha(0.01);
     _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
     _pScaler->setScale(60000); //(6000%)

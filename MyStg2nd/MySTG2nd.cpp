@@ -471,8 +471,8 @@ ATOM MyRegisterClass_Secondary(HINSTANCE hInstance) {
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     //  int wmId, wmEvent;
-    PAINTSTRUCT ps;
-    HDC hdc;
+    //PAINTSTRUCT ps;
+    //HDC hdc;
 
     switch (message) {
         case WM_CREATE:
@@ -506,8 +506,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             }
             if (GgafDx9Core::GgafDx9Input::_pIDirectInputDevice8_Joystick) {
                 // ゲームスティック協調レベルを設定する
-                hr = GgafDx9Core::GgafDx9Input::_pIDirectInputDevice8_Joystick->SetCooperativeLevel(hWnd, DISCL_FOREGROUND
-                        | DISCL_NONEXCLUSIVE );
+                hr = GgafDx9Core::GgafDx9Input::_pIDirectInputDevice8_Joystick->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
                 if (hr != D3D_OK) {
                     _TRACE_("GgafDx9Input::initDx9Input() ジョイスティックSetCooperativeLevelに失敗しました");
                 }
@@ -538,7 +537,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 // システムメニューをカスタマイズします。
 BOOL CustmizeSysMenu(HWND hWnd)
 {
-    int i;
     HMENU hMenu;
     // システムメニューのハンドルを取得
     hMenu = GetSystemMenu(hWnd, FALSE);
@@ -546,7 +544,10 @@ BOOL CustmizeSysMenu(HWND hWnd)
 //        //システムメニューの項目を消去
 //        DeleteMenu(hMenu, 0, MF_BYPOSITION);
 //    //システムメニューの項目を追加
-    InsertMenu(hMenu, 3, MF_STRING, IDM_ABOUT, "アバウト");
+    InsertMenu(hMenu, 5, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
+    InsertMenu(hMenu, 6, MF_BYPOSITION | MF_STRING, IDM_ABOUT, "reset window size");
+    InsertMenu(hMenu, 7, MF_BYPOSITION | MF_STRING, IDM_ABOUT, "about");
+
 //    AppendMenu(hMenu, MF_STRING, IDM_ABOUT, "アバウト");
     //システムメニューを作成
     DrawMenuBar(hWnd);

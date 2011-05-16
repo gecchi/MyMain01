@@ -92,7 +92,7 @@ public:
     angle _adjust_angPos_seq_angPosition;
 
     //GgafDx9Core::GgafDx9Quaternion _Q;
-    MyOptionEffect* _pEffect;
+    EffectMyOption* _pEffect;
 
     /**
      * コンストラクタ .

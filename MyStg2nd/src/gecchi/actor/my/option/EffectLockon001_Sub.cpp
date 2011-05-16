@@ -19,7 +19,7 @@ void EffectLockon001_Sub::initialize() {
 void EffectLockon001_Sub::onActive() {
     EffectLockon001::onActive();
     _pEffectLockon001_Main = (EffectLockon001_Main*)getParent()->getSubFirst();
-    _pUvFlipper->setPtnNoToTop();
+    _pUvFlipper->setActivePtnNoToTop();
     setAlpha(0.01);
     _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
     _pKuroko->setFaceAngVelo(AXIS_Z, 1000);        //‰E‰ñ“]

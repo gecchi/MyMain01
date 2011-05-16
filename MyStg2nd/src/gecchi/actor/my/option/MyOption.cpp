@@ -36,7 +36,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _angveloExpanseNomal = 3000;
     _angveloExpanseSlow = 1000;
 
-    _pEffect = NEW MyOptionEffect("MyOptionEffect", this);
+    _pEffect = NEW EffectMyOption("EffectMyOption", this);
     addSubGroup(_pEffect);
 
     //レーザー発射エフェクト

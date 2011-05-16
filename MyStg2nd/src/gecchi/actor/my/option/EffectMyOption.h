@@ -1,10 +1,10 @@
 #ifndef MYOPTIONEFFECT_H_
-#define MYOPTIONEFFECT_H_
+#define EFFECTMYOPTION_H_
 namespace MyStg2nd {
 
 
-//class MyOptionEffect : public GgafDx9LibStg::DefaultMorphMeshActor {
-class MyOptionEffect : public GgafDx9LibStg::DefaultMeshSetActor {
+//class EffectMyOption : public GgafDx9LibStg::DefaultMorphMeshActor {
+class EffectMyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
     /** 親オプション */
@@ -16,7 +16,7 @@ public:
      * @param prm_pMyOption 親のオプション
      * @return
      */
-    MyOptionEffect(const char* prm_name, MyOption* prm_pMyOption);
+    EffectMyOption(const char* prm_name, MyOption* prm_pMyOption);
 
     void onCreateModel() override;
 
@@ -36,10 +36,10 @@ public:
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    virtual ~MyOptionEffect();
+    virtual ~EffectMyOption();
 
 };
 
 }
-#endif /*MYOPTIONEFFECT_H_*/
+#endif /*EFFECTMYOPTION_H_*/
 

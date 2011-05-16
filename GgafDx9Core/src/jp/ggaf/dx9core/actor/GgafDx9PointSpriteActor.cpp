@@ -22,13 +22,22 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
     _pPointSpriteModel = (GgafDx9PointSpriteModel*)_pGgafDx9Model;
     _pPointSpriteEffect = (GgafDx9PointSpriteEffect*)_pGgafDx9Effect;
     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
-    _pUvFlipper = NEW GgafDx9UvFlipper(this);
+
+    GgafDx9Texture* pTexture = _pPointSpriteModel->_papTextureCon[0]->refer();
+    _pUvFlipper = NEW GgafDx9UvFlipper(pTexture);
+    _pUvFlipper->setRotation(_pPointSpriteModel->_texture_split_rowcol,
+                             _pPointSpriteModel->_texture_split_rowcol
+                            );
+    _pUvFlipper->setActivePtnNo(0);
+    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+
+
 //    _pUvFlipper->setRotation(_pPointSpriteModel->_texture_split_rowcol,
 //                                      1.0 / _pPointSpriteModel->_texture_split_rowcol,
 //                                      1.0 / _pPointSpriteModel->_texture_split_rowcol );
-    _pUvFlipper->forcePtnNoRange(0, _pPointSpriteModel->_texture_split_rowcol * _pPointSpriteModel->_texture_split_rowcol - 1);
-    _pUvFlipper->setPtnNo(0);
-    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+//    _pUvFlipper->forcePtnNoRange(0, _pPointSpriteModel->_texture_split_rowcol * _pPointSpriteModel->_texture_split_rowcol - 1);
+//    _pUvFlipper->setActivePtnNo(0);
+//    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
     setZEnable(false);
     setZWriteEnable(false);
 }

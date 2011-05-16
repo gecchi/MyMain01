@@ -22,10 +22,19 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
     //ÉÇÉfÉãéÊìæ
     _pSpriteSetModel = (GgafDx9SpriteSetModel*)_pGgafDx9Model;
     _pSpriteSetEffect = (GgafDx9SpriteSetEffect*)_pGgafDx9Effect;
-    _pUvFlipper = NEW GgafDx9UvFlipper(this);
-    _pUvFlipper->forcePtnNoRange(0, _pSpriteSetModel->_pattno_uvflip_Max);
-    _pUvFlipper->setPtnNo(0);
+//    _pUvFlipper = NEW GgafDx9UvFlipper(this);
+//    _pUvFlipper->forcePtnNoRange(0, _pSpriteSetModel->_pattno_uvflip_Max);
+//    _pUvFlipper->setActivePtnNo(0);
+//    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+
+    GgafDx9Texture* pTexture = _pSpriteSetModel->_papTextureCon[0]->refer();
+    _pUvFlipper = NEW GgafDx9UvFlipper(_pSpriteSetModel->_papTextureCon[0]->refer());
+    _pUvFlipper->setRotation(_pSpriteSetModel->_col_texture_split,
+                             _pSpriteSetModel->_row_texture_split
+                            );
+    _pUvFlipper->setActivePtnNo(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+
     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
 }
 
@@ -37,7 +46,9 @@ void GgafDx9SpriteSetActor::processDraw() {
 
     GgafDx9DrawableActor* pDrawActor = this;
     GgafDx9SpriteSetActor* pSpriteSetActor = NULL;
-    GgafDx9RectUV* pRectUV_Active;
+//    GgafDx9RectUV* pRectUV_Active;
+    float u,v;
+//    pTargetActor->_pUvFlipper->getUV(u,v);
     while (true) {
         if (pDrawActor)  {
             if (pDrawActor->_pGgafDx9Model == _pSpriteSetModel && pDrawActor->_hash_technique == _hash_technique) {
@@ -46,10 +57,11 @@ void GgafDx9SpriteSetActor::processDraw() {
                 hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ah_matWorld[_draw_set_num], &(pDrawActor->_matWorld) );
                 checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetMatrix(_h_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 //ç°âÒï`âÊÇÃUV
-                pRectUV_Active = _pSpriteSetModel->_paRectUV + (((GgafDx9SpriteSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);
-                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetU[_draw_set_num], pRectUV_Active->_aUV[0].tu);
+//                pRectUV_Active = _pSpriteSetModel->_paRectUV + (((GgafDx9SpriteSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);
+                pSpriteSetActor->_pUvFlipper->getUV(u,v);
+                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetU[_draw_set_num], u);
                 checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw() SetFloat(_hOffsetU) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetV[_draw_set_num], pRectUV_Active->_aUV[0].tv);
+                hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetV[_draw_set_num], v);
                 checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw() SetFloat(_hOffsetV) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahAlpha[_draw_set_num], pDrawActor->_fAlpha);
                 checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetFloat(_fAlpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

@@ -20,7 +20,7 @@ void EffectTurbo001::initialize() {
 }
 
 void EffectTurbo001::onActive() {
-    _pUvFlipper->setPtnNoToTop();
+    _pUvFlipper->setActivePtnNoToTop();
     _pKuroko->setFaceAngVelo(AXIS_Z, 3000);        //‰ñ“]
 }
 

@@ -1718,7 +1718,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     TRACE3("GgafDx9ModelManager::restoreSpriteModel(" << prm_pSpriteModel->_model_name << ")");
 
     prm_pSpriteModel->_papTextureCon = NULL;
-    prm_pSpriteModel->_paRectUV = NULL;
+    //prm_pSpriteModel->_paRectUV = NULL;
 
 
     HRESULT hr;
@@ -1854,26 +1854,26 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     //シェーダーでUV操作するようになってから、描画時にUV左上の情報(model_paRectUV[n]._aUV[0])以外は使用しなくなった。
     //TODO:しばらくしたら見直すか消す。
 
-    int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
-    GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
-    for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
-        for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
-            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
-            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
-            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
-
-            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
-            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
-
-            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
-            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
-
-            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
-            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
-        }
-    }
-    prm_pSpriteModel->_paRectUV = model_paRectUV;
-    prm_pSpriteModel->_pattno_uvflip_Max=pattnum-1;
+//    int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
+//    GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
+//    for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
+//        for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
+//            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
+//            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
+//            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
+//
+//            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
+//            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
+//
+//            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
+//            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
+//
+//            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
+//            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
+//        }
+//    }
+//    prm_pSpriteModel->_paRectUV = model_paRectUV;
+//    prm_pSpriteModel->_pattno_uvflip_Max=pattnum-1;
     prm_pSpriteModel->_dwNumMaterials = 1;
     D3DMATERIAL9* model_paD3DMaterial9;
     model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pSpriteModel->_dwNumMaterials];
@@ -1907,7 +1907,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     }
 
     prm_pSpriteSetModel->_papTextureCon = NULL;
-    prm_pSpriteSetModel->_paRectUV = NULL;
+//    prm_pSpriteSetModel->_paRectUV = NULL;
 
 
     HRESULT hr;
@@ -2151,8 +2151,8 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
             model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
         }
     }
-    prm_pSpriteSetModel->_paRectUV = model_paRectUV;
-    prm_pSpriteSetModel->_pattno_uvflip_Max=pattnum-1;
+//    prm_pSpriteSetModel->_paRectUV = model_paRectUV;
+//    prm_pSpriteSetModel->_pattno_uvflip_Max=pattnum-1;
     prm_pSpriteSetModel->_dwNumMaterials = 1;
     D3DMATERIAL9* model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pSpriteSetModel->_dwNumMaterials];
     for( DWORD i = 0; i < prm_pSpriteSetModel->_dwNumMaterials; i++){
@@ -2176,7 +2176,7 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     TRACE3("GgafDx9ModelManager::restoreBoardModel(" << prm_pBoardModel->_model_name << ")");
 
     prm_pBoardModel->_papTextureCon = NULL;
-    prm_pBoardModel->_paRectUV = NULL;
+//    prm_pBoardModel->_paRectUV = NULL;
 
     HRESULT hr;
     string xfile_name = CFG_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardModel->_model_name) + ".sprx";
@@ -2286,26 +2286,26 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     //＜2009/3/13＞
     //シェーダーでUV操作するようになってから、描画時にUV左上の情報(model_paRectUV[n]._aUV[0])以外は使用しなくなった。
     //TODO:しばらくしたら余分な所を見直すか消す。
-    int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
-    GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
-    for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
-        for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
-            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
-            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
-
-            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
-
-            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
-
-            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
-        }
-    }
-    prm_pBoardModel->_paRectUV = model_paRectUV;
-    prm_pBoardModel->_pattno_max = pattnum-1;
+//    int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
+//    GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
+//    for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
+//        for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
+//            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
+//            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
+//            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
+//
+//            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
+//            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
+//
+//            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
+//            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
+//
+//            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
+//            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
+//        }
+//    }
+//    prm_pBoardModel->_paRectUV = model_paRectUV;
+//    prm_pBoardModel->_pattno_max = pattnum-1;
     prm_pBoardModel->_dwNumMaterials = 1;
     D3DMATERIAL9* model_paD3DMaterial9;
     model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pBoardModel->_dwNumMaterials];
@@ -2339,7 +2339,7 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
 //    }
 
     prm_pBoardSetModel->_papTextureCon = NULL;
-    prm_pBoardSetModel->_paRectUV = NULL;
+    //prm_pBoardSetModel->_paRectUV = NULL;
 
     HRESULT hr;
     string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
@@ -2533,26 +2533,26 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     //＜2009/3/13＞
     //シェーダーでUV操作するようになってから、描画時にUV左上の情報(model_paRectUV[n]._aUV[0])以外は使用しなくなった。
     //TODO:しばらくしたら余分な所を見直すか消す。
-    int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
-    GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
-    for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
-        for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
-            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
-            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
-
-            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
-
-            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
-
-            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
-        }
-    }
-    prm_pBoardSetModel->_paRectUV = model_paRectUV;
-    prm_pBoardSetModel->_pattno_max = pattnum-1;
+//    int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
+//    GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
+//    for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
+//        for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
+//            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
+//            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
+//            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
+//
+//            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
+//            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
+//
+//            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
+//            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
+//
+//            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
+//            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
+//        }
+//    }
+//    prm_pBoardSetModel->_paRectUV = model_paRectUV;
+//    prm_pBoardSetModel->_pattno_max = pattnum-1;
     prm_pBoardSetModel->_dwNumMaterials = 1;
     D3DMATERIAL9* model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pBoardSetModel->_dwNumMaterials];
     for( DWORD i = 0; i < prm_pBoardSetModel->_dwNumMaterials; i++){
@@ -3217,7 +3217,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
 //    float v = 0;
     float dis;
     for (int i = 0; i < model_vertices_num; i++) {
-//        uvflipper.setPtnNo(paInt_InitUvPtnNo[i]);
+//        uvflipper.setActivePtnNo(paInt_InitUvPtnNo[i]);
 //        uvflipper.getUV(u, v);
         model_paVtxBuffer_org[i].x = paD3DVECTOR_Vertices[i].x;
         model_paVtxBuffer_org[i].y = paD3DVECTOR_Vertices[i].y;

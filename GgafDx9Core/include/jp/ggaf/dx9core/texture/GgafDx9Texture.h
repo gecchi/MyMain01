@@ -17,6 +17,10 @@ public:
 
     /** モデル定義の識別名。(50文字まで) */
     char* _texture_name;
+    /** テクスチャの幅(px) */
+    UINT _tex_width;
+    /** テクスチャの高さ(px) */
+    UINT _tex_height;
     D3DXIMAGE_INFO* _pD3DXIMAGE_INFO;
     LPDIRECT3DBASETEXTURE9 _pIDirect3DBaseTexture9;
     /**

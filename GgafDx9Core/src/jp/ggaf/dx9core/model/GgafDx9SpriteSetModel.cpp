@@ -12,10 +12,10 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_model_name) : GgafDx9Mode
     _fSize_SpriteSetModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pattno_uvflip_Max = 0;
+//    _pattno_uvflip_Max = 0;
     _pIDirect3DVertexBuffer9 = NULL;
     _pIDirect3DIndexBuffer9 = NULL;
-    _paRectUV = NULL;
+//    _paRectUV = NULL;
 
     char nm[51];
     strcpy(nm, prm_model_name);
@@ -142,7 +142,7 @@ void GgafDx9SpriteSetModel::release() {
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
-    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
+//    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);

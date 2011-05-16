@@ -19,7 +19,7 @@ void EffectLaserRefraction001::initialize() {
 }
 
 void EffectLaserRefraction001::onActive() {
-    //_pUvFlipper->setPtnNoToTop();
+    //_pUvFlipper->setActivePtnNoToTop();
     //_pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
     setAlpha(0.5);
     _pScaler->setScale(6*1000);

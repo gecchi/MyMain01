@@ -34,6 +34,11 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                          NULL,                      // [in] PALETTEENTRY *pPalette,
                          &pIDirect3DTexture9        // [out] LPDIRECT3DTEXTURE9* ppTexture
                     );
+        D3DSURFACE_DESC d3dsurface_desc;
+        pIDirect3DTexture9->GetLevelDesc(0, &d3dsurface_desc);
+        _tex_width = d3dsurface_desc.Width;
+        _tex_height = d3dsurface_desc.Height;
+
         if (hr != D3D_OK) {
             _TRACE_("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_texture_name);
             //失敗用テクスチャ"GgafDx9IlligalTexture.png"を設定
@@ -55,6 +60,12 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                              &pIDirect3DTexture9        // [out] GgafDx9TextureConnection* *ppTextureCon
                           );
             checkDxException(hr2, D3D_OK, "[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_texture_name);
+
+            D3DSURFACE_DESC d3dsurface_desc;
+            pIDirect3DTexture9->GetLevelDesc(0, &d3dsurface_desc);
+            _tex_width = d3dsurface_desc.Width;
+            _tex_height = d3dsurface_desc.Height;
+
         }
         _pIDirect3DBaseTexture9 = pIDirect3DTexture9;
         Sleep(1); //工場に気を使う。
@@ -77,9 +88,21 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                             &pIDirect3DCubeTexture9        // [out] LPDIRECT3DCUBETEXTURE9 * ppCubeTexture
                     );
         checkDxException(hr, D3D_OK, "[GgafDx9TextureManager::createResource] D3DXCreateCubeTextureFromFileEx。対象="<<prm_texture_name);
+        D3DSURFACE_DESC d3dsurface_desc;
+        pIDirect3DCubeTexture9->GetLevelDesc(0, &d3dsurface_desc);
+        _tex_width = d3dsurface_desc.Width;
+        _tex_height = d3dsurface_desc.Height;
+
         _pIDirect3DBaseTexture9 = pIDirect3DCubeTexture9;
         Sleep(1); //工場に気を使う。
     }
+
+    //    //1pxあたりのuvの大きさを求める
+    //     D3DSURFACE_DESC d3dsurface_desc;
+    //     model_pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
+    //     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
+    //     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
+
     TRACE3(" GgafDx9TextureManager::processCreateResource "<<prm_idstr<<" のテクスチャ生成しました。");
 }
 

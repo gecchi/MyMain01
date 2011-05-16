@@ -12,9 +12,9 @@ GgafDx9BoardModel::GgafDx9BoardModel(char* prm_model_name) :
     _fSize_BoardModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pattno_max = 1;
+//    _pattno_max = 1;
     _pIDirect3DVertexBuffer9 = NULL;
-    _paRectUV = NULL;
+//    _paRectUV = NULL;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel*)
@@ -34,7 +34,10 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int prm
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pBoardEffect->_pID3DXEffect;
     //今回描画のUV
-    GgafDx9RectUV* pRectUV_Active = _paRectUV + (pTargetActor->_pUvFlipper->_pattno_uvflip_now);
+    float u,v;
+    pTargetActor->_pUvFlipper->getUV(u,v);
+
+//    GgafDx9RectUV* pRectUV_Active = _paRectUV + (pTargetActor->_pUvFlipper->_pattno_uvflip_now);
 
     HRESULT hr;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
@@ -48,9 +51,9 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int prm
         hr = pID3DXEffect->SetFloat(pBoardEffect->_h_tex_blink_threshold, _blink_threshold);
         checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_h_tex_blink_threshold) に失敗しました。");
     }
-    hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
+    hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetU, u);
     checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetU) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
+    hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetV, v);
     checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetV) に失敗しました。");
 
 
@@ -121,7 +124,7 @@ void GgafDx9BoardModel::release() {
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
-    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
+//    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     TRACE3("GgafDx9BoardModel::release() " << _model_name << " end");
