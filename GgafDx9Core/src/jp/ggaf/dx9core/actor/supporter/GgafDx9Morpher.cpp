@@ -63,21 +63,20 @@ void GgafDx9Morpher::behave() {
             }
         } else if (_method[i] == LOOP_MORPH_TRIANGLEWAVE) {
             _weight[i] += _velo_weight[i];
-            if (_frame_of_loop_begin[i] + _loop_attack_frames[i] == _pActor->_frame_of_behaving) { //アタック頂点時
-                _weight[i] = _top_weight[i];
-                _velo_weight[i] = (_bottom_weight[i] - _top_weight[i]) / (int)(_loop_spend_frames[i] - _loop_attack_frames[i] - _loop_rest_framess[i]);
+            if (_frame_of_loop_begin[i] + _loop_spend_frames[i] == _pActor->_frame_of_behaving) { //ループ終了時
+                _frame_of_loop_begin[i] = _pActor->_frame_of_behaving;
+                _velo_weight[i] = (_top_weight[i] - _bottom_weight[i]) / (int)(_loop_attack_frames[i]);
                 _halfloop_cnt[i]++;
                 if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
                     _method[i] = NOMORPH;
                 }
-
             } else if (_bottom_weight[i] > _weight[i]) {
                 _weight[i] = _bottom_weight[i];
                 _velo_weight[i] = 0.0f;
 
-            } else if (_frame_of_loop_begin[i] + _loop_spend_frames[i] == _pActor->_frame_of_behaving) { //ループ終了時
-                _frame_of_loop_begin[i] = _pActor->_frame_of_behaving;
-                _velo_weight[i] = (_top_weight[i] - _bottom_weight[i]) / (int)(_loop_attack_frames[i]);
+            } else if (_frame_of_loop_begin[i] + _loop_attack_frames[i] == _pActor->_frame_of_behaving) { //アタック頂点時
+                _weight[i] = _top_weight[i];
+                _velo_weight[i] = (_bottom_weight[i] - _top_weight[i]) / (int)(_loop_spend_frames[i] - _loop_attack_frames[i] - _loop_rest_framess[i]);
                 _halfloop_cnt[i]++;
                 if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
                     _method[i] = NOMORPH;

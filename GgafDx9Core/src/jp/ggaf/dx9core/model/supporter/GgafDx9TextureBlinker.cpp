@@ -70,9 +70,9 @@ void GgafDx9TextureBlinker::behave() {
     } else if (_method == BEAT_BLINK_TRIANGLEWAVE) {
         _power_blink += _velo_power_blink;
         //_TRACE_("_beat_begin_frame="<<_beat_begin_frame<<" _beat_attack_frames="<<_beat_attack_frames<<" _pModel->_blinker_frame="<<_pModel->_blinker_frame<<" | _power_blink="<<_power_blink<<" _velo_power_blink="<<_velo_power_blink<<"");
-        if (_beat_begin_frame + _beat_attack_frames == _pModel->_blinker_frame) { //アタック頂点時
-            _power_blink = _top_power_blink;
-            _velo_power_blink = (_bottom_power_blink - _top_power_blink) / ((int)_beat_spend_frames - (int)_beat_attack_frames - (int)_beat_rest_frames);
+        if (_beat_begin_frame + _beat_spend_frames == _pModel->_blinker_frame) { //ループ終了時
+            _beat_begin_frame = _pModel->_blinker_frame;
+            _velo_power_blink = (_top_power_blink - _bottom_power_blink) / (int)_beat_attack_frames;
             _one_way_cnt++;
             if (_one_way_cnt == _stop_one_way_num) {
                 _method = NOBLINK;
@@ -80,9 +80,9 @@ void GgafDx9TextureBlinker::behave() {
         } else if (_bottom_power_blink > _power_blink) {  //if (_bottom_power_blink >= _power_blink) では次に行かないので駄目ですよ！
             _power_blink = _bottom_power_blink;
             _velo_power_blink = 0;
-        } else if (_beat_begin_frame + _beat_spend_frames == _pModel->_blinker_frame) { //ループ終了時
-            _beat_begin_frame = _pModel->_blinker_frame;
-            _velo_power_blink = (_top_power_blink - _bottom_power_blink) / (int)_beat_attack_frames;
+        } else if (_beat_begin_frame + _beat_attack_frames == _pModel->_blinker_frame) { //アタック頂点時
+            _power_blink = _top_power_blink;
+            _velo_power_blink = (_bottom_power_blink - _top_power_blink) / ((int)_beat_spend_frames - (int)_beat_attack_frames - (int)_beat_rest_frames);
             _one_way_cnt++;
             if (_one_way_cnt == _stop_one_way_num) {
                 _method = NOBLINK;

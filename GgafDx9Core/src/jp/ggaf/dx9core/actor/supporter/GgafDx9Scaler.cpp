@@ -74,19 +74,19 @@ void GgafDx9Scaler::behave() {
         } else if (_method[axis] == BEAT_SCALE_TRIANGLEWAVE) {
             //setScale(axis, _scale[axis] += _velo_scale[axis]);
             _scale[axis] += _velo_scale[axis];
-            if (_beat_begin_frame[axis] + _beat_attack_frames[axis] == _pActor->_frame_of_behaving) { //アタック頂点時
-                _scale[axis] = _top_scale[axis];
-                _velo_scale[axis] = (_bottom_scale[axis] - _top_scale[axis]) / ((int)_beat_spend_frames[axis] - (int)_beat_attack_frames[axis] - (int)_beat_rest_frames[axis]);
+            if (_beat_begin_frame[axis] + _beat_spend_frames[axis] <= _pActor->_frame_of_behaving) { //ループ終了時
+                _beat_begin_frame[axis] = _pActor->_frame_of_behaving;
+                _velo_scale[axis] = (_top_scale[axis] - _bottom_scale[axis]) / (int)_beat_attack_frames[axis];
                 _one_way_cnt[axis]++;
                 if (_one_way_cnt[axis] == _stop_one_way_num[axis]) {
                     _method[axis] = NOSCALE;
                 }
-            } else if (_bottom_scale[axis] > _scale[axis]) {  //if (_bottom_scale[axis] >= _scale[axis]) では次に行かないので駄目ですよ！
+            } else if (_bottom_scale[axis] > _scale[axis]) {  //休憩開始時 if (_bottom_scale[axis] >= _scale[axis]) では次に行かないので駄目ですよ！
                 _scale[axis] = _bottom_scale[axis];
                 _velo_scale[axis] = 0;
-            } else if (_beat_begin_frame[axis] + _beat_spend_frames[axis] == _pActor->_frame_of_behaving) { //ループ終了時
-                _beat_begin_frame[axis] = _pActor->_frame_of_behaving;
-                _velo_scale[axis] = (_top_scale[axis] - _bottom_scale[axis]) / (int)_beat_attack_frames[axis];
+            } else if (_beat_begin_frame[axis] + _beat_attack_frames[axis] <= _pActor->_frame_of_behaving) { //アタック頂点時
+                _scale[axis] = _top_scale[axis];
+                _velo_scale[axis] = (_bottom_scale[axis] - _top_scale[axis]) / ((int)_beat_spend_frames[axis] - (int)_beat_attack_frames[axis] - (int)_beat_rest_frames[axis]);
                 _one_way_cnt[axis]++;
                 if (_one_way_cnt[axis] == _stop_one_way_num[axis]) {
                     _method[axis] = NOSCALE;
