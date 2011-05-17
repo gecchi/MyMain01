@@ -23,13 +23,13 @@ void EffectMyOption::onCreateModel() {
 
 void EffectMyOption::initialize() {
     _pKuroko->setFaceAngVelo(AXIS_X, 5*1000);
-//    _pKuroko->setFaceAngVelo(AXIS_Y, 3*1000);
-//    _pKuroko->setFaceAngVelo(AXIS_Z, 7*1000);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 3*1000);
+    _pKuroko->setFaceAngVelo(AXIS_Z, 1000);
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 1500);
-    _pScaler->beat(AXIS_X, 30, 8, 2, -1);
-    _pScaler->beat(AXIS_Y, 30, 12, 2, -1);
-    _pScaler->beat(AXIS_Z, 30, 16, 2, -1);
+    _pScaler->beat(AXIS_X, 30, 10, 1, -1);
+    _pScaler->beat(AXIS_Y, 30, 15, 1, -1);
+    _pScaler->beat(AXIS_Z, 30, 20, 1, -1);
 
 }
 
