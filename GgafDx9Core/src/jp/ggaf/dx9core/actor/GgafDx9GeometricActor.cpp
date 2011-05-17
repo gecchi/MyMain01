@@ -52,6 +52,10 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
 
 
 void GgafDx9GeometricActor::processSettlementBehavior() {
+    if (_isTransformed) {
+        return;
+    }
+
     _wasCalc_matInvWorldRotMv = false;
 
     if (_pActor_Base) {
@@ -129,44 +133,42 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
     }
 
     //メンバー更新
-    if (_isTransformed == false) {
-        GgafDx9Camera* pCam = P_CAM;
-        //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
+    GgafDx9Camera* pCam = P_CAM;
+    //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
 //        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
 //        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
 //        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-        //視錐台
-        _fDist_VpPlnTop    = pCam->_plnTop.a*_fX +
-                             pCam->_plnTop.b*_fY +
-                             pCam->_plnTop.c*_fZ +
-                             pCam->_plnTop.d;
+    //視錐台
+    _fDist_VpPlnTop    = pCam->_plnTop.a*_fX +
+                         pCam->_plnTop.b*_fY +
+                         pCam->_plnTop.c*_fZ +
+                         pCam->_plnTop.d;
 
-        _fDist_VpPlnBottom = pCam->_plnBottom.a*_fX +
-                             pCam->_plnBottom.b*_fY +
-                             pCam->_plnBottom.c*_fZ +
-                             pCam->_plnBottom.d;
+    _fDist_VpPlnBottom = pCam->_plnBottom.a*_fX +
+                         pCam->_plnBottom.b*_fY +
+                         pCam->_plnBottom.c*_fZ +
+                         pCam->_plnBottom.d;
 
-        _fDist_VpPlnLeft   = pCam->_plnLeft.a*_fX +
-                             pCam->_plnLeft.b*_fY +
-                             pCam->_plnLeft.c*_fZ +
-                             pCam->_plnLeft.d;
+    _fDist_VpPlnLeft   = pCam->_plnLeft.a*_fX +
+                         pCam->_plnLeft.b*_fY +
+                         pCam->_plnLeft.c*_fZ +
+                         pCam->_plnLeft.d;
 
-        _fDist_VpPlnRight  = pCam->_plnRight.a*_fX +
-                             pCam->_plnRight.b*_fY +
-                             pCam->_plnRight.c*_fZ +
-                             pCam->_plnRight.d;
+    _fDist_VpPlnRight  = pCam->_plnRight.a*_fX +
+                         pCam->_plnRight.b*_fY +
+                         pCam->_plnRight.c*_fZ +
+                         pCam->_plnRight.d;
 
-        _fDist_VpPlnFront  = pCam->_plnFront.a*_fX +
-                             pCam->_plnFront.b*_fY +
-                             pCam->_plnFront.c*_fZ +
-                             pCam->_plnFront.d;
+    _fDist_VpPlnFront  = pCam->_plnFront.a*_fX +
+                         pCam->_plnFront.b*_fY +
+                         pCam->_plnFront.c*_fZ +
+                         pCam->_plnFront.d;
 
-        _fDist_VpPlnBack   = pCam->_plnBack.a*_fX +
-                             pCam->_plnBack.b*_fY +
-                             pCam->_plnBack.c*_fZ +
-                             pCam->_plnBack.d;
-        _offscreenkind = -1;
-    }
+    _fDist_VpPlnBack   = pCam->_plnBack.a*_fX +
+                         pCam->_plnBack.b*_fY +
+                         pCam->_plnBack.c*_fZ +
+                         pCam->_plnBack.d;
+    _offscreenkind = -1;
 
 }
 
@@ -237,7 +239,7 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 
 int GgafDx9GeometricActor::isOutOfView() {
     //_TRACE_("name="<<getName()<<" _radius_bounding_sphere="<<_radius_bounding_sphere);
-    float bound = _radius_bounding_sphere * _rate_BoundingSphereRadius;
+    float bound = _radius_bounding_sphere * _rate_BoundingSphereRadius * 0.9;//0.9はやや小さくして、画面境界のチラツキを抑える
     if (_offscreenkind == -1) {
         if (_fDist_VpPlnTop <= bound) {
             if (_fDist_VpPlnBottom <= bound) {

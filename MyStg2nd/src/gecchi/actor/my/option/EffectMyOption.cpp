@@ -27,7 +27,10 @@ void EffectMyOption::initialize() {
 //    _pKuroko->setFaceAngVelo(AXIS_Z, 7*1000);
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 1500);
-    _pScaler->beat(30,8,2,-1);
+    _pScaler->beat(AXIS_X, 30, 8, 2, -1);
+    _pScaler->beat(AXIS_Y, 30, 12, 2, -1);
+    _pScaler->beat(AXIS_Z, 30, 16, 2, -1);
+
 }
 
 void EffectMyOption::onReset() {

@@ -141,7 +141,8 @@ public:
         _x = prm_pActor->_x;
     }
 
-
+    virtual void processSettlementBehavior() {
+    }
 
     virtual ~GgafDx9BoardSetActor(); //デストラクタ
 
