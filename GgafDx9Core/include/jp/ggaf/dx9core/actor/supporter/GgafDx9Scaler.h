@@ -46,7 +46,10 @@ public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     /** 各軸のスケーリングに費やすフレーム数 */
     frame _beat_spend_frames[3];
     /** 各軸のスケーリングを開始したフレーム */
-    frame _beat_begin_frame[3];
+    frame _beat_begin_frames[3];
+    frame _beat_down_frames[3];
+    frame _beat_frame_count[3];
+    int _beat_progres[3];
     /** 各軸のループカウント（2で拡大縮小ワンセット、1ならば拡大or縮小の片道） */
     int _one_way_cnt[3];
     /** 各軸のストップする予定のループカウント */

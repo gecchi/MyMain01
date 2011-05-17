@@ -15,7 +15,7 @@ GgafDx9TextureBlinker::GgafDx9TextureBlinker(GgafDx9Model* prm_pModel) :
     _one_way_cnt = 0;
     _beat_attack_frames = 0;
     _beat_rest_frames = 0;
-    _beat_begin_frame = 0;
+    _beat_begin_frames = 0;
     _beat_spend_frames = 0;
     _stop_one_way_num = -1;
     _method = NOBLINK;
@@ -69,9 +69,9 @@ void GgafDx9TextureBlinker::behave() {
 
     } else if (_method == BEAT_BLINK_TRIANGLEWAVE) {
         _power_blink += _velo_power_blink;
-        //_TRACE_("_beat_begin_frame="<<_beat_begin_frame<<" _beat_attack_frames="<<_beat_attack_frames<<" _pModel->_blinker_frame="<<_pModel->_blinker_frame<<" | _power_blink="<<_power_blink<<" _velo_power_blink="<<_velo_power_blink<<"");
-        if (_beat_begin_frame + _beat_spend_frames == _pModel->_blinker_frame) { //ループ終了時
-            _beat_begin_frame = _pModel->_blinker_frame;
+        //_TRACE_("_beat_begin_frames="<<_beat_begin_frames<<" _beat_attack_frames="<<_beat_attack_frames<<" _pModel->_blinker_frame="<<_pModel->_blinker_frame<<" | _power_blink="<<_power_blink<<" _velo_power_blink="<<_velo_power_blink<<"");
+        if (_beat_begin_frames + _beat_spend_frames == _pModel->_blinker_frame) { //ループ終了時
+            _beat_begin_frames = _pModel->_blinker_frame;
             _velo_power_blink = (_top_power_blink - _bottom_power_blink) / (int)_beat_attack_frames;
             _one_way_cnt++;
             if (_one_way_cnt == _stop_one_way_num) {
@@ -80,7 +80,7 @@ void GgafDx9TextureBlinker::behave() {
         } else if (_bottom_power_blink > _power_blink) {  //if (_bottom_power_blink >= _power_blink) では次に行かないので駄目ですよ！
             _power_blink = _bottom_power_blink;
             _velo_power_blink = 0;
-        } else if (_beat_begin_frame + _beat_attack_frames == _pModel->_blinker_frame) { //アタック頂点時
+        } else if (_beat_begin_frames + _beat_attack_frames == _pModel->_blinker_frame) { //アタック頂点時
             _power_blink = _top_power_blink;
             _velo_power_blink = (_bottom_power_blink - _top_power_blink) / ((int)_beat_spend_frames - (int)_beat_attack_frames - (int)_beat_rest_frames);
             _one_way_cnt++;
@@ -151,7 +151,7 @@ void GgafDx9TextureBlinker::beat(frame prm_beat_spend_frames, frame prm_attack_f
 
     _beat_attack_frames = prm_attack_frames;
     _beat_rest_frames = prm_rest_frames;
-    _beat_begin_frame = _pModel->_blinker_frame;
+    _beat_begin_frames = _pModel->_blinker_frame;
     _beat_spend_frames = prm_beat_spend_frames;
 
     _velo_power_blink = (_top_power_blink - _power_blink) / (int)prm_attack_frames;

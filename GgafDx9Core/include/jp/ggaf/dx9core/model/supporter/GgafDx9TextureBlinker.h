@@ -39,7 +39,7 @@ public:
     /** 点滅に費やすフレーム数 */
     frame _beat_spend_frames;
     /** 点滅を開始したフレーム */
-    frame _beat_begin_frame;
+    frame _beat_begin_frames;
     /** ループカウント（2で点滅ワンセット、1ならば点灯o消灯の片道） */
     int _one_way_cnt;
     /** ストップする予定のループカウント */
