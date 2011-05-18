@@ -71,12 +71,12 @@ void Stage02Controller::processBehavior() {
 	}
     // gen02 end
 
-    if (_pPrg->wasChangedTo(STAGE02CONTROLLER_SCENE_PROG_INIT)) {
+    if (_pPrg->isJustChangedTo(STAGE02CONTROLLER_SCENE_PROG_INIT)) {
         _TRACE_("Stage02Controller::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
 
     }
 
-    if (_pPrg->wasChangedTo(STAGE02CONTROLLER_SCENE_PROG_STG02_01_BEGIN)) {
+    if (_pPrg->isJustChangedTo(STAGE02CONTROLLER_SCENE_PROG_STG02_01_BEGIN)) {
         //STG02_01開始処理
 
         _pPrg->change(STAGE02CONTROLLER_SCENE_PROG_STG02_01_PLAYING);
@@ -85,7 +85,7 @@ void Stage02Controller::processBehavior() {
 
     }
 
-//    if (_pPrg->wasChangedTo(STAGE02CONTROLLER_SCENE_PROG_STG02_02_BEGIN)) {
+//    if (_pPrg->isJustChangedTo(STAGE02CONTROLLER_SCENE_PROG_STG02_02_BEGIN)) {
 //        //STG02_02開始処理
 //        _pBgmPerformer->fadeout_stop(0, 420);        //BGM０番フェードアウト
 //        _pBgmPerformer->play(1, GGAF_MIN_VOLUME, true);//BGM１番フェードイン
@@ -96,7 +96,7 @@ void Stage02Controller::processBehavior() {
 //
 //    }
 //
-//    if (_pPrg->wasChangedTo(STAGE02CONTROLLER_SCENE_PROG_STG02_03_BEGIN)) {
+//    if (_pPrg->isJustChangedTo(STAGE02CONTROLLER_SCENE_PROG_STG02_03_BEGIN)) {
 //        //STG02_03開始処理
 //
 //        _pPrg->change(STAGE02CONTROLLER_SCENE_PROG_STG02_03_PLAYING);
@@ -105,7 +105,7 @@ void Stage02Controller::processBehavior() {
 //
 //    }
 
-    if (_pPrg->wasChangedTo(STAGE02CONTROLLER_SCENE_PROG_STG02_CLIMAX_BEGIN)) {
+    if (_pPrg->isJustChangedTo(STAGE02CONTROLLER_SCENE_PROG_STG02_CLIMAX_BEGIN)) {
         //STG02_Climax開始処理
         _pBgmPerformer->fadeout_stop(1, 420);  //BGM１番フェードアウト
         _pBgmPerformer->play(2, GGAF_MIN_VOLUME, true); //BGM２番フェードイン
@@ -116,7 +116,7 @@ void Stage02Controller::processBehavior() {
 
     }
 
-    if (_pPrg->wasChangedTo(STAGE02CONTROLLER_SCENE_PROG_FAINAL)) {
+    if (_pPrg->isJustChangedTo(STAGE02CONTROLLER_SCENE_PROG_FAINAL)) {
         //STG02_Climax終焉の処理
         _TRACE_("STG02_Climax終焉のSTAGE02CONTROLLER_SCENE_PROG_FAINALきた");
         _pBgmPerformer->fadeout_stop(2, 420); //BGM１番フェードアウト

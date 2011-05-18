@@ -14,10 +14,10 @@ GgafDx9Morpher::GgafDx9Morpher(GgafDx9MorphMeshActor* prm_pActor) :
         _top_weight[i] = 1.0f;
         _bottom_weight[i] = 0.0f;
         _halfloop_cnt[i] = 0;
-        _loop_attack_frames[i] = 0;
-        _loop_rest_framess[i] = 0;
-        _frame_of_loop_begin[i] = 0;
-        _loop_spend_frames[i] = 0;
+        _beat_attack_frames[i] = 0;
+        _beat_rest_framess[i] = 0;
+        _frame_of_beat_begin[i] = 0;
+        _beat_spend_frames[i] = 0;
         _stop_halfloop_num[i] = -1;
         _method[i] = NOMORPH;
     }
@@ -63,9 +63,9 @@ void GgafDx9Morpher::behave() {
             }
         } else if (_method[i] == LOOP_MORPH_TRIANGLEWAVE) {
             _weight[i] += _velo_weight[i];
-            if (_frame_of_loop_begin[i] + _loop_spend_frames[i] == _pActor->_frame_of_behaving) { //ループ終了時
-                _frame_of_loop_begin[i] = _pActor->_frame_of_behaving;
-                _velo_weight[i] = (_top_weight[i] - _bottom_weight[i]) / (int)(_loop_attack_frames[i]);
+            if (_frame_of_beat_begin[i] + _beat_spend_frames[i] == _pActor->_frame_of_behaving) { //ループ終了時
+                _frame_of_beat_begin[i] = _pActor->_frame_of_behaving;
+                _velo_weight[i] = (_top_weight[i] - _bottom_weight[i]) / (int)(_beat_attack_frames[i]);
                 _halfloop_cnt[i]++;
                 if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
                     _method[i] = NOMORPH;
@@ -74,9 +74,9 @@ void GgafDx9Morpher::behave() {
                 _weight[i] = _bottom_weight[i];
                 _velo_weight[i] = 0.0f;
 
-            } else if (_frame_of_loop_begin[i] + _loop_attack_frames[i] == _pActor->_frame_of_behaving) { //アタック頂点時
+            } else if (_frame_of_beat_begin[i] + _beat_attack_frames[i] == _pActor->_frame_of_behaving) { //アタック頂点時
                 _weight[i] = _top_weight[i];
-                _velo_weight[i] = (_bottom_weight[i] - _top_weight[i]) / (int)(_loop_spend_frames[i] - _loop_attack_frames[i] - _loop_rest_framess[i]);
+                _velo_weight[i] = (_bottom_weight[i] - _top_weight[i]) / (int)(_beat_spend_frames[i] - _beat_attack_frames[i] - _beat_rest_framess[i]);
                 _halfloop_cnt[i]++;
                 if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
                     _method[i] = NOMORPH;
@@ -107,22 +107,22 @@ void GgafDx9Morpher::intoTargetLinerStep(int prm_target_mesh, float prm_target_w
     _velo_weight[prm_target_mesh] = sgn(prm_target_weight - _weight[prm_target_mesh])*prm_velo_weight;
 }
 
-void GgafDx9Morpher::loopLiner(int prm_target_mesh, frame prm_loop_spend_frames, float prm_loop_num) {
+void GgafDx9Morpher::loopLiner(int prm_target_mesh, frame prm_beat_spend_frames, float prm_beat_num) {
     _method[prm_target_mesh] = LOOP_MORPH_LINER;
     _halfloop_cnt[prm_target_mesh] = 0;
-    _stop_halfloop_num[prm_target_mesh] = (int)(prm_loop_num*2.0f);
-    _velo_weight[prm_target_mesh] = 1.0f / ((int)prm_loop_spend_frames / 2);
+    _stop_halfloop_num[prm_target_mesh] = (int)(prm_beat_num*2.0f);
+    _velo_weight[prm_target_mesh] = 1.0f / ((int)prm_beat_spend_frames / 2);
 }
 
-void GgafDx9Morpher::loopTriangleWave(int prm_target_mesh, frame prm_loop_spend_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_loop_num) {
+void GgafDx9Morpher::beat(int prm_target_mesh, frame prm_beat_spend_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_beat_num) {
     _method[prm_target_mesh] = LOOP_MORPH_TRIANGLEWAVE;
     _halfloop_cnt[prm_target_mesh] = 0;
-    _stop_halfloop_num[prm_target_mesh] = (int)(prm_loop_num*2.0f);
+    _stop_halfloop_num[prm_target_mesh] = (int)(prm_beat_num*2.0f);
 
-    _loop_attack_frames[prm_target_mesh] = prm_attack_frames;
-    _loop_rest_framess[prm_target_mesh] = prm_rest_frames;
-    _frame_of_loop_begin[prm_target_mesh] = _pActor->_frame_of_behaving;
-    _loop_spend_frames[prm_target_mesh] = prm_loop_spend_frames;
+    _beat_attack_frames[prm_target_mesh] = prm_attack_frames;
+    _beat_rest_framess[prm_target_mesh] = prm_rest_frames;
+    _frame_of_beat_begin[prm_target_mesh] = _pActor->_frame_of_behaving;
+    _beat_spend_frames[prm_target_mesh] = prm_beat_spend_frames;
 
     _velo_weight[prm_target_mesh] = (_top_weight[prm_target_mesh] - _weight[prm_target_mesh]) / (int)prm_attack_frames;
 }

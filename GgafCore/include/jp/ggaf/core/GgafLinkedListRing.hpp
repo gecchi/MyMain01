@@ -7,7 +7,7 @@ namespace GgafCore {
  * <B>【解説】</B><BR>
  * 連結リストの先頭と末尾が繋がっているということで、『環状』と表現しています。<BR>
  *
- * 例えば、次のようなコードを描くと
+ * 例えば、次のようなコードを書くと
  * <pre><code>
  * Object* A = new Object();
  * Object* B = new Object();
@@ -36,12 +36,16 @@ namespace GgafCore {
  * 環状になっているため終端が無く、永遠に next 或いは prev が可能です。<BR>
  * 終端が無いですが、内部フラグによって先頭要素、末尾要素は管理されています。<BR>
  * 上図では、A を先頭要素、E を末尾要素、として内部管理されており、通常のリストのような使い方も可能です。<BR>
+ * [注意]<BR>
+ * 本クラスの説明で、「要素」という表現は、実はインナークラスの Elemオブジェクトへのポインタの事を指し、<BR>
+ * 「要素の値」という表現は各「要素」の _pValue を指します。<BR>
+ * 「要素の値」の型は T* です。上の例では Object* 型を指します。Object の値自体ではありません。
  * <BR>
  * @version 1.00
  * @since 2008/12/19
  * @author Masatoshi Tsuge
  */
-template<class T>
+template<class T>  //T:管理する要素のポインタの型
 class GgafLinkedListRing : public GgafObject {
 
 public:
@@ -199,7 +203,7 @@ public:
      * --------------------------
      * </pre>
      * @param n インデックス
-     * @return カレント要素からｎ番目の要素
+     * @return カレント要素からｎ番目の要素の値
      */
     virtual T* getNext(int n);
 
@@ -248,12 +252,9 @@ public:
      * --------------------------
      * </pre>
      * @param n インデックス
-     * @return カレント要素からｎ番目前の要素
+     * @return カレント要素からｎ番目前の要素の値
      */
     virtual T* getPrev(int n);
-
-
-
 
     /**
      * カレント要素を先頭に戻す。 .
@@ -445,9 +446,9 @@ public:
      * (C)⇔A!⇔B⇔C⇔(A!)
      * --------------------------
      * </pre>
-     * @param prm_pNew インスタンス生成済み要素のポインタ
-     * @param prm_is_delete_value true  : リストのインスタンスdelete時に、引数の追加要素についてもdeleteを実行する。
-     *                            false : リストのインスタンスdelete時に、引数の追加要素について何も行わない。
+     * @param prm_pNew 新しい要素の値
+     * @param prm_is_delete_value true  : リストのインスタンスdelete時に、引数の追加要素値についてもdeleteを発行する。
+     *                            false : リストのインスタンスdelete時に、引数の追加要素値について何も行わない。
      */
     virtual void addLast(T* prm_pNew, bool prm_is_delete_value = true);
 
@@ -483,9 +484,9 @@ public:
      * (A!)⇔C⇔B⇔A!⇔(C)
      * --------------------------
      * </pre>
-     * @param prm_pNew インスタンス生成済み要素のポインタ
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素についてもdeleteを実行する。
-     *                            false : リストのdelete時に、引数の追加要素について何も行わない。
+     * @param prm_pNew 新しい要素の値
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。
+     *                            false : リストのdelete時に、引数の追加要素値について何も行わない。
      */
     virtual void addFirst(T* prm_pNew, bool prm_is_delete_value = true);
 
@@ -534,8 +535,8 @@ public:
      * --------------------------
      * </pre>
      * @param prm_pNew インスタンス生成済み要素のポインタ
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素についてもdeleteを実行する。
-     *                            false : リストのdelete時に、引数の追加要素について何も行わない。
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。
+     *                            false : リストのdelete時に、引数の追加要素値について何も行わない。
      */
     virtual void addNext(T* prm_pNew, bool prm_is_delete_value = true);
 
@@ -584,8 +585,8 @@ public:
      * (E)⇔X⇔A!⇔B⇔C⇔D⇔E⇔(X)
      * --------------------------
      * </pre>
-     * @param prm_pNew インスタンス生成済み要素のポインタ
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素についてもdeleteを実行する。
+     * @param prm_pNew 新しい要素の値
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。
      *                            false : リストのdelete時に、引数の追加要素について何も行わない。
      */
     virtual void addPrev(T* prm_pNew, bool prm_is_delete_value = true);

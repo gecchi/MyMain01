@@ -60,7 +60,7 @@ void GameTitleScene::initialize() {
 
 void GameTitleScene::processBehavior() {
 
-    switch (_pPrg->getFromChange()) {
+    switch (_pPrg->getChangeFrom()) {
         default: {
             break;
         }

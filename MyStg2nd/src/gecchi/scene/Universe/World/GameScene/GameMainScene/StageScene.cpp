@@ -16,24 +16,24 @@ void StageScene::initialize() {
     _pPrg->change(STAGE_SCENE_PROG_INIT);
 }
 void StageScene::processBehavior() {
-    if (_pPrg->wasChangedTo(STAGE_SCENE_PROG_INIT)) {
+    if (_pPrg->isJustChangedTo(STAGE_SCENE_PROG_INIT)) {
     } else if (_pPrg->get() == STAGE_SCENE_PROG_INIT) {
     }
 
-    if (_pPrg->wasChangedTo(STAGE_SCENE_PROG_BEGIN)) {
+    if (_pPrg->isJustChangedTo(STAGE_SCENE_PROG_BEGIN)) {
         _frame_Begin = 0;
     } else if (_pPrg->get() == STAGE_SCENE_PROG_BEGIN) {
         //活動ループ
         _frame_Begin++;
     }
 
-    if (_pPrg->wasChangedTo(STAGE_SCENE_PROG_PLAYING)) {
+    if (_pPrg->isJustChangedTo(STAGE_SCENE_PROG_PLAYING)) {
         _frame_Play = 0;
     } else if (_pPrg->get() == STAGE_SCENE_PROG_PLAYING) {
         _frame_Play++;
     }
 
-    if (_pPrg->wasChangedTo(STAGE_SCENE_PROG_END)) {
+    if (_pPrg->isJustChangedTo(STAGE_SCENE_PROG_END)) {
         _frame_End = 0;
         throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, this); //次ステージ準備へ
     } else if (_pPrg->get() == STAGE_SCENE_PROG_END) {

@@ -39,23 +39,25 @@ public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     int _velo_scale[3];
     /** 各軸の毎フレームのスケールの増分の増分 */
     int _acce_scale[3];
-    /** 各軸の三角波の波形でスケーリングのアタックフレーム */
-    frame _beat_attack_frames[3];
-    /** 各軸の三角波の波形でスケーリングのレストフレーム */
-    frame _beat_rest_frames[3];
-    /** 各軸のスケーリングに費やすフレーム数 */
-    frame _beat_spend_frames[3];
-    /** 各軸のスケーリングを開始したフレーム */
-    frame _beat_begin_frames[3];
-    frame _beat_down_frames[3];
-    frame _beat_frame_count[3];
-    int _beat_progres[3];
     /** 各軸のループカウント（2で拡大縮小ワンセット、1ならば拡大or縮小の片道） */
     int _one_way_cnt[3];
     /** 各軸のストップする予定のループカウント */
     int _stop_one_way_num[3];
     /** 各軸のスケーリング方法 */
     GgafDx9ScaleMethod _method[3];
+
+    /** ビート時、各軸の三角波の波形でスケーリングのアタックフレーム数 */
+    frame _beat_attack_frames[3];
+    /** ビート時、各軸の三角波の波形でスケーリングのレストフレーム数 */
+    frame _beat_rest_frames[3];
+    /** ビート時、各軸のスケーリングに費やすフレーム数 */
+    frame _beat_spend_frames[3];
+    /** ビート時、各軸のアタックから下限までのフレーム数 */
+    frame _beat_down_frames[3];
+    /** ビート時、内部カウンター */
+    frame _beat_frame_count[3];
+    /** ビート時、内部進捗番号 */
+    int _beat_progres[3];
 
 public:
     /**

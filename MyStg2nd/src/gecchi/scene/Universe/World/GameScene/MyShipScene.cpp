@@ -59,7 +59,7 @@ void MyShipScene::onActive() {
 
 void MyShipScene::processBehavior() {
 
-    switch (_pPrg->getFromChange()) {
+    switch (_pPrg->getChangeFrom()) {
         case MYSHIPSCENE_SCENE_PROG_BEGIN: {
                 P_UNIVERSE->undoCameraWork();
             break;

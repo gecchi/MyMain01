@@ -23,7 +23,7 @@ void GameOverScene::initialize() {
 
 void GameOverScene::processBehavior() {
 
-    switch (_pPrg->getFromChange()) {
+    switch (_pPrg->getChangeFrom()) {
         case GAMEOVER_SCENE_PROG_DISP: {
             fadeoutScene(FADE_FRAME);
             inactivateDelay(FADE_FRAME);

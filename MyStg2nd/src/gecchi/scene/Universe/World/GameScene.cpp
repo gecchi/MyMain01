@@ -120,7 +120,7 @@ void GameScene::processBehavior() {
     }
 #endif
 
-    switch (_pPrg->getFromChange()) {
+    switch (_pPrg->getChangeFrom()) {
         case GAME_SCENE_PROG_MAIN: {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);  //Œ³‚É–ß‚·

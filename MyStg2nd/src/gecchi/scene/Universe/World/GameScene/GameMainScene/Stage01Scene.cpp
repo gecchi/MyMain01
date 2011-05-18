@@ -49,7 +49,7 @@ void Stage01Scene::processBehavior() {
         }
     }
 
-    if (_pPrg->wasChangedTo(STAGE_SCENE_PROG_END)) {
+    if (_pPrg->isJustChangedTo(STAGE_SCENE_PROG_END)) {
         _TRACE_("Stage01Scene::processBehavior()  STAGE_SCENE_PROG_END‚É‚È‚è‚Ü‚·‚½I");
         _pMessage->activateImmediately();
         _pMessage->update(300, 300, "SCENE 01 CLEAR!!");

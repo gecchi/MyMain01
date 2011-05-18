@@ -106,7 +106,7 @@ void EnemyAstraea::processBehavior() {
 
     /////////////モーフテスト(DefaultMorphMeshActor継承要)////////////////
 //    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-//        _pMorpher->loopTriangleWave(1, 30, 3, 22);
+//        _pMorpher->beat(1, 30, 3, 22);
 //    } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
 //        _pMorpher->stopImmediately(1);
 //    }
@@ -116,12 +116,12 @@ void EnemyAstraea::processBehavior() {
 //        _pMorpher->intoTargetAcceStep(2, 0, 0, -0.004f);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-//        _pMorpher->loopTriangleWave(3, 20, 13, 2);
+//        _pMorpher->beat(3, 20, 13, 2);
 //    } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
 //        _pMorpher->stopImmediately(3);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-//        _pMorpher->loopTriangleWave(4, 60, 3, 20);
+//        _pMorpher->beat(4, 60, 3, 20);
 //    } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
 //        _pMorpher->stopImmediately(4);
 //    }

@@ -24,7 +24,7 @@ void TitleBoard::processBehavior() {
 //    }
 //
 //    //タイトル表示アクション TITLEBOARD_PROG_ENTRANCE 時の処理
-//    if (_pPrg->wasChangedTo(TITLEBOARD_PROG_ENTRANCE)) {
+//    if (_pPrg->isJustChangedTo(TITLEBOARD_PROG_ENTRANCE)) {
 //        locate(200, 1000);
 //    }
 //    if (_pPrg->get() == TITLEBOARD_PROG_ENTRANCE) {
@@ -33,16 +33,16 @@ void TitleBoard::processBehavior() {
 //            _pPrg->change(TITLEBOARD_PROG_DISP);
 //        }
 //    }
-//    if (_pPrg->wasChangedFrom(TITLEBOARD_PROG_ENTRANCE)) {
+//    if (_pPrg->isJustChangedFrom(TITLEBOARD_PROG_ENTRANCE)) {
 //    }
 //
 //    //タイトル表示静止 TITLEBOARD_PROG_DISP 時の処理
-//    if (_pPrg->wasChangedTo(TITLEBOARD_PROG_DISP)) {
+//    if (_pPrg->isJustChangedTo(TITLEBOARD_PROG_DISP)) {
 //        locate(200, 150);
 //    }
 //    if (_pPrg->get() == TITLEBOARD_PROG_DISP) {
 //    }
-//    if (_pPrg->wasChangedFrom(TITLEBOARD_PROG_DISP)) {
+//    if (_pPrg->isJustChangedFrom(TITLEBOARD_PROG_DISP)) {
 //    }
 
 
