@@ -172,7 +172,7 @@ public:
         setBoundingSphereRadiusRate(prm_rate);
     }
 
-    virtual void processSettlementBehavior() {
+    virtual void processSettlementBehavior() override {
     }
 
     virtual ~GgafDx9BoardActor(); //デストラクタ
