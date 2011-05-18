@@ -239,7 +239,7 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 
 int GgafDx9GeometricActor::isOutOfView() {
     //_TRACE_("name="<<getName()<<" _radius_bounding_sphere="<<_radius_bounding_sphere);
-    float bound = _radius_bounding_sphere * _rate_BoundingSphereRadius * 0.9;//0.9‚Í‚â‚â¬‚³‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ð—}‚¦‚é
+    float bound = _radius_bounding_sphere * _rate_BoundingSphereRadius * 1.1;//1.1‚Í‚â‚â‹«ŠE‹…‚ð‘å‚«‚­‚µ‚ÄA‰æ–Ê‹«ŠE‚Ìƒ`ƒ‰ƒcƒL‚ð—}‚¦‚é
     if (_offscreenkind == -1) {
         if (_fDist_VpPlnTop <= bound) {
             if (_fDist_VpPlnBottom <= bound) {
