@@ -98,15 +98,15 @@ namespace {
     //! 再生中のスレッドを停止
     void PCMPlayer::terminateThread() {
         if ( threadHandle_ != 0 ) {
-			isTerminate_ = true;
+            isTerminate_ = true;
             bool end = false;
-			int wait = 0;
+            int wait = 0;
             while( !end ) {
-				if (wait > 10*100) {
-					//1秒待っても駄目な場合は警告を出して強制終了
-					_TRACE_("＜警告＞ PCMPlayer::terminateThread() 失敗しました。原因不明。頻発する場合は調査が必要！！");
+                if (wait > 10*100) {
+                    //1秒待っても駄目な場合は警告を出して強制終了
+                    _TRACE_("＜警告＞ PCMPlayer::terminateThread() 失敗しました。原因不明。頻発する場合は調査が必要！！");
                    break;
-				}
+                }
                 DWORD flag = WaitForSingleObject( (HANDLE)(__int64)threadHandle_, 10 );
                 switch( flag ) {
                 case WAIT_OBJECT_0:
@@ -114,8 +114,8 @@ namespace {
                     end = true;
                     break;
                 case WAIT_TIMEOUT:
-					wait++;
-					isTerminate_ = true;
+                    wait++;
+                    isTerminate_ = true;
                     // まだ終了していないので待機
                     break;
                 case WAIT_FAILED:
@@ -125,11 +125,11 @@ namespace {
                 }
                 //Sleep(1);
             }
-	        isTerminate_ = false;
-	        threadHandle_ = 0;
-		} else {
-			_TRACE_("PCMPlayer::terminateThread() スレッドはありません。多分。this="<<this<<"/isTerminate_="<<isTerminate_);
-		}
+            isTerminate_ = false;
+            threadHandle_ = 0;
+        } else {
+            _TRACE_("PCMPlayer::terminateThread() スレッドはありません。多分。this="<<this<<"/isTerminate_="<<isTerminate_);
+        }
     }
 
     //! デバイス設定
@@ -203,7 +203,7 @@ namespace {
                                        //これは DSBLOCK_ENTIREBUFFER （全体ロック)が
                                        //仕組上特定のタイミングで失敗することは避けれないと考えたため。
                                        //TODO:はたしてこんな方法でいいのだろうか。
-                                       //TODO:稀に落ちるのはなぜか？。サンドバッファのロックについて勉強不足のため納得していない。
+                                       //TODO:極極稀に落ちるのはなぜか？。環境依存なのか？完全に納得していない。
 
             void* AP1 = 0, *AP2 = 0;
             DWORD AB1 = 0, AB2  = 0;

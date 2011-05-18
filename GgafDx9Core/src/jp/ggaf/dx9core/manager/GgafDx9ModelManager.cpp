@@ -1471,7 +1471,6 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     //【restoreD3DXMeshModel再構築（＝初期化）処理概要】
     //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
     //2)GgafDx9D3DXMeshModelのメンバにセット
-    //TODO:GgafDx9D3DXMeshModelはもう必要無いのかもしれない。
 
     //Xファイルのロードして必要な内容をGgafDx9D3DXMeshModelメンバに設定しインスタンスとして完成させたい
     LPD3DXMESH pID3DXMesh; //メッシュ(ID3DXMeshインターフェイスへのポインタ）
@@ -1576,7 +1575,6 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
     //【restoreD3DXAniMeshModel再構築（＝初期化）処理概要】
     //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
     //2)GgafDx9D3DXAniMeshModelのメンバにセット
-    //TODO:GgafDx9D3DXAniMeshModelはもう必要無いのかもしれない。
     //Xファイルのロードして必要な内容をGgafDx9D3DXAniMeshModelメンバに設定しインスタンスとして完成させたい
     LPD3DXMESH pID3DXAniMesh; //メッシュ(ID3DXAniMeshインターフェイスへのポインタ）
     D3DMATERIAL9* model_paD3DMaterial9 = NULL; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
