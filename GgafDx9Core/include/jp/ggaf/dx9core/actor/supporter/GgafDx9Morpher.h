@@ -9,6 +9,7 @@ namespace GgafDx9Core {
  * 重み _weight[] <BR>
  * を簡単に操作するために設計。<BR>
  * 尚 _weight[] は、[0]は未使用、[1]～[n]がモーフターゲット1～nの重み <BR>
+ * TODO:GgafDx9Scaler,GgafDx9Morpher,GgafDx9TextureBlinker を共通化する。
  * @version 1.00
  * @since 2009/05/11
  * @author Masatoshi Tsuge
@@ -44,8 +45,13 @@ public:
     /** 三角波ループ重みのアタックまでのフレーム */
     frame _beat_attack_frames[MAX_MORPH_TARGET+1];
     /** 三角波ループ重みの休息フレーム幅 */
-    frame _beat_rest_framess[MAX_MORPH_TARGET+1];
-    /** １ループを往復と考えた場合の片道ループ数カウンタ(１ループで２増える) */
+    frame _beat_rest_frames[MAX_MORPH_TARGET+1];
+    /** ビート時、各軸のアタックから下限までのフレーム数 */
+    frame _beat_down_frames[MAX_MORPH_TARGET+1];
+    /** ビート時、内部カウンター */
+    frame _beat_frame_count[MAX_MORPH_TARGET+1];
+    /** ビート時、内部進捗番号 */
+    int _beat_progres[MAX_MORPH_TARGET+1];
 
     /**
      * コンストラクタ<BR>

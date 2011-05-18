@@ -244,13 +244,17 @@ void GgafDx9Scaler::beat(int prm_axis, frame prm_beat_spend_frames, frame prm_at
     _beat_spend_frames[prm_axis] = prm_beat_spend_frames;
     _beat_down_frames[prm_axis] = _beat_spend_frames[prm_axis] - _beat_attack_frames[prm_axis] - _beat_rest_frames[prm_axis];
     _beat_frame_count[prm_axis] = 0;
-    _beat_progres[prm_axis] = 0;
-    //最初のアタックまでのvelo
-    _velo_scale[prm_axis] = (_top_scale[prm_axis] - _scale[prm_axis]) / int(_beat_attack_frames[prm_axis]);
-    if (_velo_scale[prm_axis] == 0) {
-        _velo_scale[prm_axis] = _top_scale[prm_axis] - _scale[prm_axis];
-    }
 
+    //最初のアタックまでのvelo
+    if (_beat_attack_frames[prm_axis] > 0) {
+        _velo_scale[prm_axis] = (_top_scale[prm_axis] - _scale[prm_axis]) / int(_beat_attack_frames[prm_axis]);
+        _beat_progres[prm_axis] = 0;
+    } else { //アタックまでが無いの場合
+        _scale[prm_axis] = _top_scale[prm_axis];
+        _velo_scale[prm_axis] = (_bottom_scale[prm_axis] - _top_scale[prm_axis]) / int(_beat_down_frames[prm_axis]);
+        _one_way_cnt[prm_axis]++; //半ループカウント＋１
+        _beat_progres[prm_axis] = 1;
+    }
 }
 
 void GgafDx9Scaler::stopImmediately() {

@@ -15,7 +15,7 @@ GgafDx9Morpher::GgafDx9Morpher(GgafDx9MorphMeshActor* prm_pActor) :
         _bottom_weight[i] = 0.0f;
         _halfloop_cnt[i] = 0;
         _beat_attack_frames[i] = 0;
-        _beat_rest_framess[i] = 0;
+        _beat_rest_frames[i] = 0;
         _frame_of_beat_begin[i] = 0;
         _beat_spend_frames[i] = 0;
         _stop_halfloop_num[i] = -1;
@@ -62,26 +62,58 @@ void GgafDx9Morpher::behave() {
                 }
             }
         } else if (_method[i] == LOOP_MORPH_TRIANGLEWAVE) {
-            _weight[i] += _velo_weight[i];
-            if (_frame_of_beat_begin[i] + _beat_spend_frames[i] == _pActor->_frame_of_behaving) { //ループ終了時
-                _frame_of_beat_begin[i] = _pActor->_frame_of_behaving;
-                _velo_weight[i] = (_top_weight[i] - _bottom_weight[i]) / (int)(_beat_attack_frames[i]);
-                _halfloop_cnt[i]++;
-                if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
-                    _method[i] = NOMORPH;
+            _beat_frame_count[i]++;
+            if (_beat_progres[i] == 0) { //開始～アタックまで
+                _weight[i] += _velo_weight[i];
+                if (_beat_frame_count[i] == _beat_attack_frames[i]) { //アタック時
+                    _weight[i] = _top_weight[i];
+                    _velo_weight[i] = (_bottom_weight[i] - _top_weight[i]) / float(_beat_down_frames[i]);
+                    _halfloop_cnt[i]++; //半ループカウント＋１
+                    if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
+                        _method[i] = NOMORPH;
+                    }
+                    _beat_progres[i] = 1; //次へ
                 }
-            } else if (_bottom_weight[i] > _weight[i]) {
-                _weight[i] = _bottom_weight[i];
-                _velo_weight[i] = 0.0f;
-
-            } else if (_frame_of_beat_begin[i] + _beat_attack_frames[i] == _pActor->_frame_of_behaving) { //アタック頂点時
-                _weight[i] = _top_weight[i];
-                _velo_weight[i] = (_bottom_weight[i] - _top_weight[i]) / (int)(_beat_spend_frames[i] - _beat_attack_frames[i] - _beat_rest_framess[i]);
-                _halfloop_cnt[i]++;
-                if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
-                    _method[i] = NOMORPH;
+            } else if (_beat_progres[i] == 1) { //アタック～下限まで
+                _weight[i] += _velo_weight[i];
+                if (_beat_frame_count[i] == _beat_attack_frames[i]+_beat_down_frames[i]) { //下限時
+                    _weight[i] = _bottom_weight[i];
+                    _velo_weight[i] = 0;
+                    _beat_progres[i] = 2;//次へ
+                }
+            } else if (_beat_progres[i] == 2) { //下限～終了まで
+                if (_beat_frame_count[i] == _beat_spend_frames[i]) { //終了時
+                    _halfloop_cnt[i]++; //半ループカウント＋１
+                    if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
+                        _method[i] = NOMORPH;
+                    }
+                    _velo_weight[i] = (_top_weight[i] - _weight[i]) / float(_beat_attack_frames[i]);
+                    _beat_frame_count[i] = 0; //カウンタリセット
+                    _beat_progres[i] = 0;//次へ(元に戻る)
                 }
             }
+
+
+//            _weight[i] += _velo_weight[i];
+//            if (_frame_of_beat_begin[i] + _beat_spend_frames[i] == _pActor->_frame_of_behaving) { //ループ終了時
+//                _frame_of_beat_begin[i] = _pActor->_frame_of_behaving;
+//                _velo_weight[i] = (_top_weight[i] - _bottom_weight[i]) / (int)(_beat_attack_frames[i]);
+//                _halfloop_cnt[i]++;
+//                if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
+//                    _method[i] = NOMORPH;
+//                }
+//            } else if (_bottom_weight[i] > _weight[i]) {
+//                _weight[i] = _bottom_weight[i];
+//                _velo_weight[i] = 0.0f;
+//
+//            } else if (_frame_of_beat_begin[i] + _beat_attack_frames[i] == _pActor->_frame_of_behaving) { //アタック頂点時
+//                _weight[i] = _top_weight[i];
+//                _velo_weight[i] = (_bottom_weight[i] - _top_weight[i]) / (int)(_beat_spend_frames[i] - _beat_attack_frames[i] - _beat_rest_frames[i]);
+//                _halfloop_cnt[i]++;
+//                if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
+//                    _method[i] = NOMORPH;
+//                }
+//            }
         }
         _pActor->_weight[i] = this->_weight[i];
     }
@@ -111,20 +143,43 @@ void GgafDx9Morpher::loopLiner(int prm_target_mesh, frame prm_beat_spend_frames,
     _method[prm_target_mesh] = LOOP_MORPH_LINER;
     _halfloop_cnt[prm_target_mesh] = 0;
     _stop_halfloop_num[prm_target_mesh] = (int)(prm_beat_num*2.0f);
-    _velo_weight[prm_target_mesh] = 1.0f / ((int)prm_beat_spend_frames / 2);
+    _velo_weight[prm_target_mesh] = 1.0f / ((float)prm_beat_spend_frames / 2.0f);
 }
 
 void GgafDx9Morpher::beat(int prm_target_mesh, frame prm_beat_spend_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_beat_num) {
     _method[prm_target_mesh] = LOOP_MORPH_TRIANGLEWAVE;
+
     _halfloop_cnt[prm_target_mesh] = 0;
     _stop_halfloop_num[prm_target_mesh] = (int)(prm_beat_num*2.0f);
 
     _beat_attack_frames[prm_target_mesh] = prm_attack_frames;
-    _beat_rest_framess[prm_target_mesh] = prm_rest_frames;
-    _frame_of_beat_begin[prm_target_mesh] = _pActor->_frame_of_behaving;
+    _beat_rest_frames[prm_target_mesh] = prm_rest_frames;
     _beat_spend_frames[prm_target_mesh] = prm_beat_spend_frames;
+    _beat_down_frames[prm_target_mesh] = _beat_spend_frames[prm_target_mesh] - _beat_attack_frames[prm_target_mesh] - _beat_rest_frames[prm_target_mesh];
+    _beat_frame_count[prm_target_mesh] = 0;
 
-    _velo_weight[prm_target_mesh] = (_top_weight[prm_target_mesh] - _weight[prm_target_mesh]) / (int)prm_attack_frames;
+    //最初のアタックまでのvelo
+    if (_beat_attack_frames[prm_target_mesh] > 0) {
+        _velo_weight[prm_target_mesh] = (_top_weight[prm_target_mesh] - _weight[prm_target_mesh]) / float(_beat_attack_frames[prm_target_mesh]);
+        _beat_progres[prm_target_mesh] = 0;
+    } else { //アタックまでが無いの場合
+        _weight[prm_target_mesh] = _top_weight[prm_target_mesh];
+        _velo_weight[prm_target_mesh] = (_bottom_weight[prm_target_mesh] - _top_weight[prm_target_mesh]) / float(_beat_down_frames[prm_target_mesh]);
+        _halfloop_cnt[prm_target_mesh]++; //半ループカウント＋１
+        _beat_progres[prm_target_mesh] = 1;
+    }
+
+
+
+//    _halfloop_cnt[prm_target_mesh] = 0;
+//    _stop_halfloop_num[prm_target_mesh] = (int)(prm_beat_num*2.0f);
+//
+//    _beat_attack_frames[prm_target_mesh] = prm_attack_frames;
+//    _beat_rest_frames[prm_target_mesh] = prm_rest_frames;
+//    _frame_of_beat_begin[prm_target_mesh] = _pActor->_frame_of_behaving;
+//    _beat_spend_frames[prm_target_mesh] = prm_beat_spend_frames;
+//
+//    _velo_weight[prm_target_mesh] = (_top_weight[prm_target_mesh] - _weight[prm_target_mesh]) / (int)prm_attack_frames;
 }
 void GgafDx9Morpher::stopImmediately(int prm_target_mesh) {
     _method[prm_target_mesh] = NOMORPH;

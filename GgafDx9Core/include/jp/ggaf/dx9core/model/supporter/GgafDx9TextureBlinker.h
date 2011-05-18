@@ -10,6 +10,7 @@ namespace GgafDx9Core {
  * 色強度 1.0 は色強度無し、
  * 色強度 2.0 は色強度２倍。明るくなる。
  * 色強度 0.5 は色強度1/２倍。暗くなる。
+ * TODO:GgafDx9Scaler,GgafDx9Morpher,GgafDx9TextureBlinker を共通化する。
  * @version 1.00
  * @since 2009/05/22
  * @author Masatoshi Tsuge
@@ -40,6 +41,12 @@ public:
     frame _beat_spend_frames;
     /** 点滅を開始したフレーム */
     frame _frame_of_beat_begin;
+    /** ビート時、各軸のアタックから下限までのフレーム数 */
+    frame _beat_down_frames;
+    /** ビート時、内部カウンター */
+    frame _beat_frame_count;
+    /** ビート時、内部進捗番号 */
+    int _beat_progres;
     /** ループカウント（2で点滅ワンセット、1ならば点灯o消灯の片道） */
     int _one_way_cnt;
     /** ストップする予定のループカウント */

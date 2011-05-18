@@ -17,6 +17,7 @@ namespace GgafDx9Core {
  * スケール・・・現在（のフレーム）の拡大縮小状態、スケール値
  * スケーリング・・・フレーム間の拡大縮小状態の遷移
  * 2009/05/22 GgafDx9Kuroko から分割した。
+ * TODO:GgafDx9Scaler,GgafDx9Morpher,GgafDx9TextureBlinker を共通化する。
  * @version 1.00
  * @since 2009/05/22
  * @author Masatoshi Tsuge
