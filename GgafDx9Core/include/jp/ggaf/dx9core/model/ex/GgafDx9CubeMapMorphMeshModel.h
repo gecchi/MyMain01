@@ -19,6 +19,8 @@ public:
      */
     GgafDx9CubeMapMorphMeshModel(char* prm_model_name);
 
+    virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
+
     virtual ~GgafDx9CubeMapMorphMeshModel(); //デストラクタ
 };
 

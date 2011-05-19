@@ -64,6 +64,8 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name, GgafDx9Camera* prm_pCamer
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
     GgafRepeatSeq::create("_SE_D_", 0, 8); //ƒYƒŒSEÄ¶ƒtƒŒ[ƒ€
+
+    _pCubeMapTextureManager = NEW GgafDx9TextureManager("CMTexManager");
 }
 
 void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, LONG prm_volume, float prm_pan, float prm_rate_frequency, int prm_delay ) {

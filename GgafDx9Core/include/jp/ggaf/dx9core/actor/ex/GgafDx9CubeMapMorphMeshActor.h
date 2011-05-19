@@ -17,6 +17,9 @@ public:
     /** エフェクト資源 */
     GgafDx9CubeMapMorphMeshEffect* _pCubeMapMorphMeshEffect;
 
+    /** 環境マップテクスチャ資源 */
+    GgafDx9TextureConnection* _pCubeMapTextureCon;
+
     /**
      * コンストラクタ .
      * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
@@ -31,6 +34,8 @@ public:
                           const char* prm_effect_id,
                           const char* prm_technique,
                           GgafDx9Checker* prm_pChecker );
+
+    void setCubeMapTexture(const char* prm_cubemap_tex);
 
     virtual void processDraw() override;
 

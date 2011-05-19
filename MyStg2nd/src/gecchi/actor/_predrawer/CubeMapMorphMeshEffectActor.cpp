@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-CubeMapMorphMeshEffectActor::CubeMapMorphMeshEffectActor(const char* prm_name) : CubeMapMorphMeshActor(prm_name, "1/ThaliaCM") {
+CubeMapMorphMeshEffectActor::CubeMapMorphMeshEffectActor(const char* prm_name) : CubeMapMorphMeshActor(prm_name, "4/donatu") {
     _class_name = "CubeMapMorphMeshEffectActor";
     setHitAble(false);
 }
@@ -21,11 +21,15 @@ void CubeMapMorphMeshEffectActor::onCreateModel() {
 void CubeMapMorphMeshEffectActor::initialize() {
     setHitAble(false);
     _pMorpher->setWeight(0, 1.0);
-    _pMorpher->setWeight(1, 0.0);
+    setScaleRate(0.5);
 }
 
 void CubeMapMorphMeshEffectActor::onActive() {
-    _pMorpher->beat(1, 130, 60, 10, -1);
+    _pMorpher->beat(1, 240, 60, 30, -1);
+    _pMorpher->beat(2, 240, 90, 30, -1);
+    _pMorpher->beat(3, 240, 120, 30, -1);
+    _pMorpher->beat(4, 240, 150, 30, -1);
+    _pKuroko->setFaceAngVelo(AXIS_Y, 500);
 }
 
 

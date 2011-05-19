@@ -19,7 +19,7 @@ private:
     /** カスタムテンプレートXファイル読み込み用の IDirectXFile のポインタ */
     IDirectXFile* _pIDirectXFile_sprx;
     IDirectXFile* _pIDirectXFile_psprx;
-    GgafDx9TextureManager* _pTextureManager;
+
 
     GgafDx9D3DXMeshModel*         createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions);
     GgafDx9D3DXAniMeshModel*      createD3DXAniMeshModel(char* prm_model_name);
@@ -45,6 +45,7 @@ private:
      */
     float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
 public:
+    GgafDx9TextureManager* _pModelTextureManager;
 
     /**
      * コンストラクタ

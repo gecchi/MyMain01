@@ -14,8 +14,11 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
     string texture_name = string(_texture_name);
     string texture_file_name = CFG_PROPERTY(DIR_TEXTURE) + texture_name;
 
-    //テクスチャファイル名に "cubemap" 或いは "CubeMap" が含まれていれば、環境マップテクスチャとみなす
-    if (texture_name.find("cubemap") == string::npos && texture_name.find("CubeMap") == string::npos) {
+    //テクスチャファイル名に "cubemap" or "CubeMap" or "Cubemap" が含まれていれば、環境マップテクスチャとみなす
+    if (texture_name.find("cubemap") == string::npos &&
+        texture_name.find("CubeMap") == string::npos &&
+        texture_name.find("Cubemap") == string::npos
+    ) {
         //通常の２Dテクスチャの場合
         LPDIRECT3DTEXTURE9 pIDirect3DTexture9;
         HRESULT hr = D3DXCreateTextureFromFileEx(

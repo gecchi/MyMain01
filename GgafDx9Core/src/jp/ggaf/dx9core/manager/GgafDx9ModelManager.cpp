@@ -24,7 +24,7 @@ GgafDx9ModelManager::GgafDx9ModelManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDx9Model> (prm_manager_name) {
 
     //テクスチャマネジャー
-    _pTextureManager = NEW GgafDx9TextureManager("GgafDx9TextureManager");
+    _pModelTextureManager = NEW GgafDx9TextureManager("GgafDx9TextureManager");
     //板ポリゴン定義ファイル読込み
     HRESULT hr;
     DirectXFileCreate( &_pIDirectXFile_sprx );
@@ -686,10 +686,10 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
         texture_filename = (char*)((*material)->_TextureName.c_str());
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
+            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(texture_filename);
         } else {
             //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection("white.png");
+            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection("white.png");
         }
         n++;
     }
@@ -1439,10 +1439,10 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
         texture_filename = (char*)((*material)->_TextureName.c_str());
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
+            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(texture_filename);
         } else {
             //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection("white.png");
+            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection("white.png");
         }
         n++;
     }
@@ -1533,10 +1533,10 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     for( DWORD i = 0; i < dwNumMaterials; i++) {
         texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[i] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
+            model_papTextureCon[i] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(texture_filename);
         } else {
             //テクスチャ無し
-            model_papTextureCon[i] = (GgafDx9TextureConnection*)_pTextureManager->getConnection("white.png");
+            model_papTextureCon[i] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection("white.png");
         }
     }
     RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
@@ -1661,10 +1661,10 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
 
                 texture_filename = (*it)->pMeshContainer->pMaterials[j].pTextureFilename;
                 if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-                    model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
+                    model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(texture_filename);
                 } else {
                     //テクスチャ無し時は真っ白なテクスチャに置き換え
-                    model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection("white.png");
+                    model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection("white.png");
                 }
                 n ++;
             }
@@ -1763,7 +1763,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
     //テクスチャ取得しモデルに保持させる
     //string texture_filename = CFG_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
-    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
     prm_pSpriteModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pSpriteModel->_papTextureCon[0] = model_pTextureCon;
@@ -1958,7 +1958,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     }
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
     //テクスチャ取得しモデルに保持させる
-    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
     prm_pSpriteSetModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pSpriteSetModel->_papTextureCon[0] = model_pTextureCon;
@@ -2219,7 +2219,7 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     }
 
     //テクスチャ取得しモデルに保持させる
-    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
     prm_pBoardModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pBoardModel->_papTextureCon[0] = model_pTextureCon;
@@ -2391,7 +2391,7 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     }
 
     //テクスチャ取得しモデルに保持させる
-    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
     prm_pBoardSetModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pBoardSetModel->_papTextureCon[0] = model_pTextureCon;
@@ -3111,10 +3111,10 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
         texture_filename = (char*)((*material)->_TextureName.c_str());
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
+            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(texture_filename);
         } else {
             //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection("white.png");
+            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection("white.png");
         }
         n++;
     }
@@ -3196,7 +3196,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     //テクスチャ取得しモデルに保持させる
     GgafDx9TextureConnection** model_papTextureCon = NULL;
     model_papTextureCon = NEW GgafDx9TextureConnection*[1];
-    model_papTextureCon[0] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
+    model_papTextureCon[0] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(*ppaChar_TextureFile);
 
     float texWidth  = (float)(model_papTextureCon[0]->refer()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
     float texHeight = (float)(model_papTextureCon[0]->refer()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
@@ -3304,7 +3304,7 @@ GgafDx9ModelManager::~GgafDx9ModelManager() {
     TRACE3("GgafDx9ModelManager::~GgafDx9ModelManager() start-->");
     RELEASE_IMPOSSIBLE_NULL(_pIDirectXFile_sprx);
     RELEASE_IMPOSSIBLE_NULL(_pIDirectXFile_psprx);
-    DELETE_IMPOSSIBLE_NULL(_pTextureManager);
+    DELETE_IMPOSSIBLE_NULL(_pModelTextureManager);
     TRACE3("GgafDx9ModelManager::releaseAll() するけども、ここでは既に何も解放するものがないはずです");
     releaseAll();
 }

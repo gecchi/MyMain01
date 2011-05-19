@@ -41,7 +41,7 @@ float g_zf;
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
-
+sampler CubeMapTextureSampler : register(s1);
 //texture g_diffuseMap;
 //sampler MyTextureSampler = sampler_state {
 //	texture = <g_diffuseMap>;
@@ -511,15 +511,15 @@ float4 GgafDx9PS_CubeMapMorphMesh(
         //ハーフベクトルと法線の内積よりスペキュラ具合を計算
         s = pow( max(0.0f, dot(prm_normal, vecHarf)), g_specular ) * g_specular_power;
     }
-	float3 vReflect = reflect( -prm_cam, prm_normal );
-	float4 tex_color = texCUBE(MyTextureSampler, vReflect);
+    float4 tex_color = tex2D( MyTextureSampler, prm_uv);
     float4 out_color = tex_color * prm_col; 
-    
+	float3 vReflect = reflect( -prm_cam, prm_normal );
+	float4 cube_tex_color = texCUBE(CubeMapTextureSampler, vReflect);
     //Blinkerを考慮
 	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
 		out_color.rgb *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
 	} 
-	return out_color + s;// + (tex2D( MyTextureSampler, prm_uv)*0.5);
+	return out_color + (cube_tex_color*0.5) + s;
 	
 //    //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 //    float power = max(dot(prm_normal, -g_vecLightDirection ), 0);
