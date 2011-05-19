@@ -31,6 +31,7 @@ public:
     char _aBufDebug[80];
     LabelGecchi16Font* _pFont16_Debug;
     LabelGecchi16Font* _pStringBoard01;
+    PreDrawScene* _pPreDrawScene;
     GameScene* _pGameScene;
 
     World(const char* prm_name);

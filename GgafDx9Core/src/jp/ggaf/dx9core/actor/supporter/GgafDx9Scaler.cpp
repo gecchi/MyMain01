@@ -94,9 +94,9 @@ void GgafDx9Scaler::behave() {
                     _beat_progres[axis] = 2;//次へ
                 }
             } else if (_beat_progres[axis] == 2) { //下限～終了まで
-                if (_beat_frame_count[axis] == _beat_spend_frames[axis]) { //終了時
+                if (_beat_frame_count[axis] >= _beat_spend_frames[axis]) { //終了時
                     _one_way_cnt[axis]++; //半ループカウント＋１
-                    if (_one_way_cnt[axis] >= _stop_one_way_num[axis]) {
+                    if (_one_way_cnt[axis] == _stop_one_way_num[axis]) {
                         _method[axis] = NOSCALE;
                     }
                     _velo_scale[axis] = (_top_scale[axis] - _scale[axis]) / int(_beat_attack_frames[axis]);
@@ -106,47 +106,6 @@ void GgafDx9Scaler::behave() {
             }
         }
     }
-
-//
-//
-//            if (
-//            if (_frame_of_beat_begin[axis] + _beat_attack_frames[axis] > _pActor->_frame_of_behaving) { //アタックまで
-//                _scale[axis] += _velo_scale[axis];
-//            } else if (_frame_of_beat_begin[axis] + _beat_attack_frames[axis] == _pActor->_frame_of_behaving){ //アタック頂点時
-//                _scale[axis] = _top_scale[axis];
-//                _velo_scale[axis] = (_bottom_scale[axis] - _top_scale[axis]) / ((int)_beat_spend_frames[axis] - (int)_beat_attack_frames[axis] - (int)_beat_rest_frames[axis]);
-//                _one_way_cnt[axis]++;
-//                if (_one_way_cnt[axis] == _stop_one_way_num[axis]) {
-//                    _method[axis] = NOSCALE;
-//                }
-//            } else if (_frame_of_beat_begin[axis] + (_beat_spend_frames[axis]  - _beat_rest_frames[prm_axis]) > _pActor->_frame_of_behaving){ //アタック～下限まで
-//                _scale[axis] += _velo_scale[axis];
-//            }
-//
-//            }if (_frame_of_beat_begin[axis] + _beat_attack_frames[axis] == _pActor->_frame_of_behaving){ //アタック～下限まで
-//
-//
-//            if (_frame_of_beat_begin[axis] + _beat_attack_frames[axis] <= _pActor->_frame_of_behaving) { //アタック頂点時
-//                _scale[axis] = _top_scale[axis];
-//                _velo_scale[axis] = (_bottom_scale[axis] - _top_scale[axis]) / ((int)_beat_spend_frames[axis] - (int)_beat_attack_frames[axis] - (int)_beat_rest_frames[axis]);
-//                _one_way_cnt[axis]++;
-//                if (_one_way_cnt[axis] == _stop_one_way_num[axis]) {
-//                    _method[axis] = NOSCALE;
-//                }
-//            } else if (_bottom_scale[axis] > _scale[axis]) {  //休憩開始時 if (_bottom_scale[axis] >= _scale[axis]) では次に行かないので駄目ですよ！
-//                _scale[axis] = _bottom_scale[axis];
-//                _velo_scale[axis] = 0;
-//            } else
-//            if (_frame_of_beat_begin[axis] + _beat_spend_frames[axis] <= _pActor->_frame_of_behaving) { //ループ終了時
-//                _frame_of_beat_begin[axis] = _pActor->_frame_of_behaving;
-//                _velo_scale[axis] = (_top_scale[axis] - _bottom_scale[axis]) / (int)_beat_attack_frames[axis];
-//                _one_way_cnt[axis]++;
-//                if (_one_way_cnt[axis] == _stop_one_way_num[axis]) {
-//                    _method[axis] = NOSCALE;
-//                }
-//            } else
-//        }
-//    }
     //Actorに反映
     _pActor->_SX = _scale[AXIS_X];
     _pActor->_SY = _scale[AXIS_Y];

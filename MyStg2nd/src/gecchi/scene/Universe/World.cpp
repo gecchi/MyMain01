@@ -36,8 +36,8 @@ void World::initialize() {
 //#endif
 
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
-    PreDrawScene* pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
-    addSubLast(pPreDrawScene);
+//    PreDrawScene* pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
+//    addSubLast(pPreDrawScene);
 
     orderSceneToFactory(2, GameScene, "Game");
 
@@ -62,6 +62,8 @@ void World::processBehavior() {
     } else {
         //GameSceneçÏê¨äÆóπÇ‹Ç≈ë“Ç¬
         if (MyFactory::chkProgress(2) == 2) {
+            _pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
+            addSubLast(_pPreDrawScene);
             _pGameScene = (GameScene*)obtainSceneFromFactory(2);
             addSubLast(_pGameScene);
             _is_create_GameScene = true;

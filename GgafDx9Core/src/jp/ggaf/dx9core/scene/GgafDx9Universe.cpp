@@ -284,6 +284,6 @@ int GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawable
 
 
 GgafDx9Universe::~GgafDx9Universe() {
-
+DELETE_IMPOSSIBLE_NULL(_pCubeMapTextureManager);
     DELETE_IMPOSSIBLE_NULL(_pRing_pSeArray);
 }
