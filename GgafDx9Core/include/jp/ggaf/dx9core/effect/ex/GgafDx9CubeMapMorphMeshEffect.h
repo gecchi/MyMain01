@@ -13,11 +13,11 @@ class GgafDx9CubeMapMorphMeshEffect : public GgafDx9MorphMeshEffect {
 
 public:
 
-    D3DXHANDLE _h_pos_camera;
+//    D3DXHANDLE _h_pos_camera;
 
     GgafDx9CubeMapMorphMeshEffect(char* prm_effect_name);
 
-    virtual void setParamPerFrame() override;
+//    virtual void setParamPerFrame() override;
 
     virtual ~GgafDx9CubeMapMorphMeshEffect(); //デストラクタ
 

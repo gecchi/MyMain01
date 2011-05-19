@@ -74,7 +74,7 @@ void GgafDx9TextureBlinker::behave() {
         _beat_frame_count++;
         if (_beat_progres == 0) { //開始～アタックまで
             _power_blink += _velo_power_blink;
-            if (_beat_frame_count == _beat_attack_frames) { //アタック時
+            if (_beat_frame_count >= _beat_attack_frames) { //アタック時
                 _power_blink = _top_power_blink;
                 _velo_power_blink = (_bottom_power_blink - _top_power_blink) / float(_beat_down_frames);
                 _one_way_cnt++; //半ループカウント＋１
@@ -85,13 +85,13 @@ void GgafDx9TextureBlinker::behave() {
             }
         } else if (_beat_progres == 1) { //アタック～下限まで
             _power_blink += _velo_power_blink;
-            if (_beat_frame_count == _beat_attack_frames+_beat_down_frames) { //下限時
+            if (_beat_frame_count >= _beat_attack_frames+_beat_down_frames) { //下限時
                 _power_blink = _bottom_power_blink;
                 _velo_power_blink = 0;
                 _beat_progres = 2;//次へ
             }
         } else if (_beat_progres == 2) { //下限～終了まで
-            if (_beat_frame_count == _beat_spend_frames) { //終了時
+            if (_beat_frame_count >= _beat_spend_frames) { //終了時
                 _one_way_cnt++; //半ループカウント＋１
                 if (_one_way_cnt == _stop_one_way_num) {
                     _method = NOBLINK;

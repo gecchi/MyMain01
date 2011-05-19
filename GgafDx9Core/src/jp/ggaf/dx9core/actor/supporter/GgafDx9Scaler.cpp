@@ -77,7 +77,7 @@ void GgafDx9Scaler::behave() {
             _beat_frame_count[axis]++;
             if (_beat_progres[axis] == 0) { //開始～アタックまで
                 _scale[axis] += _velo_scale[axis];
-                if (_beat_frame_count[axis] == _beat_attack_frames[axis]) { //アタック時
+                if (_beat_frame_count[axis] >= _beat_attack_frames[axis]) { //アタック時
                     _scale[axis] = _top_scale[axis];
                     _velo_scale[axis] = (_bottom_scale[axis] - _top_scale[axis]) / int(_beat_down_frames[axis]);
                     _one_way_cnt[axis]++; //半ループカウント＋１
@@ -88,7 +88,7 @@ void GgafDx9Scaler::behave() {
                 }
             } else if (_beat_progres[axis] == 1) { //アタック～下限まで
                 _scale[axis] += _velo_scale[axis];
-                if (_beat_frame_count[axis] == _beat_attack_frames[axis]+_beat_down_frames[axis]) { //下限時
+                if (_beat_frame_count[axis] >= _beat_attack_frames[axis]+_beat_down_frames[axis]) { //下限時
                     _scale[axis] = _bottom_scale[axis];
                     _velo_scale[axis] = 0;
                     _beat_progres[axis] = 2;//次へ
@@ -96,7 +96,7 @@ void GgafDx9Scaler::behave() {
             } else if (_beat_progres[axis] == 2) { //下限～終了まで
                 if (_beat_frame_count[axis] == _beat_spend_frames[axis]) { //終了時
                     _one_way_cnt[axis]++; //半ループカウント＋１
-                    if (_one_way_cnt[axis] == _stop_one_way_num[axis]) {
+                    if (_one_way_cnt[axis] >= _stop_one_way_num[axis]) {
                         _method[axis] = NOSCALE;
                     }
                     _velo_scale[axis] = (_top_scale[axis] - _scale[axis]) / int(_beat_attack_frames[axis]);

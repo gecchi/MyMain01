@@ -35,9 +35,9 @@ void World::initialize() {
 //    getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
 //#endif
 
-//    orderSceneToFactory(1, PreDrawScene, "PreDraw");
-//    PreDrawScene* pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
-//    addSubLast(pPreDrawScene);
+    orderSceneToFactory(1, PreDrawScene, "PreDraw");
+    PreDrawScene* pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
+    addSubLast(pPreDrawScene);
 
     orderSceneToFactory(2, GameScene, "Game");
 

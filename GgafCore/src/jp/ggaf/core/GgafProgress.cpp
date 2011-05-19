@@ -3,9 +3,9 @@ using namespace std;
 using namespace GgafCore;
 
 GgafProgress::GgafProgress(frame* prm_pFrame_count, int prm_num_progress) : GgafObject() ,
-_progress(-1),
+_progress(-1),       //ここと
 _progress_prev(-2),
-_progress_next(-1),
+_progress_next(-1),  //ここは、合わせること。合わせないと、初回update時に配列インデックス範囲外になるため。
 _pFrame_count(prm_pFrame_count)
 {
     _num_progress = prm_num_progress;
@@ -21,7 +21,7 @@ int GgafProgress::get() {
 void GgafProgress::set(int prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress-1) {
-        throwGgafCriticalException("GgafProgress::set 進捗番号が範囲外です。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
+        throwGgafCriticalException("GgafProgress::set 進捗番号が範囲外です(1～99ではない)。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
     }
 #endif
     _progress_prev = _progress;
@@ -33,7 +33,7 @@ void GgafProgress::set(int prm_progress) {
 frame GgafProgress::getFrameWhenChanged(int prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress-1) {
-        throwGgafCriticalException("GgafProgress::getFrameWhenChanged 進捗番号が範囲外です。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
+        throwGgafCriticalException("GgafProgress::getFrameWhenChanged 進捗番号が範囲外です(1～99ではない)。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
     }
 #endif
     return _paFrame_ProgressChanged[prm_progress];
@@ -47,7 +47,7 @@ frame GgafProgress::getFrameInProgress() {
 void GgafProgress::change(int prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress-1) {
-        throwGgafCriticalException("GgafProgress::change 進捗番号が範囲外です。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
+        throwGgafCriticalException("GgafProgress::change 進捗番号が範囲外です(1～99ではない)。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
     }
 #endif
     _progress_next = prm_progress;
@@ -57,7 +57,7 @@ void GgafProgress::changeNext() {
     _progress_next = _progress+1;
 #ifdef MY_DEBUG
     if (_progress_next < 0 || _progress_next > _num_progress-1) {
-        throwGgafCriticalException("GgafProgress::changeNext 進捗番号が範囲外です。_progress_next="<<_progress_next);
+        throwGgafCriticalException("GgafProgress::changeNext 進捗番号が範囲外です(1～99ではない)。_progress_next="<<_progress_next);
     }
 #endif
 }
@@ -66,7 +66,7 @@ void GgafProgress::changeNext() {
 bool GgafProgress::isJustChangedTo(int prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress-1) {
-        throwGgafCriticalException("GgafProgress::isJustChangedTo 進捗番号が範囲外です。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
+        throwGgafCriticalException("GgafProgress::isJustChangedTo 進捗番号が範囲外です(1～99ではない)。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
     }
 #endif
     if (_progress != _progress_prev) {
@@ -90,7 +90,7 @@ bool GgafProgress::isJustChanged() {
 bool GgafProgress::isJustChangedFrom(int prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress-1) {
-        throwGgafCriticalException("GgafProgress::isJustChangedFrom 進捗番号が範囲外です。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
+        throwGgafCriticalException("GgafProgress::isJustChangedFrom 進捗番号が範囲外です(1～99ではない)。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
     }
 #endif
     if (_progress != _progress_prev) {

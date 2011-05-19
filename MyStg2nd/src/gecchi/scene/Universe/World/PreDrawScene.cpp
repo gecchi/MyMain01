@@ -8,27 +8,27 @@ using namespace MyStg2nd;
 PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "PreDrawScene";
 
-    orderActorToFactory(11, CubeMapMeshEffectActor       , "CubeMapMeshEffectActor");
-    orderActorToFactory(12, CubeMapMeshSetEffectActor    , "CubeMapMeshSetEffectActor");
+//    orderActorToFactory(11, CubeMapMeshEffectActor       , "CubeMapMeshEffectActor");
+//    orderActorToFactory(12, CubeMapMeshSetEffectActor    , "CubeMapMeshSetEffectActor");
     orderActorToFactory(13, CubeMapMorphMeshEffectActor  , "CubeMapMorphMeshEffectActor");
-    orderActorToFactory(14, DefaultD3DXAniMeshEffectActor    , "DefaultD3DXAniMeshEffectActor");
-    orderActorToFactory(15, DefaultBoardEffectActor      , "DefaultBoardEffectActor");
-    orderActorToFactory(16, DefaultBoardSetEffectActor   , "DefaultBoardSetEffectActor");
-    orderActorToFactory(17, DefaultMeshEffectActor       , "DefaultMeshEffectActor");
-    orderActorToFactory(18, DefaultMeshSetEffectActor    , "DefaultMeshSetEffectActor");
-    orderActorToFactory(19, DefaultMorphMeshEffectActor  , "DefaultMorphMeshEffectActor");
-    orderActorToFactory(21, DefaultPointSpriteEffectActor, "DefaultPointSpriteEffectActor");
-    orderActorToFactory(22, DefaultSpriteEffectActor     , "DefaultSpriteEffectActor");
-    orderActorToFactory(23, DefaultSpriteSetEffectActor  , "DefaultSpriteSetEffectActor");
-    orderActorToFactory(24, GroundMeshEffectActor        , "GroundMeshEffectActor");
-    orderActorToFactory(25, HoshiBoshiEffectActor        , "HoshiBoshiEffectActor");
-    orderActorToFactory(26, LaserChipEffectActor         , "LaserChipEffectActor");
-    orderActorToFactory(27, SingleLaserEffectActor       , "SingleLaserEffectActor");
-    orderActorToFactory(28, SpriteMeshEffectActor        , "SpriteMeshEffectActor");
-    orderActorToFactory(29, SpriteMeshSetEffectActor     , "SpriteMeshSetEffectActor");
-    orderActorToFactory(31, StringBoardEffectActor       , "StringBoardEffectActor");
-    orderActorToFactory(32, WallAABEffectActor           , "WallAABEffectActor");
-    orderActorToFactory(33, WallAAPrismEffectActor       , "WallAAPrismEffectActor");
+//    orderActorToFactory(14, DefaultD3DXAniMeshEffectActor    , "DefaultD3DXAniMeshEffectActor");
+//    orderActorToFactory(15, DefaultBoardEffectActor      , "DefaultBoardEffectActor");
+//    orderActorToFactory(16, DefaultBoardSetEffectActor   , "DefaultBoardSetEffectActor");
+//    orderActorToFactory(17, DefaultMeshEffectActor       , "DefaultMeshEffectActor");
+//    orderActorToFactory(18, DefaultMeshSetEffectActor    , "DefaultMeshSetEffectActor");
+//    orderActorToFactory(19, DefaultMorphMeshEffectActor  , "DefaultMorphMeshEffectActor");
+//    orderActorToFactory(21, DefaultPointSpriteEffectActor, "DefaultPointSpriteEffectActor");
+//    orderActorToFactory(22, DefaultSpriteEffectActor     , "DefaultSpriteEffectActor");
+//    orderActorToFactory(23, DefaultSpriteSetEffectActor  , "DefaultSpriteSetEffectActor");
+//    orderActorToFactory(24, GroundMeshEffectActor        , "GroundMeshEffectActor");
+//    orderActorToFactory(25, HoshiBoshiEffectActor        , "HoshiBoshiEffectActor");
+//    orderActorToFactory(26, LaserChipEffectActor         , "LaserChipEffectActor");
+//    orderActorToFactory(27, SingleLaserEffectActor       , "SingleLaserEffectActor");
+//    orderActorToFactory(28, SpriteMeshEffectActor        , "SpriteMeshEffectActor");
+//    orderActorToFactory(29, SpriteMeshSetEffectActor     , "SpriteMeshSetEffectActor");
+//    orderActorToFactory(31, StringBoardEffectActor       , "StringBoardEffectActor");
+//    orderActorToFactory(32, WallAABEffectActor           , "WallAABEffectActor");
+//    orderActorToFactory(33, WallAAPrismEffectActor       , "WallAAPrismEffectActor");
 
 }
 
@@ -38,31 +38,34 @@ void PreDrawScene::ready() {
 }
 
 void PreDrawScene::initialize() {
+    GgafDx9Input::updateMouseState();
+    GgafDx9Input::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
+    P_UNIVERSE->switchCameraWork("PauseCamWorker");
 }
 
 void PreDrawScene::processBehavior() {
     if (getActivePartFrame() == 1) {
-        getLordActor()->addSubGroup(obtainActorFromFactory(11));
-        getLordActor()->addSubGroup(obtainActorFromFactory(12));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(11));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(12));
         getLordActor()->addSubGroup(obtainActorFromFactory(13));
-        getLordActor()->addSubGroup(obtainActorFromFactory(14));
-        getLordActor()->addSubGroup(obtainActorFromFactory(15));
-        getLordActor()->addSubGroup(obtainActorFromFactory(16));
-        getLordActor()->addSubGroup(obtainActorFromFactory(17));
-        getLordActor()->addSubGroup(obtainActorFromFactory(18));
-        getLordActor()->addSubGroup(obtainActorFromFactory(19));
-        getLordActor()->addSubGroup(obtainActorFromFactory(21));
-        getLordActor()->addSubGroup(obtainActorFromFactory(22));
-        getLordActor()->addSubGroup(obtainActorFromFactory(23));
-        getLordActor()->addSubGroup(obtainActorFromFactory(24));
-        getLordActor()->addSubGroup(obtainActorFromFactory(25));
-        getLordActor()->addSubGroup(obtainActorFromFactory(26));
-        getLordActor()->addSubGroup(obtainActorFromFactory(27));
-        getLordActor()->addSubGroup(obtainActorFromFactory(28));
-        getLordActor()->addSubGroup(obtainActorFromFactory(29));
-        getLordActor()->addSubGroup(obtainActorFromFactory(31));
-        getLordActor()->addSubGroup(obtainActorFromFactory(32));
-        getLordActor()->addSubGroup(obtainActorFromFactory(33));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(14));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(15));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(16));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(17));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(18));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(19));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(21));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(22));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(23));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(24));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(25));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(26));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(27));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(28));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(29));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(31));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(32));
+//        getLordActor()->addSubGroup(obtainActorFromFactory(33));
 
     }
 }

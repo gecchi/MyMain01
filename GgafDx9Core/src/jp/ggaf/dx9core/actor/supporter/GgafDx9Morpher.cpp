@@ -65,7 +65,7 @@ void GgafDx9Morpher::behave() {
             _beat_frame_count[i]++;
             if (_beat_progres[i] == 0) { //開始～アタックまで
                 _weight[i] += _velo_weight[i];
-                if (_beat_frame_count[i] == _beat_attack_frames[i]) { //アタック時
+                if (_beat_frame_count[i] >= _beat_attack_frames[i]) { //アタック時
                     _weight[i] = _top_weight[i];
                     _velo_weight[i] = (_bottom_weight[i] - _top_weight[i]) / float(_beat_down_frames[i]);
                     _halfloop_cnt[i]++; //半ループカウント＋１
@@ -76,13 +76,13 @@ void GgafDx9Morpher::behave() {
                 }
             } else if (_beat_progres[i] == 1) { //アタック～下限まで
                 _weight[i] += _velo_weight[i];
-                if (_beat_frame_count[i] == _beat_attack_frames[i]+_beat_down_frames[i]) { //下限時
+                if (_beat_frame_count[i] >= _beat_attack_frames[i]+_beat_down_frames[i]) { //下限時
                     _weight[i] = _bottom_weight[i];
                     _velo_weight[i] = 0;
                     _beat_progres[i] = 2;//次へ
                 }
             } else if (_beat_progres[i] == 2) { //下限～終了まで
-                if (_beat_frame_count[i] == _beat_spend_frames[i]) { //終了時
+                if (_beat_frame_count[i] >= _beat_spend_frames[i]) { //終了時
                     _halfloop_cnt[i]++; //半ループカウント＋１
                     if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
                         _method[i] = NOMORPH;

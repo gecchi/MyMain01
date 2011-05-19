@@ -456,13 +456,13 @@ float4 GgafDx9PS_DefaultMorphMesh(
     }
     float4 tex_color = tex2D( MyTextureSampler, prm_uv);
     //テクスチャ色に        
-    float4 out_color = tex_color * prm_col + s;
+    float4 out_color = tex_color * prm_col; 
 
     //Blinkerを考慮
 	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
 		out_color.rgb *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
 	} 
-	return out_color;
+	return out_color + s;
 
 
 //
@@ -485,14 +485,14 @@ float4 GgafDx9PS_DefaultMorphMesh(
 //	return out_color;
 }
 
-float4 PS_DestBlendOne( 
-	float2 prm_uv	  : TEXCOORD0
-) : COLOR  {
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_colMaterialDiffuse;
-	out_color.a = out_color.a * g_alpha_master; 
-	return 	out_color;
-}
-
+//float4 PS_DestBlendOne( 
+//	float2 prm_uv	  : TEXCOORD0
+//) : COLOR  {
+//	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_colMaterialDiffuse;
+//	out_color.a = out_color.a * g_alpha_master; 
+//	return 	out_color;
+//}
+//
 float4 PS_Flush( 
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
@@ -612,7 +612,7 @@ technique DestBlendOne
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
 		VertexShader = compile VS_VERSION GgafDx9VS_DefaultMorphMesh0();
-		PixelShader  = compile PS_VERSION PS_DestBlendOne();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultMorphMesh();
 	}
 
 	//モーフターゲット１つ
@@ -621,7 +621,7 @@ technique DestBlendOne
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
 		VertexShader = compile VS_VERSION GgafDx9VS_DefaultMorphMesh1();
-		PixelShader  = compile PS_VERSION PS_DestBlendOne();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultMorphMesh();
 	}
 
 	//モーフターゲット２つ
@@ -630,7 +630,7 @@ technique DestBlendOne
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
 		VertexShader = compile VS_VERSION GgafDx9VS_DefaultMorphMesh2();
-		PixelShader  = compile PS_VERSION PS_DestBlendOne();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultMorphMesh();
 	}
 
 	//モーフターゲット３つ
@@ -639,7 +639,7 @@ technique DestBlendOne
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
 		VertexShader = compile VS_VERSION GgafDx9VS_DefaultMorphMesh3();
-		PixelShader  = compile PS_VERSION PS_DestBlendOne();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultMorphMesh();
 	}
 
 	//モーフターゲット４つ
@@ -648,7 +648,7 @@ technique DestBlendOne
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
 		VertexShader = compile VS_VERSION GgafDx9VS_DefaultMorphMesh4();
-		PixelShader  = compile PS_VERSION PS_DestBlendOne();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultMorphMesh();
 	}
 
 	//モーフターゲット５つ
@@ -657,7 +657,7 @@ technique DestBlendOne
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
 		VertexShader = compile VS_VERSION GgafDx9VS_DefaultMorphMesh5();
-		PixelShader  = compile PS_VERSION PS_DestBlendOne();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultMorphMesh();
 	}
 
 	//モーフターゲット６つ
@@ -666,7 +666,7 @@ technique DestBlendOne
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
 		VertexShader = compile VS_VERSION GgafDx9VS_DefaultMorphMesh6();
-		PixelShader  = compile PS_VERSION PS_DestBlendOne();
+		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultMorphMesh();
 	}
 
 //	//モーフターゲット７つ

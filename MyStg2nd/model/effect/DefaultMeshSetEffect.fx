@@ -195,13 +195,13 @@ float4 GgafDx9PS_DefaultMeshSet(
     }
     float4 tex_color = tex2D( MyTextureSampler, prm_uv);
     //テクスチャ色に        
-    float4 out_color = tex_color * prm_col + s;
+    float4 out_color = tex_color * prm_col;
 
     //Blinkerを考慮
 	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
 		out_color.rgb *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
 	} 
-	return out_color;
+	return out_color + s;
 }
 
 
