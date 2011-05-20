@@ -5,8 +5,10 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-WorldBoundSpace001::WorldBoundSpace001(const char* prm_name) : WorldBoundActor(prm_name, "WorldBoundSpace001") {
+WorldBoundSpace001::WorldBoundSpace001(const char* prm_name) : WorldBoundActor(prm_name, "WorldBoundSpace002") {
     _class_name = "WorldBoundSpace001";
+    _base_u = 0;
+    _base_v = 0;
 }
 void WorldBoundSpace001::initialize() {
     //    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);
@@ -25,7 +27,10 @@ void WorldBoundSpace001::onActive() {
 }
 
 void WorldBoundSpace001::processBehavior() {
-    //_pUvFlipper->behave();
+    _pUvFlipper->setBaseUv(_base_u,_base_v);
+    _base_u += 0.005;
+    _base_v += 0.002;
+    _pUvFlipper->behave();
 }
 void WorldBoundSpace001::processJudgement() {
 }

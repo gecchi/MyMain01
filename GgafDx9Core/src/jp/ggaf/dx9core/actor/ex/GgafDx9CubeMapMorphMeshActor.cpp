@@ -42,6 +42,12 @@ void GgafDx9CubeMapMorphMeshActor::processDraw() {
     hr = pID3DXEffect->SetMatrix(_pCubeMapMorphMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDx9CubeMapMorphMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
+    if (_pCubeMapTextureCon) {
+        GgafDx9God::_pID3DDevice9->SetTexture(1, _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9);
+    } else {
+        throwGgafCriticalException("GgafDx9CubeMapMorphMeshActor::processDraw() 環境マップテクスチャがありません this="<<getName());
+    }
+
     _pCubeMapMorphMeshModel->draw(this);
 }
 

@@ -78,7 +78,7 @@ struct OUT_VS
 {
     float4 pos    : POSITION;
 	float2 uv     : TEXCOORD0;
-	float4 col    : COLOR0;
+	float4 color    : COLOR0;
 
     float3 normal   : TEXCOORD1;   //オブジェクトの法線ベクトル
     float3 cam  : TEXCOORD2;   //頂点 -> 視点 ベクトル
@@ -164,17 +164,17 @@ OUT_VS GgafDx9VS_DefaultMeshSet(
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
     float power = max(dot(out_vs.normal, -g_vecLightDirection ), 0);      
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
-    out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power)) * colorMaterialDiffuse;
+    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * colorMaterialDiffuse;
     //「頂点→カメラ視点」方向ベクトル                                                        
     out_vs.cam = normalize(g_posCam.xyz - posWorld.xyz);
     //αはマテリアルαを最優先とする（上書きする）
-    out_vs.col.a = colorMaterialDiffuse.a;
+    out_vs.color.a = colorMaterialDiffuse.a;
     //αフォグ
     if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-        out_vs.col.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
+        out_vs.color.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
     } 
     //マスターα
-    out_vs.col.a *= g_alpha_master;
+    out_vs.color.a *= g_alpha_master;
 
     return out_vs;
 }
@@ -182,7 +182,7 @@ OUT_VS GgafDx9VS_DefaultMeshSet(
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_DefaultMeshSet(
 	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_col    : COLOR0,
+	float4 prm_color    : COLOR0,
     float3 prm_normal : TEXCOORD1,
     float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
@@ -195,11 +195,11 @@ float4 GgafDx9PS_DefaultMeshSet(
     }
     float4 tex_color = tex2D( MyTextureSampler, prm_uv);
     //テクスチャ色に        
-    float4 out_color = tex_color * prm_col;
+    float4 out_color = tex_color * prm_color;
 
     //Blinkerを考慮
 	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color.rgb *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
+		out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
 	} 
 	return out_color + s;
 }
@@ -207,11 +207,11 @@ float4 GgafDx9PS_DefaultMeshSet(
 
 float4 PS_Flush( 
 	float2 prm_uv	  : TEXCOORD0,
-    float4 prm_col    : COLOR0
+    float4 prm_color    : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	float4 out_color = tex_color * prm_col * float4(7.0, 7.0, 7.0, 1.0);
+	float4 out_color = tex_color * prm_color * float4(7.0, 7.0, 7.0, 1.0);
 	return out_color;
 }
 

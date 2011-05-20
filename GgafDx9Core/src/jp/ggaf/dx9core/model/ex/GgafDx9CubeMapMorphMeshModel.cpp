@@ -41,12 +41,6 @@ HRESULT GgafDx9CubeMapMorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Targ
         hr = pID3DXEffect->SetFloat(pCubeMapMorphMeshEffect->_h_specular_power, _specular_power);
         checkDxException(hr, D3D_OK, "GgafDx9CubeMapMorphMeshModel::draw() SetFloat(_h_specular_power) に失敗しました。");
     }
-    if ( pTargetActor->_pCubeMapTextureCon) {
-        GgafDx9God::_pID3DDevice9->SetTexture(1, pTargetActor->_pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9);
-    } else {
-        throwGgafCriticalException("GgafDx9CubeMapMorphMeshModel::draw 環境マップテクスチャがありません pTargetActor="<<pTargetActor->getName());
-    }
-
 
     //描画
     for (UINT i = 0; i < _nMaterialListGrp; i++) {
@@ -64,7 +58,8 @@ HRESULT GgafDx9CubeMapMorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Targ
         hr = pID3DXEffect->SetValue(pCubeMapMorphMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDx9CubeMapMorphMeshModel::draw()SetValue(g_colMaterialDiffuse) に失敗しました。");
 
-        if ((GgafDx9EffectManager::_pEffect_Active != pCubeMapMorphMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
+        if ((GgafDx9EffectManager::_pEffect_Active != pCubeMapMorphMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) &&
+                i == 0) {
             if (GgafDx9EffectManager::_pEffect_Active) {
                TRACE4("EndPass("<<GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
@@ -80,7 +75,7 @@ HRESULT GgafDx9CubeMapMorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Targ
                 }
 #endif
 
-             }
+            }
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pCubeMapMorphMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDx9CubeMapMorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");

@@ -42,7 +42,7 @@ struct OUT_VS {
     float4 pos   : POSITION;      
     float3 normal: TEXCOORD0;    	// ワールド空間の法線
     float3 viewVecW: TEXCOORD1;  	// ワールド空間での視線ベクトル
-    float4 col : COLOR0;
+    float4 color : COLOR0;
 };  
 /**
  * 標準的な頂点シェーダー .
@@ -68,14 +68,14 @@ OUT_VS GgafDx9VS_CubeMapMesh(
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
 	float power = max(dot(out_vs.normal, -g_vecLightDirection ), 0);      
 	//拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
-	out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse * float4(2.0, 2.0, 2.0, 1.0); //全体的に明るくする;
+	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse * float4(2.0, 2.0, 2.0, 1.0); //全体的に明るくする;
     //αフォグ
-	out_vs.col.a = g_colMaterialDiffuse.a;
+	out_vs.color.a = g_colMaterialDiffuse.a;
 	if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-    	out_vs.col.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
+    	out_vs.color.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
 	} 
 	//マスターα
-	out_vs.col.a *= g_alpha_master;
+	out_vs.color.a *= g_alpha_master;
 
 	return out_vs;
 }
@@ -86,14 +86,14 @@ OUT_VS GgafDx9VS_CubeMapMesh(
 float4 GgafDx9PS_CubeMapMesh(
      float3 prm_normal: TEXCOORD0,
 	 float3 prm_viewVecW: TEXCOORD1,
-     float4 prm_col    : COLOR0
+     float4 prm_color    : COLOR0
 ) : COLOR  {
 	float3 vReflect = reflect( prm_viewVecW, prm_normal );
     float4 tex_color = texCUBE(MyTextureSampler, vReflect);
-	float4 out_color = tex_color * prm_col;
+	float4 out_color = tex_color * prm_color;
     //Blinkerを考慮
 	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color.rgb *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
+		out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
 	} 
     return out_color;
 }
@@ -101,12 +101,12 @@ float4 GgafDx9PS_CubeMapMesh(
 float4 PS_Flush( 
      float3 prm_normal: TEXCOORD0,
 	 float3 prm_viewVecW: TEXCOORD1,
-     float4 prm_col    : COLOR0
+     float4 prm_color    : COLOR0
 ) : COLOR  {                         
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float3 vReflect = reflect( prm_viewVecW, prm_normal );
     float4 tex_color = texCUBE(MyTextureSampler, vReflect);
-	float4 out_color = tex_color * prm_col * float4(7.0, 7.0, 7.0, 1.0);;
+	float4 out_color = tex_color * prm_color * float4(7.0, 7.0, 7.0, 1.0);;
 	return out_color;
 }
 

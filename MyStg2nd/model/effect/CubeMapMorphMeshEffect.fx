@@ -44,7 +44,7 @@ sampler CubeMapTextureSampler : register(s1);
 struct OUT_VS {
     float4 pos   : POSITION;
 	float2 uv     : TEXCOORD0;
-	float4 col    : COLOR0;
+	float4 color    : COLOR0;
     float3 normal : TEXCOORD1;   // ワールド変換した法線
     float3 cam    : TEXCOORD2;   //頂点 -> 視点 ベクトル
     //float3 viewVecW: TEXCOORD1;  	// ワールド空間での視線ベクトル
@@ -72,17 +72,17 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh0(
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
     float power = max(dot(out_vs.normal, -g_vecLightDirection ), 0);      
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
-    out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
+    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
     //「頂点→カメラ視点」方向ベクトル                                                        
     out_vs.cam = normalize(g_posCam.xyz - posWorld.xyz);
     //αはマテリアルαを最優先とする（上書きする）
-    out_vs.col.a = g_colMaterialDiffuse.a;
+    out_vs.color.a = g_colMaterialDiffuse.a;
     //αフォグ
     if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-        out_vs.col.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
+        out_vs.color.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
     } 
     //マスターα
-    out_vs.col.a *= g_alpha_master;
+    out_vs.color.a *= g_alpha_master;
 	return out_vs;
 }
 
@@ -302,10 +302,12 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh6(
 
 float4 GgafDx9PS_CubeMapMorphMesh(       
 	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_col    : COLOR0,
+	float4 prm_color    : COLOR0,
     float3 prm_normal : TEXCOORD1,
     float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
+	float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_cam, prm_normal));
+    float4 colTex2D   = tex2D( MyTextureSampler, prm_uv);
 
     float s = 0.0f; //スペキュラ成分
     if (g_specular_power != 0) {
@@ -314,25 +316,25 @@ float4 GgafDx9PS_CubeMapMorphMesh(
         //ハーフベクトルと法線の内積よりスペキュラ具合を計算
         s = pow( max(0.0f, dot(prm_normal, vecHarf)), g_specular ) * g_specular_power;
     }
-    float4 tex_color = tex2D( MyTextureSampler, prm_uv);
-    float4 out_color = tex_color * prm_col; 
-	float3 vReflect = reflect( -prm_cam, prm_normal );
-	float4 cube_tex_color = texCUBE(CubeMapTextureSampler, vReflect);
+
+    float4 out_color = (colTex2D * prm_color) + (colTexCube*0.2) + s;
     //Blinkerを考慮
-	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color.rgb *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
+	if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
+		out_color *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
 	} 
-	return out_color + (cube_tex_color*0.2) + s;
+
+    out_color.a = prm_color.a; 
+	return out_color;
 }
 
-float4 PS_Flush(
-     float3 prm_normal: TEXCOORD0,
-     float3 prm_viewVecW: TEXCOORD1
+
+float4 PS_Flush( 
+	float2 prm_uv	  : TEXCOORD0,
+	float4 prm_color  : COLOR0
 ) : COLOR  {
-     float3 vReflect = reflect( prm_viewVecW, prm_normal );
-    float4 tex_color = texCUBE(MyTextureSampler, vReflect) * float4(7.0, 7.0, 7.0, 1.0);
-    tex_color.a = tex_color.a * g_alpha_master;
-    return 	tex_color;
+    float4 colTex2D  = tex2D( MyTextureSampler, prm_uv);
+    float4 out_color = colTex2D * prm_color * float4(7.0, 7.0, 7.0, 1.0);
+	return 	out_color;
 }
 
 technique CubeMapMorphMeshTechnique

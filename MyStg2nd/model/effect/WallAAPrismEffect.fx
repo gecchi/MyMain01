@@ -75,7 +75,7 @@ struct OUT_VS
 {
     float4 pos    : POSITION;
 	float2 uv     : TEXCOORD0;
-	float4 col    : COLOR0;
+	float4 color    : COLOR0;
 };
 
 
@@ -309,39 +309,39 @@ OUT_VS GgafDx9VS_WallAAPrism(
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 	float power = max(dot(normal, float3(-0.819232,0.573462,0)), 0);      
 	//Ambientライト色、Diffuseライト色、Diffuseライト方向 を考慮したカラー作成。      
-	out_vs.col = (g_colLightAmbient + (g_colLightDiffuse*power));// * マテリアル色無しcolMaterialDiffuse;
+	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power));// * マテリアル色無しcolMaterialDiffuse;
 	//αフォグ
-	//out_vs.col.a = colMaterialDiffuse.a;
+	//out_vs.color.a = colMaterialDiffuse.a;
 	if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-    	out_vs.col.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
+    	out_vs.color.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
 	} 
 //	if (out_vs.pos.z > g_zf*0.75) { //最遠の 3/4 より奥の場合徐々に透明に
-//    	out_vs.col.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);
+//    	out_vs.color.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);
 //	}
     //自機より手前はα
 	if ( out_vs.pos.z < g_distance_AlphaTarget) {
-		out_vs.col.a = (out_vs.pos.z + 1.0)  / (g_distance_AlphaTarget*2);
+		out_vs.color.a = (out_vs.pos.z + 1.0)  / (g_distance_AlphaTarget*2);
 	}
 	//マスターα
-	out_vs.col.a *= g_alpha_master;
+	out_vs.color.a *= g_alpha_master;
 	return out_vs;
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_WallAAPrism(
 	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_col    : COLOR0
+	float4 prm_color    : COLOR0
 ) : COLOR  {
-    if (prm_col.a == 0) {
+    if (prm_color.a == 0) {
         return 0;
     }
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	float4 out_color = tex_color * prm_col;
+	float4 out_color = tex_color * prm_color;
 
     //Blinkerを考慮
 	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color.rgb *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
+		out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
 	} 
 	return out_color;
 }
@@ -349,11 +349,11 @@ float4 GgafDx9PS_WallAAPrism(
 
 float4 PS_Flush( 
 	float2 prm_uv	  : TEXCOORD0,
-    float4 prm_col    : COLOR0
+    float4 prm_color    : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	float4 out_color = tex_color * prm_col * float4(7.0, 7.0, 7.0, 1.0);
+	float4 out_color = tex_color * prm_color * float4(7.0, 7.0, 7.0, 1.0);
 	return out_color;
 }
 

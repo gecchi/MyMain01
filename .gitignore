@@ -6,3 +6,13 @@
 /.project
 *.stackdump
 /_cppTest_
+*.obj
+*.o
+*.exe
+*.htm
+*.pch
+*.res
+*.manifest
+*.dep
+*.idb
+*.pdb

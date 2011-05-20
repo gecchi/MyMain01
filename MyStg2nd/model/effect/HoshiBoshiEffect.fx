@@ -50,7 +50,7 @@ struct OUT_VS
 {
     float4 pos    : POSITION;
 	float  psize  : PSIZE;
-	float4 col    : COLOR0;
+	float4 color    : COLOR0;
 	float4 uv_ps  : COLOR1;  //スペキュラを潰して表示したいUV座標左上の情報をPSに渡す
 };
 
@@ -82,12 +82,12 @@ OUT_VS VS_HoshiBoshi(
       float4 prm_pos         : POSITION,  //ポイントスプライトのポイント群
       float  prm_psize_rate  : PSIZE,     //PSIZEはポイントサイズでは無く、スケールの率(0.0～N (1.0=等倍)) が入ってくる
       float2 prm_ptn_no      : TEXCOORD0, //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
-      float4 prm_col         : COLOR0     //オブジェクトのカラー
+      float4 prm_color         : COLOR0     //オブジェクトのカラー
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
-	out_vs.col = prm_col;
+	out_vs.color = prm_color;
 	out_vs.pos = mul(prm_pos, g_matWorld);  //World
 
 	//カメラの最大視野範囲(-_zf ～ _zf, -_zf ～ _zf, -_zf ～ _zf)
@@ -168,10 +168,10 @@ OUT_VS VS_HoshiBoshi(
 
 	if (r2 < 1.0) {
 		//A領域の場合、星を非表示
-		out_vs.col.a = 0;
+		out_vs.color.a = 0;
 	} else {
 		//A領域外側の場合、星を距離に応じて半透明
-        out_vs.col.a = r2 - 1.0;
+        out_vs.color.a = r2 - 1.0;
 	}
 
 	out_vs.pos = mul(out_vs.pos , g_matView);  //View
@@ -203,13 +203,13 @@ OUT_VS VS_HoshiBoshi(
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 PS_HoshiBoshi(
 	float2 prm_uv_pointsprite	  : TEXCOORD0,     
-	float4 prm_col                : COLOR0,
+	float4 prm_color                : COLOR0,
 	float4 prm_uv_ps              : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
 ) : COLOR  {
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x / g_TextureSplitRowcol + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y / g_TextureSplitRowcol + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col; // * g_colMaterialDiffuse;
+	float4 out_color = tex2D( MyTextureSampler, uv) * prm_color; // * g_colMaterialDiffuse;
 	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;
 }
@@ -217,13 +217,13 @@ float4 PS_HoshiBoshi(
 
 float4 PS_Flush(
 	float2 prm_uv_pointsprite	  : TEXCOORD0,     
-	float4 prm_col                : COLOR0,
+	float4 prm_color                : COLOR0,
 	float4 prm_uv_ps              : COLOR1
 ) : COLOR  {
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col * float4(7.0, 7.0, 7.0, 1.0);// * g_colMaterialDiffuse;
+	float4 out_color = tex2D( MyTextureSampler, uv) * prm_color * float4(7.0, 7.0, 7.0, 1.0);// * g_colMaterialDiffuse;
 	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;
 }

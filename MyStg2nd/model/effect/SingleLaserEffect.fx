@@ -70,7 +70,7 @@ struct OUT_VS
 {
     float4 pos    : POSITION;
 	float2 uv     : TEXCOORD0;
-	float4 col    : COLOR0;
+	float4 color    : COLOR0;
 };
 
 
@@ -152,22 +152,22 @@ OUT_VS GgafDx9VS_SingleLaser(
 	//UVはそのまま
 	out_vs.uv = prm_uv;
 	//αフォグ
-	out_vs.col = float4(1.0, 1.0, 1.0, 1.0);
+	out_vs.color = float4(1.0, 1.0, 1.0, 1.0);
 	if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-    	out_vs.col.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
+    	out_vs.color.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
 	} 
-	out_vs.col.a *= g_alpha_master;
+	out_vs.color.a *= g_alpha_master;
 	return out_vs;
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_SingleLaser(
 	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_col    : COLOR0
+	float4 prm_color    : COLOR0
 ) : COLOR  {
 
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);
-	float4 out_color = tex_color * prm_col;
+	float4 out_color = tex_color * prm_color;
 	return out_color;
 }
 

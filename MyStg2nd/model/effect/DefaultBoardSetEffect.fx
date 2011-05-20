@@ -199,7 +199,7 @@ sampler MyTextureSampler : register(s0);
 struct OUT_VS
 {
     float4 pos    : POSITION;
-	float4 col    : COLOR0;
+	float4 color    : COLOR0;
 	float2 uv     : TEXCOORD0;
 };
 
@@ -429,7 +429,7 @@ OUT_VS GgafDx9VS_DefaultBoardSet(
 	//UVのオフセットを加算
 	out_vs.uv.x = prm_uv.x + offsetU;
 	out_vs.uv.y = prm_uv.y + offsetV;
-	out_vs.col = alpha;
+	out_vs.color = alpha;
 	return out_vs;
 }
 
@@ -437,7 +437,7 @@ OUT_VS GgafDx9VS_DefaultBoardSet(
 //GgafDx9BoardSetModel標準ピクセルシェーダー
 float4 GgafDx9PS_DefaultBoardSet(
 	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_col    : COLOR0 
+	float4 prm_color    : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv); 
@@ -447,18 +447,18 @@ float4 GgafDx9PS_DefaultBoardSet(
 		out_color *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
 	}          
 	//α考慮
-	out_color.a = out_color.a * prm_col.a * g_alpha_master; 
+	out_color.a = out_color.a * prm_color.a * g_alpha_master; 
 	return out_color;
 }
 
 float4 PS_Flush(
 	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_col    : COLOR0 
+	float4 prm_color    : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 out_color = tex2D( MyTextureSampler, prm_uv) * float4(7.0, 7.0, 7.0, 1.0);                
 	//α考慮
-	out_color.a = out_color.a * prm_col.a * g_alpha_master; 
+	out_color.a = out_color.a * prm_color.a * g_alpha_master; 
 	return out_color;
 }
 

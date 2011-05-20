@@ -133,7 +133,7 @@ struct OUT_VS
 {
     float4 pos    : POSITION;
 	float2 uv     : TEXCOORD0;
-	float4 col    : COLOR0;
+	float4 color    : COLOR0;
 };
 
 
@@ -278,30 +278,30 @@ OUT_VS GgafDx9VS_LaserChip(
 		out_vs.uv.y = 1;
 	}
 	//αフォグ
-	out_vs.col = float4(1.0, 1.0, 1.0, 1.0);
+	out_vs.color = float4(1.0, 1.0, 1.0, 1.0);
 	if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-    	out_vs.col.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
+    	out_vs.color.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
 	} 
-	out_vs.col.a *= g_alpha_master;
+	out_vs.color.a *= g_alpha_master;
 
 //	if (out_vs.pos.z > g_zf*0.75) { //最遠の 3/4 より奥の場合徐々に透明に
-//    	out_vs.col.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);
+//    	out_vs.color.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);
 //	}
 
 	//簡易フォグ
-//	out_vs.col.a = 1.0/((g_zf*0.9)*0.5))*out_vs.pos.z - 1.0; // 1/2 より奥の場合徐々に透明に
-	//out_vs.col.a = 1.0/(g_zf - (g_zf*0.75))*out_vs.pos.z - 3.0;  // 3/4 より奥の場合徐々に透明に
+//	out_vs.color.a = 1.0/((g_zf*0.9)*0.5))*out_vs.pos.z - 1.0; // 1/2 より奥の場合徐々に透明に
+	//out_vs.color.a = 1.0/(g_zf - (g_zf*0.75))*out_vs.pos.z - 3.0;  // 3/4 より奥の場合徐々に透明に
 
 	return out_vs;
 }
 
 float4 GgafDx9PS_LaserChip( 
 	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_col    : COLOR0
+	float4 prm_color    : COLOR0
 ) : COLOR  {
 
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);
-	float4 out_color = tex_color * prm_col;
+	float4 out_color = tex_color * prm_color;
 	return out_color;
 }
 

@@ -45,7 +45,7 @@ struct OUT_VS
 {
     float4 pos    : POSITION;
 	float  psize  : PSIZE;
-	float4 col    : COLOR0;
+	float4 color    : COLOR0;
 	float4 uv_ps  : COLOR1;  //スペキュラを潰して表示したいUV座標左上の情報をPSに渡す
 };
 
@@ -76,7 +76,7 @@ struct OUT_VS
 OUT_VS GgafDx9VS_DefaultPointSprite(
       float4 prm_pos         : POSITION,  //ポイントスプライトのポイント群
       float  prm_psize_rate  : PSIZE,     //PSIZEでは無くて、スケールの率(0.0～N (1.0=等倍)) が入ってくる
-      float4 prm_col         : COLOR0,     //オブジェクトのカラー
+      float4 prm_color         : COLOR0,     //オブジェクトのカラー
       float2 prm_ptn_no      : TEXCOORD0 //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
 
 
@@ -103,20 +103,20 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
 //	out_vs.uv_ps.x = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
 //	out_vs.uv_ps.y = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
 
-	out_vs.col = prm_col;
+	out_vs.color = prm_color;
 	return out_vs;
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_DefaultPointSprite(
 	float2 prm_uv_pointsprite	  : TEXCOORD0,   //(0.F, 0.F), (0.F, 1.F), (1.F, 0.F), (1.F, 1.F)が来る   
-	float4 prm_col                : COLOR0,
+	float4 prm_color                : COLOR0,
 	float4 prm_uv_ps              : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
 ) : COLOR  {
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col; // * g_colMaterialDiffuse;
+	float4 out_color = tex2D( MyTextureSampler, uv) * prm_color; // * g_colMaterialDiffuse;
 	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;
 }
@@ -124,13 +124,13 @@ float4 GgafDx9PS_DefaultPointSprite(
 
 float4 PS_Flush(
 	float2 prm_uv_pointsprite	  : TEXCOORD0,     
-	float4 prm_col                : COLOR0,
+	float4 prm_color                : COLOR0,
 	float4 prm_uv_ps              : COLOR1
 ) : COLOR  {
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col * float4(7.0, 7.0, 7.0, 1.0);// * g_colMaterialDiffuse;
+	float4 out_color = tex2D( MyTextureSampler, uv) * prm_color * float4(7.0, 7.0, 7.0, 1.0);// * g_colMaterialDiffuse;
 	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;
 }

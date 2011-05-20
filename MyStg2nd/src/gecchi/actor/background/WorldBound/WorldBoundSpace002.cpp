@@ -7,6 +7,8 @@ using namespace MyStg2nd;
 
 WorldBoundSpace002::WorldBoundSpace002(const char* prm_name) : WorldBoundActor(prm_name, "WorldBoundSpace002") {
     _class_name = "WorldBoundSpace002";
+    _base_u = 0;
+    _base_v = 0;
 }
 void WorldBoundSpace002::initialize() {
     //    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);
@@ -24,7 +26,10 @@ void WorldBoundSpace002::onActive() {
 }
 
 void WorldBoundSpace002::processBehavior() {
-    //_pUvFlipper->behave();
+    _pUvFlipper->setBaseUv(_base_u,_base_v);
+    _base_u += 0.005;
+    _base_v += 0.005;
+    _pUvFlipper->behave();
 }
 void WorldBoundSpace002::processJudgement() {
 }

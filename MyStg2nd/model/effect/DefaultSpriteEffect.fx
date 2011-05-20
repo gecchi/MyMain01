@@ -59,7 +59,7 @@ float4 GgafDx9PS_DefaultSprite(
 	//求める色
 	float4 out_color = tex_color; 
 	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
-		out_color.rgb *= g_tex_blink_power; //+ (tex_color * g_tex_blink_power);
+		out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
 	}         
 	out_color.a = tex_color.a * g_hAlpha * g_alpha_master;
 	return out_color;
