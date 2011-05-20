@@ -94,6 +94,10 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr, void* 
             //CubeMapMorphMeshModel "H/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createCubeMapMorphMeshModel(model_name);
             break;
+        case 'W':
+            //WorldBoundModel "W/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+            pResourceModel = createWorldBoundModel(model_name);
+            break;
         case 'S':
             //SpriteModel
             pResourceModel = createSpriteModel(model_name);
@@ -198,12 +202,16 @@ GgafDx9MorphMeshModel* GgafDx9ModelManager::createMorphMeshModel(char* prm_model
 }
 
 GgafDx9CubeMapMorphMeshModel* GgafDx9ModelManager::createCubeMapMorphMeshModel(char* prm_model_name) {
-    // "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
-    // ここでprm_model_name は "4/xxxxx" という文字列になっている。
-    // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残す。
     GgafDx9CubeMapMorphMeshModel* pCubeMapMorphMeshModel_New = NEW GgafDx9CubeMapMorphMeshModel(prm_model_name);
     restoreMorphMeshModel((GgafDx9MorphMeshModel*)pCubeMapMorphMeshModel_New);
     return pCubeMapMorphMeshModel_New;
+}
+
+
+GgafDx9WorldBoundModel* GgafDx9ModelManager::createWorldBoundModel(char* prm_model_name) {
+    GgafDx9WorldBoundModel* pWorldBoundModel_New = NEW GgafDx9WorldBoundModel(prm_model_name);
+    restoreMorphMeshModel((GgafDx9WorldBoundModel*)pWorldBoundModel_New);
+    return pWorldBoundModel_New;
 }
 
 

@@ -3,7 +3,7 @@
 
 namespace GgafDx9Core {
 
-class GgafDx9WorldMatStack
+class GgafDx9WorldBoundMatStack
 {
 protected:
    D3DXMATRIX m_WorldTransMatrix;
@@ -11,8 +11,8 @@ protected:
    list<D3DXFRAME_WORLD*> m_DrawFrameList;
 
 public:
-   GgafDx9WorldMatStack(void);
-   ~GgafDx9WorldMatStack(void);
+   GgafDx9WorldBoundMatStack(void);
+   ~GgafDx9WorldBoundMatStack(void);
    virtual void SetWorldMatrix( D3DXMATRIX* worldmat );
    virtual void UpdateFrame( D3DXFRAME_WORLD* frame );
    list< D3DXFRAME_WORLD*>  *GetDrawList();

@@ -39,6 +39,9 @@ GgafDx9Effect* GgafDx9EffectManager::processCreateResource(char* prm_idstr, void
         case 'H':
             pResourceEffect = NEW GgafDx9CubeMapMorphMeshEffect(effect_name);
             break;
+        case 'W':
+            pResourceEffect = NEW GgafDx9WorldBoundEffect(effect_name);
+            break;
         case 'S':
             pResourceEffect = NEW GgafDx9SpriteEffect(effect_name);
             break;

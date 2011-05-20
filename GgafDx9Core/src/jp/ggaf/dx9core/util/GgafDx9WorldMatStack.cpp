@@ -3,18 +3,18 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9WorldMatStack::GgafDx9WorldMatStack(void) {
+GgafDx9WorldBoundMatStack::GgafDx9WorldBoundMatStack(void) {
 }
 
-GgafDx9WorldMatStack::~GgafDx9WorldMatStack(void) {
+GgafDx9WorldBoundMatStack::~GgafDx9WorldBoundMatStack(void) {
 }
 
 // ワールド変換行列の設定
-void GgafDx9WorldMatStack::SetWorldMatrix(D3DXMATRIX* worldmat) {
+void GgafDx9WorldBoundMatStack::SetWorldMatrix(D3DXMATRIX* worldmat) {
     m_WorldTransMatrix = *worldmat;
 }
 
-void GgafDx9WorldMatStack::UpdateFrame(D3DXFRAME_WORLD* frame) {
+void GgafDx9WorldBoundMatStack::UpdateFrame(D3DXFRAME_WORLD* frame) {
     // スタックの初期化
     while (!m_MatrixStack.empty())
         m_MatrixStack.pop();
@@ -29,7 +29,7 @@ void GgafDx9WorldMatStack::UpdateFrame(D3DXFRAME_WORLD* frame) {
     CalcFrameWorldMatrix(frame);
 }
 
-void GgafDx9WorldMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame) {
+void GgafDx9WorldBoundMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame) {
     // 現在のスタックの先頭にあるワールド変換行列を参照
     D3DXMATRIX *pStackMat = m_MatrixStack.top();
 
@@ -68,6 +68,6 @@ void GgafDx9WorldMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame) {
 }
 
 // 描画リストを取得
-list<D3DXFRAME_WORLD*> *GgafDx9WorldMatStack::GetDrawList() {
+list<D3DXFRAME_WORLD*> *GgafDx9WorldBoundMatStack::GetDrawList() {
     return &m_DrawFrameList;
 }

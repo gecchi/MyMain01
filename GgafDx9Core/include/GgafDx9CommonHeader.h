@@ -206,12 +206,13 @@ enum GgafDx9PuppeteerStick {
 #define Obj_GgafDx9CubeMapMeshActor      (0x40000)        //0b 00000000 00000100 00000000 00000000
 #define Obj_GgafDx9CubeMapMeshSetActor   (0x80000)        //0b 00000000 00001000 00000000 00000000
 #define Obj_GgafDx9CubeMapMorphMeshActor (0x100000)       //0b 00000000 00010000 00000000 00000000
-#define Obj_GgafDx9SpriteActor           (0x200000)       //0b 00000000 00100000 00000000 00000000
-#define Obj_GgafDx9SpriteSetActor        (0x400000)       //0b 00000000 01000000 00000000 00000000
-#define Obj_GgafDx9BoardActor            (0x800000)       //0b 00000000 10000000 00000000 00000000
-#define Obj_GgafDx9BoardSetActor         (0x1000000)      //0b 00000001 00000000 00000000 00000000
-#define Obj_GgafDx9PointSpriteActor      (0x2000000)      //0b 00000010 00000000 00000000 00000000
-#define Obj_GgafDx9FormationActor        (0x4000000)      //0b 00000100 00000000 00000000 00000000
+#define Obj_GgafDx9WorldBoundActor            (0x200000)       //0b 00000000 00100000 00000000 00000000
+#define Obj_GgafDx9SpriteActor           (0x400000)       //0b 00000000 01000000 00000000 00000000
+#define Obj_GgafDx9SpriteSetActor        (0x800000)       //0b 00000000 10000000 00000000 00000000
+#define Obj_GgafDx9BoardActor            (0x1000000)      //0b 00000001 00000000 00000000 00000000
+#define Obj_GgafDx9BoardSetActor         (0x2000000)      //0b 00000010 00000000 00000000 00000000
+#define Obj_GgafDx9PointSpriteActor      (0x4000000)      //0b 00000100 00000000 00000000 00000000
+#define Obj_GgafDx9FormationActor        (0x8000000)      //0b 00001000 00000000 00000000 00000000
 
 #undef P_GOD
 #define P_GOD ((GgafDx9Core::GgafDx9God*)GgafDx9Core::GgafDx9God::_pGod)
@@ -240,7 +241,7 @@ class GgafDx9FixedVelocitySplineProgram;
 class GgafDx9AllocHierarchy;
 class D3DXFRAME_WORLD;
 class GgafDx9AllocHierarchyWorldFrame;
-class GgafDx9WorldMatStack;
+class GgafDx9WorldBoundMatStack;
 
 class GgafDx9BaseActor;
 class GgafDx9GeometricActor;
@@ -257,6 +258,7 @@ class GgafDx9SpriteMeshSetActor;
 class GgafDx9CubeMapMeshActor;
 class GgafDx9CubeMapMeshSetActor;
 class GgafDx9CubeMapMorphMeshActor;
+class GgafDx9WorldBoundActor;
 
 class GgafDx9AABActor;
 class GgafDx9AAPrismActor;
@@ -282,6 +284,7 @@ class GgafDx9MorphMeshModel;
 class GgafDx9CubeMapMeshModel;
 class GgafDx9CubeMapMeshSetModel;
 class GgafDx9CubeMapMorphMeshModel;
+class GgafDx9WorldBoundModel;
 class GgafDx9BoardModel;
 class GgafDx9BoardSetModel;
 class GgafDx9PointSpriteModel;
@@ -294,6 +297,7 @@ class GgafDx9MorphMeshEffect;
 class GgafDx9CubeMapMeshEffect;
 class GgafDx9CubeMapMeshSetEffect;
 class GgafDx9CubeMapMorphMeshEffect;
+class GgafDx9WorldBoundEffect;
 class GgafDx9SpriteEffect;
 class GgafDx9SpriteSetEffect;
 class GgafDx9BoardEffect;
@@ -361,7 +365,7 @@ class CWaveDecorder;
 
 #include "jp/ggaf/dx9core/util/GgafDx9AllocHierarchy.h"
 #include "jp/ggaf/dx9core/util/GgafDx9AllocHierarchyWorldFrame.h"
-#include "jp/ggaf/dx9core/util/GgafDx9WorldMatStack.h"
+#include "jp/ggaf/dx9core/util/GgafDx9WorldBoundMatStack.h"
 
 
 #include "jp/ggaf/dx9core/actor/GgafDx9BaseActor.h"
@@ -391,6 +395,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMeshActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMeshSetActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeMapMorphMeshActor.h"
+#include "jp/ggaf/dx9core/actor/ex/GgafDx9WorldBoundActor.h"
 
 #include "jp/ggaf/dx9core/model/GgafDx9Model.h"
 #include "jp/ggaf/dx9core/model/GgafDx9D3DXMeshModel.h"
@@ -406,6 +411,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/model/ex/GgafDx9CubeMapMeshModel.h"
 #include "jp/ggaf/dx9core/model/ex/GgafDx9CubeMapMeshSetModel.h"
 #include "jp/ggaf/dx9core/model/ex/GgafDx9CubeMapMorphMeshModel.h"
+#include "jp/ggaf/dx9core/model/ex/GgafDx9WorldBoundModel.h"
 
 #include "jp/ggaf/dx9core/effect/GgafDx9Effect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9MeshEffect.h"
@@ -421,6 +427,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/effect/ex/GgafDx9CubeMapMeshEffect.h"
 #include "jp/ggaf/dx9core/effect/ex/GgafDx9CubeMapMeshSetEffect.h"
 #include "jp/ggaf/dx9core/effect/ex/GgafDx9CubeMapMorphMeshEffect.h"
+#include "jp/ggaf/dx9core/effect/ex/GgafDx9WorldBoundEffect.h"
 
 #include "jp/ggaf/dx9core/texture/GgafDx9Texture.h"
 

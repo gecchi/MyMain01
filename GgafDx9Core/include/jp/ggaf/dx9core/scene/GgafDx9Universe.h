@@ -12,7 +12,7 @@ namespace GgafDx9Core {
 /**
  * GgafDx9Core名前空間のこの世クラス.
  * GgafDx9Core名前空間内では、このクラスを基底のこの世クラスとします。<BR>
- * (旧GgafDx9World)
+ * (旧GgafDx9WorldBound)
  * @version 1.00
  * @since 2008/07/30
  * @author Masatoshi Tsuge

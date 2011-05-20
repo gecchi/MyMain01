@@ -34,6 +34,7 @@ private:
     GgafDx9CubeMapMeshSetModel*   createCubeMapMeshSetModel(char* prm_model_name);
     GgafDx9MorphMeshModel*        createMorphMeshModel(char* prm_model_name);
     GgafDx9CubeMapMorphMeshModel* createCubeMapMorphMeshModel(char* prm_model_name);
+    GgafDx9WorldBoundModel*            createWorldBoundModel(char* prm_model_name);
     GgafDx9PointSpriteModel*      createPointSpriteModel(char* prm_model_name);
 
     /**
