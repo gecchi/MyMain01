@@ -24,4 +24,4 @@ public:
 };
 
 }
-#endif /*GGAFDX9CUBEMAPMESHEFFECT_H_*/
+#endif /*GGAFDX9WORLDEFFECT_H_*/

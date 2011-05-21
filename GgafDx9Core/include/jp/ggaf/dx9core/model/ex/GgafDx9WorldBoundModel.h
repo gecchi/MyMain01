@@ -25,5 +25,5 @@ public:
 };
 
 }
-#endif /*GGAFDX9CUBEMAPMORPHMESHMODEL_H_*/
+#endif /*GGAFDX9WORLDMODEL_H_*/
 

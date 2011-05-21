@@ -241,7 +241,7 @@ class GgafDx9FixedVelocitySplineProgram;
 class GgafDx9AllocHierarchy;
 class D3DXFRAME_WORLD;
 class GgafDx9AllocHierarchyWorldFrame;
-class GgafDx9WorldBoundMatStack;
+class GgafDx9WorldMatStack;
 
 class GgafDx9BaseActor;
 class GgafDx9GeometricActor;
@@ -365,7 +365,7 @@ class CWaveDecorder;
 
 #include "jp/ggaf/dx9core/util/GgafDx9AllocHierarchy.h"
 #include "jp/ggaf/dx9core/util/GgafDx9AllocHierarchyWorldFrame.h"
-#include "jp/ggaf/dx9core/util/GgafDx9WorldBoundMatStack.h"
+#include "jp/ggaf/dx9core/util/GgafDx9WorldMatStack.h"
 
 
 #include "jp/ggaf/dx9core/actor/GgafDx9BaseActor.h"
