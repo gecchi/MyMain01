@@ -173,7 +173,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
     CollisionChecker* pOppCChecker = (CollisionChecker*)prm_pOppChecker;
     //TODO: だんだん肥大化してきた
     //当たり判定を行う相手のアクター
-    GgafDx9GeometricActor* pOppActor = pOppCChecker->getTargetActor();
+    GgafDx9GeometricActor* pOppActor = pOppCChecker->_pActor;
     //相手の当たり判定領域
     GgafDx9CollisionArea* pOppCollisionArea = pOppCChecker->_pCollisionArea;
 
@@ -184,21 +184,21 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
         return false;
     }
 
-    GgafDx9CollisionPart* pColliPart;     //自身の当たり判定要素
-    GgafDx9CollisionPart* pOppColliPart;  //相手の当たり判定要素
-
+    GgafDx9CollisionPart* pColliPart, pOppColliPart;
+    int shape_kind, opp_shape_kind;
     for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
         pColliPart = _pCollisionArea->_papColliPart[i];
         if (!pColliPart->_is_valid_flg) { continue; }
-
+        shape_kind = pColliPart->_shape_kind;
         for (int j = 0; j < pOppCollisionArea->_nColliPart; j++) {
             pOppColliPart = pOppCollisionArea->_papColliPart[j];
             if (!pOppColliPart->_is_valid_flg) { continue; }
+            opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
             CollisionChecker::_num_check++;
 #endif
-            if (pColliPart->_shape_kind == COLLI_AAB) {
-                if (pOppColliPart->_shape_kind == COLLI_AAB) {
+            if (shape_kind == COLLI_AAB) {
+                if (opp_shape_kind == COLLI_AAB) {
                     //＜AAB と AAB＞
                     if (StgUtil::isHit(this        , _pActor  , (ColliAAB*)pColliPart,
                                        pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart)) {
@@ -207,7 +207,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                         pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
                         return true;
                     }
-                 } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
+                 } else if (opp_shape_kind == COLLI_SPHERE) {
                      //＜AAB と 球＞
                      if (StgUtil::isHit(this        , _pActor  , (ColliAAB*)pColliPart,
                                         pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
@@ -216,7 +216,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                          pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
                          return true;
                      }
-                 } else if (pOppColliPart->_shape_kind == COLLI_AAPRISM) {
+                 } else if (opp_shape_kind == COLLI_AAPRISM) {
                      //＜AAB と AAPrism＞
                      if (StgUtil::isHit(pOppCChecker, pOppActor, (ColliAAPrism*)pOppColliPart,
                                         this        , _pActor  , (ColliAAB*)pColliPart)) {
@@ -227,8 +227,8 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                      }
                  }
 
-            } else if (pColliPart->_shape_kind == COLLI_SPHERE) {
-                if (pOppColliPart->_shape_kind == COLLI_AAB) {
+            } else if (shape_kind == COLLI_SPHERE) {
+                if (opp_shape_kind == COLLI_AAB) {
                     //＜球 と AAB＞
                     if (StgUtil::isHit(pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart,
                                        this        , _pActor  , (ColliSphere*)pColliPart)) {
@@ -237,7 +237,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                         this->_blown_sgn_vZ += -(pOppCChecker->_blown_sgn_vZ);
                         return true;
                     }
-                } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
+                } else if (opp_shape_kind == COLLI_SPHERE) {
                     //＜球 と 球＞
                     if (StgUtil::isHit(this        , _pActor  , (ColliSphere*)pColliPart,
                                        pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
@@ -246,7 +246,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                         pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
                         return true;
                     }
-                } else if (pOppColliPart->_shape_kind == COLLI_AAPRISM) {
+                } else if (opp_shape_kind == COLLI_AAPRISM) {
                     //＜球 と AAPrism＞
                     if (StgUtil::isHit(pOppCChecker, pOppActor, (ColliAAPrism*)pOppColliPart,
                                        this        , _pActor  , (ColliSphere*)pColliPart)) {
@@ -257,8 +257,8 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                     }
                 }
 
-            } else if (pColliPart->_shape_kind == COLLI_AAPRISM) {
-                if (pOppColliPart->_shape_kind == COLLI_AAB) {
+            } else if (shape_kind == COLLI_AAPRISM) {
+                if (opp_shape_kind == COLLI_AAB) {
                     //＜AAPrism と AAB＞
                     if (StgUtil::isHit(this        , _pActor  , (ColliAAPrism*)pColliPart,
                                        pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart)) {
@@ -267,7 +267,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                         pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
                         return true;
                     }
-                } else if (pOppColliPart->_shape_kind == COLLI_SPHERE) {
+                } else if (opp_shape_kind == COLLI_SPHERE) {
                     //＜AAPrism と 球＞
                     if (StgUtil::isHit(this        , _pActor  , (ColliAAPrism*)pColliPart,
                                        pOppCChecker, pOppActor, (ColliSphere*)pOppColliPart)) {
@@ -276,7 +276,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                         pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
                         return true;
                     }
-                }  else if (pOppColliPart->_shape_kind == COLLI_AAPRISM) {
+                }  else if (opp_shape_kind == COLLI_AAPRISM) {
                    //＜AAPrism と AAPrism＞
                    //TODO: 非常に重たくなってしまう、というか考えるだけでめんどくさそうな感じがする；。
                    //時間があれば考えよう・・・。今は未対応。
