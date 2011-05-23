@@ -184,7 +184,8 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
         return false;
     }
 
-    GgafDx9CollisionPart* pColliPart, pOppColliPart;
+    GgafDx9CollisionPart* pColliPart;
+    GgafDx9CollisionPart* pOppColliPart;
     int shape_kind, opp_shape_kind;
     for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
         pColliPart = _pCollisionArea->_papColliPart[i];
