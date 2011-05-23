@@ -12,8 +12,8 @@ class WorldBoundSpace001 : public GgafDx9LibStg::WorldBoundActor {
 
 public:
 
-    float _base_u;
-    float _base_v;
+//    float _base_u;
+//    float _base_v;
     /**
      * コンストラクタ
      * @param prm_name

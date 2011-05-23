@@ -1,5 +1,5 @@
-#ifndef WORLDBOUNDACTOR_H_
-#define WORLDBOUNDACTOR_H_
+#ifndef SPRITEMESHWORLDBOUNDACTOR_H_
+#define SPRITEMESHWORLDBOUNDACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
@@ -8,7 +8,7 @@ namespace GgafDx9LibStg {
  * @since 2010/06/16
  * @author Masatoshi Tsuge
  */
-class WorldBoundActor : public GgafDx9Core::GgafDx9WorldBoundActor {
+class SpriteMeshWorldBoundActor : public GgafDx9Core::GgafDx9SpriteMeshActor {
 
 public:
     /** 拡大縮小支援オブジェクト */
@@ -16,7 +16,7 @@ public:
 
     frame _offset_frames;
 
-    WorldBoundActor(const char* prm_name, const char* prm_model);
+    SpriteMeshWorldBoundActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }
@@ -46,7 +46,7 @@ public:
         //ゲーム座標範囲外判定無し
         return false;
     }
-    virtual ~WorldBoundActor();
+    virtual ~SpriteMeshWorldBoundActor();
 };
 
 }
