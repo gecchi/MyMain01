@@ -63,13 +63,14 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
         //もぐる。が、その前に現空間アクターを親空間アクターのスタックへ追加。
         //もぐった空間から見た場合の親空間アクター累計を作っておいてやる。
         //(現空間スタックも開放)
-        int _stackParentSpaceActor_GroupA_p = _stackCurrentSpaceActor_GroupA._p; //スタックポインタ保存
-        int _stackParentSpaceActor_GroupB_p = _stackCurrentSpaceActor_GroupB._p;
+        int _stackParentSpaceActor_GroupA_p = _stackParentSpaceActor_GroupA._p; //スタックポインタ保存
+        int _stackParentSpaceActor_GroupB_p = _stackParentSpaceActor_GroupB._p;
         GgafActor* pActor;
         while (true) {
             pActor = _stackCurrentSpaceActor_GroupA.pop();
             if (pActor) {
                 _stackParentSpaceActor_GroupA.push(pActor);
+//                add_num_GroupA++;
             } else {
                 break;
             }
@@ -78,6 +79,7 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
             pActor = _stackCurrentSpaceActor_GroupB.pop();
             if (pActor) {
                 _stackParentSpaceActor_GroupB.push(pActor);
+//                add_num_GroupB++;
             } else {
                 break;
             }
@@ -94,7 +96,12 @@ void LinearOctreeForActor::executeHitChk(UINT32 prm_index) {
         //スタックの解放（pushした分、元に戻す）
         _stackParentSpaceActor_GroupA._p = _stackParentSpaceActor_GroupA_p;
         _stackParentSpaceActor_GroupB._p = _stackParentSpaceActor_GroupB_p;
-
+//        for (int i = 0; i < add_num_GroupA; i ++) {
+//            _stackParentSpaceActor_GroupA.pop();
+//        }
+//        for (int i = 0; i < add_num_GroupB; i ++) {
+//            _stackParentSpaceActor_GroupB.pop();
+//        }
         return; //親空間へ戻る
     }
 
