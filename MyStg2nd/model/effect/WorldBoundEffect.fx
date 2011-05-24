@@ -306,7 +306,9 @@ float4 GgafDx9PS_WorldBound(
     float3 prm_normal : TEXCOORD1,
     float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
-	float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_cam, -prm_normal));
+	//float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_cam, -prm_normal));
+	float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_normal);
+
 //    float4 colTex2D   = tex2D( MyTextureSampler, prm_uv);
 
 //    float s = 0.0f; //スペキュラ成分
@@ -333,7 +335,8 @@ float4 PS_Flush(
     float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
 
-	float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_cam, -prm_normal));
+//	float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_cam, -prm_normal));
+	float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_normal);
     float4 out_color = colTexCube * prm_color * float4(7.0, 7.0, 7.0, 1.0);
 	return 	out_color;
 }
