@@ -312,12 +312,9 @@ OUT_VS GgafDx9VS_WallAAPrism(
 	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power));// * マテリアル色無しcolMaterialDiffuse;
 	//αフォグ
 	//out_vs.color.a = colMaterialDiffuse.a;
-	if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-    	out_vs.color.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
-	} 
-//	if (out_vs.pos.z > g_zf*0.75) { //最遠の 3/4 より奥の場合徐々に透明に
-//    	out_vs.color.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);
-//	}
+    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
+    }
     //自機より手前はα
 	if ( out_vs.pos.z < g_distance_AlphaTarget) {
 		out_vs.color.a = (out_vs.pos.z + 1.0)  / (g_distance_AlphaTarget*2);

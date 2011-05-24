@@ -12,7 +12,7 @@ float g_specular;
 float g_specular_power;
 /** カメラ（視点）の位置ベクトル */
 float3 g_posCam;
-
+float g_reflectance;
 
 
 float4x4 g_matWorld;  //World変換行列
@@ -78,9 +78,9 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh0(
     //αはマテリアルαを最優先とする（上書きする）
     out_vs.color.a = g_colMaterialDiffuse.a;
     //αフォグ
-    if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-        out_vs.color.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
-    } 
+    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
+    }
     //マスターα
     out_vs.color.a *= g_alpha_master;
 	return out_vs;
@@ -317,7 +317,7 @@ float4 GgafDx9PS_CubeMapMorphMesh(
         s = pow( max(0.0f, dot(prm_normal, vecHarf)), g_specular ) * g_specular_power;
     }
 
-    float4 out_color = (colTex2D * prm_color) + (colTexCube*0.2) + s;
+    float4 out_color = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
     //Blinkerを考慮
 	if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
 		out_color *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);

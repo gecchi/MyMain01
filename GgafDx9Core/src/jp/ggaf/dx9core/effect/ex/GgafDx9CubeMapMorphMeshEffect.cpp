@@ -6,6 +6,8 @@ using namespace GgafDx9Core;
 
 GgafDx9CubeMapMorphMeshEffect::GgafDx9CubeMapMorphMeshEffect(char* prm_effect_name) : GgafDx9MorphMeshEffect(prm_effect_name) {
     //_h_pos_camera = _pID3DXEffect->GetParameterByName( NULL, "pos_camera" );
+    _h_reflectance = _pID3DXEffect->GetParameterByName(NULL, "g_reflectance");
+
 }
 
 //void GgafDx9CubeMapMorphMeshEffect::setParamPerFrame() {

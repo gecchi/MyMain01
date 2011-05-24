@@ -12,7 +12,7 @@ class GgafDx9CubeMapMorphMeshEffect : public GgafDx9MorphMeshEffect {
     friend class GgafDx9EffectManager;
 
 public:
-
+    D3DXHANDLE _h_reflectance;
 //    D3DXHANDLE _h_pos_camera;
 
     GgafDx9CubeMapMorphMeshEffect(char* prm_effect_name);

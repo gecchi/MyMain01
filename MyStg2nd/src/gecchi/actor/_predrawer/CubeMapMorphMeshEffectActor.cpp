@@ -20,6 +20,7 @@ void CubeMapMorphMeshEffectActor::onCreateModel() {
 
 void CubeMapMorphMeshEffectActor::initialize() {
     setHitAble(false);
+    setCubeMapTexture("Torus_cubemap.dds",0.3);
     _pMorpher->setWeight(0, 1.0);
     setScaleRate(0.5);
 }

@@ -21,9 +21,11 @@ GgafDx9CubeMapMorphMeshActor::GgafDx9CubeMapMorphMeshActor(const char* prm_name,
     _pCubeMapMorphMeshModel = (GgafDx9CubeMapMorphMeshModel*)_pGgafDx9Model;
     _pCubeMapMorphMeshEffect = (GgafDx9CubeMapMorphMeshEffect*)_pGgafDx9Effect;
     _pCubeMapTextureCon = (GgafDx9TextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->getConnection("uffizi_cross_cubemap.dds"));
+    _reflectance = 0.3f;
 }
 
-void GgafDx9CubeMapMorphMeshActor::setCubeMapTexture(const char* prm_cubemap_tex) {
+void GgafDx9CubeMapMorphMeshActor::setCubeMapTexture(const char* prm_cubemap_tex, float prm_reflectance) {
+    _reflectance = prm_reflectance;
     _pCubeMapTextureCon->close();
     _pCubeMapTextureCon = (GgafDx9TextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->getConnection(prm_cubemap_tex));
 }
@@ -41,7 +43,8 @@ void GgafDx9CubeMapMorphMeshActor::processDraw() {
     }
     hr = pID3DXEffect->SetMatrix(_pCubeMapMorphMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDx9CubeMapMorphMeshActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-
+    hr = pID3DXEffect->SetFloat(_pCubeMapMorphMeshEffect->_h_reflectance, _reflectance);
+    checkDxException(hr, D3D_OK, "GgafDx9CubeMapMorphMeshActor::processDraw() SetFloat(_h_reflectances) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     if (_pCubeMapTextureCon) {
         GgafDx9God::_pID3DDevice9->SetTexture(1, _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9);
     } else {

@@ -170,9 +170,9 @@ OUT_VS GgafDx9VS_DefaultMeshSet(
     //αはマテリアルαを最優先とする（上書きする）
     out_vs.color.a = colorMaterialDiffuse.a;
     //αフォグ
-    if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
-        out_vs.color.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
-    } 
+    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
+    }
     //マスターα
     out_vs.color.a *= g_alpha_master;
 
