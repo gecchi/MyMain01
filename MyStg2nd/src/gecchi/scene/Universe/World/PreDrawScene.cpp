@@ -7,28 +7,30 @@ using namespace MyStg2nd;
 
 PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "PreDrawScene";
-
-//    orderActorToFactory(11, CubeMapMeshEffectActor       , "CubeMapMeshEffectActor");
-//    orderActorToFactory(12, CubeMapMeshSetEffectActor    , "CubeMapMeshSetEffectActor");
-    orderActorToFactory(13, CubeMapMorphMeshEffectActor  , "CubeMapMorphMeshEffectActor");
-//    orderActorToFactory(14, DefaultD3DXAniMeshEffectActor    , "DefaultD3DXAniMeshEffectActor");
-//    orderActorToFactory(15, DefaultBoardEffectActor      , "DefaultBoardEffectActor");
-//    orderActorToFactory(16, DefaultBoardSetEffectActor   , "DefaultBoardSetEffectActor");
-//    orderActorToFactory(17, DefaultMeshEffectActor       , "DefaultMeshEffectActor");
-//    orderActorToFactory(18, DefaultMeshSetEffectActor    , "DefaultMeshSetEffectActor");
-//    orderActorToFactory(19, DefaultMorphMeshEffectActor  , "DefaultMorphMeshEffectActor");
-//    orderActorToFactory(21, DefaultPointSpriteEffectActor, "DefaultPointSpriteEffectActor");
-//    orderActorToFactory(22, DefaultSpriteEffectActor     , "DefaultSpriteEffectActor");
-//    orderActorToFactory(23, DefaultSpriteSetEffectActor  , "DefaultSpriteSetEffectActor");
-//    orderActorToFactory(24, GroundMeshEffectActor        , "GroundMeshEffectActor");
-//    orderActorToFactory(25, HoshiBoshiEffectActor        , "HoshiBoshiEffectActor");
-//    orderActorToFactory(26, LaserChipEffectActor         , "LaserChipEffectActor");
-//    orderActorToFactory(27, SingleLaserEffectActor       , "SingleLaserEffectActor");
-//    orderActorToFactory(28, SpriteMeshEffectActor        , "SpriteMeshEffectActor");
-//    orderActorToFactory(29, SpriteMeshSetEffectActor     , "SpriteMeshSetEffectActor");
-//    orderActorToFactory(31, StringBoardEffectActor       , "StringBoardEffectActor");
-//    orderActorToFactory(32, WallAABEffectActor           , "WallAABEffectActor");
-//    orderActorToFactory(33, WallAAPrismEffectActor       , "WallAAPrismEffectActor");
+    int id = 11;
+    orderActorToFactory(id, CubeMapMeshEffectActor       , "CubeMapMeshEffectActor");             id++;
+    for (int i = 0; i < 30; i++) {
+        orderActorToFactory(id, CubeMapMeshSetEffectActor    , "CubeMapMeshSetEffectActor"); id++;
+    }
+    orderActorToFactory(id, CubeMapMorphMeshEffectActor  , "CubeMapMorphMeshEffectActor");        id++;
+//    orderActorToFactory(id, DefaultD3DXAniMeshEffectActor    , "DefaultD3DXAniMeshEffectActor");id++;
+//    orderActorToFactory(id, DefaultBoardEffectActor      , "DefaultBoardEffectActor");          id++;
+//    orderActorToFactory(id, DefaultBoardSetEffectActor   , "DefaultBoardSetEffectActor");       id++;
+//    orderActorToFactory(id, DefaultMeshEffectActor       , "DefaultMeshEffectActor");           id++;
+//    orderActorToFactory(id, DefaultMeshSetEffectActor    , "DefaultMeshSetEffectActor");        id++;
+//    orderActorToFactory(id, DefaultMorphMeshEffectActor  , "DefaultMorphMeshEffectActor");      id++;
+//    orderActorToFactory(id, DefaultPointSpriteEffectActor, "DefaultPointSpriteEffectActor");    id++;
+//    orderActorToFactory(id, DefaultSpriteEffectActor     , "DefaultSpriteEffectActor");         id++;
+//    orderActorToFactory(id, DefaultSpriteSetEffectActor  , "DefaultSpriteSetEffectActor");      id++;
+//    orderActorToFactory(id, GroundMeshEffectActor        , "GroundMeshEffectActor");            id++;
+//    orderActorToFactory(id, HoshiBoshiEffectActor        , "HoshiBoshiEffectActor");            id++;
+//    orderActorToFactory(id, LaserChipEffectActor         , "LaserChipEffectActor");             id++;
+//    orderActorToFactory(id, SingleLaserEffectActor       , "SingleLaserEffectActor");           id++;
+//    orderActorToFactory(id, SpriteMeshEffectActor        , "SpriteMeshEffectActor");            id++;
+//    orderActorToFactory(id, SpriteMeshSetEffectActor     , "SpriteMeshSetEffectActor");         id++;
+//    orderActorToFactory(id, StringBoardEffectActor       , "StringBoardEffectActor");           id++;
+//    orderActorToFactory(id, WallAABEffectActor           , "WallAABEffectActor");               id++;
+//    orderActorToFactory(id, WallAAPrismEffectActor       , "WallAAPrismEffectActor");           id++;
 
 }
 
@@ -45,27 +47,36 @@ void PreDrawScene::initialize() {
 
 void PreDrawScene::processBehavior() {
     if (getActivePartFrame() == 1) {
-//        getLordActor()->addSubGroup(obtainActorFromFactory(11));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(12));
-        getLordActor()->addSubGroup(obtainActorFromFactory(13));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(14));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(15));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(16));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(17));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(18));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(19));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(21));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(22));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(23));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(24));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(25));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(26));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(27));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(28));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(29));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(31));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(32));
-//        getLordActor()->addSubGroup(obtainActorFromFactory(33));
+        int id = 11;
+        GgafDx9DrawableActor* pActor;
+
+        getLordActor()->addSubGroup(obtainActorFromFactory(id));    id++;
+
+        for (int i = 0; i < 30; i++) {
+            pActor = (GgafDx9DrawableActor*)obtainActorFromFactory(id);   id++;
+            pActor->locate((-(30/2)*5000) + (i * 50000), 200*1000, -50*1000);
+            getLordActor()->addSubGroup(pActor);
+        }
+
+        getLordActor()->addSubGroup(obtainActorFromFactory(id));    id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
 
     }
 }

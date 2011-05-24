@@ -42,12 +42,11 @@ sampler MyTextureSampler : register(s0);
 sampler CubeMapTextureSampler : register(s1);
 
 struct OUT_VS {
-    float4 pos   : POSITION;
+    float4 pos    : POSITION;
 	float2 uv     : TEXCOORD0;
-	float4 color    : COLOR0;
+	float4 color  : COLOR0;
     float3 normal : TEXCOORD1;   // ワールド変換した法線
     float3 cam    : TEXCOORD2;   //頂点 -> 視点 ベクトル
-    //float3 viewVecW: TEXCOORD1;  	// ワールド空間での視線ベクトル
 };
 
 ///////////////////////////////////////////////////////////////////////////
@@ -95,8 +94,6 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh1(
       float3 prm_normal1 : NORMAL1         // モデルのモーフターゲット1頂点の法線
 
 ) {
-//    OUT_VS out_vs = (OUT_VS)0;
-
     //頂点＆法線ブレンド
     float4 pos = prm_pos0;
     float3 normal = prm_normal0;
@@ -118,8 +115,6 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh2(
       float4 prm_pos2    : POSITION2,      // モデルのモーフターゲット2頂点
       float3 prm_normal2 : NORMAL2         // モデルのモーフターゲット2頂点の法線
 ) {
-    OUT_VS out_vs = (OUT_VS)0;
-
     //頂点＆法線ブレンド
     float4 pos = prm_pos0;
     float3 normal = prm_normal0;
@@ -146,8 +141,6 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh3(
       float4 prm_pos3    : POSITION3,      // モデルのモーフターゲット3頂点
       float3 prm_normal3 : NORMAL3         // モデルのモーフターゲット3頂点の法線
 ) {
-    OUT_VS out_vs = (OUT_VS)0;
-
     //頂点＆法線ブレンド
     float4 pos = prm_pos0;
     float3 normal = prm_normal0;
@@ -180,8 +173,6 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh4(
       float4 prm_pos4    : POSITION4,      // モデルのモーフターゲット4頂点
       float3 prm_normal4 : NORMAL4         // モデルのモーフターゲット4頂点の法線
 ) {
-    OUT_VS out_vs = (OUT_VS)0;
-
     //頂点＆法線ブレンド
     float4 pos = prm_pos0;
     float3 normal = prm_normal0;
@@ -220,8 +211,6 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh5(
       float4 prm_pos5    : POSITION5,      // モデルのモーフターゲット5頂点
       float3 prm_normal5 : NORMAL5         // モデルのモーフターゲット5頂点の法線
 ) {
-    OUT_VS out_vs = (OUT_VS)0;
-
     //頂点＆法線ブレンド
     float4 pos = prm_pos0;
     float3 normal = prm_normal0;
@@ -267,8 +256,6 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh6(
       float3 prm_normal6 : NORMAL6         // モデルのモーフターゲット6頂点の法線
 
 ) {
-    OUT_VS out_vs = (OUT_VS)0;
-
     //頂点＆法線ブレンド
     float4 pos = prm_pos0;
     float3 normal = prm_normal0;

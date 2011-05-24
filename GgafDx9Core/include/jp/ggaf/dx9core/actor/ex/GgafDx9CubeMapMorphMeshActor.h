@@ -19,6 +19,8 @@ public:
 
     /** 環境マップテクスチャ資源 */
     GgafDx9TextureConnection* _pCubeMapTextureCon;
+    /** 環境マップテクスチャ */
+    IDirect3DBaseTexture9* _pCubeMapTexture;
     /** 環境マップテクスチャ映りこみ率 */
     float _reflectance;
     /**

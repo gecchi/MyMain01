@@ -15,6 +15,14 @@ public:
 
     CubeMapMeshEffectActor(const char* prm_name);
 
+    void onCreateModel() override;
+
+    void initialize() override;
+
+    void onActive() override;
+
+    void processBehavior() override;
+
     virtual ~CubeMapMeshEffectActor();
 
 };

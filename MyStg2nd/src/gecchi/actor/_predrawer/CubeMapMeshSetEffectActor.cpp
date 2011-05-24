@@ -11,6 +11,29 @@ CubeMapMeshSetEffectActor::CubeMapMeshSetEffectActor(const char* prm_name) : Cub
     setHitAble(false);
 }
 
+void CubeMapMeshSetEffectActor::onCreateModel() {
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.1, 1.0);
+    _pGgafDx9Model->_pTextureBlinker->setBlink(0.1);
+    _pGgafDx9Model->_pTextureBlinker->beat(120, 60, 1, -1);
+    _pGgafDx9Model->_blink_threshold = 0.6;
+    _pGgafDx9Model->setSpecular(5.0, 1.0);
+}
+
+void CubeMapMeshSetEffectActor::initialize() {
+    setHitAble(false);
+    setCubeMapTexture("Torus_cubemap.dds", 0.8);
+    setScaleRate(2);
+}
+
+void CubeMapMeshSetEffectActor::onActive() {
+    _pKuroko->setFaceAngVelo(AXIS_Y, 200);
+}
+
+
+void CubeMapMeshSetEffectActor::processBehavior() {
+    _pKuroko->behave();
+}
+
 CubeMapMeshSetEffectActor::~CubeMapMeshSetEffectActor() {
 }
 

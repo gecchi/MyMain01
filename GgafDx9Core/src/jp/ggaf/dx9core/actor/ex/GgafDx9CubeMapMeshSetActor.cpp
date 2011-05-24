@@ -20,31 +20,52 @@ GgafDx9CubeMapMeshSetActor::GgafDx9CubeMapMeshSetActor(const char* prm_name,
     _pCubeMapMeshSetModel = (GgafDx9CubeMapMeshSetModel*)_pGgafDx9Model;
     _pCubeMapMeshSetEffect = (GgafDx9CubeMapMeshSetEffect*)_pGgafDx9Effect;
 //    _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
+    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->getConnection("uffizi_cross_cubemap.dds"));
+    _pCubeMapTexture = _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9;
+    _reflectance = 0.3f;
 }
 
 
-
+void GgafDx9CubeMapMeshSetActor::setCubeMapTexture(const char* prm_cubemap_tex, float prm_reflectance) {
+    _reflectance = prm_reflectance;
+    _pCubeMapTextureCon->close();
+    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->getConnection(prm_cubemap_tex));
+    _pCubeMapTexture = _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9;
+}
 void GgafDx9CubeMapMeshSetActor::processDraw() {
     _draw_set_num = 0; //GgafDx9CubeMapMeshSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* pID3DXEffect = _pCubeMapMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
+
+    hr = pID3DXEffect->SetFloat(_pCubeMapMeshSetEffect->_h_reflectance, _reflectance);
+    checkDxException(hr, D3D_OK, "GgafDx9CubeMapMeshActor::processDraw() SetFloat(_h_reflectances) に失敗しました。");
+    if (_pCubeMapTextureCon) {
+        GgafDx9God::_pID3DDevice9->SetTexture(1, _pCubeMapTexture);
+    } else {
+        throwGgafCriticalException("GgafDx9CubeMapMeshActor::processDraw() 環境マップテクスチャがありません this="<<getName());
+    }
+
     //基本モデル頂点数
     GgafDx9DrawableActor* pDrawActor = this;
     GgafDx9CubeMapMeshSetActor* pCubeMapMeshSetActor = NULL;
     while (true) {
         if (pDrawActor)  {
-            if (pDrawActor->_pGgafDx9Model == _pCubeMapMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+            if (pDrawActor->_pGgafDx9Model == _pCubeMapMeshSetModel && pDrawActor->_hash_technique == _hash_technique ) {
                 pCubeMapMeshSetActor = (GgafDx9CubeMapMeshSetActor*)pDrawActor;
-                hr = pID3DXEffect->SetMatrix(_pCubeMapMeshSetEffect->_ah_matWorld[_draw_set_num], &(pCubeMapMeshSetActor->_matWorld));
-                checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-                hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pCubeMapMeshSetActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
-                checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
-                _draw_set_num++;
-                if (_draw_set_num >= _pCubeMapMeshSetModel->_set_num) {
+                if (_pCubeMapTexture == pCubeMapMeshSetActor->_pCubeMapTexture && _reflectance == pCubeMapMeshSetActor->_reflectance) {
+                    hr = pID3DXEffect->SetMatrix(_pCubeMapMeshSetEffect->_ah_matWorld[_draw_set_num], &(pCubeMapMeshSetActor->_matWorld));
+                    checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+                    hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pCubeMapMeshSetActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
+                    checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
+                    _draw_set_num++;
+                    if (_draw_set_num >= _pCubeMapMeshSetModel->_set_num) {
+                        break;
+                    }
+                    pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
+                } else {
                     break;
                 }
-                pDrawActor = pDrawActor->_pNext_TheSameDrawDepthLevel;
             } else {
                 break;
             }
