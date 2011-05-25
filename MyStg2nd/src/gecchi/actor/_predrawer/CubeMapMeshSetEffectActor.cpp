@@ -21,7 +21,7 @@ void CubeMapMeshSetEffectActor::onCreateModel() {
 
 void CubeMapMeshSetEffectActor::initialize() {
     setHitAble(false);
-    setCubeMapTexture("Torus_cubemap.dds", 0.8);
+    setCubeMapTexture("Torus_cubemap.dds", 0.2);
     setScaleRate(2);
 }
 
