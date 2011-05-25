@@ -21,7 +21,7 @@ void WallAAPrismEffectActor::onCreateModel() {
 
 
 bool WallAAPrismEffectActor::isOutOfUniverse() {
-    if (GgafDx9Universe::_X_goneLeft/2 < _X) {
+    if (GgafDx9Universe::_X_goneLeft < _X) {
         return false;
     }
     return true;

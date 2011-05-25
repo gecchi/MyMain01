@@ -44,7 +44,6 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int 
     if (tZ1 <= _root_Z1)  { tZ1 = _root_Z1+1; }
     if (tZ2 >= _root_Z2)  { tZ2 = _root_Z2-1; }
 
-
     //軸座標の大小が裏返った場合、つまりLevel0より外か、Level0全体より大きい場合は無視する
     if (tX1 >= tX2 || tY1 >= tY2 || tZ1 >= tZ2) {
         return; //空間外は登録しない
@@ -73,7 +72,8 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int 
     //引数のBOXは、どのレベルの空間に所属しているのか取得
     UINT32 differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
     UINT32 shift_num = 0;
-    for(UINT32 i = 0; i < (UINT32)_top_space_level; i++) {
+    UINT32 lv = (UINT32)_top_space_level;
+    for(UINT32 i = 0; i < lv; i++) {
         if (((differ_bit_pos>>(i*3)) & 0x7) != 0 ) {
             shift_num = i+1;
         }

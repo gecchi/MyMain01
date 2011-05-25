@@ -20,7 +20,7 @@ FormationJuno001::FormationJuno001(const char* prm_name) :
 }
 
 void FormationJuno001::processJudgement() {
-    if (_X < GgafDx9Universe::_X_goneLeft - 300000) {
+    if (_X < GgafDx9Universe::_X_goneLeft) {
         _TRACE_("FormationJuno001::processJudgement() I—¹");
         sayonara();
     }

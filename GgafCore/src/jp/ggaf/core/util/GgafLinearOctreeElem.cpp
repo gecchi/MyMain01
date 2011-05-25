@@ -93,8 +93,9 @@ void GgafLinearOctreeElem::addElem(GgafLinearOctreeSpace* prm_pSpace_target) {
     UINT32 index = prm_pSpace_target->_my_index;
     //e‹óŠÔ‚·‚×‚Ä‚É—v‘fí•Êî•ñ‚ğ—¬‚·
     while(true) {
-        _pLinearOctree->_paSpace[index]._kindinfobit =
-                _pLinearOctree->_paSpace[index]._kindinfobit | this->_kindbit;
+//        _pLinearOctree->_paSpace[index]._kindinfobit =
+//                _pLinearOctree->_paSpace[index]._kindinfobit | this->_kindbit;
+        _pLinearOctree->_paSpace[index]._kindinfobit |= this->_kindbit;
         if (index == 0) {
             break;
         }

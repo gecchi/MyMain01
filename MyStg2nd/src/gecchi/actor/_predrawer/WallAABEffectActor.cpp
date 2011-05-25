@@ -20,7 +20,7 @@ void WallAABEffectActor::onCreateModel() {
 
 
 bool WallAABEffectActor::isOutOfUniverse() {
-    if (GgafDx9Universe::_X_goneLeft/2 < _X) {
+    if (GgafDx9Universe::_X_goneLeft < _X) {
         return false;
     }
     return true;

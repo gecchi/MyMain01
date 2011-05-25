@@ -70,10 +70,11 @@ void WallPartsActor::processPreDraw() {
 }
 
 bool WallPartsActor::isOutOfUniverse() {
-    if (GgafDx9Universe::_X_goneLeft < _X) {
+    if (GgafDx9Universe::_X_goneLeft > _X) {
+        return true;
+    } else {
         return false;
     }
-    return true;
 }
 
 void WallPartsActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_prism, int prm_wall_draw_face, int* prm_aColliBoxStretch) {

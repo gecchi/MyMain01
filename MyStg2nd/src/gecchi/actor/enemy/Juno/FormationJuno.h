@@ -21,7 +21,7 @@ public:
      * コンストラクタ .
      * Junoフォーメーションを定義します。
      * @param prm_name           フォーメーション名（デバッグ用）
-     * @param prm_X1_app         Juno出現範囲AAB(軸並行直方体：Axis-Aligned Box)の左上手前X座標（ローカル座標）
+     * @param prm_X1_app         Juno出現範囲AAB(軸並行直方体：Axis-Aligned Box)の左上手前X座標（中心からのオフセット＝ローカル座標）
      * @param prm_Y1_app         Juno出現範囲AABの左上手前Y座標（ローカル座標）
      * @param prm_Z1_app         Juno出現範囲AABの左上手前Z座標（ローカル座標）
      * @param prm_X2_app         Juno出現範囲AABの右下奥X座標（ローカル座標）

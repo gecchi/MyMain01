@@ -203,6 +203,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                     //ƒAAB ‚Æ AAB„
                     if (StgUtil::isHit(this        , _pActor  , (ColliAAB*)pColliPart,
                                        pOppCChecker, pOppActor, (ColliAAB*)pOppColliPart)) {
+                        //Ž©g‚Ì‚Á”ò‚ÑŒ‹‰Ê‚Ì‹tƒxƒNƒgƒ‹‚ð‘ŠŽè‚É“`”À
                         pOppCChecker->_blown_sgn_vX += -(this->_blown_sgn_vX);
                         pOppCChecker->_blown_sgn_vY += -(this->_blown_sgn_vY);
                         pOppCChecker->_blown_sgn_vZ += -(this->_blown_sgn_vZ);
