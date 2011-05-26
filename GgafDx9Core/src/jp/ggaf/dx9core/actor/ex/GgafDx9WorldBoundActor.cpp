@@ -11,9 +11,9 @@ GgafDx9WorldBoundActor::GgafDx9WorldBoundActor(const char* prm_name,
 
                                                  GgafDx9MorphMeshActor(prm_name,
                                                                        prm_model_id,
-                                                                       "H",
+                                                                       "W",
                                                                        prm_effect_id,
-                                                                       "H",
+                                                                       "W",
                                                                        prm_technique,
                                                                        prm_pChecker) {
     _obj_class |= Obj_GgafDx9WorldBoundActor;
@@ -43,7 +43,7 @@ void GgafDx9WorldBoundActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDx9WorldBoundActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
     if (_pCubeMapTextureCon) {
-        GgafDx9God::_pID3DDevice9->SetTexture(1, _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9);
+        GgafDx9God::_pID3DDevice9->SetTexture(0, _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9);
     } else {
         throwGgafCriticalException("GgafDx9WorldBoundActor::processDraw() 環境マップテクスチャがありません this="<<getName());
     }
