@@ -9,6 +9,14 @@ namespace GgafDx9Core {
  * @author Masatoshi Tsuge
  */
 class GgafDx9SeTransmitter : public GgafCore::GgafObject {
+
+private:
+    /**
+     * パンとボリュームを更新する。
+     * play3Dの効果を継続するために毎フレーム呼び出す必要がある。
+     */
+    void updatePanVolume3D();
+
 public:
     /** SE資源接続 */
     GgafDx9SeConnection** _papSeCon;
@@ -39,13 +47,16 @@ public:
     void set(int prm_id, const char* prm_se_name, int prm_cannel = 1);
 
     /**
-     * 即座にSEを再生する。
+     * 即座にSEを再生する(擬似３D無し)。
      * @param prm_id SEのID ( 0 ～ SE数-1 )
      */
     void playImmediately(int prm_id);
 
     /**
      * SEを再生する(擬似３D無し)。
+     * playImmediately(int) と違い、次フレームに再生される予定リストに追加される。
+     * もし、同一フレームに、同一種類のSEが多数登録された場合、音の跳ね上がりを抑えるため、
+     * 最大８フレーム遅延し、ばらけて再生される機能を持っている。
      * @param prm_id SEのID ( 0 ～ SE数-1 )
      */
     void play(int prm_id);
@@ -59,11 +70,7 @@ public:
      */
     void play3D(int prm_id);
 
-    /**
-     * パンとボリュームを更新する。
-     * play3Dの効果を継続するために毎フレーム呼び出す必要がある。
-     */
-    void updatePanVolume3D();
+
 
     /**
      * 毎フレームの処理 .

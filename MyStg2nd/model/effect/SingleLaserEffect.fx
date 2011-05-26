@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fx" 
+#include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9MeshSetModel用シェーダー
 // 【概要】

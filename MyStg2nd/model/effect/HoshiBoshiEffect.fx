@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fx" 
+#include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、MeshModel用シェーダー
 //
@@ -223,7 +223,7 @@ float4 PS_Flush(
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * prm_color * float4(7.0, 7.0, 7.0, 1.0);// * g_colMaterialDiffuse;
+	float4 out_color = tex2D( MyTextureSampler, uv) * prm_color * FLUSH_COLOR;// * g_colMaterialDiffuse;
 	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;
 }

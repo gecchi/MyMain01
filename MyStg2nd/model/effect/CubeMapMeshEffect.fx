@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fx" 
+#include "GgafEffectConst.fxh" 
 /**
  * @author Masatoshi Tsuge
  * @since 2010/12/21
@@ -162,7 +162,7 @@ float4 PS_Flush(
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float3 vReflect = reflect( prm_viewVecW, prm_normal );
     float4 tex_color = texCUBE(MyTextureSampler, vReflect);
-	float4 out_color = tex_color * prm_color * float4(7.0, 7.0, 7.0, 1.0);;
+	float4 out_color = tex_color * prm_color * FLUSH_COLOR;
 	return out_color;
 }
 

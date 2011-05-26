@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fx" 
+#include "GgafEffectConst.fxh" 
 float4x4 g_matWorld;  
 float4x4 g_matView;   
 float4x4 g_matProj;   

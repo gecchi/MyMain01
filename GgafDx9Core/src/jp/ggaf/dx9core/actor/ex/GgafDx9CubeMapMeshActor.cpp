@@ -49,4 +49,7 @@ void GgafDx9CubeMapMeshActor::processDraw() {
 }
 
 GgafDx9CubeMapMeshActor::~GgafDx9CubeMapMeshActor() {
+    if (_pCubeMapTextureCon) {
+        _pCubeMapTextureCon->close();
+    }
 }

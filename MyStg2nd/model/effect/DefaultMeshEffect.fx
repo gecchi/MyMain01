@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fx" 
+#include "GgafEffectConst.fxh" 
 /**
  * GgafDx9MeshModel用シェーダー .
  * 静的モデル１つを描画する標準的シェーダー。
@@ -137,7 +137,7 @@ float4 PS_Flush(
 ) : COLOR  {                         
     //テクスチャをサンプリングして色取得（原色を取得）
     float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-    float4 out_color = tex_color * prm_color * float4(7.0, 7.0, 7.0, 1.0);
+    float4 out_color = tex_color * prm_color * FLUSH_COLOR;
     return out_color;
 }
 

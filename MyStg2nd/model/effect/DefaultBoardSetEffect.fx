@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fx" 
+#include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9BoardSetModel用シェーダー
 //
@@ -456,7 +456,7 @@ float4 PS_Flush(
 	float4 prm_color    : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * float4(7.0, 7.0, 7.0, 1.0);                
+	float4 out_color = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;                
 	//α考慮
 	out_color.a = out_color.a * prm_color.a * g_alpha_master; 
 	return out_color;

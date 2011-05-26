@@ -206,9 +206,7 @@ public:
      *         ”ª•ª–Øƒ‚[ƒgƒ“‡˜‚Ì’Ê‚µ‹óŠÔ”Ô†(Å‘åLevel8‚ÅA0`23068671)
      */
     inline UINT32 getMortonOrderNumFromXYZindex( UINT32 x_space_index, UINT32 y_space_index, UINT32 z_space_index ) {
-       return separateEveryThirdBit(x_space_index)    |
-              separateEveryThirdBit(y_space_index)<<1 |
-              separateEveryThirdBit(z_space_index)<<2;
+       return separateEveryThirdBit(x_space_index) | separateEveryThirdBit(y_space_index)<<1 | separateEveryThirdBit(z_space_index)<<2;
     }
 
 

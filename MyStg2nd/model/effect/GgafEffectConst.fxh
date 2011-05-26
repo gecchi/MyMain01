@@ -6,3 +6,4 @@
   #define PS_VERSION ps_2_0
 #endif 
 
+#define FLUSH_COLOR float4(7.0, 7.0, 7.0, 7.0)

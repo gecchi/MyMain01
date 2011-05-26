@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fx"
+#include "GgafEffectConst.fxh"
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9MorphMeshModel用シェーダー
 // author : Masatoshi Tsuge
@@ -320,7 +320,7 @@ float4 PS_Flush(
 	float4 prm_color  : COLOR0
 ) : COLOR  {
     float4 colTex2D  = tex2D( MyTextureSampler, prm_uv);
-    float4 out_color = colTex2D * prm_color * float4(7.0, 7.0, 7.0, 1.0);
+    float4 out_color = colTex2D * prm_color * FLUSH_COLOR;
 	return 	out_color;
 }
 

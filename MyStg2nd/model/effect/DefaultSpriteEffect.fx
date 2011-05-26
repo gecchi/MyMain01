@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fx" 
+#include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9SpriteModel用シェーダー
 //
@@ -34,7 +34,6 @@ struct OUT_VS
 OUT_VS GgafDx9VS_DefaultSprite(
       float4 prm_pos    : POSITION,     // モデルの頂点
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
-
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
@@ -68,7 +67,7 @@ float4 GgafDx9PS_DefaultSprite(
 float4 PS_Flush(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_hAlpha * float4(7.0, 7.0, 7.0, 1.0);
+	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_hAlpha * FLUSH_COLOR;
 	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;
 }
