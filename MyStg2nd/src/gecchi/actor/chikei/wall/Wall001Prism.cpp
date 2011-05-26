@@ -13,10 +13,9 @@ Wall001Prism::Wall001Prism(const char* prm_name) :
 }
 
 void Wall001Prism::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.2, 3.0);
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.5, 0.2, 3.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
     _pGgafDx9Model->_pTextureBlinker->beat(10*20, 10*9, 10*3, -1);
-    _pGgafDx9Model->_blink_threshold = 0.5;
 }
 
 

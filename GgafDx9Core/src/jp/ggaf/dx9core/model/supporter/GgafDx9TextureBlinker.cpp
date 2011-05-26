@@ -104,12 +104,12 @@ void GgafDx9TextureBlinker::behave() {
     }
     //Model‚É”½‰f
     _pModel->_power_blink = _power_blink;
-    _pModel->_blinker_frame++;
+    _pModel->_blinker_frames++;
 }
 
 //‚¢‚Â‚©‚Ü‚½Žg‚¤‚Å‚µ‚å‚¤
 //            _TRACE_("---ŽÀs‘O");
-//            _TRACE_("_pModel->_blinker_frame="<<_pModel->_blinker_frame);
+//            _TRACE_("_pModel->_blinker_frames="<<_pModel->_blinker_frames);
 //            _TRACE_("_bottom_power_blink["<<<<"]="<<_bottom_power_blink);
 //            _TRACE_("_top_power_blink["<<<<"]="<<_top_power_blink);
 //            _TRACE_("_beat_spend_frames["<<<<"]="<<_beat_spend_frames);

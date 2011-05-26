@@ -40,22 +40,30 @@ float g_zf;
 //sampler CubeMapTextureSampler : register(s1);
 sampler CubeMapTextureSampler : register(s0);
 
+//struct OUT_VS {
+//    float4 pos   : POSITION;
+//	float2 uv     : TEXCOORD0;
+//	float4 color    : COLOR0;
+//    float3 normal : TEXCOORD1;   // ワールド変換した法線
+//    float3 cam    : TEXCOORD2;   //頂点 -> 視点 ベクトル
+//    //float3 viewVecW: TEXCOORD1;  	// ワールド空間での視線ベクトル
+//};
+
 struct OUT_VS {
-    float4 pos   : POSITION;
-	float2 uv     : TEXCOORD0;
-	float4 color    : COLOR0;
-    float3 normal : TEXCOORD1;   // ワールド変換した法線
-    float3 cam    : TEXCOORD2;   //頂点 -> 視点 ベクトル
+    float4 pos    : POSITION;
+	float4 color  : COLOR0;
+    float3 normal : TEXCOORD0;   // ワールド変換した法線
     //float3 viewVecW: TEXCOORD1;  	// ワールド空間での視線ベクトル
 };
+
 
 ///////////////////////////////////////////////////////////////////////////
 
 //モーフターゲットなし
 OUT_VS GgafDx9VS_WorldBound0(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
-      float3 prm_normal0 : NORMAL0, //,        // モデルの頂点の法線
-      float2 prm_uv0     : TEXCOORD0       // モデルの頂点のUV
+      float3 prm_normal0 : NORMAL0//, //,        // モデルの頂点の法線
+      //float2 prm_uv0     : TEXCOORD0       // モデルの頂点のUV
 
 ) {
     OUT_VS out_vs = (OUT_VS)0;
@@ -74,7 +82,7 @@ OUT_VS GgafDx9VS_WorldBound0(
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
     //out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
     //「頂点→カメラ視点」方向ベクトル                                                        
-    out_vs.cam = normalize(g_posCam.xyz - posWorld.xyz);
+    //out_vs.cam = normalize(g_posCam.xyz - posWorld.xyz);
     //αはマテリアルαを最優先とする（上書きする）
     //out_vs.color.a = g_colMaterialDiffuse.a;
     //αフォグ
@@ -104,7 +112,7 @@ OUT_VS GgafDx9VS_WorldBound1(
         pos += ((prm_pos1 - prm_pos0) * g_weight1);
         normal = lerp(normal, prm_normal1, g_weight1);
     }
-    return GgafDx9VS_WorldBound0(pos, normal,prm_uv0);
+    return GgafDx9VS_WorldBound0(pos, normal);
 }
 
 
@@ -131,7 +139,7 @@ OUT_VS GgafDx9VS_WorldBound2(
         pos += ((prm_pos2 - prm_pos0) * g_weight2);
         normal = lerp(normal, prm_normal2, g_weight2);
     }
-    return GgafDx9VS_WorldBound0(pos, normal,prm_uv0);
+    return GgafDx9VS_WorldBound0(pos, normal);
 }
 
 //モーフターゲット３つ
@@ -163,7 +171,7 @@ OUT_VS GgafDx9VS_WorldBound3(
         pos += ((prm_pos3 - prm_pos0) * g_weight3);
         normal = lerp(normal, prm_normal3, g_weight3);
     }
-    return GgafDx9VS_WorldBound0(pos, normal,prm_uv0);
+    return GgafDx9VS_WorldBound0(pos, normal);
 }
 
 //モーフターゲット４つ
@@ -201,7 +209,7 @@ OUT_VS GgafDx9VS_WorldBound4(
         pos += ((prm_pos4 - prm_pos0) * g_weight4);
         normal = lerp(normal, prm_normal4, g_weight4);
     }
-    return GgafDx9VS_WorldBound0(pos, normal,prm_uv0);
+    return GgafDx9VS_WorldBound0(pos, normal);
 }
 
 //モーフターゲット５つ
@@ -245,7 +253,7 @@ OUT_VS GgafDx9VS_WorldBound5(
         pos += ((prm_pos5 - prm_pos0) * g_weight5);
         normal = lerp(normal, prm_normal5, g_weight5);
     }
-    return GgafDx9VS_WorldBound0(pos, normal,prm_uv0);
+    return GgafDx9VS_WorldBound0(pos, normal);
 }
 
 //モーフターゲット６つ
@@ -296,15 +304,15 @@ OUT_VS GgafDx9VS_WorldBound6(
         pos += ((prm_pos6 - prm_pos0) * g_weight6);
         normal = lerp(normal, prm_normal6, g_weight6);
     }
-    return GgafDx9VS_WorldBound0(pos, normal,prm_uv0);
+    return GgafDx9VS_WorldBound0(pos, normal);
 }
 
 
 float4 GgafDx9PS_WorldBound(       
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color    : COLOR0,
-    float3 prm_normal : TEXCOORD1,
-    float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
+	//float2 prm_uv	  : TEXCOORD0,
+	float4 prm_color  : COLOR0,
+    float3 prm_normal : TEXCOORD0 
+    //float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
 	//float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_cam, -prm_normal));
 	float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_normal);
@@ -329,10 +337,15 @@ float4 GgafDx9PS_WorldBound(
 	return out_color;
 }
 float4 PS_Flush(       
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color    : COLOR0,
-    float3 prm_normal : TEXCOORD1,
-    float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
+
+	float4 prm_color  : COLOR0,
+    float3 prm_normal : TEXCOORD0 
+
+
+//	float2 prm_uv	  : TEXCOORD0,
+//	float4 prm_color    : COLOR0,
+//    float3 prm_normal : TEXCOORD1,
+//    float3 prm_cam    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
 
 //	float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_cam, -prm_normal));

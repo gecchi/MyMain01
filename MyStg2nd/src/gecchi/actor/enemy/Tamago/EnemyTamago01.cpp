@@ -23,10 +23,9 @@ _pDispatcher_Shot = NULL;
 }
 
 void EnemyTamago01::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.1, 1.0);
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.1);
     _pGgafDx9Model->_pTextureBlinker->beat(120, 60, 1, -1);
-    _pGgafDx9Model->_blink_threshold = 0.9;
 }
 
 void EnemyTamago01::initialize() {

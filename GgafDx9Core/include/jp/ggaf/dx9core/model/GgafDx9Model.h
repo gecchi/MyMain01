@@ -41,7 +41,7 @@ public:
     /** [r]点滅操作支援オブジェクト */
     GgafDx9TextureBlinker* _pTextureBlinker;
     /** [r]GgafDx9TextureBlinker専用カウンター */
-    frame _blinker_frame;
+    frame _blinker_frames;
 
     /** [r/w]モデルのスペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
     float _specular;

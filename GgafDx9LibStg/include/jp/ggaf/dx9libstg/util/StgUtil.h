@@ -15,26 +15,28 @@ public:
                     if (pActor01->_Y + pAAB01->_y1 <= pActor02->_Y + pAAB02->_y2) {
                         if (pActor01->_X + pAAB01->_x2 >= pActor02->_X + pAAB02->_x1) {
                             if (pActor01->_X + pAAB01->_x1 <= pActor02->_X + pAAB02->_x2) {
-                                //ヒットしている場合、
-                                //吹っ飛び方向を設定
-                                if (pActor01->_Z + pAAB01->_z1 < pActor02->_Z + pAAB02->_z1) {
-                                    pCChecker01->_blown_sgn_vZ -= 1;
-                                }
-                                if (pActor01->_Z + pAAB01->_z2 > pActor02->_Z + pAAB02->_z2) {
-                                    pCChecker01->_blown_sgn_vZ += 1;
-                                }
-                                if (pActor01->_Y + pAAB01->_y1 < pActor02->_Y + pAAB02->_y1) {
-                                    pCChecker01->_blown_sgn_vY -= 1;
-                                }
-                                if (pActor01->_Y + pAAB01->_y2 > pActor02->_Y + pAAB02->_y2) {
-                                    pCChecker01->_blown_sgn_vY += 1;
-                                }
-                                if (pActor01->_X + pAAB01->_x1 < pActor02->_X + pAAB02->_x1) {
-                                    pCChecker01->_blown_sgn_vX -= 1;
-                                }
-                                if (pActor01->_X + pAAB01->_x2 > pActor02->_X + pAAB02->_x2) {
-                                    pCChecker01->_blown_sgn_vX += 1;
-                                }
+//                                if (pCChecker01->_is_blown || pCChecker02->_is_blown) {
+                                    //ヒットしている場合、
+                                    //吹っ飛び方向を設定
+                                    if (pActor01->_Z + pAAB01->_z1 < pActor02->_Z + pAAB02->_z1) {
+                                        pCChecker01->_blown_sgn_vZ -= 1;
+                                    }
+                                    if (pActor01->_Z + pAAB01->_z2 > pActor02->_Z + pAAB02->_z2) {
+                                        pCChecker01->_blown_sgn_vZ += 1;
+                                    }
+                                    if (pActor01->_Y + pAAB01->_y1 < pActor02->_Y + pAAB02->_y1) {
+                                        pCChecker01->_blown_sgn_vY -= 1;
+                                    }
+                                    if (pActor01->_Y + pAAB01->_y2 > pActor02->_Y + pAAB02->_y2) {
+                                        pCChecker01->_blown_sgn_vY += 1;
+                                    }
+                                    if (pActor01->_X + pAAB01->_x1 < pActor02->_X + pAAB02->_x1) {
+                                        pCChecker01->_blown_sgn_vX -= 1;
+                                    }
+                                    if (pActor01->_X + pAAB01->_x2 > pActor02->_X + pAAB02->_x2) {
+                                        pCChecker01->_blown_sgn_vX += 1;
+                                    }
+//                                }
                                 return true;
                             }
                         }

@@ -91,10 +91,9 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 }
 
 void MyOption::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.3, 2.0);
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.9, 0.3, 2.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(1.0);
     _pGgafDx9Model->_pTextureBlinker->beat(120, 10, 1, -1);
-    _pGgafDx9Model->_blink_threshold = 0.9;
     _pGgafDx9Model->setSpecular(5.0, 1.0);
 }
 

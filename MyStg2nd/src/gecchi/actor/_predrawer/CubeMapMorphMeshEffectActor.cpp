@@ -11,10 +11,9 @@ CubeMapMorphMeshEffectActor::CubeMapMorphMeshEffectActor(const char* prm_name) :
     setHitAble(false);
 }
 void CubeMapMorphMeshEffectActor::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.1, 1.0);
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.6, 0.1, 1.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.1);
     _pGgafDx9Model->_pTextureBlinker->beat(120, 60, 1, -1);
-    _pGgafDx9Model->_blink_threshold = 0.6;
     _pGgafDx9Model->setSpecular(5.0, 1.0);
 }
 

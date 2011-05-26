@@ -25,6 +25,8 @@ public:
     int _blown_sgn_vY;
     /** 吹っ飛びZ成分 */
     int _blown_sgn_vZ;
+    /** 吹っ飛び計算を行うか */
+//    int _is_blown;
     /**
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor

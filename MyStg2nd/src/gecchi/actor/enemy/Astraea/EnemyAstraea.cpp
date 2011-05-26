@@ -72,11 +72,11 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
 }
 
 void EnemyAstraea::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.5, 12.0);
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.97, 0.5, 12.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(1.0);
     _pGgafDx9Model->_pTextureBlinker->beat(60*6, 60*2, 60*2, -1);
-    _pGgafDx9Model->_blink_threshold = 0.97;
 }
+
 void EnemyAstraea::initialize() {
     setHitAble(true);
     setAlpha(0.99);

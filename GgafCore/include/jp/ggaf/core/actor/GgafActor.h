@@ -131,13 +131,15 @@ public:
         if (prm_pOtherActor == this) {
             return;
         } else {
-            if (canHit() && prm_pOtherActor->canHit() &&
-                _can_live_flg && prm_pOtherActor->_can_live_flg ) {
-                if (processHitChkLogic(prm_pOtherActor)) { //自身のヒットチェック
-                    onHit(prm_pOtherActor); //自分のヒット時の振る舞い
-                    prm_pOtherActor->onHit(this); //相手のヒット時の振る舞い
-                }
+//            if (canHit() && prm_pOtherActor->canHit() &&
+//                _can_live_flg && prm_pOtherActor->_can_live_flg ) {
+
+            //ヒットできる物どうかの判定は事前にすんでいるようにする事。
+            if (processHitChkLogic(prm_pOtherActor)) { //自身のヒットチェック
+                onHit(prm_pOtherActor); //自分のヒット時の振る舞い
+                prm_pOtherActor->onHit(this); //相手のヒット時の振る舞い
             }
+//            }
         }
     }
 

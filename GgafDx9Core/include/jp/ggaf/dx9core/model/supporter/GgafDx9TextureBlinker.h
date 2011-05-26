@@ -90,7 +90,15 @@ public:
      * @param prm_power_blink1 色強度値1
      * @param prm_power_blink2 色強度値2
      */
-    void forceBlinkRange(float prm_power_blink1, float prm_power_blink2) {
+
+    /**
+     * 対象色しきい値と、色強度の上限下限を設定
+     * @param prm_blink_threshold 点滅対象しきい値
+     * @param prm_power_blink1 色強度値1 (負の数 ～ 0:黒 ～ 1.0:等倍強度 ～ )
+     * @param prm_power_blink2 色強度値2 (負の数 ～ 0:黒 ～ 1.0:等倍強度 ～ )
+     */
+    void forceBlinkRange(float prm_blink_threshold, float prm_power_blink1, float prm_power_blink2) {
+        _pModel->_blink_threshold = prm_blink_threshold;
         if (prm_power_blink1 < prm_power_blink2) {
             _bottom_power_blink = prm_power_blink1;
             _top_power_blink = prm_power_blink2;
