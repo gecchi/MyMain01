@@ -17,7 +17,7 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
     _h_fX_MyShip  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fX_MyShip" );
     _h_fY_MyShip  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fY_MyShip" );
     _h_fZ_MyShip  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fZ_MyShip" );
-
+    _h_far_rate   = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_far_rate" );
     changeEffectTechnique("DestBlendOne"); //â¡éZçáê¨
     setHitAble(false);
     _CAM_ZF = abs(P_CAM->_zf * PX_UNIT * LEN_UNIT);
@@ -27,7 +27,8 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-3);//ç≈ê[ïî
     //êØÇÕDIRECTXãóó£-1.0Å`1.0Åi-10pxÅ`10px)Ç…é˚Ç‹Ç¡ÇƒÇ¢ÇÈëOíÒÇ≈ÅA
     //åªãÛä‘ÇÃëÂÇ´Ç≥Ç…éUÇÁÇŒÇÁÇπÇÈ
-    _SX = _SY = _SZ =  P_CAM->_zf*LEN_UNIT;
+    _far_rate = 10.0f;
+    _SX = _SY = _SZ =  (P_CAM->_zf*LEN_UNIT)*_far_rate;
 }
 
 int HoshiBoshi001::isOutOfView() {
@@ -48,10 +49,10 @@ void HoshiBoshi001::onActive() {
 }
 
 void HoshiBoshi001::processBehavior() {
-    if (_X < -_CAM_ZF) {
-        _X += (_CAM_ZF*2);
+    if (_X < -_CAM_ZF*10) {
+        _X += (_CAM_ZF*10*2);
     } else {
-        _X -= 1000;
+        _X -= 1000*_far_rate;
     }
     _pUvFlipper->behave();
 }
@@ -77,6 +78,9 @@ void HoshiBoshi001::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_fY_MyShip) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(_h_fZ_MyShip, P_MYSHIP->_fZ);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_fZ_MyShip) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(_h_far_rate, _far_rate);
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_far_rate) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
     GgafDx9PointSpriteActor::processDraw();
 }
 
