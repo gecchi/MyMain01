@@ -14,7 +14,8 @@ GgafDx9CubeMapMeshSetActor::GgafDx9CubeMapMeshSetActor(const char* prm_name,
                                                                   prm_effect_id,
                                                                   "g",
                                                                   prm_technique,
-                                                                  prm_pChecker) {
+                                                                  prm_pChecker) ,
+                                              GgafDx9ICubeMapActor() {
     _obj_class |= Obj_GgafDx9CubeMapMeshSetActor;
     _class_name = "GgafDx9CubeMapMeshSetActor";
     _pCubeMapMeshSetModel = (GgafDx9CubeMapMeshSetModel*)_pGgafDx9Model;
@@ -25,13 +26,6 @@ GgafDx9CubeMapMeshSetActor::GgafDx9CubeMapMeshSetActor(const char* prm_name,
     _reflectance = 0.3f;
 }
 
-
-void GgafDx9CubeMapMeshSetActor::setCubeMapTexture(const char* prm_cubemap_tex, float prm_reflectance) {
-    _reflectance = prm_reflectance;
-    _pCubeMapTextureCon->close();
-    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->getConnection(prm_cubemap_tex));
-    _pCubeMapTexture = _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9;
-}
 void GgafDx9CubeMapMeshSetActor::processDraw() {
     _draw_set_num = 0; //GgafDx9CubeMapMeshSetActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
@@ -78,7 +72,4 @@ void GgafDx9CubeMapMeshSetActor::processDraw() {
 }
 
 GgafDx9CubeMapMeshSetActor::~GgafDx9CubeMapMeshSetActor() {
-    if (_pCubeMapTextureCon) {
-        _pCubeMapTextureCon->close();
-    }
 }

@@ -9,7 +9,7 @@ namespace GgafDx9Core {
  * @since 2010/12/21
  * @author Masatoshi Tsuge
  */
-class GgafDx9CubeMapMeshActor : public GgafDx9MeshActor {
+class GgafDx9CubeMapMeshActor : public GgafDx9MeshActor, public GgafDx9ICubeMapActor  {
 
 public:
 
@@ -18,12 +18,6 @@ public:
     /** エフェクト資源 */
     GgafDx9CubeMapMeshEffect* _pCubeMapMeshEffect;
 
-    /** 環境マップテクスチャ資源 */
-    GgafDx9TextureConnection* _pCubeMapTextureCon;
-    /** 環境マップテクスチャ */
-    IDirect3DBaseTexture9* _pCubeMapTexture;
-    /** 環境マップテクスチャ映りこみ率 */
-    float _reflectance;
     /**
      * コンストラクタ
      * @param prm_name モデル名称（デバッグログで表示、なんでも良い）
@@ -38,14 +32,6 @@ public:
                        const char* prm_technique,
                        GgafDx9Checker* prm_pChecker );
 
-    /**
-     * 環境マッピングするテクスチャを指定する。
-     * @param prm_cubemap_tex テクスチャファイル名
-     * @param prm_reflectance 環境マップテクスチャの映り込み具合(0.0～1.0)。
-     *                        prm_cubemap_texの色に引数の率が乗じられ、下地のマテリアル色に加算されます。
-     *                        0.0:映り込み無し、0.3:大理石ぐらい、1.0:鏡面
-     */
-    void setCubeMapTexture(const char* prm_cubemap_tex, float prm_reflectance);
 
     virtual void processDraw() override;
 

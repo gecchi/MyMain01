@@ -15,7 +15,8 @@ GgafDx9CubeMapMorphMeshActor::GgafDx9CubeMapMorphMeshActor(const char* prm_name,
                                                                        prm_effect_id,
                                                                        "H",
                                                                        prm_technique,
-                                                                       prm_pChecker) {
+                                                                       prm_pChecker) ,
+                                                 GgafDx9ICubeMapActor() {
     _obj_class |= Obj_GgafDx9CubeMapMorphMeshActor;
     _class_name = "GgafDx9CubeMapMorphMeshActor";
     _pCubeMapMorphMeshModel = (GgafDx9CubeMapMorphMeshModel*)_pGgafDx9Model;
@@ -25,12 +26,6 @@ GgafDx9CubeMapMorphMeshActor::GgafDx9CubeMapMorphMeshActor(const char* prm_name,
     _reflectance = 0.3f;
 }
 
-void GgafDx9CubeMapMorphMeshActor::setCubeMapTexture(const char* prm_cubemap_tex, float prm_reflectance) {
-    _reflectance = prm_reflectance;
-    _pCubeMapTextureCon->close();
-    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->getConnection(prm_cubemap_tex));
-    _pCubeMapTexture = _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9;
-}
 void GgafDx9CubeMapMorphMeshActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pCubeMapMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;
@@ -57,7 +52,4 @@ void GgafDx9CubeMapMorphMeshActor::processDraw() {
 }
 
 GgafDx9CubeMapMorphMeshActor::~GgafDx9CubeMapMorphMeshActor() {
-    if (_pCubeMapTextureCon) {
-        _pCubeMapTextureCon->close();
-    }
 }

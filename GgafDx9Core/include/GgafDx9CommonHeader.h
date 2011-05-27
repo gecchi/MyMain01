@@ -243,6 +243,8 @@ class D3DXFRAME_WORLD;
 class GgafDx9AllocHierarchyWorldFrame;
 class GgafDx9WorldMatStack;
 
+class GgafDx9ICubeMapActor;
+
 class GgafDx9BaseActor;
 class GgafDx9GeometricActor;
 class GgafDx9DrawableActor;
@@ -367,7 +369,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/GgafDx9AllocHierarchyWorldFrame.h"
 #include "jp/ggaf/dx9core/util/GgafDx9WorldMatStack.h"
 
-
+#include "jp/ggaf/dx9core/actor/interface/GgafDx9ICubeMapActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9BaseActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9GeometricActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9DrawableActor.h"
