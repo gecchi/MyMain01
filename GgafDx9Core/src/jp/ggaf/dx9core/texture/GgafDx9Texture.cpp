@@ -30,7 +30,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                          0,                         // [in] DWORD Usage,
                          D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
                          D3DPOOL_DEFAULT,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
-                         D3DX_DEFAULT,              // [in] DWORD Filter, D3DX_FILTER_POINTでボヤケナイ. D3DX_FILTER_LINEAR
+                         D3DX_FILTER_POINT,              // [in] DWORD Filter, D3DX_FILTER_POINTでボヤケナイ. D3DX_FILTER_LINEAR
                          D3DX_DEFAULT,              // [in] DWORD MipFilter,
                          0,                         // [in] D3DCOLOR ColorKey,
                          _pD3DXIMAGE_INFO,          // [out] D3DXIMAGE_INFO *pSrcInfo,
@@ -83,7 +83,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                             0,                             // [in ] DWORD Usage,
                             D3DFMT_UNKNOWN,                // [in ] D3DFORMAT Format,
                             D3DPOOL_DEFAULT,               // [in ] D3DPOOL Pool,
-                            D3DX_DEFAULT,                  // [in ] DWORD Filter,
+                            D3DX_FILTER_POINT,                  // [in ] DWORD Filter, D3DX_FILTER_POINT D3DX_FILTER_LINEAR
                             D3DX_DEFAULT,                  // [in ] DWORD MipFilter,
                             0,                             // [in ] D3DCOLOR ColorKey,
                             _pD3DXIMAGE_INFO,              // [out] D3DXIMAGE_INFO * pSrcInfo,

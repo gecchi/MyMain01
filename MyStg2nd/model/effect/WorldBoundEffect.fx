@@ -328,12 +328,12 @@ float4 GgafDx9PS_WorldBound(
 //    }
 
     float4 out_color = colTexCube; //(colTex2D * prm_color) + (colTexCube*0.2); // + s;
-    //Blinker‚ðl—¶
+//    //Blinker‚ðl—¶
 	if (colTexCube.r >= g_tex_blink_threshold || colTexCube.g >= g_tex_blink_threshold || colTexCube.b >= g_tex_blink_threshold) {
 		out_color *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
 	} 
-
-    out_color.a = prm_color.a; 
+//
+//    out_color.a = prm_color.a; 
 	return out_color;
 }
 float4 PS_Flush(       
