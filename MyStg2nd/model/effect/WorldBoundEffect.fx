@@ -37,7 +37,6 @@ float g_zf;
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 //sampler MyTextureSampler : register(s0);
-//sampler CubeMapTextureSampler : register(s1);
 sampler CubeMapTextureSampler : register(s0);
 
 //struct OUT_VS {

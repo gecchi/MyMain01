@@ -29,7 +29,13 @@ public:
      *                        prm_cubemap_texの色に引数の率が乗じられ、下地のマテリアル色に加算されます。
      *                        0.0:映り込み無し、0.3:大理石ぐらい、1.0:鏡面
      */
-    void setCubeMapTexture(const char* prm_cubemap_tex, float prm_reflectance);
+    void setCubeMapTexture(const char* prm_cubemap_tex, float prm_reflectance = 1.0);
+
+    IDirect3DBaseTexture9* getCubeMapTexture();
+
+    float getCubeMapReflectance() {
+        return _reflectance;
+    }
 
     virtual ~GgafDx9ICubeMapActor(); //デストラクタ
 

@@ -38,13 +38,9 @@ void GgafDx9CubeMapMeshActor::processDraw() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pCubeMapMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDx9CubeMapMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pCubeMapMeshEffect->_h_reflectance, _reflectance);
+    hr = pID3DXEffect->SetFloat(_pCubeMapMeshEffect->_h_reflectance, getCubeMapReflectance());
     checkDxException(hr, D3D_OK, "GgafDx9CubeMapMeshActor::processDraw() SetFloat(_h_reflectances) に失敗しました。");
-    if (_pCubeMapTextureCon) {
-        GgafDx9God::_pID3DDevice9->SetTexture(1, _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9);
-    } else {
-        throwGgafCriticalException("GgafDx9CubeMapMeshActor::processDraw() 環境マップテクスチャがありません this="<<getName());
-    }
+    GgafDx9God::_pID3DDevice9->SetTexture(1, getCubeMapTexture());
     _pCubeMapMeshModel->draw(this);
 }
 

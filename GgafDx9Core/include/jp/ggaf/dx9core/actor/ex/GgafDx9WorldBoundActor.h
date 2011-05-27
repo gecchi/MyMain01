@@ -8,7 +8,7 @@ namespace GgafDx9Core {
  * @since 2010/12/24
  * @author Masatoshi Tsuge
  */
-class GgafDx9WorldBoundActor : public GgafDx9MorphMeshActor {
+class GgafDx9WorldBoundActor : public GgafDx9MorphMeshActor, public GgafDx9ICubeMapActor {
 private:
 
 public:
@@ -16,9 +16,6 @@ public:
     GgafDx9WorldBoundModel* _pWorldBoundModel;
     /** エフェクト資源 */
     GgafDx9WorldBoundEffect* _pWorldBoundEffect;
-
-    /** 環境マップテクスチャ資源 */
-    GgafDx9TextureConnection* _pCubeMapTextureCon;
 
     /**
      * コンストラクタ .
@@ -34,8 +31,6 @@ public:
                           const char* prm_effect_id,
                           const char* prm_technique,
                           GgafDx9Checker* prm_pChecker );
-
-    void setCubeMapTexture(const char* prm_cubemap_tex);
 
     virtual void processDraw() override;
 
