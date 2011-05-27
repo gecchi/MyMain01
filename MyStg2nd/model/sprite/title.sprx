@@ -3,7 +3,7 @@ xof 0303txt 0032
 SpriteDef title {
    400.0;
    300.0;
-   "uffizi_cross_cubemap.dds";
+   "title.png";
    1;
    1;
 } 

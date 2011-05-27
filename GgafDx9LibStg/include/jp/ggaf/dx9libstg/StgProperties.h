@@ -1,8 +1,8 @@
 #ifndef STGPROPERTIES_H_
 #define STGPROPERTIES_H_
 
-#ifdef  PROPERTY
-    #undef PROPERTY
+#ifdef CFG_PROPERTY
+    #undef CFG_PROPERTY
 #endif
 #define CFG_PROPERTY(X) (GgafDx9LibStg::StgProperties::X)
 

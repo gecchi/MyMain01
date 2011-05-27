@@ -247,7 +247,7 @@ void PauseCamWorker::processBehavior() {
 //        _move_target_X_VP  = _vp_X + _mdz_vx*r;
 //        _move_target_Y_VP  = _vp_Y + _mdz_vy*r;
 //        _move_target_Z_VP  = _vp_Z + _mdz_vz*r;
-        double r;
+        double r = 0.0;
         if (mdz != 0) {
             r = (mdz*PX_UNIT*LEN_UNIT/10.0);
         } else if ((GgafDx9Input::isBeingPressedMouseButton(0) && GgafDx9Input::isBeingPressedMouseButton(1))) {

@@ -1,8 +1,8 @@
 #ifndef PROPERTIES_H_
 #define PROPERTIES_H_
 
-#ifdef  PROPERTY
-    #undef PROPERTY
+#ifdef CFG_PROPERTY
+    #undef CFG_PROPERTY
 #endif
 #define CFG_PROPERTY(X) (MyStg2nd::Properties::X)
 

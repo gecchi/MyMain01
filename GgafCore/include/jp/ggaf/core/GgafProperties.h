@@ -2,8 +2,8 @@
 #define GGAFPROPERTIES_H_
 
 
-#ifdef  PROPERTY
-    #undef PROPERTY
+#ifdef CFG_PROPERTY
+    #undef CFG_PROPERTY
 #endif
 #define CFG_PROPERTY(X) (GgafCore::GgafProperties::X)
 
