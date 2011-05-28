@@ -64,7 +64,7 @@ public:
     static int _Z_goneFar;
     static int _Z_goneNear;
 
-    GgafDx9TextureManager* _pCubeMapTextureManager;
+//    GgafDx9TextureManager* _pCubeMapTextureManager;
 
 
     GgafDx9Universe(const char* prm_name, GgafDx9Camera* prm_pCamera);

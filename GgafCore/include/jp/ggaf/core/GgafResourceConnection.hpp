@@ -135,10 +135,14 @@ int GgafResourceConnection<T>::getNumConnection() {
 
 template<class T>
 int GgafResourceConnection<T>::close() {
-    if (_is_closing_resource == true) {
-        //close() は複数スレッドから受付ない仕様とする。
-        throwGgafCriticalException("GgafResourceConnection<T>::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << _num_connection << "Connection]\n"<<
-                                   "現在close()中にもかかわらず、close()しました。connectのスレッドを１本にして下さい。")
+    //close() は複数スレッドから受付を許容する。
+    for(int i = 0; _is_closing_resource || GgafResourceManager<T>::_is_connecting_resource; i++) {
+        Sleep(1);
+        if (i > 1000*60) {
+            throwGgafCriticalException("GgafResourceConnection<T>::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << _num_connection << "Connection]\n"<<
+                                       "現在 connect() 或いは close() 中にもかかわらず、close()しようとしてタイムアウトになりました。connect～colse のスレッドを１本にして下さい。")
+        }
+        _TRACE_("＜警告＞GgafResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 中、意図的ならば良いです。待機しています・・・・[" << _pManager->_manager_name << "." << _idstr << "]。出来る限りonnect～colse のスレッドを１本にして下さい。")
     }
 
     if (_num_connection <= 0) {

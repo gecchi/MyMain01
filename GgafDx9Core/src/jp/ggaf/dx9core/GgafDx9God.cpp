@@ -40,6 +40,7 @@ D3DFILLMODE GgafDx9God::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFI
 
 GgafDx9ModelManager* GgafDx9God::_pModelManager = NULL;
 GgafDx9EffectManager* GgafDx9God::_pEffectManager = NULL;
+GgafDx9TextureManager* GgafDx9God::_pCubeMapTextureManager = NULL;
 //int const CFG_PROPERTY(GAME_BUFFER_WIDTH)  = 1024;
 //int const CFG_PROPERTY(GAME_BUFFER_HEIGHT) = 600;
 D3DPRESENT_PARAMETERS* GgafDx9God::_d3dparam;
@@ -609,6 +610,7 @@ HRESULT GgafDx9God::init() {
     }
 
     //その他必要な初期化
+    _pCubeMapTextureManager = NEW GgafDx9TextureManager("CMTexManager");
     _pModelManager = NEW GgafDx9ModelManager("ModelManager");
     _pEffectManager = NEW GgafDx9EffectManager("EffectManager");
     GgafDx9Util::init(); //ユーティリティ準備
@@ -1140,9 +1142,9 @@ void GgafDx9God::clean() {
 
         CmRandomNumberGenerator::getInstance()->release();
         //保持モデル解放
+        DELETE_IMPOSSIBLE_NULL(_pCubeMapTextureManager);
         DELETE_IMPOSSIBLE_NULL(_pModelManager);
         DELETE_IMPOSSIBLE_NULL(_pEffectManager);
-
         _TRACE_("GgafDx9God::clean() end");
     }
 }

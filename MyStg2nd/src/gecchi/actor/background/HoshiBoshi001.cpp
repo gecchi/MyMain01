@@ -27,7 +27,7 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-3);//Å[•”
     //¯‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñ‚ÅA
     //Œ»‹óŠÔ‚Ì‘å‚«‚³‚ÉŽU‚ç‚Î‚ç‚¹‚é
-    _far_rate = 10.0f;
+    _far_rate = 100.0f;
     _SX = _SY = _SZ =  (P_CAM->_zf*LEN_UNIT)*_far_rate;
 }
 
@@ -49,10 +49,10 @@ void HoshiBoshi001::onActive() {
 }
 
 void HoshiBoshi001::processBehavior() {
-    if (_X < -_CAM_ZF*10) {
-        _X += (_CAM_ZF*10*2);
+    if (_X < -_CAM_ZF*_far_rate) {
+        _X += (_CAM_ZF*_far_rate*2);
     } else {
-        _X -= 1000*_far_rate;
+        _X -= 2500*_far_rate;
     }
     _pUvFlipper->behave();
 }

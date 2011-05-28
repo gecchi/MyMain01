@@ -3,11 +3,9 @@
 namespace GgafDx9Core {
 
 /**
- * GgafDx9Core名前空間の基底アクタークラス.
- * GgafMainActorを継承しただけです。<BR>
- * GgafDx9Core名前空間内では、このクラスを基底アクターとします。<BR>
+ * キューブ環境マップオブジェクト用インターフェイス。
  * @version 1.00
- * @since 2009/09/08
+ * @since 2011/05/27
  * @author Masatoshi Tsuge
  */
 class GgafDx9ICubeMapActor {

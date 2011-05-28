@@ -173,11 +173,10 @@ float w_zf = g_zf * g_far_rate;
 		//A領域外側の場合、星を距離に応じて半透明
         out_vs.color.a = r2 - 1.0;
 	}
-
 	out_vs.pos = mul(out_vs.pos , g_matView);  //View
 
 
-	float dep = out_vs.pos.z + 1.0; //+1.0の意味は
+	float dep = out_vs.pos.z  + 1.0; //+1.0の意味は
                                           //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
                                           //距離に加える。
 //    if (dep > g_zf) {
@@ -187,16 +186,19 @@ float w_zf = g_zf * g_far_rate;
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 
     if (out_vs.pos.z > 1.0) {   //描画ささえるため、視野無
-        out_vs.pos.z = 0.9;
+        out_vs.pos.z = 1.0;
     }
 
 	//奥ほど小さく表示するために縮小率計算
-    //out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep / 3.0f) * prm_psize_rate;  //通常の奥行きの縮小率
-    //out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep ) * prm_psize_rate + (-(g_dist_CamZ_default - dep) * 0.001);  
+    out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;  //通常の奥行きの縮小率
+    if (out_vs.psize < 1.4) {
+out_vs.psize = 1.4;
+    }
+ //   out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep ) * prm_psize_rate + (-(g_dist_CamZ_default - dep) * 0.001);  
     //通常の奥行きの縮小率では、星がもともと小さいため、遠くの星はほとんど見えなくなってしまう。
     //そこで (-(g_dist_CamZ_default - dep) * 0.001) を縮小率に加算し、奥行きに対する縮小率を緩やかにし、
     //遠くの星でも存在が解るようにした。
- out_vs.psize =3.0;
+ //out_vs.psize =(g_TexSize / g_TextureSplitRowcol)*prm_psize_rate;
 	//スペキュラセマンテックス(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
 	int ptnno = prm_ptn_no.x + g_UvFlipPtnNo;
     if (ptnno >= g_TextureSplitRowcol*g_TextureSplitRowcol) {

@@ -56,6 +56,7 @@ void CameraWorker::onSwitchCameraWork() {
     setMoveTargetCamBy(P_CAM);
     setMoveTargetCamVpBy(P_CAM->_pViewPoint);
     _angXY_nowCamUp = GgafDx9Util::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    _move_target_XY_CAM_UP = _angXY_nowCamUp;
 }
 
 void CameraWorker::onUndoCameraWork() {

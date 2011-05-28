@@ -35,6 +35,8 @@ public:
 
     virtual void processDraw() override;
 
+//    virtual void end(frame prm_offset_frames = 1) override；
+
     virtual ~GgafDx9CubeMapMorphMeshActor (); //デストラクタ
 };
 

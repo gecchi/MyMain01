@@ -47,5 +47,6 @@ void GgafDx9CubeMapMorphMeshActor::processDraw() {
     _pCubeMapMorphMeshModel->draw(this);
 }
 
+
 GgafDx9CubeMapMorphMeshActor::~GgafDx9CubeMapMorphMeshActor() {
 }

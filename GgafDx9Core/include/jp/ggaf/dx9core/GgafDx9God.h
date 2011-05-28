@@ -55,6 +55,7 @@ public:
 
     static GgafDx9ModelManager* _pModelManager;
     static GgafDx9EffectManager* _pEffectManager;
+    static GgafDx9TextureManager* _pCubeMapTextureManager;
     static int _iNumAdapter;
     RECT _rectGameBuffer;
     RECT _aRect_HarfGameBuffer[2];
