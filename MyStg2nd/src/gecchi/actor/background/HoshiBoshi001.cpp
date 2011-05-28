@@ -52,7 +52,7 @@ void HoshiBoshi001::processBehavior() {
     if (_X < -_CAM_ZF*_far_rate) {
         _X += (_CAM_ZF*_far_rate*2);
     } else {
-        _X -= 2500*_far_rate;
+        _X -= 1000*_far_rate;
     }
     _pUvFlipper->behave();
 }

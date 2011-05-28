@@ -80,7 +80,6 @@ void GgafDx9StringBoardActor::processDraw() {
         return;
     }
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
-    GgafDx9RectUV* pRectUV_Active;
     HRESULT hr;
 
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], _y);
@@ -110,10 +109,7 @@ void GgafDx9StringBoardActor::processDraw() {
             x_tmp = x + _chr_width - w;
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], x);
             checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) に失敗しました。");
-            //pRectUV_Active =  _pUvFlipper->_paRectUV + pattno; //文字のテクスチャ
             _pUvFlipper->getUV(pattno, u, v);
-
-//            _pBoardSetModel->_paRectUV + pattno;
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[i], u);
             checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetU) に失敗しました。");
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[i], v);

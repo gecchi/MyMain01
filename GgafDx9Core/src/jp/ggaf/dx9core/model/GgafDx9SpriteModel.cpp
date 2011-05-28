@@ -33,13 +33,9 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int pr
     ID3DXEffect* pID3DXEffect = pSpriteEffect->_pID3DXEffect;
 
     //¡‰ñ•`‰æ‚ÌUV
-    GgafDx9RectUV* pRectUV_Active;
     float u,v;
     pTargetActor->_pUvFlipper->getUV(u,v);
-//
-//    pRectUV_Active = pTargetActor-> + (pTargetActor->_pUvFlipper->_pattno_uvflip_now);
-
-    static HRESULT hr;
+    HRESULT hr;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteModel::FVF);
@@ -62,7 +58,6 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int pr
             checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
             checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() End() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-
 #ifdef MY_DEBUG
             if (GgafDx9EffectManager::_pEffect_Active->_begin == false) {
                 throwGgafCriticalException("begin ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
@@ -70,9 +65,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int pr
                 GgafDx9EffectManager::_pEffect_Active->_begin = false;
             }
 #endif
-
         }
-
         TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "GgafDx9SpriteActor::draw() SetTechnique("<<pTargetActor->_technique<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -84,7 +77,6 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int pr
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() BeginPass(0) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-
 #ifdef MY_DEBUG
         if (pSpriteEffect->_begin == true) {
             throwGgafCriticalException("End ‚µ‚Ä‚¢‚Ü‚¹‚ñ "<<(GgafDx9EffectManager::_pEffect_Active==NULL?"NULL":GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"");
@@ -92,7 +84,6 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int pr
             pSpriteEffect->_begin = true;
         }
 #endif
-
 
     } else {
         hr = pID3DXEffect->CommitChanges();

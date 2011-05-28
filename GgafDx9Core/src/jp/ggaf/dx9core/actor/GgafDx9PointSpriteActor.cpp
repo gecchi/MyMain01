@@ -74,7 +74,7 @@ void GgafDx9PointSpriteActor::processDraw() {
     //ポイントスプライトON
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
     //ポイントスケールON
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSCALEENABLE, TRUE);
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSCALEENABLE, FALSE);//TRUEの必要はない？
     _pPointSpriteModel->draw(this);
     //ポイントスプライトOFF
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);

@@ -191,9 +191,12 @@ float w_zf = g_zf * g_far_rate;
 
 	//奥ほど小さく表示するために縮小率計算
     out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;  //通常の奥行きの縮小率
-    if (out_vs.psize < 1.4) {
-out_vs.psize = 1.4;
+    if (out_vs.psize < 2.0) {
+out_vs.psize = 2.0;
     }
+//out_vs.psize = (g_TexSize / g_TextureSplitRowcol);
+
+
  //   out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep ) * prm_psize_rate + (-(g_dist_CamZ_default - dep) * 0.001);  
     //通常の奥行きの縮小率では、星がもともと小さいため、遠くの星はほとんど見えなくなってしまう。
     //そこで (-(g_dist_CamZ_default - dep) * 0.001) を縮小率に加算し、奥行きに対する縮小率を緩やかにし、
@@ -217,10 +220,12 @@ float4 PS_HoshiBoshi(
 	float4 prm_uv_ps              : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
 ) : COLOR  {
 	float2 uv = (float2)0;
+float4 color = prm_color;
+color.a = 1.0;
 	uv.x = prm_uv_pointsprite.x / g_TextureSplitRowcol + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y / g_TextureSplitRowcol + prm_uv_ps.y;
-	float4 out_color = tex2D( MyTextureSampler, uv) * prm_color; // * g_colMaterialDiffuse;
-	out_color.a = out_color.a * g_alpha_master; 
+	float4 out_color = tex2D( MyTextureSampler, uv)*color;// * prm_color; // * g_colMaterialDiffuse;
+//	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;
 }
 

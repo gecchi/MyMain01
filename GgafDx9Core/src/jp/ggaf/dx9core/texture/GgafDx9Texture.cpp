@@ -24,9 +24,9 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
         HRESULT hr = D3DXCreateTextureFromFileEx(
                          GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
                          texture_file_name.c_str(), // [in] LPCTSTR pSrcFile,
-                         D3DX_DEFAULT,              // [in] UINT Width,
+                         D3DX_DEFAULT,              // [in] UINT Widths,
                          D3DX_DEFAULT,              // [in] UINT Height,
-                         0,                         // [in] UINT MipLevels,  //D3DX_DEFAULT,
+                         D3DX_DEFAULT,              // [in] UINT MipLevels,  //D3DX_DEFAULT,
                          0,                         // [in] DWORD Usage,
                          D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
                          D3DPOOL_DEFAULT,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
