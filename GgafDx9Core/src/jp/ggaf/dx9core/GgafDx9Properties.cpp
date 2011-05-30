@@ -39,6 +39,7 @@ string GgafDx9Properties::DIR_TEXTURE = "";
 string GgafDx9Properties::DIR_EFFECT = "";
 string GgafDx9Properties::DIR_OGG = "";
 string GgafDx9Properties::DIR_WAVE = "";
+bool GgafDx9Properties::REALTIME_EFFECT_COMPILE = false;
 
 void GgafDx9Properties::load(string prm_ini_filename) {
     GgafProperties::load(prm_ini_filename);
@@ -79,6 +80,8 @@ void GgafDx9Properties::load(string prm_ini_filename) {
     GgafDx9Properties::DIR_OGG = getStr("DIR_OGG");
     GgafDx9Properties::DIR_WAVE = getStr("DIR_WAVE");
 
+    GgafDx9Properties::REALTIME_EFFECT_COMPILE = getBool("REALTIME_EFFECT_COMPILE");
+
     _TRACE_("GgafDx9Properties::FULL_SCREEN="<<GgafDx9Properties::FULL_SCREEN);
     _TRACE_("GgafDx9Properties::DUAL_VIEW="<<GgafDx9Properties::DUAL_VIEW);
     _TRACE_("GgafDx9Properties::GAME_BUFFER_WIDTH="<<GgafDx9Properties::GAME_BUFFER_WIDTH);
@@ -113,7 +116,8 @@ void GgafDx9Properties::load(string prm_ini_filename) {
     _TRACE_("GgafDx9Properties::DIR_EFFECT="<<GgafDx9Properties::DIR_EFFECT);
     _TRACE_("GgafDx9Properties::DIR_OGG="<<GgafDx9Properties::DIR_OGG);
     _TRACE_("GgafDx9Properties::DIR_WAVE="<<GgafDx9Properties::DIR_WAVE);
-    //‘±‚«
+
+    _TRACE_("GgafDx9Properties::REALTIME_EFFECT_COMPILE="<<GgafDx9Properties::REALTIME_EFFECT_COMPILE);
 }
 
 void GgafDx9Properties::clean() {

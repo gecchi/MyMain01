@@ -11,7 +11,6 @@ float g_specular_power;
 
 /** カメラのWorld位置 */
 float3 pos_camera; 
-
 /** モデルのWorld変換行列 */
 float4x4 g_matWorld;
 /** モデルのView変換行列 */

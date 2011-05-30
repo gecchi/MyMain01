@@ -9,21 +9,26 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
     _effect_name = NEW char[51];
     strcpy(_effect_name, prm_effect_name);
 
+    string effect_file_name;
+    if (CFG_PROPERTY(REALTIME_EFFECT_COMPILE)) {
+        //fx ファイルからコンパイル
+        effect_file_name = CFG_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
+    } else {
+        //コンパイル済み fxo ファイルを読み込み
+        if ( GgafDx9God::_ps_v >= D3DPS_VERSION(3, 0)) {
+            effect_file_name = CFG_PROPERTY(DIR_EFFECT) + "3_0_" + string(prm_effect_name) + ".fxo";
+        } else {
+            effect_file_name = CFG_PROPERTY(DIR_EFFECT) + "2_0_" + string(prm_effect_name) + ".fxo";
+        }
+    }
+
     ID3DXBuffer* pError = NULL;
-#ifdef _DEBUG
+    HRESULT hr;
+#ifdef MY_DEBUG
     DWORD dwFlags = D3DXSHADER_DEBUG; //|D3DXSHADER_SKIPOPTIMIZATION;//|D3DXSHADER_FORCE_PS_SOFTWARE_NOOPT|D3DXSHADER_FORCE_VS_SOFTWARE_NOOPT|D3DXSHADER_SKIPOPTIMIZATION;
 #else
     DWORD dwFlags = D3DXSHADER_SKIPVALIDATION;
 #endif
-    string effect_file_name;
-    if ( GgafDx9God::_ps_v >= D3DPS_VERSION(3, 0)) {
-        effect_file_name = CFG_PROPERTY(DIR_EFFECT) + "3_0_" + string(prm_effect_name) + ".fxo";
-    } else if ( GgafDx9God::_ps_v >= D3DPS_VERSION(2, 0)) {
-        effect_file_name = CFG_PROPERTY(DIR_EFFECT) + "2_0_" + string(prm_effect_name) + ".fxo";
-    } else {
-        effect_file_name = CFG_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
-    }
-    HRESULT hr;
     if ( GgafDx9God::_ps_v >= D3DPS_VERSION(3, 0)) {
         hr = D3DXCreateEffectFromFile(
                  GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
@@ -49,7 +54,6 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
             );
 
     }
-
     if (hr != D3D_OK && pError == NULL) {
         throwGgafCriticalException("GgafDx9Effect::GgafDx9Effect "<<effect_file_name<<" が存在しないのではないだろうか・・・");
     }

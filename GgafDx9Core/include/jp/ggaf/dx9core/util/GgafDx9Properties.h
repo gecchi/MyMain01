@@ -46,6 +46,8 @@ public:
     static std::string DIR_OGG;
     static std::string DIR_WAVE;
 
+    static bool REALTIME_EFFECT_COMPILE;
+
     static void load(std::string prm_ini_filename);
     static void clean();
 };
