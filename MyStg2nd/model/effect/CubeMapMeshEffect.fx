@@ -3,14 +3,11 @@
  * @author Masatoshi Tsuge
  * @since 2010/12/21
  */
-
 //エラー回避のためにとりあえず追加後でちゃんとする
 float3 g_posCam;
 float g_reflectance;
 float g_specular;
 float g_specular_power;
-
-
 
 /** カメラのWorld位置 */
 float3 pos_camera; 

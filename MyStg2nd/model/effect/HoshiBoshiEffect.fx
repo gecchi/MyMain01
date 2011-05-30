@@ -44,7 +44,6 @@ sampler MyTextureSampler : register(s0);
 //sampler MyTextureSampler = sampler_state {
 //	texture = <g_diffuseMap>;
 //};
-
 //頂点シェーダー、出力構造体
 struct OUT_VS
 {
