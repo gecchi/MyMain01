@@ -15,24 +15,15 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 #else
     DWORD dwFlags = D3DXSHADER_SKIPVALIDATION;
 #endif
-
-//#ifdef _DEBUG
-//    DWORD dwFlags = D3DXSHADER_DEBUG|D3DXFX_NOT_CLONEABLE;
-//#else
-//    DWORD dwFlags = D3DXSHADER_SKIPVALIDATION|D3DXFX_NOT_CLONEABLE;
-//#endif
-
-//#ifdef _DEBUG
-//    DWORD dwFlags = D3DXSHADER_PARTIALPRECISION|D3DXSHADER_DEBUG|D3DXSHADER_PREFER_FLOW_CONTROL|D3DXFX_NOT_CLONEABLE;
-//#else
-//    DWORD dwFlags = D3DXSHADER_SKIPVALIDATION|D3DXSHADER_PARTIALPRECISION|D3DXSHADER_PREFER_FLOW_CONTROL|D3DXFX_NOT_CLONEABLE;
-//#endif
-
-    string effect_file_name = CFG_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
-//    if (prm_effect_name == "HoshiBoshiEffect") {
-//        dwFlags = D3DXSHADER_DEBUG|D3DXSHADER_SKIPOPTIMIZATION;
-//    }
-	HRESULT hr;
+    string effect_file_name;
+    if ( GgafDx9God::_ps_v >= D3DPS_VERSION(3, 0)) {
+        effect_file_name = CFG_PROPERTY(DIR_EFFECT) + "3_0_" + string(prm_effect_name) + ".fxo";
+    } else if ( GgafDx9God::_ps_v >= D3DPS_VERSION(2, 0)) {
+        effect_file_name = CFG_PROPERTY(DIR_EFFECT) + "2_0_" + string(prm_effect_name) + ".fxo";
+    } else {
+        effect_file_name = CFG_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
+    }
+    HRESULT hr;
     if ( GgafDx9God::_ps_v >= D3DPS_VERSION(3, 0)) {
         hr = D3DXCreateEffectFromFile(
                  GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice

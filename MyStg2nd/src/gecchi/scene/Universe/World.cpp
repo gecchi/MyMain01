@@ -35,7 +35,7 @@ void World::initialize() {
 //    getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
 //#endif
 
-//    orderSceneToFactory(1, PreDrawScene, "PreDraw");
+    orderSceneToFactory(1, PreDrawScene, "PreDraw");
 //    PreDrawScene* pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
 //    addSubLast(pPreDrawScene);
 
@@ -62,8 +62,8 @@ void World::processBehavior() {
     } else {
         //GameSceneçÏê¨äÆóπÇ‹Ç≈ë“Ç¬
         if (MyFactory::chkProgress(2) == 2) {
-//            _pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
-//            addSubLast(_pPreDrawScene);
+            _pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
+            addSubLast(_pPreDrawScene);
             _pGameScene = (GameScene*)obtainSceneFromFactory(2);
             addSubLast(_pGameScene);
             _is_create_GameScene = true;
