@@ -2,18 +2,6 @@
 #define GGAFDX9CRITICALEXCEPTION_H_
 namespace GgafDx9Core {
 
-#ifdef MY_DEBUG
-    #define checkDxException(HR, OKVAL, X) { \
-        if (HR != OKVAL) { \
-            std::stringstream ss; \
-            ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
-            throw GgafDx9Core::GgafDx9CriticalException(ss.str(),HR); \
-        } \
-    }
-#else
-    #define checkDxException(HR, OKVAL, X)
-#endif
-
 
 /**
  * GgafDxCoreライブラリ専用、ライブラリ業務例外 .

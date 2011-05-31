@@ -85,6 +85,17 @@ AVAILABLE_EVENT(GGAF_EVENT_DEVICE_LOST_RESTORE);
 AVAILABLE_EVENT(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED);
 
 
+#ifdef MY_DEBUG
+    #define checkDxException(HR, OKVAL, X) { \
+        if (HR != OKVAL) { \
+            std::stringstream ss; \
+            ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
+            throw GgafDx9Core::GgafDx9CriticalException(ss.str(),HR); \
+        } \
+    }
+#else
+    #define checkDxException(HR, OKVAL, X)
+#endif
 
 //シェーダー2.0の限界のモーフターゲットは6個だった
 #define MAX_MORPH_TARGET 6

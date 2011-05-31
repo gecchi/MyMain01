@@ -382,6 +382,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
         string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
+        VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_GgafException.rep");
+        VB_UI->_pRpy->outputFile("VB_UI_LASTT_GgafException.rep");
         _TRACE_("[GgafCriticalException]:"<<e.getMsg());
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
@@ -392,17 +394,21 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP);
         _TRACE_("[exception]:"<<what);
+        VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Exception.rep");
+        VB_UI->_pRpy->outputFile("VB_UI_LASTT_Exception.rep");
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     }
 
 #ifndef MY_DEBUG
-    //以下のキャッチはメモリ違反をつぶす可能性があるため、DEBUG時は無効とする。
+    //以下のキャッチはDEBUG時であっても、メモリ違反をつぶす可能性があるため、DEBUG時は無効とする。
     catch( ... ) {
         _TRACE_("＜致命的な謎例外＞");
         string message = "恐れ入りますが、不明な内部エラーが発生しました。\n誠に申し訳ございません。\n";
         string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(NULL, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP);
+        VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_UNKNOWN_ERROR.rep");
+        VB_UI->_pRpy->outputFile("VB_UI_LASTT_UNKNOWN_ERROR.rep");
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     }

@@ -4,11 +4,11 @@
 namespace MyStg2nd {
 
 /** ゲーム時のVirtualButton */
-#define VB_PLAY God::_pVbtn_PLAY
+#define VB_PLAY MyStg2nd::God::_pVbtn_PLAY
 /** UI操作時のVirtualButton */
-#define VB_UI God::_pVbtn_UI
+#define VB_UI MyStg2nd::God::_pVbtn_UI
 /** VB_PLAY or VB_UI のどちらかで、アクティブな方のVirtualButton */
-#define VB God::_pVbtn_Active
+#define VB MyStg2nd::God::_pVbtn_Active
 
 
 
@@ -65,6 +65,9 @@ public:
      */
     GgafCore::GgafUniverse* createUniverse() override;
     virtual void clean() override;
+
+    virtual void oops() override;
+
     virtual ~God();
 };
 

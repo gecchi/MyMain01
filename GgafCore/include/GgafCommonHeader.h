@@ -288,7 +288,11 @@
 
 #endif
 
-
+#define throwGgafCriticalException(X) { \
+    std::stringstream ss; \
+    ss <<__FILE__<<"("<<__LINE__<<") : "<< X; \
+    throw GgafCore::GgafCriticalException(ss.str()); \
+}
 
 #define AVAILABLE_EVENT(X) const static UINT32 X = GgafCore::GgafUtil::easy_hash(#X)
 

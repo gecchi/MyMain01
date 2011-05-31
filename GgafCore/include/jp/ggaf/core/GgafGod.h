@@ -137,6 +137,13 @@ public:
 
     virtual void clean();
 
+    /**
+     * しまった～！、という時に呼び出す。
+     */
+    virtual void oops() {
+        _TRACE_("(-_-;) {Oops!");
+    }
+
     virtual ~GgafGod();
 };
 
