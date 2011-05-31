@@ -418,13 +418,16 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 }
 
 void myUnexpectedHandler() {
-    MessageBox(NULL, "myUnexpectedHandler called.","test", MB_OK|MB_ICONSTOP);
-    //std::cerr << "myUnexpectedHandler called." << std::endl;
+    MessageBox(NULL, "UnexpectedHandler called.","ERROR", MB_OK|MB_ICONSTOP);
+    VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Unexpected.rep");
+    VB_UI->_pRpy->outputFile("VB_UI_LASTT_Unexpected.rep");
     terminate();
 }
 
 void myTerminateHandler() {
-    MessageBox(NULL, "myTerminateHandler called.","test", MB_OK|MB_ICONSTOP);
+    MessageBox(NULL, "TerminateHandler called.","ERROR", MB_OK|MB_ICONSTOP);
+    VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Terminate.rep");
+    VB_UI->_pRpy->outputFile("VB_UI_LASTT_Terminate.rep");
     abort;
 }
 
