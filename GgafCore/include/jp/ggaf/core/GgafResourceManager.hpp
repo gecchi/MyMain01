@@ -184,7 +184,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr
         TRACE3("警告 GgafResourceManager<T>::getConnection(NULL) [" << _manager_name << "]");
     }
     if (_is_waiting_to_connect || _is_connecting_resource) {
-        throwGgafCriticalException("GgafResourceManager<T>::getConnection() 既存のコネクト処理中です。待機が発生しました・・・ getConnection("<<prm_idstr<<")");
+        _TRACE_("GgafResourceManager<T>::getConnection() 既存のコネクト処理中です。待機が発生しました・・・ getConnection("<<prm_idstr<<")");
     }
     for(int i = 0; _is_waiting_to_connect || _is_connecting_resource; i++) {
         Sleep(1);
