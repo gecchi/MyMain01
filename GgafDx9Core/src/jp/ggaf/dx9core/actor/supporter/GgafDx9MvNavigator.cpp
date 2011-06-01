@@ -120,7 +120,7 @@ using namespace GgafDx9Core;
 
 
 
-GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
+GgafDx9MvNavigator::GgafDx9MvNavigator(GgafDx9GeometricActor* prm_pActor) :
     GgafObject() {
     _pActor = prm_pActor;
 
@@ -216,39 +216,6 @@ GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
     //移動方角（Y軸回転）に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
     _relate_RyFaceAng_to_RyMvAng_flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
 
-    //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
-    _veloVxMv = 0;
-    //X軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVxMv = 256 * LEN_UNIT;
-    //X軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVxMv = -256 * LEN_UNIT;
-    //X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acceVxMv = 0;
-    _acceTopVxMv = 256 * LEN_UNIT;
-    _acceBottomVxMv = -256 * LEN_UNIT;
-    //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
-    _veloVyMv = 0;
-    //Y軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVyMv = 256 * LEN_UNIT;
-    //Y軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVyMv = -256 * LEN_UNIT;
-    //Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acceVyMv = 0;
-
-    _acceTopVyMv = 256 * LEN_UNIT;
-    _acceBottomVyMv = -256 * LEN_UNIT;
-
-    //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
-    _veloVzMv = 0;
-    //Z軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVzMv = 256 * LEN_UNIT;
-    //Z軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVzMv = -256 * LEN_UNIT;
-    //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acceVzMv = 0;
-    _acceTopVzMv = 256 * LEN_UNIT;
-    _acceBottomVzMv = -256 * LEN_UNIT;
-
     _smooth_mv_velo_seq_flg = false;
     _smooth_mv_velo_seq_endacc_flg = true;
     _smooth_mv_velo_seq_top_velo = 0;
@@ -262,15 +229,6 @@ GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
     _smooth_mv_velo_seq_progress = -1;
 
 
-    _gravitation_mv_seq_target_X = 0;
-    _gravitation_mv_seq_target_Y = 0;
-    _gravitation_mv_seq_target_Z = 0;
-    _gravitation_mv_seq_pActor_target = NULL;
-    _gravitation_mv_seq_max_velo = 1000;
-    _gravitation_mv_seq_acce = 1000;
-    _gravitation_mv_seq_stop_renge = 1000;
-    _gravitation_mv_seq_flg = false;
-
     _taget_mv_ang_alltime_flg = false;
     _taget_mv_ang_alltime_pActor = NULL;
     _taget_mv_ang_alltime_tX = 0;
@@ -283,7 +241,7 @@ GgafDx9Kuroko::GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor) :
 
 }
 
-void GgafDx9Kuroko::behave() {
+void GgafDx9MvNavigator::behave() {
 
     //軸回転方角処理
     angle angDistance;
@@ -350,68 +308,7 @@ void GgafDx9Kuroko::behave() {
 
     ///////////////////////////////////////////////////Mover
 
-    if(_gravitation_mv_seq_flg) {
-        int dX, dY, dZ;
-        if (_gravitation_mv_seq_pActor_target) {
-            dX = _gravitation_mv_seq_pActor_target->_X - _pActor->_X;
-            dY = _gravitation_mv_seq_pActor_target->_Y - _pActor->_Y;
-            dZ = _gravitation_mv_seq_pActor_target->_Z - _pActor->_Z;
-        } else {
-            dX = _gravitation_mv_seq_target_X - _pActor->_X;
-            dY = _gravitation_mv_seq_target_Y - _pActor->_Y;
-            dZ = _gravitation_mv_seq_target_Z - _pActor->_Z;
-        }
 
-        velo last_veloVxMv = _veloVxMv;
-        velo new_veloVxMv = _gravitation_mv_seq_max_velo * (dX * 1.0 / _gravitation_mv_seq_stop_renge);
-        if (last_veloVxMv - _gravitation_mv_seq_acce <= new_veloVxMv &&
-                                                        new_veloVxMv <= last_veloVxMv + _gravitation_mv_seq_acce) {
-            _veloVxMv = new_veloVxMv;
-        } else {
-            if (last_veloVxMv - _gravitation_mv_seq_acce > new_veloVxMv) {
-                _veloVxMv = last_veloVxMv - _gravitation_mv_seq_acce;
-            } else if (new_veloVxMv > last_veloVxMv + _gravitation_mv_seq_acce) {
-                _veloVxMv = last_veloVxMv + _gravitation_mv_seq_acce;
-            }
-        }
-
-        velo last_veloVyMv = _veloVyMv;
-        velo new_veloVyMv = _gravitation_mv_seq_max_velo * (dY * 1.0 / _gravitation_mv_seq_stop_renge);
-        if (last_veloVyMv - _gravitation_mv_seq_acce <= new_veloVyMv &&
-                                                        new_veloVyMv <= last_veloVyMv + _gravitation_mv_seq_acce) {
-            _veloVyMv = new_veloVyMv;
-        } else {
-            if (last_veloVyMv - _gravitation_mv_seq_acce > new_veloVyMv) {
-                _veloVyMv = last_veloVyMv - _gravitation_mv_seq_acce;
-            } else if (new_veloVyMv > last_veloVyMv + _gravitation_mv_seq_acce) {
-                _veloVyMv = last_veloVyMv + _gravitation_mv_seq_acce;
-            }
-        }
-
-        velo last_veloVzMv = _veloVzMv;
-        velo new_veloVzMv = _gravitation_mv_seq_max_velo * (dZ * 1.0 / _gravitation_mv_seq_stop_renge);
-        if (last_veloVzMv - _gravitation_mv_seq_acce <= new_veloVzMv &&
-                                                        new_veloVzMv <= last_veloVzMv + _gravitation_mv_seq_acce) {
-            _veloVzMv = new_veloVzMv;
-        } else {
-            if (last_veloVzMv - _gravitation_mv_seq_acce > new_veloVzMv) {
-                _veloVzMv = last_veloVzMv - _gravitation_mv_seq_acce;
-            } else if (new_veloVzMv > last_veloVzMv + _gravitation_mv_seq_acce) {
-                _veloVzMv = last_veloVzMv + _gravitation_mv_seq_acce;
-            }
-        }
-    }
-
-
-    //X軸方向移動加速度の処理
-    _veloVxMv += _acceVxMv;
-    setVxMvVelo(_veloVxMv);
-    //Y軸方向移動加速度の処理
-    _veloVyMv += _acceVyMv;
-    setVyMvVelo(_veloVyMv);
-    //Z軸方向移動加速度の処理
-    _veloVzMv += _acceVzMv;
-    setVzMvVelo(_veloVzMv);
 
     //なめらか移動シークエンス起動時
     if (_smooth_mv_velo_seq_flg) {
@@ -630,18 +527,18 @@ void GgafDx9Kuroko::behave() {
 
     }
     //Actorに反映
-    _pActor->_X += (int)(_vX * _veloMv + _veloVxMv);
-    _pActor->_Y += (int)(_vY * _veloMv + _veloVyMv);
-    _pActor->_Z += (int)(_vZ * _veloMv + _veloVzMv);
+    _pActor->_X += (int)(_vX * _veloMv);
+    _pActor->_Y += (int)(_vY * _veloMv);
+    _pActor->_Z += (int)(_vZ * _veloMv);
 
 
 }
 
-void GgafDx9Kuroko::setFaceAng(int prm_axis, angle prm_angFace) {
+void GgafDx9MvNavigator::setFaceAng(int prm_axis, angle prm_angFace) {
     _angFace[prm_axis] = GgafDx9Util::simplifyAng(prm_angFace);
 }
 
-void GgafDx9Kuroko::setFaceAng(int prm_tX, int prm_tY, int prm_tZ) {
+void GgafDx9MvNavigator::setFaceAng(int prm_tX, int prm_tY, int prm_tZ) {
     GgafDx9Util::getRzRyAng(
                    prm_tX - _pActor->_X,
                    prm_tY - _pActor->_Y,
@@ -651,7 +548,7 @@ void GgafDx9Kuroko::setFaceAng(int prm_tX, int prm_tY, int prm_tZ) {
                  );
 }
 
-void GgafDx9Kuroko::addFaceAng(int prm_axis, angle prm_angDistance) {
+void GgafDx9MvNavigator::addFaceAng(int prm_axis, angle prm_angDistance) {
     angle angOffsetrot_FaceAng;
     angOffsetrot_FaceAng = prm_angDistance;
     if (_angveloBottomFace[prm_axis] > prm_angDistance) {
@@ -662,7 +559,7 @@ void GgafDx9Kuroko::addFaceAng(int prm_axis, angle prm_angDistance) {
     setFaceAng(prm_axis, _angFace[prm_axis] + angOffsetrot_FaceAng);
 }
 
-void GgafDx9Kuroko::setFaceAngVelo(int prm_axis, angvelo prm_angveloRot) {
+void GgafDx9MvNavigator::setFaceAngVelo(int prm_axis, angvelo prm_angveloRot) {
     if (prm_angveloRot > _angveloTopFace[prm_axis]) {
         _angveloFace[prm_axis] = _angveloTopFace[prm_axis];
     } else if (prm_angveloRot < _angveloBottomFace[prm_axis]) {
@@ -672,7 +569,7 @@ void GgafDx9Kuroko::setFaceAngVelo(int prm_axis, angvelo prm_angveloRot) {
     }
 }
 
-void GgafDx9Kuroko::forceFaceAngVeloRange(int prm_axis,
+void GgafDx9MvNavigator::forceFaceAngVeloRange(int prm_axis,
                                                angvelo prm_angveloRot01,
                                                angvelo prm_angveloRot02) {
     if (prm_angveloRot01 < prm_angveloRot02) {
@@ -685,11 +582,11 @@ void GgafDx9Kuroko::forceFaceAngVeloRange(int prm_axis,
     setFaceAngVelo(prm_axis, _angveloFace[prm_axis]); //再設定して範囲内に補正
 }
 
-void GgafDx9Kuroko::setFaceAngAcce(int prm_axis, angacce prm_angacceRot) {
+void GgafDx9MvNavigator::setFaceAngAcce(int prm_axis, angacce prm_angacceRot) {
     _angacceFace[prm_axis] = prm_angacceRot;
 }
 
-void GgafDx9Kuroko::setStopTarget_FaceAngV(int prm_axis,
+void GgafDx9MvNavigator::setStopTarget_FaceAngV(int prm_axis,
                                                   int prm_tX,
                                                   int prm_tY,
                                                   int prm_way_allow,
@@ -702,7 +599,7 @@ void GgafDx9Kuroko::setStopTarget_FaceAngV(int prm_axis,
     );
 }
 
-void GgafDx9Kuroko::setStopTarget_FaceAng(int prm_axis,
+void GgafDx9MvNavigator::setStopTarget_FaceAng(int prm_axis,
                                                  angle prm_angTargetRot,
                                                  int prm_way_allow,
                                                  angvelo prm_angveloAllow) {
@@ -713,12 +610,12 @@ void GgafDx9Kuroko::setStopTarget_FaceAng(int prm_axis,
     _face_ang_target_allow_velo[prm_axis] = prm_angveloAllow;
 }
 
-angle GgafDx9Kuroko::getFaceAngDistance(int prm_axis, int prm_tX, int prm_tY, int prm_way) {
+angle GgafDx9MvNavigator::getFaceAngDistance(int prm_axis, int prm_tX, int prm_tY, int prm_way) {
     return getFaceAngDistance(prm_axis, GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY
             - (_pActor->_Y)), prm_way);
 }
 
-angle GgafDx9Kuroko::getFaceAngDistance(int prm_axis, angle prm_angTargetRot, int prm_way) {
+angle GgafDx9MvNavigator::getFaceAngDistance(int prm_axis, angle prm_angTargetRot, int prm_way) {
     angle _angTargetRot;
     _angTargetRot = GgafDx9Util::simplifyAng(prm_angTargetRot);
     if (prm_way == TURN_CLOSE_TO) { //近いほう回転
@@ -740,7 +637,7 @@ angle GgafDx9Kuroko::getFaceAngDistance(int prm_axis, angle prm_angTargetRot, in
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-                throwGgafCriticalException("GgafDx9Kuroko::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9MvNavigator::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angFace[prm_axis] && _angFace[prm_axis] <= ANGLE360) {
             if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis] - ANGLE180) {
@@ -760,7 +657,7 @@ angle GgafDx9Kuroko::getFaceAngDistance(int prm_axis, angle prm_angTargetRot, in
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-                throwGgafCriticalException("GgafDx9Kuroko::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9MvNavigator::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
@@ -781,7 +678,7 @@ angle GgafDx9Kuroko::getFaceAngDistance(int prm_axis, angle prm_angTargetRot, in
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-                throwGgafCriticalException("GgafDx9Kuroko::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9MvNavigator::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angFace[prm_axis] && _angFace[prm_axis] <= ANGLE360) {
             if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis] - ANGLE180) {
@@ -800,7 +697,7 @@ angle GgafDx9Kuroko::getFaceAngDistance(int prm_axis, angle prm_angTargetRot, in
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-                throwGgafCriticalException("GgafDx9Kuroko::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9MvNavigator::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
@@ -814,7 +711,7 @@ angle GgafDx9Kuroko::getFaceAngDistance(int prm_axis, angle prm_angTargetRot, in
         } else {
             //おかしい
             _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-            throwGgafCriticalException("GgafDx9Kuroko::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(3)。_pActor="<<_pActor->getName());
+            throwGgafCriticalException("GgafDx9MvNavigator::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(3)。_pActor="<<_pActor->getName());
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
         if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < _angTargetRot) {
@@ -827,18 +724,18 @@ angle GgafDx9Kuroko::getFaceAngDistance(int prm_axis, angle prm_angTargetRot, in
         } else {
             //おかしい
             _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-            throwGgafCriticalException("GgafDx9Kuroko::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(4)。_pActor="<<_pActor->getName());
+            throwGgafCriticalException("GgafDx9MvNavigator::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(4)。_pActor="<<_pActor->getName());
         }
     }
     _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-    throwGgafCriticalException("GgafDx9Kuroko::getFaceAngDistance() 何故かしら角の距離が求めれません(2)。_pActor="<<_pActor->getName());
+    throwGgafCriticalException("GgafDx9MvNavigator::getFaceAngDistance() 何故かしら角の距離が求めれません(2)。_pActor="<<_pActor->getName());
 }
 
-void GgafDx9Kuroko::forceMvVeloRange(int prm_velo) {
+void GgafDx9MvNavigator::forceMvVeloRange(int prm_velo) {
     forceMvVeloRange(-prm_velo, prm_velo);
 }
 
-void GgafDx9Kuroko::forceMvVeloRange(int prm_veloMv01, int prm_veloMv02) {
+void GgafDx9MvNavigator::forceMvVeloRange(int prm_veloMv01, int prm_veloMv02) {
     if (prm_veloMv01 < prm_veloMv02) {
         _veloTopMv = prm_veloMv02;
         _veloBottomMv = prm_veloMv01;
@@ -849,7 +746,7 @@ void GgafDx9Kuroko::forceMvVeloRange(int prm_veloMv01, int prm_veloMv02) {
     setMvVelo(_veloMv); //再設定して範囲内に補正
 }
 
-void GgafDx9Kuroko::setMvVelo(int prm_veloMv) {
+void GgafDx9MvNavigator::setMvVelo(int prm_veloMv) {
     if (prm_veloMv > _veloTopMv) {
         _veloMv = _veloTopMv;
     } else if (prm_veloMv < _veloBottomMv) {
@@ -859,15 +756,15 @@ void GgafDx9Kuroko::setMvVelo(int prm_veloMv) {
     }
 }
 
-void GgafDx9Kuroko::addMvVelo(int prm_veloMv_Offset) {
+void GgafDx9MvNavigator::addMvVelo(int prm_veloMv_Offset) {
     setMvVelo(_veloMv + prm_veloMv_Offset);
 }
 
-void GgafDx9Kuroko::setMvAcce(int prm_acceMove) {
+void GgafDx9MvNavigator::setMvAcce(int prm_acceMove) {
     _accMv = prm_acceMove;
 }
 
-void GgafDx9Kuroko::setMvAcceToStop(int prm_distance_of_target) {
+void GgafDx9MvNavigator::setMvAcceToStop(int prm_distance_of_target) {
     // a = -(v0^2) / 2S
     _accMv  =  -(1.0*_veloMv*_veloMv) / (2.0*prm_distance_of_target);
     if (_accMv < 0) {
@@ -877,11 +774,11 @@ void GgafDx9Kuroko::setMvAcceToStop(int prm_distance_of_target) {
     }
     //(frame)((2.0*prm_distance_of_target) / _veloMv); //使用フレーム数
 }
-void GgafDx9Kuroko::setMvAcce2(int prm_frame_of_spend, velo prm_velo_target) {
+void GgafDx9MvNavigator::setMvAcce2(int prm_frame_of_spend, velo prm_velo_target) {
     //a = (vx-v0) / t
     _accMv = (prm_velo_target - _veloMv) / (1.0f*prm_velo_target);
 }
-void GgafDx9Kuroko::setMvAcce(int prm_distance_of_target, velo prm_velo_target) {
+void GgafDx9MvNavigator::setMvAcce(int prm_distance_of_target, velo prm_velo_target) {
     // a = (vx^2 - v0^2) / 2S
     _accMv =  ((1.0f*prm_velo_target*prm_velo_target) - (1.0f*_veloMv*_veloMv)) / (2.0f*prm_distance_of_target);
     if (_accMv < 0) {
@@ -946,7 +843,7 @@ void GgafDx9Kuroko::setMvAcce(int prm_distance_of_target, velo prm_velo_target) 
 
 }
 
-void GgafDx9Kuroko::orderSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
+void GgafDx9MvNavigator::orderSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
                                                     bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
@@ -962,7 +859,7 @@ void GgafDx9Kuroko::orderSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_ve
 }
 
 
-void GgafDx9Kuroko::orderSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
+void GgafDx9MvNavigator::orderSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
                                                     bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
@@ -977,7 +874,7 @@ void GgafDx9Kuroko::orderSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_v
     _smooth_mv_velo_seq_progress = 0;
 }
 
-void GgafDx9Kuroko::orderSmoothMvVeloSequence3(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
+void GgafDx9MvNavigator::orderSmoothMvVeloSequence3(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
                                                       bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_p1 = (int)(prm_distance_of_target*1.0 / 4.0);
@@ -1015,16 +912,16 @@ void GgafDx9Kuroko::orderSmoothMvVeloSequence3(velo prm_end_velo, int prm_distan
     _smooth_mv_velo_seq_top_velo = (8.0*prm_distance_of_target/prm_frame_of_spend - _veloMv - prm_end_velo) / 6.0;
 }
 
-bool GgafDx9Kuroko::isMoveingSmooth() {
+bool GgafDx9MvNavigator::isMoveingSmooth() {
     return _smooth_mv_velo_seq_flg;
 }
 
 
-void GgafDx9Kuroko::setRzMvAng(int prm_tX, int prm_tY) {
+void GgafDx9MvNavigator::setRzMvAng(int prm_tX, int prm_tY) {
     setRzMvAng(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
 }
 
-void GgafDx9Kuroko::setRzMvAng(angle prm_ang) {
+void GgafDx9MvNavigator::setRzMvAng(angle prm_ang) {
     if (prm_ang !=  _angRzMv) {
         _angRzMv = GgafDx9Util::simplifyAng(prm_ang);
         GgafDx9Util::getNormalizeVectorZY(_angRzMv, _angRyMv, _vX, _vY, _vZ);
@@ -1034,7 +931,7 @@ void GgafDx9Kuroko::setRzMvAng(angle prm_ang) {
     }
 }
 
-void GgafDx9Kuroko::addRzMvAng(angle prm_angDistance) {
+void GgafDx9MvNavigator::addRzMvAng(angle prm_angDistance) {
     angle angOffset = prm_angDistance;
     if (_angveloRzBottomMv > prm_angDistance) {
         angOffset = _angveloRzBottomMv;
@@ -1044,7 +941,7 @@ void GgafDx9Kuroko::addRzMvAng(angle prm_angDistance) {
     setRzMvAng(_angRzMv + angOffset);
 }
 
-void GgafDx9Kuroko::setRzMvAngVelo(angvelo prm_angveloRzMv) {
+void GgafDx9MvNavigator::setRzMvAngVelo(angvelo prm_angveloRzMv) {
     if (prm_angveloRzMv > _angveloRzTopMv) {
         _angveloRzMv = _angveloRzTopMv;
     } else if (prm_angveloRzMv < _angveloRzBottomMv) {
@@ -1054,11 +951,11 @@ void GgafDx9Kuroko::setRzMvAngVelo(angvelo prm_angveloRzMv) {
     }
 }
 
-void GgafDx9Kuroko::setRzMvAngAcce(angacce prm_angacceRzMv) {
+void GgafDx9MvNavigator::setRzMvAngAcce(angacce prm_angacceRzMv) {
     _angacceRzMv = prm_angacceRzMv;
 }
 
-void GgafDx9Kuroko::forceRzMvAngVeloRange(angvelo prm_angveloRzMv01,
+void GgafDx9MvNavigator::forceRzMvAngVeloRange(angvelo prm_angveloRzMv01,
                                                  angvelo prm_angveloRzMv02) {
     if (prm_angveloRzMv01 < prm_angveloRzMv02) {
         _angveloRzTopMv = prm_angveloRzMv02;
@@ -1070,7 +967,7 @@ void GgafDx9Kuroko::forceRzMvAngVeloRange(angvelo prm_angveloRzMv01,
     setRzMvAngVelo(_angveloRzMv); //再設定して範囲内に補正
 }
 
-void GgafDx9Kuroko::setStopTarget_RzMvAng(angle prm_angTargetRzMv,
+void GgafDx9MvNavigator::setStopTarget_RzMvAng(angle prm_angTargetRzMv,
                                                  int prm_way_allow,
                                                  angvelo prm_angveloAllowRyMv) {
     _mv_ang_rz_target_flg = true;
@@ -1080,19 +977,19 @@ void GgafDx9Kuroko::setStopTarget_RzMvAng(angle prm_angTargetRzMv,
     _mv_ang_rz_target_allow_velo = prm_angveloAllowRyMv;
 }
 
-void GgafDx9Kuroko::setStopTarget_RzMvAngV(int prm_tX,
+void GgafDx9MvNavigator::setStopTarget_RzMvAngV(int prm_tX,
                                                   int prm_tY,
                                                   int prm_way_allow,
                                                   angvelo prm_angveloAllowRyMv) {
     setStopTarget_RzMvAng(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_way_allow);
 }
 
-angle GgafDx9Kuroko::getRzMvAngDistance(int prm_tX, int prm_tY, int prm_way) {
+angle GgafDx9MvNavigator::getRzMvAngDistance(int prm_tX, int prm_tY, int prm_way) {
     return getRzMvAngDistance(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
                                         prm_way);
 }
 
-angle GgafDx9Kuroko::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
+angle GgafDx9MvNavigator::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
     angle angTargetRzMv = GgafDx9Util::simplifyAng(prm_angTargetRzMv);
     if (prm_way == TURN_CLOSE_TO) { //近いほう回転
         if (0 <= _angRzMv && _angRzMv < ANGLE180) {
@@ -1112,7 +1009,7 @@ angle GgafDx9Kuroko::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-                throwGgafCriticalException("GgafDx9Kuroko::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9MvNavigator::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angRzMv && _angRzMv <= ANGLE360) {
             if (0 <= angTargetRzMv && angTargetRzMv < _angRzMv - ANGLE180) {
@@ -1131,7 +1028,7 @@ angle GgafDx9Kuroko::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-                throwGgafCriticalException("GgafDx9Kuroko::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9MvNavigator::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
@@ -1152,7 +1049,7 @@ angle GgafDx9Kuroko::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-                throwGgafCriticalException("GgafDx9Kuroko::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9MvNavigator::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angRzMv && _angRzMv <= ANGLE360) {
             if (0 <= angTargetRzMv && angTargetRzMv < _angRzMv - ANGLE180) {
@@ -1171,7 +1068,7 @@ angle GgafDx9Kuroko::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-                throwGgafCriticalException("GgafDx9Kuroko::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9MvNavigator::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
@@ -1185,7 +1082,7 @@ angle GgafDx9Kuroko::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
         } else {
             //おかしい
             _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-            throwGgafCriticalException("GgafDx9Kuroko::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(3)。_pActor="<<_pActor->getName());
+            throwGgafCriticalException("GgafDx9MvNavigator::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(3)。_pActor="<<_pActor->getName());
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
         if (0 <= _angRzMv && _angRzMv < angTargetRzMv) {
@@ -1198,19 +1095,19 @@ angle GgafDx9Kuroko::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
         } else {
             //おかしい
             _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-            throwGgafCriticalException("GgafDx9Kuroko::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(4)。_pActor="<<_pActor->getName());
+            throwGgafCriticalException("GgafDx9MvNavigator::getRzMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(4)。_pActor="<<_pActor->getName());
         }
     }
     _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
-    throwGgafCriticalException("GgafDx9Kuroko::getRzMvAngDistance() 何故かしら角の距離が求めれません(1)。_pActor="<<_pActor->getName());
+    throwGgafCriticalException("GgafDx9MvNavigator::getRzMvAngDistance() 何故かしら角の距離が求めれません(1)。_pActor="<<_pActor->getName());
 }
 
 
-void GgafDx9Kuroko::setRyMvAng(int prm_tX, int prm_tY) {
+void GgafDx9MvNavigator::setRyMvAng(int prm_tX, int prm_tY) {
     setRyMvAng(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
 }
 
-void GgafDx9Kuroko::setRyMvAng(angle prm_ang) {
+void GgafDx9MvNavigator::setRyMvAng(angle prm_ang) {
     if (prm_ang != _angRyMv) {
         _angRyMv = GgafDx9Util::simplifyAng(prm_ang);
         GgafDx9Util::getNormalizeVectorZY(_angRzMv, _angRyMv, _vX, _vY, _vZ);
@@ -1220,7 +1117,7 @@ void GgafDx9Kuroko::setRyMvAng(angle prm_ang) {
     }
 }
 
-void GgafDx9Kuroko::addRyMvAng(angle prm_angDistance) {
+void GgafDx9MvNavigator::addRyMvAng(angle prm_angDistance) {
     angle angOffset = prm_angDistance;
     if (_angveloRyBottomMv > prm_angDistance) {
         angOffset = _angveloRyBottomMv;
@@ -1230,7 +1127,7 @@ void GgafDx9Kuroko::addRyMvAng(angle prm_angDistance) {
     setRyMvAng(_angRyMv + angOffset);
 }
 
-void GgafDx9Kuroko::setRyMvAngVelo(angvelo prm_angveloRyMv) {
+void GgafDx9MvNavigator::setRyMvAngVelo(angvelo prm_angveloRyMv) {
     if (prm_angveloRyMv > _angveloRyTopMv) {
         _angveloRyMv = _angveloRyTopMv;
     } else if (prm_angveloRyMv < _angveloRyBottomMv) {
@@ -1240,11 +1137,11 @@ void GgafDx9Kuroko::setRyMvAngVelo(angvelo prm_angveloRyMv) {
     }
 }
 
-void GgafDx9Kuroko::setRyMvAngAcce(angacce prm_angacceRyMv) {
+void GgafDx9MvNavigator::setRyMvAngAcce(angacce prm_angacceRyMv) {
     _angacceRyMv = prm_angacceRyMv;
 }
 
-void GgafDx9Kuroko::forceRyMvAngVeloRange(angvelo prm_angveloRyMv01,
+void GgafDx9MvNavigator::forceRyMvAngVeloRange(angvelo prm_angveloRyMv01,
                                                angvelo prm_angveloRyMv02) {
     if (prm_angveloRyMv01 < prm_angveloRyMv02) {
         _angveloRyTopMv = prm_angveloRyMv02;
@@ -1256,7 +1153,7 @@ void GgafDx9Kuroko::forceRyMvAngVeloRange(angvelo prm_angveloRyMv01,
     setRyMvAngVelo(_angveloRyMv); //再設定して範囲内に補正
 }
 
-void GgafDx9Kuroko::setStopTarget_RyMvAng(angle prm_angTargetRyMv,
+void GgafDx9MvNavigator::setStopTarget_RyMvAng(angle prm_angTargetRyMv,
                                           int prm_way_allow,
                                           angvelo prm_angveloAllowRyMv) {
     _mv_ang_ry_target_flg = true;
@@ -1266,19 +1163,19 @@ void GgafDx9Kuroko::setStopTarget_RyMvAng(angle prm_angTargetRyMv,
     _mv_ang_ry_target_allow_velo = prm_angveloAllowRyMv;
 }
 
-void GgafDx9Kuroko::setStopTarget_RyMvAngV(int prm_tX,
+void GgafDx9MvNavigator::setStopTarget_RyMvAngV(int prm_tX,
                                                   int prm_tY,
                                                   int prm_way_allow,
                                                   angvelo prm_angveloAllowRyMv) {
     setStopTarget_RyMvAng(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_way_allow);
 }
 
-angle GgafDx9Kuroko::getRyMvAngDistance(int prm_tX, int prm_tY, int prm_way) {
+angle GgafDx9MvNavigator::getRyMvAngDistance(int prm_tX, int prm_tY, int prm_way) {
     return getRyMvAngDistance(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
                                         prm_way);
 }
 
-angle GgafDx9Kuroko::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
+angle GgafDx9MvNavigator::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
     angle angTargetRyMv;
     angTargetRyMv = GgafDx9Util::simplifyAng(prm_angTargetRyMv);
     if (prm_way == TURN_CLOSE_TO) { //近いほう回転
@@ -1299,7 +1196,7 @@ angle GgafDx9Kuroko::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-                throwGgafCriticalException("GgafDx9Kuroko::behave() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9MvNavigator::behave() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angRyMv && _angRyMv <= ANGLE360) {
             if (0 <= angTargetRyMv && angTargetRyMv < _angRyMv - ANGLE180) {
@@ -1318,7 +1215,7 @@ angle GgafDx9Kuroko::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-                throwGgafCriticalException("GgafDx9Kuroko::getRyMvAngDistance() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9MvNavigator::getRyMvAngDistance() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
@@ -1339,7 +1236,7 @@ angle GgafDx9Kuroko::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-                throwGgafCriticalException("GgafDx9Kuroko::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9MvNavigator::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angRyMv && _angRyMv <= ANGLE360) {
             if (0 <= angTargetRyMv && angTargetRyMv < _angRyMv - ANGLE180) {
@@ -1358,7 +1255,7 @@ angle GgafDx9Kuroko::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-                throwGgafCriticalException("GgafDx9Kuroko::getRyMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9MvNavigator::getRyMvAngDistance() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
@@ -1372,7 +1269,7 @@ angle GgafDx9Kuroko::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
         } else {
             //おかしい
             _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-            throwGgafCriticalException("GgafDx9Kuroko::getRyMvAngDistance() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(3)。_pActor="<<_pActor->getName());
+            throwGgafCriticalException("GgafDx9MvNavigator::getRyMvAngDistance() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(3)。_pActor="<<_pActor->getName());
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
         if (0 <= _angRyMv && _angRyMv < angTargetRyMv) {
@@ -1385,14 +1282,14 @@ angle GgafDx9Kuroko::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
         } else {
             //おかしい
             _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-            throwGgafCriticalException("GgafDx9Kuroko::getRyMvAngDistance() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(4)。_pActor="<<_pActor->getName());
+            throwGgafCriticalException("GgafDx9MvNavigator::getRyMvAngDistance() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(4)。_pActor="<<_pActor->getName());
         }
     }
     _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
-    throwGgafCriticalException("GgafDx9Kuroko::getRyMvAngDistance() 何故かしら角の距離が求めれません(1)。_pActor="<<_pActor->getName());
+    throwGgafCriticalException("GgafDx9MvNavigator::getRyMvAngDistance() 何故かしら角の距離が求めれません(1)。_pActor="<<_pActor->getName());
 }
 
-void GgafDx9Kuroko::getRzRyMvAngDistance(int prm_way,
+void GgafDx9MvNavigator::getRzRyMvAngDistance(int prm_way,
                                                 angle prm_target_angRz, angle prm_target_angRy,
                                                 angle& out_d_angRz, angle& out_d_angRy,
                                                 angle& out_target_angRz, angle& out_target_angRy) {
@@ -1464,11 +1361,11 @@ void GgafDx9Kuroko::getRzRyMvAngDistance(int prm_way,
         out_target_angRy = target_angRy;
     } else {
         //おかしい
-        throwGgafCriticalException("GgafDx9Kuroko::getRzRyMvAngDistance() prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
+        throwGgafCriticalException("GgafDx9MvNavigator::getRzRyMvAngDistance() prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
     }
 }
 
-void GgafDx9Kuroko::getRzRyFaceAngDistance(int prm_way,
+void GgafDx9MvNavigator::getRzRyFaceAngDistance(int prm_way,
                                                   angle prm_target_angRz, angle prm_target_angRy,
                                                   angle& out_d_angRz, angle& out_d_angRy,
                                                   angle& out_target_angRz, angle& out_target_angRy) {
@@ -1525,11 +1422,11 @@ void GgafDx9Kuroko::getRzRyFaceAngDistance(int prm_way,
         out_target_angRy = target_angRy;
     } else {
         //おかしい
-        throwGgafCriticalException("GgafDx9Kuroko::getRzRyMvAngDistance() prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
+        throwGgafCriticalException("GgafDx9MvNavigator::getRzRyMvAngDistance() prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
     }
 }
 
-void GgafDx9Kuroko::setRzRyMvAng(angle prm_angRz, angle prm_angRy) {
+void GgafDx9MvNavigator::setRzRyMvAng(angle prm_angRz, angle prm_angRy) {
     if (prm_angRz != _angRzMv || prm_angRy !=_angRyMv ) {
         _angRzMv = GgafDx9Util::simplifyAng(prm_angRz);
         _angRyMv = GgafDx9Util::simplifyAng(prm_angRy);
@@ -1543,7 +1440,7 @@ void GgafDx9Kuroko::setRzRyMvAng(angle prm_angRz, angle prm_angRy) {
     }
 }
 
-void GgafDx9Kuroko::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_angRyRz_Rz) {
+void GgafDx9MvNavigator::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_angRyRz_Rz) {
     angle RyRz_Ry = GgafDx9Util::simplifyAng(prm_angRyRz_Ry);
     angle RyRz_Rz = GgafDx9Util::simplifyAng(prm_angRyRz_Rz);
     float out_vY, out_vZ;
@@ -1559,7 +1456,7 @@ void GgafDx9Kuroko::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_angRyRz
     }
 }
 
-void GgafDx9Kuroko::setMvAng(GgafDx9GeometricActor* prm_pActor_Target) {
+void GgafDx9MvNavigator::setMvAng(GgafDx9GeometricActor* prm_pActor_Target) {
     setMvAng(
         prm_pActor_Target->_X,
         prm_pActor_Target->_Y,
@@ -1567,7 +1464,7 @@ void GgafDx9Kuroko::setMvAng(GgafDx9GeometricActor* prm_pActor_Target) {
     );
 }
 
-void GgafDx9Kuroko::setMvAng(int prm_tX, int prm_tY, int prm_tZ) {
+void GgafDx9MvNavigator::setMvAng(int prm_tX, int prm_tY, int prm_tZ) {
     GgafDx9Util::getRzRyAng(
                    prm_tX - _pActor->_X,
                    prm_tY - _pActor->_Y,
@@ -1586,7 +1483,7 @@ void GgafDx9Kuroko::setMvAng(int prm_tX, int prm_tY, int prm_tZ) {
     }
 }
 
-void GgafDx9Kuroko::setStopTarget_RzRyMvAng(GgafDx9GeometricActor* prm_pActor_Target) {
+void GgafDx9MvNavigator::setStopTarget_RzRyMvAng(GgafDx9GeometricActor* prm_pActor_Target) {
     setStopTarget_RzRyMvAng(
         prm_pActor_Target->_X,
         prm_pActor_Target->_Y,
@@ -1594,7 +1491,7 @@ void GgafDx9Kuroko::setStopTarget_RzRyMvAng(GgafDx9GeometricActor* prm_pActor_Ta
     );
 }
 
-void GgafDx9Kuroko::setStopTarget_RzRyMvAng(int prm_tX, int prm_tY, int prm_tZ) {
+void GgafDx9MvNavigator::setStopTarget_RzRyMvAng(int prm_tX, int prm_tY, int prm_tZ) {
     angle angRz_Target;
     angle angRy_Target;
 
@@ -1612,192 +1509,10 @@ void GgafDx9Kuroko::setStopTarget_RzRyMvAng(int prm_tX, int prm_tY, int prm_tZ) 
     setStopTarget_RyMvAng(angRy_Target);
 }
 
-void GgafDx9Kuroko::forceVxMvVeloRange(velo prm_veloVxMv01, velo prm_veloVxMv02) {
-    if (prm_veloVxMv01 < prm_veloVxMv02) {
-        _veloTopVxMv = prm_veloVxMv02;
-        _veloBottomVxMv = prm_veloVxMv01;
-    } else {
-        _veloTopVxMv = prm_veloVxMv01;
-        _veloBottomVxMv = prm_veloVxMv02;
-    }
-    setVxMvVelo(_veloVxMv); //再設定して範囲内に補正
-}
-
-void GgafDx9Kuroko::setVxMvVelo(velo prm_veloVxMv) {
-    if (prm_veloVxMv > _veloTopVxMv) {
-        _veloVxMv = _veloTopVxMv;
-    } else if (prm_veloVxMv < _veloBottomVxMv) {
-        _veloVxMv = _veloBottomVxMv;
-    } else {
-        _veloVxMv = prm_veloVxMv;
-    }
-}
-
-void GgafDx9Kuroko::addVxMvVelo(velo prm_veloVxMv) {
-    _veloVxMv += prm_veloVxMv;
-    if (_veloVxMv > _veloTopVxMv) {
-        _veloVxMv = _veloTopVxMv;
-    } else if (_veloVxMv < _veloBottomVxMv) {
-        _veloVxMv = _veloBottomVxMv;
-    }
-}
-
-void GgafDx9Kuroko::setVxMvAcce(acce prm_acceVxMv) {
-    if (prm_acceVxMv > _acceTopVxMv) {
-        _acceVxMv = _acceTopVxMv;
-    } else if (prm_acceVxMv < _acceBottomVxMv) {
-        _acceVxMv = _acceBottomVxMv;
-    } else {
-        _acceVxMv = prm_acceVxMv;
-    }
-}
-
-void GgafDx9Kuroko::addVxMvAcce(acce prm_acceVxMv) {
-    setVxMvAcce(_acceVxMv + prm_acceVxMv);
-}
-
-
-void GgafDx9Kuroko::forceVxMvAcceRange(acce prm_acceVxMv01, acce prm_acceVxMv02) {
-    if (prm_acceVxMv01 < prm_acceVxMv02) {
-        _acceTopVxMv = prm_acceVxMv02;
-        _acceBottomVxMv = prm_acceVxMv01;
-    } else {
-        _acceTopVxMv = prm_acceVxMv01;
-        _acceBottomVxMv = prm_acceVxMv02;
-    }
-    setVxMvAcce(_acceVxMv); //再設定して範囲内に補正
-}
-
-
-void GgafDx9Kuroko::forceVyMvVeloRange(velo prm_veloVyMv01, velo prm_veloVyMv02) {
-    if (prm_veloVyMv01 < prm_veloVyMv02) {
-        _veloTopVyMv = prm_veloVyMv02;
-        _veloBottomVyMv = prm_veloVyMv01;
-    } else {
-        _veloTopVyMv = prm_veloVyMv01;
-        _veloBottomVyMv = prm_veloVyMv02;
-    }
-    setVyMvVelo(_veloVyMv); //再設定して範囲内に補正
-}
-
-void GgafDx9Kuroko::setVyMvVelo(velo prm_veloVyMv) {
-    if (prm_veloVyMv > _veloTopVyMv) {
-        _veloVyMv = _veloTopVyMv;
-    } else if (prm_veloVyMv < _veloBottomVyMv) {
-        _veloVyMv = _veloBottomVyMv;
-    } else {
-        _veloVyMv = prm_veloVyMv;
-    }
-}
-
-void GgafDx9Kuroko::addVyMvVelo(velo prm_veloVyMv) {
-    _veloVyMv += prm_veloVyMv;
-    if (_veloVyMv > _veloTopVyMv) {
-        _veloVyMv = _veloTopVyMv;
-    } else if (_veloVyMv < _veloBottomVyMv) {
-        _veloVyMv = _veloBottomVyMv;
-    }
-}
-
-void GgafDx9Kuroko::setVyMvAcce(acce prm_acceVyMv) {
-    if (prm_acceVyMv > _acceTopVyMv) {
-        _acceVyMv = _acceTopVyMv;
-    } else if (prm_acceVyMv < _acceBottomVyMv) {
-        _acceVyMv = _acceBottomVyMv;
-    } else {
-        _acceVyMv = prm_acceVyMv;
-    }
-}
-
-void GgafDx9Kuroko::addVyMvAcce(acce prm_acceVyMv) {
-    setVyMvAcce(_acceVyMv + prm_acceVyMv);
-}
-
-
-void GgafDx9Kuroko::forceVyMvAcceRange(acce prm_acceVyMv01, acce prm_acceVyMv02) {
-    if (prm_acceVyMv01 < prm_acceVyMv02) {
-        _acceTopVyMv = prm_acceVyMv02;
-        _acceBottomVyMv = prm_acceVyMv01;
-    } else {
-        _acceTopVyMv = prm_acceVyMv01;
-        _acceBottomVyMv = prm_acceVyMv02;
-    }
-    setVyMvAcce(_acceVyMv); //再設定して範囲内に補正
-}
-
-void GgafDx9Kuroko::forceVzMvVeloRange(velo prm_veloVzMv01, velo prm_veloVzMv02) {
-    if (prm_veloVzMv01 < prm_veloVzMv02) {
-        _veloTopVzMv = prm_veloVzMv02;
-        _veloBottomVzMv = prm_veloVzMv01;
-    } else {
-        _veloTopVzMv = prm_veloVzMv01;
-        _veloBottomVzMv = prm_veloVzMv02;
-    }
-    setVzMvVelo(_veloVzMv); //再設定して範囲内に補正
-}
-
-void GgafDx9Kuroko::setVzMvVelo(velo prm_veloVzMv) {
-    if (prm_veloVzMv > _veloTopVzMv) {
-        _veloVzMv = _veloTopVzMv;
-    } else if (prm_veloVzMv < _veloBottomVzMv) {
-        _veloVzMv = _veloBottomVzMv;
-    } else {
-        _veloVzMv = prm_veloVzMv;
-    }
-}
-
-void GgafDx9Kuroko::addVzMvVelo(velo prm_veloVzMv) {
-    _veloVzMv += prm_veloVzMv;
-    if (_veloVzMv > _veloTopVzMv) {
-        _veloVzMv = _veloTopVzMv;
-    } else if (_veloVzMv < _veloBottomVzMv) {
-        _veloVzMv = _veloBottomVzMv;
-    }
-}
-
-void GgafDx9Kuroko::setVzMvAcce(acce prm_acceVzMv) {
-    if (prm_acceVzMv > _acceTopVzMv) {
-        _acceVzMv = _acceTopVzMv;
-    } else if (prm_acceVzMv < _acceBottomVzMv) {
-        _acceVzMv = _acceBottomVzMv;
-    } else {
-        _acceVzMv = prm_acceVzMv;
-    }
-}
-
-void GgafDx9Kuroko::addVzMvAcce(acce prm_acceVzMv) {
-    setVzMvAcce(_acceVzMv + prm_acceVzMv);
-}
-
-
-void GgafDx9Kuroko::forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02) {
-    if (prm_acceVzMv01 < prm_acceVzMv02) {
-        _acceTopVzMv = prm_acceVzMv02;
-        _acceBottomVzMv = prm_acceVzMv01;
-    } else {
-        _acceTopVzMv = prm_acceVzMv01;
-        _acceBottomVzMv = prm_acceVzMv02;
-    }
-    setVzMvAcce(_acceVzMv); //再設定して範囲内に補正
-}
 
 
 
-void GgafDx9Kuroko::forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxyzMv02) {
-    forceVxMvVeloRange(prm_veloVxyzMv01, prm_veloVxyzMv02);
-    forceVyMvVeloRange(prm_veloVxyzMv01, prm_veloVxyzMv02);
-    forceVzMvVeloRange(prm_veloVxyzMv01, prm_veloVxyzMv02);
-}
-void GgafDx9Kuroko::forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxyzMv02) {
-    forceVxMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
-    forceVyMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
-    forceVzMvAcceRange(prm_acceVxyzMv01, prm_acceVxyzMv02);
-}
-
-
-
-
-void GgafDx9Kuroko::orderTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+void GgafDx9MvNavigator::orderTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way, bool prm_optimize_ang) {
     angle out_d_angRz;
@@ -1831,7 +1546,7 @@ void GgafDx9Kuroko::orderTagettingFaceAngSequence(angle prm_angRz_Target, angle 
     setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
 }
 
-void GgafDx9Kuroko::orderTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+void GgafDx9MvNavigator::orderTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
@@ -1846,7 +1561,7 @@ void GgafDx9Kuroko::orderTagettingFaceAngSequence(int prm_tX, int prm_tY, int pr
                                  prm_way, prm_optimize_ang);
 }
 
-void GgafDx9Kuroko::orderTagettingRzFaceAngSequence(angle prm_angRz_Target,
+void GgafDx9MvNavigator::orderTagettingRzFaceAngSequence(angle prm_angRz_Target,
                                                           angvelo prm_angVelo, angacce prm_angAcce,
                                                           int prm_way) {
     if (getFaceAngDistance(AXIS_Z, prm_angRz_Target, prm_way) > 0) {
@@ -1860,7 +1575,7 @@ void GgafDx9Kuroko::orderTagettingRzFaceAngSequence(angle prm_angRz_Target,
 
 }
 
-void GgafDx9Kuroko::orderTagettingRyFaceAngSequence(angle prm_angRy_Target,
+void GgafDx9MvNavigator::orderTagettingRyFaceAngSequence(angle prm_angRy_Target,
                                                           angvelo prm_angVelo, angacce prm_angAcce,
                                                           int prm_way) {
     if (getFaceAngDistance(AXIS_Y, prm_angRy_Target, prm_way) > 0) {
@@ -1873,7 +1588,7 @@ void GgafDx9Kuroko::orderTagettingRyFaceAngSequence(angle prm_angRy_Target,
     setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
 }
 
-void GgafDx9Kuroko::orderTagettingRxSpinAngleSequence(angle prm_angRx_Target,
+void GgafDx9MvNavigator::orderTagettingRxSpinAngleSequence(angle prm_angRx_Target,
                                                             angvelo prm_angVelo, angacce prm_angAcce,
                                                             int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_angRx_Target, prm_way) > 0) {
@@ -1886,7 +1601,7 @@ void GgafDx9Kuroko::orderTagettingRxSpinAngleSequence(angle prm_angRx_Target,
     setStopTarget_FaceAng(AXIS_X, prm_angRx_Target);
 }
 
-void GgafDx9Kuroko::orderTagettingMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+void GgafDx9MvNavigator::orderTagettingMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                                       angvelo prm_angVelo, angacce prm_angAcce,
                                                       int prm_way, bool prm_optimize_ang) {
     angle out_d_angRz;
@@ -1925,7 +1640,7 @@ void GgafDx9Kuroko::orderTagettingMvAngSequence(angle prm_angRz_Target, angle pr
 }
 
 
-void GgafDx9Kuroko::orderTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+void GgafDx9MvNavigator::orderTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                                       angvelo prm_angVelo, angacce prm_angAcce,
                                                       int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
@@ -1941,7 +1656,7 @@ void GgafDx9Kuroko::orderTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_
 }
 
 
-void GgafDx9Kuroko::orderTagettingRzMvAngSequence(angle prm_angRz_Target,
+void GgafDx9MvNavigator::orderTagettingRzMvAngSequence(angle prm_angRz_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way) {
     if (getRzMvAngDistance(prm_angRz_Target, prm_way) > 0) {
@@ -1955,7 +1670,7 @@ void GgafDx9Kuroko::orderTagettingRzMvAngSequence(angle prm_angRz_Target,
 
 }
 
-void GgafDx9Kuroko::orderTagettingRyMvAngSequence(angle prm_angRy_Target,
+void GgafDx9MvNavigator::orderTagettingRyMvAngSequence(angle prm_angRy_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way) {
     if (getRyMvAngDistance(prm_angRy_Target, prm_way) > 0) {
@@ -1968,108 +1683,32 @@ void GgafDx9Kuroko::orderTagettingRyMvAngSequence(angle prm_angRy_Target,
     setStopTarget_RyMvAng(prm_angRy_Target);
 }
 
-void GgafDx9Kuroko::orderGravitationVxyzMvSequence(
-        int prm_tX, int prm_tY, int prm_tZ,
-        velo prm_max_velo,
-        acce prm_acce,
-        int prm_stop_renge
-        ) {
-    _gravitation_mv_seq_target_X = prm_tX;
-    _gravitation_mv_seq_target_Y = prm_tY;
-    _gravitation_mv_seq_target_Z = prm_tZ;
-    _gravitation_mv_seq_pActor_target = NULL;
-    _gravitation_mv_seq_max_velo = prm_max_velo;
-    _gravitation_mv_seq_acce = prm_acce;
-    _gravitation_mv_seq_stop_renge = prm_stop_renge;
-    _gravitation_mv_seq_flg = true;
-
-    forceVxMvVeloRange(-prm_max_velo, prm_max_velo);
-    forceVyMvVeloRange(-prm_max_velo, prm_max_velo);
-    forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
-}
-
-void GgafDx9Kuroko::orderGravitationVxyzMvSequence(
-        GgafDx9GeometricActor* prm_pActor_target,
-        velo prm_max_velo,
-        acce prm_acce,
-        int prm_stop_renge
-        ) {
-    _gravitation_mv_seq_target_X = 0;
-    _gravitation_mv_seq_target_Y = 0;
-    _gravitation_mv_seq_target_Z = 0;
-    _gravitation_mv_seq_pActor_target = prm_pActor_target;
-    _gravitation_mv_seq_max_velo = prm_max_velo;
-    _gravitation_mv_seq_acce = prm_acce;
-    _gravitation_mv_seq_stop_renge = prm_stop_renge;
-    _gravitation_mv_seq_flg = true;
-
-    forceVxMvVeloRange(-prm_max_velo, prm_max_velo);
-    forceVyMvVeloRange(-prm_max_velo, prm_max_velo);
-    forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
-}
 
 
 
-void GgafDx9Kuroko::takeoverMvFrom(GgafDx9Kuroko* prm_pKuroko) {
+void GgafDx9MvNavigator::takeoverMvFrom(GgafDx9MvNavigator* prm_pMvNavigator) {
     // キャラの移動方角単位ベクトル
-    _vX = prm_pKuroko->_vX;
-    _vY = prm_pKuroko->_vY;
-    _vZ = prm_pKuroko->_vZ;
+    _vX = prm_pMvNavigator->_vX;
+    _vY = prm_pMvNavigator->_vY;
+    _vZ = prm_pMvNavigator->_vZ;
     // 移動方角のZ軸回転角
-    _angRzMv = prm_pKuroko->_angRzMv;
+    _angRzMv = prm_pMvNavigator->_angRzMv;
     // 移動方角のY軸回転角
-    _angRyMv = prm_pKuroko->_angRyMv;
+    _angRyMv = prm_pMvNavigator->_angRyMv;
     // 移動速度
-    _veloMv = prm_pKuroko->_veloMv;
+    _veloMv = prm_pMvNavigator->_veloMv;
     // 移動速度上限
-    _veloTopMv = prm_pKuroko->_veloTopMv;
+    _veloTopMv = prm_pMvNavigator->_veloTopMv;
     // 移動速度下限
-    _veloBottomMv = prm_pKuroko->_veloBottomMv;
+    _veloBottomMv = prm_pMvNavigator->_veloBottomMv;
     // 移動加速度
-    _accMv = prm_pKuroko->_accMv;
+    _accMv = prm_pMvNavigator->_accMv;
     // 移動躍度
-    _jerkMv = prm_pKuroko->_jerkMv;
-
-    // X軸方向移動速度
-    _veloVxMv = prm_pKuroko->_veloVxMv;
-    // X軸方向移動速度上限
-    _veloTopVxMv = prm_pKuroko->_veloTopVxMv;
-    // X軸方向移動速度下限
-    _veloBottomVxMv = prm_pKuroko->_veloBottomVxMv;
-    // X軸方向移動加速度
-    _acceVxMv = prm_pKuroko->_acceVxMv;
-    // X軸方向移動加速度上限
-    _acceTopVxMv = prm_pKuroko->_acceTopVxMv;
-    // X軸方向移動加速度下限
-    _acceBottomVxMv = prm_pKuroko->_acceBottomVxMv;
-    // Y軸方向移動速度
-    _veloVyMv = prm_pKuroko->_veloVyMv;
-    // Y軸方向移動速度上限
-    _veloTopVyMv = prm_pKuroko->_veloTopVyMv;
-    // Y軸方向移動速度下限
-    _veloBottomVyMv = prm_pKuroko->_veloBottomVyMv;
-    // Y軸方向移動加速度
-    _acceVyMv = prm_pKuroko->_acceVyMv;
-    // Y軸方向移動加速度上限
-    _acceTopVyMv = prm_pKuroko->_acceTopVyMv;
-    // Y軸方向移動加速度下限
-    _acceBottomVyMv = prm_pKuroko->_acceBottomVyMv;
-    // Z軸方向移動速度
-    _veloVzMv = prm_pKuroko->_veloVzMv;
-    // Z軸方向移動速度上限
-    _veloTopVzMv = prm_pKuroko->_veloTopVzMv;
-    // Z軸方向移動速度下限
-    _veloBottomVzMv = prm_pKuroko->_veloBottomVzMv;
-    // Z軸方向移動加速度
-    _acceVzMv = prm_pKuroko->_acceVzMv;
-    // Z軸方向移動加速度上限
-    _acceTopVzMv = prm_pKuroko->_acceTopVzMv;
-    // Z軸方向移動加速度下限
-    _acceBottomVzMv = prm_pKuroko->_acceBottomVzMv;
+    _jerkMv = prm_pMvNavigator->_jerkMv;
 
 }
 
-void GgafDx9Kuroko::resetMv() {
+void GgafDx9MvNavigator::resetMv() {
     //キャラの移動方角単位ベクトル
     _vX = _vY = _vZ = 0.0f;
     //移動方角のZ軸回転
@@ -2097,39 +1736,8 @@ void GgafDx9Kuroko::resetMv() {
 
     _angjerkRzMv = 0;
 
-    //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
-    _veloVxMv = 0;
-    //X軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVxMv = 256 * LEN_UNIT;
-    //X軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVxMv = -256 * LEN_UNIT;
-    //X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acceVxMv = 0;
-    _acceTopVxMv = 256 * LEN_UNIT;
-    _acceBottomVxMv = -256 * LEN_UNIT;
-    //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
-    _veloVyMv = 0;
-    //Y軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVyMv = 256 * LEN_UNIT;
-    //Y軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVyMv = -256 * LEN_UNIT;
-    //Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acceVyMv = 0;
 
-    _acceTopVyMv = 256 * LEN_UNIT;
-    _acceBottomVyMv = -256 * LEN_UNIT;
-
-    //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
-    _veloVzMv = 0;
-    //Z軸方向移動速度上限 ＝ 256 px/fream
-    _veloTopVzMv = 256 * LEN_UNIT;
-    //Z軸方向移動速度下限 ＝ 256 px/fream
-    _veloBottomVzMv = -256 * LEN_UNIT;
-    //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acceVzMv = 0;
-    _acceTopVzMv = 256 * LEN_UNIT;
-    _acceBottomVzMv = -256 * LEN_UNIT;
 }
 
-GgafDx9Kuroko::~GgafDx9Kuroko() {
+GgafDx9MvNavigator::~GgafDx9MvNavigator() {
 }

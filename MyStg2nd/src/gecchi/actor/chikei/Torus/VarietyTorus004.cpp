@@ -22,15 +22,15 @@ void VarietyTorus004::initialize() {
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight+_r1+_r2;
     _Y = MyShip::_lim_bottom;
     _Z = 0;
-    _pKuroko->setRzRyMvAng(ANGLE180, 0);
-    _pKuroko->setMvVelo(3000);
-    _pKuroko->setFaceAngVelo(AXIS_Z, -200);
-    _pKuroko->setFaceAngVelo(AXIS_Y, 100);
+    _pMvNavigator->setRzRyMvAng(ANGLE180, 0);
+    _pMvNavigator->setMvVelo(3000);
+    _pMvNavigator->setFaceAngVelo(AXIS_Z, -200);
+    _pMvNavigator->setFaceAngVelo(AXIS_Y, 100);
 }
 
 void VarietyTorus004::processBehavior() {
     //À•W‚É”½‰f
-    _pKuroko->behave();
+    _pMvNavigator->behave();
 }
 
 VarietyTorus004::~VarietyTorus004() {

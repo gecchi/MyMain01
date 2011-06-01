@@ -14,10 +14,10 @@ MagicPointItem001::MagicPointItem001(const char* prm_name)
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setAlpha(0.9);
 
-    _pKuroko->setFaceAngVelo(AXIS_X, 3*1000);
-    _pKuroko->setFaceAngVelo(AXIS_Y, 5*1000);
-    _pKuroko->setFaceAngVelo(AXIS_Z, 7*1000);
-    _pKuroko->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->setFaceAngVelo(AXIS_X, 3*1000);
+    _pMvNavigator->setFaceAngVelo(AXIS_Y, 5*1000);
+    _pMvNavigator->setFaceAngVelo(AXIS_Z, 7*1000);
+    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
     _kDX = _kDY = _kDZ = 0;
 }
 
@@ -34,13 +34,13 @@ void MagicPointItem001::onReset() {
 
     MyStgUtil::resetMagicPointItem001Status(_pStatus);
     setHitAble(true, false);
-    _pKuroko->setMvVelo(2000);
-    _pKuroko->setMvAcce(100);
-    _pKuroko->forceMvVeloRange(0, 20000);
-    _pKuroko->forceVxyzMvVeloRange(-20000, 20000);
-    _pKuroko->setZeroVxyzMvVelo();
-    _pKuroko->setZeroVxyzMvAcce();
-    _pKuroko->_gravitation_mv_seq_flg = false;
+    _pMvNavigator->setMvVelo(2000);
+    _pMvNavigator->setMvAcce(100);
+    _pMvNavigator->forceMvVeloRange(0, 20000);
+    _pMvTransporter->forceVxyzMvVeloRange(-20000, 20000);
+    _pMvTransporter->setZeroVxyzMvVelo();
+    _pMvTransporter->setZeroVxyzMvAcce();
+    _pMvTransporter->_gravitation_mv_seq_flg = false;
     _pPrg->set(ITEM_PROG_DRIFT);
     _SX = _SY = _SZ = 1000;
 }
@@ -61,7 +61,7 @@ void MagicPointItem001::onActive() {
             pMyShip->_Z - _Z,
             vX, vY, vZ);
 
-    _pKuroko->setMvAng(
+    _pMvNavigator->setMvAng(
             (int)(_X + (vX * scattered_distance) + (((int)pRndGen->genrand_int32() % scattered_renge) - (scattered_renge/2))),
             (int)(_Y + (vY * scattered_distance) + (((int)pRndGen->genrand_int32() % scattered_renge) - (scattered_renge/2))),
             (int)(_Z + (vZ * scattered_distance) + (((int)pRndGen->genrand_int32() % scattered_renge) - (scattered_renge/2)))
@@ -90,13 +90,13 @@ void MagicPointItem001::processBehavior() {
     if (_pPrg->get() == ITEM_PROG_ATTACH) {
         MyShip* pMyShip = P_MYSHIP;
         if (_pPrg->isJustChanged()) {
-            _pKuroko->setVxMvVelo(_pKuroko->_vX*_pKuroko->_veloMv);
-            _pKuroko->setVyMvVelo(_pKuroko->_vY*_pKuroko->_veloMv);
-            _pKuroko->setVzMvVelo(_pKuroko->_vZ*_pKuroko->_veloMv);
-            _pKuroko->setMvVelo(0);
-            _pKuroko->setMvAcce(0);
-            _pKuroko->orderGravitationVxyzMvSequence(pMyShip, 20000, 1000, 50000);
-            _pKuroko->setMvVelo(5000);
+            _pMvTransporter->setVxMvVelo(_pMvNavigator->_vX*_pMvNavigator->_veloMv);
+            _pMvTransporter->setVyMvVelo(_pMvNavigator->_vY*_pMvNavigator->_veloMv);
+            _pMvTransporter->setVzMvVelo(_pMvNavigator->_vZ*_pMvNavigator->_veloMv);
+            _pMvTransporter->orderGravitationVxyzMvSequence(pMyShip, 20000, 1000, 50000);
+            _pMvNavigator->setMvVelo(0);
+            _pMvNavigator->setMvAcce(0);
+            _pMvNavigator->setMvVelo(5000);
         }
     }
 
@@ -104,9 +104,9 @@ void MagicPointItem001::processBehavior() {
     if (_pPrg->get() == ITEM_PROG_ABSORB) {
         MyShip* pMyShip = P_MYSHIP;
         if (_pPrg->isJustChanged()) {
-            _pKuroko->setZeroVxyzMvVelo();
-            _pKuroko->setZeroVxyzMvAcce();
-            _pKuroko->stopGravitationVxyzMvSequence();
+            _pMvTransporter->setZeroVxyzMvVelo();
+            _pMvTransporter->setZeroVxyzMvAcce();
+            _pMvTransporter->stopGravitationVxyzMvSequence();
         }
         _X = pMyShip->_X + _kDX;
         _Y = pMyShip->_Y + _kDY;
@@ -121,7 +121,8 @@ void MagicPointItem001::processBehavior() {
         }
         P_MYSHIP_SCENE->_pEnagyBar->_amount.inc(1);
     }
-    _pKuroko->behave();
+    _pMvNavigator->behave();
+    _pMvTransporter->behave();
 }
 
 void MagicPointItem001::processJudgement() {

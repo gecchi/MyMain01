@@ -87,7 +87,7 @@ void God::clean() {
 
 void God::oops() {
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Oops.rep");
-    VB_UI->_pRpy->outputFile("VB_UI_LASTT_Oops.rep");
+    VB_UI->_pRpy->outputFile("VB_UI_LAST_Oops.rep");
     DefaultGod::oops(); //è„à ÇÃÇµÇ‹Ç¡ÇΩÇ÷
 }
 

@@ -33,7 +33,7 @@ void FormationPallas001::onActive() {
     do {
         pPallas = (EnemyPallas*)pActor;
         pPallas->locate(_pSplineCon->refer()->_pSp->_X_basepoint[0], 0, 0);
-        pPallas->_pKuroko->setMvVelo(_mv_velo);
+        pPallas->_pMvNavigator->setMvVelo(_mv_velo);
         pPallas->activateDelay(t*_interval_frames + 1);//_interval_framesŠÔŠu‚ÅActive‚É‚·‚éB
         t++;
         pActor = pActor->getNext();

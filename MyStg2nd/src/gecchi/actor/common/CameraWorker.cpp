@@ -80,12 +80,12 @@ void CameraWorker::processBehavior() {
 
     int cam_velo_renge = _cam_velo_renge;  //カメラの移動速度の最大、最小敷居値
     //カメラの移動速度の最大、最小制限を設定
-    pCam->_pKuroko->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pCam->_pKuroko->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pCam->_pKuroko->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pVP->_pKuroko->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pVP->_pKuroko->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
-    pVP->_pKuroko->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pCam->_pMvTransporter->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pCam->_pMvTransporter->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pCam->_pMvTransporter->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pVP->_pMvTransporter->forceVxMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pVP->_pMvTransporter->forceVyMvVeloRange(-cam_velo_renge, cam_velo_renge);
+    pVP->_pMvTransporter->forceVzMvVeloRange(-cam_velo_renge, cam_velo_renge);
 
     //カメラ、及びビューポイントの移動速度を求める。
 
@@ -106,72 +106,72 @@ void CameraWorker::processBehavior() {
     velo veloVyRenge = 4000;
     velo veloVzRenge = 4000;
 
-    velo last_CAM_veloVxMv = pCam->_pKuroko->_veloVxMv;
+    velo last_CAM_veloVxMv = pCam->_pMvTransporter->_veloVxMv;
     velo  new_CAM_veloVxMv = _burenai_speed*(dX_CAM*1.0 / _stop_renge);
     if (last_CAM_veloVxMv-veloVxRenge <= new_CAM_veloVxMv && new_CAM_veloVxMv <= last_CAM_veloVxMv+veloVxRenge) {
-        pCam->_pKuroko->setVxMvVelo(new_CAM_veloVxMv);
+        pCam->_pMvTransporter->setVxMvVelo(new_CAM_veloVxMv);
     } else {
         if (last_CAM_veloVxMv-veloVxRenge > new_CAM_veloVxMv) {
-            pCam->_pKuroko->setVxMvVelo(last_CAM_veloVxMv-veloVxRenge);
+            pCam->_pMvTransporter->setVxMvVelo(last_CAM_veloVxMv-veloVxRenge);
         } else if (new_CAM_veloVxMv > last_CAM_veloVxMv+veloVxRenge) {
-            pCam->_pKuroko->setVxMvVelo(last_CAM_veloVxMv+veloVxRenge);
+            pCam->_pMvTransporter->setVxMvVelo(last_CAM_veloVxMv+veloVxRenge);
         }
     }
-    velo last_VP_veloVxMv = pVP->_pKuroko->_veloVxMv;
+    velo last_VP_veloVxMv = pVP->_pMvTransporter->_veloVxMv;
     velo  new_VP_veloVxMv = _burenai_speed*(dX_VP*1.0 / _stop_renge);
     if (last_VP_veloVxMv-veloVxRenge <= new_VP_veloVxMv && new_VP_veloVxMv <= last_VP_veloVxMv+veloVxRenge) {
-        pVP->_pKuroko->setVxMvVelo(new_VP_veloVxMv);
+        pVP->_pMvTransporter->setVxMvVelo(new_VP_veloVxMv);
     } else {
         if (last_VP_veloVxMv-veloVxRenge > new_VP_veloVxMv) {
-            pVP->_pKuroko->setVxMvVelo(last_VP_veloVxMv-veloVxRenge);
+            pVP->_pMvTransporter->setVxMvVelo(last_VP_veloVxMv-veloVxRenge);
         } else if (new_VP_veloVxMv > last_VP_veloVxMv+veloVxRenge) {
-            pVP->_pKuroko->setVxMvVelo(last_VP_veloVxMv+veloVxRenge);
+            pVP->_pMvTransporter->setVxMvVelo(last_VP_veloVxMv+veloVxRenge);
         }
     }
 
-    velo last_CAM_veloVyMv = pCam->_pKuroko->_veloVyMv;
+    velo last_CAM_veloVyMv = pCam->_pMvTransporter->_veloVyMv;
     velo  new_CAM_veloVyMv = _burenai_speed*(dY_CAM*1.0 / _stop_renge);
     if (last_CAM_veloVyMv-veloVyRenge <= new_CAM_veloVyMv && new_CAM_veloVyMv <= last_CAM_veloVyMv+veloVyRenge) {
-        pCam->_pKuroko->setVyMvVelo(new_CAM_veloVyMv);
+        pCam->_pMvTransporter->setVyMvVelo(new_CAM_veloVyMv);
     } else {
         if (last_CAM_veloVyMv-veloVyRenge > new_CAM_veloVyMv) {
-            pCam->_pKuroko->setVyMvVelo(last_CAM_veloVyMv-veloVyRenge);
+            pCam->_pMvTransporter->setVyMvVelo(last_CAM_veloVyMv-veloVyRenge);
         } else if (new_CAM_veloVyMv > last_CAM_veloVyMv+veloVyRenge) {
-            pCam->_pKuroko->setVyMvVelo(last_CAM_veloVyMv+veloVyRenge);
+            pCam->_pMvTransporter->setVyMvVelo(last_CAM_veloVyMv+veloVyRenge);
         }
     }
-    velo last_VP_veloVyMv = pVP->_pKuroko->_veloVyMv;
+    velo last_VP_veloVyMv = pVP->_pMvTransporter->_veloVyMv;
     velo  new_VP_veloVyMv = _burenai_speed*(dY_VP*1.0 / _stop_renge);
     if (last_VP_veloVyMv-veloVyRenge <= new_VP_veloVyMv && new_VP_veloVyMv <= last_VP_veloVyMv+veloVyRenge) {
-        pVP->_pKuroko->setVyMvVelo(new_VP_veloVyMv);
+        pVP->_pMvTransporter->setVyMvVelo(new_VP_veloVyMv);
     } else {
         if (last_VP_veloVyMv-veloVyRenge > new_VP_veloVyMv) {
-            pVP->_pKuroko->setVyMvVelo(last_VP_veloVyMv-veloVyRenge);
+            pVP->_pMvTransporter->setVyMvVelo(last_VP_veloVyMv-veloVyRenge);
         } else if (new_VP_veloVyMv > last_VP_veloVyMv+veloVyRenge) {
-            pVP->_pKuroko->setVyMvVelo(last_VP_veloVyMv+veloVyRenge);
+            pVP->_pMvTransporter->setVyMvVelo(last_VP_veloVyMv+veloVyRenge);
         }
     }
 
-    velo last_CAM_veloVzMv = pCam->_pKuroko->_veloVzMv;
+    velo last_CAM_veloVzMv = pCam->_pMvTransporter->_veloVzMv;
     velo  new_CAM_veloVzMv = _burenai_speed*(dZ_CAM*1.0 / _stop_renge);
     if (last_CAM_veloVzMv-veloVzRenge <= new_CAM_veloVzMv && new_CAM_veloVzMv <= last_CAM_veloVzMv+veloVzRenge) {
-        pCam->_pKuroko->setVzMvVelo(new_CAM_veloVzMv);
+        pCam->_pMvTransporter->setVzMvVelo(new_CAM_veloVzMv);
     } else {
         if (last_CAM_veloVzMv-veloVzRenge > new_CAM_veloVzMv) {
-            pCam->_pKuroko->setVzMvVelo(last_CAM_veloVzMv-veloVzRenge);
+            pCam->_pMvTransporter->setVzMvVelo(last_CAM_veloVzMv-veloVzRenge);
         } else if (new_CAM_veloVzMv > last_CAM_veloVzMv+veloVzRenge) {
-            pCam->_pKuroko->setVzMvVelo(last_CAM_veloVzMv+veloVzRenge);
+            pCam->_pMvTransporter->setVzMvVelo(last_CAM_veloVzMv+veloVzRenge);
         }
     }
-    velo last_VP_veloVzMv = pVP->_pKuroko->_veloVzMv;
+    velo last_VP_veloVzMv = pVP->_pMvTransporter->_veloVzMv;
     velo  new_VP_veloVzMv = _burenai_speed*(dZ_VP*1.0 / _stop_renge);
     if (last_VP_veloVzMv-veloVzRenge <= new_VP_veloVzMv && new_VP_veloVzMv <= last_VP_veloVzMv+veloVzRenge) {
-        pVP->_pKuroko->setVzMvVelo(new_VP_veloVzMv);
+        pVP->_pMvTransporter->setVzMvVelo(new_VP_veloVzMv);
     } else {
         if (last_VP_veloVzMv-veloVzRenge > new_VP_veloVzMv) {
-            pVP->_pKuroko->setVzMvVelo(last_VP_veloVzMv-veloVzRenge);
+            pVP->_pMvTransporter->setVzMvVelo(last_VP_veloVzMv-veloVzRenge);
         } else if (new_VP_veloVzMv > last_VP_veloVzMv+veloVzRenge) {
-            pVP->_pKuroko->setVzMvVelo(last_VP_veloVzMv+veloVzRenge);
+            pVP->_pMvTransporter->setVzMvVelo(last_VP_veloVzMv+veloVzRenge);
         }
     }
 
@@ -191,8 +191,8 @@ void CameraWorker::processBehavior() {
         pCam->_pVecCamUp->z = 0.0f;
     }
 
-    pCam->_pKuroko->behave();
-    pVP->_pKuroko->behave();
+    pCam->_pMvTransporter->behave();
+    pVP->_pMvTransporter->behave();
 
 }
 CameraWorker::~CameraWorker() {

@@ -12,11 +12,11 @@ MyWave001::MyWave001(const char* prm_name) : DefaultMeshActor(prm_name, "wave") 
 void MyWave001::initialize() {
     //setFlipMethod(FLIP_OSCILLATE_LOOP, 2);
 
-    _pKuroko->setRzMvAngVelo(0);
-    //_pKuroko->setFaceAngVelo(AXIS_Z, 2*1000);
-    //_pKuroko->setRzMvAng(0);
-    //_pKuroko->setFaceAng(AXIS_Z, 0);
-    _pKuroko->setMvVelo(20000);
+    _pMvNavigator->setRzMvAngVelo(0);
+    //_pMvNavigator->setFaceAngVelo(AXIS_Z, 2*1000);
+    //_pMvNavigator->setRzMvAng(0);
+    //_pMvNavigator->setFaceAng(AXIS_Z, 0);
+    _pMvNavigator->setMvVelo(20000);
 
     _pCollisionChecker->makeCollision(7);
     _pCollisionChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000, true, true, true);
@@ -49,10 +49,10 @@ void MyWave001::processBehavior() {
         _pScaler->behave();
         setHitAble(true);
         locateAs(P_MYSHIP);
-        _pKuroko->setFaceAng(AXIS_Z, P_MYSHIP->_pKuroko->_angFace[AXIS_Z]);
-        _pKuroko->setFaceAng(AXIS_Y, P_MYSHIP->_pKuroko->_angFace[AXIS_Y]);
-        _pKuroko->setRzRyMvAng(P_MYSHIP->_pKuroko->_angFace[AXIS_Z],
-                                     P_MYSHIP->_pKuroko->_angFace[AXIS_Y]);
+        _pMvNavigator->setFaceAng(AXIS_Z, P_MYSHIP->_pMvNavigator->_angFace[AXIS_Z]);
+        _pMvNavigator->setFaceAng(AXIS_Y, P_MYSHIP->_pMvNavigator->_angFace[AXIS_Y]);
+        _pMvNavigator->setRzRyMvAng(P_MYSHIP->_pMvNavigator->_angFace[AXIS_Z],
+                                     P_MYSHIP->_pMvNavigator->_angFace[AXIS_Y]);
         //		_X = P_MYSHIP->_X;
         //		_Y = P_MYSHIP->_Y;
         //		_Z = P_MYSHIP->_Z;
@@ -61,7 +61,7 @@ void MyWave001::processBehavior() {
         //behaveUvFlip();
         //À•W‚É”½‰f
         _pScaler->behave();
-        _pKuroko->behave();
+        _pMvNavigator->behave();
     }
 }
 

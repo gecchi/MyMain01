@@ -24,9 +24,9 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     MyStgUtil::resetShot001Status(_pStatus);
     setHitAble(true);
-    _pKuroko->relateRzRyFaceAngToMvAng(true);
-    _pKuroko->setMvVelo(5000+_RANK_*5000);             //移動速度
-    _pKuroko->setFaceAngVelo(AXIS_X, 6000+_RANK_*6000); //きりもみ具合
+    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->setMvVelo(5000+_RANK_*5000);             //移動速度
+    _pMvNavigator->setFaceAngVelo(AXIS_X, 6000+_RANK_*6000); //きりもみ具合
     _pSplineProgram->begin(2);
     _pScaler->beat(30,5,2,-1);
 }
@@ -36,7 +36,7 @@ void Shot001::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //座標に反映
     _pSplineProgram->behave(); //スプライン移動を振る舞い
-    _pKuroko->behave();
+    _pMvNavigator->behave();
     _pScaler->behave();
 }
 

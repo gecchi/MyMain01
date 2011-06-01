@@ -40,7 +40,8 @@ public:
     /** [r/w]ワールドZ軸方向スケール(_SZ : 倍率 = 1000 : 1.0倍) */
     int _SZ;
     /** [r]黒子 */
-    GgafDx9Kuroko* _pKuroko;
+    GgafDx9MvNavigator* _pMvNavigator;
+    GgafDx9MvTransporter* _pMvTransporter;
     /** [r]チェッカー */
     GgafDx9Checker* _pChecker;
     /** [r]効果音発生管理オブジェクト */

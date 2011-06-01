@@ -22,8 +22,8 @@ void EnemyCirce::onCreateModel() {
 void EnemyCirce::initialize() {
     setHitAble(true);
     _pScaler->setScale(100);
-    _pKuroko->relateRzRyFaceAngToMvAng(true);
-    _pKuroko->setMvVelo(300);
+    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->setMvVelo(300);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
 }
@@ -36,8 +36,8 @@ void EnemyCirce::onActive() {
 void EnemyCirce::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pKuroko->orderTagettingMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO);
-    _pKuroko->behave();
+    _pMvNavigator->orderTagettingMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO);
+    _pMvNavigator->behave();
     _pScaler->behave();
     //_pSeTransmitter->behave();
 }
@@ -57,7 +57,7 @@ void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
     if (pExplo001) {
         pExplo001->activate();
         pExplo001->locateAs(this);
-        pExplo001->_pKuroko->takeoverMvFrom(_pKuroko);
+        pExplo001->_pMvNavigator->takeoverMvFrom(_pMvNavigator);
     }
 
 //    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

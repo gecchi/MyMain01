@@ -82,7 +82,7 @@ void EnemyAstraea::initialize() {
     setAlpha(0.99);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 200*1000);
-    _pKuroko->setMvVelo(-1000);
+    _pMvNavigator->setMvVelo(-1000);
     _iMovePatternNo = 0;
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
 }
@@ -91,7 +91,7 @@ void EnemyAstraea::initialize() {
 void EnemyAstraea::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
-    _pKuroko->setMvVelo(-5000);
+    _pMvNavigator->setMvVelo(-5000);
     _iMovePatternNo = 0;
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
 
@@ -162,14 +162,14 @@ void EnemyAstraea::processBehavior() {
 //    _pMorpher->behave();
     /////////////モーフテスト////////////////
     if (_iMovePatternNo == 0) {
-        _pKuroko->setFaceAngVelo(AXIS_X, 0);
-        _pKuroko->setFaceAngVelo(AXIS_Z, _angveloTurn*1.5);
-        _pKuroko->setFaceAngVelo(AXIS_Y, _angveloTurn*0.5);
-        _pKuroko->setMvVelo(-3000);
+        _pMvNavigator->setFaceAngVelo(AXIS_X, 0);
+        _pMvNavigator->setFaceAngVelo(AXIS_Z, _angveloTurn*1.5);
+        _pMvNavigator->setFaceAngVelo(AXIS_Y, _angveloTurn*0.5);
+        _pMvNavigator->setMvVelo(-3000);
         _iMovePatternNo++;
     } else if (_iMovePatternNo == 1 && _X > P_MYSHIP->_X-400000) {
         if (getBehaveingFrame() % _laser_interval == 0) {
-            _pKuroko->orderTagettingFaceAngSequence(P_MYSHIP,
+            _pMvNavigator->orderTagettingFaceAngSequence(P_MYSHIP,
                                                 _angveloTurn*20, 0,
                                                 TURN_COUNTERCLOCKWISE, false);
             _iMovePatternNo++;
@@ -177,15 +177,15 @@ void EnemyAstraea::processBehavior() {
         } else {
         }
     } else if (_iMovePatternNo == 2) {
-        if (!_pKuroko->isTagettingFaceAng()) {
+        if (!_pMvNavigator->isTagettingFaceAng()) {
             //自機にがいた方向に振り向きが完了時
             _iMovePatternNo++;
         }
     } else if (_iMovePatternNo == 3) {
-        _pKuroko->setFaceAngVelo(AXIS_X, _angveloTurn*40);
-        _pKuroko->setFaceAngVelo(AXIS_Z, 0);
-        _pKuroko->setFaceAngVelo(AXIS_Y, 0);
-        _pKuroko->setMvVelo(0);
+        _pMvNavigator->setFaceAngVelo(AXIS_X, _angveloTurn*40);
+        _pMvNavigator->setFaceAngVelo(AXIS_Z, 0);
+        _pMvNavigator->setFaceAngVelo(AXIS_Y, 0);
+        _pMvNavigator->setMvVelo(0);
         if (_cnt_laserchip < _laser_length) {
             _cnt_laserchip++;
 
@@ -230,11 +230,11 @@ void EnemyAstraea::processBehavior() {
 
 
                         pLaserChip->locate(_X+vX, _Y+vY, _Z+vZ);
-                        pLaserChip->_pKuroko->setRzRyMvAng(Rz, Ry);
-                        pLaserChip->_pKuroko->_angFace[AXIS_Z] = Rz;
-                        pLaserChip->_pKuroko->_angFace[AXIS_Y] = Ry;
+                        pLaserChip->_pMvNavigator->setRzRyMvAng(Rz, Ry);
+                        pLaserChip->_pMvNavigator->_angFace[AXIS_Z] = Rz;
+                        pLaserChip->_pMvNavigator->_angFace[AXIS_Y] = Ry;
                         pLaserChip->activate();
-                        //pLaserChip->_pKuroko->behave();
+                        //pLaserChip->_pMvNavigator->behave();
 
                         if (i == 0 && j == 0 && pLaserChip->_pChip_front == NULL) {
                             _pSeTransmitter->play3D(0); //発射音
@@ -254,7 +254,7 @@ void EnemyAstraea::processBehavior() {
     }
 
     _pSeTransmitter->behave();
-    _pKuroko->behave();
+    _pMvNavigator->behave();
 }
 
 void EnemyAstraea::processJudgement() {

@@ -14,7 +14,7 @@ void FormationPallas001b::onActive() {
         _papPallas[i]->locate(_pSplineCon->refer()->_pSp->_X_basepoint[0] ,
                                    0,
                                    0);
-        _papPallas[i]->_pKuroko->setMvVelo(_mv_velo);
+        _papPallas[i]->_pMvNavigator->setMvVelo(_mv_velo);
         _papPallas[i]->activateDelay(i*_interval_frames + 1);//_interval_framesŠÔŠu‚ÅActive‚É‚·‚éB
     }
 }

@@ -26,12 +26,12 @@ void CubeMapMeshEffectActor::initialize() {
 
 void CubeMapMeshEffectActor::onActive() {
     _X = 100*1000; _Y = 100*1000;
-    _pKuroko->setFaceAngVelo(AXIS_Y, 500);
+    _pMvNavigator->setFaceAngVelo(AXIS_Y, 500);
 }
 
 
 void CubeMapMeshEffectActor::processBehavior() {
-    _pKuroko->behave();
+    _pMvNavigator->behave();
 }
 
 CubeMapMeshEffectActor::~CubeMapMeshEffectActor() {

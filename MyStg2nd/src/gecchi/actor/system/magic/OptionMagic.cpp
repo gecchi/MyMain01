@@ -52,9 +52,9 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     GgafDx9Util::getRadialAngle2D(0, prm_new_level-prm_now_level, paAngWay);
     for (int i = prm_now_level; i < prm_new_level; i++) {
         _papEffect[i]->locateAs(P_MYSHIP);
-        _papEffect[i]->_pKuroko->setRzRyMvAng(paAngWay[i], ANGLE90);
-        _papEffect[i]->_pKuroko->setMvVelo(2000);
-        _papEffect[i]->_pKuroko->setMvAcce(0);
+        _papEffect[i]->_pMvNavigator->setRzRyMvAng(paAngWay[i], ANGLE90);
+        _papEffect[i]->_pMvNavigator->setMvVelo(2000);
+        _papEffect[i]->_pMvNavigator->setMvAcce(0);
         _papEffect[i]->setAlpha(0.9);
         _papEffect[i]->setScaleRate(2.0f);
         _papEffect[i]->activate();
@@ -74,17 +74,17 @@ void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
 void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
 
     for (int i = prm_now_level; i < prm_new_level; i++) {
-        _papEffect[i]->_pKuroko->setMvVelo(0);
-        _papEffect[i]->_pKuroko->setMvAcce(0);
-        _papEffect[i]->_pKuroko->orderGravitationVxyzMvSequence(
+        _papEffect[i]->_pMvNavigator->setMvVelo(0);
+        _papEffect[i]->_pMvNavigator->setMvAcce(0);
+        _papEffect[i]->_pMvTransporter->orderGravitationVxyzMvSequence(
                P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
                P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[i]->_Yorg,
                P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg,
                20000, 1000, 50000);
 //
-//        _papEffect[i]->_pKuroko->setMvVelo(1000);
-//        _papEffect[i]->_pKuroko->setMvAcce(100);
-//        _papEffect[i]->_pKuroko->orderTagettingMvAngSequence(P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
+//        _papEffect[i]->_pMvNavigator->setMvVelo(1000);
+//        _papEffect[i]->_pMvNavigator->setMvAcce(100);
+//        _papEffect[i]->_pMvNavigator->orderTagettingMvAngSequence(P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
 //                                                           P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[i]->_Yorg,
 //                                                           P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg,
 //                                                           3000,
@@ -92,7 +92,7 @@ void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
 //
 //
 //
-//        _papEffect[i]->_pKuroko->forceMvVeloRange(P_MYOPTIONCON->_papMyOption[i]->_veloMv*5.0);
+//        _papEffect[i]->_pMvNavigator->forceMvVeloRange(P_MYOPTIONCON->_papMyOption[i]->_veloMv*5.0);
 ////                                SmoothMvVeloSequence2(2000, 0, _time_of_casting, true);
     }
 
@@ -110,9 +110,9 @@ void OptionMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level)
 //        targetZ = P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg;
 //        if (GgafUtil::abs(_papEffect[i]->_X - targetX) + GgafUtil::abs(_papEffect[i]->_Y - targetY) + GgafUtil::abs(_papEffect[i]->_Z - targetZ)/3  < GgafUtil::abs(P_MYOPTIONCON->_papMyOption[i]->_veloMv)*5) {
 //            ok++;
-//            _papEffect[i]->_pKuroko->setMvVelo(500);
+//            _papEffect[i]->_pMvNavigator->setMvVelo(500);
 //        }
-//        _papEffect[i]->_pKuroko->orderTagettingMvAngSequence(targetX,
+//        _papEffect[i]->_pMvNavigator->orderTagettingMvAngSequence(targetX,
 //                                                           targetY,
 //                                                           targetZ,
 //                                                           40000,
@@ -137,7 +137,7 @@ void OptionMagic::processEffectBegin(int prm_now_level)  {
     _r_effect = 1.0f;
     for (int i = 0; i < prm_now_level; i++) {
         if (_papEffect[i]->isActiveActor()) {
-            _papEffect[i]->_pKuroko->_gravitation_mv_seq_pActor_target = P_MYOPTIONCON->_papMyOption[i];
+            _papEffect[i]->_pMvTransporter->_gravitation_mv_seq_pActor_target = P_MYOPTIONCON->_papMyOption[i];
         }
     }
 

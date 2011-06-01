@@ -18,9 +18,9 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _radius_bounding_sphere = 0;
     _rate_BoundingSphereRadius = 1.0f;
     _pChecker = prm_pChecker;
-    _pKuroko = NEW GgafDx9Kuroko(this);
+    _pMvNavigator = NEW GgafDx9MvNavigator(this);
+    _pMvTransporter = NEW GgafDx9MvTransporter(this);
     _pSeTransmitter = NEW GgafDx9SeTransmitter(this);
-
     _offscreenkind = -1;
     _pFunc_calcRotMvWorldMatrix = NULL;
     _pActor_Base = NULL;
@@ -188,11 +188,11 @@ GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
     prm_pGeoActor->_X = prm_X_init_local;
     prm_pGeoActor->_Y = prm_Y_init_local;
     prm_pGeoActor->_Z = prm_Z_init_local;
-    prm_pGeoActor->_pKuroko->_angFace[AXIS_X]  = prm_RX_init_local;
-    prm_pGeoActor->_pKuroko->_angFace[AXIS_Z]  = prm_RZ_init_local;
-    prm_pGeoActor->_pKuroko->_angFace[AXIS_Y]  = prm_RY_init_local;
-    prm_pGeoActor->_pKuroko->_angRzMv = prm_RZ_init_local;
-    prm_pGeoActor->_pKuroko->_angRyMv = prm_RY_init_local;
+    prm_pGeoActor->_pMvNavigator->_angFace[AXIS_X]  = prm_RX_init_local;
+    prm_pGeoActor->_pMvNavigator->_angFace[AXIS_Z]  = prm_RZ_init_local;
+    prm_pGeoActor->_pMvNavigator->_angFace[AXIS_Y]  = prm_RY_init_local;
+    prm_pGeoActor->_pMvNavigator->_angRzMv = prm_RZ_init_local;
+    prm_pGeoActor->_pMvNavigator->_angRyMv = prm_RY_init_local;
     prm_pGeoActor->_RX = prm_RX_init_local;
     prm_pGeoActor->_RZ = prm_RZ_init_local;
     prm_pGeoActor->_RY = prm_RY_init_local;
@@ -315,7 +315,8 @@ void GgafDx9GeometricActor::rotateWith(GgafDx9GeometricActor* prm_pActor) {
 
 
 GgafDx9GeometricActor::~GgafDx9GeometricActor() {
-    DELETE_IMPOSSIBLE_NULL(_pKuroko);
+    DELETE_IMPOSSIBLE_NULL(_pMvNavigator);
+    DELETE_IMPOSSIBLE_NULL(_pMvTransporter);
     DELETE_IMPOSSIBLE_NULL(_pSeTransmitter);
 }
 

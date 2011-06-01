@@ -50,12 +50,12 @@ void PauseCamWorker::processBehavior() {
         } else {
             _cd = cw;
         }
-        if (!pCam->_pKuroko->isMoveingSmooth()) {
+        if (!pCam->_pMvNavigator->isMoveingSmooth()) {
             _move_target_X_CAM = pCam->_X;
             _move_target_Y_CAM = pCam->_Y;
             _move_target_Z_CAM = pCam->_Z;
         }
-        if (!pVP->_pKuroko->isMoveingSmooth()) {
+        if (!pVP->_pMvNavigator->isMoveingSmooth()) {
             //³Šm‚ÈVP‚ÉÄİ’è
             pVP->_X = pCam->_pVecCamLookatPoint->x*PX_UNIT*LEN_UNIT;
             pVP->_Y = pCam->_pVecCamLookatPoint->y*PX_UNIT*LEN_UNIT;
@@ -211,12 +211,12 @@ void PauseCamWorker::processBehavior() {
         _stop_renge = 60000;
         if (_mdz_flg == false) {
             _mdz_total = 0;
-            if (!pCam->_pKuroko->isMoveingSmooth()) {
+            if (!pCam->_pMvNavigator->isMoveingSmooth()) {
                 _move_target_X_CAM = pCam->_X;
                 _move_target_Y_CAM = pCam->_Y;
                 _move_target_Z_CAM = pCam->_Z;
             }
-            if (!pVP->_pKuroko->isMoveingSmooth()) {
+            if (!pVP->_pMvNavigator->isMoveingSmooth()) {
                 pVP->_X = pCam->_pVecCamLookatPoint->x*PX_UNIT*LEN_UNIT;
                 pVP->_Y = pCam->_pVecCamLookatPoint->y*PX_UNIT*LEN_UNIT;
                 pVP->_Z = pCam->_pVecCamLookatPoint->z*PX_UNIT*LEN_UNIT;
@@ -267,18 +267,18 @@ void PauseCamWorker::processBehavior() {
     if (abs(_move_target_X_CAM - pCam->_X) < 10 && abs(_move_target_Y_CAM - pCam->_Y) < 10 && abs(_move_target_Z_CAM - pCam->_Z) < 10) {
         //OK
     } else {
-        pCam->_pKuroko->setMvAng(_move_target_X_CAM, _move_target_Y_CAM, _move_target_Z_CAM);
+        pCam->_pMvNavigator->setMvAng(_move_target_X_CAM, _move_target_Y_CAM, _move_target_Z_CAM);
         int td1 = GgafDx9Util::getDistance(pCam->_X, pCam->_Y, pCam->_Z,
                                            _move_target_X_CAM, _move_target_Y_CAM, _move_target_Z_CAM);
-        pCam->_pKuroko->orderSmoothMvVeloSequence3(0, td1, 20);
+        pCam->_pMvNavigator->orderSmoothMvVeloSequence3(0, td1, 20);
     }
     if (abs(_move_target_X_VP - pVP->_X) < 10 && abs(_move_target_Y_VP - pVP->_Y) < 10 && abs(_move_target_Z_VP - pVP->_Z) < 10) {
         //OK
     } else {
-        pVP->_pKuroko->setMvAng(_move_target_X_VP, _move_target_Y_VP, _move_target_Z_VP);
+        pVP->_pMvNavigator->setMvAng(_move_target_X_VP, _move_target_Y_VP, _move_target_Z_VP);
         int td2 = GgafDx9Util::getDistance(pVP->_X, pVP->_Y, pVP->_Z,
                                            _move_target_X_VP, _move_target_Y_VP, _move_target_Z_VP);
-        pVP->_pKuroko->orderSmoothMvVeloSequence3(0, td2, 20);
+        pVP->_pMvNavigator->orderSmoothMvVeloSequence3(0, td2, 20);
     }
 
 
@@ -298,8 +298,8 @@ void PauseCamWorker::processBehavior() {
     }
 
 
-    pCam->_pKuroko->behave();
-    pVP->_pKuroko->behave();
+    pCam->_pMvNavigator->behave();
+    pVP->_pMvNavigator->behave();
 
 }
 

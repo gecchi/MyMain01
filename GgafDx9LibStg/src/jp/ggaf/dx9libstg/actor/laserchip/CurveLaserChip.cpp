@@ -19,7 +19,7 @@ void CurveLaserChip::initialize() {
     //当たり判定あり。
     //α＝0.99
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-    _pKuroko->setMvVelo(30000);
+    _pMvNavigator->setMvVelo(30000);
     _fAlpha = 0.99;
 }
 
@@ -43,7 +43,7 @@ void CurveLaserChip::onInactive() {
 
 void CurveLaserChip::processBehavior() {
     LaserChip::processBehavior();
-    _pKuroko->behave();
+    _pMvNavigator->behave();
     //座標をコピー
     _tmpX = _X;
     _tmpY = _Y;
@@ -85,9 +85,9 @@ void CurveLaserChip::processSettlementBehavior() {
             _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3;
             _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
             _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
-            _pKuroko->_veloVxMv = (pF->_pKuroko->_veloVxMv + _pKuroko->_veloVxMv + pB->_pKuroko->_veloVxMv) / 3;
-            _pKuroko->_veloVyMv = (pF->_pKuroko->_veloVyMv + _pKuroko->_veloVyMv + pB->_pKuroko->_veloVyMv) / 3;
-            _pKuroko->_veloVzMv = (pF->_pKuroko->_veloVzMv + _pKuroko->_veloVzMv + pB->_pKuroko->_veloVzMv) / 3;
+            _pMvTransporter->_veloVxMv = (pF->_pMvTransporter->_veloVxMv + _pMvTransporter->_veloVxMv + pB->_pMvTransporter->_veloVxMv) / 3;
+            _pMvTransporter->_veloVyMv = (pF->_pMvTransporter->_veloVyMv + _pMvTransporter->_veloVyMv + pB->_pMvTransporter->_veloVyMv) / 3;
+            _pMvTransporter->_veloVzMv = (pF->_pMvTransporter->_veloVzMv + _pMvTransporter->_veloVzMv + pB->_pMvTransporter->_veloVzMv) / 3;
         }
         LaserChip::processSettlementBehavior();
     }

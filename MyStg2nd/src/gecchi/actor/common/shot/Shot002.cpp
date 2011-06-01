@@ -22,9 +22,9 @@ void Shot002::onActive() {
     MyStgUtil::resetShot002Status(_pStatus);
     setHitAble(true);
     _pScaler->setScale(2000);
-    _pKuroko->relateRzRyFaceAngToMvAng(true);
-    _pKuroko->setMvVelo(8000+_RANK_*8000);
-    _pKuroko->setFaceAngVelo(AXIS_X, 1000+_RANK_*1000);
+    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->setMvVelo(8000+_RANK_*8000);
+    _pMvNavigator->setFaceAngVelo(AXIS_X, 1000+_RANK_*1000);
     _my_frame = 0;
 }
 
@@ -35,19 +35,19 @@ void Shot002::processBehavior() {
 
 
     if (_my_frame == 70) {
-        _pKuroko->orderTagettingMvAngSequence(P_MYSHIP,
+        _pMvNavigator->orderTagettingMvAngSequence(P_MYSHIP,
                                                    3000, 0,
                                                    TURN_CLOSE_TO);
     }
 
-    if (_my_frame > 70 && _pKuroko->_mv_ang_ry_target_flg == false && _pKuroko->_mv_ang_rz_target_flg == false) {
-        _pKuroko->orderTagettingMvAngSequence(
+    if (_my_frame > 70 && _pMvNavigator->_mv_ang_ry_target_flg == false && _pMvNavigator->_mv_ang_rz_target_flg == false) {
+        _pMvNavigator->orderTagettingMvAngSequence(
                     P_MYSHIP,
                     100, 0,
                     TURN_CLOSE_TO);
     }
     //À•W‚É”½‰f
-    _pKuroko->behave();
+    _pMvNavigator->behave();
     _pScaler->behave();
     _pSeTransmitter->behave();
     _my_frame++;

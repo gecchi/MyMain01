@@ -136,6 +136,11 @@ int GgafResourceConnection<T>::getNumConnection() {
 template<class T>
 int GgafResourceConnection<T>::close() {
     //close() は複数スレッドから受付を許容する。
+    if ( _is_closing_resource || GgafResourceManager<T>::_is_connecting_resource) {
+        _TRACE_("GgafResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 。待機が発生しました・・・・[" << _pManager->_manager_name << "." << _idstr << "]。")
+    }
+
+
     for(int i = 0; _is_closing_resource || GgafResourceManager<T>::_is_connecting_resource; i++) {
         Sleep(1);
         if (i > 1000*60) {

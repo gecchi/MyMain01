@@ -16,7 +16,7 @@ MyOptionCurveLaserChip001::MyOptionCurveLaserChip001(const char* prm_name) :
 }
 
 void MyOptionCurveLaserChip001::initialize() {
-    _pKuroko->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
     registHitAreaCube(80000);
     setHitAble(true);
     _SX = _SY = _SZ = 6 * 1000;
@@ -30,10 +30,10 @@ void MyOptionCurveLaserChip001::onActive() {
     _default_stamina = _pStatus->get(STAT_Stamina);
     CurveLaserChip::onActive();
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
-    _pKuroko->setMvVelo(0);
-    _pKuroko->setVxMvAcce(0);
-    _pKuroko->setVyMvAcce(0);
-    _pKuroko->setVzMvAcce(0);
+    _pMvNavigator->setMvVelo(0);
+    _pMvTransporter->setVxMvAcce(0);
+    _pMvTransporter->setVyMvAcce(0);
+    _pMvTransporter->setVzMvAcce(0);
     _isLockon = false;
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
         if (_pChip_front == NULL) {
@@ -56,9 +56,9 @@ void MyOptionCurveLaserChip001::onActive() {
         }
     }
     _renge = 150000;
-    _pKuroko->forceVxyzMvVeloRange(-_renge, _renge);
+    _pMvTransporter->forceVxyzMvVeloRange(-_renge, _renge);
     _maxAcceRange= _renge / 30;
-    _pKuroko->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
+    _pMvTransporter->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 
 
 }
@@ -69,19 +69,19 @@ void MyOptionCurveLaserChip001::processBehavior() {
     if (_lockon == 1) {
         if (getActivePartFrame() < 120) {
             _maxAcceRange+=100;
-            _pKuroko->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
+            _pMvTransporter->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 //            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActiveActor() && _pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) > 0) {
                                                                                  //体力の判定はオプション側で行うことにした
             if (pMainLockOnTarget) {
                 if (pMainLockOnTarget->isActiveActor()) {
                     float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
                     rate = rate > 0 ? rate : 0;
-                    int fdx = pMainLockOnTarget->_X - (_X + _pKuroko->_veloVxMv*rate);
-                    int fdy = pMainLockOnTarget->_Y - (_Y + _pKuroko->_veloVyMv*rate);
-                    int fdz = pMainLockOnTarget->_Z - (_Z + _pKuroko->_veloVzMv*rate);
-                    _pKuroko->setVxMvAcce(fdx);
-                    _pKuroko->setVyMvAcce(fdy);
-                    _pKuroko->setVzMvAcce(fdz);
+                    int fdx = pMainLockOnTarget->_X - (_X + _pMvTransporter->_veloVxMv*rate);
+                    int fdy = pMainLockOnTarget->_Y - (_Y + _pMvTransporter->_veloVyMv*rate);
+                    int fdz = pMainLockOnTarget->_Z - (_Z + _pMvTransporter->_veloVzMv*rate);
+                    _pMvTransporter->setVxMvAcce(fdx);
+                    _pMvTransporter->setVyMvAcce(fdy);
+                    _pMvTransporter->setVzMvAcce(fdz);
                 } else {
 
 
@@ -108,48 +108,48 @@ void MyOptionCurveLaserChip001::processBehavior() {
                 dx = _new_target_X - (_X );
                 dy = _new_target_Y - (_Y );
                 dz = _new_target_Z - (_Z );
-                _pKuroko->setVxMvAcce(dx);
-                _pKuroko->setVyMvAcce(dy);
-                _pKuroko->setVzMvAcce(dz);
+                _pMvTransporter->setVxMvAcce(dx);
+                _pMvTransporter->setVyMvAcce(dy);
+                _pMvTransporter->setVzMvAcce(dz);
             }
         }
 
 
 
         _maxAcceRange+=100;
-        _pKuroko->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
+        _pMvTransporter->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
         if (_pChip_front == NULL) {
             _maxAcceRange+=100;
             //上の処理１回と、毎回 _maxAcceRange+=100;
         } else if (_pChip_front->_pChip_front == NULL) {
             //新たなターゲットを作成
-            dx = _pChip_front->_X - (_X + _pKuroko->_veloVxMv);
-            dy = _pChip_front->_Y - (_Y + _pKuroko->_veloVyMv);
-            dz = _pChip_front->_Z - (_Z + _pKuroko->_veloVzMv);
-            _pKuroko->setVxMvAcce(dx);
-            _pKuroko->setVyMvAcce(dy);
-            _pKuroko->setVzMvAcce(dz);
+            dx = _pChip_front->_X - (_X + _pMvTransporter->_veloVxMv);
+            dy = _pChip_front->_Y - (_Y + _pMvTransporter->_veloVyMv);
+            dz = _pChip_front->_Z - (_Z + _pMvTransporter->_veloVzMv);
+            _pMvTransporter->setVxMvAcce(dx);
+            _pMvTransporter->setVyMvAcce(dy);
+            _pMvTransporter->setVzMvAcce(dz);
         } else if (_pChip_front->_pChip_front->_pChip_front == NULL) {
-            dx = _pChip_front->_pChip_front->_X - (_X + _pKuroko->_veloVxMv*2);
-            dy = _pChip_front->_pChip_front->_Y - (_Y + _pKuroko->_veloVyMv*2);
-            dz = _pChip_front->_pChip_front->_Z - (_Z + _pKuroko->_veloVzMv*2);
-            _pKuroko->setVxMvAcce(dx);
-            _pKuroko->setVyMvAcce(dy);
-            _pKuroko->setVzMvAcce(dz);
+            dx = _pChip_front->_pChip_front->_X - (_X + _pMvTransporter->_veloVxMv*2);
+            dy = _pChip_front->_pChip_front->_Y - (_Y + _pMvTransporter->_veloVyMv*2);
+            dz = _pChip_front->_pChip_front->_Z - (_Z + _pMvTransporter->_veloVzMv*2);
+            _pMvTransporter->setVxMvAcce(dx);
+            _pMvTransporter->setVyMvAcce(dy);
+            _pMvTransporter->setVzMvAcce(dz);
         } else if (_pChip_front->_pChip_front->_pChip_front->_pChip_front == NULL) {
-            dx = _pChip_front->_pChip_front->_pChip_front->_X - (_X + _pKuroko->_veloVxMv*3);
-            dy = _pChip_front->_pChip_front->_pChip_front->_Y - (_Y + _pKuroko->_veloVyMv*3);
-            dz = _pChip_front->_pChip_front->_pChip_front->_Z - (_Z + _pKuroko->_veloVzMv*3);
-            _pKuroko->setVxMvAcce(dx);
-            _pKuroko->setVyMvAcce(dy);
-            _pKuroko->setVzMvAcce(dz);
+            dx = _pChip_front->_pChip_front->_pChip_front->_X - (_X + _pMvTransporter->_veloVxMv*3);
+            dy = _pChip_front->_pChip_front->_pChip_front->_Y - (_Y + _pMvTransporter->_veloVyMv*3);
+            dz = _pChip_front->_pChip_front->_pChip_front->_Z - (_Z + _pMvTransporter->_veloVzMv*3);
+            _pMvTransporter->setVxMvAcce(dx);
+            _pMvTransporter->setVyMvAcce(dy);
+            _pMvTransporter->setVzMvAcce(dz);
         } else {
-            dx = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_X - (_X + _pKuroko->_veloVxMv*3);
-            dy = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_Y - (_Y + _pKuroko->_veloVyMv*3);
-            dz = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_Z - (_Z + _pKuroko->_veloVzMv*3);
-            _pKuroko->setVxMvAcce(dx);
-            _pKuroko->setVyMvAcce(dy);
-            _pKuroko->setVzMvAcce(dz);
+            dx = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_X - (_X + _pMvTransporter->_veloVxMv*3);
+            dy = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_Y - (_Y + _pMvTransporter->_veloVyMv*3);
+            dz = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_Z - (_Z + _pMvTransporter->_veloVzMv*3);
+            _pMvTransporter->setVxMvAcce(dx);
+            _pMvTransporter->setVyMvAcce(dy);
+            _pMvTransporter->setVzMvAcce(dz);
         }
     }
     if (_pChip_front == NULL) {
@@ -161,7 +161,7 @@ void MyOptionCurveLaserChip001::processBehavior() {
 //        _isLockon = true;
 //    }
 
-//    _pKuroko->_angFace[AXIS_X] =  _pOrg->_pKuroko->_angFace[AXIS_Y];
+//    _pMvNavigator->_angFace[AXIS_X] =  _pOrg->_pMvNavigator->_angFace[AXIS_Y];
     CurveLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 
     //根元からレーザー表示のため強制的に座標補正

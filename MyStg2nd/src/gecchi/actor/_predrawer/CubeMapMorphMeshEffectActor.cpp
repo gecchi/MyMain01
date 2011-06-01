@@ -29,12 +29,12 @@ void CubeMapMorphMeshEffectActor::onActive() {
     _pMorpher->beat(2, 240, 90, 30, -1);
     _pMorpher->beat(3, 240, 120, 30, -1);
     _pMorpher->beat(4, 240, 150, 30, -1);
-    _pKuroko->setFaceAngVelo(AXIS_Y, 500);
+    _pMvNavigator->setFaceAngVelo(AXIS_Y, 500);
 }
 
 
 void CubeMapMorphMeshEffectActor::processBehavior() {
-    _pKuroko->behave();
+    _pMvNavigator->behave();
     _pMorpher->behave();
 }
 

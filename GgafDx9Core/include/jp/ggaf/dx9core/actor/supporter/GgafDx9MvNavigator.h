@@ -1,5 +1,5 @@
-#ifndef GGAFDX9KUROKO_H_
-#define GGAFDX9KUROKO_H_
+#ifndef GGAFDX9MVNAVIGATOR_H_
+#define GGAFDX9MVNAVIGATOR_H_
 namespace GgafDx9Core {
 
 //軸X
@@ -30,7 +30,7 @@ namespace GgafDx9Core {
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class GgafDx9Kuroko : public GgafCore::GgafObject {
+class GgafDx9MvNavigator : public GgafCore::GgafObject {
     float _dummy1, _dummy2, _dummy3;
 
 public:
@@ -40,7 +40,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    GgafDx9Kuroko(GgafDx9GeometricActor* prm_pActor);
+    GgafDx9MvNavigator(GgafDx9GeometricActor* prm_pActor);
 
 
 
@@ -221,42 +221,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     //true  : 移動方角（Y軸回転）を変更すると、それに伴い同じ方角が軸回転方角(Y軸)にも設定される
     //false : 移動方角（Y軸回転）とY軸軸回転方角は独立
 
-    /** X軸方向移動速度 */
-    velo _veloVxMv;
-    /** X軸方向移動速度上限 */
-    velo _veloTopVxMv;
-    /** X軸方向移動速度下限 */
-    velo _veloBottomVxMv;
-    /** X軸方向移動加速度 */
-    acce _acceVxMv;
-    /** X軸方向移動加速度上限*/
-    acce _acceTopVxMv;
-    /** X軸方向移動加速度下限*/
-    acce _acceBottomVxMv;
-    /** Y軸方向移動速度 */
-    velo _veloVyMv;
-    /** Y軸方向移動速度上限 */
-    velo _veloTopVyMv;
-    /** Y軸方向移動速度下限 */
-    velo _veloBottomVyMv;
-    /** Y軸方向移動加速度 */
-    acce _acceVyMv;
-    /** Y軸方向移動加速度上限*/
-    acce _acceTopVyMv;
-    /** Y軸方向移動加速度下限*/
-    acce _acceBottomVyMv;
-    /** Z軸方向移動速度 */
-    velo _veloVzMv;
-    /** Z軸方向移動速度上限 */
-    velo _veloTopVzMv;
-    /** Z軸方向移動速度下限 */
-    velo _veloBottomVzMv;
-    /** Z軸方向移動加速度 */
-    acce _acceVzMv;
-    /** Z軸方向移動加速度上限*/
-    acce _acceTopVzMv;
-    /** Z軸方向移動加速度下限*/
-    acce _acceBottomVzMv;
+
 
     /** なめらかな移動シークエンスを実行中はtrue */
     bool _smooth_mv_velo_seq_flg;
@@ -280,15 +245,6 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     int  _smooth_mv_velo_seq_p2;
     /** なめらかな移動シークエンスの進捗状況 */
     int  _smooth_mv_velo_seq_progress;
-
-    int _gravitation_mv_seq_target_X;
-    int _gravitation_mv_seq_target_Y;
-    int _gravitation_mv_seq_target_Z;
-    GgafDx9GeometricActor* _gravitation_mv_seq_pActor_target;
-    velo _gravitation_mv_seq_max_velo;
-    acce _gravitation_mv_seq_acce;
-    int _gravitation_mv_seq_stop_renge;
-    bool _gravitation_mv_seq_flg;
 
 
     bool _taget_mv_ang_alltime_flg;
@@ -647,37 +603,6 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     void setStopTarget_RzRyMvAng(GgafDx9GeometricActor* prm_pActor_Target);
 
-    //virtual void behave();
-
-    void setVxMvVelo(velo prm_veloVxMv);
-    void addVxMvVelo(velo prm_veloVxMv);
-    void forceVxMvVeloRange(velo prm_veloVxMv01, velo prm_veloVxMv02);
-    void setVxMvAcce(acce prm_acceVxMv);
-    void addVxMvAcce(acce prm_acceVxMv);
-    void forceVxMvAcceRange(acce prm_acceVxMv01, acce prm_acceVxMv02);
-    void setVyMvVelo(velo prm_veloVyMv);
-    void addVyMvVelo(velo prm_veloVyMv);
-    void forceVyMvVeloRange(velo prm_veloVyMv01, velo prm_veloVyMv02);
-    void setVyMvAcce(acce prm_acceVyMv);
-    void addVyMvAcce(acce prm_acceVyMv);
-    void forceVyMvAcceRange(acce prm_acceVyMv01, acce prm_acceVyMv02);
-    void setVzMvVelo(velo prm_veloVzMv);
-    void addVzMvVelo(velo prm_veloVzMv);
-    void forceVzMvVeloRange(velo prm_veloVzMv01, velo prm_veloVzMv02);
-    void setVzMvAcce(acce prm_acceVzMv);
-    void addVzMvAcce(acce prm_acceVzMv);
-    void forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02);
-
-    void forceVxyzMvVeloRange(velo prm_veloVxyzMv01, velo prm_veloVxyzMv02);
-    void forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxyzMv02);
-
-    void setZeroVxyzMvVelo() {
-        _veloVxMv = _veloVyMv = _veloVzMv = 0;
-    }
-
-    void setZeroVxyzMvAcce() {
-        _acceVxMv = _acceVyMv = _acceVzMv = 0;
-    }
 
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットするシークエンスを実行 .
@@ -924,9 +849,6 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
         _taget_mv_ang_alltime_pActor = NULL;
         _taget_mv_ang_alltime_flg = false;
     }
-    void stopGravitationVxyzMvSequence() {
-        _gravitation_mv_seq_flg = false;
-    }
 
     /**
      * 目標軸回転方角にターゲットするシークエンスが実行中か .
@@ -1013,27 +935,12 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     bool isMoveingSmooth();
 
 
-    void orderGravitationVxyzMvSequence(
-            int prm_tX, int prm_tY, int prm_tZ,
-            velo prm_max_velo,
-            acce prm_acce,
-            int prm_stop_renge
-            );
-
-
-    void orderGravitationVxyzMvSequence(
-            GgafDx9GeometricActor* prm_pActor_target,
-            velo prm_max_velo,
-            acce prm_acce,
-            int prm_stop_renge
-            );
-
     /**
      * 黒子の仕事を引継ぐ .
-     * 他の GgafDx9Kuroko オブジェクトを状態を自身に引継ぐ .
-     * @param prm_pKuroko 引継元
+     * 他の GgafDx9MvNavigator オブジェクトを状態を自身に引継ぐ .
+     * @param prm_pMvNavigator 引継元
      */
-    void takeoverMvFrom(GgafDx9Kuroko* prm_pKuroko);
+    void takeoverMvFrom(GgafDx9MvNavigator* prm_pMvNavigator);
 
     void resetMv();
 
@@ -1045,9 +952,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      */
     virtual void behave();
 
-    virtual ~GgafDx9Kuroko();
+    virtual ~GgafDx9MvNavigator();
 };
 
 }
-#endif /*GGAFDX9KUROKO_H_*/
+#endif /*GGAFDX9MVNAVIGATOR_H_*/
 

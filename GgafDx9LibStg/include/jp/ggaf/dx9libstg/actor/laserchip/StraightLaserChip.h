@@ -65,9 +65,9 @@ public:
         _pSource_RX = &prm_pGeoActor->_RX;
         _pSource_RY = &prm_pGeoActor->_RY;
         _pSource_RZ = &prm_pGeoActor->_RZ;
-        _pSource_vX = &prm_pGeoActor->_pKuroko->_vX;
-        _pSource_vY = &prm_pGeoActor->_pKuroko->_vY;
-        _pSource_vZ = &prm_pGeoActor->_pKuroko->_vZ;
+        _pSource_vX = &prm_pGeoActor->_pMvNavigator->_vX;
+        _pSource_vY = &prm_pGeoActor->_pMvNavigator->_vY;
+        _pSource_vZ = &prm_pGeoActor->_pMvNavigator->_vZ;
         _pSourceActor = prm_pGeoActor;
     }
 
@@ -78,9 +78,9 @@ public:
         _pSource_RX = &prm_pGeoActor->_RX;
         _pSource_RY = &prm_pGeoActor->_RY;
         _pSource_RZ = &prm_pGeoActor->_RZ;
-        _pSource_vX = &prm_pGeoActor->_pKuroko->_vX;
-        _pSource_vY = &prm_pGeoActor->_pKuroko->_vY;
-        _pSource_vZ = &prm_pGeoActor->_pKuroko->_vZ;
+        _pSource_vX = &prm_pGeoActor->_pMvNavigator->_vX;
+        _pSource_vY = &prm_pGeoActor->_pMvNavigator->_vY;
+        _pSource_vZ = &prm_pGeoActor->_pMvNavigator->_vZ;
         _pSourceActor = prm_pGeoActor;
     }
 

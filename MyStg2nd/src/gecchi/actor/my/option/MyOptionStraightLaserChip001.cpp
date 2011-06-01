@@ -20,7 +20,7 @@ MyOptionStraightLaserChip001::MyOptionStraightLaserChip001(const char* prm_name)
 }
 
 void MyOptionStraightLaserChip001::initialize() {
-    _pKuroko->setRzRyMvAng(0,0);
+    _pMvNavigator->setRzRyMvAng(0,0);
     registHitAreaCube(60000);
     setHitAble(true);
     _SX = _SY = _SZ = 5 * 1000;
@@ -37,8 +37,8 @@ void MyOptionStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
 
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
-    _pKuroko->setMvVelo(80000);
-    _pKuroko->setMvAcce(300);
+    _pMvNavigator->setMvVelo(80000);
+    _pMvNavigator->setMvAcce(300);
     _isLockon = false;
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
         if (_pChip_front == NULL) {

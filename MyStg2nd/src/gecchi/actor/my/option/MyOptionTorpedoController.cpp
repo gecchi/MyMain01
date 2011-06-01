@@ -70,13 +70,13 @@ void MyOptionTorpedoController::fire() {
             } else {
                 _papMyTorpedo[i]->_pTarget = _pMyOption->_pLockonController->_pRingTarget->getNext(i);
             }
-            _papMyTorpedo[i]->_pKuroko->setRzRyMvAng(0, 0);
-            _papMyTorpedo[i]->_pKuroko->getRzRyMvAngDistance(TURN_CLOSE_TO,
+            _papMyTorpedo[i]->_pMvNavigator->setRzRyMvAng(0, 0);
+            _papMyTorpedo[i]->_pMvNavigator->getRzRyMvAngDistance(TURN_CLOSE_TO,
                                                              pa_angWay[i], ANGLE90,
                                                              out_dz, out_dy,
                                                              out_rz, out_ry
                                                             );
-            _papMyTorpedo[i]->_pKuroko->setRzRyMvAng(out_rz, out_ry);
+            _papMyTorpedo[i]->_pMvNavigator->setRzRyMvAng(out_rz, out_ry);
             _papMyTorpedo[i]->activate();
         }
         DELETEARR_IMPOSSIBLE_NULL(pa_angWay);

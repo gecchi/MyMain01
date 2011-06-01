@@ -182,10 +182,18 @@ GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr
     if (prm_idstr == NULL) {
         TRACE3("警告 GgafResourceManager<T>::getConnection(NULL) [" << _manager_name << "]");
     }
-    if (_is_waiting_to_connect == true || _is_connecting_resource == true) {
-        //getConnection() は複数スレッドから受付ない仕様とする。
-        throwGgafCriticalException("GgafResourceManager<T>::getConnection() 現在getConnection()中にもかかわらず、getConnection("<<prm_idstr<<")しました。connectのスレッドを１本にして下さい。");
+    if (_is_waiting_to_connect || _is_connecting_resource) {
+        throwGgafCriticalException("GgafResourceManager<T>::getConnection() 既存のコネクト処理中です。待機が発生しました・・・ getConnection("<<prm_idstr<<")");
     }
+    for(int i = 0; _is_waiting_to_connect || _is_connecting_resource; i++) {
+        Sleep(1);
+        if (i > 1000*60) {
+            //１分以上無応答時
+            _TRACE_("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、既存のコネクト処理を１分待機・・・");
+            throwGgafCriticalException("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、既存のコネクト処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
+        }
+    }
+
 
     //TODO:簡易的な排他。ほぼ完璧だが完全ではない。
     GgafResourceConnection<T>* pObj = NULL;
@@ -194,8 +202,8 @@ GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr
         Sleep(1);
         if (i > 1000*60) {
             //１分以上無応答時
-            _TRACE_("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、１分待機・・・");
-            throwGgafCriticalException("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
+            _TRACE_("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、既存のクローズ処理を１分待機・・・");
+            throwGgafCriticalException("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、既存のクローズ処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
         }
     }
     //TODO:
