@@ -141,7 +141,6 @@ int GgafResourceConnection<T>::close() {
         _TRACE_("GgafResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 。待機が発生しました・・・・意図的ならば良いです。[" << _pManager->_manager_name << "." << _idstr << "]。")
     }
 
-
     for(int i = 0; _is_closing_resource || GgafResourceManager<T>::_is_connecting_resource; i++) {
         Sleep(1);
         if (i > 1000*60) {
@@ -149,6 +148,7 @@ int GgafResourceConnection<T>::close() {
                                        "現在 connect() 或いは close() 中にもかかわらず、close()しようとしてタイムアウトになりました。connect～colse のスレッドを１本にして下さい。")
         }
     }
+    _is_closing_resource = true;
 
     if (_num_connection <= 0) {
         TRACE3("GgafResourceManager::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << _num_connection << "Connection] ＜警告＞既にコネクションは無いにもかかわらず、close() しようとしてます。");
@@ -156,24 +156,8 @@ int GgafResourceConnection<T>::close() {
         return _num_connection;
     }
 
-
-
-
     GgafResourceConnection<T>* pCurrent;
     GgafResourceConnection<T>* pPrev;
-
-    //TODO:完全ではない。
-    for(int i = 0; GgafResourceManager<T>::_is_connecting_resource; i++) {
-        Sleep(1);
-        if (i > 1000*60) {
-            //１分以上無応答時
-            _TRACE_("GgafResourceConnection<T>::close() _idstr="<<getIdStr()<<" close()しようとして、１分待機・・・");
-            throwGgafCriticalException("GgafResourceConnection<T>::close() タイムアウト。_idstr="<<getIdStr()<<" close()しようとして、１分以上待機しました。排他処理が崩壊しているか、処理が遅すぎます。")
-        }
-    }
-    _is_closing_resource = true;
-
-
     pCurrent = _pManager->_pFirstConnection;
     pPrev = NULL;
     while (pCurrent) {

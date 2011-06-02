@@ -194,7 +194,8 @@ GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr
             throwGgafCriticalException("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、既存のコネクト処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
         }
     }
-
+    _is_waiting_to_connect = false;
+    _is_connecting_resource = true;
 
     //TODO:簡易的な排他。ほぼ完璧だが完全ではない。
     GgafResourceConnection<T>* pObj = NULL;
@@ -214,8 +215,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr
     //たぶん全ての getConnection() 呼び出し元で getConnection() 失敗時の処理を定義しなくてはいけなくなる。
     //templateにしたのは失敗だったのか；（void*にすべきだったか）。
     //時間のあるときにちゃんと勉強してやろう。今は後回し。
-    _is_waiting_to_connect = false;
-    _is_connecting_resource = true;
+
     pObj = find(prm_idstr);
     if (pObj == NULL) {
         //未生成ならば生成。接続カウンタを１
