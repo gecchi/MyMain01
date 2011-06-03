@@ -14,7 +14,7 @@ MyOptionControllerDirectionVector::MyOptionControllerDirectionVector(const char*
 void MyOptionControllerDirectionVector::initialize() {
     setAlpha(0.3);
     setHitAble(false);
-    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateFaceAngWithMvAng(true);
 }
 
 void MyOptionControllerDirectionVector::onActive() {

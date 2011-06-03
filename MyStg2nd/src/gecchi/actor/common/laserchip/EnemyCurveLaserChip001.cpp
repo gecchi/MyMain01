@@ -15,7 +15,7 @@
 //}
 //
 //void EnemyCurveLaserChip001::initialize() {
-//    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+//    _pMvNavigator->relateFaceAngWithMvAng(true);
 //    registHitAreaCube(80000);
 //    setHitAble(true);
 //    _SX = _SY = _SZ = 6 * 1000;

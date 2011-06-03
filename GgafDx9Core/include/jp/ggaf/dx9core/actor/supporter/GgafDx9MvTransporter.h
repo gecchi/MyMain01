@@ -124,7 +124,7 @@ public:
         _gravitation_mv_seq_flg = false;
     }
 
-    void orderGravitationVxyzMvSequence(
+    void execGravitationVxyzMvSequence(
             int prm_tX, int prm_tY, int prm_tZ,
             velo prm_max_velo,
             acce prm_acce,
@@ -132,7 +132,7 @@ public:
             );
 
 
-    void orderGravitationVxyzMvSequence(
+    void execGravitationVxyzMvSequence(
             GgafDx9GeometricActor* prm_pActor_target,
             velo prm_max_velo,
             acce prm_acce,

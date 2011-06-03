@@ -437,7 +437,7 @@ void GgafDx9MvTransporter::forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_
 
 
 
-void GgafDx9MvTransporter::orderGravitationVxyzMvSequence(
+void GgafDx9MvTransporter::execGravitationVxyzMvSequence(
         int prm_tX, int prm_tY, int prm_tZ,
         velo prm_max_velo,
         acce prm_acce,
@@ -457,7 +457,7 @@ void GgafDx9MvTransporter::orderGravitationVxyzMvSequence(
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void GgafDx9MvTransporter::orderGravitationVxyzMvSequence(
+void GgafDx9MvTransporter::execGravitationVxyzMvSequence(
         GgafDx9GeometricActor* prm_pActor_target,
         velo prm_max_velo,
         acce prm_acce,

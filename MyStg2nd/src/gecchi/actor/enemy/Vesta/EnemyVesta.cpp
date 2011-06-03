@@ -42,7 +42,7 @@ void EnemyVesta::initialize() {
     setHitAble(true);
     //_pMvNavigator->setRzMvAngVelo(1000);
     //_pMvNavigator->setRyMvAngVelo(500);
-    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateFaceAngWithMvAng(true);
     _pMorpher->forceWeightRange(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
     _pCollisionChecker->makeCollision(1);
@@ -141,7 +141,7 @@ void EnemyVesta::processBehavior() {
                 GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDispatcher_Fired->employ();
                 if (pActor) {
                     pActor->locateAs(this);
-                    pActor->_pMvNavigator->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pMvNavigator->relateFaceAngWithMvAng(true);
                     //＜現在の最終的な向きを、RzRyで取得する＞
                     //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
                     //元の方向ベクトルを(_Xorg,_Yorg,_Zorg)、
@@ -210,7 +210,7 @@ void EnemyVesta::processBehavior() {
         angle angRz_Target, angRy_Target;
         GgafDx9Util::getRzRyAng(TvX, TvY, TvZ,
                                 angRz_Target, angRy_Target);
-        _pMvNavigator->orderTagettingMvAngSequence(angRz_Target, angRy_Target,
+        _pMvNavigator->execTurnMvAngSequence(angRz_Target, angRy_Target,
                                            1000, 0,
                                            TURN_CLOSE_TO);
     }

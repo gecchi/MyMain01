@@ -53,7 +53,7 @@ void MyTorpedo::onActive() {
     _pMvNavigator->forceMvVeloRange(200, 80000);
     _pMvNavigator->forceRzMvAngVeloRange(-40000, 40000);
     _pMvNavigator->forceRyMvAngVeloRange(-40000, 40000);
-    _pMvNavigator->stopTagettingMvAngSequence();
+    _pMvNavigator->stopTurnMvAngSequence();
     _begin_X = _X;
     _begin_Y = _Y;
     _begin_Z = _Z;
@@ -87,12 +87,12 @@ void MyTorpedo::processBehavior() {
                 //減速終了
                 _pMvNavigator->setMvAcce(500);
                 if (_pTarget) {
-                    _pMvNavigator->orderTagettingMvAngSequence(
+                    _pMvNavigator->execTurnMvAngSequence(
                                 _pTarget,
                                 2000, 200,
                                 TURN_CLOSE_TO, false);
                 } else {
-                    _pMvNavigator->orderTagettingMvAngSequence(
+                    _pMvNavigator->execTurnMvAngSequence(
                                 GgafDx9Universe::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                 2000, 200,
                                 TURN_CLOSE_TO, false);
@@ -103,7 +103,7 @@ void MyTorpedo::processBehavior() {
 
         //ムーブ１
         if (_move_section == 1) {
-            if (_pMvNavigator->isTagettingMvAng()) {
+            if (_pMvNavigator->isTurningMvAng()) {
                 //ターゲット完了を待つ
             } else {
                 //ターゲット完了
@@ -117,7 +117,7 @@ void MyTorpedo::processBehavior() {
                 if (getActivePartFrame() % 10 == 0) {
                     if (_pTarget) {
                         if (_pTarget->isActiveActor())  {
-                            _pMvNavigator->orderTagettingMvAngSequence(
+                            _pMvNavigator->execTurnMvAngSequence(
                                         _pTarget,
                                         1000, 200,
                                         TURN_CLOSE_TO, false);
@@ -129,7 +129,7 @@ void MyTorpedo::processBehavior() {
                             _pMvNavigator->setRyMvAngAcce(0);
                         }
                     } else {
-                            _pMvNavigator->orderTagettingMvAngSequence(
+                            _pMvNavigator->execTurnMvAngSequence(
                                         GgafDx9Universe::_X_goneRight, _Y, _Z,
                                         1000, 200,
                                         TURN_CLOSE_TO, false);
@@ -147,7 +147,7 @@ void MyTorpedo::processBehavior() {
                 if (getActivePartFrame() % 20 == 0) {
                     if (_pTarget) {
                         if (_pTarget->isActiveActor())  {
-                            _pMvNavigator->orderTagettingMvAngSequence(
+                            _pMvNavigator->execTurnMvAngSequence(
                                         _pTarget,
                                         300, 0,
                                         TURN_CLOSE_TO, false);
@@ -159,7 +159,7 @@ void MyTorpedo::processBehavior() {
                             _pMvNavigator->setRyMvAngAcce(0);
                         }
                     } else {
-                            _pMvNavigator->orderTagettingMvAngSequence(
+                            _pMvNavigator->execTurnMvAngSequence(
                                         GgafDx9Universe::_X_goneRight, _Y, _Z,
                                         300, 0,
                                         TURN_CLOSE_TO, false);

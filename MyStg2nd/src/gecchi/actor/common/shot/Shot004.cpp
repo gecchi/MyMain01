@@ -23,7 +23,7 @@ void Shot004::onReset() {
     setAlpha(0.99); //半透明にすることで両面レンダリング
     _pMvNavigator->setMvVelo(40000);             //移動速度
     _pMvNavigator->setMvAcce(1000);             //移動速度
-    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateFaceAngWithMvAng(true);
 }
 
 void Shot004::onActive() {

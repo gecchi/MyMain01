@@ -169,7 +169,7 @@ void EnemyAstraea::processBehavior() {
         _iMovePatternNo++;
     } else if (_iMovePatternNo == 1 && _X > P_MYSHIP->_X-400000) {
         if (getBehaveingFrame() % _laser_interval == 0) {
-            _pMvNavigator->orderTagettingFaceAngSequence(P_MYSHIP,
+            _pMvNavigator->execTurnFaceAngSequence(P_MYSHIP,
                                                 _angveloTurn*20, 0,
                                                 TURN_COUNTERCLOCKWISE, false);
             _iMovePatternNo++;
@@ -177,7 +177,7 @@ void EnemyAstraea::processBehavior() {
         } else {
         }
     } else if (_iMovePatternNo == 2) {
-        if (!_pMvNavigator->isTagettingFaceAng()) {
+        if (!_pMvNavigator->isTurningFaceAng()) {
             //©‹@‚É‚ª‚¢‚½•ûŒü‚ÉU‚èŒü‚«‚ªŠ®—¹
             _iMovePatternNo++;
         }

@@ -24,7 +24,7 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     MyStgUtil::resetShot001Status(_pStatus);
     setHitAble(true);
-    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateFaceAngWithMvAng(true);
     _pMvNavigator->setMvVelo(5000+_RANK_*5000);             //ˆÚ“®‘¬“x
     _pMvNavigator->setFaceAngVelo(AXIS_X, 6000+_RANK_*6000); //‚«‚è‚à‚İ‹ï‡
     _pSplineProgram->begin(2);

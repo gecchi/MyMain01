@@ -76,7 +76,7 @@ void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     for (int i = prm_now_level; i < prm_new_level; i++) {
         _papEffect[i]->_pMvNavigator->setMvVelo(0);
         _papEffect[i]->_pMvNavigator->setMvAcce(0);
-        _papEffect[i]->_pMvTransporter->orderGravitationVxyzMvSequence(
+        _papEffect[i]->_pMvTransporter->execGravitationVxyzMvSequence(
                P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
                P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[i]->_Yorg,
                P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg,
@@ -84,7 +84,7 @@ void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
 //
 //        _papEffect[i]->_pMvNavigator->setMvVelo(1000);
 //        _papEffect[i]->_pMvNavigator->setMvAcce(100);
-//        _papEffect[i]->_pMvNavigator->orderTagettingMvAngSequence(P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
+//        _papEffect[i]->_pMvNavigator->execTurnMvAngSequence(P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
 //                                                           P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[i]->_Yorg,
 //                                                           P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg,
 //                                                           3000,
@@ -112,7 +112,7 @@ void OptionMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level)
 //            ok++;
 //            _papEffect[i]->_pMvNavigator->setMvVelo(500);
 //        }
-//        _papEffect[i]->_pMvNavigator->orderTagettingMvAngSequence(targetX,
+//        _papEffect[i]->_pMvNavigator->execTurnMvAngSequence(targetX,
 //                                                           targetY,
 //                                                           targetZ,
 //                                                           40000,

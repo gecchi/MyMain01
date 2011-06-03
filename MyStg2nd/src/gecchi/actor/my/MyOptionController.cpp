@@ -118,7 +118,7 @@ void MyOptionController::onReset() {
     _pMvNavigator->forceRzMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
     _pMvNavigator->setRzRyMvAng(0,0);
     _way_myship_prev = P_MYSHIP->_way;
-    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateFaceAngWithMvAng(true);
     _pMvNavigator->behave();
 }
 
@@ -134,7 +134,7 @@ void MyOptionController::processBehavior() {
 
     if (VB_PLAY->isDoublePushedDown(VB_OPTION,8,8)) {
         //‚à‚Æ‚É–ß‚·
-        _pMvNavigator->orderTagettingMvAngSequence(
+        _pMvNavigator->execTurnMvAngSequence(
                         0,
                         0,
                         20000, 0,

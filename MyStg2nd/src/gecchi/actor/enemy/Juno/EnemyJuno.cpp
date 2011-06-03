@@ -46,7 +46,7 @@ void EnemyJuno::onActive() {
     _frame_when_shot = 0;
     _veloMv_begin = _pMvNavigator->_veloMv; //‰ŠúˆÚ“®‘¬“x‚ð•Û‘¶
     _pMvNavigator->setFaceAng(AXIS_X, 0);
-    //_pMvNavigator->orderTagettingMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
+    //_pMvNavigator->execTurnMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
 }
 
 void EnemyJuno::processBehavior() {
@@ -56,14 +56,14 @@ void EnemyJuno::processBehavior() {
     if (_do_Shot) {
         if (getActivePartFrame() == _frame_when_shot) {
             _pMvNavigator->setMvVelo(500); //Œ¸‘¬
-            _pMvNavigator->orderTagettingRxSpinAngleSequence(ANGLE180, 8000, 0, TURN_CLOCKWISE);
+            _pMvNavigator->execTurnRxSpinAngSequence(ANGLE180, 8000, 0, TURN_CLOCKWISE);
         } else if (getActivePartFrame() == _frame_when_shot + 20) {
             if (_pDispatcher_Shot) {
                 GgafDx9DrawableActor* pShot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pShot) {
                     _nShot++;
                     pShot->locateAs(this);
-                    pShot->_pMvNavigator->relateRzRyFaceAngToMvAng(true);
+                    pShot->_pMvNavigator->relateFaceAngWithMvAng(true);
                     pShot->_pMvNavigator->setMvAng(P_MYSHIP);
                     pShot->reset();
                     pShot->activate();

@@ -191,7 +191,7 @@ GgafDx9MvNavigator::GgafDx9MvNavigator(GgafDx9GeometricActor* prm_pActor) :
     //–Ú•W‚ÌˆÚ“®•ûŠpiZŽ²‰ñ“]jŽ©“®’âŽ~‹@”\‚ª—LŒø‚É‚È‚éˆÚ“®•ûŠpŠp‘¬“x(Šp‘¬“x³•‰‹¤’Ê)
     _mv_ang_rz_target_allow_velo = ANGLE180;
     //ˆÚ“®•ûŠpiZŽ²‰ñ“]j‚É”º‚¢ZŽ²‰ñ“]•ûŠp‚Ì“¯Šú‚ðŽæ‚é‹@”\ƒtƒ‰ƒO  –³Œø
-    _relate_RzFaceAng_to_RzMvAng_flg = false; //—LŒø‚Ìê‡‚ÍAˆÚ“®•ûŠp‚ðÝ’è‚·‚é‚ÆZŽ²‰ñ“]•ûŠp‚ª“¯‚¶‚É‚È‚éB
+    _relate_RzFaceAng_with_RzMvAng_flg = false; //—LŒø‚Ìê‡‚ÍAˆÚ“®•ûŠp‚ðÝ’è‚·‚é‚ÆZŽ²‰ñ“]•ûŠp‚ª“¯‚¶‚É‚È‚éB
 
     //ˆÚ“®•ûŠpiYŽ²‰ñ“]j‚ÌŠp‘¬“x = 0 angle/fream
     _angveloRyMv = 0; //1ƒtƒŒ[ƒ€‚É‰ÁŽZ‚³‚ê‚éˆÚ“®•ûŠp‚ÌŠp‘•ªBƒfƒtƒHƒ‹ƒg‚ÍˆÚ“®•ûŠp‚ÌŠp‘•ª–³‚µA‚Â‚Ü‚è’¼üˆÚ“®B
@@ -214,7 +214,7 @@ GgafDx9MvNavigator::GgafDx9MvNavigator(GgafDx9GeometricActor* prm_pActor) :
     //–Ú•W‚ÌˆÚ“®•ûŠpiYŽ²‰ñ“]jŽ©“®’âŽ~‹@”\‚ª—LŒø‚É‚È‚éˆÚ“®•ûŠpŠp‘¬“x(Šp‘¬“x³•‰‹¤’Ê)
     _mv_ang_ry_target_allow_velo = ANGLE180;
     //ˆÚ“®•ûŠpiYŽ²‰ñ“]j‚É”º‚¢ZŽ²‰ñ“]•ûŠp‚Ì“¯Šú‚ðŽæ‚é‹@”\ƒtƒ‰ƒO  –³Œø
-    _relate_RyFaceAng_to_RyMvAng_flg = false; //—LŒø‚Ìê‡‚ÍAˆÚ“®•ûŠp‚ðÝ’è‚·‚é‚ÆZŽ²‰ñ“]•ûŠp‚ª“¯‚¶‚É‚È‚éB
+    _relate_RyFaceAng_with_RyMvAng_flg = false; //—LŒø‚Ìê‡‚ÍAˆÚ“®•ûŠp‚ðÝ’è‚·‚é‚ÆZŽ²‰ñ“]•ûŠp‚ª“¯‚¶‚É‚È‚éB
 
     _smooth_mv_velo_seq_flg = false;
     _smooth_mv_velo_seq_endacc_flg = true;
@@ -349,7 +349,7 @@ void GgafDx9MvNavigator::behave() {
             //–Ú•WŽžŠÔŽw’è‚Ìê‡
             if (_smooth_mv_velo_seq_progress == 0) {
                 //‰Á‘¬Ý’è
-                setMvAcce(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
+                setMvAcce2(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
                 _smooth_mv_velo_seq_progress++;
             } else if (_smooth_mv_velo_seq_progress == 1) {
                 //‰Á‘¬’†
@@ -510,13 +510,13 @@ void GgafDx9MvNavigator::behave() {
     ///////////////
     if (_taget_mv_ang_alltime_pActor && _mv_ang_ry_target_flg == false && _mv_ang_ry_target_flg == false) {
         if (_taget_mv_ang_alltime_pActor) {
-            keepTagetingMvAngAllTime(
+            keepTurnMvAngAllTime(
                     _taget_mv_ang_alltime_pActor,
                     _taget_mv_ang_alltime_angVelo,
                     _taget_mv_ang_alltime_angAcce,
                     _taget_mv_ang_alltime_optimize_ang);
         } else {
-            keepTagetingMvAngAllTime(
+            keepTurnMvAngAllTime(
                     _taget_mv_ang_alltime_pActor->_X - _pActor->_X,
                     _taget_mv_ang_alltime_pActor->_Y - _pActor->_Y,
                     _taget_mv_ang_alltime_pActor->_Z - _pActor->_Z,
@@ -839,11 +839,9 @@ void GgafDx9MvNavigator::setMvAcce(int prm_distance_of_target, velo prm_velo_tar
     //
     //    Œ‹‹Ç a = (vx^2 - v0^2) / 2S ‚Æ‚È‚é‚Ì‚Å
     //    v0 <= 0  ‚©‚Â  vx <= 0 ê‡A‚ ‚é‚¢‚Í  v0 >= 0  ‚©‚Â  vx >= 0  ê‡‚Æ“¯‚¶‚Å‚ ‚é
-
-
 }
 
-void GgafDx9MvNavigator::orderSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
+void GgafDx9MvNavigator::execSmoothMvVeloSequence1(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
                                                     bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
@@ -859,7 +857,7 @@ void GgafDx9MvNavigator::orderSmoothMvVeloSequence(velo prm_top_velo, velo prm_e
 }
 
 
-void GgafDx9MvNavigator::orderSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
+void GgafDx9MvNavigator::execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
                                                     bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
@@ -874,15 +872,15 @@ void GgafDx9MvNavigator::orderSmoothMvVeloSequence2(velo prm_top_velo, velo prm_
     _smooth_mv_velo_seq_progress = 0;
 }
 
-void GgafDx9MvNavigator::orderSmoothMvVeloSequence3(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
+void GgafDx9MvNavigator::execSmoothMvVeloSequenceEx(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
                                                       bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
-    _smooth_mv_velo_seq_p1 = (int)(prm_distance_of_target*1.0 / 4.0);
-    _smooth_mv_velo_seq_p2 = (int)(prm_distance_of_target*3.0 / 4.0);
+    _smooth_mv_velo_seq_p1 = (int)(prm_frame_of_spend*1.0 / 4.0);
+    _smooth_mv_velo_seq_p2 = (int)(prm_frame_of_spend*3.0 / 4.0);
     _smooth_mv_velo_seq_end_velo = prm_end_velo;
     _smooth_mv_velo_seq_distance_of_target = prm_distance_of_target;
     _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_frame_of_spend = -1; //–Ú•WŽžŠÔ‚ÍŽg‚í‚È‚¢(_smooth_mv_velo_seq_top_veloŒvŽZ‚Ål—¶‚³‚ê‚é‚½‚ß)
+    _smooth_mv_velo_seq_frame_of_spend = prm_frame_of_spend;
     _smooth_mv_velo_seq_spend_frame = 0;
     _smooth_mv_velo_seq_progress = 0;
 
@@ -912,6 +910,107 @@ void GgafDx9MvNavigator::orderSmoothMvVeloSequence3(velo prm_end_velo, int prm_d
     _smooth_mv_velo_seq_top_velo = (8.0*prm_distance_of_target/prm_frame_of_spend - _veloMv - prm_end_velo) / 6.0;
 }
 
+//void GgafDx9MvNavigator::execSmoothMvVeloSequence4(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
+//                                                      bool prm_endacc_flg) {
+//    _smooth_mv_velo_seq_flg = true;
+//    _smooth_mv_velo_seq_p1 = (int)(prm_distance_of_target*1.0 / 4.0);
+//    _smooth_mv_velo_seq_p2 = (int)(prm_distance_of_target*3.0 / 4.0);
+//    _smooth_mv_velo_seq_end_velo = prm_end_velo;
+//    _smooth_mv_velo_seq_distance_of_target = prm_distance_of_target;
+//    _smooth_mv_velo_seq_mv_distance = 0;
+//    _smooth_mv_velo_seq_frame_of_spend = -1; //–Ú•WŽžŠÔ‚ÍŽg‚í‚È‚¢ê‡‚Í•‰‚ðÝ’è‚µ‚Ä‚¨‚­(ðŒ•ªŠò‚ÅŽg—p)
+//    _smooth_mv_velo_seq_spend_frame = 0;
+//    _smooth_mv_velo_seq_progress = 0;
+//
+//    //    ‘¬“x
+//    //     ^
+//    //     |                       S:ˆÚ“®‹——£
+//    //     |                      vs:Œ»Žž“_‚Ì‘¬“x
+//    //     |                      vx:‹——£1/4 ` 3/4 ‚Ì‘¬“x
+//    //     |                      ve:ÅI–Ú•W“ž’B‘¬“x
+//    //   vx|....QQQQ            t:–Ú•W“ž’B‘¬“x‚É’B‚µ‚½Žž‚ÌŽžŠÔiƒtƒŒ[ƒ€”j
+//    //     |   /|      |_
+//    //   ve|../.|......|.._
+//    //     | /  |      |   |
+//    //     |/   |      |   |
+//    //   vs| 1/4|  2/4 |1/4|
+//    //     |  S |   S  | S |
+//    //   --+----+------+---+-----> ŽžŠÔ(ƒtƒŒ[ƒ€)
+//    //   0 |   tp1    tp2  t
+//
+//    // ‹——£‚Í u‘äŒ`{’·•ûŒ`{‘äŒ`v ‚Ì–ÊÏB‚ä‚¦‚É
+//    // (1/4)S = (1/2) (vs + vx) tp1           c‡@ ‘äŒ`
+//    // (2/4)S = vx (tp2 - tp1)                c‡A ’·•ûŒ`
+//    // (1/4)S = (1/2) (ve + vx) (t - tp2)     c‡B ‘äŒ`
+//
+//
+//    // (1/4)S = vx tp1 -  (1/2) tp1 (vx - vs)
+//    // ‚Ü‚½A‹——£‚Í u‘S‘Ì‚Ì’·•ûŒ` ] ŽOŠpŒ`•”•ª‚Q‚Âv ‚Ì–ÊÏ‚Å‚à‚ ‚éB‚ä‚¦‚É
+//    // S = t vx - (1/2) tp1 (vx - vs) - (1/2) (t - tp2) (vx - ve) c‡C
+//
+//    //‡@‚æ‚è
+//    //tp1 = (S / 2 (vs + vx) )        c‡D
+//    //‡B‚æ‚è
+//    //(t - tp2) = (S / 2 (ve + vx) )  c‡E
+//    //‡D‡E‚ð‡C‚Ö‘ã“ü
+//    //S = t vx - S(vx - vs) / 4 (vs + vx) - S(vx - ve) / 4 (ve + vx)
+//    //‚±‚ê‚ðvx‚É‚Â‚¢‚Ä‰ð‚­‚Æ
+//
+////    vx =
+////    (sqrt((-9*vs^2+9*ve*vs-9*ve^2)*S^4-(4*t*vs^3-6*t*ve*vs^2-6*t*ve^2*vs+4*t*ve^3)*S^3+(-4*t^2*vs^4+8*t^2*ve*vs^3-12*t^2*ve^2*vs^2+8*t^2*ve^3*vs-4*t^2*ve^4)*S^2-4*t^4*ve^2*vs^4+8*t^4*ve^3*vs^3-4*t^4*ve^4*vs^2)/(4*3^(3/2)*t^2)-
+////    (t^3*(8*vs^3-12*ve*vs^2-12*ve^2*vs+8*ve^3)-27*S^3)/(216*t^3))^(1/3)+(9*S^2+t^2*(4*vs^2-4*ve*vs+4*ve^2))/(36*t^2*(
+////    sqrt((-9*vs^2+9*ve*vs-9*ve^2)*S^4-(4*t*vs^3-6*t*ve*vs^2-6*t*ve^2*vs+4*t*ve^3)*S^3+(-4*t^2*vs^4+8*t^2*ve*vs^3-12*t^2*ve^2*vs^2+8*t^2*ve^3*vs-4*t^2*ve^4)*S^2-4*t^4*ve^2*vs^4+8*t^4*ve^3*vs^3-4*t^4*ve^4*vs^2)/(4*3^(3/2)*t^2)-
+////    (t^3*(8*vs^3-12*ve*vs^2-12*ve^2*vs+8*ve^3)-27*S^3)/(216*t^3))^(1/3))+(3*S-t*(2*vs+2*ve))/(6*t)
+//
+//
+//
+//
+//
+//    //    ‘¬“x
+//    //     ^
+//    //     |                S:ˆÚ“®‹——£
+//    //     |               vs:Œ»Žž“_‚Ì‘¬“x
+//    //     |               vx:‹——£1/4 ` 3/4 ‚Ì‘¬“x
+//    //     |               ve:ÅI–Ú•W“ž’B‘¬“x
+//    //   vx|....         t:–Ú•W“ž’B‘¬“x‚É’B‚µ‚½Žž‚ÌŽžŠÔiƒtƒŒ[ƒ€”j
+//    //     |   /|_
+//    //   ve|../.|.._
+//    //     | /  |   |
+//    //     |/   |   |
+//    //   vs| 1/2|1/2|
+//    //     |  S | S |
+//    //   --+----+---+-----> ŽžŠÔ(ƒtƒŒ[ƒ€)
+//    //   0 |   tp1    tp2  t
+////
+////        // ‹——£‚Í u‘äŒ`{‘äŒ`v ‚Ì–ÊÏB‚ä‚¦‚É
+////        // (1/2)S = (1/2) (vs + vx) tp           c‡@ ‘äŒ`
+////        // (1/2)S = (1/2) (ve + vx) (t - tp)     c‡A ‘äŒ`
+////
+////
+////        // ‚Ü‚½A‹——£‚Í u‘S‘Ì‚Ì’·•ûŒ` ] ŽOŠpŒ`•”•ª‚Q‚Âv ‚Ì–ÊÏ‚Å‚à‚ ‚éB‚ä‚¦‚É
+////        // S = t vx - (1/2) tp (vx - vs) - (1/2) (t - tp) (vx - ve) c‡B
+////
+////        //‡@‚æ‚è
+////        //tp = S / (vs + vx)        c‡C
+////        //‡A‚æ‚è
+////        //(t - tp) = S / (ve + vx)   c‡D
+////        //‡C‡D‚ð‡B‚Ö‘ã“ü
+////        // S = t vx - (1/2) (S / (vs + vx)) (vx - vs) - (1/2) (S / (ve + vx)) (vx - ve) c‡B
+////        //‚±‚ê‚ðvx‚É‚Â‚¢‚Ä‰ð‚­‚Æ
+////
+////
+////    S = (t*vx) - ((1/2)*(S / (vs + vx))*(vx - vs)) - ((1/2)*(S / (ve + vx))*(vx - ve))
+////    vx=(sqrt(4*S^2+t^2*vs^2-2*t^2*ve*vs+t^2*ve^2)-2*S+t*vs+t*ve)/(2*t),
+////    vx=(sqrt(4*S^2+t^2*vs^2-2*t^2*ve*vs+t^2*ve^2)+2*S-t*vs-t*ve)/(2*t)
+////    vx=0
+//
+//
+//
+//    _smooth_mv_velo_seq_top_velo = (8.0*prm_distance_of_target/prm_frame_of_spend - _veloMv - prm_end_velo) / 6.0;
+//}
+
+
+
 bool GgafDx9MvNavigator::isMoveingSmooth() {
     return _smooth_mv_velo_seq_flg;
 }
@@ -926,7 +1025,7 @@ void GgafDx9MvNavigator::setRzMvAng(angle prm_ang) {
         _angRzMv = GgafDx9Util::simplifyAng(prm_ang);
         GgafDx9Util::getNormalizeVectorZY(_angRzMv, _angRyMv, _vX, _vY, _vZ);
     }
-    if (_relate_RzFaceAng_to_RzMvAng_flg) {
+    if (_relate_RzFaceAng_with_RzMvAng_flg) {
         setFaceAng(AXIS_Z, _angRzMv);
     }
 }
@@ -1112,7 +1211,7 @@ void GgafDx9MvNavigator::setRyMvAng(angle prm_ang) {
         _angRyMv = GgafDx9Util::simplifyAng(prm_ang);
         GgafDx9Util::getNormalizeVectorZY(_angRzMv, _angRyMv, _vX, _vY, _vZ);
     }
-    if (_relate_RyFaceAng_to_RyMvAng_flg) {
+    if (_relate_RyFaceAng_with_RyMvAng_flg) {
         setFaceAng(AXIS_Y, _angRyMv);
     }
 }
@@ -1432,10 +1531,10 @@ void GgafDx9MvNavigator::setRzRyMvAng(angle prm_angRz, angle prm_angRy) {
         _angRyMv = GgafDx9Util::simplifyAng(prm_angRy);
         GgafDx9Util::getNormalizeVectorZY(_angRzMv, _angRyMv, _vX, _vY, _vZ);
     }
-    if (_relate_RzFaceAng_to_RzMvAng_flg) {
+    if (_relate_RzFaceAng_with_RzMvAng_flg) {
         setFaceAng(AXIS_Z, _angRzMv);
     }
-    if (_relate_RyFaceAng_to_RyMvAng_flg) {
+    if (_relate_RyFaceAng_with_RyMvAng_flg) {
         setFaceAng(AXIS_Y, _angRyMv);
     }
 }
@@ -1448,10 +1547,10 @@ void GgafDx9MvNavigator::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_an
     _vY = -1.0f*out_vZ;
     _vZ = out_vY;
     GgafDx9Util::getRzRyAng(_vX, _vZ, _vY, _angRzMv, _angRyMv);
-    if (_relate_RzFaceAng_to_RzMvAng_flg) {
+    if (_relate_RzFaceAng_with_RzMvAng_flg) {
         setFaceAng(AXIS_Z, _angRzMv);
     }
-    if (_relate_RyFaceAng_to_RyMvAng_flg) {
+    if (_relate_RyFaceAng_with_RyMvAng_flg) {
         setFaceAng(AXIS_Y, _angRyMv);
     }
 }
@@ -1475,10 +1574,10 @@ void GgafDx9MvNavigator::setMvAng(int prm_tX, int prm_tY, int prm_tZ) {
                    _angRzMv,
                    _angRyMv
                  );
-    if (_relate_RzFaceAng_to_RzMvAng_flg) {
+    if (_relate_RzFaceAng_with_RzMvAng_flg) {
         setFaceAng(AXIS_Z, _angRzMv);
     }
-    if (_relate_RyFaceAng_to_RyMvAng_flg) {
+    if (_relate_RyFaceAng_with_RyMvAng_flg) {
         setFaceAng(AXIS_Y, _angRyMv);
     }
 }
@@ -1512,7 +1611,7 @@ void GgafDx9MvNavigator::setStopTarget_RzRyMvAng(int prm_tX, int prm_tY, int prm
 
 
 
-void GgafDx9MvNavigator::orderTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+void GgafDx9MvNavigator::execTurnFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way, bool prm_optimize_ang) {
     angle out_d_angRz;
@@ -1546,7 +1645,7 @@ void GgafDx9MvNavigator::orderTagettingFaceAngSequence(angle prm_angRz_Target, a
     setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
 }
 
-void GgafDx9MvNavigator::orderTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+void GgafDx9MvNavigator::execTurnFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
@@ -1556,12 +1655,12 @@ void GgafDx9MvNavigator::orderTagettingFaceAngSequence(int prm_tX, int prm_tY, i
                             prm_tZ - _pActor->_Z,
                             out_angRz_Target,
                             out_angRy_Target);
-    orderTagettingFaceAngSequence(out_angRz_Target, out_angRy_Target,
+    execTurnFaceAngSequence(out_angRz_Target, out_angRy_Target,
                                  prm_angVelo, prm_angAcce,
                                  prm_way, prm_optimize_ang);
 }
 
-void GgafDx9MvNavigator::orderTagettingRzFaceAngSequence(angle prm_angRz_Target,
+void GgafDx9MvNavigator::execTurnRzFaceAngSequence(angle prm_angRz_Target,
                                                           angvelo prm_angVelo, angacce prm_angAcce,
                                                           int prm_way) {
     if (getFaceAngDistance(AXIS_Z, prm_angRz_Target, prm_way) > 0) {
@@ -1575,7 +1674,7 @@ void GgafDx9MvNavigator::orderTagettingRzFaceAngSequence(angle prm_angRz_Target,
 
 }
 
-void GgafDx9MvNavigator::orderTagettingRyFaceAngSequence(angle prm_angRy_Target,
+void GgafDx9MvNavigator::execTurnRyFaceAngSequence(angle prm_angRy_Target,
                                                           angvelo prm_angVelo, angacce prm_angAcce,
                                                           int prm_way) {
     if (getFaceAngDistance(AXIS_Y, prm_angRy_Target, prm_way) > 0) {
@@ -1588,7 +1687,7 @@ void GgafDx9MvNavigator::orderTagettingRyFaceAngSequence(angle prm_angRy_Target,
     setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
 }
 
-void GgafDx9MvNavigator::orderTagettingRxSpinAngleSequence(angle prm_angRx_Target,
+void GgafDx9MvNavigator::execTurnRxSpinAngSequence(angle prm_angRx_Target,
                                                             angvelo prm_angVelo, angacce prm_angAcce,
                                                             int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_angRx_Target, prm_way) > 0) {
@@ -1601,7 +1700,7 @@ void GgafDx9MvNavigator::orderTagettingRxSpinAngleSequence(angle prm_angRx_Targe
     setStopTarget_FaceAng(AXIS_X, prm_angRx_Target);
 }
 
-void GgafDx9MvNavigator::orderTagettingMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+void GgafDx9MvNavigator::execTurnMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                                       angvelo prm_angVelo, angacce prm_angAcce,
                                                       int prm_way, bool prm_optimize_ang) {
     angle out_d_angRz;
@@ -1640,7 +1739,7 @@ void GgafDx9MvNavigator::orderTagettingMvAngSequence(angle prm_angRz_Target, ang
 }
 
 
-void GgafDx9MvNavigator::orderTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+void GgafDx9MvNavigator::execTurnMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                                       angvelo prm_angVelo, angacce prm_angAcce,
                                                       int prm_way, bool prm_optimize_ang) {
     angle out_angRz_Target;
@@ -1650,13 +1749,13 @@ void GgafDx9MvNavigator::orderTagettingMvAngSequence(int prm_tX, int prm_tY, int
                             prm_tZ - _pActor->_Z,
                             out_angRz_Target,
                             out_angRy_Target);
-    orderTagettingMvAngSequence(out_angRz_Target, out_angRy_Target,
+    execTurnMvAngSequence(out_angRz_Target, out_angRy_Target,
                                prm_angVelo, prm_angAcce,
                                prm_way, prm_optimize_ang);
 }
 
 
-void GgafDx9MvNavigator::orderTagettingRzMvAngSequence(angle prm_angRz_Target,
+void GgafDx9MvNavigator::execTurnRzMvAngSequence(angle prm_angRz_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way) {
     if (getRzMvAngDistance(prm_angRz_Target, prm_way) > 0) {
@@ -1670,7 +1769,7 @@ void GgafDx9MvNavigator::orderTagettingRzMvAngSequence(angle prm_angRz_Target,
 
 }
 
-void GgafDx9MvNavigator::orderTagettingRyMvAngSequence(angle prm_angRy_Target,
+void GgafDx9MvNavigator::execTurnRyMvAngSequence(angle prm_angRy_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way) {
     if (getRyMvAngDistance(prm_angRy_Target, prm_way) > 0) {

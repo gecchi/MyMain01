@@ -47,7 +47,7 @@ FormationJuno::FormationJuno(
     for (int i = 0; i < prm_nJunoStock; i++) {
         EnemyJuno* pEnemyJuno = NEW EnemyJuno("Juno01");
         pEnemyJuno->setDispatcher_Shot(_pDispatcherCon->refer()); //’eÝ’è
-        pEnemyJuno->_pMvNavigator->relateRzRyFaceAngToMvAng(true);
+        pEnemyJuno->_pMvNavigator->relateFaceAngWithMvAng(true);
         pEnemyJuno->_pMvNavigator->setMvVelo(prm_veloMv_Juno);
         pEnemyJuno->_pMvNavigator->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);
         pEnemyJuno->_pMvTransporter->setVxMvVelo(vX_AppBox*prm_veloMv_App);

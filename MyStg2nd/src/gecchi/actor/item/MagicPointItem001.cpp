@@ -17,7 +17,7 @@ MagicPointItem001::MagicPointItem001(const char* prm_name)
     _pMvNavigator->setFaceAngVelo(AXIS_X, 3*1000);
     _pMvNavigator->setFaceAngVelo(AXIS_Y, 5*1000);
     _pMvNavigator->setFaceAngVelo(AXIS_Z, 7*1000);
-    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateFaceAngWithMvAng(true);
     _kDX = _kDY = _kDZ = 0;
 }
 
@@ -93,7 +93,7 @@ void MagicPointItem001::processBehavior() {
             _pMvTransporter->setVxMvVelo(_pMvNavigator->_vX*_pMvNavigator->_veloMv);
             _pMvTransporter->setVyMvVelo(_pMvNavigator->_vY*_pMvNavigator->_veloMv);
             _pMvTransporter->setVzMvVelo(_pMvNavigator->_vZ*_pMvNavigator->_veloMv);
-            _pMvTransporter->orderGravitationVxyzMvSequence(pMyShip, 20000, 1000, 50000);
+            _pMvTransporter->execGravitationVxyzMvSequence(pMyShip, 20000, 1000, 50000);
             _pMvNavigator->setMvVelo(0);
             _pMvNavigator->setMvAcce(0);
             _pMvNavigator->setMvVelo(5000);

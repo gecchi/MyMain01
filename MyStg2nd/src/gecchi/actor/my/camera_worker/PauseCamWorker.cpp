@@ -270,7 +270,7 @@ void PauseCamWorker::processBehavior() {
         pCam->_pMvNavigator->setMvAng(_move_target_X_CAM, _move_target_Y_CAM, _move_target_Z_CAM);
         int td1 = GgafDx9Util::getDistance(pCam->_X, pCam->_Y, pCam->_Z,
                                            _move_target_X_CAM, _move_target_Y_CAM, _move_target_Z_CAM);
-        pCam->_pMvNavigator->orderSmoothMvVeloSequence3(0, td1, 20);
+        pCam->_pMvNavigator->execSmoothMvVeloSequenceEx(0, td1, 20);
     }
     if (abs(_move_target_X_VP - pVP->_X) < 10 && abs(_move_target_Y_VP - pVP->_Y) < 10 && abs(_move_target_Z_VP - pVP->_Z) < 10) {
         //OK
@@ -278,7 +278,7 @@ void PauseCamWorker::processBehavior() {
         pVP->_pMvNavigator->setMvAng(_move_target_X_VP, _move_target_Y_VP, _move_target_Z_VP);
         int td2 = GgafDx9Util::getDistance(pVP->_X, pVP->_Y, pVP->_Z,
                                            _move_target_X_VP, _move_target_Y_VP, _move_target_Z_VP);
-        pVP->_pMvNavigator->orderSmoothMvVeloSequence3(0, td2, 20);
+        pVP->_pMvNavigator->execSmoothMvVeloSequenceEx(0, td2, 20);
     }
 
 

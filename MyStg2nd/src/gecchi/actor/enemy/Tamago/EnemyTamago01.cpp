@@ -31,7 +31,7 @@ void EnemyTamago01::onCreateModel() {
 void EnemyTamago01::initialize() {
 
     setHitAble(true);
-    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateFaceAngWithMvAng(true);
     _pMvNavigator->setFaceAngVelo(AXIS_X, 1000);
     _pMvNavigator->setMvAng(900000, 300000, 300000);
     _pMvNavigator->setMvVelo(2);
@@ -117,7 +117,7 @@ void EnemyTamago01::processBehavior() {
 
     if (_iMovePatternNo == 1) {
         //スプライン移動終了時
-        _pMvNavigator->orderTagettingMvAngSequence(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
+        _pMvNavigator->execTurnMvAngSequence(P_MYSHIP->_X+800000, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                    2000, 0,
                                                    TURN_CLOSE_TO);
         _iMovePatternNo++; //次の行動パターンへ
@@ -131,7 +131,7 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (getBehaveingFrame() % 30 == 0) {
-        _pMvNavigator->orderTagettingMvAngSequence(P_MYSHIP, 2000,0,TURN_CLOSE_TO);
+        _pMvNavigator->execTurnMvAngSequence(P_MYSHIP, 2000,0,TURN_CLOSE_TO);
 
         if (_pDispatcher_Shot) {
             //放射状ショット発射
@@ -146,7 +146,7 @@ void EnemyTamago01::processBehavior() {
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
-                    pActor->_pMvNavigator->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pMvNavigator->relateFaceAngWithMvAng(true);
                     pActor->_pMvNavigator->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
                     pActor->locateAs(this);
                     pActor->activate();

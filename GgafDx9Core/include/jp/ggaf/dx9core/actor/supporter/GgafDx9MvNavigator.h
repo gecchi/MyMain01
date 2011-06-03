@@ -192,7 +192,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /** 目標の移動方角（Z軸回転）自動停止機能が有効になる移動方角角速度 */
     angvelo _mv_ang_rz_target_allow_velo;
     /** 自動前方向き機能有効フラグ */
-    bool _relate_RzFaceAng_to_RzMvAng_flg;
+    bool _relate_RzFaceAng_with_RzMvAng_flg;
     //true  : 移動方角（Z軸回転）を変更すると、それに伴い同じ方角が軸回転方角(Z軸)にも設定される
     //false : 移動方角（Z軸回転）とZ軸軸回転方角は独立
 
@@ -217,7 +217,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /** 目標の移動方角（Y軸回転）自動停止機能が有効になる移動方角角速度 */
     int _mv_ang_ry_target_allow_velo;
     /** 自動前方向き機能有効フラグ */
-    bool _relate_RyFaceAng_to_RyMvAng_flg;
+    bool _relate_RyFaceAng_with_RyMvAng_flg;
     //true  : 移動方角（Y軸回転）を変更すると、それに伴い同じ方角が軸回転方角(Y軸)にも設定される
     //false : 移動方角（Y軸回転）とY軸軸回転方角は独立
 
@@ -306,7 +306,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *    ∴ a = -(v0^2) / 2S
      * </code></pre>
      * 具体的には、の上図のような状態を想定し、加速度(a)を計算し設定している。<BR>
-     * @param prm_distance_of_target 停止時移動距離
+     * @param prm_distance_of_target 停止時移動距離(S)
      */
     void setMvAcceToStop(int prm_distance_of_target);
 
@@ -340,8 +340,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * </code></pre>
      * 具体的には、の上図のような状態を想定し、加速度(a)を計算し設定している。<BR>
      * 捕捉：setMvAcce(0, d) は setMvAcceToStop(d) と同じである
-     * @param prm_velo_target 目標到達速度
-     * @param prm_distance_of_target  目標到達速度に達するまでに費やす距離
+     * @param prm_velo_target 目標到達速度(vx)
+     * @param prm_distance_of_target  目標到達速度に達するまでに費やす距離(S)
      */
     void setMvAcce(int prm_distance_of_target, velo prm_velo_target);
 
@@ -371,15 +371,15 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * </code></pre>
      * 具体的には、の上図のような状態を想定し、加速度(a)を計算し設定している。<BR>
      * 捕捉：setMvAcce(0, d) は setMvAcceToStop(d) と同じである
-     * @param prm_frame_of_spend 費やす時間
-     * @param prm_distance_of_target  目標到達速度に達するまでに費やす距離
+     * @param prm_frame_of_spend 費やす時間(t)
+     * @param prm_velo_target  目標到達速度(vx)
      */
     void setMvAcce2(int prm_frame_of_spend, velo prm_velo_target);
 
     /**
      * Actorの移動方角（Z軸回転）を設定。<BR>
      * 加算後の移動方角（Z軸回転）が範囲外（0～360,000 以外）の値になっても、正しい 0～360,000 の範囲内の値に再計算されます。<BR>
-     * 自動前方向き機能が有効(_relate_RzFaceAng_to_RzMvAng_flg)の場合、<BR>
+     * 自動前方向き機能が有効(_relate_RzFaceAng_with_RzMvAng_flg)の場合、<BR>
      * Actorの向きも移動方角（Z軸回転）と同じ方向を向くように setStopTarget_FaceAng(int) も実行されます。<BR>
      *
      * @param	prm_ang	移動方角（Z軸回転）(0～360,000)
@@ -388,7 +388,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     /**
      * Actorの移動方角（Z軸回転）を現在XY座標からの対象XY座標への方向を割り出し、設定する。<BR>
-     * 自動前方向き機能が有効(_relate_RzFaceAng_to_RzMvAng_flg)の場合、<BR>
+     * 自動前方向き機能が有効(_relate_RzFaceAng_with_RzMvAng_flg)の場合、<BR>
      * ActorのZ軸方角（向き）も移動方角（Z軸回転）と同じ方向を向くように setStopTarget_FaceAng(int) が実行されます。<BR>
      *
      * @param	prm_tX	対象xZ軸座標
@@ -408,7 +408,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *   _angveloRzBottomMv ≦ 引数の動方角増分 ≦ _angveloRzTopMv  です。<BR>
      *
      * もし範囲外の引数の移動方角（Z軸回転）増分を指定した場合は、直近の範囲内の値に強制的に抑えられ、その値が加算されます。<BR>
-     * また、自動前方向き機能が有効(_relate_RzFaceAng_to_RzMvAng_flg)の場合、<BR>
+     * また、自動前方向き機能が有効(_relate_RzFaceAng_with_RzMvAng_flg)の場合、<BR>
      * 加算後の移動方角（Z軸回転）の値が、Z軸の目標の軸回転方角として設定されます。（自動で前方を向くに設定されます。但し前方＝アングル0のキャラの場合ですけど；）<BR>
      *
      * 【補足：】<BR>
@@ -478,7 +478,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * Actorの移動方角（Y軸回転）を設定。<BR>
      * 加算後の移動方角（Y軸回転）が範囲外（0～360,000 以外）の値になっても、正しい 0～360,000 の範囲内の値に再計算されます。<BR>
-     * 自動前方向き機能が有効(_relate_RyFaceAng_to_RyMvAng_flg)の場合、<BR>
+     * 自動前方向き機能が有効(_relate_RyFaceAng_with_RyMvAng_flg)の場合、<BR>
      * Actorの向きも移動方角（Y軸回転）と同じ方向を向くように setStopTarget_FaceAng(int) も実行されます。<BR>
      * @param prm_ang 移動方角（Y軸回転）(0～360,000)
      */
@@ -486,7 +486,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     /**
      * Actorの移動方角（Y軸回転）を現在Y軸座標からの対象Y軸座標への方向を割り出し、設定する。<BR>
-     * 自動前方向き機能が有効(_relate_RyFaceAng_to_RyMvAng_flg)の場合、<BR>
+     * 自動前方向き機能が有効(_relate_RyFaceAng_with_RyMvAng_flg)の場合、<BR>
      * ActorのZ軸方角（向き）も移動方角（Y軸回転）と同じ方向を向くように setStopTarget_FaceAng(int) が実行されます。<BR>
      *
      * @param	prm_tX	対象xY軸座標
@@ -506,7 +506,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *   _angveloRyBottomMv ≦ 引数の動方角増分 ≦ _angveloRyTopMv  です。<BR>
      *
      * もし範囲外の引数の移動方角（Y軸回転）増分を指定した場合は、直近の範囲内の値に強制的に抑えられ、その値が加算されます。<BR>
-     * また、自動前方向き機能が有効(_relate_RyFaceAng_to_RyMvAng_flg)の場合、<BR>
+     * また、自動前方向き機能が有効(_relate_RyFaceAng_with_RyMvAng_flg)の場合、<BR>
      * 加算後の移動方角（Y軸回転）の値が、Z軸の目標の軸回転方角として設定されます。（自動で前方を向くに設定されます。但し前方＝アングル0のキャラの場合ですけど；）<BR>
      *
      * 【補足：】<BR>
@@ -621,7 +621,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void orderTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+    void execTurnFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way, bool prm_optimize_ang = true);
 
@@ -643,7 +643,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void orderTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+    void execTurnFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way, bool prm_optimize_ang = true);
 
@@ -664,10 +664,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void orderTagettingFaceAngSequence(GgafDx9GeometricActor* prm_pActor_Target,
+    void execTurnFaceAngSequence(GgafDx9GeometricActor* prm_pActor_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way, bool prm_optimize_ang = true) {
-        orderTagettingFaceAngSequence(
+        execTurnFaceAngSequence(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
                 prm_pActor_Target->_Z,
@@ -686,7 +686,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void orderTagettingRzFaceAngSequence(angle prm_angRz_Target,
+    void execTurnRzFaceAngSequence(angle prm_angRz_Target,
                                         angvelo prm_angVelo, angacce prm_angAcce,
                                         int prm_way);
 
@@ -698,7 +698,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void orderTagettingRyFaceAngSequence(angle prm_angRy_Target,
+    void execTurnRyFaceAngSequence(angle prm_angRy_Target,
                                         angvelo prm_angVelo, angacce prm_angAcce,
                                         int prm_way);
 
@@ -710,7 +710,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void orderTagettingRxSpinAngleSequence(angle prm_angRx_Target,
+    void execTurnRxSpinAngSequence(angle prm_angRx_Target,
                                           angvelo prm_angVelo, angacce prm_angAcce,
                                           int prm_way);
 
@@ -731,7 +731,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void orderTagettingMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+    void execTurnMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                     angvelo prm_angVelo, angacce prm_angAcce,
                                     int prm_way, bool prm_optimize_ang = true);
 
@@ -754,14 +754,14 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void orderTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+    void execTurnMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                     angvelo prm_angVelo, angacce prm_angAcce,
                                     int prm_way, bool prm_optimize_ang = true);
 
-    void keepTagetingMvAngAllTime(int prm_tX, int prm_tY, int prm_tZ,
+    void keepTurnMvAngAllTime(int prm_tX, int prm_tY, int prm_tZ,
                             angvelo prm_angVelo, angacce prm_angAcce,
                             int prm_way, bool prm_optimize_ang = true) {
-        orderTagettingMvAngSequence(prm_tX, prm_tY, prm_tZ,
+        execTurnMvAngSequence(prm_tX, prm_tY, prm_tZ,
                                     prm_angVelo,  prm_angAcce,
                                     prm_way, prm_optimize_ang );
         _taget_mv_ang_alltime_flg = true;
@@ -774,10 +774,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
         _taget_mv_ang_alltime_way = prm_way;
         _taget_mv_ang_alltime_optimize_ang = prm_optimize_ang;
     }
-    void keepTagetingMvAngAllTime(GgafDx9GeometricActor* prm_pActor_Target,
+    void keepTurnMvAngAllTime(GgafDx9GeometricActor* prm_pActor_Target,
                             angvelo prm_angVelo, angacce prm_angAcce,
                             int prm_way, bool prm_optimize_ang = true) {
-        keepTagetingMvAngAllTime(
+        keepTurnMvAngAllTime(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
                 prm_pActor_Target->_Z,
@@ -802,10 +802,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void orderTagettingMvAngSequence(GgafDx9GeometricActor* prm_pActor_Target,
+    void execTurnMvAngSequence(GgafDx9GeometricActor* prm_pActor_Target,
                                     angvelo prm_angVelo, angacce prm_angAcce,
                                     int prm_way, bool prm_optimize_ang = true) {
-        orderTagettingMvAngSequence(
+        execTurnMvAngSequence(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
                 prm_pActor_Target->_Z,
@@ -824,7 +824,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void orderTagettingRzMvAngSequence(angle prm_angRz_Target,
+    void execTurnRzMvAngSequence(angle prm_angRz_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way);
 
@@ -836,12 +836,12 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void orderTagettingRyMvAngSequence(angle prm_angRy_Target,
+    void execTurnRyMvAngSequence(angle prm_angRy_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way);
 
 
-    void stopTagettingMvAngSequence() {
+    void stopTurnMvAngSequence() {
         _mv_ang_rz_target_flg = false;
         _mv_ang_rz_target_stop_flg = false;
         _mv_ang_ry_target_flg = false;
@@ -854,7 +854,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * 目標軸回転方角にターゲットするシークエンスが実行中か .
      * @return true:実行中/false:実行中でない
      */
-    bool isTagettingFaceAng() {
+    bool isTurningFaceAng() {
         if (_face_ang_targeting_flg[AXIS_X] ||
             _face_ang_targeting_flg[AXIS_Y] ||
             _face_ang_targeting_flg[AXIS_Z]) {
@@ -868,7 +868,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * 目標移動方角にターゲットするシークエンスが実行中か .
      * @return true:実行中/false:実行中でない
      */
-    bool isTagettingMvAng() {
+    bool isTurningMvAng() {
         if (_mv_ang_rz_target_flg || _mv_ang_rz_target_flg) {
             return true;
         } else {
@@ -883,55 +883,115 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * false を設定すると、移動方角と向きは独立。<BR>
      * @param prm_b true:移動方角に伴って軸回転方角を更新/false:移動方角と軸回転方角は独立
      */
-    void relateRzRyFaceAngToMvAng(bool prm_b) {
-        _relate_RyFaceAng_to_RyMvAng_flg = prm_b;
-        _relate_RzFaceAng_to_RzMvAng_flg = prm_b;
+    void relateFaceAngWithMvAng(bool prm_b) {
+        _relate_RyFaceAng_with_RyMvAng_flg = prm_b;
+        _relate_RzFaceAng_with_RzMvAng_flg = prm_b;
     }
 
     /**
-     * なめらかな移動速度を変化させるシークエンスを実行(最高速度と目標移動距離指定、時間指定不可) .
-     * 引数の移動距離を４分割し、次のような速度制御を自動的に行う。<BR>
+     * なめらかな移動速度を変化させるシークエンスを実行(トップスピード(vx)と目標移動距離(S)指定、時間(t)は計算) .
+     * 引数の移動距離(S)を４分割し、次のような速度制御を自動的に行う。<BR>
      * 距離 0    ～距離 1/4 まで ・・・ 現在の速度からトップスピードまで加速(or減速)<BR>
      * 距離 1/4 ～ 距離 3/4 まで ・・・ トップスピードで等速<BR>
      * 距離 3/4 ～ 距離 4/4 まで ・・・ トップスピードから最終スピードへ減速(or加速)<BR>
-     * @param prm_top_velo トップスピード
-     * @param prm_end_velo 最終スピード
-     * @param prm_distance_of_target 目標直線移動距離
+     *
+     * <pre>
+     *
+     *    速度
+     *     ^
+     *     |                       S:移動距離
+     *     |                      vs:現時点の速度
+     *     |                      vx:距離1/4 ～ 3/4 の速度
+     *     |                      ve:最終目標到達速度
+     *   vx|....＿＿＿＿            t:目標到達速度に達した時の時間（フレーム数）
+     *     |   /|      |＼
+     *   ve|../.|......|..＼
+     *     | /  |      |   |
+     *     |/   |      |   |
+     *   vs| 1/4|  2/4 |1/4|
+     *     |  S |   S  | S |
+     *   --+----+------+---+-----> 時間(フレーム)
+     *   0 |               t
+     *
+     * </pre>
+     *
+     * @param prm_top_velo トップスピード(vx)
+     * @param prm_end_velo 最終スピード(ve)
+     * @param prm_distance_of_target 目標直線移動距離(S)
      * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void orderSmoothMvVeloSequence(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
+    void execSmoothMvVeloSequence1(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
                                   bool prm_endacc_flg = true);
 
     /**
-     * なめらかな移動速度を変化させるシークエンスを実行(最高速度と目標時間指定、移動距離指定不可) .
-     * 引数の移動距離を４分割し、次のような速度制御を自動的に行う。<BR>
+     * なめらかな移動速度を変化させるシークエンスを実行(トップスピード(vx)と目標時間指定(t)、移動距離(S)は計算) .
+     * 引数の費やす時間を４分割し、次のような速度制御を自動的に行う。<BR>
      * 時間 0    ～時間 1/4 まで ・・・ 現在の速度からトップスピードまで加速(or減速)<BR>
      * 時間 1/4 ～ 時間 3/4 まで ・・・ トップスピードで等速<BR>
      * 時間 3/4 ～ 時間 4/4 まで ・・・ トップスピードから最終スピードへ減速(or加速)<BR>
-     * @param prm_top_velo トップスピード
-     * @param prm_end_velo 最終スピード
-     * @param prm_frame_of_spend 費やす時間(フレーム数を指定、負の数は不可)
+     * <pre>
+     *
+     *    速度
+     *     ^
+     *     |                          S:移動距離
+     *     |                         vs:現時点の速度
+     *     |                         vx:時間1/4 ～ 3/4 の速度
+     *     |                         ve:最終目標到達速度
+     *   vx|....＿＿＿＿＿            t:目標到達速度に達した時の時間（フレーム数）
+     *     |   /|         |＼
+     *   ve|../.|.........|..＼
+     *     | /  |         |    |
+     *     |/   |         |    |
+     *   vs|    |    S    |    |
+     *     |    |         |    |
+     *   --+----+----+----+----+-----> 時間(フレーム)
+     *   0 | (1/4)t    (3/4)t  t
+     *
+     * </pre>
+     * @param prm_top_velo トップスピード(vx)
+     * @param prm_end_velo 最終スピード(ve)
+     * @param prm_frame_of_spend 費やす時間(t)(フレーム数を指定、負の数は不可)
      * @param prm_endacc_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void orderSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
+    void execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
                                    bool prm_endacc_flg = true);
-
 
     /**
-     * なめらかな移動速度を変化させるシークエンスを実行(目標移動距離と時間を指定、最高速度指定不可) .
-     * 引数の移動距離を２分割し、次のような速度制御を自動的に行う。<BR>
-     * 時間 0    ～時間 1/4 まで ・・・ 現在の速度からできる限り加速(or減速)<BR>
-     * 時間 1/4 ～ 時間 3/4 まで ・・・ 等速<BR>
-     * 時間 3/4 ～ 時間 4/4 まで ・・・ 最終スピードへ減速(or加速)<BR>
-     * @param prm_end_velo 最終スピード
-     * @param prm_distance_of_target 目標直線移動距離
-     * @param prm_frame_of_spend 費やす時間(フレーム数を指定、負の数は不可)
+     * なめらかな移動速度を変化させるシークエンスを実行(目標移動距離(S)と時間を指定(t)、トップスピード(vx)は計算) .
+     * 引数の費やす時間を4分割し、次のような速度制御を自動的に行う。<BR>
+     * 時間 0    ～時間 1/4 まで ・・・ 現在の速度からトップスピードまで加速(or減速)<BR>
+     * 時間 1/4 ～ 時間 3/4 まで ・・・ トップスピードで等速<BR>
+     * 時間 3/4 ～ 時間 4/4 まで ・・・ トップスピードから最終スピードへ減速(or加速)<BR>
+     * <pre>
+     *
+     *    速度
+     *     ^
+     *     |                          S:移動距離
+     *     |                         vs:現時点の速度
+     *     |                         vx:時間1/4 ～ 3/4 の速度
+     *     |                         ve:最終目標到達速度
+     *   vx|....＿＿＿＿＿            t:目標到達速度に達した時の時間（フレーム数）
+     *     |   /|         |＼
+     *   ve|../.|.........|..＼
+     *     | /  |         |    |
+     *     |/   |         |    |
+     *   vs|    |    S    |    |
+     *     |    |         |    |
+     *   --+----+----+----+----+-----> 時間(フレーム)
+     *   0 | (1/4)t    (3/4)t  t
+     *
+     * </pre>
+     * @param prm_end_velo 最終スピード(ve)
+     * @param prm_distance_of_target 目標直線移動距離(S)
+     * @param prm_frame_of_spend 費やす時間(t)(フレーム数を指定、負の数は不可)
      * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void orderSmoothMvVeloSequence3(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
+    void execSmoothMvVeloSequenceEx(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
                                    bool prm_endacc_flg = true);
 
 
+//    void execSmoothMvVeloSequence4(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
+//                                   bool prm_endacc_flg = true);
     bool isMoveingSmooth();
 
 

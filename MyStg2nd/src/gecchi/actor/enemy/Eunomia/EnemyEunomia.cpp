@@ -24,7 +24,7 @@ void EnemyEunomia::onCreateModel() {
 void EnemyEunomia::initialize() {
     setHitAble(true);
     _pMvNavigator->setFaceAngVelo(AXIS_X, -4000);
-    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateFaceAngWithMvAng(true);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB_Cube(0, 40000);
 }
@@ -106,7 +106,7 @@ void EnemyEunomia::processBehavior() {
                 }
             }
 //            //自機へ方向転換
-            _pMvNavigator->orderTagettingMvAngSequence(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
+            _pMvNavigator->execTurnMvAngSequence(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
                                                 2000, 0,
                                                 TURN_CLOSE_TO);
             _iMovePatternNo++; //次の行動パターンへ

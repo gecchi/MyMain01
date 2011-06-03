@@ -32,7 +32,7 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshSetActor
 
 void EnemyCeresShot001::initialize() {
     _pMvNavigator->forceMvVeloRange(_iMvVelo_Top, _iMvVelo_Bottom);
-    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateFaceAngWithMvAng(true);
 
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
@@ -56,7 +56,7 @@ void EnemyCeresShot001::processBehavior() {
     //•ûŒü“]Š·ŠJŽn
     if (getActivePartFrame() == _frame_TurnBegin) {
 
-        _pMvNavigator->orderTagettingMvAngSequence(P_MYSHIP,
+        _pMvNavigator->execTurnMvAngSequence(P_MYSHIP,
                                                    _angVelo_Turn, 0,
                                                    TURN_CLOSE_TO);
         _pMvNavigator->setMvAcce(_iMoveAcce_2nd);

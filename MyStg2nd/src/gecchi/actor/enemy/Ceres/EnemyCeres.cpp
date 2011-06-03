@@ -56,7 +56,7 @@ void EnemyCeres::onActive() {
     MyStgUtil::resetEnemyCeresStatus(_pStatus);
     _iMovePatternNo = 0;
     _frame_Active = 0;
-    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateFaceAngWithMvAng(true);
     _pMvNavigator->setFaceAngVelo(AXIS_X, 6000);
     _pMvNavigator->setFaceAngVelo(AXIS_X, 6000);
     _pMvNavigator->setMvVelo(8000);

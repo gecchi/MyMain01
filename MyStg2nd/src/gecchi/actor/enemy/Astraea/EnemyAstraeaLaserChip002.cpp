@@ -28,7 +28,7 @@ void EnemyAstraeaLaserChip002::onActive() {
     _pMvNavigator->setMvVelo(60000);
     //_pMvNavigator->setMvAcce(300);
     //_pMvNavigator->forceRyMvAngVeloRange(-90000, 90000);
-    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateFaceAngWithMvAng(true);
 }
 
 void EnemyAstraeaLaserChip002::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -65,7 +65,7 @@ void EnemyAstraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
         out_d_angRy = _pMvNavigator->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
         _pMvNavigator->addRzMvAng(sgn(out_d_angRz)*10000);
         _pMvNavigator->addRyMvAng(sgn(out_d_angRy)*10000);
-//        _pMvNavigator->orderTagettingMvAngSequence(
+//        _pMvNavigator->execTurnMvAngSequence(
 //                        P_MYSHIP,
 //                        90000, 0,
 //                        TURN_CLOSE_TO, false);

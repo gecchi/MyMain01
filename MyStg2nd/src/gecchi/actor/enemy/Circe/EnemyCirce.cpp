@@ -22,7 +22,7 @@ void EnemyCirce::onCreateModel() {
 void EnemyCirce::initialize() {
     setHitAble(true);
     _pScaler->setScale(100);
-    _pMvNavigator->relateRzRyFaceAngToMvAng(true);
+    _pMvNavigator->relateFaceAngWithMvAng(true);
     _pMvNavigator->setMvVelo(300);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
@@ -36,7 +36,7 @@ void EnemyCirce::onActive() {
 void EnemyCirce::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pMvNavigator->orderTagettingMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO);
+    _pMvNavigator->execTurnMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO);
     _pMvNavigator->behave();
     _pScaler->behave();
     //_pSeTransmitter->behave();
