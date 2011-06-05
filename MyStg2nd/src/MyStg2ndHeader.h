@@ -145,8 +145,8 @@ class TitleBoard;
 class Cursor001;
 
 class PreDrawScene;
-class LaserChipEffectActor;
-class DefaultMeshEffectActor;
+class LaserChipTestActor;
+class DefaultMeshTestActor;
 
 
 
@@ -341,28 +341,28 @@ class Formation001;
 
 
 
-class CubeMapMeshEffectActor;
-class CubeMapMeshSetEffectActor;
-class CubeMapMorphMeshEffectActor;
-class DefaultD3DXAniMeshEffectActor;
-class DefaultBoardEffectActor;
-class DefaultBoardSetEffectActor;
-class DefaultMeshEffectActor;
-class DefaultD3DXMeshEffectActor;
-class DefaultMeshSetEffectActor;
-class DefaultMorphMeshEffectActor;
-class DefaultPointSpriteEffectActor;
-class DefaultSpriteEffectActor;
-class DefaultSpriteSetEffectActor;
-class GroundMeshEffectActor;
-class HoshiBoshiEffectActor;
-class LaserChipEffectActor;
-class SingleLaserEffectActor;
-class SpriteMeshEffectActor;
-class SpriteMeshSetEffectActor;
-class StringBoardEffectActor;
-class WallAABEffectActor;
-class WallAAPrismEffectActor;
+class CubeMapMeshTestActor;
+class CubeMapMeshSetTestActor;
+class CubeMapMorphMeshTestActor;
+class DefaultD3DXAniMeshTestActor;
+class DefaultBoardTestActor;
+class DefaultBoardSetTestActor;
+class DefaultMeshTestActor;
+class DefaultD3DXMeshTestActor;
+class DefaultMeshSetTestActor;
+class DefaultMorphMeshTestActor;
+class DefaultPointSpriteTestActor;
+class DefaultSpriteTestActor;
+class DefaultSpriteSetTestActor;
+class GroundMeshTestActor;
+class HoshiBoshiTestActor;
+class LaserChipTestActor;
+class SingleLaserTestActor;
+class SpriteMeshTestActor;
+class SpriteMeshSetTestActor;
+class StringBoardTestActor;
+class WallAABTestActor;
+class WallAAPrismTestActor;
 
 
 class VamSysCamPosition;
@@ -556,28 +556,28 @@ class MagicMeter;
 
 #include "gecchi/actor/common/TestDispatcher.h"
 
-#include "gecchi/actor/_predrawer/CubeMapMeshEffectActor.h"
-#include "gecchi/actor/_predrawer/CubeMapMeshSetEffectActor.h"
-#include "gecchi/actor/_predrawer/CubeMapMorphMeshEffectActor.h"
-#include "gecchi/actor/_predrawer/DefaultD3DXAniMeshEffectActor.h"
-#include "gecchi/actor/_predrawer/DefaultBoardEffectActor.h"
-#include "gecchi/actor/_predrawer/DefaultBoardSetEffectActor.h"
-#include "gecchi/actor/_predrawer/DefaultMeshEffectActor.h"
-#include "gecchi/actor/_predrawer/DefaultD3DXMeshEffectActor.h"
-#include "gecchi/actor/_predrawer/DefaultMeshSetEffectActor.h"
-#include "gecchi/actor/_predrawer/DefaultMorphMeshEffectActor.h"
-#include "gecchi/actor/_predrawer/DefaultPointSpriteEffectActor.h"
-#include "gecchi/actor/_predrawer/DefaultSpriteEffectActor.h"
-#include "gecchi/actor/_predrawer/DefaultSpriteSetEffectActor.h"
-#include "gecchi/actor/_predrawer/GroundMeshEffectActor.h"
-#include "gecchi/actor/_predrawer/HoshiBoshiEffectActor.h"
-#include "gecchi/actor/_predrawer/LaserChipEffectActor.h"
-#include "gecchi/actor/_predrawer/SingleLaserEffectActor.h"
-#include "gecchi/actor/_predrawer/SpriteMeshEffectActor.h"
-#include "gecchi/actor/_predrawer/SpriteMeshSetEffectActor.h"
-#include "gecchi/actor/_predrawer/StringBoardEffectActor.h"
-#include "gecchi/actor/_predrawer/WallAABEffectActor.h"
-#include "gecchi/actor/_predrawer/WallAAPrismEffectActor.h"
+#include "gecchi/actor/_predrawer/CubeMapMeshTestActor.h"
+#include "gecchi/actor/_predrawer/CubeMapMeshSetTestActor.h"
+#include "gecchi/actor/_predrawer/CubeMapMorphMeshTestActor.h"
+#include "gecchi/actor/_predrawer/DefaultD3DXAniMeshTestActor.h"
+#include "gecchi/actor/_predrawer/DefaultBoardTestActor.h"
+#include "gecchi/actor/_predrawer/DefaultBoardSetTestActor.h"
+#include "gecchi/actor/_predrawer/DefaultMeshTestActor.h"
+#include "gecchi/actor/_predrawer/DefaultD3DXMeshTestActor.h"
+#include "gecchi/actor/_predrawer/DefaultMeshSetTestActor.h"
+#include "gecchi/actor/_predrawer/DefaultMorphMeshTestActor.h"
+#include "gecchi/actor/_predrawer/DefaultPointSpriteTestActor.h"
+#include "gecchi/actor/_predrawer/DefaultSpriteTestActor.h"
+#include "gecchi/actor/_predrawer/DefaultSpriteSetTestActor.h"
+#include "gecchi/actor/_predrawer/GroundMeshTestActor.h"
+#include "gecchi/actor/_predrawer/HoshiBoshiTestActor.h"
+#include "gecchi/actor/_predrawer/LaserChipTestActor.h"
+#include "gecchi/actor/_predrawer/SingleLaserTestActor.h"
+#include "gecchi/actor/_predrawer/SpriteMeshTestActor.h"
+#include "gecchi/actor/_predrawer/SpriteMeshSetTestActor.h"
+#include "gecchi/actor/_predrawer/StringBoardTestActor.h"
+#include "gecchi/actor/_predrawer/WallAABTestActor.h"
+#include "gecchi/actor/_predrawer/WallAAPrismTestActor.h"
 
 
 

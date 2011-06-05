@@ -78,10 +78,10 @@ void EnemyIris::processBehavior() {
                 DELETEARR_IMPOSSIBLE_NULL(paAngWay);
                 //ショット発射エフェクト
                 if (_pDispatcher_ShotEffect) {
-                    GgafDx9DrawableActor* pEffectActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
-                    if (pEffectActor_Shot) {
-                        pEffectActor_Shot->locateAs(this);
-                        pEffectActor_Shot->activate();
+                    GgafDx9DrawableActor* pTestActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
+                    if (pTestActor_Shot) {
+                        pTestActor_Shot->locateAs(this);
+                        pTestActor_Shot->activate();
                     }
                 }
             }

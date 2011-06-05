@@ -162,9 +162,9 @@ GgafDx9MvNavigator::GgafDx9MvNavigator(GgafDx9GeometricActor* prm_pActor) :
     //移動速度
     _veloMv = 0;
     //移動速度上限 = 256 px/fream
-    _veloTopMv = 256 * LEN_UNIT; //_veloMv が 256000(=256px) を上回る移動量であっても、強制的に座標増分は 256px に抑えられる。
+    _veloTopMv = INT_MAX; //_veloMv が 256000(=256px) を上回る移動量であっても、強制的に座標増分は 256px に抑えられる。
     //移動速度下限 = 0   px/fream
-    _veloBottomMv = -256 * LEN_UNIT; //_veloMv が -256000(-256px) を下回る移動量があっても、強制的に座標増分は -256000px に抑えられる。
+    _veloBottomMv = INT_MIN; //_veloMv が -256000(-256px) を下回る移動量があっても、強制的に座標増分は -256000px に抑えられる。
     //移動加速度（移動速度の増分） = 0 px/fream^2
     _accMv = 0; //_veloMv の増分。デフォルトは加速無し
 
@@ -776,7 +776,7 @@ void GgafDx9MvNavigator::setMvAcceToStop(int prm_distance_of_target) {
 }
 void GgafDx9MvNavigator::setMvAcce2(int prm_frame_of_spend, velo prm_velo_target) {
     //a = (vx-v0) / t
-    _accMv = (prm_velo_target - _veloMv) / (1.0f*prm_velo_target);
+    _accMv = (prm_velo_target - _veloMv) / (1.0f*prm_frame_of_spend);
 }
 void GgafDx9MvNavigator::setMvAcce(int prm_distance_of_target, velo prm_velo_target) {
     // a = (vx^2 - v0^2) / 2S
@@ -867,16 +867,16 @@ void GgafDx9MvNavigator::execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_e
     _smooth_mv_velo_seq_mv_distance = 0;
     _smooth_mv_velo_seq_frame_of_spend = prm_frame_of_spend;
     _smooth_mv_velo_seq_spend_frame = 0;
-    _smooth_mv_velo_seq_p1 = (int)(prm_frame_of_spend*1.0 / 4.0);
-    _smooth_mv_velo_seq_p2 = (int)(prm_frame_of_spend*3.0 / 4.0);
+    _smooth_mv_velo_seq_p1 = (int)(prm_frame_of_spend*1.0 / 3.0);
+    _smooth_mv_velo_seq_p2 = (int)(prm_frame_of_spend*2.0 / 3.0);
     _smooth_mv_velo_seq_progress = 0;
 }
 
 void GgafDx9MvNavigator::execSmoothMvVeloSequenceEx(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
                                                       bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
-    _smooth_mv_velo_seq_p1 = (int)(prm_frame_of_spend*1.0 / 4.0);
-    _smooth_mv_velo_seq_p2 = (int)(prm_frame_of_spend*3.0 / 4.0);
+    _smooth_mv_velo_seq_p1 = (int)(prm_frame_of_spend*1.0 / 3.0);
+    _smooth_mv_velo_seq_p2 = (int)(prm_frame_of_spend*2.0 / 3.0);
     _smooth_mv_velo_seq_end_velo = prm_end_velo;
     _smooth_mv_velo_seq_distance_of_target = prm_distance_of_target;
     _smooth_mv_velo_seq_mv_distance = 0;
@@ -884,30 +884,28 @@ void GgafDx9MvNavigator::execSmoothMvVeloSequenceEx(velo prm_end_velo, int prm_d
     _smooth_mv_velo_seq_spend_frame = 0;
     _smooth_mv_velo_seq_progress = 0;
 
-    //    速度
-    //     ^
-    //     |                          S:移動距離
-    //     |                         vs:現時点の速度
-    //     |                         vx:距離1/4 ～ 3/4 の速度
-    //     |                         ve:最終目標到達速度
-    //   vx|....＿＿＿＿＿            t:目標到達速度に達した時の時間（フレーム数）
-    //     |   /|         |＼
-    //   ve|../.|.........|..＼
-    //     | /  |         |    |
-    //     |/   |         |    |
-    //   vs|    |    S    |    |
-    //     |    |         |    |
-    //   --+----+----+----+----+-----> 時間(フレーム)
-    //   0 | (1/4)t    (3/4)t  t
-
-    // 距離は 台形＋長方形＋台形 の面積
-    // S  = (1/2) (vs + vx) (1/4)t  + vx (2/4)t  +  (1/2) (ve + vx) (1/4)t
+    //
+    //   速度
+    //    ^
+    //    |                      S:移動距離
+    //    |                     vs:現時点の速度
+    //    |                     vx:時間1/4 ～ 3/4 の速度
+    //    |                     ve:最終目標到達速度
+    //  vx|....＿＿＿           t:目標到達速度に達した時の時間（フレーム数）
+    //    |   /|    |＼
+    //  ve|../.|....|..＼
+    //    | /  |    |    |
+    //    |/   |    |    |
+    //  vs|    | S  |    |
+    //    |    |    |    |
+    //  --+----+----+----+-----> 時間(フレーム)
+    //  0 |   1/3  2/3   t
+    //
+    // S  = (1/2) (vs + vx) (1/3)t  + vx (1/3)t  +  (1/2) (ve + vx) (1/3)t
     // これをvxについて解く
-    // 8S = (vs + vx)t + 4 vx t + (ve + vx)t
-    // 8S/t = vs + vx + 4vx + ve + vx
-    // 6vx = 8S/t - vs - ve
-    // vx = (8S/t - vs - ve) / 6
-    _smooth_mv_velo_seq_top_velo = (8.0*prm_distance_of_target/prm_frame_of_spend - _veloMv - prm_end_velo) / 6.0;
+    // vx = (6S - t(vs + ve)) / 4t
+	_smooth_mv_velo_seq_top_velo = (6.0*prm_distance_of_target - prm_frame_of_spend*(_veloMv + prm_end_velo)) / (4.0 * prm_frame_of_spend);
+
 }
 
 //void GgafDx9MvNavigator::execSmoothMvVeloSequence4(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,

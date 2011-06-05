@@ -8,29 +8,29 @@ using namespace MyStg2nd;
 PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "PreDrawScene";
     int id = 11;
-    orderActorToFactory(id, CubeMapMeshEffectActor       , "CubeMapMeshEffectActor");             id++;
+    orderActorToFactory(id, CubeMapMeshTestActor       , "CubeMapMeshTestActor");             id++;
     for (int i = 0; i < 30; i++) {
-        orderActorToFactory(id, CubeMapMeshSetEffectActor    , "CubeMapMeshSetEffectActor"); id++;
+        orderActorToFactory(id, CubeMapMeshSetTestActor    , "CubeMapMeshSetTestActor"); id++;
     }
-    orderActorToFactory(id, CubeMapMorphMeshEffectActor  , "CubeMapMorphMeshEffectActor");        id++;
-//    orderActorToFactory(id, DefaultD3DXAniMeshEffectActor    , "DefaultD3DXAniMeshEffectActor");id++;
-//    orderActorToFactory(id, DefaultBoardEffectActor      , "DefaultBoardEffectActor");          id++;
-//    orderActorToFactory(id, DefaultBoardSetEffectActor   , "DefaultBoardSetEffectActor");       id++;
-//    orderActorToFactory(id, DefaultMeshEffectActor       , "DefaultMeshEffectActor");           id++;
-//    orderActorToFactory(id, DefaultMeshSetEffectActor    , "DefaultMeshSetEffectActor");        id++;
-//    orderActorToFactory(id, DefaultMorphMeshEffectActor  , "DefaultMorphMeshEffectActor");      id++;
-//    orderActorToFactory(id, DefaultPointSpriteEffectActor, "DefaultPointSpriteEffectActor");    id++;
-//    orderActorToFactory(id, DefaultSpriteEffectActor     , "DefaultSpriteEffectActor");         id++;
-//    orderActorToFactory(id, DefaultSpriteSetEffectActor  , "DefaultSpriteSetEffectActor");      id++;
-//    orderActorToFactory(id, GroundMeshEffectActor        , "GroundMeshEffectActor");            id++;
-//    orderActorToFactory(id, HoshiBoshiEffectActor        , "HoshiBoshiEffectActor");            id++;
-//    orderActorToFactory(id, LaserChipEffectActor         , "LaserChipEffectActor");             id++;
-//    orderActorToFactory(id, SingleLaserEffectActor       , "SingleLaserEffectActor");           id++;
-//    orderActorToFactory(id, SpriteMeshEffectActor        , "SpriteMeshEffectActor");            id++;
-//    orderActorToFactory(id, SpriteMeshSetEffectActor     , "SpriteMeshSetEffectActor");         id++;
-//    orderActorToFactory(id, StringBoardEffectActor       , "StringBoardEffectActor");           id++;
-//    orderActorToFactory(id, WallAABEffectActor           , "WallAABEffectActor");               id++;
-//    orderActorToFactory(id, WallAAPrismEffectActor       , "WallAAPrismEffectActor");           id++;
+    orderActorToFactory(id, CubeMapMorphMeshTestActor  , "CubeMapMorphMeshTestActor");        id++;
+//    orderActorToFactory(id, DefaultD3DXAniMeshTestActor    , "DefaultD3DXAniMeshTestActor");id++;
+//    orderActorToFactory(id, DefaultBoardTestActor      , "DefaultBoardTestActor");          id++;
+//    orderActorToFactory(id, DefaultBoardSetTestActor   , "DefaultBoardSetTestActor");       id++;
+//    orderActorToFactory(id, DefaultMeshTestActor       , "DefaultMeshTestActor");           id++;
+//    orderActorToFactory(id, DefaultMeshSetTestActor    , "DefaultMeshSetTestActor");        id++;
+//    orderActorToFactory(id, DefaultMorphMeshTestActor  , "DefaultMorphMeshTestActor");      id++;
+//    orderActorToFactory(id, DefaultPointSpriteTestActor, "DefaultPointSpriteTestActor");    id++;
+//    orderActorToFactory(id, DefaultSpriteTestActor     , "DefaultSpriteTestActor");         id++;
+//    orderActorToFactory(id, DefaultSpriteSetTestActor  , "DefaultSpriteSetTestActor");      id++;
+//    orderActorToFactory(id, GroundMeshTestActor        , "GroundMeshTestActor");            id++;
+//    orderActorToFactory(id, HoshiBoshiTestActor        , "HoshiBoshiTestActor");            id++;
+//    orderActorToFactory(id, LaserChipTestActor         , "LaserChipTestActor");             id++;
+//    orderActorToFactory(id, SingleLaserTestActor       , "SingleLaserTestActor");           id++;
+//    orderActorToFactory(id, SpriteMeshTestActor        , "SpriteMeshTestActor");            id++;
+//    orderActorToFactory(id, SpriteMeshSetTestActor     , "SpriteMeshSetTestActor");         id++;
+//    orderActorToFactory(id, StringBoardTestActor       , "StringBoardTestActor");           id++;
+//    orderActorToFactory(id, WallAABTestActor           , "WallAABTestActor");               id++;
+//    orderActorToFactory(id, WallAAPrismTestActor       , "WallAAPrismTestActor");           id++;
 
 }
 

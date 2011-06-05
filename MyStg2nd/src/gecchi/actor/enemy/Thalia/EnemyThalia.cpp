@@ -7,8 +7,6 @@ using namespace MyStg2nd;
 
 EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name, "1/Thalia") {
 //EnemyThalia::EnemyThalia(const char* prm_name) : CubeMapMorphMeshActor(prm_name, "1/ThaliaCM") {
-
-
     _class_name = "EnemyThalia";
     MyStgUtil::resetEnemyThaliaStatus(_pStatus);
     _iMovePatternNo = 0;
@@ -21,9 +19,8 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
     EnemyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
         stringstream name;
-        name <<  "EnemyStraightLaserChip001" << i;
-        string name2 = name.str();
-        pChip = NEW EnemyStraightLaserChip001(name2.c_str());
+        name <<  "EnemyStraightLaserChip001[" << i << "]";
+		pChip = NEW EnemyStraightLaserChip001(name.str().c_str());
         pChip->setSource(this); //位置向き同期
         pChip->inactivateImmediately();
         _pLaserChipDispatcher->addSubLast(pChip);
@@ -33,7 +30,6 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     _pSeTransmitter->set(1, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));     //爆発
-    _veloTopMv = 40000;
     useProgress(10);
     //初期カメラZ位置
     _dZ_camera_init = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
@@ -60,7 +56,8 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pMvNavigator->setFaceAngVelo(AXIS_X, 1000);
-    _pMvNavigator->execSmoothMvVeloSequence1(_veloTopMv, 300, MyShip::_lim_front - _X);
+//    _pMvNavigator->execSmoothMvVeloSequence1(_veloTopMv, 300, MyShip::_lim_front - _X);
+    _pMvNavigator->execSmoothMvVeloSequenceEx( 300, MyShip::_lim_front - _X, 180);
 //    _TRACE_("execSmoothMvVeloSequence1 START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離="<<(MyShip::_lim_front - _X)<<" veloMv="<<(_pMvNavigator->_veloMv));
 
     _pPrg->set(THALIA_SCENE_PROG_MOVE);
@@ -122,7 +119,8 @@ void EnemyThalia::processBehavior() {
         case THALIA_SCENE_PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
-            _pMvNavigator->execSmoothMvVeloSequence1(_veloTopMv, 200, 4000000);
+//            _pMvNavigator->execSmoothMvVeloSequence1(_veloTopMv, 200, 4000000);
+            _pMvNavigator->execSmoothMvVeloSequenceEx(200, 1000000,180);
             _pMvNavigator->setFaceAngVelo(AXIS_X, 1000);
             _pPrg->change(THALIA_SCENE_PROG_MOVE);
         }

@@ -73,7 +73,8 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
     int DY = (pCam->_Y - _pActor->_Y) / LEN_UNIT;
     int DZ = (pCam->_Z - _pActor->_Z) / LEN_UNIT;
     double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
-    LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT*0.75))) * VOLUME_RANGE_3D); // 0.75 は調整
+    LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT*0.6))) * VOLUME_RANGE_3D); // 0.6 は調整補正、最遠でもMAX*0.4倍の音量となる。
+                                                                                           //値を減らすと、遠くてもおとがより大きくなる。
     if (VOLUME_MAX_3D < vol) {
         vol = VOLUME_MAX_3D;
     } else if (VOLUME_MIN_3D > vol) {
@@ -150,7 +151,7 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
                     //そこで GGAF_SAYONARA_DELAY が重要になっている
 
                     double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
-                    vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT*0.75))) * VOLUME_RANGE_3D);
+                    vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCam->_zf*PX_UNIT*0.6))) * VOLUME_RANGE_3D); //0.6 は調整補正
                     if (VOLUME_MAX_3D < vol) {
                         vol = VOLUME_MAX_3D;
                     } else if (VOLUME_MIN_3D > vol) {
