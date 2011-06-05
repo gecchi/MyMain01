@@ -9,6 +9,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
 //EnemyThalia::EnemyThalia(const char* prm_name) : CubeMapMorphMeshActor(prm_name, "1/ThaliaCM") {
     _class_name = "EnemyThalia";
     MyStgUtil::resetEnemyThaliaStatus(_pStatus);
+    _veloTopMv = 20000;
     _iMovePatternNo = 0;
     _pSplineProgram = NULL;
     _pDispatcher_Shot = NULL;
@@ -48,7 +49,7 @@ void EnemyThalia::initialize() {
     _pMvNavigator->relateFaceAngWithMvAng(true);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 90000);
-    _SX=_SY=_SZ=500;
+    setScaleRate(0.3);
 }
 
 void EnemyThalia::onActive() {
@@ -56,8 +57,8 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pMvNavigator->setFaceAngVelo(AXIS_X, 1000);
-//    _pMvNavigator->execSmoothMvVeloSequence1(_veloTopMv, 300, MyShip::_lim_front - _X);
-    _pMvNavigator->execSmoothMvVeloSequenceEx( 300, MyShip::_lim_front - _X, 180);
+    _pMvNavigator->execSmoothMvVeloSequence1(_veloTopMv, 1000, MyShip::_lim_front - _X);
+//    _pMvNavigator->execSmoothMvVeloSequenceEx( 300, MyShip::_lim_front - _X, 180);
 //    _TRACE_("execSmoothMvVeloSequence1 START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離="<<(MyShip::_lim_front - _X)<<" veloMv="<<(_pMvNavigator->_veloMv));
 
     _pPrg->set(THALIA_SCENE_PROG_MOVE);
@@ -119,8 +120,8 @@ void EnemyThalia::processBehavior() {
         case THALIA_SCENE_PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
-//            _pMvNavigator->execSmoothMvVeloSequence1(_veloTopMv, 200, 4000000);
-            _pMvNavigator->execSmoothMvVeloSequenceEx(200, 1000000,180);
+            _pMvNavigator->execSmoothMvVeloSequence1(_veloTopMv, 1000, 1500000);
+//            _pMvNavigator->execSmoothMvVeloSequenceEx(200, 1000000, 180);
             _pMvNavigator->setFaceAngVelo(AXIS_X, 1000);
             _pPrg->change(THALIA_SCENE_PROG_MOVE);
         }

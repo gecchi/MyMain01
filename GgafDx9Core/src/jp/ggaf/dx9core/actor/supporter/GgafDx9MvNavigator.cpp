@@ -308,7 +308,10 @@ void GgafDx9MvNavigator::behave() {
 
     ///////////////////////////////////////////////////Mover
 
-
+    _accMv += _jerkMv;
+    //移動加速度の処理
+    _veloMv += _accMv;
+    setMvVelo(_veloMv);
 
     //なめらか移動シークエンス起動時
     if (_smooth_mv_velo_seq_flg) {
@@ -384,10 +387,7 @@ void GgafDx9MvNavigator::behave() {
 
     }
 
-    _accMv += _jerkMv;
-    //移動加速度の処理
-    _veloMv += _accMv;
-    setMvVelo(_veloMv);
+
 
     if (_smooth_mv_velo_seq_flg) {
         if (_smooth_mv_velo_seq_frame_of_spend < 0) {
