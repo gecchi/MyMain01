@@ -841,37 +841,6 @@ void GgafDx9MvNavigator::setMvAcceBy_Dv(int prm_target_distance, velo prm_target
     //    Vo <= 0  かつ  Vt <= 0 場合、あるいは  Vo >= 0  かつ  Vt >= 0  場合と同じである
 }
 
-void GgafDx9MvNavigator::execSmoothMvVeloSequence1(velo prm_top_velo, velo prm_end_velo, int prm_target_distance,
-                                                    bool prm_endacc_flg) {
-    _smooth_mv_velo_seq_flg = true;
-    _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
-    _smooth_mv_velo_seq_top_velo = prm_top_velo;
-    _smooth_mv_velo_seq_end_velo = prm_end_velo;
-    _smooth_mv_velo_seq_target_distance = prm_target_distance;
-    _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_target_frames = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
-    _smooth_mv_velo_seq_frame_of_spent = 0;
-    _smooth_mv_velo_seq_p1 = (int)(prm_target_distance*1.0 / 4.0);
-    _smooth_mv_velo_seq_p2 = (int)(prm_target_distance*3.0 / 4.0);
-    _smooth_mv_velo_seq_progress = 0;
-}
-
-
-void GgafDx9MvNavigator::execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_target_frames,
-                                                    bool prm_endacc_flg) {
-    _smooth_mv_velo_seq_flg = true;
-    _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
-    _smooth_mv_velo_seq_top_velo = prm_top_velo;
-    _smooth_mv_velo_seq_end_velo = prm_end_velo;
-    _smooth_mv_velo_seq_target_distance = 0;
-    _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_target_frames = prm_target_frames;
-    _smooth_mv_velo_seq_frame_of_spent = 0;
-    _smooth_mv_velo_seq_p1 = (int)(prm_target_frames*1.0 / 3.0);
-    _smooth_mv_velo_seq_p2 = (int)(prm_target_frames*2.0 / 3.0);
-    _smooth_mv_velo_seq_progress = 0;
-}
-
 void GgafDx9MvNavigator::execSmoothMvVeloSequence(velo prm_end_velo, int prm_target_distance,
                                                   int prm_target_frames, float prm_p1, float prm_p2,
                                                   bool prm_endacc_flg) {
@@ -912,6 +881,41 @@ void GgafDx9MvNavigator::execSmoothMvVeloSequence(velo prm_end_velo, int prm_tar
          / ((prm_p2-prm_p1+1.0)*prm_target_frames);
 
 }
+
+void GgafDx9MvNavigator::execSmoothMvVeloSequenceD(velo prm_top_velo, velo prm_end_velo,
+                                                   int prm_target_distance, float prm_p1, float prm_p2,
+                                                   bool prm_endacc_flg) {
+    _smooth_mv_velo_seq_flg = true;
+    _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
+    _smooth_mv_velo_seq_top_velo = prm_top_velo;
+    _smooth_mv_velo_seq_end_velo = prm_end_velo;
+    _smooth_mv_velo_seq_target_distance = prm_target_distance;
+    _smooth_mv_velo_seq_mv_distance = 0;
+    _smooth_mv_velo_seq_target_frames = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
+    _smooth_mv_velo_seq_frame_of_spent = 0;
+    _smooth_mv_velo_seq_p1 = (int)(prm_target_distance*prm_p1);
+    _smooth_mv_velo_seq_p2 = (int)(prm_target_distance*prm_p2);
+    _smooth_mv_velo_seq_progress = 0;
+}
+
+
+void GgafDx9MvNavigator::execSmoothMvVeloSequenceT(velo prm_top_velo, velo prm_end_velo,
+                                                   int prm_target_frames, float prm_p1, float prm_p2,
+                                                   bool prm_endacc_flg) {
+    _smooth_mv_velo_seq_flg = true;
+    _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
+    _smooth_mv_velo_seq_top_velo = prm_top_velo;
+    _smooth_mv_velo_seq_end_velo = prm_end_velo;
+    _smooth_mv_velo_seq_target_distance = 0;
+    _smooth_mv_velo_seq_mv_distance = 0;
+    _smooth_mv_velo_seq_target_frames = prm_target_frames;
+    _smooth_mv_velo_seq_frame_of_spent = 0;
+    _smooth_mv_velo_seq_p1 = (int)(prm_target_frames*prm_p1);
+    _smooth_mv_velo_seq_p2 = (int)(prm_target_frames*prm_p1);
+    _smooth_mv_velo_seq_progress = 0;
+}
+
+
 
 //void GgafDx9MvNavigator::execSmoothMvVeloSequence4(velo prm_end_velo, int prm_target_distance, int prm_target_frames,
 //                                                      bool prm_endacc_flg) {
@@ -959,53 +963,14 @@ void GgafDx9MvNavigator::execSmoothMvVeloSequence(velo prm_end_velo, int prm_tar
 //    //D = Te Vt - D(Vt - Vo) / 4 (Vo + Vt) - D(Vt - Ve) / 4 (Ve + Vt)
 //    //これをVtについて解くと
 //
-////    Vt =
-////    (sqrt((-9*Vo^2+9*Ve*Vo-9*Ve^2)*D^4-(4*Te*Vo^3-6*Te*Ve*Vo^2-6*Te*Ve^2*Vo+4*Te*Ve^3)*D^3+(-4*Te^2*Vo^4+8*Te^2*Ve*Vo^3-12*Te^2*Ve^2*Vo^2+8*Te^2*Ve^3*Vo-4*Te^2*Ve^4)*D^2-4*Te^4*Ve^2*Vo^4+8*Te^4*Ve^3*Vo^3-4*Te^4*Ve^4*Vo^2)/(4*3^(3/2)*Te^2)-
-////    (Te^3*(8*Vo^3-12*Ve*Vo^2-12*Ve^2*Vo+8*Ve^3)-27*D^3)/(216*Te^3))^(1/3)+(9*D^2+Te^2*(4*Vo^2-4*Ve*Vo+4*Ve^2))/(36*Te^2*(
-////    sqrt((-9*Vo^2+9*Ve*Vo-9*Ve^2)*D^4-(4*Te*Vo^3-6*Te*Ve*Vo^2-6*Te*Ve^2*Vo+4*Te*Ve^3)*D^3+(-4*Te^2*Vo^4+8*Te^2*Ve*Vo^3-12*Te^2*Ve^2*Vo^2+8*Te^2*Ve^3*Vo-4*Te^2*Ve^4)*D^2-4*Te^4*Ve^2*Vo^4+8*Te^4*Ve^3*Vo^3-4*Te^4*Ve^4*Vo^2)/(4*3^(3/2)*Te^2)-
-////    (Te^3*(8*Vo^3-12*Ve*Vo^2-12*Ve^2*Vo+8*Ve^3)-27*D^3)/(216*Te^3))^(1/3))+(3*D-Te*(2*Vo+2*Ve))/(6*Te)
+//    //    Vt =
+//    //    (sqrt((-9*Vo^2+9*Ve*Vo-9*Ve^2)*D^4-(4*Te*Vo^3-6*Te*Ve*Vo^2-6*Te*Ve^2*Vo+4*Te*Ve^3)*D^3+(-4*Te^2*Vo^4+8*Te^2*Ve*Vo^3-12*Te^2*Ve^2*Vo^2+8*Te^2*Ve^3*Vo-4*Te^2*Ve^4)*D^2-4*Te^4*Ve^2*Vo^4+8*Te^4*Ve^3*Vo^3-4*Te^4*Ve^4*Vo^2)/(4*3^(3/2)*Te^2)-
+//    //    (Te^3*(8*Vo^3-12*Ve*Vo^2-12*Ve^2*Vo+8*Ve^3)-27*D^3)/(216*Te^3))^(1/3)+(9*D^2+Te^2*(4*Vo^2-4*Ve*Vo+4*Ve^2))/(36*Te^2*(
+//    //    sqrt((-9*Vo^2+9*Ve*Vo-9*Ve^2)*D^4-(4*Te*Vo^3-6*Te*Ve*Vo^2-6*Te*Ve^2*Vo+4*Te*Ve^3)*D^3+(-4*Te^2*Vo^4+8*Te^2*Ve*Vo^3-12*Te^2*Ve^2*Vo^2+8*Te^2*Ve^3*Vo-4*Te^2*Ve^4)*D^2-4*Te^4*Ve^2*Vo^4+8*Te^4*Ve^3*Vo^3-4*Te^4*Ve^4*Vo^2)/(4*3^(3/2)*Te^2)-
+//    //    (Te^3*(8*Vo^3-12*Ve*Vo^2-12*Ve^2*Vo+8*Ve^3)-27*D^3)/(216*Te^3))^(1/3))+(3*D-Te*(2*Vo+2*Ve))/(6*Te)
+//    //なんじゃこれ・・・
 //
 //
-//
-//
-//
-//    //    速度
-//    //     ^
-//    //     |                D:移動距離
-//    //     |               Vo:現時点の速度
-//    //     |               Vt:距離1/4 ～ 3/4 の速度
-//    //     |               Ve:最終目標到達速度
-//    //   Vt|....         Te:目標到達速度に達した時の時間（フレーム数）
-//    //     |   /|＼
-//    //   Ve|../.|..＼
-//    //     | /  |   |
-//    //     |/   |   |
-//    //   Vo| 1/2|1/2|
-//    //     |  D | D |
-//    //   --+----+---+-----> 時間(フレーム)
-//    //   0 |   tp1    tp2  Te
-////
-////        // 距離は 「台形＋台形」 の面積。ゆえに
-////        // (1/2)D = (1/2) (Vo + Vt) tp           …① 台形
-////        // (1/2)D = (1/2) (Ve + Vt) (Te - tp)     …② 台形
-////
-////
-////        // また、距離は 「全体の長方形 ‐ 三角形部分２つ」 の面積でもある。ゆえに
-////        // D = Te Vt - (1/2) tp (Vt - Vo) - (1/2) (Te - tp) (Vt - Ve) …③
-////
-////        //①より
-////        //tp = D / (Vo + Vt)        …④
-////        //②より
-////        //(Te - tp) = D / (Ve + Vt)   …⑤
-////        //④⑤を③へ代入
-////        // D = Te Vt - (1/2) (D / (Vo + Vt)) (Vt - Vo) - (1/2) (D / (Ve + Vt)) (Vt - Ve) …③
-////        //これをVtについて解くと
-////
-////
-////    D = (Te*Vt) - ((1/2)*(D / (Vo + Vt))*(Vt - Vo)) - ((1/2)*(D / (Ve + Vt))*(Vt - Ve))
-////    Vt=(sqrt(4*D^2+Te^2*Vo^2-2*Te^2*Ve*Vo+Te^2*Ve^2)-2*D+Te*Vo+Te*Ve)/(2*Te),
-////    Vt=(sqrt(4*D^2+Te^2*Vo^2-2*Te^2*Ve*Vo+Te^2*Ve^2)+2*D-Te*Vo-Te*Ve)/(2*Te)
-////    Vt=0
 //
 //
 //

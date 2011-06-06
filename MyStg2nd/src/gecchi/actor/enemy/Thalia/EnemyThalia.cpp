@@ -57,9 +57,8 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pMvNavigator->setFaceAngVelo(AXIS_X, 1000);
-    _pMvNavigator->execSmoothMvVeloSequence1(_veloTopMv, 1000, MyShip::_lim_front - _X);
-//    _TRACE_("execSmoothMvVeloSequence1 START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離="<<(MyShip::_lim_front - _X)<<" veloMv="<<(_pMvNavigator->_veloMv));
-
+    _pMvNavigator->execSmoothMvVeloSequenceD(_veloTopMv, 1000,
+                                             MyShip::_lim_front - _X, 0.4, 0.6);
     _pPrg->set(THALIA_SCENE_PROG_MOVE);
     _iMovePatternNo = 0; //行動パターンリセット
 
@@ -119,7 +118,7 @@ void EnemyThalia::processBehavior() {
         case THALIA_SCENE_PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
-            _pMvNavigator->execSmoothMvVeloSequence1(_veloTopMv, 1000, 1500000);
+            _pMvNavigator->execSmoothMvVeloSequenceD(_veloTopMv, 1000, 1500000, 0.4, 0.6);
 //            _pMvNavigator->execSmoothMvVeloSequence(200, 1000000, 180);
             _pMvNavigator->setFaceAngVelo(AXIS_X, 1000);
             _pPrg->change(THALIA_SCENE_PROG_MOVE);
