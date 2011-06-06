@@ -21,7 +21,7 @@ void CubeMapMorphMeshTestActor::initialize() {
     setHitAble(false);
     setCubeMapTexture("Torus_cubemap.dds", 0.1);
     _pMorpher->setWeight(0, 1.0);
-    setScaleRate(0.2);
+    setScaleRate(0.1);
 }
 
 void CubeMapMorphMeshTestActor::onActive() {

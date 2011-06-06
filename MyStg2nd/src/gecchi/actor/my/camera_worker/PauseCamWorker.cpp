@@ -142,7 +142,7 @@ void PauseCamWorker::processBehavior() {
             angle rz2 = GgafDx9Util::getAngle2D(Q._x,Q._y);
 
             //Q._x, Q._y, Q._z が回転後の座標となる
-            if (abs(mdy) > abs(mdx)) {
+            if (abs(mdy) > abs(mdx)/2) { //上下ブレ補正
                 _move_target_XY_CAM_UP += GgafDx9Util::getAngDiff(rz1, rz2);
                 _move_target_XY_CAM_UP = GgafDx9Util::simplifyAng(_move_target_XY_CAM_UP);
             }
@@ -165,7 +165,7 @@ void PauseCamWorker::processBehavior() {
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
             angle rz2 = GgafDx9Util::getAngle2D(Q._x,Q._y);
-            if (abs(mdy) > abs(mdx)) {
+            if (abs(mdy) > abs(mdx)/2) { //上下ブレ補正
                 _move_target_XY_CAM_UP += GgafDx9Util::getAngDiff(rz1, rz2);
                 _move_target_XY_CAM_UP = GgafDx9Util::simplifyAng(_move_target_XY_CAM_UP);
             }
@@ -271,8 +271,8 @@ void PauseCamWorker::processBehavior() {
 
         int td1 = GgafDx9Util::getDistance(pCam->_X, pCam->_Y, pCam->_Z,
                                            _move_target_X_CAM, _move_target_Y_CAM, _move_target_Z_CAM);
-		if (MyStgUtil::abs(td1) > 10) {
-            pCam->_pMvNavigator->execSmoothMvVeloSequenceEx(0, td1, 20);
+        if (MyStgUtil::abs(td1) > 10) {
+            pCam->_pMvNavigator->execSmoothMvVeloSequence(0, td1, 20, 0.4, 0.6);
         }
     }
     if (abs(_move_target_X_VP - pVP->_X) < 10 && abs(_move_target_Y_VP - pVP->_Y) < 10 && abs(_move_target_Z_VP - pVP->_Z) < 10) {
@@ -281,8 +281,8 @@ void PauseCamWorker::processBehavior() {
         pVP->_pMvNavigator->setMvAng(_move_target_X_VP, _move_target_Y_VP, _move_target_Z_VP);
         int td2 = GgafDx9Util::getDistance(pVP->_X, pVP->_Y, pVP->_Z,
                                            _move_target_X_VP, _move_target_Y_VP, _move_target_Z_VP);
-		if (MyStgUtil::abs(td2) > 10) {
-            pVP->_pMvNavigator->execSmoothMvVeloSequenceEx(0, td2, 20);
+        if (MyStgUtil::abs(td2) > 10) {
+            pVP->_pMvNavigator->execSmoothMvVeloSequence(0, td2, 20, 0.4, 0.6);
         }
     }
 

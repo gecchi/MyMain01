@@ -11,21 +11,20 @@ namespace GgafDx9Core {
 
 
 /**
- * 黒子 .
- * 黒子は舞台には見えないですが、演者(アクター)を持ち上げて、移動、回転させる人々です。<BR>
- * 演者は自らは特に動作せずとも、黒子のおかげで舞台を飛び回まわることもできます。<BR>
- * 基本的な動作は黒子でほとんどカバーできますが、万能ではありません。<BR>
- * 黒子が頑張っても対応できない複雑な動作は、演者(アクター)自身も協力して移動、回転擦る必要があります。<BR>
- * 演者一人ににつき、黒子が一人付いています。<BR>
+ * 移動用ナビゲーター .
+ * ナビゲーターは舞台には見えないですが、演者(アクター)にくっついており、演者を移動・回転させる機械です。<BR>
+ * 演者は自らの意思で動作せずとも、ナビゲーターのおかげで舞台を飛び回まわることもできます。<BR>
+ * 基本的な移動動作はナビゲーターでほとんどカバーできますが、万能ではありません。<BR>
+ * ナビゲーターが頑張っても対応できない複雑な移動動作は、演者(アクター)自身も協力して移動・回転を行う必要があります。<BR>
+ * 演者一人につき、ナビゲーターが標準で１機付属しています。<BR>
  * <BR>
- * それはさて置き、つまり座標計算支援（共通化）クラスです。<BR>
+ * それはさて置き、つまりは座標計算支援（共通化）クラスです。<BR>
  * GgafDx9GeometricActor のメンバの<BR>
  *  _X ,  _Y,  _Z  ・・・ アクターの座標<BR>
  * _RX , _RY, _RZ  ・・・ アクターの軸回転角度<BR>
- * を、簡単に操作するために作成。<BR>
- * 基本的な移動、回転は黒子に任せ、<BR>
- * 特殊な移動、回転のみ直接アクターの processBehave() に実装。という設計思想。<BR>
- * TODO:いつの間にか肥大化。分割せよ。
+ * を、方向ベクトル、速度、距離、時間、によって管理操作するために作成したクラス。<BR>
+ * 共通の基本的な移動、回転はナビゲーターに任せて、<BR>
+ * アクター固有の特殊な移動回転動作を processBehave() に直接記述。という設計思想。<BR>
  * @version 1.00
  * @since 2008/08/20
  * @author Masatoshi Tsuge
@@ -71,8 +70,8 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
 
     /**
      * Actorの軸回転方角を設定。<BR>
-     * @param	prm_axis	回転軸(AXIS_X / AXIS_Y / AXIS_Z)
-     * @param	prm_angFace	方角のアングル値(-360,000～360,000)
+     * @param   prm_axis    回転軸(AXIS_X / AXIS_Y / AXIS_Z)
+     * @param   prm_angFace 方角のアングル値(-360,000～360,000)
      */
     void setFaceAng(int prm_axis, angle prm_angFace);
 
@@ -103,8 +102,8 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
      *  です。
      *  <BR>
      *
-     * @param	prm_axis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-     * @param	prm_angDistance	回転軸方角値の増分アングル値(範囲：_iBottom_RotVeloAngle ～ _angveloTopRot)
+     * @param   prm_axis    回転軸（AXIS_X / AXIS_Y / AXIS_Z)
+     * @param   prm_angDistance 回転軸方角値の増分アングル値(範囲：_iBottom_RotVeloAngle ～ _angveloTopRot)
      */
     void addFaceAng(int prm_axis, angle prm_angDistance);
 
@@ -115,10 +114,10 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
      * 軸回転方角角速度が 0 の場合、何も起こりません。本メソッドを実行したからと言って勝手に向きが変わるとという意味ではありません。 <BR>
      * 内部的には、addFaceAng(prm_axis, int) が毎フレーム行われる仕組みです。<BR>
      * 目標の回転方角に到達したならば、この目標の軸回転方角自動停止機能は解除(内部のフラグをアンセット)されます。<BR>
-     * @param	prm_axis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-     * @param	prm_angTargetRot	到達目標の回転方角(0～360,000)
-     * @param	prm_way_allow  自動停止を許可する進入方向(TURN_CLOCKWISE/TURN_COUNTERCLOCKWISE/TURN_BOTH)
-     * @param	prm_angveloAllow 自動停止機能が有効になる回転角速度
+     * @param   prm_axis    回転軸（AXIS_X / AXIS_Y / AXIS_Z)
+     * @param   prm_angTargetRot    到達目標の回転方角(0～360,000)
+     * @param   prm_way_allow  自動停止を許可する進入方向(TURN_CLOCKWISE/TURN_COUNTERCLOCKWISE/TURN_BOTH)
+     * @param   prm_angveloAllow 自動停止機能が有効になる回転角速度
      */
     void setStopTarget_FaceAng(int prm_axis,
                                  angle prm_angTargetRot,
@@ -127,11 +126,11 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
 
     /**
      * Actorの目標回転方向自動停止機能を有効(現在XY座標からの対象XY座標で設定)<BR>
-     * @param	prm_axis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-     * @param	prm_tX	対象X座標
-     * @param	prm_tY	対象Y座標
-     * @param	prm_way_allow  自動停止機能が有効になる回転方向
-     * @param	prm_angveloAllowRyMv 自動停止機能が有効になる回転角速度
+     * @param   prm_axis    回転軸（AXIS_X / AXIS_Y / AXIS_Z)
+     * @param   prm_tX  対象X座標
+     * @param   prm_tY  対象Y座標
+     * @param   prm_way_allow  自動停止機能が有効になる回転方向
+     * @param   prm_angveloAllowRyMv 自動停止機能が有効になる回転角速度
      */
     void setStopTarget_FaceAngV(int prm_axis,
                                   int prm_tX,
@@ -154,7 +153,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
     ////////////////////////////////////////////////////MOVER
 
 public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
-    /** キャラの移動方角単位ベクトル */
+    /** [r]キャラの移動方角単位ベクトル */
     float _vX, _vY, _vZ;
     /** 移動方角のZ軸回転角 */
     angle _angRzMv;
@@ -232,13 +231,13 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /** なめらかな移動シークエンスで設定された終了時の速度 */
     velo _smooth_mv_velo_seq_end_velo;
     /** なめらかな移動シークエンスで設定された目標移動距離 */
-    int  _smooth_mv_velo_seq_distance_of_target;
+    int  _smooth_mv_velo_seq_target_distance;
     /** なめらかな移動シークエンスに開始から現在までの移動距離 */
     int  _smooth_mv_velo_seq_mv_distance;
     /** なめらかな移動シークエンスで設定された目標時間 */
-    int  _smooth_mv_velo_seq_frame_of_spend;
+    int  _smooth_mv_velo_seq_target_frames;
     /** なめらかな移動シークエンスに開始から現在までの経過時間 */
-    int  _smooth_mv_velo_seq_spend_frame;
+    int  _smooth_mv_velo_seq_frame_of_spent;
     /** なめらかな移動シークエンスで設定された加速～等速へ切り替わる位置 */
     int  _smooth_mv_velo_seq_p1;
     /** なめらかな移動シークエンスで設定された等速～減速へ切り替わる位置 */
@@ -258,7 +257,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     bool _taget_mv_ang_alltime_optimize_ang;
     /**
      * 移動速度を設定 .
-     * @param	prm_veloMv	移動速度
+     * @param   prm_veloMv  移動速度
      */
     void setMvVelo(velo prm_veloMv);
 
@@ -285,96 +284,99 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * 移動加速度を、「停止時移動距離」により設定する .
      * <pre><code>
-     *    速度
+     *
+     *    速度(v)
      *     ^       a:減加速度
-     *     |       S:移動距離（停止に費やす距離）
-     *     |      v0:現時点の速度
-     *   v0|       t:停止するフレーム
+     *     |       D:移動距離（停止に費やす距離）
+     *     |      Vo:現時点の速度
+     *   Vo|      Te:停止するフレーム
      *     |＼
      *     |  ＼
-     *     |    ＼ 傾きはa
-     *     | S    ＼
-     *   --+--------＼-----> 時間(フレーム)
-     *   0 |         t
+     *     |    ＼ 斜辺の傾きa
+     *     |   D  ＼
+     *     |        ＼
+     *   --+----------＼-----> 時間(t)
+     *   0 |          Te
      *
-     *    S = (1/2) v0 t  ・・・①
-     *    a = -v0 / t     ・・・②
+     *    D = (1/2) Vo Te  ・・・①
+     *    a = -Vo / Te     ・・・②
      *    ①より
-     *    t = 2S / v0
+     *    Te = 2D / Vo
      *    これを②へ代入
-     *    a = -v0 / (2S / v0)
-     *    ∴ a = -(v0^2) / 2S
+     *    a = -Vo / (2D / Vo)
+     *    ∴ a = -(Vo^2) / 2D
      * </code></pre>
-     * 具体的には、の上図のような状態を想定し、加速度(a)を計算し設定している。<BR>
-     * @param prm_distance_of_target 停止時移動距離(S)
+     * 上図のような状態を想定し、引数の距離(D)から、加速度(a)を計算し設定している。<BR>
+     * 停止までのフレーム(Te) は 距離(D) により変化するため指定不可。<BR>
+     * @param prm_target_distance 停止時移動距離(D)
      */
-    void setMvAcceToStop(int prm_distance_of_target);
+    void setMvAcceToStop(int prm_target_distance);
 
     /**
      * 移動加速度を、「目標到達速度」「移動距離(達するまでに費やす距離)」により設定 .
      * <pre><code>
      *
-     *    速度
+     *    速度(v)
      *     ^        a:加速度
-     *     |        S:移動距離（目標到達速度に達するまでに費やす距離）
-     *     |       v0:現時点の速度
-     *     |       vx:目標到達速度
-     *     |       t:目標到達速度に達した時の時間（フレーム数）
-     *   vx|........
+     *     |        D:移動距離（目標到達速度に達するまでに費やす距離）
+     *     |       Vo:現時点の速度
+     *     |       Vt:目標到達速度
+     *     |       Te:目標到達速度に達した時の時間（フレーム数）
+     *   Vt|........
      *     |      ／|
      *     |    ／  |
-     *     |  ／    |   傾きはa
+     *     |  ／    |   斜辺の傾きa
      *     |／      |
-     *   v0|  S     |
+     *   Vo|    D   |
      *     |        |
-     *   --+--------+---> 時間(フレーム)
-     *   0 |        t
+     *   --+--------+---> 時間(t)
+     *   0 |        Te
      *
-     *    S = (1/2) (v0 + vx) t   ・・・①
-     *    a = (vx-v0) / t         ・・・②
-     *    ①より
-     *    t = (vx-v0) / a
+     *    D = (1/2) (Vo + Vt) Te   ・・・①
+     *    a = (Vt - Vo) / Te         ・・・②
+     *    ①より Te = (Vt - Vo) / a
      *    これを②へ代入
-     *    S = (vx^2 - v0^2) / 2a
-     *    ∴ a = (vx^2 - v0^2) / 2S
+     *    D = (Vt^2 - Vo^2) / 2a
+     *    ∴ a = (Vt^2 - Vo^2) / 2D
      * </code></pre>
-     * 具体的には、の上図のような状態を想定し、加速度(a)を計算し設定している。<BR>
-     * 捕捉：setMvAcce(0, d) は setMvAcceToStop(d) と同じである
-     * @param prm_velo_target 目標到達速度(vx)
-     * @param prm_distance_of_target  目標到達速度に達するまでに費やす距離(S)
+     * 上図のような状態を想定し、目標到達速度(Vt)と、移動距離(D)から、加速度(a)を計算し設定している。<BR>
+     * 目標到達まで必要なフレーム(Te) はパラメータにより変化するため指定不可。<BR>
+     * 捕捉：setMvAcceBy_Dv(0, D) は setMvAcceToStop(D) と同じである
+     * @param prm_target_distance  目標到達速度に達するまでに費やす距離(D)
+     * @param prm_target_velo 目標到達速度(Vt)
      */
-    void setMvAcce(int prm_distance_of_target, velo prm_velo_target);
+    void setMvAcceBy_Dv(int prm_target_distance, velo prm_target_velo);
 
 
     /**
      * 移動加速度を、「目標到達速度」「費やす時間」により設定 .
      * <pre><code>
      *
-     *    速度
+     *    速度(v)
      *     ^        a:加速度
-     *     |        S:移動距離
-     *     |       v0:現時点の速度
-     *     |       vx:目標到達速度
-     *     |       t:目標到達速度に達した時の時間（フレーム数）
-     *   vx|........
+     *     |        D:移動距離
+     *     |       Vo:現時点の速度
+     *     |       Vt:目標到達速度
+     *     |       Te:目標到達速度に達した時の時間（フレーム数）
+     *   Vt|........
      *     |      ／|
      *     |    ／  |
-     *     |  ／    |   傾きはa
+     *     |  ／    |   斜辺の傾きa
      *     |／      |
-     *   v0|  S     |
+     *   Vo|    D   |
      *     |        |
-     *   --+--------+---> 時間(フレーム)
-     *   0 |        t
+     *   --+--------+---> 時間(tフレーム)
+     *   0 |        Te
      *
-     *    a = (vx-v0) / t
-     *    Sは無視
+     *    a = (Vt-Vo) / Te
+     *    Dは無視
      * </code></pre>
-     * 具体的には、の上図のような状態を想定し、加速度(a)を計算し設定している。<BR>
-     * 捕捉：setMvAcce(0, d) は setMvAcceToStop(d) と同じである
-     * @param prm_frame_of_spend 費やす時間(t)
-     * @param prm_velo_target  目標到達速度(vx)
+     * 上図のような状態を想定し、目標到達速度(Vt)と、その到達時間(Te) から、加速度(a)を計算し設定している。<BR>
+     * 移動距離(D)は、パラメータにより変化するため指定不可。<BR>
+     * @param prm_target_frames 費やす時間(Te)
+     * @param prm_target_velo  目標到達速度(Vt)
      */
-    void setMvAcce2(int prm_frame_of_spend, velo prm_velo_target);
+    void setMvAcceBy_tv(int prm_target_frames, velo prm_target_velo);
 
     /**
      * Actorの移動方角（Z軸回転）を設定。<BR>
@@ -382,7 +384,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * 自動前方向き機能が有効(_relate_RzFaceAng_with_RzMvAng_flg)の場合、<BR>
      * Actorの向きも移動方角（Z軸回転）と同じ方向を向くように setStopTarget_FaceAng(int) も実行されます。<BR>
      *
-     * @param	prm_ang	移動方角（Z軸回転）(0～360,000)
+     * @param   prm_ang 移動方角（Z軸回転）(0～360,000)
      */
     void setRzMvAng(angle prm_ang);
 
@@ -391,8 +393,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * 自動前方向き機能が有効(_relate_RzFaceAng_with_RzMvAng_flg)の場合、<BR>
      * ActorのZ軸方角（向き）も移動方角（Z軸回転）と同じ方向を向くように setStopTarget_FaceAng(int) が実行されます。<BR>
      *
-     * @param	prm_tX	対象xZ軸座標
-     * @param	prm_tY	対象yZ軸座標
+     * @param   prm_tX  対象xZ軸座標
+     * @param   prm_tY  対象yZ軸座標
      */
     void setRzMvAng(int prm_tX, int prm_tY);
 
@@ -421,7 +423,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *
      * となっています。これは瞬時に（1フレームで）どんな移動方角（Z軸回転）にも向きを変えれることを意味します。<BR>
      *
-     * @param	prm_angDistance	移動方角（Z軸回転）増分(範囲：_angveloRzBottomMv ～ _angveloRzTopMv)
+     * @param   prm_angDistance 移動方角（Z軸回転）増分(範囲：_angveloRzBottomMv ～ _angveloRzTopMv)
      */
     void addRzMvAng(angle prm_angDistance);
 
@@ -433,9 +435,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * 内部的には、addRzMvAng(int) が毎フレーム行われる仕組みです。(this->behave()で実行)<BR>
      * 目標の移動方角（Z軸回転）に到達したならば、この目標の移動方角（Z軸回転）自動停止機能は解除されます。<BR>
      *
-     * @param	prm_angRzMv	到達目標の移動方角（Z軸回転）(-360,000～360,000)
-     * @param	prm_way_allow  自動停止機能が有効になる進入回転方向
-     * @param	prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
+     * @param   prm_angRzMv 到達目標の移動方角（Z軸回転）(-360,000～360,000)
+     * @param   prm_way_allow  自動停止機能が有効になる進入回転方向
+     * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
      */
     void setStopTarget_RzMvAng(angle prm_angRzMv,
                                int prm_way_allow = TURN_BOTH,
@@ -445,10 +447,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * Actorの目標の移動方角（Z軸回転）自動停止機能を有効(目標の移動方角（Z軸回転）を現在Z軸座標からの対象Z軸座標で設定)<BR>
      * 機能はsetStopTarget_RzMvAng(int)と同じ<BR>
      *
-     * @param	prm_tX	xRz座標
-     * @param	prm_tY	yRy座標
-     * @param	prm_way_allow  自動停止機能が有効になる進入回転方向
-     * @param	prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
+     * @param   prm_tX  xRz座標
+     * @param   prm_tY  yRy座標
+     * @param   prm_way_allow  自動停止機能が有効になる進入回転方向
+     * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
      */
     void setStopTarget_RzMvAngV(int prm_tX,
                                        int prm_tY,
@@ -489,8 +491,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * 自動前方向き機能が有効(_relate_RyFaceAng_with_RyMvAng_flg)の場合、<BR>
      * ActorのZ軸方角（向き）も移動方角（Y軸回転）と同じ方向を向くように setStopTarget_FaceAng(int) が実行されます。<BR>
      *
-     * @param	prm_tX	対象xY軸座標
-     * @param	prm_tY	対象yY軸座標
+     * @param   prm_tX  対象xY軸座標
+     * @param   prm_tY  対象yY軸座標
      */
     void setRyMvAng(int prm_tX, int prm_tY);
 
@@ -519,7 +521,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *
      * となっています。これは瞬時に（1フレームで）どんな移動方角（Y軸回転）にも向きを変えれることを意味します。<BR>
      *
-     * @param	prm_angDistance	移動方角（Y軸回転）増分(範囲：_angveloRyBottomMv ～ _angveloRyTopMv)
+     * @param   prm_angDistance 移動方角（Y軸回転）増分(範囲：_angveloRyBottomMv ～ _angveloRyTopMv)
      */
     void addRyMvAng(angle prm_angDistance);
 
@@ -532,9 +534,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * 内部的には、addRyMvAng(int) が毎フレーム行われる仕組みです。(this->behave()で実行)<BR>
      * 目標の移動方角（Y軸回転）に到達したならば、この目標の移動方角（Y軸回転）自動停止機能は解除されます。<BR>
      *
-     * @param	prm_angRyMv	到達目標の移動方角（Y軸回転）(-360,000～360,000)
-     * @param	prm_mv_ang_ry_target_allow_way  自動停止機能が有効になる進入回転方向
-     * @param	prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
+     * @param   prm_angRyMv 到達目標の移動方角（Y軸回転）(-360,000～360,000)
+     * @param   prm_mv_ang_ry_target_allow_way  自動停止機能が有効になる進入回転方向
+     * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
      */
     void setStopTarget_RyMvAng(angle prm_angRyMv,
                                int prm_mv_ang_ry_target_allow_way = TURN_BOTH,
@@ -544,10 +546,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * Actorの目標のY軸回転移動方角自動停止機能を有効 .
      * 目標の移動方角（Y軸回転）を現在Y軸座標からの対象Y軸座標で設定<BR>
      * 機能はsetStopTarget_RyMvAng(int)と同じ<BR>
-     * @param	prm_tX	xRy座標
-     * @param	prm_tY	yRy座標
-     * @param	prm_mv_ang_ry_target_allow_way  自動停止機能が有効になる進入回転方向
-     * @param	prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
+     * @param   prm_tX  xRy座標
+     * @param   prm_tY  yRy座標
+     * @param   prm_mv_ang_ry_target_allow_way  自動停止機能が有効になる進入回転方向
+     * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
      */
     void setStopTarget_RyMvAngV(int prm_tX,
                                 int prm_tY,
@@ -889,42 +891,42 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     }
 
     /**
-     * なめらかな移動速度を変化させるシークエンスを実行(トップスピード(vx)と目標移動距離(S)指定、時間(t)は計算) .
-     * 引数の移動距離(S)を４分割し、次のような速度制御を自動的に行う。<BR>
+     * なめらかな移動速度を変化させるシークエンスを実行(トップスピード(Vt)と目標移動距離(D)指定、時間(Te)は計算) .
+     * 引数の移動距離(D)を４分割し、次のような速度制御を自動的に行う。<BR>
      * 距離 0    ～距離 1/4 まで ・・・ 現在の速度からトップスピードまで加速(or減速)<BR>
      * 距離 1/4 ～ 距離 3/4 まで ・・・ トップスピードで等速<BR>
      * 距離 3/4 ～ 距離 4/4 まで ・・・ トップスピードから最終スピードへ減速(or加速)<BR>
      *
      * <pre>
      *
-     *    速度
+     *    速度(v)
      *     ^
-     *     |                       S:移動距離
-     *     |                      vs:現時点の速度
-     *     |                      vx:距離1/4 ～ 3/4 の速度
-     *     |                      ve:最終目標到達速度
-     *   vx|....＿＿＿＿            t:目標到達速度に達した時の時間（フレーム数）
+     *     |                       d1～d3:移動距離
+     *     |                      Vo:現時点の速度
+     *     |                      Vt:距離1/4 ～ 3/4 の速度
+     *     |                      Ve:最終目標到達速度
+     *   Vt|....＿＿＿＿          te:目標到達速度に達した時の時間（フレーム数）
      *     |   /|      |＼
-     *   ve|../.|......|..＼
+     *   Ve|../.|......|..＼
      *     | /  |      |   |
      *     |/   |      |   |
-     *   vs| 1/4|  2/4 |1/4|
-     *     |  S |   S  | S |
-     *   --+----+------+---+-----> 時間(フレーム)
-     *   0 |               t
+     *   Vo| Ds |  Dt  |De |
+     *     |    |      |   |
+     *   --+----+------+---+-----> 時間(Te フレーム)
+     *   0 |               te
      *
      * </pre>
      *
-     * @param prm_top_velo トップスピード(vx)
-     * @param prm_end_velo 最終スピード(ve)
-     * @param prm_distance_of_target 目標直線移動距離(S)
+     * @param prm_top_velo トップスピード(Vt)
+     * @param prm_end_velo 最終スピード(Ve)
+     * @param prm_target_distance 目標直線移動距離(D)
      * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void execSmoothMvVeloSequence1(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
+    void execSmoothMvVeloSequence1(velo prm_top_velo, velo prm_end_velo, int prm_target_distance,
                                   bool prm_endacc_flg = true);
 
     /**
-     * なめらかな移動速度を変化させるシークエンスを実行(トップスピード(vx)と目標時間指定(t)、移動距離(S)は計算) .
+     * なめらかな移動速度を変化させるシークエンスを実行(トップスピード(Vt)と目標時間指定(Te)、移動距離(D)は計算) .
      * 引数の費やす時間を3分割し、次のような速度制御を自動的に行う。<BR>
      * 時間 0    ～時間 1/3 まで ・・・ 現在の速度からトップスピードまで加速(or減速)<BR>
      * 時間 1/3 ～ 時間 2/3 まで ・・・ トップスピードで等速<BR>
@@ -933,70 +935,72 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *
      *    速度
      *     ^
-     *     |                      S:移動距離
-     *     |                     vs:現時点の速度
-     *     |                     vx:時間1/4 ～ 3/4 の速度
-     *     |                     ve:最終目標到達速度
-     *   vx|....＿＿＿           t:目標到達速度に達した時の時間（フレーム数）
+     *     |                      D:移動距離
+     *     |                     Vo:現時点の速度
+     *     |                     Vt:時間1/4 ～ 3/4 の速度
+     *     |                     Ve:最終目標到達速度
+     *   Vt|....＿＿＿           Te:目標到達速度に達した時の時間（フレーム数）
      *     |   /|    |＼
-     *   ve|../.|....|..＼
+     *   Ve|../.|....|..＼
      *     | /  |    |    |
      *     |/   |    |    |
-     *   vs|    | S  |    |
+     *   Vo|    | D  |    |
      *     |    |    |    |
-     *   --+----+----+----+-----> 時間(フレーム)
-     *   0 |  1/3   2/3   t
+     *   --+----+----+----+-----> 時間(t:フレーム)
+     *   0 |  1/3   2/3   Te
      *
      * </pre>
-     * @param prm_top_velo トップスピード(vx)
-     * @param prm_end_velo 最終スピード(ve)
-     * @param prm_frame_of_spend 費やす時間(t)(フレーム数を指定、負の数は不可)
+     * @param prm_top_velo トップスピード(Vt)
+     * @param prm_end_velo 最終スピード(Ve)
+     * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
      * @param prm_endacc_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
+    void execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_target_frames,
                                    bool prm_endacc_flg = true);
 
     /**
-     * なめらかな移動速度を変化させるシークエンスを実行(目標移動距離(S)と時間を指定(t)、トップスピード(vx)は計算) .
-     * 引数の費やす時間を4分割し、次のような速度制御を自動的に行う。<BR>
-     * 時間 0    ～時間 1/4 まで ・・・ 現在の速度からトップスピードまで加速(or減速)<BR>
-     * 時間 1/4 ～ 時間 3/4 まで ・・・ トップスピードで等速<BR>
-     * 時間 3/4 ～ 時間 4/4 まで ・・・ トップスピードから最終スピードへ減速(or加速)<BR>
+     * なめらかな移動速度を変化させるシークエンスを実行(目標移動距離(D)と時間(Te)を指定、トップスピード(Vt)は計算) .
+     * 時間 0     ～ 時間 p1*Te まで ・・・ 現在の速度からトップスピードまで加速(or減速)<BR>
+     * 時間 p1*Te ～ 時間 p2*Te まで ・・・ トップスピードで等速<BR>
+     * 時間 p2*Te ～ 時間 Te    まで ・・・ トップスピードから最終スピードへ減速(or加速)<BR>
      * <pre>
      *
-     *    速度
+     *    速度(v)
      *     ^
-     *     |                          S:移動距離
-     *     |                         vs:現時点の速度
-     *     |                         vx:時間1/4 ～ 3/4 の速度
-     *     |                         ve:最終目標到達速度
-     *   vx|....＿＿＿＿＿            t:目標到達速度に達した時の時間（フレーム数）
-     *     |   /|         |＼
-     *   ve|../.|.........|..＼
-     *     | /  |         |    |
-     *     |/   |         |    |
-     *   vs|    |    S    |    |
-     *     |    |         |    |
-     *   --+----+----+----+----+-----> 時間(フレーム)
-     *   0 | (1/4)t    (3/4)t  t
+     *     |                          D:目標移動距離
+     *     |                         Vo:現時点の速度
+     *     |                         Vt:トップスピード
+     *     |                         Ve:最終速度
+     *   Vt|....___________          Te:目標時間（フレーム数）
+     *     |   /:         :＼        p1:トップスピードに達する時刻となるような、Teに対する割合
+     *   Ve|../.:.........:..＼      p2:減速を開始時刻となるような、Teに対する割合
+     *     | /  :         :    |        (0.0 < p1 < p2 < 1.0)
+     *     |/   :         :    |
+     *   Vo|    :    D    :    |
+     *     |    :         :    |
+     *   --+----+---------+----+-----> 時間(t:フレーム)
+     *   0 |  p1*Te     p2*Te  Te
      *
      * </pre>
-     * @param prm_end_velo 最終スピード(ve)
-     * @param prm_distance_of_target 目標直線移動距離(S)
-     * @param prm_frame_of_spend 費やす時間(t)(フレーム数を指定、負の数は不可)
+     * @param prm_end_velo 最終スピード(Ve)
+     * @param prm_target_distance 目標直線移動距離(D)
+     * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
+     * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合
+     * @param prm_p2 減速を開始時刻となるような、Teに対する割合
      * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void execSmoothMvVeloSequenceEx(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
-                                   bool prm_endacc_flg = true);
+    void execSmoothMvVeloSequence(velo prm_end_velo, int prm_target_distance,
+                                  int prm_target_frames, float prm_p1, float prm_p2,
+                                  bool prm_endacc_flg = true);
 
 
-//    void execSmoothMvVeloSequence4(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
+//    void execSmoothMvVeloSequence4(velo prm_end_velo, int prm_target_distance, int prm_target_frames,
 //                                   bool prm_endacc_flg = true);
     bool isMoveingSmooth();
 
 
     /**
-     * 黒子の仕事を引継ぐ .
+     * ナビゲーターの仕事を引継ぐ .
      * 他の GgafDx9MvNavigator オブジェクトを状態を自身に引継ぐ .
      * @param prm_pMvNavigator 引継元
      */
@@ -1006,9 +1010,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
 
     /**
-     * 黒子が動く .
-     * 黒子機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
-     * 逆に黒子を必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
+     * ナビゲーターが機能する .
+     * ナビゲーター機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
+     * 逆にナビゲーターを必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
      */
     virtual void behave();
 

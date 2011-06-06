@@ -21,7 +21,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
     for (int i = 0; i < 60; i++) { //レーザーストック
         stringstream name;
         name <<  "EnemyStraightLaserChip001[" << i << "]";
-		pChip = NEW EnemyStraightLaserChip001(name.str().c_str());
+        pChip = NEW EnemyStraightLaserChip001(name.str().c_str());
         pChip->setSource(this); //位置向き同期
         pChip->inactivateImmediately();
         _pLaserChipDispatcher->addSubLast(pChip);
@@ -58,7 +58,6 @@ void EnemyThalia::onActive() {
     _pMorpher->setWeight(1, 0.0);
     _pMvNavigator->setFaceAngVelo(AXIS_X, 1000);
     _pMvNavigator->execSmoothMvVeloSequence1(_veloTopMv, 1000, MyShip::_lim_front - _X);
-//    _pMvNavigator->execSmoothMvVeloSequenceEx( 300, MyShip::_lim_front - _X, 180);
 //    _TRACE_("execSmoothMvVeloSequence1 START ("<<_X<<","<<_Y<<","<<_Z<<") 目標距離="<<(MyShip::_lim_front - _X)<<" veloMv="<<(_pMvNavigator->_veloMv));
 
     _pPrg->set(THALIA_SCENE_PROG_MOVE);
@@ -121,7 +120,7 @@ void EnemyThalia::processBehavior() {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
             _pMvNavigator->execSmoothMvVeloSequence1(_veloTopMv, 1000, 1500000);
-//            _pMvNavigator->execSmoothMvVeloSequenceEx(200, 1000000, 180);
+//            _pMvNavigator->execSmoothMvVeloSequence(200, 1000000, 180);
             _pMvNavigator->setFaceAngVelo(AXIS_X, 1000);
             _pPrg->change(THALIA_SCENE_PROG_MOVE);
         }

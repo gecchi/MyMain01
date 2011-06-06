@@ -17,7 +17,7 @@ GgafDx9Morpher::GgafDx9Morpher(GgafDx9MorphMeshActor* prm_pActor) :
         _beat_attack_frames[i] = 0;
         _beat_rest_frames[i] = 0;
         _frame_of_beat_begin[i] = 0;
-        _beat_spend_frames[i] = 0;
+        _beat_target_frames[i] = 0;
         _stop_halfloop_num[i] = -1;
         _method[i] = NOMORPH;
     }
@@ -82,7 +82,7 @@ void GgafDx9Morpher::behave() {
                     _beat_progres[i] = 2;//次へ
                 }
             } else if (_beat_progres[i] == 2) { //下限～終了まで
-                if (_beat_frame_count[i] >= _beat_spend_frames[i]) { //終了時
+                if (_beat_frame_count[i] >= _beat_target_frames[i]) { //終了時
                     _halfloop_cnt[i]++; //半ループカウント＋１
                     if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
                         _method[i] = NOMORPH;
@@ -117,14 +117,14 @@ void GgafDx9Morpher::intoTargetLinerStep(int prm_target_mesh, float prm_target_w
     _velo_weight[prm_target_mesh] = sgn(prm_target_weight - _weight[prm_target_mesh])*prm_velo_weight;
 }
 
-void GgafDx9Morpher::loopLiner(int prm_target_mesh, frame prm_beat_spend_frames, float prm_beat_num) {
+void GgafDx9Morpher::loopLiner(int prm_target_mesh, frame prm_beat_target_frames, float prm_beat_num) {
     _method[prm_target_mesh] = LOOP_MORPH_LINER;
     _halfloop_cnt[prm_target_mesh] = 0;
     _stop_halfloop_num[prm_target_mesh] = (int)(prm_beat_num*2.0f);
-    _velo_weight[prm_target_mesh] = 1.0f / ((float)prm_beat_spend_frames / 2.0f);
+    _velo_weight[prm_target_mesh] = 1.0f / ((float)prm_beat_target_frames / 2.0f);
 }
 
-void GgafDx9Morpher::beat(int prm_target_mesh, frame prm_beat_spend_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_beat_num) {
+void GgafDx9Morpher::beat(int prm_target_mesh, frame prm_beat_target_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_beat_num) {
     _method[prm_target_mesh] = LOOP_MORPH_TRIANGLEWAVE;
 
     _halfloop_cnt[prm_target_mesh] = 0;
@@ -132,8 +132,8 @@ void GgafDx9Morpher::beat(int prm_target_mesh, frame prm_beat_spend_frames, fram
 
     _beat_attack_frames[prm_target_mesh] = prm_attack_frames;
     _beat_rest_frames[prm_target_mesh] = prm_rest_frames;
-    _beat_spend_frames[prm_target_mesh] = prm_beat_spend_frames;
-    _beat_down_frames[prm_target_mesh] = _beat_spend_frames[prm_target_mesh] - _beat_attack_frames[prm_target_mesh] - _beat_rest_frames[prm_target_mesh];
+    _beat_target_frames[prm_target_mesh] = prm_beat_target_frames;
+    _beat_down_frames[prm_target_mesh] = _beat_target_frames[prm_target_mesh] - _beat_attack_frames[prm_target_mesh] - _beat_rest_frames[prm_target_mesh];
     _beat_frame_count[prm_target_mesh] = 0;
 
     //最初のアタックまでのvelo

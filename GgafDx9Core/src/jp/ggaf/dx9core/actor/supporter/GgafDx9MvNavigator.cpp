@@ -220,10 +220,10 @@ GgafDx9MvNavigator::GgafDx9MvNavigator(GgafDx9GeometricActor* prm_pActor) :
     _smooth_mv_velo_seq_endacc_flg = true;
     _smooth_mv_velo_seq_top_velo = 0;
     _smooth_mv_velo_seq_end_velo = 0;
-    _smooth_mv_velo_seq_distance_of_target = 0;
+    _smooth_mv_velo_seq_target_distance = 0;
     _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_frame_of_spend = 0;
-    _smooth_mv_velo_seq_spend_frame = 0;
+    _smooth_mv_velo_seq_target_frames = 0;
+    _smooth_mv_velo_seq_frame_of_spent = 0;
     _smooth_mv_velo_seq_p1 = 0;
     _smooth_mv_velo_seq_p2 = 0;
     _smooth_mv_velo_seq_progress = -1;
@@ -315,11 +315,11 @@ void GgafDx9MvNavigator::behave() {
 
     //なめらか移動シークエンス起動時
     if (_smooth_mv_velo_seq_flg) {
-        if (_smooth_mv_velo_seq_frame_of_spend < 0) {
+        if (_smooth_mv_velo_seq_target_frames < 0) {
             //目標距離指定の場合
             if (_smooth_mv_velo_seq_progress == 0) {
                 //加速設定
-                setMvAcce(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
+                setMvAcceBy_Dv(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
                 _smooth_mv_velo_seq_progress++;
             } else if (_smooth_mv_velo_seq_progress == 1) {
                 //加速中
@@ -333,12 +333,12 @@ void GgafDx9MvNavigator::behave() {
                 //等速中
                 if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_p2) {
                     //p2 に到達すれば 次回フレームから減速へ
-                    setMvAcce(_smooth_mv_velo_seq_distance_of_target - _smooth_mv_velo_seq_mv_distance, _smooth_mv_velo_seq_end_velo);
+                    setMvAcceBy_Dv(_smooth_mv_velo_seq_target_distance - _smooth_mv_velo_seq_mv_distance, _smooth_mv_velo_seq_end_velo);
                     _smooth_mv_velo_seq_progress++;
                 }
             } else if (_smooth_mv_velo_seq_progress == 3) {
                 //減速中
-                if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_distance_of_target) {
+                if (_smooth_mv_velo_seq_mv_distance >= _smooth_mv_velo_seq_target_distance) {
                     //目標距離へ到達
                     setMvVelo(_smooth_mv_velo_seq_end_velo);
                     if (_smooth_mv_velo_seq_endacc_flg) {
@@ -352,11 +352,11 @@ void GgafDx9MvNavigator::behave() {
             //目標時間指定の場合
             if (_smooth_mv_velo_seq_progress == 0) {
                 //加速設定
-                setMvAcce2(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
+                setMvAcceBy_tv(_smooth_mv_velo_seq_p1, _smooth_mv_velo_seq_top_velo);
                 _smooth_mv_velo_seq_progress++;
             } else if (_smooth_mv_velo_seq_progress == 1) {
                 //加速中
-                if (_smooth_mv_velo_seq_spend_frame >= _smooth_mv_velo_seq_p1) {
+                if (_smooth_mv_velo_seq_frame_of_spent >= _smooth_mv_velo_seq_p1) {
                     //p1 に到達すれば 等速へ
                     setMvAcce(0);
                     setMvVelo(_smooth_mv_velo_seq_top_velo);
@@ -364,14 +364,14 @@ void GgafDx9MvNavigator::behave() {
                 }
             } else if (_smooth_mv_velo_seq_progress == 2) {
                 //等速中
-                if (_smooth_mv_velo_seq_spend_frame >= _smooth_mv_velo_seq_p2) {
+                if (_smooth_mv_velo_seq_frame_of_spent >= _smooth_mv_velo_seq_p2) {
                     //p2 に到達すれば 次回フレームから減速へ
-                    setMvAcce2(_smooth_mv_velo_seq_frame_of_spend - _smooth_mv_velo_seq_spend_frame, _smooth_mv_velo_seq_end_velo);
+                    setMvAcceBy_tv(_smooth_mv_velo_seq_target_frames - _smooth_mv_velo_seq_frame_of_spent, _smooth_mv_velo_seq_end_velo);
                     _smooth_mv_velo_seq_progress++;
                 }
             } else if (_smooth_mv_velo_seq_progress == 3) {
                 //減速中
-                if (_smooth_mv_velo_seq_spend_frame >= _smooth_mv_velo_seq_frame_of_spend) {
+                if (_smooth_mv_velo_seq_frame_of_spent >= _smooth_mv_velo_seq_target_frames) {
                     //目標距離へ到達
                     setMvVelo(_smooth_mv_velo_seq_end_velo);
                     if (_smooth_mv_velo_seq_endacc_flg) {
@@ -390,10 +390,10 @@ void GgafDx9MvNavigator::behave() {
 
 
     if (_smooth_mv_velo_seq_flg) {
-        if (_smooth_mv_velo_seq_frame_of_spend < 0) {
+        if (_smooth_mv_velo_seq_target_frames < 0) {
             _smooth_mv_velo_seq_mv_distance+=abs(_veloMv);
         } else {
-            _smooth_mv_velo_seq_spend_frame++;
+            _smooth_mv_velo_seq_frame_of_spent++;
         }
     }
 
@@ -764,201 +764,206 @@ void GgafDx9MvNavigator::setMvAcce(int prm_acceMove) {
     _accMv = prm_acceMove;
 }
 
-void GgafDx9MvNavigator::setMvAcceToStop(int prm_distance_of_target) {
-    // a = -(v0^2) / 2S
-    _accMv  =  -(1.0*_veloMv*_veloMv) / (2.0*prm_distance_of_target);
+void GgafDx9MvNavigator::setMvAcceToStop(int prm_target_distance) {
+    // a = -(Vo^2) / 2D
+    _accMv  =  -(1.0*_veloMv*_veloMv) / (2.0*prm_target_distance);
     if (_accMv < 0) {
         _accMv += 1;
     } else {
         _accMv -= 1;
     }
-    //(frame)((2.0*prm_distance_of_target) / _veloMv); //使用フレーム数
+    //(frame)((2.0*prm_target_distance) / _veloMv); //使用フレーム数
 }
-void GgafDx9MvNavigator::setMvAcce2(int prm_frame_of_spend, velo prm_velo_target) {
-    //a = (vx-v0) / t
-    _accMv = (prm_velo_target - _veloMv) / (1.0f*prm_frame_of_spend);
+void GgafDx9MvNavigator::setMvAcceBy_tv(int prm_target_frames, velo prm_target_velo) {
+    //a = (Vt-Vo) / Te
+    _accMv = (prm_target_velo - _veloMv) / (1.0f*prm_target_frames);
 }
-void GgafDx9MvNavigator::setMvAcce(int prm_distance_of_target, velo prm_velo_target) {
-    // a = (vx^2 - v0^2) / 2S
-    _accMv =  ((1.0f*prm_velo_target*prm_velo_target) - (1.0f*_veloMv*_veloMv)) / (2.0f*prm_distance_of_target);
+void GgafDx9MvNavigator::setMvAcceBy_Dv(int prm_target_distance, velo prm_target_velo) {
+    // a = (Vt^2 - Vo^2) / 2D
+    _accMv =  ((1.0f*prm_target_velo*prm_target_velo) - (1.0f*_veloMv*_veloMv)) / (2.0f*prm_target_distance);
     if (_accMv < 0) {
         _accMv += 1;
     } else {
         _accMv -= 1;
     }
-    //(frame)((1.0*prm_velo_target - _veloMv) / _accMv); //使用フレーム数
+    //(frame)((1.0*prm_target_velo - _veloMv) / _accMv); //使用フレーム数
 
     // 【補足】
-    // v0 <= 0  かつ  vx <= 0 場合、あるいは  v0 >= 0  かつ  vx >= 0  場合は、S(目標距離)が上記式で問題ない。
+    // Vo <= 0  かつ  Vt <= 0 場合、あるいは  Vo >= 0  かつ  Vt >= 0  場合は、D(目標距離)が上記式で問題ない。
     // では
-    // v0 < 0   かつ  vx > 0  場合、あるいは  v0 > 0   かつ  vx < 0   場合は、どうなるか？
+    // Vo < 0   かつ  Vt > 0  場合、あるいは  Vo > 0   かつ  Vt < 0   場合は、どうなるか？
     //
-    //    速度
+    //    速度(v)
     //     ^        a:加速度
-    //     |        S:移動距離（目標到達速度に達するまでに費やす距離）
-    //     |       v0:現時点の速度
-    //     |       vx:目標到達速度
-    //     |       tx:目標到達速度に達した時の時間（フレーム数）
-    //  v0 |
+    //     |        D:移動距離（目標到達速度に達するまでに費やす距離）
+    //     |       Vo:現時点の速度
+    //     |       Vt:目標到達速度
+    //     |       Te:目標到達速度に達した時の時間（フレーム数）
+    //  Vo |
     //     |＼
     //     |  ＼  傾きはa
-    //     | S1 ＼
-    //     |      ＼ tc     tx
-    //   --+--------＼------+---> 時間(フレーム)
-    //   0 |          ＼ S2 |
+    //     | D1 ＼
+    //     |      ＼ Tc     Te
+    //   --+--------＼------+---> 時間(t)
+    //   0 |          ＼ D2 |
     //     |            ＼  |
-    //   vx|..............＼|
+    //   Vt|..............＼|
     //     |
     //
+    //    D を全体の移動距離として
+    //    D = D1 - D2 , v = 0 の t を Tc とする
     //
-    //    S = S1 - S2 , 交点を tc とする
+    //    D1 = (1/2) Vo Tc
+    //    D2 = (1/2) -Vt (Te - Tc)
+    //    D = D1 - D2 より
+    //    D = (1/2) Vo Tc -  { (1/2) -Vt (Te - Tc) }
+    //      = (Vo Tc + Vt Te - Vt Tc) / 2    ・・・①
     //
-    //    S1 = (1/2) v0 tc
-    //    S2 = (1/2) -vx (tx - tc)
-    //    S = S1 - S2 より
-    //    S = (1/2) v0 tc -  { (1/2) -vx (tx - tc) }
-    //      = (v0 tc + vx tx - vx tc) / 2    ・・・①
-    //
-    //    直線 v = a t + v0 において v = 0 の t は tc であるので
-    //    tc = -v0 / a
+    //    直線 v = a t + Vo において v = 0 → t = Tc であるので
+    //    0 = a Tc + Vo
+    //    Tc = -Vo / a
     //    これを ① へ代入
-    //    S = (v0 (-v0 / a) + vx tx - vx (-v0 / a)) / 2 ・・・②
-    //
-    //    また a = (vx - v0) / tx であるので
-    //    tx = (vx - v0) / a これを ② へ代入
+    //    D = (Vo (-Vo / a) + Vt Te - Vt (-Vo / a)) / 2 ・・・②
+    //    また a = (Vt - Vo) / Te であるので
+    //    Te = (Vt - Vo) / a これを ② へ代入
     //    よって
-    //    S = (v0 (-v0 / a) + vx ((vx - v0) / a) - vx (-v0 / a)) / 2
+    //    D = (Vo (-Vo / a) + Vt ((Vt - Vo) / a) - Vt (-Vo / a)) / 2
     //
     //    a について解く
     //
-    //    S = {( -(v0^2) / a  + (vx (vx - v0)) / a + (vx v0) / a)) / 2
-    //    aS = { -(v0^2) + (vx (vx - v0)) + (vx v0) } / 2
-    //    a = { -(v0^2) + (vx (vx - v0)) + (vx v0) } / 2S
-    //    a = (-(v0^2) + vx^2 - vx v0 + vx v0) / 2S
-    //    a = (vx^2 -v0^2) / 2S
+    //    D = ( -(Vo^2) / a  + (Vt (Vt - Vo)) / a + (Vt Vo) / a) / 2
+    //    a D = { -(Vo^2) + (Vt (Vt - Vo)) + (Vt Vo) } / 2
+    //    a = { -(Vo^2) + (Vt (Vt - Vo)) + (Vt Vo) } / 2D
+    //    a = (-(Vo^2) + Vt^2 - Vt Vo + Vt Vo) / 2D
+    //    a = (Vt^2 - Vo^2) / 2D
     //
-    //    結局 a = (vx^2 - v0^2) / 2S となるので
-    //    v0 <= 0  かつ  vx <= 0 場合、あるいは  v0 >= 0  かつ  vx >= 0  場合と同じである
+    //    結局 a = (Vt^2 - Vo^2) / 2D となるので
+    //    Vo <= 0  かつ  Vt <= 0 場合、あるいは  Vo >= 0  かつ  Vt >= 0  場合と同じである
 }
 
-void GgafDx9MvNavigator::execSmoothMvVeloSequence1(velo prm_top_velo, velo prm_end_velo, int prm_distance_of_target,
+void GgafDx9MvNavigator::execSmoothMvVeloSequence1(velo prm_top_velo, velo prm_end_velo, int prm_target_distance,
                                                     bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
     _smooth_mv_velo_seq_top_velo = prm_top_velo;
     _smooth_mv_velo_seq_end_velo = prm_end_velo;
-    _smooth_mv_velo_seq_distance_of_target = prm_distance_of_target;
+    _smooth_mv_velo_seq_target_distance = prm_target_distance;
     _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_frame_of_spend = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
-    _smooth_mv_velo_seq_spend_frame = 0;
-    _smooth_mv_velo_seq_p1 = (int)(prm_distance_of_target*1.0 / 4.0);
-    _smooth_mv_velo_seq_p2 = (int)(prm_distance_of_target*3.0 / 4.0);
+    _smooth_mv_velo_seq_target_frames = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
+    _smooth_mv_velo_seq_frame_of_spent = 0;
+    _smooth_mv_velo_seq_p1 = (int)(prm_target_distance*1.0 / 4.0);
+    _smooth_mv_velo_seq_p2 = (int)(prm_target_distance*3.0 / 4.0);
     _smooth_mv_velo_seq_progress = 0;
 }
 
 
-void GgafDx9MvNavigator::execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_frame_of_spend,
+void GgafDx9MvNavigator::execSmoothMvVeloSequence2(velo prm_top_velo, velo prm_end_velo, int prm_target_frames,
                                                     bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
     _smooth_mv_velo_seq_top_velo = prm_top_velo;
     _smooth_mv_velo_seq_end_velo = prm_end_velo;
-    _smooth_mv_velo_seq_distance_of_target = 0;
+    _smooth_mv_velo_seq_target_distance = 0;
     _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_frame_of_spend = prm_frame_of_spend;
-    _smooth_mv_velo_seq_spend_frame = 0;
-    _smooth_mv_velo_seq_p1 = (int)(prm_frame_of_spend*1.0 / 3.0);
-    _smooth_mv_velo_seq_p2 = (int)(prm_frame_of_spend*2.0 / 3.0);
+    _smooth_mv_velo_seq_target_frames = prm_target_frames;
+    _smooth_mv_velo_seq_frame_of_spent = 0;
+    _smooth_mv_velo_seq_p1 = (int)(prm_target_frames*1.0 / 3.0);
+    _smooth_mv_velo_seq_p2 = (int)(prm_target_frames*2.0 / 3.0);
     _smooth_mv_velo_seq_progress = 0;
 }
 
-void GgafDx9MvNavigator::execSmoothMvVeloSequenceEx(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
-                                                      bool prm_endacc_flg) {
+void GgafDx9MvNavigator::execSmoothMvVeloSequence(velo prm_end_velo, int prm_target_distance,
+                                                  int prm_target_frames, float prm_p1, float prm_p2,
+                                                  bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
-    _smooth_mv_velo_seq_p1 = (int)(prm_frame_of_spend*1.0 / 3.0);
-    _smooth_mv_velo_seq_p2 = (int)(prm_frame_of_spend*2.0 / 3.0);
+    _smooth_mv_velo_seq_p1 = (int)(prm_target_frames*prm_p1);
+    _smooth_mv_velo_seq_p2 = (int)(prm_target_frames*prm_p2);
     _smooth_mv_velo_seq_end_velo = prm_end_velo;
-    _smooth_mv_velo_seq_distance_of_target = prm_distance_of_target;
+    _smooth_mv_velo_seq_target_distance = prm_target_distance;
     _smooth_mv_velo_seq_mv_distance = 0;
-    _smooth_mv_velo_seq_frame_of_spend = prm_frame_of_spend;
-    _smooth_mv_velo_seq_spend_frame = 0;
+    _smooth_mv_velo_seq_target_frames = prm_target_frames;
+    _smooth_mv_velo_seq_frame_of_spent = 0;
     _smooth_mv_velo_seq_progress = 0;
 
+    //＜トップスピード(Vt) を計算＞
     //
-    //   速度
-    //    ^
-    //    |                      S:移動距離
-    //    |                     vs:現時点の速度
-    //    |                     vx:時間1/4 ～ 3/4 の速度
-    //    |                     ve:最終目標到達速度
-    //  vx|....＿＿＿           t:目標到達速度に達した時の時間（フレーム数）
-    //    |   /|    |＼
-    //  ve|../.|....|..＼
-    //    | /  |    |    |
-    //    |/   |    |    |
-    //  vs|    | S  |    |
-    //    |    |    |    |
-    //  --+----+----+----+-----> 時間(フレーム)
-    //  0 |   1/3  2/3   t
+    //    速度(v)
+    //     ^
+    //     |                          D:目標移動距離
+    //     |                         Vo:現時点の速度
+    //     |                         Vt:トップスピード
+    //     |                         Ve:最終速度
+    //   Vt|....＿＿＿＿＿           Te:目標時間（フレーム数）
+    //     |   /:         :＼        p1:トップスピードに達する時刻となるような、Teに対する割合
+    //   Ve|../.:.........:..＼      p2:減速を開始時刻となるような、Teに対する割合
+    //     | /  :         :    |        (0.0 < p1 < p2 < 1.0)
+    //     |/   :         :    |
+    //   Vo|    :    D    :    |
+    //     |    :         :    |
+    //   --+----+---------+----+-----> 時間(t:フレーム)
+    //   0 |  p1*Te     p2*Te  Te
     //
-    // S  = (1/2) (vs + vx) (1/3)t  + vx (1/3)t  +  (1/2) (ve + vx) (1/3)t
-    // これをvxについて解く
-    // vx = (6S - t(vs + ve)) / 4t
-	_smooth_mv_velo_seq_top_velo = (6.0*prm_distance_of_target - prm_frame_of_spend*(_veloMv + prm_end_velo)) / (4.0 * prm_frame_of_spend);
+    // 移動距離Dは、左の台形＋中央の長方形＋右の台形 の面積である、
+    // D = (1/2) (Vo + Vt) p1 Te + Vt (p2-p1)Te  +  (1/2) (Ve + Vt) (1-p2)Te
+    // これをVtについて解く
+    // Vt = ( 2D - p1 Te Vo + (p2 - 1) Te Ve ) / ( (p2 - p1 + 1) Te )
+    _smooth_mv_velo_seq_top_velo =
+         ((2.0*prm_target_distance) - (prm_p1*prm_target_frames*_veloMv) + ((prm_p2-1.0)*prm_target_frames*prm_end_velo))
+         / ((prm_p2-prm_p1+1.0)*prm_target_frames);
 
 }
 
-//void GgafDx9MvNavigator::execSmoothMvVeloSequence4(velo prm_end_velo, int prm_distance_of_target, int prm_frame_of_spend,
+//void GgafDx9MvNavigator::execSmoothMvVeloSequence4(velo prm_end_velo, int prm_target_distance, int prm_target_frames,
 //                                                      bool prm_endacc_flg) {
 //    _smooth_mv_velo_seq_flg = true;
-//    _smooth_mv_velo_seq_p1 = (int)(prm_distance_of_target*1.0 / 4.0);
-//    _smooth_mv_velo_seq_p2 = (int)(prm_distance_of_target*3.0 / 4.0);
+//    _smooth_mv_velo_seq_p1 = (int)(prm_target_distance*1.0 / 4.0);
+//    _smooth_mv_velo_seq_p2 = (int)(prm_target_distance*3.0 / 4.0);
 //    _smooth_mv_velo_seq_end_velo = prm_end_velo;
-//    _smooth_mv_velo_seq_distance_of_target = prm_distance_of_target;
+//    _smooth_mv_velo_seq_target_distance = prm_target_distance;
 //    _smooth_mv_velo_seq_mv_distance = 0;
-//    _smooth_mv_velo_seq_frame_of_spend = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
-//    _smooth_mv_velo_seq_spend_frame = 0;
+//    _smooth_mv_velo_seq_target_frames = -1; //目標時間は使わない場合は負を設定しておく(条件分岐で使用)
+//    _smooth_mv_velo_seq_frame_of_spent = 0;
 //    _smooth_mv_velo_seq_progress = 0;
 //
 //    //    速度
 //    //     ^
-//    //     |                       S:移動距離
-//    //     |                      vs:現時点の速度
-//    //     |                      vx:距離1/4 ～ 3/4 の速度
-//    //     |                      ve:最終目標到達速度
-//    //   vx|....＿＿＿＿            t:目標到達速度に達した時の時間（フレーム数）
+//    //     |                       D:移動距離
+//    //     |                      Vo:現時点の速度
+//    //     |                      Vt:距離1/4 ～ 3/4 の速度
+//    //     |                      Ve:最終目標到達速度
+//    //   Vt|....＿＿＿＿            Te:目標到達速度に達した時の時間（フレーム数）
 //    //     |   /|      |＼
-//    //   ve|../.|......|..＼
+//    //   Ve|../.|......|..＼
 //    //     | /  |      |   |
 //    //     |/   |      |   |
-//    //   vs| 1/4|  2/4 |1/4|
-//    //     |  S |   S  | S |
+//    //   Vo| 1/4|  2/4 |1/4|
+//    //     |  D |   D  | D |
 //    //   --+----+------+---+-----> 時間(フレーム)
-//    //   0 |   tp1    tp2  t
+//    //   0 |   tp1    tp2  Te
 //
 //    // 距離は 「台形＋長方形＋台形」 の面積。ゆえに
-//    // (1/4)S = (1/2) (vs + vx) tp1           …① 台形
-//    // (2/4)S = vx (tp2 - tp1)                …② 長方形
-//    // (1/4)S = (1/2) (ve + vx) (t - tp2)     …③ 台形
+//    // (1/4)D = (1/2) (Vo + Vt) tp1           …① 台形
+//    // (2/4)D = Vt (tp2 - tp1)                …② 長方形
+//    // (1/4)D = (1/2) (Ve + Vt) (Te - tp2)     …③ 台形
 //
 //
-//    // (1/4)S = vx tp1 -  (1/2) tp1 (vx - vs)
+//    // (1/4)D = Vt tp1 -  (1/2) tp1 (Vt - Vo)
 //    // また、距離は 「全体の長方形 ‐ 三角形部分２つ」 の面積でもある。ゆえに
-//    // S = t vx - (1/2) tp1 (vx - vs) - (1/2) (t - tp2) (vx - ve) …④
+//    // D = Te Vt - (1/2) tp1 (Vt - Vo) - (1/2) (Te - tp2) (Vt - Ve) …④
 //
 //    //①より
-//    //tp1 = (S / 2 (vs + vx) )        …⑤
+//    //tp1 = (D / 2 (Vo + Vt) )        …⑤
 //    //③より
-//    //(t - tp2) = (S / 2 (ve + vx) )  …⑥
+//    //(Te - tp2) = (D / 2 (Ve + Vt) )  …⑥
 //    //⑤⑥を④へ代入
-//    //S = t vx - S(vx - vs) / 4 (vs + vx) - S(vx - ve) / 4 (ve + vx)
-//    //これをvxについて解くと
+//    //D = Te Vt - D(Vt - Vo) / 4 (Vo + Vt) - D(Vt - Ve) / 4 (Ve + Vt)
+//    //これをVtについて解くと
 //
-////    vx =
-////    (sqrt((-9*vs^2+9*ve*vs-9*ve^2)*S^4-(4*t*vs^3-6*t*ve*vs^2-6*t*ve^2*vs+4*t*ve^3)*S^3+(-4*t^2*vs^4+8*t^2*ve*vs^3-12*t^2*ve^2*vs^2+8*t^2*ve^3*vs-4*t^2*ve^4)*S^2-4*t^4*ve^2*vs^4+8*t^4*ve^3*vs^3-4*t^4*ve^4*vs^2)/(4*3^(3/2)*t^2)-
-////    (t^3*(8*vs^3-12*ve*vs^2-12*ve^2*vs+8*ve^3)-27*S^3)/(216*t^3))^(1/3)+(9*S^2+t^2*(4*vs^2-4*ve*vs+4*ve^2))/(36*t^2*(
-////    sqrt((-9*vs^2+9*ve*vs-9*ve^2)*S^4-(4*t*vs^3-6*t*ve*vs^2-6*t*ve^2*vs+4*t*ve^3)*S^3+(-4*t^2*vs^4+8*t^2*ve*vs^3-12*t^2*ve^2*vs^2+8*t^2*ve^3*vs-4*t^2*ve^4)*S^2-4*t^4*ve^2*vs^4+8*t^4*ve^3*vs^3-4*t^4*ve^4*vs^2)/(4*3^(3/2)*t^2)-
-////    (t^3*(8*vs^3-12*ve*vs^2-12*ve^2*vs+8*ve^3)-27*S^3)/(216*t^3))^(1/3))+(3*S-t*(2*vs+2*ve))/(6*t)
+////    Vt =
+////    (sqrt((-9*Vo^2+9*Ve*Vo-9*Ve^2)*D^4-(4*Te*Vo^3-6*Te*Ve*Vo^2-6*Te*Ve^2*Vo+4*Te*Ve^3)*D^3+(-4*Te^2*Vo^4+8*Te^2*Ve*Vo^3-12*Te^2*Ve^2*Vo^2+8*Te^2*Ve^3*Vo-4*Te^2*Ve^4)*D^2-4*Te^4*Ve^2*Vo^4+8*Te^4*Ve^3*Vo^3-4*Te^4*Ve^4*Vo^2)/(4*3^(3/2)*Te^2)-
+////    (Te^3*(8*Vo^3-12*Ve*Vo^2-12*Ve^2*Vo+8*Ve^3)-27*D^3)/(216*Te^3))^(1/3)+(9*D^2+Te^2*(4*Vo^2-4*Ve*Vo+4*Ve^2))/(36*Te^2*(
+////    sqrt((-9*Vo^2+9*Ve*Vo-9*Ve^2)*D^4-(4*Te*Vo^3-6*Te*Ve*Vo^2-6*Te*Ve^2*Vo+4*Te*Ve^3)*D^3+(-4*Te^2*Vo^4+8*Te^2*Ve*Vo^3-12*Te^2*Ve^2*Vo^2+8*Te^2*Ve^3*Vo-4*Te^2*Ve^4)*D^2-4*Te^4*Ve^2*Vo^4+8*Te^4*Ve^3*Vo^3-4*Te^4*Ve^4*Vo^2)/(4*3^(3/2)*Te^2)-
+////    (Te^3*(8*Vo^3-12*Ve*Vo^2-12*Ve^2*Vo+8*Ve^3)-27*D^3)/(216*Te^3))^(1/3))+(3*D-Te*(2*Vo+2*Ve))/(6*Te)
 //
 //
 //
@@ -966,45 +971,45 @@ void GgafDx9MvNavigator::execSmoothMvVeloSequenceEx(velo prm_end_velo, int prm_d
 //
 //    //    速度
 //    //     ^
-//    //     |                S:移動距離
-//    //     |               vs:現時点の速度
-//    //     |               vx:距離1/4 ～ 3/4 の速度
-//    //     |               ve:最終目標到達速度
-//    //   vx|....         t:目標到達速度に達した時の時間（フレーム数）
+//    //     |                D:移動距離
+//    //     |               Vo:現時点の速度
+//    //     |               Vt:距離1/4 ～ 3/4 の速度
+//    //     |               Ve:最終目標到達速度
+//    //   Vt|....         Te:目標到達速度に達した時の時間（フレーム数）
 //    //     |   /|＼
-//    //   ve|../.|..＼
+//    //   Ve|../.|..＼
 //    //     | /  |   |
 //    //     |/   |   |
-//    //   vs| 1/2|1/2|
-//    //     |  S | S |
+//    //   Vo| 1/2|1/2|
+//    //     |  D | D |
 //    //   --+----+---+-----> 時間(フレーム)
-//    //   0 |   tp1    tp2  t
+//    //   0 |   tp1    tp2  Te
 ////
 ////        // 距離は 「台形＋台形」 の面積。ゆえに
-////        // (1/2)S = (1/2) (vs + vx) tp           …① 台形
-////        // (1/2)S = (1/2) (ve + vx) (t - tp)     …② 台形
+////        // (1/2)D = (1/2) (Vo + Vt) tp           …① 台形
+////        // (1/2)D = (1/2) (Ve + Vt) (Te - tp)     …② 台形
 ////
 ////
 ////        // また、距離は 「全体の長方形 ‐ 三角形部分２つ」 の面積でもある。ゆえに
-////        // S = t vx - (1/2) tp (vx - vs) - (1/2) (t - tp) (vx - ve) …③
+////        // D = Te Vt - (1/2) tp (Vt - Vo) - (1/2) (Te - tp) (Vt - Ve) …③
 ////
 ////        //①より
-////        //tp = S / (vs + vx)        …④
+////        //tp = D / (Vo + Vt)        …④
 ////        //②より
-////        //(t - tp) = S / (ve + vx)   …⑤
+////        //(Te - tp) = D / (Ve + Vt)   …⑤
 ////        //④⑤を③へ代入
-////        // S = t vx - (1/2) (S / (vs + vx)) (vx - vs) - (1/2) (S / (ve + vx)) (vx - ve) …③
-////        //これをvxについて解くと
+////        // D = Te Vt - (1/2) (D / (Vo + Vt)) (Vt - Vo) - (1/2) (D / (Ve + Vt)) (Vt - Ve) …③
+////        //これをVtについて解くと
 ////
 ////
-////    S = (t*vx) - ((1/2)*(S / (vs + vx))*(vx - vs)) - ((1/2)*(S / (ve + vx))*(vx - ve))
-////    vx=(sqrt(4*S^2+t^2*vs^2-2*t^2*ve*vs+t^2*ve^2)-2*S+t*vs+t*ve)/(2*t),
-////    vx=(sqrt(4*S^2+t^2*vs^2-2*t^2*ve*vs+t^2*ve^2)+2*S-t*vs-t*ve)/(2*t)
-////    vx=0
+////    D = (Te*Vt) - ((1/2)*(D / (Vo + Vt))*(Vt - Vo)) - ((1/2)*(D / (Ve + Vt))*(Vt - Ve))
+////    Vt=(sqrt(4*D^2+Te^2*Vo^2-2*Te^2*Ve*Vo+Te^2*Ve^2)-2*D+Te*Vo+Te*Ve)/(2*Te),
+////    Vt=(sqrt(4*D^2+Te^2*Vo^2-2*Te^2*Ve*Vo+Te^2*Ve^2)+2*D-Te*Vo-Te*Ve)/(2*Te)
+////    Vt=0
 //
 //
 //
-//    _smooth_mv_velo_seq_top_velo = (8.0*prm_distance_of_target/prm_frame_of_spend - _veloMv - prm_end_velo) / 6.0;
+//    _smooth_mv_velo_seq_top_velo = (8.0*prm_target_distance/prm_target_frames - _veloMv - prm_end_velo) / 6.0;
 //}
 
 

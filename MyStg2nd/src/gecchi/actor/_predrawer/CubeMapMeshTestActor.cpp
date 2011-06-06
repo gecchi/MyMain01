@@ -23,7 +23,7 @@ void CubeMapMeshTestActor::initialize() {
     setHitAble(false);
     setCubeMapTexture("Torus_cubemap.dds", 0.1);
     locate(0,0,0);
-    setScaleRate(0.5);
+    setScaleRate(0.2);
     _pMvNavigator->setRzRyMvAng(0,0);
 }
 
@@ -33,16 +33,16 @@ void CubeMapMeshTestActor::onActive() {
 
 void CubeMapMeshTestActor::processBehavior() {
     if (GgafDx9Input::isPushedDownKey(DIK_T)) {
-        _pMvNavigator->execSmoothMvVeloSequenceEx(0, 400*1000, 180);
-        _TRACE_("execSmoothMvVeloSequenceEx!!");
+        _pMvNavigator->execSmoothMvVeloSequence(0, 600*1000, 180, 0.4, 0.6, true);
+        _TRACE_("execSmoothMvVeloSequence!!");
     }
     if (GgafDx9Input::isPushedDownKey(DIK_Y)) {
-        _pMvNavigator->execSmoothMvVeloSequence1(5000, 0, 400*1000);
-        _TRACE_("execSmoothMvVeloSequenceEx!!");
+        _pMvNavigator->execSmoothMvVeloSequence(0, 600*1000, 180, 0.1, 0.3, true);
+        _TRACE_("execSmoothMvVeloSequence!!");
     }
     if (GgafDx9Input::isPushedDownKey(DIK_U)) {
-        _pMvNavigator->execSmoothMvVeloSequence2(5000, 0, 180);
-        _TRACE_("execSmoothMvVeloSequenceEx!!");
+        _pMvNavigator->execSmoothMvVeloSequence(0, 600*1000, 180, 0.7, 0.9, true);
+        _TRACE_("execSmoothMvVeloSequence!!");
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_E)) {
         _X = _X - 2000;
@@ -55,6 +55,9 @@ void CubeMapMeshTestActor::processBehavior() {
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_D)) {
         _Y = _Y - 2000;
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_E)) {
+        _X = 0;
     }
     _TRACE_(getActivePartFrame() <<":"<<_X<<","<<_Y<<","<<_Z);
 

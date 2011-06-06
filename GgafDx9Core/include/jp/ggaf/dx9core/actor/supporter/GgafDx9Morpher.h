@@ -39,7 +39,7 @@ public:
 
 
     /** ループ重みの１ループフレーム幅 */
-    frame _beat_spend_frames[MAX_MORPH_TARGET+1];
+    frame _beat_target_frames[MAX_MORPH_TARGET+1];
     /** ループ重みの開始相対フレーム */
     frame _frame_of_beat_begin[MAX_MORPH_TARGET+1];
     /** 三角波ループ重みのアタックまでのフレーム */
@@ -142,10 +142,10 @@ public:
     /**
      * モーフターゲットへ一定速度でモーフィングし、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .
      * @param prm_target_mesh モーフターゲットメッシュNO
-     * @param prm_beat_spend_frames １ループ(変化して元に戻るまで)に費やすフレーム
+     * @param prm_beat_target_frames １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
-    void loopLiner(int prm_target_mesh, frame prm_beat_spend_frames, float prm_beat_num = -1);
+    void loopLiner(int prm_target_mesh, frame prm_beat_target_frames, float prm_beat_num = -1);
 
     /**
      * 三角波の波形を重みとしてモーフィングする。 .
@@ -169,13 +169,13 @@ public:
      * ⑤ 重み下限(_bottom_weight[prm_target_mesh] が保持)<BR>
      * <BR>
      * @param prm_target_mesh モーフターゲットメッシュNO
-     * @param prm_beat_spend_frames 上図で①のフレーム数
+     * @param prm_beat_target_frames 上図で①のフレーム数
      * @param prm_attack_frames 上図で②のフレーム数
      * @param prm_rest_frames 上図で③のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
     void beat(int prm_target_mesh,
-              frame prm_beat_spend_frames,
+              frame prm_beat_target_frames,
               frame prm_attack_frames,
               frame prm_rest_frames,
               float prm_beat_num = -1);
