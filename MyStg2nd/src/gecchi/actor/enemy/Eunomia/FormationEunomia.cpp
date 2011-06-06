@@ -22,7 +22,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
     for (int i = 0; i < _num_formation_col; i++) {
         stringstream spl_id;
         spl_id << prm_spl_id << "_" << i;  //ƒ—á„"FormationEunomia001_0"
-        _papSplineCon[i] = (SplineConnection*)(P_GOD->_pSplineManager->getConnection(spl_id.str().c_str()));
+        _papSplineCon[i] = (SplineConnection*)(P_GOD->_pSplineManager->getConnection(spl_id.str().c_str())); //"FormationEunomia001_0.spl"
     }
 
     _papapEunomia = NEW EnemyEunomia**[_num_formation_col]; //n—ñxN‹@‚Ì•Ò‘à‚ð‘g‚Þ

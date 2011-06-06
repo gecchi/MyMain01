@@ -22,30 +22,30 @@ void GgafDx9StringBoardActor::onCreateModel() {
 }
 
 
-void GgafDx9StringBoardActor::update(float prm_x, float prm_y, const char* prm_str) {
+void GgafDx9StringBoardActor::update(int X, int Y, const char* prm_str) {
     update(prm_str);
-    _x = prm_x;
-    _y = prm_y;
+    _X = X;
+    _Y = Y;
 }
 
-void GgafDx9StringBoardActor::update(float prm_x, float prm_y, char* prm_str) {
+void GgafDx9StringBoardActor::update(int X, int Y, char* prm_str) {
     update(prm_str);
-    _x = prm_x;
-    _y = prm_y;
+    _X = X;
+    _Y = Y;
 }
 
-void GgafDx9StringBoardActor::update(float prm_x, float prm_y, float prm_z, const char* prm_str) {
+void GgafDx9StringBoardActor::update(int X, int Y, int Z, const char* prm_str) {
     update(prm_str);
-    _x = prm_x;
-    _y = prm_y;
-    _z = prm_z;
+    _X = X;
+    _Y = Y;
+    _Z = Z;
 }
 
-void GgafDx9StringBoardActor::update(float prm_x, float prm_y, float prm_z, char* prm_str) {
+void GgafDx9StringBoardActor::update(int X, int Y, int Z, char* prm_str) {
     update(prm_str);
-    _x = prm_x;
-    _y = prm_y;
-    _z = prm_z;
+    _X = X;
+    _Y = Y;
+    _Z = Z;
 
 }
 
@@ -64,15 +64,15 @@ void GgafDx9StringBoardActor::update(char* prm_str) {
     _remainder_len = _len%_pBoardSetModel->_set_num;
 }
 
-void GgafDx9StringBoardActor::update(float prm_x, float prm_y, float prm_z) {
-    _x = prm_x;
-    _y = prm_y;
-    _z = prm_z;
+void GgafDx9StringBoardActor::update(int X, int Y, int Z) {
+    _X = X;
+    _Y = Y;
+    _Z = Z;
 }
 
-void GgafDx9StringBoardActor::update(float prm_x, float prm_y) {
-    _x = prm_x;
-    _y = prm_y;
+void GgafDx9StringBoardActor::update(int X, int Y) {
+    _X = X;
+    _Y = Y;
 }
 
 void GgafDx9StringBoardActor::processDraw() {
@@ -82,14 +82,14 @@ void GgafDx9StringBoardActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
 
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], _y);
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(1.0f*_Y/LEN_UNIT));
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], _z);
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(1.0f*_Z/LEN_UNIT));
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _fAlpha);
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahAlpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     int strindex, pattno;
-    int x = _x;
+    int x = _X/LEN_UNIT;
     int x_tmp = x;
     float u,v;
     for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
@@ -107,7 +107,7 @@ void GgafDx9StringBoardActor::processDraw() {
             int w = ((_chr_width - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
             x = x_tmp - w;
             x_tmp = x + _chr_width - w;
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], x);
+            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], float(x));
             checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             _pUvFlipper->getUV(pattno, u, v);
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[i], u);

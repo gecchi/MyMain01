@@ -20,7 +20,7 @@ void World::initialize() {
     _TRACE_("World::initialize()");
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
     getLordActor()->addSubGroup(_pStringBoard01);
-    _pStringBoard01->update(0,50,"WATE A MOMENT PLASE...");
+    _pStringBoard01->update(0,50*1000,"WATE A MOMENT PLASE...");
 #ifdef MY_DEBUG
     ColliAABActor::get();   //当たり判定領域表示用直方体、プリロード
     ColliAAPrismActor::get();   //当たり判定領域表示用直方体、プリロード
@@ -74,13 +74,13 @@ void World::processBehavior() {
 
 #ifdef MY_DEBUG
     sprintf(_aBufDebug, "%05uDRAW / %06uCHK / %07uF /%.1fFPS", GgafGod::_num_actor_drawing, CollisionChecker::_num_check, (unsigned int)askGod()->_frame_of_God, askGod()->_fps);
-    _pFont16_Debug->update(1, 1, _aBufDebug);
+    _pFont16_Debug->update(1*1000, 1*1000, _aBufDebug);
     if (getActivePartFrame() % 60 == 0) {
         _TRACE_("_aBufDebug="<<_aBufDebug);
     }
 #else
     sprintf(_aBufDebug, "%05uDRAW / %.1fFPS", GgafGod::_num_actor_drawing, askGod()->_fps);
-    _pFont16_Debug->update(1, 1, _aBufDebug);
+    _pFont16_Debug->update(1*1000, 1*1000, _aBufDebug);
 #endif
 
 

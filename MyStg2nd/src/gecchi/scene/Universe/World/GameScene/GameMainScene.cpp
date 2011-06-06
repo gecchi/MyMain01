@@ -92,18 +92,18 @@ void GameMainScene::initialize() {
 void GameMainScene::processBehavior() {
     //SCORE•\¦
     sprintf(_buf, "SCORE %07u", _SCORE_);
-    _pFont16_SCORE->update(550, 1, _buf);
+    _pFont16_SCORE->update(550*1000, 1*1000, _buf);
     sprintf(_buf, "RANK %.7f", _RANK_);
-    _pFont16_RANK->update(550, 20, _buf);
+    _pFont16_RANK->update(550*1000, 20*1000, _buf);
     sprintf(_buf, "STAMINA %7d", P_MYSHIP->_pStatus->get(STAT_Stamina));
-    _pFont16_STAMINA->update(550, 40, _buf);
+    _pFont16_STAMINA->update(550*1000, 40*1000, _buf);
 
     sprintf(_buf, "X:%8d", P_MYSHIP->_X);
-    _pFont8_JIKI_X->update(1, CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1, _buf);
+    _pFont8_JIKI_X->update(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1)*1000, _buf);
     sprintf(_buf, "Y:%8d", P_MYSHIP->_Y);
-    _pFont8_JIKI_Y->update(1, CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1, _buf);
+    _pFont8_JIKI_Y->update(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1)*1000, _buf);
     sprintf(_buf, "Z:%8d", P_MYSHIP->_Z);
-    _pFont8_JIKI_Z->update(1, CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1, _buf);
+    _pFont8_JIKI_Z->update(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1)*1000, _buf);
 
 
     switch (_pPrg->get()) {

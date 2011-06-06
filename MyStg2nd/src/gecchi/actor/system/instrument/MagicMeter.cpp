@@ -11,8 +11,8 @@ MagicMeter::MagicMeter(const char* prm_name)
     _class_name = "MagicMeter";
     _width = _pBoardSetModel->_fSize_BoardSetModelWidthPx + 1.0f;
     _height = _pBoardSetModel->_fSize_BoardSetModelHeightPx + 1.0f;
-    _x = 100;
-    _y = CFG_PROPERTY(GAME_BUFFER_HEIGHT) - (_height*2);
+    _X = 100*LEN_UNIT;
+    _Y = (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - (_height*2)) * LEN_UNIT;
 //    AmountGraph _qu;
 //    _qu.set(1.0);
 //    _qu.config(400.0, 1.0);
@@ -143,6 +143,9 @@ void MagicMeter::processDraw() {
     int len_magics = _ringMagics.length();
     int n = 0;
     float u,v;
+    float x = float(1.0f*_X/LEN_UNIT);
+    float y = float(1.0f*_Y/LEN_UNIT);
+    float z = float(1.0f*_Z/LEN_UNIT);
     for (int i = 0; i < len_magics; i++) {
         pMagic = pElem->_pValue;//一周したのでアクティブであるはず
         //各マジック要素
@@ -150,9 +153,9 @@ void MagicMeter::processDraw() {
         if (pMagic->_rr > 0.1) {
             for (int j = 0; j < pMagic->_max_level+1; j++) {
                 n++;
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], _x + _width*i);
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], x + _width*i);
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], _y - (_height*(j+1)*pMagic->_rr));
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], y - (_height*(j+1)*pMagic->_rr));
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。");
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[n], 0.00000002f);
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。");
@@ -170,9 +173,9 @@ void MagicMeter::processDraw() {
 
             //各マジックのカーソル
             n++;
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], _x + _width*i);
+            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], x + _width*i);
             checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], _y - ((_height*(_paLevelCursor[i]+1))*pMagic->_rr));
+            hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], y - ((_height*(_paLevelCursor[i]+1))*pMagic->_rr));
             checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。");
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[n], 0.00000001f);
             checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。");
@@ -190,11 +193,11 @@ void MagicMeter::processDraw() {
 
         //マジックメーター背景
         n++;
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], _x +_width*i);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], x +_width*i);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], _y) ;
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], y) ;
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[n], _z);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[n], z);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[n], _fAlpha);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahAlpha) に失敗しました。");
@@ -208,9 +211,9 @@ void MagicMeter::processDraw() {
 
         //現在のマジックレベル表示
         n++;
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], _x + _width*i);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], x + _width*i);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], _y);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], y);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[n], 0.00000001f);
         checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。");
@@ -233,11 +236,11 @@ void MagicMeter::processDraw() {
 
     //パワーメーターアクティブカーソル
     n = 0;
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], _x+_width*_ringMagics.indexOf(_ringMagics.getCurrent()));
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], x + _width*_ringMagics.indexOf(_ringMagics.getCurrent()));
     checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], _y) ;
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], y) ;
     checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[n], _z);
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[n], z);
     checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[n], _fAlpha);
     checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahAlpha) に失敗しました。");

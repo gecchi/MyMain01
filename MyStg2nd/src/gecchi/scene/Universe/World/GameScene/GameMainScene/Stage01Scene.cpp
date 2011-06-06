@@ -40,7 +40,7 @@ void Stage01Scene::processBehavior() {
     if (_pPrg->get() == STAGE_SCENE_PROG_BEGIN) {
         if (_frame_Begin == 180) { //ステージ１開始！
             _pMessage->activateImmediately();
-            _pMessage->update(300, 300, "SCENE 01 START!");
+            _pMessage->update(300*1000, 300*1000, "SCENE 01 START!");
             _pMessage->inactivateDelay(240);
             _pWorldBoundSpace->activateTree();    //背景ON
             _pScene_Stage01Controller->activate();
@@ -52,7 +52,7 @@ void Stage01Scene::processBehavior() {
     if (_pPrg->isJustChangedTo(STAGE_SCENE_PROG_END)) {
         _TRACE_("Stage01Scene::processBehavior()  STAGE_SCENE_PROG_ENDになりますた！");
         _pMessage->activateImmediately();
-        _pMessage->update(300, 300, "SCENE 01 CLEAR!!");
+        _pMessage->update(300*1000, 300*1000, "SCENE 01 CLEAR!!");
         _pMessage->inactivateDelay(120);
         fadeoutScene(120);
     }

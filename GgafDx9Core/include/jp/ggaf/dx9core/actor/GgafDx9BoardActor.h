@@ -72,19 +72,19 @@ private:
     void changeGeoFinal() override {
     }
 
-    /**
-     * 使用不可のため、privateでoverride
-     * @return
-     */
-    void locateAs(GgafDx9GeoElem* prm_pGgafDx9GeoElem) override {
-    }
-
-    /**
-     * 使用不可のため、privateでoverride
-     * @return
-     */
-    void rotateWith(GgafDx9GeometricActor* prm_pActor) override {
-    }
+//    /**
+//     * 使用不可のため、privateでoverride
+//     * @return
+//     */
+//    void locateAs(GgafDx9GeoElem* prm_pGgafDx9GeoElem) override {
+//    }
+//
+//    /**
+//     * 使用不可のため、privateでoverride
+//     * @return
+//     */
+//    void rotateWith(GgafDx9GeometricActor* prm_pActor) override {
+//    }
 
 public:
     /** [r]モデルオブジェクトへのポインタ */
@@ -94,9 +94,9 @@ public:
     /** [r]UVフリッパー(パラパラアニメ) */
     GgafDx9UvFlipper* _pUvFlipper;
     /** [r/w]変換済み座標X軸拡大率(1.0で等倍) */
-    float _sx;
+    //float _sx;
     /** [r/w]変換済み座標Y軸拡大率(1.0で等倍) */
-    float _sy;
+    //float _sy;
 
     GgafDx9BoardActor(const char* prm_name,
                       const char* prm_model_id,
@@ -105,72 +105,72 @@ public:
 
     virtual void processDraw() override;
 
-    /**
-     * アクターの変換済み座標(左上の点)を設定 .
-     * z は変化なし
-     * @param x
-     * @param y
-     */
-    virtual void locate(float x, float y) {
-        _x = x;
-        _y = y;
-    }
-
-    /**
-     * アクターの変換済み座標(左上の点)を設定 .
-     * @param x
-     * @param y
-     * @param z 深度
-     */
-    virtual void locate(int x, int y, int z) override {
-        _x = (float)x;
-        _y = (float)y;
-        _z = (float)z;
-    }
-
-    /**
-     * アクターの変換済み座標(左上の点)を設定 .
-     * @param x
-     * @param y
-     * @param z 深度
-     */
-    virtual void locate(float x, float y, float z) {
-        _x = x;
-        _y = y;
-        _z = z;
-    }
-
-    /**
-     * アクターの変換済み座標をコピーして設定 .
-     * @param prm_pActor
-     */
-    virtual void locateAs(GgafDx9GeometricActor* prm_pActor) override {
-        _z = prm_pActor->_z;
-        _y = prm_pActor->_y;
-        _x = prm_pActor->_x;
-    }
-
-    /**
-     * スケールをスケール値で設定します。
-     * @param S スケール値(1.0 で 1.0倍)
-     */
-    virtual void setScale(int S) override {
-        _sx = S;
-        _sy = S;
-        setBoundingSphereRadiusRate((1.0*S)/1000);
-    }
-
-    /**
-     * スケールを倍率で設定します。
-     * 1.0 で 1.0倍。
-     * 【注意】setScale と同じ
-     * @param prm_rate 倍率
-     */
-    virtual void setScaleRate(float prm_rate) override {
-        _sx = prm_rate;
-        _sy = prm_rate;
-        setBoundingSphereRadiusRate(prm_rate);
-    }
+//    /**
+//     * アクターの変換済み座標(左上の点)を設定 .
+//     * z は変化なし
+//     * @param x
+//     * @param y
+//     */
+//    virtual void locate(float x, float y) {
+//        _x = x;
+//        _y = y;
+//    }
+//
+//    /**
+//     * アクターの変換済み座標(左上の点)を設定 .
+//     * @param x
+//     * @param y
+//     * @param z 深度
+//     */
+//    virtual void locate(int x, int y, int z) override {
+//        _x = (float)x;
+//        _y = (float)y;
+//        _z = (float)z;
+//    }
+//
+//    /**
+//     * アクターの変換済み座標(左上の点)を設定 .
+//     * @param x
+//     * @param y
+//     * @param z 深度
+//     */
+//    virtual void locate(float x, float y, float z) {
+//        _x = x;
+//        _y = y;
+//        _z = z;
+//    }
+//
+//    /**
+//     * アクターの変換済み座標をコピーして設定 .
+//     * @param prm_pActor
+//     */
+//    virtual void locateAs(GgafDx9GeometricActor* prm_pActor) override {
+//        _z = prm_pActor->_z;
+//        _y = prm_pActor->_y;
+//        _x = prm_pActor->_x;
+//    }
+//
+//    /**
+//     * スケールをスケール値で設定します。
+//     * @param S スケール値(1.0 で 1.0倍)
+//     */
+//    virtual void setScale(int S) override {
+//        _sx = S;
+//        _sy = S;
+//        setBoundingSphereRadiusRate((1.0*S)/1000);
+//    }
+//
+//    /**
+//     * スケールを倍率で設定します。
+//     * 1.0 で 1.0倍。
+//     * 【注意】setScale と同じ
+//     * @param prm_rate 倍率
+//     */
+//    virtual void setScaleRate(float prm_rate) override {
+//        _sx = prm_rate;
+//        _sy = prm_rate;
+//        setBoundingSphereRadiusRate(prm_rate);
+//    }
 
     virtual void processSettlementBehavior() override {
     }

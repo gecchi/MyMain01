@@ -45,17 +45,17 @@ void GamePreTitleScene::processBehavior() {
                 fadeinScene(FADE_FRAME);
             }
             if (_pPrg->getFrameInProgress() == 1) {
-                _pStringBoard01->update(100, 50, "[STORY]");
+                _pStringBoard01->update(100*1000, 50*1000, "[STORY]");
             } else if (_pPrg->getFrameInProgress() == 120) {
-                _pStringBoard01->update(100, 50, "MUKASHI MUKASHI ARU TOKORONI.");
+                _pStringBoard01->update(100*1000, 50*1000, "MUKASHI MUKASHI ARU TOKORONI.");
             } else if (_pPrg->getFrameInProgress() == 240) {
-                _pStringBoard01->update(100, 50, "MA SORE HA OITOITE...");
+                _pStringBoard01->update(100*1000, 50*1000, "MA SORE HA OITOITE...");
             } else if (_pPrg->getFrameInProgress() == 360) {
-                _pStringBoard01->update(100, 50, "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
+                _pStringBoard01->update(100*1000, 50*1000, "TORIAEZU TEKI WO TAOSINI IKOUZE ! BY GECCHI");
             } else if (_pPrg->getFrameInProgress() > 600) {
                 //タイトルが下からニューっと
-                _pTitleBoard->_y -= 2;
-                if (_pTitleBoard->_y <= 150) {
+                _pTitleBoard->_Y -= 2*LEN_UNIT;
+                if (_pTitleBoard->_Y <= 150*LEN_UNIT) {
                     throwEventToUpperTree(EVENT_PREGAMETITLE_SCENE_FINISH);
                     _pPrg->change(GAMEPRETITLE_SCENE_PROG_FINISH);
                 }

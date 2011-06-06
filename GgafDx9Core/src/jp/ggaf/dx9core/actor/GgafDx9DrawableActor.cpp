@@ -139,7 +139,7 @@ void GgafDx9DrawableActor::processPreDraw() {
     if (isActiveActor()) {
         if (_isTransformed) {
             _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(
-                                (int)(_z * MAX_DRAW_DEPTH_LEVEL),
+                                (int)((1.0*_Z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),
                                 this
                              );
         } else {

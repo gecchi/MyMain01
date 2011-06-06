@@ -46,7 +46,7 @@ void GameTitleScene::onReset() {
     _TRACE_("GameTitleScene::onReset()");
     _pStringBoard01->update("");
     _pStringBoard02->update("");
-    _pTitleBoard->locate(200, 150);
+    _pTitleBoard->locate(200000, 150000);
     _pPrg->set(GAMETITLE_SCENE_PROG_INIT);
     unblindScene();
 }
@@ -75,7 +75,7 @@ void GameTitleScene::processBehavior() {
 
         case GAMETITLE_SCENE_PROG_TITLE: {
             if (_pPrg->isJustChanged()) {
-                _pStringBoard02->update(400, 500, "PUSH UI_EXECUTE TO BEGIN!");
+                _pStringBoard02->update(400*1000, 500*1000, "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 _pSeCon_exec->refer()->play();
@@ -94,7 +94,7 @@ void GameTitleScene::processBehavior() {
                 _pStringBoard02->update("");
                 if (_pPrg->isJustChanged()) {
                     for (int i = 0; i < _max_menu_item; i++) {
-                        _papStringItem[i]->update(200, 500+(i*20));
+                        _papStringItem[i]->update(700*1000, (100+(i*20))*1000);
                         _papStringItem[i]->activate();
                     }
                 }
@@ -138,9 +138,9 @@ void GameTitleScene::processBehavior() {
             }
             //“_–Å
             if (_pPrg->getFrameInProgress() % 10 < 5 ) {
-                _pStringBoard02->update(400, 500, "READY GO!");
+                _pStringBoard02->update(400*1000, 500*1000, "READY GO!");
             } else {
-                _pStringBoard02->update(400, 500, "");
+                _pStringBoard02->update(400*1000, 500*1000, "");
             }
             break;
         }

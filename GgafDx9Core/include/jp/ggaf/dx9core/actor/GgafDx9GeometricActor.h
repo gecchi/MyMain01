@@ -114,11 +114,11 @@ public:
     bool _is_local;
 
     /** [r/w]変換済み座標系の場合のX座標(画面左端が0、右が正の値)、単位はピクセル。 */
-    float _x;
+    //float _x;
     /** [r/w]変換済み座標系の場合のY座標(画面上端が0、下が正の値)、単位はピクセル。 */
-    float _y;
+    //float _y;
     /** [r/w]変換済み座標系の場合の深度（プライオリティ） (0.0 <= _z < 1.0 で指定すること) */
-    float _z;
+    //float _z;
     //変換済み座標系の場合とは具体的には、GgafDx9BoardActor、GgafDx9BoardSetActor、GgafDx9StringBoardActor
     //を使用した場合の座標系を意味する。
 
@@ -239,7 +239,7 @@ public:
      * @param Y
      * @param Z
      */
-    virtual void locate(int X, int Y, int Z) {
+    virtual void locate(int X, int Y, int Z = 0) {
         _X = X;
         _Y = Y;
         _Z = Z;

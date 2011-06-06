@@ -78,7 +78,7 @@ public:
      * @param prm_y 左上のY座標(px)
      * @param prm_str 描画文字列
      */
-    virtual void update(float prm_x, float prm_y, const char* prm_str);
+    virtual void update(int X, int Y, const char* prm_str);
 
     /**
      * 描画文字を更新設定  .
@@ -86,16 +86,7 @@ public:
      * @param prm_y 左上のY座標(px)
      * @param prm_str 描画文字列
      */
-    virtual void update(float prm_x, float prm_y, char* prm_str);
-
-    /**
-     * 描画文字を更新設定  .
-     * @param prm_x 左上のX座標(px)
-     * @param prm_y 左上のY座標(px)
-     * @param prm_z プライオリティ(0.0 <= z < 1.0 値が小さい方が手前)
-     * @param prm_str 描画文字列
-     */
-    virtual void update(float prm_x, float prm_y, float prm_z, const char* prm_str);
+    virtual void update(int X, int Y, char* prm_str);
 
     /**
      * 描画文字を更新設定  .
@@ -104,7 +95,16 @@ public:
      * @param prm_z プライオリティ(0.0 <= z < 1.0 値が小さい方が手前)
      * @param prm_str 描画文字列
      */
-    virtual void update(float prm_x, float prm_y, float prm_z, char* prm_str);
+    virtual void update(int X, int Y, int Z, const char* prm_str);
+
+    /**
+     * 描画文字を更新設定  .
+     * @param prm_x 左上のX座標(px)
+     * @param prm_y 左上のY座標(px)
+     * @param prm_z プライオリティ(0.0 <= z < 1.0 値が小さい方が手前)
+     * @param prm_str 描画文字列
+     */
+    virtual void update(int X, int Y, int Z, char* prm_str);
 
     /**
      * 描画文字を更新設定  .
@@ -124,14 +124,14 @@ public:
      * @param prm_y 左上のY座標(px)
      * @param prm_z プライオリティ(0.0 <= z < 1.0 値が小さい方が手前)
      */
-    virtual void update(float prm_x, float prm_y, float prm_z);
+    virtual void update(int X, int Y, int Z);
 
     /**
      * 描画位置を更新設定  .
      * @param prm_x 左上のX座標(px)
      * @param prm_y 左上のY座標(px)
      */
-    virtual void update(float prm_x, float prm_y);
+    virtual void update(int X, int Y);
 
     virtual ~GgafDx9StringBoardActor();
 

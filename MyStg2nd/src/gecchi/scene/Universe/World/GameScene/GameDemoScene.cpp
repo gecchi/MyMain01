@@ -39,8 +39,8 @@ void GameDemoScene::processBehavior() {
 
         case GAMEDEMO_SCENE_PROG_DEMOPLAY: {
             if (_pPrg->isJustChanged()) {
-                _pStringBoard01->update(100, 100, "DEMOPLAY NOW");
-                _pStringBoard02->update(100, 150, "GAME OVER");
+                _pStringBoard01->update(100*1000, 100*1000, "DEMOPLAY NOW");
+                _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
             }
             if (_pPrg->getFrameInProgress() == 180) {
                 _pPrg->change(GAMEDEMO_SCENE_PROG_RANKING);
@@ -50,8 +50,8 @@ void GameDemoScene::processBehavior() {
 
         case GAMEDEMO_SCENE_PROG_RANKING: {
             if (_pPrg->isJustChanged()) {
-                _pStringBoard01->update(100, 100, "RANKING NOW");
-                _pStringBoard02->update(100, 150, "GAME OVER");
+                _pStringBoard01->update(100*1000, 100*1000, "RANKING NOW");
+                _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
             }
             if (_pPrg->getFrameInProgress() == 180) {
                 _pPrg->change(GAMEDEMO_SCENE_PROG_FINISH);

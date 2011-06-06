@@ -43,7 +43,7 @@ void GameOverScene::processBehavior() {
 
         case GAMEOVER_SCENE_PROG_DISP: {
             if (_pPrg->isJustChanged()) {
-                _pStringBoard01->update(500, 500, "GAME OVER (-_-;)");
+                _pStringBoard01->update(500*1000, 500*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAME);
             }
             if (VB->isPushedDown(VB_UI_EXECUTE) || _pPrg->getFrameInProgress() == 420) {

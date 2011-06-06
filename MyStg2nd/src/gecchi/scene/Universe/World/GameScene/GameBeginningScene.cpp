@@ -43,8 +43,8 @@ void GameBeginningScene::processBehavior() {
 
         case GAMEBEGINNING_SCENE_PROG_SELECT_MODE: {
             if (_pPrg->isJustChanged()) {
-                _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE BEGIN");
-                _pStringBoard02->update(200, 250, "SELECT MODE!");
+                _pStringBoard01->update(200*1000, 200*1000, "GAME_BEGINNING_SCENE BEGIN");
+                _pStringBoard02->update(200*1000, 250*1000, "SELECT MODE!");
             }
             if (_pPrg->get() == GAMEBEGINNING_SCENE_PROG_SELECT_MODE) {
                 if (VB->isPushedDown(VB_UI_EXECUTE) || _pPrg->getFrameInProgress() == 300) {
@@ -60,9 +60,9 @@ void GameBeginningScene::processBehavior() {
                 throwEventToUpperTree(EVENT_GAMEMODE_DECIDE);
             }
             if (_pPrg->getFrameInProgress() % 10 < 5 ) {
-                _pStringBoard02->update(400, 500, "OK OK OK");
+                _pStringBoard02->update(400*1000, 500*1000, "OK OK OK");
             } else {
-                _pStringBoard02->update(400, 500, "");
+                _pStringBoard02->update(400*1000, 500*1000, "");
             }
             if (_pPrg->getFrameInProgress() == FADE_FRAME) {
                 _pPrg->change(GAMEBEGINNING_SCENE_PROG_FINISH);
