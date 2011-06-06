@@ -21,14 +21,14 @@ MyOptionController::MyOptionController(const char* prm_name) :
     _now_option_num = 0;
 
     _renge = 80000;
-    
-    //_pMvTransporter->forceVxMvVeloRange(-_renge, _renge);
-    //_pMvTransporter->forceVyMvVeloRange(-_renge, _renge);
-    //_pMvTransporter->forceVzMvVeloRange(-_renge, _renge);
 
-    //_pMvTransporter->forceVxMvAcceRange(-_renge / 30, _renge / 30);
-    //_pMvTransporter->forceVyMvAcceRange(-_renge / 30, _renge / 30);
-    //_pMvTransporter->forceVzMvAcceRange(-_renge / 30, _renge / 30);
+    _pMvTransporter->forceVxMvVeloRange(-_renge, _renge);
+    _pMvTransporter->forceVyMvVeloRange(-_renge, _renge);
+    _pMvTransporter->forceVzMvVeloRange(-_renge, _renge);
+
+    _pMvTransporter->forceVxMvAcceRange(-_renge / 30, _renge / 30);
+    _pMvTransporter->forceVyMvAcceRange(-_renge / 30, _renge / 30);
+    _pMvTransporter->forceVzMvAcceRange(-_renge / 30, _renge / 30);
 
     _papMyOption = NEW MyOption*[_max_option_num];
     for (int i = 0; i < _max_option_num; i++) {
