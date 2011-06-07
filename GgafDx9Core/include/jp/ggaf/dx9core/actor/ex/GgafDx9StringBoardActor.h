@@ -3,9 +3,9 @@
 namespace GgafDx9Core {
 
 /**
- * 文字表示クラス(座標変換済み).
- *  * GgafDx9BoardActor を継承し、文字セットテクスチャーから
- *  文字表示機能を追加したアクターです。<BR>
+ * 文字表示クラス .
+ * GgafDx9BoardActor を継承し、文字セットテクスチャーから
+ * 文字表示機能を追加したアクターです。<BR>
  * 次のようなテクスチャであることが前提。（※実際の画像は罫線無しです）<BR>
  * <code><pre>
  * ┌─┬─┬─┬─┬─┬─┬─┬─┐
@@ -48,7 +48,7 @@ public:
     /** [r/w]各文字間隔(px) */
     int _aWidthPx[256];
     /** [r/w]ベースの１文字幅(px) */
-    int _chr_width;
+    int _chr_width_px;
 
     /**
      * コンストラクタ .
@@ -74,34 +74,34 @@ public:
 
     /**
      * 描画文字を更新設定 .
-     * @param prm_x 左上のX座標(px)
-     * @param prm_y 左上のY座標(px)
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param prm_str 描画文字列
      */
     virtual void update(int X, int Y, const char* prm_str);
 
     /**
      * 描画文字を更新設定  .
-     * @param prm_x 左上のX座標(px)
-     * @param prm_y 左上のY座標(px)
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param prm_str 描画文字列
      */
     virtual void update(int X, int Y, char* prm_str);
 
     /**
      * 描画文字を更新設定  .
-     * @param prm_x 左上のX座標(px)
-     * @param prm_y 左上のY座標(px)
-     * @param prm_z プライオリティ(0.0 <= z < 1.0 値が小さい方が手前)
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Z プライオリティ(値が小さい方が手前)
      * @param prm_str 描画文字列
      */
     virtual void update(int X, int Y, int Z, const char* prm_str);
 
     /**
      * 描画文字を更新設定  .
-     * @param prm_x 左上のX座標(px)
-     * @param prm_y 左上のY座標(px)
-     * @param prm_z プライオリティ(0.0 <= z < 1.0 値が小さい方が手前)
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Z プライオリティ(値が小さい方が手前)
      * @param prm_str 描画文字列
      */
     virtual void update(int X, int Y, int Z, char* prm_str);
@@ -120,16 +120,16 @@ public:
 
     /**
      * 描画位置を更新設定  .
-     * @param prm_x 左上のX座標(px)
-     * @param prm_y 左上のY座標(px)
-     * @param prm_z プライオリティ(0.0 <= z < 1.0 値が小さい方が手前)
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Z プライオリティ(値が小さい方が手前)
      */
     virtual void update(int X, int Y, int Z);
 
     /**
      * 描画位置を更新設定  .
-     * @param prm_x 左上のX座標(px)
-     * @param prm_y 左上のY座標(px)
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      */
     virtual void update(int X, int Y);
 

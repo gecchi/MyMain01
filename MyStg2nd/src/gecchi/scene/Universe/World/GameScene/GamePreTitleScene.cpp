@@ -18,7 +18,7 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
 }
 void GamePreTitleScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");
-    _pTitleBoard->locate(200, 600);
+    _pTitleBoard->locate(200000, 600000);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
     blindScene();

@@ -60,15 +60,6 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
                                            GgafDx9Checker* prm_pChecker) :
   GgafDx9GeometricActor(prm_name, prm_pChecker) {
 
-//_TRACE_("GgafDx9DrawableActor::GgafDx9DrawableActor(");
-//_TRACE_("    prm_name="<<prm_name);
-//_TRACE_("    prm_model_id="<<prm_model_id);
-//_TRACE_("    prm_model_type="<<prm_model_type);
-//_TRACE_("    prm_effect_id="<<prm_effect_id);
-//_TRACE_("    prm_effect_type="<<prm_effect_type);
-//_TRACE_("    prm_technique="<<prm_technique);
-//_TRACE_(")");
-
     _class_name = "GgafDx9DrawableActor";
     _hash_technique = GgafUtil::easy_hash(prm_technique);
     _technique = NEW char[51];
@@ -137,7 +128,7 @@ void GgafDx9DrawableActor::processPreDraw() {
     _pNext_TheSameDrawDepthLevel = NULL;
     //TODO:—vŒŸØ
     if (isActiveActor()) {
-        if (_isTransformed) {
+        if (_is2DActor) {
             _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(
                                 (int)((1.0*_Z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),
                                 this

@@ -18,8 +18,8 @@ public:
     GgafCore::GgafLinkedListRing<Magic> _ringMagics;
 
     int* _paLevelCursor;
-    float _width;
-    float _height;
+    float _width_px;
+    float _height_px;
     MagicMeter(const char* prm_name);
 
     void initialize() override;

@@ -20,7 +20,7 @@ private:
 
 public:
     /** [r] 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
-    bool _isTransformed;
+    bool _is2DActor;
     /** [r/w]ワールドX座標( _X : DirectXのX座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
     int _X;
     /** [r/w]ワールドY座標( _Y : DirectXのY座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
@@ -112,15 +112,6 @@ public:
     angle _RZ_offset;
 
     bool _is_local;
-
-    /** [r/w]変換済み座標系の場合のX座標(画面左端が0、右が正の値)、単位はピクセル。 */
-    //float _x;
-    /** [r/w]変換済み座標系の場合のY座標(画面上端が0、下が正の値)、単位はピクセル。 */
-    //float _y;
-    /** [r/w]変換済み座標系の場合の深度（プライオリティ） (0.0 <= _z < 1.0 で指定すること) */
-    //float _z;
-    //変換済み座標系の場合とは具体的には、GgafDx9BoardActor、GgafDx9BoardSetActor、GgafDx9StringBoardActor
-    //を使用した場合の座標系を意味する。
 
     //補足メモ
     //【_X, _Y, _Z の単位について】
@@ -278,7 +269,7 @@ public:
      */
     virtual void locateAs(GgafDx9GeometricActor* prm_pActor);
 
-    virtual void locateAs(GgafDx9GeoElem* prm_pGgafDx9GeoElem);
+    virtual void locateAs(GgafDx9GeoElem* prm_pGeoElem);
 
     virtual void rotateWith(GgafDx9GeometricActor* prm_pActor);
 

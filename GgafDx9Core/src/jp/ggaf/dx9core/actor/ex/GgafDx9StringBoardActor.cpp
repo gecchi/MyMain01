@@ -14,7 +14,7 @@ GgafDx9StringBoardActor::GgafDx9StringBoardActor(const char* prm_name, const cha
     for (int i = 0; i < 256; i++) {
         _aWidthPx[i] = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx);
     }
-    _chr_width = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //‚P•¶Žš‚Ì•(px)
+    _chr_width_px = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //‚P•¶Žš‚Ì•(px)
 }
 
 void GgafDx9StringBoardActor::onCreateModel() {
@@ -104,9 +104,9 @@ void GgafDx9StringBoardActor::processDraw() {
                 pattno = _draw_string[strindex] - ' '; //’Êí•¶Žš—ñ
             }
             //ƒvƒƒ|[ƒVƒ‡ƒiƒ‹‚È•ŒvŽZ
-            int w = ((_chr_width - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
+            int w = ((_chr_width_px - _aWidthPx[(unsigned char)(_draw_string[strindex])]) / 2);
             x = x_tmp - w;
-            x_tmp = x + _chr_width - w;
+            x_tmp = x + _chr_width_px - w;
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], float(x));
             checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             _pUvFlipper->getUV(pattno, u, v);

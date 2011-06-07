@@ -19,28 +19,18 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
 
     _pBoardModel = (GgafDx9BoardModel*)_pGgafDx9Model;
     _pBoardEffect = (GgafDx9BoardEffect*)_pGgafDx9Effect;
-//    _pUvFlipper = NEW GgafDx9UvFlipper(this);
-//    _pUvFlipper->forcePtnNoRange(0, _pBoardModel->_pattno_max);
-//    _pUvFlipper->setActivePtnNo(0);
-//    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
-
-
     _pUvFlipper = NEW GgafDx9UvFlipper(_pBoardModel->_papTextureCon[0]->refer());
     _pUvFlipper->setRotation(_pBoardModel->_col_texture_split,
                              _pBoardModel->_row_texture_split
                             );
     _pUvFlipper->setActivePtnNo(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
-
-
-
     _fAlpha = 1.0f;
-
-    _isTransformed = true;
+    _is2DActor = true;
     _pFunc_calcRotMvWorldMatrix = NULL;
     _SX = LEN_UNIT;
     _SY = LEN_UNIT;
-    _Z = 1;
+    _Z = 0;
 }
 
 void GgafDx9BoardActor::processDraw() {

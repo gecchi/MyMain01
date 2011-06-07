@@ -73,35 +73,13 @@ private:
     void changeGeoFinal() override {
     }
 
-//    /**
-//     * 使用不可のため、privateでoverride
-//     * @return
-//     */
-//    void locateAs(GgafDx9GeoElem* prm_pGgafDx9GeoElem) override {
-//    }
-//
-//    /**
-//     * 使用不可のため、privateでoverride
-//     * @return
-//     */
-//    void rotateWith(GgafDx9GeometricActor* prm_pActor) override {
-//    }
-//
-//    /**
-//     * 使用不可のため、privateでoverride
-//     * ※GgafDx9BoardActor ならば拡大縮小機能有ります。
-//     * @return
-//     */
-//    virtual void setScale(int S) override {
-//    }
-//
-//    /**
-//     * 使用不可のため、privateでoverride
-//     * ※GgafDx9BoardActor ならば拡大縮小機能有ります。
-//     * @return
-//     */
-//    virtual void setScaleRate(float prm_rate) override {
-//    }
+    /**
+     * 使用不可のため、privateでoverride
+     * @return
+     */
+    void rotateWith(GgafDx9GeometricActor* prm_pActor) override {
+    }
+
 public:
     int _draw_set_num;
     /** モデルオブジェクトへのポインタ */
@@ -118,28 +96,6 @@ public:
 
     virtual void processDraw() override;
 
-//    virtual void locate(int x, int y) {
-//        _x = (float)x;
-//        _y = (float)y;
-//    }
-//
-//    virtual void locate(int x, int y, int z) override {
-//        _x = (float)x;
-//        _y = (float)y;
-//        _z = (float)z;
-//    }
-//
-//    virtual void locate(float x, float y, float z) {
-//        _x = x;
-//        _y = y;
-//        _z = z;
-//    }
-//
-//    virtual void locateAs(GgafDx9GeometricActor* prm_pActor) override {
-//        _z = prm_pActor->_z;
-//        _y = prm_pActor->_y;
-//        _x = prm_pActor->_x;
-//    }
 
     virtual void processSettlementBehavior() override {
     }

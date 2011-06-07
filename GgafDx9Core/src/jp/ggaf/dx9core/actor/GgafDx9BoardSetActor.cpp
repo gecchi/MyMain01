@@ -34,10 +34,10 @@ GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
 
     _fAlpha = 1.0f;
 
-    _isTransformed = true;
+    _is2DActor = true;
     _pFunc_calcRotMvWorldMatrix = NULL;
 
-    _Z = 1;
+    _Z = 0;
 }
 
 void GgafDx9BoardSetActor::processDraw() {

@@ -25,34 +25,34 @@ void GgafDx9StringSpriteActor::onCreateModel() {
 }
 
 
-void GgafDx9StringSpriteActor::update(float prm_x, float prm_y, const char* prm_str) {
+void GgafDx9StringSpriteActor::update(float X, float Y, const char* prm_str) {
     update(prm_str);
-    _X = prm_x;
-    _Y = prm_y;
+    _X = X;
+    _Y = Y;
 }
 
-void GgafDx9StringSpriteActor::update(float prm_x, float prm_y, char* prm_str) {
+void GgafDx9StringSpriteActor::update(float X, float Y, char* prm_str) {
     update(prm_str);
-    _X = prm_x;
-    _Y = prm_y;
+    _X = X;
+    _Y = Y;
 }
 
-void GgafDx9StringSpriteActor::update(float prm_x, float prm_y, float prm_z, const char* prm_str) {
+void GgafDx9StringSpriteActor::update(float X, float Y, float Z, const char* prm_str) {
     update(prm_str);
-    _X = prm_x;
-    _Y = prm_y;
-    _Z = prm_z;
+    _X = X;
+    _Y = Y;
+    _Z = Z;
     //_paVertex[0].Z = _Z;
     //_paVertex[1].Z = _Z;
     //_paVertex[2].Z = _Z;
     //_paVertex[3].Z = _Z;
 }
 
-void GgafDx9StringSpriteActor::update(float prm_x, float prm_y, float prm_z, char* prm_str) {
+void GgafDx9StringSpriteActor::update(float X, float Y, float Z, char* prm_str) {
     update(prm_str);
-    _X = prm_x;
-    _Y = prm_y;
-    _Z = prm_z;
+    _X = X;
+    _Y = Y;
+    _Z = Z;
     //_paVertex[0].Z = _Z;
     //_paVertex[1].Z = _Z;
     //_paVertex[2].Z = _Z;

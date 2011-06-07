@@ -8,13 +8,10 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
                                              GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name) {
     _obj_class |= Obj_GgafDx9GeometricActor;
     _class_name = "GgafDx9GeometricActor";
-    _isTransformed = false;
+    _is2DActor = false;
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
     _SX = _SY = _SZ = LEN_UNIT;
-//    _x = _y = 0.0f;
-//    _z = 0.00000001f; //ほぼ最前面
-    _Z=1;
     _radius_bounding_sphere = 0;
     _rate_BoundingSphereRadius = 1.0f;
     _pChecker = prm_pChecker;
@@ -24,7 +21,6 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _offscreenkind = -1;
     _pFunc_calcRotMvWorldMatrix = NULL;
     _pActor_Base = NULL;
-
 
     _X_local  = 0;
     _Y_local  = 0;
@@ -52,7 +48,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
 
 
 void GgafDx9GeometricActor::processSettlementBehavior() {
-    if (_isTransformed) {
+    if (_is2DActor) {
         return;
     }
 
@@ -131,7 +127,7 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
             _pChecker->updateHitArea();
         }
     }
-//    if (_isTransformed == false) {
+//    if (_is2DActor == false) {
         //メンバー更新
         GgafDx9Camera* pCam = P_CAM;
         //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
@@ -301,10 +297,10 @@ void GgafDx9GeometricActor::locateAs(GgafDx9GeometricActor* prm_pActor) {
     _Z = prm_pActor->_Z;
 }
 
-void GgafDx9GeometricActor::locateAs(GgafDx9GeoElem* prm_pGgafDx9GeoElem) {
-    _X = prm_pGgafDx9GeoElem->_X;
-    _Y = prm_pGgafDx9GeoElem->_Y;
-    _Z = prm_pGgafDx9GeoElem->_Z;
+void GgafDx9GeometricActor::locateAs(GgafDx9GeoElem* prm_pGeoElem) {
+    _X = prm_pGeoElem->_X;
+    _Y = prm_pGeoElem->_Y;
+    _Z = prm_pGeoElem->_Z;
 }
 
 void GgafDx9GeometricActor::rotateWith(GgafDx9GeometricActor* prm_pActor) {
