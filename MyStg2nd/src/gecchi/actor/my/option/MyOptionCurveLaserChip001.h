@@ -26,6 +26,11 @@ public:
     bool _isLockon;
     int _default_stamina;
 
+
+    jerk _jerkVx;
+    jerk _jerkVy;
+    jerk _jerkVz;
+
     MyOptionCurveLaserChip001(const char* prm_name);
 
     void initialize() override;

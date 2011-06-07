@@ -94,7 +94,7 @@ void GameTitleScene::processBehavior() {
                 _pStringBoard02->update("");
                 if (_pPrg->isJustChanged()) {
                     for (int i = 0; i < _max_menu_item; i++) {
-                        _papStringItem[i]->update(700*1000, (100+(i*20))*1000);
+                        _papStringItem[i]->update(700*1000, (100+(i*20))*2000);
                         _papStringItem[i]->activate();
                     }
                 }
@@ -103,7 +103,7 @@ void GameTitleScene::processBehavior() {
                 _pCursor001->activate();
                 _frame_of_noinput = _pPrg->getFrameInProgress();
             }
-            _pCursor001->locateAs(_papStringItem[_active_item]);
+            _pCursor001->moveTo(_papStringItem[_active_item]);
 
             if (VB->isAutoRepeat(VB_UI_UP)) {
                 _active_item--;

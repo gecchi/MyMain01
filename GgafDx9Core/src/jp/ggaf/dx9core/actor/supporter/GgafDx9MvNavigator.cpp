@@ -168,7 +168,7 @@ GgafDx9MvNavigator::GgafDx9MvNavigator(GgafDx9GeometricActor* prm_pActor) :
     //移動加速度（移動速度の増分） = 0 px/fream^2
     _accMv = 0; //_veloMv の増分。デフォルトは加速無し
 
-    _jerkMv = 0;
+    //_jerkMv = 0;
     //移動方角（Z軸回転）の角速度 = 0 angle/fream
     _angveloRzMv = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
     //移動方角（Z軸回転）の角速度上限 = +360,000 angle/fream
@@ -308,7 +308,7 @@ void GgafDx9MvNavigator::behave() {
 
     ///////////////////////////////////////////////////Mover
 
-    _accMv += _jerkMv;
+    //_accMv += _jerkMv;
     //移動加速度の処理
     _veloMv += _accMv;
     setMvVelo(_veloMv);
@@ -1771,7 +1771,7 @@ void GgafDx9MvNavigator::takeoverMvFrom(GgafDx9MvNavigator* prm_pMvNavigator) {
     // 移動加速度
     _accMv = prm_pMvNavigator->_accMv;
     // 移動躍度
-    _jerkMv = prm_pMvNavigator->_jerkMv;
+    //_jerkMv = prm_pMvNavigator->_jerkMv;
 
 }
 
@@ -1791,7 +1791,7 @@ void GgafDx9MvNavigator::resetMv() {
     //移動加速度（移動速度の増分） = 0 px/fream^2
     _accMv = 0; //_veloMv の増分。デフォルトは加速無し
 
-    _jerkMv = 0;
+    //_jerkMv = 0;
     //移動方角（Z軸回転）の角速度 = 0 angle/fream
     _angveloRzMv = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
     //移動方角（Z軸回転）の角速度上限 = +360,000 angle/fream

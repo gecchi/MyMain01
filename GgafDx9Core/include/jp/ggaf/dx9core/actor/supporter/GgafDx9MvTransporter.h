@@ -86,7 +86,7 @@ public:
     bool _gravitation_mv_seq_flg;
 
 
-
+    int dot(int prm_vX, int prm_vY, int prm_vZ);
     //virtual void behave();
 
     void setVxMvVelo(velo prm_veloVxMv);

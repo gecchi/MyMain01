@@ -23,7 +23,11 @@ public:
 
     void processJudgement() override;
 
+    void moveTo(int X, int Y);
 
+    void moveTo(GgafDx9Core::GgafDx9GeometricActor* prm_pActor) {
+        moveTo(prm_pActor->_X, prm_pActor->_Y);
+    }
     virtual ~Cursor001();
 };
 

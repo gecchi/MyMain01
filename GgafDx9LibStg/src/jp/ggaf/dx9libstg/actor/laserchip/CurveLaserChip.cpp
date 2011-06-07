@@ -43,7 +43,8 @@ void CurveLaserChip::onInactive() {
 
 void CurveLaserChip::processBehavior() {
     LaserChip::processBehavior();
-    _pMvNavigator->behave();
+    //_pMvNavigator->behave();
+    _pMvTransporter->behave();
     //座標をコピー
     _tmpX = _X;
     _tmpY = _Y;

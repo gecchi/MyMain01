@@ -46,18 +46,21 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 //    addSubGroup(_pEffect_LaserIrradiate);
     _pEffect_LaserIrradiate = NULL;
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
-    MyOptionStraightLaserChip001* pChip;
+    MyOptionCurveLaserChip001* pChip;
+//    MyOptionStraightLaserChip001* pChip;
     for (int i = 0; i < 90; i++) { //レーザーストック
         stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;
         string name2 = name.str();
-        //pChip = NEW MyOptionCurveLaserChip001(name2.c_str());
-        pChip = NEW MyOptionStraightLaserChip001(name2.c_str());
+        pChip = NEW MyOptionCurveLaserChip001(name2.c_str());
+        //pChip = NEW MyOptionStraightLaserChip001(name2.c_str());
         //MyOptionStraightLaserChip001の場合以下が必要
-        pChip->setSource(this);
-        pChip->_pSource_vX = &_Q._x;
-        pChip->_pSource_vY = &_Q._y;
-        pChip->_pSource_vZ = &_Q._z;
+        //ストレート用
+//        pChip->setSource(this);
+//        pChip->_pSource_vX = &_Q._x;
+//        pChip->_pSource_vY = &_Q._y;
+//        pChip->_pSource_vZ = &_Q._z;
+
         _pLaserChipDispatcher->addSubLast(pChip);
     }
     _pLaserChipDispatcher->config(
@@ -408,8 +411,8 @@ void MyOption::processBehavior() {
     if (pMyShip->_is_shooting_laser && VB_PLAY->isBeingPressed(VB_SHOT1)) {
 
 
-//        MyOptionCurveLaserChip001* pLaserChip = (MyOptionCurveLaserChip001*)_pLaserChipDispatcher->employ();
-        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)_pLaserChipDispatcher->employ();
+        MyOptionCurveLaserChip001* pLaserChip = (MyOptionCurveLaserChip001*)_pLaserChipDispatcher->employ();
+//        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)_pLaserChipDispatcher->employ();
 
         if (pLaserChip) {
 
@@ -417,31 +420,34 @@ void MyOption::processBehavior() {
             if (_pLaserChipDispatcher->_pEffectActor_Irradiate) {
                 _pLaserChipDispatcher->_pEffectActor_Irradiate->locateAs(this);
             }
-            pLaserChip->_pMvNavigator->behave();
-            pLaserChip->_pMvTransporter->behave();
-            pLaserChip->_pOrg = this;
-            pLaserChip->activate();
-
-//            pLaserChip->_pMvNavigator->_vX = _Q._x;
-//            pLaserChip->_pMvNavigator->_vY = _Q._y;
-//            pLaserChip->_pMvNavigator->_vZ = _Q._z;
-//            pLaserChip->_pMvNavigator->_angRzMv = _RZ;
-//            pLaserChip->_pMvNavigator->_angRyMv = _RY;
-////            pLaserChip->_pMvNavigator->_angFace[AXIS_X] = _pMvNavigator->_angFace[AXIS_X];
-//            pLaserChip->_pMvNavigator->_angFace[AXIS_Z] = _RZ;
-//            pLaserChip->_pMvNavigator->_angFace[AXIS_Y] = _RY;
-//            pLaserChip->_pMvNavigator->setVxMvVelo(_Q._x*150000);
-//            pLaserChip->_pMvNavigator->setVyMvVelo(_Q._y*150000);
-//            pLaserChip->_pMvNavigator->setVzMvVelo(_Q._z*150000);
-//            pLaserChip->_pMvNavigator->setVxMvAcce(0);
-//            pLaserChip->_pMvNavigator->setVyMvAcce(0);
-//            pLaserChip->_pMvNavigator->setVzMvAcce(0);
+            //ストレート用
 //            pLaserChip->_pMvNavigator->behave();
-//            pLaserChip->_X = _X;
-//            pLaserChip->_Y = _Y;
-//            pLaserChip->_Z = _Z;
+//            pLaserChip->_pMvTransporter->behave();
 //            pLaserChip->_pOrg = this;
 //            pLaserChip->activate();
+
+              //カーブ用
+            pLaserChip->_pMvNavigator->_vX = _Q._x;
+            pLaserChip->_pMvNavigator->_vY = _Q._y;
+            pLaserChip->_pMvNavigator->_vZ = _Q._z;
+            pLaserChip->_pMvNavigator->_angRzMv = _RZ;
+            pLaserChip->_pMvNavigator->_angRyMv = _RY;
+//            pLaserChip->_pMvNavigator->_angFace[AXIS_X] = _pMvNavigator->_angFace[AXIS_X];
+            pLaserChip->_pMvNavigator->_angFace[AXIS_Z] = _RZ;
+            pLaserChip->_pMvNavigator->_angFace[AXIS_Y] = _RY;
+            pLaserChip->_pMvTransporter->setVxMvVelo(_Q._x*150000);
+            pLaserChip->_pMvTransporter->setVyMvVelo(_Q._y*150000);
+            pLaserChip->_pMvTransporter->setVzMvVelo(_Q._z*150000);
+            pLaserChip->_pMvTransporter->setVxMvAcce(0);
+            pLaserChip->_pMvTransporter->setVyMvAcce(0);
+            pLaserChip->_pMvTransporter->setVzMvAcce(0);
+            pLaserChip->_pMvNavigator->behave();
+            pLaserChip->_pMvTransporter->behave();
+            pLaserChip->_X = _X;
+            pLaserChip->_Y = _Y;
+            pLaserChip->_Z = _Z;
+            pLaserChip->_pOrg = this;
+            pLaserChip->activate();
 
             if (pLaserChip->_pChip_front == NULL) {
                 _pSeTransmitter->play3D(0);

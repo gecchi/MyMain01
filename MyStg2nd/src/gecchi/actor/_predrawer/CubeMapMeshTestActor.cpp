@@ -47,22 +47,22 @@ void CubeMapMeshTestActor::processBehavior() {
         _pMvNavigator->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.7, 0.9);
         _TRACE_("execSmoothMvVeloSequence!!");
     }
-    if (GgafDx9Input::isBeingPressedKey(DIK_E)) {
+    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
         _X = _X - 2000;
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_R)) {
         _X = _X + 2000;
     }
-    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
         _Y = _Y + 2000;
     }
-    if (GgafDx9Input::isBeingPressedKey(DIK_D)) {
+    if (GgafDx9Input::isBeingPressedKey(DIK_E)) {
         _Y = _Y - 2000;
     }
-    if (GgafDx9Input::isBeingPressedKey(DIK_E)) {
+    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
         _X = 0;
     }
-    _TRACE_(getActivePartFrame() <<":"<<_X<<","<<_Y<<","<<_Z);
+//    _TRACE_(getActivePartFrame() <<":"<<_X<<","<<_Y<<","<<_Z);
 
 
     _pMvNavigator->behave();
