@@ -5,6 +5,9 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+#define MAX2(a, b) ((a) > (b) ? (a) : (b))
+#define MAX3(a, b, c) ((a) > (MAX2(b, c)) ? (a) : (MAX2(b, c)))
+
 MyOptionCurveLaserChip001::MyOptionCurveLaserChip001(const char* prm_name) :
         CurveLaserChip(prm_name, "MyOptionCurveLaserChip001") {
     _class_name = "MyOptionCurveLaserChip001";
@@ -53,7 +56,7 @@ void MyOptionCurveLaserChip001::onActive() {
 
     _renge = 150000;
     _pMvTransporter->forceVxyzMvVeloRange(-_renge, _renge);
-    _maxAcceRange= 5000;
+    _maxAcceRange= _renge/20;
     _pMvTransporter->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 
 //    MyStgUtil::resetMyOptionCurveLaserChip001Status(_pStatus);
@@ -98,25 +101,89 @@ void MyOptionCurveLaserChip001::processBehavior() {
 
     if (_lockon == 1) {
         if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
-            int TX = pMainLockOnTarget->_X - _X;
-            int TY = pMainLockOnTarget->_Y - _Y;
-            int TZ = pMainLockOnTarget->_Z - _Z;
-            int dot = _pMvTransporter->dot(TX,TY,TZ);
-            if (dot < _pMvTransporter->dot(TX+1000,TY,TZ)) {
-                _pMvTransporter->addVxMvAcce(-500);
-            } else {
-                _pMvTransporter->addVxMvAcce(+500);
-            }
-            if (dot < _pMvTransporter->dot(TX,TY+1000,TZ)) {
-                _pMvTransporter->addVyMvAcce(-500);
-            } else {
-                _pMvTransporter->addVyMvAcce(+500);
-            }
-            if (dot < _pMvTransporter->dot(TX,TY,TZ+1000)) {
-                _pMvTransporter->addVzMvAcce(-500);
-            } else {
-                _pMvTransporter->addVzMvAcce(+500);
-            }
+            //    |                 âºìI
+            //    |                 /                           |      âºìI
+            //    |    |âºìI| = 6v /                            |       Åb
+            //    |               /           âºé©              |       Åb
+            //    |              /         Å^                   |      âºé©
+            //    |             /        Å^                     |       Åb
+            //    |            /       Å^                       |       Åb
+            //    |           /      Å^                         |       Åb
+            //    |          /     Å^                           |       Åb
+            //    |         /    Å^                             |       Åb
+            //    |       ìI   Å^    |âºé©| = 5v                |       ìI
+            //    |       /  Å^                                 |       Åb
+            //    |      / Ñ¢                                   |       Å™
+            //    |     /Å^v                                    |       Åb
+            //    |    é©                                       |       é©
+            // ---+---------------------------               ---+---------------------------
+            //    |                                             |
+            //
+            //é©Å®ìI
+            int vTx = pMainLockOnTarget->_X - _X;
+            int vTy = pMainLockOnTarget->_Y - _Y;
+            int vTz = pMainLockOnTarget->_Z - _Z;
+            //é©Å®âºé©
+            int vVMx = _pMvTransporter->_veloVxMv*5;
+            int vVMy = _pMvTransporter->_veloVyMv*5;
+            int vVMz = _pMvTransporter->_veloVzMv*5;
+
+            //|âºé©|
+            int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //âºé©ÉxÉNÉgÉãëÂÇ´Ç≥ä»à’î≈
+            //|ìI|
+            int lT =  MAX3(abs(vTx),abs(vTy),abs(vTz)); //ìIÉxÉNÉgÉãëÂÇ´Ç≥ä»à’î≈
+            //|âºé©|/|ìI|
+            double r = 1.0*lVM / lT;
+            //é©Å®âºìI
+            int vVTx = vTx * r;
+            int vVTy = vTy * r;
+            int vVTz = vTz * r;
+            //âºé©Å®âºìI
+            int vVMVTx = vVTx - vVMx;
+            int vVMVTy = vVTy - vVMy;
+            int vVMVTz = vVTz - vVMz;
+
+            _pMvTransporter->setVxMvAcce(vVMVTx/5/20);
+            _pMvTransporter->setVyMvAcce(vVMVTy/5/20);
+            _pMvTransporter->setVzMvAcce(vVMVTz/5/20);
+        } else {
+            _pMvTransporter->setZeroVxyzMvAcce();
+            _lockon = 2;
+        }
+    }
+
+//Ç»Ç∑äpÇè¨Ç≥Ç≠Ç»ÇÈÇÊÇ§Ç…äÊí£ÇÍÇŒó«Ç¢
+//    Å®                       Å®
+//    Ç` = (ÇÅÇò, ÇÅÇô, ÇÅÇö)  Ça ÅÅ (ÇÇÇò, ÇÇÇô, ÇÇÇö)
+//
+//    Ç`Å~Ça ÅÅ (ÇÅÇô•ÇÇÇö - ÇÅÇö•ÇÇÇô,  ÇÅÇö•ÇÇÇò - ÇÅÇò•ÇÇÇö,  ÇÅÇò•ÇÇÇô Å| ÇÅÇô•ÇÇÇò)
+//
+//    |Ç`Å~Ça| = |Ç`||Ça|sin(É∆)
+
+    CurveLaserChip::processBehavior();//ç¿ïWÇà⁄ìÆÇ≥ÇπÇƒÇ©ÇÁåƒÇ—èoÇ∑Ç±Ç∆
+
+
+
+
+//    int TX = pMainLockOnTarget->_X - _X;
+//    int TY = pMainLockOnTarget->_Y - _Y;
+//    int TZ = pMainLockOnTarget->_Z - _Z;
+//    int dot = _pMvTransporter->dot(TX,TY,TZ);
+//    if (dot < _pMvTransporter->dot(TX+1000,TY,TZ)) {
+//        _pMvTransporter->addVxMvAcce(-500);
+//    } else {
+//        _pMvTransporter->addVxMvAcce(+500);
+//    }
+//    if (dot < _pMvTransporter->dot(TX,TY+1000,TZ)) {
+//        _pMvTransporter->addVyMvAcce(-500);
+//    } else {
+//        _pMvTransporter->addVyMvAcce(+500);
+//    }
+//    if (dot < _pMvTransporter->dot(TX,TY,TZ+1000)) {
+//        _pMvTransporter->addVzMvAcce(-500);
+//    } else {
+//        _pMvTransporter->addVzMvAcce(+500);
+//    }
 //            int fdx = pMainLockOnTarget->_X - (_X + _pMvTransporter->_veloVxMv*5);
 //            int fdy = pMainLockOnTarget->_Y - (_Y + _pMvTransporter->_veloVyMv*5);
 //            int fdz = pMainLockOnTarget->_Z - (_Z + _pMvTransporter->_veloVzMv*5);
@@ -125,25 +192,6 @@ void MyOptionCurveLaserChip001::processBehavior() {
 //            _pMvTransporter->addVxMvAcce(sgn(fdx)*((_pMvTransporter->_veloVxMv*_maxAcceRange) /_renge) );
 //            _pMvTransporter->addVyMvAcce(sgn(fdy)*((_pMvTransporter->_veloVyMv*_maxAcceRange) /_renge) );
 //            _pMvTransporter->addVzMvAcce(sgn(fdz)*((_pMvTransporter->_veloVzMv*_maxAcceRange) /_renge) );
-        } else {
-            _pMvTransporter->setZeroVxyzMvAcce();
-            _lockon = 2;
-        }
-    }
-
-//Ç»Ç∑äpÇè¨Ç≥Ç≠Ç»ÇÈÇÊÇ§Ç…äÊí£ÇÍÇŒó«Ç¢
-//    Å®  Å®
-//    a ÅEb
-//   ---------
-//   |Å®||Å®|
-//   |a ||b |
-//
-//                 x1x2 + y1y2 + z1z2
-//   ------------------------------------------------
-//      ___________________    ___________________
-//   (Å„x1^2 + y1^2 + z1^2) + Å„x2^2 + y2^2 + z2^2
-
-    CurveLaserChip::processBehavior();//ç¿ïWÇà⁄ìÆÇ≥ÇπÇƒÇ©ÇÁåƒÇ—èoÇ∑Ç±Ç∆
 
 
 
