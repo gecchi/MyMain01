@@ -117,20 +117,20 @@ void MyOptionWateringLaserChip001::processBehavior() {
 
     if (_lockon == 1) {
         if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
-            //    |             vVT 仮的
-            //    |     ─→        ^                           |      仮的
-            //    |    |仮的| = 6v /                            |       ｜
+            //    |             vVT 仮的                        |
+            //    |                 ^                           |      仮的
+            //    |  |仮的| > 5*vM /                            |       ｜
             //    |               /           仮自              |       ｜
             //    |              /         ┐                   |      仮自
             //    |             /        ／vVM                  |       ｜
             //    |            /       ／                       |       ｜
             //    |           /      ／                         |       ｜
             //    |          /     ／                           |       ｜
-            //    |         /    ／   ─→                      |       ｜
-            //    |    vT 的   ／    |仮自| = 5v                |       的
+            //    |         /    ／                             |       ｜
+            //    |    vT 的   ／    |仮自| = 5*vM              |       的
             //    |       /  ／                                 |       ｜
-            //    |      / ┐                                   |       ↑
-            //    |     /／vM                                   |       ｜
+            //    |      / ┐vM                                 |       ↑
+            //    |     /／ (_veloVxMv,_veloVyMv,_veloVzMv)     |       ｜
             //    |    自                                       |       自
             // ---+---------------------------               ---+---------------------------
             //    |                                             |
@@ -147,9 +147,9 @@ void MyOptionWateringLaserChip001::processBehavior() {
             //|仮自|
             int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
             //|的|
-            int lT =  MAX3(abs(vTx),abs(vTy),abs(vTz)); //的ベクトル大きさ簡易版
+            int lT =  MAX3(abs(vTx), abs(vTy), abs(vTz)); //的ベクトル大きさ簡易版
             //|仮自|/|的|
-            double r = 1.3*lVM / lT;
+            double r = 1.5*lVM / lT;
             //自→仮的
 //            int vVTx = vTx * r;
 //            int vVTy = vTy * r;
@@ -172,25 +172,21 @@ void MyOptionWateringLaserChip001::processBehavior() {
     }
 
     if (_lockon == 2) {
+        _maxAcceRange+=100;
+        _pMvTransporter->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
         //先端ならば特別に、オプションの反対の座標をターゲットする
         if (_pChip_front == NULL) {
-            _new_target_X = _X + (_X - _pOrg->_X);
-            _new_target_Y = _Y + (_Y - _pOrg->_Y);
-            _new_target_Z = _Z + (_Z - _pOrg->_Z);
-            int dx = _new_target_X - _X;
-            int dy = _new_target_Y - _Y;
-            int dz = _new_target_Z - _Z;
-            _pMvTransporter->setVxMvAcce(dx);
-            _pMvTransporter->setVyMvAcce(dy);
-            _pMvTransporter->setVzMvAcce(dz);
+            _pMvTransporter->setVxMvAcce(_X - _pOrg->_X);
+            _pMvTransporter->setVyMvAcce(_X - _pOrg->_X);
+            _pMvTransporter->setVzMvAcce(_Z - _pOrg->_Z);
         } else {
             //新たなターゲットを作成
             int dx = _pChip_front->_X - (_X + _pMvTransporter->_veloVxMv);
             int dy = _pChip_front->_Y - (_Y + _pMvTransporter->_veloVyMv);
             int dz = _pChip_front->_Z - (_Z + _pMvTransporter->_veloVzMv);
-            _pMvTransporter->setVxMvAcce(dx/20);
-            _pMvTransporter->setVyMvAcce(dy/20);
-            _pMvTransporter->setVzMvAcce(dz/20);
+            _pMvTransporter->setVxMvAcce(dx);
+            _pMvTransporter->setVyMvAcce(dy);
+            _pMvTransporter->setVzMvAcce(dz);
         }
 
     }
@@ -378,13 +374,13 @@ void MyOptionWateringLaserChip001::processBehavior() {
 ////    _pMvNavigator->_angFace[AXIS_X] =  _pOrg->_pMvNavigator->_angFace[AXIS_Y];
 //    WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 //
-//    //根元からレーザー表示のため強制的に座標補正
-//    if (onChangeToActive()) {
-//        locateAs(_pOrg);
-//        _tmpX = _X;
-//        _tmpY = _Y;
-//        _tmpZ = _Z;
-//    }
+    //根元からレーザー表示のため強制的に座標補正
+    if (onChangeToActive()) {
+        locateAs(_pOrg);
+        _tmpX = _X;
+        _tmpY = _Y;
+        _tmpZ = _Z;
+    }
 
 }
 
