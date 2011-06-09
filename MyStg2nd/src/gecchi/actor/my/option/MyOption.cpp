@@ -46,13 +46,13 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 //    addSubGroup(_pEffect_LaserIrradiate);
     _pEffect_LaserIrradiate = NULL;
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
-    MyOptionCurveLaserChip001* pChip;
+    MyOptionWateringLaserChip001* pChip;
 //    MyOptionStraightLaserChip001* pChip;
     for (int i = 0; i < 90; i++) { //レーザーストック
         stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;
         string name2 = name.str();
-        pChip = NEW MyOptionCurveLaserChip001(name2.c_str());
+        pChip = NEW MyOptionWateringLaserChip001(name2.c_str());
         //pChip = NEW MyOptionStraightLaserChip001(name2.c_str());
         //MyOptionStraightLaserChip001の場合以下が必要
         //ストレート用
@@ -411,7 +411,7 @@ void MyOption::processBehavior() {
     if (pMyShip->_is_shooting_laser && VB_PLAY->isBeingPressed(VB_SHOT1)) {
 
 
-        MyOptionCurveLaserChip001* pLaserChip = (MyOptionCurveLaserChip001*)_pLaserChipDispatcher->employ();
+        MyOptionWateringLaserChip001* pLaserChip = (MyOptionWateringLaserChip001*)_pLaserChipDispatcher->employ();
 //        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)_pLaserChipDispatcher->employ();
 
         if (pLaserChip) {

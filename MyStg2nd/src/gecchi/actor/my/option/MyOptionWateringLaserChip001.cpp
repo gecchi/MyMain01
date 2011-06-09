@@ -6,32 +6,48 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 #define MAX2(a, b) ((a) > (b) ? (a) : (b))
-#define MAX3(a, b, c) ((a) > (MAX2(b, c)) ? (a) : (MAX2(b, c)))
+#define MAX3(a, b, c) ( (a)>(b) ? ((a)>(c)?(a):(c)) : ((b)>(c)?(b):(c)) )
+//((a) > (MAX2(b, c)) ? (a) : (MAX2(b, c)))
 
-MyOptionCurveLaserChip001::MyOptionCurveLaserChip001(const char* prm_name) :
-        CurveLaserChip(prm_name, "MyOptionCurveLaserChip001") {
-    _class_name = "MyOptionCurveLaserChip001";
-    MyStgUtil::resetMyOptionCurveLaserChip001Status(_pStatus);
+//if (a>b) {
+//    if (a>c) {
+//        return a;
+//    } else { //(a<=c)
+//        return c;
+//    }
+//} else { //(a<=b)
+//    if (b>c) {
+//        return b;
+//    } else { //(b<=c)
+//        return c;
+//    }
+//}
+//
+//( a>b ? ( a>c ? a : c ) : ( b>c ? b : c ) )
+
+
+MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name) :
+        WateringLaserChip(prm_name, "MyOptionWateringLaserChip001") {
+    _class_name = "MyOptionWateringLaserChip001";
+    MyStgUtil::resetMyOptionWateringLaserChip001Status(_pStatus);
     _default_stamina = _pStatus->get(STAT_Stamina);
     _pOrg = NULL;
     _lockon = 0;
     _isLockon = false;
 }
 
-void MyOptionCurveLaserChip001::initialize() {
+void MyOptionWateringLaserChip001::initialize() {
     _pMvNavigator->relateFaceAngWithMvAng(true);
     registHitAreaCube(80000);
     setHitAble(true);
-    _SX = _SY = _SZ = 6 * 1000;
-    _fAlpha = 0.99f;
-    _radius_bounding_sphere = 60.0f;
-
+    setScaleRate(6.0);
+    setAlpha(0.99);
 }
 
-void MyOptionCurveLaserChip001::onActive() {
-    MyStgUtil::resetMyOptionCurveLaserChip001Status(_pStatus);
+void MyOptionWateringLaserChip001::onActive() {
+    MyStgUtil::resetMyOptionWateringLaserChip001Status(_pStatus);
     _default_stamina = _pStatus->get(STAT_Stamina);
-    CurveLaserChip::onActive();
+    WateringLaserChip::onActive();
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
         if (_pChip_front == NULL) {
@@ -39,7 +55,7 @@ void MyOptionCurveLaserChip001::onActive() {
             _lockon = 1;
         } else {
             //先端以外
-            _lockon = ((MyOptionCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+            _lockon = ((MyOptionWateringLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
         if (_pChip_front == NULL) {
@@ -47,7 +63,7 @@ void MyOptionCurveLaserChip001::onActive() {
             _lockon = 0;
         } else {
             //先端以外
-            _lockon = ((MyOptionCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+            _lockon = ((MyOptionWateringLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
         }
     }
     _jerkVx = _jerkVy = _jerkVz = 0;      //躍度リセット
@@ -59,9 +75,9 @@ void MyOptionCurveLaserChip001::onActive() {
     _maxAcceRange= _renge/20;
     _pMvTransporter->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 
-//    MyStgUtil::resetMyOptionCurveLaserChip001Status(_pStatus);
+//    MyStgUtil::resetMyOptionWateringLaserChip001Status(_pStatus);
 //    _default_stamina = _pStatus->get(STAT_Stamina);
-//    CurveLaserChip::onActive();
+//    WateringLaserChip::onActive();
 //    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
 //    _pMvNavigator->setMvVelo(0);
 //    _pMvTransporter->setVxMvAcce(0);
@@ -75,8 +91,8 @@ void MyOptionCurveLaserChip001::onActive() {
 //            _isLockon = true;
 //        } else {
 //            //先端以外
-//            _lockon = ((MyOptionCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
-//            _isLockon = ((MyOptionCurveLaserChip001*) _pChip_front)->_isLockon;//一つ前のロックオン情報を引き継ぐ
+//            _lockon = ((MyOptionWateringLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+//            _isLockon = ((MyOptionWateringLaserChip001*) _pChip_front)->_isLockon;//一つ前のロックオン情報を引き継ぐ
 //        }
 //    } else {
 //        if (_pChip_front == NULL) {
@@ -84,8 +100,8 @@ void MyOptionCurveLaserChip001::onActive() {
 //            _lockon = 0;
 //        } else {
 //            //先端以外
-//            _lockon = ((MyOptionCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
-//            _isLockon = ((MyOptionCurveLaserChip001*) _pChip_front)->_isLockon;//一つ前のロックオン情報を引き継ぐ
+//            _lockon = ((MyOptionWateringLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+//            _isLockon = ((MyOptionWateringLaserChip001*) _pChip_front)->_isLockon;//一つ前のロックオン情報を引き継ぐ
 //        }
 //    }
 //    _renge = 150000;
@@ -96,7 +112,7 @@ void MyOptionCurveLaserChip001::onActive() {
 
 }
 
-void MyOptionCurveLaserChip001::processBehavior() {
+void MyOptionWateringLaserChip001::processBehavior() {
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
 
     if (_lockon == 1) {
@@ -135,17 +151,20 @@ void MyOptionCurveLaserChip001::processBehavior() {
             //|仮自|/|的|
             double r = 1.3*lVM / lT;
             //自→仮的
-            int vVTx = vTx * r;
-            int vVTy = vTy * r;
-            int vVTz = vTz * r;
+//            int vVTx = vTx * r;
+//            int vVTy = vTy * r;
+//            int vVTz = vTz * r;
             //仮自→仮的
-            int vVMVTx = vVTx - vVMx;
-            int vVMVTy = vVTy - vVMy;
-            int vVMVTz = vVTz - vVMz;
-
-            _pMvTransporter->setVxMvAcce(vVMVTx/5/20);
-            _pMvTransporter->setVyMvAcce(vVMVTy/5/20);
-            _pMvTransporter->setVzMvAcce(vVMVTz/5/20);
+//            int vVMVTx = vVTx - vVMx;
+//            int vVMVTy = vVTy - vVMy;
+//            int vVMVTz = vVTz - vVMz;
+//
+//            _pMvTransporter->setVxMvAcce(vVMVTx/5/20);
+//            _pMvTransporter->setVyMvAcce(vVMVTy/5/20);
+//            _pMvTransporter->setVzMvAcce(vVMVTz/5/20);
+            _pMvTransporter->setVxMvAcce(((vTx * r) - vVMx)/5/20);
+            _pMvTransporter->setVyMvAcce(((vTy * r) - vVMy)/5/20);
+            _pMvTransporter->setVzMvAcce(((vTz * r) - vVMz)/5/20);
         } else {
             //_pMvTransporter->setZeroVxyzMvAcce();
             _lockon = 2;
@@ -183,7 +202,7 @@ void MyOptionCurveLaserChip001::processBehavior() {
 //
 //    |Ａ×Ｂ| = |Ａ||Ｂ|sin(θ)
 
-    CurveLaserChip::processBehavior();//座標を移動させてから呼び出すこと
+    WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 
 
 
@@ -357,7 +376,7 @@ void MyOptionCurveLaserChip001::processBehavior() {
 ////    }
 //
 ////    _pMvNavigator->_angFace[AXIS_X] =  _pOrg->_pMvNavigator->_angFace[AXIS_Y];
-//    CurveLaserChip::processBehavior();//座標を移動させてから呼び出すこと
+//    WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 //
 //    //根元からレーザー表示のため強制的に座標補正
 //    if (onChangeToActive()) {
@@ -369,7 +388,7 @@ void MyOptionCurveLaserChip001::processBehavior() {
 
 }
 
-void MyOptionCurveLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
+void MyOptionWateringLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
     if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
         if (_chip_kind != 2 || _can_chikei_hit) {
             GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
@@ -381,7 +400,7 @@ void MyOptionCurveLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) 
     }
 }
 
-void MyOptionCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
+void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
     //ヒットエフェクト
@@ -395,7 +414,7 @@ void MyOptionCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                 _lockon = 2; //ロックオンをやめる。非ロックオン（ロックオン→非ロックオン）
                 if (_pChip_front && _pChip_front->_pChip_front == NULL) {
                     //中間先頭チップがヒットした場合、先端にも伝える
-                    ((MyOptionCurveLaserChip001*)_pChip_front)->_lockon = 2;
+                    ((MyOptionWateringLaserChip001*)_pChip_front)->_lockon = 2;
                 }
             } else {
                 //オプションのロックオン以外のアクターに命中した場合
@@ -439,8 +458,8 @@ void MyOptionCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         sayonara();
     }
 }
-//void MyOptionCurveLaserChip001::processFinal() {
-//    CurveLaserChip::processFinal();
+//void MyOptionWateringLaserChip001::processFinal() {
+//    WateringLaserChip::processFinal();
 //    //ロックオンが消滅ならば、切る
 //    if (_pOrg->_pLockonTarget) {
 //        if (_pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) <= 0) {
@@ -449,11 +468,11 @@ void MyOptionCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //    }
 //}
 
-void MyOptionCurveLaserChip001::onInactive() {
-    CurveLaserChip::onInactive();
+void MyOptionWateringLaserChip001::onInactive() {
+    WateringLaserChip::onInactive();
     _lockon = 0;
 }
 
-MyOptionCurveLaserChip001::~MyOptionCurveLaserChip001() {
+MyOptionWateringLaserChip001::~MyOptionWateringLaserChip001() {
 }
 

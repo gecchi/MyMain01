@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :
-        StraightLaserChip(prm_name, "EnemyCurveLaserChip001") {
+        StraightLaserChip(prm_name, "EnemyStraightLaserChip001") {
     _class_name = "EnemyStraightLaserChip001";
     MyStgUtil::resetEnemyStraightLaserChip001Status(_pStatus);
     _veloMv = 100000;

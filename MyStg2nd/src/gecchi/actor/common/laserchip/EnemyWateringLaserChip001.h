@@ -2,7 +2,7 @@
 //#define ENEMYCURVELASERCHIP001_H_
 //namespace MyStg2nd {
 //
-//class EnemyCurveLaserChip001 : public GgafDx9LibStg::CurveLaserChip {
+//class EnemyWateringLaserChip001 : public GgafDx9LibStg::WateringLaserChip {
 //
 //public:
 //    /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
@@ -13,7 +13,7 @@
 //    float _maxAcceRange;
 //
 //
-//    EnemyCurveLaserChip001(const char* prm_name);
+//    EnemyWateringLaserChip001(const char* prm_name);
 //
 //    void initialize() override;
 //
@@ -35,7 +35,7 @@
 ////        }
 ////    }
 //
-//    virtual ~EnemyCurveLaserChip001();
+//    virtual ~EnemyWateringLaserChip001();
 //
 //};
 //

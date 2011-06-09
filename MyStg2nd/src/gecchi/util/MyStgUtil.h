@@ -184,7 +184,7 @@ public:
 	//自機レーザー
 	static void resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
 	//オプションカーブレーザー
-	static void resetMyOptionCurveLaserChip001Status(GgafCore::GgafStatus* p);
+	static void resetMyOptionWateringLaserChip001Status(GgafCore::GgafStatus* p);
 	//オプションストレートレーザー
 	static void resetMyOptionStraightLaserChip001Status(GgafCore::GgafStatus* p);
 	//トゥピード
@@ -196,7 +196,7 @@ public:
 	//敵ストレートレーザー001
 	static void resetEnemyStraightLaserChip001Status(GgafCore::GgafStatus* p);
 	//敵カーブレーザー001
-	static void resetEnemyCurveLaserChip001Status(GgafCore::GgafStatus* p);
+	static void resetEnemyWateringLaserChip001Status(GgafCore::GgafStatus* p);
 	//ケレス
 	static void resetEnemyCeresStatus(GgafCore::GgafStatus* p);
 	//ケレスショット001

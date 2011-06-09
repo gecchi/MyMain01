@@ -75,7 +75,7 @@ class CollisionChecker;
 class CollisionCheckerLaserChip;
 
 class LaserChip;
-class CurveLaserChip;
+class WateringLaserChip;
 class HomingLaserChip;
 class StraightLaserChip;
 class RefractionLaserChip;
@@ -139,7 +139,7 @@ class LaserChipDispatcherDispatcher;
 
 
 #include "jp/ggaf/dx9libstg/actor/laserchip/LaserChip.h"
-#include "jp/ggaf/dx9libstg/actor/laserchip/CurveLaserChip.h"
+#include "jp/ggaf/dx9libstg/actor/laserchip/WateringLaserChip.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/HomingLaserChip.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/StraightLaserChip.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/RefractionLaserChip.h"

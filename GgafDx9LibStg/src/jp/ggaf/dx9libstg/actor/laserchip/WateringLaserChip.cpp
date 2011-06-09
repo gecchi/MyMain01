@@ -5,15 +5,15 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 
-CurveLaserChip::CurveLaserChip(const char* prm_name, const char* prm_model) :
+WateringLaserChip::WateringLaserChip(const char* prm_name, const char* prm_model) :
     LaserChip(prm_name, prm_model) {
-    _class_name = "CurveLaserChip";
+    _class_name = "WateringLaserChip";
     _tmpX = 0;
     _tmpY = 0;
     _tmpZ = 0;
 }
 
-void CurveLaserChip::initialize() {
+void WateringLaserChip::initialize() {
     //初期設定です。
     //30px/frame の移動速度
     //当たり判定あり。
@@ -24,7 +24,7 @@ void CurveLaserChip::initialize() {
 }
 
 
-void CurveLaserChip::onActive() {
+void WateringLaserChip::onActive() {
     //レーザーチップ出現時処理
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
@@ -34,14 +34,14 @@ void CurveLaserChip::onActive() {
     _tmpZ = _Z;
 }
 
-void CurveLaserChip::onInactive() {
+void WateringLaserChip::onInactive() {
     //レーザーチップ消失時処理
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onInactive() メソッドも呼び出してください。
     LaserChip::onInactive();
 }
 
-void CurveLaserChip::processBehavior() {
+void WateringLaserChip::processBehavior() {
     LaserChip::processBehavior();
     //_pMvNavigator->behave();
     _pMvTransporter->behave();
@@ -50,7 +50,7 @@ void CurveLaserChip::processBehavior() {
     _tmpY = _Y;
     _tmpZ = _Z;
 }
-void CurveLaserChip::processSettlementBehavior() {
+void WateringLaserChip::processSettlementBehavior() {
     //平均曲線座標設定。(レーザーを滑らかにするノーマライズ）
     //processSettlementBehavior() のメソッドの意義とは離れて座標をいじり移動している。
     //本来は processBehaviorAfter() 的な意味の処理であるが、全レーザーチップが移動後でないと意味がないので
@@ -76,12 +76,12 @@ void CurveLaserChip::processSettlementBehavior() {
                 //末端で先端
                 //どこへでもいきなはれ
             }
-        } else if (_pChip_front->isActiveActor() && _pChip_behind->isActiveActor()) {
+        } else if (_pChip_front->_is_active_flg && _pChip_behind->_is_active_flg) {
             //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->isActiveActor()と判定すること
             //なぜならemployの瞬間に_pChip_behind != NULL となるが、active()により有効になるのは次フレームだから
             //_X,_Y,_Z にはまだ変な値が入っている。
-            CurveLaserChip* pF = (CurveLaserChip*)_pChip_front;
-            CurveLaserChip* pB = (CurveLaserChip*)_pChip_behind;
+            WateringLaserChip* pF = (WateringLaserChip*)_pChip_front;
+            WateringLaserChip* pB = (WateringLaserChip*)_pChip_behind;
             //中間座標に再設定
             _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3;
             _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
@@ -94,11 +94,11 @@ void CurveLaserChip::processSettlementBehavior() {
     }
 }
 
-void CurveLaserChip::processJudgement() {
+void WateringLaserChip::processJudgement() {
     LaserChip::processJudgement();
     //GgafDx9Util::setWorldMatrix_RxRzRyScMv(this, _matWorld);
 }
 
-CurveLaserChip::~CurveLaserChip() {
+WateringLaserChip::~WateringLaserChip() {
 }
 

@@ -119,18 +119,18 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr, v
 
     //敵カーブレーザー01未使用。こぴぺのために残す
     /*
-    if (GgafUtil::strcmp_ascii("DpCon_EneCurveLaser001Dp", prm_idstr) == 0) {
-        pResource = NEW LaserChipDispatcherDispatcher("DPDP_EneCurveLaser001");
+    if (GgafUtil::strcmp_ascii("DpCon_EneWateringLaser001Dp", prm_idstr) == 0) {
+        pResource = NEW LaserChipDispatcherDispatcher("DPDP_EneWateringLaser001");
         LaserChipDispatcher* pLaserChipDispatcher;
-        EnemyCurveLaserChip001* pChip;
+        EnemyWateringLaserChip001* pChip;
         for (int set = 0; set < 20; set++) {
             stringstream name;
-            name <<  "EneCurveLaser001Dp["<<set<<"]";
+            name <<  "EneWateringLaser001Dp["<<set<<"]";
             pLaserChipDispatcher = NEW LaserChipDispatcher(name.str().c_str());
             for (int n = 0; n < 50; n++) {
                 stringstream name;
-                name <<  "EneCurveLaser001["<<set<<"]["<<n<<"]";
-                pChip = NEW EnemyCurveLaserChip001(name.str().c_str());
+                name <<  "EneWateringLaser001["<<set<<"]["<<n<<"]";
+                pChip = NEW EnemyWateringLaserChip001(name.str().c_str());
                 pChip->inactivateImmediately();
                 pLaserChipDispatcher->addSubLast(pChip);
                 if (n % 20 == 0) { Sleep(1); }

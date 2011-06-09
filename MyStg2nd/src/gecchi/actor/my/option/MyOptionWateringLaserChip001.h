@@ -4,13 +4,13 @@ namespace MyStg2nd {
 
 /**
  * オプションレーザーのチップ .
- * CurveLaserChip に ロックオン機能を追加。
- * (CurveLaserChipから分離した)
+ * WateringLaserChip に ロックオン機能を追加。
+ * (WateringLaserChipから分離した)
  * @version 1.00
  * @since 2010/10/6
  * @author Masatoshi Tsuge
  */
-class MyOptionCurveLaserChip001 : public GgafDx9LibStg::CurveLaserChip {
+class MyOptionWateringLaserChip001 : public GgafDx9LibStg::WateringLaserChip {
 
 public:
     /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
@@ -31,7 +31,7 @@ public:
     jerk _jerkVy;
     jerk _jerkVz;
 
-    MyOptionCurveLaserChip001(const char* prm_name);
+    MyOptionWateringLaserChip001(const char* prm_name);
 
     void initialize() override;
 
@@ -55,7 +55,7 @@ public:
 //        }
 //    }
 
-    virtual ~MyOptionCurveLaserChip001();
+    virtual ~MyOptionWateringLaserChip001();
 
 };
 

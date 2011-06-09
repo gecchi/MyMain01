@@ -5,16 +5,16 @@
 //using namespace GgafDx9LibStg;
 //using namespace MyStg2nd;
 //
-//EnemyCurveLaserChip001::EnemyCurveLaserChip001(const char* prm_name) :
-//        CurveLaserChip(prm_name, "EnemyCurveLaserChip001") {
-//    _class_name = "EnemyCurveLaserChip001";
-//    MyStgUtil::resetEnemyCurveLaserChip001Status(_pStatus);
+//EnemyWateringLaserChip001::EnemyWateringLaserChip001(const char* prm_name) :
+//        WateringLaserChip(prm_name, "EnemyWateringLaserChip001") {
+//    _class_name = "EnemyWateringLaserChip001";
+//    MyStgUtil::resetEnemyWateringLaserChip001Status(_pStatus);
 //    _pOrg = NULL;
 //    _lockon = 0;
 //
 //}
 //
-//void EnemyCurveLaserChip001::initialize() {
+//void EnemyWateringLaserChip001::initialize() {
 //    _pMvNavigator->relateFaceAngWithMvAng(true);
 //    registHitAreaCube(80000);
 //    setHitAble(true);
@@ -24,9 +24,9 @@
 //
 //}
 //
-//void EnemyCurveLaserChip001::onActive() {
-//    MyStgUtil::resetEnemyCurveLaserChip001Status(_pStatus);
-//    CurveLaserChip::onActive();
+//void EnemyWateringLaserChip001::onActive() {
+//    MyStgUtil::resetEnemyWateringLaserChip001Status(_pStatus);
+//    WateringLaserChip::onActive();
 //    _pMvNavigator->setMvVelo(0);
 //    _pMvNavigator->setVxMvAcce(0);
 //    _pMvNavigator->setVyMvAcce(0);
@@ -37,7 +37,7 @@
 //            _lockon = 1;
 //        } else {
 //            //先端以外
-//            _lockon = ((EnemyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+//            _lockon = ((EnemyWateringLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
 //        }
 //    } else {
 //        if (_pChip_front == NULL) {
@@ -45,7 +45,7 @@
 //            _lockon = 0;
 //        } else {
 //            //先端以外
-//            _lockon = ((EnemyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+//            _lockon = ((EnemyWateringLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
 //        }
 //        _pOrg->_pLockonTarget = NULL;
 //    }
@@ -59,7 +59,7 @@
 //    _pMvNavigator->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 //}
 //
-//void EnemyCurveLaserChip001::processBehavior() {
+//void EnemyWateringLaserChip001::processBehavior() {
 //    if (_lockon == 1) {
 //        if (getActivePartFrame() < 100) {
 //            _maxAcceRange+=100;
@@ -136,10 +136,10 @@
 //    if (_pChip_front == NULL) {
 //        _pSeTransmitter->behave();
 //    }
-//    CurveLaserChip::processBehavior();//座標を移動させてから呼び出すこと
+//    WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 //}
 //
-//void EnemyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
+//void EnemyWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
 //
 //    if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
@@ -153,7 +153,7 @@
 //                //中間先頭チップがヒットした場合の処理。(_chip_kind=3の場合)
 //                if (_pChip_front && _pChip_front->_pChip_front == NULL) {
 //                    //先端チップへ今後の方針を伝える。（先端チップは当たり判定がないため）
-//                    EnemyCurveLaserChip001* pTip = (EnemyCurveLaserChip001*)_pChip_front; //先端チップ
+//                    EnemyWateringLaserChip001* pTip = (EnemyWateringLaserChip001*)_pChip_front; //先端チップ
 //                    pTip->_lockon = 2; //先端に伝える
 //                    //今後の移動方角(加速度)を伝えるのだが、先端チップや自身や移動方向は、急激な角度に曲がっている可能性が極めて高く
 //                    //不自然な角度のカーブを描きかねないので、やや後方のチップが存在するならば、そちらの移動方向をコピーする。
@@ -231,8 +231,8 @@
 //
 //
 //}
-//void EnemyCurveLaserChip001::processFinal() {
-//    CurveLaserChip::processFinal();
+//void EnemyWateringLaserChip001::processFinal() {
+//    WateringLaserChip::processFinal();
 //    //ロックオンが消滅ならば、切る
 //    if (_pOrg->_pLockonTarget) {
 //        if (_pOrg->_pLockonTarget->_pStatus->get(STAT_Stamina) <= 0) {
@@ -242,11 +242,11 @@
 //    }
 //}
 //
-//void EnemyCurveLaserChip001::onInactive() {
-//    CurveLaserChip::onInactive();
+//void EnemyWateringLaserChip001::onInactive() {
+//    WateringLaserChip::onInactive();
 //    _lockon = 0;
 //}
 //
-//EnemyCurveLaserChip001::~EnemyCurveLaserChip001() {
+//EnemyWateringLaserChip001::~EnemyWateringLaserChip001() {
 //}
 

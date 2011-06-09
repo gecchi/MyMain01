@@ -9,7 +9,7 @@ namespace GgafDx9LibStg {
  * @author Masatoshi Tsuge
  */
 class LaserChip : public GgafDx9Core::GgafDx9MeshSetActor {
-    friend class CurveLaserChip;
+    friend class WateringLaserChip;
     friend class HomingLaserChip;
     friend class RefractionLaserChip;
     friend class StraightLaserChip;
