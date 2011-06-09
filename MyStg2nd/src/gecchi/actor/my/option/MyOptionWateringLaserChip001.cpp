@@ -72,8 +72,11 @@ void MyOptionWateringLaserChip001::onActive() {
 
     _renge = 150000;
     _pMvTransporter->forceVxyzMvVeloRange(-_renge, _renge);
-    _maxAcceRange= _renge/20;
+    _maxAcceRange= _renge/12;
     _pMvTransporter->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
+//    _pMvTransporter->setVxMvAcce(_pMvTransporter->_veloVxMv/10);
+//    _pMvTransporter->setVyMvAcce(_pMvTransporter->_veloVyMv/10);
+//    _pMvTransporter->setVzMvAcce(_pMvTransporter->_veloVzMv/10);
 
 //    MyStgUtil::resetMyOptionWateringLaserChip001Status(_pStatus);
 //    _default_stamina = _pStatus->get(STAT_Stamina);
@@ -115,7 +118,7 @@ void MyOptionWateringLaserChip001::onActive() {
 void MyOptionWateringLaserChip001::processBehavior() {
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
 
-    if (_lockon == 1) {
+    if (_lockon == 1 && getActivePartFrame() > 3) {
         if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
             //    |             vVT 仮的                        |
             //    |                 ^                           |      仮的
@@ -162,9 +165,9 @@ void MyOptionWateringLaserChip001::processBehavior() {
 //            _pMvTransporter->setVxMvAcce(vVMVTx/5/20);
 //            _pMvTransporter->setVyMvAcce(vVMVTy/5/20);
 //            _pMvTransporter->setVzMvAcce(vVMVTz/5/20);
-            _pMvTransporter->setVxMvAcce(((vTx * r) - vVMx)/5/20);
-            _pMvTransporter->setVyMvAcce(((vTy * r) - vVMy)/5/20);
-            _pMvTransporter->setVzMvAcce(((vTz * r) - vVMz)/5/20);
+            _pMvTransporter->setVxMvAcce(((vTx * r) - vVMx)/12);
+            _pMvTransporter->setVyMvAcce(((vTy * r) - vVMy)/12);
+            _pMvTransporter->setVzMvAcce(((vTz * r) - vVMz)/12);
         } else {
             //_pMvTransporter->setZeroVxyzMvAcce();
             _lockon = 2;
@@ -172,8 +175,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
     }
 
     if (_lockon == 2) {
-        _maxAcceRange+=100;
-        _pMvTransporter->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
+
         //先端ならば特別に、オプションの反対の座標をターゲットする
         if (_pChip_front == NULL) {
             _pMvTransporter->setVxMvAcce(_X - _pOrg->_X);

@@ -10,7 +10,7 @@ DefaultUniverse::DefaultUniverse(const char* prm_name, GgafDx9Camera* prm_pCamer
     _pLinearOctree = NEW LinearOctreeForActor(6);
     //_pLinearOctree->setRootSpace(-8000000 ,-8000000 ,-8000000 ,8000000 ,8000000 ,8000000);
     double r = 1.0/1.41421356;
-    _pLinearOctree->setRootSpace(_X_goneLeft*r/2.0  ,_Y_goneBottom*r, _Z_goneNear*r  ,
+    _pLinearOctree->setRootSpace(_X_goneLeft*r  ,_Y_goneBottom*r, _Z_goneNear*r  ,
                                  _X_goneRight*r     ,_Y_goneTop*r   , _Z_goneFar*r);
     //‰æ–Ê¶‚Ì—Ìˆæ‚Í­‚È‚¢
 }
