@@ -101,20 +101,20 @@ void MyOptionCurveLaserChip001::processBehavior() {
 
     if (_lockon == 1) {
         if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
-            //    |                 仮的
-            //    |                 /                           |      仮的
+            //    |             vVT 仮的
+            //    |     ─→        ^                           |      仮的
             //    |    |仮的| = 6v /                            |       ｜
             //    |               /           仮自              |       ｜
-            //    |              /         ／                   |      仮自
-            //    |             /        ／                     |       ｜
+            //    |              /         ┐                   |      仮自
+            //    |             /        ／vVM                  |       ｜
             //    |            /       ／                       |       ｜
             //    |           /      ／                         |       ｜
             //    |          /     ／                           |       ｜
-            //    |         /    ／                             |       ｜
-            //    |       的   ／    |仮自| = 5v                |       的
+            //    |         /    ／   ─→                      |       ｜
+            //    |    vT 的   ／    |仮自| = 5v                |       的
             //    |       /  ／                                 |       ｜
             //    |      / ┐                                   |       ↑
-            //    |     /／v                                    |       ｜
+            //    |     /／vM                                   |       ｜
             //    |    自                                       |       自
             // ---+---------------------------               ---+---------------------------
             //    |                                             |
@@ -133,7 +133,7 @@ void MyOptionCurveLaserChip001::processBehavior() {
             //|的|
             int lT =  MAX3(abs(vTx),abs(vTy),abs(vTz)); //的ベクトル大きさ簡易版
             //|仮自|/|的|
-            double r = 1.0*lVM / lT;
+            double r = 1.3*lVM / lT;
             //自→仮的
             int vVTx = vTx * r;
             int vVTy = vTy * r;
@@ -147,11 +147,34 @@ void MyOptionCurveLaserChip001::processBehavior() {
             _pMvTransporter->setVyMvAcce(vVMVTy/5/20);
             _pMvTransporter->setVzMvAcce(vVMVTz/5/20);
         } else {
-            _pMvTransporter->setZeroVxyzMvAcce();
+            //_pMvTransporter->setZeroVxyzMvAcce();
             _lockon = 2;
         }
     }
 
+    if (_lockon == 2) {
+        //先端ならば特別に、オプションの反対の座標をターゲットする
+        if (_pChip_front == NULL) {
+            _new_target_X = _X + (_X - _pOrg->_X);
+            _new_target_Y = _Y + (_Y - _pOrg->_Y);
+            _new_target_Z = _Z + (_Z - _pOrg->_Z);
+            int dx = _new_target_X - _X;
+            int dy = _new_target_Y - _Y;
+            int dz = _new_target_Z - _Z;
+            _pMvTransporter->setVxMvAcce(dx);
+            _pMvTransporter->setVyMvAcce(dy);
+            _pMvTransporter->setVzMvAcce(dz);
+        } else {
+            //新たなターゲットを作成
+            int dx = _pChip_front->_X - (_X + _pMvTransporter->_veloVxMv);
+            int dy = _pChip_front->_Y - (_Y + _pMvTransporter->_veloVyMv);
+            int dz = _pChip_front->_Z - (_Z + _pMvTransporter->_veloVzMv);
+            _pMvTransporter->setVxMvAcce(dx/20);
+            _pMvTransporter->setVyMvAcce(dy/20);
+            _pMvTransporter->setVzMvAcce(dz/20);
+        }
+
+    }
 //なす角を小さくなるように頑張れば良い
 //    →                       →
 //    Ａ = (ａｘ, ａｙ, ａｚ)  Ｂ ＝ (ｂｘ, ｂｙ, ｂｚ)
