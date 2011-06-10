@@ -435,10 +435,10 @@ void MyOption::processBehavior() {
 //            pLaserChip->_pMvNavigator->_angFace[AXIS_X] = _pMvNavigator->_angFace[AXIS_X];
             pLaserChip->_pMvNavigator->_angFace[AXIS_Z] = _RZ;
             pLaserChip->_pMvNavigator->_angFace[AXIS_Y] = _RY;
-            pLaserChip->_pMvTransporter->setVxMvVelo(_Q._x*150000);
-            pLaserChip->_pMvTransporter->setVyMvVelo(_Q._y*150000);
-            pLaserChip->_pMvTransporter->setVzMvVelo(_Q._z*150000);
-//            pLaserChip->_pMvNavigator->behave();
+            pLaserChip->_pMvTransporter->setVxMvVelo(_Q._x*180000);
+            pLaserChip->_pMvTransporter->setVyMvVelo(_Q._y*180000);
+            pLaserChip->_pMvTransporter->setVzMvVelo(_Q._z*180000);
+            pLaserChip->_pMvNavigator->behave();
             pLaserChip->_pMvTransporter->behave();
             pLaserChip->_X = _X;
             pLaserChip->_Y = _Y;

@@ -263,6 +263,14 @@ public:
         setBoundingSphereRadiusRate(prm_rate);
     }
 
+    virtual void addScale(int dS) {
+        _SX += dS;
+        _SY += dS;
+        _SZ += dS;
+        setBoundingSphereRadiusRate((1.0*_SX)/1000);
+    }
+
+
     /**
      * 未変換座標をコピーして設定 .
      * @param prm_pActor コピー元アクター

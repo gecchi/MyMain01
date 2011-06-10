@@ -296,6 +296,9 @@
 
 #define AVAILABLE_EVENT(X) const static UINT32 X = GgafCore::GgafUtil::easy_hash(#X)
 
+#define MAX2(a, b) ((a) > (b) ? (a) : (b))
+#define MAX3(a, b, c) ( (a)>(b) ? ((a)>(c)?(a):(c)) : ((b)>(c)?(b):(c)) )
+
 typedef UINT32 actorkind;
 typedef UINT32 frame;
 

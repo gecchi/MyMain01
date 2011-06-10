@@ -65,10 +65,7 @@ void EffectLockon001_Sub::processBehavior() {
     }
 
     if (_pPrg->get() == EffectLockon001_SCENE_PROG_RELEASE) {
-        _pTarget = NULL;
         addAlpha(-0.05);
-        _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
-        _pMvNavigator->_angveloFace[AXIS_Z] = _pEffectLockon001_Main->_pMvNavigator->_angveloFace[AXIS_Z];
         if (getAlpha() <= 0.0) {
             inactivate();
         }
@@ -76,6 +73,7 @@ void EffectLockon001_Sub::processBehavior() {
 
     _pUvFlipper->behave();
     _pMvNavigator->behave();
+    _pScaler->behave();
 }
 
 void EffectLockon001_Sub::processJudgement() {
@@ -102,6 +100,8 @@ void EffectLockon001_Sub::lockon(GgafDx9GeometricActor* prm_pTarget) {
 void EffectLockon001_Sub::releaseLockon() {
     if (isActiveActor()) {
         if (_pPrg->get() == EffectLockon001_SCENE_PROG_LOCK) {
+            _pScaler->forceScaleRange(60000, 2000); //スケーリング・範囲
+            _pScaler->intoTargetScaleLinerUntil(60000, 60);//スケーリング
             _pMvNavigator->setFaceAngVelo(AXIS_Z, _pMvNavigator->_angveloFace[AXIS_Z]*-3); //速く逆回転
             _pPrg->change(EffectLockon001_SCENE_PROG_RELEASE);
         } else if (_pPrg->get() == EffectLockon001_SCENE_PROG_RELEASE) {
