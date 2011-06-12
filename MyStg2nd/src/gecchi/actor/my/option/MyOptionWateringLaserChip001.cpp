@@ -59,7 +59,7 @@ void MyOptionWateringLaserChip001::onActive() {
 
 void MyOptionWateringLaserChip001::processBehavior() {
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
-    if (getActivePartFrame() > 3) {
+    if (getActivePartFrame() > 5) {
         if (_lockon == 1) {
             if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
                 //    |             vVT ‰¼“I                        |
