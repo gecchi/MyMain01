@@ -2,6 +2,8 @@
 #define MYOPTIONCURVELASERCHIP001_H_
 namespace MyStg2nd {
 
+#define R_MAXACCE 12
+
 /**
  * オプションレーザーのチップ .
  * WateringLaserChip に ロックオン機能を追加。

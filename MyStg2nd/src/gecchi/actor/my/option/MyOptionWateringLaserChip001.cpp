@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-#define R_MAXACCE 14
+
 MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name) :
         WateringLaserChip(prm_name, "MyOptionWateringLaserChip001") {
     _class_name = "MyOptionWateringLaserChip001";
@@ -59,70 +59,71 @@ void MyOptionWateringLaserChip001::onActive() {
 
 void MyOptionWateringLaserChip001::processBehavior() {
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
+    if (getActivePartFrame() > 3) {
+        if (_lockon == 1) {
+            if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
+                //    |             vVT 仮的                        |
+                //    |                 ^                           |      仮的
+                //    |  |仮的| > 5*vM /                            |       ｜
+                //    |               /           仮自              |       ｜
+                //    |              /         ┐                   |      仮自
+                //    |             /        ／vVM                  |       ｜
+                //    |            /       ／                       |       ｜
+                //    |           /      ／                         |       ｜
+                //    |          /     ／                           |       ｜
+                //    |         /    ／                             |       ｜
+                //    |    vT 的   ／    |仮自| = 5*vM              |       的
+                //    |       /  ／                                 |       ｜
+                //    |      / ┐vM                                 |       ↑
+                //    |     /／ (_veloVxMv,_veloVyMv,_veloVzMv)     |       ｜
+                //    |    自                                       |       自
+                // ---+---------------------------               ---+---------------------------
+                //    |                                             |
+                //
+                //自→的
+                int vTx = pMainLockOnTarget->_X - _X;
+                int vTy = pMainLockOnTarget->_Y - _Y;
+                int vTz = pMainLockOnTarget->_Z - _Z;
+                //自→仮自
+                int vVMx = _pMvTransporter->_veloVxMv*5;
+                int vVMy = _pMvTransporter->_veloVyMv*5;
+                int vVMz = _pMvTransporter->_veloVzMv*5;
 
-    if (_lockon == 1 && getActivePartFrame() > 3) {
-        if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
-            //    |             vVT 仮的                        |
-            //    |                 ^                           |      仮的
-            //    |  |仮的| > 5*vM /                            |       ｜
-            //    |               /           仮自              |       ｜
-            //    |              /         ┐                   |      仮自
-            //    |             /        ／vVM                  |       ｜
-            //    |            /       ／                       |       ｜
-            //    |           /      ／                         |       ｜
-            //    |          /     ／                           |       ｜
-            //    |         /    ／                             |       ｜
-            //    |    vT 的   ／    |仮自| = 5*vM              |       的
-            //    |       /  ／                                 |       ｜
-            //    |      / ┐vM                                 |       ↑
-            //    |     /／ (_veloVxMv,_veloVyMv,_veloVzMv)     |       ｜
-            //    |    自                                       |       自
-            // ---+---------------------------               ---+---------------------------
-            //    |                                             |
-            //
-            //自→的
-            int vTx = pMainLockOnTarget->_X - _X;
-            int vTy = pMainLockOnTarget->_Y - _Y;
-            int vTz = pMainLockOnTarget->_Z - _Z;
-            //自→仮自
-            int vVMx = _pMvTransporter->_veloVxMv*5;
-            int vVMy = _pMvTransporter->_veloVyMv*5;
-            int vVMz = _pMvTransporter->_veloVzMv*5;
-
-            //|仮自|
-            int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
-            //|的|
-            int lT =  MAX3(abs(vTx), abs(vTy), abs(vTz)); //的ベクトル大きさ簡易版
-            //|仮自|/|的|
-            double r = 1.5*lVM / lT;
-            //仮自→仮的 の加速度設定
-            _pMvTransporter->setVxMvAcce(((vTx * r) - vVMx)/R_MAXACCE);
-            _pMvTransporter->setVyMvAcce(((vTy * r) - vVMy)/R_MAXACCE);
-            _pMvTransporter->setVzMvAcce(((vTz * r) - vVMz)/R_MAXACCE);
-        } else {
-            //_pMvTransporter->setZeroVxyzMvAcce();
-            _lockon = 2;
-        }
-    }
-
-    if (_lockon == 2) {
-
-        //先端ならば特別に、オプションの反対の座標をターゲットする
-        if (_pChip_front == NULL) {
-            int dx = (_X - _pOrg->_X);
-            int dy = (_Y - _pOrg->_Y);
-            int dz = (_Z - _pOrg->_Z);
-            int dmax = MAX3(abs(dx), abs(dx), abs(dz));
-            _pMvTransporter->setVxMvAcce((1.0*dx/dmax)*_maxAcceRange);
-            _pMvTransporter->setVyMvAcce((1.0*dy/dmax)*_maxAcceRange);
-            _pMvTransporter->setVzMvAcce((1.0*dz/dmax)*_maxAcceRange);
-        } else {
-            //新たなターゲットを作成
-            _pMvTransporter->setVxMvAcce((_pChip_front->_X - _X)/R_MAXACCE);
-            _pMvTransporter->setVyMvAcce((_pChip_front->_Y - _Y)/R_MAXACCE);
-            _pMvTransporter->setVzMvAcce((_pChip_front->_Z - _Z)/R_MAXACCE);
+                //|仮自|
+                int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
+                //|的|
+                int lT =  MAX3(abs(vTx), abs(vTy), abs(vTz)); //的ベクトル大きさ簡易版
+                //|仮自|/|的|
+                double r = 1.5*lVM / lT;
+                //仮自→仮的 の加速度設定
+                _pMvTransporter->setVxMvAcce(((vTx * r) - vVMx)/R_MAXACCE);
+                _pMvTransporter->setVyMvAcce(((vTy * r) - vVMy)/R_MAXACCE);
+                _pMvTransporter->setVzMvAcce(((vTz * r) - vVMz)/R_MAXACCE);
+            } else {
+                //_pMvTransporter->setZeroVxyzMvAcce();
+                _lockon = 2;
+            }
         }
 
+        if (_lockon == 2) {
+
+            //先端ならば特別に、オプションの反対の座標をターゲットする
+            if (_pChip_front == NULL) {
+                int dx = (_X - _pOrg->_X);
+                int dy = (_Y - _pOrg->_Y);
+                int dz = (_Z - _pOrg->_Z);
+                int dmax = MAX3(abs(dx), abs(dx), abs(dz));
+                _pMvTransporter->setVxMvAcce((1.0*dx/dmax)*_maxAcceRange);
+                _pMvTransporter->setVyMvAcce((1.0*dy/dmax)*_maxAcceRange);
+                _pMvTransporter->setVzMvAcce((1.0*dz/dmax)*_maxAcceRange);
+            } else {
+                //新たなターゲットを作成
+                _pMvTransporter->setVxMvAcce((_pChip_front->_X - _X)/R_MAXACCE);
+                _pMvTransporter->setVyMvAcce((_pChip_front->_Y - _Y)/R_MAXACCE);
+                _pMvTransporter->setVzMvAcce((_pChip_front->_Z - _Z)/R_MAXACCE);
+            }
+
+        }
     }
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正
