@@ -15,6 +15,7 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
     _pOrg = NULL;
     _lockon = 0;
     _isLockon = false;
+    _r_maxacce = 12;
 }
 
 void MyOptionWateringLaserChip001::initialize() {
@@ -47,13 +48,12 @@ void MyOptionWateringLaserChip001::onActive() {
             _lockon = ((MyOptionWateringLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
         }
     }
-    _jerkVx = _jerkVy = _jerkVz = 0;      //躍度リセット
     _pMvTransporter->setZeroVxyzMvAcce(); //加速度リセット
     //Vxyzの速度はオプション側で設定される
 
-    _renge = 180000;
+    _renge = 150000;
     _pMvTransporter->forceVxyzMvVeloRange(-_renge, _renge);
-    _maxAcceRange= _renge/R_MAXACCE;
+    _maxAcceRange= _renge/_r_maxacce;
     _pMvTransporter->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 }
 
@@ -96,9 +96,9 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 //|仮自|/|的|
                 double r = 1.5*lVM / lT;
                 //仮自→仮的 の加速度設定
-                _pMvTransporter->setVxMvAcce(((vTx * r) - vVMx)/R_MAXACCE);
-                _pMvTransporter->setVyMvAcce(((vTy * r) - vVMy)/R_MAXACCE);
-                _pMvTransporter->setVzMvAcce(((vTz * r) - vVMz)/R_MAXACCE);
+                _pMvTransporter->setVxMvAcce(((vTx * r) - vVMx)/_r_maxacce);
+                _pMvTransporter->setVyMvAcce(((vTy * r) - vVMy)/_r_maxacce);
+                _pMvTransporter->setVzMvAcce(((vTz * r) - vVMz)/_r_maxacce);
             } else {
                 //_pMvTransporter->setZeroVxyzMvAcce();
                 _lockon = 2;
@@ -109,18 +109,17 @@ void MyOptionWateringLaserChip001::processBehavior() {
 
             //先端ならば特別に、オプションの反対の座標をターゲットする
             if (_pChip_front == NULL) {
-                int dx = (_X - _pOrg->_X);
-                int dy = (_Y - _pOrg->_Y);
-                int dz = (_Z - _pOrg->_Z);
-                int dmax = MAX3(abs(dx), abs(dx), abs(dz));
-                _pMvTransporter->setVxMvAcce((1.0*dx/dmax)*_maxAcceRange);
-                _pMvTransporter->setVyMvAcce((1.0*dy/dmax)*_maxAcceRange);
-                _pMvTransporter->setVzMvAcce((1.0*dz/dmax)*_maxAcceRange);
+//                int dx = (_X - _pOrg->_X);
+//                int dy = (_Y - _pOrg->_Y);
+//                int dz = (_Z - _pOrg->_Z);
+//                _pMvTransporter->setVxMvAcce(dx/_r_maxacce);
+//                _pMvTransporter->setVyMvAcce(dy/_r_maxacce);
+//                _pMvTransporter->setVzMvAcce(dy/_r_maxacce);
             } else {
                 //新たなターゲットを作成
-                _pMvTransporter->setVxMvAcce((_pChip_front->_X - _X)/R_MAXACCE);
-                _pMvTransporter->setVyMvAcce((_pChip_front->_Y - _Y)/R_MAXACCE);
-                _pMvTransporter->setVzMvAcce((_pChip_front->_Z - _Z)/R_MAXACCE);
+                _pMvTransporter->setVxMvAcce((_pChip_front->_X - _X)/_r_maxacce);
+                _pMvTransporter->setVyMvAcce((_pChip_front->_Y - _Y)/_r_maxacce);
+                _pMvTransporter->setVzMvAcce((_pChip_front->_Z - _Z)/_r_maxacce);
             }
 
         }

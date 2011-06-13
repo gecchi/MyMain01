@@ -20,6 +20,18 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     God::_pVbtn_UI   = NEW VirtualButton("VB_UI.rep");
     God::_pVbtn_Active = God::_pVbtn_UI;
     God::_pVbtn_Active_next_frame = God::_pVbtn_UI;
+    if (_pVbtn_PLAY->_is_replaying && !_pVbtn_UI->_is_replaying) {
+        //プレイリプレイあり、かつUIリプレイ無しの場合のみ、プレイリプレイのPAUSE情報を除去する
+        VBReplayRecorder* pRepPlay = _pVbtn_PLAY->_pRpy;
+        VBReplayRecorder::VBRecordNote* pRecNote = pRepPlay->_pFirstVBNote;
+        while (pRecNote) {
+            pRecNote->_state = pRecNote->_state & ~((vbsta)VB_PAUSE);
+            pRecNote = pRecNote->_pNext;
+        }
+    }
+
+
+
 
     //仮想ボタンを本ゲーム用に上書きして再定義
     VirtualButton::_tagKeymap.BUTTON1    = VirtualButton::_mapDIK[ CFG_PROPERTY(MY_KEY_SHOT1)      ];
@@ -66,11 +78,15 @@ GgafUniverse* God::createUniverse() {
 void God::clean() {
     if (!_was_cleaned) {
 
-        if (!VB_PLAY->_is_replaying) {
+        if (VB_PLAY->_is_replaying) {
+            //VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_REPADD.rep");
+        } else {
             _TRACE_("write VB_PLAY_LAST.rep");
             VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST.rep");
         }
-        if (!VB_UI->_is_replaying) {
+        if (VB_UI->_is_replaying) {
+            //VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_REPADD.rep");
+        } else {
             _TRACE_("write VB_UI_LAST.rep");
             VB_UI->_pRpy->outputFile("VB_UI_LAST.rep");
         }

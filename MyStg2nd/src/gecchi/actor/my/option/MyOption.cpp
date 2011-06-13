@@ -435,12 +435,12 @@ void MyOption::processBehavior() {
 //            pLaserChip->_pMvNavigator->_angFace[AXIS_X] = _pMvNavigator->_angFace[AXIS_X];
             pLaserChip->_pMvNavigator->_angFace[AXIS_Z] = _RZ;
             pLaserChip->_pMvNavigator->_angFace[AXIS_Y] = _RY;
-            pLaserChip->_pMvTransporter->setVxMvVelo(_Q._x*180000);
-            pLaserChip->_pMvTransporter->setVyMvVelo(_Q._y*180000);
-            pLaserChip->_pMvTransporter->setVzMvVelo(_Q._z*180000);
-            pLaserChip->_pMvTransporter->setVxMvAcce(_Q._x*180000/R_MAXACCE);
-            pLaserChip->_pMvTransporter->setVyMvAcce(_Q._y*180000/R_MAXACCE);
-            pLaserChip->_pMvTransporter->setVzMvAcce(_Q._z*180000/R_MAXACCE);
+            pLaserChip->_pMvTransporter->setVxMvVelo(_Q._x*pLaserChip->_renge);
+            pLaserChip->_pMvTransporter->setVyMvVelo(_Q._y*pLaserChip->_renge);
+            pLaserChip->_pMvTransporter->setVzMvVelo(_Q._z*pLaserChip->_renge);
+            pLaserChip->_pMvTransporter->setVxMvAcce(_Q._x*pLaserChip->_renge/pLaserChip->_r_maxacce);
+            pLaserChip->_pMvTransporter->setVyMvAcce(_Q._y*pLaserChip->_renge/pLaserChip->_r_maxacce);
+            pLaserChip->_pMvTransporter->setVzMvAcce(_Q._z*pLaserChip->_renge/pLaserChip->_r_maxacce);
             pLaserChip->_pMvNavigator->behave();
             pLaserChip->_pMvTransporter->behave();
             pLaserChip->_X = _X;

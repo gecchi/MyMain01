@@ -1,7 +1,6 @@
-#ifndef MYDUMMYOPTION_H_
-#define MYDUMMYOPTION_H_
+#ifndef MYOPTION_H_
+#define MYOPTION_H_
 namespace MyStg2nd {
-
 
 //class MyOption : public GgafDx9LibStg::DefaultMorphMeshActor {
 class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
@@ -152,5 +151,5 @@ public:
 };
 
 }
-#endif /*MYDUMMYOPTION_H_*/
+#endif /*MYOPTION_H_*/
 

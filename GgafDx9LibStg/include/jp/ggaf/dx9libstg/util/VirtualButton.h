@@ -6,29 +6,28 @@ typedef unsigned long int vbsta;
 
 namespace GgafDx9LibStg {
 
-#define VB_BUTTON1 (0x1)
-#define VB_BUTTON2 (0x2)
-#define VB_BUTTON3 (0x4)
-#define VB_BUTTON4 (0x8)
-#define VB_BUTTON5 (0x10)
-#define VB_BUTTON6 (0x20)
-#define VB_BUTTON7 (0x40)
-#define VB_BUTTON8 (0x80)
-
-#define VB_PAUSE   (0x400)
-#define VB_UP      (0x800)
-#define VB_DOWN    (0x1000)
-#define VB_LEFT    (0x2000)
-#define VB_RIGHT   (0x4000)
-
-#define VB_UI_UP      (0x8000)
-#define VB_UI_DOWN    (0x10000)
-#define VB_UI_LEFT    (0x20000)
-#define VB_UI_RIGHT   (0x40000)
-#define VB_UI_EXECUTE (0x80000)
-#define VB_UI_CANCEL  (0x100000)
-#define VB_UI_DEBUG   (0x200000)
-
+#define VB_BUTTON1 (0x1)               //&B 00000000 00000000 00000000 00000001
+#define VB_BUTTON2 (0x2)               //&B 00000000 00000000 00000000 00000010
+#define VB_BUTTON3 (0x4)               //&B 00000000 00000000 00000000 00000100
+#define VB_BUTTON4 (0x8)               //&B 00000000 00000000 00000000 00001000
+#define VB_BUTTON5 (0x10)              //&B 00000000 00000000 00000000 00010000
+#define VB_BUTTON6 (0x20)              //&B 00000000 00000000 00000000 00100000
+#define VB_BUTTON7 (0x40)              //&B 00000000 00000000 00000000 01000000
+#define VB_BUTTON8 (0x80)              //&B 00000000 00000000 00000000 10000000
+                                       //&B 00000000 00000000 00000001 00000000
+                                       //&B 00000000 00000000 00000010 00000000
+#define VB_PAUSE          (0x400)      //&B 00000000 00000000 00000100 00000000
+#define VB_UP             (0x800)      //&B 00000000 00000000 00001000 00000000
+#define VB_DOWN           (0x1000)     //&B 00000000 00000000 00010000 00000000
+#define VB_LEFT           (0x2000)     //&B 00000000 00000000 00100000 00000000
+#define VB_RIGHT          (0x4000)     //&B 00000000 00000000 01000000 00000000
+#define VB_UI_UP          (0x8000)     //&B 00000000 00000000 10000000 00000000
+#define VB_UI_DOWN        (0x10000)    //&B 00000000 00000001 00000000 00000000
+#define VB_UI_LEFT        (0x20000)    //&B 00000000 00000010 00000000 00000000
+#define VB_UI_RIGHT       (0x40000)    //&B 00000000 00000100 00000000 00000000
+#define VB_UI_EXECUTE     (0x80000)    //&B 00000000 00001000 00000000 00000000
+#define VB_UI_CANCEL      (0x100000)   //&B 00000000 00010000 00000000 00000000
+#define VB_UI_DEBUG       (0x200000)   //&B 00000000 00100000 00000000 00000000
 #define VB_NEUTRAL_STC    (0x400000)   //&B 00000000 01000000 00000000 00000000
 #define VB_UP_RIGHT_STC   (0x800000)   //&B 00000000 10000000 00000000 00000000
 #define VB_DOWN_RIGHT_STC (0x1000000)  //&B 00000001 00000000 00000000 00000000
@@ -126,7 +125,7 @@ public:
     static bool _is_init;
 
     bool _is_replaying;
-
+    bool _was_replay_done;
 
 
     VirtualButton(const char* prm_replay_file);

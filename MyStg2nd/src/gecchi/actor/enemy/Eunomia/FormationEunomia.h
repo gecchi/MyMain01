@@ -31,9 +31,9 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_col            編隊列数
-     * @param prm_row            １列の編隊数
-     * @param prm_interval_frames エウノミアの間隔(frame)
+     * @param prm_col            編隊列数 ( >= 1)
+     * @param prm_row            １列の編隊数 ( >= 1)
+     * @param prm_interval_frames エウノミアの間隔(frame) ( >= 1)
      * @param prm_mv_velo        速度
      * @param prm_spl_id         スプライン定義ファイルプレフィクス
      *                           "FormationEunomia001_0.spl" の "FormationEunomia001" を設定

@@ -9,7 +9,7 @@ FormationEunomia001::FormationEunomia001(const char* prm_name) :
                                         FormationEunomia(prm_name,
                                                          5  + _RANK_*2,
                                                          20 + _RANK_*10,
-                                                         10 - _RANK_*5,
+                                                         2  + (10 - _RANK_*5),
                                                          10000 + _RANK_*10000,
                                                          "FormationEunomia001") {
     _class_name = "FormationEunomia001";

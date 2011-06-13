@@ -76,6 +76,7 @@ VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
     if (!_is_init) {
         init();
     }
+    _was_replay_done = false;
 }
 
 void VirtualButton::init() {
@@ -679,9 +680,13 @@ void VirtualButton::update() {
         //リプレイモード時
         _pVBRecord_Active = _pVBRecord_Active->_next;
         _pVBRecord_Active->_state = _pRpy->read();
+        if (_pVBRecord_Active->_state == 0) {
+            _was_replay_done = true;
+        }
         return;
 
     } else {
+
         //通常操作時
         GgafDx9Input::updateKeyboardState();
         GgafDx9Input::updateJoystickState();
@@ -772,9 +777,9 @@ void VirtualButton::update() {
         } else {
             _pVBRecord_Active->_state |= VB_NEUTRAL_STC;
         }
-
-        _pRpy->write(_pVBRecord_Active->_state); //リプレイ情報記録
     }
+    _pRpy->write(_pVBRecord_Active->_state); //リプレイ情報記録
+
 }
 
 

@@ -7,7 +7,7 @@ using namespace GgafDx9LibStg;
 VBReplayRecorder::VBReplayRecorder() : GgafObject() {
     _pFirstVBNote = NULL;
     _pRecNote = NULL;
-
+    _pRecNote_RreadPrev = NULL;
 }
 
 void VBReplayRecorder::first() {
@@ -21,6 +21,7 @@ vbsta VBReplayRecorder::read() {
         _frame_of_the_same_vbsta_reading++;
         if (_pRecNote->_frame_of_keeping == _frame_of_the_same_vbsta_reading) {
             _frame_of_the_same_vbsta_reading = 0;
+            _pRecNote_RreadPrev = _pRecNote; //•Û‘¶
             _pRecNote = _pRecNote->_pNext;
         }
         return r;
@@ -31,10 +32,18 @@ vbsta VBReplayRecorder::read() {
 
 void VBReplayRecorder::write(vbsta prm_state) {
     if (_pFirstVBNote == NULL) {
+        //V‹K
         _pFirstVBNote = NEW VBRecordNote(prm_state, 1);
         _pRecNote = _pFirstVBNote;
+        _pRecNote_RreadPrev = NULL;
         return;
     } else {
+        if (_pRecNote_RreadPrev) {
+            //read ¨ 0 ¨ write ‘±‚«‚©‚ç’Ç‹L(—vŒŸØ)
+            _pRecNote = _pRecNote_RreadPrev;
+            _pRecNote_RreadPrev = NULL;
+        }
+
         if (_pRecNote->_state != prm_state) {
             _pRecNote->_pNext = NEW VBRecordNote(prm_state, 1);
             _pRecNote = _pRecNote->_pNext;

@@ -426,9 +426,9 @@ class MagicMeter;
 #include "gecchi/actor/common/laserchip/EnemyWateringLaserChip001.h"
 #include "gecchi/actor/common/laserchip/EnemyStraightLaserChip001.h"
 
-#include "gecchi/actor/my/camera_worker/VamSysCamWorker.h"
-#include "gecchi/actor/my/camera_worker/PauseCamWorker.h"
-#include "gecchi/actor/my/camera_worker/MyShipDivingCamWorker.h"
+#include "gecchi/actor/camera_worker/VamSysCamWorker.h"
+#include "gecchi/actor/camera_worker/PauseCamWorker.h"
+#include "gecchi/actor/camera_worker/MyShipDivingCamWorker.h"
 #include "gecchi/actor/my/MyShip.h"
 #include "gecchi/actor/my/MyOptionController.h"
 #include "gecchi/actor/my/MyOptionControllerGizmo.h"

@@ -2,7 +2,6 @@
 #define MYOPTIONCURVELASERCHIP001_H_
 namespace MyStg2nd {
 
-#define R_MAXACCE 12
 
 /**
  * オプションレーザーのチップ .
@@ -27,12 +26,7 @@ public:
     int _new_target_Z;
     bool _isLockon;
     int _default_stamina;
-
-
-    jerk _jerkVx;
-    jerk _jerkVy;
-    jerk _jerkVz;
-
+    acce _r_maxacce;
     MyOptionWateringLaserChip001(const char* prm_name);
 
     void initialize() override;

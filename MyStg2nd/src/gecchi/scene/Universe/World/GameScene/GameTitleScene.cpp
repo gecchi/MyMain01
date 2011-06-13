@@ -20,6 +20,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _papStringItem = NEW LabelGecchi16Font*[_max_menu_item];
     for (int i = 0; i < _max_menu_item; i++) {
         _papStringItem[i] = NEW LabelGecchi16Font("menu_item");
+        _papStringItem[i]->_Z = 1;
         _papStringItem[i]->inactivateImmediately();
         getLordActor()->addSubGroup(_papStringItem[i]);
     }
