@@ -1128,4 +1128,5 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="CustomizeVorbis_static.cdt.managedbuild.target.gnu.mingw.lib.1686749803" name="static ライブラリー" projectType="cdt.managedbuild.target.gnu.mingw.lib"/>
 	</storageModule>
+	<storageModule moduleId="refreshScope"/>
 </cproject>

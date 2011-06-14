@@ -90,8 +90,10 @@ void VamSysCamWorker::processBehavior() {
             } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                 _pos_camera = VAM_POS_TOP;
             } else {
-                //方向未入力の場合、元のビューポイントへ
-                _pos_camera -= VAM_POS_TO_BEHIND;
+                //方向未入力の場合、そのまま
+
+//                //方向未入力の場合、元のビューポイントへ
+//                _pos_camera -= VAM_POS_TO_BEHIND;
             }
         }
         _TRACE_("VB_VIEW!!  -> _pos_camera="<<_pos_camera);
@@ -253,8 +255,10 @@ void VamSysCamWorker::processBehavior() {
                 //それぞれの元の対応ビューポイントへ戻る。
                 _pos_camera += VAM_POS_TO_BEHIND;
             } else if (_pos_camera > VAM_POS_TO_BEHIND) {//背面ビューポイントだった場合
+                //そのまま
+
                 //それぞれの元の対応背面ビューポイントへ戻る。
-                _pos_camera -= VAM_POS_TO_BEHIND;
+                //_pos_camera -= VAM_POS_TO_BEHIND;
             }
         }
     }
@@ -498,6 +502,8 @@ void VamSysCamWorker::processBehavior() {
 
     pCam->_pMvTransporter->behave();
     pVP->_pMvTransporter->behave();
+    //_TRACE_(getActivePartFrame()<<","<<pCam->_X<<","<<pCam->_Y<<","<<pCam->_Z<<","<<last_CAM_veloVxMv<<","<<new_CAM_veloVxMv<<","<<last_CAM_veloVyMv<<","<<new_CAM_veloVyMv<<","<<last_CAM_veloVzMv<<","<<new_CAM_veloVzMv<<","<<pCam->_pMvTransporter->_veloVxMv<<","<<pCam->_pMvTransporter->_veloVyMv<<","<<pCam->_pMvTransporter->_veloVzMv);
+    //_TRACE_(getActivePartFrame()<<","<<pVP->_X<<","<<pVP->_Y<<","<<pVP->_Z<<","<<last_VP_veloVxMv<<","<<new_VP_veloVxMv<<","<<last_VP_veloVyMv<<","<<new_VP_veloVyMv<<","<<last_VP_veloVzMv<<","<<new_VP_veloVzMv<<","<<pVP->_pMvTransporter->_veloVxMv<<","<<pVP->_pMvTransporter->_veloVyMv<<","<<pVP->_pMvTransporter->_veloVzMv);
 
 }
 VamSysCamWorker::~VamSysCamWorker() {

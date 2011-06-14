@@ -59,6 +59,8 @@ public:
         if (d2 <= (double)(pSphere02->_r + pSphere01->_r) * (pSphere02->_r + pSphere01->_r)
         ) {
             //ƒqƒbƒg
+            //todo:u‹…‘Î‹…‚Á”ò‚ÑŠÈˆÕŒvŽZƒAƒCƒfƒBƒAv
+            //“àÚ³‚WŠpŒ`‚ðl‚¦ŒÝ‚¢‚Ì’¼Œa‚Ì•½‹Ï‚ð‚Æ‚èA‚»‚Ì•½‹Ï’¼Œa‚É^‰¡–Ê‚ÌŠ„‡‚ðŒvŽZ‚µŠ|‚¯‚é”ÍˆÍ‚ª‚’¼‚Á”ò‚Ñ
             if (pActor01->_Z + pSphere01->_aab_z1 < pActor02->_Z + pSphere02->_aab_z1) {
                 pCChecker01->_blown_sgn_vZ -= 1;
             }

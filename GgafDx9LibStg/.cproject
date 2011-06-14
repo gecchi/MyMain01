@@ -1496,4 +1496,5 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="GgafDx9LibStg.cdt.managedbuild.target.gnu.mingw.lib.831485981" name="static ライブラリー" projectType="cdt.managedbuild.target.gnu.mingw.lib"/>
 	</storageModule>
+	<storageModule moduleId="refreshScope"/>
 </cproject>

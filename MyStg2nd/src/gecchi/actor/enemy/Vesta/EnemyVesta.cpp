@@ -126,6 +126,7 @@ void EnemyVesta::processBehavior() {
                 _frame_of_moment_nextopen = getActivePartFrame() + _frame_of_open_interval;
                 _iMovePatternNo = VESTA_HATCH_CLOSED;
             }
+            break;
         default :
             break;
     }

@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 FormationThalia::FormationThalia(const char* prm_name) : GgafDx9FormationActor(prm_name, 30*60) {
     _class_name = "FormationThalia";
-    _num_Thalia     = 7+_RANK_*4;    //編隊数
-    _interval_frames = 20-_RANK_*5;  //タリアの間隔(frame)
-    _mv_velo        = 14000+_RANK_*10000; //速度
+    _num_Thalia      = 7+_RANK_*4;         //編隊のタリアの数
+    _interval_frames = 2+(20-_RANK_*5);    //各タリアの出現間隔(frame)
+    _mv_velo         = 14000+_RANK_*10000; //各タリアの移動速度
 
     _pDpcon = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_Shot004"));
     //編隊作成

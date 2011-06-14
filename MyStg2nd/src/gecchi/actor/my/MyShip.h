@@ -197,7 +197,7 @@ public:
 
     /** ターボ中、移動方角 */
     MoveWay _way;
-
+    MoveWay _prev_way;
     /** 移動スピードレベルに相応する移動スピード */
     int _iMoveSpeed;
 
@@ -736,7 +736,17 @@ public:
     void turbo_WAY_ZRIGHT_DOWN_BEHIND() {
         _TRACE_("turbo_WAY_ZRIGHT_DOWN_BEHIND() came!");
     }
+    void onChangeWay(MoveWay prev_way, MoveWay new_way) {
 
+        switch(new_way) {
+            case 0: {
+                break;
+            }
+            default:
+                break;
+        }
+
+    }
 
     void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
 

@@ -319,7 +319,7 @@ vbsta VirtualButton::wasNotBeingPressed(vbsta prm_VB, frame prm_frame_ago) {
 }
 
 vbsta VirtualButton::isPushedDown(vbsta prm_VB) {
-    if (isBeingPressed(prm_VB) && wasNotBeingPressed(prm_VB, 1)) {
+    if (!(_pVBRecord_Active->_prev->_state & prm_VB) && (_pVBRecord_Active->_state & prm_VB)) {
         return true;
     } else {
         return false;
@@ -442,7 +442,7 @@ vbsta VirtualButton::wasPushedDown(vbsta prm_VB, frame prm_frame_ago) {
 }
 
 vbsta VirtualButton::isReleasedUp(vbsta prm_VB) {
-    if (isNotBeingPressed(prm_VB) && wasBeingPressed(prm_VB, 1)) {
+    if ((_pVBRecord_Active->_prev->_state & prm_VB) && !(_pVBRecord_Active->_state & prm_VB)) {
         return true;
     } else {
         return false;

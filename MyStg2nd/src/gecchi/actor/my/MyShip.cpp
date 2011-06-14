@@ -177,6 +177,10 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     _blown_veloY = 0;
     _blown_veloZ = 0;
     _anti_blown_velo = 100;
+    _way = WAY_NONE;
+    _prev_way = WAY_NONE;
+
+
 }
 void MyShip::onCreateModel() {
     _pGgafDx9Model->setSpecular(5.0, 1.0);
@@ -231,6 +235,7 @@ void MyShip::onReset() {
     _X = Universe::_X_goneLeft + 1000;
     _Y = _Z = 0;
     _way = WAY_NONE;
+    _prev_way = WAY_NONE;
     _way_switch.reset();
     MyStgUtil::resetMyShipStatus(_pStatus);
 }
@@ -349,8 +354,11 @@ void MyShip::processBehavior() {
     if (VB_PLAY->isReleasedUp(VB_DOWN)) {
         _way_switch.OFF_DOWN();  // ↓ を離す
     }
+    MoveWay prev_way = _way;
     _way = (MoveWay)(_way_switch.getIndex()); //上記を考慮された方向値が入る
-
+//    if (prev_way != _way) {
+//        onChangeWay(prev_way _way);
+//    }
     if (VB_PLAY->isBeingPressed(VB_OPTION)) {
         int tmp = _iMoveSpeed;
         _iMoveSpeed = _iMoveSpeed / 8; //オプション操作中移動は遅い
