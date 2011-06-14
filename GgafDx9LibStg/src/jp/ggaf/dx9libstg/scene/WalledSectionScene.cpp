@@ -7,6 +7,8 @@ using namespace GgafDx9LibStg;
 
 WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_data_filename,  ScrolledScene* prm_pScrolledScene) : DefaultScene(prm_name) {
 //ruby tool/script/make_stage_data.rb > scene/stage_data.txt
+
+    _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" begin");
     _class_name = "WalledSectionScene";
     _pTarget_FrontAlpha = NULL;
     _pScrolledScene = prm_pScrolledScene;
@@ -66,6 +68,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     _wall_start_X = 0;
     _pDispatcher_WallAAB = NULL;
     _pDispatcher_WallAAPrism = NULL;
+    _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" done");
 }
 void WalledSectionScene::config(
         GgafActorDispatcher* prm_pDispatcher_WallAAB,

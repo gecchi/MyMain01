@@ -21,7 +21,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     WallAAPrismActor* pWallAAPrismActor;
     GgafActorDispatcher* pDispatcher_WallAAPrism = NEW GgafActorDispatcher("Dp_WallAAPrism");
     for (int i = 0; i < 500; i++) {
-        pWallAAPrismActor = NEW Wall001Prism("GroundBox");
+        pWallAAPrismActor = NEW Wall001Prism("GroundPrism");
         pWallAAPrismActor->setScaleRate(scale_r);
         pWallAAPrismActor->inactivateTreeImmediately();
         pDispatcher_WallAAPrism->addSubLast(pWallAAPrismActor);
@@ -45,7 +45,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     );
 
     //初期スクロールスピード
-    setScroolSpeed(10000);
+    setScroolSpeed(100000);
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。

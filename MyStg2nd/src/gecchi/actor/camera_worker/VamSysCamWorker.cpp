@@ -502,8 +502,8 @@ void VamSysCamWorker::processBehavior() {
 
     pCam->_pMvTransporter->behave();
     pVP->_pMvTransporter->behave();
-    //_TRACE_(getActivePartFrame()<<","<<pCam->_X<<","<<pCam->_Y<<","<<pCam->_Z<<","<<last_CAM_veloVxMv<<","<<new_CAM_veloVxMv<<","<<last_CAM_veloVyMv<<","<<new_CAM_veloVyMv<<","<<last_CAM_veloVzMv<<","<<new_CAM_veloVzMv<<","<<pCam->_pMvTransporter->_veloVxMv<<","<<pCam->_pMvTransporter->_veloVyMv<<","<<pCam->_pMvTransporter->_veloVzMv);
-    //_TRACE_(getActivePartFrame()<<","<<pVP->_X<<","<<pVP->_Y<<","<<pVP->_Z<<","<<last_VP_veloVxMv<<","<<new_VP_veloVxMv<<","<<last_VP_veloVyMv<<","<<new_VP_veloVyMv<<","<<last_VP_veloVzMv<<","<<new_VP_veloVzMv<<","<<pVP->_pMvTransporter->_veloVxMv<<","<<pVP->_pMvTransporter->_veloVyMv<<","<<pVP->_pMvTransporter->_veloVzMv);
+
+//    _TRACE_(getActivePartFrame()<<","<<dX_CAM<<","<<dY_CAM<<","<<dZ_CAM<<","<<pCam->_X<<","<<pCam->_Y<<","<<pCam->_Z<<","<<last_CAM_veloVxMv<<","<<new_CAM_veloVxMv<<","<<last_CAM_veloVyMv<<","<<new_CAM_veloVyMv<<","<<last_CAM_veloVzMv<<","<<new_CAM_veloVzMv<<","<<pCam->_pMvTransporter->_veloVxMv<<","<<pCam->_pMvTransporter->_veloVyMv<<","<<pCam->_pMvTransporter->_veloVzMv);
 
 }
 VamSysCamWorker::~VamSysCamWorker() {

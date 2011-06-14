@@ -16,6 +16,7 @@ void WalledScene::buildWalledScene(
         WalledSectionScene** prm_papSection, int prm_section_num,
         GgafActorDispatcher* prm_pDispatcher_WallAAB,
 		GgafActorDispatcher* prm_pDispatcher_WallAAPrism) {
+    _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] build...");
     _pDispatcher_WallAAB = prm_pDispatcher_WallAAB;
 	_pDispatcher_WallAAPrism = prm_pDispatcher_WallAAPrism;
     getLordActor()->addSubGroup(_pDispatcher_WallAAB);
@@ -61,7 +62,7 @@ void WalledScene::buildWalledScene(
 
     }
     _pRingSection->first();
-
+    _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] done");
 }
 
 void WalledScene::initialize() {

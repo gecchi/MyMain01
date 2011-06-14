@@ -199,11 +199,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             y2_e = _x1;
         }
     }
-#ifdef MY_DEBUG
-    else {
-        throwGgafCriticalException("ColliAAPrism::set() ïsê≥Ç»_pos_prism="<<_pos_prism);
-    }
-#endif
+
 
     if (x2_e == x1_s) {
         _a = 0;
