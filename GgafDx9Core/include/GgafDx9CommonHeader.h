@@ -217,14 +217,13 @@ enum GgafDx9PuppeteerStick {
 #define Obj_GgafDx9CubeMapMeshActor      (0x40000)        //0b 00000000 00000100 00000000 00000000
 #define Obj_GgafDx9CubeMapMeshSetActor   (0x80000)        //0b 00000000 00001000 00000000 00000000
 #define Obj_GgafDx9CubeMapMorphMeshActor (0x100000)       //0b 00000000 00010000 00000000 00000000
-#define Obj_GgafDx9WorldBoundActor            (0x200000)       //0b 00000000 00100000 00000000 00000000
+#define Obj_GgafDx9WorldBoundActor       (0x200000)       //0b 00000000 00100000 00000000 00000000
 #define Obj_GgafDx9SpriteActor           (0x400000)       //0b 00000000 01000000 00000000 00000000
 #define Obj_GgafDx9SpriteSetActor        (0x800000)       //0b 00000000 10000000 00000000 00000000
 #define Obj_GgafDx9BoardActor            (0x1000000)      //0b 00000001 00000000 00000000 00000000
 #define Obj_GgafDx9BoardSetActor         (0x2000000)      //0b 00000010 00000000 00000000 00000000
 #define Obj_GgafDx9PointSpriteActor      (0x4000000)      //0b 00000100 00000000 00000000 00000000
 #define Obj_GgafDx9FormationActor        (0x8000000)      //0b 00001000 00000000 00000000 00000000
-
 #undef P_GOD
 #define P_GOD ((GgafDx9Core::GgafDx9God*)GgafDx9Core::GgafDx9God::_pGod)
 #undef P_UNIVERSE

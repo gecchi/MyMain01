@@ -18,7 +18,9 @@ void Wall001Prism::onCreateModel() {
     _pGgafDx9Model->_pTextureBlinker->beat(10*20, 10*9, 10*3, -1);
 }
 
-
+void Wall001Prism::processBehavior() {
+//    _TRACE_(getName()<<":"<<_X<<","<<_Y<<","<<_Z);
+}
 bool Wall001Prism::isOutOfUniverse() {
     if (GgafDx9Universe::_X_goneLeft < _X) {
         return false;

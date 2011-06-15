@@ -15,6 +15,8 @@ public:
 
     void onCreateModel() override;
 
+    void processBehavior() override;
+
     bool isOutOfUniverse() override;
 
     virtual ~Wall001Prism() {}
