@@ -10,7 +10,9 @@ GgafActorDispatcherDispatcher::GgafActorDispatcherDispatcher(const char* prm_nam
 
 void GgafActorDispatcherDispatcher::addSubLast(GgafActor* prm_pSub) {
     if (prm_pSub->_obj_class & Obj_GgafActorDispatcher) {
-        throwGgafCriticalException("GgafActorDispatcherDispatcher::addSubLast 引数 prm_pSub("<<prm_pSub->getName()<<") は ディスパッチャーでなければいけません");
+        //OK
+	} else {
+		throwGgafCriticalException("GgafActorDispatcherDispatcher::addSubLast 引数 prm_pSub("<<prm_pSub->getName()<<") は ディスパッチャーでなければいけません");
     }
     if (_pSubFirst == NULL) {
         //最初のディスパッチャー登録
@@ -30,8 +32,3 @@ void GgafActorDispatcherDispatcher::addSubLast(GgafActor* prm_pSub) {
 //    prm_pSub->inactivateImmediately();
     GgafDummyActor::addSubLast(prm_pSub);
 }
-
-//＜最適化案＞
-//TODO:GgafActorDispatcherDispatcherは、GgafGroupActorを継承して、
-//特別なGgafGroupActorという扱いにすればアクターの数を減らせれるのではないか
-//場合によりけりか、あとで考える。

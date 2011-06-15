@@ -85,7 +85,7 @@ public:
         for (int i = 0; i <= 100000; i++) {
             if (pDispatcher->_active_member == 0) {
                 pDispatcher->moveLast(); //‚¨K‚É‰ñ‚·
-                _active_member++;
+                this->_active_member++;
                 break;//Žæ“¾I
             } else {
                 if (pDispatcher->isLast()) {

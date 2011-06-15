@@ -65,6 +65,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
     _pSeTransmitter->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+	useProgress(4);
 }
 
 void EnemyAstraea::onCreateModel() {
@@ -187,7 +188,10 @@ void EnemyAstraea::processBehavior() {
             } else {
                 //自機にがいた方向に振り向きが完了時
                 _pPrg->change(ASTRAEA_PROG_FIRE);
-                //TODO:1フレ何もしなくなるが・・・
+                _pMvNavigator->setFaceAngVelo(AXIS_X, _angveloTurn*40);
+                _pMvNavigator->setFaceAngVelo(AXIS_Z, 0);
+                _pMvNavigator->setFaceAngVelo(AXIS_Y, 0);
+                _pMvNavigator->setMvVelo(0);
             }
 
             break;
@@ -195,16 +199,13 @@ void EnemyAstraea::processBehavior() {
 
         case ASTRAEA_PROG_FIRE: {
             if (_pPrg->isJustChanged()) {
-                _pMvNavigator->setFaceAngVelo(AXIS_X, _angveloTurn*40);
-                _pMvNavigator->setFaceAngVelo(AXIS_Z, 0);
-                _pMvNavigator->setFaceAngVelo(AXIS_Y, 0);
-                _pMvNavigator->setMvVelo(0);
+
                 //レーザーセット、借入打診
                 GgafActorDispatcherDispatcher* pDD =
-                        (GgafActorDispatcherDispatcher*)_pDispatcherCon_DpDpEnemyAstraeaLaserChip->refer();
+                        (GgafActorDispatcherDispatcher*)(_pDispatcherCon_DpDpEnemyAstraeaLaserChip->refer());
                 for (int i = 0; i < _laser_way; i++) {
                     for (int j = 0; j < _laser_way; j++) {
-                        _papapLaserChipDispatcher[i][j] = (LaserChipDispatcher*)pDD->employ();
+                        _papapLaserChipDispatcher[i][j] = (LaserChipDispatcher*)(pDD->employ());
                         if (_papapLaserChipDispatcher[i][j]) {
                             _papapLaserChipDispatcher[i][j]->config(_laser_length, 1);
                         }

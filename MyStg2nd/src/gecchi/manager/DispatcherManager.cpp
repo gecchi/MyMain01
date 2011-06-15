@@ -85,7 +85,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr, v
                 pChip->inactivateImmediately();
                 pLaserChipDispatcher->addSubLast(pChip);
             }
-            pLaserChipDispatcher->inactivateImmediately();
+            //pLaserChipDispatcher->inactivateImmediately();
             pResource->addSubLast(pLaserChipDispatcher);
         }
         P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
