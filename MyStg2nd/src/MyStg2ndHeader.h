@@ -301,6 +301,8 @@ class EnemyCirce;
 class EnemyThalia;
 class FormationThalia;
 
+class EnemyMassalia;
+
 
 class DispatcherConnection;
 class DispatcherManager;
@@ -517,6 +519,7 @@ class MagicMeter;
 #include "gecchi/actor/enemy/Circe/EnemyCirce.h"
 #include "gecchi/actor/enemy/Thalia/EnemyThalia.h"
 #include "gecchi/actor/enemy/Thalia/FormationThalia.h"
+#include "gecchi/actor/enemy/Massalia/EnemyMassalia.h"
 
 #include "gecchi/actor/chikei/Torus/Torus.h"
 #include "gecchi/actor/chikei/Torus/VarietyTorus001.h"

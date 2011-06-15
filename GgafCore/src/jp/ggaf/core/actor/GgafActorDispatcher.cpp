@@ -6,6 +6,7 @@ GgafActorDispatcher::GgafActorDispatcher(const char* prm_name) : GgafDummyActor(
     _obj_class |= Obj_GgafActorDispatcher;
     _class_name = "GgafActorDispatcher";
     setHitAble(false);
+    _active_member = 0;
 }
 
 

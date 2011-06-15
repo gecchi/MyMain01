@@ -355,6 +355,7 @@ class GgafMainScene;
 class GgafLordActor;
 class GgafGroupActor;
 class GgafActorDispatcher;
+class GgafActorDispatcherDispatcher;
 class GgafOrder;
 class GgafRgb;
 
@@ -402,6 +403,7 @@ class GgafCurtain;
 #include "jp/ggaf/core/actor/GgafLordActor.h"
 #include "jp/ggaf/core/actor/GgafGroupActor.h"
 #include "jp/ggaf/core/actor/GgafActorDispatcher.h"
+#include "jp/ggaf/core/actor/GgafActorDispatcherDispatcher.h"
 #include "jp/ggaf/core/GgafOrder.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"

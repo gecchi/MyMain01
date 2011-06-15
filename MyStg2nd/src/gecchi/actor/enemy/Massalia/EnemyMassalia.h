@@ -1,20 +1,18 @@
-#ifndef ENEMYASTRAEA_H_
-#define ENEMYASTRAEA_H_
+#ifndef ENEMYMASSALIA_H_
+#define ENEMYMASSALIA_H_
 namespace MyStg2nd {
 
-#define ASTRAEA_PROG_MOVE  1
-#define ASTRAEA_PROG_TURN  2
-#define ASTRAEA_PROG_FIRE  3
-
 /**
- * アストラエア .
+ * マッサリア  .
  */
-class EnemyAstraea : public GgafDx9LibStg::DefaultMeshActor {
+class EnemyMassalia : public GgafDx9LibStg::DefaultMeshActor {
 
 private:
     /** 発射済みレーザーチップ数 */
     int _cnt_laserchip;
 public:
+    /** 行動パターン番号 */
+    int _iMovePatternNo;
     /** レーザ発射間隔(frame) */
     int _laser_interval;
     /** 発射レーザーチップの数（レーザー長さ） */
@@ -37,7 +35,7 @@ public:
 
     DispatcherConnection* _pDispatcherCon_RefractionEffect;
 
-    DispatcherConnection* _pDispatcherCon_DpDpEnemyAstraeaLaserChip;
+    DispatcherConnection* _pDispatcherCon_DpEnemyMassaliaLaserChip;
 
 
 
@@ -46,7 +44,7 @@ public:
     /** 出現エフェクト */
     GgafDx9Core::GgafDx9DrawableActor* _pEffect_Appearance;
 
-    EnemyAstraea(const char* prm_name);
+    EnemyMassalia(const char* prm_name);
 
     void onCreateModel() override;
 
@@ -67,9 +65,9 @@ public:
 
     void onInactive() override;
 
-    virtual ~EnemyAstraea();
+    virtual ~EnemyMassalia();
 };
 
 }
-#endif /*ENEMYASTRAEA_H_*/
+#endif /*ENEMYMASSALIA_H_*/
 

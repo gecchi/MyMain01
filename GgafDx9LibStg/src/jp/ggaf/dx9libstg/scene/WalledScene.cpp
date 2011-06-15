@@ -7,7 +7,7 @@ using namespace GgafDx9LibStg;
 WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
     _class_name = "WalledScene";
     _pDispatcher_WallAAB = NULL;
-	_pDispatcher_WallAAPrism = NULL;
+    _pDispatcher_WallAAPrism = NULL;
     _pRingSection = NEW GgafLinkedListRing<WalledSectionScene>();
 }
 
@@ -15,14 +15,14 @@ void WalledScene::buildWalledScene(
         int prm_wall_dep, int prm_wall_width, int prm_wall_height,
         WalledSectionScene** prm_papSection, int prm_section_num,
         GgafActorDispatcher* prm_pDispatcher_WallAAB,
-		GgafActorDispatcher* prm_pDispatcher_WallAAPrism) {
+        GgafActorDispatcher* prm_pDispatcher_WallAAPrism) {
     _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] build...");
     _pDispatcher_WallAAB = prm_pDispatcher_WallAAB;
-	_pDispatcher_WallAAPrism = prm_pDispatcher_WallAAPrism;
+    _pDispatcher_WallAAPrism = prm_pDispatcher_WallAAPrism;
     getLordActor()->addSubGroup(_pDispatcher_WallAAB);
-	if (_pDispatcher_WallAAPrism) {
-		getLordActor()->addSubGroup(_pDispatcher_WallAAPrism);
-	}
+    if (_pDispatcher_WallAAPrism) {
+        getLordActor()->addSubGroup(_pDispatcher_WallAAPrism);
+    }
     for (int i = 0; i < prm_section_num; i++) {
         addSubLast(prm_papSection[i]);
         prm_papSection[i]->config(_pDispatcher_WallAAB, _pDispatcher_WallAAPrism, prm_wall_dep, prm_wall_width, prm_wall_height);
@@ -34,6 +34,7 @@ void WalledScene::buildWalledScene(
     //    c
     // a b d f
     //      e
+    //
     //    FACE_A_BIT = 0b100000
     //    FACE_B_BIT = 0b010000
     //    FACE_C_BIT = 0b001000

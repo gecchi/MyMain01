@@ -69,8 +69,8 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
     }
 
-    if (GgafUtil::strcmp_ascii("DpCon_DpEnemyAstraeaLaserChip001", prm_idstr) == 0) {
-        pResource = NEW GgafActorDispatcher("LCDD");
+    if (GgafUtil::strcmp_ascii("DpCon_DpDpEnemyAstraeaLaserChip001", prm_idstr) == 0) {
+        pResource = NEW GgafActorDispatcherDispatcher("LCDD");
         LaserChipDispatcher* pLaserChipDispatcher;
         EnemyAstraeaLaserChip001* pChip;
         for (int nLaser = 0; nLaser < 27; nLaser++) {

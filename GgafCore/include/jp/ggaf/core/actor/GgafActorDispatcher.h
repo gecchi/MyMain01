@@ -1,5 +1,5 @@
-#ifndef ACTORDISPATCHER_H_
-#define ACTORDISPATCHER_H_
+#ifndef GGAFACTORDISPATCHER_H_
+#define GGAFACTORDISPATCHER_H_
 namespace GgafCore {
 
 /**
@@ -19,6 +19,9 @@ namespace GgafCore {
 class GgafActorDispatcher : public GgafDummyActor {
 
 public:
+    /** 貸出中メンバー */
+    int _active_member;
+
     GgafActorDispatcher(const char* prm_name);
 
     /**
@@ -81,6 +84,7 @@ public:
             if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
                 //pActor->activate(); //activateは呼び元で明示的に行うようにした
                 pActor->moveLast(); //お尻に回す
+                _active_member++; //GgafActor::sayonara() でカウントは減ります。
                 break;//取得！
             } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
                 if (pActor->isLast()) {
@@ -142,4 +146,4 @@ public:
 };
 
 }
-#endif /*ACTORDISPATCHER_H_*/
+#endif /*GGAFACTORDISPATCHER_H_*/

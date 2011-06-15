@@ -14,7 +14,7 @@ void DispatcherConnection::processReleaseResource(GgafActorDispatcher* prm_pReso
     prm_pResource->end(); //GgafActorDispatcherはゴミ箱で削除するためここでかいほうは行わない
     //TODO:
     //EnemyAstraea::~EnemyAstraea() {
-    //    _pDispatcherCon_DpEnemyAstraeaLaserChip->close();
+    //    _pDispatcherCon_DpDpEnemyAstraeaLaserChip->close();
     //でこけるのでコメントにしたが再調査
     // DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }
