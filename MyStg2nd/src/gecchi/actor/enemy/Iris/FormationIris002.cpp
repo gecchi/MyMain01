@@ -13,7 +13,7 @@ FormationIris002::FormationIris002(const char* prm_name) :
     _mv_velo  = 16000+_RANK_*1600; //速度
     //スプライン移動の定義
     _pSplineCon = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_002_02"));
-    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("DpCon_Shot002"));
+    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_Shot002"));
     //イリス編隊作成
     _papIris = NEW EnemyIris*[_num_Iris];
     for (int i = 0; i < _num_Iris; i++) {

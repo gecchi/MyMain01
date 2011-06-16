@@ -20,10 +20,10 @@ public:
     StoreManager(const char* prm_manager_name);
 
     /**
-     * ディスパッチャーを識別文字列から生成。
-     * 本アプリのディスパッチャーはココに集約しようと思っている。
+     * ストアーを識別文字列から生成。
+     * 本アプリのストアーはココに集約しようと思っている。
      * @param prm_idstr
-     * @return ディスパッチャー
+     * @return ストアー
      */
     GgafCore::GgafActorStore* processCreateResource(char* prm_idstr, void* prm_p);
 

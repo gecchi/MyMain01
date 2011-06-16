@@ -29,14 +29,14 @@ EnemyMassalia::EnemyMassalia(const char* prm_name) : DefaultMeshActor(prm_name, 
         }
     }
 
-    _pStoreCon_RefractionEffect =
-            (StoreConnection*)(P_GOD->_pStoreManager->getConnection("DpCon_EffRefraction001"));
+    _pCon_RefractionEffectStore =
+            (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_EffRefraction001"));
 
     _pStoreCon_DpEnemyMassaliaLaserChip =
             (StoreConnection*)(P_GOD->_pStoreManager->getConnection(
-                                                                   "DpCon_DpEnemyMassaliaLaserChip001",
-                                                                   //"DpCon_DpEnemyMassaliaLaserChip002",
-                                                                   _pStoreCon_RefractionEffect->refer()
+                                                                   "StCon_DpEnemyMassaliaLaserChip001",
+                                                                   //"StCon_DpEnemyMassaliaLaserChip002",
+                                                                   _pCon_RefractionEffectStore->refer()
                                                                 )
                                    );
 
@@ -285,7 +285,7 @@ void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
 
 
 void EnemyMassalia::onInactive() {
-    //レーザーディスパッチャーは遅れてから戻す
+    //レーザーストアーは遅れてから戻す
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
             if (_papapLaserChipStore[i][j]) {
@@ -298,7 +298,7 @@ void EnemyMassalia::onInactive() {
 
 
 EnemyMassalia::~EnemyMassalia() {
-    _pStoreCon_RefractionEffect->close();
+    _pCon_RefractionEffectStore->close();
     _pStoreCon_DpEnemyMassaliaLaserChip->close();
     for (int i = 0; i < _laser_way; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser[i]);

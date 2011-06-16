@@ -19,7 +19,7 @@ public:
     MyOptionTorpedoController* _pMyOptionTorpedoController;
     /** [r]魚雷の移動軌跡エフェクトの数 */
     int _length_TailEffect;
-    /** [r]魚雷の移動軌跡エフェクトのディスパッチャー */
+    /** [r]魚雷の移動軌跡エフェクトのストアー */
     GgafDx9LibStg::LaserChipStore* _pTailEffectStore;
     /** [r]魚雷発射時の座標 */
     int _begin_X,_begin_Y,_begin_Z;

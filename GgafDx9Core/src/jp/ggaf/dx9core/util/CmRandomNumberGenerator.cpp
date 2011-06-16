@@ -1,19 +1,3 @@
-// このプログラムは松本眞氏、西村拓士氏らによって開発された
-// Mersenne Twister法のCプログラムがオリジナルです。
-// CmRandomNumberGenerator クラスは、Takayuki HARUKI により
-// Singletonパターンに書き直されたコードです。
-// 本コード内容は、CmRandomNumberGenerator を、ほぼそのままに流用しております。
-//
-// 多大な努力と時間を費やし研究された、開発者の皆様に敬意を表しまして、利用させていただきます。
-//
-//                                         2008/09/09 Masatoshi Tsuge
-//
-// 【Mersenne Twister Home Page】
-// http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/mt.html
-// 【CmRandomNumberGeneratorのダウンロード】
-// http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/C-LANG/Singleton.zip
-
-
 //#include "CmRandomNumberGenerator.h"
 #include "stdafx.h"
 using namespace std;
@@ -24,6 +8,8 @@ using namespace GgafDx9Core;
 #define	MATRIX_A	(0x9908b0dfUL)	//!< constant vector a
 #define	UPPER_MASK	(0x80000000UL)	//!< most significant w-r bits
 #define	LOWER_MASK	(0x7fffffffUL)	//!< least significant r bits
+
+
 /**
  * @file	CmRandomNumberGenerator.cpp
  * @brief	Random Number Generator CPP file

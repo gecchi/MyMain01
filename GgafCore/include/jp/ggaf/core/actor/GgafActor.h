@@ -59,7 +59,7 @@ private:
     void setScenePlatform(GgafScene* prm_pScene_Platform);
 
 public:
-    /** [r]所属ディスパッチャー(NULLは未所属) */
+    /** [r]所属ストアー(NULLは未所属) */
     GgafActorStore* _pDependenceDispcher;
     /** [r]アクター開始システム時刻 */
     UINT32 _start_system_time;

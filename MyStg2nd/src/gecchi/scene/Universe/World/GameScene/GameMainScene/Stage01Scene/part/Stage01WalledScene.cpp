@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_name) {
     _class_name = "Stage01WalledScene";
 
-    //壁ブロックディスパッチャー生成
+    //壁ブロックストアー生成
     float scale_r = 1.0f; //壁ブロックの元モデルからの拡大率
     WallAABActor* pWallAABActor;
     GgafActorStore* pStore_WallAAB = NEW GgafActorStore("Dp_WallAAB");

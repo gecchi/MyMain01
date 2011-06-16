@@ -4,8 +4,8 @@
 namespace GgafDx9LibStg {
 
 /**
- * 屈折レーザー用ポリラインのチップ .
- * 屈折レーザーなどどと表現しているが、正確には <BR>
+ * 反射（屈折）レーザー用ポリラインのチップ .
+ * 反射（屈折）レーザーなどどと表現しているが、正確には <BR>
  * ・発射座標固定（発射元座標が移動不可） <BR>
  * ・移動方向、速度は先頭チップがのみが決め、残りチップは単に追従する<BR>
  * ・移動方向は直進、但し一定間隔で移動方向が変化 <BR>
@@ -44,7 +44,7 @@ private:
     frame _frame_between_refraction;
     frame _frame_standstill_refraction;
 
-    /** 屈折エフェクトアクターのディスパッチャー（シーン所属済みアクターであること） */
+    /** 屈折エフェクトアクターのストアー（シーン所属済みであること） */
     GgafCore::GgafActorStore* _pDispatche_RefractionEffect;
     GgafDx9Core::GgafDx9DrawableActor* _pRefractionEffect;
 
@@ -56,7 +56,7 @@ public:
      * @param prm_num_refraction 何回屈折するか
      * @param prm_frame_between_refraction 直進開始(屈折終了)～直進～直進終了(屈折開始)、のフレーム数
      * @param prm_frame_standstill_refraction 屈折時(直進終了(屈折開始)～停止～直進開始(屈折終了))の停滞貯めフレーム数
-     * @param prm_pDispatche_RefractionEffect 屈折時のエフェクトアクターのディスパッチャー(無しの場合はNULL)
+     * @param prm_pDispatche_RefractionEffect 屈折時のエフェクトアクターのストアー(無しの場合はNULL)
      */
     virtual void config(int prm_num_refraction,
                        frame prm_frame_between_refraction,
@@ -93,8 +93,8 @@ public:
 
     /**
      * レーザーチップ判定等処理 .
-     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-     * その際 は、本クラスの processJudgement() メソッドも呼び出してください。
+     * 下位クラスで独自設定のため、オーバーライドし対場合は、内部で
+     * 本クラスの processJudgement() メソッドも呼び出してください。
      * 実は本メソッドで、GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld) を呼び出しており、
      * このタイミングでワールド変換行列が確定しますので、オーバーライドの際は最後に RefractionLaserChip::processJudgement(); と
      * したほうが良いでしょう。

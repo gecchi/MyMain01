@@ -12,65 +12,60 @@ StoreManager::StoreManager(const char* prm_manager_name) :
 GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p) {
     GgafActorStore* pResource = NULL;
 
-    if (GgafUtil::strcmp_ascii("DpCon_Shot001", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("StCon_Shot001", prm_idstr) == 0) {
         pResource = NEW GgafActorStore("DP_Shot001_Stock");
         Shot001* pShot001;
         for (int i = 0; i < 100; i++) { //ストック100個
             pShot001 = NEW Shot001("Shot001");
-            pShot001->inactivateImmediately();
             pResource->addSubLast(pShot001);
         }
         P_COMMON_SCENE->getLordActor()->addSubGroup(pResource); //最後にaddSubGroupすべし（さもないと直ぐに削除対象になる）
     }
 
-    if (GgafUtil::strcmp_ascii("DpCon_Shot002", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("StCon_Shot002", prm_idstr) == 0) {
         pResource = NEW GgafActorStore("DP_Shot002_Stock");
         Shot002* pShot002;
         for (int i = 0; i < 100; i++) { //ストック100個
             pShot002 = NEW Shot002("Shot002");
-            pShot002->inactivateImmediately();
             pResource->addSubLast(pShot002);
         }
         P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
     }
 
-    if (GgafUtil::strcmp_ascii("DpCon_Shot003", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("StCon_Shot003", prm_idstr) == 0) {
         pResource = NEW GgafActorStore("DP_Shot003_Stock");
         Shot003* pShot003;
         for (int i = 0; i < 300; i++) {
             pShot003 = NEW Shot003("Shot003");
-            pShot003->inactivateImmediately();
             pResource->addSubLast(pShot003);
             if (i % 20 == 0) { Sleep(1); }
         }
         P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
     }
 
-    if (GgafUtil::strcmp_ascii("DpCon_Shot004", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("StCon_Shot004", prm_idstr) == 0) {
         pResource = NEW GgafActorStore("DP_Shot004_Stock");
         Shot004* pShot004;
         for (int i = 0; i < 800; i++) {
             pShot004 = NEW Shot004("Shot004");
-            pShot004->inactivateImmediately();
             pResource->addSubLast(pShot004);
             if (i % 20 == 0) { Sleep(1); }
         }
         P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
     }
 
-    if (GgafUtil::strcmp_ascii("DpCon_EffRefraction001", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("StCon_EffRefraction001", prm_idstr) == 0) {
         pResource = NEW GgafActorStore("DP_EffRefraction001");
         EffectLaserRefraction001* p;
         for (int i = 0; i < 100; i++) {
             p = NEW EffectLaserRefraction001("EffRefraction001");
-            p->inactivateImmediately();
             pResource->addSubLast(p);
         }
         P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
     }
 
-    if (GgafUtil::strcmp_ascii("DpCon_DpDpEnemyAstraeaLaserChip001", prm_idstr) == 0) {
-        pResource = NEW GgafActorStoreDispatcher("LCDD");
+    if (GgafUtil::strcmp_ascii("StCon_EnemyAstraeaLaserChip001StoreDp", prm_idstr) == 0) {
+        pResource = NEW GgafActorStoreDispatcher("EnemyAstraeaLaserChip001StoreDp");
         LaserChipStore* pLaserChipStore;
         EnemyAstraeaLaserChip001* pChip;
         for (int nLaser = 0; nLaser < 27; nLaser++) {
@@ -81,11 +76,8 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
                 stringstream name;
                 name <<  "EnemyAstraeaLaserChip001["<<nLaser<<"]["<<nChip<<"]";
                 pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
-//                pChip->config(50, 10, 5, (GgafActorStore*)prm_p);
-                pChip->inactivateImmediately();
                 pLaserChipStore->addSubLast(pChip);
             }
-            //pLaserChipStore->inactivateImmediately();
             pResource->addSubLast(pLaserChipStore);
         }
         P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
@@ -93,8 +85,8 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
 
 
 
-    if (GgafUtil::strcmp_ascii("DpCon_DpEnemyAstraeaLaserChip002", prm_idstr) == 0) {
-        pResource = NEW GgafActorStore("LCDD");
+    if (GgafUtil::strcmp_ascii("StCon_EnemyAstraeaLaserChip002StoreDp", prm_idstr) == 0) {
+        pResource = NEW GgafActorStoreDispatcher("EnemyAstraeaLaserChip002StoreDp");
         LaserChipStore* pLaserChipStore;
         EnemyAstraeaLaserChip002* pChip;
         for (int nLaser = 0; nLaser < 27; nLaser++) {
@@ -105,11 +97,9 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
                 stringstream name;
                 name <<  "EnemyAstraeaLaserChip002["<<nLaser<<"]["<<nChip<<"]";
                 pChip = NEW EnemyAstraeaLaserChip002(name.str().c_str());
-                pChip->config(50, 10, 5, (GgafActorStore*)prm_p);
-                pChip->inactivateImmediately();
+                pChip->config(30, 20, 8, (GgafActorStore*)prm_p);
                 pLaserChipStore->addSubLast(pChip);
             }
-            pLaserChipStore->inactivateImmediately();
             pResource->addSubLast(pLaserChipStore);
         }
         P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
@@ -119,7 +109,7 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
 
     //敵カーブレーザー01未使用。こぴぺのために残す
     /*
-    if (GgafUtil::strcmp_ascii("DpCon_EneWateringLaser001Dp", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("StCon_EneWateringLaser001Dp", prm_idstr) == 0) {
         pResource = NEW LaserChipStoreDispatcher("DPDP_EneWateringLaser001");
         LaserChipStore* pLaserChipStore;
         EnemyWateringLaserChip001* pChip;

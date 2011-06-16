@@ -737,7 +737,7 @@ public:
     /**
      * Rz変化による nWay弾を撃つ .
      * @param prm_pFrom 発射元
-     * @param prm_pStore_Shot 発射するショットのディスパッチャー
+     * @param prm_pStore_Shot 発射するショットのストアー
      * @param prm_pTarget 目標
      * @param prm_way Way数
      * @param prm_angClearance Wayの間隔
@@ -752,7 +752,7 @@ public:
     /**
      * Rz変化による nWay弾を複数セット同時に撃つ .
      * @param prm_pFrom        発射元
-     * @param prm_pStore_Shot 発射するショットのディスパッチャー
+     * @param prm_pStore_Shot 発射するショットのストアー
      * @param prm_pTarget      目標
      * @param prm_way          Way数
      * @param prm_angClearance Wayの間隔
@@ -772,7 +772,7 @@ public:
     /**
      * Ry は目標への向き＋ANGLE90で、Rz変化による nWay放射弾を打つ .
      * @param prm_pFrom 発射元
-     * @param prm_pStore_Shot 発射するショットのディスパッチャー
+     * @param prm_pStore_Shot 発射するショットのストアー
      * @param prm_pTarget 目標
      * @param prm_way 放射Way数
      * @param prm_angBegin 放射開始アングル
@@ -788,7 +788,7 @@ public:
     /**
      * shotWay002弾を複数セット同時に撃つ .
      * @param prm_pFrom 発射元
-     * @param prm_pStore_Shot 発射するショットのディスパッチャー
+     * @param prm_pStore_Shot 発射するショットのストアー
      * @param prm_pTarget 目標
      * @param prm_way 放射Way数
      * @param prm_angBegin 放射開始アングル

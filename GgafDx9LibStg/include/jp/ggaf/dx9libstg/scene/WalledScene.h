@@ -13,7 +13,7 @@ class WalledScene : public GgafDx9LibStg::ScrolledScene {
 public:
     /** セクションシーンのリスト */
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::WalledSectionScene>* _pRingSection;
-    /** 壁ブロックを供給するディスパッチャー(buildWalledScene()で設定される) */
+    /** 壁ブロックを供給するストアー(buildWalledScene()で設定される) */
     GgafCore::GgafActorStore* _pStore_WallAAB;
     GgafCore::GgafActorStore* _pStore_WallAAPrism;
 
@@ -32,7 +32,7 @@ public:
      * @param prm_wall_height   壁ブロック１個のY軸方向の幅
      * @param prm_papSection    セクションシーン配列へのポインタ
      * @param prm_section_num   セクションシーン数
-     * @param prm_pStore_Wall 壁ブロックを供給するディスパッチャー
+     * @param prm_pStore_Wall 壁ブロックを供給するストアー
      */
     void buildWalledScene(
             int prm_wall_dep, int prm_wall_width, int prm_wall_height,

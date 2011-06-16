@@ -13,7 +13,7 @@ void GgafActorStoreDispatcher::addSubLast(GgafActor* prm_pSub) {
     if (prm_pSub->_obj_class & Obj_GgafActorStore) {
         //OK
     } else {
-        throwGgafCriticalException("GgafActorStoreDispatcher::addSubLast 引数 prm_pSub("<<prm_pSub->getName()<<") は ディスパッチャーでなければいけません");
+        throwGgafCriticalException("GgafActorStoreDispatcher::addSubLast 引数 prm_pSub("<<prm_pSub->getName()<<") は ストアーでなければいけません");
     }
     if (_pSubFirst == NULL) {
         if (prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND) == 0) {

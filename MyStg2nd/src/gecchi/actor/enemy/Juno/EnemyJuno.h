@@ -38,7 +38,7 @@ public:
 
     /**
      * 発射弾設定 .
-     * @param prm_pStore (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つディスパッチャーのポインタ
+     * @param prm_pStore (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つストアーのポインタ
      */
     void setStore_Shot(GgafCore::GgafActorStore* prm_pStore) {
         _pStore_Shot = prm_pStore;

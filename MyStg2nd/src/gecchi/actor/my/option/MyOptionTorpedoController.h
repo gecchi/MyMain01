@@ -17,7 +17,7 @@ public:
     MyOption* _pMyOption;
     /** [r]保持する魚雷配列（要素数は MyOption::_max_lockon_num 個） */
     MyTorpedo** _papMyTorpedo;
-    /** [r]保持する魚雷爆風ディスパッチャー */
+    /** [r]保持する魚雷爆風ストアー */
     GgafCore::GgafActorStore* _pStore_TorpedoBlast;
     /** 同時発射魚雷数 */
     int _firing_num;

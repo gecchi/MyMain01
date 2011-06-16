@@ -15,7 +15,7 @@ public:
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名
-     * @param prm_pCameraWorker ディスパッチャー
+     * @param prm_pCameraWorker ストアー
      */
     CameraWorkerConnection(char* prm_idstr, CameraWorker* prm_pCameraWorker);
 

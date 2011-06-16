@@ -29,14 +29,14 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
         }
     }
 
-    _pStoreCon_RefractionEffect =
-            (StoreConnection*)(P_GOD->_pStoreManager->getConnection("DpCon_EffRefraction001"));
+    _pCon_RefractionEffectStore =
+            (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_EffRefraction001"));
 
-    _pStoreCon_DpDpEnemyAstraeaLaserChip =
+    _pCon_LaserChipStoreDp =
             (StoreConnection*)(P_GOD->_pStoreManager->getConnection(
-                                                                   "DpCon_DpDpEnemyAstraeaLaserChip001",
-                                                                   //"DpCon_DpEnemyAstraeaLaserChip002",
-                                                                   _pStoreCon_RefractionEffect->refer()
+                                                                   //"StCon_EnemyAstraeaLaserChip001StoreDp",
+                                                                   "StCon_EnemyAstraeaLaserChip002StoreDp",
+                                                                   _pCon_RefractionEffectStore->refer()
                                                                 )
                                    );
 
@@ -201,11 +201,11 @@ void EnemyAstraea::processBehavior() {
             if (_pPrg->isJustChanged()) {
 
                 //レーザーセット、借入打診
-                GgafActorStoreDispatcher* pDD =
-                        (GgafActorStoreDispatcher*)(_pStoreCon_DpDpEnemyAstraeaLaserChip->refer());
+                GgafActorStoreDispatcher* pLaserChipStoreDp =
+                        (GgafActorStoreDispatcher*)(_pCon_LaserChipStoreDp->refer());
                 for (int i = 0; i < _laser_way; i++) {
                     for (int j = 0; j < _laser_way; j++) {
-                        _papapLaserChipStore[i][j] = (LaserChipStore*)(pDD->dispatch());
+                        _papapLaserChipStore[i][j] = (LaserChipStore*)(pLaserChipStoreDp->dispatch());
                         if (_papapLaserChipStore[i][j]) {
                             _papapLaserChipStore[i][j]->config(_laser_length, 1);
                         }
@@ -298,7 +298,7 @@ void EnemyAstraea::processBehavior() {
 //            for (int i = 0; i < _laser_way; i++) {
 //                for (int j = 0; j < _laser_way; j++) {
 //                    if (_papapLaserChipStore[i][j] == NULL) {
-//                        GgafMainActor* p = _pStoreCon_DpDpEnemyAstraeaLaserChip->refer()->dispatch();
+//                        GgafMainActor* p = _pCon_LaserChipStoreDp->refer()->dispatch();
 //                        if (p == NULL) {
 //                            //レーザーセットは借入出来ない
 //                            continue;
@@ -386,7 +386,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
 
 
 void EnemyAstraea::onInactive() {
-    //レーザーディスパッチャーは遅れてから戻す
+    //レーザーストアーは遅れてから戻す
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
             if (_papapLaserChipStore[i][j]) {
@@ -399,8 +399,8 @@ void EnemyAstraea::onInactive() {
 
 
 EnemyAstraea::~EnemyAstraea() {
-    _pStoreCon_RefractionEffect->close();
-    _pStoreCon_DpDpEnemyAstraeaLaserChip->close();
+    _pCon_RefractionEffectStore->close();
+    _pCon_LaserChipStoreDp->close();
     for (int i = 0; i < _laser_way; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser[i]);
         DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipStore[i]);

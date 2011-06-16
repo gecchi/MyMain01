@@ -10,7 +10,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "CommonScene";
 
     //全シーンに渡って常時使用な汎用的なアクター類は
-    //ココにそのディスパッチャーを作成する。
+    //ココにそのストアーを作成する。
 
     //汎用爆発エフェクト EffectExplosion001
     {

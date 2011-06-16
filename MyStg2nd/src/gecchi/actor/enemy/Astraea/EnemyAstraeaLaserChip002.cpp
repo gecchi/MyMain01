@@ -25,7 +25,7 @@ void EnemyAstraeaLaserChip002::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
 
-    _pMvNavigator->setMvVelo(60000);
+    _pMvNavigator->setMvVelo(80000);
     //_pMvNavigator->setMvAcce(300);
     //_pMvNavigator->forceRyMvAngVeloRange(-90000, 90000);
     _pMvNavigator->relateFaceAngWithMvAng(true);
@@ -63,8 +63,8 @@ void EnemyAstraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
                                 out_angRy_Target);
         out_d_angRz = _pMvNavigator->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
         out_d_angRy = _pMvNavigator->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
-        _pMvNavigator->addRzMvAng(sgn(out_d_angRz)*10000);
-        _pMvNavigator->addRyMvAng(sgn(out_d_angRy)*10000);
+        _pMvNavigator->addRzMvAng(sgn(out_d_angRz)*20000);
+        _pMvNavigator->addRyMvAng(sgn(out_d_angRy)*30000);
 //        _pMvNavigator->execTurnMvAngSequence(
 //                        P_MYSHIP,
 //                        90000, 0,

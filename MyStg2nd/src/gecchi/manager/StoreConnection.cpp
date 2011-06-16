@@ -14,7 +14,7 @@ void StoreConnection::processReleaseResource(GgafActorStore* prm_pResource) {
     prm_pResource->end(); //GgafActorStoreはゴミ箱で削除するためここでかいほうは行わない
     //TODO:
     //EnemyAstraea::~EnemyAstraea() {
-    //    _pStoreCon_DpDpEnemyAstraeaLaserChip->close();
+    //    _pCon_LaserChipStoreDp->close();
     //でこけるのでコメントにしたが再調査
     // DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }

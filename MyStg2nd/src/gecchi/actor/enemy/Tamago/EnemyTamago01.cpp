@@ -15,7 +15,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     _pStore_Shot = NULL;
     _pStore_ShotEffect = NULL;
 
-    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("DpCon_Shot001"));
+    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_Shot001"));
     //_pStore_Shot = _pStoreCon->refer();
 _pStore_Shot = NULL;
     _pSeTransmitter->useSe(1);

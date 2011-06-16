@@ -35,9 +35,9 @@ public:
     /** レーザー発射ローカル座標 */
     PosLaser** _papaPosLaser;
 
-    StoreConnection* _pStoreCon_RefractionEffect;
+    StoreConnection* _pCon_RefractionEffectStore;
 
-    StoreConnection* _pStoreCon_DpDpEnemyAstraeaLaserChip;
+    StoreConnection* _pCon_LaserChipStoreDp;
 
 
 

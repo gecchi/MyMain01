@@ -12,7 +12,7 @@ FormationPallas002::FormationPallas002(const char* prm_name) : GgafDx9FormationA
     _mv_velo        = 10000+_RANK_*10000; //速度
     //パラス編隊作成
     _pSplineCon     = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_Pallas01")); //スプライン定義
-    //_pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("DpCon_Shot002"));
+    //_pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_Shot002"));
     _pStoreCon = NULL;
     _papPallas = NEW EnemyPallas*[_num_Pallas];
     for (int i = 0; i < _num_Pallas; i++) {

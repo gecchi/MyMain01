@@ -15,7 +15,7 @@ public:
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名
-     * @param prm_pStore ディスパッチャー
+     * @param prm_pStore ストアー
      */
     StoreConnection(char* prm_idstr, GgafCore::GgafActorStore* prm_pStore);
 

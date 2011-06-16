@@ -154,12 +154,12 @@ enum GgafDx9ScaleMethod {
     TARGET_SCALE_LINER,
     BEAT_SCALE_LINER,
     BEAT_SCALE_TRIANGLEWAVE,
-    TARGET_SCALE_SIN,          //!< –¢ŽÀ‘•
-    BEAT_SCALE_SIN,            //!< –¢ŽÀ‘•
+    TARGET_SCALE_SIN,          //!< TODO:–¢ŽÀ‘•
+    BEAT_SCALE_SIN,            //!< TODO:–¢ŽÀ‘•
     TARGET_SCALE_ACCELERATION,
-    BEAT_SCALE_PARABOLA,       //!< –¢ŽÀ‘•
-    TARGET_SCALE_PARABOLA_REV, //!< –¢ŽÀ‘•
-    BEAT_SCALE_PARABOLA_REV    //!< –¢ŽÀ‘•
+    BEAT_SCALE_PARABOLA,       //!< TODO:–¢ŽÀ‘•
+    TARGET_SCALE_PARABOLA_REV, //!< TODO:–¢ŽÀ‘•
+    BEAT_SCALE_PARABOLA_REV    //!< TODO:–¢ŽÀ‘•
 };
 
 enum GgafDx9MorphMethod {
@@ -167,12 +167,12 @@ enum GgafDx9MorphMethod {
     TARGET_MORPH_LINER,
     LOOP_MORPH_LINER,
     LOOP_MORPH_TRIANGLEWAVE,
-    TARGET_MORPH_SIN,          //!< –¢ŽÀ‘•
-    LOOP_MORPH_SIN,            //!< –¢ŽÀ‘•
+    TARGET_MORPH_SIN,          //!< TODO:–¢ŽÀ‘•
+    LOOP_MORPH_SIN,            //!< TODO:–¢ŽÀ‘•
     TARGET_MORPH_ACCELERATION,
-    LOOP_MORPH_PARABOLA,       //!< –¢ŽÀ‘•
-    TARGET_MORPH_PARABOLA_REV, //!< –¢ŽÀ‘•
-    LOOP_MORPH_PARABOLA_REV    //!< –¢ŽÀ‘•
+    LOOP_MORPH_PARABOLA,       //!< TODO:–¢ŽÀ‘•
+    TARGET_MORPH_PARABOLA_REV, //!< TODO:–¢ŽÀ‘•
+    LOOP_MORPH_PARABOLA_REV    //!< TODO:–¢ŽÀ‘•
 };
 
 enum GgafDx9BlinkerMethod {
@@ -180,12 +180,12 @@ enum GgafDx9BlinkerMethod {
     TARGET_BLINK_LINER,
     BEAT_BLINK_LINER,
     BEAT_BLINK_TRIANGLEWAVE,
-    TARGET_BLINK_SIN,          //!< –¢ŽÀ‘•
-    BEAT_BLINK_SIN,            //!< –¢ŽÀ‘•
+    TARGET_BLINK_SIN,          //!< TODO:–¢ŽÀ‘•
+    BEAT_BLINK_SIN,            //!< TODO:–¢ŽÀ‘•
     TARGET_BLINK_ACCELERATION,
-    BEAT_BLINK_PARABOLA,       //!< –¢ŽÀ‘•
-    TARGET_BLINK_PARABOLA_REV, //!< –¢ŽÀ‘•
-    BEAT_BLINK_PARABOLA_REV    //!< –¢ŽÀ‘•
+    BEAT_BLINK_PARABOLA,       //!< TODO:–¢ŽÀ‘•
+    TARGET_BLINK_PARABOLA_REV, //!< TODO:–¢ŽÀ‘•
+    BEAT_BLINK_PARABOLA_REV    //!< TODO:–¢ŽÀ‘•
 };
 
 enum GgafDx9PuppeteerPlayMethod {

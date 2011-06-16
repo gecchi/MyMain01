@@ -45,9 +45,9 @@ public:
     MyOptionLockonController* _pLockonController;
     /** [r]魚雷コントローラー */
     MyOptionTorpedoController* _pTorpedoController;
-    /** [r]発射するレーザーチップのディスパッチャー */
+    /** [r]発射するレーザーチップのストアー */
     GgafDx9LibStg::LaserChipStore* _pLaserChipStore;
-    /** [r]発射するショットのディスパッチャー */
+    /** [r]発射するショットのストアー */
     GgafCore::GgafActorStore* _pStore_MyShots001;
     /** [r]レーザー発射中のエフェクト */
     GgafDx9Core::GgafDx9DrawableActor* _pEffect_LaserIrradiate;
