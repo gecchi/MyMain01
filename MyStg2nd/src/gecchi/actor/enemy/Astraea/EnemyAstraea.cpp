@@ -14,16 +14,12 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     _Y = 0;
     _Z = 0;
     _laser_length = 30;
-    _laser_interval = 600;
+    _laser_interval = 300;
     _angveloTurn = 100;
-    _angClearance = 40000;//開き具合
+    _angClearance = 30000;//開き具合
     _papapLaserChipStore = NEW LaserChipStore**[_laser_way];
     for (int i = 0; i < _laser_way; i++) {
         _papapLaserChipStore[i] = NEW LaserChipStore*[_laser_way];
-    }
-
-
-    for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
             _papapLaserChipStore[i][j] = NULL;
         }
@@ -31,15 +27,12 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
 
     _pCon_RefractionEffectStore =
             (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_EffRefraction001"));
-
     _pCon_LaserChipStoreDp =
             (StoreConnection*)(P_GOD->_pStoreManager->getConnection(
-                                                                   //"StCon_EnemyAstraeaLaserChip001StoreDp",
-                                                                   "StCon_EnemyAstraeaLaserChip002StoreDp",
-                                                                   _pCon_RefractionEffectStore->refer()
-                                                                )
-                                   );
-
+                                                           "StCon_EnemyAstraeaLaserChip001StoreDp",
+                                                           //"StCon_EnemyAstraeaLaserChip002StoreDp",
+                                                           _pCon_RefractionEffectStore->refer()
+                                                      ));
 
     _papaPosLaser = NEW PosLaser*[_laser_way];
     angle* paAngWay = NEW angle[_laser_way];
@@ -51,8 +44,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
         _papaPosLaser[i] = NEW PosLaser[_laser_way];
         for (int j = 0; j < _laser_way; j++) {
             Ry = GgafDx9Util::simplifyAng(paAngWay[j]);
-            GgafDx9Util::getNormalizeVectorZY(Rz, Ry,
-                                              vx, vy, vz);
+            GgafDx9Util::getNormalizeVectorZY(Rz, Ry, vx, vy, vz);
             _papaPosLaser[i][j].X = vx * 100*1000;
             _papaPosLaser[i][j].Y = vy * 100*1000;
             _papaPosLaser[i][j].Z = vz * 100*1000;
@@ -163,12 +155,11 @@ void EnemyAstraea::processBehavior() {
         case ASTRAEA_PROG_MOVE: {
             if (_pPrg->isJustChanged()) {
                 _pMvNavigator->setFaceAngVelo(AXIS_X, 0);
-                _pMvNavigator->setFaceAngVelo(AXIS_Z, _angveloTurn*1.5);
+                _pMvNavigator->setFaceAngVelo(AXIS_Z, _angveloTurn*0.3);
                 _pMvNavigator->setFaceAngVelo(AXIS_Y, _angveloTurn*0.5);
-                _pMvNavigator->setMvVelo(3000);
+                _pMvNavigator->setMvVelo(2000);
             }
-
-            if (getBehaveingFrame() % _laser_interval == 0) {
+            if (getActivePartFrame() % _laser_interval == 0) {
                 _pPrg->change(ASTRAEA_PROG_TURN);
             }
             break;
@@ -177,48 +168,49 @@ void EnemyAstraea::processBehavior() {
         case ASTRAEA_PROG_TURN: {
             if (_pPrg->isJustChanged()) {
                 //ターン開始
-                _pMvNavigator->execTurnFaceAngSequence(P_MYSHIP,
-                                                    _angveloTurn*20, 0,
-                                                    TURN_COUNTERCLOCKWISE, false);
+                _pMvNavigator->execTurnFaceAngSequence(
+                                   P_MYSHIP,
+                                   _angveloTurn*20, 0,
+                                   TURN_COUNTERCLOCKWISE, false);
                 _cnt_laserchip = 0;
             }
-
             if (_pMvNavigator->isTurningFaceAng()) {
                 //ターン中
             } else {
                 //自機にがいた方向に振り向きが完了時
-                _pPrg->change(ASTRAEA_PROG_FIRE);
                 _pMvNavigator->setFaceAngVelo(AXIS_X, _angveloTurn*40);
                 _pMvNavigator->setFaceAngVelo(AXIS_Z, 0);
                 _pMvNavigator->setFaceAngVelo(AXIS_Y, 0);
                 _pMvNavigator->setMvVelo(0);
+                _pPrg->change(ASTRAEA_PROG_FIRE);
             }
-
             break;
         }
 
         case ASTRAEA_PROG_FIRE: {
             if (_pPrg->isJustChanged()) {
-
-                //レーザーセット、借入打診
+                //レーザーセット、借入
                 GgafActorStoreDispatcher* pLaserChipStoreDp =
                         (GgafActorStoreDispatcher*)(_pCon_LaserChipStoreDp->refer());
+                bool can_fire = false;
                 for (int i = 0; i < _laser_way; i++) {
                     for (int j = 0; j < _laser_way; j++) {
                         _papapLaserChipStore[i][j] = (LaserChipStore*)(pLaserChipStoreDp->dispatch());
                         if (_papapLaserChipStore[i][j]) {
                             _papapLaserChipStore[i][j]->config(_laser_length, 1);
+                            can_fire = true;
                         }
                     }
                 }
-
-                _pSeTransmitter->play3D(0); //発射音
-                changeEffectTechniqueInterim("Flush", 5); //フラッシュ
+                if (can_fire) {
+                    _pSeTransmitter->play3D(0); //発射音
+                    changeEffectTechniqueInterim("Flush", 5); //フラッシュ
+                }
             }
-
             if (_cnt_laserchip < _laser_length) {
                 _cnt_laserchip++;
                 LaserChip* pLaserChip;
+                PosLaser* p;
                 D3DXMATRIX matWorldRot;
                 GgafDx9Util::setWorldMatrix_RxRzRy(this, matWorldRot);
                 angle Rz, Ry;
@@ -241,17 +233,15 @@ void EnemyAstraea::processBehavior() {
                                 // vY = _Xorg*mat_12 + _Yorg*mat_22 + _Zorg*mat_32
                                 // vZ = _Xorg*mat_13 + _Yorg*mat_23 + _Zorg*mat_33
                                 //となる
-                                vX = _papaPosLaser[i][j].X*matWorldRot._11 + _papaPosLaser[i][j].Y*matWorldRot._21 + _papaPosLaser[i][j].Z*matWorldRot._31;
-                                vY = _papaPosLaser[i][j].X*matWorldRot._12 + _papaPosLaser[i][j].Y*matWorldRot._22 + _papaPosLaser[i][j].Z*matWorldRot._32;
-                                vZ = _papaPosLaser[i][j].X*matWorldRot._13 + _papaPosLaser[i][j].Y*matWorldRot._23 + _papaPosLaser[i][j].Z*matWorldRot._33;
+                                p = &(_papaPosLaser[i][j]);
+                                vX = p->X*matWorldRot._11 + p->Y*matWorldRot._21 + p->Z*matWorldRot._31;
+                                vY = p->X*matWorldRot._12 + p->Y*matWorldRot._22 + p->Z*matWorldRot._32;
+                                vZ = p->X*matWorldRot._13 + p->Y*matWorldRot._23 + p->Z*matWorldRot._33;
                                 GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //現在の最終的な向きを、RzRyで取得
-
-
                                 pLaserChip->locate(_X+vX, _Y+vY, _Z+vZ);
                                 pLaserChip->_pMvNavigator->setRzRyMvAng(Rz, Ry);
                                 pLaserChip->_pMvNavigator->_angFace[AXIS_Z] = Rz;
                                 pLaserChip->_pMvNavigator->_angFace[AXIS_Y] = Ry;
-                                pLaserChip->activate();
                             }
                         }
                     }
@@ -262,98 +252,6 @@ void EnemyAstraea::processBehavior() {
             break;
         }
     }
-//    if (_iMovePatternNo == 0) {
-//        _pMvNavigator->setFaceAngVelo(AXIS_X, 0);
-//        _pMvNavigator->setFaceAngVelo(AXIS_Z, _angveloTurn*1.5);
-//        _pMvNavigator->setFaceAngVelo(AXIS_Y, _angveloTurn*0.5);
-//        _pMvNavigator->setMvVelo(-3000);
-//        _iMovePatternNo++;
-//    } else if (_iMovePatternNo == 1 && _X > P_MYSHIP->_X-400000) {
-//        if (getBehaveingFrame() % _laser_interval == 0) {
-//            _pMvNavigator->execTurnFaceAngSequence(P_MYSHIP,
-//                                                _angveloTurn*20, 0,
-//                                                TURN_COUNTERCLOCKWISE, false);
-//            _iMovePatternNo++;
-//            _cnt_laserchip = 0;
-//        } else {
-//        }
-//    } else if (_iMovePatternNo == 2) {
-//        if (!_pMvNavigator->isTurningFaceAng()) {
-//            //自機にがいた方向に振り向きが完了時
-//            _iMovePatternNo++;
-//        }
-//    } else if (_iMovePatternNo == 3) {
-//        _pMvNavigator->setFaceAngVelo(AXIS_X, _angveloTurn*40);
-//        _pMvNavigator->setFaceAngVelo(AXIS_Z, 0);
-//        _pMvNavigator->setFaceAngVelo(AXIS_Y, 0);
-//        _pMvNavigator->setMvVelo(0);
-//        if (_cnt_laserchip < _laser_length) {
-//            _cnt_laserchip++;
-//
-//            LaserChip* pLaserChip;
-//            D3DXMATRIX matWorldRot;
-//            GgafDx9Util::setWorldMatrix_RxRzRy(this, matWorldRot);
-//            angle Rz, Ry;
-//            int vX, vY, vZ;
-//            for (int i = 0; i < _laser_way; i++) {
-//                for (int j = 0; j < _laser_way; j++) {
-//                    if (_papapLaserChipStore[i][j] == NULL) {
-//                        GgafMainActor* p = _pCon_LaserChipStoreDp->refer()->dispatch();
-//                        if (p == NULL) {
-//                            //レーザーセットは借入出来ない
-//                            continue;
-//                        } else {
-//                            _papapLaserChipStore[i][j] = (LaserChipStore*)p;
-//                            _papapLaserChipStore[i][j]->config(_laser_length, 1);
-//                            _papapLaserChipStore[i][j]->activate();
-//                        }
-//                    }
-//
-//                    pLaserChip = _papapLaserChipStore[i][j]->dispatch();
-//                    if (pLaserChip) {
-//                        //レーザーの向きを計算
-//                        //ローカルでのショットの方向ベクトルを(_Xorg,_Yorg,_Zorg)、
-//                        //ワールド変換行列の回転部分（matWorldRot)の成分を mat_xx、
-//                        //最終的な方向ベクトルを(vX, vY, vZ) とすると
-//                        //
-//                        //                       | mat_11 mat_12 mat_13 |
-//                        // | _Xorg _Yorg _Zorg | | mat_21 mat_22 mat_23 | = | vX vY vZ |
-//                        //                       | mat_31 mat_32 mat_33 |
-//                        //よって
-//                        // vX = _Xorg*mat_11 + _Yorg*mat_21 + _Zorg*mat_31
-//                        // vY = _Xorg*mat_12 + _Yorg*mat_22 + _Zorg*mat_32
-//                        // vZ = _Xorg*mat_13 + _Yorg*mat_23 + _Zorg*mat_33
-//                        //となる
-//                        vX = _papaPosLaser[i][j].X*matWorldRot._11 + _papaPosLaser[i][j].Y*matWorldRot._21 + _papaPosLaser[i][j].Z*matWorldRot._31;
-//                        vY = _papaPosLaser[i][j].X*matWorldRot._12 + _papaPosLaser[i][j].Y*matWorldRot._22 + _papaPosLaser[i][j].Z*matWorldRot._32;
-//                        vZ = _papaPosLaser[i][j].X*matWorldRot._13 + _papaPosLaser[i][j].Y*matWorldRot._23 + _papaPosLaser[i][j].Z*matWorldRot._33;
-//                        GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //現在の最終的な向きを、RzRyで取得
-//
-//
-//                        pLaserChip->locate(_X+vX, _Y+vY, _Z+vZ);
-//                        pLaserChip->_pMvNavigator->setRzRyMvAng(Rz, Ry);
-//                        pLaserChip->_pMvNavigator->_angFace[AXIS_Z] = Rz;
-//                        pLaserChip->_pMvNavigator->_angFace[AXIS_Y] = Ry;
-//                        pLaserChip->activate();
-//                        //pLaserChip->_pMvNavigator->behave();
-//
-//                        if (i == 0 && j == 0 && pLaserChip->_pChip_front == NULL) {
-//                            _pSeTransmitter->play3D(0); //発射音
-//                            changeEffectTechniqueInterim("Flush", 5); //フラッシュ
-//                        }
-//                    }
-//                }
-//            }
-//        } else {
-////            for (int i = 0; i < _laser_way; i++) {
-////                for (int j = 0; j < _laser_way; j++) {
-////                    _papapLaserChipStore[i][j] = NULL;
-////                }
-////            }
-//            _iMovePatternNo = 0;
-//        }
-//    }
-
     _pSeTransmitter->behave();
     _pMvNavigator->behave();
 }
