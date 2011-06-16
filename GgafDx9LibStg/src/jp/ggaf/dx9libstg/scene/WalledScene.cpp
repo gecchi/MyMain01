@@ -6,26 +6,26 @@ using namespace GgafDx9LibStg;
 
 WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
     _class_name = "WalledScene";
-    _pDispatcher_WallAAB = NULL;
-    _pDispatcher_WallAAPrism = NULL;
+    _pStore_WallAAB = NULL;
+    _pStore_WallAAPrism = NULL;
     _pRingSection = NEW GgafLinkedListRing<WalledSectionScene>();
 }
 
 void WalledScene::buildWalledScene(
         int prm_wall_dep, int prm_wall_width, int prm_wall_height,
         WalledSectionScene** prm_papSection, int prm_section_num,
-        GgafActorDispatcher* prm_pDispatcher_WallAAB,
-        GgafActorDispatcher* prm_pDispatcher_WallAAPrism) {
+        GgafActorStore* prm_pStore_WallAAB,
+        GgafActorStore* prm_pStore_WallAAPrism) {
     _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] build...");
-    _pDispatcher_WallAAB = prm_pDispatcher_WallAAB;
-    _pDispatcher_WallAAPrism = prm_pDispatcher_WallAAPrism;
-    getLordActor()->addSubGroup(_pDispatcher_WallAAB);
-    if (_pDispatcher_WallAAPrism) {
-        getLordActor()->addSubGroup(_pDispatcher_WallAAPrism);
+    _pStore_WallAAB = prm_pStore_WallAAB;
+    _pStore_WallAAPrism = prm_pStore_WallAAPrism;
+    getLordActor()->addSubGroup(_pStore_WallAAB);
+    if (_pStore_WallAAPrism) {
+        getLordActor()->addSubGroup(_pStore_WallAAPrism);
     }
     for (int i = 0; i < prm_section_num; i++) {
         addSubLast(prm_papSection[i]);
-        prm_papSection[i]->config(_pDispatcher_WallAAB, _pDispatcher_WallAAPrism, prm_wall_dep, prm_wall_width, prm_wall_height);
+        prm_papSection[i]->config(_pStore_WallAAB, _pStore_WallAAPrism, prm_wall_dep, prm_wall_width, prm_wall_height);
         prm_papSection[i]->inactivateImmediately();
         _pRingSection->addLast(prm_papSection[i], false);
     }
@@ -67,7 +67,7 @@ void WalledScene::buildWalledScene(
 }
 
 void WalledScene::initialize() {
-    if (_pDispatcher_WallAAB == NULL) {
+    if (_pStore_WallAAB == NULL) {
         throwGgafCriticalException("WalledScene["<<getName()<<"] オブジェクトが未完成です。buildWalledScene()を実行し構築してください。");
     }
 }

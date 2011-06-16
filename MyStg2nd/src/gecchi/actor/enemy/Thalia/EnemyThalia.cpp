@@ -12,11 +12,11 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
     _veloTopMv = 20000;
     _iMovePatternNo = 0;
     _pSplineProgram = NULL;
-    _pDispatcher_Shot = NULL;
-    _pDispatcher_ShotEffect = NULL;
+    _pStore_Shot = NULL;
+    _pStore_ShotEffect = NULL;
 
-    _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
-    _pLaserChipDispatcher->config(100, 0, NULL);
+    _pLaserChipStore = NEW LaserChipStore("MyRotLaser");
+    _pLaserChipStore->config(100, 0, NULL);
     EnemyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
         stringstream name;
@@ -24,9 +24,9 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
         pChip = NEW EnemyStraightLaserChip001(name.str().c_str());
         pChip->setSource(this); //位置向き同期
         pChip->inactivateImmediately();
-        _pLaserChipDispatcher->addSubLast(pChip);
+        _pLaserChipStore->addSubLast(pChip);
     }
-    addSubGroup(_pLaserChipDispatcher);
+    addSubGroup(_pLaserChipStore);
 
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
@@ -103,9 +103,8 @@ void EnemyThalia::processBehavior() {
                                                     100, 0,
                                                     TURN_CLOSE_TO);
             }
-            EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)_pLaserChipDispatcher->employ();
+            EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)_pLaserChipStore->dispatch();
             if (pLaser) {
-                pLaser->activate();
                 if (pLaser->_pChip_front == NULL) {
                     _pSeTransmitter->play3D(1);
                     _pMvNavigator->setFaceAngVelo(AXIS_X, 4000);
@@ -144,43 +143,41 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
     if (_pPrg->get() != THALIA_SCENE_PROG_MOVE && (pOther->getKind() & KIND_MY) ) {
         changeEffectTechniqueInterim("Flush", 2); //フラッシュ
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
         if (pExplo001) {
-            pExplo001->activate();
             pExplo001->locateAs(this);
         }
         _pSeTransmitter->play3D(0);
 
 
         if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
+            EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
             if (pExplo001) {
-                pExplo001->activate();
                 pExplo001->locateAs(this);
             }
             _pSeTransmitter->play3D(0);
 
 
             //打ち返し弾
-            if (_pDispatcher_Shot) {
+            if (_pStore_Shot) {
 //                MyStgUtil::shotWay001(this,
-//                                       _pDispatcher_Shot,
+//                                       _pStore_Shot,
 //                                       P_MYSHIP,
 //                                       10+_RANK_*10, 10000,
 //                                       2000, 200);
 //                MyStgUtil::shotWay001v2(this,
-//                                       _pDispatcher_Shot,
+//                                       _pStore_Shot,
 //                                       P_MYSHIP,
 //                                       10+_RANK_*10, 10000,
 //                                       3000, 200,
 //                                       5, 0.8);
 //                MyStgUtil::shotWay002(this,
-//                                       _pDispatcher_Shot,
+//                                       _pStore_Shot,
 //                                       P_MYSHIP,
 //                                       20+_RANK_*10, 0,
 //                                       2000, 200);
                   StgUtil::shotWay002v2(this,
-                                       _pDispatcher_Shot,
+                                       _pStore_Shot,
                                        P_MYSHIP,
                                        20+_RANK_*10, 0,
                                        2000, 200,

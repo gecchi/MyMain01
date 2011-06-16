@@ -33,13 +33,13 @@ public:
     /** レーザー発射ローカル座標 */
     PosLaser** _papaPosLaser;
 
-    DispatcherConnection* _pDispatcherCon_RefractionEffect;
+    StoreConnection* _pStoreCon_RefractionEffect;
 
-    DispatcherConnection* _pDispatcherCon_DpEnemyMassaliaLaserChip;
+    StoreConnection* _pStoreCon_DpEnemyMassaliaLaserChip;
 
 
 
-    GgafDx9LibStg::LaserChipDispatcher*** _papapLaserChipDispatcher;
+    GgafDx9LibStg::LaserChipStore*** _papapLaserChipStore;
 
     /** 出現エフェクト */
     GgafDx9Core::GgafDx9DrawableActor* _pEffect_Appearance;

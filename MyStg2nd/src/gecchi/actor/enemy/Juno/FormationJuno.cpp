@@ -20,7 +20,7 @@ FormationJuno::FormationJuno(
             int prm_nJunoStock,
             int prm_frame_app_interval) : GgafDx9FormationActor(prm_name) {
     _class_name = "FormationJuno";
-    _pDispatcherCon = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_Shot004")); //Juno‚Ì’e
+    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("DpCon_Shot004")); //Juno‚Ì’e
 
     _pRndGen = CmRandomNumberGenerator::getInstance();
     _pRndGen->changeSeed(P_MYSHIP->_Z);
@@ -43,10 +43,10 @@ FormationJuno::FormationJuno(
 
     _frame_app_interval = prm_frame_app_interval;
 
-    _pDispatcher_EnemyJuno = NEW GgafActorDispatcher("RotEnemyJuno");
+    _pStore_EnemyJuno = NEW GgafActorStore("RotEnemyJuno");
     for (int i = 0; i < prm_nJunoStock; i++) {
         EnemyJuno* pEnemyJuno = NEW EnemyJuno("Juno01");
-        pEnemyJuno->setDispatcher_Shot(_pDispatcherCon->refer()); //’eÝ’è
+        pEnemyJuno->setStore_Shot(_pStoreCon->refer()); //’eÝ’è
         pEnemyJuno->_pMvNavigator->relateFaceAngWithMvAng(true);
         pEnemyJuno->_pMvNavigator->setMvVelo(prm_veloMv_Juno);
         pEnemyJuno->_pMvNavigator->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);
@@ -54,9 +54,9 @@ FormationJuno::FormationJuno(
         pEnemyJuno->_pMvTransporter->setVyMvVelo(vY_AppBox*prm_veloMv_App);
         pEnemyJuno->_pMvTransporter->setVzMvVelo(vZ_AppBox*prm_veloMv_App);
         pEnemyJuno->inactivateTreeImmediately();
-        _pDispatcher_EnemyJuno->addSubLast(pEnemyJuno);
+        _pStore_EnemyJuno->addSubLast(pEnemyJuno);
     }
-    addSubGroup(_pDispatcher_EnemyJuno);
+    addSubGroup(_pStore_EnemyJuno);
 }
 
 void FormationJuno::initialize() {
@@ -64,12 +64,11 @@ void FormationJuno::initialize() {
 
 void FormationJuno::processBehavior() {
     if (getActivePartFrame() % _frame_app_interval == 0) {
-        EnemyJuno* pEnemyJuno = (EnemyJuno*)_pDispatcher_EnemyJuno->employ();
+        EnemyJuno* pEnemyJuno = (EnemyJuno*)_pStore_EnemyJuno->dispatch();
         if (pEnemyJuno) {
             pEnemyJuno->_X = (_pRndGen->genrand_int32() % (_X2_app-_X1_app)) + _X1_app + _X;
             pEnemyJuno->_Y = (_pRndGen->genrand_int32() % (_Y2_app-_Y1_app)) + _Y1_app + _Y;
             pEnemyJuno->_Z = (_pRndGen->genrand_int32() % (_Z2_app-_Z1_app)) + _Z1_app + _Z;
-            pEnemyJuno->activate();
         }
     }
     _pMvNavigator->behave();
@@ -77,5 +76,5 @@ void FormationJuno::processBehavior() {
 }
 
 FormationJuno::~FormationJuno() {
-    _pDispatcherCon->close();
+    _pStoreCon->close();
 }

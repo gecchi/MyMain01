@@ -304,8 +304,8 @@ class FormationThalia;
 class EnemyMassalia;
 
 
-class DispatcherConnection;
-class DispatcherManager;
+class StoreConnection;
+class StoreManager;
 
 class SplineSource;
 class Spline3DConnection;
@@ -317,7 +317,7 @@ class CameraWorkerManager;
 class CameraWorkerConnection;
 
 
-class TestDispatcher;
+class TestStore;
 class MagicMeter;
 class EnagyBar;
 
@@ -549,15 +549,15 @@ class MagicMeter;
 #include "gecchi/util/VamSysCamPosition.h"
 #include "gecchi/MyFactory.h"
 #include "gecchi/util/SplineSource.h"
-#include "gecchi/manager/DispatcherManager.h"
-#include "gecchi/manager/DispatcherConnection.h"
+#include "gecchi/manager/StoreManager.h"
+#include "gecchi/manager/StoreConnection.h"
 #include "gecchi/manager/Spline3DManager.h"
 #include "gecchi/manager/Spline3DConnection.h"
 #include "gecchi/manager/SplineManager.h"
 #include "gecchi/manager/SplineConnection.h"
 #include "gecchi/actor/common/template/Formation001.hpp"
 
-#include "gecchi/actor/common/TestDispatcher.h"
+#include "gecchi/actor/common/TestStore.h"
 
 #include "gecchi/actor/_predrawer/CubeMapMeshTestActor.h"
 #include "gecchi/actor/_predrawer/CubeMapMeshSetTestActor.h"

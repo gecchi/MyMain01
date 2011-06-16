@@ -250,9 +250,9 @@ public:
 
     GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeoElem>* _pRing_GeoHistory;
 
-    GgafCore::GgafActorDispatcher* _pDispatcher_MyShots001;
-    GgafCore::GgafActorDispatcher* _pDP_EffectExplosion001;
-    GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
+    GgafCore::GgafActorStore* _pStore_MyShots001;
+    GgafCore::GgafActorStore* _pDP_EffectExplosion001;
+    GgafDx9LibStg::LaserChipStore* _pLaserChipStore;
 
 //    MyOptionController* _pMyOptionController;
     EffectTurbo001* _pEffectTurbo001;

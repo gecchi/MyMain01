@@ -4,8 +4,8 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : GgafActorDispatcher(prm_name) {
-    _class_name = "LaserChipDispatcher";
+LaserChipStore::LaserChipStore(const char* prm_name) : GgafActorStore(prm_name) {
+    _class_name = "LaserChipStore";
     _num_continual_employ_count = 0;
     _num_chip_active = 0;
     _is_tear_laser = true;
@@ -19,7 +19,7 @@ LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : GgafActorDispat
     _pEffectActor_Irradiate = NULL;
 }
 
-void LaserChipDispatcher::config(int prm_num_continual_employ_max,
+void LaserChipStore::config(int prm_num_continual_employ_max,
                                  UINT32 prm_num_chip_interval,
                                  GgafDx9Core::GgafDx9DrawableActor* prm_pEffectActor_Irradiate) {
     _num_continual_employ_max = prm_num_continual_employ_max;
@@ -31,7 +31,7 @@ void LaserChipDispatcher::config(int prm_num_continual_employ_max,
 }
 
 
-LaserChip* LaserChipDispatcher::employ() {
+LaserChip* LaserChipStore::dispatch() {
     if (_num_continual_employ_count > _num_continual_employ_max) { //_num_continual_employ_max連続発射時、弾切れにする(_num_interval_frame_countをリセット)。
         _is_tear_laser = true;
         _pChip_prev_employ = NULL;
@@ -51,11 +51,11 @@ LaserChip* LaserChipDispatcher::employ() {
         _num_interval_frame_count++;
         return NULL;
     } else {
-        LaserChip* pChip = (LaserChip*)GgafActorDispatcher::employ();
+        LaserChip* pChip = (LaserChip*)GgafActorStore::dispatch();
         if (pChip) {
 //            pChip->activate();
             if (_pChip_prev_employ) {
-                //以前のemploy()したチップ
+                //以前のdispatch()したチップ
                 if (_frame_of_behaving_prev_employ+1 == _pChip_prev_employ->getBehaveingFrame()) {
                     //2フレーム連続でemployの場合連結とみなす
                     _num_continual_employ_count++;
@@ -72,7 +72,7 @@ LaserChip* LaserChipDispatcher::employ() {
                     _is_tear_laser = true;
                 }
             } else {
-                //employ()初回
+                //dispatch()初回
                 pChip->_pChip_front = NULL;
                 pChip->_pChip_behind = NULL;
                 _is_tear_laser = false;
@@ -88,7 +88,7 @@ LaserChip* LaserChipDispatcher::employ() {
             return pChip;
 
         } else {
-            //employ()タイミングであったがemploy()出来なかった場合
+            //dispatch()タイミングであったがdispatch()出来なかった場合
             _num_continual_employ_count = 0;
             _is_tear_laser = true;
             _pChip_prev_employ = NULL;
@@ -99,7 +99,7 @@ LaserChip* LaserChipDispatcher::employ() {
     }
 }
 
-void LaserChipDispatcher::processFinal() {
+void LaserChipStore::processFinal() {
     //発射中エフェクト表示切り替え
     if (_pEffectActor_Irradiate) {
         if (_pChip_prev_employ && _frame_of_behaving_prev_employ == _pChip_prev_employ->getBehaveingFrame()) {
@@ -114,20 +114,20 @@ void LaserChipDispatcher::processFinal() {
     }
 }
 
-void LaserChipDispatcher::addSubLast(LaserChip* prm_pLaserChip) {
+void LaserChipStore::addSubLast(LaserChip* prm_pLaserChip) {
     _num_chip_max ++;
     _num_continual_employ_max++;
-    prm_pLaserChip->_pDispatcher = this;
-    GgafActorDispatcher::addSubLast(prm_pLaserChip);
+    prm_pLaserChip->_pStore = this;
+    GgafActorStore::addSubLast(prm_pLaserChip);
 }
 
-void LaserChipDispatcher::onReset() {
+void LaserChipStore::onReset() {
     _is_tear_laser = true;
     _num_continual_employ_count = 0;
     _num_chip_active = 0;
     _frame_of_behaving_prev_employ = 0;
-    GgafActorDispatcher::onReset();
+    GgafActorStore::onReset();
 }
 
-LaserChipDispatcher::~LaserChipDispatcher() {
+LaserChipStore::~LaserChipStore() {
 }

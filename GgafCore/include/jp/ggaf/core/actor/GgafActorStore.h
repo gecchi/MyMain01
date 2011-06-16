@@ -1,40 +1,41 @@
-#ifndef GGAFACTORDISPATCHER_H_
-#define GGAFACTORDISPATCHER_H_
+#ifndef GGAFACTORSTORE_H_
+#define GGAFACTORSTORE_H_
 namespace GgafCore {
 
 /**
  * アクターディスパッチャー（発送者）クラス .
  * 自アクターのサブに予め幾つかアクターを登録(addSubLast)してストックする。<BR>
- * 他からの employ() メソッドで、ストックの活動していないアクター探して提供する。<BR>
+ * 他からの dispatch() メソッドで、ストックの活動していないアクター探して提供する。<BR>
  * アクターは使い終わったらinactivate()すると、ストックに戻ったことになる。<BR>
  * 弾など何度も使いまわしたいアクターや、出現数制限したい場合等に有効となるハズである。<BR>
- * 連続employ()の場合、次のemploy()のアクターは必ず隣同士となっているという法則がある。<BR>
- * これは、employ()したアクターは、ストック並びの一番最後に回されるため。<BR>
+ * 連続dispatch()の場合、次のdispatch()のアクターは必ず隣同士となっているという法則がある。<BR>
+ * これは、dispatch()したアクターは、ストック並びの一番最後に回されるため。<BR>
  * ポリライン（レーザー）のひと纏まりの単位として使用できるかもしれない、と目論む。<BR>
  * (旧RotationActor)
  * @version 1.00
  * @since 2008/08/11
  * @author Masatoshi Tsuge
  */
-class GgafActorDispatcher : public GgafDummyActor {
-
+class GgafActorStore : public GgafDummyActor {
 public:
-    /** 貸出中メンバー */
-    int _active_member;
 
-    GgafActorDispatcher(const char* prm_name);
+    GgafActorStore(const char* prm_name);
 
     /**
-     * メンバーを登録します.
-     * 具体的には、addSubLast() を呼び出し、種別を引き継ぎます。
-     * 最初に登録したアクターが、本ディスパッチャーの種別となるため、同じ種別をaddSubLastしてください。
-     * @param prm_pSub 登録アクター
+     * 貸出メンバー(GgafActor)を追加登録します.
+     * ストックの追加的なイメージです。<BR>
+     * GgafNode<T>::addSubLast() を実行する前に、アクター種別のを引き継ぎを行います。
+     * 最初に登録したアクターの種別が、本ディスパッチャーの種別となります。
+     * それ以降は同じ種別のアクターを登録する制限があります。<BR>
+     * また、引数のアクターには inactivateImmediately() が実行され、メンバーは非活動状態に強制されます。<BR>
+     * @param prm_pSub 貸出メンバーアクター
      */
-    virtual void addSubLast(GgafActor* prm_pSub);
+    virtual void addSubLast(GgafActor* prm_pSub) override;
 
 
     /**
-     * activate系は子アクターへは影響させない
+     * activate系は子アクターへは影響させないようにする .
+     * 子アクター（貸し出しメンバー）は、dispatch() でのみ活動状態にさせるため。
      */
     virtual void activateTree() override {
         activate();
@@ -44,7 +45,8 @@ public:
 //        inactivate();
 //    }
     /**
-     * activate系は子アクターへは影響させない
+     * activate系は子アクターへは影響させないする .
+     * 子アクター（貸し出しメンバー）は、dispatch() でのみ活動状態にさせるため。
      */
     virtual void activateTreeDelay(frame prm_offset_frames) override {
         activateDelay(prm_offset_frames);
@@ -55,36 +57,34 @@ public:
 //    }
 
     /**
-     * アクター取り出し .
-     * アクター発送者の暇そうなサブメンバー（active中、またはactive予約されていない）がいれば取得する。<BR>
+     * メンバー借り入れ .
+     * 暇そうなメンバー（active中、またはactive予約されていない）が存在すれば、取得し活動状態にする。<BR>
      * 暇なメンバーが居ない場合 NULL が返ります。<BR>
-     * 取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動されます。<BR>
+     * 取得できる場合、アクターに activate()が実行され、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動されます。<BR>
      * 一時的にキャラを派遣するようなイメージ<BR>
      * ＜使用例＞
      * <pre><code>
-     * GgafMainActor* pActor = pDispatcher->employ();
+     * GgafMainActor* pActor = pStore->dispatch();
      * if (pActor) {
      *     //アクターの初期処理
      *     //・・・
      *
-     *     pActor->active();
      * }
      *
      * </code></pre>
      * @return アクター発送者の暇そうなメンバーアクター
      */
-    virtual GgafCore::GgafMainActor* employ() {
+    virtual GgafCore::GgafMainActor* dispatch() {
 #ifdef MY_DEBUG
         if (_pSubFirst == NULL) {
-            throwGgafCriticalException("GgafActorDispatcher::employ() "<<getName()<<" の子がありません");
+            throwGgafCriticalException("GgafActorStore::dispatch() "<<getName()<<" の子がありません");
         }
 #endif
         GgafMainActor* pActor = getSubFirst();
-        for (int i = 0; i <= 100000; i++) {
+        while (true) {
             if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
-                //pActor->activate(); //activateは呼び元で明示的に行うようにした
-                pActor->moveLast(); //お尻に回す
-                _active_member++; //GgafActor::sayonara() でカウントは減ります。
+                pActor->moveLast(); //次フレームお尻に回す
+                pActor->activate(); //activate自動実行。
                 break;//取得！
             } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
                 if (pActor->isLast()) {
@@ -95,11 +95,6 @@ public:
                     continue;
                 }
             }
-#ifdef MY_DEBUG
-            if (i == 100000) {
-                throwGgafCriticalException("GgafActorDispatcher::employ() "<<getName()<<" のメンバの末尾フラグが見つかりません。循環ループしている可能性があります。");
-            }
-#endif
         }
         return pActor;
     }
@@ -108,7 +103,7 @@ public:
      * 強制的にアクター取り出し .
      * アクター発送者の暇そうなサブメンバー（active中、またはactive予約されていない）が
      * 居なくても強制的に取得する。<BR>
-     * employ() を試みて取り出せない場合、強制的に先頭のアクターを返します。<BR>
+     * dispatch() を試みて取り出せない場合、強制的に先頭のアクターを返します。<BR>
      * <b>＜注意＞</b><BR>
      * 取り出し後、アクターに active() を実行しても、そのアクターが既に
      * isActiveActor() == true の状態もありうるため、onActive() コールバックは
@@ -116,7 +111,7 @@ public:
      * 強制的にonActive() コールバックを呼び出したい場合に次のようなコードに
      * しなければいけないかも知れない。
      * <pre><code>
-     * GgafMainActor* pActor = pDispatcher->employForce();
+     * GgafMainActor* pActor = pStore->employForce();
      * if (pActor->isActiveActor()) {
      *     pActor->inactivateImmediately();
      *     pActor->onInactive();
@@ -127,7 +122,7 @@ public:
      * @return
      */
     virtual GgafCore::GgafMainActor* employForce() {
-        GgafMainActor* pActor = employ();
+        GgafMainActor* pActor = dispatch();
         if (pActor == NULL) {
             getSubFirst()->moveLastImmediately(); //お尻に回す
             pActor = getSubFirst();
@@ -141,9 +136,9 @@ public:
      */
     virtual void onReset() override;
 
-    virtual ~GgafActorDispatcher() {
+    virtual ~GgafActorStore() {
     }
 };
 
 }
-#endif /*GGAFACTORDISPATCHER_H_*/
+#endif /*GGAFACTORSTORE_H_*/

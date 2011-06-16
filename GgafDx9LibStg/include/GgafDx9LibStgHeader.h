@@ -80,8 +80,8 @@ class WateringLaserChip;
 class HomingLaserChip;
 class StraightLaserChip;
 class RefractionLaserChip;
-class LaserChipDispatcher;
-class LaserChipDispatcherDispatcher;
+class LaserChipStore;
+class LaserChipStoreDispatcher;
 }
 
 #include "jp/ggaf/dx9libstg/DefaultGod.h"
@@ -144,8 +144,8 @@ class LaserChipDispatcherDispatcher;
 #include "jp/ggaf/dx9libstg/actor/laserchip/HomingLaserChip.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/StraightLaserChip.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/RefractionLaserChip.h"
-#include "jp/ggaf/dx9libstg/actor/laserchip/LaserChipDispatcher.h"
-#include "jp/ggaf/dx9libstg/actor/laserchip/LaserChipDispatcherDispatcher.h"
+#include "jp/ggaf/dx9libstg/actor/laserchip/LaserChipStore.h"
+#include "jp/ggaf/dx9libstg/actor/laserchip/LaserChipStoreDispatcher.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/SingleLaser.h"
 
 

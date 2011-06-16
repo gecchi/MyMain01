@@ -53,16 +53,16 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
 //    _pMyOptionController = NEW MyOptionController("MY_OPTION_PARENT");
 //    addSubLast(_pMyOptionController);
 
-    _pDispatcher_MyShots001 = NEW GgafActorDispatcher("RotShot001");
+    _pStore_MyShots001 = NEW GgafActorStore("RotShot001");
     MyShot001* pShot;
     for (int i = 0; i < 25; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateImmediately();
-        _pDispatcher_MyShots001->addSubLast(pShot);
+        _pStore_MyShots001->addSubLast(pShot);
     }
-    addSubGroup(_pDispatcher_MyShots001);
+    addSubGroup(_pStore_MyShots001);
 
-    _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
+    _pLaserChipStore = NEW LaserChipStore("MyRotLaser");
     MyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
         stringstream name;
@@ -71,9 +71,9 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
         pChip = NEW MyStraightLaserChip001(name2.c_str());
         pChip->setPositionSource(this); //位置だけ同期
         pChip->inactivateImmediately();
-        _pLaserChipDispatcher->addSubLast(pChip);
+        _pLaserChipStore->addSubLast(pChip);
     }
-    addSubGroup(_pLaserChipDispatcher);
+    addSubGroup(_pLaserChipStore);
 
 
     _pEffectTurbo001 = NEW EffectTurbo001("EffectTurbo001");
@@ -189,9 +189,9 @@ void MyShip::onCreateModel() {
 void MyShip::initialize() {
 
     //種別に振り分け
-//    getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDispatcher_MyShots001->extract());
-//    getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDispatcher_MyWaves001->extract());
-    //getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
+//    getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pStore_MyShots001->extract());
+//    getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pStore_MyWaves001->extract());
+    //getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipStore->extract());
 
     setHitAble(true);
     _pCollisionChecker->makeCollision(1);
@@ -370,7 +370,7 @@ void MyShip::processBehavior() {
 
     if (VB_PLAY->isPushedDown(VB_TURBO)) {
         //ターボ開始時
-        EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDispatcher_EffectTurbo002->employForce();
+        EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pStore_EffectTurbo002->employForce();
          if (pTurbo002) {
              pTurbo002->locateAs(this);
              pTurbo002->activate();
@@ -502,10 +502,9 @@ void MyShip::processJudgement() {
 
     if (_is_shooting_laser) {
         if (VB_PLAY->isBeingPressed(VB_SHOT1)) {//isBeingPressed
-            //GgafActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
-            MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
+            //GgafActorStoreの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
+            MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipStore->dispatch();
             if (pLaser) {
-                pLaser->activate();
                 if (pLaser->_pChip_front == NULL) {
                     _pSeTransmitter->play3D(1);
                 }
@@ -531,11 +530,10 @@ void MyShip::processJudgement() {
     if (_is_being_soft_rapidshot) {
         if (_frame_soft_rapidshot % SOFT_RAPIDSHOT_INTERVAL == 0) {
             _just_shot = true;//たった今ショットしましたフラグ
-            MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
+            MyShot001* pShot = (MyShot001*)_pStore_MyShots001->dispatch();
             if (pShot) {
                 _pSeTransmitter->play3D(2);
                 pShot->locateAs(this);
-                pShot->activate();
             }
             if (_frame_soft_rapidshot >= SOFT_RAPIDSHOT_INTERVAL*(SOFT_RAPIDSHOT_NUM-1)) {
                 //SOFT_RAPIDSHOT_NUM 発打ち終えたらソフト連射終了
@@ -589,10 +587,9 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     }
     if (pOther->getKind() & KIND_ITEM)  {
     } else {
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
         if (pExplo001) {
             pExplo001->locateAs(this);
-            pExplo001->activate();
         }
         _pSeTransmitter->play3D(0);
     }

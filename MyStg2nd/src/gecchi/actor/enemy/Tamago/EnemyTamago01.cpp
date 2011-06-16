@@ -11,13 +11,13 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     _iMovePatternNo = 0;
     _pProgram_Tamago01Move = NULL;
-    _pDispatcherCon = NULL;
-    _pDispatcher_Shot = NULL;
-    _pDispatcher_ShotEffect = NULL;
+    _pStoreCon = NULL;
+    _pStore_Shot = NULL;
+    _pStore_ShotEffect = NULL;
 
-    _pDispatcherCon = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_Shot001"));
-    //_pDispatcher_Shot = _pDispatcherCon->refer();
-_pDispatcher_Shot = NULL;
+    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("DpCon_Shot001"));
+    //_pStore_Shot = _pStoreCon->refer();
+_pStore_Shot = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
@@ -133,7 +133,7 @@ void EnemyTamago01::processBehavior() {
     if (getBehaveingFrame() % 30 == 0) {
         _pMvNavigator->execTurnMvAngSequence(P_MYSHIP, 2000,0,TURN_CLOSE_TO);
 
-        if (_pDispatcher_Shot) {
+        if (_pStore_Shot) {
             //放射状ショット発射
             int way = 8;
             angle* paAngWay = NEW angle[way];
@@ -144,20 +144,19 @@ void EnemyTamago01::processBehavior() {
             GgafDx9Util::getWayAngle2D(target_RyRz_Ry, way, 10000, paAngWay);
             GgafDx9DrawableActor* pActor;
             for (int i = 0; i < way; i++) {
-                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                pActor = (GgafDx9DrawableActor*)_pStore_Shot->dispatch();
                 if (pActor) {
                     pActor->_pMvNavigator->relateFaceAngWithMvAng(true);
                     pActor->_pMvNavigator->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
                     pActor->locateAs(this);
-                    pActor->activate();
                 }
             }
             DELETEARR_IMPOSSIBLE_NULL(paAngWay);
             //ショット発射エフェクト
-            if (_pDispatcher_ShotEffect) {
-                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+            if (_pStore_ShotEffect) {
+                pActor = (GgafDx9DrawableActor*)_pStore_Shot->dispatch();
                 if (pActor) {
-                    pActor->locate(_X, _Y, _Z);
+                    pActor->locateAs(this);
                 }
             }
         }
@@ -180,11 +179,10 @@ void EnemyTamago01::processJudgement() {
 
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
     _pSeTransmitter->play3D(0);
     _TRACE_("HIT!!!");
     if (pExplo001) {
-        pExplo001->activate();
         pExplo001->locateAs(this);
     }
 
@@ -200,6 +198,6 @@ void EnemyTamago01::onInactive() {
 }
 
 EnemyTamago01::~EnemyTamago01() {
-    _pDispatcherCon->close();
+    _pStoreCon->close();
     DELETE_POSSIBLE_NULL(_pProgram_Tamago01Move);
 }

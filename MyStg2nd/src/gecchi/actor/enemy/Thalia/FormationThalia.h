@@ -19,7 +19,7 @@ public:
     /** ˆÚ“®‘¬“x(RANK•Ï“®) */
     velo _mv_velo;
 
-    DispatcherConnection* _pDpcon;
+    StoreConnection* _pDpcon;
 
     FormationThalia(const char* prm_name);
 

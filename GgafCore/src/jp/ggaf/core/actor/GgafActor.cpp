@@ -88,7 +88,6 @@ GgafScene* GgafActor::getPlatformScene() {
 
 void GgafActor::sayonara(frame prm_offset_frames) {
     if (_pDependenceDispcher) {
-        _pDependenceDispcher->_active_member--;
         inactivateDelay(prm_offset_frames);
     } else {
         end(prm_offset_frames);

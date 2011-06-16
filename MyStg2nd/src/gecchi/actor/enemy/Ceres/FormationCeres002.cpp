@@ -18,16 +18,16 @@ FormationCeres002::FormationCeres002(const char* prm_name) : GgafDx9FormationAct
         addSubLast(_pEnemyCeres[i] );
     }
 
-    _pDispatcher_EnemyMeshShots001 = NEW GgafActorDispatcher("FmtCeres002_RotEnemyMeshS001");
+    _pStore_EnemyMeshShots001 = NEW GgafActorStore("FmtCeres002_RotEnemyMeshS001");
     EnemyCeresShot001* pShot;
     for (int i = 0; i < 30; i++) { //弾ストック
         Sleep(1);
         pShot = NEW EnemyCeresShot001("EnemyMeshShot");
         pShot->inactivateImmediately(); //最初非表示
-        _pDispatcher_EnemyMeshShots001->addSubLast(pShot);
+        _pStore_EnemyMeshShots001->addSubLast(pShot);
     }
 
-    addSubGroup(_pDispatcher_EnemyMeshShots001);
+    addSubGroup(_pStore_EnemyMeshShots001);
 }
 
 void FormationCeres002::initialize() {

@@ -12,13 +12,13 @@ FormationPallas001::FormationPallas001(const char* prm_name) : GgafDx9FormationA
     _mv_velo        = 10000+_RANK_*10000; //速度
     //パラス編隊作成
     _pSplineCon     = (SplineConnection*)(P_GOD->_pSplineManager->getConnection("Pallas01")); //スプライン定義
-    _pDispatcherCon = NULL;
+    _pStoreCon = NULL;
     _papPallas = NEW EnemyPallas*[_num_Pallas];
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
         _papPallas[i]->config(_pSplineCon->refer()->makeSplineProgram(_papPallas[i]), NULL, NULL);
-        //_papPallas[i]->setDispatcher_Shot(_pDispatcherCon->refer()); //弾設定
+        //_papPallas[i]->setStore_Shot(_pStoreCon->refer()); //弾設定
         _papPallas[i]->inactivateImmediately();
         addSubLast(_papPallas[i]);
     }
@@ -42,7 +42,7 @@ void FormationPallas001::onActive() {
 
 void FormationPallas001::wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) {
     //編隊消滅時の実験
-    EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDispatcher_EffectTurbo002->employForce();
+    EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pStore_EffectTurbo002->employForce();
     if (pTurbo002) {
         pTurbo002->locateAs(prm_pActorLast);
         pTurbo002->activate();
@@ -54,8 +54,8 @@ void FormationPallas001::processBehavior() {
 
 FormationPallas001::~FormationPallas001() {
     _pSplineCon->close();
-    if (_pDispatcherCon) {
-        _pDispatcherCon->close();
+    if (_pStoreCon) {
+        _pStoreCon->close();
     }
     DELETEARR_IMPOSSIBLE_NULL(_papPallas);
 }

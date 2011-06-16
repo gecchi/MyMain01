@@ -8,8 +8,8 @@ using namespace MyStg2nd;
 EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Pallas") {
     _class_name = "EnemyJuno";
     MyStgUtil::resetEnemyJunoStatus(_pStatus);
-    _pDispatcher_ShotEffect = NULL;
-    _pDispatcher_Shot = NULL;
+    _pStore_ShotEffect = NULL;
+    _pStore_Shot = NULL;
     _iMovePatternNo = 0;
     _nMaxShot = 1;
     _nShot = 0;
@@ -58,22 +58,21 @@ void EnemyJuno::processBehavior() {
             _pMvNavigator->setMvVelo(500); //減速
             _pMvNavigator->execTurnRxSpinAngSequence(ANGLE180, 8000, 0, TURN_CLOCKWISE);
         } else if (getActivePartFrame() == _frame_when_shot + 20) {
-            if (_pDispatcher_Shot) {
-                GgafDx9DrawableActor* pShot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+            if (_pStore_Shot) {
+                GgafDx9DrawableActor* pShot = (GgafDx9DrawableActor*)_pStore_Shot->dispatch();
                 if (pShot) {
                     _nShot++;
                     pShot->locateAs(this);
                     pShot->_pMvNavigator->relateFaceAngWithMvAng(true);
                     pShot->_pMvNavigator->setMvAng(P_MYSHIP);
                     pShot->reset();
-                    pShot->activate();
                     _do_Shot = false;
                     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
                     _pSeTransmitter->play3D(1);
 
                 }
                 //ショット発射エフェクト
-                if (_pDispatcher_ShotEffect) {
+                if (_pStore_ShotEffect) {
                 }
                 _pMvNavigator->setMvVelo(_veloMv_begin); //再加速
             }
@@ -111,9 +110,8 @@ void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         _pSeTransmitter->play3D(0);
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
         if (pExplo001) {
-            pExplo001->activate();
             pExplo001->locateAs(this);
             pExplo001->_pMvNavigator->takeoverMvFrom(_pMvNavigator);
         }

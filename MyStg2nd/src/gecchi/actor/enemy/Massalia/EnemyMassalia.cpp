@@ -17,26 +17,26 @@ EnemyMassalia::EnemyMassalia(const char* prm_name) : DefaultMeshActor(prm_name, 
     _laser_interval = 600;
     _angveloTurn = 100;
     _angClearance = 40000;//開き具合
-    _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
+    _papapLaserChipStore = NEW LaserChipStore**[_laser_way];
     for (int i = 0; i < _laser_way; i++) {
-        _papapLaserChipDispatcher[i] = NEW LaserChipDispatcher*[_laser_way];
+        _papapLaserChipStore[i] = NEW LaserChipStore*[_laser_way];
     }
 
 
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
-            _papapLaserChipDispatcher[i][j] = NULL;
+            _papapLaserChipStore[i][j] = NULL;
         }
     }
 
-    _pDispatcherCon_RefractionEffect =
-            (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_EffRefraction001"));
+    _pStoreCon_RefractionEffect =
+            (StoreConnection*)(P_GOD->_pStoreManager->getConnection("DpCon_EffRefraction001"));
 
-    _pDispatcherCon_DpEnemyMassaliaLaserChip =
-            (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection(
+    _pStoreCon_DpEnemyMassaliaLaserChip =
+            (StoreConnection*)(P_GOD->_pStoreManager->getConnection(
                                                                    "DpCon_DpEnemyMassaliaLaserChip001",
                                                                    //"DpCon_DpEnemyMassaliaLaserChip002",
-                                                                   _pDispatcherCon_RefractionEffect->refer()
+                                                                   _pStoreCon_RefractionEffect->refer()
                                                                 )
                                    );
 
@@ -196,19 +196,18 @@ void EnemyMassalia::processBehavior() {
             int vX, vY, vZ;
             for (int i = 0; i < _laser_way; i++) {
                 for (int j = 0; j < _laser_way; j++) {
-                    if (_papapLaserChipDispatcher[i][j] == NULL) {
-                        GgafMainActor* p = _pDispatcherCon_DpEnemyMassaliaLaserChip->refer()->employ();
+                    if (_papapLaserChipStore[i][j] == NULL) {
+                        GgafMainActor* p = _pStoreCon_DpEnemyMassaliaLaserChip->refer()->dispatch();
                         if (p == NULL) {
                             //レーザーセットは借入出来ない
                             continue;
                         } else {
-                            _papapLaserChipDispatcher[i][j] = (LaserChipDispatcher*)p;
-                            _papapLaserChipDispatcher[i][j]->config(_laser_length, 1);
-                            _papapLaserChipDispatcher[i][j]->activate();
+                            _papapLaserChipStore[i][j] = (LaserChipStore*)p;
+                            _papapLaserChipStore[i][j]->config(_laser_length, 1);
                         }
                     }
 
-                    pLaserChip = _papapLaserChipDispatcher[i][j]->employ();
+                    pLaserChip = _papapLaserChipStore[i][j]->dispatch();
                     if (pLaserChip) {
                         //レーザーの向きを計算
                         //ローカルでのショットの方向ベクトルを(_Xorg,_Yorg,_Zorg)、
@@ -246,7 +245,7 @@ void EnemyMassalia::processBehavior() {
         } else {
 //            for (int i = 0; i < _laser_way; i++) {
 //                for (int j = 0; j < _laser_way; j++) {
-//                    _papapLaserChipDispatcher[i][j] = NULL;
+//                    _papapLaserChipStore[i][j] = NULL;
 //                }
 //            }
             _iMovePatternNo = 0;
@@ -270,7 +269,7 @@ void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
         if (pExplo001) {
             pExplo001->activate();
             pExplo001->locateAs(this);
@@ -289,8 +288,8 @@ void EnemyMassalia::onInactive() {
     //レーザーディスパッチャーは遅れてから戻す
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
-            if (_papapLaserChipDispatcher[i][j]) {
-                _papapLaserChipDispatcher[i][j]->sayonara(60*10);
+            if (_papapLaserChipStore[i][j]) {
+                _papapLaserChipStore[i][j]->sayonara(60*10);
             }
         }
     }
@@ -299,14 +298,14 @@ void EnemyMassalia::onInactive() {
 
 
 EnemyMassalia::~EnemyMassalia() {
-    _pDispatcherCon_RefractionEffect->close();
-    _pDispatcherCon_DpEnemyMassaliaLaserChip->close();
+    _pStoreCon_RefractionEffect->close();
+    _pStoreCon_DpEnemyMassaliaLaserChip->close();
     for (int i = 0; i < _laser_way; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser[i]);
-        DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipDispatcher[i]);
+        DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipStore[i]);
     }
     DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser);
-    DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipDispatcher);
+    DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipStore);
 
 
 }

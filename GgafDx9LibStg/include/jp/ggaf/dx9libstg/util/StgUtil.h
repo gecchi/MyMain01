@@ -737,7 +737,7 @@ public:
     /**
      * Rz変化による nWay弾を撃つ .
      * @param prm_pFrom 発射元
-     * @param prm_pDispatcher_Shot 発射するショットのディスパッチャー
+     * @param prm_pStore_Shot 発射するショットのディスパッチャー
      * @param prm_pTarget 目標
      * @param prm_way Way数
      * @param prm_angClearance Wayの間隔
@@ -745,14 +745,14 @@ public:
      * @param prm_acce 加速度
      */
     static void shotWay001(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
-                           GgafCore::GgafActorDispatcher*      prm_pDispatcher_Shot,
+                           GgafCore::GgafActorStore*      prm_pStore_Shot,
                            GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
                            int prm_way, angle prm_angClearance,
                            velo prm_velo, acce prm_acce);
     /**
      * Rz変化による nWay弾を複数セット同時に撃つ .
      * @param prm_pFrom        発射元
-     * @param prm_pDispatcher_Shot 発射するショットのディスパッチャー
+     * @param prm_pStore_Shot 発射するショットのディスパッチャー
      * @param prm_pTarget      目標
      * @param prm_way          Way数
      * @param prm_angClearance Wayの間隔
@@ -762,7 +762,7 @@ public:
      * @param prm_attenuated   次のWAY弾の初期速度加速度の減衰率
      */
     static void shotWay001v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
-                             GgafCore::GgafActorDispatcher*      prm_pDispatcher_Shot,
+                             GgafCore::GgafActorStore*      prm_pStore_Shot,
                              GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
                              int prm_way, angle prm_angClearance,
                              velo prm_velo_top, acce prm_acce_top,
@@ -772,7 +772,7 @@ public:
     /**
      * Ry は目標への向き＋ANGLE90で、Rz変化による nWay放射弾を打つ .
      * @param prm_pFrom 発射元
-     * @param prm_pDispatcher_Shot 発射するショットのディスパッチャー
+     * @param prm_pStore_Shot 発射するショットのディスパッチャー
      * @param prm_pTarget 目標
      * @param prm_way 放射Way数
      * @param prm_angBegin 放射開始アングル
@@ -780,7 +780,7 @@ public:
      * @param prm_acce 加速度
      */
     static void shotWay002(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
-                           GgafCore::GgafActorDispatcher*      prm_pDispatcher_Shot,
+                           GgafCore::GgafActorStore*      prm_pStore_Shot,
                            GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
                            int prm_way, angle prm_angBegin,
                            velo prm_velo, acce prm_acce);
@@ -788,7 +788,7 @@ public:
     /**
      * shotWay002弾を複数セット同時に撃つ .
      * @param prm_pFrom 発射元
-     * @param prm_pDispatcher_Shot 発射するショットのディスパッチャー
+     * @param prm_pStore_Shot 発射するショットのディスパッチャー
      * @param prm_pTarget 目標
      * @param prm_way 放射Way数
      * @param prm_angBegin 放射開始アングル
@@ -798,7 +798,7 @@ public:
      * @param prm_attenuated 次のWAY弾の初期速度加速度の減衰率
      */
     static void shotWay002v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
-                             GgafCore::GgafActorDispatcher*      prm_pDispatcher_Shot,
+                             GgafCore::GgafActorStore*      prm_pStore_Shot,
                              GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
                              int prm_way, angle prm_angBegin,
                              velo prm_velo_top, acce prm_acce_top,

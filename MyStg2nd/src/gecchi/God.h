@@ -22,7 +22,7 @@ namespace MyStg2nd {
 class God : public GgafDx9LibStg::DefaultGod {
 
 public:
-    DispatcherManager* _pDispatcherManager;
+    StoreManager* _pStoreManager;
     Spline3DManager* _pSpline3DManager;
     SplineManager* _pSplineManager;
 

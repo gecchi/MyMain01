@@ -15,7 +15,7 @@ namespace GgafDx9LibStg {
  * @author Masatoshi Tsuge
  */
 class RefractionLaserChip : public LaserChip {
-    friend class LaserChipDispatcher;
+    friend class LaserChipStore;
 
 private:
     frame _frame_refraction_enter;
@@ -45,7 +45,7 @@ private:
     frame _frame_standstill_refraction;
 
     /** 屈折エフェクトアクターのディスパッチャー（シーン所属済みアクターであること） */
-    GgafCore::GgafActorDispatcher* _pDispatche_RefractionEffect;
+    GgafCore::GgafActorStore* _pDispatche_RefractionEffect;
     GgafDx9Core::GgafDx9DrawableActor* _pRefractionEffect;
 
 public:
@@ -61,7 +61,7 @@ public:
     virtual void config(int prm_num_refraction,
                        frame prm_frame_between_refraction,
                        frame prm_frame_standstill_refraction,
-                       GgafCore::GgafActorDispatcher* prm_pDispatche_RefractionEffect) {
+                       GgafCore::GgafActorStore* prm_pDispatche_RefractionEffect) {
         _num_refraction = prm_num_refraction;
         _frame_between_refraction = prm_frame_between_refraction;
         _frame_standstill_refraction = prm_frame_standstill_refraction;

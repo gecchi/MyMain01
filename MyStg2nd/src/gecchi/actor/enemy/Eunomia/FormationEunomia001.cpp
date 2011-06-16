@@ -18,7 +18,7 @@ FormationEunomia001::FormationEunomia001(const char* prm_name) :
 
 void FormationEunomia001::wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) {
     //•Ò‘àÁ–ÅŽž‚ÌŽÀŒ±
-    EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDispatcher_EffectTurbo002->employForce();
+    EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pStore_EffectTurbo002->employForce();
     if (pTurbo002) {
         pTurbo002->locateAs(prm_pActorLast);
         pTurbo002->activate();

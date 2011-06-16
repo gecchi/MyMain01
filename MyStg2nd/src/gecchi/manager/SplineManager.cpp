@@ -22,3 +22,4 @@ GgafResourceConnection<SplineSource>* SplineManager::processCreateConnection(cha
     TRACE3(" SplineManager::processCreateConnection "<<prm_idstr<<" ‚ð¶¬I—¹B");
     return pConnection;
 }
+

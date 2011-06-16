@@ -10,8 +10,8 @@ EnemyPallas::EnemyPallas(const char* prm_name) : DefaultMeshSetActor(prm_name, "
     MyStgUtil::resetEnemyPallasStatus(_pStatus);
     _iMovePatternNo = 0;
     _pSplineProgram = NULL;
-    _pDispatcher_Shot = NULL;
-    _pDispatcher_ShotEffect = NULL;
+    _pStore_Shot = NULL;
+    _pStore_ShotEffect = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     useProgress(10);
@@ -79,14 +79,14 @@ void EnemyPallas::processBehavior() {
             break;
 
         case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
-            if (_pDispatcher_Shot) {
+            if (_pStore_Shot) {
                 //放射状ショット
                 int way = 10+_RANK_*10; //ショットWAY数
                 angle* paAngWay = NEW angle[way];
                 GgafDx9Util::getRadialAngle2D(0, way, paAngWay);
                 GgafDx9DrawableActor* pActor_Shot;
                 for (int i = 0; i < way; i++) {
-                    pActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                    pActor_Shot = (GgafDx9DrawableActor*)_pStore_Shot->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->locateAs(this);
                         pActor_Shot->_pMvNavigator->setRzRyMvAng(paAngWay[i], ANGLE90);
@@ -95,11 +95,10 @@ void EnemyPallas::processBehavior() {
                 }
                 DELETEARR_IMPOSSIBLE_NULL(paAngWay);
                 //ショット発射エフェクト
-                if (_pDispatcher_ShotEffect) {
-                    GgafDx9DrawableActor* pTestActor_Shot = (GgafDx9DrawableActor*)_pDispatcher_ShotEffect->employ();
+                if (_pStore_ShotEffect) {
+                    GgafDx9DrawableActor* pTestActor_Shot = (GgafDx9DrawableActor*)_pStore_ShotEffect->dispatch();
                     if (pTestActor_Shot) {
                         pTestActor_Shot->locateAs(this);
-                        pTestActor_Shot->activate();
                     }
                 }
             }
@@ -137,10 +136,9 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
-            pExplo001->activate();
             pExplo001->locateAs(this);
             pExplo001->_pMvNavigator->takeoverMvFrom(_pMvNavigator);
         }

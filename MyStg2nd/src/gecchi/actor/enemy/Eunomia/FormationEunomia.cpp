@@ -35,7 +35,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
             addSubLast(_papapEunomia[i][j]);
         }
     }
-    _pDispatcherCon = NULL;
+    _pStoreCon = NULL;
 }
 void FormationEunomia::initialize() {
     _n = 0;
@@ -58,8 +58,8 @@ FormationEunomia::~FormationEunomia() {
     }
     DELETEARR_IMPOSSIBLE_NULL(_papSplineCon);
 
-    if (_pDispatcherCon) {
-        _pDispatcherCon->close();
+    if (_pStoreCon) {
+        _pStoreCon->close();
     }
     for (int i = 0; i < _num_formation_col; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papapEunomia[i]);

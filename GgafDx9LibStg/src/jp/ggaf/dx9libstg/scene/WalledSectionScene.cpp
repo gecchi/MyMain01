@@ -66,24 +66,24 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     ifs.close();
     _pWallPartsLast = NULL;;
     _wall_start_X = 0;
-    _pDispatcher_WallAAB = NULL;
-    _pDispatcher_WallAAPrism = NULL;
+    _pStore_WallAAB = NULL;
+    _pStore_WallAAPrism = NULL;
     _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" done");
 }
 void WalledSectionScene::config(
-        GgafActorDispatcher* prm_pDispatcher_WallAAB,
-        GgafActorDispatcher* prm_pDispatcher_WallAAPrism,
+        GgafActorStore* prm_pStore_WallAAB,
+        GgafActorStore* prm_pStore_WallAAPrism,
         int prm_wall_dep, int prm_wall_width, int prm_wall_height) {
-    _pDispatcher_WallAAB = prm_pDispatcher_WallAAB;
-    _pDispatcher_WallAAPrism = prm_pDispatcher_WallAAPrism;
+    _pStore_WallAAB = prm_pStore_WallAAB;
+    _pStore_WallAAPrism = prm_pStore_WallAAPrism;
     _wall_dep = prm_wall_dep;
     _wall_width = prm_wall_width;
     _wall_height = prm_wall_height;
 }
 
 void WalledSectionScene::initialize() {
-    if (_pDispatcher_WallAAB == NULL) {
-        throwGgafCriticalException("WalledSectionScene::initialize()   GgafActorDispatcher* _pDispatcher_WallAAB をセットして下さい。")
+    if (_pStore_WallAAB == NULL) {
+        throwGgafCriticalException("WalledSectionScene::initialize()   GgafActorStore* _pStore_WallAAB をセットして下さい。")
     }
 }
 
@@ -114,10 +114,10 @@ void WalledSectionScene::processBehavior() {
             WallPartsActor* pWallParts = NULL;
             for (int n = 0; n < _paWallInfoLen[_cnt_area_len]; n++) {
                 if (_papaWallInfo[_cnt_area_len][n]._pos_prism == 0) {
-                    pWallParts = (WallPartsActor*)_pDispatcher_WallAAB->employForce();
+                    pWallParts = (WallPartsActor*)_pStore_WallAAB->employForce();
                 } else {
-                    if (_pDispatcher_WallAAPrism) {
-                        pWallParts = (WallPartsActor*)_pDispatcher_WallAAPrism->employForce();
+                    if (_pStore_WallAAPrism) {
+                        pWallParts = (WallPartsActor*)_pStore_WallAAPrism->employForce();
                     } else {
                         continue;
                     }

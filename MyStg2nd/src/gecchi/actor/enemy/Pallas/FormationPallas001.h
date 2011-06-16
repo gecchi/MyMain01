@@ -11,8 +11,8 @@ namespace MyStg2nd {
 class FormationPallas001 : public GgafDx9Core::GgafDx9FormationActor {
 
 public:
-    /** パラスの発射弾の借り入れ元Dispatcher資源への接続 */
-    DispatcherConnection* _pDispatcherCon;
+    /** パラスの発射弾の借り入れ元Store資源への接続 */
+    StoreConnection* _pStoreCon;
     /** スプライン定義資源への接続 */
     SplineConnection* _pSplineCon;
     /** 編隊数(RANK変動) */

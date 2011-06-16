@@ -28,8 +28,8 @@ public:
     /** [r/w]ハッチの土台となってるアクター */
 
     /** [r/w]ハッチから発射されるアクターをメンバーに持つディスパッチャー */
-    GgafCore::GgafActorDispatcher* _pDispatcher_Fired;
-    DispatcherConnection* _pDpcon;
+    GgafCore::GgafActorStore* _pStore_Fired;
+    StoreConnection* _pDpcon;
 
     /**
      * コンストラクタ

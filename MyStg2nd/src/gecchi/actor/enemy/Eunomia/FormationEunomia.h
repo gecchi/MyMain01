@@ -11,8 +11,8 @@ namespace MyStg2nd {
 class FormationEunomia : public GgafDx9Core::GgafDx9FormationActor {
 
 public:
-    /** エウノミアの発射弾の借り入れ元Dispatcher資源への接続 */
-    DispatcherConnection* _pDispatcherCon;
+    /** エウノミアの発射弾の借り入れ元Store資源への接続 */
+    StoreConnection* _pStoreCon;
     /** スプライン定義資源への接続 */
     SplineConnection** _papSplineCon;
     /** 編隊列数(RANK変動) */

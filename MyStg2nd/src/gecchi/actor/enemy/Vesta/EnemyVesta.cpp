@@ -22,8 +22,8 @@ EnemyVesta::EnemyVesta(const char* prm_name)
     _frame_of_moment_nextclose = 0;
     _frame_of_morph_interval   = 60;
 
-    _pDispatcher_Fired = NULL;
-    _pDpcon = (DispatcherConnection*)(P_GOD->_pDispatcherManager->getConnection("DpCon_Shot004"));
+    _pStore_Fired = NULL;
+    _pDpcon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("DpCon_Shot004"));
 
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
@@ -50,7 +50,7 @@ void EnemyVesta::initialize() {
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 1200);
     _pScaler->beat(30, 5, 5, -1);
-    _pDispatcher_Fired = _pDpcon->refer();
+    _pStore_Fired = _pDpcon->refer();
 }
 
 void EnemyVesta::onActive() {
@@ -138,8 +138,8 @@ void EnemyVesta::processBehavior() {
         int openningFrame = getActivePartFrame() - _frame_of_moment_nextopen; //開いてからのフレーム数。
         //_frame_of_moment_nextopenは、ここの処理の時点では直近でオープンしたフレームとなる。
         if (openningFrame % (int)(2+ (25-_RANK_*5)) == 0) {
-            if (_pDispatcher_Fired) {
-                GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDispatcher_Fired->employ();
+            if (_pStore_Fired) {
+                GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pStore_Fired->dispatch();
                 if (pActor) {
                     pActor->locateAs(this);
                     pActor->_pMvNavigator->relateFaceAngWithMvAng(true);
@@ -170,7 +170,6 @@ void EnemyVesta::processBehavior() {
                                             Rz, Ry); //現在の最終的な向きを、RzRyで取得！
                     pActor->_pMvNavigator->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
                     pActor->reset();
-                    pActor->activate();
                 }
             }
         }
@@ -245,10 +244,9 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
 
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
 
     if (pExplo001) {
-        pExplo001->activate();
         pExplo001->locateAs(this);
     }
 

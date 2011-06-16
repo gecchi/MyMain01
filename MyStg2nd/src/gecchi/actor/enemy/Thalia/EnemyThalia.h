@@ -22,9 +22,9 @@ class EnemyThalia : public GgafDx9LibStg::DefaultMorphMeshActor {
     /** 移動スプラインプログラム */
     GgafDx9Core::GgafDx9SplineProgram* _pSplineProgram;
     /** 弾ストック */
-    GgafCore::GgafActorDispatcher* _pDispatcher_Shot;
+    GgafCore::GgafActorStore* _pStore_Shot;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDispatcher* _pDispatcher_ShotEffect;
+    GgafCore::GgafActorStore* _pStore_ShotEffect;
 
     /** 原点から初期カメラZ位置の距離 */
     int _dZ_camera_init;
@@ -34,7 +34,7 @@ public:
 
     velo _veloTopMv;
 
-    GgafDx9LibStg::LaserChipDispatcher* _pLaserChipDispatcher;
+    GgafDx9LibStg::LaserChipStore* _pLaserChipStore;
     /**
      * コンストラクタ
      * @param prm_name
@@ -74,12 +74,12 @@ public:
     void onInactive() override;
 
     /**
-     * 発射弾Dispatcher設定 .
+     * 発射弾Store設定 .
      * initialize() までに設定して下さい。
-     * @param prm_pDispatcher
+     * @param prm_pStore
      */
-    void setDispatcher_Shot(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
-        _pDispatcher_Shot = prm_pDispatcher;
+    void setStore_Shot(GgafCore::GgafActorStore* prm_pStore) {
+        _pStore_Shot = prm_pStore;
     }
 
     /**
@@ -93,10 +93,10 @@ public:
 
     /**
      * ショット発射効果エフェクト設定 .
-     * @param prm_pDispatcher
+     * @param prm_pStore
      */
-    void setDispatcher_ShotEffect(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
-        _pDispatcher_ShotEffect = prm_pDispatcher;
+    void setStore_ShotEffect(GgafCore::GgafActorStore* prm_pStore) {
+        _pStore_ShotEffect = prm_pStore;
     }
 
     virtual ~EnemyThalia();

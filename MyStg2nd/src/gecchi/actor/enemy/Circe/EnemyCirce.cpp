@@ -52,10 +52,9 @@ void EnemyCirce::processJudgement() {
 void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 =
-            (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->employ();
+            (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
     _pSeTransmitter->play3D(0);
     if (pExplo001) {
-        pExplo001->activate();
         pExplo001->locateAs(this);
         pExplo001->_pMvNavigator->takeoverMvFrom(_pMvNavigator);
     }

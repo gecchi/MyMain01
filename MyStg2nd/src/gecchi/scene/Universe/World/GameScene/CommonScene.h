@@ -20,9 +20,9 @@ class CommonScene : public GgafDx9LibStg::DefaultScene {
 
 public:
     /** ”Ä—p”š”­ */
-    GgafCore::GgafActorDispatcher* _pDP_EffectExplosion001;
-    GgafCore::GgafActorDispatcher* _pDispatcher_EffectTurbo002;
-    GgafCore::GgafActorDispatcher* _pDP_MagicPointItem001;
+    GgafCore::GgafActorStore* _pDP_EffectExplosion001;
+    GgafCore::GgafActorStore* _pStore_EffectTurbo002;
+    GgafCore::GgafActorStore* _pDP_MagicPointItem001;
 
 
     CommonScene(const char* prm_name);

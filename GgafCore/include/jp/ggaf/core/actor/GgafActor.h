@@ -60,7 +60,7 @@ private:
 
 public:
     /** [r]所属ディスパッチャー(NULLは未所属) */
-    GgafActorDispatcher* _pDependenceDispcher;
+    GgafActorStore* _pDependenceDispcher;
     /** [r]アクター開始システム時刻 */
     UINT32 _start_system_time;
     /** [r]アクター衝突判定有無フラグ */
@@ -172,7 +172,7 @@ public:
      * 未所属の場合NULL
      * @return 所属Dispcher
      */
-    GgafActorDispatcher* getDependenceDispcher() {
+    GgafActorStore* getDependenceDispcher() {
         return _pDependenceDispcher;
     }
 

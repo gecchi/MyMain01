@@ -26,4 +26,4 @@ public:
 };
 
 }
-#endif /*DISPATCHERCONNECTION_H_*/
+#endif /*STORECONNECTION_H_*/

@@ -10,7 +10,7 @@ namespace MyStg2nd {
  */
 class FormationIris002 : public GgafDx9Core::GgafDx9FormationActor {
 
-    DispatcherConnection* _pDispatcherCon;
+    StoreConnection* _pStoreCon;
     Spline3DConnection* _pSplineCon;
 public:
     /** ï“ë‡êî(RANKïœìÆ) */

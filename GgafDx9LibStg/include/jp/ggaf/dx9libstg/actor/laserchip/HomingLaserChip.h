@@ -13,7 +13,7 @@ namespace GgafDx9LibStg {
  * @author Masatoshi Tsuge
  */
 class HomingLaserChip : public LaserChip {
-    friend class LaserChipDispatcher;
+    friend class LaserChipStore;
 
 public:
     /** 先導チップ（本当の先頭チップ）フラグ */

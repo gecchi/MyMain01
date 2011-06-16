@@ -1,5 +1,5 @@
-#ifndef LASERCHIPDISPATCHER_H_
-#define LASERCHIPDISPATCHER_H_
+#ifndef LASERCHIPSTORE_H_
+#define LASERCHIPSTORE_H_
 namespace GgafDx9LibStg {
 
 /**
@@ -9,7 +9,7 @@ namespace GgafDx9LibStg {
  * ・_num_chip_interval ・・・弾切れフレーム数（デフォルト:20）<BR>
  * ・_pSeCon_Laser ・・・ レーザーチップ発射時SE（デフォルト:NULL）<BR>
  */
-class LaserChipDispatcher : public GgafCore::GgafActorDispatcher {
+class LaserChipStore : public GgafCore::GgafActorStore {
     friend class LaserChip;
 public:
     /** [r]保持するレーザーチップ数(読み取り専用) */
@@ -34,10 +34,10 @@ public:
     /** [r/w]レーザー発射時エフェクト。不要の場合はNULLを設定する */
     GgafDx9Core::GgafDx9DrawableActor* _pEffectActor_Irradiate;
 
-    LaserChipDispatcher(const char* prm_name);
+    LaserChipStore(const char* prm_name);
 
     /**
-     * LaserChipDispatcherを設定する。
+     * LaserChipStoreを設定する。
      * @param prm_num_continual_employ_max 強制的に弾切れに移行するチップの連続取得数。
      * @param prm_num_chip_interval 弾切れフレーム数
      * @param prm_pEffectActor_Irradiate シーン所属済み発射中エフェクト(不要時はNULL)。解放は呼び元で。
@@ -57,7 +57,7 @@ public:
      * 使い終われば sayonara() か、inactivate() を実行してください。自動的にストックに戻ります。
      * @return 借り入れしたレーザーチップ。借り入れできない場合はNULL
      */
-    virtual LaserChip* employ() override;
+    virtual LaserChip* dispatch() override;
 
     /**
      * レーザーチップストックの追加 .
@@ -74,9 +74,9 @@ public:
     virtual void onReset() override;
 
 
-     virtual ~LaserChipDispatcher();
+     virtual ~LaserChipStore();
 
 };
 
 }
-#endif /*LASERCHIPDISPATCHER_H_*/
+#endif /*LASERCHIPSTORE_H_*/

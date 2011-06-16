@@ -313,7 +313,7 @@ typedef UINT32 frame;
 #define Obj_GgafLordActor         (0x8)              //0b 00000000 00000000 00000000 00001000
 #define Obj_GgafGroupActor        (0x10)             //0b 00000000 00000000 00000000 00010000
 #define Obj_GgafDisusedActor      (0x20)             //0b 00000000 00000000 00000000 00100000
-#define Obj_GgafActorDispatcher   (0x40)             //0b 00000000 00000000 00000000 01000000
+#define Obj_GgafActorStore   (0x40)             //0b 00000000 00000000 00000000 01000000
 
 namespace GgafCore {
 class GgafUtil;
@@ -354,8 +354,8 @@ class GgafUniverse;
 class GgafMainScene;
 class GgafLordActor;
 class GgafGroupActor;
-class GgafActorDispatcher;
-class GgafActorDispatcherDispatcher;
+class GgafActorStore;
+class GgafActorStoreDispatcher;
 class GgafOrder;
 class GgafRgb;
 
@@ -402,8 +402,8 @@ class GgafCurtain;
 #include "jp/ggaf/core/scene/GgafUniverse.h"
 #include "jp/ggaf/core/actor/GgafLordActor.h"
 #include "jp/ggaf/core/actor/GgafGroupActor.h"
-#include "jp/ggaf/core/actor/GgafActorDispatcher.h"
-#include "jp/ggaf/core/actor/GgafActorDispatcherDispatcher.h"
+#include "jp/ggaf/core/actor/GgafActorStore.h"
+#include "jp/ggaf/core/actor/GgafActorStoreDispatcher.h"
 #include "jp/ggaf/core/GgafOrder.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"

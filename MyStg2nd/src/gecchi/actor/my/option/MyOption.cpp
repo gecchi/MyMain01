@@ -45,7 +45,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 //    _pEffect_LaserIrradiate->inactivateImmediately();
 //    addSubGroup(_pEffect_LaserIrradiate);
     _pEffect_LaserIrradiate = NULL;
-    _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
+    _pLaserChipStore = NEW LaserChipStore("ROTLaser");
     MyOptionWateringLaserChip001* pChip;
 //    MyOptionStraightLaserChip001* pChip;
     for (int i = 0; i < 90; i++) { //レーザーストック
@@ -61,21 +61,21 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 //        pChip->_pSource_vY = &_Q._y;
 //        pChip->_pSource_vZ = &_Q._z;
 
-        _pLaserChipDispatcher->addSubLast(pChip);
+        _pLaserChipStore->addSubLast(pChip);
     }
-    _pLaserChipDispatcher->config(
+    _pLaserChipStore->config(
                                90, 25, _pEffect_LaserIrradiate
                            );
-    addSubGroup(_pLaserChipDispatcher);
+    addSubGroup(_pLaserChipStore);
 
-    _pDispatcher_MyShots001 = NEW GgafActorDispatcher("RotShot001");
+    _pStore_MyShots001 = NEW GgafActorStore("RotShot001");
     MyShot001* pShot;
     for (int i = 0; i < 25; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateImmediately();
-        _pDispatcher_MyShots001->addSubLast(pShot);
+        _pStore_MyShots001->addSubLast(pShot);
     }
-    addSubGroup(_pDispatcher_MyShots001);
+    addSubGroup(_pStore_MyShots001);
 
     //ロックオンコントローラー
     _pLockonController = NEW MyOptionLockonController("LockonController");
@@ -119,7 +119,7 @@ void MyOption::onReset() {
     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
-    //P_COMMON_SCENE->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
+    //P_COMMON_SCENE->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipStore->extract());
     _angPosition = _pMvNavigator->_angRzMv;
 
     _adjust_angPos_seq_progress = 0;
@@ -411,14 +411,14 @@ void MyOption::processBehavior() {
     if (pMyShip->_is_shooting_laser && VB_PLAY->isBeingPressed(VB_SHOT1)) {
 
 
-        MyOptionWateringLaserChip001* pLaserChip = (MyOptionWateringLaserChip001*)_pLaserChipDispatcher->employ();
-//        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)_pLaserChipDispatcher->employ();
+        MyOptionWateringLaserChip001* pLaserChip = (MyOptionWateringLaserChip001*)_pLaserChipStore->dispatch();
+//        MyOptionStraightLaserChip001* pLaserChip = (MyOptionStraightLaserChip001*)_pLaserChipStore->dispatch();
 
         if (pLaserChip) {
 
 
-            if (_pLaserChipDispatcher->_pEffectActor_Irradiate) {
-                _pLaserChipDispatcher->_pEffectActor_Irradiate->locateAs(this);
+            if (_pLaserChipStore->_pEffectActor_Irradiate) {
+                _pLaserChipStore->_pEffectActor_Irradiate->locateAs(this);
             }
             //ストレート用
 //            pLaserChip->_pMvNavigator->behave();
@@ -447,7 +447,6 @@ void MyOption::processBehavior() {
             pLaserChip->_Y = _Y;
             pLaserChip->_Z = _Z;
             pLaserChip->_pOrg = this;
-            pLaserChip->activate();
 
             if (pLaserChip->_pChip_front == NULL) {
                 _pSeTransmitter->play3D(0);
@@ -457,7 +456,7 @@ void MyOption::processBehavior() {
         _pLockonController->releaseAllLockon();
     }
     if (pMyShip->_just_shot) {
-        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
+        MyShot001* pShot = (MyShot001*)_pStore_MyShots001->dispatch();
         if (pShot) {
             _pSeTransmitter->play3D(1);
             pShot->locateAs(this);
@@ -465,7 +464,6 @@ void MyOption::processBehavior() {
             pShot->_pMvNavigator->_angFace[AXIS_Z] = _RZ;
             pShot->_pMvNavigator->_angFace[AXIS_Y] = _RY;
             pShot->_pMvNavigator->setRzRyMvAng(_RZ, _RY);
-            pShot->activate();
         }
     }
 

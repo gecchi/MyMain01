@@ -14,9 +14,9 @@ public:
     /** 移動スプラインプログラム */
     GgafDx9Core::GgafDx9SplineProgram* _pSplineProgram;
     /** 弾ストック */
-    GgafCore::GgafActorDispatcher* _pDispatcher_Shot;
+    GgafCore::GgafActorStore* _pStore_Shot;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDispatcher* _pDispatcher_ShotEffect;
+    GgafCore::GgafActorStore* _pStore_ShotEffect;
 
     /** 行動パターン番号 */
     int _iMovePatternNo;
@@ -67,17 +67,17 @@ public:
     /**
      *
      * @param prm_pSplineProgram
-     * @param prm_pDispatcher_Shot
-     * @param prm_pDispatcher_ShotEffect
+     * @param prm_pStore_Shot
+     * @param prm_pStore_ShotEffect
      */
     virtual void config(
             GgafDx9Core::GgafDx9SplineProgram* prm_pSplineProgram,
-            GgafCore::GgafActorDispatcher* prm_pDispatcher_Shot,
-            GgafCore::GgafActorDispatcher* prm_pDispatcher_ShotEffect
+            GgafCore::GgafActorStore* prm_pStore_Shot,
+            GgafCore::GgafActorStore* prm_pStore_ShotEffect
             ) {
         _pSplineProgram = prm_pSplineProgram;
-        _pDispatcher_Shot = prm_pDispatcher_Shot;
-        _pDispatcher_ShotEffect = prm_pDispatcher_ShotEffect;
+        _pStore_Shot = prm_pStore_Shot;
+        _pStore_ShotEffect = prm_pStore_ShotEffect;
     }
 
 

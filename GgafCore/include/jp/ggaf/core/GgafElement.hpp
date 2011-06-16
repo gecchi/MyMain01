@@ -390,8 +390,8 @@ public:
 
     /**
      * 活動状態にする(単体・コールバック有り).
-     * Nフレーム後に activate() が実行されることを予約する。<BR>
-     * 自身と配下ノード全てについて再帰的に activateDelay(UINT32) が実行される。<BR>
+     * 引数のフレーム数遅延して activate() が実行されます。<BR>
+     * 自身と配下ノード全てについて再帰的に activateDelay(frame) が実行される。<BR>
      * activateDelay(1) は、activate() と同じ意味になります。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
      * @param prm_offset_frames 遅延フレーム数(1～)
@@ -401,8 +401,15 @@ public:
 
     virtual void activateTreeDelay(frame prm_offset_frames = 1);
 
+    /**
+     * 一定時間だけ活動状態にする(単体・コールバック有り).
+     * 活動状態にした後、引数のフレーム数経過すると、非活動状態になります。
+     * activateWhile(10); は
+     * activate(); inactivateDelay(10); の実行と同等の効果です。
+     * @param prm_offset_frames 活動フレーム
+     */
+    virtual void activateWhile(frame prm_frames = 1);
 
-    virtual void activateOnlyFor(frame prm_offset_frames = 1);
     /**
      * 活動状態にする(単体・即時・コールバック無し) .
      * 自ノードについて、即座に活動状態にする。初期化以外で本メソッドの使用は非推奨。<BR>
@@ -426,26 +433,27 @@ public:
     //===================
     /**
      * 非活動状態にする(自ツリー・コールバック有り) .
-     * 正確には、次フレームから非活動状態にする予約フラグを立てる。<BR>
-     * そして、次フレーム先頭処理で非活動状態になる事とする。<BR>
-     * 自身と配下ノード全てについて再帰的に inactivate() が実行される。<BR>
+     * 自身と配下ノード全てについて、次フレームから非活動状態にする予約フラグを立てます。
+     * 次フレームの内部先頭処理(nextFrame())内で完全に非活動状態となります。
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
+     * 自身と配下ノード全てについて再帰的に inactivate() が実行される事と同等です。<BR>
      */
     virtual void inactivateTree();
 
     /**
      * 非活動状態にする(単体・コールバック有り) .
-     * 自ノードだけ次フレームから非活動状態にする予約フラグを立てる。<BR>
-     * 配下ノードには何も影響がありません。
+     * 自ノードだけ次フレームから非活動状態にする予約フラグを立てます。
+     * 次フレームの内部先頭処理(nextFrame())内で完全に非活動状態となります。
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
+     * 配下ノードには何も影響がありません。
      */
     virtual void inactivate();
 
     /**
      * 非活動予約する(自ツリー・コールバック有り) .
-     * Nフレーム後に inactivateTree() が実行されることを予約する。<BR>
+     * 引数のフレーム数遅延して inactivate() が実行されます。<BR>
      * 自身と配下ノード全てについて再帰的に inactivateDelay(UINT32) が実行される。<BR>
-     * inactivateDelay(1) は、inactivateTree() と同じ意味になります。<BR>
+     * inactivateDelay(1) は、inactivate() と同じ意味になります。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
      * @param prm_offset_frames 遅延フレーム数(1～)
      */
@@ -1249,12 +1257,12 @@ void GgafElement<T>::activateDelay(frame prm_offset_frames) {
     }
 }
 template<class T>
-void GgafElement<T>::activateOnlyFor(frame prm_offset_frames) {
+void GgafElement<T>::activateWhile(frame prm_frames) {
     if (_can_live_flg) {
         _will_activate_after_flg = true;
         _frame_of_life_when_activation = _frame_of_life + 1;
         _will_inactivate_after_flg = true;
-        _frame_of_life_when_inactivation = _frame_of_life + prm_offset_frames;
+        _frame_of_life_when_inactivation = _frame_of_life + prm_frames;
     }
 }
 

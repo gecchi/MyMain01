@@ -16,11 +16,11 @@ public:
     /** 移動スプラインプログラム */
     GgafDx9Core::GgafDx9SplineProgram* _pProgram_Tamago01Move;
     /** 弾ストック */
-    GgafCore::GgafActorDispatcher* _pDispatcher_Shot;
+    GgafCore::GgafActorStore* _pStore_Shot;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDispatcher* _pDispatcher_ShotEffect;
+    GgafCore::GgafActorStore* _pStore_ShotEffect;
 
-    DispatcherConnection* _pDispatcherCon;
+    StoreConnection* _pStoreCon;
 
 
     /**
@@ -65,18 +65,18 @@ public:
 
     /**
      * 発射弾設定 .
-     * @param prm_pDispatcher (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つディスパッチャーのポインタ
+     * @param prm_pStore (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つディスパッチャーのポインタ
      */
-    void setDispatcher_Shot(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
-        _pDispatcher_Shot = prm_pDispatcher;
+    void setStore_Shot(GgafCore::GgafActorStore* prm_pStore) {
+        _pStore_Shot = prm_pStore;
     }
 
     /**
      * 効果エフェクト設定 .
-     * @param prm_pDispatcher (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つディスパッチャーのポインタ
+     * @param prm_pStore (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つディスパッチャーのポインタ
      */
-    void setDispatcher_ShotEffect(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
-        _pDispatcher_ShotEffect = prm_pDispatcher;
+    void setStore_ShotEffect(GgafCore::GgafActorStore* prm_pStore) {
+        _pStore_ShotEffect = prm_pStore;
     }
 
     virtual ~EnemyTamago01();

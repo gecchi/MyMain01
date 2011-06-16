@@ -59,8 +59,8 @@ public:
     /** [r]全壁ブロック(WallPartsActor)の配置情報の、外壁シーンの長さ別個数 */
     int* _paWallInfoLen;
     /** [r]壁ブロック(WallPartsActor)ディスパッチャー */
-    GgafCore::GgafActorDispatcher* _pDispatcher_WallAAB;
-    GgafCore::GgafActorDispatcher* _pDispatcher_WallAAPrism;
+    GgafCore::GgafActorStore* _pStore_WallAAB;
+    GgafCore::GgafActorStore* _pStore_WallAAPrism;
     /** [r]手前ブロックの透過機能有効時の基準となるアクター */
     GgafDx9Core::GgafDx9GeometricActor* _pTarget_FrontAlpha;
 
@@ -83,19 +83,19 @@ public:
     /**
      * 外壁シーンを設定.
      * new した後、initialize() が実行されるまでに config して下さい。
-     * @param prm_pDispatcher_Wall 壁ブロック（WallPartsActor実装クラスのオブジェクト）が登録されているディスパッチャー
+     * @param prm_pStore_Wall 壁ブロック（WallPartsActor実装クラスのオブジェクト）が登録されているディスパッチャー
      * @param prm_wall_dep 壁ブロックの長さ（１つのWallPartsActorオブジェクトのX座標軸長さ）
      * @param prm_wall_width 壁ブロックの高さ（１つのWallPartsActorオブジェクトのY座標軸長さ）
      * @param prm_wall_height 壁ブロックの高さ（１つのWallPartsActorオブジェクトのZ座標軸長さ）
      * @param prm_loop_num セクション繰り返し回数
      */
     virtual void config(
-            GgafCore::GgafActorDispatcher* prm_pDispatcher_WallAAB,
-            GgafCore::GgafActorDispatcher* prm_pDispatcher_WallAAPrism,
+            GgafCore::GgafActorStore* prm_pStore_WallAAB,
+            GgafCore::GgafActorStore* prm_pStore_WallAAPrism,
             int prm_wall_dep, int prm_wall_width, int prm_wall_height);
     /**
      * 初期処理 .
-     * ディスパッチャー(_pDispatcher_Wall)のチェックを行っているのみ .
+     * ディスパッチャー(_pStore_Wall)のチェックを行っているのみ .
      */
     virtual void initialize() override;
 
