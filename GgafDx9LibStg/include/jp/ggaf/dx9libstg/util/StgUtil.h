@@ -747,7 +747,7 @@ public:
     static void shotWay001(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
                            GgafCore::GgafActorStore*      prm_pStore_Shot,
                            GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
-                           int prm_way, angle prm_angClearance,
+                           int prm_way, appangle prm_angClearance,
                            velo prm_velo, acce prm_acce);
     /**
      * RzïœâªÇ…ÇÊÇÈ nWayíeÇï°êîÉZÉbÉgìØéûÇ…åÇÇ¬ .
@@ -764,7 +764,7 @@ public:
     static void shotWay001v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
                              GgafCore::GgafActorStore*      prm_pStore_Shot,
                              GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
-                             int prm_way, angle prm_angClearance,
+                             int prm_way, appangle prm_angClearance,
                              velo prm_velo_top, acce prm_acce_top,
                              int prm_num, float prm_attenuated);
 
@@ -782,7 +782,7 @@ public:
     static void shotWay002(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
                            GgafCore::GgafActorStore*      prm_pStore_Shot,
                            GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
-                           int prm_way, angle prm_angBegin,
+                           int prm_way, appangle prm_angBegin,
                            velo prm_velo, acce prm_acce);
 
     /**
@@ -800,7 +800,7 @@ public:
     static void shotWay002v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
                              GgafCore::GgafActorStore*      prm_pStore_Shot,
                              GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
-                             int prm_way, angle prm_angBegin,
+                             int prm_way, appangle prm_angBegin,
                              velo prm_velo_top, acce prm_acce_top,
                              int prm_num, float prm_attenuated);
 

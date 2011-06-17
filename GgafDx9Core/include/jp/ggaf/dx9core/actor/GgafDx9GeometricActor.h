@@ -22,23 +22,23 @@ public:
     /** [r] 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
     bool _is2DActor;
     /** [r/w]ワールドX座標( _X : DirectXのX座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
-    int _X;
+    appcoord _X;
     /** [r/w]ワールドY座標( _Y : DirectXのY座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
-    int _Y;
+    appcoord _Y;
     /** [r/w]ワールドZ座標( _Z : DirectXのZ座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
-    int _Z;
+    appcoord _Z;
     /** [r/w]ワールドX軸回転角(_RX : Degree = 1000 : 1度) */
-    angle _RX;
+    appangle _RX;
     /** [r/w]ワールドY軸回転角(_RY : Degree = 1000 : 1度) */
-    angle _RY;
+    appangle _RY;
     /** [r/w]ワールドZ軸回転角(_RZ : Degree = 1000 : 1度) */
-    angle _RZ;
+    appangle _RZ;
     /** [r/w]ワールドX軸方向スケール(_SX : 倍率 = 1000 : 1.0倍) */
-    int _SX;
+    appscale _SX;
     /** [r/w]ワールドY軸方向スケール(_SY : 倍率 = 1000 : 1.0倍) */
-    int _SY;
+    appscale _SY;
     /** [r/w]ワールドZ軸方向スケール(_SZ : 倍率 = 1000 : 1.0倍) */
-    int _SZ;
+    appscale _SZ;
     /** [r]ナビゲーター */
     GgafDx9MvNavigator* _pMvNavigator;
     GgafDx9MvTransporter* _pMvTransporter;
@@ -48,27 +48,27 @@ public:
     GgafDx9SeTransmitter* _pSeTransmitter;
 
     /** [r/w]境界球の半径(DirectXの単位)。画面外判定に使用される */
-    FLOAT _radius_bounding_sphere;
+    dxcoord _radius_bounding_sphere;
     /** [rw]モデルの境界球半径倍率 */
-    FLOAT _rate_BoundingSphereRadius;
+    dxcoord _rate_BoundingSphereRadius;
     /** [r] 内部で _X から計算されるDirectXのワールドX座標(_X : _fX = 1000 : 0.1) */
-    FLOAT _fX;
+    dxcoord _fX;
     /** [r] 内部で _Y から計算されるDirectYのワールドY座標(_Y : _fY = 1000 : 0.1) */
-    FLOAT _fY;
+    dxcoord _fY;
     /** [r] 内部で _Z から計算されるDirectZのワールドZ座標(_Z : _fZ = 1000 : 0.1) */
-    FLOAT _fZ;
+    dxcoord _fZ;
     /** [r]視錐台上面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    FLOAT _fDist_VpPlnTop;
+    dxcoord _fDist_VpPlnTop;
     /** [r]視錐台下面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    FLOAT _fDist_VpPlnBottom;
+    dxcoord _fDist_VpPlnBottom;
     /** [r]視錐台左面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    FLOAT _fDist_VpPlnLeft;
+    dxcoord _fDist_VpPlnLeft;
     /** [r]視錐台右面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    FLOAT _fDist_VpPlnRight;
+    dxcoord _fDist_VpPlnRight;
     /** [r]視錐台手前面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    FLOAT _fDist_VpPlnFront;
+    dxcoord _fDist_VpPlnFront;
     /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    FLOAT _fDist_VpPlnBack;
+    dxcoord _fDist_VpPlnBack;
     /** [r/w]WORLD変換行列計算関数(通常は回転×移動のみ) */
     void (*_pFunc_calcRotMvWorldMatrix)(GgafDx9GeometricActor*, D3DXMATRIX&);
 
@@ -86,30 +86,30 @@ public:
     /** 土台となるアクター(土台が無い場合はNULL) */
     GgafDx9Core::GgafDx9GeometricActor* _pActor_Base;
     /** 土台アクター上でのワールドX座標 */
-    int _X_local;
+    appcoord _X_local;
     /** 土台アクター上でのワールドY座標 */
-    int _Y_local;
+    appcoord _Y_local;
     /** 土台アクター上でのワールドZ座標 */
-    int _Z_local;
+    appcoord _Z_local;
     /** 土台アクター上でのワールドX軸回転角 */
-    angle _RX_local;
+    appangle _RX_local;
     /** 土台アクター上でのワールドY軸回転角 */
-    angle _RY_local;
+    appangle _RY_local;
     /** 土台アクター上でのワールドZ軸回転角 */
-    angle _RZ_local;
+    appangle _RZ_local;
 
-    int _X_final;
-    int _Y_final;
-    int _Z_final;
-    angle _RX_final;
-    angle _RY_final;
-    angle _RZ_final;
-    int _X_offset;
-    int _Y_offset;
-    int _Z_offset;
-    angle _RX_offset;
-    angle _RY_offset;
-    angle _RZ_offset;
+    appcoord _X_final;
+    appcoord _Y_final;
+    appcoord _Z_final;
+    appangle _RX_final;
+    appangle _RY_final;
+    appangle _RZ_final;
+    appcoord _X_offset;
+    appcoord _Y_offset;
+    appcoord _Z_offset;
+    appangle _RX_offset;
+    appangle _RY_offset;
+    appangle _RZ_offset;
 
     bool _is_local;
 
@@ -230,7 +230,7 @@ public:
      * @param Y
      * @param Z
      */
-    virtual void locate(int X, int Y, int Z = 0) {
+    virtual void locate(appcoord X, appcoord Y, appcoord Z = 0) {
         _X = X;
         _Y = Y;
         _Z = Z;
@@ -242,7 +242,7 @@ public:
      * _pScaler->behave(); が存在すると無意味になります。
      * @param S スケール値(1000 で 1.0倍)
      */
-    virtual void setScale(int S) {
+    virtual void setScale(appscale S) {
         _SX = S;
         _SY = S;
         _SZ = S;
@@ -263,7 +263,7 @@ public:
         setBoundingSphereRadiusRate(prm_rate);
     }
 
-    virtual void addScale(int dS) {
+    virtual void addScale(appscale dS) {
         _SX += dS;
         _SY += dS;
         _SZ += dS;

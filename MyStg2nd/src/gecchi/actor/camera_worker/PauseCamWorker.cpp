@@ -57,9 +57,9 @@ void PauseCamWorker::processBehavior() {
         }
         if (!pVP->_pMvNavigator->isMoveingSmooth()) {
             //正確なVPに再設定
-            pVP->_X = pCam->_pVecCamLookatPoint->x*PX_UNIT*LEN_UNIT;
-            pVP->_Y = pCam->_pVecCamLookatPoint->y*PX_UNIT*LEN_UNIT;
-            pVP->_Z = pCam->_pVecCamLookatPoint->z*PX_UNIT*LEN_UNIT;
+            pVP->_X = cnvCoordDx2App(pCam->_pVecCamLookatPoint->x);
+            pVP->_Y = cnvCoordDx2App(pCam->_pVecCamLookatPoint->y);
+            pVP->_Z = cnvCoordDx2App(pCam->_pVecCamLookatPoint->z);
             _move_target_X_VP = pVP->_X;
             _move_target_Y_VP = pVP->_Y;
             _move_target_Z_VP = pVP->_Z;
@@ -129,7 +129,7 @@ void PauseCamWorker::processBehavior() {
             double y = _move_target_Y_CAM - _move_target_Y_VP;
             double z = _move_target_Z_CAM - _move_target_Z_VP;
 
-            angle rz1 = GgafDx9Util::getAngle2D(x, y);
+            appangle rz1 = GgafDx9Util::getAngle2D(x, y);
 
             //回転させたい角度
             double ang = (PI) * (d/_cd);
@@ -139,7 +139,7 @@ void PauseCamWorker::processBehavior() {
             GgafDx9Quaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-            angle rz2 = GgafDx9Util::getAngle2D(Q._x,Q._y);
+            appangle rz2 = GgafDx9Util::getAngle2D(Q._x,Q._y);
 
             //Q._x, Q._y, Q._z が回転後の座標となる
             if (abs(mdy) > abs(mdx)/2) { //上下ブレ補正
@@ -156,7 +156,7 @@ void PauseCamWorker::processBehavior() {
             double x = _move_target_X_VP - _move_target_X_CAM;
             double y = _move_target_Y_VP - _move_target_Y_CAM;
             double z = _move_target_Z_VP - _move_target_Z_CAM;
-            angle rz1 = GgafDx9Util::getAngle2D(x, y);
+            appangle rz1 = GgafDx9Util::getAngle2D(x, y);
             //回転させたい角度
             double ang = (PI) * (d/_cd);
             double sinHalf = sin(ang/2);
@@ -164,7 +164,7 @@ void PauseCamWorker::processBehavior() {
             GgafDx9Quaternion Q(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-            angle rz2 = GgafDx9Util::getAngle2D(Q._x,Q._y);
+            appangle rz2 = GgafDx9Util::getAngle2D(Q._x,Q._y);
             if (abs(mdy) > abs(mdx)/2) { //上下ブレ補正
                 _move_target_XY_CAM_UP += GgafDx9Util::getAngDiff(rz1, rz2);
                 _move_target_XY_CAM_UP = GgafDx9Util::simplifyAng(_move_target_XY_CAM_UP);
@@ -196,7 +196,7 @@ void PauseCamWorker::processBehavior() {
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
 
-            double r = ((d/_cd) * CFG_PROPERTY(GAME_BUFFER_WIDTH)*2)*LEN_UNIT;
+            double r = ((d/_cd) * cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)*2));
 
             _move_target_X_CAM += (Q._x*r);
             _move_target_Y_CAM += (Q._y*r);
@@ -217,9 +217,9 @@ void PauseCamWorker::processBehavior() {
                 _move_target_Z_CAM = pCam->_Z;
             }
             if (!pVP->_pMvNavigator->isMoveingSmooth()) {
-                pVP->_X = pCam->_pVecCamLookatPoint->x*PX_UNIT*LEN_UNIT;
-                pVP->_Y = pCam->_pVecCamLookatPoint->y*PX_UNIT*LEN_UNIT;
-                pVP->_Z = pCam->_pVecCamLookatPoint->z*PX_UNIT*LEN_UNIT;
+                pVP->_X = cnvCoordDx2App(pCam->_pVecCamLookatPoint->x);
+                pVP->_Y = cnvCoordDx2App(pCam->_pVecCamLookatPoint->y);
+                pVP->_Z = cnvCoordDx2App(pCam->_pVecCamLookatPoint->z);
                 _move_target_X_VP = pVP->_X;
                 _move_target_Y_VP = pVP->_Y;
                 _move_target_Z_VP = pVP->_Z;
@@ -290,7 +290,7 @@ void PauseCamWorker::processBehavior() {
     //カメラのUPを計算
     angvelo angvelo_cam_up = 30000 / 20;
     if (_angXY_nowCamUp != _move_target_XY_CAM_UP) {
-        angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, _move_target_XY_CAM_UP);
+        appangle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, _move_target_XY_CAM_UP);
         if (-angvelo_cam_up < da && da < angvelo_cam_up) {
             _angXY_nowCamUp = _move_target_XY_CAM_UP;
         } else {

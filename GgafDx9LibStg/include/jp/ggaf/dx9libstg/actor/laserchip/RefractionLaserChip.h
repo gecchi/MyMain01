@@ -28,15 +28,15 @@ private:
     int _begining_X;
     int _begining_Y;
     int _begining_Z;
-    angle _begining_RX;
-    angle _begining_RY;
-    angle _begining_RZ;
+    appangle _begining_RX;
+    appangle _begining_RY;
+    appangle _begining_RZ;
     int _prev_X;
     int _prev_Y;
     int _prev_Z;
-    angle _prev_RX;
-    angle _prev_RY;
-    angle _prev_RZ;
+    appangle _prev_RX;
+    appangle _prev_RY;
+    appangle _prev_RZ;
 
     bool _prev_isRefracting;
     GgafDx9Core::GgafDx9DrawableActor* _prev_pRefractionEffect;

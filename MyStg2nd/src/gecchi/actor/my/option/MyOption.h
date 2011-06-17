@@ -30,7 +30,7 @@ private:
 public:
     //一時変数達
     int _Xorg,_Yorg,_Zorg;
-    //angle _RXorg,_RYorg,_RZorg;
+    //appangle _RXorg,_RYorg,_RZorg;
     float _vXwk,_vYwk,_vZwk;
 
     /** [r]親アクター */
@@ -56,22 +56,22 @@ public:
     /** [r]計算された現在の旋廻円周移動角速度（読み出し専用） */
     angvelo _angveloMove;
     /** [r]円周上初期位置角度（周囲角）（initialize()までに変更可／デフォルト=0） */
-    angle _angPosition;
+    appangle _angPosition;
     /** [r]旋廻円周半径（initialize()までに変更可／デフォルト=200000） */
     int _radiusPosition;
     /** [r/w]旋廻円周移動速度（随時変更可／デフォルト=1000） */
     velo _veloMv;
     /** [r/w]オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionControllerと同じ方向（前方）を向いている） */
-    angle _angExpanse;
+    appangle _angExpanse;
 
     /** [r]初期円周上初期位置角度 */
-    angle _angPosition_base;
+    appangle _angPosition_base;
     /** [r]初期旋廻円周半径 */
     int _radiusPosition_base;
     /** [r]初期旋廻円周移動速度 */
     velo _veloMv_base;
     /** [r]初期オプションの広がり回転角 */
-    angle _angExpanse_default;
+    appangle _angExpanse_default;
 
     /** オプションの広がり回転角速度（通常時） */
     angvelo _angveloExpanseNomal;
@@ -86,9 +86,9 @@ public:
 
 
     int _adjust_angPos_seq_progress;
-    angle _adjust_angPos_seq_new_angPosition_base;
+    appangle _adjust_angPos_seq_new_angPosition_base;
     frame _adjust_angPos_seq_spent_frame;
-    angle _adjust_angPos_seq_angPosition;
+    appangle _adjust_angPos_seq_angPosition;
 
     //GgafDx9Core::GgafDx9Quaternion _Q;
     EffectMyOption* _pEffect;
@@ -112,9 +112,9 @@ public:
      * @param prm_veloMv 旋回移動速度を指定
      */
     void config(
-            angle prm_radiusPosition,
-            angle prm_angPosition,
-            angle prm_angExpanse,
+            appangle prm_radiusPosition,
+            appangle prm_angPosition,
+            appangle prm_angExpanse,
             velo prm_veloMv)
     {
         _angPosition = prm_angPosition;
@@ -146,7 +146,7 @@ public:
     virtual ~MyOption();
 
 
-    void adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent_frame);
+    void adjustAngPosition(appangle prm_new_angPosition_base, frame prm_spent_frame);
 
 };
 

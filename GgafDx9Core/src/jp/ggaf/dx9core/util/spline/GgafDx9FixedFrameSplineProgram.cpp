@@ -91,10 +91,10 @@ void GgafDx9FixedFrameSplineProgram::init() {
     if (_SPframe_segment < 1) {
         _SPframe_segment = 1;
     }
-    _paDistace_to = NEW int[_sp->_rnum];
+    _paDistace_to = NEW appcoord[_sp->_rnum];
     _paSPMvVeloTo = NEW velo[_sp->_rnum];
-    int x_from, y_from, z_from;
-    int x_to, y_to, z_to;
+    appcoord x_from, y_from, z_from;
+    appcoord x_to, y_to, z_to;
 
     x_to = _sp->_X_compute[0];
     y_to = _sp->_Y_compute[0];

@@ -34,7 +34,9 @@ void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int 
     _top_level_dZ = ((_root_Z2-_root_Z1) / ((float)(1<<_top_space_level))) + 1; //+1は空間数をオーバーしないように余裕をもたせるため
 }
 
-void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
+void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem,
+                                  int tX1 ,int tY1 ,int tZ1,
+                                  int tX2 ,int tY2 ,int tZ2) {
 
     //はみ出る場合は補正
     if (tX1 <= _root_X1)  { tX1 = _root_X1+1; }

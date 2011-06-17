@@ -23,33 +23,33 @@ public:
     bool _is_valid_flg;
 
     /** 軸並行直方体 */
-    int _aab_x1, _aab_y1, _aab_z1, _aab_x2, _aab_y2, _aab_z2;
+    appcoord _aab_x1, _aab_y1, _aab_z1, _aab_x2, _aab_y2, _aab_z2;
 
     /** 軸並行直方体のx幅 */
-    int _dx;
+    appcoord _dx;
     /** 軸並行直方体のy幅 */
-    int _dy;
+    appcoord _dy;
     /** 軸並行直方体のz幅 */
-    int _dz;
+    appcoord _dz;
     /** 初期軸並行直方体中心のX座標 */
-    int _base_cx;
+    appcoord _base_cx;
     /** 初期軸並行直方体中心のY座標 */
-    int _base_cy;
+    appcoord _base_cy;
     /** 初期軸並行直方体中心のZ座標 */
-    int _base_cz;
+    appcoord _base_cz;
     /** 軸並行直方体中心のX座標 */
-    int _cx;
+    appcoord _cx;
     /** 軸並行直方体中心のY座標  */
-    int _cy;
+    appcoord _cy;
     /** 軸並行直方体中心のZ座標  */
-    int _cz;
+    appcoord _cz;
 
     /** x幅の半分 */
-    int _hdx;
+    appcoord _hdx;
     /** y幅の半分 */
-    int _hdy;
+    appcoord _hdy;
     /** z幅の半分 */
-    int _hdz;
+    appcoord _hdz;
     /** 中心点を、オブジェクトの(0,0)を中心にX軸回転の移動をさせるかどうか（直方体が軸回転するのではない） */
     bool _rotX;
     /** 中心点を、オブジェクトの(0,0)を中心にY軸回転の移動をさせるかどうか（直方体が軸回転するのではない） */
@@ -67,7 +67,7 @@ public:
      * @param rZ ローカルZ軸回転アングル値(0~360000)
      * @return
      */
-    virtual void rotateRxRzRy(angle rX, angle rY, angle rZ) {
+    virtual void rotateRxRzRy(appangle rX, appangle rY, appangle rZ) {
     }
 
     virtual ~GgafDx9CollisionPart();

@@ -60,18 +60,17 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
     }
 
     //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
-    _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
-    _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
-    _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+    _fX = cnvCoordApp2Dx(_X);
+    _fY = cnvCoordApp2Dx(_Y);
+    _fZ = cnvCoordApp2Dx(_Z);
     //World変換行列（_matWorld）を更新
     if (_pFunc_calcRotMvWorldMatrix) {
         (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
         //スケールを考慮
         if (_SX != LEN_UNIT || _SY != LEN_UNIT || _SZ != LEN_UNIT) {
-           static float fRateScale = 1.0f * LEN_UNIT;
-           float Sx = _SX / fRateScale;
-           float Sy = _SY / fRateScale;
-           float Sz = _SZ / fRateScale;
+           float Sx = cnvScaleApp2Rate(_SX);
+           float Sy = cnvScaleApp2Rate(_SY);
+           float Sz = cnvScaleApp2Rate(_SZ);
 
            _matWorld._11 = Sx * _matWorldRotMv._11;
            _matWorld._12 = Sx * _matWorldRotMv._12;
@@ -104,9 +103,9 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
         D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //合成
         changeGeoFinal();
         //ワールド変換行列から飛行移動を取り出し最終的な座標とする
-        _X = _matWorld._41*PX_UNIT*LEN_UNIT;
-        _Y = _matWorld._42*PX_UNIT*LEN_UNIT;
-        _Z = _matWorld._43*PX_UNIT*LEN_UNIT;
+        _X = cnvCoordDx2App(_matWorld._41);
+        _Y = cnvCoordDx2App(_matWorld._42);
+        _Z = cnvCoordDx2App(_matWorld._43);
         _fX = _matWorld._41;
         _fY = _matWorld._42;
         _fZ = _matWorld._43;
@@ -131,9 +130,9 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
         //メンバー更新
         GgafDx9Camera* pCam = P_CAM;
         //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
-    //        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
-    //        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
-    //        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+    //        _fX = cnvCoordApp2Dx(_X);
+    //        _fY = cnvCoordApp2Dx(_Y);
+    //        _fZ = cnvCoordApp2Dx(_Z);
         //視錐台
         _fDist_VpPlnTop    = pCam->_plnTop.a*_fX +
                              pCam->_plnTop.b*_fY +
@@ -172,12 +171,12 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
 
 GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
                                                   GgafDx9GeometricActor* prm_pGeoActor,
-                                                  int prm_X_init_local,
-                                                  int prm_Y_init_local,
-                                                  int prm_Z_init_local,
-                                                  int prm_RX_init_local,
-                                                  int prm_RZ_init_local,
-                                                  int prm_RY_init_local) {
+                                                  appcoord prm_X_init_local,
+                                                  appcoord prm_Y_init_local,
+                                                  appcoord prm_Z_init_local,
+                                                  appcoord prm_RX_init_local,
+                                                  appcoord prm_RZ_init_local,
+                                                  appcoord prm_RY_init_local) {
     GgafGroupActor* pGroupActor = addSubGroup(prm_kind, prm_pGeoActor);
     prm_pGeoActor->_pActor_Base = this;
     prm_pGeoActor->changeGeoLocal();
@@ -196,12 +195,12 @@ GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
     return pGroupActor;
 }
 GgafGroupActor* GgafDx9GeometricActor::addSubBone(GgafDx9GeometricActor* prm_pGeoActor,
-                                                  int prm_X_init_local,
-                                                  int prm_Y_init_local,
-                                                  int prm_Z_init_local,
-                                                  int prm_RX_init_local,
-                                                  int prm_RZ_init_local,
-                                                  int prm_RY_init_local) {
+                                                  appcoord prm_X_init_local,
+                                                  appcoord prm_Y_init_local,
+                                                  appcoord prm_Z_init_local,
+                                                  appcoord prm_RX_init_local,
+                                                  appcoord prm_RZ_init_local,
+                                                  appcoord prm_RY_init_local) {
     return addSubBone(prm_pGeoActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND),
                       prm_pGeoActor,
                       prm_X_init_local,
@@ -236,7 +235,7 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 
 int GgafDx9GeometricActor::isOutOfView() {
     //_TRACE_("name="<<getName()<<" _radius_bounding_sphere="<<_radius_bounding_sphere);
-    float bound = _radius_bounding_sphere * _rate_BoundingSphereRadius*1.2;//1.2はやや境界球を大きくして、画面境界のチラツキを抑える
+    dxcoord bound = _radius_bounding_sphere * _rate_BoundingSphereRadius*1.2;//1.2はやや境界球を大きくして、画面境界のチラツキを抑える
     if (_offscreenkind == -1) {
         if (_fDist_VpPlnTop <= bound) {
             if (_fDist_VpPlnBottom <= bound) {

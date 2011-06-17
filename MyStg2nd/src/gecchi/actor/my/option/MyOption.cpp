@@ -189,7 +189,7 @@ void MyOption::setRadiusPosition(int prm_radius) {
     }
 
     _radiusPosition = prm_radius;
-    angle angZY_ROTANG_X;
+    appangle angZY_ROTANG_X;
     if (_radiusPosition > 0) {
         angZY_ROTANG_X = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
         _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9Util::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
@@ -208,7 +208,7 @@ void MyOption::setRadiusPosition(int prm_radius) {
 }
 
 
-void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent_frame) {
+void MyOption::adjustAngPosition(appangle prm_new_angPosition_base, frame prm_spent_frame) {
     _adjust_angPos_seq_progress = 1;
     _adjust_angPos_seq_new_angPosition_base = MyStgUtil::simplifyAng(prm_new_angPosition_base);
     _adjust_angPos_seq_spent_frame = prm_spent_frame + 1;
@@ -296,7 +296,7 @@ void MyOption::processBehavior() {
                 _adjust_angPos_seq_angPosition = MyStgUtil::getAngle2D(-_Z, -_Y);
             }
             //現在の角距離
-            angle ang_diff = MyStgUtil::getAngDiff(_adjust_angPos_seq_angPosition, _adjust_angPos_seq_new_angPosition_base, sgn(_veloMv));
+            appangle ang_diff = MyStgUtil::getAngDiff(_adjust_angPos_seq_angPosition, _adjust_angPos_seq_new_angPosition_base, sgn(_veloMv));
             //残フレームと残移動角より必要な角速度
             angvelo angvelo_need = ang_diff / (angvelo)_adjust_angPos_seq_spent_frame;
             //必要な角速度差分

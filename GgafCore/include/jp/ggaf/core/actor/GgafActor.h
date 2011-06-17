@@ -50,8 +50,6 @@ class GgafActor : public GgafElement<GgafActor> {
 private:
     /** 現在の所属シーン */
     GgafScene* _pScene_Platform;
-    /** ８分木登録を行うかどうかのフラグ */
-    bool _use_octree;
 
     /**
      * 所属シーンを設定する。 .
@@ -60,7 +58,7 @@ private:
 
 public:
     /** [r]所属ストアー(NULLは未所属) */
-    GgafActorStore* _pDependenceDispcher;
+    GgafActorStore* _pDependenceStore;
     /** [r]アクター開始システム時刻 */
     UINT32 _start_system_time;
     /** [r]アクター衝突判定有無フラグ */
@@ -173,7 +171,7 @@ public:
      * @return 所属Dispcher
      */
     GgafActorStore* getDependenceDispcher() {
-        return _pDependenceDispcher;
+        return _pDependenceStore;
     }
 
     /**

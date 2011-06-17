@@ -136,10 +136,10 @@ void EnemyTamago01::processBehavior() {
         if (_pStore_Shot) {
             //•úŽËóƒVƒ‡ƒbƒg”­ŽË
             int way = 8;
-            angle* paAngWay = NEW angle[way];
-            angle target_RzRy_Rz, target_RzRy_Ry;
+            appangle* paAngWay = NEW appangle[way];
+            appangle target_RzRy_Rz, target_RzRy_Ry;
             GgafDx9Util::getRzRyAng(P_MYSHIP->_X - _X, P_MYSHIP->_Y - _Y, P_MYSHIP->_Z - _Z, target_RzRy_Rz, target_RzRy_Ry);
-            angle target_RyRz_Ry, target_RyRz_Rz;
+            appangle target_RyRz_Ry, target_RyRz_Rz;
             GgafDx9Util::convRzRyToRyRz(target_RzRy_Rz, target_RzRy_Ry, target_RyRz_Ry, target_RyRz_Rz);
             GgafDx9Util::getWayAngle2D(target_RyRz_Ry, way, 10000, paAngWay);
             GgafDx9DrawableActor* pActor;

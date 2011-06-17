@@ -46,7 +46,7 @@ public:
 public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
 
     /** キャラの軸回転方角の方角(0～360,000) */
-    angle _angFace[3];
+    appangle _angFace[3];
     /** 軸回転方角の角速度（軸回転方角に毎フレーム加算する方角） */
     angvelo _angveloFace[3];
     /** 軸回転方角の角速度上限(最高値は360,000) */
@@ -62,7 +62,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
     /** 目標の軸回転方角自動停止機能有効フラグ */
     bool _face_ang_targeting_stop_flg[3];
     /** 目標とするキャラの軸回転方角の方角(0～360,000) */
-    angle _angTargetFace[3];
+    appangle _angTargetFace[3];
     /** 目標の軸回転方角自動停止機能が有効になる回転方向 */
     int _face_ang_target_allow_way[3]; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
     /** 目標の軸回転方角自動停止機能が有効になる角速度（回転正負共通） */
@@ -73,7 +73,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
      * @param   prm_axis    回転軸(AXIS_X / AXIS_Y / AXIS_Z)
      * @param   prm_angFace 方角のアングル値(-360,000～360,000)
      */
-    void setFaceAng(int prm_axis, angle prm_angFace);
+    void setFaceAng(axisid prm_axis, appangle prm_angFace);
 
     /**
      * Actorの軸回転方角を対象座標点に向ける。<BR>
@@ -81,7 +81,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
      * @param prm_tY 対象点Y座標
      * @param prm_tZ 対象点Z座標
      */
-    void setFaceAng(int prm_tX, int prm_tY, int prm_tZ);
+    void setFaceAng(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ);
 
     /**
      * 現在の Actor の軸回転方角へ加算（負で減算）。<BR>
@@ -105,7 +105,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
      * @param   prm_axis    回転軸（AXIS_X / AXIS_Y / AXIS_Z)
      * @param   prm_angDistance 回転軸方角値の増分アングル値(範囲：_iBottom_RotVeloAngle ～ _angveloTopRot)
      */
-    void addFaceAng(int prm_axis, angle prm_angDistance);
+    void addFaceAng(axisid prm_axis, appangle prm_angDistance);
 
     /**
      * Actorの目標の軸回転方角自動停止機能を有効(目標の軸回転方角設定)<BR>
@@ -119,10 +119,10 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
      * @param   prm_way_allow  自動停止を許可する進入方向(TURN_CLOCKWISE/TURN_COUNTERCLOCKWISE/TURN_BOTH)
      * @param   prm_angveloAllow 自動停止機能が有効になる回転角速度
      */
-    void setStopTarget_FaceAng(int prm_axis,
-                                 angle prm_angTargetRot,
-                                 int prm_way_allow = TURN_BOTH,
-                                 angvelo prm_angveloAllow = ANGLE180);
+    void setStopTarget_FaceAng(axisid prm_axis,
+                               appangle prm_angTargetRot,
+                               int prm_way_allow = TURN_BOTH,
+                               angvelo prm_angveloAllow = ANGLE180);
 
     /**
      * Actorの目標回転方向自動停止機能を有効(現在XY座標からの対象XY座標で設定)<BR>
@@ -132,23 +132,23 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
      * @param   prm_way_allow  自動停止機能が有効になる回転方向
      * @param   prm_angveloAllowRyMv 自動停止機能が有効になる回転角速度
      */
-    void setStopTarget_FaceAngV(int prm_axis,
-                                  int prm_tX,
-                                  int prm_tY,
-                                  int prm_way_allow = TURN_BOTH,
-                                  angvelo prm_angveloAllowRyMv = ANGLE180);
+    void setStopTarget_FaceAngV(axisid prm_axis,
+                                appcoord prm_tX,
+                                appcoord prm_tY,
+                                int prm_way_allow = TURN_BOTH,
+                                angvelo prm_angveloAllowRyMv = ANGLE180);
 
-    void setFaceAngVelo(int prm_axis, angvelo prm_angveloRot);
+    void setFaceAngVelo(axisid prm_axis, angvelo prm_angveloRot);
 
-    void forceFaceAngVeloRange(int prm_axis,
-                                  angvelo prm_angveloRot01,
-                                  angvelo prm_angveloRot02);
+    void forceFaceAngVeloRange(axisid prm_axis,
+                               angvelo prm_angveloRot01,
+                               angvelo prm_angveloRot02);
 
-    void setFaceAngAcce(int prm_axis, angacce prm_angacceRot);
+    void setFaceAngAcce(axisid prm_axis, angacce prm_angacceRot);
 
-    angle getFaceAngDistance(int prm_axis, int prm_tX, int prm_tY, int prm_way);
+    appangle getFaceAngDistance(axisid prm_axis, appcoord prm_tX, appcoord prm_tY, int prm_way);
 
-    angle getFaceAngDistance(int prm_axis, angle prm_angTargetRot, int prm_way);
+    appangle getFaceAngDistance(axisid prm_axis, appangle prm_angTargetRot, int prm_way);
 
     ////////////////////////////////////////////////////MOVER
 
@@ -156,9 +156,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /** [r]キャラの移動方角単位ベクトル */
     float _vX, _vY, _vZ;
     /** 移動方角のZ軸回転角 */
-    angle _angRzMv;
+    appangle _angRzMv;
     /** 移動方角のY軸回転角 */
-    angle _angRyMv;
+    appangle _angRyMv;
     /** 移動速度 */
     velo _veloMv;
     /** 移動速度上限 */
@@ -185,7 +185,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /** 目標の移動方角（Z軸回転）自動停止機能有効フラグ */
     bool _mv_ang_rz_target_stop_flg;
     /** 目標とするキャラの移動方角（Z軸回転）の方角(0～360,000) */
-    angle _angTargetRzMv;
+    appangle _angTargetRzMv;
     /** 目標の移動方角（Z軸回転）自動停止機能が有効になる進入回転方向 */
     int _mv_ang_rz_target_allow_way; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
     /** 目標の移動方角（Z軸回転）自動停止機能が有効になる移動方角角速度 */
@@ -210,11 +210,11 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /** 目標の移動方角（Y軸回転）自動停止機能有効フラグ */
     bool _mv_ang_ry_target_stop_flg;
     /** 目標とするキャラの移動方角（Y軸回転）の方角(0～360,000) */
-    int _angTargetRyMv;
+    appangle _angTargetRyMv;
     /** 目標の移動方角（Y軸回転）自動停止機能が有効になる進入回転方向 */
     int _mv_ang_ry_target_allow_way; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
     /** 目標の移動方角（Y軸回転）自動停止機能が有効になる移動方角角速度 */
-    int _mv_ang_ry_target_allow_velo;
+    angvelo _mv_ang_ry_target_allow_velo;
     /** 自動前方向き機能有効フラグ */
     bool _relate_RyFaceAng_with_RyMvAng_flg;
     //true  : 移動方角（Y軸回転）を変更すると、それに伴い同じ方角が軸回転方角(Y軸)にも設定される
@@ -231,9 +231,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /** なめらかな移動シークエンスで設定された終了時の速度 */
     velo _smooth_mv_velo_seq_end_velo;
     /** なめらかな移動シークエンスで設定された目標移動距離 */
-    int  _smooth_mv_velo_seq_target_distance;
+    appcoord _smooth_mv_velo_seq_target_distance;
     /** なめらかな移動シークエンスに開始から現在までの移動距離 */
-    int  _smooth_mv_velo_seq_mv_distance;
+    appcoord _smooth_mv_velo_seq_mv_distance;
     /** なめらかな移動シークエンスで設定された目標時間 */
     int  _smooth_mv_velo_seq_target_frames;
     /** なめらかな移動シークエンスに開始から現在までの経過時間 */
@@ -248,9 +248,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     bool _taget_mv_ang_alltime_flg;
     GgafDx9GeometricActor* _taget_mv_ang_alltime_pActor;
-    int _taget_mv_ang_alltime_tX;
-    int _taget_mv_ang_alltime_tY;
-    int _taget_mv_ang_alltime_tZ;
+    appcoord _taget_mv_ang_alltime_tX;
+    appcoord _taget_mv_ang_alltime_tY;
+    appcoord _taget_mv_ang_alltime_tZ;
     angvelo  _taget_mv_ang_alltime_angVelo;
     angacce _taget_mv_ang_alltime_angAcce;
     int _taget_mv_ang_alltime_way;
@@ -310,7 +310,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * 停止までのフレーム(Te) は 距離(D) により変化するため指定不可。<BR>
      * @param prm_target_distance 停止時移動距離(D)
      */
-    void setMvAcceToStop(int prm_target_distance);
+    void setMvAcceToStop(appcoord prm_target_distance);
 
     /**
      * 移動加速度を、「目標到達速度」「移動距離(達するまでに費やす距離)」により設定 .
@@ -345,7 +345,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_target_distance  目標到達速度に達するまでに費やす距離(D)
      * @param prm_target_velo 目標到達速度(Vt)
      */
-    void setMvAcceBy_Dv(int prm_target_distance, velo prm_target_velo);
+    void setMvAcceBy_Dv(appcoord prm_target_distance, velo prm_target_velo);
 
 
     /**
@@ -386,7 +386,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *
      * @param   prm_ang 移動方角（Z軸回転）(0～360,000)
      */
-    void setRzMvAng(angle prm_ang);
+    void setRzMvAng(appangle prm_ang);
 
     /**
      * Actorの移動方角（Z軸回転）を現在XY座標からの対象XY座標への方向を割り出し、設定する。<BR>
@@ -396,7 +396,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param   prm_tX  対象xZ軸座標
      * @param   prm_tY  対象yZ軸座標
      */
-    void setRzMvAng(int prm_tX, int prm_tY);
+    void setRzMvAng(appcoord prm_tX, appcoord prm_tY);
 
     /**
      * 現在の Actor の移動方角（Z軸回転）へ加算（負で減算）。<BR>
@@ -425,7 +425,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *
      * @param   prm_angDistance 移動方角（Z軸回転）増分(範囲：_angveloRzBottomMv ～ _angveloRzTopMv)
      */
-    void addRzMvAng(angle prm_angDistance);
+    void addRzMvAng(appangle prm_angDistance);
 
     /**
      * Actorの目標の移動方角（Z軸回転）自動停止機能を有効(目標の移動方角（Z軸回転）設定)<BR>
@@ -439,7 +439,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param   prm_way_allow  自動停止機能が有効になる進入回転方向
      * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
      */
-    void setStopTarget_RzMvAng(angle prm_angRzMv,
+    void setStopTarget_RzMvAng(appangle prm_angRzMv,
                                int prm_way_allow = TURN_BOTH,
                                angvelo prm_angveloAllowRyMv = ANGLE180);
 
@@ -452,8 +452,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param   prm_way_allow  自動停止機能が有効になる進入回転方向
      * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
      */
-    void setStopTarget_RzMvAngV(int prm_tX,
-                                       int prm_tY,
+    void setStopTarget_RzMvAngV(appcoord prm_tX,
+                                       appcoord prm_tY,
                                        int prm_way_allow = TURN_BOTH,
                                        angvelo prm_angveloAllowRyMv = ANGLE180);
 
@@ -463,7 +463,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     void setRzMvAngAcce(angacce prm_angacceRzMv);
 
-    angle getRzMvAngDistance(int prm_tX, int prm_tY, int prm_way);
+    appangle getRzMvAngDistance(appcoord prm_tX, appcoord prm_tY, int prm_way);
 
     /**
      * 自身の移動方角のZ軸回転角( _angRzMv )と、ターゲットの回転角との差分を取得.
@@ -475,7 +475,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      * @return
      */
-    angle getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way);
+    appangle getRzMvAngDistance(appangle prm_angTargetRzMv, int prm_way);
 
     /**
      * Actorの移動方角（Y軸回転）を設定。<BR>
@@ -484,7 +484,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * Actorの向きも移動方角（Y軸回転）と同じ方向を向くように setStopTarget_FaceAng(int) も実行されます。<BR>
      * @param prm_ang 移動方角（Y軸回転）(0～360,000)
      */
-    void setRyMvAng(angle prm_ang);
+    void setRyMvAng(appangle prm_ang);
 
     /**
      * Actorの移動方角（Y軸回転）を現在Y軸座標からの対象Y軸座標への方向を割り出し、設定する。<BR>
@@ -494,7 +494,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param   prm_tX  対象xY軸座標
      * @param   prm_tY  対象yY軸座標
      */
-    void setRyMvAng(int prm_tX, int prm_tY);
+    void setRyMvAng(appcoord prm_tX, appcoord prm_tY);
 
     /**
      * 現在の Actor の移動方角（Y軸回転）へ加算（負で減算）。<BR>
@@ -523,7 +523,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *
      * @param   prm_angDistance 移動方角（Y軸回転）増分(範囲：_angveloRyBottomMv ～ _angveloRyTopMv)
      */
-    void addRyMvAng(angle prm_angDistance);
+    void addRyMvAng(appangle prm_angDistance);
 
     /**
      * Actorの目標のY軸回転移動方角の自動停止機能を有効 .
@@ -538,7 +538,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param   prm_mv_ang_ry_target_allow_way  自動停止機能が有効になる進入回転方向
      * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
      */
-    void setStopTarget_RyMvAng(angle prm_angRyMv,
+    void setStopTarget_RyMvAng(appangle prm_angRyMv,
                                int prm_mv_ang_ry_target_allow_way = TURN_BOTH,
                                angvelo prm_angveloAllowRyMv = ANGLE180);
 
@@ -551,8 +551,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param   prm_mv_ang_ry_target_allow_way  自動停止機能が有効になる進入回転方向
      * @param   prm_angveloAllowRyMv 停止機能が有効になる移動方角角速度
      */
-    void setStopTarget_RyMvAngV(int prm_tX,
-                                int prm_tY,
+    void setStopTarget_RyMvAngV(appcoord prm_tX,
+                                appcoord prm_tY,
                                 int prm_mv_ang_ry_target_allow_way = TURN_BOTH,
                                 angvelo prm_angveloAllowRyMv = ANGLE180);
 
@@ -562,33 +562,33 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     void setRyMvAngAcce(angacce prm_angacceRyMv);
 
-    angle getRyMvAngDistance(int prm_tX, int prm_tY, int prm_way);
+    appangle getRyMvAngDistance(appcoord prm_tX, appcoord prm_tY, int prm_way);
 
-    angle getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way);
+    appangle getRyMvAngDistance(appangle prm_angTargetRyMv, int prm_way);
 
 
     void getRzRyMvAngDistance(int prm_way,
-                              angle prm_target_angRz, angle prm_target_angRy,
-                              angle& out_d_angRz, angle& out_d_angRy,
-                              angle& out_target_angRz, angle& out_target_angRy);
+                              appangle prm_target_angRz, appangle prm_target_angRy,
+                              appangle& out_d_angRz, appangle& out_d_angRy,
+                              appangle& out_target_angRz, appangle& out_target_angRy);
 
     void getRzRyFaceAngDistance(int prm_way,
-                                angle prm_target_angRz, angle prm_target_angRy,
-                                angle& out_d_angRz, angle& out_d_angRy,
-                                angle& out_target_angRz, angle& out_target_angRy);
+                                appangle prm_target_angRz, appangle prm_target_angRy,
+                                appangle& out_d_angRz, appangle& out_d_angRy,
+                                appangle& out_target_angRz, appangle& out_target_angRy);
     /**
      * 移動方向(RzRy)を設定。.
      * @param prm_angRz
      * @param prm_angRy
      */
-    void setRzRyMvAng(angle prm_angRz, angle prm_angRy);
+    void setRzRyMvAng(appangle prm_angRz, appangle prm_angRy);
 
     /**
      *  移動方向(RzRy)を、RyRzで設定。
      * @param prm_angRy
      * @param prm_angRz
      */
-    void setRzRyMvAng_by_RyRz(angle prm_angRy, angle prm_angRz);
+    void setRzRyMvAng_by_RyRz(appangle prm_angRy, appangle prm_angRz);
 
     /**
      * 目標座標点指定で移動方角を設定。.
@@ -597,11 +597,11 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_tY
      * @param prm_tZ
      */
-    void setMvAng(int prm_tX, int prm_tY, int prm_tZ);
+    void setMvAng(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ);
 
     void setMvAng(GgafDx9GeometricActor* prm_pActor_Target);
 
-    void setStopTarget_RzRyMvAng(int prm_tX, int prm_tY, int prm_tZ);
+    void setStopTarget_RzRyMvAng(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ);
 
     void setStopTarget_RzRyMvAng(GgafDx9GeometricActor* prm_pActor_Target);
 
@@ -623,7 +623,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               引数のターゲットアングル値と一致しないかもしれない。(姿勢が異なる可能性有り)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void execTurnFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+    void execTurnFaceAngSequence(appangle prm_angRz_Target, appangle prm_angRy_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way, bool prm_optimize_ang = true);
 
@@ -645,7 +645,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void execTurnFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+    void execTurnFaceAngSequence(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way, bool prm_optimize_ang = true);
 
@@ -688,7 +688,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void execTurnRzFaceAngSequence(angle prm_angRz_Target,
+    void execTurnRzFaceAngSequence(appangle prm_angRz_Target,
                                         angvelo prm_angVelo, angacce prm_angAcce,
                                         int prm_way);
 
@@ -700,7 +700,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void execTurnRyFaceAngSequence(angle prm_angRy_Target,
+    void execTurnRyFaceAngSequence(appangle prm_angRy_Target,
                                         angvelo prm_angVelo, angacce prm_angAcce,
                                         int prm_way);
 
@@ -712,7 +712,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void execTurnRxSpinAngSequence(angle prm_angRx_Target,
+    void execTurnRxSpinAngSequence(appangle prm_angRx_Target,
                                           angvelo prm_angVelo, angacce prm_angAcce,
                                           int prm_way);
 
@@ -733,7 +733,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void execTurnMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+    void execTurnMvAngSequence(appangle prm_angRz_Target, appangle prm_angRy_Target,
                                     angvelo prm_angVelo, angacce prm_angAcce,
                                     int prm_way, bool prm_optimize_ang = true);
 
@@ -756,11 +756,11 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *                               (注意：極地Y軸回転があるため、最短フレームは必ずしも最短距離にあらず)<BR>
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
-    void execTurnMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+    void execTurnMvAngSequence(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ,
                                     angvelo prm_angVelo, angacce prm_angAcce,
                                     int prm_way, bool prm_optimize_ang = true);
 
-    void keepTurnMvAngAllTime(int prm_tX, int prm_tY, int prm_tZ,
+    void keepTurnMvAngAllTime(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ,
                             angvelo prm_angVelo, angacce prm_angAcce,
                             int prm_way, bool prm_optimize_ang = true) {
         execTurnMvAngSequence(prm_tX, prm_tY, prm_tZ,
@@ -826,7 +826,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void execTurnRzMvAngSequence(angle prm_angRz_Target,
+    void execTurnRzMvAngSequence(appangle prm_angRz_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way);
 
@@ -838,7 +838,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void execTurnRyMvAngSequence(angle prm_angRy_Target,
+    void execTurnRyMvAngSequence(appangle prm_angRy_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
                                       int prm_way);
 
@@ -926,7 +926,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_p2 減速を開始時刻となるような、Teに対する割合
      * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
-    void execSmoothMvVeloSequence(velo prm_end_velo, int prm_target_distance,
+    void execSmoothMvVeloSequence(velo prm_end_velo, appcoord prm_target_distance,
                                   int prm_target_frames, float prm_p1, float prm_p2,
                                   bool prm_endacc_flg = true);
 
@@ -967,7 +967,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_endacc_flg
      */
     void execSmoothMvVeloSequenceD(velo prm_top_velo, velo prm_end_velo,
-                                   int prm_target_distance, float prm_p1, float prm_p2,
+                                   appcoord prm_target_distance, float prm_p1, float prm_p2,
                                    bool prm_endacc_flg = true);
 
 
@@ -1014,7 +1014,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
 
 
-//    void execSmoothMvVeloSequence4(velo prm_end_velo, int prm_target_distance, int prm_target_frames,
+//    void execSmoothMvVeloSequence4(velo prm_end_velo, appcoord prm_target_distance, int prm_target_frames,
 //                                   bool prm_endacc_flg = true);
     bool isMoveingSmooth();
 

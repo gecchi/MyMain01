@@ -63,7 +63,7 @@ public:
      * @param rotY 当たり判定の球を、向きに伴ってローカルY軸での回転並行移動を行う場合 true
      * @param rotZ 当たり判定の球を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
      */
-    void setColliSphere(int prm_index, int x, int y, int z, int r, bool rotX, bool rotY, bool rotZ);
+    void setColliSphere(int prm_index, appcoord x, appcoord y, appcoord z, appcoord r, bool rotX, bool rotY, bool rotZ);
 
     /**
      * 当たり判定領域要素を球として定義 .
@@ -74,7 +74,7 @@ public:
      * @param z 当たり判定の球の中心ローカルZ座標
      * @param r 当たり判定の球の半径
      */
-    void setColliSphere(int prm_index, int x, int y, int z, int r) {
+    void setColliSphere(int prm_index, appcoord x, appcoord y, appcoord z, appcoord r) {
         setColliSphere(prm_index, x, y, z, r, false, false, false);
     }
 
@@ -85,7 +85,7 @@ public:
      * @param prm_index 当たり判定領域の要素番号
      * @param r 当たり判定の球の半径
      */
-    void setColliSphere(int prm_index, int r) {
+    void setColliSphere(int prm_index, appcoord r) {
         setColliSphere(prm_index, 0, 0, 0, r, false, false, false);
     }
 
@@ -103,7 +103,10 @@ public:
      * @param rotY 当たり判定の直方体を、向きに伴ってローカルY軸での回転並行移動を行う場合 true
      * @param rotZ 当たり判定の直方体を、向きに伴ってローカルZ軸での回転並行移動を行う場合 true
      */
-    void setColliAAB(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
+    void setColliAAB(int prm_index,
+                     appcoord x1, appcoord y1, appcoord z1,
+                     appcoord x2, appcoord y2, appcoord z2,
+                     bool rotX, bool rotY, bool rotZ);
 
     /**
      * 当たり判定領域要素を軸並行直方体として定義 .
@@ -116,7 +119,9 @@ public:
      * @param y2 右下奥Y座標
      * @param z2 右下奥Z座標
      */
-    void setColliAAB(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2) {
+    void setColliAAB(int prm_index,
+                     appcoord x1, appcoord y1, appcoord z1,
+                     appcoord x2, appcoord y2, appcoord z2) {
         setColliAAB(prm_index, x1, y1, z1, x2, y2, z2, false, false, false);
     }
 
@@ -129,13 +134,13 @@ public:
      * @param x2 右下奥X座標
      * @param y2 右下奥Y座標
      */
-    void setColliAAB(int prm_index, int x1, int y1, int x2, int y2) {
-        setColliAAB(prm_index, x1, y1, -1 * LEN_UNIT / 2, x2, y2, LEN_UNIT / 2, false, false,
+    void setColliAAB(int prm_index, appcoord x1, appcoord y1, appcoord x2, appcoord y2) {
+        setColliAAB(prm_index, x1, y1, -1 * cnvCoordPix2App(1) / 2, x2, y2, cnvCoordPix2App(1) / 2, false, false,
                       false);
     }
 
 
-    void setColliAAB_WHD(int prm_index, int x, int y, int z, int prm_width, int prm_height, int prm_depth) {
+    void setColliAAB_WHD(int prm_index, appcoord x, appcoord y, appcoord z, appcoord prm_width, appcoord prm_height, appcoord prm_depth) {
         int hw = prm_width  / 2;
         int hh = prm_height / 2;
         int hd = prm_depth  / 2;

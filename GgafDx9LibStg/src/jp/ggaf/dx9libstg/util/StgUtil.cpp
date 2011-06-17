@@ -11,10 +11,10 @@ using namespace GgafDx9LibStg;
 void StgUtil::shotWay001(GgafDx9GeometricActor* prm_pFrom,
                        GgafActorStore* prm_pStore_Shot,
                        GgafDx9GeometricActor* prm_pTarget,
-                       int prm_way, angle prm_angClearance,
+                       int prm_way, appangle prm_angClearance,
                        velo prm_velo, acce prm_acce) {
-    angle* paAngWay = NEW angle[prm_way];
-    angle rz,ry;
+    appangle* paAngWay = NEW appangle[prm_way];
+    appangle rz,ry;
     GgafDx9Util::getRzRyAng(prm_pTarget->_X - prm_pFrom->_X,
                             prm_pTarget->_Y - prm_pFrom->_Y,
                             prm_pTarget->_Z - prm_pFrom->_Z,
@@ -36,11 +36,11 @@ void StgUtil::shotWay001(GgafDx9GeometricActor* prm_pFrom,
 void StgUtil::shotWay001v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
                            GgafCore::GgafActorStore*     prm_pStore_Shot,
                            GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
-                           int prm_way, angle prm_angClearance,
+                           int prm_way, appangle prm_angClearance,
                            velo prm_velo_top, acce prm_acce_top,
                            int prm_num, float prm_attenuated) {
-    angle* paAngWay = NEW angle[prm_way];
-    angle rz,ry;
+    appangle* paAngWay = NEW appangle[prm_way];
+    appangle rz,ry;
     GgafDx9Util::getRzRyAng(prm_pTarget->_X - prm_pFrom->_X,
                             prm_pTarget->_Y - prm_pFrom->_Y,
                             prm_pTarget->_Z - prm_pFrom->_Z,
@@ -68,10 +68,10 @@ void StgUtil::shotWay001v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
 void StgUtil::shotWay002(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
                         GgafCore::GgafActorStore*     prm_pStore_Shot,
                         GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
-                        int prm_way, angle prm_angBegin,
+                        int prm_way, appangle prm_angBegin,
                         velo prm_velo, acce prm_acce) {
-    angle* paAngWay = NEW angle[prm_way];
-    angle rz,ry;
+    appangle* paAngWay = NEW appangle[prm_way];
+    appangle rz,ry;
     GgafDx9Util::getRzRyAng(prm_pTarget->_X - prm_pFrom->_X,
                             prm_pTarget->_Y - prm_pFrom->_Y,
                             prm_pTarget->_Z - prm_pFrom->_Z,
@@ -92,11 +92,11 @@ void StgUtil::shotWay002(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
 void StgUtil::shotWay002v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
                            GgafCore::GgafActorStore*     prm_pStore_Shot,
                            GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
-                           int prm_way, angle prm_angBegin,
+                           int prm_way, appangle prm_angBegin,
                            velo prm_velo_top, acce prm_acce_top,
                            int prm_num, float prm_attenuated) {
-    angle* paAngWay = NEW angle[prm_way];
-    angle rz,ry;
+    appangle* paAngWay = NEW appangle[prm_way];
+    appangle rz,ry;
     GgafDx9Util::getRzRyAng(prm_pTarget->_X - prm_pFrom->_X,
                             prm_pTarget->_Y - prm_pFrom->_Y,
                             prm_pTarget->_Z - prm_pFrom->_Z,

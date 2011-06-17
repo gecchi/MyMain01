@@ -11,26 +11,26 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
 
     //初期カメラ移動範囲制限
     float revise = 0.7; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
-    _lim_CAM_top     = MyShip::_lim_top     - (CFG_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2)*revise;
-    _lim_CAM_bottom  = MyShip::_lim_bottom  + (CFG_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2)*revise;
-    _lim_CAM_front   = MyShip::_lim_front   - (CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
-    _lim_CAM_behaind = MyShip::_lim_behaind + (CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
-    _lim_CAM_zleft   = MyShip::_lim_zleft   - (CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
-    _lim_CAM_zright  = MyShip::_lim_zright  + (CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_CAM_top     = MyShip::_lim_top     - (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT))/2)*revise;
+    _lim_CAM_bottom  = MyShip::_lim_bottom  + (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT))/2)*revise;
+    _lim_CAM_front   = MyShip::_lim_front   - (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_CAM_behaind = MyShip::_lim_behaind + (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_CAM_zleft   = MyShip::_lim_zleft   - (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_CAM_zright  = MyShip::_lim_zright  + (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
 
-    _lim_VP_top     = MyShip::_lim_top     - (CFG_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2)*revise;
-    _lim_VP_bottom  = MyShip::_lim_bottom  + (CFG_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2)*revise;
-    _lim_VP_front   = MyShip::_lim_front   - (CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
-    _lim_VP_behaind = MyShip::_lim_behaind + (CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
-    _lim_VP_zleft   = MyShip::_lim_zleft   - (CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
-    _lim_VP_zright  = MyShip::_lim_zright  + (CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)*revise;
+    _lim_VP_top     = MyShip::_lim_top     - (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT))/2)*revise;
+    _lim_VP_bottom  = MyShip::_lim_bottom  + (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT))/2)*revise;
+    _lim_VP_front   = MyShip::_lim_front   - (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_VP_behaind = MyShip::_lim_behaind + (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_VP_zleft   = MyShip::_lim_zleft   - (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_VP_zright  = MyShip::_lim_zright  + (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
 }
 void VamSysCamWorker::initialize() {
     GgafDx9Camera* pCam = P_CAM;
     GgafDx9GeometricActor* pVP = pCam->_pViewPoint;
 
     //初期カメラZ位置
-    _dZ_camera_init = -1 * pCam->_cameraZ_org * LEN_UNIT * PX_UNIT;
+    _dZ_camera_init = -cnvCoordDx2App(pCam->_cameraZ_org);
 
 
     //画面背後用範囲差分
@@ -104,11 +104,16 @@ void VamSysCamWorker::processBehavior() {
     //カメラのビューポイントの移動目標座標
     int move_target_X_VP, move_target_Y_VP, move_target_Z_VP;
     //カメラの目標UPアングル値
-    angle move_target_XY_CAM_UP;
+    appangle move_target_XY_CAM_UP;
 
     //カメラの目標座標、ビューポイントの目標座標を設定
     static int Dx = (int)((CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)/4*2);
     static int Ddx_hw = (int)((CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2) - (CFG_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2));
+
+//    static appcoord Dx = cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2)/4*2;
+//    static appcoord Ddx_hw = (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2) - (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT)/2));
+
+
     static int Dd = 30000;
     if (_pos_camera < VAM_POS_TO_BEHIND) {
         if (_pos_camera == VAM_POS_RIGHT) {
@@ -488,7 +493,7 @@ void VamSysCamWorker::processBehavior() {
     //カメラのUPを計算
     angvelo angvelo_cam_up = cam_velo_renge/20; //cam_velo_rengeはVB_VIEW押しっぱで超低速になる方の速度
     if (_angXY_nowCamUp != move_target_XY_CAM_UP) {
-        angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, move_target_XY_CAM_UP);
+        appangle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, move_target_XY_CAM_UP);
         if (-angvelo_cam_up < da && da < angvelo_cam_up) {
             _angXY_nowCamUp = move_target_XY_CAM_UP;
         } else {

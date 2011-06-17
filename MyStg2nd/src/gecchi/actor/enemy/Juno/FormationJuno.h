@@ -45,9 +45,9 @@ public:
             int prm_X2_app, int prm_Y2_app, int prm_Z2_app,
             int prm_X, int prm_Y, int prm_Z,
             velo prm_veloMv_App,
-            angle prm_angRzMv_AppBox, angle prm_angRyMv_AppBox,
+            appangle prm_angRzMv_AppBox, appangle prm_angRyMv_AppBox,
             velo prm_veloMv_Juno,
-            angle prm_angRzMv_JunoMv, angle prm_angRyMv_JunoMv,
+            appangle prm_angRzMv_JunoMv, appangle prm_angRyMv_JunoMv,
             int prm_nJunoStock,
             int prm_frame_app_interval);
 

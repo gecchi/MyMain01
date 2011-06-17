@@ -157,7 +157,7 @@ public:
      * @param prm_tY 注視点Y座標
      * @param prm_tZ 注視点Z座標
      */
-    virtual void setViewPoint(int prm_tX, int prm_tY, int prm_tZ);
+    virtual void setViewPoint(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ);
 
     /**
      * カメラの注視点を設定 .

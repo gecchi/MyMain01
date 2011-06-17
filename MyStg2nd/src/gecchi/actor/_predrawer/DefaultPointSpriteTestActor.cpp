@@ -44,9 +44,9 @@ void DefaultPointSpriteTestActor::processBehavior() {
 void DefaultPointSpriteTestActor::processSettlementBehavior() {
     //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
     //GgafDx9GeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
-    _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
-    _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
-    _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+    _fX = cnvCoordApp2Dx(_X);
+    _fY = cnvCoordApp2Dx(_Y);
+    _fZ = cnvCoordApp2Dx(_Z);
 }
 
 void DefaultPointSpriteTestActor::processJudgement() {

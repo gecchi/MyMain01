@@ -59,9 +59,9 @@ void HoshiBoshiTestActor::processBehavior() {
 void HoshiBoshiTestActor::processSettlementBehavior() {
     //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
     //GgafDx9GeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
-    _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
-    _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
-    _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+    _fX = cnvCoordApp2Dx(_X);
+    _fY = cnvCoordApp2Dx(_Y);
+    _fZ = cnvCoordApp2Dx(_Z);
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ƒ[ƒ‹ƒh•ÏŠ·
 }
 
@@ -91,16 +91,15 @@ void HoshiBoshiTestActor::setWorldMatrix_HoshiBoshiTestActor(GgafDx9GeometricAct
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
-    static float fRateScale = 1.0f * LEN_UNIT;
-    float sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
-    float cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
-    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
-    float Sx = prm_pActor->_SX / fRateScale;
-    float Sy = prm_pActor->_SY / fRateScale;
-    float Sz = prm_pActor->_SZ / fRateScale;
+    float sinRx = cnvAppang2Sin(prm_pActor->_RX);
+    float cosRx = cnvAppang2Cos(prm_pActor->_RX);
+    float sinRy = cnvAppang2Sin(prm_pActor->_RY);
+    float cosRy = cnvAppang2Cos(prm_pActor->_RY);
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
+    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
+    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
 
     out_matWorld._11 = Sx * cosRz *cosRy;
     out_matWorld._12 = Sx * sinRz;

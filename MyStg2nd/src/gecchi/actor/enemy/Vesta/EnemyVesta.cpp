@@ -165,7 +165,7 @@ void EnemyVesta::processBehavior() {
                     //
                     //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
                     //最終的な方向ベクトルは（_Xorg*mat_11, _Xorg*mat_12, _Xorg*mat_13) である。
-                    angle Rz, Ry;
+                    appangle Rz, Ry;
                     GgafDx9Util::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                             Rz, Ry); //現在の最終的な向きを、RzRyで取得！
                     pActor->_pMvNavigator->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
@@ -207,7 +207,7 @@ void EnemyVesta::processBehavior() {
         int TvY = MvX*pBaseInvMatRM->_12 + MvY*pBaseInvMatRM->_22 + MvZ * pBaseInvMatRM->_32;
         int TvZ = MvX*pBaseInvMatRM->_13 + MvY*pBaseInvMatRM->_23 + MvZ * pBaseInvMatRM->_33;
         //自動方向向きシークエンス開始
-        angle angRz_Target, angRy_Target;
+        appangle angRz_Target, angRy_Target;
         GgafDx9Util::getRzRyAng(TvX, TvY, TvZ,
                                 angRz_Target, angRy_Target);
         _pMvNavigator->execTurnMvAngSequence(angRz_Target, angRy_Target,

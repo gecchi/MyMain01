@@ -87,7 +87,7 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
             pCam->_plnVerticalCenter.c*_pActor->_fZ +
             pCam->_plnVerticalCenter.d;
 
-    angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
+    appangle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
     float pan = GgafDx9Util::COS[ang/ANGLE_RATE] * 0.7; //0.7は完全に右のみ或いは左のみから聞こえるのを避けるため
 
     int delay = (d / (pCam->_zf*PX_UNIT))*MAX_SE_DELAY-10; //10フレーム底上げ
@@ -163,7 +163,7 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
                             pCam->_plnVerticalCenter.b*_pActor->_fY +
                             pCam->_plnVerticalCenter.c*_pActor->_fZ +
                             pCam->_plnVerticalCenter.d;
-                    angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
+                    appangle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
                     pan = GgafDx9Util::COS[ang/ANGLE_RATE] * 0.7; //0.7は完全に右のみ或いは左のみから聞こえるのを避けるため
 
                     if (_pActor->_fDist_VpPlnFront > 0) {

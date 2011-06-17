@@ -11,21 +11,21 @@ namespace GgafDx9LibStg {
 class ColliSphere : public GgafDx9Core::GgafDx9CollisionPart {
 public:
     /** xç¿ïW */
-    int _x;
+    appcoord _x;
     /** yç¿ïW */
-    int _y;
+    appcoord _y;
     /** zç¿ïW */
-    int _z;
+    appcoord _z;
     /** îºåa */
-    int _r;
+    appcoord _r;
     /** îºåaÇÃÇQèÊ */
     double _rr;
 
     ColliSphere();
 
-    void set(int x, int y, int z, int r, bool rotX, bool rotY, bool rotZ);
+    void set(appcoord x, appcoord y, appcoord z, appcoord r, bool rotX, bool rotY, bool rotZ);
 
-    void rotateRxRzRy(angle rX, angle rY, angle rZ) override;
+    void rotateRxRzRy(appangle rX, appangle rY, appangle rZ) override;
 
     virtual ~ColliSphere();
 };

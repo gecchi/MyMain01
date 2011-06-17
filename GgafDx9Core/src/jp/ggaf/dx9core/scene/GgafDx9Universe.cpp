@@ -7,12 +7,12 @@ GgafDx9DrawableActor* GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[MAX_DRAW
 GgafDx9DrawableActor* GgafDx9Universe::_pActors_DrawMaxDrawDepth = NULL;
 GgafDx9DrawableActor* GgafDx9Universe::_pActor_DrawActive = NULL;
 
-int GgafDx9Universe::_X_goneLeft   = 0;
-int GgafDx9Universe::_X_goneRight  = 0;
-int GgafDx9Universe::_Y_goneTop    = 0;
-int GgafDx9Universe::_Y_goneBottom = 0;
-int GgafDx9Universe::_Z_goneFar   = 0;
-int GgafDx9Universe::_Z_goneNear  = 0;
+appcoord GgafDx9Universe::_X_goneLeft   = 0;
+appcoord GgafDx9Universe::_X_goneRight  = 0;
+appcoord GgafDx9Universe::_Y_goneTop    = 0;
+appcoord GgafDx9Universe::_Y_goneBottom = 0;
+appcoord GgafDx9Universe::_Z_goneFar   = 0;
+appcoord GgafDx9Universe::_Z_goneNear  = 0;
 
 
 GgafDx9Universe::SeArray::SeArray() {
@@ -51,12 +51,13 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name, GgafDx9Camera* prm_pCamer
     _pActor_DrawActive = NULL;
 
     //ƒJƒƒ‰‚ÌŽÊ‚·”ÍˆÍB
-    _X_goneRight  = +_pCamera->_zf*PX_UNIT*LEN_UNIT;
-    _X_goneLeft   = -_pCamera->_zf*PX_UNIT*LEN_UNIT;
-    _Y_goneTop    = +_pCamera->_zf*PX_UNIT*LEN_UNIT;
-    _Y_goneBottom = -_pCamera->_zf*PX_UNIT*LEN_UNIT;
-    _Z_goneFar    = +_pCamera->_zf*PX_UNIT*LEN_UNIT;
-    _Z_goneNear   = -_pCamera->_zf*PX_UNIT*LEN_UNIT;
+    appcoord F = cnvCoordDx2App(_pCamera->_zf);
+    _X_goneRight  = +F;
+    _X_goneLeft   = -F;
+    _Y_goneTop    = +F;
+    _Y_goneBottom = -F;
+    _Z_goneFar    = +F;
+    _Z_goneNear   = -F;
     _TRACE_("Gone=X ("<<_X_goneLeft<<" ~ "<<_X_goneRight<<") Y("<<_Y_goneBottom<<" ~ "<<_Y_goneTop<<") Z("<<_Z_goneFar<<" ~ "<<_Z_goneNear<<")");
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();

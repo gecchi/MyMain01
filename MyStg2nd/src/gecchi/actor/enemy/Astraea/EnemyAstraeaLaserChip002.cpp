@@ -52,10 +52,10 @@ void EnemyAstraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
 
     } else {
-        angle out_angRz_Target;
-        angle out_angRy_Target;
-        angle out_d_angRz;
-        angle out_d_angRy;
+        appangle out_angRz_Target;
+        appangle out_angRy_Target;
+        appangle out_d_angRz;
+        appangle out_d_angRy;
         GgafDx9Util::getRzRyAng(P_MYSHIP->_X - _X,
                                 P_MYSHIP->_Y - _Y,
                                 P_MYSHIP->_Z - _Z,

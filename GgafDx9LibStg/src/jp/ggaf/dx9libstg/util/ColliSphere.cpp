@@ -13,7 +13,7 @@ ColliSphere::ColliSphere() : GgafDx9CollisionPart() {
     _shape_kind = COLLI_SPHERE;
 }
 
-void ColliSphere::set(int x, int y, int z, int r, bool rotX, bool rotY, bool rotZ) {
+void ColliSphere::set(appcoord x, appcoord y, appcoord z, appcoord r, bool rotX, bool rotY, bool rotZ) {
     _x = x;
     _y = y;
     _z = z;
@@ -46,7 +46,7 @@ void ColliSphere::set(int x, int y, int z, int r, bool rotX, bool rotY, bool rot
     _is_valid_flg = true;
 }
 
-void ColliSphere::rotateRxRzRy(angle rX, angle rY, angle rZ) {
+void ColliSphere::rotateRxRzRy(appangle rX, appangle rY, appangle rZ) {
     s_ang s_RX, s_RY, s_RZ;
     int wk_cx, wk_cy, wk_cz;
     //“–‚½‚è”»’è—ÌˆæŽ²‰ñ“]

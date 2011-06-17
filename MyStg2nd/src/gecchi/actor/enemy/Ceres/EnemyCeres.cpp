@@ -71,7 +71,7 @@ void EnemyCeres::processBehavior() {
     //•ûŒü“]Š·
     if (_iMovePatternNo == 0 && _X > 400000) {
 
-        angle way[32];
+        appangle way[32];
         //GgafDx9Util::getWayAngle2D(180000, 8, 10000, way);
         GgafDx9Util::getRadialAngle2D(0, 32, way);
         GgafDx9DrawableActor* pTama;

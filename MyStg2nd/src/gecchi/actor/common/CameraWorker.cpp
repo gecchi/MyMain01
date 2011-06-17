@@ -34,12 +34,12 @@ void CameraWorker::setMoveTargetCamVpBy(GgafDx9Core::GgafDx9GeometricActor* pTar
     _move_target_Z_VP = pTarget->_Z;
 }
 
-void CameraWorker::setMoveTargetCam(int X, int Y, int Z) {
+void CameraWorker::setMoveTargetCam(appcoord X, appcoord Y, appcoord Z) {
     _move_target_X_CAM = X;
     _move_target_Y_CAM = Y;
     _move_target_Z_CAM = Z;
 }
-void CameraWorker::setMoveTargetCamVp(int X, int Y, int Z) {
+void CameraWorker::setMoveTargetCamVp(appcoord X, appcoord Y, appcoord Z) {
     _move_target_X_VP = X;
     _move_target_Y_VP = Y;
     _move_target_Z_VP = Z;
@@ -179,7 +179,7 @@ void CameraWorker::processBehavior() {
     angvelo angvelo_cam_up = cam_velo_renge/20;
 
     if (_angXY_nowCamUp != _move_target_XY_CAM_UP) {
-        angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, _move_target_XY_CAM_UP);
+        appangle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, _move_target_XY_CAM_UP);
         if (-angvelo_cam_up < da && da < angvelo_cam_up) {
             _angXY_nowCamUp = _move_target_XY_CAM_UP;
         } else {

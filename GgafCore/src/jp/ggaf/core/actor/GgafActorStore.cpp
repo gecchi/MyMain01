@@ -21,7 +21,7 @@ void GgafActorStore::addSubLast(GgafActor* prm_pSub) {
                                        "ˆø”="<<prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pSub->getName()<<"]");
         }
     }
-    prm_pSub->_pDependenceDispcher = this;
+    prm_pSub->_pDependenceStore = this;
     prm_pSub->inactivateImmediately(); //‹­§”ñŠˆ“®‚É
     GgafDummyActor::addSubLast(prm_pSub);
 }

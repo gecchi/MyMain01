@@ -428,7 +428,7 @@ void myTerminateHandler() {
     MessageBox(NULL, "TerminateHandler called.","ERROR", MB_OK|MB_ICONSTOP);
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Terminate.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Terminate.rep");
-    abort;
+    abort();
 }
 
 

@@ -13,7 +13,7 @@ Torus::Torus(const char* prm_name, const char* prm_model, int prm_r1, int prm_r2
     _r2 = prm_r2;
 }
 
-void Torus::addSubBoneOnSurface(GgafDx9GeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {
+void Torus::addSubBoneOnSurface(GgafDx9GeometricActor* prm_pGeoActor, appangle prm_angPos1, appangle prm_angPos2) {
     //トーラスはZY平面に円
     s_ang angPos1 = prm_angPos1 /ANGLE_RATE;
     s_ang angPos2 = prm_angPos2 /ANGLE_RATE;
@@ -39,14 +39,14 @@ void Torus::addSubBoneOnSurface(GgafDx9GeometricActor* prm_pGeoActor, angle prm_
     double CX = 0;
     double CY = -_r1*-GgafDx9Util::SIN[angPos1];
     double CZ = -_r1*GgafDx9Util::COS[angPos1];
-    angle angRz, angRy;
+    appangle angRz, angRy;
     GgafDx9Util::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
     //ボーンとして追加
     this->addSubBone(prm_pGeoActor, X, Y, Z, ANGLE0, angRz, angRy);
 }
 
 void Torus::makeCollisionArea(int prm_nSphere){
-    angle* paAngRadial = NEW angle[prm_nSphere];
+    appangle* paAngRadial = NEW appangle[prm_nSphere];
     GgafDx9Util::getRadialAngle2D(0, prm_nSphere, paAngRadial);
     _pCollisionChecker->makeCollision(prm_nSphere);
     for (int i = 0; i < prm_nSphere; i++) {

@@ -21,7 +21,7 @@ public:
 //     */
 //    virtual void processDraw();
 //
-    void drawBox(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2, int prm_z2);
+    void drawBox(appcoord prm_x1, appcoord prm_y1, appcoord prm_z1, appcoord prm_x2, appcoord prm_y2, appcoord prm_z2);
 
     virtual ~GgafDx9AABActor(); //デストラクタ
 };

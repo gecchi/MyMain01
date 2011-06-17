@@ -129,14 +129,38 @@ class OggVorbisMemory;
 
 class CmRandomNumberGenerator;
 
-typedef int angle;
-typedef int s_ang;
-typedef int velo;
-typedef int acce;
-typedef int jerk;
+typedef int appangle;
 typedef int angvelo;
 typedef int angacce;
 typedef int angjerk;
+typedef int s_ang;
+
+typedef int appcoord;
+typedef int velo;
+typedef int acce;
+typedef int jerk;
+
+typedef int axisid;
+
+typedef int appscale;
+
+typedef int pixcoord;
+typedef float dxcoord;
+
+
+#define cnvCoordApp2Dx(X)  ((dxcoord)(1.0f * (X) / LEN_UNIT / PX_UNIT))
+#define cnvCoordDx2App(X)  ((appcoord)((X) * LEN_UNIT * PX_UNIT))
+#define cnvCoordDx2Pix(X)  ((X) * PX_UNIT)
+#define cnvCoordPix2Dx(X)  (1.0f * (X) / PX_UNIT)
+#define cnvCoordApp2Pix(X) (1.0f * (X) / LEN_UNIT)
+#define cnvCoordPix2App(X) ((X) * LEN_UNIT)
+
+
+#define cnvScaleApp2Rate(X) (1.0f * (X) / LEN_UNIT)
+#define cnvScaleRate2App(X) ((X) * LEN_UNIT)
+#define cnvAppang2Sin(X) (GgafDx9Core::GgafDx9Util::SIN[(X) / ANGLE_RATE])
+#define cnvAppang2Cos(X) (GgafDx9Core::GgafDx9Util::COS[(X) / ANGLE_RATE])
+
 
 enum GgafDx9UvFlipMethod {
     FLIP_ORDER_LOOP,

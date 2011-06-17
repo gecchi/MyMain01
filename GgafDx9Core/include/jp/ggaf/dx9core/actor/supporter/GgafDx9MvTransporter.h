@@ -125,7 +125,7 @@ public:
     }
 
     void execGravitationVxyzMvSequence(
-            int prm_tX, int prm_tY, int prm_tZ,
+            appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ,
             velo prm_max_velo,
             acce prm_acce,
             int prm_stop_renge

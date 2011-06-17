@@ -15,8 +15,7 @@ GgafActor::GgafActor(const char* prm_name) :
     _pGod = NULL;
     _can_hit_flg = false;
     _can_hit_out_of_view = false;
-    _use_octree = false;
-    _pDependenceDispcher = NULL;
+    _pDependenceStore = NULL;
 #ifdef MY_DEBUG
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
 #else
@@ -87,7 +86,7 @@ GgafScene* GgafActor::getPlatformScene() {
 }
 
 void GgafActor::sayonara(frame prm_offset_frames) {
-    if (_pDependenceDispcher) {
+    if (_pDependenceStore) {
         inactivateDelay(prm_offset_frames);
     } else {
         end(prm_offset_frames);

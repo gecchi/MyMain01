@@ -83,15 +83,15 @@ void GgafDx9StringBoardActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
 
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(1.0f*_Y/LEN_UNIT));
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(cnvCoordApp2Pix(_Y)));
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(1.0f*_Z/LEN_UNIT));
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(cnvCoordApp2Pix(_Z)));
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _fAlpha);
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahAlpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     int strindex, pattno;
-    int x = _X/LEN_UNIT;
-    int x_tmp = x;
+    pixcoord x = cnvCoordApp2Pix(_X);
+    pixcoord x_tmp = x;
     float u,v;
     for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
         _draw_set_num = pack < _len_pack_num ? _pBoardSetModel->_set_num : _remainder_len;

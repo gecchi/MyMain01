@@ -42,9 +42,9 @@ EnemyMassalia::EnemyMassalia(const char* prm_name) : DefaultMeshActor(prm_name, 
 
 
     _papaPosLaser = NEW PosLaser*[_laser_way];
-    angle* paAngWay = NEW angle[_laser_way];
+    appangle* paAngWay = NEW appangle[_laser_way];
     GgafDx9Util::getWayAngle2D(0, _laser_way, _angClearance, paAngWay);
-    angle Rz,Ry;
+    appangle Rz,Ry;
     float vx, vy, vz;
     for (int i = 0; i < _laser_way; i++) {
         Rz = GgafDx9Util::simplifyAng(paAngWay[i]);
@@ -192,7 +192,7 @@ void EnemyMassalia::processBehavior() {
             LaserChip* pLaserChip;
             D3DXMATRIX matWorldRot;
             GgafDx9Util::setWorldMatrix_RxRzRy(this, matWorldRot);
-            angle Rz, Ry;
+            appangle Rz, Ry;
             int vX, vY, vZ;
             for (int i = 0; i < _laser_way; i++) {
                 for (int j = 0; j < _laser_way; j++) {

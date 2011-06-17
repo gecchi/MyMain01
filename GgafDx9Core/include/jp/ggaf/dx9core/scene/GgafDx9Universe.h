@@ -57,12 +57,12 @@ public:
     static GgafDx9DrawableActor* _pActor_DrawActive;
 
 
-    static int _X_goneLeft;
-    static int _X_goneRight;
-    static int _Y_goneTop;
-    static int _Y_goneBottom;
-    static int _Z_goneFar;
-    static int _Z_goneNear;
+    static appcoord _X_goneLeft;
+    static appcoord _X_goneRight;
+    static appcoord _Y_goneTop;
+    static appcoord _Y_goneBottom;
+    static appcoord _Z_goneFar;
+    static appcoord _Z_goneNear;
 
 //    GgafDx9TextureManager* _pCubeMapTextureManager;
 

@@ -74,9 +74,9 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
      );
      */
 
-    _X = _pVecCamFromPoint->x * LEN_UNIT * PX_UNIT;
-    _Y = _pVecCamFromPoint->y * LEN_UNIT * PX_UNIT;
-    _Z = _pVecCamFromPoint->z * LEN_UNIT * PX_UNIT;
+    _X = cnvCoordDx2App(_pVecCamFromPoint->x);
+    _Y = cnvCoordDx2App(_pVecCamFromPoint->y);
+    _Z = cnvCoordDx2App(_pVecCamFromPoint->z);
 
     _pMvNavigator->setMvAng(0,0,0);
     _pMvNavigator->setMvVelo(0);
@@ -87,14 +87,14 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
     setHitAble(false);
 
     _pViewPoint = NEW GgafDx9CameraViewPoint();
-    _pViewPoint->_X = _pVecCamLookatPoint->x * LEN_UNIT * PX_UNIT;
-    _pViewPoint->_Y = _pVecCamLookatPoint->y * LEN_UNIT * PX_UNIT;
-    _pViewPoint->_Z = _pVecCamLookatPoint->z * LEN_UNIT * PX_UNIT;
+    _pViewPoint->_X = cnvCoordDx2App(_pVecCamLookatPoint->x);
+    _pViewPoint->_Y = cnvCoordDx2App(_pVecCamLookatPoint->y);
+    _pViewPoint->_Z = cnvCoordDx2App(_pVecCamLookatPoint->z);
 
-    _X_ScreenLeft   = (int)(-1 * CFG_PROPERTY(GAME_BUFFER_WIDTH) * LEN_UNIT / 2);
-    _X_ScreenRight  = (int)(CFG_PROPERTY(GAME_BUFFER_WIDTH) * LEN_UNIT / 2);
-    _Y_ScreenTop    = (int)(CFG_PROPERTY(GAME_BUFFER_HEIGHT) * LEN_UNIT / 2);
-    _Y_ScreenBottom = (int)(-1 * CFG_PROPERTY(GAME_BUFFER_HEIGHT) * LEN_UNIT / 2);
+    _X_ScreenLeft   = cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)) / -2;
+    _X_ScreenRight  = cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)) / 2;
+    _Y_ScreenTop    = cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT)) / 2;
+    _Y_ScreenBottom = cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT)) / -2;
     GgafDx9God::_pID3DDevice9->GetViewport(&_viewport);
 }
 
@@ -107,10 +107,10 @@ void GgafDx9Camera::processBehavior() {
     //スクリーン全体のクライアント領域を保持。
 
     // _viewport.MinZ / MaxZ は、通常それぞれ 0 / 1
-    float x1 = (float)_viewport.X;
-    float y1 = (float)_viewport.Y;
-    float x2 = (float)_viewport.X + (float)_viewport.Width;
-    float y2 = (float)_viewport.Y + (float)_viewport.Height;
+    dxcoord x1 = dxcoord(_viewport.X);
+    dxcoord y1 = dxcoord(_viewport.Y);
+    dxcoord x2 = dxcoord(_viewport.X + _viewport.Width);
+    dxcoord y2 = dxcoord(_viewport.Y + _viewport.Height);
 
     // 視錐台の８点が格納されるインスタンス
     _vecNear[0] = D3DXVECTOR3( x1, y1, _viewport.MinZ ); // 左下 (変換後)
@@ -122,9 +122,6 @@ void GgafDx9Camera::processBehavior() {
     _vecFar[1]  = D3DXVECTOR3( x2, y1, _viewport.MaxZ ); // 右下 (変換後)
     _vecFar[2]  = D3DXVECTOR3( x1, y2, _viewport.MaxZ ); // 左上 (変換後)
     _vecFar[3]  = D3DXVECTOR3( x2, y2, _viewport.MaxZ ); // 右上 (変換後)
-
-
-
 
     // 視錐台の８点の計算
     static D3DXMATRIX mat_world;
@@ -236,13 +233,13 @@ void GgafDx9Camera::processJudgement() {
     _pVecCamFromPoint->x = _fX;
     _pVecCamFromPoint->y = _fY;
     _pVecCamFromPoint->z = _fZ;
-    _pVecCamLookatPoint->x = (1.0f * _pViewPoint->_X ) / LEN_UNIT / PX_UNIT;
-    _pVecCamLookatPoint->y = (1.0f * _pViewPoint->_Y ) / LEN_UNIT / PX_UNIT;
-    _pVecCamLookatPoint->z = (1.0f * _pViewPoint->_Z ) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->x = cnvCoordApp2Dx(_pViewPoint->_X);
+    _pVecCamLookatPoint->y = cnvCoordApp2Dx(_pViewPoint->_Y);
+    _pVecCamLookatPoint->z = cnvCoordApp2Dx(_pViewPoint->_Z);
     D3DXMatrixLookAtLH(&_matView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 }
 
-void GgafDx9Camera::setViewPoint(int prm_tX, int prm_tY, int prm_tZ) {
+void GgafDx9Camera::setViewPoint(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ) {
     _pViewPoint->_X = prm_tX;
     _pViewPoint->_Y = prm_tY;
     _pViewPoint->_Z = prm_tZ;
@@ -256,7 +253,7 @@ void GgafDx9Camera::setViewPoint(GgafDx9GeometricActor* prm_pActor) {
 void GgafDx9Camera::setDefaultPosition() {
     _X = 0;
     _Y = 0;
-    _Z = _cameraZ_org * LEN_UNIT * PX_UNIT;
+    _Z = cnvCoordDx2App(_cameraZ_org);
     _pViewPoint->_X = 0;
     _pViewPoint->_Y = 0;
     _pViewPoint->_Z = 0;

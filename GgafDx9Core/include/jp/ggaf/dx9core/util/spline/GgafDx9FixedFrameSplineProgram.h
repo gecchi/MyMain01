@@ -14,7 +14,7 @@ public:
     /** [r]１区間の使用可能フレーム */
     frame _SPframe_segment;
     /** [r]次の補完点までの距離のテーブル */
-    int* _paDistace_to;
+    appcoord* _paDistace_to;
     /** [r]次の補完点到達に必要な移動速度のテーブル */
     velo* _paSPMvVeloTo;
     /** [rw]方向転換に許されるRzRyの軸転速度 */

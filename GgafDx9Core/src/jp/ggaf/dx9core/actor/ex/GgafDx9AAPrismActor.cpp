@@ -60,7 +60,7 @@ GgafDx9AAPrismActor::GgafDx9AAPrismActor(const char* prm_name,
 //    _pD3DXMeshModel->draw(this);
 //}
 
-void GgafDx9AAPrismActor::drawPrism(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2, int prm_z2,int pos_prism) {
+void GgafDx9AAPrismActor::drawPrism(appcoord prm_x1, appcoord prm_y1, appcoord prm_z1, appcoord prm_x2, appcoord prm_y2, appcoord prm_z2, int pos_prism) {
     _RX = pos2r[pos_prism]._rx;
     _RZ = pos2r[pos_prism]._rz;
     _RY = pos2r[pos_prism]._ry;
@@ -70,9 +70,9 @@ void GgafDx9AAPrismActor::drawPrism(int prm_x1, int prm_y1, int prm_z1, int prm_
     _X = prm_x1 + (prm_x2 - prm_x1) / 2;
     _Y = prm_y1 + (prm_y2 - prm_y1) / 2;
     _Z = prm_z1 + (prm_z2 - prm_z1) / 2;
-    _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
-    _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
-    _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+    _fX = cnvCoordApp2Dx(_X);
+    _fY = cnvCoordApp2Dx(_Y);
+    _fZ = cnvCoordApp2Dx(_Z);
 
     //GgafDx9Util::setWorldMatrix_ScRzMv(this, _matWorld);
     GgafDx9Util::setWorldMatrix_RxRzRyScMv(this, _matWorld); //回転後にスケールがポイント

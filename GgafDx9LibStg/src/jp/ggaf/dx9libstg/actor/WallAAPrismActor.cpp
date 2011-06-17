@@ -39,12 +39,12 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
         //
         //                 00abcdef
         //
-        //    FACE_A_BIT = 0b100000 = 0
-        //    FACE_B_BIT = 0b010000 = 9
-        //    FACE_C_BIT = 0b001000 = 8
-        //    FACE_D_BIT = 0b000100 = 4
-        //    FACE_E_BIT = 0b000010 = 2
-        //    FACE_F_BIT = 0b000001 = 1
+        //    FACE_A_BIT = 32 = 0b100000
+        //    FACE_B_BIT = 16 = 0b010000
+        //    FACE_C_BIT = 8  = 0b001000
+        //    FACE_D_BIT = 4  = 0b000100
+        //    FACE_E_BIT = 2  = 0b000010
+        //    FACE_F_BIT = 1  = 0b000001
         //XYÉvÉäÉYÉÄÇÃèÍçáÇÕ +X -Xñ ÇÇ¬Ç‘Ç∑
         _delface[POS_PRISM_XY_nn] = ~FACE_F_BIT;
         _delface[POS_PRISM_XY_np] = ~FACE_F_BIT;
@@ -86,11 +86,11 @@ void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int p
     }
     HRESULT hr;
     ID3DXEffect* pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
-    hr = pID3DXEffect->SetFloat(_h_wall_dep, 1.0*_wall_dep/LEN_UNIT/PX_UNIT/_rate_BoundingSphereRadius);
+    hr = pID3DXEffect->SetFloat(_h_wall_dep, cnvCoordApp2Dx(_wall_dep)/_rate_BoundingSphereRadius);
     checkDxException(hr, D3D_OK, "WallAAPrismActor::WallAAPrismActor() SetInt(_h_wall_dep) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_h_wall_height, 1.0*_wall_height/LEN_UNIT/PX_UNIT/_rate_BoundingSphereRadius);
+    hr = pID3DXEffect->SetFloat(_h_wall_height, cnvCoordApp2Dx(_wall_height)/_rate_BoundingSphereRadius);
     checkDxException(hr, D3D_OK, "WallAAPrismActor::WallAAPrismActor() SetInt(_h_wall_height) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_h_wall_width, 1.0*_wall_width/LEN_UNIT/PX_UNIT/_rate_BoundingSphereRadius);
+    hr = pID3DXEffect->SetFloat(_h_wall_width, cnvCoordApp2Dx(_wall_width)/_rate_BoundingSphereRadius);
     checkDxException(hr, D3D_OK, "WallAAPrismActor::WallAAPrismActor() SetInt(_h_wall_width) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 }

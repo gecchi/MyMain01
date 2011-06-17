@@ -5,15 +5,15 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 int MyShip::wk_dist = 0;
-angle MyShip::wk_angRx = 0;
+appangle MyShip::wk_angRx = 0;
 
 #define S_OPTION 0
-int MyShip::_lim_top     =  0;
-int MyShip::_lim_bottom  =  0;
-int MyShip::_lim_front   =  0;
-int MyShip::_lim_behaind =  0;
-int MyShip::_lim_zleft   =  0;
-int MyShip::_lim_zright  =  0;
+appcoord MyShip::_lim_top     =  0;
+appcoord MyShip::_lim_bottom  =  0;
+appcoord MyShip::_lim_front   =  0;
+appcoord MyShip::_lim_behaind =  0;
+appcoord MyShip::_lim_zleft   =  0;
+appcoord MyShip::_lim_zright  =  0;
 
 MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper") {
 //MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
@@ -405,7 +405,7 @@ void MyShip::processBehavior() {
 
     } else {
 
-        angle dist = _pMvNavigator->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
+        appangle dist = _pMvNavigator->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < ANGLE180) {
             _pMvNavigator->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         } else if (-1*ANGLE180 < dist && dist < 0) {

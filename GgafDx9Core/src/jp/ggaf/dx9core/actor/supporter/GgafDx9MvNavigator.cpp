@@ -128,7 +128,7 @@ GgafDx9MvNavigator::GgafDx9MvNavigator(GgafDx9GeometricActor* prm_pActor) :
     for (int i = 0; i < 3; i++) { // i=0:Xé≤ÅA1:Yé≤ÅA2:Zé≤ Çï\Ç∑
 
         //é≤âÒì]ï˚äp
-        _angFace[i] = 0; //0 angle ÇÕ ÇRéûÇÃï˚äpÇå¸Ç¢ÇƒÇ¢ÇÈ
+        _angFace[i] = 0; //0 appangle ÇÕ ÇRéûÇÃï˚äpÇå¸Ç¢ÇƒÇ¢ÇÈ
         //é≤âÒì]ï˚äpÇÃäpë¨ìxÅié≤âÒì]ï˚äpÇÃëùï™Åj= 0 angle/fream
         _angveloFace[i] = 0; //1ÉtÉåÅ[ÉÄÇ…â¡éZÇ≥ÇÍÇÈé≤âÒì]ï˚äpÇÃäpëùï™ÅBÉfÉtÉHÉãÉgÇÕé≤âÒì]ï˚äpÇÃäpëùï™ñ≥ÇµÅAÇ¬Ç‹ÇËêUÇËå¸Ç´ñ≥ÇµÅB
         //é≤âÒì]ï˚äpÇÃäpë¨ìxè„å¿ ÅÅ 360,000 angle/fream
@@ -244,7 +244,7 @@ GgafDx9MvNavigator::GgafDx9MvNavigator(GgafDx9GeometricActor* prm_pActor) :
 void GgafDx9MvNavigator::behave() {
 
     //é≤âÒì]ï˚äpèàóù
-    angle angDistance;
+    appangle angDistance;
     for (int i = 0; i < 3; i++) {
         if (_face_ang_targeting_flg[i]) { //É^Å[ÉQÉbÉgï˚å¸Ç™Ç†ÇÈèÍçá
             _angveloFace[i] += _angacceFace[i];
@@ -405,7 +405,7 @@ void GgafDx9MvNavigator::behave() {
         setRzMvAngVelo(_angveloRzMv);
 
         if (_angveloRzMv > 0) { //îΩéûåvâÒÇËÇÃèÍçá
-            angle angDistance = getRzMvAngDistance(_angTargetRzMv, TURN_COUNTERCLOCKWISE);
+            appangle angDistance = getRzMvAngDistance(_angTargetRzMv, TURN_COUNTERCLOCKWISE);
             if (_angveloRzMv > angDistance && _mv_ang_rz_target_allow_way != TURN_CLOCKWISE
                     && _mv_ang_rz_target_allow_velo >= _angveloRzMv) { //ñ⁄ïWÇçsÇ´âﬂÇ¨ÇƒÇµÇ‹Ç¢ÇªÇ§ÅEÅEÅEÇ»ì˙
                 addRzMvAng(angDistance);
@@ -417,7 +417,7 @@ void GgafDx9MvNavigator::behave() {
             }
         } else if (_angveloRzMv < 0) { //éûåvâÒÇËÇÃèÍçá
 
-            angle angDistance = getRzMvAngDistance(_angTargetRzMv, TURN_CLOCKWISE);
+            appangle angDistance = getRzMvAngDistance(_angTargetRzMv, TURN_CLOCKWISE);
             if (_angveloRzMv < angDistance && _mv_ang_rz_target_allow_way != TURN_COUNTERCLOCKWISE
                     && -1*_mv_ang_rz_target_allow_velo <= _angveloRzMv) {
                 addRzMvAng(angDistance);
@@ -458,7 +458,7 @@ void GgafDx9MvNavigator::behave() {
         setRyMvAngVelo(_angveloRyMv);
 
         if (_angveloRyMv > 0) { //åªç›ÇÕîΩéûåvâÒÇËÇÃèÍçá
-            angle angDistance = getRyMvAngDistance(_angTargetRyMv, TURN_COUNTERCLOCKWISE);
+            appangle angDistance = getRyMvAngDistance(_angTargetRyMv, TURN_COUNTERCLOCKWISE);
             if (_angveloRyMv > angDistance &&
                 _mv_ang_ry_target_allow_way != TURN_CLOCKWISE &&
                 _mv_ang_ry_target_allow_velo >= _angveloRyMv)
@@ -472,7 +472,7 @@ void GgafDx9MvNavigator::behave() {
             }
         } else if (_angveloRyMv < 0) { //åªç›ÇÕéûåvâÒÇËÇÃèÍçá
 
-            angle angDistance = getRyMvAngDistance(_angTargetRyMv, TURN_CLOCKWISE);
+            appangle angDistance = getRyMvAngDistance(_angTargetRyMv, TURN_CLOCKWISE);
             if (_angveloRyMv < angDistance &&
                 _mv_ang_ry_target_allow_way != TURN_COUNTERCLOCKWISE &&
                 -1*_mv_ang_ry_target_allow_velo <= _angveloRyMv)
@@ -534,11 +534,11 @@ void GgafDx9MvNavigator::behave() {
 
 }
 
-void GgafDx9MvNavigator::setFaceAng(int prm_axis, angle prm_angFace) {
+void GgafDx9MvNavigator::setFaceAng(axisid prm_axis, appangle prm_angFace) {
     _angFace[prm_axis] = GgafDx9Util::simplifyAng(prm_angFace);
 }
 
-void GgafDx9MvNavigator::setFaceAng(int prm_tX, int prm_tY, int prm_tZ) {
+void GgafDx9MvNavigator::setFaceAng(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ) {
     GgafDx9Util::getRzRyAng(
                    prm_tX - _pActor->_X,
                    prm_tY - _pActor->_Y,
@@ -548,8 +548,8 @@ void GgafDx9MvNavigator::setFaceAng(int prm_tX, int prm_tY, int prm_tZ) {
                  );
 }
 
-void GgafDx9MvNavigator::addFaceAng(int prm_axis, angle prm_angDistance) {
-    angle angOffsetrot_FaceAng;
+void GgafDx9MvNavigator::addFaceAng(axisid prm_axis, appangle prm_angDistance) {
+    appangle angOffsetrot_FaceAng;
     angOffsetrot_FaceAng = prm_angDistance;
     if (_angveloBottomFace[prm_axis] > prm_angDistance) {
         angOffsetrot_FaceAng = _angveloBottomFace[prm_axis];
@@ -559,7 +559,7 @@ void GgafDx9MvNavigator::addFaceAng(int prm_axis, angle prm_angDistance) {
     setFaceAng(prm_axis, _angFace[prm_axis] + angOffsetrot_FaceAng);
 }
 
-void GgafDx9MvNavigator::setFaceAngVelo(int prm_axis, angvelo prm_angveloRot) {
+void GgafDx9MvNavigator::setFaceAngVelo(axisid prm_axis, angvelo prm_angveloRot) {
     if (prm_angveloRot > _angveloTopFace[prm_axis]) {
         _angveloFace[prm_axis] = _angveloTopFace[prm_axis];
     } else if (prm_angveloRot < _angveloBottomFace[prm_axis]) {
@@ -569,7 +569,7 @@ void GgafDx9MvNavigator::setFaceAngVelo(int prm_axis, angvelo prm_angveloRot) {
     }
 }
 
-void GgafDx9MvNavigator::forceFaceAngVeloRange(int prm_axis,
+void GgafDx9MvNavigator::forceFaceAngVeloRange(axisid prm_axis,
                                                angvelo prm_angveloRot01,
                                                angvelo prm_angveloRot02) {
     if (prm_angveloRot01 < prm_angveloRot02) {
@@ -582,13 +582,13 @@ void GgafDx9MvNavigator::forceFaceAngVeloRange(int prm_axis,
     setFaceAngVelo(prm_axis, _angveloFace[prm_axis]); //çƒê›íËÇµÇƒîÕàÕì‡Ç…ï‚ê≥
 }
 
-void GgafDx9MvNavigator::setFaceAngAcce(int prm_axis, angacce prm_angacceRot) {
+void GgafDx9MvNavigator::setFaceAngAcce(axisid prm_axis, angacce prm_angacceRot) {
     _angacceFace[prm_axis] = prm_angacceRot;
 }
 
-void GgafDx9MvNavigator::setStopTarget_FaceAngV(int prm_axis,
-                                                  int prm_tX,
-                                                  int prm_tY,
+void GgafDx9MvNavigator::setStopTarget_FaceAngV(axisid prm_axis,
+                                                  appcoord prm_tX,
+                                                  appcoord prm_tY,
                                                   int prm_way_allow,
                                                   angvelo prm_angveloAllowRyMv) {
     setStopTarget_FaceAng(
@@ -599,8 +599,8 @@ void GgafDx9MvNavigator::setStopTarget_FaceAngV(int prm_axis,
     );
 }
 
-void GgafDx9MvNavigator::setStopTarget_FaceAng(int prm_axis,
-                                                 angle prm_angTargetRot,
+void GgafDx9MvNavigator::setStopTarget_FaceAng(axisid prm_axis,
+                                                 appangle prm_angTargetRot,
                                                  int prm_way_allow,
                                                  angvelo prm_angveloAllow) {
     _face_ang_targeting_flg[prm_axis] = true;
@@ -610,13 +610,13 @@ void GgafDx9MvNavigator::setStopTarget_FaceAng(int prm_axis,
     _face_ang_target_allow_velo[prm_axis] = prm_angveloAllow;
 }
 
-angle GgafDx9MvNavigator::getFaceAngDistance(int prm_axis, int prm_tX, int prm_tY, int prm_way) {
+appangle GgafDx9MvNavigator::getFaceAngDistance(axisid prm_axis, appcoord prm_tX, appcoord prm_tY, int prm_way) {
     return getFaceAngDistance(prm_axis, GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY
             - (_pActor->_Y)), prm_way);
 }
 
-angle GgafDx9MvNavigator::getFaceAngDistance(int prm_axis, angle prm_angTargetRot, int prm_way) {
-    angle _angTargetRot;
+appangle GgafDx9MvNavigator::getFaceAngDistance(axisid prm_axis, appangle prm_angTargetRot, int prm_way) {
+    appangle _angTargetRot;
     _angTargetRot = GgafDx9Util::simplifyAng(prm_angTargetRot);
     if (prm_way == TURN_CLOSE_TO) { //ãﬂÇ¢ÇŸÇ§âÒì]
         if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < ANGLE180) {
@@ -764,7 +764,7 @@ void GgafDx9MvNavigator::setMvAcce(int prm_acceMove) {
     _accMv = prm_acceMove;
 }
 
-void GgafDx9MvNavigator::setMvAcceToStop(int prm_target_distance) {
+void GgafDx9MvNavigator::setMvAcceToStop(appcoord prm_target_distance) {
     // a = -(Vo^2) / 2D
     _accMv  =  -(1.0*_veloMv*_veloMv) / (2.0*prm_target_distance);
     if (_accMv < 0) {
@@ -778,7 +778,7 @@ void GgafDx9MvNavigator::setMvAcceBy_tv(int prm_target_frames, velo prm_target_v
     //a = (Vt-Vo) / Te
     _accMv = (prm_target_velo - _veloMv) / (1.0f*prm_target_frames);
 }
-void GgafDx9MvNavigator::setMvAcceBy_Dv(int prm_target_distance, velo prm_target_velo) {
+void GgafDx9MvNavigator::setMvAcceBy_Dv(appcoord prm_target_distance, velo prm_target_velo) {
     // a = (Vt^2 - Vo^2) / 2D
     _accMv =  ((1.0f*prm_target_velo*prm_target_velo) - (1.0f*_veloMv*_veloMv)) / (2.0f*prm_target_distance);
     if (_accMv < 0) {
@@ -841,7 +841,7 @@ void GgafDx9MvNavigator::setMvAcceBy_Dv(int prm_target_distance, velo prm_target
     //    Vo <= 0  Ç©Ç¬  Vt <= 0 èÍçáÅAÇ†ÇÈÇ¢ÇÕ  Vo >= 0  Ç©Ç¬  Vt >= 0  èÍçáÇ∆ìØÇ∂Ç≈Ç†ÇÈ
 }
 
-void GgafDx9MvNavigator::execSmoothMvVeloSequence(velo prm_end_velo, int prm_target_distance,
+void GgafDx9MvNavigator::execSmoothMvVeloSequence(velo prm_end_velo, appcoord prm_target_distance,
                                                   int prm_target_frames, float prm_p1, float prm_p2,
                                                   bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
@@ -883,7 +883,7 @@ void GgafDx9MvNavigator::execSmoothMvVeloSequence(velo prm_end_velo, int prm_tar
 }
 
 void GgafDx9MvNavigator::execSmoothMvVeloSequenceD(velo prm_top_velo, velo prm_end_velo,
-                                                   int prm_target_distance, float prm_p1, float prm_p2,
+                                                   appcoord prm_target_distance, float prm_p1, float prm_p2,
                                                    bool prm_endacc_flg) {
     _smooth_mv_velo_seq_flg = true;
     _smooth_mv_velo_seq_endacc_flg = prm_endacc_flg;
@@ -917,7 +917,7 @@ void GgafDx9MvNavigator::execSmoothMvVeloSequenceT(velo prm_top_velo, velo prm_e
 
 
 
-//void GgafDx9MvNavigator::execSmoothMvVeloSequence4(velo prm_end_velo, int prm_target_distance, int prm_target_frames,
+//void GgafDx9MvNavigator::execSmoothMvVeloSequence4(velo prm_end_velo, appcoord prm_target_distance, int prm_target_frames,
 //                                                      bool prm_endacc_flg) {
 //    _smooth_mv_velo_seq_flg = true;
 //    _smooth_mv_velo_seq_p1 = (int)(prm_target_distance*1.0 / 4.0);
@@ -984,11 +984,11 @@ bool GgafDx9MvNavigator::isMoveingSmooth() {
 }
 
 
-void GgafDx9MvNavigator::setRzMvAng(int prm_tX, int prm_tY) {
+void GgafDx9MvNavigator::setRzMvAng(appcoord prm_tX, appcoord prm_tY) {
     setRzMvAng(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
 }
 
-void GgafDx9MvNavigator::setRzMvAng(angle prm_ang) {
+void GgafDx9MvNavigator::setRzMvAng(appangle prm_ang) {
     if (prm_ang !=  _angRzMv) {
         _angRzMv = GgafDx9Util::simplifyAng(prm_ang);
         GgafDx9Util::getNormalizeVectorZY(_angRzMv, _angRyMv, _vX, _vY, _vZ);
@@ -998,8 +998,8 @@ void GgafDx9MvNavigator::setRzMvAng(angle prm_ang) {
     }
 }
 
-void GgafDx9MvNavigator::addRzMvAng(angle prm_angDistance) {
-    angle angOffset = prm_angDistance;
+void GgafDx9MvNavigator::addRzMvAng(appangle prm_angDistance) {
+    appangle angOffset = prm_angDistance;
     if (_angveloRzBottomMv > prm_angDistance) {
         angOffset = _angveloRzBottomMv;
     } else if (prm_angDistance > _angveloRzTopMv) {
@@ -1034,7 +1034,7 @@ void GgafDx9MvNavigator::forceRzMvAngVeloRange(angvelo prm_angveloRzMv01,
     setRzMvAngVelo(_angveloRzMv); //çƒê›íËÇµÇƒîÕàÕì‡Ç…ï‚ê≥
 }
 
-void GgafDx9MvNavigator::setStopTarget_RzMvAng(angle prm_angTargetRzMv,
+void GgafDx9MvNavigator::setStopTarget_RzMvAng(appangle prm_angTargetRzMv,
                                                  int prm_way_allow,
                                                  angvelo prm_angveloAllowRyMv) {
     _mv_ang_rz_target_flg = true;
@@ -1044,20 +1044,20 @@ void GgafDx9MvNavigator::setStopTarget_RzMvAng(angle prm_angTargetRzMv,
     _mv_ang_rz_target_allow_velo = prm_angveloAllowRyMv;
 }
 
-void GgafDx9MvNavigator::setStopTarget_RzMvAngV(int prm_tX,
-                                                  int prm_tY,
+void GgafDx9MvNavigator::setStopTarget_RzMvAngV(appcoord prm_tX,
+                                                  appcoord prm_tY,
                                                   int prm_way_allow,
                                                   angvelo prm_angveloAllowRyMv) {
     setStopTarget_RzMvAng(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_way_allow);
 }
 
-angle GgafDx9MvNavigator::getRzMvAngDistance(int prm_tX, int prm_tY, int prm_way) {
+appangle GgafDx9MvNavigator::getRzMvAngDistance(appcoord prm_tX, appcoord prm_tY, int prm_way) {
     return getRzMvAngDistance(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
                                         prm_way);
 }
 
-angle GgafDx9MvNavigator::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
-    angle angTargetRzMv = GgafDx9Util::simplifyAng(prm_angTargetRzMv);
+appangle GgafDx9MvNavigator::getRzMvAngDistance(appangle prm_angTargetRzMv, int prm_way) {
+    appangle angTargetRzMv = GgafDx9Util::simplifyAng(prm_angTargetRzMv);
     if (prm_way == TURN_CLOSE_TO) { //ãﬂÇ¢ÇŸÇ§âÒì]
         if (0 <= _angRzMv && _angRzMv < ANGLE180) {
             if (0 <= angTargetRzMv && angTargetRzMv < _angRzMv) {
@@ -1170,11 +1170,11 @@ angle GgafDx9MvNavigator::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_wa
 }
 
 
-void GgafDx9MvNavigator::setRyMvAng(int prm_tX, int prm_tY) {
+void GgafDx9MvNavigator::setRyMvAng(appcoord prm_tX, appcoord prm_tY) {
     setRyMvAng(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
 }
 
-void GgafDx9MvNavigator::setRyMvAng(angle prm_ang) {
+void GgafDx9MvNavigator::setRyMvAng(appangle prm_ang) {
     if (prm_ang != _angRyMv) {
         _angRyMv = GgafDx9Util::simplifyAng(prm_ang);
         GgafDx9Util::getNormalizeVectorZY(_angRzMv, _angRyMv, _vX, _vY, _vZ);
@@ -1184,8 +1184,8 @@ void GgafDx9MvNavigator::setRyMvAng(angle prm_ang) {
     }
 }
 
-void GgafDx9MvNavigator::addRyMvAng(angle prm_angDistance) {
-    angle angOffset = prm_angDistance;
+void GgafDx9MvNavigator::addRyMvAng(appangle prm_angDistance) {
+    appangle angOffset = prm_angDistance;
     if (_angveloRyBottomMv > prm_angDistance) {
         angOffset = _angveloRyBottomMv;
     } else if (prm_angDistance > _angveloRyTopMv) {
@@ -1220,7 +1220,7 @@ void GgafDx9MvNavigator::forceRyMvAngVeloRange(angvelo prm_angveloRyMv01,
     setRyMvAngVelo(_angveloRyMv); //çƒê›íËÇµÇƒîÕàÕì‡Ç…ï‚ê≥
 }
 
-void GgafDx9MvNavigator::setStopTarget_RyMvAng(angle prm_angTargetRyMv,
+void GgafDx9MvNavigator::setStopTarget_RyMvAng(appangle prm_angTargetRyMv,
                                           int prm_way_allow,
                                           angvelo prm_angveloAllowRyMv) {
     _mv_ang_ry_target_flg = true;
@@ -1230,20 +1230,20 @@ void GgafDx9MvNavigator::setStopTarget_RyMvAng(angle prm_angTargetRyMv,
     _mv_ang_ry_target_allow_velo = prm_angveloAllowRyMv;
 }
 
-void GgafDx9MvNavigator::setStopTarget_RyMvAngV(int prm_tX,
-                                                  int prm_tY,
+void GgafDx9MvNavigator::setStopTarget_RyMvAngV(appcoord prm_tX,
+                                                  appcoord prm_tY,
                                                   int prm_way_allow,
                                                   angvelo prm_angveloAllowRyMv) {
     setStopTarget_RyMvAng(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_way_allow);
 }
 
-angle GgafDx9MvNavigator::getRyMvAngDistance(int prm_tX, int prm_tY, int prm_way) {
+appangle GgafDx9MvNavigator::getRyMvAngDistance(appcoord prm_tX, appcoord prm_tY, int prm_way) {
     return getRyMvAngDistance(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
                                         prm_way);
 }
 
-angle GgafDx9MvNavigator::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
-    angle angTargetRyMv;
+appangle GgafDx9MvNavigator::getRyMvAngDistance(appangle prm_angTargetRyMv, int prm_way) {
+    appangle angTargetRyMv;
     angTargetRyMv = GgafDx9Util::simplifyAng(prm_angTargetRyMv);
     if (prm_way == TURN_CLOSE_TO) { //ãﬂÇ¢ÇŸÇ§âÒì]
         if (0 <= _angRyMv && _angRyMv < ANGLE180) {
@@ -1357,31 +1357,31 @@ angle GgafDx9MvNavigator::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_wa
 }
 
 void GgafDx9MvNavigator::getRzRyMvAngDistance(int prm_way,
-                                                angle prm_target_angRz, angle prm_target_angRy,
-                                                angle& out_d_angRz, angle& out_d_angRy,
-                                                angle& out_target_angRz, angle& out_target_angRy) {
+                                                appangle prm_target_angRz, appangle prm_target_angRy,
+                                                appangle& out_d_angRz, appangle& out_d_angRy,
+                                                appangle& out_target_angRz, appangle& out_target_angRy) {
 //_TRACE_("getRzRyMvAngDistance ---->");
 //_TRACE_("this: angMvRz="<<_angRzMv<<" _angRyMv="<<_angRyMv);
 //_TRACE_("prm_target_angRz="<<prm_target_angRz<<" prm_target_angRy="<<prm_target_angRy);
-    angle target_angRz = prm_target_angRz;
-    angle target_angRy = prm_target_angRy;
+    appangle target_angRz = prm_target_angRz;
+    appangle target_angRy = prm_target_angRy;
     if (prm_way == TURN_CLOSE_TO) { //ãﬂÇ¢ÇŸÇ§âÒì]
         //ñ⁄ïWÇ…ìûíBÇ∑ÇÈÇΩÇﬂÇ…ÇÕÅAâÒÇËï˚Ç™èÌÇ…ÇQÉpÉ^Å[ÉìÇ†ÇÈÅB
         //ÇªÇÍÇºÇÍãÖñ è„ÇÃÇQì_ÇÃãóó£Çä»à’ãﬂéóílÅië¨ìxóDêÊÇÃÇΩÇﬂÅjÇ≈î‰ärÇµÅAãﬂÇ¢Ç∆évÇÌÇÍÇÈÇŸÇ§ÇçÃópÇ∑ÇÈÅB
 
         //_TRACE_("1 target_angRz="<<target_angRz<<" target_angRy="<<target_angRy);
-        angle d1_angRz = getRzMvAngDistance(target_angRz, TURN_CLOSE_TO); //RzÇÃç∑
-        angle d1_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO);
+        appangle d1_angRz = getRzMvAngDistance(target_angRz, TURN_CLOSE_TO); //RzÇÃç∑
+        appangle d1_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO);
         //_TRACE_("1 d1_angRz="<<d1_angRz<<" d1_angRy="<<d1_angRy);
-        angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
+        appangle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
         //_TRACE_("1  d1="<<((float)d1));
 
         GgafDx9Util::anotherRzRy(target_angRz, target_angRy);
         //_TRACE_("2 anotherRzRy target_angRz="<<target_angRz<<" target_angRy="<<target_angRy);
-        angle d2_angRz = getRzMvAngDistance(target_angRz, TURN_CLOSE_TO);
-        angle d2_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO);
+        appangle d2_angRz = getRzMvAngDistance(target_angRz, TURN_CLOSE_TO);
+        appangle d2_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO);
         //_TRACE_("2 d2_angRz="<<d2_angRz<<" d2_angRy="<<d2_angRy);
-        angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
+        appangle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
         //_TRACE_("2  d2="<<((float)d2));
         if (d1 <= d2) {
             //_TRACE_("d1 <= d2 d1Ç™çÃópÇ≥ÇÍÇ‹ÇµÇΩ");
@@ -1398,13 +1398,13 @@ void GgafDx9MvNavigator::getRzRyMvAngDistance(int prm_way,
         }
         //_TRACE_("<--- getRzRyMvAngDistance");
     } else if (prm_way == TURN_ANTICLOSE_TO) { //âìÇ¢ï˚ÇÃâÒì]
-        angle d1_angRz = getRzMvAngDistance(target_angRz, TURN_ANTICLOSE_TO);
-        angle d1_angRy = getRyMvAngDistance(target_angRy, TURN_ANTICLOSE_TO);
-        angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
+        appangle d1_angRz = getRzMvAngDistance(target_angRz, TURN_ANTICLOSE_TO);
+        appangle d1_angRy = getRyMvAngDistance(target_angRy, TURN_ANTICLOSE_TO);
+        appangle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
         GgafDx9Util::anotherRzRy(target_angRz, target_angRy);
-        angle d2_angRz = getRzMvAngDistance(target_angRz, TURN_ANTICLOSE_TO);
-        angle d2_angRy = getRyMvAngDistance(target_angRy, TURN_ANTICLOSE_TO);
-        angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
+        appangle d2_angRz = getRzMvAngDistance(target_angRz, TURN_ANTICLOSE_TO);
+        appangle d2_angRy = getRyMvAngDistance(target_angRy, TURN_ANTICLOSE_TO);
+        appangle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
         if (d1 >= d2) {
             out_d_angRz = d1_angRz;
             out_d_angRy = d1_angRy;
@@ -1433,19 +1433,19 @@ void GgafDx9MvNavigator::getRzRyMvAngDistance(int prm_way,
 }
 
 void GgafDx9MvNavigator::getRzRyFaceAngDistance(int prm_way,
-                                                  angle prm_target_angRz, angle prm_target_angRy,
-                                                  angle& out_d_angRz, angle& out_d_angRy,
-                                                  angle& out_target_angRz, angle& out_target_angRy) {
-    angle target_angRz = prm_target_angRz;
-    angle target_angRy = prm_target_angRy;
+                                                  appangle prm_target_angRz, appangle prm_target_angRy,
+                                                  appangle& out_d_angRz, appangle& out_d_angRy,
+                                                  appangle& out_target_angRz, appangle& out_target_angRy) {
+    appangle target_angRz = prm_target_angRz;
+    appangle target_angRy = prm_target_angRy;
     if (prm_way == TURN_CLOSE_TO) { //ãﬂÇ¢ÇŸÇ§âÒì]
-        angle d1_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_CLOSE_TO);
-        angle d1_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO);
-        angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
+        appangle d1_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_CLOSE_TO);
+        appangle d1_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO);
+        appangle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
         GgafDx9Util::anotherRzRy(target_angRz, target_angRy);
-        angle d2_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_CLOSE_TO);
-        angle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO) * ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
-        angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
+        appangle d2_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_CLOSE_TO);
+        appangle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO) * ((GgafDx9Util::COS[GgafDx9Util::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
+        appangle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
         if (d1 <= d2) {
             out_d_angRz = d1_angRz;
             out_d_angRy = d1_angRy;
@@ -1459,13 +1459,13 @@ void GgafDx9MvNavigator::getRzRyFaceAngDistance(int prm_way,
         }
 
     } else if (prm_way == TURN_ANTICLOSE_TO) { //âìÇ¢ï˚ÇÃâÒì]
-        angle d1_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_ANTICLOSE_TO);
-        angle d1_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_ANTICLOSE_TO);
-        angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
+        appangle d1_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_ANTICLOSE_TO);
+        appangle d1_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_ANTICLOSE_TO);
+        appangle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
         GgafDx9Util::anotherRzRy(target_angRz, target_angRy);
-        angle d2_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_ANTICLOSE_TO);
-        angle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_ANTICLOSE_TO);
-        angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
+        appangle d2_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_ANTICLOSE_TO);
+        appangle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_ANTICLOSE_TO);
+        appangle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
         if (d1 >= d2) {
             out_d_angRz = d1_angRz;
             out_d_angRy = d1_angRy;
@@ -1493,7 +1493,7 @@ void GgafDx9MvNavigator::getRzRyFaceAngDistance(int prm_way,
     }
 }
 
-void GgafDx9MvNavigator::setRzRyMvAng(angle prm_angRz, angle prm_angRy) {
+void GgafDx9MvNavigator::setRzRyMvAng(appangle prm_angRz, appangle prm_angRy) {
     if (prm_angRz != _angRzMv || prm_angRy !=_angRyMv ) {
         _angRzMv = GgafDx9Util::simplifyAng(prm_angRz);
         _angRyMv = GgafDx9Util::simplifyAng(prm_angRy);
@@ -1507,9 +1507,9 @@ void GgafDx9MvNavigator::setRzRyMvAng(angle prm_angRz, angle prm_angRy) {
     }
 }
 
-void GgafDx9MvNavigator::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_angRyRz_Rz) {
-    angle RyRz_Ry = GgafDx9Util::simplifyAng(prm_angRyRz_Ry);
-    angle RyRz_Rz = GgafDx9Util::simplifyAng(prm_angRyRz_Rz);
+void GgafDx9MvNavigator::setRzRyMvAng_by_RyRz(appangle prm_angRyRz_Ry, appangle prm_angRyRz_Rz) {
+    appangle RyRz_Ry = GgafDx9Util::simplifyAng(prm_angRyRz_Ry);
+    appangle RyRz_Rz = GgafDx9Util::simplifyAng(prm_angRyRz_Rz);
     float out_vY, out_vZ;
     GgafDx9Util::getNormalizeVectorZY(RyRz_Ry, ANGLE360-RyRz_Rz, _vX, out_vY, out_vZ);
     _vY = -1.0f*out_vZ;
@@ -1531,7 +1531,7 @@ void GgafDx9MvNavigator::setMvAng(GgafDx9GeometricActor* prm_pActor_Target) {
     );
 }
 
-void GgafDx9MvNavigator::setMvAng(int prm_tX, int prm_tY, int prm_tZ) {
+void GgafDx9MvNavigator::setMvAng(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ) {
     GgafDx9Util::getRzRyAng(
                    prm_tX - _pActor->_X,
                    prm_tY - _pActor->_Y,
@@ -1558,9 +1558,9 @@ void GgafDx9MvNavigator::setStopTarget_RzRyMvAng(GgafDx9GeometricActor* prm_pAct
     );
 }
 
-void GgafDx9MvNavigator::setStopTarget_RzRyMvAng(int prm_tX, int prm_tY, int prm_tZ) {
-    angle angRz_Target;
-    angle angRy_Target;
+void GgafDx9MvNavigator::setStopTarget_RzRyMvAng(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ) {
+    appangle angRz_Target;
+    appangle angRy_Target;
 
     GgafDx9Util::getRzRyAng(
                    prm_tX - _pActor->_X,
@@ -1579,11 +1579,11 @@ void GgafDx9MvNavigator::setStopTarget_RzRyMvAng(int prm_tX, int prm_tY, int prm
 
 
 
-void GgafDx9MvNavigator::execTurnFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+void GgafDx9MvNavigator::execTurnFaceAngSequence(appangle prm_angRz_Target, appangle prm_angRy_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way, bool prm_optimize_ang) {
-    angle out_d_angRz;
-    angle out_d_angRy;
+    appangle out_d_angRz;
+    appangle out_d_angRy;
     if (prm_optimize_ang) {
         getRzRyFaceAngDistance(prm_way,
                                prm_angRz_Target, prm_angRy_Target,
@@ -1613,11 +1613,11 @@ void GgafDx9MvNavigator::execTurnFaceAngSequence(angle prm_angRz_Target, angle p
     setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
 }
 
-void GgafDx9MvNavigator::execTurnFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+void GgafDx9MvNavigator::execTurnFaceAngSequence(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way, bool prm_optimize_ang) {
-    angle out_angRz_Target;
-    angle out_angRy_Target;
+    appangle out_angRz_Target;
+    appangle out_angRy_Target;
     GgafDx9Util::getRzRyAng(prm_tX - _pActor->_X,
                             prm_tY - _pActor->_Y,
                             prm_tZ - _pActor->_Z,
@@ -1628,7 +1628,7 @@ void GgafDx9MvNavigator::execTurnFaceAngSequence(int prm_tX, int prm_tY, int prm
                                  prm_way, prm_optimize_ang);
 }
 
-void GgafDx9MvNavigator::execTurnRzFaceAngSequence(angle prm_angRz_Target,
+void GgafDx9MvNavigator::execTurnRzFaceAngSequence(appangle prm_angRz_Target,
                                                           angvelo prm_angVelo, angacce prm_angAcce,
                                                           int prm_way) {
     if (getFaceAngDistance(AXIS_Z, prm_angRz_Target, prm_way) > 0) {
@@ -1642,7 +1642,7 @@ void GgafDx9MvNavigator::execTurnRzFaceAngSequence(angle prm_angRz_Target,
 
 }
 
-void GgafDx9MvNavigator::execTurnRyFaceAngSequence(angle prm_angRy_Target,
+void GgafDx9MvNavigator::execTurnRyFaceAngSequence(appangle prm_angRy_Target,
                                                           angvelo prm_angVelo, angacce prm_angAcce,
                                                           int prm_way) {
     if (getFaceAngDistance(AXIS_Y, prm_angRy_Target, prm_way) > 0) {
@@ -1655,7 +1655,7 @@ void GgafDx9MvNavigator::execTurnRyFaceAngSequence(angle prm_angRy_Target,
     setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
 }
 
-void GgafDx9MvNavigator::execTurnRxSpinAngSequence(angle prm_angRx_Target,
+void GgafDx9MvNavigator::execTurnRxSpinAngSequence(appangle prm_angRx_Target,
                                                             angvelo prm_angVelo, angacce prm_angAcce,
                                                             int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_angRx_Target, prm_way) > 0) {
@@ -1668,13 +1668,13 @@ void GgafDx9MvNavigator::execTurnRxSpinAngSequence(angle prm_angRx_Target,
     setStopTarget_FaceAng(AXIS_X, prm_angRx_Target);
 }
 
-void GgafDx9MvNavigator::execTurnMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+void GgafDx9MvNavigator::execTurnMvAngSequence(appangle prm_angRz_Target, appangle prm_angRy_Target,
                                                       angvelo prm_angVelo, angacce prm_angAcce,
                                                       int prm_way, bool prm_optimize_ang) {
-    angle out_d_angRz;
-    angle out_d_angRy;
-    angle out_target_angRz;
-    angle out_target_angRy;
+    appangle out_d_angRz;
+    appangle out_d_angRy;
+    appangle out_target_angRz;
+    appangle out_target_angRy;
     if (prm_optimize_ang) {
         getRzRyMvAngDistance(prm_way,
                              prm_angRz_Target, prm_angRy_Target,
@@ -1707,11 +1707,11 @@ void GgafDx9MvNavigator::execTurnMvAngSequence(angle prm_angRz_Target, angle prm
 }
 
 
-void GgafDx9MvNavigator::execTurnMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
+void GgafDx9MvNavigator::execTurnMvAngSequence(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ,
                                                       angvelo prm_angVelo, angacce prm_angAcce,
                                                       int prm_way, bool prm_optimize_ang) {
-    angle out_angRz_Target;
-    angle out_angRy_Target;
+    appangle out_angRz_Target;
+    appangle out_angRy_Target;
     GgafDx9Util::getRzRyAng(prm_tX - _pActor->_X,
                             prm_tY - _pActor->_Y,
                             prm_tZ - _pActor->_Z,
@@ -1723,7 +1723,7 @@ void GgafDx9MvNavigator::execTurnMvAngSequence(int prm_tX, int prm_tY, int prm_t
 }
 
 
-void GgafDx9MvNavigator::execTurnRzMvAngSequence(angle prm_angRz_Target,
+void GgafDx9MvNavigator::execTurnRzMvAngSequence(appangle prm_angRz_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way) {
     if (getRzMvAngDistance(prm_angRz_Target, prm_way) > 0) {
@@ -1737,7 +1737,7 @@ void GgafDx9MvNavigator::execTurnRzMvAngSequence(angle prm_angRz_Target,
 
 }
 
-void GgafDx9MvNavigator::execTurnRyMvAngSequence(angle prm_angRy_Target,
+void GgafDx9MvNavigator::execTurnRyMvAngSequence(appangle prm_angRy_Target,
                                                         angvelo prm_angVelo, angacce prm_angAcce,
                                                         int prm_way) {
     if (getRyMvAngDistance(prm_angRy_Target, prm_way) > 0) {

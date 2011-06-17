@@ -10,7 +10,7 @@ using namespace GgafDx9Core;
 //変数名と種類
 //
 //基本的に度数法（0°～360°）を使用している。
-//ang または angle と変数名にある場合、ラジアンではなくて度数法での角度数値が入る。
+//ang または appangle と変数名にある場合、ラジアンではなくて度数法での角度数値が入る。
 //（ラジアンの場合はradと書くようにしている）
 //但し精度が場合によってまちまちである。
 //キャラがもつ angle値は 0 ～ 360,000 で 値の上では度数法の1000倍の精度を持つ。一応これが基本。
@@ -69,16 +69,16 @@ float GgafDx9Util::RAD[S_ANG360+1];
 float GgafDx9Util::ROOT_1_MINUS_XX[1000];
 
 
-angle GgafDx9Util::SLANT2ANG[100000 + 1];
+appangle GgafDx9Util::SLANT2ANG[100000 + 1];
 
 //こんなんいるのでは！
-//angle GgafDx9Util::PROJANG_XY_ZX_YZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
+//appangle GgafDx9Util::PROJANG_XY_ZX_YZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
 
 
-angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
-angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
-angle GgafDx9Util::PROJANG_ZY_ZX_TO_ROTANG_X_REV[S_ANG90+1][S_ANG90+1];
-angle GgafDx9Util::PROJANG_ZY_ZX_TO_ROTANG_Y[S_ANG90+1][S_ANG90+1];
+appangle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
+appangle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
+appangle GgafDx9Util::PROJANG_ZY_ZX_TO_ROTANG_X_REV[S_ANG90+1][S_ANG90+1];
+appangle GgafDx9Util::PROJANG_ZY_ZX_TO_ROTANG_Y[S_ANG90+1][S_ANG90+1];
 
 GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
 
@@ -161,7 +161,7 @@ void GgafDx9Util::init() {
                 _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(ang*10));
             }
             //等分する（ここがアバウトのもと）
-            SLANT2ANG[i] = (angle)( ((ang-1) + (1.0*d)/(1.0*d_index_slant))*1.0);
+            SLANT2ANG[i] = (appangle)( ((ang-1) + (1.0*d)/(1.0*d_index_slant))*1.0);
         }
         index_slant_prev = index_slant;
     }
@@ -170,7 +170,7 @@ void GgafDx9Util::init() {
         if (i > 100000) {
             _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(450000));
         }
-        SLANT2ANG[i] = (angle)( (450000-1) + (1.0*d)/(1.0*d_index_slant) );
+        SLANT2ANG[i] = (appangle)( (450000-1) + (1.0*d)/(1.0*d_index_slant) );
     }
 
     //<PROJ_ANG2ROT_ANG> （2009/10/20 経緯・・・速くするためなら何でもやってみよう）
@@ -277,12 +277,12 @@ void GgafDx9Util::init() {
 void GgafDx9Util::getWayAngle2D(int prm_vx_Center,
                                 int prm_vy_Center,
                                 int prm_nWay,
-                                angle prm_angClearance,
-                                angle* out_paAngle) {
+                                appangle prm_angClearance,
+                                appangle* out_paAngle) {
     return getWayAngle2D(getAngle2D(prm_vx_Center, prm_vy_Center), prm_nWay, prm_angClearance, out_paAngle);
 }
 
-void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_angClearance, angle* out_paAngle) {
+void GgafDx9Util::getWayAngle2D(appangle prm_angCenter, int prm_nWay, appangle prm_angClearance, appangle* out_paAngle) {
     int angstart = addAng(prm_angCenter, ((prm_nWay - 1) * prm_angClearance) / -2);
 
     for (int i = 0; i < prm_nWay; i++) {
@@ -290,13 +290,13 @@ void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_ang
     }
 }
 
-void GgafDx9Util::getRadialAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle) {
+void GgafDx9Util::getRadialAngle2D(appangle prm_angStart, int prm_nWay, appangle* out_paAngle) {
     for (int i = 0; i < prm_nWay; i++) {
-        out_paAngle[i] = addAng(prm_angStart, (angle)(1.0f * ANGLE360 / prm_nWay * i));
+        out_paAngle[i] = addAng(prm_angStart, (appangle)(1.0f * ANGLE360 / prm_nWay * i));
     }
 }
 
-void GgafDx9Util::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle& out_Rz) {
+void GgafDx9Util::convRzRyToRyRz(appangle prm_Rz, appangle prm_Ry, appangle& out_Ry, appangle& out_Rz) {
     float vx,vy,vz;
     getNormalizeVectorZY(prm_Rz, prm_Ry , vx, vy, vz);
     getRzRyAng(vx, vz, -1.0f*vy, out_Ry, out_Rz ); //-９０度X軸回転RzRy入れ替え
@@ -305,9 +305,9 @@ void GgafDx9Util::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angl
 
 
 
-//void GgafDx9Util::getWayAngle_LinedRzLongitude(angle prm_angCenterRz, angle prm_angCenterRy,
-//                                              int prm_nWay, angle prm_angClearance,
-//                                              angle* out_paAngleRz, angle* out_paAngleRy) {
+//void GgafDx9Util::getWayAngle_LinedRzLongitude(appangle prm_angCenterRz, appangle prm_angCenterRy,
+//                                              int prm_nWay, appangle prm_angClearance,
+//                                              appangle* out_paAngleRz, appangle* out_paAngleRy) {
 //    float vx,vy,vz;
 //    getNormalizeVectorZY(prm_angCenterRz, prm_angCenterRy, vx, vy, vz);
 //    float vx2,vy2,vz2;
@@ -320,19 +320,19 @@ void GgafDx9Util::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angl
 //
 //}
 
-//void GgafDx9Util::getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, int prm_tX, int prm_tY, int prm_tZ,
-//                                          angle& out_angFaceZ, angle* out_paAngRotY) {
-//    angle tRz, tRy;
+//void GgafDx9Util::getMoveRzRyWayShot3D_XZ(int prm_nWay, appangle prm_angClearance, appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ,
+//                                          appangle& out_angFaceZ, appangle* out_paAngRotY) {
+//    appangle tRz, tRy;
 //    getRzRyAng(prm_tX, prm_tY, prm_tZ, tRy, tRy);
 //
-//    angle angStart = addAng(tRy, ((prm_nWay - 1) * prm_angClearance) / -2);
+//    appangle angStart = addAng(tRy, ((prm_nWay - 1) * prm_angClearance) / -2);
 //    for (int i = 0; i < prm_nWay; i++) {
 //        out_paAngRotY[i] = addAng(angstart, prm_angClearance * i);
 //    }
 //}
 
-angle GgafDx9Util::addAng(angle prm_angNow, angle prm_angOffset) {
-    static angle angAdd;
+appangle GgafDx9Util::addAng(appangle prm_angNow, appangle prm_angOffset) {
+    static appangle angAdd;
     angAdd = prm_angNow + prm_angOffset;
     while (angAdd >= ANGLE360) {
         angAdd -= ANGLE360;
@@ -343,7 +343,7 @@ angle GgafDx9Util::addAng(angle prm_angNow, angle prm_angOffset) {
     return angAdd;
 }
 
-angle GgafDx9Util::getAngDiff(angle angFrom, angle angTo, int prm_way) {
+appangle GgafDx9Util::getAngDiff(appangle angFrom, appangle angTo, int prm_way) {
     if (prm_way == TURN_CLOSE_TO) {
         if (0 <= angFrom && angFrom < ANGLE180) {
             if (0 <= angTo && angTo < angFrom) {
@@ -405,7 +405,7 @@ angle GgafDx9Util::getAngDiff(angle angFrom, angle angTo, int prm_way) {
     throwGgafCriticalException("GgafDx9Util::getDiffAngle  何故かしら角の距離が求めれません。(1)");
 }
 
-void GgafDx9Util::rotXY(int prm_X, int prm_Y, angle prm_ang, int& out_X, int& out_Y) {
+void GgafDx9Util::rotXY(int prm_X, int prm_Y, appangle prm_ang, int& out_X, int& out_Y) {
     out_X = (int)(floor((prm_X * GgafDx9Util::COS[prm_ang / ANGLE_RATE]) - (prm_Y * GgafDx9Util::SIN[prm_ang
             / ANGLE_RATE])));
     out_Y = (int)(floor((prm_X * GgafDx9Util::SIN[prm_ang / ANGLE_RATE]) + (prm_Y * GgafDx9Util::COS[prm_ang
@@ -413,7 +413,7 @@ void GgafDx9Util::rotXY(int prm_X, int prm_Y, angle prm_ang, int& out_X, int& ou
 }
 
 // 線分の当たり判定 (x11,y11)-(x12,y12) × (x21,y21)-(x22,y22)
-bool GgafDx9Util::chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22) {
+bool GgafDx9Util::chk2DLineCrossing(appcoord x11, appcoord y11, appcoord x12, appcoord y12, appcoord x21, appcoord y21, appcoord x22, appcoord y22) {
 
     //x座標によるチェック
     if (x11 >= x12) {
@@ -450,11 +450,11 @@ int GgafDx9Util::getDistance(int x1, int y1, int x2, int y2) {
     return (int)sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))));
 }
 
-void GgafDx9Util::getRzRyAng(int vx,
-                             int vy,
-                             int vz,
-                             angle& out_angRZ,
-                             angle& out_angRY ) {
+void GgafDx9Util::getRzRyAng(appcoord vx,
+                             appcoord vy,
+                             appcoord vz,
+                             appangle& out_angRZ,
+                             appangle& out_angRY ) {
     //何れかの要素が0の場合、getAngle2Dの結果が大きくずれてしまう。
     //とりあえず１を設定して近似させておこう。
     //TODO:0 が来ても大丈夫にする。
@@ -462,12 +462,12 @@ void GgafDx9Util::getRzRyAng(int vx,
     vy = (vy == 0 ? 1 : vy);
     vz = (vz == 0 ? 1 : vz);
 
-    angle prj_rXY = getAngle2D(abs(vx), abs(vy)); //Rz
-    angle prj_rXZ = getAngle2D(abs(vx), abs(vz));
-    angle prj_rZY = getAngle2D(abs(vz), abs(vy)); //Rz
-    angle prj_rZX = getAngle2D(abs(vz), abs(vx));
+    appangle prj_rXY = getAngle2D(abs(vx), abs(vy)); //Rz
+    appangle prj_rXZ = getAngle2D(abs(vx), abs(vz));
+    appangle prj_rZY = getAngle2D(abs(vz), abs(vy)); //Rz
+    appangle prj_rZX = getAngle2D(abs(vz), abs(vx));
 
-    angle rotZ, rotY_rev, rotY;
+    appangle rotZ, rotY_rev, rotY;
     if (0 <= prj_rXZ && prj_rXZ <= ANGLE45) {
         rotZ = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100.0f)][(int)(prj_rXZ/100.0f)];
         rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0f)][(int)(prj_rXZ/100.0f)];
@@ -525,14 +525,14 @@ void GgafDx9Util::getRzRyAng(int vx,
 }
 
 
-void GgafDx9Util::getRzRyAng(int vx,
-                          int vy,
-                          int vz,
-                          float& out_nvx,
-                          float& out_nvy,
-                          float& out_nvz,
-                          angle& out_angFaceZ,
-                          angle& out_angFaceY) {
+void GgafDx9Util::getRzRyAng(appcoord vx,
+                             appcoord vy,
+                             appcoord vz,
+                             float& out_nvx,
+                             float& out_nvy,
+                             float& out_nvz,
+                             appangle& out_angFaceZ,
+                             appangle& out_angFaceY) {
 
     getRzRyAng(vx,
                vy,
@@ -550,9 +550,9 @@ void GgafDx9Util::getRzRyAng(int vx,
 
 
 
-void GgafDx9Util::getNormalizeVector(int x,
-                                     int y,
-                                     int z,
+void GgafDx9Util::getNormalizeVector(appcoord x,
+                                     appcoord y,
+                                     appcoord z,
                                      float& out_nvx,
                                      float& out_nvy,
                                      float& out_nvz) {
@@ -568,8 +568,8 @@ void GgafDx9Util::getNormalizeVector(int x,
 
 
 
-void GgafDx9Util::getNormalizeVectorZY(angle prm_angFaceZ,
-                                       angle prm_angFaceY,
+void GgafDx9Util::getNormalizeVectorZY(appangle prm_angFaceZ,
+                                       appangle prm_angFaceY,
                                        float& out_nvx,
                                        float& out_nvy,
                                        float& out_nvz) {
@@ -695,16 +695,15 @@ void GgafDx9Util::setWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm_pActor, D
     // | (Sy* cosRx*-sinRz*cosRy + Sy*sinRx*sinRy), Sy*cosRx*cosRz , (Sy* cosRx*-sinRz*-sinRy + Sy*sinRx*cosRy), 0|
     // | (Sz*-sinRx*-sinRz*cosRy + Sz*cosRx*sinRy), Sz*-sinRx*cosRz, (Sz*-sinRx*-sinRz*-sinRy + Sz*cosRx*cosRy), 0|
     // | dx                                       , dy             , dz                                        , 1|
-    static float fRateScale = 1.0f * LEN_UNIT;
-    float sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
-    float cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
-    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
-    float Sx = prm_pActor->_SX / fRateScale;
-    float Sy = prm_pActor->_SY / fRateScale;
-    float Sz = prm_pActor->_SZ / fRateScale;
+    float sinRx = cnvAppang2Sin(prm_pActor->_RX);
+    float cosRx = cnvAppang2Cos(prm_pActor->_RX);
+    float sinRy = cnvAppang2Sin(prm_pActor->_RY);
+    float cosRy = cnvAppang2Cos(prm_pActor->_RY);
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
+    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
+    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
 
     out_matWorld._11 = Sx * cosRz *cosRy;
     out_matWorld._12 = Sx * sinRz;
@@ -727,12 +726,11 @@ void GgafDx9Util::setWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm_pActor, D
     out_matWorld._44 = 1.0f;
     /*
      //前のやり方
-     float fRateScale = LEN_UNIT;
      D3DXMATRIX matrixRotX, matrixRotY, matrixRotZ, matrixTrans;
-     D3DXMatrixRotationY(&matrixRotX, GgafDx9Util::RAD_UNITLEN[s_RX]/fRateScale);
-     D3DXMatrixRotationX(&matrixRotY, GgafDx9Util::RAD_UNITLEN[s_RY]/fRateScale);
-     D3DXMatrixRotationZ(&matrixRotZ, GgafDx9Util::RAD_UNITLEN[s_RZ]/fRateScale);
-     D3DXMatrixTranslation(&matrixTrans, _X/fRateScale, _Y/fRateScale, _Z/fRateScale);
+     D3DXMatrixRotationY(&matrixRotX, GgafDx9Util::RAD_UNITLEN[s_RX]/LEN_UNIT);
+     D3DXMatrixRotationX(&matrixRotY, GgafDx9Util::RAD_UNITLEN[s_RY]/LEN_UNIT);
+     D3DXMatrixRotationZ(&matrixRotZ, GgafDx9Util::RAD_UNITLEN[s_RZ]/LEN_UNIT);
+     D3DXMatrixTranslation(&matrixTrans, _X/LEN_UNIT, _Y/LEN_UNIT, _Z/LEN_UNIT);
      D3DXMATRIX matrixWorld = matrixRotX * matrixRotY * matrixRotZ * matrixTrans;
      */
 }
@@ -745,12 +743,12 @@ void GgafDx9Util::setWorldMatrix_RxRzRy(GgafDx9GeometricActor* prm_pActor, D3DXM
     // | ( cosRx*-sinRz*cosRy + sinRx*sinRy),    cosRx*cosRz, ( cosRx*-sinRz*-sinRy + sinRx*cosRy),   0  |
     // | (-sinRx*-sinRz*cosRy + cosRx*sinRy),   -sinRx*cosRz, (-sinRx*-sinRz*-sinRy + cosRx*cosRy),   0  |
     // |                                   0,              0,                                    0,   1  |
-    float sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
-    float cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
-    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+    float sinRx = cnvAppang2Sin(prm_pActor->_RX);
+    float cosRx = cnvAppang2Cos(prm_pActor->_RX);
+    float sinRy = cnvAppang2Sin(prm_pActor->_RY);
+    float cosRy = cnvAppang2Cos(prm_pActor->_RY);
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
 
     out_matWorld._11 = cosRz * cosRy;
     out_matWorld._12 = sinRz;
@@ -777,15 +775,13 @@ void GgafDx9Util::setWorldMatrix_RxRzRy(GgafDx9GeometricActor* prm_pActor, D3DXM
 
 
 void GgafDx9Util::setWorldMatrix_ScRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    static float fRateScale = 1.0f * LEN_UNIT;
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
-    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
-
-    float Sx = prm_pActor->_SX / fRateScale;
-    float Sy = prm_pActor->_SY / fRateScale;
-    float Sz = prm_pActor->_SZ / fRateScale;
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    float sinRy = cnvAppang2Sin(prm_pActor->_RY);
+    float cosRy = cnvAppang2Cos(prm_pActor->_RY);
+    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
+    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
+    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
 
     out_matWorld._11 = Sx*cosRz*cosRy;
     out_matWorld._12 = Sx*sinRz;
@@ -815,14 +811,13 @@ void GgafDx9Util::mulWorldMatrix_RzRyScMv(GgafDx9GeometricActor* prm_pActor, D3D
     //    | -sinRz*cosRy*Sx  cosRz*Sy  -sinRz*-sinRy*Sz   0 |
     //    |  sinRy*Sx        0          cosRy*Sz          0 |
     //    |  dx              dy         dz                1 |
-    static float fRateScale = 1.0f * LEN_UNIT;
-    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
-    float Sx = prm_pActor->_SX / fRateScale;
-    float Sy = prm_pActor->_SY / fRateScale;
-    float Sz = prm_pActor->_SZ / fRateScale;
+    float sinRy = cnvAppang2Sin(prm_pActor->_RY);
+    float cosRy = cnvAppang2Cos(prm_pActor->_RY);
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
+    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
+    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
 
     out_matWorld._11 = cosRz*cosRy*Sx;
     out_matWorld._12 = sinRz*Sy;
@@ -853,16 +848,15 @@ void GgafDx9Util::setWorldMatrix_RxRzRyScMv(GgafDx9GeometricActor* prm_pActor, D
     // | ( cosRx*-sinRz*cosRy + sinRx*sinRy)*Sx,    cosRx*cosRz*Sy, ( cosRx*-sinRz*-sinRy + sinRx*cosRy)*Sz,   0  |
     // | (-sinRx*-sinRz*cosRy + cosRx*sinRy)*Sx,   -sinRx*cosRz*Sy, (-sinRx*-sinRz*-sinRy + cosRx*cosRy)*Sz,   0  |
     // |                                     dx,                dy,                                      dz,   1  |
-    static float fRateScale = 1.0f * LEN_UNIT;
-    float sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
-    float cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
-    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
-    float Sx = prm_pActor->_SX / fRateScale;
-    float Sy = prm_pActor->_SY / fRateScale;
-    float Sz = prm_pActor->_SZ / fRateScale;
+    float sinRx = cnvAppang2Sin(prm_pActor->_RX);
+    float cosRx = cnvAppang2Cos(prm_pActor->_RX);
+    float sinRy = cnvAppang2Sin(prm_pActor->_RY);
+    float cosRy = cnvAppang2Cos(prm_pActor->_RY);
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
+    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
+    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
 
     out_matWorld._11 = cosRz * cosRy * Sx;
     out_matWorld._12 = sinRz * Sy;
@@ -894,17 +888,15 @@ void GgafDx9Util::setWorldMatrix_RxRyRzScMv(GgafDx9GeometricActor* prm_pActor, D
     //    | ((cosRx*sinRy*cosRz + -sinRx*-sinRz)*Sx), ((cosRx*sinRy*sinRz + -sinRx*cosRz)*Sy), cosRx*cosRy*Sz,  0 |
     //    |                                       dx,                                      dy,             dz,  1 |
 
-    static float fRateScale = 1.0f * LEN_UNIT;
-
-    float sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
-    float cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
-    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
-    float Sx = prm_pActor->_SX / fRateScale;
-    float Sy = prm_pActor->_SY / fRateScale;
-    float Sz = prm_pActor->_SZ / fRateScale;
+    float sinRx = cnvAppang2Sin(prm_pActor->_RX);
+    float cosRx = cnvAppang2Cos(prm_pActor->_RX);
+    float sinRy = cnvAppang2Sin(prm_pActor->_RY);
+    float cosRy = cnvAppang2Cos(prm_pActor->_RY);
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
+    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
+    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
 
     out_matWorld._11 = cosRy*cosRz*Sx;
     out_matWorld._12 = cosRy*sinRz*Sy;
@@ -937,16 +929,15 @@ void GgafDx9Util::setWorldMatrix_RxRzRxScMv(GgafDx9GeometricActor* prm_pActor, D
     //|  cosRx*-sinRz*Sx, (( cosRx*cosRz*cosRy + sinRx*-sinRy)*Sy), (( cosRx*cosRz*sinRy + sinRx*cosRy)*Sz), 0 |
     //| -sinRx*-sinRz*Sx, ((-sinRx*cosRz*cosRy + cosRx*-sinRy)*Sy), ((-sinRx*cosRz*sinRy + cosRx*cosRy)*Sz), 0 |
     //|               dx,                                       dy,                                      dz, 1 |
-    static float fRateScale = 1.0f * LEN_UNIT;
-    float sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
-    float cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
-    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
-    float Sx = prm_pActor->_SX / fRateScale;
-    float Sy = prm_pActor->_SY / fRateScale;
-    float Sz = prm_pActor->_SZ / fRateScale;
+    float sinRx = cnvAppang2Sin(prm_pActor->_RX);
+    float cosRx = cnvAppang2Cos(prm_pActor->_RX);
+    float sinRy = cnvAppang2Sin(prm_pActor->_RY);
+    float cosRy = cnvAppang2Cos(prm_pActor->_RY);
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
+    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
+    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
 
     out_matWorld._11 = cosRz * Sx;
     out_matWorld._12 = sinRz * cosRy * Sy;
@@ -977,15 +968,15 @@ void GgafDx9Util::setWorldMatrix_RzMv(GgafDx9GeometricActor* prm_pActor, D3DXMAT
     // |-sinZ , cosZ , 0  , 0  |
     // |0     , 0    , 1  , 0  |
     // |dx    , dy   , dz , 1  |
-    s_ang s_RZ = prm_pActor->_RZ / ANGLE_RATE;
-
-    out_matWorld._11 = GgafDx9Util::COS[s_RZ];
-    out_matWorld._12 = GgafDx9Util::SIN[s_RZ];
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    out_matWorld._11 = cosRz;
+    out_matWorld._12 = sinRz;
     out_matWorld._13 = 0.0f;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = (float)(-1.0f * GgafDx9Util::SIN[s_RZ]);
-    out_matWorld._22 = GgafDx9Util::COS[s_RZ];
+    out_matWorld._21 = -sinRz;
+    out_matWorld._22 = cosRz;
     out_matWorld._23 = 0.0f;
     out_matWorld._24 = 0.0f;
 
@@ -1009,20 +1000,19 @@ void GgafDx9Util::setWorldMatrix_ScRzMv(GgafDx9GeometricActor* prm_pActor, D3DXM
     // |Sy*-sinZ, Sy*cosZ , 0    , 0  |
     // |0       , 0       , Sz   , 0  |
     // |dx      , dy      , dz   , 1  |
-    static float fRateScale = 1.0f * LEN_UNIT;
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
+    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
+    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
 
-    s_ang s_RZ = prm_pActor->_RZ / ANGLE_RATE;
-    float Sx = prm_pActor->_SX / fRateScale;
-    float Sy = prm_pActor->_SY / fRateScale;
-    float Sz = prm_pActor->_SZ / fRateScale;
-
-    out_matWorld._11 = Sx * GgafDx9Util::COS[s_RZ];
-    out_matWorld._12 = Sx * GgafDx9Util::SIN[s_RZ];
+    out_matWorld._11 = Sx * cosRz;
+    out_matWorld._12 = Sx * sinRz;
     out_matWorld._13 = 0.0f;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = Sy * -1.0f * GgafDx9Util::SIN[s_RZ];
-    out_matWorld._22 = Sy * GgafDx9Util::COS[s_RZ];
+    out_matWorld._21 = Sy * -sinRz;
+    out_matWorld._22 = Sy * cosRz;
     out_matWorld._23 = 0.0f;
     out_matWorld._24 = 0.0f;
 
@@ -1039,20 +1029,18 @@ void GgafDx9Util::setWorldMatrix_ScRzMv(GgafDx9GeometricActor* prm_pActor, D3DXM
 
 
 void GgafDx9Util::setWorldMatrix_ScMvRxRzRy(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    static float fRateScale = 1.0f * LEN_UNIT;
-
-    float sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
-    float cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
-    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
-    float Sx = prm_pActor->_SX / fRateScale;
-    float Sy = prm_pActor->_SY / fRateScale;
-    float Sz = prm_pActor->_SZ / fRateScale;
-    float dx = prm_pActor->_fX;
-    float dy = prm_pActor->_fY;
-    float dz = prm_pActor->_fZ;
+    float sinRx = cnvAppang2Sin(prm_pActor->_RX);
+    float cosRx = cnvAppang2Cos(prm_pActor->_RX);
+    float sinRy = cnvAppang2Sin(prm_pActor->_RY);
+    float cosRy = cnvAppang2Cos(prm_pActor->_RY);
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
+    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
+    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
+    dxcoord dx = prm_pActor->_fX;
+    dxcoord dy = prm_pActor->_fY;
+    dxcoord dz = prm_pActor->_fZ;
 
     out_matWorld._11 = Sx*cosRz*cosRy;
     out_matWorld._12 = Sx*sinRz;
@@ -1093,12 +1081,11 @@ void GgafDx9Util::updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pActor, D3DXMA
 
 
 void GgafDx9Util::setWorldMatrix_BxyzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    static float fRateScale = 1.0f * LEN_UNIT;
     GgafDx9Camera* pCam = P_CAM;
 
-    float Sx = prm_pActor->_SX / fRateScale;
-    float Sy = prm_pActor->_SY / fRateScale;
-    float Sz = prm_pActor->_SZ / fRateScale;
+    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
+    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
+    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
 
     out_matWorld._11 = pCam->_matView._11 * Sx;
     out_matWorld._12 = pCam->_matView._21 * Sy;
@@ -1127,14 +1114,13 @@ void GgafDx9Util::setWorldMatrix_BxyzScMv(GgafDx9GeometricActor* prm_pActor, D3D
 
 
 void GgafDx9Util::setWorldMatrix_ScRzBxyzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    static float fRateScale = 1.0f * LEN_UNIT;
     GgafDx9Camera* pCam = P_CAM;
 
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
-    float Sx = prm_pActor->_SX / fRateScale;
-    float Sy = prm_pActor->_SY / fRateScale;
-    float Sz = prm_pActor->_SZ / fRateScale;
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
+    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
+    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
 
     out_matWorld._11 = Sx*cosRz*pCam->_matView._11 + Sx*sinRz*pCam->_matView._12;
     out_matWorld._12 = Sx*cosRz*pCam->_matView._21 + Sx*sinRz*pCam->_matView._22;
@@ -1166,17 +1152,16 @@ void GgafDx9Util::mulWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm_pActor, D
     // | (Sy* cosRx*-sinRz*cosRy + Sy*sinRx*sinRy), Sy*cosRx*cosRz , (Sy* cosRx*-sinRz*-sinRy + Sy*sinRx*cosRy), 0|
     // | (Sz*-sinRx*-sinRz*cosRy + Sz*cosRx*sinRy), Sz*-sinRx*cosRz, (Sz*-sinRx*-sinRz*-sinRy + Sz*cosRx*cosRy), 0|
     // | dx                                       , dy             , dz                                        , 1|
-    static float fRateScale = 1.0f * LEN_UNIT;
     D3DXMATRIX matScRxRzRyMv;
-    float sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
-    float cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
-    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
-    float Sx = prm_pActor->_SX / fRateScale;
-    float Sy = prm_pActor->_SY / fRateScale;
-    float Sz = prm_pActor->_SZ / fRateScale;
+    float sinRx = cnvAppang2Sin(prm_pActor->_RX);
+    float cosRx = cnvAppang2Cos(prm_pActor->_RX);
+    float sinRy = cnvAppang2Sin(prm_pActor->_RY);
+    float cosRy = cnvAppang2Cos(prm_pActor->_RY);
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
+    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
+    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
 
     matScRxRzRyMv._11 = Sx * cosRz *cosRy;
     matScRxRzRyMv._12 = Sx * sinRz;
@@ -1199,16 +1184,6 @@ void GgafDx9Util::mulWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm_pActor, D
     matScRxRzRyMv._44 = 1.0f;
 
     D3DXMatrixMultiply(&inout_matWorld, &inout_matWorld, &matScRxRzRyMv);
-    /*
-     //前のやり方
-     float fRateScale = LEN_UNIT;
-     D3DXMATRIX matrixRotX, matrixRotY, matrixRotZ, matrixTrans;
-     D3DXMatrixRotationY(&matrixRotX, GgafDx9Util::RAD_UNITLEN[s_RX]/fRateScale);
-     D3DXMatrixRotationX(&matrixRotY, GgafDx9Util::RAD_UNITLEN[s_RY]/fRateScale);
-     D3DXMatrixRotationZ(&matrixRotZ, GgafDx9Util::RAD_UNITLEN[s_RZ]/fRateScale);
-     D3DXMatrixTranslation(&matrixTrans, _X/fRateScale, _Y/fRateScale, _Z/fRateScale);
-     D3DXMATRIX matrixWorld = matrixRotX * matrixRotY * matrixRotZ * matrixTrans;
-     */
 }
 
 
@@ -1220,12 +1195,12 @@ void GgafDx9Util::setWorldMatrix_RxRzRyMv(GgafDx9GeometricActor* prm_pActor, D3D
     // | (cosRx*-sinRz*cosRy + sinRx*sinRy) , cosRx*cosRz , (cosRx*-sinRz*-sinRy + sinRx*cosRy) , 0 |
     // | (-sinRx*-sinRz*cosRy + cosRx*sinRy), -sinRx*cosRz, (-sinRx*-sinRz*-sinRy + cosRx*cosRy), 0 |
     // | dx                                 , dy          , dz                                  , 1 |
-    float sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
-    float cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
-    float sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
-    float cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+    float sinRx = cnvAppang2Sin(prm_pActor->_RX);
+    float cosRx = cnvAppang2Cos(prm_pActor->_RX);
+    float sinRy = cnvAppang2Sin(prm_pActor->_RY);
+    float cosRy = cnvAppang2Cos(prm_pActor->_RY);
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
 
     out_matWorld._11 = cosRz*cosRy;
     out_matWorld._12 = sinRz;
@@ -1250,8 +1225,8 @@ void GgafDx9Util::setWorldMatrix_RxRzRyMv(GgafDx9GeometricActor* prm_pActor, D3D
 
 void GgafDx9Util::setWorldMatrix_RzBxyzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     GgafDx9Camera* pCam = P_CAM;
-    float sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
-    float cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
+    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
 
     out_matWorld._11 = cosRz*pCam->_matView._11 + sinRz*pCam->_matView._12;
     out_matWorld._12 = cosRz*pCam->_matView._21 + sinRz*pCam->_matView._22;
@@ -1274,21 +1249,19 @@ void GgafDx9Util::setWorldMatrix_RzBxyzMv(GgafDx9GeometricActor* prm_pActor, D3D
     out_matWorld._44 = 1.0f;
 }
 void GgafDx9Util::setWorldMatrix_ScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    static float fRateScale = 1.0f * LEN_UNIT;
-
-    out_matWorld._11 = prm_pActor->_SX / fRateScale;
+    out_matWorld._11 = cnvScaleApp2Rate(prm_pActor->_SX);
     out_matWorld._12 = 0.0f;
     out_matWorld._13 = 0.0f;
     out_matWorld._14 = 0.0f;
 
     out_matWorld._21 = 0.0f;
-    out_matWorld._22 = prm_pActor->_SY / fRateScale;
+    out_matWorld._22 = cnvScaleApp2Rate(prm_pActor->_SY);
     out_matWorld._23 = 0.0f;
     out_matWorld._24 = 0.0f;
 
     out_matWorld._31 = 0.0f;
     out_matWorld._32 = 0.0f;
-    out_matWorld._33 = prm_pActor->_SZ / fRateScale;
+    out_matWorld._33 = cnvScaleApp2Rate(prm_pActor->_SZ);
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;

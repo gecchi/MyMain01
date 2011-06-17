@@ -23,17 +23,17 @@ public:
     /** コンストラクタ内部でGgafDx9Spline3Dを生成した場合true/コンストラクタ引数にGgafDx9Spline3Dが渡された場合、false */
     bool _is_create_sp;
     /** [r]始点X座標 */
-    int _X_begin;
+    appcoord _X_begin;
     /** [r]始点Y座標 */
-    int _Y_begin;
+    appcoord _Y_begin;
     /** [r]始点Z座標 */
-    int _Z_begin;
+    appcoord _Z_begin;
     float _rate_X;
     float _rate_Y;
     float _rate_Z;
-    int _offset_X;
-    int _offset_Y;
-    int _offset_Z;
+    appcoord _offset_X;
+    appcoord _offset_Y;
+    appcoord _offset_Z;
     /**
      * コンストラクタ .
      * GgafDx9Spline3Dオブジェクトの参照を後から設定して下さい。（setSpline() メソッドで）
@@ -73,11 +73,13 @@ public:
     /**
      * スプライン曲線全体を、X軸方向、Y軸方向、Z軸方向それぞれに加算し、補正することが出来ます。
      * デフォルトは adjustAxisOffset(0, 0, 0) となります。
+     * 内部計算では、本メソッドのadjustAxisOffset() よりも先に adjustAxisRate() が行われ、
+     * 最後に本メソッド指定のオフセット差分座標が加えられます。
      * @param prm_offset_X X軸方向補正増加分
      * @param prm_offset_Y Y軸方向補正増加分
      * @param prm_offset_Z Z軸方向補正増加分
      */
-    void adjustAxisOffset(int prm_offset_X, int prm_offset_Y, int prm_offset_Z) {
+    void adjustAxisOffset(appcoord prm_offset_X, appcoord prm_offset_Y, appcoord prm_offset_Z) {
         _offset_X = prm_offset_X;
         _offset_Y = prm_offset_Y;
         _offset_Z = prm_offset_Z;
@@ -86,6 +88,7 @@ public:
     /**
      * スプライン曲線全体を、X軸方向、Y軸方向、Z軸方向それぞれに、割合を乗じ補正することが出来ます。
      * デフォルトは adjustAxisRate(1.0, 1.0, 1.0) となります。
+     * 内部計算では、adjustAxisOffset() よりも先に 本メソッドの adjustAxisRate() が行われます。
      * @param prm_rate_X X軸方向補正割合
      * @param prm_rate_Y Y軸方向補正割合
      * @param prm_rate_Z Z軸方向補正割合
