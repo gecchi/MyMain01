@@ -1669,10 +1669,8 @@ void GgafElement<T>::execDownFunction(void (*pFunc)(GgafObject*, void*, void*), 
 template<class T>
 void GgafElement<T>::throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) {
     if (_can_live_flg) {
-        if (_was_initialize_flg) {
-            _frameEnd = 0;
-            onCatchEvent(prm_no, prm_pSource);
-        }
+        _frameEnd = 0;
+        onCatchEvent(prm_no, prm_pSource);
         if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {

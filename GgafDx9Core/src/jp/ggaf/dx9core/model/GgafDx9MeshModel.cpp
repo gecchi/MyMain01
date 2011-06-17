@@ -139,7 +139,6 @@ void GgafDx9MeshModel::onDeviceLost() {
 void GgafDx9MeshModel::release() {
     TRACE3("GgafDx9MeshModel::release() " << _model_name << " start");
 
-    _TRACE_("GgafDx9MeshModel::release() " << _model_name << " start");
     //テクスチャを解放
     if (_papTextureCon) {
         for (int i = 0; i < (int)_dwNumMaterials; i++) {

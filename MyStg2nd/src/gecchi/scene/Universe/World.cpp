@@ -72,6 +72,7 @@ void World::processBehavior() {
     }
 
 
+
 #ifdef MY_DEBUG
     sprintf(_aBufDebug, "%05uDRAW / %06uCHK / %07uF /%.1fFPS", GgafGod::_num_actor_drawing, CollisionChecker::_num_check, (unsigned int)askGod()->_frame_of_God, askGod()->_fps);
     _pFont16_Debug->update(1*1000, 1*1000, _aBufDebug);

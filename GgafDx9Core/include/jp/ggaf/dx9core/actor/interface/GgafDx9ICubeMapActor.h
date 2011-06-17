@@ -18,6 +18,8 @@ public:
     /** 環境マップテクスチャ映りこみ率 */
     float _reflectance;
 
+    const char* _cubemap_tex;
+
     GgafDx9ICubeMapActor();
 
     /**
@@ -34,6 +36,10 @@ public:
     float getCubeMapReflectance() {
         return _reflectance;
     }
+
+    void releaseCubeMapTex();
+
+    void restoreCubeMapTex();
 
     virtual ~GgafDx9ICubeMapActor(); //デストラクタ
 

@@ -7,10 +7,12 @@ GgafDx9ICubeMapActor::GgafDx9ICubeMapActor()  {
     _pCubeMapTextureCon = NULL;
     _pCubeMapTexture = NULL;
     _reflectance = 0.5f;
+    _cubemap_tex = "uffizi_cross_cubemap.dds";
 }
 
 void GgafDx9ICubeMapActor::setCubeMapTexture(const char* prm_cubemap_tex, float prm_reflectance) {
     _reflectance = prm_reflectance;
+    _cubemap_tex = prm_cubemap_tex;
     if (_pCubeMapTextureCon) {
         _pCubeMapTextureCon->close();
     }
@@ -28,6 +30,21 @@ IDirect3DBaseTexture9* GgafDx9ICubeMapActor::getCubeMapTexture() {
         return _pCubeMapTexture;
     }
 }
+
+void GgafDx9ICubeMapActor::releaseCubeMapTex() {
+    //テクスチャを解放
+    if (_pCubeMapTextureCon) {
+        _pCubeMapTextureCon->close();
+    }
+    _pCubeMapTextureCon = NULL;
+    _pCubeMapTexture = NULL;
+}
+
+void GgafDx9ICubeMapActor::restoreCubeMapTex() {
+    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(GgafDx9God::_pCubeMapTextureManager->getConnection(_cubemap_tex));
+    _pCubeMapTexture = _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9;
+}
+
 
 GgafDx9ICubeMapActor::~GgafDx9ICubeMapActor() {
 

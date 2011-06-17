@@ -3333,7 +3333,9 @@ void GgafDx9ModelManager::onDeviceLostAll() {
     GgafResourceConnection<GgafDx9Model>* pCurrent = _pFirstConnection;
     TRACE3("onDeviceLostAll pCurrent="<<pCurrent);
     while (pCurrent) {
+        _TRACE_("GgafDx9ModelManager::onDeviceLostAll ["<<pCurrent->refer()->_model_name<<"] onDeviceLost begin");
         pCurrent->refer()->onDeviceLost();
+        _TRACE_("GgafDx9ModelManager::onDeviceLostAll ["<<pCurrent->refer()->_model_name<<"] onDeviceLost end");
         pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDx9ModelManager::onDeviceLostAll() end<--");
