@@ -277,10 +277,12 @@ OUT_VS GgafDx9VS_LaserChip(
 		out_vs.uv.y = 1;
 	}
 	//αフォグ
-	out_vs.color = float4(1.0, 1.0, 1.0, 1.0);
-    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
-    }
+    float c = 1.25-(((out_vs.pos.z)/g_zf)*2);
+	out_vs.color = (c < 0.5  ? 0.5 : c);
+//	out_vs.color = c < 0.2  ? 2.0 : c;//1.0-((out_vs.pos.z/g_zf)*2) ;//float4((out_vs.pos.z/g_zf), (out_vs.pos.z/g_zf), (out_vs.pos.z/g_zf), 1.0-(out_vs.pos.z/g_zf));
+//    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+//        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
+//    }
 
 //	if (out_vs.pos.z > g_zf*0.75) { //最遠の 3/4 より奥の場合徐々に透明に
 //    	out_vs.color.a *= (-1.0/(g_zf*0.25)*out_vs.pos.z + 4.0);

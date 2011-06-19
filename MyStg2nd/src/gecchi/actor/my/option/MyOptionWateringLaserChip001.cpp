@@ -15,6 +15,7 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
     _pOrg = NULL;
     _lockon = 0;
     _isLockon = false;
+	_renge = 150000;
     _r_maxacce = 12;
 }
 
@@ -51,7 +52,7 @@ void MyOptionWateringLaserChip001::onActive() {
     _pMvTransporter->setZeroVxyzMvAcce(); //加速度リセット
     //Vxyzの速度はオプション側で設定される
 
-    _renge = 150000;
+
     _pMvTransporter->forceVxyzMvVeloRange(-_renge, _renge);
     _maxAcceRange= _renge/_r_maxacce;
     _pMvTransporter->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
@@ -88,7 +89,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 int vVMx = _pMvTransporter->_veloVxMv*5;
                 int vVMy = _pMvTransporter->_veloVyMv*5;
                 int vVMz = _pMvTransporter->_veloVzMv*5;
-
+                GgafDx9Util::getRzRyAng(vVMx,vVMy,vVMz,_RZ,_RY);
                 //|仮自|
                 int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
                 //|的|
@@ -124,6 +125,8 @@ void MyOptionWateringLaserChip001::processBehavior() {
 
         }
     }
+
+
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正
     if (onChangeToActive()) {

@@ -212,7 +212,7 @@ void VamSysCamWorker::processBehavior() {
         move_target_X_CAM = _pMyShip->_X - (_dZ_camera_init*0.6);
         move_target_Y_CAM = _pMyShip->_Y;
         move_target_Z_CAM = _pMyShip->_Z;
-        move_target_X_VP = _pMyShip->_X + (_dZ_camera_init);
+        move_target_X_VP = _pMyShip->_X + (_dZ_camera_init*2);
         move_target_Y_VP = _pMyShip->_Y;
         move_target_Z_VP = _pMyShip->_Z;
         move_target_XY_CAM_UP = ANGLE90;
@@ -229,8 +229,8 @@ void VamSysCamWorker::processBehavior() {
         throwGgafCriticalException("World::processBehavior() 不正な_pos_camera="<<_pos_camera);
     }
     //カメラの目標座標、ビューポイントの目標座標について、現在の動いている方向への若干画面寄りを行う。（ﾅﾝﾉｺｯﾁｬ）
-    move_target_Z_CAM -= (_pMyShip->_Z*0.1);
-    move_target_Y_CAM -= (_pMyShip->_Y*0.1);
+    move_target_Z_CAM -= (_pMyShip->_Z*0.05);
+    move_target_Y_CAM -= (_pMyShip->_Y*0.05);
 
 //
 //    GgafDx9GeoElem* pGeoMyShip = _pMyShip->_pRing_GeoHistory->getCurrent(); //現在の自機座標
