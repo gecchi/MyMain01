@@ -427,25 +427,28 @@ void MyOption::processBehavior() {
 //            pLaserChip->activate();
 
               //カーブ用
-            pLaserChip->_pMvNavigator->_vX = _Q._x;
-            pLaserChip->_pMvNavigator->_vY = _Q._y;
-            pLaserChip->_pMvNavigator->_vZ = _Q._z;
-            pLaserChip->_pMvNavigator->_angRzMv = _RZ;
-            pLaserChip->_pMvNavigator->_angRyMv = _RY;
-//            pLaserChip->_pMvNavigator->_angFace[AXIS_X] = _pMvNavigator->_angFace[AXIS_X];
-            pLaserChip->_pMvNavigator->_angFace[AXIS_Z] = _RZ;
-            pLaserChip->_pMvNavigator->_angFace[AXIS_Y] = _RY;
+//            pLaserChip->_pMvNavigator->_vX = _Q._x;
+//            pLaserChip->_pMvNavigator->_vY = _Q._y;
+//            pLaserChip->_pMvNavigator->_vZ = _Q._z;
+//            pLaserChip->_pMvNavigator->_angRzMv = _RZ;
+//            pLaserChip->_pMvNavigator->_angRyMv = _RY;
+////            pLaserChip->_pMvNavigator->_angFace[AXIS_X] = _pMvNavigator->_angFace[AXIS_X];
+//            pLaserChip->_pMvNavigator->_angFace[AXIS_Z] = _RZ;
+//            pLaserChip->_pMvNavigator->_angFace[AXIS_Y] = _RY;
+
             pLaserChip->_pMvTransporter->setVxMvVelo(_Q._x*pLaserChip->_renge);
             pLaserChip->_pMvTransporter->setVyMvVelo(_Q._y*pLaserChip->_renge);
             pLaserChip->_pMvTransporter->setVzMvVelo(_Q._z*pLaserChip->_renge);
             pLaserChip->_pMvTransporter->setVxMvAcce(_Q._x*pLaserChip->_renge/pLaserChip->_r_maxacce);
             pLaserChip->_pMvTransporter->setVyMvAcce(_Q._y*pLaserChip->_renge/pLaserChip->_r_maxacce);
             pLaserChip->_pMvTransporter->setVzMvAcce(_Q._z*pLaserChip->_renge/pLaserChip->_r_maxacce);
-            pLaserChip->_pMvNavigator->behave();
+//            pLaserChip->_pMvNavigator->behave();
             pLaserChip->_pMvTransporter->behave();
             pLaserChip->_X = _X;
             pLaserChip->_Y = _Y;
             pLaserChip->_Z = _Z;
+            pLaserChip->_RZ = _RZ;
+            pLaserChip->_RY = _RY;
             pLaserChip->_pOrg = this;
 
             if (pLaserChip->_pChip_front == NULL) {

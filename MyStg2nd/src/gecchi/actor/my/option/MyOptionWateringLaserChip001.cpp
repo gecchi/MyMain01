@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 
 
 MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name) :
-        WateringLaserChip(prm_name, "MyOptionWateringLaserChip001") {
+        WateringLaserChip(prm_name, "AstraeaLaserChip001") { //"MyOptionWateringLaserChip001") {
     _class_name = "MyOptionWateringLaserChip001";
     MyStgUtil::resetMyOptionWateringLaserChip001Status(_pStatus);
     _default_stamina = _pStatus->get(STAT_Stamina);
@@ -89,7 +89,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 int vVMx = _pMvTransporter->_veloVxMv*5;
                 int vVMy = _pMvTransporter->_veloVyMv*5;
                 int vVMz = _pMvTransporter->_veloVzMv*5;
-                GgafDx9Util::getRzRyAng(vVMx,vVMy,vVMz,_RZ,_RY);
+
                 //|仮自|
                 int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
                 //|的|
@@ -100,6 +100,10 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 _pMvTransporter->setVxMvAcce(((vTx * r) - vVMx)/_r_maxacce);
                 _pMvTransporter->setVyMvAcce(((vTy * r) - vVMy)/_r_maxacce);
                 _pMvTransporter->setVzMvAcce(((vTz * r) - vVMz)/_r_maxacce);
+
+                if (lVM > _renge/2) {
+                    GgafDx9Util::getRzRyAng(vVMx,vVMy,vVMz,_RZ,_RY);
+                }
             } else {
                 //_pMvTransporter->setZeroVxyzMvAcce();
                 _lockon = 2;
