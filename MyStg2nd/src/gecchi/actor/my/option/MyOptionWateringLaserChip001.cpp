@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 
 
 MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name) :
-        WateringLaserChip(prm_name, "AstraeaLaserChip001") { //"MyOptionWateringLaserChip001") {
+        WateringLaserChip(prm_name, "MyOptionWateringLaserChip001") { //"MyOptionWateringLaserChip001") {
     _class_name = "MyOptionWateringLaserChip001";
     MyStgUtil::resetMyOptionWateringLaserChip001Status(_pStatus);
     _default_stamina = _pStatus->get(STAT_Stamina);

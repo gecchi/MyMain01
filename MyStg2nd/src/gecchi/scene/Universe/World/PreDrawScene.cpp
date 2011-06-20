@@ -8,11 +8,14 @@ using namespace MyStg2nd;
 PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "PreDrawScene";
     int id = 11;
-    orderActorToFactory(id, CubeMapMeshTestActor       , "CubeMapMeshTestActor");             id++;
-    for (int i = 0; i < 30; i++) {
-        orderActorToFactory(id, CubeMapMeshSetTestActor    , "CubeMapMeshSetTestActor"); id++;
-    }
-    orderActorToFactory(id, CubeMapMorphMeshTestActor  , "CubeMapMorphMeshTestActor");        id++;
+
+//    orderActorToFactory(id, CubeMapMeshTestActor       , "CubeMapMeshTestActor");             id++;
+//    for (int i = 0; i < 30; i++) {
+//        orderActorToFactory(id, CubeMapMeshSetTestActor    , "CubeMapMeshSetTestActor"); id++;
+//    }
+//    orderActorToFactory(id, CubeMapMorphMeshTestActor  , "CubeMapMorphMeshTestActor");        id++;
+
+
 //    orderActorToFactory(id, DefaultD3DXAniMeshTestActor    , "DefaultD3DXAniMeshTestActor");id++;
 //    orderActorToFactory(id, DefaultBoardTestActor      , "DefaultBoardTestActor");          id++;
 //    orderActorToFactory(id, DefaultBoardSetTestActor   , "DefaultBoardSetTestActor");       id++;
@@ -50,15 +53,18 @@ void PreDrawScene::processBehavior() {
         int id = 11;
         GgafDx9DrawableActor* pActor;
 
-        getLordActor()->addSubGroup(obtainActorFromFactory(id));    id++;
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));    id++;
+//
+//        for (int i = 0; i < 30; i++) {
+//            pActor = (GgafDx9DrawableActor*)obtainActorFromFactory(id);   id++;
+//            pActor->locate((-(30/2)*5000) + (i * 50000), 200*1000, -50*1000);
+//            getLordActor()->addSubGroup(pActor);
+//        }
+//
+//        getLordActor()->addSubGroup(obtainActorFromFactory(id));    id++;
 
-        for (int i = 0; i < 30; i++) {
-            pActor = (GgafDx9DrawableActor*)obtainActorFromFactory(id);   id++;
-            pActor->locate((-(30/2)*5000) + (i * 50000), 200*1000, -50*1000);
-            getLordActor()->addSubGroup(pActor);
-        }
 
-        getLordActor()->addSubGroup(obtainActorFromFactory(id));    id++;
+
 //        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
 //        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
 //        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
