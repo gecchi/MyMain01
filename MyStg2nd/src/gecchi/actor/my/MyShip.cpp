@@ -179,7 +179,7 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     _anti_blown_velo = 100;
     _way = WAY_NONE;
     _prev_way = WAY_NONE;
-
+    _is_just_change_way = true;
 
 }
 void MyShip::onCreateModel() {
@@ -356,9 +356,11 @@ void MyShip::processBehavior() {
     }
     MoveWay prev_way = _way;
     _way = (MoveWay)(_way_switch.getIndex()); //上記を考慮された方向値が入る
-//    if (prev_way != _way) {
-//        onChangeWay(prev_way _way);
-//    }
+    if (prev_way != _way) {
+        _is_just_change_way = true;
+    } else {
+        _is_just_change_way = false;
+    }
     if (VB_PLAY->isBeingPressed(VB_OPTION)) {
         int tmp = _iMoveSpeed;
         _iMoveSpeed = _iMoveSpeed / 8; //オプション操作中移動は遅い

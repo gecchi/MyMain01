@@ -198,6 +198,7 @@ public:
     /** ターボ中、移動方角 */
     MoveWay _way;
     MoveWay _prev_way;
+    bool _is_just_change_way;
     /** 移動スピードレベルに相応する移動スピード */
     int _iMoveSpeed;
 
@@ -245,6 +246,9 @@ public:
     /** 上(+Y)又は下(-Y)へTurbo移動開始時のZ軸回転角速度の初速度 */
     appangle _angRXVelo_BeginMZT; //Rotation axisX appangle Velo when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
+
+
+
 
     State _state;
 
@@ -317,7 +321,9 @@ public:
      * 上移動
      */
     void move_WAY_UP() {
-        _pMvNavigator->setRzRyMvAng(ANGLE90, 0);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(ANGLE90, 0);
+        }
         _Y += _iMoveSpeed;
         _iMoveVelo = _iMoveSpeed;
     }
@@ -325,7 +331,9 @@ public:
      * 前方斜め上移動
      */
     void move_WAY_UP_FRONT() {
-        _pMvNavigator->setRzRyMvAng(ANGLE45, 0);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(ANGLE45, 0);
+        }
         _Y += _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
@@ -334,7 +342,9 @@ public:
      * 後方斜め上移動
      */
     void move_WAY_UP_BEHIND() {
-        _pMvNavigator->setRzRyMvAng(ANGLE135, 0);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(ANGLE135, 0);
+        }
         _Y += _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
@@ -343,7 +353,9 @@ public:
      * 前移動
      */
     void move_WAY_FRONT() {
-        _pMvNavigator->setRzRyMvAng(0, 0);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(0, 0);
+        }
         _X += _iMoveSpeed;
         _iMoveVelo = _iMoveSpeed;
     }
@@ -351,7 +363,9 @@ public:
      * 後ろ移動
      */
     void move_WAY_BEHIND() {
-        _pMvNavigator->setRzRyMvAng(ANGLE180, 0);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(ANGLE180, 0);
+        }
         _X -= _iMoveSpeed;
         _iMoveVelo = _iMoveSpeed;
     }
@@ -367,7 +381,9 @@ public:
      * 後方斜め下移動
      */
     void move_WAY_DOWN_BEHIND() {
-        _pMvNavigator->setRzRyMvAng(ANGLE225, 0);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(ANGLE225, 0);
+        }
         _Y -= _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
@@ -376,7 +392,9 @@ public:
      * 前方斜め下移動
      */
     void move_WAY_DOWN_FRONT() {
-        _pMvNavigator->setRzRyMvAng(ANGLE315, 0);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(ANGLE315, 0);
+        }
         _Y -= _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
@@ -385,119 +403,140 @@ public:
      * 左移動
      */
     void move_WAY_ZLEFT() {
-        _pMvNavigator->setRzRyMvAng(0, ANGLE270);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(0, ANGLE270);
+            //旋廻
+            _pMvNavigator->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
+            _pMvNavigator->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        }
         _Z += _iMoveSpeed;
         _iMoveVelo = _iMoveSpeed;
-        //旋廻
-        _pMvNavigator->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
-        _pMvNavigator->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
      * 前方斜め左移動
      */
     void move_WAY_ZLEFT_FRONT() {
-        _pMvNavigator->setRzRyMvAng(0, ANGLE315);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(0, ANGLE315);
+            //旋廻
+            _pMvNavigator->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2)); //反時計回り
+            _pMvNavigator->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        }
         _Z += _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //旋廻
-        _pMvNavigator->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2)); //反時計回り
-        _pMvNavigator->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
      * 後方斜め左移動
      */
     void move_WAY_ZLEFT_BEHIND() {
-        _pMvNavigator->setRzRyMvAng(ANGLE180, ANGLE45);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(ANGLE180, ANGLE45);
+            //旋廻
+            _pMvNavigator->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2));
+            _pMvNavigator->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        }
         _Z += _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //旋廻
-        _pMvNavigator->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2));
-        _pMvNavigator->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
      * 前方斜め右移動
      */
     void move_WAY_ZRIGHT_FRONT() {
-        _pMvNavigator->setRzRyMvAng(ANGLE180, ANGLE135);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(ANGLE180, ANGLE135);
+            //旋廻
+            _pMvNavigator->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
+            _pMvNavigator->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        }
         _Z -= _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //旋廻
-        _pMvNavigator->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
-        _pMvNavigator->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
      * 右移動
      */
     void move_WAY_ZRIGHT() {
-        _pMvNavigator->setRzRyMvAng(0, ANGLE90);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(0, ANGLE90);
+            //旋廻
+            _pMvNavigator->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
+            _pMvNavigator->setStopTarget_FaceAng(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        }
         _Z -= _iMoveSpeed;
         _iMoveVelo = _iMoveSpeed;
-        //旋廻
-        _pMvNavigator->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
-        _pMvNavigator->setStopTarget_FaceAng(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
      * 後方斜め右
      */
     void move_WAY_ZRIGHT_BEHIND() {
-        _pMvNavigator->setRzRyMvAng(0, ANGLE135);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(0, ANGLE135);
+            //旋廻
+            _pMvNavigator->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
+            _pMvNavigator->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        }
         _Z -= _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //旋廻
-        _pMvNavigator->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
-        _pMvNavigator->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
      * 左斜め上移動
      */
     void move_WAY_ZLEFT_UP() {
-        _pMvNavigator->setRzRyMvAng(ANGLE45, ANGLE270);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(ANGLE45, ANGLE270);
+            //旋廻
+            _pMvNavigator->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
+            _pMvNavigator->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        }
         _Z += _iMoveSpeed * NANAME;
         _Y += _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //旋廻
-        _pMvNavigator->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
-        _pMvNavigator->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
      * 左斜め下移動
      */
     void move_WAY_ZLEFT_DOWN() {
-        _pMvNavigator->setRzRyMvAng(ANGLE315, ANGLE270);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(ANGLE315, ANGLE270);
+            //旋廻
+            _pMvNavigator->setFaceAngAcce(AXIS_X, _angRXAcce_MZ/2);
+            _pMvNavigator->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+
+        }
         _Z += _iMoveSpeed * NANAME;
         _Y -= _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //旋廻
-        _pMvNavigator->setFaceAngAcce(AXIS_X, _angRXAcce_MZ/2);
-        _pMvNavigator->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
      * 右斜め上移動
      */
     void move_WAY_ZRIGHT_UP() {
-        _pMvNavigator->setRzRyMvAng(ANGLE45, ANGLE90);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(ANGLE45, ANGLE90);
+            //旋廻
+            _pMvNavigator->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
+            _pMvNavigator->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        }
         _Z -= _iMoveSpeed * NANAME;
         _Y += _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //旋廻
-        _pMvNavigator->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
-        _pMvNavigator->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
      * 右斜め下移動
      */
     void move_WAY_ZRIGHT_DOWN() {
-        _pMvNavigator->setRzRyMvAng(ANGLE315, ANGLE90);
+        if (_is_just_change_way) {
+            _pMvNavigator->setRzRyMvAng(ANGLE315, ANGLE90);
+            //旋廻
+            _pMvNavigator->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
+            _pMvNavigator->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        }
         _Z -= _iMoveSpeed * NANAME;
         _Y -= _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //旋廻
-        _pMvNavigator->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
-        _pMvNavigator->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
      * 前方左斜め上移動
