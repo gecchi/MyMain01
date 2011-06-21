@@ -16,6 +16,12 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 class GgafLordActor : public GgafActor {
+
+private:
+    GgafLordActor* extract() override {
+        throwGgafCriticalException("GgafLordActor に extract() は実行できません。name="<<getName());
+    }
+
 public:
     GgafLordActor(GgafScene* prm_pScene_Platform);
 
@@ -49,10 +55,6 @@ public:
 
 
     void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
-    }
-
-    GgafLordActor* extract() override {
-        throwGgafCriticalException("GgafLordActor に extract() は実行できません。name="<<getName());
     }
 
     virtual void throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {

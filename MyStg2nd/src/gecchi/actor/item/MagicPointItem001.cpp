@@ -41,7 +41,7 @@ void MagicPointItem001::onReset() {
     _pMvTransporter->setZeroVxyzMvVelo();
     _pMvTransporter->setZeroVxyzMvAcce();
     _pMvTransporter->_gravitation_mv_seq_flg = false;
-    _pPrg->set(ITEM_PROG_DRIFT);
+    _pProg->set(ITEM_PROG_DRIFT);
     _SX = _SY = _SZ = 1000;
 }
 void MagicPointItem001::onActive() {
@@ -82,14 +82,14 @@ void MagicPointItem001::processBehavior() {
     //TODO:尾を引くように
 
     //通常移動
-    if (_pPrg->get() == ITEM_PROG_DRIFT) {
+    if (_pProg->get() == ITEM_PROG_DRIFT) {
         //onHit() で状態変化するのを待つ
     }
 
     //自機と当たり判定がヒットし、自機に向かう動き
-    if (_pPrg->get() == ITEM_PROG_ATTACH) {
+    if (_pProg->get() == ITEM_PROG_ATTACH) {
         MyShip* pMyShip = P_MYSHIP;
-        if (_pPrg->isJustChanged()) {
+        if (_pProg->isJustChanged()) {
             _pMvTransporter->setVxMvVelo(_pMvNavigator->_vX*_pMvNavigator->_veloMv);
             _pMvTransporter->setVyMvVelo(_pMvNavigator->_vY*_pMvNavigator->_veloMv);
             _pMvTransporter->setVzMvVelo(_pMvNavigator->_vZ*_pMvNavigator->_veloMv);
@@ -101,9 +101,9 @@ void MagicPointItem001::processBehavior() {
     }
 
     //自機に吸着し、吸収中の動き
-    if (_pPrg->get() == ITEM_PROG_ABSORB) {
+    if (_pProg->get() == ITEM_PROG_ABSORB) {
         MyShip* pMyShip = P_MYSHIP;
-        if (_pPrg->isJustChanged()) {
+        if (_pProg->isJustChanged()) {
             _pMvTransporter->setZeroVxyzMvVelo();
             _pMvTransporter->setZeroVxyzMvAcce();
             _pMvTransporter->stopGravitationVxyzMvSequence();
@@ -116,7 +116,7 @@ void MagicPointItem001::processBehavior() {
         _SZ -= 100;
         if (_SX < 5) {
             _pSeTransmitter->playImmediately(0);
-            _pPrg->change(ITEM_PROG_NOTIONG);
+            _pProg->change(ITEM_PROG_NOTIONG);
             sayonara(); //終了
         }
         P_MYSHIP_SCENE->_pEnagyBar->_amount.inc(1);
@@ -130,12 +130,12 @@ void MagicPointItem001::processJudgement() {
         sayonara();
     }
     //通常移動
-    if (_pPrg->get() == ITEM_PROG_DRIFT) {
+    if (_pProg->get() == ITEM_PROG_DRIFT) {
         //onHit() で状態変化するのを待つ
     }
 
     //自機と当たり判定がヒットし、自機に向かう動き
-    if (_pPrg->get() == ITEM_PROG_ATTACH) {
+    if (_pProg->get() == ITEM_PROG_ATTACH) {
         MyShip* pMyShip = P_MYSHIP;
         if (abs(pMyShip->_X - _X) < 20000 &&
             abs(pMyShip->_Y - _Y) < 20000 &&
@@ -144,12 +144,12 @@ void MagicPointItem001::processJudgement() {
             _kDX = pMyShip->_X - _X;
             _kDY = pMyShip->_Y - _Y;
             _kDZ = pMyShip->_Z - _Z;
-            _pPrg->change(ITEM_PROG_ABSORB);
+            _pProg->change(ITEM_PROG_ABSORB);
         }
     }
 
     //自機に吸着し、吸収中の動き
-    if (_pPrg->get() == ITEM_PROG_ABSORB) {
+    if (_pProg->get() == ITEM_PROG_ABSORB) {
     }
 }
 
@@ -161,9 +161,9 @@ void MagicPointItem001::onHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
 
 
-    if (_pPrg->get() == ITEM_PROG_DRIFT && pOther->getKind() & KIND_MY_BODY)  {
+    if (_pProg->get() == ITEM_PROG_DRIFT && pOther->getKind() & KIND_MY_BODY)  {
         setHitAble(false);
-        _pPrg->change(ITEM_PROG_ATTACH);
+        _pProg->change(ITEM_PROG_ATTACH);
     }
 
 }

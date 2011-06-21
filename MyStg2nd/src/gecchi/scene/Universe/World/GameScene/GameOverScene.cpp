@@ -15,7 +15,7 @@ GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
 void GameOverScene::onReset() {
     blindScene();
     _pStringBoard01->update("");
-    _pPrg->change(GAMEOVER_SCENE_PROG_INIT);
+    _pProg->change(GAMEOVER_SCENE_PROG_INIT);
 }
 void GameOverScene::initialize() {
     _TRACE_("GameOverScene::initialize()");
@@ -23,7 +23,7 @@ void GameOverScene::initialize() {
 
 void GameOverScene::processBehavior() {
 
-    switch (_pPrg->getChangeFrom()) {
+    switch (_pProg->getChangeFrom()) {
         case GAMEOVER_SCENE_PROG_DISP: {
             fadeoutScene(FADE_FRAME);
             inactivateDelay(FADE_FRAME);
@@ -35,26 +35,26 @@ void GameOverScene::processBehavior() {
     }
 
 
-    switch (_pPrg->get()) {
+    switch (_pProg->get()) {
         case GAMEOVER_SCENE_PROG_INIT: {
-            _pPrg->change(GAMEOVER_SCENE_PROG_DISP);
+            _pProg->change(GAMEOVER_SCENE_PROG_DISP);
             break;
         }
 
         case GAMEOVER_SCENE_PROG_DISP: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pStringBoard01->update(500*1000, 500*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAME);
             }
-            if (VB->isPushedDown(VB_UI_EXECUTE) || _pPrg->getFrameInProgress() == 420) {
+            if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 420) {
                 throwEventToUpperTree(EVENT_GAME_OVER_FINISH);
-                _pPrg->change(GAMEOVER_SCENE_PROG_FINISH);
+                _pProg->change(GAMEOVER_SCENE_PROG_FINISH);
             }
             break;
         }
 
         case GAMEOVER_SCENE_PROG_FINISH: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
             }
             break;
         }

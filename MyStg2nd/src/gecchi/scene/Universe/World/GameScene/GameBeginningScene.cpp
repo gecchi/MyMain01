@@ -19,7 +19,7 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
 
 void GameBeginningScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");
-    _pPrg->change(GAMEBEGINNING_SCENE_PROG_INIT);
+    _pProg->change(GAMEBEGINNING_SCENE_PROG_INIT);
     unblindScene();
     _pStringBoard01->update("");
     _pStringBoard02->update("");
@@ -35,43 +35,43 @@ void GameBeginningScene::initialize() {
 
 void GameBeginningScene::processBehavior() {
 
-    switch (_pPrg->get()) {
+    switch (_pProg->get()) {
         case GAMEBEGINNING_SCENE_PROG_INIT: {
-            _pPrg->change(GAMEBEGINNING_SCENE_PROG_SELECT_MODE);
+            _pProg->change(GAMEBEGINNING_SCENE_PROG_SELECT_MODE);
             break;
         }
 
         case GAMEBEGINNING_SCENE_PROG_SELECT_MODE: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pStringBoard01->update(200*1000, 200*1000, "GAME_BEGINNING_SCENE BEGIN");
                 _pStringBoard02->update(200*1000, 250*1000, "SELECT MODE!");
             }
-            if (_pPrg->get() == GAMEBEGINNING_SCENE_PROG_SELECT_MODE) {
-                if (VB->isPushedDown(VB_UI_EXECUTE) || _pPrg->getFrameInProgress() == 300) {
-                    _pPrg->change(GAMEBEGINNING_SCENE_PROG_DECIDE);
+            if (_pProg->get() == GAMEBEGINNING_SCENE_PROG_SELECT_MODE) {
+                if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 300) {
+                    _pProg->change(GAMEBEGINNING_SCENE_PROG_DECIDE);
                 }
             }
             break;
         }
 
         case GAMEBEGINNING_SCENE_PROG_DECIDE: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 fadeoutScene(FADE_FRAME);
                 throwEventToUpperTree(EVENT_GAMEMODE_DECIDE);
             }
-            if (_pPrg->getFrameInProgress() % 10 < 5 ) {
+            if (_pProg->getFrameInProgress() % 10 < 5 ) {
                 _pStringBoard02->update(400*1000, 500*1000, "OK OK OK");
             } else {
                 _pStringBoard02->update(400*1000, 500*1000, "");
             }
-            if (_pPrg->getFrameInProgress() == FADE_FRAME) {
-                _pPrg->change(GAMEBEGINNING_SCENE_PROG_FINISH);
+            if (_pProg->getFrameInProgress() == FADE_FRAME) {
+                _pProg->change(GAMEBEGINNING_SCENE_PROG_FINISH);
             }
             break;
         }
 
         case GAMEBEGINNING_SCENE_PROG_FINISH: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 inactivate();
             }
             break;

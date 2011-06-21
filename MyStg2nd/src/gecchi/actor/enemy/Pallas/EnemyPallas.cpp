@@ -37,7 +37,7 @@ void EnemyPallas::onActive() {
     MyStgUtil::resetEnemyPallasStatus(_pStatus);
 
     _iMovePatternNo = 0; //行動パターンリセット
-    _pPrg->change(1);
+    _pProg->change(1);
 }
 
 void EnemyPallas::processBehavior() {
@@ -45,15 +45,15 @@ void EnemyPallas::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     //【パターン1：スプライン移動】
-    if (_pPrg->isJustChangedTo(1)) {
+    if (_pProg->isJustChangedTo(1)) {
         _pSplineProgram->begin(0); //スプライン移動を開始(1:座標相対)
     }
-    if (_pPrg->get() == 1) {
+    if (_pProg->get() == 1) {
         //スプライン移動終了待ち
         if (_pSplineProgram->isExecuting()) {
             //待ちぼうけ
         } else {
-            _pPrg->changeNext(); //次のパターンへ
+            _pProg->changeNext(); //次のパターンへ
         }
     }
 

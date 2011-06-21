@@ -45,7 +45,7 @@ void GameMainScene::onReset() {
     if (_pSceneMainCannnel) {
         _pSceneMainCannnel->inactivate();
     }
-    _pPrg->set(GAMEMAIN_SCENE_PROG_INIT);
+    _pProg->set(GAMEMAIN_SCENE_PROG_INIT);
 }
 void GameMainScene::readyNextStage() {
     _stage++;
@@ -106,28 +106,28 @@ void GameMainScene::processBehavior() {
     _pFont8_JIKI_Z->update(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1)*1000, _buf);
 
 
-    switch (_pPrg->get()) {
+    switch (_pProg->get()) {
         case GAMEMAIN_SCENE_PROG_INIT: {
-            _pPrg->change(GAMEMAIN_SCENE_PROG_BEGIN);
+            _pProg->change(GAMEMAIN_SCENE_PROG_BEGIN);
             break;
         }
 
         case GAMEMAIN_SCENE_PROG_BEGIN: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 if (_pSceneMainCannnel && !_pSceneMainCannnel->wasDeclaredEnd()) {
                     //2面目以降はこのタイミングで前ステージをend
                     _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
                     _pSceneMainCannnel->end();
                 }
             }
-            if (_pPrg->getFrameInProgress() == 120) { //deleteを考慮し２秒遊ぶ
-                _pPrg->change(GAMEMAIN_SCENE_PROG_PLAY);
+            if (_pProg->getFrameInProgress() == 120) { //deleteを考慮し２秒遊ぶ
+                _pProg->change(GAMEMAIN_SCENE_PROG_PLAY);
             }
             break;
         }
 
         case GAMEMAIN_SCENE_PROG_PLAY: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 if (_had_ready_stage) {
                     _had_ready_stage = false;
                     _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
@@ -140,7 +140,7 @@ void GameMainScene::processBehavior() {
         }
 
         case GAMEMAIN_SCENE_PROG_FINISH: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
             }
             break;
         }
@@ -162,7 +162,7 @@ void GameMainScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
             readyNextStage();
         } else {
 //            _TRACE_("最終面クリア");
-//            _pPrg->change(GAMEMAIN_SCENE_PROG_END);
+//            _pProg->change(GAMEMAIN_SCENE_PROG_END);
             //TODO:エデニング？
         }
     }

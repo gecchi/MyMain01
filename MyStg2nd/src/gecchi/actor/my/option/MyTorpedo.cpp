@@ -58,12 +58,12 @@ void MyTorpedo::onActive() {
     _begin_Y = _Y;
     _begin_Z = _Z;
     setHitAble(true);
-    _pPrg->set(MyTorpedo_IN_FIRE);
+    _pProg->set(MyTorpedo_IN_FIRE);
     _move_section = 0;
 }
 
 void MyTorpedo::processBehavior() {
-    if (_pPrg->get() == MyTorpedo_RELEASE) {
+    if (_pProg->get() == MyTorpedo_RELEASE) {
         if (_pTailEffectStore->_num_chip_active == 0) {
             //軌跡エフェクトが全て非活動になった場合
             inactivate(); //自身を最後にinactivate()
@@ -72,7 +72,7 @@ void MyTorpedo::processBehavior() {
         }
     }
 
-    if (_pPrg->get() == MyTorpedo_IN_FIRE) {
+    if (_pProg->get() == MyTorpedo_IN_FIRE) {
         //尾っぽエフェクト追加処理
         if (_pTailEffectStore->_num_chip_active < _length_TailEffect) {
             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)_pTailEffectStore->dispatch();
@@ -184,9 +184,9 @@ void MyTorpedo::processBehavior() {
 }
 
 void MyTorpedo::processJudgement() {
-    if (isOutOfUniverse() && _pPrg->get() == MyTorpedo_IN_FIRE) {
+    if (isOutOfUniverse() && _pProg->get() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
-        _pPrg->change(MyTorpedo_RELEASE);
+        _pProg->change(MyTorpedo_RELEASE);
         GgafMainActor* pTailEffect = _pTailEffectStore->getSubFirst();
         for (int i = 0; i < _length_TailEffect; i++) {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
@@ -208,7 +208,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //ヒット時通貫はしません
     int sta = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
     setHitAble(false);
-    _pPrg->change(MyTorpedo_RELEASE);
+    _pProg->change(MyTorpedo_RELEASE);
     GgafMainActor* pTailEffect = _pTailEffectStore->getSubFirst();
     for (int i = 0; i < _length_TailEffect; i++) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約

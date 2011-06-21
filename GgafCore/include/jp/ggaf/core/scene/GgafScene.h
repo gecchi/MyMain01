@@ -127,7 +127,8 @@ public:
     virtual void draw() override;
     virtual void afterDraw() override;
     virtual void doFinally() override;
-    virtual void throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) override;
+    virtual void throwEventToLowerTree(UINT32 prm_no, void* prm_pSource = NULL) override;
+    virtual void throwEventToUpperTree(UINT32 prm_no, void* prm_pSource = NULL) override;
     virtual void activateTree() override;
     virtual void activateDelay(frame prm_offset_frames = 1) override;
     virtual void activate() override;
@@ -152,7 +153,7 @@ public:
     virtual void reset() override;
     virtual void resetTree() override;
 
-    virtual void execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) override;
+    virtual void executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) override;
     /**
      * 自ツリーシーンをnフレーム後にゴミ箱へ移動 .
      * @param prm_offset_frames ゴミ箱へ移動タイミング残りフレーム数(デフォルト=1)

@@ -33,7 +33,7 @@ void EffectMyOption::initialize() {
 }
 
 void EffectMyOption::onReset() {
-//    _pPrg->set(1);
+//    _pProg->set(1);
 }
 
 void EffectMyOption::onActive() {
@@ -41,9 +41,9 @@ void EffectMyOption::onActive() {
 }
 
 void EffectMyOption::processBehavior() {
-//    if (_pPrg->get() == 1) {
+//    if (_pProg->get() == 1) {
 //        _pScaler->beat(30,8,2,-1);
-//        _pPrg->change(2);
+//        _pProg->change(2);
 //    }
     locateAs(_pMyOption);
     _pMvNavigator->behave();

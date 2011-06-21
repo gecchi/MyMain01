@@ -78,6 +78,11 @@ void GgafScene::throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) {
     _pLordActor->throwEventToLowerTree(prm_no, prm_pSource);
 }
 
+void GgafScene::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
+    GgafElement<GgafScene>::throwEventToUpperTree(prm_no, prm_pSource);
+}
+
+
 void GgafScene::doFinally() {
     GgafElement<GgafScene>::doFinally();
     _pLordActor->doFinally();
@@ -173,9 +178,9 @@ void GgafScene::unpauseImmediately() {
     _pLordActor->unpauseImmediately();
 }
 
-void GgafScene::execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
-    GgafElement<GgafScene>::execDownFunction(pFunc, prm1, prm2);
-    _pLordActor->execDownFunction(pFunc, prm1, prm2);
+void GgafScene::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
+    GgafElement<GgafScene>::executeFuncToLowerTree(pFunc, prm1, prm2);
+    _pLordActor->executeFuncToLowerTree(pFunc, prm1, prm2);
 }
 
 void GgafScene::reset() {

@@ -33,11 +33,11 @@ void Stage01Scene::initialize() {
 
 void Stage01Scene::processBehavior() {
     StageScene::processBehavior();
-    if (_pPrg->get() == STAGE_SCENE_PROG_INIT) {
-       _pPrg->change(STAGE_SCENE_PROG_BEGIN);
+    if (_pProg->get() == STAGE_SCENE_PROG_INIT) {
+       _pProg->change(STAGE_SCENE_PROG_BEGIN);
     }
 
-    if (_pPrg->get() == STAGE_SCENE_PROG_BEGIN) {
+    if (_pProg->get() == STAGE_SCENE_PROG_BEGIN) {
         if (_frame_Begin == 180) { //ステージ１開始！
             _pMessage->activateImmediately();
             _pMessage->update(300*1000, 300*1000, "SCENE 01 START!");
@@ -45,11 +45,11 @@ void Stage01Scene::processBehavior() {
             _pWorldBoundSpace->activateTree();    //背景ON
             _pScene_Stage01Controller->activate();
             fadeinScene(240);
-            _pPrg->change(STAGE_SCENE_PROG_PLAYING);
+            _pProg->change(STAGE_SCENE_PROG_PLAYING);
         }
     }
 
-    if (_pPrg->isJustChangedTo(STAGE_SCENE_PROG_END)) {
+    if (_pProg->isJustChangedTo(STAGE_SCENE_PROG_END)) {
         _TRACE_("Stage01Scene::processBehavior()  STAGE_SCENE_PROG_ENDになりますた！");
         _pMessage->activateImmediately();
         _pMessage->update(300*1000, 300*1000, "SCENE 01 CLEAR!!");
@@ -69,7 +69,7 @@ void Stage01Scene::processFinal() {
 void Stage01Scene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STAGE01CONTROLLER_WAS_END ) {
         _TRACE_("Stage01Scene::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGE_SCENE_PROG_ENDへ");
-        _pPrg->change(STAGE_SCENE_PROG_END);
+        _pProg->change(STAGE_SCENE_PROG_END);
     } else {
 
     }

@@ -98,7 +98,7 @@ public:
 
     bool _is_already_reset;
 
-    GgafProgress* _pPrg;
+    GgafProgress* _pProg;
 
     /**
      * コンストラクタ
@@ -321,7 +321,7 @@ public:
      * @param prm_no イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void throwEventToLowerTree(UINT32 prm_no, void* prm_pSource);
+    virtual void throwEventToLowerTree(UINT32 prm_no, void* prm_pSource = NULL);
 
     /**
      * 配下ノード全てにイベントメッセージを通知します .
@@ -329,27 +329,8 @@ public:
      * @param prm_no イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void throwEventToUpperTree(UINT32 prm_no, void* prm_pSource);
+    virtual void throwEventToUpperTree(UINT32 prm_no, void* prm_pSource = NULL);
 
-    /**
-     * 配下ノードにイベントメッセージを通知します .
-     * イベントを受け取り側は、onCatchEvent(UINT32, void*) を実装が必要です。
-     * 受け取り側の void* 引数には、本メソッドを実行したオブジェクトのポインタが渡されます。
-     * @param prm_no イベントメッセージ番号
-     */
-    virtual void throwEventToLowerTree(UINT32 prm_no) {
-        throwEventToLowerTree(prm_no, this);
-    }
-
-    /**
-     * 自ノードよりも親にあたるノード全てにイベントメッセージを通知します .
-     * イベントを受け取り側は、onCatchEvent(UINT32, void*) を実装が必要です。
-     * 受け取り側の void* 引数には、本メソッドを実行したオブジェクトのポインタが渡されます。
-     * @param prm_no イベントメッセージ番号
-     */
-    virtual void throwEventToUpperTree(UINT32 prm_no) {
-        throwEventToUpperTree(prm_no, this);
-    }
 
     /**
      * イベント発生時の処理 .
@@ -573,29 +554,36 @@ public:
      * <pre>
      * ＜メモ initialize(), onReset(), onActive() の使い分けについて＞
      * 状態をリセット処理は、どこに実装するべきか？
-     * initialize() ・・・ 生成後、最初の１回だけ事前にコールされる。初期化処理等に使用することを想定。
-     * onReset()    ・・・ 生成後、initialize() の後、１回だけ無条件でコールされる。その後、reset() でコールされる。
-     * onActive()   ・・・ 生成後、initialize() の後の １フレーム目の behave() 直前にコールされる。その後 非活動→活動状態になった時。
-     * ノード(アクターやシーン)のライフサイクルによって使い分ける。
+     * initialize() ・・・ 生成後、最初の１回だけ事前にコールバックされる。初期化処理等に使用することを想定。
+     * onReset()    ・・・ 生成後、initialize() の後、１回だけ無条件でコールされる。その後、reset() 実行ででコールバックされる。
+     * onActive()   ・・・ 生成後、initialize() の後の活動状態時 １フレーム目の behave() 直前にコールされる。
+     *                     その後 非活動→活動状態になった時、自動的にコールバックされる。
+     * ノード(アクターやシーン)の処理サイクルによって使い分ける。
      *
      * ・１サイクルなノード(アクターやシーン)の場合
-     * 生成後、初めての「終了」という状態を迎えた際に、そのまま解放となる場合。つまり、使いまわさない場合。
+     * 生成後、初めての「終了」という状態を迎えた際に、そのまま解放となる場合。つまり、インスタンスを使いまわさない場合。
      * initialize(), onReset(), onActive() は事前に各１回実行されるので、どこに状態をリセット処理を実装しても差異は無いはず。
      * 多くの通常のアクターや、一時的な短いシーンはこれに該当すると予想する。
      * どこに実装しても良いが、initialize() で実装を統一したほうが、他のオブジェクトから操作しやすい。
      *
      * ・onActive() を使用すべき場合
-     * 生成されたノードに、「非表示(非活動)」という状態存在し、使いまわす場合。
-     * さらに、表示(活動) ～ 非表示(非活動) が、ノードの１サイクルのと一致する場合、
+     * 生成されたノードに、「表示」「非表示」という状態が存在し、使いまわす場合。
+     * 表示(活動) ～ 非表示(非活動) が、ノードの１サイクルのと一致する場合。
      * initialize() ・・・ 初期化処理、
      * onActive()   ・・・ 状態リセット処理
-     * と使い分けて記述し。 inacivate()、activate() で状態リセット行う。
-     * onActive() がコールされても、内部フレームカウンタは「リセットされない」事に注意。
+     * と使い分けて記述し。 inacivate()、onActive() で状態リセット行う。
+     * なぜ onReset() に状態リセット処理を記述し、reset()コールではいけないのかというと、
+     * 処理の中心である processBehavior() メソッドは、非表示(非活動) はコールされないため、
+     * 自身のオブジェクトの処理で reset() を記述しても実行されることが無いという自体に陥る。
+     * もちろん、他のオブジェクトから、非表示(非活動)→表示(活動) をチェックし、reset() を実行してあげれば
+     * 問題ないが、いつリセットされるのか、処理を追いかけないと分からないようになるというデメリットもあるのではないだろうか。
+     * onActive() がコールされても、getBehaveingFrame() は「リセットされない」が、
+     * getActivePartFrame()は「リセット」される事に注意。
      * 主に敵弾など汎用的なアクターは、これに該当すると予想する。
      *
      * ・onReset() を使用すべき場合
-     * 生成されたノードに、「非表示(非活動)」という概念が無い（表示しっぱなし）で、
-     * なおかつ、サイクル（リセット）の概念があるノード場合
+     * 生成されたノードに、「表示」「非表示」という概念が無い（或いは表示しっぱなし）で、
+     * なおかつ、処理サイクル（リセット）の概念があるノード場合
      * initialize() ・・・ 初期化処理、
      * onReset()    ・・・ 状態リセット処理
      * と使い分けて記述し。 reset() で状態リセットを行う。
@@ -764,8 +752,8 @@ public:
     /**
      * 配下全てのオブジェクトに対して指定の関数を実行させる .
      * 配下オブジェクト（アクターかシーン）のポインタが、引数関数ポインタの pFuncの第１引数に渡ってくる。<BR>
-     * 引数関数ポインタの pFunc の第２引数には、execDownFunction 呼び出し時の prm1(引数１)のポインタが渡ってくる。<BR>
-     * 引数関数ポインタの pFunc の第３引数には、execDownFunction 呼び出し時の prm2(引数２)のポインタが渡ってくる。<BR>
+     * 引数関数ポインタの pFunc の第２引数には、executeFuncToLowerTree 呼び出し時の prm1(引数１)のポインタが渡ってくる。<BR>
+     * 引数関数ポインタの pFunc の第３引数には、executeFuncToLowerTree 呼び出し時の prm2(引数２)のポインタが渡ってくる。<BR>
      * 配下のオブジェクトが何であるのか判っている上で使用しないと危険である。<BR>
      * あと、早くC++でラムダ式を使わせてください。<BR>
      *
@@ -792,7 +780,7 @@ public:
      *
      *     void processBehavior() {
      *         //配下アクター全てにaddX実行
-     *         execDownFunction(XXXXScene::addX, _velo, NULL);
+     *         executeFuncToLowerTree(XXXXScene::addX, _velo, NULL);
      *     }
      * }
      *
@@ -801,12 +789,12 @@ public:
      * @param prm1 同時に渡したい引数その１
      * @param prm2 同時に渡したい引数その２
      */
-    virtual void execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
+    virtual void executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
 
 
     virtual void useProgress(int prm_num = 10) {
-        if (_pPrg == NULL) {
-            _pPrg = NEW GgafProgress(&_frame_of_behaving, prm_num);
+        if (_pProg == NULL) {
+            _pProg = NEW GgafProgress(&_frame_of_behaving, prm_num);
         } else {
             _TRACE_("["<<GGAF_NODE::getName()<<"] は既に useProgress しています。prm_num="<<prm_num);
         }
@@ -841,7 +829,7 @@ _on_change_to_inactive_flg(false),
 _will_mv_first_in_next_frame_flg(false),
 _will_mv_last_in_next_frame_flg(false),
 _is_already_reset(false),
-_pPrg(NULL)
+_pProg(NULL)
 {
 
 }
@@ -968,8 +956,8 @@ void GgafElement<T>::nextFrame() {
     }
 
     // 進捗を反映
-    if (_pPrg) {
-        _pPrg->update();
+    if (_pProg) {
+        _pProg->update();
     }
     TRACE("GgafElement::nextFrame END _frame_of_behaving="<<_frame_of_behaving<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
 }
@@ -1647,7 +1635,7 @@ UINT32 GgafElement<T>::getActivePartFrame() {
    return _frame_of_behaving_since_onActive;
 }
 template<class T>
-void GgafElement<T>::execDownFunction(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
+void GgafElement<T>::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
     if (_can_live_flg) {
         if (_was_initialize_flg) {
             pFunc(this, prm1, prm2);
@@ -1655,7 +1643,7 @@ void GgafElement<T>::execDownFunction(void (*pFunc)(GgafObject*, void*, void*), 
         if (GGAF_NODE::_pSubFirst) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
-                pElementTemp->execDownFunction(pFunc, prm1, prm2);
+                pElementTemp->executeFuncToLowerTree(pFunc, prm1, prm2);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -1717,7 +1705,7 @@ bool GgafElement<T>::isDisappear() {
 
 template<class T>
 GgafElement<T>::~GgafElement() {
-    DELETE_POSSIBLE_NULL(_pPrg);
+    DELETE_POSSIBLE_NULL(_pProg);
 }
 
 }

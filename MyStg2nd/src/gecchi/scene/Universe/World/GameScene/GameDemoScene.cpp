@@ -17,7 +17,7 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
 
 }
 void GameDemoScene::onReset() {
-    _pPrg->set(GAMEDEMO_SCENE_PROG_INIT);
+    _pProg->set(GAMEDEMO_SCENE_PROG_INIT);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
     unblindScene();
@@ -31,36 +31,36 @@ void GameDemoScene::initialize() {
 
 void GameDemoScene::processBehavior() {
 
-    switch (_pPrg->get()) {
+    switch (_pProg->get()) {
         case GAMEDEMO_SCENE_PROG_INIT: {
-            _pPrg->change(GAMEDEMO_SCENE_PROG_DEMOPLAY);
+            _pProg->change(GAMEDEMO_SCENE_PROG_DEMOPLAY);
             break;
         }
 
         case GAMEDEMO_SCENE_PROG_DEMOPLAY: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pStringBoard01->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
             }
-            if (_pPrg->getFrameInProgress() == 180) {
-                _pPrg->change(GAMEDEMO_SCENE_PROG_RANKING);
+            if (_pProg->getFrameInProgress() == 180) {
+                _pProg->change(GAMEDEMO_SCENE_PROG_RANKING);
             }
             break;
         }
 
         case GAMEDEMO_SCENE_PROG_RANKING: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pStringBoard01->update(100*1000, 100*1000, "RANKING NOW");
                 _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
             }
-            if (_pPrg->getFrameInProgress() == 180) {
-                _pPrg->change(GAMEDEMO_SCENE_PROG_FINISH);
+            if (_pProg->getFrameInProgress() == 180) {
+                _pProg->change(GAMEDEMO_SCENE_PROG_FINISH);
             }
             break;
         }
 
         case GAMEDEMO_SCENE_PROG_FINISH: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 fadeoutSceneTree(FADE_FRAME);
                 inactivateDelay(FADE_FRAME);
                 throwEventToUpperTree(EVENT_GAMEDEMO_SCENE_FINISH); //終わったイベント発動

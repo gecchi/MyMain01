@@ -85,33 +85,31 @@ void EnemyAstraea::onActive() {
         _pEffect_Appearance->activate();
     }
 
-    _pPrg->set(ASTRAEA_PROG_MOVE);
+    _pProg->set(ASTRAEA_PROG_MOVE);
 }
 
 void EnemyAstraea::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    switch (_pPrg->get()) {
+    switch (_pProg->get()) {
         case ASTRAEA_PROG_MOVE: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 _pMvNavigator->setFaceAngVelo(AXIS_X, 0);
                 _pMvNavigator->setFaceAngVelo(AXIS_Z, _angveloTurn*0.3);
                 _pMvNavigator->setFaceAngVelo(AXIS_Y, _angveloTurn*0.5);
                 _pMvNavigator->setMvVelo(2000);
             }
             if (getActivePartFrame() % _laser_interval == 0) {
-                _pPrg->change(ASTRAEA_PROG_TURN);
+                _pProg->change(ASTRAEA_PROG_TURN);
             }
             break;
         }
 
         case ASTRAEA_PROG_TURN: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 //ターン開始
-                _pMvNavigator->execTurnFaceAngSequence(
-                                   P_MYSHIP,
-                                   _angveloTurn*20, 0,
-                                   TURN_COUNTERCLOCKWISE, false);
+                _pMvNavigator->execTurnFaceAngSequence(P_MYSHIP, _angveloTurn*20, 0,
+                                                       TURN_COUNTERCLOCKWISE, false);
                 _cnt_laserchip = 0;
             }
             if (_pMvNavigator->isTurningFaceAng()) {
@@ -122,13 +120,13 @@ void EnemyAstraea::processBehavior() {
                 _pMvNavigator->setFaceAngVelo(AXIS_Z, 0);
                 _pMvNavigator->setFaceAngVelo(AXIS_Y, 0);
                 _pMvNavigator->setMvVelo(0);
-                _pPrg->change(ASTRAEA_PROG_FIRE);
+                _pProg->change(ASTRAEA_PROG_FIRE);
             }
             break;
         }
 
         case ASTRAEA_PROG_FIRE: {
-            if (_pPrg->isJustChanged()) {
+            if (_pProg->isJustChanged()) {
                 //レーザーセット、借入
                 GgafActorStoreDispatcher* pLaserChipStoreDp =
                         (GgafActorStoreDispatcher*)(_pCon_LaserChipStoreDp->refer());
@@ -187,7 +185,7 @@ void EnemyAstraea::processBehavior() {
                     }
                 }
             } else {
-                _pPrg->change(ASTRAEA_PROG_MOVE);
+                _pProg->change(ASTRAEA_PROG_MOVE);
             }
             break;
         }
