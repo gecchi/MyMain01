@@ -25,7 +25,7 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
 }
 
 void Stage01Controller::initialize() {
-    _pProg->set(STAGE01CONTROLLER_SCENE_PROG_INIT);
+    _pProg->set(STAGE01CONTROLLER_PROG_INIT);
 }
 
 void Stage01Controller::processBehavior() {
@@ -40,7 +40,7 @@ void Stage01Controller::processBehavior() {
             case 100: {
                 Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
                 addSubLast(pScene);
-                _pProg->change(STAGE01CONTROLLER_SCENE_PROG_STG01_01_BEGIN);
+                _pProg->change(STAGE01CONTROLLER_PROG_STG01_01_BEGIN);
                 break;
             }
             case 2200: {
@@ -50,7 +50,7 @@ void Stage01Controller::processBehavior() {
             case 4000: {
                 Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000002);
                 addSubLast(pScene);
-                _pProg->change(STAGE01CONTROLLER_SCENE_PROG_STG01_02_BEGIN);
+                _pProg->change(STAGE01CONTROLLER_PROG_STG01_02_BEGIN);
                 break;
             }
             case 6200: {
@@ -60,7 +60,7 @@ void Stage01Controller::processBehavior() {
             case 8000: {
                 Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000003);
                 addSubLast(pScene);
-                _pProg->change(STAGE01CONTROLLER_SCENE_PROG_STG01_03_BEGIN);
+                _pProg->change(STAGE01CONTROLLER_PROG_STG01_03_BEGIN);
                 break;
             }
             case 18200: {
@@ -81,7 +81,7 @@ void Stage01Controller::processBehavior() {
 
 
     switch (_pProg->get()) {
-        case STAGE01CONTROLLER_SCENE_PROG_INIT: {
+        case STAGE01CONTROLLER_PROG_INIT: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("Stage01Controller::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
             }
@@ -90,20 +90,20 @@ void Stage01Controller::processBehavior() {
         }
 
         //Stage01_01
-        case STAGE01CONTROLLER_SCENE_PROG_STG01_01_BEGIN: {
+        case STAGE01CONTROLLER_PROG_STG01_01_BEGIN: {
             //BGM１番フェードイン
             _pBgmPerformer->play(0, 0, true);
             _pBgmPerformer->fadein(0, 420);
             _pProg->changeNext();
             break;
         }
-        case STAGE01CONTROLLER_SCENE_PROG_STG01_01_PLAYING: {
+        case STAGE01CONTROLLER_PROG_STG01_01_PLAYING: {
             //進捗更新待ち
             break;
         }
 
         //Stage01_02
-        case STAGE01CONTROLLER_SCENE_PROG_STG01_02_BEGIN: {
+        case STAGE01CONTROLLER_PROG_STG01_02_BEGIN: {
             //BGM０番フェードアウト
             _pBgmPerformer->fadeout_stop(0, 420);
             //BGM１番フェードイン
@@ -112,23 +112,23 @@ void Stage01Controller::processBehavior() {
             _pProg->changeNext();
             break;
         }
-        case STAGE01CONTROLLER_SCENE_PROG_STG01_02_PLAYING: {
+        case STAGE01CONTROLLER_PROG_STG01_02_PLAYING: {
             //進捗更新待ち
             break;
         }
 
         //Stage01_03
-        case STAGE01CONTROLLER_SCENE_PROG_STG01_03_BEGIN: {
+        case STAGE01CONTROLLER_PROG_STG01_03_BEGIN: {
             _pProg->changeNext();
             break;
         }
-        case STAGE01CONTROLLER_SCENE_PROG_STG01_03_PLAYING: {
+        case STAGE01CONTROLLER_PROG_STG01_03_PLAYING: {
             //進捗更新待ち
             break;
         }
 
         //Stage01_Climax
-        case STAGE01CONTROLLER_SCENE_PROG_STG01_CLIMAX_BEGIN: {
+        case STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN: {
             //BGM１番フェードアウト
             _pBgmPerformer->fadeout_stop(1, 420);
             //BGM２番フェードイン
@@ -137,16 +137,16 @@ void Stage01Controller::processBehavior() {
             _pProg->changeNext();
             break;
         }
-        case STAGE01CONTROLLER_SCENE_PROG_STG01_CLIMAX_PLAYING: {
+        case STAGE01CONTROLLER_PROG_STG01_CLIMAX_PLAYING: {
             //進捗更新待ち
             break;
         }
 
         //Stage01_Climax の後
-        case STAGE01CONTROLLER_SCENE_PROG_FAINAL: {
+        case STAGE01CONTROLLER_PROG_FAINAL: {
             if (_pProg->isJustChanged()) {
                 //STG01_Climax終焉の処理
-                _TRACE_("STG01_Climax終焉のSTAGE01CONTROLLER_SCENE_PROG_FAINALきた");
+                _TRACE_("STG01_Climax終焉のSTAGE01CONTROLLER_PROG_FAINALきた");
                 _pBgmPerformer->fadeout_stop(2, 420); //BGM１番フェードアウト
                 _frame_prog_fainal = 0;
             }
@@ -178,7 +178,7 @@ void Stage01Controller::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_STG01_CLIMAX_WAS_BROKEN) {
         _TRACE_("Stage01Controller::onCatchEvent() EVENT_STG01_CLIMAX_WAS_BROKENキャッチした。STAGE01CONTROLLER_ENDINGを投げる");
         ((Stage01_Climax*)prm_pSource)->end(60*60);
-        _pProg->change(STAGE01CONTROLLER_SCENE_PROG_FAINAL); //進捗をSTAGE01CONTROLLER_SCENE_PROG_FAINALに切り替える
+        _pProg->change(STAGE01CONTROLLER_PROG_FAINAL); //進捗をSTAGE01CONTROLLER_PROG_FAINALに切り替える
     } else {
 
     }

@@ -1,10 +1,10 @@
 #ifndef GAMEDEMOSCENE_H_
 #define GAMEDEMOSCENE_H_
 
-#define GAMEDEMO_SCENE_PROG_INIT              1
-#define GAMEDEMO_SCENE_PROG_DEMOPLAY          2
-#define GAMEDEMO_SCENE_PROG_RANKING           3
-#define GAMEDEMO_SCENE_PROG_FINISH            4
+#define GAMEDEMOSCENE_PROG_INIT              1
+#define GAMEDEMOSCENE_PROG_DEMOPLAY          2
+#define GAMEDEMOSCENE_PROG_RANKING           3
+#define GAMEDEMOSCENE_PROG_FINISH            4
 
 namespace MyStg2nd {
 

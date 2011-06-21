@@ -19,7 +19,7 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
 
 void GameBeginningScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");
-    _pProg->change(GAMEBEGINNING_SCENE_PROG_INIT);
+    _pProg->change(GAMEBEGINNINGSCENE_PROG_INIT);
     unblindScene();
     _pStringBoard01->update("");
     _pStringBoard02->update("");
@@ -36,25 +36,25 @@ void GameBeginningScene::initialize() {
 void GameBeginningScene::processBehavior() {
 
     switch (_pProg->get()) {
-        case GAMEBEGINNING_SCENE_PROG_INIT: {
-            _pProg->change(GAMEBEGINNING_SCENE_PROG_SELECT_MODE);
+        case GAMEBEGINNINGSCENE_PROG_INIT: {
+            _pProg->change(GAMEBEGINNINGSCENE_PROG_SELECT_MODE);
             break;
         }
 
-        case GAMEBEGINNING_SCENE_PROG_SELECT_MODE: {
+        case GAMEBEGINNINGSCENE_PROG_SELECT_MODE: {
             if (_pProg->isJustChanged()) {
                 _pStringBoard01->update(200*1000, 200*1000, "GAME_BEGINNING_SCENE BEGIN");
                 _pStringBoard02->update(200*1000, 250*1000, "SELECT MODE!");
             }
-            if (_pProg->get() == GAMEBEGINNING_SCENE_PROG_SELECT_MODE) {
+            if (_pProg->get() == GAMEBEGINNINGSCENE_PROG_SELECT_MODE) {
                 if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 300) {
-                    _pProg->change(GAMEBEGINNING_SCENE_PROG_DECIDE);
+                    _pProg->change(GAMEBEGINNINGSCENE_PROG_DECIDE);
                 }
             }
             break;
         }
 
-        case GAMEBEGINNING_SCENE_PROG_DECIDE: {
+        case GAMEBEGINNINGSCENE_PROG_DECIDE: {
             if (_pProg->isJustChanged()) {
                 fadeoutScene(FADE_FRAME);
                 throwEventToUpperTree(EVENT_GAMEMODE_DECIDE);
@@ -65,12 +65,12 @@ void GameBeginningScene::processBehavior() {
                 _pStringBoard02->update(400*1000, 500*1000, "");
             }
             if (_pProg->getFrameInProgress() == FADE_FRAME) {
-                _pProg->change(GAMEBEGINNING_SCENE_PROG_FINISH);
+                _pProg->change(GAMEBEGINNINGSCENE_PROG_FINISH);
             }
             break;
         }
 
-        case GAMEBEGINNING_SCENE_PROG_FINISH: {
+        case GAMEBEGINNINGSCENE_PROG_FINISH: {
             if (_pProg->isJustChanged()) {
                 inactivate();
             }

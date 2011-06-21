@@ -45,7 +45,7 @@ void GameMainScene::onReset() {
     if (_pSceneMainCannnel) {
         _pSceneMainCannnel->inactivate();
     }
-    _pProg->set(GAMEMAIN_SCENE_PROG_INIT);
+    _pProg->set(GAMEMAINSCENE_PROG_INIT);
 }
 void GameMainScene::readyNextStage() {
     _stage++;
@@ -107,12 +107,12 @@ void GameMainScene::processBehavior() {
 
 
     switch (_pProg->get()) {
-        case GAMEMAIN_SCENE_PROG_INIT: {
-            _pProg->change(GAMEMAIN_SCENE_PROG_BEGIN);
+        case GAMEMAINSCENE_PROG_INIT: {
+            _pProg->change(GAMEMAINSCENE_PROG_BEGIN);
             break;
         }
 
-        case GAMEMAIN_SCENE_PROG_BEGIN: {
+        case GAMEMAINSCENE_PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
                 if (_pSceneMainCannnel && !_pSceneMainCannnel->wasDeclaredEnd()) {
                     //2面目以降はこのタイミングで前ステージをend
@@ -121,25 +121,25 @@ void GameMainScene::processBehavior() {
                 }
             }
             if (_pProg->getFrameInProgress() == 120) { //deleteを考慮し２秒遊ぶ
-                _pProg->change(GAMEMAIN_SCENE_PROG_PLAY);
+                _pProg->change(GAMEMAINSCENE_PROG_PLAY);
             }
             break;
         }
 
-        case GAMEMAIN_SCENE_PROG_PLAY: {
+        case GAMEMAINSCENE_PROG_PLAY: {
             if (_pProg->isJustChanged()) {
                 if (_had_ready_stage) {
                     _had_ready_stage = false;
                     _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
                     addSubLast(_pSceneMainCannnel); //ステージシーン追加
                 } else {
-                    throwGgafCriticalException("GameMainScene::processBehavior GAMEMAIN_SCENE_PROG_BEGIN 準備済みステージがありません。_stage="<<_stage);
+                    throwGgafCriticalException("GameMainScene::processBehavior GAMEMAINSCENE_PROG_BEGIN 準備済みステージがありません。_stage="<<_stage);
                 }
             }
             break;
         }
 
-        case GAMEMAIN_SCENE_PROG_FINISH: {
+        case GAMEMAINSCENE_PROG_FINISH: {
             if (_pProg->isJustChanged()) {
             }
             break;
@@ -162,7 +162,7 @@ void GameMainScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
             readyNextStage();
         } else {
 //            _TRACE_("最終面クリア");
-//            _pProg->change(GAMEMAIN_SCENE_PROG_END);
+//            _pProg->change(GAMEMAINSCENE_PROG_END);
             //TODO:エデニング？
         }
     }

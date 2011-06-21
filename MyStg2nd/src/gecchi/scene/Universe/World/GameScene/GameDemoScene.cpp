@@ -17,7 +17,7 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
 
 }
 void GameDemoScene::onReset() {
-    _pProg->set(GAMEDEMO_SCENE_PROG_INIT);
+    _pProg->set(GAMEDEMOSCENE_PROG_INIT);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
     unblindScene();
@@ -32,38 +32,45 @@ void GameDemoScene::initialize() {
 void GameDemoScene::processBehavior() {
 
     switch (_pProg->get()) {
-        case GAMEDEMO_SCENE_PROG_INIT: {
-            _pProg->change(GAMEDEMO_SCENE_PROG_DEMOPLAY);
+        case GAMEDEMOSCENE_PROG_INIT: {
+            _pProg->change(GAMEDEMOSCENE_PROG_DEMOPLAY);
             break;
         }
 
-        case GAMEDEMO_SCENE_PROG_DEMOPLAY: {
+        case GAMEDEMOSCENE_PROG_DEMOPLAY: {
             if (_pProg->isJustChanged()) {
                 _pStringBoard01->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
             }
+
+            if (VB->isPushedDown(VB_UI_EXECUTE)) {
+                _pProg->change(GAMEDEMOSCENE_PROG_FINISH); //スキップ
+            }
             if (_pProg->getFrameInProgress() == 180) {
-                _pProg->change(GAMEDEMO_SCENE_PROG_RANKING);
+                _pProg->change(GAMEDEMOSCENE_PROG_RANKING);
             }
             break;
         }
 
-        case GAMEDEMO_SCENE_PROG_RANKING: {
+        case GAMEDEMOSCENE_PROG_RANKING: {
             if (_pProg->isJustChanged()) {
                 _pStringBoard01->update(100*1000, 100*1000, "RANKING NOW");
                 _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
             }
+            if (VB->isPushedDown(VB_UI_EXECUTE)) {
+                _pProg->change(GAMEDEMOSCENE_PROG_FINISH); //スキップ
+            }
             if (_pProg->getFrameInProgress() == 180) {
-                _pProg->change(GAMEDEMO_SCENE_PROG_FINISH);
+                _pProg->change(GAMEDEMOSCENE_PROG_FINISH);
             }
             break;
         }
 
-        case GAMEDEMO_SCENE_PROG_FINISH: {
+        case GAMEDEMOSCENE_PROG_FINISH: {
             if (_pProg->isJustChanged()) {
                 fadeoutSceneTree(FADE_FRAME);
                 inactivateDelay(FADE_FRAME);
-                throwEventToUpperTree(EVENT_GAMEDEMO_SCENE_FINISH); //終わったイベント発動
+                throwEventToUpperTree(EVENT_GAMEDEMOSCENE_FINISH); //終わったイベント発動
             }
             break;
         }

@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GamePreTitleScene";
     useProgress(10);
-    _pProg->change(GAMEDEMO_SCENE_PROG_INIT);
+    _pProg->change(GAMEDEMOSCENE_PROG_INIT);
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
     getLordActor()->addSubGroup(_pStringBoard01);
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");
@@ -22,7 +22,7 @@ void GamePreTitleScene::onReset() {
     _pStringBoard01->update("");
     _pStringBoard02->update("");
     blindScene();
-    _pProg->change(GAMEPRETITLE_SCENE_PROG_INIT);
+    _pProg->change(GAMEPRETITLESCENE_PROG_INIT);
 }
 
 void GamePreTitleScene::onActive() {
@@ -35,12 +35,12 @@ void GamePreTitleScene::initialize() {
 void GamePreTitleScene::processBehavior() {
 
     switch (_pProg->get()) {
-        case GAMEPRETITLE_SCENE_PROG_INIT: {
-            _pProg->change(GAMEPRETITLE_SCENE_PROG_EXEC);
+        case GAMEPRETITLESCENE_PROG_INIT: {
+            _pProg->change(GAMEPRETITLESCENE_PROG_EXEC);
             break;
         }
 
-        case GAMEPRETITLE_SCENE_PROG_EXEC: {
+        case GAMEPRETITLESCENE_PROG_EXEC: {
             if (_pProg->isJustChanged()) {
                 fadeinScene(FADE_FRAME);
             }
@@ -56,15 +56,19 @@ void GamePreTitleScene::processBehavior() {
                 //タイトルが下からニューっと
                 _pTitleBoard->_Y -= 2*LEN_UNIT;
                 if (_pTitleBoard->_Y <= 150*LEN_UNIT) {
-                    throwEventToUpperTree(EVENT_PREGAMETITLE_SCENE_FINISH);
-                    _pProg->change(GAMEPRETITLE_SCENE_PROG_FINISH);
+                    _pProg->change(GAMEPRETITLESCENE_PROG_FINISH);
                 }
+            }
+            //VB_UI_EXECUTE で、スキップしてTITLEへ
+            if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
+                _pProg->change(GAMEPRETITLESCENE_PROG_FINISH);
             }
             break;
         }
 
-        case GAMEPRETITLE_SCENE_PROG_FINISH: {
+        case GAMEPRETITLESCENE_PROG_FINISH: {
             if (_pProg->isJustChanged()) {
+                throwEventToUpperTree(EVENT_PREGAMETITLESCENE_FINISH);
                 inactivate();
             }
             //おしまい待ちぼうけループ
