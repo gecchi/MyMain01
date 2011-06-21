@@ -101,7 +101,7 @@ void GameMainScene::processBehavior() {
     sprintf(_buf, "X:%8d", P_MYSHIP->_X);
     _pFont8_JIKI_X->update(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1)*1000, _buf);
     sprintf(_buf, "Y:%8d", P_MYSHIP->_Y);
-    _pFont8_JIKI_Y->update(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1)*1000, _buf);
+    _pFont8_JIKI_Y->update(cnvCoordPix2App(1), cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1)*1000, _buf);
     sprintf(_buf, "Z:%8d", P_MYSHIP->_Z);
     _pFont8_JIKI_Z->update(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1)*1000, _buf);
 
