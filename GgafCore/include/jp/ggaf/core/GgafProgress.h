@@ -28,6 +28,7 @@ public:
     /** 管理される進捗番号の個数 */
     int _num_progress;
 
+
     /**
      * コンストラクタ .
      * 初期化時の進捗番号は -1 に設定されている。<BR>
@@ -90,6 +91,7 @@ public:
      * 進捗番号が切り替わった直後なのかどうかを判定。 .
      * change(int) により進捗番号切り替えた次の update() 時だけ true になります。<BR>
      * set(int) により進捗番号切り替えた場合は成立しません。<BR>
+     * change(int) 又は changeNext() を実行した次フレームで取得条件が成立。
      * @return true:進捗に切り替わった直後である／false:それ以外
      */
     virtual bool isJustChanged();
@@ -97,6 +99,7 @@ public:
     /**
      * 引数の進捗番号に切り替わった直後なのかどうか調べる。.
      * isJustChanged() に現在の進捗番号の条件を付加します。
+     * change(int) 又は changeNext() を実行した次フレームで取得条件が成立。
      * @param prm_progress 現在の進捗番号条件
      * @return true:引数の進捗番号に切り替わった／false:そうではない
      */
@@ -105,6 +108,7 @@ public:
     /**
      * 引数の進捗番号から切り替わった直後なのかどうかを調べる。.
      * isJustChanged() に前回の進捗番号の条件を付加します。
+     * change(int) 又は changeNext() を実行した次フレームで取得条件が成立。
      * @param prm_progress 前回（切り替わる前）の進捗番号
      * @return true:切り替わった際、前回の進捗番号は引数の進捗番号だった／false:そうではない
      */
@@ -113,20 +117,40 @@ public:
     /**
      * 進捗番号が変化したか（前回と同じかどうか）調べる .
      * 変化した場合、その新しい進捗番号を返す。
+     * change(int) 又は changeNext() を実行した次フレームで取得条件が成立。
      * @return 0 又は 進捗番号
-     *         0    ：変化していない
-     *         0以外：変化が有りで、その新しい進捗番号
+     *         0    ：進捗番号が変化していない
+     *         0以外：進捗番号が変化が有りで、その新しい進捗番号
      */
-    virtual int getChangedTo();
+    virtual int get_WhenJustChanged();
 
     /**
      * 進捗番号が何から変化したか調べる .
      * 変化した場合、その元の進捗番号を返す。
+     * change(int) 又は changeNext() を実行した次フレームで取得条件が成立。
      * @return 0 又は 進捗番号
-     *         0    ：変化していない
-     *         0以外：変化が有りで、変化前の元の進捗番号
+     *         0    ：進捗番号が変化していない
+     *         0以外：進捗番号が変化が有りで、変化前の元の進捗番号
      */
-    virtual int getChangeFrom();
+    virtual int getPrev_WhenJustChanged();
+
+    /**
+     * 進捗番号が次フレームに変更される予定ならば、現在の進捗番号を取得する .
+     * change(int) 又は changeNext() を実行した同一フレーム内で取得条件が成立。
+     * @return 0 又は 進捗番号
+     *         0    ：次フレームに進捗番号が変更される予定ではない。
+     *         0以外：次フレームに進捗番号が変更される予定でかつ、現在の進捗番号を返す。
+     */
+    virtual int get_WhenWillChange();
+
+    /**
+     * 進捗番号が次フレームに変更される予定ならば、その変更される進捗番号を取得する .
+     * change(int) 又は changeNext() を実行した同一フレーム内で取得条件が成立。
+     * @return 0 又は 進捗番号
+     *         0    ：次フレームに進捗番号が変更される予定ではない。
+     *         0以外：次フレームに進捗番号が変更される予定でかつ、その新しい進捗番号を返す。
+     */
+    virtual int getNext_WhenWillChange();
 
     /**
      * 時間に伴って進捗を更新 .

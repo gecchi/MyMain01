@@ -59,10 +59,6 @@ void GamePreTitleScene::processBehavior() {
                     _pProg->change(GAMEPRETITLESCENE_PROG_FINISH);
                 }
             }
-            //VB_UI_EXECUTE で、スキップしてTITLEへ
-            if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
-                _pProg->change(GAMEPRETITLESCENE_PROG_FINISH);
-            }
             break;
         }
 

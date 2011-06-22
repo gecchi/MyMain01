@@ -104,7 +104,7 @@ bool GgafProgress::isJustChangedFrom(int prm_progress) {
     }
 }
 
-int GgafProgress::getChangedTo() {
+int GgafProgress::get_WhenJustChanged() {
     if (_progress != _progress_prev) {
         return _progress;
     } else {
@@ -112,13 +112,30 @@ int GgafProgress::getChangedTo() {
     }
 }
 
-int GgafProgress::getChangeFrom() {
+int GgafProgress::getPrev_WhenJustChanged() {
     if (_progress != _progress_prev) {
         return _progress_prev;
     } else {
         return 0; // = false
     }
 }
+
+int GgafProgress::get_WhenWillChange() {
+    if (_progress != _progress_next) {
+        return _progress;
+    } else {
+        return 0; // = false
+    }
+}
+
+int GgafProgress::getNext_WhenWillChange() {
+    if (_progress != _progress_next) {
+        return _progress_next;
+    } else {
+        return 0; // = false
+    }
+}
+
 
 void GgafProgress::update() {
     //êiíªÇîΩâfÇ∑ÇÈ

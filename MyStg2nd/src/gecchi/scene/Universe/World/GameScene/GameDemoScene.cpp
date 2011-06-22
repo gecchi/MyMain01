@@ -43,9 +43,6 @@ void GameDemoScene::processBehavior() {
                 _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
             }
 
-            if (VB->isPushedDown(VB_UI_EXECUTE)) {
-                _pProg->change(GAMEDEMOSCENE_PROG_FINISH); //スキップ
-            }
             if (_pProg->getFrameInProgress() == 180) {
                 _pProg->change(GAMEDEMOSCENE_PROG_RANKING);
             }
@@ -56,9 +53,6 @@ void GameDemoScene::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _pStringBoard01->update(100*1000, 100*1000, "RANKING NOW");
                 _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
-            }
-            if (VB->isPushedDown(VB_UI_EXECUTE)) {
-                _pProg->change(GAMEDEMOSCENE_PROG_FINISH); //スキップ
             }
             if (_pProg->getFrameInProgress() == 180) {
                 _pProg->change(GAMEDEMOSCENE_PROG_FINISH);

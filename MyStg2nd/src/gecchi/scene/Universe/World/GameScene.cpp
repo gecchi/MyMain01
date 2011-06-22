@@ -120,7 +120,7 @@ void GameScene::processBehavior() {
     }
 #endif
 
-    switch (_pProg->getChangeFrom()) {
+    switch (_pProg->getPrev_WhenJustChanged()) {
         case GAMESCENE_PROG_MAIN: {
             VB_UI->clear();
             P_GOD->setVB(VB_UI);  //元に戻す
@@ -149,6 +149,11 @@ void GameScene::processBehavior() {
                 _pScene_PreGameTitle->reset();
                 _pScene_PreGameTitle->activate();
             }
+            //VB_UI_EXECUTE で、スキップしてTITLEへ
+            if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
+                _pScene_PreGameTitle->inactivate();
+                _pProg->change(GAMESCENE_PROG_TITLE);
+            }
             //EVENT_PREGAMETITLESCENE_FINISH イベント受付
             break;
         }
@@ -169,6 +174,12 @@ void GameScene::processBehavior() {
                 _pScene_GameDemo->reset();
                 _pScene_GameDemo->activate();
             }
+            //VB_UI_EXECUTE で、スキップしてTITLEへ
+            if (VB->isPushedDown(VB_UI_EXECUTE)) {
+                _pProg->change(GAMESCENE_PROG_TITLE);
+                _pScene_GameDemo->inactivate();
+            }
+
             //或いは EVENT_GAMEDEMOSCENE_FINISH イベント受付
             break;
         }
