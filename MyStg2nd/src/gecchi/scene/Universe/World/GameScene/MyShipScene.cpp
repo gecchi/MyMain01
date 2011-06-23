@@ -59,14 +59,14 @@ void MyShipScene::onActive() {
 
 void MyShipScene::processBehavior() {
 
-//    switch (_pProg->getPrev_WhenJustChanged()) {
-//        case MYSHIPSCENE_PROG_BEGIN: {
-//                P_UNIVERSE->undoCameraWork();
-//            break;
-//        }
-//        default:
-//            break;
-//    }
+    switch (_pProg->getPrev_WhenJustChanged()) {
+        case MYSHIPSCENE_PROG_BEGIN: {
+                P_UNIVERSE->undoCameraWork();
+            break;
+        }
+        default:
+            break;
+    }
 
     switch (_pProg->get()) {
         case MYSHIPSCENE_PROG_INIT: {
@@ -93,7 +93,7 @@ void MyShipScene::processBehavior() {
             if (_pMyShip->_X > 0) {
                 _pMyShip->_X = 0;
                 _pMyShip->_is_diving = false;
-                P_UNIVERSE->undoCameraWork();
+                //P_UNIVERSE->undoCameraWork();
                 _pProg->change(MYSHIPSCENE_PROG_PLAY);
             }
             break;
