@@ -148,8 +148,8 @@ void GameTitleScene::processBehavior() {
 
         case GAMETITLESCENE_PROG_FINISH: {
             if (_pProg->isJustChanged()) {
-                fadeoutSceneTree(FADE_FRAME);
-                inactivateDelay(FADE_FRAME);
+//                fadeoutSceneTree(FADE_FRAME);
+//                inactivateDelay(FADE_FRAME);
             }
             //Ç®ÇµÇ‹Ç¢ë“ÇøÇ⁄Ç§ÇØÉãÅ[Év
             break;

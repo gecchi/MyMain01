@@ -65,7 +65,7 @@ void GamePreTitleScene::processBehavior() {
         case GAMEPRETITLESCENE_PROG_FINISH: {
             if (_pProg->isJustChanged()) {
                 throwEventToUpperTree(EVENT_PREGAMETITLESCENE_FINISH);
-                inactivate();
+//                inactivate();
             }
             //‚¨‚µ‚Ü‚¢‘Ò‚¿‚Ú‚¤‚¯ƒ‹[ƒv
             break;

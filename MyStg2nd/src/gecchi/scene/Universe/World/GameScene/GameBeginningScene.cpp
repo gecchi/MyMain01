@@ -72,7 +72,7 @@ void GameBeginningScene::processBehavior() {
 
         case GAMEBEGINNINGSCENE_PROG_FINISH: {
             if (_pProg->isJustChanged()) {
-                inactivate();
+                //inactivate();
             }
             break;
         }

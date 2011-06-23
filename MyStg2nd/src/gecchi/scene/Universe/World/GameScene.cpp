@@ -24,7 +24,6 @@ _pMyShipScene(NULL) {
     _pMyShipScene = NEW MyShipScene("MyShipScene");
     addSubLast(_pMyShipScene);
 
-
     mapSubScene[GAMESCENE_PROG_PRE_TITLE] = NEW GamePreTitleScene("PreGameTitle");
     mapSubScene[GAMESCENE_PROG_TITLE]     = NEW GameTitleScene("GameTitle");
     mapSubScene[GAMESCENE_PROG_DEMO]      = NEW GameDemoScene("GameDemo");
@@ -99,9 +98,11 @@ void GameScene::onReset() {
     DefaultScene* pSubScene;
     for (map<progress, DefaultScene*>::const_iterator it = mapSubScene.begin(); it != mapSubScene.end(); it++) {
         pSubScene = it->second;
-        pSubScene->resetTree();
-        pSubScene->unblindSceneTree();
-        pSubScene->inactivate();
+        if (pSubScene) {
+            pSubScene->resetTree();
+            pSubScene->unblindSceneTree();
+            pSubScene->inactivate();
+        }
     }
 
 
@@ -143,9 +144,11 @@ void GameScene::changeFlippingSubScene(progress prm_progress) {
     if (mapSubScene[_pProg->get()]) {
         mapSubScene[_pProg->get()]->inactivate();
     }
-    mapSubScene[prm_progress]->reset();
-    mapSubScene[prm_progress]->activate();
-    mapSubScene[prm_progress]->unblindSceneTree();
+	if (mapSubScene[prm_progress]) {
+		mapSubScene[prm_progress]->reset();
+		mapSubScene[prm_progress]->activate();
+		mapSubScene[prm_progress]->unblindSceneTree();
+	}
     _pProg->change(prm_progress);
 }
 
@@ -154,10 +157,12 @@ void GameScene::changeFadeingSubScene(progress prm_progress, frame prm_fadeout_f
         mapSubScene[_pProg->get()]->fadeoutSceneTree(prm_fadeout_frames);
         mapSubScene[_pProg->get()]->inactivateDelay(prm_fadeout_frames);
     }
-    mapSubScene[prm_progress]->reset();
-    mapSubScene[prm_progress]->activate();
-    mapSubScene[prm_progress]->blindSceneTree();
-    mapSubScene[prm_progress]->fadeinSceneTree(prm_fadein_frames);
+	if (mapSubScene[prm_progress]) {
+		mapSubScene[prm_progress]->reset();
+		mapSubScene[prm_progress]->activate();
+		mapSubScene[prm_progress]->blindSceneTree();
+		mapSubScene[prm_progress]->fadeinSceneTree(prm_fadein_frames);
+	}
     _pProg->change(prm_progress);
 }
 
@@ -192,7 +197,7 @@ void GameScene::processBehavior() {
             if (!pGameMainScene->_had_ready_stage) {
                 pGameMainScene->readyStage(_stage);
             }
-            changeFadeingSubScene(GAMESCENE_PROG_PRE_TITLE, 0, 20);
+            changeFadeingSubScene(GAMESCENE_PROG_PRE_TITLE, 0, FADE_FRAME);
             break;
         }
 
@@ -297,7 +302,10 @@ void GameScene::processBehavior() {
                 _pCommonScene->fadeoutSceneTree(FADE_FRAME);
                 DefaultScene* pSubScene;
                 for (map<progress, DefaultScene*>::const_iterator it = mapSubScene.begin(); it != mapSubScene.end(); it++) {
-                    it->second->fadeoutSceneTree(FADE_FRAME);
+                    pSubScene = it->second;
+                    if (pSubScene) {
+                        pSubScene->fadeoutSceneTree(FADE_FRAME);
+                    }
                 }
 //                _pScene_PreGameTitle->fadeoutSceneTree(FADE_FRAME);
 //                _pScene_GameTitle->fadeoutSceneTree(FADE_FRAME);
@@ -327,17 +335,17 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_GAMETITLESCENE_FINISH) {
         //タイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLESCENE_FINISH)");
-        changeFlippingSubScene(GAMESCENE_PROG_DEMO); //デモへ
+        changeFadeingSubScene(GAMESCENE_PROG_DEMO, FADE_FRAME, FADE_FRAME); //デモへ
 
     } else if (prm_no == EVENT_GAMEDEMOSCENE_FINISH) {
         //デモシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
-        changeFlippingSubScene(GAMESCENE_PROG_INIT); //最初へ
+        changeFadeingSubScene(GAMESCENE_PROG_INIT, FADE_FRAME, FADE_FRAME); //最初へ
 
     } else if (prm_no == EVENT_GAMESTART) {
         //スタート
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMESTART)");
-        changeFlippingSubScene(GAMESCENE_PROG_BEGINNING); //オープニング（ゲームモードセレクト）へ
+        changeFadeingSubScene(GAMESCENE_PROG_BEGINNING, FADE_FRAME, FADE_FRAME); //オープニング（ゲームモードセレクト）へ
 
     } else if (prm_no == EVENT_GAMEMODE_DECIDE) {
         //ゲームモードセレクト完了
@@ -347,7 +355,7 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         mapSubScene[GAMESCENE_PROG_MAIN]->activate();
         _pMyShipScene->reset();
         _pMyShipScene->activate();
-        changeFlippingSubScene(GAMESCENE_PROG_MAIN); //メインへ
+        changeFadeingSubScene(GAMESCENE_PROG_MAIN, FADE_FRAME, FADE_FRAME);//メインへ
 
     } else if (prm_no == EVENT_GOTO_GAMETITLE) {
         //とにかくタイトルへイベント発生
@@ -359,7 +367,7 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 
     if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
         _TRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
-        changeFlippingSubScene(GAMESCENE_PROG_GAME_OVER); //ゲームオーバーへ
+        changeFadeingSubScene(GAMESCENE_PROG_GAME_OVER, FADE_FRAME, FADE_FRAME); //ゲームオーバーへ
     } else if (prm_no == EVENT_GAME_OVER_FINISH) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GAME_OVER_FINISH)");
         changeFlippingSubScene(GAMESCENE_PROG_FINISH);
