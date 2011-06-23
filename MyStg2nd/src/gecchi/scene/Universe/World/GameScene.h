@@ -31,18 +31,21 @@ namespace MyStg2nd {
  */
 class GameScene : public GgafDx9LibStg::DefaultScene {
 
+private:
+    void changeFlippingSubScene(progress prm_progress);
+    void changeFadeingSubScene(progress prm_progress, frame prm_fadeout_frames, frame prm_fadein_frames);
 public:
     CommonScene* _pCommonScene;
     MyShipScene* _pMyShipScene;
-    GamePreTitleScene*   _pScene_PreGameTitle;
-    GameTitleScene*      _pScene_GameTitle;
-    GameDemoScene*      _pScene_GameDemo;
-    GameBeginningScene* _pScene_GameBeginning;
-    GameMainScene*      _pScene_GameMain;
-    GameEndingScene*    _pScene_GameEnding;
-    GameOverScene*     _pScene_GameOver;
+//    GamePreTitleScene*   _pScene_PreGameTitle;
+//    GameTitleScene*      _pScene_GameTitle;
+//    GameDemoScene*      _pScene_GameDemo;
+//    GameBeginningScene* _pScene_GameBeginning;
+//    GameMainScene*      _pScene_GameMain;
+//    GameEndingScene*    _pScene_GameEnding;
+//    GameOverScene*     _pScene_GameOver;
 
-
+    std::map<progress, DefaultScene*> mapSubScene;
     /** コマ送りフラグ */
     bool _is_frame_advance;
     bool _was_paused_flg_GameMainScene_prev_frame;

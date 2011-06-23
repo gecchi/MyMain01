@@ -59,14 +59,14 @@ void MyShipScene::onActive() {
 
 void MyShipScene::processBehavior() {
 
-    switch (_pProg->getPrev_WhenJustChanged()) {
-        case MYSHIPSCENE_PROG_BEGIN: {
-                P_UNIVERSE->undoCameraWork();
-            break;
-        }
-        default:
-            break;
-    }
+//    switch (_pProg->getPrev_WhenJustChanged()) {
+//        case MYSHIPSCENE_PROG_BEGIN: {
+//                P_UNIVERSE->undoCameraWork();
+//            break;
+//        }
+//        default:
+//            break;
+//    }
 
     switch (_pProg->get()) {
         case MYSHIPSCENE_PROG_INIT: {
@@ -80,10 +80,12 @@ void MyShipScene::processBehavior() {
             if (_pProg->isJustChanged()) {
                 unblindScene();
                 _pMyShip->reset();
-                _pMyShip->activate();
+                _pMyShip->_X = Universe::_X_goneLeft + 1000;
                 _pMyShip->_can_control = true;
                 _pMyShip->_is_diving = true;
-                MyShipDivingCamWorker* pCamWorker = (MyShipDivingCamWorker*)P_UNIVERSE->switchCameraWork("MyShipDivingCamWorker");
+                _pMyShip->activate();
+                MyShipDivingCamWorker* pCamWorker =
+                        (MyShipDivingCamWorker*)P_UNIVERSE->switchCameraWork("MyShipDivingCamWorker");
                 pCamWorker->setMoveTargetCam(-1000000, 1000000, -1000000);
                 pCamWorker->lockCamVp(_pMyShip);
             }
@@ -91,6 +93,7 @@ void MyShipScene::processBehavior() {
             if (_pMyShip->_X > 0) {
                 _pMyShip->_X = 0;
                 _pMyShip->_is_diving = false;
+                P_UNIVERSE->undoCameraWork();
                 _pProg->change(MYSHIPSCENE_PROG_PLAY);
             }
             break;
@@ -98,7 +101,7 @@ void MyShipScene::processBehavior() {
 
         case MYSHIPSCENE_PROG_PLAY: {
             if (_pProg->isJustChanged()) {
-                _pMyShip->_can_control = true;
+//                _pMyShip->_can_control = true;
             }
             //ÉCÉxÉìÉg EVENT_MY_SHIP_WAS_DESTROYED_BEGIN ë“Çø
             break;
@@ -116,7 +119,7 @@ void MyShipScene::processBehavior() {
                 if (_zanki == 0) {
                    throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
                    _pProg->change(PROG_NOTHING);
-                   P_UNIVERSE->undoCameraWork();
+                   P_UNIVERSE->undoCameraWork(); //VamSysCamWorkerâèú
                    inactivate();
                 } else {
                    throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);

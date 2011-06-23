@@ -641,7 +641,7 @@ public:
      * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの最終にシフトする。<BR>
      * <B>[注意]</B>即座に順繰り処理が実行されるわけではない。<BR>
      */
-    virtual void moveLast() {
+    virtual void moveLast() override {
         _will_mv_last_in_next_frame_flg = true;
     }
 
@@ -653,7 +653,7 @@ public:
      * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの先頭にシフトする。<BR>
      * <B>[注意]</B>即座に順繰り処理が実行されるわけではない。<BR>
      */
-    virtual void moveFirst() {
+    virtual void moveFirst() override {
         _will_mv_first_in_next_frame_flg = true;
     }
 

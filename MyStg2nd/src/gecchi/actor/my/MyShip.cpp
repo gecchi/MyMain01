@@ -232,8 +232,7 @@ void MyShip::onReset() {
     _just_shot = false;
     _is_shooting_laser = false;
     _frame_shot_pressed = 0;
-    _X = Universe::_X_goneLeft + 1000;
-    _Y = _Z = 0;
+    _X = _Y = _Z = 0;
     _way = WAY_NONE;
     _prev_way = WAY_NONE;
     _way_switch.reset();

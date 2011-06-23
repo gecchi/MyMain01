@@ -96,6 +96,8 @@ public:
     /** [r]末尾ノードフラグ (自ノードが末尾ノードの場合 true)*/
     bool _is_last_flg;
 
+    int _sub_num;
+
 public:
     /**
      * コンストラクタ
@@ -258,7 +260,7 @@ public:
      * @return 存在する場合子ノードが返る、存在しない場合 NULL が返る
      */
     virtual T* getSub(T* prm_pSub);
-
+    virtual T* getSub(int prm_index);
     /**
      * 子ノードのグループの先頭ノードを取得する .
      * 子ノードが存在しない場合はエラー。
@@ -318,7 +320,8 @@ _pNext((T*)this),
 _pPrev((T*)this),
 _pSubFirst(NULL),
 _is_first_flg(false),
-_is_last_flg(false)
+_is_last_flg(false),
+_sub_num(0)
 {
     _name = NEW char[51];
     strcpy(_name, prm_name);
@@ -329,6 +332,7 @@ template<class T>
 T* GgafNode<T>::extract() {
     if (_pParent) {
         //連結から外す
+        _pParent->_sub_num--;
         T* pMyNext = _pNext;
         T* pMyPrev = _pPrev;
         if (_is_first_flg && _is_last_flg) {
@@ -480,6 +484,14 @@ T* GgafNode<T>::getSub(T* prm_pSub) {
     return pNodeTemp;
 }
 
+template<class T>
+T* GgafNode<T>::getSub(int prm_index) {
+    T* pNodeTemp = _pSubFirst;
+    for (int i = 0; i < prm_index; i++) {
+        pNodeTemp = pNodeTemp->_pNext;
+    }
+    return pNodeTemp;
+}
 
 template<class T>
 bool GgafNode<T>::hasSub(char* prm_sub_actor_name) {
@@ -502,19 +514,21 @@ bool GgafNode<T>::hasSub(char* prm_sub_actor_name) {
 
 template<class T>
 int GgafNode<T>::getNumSub() {
-    if (_pSubFirst == NULL) {
-        return 0;
-    }
-    int n = 1;
-    _pNodeTemp = _pSubFirst;
-    do {
-        if (_pNodeTemp->isLast()) {
-            break;
-        }
-        _pNodeTemp = _pNodeTemp->_pNext;
-        n++;
-    } while (true);
-    return n;
+    return _sub_num;
+//
+//    if (_pSubFirst == NULL) {
+//        return 0;
+//    }
+//    int n = 1;
+//    _pNodeTemp = _pSubFirst;
+//    do {
+//        if (_pNodeTemp->isLast()) {
+//            break;
+//        }
+//        _pNodeTemp = _pNodeTemp->_pNext;
+//        n++;
+//    } while (true);
+//    return n;
 }
 
 
@@ -526,6 +540,8 @@ void GgafNode<T>::addSubLast(T* prm_pSub) {
                 << prm_pSub->_pParent->_name << "に所属)しています(this=" << _name << "/prm_pSub=" << prm_pSub->getName() << ")");
     }
 #endif
+
+    _sub_num++;
     prm_pSub->_pParent = (T*)this;
     prm_pSub->_is_last_flg = true;
     //prm_pSub->_pScene_Platform = _pScene_Platform;
@@ -587,6 +603,7 @@ GgafNode<T>::~GgafNode() {
 
     //子がない状態の場合
     if (_pParent) {
+        _pParent->_sub_num--;
         //連結から外す
         T* pMyNext = _pNext;
         T* pMyPrev = _pPrev;

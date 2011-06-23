@@ -1,6 +1,7 @@
 #ifndef GGAFPROGRESS_H_
 #define GGAFPROGRESS_H_
 
+typedef int progress;
 
 namespace GgafCore {
 
@@ -16,11 +17,11 @@ class GgafProgress : public GgafObject {
 
 public:
     /** [r]現在進捗番号(1～99) */
-    int _progress;
+    progress _progress;
     /** [r]１単位時間前の進捗番号(1～99) */
-    int _progress_prev;
+    progress _progress_prev;
     /** [r]次の単位時間加算時に反映予定の進捗番号(1～99) */
-    int _progress_next;
+    progress _progress_next;
     /** [r]各進捗番号の進捗変更時の時間の保存 */
     frame* _paFrame_ProgressChanged;
     /** [r]時間カウンター(時間経過に伴い増加する何らかの変数)の参照 */
@@ -46,7 +47,7 @@ public:
      * 現在の進捗番号取得 .
      * @return 進捗番号(1～99)
      */
-    virtual int get();
+    virtual progress get();
 
     /**
      * 現在の進捗を設定する .
@@ -56,14 +57,14 @@ public:
      * という設計。<BR>
      * @param prm_progress 進捗番号(1～99)
      */
-    virtual void set(int prm_progress);
+    virtual void set(progress prm_progress);
 
     /**
      * 引数の進捗番号へ変更された時の時間を調べる .
      * @param prm_progress 進捗番号(1～99)
      * @return 引数の進捗番号へ変更された時(直近)の時間
      */
-    virtual frame getFrameWhenChanged(int prm_progress);
+    virtual frame getFrameWhenChanged(progress prm_progress);
 
     /**
      * 現在の進捗番号内での経過時間を取得 .
@@ -77,7 +78,7 @@ public:
      * set(int) と使い分けること。
      * @param prm_progress 進捗番号(1～99)
      */
-    virtual void change(int prm_progress);
+    virtual void change(progress prm_progress);
 
     /**
      * 進捗番号を+1する .
@@ -103,7 +104,7 @@ public:
      * @param prm_progress 現在の進捗番号条件
      * @return true:引数の進捗番号に切り替わった／false:そうではない
      */
-    virtual bool isJustChangedTo(int prm_progress);
+    virtual bool isJustChangedTo(progress prm_progress);
 
     /**
      * 引数の進捗番号から切り替わった直後なのかどうかを調べる。.
@@ -112,7 +113,7 @@ public:
      * @param prm_progress 前回（切り替わる前）の進捗番号
      * @return true:切り替わった際、前回の進捗番号は引数の進捗番号だった／false:そうではない
      */
-    virtual bool isJustChangedFrom(int prm_progress);
+    virtual bool isJustChangedFrom(progress prm_progress);
 
     /**
      * 進捗番号が変化したか（前回と同じかどうか）調べる .
@@ -122,7 +123,7 @@ public:
      *         0    ：進捗番号が変化していない
      *         0以外：進捗番号が変化が有りで、その新しい進捗番号
      */
-    virtual int get_WhenJustChanged();
+    virtual progress get_WhenJustChanged();
 
     /**
      * 進捗番号が何から変化したか調べる .
@@ -132,7 +133,7 @@ public:
      *         0    ：進捗番号が変化していない
      *         0以外：進捗番号が変化が有りで、変化前の元の進捗番号
      */
-    virtual int getPrev_WhenJustChanged();
+    virtual progress getPrev_WhenJustChanged();
 
     /**
      * 進捗番号が次フレームに変更される予定ならば、現在の進捗番号を取得する .
@@ -141,7 +142,7 @@ public:
      *         0    ：次フレームに進捗番号が変更される予定ではない。
      *         0以外：次フレームに進捗番号が変更される予定でかつ、現在の進捗番号を返す。
      */
-    virtual int get_WhenWillChange();
+    virtual progress get_WhenWillChange();
 
     /**
      * 進捗番号が次フレームに変更される予定ならば、その変更される進捗番号を取得する .
@@ -150,7 +151,7 @@ public:
      *         0    ：次フレームに進捗番号が変更される予定ではない。
      *         0以外：次フレームに進捗番号が変更される予定でかつ、その新しい進捗番号を返す。
      */
-    virtual int getNext_WhenWillChange();
+    virtual progress getNext_WhenWillChange();
 
     /**
      * 時間に伴って進捗を更新 .

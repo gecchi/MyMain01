@@ -18,7 +18,7 @@ _pFrame_count(prm_pFrame_count)
 int GgafProgress::get() {
     return _progress;
 }
-void GgafProgress::set(int prm_progress) {
+void GgafProgress::set(progress prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress-1) {
         throwGgafCriticalException("GgafProgress::set 進捗番号が範囲外です(1～99ではない)。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
@@ -30,7 +30,7 @@ void GgafProgress::set(int prm_progress) {
     _paFrame_ProgressChanged[prm_progress] = (*_pFrame_count);
 }
 
-frame GgafProgress::getFrameWhenChanged(int prm_progress) {
+frame GgafProgress::getFrameWhenChanged(progress prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress-1) {
         throwGgafCriticalException("GgafProgress::getFrameWhenChanged 進捗番号が範囲外です(1～99ではない)。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
@@ -44,7 +44,7 @@ frame GgafProgress::getFrameInProgress() {
 }
 
 
-void GgafProgress::change(int prm_progress) {
+void GgafProgress::change(progress prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress-1) {
         throwGgafCriticalException("GgafProgress::change 進捗番号が範囲外です(1～99ではない)。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
@@ -63,7 +63,7 @@ void GgafProgress::changeNext() {
 }
 
 
-bool GgafProgress::isJustChangedTo(int prm_progress) {
+bool GgafProgress::isJustChangedTo(progress prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress-1) {
         throwGgafCriticalException("GgafProgress::isJustChangedTo 進捗番号が範囲外です(1～99ではない)。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
@@ -87,7 +87,7 @@ bool GgafProgress::isJustChanged() {
     }
 }
 
-bool GgafProgress::isJustChangedFrom(int prm_progress) {
+bool GgafProgress::isJustChangedFrom(progress prm_progress) {
 #ifdef MY_DEBUG
     if (prm_progress < 0 || prm_progress > _num_progress-1) {
         throwGgafCriticalException("GgafProgress::isJustChangedFrom 進捗番号が範囲外です(1～99ではない)。prm_progress="<<prm_progress<<" _num_progress="<<_num_progress);
