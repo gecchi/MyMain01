@@ -21,7 +21,7 @@ void GamePreTitleScene::onReset() {
     _pTitleBoard->locate(200000, 600000);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
-    blindScene();
+//    blindScene();
     _pProg->change(GAMEPRETITLESCENE_PROG_INIT);
 }
 
@@ -42,7 +42,7 @@ void GamePreTitleScene::processBehavior() {
 
         case GAMEPRETITLESCENE_PROG_EXEC: {
             if (_pProg->isJustChanged()) {
-                fadeinScene(FADE_FRAME);
+//                fadeinScene(FADE_FRAME);
             }
             if (_pProg->getFrameInProgress() == 1) {
                 _pStringBoard01->update(100*1000, 50*1000, "[STORY]");

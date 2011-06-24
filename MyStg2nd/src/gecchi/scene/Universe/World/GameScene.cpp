@@ -144,11 +144,11 @@ void GameScene::changeFlippingSubScene(progress prm_progress) {
     if (mapSubScene[_pProg->get()]) {
         mapSubScene[_pProg->get()]->inactivate();
     }
-	if (mapSubScene[prm_progress]) {
-		mapSubScene[prm_progress]->reset();
-		mapSubScene[prm_progress]->activate();
-		mapSubScene[prm_progress]->unblindSceneTree();
-	}
+    if (mapSubScene[prm_progress]) {
+        mapSubScene[prm_progress]->reset();
+        mapSubScene[prm_progress]->activate();
+        mapSubScene[prm_progress]->unblindSceneTree();
+    }
     _pProg->change(prm_progress);
 }
 
@@ -157,12 +157,12 @@ void GameScene::changeFadeingSubScene(progress prm_progress, frame prm_fadeout_f
         mapSubScene[_pProg->get()]->fadeoutSceneTree(prm_fadeout_frames);
         mapSubScene[_pProg->get()]->inactivateDelay(prm_fadeout_frames);
     }
-	if (mapSubScene[prm_progress]) {
-		mapSubScene[prm_progress]->reset();
-		mapSubScene[prm_progress]->activate();
-		mapSubScene[prm_progress]->blindSceneTree();
-		mapSubScene[prm_progress]->fadeinSceneTree(prm_fadein_frames);
-	}
+    if (mapSubScene[prm_progress]) {
+        mapSubScene[prm_progress]->reset();
+        mapSubScene[prm_progress]->activate();
+        mapSubScene[prm_progress]->blindSceneTree();
+        mapSubScene[prm_progress]->fadeinSceneTree(prm_fadein_frames);
+    }
     _pProg->change(prm_progress);
 }
 
@@ -329,12 +329,13 @@ void GameScene::processBehavior() {
 void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_PREGAMETITLESCENE_FINISH) {
         //プレタイトルシーン終了
-        _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLESCENE_FINISH)");
+        _TRACE_("GameScene::onCatchEvent(EVENT_PREGAMETITLESCENE_FINISH)");
         changeFlippingSubScene(GAMESCENE_PROG_TITLE); //タイトルへ
 
     } else if (prm_no == EVENT_GAMETITLESCENE_FINISH) {
         //タイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLESCENE_FINISH)");
+        //changeFlippingSubScene(GAMESCENE_PROG_DEMO);
         changeFadeingSubScene(GAMESCENE_PROG_DEMO, FADE_FRAME, FADE_FRAME); //デモへ
 
     } else if (prm_no == EVENT_GAMEDEMOSCENE_FINISH) {
