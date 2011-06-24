@@ -13,7 +13,7 @@ GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameOverScene::onReset() {
-    blindScene();
+    fadeoutScene(0);
     _pStringBoard01->update("");
     _pProg->change(GAMEOVERSCENE_PROG_INIT);
 }

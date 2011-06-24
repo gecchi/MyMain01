@@ -21,7 +21,7 @@ void GamePreTitleScene::onReset() {
     _pTitleBoard->locate(200000, 600000);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
-//    blindScene();
+//    fadeoutScene(0);
     _pProg->change(GAMEPRETITLESCENE_PROG_INIT);
 }
 

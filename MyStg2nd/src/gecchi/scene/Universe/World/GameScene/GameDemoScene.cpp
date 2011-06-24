@@ -20,7 +20,7 @@ void GameDemoScene::onReset() {
     _pProg->set(GAMEDEMOSCENE_PROG_INIT);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
-//    unblindScene();
+//    fadeinScene(0);
 }
 
 void GameDemoScene::onActive() {

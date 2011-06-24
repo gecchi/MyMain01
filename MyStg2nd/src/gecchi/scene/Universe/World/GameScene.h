@@ -45,7 +45,7 @@ public:
 //    GameEndingScene*    _pScene_GameEnding;
 //    GameOverScene*     _pScene_GameOver;
 
-    std::map<progress, DefaultScene*> mapSubScene;
+    std::map<progress, DefaultScene*> _mapSubScene;
     /** コマ送りフラグ */
     bool _is_frame_advance;
     bool _was_paused_flg_GameMainScene_prev_frame;

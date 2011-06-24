@@ -23,7 +23,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     getLordActor()->addSubGroup(KIND_EFFECT, _pMessage);
     _pMessage->inactivate();
 
-    blindScene(); //Å‰‚Í”ñ•\¦
+    fadeoutScene(0); //Å‰‚Í”ñ•\¦
     useProgress(10);
 }
 

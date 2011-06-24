@@ -20,7 +20,7 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
 void GameBeginningScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");
     _pProg->change(GAMEBEGINNINGSCENE_PROG_INIT);
-//    unblindScene();
+//    fadeinScene(0);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
 }

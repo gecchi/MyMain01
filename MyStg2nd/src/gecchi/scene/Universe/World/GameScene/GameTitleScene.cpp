@@ -49,7 +49,7 @@ void GameTitleScene::onReset() {
     _pStringBoard02->update("");
     _pTitleBoard->locate(200000, 150000);
     _pProg->set(GAMETITLESCENE_PROG_INIT);
-//    unblindScene();
+//    fadeinScene(0);
 }
 
 void GameTitleScene::onActive() {

@@ -24,17 +24,17 @@ _pMyShipScene(NULL) {
     _pMyShipScene = NEW MyShipScene("MyShipScene");
     addSubLast(_pMyShipScene);
 
-    mapSubScene[GAMESCENE_PROG_PRE_TITLE] = NEW GamePreTitleScene("PreGameTitle");
-    mapSubScene[GAMESCENE_PROG_TITLE]     = NEW GameTitleScene("GameTitle");
-    mapSubScene[GAMESCENE_PROG_DEMO]      = NEW GameDemoScene("GameDemo");
-    mapSubScene[GAMESCENE_PROG_BEGINNING] = NEW GameBeginningScene("GameBeginning");
-    mapSubScene[GAMESCENE_PROG_MAIN]      = NEW GameMainScene("GameMain");
-    mapSubScene[GAMESCENE_PROG_ENDING]    = NEW GameEndingScene("GameEnding");
-    mapSubScene[GAMESCENE_PROG_GAME_OVER] = NEW GameOverScene("GameOver");
-//    map<progress, DefaultScene*>::const_iterator it = mapSubScene.begin();
-//    while(it != mapSubScene.end()){
+    _mapSubScene[GAMESCENE_PROG_PRE_TITLE] = NEW GamePreTitleScene("PreGameTitle");
+    _mapSubScene[GAMESCENE_PROG_TITLE]     = NEW GameTitleScene("GameTitle");
+    _mapSubScene[GAMESCENE_PROG_DEMO]      = NEW GameDemoScene("GameDemo");
+    _mapSubScene[GAMESCENE_PROG_BEGINNING] = NEW GameBeginningScene("GameBeginning");
+    _mapSubScene[GAMESCENE_PROG_MAIN]      = NEW GameMainScene("GameMain");
+    _mapSubScene[GAMESCENE_PROG_ENDING]    = NEW GameEndingScene("GameEnding");
+    _mapSubScene[GAMESCENE_PROG_GAME_OVER] = NEW GameOverScene("GameOver");
+//    map<progress, DefaultScene*>::const_iterator it = _mapSubScene.begin();
+//    while(it != _mapSubScene.end()){
     DefaultScene* pSubScene;
-    for (map<progress, DefaultScene*>::const_iterator it = mapSubScene.begin(); it != mapSubScene.end(); it++) {
+    for (map<progress, DefaultScene*>::const_iterator it = _mapSubScene.begin(); it != _mapSubScene.end(); it++) {
         pSubScene = it->second;
         addSubLast(pSubScene);
         pSubScene->inactivateImmediately();
@@ -91,16 +91,16 @@ void GameScene::onReset() {
     P_GOD->setVB(VB_UI);
     _pMyShipScene->resetTree();
     _pCommonScene->resetTree();
-    _pMyShipScene->unblindSceneTree();
-    _pCommonScene->unblindSceneTree();
+    _pMyShipScene->fadeinSceneTree(0);
+    _pCommonScene->fadeinSceneTree(0);
     _pMyShipScene->inactivate();
 
     DefaultScene* pSubScene;
-    for (map<progress, DefaultScene*>::const_iterator it = mapSubScene.begin(); it != mapSubScene.end(); it++) {
+    for (map<progress, DefaultScene*>::const_iterator it = _mapSubScene.begin(); it != _mapSubScene.end(); it++) {
         pSubScene = it->second;
         if (pSubScene) {
             pSubScene->resetTree();
-            pSubScene->unblindSceneTree();
+            pSubScene->fadeinSceneTree(0);
             pSubScene->inactivate();
         }
     }
@@ -117,13 +117,13 @@ void GameScene::onReset() {
 //    _pScene_GameOver->resetTree();
 //
 //
-//    _pScene_PreGameTitle->unblindSceneTree();
-//    _pScene_GameTitle->unblindSceneTree();
-//    _pScene_GameDemo->unblindSceneTree();
-//    _pScene_GameBeginning->unblindSceneTree();
-//    _pScene_GameMain->unblindSceneTree();
-//    _pScene_GameEnding->unblindSceneTree();
-//    _pScene_GameOver->unblindSceneTree();
+//    _pScene_PreGameTitle->fadeinSceneTree(0);
+//    _pScene_GameTitle->fadeinSceneTree(0);
+//    _pScene_GameDemo->fadeinSceneTree(0);
+//    _pScene_GameBeginning->fadeinSceneTree(0);
+//    _pScene_GameMain->fadeinSceneTree(0);
+//    _pScene_GameEnding->fadeinSceneTree(0);
+//    _pScene_GameOver->fadeinSceneTree(0);
 //
 //    _pMyShipScene->inactivate();
 //    _pScene_PreGameTitle->inactivate();
@@ -141,27 +141,27 @@ void GameScene::onActive() {
 }
 
 void GameScene::changeFlippingSubScene(progress prm_progress) {
-    if (mapSubScene[_pProg->get()]) {
-        mapSubScene[_pProg->get()]->inactivate();
+    if (_mapSubScene[_pProg->get()]) {
+        _mapSubScene[_pProg->get()]->inactivate();
     }
-    if (mapSubScene[prm_progress]) {
-        mapSubScene[prm_progress]->reset();
-        mapSubScene[prm_progress]->activate();
-        mapSubScene[prm_progress]->unblindSceneTree();
+    if (_mapSubScene[prm_progress]) {
+        _mapSubScene[prm_progress]->reset();
+        _mapSubScene[prm_progress]->activate();
+        _mapSubScene[prm_progress]->fadeinSceneTree(0);
     }
     _pProg->change(prm_progress);
 }
 
 void GameScene::changeFadeingSubScene(progress prm_progress, frame prm_fadeout_frames, frame prm_fadein_frames) {
-    if (mapSubScene[_pProg->get()]) {
-        mapSubScene[_pProg->get()]->fadeoutSceneTree(prm_fadeout_frames);
-        mapSubScene[_pProg->get()]->inactivateDelay(prm_fadeout_frames);
+    if (_mapSubScene[_pProg->get()]) {
+        _mapSubScene[_pProg->get()]->fadeoutSceneTree(prm_fadeout_frames);
+        _mapSubScene[_pProg->get()]->inactivateDelay(prm_fadeout_frames);
     }
-    if (mapSubScene[prm_progress]) {
-        mapSubScene[prm_progress]->reset();
-        mapSubScene[prm_progress]->activate();
-        mapSubScene[prm_progress]->blindSceneTree();
-        mapSubScene[prm_progress]->fadeinSceneTree(prm_fadein_frames);
+    if (_mapSubScene[prm_progress]) {
+        _mapSubScene[prm_progress]->reset();
+        _mapSubScene[prm_progress]->activate();
+        _mapSubScene[prm_progress]->fadeoutSceneTree(0);
+        _mapSubScene[prm_progress]->fadeinSceneTree(prm_fadein_frames);
     }
     _pProg->change(prm_progress);
 }
@@ -193,7 +193,7 @@ void GameScene::processBehavior() {
     switch (_pProg->get()) {
         case GAMESCENE_PROG_INIT: {
             //先行準備
-            GameMainScene* pGameMainScene = (GameMainScene*)(mapSubScene[GAMESCENE_PROG_MAIN]);
+            GameMainScene* pGameMainScene = (GameMainScene*)(_mapSubScene[GAMESCENE_PROG_MAIN]);
             if (!pGameMainScene->_had_ready_stage) {
                 pGameMainScene->readyStage(_stage);
             }
@@ -250,7 +250,7 @@ void GameScene::processBehavior() {
                 P_GOD->setVB(VB_PLAY); //プレイ用に変更
             }
 
-            if (!mapSubScene[GAMESCENE_PROG_MAIN]->_was_paused_flg) {
+            if (!_mapSubScene[GAMESCENE_PROG_MAIN]->_was_paused_flg) {
                 if (_was_paused_flg_GameMainScene_prev_frame == true)  {
                     P_UNIVERSE->undoCameraWork();
                 }
@@ -258,12 +258,12 @@ void GameScene::processBehavior() {
                     _is_frame_advance = false;
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
-                    mapSubScene[GAMESCENE_PROG_MAIN]->pause();
+                    _mapSubScene[GAMESCENE_PROG_MAIN]->pause();
                     _pMyShipScene->pause();
                     _pCommonScene->pause();
                 }
             }
-            if (mapSubScene[GAMESCENE_PROG_MAIN]->_was_paused_flg) {
+            if (_mapSubScene[GAMESCENE_PROG_MAIN]->_was_paused_flg) {
                 if (_was_paused_flg_GameMainScene_prev_frame == false) {
                     GgafDx9Input::updateMouseState();
                     GgafDx9Input::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
@@ -271,12 +271,12 @@ void GameScene::processBehavior() {
                 }
                 if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
                     P_GOD->setVB(VB_PLAY);
-                    mapSubScene[GAMESCENE_PROG_MAIN]->unpause();
+                    _mapSubScene[GAMESCENE_PROG_MAIN]->unpause();
                     _pMyShipScene->unpause();
                     _pCommonScene->unpause();
                 }
             }
-            _was_paused_flg_GameMainScene_prev_frame = mapSubScene[GAMESCENE_PROG_MAIN]->_was_paused_flg;
+            _was_paused_flg_GameMainScene_prev_frame = _mapSubScene[GAMESCENE_PROG_MAIN]->_was_paused_flg;
             //イベント待ち EVENT_ALL_MY_SHIP_WAS_DESTROYED
             break;
         }
@@ -301,7 +301,7 @@ void GameScene::processBehavior() {
                 _pMyShipScene->fadeoutSceneTree(FADE_FRAME);
                 _pCommonScene->fadeoutSceneTree(FADE_FRAME);
                 DefaultScene* pSubScene;
-                for (map<progress, DefaultScene*>::const_iterator it = mapSubScene.begin(); it != mapSubScene.end(); it++) {
+                for (map<progress, DefaultScene*>::const_iterator it = _mapSubScene.begin(); it != _mapSubScene.end(); it++) {
                     pSubScene = it->second;
                     if (pSubScene) {
                         pSubScene->fadeoutSceneTree(FADE_FRAME);
@@ -352,8 +352,8 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         //ゲームモードセレクト完了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEMODE_DECIDE)");
         _stage = 1;
-        mapSubScene[GAMESCENE_PROG_MAIN]->reset();
-        mapSubScene[GAMESCENE_PROG_MAIN]->activate();
+        _mapSubScene[GAMESCENE_PROG_MAIN]->reset();
+        _mapSubScene[GAMESCENE_PROG_MAIN]->activate();
         _pMyShipScene->reset();
         _pMyShipScene->activate();
         changeFadeingSubScene(GAMESCENE_PROG_MAIN, FADE_FRAME, FADE_FRAME);//メインへ

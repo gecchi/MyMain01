@@ -50,7 +50,7 @@ void MyShipScene::onReset() {
     _zanki = 3;
     _pMyShip->resetTree();
     _pMyOptionController->resetTree();
-    unblindScene();
+    fadeinScene(0);
     _pProg->set(MYSHIPSCENE_PROG_INIT);
 }
 
@@ -78,7 +78,7 @@ void MyShipScene::processBehavior() {
 
         case MYSHIPSCENE_PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
-                unblindScene();
+                fadeinScene(0);
                 _pMyShip->reset();
                 _pMyShip->_X = Universe::_X_goneLeft + 1000;
                 _pMyShip->_can_control = true;
