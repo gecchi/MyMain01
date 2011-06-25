@@ -42,7 +42,7 @@ void GamePreTitleScene::processBehavior() {
 
         case GAMEPRETITLESCENE_PROG_EXEC: {
             if (_pProg->isJustChanged()) {
-//                fadeinScene(FADE_FRAME);
+//                fadeinScene(FADE_FRAMES);
             }
             if (_pProg->getFrameInProgress() == 1) {
                 _pStringBoard01->update(100*1000, 50*1000, "[STORY]");

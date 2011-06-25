@@ -33,7 +33,7 @@ class GameScene : public GgafDx9LibStg::DefaultScene {
 
 private:
     void changeFlippingSubScene(progress prm_progress);
-    void changeFadeingSubScene(progress prm_progress, frame prm_fadeout_frames, frame prm_fadein_frames);
+    void changeFadeingSubScene(progress prm_progress, frame prm_fadeout_frames = FADE_FRAMES, frame prm_fadein_frames = FADE_FRAMES);
 public:
     CommonScene* _pCommonScene;
     MyShipScene* _pMyShipScene;

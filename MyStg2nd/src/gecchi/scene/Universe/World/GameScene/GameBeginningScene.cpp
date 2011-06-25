@@ -56,7 +56,7 @@ void GameBeginningScene::processBehavior() {
 
         case GAMEBEGINNINGSCENE_PROG_DECIDE: {
             if (_pProg->isJustChanged()) {
-                fadeoutScene(FADE_FRAME);
+                fadeoutScene(FADE_FRAMES);
                 throwEventToUpperTree(EVENT_GAMEMODE_DECIDE);
             }
             if (_pProg->getFrameInProgress() % 10 < 5 ) {
@@ -64,7 +64,7 @@ void GameBeginningScene::processBehavior() {
             } else {
                 _pStringBoard02->update(400*1000, 500*1000, "");
             }
-            if (_pProg->getFrameInProgress() == FADE_FRAME) {
+            if (_pProg->getFrameInProgress() == FADE_FRAMES) {
                 _pProg->change(GAMEBEGINNINGSCENE_PROG_FINISH);
             }
             break;

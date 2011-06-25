@@ -197,7 +197,7 @@ void GameScene::processBehavior() {
             if (!pGameMainScene->_had_ready_stage) {
                 pGameMainScene->readyStage(_stage);
             }
-            changeFadeingSubScene(GAMESCENE_PROG_PRE_TITLE, 0, FADE_FRAME);
+            changeFadeingSubScene(GAMESCENE_PROG_PRE_TITLE, 0, FADE_FRAMES);
             break;
         }
 
@@ -298,24 +298,24 @@ void GameScene::processBehavior() {
         case GAMESCENE_PROG_FINISH: {
             //##########  ゲームシーン終了  ##########
             if (_pProg->isJustChanged()) {
-                _pMyShipScene->fadeoutSceneTree(FADE_FRAME);
-                _pCommonScene->fadeoutSceneTree(FADE_FRAME);
+                _pMyShipScene->fadeoutSceneTree(FADE_FRAMES);
+                _pCommonScene->fadeoutSceneTree(FADE_FRAMES);
                 DefaultScene* pSubScene;
                 for (map<progress, DefaultScene*>::const_iterator it = _mapSubScene.begin(); it != _mapSubScene.end(); it++) {
                     pSubScene = it->second;
                     if (pSubScene) {
-                        pSubScene->fadeoutSceneTree(FADE_FRAME);
+                        pSubScene->fadeoutSceneTree(FADE_FRAMES);
                     }
                 }
-//                _pScene_PreGameTitle->fadeoutSceneTree(FADE_FRAME);
-//                _pScene_GameTitle->fadeoutSceneTree(FADE_FRAME);
-//                _pScene_GameDemo->fadeoutSceneTree(FADE_FRAME);
-//                _pScene_GameBeginning->fadeoutSceneTree(FADE_FRAME);
-//                _pScene_GameMain->fadeoutSceneTree(FADE_FRAME);
-//                _pScene_GameEnding->fadeoutSceneTree(FADE_FRAME);
-//                _pScene_GameOver->fadeoutSceneTree(FADE_FRAME);
+//                _pScene_PreGameTitle->fadeoutSceneTree(FADE_FRAMES);
+//                _pScene_GameTitle->fadeoutSceneTree(FADE_FRAMES);
+//                _pScene_GameDemo->fadeoutSceneTree(FADE_FRAMES);
+//                _pScene_GameBeginning->fadeoutSceneTree(FADE_FRAMES);
+//                _pScene_GameMain->fadeoutSceneTree(FADE_FRAMES);
+//                _pScene_GameEnding->fadeoutSceneTree(FADE_FRAMES);
+//                _pScene_GameOver->fadeoutSceneTree(FADE_FRAMES);
             }
-            if (_pProg->getFrameInProgress() == FADE_FRAME) {
+            if (_pProg->getFrameInProgress() == FADE_FRAMES) {
                 reset(); //リセット（最初の進捗状態に戻る）
             }
             break;
@@ -336,17 +336,17 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         //タイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLESCENE_FINISH)");
         //changeFlippingSubScene(GAMESCENE_PROG_DEMO);
-        changeFadeingSubScene(GAMESCENE_PROG_DEMO, FADE_FRAME, FADE_FRAME); //デモへ
+        changeFadeingSubScene(GAMESCENE_PROG_DEMO); //デモへ
 
     } else if (prm_no == EVENT_GAMEDEMOSCENE_FINISH) {
         //デモシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
-        changeFadeingSubScene(GAMESCENE_PROG_INIT, FADE_FRAME, FADE_FRAME); //最初へ
+        changeFadeingSubScene(GAMESCENE_PROG_INIT); //最初へ
 
     } else if (prm_no == EVENT_GAMESTART) {
         //スタート
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMESTART)");
-        changeFadeingSubScene(GAMESCENE_PROG_BEGINNING, FADE_FRAME, FADE_FRAME); //オープニング（ゲームモードセレクト）へ
+        changeFadeingSubScene(GAMESCENE_PROG_BEGINNING); //オープニング（ゲームモードセレクト）へ
 
     } else if (prm_no == EVENT_GAMEMODE_DECIDE) {
         //ゲームモードセレクト完了
@@ -356,7 +356,7 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         _mapSubScene[GAMESCENE_PROG_MAIN]->activate();
         _pMyShipScene->reset();
         _pMyShipScene->activate();
-        changeFadeingSubScene(GAMESCENE_PROG_MAIN, FADE_FRAME, FADE_FRAME);//メインへ
+        changeFadeingSubScene(GAMESCENE_PROG_MAIN);//メインへ
 
     } else if (prm_no == EVENT_GOTO_GAMETITLE) {
         //とにかくタイトルへイベント発生
@@ -368,7 +368,7 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 
     if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
         _TRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
-        changeFadeingSubScene(GAMESCENE_PROG_GAME_OVER, FADE_FRAME, FADE_FRAME); //ゲームオーバーへ
+        changeFadeingSubScene(GAMESCENE_PROG_GAME_OVER); //ゲームオーバーへ
     } else if (prm_no == EVENT_GAME_OVER_FINISH) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GAME_OVER_FINISH)");
         changeFlippingSubScene(GAMESCENE_PROG_FINISH);

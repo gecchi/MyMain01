@@ -62,8 +62,8 @@ void GameDemoScene::processBehavior() {
 
         case GAMEDEMOSCENE_PROG_FINISH: {
             if (_pProg->isJustChanged()) {
-//                fadeoutSceneTree(FADE_FRAME);
-//                inactivateDelay(FADE_FRAME);
+//                fadeoutSceneTree(FADE_FRAMES);
+//                inactivateDelay(FADE_FRAMES);
                 throwEventToUpperTree(EVENT_GAMEDEMOSCENE_FINISH); //終わったイベント発動
             }
             break;

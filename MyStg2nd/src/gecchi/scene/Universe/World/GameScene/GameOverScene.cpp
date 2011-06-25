@@ -25,8 +25,8 @@ void GameOverScene::processBehavior() {
 
     switch (_pProg->getPrev_WhenJustChanged()) {
         case GAMEOVERSCENE_PROG_DISP: {
-            fadeoutScene(FADE_FRAME);
-            inactivateDelay(FADE_FRAME);
+            fadeoutScene(FADE_FRAMES);
+            inactivateDelay(FADE_FRAMES);
             break;
         }
 
@@ -44,7 +44,7 @@ void GameOverScene::processBehavior() {
         case GAMEOVERSCENE_PROG_DISP: {
             if (_pProg->isJustChanged()) {
                 _pStringBoard01->update(500*1000, 500*1000, "GAME OVER (-_-;)");
-                fadeinScene(FADE_FRAME);
+                fadeinScene(FADE_FRAMES);
             }
             if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 420) {
                 throwEventToUpperTree(EVENT_GAME_OVER_FINISH);
