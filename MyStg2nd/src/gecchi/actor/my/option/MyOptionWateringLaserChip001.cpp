@@ -16,7 +16,7 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
     _lockon = 0;
     _isLockon = false;
 	_renge = 150000;
-    _r_maxacce = 12;
+    _r_maxacce = 15;
 }
 
 void MyOptionWateringLaserChip001::initialize() {
@@ -86,9 +86,9 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 int vTy = pMainLockOnTarget->_Y - _Y;
                 int vTz = pMainLockOnTarget->_Z - _Z;
                 //Ž©¨‰¼Ž©
-                int vVMx = _pMvTransporter->_veloVxMv*5;
-                int vVMy = _pMvTransporter->_veloVyMv*5;
-                int vVMz = _pMvTransporter->_veloVzMv*5;
+                int vVMx = _pMvTransporter->_veloVxMv*4;
+                int vVMy = _pMvTransporter->_veloVyMv*4;
+                int vVMz = _pMvTransporter->_veloVzMv*4;
 
                 //|‰¼Ž©|
                 int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //‰¼Ž©ƒxƒNƒgƒ‹‘å‚«‚³ŠÈˆÕ”Å

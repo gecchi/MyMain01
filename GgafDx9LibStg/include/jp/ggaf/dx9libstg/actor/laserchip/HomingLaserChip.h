@@ -49,7 +49,7 @@ public:
      * 本当の先頭チップの場合はもちろんコールバックされるが、
      * にわか先頭チップ（ちぎれて急に先頭になったチップ）の場合もコールバックされます。
      */
-    virtual void processBehaviorHeadChip() {}
+    virtual void processBehaviorHeadChip() = 0;
 
     /**
      * レーザーチップ判定等処理 .

@@ -39,7 +39,7 @@ public:
         TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_behaving);
     }
 
-    virtual void processDraw() {
+    virtual void processDraw() override {
         TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_behaving);
     }
 

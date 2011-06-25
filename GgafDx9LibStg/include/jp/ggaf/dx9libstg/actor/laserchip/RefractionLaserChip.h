@@ -83,13 +83,13 @@ public:
      * 先頭チップのレーザーの直進終了～屈折開始時の処理 .
      * @param prm_num_refraction 屈折カウント(何回目の屈折開始か)(0～)
      */
-    virtual void onRefractionBegin(int prm_num_refraction)=0;
+    virtual void onRefractionBegin(int prm_num_refraction) = 0;
 
     /**
      * 先頭チップのレーザーの屈折終了～直進開始時の処理 .
      * @param prm_num_refraction 屈折カウント(何回目の屈折終了か)(0～)
      */
-    virtual void onRefractionFinish(int prm_num_refraction)=0;
+    virtual void onRefractionFinish(int prm_num_refraction) = 0;
 
     /**
      * レーザーチップ判定等処理 .
