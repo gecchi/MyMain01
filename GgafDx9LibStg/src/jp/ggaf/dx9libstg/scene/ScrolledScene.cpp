@@ -25,7 +25,8 @@ void ScrolledScene::scroll_X(GgafObject* pThat, void* p1, void* p2) {
 
 void ScrolledScene::processSettlementBehavior() {
     DefaultScene::processSettlementBehavior();
-    if (_pFuncScrolling) {
+    if (_pFuncScrolling && _is_active_flg && !_was_paused_flg && _can_live_flg) {
+        //TODO:PAUSEéûÇ‡ÉXÉNÉçÅ[ÉãÇ∑ÇÈ
         executeFuncToLowerTree(_pFuncScrolling, &_scrool_speed, NULL);
     }
 

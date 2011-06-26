@@ -13,8 +13,8 @@ GgafDx9Scene::GgafDx9Scene(const char* prm_name) : GgafMainScene(prm_name) {
 void GgafDx9Scene::processSettlementBehavior() {
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         _pAlphaCurtain->behave();
-        _pBgmPerformer->behave();
     }
+    _pBgmPerformer->behave();
 }
 
 void GgafDx9Scene::fadeinSceneTree(int prm_frame_fade) {
