@@ -25,20 +25,27 @@ public:
     bool _is_valid;
     std::string _hex;
 
+    GgafRgb() : GgafObject(),
+            _allowedChars("0123456789abcdefABCDEF#") , _R(0), _G(0), _B(0), _is_valid(true), _hex("000000") {
+    }
+
     GgafRgb(std::string prm_hex) : GgafObject(),
-            _R(0), _G(0), _B(0), _allowedChars("0123456789abcdefABCDEF#") {
+            _allowedChars("0123456789abcdefABCDEF#") , _R(0), _G(0), _B(0), _is_valid(true), _hex("000000") {
+        set(prm_hex);
+    }
+
+    void set(std::string prm_hex) {
         _hex = prm_hex;
         if (_hex[0] == '#') {
             _hex.erase(_hex.begin());
         }
         _is_valid = isValid();
         if (_is_valid) {
-            std::string R = _hex.substr(0, 2);
-            std::string G = _hex.substr(2, 2);
-            std::string B = _hex.substr(4, 2);
-            _R = GgafUtil::hex2dec(R);
-            _G = GgafUtil::hex2dec(G);
-            _B = GgafUtil::hex2dec(B);
+            _R = GgafUtil::hex2dec(_hex.substr(0, 2));
+            _G = GgafUtil::hex2dec(_hex.substr(2, 2));
+            _B = GgafUtil::hex2dec(_hex.substr(4, 2));
+        } else {
+            throwGgafCriticalException("GgafRgb::set HEXílÇ©ÇÁRGBÇ…ïœä∑èoóàÇ‹ÇπÇÒÅBprm_hex="<<prm_hex);
         }
     }
 

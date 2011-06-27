@@ -104,12 +104,12 @@ public:
     appangle _RX_final;
     appangle _RY_final;
     appangle _RZ_final;
-    appcoord _X_offset;
-    appcoord _Y_offset;
-    appcoord _Z_offset;
-    appangle _RX_offset;
-    appangle _RY_offset;
-    appangle _RZ_offset;
+//    appcoord _X_offset;
+//    appcoord _Y_offset;
+//    appcoord _Z_offset;
+//    appangle _RX_offset;
+//    appangle _RY_offset;
+//    appangle _RZ_offset;
 
     bool _is_local;
 

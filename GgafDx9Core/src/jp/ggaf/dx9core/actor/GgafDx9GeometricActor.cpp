@@ -36,12 +36,12 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _RZ_final = 0;
 
 
-    _X_offset  = 0;
-    _Y_offset  = 0;
-    _Z_offset  = 0;
-    _RX_offset = 0;
-    _RY_offset = 0;
-    _RZ_offset = 0;
+//    _X_offset  = 0;
+//    _Y_offset  = 0;
+//    _Z_offset  = 0;
+//    _RX_offset = 0;
+//    _RY_offset = 0;
+//    _RZ_offset = 0;
     _is_local = false;
     _wasCalc_matInvWorldRotMv = false;
 }

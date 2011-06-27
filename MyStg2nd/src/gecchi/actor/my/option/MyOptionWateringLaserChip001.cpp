@@ -15,7 +15,7 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
     _pOrg = NULL;
     _lockon = 0;
     _isLockon = false;
-	_renge = 150000;
+    _renge = 150000;
     _r_maxacce = 15;
 }
 
@@ -85,10 +85,10 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 int vTx = pMainLockOnTarget->_X - _X;
                 int vTy = pMainLockOnTarget->_Y - _Y;
                 int vTz = pMainLockOnTarget->_Z - _Z;
-                //自→仮自
-                int vVMx = _pMvTransporter->_veloVxMv*4;
-                int vVMy = _pMvTransporter->_veloVyMv*4;
-                int vVMz = _pMvTransporter->_veloVzMv*4;
+                //自→仮自。上図の |仮自| = 5*vM
+                int vVMx = _pMvTransporter->_veloVxMv*5;
+                int vVMy = _pMvTransporter->_veloVyMv*5;
+                int vVMz = _pMvTransporter->_veloVzMv*5;
 
                 //|仮自|
                 int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
@@ -96,13 +96,18 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 int lT =  MAX3(abs(vTx), abs(vTy), abs(vTz)); //的ベクトル大きさ簡易版
                 //|仮自|/|的|
                 double r = 1.5*lVM / lT;
+                //1.5は 右上図のように一直線に並んだ際も、進行方向を維持するために、
+                //|仮的| > |仮自| という関係を維持するためにかけた適当な割合
+
                 //仮自→仮的 の加速度設定
                 _pMvTransporter->setVxMvAcce(((vTx * r) - vVMx)/_r_maxacce);
                 _pMvTransporter->setVyMvAcce(((vTy * r) - vVMy)/_r_maxacce);
                 _pMvTransporter->setVzMvAcce(((vTz * r) - vVMz)/_r_maxacce);
-
-                if (lVM > _renge/2) {
-                    GgafDx9Util::getRzRyAng(vVMx,vVMy,vVMz,_RZ,_RY);
+                appangle temp_RZ = _RZ;
+                appangle temp_RY = _RY;
+                GgafDx9Util::getRzRyAng(vVMx,vVMy,vVMz,_RZ,_RY);
+                if (abs(temp_RZ-_RZ) > ANGLE90 || abs(temp_RY-_RY) > ANGLE90) {
+                    GgafDx9Util::anotherRzRy(_RZ, _RY);
                 }
             } else {
                 //_pMvTransporter->setZeroVxyzMvAcce();
