@@ -75,7 +75,7 @@ void GgafDx9StringBoardActor::update(appcoord X, appcoord Y) {
     _X = X;
     _Y = Y;
 }
-void GgafDx9StringBoardActor::processSettlementBehavior() override {
+void GgafDx9StringBoardActor::processSettlementBehavior() {
 }
 
 

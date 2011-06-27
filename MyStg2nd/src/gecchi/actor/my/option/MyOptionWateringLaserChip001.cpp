@@ -103,11 +103,25 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 _pMvTransporter->setVxMvAcce(((vTx * r) - vVMx)/_r_maxacce);
                 _pMvTransporter->setVyMvAcce(((vTy * r) - vVMy)/_r_maxacce);
                 _pMvTransporter->setVzMvAcce(((vTz * r) - vVMz)/_r_maxacce);
-                appangle temp_RZ = _RZ;
-                appangle temp_RY = _RY;
-                GgafDx9Util::getRzRyAng(vVMx,vVMy,vVMz,_RZ,_RY);
-                if (abs(temp_RZ-_RZ) > ANGLE90 || abs(temp_RY-_RY) > ANGLE90) {
-                    GgafDx9Util::anotherRzRy(_RZ, _RY);
+
+                appangle RZ2 = _RZ;
+                appangle RY2 = _RY;
+                GgafDx9Util::getRzRyAng(vVMx,vVMy,vVMz,RZ2,RY2);
+                appangle RZ1 = RZ2;
+                appangle RY1 = RY2;
+                GgafDx9Util::anotherRzRy(RZ2, RY2);
+                appangle d1_angRz = GgafDx9Util::getAngDiff(_RZ, RZ1);
+                appangle d1_angRy = GgafDx9Util::getAngDiff(_RY, RY1);
+                appangle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
+                appangle d2_angRz = GgafDx9Util::getAngDiff(_RZ, RZ2);
+                appangle d2_angRy = GgafDx9Util::getAngDiff(_RY, RY2);
+                appangle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
+                if (d1 <= d2) {
+                    _RZ = RZ1;
+                    _RY = RY1;
+                } else {
+                    _RZ = RZ2;
+                    _RY = RY2;
                 }
             } else {
                 //_pMvTransporter->setZeroVxyzMvAcce();
