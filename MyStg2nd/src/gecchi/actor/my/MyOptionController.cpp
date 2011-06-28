@@ -22,13 +22,13 @@ MyOptionController::MyOptionController(const char* prm_name) :
 
     _renge = 80000;
 
-    _pMvTransporter->forceVxMvVeloRange(-_renge, _renge);
-    _pMvTransporter->forceVyMvVeloRange(-_renge, _renge);
-    _pMvTransporter->forceVzMvVeloRange(-_renge, _renge);
+    _pKurokoB->forceVxMvVeloRange(-_renge, _renge);
+    _pKurokoB->forceVyMvVeloRange(-_renge, _renge);
+    _pKurokoB->forceVzMvVeloRange(-_renge, _renge);
 
-    _pMvTransporter->forceVxMvAcceRange(-_renge / 30, _renge / 30);
-    _pMvTransporter->forceVyMvAcceRange(-_renge / 30, _renge / 30);
-    _pMvTransporter->forceVzMvAcceRange(-_renge / 30, _renge / 30);
+    _pKurokoB->forceVxMvAcceRange(-_renge / 30, _renge / 30);
+    _pKurokoB->forceVyMvAcceRange(-_renge / 30, _renge / 30);
+    _pKurokoB->forceVzMvAcceRange(-_renge / 30, _renge / 30);
 
     _papMyOption = NEW MyOption*[_max_option_num];
     for (int i = 0; i < _max_option_num; i++) {
@@ -113,13 +113,13 @@ void MyOptionController::initialize() {
 
 
 void MyOptionController::onReset() {
-    _pMvNavigator->setMvVelo(0);
-    _pMvNavigator->forceRyMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
-    _pMvNavigator->forceRzMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
-    _pMvNavigator->setRzRyMvAng(0,0);
+    _pKurokoA->setMvVelo(0);
+    _pKurokoA->forceRyMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
+    _pKurokoA->forceRzMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
+    _pKurokoA->setRzRyMvAng(0,0);
     _way_myship_prev = P_MYSHIP->_way;
-    _pMvNavigator->relateFaceAngWithMvAng(true);
-    _pMvNavigator->behave();
+    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->behave();
 }
 
 void MyOptionController::onActive() {
@@ -134,7 +134,7 @@ void MyOptionController::processBehavior() {
 
     if (VB_PLAY->isDoublePushedDown(VB_OPTION,8,8)) {
         //もとに戻す
-        _pMvNavigator->execTurnMvAngSequence(
+        _pKurokoA->execTurnMvAngSequence(
                         0,
                         0,
                         20000, 0,
@@ -155,16 +155,16 @@ void MyOptionController::processBehavior() {
     } else if (VB_PLAY->isBeingPressed(VB_OPTION) && !VB_PLAY->isBeingPressed(VB_TURBO)) {
         //オプション向き操作
         if (VB_PLAY->isBeingPressed(VB_UP)) {
-            _pMvNavigator->addRzMvAng(_angVelo_Turn);
+            _pKurokoA->addRzMvAng(_angVelo_Turn);
         }
         if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-            _pMvNavigator->addRzMvAng(-_angVelo_Turn);
+            _pKurokoA->addRzMvAng(-_angVelo_Turn);
         }
         if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-            _pMvNavigator->addRyMvAng(_angVelo_Turn);
+            _pKurokoA->addRyMvAng(_angVelo_Turn);
         }
         if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-            _pMvNavigator->addRyMvAng(-_angVelo_Turn);
+            _pKurokoA->addRyMvAng(-_angVelo_Turn);
         }
 
     }
@@ -174,12 +174,12 @@ void MyOptionController::processBehavior() {
         if (_papMyOption[0]) {
             _is_free_from_myship_mode = true;
             _is_handle_move_mode = true;
-            _pMvTransporter->setVxMvAcce(0);
-            _pMvTransporter->setVyMvAcce(0);
-            _pMvTransporter->setVzMvAcce(0);
-            _pMvTransporter->setVxMvVelo(0);
-            _pMvTransporter->setVyMvVelo(0);
-            _pMvTransporter->setVzMvVelo(0);
+            _pKurokoB->setVxMvAcce(0);
+            _pKurokoB->setVyMvAcce(0);
+            _pKurokoB->setVzMvAcce(0);
+            _pKurokoB->setVxMvVelo(0);
+            _pKurokoB->setVyMvVelo(0);
+            _pKurokoB->setVzMvVelo(0);
 
         }
     }
@@ -188,36 +188,36 @@ void MyOptionController::processBehavior() {
         if (VB_PLAY->isBeingPressed(VB_OPTION) && _is_handle_move_mode) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちのオプション移動速度のみを設定。
-            _pMvNavigator->setMvVelo(GgafDx9Util::COS[_papMyOption[0]->_angExpanse/ ANGLE_RATE] * _veloOptionsMv);
+            _pKurokoA->setMvVelo(GgafDx9Util::COS[_papMyOption[0]->_angExpanse/ ANGLE_RATE] * _veloOptionsMv);
             //旋回半径増加速度の処理はMyOptionクラスで行う。
         } else {
             _is_handle_move_mode = false;
-            _pMvNavigator->setMvVelo(0);
+            _pKurokoA->setMvVelo(0);
         }
     } else {
         GgafDx9GeoElem* pGeoMyShip = P_MYSHIP->_pRing_GeoHistory->getPrev(4); //自機にすこしおくれて追従
         if (_return_to_default_position_seq) {
             //元の位置へ
-            int dx = pGeoMyShip->_X - (_X + _pMvTransporter->_veloVxMv*6);
-            int dy = pGeoMyShip->_Y - (_Y + _pMvTransporter->_veloVyMv*6);
-            int dz = pGeoMyShip->_Z - (_Z + _pMvTransporter->_veloVzMv*6);
-            _pMvTransporter->setVxMvAcce(dx);
-            _pMvTransporter->setVyMvAcce(dy);
-            _pMvTransporter->setVzMvAcce(dz);
+            int dx = pGeoMyShip->_X - (_X + _pKurokoB->_veloVxMv*6);
+            int dy = pGeoMyShip->_Y - (_Y + _pKurokoB->_veloVyMv*6);
+            int dz = pGeoMyShip->_Z - (_Z + _pKurokoB->_veloVzMv*6);
+            _pKurokoB->setVxMvAcce(dx);
+            _pKurokoB->setVyMvAcce(dy);
+            _pKurokoB->setVzMvAcce(dz);
             if (abs(_X - pGeoMyShip->_X) < 10000 &&
                 abs(_Y - pGeoMyShip->_Y) < 10000 &&
                 abs(_Z - pGeoMyShip->_Z) < 10000 &&
-                abs(_pMvTransporter->_veloVxMv) < 20000 &&
-                abs(_pMvTransporter->_veloVyMv) < 20000 &&
-                abs(_pMvTransporter->_veloVzMv) < 20000    ) {
+                abs(_pKurokoB->_veloVxMv) < 20000 &&
+                abs(_pKurokoB->_veloVyMv) < 20000 &&
+                abs(_pKurokoB->_veloVzMv) < 20000    ) {
 
                 _TRACE_("もどった！");
-                _pMvTransporter->setVxMvVelo(0);
-                _pMvTransporter->setVyMvVelo(0);
-                _pMvTransporter->setVzMvVelo(0);
-                _pMvTransporter->setVxMvAcce(0);
-                _pMvTransporter->setVyMvAcce(0);
-                _pMvTransporter->setVzMvAcce(0);
+                _pKurokoB->setVxMvVelo(0);
+                _pKurokoB->setVyMvVelo(0);
+                _pKurokoB->setVzMvVelo(0);
+                _pKurokoB->setVxMvAcce(0);
+                _pKurokoB->setVyMvAcce(0);
+                _pKurokoB->setVzMvAcce(0);
                 locateAs(pGeoMyShip);
                 _return_to_default_position_seq = false;
             }
@@ -230,10 +230,10 @@ void MyOptionController::processBehavior() {
 
     //ギズモ
     _pDirectionVector->locateAs(this);
-    _pDirectionVector->_pMvNavigator->setRzRyMvAng(_pMvNavigator->_angRzMv, _pMvNavigator->_angRyMv);
+    _pDirectionVector->_pKurokoA->setRzRyMvAng(_pKurokoA->_angRzMv, _pKurokoA->_angRyMv);
 
-    _pMvNavigator->behave();
-    _pMvTransporter->behave();
+    _pKurokoA->behave();
+    _pKurokoB->behave();
     _pRing_GeoHistory->next()->set(this);
 }
 

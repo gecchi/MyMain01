@@ -17,7 +17,7 @@ void HomingLaserChip::initialize() {
     //当たり判定あり。
     //α＝0.99
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-    _pMvNavigator->setMvVelo(30000);
+    _pKurokoA->setMvVelo(30000);
     _fAlpha = 0.99;
 }
 
@@ -91,7 +91,7 @@ void HomingLaserChip::onInactive() {
         //中間チップ消失時の場合
         //自身のチップが消失することにより、レーザーの数珠つなぎ構造が２分されてしまう。
         //消失前の先頭以外のチップは、一つ前に追従してるだけなので、中間チップ Mover 内部パラメータは不定。
-        //後方チップが新たな先頭チップとなるレーザー構造のグループを _pMvNavigator->behave() で動作を継続させるために、
+        //後方チップが新たな先頭チップとなるレーザー構造のグループを _pKurokoA->behave() で動作を継続させるために、
         //新たな先頭チップへ現在の移動方向と移動速度の情報を伝達する必要がある。
         if (_pChip_behind) {
             int D = (int)(GgafUtil::sqrt_fast(
@@ -104,8 +104,8 @@ void HomingLaserChip::onInactive() {
                               )
                             )
                          );
-            _pChip_behind->_pMvNavigator->setMvVelo(D); //距離が速度になる
-            _pChip_behind->_pMvNavigator->setMvAng(this);
+            _pChip_behind->_pKurokoA->setMvVelo(D); //距離が速度になる
+            _pChip_behind->_pKurokoA->setMvAng(this);
         } else {
             //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 2 であるにも関わらず、_pChip_behindが存在しません");
         }
@@ -116,23 +116,23 @@ void HomingLaserChip::onInactive() {
         //先端チップ Mover 内部パラメータの移動方向と移動速度の情報をコピーすることでOK
         //計算速度を稼ぐ
         if (_pChip_behind && _pChip_front) {
-            _pChip_behind->_pMvNavigator->_vX = _pChip_front->_pMvNavigator->_vX;
-            _pChip_behind->_pMvNavigator->_vY = _pChip_front->_pMvNavigator->_vY;
-            _pChip_behind->_pMvNavigator->_vZ = _pChip_front->_pMvNavigator->_vZ;
-            _pChip_behind->_pMvNavigator->_angRzMv = _pChip_front->_pMvNavigator->_angRzMv;
-            _pChip_behind->_pMvNavigator->_angRyMv = _pChip_front->_pMvNavigator->_angRyMv;
-            _pChip_behind->_pMvNavigator->_veloMv = _pChip_front->_pMvNavigator->_veloMv;
+            _pChip_behind->_pKurokoA->_vX = _pChip_front->_pKurokoA->_vX;
+            _pChip_behind->_pKurokoA->_vY = _pChip_front->_pKurokoA->_vY;
+            _pChip_behind->_pKurokoA->_vZ = _pChip_front->_pKurokoA->_vZ;
+            _pChip_behind->_pKurokoA->_angRzMv = _pChip_front->_pKurokoA->_angRzMv;
+            _pChip_behind->_pKurokoA->_angRyMv = _pChip_front->_pKurokoA->_angRyMv;
+            _pChip_behind->_pKurokoA->_veloMv = _pChip_front->_pKurokoA->_veloMv;
         } else {
             //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 2 であるにも関わらず、_pChip_front と _pChip_behind が両方存在しません");
         }
     } else if (_chip_kind == 4) {
         if (_pChip_behind) {
-            _pChip_behind->_pMvNavigator->_vX = _pMvNavigator->_vX;
-            _pChip_behind->_pMvNavigator->_vY = _pMvNavigator->_vY;
-            _pChip_behind->_pMvNavigator->_vZ = _pMvNavigator->_vZ;
-            _pChip_behind->_pMvNavigator->_angRzMv = _pMvNavigator->_angRzMv;
-            _pChip_behind->_pMvNavigator->_angRyMv = _pMvNavigator->_angRyMv;
-            _pChip_behind->_pMvNavigator->_veloMv = _pMvNavigator->_veloMv;
+            _pChip_behind->_pKurokoA->_vX = _pKurokoA->_vX;
+            _pChip_behind->_pKurokoA->_vY = _pKurokoA->_vY;
+            _pChip_behind->_pKurokoA->_vZ = _pKurokoA->_vZ;
+            _pChip_behind->_pKurokoA->_angRzMv = _pKurokoA->_angRzMv;
+            _pChip_behind->_pKurokoA->_angRyMv = _pKurokoA->_angRyMv;
+            _pChip_behind->_pKurokoA->_veloMv = _pKurokoA->_veloMv;
         } else {
             //throwGgafCriticalException("HomingLaserChip::onInactive() _chip_kind == 4 であるにも関わらず、_pChip_behind が存在しません");
         }

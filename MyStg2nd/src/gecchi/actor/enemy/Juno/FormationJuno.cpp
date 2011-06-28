@@ -35,8 +35,8 @@ FormationJuno::FormationJuno(
     _X = prm_X;
     _Y = prm_Y;
     _Z = prm_Z;
-    _pMvNavigator->setMvVelo(prm_veloMv_App);
-    _pMvNavigator->setRzRyMvAng(prm_angRzMv_AppBox, prm_angRyMv_AppBox);
+    _pKurokoA->setMvVelo(prm_veloMv_App);
+    _pKurokoA->setRzRyMvAng(prm_angRzMv_AppBox, prm_angRyMv_AppBox);
     float vX_AppBox, vY_AppBox, vZ_AppBox;
     GgafDx9Util::getNormalizeVectorZY(prm_angRzMv_AppBox, prm_angRyMv_AppBox,
                                       vX_AppBox, vY_AppBox, vZ_AppBox);
@@ -47,12 +47,12 @@ FormationJuno::FormationJuno(
     for (int i = 0; i < prm_nJunoStock; i++) {
         EnemyJuno* pEnemyJuno = NEW EnemyJuno("Juno01");
         pEnemyJuno->setStore_Shot(_pStoreCon->refer()); //’eÝ’è
-        pEnemyJuno->_pMvNavigator->relateFaceAngWithMvAng(true);
-        pEnemyJuno->_pMvNavigator->setMvVelo(prm_veloMv_Juno);
-        pEnemyJuno->_pMvNavigator->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);
-        pEnemyJuno->_pMvTransporter->setVxMvVelo(vX_AppBox*prm_veloMv_App);
-        pEnemyJuno->_pMvTransporter->setVyMvVelo(vY_AppBox*prm_veloMv_App);
-        pEnemyJuno->_pMvTransporter->setVzMvVelo(vZ_AppBox*prm_veloMv_App);
+        pEnemyJuno->_pKurokoA->relateFaceAngWithMvAng(true);
+        pEnemyJuno->_pKurokoA->setMvVelo(prm_veloMv_Juno);
+        pEnemyJuno->_pKurokoA->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);
+        pEnemyJuno->_pKurokoB->setVxMvVelo(vX_AppBox*prm_veloMv_App);
+        pEnemyJuno->_pKurokoB->setVyMvVelo(vY_AppBox*prm_veloMv_App);
+        pEnemyJuno->_pKurokoB->setVzMvVelo(vZ_AppBox*prm_veloMv_App);
         pEnemyJuno->inactivateTreeImmediately();
         _pStore_EnemyJuno->addSubLast(pEnemyJuno);
     }
@@ -71,8 +71,8 @@ void FormationJuno::processBehavior() {
             pEnemyJuno->_Z = (_pRndGen->genrand_int32() % (_Z2_app-_Z1_app)) + _Z1_app + _Z;
         }
     }
-    _pMvNavigator->behave();
-    _pMvTransporter->behave();
+    _pKurokoA->behave();
+    _pKurokoB->behave();
 }
 
 FormationJuno::~FormationJuno() {

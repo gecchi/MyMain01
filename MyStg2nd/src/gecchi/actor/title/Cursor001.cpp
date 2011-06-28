@@ -16,16 +16,16 @@ void Cursor001::onActive() {
 }
 
 void Cursor001::processBehavior() {
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
 }
 
 void Cursor001::processJudgement() {
 }
 
 void Cursor001::moveTo(int X, int Y) {
-    _pMvNavigator->setMvAng(X, Y, _Z);
+    _pKurokoA->setMvAng(X, Y, _Z);
 
-    _pMvNavigator->execSmoothMvVeloSequence(0,GgafDx9Util::getDistance(_X, _Y, X, Y),
+    _pKurokoA->execSmoothMvVeloSequence(0,GgafDx9Util::getDistance(_X, _Y, X, Y),
                                             10,0.2,0.3);
 }
 

@@ -21,9 +21,9 @@ void EffectMyOption::onCreateModel() {
 }
 
 void EffectMyOption::initialize() {
-    _pMvNavigator->setFaceAngVelo(AXIS_X, 5*1000);
-    _pMvNavigator->setFaceAngVelo(AXIS_Y, 3*1000);
-    _pMvNavigator->setFaceAngVelo(AXIS_Z, 1000);
+    _pKurokoA->setFaceAngVelo(AXIS_X, 5*1000);
+    _pKurokoA->setFaceAngVelo(AXIS_Y, 3*1000);
+    _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 1500);
     _pScaler->beat(AXIS_X, 30, 10, 1, -1);
@@ -46,7 +46,7 @@ void EffectMyOption::processBehavior() {
 //        _pProg->change(2);
 //    }
     locateAs(_pMyOption);
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
     _pScaler->behave();
 }
 

@@ -20,9 +20,9 @@ void SingleLaserTestActor::initialize() {
 void SingleLaserTestActor::onReset() {
     setScaleRate(100.0);
     setAlpha(0.99); //半透明にすることで両面レンダリング
-    _pMvNavigator->setMvVelo(40000);             //移動速度
-    _pMvNavigator->setMvAcce(1000);             //移動速度
-    _pMvNavigator->relateFaceAngWithMvAng(true);
+    _pKurokoA->setMvVelo(40000);             //移動速度
+    _pKurokoA->setMvAcce(1000);             //移動速度
+    _pKurokoA->relateFaceAngWithMvAng(true);
 }
 
 void SingleLaserTestActor::onActive() {
@@ -35,7 +35,7 @@ void SingleLaserTestActor::processBehavior() {
     //弾なので不要
 
     //座標に反映
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
 }
 
 void SingleLaserTestActor::processJudgement() {

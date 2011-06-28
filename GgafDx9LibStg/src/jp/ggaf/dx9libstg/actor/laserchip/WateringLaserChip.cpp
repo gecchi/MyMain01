@@ -19,7 +19,7 @@ void WateringLaserChip::initialize() {
     //当たり判定あり。
     //α＝0.99
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-    _pMvNavigator->setMvVelo(30000);
+    _pKurokoA->setMvVelo(30000);
     _fAlpha = 0.99;
 }
 
@@ -43,8 +43,8 @@ void WateringLaserChip::onInactive() {
 
 void WateringLaserChip::processBehavior() {
     LaserChip::processBehavior();
-    //_pMvNavigator->behave();
-    _pMvTransporter->behave();
+    //_pKurokoA->behave();
+    _pKurokoB->behave();
     //座標をコピー
     _tmpX = _X;
     _tmpY = _Y;
@@ -86,14 +86,14 @@ void WateringLaserChip::processSettlementBehavior() {
             _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3;
             _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
             _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
-//            _pMvTransporter->_veloVxMv = (pF->_pMvTransporter->_veloVxMv + _pMvTransporter->_veloVxMv) / 2;
-//            _pMvTransporter->_veloVyMv = (pF->_pMvTransporter->_veloVyMv + _pMvTransporter->_veloVyMv) / 2;
-//            _pMvTransporter->_veloVzMv = (pF->_pMvTransporter->_veloVzMv + _pMvTransporter->_veloVzMv) / 2;
+//            _pKurokoB->_veloVxMv = (pF->_pKurokoB->_veloVxMv + _pKurokoB->_veloVxMv) / 2;
+//            _pKurokoB->_veloVyMv = (pF->_pKurokoB->_veloVyMv + _pKurokoB->_veloVyMv) / 2;
+//            _pKurokoB->_veloVzMv = (pF->_pKurokoB->_veloVzMv + _pKurokoB->_veloVzMv) / 2;
 //            _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
 //            _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
-//            _pMvTransporter->_veloVxMv = (pF->_pMvTransporter->_veloVxMv + _pMvTransporter->_veloVxMv + pB->_pMvTransporter->_veloVxMv) / 3;
-//            _pMvTransporter->_veloVyMv = (pF->_pMvTransporter->_veloVyMv + _pMvTransporter->_veloVyMv + pB->_pMvTransporter->_veloVyMv) / 3;
-//            _pMvTransporter->_veloVzMv = (pF->_pMvTransporter->_veloVzMv + _pMvTransporter->_veloVzMv + pB->_pMvTransporter->_veloVzMv) / 3;
+//            _pKurokoB->_veloVxMv = (pF->_pKurokoB->_veloVxMv + _pKurokoB->_veloVxMv + pB->_pKurokoB->_veloVxMv) / 3;
+//            _pKurokoB->_veloVyMv = (pF->_pKurokoB->_veloVyMv + _pKurokoB->_veloVyMv + pB->_pKurokoB->_veloVyMv) / 3;
+//            _pKurokoB->_veloVzMv = (pF->_pKurokoB->_veloVzMv + _pKurokoB->_veloVzMv + pB->_pKurokoB->_veloVzMv) / 3;
         }
         LaserChip::processSettlementBehavior();
     }
@@ -132,9 +132,9 @@ void WateringLaserChip::processSettlementBehavior() {
 //            _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3;
 //            _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
 //            _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
-//            _pMvTransporter->_veloVxMv = (pF->_pMvTransporter->_veloVxMv + _pMvTransporter->_veloVxMv + pB->_pMvTransporter->_veloVxMv) / 3;
-//            _pMvTransporter->_veloVyMv = (pF->_pMvTransporter->_veloVyMv + _pMvTransporter->_veloVyMv + pB->_pMvTransporter->_veloVyMv) / 3;
-//            _pMvTransporter->_veloVzMv = (pF->_pMvTransporter->_veloVzMv + _pMvTransporter->_veloVzMv + pB->_pMvTransporter->_veloVzMv) / 3;
+//            _pKurokoB->_veloVxMv = (pF->_pKurokoB->_veloVxMv + _pKurokoB->_veloVxMv + pB->_pKurokoB->_veloVxMv) / 3;
+//            _pKurokoB->_veloVyMv = (pF->_pKurokoB->_veloVyMv + _pKurokoB->_veloVyMv + pB->_pKurokoB->_veloVyMv) / 3;
+//            _pKurokoB->_veloVzMv = (pF->_pKurokoB->_veloVzMv + _pKurokoB->_veloVzMv + pB->_pKurokoB->_veloVzMv) / 3;
 //        }
 //        LaserChip::processSettlementBehavior();
 //    }

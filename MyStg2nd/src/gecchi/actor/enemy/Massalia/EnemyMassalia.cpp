@@ -82,7 +82,7 @@ void EnemyMassalia::initialize() {
     setAlpha(0.99);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 200*1000);
-    _pMvNavigator->setMvVelo(-1000);
+    _pKurokoA->setMvVelo(-1000);
     _iMovePatternNo = 0;
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
 }
@@ -91,7 +91,7 @@ void EnemyMassalia::initialize() {
 void EnemyMassalia::onActive() {
     //ステータスリセット
     //MyStgUtil::resetEnemyMassaliaStatus(_pStatus);
-    _pMvNavigator->setMvVelo(-5000);
+    _pKurokoA->setMvVelo(-5000);
     _iMovePatternNo = 0;
     _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
 
@@ -162,14 +162,14 @@ void EnemyMassalia::processBehavior() {
 //    _pMorpher->behave();
     /////////////モーフテスト////////////////
     if (_iMovePatternNo == 0) {
-        _pMvNavigator->setFaceAngVelo(AXIS_X, 0);
-        _pMvNavigator->setFaceAngVelo(AXIS_Z, _angveloTurn*1.5);
-        _pMvNavigator->setFaceAngVelo(AXIS_Y, _angveloTurn*0.5);
-        _pMvNavigator->setMvVelo(-3000);
+        _pKurokoA->setFaceAngVelo(AXIS_X, 0);
+        _pKurokoA->setFaceAngVelo(AXIS_Z, _angveloTurn*1.5);
+        _pKurokoA->setFaceAngVelo(AXIS_Y, _angveloTurn*0.5);
+        _pKurokoA->setMvVelo(-3000);
         _iMovePatternNo++;
     } else if (_iMovePatternNo == 1 && _X > P_MYSHIP->_X-400000) {
         if (getBehaveingFrame() % _laser_interval == 0) {
-            _pMvNavigator->execTurnFaceAngSequence(P_MYSHIP,
+            _pKurokoA->execTurnFaceAngSequence(P_MYSHIP,
                                                 _angveloTurn*20, 0,
                                                 TURN_COUNTERCLOCKWISE, false);
             _iMovePatternNo++;
@@ -177,15 +177,15 @@ void EnemyMassalia::processBehavior() {
         } else {
         }
     } else if (_iMovePatternNo == 2) {
-        if (!_pMvNavigator->isTurningFaceAng()) {
+        if (!_pKurokoA->isTurningFaceAng()) {
             //自機にがいた方向に振り向きが完了時
             _iMovePatternNo++;
         }
     } else if (_iMovePatternNo == 3) {
-        _pMvNavigator->setFaceAngVelo(AXIS_X, _angveloTurn*40);
-        _pMvNavigator->setFaceAngVelo(AXIS_Z, 0);
-        _pMvNavigator->setFaceAngVelo(AXIS_Y, 0);
-        _pMvNavigator->setMvVelo(0);
+        _pKurokoA->setFaceAngVelo(AXIS_X, _angveloTurn*40);
+        _pKurokoA->setFaceAngVelo(AXIS_Z, 0);
+        _pKurokoA->setFaceAngVelo(AXIS_Y, 0);
+        _pKurokoA->setMvVelo(0);
         if (_cnt_laserchip < _laser_length) {
             _cnt_laserchip++;
 
@@ -229,11 +229,11 @@ void EnemyMassalia::processBehavior() {
 
 
                         pLaserChip->locate(_X+vX, _Y+vY, _Z+vZ);
-                        pLaserChip->_pMvNavigator->setRzRyMvAng(Rz, Ry);
-                        pLaserChip->_pMvNavigator->_angFace[AXIS_Z] = Rz;
-                        pLaserChip->_pMvNavigator->_angFace[AXIS_Y] = Ry;
+                        pLaserChip->_pKurokoA->setRzRyMvAng(Rz, Ry);
+                        pLaserChip->_pKurokoA->_angFace[AXIS_Z] = Rz;
+                        pLaserChip->_pKurokoA->_angFace[AXIS_Y] = Ry;
                         pLaserChip->activate();
-                        //pLaserChip->_pMvNavigator->behave();
+                        //pLaserChip->_pKurokoA->behave();
 
                         if (i == 0 && j == 0 && pLaserChip->_pChip_front == NULL) {
                             _pSeTransmitter->play3D(0); //発射音
@@ -253,7 +253,7 @@ void EnemyMassalia::processBehavior() {
     }
 
     _pSeTransmitter->behave();
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
 }
 
 void EnemyMassalia::processJudgement() {

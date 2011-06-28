@@ -8,8 +8,6 @@ DefaultUniverse::DefaultUniverse(const char* prm_name, GgafDx9Camera* prm_pCamer
     _class_name = "DefaultUniverse";
     //‚W•ª–Øì¬
     _pLinearOctree = NEW LinearOctreeForActor(6);
-    //_pLinearOctree->setRootSpace(-8000000 ,-8000000 ,-8000000 ,8000000 ,8000000 ,8000000);
-    double r = 1.1;
     _pLinearOctree->setRootSpace(_X_goneLeft  ,_Y_goneBottom, _Z_goneNear ,
                                  _X_goneRight ,_Y_goneTop   , _Z_goneFar   );
     //‰æ–Ê¶‚Ì—Ìˆæ‚Í­‚È‚¢

@@ -21,12 +21,12 @@ void EffectTurbo001::initialize() {
 
 void EffectTurbo001::onActive() {
     _pUvFlipper->setActivePtnNoToTop();
-    _pMvNavigator->setFaceAngVelo(AXIS_Z, 3000);        //‰ñ“]
+    _pKurokoA->setFaceAngVelo(AXIS_Z, 3000);        //‰ñ“]
 }
 
 void EffectTurbo001::processBehavior() {
     _pUvFlipper->behave();
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
     _pScaler->behave();
 }
 

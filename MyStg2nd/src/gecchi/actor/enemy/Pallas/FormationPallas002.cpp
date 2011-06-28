@@ -29,7 +29,7 @@ FormationPallas002::FormationPallas002(const char* prm_name) : GgafDx9FormationA
 void FormationPallas002::onActive() {
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i]->locate(MyShip::_lim_behaind *2 , P_MYSHIP->_Y+300000,  P_MYSHIP->_Z);
-        _papPallas[i]->_pMvNavigator->setMvVelo(_mv_velo);
+        _papPallas[i]->_pKurokoA->setMvVelo(_mv_velo);
         _papPallas[i]->activateDelay(i*_interval_frames + 1);//_interval_framesä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
     }
 }

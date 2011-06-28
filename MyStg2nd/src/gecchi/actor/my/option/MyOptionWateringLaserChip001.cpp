@@ -20,7 +20,7 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
 }
 
 void MyOptionWateringLaserChip001::initialize() {
-    _pMvNavigator->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateFaceAngWithMvAng(true);
     registHitAreaCube(80000);
     setHitAble(true);
     setScaleRate(6.0);
@@ -49,13 +49,13 @@ void MyOptionWateringLaserChip001::onActive() {
             _lockon = ((MyOptionWateringLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
         }
     }
-    _pMvTransporter->setZeroVxyzMvAcce(); //加速度リセット
+    _pKurokoB->setZeroVxyzMvAcce(); //加速度リセット
     //Vxyzの速度はオプション側で設定される
 
 
-    _pMvTransporter->forceVxyzMvVeloRange(-_renge, _renge);
+    _pKurokoB->forceVxyzMvVeloRange(-_renge, _renge);
     _maxAcceRange= _renge/_r_maxacce;
-    _pMvTransporter->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
+    _pKurokoB->forceVxyzMvAcceRange(-_maxAcceRange, _maxAcceRange);
 }
 
 void MyOptionWateringLaserChip001::processBehavior() {
@@ -86,9 +86,9 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 int vTy = pMainLockOnTarget->_Y - _Y;
                 int vTz = pMainLockOnTarget->_Z - _Z;
                 //自→仮自。上図の |仮自| = 5*vM
-                int vVMx = _pMvTransporter->_veloVxMv*5;
-                int vVMy = _pMvTransporter->_veloVyMv*5;
-                int vVMz = _pMvTransporter->_veloVzMv*5;
+                int vVMx = _pKurokoB->_veloVxMv*5;
+                int vVMy = _pKurokoB->_veloVyMv*5;
+                int vVMz = _pKurokoB->_veloVzMv*5;
 
                 //|仮自|
                 int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
@@ -100,31 +100,36 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 //|仮的| > |仮自| という関係を維持するためにかけた適当な割合
 
                 //仮自→仮的 の加速度設定
-                _pMvTransporter->setVxMvAcce(((vTx * r) - vVMx)/_r_maxacce);
-                _pMvTransporter->setVyMvAcce(((vTy * r) - vVMy)/_r_maxacce);
-                _pMvTransporter->setVzMvAcce(((vTz * r) - vVMz)/_r_maxacce);
+                _pKurokoB->setVxMvAcce(((vTx * r) - vVMx)/_r_maxacce);
+                _pKurokoB->setVyMvAcce(((vTy * r) - vVMy)/_r_maxacce);
+                _pKurokoB->setVzMvAcce(((vTz * r) - vVMz)/_r_maxacce);
 
-                appangle RZ2 = _RZ;
-                appangle RY2 = _RY;
-                GgafDx9Util::getRzRyAng(vVMx,vVMy,vVMz,RZ2,RY2);
-                appangle RZ1 = RZ2;
-                appangle RY1 = RY2;
-                GgafDx9Util::anotherRzRy(RZ2, RY2);
-                appangle d1_angRz = GgafDx9Util::getAngDiff(_RZ, RZ1);
-                appangle d1_angRy = GgafDx9Util::getAngDiff(_RY, RY1);
-                appangle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
-                appangle d2_angRz = GgafDx9Util::getAngDiff(_RZ, RZ2);
-                appangle d2_angRy = GgafDx9Util::getAngDiff(_RY, RY2);
-                appangle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
-                if (d1 <= d2) {
-                    _RZ = RZ1;
-                    _RY = RY1;
-                } else {
-                    _RZ = RZ2;
-                    _RY = RY2;
-                }
+                GgafDx9Util::getRzRyAng(vVMx, vVMy, vVMz,
+                                        _RZ, _RY);
+                _RX = _RZ;
+
+
+//                appangle RZ2 = _RZ;
+//                appangle RY2 = _RY;
+//                GgafDx9Util::getRzRyAng(vVMx,vVMy,vVMz,RZ2,RY2);
+//                appangle RZ1 = RZ2;
+//                appangle RY1 = RY2;
+//                GgafDx9Util::anotherRzRy(RZ2, RY2);
+//                appangle d1_angRz = GgafDx9Util::getAngDiff(_RZ, RZ1);
+//                appangle d1_angRy = GgafDx9Util::getAngDiff(_RY, RY1);
+//                appangle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
+//                appangle d2_angRz = GgafDx9Util::getAngDiff(_RZ, RZ2);
+//                appangle d2_angRy = GgafDx9Util::getAngDiff(_RY, RY2);
+//                appangle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
+//                if (d1 <= d2) {
+//                    _RZ = RZ1;
+//                    _RY = RY1;
+//                } else {
+//                    _RZ = RZ2;
+//                    _RY = RY2;
+//                }
             } else {
-                //_pMvTransporter->setZeroVxyzMvAcce();
+                //_pKurokoB->setZeroVxyzMvAcce();
                 _lockon = 2;
             }
         }
@@ -136,14 +141,14 @@ void MyOptionWateringLaserChip001::processBehavior() {
 //                int dx = (_X - _pOrg->_X);
 //                int dy = (_Y - _pOrg->_Y);
 //                int dz = (_Z - _pOrg->_Z);
-//                _pMvTransporter->setVxMvAcce(dx/_r_maxacce);
-//                _pMvTransporter->setVyMvAcce(dy/_r_maxacce);
-//                _pMvTransporter->setVzMvAcce(dy/_r_maxacce);
+//                _pKurokoB->setVxMvAcce(dx/_r_maxacce);
+//                _pKurokoB->setVyMvAcce(dy/_r_maxacce);
+//                _pKurokoB->setVzMvAcce(dy/_r_maxacce);
             } else {
                 //新たなターゲットを作成
-                _pMvTransporter->setVxMvAcce((_pChip_front->_X - _X)/_r_maxacce);
-                _pMvTransporter->setVyMvAcce((_pChip_front->_Y - _Y)/_r_maxacce);
-                _pMvTransporter->setVzMvAcce((_pChip_front->_Z - _Z)/_r_maxacce);
+                _pKurokoB->setVxMvAcce((_pChip_front->_X - _X)/_r_maxacce);
+                _pKurokoB->setVyMvAcce((_pChip_front->_Y - _Y)/_r_maxacce);
+                _pKurokoB->setVzMvAcce((_pChip_front->_Z - _Z)/_r_maxacce);
             }
 
         }

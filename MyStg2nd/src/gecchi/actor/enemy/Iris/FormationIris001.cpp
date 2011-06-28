@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 FormationIris001::FormationIris001(const char* prm_name) : GgafDx9FormationActor(prm_name, 30*60) {
     _class_name = "FormationIris001";
-    _num_Iris       = 7+_RANK_*7;    //編隊数
-    _interval_frames = 25-_RANK_*20;   //イリスの間隔(frame)
-    _mv_velo  = 8000+_RANK_*8000; //速度
+    _num_Iris        = 7 + _RANK_*7;    //編隊数
+    _interval_frames = 5 + (20 - (_RANK_>1.0?1.0:_RANK_) *20);   //イリスの間隔(frame)
+    _mv_velo         = 8000+_RANK_*8000; //速度
     //イリス編隊作成
     _pSplineCon     = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_002_01")); //スプライン定義
     _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_Shot001"));
@@ -33,7 +33,7 @@ void FormationIris001::initialize() {
 void FormationIris001::onActive() {
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i]->locate(MyShip::_lim_behaind - 500000, 0, MyShip::_lim_zleft * 0.8);
-        _papIris[i]->_pMvNavigator->setMvVelo(_mv_velo);
+        _papIris[i]->_pKurokoA->setMvVelo(_mv_velo);
         _papIris[i]->activateDelay(i*_interval_frames + 1);//_interval_frames間隔でActiveにする。
     }
 }

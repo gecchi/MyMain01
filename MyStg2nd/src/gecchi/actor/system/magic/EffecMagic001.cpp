@@ -21,14 +21,14 @@ void EffectMagic001::initialize() {
 }
 
 void EffectMagic001::onActive() {
-    _pMvNavigator->setFaceAngVelo(AXIS_X, 3*1000);
-    _pMvNavigator->setFaceAngVelo(AXIS_Y, 5*1000);
-    _pMvNavigator->setFaceAngVelo(AXIS_Z, 7*1000);
+    _pKurokoA->setFaceAngVelo(AXIS_X, 3*1000);
+    _pKurokoA->setFaceAngVelo(AXIS_Y, 5*1000);
+    _pKurokoA->setFaceAngVelo(AXIS_Z, 7*1000);
 }
 
 void EffectMagic001::processBehavior() {
-    _pMvNavigator->behave();
-    _pMvTransporter->behave();
+    _pKurokoA->behave();
+    _pKurokoB->behave();
 }
 
 void EffectMagic001::processJudgement() {

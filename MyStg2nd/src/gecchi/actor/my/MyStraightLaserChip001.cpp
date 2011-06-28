@@ -15,7 +15,7 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
 }
 
 void MyStraightLaserChip001::initialize() {
-    _pMvNavigator->setRzRyMvAng(0,0);
+    _pKurokoA->setRzRyMvAng(0,0);
     registHitAreaCube(60000);
     setHitAble(true);
     _SX = _SY = _SZ = 5 * 1000;
@@ -46,8 +46,8 @@ void MyStraightLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 void MyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
-    _pMvNavigator->setMvVelo(80000);
-    _pMvNavigator->setMvAcce(300);
+    _pKurokoA->setMvVelo(80000);
+    _pKurokoA->setMvAcce(300);
     MyStgUtil::resetMyStraightLaserChip001Status(_pStatus);
     _default_stamina = _pStatus->get(STAT_Stamina);
 }

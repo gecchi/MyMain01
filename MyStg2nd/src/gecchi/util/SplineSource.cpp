@@ -82,6 +82,25 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
         p[i][0] = p[i][0] * MyShip::_lim_front; //X
         p[i][1] = p[i][1] * MyShip::_lim_top;   //Y
         p[i][2] = p[i][2] * MyShip::_lim_zleft; //Z
+
+        if (p[i][0] > GgafDx9Universe::_X_goneRight*0.9) {
+            p[i][0] = GgafDx9Universe::_X_goneRight*0.9;
+        }
+        if (p[i][0] < GgafDx9Universe::_X_goneLeft*0.9) {
+            p[i][0] = GgafDx9Universe::_X_goneLeft*0.9;
+        }
+        if (p[i][1] > GgafDx9Universe::_Y_goneTop*0.9) {
+            p[i][1] = GgafDx9Universe::_Y_goneTop*0.9;
+        }
+        if (p[i][1] < GgafDx9Universe::_Y_goneBottom*0.9) {
+            p[i][1] = GgafDx9Universe::_Y_goneBottom*0.9;
+        }
+        if (p[i][2] < GgafDx9Universe::_Z_goneFar*0.9) {
+            p[i][2] = GgafDx9Universe::_Z_goneFar*0.9;
+        }
+        if (p[i][2] < GgafDx9Universe::_Z_goneNear*0.9) {
+            p[i][2] = GgafDx9Universe::_Z_goneNear*0.9;
+        }
     }
     _pSp = NEW GgafDx9Spline3D(p, n, _accuracy);
 }

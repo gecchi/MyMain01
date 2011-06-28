@@ -78,12 +78,12 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
     _Y = cnvCoordDx2App(_pVecCamFromPoint->y);
     _Z = cnvCoordDx2App(_pVecCamFromPoint->z);
 
-    _pMvNavigator->setMvAng(0,0,0);
-    _pMvNavigator->setMvVelo(0);
-    _pMvNavigator->setRzMvAngVelo(0);
-    _pMvNavigator->setRyMvAngVelo(0);
-    _pMvNavigator->_mv_ang_rz_target_flg = true;
-    _pMvNavigator->_mv_ang_ry_target_flg = true;
+    _pKurokoA->setMvAng(0,0,0);
+    _pKurokoA->setMvVelo(0);
+    _pKurokoA->setRzMvAngVelo(0);
+    _pKurokoA->setRyMvAngVelo(0);
+    _pKurokoA->_mv_ang_rz_target_flg = true;
+    _pKurokoA->_mv_ang_ry_target_flg = true;
     setHitAble(false);
 
     _pViewPoint = NEW GgafDx9CameraViewPoint();

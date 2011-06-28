@@ -28,7 +28,7 @@ void EffectExplosion002::processBehavior() {
     _SX+= 100;
     _SY+= 100;
     _pUvFlipper->behave();
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
     _pScaler->behave();
 }
 

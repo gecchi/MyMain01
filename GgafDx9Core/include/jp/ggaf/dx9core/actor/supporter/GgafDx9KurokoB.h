@@ -23,7 +23,7 @@ namespace GgafDx9Core {
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class GgafDx9MvTransporter : public GgafCore::GgafObject {
+class GgafDx9KurokoB : public GgafCore::GgafObject {
     float _dummy1, _dummy2, _dummy3;
 
 public:
@@ -33,7 +33,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    GgafDx9MvTransporter(GgafDx9GeometricActor* prm_pActor);
+    GgafDx9KurokoB(GgafDx9GeometricActor* prm_pActor);
 
 
 
@@ -141,10 +141,10 @@ public:
 
     /**
      * ナビゲーターの仕事を引継ぐ .
-     * 他の GgafDx9MvTransporter オブジェクトを状態を自身に引継ぐ .
-     * @param prm_pMvTransporter 引継元
+     * 他の GgafDx9KurokoB オブジェクトを状態を自身に引継ぐ .
+     * @param prm_pKurokoB 引継元
      */
-    void takeoverMvFrom(GgafDx9MvTransporter* prm_pMvTransporter);
+    void takeoverMvFrom(GgafDx9KurokoB* prm_pKurokoB);
 
 
     void resetMv();
@@ -156,7 +156,7 @@ public:
      */
     virtual void behave();
 
-    virtual ~GgafDx9MvTransporter();
+    virtual ~GgafDx9KurokoB();
 };
 
 }

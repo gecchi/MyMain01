@@ -30,7 +30,7 @@ void EffectExplosion003::onActive() {
 void EffectExplosion003::processBehavior() {
     _fAlpha -= 0.01;
     _pUvFlipper->behave();
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
     _pScaler->behave();
 }
 

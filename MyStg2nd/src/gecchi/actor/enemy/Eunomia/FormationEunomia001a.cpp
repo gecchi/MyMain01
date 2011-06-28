@@ -12,7 +12,7 @@ void FormationEunomia001a::processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, i
     pEnemyEunomia->_pSplineProgram->adjustAxisRate(1.0, 1.0, 1.0);
     pEnemyEunomia->_pSplineProgram->adjustAxisOffset(0, col*50*1000, col*50*1000);
     pEnemyEunomia->_pSplineProgram->setAbsoluteBeginCoordinate();
-    pEnemyEunomia->_pMvNavigator->setMvVelo(_mv_velo);
+    pEnemyEunomia->_pKurokoA->setMvVelo(_mv_velo);
 }
 
 FormationEunomia001a::~FormationEunomia001a() {

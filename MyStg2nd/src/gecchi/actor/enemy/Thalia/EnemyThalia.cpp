@@ -46,7 +46,7 @@ void EnemyThalia::onCreateModel() {
 
 void EnemyThalia::initialize() {
     setHitAble(true);
-    _pMvNavigator->relateFaceAngWithMvAng(true);
+    _pKurokoA->relateFaceAngWithMvAng(true);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 90000);
     setScaleRate(0.3);
@@ -56,8 +56,8 @@ void EnemyThalia::onActive() {
     MyStgUtil::resetEnemyThaliaStatus(_pStatus);
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
-    _pMvNavigator->setFaceAngVelo(AXIS_X, 1000);
-    _pMvNavigator->execSmoothMvVeloSequenceD(_veloTopMv, 1000,
+    _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
+    _pKurokoA->execSmoothMvVeloSequenceD(_veloTopMv, 1000,
                                              MyShip::_lim_front - _X, 0.4, 0.6);
     _pProg->set(THALIA_PROG_MOVE);
     _iMovePatternNo = 0; //行動パターンリセット
@@ -72,9 +72,9 @@ void EnemyThalia::processBehavior() {
 
     switch (_pProg->get()) {
         case THALIA_PROG_MOVE: {
-            if (!_pMvNavigator->isMoveingSmooth()) {
+            if (!_pKurokoA->isMoveingSmooth()) {
                 _pMorpher->intoTargetAcceStep(1, 1.0, 0.0, 0.0005);
-                _pMvNavigator->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+                _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                     0, 100,
                                                     TURN_CLOSE_TO);
 
@@ -99,7 +99,7 @@ void EnemyThalia::processBehavior() {
         }
         case THALIA_PROG_IN_FIRE: {
             if (getActivePartFrame() % 10 == 0) {
-                _pMvNavigator->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
+                _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                                     100, 0,
                                                     TURN_CLOSE_TO);
             }
@@ -107,7 +107,7 @@ void EnemyThalia::processBehavior() {
             if (pLaser) {
                 if (pLaser->_pChip_front == NULL) {
                     _pSeTransmitter->play3D(1);
-                    _pMvNavigator->setFaceAngVelo(AXIS_X, 4000);
+                    _pKurokoA->setFaceAngVelo(AXIS_X, 4000);
                 }
             } else {
                 _pProg->change(THALIA_PROG_CLOSE);
@@ -117,9 +117,9 @@ void EnemyThalia::processBehavior() {
         case THALIA_PROG_CLOSE: {
             //１サイクルレーザー打ち切った
             _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
-            _pMvNavigator->execSmoothMvVeloSequenceD(_veloTopMv, 1000, 1500000, 0.4, 0.6);
-//            _pMvNavigator->execSmoothMvVeloSequence(200, 1000000, 180);
-            _pMvNavigator->setFaceAngVelo(AXIS_X, 1000);
+            _pKurokoA->execSmoothMvVeloSequenceD(_veloTopMv, 1000, 1500000, 0.4, 0.6);
+//            _pKurokoA->execSmoothMvVeloSequence(200, 1000000, 180);
+            _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
             _pProg->change(THALIA_PROG_MOVE);
         }
         default:
@@ -127,7 +127,7 @@ void EnemyThalia::processBehavior() {
     }
 
 
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
     _pMorpher->behave();
     _pSeTransmitter->behave();
 }

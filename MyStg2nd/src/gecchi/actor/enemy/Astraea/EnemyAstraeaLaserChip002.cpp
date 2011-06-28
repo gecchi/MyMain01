@@ -25,10 +25,10 @@ void EnemyAstraeaLaserChip002::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
 
-    _pMvNavigator->setMvVelo(80000);
-    //_pMvNavigator->setMvAcce(300);
-    //_pMvNavigator->forceRyMvAngVeloRange(-90000, 90000);
-    _pMvNavigator->relateFaceAngWithMvAng(true);
+    _pKurokoA->setMvVelo(80000);
+    //_pKurokoA->setMvAcce(300);
+    //_pKurokoA->forceRyMvAngVeloRange(-90000, 90000);
+    _pKurokoA->relateFaceAngWithMvAng(true);
 }
 
 void EnemyAstraeaLaserChip002::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -61,16 +61,16 @@ void EnemyAstraeaLaserChip002::onRefractionFinish(int prm_num_refraction)  {
                                 P_MYSHIP->_Z - _Z,
                                 out_angRz_Target,
                                 out_angRy_Target);
-        out_d_angRz = _pMvNavigator->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
-        out_d_angRy = _pMvNavigator->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
-        _pMvNavigator->addRzMvAng(sgn(out_d_angRz)*20000);
-        _pMvNavigator->addRyMvAng(sgn(out_d_angRy)*30000);
-//        _pMvNavigator->execTurnMvAngSequence(
+        out_d_angRz = _pKurokoA->getRzMvAngDistance(out_angRz_Target, TURN_CLOSE_TO);
+        out_d_angRy = _pKurokoA->getRyMvAngDistance(out_angRy_Target, TURN_CLOSE_TO);
+        _pKurokoA->addRzMvAng(sgn(out_d_angRz)*20000);
+        _pKurokoA->addRyMvAng(sgn(out_d_angRy)*30000);
+//        _pKurokoA->execTurnMvAngSequence(
 //                        P_MYSHIP,
 //                        90000, 0,
 //                        TURN_CLOSE_TO, false);
 
-//        _pMvNavigator->setMvAng(P_MYSHIP);
+//        _pKurokoA->setMvAng(P_MYSHIP);
     }
 }
 

@@ -31,8 +31,8 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshSetActor
 }
 
 void EnemyCeresShot001::initialize() {
-    _pMvNavigator->forceMvVeloRange(_iMvVelo_Top, _iMvVelo_Bottom);
-    _pMvNavigator->relateFaceAngWithMvAng(true);
+    _pKurokoA->forceMvVeloRange(_iMvVelo_Top, _iMvVelo_Bottom);
+    _pKurokoA->relateFaceAngWithMvAng(true);
 
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
@@ -43,8 +43,8 @@ void EnemyCeresShot001::onActive() {
     MyStgUtil::resetEnemyCeresShot001Status(_pStatus);
 
     //oŒ»
-    _pMvNavigator->setMvVelo(_iMvVelo_1st);
-    _pMvNavigator->setMvAcce(_iMoveAcce_1st);
+    _pKurokoA->setMvVelo(_iMvVelo_1st);
+    _pKurokoA->setMvAcce(_iMoveAcce_1st);
 
     setHitAble(true);
 }
@@ -56,23 +56,23 @@ void EnemyCeresShot001::processBehavior() {
     //•ûŒü“]Š·ŠJn
     if (getActivePartFrame() == _frame_TurnBegin) {
 
-        _pMvNavigator->execTurnMvAngSequence(P_MYSHIP,
+        _pKurokoA->execTurnMvAngSequence(P_MYSHIP,
                                                    _angVelo_Turn, 0,
                                                    TURN_CLOSE_TO);
-        _pMvNavigator->setMvAcce(_iMoveAcce_2nd);
+        _pKurokoA->setMvAcce(_iMoveAcce_2nd);
     }
 
     //•ûŒü“]Š·I—¹
     if (getActivePartFrame() == _frame_TurnBegin + _frame_TurnInterval) {
-        _pMvNavigator->setRzMvAngVelo(0);
-        _pMvNavigator->setRyMvAngVelo(0);
-        _pMvNavigator->_mv_ang_ry_target_flg = false;
-        _pMvNavigator->_mv_ang_rz_target_flg = false;
+        _pKurokoA->setRzMvAngVelo(0);
+        _pKurokoA->setRyMvAngVelo(0);
+        _pKurokoA->_mv_ang_ry_target_flg = false;
+        _pKurokoA->_mv_ang_rz_target_flg = false;
     }
 
     //behaveUvFlip();
     //À•W‚É”½‰f
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
     //_pSeTransmitter->behave();
 }
 

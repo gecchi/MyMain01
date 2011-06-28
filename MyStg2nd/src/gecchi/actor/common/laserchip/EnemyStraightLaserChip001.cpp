@@ -14,7 +14,7 @@ EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :
 }
 
 void EnemyStraightLaserChip001::initialize() {
-    _pMvNavigator->setRzRyMvAng(0,0);
+    _pKurokoA->setRzRyMvAng(0,0);
     registHitAreaCube(20000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     setScaleRate(5.0);
@@ -23,8 +23,8 @@ void EnemyStraightLaserChip001::initialize() {
 
 void EnemyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
-    _pMvNavigator->setMvVelo(100000);
-    _pMvNavigator->setMvAcce(300);
+    _pKurokoA->setMvVelo(100000);
+    _pKurokoA->setMvAcce(300);
     MyStgUtil::resetEnemyStraightLaserChip001Status(_pStatus);
 }
 

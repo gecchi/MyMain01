@@ -17,16 +17,16 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name)
 
 void MyTorpedoBlast::initialize() {
     _pCollisionChecker->makeCollision(1);
-    _pMvNavigator->setFaceAngVelo(AXIS_X, 27*1000);
-    _pMvNavigator->setFaceAngVelo(AXIS_Y, 33*1000);
-    _pMvNavigator->setFaceAngVelo(AXIS_Z, 17*1000);
+    _pKurokoA->setFaceAngVelo(AXIS_X, 27*1000);
+    _pKurokoA->setFaceAngVelo(AXIS_Y, 33*1000);
+    _pKurokoA->setFaceAngVelo(AXIS_Z, 17*1000);
     setHitAble(true);
 }
 
 void MyTorpedoBlast::onReset() {
     MyStgUtil::resetMyTorpedoBlastStatus(_pStatus);
     _pCollisionChecker->setColliSphere(0, 1000);
-    _pMvNavigator->setMvVelo(0);
+    _pKurokoA->setMvVelo(0);
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 400*1000);
 
@@ -41,7 +41,7 @@ void MyTorpedoBlast::processBehavior() {
         sayonara();//–c‚ç‚ñ‚Å‚µ‚Ú‚Ş‚ªI—¹
     } else {
         _pCollisionChecker->setColliSphere(0, _pScaler->_scale[AXIS_X]); //“–‚½‚è”»’è‚à•Ï‰»
-        _pMvNavigator->behave();
+        _pKurokoA->behave();
         _pScaler->behave();
     }
 }

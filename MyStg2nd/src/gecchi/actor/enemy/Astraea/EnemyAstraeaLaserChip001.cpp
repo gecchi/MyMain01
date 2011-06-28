@@ -25,9 +25,9 @@ void EnemyAstraeaLaserChip001::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaLaserChip001Status(_pStatus);
 
-    _pMvNavigator->setMvVelo(10000);
-    _pMvNavigator->setMvAcce(400);
-    _pMvNavigator->relateFaceAngWithMvAng(true);
+    _pKurokoA->setMvVelo(10000);
+    _pKurokoA->setMvAcce(400);
+    _pKurokoA->relateFaceAngWithMvAng(true);
 }
 
 void EnemyAstraeaLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -44,27 +44,27 @@ void EnemyAstraeaLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     if (getActivePartFrame() == 40) {
-        _pMvNavigator->execTurnMvAngSequence(
+        _pKurokoA->execTurnMvAngSequence(
                     P_MYSHIP,
                     7000, 0,
                     TURN_ANTICLOSE_TO, false);
     }
 
 
-    if (_pMvNavigator->_mv_ang_ry_target_flg == false && _pMvNavigator->_mv_ang_rz_target_flg == false) {
-        _pMvNavigator->execTurnMvAngSequence(
+    if (_pKurokoA->_mv_ang_ry_target_flg == false && _pKurokoA->_mv_ang_rz_target_flg == false) {
+        _pKurokoA->execTurnMvAngSequence(
                     P_MYSHIP,
                     100, 0,
                     TURN_CLOSE_TO, false);
     }
 //
 //    if (_frame_of_behaving_from_onActive == 35) {
-//        _pMvNavigator->execTurnMvAngSequence(
+//        _pKurokoA->execTurnMvAngSequence(
 //                    P_MYSHIP,
 //                    20000, TURN_ANTICLOSE_TO);
 //    }
 
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
 }
 
 void EnemyAstraeaLaserChip001::onHit(GgafActor* prm_pOtherActor) {

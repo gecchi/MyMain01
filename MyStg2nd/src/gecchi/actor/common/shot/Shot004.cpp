@@ -21,9 +21,9 @@ void Shot004::initialize() {
 void Shot004::onReset() {
     setScaleRate(100.0);
     setAlpha(0.99); //半透明にすることで両面レンダリング
-    _pMvNavigator->setMvVelo(40000);             //移動速度
-    _pMvNavigator->setMvAcce(1000);             //移動速度
-    _pMvNavigator->relateFaceAngWithMvAng(true);
+    _pKurokoA->setMvVelo(40000);             //移動速度
+    _pKurokoA->setMvAcce(1000);             //移動速度
+    _pKurokoA->relateFaceAngWithMvAng(true);
 }
 
 void Shot004::onActive() {
@@ -36,7 +36,7 @@ void Shot004::processBehavior() {
     //弾なので不要
 
     //座標に反映
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
 }
 
 void Shot004::processJudgement() {

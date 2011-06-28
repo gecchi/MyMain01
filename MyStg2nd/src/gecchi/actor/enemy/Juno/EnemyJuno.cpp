@@ -32,8 +32,8 @@ void EnemyJuno::initialize() {
     setHitAble(false);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB_Cube(0, 45000);
-    _pMvNavigator->setFaceAngVelo(AXIS_Z, -7000);
-    _pMvNavigator->forceMvVeloRange(1, _pMvNavigator->_veloMv);
+    _pKurokoA->setFaceAngVelo(AXIS_Z, -7000);
+    _pKurokoA->forceMvVeloRange(1, _pKurokoA->_veloMv);
 }
 
 void EnemyJuno::onActive() {
@@ -44,9 +44,9 @@ void EnemyJuno::onActive() {
     _can_Shot = true;
     _nShot = 0;
     _frame_when_shot = 0;
-    _veloMv_begin = _pMvNavigator->_veloMv; //初期移動速度を保存
-    _pMvNavigator->setFaceAng(AXIS_X, 0);
-    //_pMvNavigator->execTurnMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
+    _veloMv_begin = _pKurokoA->_veloMv; //初期移動速度を保存
+    _pKurokoA->setFaceAng(AXIS_X, 0);
+    //_pKurokoA->execTurnMvAngSequence(P_MYSHIP, 50, 0, TURN_CLOSE_TO, false);
 }
 
 void EnemyJuno::processBehavior() {
@@ -55,16 +55,16 @@ void EnemyJuno::processBehavior() {
 
     if (_do_Shot) {
         if (getActivePartFrame() == _frame_when_shot) {
-            _pMvNavigator->setMvVelo(500); //減速
-            _pMvNavigator->execTurnRxSpinAngSequence(ANGLE180, 8000, 0, TURN_CLOCKWISE);
+            _pKurokoA->setMvVelo(500); //減速
+            _pKurokoA->execTurnRxSpinAngSequence(ANGLE180, 8000, 0, TURN_CLOCKWISE);
         } else if (getActivePartFrame() == _frame_when_shot + 20) {
             if (_pStore_Shot) {
                 GgafDx9DrawableActor* pShot = (GgafDx9DrawableActor*)_pStore_Shot->dispatch();
                 if (pShot) {
                     _nShot++;
                     pShot->locateAs(this);
-                    pShot->_pMvNavigator->relateFaceAngWithMvAng(true);
-                    pShot->_pMvNavigator->setMvAng(P_MYSHIP);
+                    pShot->_pKurokoA->relateFaceAngWithMvAng(true);
+                    pShot->_pKurokoA->setMvAng(P_MYSHIP);
                     pShot->reset();
                     _do_Shot = false;
                     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
@@ -74,7 +74,7 @@ void EnemyJuno::processBehavior() {
                 //ショット発射エフェクト
                 if (_pStore_ShotEffect) {
                 }
-                _pMvNavigator->setMvVelo(_veloMv_begin); //再加速
+                _pKurokoA->setMvVelo(_veloMv_begin); //再加速
             }
         }
     } else {
@@ -93,7 +93,7 @@ void EnemyJuno::processBehavior() {
 
 
 
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
 }
 
 void EnemyJuno::processJudgement() {
@@ -113,7 +113,7 @@ void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
         if (pExplo001) {
             pExplo001->locateAs(this);
-            pExplo001->_pMvNavigator->takeoverMvFrom(_pMvNavigator);
+            pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
         sayonara();
     }

@@ -56,10 +56,10 @@ void EnemyCeres::onActive() {
     MyStgUtil::resetEnemyCeresStatus(_pStatus);
     _iMovePatternNo = 0;
     _frame_Active = 0;
-    _pMvNavigator->relateFaceAngWithMvAng(true);
-    _pMvNavigator->setFaceAngVelo(AXIS_X, 6000);
-    _pMvNavigator->setFaceAngVelo(AXIS_X, 6000);
-    _pMvNavigator->setMvVelo(8000);
+    _pKurokoA->relateFaceAngWithMvAng(true);
+    _pKurokoA->setFaceAngVelo(AXIS_X, 6000);
+    _pKurokoA->setFaceAngVelo(AXIS_X, 6000);
+    _pKurokoA->setMvVelo(8000);
     _pProgram_CeresMove->begin(0); //スプライン移動を開始
     _frame_Active = 0;
 }
@@ -79,21 +79,21 @@ void EnemyCeres::processBehavior() {
             pTama = (GgafDx9DrawableActor*)_pStore_EnemyCeresShots001->dispatch();
             if (pTama) {
                 pTama->locate(_X, _Y, _Z);
-                pTama->_pMvNavigator->setRzRyMvAng(-ANGLE90 + way[i], ANGLE90);
+                pTama->_pKurokoA->setRzRyMvAng(-ANGLE90 + way[i], ANGLE90);
             }
         }
         for (int i = 16; i < 32; i++) {
             pTama = (GgafDx9DrawableActor*)_pStore_EnemyCeresShots001->dispatch();
             if (pTama) {
                 pTama->locate(_X, _Y, _Z);
-                pTama->_pMvNavigator->setRzRyMvAng(-ANGLE90 - way[i], -ANGLE90);
+                pTama->_pKurokoA->setRzRyMvAng(-ANGLE90 - way[i], -ANGLE90);
             }
         }
 
         _iMovePatternNo++;
     }
     _pProgram_CeresMove->behave(); //スプライン移動を進める
-    _pMvNavigator->behave(); //次の座標へ移動
+    _pKurokoA->behave(); //次の座標へ移動
     //_pSeTransmitter->behave();
     _frame_Active++;
 }

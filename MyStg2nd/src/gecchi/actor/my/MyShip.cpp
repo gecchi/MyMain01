@@ -29,8 +29,8 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     //このあたりはFovXに依存するので微調整。
     _lim_top     = CFG_PROPERTY(GAME_BUFFER_HEIGHT)*5*LEN_UNIT / 2;      //上下は画面高さの大体５画面分
     _lim_bottom  = -(CFG_PROPERTY(GAME_BUFFER_HEIGHT)*5*LEN_UNIT / 2);
-    _lim_front   = CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2 ;    //前は画面幅の大体5画面分
-    _lim_behaind = -(CFG_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT / 2 ); //後は画面幅の大体2画面分
+    _lim_front   = CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2 ;    //前は画面幅の大体2.5画面分
+    _lim_behaind = -(CFG_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT / 2 ); //後は画面幅の大体1画面分
     _lim_zleft   = CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2;       //奥手前は画面幅の大体５画面分
     _lim_zright  = -(CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2);
 
@@ -203,7 +203,7 @@ void MyShip::initialize() {
 //    _pCollisionChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
 //    _pCollisionChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
 
-    _pMvNavigator->setMvVelo(0);
+    _pKurokoA->setMvVelo(0);
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 7000);
 
@@ -211,18 +211,18 @@ void MyShip::initialize() {
     setAlpha(1.0);
 
 
-    _pMvTransporter->forceVxMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
-    _pMvTransporter->forceVyMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
-    _pMvTransporter->forceVzMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
+    _pKurokoB->forceVxMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
+    _pKurokoB->forceVyMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
+    _pKurokoB->forceVzMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
 
-    _pMvTransporter->setVxMvAcce(0);
-    _pMvTransporter->setVyMvAcce(0);
-    _pMvTransporter->setVzMvAcce(0);
-    //        _pMvNavigator->forceMvVeloRange(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
-    //        _pMvNavigator->addMvVelo(_iMvVelo_BeginMT);  //速度追加
-    //        _pMvNavigator->setMvAcce(_iMvAcce_MT);
+    _pKurokoB->setVxMvAcce(0);
+    _pKurokoB->setVyMvAcce(0);
+    _pKurokoB->setVzMvAcce(0);
+    //        _pKurokoA->forceMvVeloRange(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
+    //        _pKurokoA->addMvVelo(_iMvVelo_BeginMT);  //速度追加
+    //        _pKurokoA->setMvAcce(_iMvAcce_MT);
 
-    _pMvNavigator->setFaceAngVelo(AXIS_X, 300);
+    _pKurokoA->setFaceAngVelo(AXIS_X, 300);
 }
 
 
@@ -381,24 +381,24 @@ void MyShip::processBehavior() {
         //Notターボ開始時
         if (VB_PLAY->isBeingPressed(VB_TURBO)) {
             //ターボを押し続けることで、移動距離を伸ばす
-            _pMvTransporter->_veloVxMv *= 0.95;
-            _pMvTransporter->_veloVyMv *= 0.95;
-            _pMvTransporter->_veloVzMv *= 0.95;
+            _pKurokoB->_veloVxMv *= 0.95;
+            _pKurokoB->_veloVyMv *= 0.95;
+            _pKurokoB->_veloVzMv *= 0.95;
         } else {
-            _pMvTransporter->_veloVxMv *= 0.9;
-            _pMvTransporter->_veloVyMv *= 0.9;
-            _pMvTransporter->_veloVzMv *= 0.9;
+            _pKurokoB->_veloVxMv *= 0.9;
+            _pKurokoB->_veloVyMv *= 0.9;
+            _pKurokoB->_veloVzMv *= 0.9;
         }
     }
 
     //スピンが勢いよく回っているならば速度を弱める
     angvelo MZ = _angRXTopVelo_MZ-3000; //3000は通常旋回時に速度を弱めて_angRXTopVelo_MZを超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
-    if (_pMvNavigator->_angveloFace[AXIS_X] >= MZ) {
-        _pMvNavigator->_angveloFace[AXIS_X] *= 0.93;
-        //_pMvNavigator->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ*2);
-    } else if (_pMvNavigator->_angveloFace[AXIS_X] <= -MZ) {
-        _pMvNavigator->_angveloFace[AXIS_X] *= 0.93;
-        //_pMvNavigator->setFaceAngAcce(AXIS_X, _angRXAcce_MZ*2);
+    if (_pKurokoA->_angveloFace[AXIS_X] >= MZ) {
+        _pKurokoA->_angveloFace[AXIS_X] *= 0.93;
+        //_pKurokoA->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ*2);
+    } else if (_pKurokoA->_angveloFace[AXIS_X] <= -MZ) {
+        _pKurokoA->_angveloFace[AXIS_X] *= 0.93;
+        //_pKurokoA->setFaceAngAcce(AXIS_X, _angRXAcce_MZ*2);
     }
 
     //左右が未入力なら、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTarget_FaceAngの第4引数より角速度がゆるい場合受け入れ）
@@ -406,14 +406,14 @@ void MyShip::processBehavior() {
 
     } else {
 
-        appangle dist = _pMvNavigator->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
+        appangle dist = _pKurokoA->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < ANGLE180) {
-            _pMvNavigator->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
+            _pKurokoA->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         } else if (-1*ANGLE180 < dist && dist < 0) {
-            _pMvNavigator->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
+            _pKurokoA->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMvNavigator->setMvAcce(0);
-        _pMvNavigator->setStopTarget_FaceAng(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+        _pKurokoA->setMvAcce(0);
+        _pKurokoA->setStopTarget_FaceAng(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
     }
 
     ////////////////////////////////////////////////////
@@ -421,8 +421,8 @@ void MyShip::processBehavior() {
 
 
     //座標に反映
-    _pMvNavigator->behave();
-    _pMvTransporter->behave();
+    _pKurokoA->behave();
+    _pKurokoB->behave();
     _pScaler->behave();
     _pSeTransmitter->behave();
 
@@ -582,9 +582,9 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
     //壁の場合特別な処理
     if (pOther->getKind() & KIND_CHIKEI) {
 
-        _blown_veloX = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vX)*(10000+GgafUtil::abs(_pMvTransporter->_veloVxMv)));
-        _blown_veloY = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vY)*(10000+GgafUtil::abs(_pMvTransporter->_veloVyMv)));
-        _blown_veloZ = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vZ)*(10000+GgafUtil::abs(_pMvTransporter->_veloVzMv)));
+        _blown_veloX = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vX)*(10000+GgafUtil::abs(_pKurokoB->_veloVxMv)));
+        _blown_veloY = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vY)*(10000+GgafUtil::abs(_pKurokoB->_veloVyMv)));
+        _blown_veloZ = (GgafUtil::sign(_pCollisionChecker->_blown_sgn_vZ)*(10000+GgafUtil::abs(_pKurokoB->_veloVzMv)));
     }
     if (pOther->getKind() & KIND_ITEM)  {
     } else {

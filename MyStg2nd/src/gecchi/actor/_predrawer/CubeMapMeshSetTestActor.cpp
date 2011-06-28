@@ -25,12 +25,12 @@ void CubeMapMeshSetTestActor::initialize() {
 }
 
 void CubeMapMeshSetTestActor::onActive() {
-    _pMvNavigator->setFaceAngVelo(AXIS_Y, 200);
+    _pKurokoA->setFaceAngVelo(AXIS_Y, 200);
 }
 
 
 void CubeMapMeshSetTestActor::processBehavior() {
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
 }
 
 CubeMapMeshSetTestActor::~CubeMapMeshSetTestActor() {

@@ -81,7 +81,7 @@ void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 
 void LaserChip::initialize() {
     //_TRACE_("LaserChip::initialize() "<<getName()<<" bump="<<canHit());
-    _pMvNavigator->setMvVelo(40000);
+    _pKurokoA->setMvVelo(40000);
     _fAlpha = 0.99;
 }
 

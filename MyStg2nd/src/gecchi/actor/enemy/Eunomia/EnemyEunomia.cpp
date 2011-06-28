@@ -23,8 +23,8 @@ void EnemyEunomia::onCreateModel() {
 
 void EnemyEunomia::initialize() {
     setHitAble(true);
-    _pMvNavigator->setFaceAngVelo(AXIS_X, -4000);
-    _pMvNavigator->relateFaceAngWithMvAng(true);
+    _pKurokoA->setFaceAngVelo(AXIS_X, -4000);
+    _pKurokoA->relateFaceAngWithMvAng(true);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB_Cube(0, 40000);
 }
@@ -91,7 +91,7 @@ void EnemyEunomia::processBehavior() {
                     pActor_Shot = (GgafDx9DrawableActor*)_pStore_Shot->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->locateAs(this);
-                        pActor_Shot->_pMvNavigator->setRzRyMvAng(paAngWay[i], ANGLE90);
+                        pActor_Shot->_pKurokoA->setRzRyMvAng(paAngWay[i], ANGLE90);
                     }
                 }
                 DELETEARR_IMPOSSIBLE_NULL(paAngWay);
@@ -104,7 +104,7 @@ void EnemyEunomia::processBehavior() {
                 }
             }
 //            //自機へ方向転換
-            _pMvNavigator->execTurnMvAngSequence(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
+            _pKurokoA->execTurnMvAngSequence(P_MYSHIP->_X, _Y, P_MYSHIP->_Z,
                                                 2000, 0,
                                                 TURN_CLOSE_TO);
             _iMovePatternNo++; //次の行動パターンへ
@@ -121,7 +121,7 @@ void EnemyEunomia::processBehavior() {
     if (_pSplineProgram) {
         _pSplineProgram->behave(); //スプライン移動を振る舞い
     }
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
     //_pSeTransmitter->behave();
 }
 
@@ -141,7 +141,7 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
         _pSeTransmitter->play3D(0);
         if (pExplo001) {
             pExplo001->locateAs(this);
-            pExplo001->_pMvNavigator->takeoverMvFrom(_pMvNavigator);
+            pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
 
         //自機側に撃たれて消滅、かつフォメーション所属の場合、

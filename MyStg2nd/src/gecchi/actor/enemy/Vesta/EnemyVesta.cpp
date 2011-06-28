@@ -40,9 +40,9 @@ void EnemyVesta::onCreateModel() {
 
 void EnemyVesta::initialize() {
     setHitAble(true);
-    //_pMvNavigator->setRzMvAngVelo(1000);
-    //_pMvNavigator->setRyMvAngVelo(500);
-    _pMvNavigator->relateFaceAngWithMvAng(true);
+    //_pKurokoA->setRzMvAngVelo(1000);
+    //_pKurokoA->setRyMvAngVelo(500);
+    _pKurokoA->relateFaceAngWithMvAng(true);
     _pMorpher->forceWeightRange(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
     _pCollisionChecker->makeCollision(1);
@@ -69,7 +69,7 @@ void EnemyVesta::processBehavior() {
     //・ローカル座標     ・・・ 親アクターの基点(0,0,0)からの相対的な座標系を意味します。
     //                          座標計算はこちらで行って下さい。
     //＜方針＞
-    //  ①座標計算は主にローカル座標系の計算である。GgafDx9MvNavigator でローカル座標系の操作を行うこととする。
+    //  ①座標計算は主にローカル座標系の計算である。GgafDx9KurokoA でローカル座標系の操作を行うこととする。
     //    しかし、８分木登録や、当たり判定や、ターゲット座標など、他のオブジェクトからワールド座標を参照することが多いため。
     //    基本的にprocessBehavior()開始時は 最終（絶対）座標系(changeGeoFinal())の状態とする。
     //  ②processBehavior()内で必要に応じて changeGeoLocal() で _X, _Y, _Z, _RX, _RY, _RZ の切り替えを行い座標計算を行う。
@@ -96,13 +96,13 @@ void EnemyVesta::processBehavior() {
     //                       他のオブジェクトから、ボーンにあたるアクターを参照するとき、_RX, _RY, _RZは全く信用できません。
 
     //＜注意＞
-    //・GgafDx9MvNavigator(_pMvNavigator)の behave() 以外メソッドは、常にローカル座標の操作とする。
+    //・GgafDx9KurokoA(_pKurokoA)の behave() 以外メソッドは、常にローカル座標の操作とする。
     //  behave()以外メソッドは実際に座標計算しているわけではないので、
     //  changeGeoFinal()時、changeGeoLocal()時に関係なく、呼び出し可能。
-    //・GgafDx9MvNavigator(_pMvNavigator)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
+    //・GgafDx9KurokoA(_pKurokoA)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
     //  したがって、次のように ローカル座標時(changeGeoLocal()時)で呼び出す事とする。
     //    changeGeoLocal();
-    //    _pMvNavigator->behave();
+    //    _pKurokoA->behave();
     //    changeGeoFinal();
     //TODO:混在感をもっとなくす。
 
@@ -142,7 +142,7 @@ void EnemyVesta::processBehavior() {
                 GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pStore_Fired->dispatch();
                 if (pActor) {
                     pActor->locateAs(this);
-                    pActor->_pMvNavigator->relateFaceAngWithMvAng(true);
+                    pActor->_pKurokoA->relateFaceAngWithMvAng(true);
                     //＜現在の最終的な向きを、RzRyで取得する＞
                     //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
                     //元の方向ベクトルを(_Xorg,_Yorg,_Zorg)、
@@ -168,7 +168,7 @@ void EnemyVesta::processBehavior() {
                     appangle Rz, Ry;
                     GgafDx9Util::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                             Rz, Ry); //現在の最終的な向きを、RzRyで取得！
-                    pActor->_pMvNavigator->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
+                    pActor->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
                     pActor->reset();
                 }
             }
@@ -210,7 +210,7 @@ void EnemyVesta::processBehavior() {
         appangle angRz_Target, angRy_Target;
         GgafDx9Util::getRzRyAng(TvX, TvY, TvZ,
                                 angRz_Target, angRy_Target);
-        _pMvNavigator->execTurnMvAngSequence(angRz_Target, angRy_Target,
+        _pKurokoA->execTurnMvAngSequence(angRz_Target, angRy_Target,
                                            1000, 0,
                                            TURN_CLOSE_TO);
     }
@@ -219,9 +219,9 @@ void EnemyVesta::processBehavior() {
     _pMorpher->behave();
     //_pSeTransmitter->behave();
 
-    //_pMvNavigatorの計算はローカルで行う
+    //_pKurokoAの計算はローカルで行う
     changeGeoLocal();
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
     changeGeoFinal();
 
 }

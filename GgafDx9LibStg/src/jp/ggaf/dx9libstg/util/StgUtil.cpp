@@ -25,9 +25,9 @@ void StgUtil::shotWay001(GgafDx9GeometricActor* prm_pFrom,
         pActor_Shot = (GgafDx9DrawableActor*)prm_pStore_Shot->dispatch();
         if (pActor_Shot) {
             pActor_Shot->locateAs(prm_pFrom);
-            pActor_Shot->_pMvNavigator->setRzRyMvAng(rz+paAngWay[i], ry);
-            pActor_Shot->_pMvNavigator->setMvVelo(prm_velo);
-            pActor_Shot->_pMvNavigator->setMvAcce(prm_acce);
+            pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAngWay[i], ry);
+            pActor_Shot->_pKurokoA->setMvVelo(prm_velo);
+            pActor_Shot->_pKurokoA->setMvAcce(prm_acce);
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(paAngWay);
@@ -54,9 +54,9 @@ void StgUtil::shotWay001v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
             pActor_Shot = (GgafDx9DrawableActor*)prm_pStore_Shot->dispatch();
             if (pActor_Shot) {
                 pActor_Shot->locateAs(prm_pFrom);
-                pActor_Shot->_pMvNavigator->setRzRyMvAng(rz+paAngWay[i], ry);
-                pActor_Shot->_pMvNavigator->setMvVelo(now_velo);
-                pActor_Shot->_pMvNavigator->setMvAcce(now_acce);
+                pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAngWay[i], ry);
+                pActor_Shot->_pKurokoA->setMvVelo(now_velo);
+                pActor_Shot->_pKurokoA->setMvAcce(now_acce);
             }
         }
         now_velo *= prm_attenuated;
@@ -82,9 +82,9 @@ void StgUtil::shotWay002(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
         pActor_Shot = (GgafDx9DrawableActor*)prm_pStore_Shot->dispatch();
         if (pActor_Shot) {
             pActor_Shot->locateAs(prm_pFrom);
-            pActor_Shot->_pMvNavigator->setRzRyMvAng(rz+paAngWay[i], ry+ANGLE90);
-            pActor_Shot->_pMvNavigator->setMvVelo(prm_velo);
-            pActor_Shot->_pMvNavigator->setMvAcce(prm_acce);
+            pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAngWay[i], ry+ANGLE90);
+            pActor_Shot->_pKurokoA->setMvVelo(prm_velo);
+            pActor_Shot->_pKurokoA->setMvAcce(prm_acce);
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(paAngWay);
@@ -110,9 +110,9 @@ void StgUtil::shotWay002v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
             pActor_Shot = (GgafDx9DrawableActor*)prm_pStore_Shot->dispatch();
             if (pActor_Shot) {
                 pActor_Shot->locateAs(prm_pFrom);
-                pActor_Shot->_pMvNavigator->setRzRyMvAng(rz+paAngWay[i], ry+ANGLE90);
-                pActor_Shot->_pMvNavigator->setMvVelo(now_velo);
-                pActor_Shot->_pMvNavigator->setMvAcce(now_acce);
+                pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAngWay[i], ry+ANGLE90);
+                pActor_Shot->_pKurokoA->setMvVelo(now_velo);
+                pActor_Shot->_pKurokoA->setMvAcce(now_acce);
             }
         }
         now_velo *= prm_attenuated;

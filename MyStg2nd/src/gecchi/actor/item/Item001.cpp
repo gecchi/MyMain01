@@ -23,7 +23,7 @@ void Item001::onActive() {
 }
 
 void Item001::processBehavior() {
-    _pMvNavigator->behave();
+    _pKurokoA->behave();
 }
 
 void Item001::processJudgement() {
