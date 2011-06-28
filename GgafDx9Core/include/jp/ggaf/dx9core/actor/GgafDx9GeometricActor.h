@@ -39,7 +39,7 @@ public:
     appscale _SY;
     /** [r/w]ワールドZ軸方向スケール(_SZ : 倍率 = 1000 : 1.0倍) */
     appscale _SZ;
-    /** [r]ナビゲーター */
+    /** [r]黒子A */
     GgafDx9KurokoA* _pKurokoA;
     GgafDx9KurokoB* _pKurokoB;
     /** [r]チェッカー */

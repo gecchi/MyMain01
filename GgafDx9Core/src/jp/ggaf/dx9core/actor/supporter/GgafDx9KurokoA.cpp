@@ -6,24 +6,23 @@ using namespace GgafDx9Core;
 // 【メモ】本クラスの考え方と単語の表現
 //
 // ＜２種類の方向＞
-// 「キャラの方向」という言葉が曖昧なため、次の２種類の単語を定義する。「移動方角（方向）」と「軸回転方角（方向）」。
-// 「移動方角（方向）」はキャラの進行方向のみを表現する。これは「移動速度」と伴って、キャラは座標内を移動することとする。
-// 「軸回転方角（方向）」はキャラの向き（前方方向等）のみを表現する事とする。
+// 「キャラの方向」という言葉が曖昧なため、次の２種類の単語を定義する。「移動方角（方向）」と「正面方角（方向）」。
+// 「移動方角」はキャラの進行方向のみを表現する。これは「移動速度」と伴って、キャラは座標内を移動することとする。
+// 「正面方角」はキャラの向き（前方方向等）のみを表現する事とする。
 // キャラクタが画面の上部から下部へ移動しても、キャラクタは下を向くとは限らず自機に向いてほしい場合もある。
 // または、右にキャラを向かせて、左に移動させたいこともある。それぞれ２つの方向設定が必要。
 //
-// ＜移動方角（方向）の２種類の表現方法＞
+// ＜移動方角の２種類の表現方法＞
 // キャラが進む方向、つまり移動方角の方向は、原点から単位球の表面に向かって伸びるベクトル (_vX, _vY, _vZ) で表す方法と、
 // ２つの軸回転アングル値 (_angRzMv, _angRyMv) で表す方法の２種類用意した。クォータニオンは今のところ無し。
-// _angRzMv は Z軸回転角、 _angRyMv は Y軸回転角 を意味している。両方とも0度を、方向ベクトル(1, 0, 0) の方向と定義する。
+// _angRzMv は Z軸回転角、 _angRyMv は Y軸回転角 を意味している。
 // これは方向ベクトルを、緯度と経度、（仰角とアジマス）の関係に見立て、対応させようとした設計。
 // 注意することは、Y軸回転角＝経度 は常に成り立つが、Z軸回転角＝緯度 は、Z軸回転角 → Y軸回転角の順番である場合に限り成り立つ。
-// (※ Y軸回転角 → Z軸回転角 の順番で回転させた場合、Z軸回転角＝緯度 とならないという意味)
-// 本クラスでは、「Z軸回転 → Y軸回転の順番でのZ軸回転角」を簡略して、単に「Z軸回転角」と表現する事とする。
+// 本クラスでは、「Z軸回転 → Y軸回転の順番でのZ軸回転角・Y軸回転角」を簡略して、単に「Z軸回転角・Y軸回転角」と表現する事とする。
 // 成分を個別に表現したい場合は、それぞれ「移動方角（Z軸）」「移動方角（Y軸）」と書くことにする。
 //
 // ソースコード中の、変数やメソッドの
-// 「Rz」という表記は「移動方角（Z軸）（但しZ軸回転 → Y軸回転の順番）」を意味している。
+// 「Rz」という表記は「移動方角（Z軸）」を意味している。
 // 「Ry」という表記は「移動方角（Y軸）」を意味している。
 // 「RzRy」という表現は「Z軸回転 → Y軸回転の順番の移動方角」を表している。
 //
@@ -31,17 +30,14 @@ using namespace GgafDx9Core;
 // Z軸回転角の正の増加は、Z軸の正の方向を向いて反時計回り。
 // Y軸回転角の正の増加は、Y軸の正の方向を向いて反時計回り。とする。
 //
-// 「移動方角」にはZ軸回転角とY軸回転角による指定(_angRzMv, _angRyMv)と単位ベクトル指定(_vX, _vY, _vZ) があると説明したが、
-// 「方角」を普通に考えた場合は、世間一般では方向ベクトル（XYZの値）のことを指すことが多いと思う。
-// しかしこのクラスでは、よく使うのは前者の方で、本クラスのメソッドも _angRzMv と _angRyMv を操作するものがほとんどである。
-// しかし、最終的には ワールド変換行列を作成するため、「単位ベクトル(_vX, _vY, _vZ)*移動速度 」という計算をする必要がある。
-// 結局は単位ベクトルを求めているのだが、座標回転計算を、整数型の _angRzMv と _angRyMv でさんざん行ってから、
+// ところで数学的に「方角」は、方向ベクトル（XYZの値）で表現することが多いと思う。
+// しかしこの本クラスでは、よく使うのは２軸表現の方で、メソッドも _angRzMv と _angRyMv を操作するものが中心となっている。
+// 実は結局内部で単位方向ベクトルを求めているのだが、座標回転計算を、整数型の _angRzMv と _angRyMv でさんざん行ってから、
 // 最後に１回単位ベクトルを求める。という方が速いのではと考えたため、このような設計になった。
-// TODO:最適化の余地だいぶ残っている（が、またいつか）。
-//
-// 本クラスライブラリでは、この(_angRzMv, _angRyMv)を主に操作して、内部で方向ベクトル(_vX, _vY, _vZ) を同期させている。
-// (_vX, _vY, _vZ)のみをメソッドを使わず直接操作すると、(_angRzMv, _angRyMv)との同期が崩れるので注意。
-// 本クラスのメソッドを使用する限りでは、そんなことは起こらないこととする。
+// TODO:最適化の余地だいぶ残っているハズ。またいつか。
+// (_angRzMv, _angRyMv)をメソッドにより操作して、各フレームの最後の内部処理で方向ベクトル(_vX, _vY, _vZ) を同期させている。
+// (_vX, _vY, _vZ)メンバーをメソッドを使わず直接操作すると、(_angRzMv, _angRyMv)との同期が崩れるので注意。
+// 本クラスのメソッドを使用する限りでは、そんなことは起こらない。
 //
 // ＜移動速度:Velo or MvVelo＞
 // キャラは「移動速度」(_veloMv)を保持している。移動する方法は簡単で、基本的に毎フレーム「移動方角」に「移動速度」分動くだけ。
@@ -49,41 +45,41 @@ using namespace GgafDx9Core;
 // (_vX*_veloMv, _vY*_veloMv, _vZ*_veloMv) である。  これに本ライブラリの単位距離(ゲーム中の長さ１と考える整数倍値）を掛ける。
 // よって、(_vX*_veloMv*LEN_UNIT, _vY*_veloMv*LEN_UNIT, _vZ*_veloMv*LEN_UNIT)が１フレーム後の座標。
 
-// ＜軸回転方角:AngFace＞
-// キャラのローカル座標で向いている方角（方向）を「軸回転方角」と呼ぶことにする。
-//「軸回転方角」は、ワールド変換行列の軸回転と同じ回転方法とする。
+// ＜正面方角:AngFace＞
+// キャラのローカル座標で向いている方角（方向）を「正面方角」と呼ぶことにする。
+//「正面方角」は、ワールド変換行列の軸回転と同じ回転方法である。
 // ワールド変換行列の軸回転とは、X軸回転角、Y軸回転角、Z軸回転角のことで、それぞれ、
-// _angFace[AXIS_X], _angFace[AXIS_Y], _angFace[AXIS_Z] が保持している。
-// 本ライブラリでは、キャラ毎のローカル座標系の単位球の表面に向かって伸びるベクトル(1, 0, 0) をキャラの「前方」と設定している。
+// _angFace[AXIS_X], _angFace[AXIS_Y], _angFace[AXIS_Z] と一致する。
+// 本ライブラリでは、方向ベクトル(1, 0, 0) をキャラの「前方」と設定している。
 // Xファイルなどのメッシュモデルも、X軸の正の方向に向いているモノとする。また、モデル「上方向は」は（0, 1, 0)とする。
 // ワールド変換行列の回転行列の掛ける順番は、基本的に 「X軸回転行列 > Z軸回転行列 > Y軸回転行列 > 移動行列 > (拡大縮小) 」 とする。
 // (※  X軸 > Y軸 > Z軸 の順ではないよ！）
 // よって、X軸回転角は幾ら回転させようとも、キャラが向いている方向は変わらず、残りのZ軸回転角と、Y軸回転角でキャラが向いている方向を決定することとする。
 // X軸回転角はキャラのスピン、のこり２角（Z軸回転角・Y軸回転角）でキャラの「前方」方角がを決定するとした場合、
-// 「軸回転方角」も先ほどの「移動方角」と同じように、Z軸回転角とY軸回転角（緯度と経度)の２つのアングル値
+// 「正面方角」も先ほどの「移動方角」と同じように、Z軸回転角とY軸回転角（緯度と経度)の２つのアングル値
 // (_angFace[AXIS_Z], _angFace[AXIS_Y])で表現できる。
 // つまり、「前方」は Z軸回転角・Y軸回転角共に0度とし、例えば「後ろ」は[Z軸回転角,Y軸回転角]=[0度,180度] と表現する。。
-// 単に「Z軸回転角」などと書くと、「移動方角」のZ軸回転角なのか、「軸回転方角」のZ軸回転角なのか曖昧になるため、
-// 「軸回転方角(Z軸)」「軸回転方角(Y軸)」と書くこととする。（※「軸回転方角(X軸)」もあるが、これはスピンを表し向きへの影響は無し）
-// ここで注意は、１つのキャラが向いている方角に対して、実は２通りのアクセスする方法があるということ。例えば、
-// 「前方(1, 0, 0)を向いて真右向き」 は [軸回転方角(Z軸), 軸回転方角(Y軸)]=[0, 90度] or [180度,270度] とで表現できる。
-// （※軸回転方角(Y軸)は左手系座標のためY軸の正方向を向いて反時計回り）
+// 単に「Z軸回転角」などと書くと、「移動方角」のZ軸回転角なのか、「正面方角」のZ軸回転角なのか曖昧になるため、
+// 「正面方角(Z軸)」「正面方角(Y軸)」と書くこととする。（※「正面方角(X軸)」もあるが、これはスピンを表し向きへの影響は無し）
+// ここで注意は、１つのキャラが向いている方角に対して、常に２通りのアクセスする方法があるということ。例えば、
+// 「前方(1, 0, 0)を向いて真右向き」 は [正面方角(Z軸), 正面方角(Y軸)]=[0, 90度] or [180度,270度] とで表現できる。
+// （※正面方角(Y軸)は左手系座標のためY軸の正方向を向いて反時計回り）
 // 実は 「前方」 も [180度,180度]とも表現できるし、「真後ろ」 は [0度,180度] とも [180度,0度] とも表現できる。
 // どちらも向いている方向は同じだが、姿勢(キャラの上方向)が異なる。姿勢が異なるとまずいキャラは注意すること。
 // 当然、「移動方角」でも、２通りのアクセスする方法があるのだが、こちらは見た目は差が無い。差が無いが角度計算するときに影響がでるやもしれない。
 
 
 // ＜自動前方向き機能＞
-// さてここで 「移動方角（Z軸）」「移動方角（Y軸）」を、それぞれ「軸回転方角(Z軸)」「軸回転方角(Y軸)」 へコピーしてやると、
+// さてここで 「移動方角（Z軸）」「移動方角（Y軸）」を、それぞれ「正面方角(Z軸)」「正面方角(Y軸)」 へコピーしてやると、
 // なんと移動方角と、キャラクタの向きの同期が簡単に取れるじゃないか！
-// 「自動前方向き機能」とは、「移動方角」を設定すると、それに伴って自動的に「軸回転方角」を設定する事とする。
+// 「自動前方向き機能」とは、「移動方角」を設定すると、それに伴って自動的に「正面方角」を設定する事とする。
 // 具体的には、以下のようにフレーム毎に、アングル値を上書きコピー（同期）。或いは差分を加算（向き方向を滑らかに描画）していく。
-//  ・移動方角（Z軸） → 軸回転方角(Z軸)
-//  ・移動方角（Y軸） → 軸回転方角(Y軸)
-// しかし「軸回転方角」を設定ても「移動方角」変化しない（逆は関連しない）ので注意。
+//  ・移動方角（Z軸） → 正面方角(Z軸)
+//  ・移動方角（Y軸） → 正面方角(Y軸)
+// しかし「正面方角」を設定ても「移動方角」変化しない（逆は関連しない）ので注意。
 
 // ＜角速度:AngVelo＞
-// 「移動方角（Z軸）」「移動方角（Y軸）」、「軸回転方角(Z軸)」「軸回転方角(Y軸)」には、それぞれの「角速度」を設けてある。
+// 「移動方角（Z軸）」「移動方角（Y軸）」、「正面方角(Z軸)」「正面方角(Y軸)」には、それぞれの「角速度」を設けてある。
 // 例えば90度右に向きたい場合、キャラがいきなりカクっと向きを変えては悲しいので、毎フレーム角速度だけ角を加算するようにして、
 // 滑らかに向きを変えるようにする。
 // 「角速度」は正負の注意が必要。正の場合は反時計回り、負の場合は時計回りになる。
@@ -127,27 +123,27 @@ GgafDx9KurokoA::GgafDx9KurokoA(GgafDx9GeometricActor* prm_pActor) :
 
     for (int i = 0; i < 3; i++) { // i=0:X軸、1:Y軸、2:Z軸 を表す
 
-        //軸回転方角
+        //正面方角
         _angFace[i] = 0; //0 appangle は ３時の方角を向いている
-        //軸回転方角の角速度（軸回転方角の増分）= 0 angle/fream
-        _angveloFace[i] = 0; //1フレームに加算される軸回転方角の角増分。デフォルトは軸回転方角の角増分無し、つまり振り向き無し。
-        //軸回転方角の角速度上限 ＝ 360,000 angle/fream
-        _angveloTopFace[i] = ANGLE360; //_angveloFace[n] の増分の上限。デフォルトは1フレームで好きな軸回転方角に振り向く事が出来る事を意味する
-        //軸回転方角の角速度下限 ＝ -360,000 angle/fream
-        _angveloBottomFace[i] = ANGLE360 * -1; //_angveloFace[n] の増分の下限。デフォルトは1フレームで好きな軸回転方角に振り向く事が出来る事を意味する
-        //軸回転方角の角加速度（角速度の増分） ＝ 0 angle/fream^2
-        _angacceFace[i] = 0; //_angveloFace[n] の増分。デフォルトは軸回転方角の角加速度無し
+        //正面方角の角速度（正面方角の増分）= 0 angle/fream
+        _angveloFace[i] = 0; //1フレームに加算される正面方角の角増分。デフォルトは正面方角の角増分無し、つまり振り向き無し。
+        //正面方角の角速度上限 ＝ 360,000 angle/fream
+        _angveloTopFace[i] = ANGLE360; //_angveloFace[n] の増分の上限。デフォルトは1フレームで好きな正面方角に振り向く事が出来る事を意味する
+        //正面方角の角速度下限 ＝ -360,000 angle/fream
+        _angveloBottomFace[i] = ANGLE360 * -1; //_angveloFace[n] の増分の下限。デフォルトは1フレームで好きな正面方角に振り向く事が出来る事を意味する
+        //正面方角の角加速度（角速度の増分） ＝ 0 angle/fream^2
+        _angacceFace[i] = 0; //_angveloFace[n] の増分。デフォルトは正面方角の角加速度無し
 
         _angjerkFace[i] = 0;
-        //目標軸回転方角への自動向きフラグ = 無効
+        //目標正面方角への自動向きフラグ = 無効
         _face_ang_targeting_flg[i] = false;
-        //目標軸回転方角への自動停止フラグ = 無効
+        //目標正面方角への自動停止フラグ = 無効
         _face_ang_targeting_stop_flg[i] = false;
-        //目標の軸回転方角
-        _angTargetFace[i] = 0; //目標軸回転方角への自動制御フラグ = 無効、の場合は無意味
-        //目標の軸回転方角自動停止機能が有効になる回転方向
+        //目標の正面方角
+        _angTargetFace[i] = 0; //目標正面方角への自動制御フラグ = 無効、の場合は無意味
+        //目標の正面方角自動停止機能が有効になる回転方向
         _face_ang_target_allow_way[i] = TURN_BOTH;
-        //目標の軸回転方角自動停止機能が有効になる角速度（回転正負共通）
+        //目標の正面方角自動停止機能が有効になる角速度（回転正負共通）
         _face_ang_target_allow_velo[i] = ANGLE180;
     }
 
@@ -190,8 +186,8 @@ GgafDx9KurokoA::GgafDx9KurokoA(GgafDx9GeometricActor* prm_pActor) :
     _mv_ang_rz_target_allow_way = TURN_BOTH;
     //目標の移動方角（Z軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
     _mv_ang_rz_target_allow_velo = ANGLE180;
-    //移動方角（Z軸回転）に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
-    _relate_RzFaceAng_with_RzMvAng_flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
+    //移動方角（Z軸回転）に伴いZ正面方角の同期を取る機能フラグ ＝ 無効
+    _relate_RzFaceAng_with_RzMvAng_flg = false; //有効の場合は、移動方角を設定するとZ正面方角が同じになる。
 
     //移動方角（Y軸回転）の角速度 = 0 angle/fream
     _angveloRyMv = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
@@ -213,8 +209,8 @@ GgafDx9KurokoA::GgafDx9KurokoA(GgafDx9GeometricActor* prm_pActor) :
     _mv_ang_ry_target_allow_way = TURN_BOTH;
     //目標の移動方角（Y軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
     _mv_ang_ry_target_allow_velo = ANGLE180;
-    //移動方角（Y軸回転）に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
-    _relate_RyFaceAng_with_RyMvAng_flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
+    //移動方角（Y軸回転）に伴いZ正面方角の同期を取る機能フラグ ＝ 無効
+    _relate_RyFaceAng_with_RyMvAng_flg = false; //有効の場合は、移動方角を設定するとZ正面方角が同じになる。
 
     _smooth_mv_velo_seq_flg = false;
     _smooth_mv_velo_seq_endacc_flg = true;
@@ -243,7 +239,7 @@ GgafDx9KurokoA::GgafDx9KurokoA(GgafDx9GeometricActor* prm_pActor) :
 
 void GgafDx9KurokoA::behave() {
 
-    //軸回転方角処理
+    //正面方角処理
     appangle angDistance;
     for (int i = 0; i < 3; i++) {
         if (_face_ang_targeting_flg[i]) { //ターゲット方向がある場合
@@ -282,8 +278,8 @@ void GgafDx9KurokoA::behave() {
 
             if (_face_ang_targeting_flg[i] == false) {
                 //目標方向に到達した時の処理
-                //_angveloTopFace[i] = ANGLE360; //軸回転方角の角速度上限 ＝ 360,000 angle/fream
-                //_angveloBottomFace[i] = ANGLE360 * -1; //軸回転方角の角速度下限 ＝ -360,000 angle/fream
+                //_angveloTopFace[i] = ANGLE360; //正面方角の角速度上限 ＝ 360,000 angle/fream
+                //_angveloBottomFace[i] = ANGLE360 * -1; //正面方角の角速度下限 ＝ -360,000 angle/fream
 
                 //目標方向に到達した時、停止処理を行なう
                 _angacceFace[i] = 0; //軸回転方向角、角速度を０へ
@@ -292,7 +288,7 @@ void GgafDx9KurokoA::behave() {
 
         } else {
             //if (_angacceFace[i] != 0) {
-            //フレーム毎の軸回転方角旋廻の処理
+            //フレーム毎の正面方角旋廻の処理
             _angveloFace[i] += _angacceFace[i];
             if (_angveloFace[i] != 0) {
                 addFaceAng(i, _angveloFace[i]);
@@ -637,7 +633,7 @@ appangle GgafDx9KurokoA::getFaceAngDistance(axisid prm_axis, appangle prm_angTar
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-                throwGgafCriticalException("GgafDx9KurokoA::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9KurokoA::getFaceAngDistance() 現在の正面方角アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angFace[prm_axis] && _angFace[prm_axis] <= ANGLE360) {
             if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis] - ANGLE180) {
@@ -657,7 +653,7 @@ appangle GgafDx9KurokoA::getFaceAngDistance(axisid prm_axis, appangle prm_angTar
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-                throwGgafCriticalException("GgafDx9KurokoA::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9KurokoA::getFaceAngDistance() 現在の正面方角アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
@@ -678,7 +674,7 @@ appangle GgafDx9KurokoA::getFaceAngDistance(axisid prm_axis, appangle prm_angTar
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-                throwGgafCriticalException("GgafDx9KurokoA::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9KurokoA::getFaceAngDistance() 現在の正面方角アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
         } else if (ANGLE180 <= _angFace[prm_axis] && _angFace[prm_axis] <= ANGLE360) {
             if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis] - ANGLE180) {
@@ -697,7 +693,7 @@ appangle GgafDx9KurokoA::getFaceAngDistance(axisid prm_axis, appangle prm_angTar
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-                throwGgafCriticalException("GgafDx9KurokoA::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
+                throwGgafCriticalException("GgafDx9KurokoA::getFaceAngDistance() 現在の正面方角アングル値か、ターゲットアングル値が範囲外です(2)。_pActor="<<_pActor->getName());
             }
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
@@ -711,7 +707,7 @@ appangle GgafDx9KurokoA::getFaceAngDistance(axisid prm_axis, appangle prm_angTar
         } else {
             //おかしい
             _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-            throwGgafCriticalException("GgafDx9KurokoA::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(3)。_pActor="<<_pActor->getName());
+            throwGgafCriticalException("GgafDx9KurokoA::getFaceAngDistance() 現在の正面方角アングル値か、ターゲットアングル値が範囲外です(3)。_pActor="<<_pActor->getName());
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
         if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < _angTargetRot) {
@@ -724,7 +720,7 @@ appangle GgafDx9KurokoA::getFaceAngDistance(axisid prm_axis, appangle prm_angTar
         } else {
             //おかしい
             _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
-            throwGgafCriticalException("GgafDx9KurokoA::getFaceAngDistance() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(4)。_pActor="<<_pActor->getName());
+            throwGgafCriticalException("GgafDx9KurokoA::getFaceAngDistance() 現在の正面方角アングル値か、ターゲットアングル値が範囲外です(4)。_pActor="<<_pActor->getName());
         }
     }
     _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
