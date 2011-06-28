@@ -467,18 +467,17 @@ void GgafDx9Util::getRzRyAng(appcoord vx,
     appangle prj_rZY = getAngle2D(abs(vz), abs(vy)); //Rz
     appangle prj_rZX = getAngle2D(abs(vz), abs(vx));
 
-    appangle rotZ, rotY_rev, rotY;
+    appangle rotZ, rotY_rev;
     if (0 <= prj_rXZ && prj_rXZ <= ANGLE45) {
         rotZ = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100.0f)][(int)(prj_rXZ/100.0f)];
         rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0f)][(int)(prj_rXZ/100.0f)];
     } else if (ANGLE45 <= prj_rXZ && prj_rXZ <= ANGLE90) {
         rotZ = PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY/100.0f)][(int)(prj_rZX/100.0f)];
-        rotY = PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY/100.0f)][(int)(prj_rZX/100.0f)];
-        rotY_rev = ANGLE90 - rotY;
+        rotY_rev = ANGLE90 - PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY/100.0f)][(int)(prj_rZX/100.0f)];;
     } else {
         throwGgafCriticalException("GgafDx9Util::getRzRyAng îÕàÕÇ™îjè˘ÇµÇƒÇ‹Ç∑ÅBprj_rXZ="<<prj_rXZ);
     }
-
+#if MY_DEBUG
     if (0 <= prj_rXY && prj_rXY < ANGLE45) {
         //OK
     } else if (ANGLE45 <= prj_rXY && prj_rXY <= ANGLE90) {
@@ -486,6 +485,7 @@ void GgafDx9Util::getRzRyAng(appcoord vx,
     } else {
         throwGgafCriticalException("GgafDx9Util::getRzRyAng îÕàÕÇ™îjè˘ÇµÇƒÇ‹Ç∑ÅBprj_rXY="<<prj_rXY<<" à¯êî:"<<vx<<","<<vy<<","<<vz);
     }
+#endif
     //è€å¿Ç…ÇÊÇ¡ÇƒâÒì]äpÇï‚ê≥
     if (vx >= 0 && vy >= 0 && vz >= 0) { //ëÊàÍè€å¿
         out_angRZ = rotZ;

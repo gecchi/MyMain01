@@ -103,11 +103,40 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 _pKurokoB->setVxMvAcce(((vTx * r) - vVMx)/_r_maxacce);
                 _pKurokoB->setVyMvAcce(((vTy * r) - vVMy)/_r_maxacce);
                 _pKurokoB->setVzMvAcce(((vTz * r) - vVMz)/_r_maxacce);
-
-                GgafDx9Util::getRzRyAng(vVMx, vVMy, vVMz,
-                                        _RZ, _RY);
-                _RX = _RZ;
-
+                if (lVM > _renge/2) {
+                    appangle RZ_temp = _RZ;
+                    appangle RY_temp = _RY;
+                    GgafDx9Util::getRzRyAng(vVMx, vVMy, vVMz,
+                                            RZ_temp, RY_temp);
+                    appangle angDRZ = GgafDx9Util::getAngDiff(RZ_temp, _RZ);
+                    appangle angDRY = GgafDx9Util::getAngDiff(RY_temp, _RY);
+                    if (-5000 <= angDRZ) {
+                        _RZ -= 5000;
+                    } else if (angDRZ <= 5000) {
+                        _RZ += 5000;
+                    } else {
+                        _RZ += angDRZ;
+                    }
+                    if (-5000 <= angDRY) {
+                        _RY -= 5000;
+                    } else if (angDRY <= 5000) {
+                        _RY += 5000;
+                    } else {
+                        _RY += angDRY;
+                    }
+                    if (_RZ >= ANGLE360) {
+                        _RZ -= ANGLE360;
+                    }
+                    if (_RZ < 0) {
+                        _RZ += ANGLE360;
+                    }
+                    if (_RY >= ANGLE360) {
+                        _RY -= ANGLE360;
+                    }
+                    if (_RY < 0) {
+                        _RY += ANGLE360;
+                    }
+                }
 
 //                appangle RZ2 = _RZ;
 //                appangle RY2 = _RY;

@@ -33,7 +33,7 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     _lim_behaind = -(CFG_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT / 2 ); //後は画面幅の大体1画面分
     _lim_zleft   = CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2;       //奥手前は画面幅の大体５画面分
     _lim_zright  = -(CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2);
-
+    _TRACE_("MyShip::MyShip 範囲 X("<<_lim_behaind<<" ~ "<<_lim_front<<") Y("<<_lim_bottom<<" ~ "<<_lim_top<<") Z("<<_lim_zright<<" ~ "<<_lim_zleft<<")");
 
     /** 移動スピードレベルに相応する移動スピード */
     _iMoveSpeed = 5000;
