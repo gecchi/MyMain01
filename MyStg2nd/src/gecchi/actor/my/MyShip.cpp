@@ -262,7 +262,6 @@ void MyShip::processBehavior() {
         _pGgafDx9Model->_specular_power -= 0.1;
     }
 
-
     if (!_can_control) {
         return;
     }
