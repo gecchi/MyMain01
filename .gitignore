@@ -9,6 +9,7 @@
 *.obj
 *.o
 *.exe
+*.swp
 *.htm
 *.pch
 *.res
@@ -18,3 +19,5 @@
 *.pdb
 *.db
 *.rep
+*.svn
+/.svn
