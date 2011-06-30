@@ -10,12 +10,12 @@ namespace GgafDx9Core {
  */
 class GgafDx9GeoElem {
 public:
-    appcoord _X;
-    appcoord _Y;
-    appcoord _Z;
-    appangle _RX;
-    appangle _RY;
-    appangle _RZ;
+    coord _X;
+    coord _Y;
+    coord _Z;
+    angle _RX;
+    angle _RY;
+    angle _RZ;
     GgafDx9GeoElem* _next;
 
     GgafDx9GeoElem() {
@@ -28,7 +28,7 @@ public:
         _next = NULL;
     }
 
-    GgafDx9GeoElem(appcoord prm_X, appcoord prm_Y, appcoord prm_Z) {
+    GgafDx9GeoElem(coord prm_X, coord prm_Y, coord prm_Z) {
         _X = prm_X;
         _Y = prm_Y;
         _Z = prm_Z;
@@ -38,7 +38,7 @@ public:
         _next = NULL;
     }
 
-    GgafDx9GeoElem(appcoord prm_X, appcoord prm_Y, appcoord prm_Z, appangle prm_RX, appangle prm_RY, appangle prm_RZ) {
+    GgafDx9GeoElem(coord prm_X, coord prm_Y, coord prm_Z, angle prm_RX, angle prm_RY, angle prm_RZ) {
         _X = prm_X;
         _Y = prm_Y;
         _Z = prm_Z;
@@ -58,7 +58,7 @@ public:
         _next = NULL;
     }
 
-    void set(appcoord prm_X, appcoord prm_Y, appcoord prm_Z, appcoord prm_RX, appcoord prm_RY, appcoord prm_RZ) {
+    void set(coord prm_X, coord prm_Y, coord prm_Z, coord prm_RX, coord prm_RY, coord prm_RZ) {
         _X = prm_X;
         _Y = prm_Y;
         _Z = prm_Z;
@@ -67,7 +67,7 @@ public:
         _RZ = prm_RZ;
     }
 
-    void set(appcoord prm_X, appcoord prm_Y, appcoord prm_Z) {
+    void set(coord prm_X, coord prm_Y, coord prm_Z) {
         _X = prm_X;
         _Y = prm_Y;
         _Z = prm_Z;

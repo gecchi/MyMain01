@@ -20,9 +20,9 @@ public:
     /** レーザーWay数(n×n)の一辺の本数 */
     int _laser_way;
     /** レーザーとレーザーの間隔開き角度 */
-    appangle _angClearance;
+    angle _angClearance;
     /** 方向転換角速度 */
-    angvelo _angveloTurn;
+    ang_velo _ang_veloTurn;
 
 
     struct PosLaser {

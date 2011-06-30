@@ -104,12 +104,12 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 _pKurokoB->setVyMvAcce(((vTy * r) - vVMy)/_r_maxacce);
                 _pKurokoB->setVzMvAcce(((vTz * r) - vVMz)/_r_maxacce);
                 if (lVM > _renge/2) {
-                    appangle RZ_temp = _RZ;
-                    appangle RY_temp = _RY;
+                    angle RZ_temp = _RZ;
+                    angle RY_temp = _RY;
                     GgafDx9Util::getRzRyAng(vVMx, vVMy, vVMz,
                                             RZ_temp, RY_temp);
-                    appangle angDRZ = GgafDx9Util::getAngDiff(RZ_temp, _RZ);
-                    appangle angDRY = GgafDx9Util::getAngDiff(RY_temp, _RY);
+                    angle angDRZ = GgafDx9Util::getAngDiff(RZ_temp, _RZ);
+                    angle angDRY = GgafDx9Util::getAngDiff(RY_temp, _RY);
                     if (-5000 <= angDRZ) {
                         _RZ -= 5000;
                     } else if (angDRZ <= 5000) {
@@ -138,18 +138,18 @@ void MyOptionWateringLaserChip001::processBehavior() {
                     }
                 }
 
-//                appangle RZ2 = _RZ;
-//                appangle RY2 = _RY;
+//                angle RZ2 = _RZ;
+//                angle RY2 = _RY;
 //                GgafDx9Util::getRzRyAng(vVMx,vVMy,vVMz,RZ2,RY2);
-//                appangle RZ1 = RZ2;
-//                appangle RY1 = RY2;
+//                angle RZ1 = RZ2;
+//                angle RY1 = RY2;
 //                GgafDx9Util::anotherRzRy(RZ2, RY2);
-//                appangle d1_angRz = GgafDx9Util::getAngDiff(_RZ, RZ1);
-//                appangle d1_angRy = GgafDx9Util::getAngDiff(_RY, RY1);
-//                appangle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
-//                appangle d2_angRz = GgafDx9Util::getAngDiff(_RZ, RZ2);
-//                appangle d2_angRy = GgafDx9Util::getAngDiff(_RY, RY2);
-//                appangle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
+//                angle d1_angRz = GgafDx9Util::getAngDiff(_RZ, RZ1);
+//                angle d1_angRy = GgafDx9Util::getAngDiff(_RY, RY1);
+//                angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
+//                angle d2_angRz = GgafDx9Util::getAngDiff(_RZ, RZ2);
+//                angle d2_angRy = GgafDx9Util::getAngDiff(_RY, RY2);
+//                angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
 //                if (d1 <= d2) {
 //                    _RZ = RZ1;
 //                    _RY = RY1;

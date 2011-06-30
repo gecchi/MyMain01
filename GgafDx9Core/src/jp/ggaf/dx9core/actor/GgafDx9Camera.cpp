@@ -239,7 +239,7 @@ void GgafDx9Camera::processJudgement() {
     D3DXMatrixLookAtLH(&_matView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 }
 
-void GgafDx9Camera::setViewPoint(appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ) {
+void GgafDx9Camera::setViewPoint(coord prm_tX, coord prm_tY, coord prm_tZ) {
     _pViewPoint->_X = prm_tX;
     _pViewPoint->_Y = prm_tY;
     _pViewPoint->_Z = prm_tZ;

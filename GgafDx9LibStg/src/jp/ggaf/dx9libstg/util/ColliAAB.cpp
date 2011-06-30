@@ -14,7 +14,7 @@ ColliAAB::ColliAAB() : GgafDx9CollisionPart() {
     _shape_kind = COLLI_AAB;
 }
 
-void ColliAAB::set(appcoord x1, appcoord y1, appcoord z1, appcoord x2, appcoord y2, appcoord z2, bool rotX, bool rotY, bool rotZ) {
+void ColliAAB::set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, bool rotX, bool rotY, bool rotZ) {
     if (x1 < x2) {
         _x1 = x1;
         _x2 = x2;
@@ -64,9 +64,9 @@ void ColliAAB::set(appcoord x1, appcoord y1, appcoord z1, appcoord x2, appcoord 
     _is_valid_flg = true;
 }
 
-void ColliAAB::rotateRxRzRy(appangle rX, appangle rY, appangle rZ) {
+void ColliAAB::rotateRxRzRy(angle rX, angle rY, angle rZ) {
     s_ang s_RX, s_RY, s_RZ;
-    appcoord wk_cx, wk_cy, wk_cz;
+    coord wk_cx, wk_cy, wk_cz;
     //“–‚½‚è”»’è—ÌˆæŽ²‰ñ“]
     s_RX = rX / ANGLE_RATE;
     s_RY = rY / ANGLE_RATE;

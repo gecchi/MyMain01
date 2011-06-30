@@ -57,11 +57,11 @@ void MyOptionTorpedoController::fire() {
         _firing_num = target_num == 0 ? 1 : target_num;
                  // = MyOption::_max_lockon_num;
                  // = target_num == 0 ? MyOption::_max_lockon_num : target_num;
-        appangle angBegin = ANGLE90;
-        appangle angRenge  = ANGLE360 / _pMyOption->_pMyOptionController->_now_option_num;
-        appangle angFireCenter = angBegin + (ANGLE360*(_pMyOption->_no-1) / _pMyOption->_pMyOptionController->_now_option_num);
-        appangle out_rz,out_ry,out_dz,out_dy;
-        appangle* pa_angWay = NEW appangle[ _firing_num+2];
+        angle angBegin = ANGLE90;
+        angle angRenge  = ANGLE360 / _pMyOption->_pMyOptionController->_now_option_num;
+        angle angFireCenter = angBegin + (ANGLE360*(_pMyOption->_no-1) / _pMyOption->_pMyOptionController->_now_option_num);
+        angle out_rz,out_ry,out_dz,out_dy;
+        angle* pa_angWay = NEW angle[ _firing_num+2];
         GgafDx9Util::getWayAngle2D(angFireCenter, _firing_num+1, angRenge / _firing_num, pa_angWay);
         for (int i = 0; i < _firing_num; i++) { //—¼’[‚Ì•ûŒü‚Í•s—v
             _papMyTorpedo[i]->locateAs(P_MYSHIP);

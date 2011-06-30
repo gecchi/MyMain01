@@ -26,7 +26,7 @@ public:
     /** 方向転換に費やすことができるフレーム数 */
     frame _frame_TurnInterval;
     /** 方向転換中の角速度アングル値 */
-    appangle _angVelo_Turn;
+    angle _angVelo_Turn;
     /** 方向転換を開始（_frame_TurnBegin）から再設定される加速度 */
     int _iMoveAcce_2nd;
     //<--- 本Actorのカスタムプロパティ

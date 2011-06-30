@@ -300,7 +300,7 @@ private:
 
 typedef quaternion<float> Quaternion;
 
-//Rectappangle description///////////////////////
+//Rectangle description///////////////////////
 template<typename T>
 class trect {
 public:
@@ -619,13 +619,13 @@ T quaternion<T>::Dot(quaternion<T> &pq)
 
 template<typename T>
 quaternion<T> quaternion<T>::Slerp(T pT, quaternion<T> &pq) {
-    //We calculate the appangle spread between both quaternions
+    //We calculate the angle spread between both quaternions
     T AngleCos = pq.Dot(*this);
     T Angle = qACos(AngleCos); //see the function ACos above
 
     if (Angle < MINFLOAT)
         return quaternion<T>(*this);
-    //We calculate the interpolated appangle and deduce the resulting quaternion
+    //We calculate the interpolated angle and deduce the resulting quaternion
     T InvAngleSin = (T)(1.0f / sin(Angle));
 
     T Coeff0 = sin((1-pT) * Angle) * InvAngleSin;

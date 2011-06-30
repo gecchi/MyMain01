@@ -48,7 +48,7 @@ OptionMagic::OptionMagic(const char* prm_name)
     }
 }
 void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
-    appangle* paAngWay = NEW appangle[prm_new_level-prm_now_level];
+    angle* paAngWay = NEW angle[prm_new_level-prm_now_level];
     GgafDx9Util::getRadialAngle2D(0, prm_new_level-prm_now_level, paAngWay);
     for (int i = prm_now_level; i < prm_new_level; i++) {
         _papEffect[i]->locateAs(P_MYSHIP);

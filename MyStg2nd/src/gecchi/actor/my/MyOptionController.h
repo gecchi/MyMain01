@@ -13,8 +13,8 @@ class MyOptionController : public GgafDx9Core::GgafDx9GeometricActor {
 
 
     struct AngRzRy {
-        appangle Rz;
-        appangle Ry;
+        angle Rz;
+        angle Ry;
     };
 
 
@@ -35,7 +35,7 @@ public:
     /** 対象アクター */
 
     /** 方向転換角速度 */
-    appangle _angVelo_Turn;
+    angle _angVelo_Turn;
     int _renge;
     MyOptionController(const char* prm_name);
 
@@ -59,7 +59,7 @@ public:
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {}
 
-    //void setTerget(appangle prm_angRz_Target, appangle prm_angRy_Target);
+    //void setTerget(angle prm_angRz_Target, angle prm_angRy_Target);
 
     void setNumOption(int prm_num);
 

@@ -14,7 +14,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricA
     _COS_RzMv_begin = 0;
     _SIN_RyMv_begin = 0;
     _COS_RyMv_begin = 0;
-    _angveloRzRyMv = ANGLE360;
+    _ang_veloRzRyMv = ANGLE360;
 }
 
 GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
@@ -22,26 +22,26 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricA
                                                                int prm_point_num,
                                                                double prm_accuracy,
                                                                frame prm_spent_frame,
-                                                               angvelo prm_angveloRzRyMv )
+                                                               ang_velo prm_ang_veloRzRyMv )
 
                                         : GgafDx9SplineProgram(prm_pActor,
                                                                prm_paaCriteriaPoints,
                                                                prm_point_num,
                                                                prm_accuracy)      {
     _spent_frame = prm_spent_frame;
-    _angveloRzRyMv = prm_angveloRzRyMv;
+    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
     init();
 }
 
 GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
                                                                GgafDx9Spline3D* prm_sp,
                                                                frame prm_spent_frame,
-                                                               angvelo prm_angveloRzRyMv)
+                                                               ang_velo prm_ang_veloRzRyMv)
 
                                          : GgafDx9SplineProgram(prm_pActor,
                                                                 prm_sp) {
     _spent_frame = prm_spent_frame;
-    _angveloRzRyMv = prm_angveloRzRyMv;
+    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
     init();
 }
 
@@ -91,10 +91,10 @@ void GgafDx9FixedFrameSplineProgram::init() {
     if (_SPframe_segment < 1) {
         _SPframe_segment = 1;
     }
-    _paDistace_to = NEW appcoord[_sp->_rnum];
+    _paDistace_to = NEW coord[_sp->_rnum];
     _paSPMvVeloTo = NEW velo[_sp->_rnum];
-    appcoord x_from, y_from, z_from;
-    appcoord x_to, y_to, z_to;
+    coord x_from, y_from, z_from;
+    coord x_to, y_to, z_to;
 
     x_to = _sp->_X_compute[0];
     y_to = _sp->_Y_compute[0];
@@ -191,21 +191,21 @@ void GgafDx9FixedFrameSplineProgram::behave() {
                                 ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * _COS_RyMv_begin + dz * _SIN_RyMv_begin) - _X_begin,
                                 (dx * _SIN_RzMv_begin + dy * _COS_RzMv_begin) - _Y_begin,
                                 ((dx * _COS_RzMv_begin + dy * -_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz * _COS_RyMv_begin) - _Z_begin,
-                                _angveloRzRyMv, 0,
+                                _ang_veloRzRyMv, 0,
                                 TURN_CLOSE_TO, true
                               );
             } else if (_option == 1) {
                 //相対座標ターゲット
                 _pKurokoA->execTurnMvAngSequence(
                                 dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
-                                _angveloRzRyMv, 0,
+                                _ang_veloRzRyMv, 0,
                                 TURN_CLOSE_TO, true
                               );
             } else {
                 //絶対座標ターゲット
                 _pKurokoA->execTurnMvAngSequence(
                                 dx, dy, dz,
-                                _angveloRzRyMv, 0,
+                                _ang_veloRzRyMv, 0,
                                 TURN_CLOSE_TO, true
                               );
             }

@@ -14,7 +14,7 @@ public:
     GgafDx9Core::GgafDx9Spline3D* _pSp;
     double _accuracy;
     frame _spent_frame;
-    angvelo _angveloRzRyMv;
+    ang_velo _ang_veloRzRyMv;
     std::string _classname;
 
     SplineSource(char* prm_idstr);

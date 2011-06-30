@@ -23,17 +23,17 @@ public:
     /** コンストラクタ内部でGgafDx9Spline3Dを生成した場合true/コンストラクタ引数にGgafDx9Spline3Dが渡された場合、false */
     bool _is_create_sp;
     /** [r]始点X座標 */
-    appcoord _X_begin;
+    coord _X_begin;
     /** [r]始点Y座標 */
-    appcoord _Y_begin;
+    coord _Y_begin;
     /** [r]始点Z座標 */
-    appcoord _Z_begin;
+    coord _Z_begin;
     float _rate_X;
     float _rate_Y;
     float _rate_Z;
-    appcoord _offset_X;
-    appcoord _offset_Y;
-    appcoord _offset_Z;
+    coord _offset_X;
+    coord _offset_Y;
+    coord _offset_Z;
     /**
      * コンストラクタ .
      * GgafDx9Spline3Dオブジェクトの参照を後から設定して下さい。（setSpline() メソッドで）
@@ -79,7 +79,7 @@ public:
      * @param prm_offset_Y Y軸方向補正増加分
      * @param prm_offset_Z Z軸方向補正増加分
      */
-    void adjustAxisOffset(appcoord prm_offset_X, appcoord prm_offset_Y, appcoord prm_offset_Z) {
+    void adjustAxisOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
         _offset_X = prm_offset_X;
         _offset_Y = prm_offset_Y;
         _offset_Z = prm_offset_Z;

@@ -22,23 +22,23 @@ public:
     /** [r] 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
     bool _is2DActor;
     /** [r/w]ワールドX座標( _X : DirectXのX座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
-    appcoord _X;
+    coord _X;
     /** [r/w]ワールドY座標( _Y : DirectXのY座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
-    appcoord _Y;
+    coord _Y;
     /** [r/w]ワールドZ座標( _Z : DirectXのZ座標 : 初期カメラ位置での画面上ピクセル = 1000 : 0.1 : 約 1px  ) */
-    appcoord _Z;
+    coord _Z;
     /** [r/w]ワールドX軸回転角(_RX : Degree = 1000 : 1度) */
-    appangle _RX;
+    angle _RX;
     /** [r/w]ワールドY軸回転角(_RY : Degree = 1000 : 1度) */
-    appangle _RY;
+    angle _RY;
     /** [r/w]ワールドZ軸回転角(_RZ : Degree = 1000 : 1度) */
-    appangle _RZ;
+    angle _RZ;
     /** [r/w]ワールドX軸方向スケール(_SX : 倍率 = 1000 : 1.0倍) */
-    appscale _SX;
+    scale _SX;
     /** [r/w]ワールドY軸方向スケール(_SY : 倍率 = 1000 : 1.0倍) */
-    appscale _SY;
+    scale _SY;
     /** [r/w]ワールドZ軸方向スケール(_SZ : 倍率 = 1000 : 1.0倍) */
-    appscale _SZ;
+    scale _SZ;
     /** [r]黒子A */
     GgafDx9KurokoA* _pKurokoA;
     GgafDx9KurokoB* _pKurokoB;
@@ -86,30 +86,30 @@ public:
     /** 土台となるアクター(土台が無い場合はNULL) */
     GgafDx9Core::GgafDx9GeometricActor* _pActor_Base;
     /** 土台アクター上でのワールドX座標 */
-    appcoord _X_local;
+    coord _X_local;
     /** 土台アクター上でのワールドY座標 */
-    appcoord _Y_local;
+    coord _Y_local;
     /** 土台アクター上でのワールドZ座標 */
-    appcoord _Z_local;
+    coord _Z_local;
     /** 土台アクター上でのワールドX軸回転角 */
-    appangle _RX_local;
+    angle _RX_local;
     /** 土台アクター上でのワールドY軸回転角 */
-    appangle _RY_local;
+    angle _RY_local;
     /** 土台アクター上でのワールドZ軸回転角 */
-    appangle _RZ_local;
+    angle _RZ_local;
 
-    appcoord _X_final;
-    appcoord _Y_final;
-    appcoord _Z_final;
-    appangle _RX_final;
-    appangle _RY_final;
-    appangle _RZ_final;
-//    appcoord _X_offset;
-//    appcoord _Y_offset;
-//    appcoord _Z_offset;
-//    appangle _RX_offset;
-//    appangle _RY_offset;
-//    appangle _RZ_offset;
+    coord _X_final;
+    coord _Y_final;
+    coord _Z_final;
+    angle _RX_final;
+    angle _RY_final;
+    angle _RZ_final;
+//    coord _X_offset;
+//    coord _Y_offset;
+//    coord _Z_offset;
+//    angle _RX_offset;
+//    angle _RY_offset;
+//    angle _RZ_offset;
 
     bool _is_local;
 
@@ -230,7 +230,7 @@ public:
      * @param Y
      * @param Z
      */
-    virtual void locate(appcoord X, appcoord Y, appcoord Z = 0) {
+    virtual void locate(coord X, coord Y, coord Z = 0) {
         _X = X;
         _Y = Y;
         _Z = Z;
@@ -242,7 +242,7 @@ public:
      * _pScaler->behave(); が存在すると無意味になります。
      * @param S スケール値(1000 で 1.0倍)
      */
-    virtual void setScale(appscale S) {
+    virtual void setScale(scale S) {
         _SX = S;
         _SY = S;
         _SZ = S;
@@ -263,7 +263,7 @@ public:
         setBoundingSphereRadiusRate(prm_rate);
     }
 
-    virtual void addScale(appscale dS) {
+    virtual void addScale(scale dS) {
         _SX += dS;
         _SY += dS;
         _SZ += dS;

@@ -34,11 +34,11 @@ public:
     /** [r]壁ブロック表示面情報 */
     int _wall_draw_face;
     /** [r]壁ブロックの長さ（X座標軸長さ）*/
-    appcoord _wall_dep;
+    coord _wall_dep;
     /** [r]壁ブロックの高さ（Y座標軸長さ）*/
-    appcoord _wall_height;
+    coord _wall_height;
     /** [r]壁ブロックの幅（Z座標軸長さ）*/
-    appcoord _wall_width;
+    coord _wall_width;
 //    /** [r]壁ブロック移動スピード(値は正、但し移動方向はX軸負の方向) */
 //    int _scrool_speed;
 

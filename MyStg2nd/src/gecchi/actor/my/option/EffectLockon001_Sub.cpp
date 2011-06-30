@@ -44,7 +44,7 @@ void EffectLockon001_Sub::processBehavior() {
          }
          //k¬Š®—¹ŒãAMain‚Ìƒr[ƒg‚É‡‚í‚¹‚é
          _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
-         _pKurokoA->_angveloFace[AXIS_Z] = _pEffectLockon001_Main->_pKurokoA->_angveloFace[AXIS_Z];
+         _pKurokoA->_ang_veloFace[AXIS_Z] = _pEffectLockon001_Main->_pKurokoA->_ang_veloFace[AXIS_Z];
          if (_pTarget) {
              if (_pTarget->isActiveActor() || _pTarget->_will_activate_after_flg) {
                  if (abs(_pTarget->_X-_X) <= 200000 &&
@@ -68,7 +68,7 @@ void EffectLockon001_Sub::processBehavior() {
         _pTarget = NULL;
         addAlpha(-0.05);
         _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
-        _pKurokoA->_angveloFace[AXIS_Z] = _pEffectLockon001_Main->_pKurokoA->_angveloFace[AXIS_Z];
+        _pKurokoA->_ang_veloFace[AXIS_Z] = _pEffectLockon001_Main->_pKurokoA->_ang_veloFace[AXIS_Z];
         if (getAlpha() <= 0.0) {
             inactivate();
         }
@@ -102,7 +102,7 @@ void EffectLockon001_Sub::lockon(GgafDx9GeometricActor* prm_pTarget) {
 void EffectLockon001_Sub::releaseLockon() {
     if (isActiveActor()) {
         if (_pProg->get() == LOCKON001_PROG_LOCK) {
-            _pKurokoA->setFaceAngVelo(AXIS_Z, _pKurokoA->_angveloFace[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
+            _pKurokoA->setFaceAngVelo(AXIS_Z, _pKurokoA->_ang_veloFace[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
             _pProg->change(LOCKON001_PROG_RELEASE);
         } else if (_pProg->get() == LOCKON001_PROG_RELEASE) {
             //‰½‚à–³‚µ

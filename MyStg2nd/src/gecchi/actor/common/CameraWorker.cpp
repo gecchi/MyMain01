@@ -34,12 +34,12 @@ void CameraWorker::setMoveTargetCamVpBy(GgafDx9Core::GgafDx9GeometricActor* pTar
     _move_target_Z_VP = pTarget->_Z;
 }
 
-void CameraWorker::setMoveTargetCam(appcoord X, appcoord Y, appcoord Z) {
+void CameraWorker::setMoveTargetCam(coord X, coord Y, coord Z) {
     _move_target_X_CAM = X;
     _move_target_Y_CAM = Y;
     _move_target_Z_CAM = Z;
 }
-void CameraWorker::setMoveTargetCamVp(appcoord X, appcoord Y, appcoord Z) {
+void CameraWorker::setMoveTargetCamVp(coord X, coord Y, coord Z) {
     _move_target_X_VP = X;
     _move_target_Y_VP = Y;
     _move_target_Z_VP = Z;
@@ -176,14 +176,14 @@ void CameraWorker::processBehavior() {
     }
 
     //ÉJÉÅÉâÇÃUPÇåvéZ
-    angvelo angvelo_cam_up = cam_velo_renge/20;
+    ang_velo ang_velo_cam_up = cam_velo_renge/20;
 
     if (_angXY_nowCamUp != _move_target_XY_CAM_UP) {
-        appangle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, _move_target_XY_CAM_UP);
-        if (-angvelo_cam_up < da && da < angvelo_cam_up) {
+        angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, _move_target_XY_CAM_UP);
+        if (-ang_velo_cam_up < da && da < ang_velo_cam_up) {
             _angXY_nowCamUp = _move_target_XY_CAM_UP;
         } else {
-            _angXY_nowCamUp += (angvelo_cam_up * sgn(da));
+            _angXY_nowCamUp += (ang_velo_cam_up * sgn(da));
         }
         _angXY_nowCamUp = GgafDx9Util::simplifyAng(_angXY_nowCamUp);
         pCam->_pVecCamUp->x = GgafDx9Util::COS[_angXY_nowCamUp/ANGLE_RATE];

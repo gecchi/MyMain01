@@ -21,12 +21,15 @@ namespace GgafDx9Core {
 /**
  * ユーティリティクラス .
  * 静的な座標計算関連関数はココに集約していこう。
+ * @version 1.00
+ * @since 2008/09/08
+ * @author Masatoshi Tsuge
  */
 class GgafDx9Util: public GgafCore::GgafUtil {
 
     struct AngleSet {
-        appangle RZ[S_ANG360+1];
-        appangle RY[S_ANG360+1];
+        angle RZ[S_ANG360+1];
+        angle RY[S_ANG360+1];
     };
 
 public:
@@ -51,20 +54,42 @@ public:
      */
     static float RAD[];
     /**
-     * 傾き→angle値変換テーブル
-     * 傾き a の 直線 y = ax の成す角のアングル値は SLANT2ANG[(int)a*10000]
+     * [傾き] → angle値変換テーブル
+     * 要素番号範囲：直線 y = ax 傾き a の 10000 倍の整数精度が要素番号となる。
+     * 直線 y = ax の成す角のアングル値は SLANT2ANG[(int)a*10000] となる。
      */
-    static appangle SLANT2ANG[];
+    static angle SLANT2ANG[];
+    /**
+     * 平面射影時にできるなす角 → 2軸回角  の変換テーブル(その1-1) .
+     * 方向ベクトルを、[XY平面へ射影した時のなす角][XZ平面へ射影した時のなす角] → 元の方向ベクトルのZ軸回転角 の変換テーブル
+     */
+    static angle PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
+    /**
+    /**
+     * 平面射影時にできるなす角 → 2軸回角  の変換テーブル(その1-2) .
+     * 方向ベクトルを、[XY平面へ射影した時のなす角][XZ平面へ射影した時のなす角] → 元の方向ベクトルのY軸(逆)回転角 の変換テーブル
+     */
+    static angle PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
+    /**
+     * 平面射影時にできるなす角 → 2軸回角  の変換テーブル(その2-1) .
+     * 方向ベクトルを、[ZY平面へ射影した時のなす角][ZX平面へ射影した時のなす角] → 元の方向ベクトルのX軸(逆)回転角 の変換テーブル
+     */
+    static angle PROJANG_ZY_ZX_TO_ROTANG_X_REV[S_ANG90+1][S_ANG90+1];
+    /**
+     * 平面射影時にできるなす角 → 2軸回角  の変換テーブル(その2-2) .
+     * 方向ベクトルを、[ZY平面へ射影した時のなす角][ZX平面へ射影した時のなす角] → 元の方向ベクトルのY軸回転角 の変換テーブル
+     */
+    static angle PROJANG_ZY_ZX_TO_ROTANG_Y[S_ANG90+1][S_ANG90+1];
 
-    static appangle PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
-    static appangle PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
-    static appangle PROJANG_ZY_ZX_TO_ROTANG_X_REV[S_ANG90+1][S_ANG90+1];
-    static appangle PROJANG_ZY_ZX_TO_ROTANG_Y[S_ANG90+1][S_ANG90+1];
-
-    static AngleSet ROTY_ANGLE[S_ANG360+1];
+    //static AngleSet ROTY_ANGLE[S_ANG360+1];
 
 
-    /**  1/4 円の解。y = √(1^2-x^2) */
+    /**
+     * 半径 1000 の 1/4 円の解テーブル .
+     *      ______________
+     * y = √(1000^2-x^2)
+     * の 要素[x] に対する y
+     */
     static float ROOT_1_MINUS_XX[1000];
 
 
@@ -74,8 +99,14 @@ public:
 
     static void init();
 
+    /**
+     * 平面上のベクトル(vx, vy) が作る原点のなす角を返す .
+     * @param prm_vx ベクトル x 要素
+     * @param prm_vy ベクトル y 要素
+     * @return なす角のアングル値 (0 ～ 360000)
+     */
     template<typename T>
-    static appangle getAngle2D(T prm_vx, T prm_vy) {
+    static angle getAngle2D(T prm_vx, T prm_vy) {
         if (prm_vx == 0) {
             if (prm_vy > 0) {
                 return ANGLE90;
@@ -127,57 +158,57 @@ public:
     /**
      * アングル値の差を取る .
      * TURN_COUNTERCLOCKWISE ・・・ 回転方向が左回りで差異角取得、正の値で返る。<BR>
-     * TURN_CLOCKWISE        ・・・ 回転方向が右回りで差異角取得、負の値に返る。<BR>
+     * TURN_CLOCKWISE        ・・・ 回転方向が右回りで差異角取得、負の値で返る。<BR>
      * TURN_CLOSE_TO         ・・・ ターゲットの回転角と距離が近い方の回転方向で取得、正又は負の値になる。<BR>
      * @param angFrom
      * @param angTo
      * @param prm_way TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO
      * @return アングル値の差（結果が 反時計周りは正、時計回りは負)
      */
-    static appangle getAngDiff(appangle angFrom, appangle angTo, int prm_way=TURN_CLOSE_TO);
-
+    static angle getAngDiff(angle angFrom, angle angTo, int prm_way=TURN_CLOSE_TO);
 
     /**
-     * 平面上において、'N'way弾(N=整数)のアングル値を取得 .
-     * @param prm_vx_Center [in] 'N'way弾の全体として向いている方向の、方向ベクトルX要素
-     * @param prm_vy_Center [in] 'N'way弾の全体として向いている方向の、方向ベクトルY要素
-     * @param prm_nWay	[in] 'N'way弾の N
+     * 平面上において、'N'way弾(N=整数)の射出アングル値をセット(配列)で取得 .
+     * @param prm_vx_Center     [in] 'N'way弾の全体として向いている方向の、方向ベクトルX要素
+     * @param prm_vy_Center     [in] 'N'way弾の全体として向いている方向の、方向ベクトルY要素
+     * @param prm_nWay	        [in] 'N'way弾の N
      * @param prm_angClearance	[in] 'N'way弾の弾と弾との成す角をアングル値で指定
-     * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列のポインタ
+     * @param out_paAngle	    [out] 得られる'N'way弾 のアングル値配列のポインタ
      */
     static void getWayAngle2D(int prm_vx_Center,
                               int prm_vy_Center,
                               int prm_nWay,
-                              appangle prm_angClearance,
+                              angle prm_angClearance,
                               int* out_paAngle);
 
     /**
-     * 平面上において、'N'way弾(N=整数)のアングル値の配列を取得 .
-     * @param prm_angCenter	[in]'N'way弾の全体として向いている方向のアングル値
-     * @param prm_nWay	[in] 'N'way弾の N
+     * 平面上において、'N'way弾(N=整数)の射出アングル値をセット(配列)で取得 .
+     * @param prm_angCenter	    [in]'N'way弾の全体として向いている方向のアングル値
+     * @param prm_nWay	        [in] 'N'way弾の N
      * @param prm_angClearance	[in] 'N'way弾の弾と弾との成す角をアングル値で指定
-     * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列のポインタ
+     * @param out_paAngle	    [out] 得られる'N'way弾 のアングル値配列のポインタ
      */
-    static void getWayAngle2D(appangle prm_angCenter, int prm_nWay, appangle prm_angClearance, appangle* out_paAngle);
-
-    static void convRzRyToRyRz(appangle prm_Rz, appangle prm_Ry, appangle& out_Ry, appangle& out_Rz);
-
-//    static void getWayAngle_LinedRzLongitude(appangle prm_angCenterRz, appangle prm_angCenterRy,
-//                                           int prm_nWay, appangle prm_angClearance,
-//                                           appangle* out_paAngleRz, appangle* out_paAngleRy);
-
-//    static void getMoveRzRyWayShot3D_XZ(int prm_nWay, appangle prm_angClearance, appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ,
-//                                        appangle& out_angFaceZ, appangle* out_paAngRotY);
-
+    static void getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_angClearance, angle* out_paAngle);
 
     /**
-     * 平面上において、円の放射状全方向の'N'way弾(N=整数)のアングル値を配列で取得 .
-     * 弾と弾との成す角は 均等になる。例えば全方向4way弾の場合、弾と弾との成す角は直角である。
-     * @param prm_angStart	放射状の全方向'N'way弾の１つ目の弾のアングル値
-     * @param prm_nWay	[in] 'N'way弾の N。
-     * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列のポインタ
+     * 平面上において、放射状全方向の'N'way弾(N=整数)のアングル値を配列で取得 .
+     * 弾と弾との成す角は 均等になることとする。
+     * 例えば全方向4way弾の場合、弾と弾との成す角は直角(90000)になる。
+     * @param prm_angStart  放射状の全方向'N'way弾の１つ目の弾のアングル値
+     * @param prm_nWay  [in] 'N'way弾の N。
+     * @param out_paAngle   [out] 得られる'N'way弾 のアングル値配列のポインタ
      */
-    static void getRadialAngle2D(appangle prm_angStart, int prm_nWay, appangle* out_paAngle);
+    static void getRadialAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle);
+
+    static void convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle& out_Rz);
+
+//    static void getWayAngle_LinedRzLongitude(angle prm_angCenterRz, angle prm_angCenterRy,
+//                                           int prm_nWay, angle prm_angClearance,
+//                                           angle* out_paAngleRz, angle* out_paAngleRy);
+
+//    static void getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, coord prm_tX, coord prm_tY, coord prm_tZ,
+//                                        angle& out_angFaceZ, angle* out_paAngRotY);
+
 
     /**
      *
@@ -185,7 +216,7 @@ public:
      * @param prm_angOffset
      * @return
      */
-    static appangle addAng(appangle prm_angNow, appangle prm_angOffset);
+    static angle addAng(angle prm_angNow, angle prm_angOffset);
 
     /**
      *
@@ -195,7 +226,7 @@ public:
      * @param out_X
      * @param out_Y
      */
-    static void rotXY(appcoord prm_X, appcoord prm_Y, appangle prm_ang, appcoord& out_X, appcoord& out_Y);
+    static void rotXY(coord prm_X, coord prm_Y, angle prm_ang, coord& out_X, coord& out_Y);
 
     /**
      *
@@ -205,7 +236,7 @@ public:
      * @param y2
      * @return
      */
-    static int getDistance(appcoord x1, appcoord y1, appcoord x2, appcoord y2);
+    static int getDistance(coord x1, coord y1, coord x2, coord y2);
 
     /**
      * 距離計算 .
@@ -245,7 +276,6 @@ public:
     }
 
 
-
     /**
      * 原点からパラメータ座標を向く方向ベクトルの、Z軸回転アングル値とY軸回転アングル値を取得 .
      * おまけで単位方向ベクトルもゲットできる。<BR>
@@ -260,14 +290,14 @@ public:
      * @param out_angFaceZ [out]Z軸回転アングル値
      * @param out_angFaceY [out]Y軸回転アングル値
      */
-    static void getRzRyAng(appcoord x,
-                           appcoord y,
-                           appcoord z,
+    static void getRzRyAng(coord x,
+                           coord y,
+                           coord z,
                            float& out_nvx,
                            float& out_nvy,
                            float& out_nvz,
-                           appangle& out_angFaceZ,
-                           appangle& out_angFaceY);
+                           angle& out_angFaceZ,
+                           angle& out_angFaceY);
 
     /**
      * 原点からパラメータ座標を向く方向ベクトルに対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
@@ -279,7 +309,7 @@ public:
      * @param out_angFaceZ [out]Z軸回転アングル値
      * @param out_angFaceY [out]Y軸回転アングル値
      */
-    static void getRzRyAng(appcoord x, appcoord y, appcoord z, appangle& out_angFaceZ, appangle& out_angFaceY);
+    static void getRzRyAng(coord x, coord y, coord z, angle& out_angFaceZ, angle& out_angFaceY);
 
     /**
      * 原点からパラメータ座標を向く方向ベクトル(単位ベクトル)に対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
@@ -287,7 +317,7 @@ public:
      * 方向ベクトル -> Z軸Y軸回転方角 の変換。<BR>
      * 計算せずにテーブル参照で高速に行う。<BR>
      * 処理中で、方向ベクトルの正規化を行わないので <BR>
-     * getRzRyAng(int, int, int , appangle&, appangle&);
+     * getRzRyAng(int, int, int , angle&, angle&);
      * よりやや高速。単位ベクトルが求まっているときはこちらを使用しましょう。<BR>
      * @param nvx [in]単位ベクトルX要素
      * @param nvy [in]単位ベクトルY要素
@@ -295,7 +325,7 @@ public:
      * @param out_angFaceZ [out]Z軸回転アングル値
      * @param out_angFaceY [out]Y軸回転アングル値
      */
-    static void getRzRyAng(double nvx, double nvy, double nvz, appangle& out_angFaceZ, appangle& out_angFaceY) {
+    static void getRzRyAng(double nvx, double nvy, double nvz, angle& out_angFaceZ, angle& out_angFaceY) {
         getRzRyAng((int)(nvx*LEN_UNIT*PX_UNIT),
                    (int)(nvy*LEN_UNIT*PX_UNIT),
                    (int)(nvz*LEN_UNIT*PX_UNIT),
@@ -303,7 +333,7 @@ public:
                    out_angFaceY );
     }
 
-    static void getRzRyAng(float nvx, float nvy, float nvz, appangle& out_angFaceZ, appangle& out_angFaceY) {
+    static void getRzRyAng(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY) {
         getRzRyAng((int)(nvx*LEN_UNIT*PX_UNIT),
                    (int)(nvy*LEN_UNIT*PX_UNIT),
                    (int)(nvz*LEN_UNIT*PX_UNIT),
@@ -325,15 +355,15 @@ public:
      * @param out_nvy [out]単位ベクトルY要素
      * @param out_nvz [out]単位ベクトルZ要素
      */
-    static void getNormalizeVectorZY(appangle prm_angFaceZ,
-                                     appangle prm_angFaceY,
+    static void getNormalizeVectorZY(angle prm_angFaceZ,
+                                     angle prm_angFaceY,
                                      float& out_nvx,
                                      float& out_nvy,
                                      float& out_nvz);
 
-    static void getNormalizeVector(appcoord x,
-                                   appcoord y,
-                                   appcoord z,
+    static void getNormalizeVector(coord x,
+                                   coord y,
+                                   coord z,
                                    float& out_nvx,
                                    float& out_nvy,
                                    float& out_nvz);
@@ -343,7 +373,7 @@ public:
      * @param rz1
      * @param ry1
      */
-    static void anotherRzRy(appangle& rz1, appangle& ry1) {
+    static void anotherRzRy(angle& rz1, angle& ry1) {
         int rz2 = 0;
         int ry2 = 0;
         if (0 <= rz1 && rz1 < ANGLE90) {
@@ -386,7 +416,7 @@ public:
      * @param rz1
      * @param ry1
      */
-    static void optimizeRzRy(appangle& rz1, appangle& ry1) {
+    static void optimizeRzRy(angle& rz1, angle& ry1) {
         int rz2 = 0;
         int ry2 = 0;
         if (0 <= rz1 && rz1 < ANGLE90) {
@@ -424,8 +454,8 @@ public:
     }
 
 
-    static appangle simplifyAng(appangle prm_ang) {
-        appangle angSimple = prm_ang;
+    static angle simplifyAng(angle prm_ang) {
+        angle angSimple = prm_ang;
         while (angSimple >= ANGLE360) {
             angSimple -= ANGLE360;
         }
@@ -449,7 +479,7 @@ public:
      * @param y22
      * @return true:ヒット/false:ヒットしてない
      */
-    static bool chk2DLineCrossing(appcoord x11, appcoord y11, appcoord x12, appcoord y12, appcoord x21, appcoord y21, appcoord x22, appcoord y22);
+    static bool chk2DLineCrossing(coord x11, coord y11, coord x12, coord y12, coord x21, coord y21, coord x22, coord y22);
 
 
 

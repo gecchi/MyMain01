@@ -127,28 +127,28 @@ class OggVorbisMemory;
 
 
 class CmRandomNumberGenerator;
-
-typedef int appangle;
-typedef int angvelo;
-typedef int angacce;
-typedef int angjerk;
-typedef int s_ang;
-
-typedef int appcoord;
+typedef int coord;
 typedef int velo;
 typedef int acce;
 typedef int jerk;
 
-typedef int axisid;
-
-typedef int appscale;
-
 typedef int pixcoord;
 typedef float dxcoord;
 
+typedef int angle;
+typedef int ang_velo;
+typedef int ang_acce;
+typedef int ang_jerk;
+typedef int s_ang;
+
+typedef int axis;
+
+typedef int scale;
+
+
 
 #define cnvCoordApp2Dx(X)  ((dxcoord)(1.0f * (X) / LEN_UNIT / PX_UNIT))
-#define cnvCoordDx2App(X)  ((appcoord)((X) * LEN_UNIT * PX_UNIT))
+#define cnvCoordDx2App(X)  ((coord)((X) * LEN_UNIT * PX_UNIT))
 #define cnvCoordDx2Pix(X)  ((X) * PX_UNIT)
 #define cnvCoordPix2Dx(X)  (1.0f * (X) / PX_UNIT)
 #define cnvCoordApp2Pix(X) (1.0f * (X) / LEN_UNIT)

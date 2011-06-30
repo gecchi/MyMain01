@@ -329,7 +329,7 @@ void GgafDx9KurokoB::forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVx
 
 
 void GgafDx9KurokoB::execGravitationVxyzMvSequence(
-        appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ,
+        coord prm_tX, coord prm_tY, coord prm_tZ,
         velo prm_max_velo,
         acce prm_acce,
         int prm_stop_renge

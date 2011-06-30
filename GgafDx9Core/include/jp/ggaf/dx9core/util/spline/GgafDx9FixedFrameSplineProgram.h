@@ -14,11 +14,11 @@ public:
     /** [r]１区間の使用可能フレーム */
     frame _SPframe_segment;
     /** [r]次の補完点までの距離のテーブル */
-    appcoord* _paDistace_to;
+    coord* _paDistace_to;
     /** [r]次の補完点到達に必要な移動速度のテーブル */
     velo* _paSPMvVeloTo;
     /** [rw]方向転換に許されるRzRyの軸転速度 */
-    angvelo _angveloRzRyMv;
+    ang_velo _ang_veloRzRyMv;
     /** [r]目標地点に到着までに設定されたフレーム数 */
     frame _spent_frame;
     /**
@@ -55,14 +55,14 @@ public:
      *                      0.5 とすると基点から次基点までに補完点は1つ入る。
      *                      0.1 とすると基点と基点の間に補完点は9つ入る（なめらかなカーブになる）。
      * @param prm_spent_frame 始点～終点へ移動するのに費やすフレーム数
-     * @param prm_angveloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
+     * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      */
     GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
                                    double prm_paaCriteriaPoint[][3],
                                    int prm_point_num,
                                    double prm_accuracy,
                                    frame prm_spent_frame,
-                                   angvelo prm_angveloRzRyMv);
+                                   ang_velo prm_ang_veloRzRyMv);
     /**
      * コンストラクタ.
      * 固定時間移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
@@ -72,13 +72,13 @@ public:
      * @param prm_pActor 対象のアクター
      * @param prm_sp スプライン曲線の補完点生成、保持クラスのインスタンス
      * @param prm_spent_frame 始点～終点へ移動するのに許されるフレーム数
-     * @param prm_angveloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
+     * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
     GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
                                    GgafDx9Spline3D* prm_sp,
                                    frame prm_spent_frame,
-                                   angvelo prm_angveloRzRyMv);
+                                   ang_velo prm_ang_veloRzRyMv);
 
     /**
      * 初期化関数 .

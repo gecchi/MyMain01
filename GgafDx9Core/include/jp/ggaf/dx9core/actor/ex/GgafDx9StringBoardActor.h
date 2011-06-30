@@ -78,7 +78,7 @@ public:
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param prm_str 描画文字列
      */
-    virtual void update(appcoord X, appcoord Y, const char* prm_str);
+    virtual void update(coord X, coord Y, const char* prm_str);
 
     /**
      * 描画文字を更新設定  .
@@ -86,16 +86,7 @@ public:
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param prm_str 描画文字列
      */
-    virtual void update(appcoord X, appcoord Y, char* prm_str);
-
-    /**
-     * 描画文字を更新設定  .
-     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param Z プライオリティ(値が小さい方が手前)
-     * @param prm_str 描画文字列
-     */
-    virtual void update(appcoord X, appcoord Y, appcoord Z, const char* prm_str);
+    virtual void update(coord X, coord Y, char* prm_str);
 
     /**
      * 描画文字を更新設定  .
@@ -104,7 +95,16 @@ public:
      * @param Z プライオリティ(値が小さい方が手前)
      * @param prm_str 描画文字列
      */
-    virtual void update(appcoord X, appcoord Y, appcoord Z, char* prm_str);
+    virtual void update(coord X, coord Y, coord Z, const char* prm_str);
+
+    /**
+     * 描画文字を更新設定  .
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Z プライオリティ(値が小さい方が手前)
+     * @param prm_str 描画文字列
+     */
+    virtual void update(coord X, coord Y, coord Z, char* prm_str);
 
     /**
      * 描画文字を更新設定  .
@@ -124,14 +124,14 @@ public:
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param Z プライオリティ(値が小さい方が手前)
      */
-    virtual void update(appcoord X, appcoord Y, appcoord Z);
+    virtual void update(coord X, coord Y, coord Z);
 
     /**
      * 描画位置を更新設定  .
      * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      */
-    virtual void update(appcoord X, appcoord Y);
+    virtual void update(coord X, coord Y);
 
 
     virtual void processSettlementBehavior() override;

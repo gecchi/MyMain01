@@ -30,7 +30,7 @@ private:
 public:
     //一時変数達
     int _Xorg,_Yorg,_Zorg;
-    //appangle _RXorg,_RYorg,_RZorg;
+    //angle _RXorg,_RYorg,_RZorg;
     float _vXwk,_vYwk,_vZwk;
 
     /** [r]親アクター */
@@ -54,29 +54,29 @@ public:
 
 
     /** [r]計算された現在の旋廻円周移動角速度（読み出し専用） */
-    angvelo _angveloMove;
+    ang_velo _ang_veloMove;
     /** [r]円周上初期位置角度（周囲角）（initialize()までに変更可／デフォルト=0） */
-    appangle _angPosition;
+    angle _angPosition;
     /** [r]旋廻円周半径（initialize()までに変更可／デフォルト=200000） */
     int _radiusPosition;
     /** [r/w]旋廻円周移動速度（随時変更可／デフォルト=1000） */
     velo _veloMv;
     /** [r/w]オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionControllerと同じ方向（前方）を向いている） */
-    appangle _angExpanse;
+    angle _angExpanse;
 
     /** [r]初期円周上初期位置角度 */
-    appangle _angPosition_base;
+    angle _angPosition_base;
     /** [r]初期旋廻円周半径 */
     int _radiusPosition_base;
     /** [r]初期旋廻円周移動速度 */
     velo _veloMv_base;
     /** [r]初期オプションの広がり回転角 */
-    appangle _angExpanse_default;
+    angle _angExpanse_default;
 
     /** オプションの広がり回転角速度（通常時） */
-    angvelo _angveloExpanseNomal;
+    ang_velo _ang_veloExpanseNomal;
     /** オプションの広がり回転角速度（微調整時） */
-    angvelo _angveloExpanseSlow;
+    ang_velo _ang_veloExpanseSlow;
 
     /** オプションの初期位置に自動戻りを行っている最中は true */
     bool _return_to_base_radiusPosition_seq;
@@ -86,9 +86,9 @@ public:
 
 
     int _adjust_angPos_seq_progress;
-    appangle _adjust_angPos_seq_new_angPosition_base;
+    angle _adjust_angPos_seq_new_angPosition_base;
     frame _adjust_angPos_seq_spent_frame;
-    appangle _adjust_angPos_seq_angPosition;
+    angle _adjust_angPos_seq_angPosition;
 
     //GgafDx9Core::GgafDx9Quaternion _Q;
     EffectMyOption* _pEffect;
@@ -112,9 +112,9 @@ public:
      * @param prm_veloMv 旋回移動速度を指定
      */
     void config(
-            appangle prm_radiusPosition,
-            appangle prm_angPosition,
-            appangle prm_angExpanse,
+            angle prm_radiusPosition,
+            angle prm_angPosition,
+            angle prm_angExpanse,
             velo prm_veloMv)
     {
         _angPosition = prm_angPosition;
@@ -146,7 +146,7 @@ public:
     virtual ~MyOption();
 
 
-    void adjustAngPosition(appangle prm_new_angPosition_base, frame prm_spent_frame);
+    void adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent_frame);
 
 };
 

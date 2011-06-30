@@ -18,7 +18,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _class_name = "MyOption";
     _pMyOptionController = prm_pMyOptionController;
     _no = prm_no;
-    _angveloMove = 0;//ù‰ôˆÚ“®Šp‘¬“xi“Ç‚Ýo‚µê—pj
+    _ang_veloMove = 0;//ù‰ôˆÚ“®Šp‘¬“xi“Ç‚Ýo‚µê—pj
 
     _angPosition = 0;     //‰~Žüã‰ŠúˆÊ’uŠp“xiŽüˆÍŠpjiã‘‚«‰ŠúÝ’è‰Âj
     _radiusPosition = 150000;     //ù‰ô”¼Œa‹——£iã‘‚«‰ŠúÝ’è‰Âj
@@ -33,8 +33,8 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _return_to_base_radiusPosition_seq = false;
     _return_to_base_angExpanse_seq = false;
 
-    _angveloExpanseNomal = 3000;
-    _angveloExpanseSlow = 1000;
+    _ang_veloExpanseNomal = 3000;
+    _ang_veloExpanseSlow = 1000;
 
     _pEffect = NEW EffectMyOption("EffectMyOption", this);
 //    _pEffect->inactivateImmediately();
@@ -105,11 +105,11 @@ void MyOption::initialize() {
 }
 
 void MyOption::onReset() {
-    _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
+    _ang_veloMove = ((1.0f*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
     _pKurokoA->setMvVelo(_veloMv);
     _pKurokoA->setRzMvAng(_angPosition+ANGLE90);
     _pKurokoA->setRyMvAng(-ANGLE90);
-    _pKurokoA->setRzMvAngVelo(_angveloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
+    _pKurokoA->setRzMvAngVelo(_ang_veloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
     _pKurokoA->setRyMvAngVelo(0);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
     _Z = GgafDx9Util::COS[_angPosition/ANGLE_RATE]*_radiusPosition; //XŽ²’†S‰ñ“]‚È‚Ì‚ÅXY‚Å‚Í‚È‚­‚ÄZY
     _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radiusPosition; //XŽ²‚Ì³‚Ì•ûŒü‚ðŒü‚¢‚ÄŽžŒv‰ñ‚è‚É”z’u
@@ -189,7 +189,7 @@ void MyOption::setRadiusPosition(int prm_radius) {
     }
 
     _radiusPosition = prm_radius;
-    appangle angZY_ROTANG_X;
+    angle angZY_ROTANG_X;
     if (_radiusPosition > 0) {
         angZY_ROTANG_X = MyStgUtil::getAngle2D(_Z, _Y); //Ž©•ª‚ÌˆÊ’u
         _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9Util::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
@@ -203,12 +203,12 @@ void MyOption::setRadiusPosition(int prm_radius) {
     //Œë·ŠÛ‚ßž‚Ý‚Ì‚½‚ßA”÷–­‚ÉˆÊ’u‚ª•Ï‚í‚éB
     //‚æ‚Á‚ÄAˆÚ“®•ûŠpAˆÚ“®Šp‘¬“x‚ðŒ»Ý‚ÌˆÊ’u(_Z,_Y)‚ÅÄÝ’è‚µ‚È‚¯‚ê‚ÎƒYƒŒ‚éB
     _pKurokoA->setRzMvAng(GgafDx9Util::simplifyAng(angZY_ROTANG_X + ANGLE90));
-    _angveloMove = ((1.0*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
-    _pKurokoA->setRzMvAngVelo(_angveloMove);
+    _ang_veloMove = ((1.0*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
+    _pKurokoA->setRzMvAngVelo(_ang_veloMove);
 }
 
 
-void MyOption::adjustAngPosition(appangle prm_new_angPosition_base, frame prm_spent_frame) {
+void MyOption::adjustAngPosition(angle prm_new_angPosition_base, frame prm_spent_frame) {
     _adjust_angPos_seq_progress = 1;
     _adjust_angPos_seq_new_angPosition_base = MyStgUtil::simplifyAng(prm_new_angPosition_base);
     _adjust_angPos_seq_spent_frame = prm_spent_frame + 1;
@@ -265,16 +265,16 @@ void MyOption::processBehavior() {
         //ƒIƒvƒVƒ‡ƒ“L‚ª‚è‚ÆŒü‚«§Œä
         if (VB_PLAY->isBeingPressed(VB_OPTION) && VB_PLAY->isBeingPressed(VB_TURBO)) {
                 if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-                    _angExpanse += _angveloExpanseNomal;
+                    _angExpanse += _ang_veloExpanseNomal;
                 } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-                    _angExpanse -= _angveloExpanseNomal;
+                    _angExpanse -= _ang_veloExpanseNomal;
                 }
                 if (VB_PLAY->isBeingPressed(VB_UP)) {
                     addRadiusPosition(2000 * (_radiusPosition_base/60000));
-                    //_angExpanse += _angveloExpanseSlow;
+                    //_angExpanse += _ang_veloExpanseSlow;
                 } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     addRadiusPosition(-2000 * (_radiusPosition_base/60000));
-                    //_angExpanse -= _angveloExpanseSlow;
+                    //_angExpanse -= _ang_veloExpanseSlow;
                 }
 
             _angExpanse = GgafDx9Util::simplifyAng(_angExpanse);
@@ -296,25 +296,25 @@ void MyOption::processBehavior() {
                 _adjust_angPos_seq_angPosition = MyStgUtil::getAngle2D(-_Z, -_Y);
             }
             //Œ»Ý‚ÌŠp‹——£
-            appangle ang_diff = MyStgUtil::getAngDiff(_adjust_angPos_seq_angPosition, _adjust_angPos_seq_new_angPosition_base, sgn(_veloMv));
+            angle ang_diff = MyStgUtil::getAngDiff(_adjust_angPos_seq_angPosition, _adjust_angPos_seq_new_angPosition_base, sgn(_veloMv));
             //ŽcƒtƒŒ[ƒ€‚ÆŽcˆÚ“®Šp‚æ‚è•K—v‚ÈŠp‘¬“x
-            angvelo angvelo_need = ang_diff / (angvelo)_adjust_angPos_seq_spent_frame;
+            ang_velo ang_velo_need = ang_diff / (ang_velo)_adjust_angPos_seq_spent_frame;
             //•K—v‚ÈŠp‘¬“x·•ª
-            angvelo angvelo_offset = angvelo_need - _angveloMove;
+            ang_velo ang_velo_offset = ang_velo_need - _ang_veloMove;
             //•K—v‚ÈŠp‘¬“x·•ª‚É‘Î‰ž‚·‚éˆÚ“®‘¬“x‚ð‹‚ß‚é
-            velo veloMv_offset =  (2.0*PI*_radiusPosition * angvelo_offset) / ANGLE360;
+            velo veloMv_offset =  (2.0*PI*_radiusPosition * ang_velo_offset) / ANGLE360;
             //‘¬“xÝ’è
-            _pKurokoA->setRzMvAngVelo(_angveloMove + angvelo_offset);
+            _pKurokoA->setRzMvAngVelo(_ang_veloMove + ang_velo_offset);
             _pKurokoA->setMvVelo(_veloMv + veloMv_offset);
             _adjust_angPos_seq_spent_frame --;
 
             if (_adjust_angPos_seq_spent_frame == 0) {
                 _angPosition_base = _adjust_angPos_seq_new_angPosition_base;
                 //Œë·C³‚Ì‚½‚ß—‘zˆÊ’u‚ÉÄÝ’è
-                _angveloMove = ((1.0*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
+                _ang_veloMove = ((1.0*_veloMv / _radiusPosition)*(double)ANGLE180)/PI;
                 _pKurokoA->setMvVelo(_veloMv);
                 _pKurokoA->setRzMvAng(GgafDx9Util::simplifyAng(_angPosition_base + ANGLE90));
-                _pKurokoA->setRzMvAngVelo(_angveloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
+                _pKurokoA->setRzMvAngVelo(_ang_veloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
                 _Z = GgafDx9Util::COS[_angPosition_base/ANGLE_RATE]*_radiusPosition; //XŽ²’†S‰ñ“]‚È‚Ì‚ÅXY‚Å‚Í‚È‚­‚ÄZY
                 _Y = GgafDx9Util::SIN[_angPosition_base/ANGLE_RATE]*_radiusPosition; //XŽ²‚Ì³‚Ì•ûŒü‚ðŒü‚¢‚ÄŽžŒv‰ñ‚è‚É”z’u
                 _X = 0;
@@ -325,7 +325,7 @@ void MyOption::processBehavior() {
          //’ÊíŽž
         _pKurokoA->setMvVelo(_veloMv);
     }
-    _angPosition = GgafDx9Util::simplifyAng(_angPosition+_angveloMove);
+    _angPosition = GgafDx9Util::simplifyAng(_angPosition+_ang_veloMove);
 
     _pKurokoA->behave();
     //_pKurokoB->behave();

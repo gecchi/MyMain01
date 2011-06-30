@@ -20,15 +20,15 @@ public:
     class Pos {
     public:
         int _pos_cam;
-        appangle _Rz_up;
-        appangle _Ry_up;
+        angle _Rz_up;
+        angle _Ry_up;
 
         Pos* _pLeft;
         Pos* _pUp;
         Pos* _pRight;
         Pos* _pDown;
 
-        Pos(int prm_pos_cam, appangle prm_Rz_up, appangle prm_Ry_up) {
+        Pos(int prm_pos_cam, angle prm_Rz_up, angle prm_Ry_up) {
             _pLeft = _pUp = _pRight = _pDown = NULL;
             _pos_cam = prm_pos_cam;
             _Rz_up = prm_Rz_up;

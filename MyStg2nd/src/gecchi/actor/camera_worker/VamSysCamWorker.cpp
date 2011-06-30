@@ -104,14 +104,14 @@ void VamSysCamWorker::processBehavior() {
     //カメラのビューポイントの移動目標座標
     int move_target_X_VP, move_target_Y_VP, move_target_Z_VP;
     //カメラの目標UPアングル値
-    appangle move_target_XY_CAM_UP;
+    angle move_target_XY_CAM_UP;
 
     //カメラの目標座標、ビューポイントの目標座標を設定
     static int Dx = (int)((CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)/4*2);
     static int Ddx_hw = (int)((CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2) - (CFG_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2));
 
-//    static appcoord Dx = cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2)/4*2;
-//    static appcoord Ddx_hw = (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2) - (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT)/2));
+//    static coord Dx = cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2)/4*2;
+//    static coord Ddx_hw = (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2) - (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT)/2));
 
 
     static int Dd = 30000;
@@ -491,13 +491,13 @@ void VamSysCamWorker::processBehavior() {
     }
 
     //カメラのUPを計算
-    angvelo angvelo_cam_up = cam_velo_renge/20; //cam_velo_rengeはVB_VIEW押しっぱで超低速になる方の速度
+    ang_velo ang_velo_cam_up = cam_velo_renge/20; //cam_velo_rengeはVB_VIEW押しっぱで超低速になる方の速度
     if (_angXY_nowCamUp != move_target_XY_CAM_UP) {
-        appangle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, move_target_XY_CAM_UP);
-        if (-angvelo_cam_up < da && da < angvelo_cam_up) {
+        angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, move_target_XY_CAM_UP);
+        if (-ang_velo_cam_up < da && da < ang_velo_cam_up) {
             _angXY_nowCamUp = move_target_XY_CAM_UP;
         } else {
-            _angXY_nowCamUp += (angvelo_cam_up * sgn(da));
+            _angXY_nowCamUp += (ang_velo_cam_up * sgn(da));
         }
         _angXY_nowCamUp = GgafDx9Util::simplifyAng(_angXY_nowCamUp);
         pCam->_pVecCamUp->x = GgafDx9Util::COS[_angXY_nowCamUp/ANGLE_RATE];

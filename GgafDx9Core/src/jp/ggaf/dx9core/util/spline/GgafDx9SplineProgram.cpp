@@ -83,9 +83,9 @@ void GgafDx9SplineProgram::behave() {
             return;
         }
 
-        _pActor_target->_X = (appcoord)(_sp->_X_compute[SPPointIndex]*_rate_X + _offset_X);
-        _pActor_target->_Y = (appcoord)(_sp->_Y_compute[SPPointIndex]*_rate_Y + _offset_Y);
-        _pActor_target->_Z = (appcoord)(_sp->_Z_compute[SPPointIndex]*_rate_Z + _offset_Z);
+        _pActor_target->_X = (coord)(_sp->_X_compute[SPPointIndex]*_rate_X + _offset_X);
+        _pActor_target->_Y = (coord)(_sp->_Y_compute[SPPointIndex]*_rate_Y + _offset_Y);
+        _pActor_target->_Z = (coord)(_sp->_Z_compute[SPPointIndex]*_rate_Z + _offset_Z);
 
         _SPframe++;
 

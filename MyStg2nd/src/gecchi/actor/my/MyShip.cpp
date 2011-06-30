@@ -5,15 +5,15 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 int MyShip::wk_dist = 0;
-appangle MyShip::wk_angRx = 0;
+angle MyShip::wk_angRx = 0;
 
 #define S_OPTION 0
-appcoord MyShip::_lim_top     =  0;
-appcoord MyShip::_lim_bottom  =  0;
-appcoord MyShip::_lim_front   =  0;
-appcoord MyShip::_lim_behaind =  0;
-appcoord MyShip::_lim_zleft   =  0;
-appcoord MyShip::_lim_zright  =  0;
+coord MyShip::_lim_top     =  0;
+coord MyShip::_lim_bottom  =  0;
+coord MyShip::_lim_front   =  0;
+coord MyShip::_lim_behaind =  0;
+coord MyShip::_lim_zleft   =  0;
+coord MyShip::_lim_zright  =  0;
 
 MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper") {
 //MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
@@ -391,12 +391,12 @@ void MyShip::processBehavior() {
     }
 
     //スピンが勢いよく回っているならば速度を弱める
-    angvelo MZ = _angRXTopVelo_MZ-3000; //3000は通常旋回時に速度を弱めて_angRXTopVelo_MZを超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
-    if (_pKurokoA->_angveloFace[AXIS_X] >= MZ) {
-        _pKurokoA->_angveloFace[AXIS_X] *= 0.93;
+    ang_velo MZ = _angRXTopVelo_MZ-3000; //3000は通常旋回時に速度を弱めて_angRXTopVelo_MZを超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
+    if (_pKurokoA->_ang_veloFace[AXIS_X] >= MZ) {
+        _pKurokoA->_ang_veloFace[AXIS_X] *= 0.93;
         //_pKurokoA->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ*2);
-    } else if (_pKurokoA->_angveloFace[AXIS_X] <= -MZ) {
-        _pKurokoA->_angveloFace[AXIS_X] *= 0.93;
+    } else if (_pKurokoA->_ang_veloFace[AXIS_X] <= -MZ) {
+        _pKurokoA->_ang_veloFace[AXIS_X] *= 0.93;
         //_pKurokoA->setFaceAngAcce(AXIS_X, _angRXAcce_MZ*2);
     }
 
@@ -405,7 +405,7 @@ void MyShip::processBehavior() {
 
     } else {
 
-        appangle dist = _pKurokoA->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
+        angle dist = _pKurokoA->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < ANGLE180) {
             _pKurokoA->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         } else if (-1*ANGLE180 < dist && dist < 0) {

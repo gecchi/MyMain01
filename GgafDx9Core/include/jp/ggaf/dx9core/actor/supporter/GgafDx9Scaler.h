@@ -81,7 +81,7 @@ public:
      * @param prm_axis 軸
      * @param prm_scale_diff スケール値増分
      */
-    void addScale(axisid prm_axis, int prm_scale_diff) {
+    void addScale(axis prm_axis, int prm_scale_diff) {
         setScale(prm_axis, _scale[prm_axis] + prm_scale_diff);
     }
 
@@ -100,7 +100,7 @@ public:
      * @param prm_axis 軸
      * @param prm_scale スケール値
      */
-    void setScale(axisid prm_axis, int prm_scale) {
+    void setScale(axis prm_axis, int prm_scale) {
         //_TRACE_("setScale ["<<prm_axis<<"]prm_scale="<<prm_scale);
         //_TRACE_("setScale _bottom_scale["<<prm_axis<<"]="<<_bottom_scale[prm_axis]<<"/_top_scale["<<prm_axis<<"]="<<_top_scale[prm_axis]<<"");
         if (_top_scale[prm_axis] < prm_scale) {
@@ -130,7 +130,7 @@ public:
      * @param prm_scale1 スケール値1
      * @param prm_scale2 スケール値2
      */
-    void forceScaleRange(axisid prm_axis, int prm_scale1, int prm_scale2) {
+    void forceScaleRange(axis prm_axis, int prm_scale1, int prm_scale2) {
         if (prm_scale1 < prm_scale2) {
             _bottom_scale[prm_axis] = prm_scale1;
             _top_scale[prm_axis] = prm_scale2;
@@ -156,7 +156,7 @@ public:
      * 初期の大きさに戻す。
      * @param prm_axis 軸
      */
-    void setScaleToBottom(axisid prm_axis) {
+    void setScaleToBottom(axis prm_axis) {
         _scale[prm_axis] = _bottom_scale[prm_axis];
     }
 
@@ -165,7 +165,7 @@ public:
             setScaleToTop(axis);
         }
     }
-    void setScaleToTop(axisid prm_axis) {
+    void setScaleToTop(axis prm_axis) {
         _scale[prm_axis] = _top_scale[prm_axis];
     }
 
@@ -177,7 +177,7 @@ public:
      * スケーリングを停止させる。 （軸単位で指定）.
      * @param prm_axis
      */
-    void stopImmediately(axisid prm_axis);
+    void stopImmediately(axis prm_axis);
 
     /**
      * 片道等速スケーリング（全軸・持続フレーム数指定） .
@@ -194,7 +194,7 @@ public:
      * @param prm_target_scale 目標スケール
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetScaleLinerUntil(axisid prm_axis, int prm_target_scale, frame prm_spend_frame);
+    void intoTargetScaleLinerUntil(axis prm_axis, int prm_target_scale, frame prm_spend_frame);
 
     /**
      * 片道等速スケーリング（全軸・スケール速度指定） .
@@ -211,7 +211,7 @@ public:
      * @param prm_target_scale 目標スケール
      * @param prm_velo_scale 毎フレーム加算するスケール差分(>0.0)。正のスケールを指定する事。加算か減算かは自動判断する。
      */
-    void intoTargetScaleLinerStep(axisid prm_axis, int prm_target_scale, int prm_velo_scale);
+    void intoTargetScaleLinerStep(axis prm_axis, int prm_target_scale, int prm_velo_scale);
 
     /**
      * 片道加速スケーリング（全軸・スケール速度・スケール加速度指定） .
@@ -236,7 +236,7 @@ public:
      * @param prm_velo_scale 初期スケール速度
      * @param prm_acce_scale スケール加速度
      */
-    void intoTargetScaleAcceStep(axisid prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
+    void intoTargetScaleAcceStep(axis prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
 
     /**
      * 反復等速スケーリング（全軸・フレーム数指定） .
@@ -254,7 +254,7 @@ public:
      * @param prm_beat_target_frames １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
-    void loopLiner(axisid prm_axis, frame prm_beat_target_frames, float prm_beat_num);
+    void loopLiner(axis prm_axis, frame prm_beat_target_frames, float prm_beat_num);
 
     /**
      * 三角波の波形でスケーリングする。（全軸指定）.
@@ -293,7 +293,7 @@ public:
      * @param prm_rest_frames 上図で③のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
-    void beat(axisid prm_axis,
+    void beat(axis prm_axis,
               frame prm_beat_target_frames,
               frame prm_attack_frames,
               frame prm_rest_frames,

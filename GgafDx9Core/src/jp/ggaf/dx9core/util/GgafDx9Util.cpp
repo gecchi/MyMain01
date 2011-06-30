@@ -10,7 +10,7 @@ using namespace GgafDx9Core;
 //変数名と種類
 //
 //基本的に度数法（0°～360°）を使用している。
-//ang または appangle と変数名にある場合、ラジアンではなくて度数法での角度数値が入る。
+//ang または angle と変数名にある場合、ラジアンではなくて度数法での角度数値が入る。
 //（ラジアンの場合はradと書くようにしている）
 //但し精度が場合によってまちまちである。
 //キャラがもつ angle値は 0 ～ 360,000 で 値の上では度数法の1000倍の精度を持つ。一応これが基本。
@@ -69,16 +69,16 @@ float GgafDx9Util::RAD[S_ANG360+1];
 float GgafDx9Util::ROOT_1_MINUS_XX[1000];
 
 
-appangle GgafDx9Util::SLANT2ANG[100000 + 1];
+angle GgafDx9Util::SLANT2ANG[100000 + 1];
 
 //こんなんいるのでは！
-//appangle GgafDx9Util::PROJANG_XY_ZX_YZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
+//angle GgafDx9Util::PROJANG_XY_ZX_YZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
 
 
-appangle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
-appangle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
-appangle GgafDx9Util::PROJANG_ZY_ZX_TO_ROTANG_X_REV[S_ANG90+1][S_ANG90+1];
-appangle GgafDx9Util::PROJANG_ZY_ZX_TO_ROTANG_Y[S_ANG90+1][S_ANG90+1];
+angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
+angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
+angle GgafDx9Util::PROJANG_ZY_ZX_TO_ROTANG_X_REV[S_ANG90+1][S_ANG90+1];
+angle GgafDx9Util::PROJANG_ZY_ZX_TO_ROTANG_Y[S_ANG90+1][S_ANG90+1];
 
 GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
 
@@ -161,7 +161,7 @@ void GgafDx9Util::init() {
                 _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(ang*10));
             }
             //等分する（ここがアバウトのもと）
-            SLANT2ANG[i] = (appangle)( ((ang-1) + (1.0*d)/(1.0*d_index_slant))*1.0);
+            SLANT2ANG[i] = (angle)( ((ang-1) + (1.0*d)/(1.0*d_index_slant))*1.0);
         }
         index_slant_prev = index_slant;
     }
@@ -170,7 +170,7 @@ void GgafDx9Util::init() {
         if (i > 100000) {
             _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(450000));
         }
-        SLANT2ANG[i] = (appangle)( (450000-1) + (1.0*d)/(1.0*d_index_slant) );
+        SLANT2ANG[i] = (angle)( (450000-1) + (1.0*d)/(1.0*d_index_slant) );
     }
 
     //<PROJ_ANG2ROT_ANG> （2009/10/20 経緯・・・速くするためなら何でもやってみよう）
@@ -277,12 +277,12 @@ void GgafDx9Util::init() {
 void GgafDx9Util::getWayAngle2D(int prm_vx_Center,
                                 int prm_vy_Center,
                                 int prm_nWay,
-                                appangle prm_angClearance,
-                                appangle* out_paAngle) {
+                                angle prm_angClearance,
+                                angle* out_paAngle) {
     return getWayAngle2D(getAngle2D(prm_vx_Center, prm_vy_Center), prm_nWay, prm_angClearance, out_paAngle);
 }
 
-void GgafDx9Util::getWayAngle2D(appangle prm_angCenter, int prm_nWay, appangle prm_angClearance, appangle* out_paAngle) {
+void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_angClearance, angle* out_paAngle) {
     int angstart = addAng(prm_angCenter, ((prm_nWay - 1) * prm_angClearance) / -2);
 
     for (int i = 0; i < prm_nWay; i++) {
@@ -290,13 +290,13 @@ void GgafDx9Util::getWayAngle2D(appangle prm_angCenter, int prm_nWay, appangle p
     }
 }
 
-void GgafDx9Util::getRadialAngle2D(appangle prm_angStart, int prm_nWay, appangle* out_paAngle) {
+void GgafDx9Util::getRadialAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle) {
     for (int i = 0; i < prm_nWay; i++) {
-        out_paAngle[i] = addAng(prm_angStart, (appangle)(1.0f * ANGLE360 / prm_nWay * i));
+        out_paAngle[i] = addAng(prm_angStart, (angle)(1.0f * ANGLE360 / prm_nWay * i));
     }
 }
 
-void GgafDx9Util::convRzRyToRyRz(appangle prm_Rz, appangle prm_Ry, appangle& out_Ry, appangle& out_Rz) {
+void GgafDx9Util::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle& out_Rz) {
     float vx,vy,vz;
     getNormalizeVectorZY(prm_Rz, prm_Ry , vx, vy, vz);
     getRzRyAng(vx, vz, -1.0f*vy, out_Ry, out_Rz ); //-９０度X軸回転RzRy入れ替え
@@ -305,9 +305,9 @@ void GgafDx9Util::convRzRyToRyRz(appangle prm_Rz, appangle prm_Ry, appangle& out
 
 
 
-//void GgafDx9Util::getWayAngle_LinedRzLongitude(appangle prm_angCenterRz, appangle prm_angCenterRy,
-//                                              int prm_nWay, appangle prm_angClearance,
-//                                              appangle* out_paAngleRz, appangle* out_paAngleRy) {
+//void GgafDx9Util::getWayAngle_LinedRzLongitude(angle prm_angCenterRz, angle prm_angCenterRy,
+//                                              int prm_nWay, angle prm_angClearance,
+//                                              angle* out_paAngleRz, angle* out_paAngleRy) {
 //    float vx,vy,vz;
 //    getNormalizeVectorZY(prm_angCenterRz, prm_angCenterRy, vx, vy, vz);
 //    float vx2,vy2,vz2;
@@ -320,19 +320,19 @@ void GgafDx9Util::convRzRyToRyRz(appangle prm_Rz, appangle prm_Ry, appangle& out
 //
 //}
 
-//void GgafDx9Util::getMoveRzRyWayShot3D_XZ(int prm_nWay, appangle prm_angClearance, appcoord prm_tX, appcoord prm_tY, appcoord prm_tZ,
-//                                          appangle& out_angFaceZ, appangle* out_paAngRotY) {
-//    appangle tRz, tRy;
+//void GgafDx9Util::getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, coord prm_tX, coord prm_tY, coord prm_tZ,
+//                                          angle& out_angFaceZ, angle* out_paAngRotY) {
+//    angle tRz, tRy;
 //    getRzRyAng(prm_tX, prm_tY, prm_tZ, tRy, tRy);
 //
-//    appangle angStart = addAng(tRy, ((prm_nWay - 1) * prm_angClearance) / -2);
+//    angle angStart = addAng(tRy, ((prm_nWay - 1) * prm_angClearance) / -2);
 //    for (int i = 0; i < prm_nWay; i++) {
 //        out_paAngRotY[i] = addAng(angstart, prm_angClearance * i);
 //    }
 //}
 
-appangle GgafDx9Util::addAng(appangle prm_angNow, appangle prm_angOffset) {
-    static appangle angAdd;
+angle GgafDx9Util::addAng(angle prm_angNow, angle prm_angOffset) {
+    static angle angAdd;
     angAdd = prm_angNow + prm_angOffset;
     while (angAdd >= ANGLE360) {
         angAdd -= ANGLE360;
@@ -343,7 +343,7 @@ appangle GgafDx9Util::addAng(appangle prm_angNow, appangle prm_angOffset) {
     return angAdd;
 }
 
-appangle GgafDx9Util::getAngDiff(appangle angFrom, appangle angTo, int prm_way) {
+angle GgafDx9Util::getAngDiff(angle angFrom, angle angTo, int prm_way) {
     if (prm_way == TURN_CLOSE_TO) {
         if (0 <= angFrom && angFrom < ANGLE180) {
             if (0 <= angTo && angTo < angFrom) {
@@ -405,7 +405,7 @@ appangle GgafDx9Util::getAngDiff(appangle angFrom, appangle angTo, int prm_way) 
     throwGgafCriticalException("GgafDx9Util::getDiffAngle  何故かしら角の距離が求めれません。(1)");
 }
 
-void GgafDx9Util::rotXY(int prm_X, int prm_Y, appangle prm_ang, int& out_X, int& out_Y) {
+void GgafDx9Util::rotXY(int prm_X, int prm_Y, angle prm_ang, int& out_X, int& out_Y) {
     out_X = (int)(floor((prm_X * GgafDx9Util::COS[prm_ang / ANGLE_RATE]) - (prm_Y * GgafDx9Util::SIN[prm_ang
             / ANGLE_RATE])));
     out_Y = (int)(floor((prm_X * GgafDx9Util::SIN[prm_ang / ANGLE_RATE]) + (prm_Y * GgafDx9Util::COS[prm_ang
@@ -413,7 +413,7 @@ void GgafDx9Util::rotXY(int prm_X, int prm_Y, appangle prm_ang, int& out_X, int&
 }
 
 // 線分の当たり判定 (x11,y11)-(x12,y12) × (x21,y21)-(x22,y22)
-bool GgafDx9Util::chk2DLineCrossing(appcoord x11, appcoord y11, appcoord x12, appcoord y12, appcoord x21, appcoord y21, appcoord x22, appcoord y22) {
+bool GgafDx9Util::chk2DLineCrossing(coord x11, coord y11, coord x12, coord y12, coord x21, coord y21, coord x22, coord y22) {
 
     //x座標によるチェック
     if (x11 >= x12) {
@@ -450,11 +450,11 @@ int GgafDx9Util::getDistance(int x1, int y1, int x2, int y2) {
     return (int)sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))));
 }
 
-void GgafDx9Util::getRzRyAng(appcoord vx,
-                             appcoord vy,
-                             appcoord vz,
-                             appangle& out_angRZ,
-                             appangle& out_angRY ) {
+void GgafDx9Util::getRzRyAng(coord vx,
+                             coord vy,
+                             coord vz,
+                             angle& out_angRZ,
+                             angle& out_angRY ) {
     //何れかの要素が0の場合、getAngle2Dの結果が大きくずれてしまう。
     //とりあえず１を設定して近似させておこう。
     //TODO:0 が来ても大丈夫にする。
@@ -462,12 +462,12 @@ void GgafDx9Util::getRzRyAng(appcoord vx,
     vy = (vy == 0 ? 1 : vy);
     vz = (vz == 0 ? 1 : vz);
 
-    appangle prj_rXY = getAngle2D(abs(vx), abs(vy)); //Rz
-    appangle prj_rXZ = getAngle2D(abs(vx), abs(vz));
-    appangle prj_rZY = getAngle2D(abs(vz), abs(vy)); //Rz
-    appangle prj_rZX = getAngle2D(abs(vz), abs(vx));
+    angle prj_rXY = getAngle2D(abs(vx), abs(vy)); //Rz
+    angle prj_rXZ = getAngle2D(abs(vx), abs(vz));
+    angle prj_rZY = getAngle2D(abs(vz), abs(vy)); //Rz
+    angle prj_rZX = getAngle2D(abs(vz), abs(vx));
 
-    appangle rotZ, rotY_rev;
+    angle rotZ, rotY_rev;
     if (0 <= prj_rXZ && prj_rXZ <= ANGLE45) {
         rotZ = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100.0f)][(int)(prj_rXZ/100.0f)];
         rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0f)][(int)(prj_rXZ/100.0f)];
@@ -525,14 +525,14 @@ void GgafDx9Util::getRzRyAng(appcoord vx,
 }
 
 
-void GgafDx9Util::getRzRyAng(appcoord vx,
-                             appcoord vy,
-                             appcoord vz,
+void GgafDx9Util::getRzRyAng(coord vx,
+                             coord vy,
+                             coord vz,
                              float& out_nvx,
                              float& out_nvy,
                              float& out_nvz,
-                             appangle& out_angFaceZ,
-                             appangle& out_angFaceY) {
+                             angle& out_angFaceZ,
+                             angle& out_angFaceY) {
 
     getRzRyAng(vx,
                vy,
@@ -550,9 +550,9 @@ void GgafDx9Util::getRzRyAng(appcoord vx,
 
 
 
-void GgafDx9Util::getNormalizeVector(appcoord x,
-                                     appcoord y,
-                                     appcoord z,
+void GgafDx9Util::getNormalizeVector(coord x,
+                                     coord y,
+                                     coord z,
                                      float& out_nvx,
                                      float& out_nvy,
                                      float& out_nvz) {
@@ -568,8 +568,8 @@ void GgafDx9Util::getNormalizeVector(appcoord x,
 
 
 
-void GgafDx9Util::getNormalizeVectorZY(appangle prm_angFaceZ,
-                                       appangle prm_angFaceY,
+void GgafDx9Util::getNormalizeVectorZY(angle prm_angFaceZ,
+                                       angle prm_angFaceY,
                                        float& out_nvx,
                                        float& out_nvy,
                                        float& out_nvz) {

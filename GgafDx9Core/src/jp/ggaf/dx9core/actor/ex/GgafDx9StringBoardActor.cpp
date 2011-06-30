@@ -23,26 +23,26 @@ void GgafDx9StringBoardActor::onCreateModel() {
 }
 
 
-void GgafDx9StringBoardActor::update(appcoord X, appcoord Y, const char* prm_str) {
+void GgafDx9StringBoardActor::update(coord X, coord Y, const char* prm_str) {
     update(prm_str);
     _X = X;
     _Y = Y;
 }
 
-void GgafDx9StringBoardActor::update(appcoord X, appcoord Y, char* prm_str) {
+void GgafDx9StringBoardActor::update(coord X, coord Y, char* prm_str) {
     update(prm_str);
     _X = X;
     _Y = Y;
 }
 
-void GgafDx9StringBoardActor::update(appcoord X, appcoord Y, appcoord Z, const char* prm_str) {
+void GgafDx9StringBoardActor::update(coord X, coord Y, coord Z, const char* prm_str) {
     update(prm_str);
     _X = X;
     _Y = Y;
     _Z = Z;
 }
 
-void GgafDx9StringBoardActor::update(appcoord X, appcoord Y, appcoord Z, char* prm_str) {
+void GgafDx9StringBoardActor::update(coord X, coord Y, coord Z, char* prm_str) {
     update(prm_str);
     _X = X;
     _Y = Y;
@@ -65,13 +65,13 @@ void GgafDx9StringBoardActor::update(char* prm_str) {
     _remainder_len = _len%_pBoardSetModel->_set_num;
 }
 
-void GgafDx9StringBoardActor::update(appcoord X, appcoord Y, appcoord Z) {
+void GgafDx9StringBoardActor::update(coord X, coord Y, coord Z) {
     _X = X;
     _Y = Y;
     _Z = Z;
 }
 
-void GgafDx9StringBoardActor::update(appcoord X, appcoord Y) {
+void GgafDx9StringBoardActor::update(coord X, coord Y) {
     _X = X;
     _Y = Y;
 }

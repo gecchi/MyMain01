@@ -18,16 +18,16 @@ GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9Geom
     _fFrame_next_point = 0;
     _point_index = 0;
     //_fSPPointFrame = 0;
-    _angveloRzRyMv = ANGLE360;
+    _ang_veloRzRyMv = ANGLE360;
     _veloMvUnit = LEN_UNIT;
 }
 
 GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
                                                                      GgafDx9Spline3D* prm_sp,
-                                                                     angvelo prm_angveloRzRyMv)
+                                                                     ang_velo prm_ang_veloRzRyMv)
                                                     : GgafDx9SplineProgram(prm_pActor,
                                                                            prm_sp) {
-    _angveloRzRyMv = prm_angveloRzRyMv;
+    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
     init();
 }
 
@@ -35,13 +35,13 @@ GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9Geom
                                                                      double prm_paaCriteriaPoints[][3],
                                                                      int prm_point_num,
                                                                      double prm_accuracy,
-                                                                     angvelo prm_angveloRzRyMv )
+                                                                     ang_velo prm_ang_veloRzRyMv )
 
                                                     : GgafDx9SplineProgram(prm_pActor,
                                                                            prm_paaCriteriaPoints,
                                                                            prm_point_num,
                                                                            prm_accuracy)  {
-    _angveloRzRyMv = prm_angveloRzRyMv;
+    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
     init();
 }
 
@@ -94,11 +94,11 @@ void GgafDx9FixedVelocitySplineProgram::init() {
 
 
     _veloMvUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
-    _paDistace_to = NEW appcoord[_sp->_rnum];
+    _paDistace_to = NEW coord[_sp->_rnum];
     _paFrame_need_at = NEW float[_sp->_rnum];
 
-    appcoord x_from, y_from, z_from;
-    appcoord x_to, y_to, z_to;
+    coord x_from, y_from, z_from;
+    coord x_to, y_to, z_to;
 
     x_to = _sp->_X_compute[0];
     y_to = _sp->_Y_compute[0];
@@ -227,20 +227,20 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
                                     ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * _COS_RyMv_begin + dz*_SIN_RyMv_begin) - _X_begin,
                                     (dx*_SIN_RzMv_begin + dy*_COS_RzMv_begin) - _Y_begin,
                                     ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) - _Z_begin,
-                                    _angveloRzRyMv, 0,
+                                    _ang_veloRzRyMv, 0,
                                     TURN_CLOSE_TO, true);
                 } else if (_option == 1) {
                     //相対座標ターゲット
                     _pKurokoA->execTurnMvAngSequence(
                                     dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
-                                    _angveloRzRyMv, 0,
+                                    _ang_veloRzRyMv, 0,
                                     TURN_CLOSE_TO, true
                                   );
                 } else {
                     //絶対座標ターゲット
                     _pKurokoA->execTurnMvAngSequence(
                                     dx, dy, dz,
-                                    _angveloRzRyMv, 0,
+                                    _ang_veloRzRyMv, 0,
                                     TURN_CLOSE_TO, true
                                   );
                 }

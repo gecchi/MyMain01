@@ -28,45 +28,45 @@ public:
 //    int _dZ_camera_init;
 
     /** カメラY座標上限 */
-    appcoord _lim_CAM_top;
+    coord _lim_CAM_top;
     /** カメラY座標下限 */
-    appcoord _lim_CAM_bottom;
+    coord _lim_CAM_bottom;
     /** カメラX座標上限 */
-    appcoord _lim_CAM_front;
+    coord _lim_CAM_front;
     /** カメラX座標下限 */
-    appcoord _lim_CAM_behaind;
+    coord _lim_CAM_behaind;
     /** カメラZ座標上限 */
-    appcoord _lim_CAM_zleft;
+    coord _lim_CAM_zleft;
     /** カメラZ座標下限 */
-    appcoord _lim_CAM_zright;
+    coord _lim_CAM_zright;
     /** ビューポイントY座標上限 */
-    appcoord _lim_VP_top;
+    coord _lim_VP_top;
     /** ビューポイントY座標下限 */
-    appcoord _lim_VP_bottom;
+    coord _lim_VP_bottom;
     /** ビューポイントX座標上限 */
-    appcoord _lim_VP_front;
+    coord _lim_VP_front;
     /** ビューポイントX座標下限 */
-    appcoord _lim_VP_behaind;
+    coord _lim_VP_behaind;
     /** ビューポイントZ座標上限 */
-    appcoord _lim_VP_zleft;
+    coord _lim_VP_zleft;
     /** ビューポイントZ座標下限 */
-    appcoord _lim_VP_zright;
+    coord _lim_VP_zright;
 
 //    /** 現在のカメラのUPのアングル値 */
-//    appangle _angXY_nowCamUp;
+//    angle _angXY_nowCamUp;
     /** 画面背後時用Z軸補正範囲差分 */
-    appcoord _correction_width;
+    coord _correction_width;
     /** 画面背後時用Y軸補正範囲差分 */
-    appcoord _correction_height;
+    coord _correction_height;
     /** カメラの最高速度（上限、負数で下限） */
 //    int _cam_velo_renge;
     /** カメラの速度が、丁度自機の通常移動速度の1.0倍となるカメラ目標座標からの距離。 */
 //    int _stop_renge; //カメラ目標座標距離が、これより小さいと、     1.0倍より減
 //                     //カメラ目標座標距離が、これより大きいとさいと 1.0倍より超
     /** カメラ目標座標に加えられるZ軸座標オフセット補正値 */
-    appcoord _stop_dZ;
+    coord _stop_dZ;
     /** カメラ目標座標に加えられるY軸座標オフセット補正値 */
-    appcoord _stop_dY;
+    coord _stop_dY;
 
 
     VamSysCamWorker(const char* prm_name);

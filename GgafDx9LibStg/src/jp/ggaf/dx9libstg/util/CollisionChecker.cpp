@@ -22,7 +22,7 @@ void CollisionChecker::makeCollision(int prm_nColliPart) {
     }
 }
 
-void CollisionChecker::setColliSphere(int prm_index, appcoord x, appcoord y, appcoord z, appcoord r, bool rotX, bool rotY, bool rotZ) {
+void CollisionChecker::setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rotX, bool rotY, bool rotZ) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == NULL) {
         throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
@@ -48,12 +48,12 @@ void CollisionChecker::setColliSphere(int prm_index, appcoord x, appcoord y, app
 
 
 void CollisionChecker::setColliAAB(int prm_index,
-                                   appcoord x1,
-                                   appcoord y1,
-                                   appcoord z1,
-                                   appcoord x2,
-                                   appcoord y2,
-                                   appcoord z2,
+                                   coord x1,
+                                   coord y1,
+                                   coord z1,
+                                   coord x2,
+                                   coord y2,
+                                   coord z2,
                                    bool rotX,
                                    bool rotY,
                                    bool rotZ) {
@@ -81,8 +81,8 @@ void CollisionChecker::setColliAAB(int prm_index,
 }
 
 void CollisionChecker::setColliAAPrism(int prm_index,
-                                       appcoord x1, appcoord y1, appcoord z1,
-                                       appcoord x2, appcoord y2, appcoord z2,
+                                       coord x1, coord y1, coord z1,
+                                       coord x2, coord y2, coord z2,
                                        int pos_prism,
                                        bool rotX, bool rotY, bool rotZ) {
 #ifdef MY_DEBUG

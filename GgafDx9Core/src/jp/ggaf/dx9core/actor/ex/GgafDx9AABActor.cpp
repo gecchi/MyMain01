@@ -20,7 +20,7 @@ GgafDx9AABActor::GgafDx9AABActor(const char* prm_name,
 //    _pD3DXMeshModel->draw(this);
 //}
 
-void GgafDx9AABActor::drawBox(appcoord prm_x1, appcoord prm_y1, appcoord prm_z1, appcoord prm_x2, appcoord prm_y2, appcoord prm_z2) {
+void GgafDx9AABActor::drawBox(coord prm_x1, coord prm_y1, coord prm_z1, coord prm_x2, coord prm_y2, coord prm_z2) {
     //_TRACE_("drawBox ("<<prm_x1<<","<<prm_y1<<","<<prm_z1<<","<<prm_x2<<","<<prm_y2<<","<<prm_z2<<")");
     _SX = (prm_x2 - prm_x1);
     _SY = (prm_y2 - prm_y1);

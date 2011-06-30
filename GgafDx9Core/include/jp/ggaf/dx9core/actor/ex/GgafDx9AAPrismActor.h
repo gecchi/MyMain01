@@ -15,11 +15,11 @@ class GgafDx9AAPrismActor : public GgafDx9MeshActor {
 public:
     class RotPosPrism : public GgafCore::GgafObject {
     public:
-        appangle _rx;
-        appangle _rz;
-        appangle _ry;
+        angle _rx;
+        angle _rz;
+        angle _ry;
         RotPosPrism() {}
-        RotPosPrism(appangle rx, appangle rz, appangle ry) : GgafCore::GgafObject(), _rx(rx), _rz(rz), _ry(ry) {
+        RotPosPrism(angle rx, angle rz, angle ry) : GgafCore::GgafObject(), _rx(rx), _rz(rz), _ry(ry) {
         }
     };
 

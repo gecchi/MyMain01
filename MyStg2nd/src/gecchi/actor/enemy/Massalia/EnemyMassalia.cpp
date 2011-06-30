@@ -15,7 +15,7 @@ EnemyMassalia::EnemyMassalia(const char* prm_name) : DefaultMeshActor(prm_name, 
     _Z = 0;
     _laser_length = 30;
     _laser_interval = 600;
-    _angveloTurn = 100;
+    _ang_veloTurn = 100;
     _angClearance = 40000;//開き具合
     _papapLaserChipStore = NEW LaserChipStore**[_laser_way];
     for (int i = 0; i < _laser_way; i++) {
@@ -42,9 +42,9 @@ EnemyMassalia::EnemyMassalia(const char* prm_name) : DefaultMeshActor(prm_name, 
 
 
     _papaPosLaser = NEW PosLaser*[_laser_way];
-    appangle* paAngWay = NEW appangle[_laser_way];
+    angle* paAngWay = NEW angle[_laser_way];
     GgafDx9Util::getWayAngle2D(0, _laser_way, _angClearance, paAngWay);
-    appangle Rz,Ry;
+    angle Rz,Ry;
     float vx, vy, vz;
     for (int i = 0; i < _laser_way; i++) {
         Rz = GgafDx9Util::simplifyAng(paAngWay[i]);
@@ -163,14 +163,14 @@ void EnemyMassalia::processBehavior() {
     /////////////モーフテスト////////////////
     if (_iMovePatternNo == 0) {
         _pKurokoA->setFaceAngVelo(AXIS_X, 0);
-        _pKurokoA->setFaceAngVelo(AXIS_Z, _angveloTurn*1.5);
-        _pKurokoA->setFaceAngVelo(AXIS_Y, _angveloTurn*0.5);
+        _pKurokoA->setFaceAngVelo(AXIS_Z, _ang_veloTurn*1.5);
+        _pKurokoA->setFaceAngVelo(AXIS_Y, _ang_veloTurn*0.5);
         _pKurokoA->setMvVelo(-3000);
         _iMovePatternNo++;
     } else if (_iMovePatternNo == 1 && _X > P_MYSHIP->_X-400000) {
         if (getBehaveingFrame() % _laser_interval == 0) {
             _pKurokoA->execTurnFaceAngSequence(P_MYSHIP,
-                                                _angveloTurn*20, 0,
+                                                _ang_veloTurn*20, 0,
                                                 TURN_COUNTERCLOCKWISE, false);
             _iMovePatternNo++;
             _cnt_laserchip = 0;
@@ -182,7 +182,7 @@ void EnemyMassalia::processBehavior() {
             _iMovePatternNo++;
         }
     } else if (_iMovePatternNo == 3) {
-        _pKurokoA->setFaceAngVelo(AXIS_X, _angveloTurn*40);
+        _pKurokoA->setFaceAngVelo(AXIS_X, _ang_veloTurn*40);
         _pKurokoA->setFaceAngVelo(AXIS_Z, 0);
         _pKurokoA->setFaceAngVelo(AXIS_Y, 0);
         _pKurokoA->setMvVelo(0);
@@ -192,7 +192,7 @@ void EnemyMassalia::processBehavior() {
             LaserChip* pLaserChip;
             D3DXMATRIX matWorldRot;
             GgafDx9Util::setWorldMatrix_RxRzRy(this, matWorldRot);
-            appangle Rz, Ry;
+            angle Rz, Ry;
             int vX, vY, vZ;
             for (int i = 0; i < _laser_way; i++) {
                 for (int j = 0; j < _laser_way; j++) {

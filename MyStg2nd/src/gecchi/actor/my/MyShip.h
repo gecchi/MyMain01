@@ -168,17 +168,17 @@ class MyShip : public GgafDx9LibStg::DefaultD3DXMeshActor {
     };
 public:
     /** 移動Y座標上限 */
-    static appcoord _lim_top;
+    static coord _lim_top;
     /** 移動Y座標下限 */
-    static appcoord _lim_bottom;
+    static coord _lim_bottom;
     /** 移動X座標上限 */
-    static appcoord _lim_front;
+    static coord _lim_front;
     /** 移動X座標下限 */
-    static appcoord _lim_behaind;
+    static coord _lim_behaind;
     /** 移動Z座標上限 */
-    static appcoord _lim_zleft;
+    static coord _lim_zleft;
     /** 移動Z座標下限 */
-    static appcoord _lim_zright;
+    static coord _lim_zright;
 
     WaySwitch _way_switch;
     void (MyShip::*paFuncMove[3*3*3])();
@@ -223,28 +223,28 @@ public:
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
     /** Turbo移動が終了と判断される移動速度 */
-    int _iMvVelo_FMT; //Rotation axisX appangle Velo when I Finish Moveing with Turbo
+    int _iMvVelo_FMT; //Rotation axisX angle Velo when I Finish Moveing with Turbo
     //但し 値 < 0 であること。
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
     /** 奥(+Z)又は手前(-Z)へ通常移動開始時のX軸回転角速度の初速度 */
-    appangle _angRXVelo_BeginMZ; //Rotation axisX appangle Velo when I Begin To Move Z
+    angle _angRXVelo_BeginMZ; //Rotation axisX angle Velo when I Begin To Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
 
     /** 奥(+Z)又は手前(-Z)へ通常移動中のX軸回転角速度の角加速度 */
-    appangle _angRXAcce_MZ; //Rotation axisX appangle Acce while I Move Z
+    angle _angRXAcce_MZ; //Rotation axisX angle Acce while I Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
 
     /** 奥(+Z)又は手前(-Z)へ移動中のX軸回転角速度の上限角速度 */
-    appangle _angRXTopVelo_MZ; //Rotation axisX Top appangle Velo while I Move Z
+    angle _angRXTopVelo_MZ; //Rotation axisX Top angle Velo while I Move Z
     //下限角速度はこれに -1 を乗ずる
 
     /** 奥(+Z)又は手前(-Z)へ通常Z移動中のX軸回転角の停止角度 */
-    appangle _angRXStop_MZ; //Rotation axisX Stop appangle while I Move Z
+    angle _angRXStop_MZ; //Rotation axisX Stop angle while I Move Z
 
 
     /** 上(+Y)又は下(-Y)へTurbo移動開始時のZ軸回転角速度の初速度 */
-    appangle _angRXVelo_BeginMZT; //Rotation axisX appangle Velo when I Begin To Move Z with Turbo
+    angle _angRXVelo_BeginMZT; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
 
 
@@ -312,7 +312,7 @@ public:
 
     void doNotingMoveInput();
 
-    static appangle wk_dist, wk_angRx;
+    static angle wk_dist, wk_angRx;
     void move_WAY_NONE() {
         //_way = WAY_NONE;
         _iMoveVelo = 0;

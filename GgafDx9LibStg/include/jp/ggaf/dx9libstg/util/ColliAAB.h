@@ -11,24 +11,24 @@ namespace GgafDx9LibStg {
 class ColliAAB : public GgafDx9Core::GgafDx9CollisionPart {
 public:
     /** AABのx座標の小さい方 */
-    appcoord _x1;
+    coord _x1;
     /** AABのy座標の小さい方 */
-    appcoord _y1;
+    coord _y1;
     /** AABのz座標の小さい方 */
-    appcoord _z1;
+    coord _z1;
     /** AABの対角の頂点となるx座標大きい方 */
-    appcoord _x2;
+    coord _x2;
     /** AABの対角の頂点となるy座標大きい方 */
-    appcoord _y2;
+    coord _y2;
     /** AABの対角の頂点となるz座標大きい方 */
-    appcoord _z2;
+    coord _z2;
 
 
     ColliAAB();
 
-    void set(appcoord x1, appcoord y1, appcoord z1, appcoord x2, appcoord y2, appcoord z2, bool rotX, bool rotY, bool rotZ);
+    void set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, bool rotX, bool rotY, bool rotZ);
 
-    void rotateRxRzRy(appangle rX, appangle rY, appangle rZ) override;
+    void rotateRxRzRy(angle rX, angle rY, angle rZ) override;
 
     virtual ~ColliAAB();
 };

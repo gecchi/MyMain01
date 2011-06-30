@@ -12,7 +12,7 @@ class HoshiBoshi001 : public GgafDx9Core::GgafDx9PointSpriteActor {
 
 public:
 
-    appcoord _CAM_ZF;
+    coord _CAM_ZF;
     float _far_rate;
     D3DXHANDLE _h_fX_MyShip;
     D3DXHANDLE _h_fY_MyShip;

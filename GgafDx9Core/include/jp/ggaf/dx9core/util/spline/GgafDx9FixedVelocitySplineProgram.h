@@ -12,13 +12,13 @@ class GgafDx9FixedVelocitySplineProgram : public GgafDx9SplineProgram {
 
 public:
     /** [r]現在の補完点(基準点も含む)から、次の補完点(or基準点)までの距離のテーブル */
-    appcoord* _paDistace_to;
+    coord* _paDistace_to;
     /** [r]始点からn番目の補完点(基準点も含む)到達に必要なフレーム数のテーブル */
     float* _paFrame_need_at;
     /** [r]基準速度 */
     velo _veloMvUnit;
     /** [rw]1フレームあたり旋回可能な回転角角速度 */
-    angvelo _angveloRzRyMv;
+    ang_velo _ang_veloRzRyMv;
     /** [r]基準速度で移動した場合のスプライン移動時の経過フレーム数 */
     float _fFrame_executing;
     /** [r]次の変わり目となる補間点(基準点も含む)に到達する_fFrame_executing */
@@ -58,25 +58,25 @@ public:
      *                      1.0を指定した場合、基点から次基点まで何も無い（直線で結ぶイメージ）。
      *                      0.5 とすると基点から次基点までに補完点は1つ入る。
      *                      0.1 とすると基点と基点の間に補完点は9つ入る（なめらかなカーブになる）。
-     * @param prm_angveloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
+     * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      */
     GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
                                       double prm_paaCriteriaPoint[][3],
                                       int prm_point_num,
                                       double prm_accuracy,
-                                      angvelo prm_angveloRzRyMv);
+                                      ang_velo prm_ang_veloRzRyMv);
 
     /**
      * コンストラクタ .
      * 等速移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
      * @param prm_pActor 対象のアクター
      * @param prm_sp 計算済みスプラインオブジェクト
-     * @param prm_angveloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
+     * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
     GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
                                       GgafDx9Spline3D* prm_sp,
-                                      angvelo prm_angveloRzRyMv);
+                                      ang_velo prm_ang_veloRzRyMv);
 
     /**
      * 初期化（計算）処理.

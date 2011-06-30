@@ -171,12 +171,12 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
 
 GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
                                                   GgafDx9GeometricActor* prm_pGeoActor,
-                                                  appcoord prm_X_init_local,
-                                                  appcoord prm_Y_init_local,
-                                                  appcoord prm_Z_init_local,
-                                                  appcoord prm_RX_init_local,
-                                                  appcoord prm_RZ_init_local,
-                                                  appcoord prm_RY_init_local) {
+                                                  coord prm_X_init_local,
+                                                  coord prm_Y_init_local,
+                                                  coord prm_Z_init_local,
+                                                  coord prm_RX_init_local,
+                                                  coord prm_RZ_init_local,
+                                                  coord prm_RY_init_local) {
     GgafGroupActor* pGroupActor = addSubGroup(prm_kind, prm_pGeoActor);
     prm_pGeoActor->_pActor_Base = this;
     prm_pGeoActor->changeGeoLocal();
@@ -195,12 +195,12 @@ GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
     return pGroupActor;
 }
 GgafGroupActor* GgafDx9GeometricActor::addSubBone(GgafDx9GeometricActor* prm_pGeoActor,
-                                                  appcoord prm_X_init_local,
-                                                  appcoord prm_Y_init_local,
-                                                  appcoord prm_Z_init_local,
-                                                  appcoord prm_RX_init_local,
-                                                  appcoord prm_RZ_init_local,
-                                                  appcoord prm_RY_init_local) {
+                                                  coord prm_X_init_local,
+                                                  coord prm_Y_init_local,
+                                                  coord prm_Z_init_local,
+                                                  coord prm_RX_init_local,
+                                                  coord prm_RZ_init_local,
+                                                  coord prm_RY_init_local) {
     return addSubBone(prm_pGeoActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND),
                       prm_pGeoActor,
                       prm_X_init_local,
