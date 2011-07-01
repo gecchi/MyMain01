@@ -7,10 +7,10 @@ using namespace MyStg2nd;
 
 FormationEunomia002::FormationEunomia002(const char* prm_name) :
                                         FormationEunomia(prm_name,
-                                                         4  + _RANK_*2,
-                                                         15 + _RANK_*10,
-                                                         2  +  (10 - (_RANK_>1.0?1.0:_RANK_)*5),
-                                                         10000 + _RANK_*10000,
+                                                         R_FormationEunomia002_FormationCol,
+                                                         R_FormationEunomia002_FormationRow,
+                                                         R_FormationEunomia002_IntervalFrames,
+                                                         R_FormationEunomia002_MvVelo,
                                                          "FormationEunomia002") {
     _class_name = "FormationEunomia002";
 }

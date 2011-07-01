@@ -23,8 +23,8 @@ void Shot002::onActive() {
     setHitAble(true);
     _pScaler->setScale(2000);
     _pKurokoA->relateFaceAngWithMvAng(true);
-    _pKurokoA->setMvVelo(8000+_RANK_*8000);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 1000+_RANK_*1000);
+    _pKurokoA->setMvVelo(R_Shot002_MvVelo);
+    _pKurokoA->setFaceAngVelo(AXIS_X, R_Shot002_FaceAngVelo);
     _my_frame = 0;
 }
 
@@ -36,8 +36,8 @@ void Shot002::processBehavior() {
 
     if (_my_frame == 70) {
         _pKurokoA->execTurnMvAngSequence(P_MYSHIP,
-                                                   3000, 0,
-                                                   TURN_CLOSE_TO);
+                                           3000, 0,
+                                           TURN_CLOSE_TO);
     }
 
     if (_my_frame > 70 && _pKurokoA->_mv_ang_ry_target_flg == false && _pKurokoA->_mv_ang_rz_target_flg == false) {

@@ -35,7 +35,7 @@ public:
     /** 対象アクター */
 
     /** 方向転換角速度 */
-    angle _angVelo_Turn;
+    ang_velo _angVelo_Turn;
     int _renge;
     MyOptionController(const char* prm_name);
 

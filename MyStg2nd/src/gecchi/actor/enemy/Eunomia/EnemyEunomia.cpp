@@ -83,7 +83,7 @@ void EnemyEunomia::processBehavior() {
         case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
             if (_pStore_Shot) {
                 //放射状ショット
-                int way = 10+_RANK_*10; //ショットWAY数
+                int way = R_EnemyEunomia_ShotWay; //ショットWAY数
                 angle* paAngWay = NEW angle[way];
                 GgafDx9Util::getRadialAngle2D(0, way, paAngWay);
                 GgafDx9DrawableActor* pActor_Shot;

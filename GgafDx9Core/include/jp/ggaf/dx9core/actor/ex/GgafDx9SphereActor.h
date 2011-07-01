@@ -21,7 +21,7 @@ public:
 //     */
 //    virtual void processDraw();
 //
-    void drawSphere(int prm_x, int prm_y, int prm_z, int prm_r);
+    void drawSphere(coord prm_x, coord prm_y, coord prm_z, coord prm_r);
 
     virtual ~GgafDx9SphereActor(); //デストラクタ
 };

@@ -21,9 +21,9 @@ public:
     int _renge;
     float _maxAcceRange;
 
-    int _new_target_X;
-    int _new_target_Y;
-    int _new_target_Z;
+    coord _new_target_X;
+    coord _new_target_Y;
+    coord _new_target_Z;
     bool _isLockon;
     int _default_stamina;
     acce _r_maxacce;

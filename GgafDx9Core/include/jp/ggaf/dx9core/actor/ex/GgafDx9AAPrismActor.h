@@ -35,7 +35,8 @@ public:
 //     */
 //    virtual void processDraw();
 //
-    void drawPrism(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2, int prm_z2, int pos_prism);
+    void drawPrism(coord prm_x1, coord prm_y1, coord prm_z1,
+                   coord prm_x2, coord prm_y2, coord prm_z2, int pos_prism);
 
     virtual ~GgafDx9AAPrismActor(); //デストラクタ
 };

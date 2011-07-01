@@ -1,8 +1,6 @@
 #ifndef GAMEGLOBAL_H_
 #define GAMEGLOBAL_H_
 namespace MyStg2nd {
-#define _RANK_ (GameGlobal::_rank)
-#define _SCORE_ (GameGlobal::_score)
 
 
 class GameGlobal {

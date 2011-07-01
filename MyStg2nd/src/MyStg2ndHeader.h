@@ -63,6 +63,34 @@
 #define STAT_DominantDefenceRate    7
 #define STAT_RecessiveDefenceRate   8
 #define STAT_LockonAble             9
+
+
+
+
+#define _RANK_ (GameGlobal::_rank)
+#define _SCORE_ (GameGlobal::_score)
+
+
+#define R_Shot001_MvVelo (5000+_RANK_*5000)       //移動速度
+#define R_Shot001_FaceAngVelo (6000+_RANK_*6000)  //きりもみ具合
+
+#define R_Shot002_MvVelo (8000+_RANK_*8000)       //移動速度
+#define R_Shot002_FaceAngVelo (1000+_RANK_*1000)  //きりもみ具合
+
+#define R_EnemyEunomia_ShotWay (10+_RANK_*10) //ショットWAY数
+
+#define R_FormationEunomia001_FormationCol (5 + _RANK_*2)    //編隊列数
+#define R_FormationEunomia001_FormationRow (20 + _RANK_*10)  //１列の編隊数
+#define R_FormationEunomia001_IntervalFrames (2  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔(frame)
+#define R_FormationEunomia001_MvVelo (10000 + _RANK_*10000) //移動速度
+
+#define R_FormationEunomia002_FormationCol (5 + _RANK_*2)    //編隊列数
+#define R_FormationEunomia002_FormationRow (20 + _RANK_*10)  //１列の編隊数
+#define R_FormationEunomia002_IntervalFrames (2  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔(frame)
+#define R_FormationEunomia002_MvVelo (10000 + _RANK_*10000) //移動速度
+
+#define R_EnemyIris_ShotWay (10+_RANK_*10) //ショットWAY数
+
 //1/√2
 #define NANAME 0.70710
 

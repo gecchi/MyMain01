@@ -175,9 +175,15 @@ void MyOptionWateringLaserChip001::processBehavior() {
 //                _pKurokoB->setVzMvAcce(dy/_r_maxacce);
             } else {
                 //新たなターゲットを作成
-                _pKurokoB->setVxMvAcce((_pChip_front->_X - _X)/_r_maxacce);
-                _pKurokoB->setVyMvAcce((_pChip_front->_Y - _Y)/_r_maxacce);
-                _pKurokoB->setVzMvAcce((_pChip_front->_Z - _Z)/_r_maxacce);
+//                _pKurokoB->setVxMvAcce((_pChip_front->_X - _X)/_r_maxacce);
+//                _pKurokoB->setVyMvAcce((_pChip_front->_Y - _Y)/_r_maxacce);
+//                _pKurokoB->setVzMvAcce((_pChip_front->_Z - _Z)/_r_maxacce);
+                _pKurokoB->setVxMvAcce(0);
+                _pKurokoB->setVyMvAcce(0);
+                _pKurokoB->setVzMvAcce(0);
+                _pKurokoB->setVxMvVelo(_pChip_front->_X - _X);
+                _pKurokoB->setVyMvVelo(_pChip_front->_Y - _Y);
+                _pKurokoB->setVzMvVelo(_pChip_front->_Z - _Z);
             }
 
         }

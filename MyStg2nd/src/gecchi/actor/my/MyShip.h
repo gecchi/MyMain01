@@ -202,41 +202,41 @@ public:
     /** 移動スピードレベルに相応する移動スピード */
     int _iMoveSpeed;
 
-    int _iMoveVelo;
+    velo _iMoveVelo;
 
 
-    int _iMvVelo_TurboTop;
-    int _iMvVelo_TurboBottom;
+    velo _iMvVelo_TurboTop;
+    velo _iMvVelo_TurboBottom;
 
     /** Turbo移動開始時の移動速度の初速度 */
-    int _iMvVelo_BeginMT; //Move Velo when I Begin To Move with Turbo
+    velo _iMvVelo_BeginMT; //Move Velo when I Begin To Move with Turbo
     //Z軸が絡む場合、うまくこの値から計算しよう（Z軸の移動速度は正負で管理してるため）
 
     /** Turbo移動中の移動速度の加速度 */
-    int _iMvAcce_MT; //Move Acce while I Move with Turbo
+    acce _iMvAcce_MT; //Move Acce while I Move with Turbo
     //但し 値 < 0 であること。 ∵だんだん遅くなるようにしたいから
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
     /** Turbo移動中の移動速度の最低速度 */
-    int _iMvBtmVelo_MT; //Move Bottom Velo while I Move with Turbo
+    velo _iMvBtmVelo_MT; //Move Bottom Velo while I Move with Turbo
     //但し 値 < 0 であること。
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
     /** Turbo移動が終了と判断される移動速度 */
-    int _iMvVelo_FMT; //Rotation axisX angle Velo when I Finish Moveing with Turbo
+    velo _iMvVelo_FMT; //Rotation axisX angle Velo when I Finish Moveing with Turbo
     //但し 値 < 0 であること。
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
     /** 奥(+Z)又は手前(-Z)へ通常移動開始時のX軸回転角速度の初速度 */
-    angle _angRXVelo_BeginMZ; //Rotation axisX angle Velo when I Begin To Move Z
+    ang_velo _angRXVelo_BeginMZ; //Rotation axisX angle Velo when I Begin To Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
 
     /** 奥(+Z)又は手前(-Z)へ通常移動中のX軸回転角速度の角加速度 */
-    angle _angRXAcce_MZ; //Rotation axisX angle Acce while I Move Z
+    ang_acce _angRXAcce_MZ; //Rotation axisX angle Acce while I Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
 
     /** 奥(+Z)又は手前(-Z)へ移動中のX軸回転角速度の上限角速度 */
-    angle _angRXTopVelo_MZ; //Rotation axisX Top angle Velo while I Move Z
+    ang_velo _angRXTopVelo_MZ; //Rotation axisX Top angle Velo while I Move Z
     //下限角速度はこれに -1 を乗ずる
 
     /** 奥(+Z)又は手前(-Z)へ通常Z移動中のX軸回転角の停止角度 */
@@ -244,7 +244,7 @@ public:
 
 
     /** 上(+Y)又は下(-Y)へTurbo移動開始時のZ軸回転角速度の初速度 */
-    angle _angRXVelo_BeginMZT; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
+    ang_velo _angRXVelo_BeginMZT; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
 
 

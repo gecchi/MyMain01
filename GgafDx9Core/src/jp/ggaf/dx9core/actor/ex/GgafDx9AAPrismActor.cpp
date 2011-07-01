@@ -60,7 +60,8 @@ GgafDx9AAPrismActor::GgafDx9AAPrismActor(const char* prm_name,
 //    _pD3DXMeshModel->draw(this);
 //}
 
-void GgafDx9AAPrismActor::drawPrism(coord prm_x1, coord prm_y1, coord prm_z1, coord prm_x2, coord prm_y2, coord prm_z2, int pos_prism) {
+void GgafDx9AAPrismActor::drawPrism(coord prm_x1, coord prm_y1, coord prm_z1,
+                                    coord prm_x2, coord prm_y2, coord prm_z2, int pos_prism) {
     _RX = pos2r[pos_prism]._rx;
     _RZ = pos2r[pos_prism]._rz;
     _RY = pos2r[pos_prism]._ry;

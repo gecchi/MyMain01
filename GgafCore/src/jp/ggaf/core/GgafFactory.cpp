@@ -115,14 +115,22 @@ void* GgafFactory::obtain(unsigned long prm_id) {
                     if (waittime > 1000*60) { //約60秒
                         throwGgafCriticalException("GgafFactory::obtain Error! ["<<prm_id<<"]の製造待ち時間、タイムアウト。\n何らかの理由でメインスレッドが停止している可能性が大きいです。");
                     } else {
-                        _TEXT_("…");
                     }
 
                  ___EndSynchronized; // <----- 排他終了
                     Sleep(5);
                  ___BeginSynchronized; // ----->排他開始
                     waittime += 5;
-                    continue;
+                    if (pOrder->_progress == 1) {
+                        //着手済み
+                        _TEXT_("!");
+                        continue; //待つ
+                    } else {
+                        //未着手？
+                        pOrder = ROOT_ORDER; //もう一度最初から探させる。
+                        _TEXT_(".");
+                        break;
+                    }
                 } else {
                     TRACE2("GgafFactory::obtain ＜客＞ おぉ、["<<prm_id<<"]は製造済みですね、さすが！。あざーす！");
                     if (pOrder->_is_first_order_flg && pOrder->_is_last_order_flg) {

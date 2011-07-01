@@ -544,23 +544,23 @@ void MyShip::processJudgement() {
     if (_is_being_soft_rapidshot) {
         _frame_soft_rapidshot++;
     }
-
+    MyOptionController* pMyOptionController = P_MYOPTIONCON;
 
     //    if (VB_PLAY->isPushedDown(VB_SHOT2)) {
     if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
         bool can_fire = true;
-        for (int i = 0; i < P_MYOPTIONCON->_now_option_num; i++) {
-            if (P_MYOPTIONCON->_papMyOption[i]->_pTorpedoController->_in_firing) {
+        for (int i = 0; i < pMyOptionController->_now_option_num; i++) {
+            if (pMyOptionController->_papMyOption[i]->_pTorpedoController->_in_firing) {
                 can_fire = false;
                 break;
             }
         }
         if (can_fire) {
-            for (int i = 0; i < P_MYOPTIONCON->_now_option_num; i++) {
+            for (int i = 0; i < pMyOptionController->_now_option_num; i++) {
                 if (i == 0) {
                     _pSeTransmitter->play3D(3);
                 }
-                P_MYOPTIONCON->_papMyOption[i]->_pTorpedoController->fire();
+                pMyOptionController->_papMyOption[i]->_pTorpedoController->fire();
             }
         }
     }
