@@ -26,7 +26,7 @@ void Shot001::onActive() {
     setHitAble(true);
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setMvVelo(R_Shot001_MvVelo);    //ˆÚ“®‘¬“x
-    _pKurokoA->setFaceAngVelo(R_Shot001_FaceAngVelo); //‚«‚è‚à‚İ‹ï‡
+    _pKurokoA->setFaceAngVelo(AXIS_X, R_Shot001_FaceAngVelo); //‚«‚è‚à‚İ‹ï‡
     _pSplineProgram->begin(2);
     _pScaler->beat(30,5,2,-1);
 }
