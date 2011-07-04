@@ -8,9 +8,9 @@ using namespace MyStg2nd;
 FormationIris002::FormationIris002(const char* prm_name) :
         GgafDx9FormationActor(prm_name, 30*60) { //30*60後にend()する。早く開放しすぎると Store の接続が切れるため。
     _class_name = "FormationIris002";
-    _num_Iris        = 10 +_RANK_*10;    //編隊数
-    _interval_frames = 5  + (20 - (_RANK_>1.0?1.0:_RANK_) *20);   //イリスの間隔(frame)
-    _mv_velo         = 16000+_RANK_*1600; //速度
+    _num_Iris        = R_FormationIris002_Num;    //編隊数
+    _interval_frames = R_FormationIris002_LaunchInterval;   //イリスの間隔(frame)
+    _mv_velo         = R_FormationIris002_MvVelo; //速度
     //スプライン移動の定義
     _pSplineCon = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_002_02"));
     _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_Shot002"));

@@ -137,7 +137,7 @@ void EnemyVesta::processBehavior() {
     if (_iMovePatternNo == VESTA_HATCH_OPENED) {
         int openningFrame = getActivePartFrame() - _frame_of_moment_nextopen; //開いてからのフレーム数。
         //_frame_of_moment_nextopenは、ここの処理の時点では直近でオープンしたフレームとなる。
-        if (openningFrame % (int)(2+ (25-_RANK_*5)) == 0) {
+        if (openningFrame % (int)(R_EnemyVesta_ShotInterval) == 0) {
             if (_pStore_Fired) {
                 GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pStore_Fired->dispatch();
                 if (pActor) {

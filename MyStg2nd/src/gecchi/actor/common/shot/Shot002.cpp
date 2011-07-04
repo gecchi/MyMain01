@@ -24,7 +24,7 @@ void Shot002::onActive() {
     _pScaler->setScale(2000);
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setMvVelo(R_Shot002_MvVelo);
-    _pKurokoA->setFaceAngVelo(AXIS_X, R_Shot002_FaceAngVelo);
+    _pKurokoA->setFaceAngVelo(AXIS_X, R_Shot002_AngVelo);
     _my_frame = 0;
 }
 

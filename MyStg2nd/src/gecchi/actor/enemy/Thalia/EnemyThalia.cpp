@@ -179,7 +179,7 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
                   StgUtil::shotWay002v2(this,
                                        _pStore_Shot,
                                        P_MYSHIP,
-                                       20+_RANK_*10, 0,
+                                       R_EnemyThalia_ShotWay, 0,
                                        2000, 200,
                                        5, 0.8);
 

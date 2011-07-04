@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 FormationPallas002::FormationPallas002(const char* prm_name) : GgafDx9FormationActor(prm_name, 30*60) {
     _class_name = "FormationPallas002";
-    _num_Pallas     = 12+_RANK_*8;    //編隊数
-    _interval_frames = 2 + (10-_RANK_*5);  //パラスの間隔(frame)
-    _mv_velo        = 10000+_RANK_*10000; //速度
+    _num_Pallas      = R_FormationPallas002_Num;  //編隊数
+    _interval_frames = R_FormationPallas002_LaunchInterval;  //パラスの間隔(frame)
+    _mv_velo         = R_FormationPallas002_MvVelo; //速度
     //パラス編隊作成
     _pSplineCon     = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_Pallas01")); //スプライン定義
     //_pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_Shot002"));

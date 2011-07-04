@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 FormationEunomia001::FormationEunomia001(const char* prm_name) :
                                         FormationEunomia(prm_name,
-                                                         R_FormationEunomia001_FormationCol,
-                                                         R_FormationEunomia001_FormationRow,
-                                                         R_FormationEunomia001_IntervalFrames,
+                                                         R_FormationEunomia001_Col,
+                                                         R_FormationEunomia001_Num,
+                                                         R_FormationEunomia001_LaunchInterval,
                                                          R_FormationEunomia001_MvVelo,
                                                          "FormationEunomia001") {
     _class_name = "FormationEunomia001";
