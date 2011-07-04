@@ -122,6 +122,7 @@ void EnemyThalia::processBehavior() {
             _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
             _pProg->change(THALIA_PROG_MOVE);
         }
+            break;
         default:
             break;
     }

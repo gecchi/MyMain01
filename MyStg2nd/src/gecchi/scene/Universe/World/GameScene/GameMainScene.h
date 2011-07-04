@@ -18,7 +18,7 @@ class GameMainScene : public GgafDx9LibStg::DefaultScene {
 public:
 //    static GameMainScene* _pGameMainScene;
 
-    char _buf[20];
+    char _buf[60];
     LabelGecchi16Font* _pFont16_SCORE;
     LabelGecchi16Font* _pFont16_RANK;
     LabelGecchi16Font* _pFont16_STAMINA;
@@ -27,6 +27,7 @@ public:
     LabelGecchi8Font* _pFont8_JIKI_Z;
     LabelGecchi16Font* _pFont1601;
     LabelGecchi16Font* _pFont1602;
+    LabelRankFont* _pRankFont;
 
     StageScene* _pSceneMainCannnel;
 

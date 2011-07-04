@@ -28,7 +28,8 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     getLordActor()->addSubGroup(_pFont8_JIKI_Y);
     _pFont8_JIKI_Z = NEW LabelGecchi8Font("JIKI_Z");
     getLordActor()->addSubGroup(_pFont8_JIKI_Z);
-
+    _pRankFont = NEW LabelRankFont("RankFont");
+    getLordActor()->addSubGroup(_pRankFont);
     _pSceneMainCannnel = NULL;
     _had_ready_stage = false;
 //    GameMainScene::_pGameMainScene = this;
@@ -104,6 +105,8 @@ void GameMainScene::processBehavior() {
     _pFont8_JIKI_Y->update(cnvCoordPix2App(1), cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1), _buf);
     sprintf(_buf, "Z:%8d", P_MYSHIP->_Z);
     _pFont8_JIKI_Z->update(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1)*1000, _buf);
+    MyStgUtil::cnvRankStr((int)(_RANK_*100000),_buf);
+    _pRankFont->update(1000*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 100*1-1)*1000, _buf);
 
 
     switch (_pProg->get()) {

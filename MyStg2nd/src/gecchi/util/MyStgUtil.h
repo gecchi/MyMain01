@@ -18,7 +18,7 @@ public:
      * @param out Œ‹‰Êo—Í[80]•K—v
      * @return
      */
-    static void getRankStr(int prm_rank, char* out);
+    static void cnvRankStr(int prm_rank, char* out);
 
     /**
      * —DˆÊ«‚ğ’²‚×‚é

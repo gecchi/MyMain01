@@ -163,7 +163,7 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
     _pSeTransmitter->set(2,"fire01", 99);
     _pSeTransmitter->set(3,"bse5", 99);
     char rankstr[80] = {0} ;// ‘S‚Ä0‚Å‰Šú‰»
-    MyStgUtil::getRankStr(99999, rankstr);
+    MyStgUtil::cnvRankStr(99999, rankstr);
     _TRACE_("RANKSTR:"<<rankstr);
 
 
