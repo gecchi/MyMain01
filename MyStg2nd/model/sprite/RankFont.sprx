@@ -2,8 +2,8 @@ xof 0303txt 0032
 
 SpriteDef Mogera-to {
    16.0;
-   42.0;
+   64.0;
    "RankFont.png";
-   16;
    4;
+   16;
 } 

@@ -108,7 +108,6 @@ void GameMainScene::processBehavior() {
     MyStgUtil::cnvRankStr((int)(_RANK_*100000),_buf);
     _pRankFont->update(1000*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 100*1-1)*1000, _buf);
 
-
     switch (_pProg->get()) {
         case GAMEMAINSCENE_PROG_INIT: {
             _pProg->change(GAMEMAINSCENE_PROG_BEGIN);

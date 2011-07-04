@@ -171,7 +171,13 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 int dx = (_X - _pOrg->_X);
                 int dy = (_Y - _pOrg->_Y);
                 int dz = (_Z - _pOrg->_Z);
-                double rrr = cnvCoordDx2App(P_CAM->_zf)/dx;
+
+                double rrr;
+                if (dx == 0) {
+                    rrr = cnvCoordDx2App(P_CAM->_zf);
+                } else {
+                    rrr = cnvCoordDx2App(P_CAM->_zf)/dx;
+                }
                 vTx = _X+dx*rrr;
                 vTy = _Y+dy*rrr;
                 vTz = _Z+dz*rrr;
@@ -293,7 +299,6 @@ void MyOptionWateringLaserChip001::processBehavior() {
 //                _pKurokoB->setVyMvVelo(p->_tmpY - _Y);
 //                _pKurokoB->setVzMvVelo(p->_tmpZ - _Z);
 //            }
-
 
 
 
