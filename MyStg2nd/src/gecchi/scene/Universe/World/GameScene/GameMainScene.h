@@ -25,8 +25,8 @@ public:
     LabelGecchi8Font* _pFont8_JIKI_X;
     LabelGecchi8Font* _pFont8_JIKI_Y;
     LabelGecchi8Font* _pFont8_JIKI_Z;
-    LabelGecchi16Font* _pFont1601;
-    LabelGecchi16Font* _pFont1602;
+//    LabelGecchi16Font* _pFont1601;
+//    LabelGecchi16Font* _pFont1602;
     LabelRankFont* _pRankFont;
 
     StageScene* _pSceneMainCannnel;

@@ -13,23 +13,33 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameMainScene";
 
     _pFont16_SCORE = NEW LabelGecchi16Font("SCORE");
+    _pFont16_SCORE->locate(550*1000, 1*1000);
     getLordActor()->addSubGroup(_pFont16_SCORE);
     _pFont16_RANK = NEW LabelGecchi16Font("RANK");
+    _pFont16_RANK->locate(550*1000, 20*1000);
     getLordActor()->addSubGroup(_pFont16_RANK);
     _pFont16_STAMINA = NEW LabelGecchi16Font("STAMINA");
+    _pFont16_STAMINA->locate(550*1000, 40*1000);
     getLordActor()->addSubGroup(_pFont16_STAMINA);
-    _pFont1601 = NEW LabelGecchi16Font("STR01");
-    getLordActor()->addSubGroup(_pFont1601);
-    _pFont1602 = NEW LabelGecchi16Font("STR02");
-    getLordActor()->addSubGroup(_pFont1602);
+//
+//    _pFont1601 = NEW LabelGecchi16Font("STR01");
+//    getLordActor()->addSubGroup(_pFont1601);
+//    _pFont1602 = NEW LabelGecchi16Font("STR02");
+//    getLordActor()->addSubGroup(_pFont1602);
     _pFont8_JIKI_X = NEW LabelGecchi8Font("JIKI_X");
-    getLordActor()->addSubGroup(_pFont8_JIKI_X);
     _pFont8_JIKI_Y = NEW LabelGecchi8Font("JIKI_Y");
-    getLordActor()->addSubGroup(_pFont8_JIKI_Y);
     _pFont8_JIKI_Z = NEW LabelGecchi8Font("JIKI_Z");
+    _pFont8_JIKI_X->locate(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1)*1000);
+    _pFont8_JIKI_Y->locate(cnvCoordPix2App(1), cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1));
+    _pFont8_JIKI_Z->update(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1)*1000);
+    getLordActor()->addSubGroup(_pFont8_JIKI_X);
+    getLordActor()->addSubGroup(_pFont8_JIKI_Y);
     getLordActor()->addSubGroup(_pFont8_JIKI_Z);
+
     _pRankFont = NEW LabelRankFont("RankFont");
+    _pRankFont->locate(1000*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 100*1-1)*1000);
     getLordActor()->addSubGroup(_pRankFont);
+
     _pSceneMainCannnel = NULL;
     _had_ready_stage = false;
 //    GameMainScene::_pGameMainScene = this;
@@ -41,8 +51,8 @@ void GameMainScene::onReset() {
 //    VB_PLAY->clear();
 //    P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
 
-    _pFont1601->update("");
-    _pFont1602->update("");
+//    _pFont1601->update("");
+//    _pFont1602->update("");
     if (_pSceneMainCannnel) {
         _pSceneMainCannnel->inactivate();
     }
@@ -93,20 +103,18 @@ void GameMainScene::initialize() {
 void GameMainScene::processBehavior() {
     //SCORE表示
     sprintf(_buf, "SCORE %07u", _SCORE_);
-    _pFont16_SCORE->update(550*1000, 1*1000, _buf);
+    _pFont16_SCORE->update(_buf);
     sprintf(_buf, "RANK %.7f", _RANK_);
-    _pFont16_RANK->update(550*1000, 20*1000, _buf);
+    _pFont16_RANK->update(_buf);
     sprintf(_buf, "STAMINA %7d", P_MYSHIP->_pStatus->get(STAT_Stamina));
-    _pFont16_STAMINA->update(550*1000, 40*1000, _buf);
+    _pFont16_STAMINA->update(_buf);
 
     sprintf(_buf, "X:%8d", P_MYSHIP->_X);
-    _pFont8_JIKI_X->update(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1)*1000, _buf);
+    _pFont8_JIKI_X->update(_buf);
     sprintf(_buf, "Y:%8d", P_MYSHIP->_Y);
-    _pFont8_JIKI_Y->update(cnvCoordPix2App(1), cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1), _buf);
+    _pFont8_JIKI_Y->update(_buf);
     sprintf(_buf, "Z:%8d", P_MYSHIP->_Z);
-    _pFont8_JIKI_Z->update(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1)*1000, _buf);
-    MyStgUtil::cnvRankStr((int)(_RANK_*100000),_buf);
-    _pRankFont->update(1000*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 100*1-1)*1000, _buf);
+    _pFont8_JIKI_Z->update(_buf);
 
     switch (_pProg->get()) {
         case GAMEMAINSCENE_PROG_INIT: {

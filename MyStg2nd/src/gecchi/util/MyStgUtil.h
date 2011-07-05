@@ -5,20 +5,6 @@ namespace MyStg2nd {
 class MyStgUtil: public GgafDx9LibStg::StgUtil {
 public:
 
-    static char RANK_1stDeg[10][6];
-    static char RANK_10thDeg[10][5];
-    static char RANK_100thDeg[10][7];
-    static char RANK_1000thDeg[10][9];
-    static char RANK_10000thDeg[10][46];
-    static char RANK_INF[7];
-
-    /**
-     * ランク数値から文字列変換
-     * @param prm_rank ランク数値(1～100000)
-     * @param out 結果出力[80]必要
-     * @return
-     */
-    static void cnvRankStr(int prm_rank, char* out);
 
     /**
      * 優位性を調べる
@@ -181,66 +167,66 @@ public:
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コード変更は「ステータスCreater.xls」から行っていただきたい。
     // gen01 start
-	//自機レーザー
-	static void resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
-	//オプションカーブレーザー
-	static void resetMyOptionWateringLaserChip001Status(GgafCore::GgafStatus* p);
-	//オプションストレートレーザー
-	static void resetMyOptionStraightLaserChip001Status(GgafCore::GgafStatus* p);
-	//トゥピード
-	static void resetMyTorpedoStatus(GgafCore::GgafStatus* p);
-	//トゥピード爆風
-	static void resetMyTorpedoBlastStatus(GgafCore::GgafStatus* p);
-	//自機
-	static void resetMyShipStatus(GgafCore::GgafStatus* p);
-	//敵ストレートレーザー001
-	static void resetEnemyStraightLaserChip001Status(GgafCore::GgafStatus* p);
-	//敵カーブレーザー001
-	static void resetEnemyCurveLaserChip001Status(GgafCore::GgafStatus* p);
-	//ケレス
-	static void resetEnemyCeresStatus(GgafCore::GgafStatus* p);
-	//ケレスショット001
-	static void resetEnemyCeresShot001Status(GgafCore::GgafStatus* p);
-	//アストラエア
-	static void resetEnemyAstraeaStatus(GgafCore::GgafStatus* p);
-	//アストラエアレーザー
-	static void resetEnemyAstraeaLaserChip001Status(GgafCore::GgafStatus* p);
-	//アストラエアレーザー
-	static void resetEnemyAstraeaLaserChip002Status(GgafCore::GgafStatus* p);
-	//ヴェスタ
-	static void resetEnemyVestaStatus(GgafCore::GgafStatus* p);
-	//メティス
-	static void resetEnemyMetisStatus(GgafCore::GgafStatus* p);
-	//イリス
-	static void resetEnemyIrisStatus(GgafCore::GgafStatus* p);
-	//ジュノー
-	static void resetEnemyJunoStatus(GgafCore::GgafStatus* p);
-	//タエラ
-	static void resetEnemyThaliaStatus(GgafCore::GgafStatus* p);
-	//汎用ショット001
-	static void resetShot001Status(GgafCore::GgafStatus* p);
-	//汎用ショット002
-	static void resetShot002Status(GgafCore::GgafStatus* p);
-	//たまご１
-	static void resetEnemyTamago01Status(GgafCore::GgafStatus* p);
-	//キルケ
-	static void resetEnemyCirceStatus(GgafCore::GgafStatus* p);
-	//汎用ショット003ミニレーザー
-	static void resetShot003Status(GgafCore::GgafStatus* p);
-	//ミニレーザーショット
-	static void resetShot004Status(GgafCore::GgafStatus* p);
-	//地形トーラス
-	static void resetTorusStatus(GgafCore::GgafStatus* p);
-	//地形ボックス
-	static void resetWall001Status(GgafCore::GgafStatus* p);
-	//パラス
-	static void resetEnemyPallasStatus(GgafCore::GgafStatus* p);
-	//エウノミア
-	static void resetEnemyEunomiaStatus(GgafCore::GgafStatus* p);
-	//自機ショット
-	static void resetMyShot001Status(GgafCore::GgafStatus* p);
-	//アイテム
-	static void resetMagicPointItem001Status(GgafCore::GgafStatus* p);
+    //自機レーザー
+    static void resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
+    //オプションカーブレーザー
+    static void resetMyOptionWateringLaserChip001Status(GgafCore::GgafStatus* p);
+    //オプションストレートレーザー
+    static void resetMyOptionStraightLaserChip001Status(GgafCore::GgafStatus* p);
+    //トゥピード
+    static void resetMyTorpedoStatus(GgafCore::GgafStatus* p);
+    //トゥピード爆風
+    static void resetMyTorpedoBlastStatus(GgafCore::GgafStatus* p);
+    //自機
+    static void resetMyShipStatus(GgafCore::GgafStatus* p);
+    //敵ストレートレーザー001
+    static void resetEnemyStraightLaserChip001Status(GgafCore::GgafStatus* p);
+    //敵カーブレーザー001
+    static void resetEnemyCurveLaserChip001Status(GgafCore::GgafStatus* p);
+    //ケレス
+    static void resetEnemyCeresStatus(GgafCore::GgafStatus* p);
+    //ケレスショット001
+    static void resetEnemyCeresShot001Status(GgafCore::GgafStatus* p);
+    //アストラエア
+    static void resetEnemyAstraeaStatus(GgafCore::GgafStatus* p);
+    //アストラエアレーザー
+    static void resetEnemyAstraeaLaserChip001Status(GgafCore::GgafStatus* p);
+    //アストラエアレーザー
+    static void resetEnemyAstraeaLaserChip002Status(GgafCore::GgafStatus* p);
+    //ヴェスタ
+    static void resetEnemyVestaStatus(GgafCore::GgafStatus* p);
+    //メティス
+    static void resetEnemyMetisStatus(GgafCore::GgafStatus* p);
+    //イリス
+    static void resetEnemyIrisStatus(GgafCore::GgafStatus* p);
+    //ジュノー
+    static void resetEnemyJunoStatus(GgafCore::GgafStatus* p);
+    //タエラ
+    static void resetEnemyThaliaStatus(GgafCore::GgafStatus* p);
+    //汎用ショット001
+    static void resetShot001Status(GgafCore::GgafStatus* p);
+    //汎用ショット002
+    static void resetShot002Status(GgafCore::GgafStatus* p);
+    //たまご１
+    static void resetEnemyTamago01Status(GgafCore::GgafStatus* p);
+    //キルケ
+    static void resetEnemyCirceStatus(GgafCore::GgafStatus* p);
+    //汎用ショット003ミニレーザー
+    static void resetShot003Status(GgafCore::GgafStatus* p);
+    //ミニレーザーショット
+    static void resetShot004Status(GgafCore::GgafStatus* p);
+    //地形トーラス
+    static void resetTorusStatus(GgafCore::GgafStatus* p);
+    //地形ボックス
+    static void resetWall001Status(GgafCore::GgafStatus* p);
+    //パラス
+    static void resetEnemyPallasStatus(GgafCore::GgafStatus* p);
+    //エウノミア
+    static void resetEnemyEunomiaStatus(GgafCore::GgafStatus* p);
+    //自機ショット
+    static void resetMyShot001Status(GgafCore::GgafStatus* p);
+    //アイテム
+    static void resetMagicPointItem001Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

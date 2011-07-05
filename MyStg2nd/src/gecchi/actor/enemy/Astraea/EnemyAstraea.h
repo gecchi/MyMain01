@@ -2,10 +2,6 @@
 #define ENEMYASTRAEA_H_
 namespace MyStg2nd {
 
-#define ASTRAEA_PROG_MOVE  1
-#define ASTRAEA_PROG_TURN  2
-#define ASTRAEA_PROG_FIRE  3
-
 /**
  * アストラエア .
  */

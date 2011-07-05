@@ -5,6 +5,10 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+#define ASTRAEA_PROG_MOVE  1
+#define ASTRAEA_PROG_TURN  2
+#define ASTRAEA_PROG_FIRE  3
+
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "Astraea") {
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 

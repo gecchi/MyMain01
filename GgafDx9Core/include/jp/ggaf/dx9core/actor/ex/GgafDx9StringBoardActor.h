@@ -32,19 +32,18 @@ namespace GgafDx9Core {
  * @author Masatoshi Tsuge
  */
 class GgafDx9StringBoardActor : public GgafDx9BoardSetActor {
-private:
-    /** 描画文字列 */
+public:
+    /** [r]描画文字列 */
     char* _draw_string;
-    /** 文字バッファ(1024固定) */
+    /** [r]文字バッファ(1024固定) */
     char* _buf;
-    /** 文字列長 */
+    /** [r]文字列長 */
     int _len;
-    /** 描画文字のパック数。(1パック = _pBoardSetModel->_set_num) */
+    /** [r]描画文字のパック数。(1パック = _pBoardSetModel->_set_num) */
     int _len_pack_num;
-    /** 最終のパックで表示しなければならない文字数。*/
+    /** [r]最終のパックで表示しなければならない文字数。*/
     int _remainder_len;
 
-public:
     /** [r/w]各文字間隔(px) */
     int _aWidthPx[256];
     /** [r/w]ベースの１文字幅(px) */
