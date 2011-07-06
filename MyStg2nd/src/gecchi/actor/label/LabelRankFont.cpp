@@ -139,7 +139,8 @@ void LabelRankFont::onCreateModel() {
 void LabelRankFont::initialize() {
     _rank = (int)(_RANK_*100000);
     _tmp_rank = _rank;
-    _pProg->set(0);
+    _pProg->set(RANKFONT_PROG_NOMALDISP);
+    _draw_string = _buf;
 }
 
 void LabelRankFont::processBehavior() {
@@ -148,7 +149,10 @@ void LabelRankFont::processBehavior() {
     }
 
     _rank = (int)(_RANK_*100000);
-    cnvRankStr(_rank, _buf);
+    cnvRankStr(_rank, _draw_string);
+    _len = strlen(_draw_string);
+    _len_pack_num = _len/_pBoardSetModel->_set_num;
+    _remainder_len = _len%_pBoardSetModel->_set_num;
     if (_rank > _tmp_rank) {
         _pProg->set(RANKFONT_PROG_RANKUP);
     }
@@ -156,14 +160,14 @@ void LabelRankFont::processBehavior() {
     switch (_pProg->get()) {
         case RANKFONT_PROG_NOMALDISP: {
             if (_pProg->isJustChanged()) {
-                _pGgafDx9Model->_pTextureBlinker->intoTargetBlinkLinerUntil(1.0, 20);
+                _pGgafDx9Model->_pTextureBlinker->intoTargetBlinkLinerUntil(1.0, 5);
             }
             break;
         }
 
         case RANKFONT_PROG_RANKUP: {
             if (_pProg->isJustChanged()) {
-                _pGgafDx9Model->_pTextureBlinker->beat(20, 10, 1, 3);
+                _pGgafDx9Model->_pTextureBlinker->beat(10, 10, 1, 3);
             }
             if (_pGgafDx9Model->_pTextureBlinker->_method == NOBLINK) {
                 _pProg->change(RANKFONT_PROG_NOMALDISP);
