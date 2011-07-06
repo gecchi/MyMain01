@@ -98,6 +98,7 @@ protected:
 
 public:
 
+    frame _n_once;
     /**
      * コンストラクタ .
      * 引数： prm_name シーン名<BR>
@@ -110,6 +111,19 @@ public:
      * 自ツリーシーンの解放を行います<BR>
      */
     virtual ~GgafScene();
+
+    /**
+     * 何フレームに１回実行するかを指定 .
+     * スローにしたい時に使用することを想定。<BR>
+     * 規定は1。等倍進行。上位シーンの1フレームで、自身が1フレーム進む。<BR>
+     * 2 を設定すると 1/2倍速進行。上位シーンの2フレームで1フレーム進む。<BR>
+     * 3 を設定すると 1/3倍速進行。上位シーンの3フレームで1フレーム進む。<BR>
+     * 4 を設定すると 1/4倍速進行。上位シーンの4フレームで1フレーム進む。<BR>
+     * @param prm_n_once 何フレームに１回実行するか
+     */
+    void setRunFrameOnce(frame prm_n_once) {
+        _n_once = prm_n_once;
+    }
 
     virtual void addSubLast(GgafScene* prm_pScene) override {
         GgafElement<GgafScene>::addSubLast(prm_pScene);

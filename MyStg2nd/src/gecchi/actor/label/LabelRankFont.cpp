@@ -132,12 +132,12 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
 }
 
 void LabelRankFont::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.01, 0.1, 5.0);
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.01, 0.5, 5.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(1.0);
 }
 
 void LabelRankFont::initialize() {
-    _rank = (int)(_RANK_*100000);
+    _rank = (int)(_RANK_*1000000);
     _tmp_rank = _rank;
     _pProg->set(RANKFONT_PROG_NOMALDISP);
     _draw_string = _buf;
@@ -145,18 +145,20 @@ void LabelRankFont::initialize() {
 
 void LabelRankFont::processBehavior() {
     if (GgafDx9Input::isPushedDownKey(DIK_R)) {
-        _RANK_+=0.00001;
+        _RANK_+=0.0001;
     }
 
     _rank = (int)(_RANK_*100000);
-    cnvRankStr(_rank, _draw_string);
-    _len = strlen(_draw_string);
-    _len_pack_num = _len/_pBoardSetModel->_set_num;
-    _remainder_len = _len%_pBoardSetModel->_set_num;
     if (_rank > _tmp_rank) {
+        cnvRankStr(_rank, _draw_string);
+        _len = strlen(_draw_string);
+        _len_pack_num = _len/_pBoardSetModel->_set_num;
+        _remainder_len = _len%_pBoardSetModel->_set_num;
         _pProg->set(RANKFONT_PROG_RANKUP);
+        _tmp_rank = _rank;
     }
-    _tmp_rank = _rank;
+
+
     switch (_pProg->get()) {
         case RANKFONT_PROG_NOMALDISP: {
             if (_pProg->isJustChanged()) {
@@ -193,7 +195,7 @@ void LabelRankFont::processDraw() {
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _fAlpha);
     checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahAlpha) に失敗しました。");
     int strindex, pattno;
-    pixcoord x = cnvCoordApp2Pix(_X) - (_chr_width_px * _len);
+    pixcoord x = cnvCoordApp2Pix(_X) - (_chr_width_px * _len); //右詰にするため _chr_width_px*_len をマイナス
     float u,v;
     for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
         _draw_set_num = pack < _len_pack_num ? _pBoardSetModel->_set_num : _remainder_len;

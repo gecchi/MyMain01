@@ -12,7 +12,7 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     _obj_class = Obj_GgafScene;
 
     _pLordActor = NEW GgafLordActor(this);
-
+    _n_once = 1;
 #ifdef MY_DEBUG
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
 #else
@@ -31,28 +31,35 @@ GgafScene::~GgafScene() {
 }
 
 void GgafScene::nextFrame() {
-    TRACE("GgafScene::nextFrame() " << getName());
-    GgafElement<GgafScene>::nextFrame();
-    _pLordActor->nextFrame();
-
+    if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
+        TRACE("GgafScene::nextFrame() " << getName());
+        GgafElement<GgafScene>::nextFrame();
+        _pLordActor->nextFrame();
+    }
 }
 
 void GgafScene::behave() {
-    TRACE("GgafScene::behave() " << getName());
-    GgafElement<GgafScene>::behave();
-    _pLordActor->behave();
+    if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
+        TRACE("GgafScene::behave() " << getName());
+        GgafElement<GgafScene>::behave();
+        _pLordActor->behave();
+    }
 }
 
 void GgafScene::settleBehavior() {
-    TRACE("GgafScene::settleBehavior() " << getName());
-    GgafElement<GgafScene>::settleBehavior();
-    _pLordActor->settleBehavior();
+    if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
+        TRACE("GgafScene::settleBehavior() " << getName());
+        GgafElement<GgafScene>::settleBehavior();
+        _pLordActor->settleBehavior();
+    }
 }
 
 void GgafScene::judge() {
-    TRACE("GgafScene::judge() " << getName());
-    GgafElement<GgafScene>::judge();
-    _pLordActor->judge();
+    if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
+        TRACE("GgafScene::judge() " << getName());
+        GgafElement<GgafScene>::judge();
+        _pLordActor->judge();
+    }
 }
 
 void GgafScene::preDraw() {
@@ -84,8 +91,10 @@ void GgafScene::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
 
 
 void GgafScene::doFinally() {
-    GgafElement<GgafScene>::doFinally();
-    _pLordActor->doFinally();
+    if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
+        GgafElement<GgafScene>::doFinally();
+        _pLordActor->doFinally();
+    }
 }
 
 void GgafScene::activateTree() {
