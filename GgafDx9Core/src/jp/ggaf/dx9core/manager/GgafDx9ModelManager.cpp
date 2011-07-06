@@ -246,7 +246,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     GgafDx9MeshModel::INDEXPARAM* model_paIndexParam = NULL;
     GgafDx9MeshModel::VERTEX*     model_paVtxBuffer_org = NULL;
     WORD*                         model_paIdxBuffer_org = NULL;
-    D3DMATERIAL9*                 model_paD3DMaterial9 = NULL;
+    D3DMATERIAL9*                 model_paMaterial = NULL;
     GgafDx9TextureConnection**    model_papTextureCon = NULL;
     int nVertices = 0;
     int nFaces = 0;
@@ -665,32 +665,32 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         model_nMaterials++;
     }
 
-    model_paD3DMaterial9 = NEW D3DMATERIAL9[model_nMaterials];
+    model_paMaterial = NEW D3DMATERIAL9[model_nMaterials];
     model_papTextureCon = NEW GgafDx9TextureConnection*[model_nMaterials];
 
     char* texture_filename;
     int n = 0;
     for (list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
-        model_paD3DMaterial9[n].Diffuse.r = (*material)->_FaceColor.data[0];
-        model_paD3DMaterial9[n].Diffuse.g = (*material)->_FaceColor.data[1];
-        model_paD3DMaterial9[n].Diffuse.b = (*material)->_FaceColor.data[2];
-        model_paD3DMaterial9[n].Diffuse.a = (*material)->_FaceColor.data[3];
+        model_paMaterial[n].Diffuse.r = (*material)->_FaceColor.data[0];
+        model_paMaterial[n].Diffuse.g = (*material)->_FaceColor.data[1];
+        model_paMaterial[n].Diffuse.b = (*material)->_FaceColor.data[2];
+        model_paMaterial[n].Diffuse.a = (*material)->_FaceColor.data[3];
 
-        model_paD3DMaterial9[n].Ambient.r = (*material)->_FaceColor.data[0];
-        model_paD3DMaterial9[n].Ambient.g = (*material)->_FaceColor.data[1];
-        model_paD3DMaterial9[n].Ambient.b = (*material)->_FaceColor.data[2];
-        model_paD3DMaterial9[n].Ambient.a = (*material)->_FaceColor.data[3];
+        model_paMaterial[n].Ambient.r = (*material)->_FaceColor.data[0];
+        model_paMaterial[n].Ambient.g = (*material)->_FaceColor.data[1];
+        model_paMaterial[n].Ambient.b = (*material)->_FaceColor.data[2];
+        model_paMaterial[n].Ambient.a = (*material)->_FaceColor.data[3];
 
-        model_paD3DMaterial9[n].Specular.r = (*material)->_SpecularColor.data[0];
-        model_paD3DMaterial9[n].Specular.g = (*material)->_SpecularColor.data[1];
-        model_paD3DMaterial9[n].Specular.b = (*material)->_SpecularColor.data[2];
-        model_paD3DMaterial9[n].Specular.a = 1.000000f;
-        model_paD3DMaterial9[n].Power =  (*material)->_power;
+        model_paMaterial[n].Specular.r = (*material)->_SpecularColor.data[0];
+        model_paMaterial[n].Specular.g = (*material)->_SpecularColor.data[1];
+        model_paMaterial[n].Specular.b = (*material)->_SpecularColor.data[2];
+        model_paMaterial[n].Specular.a = 1.000000f;
+        model_paMaterial[n].Power =  (*material)->_power;
 
-        model_paD3DMaterial9[n].Emissive.r = (*material)->_EmissiveColor.data[0];
-        model_paD3DMaterial9[n].Emissive.g = (*material)->_EmissiveColor.data[1];
-        model_paD3DMaterial9[n].Emissive.b = (*material)->_EmissiveColor.data[2];
-        model_paD3DMaterial9[n].Emissive.a = 1.000000f;
+        model_paMaterial[n].Emissive.r = (*material)->_EmissiveColor.data[0];
+        model_paMaterial[n].Emissive.g = (*material)->_EmissiveColor.data[1];
+        model_paMaterial[n].Emissive.b = (*material)->_EmissiveColor.data[2];
+        model_paMaterial[n].Emissive.a = 1.000000f;
 
         texture_filename = (char*)((*material)->_TextureName.c_str());
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
@@ -709,7 +709,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     prm_pMeshModel->_paIdxBuffer_org = model_paIdxBuffer_org;
     prm_pMeshModel->_paVtxBuffer_org = model_paVtxBuffer_org;
     prm_pMeshModel->_paIndexParam = model_paIndexParam;
-    prm_pMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    prm_pMeshModel->_paMaterial_default = model_paMaterial;
     prm_pMeshModel->_papTextureCon = model_papTextureCon;
     prm_pMeshModel->_dwNumMaterials = model_nMaterials;
 
@@ -743,15 +743,15 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 //        _TRACE_("マテリアル  model_nMaterials="<<model_nMaterials);
 //        float a,r,g,b;
 //        for (int i = 0; i < model_nMaterials; i++) {
-//            a = model_paD3DMaterial9[i].Diffuse.a;
-//            r = model_paD3DMaterial9[i].Diffuse.r;
-//            g = model_paD3DMaterial9[i].Diffuse.g;
-//            b = model_paD3DMaterial9[i].Diffuse.b;
+//            a = model_paMaterial[i].Diffuse.a;
+//            r = model_paMaterial[i].Diffuse.r;
+//            g = model_paMaterial[i].Diffuse.g;
+//            b = model_paMaterial[i].Diffuse.b;
 //            _TRACE_("nMaterial["<<i<<"] Diffuse(rgba)=("<<r<<","<<g<<","<<b<<","<<a<<")");
-//            a = model_paD3DMaterial9[i].Ambient.a;
-//            r = model_paD3DMaterial9[i].Ambient.r;
-//            g = model_paD3DMaterial9[i].Ambient.g;
-//            b = model_paD3DMaterial9[i].Ambient.b;
+//            a = model_paMaterial[i].Ambient.a;
+//            r = model_paMaterial[i].Ambient.r;
+//            g = model_paMaterial[i].Ambient.g;
+//            b = model_paMaterial[i].Ambient.b;
 //            _TRACE_("nMaterial["<<i<<"] Ambient(rgba)=("<<r<<","<<g<<","<<b<<","<<a<<")");
 //        }
 //
@@ -817,7 +817,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
     GgafDx9MorphMeshModel::VERTEX_PRIMARY* model_paVtxBuffer_org_primary = NULL;
     GgafDx9MorphMeshModel::VERTEX_MORPH**  model_papaVtxBuffer_org_morph = NULL;
     WORD*                                  model_paIdxBuffer_org = NULL;
-    D3DMATERIAL9*                          model_paD3DMaterial9 = NULL;
+    D3DMATERIAL9*                          model_paMaterial = NULL;
 
     GgafDx9TextureConnection** model_papTextureCon = NULL;
 
@@ -1418,32 +1418,32 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         model_nMaterials++;
     }
 
-    model_paD3DMaterial9 = NEW D3DMATERIAL9[model_nMaterials];
+    model_paMaterial = NEW D3DMATERIAL9[model_nMaterials];
     model_papTextureCon = NEW GgafDx9TextureConnection*[model_nMaterials];
 
     char* texture_filename;
     int n = 0;
     for (list<Frm::Material*>::iterator material = model_papMeshesFront[0]->_Materials.begin(); material != model_papMeshesFront[0]->_Materials.end(); material++) {
-        model_paD3DMaterial9[n].Diffuse.r = (*material)->_FaceColor.data[0];
-        model_paD3DMaterial9[n].Diffuse.g = (*material)->_FaceColor.data[1];
-        model_paD3DMaterial9[n].Diffuse.b = (*material)->_FaceColor.data[2];
-        model_paD3DMaterial9[n].Diffuse.a = (*material)->_FaceColor.data[3];
+        model_paMaterial[n].Diffuse.r = (*material)->_FaceColor.data[0];
+        model_paMaterial[n].Diffuse.g = (*material)->_FaceColor.data[1];
+        model_paMaterial[n].Diffuse.b = (*material)->_FaceColor.data[2];
+        model_paMaterial[n].Diffuse.a = (*material)->_FaceColor.data[3];
 
-        model_paD3DMaterial9[n].Ambient.r = (*material)->_FaceColor.data[0];
-        model_paD3DMaterial9[n].Ambient.g = (*material)->_FaceColor.data[1];
-        model_paD3DMaterial9[n].Ambient.b = (*material)->_FaceColor.data[2];
-        model_paD3DMaterial9[n].Ambient.a = (*material)->_FaceColor.data[3];
+        model_paMaterial[n].Ambient.r = (*material)->_FaceColor.data[0];
+        model_paMaterial[n].Ambient.g = (*material)->_FaceColor.data[1];
+        model_paMaterial[n].Ambient.b = (*material)->_FaceColor.data[2];
+        model_paMaterial[n].Ambient.a = (*material)->_FaceColor.data[3];
 
-        model_paD3DMaterial9[n].Specular.r = (*material)->_SpecularColor.data[0];
-        model_paD3DMaterial9[n].Specular.g = (*material)->_SpecularColor.data[1];
-        model_paD3DMaterial9[n].Specular.b = (*material)->_SpecularColor.data[2];
-        model_paD3DMaterial9[n].Specular.a = 1.000000f;
-        model_paD3DMaterial9[n].Power =  (*material)->_power;
+        model_paMaterial[n].Specular.r = (*material)->_SpecularColor.data[0];
+        model_paMaterial[n].Specular.g = (*material)->_SpecularColor.data[1];
+        model_paMaterial[n].Specular.b = (*material)->_SpecularColor.data[2];
+        model_paMaterial[n].Specular.a = 1.000000f;
+        model_paMaterial[n].Power =  (*material)->_power;
 
-        model_paD3DMaterial9[n].Emissive.r = (*material)->_EmissiveColor.data[0];
-        model_paD3DMaterial9[n].Emissive.g = (*material)->_EmissiveColor.data[1];
-        model_paD3DMaterial9[n].Emissive.b = (*material)->_EmissiveColor.data[2];
-        model_paD3DMaterial9[n].Emissive.a = 1.000000f;
+        model_paMaterial[n].Emissive.r = (*material)->_EmissiveColor.data[0];
+        model_paMaterial[n].Emissive.g = (*material)->_EmissiveColor.data[1];
+        model_paMaterial[n].Emissive.b = (*material)->_EmissiveColor.data[2];
+        model_paMaterial[n].Emissive.a = 1.000000f;
 
         texture_filename = (char*)((*material)->_TextureName.c_str());
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
@@ -1469,7 +1469,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
     prm_pMorphMeshModel->_paVtxBuffer_org_primary = model_paVtxBuffer_org_primary;
     prm_pMorphMeshModel->_papaVtxBuffer_org_morph = model_papaVtxBuffer_org_morph;
     prm_pMorphMeshModel->_paIndexParam = model_paIndexParam;
-    prm_pMorphMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    prm_pMorphMeshModel->_paMaterial_default = model_paMaterial;
     prm_pMorphMeshModel->_papTextureCon = model_papTextureCon;
     prm_pMorphMeshModel->_dwNumMaterials = model_nMaterials;
 }
@@ -1482,7 +1482,7 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
 
     //Xファイルのロードして必要な内容をGgafDx9D3DXMeshModelメンバに設定しインスタンスとして完成させたい
     LPD3DXMESH pID3DXMesh; //メッシュ(ID3DXMeshインターフェイスへのポインタ）
-    D3DMATERIAL9* model_paD3DMaterial9; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
+    D3DMATERIAL9* model_paMaterial; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDx9TextureConnection** model_papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD dwNumMaterials;
     string xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
@@ -1518,9 +1518,9 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     // やっていることメモ
     // GetBufferPointer()で取得できる D3DXMATERIAL構造体配列のメンバのMatD3D (D3DMATERIAL9構造体) が欲しい。
     //構造体を物理コピーをして保存することにしましょ～、とりあえずそ～しましょう。
-    model_paD3DMaterial9 = NEW D3DMATERIAL9[dwNumMaterials];
+    model_paMaterial = NEW D3DMATERIAL9[dwNumMaterials];
     for( DWORD i = 0; i < dwNumMaterials; i++){
-        model_paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
+        model_paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
     }
 
     //マテリアルのDiffuse反射をAmbient反射にコピーする
@@ -1532,7 +1532,7 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     //固定パイプラインはもう使わなくなった。それに伴いマテリアルDiffuseはシェーダーのパラメータのみで利用している。
     //TODO:現在マテリアルAmbientは参照されない。今後もそうする？
     for( DWORD i = 0; i < dwNumMaterials; i++) {
-        model_paD3DMaterial9[i].Ambient = model_paD3DMaterial9[i].Diffuse;
+        model_paMaterial[i].Ambient = model_paMaterial[i].Diffuse;
     }
 
     //テクスチャを取り出す
@@ -1566,7 +1566,7 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
 
     //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
     prm_pD3DXMeshModel->_pID3DXMesh = pID3DXMesh;
-    prm_pD3DXMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    prm_pD3DXMeshModel->_paMaterial_default = model_paMaterial;
     prm_pD3DXMeshModel->_papTextureCon = model_papTextureCon;
     prm_pD3DXMeshModel->_dwNumMaterials = dwNumMaterials;
     prm_pD3DXMeshModel->_radius_bounding_sphere = 10.0f; //TODO:境界球半径大きさとりあえず100px
@@ -1585,7 +1585,7 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
     //2)GgafDx9D3DXAniMeshModelのメンバにセット
     //Xファイルのロードして必要な内容をGgafDx9D3DXAniMeshModelメンバに設定しインスタンスとして完成させたい
     LPD3DXMESH pID3DXAniMesh; //メッシュ(ID3DXAniMeshインターフェイスへのポインタ）
-    D3DMATERIAL9* model_paD3DMaterial9 = NULL; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
+    D3DMATERIAL9* model_paMaterial = NULL; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDx9TextureConnection** model_papTextureCon = NULL; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD dwNumMaterials;
     string xfile_name = CFG_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
@@ -1653,7 +1653,7 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
         }
     }
     //配列数がやっと解ったので作成
-    model_paD3DMaterial9 = NEW D3DMATERIAL9[model_nMaterials];
+    model_paMaterial = NEW D3DMATERIAL9[model_nMaterials];
     model_papTextureCon  = NEW GgafDx9TextureConnection*[model_nMaterials];
     //モデル保持用マテリアル、テクスチャ作成のため、もう一度回す
     it = listFrame.begin();
@@ -1665,7 +1665,7 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
         } else {
             for (int j = 0; j < (int)((*it)->pMeshContainer->NumMaterials); j++) {
 //                (*it)->pMeshContainer->pMaterials[j].MatD3D.Diffuse
-                model_paD3DMaterial9[n] = (*it)->pMeshContainer->pMaterials[j].MatD3D; //マテリアル情報コピー
+                model_paMaterial[n] = (*it)->pMeshContainer->pMaterials[j].MatD3D; //マテリアル情報コピー
 
                 texture_filename = (*it)->pMeshContainer->pMaterials[j].pTextureFilename;
                 if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
@@ -1699,7 +1699,7 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
 //    _TRACE_("アニメーションセット0番_advance_time_per_frame");
 
 //    prm_pD3DXAniMeshModel->_pID3DXAniMesh = pID3DXAniMesh;
-    prm_pD3DXAniMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    prm_pD3DXAniMeshModel->_paMaterial_default = model_paMaterial;
     prm_pD3DXAniMeshModel->_papTextureCon = model_papTextureCon;
     prm_pD3DXAniMeshModel->_dwNumMaterials = model_nMaterials;
     prm_pD3DXAniMeshModel->_anim_ticks_per_second = anim_ticks_per_second;
@@ -1881,20 +1881,20 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 //    prm_pSpriteModel->_paRectUV = model_paRectUV;
 //    prm_pSpriteModel->_pattno_uvflip_Max=pattnum-1;
     prm_pSpriteModel->_dwNumMaterials = 1;
-    D3DMATERIAL9* model_paD3DMaterial9;
-    model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pSpriteModel->_dwNumMaterials];
+    D3DMATERIAL9* model_paMaterial;
+    model_paMaterial = NEW D3DMATERIAL9[prm_pSpriteModel->_dwNumMaterials];
     for( DWORD i = 0; i < prm_pSpriteModel->_dwNumMaterials; i++){
-        //model_paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
-        model_paD3DMaterial9[i].Diffuse.r = 1.0f;
-        model_paD3DMaterial9[i].Diffuse.g = 1.0f;
-        model_paD3DMaterial9[i].Diffuse.b = 1.0f;
-        model_paD3DMaterial9[i].Diffuse.a = 1.0f;
-        model_paD3DMaterial9[i].Ambient.r = 1.0f;
-        model_paD3DMaterial9[i].Ambient.g = 1.0f;
-        model_paD3DMaterial9[i].Ambient.b = 1.0f;
-        model_paD3DMaterial9[i].Ambient.a = 1.0f;
+        //model_paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
+        model_paMaterial[i].Diffuse.r = 1.0f;
+        model_paMaterial[i].Diffuse.g = 1.0f;
+        model_paMaterial[i].Diffuse.b = 1.0f;
+        model_paMaterial[i].Diffuse.a = 1.0f;
+        model_paMaterial[i].Ambient.r = 1.0f;
+        model_paMaterial[i].Ambient.g = 1.0f;
+        model_paMaterial[i].Ambient.b = 1.0f;
+        model_paMaterial[i].Ambient.a = 1.0f;
     }
-    prm_pSpriteModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    prm_pSpriteModel->_paMaterial_default = model_paMaterial;
     //後始末
     DELETEARR_IMPOSSIBLE_NULL(paVertex);
     RELEASE_SAFETY(pIDirectXFileData);
@@ -2160,19 +2160,19 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
 //    prm_pSpriteSetModel->_paRectUV = model_paRectUV;
 //    prm_pSpriteSetModel->_pattno_uvflip_Max=pattnum-1;
     prm_pSpriteSetModel->_dwNumMaterials = 1;
-    D3DMATERIAL9* model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pSpriteSetModel->_dwNumMaterials];
+    D3DMATERIAL9* model_paMaterial = NEW D3DMATERIAL9[prm_pSpriteSetModel->_dwNumMaterials];
     for( DWORD i = 0; i < prm_pSpriteSetModel->_dwNumMaterials; i++){
-        //model_paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
-        model_paD3DMaterial9[i].Diffuse.r = 1.0f;
-        model_paD3DMaterial9[i].Diffuse.g = 1.0f;
-        model_paD3DMaterial9[i].Diffuse.b = 1.0f;
-        model_paD3DMaterial9[i].Diffuse.a = 1.0f;
-        model_paD3DMaterial9[i].Ambient.r = 1.0f;
-        model_paD3DMaterial9[i].Ambient.g = 1.0f;
-        model_paD3DMaterial9[i].Ambient.b = 1.0f;
-        model_paD3DMaterial9[i].Ambient.a = 1.0f;
+        //model_paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
+        model_paMaterial[i].Diffuse.r = 1.0f;
+        model_paMaterial[i].Diffuse.g = 1.0f;
+        model_paMaterial[i].Diffuse.b = 1.0f;
+        model_paMaterial[i].Diffuse.a = 1.0f;
+        model_paMaterial[i].Ambient.r = 1.0f;
+        model_paMaterial[i].Ambient.g = 1.0f;
+        model_paMaterial[i].Ambient.b = 1.0f;
+        model_paMaterial[i].Ambient.a = 1.0f;
     }
-    prm_pSpriteSetModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    prm_pSpriteSetModel->_paMaterial_default = model_paMaterial;
     //後始末
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
@@ -2313,20 +2313,20 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
 //    prm_pBoardModel->_paRectUV = model_paRectUV;
 //    prm_pBoardModel->_pattno_max = pattnum-1;
     prm_pBoardModel->_dwNumMaterials = 1;
-    D3DMATERIAL9* model_paD3DMaterial9;
-    model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pBoardModel->_dwNumMaterials];
+    D3DMATERIAL9* model_paMaterial;
+    model_paMaterial = NEW D3DMATERIAL9[prm_pBoardModel->_dwNumMaterials];
     for( DWORD i = 0; i < prm_pBoardModel->_dwNumMaterials; i++){
-        //model_paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
-        model_paD3DMaterial9[i].Diffuse.r = 1.0f;
-        model_paD3DMaterial9[i].Diffuse.g = 1.0f;
-        model_paD3DMaterial9[i].Diffuse.b = 1.0f;
-        model_paD3DMaterial9[i].Diffuse.a = 1.0f;
-        model_paD3DMaterial9[i].Ambient.r = 1.0f;
-        model_paD3DMaterial9[i].Ambient.g = 1.0f;
-        model_paD3DMaterial9[i].Ambient.b = 1.0f;
-        model_paD3DMaterial9[i].Ambient.a = 1.0f;
+        //model_paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
+        model_paMaterial[i].Diffuse.r = 1.0f;
+        model_paMaterial[i].Diffuse.g = 1.0f;
+        model_paMaterial[i].Diffuse.b = 1.0f;
+        model_paMaterial[i].Diffuse.a = 1.0f;
+        model_paMaterial[i].Ambient.r = 1.0f;
+        model_paMaterial[i].Ambient.g = 1.0f;
+        model_paMaterial[i].Ambient.b = 1.0f;
+        model_paMaterial[i].Ambient.a = 1.0f;
     }
-    prm_pBoardModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    prm_pBoardModel->_paMaterial_default = model_paMaterial;
 
     //後始末
     DELETEARR_IMPOSSIBLE_NULL(paVertex);
@@ -2560,19 +2560,19 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
 //    prm_pBoardSetModel->_paRectUV = model_paRectUV;
 //    prm_pBoardSetModel->_pattno_max = pattnum-1;
     prm_pBoardSetModel->_dwNumMaterials = 1;
-    D3DMATERIAL9* model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pBoardSetModel->_dwNumMaterials];
+    D3DMATERIAL9* model_paMaterial = NEW D3DMATERIAL9[prm_pBoardSetModel->_dwNumMaterials];
     for( DWORD i = 0; i < prm_pBoardSetModel->_dwNumMaterials; i++){
-        //model_paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
-        model_paD3DMaterial9[i].Diffuse.r = 1.0f;
-        model_paD3DMaterial9[i].Diffuse.g = 1.0f;
-        model_paD3DMaterial9[i].Diffuse.b = 1.0f;
-        model_paD3DMaterial9[i].Diffuse.a = 1.0f;
-        model_paD3DMaterial9[i].Ambient.r = 1.0f;
-        model_paD3DMaterial9[i].Ambient.g = 1.0f;
-        model_paD3DMaterial9[i].Ambient.b = 1.0f;
-        model_paD3DMaterial9[i].Ambient.a = 1.0f;
+        //model_paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
+        model_paMaterial[i].Diffuse.r = 1.0f;
+        model_paMaterial[i].Diffuse.g = 1.0f;
+        model_paMaterial[i].Diffuse.b = 1.0f;
+        model_paMaterial[i].Diffuse.a = 1.0f;
+        model_paMaterial[i].Ambient.r = 1.0f;
+        model_paMaterial[i].Ambient.g = 1.0f;
+        model_paMaterial[i].Ambient.b = 1.0f;
+        model_paMaterial[i].Ambient.a = 1.0f;
     }
-    prm_pBoardSetModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    prm_pBoardSetModel->_paMaterial_default = model_paMaterial;
 
     //後始末
 
@@ -2606,7 +2606,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     GgafDx9MeshSetModel::VERTEX* model_paVtxBuffer_org = NULL;
     WORD* unit_paIdxBuffer_org = NULL;
     WORD* model_paIdxBuffer_org = NULL;
-    D3DMATERIAL9* model_paD3DMaterial9 = NULL;
+    D3DMATERIAL9* model_paMaterial = NULL;
     GgafDx9TextureConnection** model_papTextureCon = NULL;
 
     int nVertices = 0;
@@ -3090,32 +3090,32 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     }
 
     //マテリアル
-    model_paD3DMaterial9 = NEW D3DMATERIAL9[model_nMaterials];
+    model_paMaterial = NEW D3DMATERIAL9[model_nMaterials];
     model_papTextureCon = NEW GgafDx9TextureConnection*[model_nMaterials];
 
     char* texture_filename;
     int n = 0;
     for (list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
-        model_paD3DMaterial9[n].Diffuse.r = (*material)->_FaceColor.data[0];
-        model_paD3DMaterial9[n].Diffuse.g = (*material)->_FaceColor.data[1];
-        model_paD3DMaterial9[n].Diffuse.b = (*material)->_FaceColor.data[2];
-        model_paD3DMaterial9[n].Diffuse.a = (*material)->_FaceColor.data[3];
+        model_paMaterial[n].Diffuse.r = (*material)->_FaceColor.data[0];
+        model_paMaterial[n].Diffuse.g = (*material)->_FaceColor.data[1];
+        model_paMaterial[n].Diffuse.b = (*material)->_FaceColor.data[2];
+        model_paMaterial[n].Diffuse.a = (*material)->_FaceColor.data[3];
 
-        model_paD3DMaterial9[n].Ambient.r = (*material)->_FaceColor.data[0];
-        model_paD3DMaterial9[n].Ambient.g = (*material)->_FaceColor.data[1];
-        model_paD3DMaterial9[n].Ambient.b = (*material)->_FaceColor.data[2];
-        model_paD3DMaterial9[n].Ambient.a = (*material)->_FaceColor.data[3];
+        model_paMaterial[n].Ambient.r = (*material)->_FaceColor.data[0];
+        model_paMaterial[n].Ambient.g = (*material)->_FaceColor.data[1];
+        model_paMaterial[n].Ambient.b = (*material)->_FaceColor.data[2];
+        model_paMaterial[n].Ambient.a = (*material)->_FaceColor.data[3];
 
-        model_paD3DMaterial9[n].Specular.r = (*material)->_SpecularColor.data[0];
-        model_paD3DMaterial9[n].Specular.g = (*material)->_SpecularColor.data[1];
-        model_paD3DMaterial9[n].Specular.b = (*material)->_SpecularColor.data[2];
-        model_paD3DMaterial9[n].Specular.a = 1.000000f;
-        model_paD3DMaterial9[n].Power =  (*material)->_power;
+        model_paMaterial[n].Specular.r = (*material)->_SpecularColor.data[0];
+        model_paMaterial[n].Specular.g = (*material)->_SpecularColor.data[1];
+        model_paMaterial[n].Specular.b = (*material)->_SpecularColor.data[2];
+        model_paMaterial[n].Specular.a = 1.000000f;
+        model_paMaterial[n].Power =  (*material)->_power;
 
-        model_paD3DMaterial9[n].Emissive.r = (*material)->_EmissiveColor.data[0];
-        model_paD3DMaterial9[n].Emissive.g = (*material)->_EmissiveColor.data[1];
-        model_paD3DMaterial9[n].Emissive.b = (*material)->_EmissiveColor.data[2];
-        model_paD3DMaterial9[n].Emissive.a = 1.000000f;
+        model_paMaterial[n].Emissive.r = (*material)->_EmissiveColor.data[0];
+        model_paMaterial[n].Emissive.g = (*material)->_EmissiveColor.data[1];
+        model_paMaterial[n].Emissive.b = (*material)->_EmissiveColor.data[2];
+        model_paMaterial[n].Emissive.a = 1.000000f;
 
         texture_filename = (char*)((*material)->_TextureName.c_str());
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
@@ -3138,7 +3138,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     prm_pMeshSetModel->_paIdxBuffer_org = model_paIdxBuffer_org;
     prm_pMeshSetModel->_paVtxBuffer_org = model_paVtxBuffer_org;
     prm_pMeshSetModel->_papaIndexParam = model_papaIndexParam;
-    prm_pMeshSetModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    prm_pMeshSetModel->_paMaterial_default = model_paMaterial;
     prm_pMeshSetModel->_papTextureCon = model_papTextureCon;
     prm_pMeshSetModel->_dwNumMaterials = model_nMaterials;
 }
@@ -3255,7 +3255,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
 //        _TRACE_("rmodel_paVtxBuffer_org["<<i<<"].y = "<<(model_paVtxBuffer_org[i].y));
 //        _TRACE_("rmodel_paVtxBuffer_org["<<i<<"].z = "<<(model_paVtxBuffer_org[i].z));
 //    }
-    D3DMATERIAL9*   model_paD3DMaterial9 = NULL;
+    D3DMATERIAL9*   model_paMaterial = NULL;
 
 
     if (prm_pPointSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
@@ -3278,14 +3278,14 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
         prm_pPointSpriteModel->_pIDirect3DVertexBuffer9->Unlock();
     }
 
-    model_paD3DMaterial9 = NEW D3DMATERIAL9[1];
-    model_paD3DMaterial9[0].Diffuse.r = 1.0f;
-    model_paD3DMaterial9[0].Diffuse.g = 1.0f;
-    model_paD3DMaterial9[0].Diffuse.b = 1.0f;
-    model_paD3DMaterial9[0].Diffuse.a = 1.0f;
+    model_paMaterial = NEW D3DMATERIAL9[1];
+    model_paMaterial[0].Diffuse.r = 1.0f;
+    model_paMaterial[0].Diffuse.g = 1.0f;
+    model_paMaterial[0].Diffuse.b = 1.0f;
+    model_paMaterial[0].Diffuse.a = 1.0f;
 
     //モデルに保持させる
-    prm_pPointSpriteModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    prm_pPointSpriteModel->_paMaterial_default = model_paMaterial;
     prm_pPointSpriteModel->_papTextureCon = model_papTextureCon;
     prm_pPointSpriteModel->_dwNumMaterials = 1;
     prm_pPointSpriteModel->_fSquareSize = model_fSquareSize;

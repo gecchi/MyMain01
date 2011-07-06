@@ -179,7 +179,7 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
 
 }
 void MyShip::onCreateModel() {
-    _pGgafDx9Model->setSpecular(5.0, 1.0);
+    _pModel->setSpecular(5.0, 1.0);
 }
 
 void MyShip::initialize() {
@@ -246,16 +246,16 @@ void MyShip::processBehavior() {
 
     //スペキュラテスト
     if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
-        _pGgafDx9Model->_specular += 0.1;
+        _pModel->_specular += 0.1;
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
-        _pGgafDx9Model->_specular -= 0.1;
+        _pModel->_specular -= 0.1;
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
-        _pGgafDx9Model->_specular_power += 0.1;
+        _pModel->_specular_power += 0.1;
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_P)) {
-        _pGgafDx9Model->_specular_power -= 0.1;
+        _pModel->_specular_power -= 0.1;
     }
 
     if (!_can_control) {

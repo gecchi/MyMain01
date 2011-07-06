@@ -21,7 +21,7 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
     //対象Actor
     GgafDx9PointSpriteActor* pTargetActor = (GgafDx9PointSpriteActor*)prm_pActor_Target;
     //対象PointSpriteActorのエフェクトラッパ
-    GgafDx9PointSpriteEffect* pPointSpriteEffect = (GgafDx9PointSpriteEffect*)prm_pActor_Target->_pGgafDx9Effect;
+    GgafDx9PointSpriteEffect* pPointSpriteEffect = (GgafDx9PointSpriteEffect*)prm_pActor_Target->_pEffect;
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pPointSpriteEffect->_pID3DXEffect;
 
@@ -121,7 +121,7 @@ void GgafDx9PointSpriteModel::release() {
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     //TODO:親クラスメンバをDELETEするのはややきたないか
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
+    DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);
     TRACE3("GgafDx9PointSpriteModel::release() " << _model_name << " end");
 }
 

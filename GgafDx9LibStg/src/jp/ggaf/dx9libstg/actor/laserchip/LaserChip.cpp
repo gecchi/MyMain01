@@ -230,7 +230,7 @@ void LaserChip::processDraw() {
     LaserChip* pLaserChip = NULL;
     while (true) {
         if (pDrawActor)  {
-            if (pDrawActor->_pGgafDx9Model == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+            if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pLaserChip = (LaserChip*)pDrawActor;
 
                 //もしここらへんで意味不明なエラーになったら、

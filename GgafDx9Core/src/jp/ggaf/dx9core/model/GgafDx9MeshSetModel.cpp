@@ -48,7 +48,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int p
     //対象アクター
     GgafDx9MeshSetActor* pTargetActor = (GgafDx9MeshSetActor*)prm_pActor_Target;
     //対象MeshSetActorのエフェクトラッパ
-    GgafDx9MeshSetEffect* pMeshSetEffect = (GgafDx9MeshSetEffect*)prm_pActor_Target->_pGgafDx9Effect;
+    GgafDx9MeshSetEffect* pMeshSetEffect = (GgafDx9MeshSetEffect*)prm_pActor_Target->_pEffect;
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pMeshSetEffect->_pID3DXEffect;
 
@@ -192,7 +192,7 @@ void GgafDx9MeshSetModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_pa_nMaterialListGrp);
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
+    DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);
 
     TRACE3("GgafDx9MeshSetModel::release() " << _model_name << " end");
 

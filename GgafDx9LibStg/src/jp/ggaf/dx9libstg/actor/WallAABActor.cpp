@@ -55,7 +55,7 @@ void WallAABActor::processDraw() {
     WallPartsActor* pWallPartsActor = NULL;
     while (true) {
         if (pDrawActor)  {
-            if (pDrawActor->_pGgafDx9Model == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+            if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pWallPartsActor = (WallPartsActor*)pDrawActor;
                 pWallPartsActor->_matWorld._14 = pWallPartsActor->_wall_draw_face;  //•`‰æ–Ê”Ô†‚ðƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ÌmatWorld._14 ‚É–„‚ßž‚Þ
                 hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[_draw_set_num], &(pWallPartsActor->_matWorld));

@@ -20,8 +20,8 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
     _class_name = "GgafDx9SpriteSetActor";
 
     //モデル取得
-    _pSpriteSetModel = (GgafDx9SpriteSetModel*)_pGgafDx9Model;
-    _pSpriteSetEffect = (GgafDx9SpriteSetEffect*)_pGgafDx9Effect;
+    _pSpriteSetModel = (GgafDx9SpriteSetModel*)_pModel;
+    _pSpriteSetEffect = (GgafDx9SpriteSetEffect*)_pEffect;
     _pUvFlipper = NEW GgafDx9UvFlipper(_pSpriteSetModel->_papTextureCon[0]->refer());
     _pUvFlipper->setRotation(_pSpriteSetModel->_col_texture_split,
                              _pSpriteSetModel->_row_texture_split
@@ -45,7 +45,7 @@ void GgafDx9SpriteSetActor::processDraw() {
 //    pTargetActor->_pUvFlipper->getUV(u,v);
     while (true) {
         if (pDrawActor)  {
-            if (pDrawActor->_pGgafDx9Model == _pSpriteSetModel && pDrawActor->_hash_technique == _hash_technique) {
+            if (pDrawActor->_pModel == _pSpriteSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pSpriteSetActor = (GgafDx9SpriteSetActor*)pDrawActor;
 
                 hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ah_matWorld[_draw_set_num], &(pDrawActor->_matWorld) );
@@ -77,15 +77,15 @@ void GgafDx9SpriteSetActor::processDraw() {
 void GgafDx9SpriteSetActor::setAlpha(float prm_fAlpha) {
     _fAlpha = prm_fAlpha;
     //α設定、現在マテリアルはDiffuse以外関係ない
-    _paD3DMaterial9[0].Ambient.a = _fAlpha; //＜ーこっちは今のところ無意味
-    _paD3DMaterial9[0].Diffuse.a = _fAlpha;
+    _paMaterial[0].Ambient.a = _fAlpha; //＜ーこっちは今のところ無意味
+    _paMaterial[0].Diffuse.a = _fAlpha;
 }
 
 void GgafDx9SpriteSetActor::addAlpha(float prm_fAlpha) {
     _fAlpha += prm_fAlpha;
     //α設定、現在マテリアルはDiffuse以外関係ない
-    _paD3DMaterial9[0].Ambient.a = _fAlpha; //＜ーこっちは今のところ無意味
-    _paD3DMaterial9[0].Diffuse.a = _fAlpha;
+    _paMaterial[0].Ambient.a = _fAlpha; //＜ーこっちは今のところ無意味
+    _paMaterial[0].Diffuse.a = _fAlpha;
 }
 
 GgafDx9SpriteSetActor::~GgafDx9SpriteSetActor() {

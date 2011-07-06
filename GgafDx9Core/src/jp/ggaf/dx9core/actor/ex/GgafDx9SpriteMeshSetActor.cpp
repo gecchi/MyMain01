@@ -36,12 +36,12 @@ void GgafDx9SpriteMeshSetActor::processDraw() {
     float v = 0;
     while (true) {
         if (pDrawActor)  {
-            if (pDrawActor->_pGgafDx9Model == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+            if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pSpriteMeshSetActor = (GgafDx9SpriteMeshSetActor*)pDrawActor;
 
                 hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[_draw_set_num], &(pSpriteMeshSetActor->_matWorld));
                 checkDxException(hr, D3D_OK, "GgafDx9SpriteMeshSetActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-                hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pSpriteMeshSetActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
+                hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pSpriteMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                 checkDxException(hr, D3D_OK, "GgafDx9SpriteMeshSetActor::processDraw() SetValue(g_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         #ifdef MY_DEBUG
                 if (pDrawActor->_obj_class & Obj_GgafDx9SpriteMeshSetActor) {

@@ -17,8 +17,8 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
     _obj_class |= Obj_GgafDx9BoardActor;
     _class_name = "GgafDx9BoardActor";
 
-    _pBoardModel = (GgafDx9BoardModel*)_pGgafDx9Model;
-    _pBoardEffect = (GgafDx9BoardEffect*)_pGgafDx9Effect;
+    _pBoardModel = (GgafDx9BoardModel*)_pModel;
+    _pBoardEffect = (GgafDx9BoardEffect*)_pEffect;
     _pUvFlipper = NEW GgafDx9UvFlipper(_pBoardModel->_papTextureCon[0]->refer());
     _pUvFlipper->setRotation(_pBoardModel->_col_texture_split,
                              _pBoardModel->_row_texture_split

@@ -16,7 +16,7 @@ HRESULT GgafDx9WorldBoundModel::draw(GgafDx9DrawableActor* prm_pActor_Target, in
     //対象アクター
     GgafDx9WorldBoundActor* pTargetActor = (GgafDx9WorldBoundActor*)prm_pActor_Target;
     //対象アクターのエフェクトラッパ
-    GgafDx9WorldBoundEffect* pWorldBoundEffect = (GgafDx9WorldBoundEffect*)prm_pActor_Target->_pGgafDx9Effect;
+    GgafDx9WorldBoundEffect* pWorldBoundEffect = (GgafDx9WorldBoundEffect*)prm_pActor_Target->_pEffect;
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pWorldBoundEffect->_pID3DXEffect;
 
@@ -55,7 +55,7 @@ HRESULT GgafDx9WorldBoundModel::draw(GgafDx9DrawableActor* prm_pActor_Target, in
 //                GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
 //            }
 //        }
-        hr = pID3DXEffect->SetValue(pWorldBoundEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+        hr = pID3DXEffect->SetValue(pWorldBoundEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDx9WorldBoundModel::draw()SetValue(g_colMaterialDiffuse) に失敗しました。");
 
         if ((GgafDx9EffectManager::_pEffect_Active != pWorldBoundEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) &&

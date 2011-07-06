@@ -16,7 +16,7 @@ HRESULT GgafDx9CubeMapMorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Targ
     //対象アクター
     GgafDx9CubeMapMorphMeshActor* pTargetActor = (GgafDx9CubeMapMorphMeshActor*)prm_pActor_Target;
     //対象アクターのエフェクトラッパ
-    GgafDx9CubeMapMorphMeshEffect* pCubeMapMorphMeshEffect = (GgafDx9CubeMapMorphMeshEffect*)prm_pActor_Target->_pGgafDx9Effect;
+    GgafDx9CubeMapMorphMeshEffect* pCubeMapMorphMeshEffect = (GgafDx9CubeMapMorphMeshEffect*)prm_pActor_Target->_pEffect;
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pCubeMapMorphMeshEffect->_pID3DXEffect;
 
@@ -55,7 +55,7 @@ HRESULT GgafDx9CubeMapMorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Targ
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
         }
-        hr = pID3DXEffect->SetValue(pCubeMapMorphMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+        hr = pID3DXEffect->SetValue(pCubeMapMorphMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDx9CubeMapMorphMeshModel::draw()SetValue(g_colMaterialDiffuse) に失敗しました。");
 
         if ((GgafDx9EffectManager::_pEffect_Active != pCubeMapMorphMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) &&

@@ -38,10 +38,10 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
 
 void EnemyThalia::onCreateModel() {
 
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
-    _pGgafDx9Model->_pTextureBlinker->setBlink(0.1);
-    _pGgafDx9Model->_pTextureBlinker->beat(120, 60, 1, -1);
-    _pGgafDx9Model->setSpecular(5.0, 1.0);
+    _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
+    _pModel->_pTextureBlinker->setBlink(0.1);
+    _pModel->_pTextureBlinker->beat(120, 60, 1, -1);
+    _pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyThalia::initialize() {

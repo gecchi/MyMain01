@@ -28,7 +28,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int pr
     //対象Actor
     GgafDx9SpriteActor* pTargetActor = (GgafDx9SpriteActor*)prm_pActor_Target;
     //対象SpriteActorのエフェクトラッパ
-    GgafDx9SpriteEffect* pSpriteEffect = (GgafDx9SpriteEffect*)prm_pActor_Target->_pGgafDx9Effect;
+    GgafDx9SpriteEffect* pSpriteEffect = (GgafDx9SpriteEffect*)prm_pActor_Target->_pEffect;
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pSpriteEffect->_pID3DXEffect;
 
@@ -124,7 +124,7 @@ void GgafDx9SpriteModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
 //    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     //TODO:親クラスメンバをDELETEするのはややきたないか
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
+    DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);
     TRACE3("GgafDx9SpriteModel::release() " << _model_name << " end");
 }
 

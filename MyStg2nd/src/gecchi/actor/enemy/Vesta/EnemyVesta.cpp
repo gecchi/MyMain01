@@ -31,10 +31,10 @@ EnemyVesta::EnemyVesta(const char* prm_name)
 }
 
 void EnemyVesta::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
-    _pGgafDx9Model->_pTextureBlinker->setBlink(0.1);
-    _pGgafDx9Model->_pTextureBlinker->beat(120, 60, 1, -1);
-    _pGgafDx9Model->setSpecular(5.0, 1.0);
+    _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
+    _pModel->_pTextureBlinker->setBlink(0.1);
+    _pModel->_pTextureBlinker->beat(120, 60, 1, -1);
+    _pModel->setSpecular(5.0, 1.0);
 
 }
 
@@ -70,11 +70,14 @@ void EnemyVesta::processBehavior() {
     //                          座標計算はこちらで行って下さい。
     //＜方針＞
     //  ①座標計算は主にローカル座標系の計算である。GgafDx9KurokoA でローカル座標系の操作を行うこととする。
-    //    しかし、８分木登録や、当たり判定や、ターゲット座標など、他のオブジェクトからワールド座標を参照することが多いため。
-    //    基本的にprocessBehavior()開始時は 最終（絶対）座標系(changeGeoFinal())の状態とする。
-    //  ②processBehavior()内で必要に応じて changeGeoLocal() で _X, _Y, _Z, _RX, _RY, _RZ の切り替えを行い座標計算を行う。
+    //    しかし、８分木登録や、当たり判定や、ターゲット座標など、他のオブジェクトからワールド座標を参照する等、
+    //    基本状態は最終（絶対）座標系。
+    //    processBehavior()開始時は 最終（絶対）座標系(changeGeoFinal())の状態とする。
+    //  ②processBehavior()内で必要に応じて changeGeoLocal() でメンバー _X, _Y, _Z, _RX, _RY, _RZ をローカル座標系に
+    //    切り替えることが可能。移動等の座標計算を行う。
     //  ③但し processBehavior() を抜ける際には必ず最終座標(changeGeoFinal())の状態に戻しておく事。
-    //  ④オブジェクト自体のワールド変換行列は、ローカル座標系の行列積で変換行列が作成される。
+    //  ④最終（絶対）座標と、ローカル座標は互いに独立し、干渉はしないが、
+    //    表示時のワールド変換行列作成時、行列積で合成され、最終的な表示位置が決定する。
 
     //＜changeGeoLocal(); 実行時＞
     //ローカル座標系に切替えます。
@@ -111,6 +114,7 @@ void EnemyVesta::processBehavior() {
             if (getActivePartFrame() == _frame_of_moment_nextopen-(_frame_of_morph_interval/2)) {
                 _pMorpher->intoTargetLinerUntil(MORPHTARGET_VESTA_HATCH_OPENED,
                                                 1.0f, _frame_of_morph_interval);
+                _pKurokoA->setFaceAngVelo(AXIS_X, -3000);
             }
             if (getActivePartFrame() == _frame_of_moment_nextopen) {
                 _frame_of_moment_nextclose = getActivePartFrame() + _frame_of_close_interval;
@@ -121,6 +125,7 @@ void EnemyVesta::processBehavior() {
             if (getActivePartFrame() == _frame_of_moment_nextclose - (_frame_of_morph_interval/2)) {
                 _pMorpher->intoTargetLinerUntil(MORPHTARGET_VESTA_HATCH_OPENED,
                                                 0.0f, _frame_of_morph_interval);
+                _pKurokoA->setFaceAngVelo(AXIS_X, 0);
             }
             if (getActivePartFrame() == _frame_of_moment_nextclose) {
                 _frame_of_moment_nextopen = getActivePartFrame() + _frame_of_open_interval;

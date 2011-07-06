@@ -17,7 +17,7 @@ EffectMyOption::EffectMyOption(const char* prm_name, MyOption* prm_pMyOption) : 
 }
 
 void EffectMyOption::onCreateModel() {
-    _pGgafDx9Model->setSpecular(5.0, 1.0);
+    _pModel->setSpecular(5.0, 1.0);
 }
 
 void EffectMyOption::initialize() {

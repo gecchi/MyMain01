@@ -17,9 +17,9 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris
 }
 
 void EnemyIris::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.9, 0.5, 2.0);
-    _pGgafDx9Model->_pTextureBlinker->setBlink(0.5);
-    _pGgafDx9Model->_pTextureBlinker->beat(60, 3, 1, -1);
+    _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.5, 2.0);
+    _pModel->_pTextureBlinker->setBlink(0.5);
+    _pModel->_pTextureBlinker->beat(60, 3, 1, -1);
 }
 
 void EnemyIris::initialize() {

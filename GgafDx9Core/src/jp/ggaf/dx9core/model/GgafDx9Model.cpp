@@ -9,7 +9,7 @@ GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
     _id = GgafDx9ModelManager::getNextId();
     _model_name = NEW char[51];
     strcpy(_model_name, prm_model_name);
-    _paD3DMaterial9_default = NULL;
+    _paMaterial_default = NULL;
     _dwNumMaterials = 0;
     _papTextureCon = NULL;
     _radius_bounding_sphere = 0;
@@ -27,7 +27,7 @@ GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
 GgafDx9Model::~GgafDx9Model() {
     _TRACE_("GgafDx9Model::~GgafDx9Model() " << _model_name << " ");
     DELETEARR_POSSIBLE_NULL(_model_name);
-    DELETEARR_POSSIBLE_NULL(_paD3DMaterial9_default);
+    DELETEARR_POSSIBLE_NULL(_paMaterial_default);
     DELETE_IMPOSSIBLE_NULL(_pTextureBlinker);
 }
 

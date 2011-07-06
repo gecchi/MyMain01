@@ -72,9 +72,9 @@ EnemyMassalia::EnemyMassalia(const char* prm_name) : DefaultMeshActor(prm_name, 
 }
 
 void EnemyMassalia::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.97, 0.5, 12.0);
-    _pGgafDx9Model->_pTextureBlinker->setBlink(1.0);
-    _pGgafDx9Model->_pTextureBlinker->beat(60*6, 60*2, 60*2, -1);
+    _pModel->_pTextureBlinker->forceBlinkRange(0.97, 0.5, 12.0);
+    _pModel->_pTextureBlinker->setBlink(1.0);
+    _pModel->_pTextureBlinker->beat(60*6, 60*2, 60*2, -1);
 }
 
 void EnemyMassalia::initialize() {

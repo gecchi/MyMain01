@@ -19,8 +19,8 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
                                                             prm_pChecker) {
     _obj_class |= Obj_GgafDx9PointSpriteActor;
     _class_name = "GgafDx9PointSpriteActor";
-    _pPointSpriteModel = (GgafDx9PointSpriteModel*)_pGgafDx9Model;
-    _pPointSpriteEffect = (GgafDx9PointSpriteEffect*)_pGgafDx9Effect;
+    _pPointSpriteModel = (GgafDx9PointSpriteModel*)_pModel;
+    _pPointSpriteEffect = (GgafDx9PointSpriteEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
 
     GgafDx9Texture* pTexture = _pPointSpriteModel->_papTextureCon[0]->refer();
@@ -46,15 +46,15 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
 void GgafDx9PointSpriteActor::setAlpha(float prm_fAlpha) {
     _fAlpha = prm_fAlpha;
     //GgafDx9PointSpriteActorはメッシュαも設定（シェーダーで参照するため）
-    _paD3DMaterial9[0].Ambient.a = _fAlpha;
-    _paD3DMaterial9[0].Diffuse.a = _fAlpha;
+    _paMaterial[0].Ambient.a = _fAlpha;
+    _paMaterial[0].Diffuse.a = _fAlpha;
 }
 
 void GgafDx9PointSpriteActor::addAlpha(float prm_fAlpha) {
     _fAlpha += prm_fAlpha;
     //GgafDx9PointSpriteActorはメッシュαも設定（シェーダーで参照するため）
-    _paD3DMaterial9[0].Ambient.a = _fAlpha;
-    _paD3DMaterial9[0].Diffuse.a = _fAlpha;
+    _paMaterial[0].Ambient.a = _fAlpha;
+    _paMaterial[0].Diffuse.a = _fAlpha;
 }
 
 void GgafDx9PointSpriteActor::processDraw() {

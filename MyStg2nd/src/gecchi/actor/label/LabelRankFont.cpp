@@ -132,8 +132,8 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
 }
 
 void LabelRankFont::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.01, 0.5, 5.0);
-    _pGgafDx9Model->_pTextureBlinker->setBlink(1.0);
+    _pModel->_pTextureBlinker->forceBlinkRange(0.01, 0.5, 5.0);
+    _pModel->_pTextureBlinker->setBlink(1.0);
 }
 
 void LabelRankFont::initialize() {
@@ -162,16 +162,16 @@ void LabelRankFont::processBehavior() {
     switch (_pProg->get()) {
         case RANKFONT_PROG_NOMALDISP: {
             if (_pProg->isJustChanged()) {
-                _pGgafDx9Model->_pTextureBlinker->intoTargetBlinkLinerUntil(1.0, 5);
+                _pModel->_pTextureBlinker->intoTargetBlinkLinerUntil(1.0, 5);
             }
             break;
         }
 
         case RANKFONT_PROG_RANKUP: {
             if (_pProg->isJustChanged()) {
-                _pGgafDx9Model->_pTextureBlinker->beat(10, 10, 1, 3);
+                _pModel->_pTextureBlinker->beat(10, 10, 1, 3);
             }
-            if (_pGgafDx9Model->_pTextureBlinker->_method == NOBLINK) {
+            if (_pModel->_pTextureBlinker->_method == NOBLINK) {
                 _pProg->change(RANKFONT_PROG_NOMALDISP);
             }
             break;

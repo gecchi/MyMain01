@@ -19,8 +19,8 @@ GgafDx9D3DXMeshActor::GgafDx9D3DXMeshActor(const char* prm_name,
                                                                 prm_pChecker) {
     _obj_class |= Obj_GgafDx9D3DXMeshActor;
     _class_name = "GgafDx9D3DXMeshActor";
-    _pD3DXMeshModel = (GgafDx9D3DXMeshModel*)_pGgafDx9Model;
-    _pMeshEffect = (GgafDx9MeshEffect*)_pGgafDx9Effect;
+    _pD3DXMeshModel = (GgafDx9D3DXMeshModel*)_pModel;
+    _pMeshEffect = (GgafDx9MeshEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
 }
 
@@ -28,8 +28,8 @@ void GgafDx9D3DXMeshActor::setAlpha(float prm_fAlpha) {
     _fAlpha = prm_fAlpha;
     //GgafDx9D3DXMeshActorはメッシュαも設定（シェーダーで参照するため）
     for (DWORD i = 0; i < _pD3DXMeshModel->_dwNumMaterials; i++) {
-        _paD3DMaterial9[i].Ambient.a = _fAlpha;
-        _paD3DMaterial9[i].Diffuse.a = _fAlpha;
+        _paMaterial[i].Ambient.a = _fAlpha;
+        _paMaterial[i].Diffuse.a = _fAlpha;
     }
 }
 
@@ -37,8 +37,8 @@ void GgafDx9D3DXMeshActor::addAlpha(float prm_fAlpha) {
     _fAlpha += prm_fAlpha;
     //GgafDx9D3DXMeshActorはメッシュαも設定（シェーダーで参照するため）
     for (DWORD i = 0; i < _pD3DXMeshModel->_dwNumMaterials; i++) {
-        _paD3DMaterial9[i].Ambient.a = _fAlpha;
-        _paD3DMaterial9[i].Diffuse.a = _fAlpha;
+        _paMaterial[i].Ambient.a = _fAlpha;
+        _paMaterial[i].Diffuse.a = _fAlpha;
     }
 }
 

@@ -21,7 +21,7 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
     //対象アクター
     GgafDx9D3DXAniMeshActor* pTargetActor = (GgafDx9D3DXAniMeshActor*)prm_pActor_Target;
     //対象MeshActorのエフェクトラッパ
-    GgafDx9D3DXAniMeshEffect* pD3DXAniMeshEffect = (GgafDx9D3DXAniMeshEffect*)prm_pActor_Target->_pGgafDx9Effect;
+    GgafDx9D3DXAniMeshEffect* pD3DXAniMeshEffect = (GgafDx9D3DXAniMeshEffect*)prm_pActor_Target->_pEffect;
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pD3DXAniMeshEffect->_pID3DXEffect;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
@@ -46,7 +46,7 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
         //無ければテクスチャ無し
         GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
     }
-    hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[n].Diffuse), sizeof(D3DCOLORVALUE) );
+    hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[n].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
 
     for (int i = 0; it != pDrawList->end(); i++, it++) {
@@ -101,7 +101,7 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, i
                         GgafDx9God::_pID3DDevice9->SetTexture(0, pTex);
                         pLastTex = pTex;
                     }
-                    hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[n].Diffuse), sizeof(D3DCOLORVALUE) );
+                    hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[n].Diffuse), sizeof(D3DCOLORVALUE) );
                     checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
                 }
                 TRACE4("["<<i<<"]["<<j<<"],SetMaterial");
@@ -151,7 +151,7 @@ void GgafDx9D3DXAniMeshModel::release() {
 //    RELEASE_IMPOSSIBLE_NULL(_pID3DXAniMesh);
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
+    DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);
     RELEASE_IMPOSSIBLE_NULL(_pAcBase);
     DELETE_IMPOSSIBLE_NULL(_pAH);
     //TODO:いつ消すの？

@@ -68,7 +68,7 @@ void SingleLaser::processDraw() {
     SingleLaser* pSingleLaserChip = NULL;
     while (true) {
         if (pDrawActor)  {
-            if (pDrawActor->_pGgafDx9Model == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+            if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pSingleLaserChip = (SingleLaser*)pDrawActor;
 
                 hr = pID3DXEffect->SetMatrix(this->_ah_matWorld[_draw_set_num], &(pSingleLaserChip->_matWorld));

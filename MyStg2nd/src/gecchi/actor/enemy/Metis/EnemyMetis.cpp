@@ -18,7 +18,7 @@ EnemyMetis::EnemyMetis(const char* prm_name) : DefaultMeshSetActor(prm_name, "Me
 }
 
 void EnemyMetis::onCreateModel() {
-    _pGgafDx9Model->setSpecular(5.0, 1.0);
+    _pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyMetis::initialize() {

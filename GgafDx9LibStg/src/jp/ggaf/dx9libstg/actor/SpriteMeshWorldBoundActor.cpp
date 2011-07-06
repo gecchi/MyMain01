@@ -36,9 +36,9 @@ void SpriteMeshWorldBoundActor::processSettlementBehavior() {
 //    //・段階レンダリングの深度計算
 //    //・一時テクニック考慮
 //    //GgafDx9DrawableActor::processPreDraw() と同期を取る事！
-//    if (_pGgafDx9Model->_is_init_model == false) {
+//    if (_pModel->_is_init_model == false) {
 //        onCreateModel(); //モデル作成時の初期処理
-//        _pGgafDx9Model->_is_init_model = true;
+//        _pModel->_is_init_model = true;
 //    }
 //    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL,this); //最深部
 //}

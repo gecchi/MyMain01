@@ -17,8 +17,8 @@ GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
     _obj_class |= Obj_GgafDx9BoardSetActor;
     _class_name = "GgafDx9BoardSetActor";
 
-    _pBoardSetModel = (GgafDx9BoardSetModel*)_pGgafDx9Model;
-    _pBoardSetEffect = (GgafDx9BoardSetEffect*)_pGgafDx9Effect;
+    _pBoardSetModel = (GgafDx9BoardSetModel*)_pModel;
+    _pBoardSetEffect = (GgafDx9BoardSetEffect*)_pEffect;
 //    _pUvFlipper = NEW GgafDx9UvFlipper(this);
 //    _pUvFlipper->forcePtnNoRange(0, _pBoardSetModel->_pattno_max);
 //    _pUvFlipper->setActivePtnNo(0);
@@ -51,7 +51,7 @@ void GgafDx9BoardSetActor::processDraw() {
 //    GgafDx9RectUV* pRectUV_Active;
     while (true) {
         if (pDrawActor)  {
-            if (pDrawActor->_pGgafDx9Model == _pBoardSetModel && pDrawActor->_hash_technique == _hash_technique) {
+            if (pDrawActor->_pModel == _pBoardSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pBoardSetActor = (GgafDx9BoardSetActor*)pDrawActor;
 
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[_draw_set_num], float(cnvCoordApp2Pix(_X)));

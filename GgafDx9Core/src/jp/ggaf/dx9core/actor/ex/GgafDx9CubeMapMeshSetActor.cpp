@@ -18,8 +18,8 @@ GgafDx9CubeMapMeshSetActor::GgafDx9CubeMapMeshSetActor(const char* prm_name,
                                               GgafDx9ICubeMapActor() {
     _obj_class |= Obj_GgafDx9CubeMapMeshSetActor;
     _class_name = "GgafDx9CubeMapMeshSetActor";
-    _pCubeMapMeshSetModel = (GgafDx9CubeMapMeshSetModel*)_pGgafDx9Model;
-    _pCubeMapMeshSetEffect = (GgafDx9CubeMapMeshSetEffect*)_pGgafDx9Effect;
+    _pCubeMapMeshSetModel = (GgafDx9CubeMapMeshSetModel*)_pModel;
+    _pCubeMapMeshSetEffect = (GgafDx9CubeMapMeshSetEffect*)_pEffect;
 //    _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
 //    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->getConnection("uffizi_cross_cubemap.dds"));
 //    _pCubeMapTexture = _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9;
@@ -41,12 +41,12 @@ void GgafDx9CubeMapMeshSetActor::processDraw() {
     GgafDx9CubeMapMeshSetActor* pCubeMapMeshSetActor = NULL;
     while (true) {
         if (pDrawActor)  {
-            if (pDrawActor->_pGgafDx9Model == _pCubeMapMeshSetModel && pDrawActor->_hash_technique == _hash_technique ) {
+            if (pDrawActor->_pModel == _pCubeMapMeshSetModel && pDrawActor->_hash_technique == _hash_technique ) {
                 pCubeMapMeshSetActor = (GgafDx9CubeMapMeshSetActor*)pDrawActor;
                 if (_pCubeMapTexture == pCubeMapMeshSetActor->_pCubeMapTexture && _reflectance == pCubeMapMeshSetActor->_reflectance) {
                     hr = pID3DXEffect->SetMatrix(_pCubeMapMeshSetEffect->_ah_matWorld[_draw_set_num], &(pCubeMapMeshSetActor->_matWorld));
                     checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) ‚É¸”s‚µ‚Ü‚µ‚½B");
-                    hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pCubeMapMeshSetActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
+                    hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pCubeMapMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                     checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_colMaterialDiffuse) ‚É¸”s‚µ‚Ü‚µ‚½B");
                     _draw_set_num++;
                     if (_draw_set_num >= _pCubeMapMeshSetModel->_set_num) {

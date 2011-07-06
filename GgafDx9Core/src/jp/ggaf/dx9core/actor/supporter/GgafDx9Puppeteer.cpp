@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 
 GgafDx9Puppeteer::GgafDx9Puppeteer(GgafDx9D3DXAniMeshActor* prm_pPuppet) : GgafObject() {
     _pPuppet = prm_pPuppet;
-    _pModel = (GgafDx9D3DXAniMeshModel*)_pPuppet->_pGgafDx9Model;
+    _pModel = (GgafDx9D3DXAniMeshModel*)_pPuppet->_pModel;
     HRESULT hr = _pModel->_pAcBase->CloneAnimationController(
                                         _pModel->_pAcBase->GetMaxNumAnimationOutputs(),
                                         _pModel->_pAcBase->GetMaxNumAnimationSets(),

@@ -19,8 +19,8 @@ GgafDx9WorldBoundActor::GgafDx9WorldBoundActor(const char* prm_name,
                                                  GgafDx9ICubeMapActor() {
     _obj_class |= Obj_GgafDx9WorldBoundActor;
     _class_name = "GgafDx9WorldBoundActor";
-    _pWorldBoundModel = (GgafDx9WorldBoundModel*)_pGgafDx9Model;
-    _pWorldBoundEffect = (GgafDx9WorldBoundEffect*)_pGgafDx9Effect;
+    _pWorldBoundModel = (GgafDx9WorldBoundModel*)_pModel;
+    _pWorldBoundEffect = (GgafDx9WorldBoundEffect*)_pEffect;
 }
 
 void GgafDx9WorldBoundActor::processDraw() {

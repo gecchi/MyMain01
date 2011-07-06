@@ -18,8 +18,8 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
                                                                        prm_pChecker) {
     _obj_class |= Obj_GgafDx9MorphMeshActor;
     _class_name = "GgafDx9MorphMeshActor";
-    _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pGgafDx9Model;
-    _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pGgafDx9Effect;
+    _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pModel;
+    _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
     //重み初期化
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
@@ -49,8 +49,8 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
                                                                        prm_pChecker) {
     _obj_class |= Obj_GgafDx9MorphMeshActor;
     _class_name = "GgafDx9MorphMeshActor";
-    _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pGgafDx9Model;
-    _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pGgafDx9Effect;
+    _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pModel;
+    _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
     //重み初期化
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
@@ -66,8 +66,8 @@ void GgafDx9MorphMeshActor::setAlpha(float prm_fAlpha) {
     _fAlpha = prm_fAlpha;
     //GgafDx9MorphMeshActorはメッシュαも設定（シェーダーで参照するため）
     for (DWORD i = 0; i < _pMorphMeshModel->_dwNumMaterials; i++) {
-        _paD3DMaterial9[i].Ambient.a = _fAlpha;
-        _paD3DMaterial9[i].Diffuse.a = _fAlpha;
+        _paMaterial[i].Ambient.a = _fAlpha;
+        _paMaterial[i].Diffuse.a = _fAlpha;
     }
 }
 
@@ -75,8 +75,8 @@ void GgafDx9MorphMeshActor::addAlpha(float prm_fAlpha) {
     _fAlpha += prm_fAlpha;
     //GgafDx9MorphMeshActorはメッシュαも設定（シェーダーで参照するため）
     for (DWORD i = 0; i < _pMorphMeshModel->_dwNumMaterials; i++) {
-        _paD3DMaterial9[i].Ambient.a = _fAlpha;
-        _paD3DMaterial9[i].Diffuse.a = _fAlpha;
+        _paMaterial[i].Ambient.a = _fAlpha;
+        _paMaterial[i].Diffuse.a = _fAlpha;
     }
 }
 

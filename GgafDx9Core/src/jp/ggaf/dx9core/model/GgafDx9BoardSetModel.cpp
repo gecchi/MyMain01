@@ -44,7 +44,7 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int 
     //対象Actor
     GgafDx9BoardSetActor* pTargetActor = (GgafDx9BoardSetActor*)prm_pActor_Target;
     //対象BoardSetActorのエフェクトラッパ
-    GgafDx9BoardSetEffect* pBoardSetEffect = (GgafDx9BoardSetEffect*)prm_pActor_Target->_pGgafDx9Effect;
+    GgafDx9BoardSetEffect* pBoardSetEffect = (GgafDx9BoardSetEffect*)prm_pActor_Target->_pEffect;
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pBoardSetEffect->_pID3DXEffect;
 
@@ -144,7 +144,7 @@ void GgafDx9BoardSetModel::release() {
 //    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
     //TODO:親クラスメンバをDELETEするのはややきたないか
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
+    DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);
     TRACE3("GgafDx9BoardSetModel::release() " << _model_name << " end");
 }
 

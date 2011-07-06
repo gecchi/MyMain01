@@ -28,7 +28,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_
     //GgafDx9MeshActor* pTargetActor = (GgafDx9MeshActor*)prm_pActor_Target;
     GgafDx9DrawableActor* pTargetActor = prm_pActor_Target;
     //対象MeshActorのエフェクトラッパ
-    GgafDx9MeshEffect* pMeshEffect = (GgafDx9MeshEffect*)prm_pActor_Target->_pGgafDx9Effect;
+    GgafDx9MeshEffect* pMeshEffect = (GgafDx9MeshEffect*)prm_pActor_Target->_pEffect;
     //対象エフェクト
     ID3DXEffect* pID3DXEffect = pMeshEffect->_pID3DXEffect;
 
@@ -63,7 +63,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target, int prm_
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
         }
-        hr = pID3DXEffect->SetValue(pMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+        hr = pID3DXEffect->SetValue(pMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetValue(g_colMaterialDiffuse) に失敗しました。");
 
         if ((GgafDx9EffectManager::_pEffect_Active != pMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
@@ -161,7 +161,7 @@ void GgafDx9MeshModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
 
     //TODO:親クラスメンバをDELETEするのはややきたないか
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
+    DELETEARR_IMPOSSIBLE_NULL(_paMaterial_default);
 
 
     TRACE3("GgafDx9MeshModel::release() " << _model_name << " end");

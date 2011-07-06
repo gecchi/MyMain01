@@ -18,8 +18,8 @@ GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
                                                                   prm_pChecker) {
     _obj_class |= Obj_GgafDx9MeshSetActor;
     _class_name = "GgafDx9MeshSetActor";
-    _pMeshSetModel = (GgafDx9MeshSetModel*)_pGgafDx9Model;
-    _pMeshSetEffect = (GgafDx9MeshSetEffect*)_pGgafDx9Effect;
+    _pMeshSetModel = (GgafDx9MeshSetModel*)_pModel;
+    _pMeshSetEffect = (GgafDx9MeshSetEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
 }
 
@@ -40,8 +40,8 @@ GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
                                                                   prm_pChecker) {
     _obj_class |= Obj_GgafDx9MeshSetActor;
     _class_name = "GgafDx9MeshSetActor";
-    _pMeshSetModel = (GgafDx9MeshSetModel*)_pGgafDx9Model;
-    _pMeshSetEffect = (GgafDx9MeshSetEffect*)_pGgafDx9Effect;
+    _pMeshSetModel = (GgafDx9MeshSetModel*)_pModel;
+    _pMeshSetEffect = (GgafDx9MeshSetEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
 }
 
@@ -49,8 +49,8 @@ void GgafDx9MeshSetActor::setAlpha(float prm_fAlpha) {
     _fAlpha = prm_fAlpha;
     //GgafDx9MeshSetActorはメッシュαも設定（シェーダーで参照するため）
     for (DWORD i = 0; i < _pMeshSetModel->_dwNumMaterials; i++) {
-        _paD3DMaterial9[i].Ambient.a = _fAlpha;
-        _paD3DMaterial9[i].Diffuse.a = _fAlpha;
+        _paMaterial[i].Ambient.a = _fAlpha;
+        _paMaterial[i].Diffuse.a = _fAlpha;
     }
 }
 
@@ -58,8 +58,8 @@ void GgafDx9MeshSetActor::addAlpha(float prm_fAlpha) {
     _fAlpha += prm_fAlpha;
     //GgafDx9MeshSetActorはメッシュαも設定（シェーダーで参照するため）
     for (DWORD i = 0; i < _pMeshSetModel->_dwNumMaterials; i++) {
-        _paD3DMaterial9[i].Ambient.a = _fAlpha;
-        _paD3DMaterial9[i].Diffuse.a = _fAlpha;
+        _paMaterial[i].Ambient.a = _fAlpha;
+        _paMaterial[i].Diffuse.a = _fAlpha;
     }
 }
 
@@ -72,13 +72,13 @@ void GgafDx9MeshSetActor::processDraw() {
     GgafDx9MeshSetActor* pMeshSetActor = NULL;
     while (true) {
         if (pDrawActor)  {
-            if (pDrawActor->_pGgafDx9Model == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
+            if (pDrawActor->_pModel == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pMeshSetActor = (GgafDx9MeshSetActor*)pDrawActor;
                 //(*_pFunc_calcRotMvWorldMatrix)(pDrawActor, pDrawActor->_matWorld);
                 //GgafDx9Util::setWorldMatrix_ScRxRzRyMv(pDrawActor, pDrawActor->_matWorld);
                 hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ah_matWorld[_draw_set_num], &(pMeshSetActor->_matWorld));
                 checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-                hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pMeshSetActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
+                hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                 //【GgafDx9MeshSetActorのマテリアルカラーについて考え方】備忘録メモ
                 //本来はマテリアル１オブジェクトに複数保持し、マテリアルリストのグループ毎に設定するものだが、実行速度最適化と使用レジスタ数削減の為、各セットの[0]のマテリアルを全体のマテリアルとする。
                 //したがってGgafDx9MeshSetActorはマテリアル色は１色しか不可能。

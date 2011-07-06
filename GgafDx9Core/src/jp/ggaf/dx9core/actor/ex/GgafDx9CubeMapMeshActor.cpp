@@ -19,8 +19,8 @@ GgafDx9CubeMapMeshActor::GgafDx9CubeMapMeshActor(const char* prm_name,
                                             GgafDx9ICubeMapActor() {
     _obj_class |= Obj_GgafDx9CubeMapMeshActor;
     _class_name = "GgafDx9CubeMapMeshActor";
-    _pCubeMapMeshModel = (GgafDx9CubeMapMeshModel*)_pGgafDx9Model;
-    _pCubeMapMeshEffect = (GgafDx9CubeMapMeshEffect*)_pGgafDx9Effect;
+    _pCubeMapMeshModel = (GgafDx9CubeMapMeshModel*)_pModel;
+    _pCubeMapMeshEffect = (GgafDx9CubeMapMeshEffect*)_pEffect;
 //    _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
 //    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->getConnection("uffizi_cross_cubemap.dds"));
 //    _pCubeMapTexture = _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9;

@@ -31,19 +31,19 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
     _pNext_TheSameDrawDepthLevel = NULL;
     //モデル取得
-    _pGgafDx9ModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
-    _pGgafDx9Model = (GgafDx9Model*)_pGgafDx9ModelCon->refer();
+    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
+    _pModel = (GgafDx9Model*)_pModelCon->refer();
     //エフェクト取得
-    _pGgafDx9EffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
-    _pGgafDx9Effect = (GgafDx9Effect*)_pGgafDx9EffectCon->refer();
+    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
+    _pEffect = (GgafDx9Effect*)_pEffectCon->refer();
     //マテリアルをコピー
-    _paD3DMaterial9 = NEW D3DMATERIAL9[_pGgafDx9Model->_dwNumMaterials];
-    for (DWORD i = 0; i < _pGgafDx9Model->_dwNumMaterials; i++){
-        _paD3DMaterial9[i] = _pGgafDx9Model->_paD3DMaterial9_default[i];
+    _paMaterial = NEW D3DMATERIAL9[_pModel->_dwNumMaterials];
+    for (DWORD i = 0; i < _pModel->_dwNumMaterials; i++){
+        _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _fAlpha = 1.0f;
     //最大距離頂点
-    _radius_bounding_sphere = _pGgafDx9Model->_radius_bounding_sphere;
+    _radius_bounding_sphere = _pModel->_radius_bounding_sphere;
     _now_drawdepth = 0;
     _specal_drawdepth = -1;
     _zenable = true;
@@ -93,20 +93,20 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
     _pNext_TheSameDrawDepthLevel = NULL;
     //モデル取得
-    _pGgafDx9ModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(model_name);
-    _pGgafDx9Model = (GgafDx9Model*)_pGgafDx9ModelCon->refer();
+    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(model_name);
+    _pModel = (GgafDx9Model*)_pModelCon->refer();
     //エフェクト取得
-    _pGgafDx9EffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(effelct_name);
-    _pGgafDx9Effect = (GgafDx9Effect*)_pGgafDx9EffectCon->refer();
+    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(effelct_name);
+    _pEffect = (GgafDx9Effect*)_pEffectCon->refer();
     //マテリアルをコピー
-    _paD3DMaterial9 = NEW D3DMATERIAL9[_pGgafDx9Model->_dwNumMaterials];
-    for (DWORD i = 0; i < _pGgafDx9Model->_dwNumMaterials; i++){
-        _paD3DMaterial9[i] = _pGgafDx9Model->_paD3DMaterial9_default[i];
+    _paMaterial = NEW D3DMATERIAL9[_pModel->_dwNumMaterials];
+    for (DWORD i = 0; i < _pModel->_dwNumMaterials; i++){
+        _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _fAlpha = 1.0f;
 
     //最大距離頂点
-    _radius_bounding_sphere = _pGgafDx9Model->_radius_bounding_sphere;
+    _radius_bounding_sphere = _pModel->_radius_bounding_sphere;
 
     DELETEARR_IMPOSSIBLE_NULL(model_name);
     DELETEARR_IMPOSSIBLE_NULL(effelct_name);
@@ -120,9 +120,9 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
 
 void GgafDx9DrawableActor::processPreDraw() {
-    if (_pGgafDx9Model->_is_init_model == false) {
+    if (_pModel->_is_init_model == false) {
         onCreateModel(); //モデル作成時の初期処理
-        _pGgafDx9Model->_is_init_model = true;
+        _pModel->_is_init_model = true;
     }
 
     _pNext_TheSameDrawDepthLevel = NULL;
@@ -258,24 +258,24 @@ void GgafDx9DrawableActor::processAfterDraw() {}
 
 
 void GgafDx9DrawableActor::setMaterialColor(float r, float g, float b) {
-    for (DWORD i = 0; i < _pGgafDx9Model->_dwNumMaterials; i++) {
-        _paD3DMaterial9[i].Ambient.r = r;
-        _paD3DMaterial9[i].Diffuse.r = r;
-        _paD3DMaterial9[i].Ambient.g = g;
-        _paD3DMaterial9[i].Diffuse.g = g;
-        _paD3DMaterial9[i].Ambient.b = b;
-        _paD3DMaterial9[i].Diffuse.b = b;
+    for (DWORD i = 0; i < _pModel->_dwNumMaterials; i++) {
+        _paMaterial[i].Ambient.r = r;
+        _paMaterial[i].Diffuse.r = r;
+        _paMaterial[i].Ambient.g = g;
+        _paMaterial[i].Diffuse.g = g;
+        _paMaterial[i].Ambient.b = b;
+        _paMaterial[i].Diffuse.b = b;
     }
 }
 
 void GgafDx9DrawableActor::resetMaterialColor() {
-    for (DWORD i = 0; i < _pGgafDx9Model->_dwNumMaterials; i++) {
-        _paD3DMaterial9[i].Ambient.r = _pGgafDx9Model->_paD3DMaterial9_default[i].Ambient.r;
-        _paD3DMaterial9[i].Diffuse.r = _pGgafDx9Model->_paD3DMaterial9_default[i].Diffuse.r;
-        _paD3DMaterial9[i].Ambient.g = _pGgafDx9Model->_paD3DMaterial9_default[i].Ambient.g;
-        _paD3DMaterial9[i].Diffuse.g = _pGgafDx9Model->_paD3DMaterial9_default[i].Diffuse.g;
-        _paD3DMaterial9[i].Ambient.b = _pGgafDx9Model->_paD3DMaterial9_default[i].Ambient.b;
-        _paD3DMaterial9[i].Diffuse.b = _pGgafDx9Model->_paD3DMaterial9_default[i].Diffuse.b;
+    for (DWORD i = 0; i < _pModel->_dwNumMaterials; i++) {
+        _paMaterial[i].Ambient.r = _pModel->_paMaterial_default[i].Ambient.r;
+        _paMaterial[i].Diffuse.r = _pModel->_paMaterial_default[i].Diffuse.r;
+        _paMaterial[i].Ambient.g = _pModel->_paMaterial_default[i].Ambient.g;
+        _paMaterial[i].Diffuse.g = _pModel->_paMaterial_default[i].Diffuse.g;
+        _paMaterial[i].Ambient.b = _pModel->_paMaterial_default[i].Ambient.b;
+        _paMaterial[i].Diffuse.b = _pModel->_paMaterial_default[i].Diffuse.b;
     }
 }
 
@@ -283,7 +283,7 @@ void GgafDx9DrawableActor::resetMaterialColor() {
 GgafDx9DrawableActor::~GgafDx9DrawableActor() {
     DELETEARR_IMPOSSIBLE_NULL(_technique);
     DELETEARR_IMPOSSIBLE_NULL(_temp_technique);
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
-    _pGgafDx9EffectCon->close();
-    _pGgafDx9ModelCon->close();
+    DELETEARR_IMPOSSIBLE_NULL(_paMaterial);
+    _pEffectCon->close();
+    _pModelCon->close();
 }

@@ -22,9 +22,9 @@ private:
     /** [r]一時テクニック適用中の場合 true */
     bool _is_temp_technique;
     /** モデル資源接続 */
-    GgafDx9ModelConnection* _pGgafDx9ModelCon;
+    GgafDx9ModelConnection* _pModelCon;
     /** エフェクト資源接続 */
-    GgafDx9EffectConnection* _pGgafDx9EffectCon;
+    GgafDx9EffectConnection* _pEffectCon;
 
     /**
      * draw()の使用禁止 .
@@ -52,11 +52,11 @@ public:
     /** [r]現在描画に使用しているのシェーダーテクニックのハッシュコード */
     unsigned int _hash_technique;
     /** [r]現在のマテリアルカラー */
-    D3DMATERIAL9* _paD3DMaterial9;
+    D3DMATERIAL9* _paMaterial;
     /** [r]モデル資源 */
-    GgafDx9Model* _pGgafDx9Model;
+    GgafDx9Model* _pModel;
     /** [r]エフェクト資源 */
-    GgafDx9Effect* _pGgafDx9Effect;
+    GgafDx9Effect* _pEffect;
     /** [r]現在の描画深度 */
     int _now_drawdepth;
     /** [r]特別な固定描画深度、-1でなければ _now_drawdepth より優先でこの深度が適用される */
@@ -227,11 +227,11 @@ public:
     virtual void resetMaterialColor();
 
     virtual GgafDx9Model* getModel() {
-        return _pGgafDx9Model;
+        return _pModel;
     }
 
     virtual GgafDx9Effect* getEffect() {
-        return _pGgafDx9Effect;
+        return _pEffect;
     }
 
     /**

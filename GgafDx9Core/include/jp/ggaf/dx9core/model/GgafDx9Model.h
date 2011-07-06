@@ -22,7 +22,7 @@ public:
     char* _model_name;
 
     /** [r]マテリアル配列 */
-    D3DMATERIAL9* _paD3DMaterial9_default;
+    D3DMATERIAL9* _paMaterial_default;
     /** [r]マテリアル数 */
     DWORD _dwNumMaterials;
 

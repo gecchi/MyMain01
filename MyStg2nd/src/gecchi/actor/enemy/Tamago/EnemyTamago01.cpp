@@ -23,9 +23,9 @@ _pStore_Shot = NULL;
 }
 
 void EnemyTamago01::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
-    _pGgafDx9Model->_pTextureBlinker->setBlink(0.1);
-    _pGgafDx9Model->_pTextureBlinker->beat(120, 60, 1, -1);
+    _pModel->_pTextureBlinker->forceBlinkRange(0.9, 0.1, 1.0);
+    _pModel->_pTextureBlinker->setBlink(0.1);
+    _pModel->_pTextureBlinker->beat(120, 60, 1, -1);
 }
 
 void EnemyTamago01::initialize() {
@@ -80,28 +80,28 @@ void EnemyTamago01::processBehavior() {
 //        _pScaler->addScale(-500);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-//        _pGgafDx9Model->_pTextureBlinker->->addScale(2000);
+//        _pModel->_pTextureBlinker->->addScale(2000);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-//        _pGgafDx9Model->_pTextureBlinker->->addScale(-2000);
+//        _pModel->_pTextureBlinker->->addScale(-2000);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-//        _pGgafDx9Model->_pTextureBlinker->->intoTargetScaleAcceStep(3000, 0, 3);
+//        _pModel->_pTextureBlinker->->intoTargetScaleAcceStep(3000, 0, 3);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-//        _pGgafDx9Model->_pTextureBlinker->->loopLiner(20, -1);
+//        _pModel->_pTextureBlinker->->loopLiner(20, -1);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_5)) {
-//        _pGgafDx9Model->_pTextureBlinker->->loopLiner(10, 5);
+//        _pModel->_pTextureBlinker->->loopLiner(10, 5);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_6)) {
-//        _pGgafDx9Model->_pTextureBlinker->->beat(20, 2 ,5, -1);
+//        _pModel->_pTextureBlinker->->beat(20, 2 ,5, -1);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
-//        _pGgafDx9Model->_pTextureBlinker->->stopImmediately();
+//        _pModel->_pTextureBlinker->->stopImmediately();
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
-//        _pGgafDx9Model->_pTextureBlinker->->setScaleToBottom();
+//        _pModel->_pTextureBlinker->->setScaleToBottom();
 //    }
 
 

@@ -19,8 +19,8 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     _obj_class |= Obj_GgafDx9SpriteActor;
     _class_name = "GgafDx9SpriteActor";
 
-    _pSpriteModel = (GgafDx9SpriteModel*)_pGgafDx9Model;
-    _pSpriteEffect = (GgafDx9SpriteEffect*)_pGgafDx9Effect;
+    _pSpriteModel = (GgafDx9SpriteModel*)_pModel;
+    _pSpriteEffect = (GgafDx9SpriteEffect*)_pEffect;
 //    _pUvFlipper = NEW GgafDx9UvFlipper(this);
 //    _pUvFlipper->forcePtnNoRange(0, _pSpriteModel->_pattno_uvflip_Max);
 //    _pUvFlipper->setActivePtnNo(0);
@@ -64,15 +64,15 @@ void GgafDx9SpriteActor::processDraw() {
 void GgafDx9SpriteActor::setAlpha(float prm_fAlpha) {
     _fAlpha = prm_fAlpha;
     //α設定、現在マテリアルはDiffuse以外関係ない
-    _paD3DMaterial9[0].Ambient.a = _fAlpha;
-    _paD3DMaterial9[0].Diffuse.a = _fAlpha;
+    _paMaterial[0].Ambient.a = _fAlpha;
+    _paMaterial[0].Diffuse.a = _fAlpha;
 }
 
 void GgafDx9SpriteActor::addAlpha(float prm_fAlpha) {
     _fAlpha += prm_fAlpha;
     //α設定、現在マテリアルはDiffuse以外関係ない
-    _paD3DMaterial9[0].Ambient.a = _fAlpha;
-    _paD3DMaterial9[0].Diffuse.a = _fAlpha;
+    _paMaterial[0].Ambient.a = _fAlpha;
+    _paMaterial[0].Diffuse.a = _fAlpha;
 }
 
 
