@@ -25,29 +25,22 @@ void GgafDx9StringBoardActor::onCreateModel() {
 
 void GgafDx9StringBoardActor::update(coord X, coord Y, const char* prm_str) {
     update(prm_str);
-    _X = X;
-    _Y = Y;
+    locate(X, Y);
 }
 
 void GgafDx9StringBoardActor::update(coord X, coord Y, char* prm_str) {
     update(prm_str);
-    _X = X;
-    _Y = Y;
+    locate(X, Y);
 }
 
 void GgafDx9StringBoardActor::update(coord X, coord Y, coord Z, const char* prm_str) {
     update(prm_str);
-    _X = X;
-    _Y = Y;
-    _Z = Z;
+    locate(X, Y, Z);
 }
 
 void GgafDx9StringBoardActor::update(coord X, coord Y, coord Z, char* prm_str) {
     update(prm_str);
-    _X = X;
-    _Y = Y;
-    _Z = Z;
-
+    locate(X, Y, Z);
 }
 
 void GgafDx9StringBoardActor::update(const char* prm_str) {
@@ -65,16 +58,7 @@ void GgafDx9StringBoardActor::update(char* prm_str) {
     _remainder_len = _len%_pBoardSetModel->_set_num;
 }
 
-void GgafDx9StringBoardActor::update(coord X, coord Y, coord Z) {
-    _X = X;
-    _Y = Y;
-    _Z = Z;
-}
 
-void GgafDx9StringBoardActor::update(coord X, coord Y) {
-    _X = X;
-    _Y = Y;
-}
 void GgafDx9StringBoardActor::processSettlementBehavior() {
 }
 
@@ -90,7 +74,7 @@ void GgafDx9StringBoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedY) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(cnvCoordApp2Pix(_Z)));
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahDepthZ) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _fAlpha);
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _fAlpha); //注意：アルファは文字ごとは不可
     checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahAlpha) に失敗しました。");
     int strindex, pattno;
     pixcoord x = cnvCoordApp2Pix(_X);

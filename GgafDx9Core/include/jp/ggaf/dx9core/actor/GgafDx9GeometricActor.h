@@ -230,10 +230,14 @@ public:
      * @param Y
      * @param Z
      */
-    virtual void locate(coord X, coord Y, coord Z = 0) {
+    virtual void locate(coord X, coord Y, coord Z) {
         _X = X;
         _Y = Y;
         _Z = Z;
+    }
+    virtual void locate(coord X, coord Y) {
+        _X = X;
+        _Y = Y;
     }
 
     /**
