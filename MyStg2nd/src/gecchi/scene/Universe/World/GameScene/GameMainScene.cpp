@@ -40,7 +40,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pRankFont->locate(1000*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 100*1-1)*1000);
     getLordActor()->addSubGroup(_pRankFont);
 
-    _pSceneMainCannnel = NULL;
+    _pStageController = NULL;
     _had_ready_stage = false;
 //    GameMainScene::_pGameMainScene = this;
     useProgress(10);
@@ -53,43 +53,10 @@ void GameMainScene::onReset() {
 
 //    _pFont1601->update("");
 //    _pFont1602->update("");
-    if (_pSceneMainCannnel) {
-        _pSceneMainCannnel->inactivate();
+    if (_pStageController) {
+        _pStageController->inactivate();
     }
     _pProg->set(GAMEMAINSCENE_PROG_INIT);
-}
-void GameMainScene::readyNextStage() {
-    _stage++;
-    readyStage(_stage);
-}
-
-void GameMainScene::readyStage(int prm_stage) {
-    if (_had_ready_stage) {
-        throwGgafCriticalException("GameMainScene::readyStage 既に準備済みのステージがあります。_stage="<<_stage<<" prm_stage="<<prm_stage);
-    }
-
-    _stage = prm_stage;
-    _had_ready_stage = true;
-//    _frame_ready_stage = 0;
-    switch (prm_stage) {
-        case 1:
-            orderSceneToFactory(ORDER_ID_STAGESCENE, Stage01Scene, "Stage01");
-            break;
-        case 2:
-            orderSceneToFactory(ORDER_ID_STAGESCENE, Stage02Scene, "Stage02");
-            break;
-        case 3:
-            orderSceneToFactory(ORDER_ID_STAGESCENE, Stage03Scene, "Stage03");
-            break;
-        case 4:
-            orderSceneToFactory(ORDER_ID_STAGESCENE, Stage04Scene, "Stage04");
-            break;
-        case 5:
-            orderSceneToFactory(ORDER_ID_STAGESCENE, Stage05Scene, "Stage05");
-            break;
-        default:
-            break;
-    }
 }
 
 void GameMainScene::initialize() {
@@ -124,10 +91,10 @@ void GameMainScene::processBehavior() {
 
         case GAMEMAINSCENE_PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
-                if (_pSceneMainCannnel && !_pSceneMainCannnel->wasDeclaredEnd()) {
+                if (_pStageController && !_pStageController->wasDeclaredEnd()) {
                     //2面目以降はこのタイミングで前ステージをend
-                    _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
-                    _pSceneMainCannnel->end();
+                    _TRACE_("_pStageController="<<_pStageController->getName()<<" end()");
+                    _pStageController->end();
                 }
             }
             if (_pProg->getFrameInProgress() == 120) { //deleteを考慮し２秒遊ぶ
@@ -140,8 +107,8 @@ void GameMainScene::processBehavior() {
             if (_pProg->isJustChanged()) {
                 if (_had_ready_stage) {
                     _had_ready_stage = false;
-                    _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
-                    addSubLast(_pSceneMainCannnel); //ステージシーン追加
+                    _pStageController = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
+                    addSubLast(_pStageController); //ステージシーン追加
                 } else {
                     throwGgafCriticalException("GameMainScene::processBehavior GAMEMAINSCENE_PROG_BEGIN 準備済みステージがありません。_stage="<<_stage);
                 }

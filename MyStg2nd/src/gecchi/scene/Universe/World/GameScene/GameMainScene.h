@@ -29,7 +29,7 @@ public:
 //    LabelGecchi16Font* _pFont1602;
     LabelRankFont* _pRankFont;
 
-    StageScene* _pSceneMainCannnel;
+    StageController* _pStageController;
 
 //    frame _frame_Begin;
 //    frame _frame_Play;
@@ -45,8 +45,6 @@ public:
 //    }
 
     void onReset() override;
-    void readyStage(int prm_stage);
-    void readyNextStage();
 //    void cannelStage(int prm_stage);
 
     void initialize() override;
