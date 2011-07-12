@@ -95,7 +95,7 @@ void GameTitleScene::processBehavior() {
                 _pStringBoard02->update("");
                 if (_pProg->isJustChanged()) {
                     for (int i = 0; i < _max_menu_item; i++) {
-                        _papStringItem[i]->update(700*1000, (100+(i*20))*2000);
+                        _papStringItem[i]->locate(700*1000, (100+(i*20))*2000);
                         _papStringItem[i]->activate();
                     }
                 }

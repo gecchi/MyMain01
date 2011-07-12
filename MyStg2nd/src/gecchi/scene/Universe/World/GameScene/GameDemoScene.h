@@ -33,7 +33,7 @@ public:
 //    frame _frame_End;
 
     GameDemoScene(const char* prm_name);
-    void readyDemoStage(int prm_stage);
+//    void readyDemoStage(int prm_stage);
     void onReset() override;
     void initialize() override;
     void onActive() override;
