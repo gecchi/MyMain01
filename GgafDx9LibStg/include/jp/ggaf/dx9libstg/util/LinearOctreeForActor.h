@@ -36,7 +36,8 @@ public:
          */
         inline void push(GgafCore::GgafActor* prm_pActor) {
             if (_p > 3000-1) {
-                throwGgafCriticalException("LinearOctreeForActor::push("<<prm_pActor->getName()<<") スタックを使い切りました、一箇所に当たり判定が塊過ぎです。");
+                _TRACE_("LinearOctreeForActor::push("<<prm_pActor->getName()<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
+                return;
             }
             _apActor[_p] = prm_pActor;
             _p++;
@@ -50,7 +51,7 @@ public:
                 return NULL;
             } else {
                 _p--;
-                return _apActor[_p];
+                return (_apActor[_p]);
             }
         }
         /**

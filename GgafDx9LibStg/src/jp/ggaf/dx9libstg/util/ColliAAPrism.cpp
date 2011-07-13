@@ -198,6 +198,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             x2_e = _z2;
             y2_e = _x1;
         }
+    } else {
+        throwGgafCriticalException("ColliAAPrism::set ‚¨‚©‚µ‚ÈƒvƒŠƒYƒ€ˆÊ’u _pos_prism="<<_pos_prism)
     }
 
 

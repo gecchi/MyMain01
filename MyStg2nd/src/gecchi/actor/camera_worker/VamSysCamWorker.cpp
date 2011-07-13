@@ -114,7 +114,7 @@ void VamSysCamWorker::processBehavior() {
 //    static coord Ddx_hw = (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2) - (cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT)/2));
 
 
-    static int Dd = 30000;
+    //static int Dd = 30000;
     if (_pos_camera < VAM_POS_TO_BEHIND) {
         if (_pos_camera == VAM_POS_RIGHT) {
 //            move_target_X_CAM = 0;

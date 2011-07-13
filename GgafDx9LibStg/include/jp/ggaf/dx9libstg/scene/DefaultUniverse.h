@@ -2,6 +2,9 @@
 #define DEFAULTUNIVERSE_H_
 
 #ifdef P_UNIVERSE
+    #ifdef P_CAM
+        #undef P_CAM
+    #endif
     #define P_CAM ((GgafDx9LibStg::DefaultCamera*)(P_UNIVERSE->_pCamera))
 #else
     #error P_UNIVERSE isnt define

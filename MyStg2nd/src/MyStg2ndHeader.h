@@ -211,6 +211,7 @@ class GameBeginningScene;
 class GameMainScene;
 class GameEndingScene;
 class GameOverScene;
+class StageController;
 class StageScene;
 class Stage01Scene;
 class Stage02Scene;

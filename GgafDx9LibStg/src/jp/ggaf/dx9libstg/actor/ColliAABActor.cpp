@@ -15,7 +15,7 @@ ColliAABActor* ColliAABActor::get() {
     if (ColliAABActor::_pObj == NULL) {
         ColliAABActor::_pObj = NEW ColliAABActor("HITAREA");
     }
-    return ColliAABActor::_pObj;
+    return (ColliAABActor::_pObj);
 }
 
 void ColliAABActor::release() {

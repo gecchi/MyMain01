@@ -10,6 +10,9 @@
 #define getSubActor(X) ((X##Actor*)getSub(#X))
 
 #ifdef P_UNIVERSE
+    #ifdef P_CAM
+        #undef P_CAM
+    #endif
     #define P_CAM ((MyStg2nd::Camera*)(P_UNIVERSE->_pCamera))
 #else
     #error P_UNIVERSE isnt define

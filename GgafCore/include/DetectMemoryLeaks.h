@@ -1,7 +1,8 @@
 #ifndef DETECT_MEMORY_LEAKS_H
 #define DETECT_MEMORY_LEAKS_H
-#pragma warning(disable: 4291)
-
+#ifdef _MSC_VER
+    #pragma warning(disable: 4291)
+#endif
 /**
  * メモリリーク検出用
  * @version 1.00
