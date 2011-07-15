@@ -91,7 +91,7 @@ class LaserChipStoreDispatcher;
 #include "jp/ggaf/dx9libstg/util/ColliSphere.h"
 #include "jp/ggaf/dx9libstg/util/ColliAAPrism.h"
 #include "jp/ggaf/dx9libstg/util/StgUtil.h"
-#include "jp/ggaf/dx9libstg/util/SceneTransitioner.h"
+#include "jp/ggaf/dx9libstg/util/SceneProgress.h"
 
 #include "jp/ggaf/dx9libstg/util/VirtualButton.h"
 #include "jp/ggaf/dx9libstg/util/VBReplayRecorder.h"

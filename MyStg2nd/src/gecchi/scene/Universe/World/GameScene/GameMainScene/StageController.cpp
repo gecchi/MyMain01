@@ -71,7 +71,7 @@ void StageController::readyStage(int prm_stage) {
 }
 
 void StageController::initialize() {
-    readyStage(1);
+
 //    if (!pGameMainScene->_had_ready_stage) {
 //        pGameMainScene->readyStage(_stage);
 //    }
@@ -84,6 +84,7 @@ void StageController::processBehavior() {
     //SCORE•\Ž¦
     switch (_pProg->get()) {
         case STAGECONTROLLER_PROG_INIT: {
+            readyStage(_stage);
             _pProg->change(STAGECONTROLLER_PROG_BEGIN);
             break;
         }

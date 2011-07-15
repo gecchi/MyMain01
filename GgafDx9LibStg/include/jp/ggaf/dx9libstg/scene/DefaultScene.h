@@ -19,7 +19,11 @@ public:
     /** シーンの現在イベント(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     int _iCnt_Event;
 
+    /*new*/ SceneProgress* _pProg; //隠蔽
+
     DefaultScene(const char* prm_name);
+
+    void useProgress(int prm_num = 10) override;
 
     virtual void initialize() override {
     }
