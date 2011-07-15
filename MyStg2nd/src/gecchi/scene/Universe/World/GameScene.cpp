@@ -5,6 +5,17 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+enum {
+    GAMESCENE_PROG_INIT = 1 ,
+    GAMESCENE_PROG_PRE_TITLE,
+    GAMESCENE_PROG_TITLE    ,
+    GAMESCENE_PROG_DEMO     ,
+    GAMESCENE_PROG_BEGINNING,
+    GAMESCENE_PROG_MAIN     ,
+    GAMESCENE_PROG_ENDING   ,
+    GAMESCENE_PROG_GAME_OVER,
+    GAMESCENE_PROG_FINISH   ,
+};
 GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) ,
 _pCommonScene(NULL),
 _pMyShipScene(NULL) {
@@ -75,7 +86,7 @@ _pMyShipScene(NULL) {
 
     _stage = 1;
     _was_paused_flg_GameMainScene_prev_frame = false;
-    useProgress(10);
+    useProgress(GAMESCENE_PROG_FINISH);
 }
 
 void GameScene::initialize() {
@@ -193,10 +204,10 @@ void GameScene::processBehavior() {
     switch (_pProg->get()) {
         case GAMESCENE_PROG_INIT: {
             //æs€”õ
-            GameMainScene* pGameMainScene = (GameMainScene*)(_mapSubScene[GAMESCENE_PROG_MAIN]);
-            if (!pGameMainScene->_had_ready_stage) {
-                pGameMainScene->readyStage(_stage);
-            }
+//            GameMainScene* pGameMainScene = (GameMainScene*)(_mapSubScene[GAMESCENE_PROG_MAIN]);
+//            if (!pGameMainScene->_had_ready_stage) {
+//                pGameMainScene->readyStage(_stage);
+//            }
             changeFadeingSubScene(GAMESCENE_PROG_PRE_TITLE, 0, FADE_FRAMES);
             break;
         }

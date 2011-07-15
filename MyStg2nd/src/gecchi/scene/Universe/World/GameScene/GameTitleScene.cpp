@@ -5,10 +5,20 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+enum {
+    GAMETITLESCENE_PROG_INIT = 1 ,
+    GAMETITLESCENE_PROG_TITLE    ,
+    GAMETITLESCENE_PROG_SELECT   ,
+    GAMETITLESCENE_PROG_GAMESTART,
+    GAMETITLESCENE_PROG_FINISH   ,
+};
+#define GAMETITLE_TIMEOUT 240
+
+
 GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameTitleScene";
     useProgress(10);
-    _pProg->change(GAMEDEMOSCENE_PROG_INIT);
+    _pProg->change(GAMETITLESCENE_PROG_INIT);
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
     getLordActor()->addSubGroup(_pStringBoard01);
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");

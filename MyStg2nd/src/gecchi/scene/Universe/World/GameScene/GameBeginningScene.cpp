@@ -5,6 +5,13 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+enum {
+    GAMEBEGINNINGSCENE_PROG_INIT = 1   ,
+    GAMEBEGINNINGSCENE_PROG_SELECT_MODE,
+    GAMEBEGINNINGSCENE_PROG_DECIDE     ,
+    GAMEBEGINNINGSCENE_PROG_FINISH     ,
+};
+
 GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameBeginningScene";
 
@@ -13,9 +20,8 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard02);
     _selected_stage = 0;
-    useProgress(10);
+    useProgress(GAMEBEGINNINGSCENE_PROG_FINISH);
 }
-
 
 void GameBeginningScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");

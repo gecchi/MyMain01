@@ -1,15 +1,6 @@
 #ifndef GAMESCENE_H_
 #define GAMESCENE_H_
 
-#define GAMESCENE_PROG_INIT      1
-#define GAMESCENE_PROG_PRE_TITLE 2
-#define GAMESCENE_PROG_TITLE     3
-#define GAMESCENE_PROG_DEMO      4
-#define GAMESCENE_PROG_BEGINNING 5
-#define GAMESCENE_PROG_MAIN      6
-#define GAMESCENE_PROG_ENDING    7
-#define GAMESCENE_PROG_GAME_OVER 8
-#define GAMESCENE_PROG_FINISH    9
 
 #ifdef P_WORLD
     #define P_GAME_SCENE (P_WORLD->_pGameScene)
@@ -51,7 +42,6 @@ public:
     bool _was_paused_flg_GameMainScene_prev_frame;
     int _stage;
 //    GgafDx9LibStg::DefaultScene* _pSceneCannel;
-
 
 
     GameScene(const char* prm_name);

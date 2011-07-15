@@ -5,6 +5,14 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+enum {
+    THALIA_PROG_MOVE = 1  ,
+    THALIA_PROG_TURN_OPEN ,
+    THALIA_PROG_FIRE_BEGIN,
+    THALIA_PROG_IN_FIRE   ,
+    THALIA_PROG_CLOSE     ,
+};
+
 EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name, "1/Thalia") {
 //EnemyThalia::EnemyThalia(const char* prm_name) : CubeMapMorphMeshActor(prm_name, "1/ThaliaCM") {
     _class_name = "EnemyThalia";
@@ -31,7 +39,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
     _pSeTransmitter->set(1, "laser001", GgafRepeatSeq::nextVal("CH_laser001"));     //”š”­
-    useProgress(10);
+    useProgress(THALIA_PROG_CLOSE);
     //‰ŠúƒJƒƒ‰ZˆÊ’u
     _dZ_camera_init = -1 * P_CAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 }

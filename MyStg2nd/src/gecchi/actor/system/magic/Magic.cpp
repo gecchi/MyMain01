@@ -5,6 +5,16 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+enum {
+    MAGIC_NOTHING = 1,
+    MAGIC_STAND_BY   ,
+    MAGIC_CASTING    ,
+    MAGIC_INVOKING   ,
+    MAGIC_EFFECTING  ,
+    MAGIC_ABANDONING ,
+
+};
+
 Magic::Magic(const char*  prm_name,
              int          prm_max_level,
              magic_point  prm_cost_base            , float prm_fRate_cost             ,
@@ -77,7 +87,7 @@ Magic::Magic(const char*  prm_name,
     _rr = 0.0f;
     _velo_rr = 0.0f;
 
-    useProgress();
+    useProgress(MAGIC_ABANDONING);
     _pProg->set(MAGIC_NOTHING);
 }
 

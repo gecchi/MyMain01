@@ -2,23 +2,17 @@
 #define MAGIC_H_
 namespace MyStg2nd {
 
-#define MAGIC_NOTHING 0
-#define MAGIC_STAND_BY 1
-#define MAGIC_CASTING 2
-#define MAGIC_INVOKING 3
-#define MAGIC_EFFECTING 4
-#define MAGIC_ABANDONING 9
+typedef int magic_point;
+typedef frame magic_time;
 
 #define MAGIC_EXECUTE_NG_INVOKING    (-2)
 #define MAGIC_EXECUTE_NG_MP_IS_SHORT (-1)
 #define MAGIC_EXECUTE_NG             (-1)
-#define MAGIC_EXECUTE_THE_SAME_LEVEL 0
-#define MAGIC_EXECUTE_OK             1
-#define MAGIC_EXECUTE_OK_LEVELUP     1
-#define MAGIC_EXECUTE_OK_LEVELDOWN   2
+#define MAGIC_EXECUTE_THE_SAME_LEVEL (0)
+#define MAGIC_EXECUTE_OK             (1)
+#define MAGIC_EXECUTE_OK_LEVELUP     (1)
+#define MAGIC_EXECUTE_OK_LEVELDOWN   (2)
 
-typedef int magic_point;
-typedef frame magic_time;
 /**
  * 抽象魔法クラス .
  * 魔法についての本クラスの基本的な約束事。

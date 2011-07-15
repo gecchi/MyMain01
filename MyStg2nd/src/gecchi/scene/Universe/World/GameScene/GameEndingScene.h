@@ -1,14 +1,5 @@
 #ifndef GAMEENDINGSCENE_H_
 #define GAMEENDINGSCENE_H_
-
-#define GAMEENDINGSCENE_PROG_INIT   1
-#define GAMEENDINGSCENE_PROG_BEGIN  2
-#define GAMEENDINGSCENE_PROG_OPE    3
-#define GAMEENDINGSCENE_PROG_DECIDE 4
-#define GAMEENDINGSCENE_PROG_END    5
-
-
-
 namespace MyStg2nd {
 
 class GameEndingScene : public GgafDx9LibStg::DefaultScene {

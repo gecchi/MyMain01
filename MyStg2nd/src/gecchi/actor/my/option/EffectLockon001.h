@@ -1,10 +1,12 @@
 #ifndef EFFECTLOCKON001_H_
 #define EFFECTLOCKON001_H_
 namespace MyStg2nd {
-#define LOCKON001_PROG_FIRST_LOCK     1
-#define LOCKON001_PROG_LOCK     2
-#define LOCKON001_PROG_RELEASE  3
 
+enum {
+    LOCKON001_PROG_FIRST_LOCK = 1,
+    LOCKON001_PROG_LOCK          ,
+    LOCKON001_PROG_RELEASE       ,
+};
 
 /**
  * ÉçÉbÉNÉIÉì

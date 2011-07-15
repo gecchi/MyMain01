@@ -5,9 +5,18 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+
+enum {
+    GAMEENDINGSCENE_PROG_INIT = 1,
+    GAMEENDINGSCENE_PROG_BEGIN   ,
+    GAMEENDINGSCENE_PROG_OPE     ,
+    GAMEENDINGSCENE_PROG_DECIDE  ,
+    GAMEENDINGSCENE_PROG_END     ,
+};
+
 GameEndingScene::GameEndingScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameEndingScene";
-    useProgress(10);
+    useProgress(GAMEENDINGSCENE_PROG_END);
 }
 
 void GameEndingScene::onReset() {

@@ -5,6 +5,14 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+enum {
+    MYSHIPSCENE_PROG_INIT = 1,
+    MYSHIPSCENE_PROG_BEGIN   ,
+    MYSHIPSCENE_PROG_PLAY    ,
+    MYSHIPSCENE_PROG_DESTROY ,
+    MYSHIPSCENE_PROG_END
+};
+
 MyShipScene::MyShipScene(const char* prm_name) : DefaultScene(prm_name) ,
 _pMyShip(NULL),
 _pMyOptionController(NULL) {
@@ -118,7 +126,7 @@ void MyShipScene::processBehavior() {
             if (_pProg->getFrameInProgress() == 120) {
                 if (_zanki == 0) {
                    throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
-                   _pProg->change(PROG_NOTHING);
+                   _pProg->changeNothing();
                    P_UNIVERSE->undoCameraWork(); //VamSysCamWorker‰ğœ
                    inactivate();
                 } else {

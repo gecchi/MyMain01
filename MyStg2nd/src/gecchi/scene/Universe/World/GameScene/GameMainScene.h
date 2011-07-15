@@ -1,13 +1,5 @@
 #ifndef GAMEMAINSCENE_H_
 #define GAMEMAINSCENE_H_
-
-#define GAMEMAINSCENE_PROG_INIT     1
-#define GAMEMAINSCENE_PROG_BEGIN    2
-#define GAMEMAINSCENE_PROG_PLAY     3
-#define GAMEMAINSCENE_PROG_FINISH   4
-
-
-
 namespace MyStg2nd {
 
 /**
@@ -35,8 +27,8 @@ public:
 //    frame _frame_Play;
 //    frame _frame_End;
 
-    int _stage;
-    bool _had_ready_stage;
+//    int _stage;
+//    bool _had_ready_stage;
 //    frame _frame_ready_stage;
     GameMainScene(const char* prm_name);
 

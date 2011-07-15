@@ -1,12 +1,6 @@
 #ifndef GAMEPRETITLESCENE_H_
 #define GAMEPRETITLESCENE_H_
-
-#define GAMEPRETITLESCENE_PROG_INIT     1
-#define GAMEPRETITLESCENE_PROG_EXEC     2
-#define GAMEPRETITLESCENE_PROG_FINISH   3
-
 namespace MyStg2nd {
-
 
 /**
  * タイトルシーンクラス .

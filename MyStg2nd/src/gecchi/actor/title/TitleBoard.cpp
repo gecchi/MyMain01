@@ -5,11 +5,16 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+enum {
+    TITLEBOARD_PROG_INIT = 1,
+    TITLEBOARD_PROG_ENTRANCE,
+    TITLEBOARD_PROG_DISP    ,
+};
 
 TitleBoard::TitleBoard(const char* prm_name) : DefaultBoardSetActor(prm_name, "title") {
     _class_name = "TitleBoard";
     //_z = 0.9999999f;  //ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
-    useProgress(10);
+    useProgress(TITLEBOARD_PROG_DISP);
 }
 void TitleBoard::initialize() {
 }

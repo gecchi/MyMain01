@@ -1,14 +1,12 @@
 #ifndef ITEM_H_
 #define ITEM_H_
 
-/** ‰½‚à‚µ‚Ä‚¢‚È‚¢ó‘Ô */
-#define ITEM_PROG_NOTIONG 0
-/** ’ÊíˆÚ“®ó‘Ô */
-#define ITEM_PROG_DRIFT   1
-/** ‹z’…’†(–¢‹z’…)ó‘Ô */
-#define ITEM_PROG_ATTACH  2
-/** ‹z’…’†(‹z’…Ï)ó‘Ô */
-#define ITEM_PROG_ABSORB  3
+enum {
+    ITEM_PROG_NOTIONG = 1, //‰½‚à‚µ‚Ä‚¢‚È‚¢ó‘Ô
+    ITEM_PROG_DRIFT      , //’ÊíˆÚ“®ó‘Ô
+    ITEM_PROG_ATTACH     , //‹z’…’†(–¢‹z’…)ó‘Ô
+    ITEM_PROG_ABSORB     , //‹z’…’†(‹z’…Ï)ó‘Ô
+};
 
 namespace MyStg2nd {
 

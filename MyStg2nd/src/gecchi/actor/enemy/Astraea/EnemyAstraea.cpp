@@ -5,9 +5,11 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-#define ASTRAEA_PROG_MOVE  1
-#define ASTRAEA_PROG_TURN  2
-#define ASTRAEA_PROG_FIRE  3
+enum {
+    ASTRAEA_PROG_MOVE = 1,
+    ASTRAEA_PROG_TURN    ,
+    ASTRAEA_PROG_FIRE    ,
+};
 
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "Astraea") {
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
@@ -61,7 +63,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
     _pSeTransmitter->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
-    useProgress(4);
+    useProgress(ASTRAEA_PROG_FIRE);
 }
 
 void EnemyAstraea::onCreateModel() {

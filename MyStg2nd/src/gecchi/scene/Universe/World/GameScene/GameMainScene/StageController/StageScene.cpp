@@ -9,7 +9,7 @@ bool StageScene::_pause = false;
 
 StageScene::StageScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "StageScene";
-    useProgress(10);
+    useProgress(STAGESCENE_PROG_END);
 }
 
 void StageScene::initialize() {

@@ -1,16 +1,7 @@
 #ifndef GAMETITLESCENE_H_
 #define GAMETITLESCENE_H_
 
-#define GAMETITLESCENE_PROG_INIT          1
-#define GAMETITLESCENE_PROG_TITLE         3
-#define GAMETITLESCENE_PROG_SELECT        4
-#define GAMETITLESCENE_PROG_GAMESTART     5
-#define GAMETITLESCENE_PROG_FINISH        6
-
-#define GAMETITLE_TIMEOUT 240
-
 namespace MyStg2nd {
-
 
 /**
  * タイトルシーンクラス .

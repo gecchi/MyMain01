@@ -5,6 +5,20 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+enum {
+    STAGE01CONTROLLER_PROG_INIT = 1            ,
+    STAGE01CONTROLLER_PROG_STG01_01_BEGIN      ,
+    STAGE01CONTROLLER_PROG_STG01_01_PLAYING    ,
+    STAGE01CONTROLLER_PROG_STG01_02_BEGIN      ,
+    STAGE01CONTROLLER_PROG_STG01_02_PLAYING    ,
+    STAGE01CONTROLLER_PROG_STG01_03_BEGIN      ,
+    STAGE01CONTROLLER_PROG_STG01_03_PLAYING    ,
+    STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN  ,
+    STAGE01CONTROLLER_PROG_STG01_CLIMAX_PLAYING,
+    STAGE01CONTROLLER_PROG_FAINAL              ,
+};
+
+
 Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "Stage01Controller";
 
@@ -21,7 +35,7 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     _event_num = 8;
     orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
     // gen01 end
-    useProgress(10);
+    useProgress(STAGE01CONTROLLER_PROG_FAINAL);
 }
 
 void Stage01Controller::initialize() {

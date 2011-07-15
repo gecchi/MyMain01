@@ -4,12 +4,14 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
-#define STAGECONTROLLER_PROG_INIT     1
-#define STAGECONTROLLER_PROG_BEGIN    2
-#define STAGECONTROLLER_PROG_PLAY     3
-#define STAGECONTROLLER_PROG_FINISH   4
-#define ORDER_ID_STAGESCENE 11
 
+enum {
+    STAGECONTROLLER_PROG_INIT = 1,
+    STAGECONTROLLER_PROG_BEGIN   ,
+    STAGECONTROLLER_PROG_PLAY    ,
+    STAGECONTROLLER_PROG_FINISH  ,
+};
+#define ORDER_ID_STAGESCENE 11
 //StageController* StageController::_pStageController = NULL;
 
 StageController::StageController(const char* prm_name) : DefaultScene(prm_name) {
@@ -17,8 +19,9 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
 
     _pSceneMainCannnel = NULL;
     _had_ready_stage = false;
+    _stage = 1;
 //    StageController::_pStageController = this;
-    useProgress(10);
+    useProgress(STAGECONTROLLER_PROG_FINISH);
 }
 
 void StageController::onReset() {
@@ -68,8 +71,10 @@ void StageController::readyStage(int prm_stage) {
 }
 
 void StageController::initialize() {
-
-
+    readyStage(1);
+//    if (!pGameMainScene->_had_ready_stage) {
+//        pGameMainScene->readyStage(_stage);
+//    }
 //    GgafScene* pCommon = P_COMMON_SCENE->extract();
 //    addSubLast(pCommon); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
     //initialize()時はinactive()であることに注意する事

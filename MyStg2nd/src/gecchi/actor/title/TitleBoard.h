@@ -1,11 +1,6 @@
 #ifndef TITLEBOARD_H_
 #define TITLEBOARD_H_
 
-#define TITLEBOARD_PROG_INIT     1
-#define TITLEBOARD_PROG_ENTRANCE 2
-#define TITLEBOARD_PROG_DISP     3
-
-
 namespace MyStg2nd {
 
 /**

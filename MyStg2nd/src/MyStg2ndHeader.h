@@ -123,7 +123,6 @@
 #undef P_UNIVERSE
 #define P_UNIVERSE ((MyStg2nd::Universe*)(P_GOD->_pUniverse))
 
-#define PROG_NOTHING 0
 #define FADE_FRAMES 60
 
 enum MoveWay {

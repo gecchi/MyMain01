@@ -4,10 +4,18 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
+
+enum {
+    GAMEDEMOSCENE_PROG_INIT = 1,
+    GAMEDEMOSCENE_PROG_DEMOPLAY,
+    GAMEDEMOSCENE_PROG_RANKING ,
+    GAMEDEMOSCENE_PROG_FINISH  ,
+};
+
 #define ORDER_ID_DEMOSTAGESCENE 12
 GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameDemoScene";
-    useProgress(10);
+    useProgress(GAMEDEMOSCENE_PROG_FINISH);
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");

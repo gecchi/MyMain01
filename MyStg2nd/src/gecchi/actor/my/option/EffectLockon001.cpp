@@ -19,7 +19,7 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
     _pSeTransmitter->useSe(1);                                                //Žg—pŒø‰Ê‰¹”éŒ¾
     _pSeTransmitter->set(0, "humei10", GgafRepeatSeq::nextVal("CH_humei10")); //Œø‰Ê‰¹’è‹`
-    useProgress(10);
+    useProgress(LOCKON001_PROG_RELEASE);
 }
 
 void EffectLockon001::initialize() {

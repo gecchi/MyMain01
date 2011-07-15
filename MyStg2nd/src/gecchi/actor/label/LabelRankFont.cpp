@@ -70,10 +70,10 @@ char LabelRankFont::RANK_10000thDeg[10][46] = {
 
 char LabelRankFont::RANK_INF[] = "UVWXYZ";
 
-#define RANKFONT_PROG_NOMALDISP 1
-#define RANKFONT_PROG_RANKUP 2
-
-
+enum {
+    RANKFONT_PROG_NOMALDISP = 1,
+    RANKFONT_PROG_RANKUP       ,
+};
 
 void LabelRankFont::cnvRankStr(int prm_rank, char* out) {
     out[0] = '\0';
@@ -128,7 +128,7 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
         StringBoardActor(prm_name, "RankFont")
 {
     _class_name = "LabelRankFont";
-    useProgress(10);
+    useProgress(RANKFONT_PROG_RANKUP);
 }
 
 void LabelRankFont::onCreateModel() {
