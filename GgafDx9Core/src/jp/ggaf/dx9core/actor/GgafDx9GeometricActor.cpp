@@ -337,7 +337,7 @@ void GgafDx9GeometricActor::dump() {
                                                                                                           _on_change_to_inactive_flg<<
                                                                                                           ","<<
                                                                                                           _will_end_after_flg<<
-                                                                                                          "("<<_frame_of_life_when_end<<")"<<
+                                                                                                          "("<<(_frame_of_life_when_end==MAXDWORD ? 0 : _frame_of_life_when_end)<<")"<<
                                                                                                           ","<<
                                                                                                           _was_paused_flg<<
                                                                                                           _was_paused_flg_in_next_frame<<
@@ -384,7 +384,7 @@ void GgafDx9GeometricActor::dump(string prm_parent) {
                                                                                                      _on_change_to_inactive_flg<<
                                                                                                      ","<<
                                                                                                      _will_end_after_flg<<
-                                                                                                     "("<<_frame_of_life_when_end<<")"<<
+                                                                                                     "("<<(_frame_of_life_when_end==MAXDWORD ? 0 : _frame_of_life_when_end)<<")"<<
                                                                                                      ","<<
                                                                                                      _was_paused_flg<<
                                                                                                      _was_paused_flg_in_next_frame<<

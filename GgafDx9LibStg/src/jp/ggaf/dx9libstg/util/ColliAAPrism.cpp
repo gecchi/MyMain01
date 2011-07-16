@@ -199,7 +199,9 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             y2_e = _x1;
         }
     } else {
-        throwGgafCriticalException("ColliAAPrism::set おかしなプリズム位置 _pos_prism="<<_pos_prism)
+		//memo WallAAPrismActor の 空new時はプリズム位置 0 にすることとしたので、
+		//以下のエラーはスルーするように変更した。
+        //throwGgafCriticalException("ColliAAPrism::set おかしなプリズム位置 _pos_prism="<<_pos_prism)
     }
 
 

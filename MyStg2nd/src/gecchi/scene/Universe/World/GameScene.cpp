@@ -45,7 +45,7 @@ _pMyShipScene(NULL) {
 
 
     useProgress(GAMESCENE_PROG_FINISH);
-    _pProg->affectSubScene(GAMESCENE_PROG_PRE_TITLE, "PreGameTitle");
+    _pProg->affectSubScene(GAMESCENE_PROG_PRE_TITLE, GAMESCENE_PROG_GAME_OVER,  "PreGameTitle");
 //    _pProg->getAffect(GAMESCENE_PROG_PRE_TITLE] = NEW GamePreTitleScene("PreGameTitle");
 //    _pProg->getAffect(GAMESCENE_PROG_TITLE]     = NEW GameTitleScene("GameTitle");
 //    _pProg->getAffect(GAMESCENE_PROG_DEMO]      = NEW GameDemoScene("GameDemo");
@@ -325,7 +325,7 @@ void GameScene::processBehavior() {
                 _pMyShipScene->fadeoutSceneTree(FADE_FRAMES);
                 _pCommonScene->fadeoutSceneTree(FADE_FRAMES);
                 DefaultScene* pSubScene;
-                for (map<progress, DefaultScene*>::const_iterator it = _mapSubScene.begin(); it != _mapSubScene.end(); it++) {
+                for (map<progress, DefaultScene*>::const_iterator it = _pProg->_mapProg2Scene.begin(); it != _pProg->_mapProg2Scene.end(); it++) {
                     pSubScene = it->second;
                     if (pSubScene) {
                         pSubScene->fadeoutSceneTree(FADE_FRAMES);

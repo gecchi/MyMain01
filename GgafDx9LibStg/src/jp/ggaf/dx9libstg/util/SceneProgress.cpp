@@ -9,22 +9,23 @@ using namespace GgafDx9LibStg;
 SceneProgress::SceneProgress(DefaultScene* prm_pScene, int prm_num_progress)  : GgafProgress(&(prm_pScene->_frame_of_behaving), prm_num_progress) {
     _pScene = prm_pScene;
 }
-void SceneProgress::affectSubScene(progress prm_FirstProgress, const char* prm_FirstSubSceneName) {
-    affectSubScene(prm_FirstProgress, (DefaultScene*)(_pScene->getSubByName(prm_FirstSubSceneName)));
+void SceneProgress::affectSubScene(progress prm_FirstProgress, progress prm_EndProgress, const char* prm_FirstSubSceneName) {
+    affectSubScene(prm_FirstProgress, prm_EndProgress, (DefaultScene*)(_pScene->getSubByName(prm_FirstSubSceneName)));
 }
-void SceneProgress::affectSubScene(progress prm_FirstProgress, DefaultScene* prm_pFirstSubScene) {
+void SceneProgress::affectSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene) {
     DefaultScene* pSub = prm_pFirstSubScene;
     int num_progress = _pScene->_pProg->_num_progress;
     int num = 1;
-    for (progress prog = prm_FirstProgress; prog <= num_progress; prog++, num++) {
+    for (progress prog = prm_FirstProgress; prog <= prm_EndProgress; prog++, num++) {
         _mapProg2Scene[prog] = pSub;
-        if (prog < num_progress && pSub->isLast()) {
+        if (pSub->isLast() && prog < prm_EndProgress) {
             throwGgafCriticalException("SceneProgress::SceneProgress _pScene("<<_pScene->getName()<<")の"<<
-                                       "サブシーン("<<prm_pFirstSubScene->getName()<<")から数えてのサブシーンの数が足りません。\n"<<
-                                       "進捗番号数は "<<prm_FirstProgress<<"～"<<num_progress<<" の "<<(num_progress-prm_FirstProgress)<<" 個に対し、\n"<<
+                                       "サブシーン("<<prm_pFirstSubScene->getName()<<")から数えてのサブシーンの数が足りません(サブシーンが一周しました)。\n"<<
+                                       "進捗番号数は "<<prm_FirstProgress<<"～"<<prm_EndProgress<<" の "<<(prm_EndProgress-prm_FirstProgress)<<" 個に対し、\n"<<
                                        "サブシーン数は "<<prm_pFirstSubScene->getName()<<"～"<<pSub->getName()<<" の "<<num<<"個でした。");
         }
         pSub = (DefaultScene*)(pSub->getNext());
+
     }
     //    _mapSubScene[GAMESCENE_PROG_PRE_TITLE] = NEW GamePreTitleScene("PreGameTitle");
     //    _mapSubScene[GAMESCENE_PROG_TITLE]     = NEW GameTitleScene("GameTitle");
