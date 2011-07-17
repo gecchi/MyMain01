@@ -69,8 +69,26 @@ void SceneProgress::changeWithCrossfadingSubScene(progress prm_progress, frame p
     }
     change(prm_progress);
 }
-DefaultScene* SceneProgress::getAffect(progress prm_progress) {
-    return (_mapProg2Scene[prm_progress]);
+
+void SceneProgress::changeWithOverlappingSubScene(progress prm_progress, frame prm_fade_frames) {
+    if (_mapProg2Scene[get()]) {
+        _mapProg2Scene[get()]->inactivateDelay(prm_fade_frames);
+    } else {
+        _TRACE_("＜警告＞SceneProgress::changeWithOverlappingSubScene シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
+    }
+    if (_mapProg2Scene[prm_progress]) {
+        _mapProg2Scene[prm_progress]->reset();
+        _mapProg2Scene[prm_progress]->activate();
+    } else {
+        _TRACE_("＜警告＞SceneProgress::changeWithOverlappingSubScene シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
+    }
+    change(prm_progress);
+}
+
+
+
+DefaultScene* SceneProgress::getSubScene() {
+    return (_mapProg2Scene[get()]);
 }
 SceneProgress::~SceneProgress() {
 }

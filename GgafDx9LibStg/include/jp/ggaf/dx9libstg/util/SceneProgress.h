@@ -14,7 +14,8 @@ public:
     void affectSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene);
     void changeWithFlippingSubScene(progress prm_progress);
     void changeWithCrossfadingSubScene(progress prm_progress, frame prm_fade_frames = 60);
-    DefaultScene* getAffect(progress prm_progress);
+    void changeWithOverlappingSubScene(progress prm_progress, frame prm_fade_frames);
+    DefaultScene* getSubScene();
     virtual ~SceneProgress();
 };
 

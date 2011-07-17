@@ -1,13 +1,6 @@
 #ifndef UNIVERSE_H_
 #define UNIVERSE_H_
 
-//getParent getSub そして キャストマクロ。
-//下記マクロ使用するには、オブジェクトの識別名が、
-//クラス名の末尾の"...Scene"という文字列を取り去ったものであることが前提条件です
-#define getParentScene(X) ((X##Scene*)getParent(#X))
-#define getSubScene(X) ((X##Scene*)getSub(#X))
-#define getParentActor(X) ((X##Actor*)getParent(#X))
-#define getSubActor(X) ((X##Actor*)getSub(#X))
 
 #ifdef P_UNIVERSE
     #ifdef P_CAM
