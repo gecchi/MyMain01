@@ -6,6 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 char LabelRankFont::RANK_1stDeg[10][6] = {
+                                      ""     ,
                                       "!"    ,
                                       "!!"   ,
                                       "!!!"  ,
@@ -18,6 +19,7 @@ char LabelRankFont::RANK_1stDeg[10][6] = {
             };
 
 char LabelRankFont::RANK_10thDeg[10][5] = {
+                                       ""    ,
                                        "#$"  ,
                                        "%&"  ,
                                        "'("  ,
@@ -30,6 +32,7 @@ char LabelRankFont::RANK_10thDeg[10][5] = {
             };
 
 char LabelRankFont::RANK_100thDeg[10][7] = {
+                                        ""      ,
                                         "-./"   ,
                                         "012"   ,
                                         "345"   ,
@@ -44,12 +47,13 @@ char LabelRankFont::RANK_100thDeg[10][7] = {
 
 
 char LabelRankFont::RANK_1000thDeg[10][9] = {
-                                         ",-./"    ,
+                                         ""        ,
+                                         "<=>?"    ,
                                          "@ABC"    ,
                                          "DEFG"    ,
                                          "HIJK"    ,
                                          "LMNO"    ,
-                                         "LMNO,-./",
+                                         "LMNO<=>?",
                                          "LMNO@ABC",
                                          "LMNODEFG",
                                          "LMNOHIJK"
@@ -57,6 +61,7 @@ char LabelRankFont::RANK_1000thDeg[10][9] = {
 
 
 char LabelRankFont::RANK_10000thDeg[10][46] = {
+                                           ""    ,
                                            "PQRST"                                        ,
                                            "PQRSTPQRST"                                   ,
                                            "PQRSTPQRSTPQRST"                              ,
@@ -78,7 +83,7 @@ enum {
 void LabelRankFont::cnvRankStr(int prm_rank, char* out) {
     out[0] = '\0';
     if (prm_rank <= 0) {
-        strcat(out, " ");
+        strcat(out, "");
         return;
     }
     if (prm_rank > 100000) {
@@ -87,27 +92,27 @@ void LabelRankFont::cnvRankStr(int prm_rank, char* out) {
     }
     int idx_rank_10000thDeg = prm_rank/10000;
     if (idx_rank_10000thDeg > 0) {
-        strcat(out, RANK_10000thDeg[idx_rank_10000thDeg-1]);
+        strcat(out, RANK_10000thDeg[idx_rank_10000thDeg]);
         prm_rank -= idx_rank_10000thDeg*10000;
     }
     int idx_rank_1000thDeg = prm_rank/1000;
     if (idx_rank_1000thDeg > 0) {
-        strcat(out, RANK_1000thDeg[idx_rank_1000thDeg-1]);
+        strcat(out, RANK_1000thDeg[idx_rank_1000thDeg]);
         prm_rank -= idx_rank_1000thDeg*1000;
     }
     int idx_rank_100thDeg = prm_rank/100;
     if (idx_rank_100thDeg > 0) {
-        strcat(out, RANK_100thDeg[idx_rank_100thDeg-1]);
+        strcat(out, RANK_100thDeg[idx_rank_100thDeg]);
         prm_rank -= idx_rank_100thDeg*100;
     }
     int idx_rank_10thDeg = prm_rank/10;
     if (idx_rank_10thDeg > 0) {
-        strcat(out, RANK_10thDeg[idx_rank_10thDeg-1]);
+        strcat(out, RANK_10thDeg[idx_rank_10thDeg]);
         prm_rank -= idx_rank_10thDeg*10;
     }
     int idx_rank_1stDeg = prm_rank;
     if (idx_rank_1stDeg > 0) {
-        strcat(out, RANK_1stDeg[idx_rank_1stDeg-1]);
+        strcat(out, RANK_1stDeg[idx_rank_1stDeg]);
         prm_rank -= idx_rank_1stDeg;
     }
 
