@@ -73,11 +73,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
      CFG_PROPERTY(GAME_BUFFER_HEIGHT)
      );
      */
-
-    _X = cnvCoordDx2App(_pVecCamFromPoint->x);
-    _Y = cnvCoordDx2App(_pVecCamFromPoint->y);
-    _Z = cnvCoordDx2App(_pVecCamFromPoint->z);
-
+    locate(0, 0, cnvCoordDx2App(_cameraZ));
     _pKurokoA->setMvAng(0,0,0);
     _pKurokoA->setMvVelo(0);
     _pKurokoA->setRzMvAngVelo(0);
@@ -87,9 +83,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
     setHitAble(false);
 
     _pViewPoint = NEW GgafDx9CameraViewPoint();
-    _pViewPoint->_X = cnvCoordDx2App(_pVecCamLookatPoint->x);
-    _pViewPoint->_Y = cnvCoordDx2App(_pVecCamLookatPoint->y);
-    _pViewPoint->_Z = cnvCoordDx2App(_pVecCamLookatPoint->z);
+    _pViewPoint->locate(0, 0, 0);
 
     _X_ScreenLeft   = cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)) / -2;
     _X_ScreenRight  = cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)) / 2;
@@ -257,6 +251,9 @@ void GgafDx9Camera::setDefaultPosition() {
     _pViewPoint->_X = 0;
     _pViewPoint->_Y = 0;
     _pViewPoint->_Z = 0;
+    _pVecCamUp->x = 0.0f;
+    _pVecCamUp->y = 1.0f;
+    _pVecCamUp->z = 0.0f;
 }
 
 

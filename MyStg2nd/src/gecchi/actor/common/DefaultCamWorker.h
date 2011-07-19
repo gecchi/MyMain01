@@ -15,7 +15,7 @@ class DefaultCamWorker : public CameraWorker {
 public:
 
     DefaultCamWorker(const char* prm_name);
-
+    virtual void processBehavior() override;
     virtual ~DefaultCamWorker(); //デストラクタ
 };
 

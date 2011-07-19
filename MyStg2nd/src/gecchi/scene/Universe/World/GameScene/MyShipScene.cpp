@@ -69,7 +69,7 @@ void MyShipScene::processBehavior() {
 
     switch (_pProg->getPrev_WhenJustChanged()) {
         case MYSHIPSCENE_PROG_BEGIN: {
-                P_UNIVERSE->undoCameraWork(); //MyShipDivingCamWorker‰ğœ
+            P_UNIVERSE->undoCameraWork(); //MyShipDivingCamWorker‰ğœ
             break;
         }
         default:
