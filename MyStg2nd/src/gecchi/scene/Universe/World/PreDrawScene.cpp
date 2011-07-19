@@ -45,7 +45,6 @@ void PreDrawScene::ready() {
 void PreDrawScene::initialize() {
     GgafDx9Input::updateMouseState();
     GgafDx9Input::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
-    P_UNIVERSE->switchCameraWork("PauseCamWorker");
 }
 
 void PreDrawScene::processBehavior() {

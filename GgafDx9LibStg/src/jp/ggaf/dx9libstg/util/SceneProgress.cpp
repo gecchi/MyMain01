@@ -9,10 +9,10 @@ using namespace GgafDx9LibStg;
 SceneProgress::SceneProgress(DefaultScene* prm_pScene, int prm_num_progress)  : GgafProgress(&(prm_pScene->_frame_of_behaving), prm_num_progress) {
     _pScene = prm_pScene;
 }
-void SceneProgress::affectSubScene(progress prm_FirstProgress, progress prm_EndProgress, const char* prm_FirstSubSceneName) {
-    affectSubScene(prm_FirstProgress, prm_EndProgress, (DefaultScene*)(_pScene->getSubByName(prm_FirstSubSceneName)));
+void SceneProgress::relatSubScene(progress prm_FirstProgress, progress prm_EndProgress, const char* prm_FirstSubSceneName) {
+    relatSubScene(prm_FirstProgress, prm_EndProgress, (DefaultScene*)(_pScene->getSubByName(prm_FirstSubSceneName)));
 }
-void SceneProgress::affectSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene) {
+void SceneProgress::relatSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene) {
     DefaultScene* pSub = prm_pFirstSubScene;
     int num_progress = _pScene->_pProg->_num_progress;
     int num = 1;
@@ -27,37 +27,30 @@ void SceneProgress::affectSubScene(progress prm_FirstProgress, progress prm_EndP
         pSub = (DefaultScene*)(pSub->getNext());
 
     }
-    //    _mapSubScene[GAMESCENE_PROG_PRE_TITLE] = NEW GamePreTitleScene("PreGameTitle");
-    //    _mapSubScene[GAMESCENE_PROG_TITLE]     = NEW GameTitleScene("GameTitle");
-    //    _mapSubScene[GAMESCENE_PROG_DEMO]      = NEW GameDemoScene("GameDemo");
-    //    _mapSubScene[GAMESCENE_PROG_BEGINNING] = NEW GameBeginningScene("GameBeginning");
-    //    _mapSubScene[GAMESCENE_PROG_MAIN]      = NEW GameMainScene("GameMain");
-    //    _mapSubScene[GAMESCENE_PROG_ENDING]    = NEW GameEndingScene("GameEnding");
-    //    _mapSubScene[GAMESCENE_PROG_GAME_OVER] = NEW GameOverScene("GameOver");
 }
 
-void SceneProgress::changeWithFlippingSubScene(progress prm_progress) {
+void SceneProgress::changeWithFlipping(progress prm_progress) {
     if (_mapProg2Scene[get()]) {
         _mapProg2Scene[get()]->inactivate();
     } else {
-        _TRACE_("＜警告＞SceneProgress::changeWithFlippingSubScene シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
+        _TRACE_("＜警告＞SceneProgress::changeWithFlipping シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
     }
     if (_mapProg2Scene[prm_progress]) {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
         _mapProg2Scene[prm_progress]->fadeinSceneTree(0);
     } else {
-        _TRACE_("＜警告＞SceneProgress::changeWithFlippingSubScene シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
+        _TRACE_("＜警告＞SceneProgress::changeWithFlipping シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
     }
     change(prm_progress);
 }
 
-void SceneProgress::changeWithCrossfadingSubScene(progress prm_progress, frame prm_fade_frames) {
+void SceneProgress::changeWithCrossfading(progress prm_progress, frame prm_fade_frames) {
     if (_mapProg2Scene[get()]) {
         _mapProg2Scene[get()]->fadeoutSceneTree(prm_fade_frames);
         _mapProg2Scene[get()]->inactivateDelay(prm_fade_frames);
     } else {
-        _TRACE_("＜警告＞SceneProgress::changeWithFlippingSubScene シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
+        _TRACE_("＜警告＞SceneProgress::changeWithCrossfading シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
     }
     if (_mapProg2Scene[prm_progress]) {
         _mapProg2Scene[prm_progress]->reset();
@@ -65,29 +58,29 @@ void SceneProgress::changeWithCrossfadingSubScene(progress prm_progress, frame p
         _mapProg2Scene[prm_progress]->fadeoutSceneTree(0);
         _mapProg2Scene[prm_progress]->fadeinSceneTree(prm_fade_frames);
     } else {
-        _TRACE_("＜警告＞SceneProgress::changeWithFlippingSubScene シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
+        _TRACE_("＜警告＞SceneProgress::changeWithCrossfading シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
     }
     change(prm_progress);
 }
 
-void SceneProgress::changeWithOverlappingSubScene(progress prm_progress, frame prm_fade_frames) {
+void SceneProgress::changeWithOverlapping(progress prm_progress, frame prm_frames) {
     if (_mapProg2Scene[get()]) {
-        _mapProg2Scene[get()]->inactivateDelay(prm_fade_frames);
+        _mapProg2Scene[get()]->inactivateDelay(prm_frames);
     } else {
-        _TRACE_("＜警告＞SceneProgress::changeWithOverlappingSubScene シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
+        _TRACE_("＜警告＞SceneProgress::changeWithOverlapping シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンのため無視しました。get()="<<get());
     }
     if (_mapProg2Scene[prm_progress]) {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
     } else {
-        _TRACE_("＜警告＞SceneProgress::changeWithOverlappingSubScene シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
+        _TRACE_("＜警告＞SceneProgress::changeWithOverlapping シーン("<<_pScene->getName()<<")に未エントリーの進捗シーンため無視しました。prm_progress="<<prm_progress);
     }
     change(prm_progress);
 }
 
 
 
-DefaultScene* SceneProgress::getSubScene() {
+DefaultScene* SceneProgress::getRelation() {
     return (_mapProg2Scene[get()]);
 }
 SceneProgress::~SceneProgress() {

@@ -69,7 +69,7 @@ void MyShipScene::processBehavior() {
 
     switch (_pProg->getPrev_WhenJustChanged()) {
         case MYSHIPSCENE_PROG_BEGIN: {
-                P_UNIVERSE->undoCameraWork();
+                P_UNIVERSE->undoCameraWork(); //MyShipDivingCamWorker‰ðœ
             break;
         }
         default:
@@ -78,9 +78,11 @@ void MyShipScene::processBehavior() {
 
     switch (_pProg->get()) {
         case MYSHIPSCENE_PROG_INIT: {
-            _pVamSysCamWorker = (VamSysCamWorker*)P_UNIVERSE->switchCameraWork("VamSysCamWorker");
-            _pVamSysCamWorker->_pMyShip = _pMyShip;
             _pProg->change(MYSHIPSCENE_PROG_BEGIN);
+            if (P_UNIVERSE->_pActiveCameraWorker != _pVamSysCamWorker) {
+                _pVamSysCamWorker = (VamSysCamWorker*)P_UNIVERSE->switchCameraWork("VamSysCamWorker");
+                _pVamSysCamWorker->_pMyShip = _pMyShip;
+            }
             break;
         }
 
@@ -126,8 +128,8 @@ void MyShipScene::processBehavior() {
             if (_pProg->getFrameInProgress() == 120) {
                 if (_zanki == 0) {
                    throwEventToUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
-                   _pProg->changeNothing();
                    P_UNIVERSE->undoCameraWork(); //VamSysCamWorker‰ðœ
+                   _pProg->changeNothing();
                    inactivate();
                 } else {
                    throwEventToUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);
