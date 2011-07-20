@@ -2,8 +2,7 @@
 #define MYSHIPSCENE_H_
 
 
-#ifdef P_GAME_SCENE
-    #define P_MYSHIP_SCENE (P_GAME_SCENE->_pMyShipScene)
+#ifdef P_MYSHIP_SCENE
     #define P_MYSHIP (P_MYSHIP_SCENE->_pMyShip)
     #define P_MYOPTIONCON (P_MYSHIP_SCENE->_pMyOptionController)
     #define P_VAM (P_MYSHIP_SCENE->_pVamSysCamWorker)

@@ -24,10 +24,6 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _pBgmPerformer->set(0, "BGM_DEMO");
 
     _demo_stage = 1;
-    _pStageController = new StageController("StageController");
-    addSubLast(_pStageController);
-
-
 }
 void GameDemoScene::onReset() {
     _pProg->set(GAMEDEMOSCENE_PROG_INIT);
@@ -46,7 +42,11 @@ void GameDemoScene::processBehavior() {
 
     switch (_pProg->get()) {
         case GAMEDEMOSCENE_PROG_INIT: {
+            addSubLast(P_STAGE_CONTROLLER->extract());
+            P_STAGE_CONTROLLER->reset();
+            P_STAGE_CONTROLLER->activateImmediately();
             _pProg->change(GAMEDEMOSCENE_PROG_DEMOPLAY);
+
             break;
         }
 
@@ -55,6 +55,13 @@ void GameDemoScene::processBehavior() {
                 _pStringBoard01->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
             }
+
+            if (_pProg->getFrameInProgress() % 60 == 0) {
+                _pStringBoard02->update("");
+            } else if (_pProg->getFrameInProgress() % 60 == 30) {
+                _pStringBoard02->update("GAME OVER");
+            }
+
 
             if (_pProg->getFrameInProgress() == 180) {
                 _pProg->change(GAMEDEMOSCENE_PROG_RANKING);
@@ -67,7 +74,14 @@ void GameDemoScene::processBehavior() {
                 _pStringBoard01->update(100*1000, 100*1000, "RANKING NOW");
                 _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
             }
-            if (_pProg->getFrameInProgress() == 180) {
+            if (_pProg->getFrameInProgress() % 60 == 0) {
+                _pStringBoard02->update("");
+            } else if (_pProg->getFrameInProgress() % 60 == 30) {
+                _pStringBoard02->update("GAME OVER");
+            }
+
+
+            if (_pProg->getFrameInProgress() == 60*60) {
                 _pProg->change(GAMEDEMOSCENE_PROG_FINISH);
             }
             break;

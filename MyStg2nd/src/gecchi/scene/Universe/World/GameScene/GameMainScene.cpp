@@ -42,8 +42,6 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pRankFont->locate(1000*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 100*1-1)*1000);
     getLordActor()->addSubGroup(_pRankFont);
 
-    _pStageController = new StageController("StageController");
-    addSubLast(_pStageController);
     useProgress(GAMEMAINSCENE_PROG_FINISH);
 }
 
@@ -72,6 +70,9 @@ void GameMainScene::processBehavior() {
 
     switch (_pProg->get()) {
         case GAMEMAINSCENE_PROG_INIT: {
+            addSubLast(P_STAGE_CONTROLLER->extract());
+            P_STAGE_CONTROLLER->reset();
+            P_STAGE_CONTROLLER->activateImmediately();
             _pProg->change(GAMEMAINSCENE_PROG_BEGIN);
             break;
         }

@@ -17,7 +17,6 @@ public:
     LabelGecchi8Font* _pFont8_JIKI_Z;
     LabelRankFont* _pRankFont;
 
-    StageController* _pStageController;
     GameMainScene(const char* prm_name);
     void onReset() override;
     void initialize() override;

@@ -22,11 +22,16 @@ _pMyShipScene(NULL) {
 
     _class_name = "GameScene";
     useProgress(GAMESCENE_PROG_FINISH);
-
     _pCommonScene = NEW CommonScene("Common");
+    _pCommonScene->inactivateImmediately();
     addSubLast(_pCommonScene);
     _pMyShipScene = NEW MyShipScene("MyShipScene");
+    _pMyShipScene->inactivateImmediately();
     addSubLast(_pMyShipScene);
+    _pStageController = new StageController("StageController");
+    _pStageController->inactivateImmediately();
+    addSubLast(_pStageController);
+
 
     addSubLast(NEW GamePreTitleScene("PreGameTitle"));
     addSubLast(NEW GameTitleScene("GameTitle"));
@@ -58,11 +63,12 @@ void GameScene::onReset() {
 
     VB_UI->clear();
     P_GOD->setVB(VB_UI);
-    _pMyShipScene->resetTree();
-    _pCommonScene->resetTree();
-    _pMyShipScene->fadeinSceneTree(0);
-    _pCommonScene->fadeinSceneTree(0);
-    _pMyShipScene->inactivateImmediately();
+//    _pMyShipScene->resetTree();
+//    _pCommonScene->resetTree();
+//    _pMyShipScene->fadeinSceneTree(0);
+//    _pCommonScene->fadeinSceneTree(0);
+//    _pMyShipScene->inactivateImmediately();
+//    _pCommonScene->inactivateImmediately();
     //_pMyShipScene->resetTree() → _pMyShipScene->inactivate(); と行っても、
     //_pMyShipSceneは１フレーム実行されてしまいます。
     //inactivateImmediately() としてますので、onInactiveが使用できません。
@@ -176,8 +182,8 @@ void GameScene::processBehavior() {
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
                     _pProg->getRelation()->pause();
-                    _pMyShipScene->pause();
-                    _pCommonScene->pause();
+//                    _pMyShipScene->pause();
+//                    _pCommonScene->pause();
                 }
             }
             if (_pProg->getRelation()->_was_paused_flg) {
@@ -189,8 +195,8 @@ void GameScene::processBehavior() {
                 if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
                     P_GOD->setVB(VB_PLAY);
                     _pProg->getRelation()->unpause();
-                    _pMyShipScene->unpause();
-                    _pCommonScene->unpause();
+//                    _pMyShipScene->unpause();
+//                    _pCommonScene->unpause();
                 }
             }
             _was_paused_flg_GameMainScene_prev_frame = _pProg->getRelation()->_was_paused_flg;
@@ -215,8 +221,8 @@ void GameScene::processBehavior() {
         case GAMESCENE_PROG_FINISH: {
             //##########  ゲームシーン終了  ##########
             if (_pProg->isJustChanged()) {
-                _pMyShipScene->fadeoutSceneTree(FADE_FRAMES);
-                _pCommonScene->fadeoutSceneTree(FADE_FRAMES);
+//                _pMyShipScene->fadeoutSceneTree(FADE_FRAMES);
+//                _pCommonScene->fadeoutSceneTree(FADE_FRAMES);
                 DefaultScene* pSubScene;
                 for (map<progress, DefaultScene*>::const_iterator it = _pProg->_mapProg2Scene.begin(); it != _pProg->_mapProg2Scene.end(); it++) {
                     pSubScene = it->second;
@@ -273,8 +279,8 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         _pProg->changeWithFlipping(GAMESCENE_PROG_MAIN);//メインへ
         _pProg->getRelation()->reset();
         _pProg->getRelation()->activate();
-        _pMyShipScene->reset();
-        _pMyShipScene->activate();
+//        _pMyShipScene->reset();
+//        _pMyShipScene->activate();
 
     } else if (prm_no == EVENT_GOTO_GAMETITLE) {
         //とにかくタイトルへイベント発生

@@ -34,6 +34,12 @@ void StageController::onReset() {
     if (_pSceneMainCannnel) {
         _pSceneMainCannnel->inactivate();
     }
+    addSubLast(P_COMMON_SCENE->extract());
+    addSubLast(P_MYSHIP_SCENE->extract());
+    P_COMMON_SCENE->resetTree();
+    P_MYSHIP_SCENE->resetTree();
+    P_COMMON_SCENE->activateImmediately();
+    P_MYSHIP_SCENE->activateImmediately();
     _pProg->set(STAGECONTROLLER_PROG_INIT);
 }
 void StageController::readyNextStage() {
@@ -43,7 +49,8 @@ void StageController::readyNextStage() {
 
 void StageController::readyStage(int prm_stage) {
     if (_had_ready_stage) {
-        throwGgafCriticalException("StageController::readyStage 既に準備済みのステージがあります。_stage="<<_stage<<" prm_stage="<<prm_stage);
+        _TRACE_("＜警告＞StageController::readyStage 既に準備済みのステージがありますので無視します。_stage="<<_stage<<" prm_stage="<<prm_stage);
+        return;
     }
 
     _stage = prm_stage;
@@ -109,6 +116,7 @@ void StageController::processBehavior() {
                     _had_ready_stage = false;
                     _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
                     addSubLast(_pSceneMainCannnel); //ステージシーン追加
+
                 } else {
                     throwGgafCriticalException("StageController::processBehavior STAGECONTROLLER_PROG_BEGIN 準備済みステージがありません。_stage="<<_stage);
                 }
