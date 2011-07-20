@@ -16,17 +16,8 @@ public:
     LabelGecchi16Font* _pStringBoard01;
     LabelGecchi16Font* _pStringBoard02;
     int _demo_stage;
-    bool _had_ready_demo_stage;
-    StageScene* _pSceneDemoMainCannnel;
-//    frame _frame_Begin;
-//    frame _frame_Title;
-//    frame _frame_Demoplay;
-//    frame _frame_Ranking;
-//    frame _frame_Decide;
-//    frame _frame_End;
-
+    StageController* _pStageController;
     GameDemoScene(const char* prm_name);
-//    void readyDemoStage(int prm_stage);
     void onReset() override;
     void initialize() override;
     void onActive() override;

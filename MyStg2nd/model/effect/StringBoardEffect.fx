@@ -11,6 +11,9 @@ float g_tex_blink_power;
 float g_tex_blink_threshold;
 float g_alpha_master;
 
+//float4 g_colMaterialDiffuse     TODO
+
+
 //float g_offsetU; //テクスチャU座標増分
 //float g_offsetV; //テクスチャV座標増分
 //float g_transformedX; //変換済みX座標(px)

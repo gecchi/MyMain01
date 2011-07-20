@@ -8,8 +8,6 @@ namespace MyStg2nd {
 class GameMainScene : public GgafDx9LibStg::DefaultScene {
 
 public:
-//    static GameMainScene* _pGameMainScene;
-
     char _buf[60];
     LabelGecchi16Font* _pFont16_SCORE;
     LabelGecchi16Font* _pFont16_RANK;
@@ -17,28 +15,11 @@ public:
     LabelGecchi8Font* _pFont8_JIKI_X;
     LabelGecchi8Font* _pFont8_JIKI_Y;
     LabelGecchi8Font* _pFont8_JIKI_Z;
-//    LabelGecchi16Font* _pFont1601;
-//    LabelGecchi16Font* _pFont1602;
     LabelRankFont* _pRankFont;
 
     StageController* _pStageController;
-
-//    frame _frame_Begin;
-//    frame _frame_Play;
-//    frame _frame_End;
-
-//    int _stage;
-//    bool _had_ready_stage;
-//    frame _frame_ready_stage;
     GameMainScene(const char* prm_name);
-
-//    void setStage(int prm_stage) {
-//        _stage = prm_stage;
-//    }
-
     void onReset() override;
-//    void cannelStage(int prm_stage);
-
     void initialize() override;
     void processBehavior() override;
     void processFinal() override;

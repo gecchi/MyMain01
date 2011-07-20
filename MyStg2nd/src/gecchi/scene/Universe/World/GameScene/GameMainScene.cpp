@@ -28,11 +28,6 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pFont16_STAMINA = NEW LabelGecchi16Font("STAMINA");
     _pFont16_STAMINA->locate(550*1000, 40*1000);
     getLordActor()->addSubGroup(_pFont16_STAMINA);
-//
-//    _pFont1601 = NEW LabelGecchi16Font("STR01");
-//    getLordActor()->addSubGroup(_pFont1601);
-//    _pFont1602 = NEW LabelGecchi16Font("STR02");
-//    getLordActor()->addSubGroup(_pFont1602);
     _pFont8_JIKI_X = NEW LabelGecchi8Font("JIKI_X");
     _pFont8_JIKI_Y = NEW LabelGecchi8Font("JIKI_Y");
     _pFont8_JIKI_Z = NEW LabelGecchi8Font("JIKI_Z");
@@ -49,30 +44,14 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 
     _pStageController = new StageController("StageController");
     addSubLast(_pStageController);
-//    _had_ready_stage = false;
-//    GameMainScene::_pGameMainScene = this;
     useProgress(GAMEMAINSCENE_PROG_FINISH);
 }
 
 void GameMainScene::onReset() {
-//    VB_UI->clear();
-//    VB_PLAY->clear();
-//    P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
-
-//    _pFont1601->update("");
-//    _pFont1602->update("");
-//    if (_pStageController) {
-//        _pStageController->inactivate();
-//    }
     _pProg->set(GAMEMAINSCENE_PROG_INIT);
 }
 
 void GameMainScene::initialize() {
-
-
-//    GgafScene* pCommon = P_COMMON_SCENE->extract();
-//    addSubLast(pCommon); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
-    //initialize()時はinactive()であることに注意する事
 }
 
 void GameMainScene::processBehavior() {
@@ -98,29 +77,11 @@ void GameMainScene::processBehavior() {
         }
 
         case GAMEMAINSCENE_PROG_BEGIN: {
-//            if (_pProg->isJustChanged()) {
-//                if (_pStageController && !_pStageController->wasDeclaredEnd()) {
-//                    //2面目以降はこのタイミングで前ステージをend
-//                    _TRACE_("_pStageController="<<_pStageController->getName()<<" end()");
-//                    _pStageController->end();
-//                }
-//            }
-//            if (_pProg->getFrameInProgress() == 120) { //deleteを考慮し２秒遊ぶ
-                _pProg->change(GAMEMAINSCENE_PROG_PLAY);
-//            }
+            _pProg->change(GAMEMAINSCENE_PROG_PLAY);
             break;
         }
 
         case GAMEMAINSCENE_PROG_PLAY: {
-//            if (_pProg->isJustChanged()) {
-//                if (_had_ready_stage) {
-//                    _had_ready_stage = false;
-//                    _pStageController = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE);
-//                    addSubLast(_pStageController); //ステージシーン追加
-//                } else {
-//                    throwGgafCriticalException("GameMainScene::processBehavior GAMEMAINSCENE_PROG_BEGIN 準備済みステージがありません。_stage="<<_stage);
-//                }
-//            }
             break;
         }
 
@@ -140,18 +101,6 @@ void GameMainScene::processBehavior() {
 
 
 void GameMainScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
-//    if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
-//        //次のステージを工場に注文していいよというイベント
-//        _TRACE_("GameMainScene::onCatchEvent() EVENT_PREPARE_NEXT_STAGE 準備きた");
-//        if (_stage < 5) {
-//            readyNextStage();
-//        } else {
-////            _TRACE_("最終面クリア");
-////            _pProg->change(GAMEMAINSCENE_PROG_END);
-//            //TODO:エデニング？
-//        }
-//    }
-
 }
 
 void GameMainScene::processFinal() {
