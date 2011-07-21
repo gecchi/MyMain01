@@ -135,9 +135,8 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
 
     if (pResource == NULL) {
         throwGgafCriticalException("StoreManager::processCreateResource("<<prm_idstr<<") 想定外のIDです。Storeが作成できません。");
-    } else {
-        return pResource;
     }
+    return pResource;
 }
 
 GgafResourceConnection<GgafActorStore>* StoreManager::processCreateConnection(char* prm_idstr, GgafActorStore* prm_pResource) {

@@ -1,14 +1,14 @@
 #ifndef STAGESCENE_H_
 #define STAGESCENE_H_
 
+namespace MyStg2nd {
+
 enum {
     STAGESCENE_PROG_INIT = 1,
     STAGESCENE_PROG_BEGIN   ,
     STAGESCENE_PROG_PLAYING ,
     STAGESCENE_PROG_END     ,
 };
-
-namespace MyStg2nd {
 
 class StageScene : public GgafDx9LibStg::DefaultScene {
 

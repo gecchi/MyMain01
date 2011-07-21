@@ -1249,67 +1249,7 @@ void GgafDx9God::positionPresentRect(int prm_pos, RECT& prm_rectPresent, int prm
         prm_rectPresent.right = prm_screen_width;
     }
 }
-//void GgafDx9God::adjustGameScreen() {
-//     RECT rect;
-//    if (CFG_PROPERTY(FIXED_GAME_VIEW_ASPECT)) {
-//
-//        D3DVIEWPORT9 vClient;
-//        vClient.MinZ = 0.0f;
-//        vClient.MaxZ = 1.0f;
-//        vClient.X = (DWORD)0;
-//        vClient.Y = (DWORD)0;
-//        vClient.Width = (DWORD)(CFG_PROPERTY(GAME_BUFFER_WIDTH));
-//        vClient.Height = (DWORD)(CFG_PROPERTY(GAME_BUFFER_HEIGHT));
-//        _pID3DDevice9->SetViewport(&vClient);
-//        HRESULT hr;
-//        hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
-//                                              NULL, // 矩形領域
-//                                              D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-//                                              //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-//                                              _color_background, //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
-//                                              1.0f, // Zバッファのクリア値
-//                                              0 // ステンシルバッファのクリア値
-//                );
-//        checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
-//
-//
-//        if (::GetClientRect(_pHWndPrimary, &rect)) {
-//            D3DVIEWPORT9 vp;    //ビューポート
-//            vp.MinZ = 0.0f;
-//            vp.MaxZ = 1.0f;
-//            double aspect_client = 1.0 * rect.right / rect.bottom;
-//            double aspect_buffer = 1.0 * CFG_PROPERTY(GAME_BUFFER_WIDTH) / CFG_PROPERTY(GAME_BUFFER_HEIGHT);
-////            _TRACE_("aspect_client = "<<aspect_client<<" aspect_buffer="<<aspect_buffer);
-//            if (aspect_client > aspect_buffer) {
-//                //より横長になってしまっている
-//                double rate = (1.0 * CFG_PROPERTY(GAME_BUFFER_WIDTH) / CFG_PROPERTY(GAME_BUFFER_HEIGHT) / (1.0 *rect.right / rect.bottom));
-//                vp.X = (DWORD)((CFG_PROPERTY(GAME_BUFFER_WIDTH) / 2.0) - (CFG_PROPERTY(GAME_BUFFER_WIDTH) * rate / 2.0)) ;
-//                vp.Y = (DWORD)0;
-//                vp.Width = (DWORD)(CFG_PROPERTY(GAME_BUFFER_WIDTH) * rate);
-//                vp.Height = (DWORD)(CFG_PROPERTY(GAME_BUFFER_HEIGHT));
-//            } else {
-//                //より縦長になってしまっている
-//                double rate = (1.0 * CFG_PROPERTY(GAME_BUFFER_HEIGHT) / CFG_PROPERTY(GAME_BUFFER_WIDTH) / (1.0 *rect.bottom / rect.right));
-//                vp.X = (DWORD)0;
-//                vp.Y = (DWORD)((CFG_PROPERTY(GAME_BUFFER_HEIGHT) / 2.0) - (CFG_PROPERTY(GAME_BUFFER_HEIGHT) * rate / 2.0)) ;;
-//                vp.Width = (DWORD)(CFG_PROPERTY(GAME_BUFFER_WIDTH));
-//                vp.Height = (DWORD)(CFG_PROPERTY(GAME_BUFFER_HEIGHT) * rate);
-//
-//            }
-////            _TRACE_("new vp="<<vp.X<<","<<vp.Y<<","<<vp.Width<<","<<vp.Height);
-//            _pID3DDevice9->SetViewport(&vp);
-//            _adjustGameScreen = false;
-//        }
-//    } else {
-//        if (::GetClientRect(_pHWndPrimary, &rect)) {
-//            _aRect_Present[0].top = rect.top;
-//            _aRect_Present[0].left = rect.left;
-//            _aRect_Present[0].right = rect.right;
-//            _aRect_Present[0].bottom = rect.bottom;
-//            _adjustGameScreen = false;
-//        }
-//    }
-//}
+
 
 GgafDx9God::~GgafDx9God() {
 
@@ -1339,9 +1279,28 @@ GgafDx9God::~GgafDx9God() {
 
 
 }
+//案１
+//                 <-------------------------------------------- 2048 --------------------------------------------->
+//                 <--------- 512 --------->
+//                 <------------------------- 1600 ------------------------------------------><------ 448 --------->
+//
+//         ^       +-----------------------+-----------------------+-----------------------+-+---------------------+
+//         |       |                       |                       |                       | |                     |
+//         |       |                       |                       |                       | |                     |
+//         |       |                       |                       |                       | |                     |
+//         |       |                       |                       |                       | |                     |
+//         |       |                       |                       |                       | |                     |
+//        512      |                       |                       |                       | |                     |
+//         |       |                       |                       |                       | |                     |
+//         |       |                       |                       |                       | |                     |
+//         |       |                       |                       |                       | |                     |
+//         |       |                       |                       |                       | |                     |
+//         |       |                       |                       |                       | |                     |
+//         v       +-----------------------+-----------------------+-----------------------+-+---------------------+
+//                                                                                         >-<-- 64
 
 
-
+//案２
 //                 <-------------------------------------------- 2048 --------------------------------------------->
 //                 <--------- 512 --------->
 //                 <------------------------- 1280 ----------------------------><-------------- 768 --------------->

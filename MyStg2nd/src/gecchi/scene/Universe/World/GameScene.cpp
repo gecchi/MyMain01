@@ -18,7 +18,8 @@ enum {
 };
 GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) ,
 _pCommonScene(NULL),
-_pMyShipScene(NULL) {
+_pMyShipScene(NULL),
+_pStageController(NULL) {
 
     _class_name = "GameScene";
     useProgress(GAMESCENE_PROG_FINISH);
@@ -53,25 +54,12 @@ _pMyShipScene(NULL) {
 
 void GameScene::initialize() {
     _TRACE_("GameScene::initialize() いきますよDemoSceneさん");
-
-//    _pScene_GameDemo->reset();
-//    _pScene_GameDemo->ready();
-//    _pSceneCannel = _pScene_GameDemo;
 }
 
 void GameScene::onReset() {
 
     VB_UI->clear();
     P_GOD->setVB(VB_UI);
-//    _pMyShipScene->resetTree();
-//    _pCommonScene->resetTree();
-//    _pMyShipScene->fadeinSceneTree(0);
-//    _pCommonScene->fadeinSceneTree(0);
-//    _pMyShipScene->inactivateImmediately();
-//    _pCommonScene->inactivateImmediately();
-    //_pMyShipScene->resetTree() → _pMyShipScene->inactivate(); と行っても、
-    //_pMyShipSceneは１フレーム実行されてしまいます。
-    //inactivateImmediately() としてますので、onInactiveが使用できません。
 
     DefaultScene* pSubScene;
     for (map<progress, DefaultScene*>::const_iterator it = _pProg->_mapProg2Scene.begin(); it != _pProg->_mapProg2Scene.end(); it++) {
@@ -115,11 +103,6 @@ void GameScene::processBehavior() {
 
     switch (_pProg->get()) {
         case GAMESCENE_PROG_INIT: {
-            //先行準備
-//            GameMainScene* pGameMainScene = (GameMainScene*)(_pProg->getAffect(GAMESCENE_PROG_MAIN]);
-//            if (!pGameMainScene->_had_ready_stage) {
-//                pGameMainScene->readyStage(_stage);
-//            }
             _pProg->changeWithCrossfading(GAMESCENE_PROG_PRE_TITLE);
             break;
         }
@@ -221,8 +204,6 @@ void GameScene::processBehavior() {
         case GAMESCENE_PROG_FINISH: {
             //##########  ゲームシーン終了  ##########
             if (_pProg->isJustChanged()) {
-//                _pMyShipScene->fadeoutSceneTree(FADE_FRAMES);
-//                _pCommonScene->fadeoutSceneTree(FADE_FRAMES);
                 DefaultScene* pSubScene;
                 for (map<progress, DefaultScene*>::const_iterator it = _pProg->_mapProg2Scene.begin(); it != _pProg->_mapProg2Scene.end(); it++) {
                     pSubScene = it->second;
@@ -230,13 +211,6 @@ void GameScene::processBehavior() {
                         pSubScene->fadeoutSceneTree(FADE_FRAMES);
                     }
                 }
-//                _pScene_PreGameTitle->fadeoutSceneTree(FADE_FRAMES);
-//                _pScene_GameTitle->fadeoutSceneTree(FADE_FRAMES);
-//                _pScene_GameDemo->fadeoutSceneTree(FADE_FRAMES);
-//                _pScene_GameBeginning->fadeoutSceneTree(FADE_FRAMES);
-//                _pScene_GameMain->fadeoutSceneTree(FADE_FRAMES);
-//                _pScene_GameEnding->fadeoutSceneTree(FADE_FRAMES);
-//                _pScene_GameOver->fadeoutSceneTree(FADE_FRAMES);
             }
             if (_pProg->getFrameInProgress() == FADE_FRAMES) {
                 reset(); //リセット（最初の進捗状態に戻る）
@@ -250,6 +224,14 @@ void GameScene::processBehavior() {
 }
 
 void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+
+//    switch (prm_no) {
+//        case EVENT_GOD_WILL_DIE:
+//
+//            break;
+//        default:
+//            break;
+//    }
     if (prm_no == EVENT_GOD_WILL_DIE) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GOD_WILL_DIE) CommonSceneを拾い上げて後に解放されるようにします。");
         //神が死んでしまう前に
@@ -285,13 +267,9 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         //ゲームモードセレクト完了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEMODE_DECIDE)");
         _stage = 1;
-
         _pProg->changeWithFlipping(GAMESCENE_PROG_MAIN);//メインへ
         _pProg->getRelation()->reset();
         _pProg->getRelation()->activate();
-//        _pMyShipScene->reset();
-//        _pMyShipScene->activate();
-
     } else if (prm_no == EVENT_GOTO_GAMETITLE) {
         //とにかくタイトルへイベント発生
         _TRACE_("GameScene::onCatchEvent(EVENT_GOTO_GAMETITLE)");

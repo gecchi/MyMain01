@@ -294,7 +294,26 @@
     throw GgafCore::GgafCriticalException(ss.str()); \
 }
 
-#define AVAILABLE_EVENT(X) const static UINT32 X = GgafCore::GgafUtil::easy_hash(#X)
+
+
+
+//#define PP_ADD_0_0 0
+//#define PP_ADD_0_1 1
+//#define PP_ADD_0_2 2
+//#define PP_ADD_0_3 3
+//#define PP_ADD_1_0 1
+//#define PP_ADD_1_1 2
+//
+//#define PP_ADD(m, n) PP_ADD_I(m, n)
+//#define PP_ADD_I(m, n) PP_ADD_ ## m ## _ ## n
+
+
+
+
+#define DECLARE_CONST(X) const static UINT32 X = GgafCore::GgafUtil::easy_hash(#X)
+
+
+//#define DECLARE_CONST(X)  const static UINT32 X=__LINE__*3+/*'"*/__TIME__"
 
 #define MAX2(a, b) ((a) > (b) ? (a) : (b))
 #define MAX3(a, b, c) ( (a)>(b) ? ((a)>(c)?(a):(c)) : ((b)>(c)?(b):(c)) )

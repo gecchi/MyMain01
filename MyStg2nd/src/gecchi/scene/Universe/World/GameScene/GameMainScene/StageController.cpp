@@ -12,7 +12,6 @@ enum {
     STAGECONTROLLER_PROG_FINISH  ,
 };
 #define ORDER_ID_STAGESCENE 11
-//StageController* StageController::_pStageController = NULL;
 
 StageController::StageController(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "StageController";
@@ -20,25 +19,18 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
     _pSceneMainCannnel = NULL;
     _had_ready_stage = false;
     _stage = 1;
-//    StageController::_pStageController = this;
     useProgress(STAGECONTROLLER_PROG_FINISH);
 }
 
 void StageController::onReset() {
-//    VB_UI->clear();
-//    VB_PLAY->clear();
-//    P_GOD->setVB(VB_PLAY); //保存のためプレイ用に変更
-
-//    _pFont1601->update("");
-//    _pFont1602->update("");
     if (_pSceneMainCannnel) {
         _pSceneMainCannnel->inactivate();
     }
+    //共通シーン、自機シーンを配下に引っ張ってくる
     P_COMMON_SCENE->resetTree();
     P_MYSHIP_SCENE->resetTree();
     P_COMMON_SCENE->activateImmediately();
     P_MYSHIP_SCENE->activateImmediately();
-
     addSubLast(P_COMMON_SCENE->extract());
     addSubLast(P_MYSHIP_SCENE->extract());
 
@@ -57,7 +49,6 @@ void StageController::readyStage(int prm_stage) {
 
     _stage = prm_stage;
     _had_ready_stage = true;
-//    _frame_ready_stage = 0;
     switch (prm_stage) {
         case 1:
             orderSceneToFactory(ORDER_ID_STAGESCENE, Stage01Scene, "Stage01");
@@ -80,13 +71,6 @@ void StageController::readyStage(int prm_stage) {
 }
 
 void StageController::initialize() {
-
-//    if (!pGameMainScene->_had_ready_stage) {
-//        pGameMainScene->readyStage(_stage);
-//    }
-//    GgafScene* pCommon = P_COMMON_SCENE->extract();
-//    addSubLast(pCommon); // 共通シーンを配下に移動（一時停止をうまく制御させるため！）
-    //initialize()時はinactive()であることに注意する事
 }
 
 void StageController::processBehavior() {
