@@ -250,7 +250,17 @@ void GameScene::processBehavior() {
 }
 
 void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_PREGAMETITLESCENE_FINISH) {
+    if (prm_no == EVENT_GOD_WILL_DIE) {
+        _TRACE_("GameScene::onCatchEvent(EVENT_GOD_WILL_DIE) CommonSceneを拾い上げて後に解放されるようにします。");
+        //神が死んでしまう前に
+        //CommonSceneを拾い上げ、解放順序が後になるように操作する。
+        addSubLast(P_MYSHIP_SCENE->extract());
+        addSubLast(P_COMMON_SCENE->extract());
+        P_MYSHIP_SCENE->moveFirstImmediately();
+        P_COMMON_SCENE->moveFirstImmediately();
+        //moveFirstImmediately()する理由は、解放は末尾ノードから行われるため。
+        //GgafCore::template<class T> GgafNode<T>::~GgafNode() のコメントを参照
+    } else if (prm_no == EVENT_PREGAMETITLESCENE_FINISH) {
         //プレタイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_PREGAMETITLESCENE_FINISH)");
         _pProg->changeWithFlipping(GAMESCENE_PROG_TITLE); //タイトルへ

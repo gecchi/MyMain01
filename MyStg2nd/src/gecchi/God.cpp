@@ -108,6 +108,8 @@ void God::oops() {
 }
 
 God::~God() {
+    P_WORLD->throwEventToLowerTree(EVENT_GOD_WILL_DIE); //’Ê’m
+
     clean();
     _was_cleaned = true;
 }

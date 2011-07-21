@@ -34,12 +34,14 @@ void StageController::onReset() {
     if (_pSceneMainCannnel) {
         _pSceneMainCannnel->inactivate();
     }
-    addSubLast(P_COMMON_SCENE->extract());
-    addSubLast(P_MYSHIP_SCENE->extract());
     P_COMMON_SCENE->resetTree();
     P_MYSHIP_SCENE->resetTree();
     P_COMMON_SCENE->activateImmediately();
     P_MYSHIP_SCENE->activateImmediately();
+
+    addSubLast(P_COMMON_SCENE->extract());
+    addSubLast(P_MYSHIP_SCENE->extract());
+
     _pProg->set(STAGECONTROLLER_PROG_INIT);
 }
 void StageController::readyNextStage() {
