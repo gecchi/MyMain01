@@ -15,14 +15,10 @@ class StageScene : public GgafDx9LibStg::DefaultScene {
 public:
     static bool _pause;
 public:
-    frame _frame_Begin;
-    frame _frame_Play;
-    frame _frame_End;
 
     StageScene(const char* prm_name);
 
     virtual void initialize() override;
-    virtual void processBehavior() override;
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
 
     /**

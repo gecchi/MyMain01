@@ -17,6 +17,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     getLordActor()->addSubGroup(KIND_EFFECT, _pWorldBoundSpace);
 
     _pHoshiBoshi = NEW HoshiBoshi001("HoshiBoshi001");
+    _pHoshiBoshi->inactivateTree();
     getLordActor()->addSubGroup(KIND_EFFECT, _pHoshiBoshi);
 
     _pMessage = NEW LabelGecchi16Font("Stage01Msg");
@@ -33,28 +34,42 @@ void Stage01Scene::initialize() {
 
 void Stage01Scene::processBehavior() {
     StageScene::processBehavior();
-    if (_pProg->get() == STAGESCENE_PROG_INIT) {
-       _pProg->change(STAGESCENE_PROG_BEGIN);
-    }
 
-    if (_pProg->get() == STAGESCENE_PROG_BEGIN) {
-        if (_frame_Begin == 180) { //ステージ１開始！
-            _pMessage->activateImmediately();
-            _pMessage->update(300*1000, 300*1000, "SCENE 01 START!");
-            _pMessage->inactivateDelay(240);
-            _pWorldBoundSpace->activateTree();    //背景ON
-            _pScene_Stage01Controller->activate();
-            fadeinScene(240);
-            _pProg->change(STAGESCENE_PROG_PLAYING);
+    switch (_pProg->get()) {
+        case STAGESCENE_PROG_INIT: {
+            _pProg->change(STAGESCENE_PROG_BEGIN);
+            break;
         }
-    }
+        case STAGESCENE_PROG_BEGIN: {
+            if (_pProg->getFrameInProgress() == 180) { //ステージ１開始！
+                _pMessage->activateImmediately();
+                _pWorldBoundSpace->activateTree();    //背景ON
+                _pScene_Stage01Controller->activate();
+                fadeinSceneTree(240);
+                _pProg->change(STAGESCENE_PROG_PLAYING);
+            }
+            break;
+        }
+        case STAGESCENE_PROG_PLAYING: {
+            if (_pProg->getFrameInProgress() == 60) { //ステージ１開始！
+                _pMessage->update(300*1000, 300*1000, "SCENE 01 START!");
+                _pMessage->inactivateDelay(240);
+            }
+            //EVENT_STAGE01CONTROLLER_WAS_ENDイベント待ち
+            break;
+        }
+        case STAGESCENE_PROG_END: {
+            _TRACE_("Stage01Scene::processBehavior()  STAGESCENE_PROG_ENDになりますた！");
+            _pMessage->activateImmediately();
+            _pMessage->update(300*1000, 300*1000, "SCENE 01 CLEAR!!");
+            _pMessage->inactivateDelay(120);
+            fadeoutScene(120);
+            throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, this); //次ステージ準備へ
+            break;
+        }
+        default:
+            break;
 
-    if (_pProg->isJustChangedTo(STAGESCENE_PROG_END)) {
-        _TRACE_("Stage01Scene::processBehavior()  STAGESCENE_PROG_ENDになりますた！");
-        _pMessage->activateImmediately();
-        _pMessage->update(300*1000, 300*1000, "SCENE 01 CLEAR!!");
-        _pMessage->inactivateDelay(120);
-        fadeoutScene(120);
     }
 
 }

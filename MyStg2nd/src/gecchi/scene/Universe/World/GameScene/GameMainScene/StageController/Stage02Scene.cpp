@@ -39,7 +39,7 @@ void Stage02Scene::processBehavior() {
     }
 
     if (_pProg->get() == STAGESCENE_PROG_BEGIN) {
-        if (_frame_Begin == 180) { //ステージ2開始！
+        if (_pProg->getFrameInProgress() == 180) { //ステージ2開始！
             _pMessage->activateImmediately();
             _pMessage->update(300*1000, 300*1000, "SCENE 02 START!");
             _pMessage->inactivateDelay(240);

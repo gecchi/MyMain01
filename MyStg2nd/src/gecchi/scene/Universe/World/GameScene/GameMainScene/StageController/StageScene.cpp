@@ -13,33 +13,7 @@ StageScene::StageScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void StageScene::initialize() {
-    _pProg->change(STAGESCENE_PROG_INIT);
-}
-void StageScene::processBehavior() {
-    if (_pProg->isJustChangedTo(STAGESCENE_PROG_INIT)) {
-    } else if (_pProg->get() == STAGESCENE_PROG_INIT) {
-    }
-
-    if (_pProg->isJustChangedTo(STAGESCENE_PROG_BEGIN)) {
-        _frame_Begin = 0;
-    } else if (_pProg->get() == STAGESCENE_PROG_BEGIN) {
-        //活動ループ
-        _frame_Begin++;
-    }
-
-    if (_pProg->isJustChangedTo(STAGESCENE_PROG_PLAYING)) {
-        _frame_Play = 0;
-    } else if (_pProg->get() == STAGESCENE_PROG_PLAYING) {
-        _frame_Play++;
-    }
-
-    if (_pProg->isJustChangedTo(STAGESCENE_PROG_END)) {
-        _frame_End = 0;
-        throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, this); //次ステージ準備へ
-    } else if (_pProg->get() == STAGESCENE_PROG_END) {
-        _frame_End++;
-    }
-
+    _pProg->set(STAGESCENE_PROG_INIT);
 }
 
 void StageScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {

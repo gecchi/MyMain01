@@ -122,24 +122,6 @@ void StageController::processBehavior() {
 
 }
 
-
-
-
-void StageController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
-        //次のステージを工場に注文していいよというイベント
-        _TRACE_("StageController::onCatchEvent() EVENT_PREPARE_NEXT_STAGE 準備きた");
-        if (_stage < 5) {
-            readyNextStage();
-        } else {
-//            _TRACE_("最終面クリア");
-//            _pProg->change(STAGECONTROLLER_PROG_END);
-            //TODO:エデニング？
-        }
-    }
-
-}
-
 void StageController::processFinal() {
 }
 

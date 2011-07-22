@@ -241,6 +241,7 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         P_MYSHIP_SCENE->moveFirstImmediately();
         P_COMMON_SCENE->moveFirstImmediately();
         //moveFirstImmediately()する理由は、解放は末尾ノードから行われるため。
+        //先にCommonSceneが解放されないようにするため。
         //GgafCore::template<class T> GgafNode<T>::~GgafNode() のコメントを参照
     } else if (prm_no == EVENT_PREGAMETITLESCENE_FINISH) {
         //プレタイトルシーン終了
