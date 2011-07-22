@@ -65,6 +65,7 @@ void Torus::onCreateModel() {
     _pModel->_pTextureBlinker->forceBlinkRange(0.7, 0.2, 3.0);
     _pModel->_pTextureBlinker->setBlink(0.5);
     _pModel->_pTextureBlinker->beat(60*20, 60*9, 60*3, -1);
+    setCubeMapTexture("BkSky_cubemap.dds");
 }
 
 void Torus::onActive() {
