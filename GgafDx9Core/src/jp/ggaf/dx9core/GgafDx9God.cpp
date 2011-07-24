@@ -988,18 +988,18 @@ void GgafDx9God::presentUniversalVisualize() {
 //        hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
         if (CFG_PROPERTY(FULL_SCREEN)) {
             if (CFG_PROPERTY(DUAL_VIEW)) {
-    //
+                //２画面使用・フルスクリーン
                 //画面０バックバッファを画面１バックバッファへコピーする
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,  &_aRect_HarfGameBuffer[0],
                         pBackBuffer00,           &_aRect_Present[0],
-                        D3DTEXF_NONE);
+                        D3DTEXF_LINEAR); //TODO:D3DTEXF_LINEARをオプション指定にするか？
                 checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目 StretchRect() に失敗しました。\n_pRenderTextureSurface="<<_pRenderTextureSurface<<"/pBackBuffer00="<<pBackBuffer00);
 
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,  &_aRect_HarfGameBuffer[1],
                         pBackBuffer01,           &_aRect_Present[1],
-                        D3DTEXF_NONE);
+                        D3DTEXF_LINEAR);
                 checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
 
                 hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
