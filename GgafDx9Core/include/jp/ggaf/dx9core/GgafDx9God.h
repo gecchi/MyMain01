@@ -58,6 +58,7 @@ public:
     static GgafDx9TextureManager* _pCubeMapTextureManager;
     static int _iNumAdapter;
     RECT _rectGameBuffer;
+    RECT _rectBackBuffer;
     RECT _aRect_HarfGameBuffer[2];
 
     RECT _aRect_ViewScreen[2];

@@ -104,6 +104,11 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_
     _rectGameBuffer.right  = _rectGameBuffer.left + CFG_PROPERTY(GAME_BUFFER_WIDTH);
     _rectGameBuffer.bottom = _rectGameBuffer.top  + CFG_PROPERTY(GAME_BUFFER_HEIGHT);
 
+    _rectBackBuffer.left   = 0;
+    _rectBackBuffer.top    = 0;
+    _rectBackBuffer.right  = _rectBackBuffer.left + CFG_PROPERTY(BACK_BUFFER_WIDTH);
+    _rectBackBuffer.bottom = _rectBackBuffer.top  + CFG_PROPERTY(BACK_BUFFER_HEIGHT);
+
     if (CFG_PROPERTY(SWAP_GAME_VIEW)) {
         _primary = 1;
         _secondary = 0;
@@ -377,11 +382,12 @@ HRESULT GgafDx9God::init() {
         _d3dparam[0].Windowed = false; //フルスクリーンモード時
         _d3dparam[0].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //リフレッシュレート
         _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT; //スワップのタイミング
-        if (CFG_PROPERTY(DUAL_VIEW)) {
-            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
-        } else {
-            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_DISCARD;
-        }
+        _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
+//        if (CFG_PROPERTY(DUAL_VIEW)) {
+//            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
+//        } else {
+//            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_DISCARD;
+//        }
     } else {
         //ウィンドウ時
         _d3dparam[0].BackBufferFormat = structD3DDisplayMode.Format;
@@ -431,28 +437,31 @@ HRESULT GgafDx9God::init() {
     if (CFG_PROPERTY(FULL_SCREEN)) {
         if(CFG_PROPERTY(DUAL_VIEW)) {
             //フルスクリーンモード・２画面使用
-            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN1_WIDTH);
-            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN1_HEIGHT);
-            _d3dparam[1].BackBufferWidth  = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN2_WIDTH);
-            _d3dparam[1].BackBufferHeight = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN2_HEIGHT);
+            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(BACK_BUFFER_WIDTH);
+            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(BACK_BUFFER_HEIGHT);
+            _d3dparam[1].BackBufferWidth  = CFG_PROPERTY(BACK_BUFFER_WIDTH);
+            _d3dparam[1].BackBufferHeight = CFG_PROPERTY(BACK_BUFFER_HEIGHT);
         } else {
             //フルスクリーンモード・１画面使用
-            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_WIDTH);
-            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_HEIGHT);
+            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(BACK_BUFFER_WIDTH);
+            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(BACK_BUFFER_HEIGHT);
             _d3dparam[1].BackBufferWidth  = 0;
             _d3dparam[1].BackBufferHeight = 0;
         }
     } else {
         if(CFG_PROPERTY(DUAL_VIEW)) {
             //ウィンドウモード・２画面使用
-            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(GAME_BUFFER_WIDTH);
-            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(GAME_BUFFER_HEIGHT);
+            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(BACK_BUFFER_WIDTH);
+            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(BACK_BUFFER_HEIGHT);
             _d3dparam[1].BackBufferWidth  = 0;
             _d3dparam[1].BackBufferHeight = 0;
         } else {
             //ウィンドウモード・１画面使用
-            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(GAME_BUFFER_WIDTH);
-            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(GAME_BUFFER_HEIGHT);
+            //テステス
+            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(BACK_BUFFER_WIDTH);
+            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(BACK_BUFFER_HEIGHT);
+//            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(GAME_BUFFER_WIDTH);
+//            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(GAME_BUFFER_HEIGHT);
             _d3dparam[1].BackBufferWidth  = 0;
             _d3dparam[1].BackBufferHeight = 0;
         }
@@ -1034,7 +1043,7 @@ void GgafDx9God::presentUniversalVisualize() {
                         &_rectGameBuffer,
                         pBackBuffer00,
                         &_aRect_Present[0],
-                        D3DTEXF_NONE
+                        D3DTEXF_LINEAR
                         );
                 checkDxException(hr, D3D_OK, "FULL 1gamen StretchRect() に失敗しました。");
 

@@ -8,6 +8,8 @@ bool GgafDx9Properties::DUAL_VIEW = 0;
 int GgafDx9Properties::GAME_BUFFER_WIDTH = 0;
 int GgafDx9Properties::GAME_BUFFER_HEIGHT = 0;
 float GgafDx9Properties::GAME_SPACE_DEPTH = 0;
+int GgafDx9Properties::BACK_BUFFER_WIDTH = 0;
+int GgafDx9Properties::BACK_BUFFER_HEIGHT = 0;
 
 int GgafDx9Properties::SINGLE_VIEW_WINDOW_WIDTH = 0;
 int GgafDx9Properties::SINGLE_VIEW_WINDOW_HEIGHT = 0;
@@ -44,12 +46,13 @@ bool GgafDx9Properties::REALTIME_EFFECT_COMPILE = false;
 void GgafDx9Properties::load(string prm_ini_filename) {
     GgafProperties::load(prm_ini_filename);
 
-    GgafDx9Properties::FULL_SCREEN = getBool("FULL_SCREEN");
-    GgafDx9Properties::DUAL_VIEW = getBool("DUAL_VIEW");
-    GgafDx9Properties::GAME_BUFFER_WIDTH = getInt("GAME_BUFFER_WIDTH");
-    GgafDx9Properties::GAME_BUFFER_HEIGHT = getInt("GAME_BUFFER_HEIGHT");
-    GgafDx9Properties::GAME_SPACE_DEPTH = getFloat("GAME_SPACE_DEPTH");
-
+    GgafDx9Properties::FULL_SCREEN                    = getBool("FULL_SCREEN");
+    GgafDx9Properties::DUAL_VIEW                      = getBool("DUAL_VIEW");
+    GgafDx9Properties::GAME_BUFFER_WIDTH              = getInt("GAME_BUFFER_WIDTH");
+    GgafDx9Properties::GAME_BUFFER_HEIGHT             = getInt("GAME_BUFFER_HEIGHT");
+    GgafDx9Properties::GAME_SPACE_DEPTH               = getFloat("GAME_SPACE_DEPTH");
+    GgafDx9Properties::BACK_BUFFER_WIDTH              = getInt("BACK_BUFFER_WIDTH");
+    GgafDx9Properties::BACK_BUFFER_HEIGHT             = getInt("BACK_BUFFER_HEIGHT");
     GgafDx9Properties::SINGLE_VIEW_WINDOW_WIDTH       = getInt("SINGLE_VIEW_WINDOW_WIDTH");
     GgafDx9Properties::SINGLE_VIEW_WINDOW_HEIGHT      = getInt("SINGLE_VIEW_WINDOW_HEIGHT");
     GgafDx9Properties::DUAL_VIEW_WINDOW1_WIDTH        = getInt("DUAL_VIEW_WINDOW1_WIDTH");
@@ -62,11 +65,12 @@ void GgafDx9Properties::load(string prm_ini_filename) {
     GgafDx9Properties::DUAL_VIEW_FULL_SCREEN1_HEIGHT  = getInt("DUAL_VIEW_FULL_SCREEN1_HEIGHT");
     GgafDx9Properties::DUAL_VIEW_FULL_SCREEN2_WIDTH   = getInt("DUAL_VIEW_FULL_SCREEN2_WIDTH");
     GgafDx9Properties::DUAL_VIEW_FULL_SCREEN2_HEIGHT  = getInt("DUAL_VIEW_FULL_SCREEN2_HEIGHT");
-    GgafDx9Properties::FIXED_GAME_VIEW_ASPECT = getBool("FIXED_GAME_VIEW_ASPECT");
-    GgafDx9Properties::SWAP_GAME_VIEW = getBool("SWAP_GAME_VIEW");
-    GgafDx9Properties::GAME_VIEW1_POSITION  = getInt("GAME_VIEW1_POSITION");
-    GgafDx9Properties::GAME_VIEW2_POSITION  = getInt("GAME_VIEW2_POSITION");
-    GgafDx9Properties::BG_COLOR = getStr("BG_COLOR");
+    GgafDx9Properties::FIXED_GAME_VIEW_ASPECT         = getBool("FIXED_GAME_VIEW_ASPECT");
+    GgafDx9Properties::SWAP_GAME_VIEW                 = getBool("SWAP_GAME_VIEW");
+    GgafDx9Properties::GAME_VIEW1_POSITION            = getInt("GAME_VIEW1_POSITION");
+    GgafDx9Properties::GAME_VIEW2_POSITION            = getInt("GAME_VIEW2_POSITION");
+    GgafDx9Properties::BG_COLOR                       = getStr("BG_COLOR");
+
 
 
     GgafDx9Properties::MASTER_VOLUME = getInt("MASTER_VOLUME");
@@ -85,9 +89,10 @@ void GgafDx9Properties::load(string prm_ini_filename) {
     _TRACE_("GgafDx9Properties::FULL_SCREEN="<<GgafDx9Properties::FULL_SCREEN);
     _TRACE_("GgafDx9Properties::DUAL_VIEW="<<GgafDx9Properties::DUAL_VIEW);
     _TRACE_("GgafDx9Properties::GAME_BUFFER_WIDTH="<<GgafDx9Properties::GAME_BUFFER_WIDTH);
-    _TRACE_("GgafDx9Properties::GAME_SPACE_DEPTH="<<GgafDx9Properties::GAME_SPACE_DEPTH);
     _TRACE_("GgafDx9Properties::GAME_BUFFER_HEIGHT="<<GgafDx9Properties::GAME_BUFFER_HEIGHT);
-
+    _TRACE_("GgafDx9Properties::GAME_SPACE_DEPTH="<<GgafDx9Properties::GAME_SPACE_DEPTH);
+    _TRACE_("GgafDx9Properties::BACK_BUFFER_WIDTH="<<GgafDx9Properties::BACK_BUFFER_WIDTH);
+    _TRACE_("GgafDx9Properties::BACK_BUFFER_HEIGHT="<<GgafDx9Properties::BACK_BUFFER_HEIGHT);
     _TRACE_("GgafDx9Properties::SINGLE_VIEW_WINDOW_WIDTH="<<GgafDx9Properties::SINGLE_VIEW_WINDOW_WIDTH);
     _TRACE_("GgafDx9Properties::SINGLE_VIEW_WINDOW_HEIGHT="<<GgafDx9Properties::SINGLE_VIEW_WINDOW_HEIGHT);
     _TRACE_("GgafDx9Properties::DUAL_VIEW_WINDOW1_WIDTH="<<GgafDx9Properties::DUAL_VIEW_WINDOW1_WIDTH);
