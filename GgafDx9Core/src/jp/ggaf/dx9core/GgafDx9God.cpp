@@ -126,7 +126,15 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_
     _aRect_HarfGameBuffer[_secondary].right  = _aRect_HarfGameBuffer[_secondary].left + CFG_PROPERTY(GAME_BUFFER_WIDTH)/2;
     _aRect_HarfGameBuffer[_secondary].bottom = _aRect_HarfGameBuffer[_secondary].top  + CFG_PROPERTY(GAME_BUFFER_HEIGHT);
 
+    _aRect_HarfBackBuffer[_primary].left   = 0;
+    _aRect_HarfBackBuffer[_primary].top    = 0;
+    _aRect_HarfBackBuffer[_primary].right  = _aRect_HarfBackBuffer[_primary].left  + CFG_PROPERTY(BACK_BUFFER_WIDTH)/2;
+    _aRect_HarfBackBuffer[_primary].bottom = _aRect_HarfBackBuffer[_primary].top + CFG_PROPERTY(BACK_BUFFER_HEIGHT);
 
+    _aRect_HarfBackBuffer[_secondary].left   = CFG_PROPERTY(BACK_BUFFER_WIDTH)/2;
+    _aRect_HarfBackBuffer[_secondary].top    = 0;
+    _aRect_HarfBackBuffer[_secondary].right  = _aRect_HarfBackBuffer[_secondary].left + CFG_PROPERTY(BACK_BUFFER_WIDTH)/2;
+    _aRect_HarfBackBuffer[_secondary].bottom = _aRect_HarfBackBuffer[_secondary].top  + CFG_PROPERTY(BACK_BUFFER_HEIGHT);
 
     //表示領域設定
     if (CFG_PROPERTY(FULL_SCREEN)) {
@@ -437,14 +445,14 @@ HRESULT GgafDx9God::init() {
     if (CFG_PROPERTY(FULL_SCREEN)) {
         if(CFG_PROPERTY(DUAL_VIEW)) {
             //フルスクリーンモード・２画面使用
-            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(BACK_BUFFER_WIDTH);
-            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(BACK_BUFFER_HEIGHT);
-            _d3dparam[1].BackBufferWidth  = CFG_PROPERTY(BACK_BUFFER_WIDTH);
-            _d3dparam[1].BackBufferHeight = CFG_PROPERTY(BACK_BUFFER_HEIGHT);
+            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN1_WIDTH);
+            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN1_HEIGHT);
+            _d3dparam[1].BackBufferWidth  = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN2_WIDTH);
+            _d3dparam[1].BackBufferHeight = CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN2_HEIGHT);
         } else {
             //フルスクリーンモード・１画面使用
-            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(BACK_BUFFER_WIDTH);
-            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(BACK_BUFFER_HEIGHT);
+            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_WIDTH);
+            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_HEIGHT);
             _d3dparam[1].BackBufferWidth  = 0;
             _d3dparam[1].BackBufferHeight = 0;
         }
@@ -808,8 +816,8 @@ HRESULT GgafDx9God::initDx9Device() {
 
         //描画先となるテクスチャを別途作成（バックバッファ的な使用を行う）
         hr = GgafDx9God::_pID3DDevice9->CreateTexture(
-                                                CFG_PROPERTY(GAME_BUFFER_WIDTH),
-                                                CFG_PROPERTY(GAME_BUFFER_HEIGHT),
+                                                CFG_PROPERTY(BACK_BUFFER_WIDTH),
+                                                CFG_PROPERTY(BACK_BUFFER_HEIGHT),
                                                  1, //MipLevel Mip無し
                                                  D3DUSAGE_RENDERTARGET,
                                                  _d3dparam[0].BackBufferFormat,
@@ -834,8 +842,8 @@ HRESULT GgafDx9God::initDx9Device() {
 
         //テクスチャに描画する際の深度バッファ用サーフェイスを別途作成
         hr = GgafDx9God::_pID3DDevice9->CreateDepthStencilSurface(
-                CFG_PROPERTY(GAME_BUFFER_WIDTH),
-                CFG_PROPERTY(GAME_BUFFER_HEIGHT),
+                CFG_PROPERTY(BACK_BUFFER_WIDTH),
+                CFG_PROPERTY(BACK_BUFFER_HEIGHT),
                 _d3dparam[0].AutoDepthStencilFormat,   //D3DFORMAT   Format,
                 _d3dparam[0].MultiSampleType,          //D3DMULTISAMPLE_TYPE     MultiSample,
                 _d3dparam[0].MultiSampleQuality,       //DWORD   MultisampleQuality,
@@ -868,7 +876,7 @@ HRESULT GgafDx9God::initDx9Device() {
                     pBackBuffer00,  &_aRect_ViewScreen[0],
                     pBackBuffer01,  &_aRect_ViewScreen[1],
                     D3DTEXF_NONE);
-            checkDxException(hr, D3D_OK, "SetRenderTarget テクスチャのサーフェイス失敗");
+            checkDxException(hr, D3D_OK, "StretchRect 失敗");
 
             //描画先を元に戻す
 //            hr = GgafDx9God::_pID3DDevice9->SetRenderTarget(0, _pRenderTextureSurface);
@@ -1000,13 +1008,13 @@ void GgafDx9God::presentUniversalVisualize() {
                 //２画面使用・フルスクリーン
                 //画面０バックバッファを画面１バックバッファへコピーする
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
-                        _pRenderTextureSurface,  &_aRect_HarfGameBuffer[0],
+                        _pRenderTextureSurface,  &_aRect_HarfBackBuffer[0],
                         pBackBuffer00,           &_aRect_Present[0],
                         D3DTEXF_LINEAR); //TODO:D3DTEXF_LINEARをオプション指定にするか？
                 checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目 StretchRect() に失敗しました。\n_pRenderTextureSurface="<<_pRenderTextureSurface<<"/pBackBuffer00="<<pBackBuffer00);
 
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
-                        _pRenderTextureSurface,  &_aRect_HarfGameBuffer[1],
+                        _pRenderTextureSurface,  &_aRect_HarfBackBuffer[1],
                         pBackBuffer01,           &_aRect_Present[1],
                         D3DTEXF_LINEAR);
                 checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
@@ -1014,11 +1022,11 @@ void GgafDx9God::presentUniversalVisualize() {
                 hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
 
     //            //プライマリバックバッファの右半分をセカンダリバックバッファへコピー
-                //hr = GgafDx9God::_pID3DDevice9->UpdateSurface( pBackBuffer00, &_aRect_HarfGameBuffer[1], pBackBuffer01, _pPoint);
+                //hr = GgafDx9God::_pID3DDevice9->UpdateSurface( pBackBuffer00, &_aRect_HarfBackBuffer[1], pBackBuffer01, _pPoint);
                 //checkDxException(hr, D3D_OK, "UpdateSurface() に失敗しました。");
     //            //コピーフリップ
 //                hr = pSwapChain00->Present(NULL, NULL, NULL, NULL,0);
-//    //            hr = pSwapChain00->Present(&_aRect_HarfGameBuffer[0], NULL, NULL, NULL,0);
+//    //            hr = pSwapChain00->Present(&_aRect_HarfBackBuffer[0], NULL, NULL, NULL,0);
 //                checkDxException(hr, D3D_OK, "0Present() に失敗しました。");
 //                hr = pSwapChain01->Present(NULL, NULL, NULL, NULL,0);
 //                checkDxException(hr, D3D_OK, "1Present() に失敗しました。");
@@ -1040,7 +1048,7 @@ void GgafDx9God::presentUniversalVisualize() {
 
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,
-                        &_rectGameBuffer,
+                        &_rectBackBuffer,
                         pBackBuffer00,
                         &_aRect_Present[0],
                         D3DTEXF_LINEAR
@@ -1063,15 +1071,15 @@ void GgafDx9God::presentUniversalVisualize() {
                 //２画面使用・ウィンドウモード
                 if (CFG_PROPERTY(FIXED_GAME_VIEW_ASPECT)) {
                     //縦横比固定モード
-                    hr = GgafDx9God::_pID3DDevice9->Present(&_aRect_HarfGameBuffer[0], &_aRect_Present[0], NULL, NULL);
+                    hr = GgafDx9God::_pID3DDevice9->Present(&_aRect_HarfBackBuffer[0], &_aRect_Present[0], NULL, NULL);
                     if (hr == D3D_OK) {
-                        hr = GgafDx9God::_pID3DDevice9->Present(&_aRect_HarfGameBuffer[1], &_aRect_Present[1], _pHWndSecondary, NULL);
+                        hr = GgafDx9God::_pID3DDevice9->Present(&_aRect_HarfBackBuffer[1], &_aRect_Present[1], _pHWndSecondary, NULL);
                     }
                 } else {
                     //縦横ストレッチモード
-                    hr = GgafDx9God::_pID3DDevice9->Present(&_aRect_HarfGameBuffer[0], NULL, NULL, NULL);
+                    hr = GgafDx9God::_pID3DDevice9->Present(&_aRect_HarfBackBuffer[0], NULL, NULL, NULL);
                     if (hr == D3D_OK) {
-                        hr = GgafDx9God::_pID3DDevice9->Present(&_aRect_HarfGameBuffer[1], NULL, _pHWndSecondary, NULL);
+                        hr = GgafDx9God::_pID3DDevice9->Present(&_aRect_HarfBackBuffer[1], NULL, _pHWndSecondary, NULL);
                     }
                 }
             } else {
