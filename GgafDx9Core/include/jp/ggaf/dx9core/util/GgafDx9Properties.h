@@ -15,8 +15,8 @@ public:
     static int GAME_BUFFER_WIDTH;
     static int GAME_BUFFER_HEIGHT;
     static float GAME_SPACE_DEPTH;
-    static int BACK_BUFFER_WIDTH;
-    static int BACK_BUFFER_HEIGHT;
+    static int RENDER_TARGET_BUFFER_WIDTH;
+    static int RENDER_TARGET_BUFFER_HEIGHT;
 
     static int SINGLE_VIEW_WINDOW_WIDTH;
     static int SINGLE_VIEW_WINDOW_HEIGHT;
