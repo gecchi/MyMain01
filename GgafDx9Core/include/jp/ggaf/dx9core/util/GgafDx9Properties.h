@@ -31,6 +31,8 @@ public:
     static int DUAL_VIEW_FULL_SCREEN1_HEIGHT;
     static int DUAL_VIEW_FULL_SCREEN2_WIDTH;
     static int DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+    static int DUAL_VIEW_FULL_SCREEN_WIDTH;
+    static int DUAL_VIEW_FULL_SCREEN_HEIGHT;
     static bool FIXED_GAME_VIEW_ASPECT;
     static bool SWAP_GAME_VIEW;
     static int GAME_VIEW1_POSITION;

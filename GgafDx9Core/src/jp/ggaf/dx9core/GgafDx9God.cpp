@@ -84,19 +84,20 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_
     _pRenderTextureSurface = NULL;     //サーフェイス
     _pRenderTextureZ = NULL;
 
-    pSwapChain00 = NULL;//アダプタに関連付けれられたスワップチェーン
-    pBackBuffer00 = NULL;//バックバッファ1画面分
-    pSwapChain01 = NULL;//アダプタに関連付けれられたスワップチェーン
-    pBackBuffer01 = NULL;//バックバッファ１画面分
+    _pSwapChain00 = NULL;//アダプタに関連付けれられたスワップチェーン
+    _pBackBuffer00 = NULL;//バックバッファ1画面分
+    _pSwapChain01 = NULL;//アダプタに関連付けれられたスワップチェーン
+    _pBackBuffer01 = NULL;//バックバッファ１画面分
 
 
-    //[メモ]
+    //[メモ：RECT構造体]
     //引数に使用するRECT構造体のメンバ right, bottom は「右下座標」となっているが、これは正確ではない。
     //実際の定義は
     //rect.right = rect.left + 矩形幅;
     //rect.bottom = rect.top + 矩形高さ;
     //らしい。
     //よって、例えば (10,10)-(17,17)領域は、RECT(10,10,18,18) と指定しなければいけないらしい。ややこしい。
+    //ただ、辺の長さを求める場合は便利である。
     //（※本当の右下座標は、right, bottom の -1 の値になる）
 
     _rectGameBuffer.left   = 0;
@@ -353,22 +354,11 @@ HRESULT GgafDx9God::init() {
 
     //IDirect3D9コンポーネントの取得
     if (!(GgafDx9God::_pID3D9 = Direct3DCreate9(D3D_SDK_VERSION))) {
-        throwGgafCriticalException("Direct3DCreate9 に失敗しました");
+        MessageBox(GgafDx9God::_pHWndPrimary, TEXT("DirectX コンポーネント取得に失敗しました。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
         return E_FAIL; //失敗
     }
-    //    //参照カウンタを余分増やす。理由はデストラクタのデバイス解放処理参照。
-    //    GgafDx9God::_pID3D9->AddRef();
-    //    GgafDx9God::_pID3D9->AddRef();
 
-    //デスプレイモードの取得
-    D3DDISPLAYMODE structD3DDisplayMode; //結果が格納される構造体
-    hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &structD3DDisplayMode);
-    checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました");
 
-    D3DCAPS9 caps___;
-    GgafDx9God::_pID3D9->GetDeviceCaps(0, D3DDEVTYPE_HAL, &caps___);
-    _iNumAdapter = caps___.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
-    _TRACE_("_iNumAdapter = "<< _iNumAdapter);
 
     //デバイスパラメータ作成
     _d3dparam = NEW D3DPRESENT_PARAMETERS[2];
@@ -390,21 +380,23 @@ HRESULT GgafDx9God::init() {
         _d3dparam[0].Windowed = false; //フルスクリーンモード時
         _d3dparam[0].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //リフレッシュレート
         _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT; //スワップのタイミング
-        _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
-//        if (CFG_PROPERTY(DUAL_VIEW)) {
-//            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
-//        } else {
-//            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_DISCARD;
-//        }
+        if (CFG_PROPERTY(DUAL_VIEW)) {
+            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
+        } else {
+            _d3dparam[0].SwapEffect = D3DSWAPEFFECT_DISCARD; //1画面フルスクリーン時のみ
+        }
     } else {
         //ウィンドウ時
-        _d3dparam[0].BackBufferFormat = structD3DDisplayMode.Format;
-                                      // D3DFMT_UNKNOWN;   //現在の画面モードを利用
+        //デスプレイモードの取得
+        D3DDISPLAYMODE structD3DDisplayMode; //結果が格納される構造体
+        hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &structD3DDisplayMode);
+        checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました");
+        _d3dparam[0].BackBufferFormat = structD3DDisplayMode.Format; //現在の画面モードを利用
+                                        // D3DFMT_UNKNOWN;
         _d3dparam[0].Windowed = true; //ウィンドウモード時
         _d3dparam[0].FullScreen_RefreshRateInHz = 0; //リフレッシュレート
         _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
-        //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
-        _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY;
+        _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY; //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
     }
 
     //アンチアイリアスにできるかチェック
@@ -436,7 +428,7 @@ HRESULT GgafDx9God::init() {
     //マルチサンプルの品質レベル
     _d3dparam[0].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
 
-    //２画面使用時の差分修正
+    //２画面使用時の D3DPRESENT_PARAMETERS 差分上書き
     _d3dparam[1] = _d3dparam[0]; //共通が多いためコピー
     //Windowハンドルを個別指定
     _d3dparam[0].hDeviceWindow = _pHWndPrimary;
@@ -457,6 +449,11 @@ HRESULT GgafDx9God::init() {
             _d3dparam[1].BackBufferHeight = 0;
         }
     } else {
+        D3DDISPLAYMODE structD3DDisplayMode;
+        hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(1, &structD3DDisplayMode);
+        checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました");
+        _d3dparam[1].BackBufferFormat = structD3DDisplayMode.Format; //現在の画面モードを利用
+
         if(CFG_PROPERTY(DUAL_VIEW)) {
             //ウィンドウモード・２画面使用
             _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(BACK_BUFFER_WIDTH);
@@ -468,47 +465,71 @@ HRESULT GgafDx9God::init() {
             //テステス
             _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(BACK_BUFFER_WIDTH);
             _d3dparam[0].BackBufferHeight = CFG_PROPERTY(BACK_BUFFER_HEIGHT);
-//            _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(GAME_BUFFER_WIDTH);
-//            _d3dparam[0].BackBufferHeight = CFG_PROPERTY(GAME_BUFFER_HEIGHT);
             _d3dparam[1].BackBufferWidth  = 0;
             _d3dparam[1].BackBufferHeight = 0;
         }
     }
 
+    //フルスクリーンに出来るか調べる
+    D3DCAPS9 caps;
+    GgafDx9God::_pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
+                                       D3DDEVTYPE_HAL, // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
+                                       &caps); // [out] デバイスの能力が格納される
+
+    _iNumAdapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
+    _TRACE_("_iNumAdapter = "<< _iNumAdapter);
+    if (CFG_PROPERTY(FULL_SCREEN)) {
+        for (int disp_no = 0; disp_no < _iNumAdapter; disp_no++) {
+            int mode_num = GgafDx9God::_pID3D9->GetAdapterModeCount(disp_no,
+                                                                    _d3dparam[disp_no].BackBufferFormat);
+            if (mode_num) {
+                D3DDISPLAYMODE adp;
+                for (int i = 0; i < mode_num; i++) {
+                    GgafDx9God::_pID3D9->EnumAdapterModes(disp_no,
+                                                          _d3dparam[disp_no].BackBufferFormat, i, &adp);
+                    if (adp.Format == _d3dparam[disp_no].BackBufferFormat &&
+                        adp.Width  == _d3dparam[disp_no].BackBufferWidth  &&
+                        adp.Height == _d3dparam[disp_no].BackBufferHeight ) {
+                        //OK
+                        break;
+                    }
+                    if (mode_num == i) {
+                        //要求した使える解像度が見つからない
+                        stringstream ss;
+                        if (CFG_PROPERTY(DUAL_VIEW)) {
+                            ss << _d3dparam[disp_no].BackBufferWidth<<"x"<<_d3dparam[disp_no].BackBufferWidth<<" フルスクリーンモードにする事ができません。\n"<<
+                                   (disp_no+1)<<"画面目の解像度の設定を確認してください。";
+                        } else {
+                            ss << _d3dparam[disp_no].BackBufferWidth<<"x"<<_d3dparam[disp_no].BackBufferWidth<<" フルスクリーンモードにする事ができません。\n"<<
+                                    "解像度の設定を確認してください。";
+                        }
+                        MessageBox(GgafDx9God::_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                        return E_FAIL;
+                    }
+                }
+            } else {
+                MessageBox(GgafDx9God::_pHWndPrimary, TEXT("フルスクリーンモード可能な解像度情報が取得できませんでした。\nご使用のビデオカードではプログラムを実行できません。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                return E_FAIL;
+            }
+        }
+    }
 
 
-    //    //フルスクリーンに出来るか調べる
-    //    if (CFG_PROPERTY(FULL_SCREEN)) {
-    //        int cc = GgafDx9God::_pID3D9->GetAdapterModeCount(D3DADAPTER_DEFAULT,
-    //                                                          _d3dparam[0].BackBufferFormat);
-    //        if (cc) {
-    //            D3DDISPLAYMODE adp;
-    //            for (int i = 0; i < cc; i++) {
-    //                GgafDx9God::_pID3D9->EnumAdapterModes(D3DADAPTER_DEFAULT,
-    //                                                      _d3dparam[0].BackBufferFormat, i, &adp);
-    //                if (adp.Format == _d3dparam[0].BackBufferFormat && adp.Width
-    //                        == (UINT)CFG_PROPERTY(GAME_BUFFER_WIDTH) && adp.Height
-    //                        == (UINT)CFG_PROPERTY(GAME_BUFFER_HEIGHT)) {
-    //                    //OK
-    //                    break;
-    //                }
-    //                if (cc == i) {
-    //                    //要求した使える解像度が見つからない
-    //                    throwGgafCriticalException(CFG_PROPERTY(GAME_BUFFER_WIDTH) <<"x"<<CFG_PROPERTY(GAME_BUFFER_HEIGHT) << "のフルスクリーンモードにする事ができません。");
-    //                    return E_FAIL;
-    //                }
-    //            }
-    //        } else {
-    //            throwGgafCriticalException("GetAdapterModeCount に失敗しました");
-    //            return E_FAIL;
-    //        }
-    //    }
 
+    //ピクセルシェーダー、頂点シェーダーバージョンチェック
+    _vs_v = caps.VertexShaderVersion;
+    _ps_v = caps.PixelShaderVersion;
+    _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(_vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(_vs_v));
+    _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(_ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(_ps_v));
+    if (_vs_v < D3DVS_VERSION(2, 0) || _ps_v < D3DPS_VERSION(2, 0)) {
+        _TRACE_("ビデオカードハードの頂点シェーダーとピンクセルシェーダーは、共にバージョン 2_0 以上が推奨です。");
+        _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
+    }
 
-    //default
-    UINT AdapterToUse = D3DADAPTER_DEFAULT;
-    D3DDEVTYPE DeviceType = D3DDEVTYPE_HAL;
-    // NVIDIA PerfHUD 用 begin --------------------------------------------->
+//    //default
+//    UINT AdapterToUse = D3DADAPTER_DEFAULT;
+//    D3DDEVTYPE DeviceType = D3DDEVTYPE_HAL;
+//    // NVIDIA PerfHUD 用 begin --------------------------------------------->
 
 //#ifdef MY_DEBUG
 //
@@ -559,7 +580,7 @@ HRESULT GgafDx9God::init() {
                     _TRACE_("D3DCREATE_SOFTWARE_VERTEXPROCESSING: "<<GgafDx9CriticalException::getHresultMsg(hr));
 
                     //どのデバイスの作成も失敗した場合
-                    MessageBox(GgafDx9God::_pHWndPrimary, TEXT("MULTI FULLSCRREEN Direct3Dの初期化に失敗"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                    MessageBox(GgafDx9God::_pHWndPrimary, TEXT("DirectXの初期化に失敗しました。\nマルチヘッドディスプレイ環境が存在していません。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
                     return E_FAIL;
                 } else {
                     _TRACE_("GgafDx9God::init デバイスは MULTI FULLSCRREEN REF で初期化できました。");
@@ -576,7 +597,7 @@ HRESULT GgafDx9God::init() {
     } else {
         //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
-        hr = GgafDx9God::_pID3D9->CreateDevice(AdapterToUse, DeviceType, GgafDx9God::_pHWndPrimary,
+        hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_pHWndPrimary,
                                                D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED,
     //                                           D3DCREATE_MIXED_VERTEXPROCESSING|D3DCREATE_MULTITHREADED,
     //                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
@@ -594,7 +615,7 @@ HRESULT GgafDx9God::init() {
                                                        &_d3dparam[0], &GgafDx9God::_pID3DDevice9);
                 if (hr != D3D_OK) {
                     //どのデバイスの作成も失敗した場合
-                    MessageBox(GgafDx9God::_pHWndPrimary, TEXT("Direct3Dの初期化に失敗"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                    MessageBox(GgafDx9God::_pHWndPrimary, TEXT("DirectXの初期化に失敗しました。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
                     return E_FAIL;
                 } else {
                     _TRACE_("GgafDx9God::init デバイスは REF で初期化できました。");
@@ -609,22 +630,6 @@ HRESULT GgafDx9God::init() {
         }
     }
 
-    //ピクセルシェーダー、頂点シェーダーバージョンチェック
-    D3DCAPS9 caps;
-    GgafDx9God::_pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
-                                       //      D3DADAPTER_DEFAULT は常に
-                                       //      プライマリ ディスプレイ アダプタ
-                                       D3DDEVTYPE_HAL, // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
-                                       &caps); // [out] デバイスの能力が格納される
-
-    _vs_v = caps.VertexShaderVersion;
-    _ps_v = caps.PixelShaderVersion;
-    _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(_vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(_vs_v));
-    _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(_ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(_ps_v));
-    if (_vs_v < D3DVS_VERSION(2, 0) || _ps_v < D3DPS_VERSION(2, 0)) {
-        _TRACE_("ビデオカードハードの頂点シェーダーとピンクセルシェーダーは、共にバージョン 2_0 以上でなければいけません。");
-        _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
-    }
 
     //その他必要な初期化
     _pCubeMapTextureManager = NEW GgafDx9TextureManager("CMTexManager");
@@ -856,25 +861,25 @@ HRESULT GgafDx9God::initDx9Device() {
         hr =  GgafDx9God::_pID3DDevice9->SetDepthStencilSurface(_pRenderTextureZ);
         checkDxException(hr, D3D_OK, "SetDepthStencilSurfaceバックバッファ・テクスチャのZバッファ失敗");
 //            //アダプタに関連付けられたスワップチェーンを取得してバックバッファも取得
-        hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &pSwapChain00 );
+        hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &_pSwapChain00 );
         checkDxException(hr, D3D_OK, "0GetSwapChain() に失敗しました。");
-        hr = pSwapChain00->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer00 );
+        hr = _pSwapChain00->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_pBackBuffer00 );
         checkDxException(hr, D3D_OK, "0GetBackBuffer() に失敗しました。");
 
         if (CFG_PROPERTY(DUAL_VIEW)) {
 
 
     //
-            hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 1, &pSwapChain01 );
+            hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 1, &_pSwapChain01 );
             checkDxException(hr, D3D_OK, "1GetSwapChain() に失敗しました。");
-            hr = pSwapChain01->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer01 );
+            hr = _pSwapChain01->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_pBackBuffer01 );
             checkDxException(hr, D3D_OK, "1GetBackBuffer() に失敗しました。");
-//            hr = GgafDx9God::_pID3DDevice9->SetRenderTarget(0, pBackBuffer01);
+//            hr = GgafDx9God::_pID3DDevice9->SetRenderTarget(0, _pBackBuffer01);
 //            checkDxException(hr, D3D_OK, "SetRenderTarget テクスチャのサーフェイス失敗");
             //２画面目の背景をクリア
             hr = GgafDx9God::_pID3DDevice9->StretchRect(
-                    pBackBuffer00,  &_aRect_ViewScreen[0],
-                    pBackBuffer01,  &_aRect_ViewScreen[1],
+                    _pBackBuffer00,  &_aRect_ViewScreen[0],
+                    _pBackBuffer01,  &_aRect_ViewScreen[1],
                     D3DTEXF_NONE);
             checkDxException(hr, D3D_OK, "StretchRect 失敗");
 
@@ -1008,27 +1013,27 @@ void GgafDx9God::presentUniversalVisualize() {
                 //２画面使用・フルスクリーン
                 //画面０バックバッファを画面１バックバッファへコピーする
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
-                        _pRenderTextureSurface,  &_aRect_HarfBackBuffer[0],
-                        pBackBuffer00,           &_aRect_Present[0],
+                        _pRenderTextureSurface, &_aRect_HarfBackBuffer[0],
+                        _pBackBuffer00,         &_aRect_Present[0],
                         D3DTEXF_LINEAR); //TODO:D3DTEXF_LINEARをオプション指定にするか？
-                checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目 StretchRect() に失敗しました。\n_pRenderTextureSurface="<<_pRenderTextureSurface<<"/pBackBuffer00="<<pBackBuffer00);
+                checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目 StretchRect() に失敗しました。\n_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_pBackBuffer00="<<_pBackBuffer00);
 
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
-                        _pRenderTextureSurface,  &_aRect_HarfBackBuffer[1],
-                        pBackBuffer01,           &_aRect_Present[1],
+                        _pRenderTextureSurface, &_aRect_HarfBackBuffer[1],
+                        _pBackBuffer01,         &_aRect_Present[1],
                         D3DTEXF_LINEAR);
                 checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
 
                 hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
 
     //            //プライマリバックバッファの右半分をセカンダリバックバッファへコピー
-                //hr = GgafDx9God::_pID3DDevice9->UpdateSurface( pBackBuffer00, &_aRect_HarfBackBuffer[1], pBackBuffer01, _pPoint);
+                //hr = GgafDx9God::_pID3DDevice9->UpdateSurface( _pBackBuffer00, &_aRect_HarfBackBuffer[1], _pBackBuffer01, _pPoint);
                 //checkDxException(hr, D3D_OK, "UpdateSurface() に失敗しました。");
     //            //コピーフリップ
-//                hr = pSwapChain00->Present(NULL, NULL, NULL, NULL,0);
-//    //            hr = pSwapChain00->Present(&_aRect_HarfBackBuffer[0], NULL, NULL, NULL,0);
+//                hr = _pSwapChain00->Present(NULL, NULL, NULL, NULL,0);
+//    //            hr = _pSwapChain00->Present(&_aRect_HarfBackBuffer[0], NULL, NULL, NULL,0);
 //                checkDxException(hr, D3D_OK, "0Present() に失敗しました。");
-//                hr = pSwapChain01->Present(NULL, NULL, NULL, NULL,0);
+//                hr = _pSwapChain01->Present(NULL, NULL, NULL, NULL,0);
 //                checkDxException(hr, D3D_OK, "1Present() に失敗しました。");
     ////            //バックバッファとZバッファを取得する
     ////            if(FAILED(m_pd3dDevice->GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&m_pBackBuffer))){
@@ -1038,18 +1043,18 @@ void GgafDx9God::presentUniversalVisualize() {
 
             } else {
                 //１画面使用・フルスクリーンモード
-//                LPDIRECT3DSWAPCHAIN9 pSwapChain00 = NULL;//アダプタに関連付けれられたスワップチェーン
-//                LPDIRECT3DSURFACE9 pBackBuffer00 = NULL;//バックバッファ1画面分
+//                LPDIRECT3DSWAPCHAIN9 _pSwapChain00 = NULL;//アダプタに関連付けれられたスワップチェーン
+//                LPDIRECT3DSURFACE9 _pBackBuffer00 = NULL;//バックバッファ1画面分
                 //フルスクリーン
-//                hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &pSwapChain00 );
+//                hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &_pSwapChain00 );
 //                checkDxException(hr, D3D_OK, "0GetSwapChain() に失敗しました。");
-//                hr = pSwapChain00->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer00 );
+//                hr = _pSwapChain00->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_pBackBuffer00 );
 //                checkDxException(hr, D3D_OK, "FULL 1gamen GetBackBuffer() に失敗しました。");
 
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,
                         &_rectBackBuffer,
-                        pBackBuffer00,
+                        _pBackBuffer00,
                         &_aRect_Present[0],
                         D3DTEXF_LINEAR
                         );
@@ -1058,12 +1063,12 @@ void GgafDx9God::presentUniversalVisualize() {
                 hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
 
 //                //コピーフリップ
-//                hr = pSwapChain00->Present(NULL, NULL, NULL, NULL,0);
+//                hr = _pSwapChain00->Present(NULL, NULL, NULL, NULL,0);
 //                checkDxException(hr, D3D_OK, "FULL 1gamen Present() に失敗しました。");
 
 
-//                RELEASE_SAFETY(pBackBuffer00);
-//                RELEASE_SAFETY(pSwapChain00);
+//                RELEASE_SAFETY(_pBackBuffer00);
+//                RELEASE_SAFETY(_pSwapChain00);
 
             }
         } else {
@@ -1280,22 +1285,137 @@ GgafDx9God::~GgafDx9God() {
     _TRACE_("_pID3DDevice9 解放きたー");
     Sleep(60);
     RELEASE_SAFETY(_pRenderTexture);
-    RELEASE_SAFETY(pBackBuffer00);
-    RELEASE_SAFETY(pBackBuffer01);
-    RELEASE_SAFETY(pSwapChain00);
-    RELEASE_SAFETY(pSwapChain01);
+    RELEASE_SAFETY(_pBackBuffer00);
+    RELEASE_SAFETY(_pBackBuffer01);
+    RELEASE_SAFETY(_pSwapChain00);
+    RELEASE_SAFETY(_pSwapChain01);
     DELETEARR_IMPOSSIBLE_NULL(_d3dparam);
-    RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9); //本来はこれが必要
+    RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
     RELEASE_IMPOSSIBLE_NULL(_pID3D9);
-//    D3DCREATE_HARDWARE_VERTEXPROCESSING でフルスクリーンで終了時、まれにブルースクリーンになる。
-//    開発マシンの、VISTA, GeForce go 7600 （HP DV9200) で起こる。
-//    しかし、他のマシンでは起らない事は確認出来た。
-//    ビデオカードドライバのせいなのか、DV9200固有の問題なのか？！
-//    ということにしておこう。ブルースクリーンになった方、大変申し訳ない。
-//    かなりの時間を使って調査したが結局原因不明。・・もういやだやめて～
-
 
 }
+
+//メモ 2011/07/26
+//
+//【１画面ウィンドウモード】
+//                                 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+//                               ／                                        ／
+//    フロントバッファ         ／                                        ／
+//    (ウインドウ)           ／                                        ／
+//                           ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
+//                           SINGLE_VIEW_WINDOW_WIDTH x SINGLE_VIEW_WINDOW_HEIGHT
+//
+//                                               ↑
+//                                               ｜ Present
+//                                               ｜(D3DSWAPEFFECT_COPY)
+//                                                                     |
+//                                  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+//    バックバッファ              ／                                        ／
+//                              ／                                        ／        ＿＿＿
+//                            ／                                        ／   ←   ／    ／
+//                            ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣    Draw  ￣￣￣
+//                              BACK_BUFFER_WIDTH x BACK_BUFFER_HEIGHT           ゲームバッファ
+//
+//
+//---------------------------------------------------------------------------------------------
+//
+//
+//【２画面ウィンドウモード】
+//                            ＿＿＿＿＿＿＿＿＿＿＿             ＿＿＿＿＿＿＿＿＿＿＿
+//                          ／                    ／           ／                    ／
+//    フロントバッファ    ／                    ／           ／                    ／
+//    (ウインドウ)      ／                    ／           ／                    ／
+//                      ￣￣￣￣￣￣￣￣￣￣￣             ￣￣￣￣￣￣￣￣￣￣￣
+//                     DUAL_VIEW_WINDOW1_WIDTH x            DUAL_VIEW_WINDOW2_WIDTH x
+//                       DUAL_VIEW_WINDOW1_HEIGHT             DUAL_VIEW_WINDOW2_HEIGHT
+//
+//                                 ↑                               ↑
+//                                 ｜ Present                       ｜ Present
+//                                 ｜(D3DSWAPEFFECT_COPY)           ｜ (D3DSWAPEFFECT_COPY)
+//
+//                                  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+//    バックバッファ              ／                                        ／
+//                              ／                                        ／         ＿＿＿
+//                            ／                                        ／    ←   ／    ／
+//                            ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣     Draw  ￣￣￣
+//                              BACK_BUFFER_WIDTH x BACK_BUFFER_HEIGHT            ゲームバッファ
+//
+//
+//---------------------------------------------------------------------------------------------
+//
+//
+//【１画面フルスクリーンモード】
+//                                         ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+//                                       ／                              ／
+//                                     ／                              ／
+//    フロントバッファ               ／                              ／
+//    (ディスプレイ)               ／                              ／
+//                               ／                              ／
+//                               ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
+//                                SINGLE_VIEW_FULL_SCREEN_WIDTH x
+//                                  SINGLE_VIEW_FULL_SCREEN_HEIGHT
+//
+//                                                 ↑
+//                                                 ｜ Present
+//                                                 ｜(D3DSWAPEFFECT_DISCARD)
+//                                        ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+//                                      ／                              ／
+//                                    ／                              ／
+//    バックバッファ                ／      _pBackBuffer00          ／
+//                                ／                              ／
+//                              ／                              ／
+//                              ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
+//                               SINGLE_VIEW_FULL_SCREEN_WIDTH x
+//                                 SINGLE_VIEW_FULL_SCREEN_HEIGHT
+//
+//                                                 ↑
+//                                                 ｜ StretchRect
+//                                                 ｜
+//                                 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+//    レンダーターゲット         ／                                        ／
+//    テクスチャー             ／       _pRenderTextureSurface           ／          ＿＿＿
+//                           ／                                        ／    ←    ／    ／
+//                           ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣     Draw   ￣￣￣
+//                             BACK_BUFFER_WIDTH x BACK_BUFFER_HEIGHT             ゲームバッファ
+//
+//
+//---------------------------------------------------------------------------------------------
+//
+//
+//【２画面フルスクリーンモード】
+//                            ＿＿＿＿＿＿＿＿＿＿＿     |        ＿＿＿＿＿＿＿＿＿＿＿
+//                          ／                    ／     |      ／                    ／
+//    フロントバッファ    ／                    ／       |    ／                    ／
+//    (ディスプレイ)    ／                    ／         |  ／                    ／
+//                      ￣￣￣￣￣￣￣￣￣￣￣           |  ￣￣￣￣￣￣￣￣￣￣￣
+//                     DUAL_VIEW_FULL_SCREEN1_WIDTH x    |   DUAL_VIEW_FULL_SCREEN2_WIDTH x
+//                       DUAL_VIEW_FULL_SCREEN1_HEIGHT   |     DUAL_VIEW_FULL_SCREEN2_HEIGHT
+//
+//                               ↑                                 ↑
+//                               ｜ Present                         ｜ Present
+//                               ｜(D3DSWAPEFFECT_COPY)             ｜ (D3DSWAPEFFECT_COPY)
+//                                                                         ※D3DSWAPEFFECT_DISCARDは不可だった
+//                            ＿＿＿＿＿＿＿＿＿＿＿             ＿＿＿＿＿＿＿＿＿＿＿
+//                          ／                    ／           ／                    ／
+//    バックバッファ      ／  _pBackBuffer00    ／           ／  _pBackBuffer01    ／
+//                      ／                    ／           ／                    ／
+//                      ￣￣￣￣￣￣￣￣￣￣￣             ￣￣￣￣￣￣￣￣￣￣￣
+//                     DUAL_VIEW_FULL_SCREEN1_WIDTH x        DUAL_VIEW_FULL_SCREEN2_WIDTH x
+//                       DUAL_VIEW_FULL_SCREEN1_HEIGHT         DUAL_VIEW_FULL_SCREEN2_HEIGHT
+//
+//                                    ↑                            ↑
+//                                    ｜ StretchRect                ｜ StretchRect
+//                                    ｜                            ｜
+//                                  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+//    レンダーターゲット          ／                                        ／
+//    テクスチャー              ／       _pRenderTextureSurface           ／         ＿＿＿
+//                            ／                                        ／   ←    ／    ／
+//                            ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣    Draw   ￣￣￣
+//                              BACK_BUFFER_WIDTH x BACK_BUFFER_HEIGHT           ゲームバッファ
+
+
+
+
 //案１
 //                 <-------------------------------------------- 2048 --------------------------------------------->
 //                 <--------- 512 --------->
@@ -1338,3 +1458,12 @@ GgafDx9God::~GgafDx9God() {
 //
 //                                                                 <----256----><---256---->
 
+
+//D3DPTEXTURECAPS_POW2
+//テクスチャの縦横のサイズは２の累乗である必要がある
+//D3DPTEXTURECAPS_SQUAREONLY
+//テクスチャの縦横のサイズは同じ、つまりテクスチャは正方形である必要がある
+//MaxTextureWidth
+//テクスチャの横幅の最大数
+//MaxTextureHeight
+//テクスチャの縦幅の最大数

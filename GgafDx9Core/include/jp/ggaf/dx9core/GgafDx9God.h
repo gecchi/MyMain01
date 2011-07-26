@@ -68,10 +68,10 @@ public:
     IDirect3DSurface9*  _pRenderTextureSurface;     //サーフェイス
     IDirect3DSurface9*  _pRenderTextureZ;   //テクスチャ
 
-    LPDIRECT3DSWAPCHAIN9 pSwapChain00;//アダプタに関連付けれられたスワップチェーン
-    LPDIRECT3DSURFACE9 pBackBuffer00;//バックバッファ1画面分
-    LPDIRECT3DSWAPCHAIN9 pSwapChain01;//アダプタに関連付けれられたスワップチェーン
-    LPDIRECT3DSURFACE9 pBackBuffer01;//バックバッファ１画面分
+    LPDIRECT3DSWAPCHAIN9 _pSwapChain00;//アダプタに関連付けれられたスワップチェーン
+    LPDIRECT3DSURFACE9 _pBackBuffer00;//バックバッファ1画面分
+    LPDIRECT3DSWAPCHAIN9 _pSwapChain01;//アダプタに関連付けれられたスワップチェーン
+    LPDIRECT3DSURFACE9 _pBackBuffer01;//バックバッファ１画面分
 
 
     static UINT32 _vs_v;
