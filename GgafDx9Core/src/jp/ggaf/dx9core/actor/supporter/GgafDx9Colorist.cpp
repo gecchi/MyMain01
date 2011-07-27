@@ -131,7 +131,7 @@ void GgafDx9Colorist::intoTargetColorLinerUntil(int prm_target_color, frame prm_
     }
 }
 
-void GgafDx9Colorist::intoTargetColorLinerUntil(c prm_c, int prm_target_color, frame prm_spend_frame) {
+void GgafDx9Colorist::intoTargetColorLinerUntil(int prm_c, int prm_target_color, frame prm_spend_frame) {
     //_TRACE_("intoTargetColorLinerUntil prm_c="<<prm_c<<"/prm_target_color="<<prm_target_color<<"/prm_spend_frame="<<prm_spend_frame);
     _method[prm_c] = TARGET_COLOR_LINER;
     _target_color[prm_c] = prm_target_color;
@@ -149,7 +149,7 @@ void GgafDx9Colorist::intoTargetColorAcceStep(int prm_target_color, int prm_velo
     }
 }
 
-void GgafDx9Colorist::intoTargetColorAcceStep(c prm_c, int prm_target_color, int prm_velo_color, int prm_acce_color) {
+void GgafDx9Colorist::intoTargetColorAcceStep(int prm_c, int prm_target_color, int prm_velo_color, int prm_acce_color) {
     _method[prm_c] = TARGET_COLOR_ACCELERATION;
     _target_color[prm_c] = prm_target_color;
     _velo_color[prm_c] = prm_velo_color;
@@ -162,7 +162,7 @@ void GgafDx9Colorist::intoTargetColorLinerStep(int prm_target_color, int prm_vel
     }
 }
 
-void GgafDx9Colorist::intoTargetColorLinerStep(c prm_c, int prm_target_color, int prm_velo_color) {
+void GgafDx9Colorist::intoTargetColorLinerStep(int prm_c, int prm_target_color, int prm_velo_color) {
     _method[prm_c] = TARGET_COLOR_LINER;
     _target_color[prm_c] = prm_target_color;
     _velo_color[prm_c] = sgn(prm_target_color - _color[prm_c])*prm_velo_color;
@@ -175,7 +175,7 @@ void GgafDx9Colorist::loopLiner(frame prm_beat_target_frames, float prm_beat_num
     }
 }
 
-void GgafDx9Colorist::loopLiner(c prm_c, frame prm_beat_target_frames, float prm_beat_num) {
+void GgafDx9Colorist::loopLiner(int prm_c, frame prm_beat_target_frames, float prm_beat_num) {
     _method[prm_c] = BEAT_COLOR_LINER;
     _one_way_cnt[prm_c] = 0;
     _stop_one_way_num[prm_c] = (int)(prm_beat_num*2.0f);
@@ -193,7 +193,7 @@ void GgafDx9Colorist::beat(frame prm_beat_target_frames, frame prm_attack_frames
 }
 
 
-void GgafDx9Colorist::beat(c prm_c, frame prm_beat_target_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_beat_num) {
+void GgafDx9Colorist::beat(int prm_c, frame prm_beat_target_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_beat_num) {
     _method[prm_c] = BEAT_COLOR_TRIANGLEWAVE;
     _one_way_cnt[prm_c] = 0;
     _stop_one_way_num[prm_c] = (int)(prm_beat_num*2.0f);
