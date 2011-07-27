@@ -52,7 +52,7 @@ public:
     /** ストップする予定のループカウント */
     int _stop_one_way_num;
     /** 点滅方法 */
-    GgafDx9BlinkerMethod _method;
+    GgafDx9BlinkingMethod _method;
 
 public:
     /**

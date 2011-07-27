@@ -104,11 +104,11 @@ void God::clean() {
 void God::oops() {
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Oops.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Oops.rep");
-    DefaultGod::oops(); //上位のしまったへ
+    DefaultGod::oops(); //上位の「しまった！」へ
 }
 
 God::~God() {
-    P_WORLD->throwEventToLowerTree(EVENT_GOD_WILL_DIE); //通知
+    P_WORLD->throwEventToLowerTree(EVENT_GOD_WILL_DIE); //全シーンに通知
 
     clean();
     _was_cleaned = true;

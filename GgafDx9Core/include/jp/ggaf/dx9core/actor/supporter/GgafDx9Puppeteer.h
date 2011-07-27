@@ -55,7 +55,7 @@ private:
         /** 重みを加算中ならば true */
         bool   _is_shifting_weight;
         /** ループ方法 */
-        GgafDx9PuppeteerPlayMethod _method;
+        GgafDx9PuppeteerMethod _method;
     };
 
     /** パペッターの操り棒 */
@@ -105,7 +105,7 @@ public:
               frame prm_shift_speed_frames,
               double prm_target_weight,
               frame prm_shift_weight_frames,
-              GgafDx9PuppeteerPlayMethod prm_method = NO_CHENGE
+              GgafDx9PuppeteerMethod prm_method = NO_CHENGE
     );
 
     /**

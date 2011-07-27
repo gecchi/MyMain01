@@ -164,7 +164,7 @@ typedef int scale;
 #define cnvAppang2Cos(X) (GgafDx9Core::GgafDx9Util::COS[(X) / ANGLE_RATE])
 
 
-enum GgafDx9UvFlipMethod {
+enum GgafDx9UvFlippingMethod {
     FLIP_ORDER_LOOP,
     FLIP_REVERSE_LOOP,
     FLIP_OSCILLATE_LOOP,
@@ -175,7 +175,7 @@ enum GgafDx9UvFlipMethod {
     NOT_ANIMATED
 };
 
-enum GgafDx9ScaleMethod {
+enum GgafDx9ScalingMethod {
     NOSCALE,
     TARGET_SCALE_LINER,
     BEAT_SCALE_LINER,
@@ -188,7 +188,20 @@ enum GgafDx9ScaleMethod {
     BEAT_SCALE_PARABOLA_REV    //!< TODO:–¢ŽÀ‘•
 };
 
-enum GgafDx9MorphMethod {
+enum GgafDx9ColoringMethod {
+    NOCOLOR,
+    TARGET_COLOR_LINER,
+    BEAT_COLOR_LINER,
+    BEAT_COLOR_TRIANGLEWAVE,
+    TARGET_COLOR_SIN,          //!< TODO:–¢ŽÀ‘•
+    BEAT_COLOR_SIN,            //!< TODO:–¢ŽÀ‘•
+    TARGET_COLOR_ACCELERATION,
+    BEAT_COLOR_PARABOLA,       //!< TODO:–¢ŽÀ‘•
+    TARGET_COLOR_PARABOLA_REV, //!< TODO:–¢ŽÀ‘•
+    BEAT_COLOR_PARABOLA_REV    //!< TODO:–¢ŽÀ‘•
+};
+
+enum GgafDx9MorphingMethod {
     NOMORPH,
     TARGET_MORPH_LINER,
     LOOP_MORPH_LINER,
@@ -201,7 +214,7 @@ enum GgafDx9MorphMethod {
     LOOP_MORPH_PARABOLA_REV    //!< TODO:–¢ŽÀ‘•
 };
 
-enum GgafDx9BlinkerMethod {
+enum GgafDx9BlinkingMethod {
     NOBLINK,
     TARGET_BLINK_LINER,
     BEAT_BLINK_LINER,
@@ -214,7 +227,7 @@ enum GgafDx9BlinkerMethod {
     BEAT_BLINK_PARABOLA_REV    //!< TODO:–¢ŽÀ‘•
 };
 
-enum GgafDx9PuppeteerPlayMethod {
+enum GgafDx9PuppeteerMethod {
     NO_CHENGE = 0,
     PLAY_LOOPING = 1,
     PLAY_OSCILLATING = 2
@@ -361,6 +374,7 @@ class GgafDx9KurokoA;
 class GgafDx9KurokoB;
 class GgafDx9Checker;
 class GgafDx9Scaler;
+class GgafDx9Colorist;
 class GgafDx9Morpher;
 class GgafDx9SeTransmitter;
 class GgafDx9BgmPerformer;
@@ -485,6 +499,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9KurokoB.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Checker.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Scaler.h"
+#include "jp/ggaf/dx9core/actor/supporter/GgafDx9Colorist.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Morpher.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9SeTransmitter.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9UvFlipper.h"

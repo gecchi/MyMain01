@@ -26,12 +26,16 @@ public:
     static D3DLIGHT9 _d3dlight9_temp;
     /** アンビエントライトのデフォルトの明るさ */
     static DWORD _dwAmbientBrightness_default;
+    /** デバイスロストフラグ (true=ロスト中) */
+    static bool _is_device_lost_flg;
 
+    static bool _adjustGameScreen;
+    static HWND _pHWnd_adjustScreen;
+    static GgafDx9ModelManager* _pModelManager;
+    static GgafDx9EffectManager* _pEffectManager;
+    static GgafDx9TextureManager* _pCubeMapTextureManager;
+    static int _iNumAdapter;
     /** Present領域 */
-//    static RECT _rectDualDisplayWindow_Primary;
-//    static RECT _rectDualDisplayWindow_Secondary;
-//    static RECT _rectDualDisplayFullScreen_Primary;
-//    static RECT _rectDualDisplayFullScreen_Secondary;
 
     RECT _aRect_Present[2];
     int _primary, _secondary;
@@ -42,21 +46,8 @@ public:
 //    static LPDIRECT3DSWAPCHAIN9 _paSwapChain;
 //    static LPDIRECT3DSWAPCHAIN9 _paBackBuffer;
 
-    /** デバイスロストフラグ (true=ロスト中) */
-    static bool _is_device_lost_flg;
 
-    static bool _adjustGameScreen;
-    static HWND _pHWnd_adjustScreen;
-//    /** 射影変換魚売れる */
-//    static D3DXMATRIX _matProj;
-//    /** 正射影変換魚売れる */
-//    static D3DXMATRIX _vMatrixOrthoProj;
-//
 
-    static GgafDx9ModelManager* _pModelManager;
-    static GgafDx9EffectManager* _pEffectManager;
-    static GgafDx9TextureManager* _pCubeMapTextureManager;
-    static int _iNumAdapter;
     RECT _rectGameBuffer;
     RECT _rectRenderTargetBuffer;
     RECT _aRect_HarfGameBuffer[2];

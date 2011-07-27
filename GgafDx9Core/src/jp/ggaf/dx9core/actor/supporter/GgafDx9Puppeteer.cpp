@@ -117,7 +117,7 @@ void GgafDx9Puppeteer::play(GgafDx9PuppeteerStick prm_handed,
                               frame prm_shift_speed_frames,
                               double prm_target_weight,
                               frame prm_shift_weight_frames,
-                              GgafDx9PuppeteerPlayMethod prm_method ) {
+                              GgafDx9PuppeteerMethod prm_method ) {
     _aStick[prm_handed]._pPerformance = &(_paPerformances[prm_performance_no]);
     Performance* p = _aStick[prm_handed]._pPerformance;
     p->_time_of_one_loop                   = p->_pAnimationSet->GetPeriod();

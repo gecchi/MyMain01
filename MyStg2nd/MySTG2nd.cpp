@@ -1,5 +1,3 @@
-// MySTG2nd.cpp : アプリケーションのエントリ ポイントを定義します。
-//
 #include "stdafx.h"
 #include "MySTG2nd.h"
 #include "resource.h"

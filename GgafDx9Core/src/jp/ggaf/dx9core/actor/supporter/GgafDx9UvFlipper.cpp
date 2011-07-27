@@ -137,7 +137,7 @@ void GgafDx9UvFlipper::forcePtnNoRange(int prm_top, int prm_bottom) {
     _pattno_uvflip_bottom = prm_bottom;
 }
 
-void GgafDx9UvFlipper::setFlipMethod(GgafDx9UvFlipMethod prm_method, int prm_interval) {
+void GgafDx9UvFlipper::setFlipMethod(GgafDx9UvFlippingMethod prm_method, int prm_interval) {
     _uvflip_method = prm_method;
     _uvflip_interval_frames = prm_interval;
 }

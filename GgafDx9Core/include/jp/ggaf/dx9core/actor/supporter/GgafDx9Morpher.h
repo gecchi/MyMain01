@@ -35,7 +35,7 @@ public:
     /** 停止予定の片道ループ数 */
     int _stop_halfloop_num[MAX_MORPH_TARGET+1];
     /** ループの振る舞い種別 */
-    GgafDx9MorphMethod _method[MAX_MORPH_TARGET+1];
+    GgafDx9MorphingMethod _method[MAX_MORPH_TARGET+1];
 
 
     /** ループ重みの１ループフレーム幅 */

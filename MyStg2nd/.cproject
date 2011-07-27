@@ -112,7 +112,6 @@
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
-			<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 			<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings">
 				<doc-comment-owner id="org.eclipse.cdt.ui.doxygen">
@@ -230,7 +229,6 @@
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
-			<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 			<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings">
 				<doc-comment-owner id="org.eclipse.cdt.ui.doxygen">
@@ -349,7 +347,6 @@
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
-			<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 			<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings">
 				<doc-comment-owner id="org.eclipse.cdt.ui.doxygen">
@@ -1108,5 +1105,8 @@
 				</scannerInfoProvider>
 			</profile>
 		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+		<buildTargets/>
 	</storageModule>
 </cproject>

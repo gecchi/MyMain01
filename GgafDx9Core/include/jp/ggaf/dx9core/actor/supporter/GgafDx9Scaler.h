@@ -45,7 +45,7 @@ public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     /** 各軸のストップする予定のループカウント */
     int _stop_one_way_num[3];
     /** 各軸のスケーリング方法 */
-    GgafDx9ScaleMethod _method[3];
+    GgafDx9ScalingMethod _method[3];
 
     /** ビート時、各軸の三角波の波形でスケーリングのアタックフレーム数 */
     frame _beat_attack_frames[3];

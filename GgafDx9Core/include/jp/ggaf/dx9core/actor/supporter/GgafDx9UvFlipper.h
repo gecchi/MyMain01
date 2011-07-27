@@ -45,7 +45,7 @@ public:
     /** パターンとパターンの間隔フレーム数 */
     frame _uvflip_interval_frames;
     /** アニメ方式 */
-    GgafDx9UvFlipMethod _uvflip_method;
+    GgafDx9UvFlippingMethod _uvflip_method;
     /** FLIP_OSCILLATE_LOOP用の現在のアニメ方向 */
     bool _is_reverse_order_in_oscillate_animation_flg;
 
@@ -255,7 +255,7 @@ public:
      * @param prm_method アニメーション方法定数
      * @param prm_interval アニメーション間隔フレーム（default=1)
      */
-    void setFlipMethod(GgafDx9UvFlipMethod prm_method, int prm_interval = 1);
+    void setFlipMethod(GgafDx9UvFlippingMethod prm_method, int prm_interval = 1);
 
 };
 

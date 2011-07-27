@@ -52,6 +52,7 @@ void World::initialize() {
 
 void World::processBehavior() {
     if (_is_create_GameScene) {
+        //GameSceneì¬Š®—¹
         VB->update(); //“ü—Íî•ñXV
         if (P_GOD->_sync_frame_time) {
             _TEXT_("z");

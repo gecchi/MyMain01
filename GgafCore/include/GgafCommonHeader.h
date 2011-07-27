@@ -1,6 +1,5 @@
 #ifndef GGAFCOMMONHEADER_H_
 #define GGAFCOMMONHEADER_H_
-
 /**
  * Ggafライブラリヘッダー郡ヘッダー
  * @version 1.00

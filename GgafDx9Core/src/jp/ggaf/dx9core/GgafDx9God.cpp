@@ -26,31 +26,12 @@ D3DLIGHT9 GgafDx9God::_d3dlight9_temp;
 DWORD GgafDx9God::_dwAmbientBrightness_default = 0xff404040;
 
 
-//RECT GgafDx9God::_rectDualDisplayWindow_Primary;
-//RECT GgafDx9God::_rectDualDisplayWindow_Secondary;
-//RECT GgafDx9God::_rectDualDisplayFullScreen_Primary;
-//RECT GgafDx9God::_rectDualDisplayFullScreen_Secondary;
-
-
-
-
-
-//RECT*  GgafDx9God::_pRectViewScreen = NULL;
-
-//double GgafDx9God::_cameraZ = 0;
-//double GgafDx9God::_cameraZ_org = 0;
-//double GgafDx9God::_tan_half_fovY = 0;
-//double GgafDx9God::_dCamHarfXfovTan = 0;
-//double GgafDx9God::_screen_aspect = 0;
-
 
 D3DFILLMODE GgafDx9God::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFILL_SOLID;
 
 GgafDx9ModelManager* GgafDx9God::_pModelManager = NULL;
 GgafDx9EffectManager* GgafDx9God::_pEffectManager = NULL;
 GgafDx9TextureManager* GgafDx9God::_pCubeMapTextureManager = NULL;
-//int const CFG_PROPERTY(GAME_BUFFER_WIDTH)  = 1024;
-//int const CFG_PROPERTY(GAME_BUFFER_HEIGHT) = 600;
 D3DPRESENT_PARAMETERS* GgafDx9God::_d3dparam;
 
 bool GgafDx9God::_is_device_lost_flg = false;
@@ -395,17 +376,14 @@ HRESULT GgafDx9God::init() {
         }
     } else {
         //ウィンドウ時
-        //デスプレイモードの取得
-        D3DDISPLAYMODE structD3DDisplayMode; //結果が格納される構造体
-        hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &structD3DDisplayMode);
-        returnWhenFailed(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。");
-        _d3dparam[0].BackBufferFormat = structD3DDisplayMode.Format; //現在の画面モードを利用
-                                        // D3DFMT_UNKNOWN;
         _d3dparam[0].Windowed = true; //ウィンドウモード時
         _d3dparam[0].FullScreen_RefreshRateInHz = 0; //リフレッシュレート
         _d3dparam[0].PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
         _d3dparam[0].SwapEffect = D3DSWAPEFFECT_COPY; //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
     }
+
+
+
 
     //アンチアイリアスにできるかチェック
     UINT32 qualityLevels = D3DMULTISAMPLE_NONE;
@@ -438,6 +416,32 @@ HRESULT GgafDx9God::init() {
 
     //２画面使用時の D3DPRESENT_PARAMETERS 差分上書き
     _d3dparam[1] = _d3dparam[0]; //共通が多いためコピー
+
+    if (CFG_PROPERTY(FULL_SCREEN)) {
+        if(CFG_PROPERTY(DUAL_VIEW)) {
+            _d3dparam[0].BackBufferFormat = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
+            _d3dparam[1].BackBufferFormat = _d3dparam[0].BackBufferFormat;
+        } else {
+            _d3dparam[0].BackBufferFormat = D3DFMT_X8R8G8B8;
+            _d3dparam[1].BackBufferFormat = D3DFMT_UNKNOWN;
+        }
+    } else {
+        //デスプレイモードの取得
+        D3DDISPLAYMODE structD3DDisplayMode0; //結果が格納される構造体
+        hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(0, &structD3DDisplayMode0);
+        returnWhenFailed(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。");
+        if(CFG_PROPERTY(DUAL_VIEW)) {
+            D3DDISPLAYMODE structD3DDisplayMode1;
+            hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(1, &structD3DDisplayMode1);
+            returnWhenFailed(hr, D3D_OK, "2画面目 GetAdapterDisplayMode に失敗しました");
+            _d3dparam[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
+            _d3dparam[1].BackBufferFormat = structD3DDisplayMode1.Format; //現在の画面モードを利用
+        } else {
+            _d3dparam[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
+            _d3dparam[1].BackBufferFormat = D3DFMT_UNKNOWN; //現在の画面モードを利用
+        }
+    }
+
     //Windowハンドルを個別指定
     _d3dparam[0].hDeviceWindow = _pHWndPrimary;
     _d3dparam[1].hDeviceWindow = _pHWndSecondary;
@@ -457,11 +461,6 @@ HRESULT GgafDx9God::init() {
             _d3dparam[1].BackBufferHeight = 0;
         }
     } else {
-        D3DDISPLAYMODE structD3DDisplayMode;
-        hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(1, &structD3DDisplayMode);
-        returnWhenFailed(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました");
-        _d3dparam[1].BackBufferFormat = structD3DDisplayMode.Format; //現在の画面モードを利用
-
         if(CFG_PROPERTY(DUAL_VIEW)) {
             //ウィンドウモード・２画面使用
             _d3dparam[0].BackBufferWidth  = CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH);

@@ -10,9 +10,6 @@ namespace MyStg2nd {
 /** VB_PLAY or VB_UI のどちらかで、アクティブな方のVirtualButton */
 #define VB MyStg2nd::God::_pVbtn_Active
 
-
-
-
 /**
  * 神
  * @version 1.00

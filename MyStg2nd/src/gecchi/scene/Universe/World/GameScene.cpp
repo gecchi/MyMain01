@@ -71,7 +71,7 @@ void GameScene::onReset() {
         }
     }
     P_UNIVERSE->resetCameraWork();
-    _pProg->change(GAMESCENE_PROG_INIT);
+    _pProg->set(GAMESCENE_PROG_INIT);
 }
 
 void GameScene::onActive() {
@@ -103,14 +103,19 @@ void GameScene::processBehavior() {
 
     switch (_pProg->get()) {
         case GAMESCENE_PROG_INIT: {
-            _pProg->changeWithCrossfading(GAMESCENE_PROG_PRE_TITLE);
+            if (_pProg->isJustChanged()) {
+                P_GOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
+            }
+            if (_pProg->getFrameInProgress() == 60) {
+                _pProg->changeWithCrossfading(GAMESCENE_PROG_PRE_TITLE);
+            }
             break;
         }
 
         case GAMESCENE_PROG_PRE_TITLE: {
             //##########  タイトル前演出  ##########
             if (_pProg->isJustChanged()) {
-                P_GOD->syncTimeFrame();
+
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
