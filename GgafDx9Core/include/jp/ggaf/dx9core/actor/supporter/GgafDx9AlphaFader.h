@@ -4,23 +4,12 @@ namespace GgafDx9Core {
 
 
 /**
- * 拡大縮小支援クラス.
- * GgafDx9GeometricActor のメンバの<BR>
- * _SX , _SY, _SZ  ・・・ アクターの強度<BR>
- * を、簡単に操作するために設計した。<BR>
- * 拡大縮小1.0倍（強度無し）は、本クラスでの強度値1000に相当する。
- * [日本語]     → [本クラスの強度値]
- * 等倍         → 1000
- * 2.5倍拡大    → 2500
- * 半分の大きさ → 500
- * 縮小率80%    → 800
- * 本クラスでは、強度とフェーディングという単語を次の意味で使用している箇所がある。
- * 強度・・・現在（のフレーム）の拡大縮小状態、強度値
- * フェーディング・・・フレーム間の拡大縮小状態の遷移
- * 2009/05/22 GgafDx9KurokoA から分割した。
- * TODO:GgafDx9AlphaFader,GgafDx9Morpher,GgafDx9TextureBlinker を共通化する。
+ * フェーディング支援クラス .
+ * GgafDx9DrawableActor のメンバの
+ * _fAlpha(アクターのα強度)をなめらかに変化させ、<BR>
+ * フェーディングを行うことを主な目的<BR>
  * @version 1.00
- * @since 2009/05/22
+ * @since 2010/07/28
  * @author Masatoshi Tsuge
  */
 class GgafDx9AlphaFader : public GgafCore::GgafObject {

@@ -20,13 +20,13 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameMainScene";
 
     _pFont16_SCORE = NEW LabelGecchi16Font("SCORE");
-    _pFont16_SCORE->locate(550*1000, 1*1000);
+    _pFont16_SCORE->locate(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)), 1*1000);
     getLordActor()->addSubGroup(_pFont16_SCORE);
     _pFont16_RANK = NEW LabelGecchi16Font("RANK");
-    _pFont16_RANK->locate(550*1000, 20*1000);
+    _pFont16_RANK->locate(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)), 20*1000);
     getLordActor()->addSubGroup(_pFont16_RANK);
     _pFont16_STAMINA = NEW LabelGecchi16Font("STAMINA");
-    _pFont16_STAMINA->locate(550*1000, 40*1000);
+    _pFont16_STAMINA->locate(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)), 40*1000);
     getLordActor()->addSubGroup(_pFont16_STAMINA);
     _pFont8_JIKI_X = NEW LabelGecchi8Font("JIKI_X");
     _pFont8_JIKI_Y = NEW LabelGecchi8Font("JIKI_Y");
@@ -55,11 +55,11 @@ void GameMainScene::initialize() {
 void GameMainScene::processBehavior() {
     //SCORE•\Ž¦
     sprintf(_buf, "SCORE %07u", _SCORE_);
-    _pFont16_SCORE->update(_buf);
+    _pFont16_SCORE->update(_buf, ALIGN_RIGHT);
     sprintf(_buf, "RANK %.7f", _RANK_);
-    _pFont16_RANK->update(_buf);
+    _pFont16_RANK->update(_buf, ALIGN_RIGHT);
     sprintf(_buf, "STAMINA %7d", P_MYSHIP->_pStatus->get(STAT_Stamina));
-    _pFont16_STAMINA->update(_buf);
+    _pFont16_STAMINA->update(_buf, ALIGN_RIGHT);
 
     sprintf(_buf, "X:%8d", P_MYSHIP->_X);
     _pFont8_JIKI_X->update(_buf);

@@ -423,7 +423,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/XFile/ToolBox/TBox_Textures.h"
 
 #include "jp/ggaf/dx9core/exception/GgafDx9CriticalException.h"
-#include "jp/ggaf/dx9core/util/CmRandomNumberGenerator.h"
+
 #include "jp/ggaf/dx9core/GgafDx9God.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Input.h"
 #include "jp/ggaf/dx9core/manager/GgafDx9TextureConnection.h"

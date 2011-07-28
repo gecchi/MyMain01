@@ -342,6 +342,8 @@ class GgafCriticalException;
 class GgafLogger;
 class GgafGod;
 
+//class CmRandomNumberGenerator;
+
 template<class T>
 class GgafResourceConnection;
 
@@ -388,7 +390,7 @@ class GgafCurtain;
 
 }
 
-
+#include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
 #include "jp/ggaf/core/util/GgafUtil.h"
 #include "jp/ggaf/core/util/GgafRepeatSeq.h"
 #include "jp/ggaf/core/GgafObject.h"

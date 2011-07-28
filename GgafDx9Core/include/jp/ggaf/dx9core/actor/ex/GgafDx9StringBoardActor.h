@@ -48,6 +48,8 @@ public:
     pixcoord _aWidthPx[256];
     /** [r/w]ÉxÅ[ÉXÇÃÇPï∂éöïù(px) */
     pixcoord _chr_width_px;
+
+    pixcoord _width_len_px;
     GgafDx9StringAlign _align;
     coord _X_offset_align;
 

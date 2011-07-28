@@ -2,7 +2,6 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
 
 //!< Period Parameter for Mersenne Twister
 #define	MATRIX_A	(0x9908b0dfUL)	//!< constant vector a
@@ -19,8 +18,8 @@ using namespace GgafDx9Core;
  */
 CmRandomNumberGenerator* CmRandomNumberGenerator::s_pInstance = NULL;
 
-unsigned long CmRandomNumberGenerator::mt[N];
-int CmRandomNumberGenerator::mti = N + 1;
+unsigned long CmRandomNumberGenerator::mt[__N__];
+int CmRandomNumberGenerator::mti = __N__ + 1;
 
 /******************************************************************************
  *
@@ -116,11 +115,11 @@ void CmRandomNumberGenerator::changeSeed(unsigned long a_ulSeed) {
  * 			Mersenne Twister
  ******************************************************************************/
 
-/* initializes mt[N] with a seed */
+/* initializes mt[__N__] with a seed */
 void CmRandomNumberGenerator::init_genrand(unsigned long s) {
     mt[0] = s & 0xffffffffUL;
 
-    for (mti = 1; mti < N; mti++) {
+    for (mti = 1; mti < __N__; mti++) {
         mt[mti] = (1812433253UL * (mt[mti - 1] ^ (mt[mti - 1] >> 30)) + mti);
         /* See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier. */
         /* In the previous versions, MSBs of the seed affect   */
@@ -137,25 +136,25 @@ unsigned long CmRandomNumberGenerator::genrand_int32(void) {
     static unsigned long mag01[2] = {0x0UL, MATRIX_A};
     /* mag01[x] = x * MATRIX_A  for x=0,1 */
 
-    if (mti >= N) {
-        /* generate N words at one time */
+    if (mti >= __N__) {
+        /* generate __N__ words at one time */
         int kk;
 
-        if (mti == N + 1) /* if init_genrand() has not been called, */
+        if (mti == __N__ + 1) /* if init_genrand() has not been called, */
         init_genrand(5489UL); /* a default initial seed is used */
 
-        for (kk = 0; kk < N - M; kk++) {
+        for (kk = 0; kk < __N__ - __M__; kk++) {
             y = (mt[kk] & UPPER_MASK) | (mt[kk + 1] & LOWER_MASK);
-            mt[kk] = mt[kk + M] ^ (y >> 1) ^ mag01[y & 0x1UL];
+            mt[kk] = mt[kk + __M__] ^ (y >> 1) ^ mag01[y & 0x1UL];
         }
 
-        for (; kk < N - 1; kk++) {
+        for (; kk < __N__ - 1; kk++) {
             y = (mt[kk] & UPPER_MASK) | (mt[kk + 1] & LOWER_MASK);
-            mt[kk] = mt[kk + (M - N)] ^ (y >> 1) ^ mag01[y & 0x1UL];
+            mt[kk] = mt[kk + (__M__ - __N__)] ^ (y >> 1) ^ mag01[y & 0x1UL];
         }
 
-        y = (mt[N - 1] & UPPER_MASK) | (mt[0] & LOWER_MASK);
-        mt[N - 1] = mt[M - 1] ^ (y >> 1) ^ mag01[y & 0x1UL];
+        y = (mt[__N__ - 1] & UPPER_MASK) | (mt[0] & LOWER_MASK);
+        mt[__N__ - 1] = mt[__M__ - 1] ^ (y >> 1) ^ mag01[y & 0x1UL];
 
         mti = 0;
     }
