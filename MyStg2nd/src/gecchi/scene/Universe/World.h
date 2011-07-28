@@ -19,6 +19,7 @@ class World : public GgafDx9LibStg::DefaultScene {
 public:
     bool _is_create_GameScene;
     char _aBufDebug[80];
+    LabelGecchi16Font* _pFont16_Wait;
     LabelGecchi16Font* _pFont16_Debug;
     LabelGecchi16Font* _pStringBoard01;
     PreDrawScene* _pPreDrawScene;

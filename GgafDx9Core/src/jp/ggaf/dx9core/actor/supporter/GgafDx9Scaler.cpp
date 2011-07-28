@@ -10,6 +10,7 @@ GgafDx9Scaler::GgafDx9Scaler(GgafDx9GeometricActor* prm_pActor) :
     for (int axis = 0; axis < 3; axis++) {
         _scale[axis] = LEN_UNIT;
         _velo_scale[axis] = 0;
+        _acce_scale[axis] = 0;
         _target_scale[axis] = LEN_UNIT;
         _top_scale[axis] = INT_MAX;
         _bottom_scale[axis] = 1;
@@ -43,7 +44,7 @@ void GgafDx9Scaler::behave() {
                 _scale[axis] = _target_scale[axis];
                 _method[axis] = NOSCALE;
             }
-        } if (_method[axis] == TARGET_SCALE_ACCELERATION) {
+        } else if (_method[axis] == TARGET_SCALE_ACCELERATION) {
             _scale[axis] += _velo_scale[axis];
             //if (_velo_scale[axis] > 0 && _target_scale[axis] <= _scale[axis]) {
             if (_acce_scale[axis] > 0 && _target_scale[axis] <= _scale[axis]) {

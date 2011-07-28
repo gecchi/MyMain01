@@ -57,9 +57,9 @@ void PauseCamWorker::processBehavior() {
         }
         if (!pVP->_pKurokoA->isMoveingSmooth()) {
             //正確なVPに再設定
-            pVP->_X = cnvCoordDx2App(pCam->_pVecCamLookatPoint->x);
-            pVP->_Y = cnvCoordDx2App(pCam->_pVecCamLookatPoint->y);
-            pVP->_Z = cnvCoordDx2App(pCam->_pVecCamLookatPoint->z);
+            pVP->_X = Dx2App(pCam->_pVecCamLookatPoint->x);
+            pVP->_Y = Dx2App(pCam->_pVecCamLookatPoint->y);
+            pVP->_Z = Dx2App(pCam->_pVecCamLookatPoint->z);
             _move_target_X_VP = pVP->_X;
             _move_target_Y_VP = pVP->_Y;
             _move_target_Z_VP = pVP->_Z;
@@ -196,7 +196,7 @@ void PauseCamWorker::processBehavior() {
             Q.mul(0,x,y,z);//R*P 回転軸が現在の進行方向ベクトルとなる
             Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
 
-            double r = ((d/_cd) * cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)*2));
+            double r = ((d/_cd) * Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)*2));
 
             _move_target_X_CAM += (Q._x*r);
             _move_target_Y_CAM += (Q._y*r);
@@ -217,9 +217,9 @@ void PauseCamWorker::processBehavior() {
                 _move_target_Z_CAM = pCam->_Z;
             }
             if (!pVP->_pKurokoA->isMoveingSmooth()) {
-                pVP->_X = cnvCoordDx2App(pCam->_pVecCamLookatPoint->x);
-                pVP->_Y = cnvCoordDx2App(pCam->_pVecCamLookatPoint->y);
-                pVP->_Z = cnvCoordDx2App(pCam->_pVecCamLookatPoint->z);
+                pVP->_X = Dx2App(pCam->_pVecCamLookatPoint->x);
+                pVP->_Y = Dx2App(pCam->_pVecCamLookatPoint->y);
+                pVP->_Z = Dx2App(pCam->_pVecCamLookatPoint->z);
                 _move_target_X_VP = pVP->_X;
                 _move_target_Y_VP = pVP->_Y;
                 _move_target_Z_VP = pVP->_Z;

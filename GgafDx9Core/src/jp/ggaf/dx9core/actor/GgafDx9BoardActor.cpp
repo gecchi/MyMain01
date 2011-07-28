@@ -34,11 +34,11 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
 void GgafDx9BoardActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pBoardEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, float(cnvCoordApp2Pix(_X)));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, float(App2Pix(_X)));
     checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, float(cnvCoordApp2Pix(_Y)));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, float(App2Pix(_Y)));
     checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, float(cnvCoordApp2Pix(_Z)));
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, float(App2Pix(_Z)));
     checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hAlpha, _fAlpha);
     checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hAlpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

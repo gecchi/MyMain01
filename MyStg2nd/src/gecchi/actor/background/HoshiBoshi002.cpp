@@ -10,7 +10,7 @@ DefaultPointSpriteActor(prm_name, "hoshitest") {
     _class_name = "HoshiBoshi002";
     changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     setHitAble(false);
-    _CAM_ZF = abs(cnvCoordDx2App(P_CAM->_zf));
+    _CAM_ZF = abs(Dx2App(P_CAM->_zf));
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-1);
     _TRACE_("HoshiBoshi002::HoshiBoshi002 _CAM_ZF="<<_CAM_ZF);
 }
@@ -45,9 +45,9 @@ void HoshiBoshi002::processBehavior() {
 void HoshiBoshi002::processSettlementBehavior() {
     //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
     //GgafDx9GeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ðŽæ‚éŽ–I
-    _fX = cnvCoordApp2Dx(_X);
-    _fY = cnvCoordApp2Dx(_Y);
-    _fZ = cnvCoordApp2Dx(_Z);
+    _fX = App2Dx(_X);
+    _fY = App2Dx(_Y);
+    _fZ = App2Dx(_Z);
 }
 
 void HoshiBoshi002::processJudgement() {

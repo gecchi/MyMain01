@@ -29,9 +29,9 @@ void GgafDx9SphereActor::drawSphere(coord prm_x, coord prm_y, coord prm_z, coord
     _X = prm_x;
     _Y = prm_y;
     _Z = prm_z;
-    _fX = cnvCoordApp2Dx(_X);
-    _fY = cnvCoordApp2Dx(_Y);
-    _fZ = cnvCoordApp2Dx(_Z);
+    _fX = App2Dx(_X);
+    _fY = App2Dx(_Y);
+    _fZ = App2Dx(_Z);
     GgafDx9Util::setWorldMatrix_ScRzMv(this, _matWorld);
     processDraw();
 }

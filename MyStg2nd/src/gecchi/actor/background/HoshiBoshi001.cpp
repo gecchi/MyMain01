@@ -20,7 +20,7 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
     _h_far_rate   = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_far_rate" );
     changeEffectTechnique("DestBlendOne"); //加算合成
     setHitAble(false);
-    _CAM_ZF = abs(cnvCoordDx2App(P_CAM->_zf));
+    _CAM_ZF = abs(Dx2App(P_CAM->_zf));
     _TRACE_("HoshiBoshi001::HoshiBoshi001 _CAM_ZF="<<_CAM_ZF);
     //独自ワールド変換
     defineRotMvWorldMatrix(HoshiBoshi001::setWorldMatrix_HoshiBoshi001);
@@ -60,9 +60,9 @@ void HoshiBoshi001::processBehavior() {
 void HoshiBoshi001::processSettlementBehavior() {
     //画面外判定無しに伴ない処理簡略化
     //GgafDx9GeometricActor::processSettlementBehavior() と同期を取る事！
-    _fX = cnvCoordApp2Dx(_X);
-    _fY = cnvCoordApp2Dx(_Y);
-    _fZ = cnvCoordApp2Dx(_Z);
+    _fX = App2Dx(_X);
+    _fY = App2Dx(_Y);
+    _fZ = App2Dx(_Z);
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ワールド変換
 }
 

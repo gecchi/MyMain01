@@ -2,34 +2,26 @@
 #define GGAFDX9COLORIST_H_
 namespace GgafDx9Core {
 
+#define COLOR_R 0
+#define COLOR_G 1
+#define COLOR_B 2
+#define COLOR_A 3;
+
 /**
- * 拡大縮小支援クラス.
- * GgafDx9GeometricActor のメンバの<BR>
- * _SX , _SY, _SZ  ・・・ アクターの強度<BR>
- * を、簡単に操作するために設計した。<BR>
- * 拡大縮小1.0倍（強度無し）は、本クラスでの強度値1000に相当する。
- * [日本語]     → [本クラスの強度値]
- * 等倍         → 1000
- * 2.5倍拡大    → 2500
- * 半分の大きさ → 500
- * 縮小率80%    → 800
- * 本クラスでは、強度とスケーリングという単語を次の意味で使用している箇所がある。
- * 強度・・・現在（のフレーム）の拡大縮小状態、強度値
- * スケーリング・・・フレーム間の拡大縮小状態の遷移
- * 2009/05/22 GgafDx9KurokoA から分割した。
- * TODO:GgafDx9Colorist,GgafDx9Morpher,GgafDx9TextureBlinker を共通化する。
+ * カラーリストさん.
+ * TODO:現在未使用。作成中。
  * @version 1.00
- * @since 2009/05/22
+ * @since 2011/07/28
  * @author Masatoshi Tsuge
  */
 class GgafDx9Colorist : public GgafCore::GgafObject {
 
-public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
+public:
     /** 対象アクター */
-    GgafDx9GeometricActor* _pActor;
+    GgafDx9DrawableActor* _pActor;
 
     /** 各色要素の強度(1000 で 1倍) */
-    int _color[4]; //[0]:R色要素、[1]:G色要素、[2]:B色要素。以降同様に  [4]・・・X色要素、Y色要素、Z色要素の意
+    int _color[4]; //[0]:R色要素、[1]:G色要素、[2]:B色要素
     /** 各色要素の目標の強度 */
     int _target_color[4];
     /** 各色要素の強度上限 */
@@ -65,7 +57,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用対象のActor
      */
-    GgafDx9Colorist(GgafDx9GeometricActor* prm_pActor);
+    GgafDx9Colorist(GgafDx9DrawableActor* prm_pActor);
 
     /**
      * 強度を相対指定（全色要素指定）

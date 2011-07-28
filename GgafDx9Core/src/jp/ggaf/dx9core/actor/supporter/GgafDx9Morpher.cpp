@@ -10,6 +10,7 @@ GgafDx9Morpher::GgafDx9Morpher(GgafDx9MorphMeshActor* prm_pActor) :
         //i=0‚ÍŽÀŽ¿–¢Žg—pB
         _weight[i] = 0.0f;
         _velo_weight[i] = 0.0f;
+        _acce_weight[i] = 0.0f;
         _target_weight[i] = 0.0f;
         _top_weight[i] = 1.0f;
         _bottom_weight[i] = 0.0f;
@@ -34,7 +35,7 @@ void GgafDx9Morpher::behave() {
                 _weight[i] = _target_weight[i];
                 _method[i] = NOMORPH;
             }
-        } if (_method[i] == TARGET_MORPH_ACCELERATION) {
+        } else if (_method[i] == TARGET_MORPH_ACCELERATION) {
             _weight[i] += _velo_weight[i];
             if (_velo_weight[i] > 0 && _target_weight[i] < _weight[i]) {
                 _weight[i] = _target_weight[i];

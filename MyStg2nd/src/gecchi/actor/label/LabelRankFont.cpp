@@ -133,6 +133,7 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
         StringBoardActor(prm_name, "RankFont")
 {
     _class_name = "LabelRankFont";
+    _align = ALIGN_RIGHT;
     useProgress(RANKFONT_PROG_RANKUP);
 }
 
@@ -193,14 +194,14 @@ void LabelRankFont::processDraw() {
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
 
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(cnvCoordApp2Pix(_Y)));
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)));
     checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahTransformedY) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(cnvCoordApp2Pix(_Z)));
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(App2Pix(_Z)));
     checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahDepthZ) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _fAlpha);
     checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahAlpha) に失敗しました。");
     int strindex, pattno;
-    pixcoord x = cnvCoordApp2Pix(_X) - (_chr_width_px * _len); //右詰にするため _chr_width_px*_len をマイナス
+    pixcoord x = App2Pix(_X) - (_chr_width_px * _len); //右詰にするため _chr_width_px*_len をマイナス
     float u,v;
     for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
         _draw_set_num = pack < _len_pack_num ? _pBoardSetModel->_set_num : _remainder_len;

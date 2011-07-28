@@ -71,9 +71,9 @@ void GgafDx9AAPrismActor::drawPrism(coord prm_x1, coord prm_y1, coord prm_z1,
     _X = prm_x1 + (prm_x2 - prm_x1) / 2;
     _Y = prm_y1 + (prm_y2 - prm_y1) / 2;
     _Z = prm_z1 + (prm_z2 - prm_z1) / 2;
-    _fX = cnvCoordApp2Dx(_X);
-    _fY = cnvCoordApp2Dx(_Y);
-    _fZ = cnvCoordApp2Dx(_Z);
+    _fX = App2Dx(_X);
+    _fY = App2Dx(_Y);
+    _fZ = App2Dx(_Z);
 
     //GgafDx9Util::setWorldMatrix_ScRzMv(this, _matWorld);
     GgafDx9Util::setWorldMatrix_RxRzRyScMv(this, _matWorld); //回転後にスケールがポイント

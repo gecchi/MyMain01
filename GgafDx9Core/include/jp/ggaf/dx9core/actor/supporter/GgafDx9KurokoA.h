@@ -4,9 +4,7 @@ namespace GgafDx9Core {
 
 //Ž²X
 #define AXIS_X 0
-//Ž²Y
 #define AXIS_Y 1
-//Ž²Z
 #define AXIS_Z 2
 
 

@@ -174,9 +174,9 @@ void MyOptionWateringLaserChip001::processBehavior() {
 
                 double rrr;
                 if (dx == 0) {
-                    rrr = cnvCoordDx2App(P_CAM->_zf);
+                    rrr = Dx2App(P_CAM->_zf);
                 } else {
-                    rrr = cnvCoordDx2App(P_CAM->_zf)/dx;
+                    rrr = Dx2App(P_CAM->_zf)/dx;
                 }
                 vTx = _X+dx*rrr;
                 vTy = _Y+dy*rrr;

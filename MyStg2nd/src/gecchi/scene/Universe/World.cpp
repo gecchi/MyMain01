@@ -10,7 +10,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     _TRACE_("World::World");
     _is_create_GameScene = false;
     _pFont16_Debug = NULL;
-
+    _pFont16_Wait = NULL;
     //【めも】
     //ここでActorやSceneのNEWをはしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。
@@ -20,7 +20,12 @@ void World::initialize() {
     _TRACE_("World::initialize()");
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
     getLordActor()->addSubGroup(_pStringBoard01);
-    _pStringBoard01->update(0,50*1000,"WATE A MOMENT PLASE...");
+    _pStringBoard01->update(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2), Pix2App(100),
+                            "WATE A MOMENT PLASE...", ALIGN_CENTER);
+    _pFont16_Wait = NEW LabelGecchi16Font("*");
+    getLordActor()->addSubGroup(_pFont16_Wait);
+    _pFont16_Wait->update(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT);
+    _pFont16_Wait->_pFader->beat(60,30,10,-1);
 #ifdef MY_DEBUG
     ColliAABActor::get();   //当たり判定領域表示用直方体、プリロード
     ColliAAPrismActor::get();   //当たり判定領域表示用直方体、プリロード
@@ -51,12 +56,16 @@ void World::initialize() {
 }
 
 void World::processBehavior() {
+
+
     if (_is_create_GameScene) {
         //GameScene作成完了
         VB->update(); //入力情報更新
+#ifdef MY_DEBUG
         if (P_GOD->_sync_frame_time) {
             _TEXT_("z");
         }
+#endif
         if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
             //TODO:終了処理
         }
@@ -69,6 +78,10 @@ void World::processBehavior() {
             addSubLast(_pGameScene);
             _is_create_GameScene = true;
             _pStringBoard01->end();
+            _pFont16_Wait->end();
+        } else {
+            //待ちぼうけ
+            _pFont16_Wait->_pFader->behave();
         }
     }
 

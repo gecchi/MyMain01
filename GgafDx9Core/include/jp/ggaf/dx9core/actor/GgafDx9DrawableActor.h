@@ -26,6 +26,7 @@ private:
     /** エフェクト資源接続 */
     GgafDx9EffectConnection* _pEffectCon;
 
+
     /**
      * draw()の使用禁止 .
      * 世界(GgafDx9Universe)が全ての描画を行う仕組みになりました。
@@ -61,6 +62,8 @@ public:
     int _now_drawdepth;
     /** [r]特別な固定描画深度、-1でなければ _now_drawdepth より優先でこの深度が適用される */
     int _specal_drawdepth;
+
+    GgafDx9AlphaFader* _pFader;
 
     /**
      * コンストラクタ .

@@ -60,9 +60,9 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
     }
 
     //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
-    _fX = cnvCoordApp2Dx(_X);
-    _fY = cnvCoordApp2Dx(_Y);
-    _fZ = cnvCoordApp2Dx(_Z);
+    _fX = App2Dx(_X);
+    _fY = App2Dx(_Y);
+    _fZ = App2Dx(_Z);
     //World変換行列（_matWorld）を更新
     if (_pFunc_calcRotMvWorldMatrix) {
         (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
@@ -103,9 +103,9 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
         D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //合成
         changeGeoFinal();
         //ワールド変換行列から飛行移動を取り出し最終的な座標とする
-        _X = cnvCoordDx2App(_matWorld._41);
-        _Y = cnvCoordDx2App(_matWorld._42);
-        _Z = cnvCoordDx2App(_matWorld._43);
+        _X = Dx2App(_matWorld._41);
+        _Y = Dx2App(_matWorld._42);
+        _Z = Dx2App(_matWorld._43);
         _fX = _matWorld._41;
         _fY = _matWorld._42;
         _fZ = _matWorld._43;
@@ -130,9 +130,9 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
         //メンバー更新
         GgafDx9Camera* pCam = P_CAM;
         //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
-    //        _fX = cnvCoordApp2Dx(_X);
-    //        _fY = cnvCoordApp2Dx(_Y);
-    //        _fZ = cnvCoordApp2Dx(_Z);
+    //        _fX = App2Dx(_X);
+    //        _fY = App2Dx(_Y);
+    //        _fZ = App2Dx(_Z);
         //視錐台
         _fDist_VpPlnTop    = pCam->_plnTop.a*_fX +
                              pCam->_plnTop.b*_fY +

@@ -3,13 +3,14 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9Colorist::GgafDx9Colorist(GgafDx9GeometricActor* prm_pActor) :
+GgafDx9Colorist::GgafDx9Colorist(GgafDx9DrawableActor* prm_pActor) :
     GgafObject() {
     _pActor = prm_pActor;
 
     for (int c = 0; c < 4; c++) {
         _color[c] = LEN_UNIT;
         _velo_color[c] = 0;
+        _acce_color[c] = 0;
         _target_color[c] = LEN_UNIT;
         _top_color[c] = INT_MAX;
         _bottom_color[c] = 1;
@@ -43,7 +44,7 @@ void GgafDx9Colorist::behave() {
                 _color[c] = _target_color[c];
                 _method[c] = NOCOLOR;
             }
-        } if (_method[c] == TARGET_COLOR_ACCELERATION) {
+        } else if (_method[c] == TARGET_COLOR_ACCELERATION) {
             _color[c] += _velo_color[c];
             //if (_velo_color[c] > 0 && _target_color[c] <= _color[c]) {
             if (_acce_color[c] > 0 && _target_color[c] <= _color[c]) {
@@ -107,23 +108,9 @@ void GgafDx9Colorist::behave() {
         }
     }
     //Actor‚É”½‰f
-    _pActor->_SX = _color[AXIS_X];
-    _pActor->_SY = _color[AXIS_Y];
-    _pActor->_SZ = _color[AXIS_Z];
+    _pActor->setMaterialColor(_color[0]/1000.0, _color[1]/1000.0, _color[2]/1000.0);
+    _pActor->setAlpha(_color[4]/1000.0);
 }
-
-//‚¢‚Â‚©‚Ü‚½Žg‚¤‚Å‚µ‚å‚¤
-//            _TRACE_("---ŽÀs‘O");
-//            _TRACE_("_pActor->_frame_of_behaving="<<_pActor->_frame_of_behaving);
-//            _TRACE_("_bottom_color["<<c<<"]="<<_bottom_color[c]);
-//            _TRACE_("_top_color["<<c<<"]="<<_top_color[c]);
-//            _TRACE_("_beat_target_frames["<<c<<"]="<<_beat_target_frames[c]);
-//            _TRACE_("_beat_attack_frames["<<c<<"]="<<_beat_attack_frames[c]);
-//            _TRACE_("_beat_rest_frames["<<c<<"]="<<_beat_rest_frames[c]);
-//            _TRACE_("_beat_target_frames["<<c<<"] - _beat_attack_frames["<<c<<"] - _beat_rest_frames["<<c<<"]) = " << (_beat_target_frames[c] - _beat_attack_frames[c] - _beat_rest_frames[c]));
-//            _TRACE_("(_bottom_color["<<c<<"] - _top_color["<<c<<"]) / (_beat_target_frames["<<c<<"] - _beat_attack_frames["<<c<<"] - _beat_rest_frames["<<c<<"])="<<((int)(_bottom_color[c] - _top_color[c]) / (int)(_beat_target_frames[c] - _beat_attack_frames[c] - _beat_rest_frames[c])));
-//            _TRACE_("_bottom_color["<<c<<"] - _top_color["<<c<<"]" << (_bottom_color[c] - _top_color[c]));
-//            _TRACE_("_color["<<c<<"] _velo_color["<<c<<"]="<<_color[c]<<" "<<_velo_color[c]);
 
 void GgafDx9Colorist::intoTargetColorLinerUntil(int prm_target_color, frame prm_spend_frame) {
     for (int c = 0; c < 4; c++) {

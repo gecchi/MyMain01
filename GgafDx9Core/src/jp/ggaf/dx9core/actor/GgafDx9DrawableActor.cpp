@@ -42,6 +42,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _fAlpha = 1.0f;
+    _pFader = NEW GgafDx9AlphaFader(this);
     //Å‘å‹——£’¸“_
     _radius_bounding_sphere = _pModel->_radius_bounding_sphere;
     _now_drawdepth = 0;
@@ -104,7 +105,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _fAlpha = 1.0f;
-
+    _pFader = NEW GgafDx9AlphaFader(this);
     //Å‘å‹——£’¸“_
     _radius_bounding_sphere = _pModel->_radius_bounding_sphere;
 
@@ -281,9 +282,11 @@ void GgafDx9DrawableActor::resetMaterialColor() {
 
 
 GgafDx9DrawableActor::~GgafDx9DrawableActor() {
+    DELETEARR_IMPOSSIBLE_NULL(_pFader);
     DELETEARR_IMPOSSIBLE_NULL(_technique);
     DELETEARR_IMPOSSIBLE_NULL(_temp_technique);
     DELETEARR_IMPOSSIBLE_NULL(_paMaterial);
+
     _pEffectCon->close();
     _pModelCon->close();
 }

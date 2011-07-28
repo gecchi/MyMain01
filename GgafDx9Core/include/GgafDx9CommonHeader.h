@@ -150,12 +150,12 @@ typedef int scale;
 
 
 
-#define cnvCoordApp2Dx(X)  ((dxcoord)(1.0f * (X) / LEN_UNIT / PX_UNIT))
-#define cnvCoordDx2App(X)  ((coord)((X) * LEN_UNIT * PX_UNIT))
-#define cnvCoordDx2Pix(X)  ((X) * PX_UNIT)
-#define cnvCoordPix2Dx(X)  (1.0f * (X) / PX_UNIT)
-#define cnvCoordApp2Pix(X) (1.0f * (X) / LEN_UNIT)
-#define cnvCoordPix2App(X) ((X) * LEN_UNIT)
+#define App2Dx(X)  ((dxcoord)(1.0f * (X) / LEN_UNIT / PX_UNIT))
+#define Dx2App(X)  ((coord)((X) * LEN_UNIT * PX_UNIT))
+#define Dx2Pix(X)  ((X) * PX_UNIT)
+#define Pix2Dx(X)  (1.0f * (X) / PX_UNIT)
+#define App2Pix(X) (1.0f * (X) / LEN_UNIT)
+#define Pix2App(X) ((X) * LEN_UNIT)
 
 
 #define cnvScaleApp2Rate(X) (1.0f * (X) / LEN_UNIT)
@@ -201,6 +201,19 @@ enum GgafDx9ColoringMethod {
     BEAT_COLOR_PARABOLA_REV    //!< TODO:–¢ŽÀ‘•
 };
 
+enum GgafDx9AlphaFadingMethod {
+    NO_ALPHAFADE,
+    TARGET_ALPHAFADE_LINER,
+    BEAT_ALPHAFADE_LINER,
+    BEAT_ALPHAFADE_TRIANGLEWAVE,
+    TARGET_ALPHAFADE_SIN,          //!< TODO:–¢ŽÀ‘•
+    BEAT_ALPHAFADE_SIN,            //!< TODO:–¢ŽÀ‘•
+    TARGET_ALPHAFADE_ACCELERATION,
+    BEAT_ALPHAFADE_PARABOLA,       //!< TODO:–¢ŽÀ‘•
+    TARGET_ALPHAFADE_PARABOLA_REV, //!< TODO:–¢ŽÀ‘•
+    BEAT_ALPHAFADE_PARABOLA_REV    //!< TODO:–¢ŽÀ‘•
+};
+
 enum GgafDx9MorphingMethod {
     NOMORPH,
     TARGET_MORPH_LINER,
@@ -236,6 +249,13 @@ enum GgafDx9PuppeteerMethod {
 enum GgafDx9PuppeteerStick {
     LEFT_HAND  = 0,
     RIGHT_HAND = 1
+};
+
+
+enum GgafDx9StringAlign {
+    ALIGN_LEFT,
+    ALIGN_CENTER,
+    ALIGN_RIGHT,
 };
 
 
@@ -374,6 +394,7 @@ class GgafDx9KurokoA;
 class GgafDx9KurokoB;
 class GgafDx9Checker;
 class GgafDx9Scaler;
+class GgafDx9AlphaFader;
 class GgafDx9Colorist;
 class GgafDx9Morpher;
 class GgafDx9SeTransmitter;
@@ -499,6 +520,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9KurokoB.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Checker.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Scaler.h"
+#include "jp/ggaf/dx9core/actor/supporter/GgafDx9AlphaFader.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Colorist.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9Morpher.h"
 #include "jp/ggaf/dx9core/actor/supporter/GgafDx9SeTransmitter.h"

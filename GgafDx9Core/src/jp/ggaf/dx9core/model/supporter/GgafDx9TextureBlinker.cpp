@@ -42,7 +42,7 @@ void GgafDx9TextureBlinker::behave() {
             _power_blink = _target_power_blink;
             _method = NOBLINK;
         }
-    } if (_method == TARGET_BLINK_ACCELERATION) {
+    } else if (_method == TARGET_BLINK_ACCELERATION) {
         _power_blink += _velo_power_blink;
         if (_velo_power_blink > 0.0f && _target_power_blink <= _power_blink) {
             _power_blink = _target_power_blink;

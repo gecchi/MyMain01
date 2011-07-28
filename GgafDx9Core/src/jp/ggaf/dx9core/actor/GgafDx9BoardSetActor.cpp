@@ -54,11 +54,11 @@ void GgafDx9BoardSetActor::processDraw() {
             if (pDrawActor->_pModel == _pBoardSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pBoardSetActor = (GgafDx9BoardSetActor*)pDrawActor;
 
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[_draw_set_num], float(cnvCoordApp2Pix(_X)));
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[_draw_set_num], float(App2Pix(_X)));
                 checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[_draw_set_num], float(cnvCoordApp2Pix(_Y)));
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[_draw_set_num], float(App2Pix(_Y)));
                 checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[_draw_set_num], float(cnvCoordApp2Pix(_Z)));
+                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[_draw_set_num], float(App2Pix(_Z)));
                 checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[_draw_set_num], pDrawActor->_fAlpha);
                 checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahAlpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

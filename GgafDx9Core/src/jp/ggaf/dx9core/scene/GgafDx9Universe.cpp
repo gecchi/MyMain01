@@ -51,7 +51,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name, GgafDx9Camera* prm_pCamer
     _pActor_DrawActive = NULL;
 
     //ƒJƒƒ‰‚ÌŽÊ‚·”ÍˆÍB
-    coord F = cnvCoordDx2App(_pCamera->_zf);
+    coord F = Dx2App(_pCamera->_zf);
     _X_goneRight  = +F;
     _X_goneLeft   = -F;
     _Y_goneTop    = +F;

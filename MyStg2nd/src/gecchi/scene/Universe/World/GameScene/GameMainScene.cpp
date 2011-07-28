@@ -32,7 +32,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pFont8_JIKI_Y = NEW LabelGecchi8Font("JIKI_Y");
     _pFont8_JIKI_Z = NEW LabelGecchi8Font("JIKI_Z");
     _pFont8_JIKI_X->locate(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1)*1000);
-    _pFont8_JIKI_Y->locate(cnvCoordPix2App(1), cnvCoordPix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1));
+    _pFont8_JIKI_Y->locate(Pix2App(1), Pix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1));
     _pFont8_JIKI_Z->locate(1*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1)*1000);
     getLordActor()->addSubGroup(_pFont8_JIKI_X);
     getLordActor()->addSubGroup(_pFont8_JIKI_Y);

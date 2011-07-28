@@ -45,9 +45,11 @@ public:
     int _remainder_len;
 
     /** [r/w]各文字間隔(px) */
-    int _aWidthPx[256];
+    pixcoord _aWidthPx[256];
     /** [r/w]ベースの１文字幅(px) */
-    int _chr_width_px;
+    pixcoord _chr_width_px;
+    GgafDx9StringAlign _align;
+    coord _X_offset_align;
 
     /**
      * コンストラクタ .
@@ -77,7 +79,7 @@ public:
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param prm_str 描画文字列
      */
-    virtual void update(coord X, coord Y, const char* prm_str);
+    virtual void update(coord X, coord Y, const char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT);
 
     /**
      * 描画文字を更新設定  .
@@ -85,16 +87,7 @@ public:
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param prm_str 描画文字列
      */
-    virtual void update(coord X, coord Y, char* prm_str);
-
-    /**
-     * 描画文字を更新設定  .
-     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param Z プライオリティ(値が小さい方が手前)
-     * @param prm_str 描画文字列
-     */
-    virtual void update(coord X, coord Y, coord Z, const char* prm_str);
+    virtual void update(coord X, coord Y, char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT);
 
     /**
      * 描画文字を更新設定  .
@@ -103,19 +96,28 @@ public:
      * @param Z プライオリティ(値が小さい方が手前)
      * @param prm_str 描画文字列
      */
-    virtual void update(coord X, coord Y, coord Z, char* prm_str);
+    virtual void update(coord X, coord Y, coord Z, const char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT);
+
+    /**
+     * 描画文字を更新設定  .
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Z プライオリティ(値が小さい方が手前)
+     * @param prm_str 描画文字列
+     */
+    virtual void update(coord X, coord Y, coord Z, char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT);
 
     /**
      * 描画文字を更新設定  .
      * @param prm_str 描画文字列
      */
-    virtual void update(const char* prm_str);
+    virtual void update(const char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT);
 
     /**
      * 描画文字を更新設定  .
      * @param prm_str 描画文字列
      */
-    virtual void update(char* prm_str);
+    virtual void update(char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT);
 
 
 
