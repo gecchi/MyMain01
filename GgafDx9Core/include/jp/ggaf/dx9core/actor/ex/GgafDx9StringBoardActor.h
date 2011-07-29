@@ -32,6 +32,10 @@ namespace GgafDx9Core {
  * @author Masatoshi Tsuge
  */
 class GgafDx9StringBoardActor : public GgafDx9BoardSetActor {
+
+
+    virtual void processSettlementBehavior() override;
+
 public:
     /** [r]•`‰æ•¶Žš—ñ */
     char* _draw_string;
@@ -123,8 +127,6 @@ public:
 
 
 
-
-    virtual void processSettlementBehavior() override;
 
     virtual ~GgafDx9StringBoardActor();
 

@@ -61,7 +61,7 @@ void GamePreTitleScene::processBehavior() {
             } else if (_pProg->getFrameInProgress() > 600) {
                 //タイトルが下からニューっと
                 _pTitleBoard->_Y -= 2*LEN_UNIT;
-                if (_pTitleBoard->_Y <= 150*LEN_UNIT) {
+                if (_pTitleBoard->_Y <= 100*LEN_UNIT) {
                     _pProg->change(GAMEPRETITLESCENE_PROG_FINISH);
                 }
             }

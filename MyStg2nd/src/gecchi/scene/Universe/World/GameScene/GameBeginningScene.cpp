@@ -66,9 +66,9 @@ void GameBeginningScene::processBehavior() {
                 throwEventToUpperTree(EVENT_GAMEMODE_DECIDE);
             }
             if (_pProg->getFrameInProgress() % 10 < 5 ) {
-                _pStringBoard02->update(400*1000, 500*1000, "OK OK OK");
+                _pStringBoard02->update(400*1000, 400*1000, "OK OK OK");
             } else {
-                _pStringBoard02->update(400*1000, 500*1000, "");
+                _pStringBoard02->update(400*1000, 400*1000, "");
             }
             if (_pProg->getFrameInProgress() == FADE_FRAMES) {
                 _pProg->change(GAMEBEGINNINGSCENE_PROG_FINISH);
