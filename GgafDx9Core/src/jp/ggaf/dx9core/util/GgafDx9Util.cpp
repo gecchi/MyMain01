@@ -455,6 +455,15 @@ void GgafDx9Util::getRzRyAng(coord vx,
                              coord vz,
                              angle& out_angRZ,
                              angle& out_angRY ) {
+
+    if (vz == 0) {
+        out_angRZ = getAngle2D(vx, vy);
+        out_angRY = 0;
+        return;
+    }
+
+
+
     //何れかの要素が0の場合、getAngle2Dの結果が大きくずれてしまう。
     //とりあえず１を設定して近似させておこう。
     //TODO:0 が来ても大丈夫にする。
@@ -556,11 +565,10 @@ void GgafDx9Util::getNormalizeVector(coord x,
                                      float& out_nvx,
                                      float& out_nvy,
                                      float& out_nvz) {
-    static float vx, vy, vz, t;
-    vx = ((float)x) / LEN_UNIT;
-    vy = ((float)y) / LEN_UNIT;
-    vz = ((float)z) / LEN_UNIT;
-    t = 1 / sqrt_fast(vx * vx + vy * vy + vz * vz);
+    float vx = App2Dx(x);
+    float vy = App2Dx(y);
+    float vz = App2Dx(z);
+    float t = 1.0 / sqrt_fast(vx * vx + vy * vy + vz * vz);
     out_nvx = t * vx;
     out_nvy = t * vy;
     out_nvz = t * vz;

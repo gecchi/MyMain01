@@ -102,6 +102,13 @@ public:
 
     virtual ~GgafDx9BoardSetActor(); //デストラクタ
 
+    virtual void locateAs(GgafDx9GeometricActor* prm_pActor) override {
+        _X = prm_pActor->_X;
+        _Y = prm_pActor->_Y;
+    }
+
+    virtual void locateAs(GgafDx9GeoElem* prm_pGeoElem) override;
+
 };
 
 }

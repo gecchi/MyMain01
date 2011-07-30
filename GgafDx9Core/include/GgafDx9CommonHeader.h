@@ -126,7 +126,7 @@ class OggVorbisMemory;
 
 
 
-class CmRandomNumberGenerator;
+//class CmRandomNumberGenerator;
 /** 座標 (目安：10.0 dxcoord = 1 pixcoord = 1000 coord)  */
 typedef int coord;
 /** 速度 (座標に毎フレーム加算される座標差分) */

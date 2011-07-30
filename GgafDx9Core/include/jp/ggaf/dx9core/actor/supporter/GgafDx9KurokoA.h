@@ -596,7 +596,7 @@ public: //_X , _Y, _Z ëÄçÏä÷òA //////////////////////////////////////////////
      * @param prm_tZ
      */
     void setMvAng(coord prm_tX, coord prm_tY, coord prm_tZ);
-
+    void setMvAng(coord prm_tX, coord prm_tY);
     void setMvAng(GgafDx9GeometricActor* prm_pActor_Target);
 
     void setStopTarget_RzRyMvAng(coord prm_tX, coord prm_tY, coord prm_tZ);

@@ -130,10 +130,11 @@ void GgafDx9DrawableActor::processPreDraw() {
     //TODO:要検証
     if (isActiveActor()) {
         if (_is2DActor) {
-            _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(
-                                (int)((1.0*_Z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),
-                                this
-                             );
+//            _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(
+//                                (int)((1.0*_Z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),
+//                                this
+//                             );
+            _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(_Z, this); //2Dは_Zはプライオリティに使用。
         } else {
             if (isOutOfView() || _fAlpha <= 0.0f || ((GgafDx9Scene*)getPlatformScene())->_pAlphaCurtain->_alpha <= 0.0f) {
                 //描画しないので登録なし

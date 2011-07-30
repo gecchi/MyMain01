@@ -119,8 +119,6 @@ using namespace GgafDx9Core;
 GgafDx9KurokoA::GgafDx9KurokoA(GgafDx9GeometricActor* prm_pActor) :
     GgafObject() {
     _pActor = prm_pActor;
-
-
     for (int i = 0; i < 3; i++) { // i=0:XŽ²A1:YŽ²A2:ZŽ² ‚ð•\‚·
 
         //³–Ê•ûŠp
@@ -1526,7 +1524,9 @@ void GgafDx9KurokoA::setMvAng(GgafDx9GeometricActor* prm_pActor_Target) {
         prm_pActor_Target->_Z
     );
 }
-
+void GgafDx9KurokoA::setMvAng(coord prm_tX, coord prm_tY) {
+    setMvAng(prm_tX, prm_tY, _pActor->_Z);
+}
 void GgafDx9KurokoA::setMvAng(coord prm_tX, coord prm_tY, coord prm_tZ) {
     GgafDx9Util::getRzRyAng(
                    prm_tX - _pActor->_X,

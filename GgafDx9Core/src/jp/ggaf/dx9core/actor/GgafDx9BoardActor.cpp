@@ -48,6 +48,10 @@ void GgafDx9BoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_sy) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pBoardModel->draw(this);
 }
+void GgafDx9BoardActor::locateAs(GgafDx9GeoElem* prm_pGeoElem) {
+    _X = prm_pGeoElem->_X;
+    _Y = prm_pGeoElem->_Y;
+}
 
 GgafDx9BoardActor::~GgafDx9BoardActor() {
     DELETE_IMPOSSIBLE_NULL(_pUvFlipper);

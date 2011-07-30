@@ -290,12 +290,6 @@ bool GgafDx9GeometricActor::isOutOfUniverse() {
     return true;
 }
 
-void GgafDx9GeometricActor::locateAs(GgafDx9GeometricActor* prm_pActor) {
-    _X = prm_pActor->_X;
-    _Y = prm_pActor->_Y;
-    _Z = prm_pActor->_Z;
-}
-
 void GgafDx9GeometricActor::locateAs(GgafDx9GeoElem* prm_pGeoElem) {
     _X = prm_pGeoElem->_X;
     _Y = prm_pGeoElem->_Y;

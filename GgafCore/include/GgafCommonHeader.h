@@ -342,7 +342,7 @@ class GgafCriticalException;
 class GgafLogger;
 class GgafGod;
 
-//class CmRandomNumberGenerator;
+class CmRandomNumberGenerator;
 
 template<class T>
 class GgafResourceConnection;

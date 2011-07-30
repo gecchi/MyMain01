@@ -57,7 +57,7 @@ void GameTitleScene::onReset() {
     _TRACE_("GameTitleScene::onReset()");
     _pStringBoard01->update("");
     _pStringBoard02->update("");
-    _pTitleBoard->locate(200000, 150000);
+    _pTitleBoard->locate(200000, 100000);
     _pProg->set(GAMETITLESCENE_PROG_INIT);
 //    fadeinScene(0);
 }
@@ -86,7 +86,7 @@ void GameTitleScene::processBehavior() {
 
         case GAMETITLESCENE_PROG_TITLE: {
             if (_pProg->isJustChanged()) {
-                _pStringBoard02->update(400*1000, 500*1000, "PUSH UI_EXECUTE TO BEGIN!");
+                _pStringBoard02->update(400*1000, 400*1000, "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 _pSeCon_exec->refer()->play();
@@ -149,9 +149,9 @@ void GameTitleScene::processBehavior() {
             }
             //“_–Å
             if (_pProg->getFrameInProgress() % 10 < 5 ) {
-                _pStringBoard02->update(400*1000, 500*1000, "READY GO!");
+                _pStringBoard02->update(800*1000, 400*1000, "READY GO!");
             } else {
-                _pStringBoard02->update(400*1000, 500*1000, "");
+                _pStringBoard02->update(800*1000, 400*1000, "");
             }
             break;
         }

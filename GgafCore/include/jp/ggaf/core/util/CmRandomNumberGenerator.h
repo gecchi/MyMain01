@@ -69,7 +69,7 @@
 
 #ifndef _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_
 #define _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_
-
+namespace GgafCore {
 //#include <stdio.h>
 
 //!< Period Parameter for Mersenne Twister
@@ -146,4 +146,5 @@ private:
     static int mti; //!< mti==__N__+1 means mt[__N__] is not initialized
 };
 
+}
 #endif // _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_

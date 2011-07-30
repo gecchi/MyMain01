@@ -12,6 +12,7 @@ namespace MyStg2nd {
 class Shot004 : public GgafDx9LibStg::SingleLaser {
 public:
 
+    bool _view_in;
     Shot004(const char* prm_name);
 
 

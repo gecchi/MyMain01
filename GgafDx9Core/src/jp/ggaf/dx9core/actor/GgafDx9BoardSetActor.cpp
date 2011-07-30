@@ -86,6 +86,10 @@ void GgafDx9BoardSetActor::processDraw() {
     _pBoardSetModel->draw(this, _draw_set_num);
 }
 
+void GgafDx9BoardSetActor::locateAs(GgafDx9GeoElem* prm_pGeoElem) {
+    _X = prm_pGeoElem->_X;
+    _Y = prm_pGeoElem->_Y;
+}
 
 GgafDx9BoardSetActor::~GgafDx9BoardSetActor() {
     DELETE_IMPOSSIBLE_NULL(_pUvFlipper);

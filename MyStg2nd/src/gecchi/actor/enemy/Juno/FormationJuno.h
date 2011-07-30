@@ -9,7 +9,7 @@ namespace MyStg2nd {
 class FormationJuno : public GgafDx9Core::GgafDx9FormationActor {
     /** ジュノーストック */
     GgafCore::GgafActorStore* _pStore_EnemyJuno;
-    CmRandomNumberGenerator* _pRndGen;
+	GgafCore::CmRandomNumberGenerator* _pRndGen;
     StoreConnection* _pStoreCon;
 
 public:

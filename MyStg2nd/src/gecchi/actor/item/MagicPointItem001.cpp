@@ -47,7 +47,7 @@ void MagicPointItem001::onReset() {
 void MagicPointItem001::onActive() {
     reset();
     MyShip* pMyShip = P_MYSHIP;
-    CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
+	GgafCore::CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
     //散らばり範囲正方形１辺の長さ
     int scattered_renge    = _pCollisionChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
     //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)

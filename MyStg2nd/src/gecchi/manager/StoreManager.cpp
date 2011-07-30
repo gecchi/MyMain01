@@ -46,7 +46,7 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
     if (GgafUtil::strcmp_ascii("StCon_Shot004", prm_idstr) == 0) {
         pResource = NEW GgafActorStore("DP_Shot004_Stock");
         Shot004* pShot004;
-        for (int i = 0; i < 800; i++) {
+        for (int i = 0; i < 1600; i++) {
             pShot004 = NEW Shot004("Shot004");
             pResource->addSubLast(pShot004);
             if (i % 20 == 0) { Sleep(1); }

@@ -9,6 +9,7 @@ Shot004::Shot004(const char* prm_name) :
         SingleLaser(prm_name, "Shot004") { //SingleLaserは最大27セットである
         //SingleLaser(prm_name, "27/laser_single") { //SingleLaserは最大27セットである
     _class_name = "Shot004";
+    _view_in = false;
     MyStgUtil::resetShot004Status(_pStatus);
 }
 
@@ -28,6 +29,7 @@ void Shot004::onReset() {
 
 void Shot004::onActive() {
     setHitAble(true, false);
+    _view_in = false;
 }
 
 void Shot004::processBehavior() {
@@ -40,6 +42,16 @@ void Shot004::processBehavior() {
 }
 
 void Shot004::processJudgement() {
+    if (isOutOfView()) {
+        if (_view_in) {
+            sayonara();
+        }
+        if (getActivePartFrame() > 60) {
+            sayonara();
+        }
+    } else {
+        _view_in = true;
+    }
     if (isOutOfUniverse()) {
         sayonara();
     }
