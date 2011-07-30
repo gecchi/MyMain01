@@ -26,6 +26,7 @@ void GgafProperties::load(string prm_properties_filename) {
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN1="<<GgafProperties::DRAWNUM_TO_SLOWDOWN1);
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN2="<<GgafProperties::DRAWNUM_TO_SLOWDOWN2);
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN2="<<GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX);
+    write("back.properties", _pMapProperties);
 }
 void GgafProperties::read(string filename, PropertyMapT* pMap)
 {
@@ -169,16 +170,16 @@ void GgafProperties::write(std::ostream &os, PropertyMapT* pMap, const char *hea
 
             switch (ch)
             {
-            case '\\': os << '\\' << '\\'; break;
-            case '\t': os << '\\' << 't';  break;
-            case '\n': os << '\\' << 'n';  break;
-            case '\r': os << '\\' << 'r';  break;
+//            case '\\': os << '\\' << '\\'; break;
+//            case '\t': os << '\\' << 't';  break;
+//            case '\n': os << '\\' << 'n';  break;
+//            case '\r': os << '\\' << 'r';  break;
             default:
-                if (ch < ' ' || ch >= 127 || (empty && ch == ' '))
-                    os << '\\' << 'u'
-                       << m_hex((ch >> 12) & 0x0f) << m_hex((ch >> 8) & 0x0f)
-                       << m_hex((ch >>  4) & 0x0f) << m_hex((ch >> 0) & 0x0f);
-                else
+//                if (ch < ' ' || ch >= 127 || (empty && ch == ' '))
+//                    os << '\\' << 'u'
+//                       << m_hex((ch >> 12) & 0x0f) << m_hex((ch >> 8) & 0x0f)
+//                       << m_hex((ch >>  4) & 0x0f) << m_hex((ch >> 0) & 0x0f);
+//                else
                     os << ch;
             }
 
