@@ -43,8 +43,6 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _pCursor001->inactivateImmediately();
     getLordActor()->addSubGroup(_pCursor001);
 
-    LabelGecchi16Font("STR02");
-
     _pSeCon_exec = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection("yume_Sbend");
 
     _pBgmPerformer->useBgm(1);

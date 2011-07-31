@@ -25,7 +25,7 @@ void GgafProperties::load(string prm_properties_filename) {
     _TRACE_("GgafProperties::MAX_SKIP_FRAME="<<GgafProperties::MAX_SKIP_FRAME);
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN1="<<GgafProperties::DRAWNUM_TO_SLOWDOWN1);
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN2="<<GgafProperties::DRAWNUM_TO_SLOWDOWN2);
-    _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN2="<<GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX);
+    _TRACE_("GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX="<<GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX);
     write("back.properties", _pMapProperties);
 }
 void GgafProperties::read(string filename, PropertyMapT* pMap)
@@ -156,7 +156,7 @@ void GgafProperties::write(std::ostream &os, PropertyMapT* pMap, const char *hea
     os << '#';
     os << " <date> " << std::endl;
 
-    for (iterator it = pMap->begin(), end = pMap->end(); it != end; ++it)
+    for (iteratorP it = pMap->begin(), end = pMap->end(); it != end; ++it)
     {
         const std::string &key = (*it).first,
                           &val = (*it).second;
@@ -191,7 +191,7 @@ void GgafProperties::write(std::ostream &os, PropertyMapT* pMap, const char *hea
 
 void GgafProperties::print(std::ostream &os, PropertyMapT* pMap)
 {
-    iterator it = pMap->begin(), end = pMap->end();
+    iteratorP it = pMap->begin(), end = pMap->end();
     for (; it != end; ++it)
         os << (*it).first << "=" << (*it).second << std::endl;
 }
@@ -360,7 +360,8 @@ GgafRgb GgafProperties::getRGB(std::string prm_key) {
 
 
 bool GgafProperties::isExistKey(string prm_key) {
-    _MAP_<string, string>::iterator itr;
+    //_MAP_<string, string>::iterator
+    iteratorP itr;
     itr = _pMapProperties->find(prm_key);
     if (itr != _pMapProperties->end()) {
         return true;

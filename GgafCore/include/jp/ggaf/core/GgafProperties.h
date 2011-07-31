@@ -37,7 +37,7 @@ public:
 
     typedef std::map<std::string, std::string> PropertyMapT;
     typedef PropertyMapT::value_type           value_type;
-    typedef PropertyMapT::iterator             iterator;
+    typedef PropertyMapT::iterator             iteratorP;
 
 
 
