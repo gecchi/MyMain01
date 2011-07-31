@@ -18,11 +18,13 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 
 void World::initialize() {
     _TRACE_("World::initialize()");
-    _pStringBoard01 = NEW LabelGecchi16Font("STR01");
+    orderActorToFactory(0, LabelGecchi16Font, "STR01");
+    _pStringBoard01 = (LabelGecchi16Font*)obtainActorFromFactory(0);
     getLordActor()->addSubGroup(_pStringBoard01);
     _pStringBoard01->update(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2), Pix2App(100),
                             "WATE A MOMENT PLASE...", ALIGN_CENTER);
-    _pFont16_Wait = NEW LabelGecchi16Font("*");
+    orderActorToFactory(0, LabelGecchi16Font, "ASTER");
+    _pFont16_Wait = (LabelGecchi16Font*)obtainActorFromFactory(0);
     getLordActor()->addSubGroup(_pFont16_Wait);
     _pFont16_Wait->update(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT);
     _pFont16_Wait->_pFader->beat(60,30,10,-1);

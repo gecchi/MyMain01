@@ -283,7 +283,7 @@ void GgafDx9DrawableActor::resetMaterialColor() {
 
 
 GgafDx9DrawableActor::~GgafDx9DrawableActor() {
-    DELETEARR_IMPOSSIBLE_NULL(_pFader);
+    DELETE_IMPOSSIBLE_NULL(_pFader);
     DELETEARR_IMPOSSIBLE_NULL(_technique);
     DELETEARR_IMPOSSIBLE_NULL(_temp_technique);
     DELETEARR_IMPOSSIBLE_NULL(_paMaterial);
