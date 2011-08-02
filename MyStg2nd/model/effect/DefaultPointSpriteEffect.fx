@@ -89,6 +89,7 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
                                     //距離に加える。
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;
+    //psizeは画面上のポイント スプライトの幅 (ピクセル単位) 
 
 	//スペキュラセマンテックス(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
 	int ptnno = prm_ptn_no.x + g_UvFlipPtnNo;

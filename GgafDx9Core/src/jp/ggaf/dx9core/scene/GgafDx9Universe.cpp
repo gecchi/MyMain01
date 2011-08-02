@@ -127,7 +127,7 @@ void GgafDx9Universe::draw() {
                 throwGgafCriticalException("GgafDx9Universe::draw() err1. _pActor_DrawActive["<<(_pActor_DrawActive->getName())<<"->getPlatformScene()["<<(_pActor_DrawActive->getPlatformScene()->getName())<<"]‚ªAGgafDx9Scene ‚É•ÏŠ·•s‰Â‚Å‚·Bthis="<<getName());
             }
 #endif
-        pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
+        pScene = (GgafDx9Scene*)(_pActor_DrawActive->getPlatformScene());
         _pActor_DrawActive->_pEffect->_pID3DXEffect->SetFloat(
                 _pActor_DrawActive->_pEffect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha
         );

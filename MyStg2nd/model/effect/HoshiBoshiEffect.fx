@@ -184,14 +184,16 @@ float w_zf = g_zf * g_far_rate;
 
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 
-    if (out_vs.pos.z > 1.0) {   //描画ささえるため、視野無
-        out_vs.pos.z = 1.0;
+    if (out_vs.pos.z > 1.0) {   
+        out_vs.pos.z = 1.0; //視野外のZ座標でも、描画を強制するため1.0以内に上書き、
     }
 
 	//奥ほど小さく表示するために縮小率計算
-    out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;  //通常の奥行きの縮小率
-    if (out_vs.psize < 2.0) {
-out_vs.psize = 2.0;
+    out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_dist_CamZ_default / dep) * prm_psize_rate;  //prm_psize_rate=Xファイルの、通常時縮小率
+    //psizeは画面上のポイント スプライトの幅 (ピクセル単位) 
+    if (out_vs.psize < 2.5) {
+        //2.5pix x 2.5pix より小さい場合、描画を強制するため2.5x2.5を維持。
+        out_vs.psize = 2.5;
     }
 //out_vs.psize = (g_TexSize / g_TextureSplitRowcol);
 
@@ -224,7 +226,7 @@ color.a = 1.0;
 	uv.x = prm_uv_pointsprite.x / g_TextureSplitRowcol + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y / g_TextureSplitRowcol + prm_uv_ps.y;
 	float4 out_color = tex2D( MyTextureSampler, uv)*color;// * prm_color; // * g_colMaterialDiffuse;
-//	out_color.a = out_color.a * g_alpha_master; 
+	out_color.a = out_color.a * g_alpha_master; 
 	return out_color;
 }
 

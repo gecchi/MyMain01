@@ -278,7 +278,8 @@ OUT_VS GgafDx9VS_LaserChip(
 	}
 	//αフォグ
     float c = 1.25-(((out_vs.pos.z)/g_zf)*2);
-	out_vs.color = (c < 0.5  ? 0.5 : c);
+	out_vs.color = (c < 0.2  ? 0.2 : c);
+    out_vs.color.a = out_vs.color.a*g_alpha_master;
 //	out_vs.color = c < 0.2  ? 2.0 : c;//1.0-((out_vs.pos.z/g_zf)*2) ;//float4((out_vs.pos.z/g_zf), (out_vs.pos.z/g_zf), (out_vs.pos.z/g_zf), 1.0-(out_vs.pos.z/g_zf));
 //    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
 //        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);

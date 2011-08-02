@@ -326,7 +326,7 @@ float4 GgafDx9PS_WorldBound(
 //        s = pow( max(0.0f, dot(prm_normal, vecHarf)), g_specular ) * g_specular_power;
 //    }
 
-    float4 out_color = colTexCube; //(colTex2D * prm_color) + (colTexCube*0.2); // + s;
+    float4 out_color = (colTexCube * prm_color);// colTexCube; //(colTex2D * prm_color) + (colTexCube*0.2); // + s;
 //    //Blinker‚ðl—¶
 	if (colTexCube.r >= g_tex_blink_threshold || colTexCube.g >= g_tex_blink_threshold || colTexCube.b >= g_tex_blink_threshold) {
 		out_color *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);

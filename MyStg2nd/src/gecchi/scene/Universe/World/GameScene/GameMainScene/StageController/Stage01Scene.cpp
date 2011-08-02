@@ -46,7 +46,7 @@ void Stage01Scene::processBehavior() {
                 _pWorldBoundSpace->activateTree();    //”wŒiON
                 _pHoshiBoshi->activateTree();    //”wŒiON
                 _pScene_Stage01Controller->activate();
-                fadeinSceneTree(240);
+                fadeinSceneTree(360);
                 _pProg->change(STAGESCENE_PROG_PLAYING);
             }
             break;
