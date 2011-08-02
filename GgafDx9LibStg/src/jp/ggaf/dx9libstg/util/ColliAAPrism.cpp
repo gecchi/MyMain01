@@ -26,8 +26,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             // (_x1,_y2)      (_x2,_y2)
             //        ┌───┐
             //        │＼こち│
-            // x- ←  │　＼ら│  → x+
-            //        │　　＼│
+            // x- ←  │  ＼ら│  → x+
+            //        │    ＼│
             //        └───┘
             // (_x1,_y1)      (_x2,_y1)
             //            ↓ y-
@@ -40,8 +40,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             // (_x1,_y2)      (_x2,_y2)
             //        ┌───┐
             //        │こち／│
-            // x- ←  │ら／　│  → x+
-            //        │／　　│
+            // x- ←  │ら／  │  → x+
+            //        │／    │
             //        └───┘
             // (_x1,_y1)      (_x2,_y1)
             //            ↓ y-
@@ -53,8 +53,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             //            ↑ y+
             // (_x1,_y2)      (_x2,_y2)
             //        ┌───┐
-            //        │　　／│
-            // x- ←  │　／こ│  → x+
+            //        │    ／│
+            // x- ←  │  ／こ│  → x+
             //        │／ちら│
             //        └───┘
             // (_x1,_y1)      (_x2,_y1)
@@ -67,8 +67,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             //            ↑ y+
             // (_x1,_y2)      (_x2,_y2)
             //        ┌───┐
-            //        │＼　　│
-            // x- ←  │こ＼　│  → x+
+            //        │＼    │
+            // x- ←  │こ＼  │  → x+
             //        │ちら＼│
             //        └───┘
             // (_x1,_y1)      (_x2,_y1)
@@ -87,8 +87,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             // (_y1,_z2)      (_y2,_z2)
             //        ┌───┐
             //        │＼こち│
-            // y- ←  │　＼ら│  → y+
-            //        │　　＼│
+            // y- ←  │  ＼ら│  → y+
+            //        │    ＼│
             //        └───┘
             // (_y1,_z1)      (_y2,_z1)
             //            ↓ z-
@@ -101,8 +101,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             // (_y1,_z2)      (_y2,_z2)
             //        ┌───┐
             //        │こち／│
-            // y- ←  │ら／　│  → y+
-            //        │／　　│
+            // y- ←  │ら／  │  → y+
+            //        │／    │
             //        └───┘
             // (_y1,_z1)      (_y2,_z1)
             //            ↓ z-
@@ -114,8 +114,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             //            ↑ z+
             // (_y1,_z2)      (_y2,_z2)
             //        ┌───┐
-            //        │　　／│
-            // y- ←  │　／こ│  → y+
+            //        │    ／│
+            // y- ←  │  ／こ│  → y+
             //        │／ちら│
             //        └───┘
             // (_y1,_z1)      (_y2,_z1)
@@ -128,8 +128,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             //            ↑ z+
             // (_y1,_z2)      (_y2,_z2)
             //        ┌───┐
-            //        │＼　　│
-            // y- ←  │こ＼　│  → y+
+            //        │＼    │
+            // y- ←  │こ＼  │  → y+
             //        │ちら＼│
             //        └───┘
             // (_y1,_z1)      (_y2,_z1)
@@ -146,8 +146,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             // (_z1,_x2)      (_z2,_x2)
             //        ┌───┐
             //        │＼こち│
-            // z- ←  │　＼ら│  → z+
-            //        │　　＼│
+            // z- ←  │  ＼ら│  → z+
+            //        │    ＼│
             //        └───┘
             // (_z1,_x1)      (_z2,_x1)
             //            ↓ x-
@@ -160,8 +160,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             // (_z1,_x2)      (_z2,_x2)
             //        ┌───┐
             //        │こち／│
-            // z- ←  │ら／　│  → z+
-            //        │／　　│
+            // z- ←  │ら／  │  → z+
+            //        │／    │
             //        └───┘
             // (_z1,_x1)      (_z2,_x1)
             //            ↓ x-
@@ -173,8 +173,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             //            ↑ x+
             // (_z1,_x2)      (_z2,_x2)
             //        ┌───┐
-            //        │　　／│
-            // z- ←  │　／こ│  → z+
+            //        │    ／│
+            // z- ←  │  ／こ│  → z+
             //        │／ちら│
             //        └───┘
             // (_z1,_x1)      (_z2,_x1)
@@ -187,8 +187,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             //            ↑ x+
             // (_z1,_x2)      (_z2,_x2)
             //        ┌───┐
-            //        │＼　　│
-            // z- ←  │こ＼　│  → z+
+            //        │＼    │
+            // z- ←  │こ＼  │  → z+
             //        │ちら＼│
             //        └───┘
             // (_z1,_x1)      (_z2,_x1)
@@ -199,12 +199,13 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
             y2_e = _x1;
         }
     } else {
-		//memo WallAAPrismActor の 空new時はプリズム位置 0 にすることとしたので、
-		//以下のエラーはスルーするように変更した。
+        //memo WallAAPrismActor の 空new時はプリズム位置 0 にすることとしたので、
+        //以下のエラーはスルーするように変更した。
+
         //throwGgafCriticalException("ColliAAPrism::set おかしなプリズム位置 _pos_prism="<<_pos_prism)
     }
 
-
+    //当たり判定時に使用する計算用の値を予め求めておく。
     if (x2_e == x1_s) {
         _a = 0;
         _b = 0;
@@ -214,12 +215,10 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
         //プリズム斜辺の境界線の切片
         _b = (x1_s*y2_e - x2_e*y1_s) / (x1_s - x2_e);
     }
-
-
-    //当たり判定時に使用する計算用値 _vIH_x, _vIH_yを求めておく
-
+    //あとで計算が楽になるため、
+    //プリズム斜辺面の法線ベクトルの逆方向のベクトル _vIH_x, _vIH_yを求めておく
     //斜辺ベクトル(x2_e-x1_s, y2_e-y1_s)に90度加えると
-    //斜辺面法線ベクトルとなるようにしてある。
+    //斜辺面の法線ベクトルとなるようにしてある。
     //ここで保持しておきたいのは-90度(+270度)のベクトルである
     angle angIH = GgafDx9Util::simplifyAng(
         GgafDx9Util::getAngle2D(x2_e-x1_s, y2_e-y1_s)

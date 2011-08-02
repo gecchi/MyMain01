@@ -6,6 +6,7 @@ using namespace GgafCore;
 GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
+
 int GgafGod::_num_actor_drawing = 0;
 GgafGod* GgafGod::_pGod = NULL;
 DWORD GgafGod::_aaTime_OffsetOfNextFrame[3][60] = {
@@ -13,7 +14,7 @@ DWORD GgafGod::_aaTime_OffsetOfNextFrame[3][60] = {
         {25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25},
         {33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34}
 };
-bool GgafGod::_can_be = false;
+volatile bool GgafGod::_can_be = false;
 
 GgafGod::GgafGod() : GgafObject(),
   _pUniverse(NULL),

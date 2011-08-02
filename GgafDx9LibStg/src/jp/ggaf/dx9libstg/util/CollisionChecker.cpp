@@ -275,8 +275,10 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOppChecker) {
                     }
                 }  else if (opp_shape_kind == COLLI_AAPRISM) {
                    //＜AAPrism と AAPrism＞
-                   //TODO: 非常に重たくなってしまう、というか考えるだけでめんどくさそうな感じがする；。
+                   //TODO: 考えるだけで重たくなりそう、というかめんどくさそうな感じがする；。
                    //時間があれば考えよう・・・。今は未対応。
+                   throwGgafCriticalException("AAPrism と AAPrismの当たり判定処理が存在します。未だ作ってません。 "<<
+                                              _pActor->getName()<<" vs "<<pOppActor->getName());
                    return false;
                 }
             }

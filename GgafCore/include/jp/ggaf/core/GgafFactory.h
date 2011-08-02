@@ -58,13 +58,13 @@ public:
     static int _cnt_cleaned;
 
     /** [r]活動フラグ(神が操作する) */
-    static bool _is_working_flg;
+    static volatile bool _is_working_flg;
     /** [r]休むフラグ */
-    static bool _have_to_rest_flg;
+    static volatile bool _have_to_rest_flg;
     /** [r]休でいるフラグ */
-    static bool _is_resting_flg;
+    static volatile bool _is_resting_flg;
     /** [r]完全店終い */
-    static bool _was_finished_flg;
+    static volatile bool _was_finished_flg;
 
     /**
      * 工場にアクター作成の注文を行う（メインスレッドが使用） .

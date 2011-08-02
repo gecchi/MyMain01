@@ -116,7 +116,7 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr, void* 
             break;
         case 'C':
             //cubeModel
-            pResourceModel = createD3DXMeshModel("cube", D3DXMESH_SYSTEMMEM);
+            pResourceModel = createD3DXMeshModel(const_cast<char*>("cube"), D3DXMESH_SYSTEMMEM);
             break;
         case 'P':
             //PointSpriteModel

@@ -29,7 +29,11 @@ private:
 
 public:
     /** be() できるかどうか */
-    static bool _can_be;
+    static volatile bool _can_be;
+    /** [r]クリティカルセクション（セマフォ） */
+    static CRITICAL_SECTION CS1;
+    /** [r]クリティカルセクション（セマフォ） */
+    static CRITICAL_SECTION CS2;
     /** be() 中かどうか */
     bool _is_being;
     /** [r]自身 */
@@ -42,10 +46,6 @@ public:
     HANDLE _handleFactory01;
     /** [r]GgafFactory::work スレッドID  */
     unsigned int _thID01;
-    /** [r]クリティカルセクション（セマフォ） */
-    static CRITICAL_SECTION CS1;
-    /** [r]クリティカルセクション（セマフォ） */
-    static CRITICAL_SECTION CS2;
     /** [r]神のフレーム開始システム時間 */
     DWORD _time_at_beginning_frame;
     /** [r]次にこの世を活動させるシステム時間 */

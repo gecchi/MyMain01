@@ -6,11 +6,12 @@ using namespace GgafCore;
 //初期化
 GgafOrder* GgafFactory::ROOT_ORDER = NULL;
 GgafOrder* GgafFactory::CREATING_ORDER = NULL;
-bool GgafFactory::_is_working_flg = true;
-bool GgafFactory::_have_to_rest_flg = false;
-bool GgafFactory::_is_resting_flg = false;
+volatile bool GgafFactory::_is_working_flg = true;
+volatile bool GgafFactory::_have_to_rest_flg = false;
+volatile bool GgafFactory::_is_resting_flg = false;
 
-bool GgafFactory::_was_finished_flg = false;
+
+volatile bool GgafFactory::_was_finished_flg = false;
 int GgafFactory::_cnt_cleaned = 0;
 GgafGarbageBox* GgafFactory::_pGarbageBox = NULL;
 
@@ -31,8 +32,7 @@ void GgafFactory::order(unsigned long prm_id,
                         void* prm_pArg3) {
     TRACE2("GgafFactory::order ＜客＞ 別スレッドの工場さん、[" << prm_id << "]を作っといて～。");
     //既に注文していないかチェック
-    GgafOrder* pOrder;
-    pOrder = ROOT_ORDER;
+    GgafOrder* pOrder = ROOT_ORDER;
     while (pOrder) {
         if (pOrder->_id == prm_id) {
             _TRACE_("＜警告＞ GgafFactory::order [" << prm_id << "]は、既に注文してるのでスルーします。意図していなければオカシイですよ！");

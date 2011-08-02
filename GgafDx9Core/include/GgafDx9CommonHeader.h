@@ -46,7 +46,8 @@
 #define ANGLE_PI (180000)
 #define ANGLE_2PI (360000)
 
-//プリズム位置定数
+
+//プリズム姿勢(位置)定数
 #define POS_PRISM_XY_nn   (0x11) //0b 0010001
 #define POS_PRISM_XY_np   (0x12) //0b 0010010
 #define POS_PRISM_XY_pn   (0x14) //0b 0010100
@@ -60,13 +61,32 @@
 #define POS_PRISM_ZX_pn   (0x44) //0b 1000100
 #define POS_PRISM_ZX_pp   (0x48) //0b 1001000
 
-#define POS_PRISM_nn      (0x1)  //0b 0000001
-#define POS_PRISM_np      (0x2)  //0b 0000010
-#define POS_PRISM_pn      (0x4)  //0b 0000100
-#define POS_PRISM_pp      (0x8)  //0b 0001000
+
+//プリズムは、どの面から向かってスライスされたかを示す
+/** XY平面に垂直にスライスした形である */
 #define POS_PRISM_XY      (0x10) //0b 0010000
+/** YZ平面に垂直にスライスした形である */
 #define POS_PRISM_YZ      (0x20) //0b 0100000
+/** ZX平面に垂直にスライスした形である */
 #define POS_PRISM_ZX      (0x40) //0b 1000000
+
+//スライスで出来るプリズム(４通り)の位置を、
+//直角三角形の直角がある場所に注目し、
+//平面座標の象限(軸座標の正負)で示す。
+//n = negative(負), p = positive(正)
+/** 直角がある場所 は, (負, 負)である */
+#define POS_PRISM_nn      (0x1)  //0b 0000001
+/** 直角がある場所 は, (負, 正)である */
+#define POS_PRISM_np      (0x2)  //0b 0000010
+/** 直角がある場所 は, (正, 負)である */
+#define POS_PRISM_pn      (0x4)  //0b 0000100
+/** 直角がある場所 は, (正, 正)である */
+#define POS_PRISM_pp      (0x8)  //0b 0001000
+
+
+
+
+
 
 //DirectXの3D空間の座標単位１に対しての原点付近の画面px相当数（画面高さ(px)などを、PX_UNITで割ると3D空間の座標単位１になる）
 #define PX_UNIT (10)

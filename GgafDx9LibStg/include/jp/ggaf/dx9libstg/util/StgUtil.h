@@ -429,6 +429,7 @@ public:
     static inline bool isHit(CollisionChecker* pCChecker01, GgafDx9Core::GgafDx9GeometricActor* pActor01, ColliAAPrism* pAAPrism01,
                              CollisionChecker* pCChecker02, GgafDx9Core::GgafDx9GeometricActor* pActor02, ColliSphere*  pSphere02) {
         //＜プリズム と 球＞
+        //MEMO:厳密な当たり判定計算は行っていません。
         int aX1 = pActor01->_X + pAAPrism01->_x1;
         int aY1 = pActor01->_Y + pAAPrism01->_y1;
         int aZ1 = pActor01->_Z + pAAPrism01->_z1;

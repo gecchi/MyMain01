@@ -109,7 +109,7 @@ void GgafDx9Colorist::behave() {
     }
     //Actor‚É”½‰f
     _pActor->setMaterialColor(_color[0]/1000.0, _color[1]/1000.0, _color[2]/1000.0);
-    _pActor->setAlpha(_color[4]/1000.0);
+    _pActor->setAlpha(_color[3]/1000.0);
 }
 
 void GgafDx9Colorist::intoTargetColorLinerUntil(int prm_target_color, frame prm_spend_frame) {
