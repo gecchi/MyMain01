@@ -328,8 +328,8 @@ typedef UINT32 frame;
 #define Obj_GgafActor             (0x1)              //0b 00000000 00000000 00000000 00000001
 #define Obj_GgafMainActor         (0x2)              //0b 00000000 00000000 00000000 00000010
 #define Obj_GgafDummyActor        (0x4)              //0b 00000000 00000000 00000000 00000100
-#define Obj_GgafLordActor         (0x8)              //0b 00000000 00000000 00000000 00001000
-#define Obj_GgafGroupActor        (0x10)             //0b 00000000 00000000 00000000 00010000
+#define Obj_GgafDirector         (0x8)              //0b 00000000 00000000 00000000 00001000
+#define Obj_GgafGroupHead        (0x10)             //0b 00000000 00000000 00000000 00010000
 #define Obj_GgafDisusedActor      (0x20)             //0b 00000000 00000000 00000000 00100000
 #define Obj_GgafActorStore        (0x40)             //0b 00000000 00000000 00000000 01000000
 
@@ -372,8 +372,8 @@ class GgafMainActor;
 class GgafDummyActor;
 class GgafUniverse;
 class GgafMainScene;
-class GgafLordActor;
-class GgafGroupActor;
+class GgafDirector;
+class GgafGroupHead;
 class GgafActorStore;
 class GgafActorStoreDispatcher;
 class GgafOrder;
@@ -420,8 +420,8 @@ class GgafCurtain;
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 #include "jp/ggaf/core/actor/GgafDummyActor.h"
 #include "jp/ggaf/core/scene/GgafUniverse.h"
-#include "jp/ggaf/core/actor/GgafLordActor.h"
-#include "jp/ggaf/core/actor/GgafGroupActor.h"
+#include "jp/ggaf/core/actor/GgafDirector.h"
+#include "jp/ggaf/core/actor/GgafGroupHead.h"
 #include "jp/ggaf/core/actor/GgafActorStore.h"
 #include "jp/ggaf/core/actor/GgafActorStoreDispatcher.h"
 #include "jp/ggaf/core/GgafOrder.h"

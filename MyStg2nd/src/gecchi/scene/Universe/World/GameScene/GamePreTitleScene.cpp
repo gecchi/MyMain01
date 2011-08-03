@@ -16,11 +16,11 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
     useProgress(10);
     _pProg->change(GAMEPRETITLESCENE_PROG_INIT);
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
-    getLordActor()->addSubGroup(_pStringBoard01);
+    getDirector()->addSubGroup(_pStringBoard01);
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");
-    getLordActor()->addSubGroup(_pStringBoard02);
+    getDirector()->addSubGroup(_pStringBoard02);
     _pTitleBoard = NEW TitleBoard("TitleBoard");
-    getLordActor()->addSubGroup(_pTitleBoard);
+    getDirector()->addSubGroup(_pTitleBoard);
 }
 void GamePreTitleScene::onReset() {
     _TRACE_("GamePreTitleScene::onReset()");

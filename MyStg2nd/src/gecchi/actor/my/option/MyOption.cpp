@@ -119,7 +119,7 @@ void MyOption::onReset() {
     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
-    //P_COMMON_SCENE->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipStore->extract());
+    //P_COMMON_SCENE->getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipStore->extract());
     _angPosition = _pKurokoA->_angRzMv;
 
     _adjust_angPos_seq_progress = 0;

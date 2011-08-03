@@ -169,7 +169,7 @@ void GgafDx9GeometricActor::processSettlementBehavior() {
 }
 
 
-GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
+GgafGroupHead* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
                                                   GgafDx9GeometricActor* prm_pGeoActor,
                                                   coord prm_X_init_local,
                                                   coord prm_Y_init_local,
@@ -177,7 +177,7 @@ GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
                                                   coord prm_RX_init_local,
                                                   coord prm_RZ_init_local,
                                                   coord prm_RY_init_local) {
-    GgafGroupActor* pGroupActor = addSubGroup(prm_kind, prm_pGeoActor);
+    GgafGroupHead* pGroupHead = addSubGroup(prm_kind, prm_pGeoActor);
     prm_pGeoActor->_pActor_Base = this;
     prm_pGeoActor->changeGeoLocal();
     prm_pGeoActor->_X = prm_X_init_local;
@@ -192,9 +192,9 @@ GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
     prm_pGeoActor->_RZ = prm_RZ_init_local;
     prm_pGeoActor->_RY = prm_RY_init_local;
     prm_pGeoActor->changeGeoFinal();
-    return pGroupActor;
+    return pGroupHead;
 }
-GgafGroupActor* GgafDx9GeometricActor::addSubBone(GgafDx9GeometricActor* prm_pGeoActor,
+GgafGroupHead* GgafDx9GeometricActor::addSubBone(GgafDx9GeometricActor* prm_pGeoActor,
                                                   coord prm_X_init_local,
                                                   coord prm_Y_init_local,
                                                   coord prm_Z_init_local,

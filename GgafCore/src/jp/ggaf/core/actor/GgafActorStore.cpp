@@ -46,6 +46,6 @@ void GgafActorStore::onReset() {
 
 
 //＜最適化案＞
-//TODO:GgafActorStoreは、GgafGroupActorを継承して、
-//特別なGgafGroupActorという扱いにすればアクターの数を減らせれるのではないか
+//TODO:GgafActorStoreは、GgafGroupHeadを継承して、
+//特別なGgafGroupHeadという扱いにすればアクターの数を減らせれるのではないか
 //場合によりけりか、あとで考える。

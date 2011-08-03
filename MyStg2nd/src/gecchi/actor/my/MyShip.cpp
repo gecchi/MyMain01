@@ -185,9 +185,9 @@ void MyShip::onCreateModel() {
 void MyShip::initialize() {
 
     //種別に振り分け
-//    getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pStore_MyShots001->extract());
-//    getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pStore_MyWaves001->extract());
-    //getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipStore->extract());
+//    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pStore_MyShots001->extract());
+//    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pStore_MyWaves001->extract());
+    //getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipStore->extract());
 
     setHitAble(true);
     _pCollisionChecker->makeCollision(1);
@@ -366,7 +366,7 @@ void MyShip::processBehavior() {
 
     if (VB_PLAY->isPushedDown(VB_TURBO)) {
         //ターボ開始時
-        EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pStore_EffectTurbo002->employForce();
+        EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pStore_EffectTurbo002->dispatchForce();
          if (pTurbo002) {
              pTurbo002->locateAs(this);
              pTurbo002->activate();

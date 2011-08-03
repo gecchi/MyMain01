@@ -20,13 +20,13 @@ _pMyOptionController(NULL) {
     _pMyShip = NEW MyShip("MYSHIP");
     _pMyShip->inactivateImmediately(); //配下に仮登録のアクター発送者とかあるし
     _pMyOptionController = NEW MyOptionController("MY_OPTION_PARENT");
-    getLordActor()->addSubLast(_pMyOptionController);
+    getDirector()->addSubLast(_pMyOptionController);
 
-    getLordActor()->addSubGroup(KIND_MY_BODY_NOMAL, _pMyShip);
+    getDirector()->addSubGroup(KIND_MY_BODY_NOMAL, _pMyShip);
 
     _pEffectMyShipExplosion = NEW EffectMyShipExplosion("EffectMyShipExplosion");
     _pEffectMyShipExplosion->inactivateImmediately();
-    getLordActor()->addSubGroup(_pEffectMyShipExplosion);
+    getDirector()->addSubGroup(_pEffectMyShipExplosion);
     _pVamSysCamWorker = NULL;
 //    _pCon_VamSysCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("VamSysCamWorker");
 //    _pCon_MyShipDivingCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("MyShipDivingCamWorker");
@@ -37,13 +37,13 @@ _pMyOptionController(NULL) {
     _pMagicMeter = NEW MagicMeter("MagicMeter");
     _pMagicMeter->locate(100*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 100.0f)*1000,
                                 0.00000001f );
-    getLordActor()->addSubGroup(_pMagicMeter);
+    getDirector()->addSubGroup(_pMagicMeter);
 
     //エネルギーバー設置
     _pEnagyBar = NEW EnagyBar("EnagyBar");
     _pEnagyBar->locate(100*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f)*1000,
                               0.00000001f );
-    getLordActor()->addSubGroup(_pEnagyBar);
+    getDirector()->addSubGroup(_pEnagyBar);
     _zanki = 3;
     useProgress(10);
 

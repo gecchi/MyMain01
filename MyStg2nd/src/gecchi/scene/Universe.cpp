@@ -15,7 +15,7 @@ Universe::Universe(const char* prm_name, GgafDx9Camera* prm_pCamera) : DefaultUn
     CameraWorkerConnection* pDefaultCameraWorkerCon = (CameraWorkerConnection*)_pCameraWorkerManager->getConnection("DefaultCamWorker");
     _stack_CameraWorkerCon.push(pDefaultCameraWorkerCon);
     _pActiveCameraWorker = pDefaultCameraWorkerCon->refer();
-    getLordActor()->addSubGroup(_pActiveCameraWorker); //基底デフォルトカメラワーク
+    getDirector()->addSubGroup(_pActiveCameraWorker); //基底デフォルトカメラワーク
 
 
     GgafRepeatSeq::create("CH_bomb1", 0, 20);
@@ -73,10 +73,10 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
         //パラメータの CameraWork を活動へ
         pCameraWorker->activate();
         pCameraWorker->onSwitchCameraWork(); //コールバック
-        if (getLordActor()->getSubFirst()->getSub(pCameraWorker)) {
+        if (getDirector()->getSubFirst()->getSub(pCameraWorker)) {
             //２回目以降の
         } else {
-            getLordActor()->addSubGroup(pCameraWorker); //初回はツリーに追加
+            getDirector()->addSubGroup(pCameraWorker); //初回はツリーに追加
         }
         //スタックに積む
         _stack_CameraWorkerCon.push(pCon);

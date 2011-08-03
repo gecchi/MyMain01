@@ -14,9 +14,9 @@ namespace GgafCore {
  * という概念の部分は共通化できるはずだと信じて設計を行いました。
  * アプリ全体を仮にアニメを再生しているものと考えた場合、シーンオブジェクトとは、<BR>
  * レイヤー（セル）のような物にあたります。<BR>
- * また、シーンクラスは管理者アクター(GgafLordActor)を管理するクラスでもあります。
- * 管理者アクターとはシーン毎のアクターの大親分のようなもので、GgafLordActor のコメントも参照して下さい。<BR>
- * 各シーンは、必ず１つの管理者アクター(GgafLordActor)をメンバとして保持しています。<BR>
+ * また、シーンクラスは監督アクター(GgafDirector)を管理するクラスでもあります。
+ * 監督アクターとはシーン毎のアクターの大親分のようなもので、GgafDirector のコメントも参照して下さい。<BR>
+ * 各シーンは、必ず１つの監督アクター(GgafDirector)をメンバとして保持しています。<BR>
  *
  * <B>【用語補足】</B>
  * <TABLE border='1'>
@@ -85,13 +85,13 @@ class GgafScene : public GgafElement<GgafScene> {
     friend class GgafGod;
     friend class GgafUniverse;
     friend class GgafActor;
-    friend class GgafGroupActor;
-    friend class GgafLordActor;
+    friend class GgafGroupHead;
+    friend class GgafDirector;
 
 protected:
 
-    /** このシーンの管理者 */
-    GgafLordActor* _pLordActor;
+    /** このシーンの監督 */
+    GgafDirector* _pDirector;
 
 public:
 
@@ -104,7 +104,7 @@ public:
 
     /**
      * デストラクタ .
-     * 自シーンの管理者のツリーアクターの解放を行ってから。<BR>
+     * 自シーンの監督のツリーアクターの解放を行ってから。<BR>
      * 自ツリーシーンの解放を行います<BR>
      */
     virtual ~GgafScene();
@@ -184,10 +184,10 @@ public:
     virtual GgafGod* askGod() override;
 
     /**
-     * 自シーンの管理者を取得 .
-     * @return	管理者
+     * 自シーンの監督を取得 .
+     * @return	監督
      */
-    virtual GgafLordActor* getLordActor();
+    virtual GgafDirector* getDirector();
 
     inline bool isActiveScene() {
          if (_can_live_flg && _is_active_flg) {

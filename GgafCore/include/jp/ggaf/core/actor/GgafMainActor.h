@@ -16,10 +16,10 @@ class GgafMainActor : public GgafActor {
 protected:
 
 public:
-    /** [r]シーン管理者 */
-    GgafLordActor* _pLordActor;
+    /** [r]シーン監督 */
+    GgafDirector* _pDirector;
     /** [r]グループを司る直近の団長 */
-    GgafGroupActor* _pGroupActor;
+    GgafGroupHead* _pGroupHead;
 
     GgafMainActor(const char* prm_name);
 
@@ -74,54 +74,54 @@ public:
 //    }
 
     /**
-     * シーン管理者を設定する。 .
+     * シーン監督を設定する。 .
      */
-    virtual void setLordActor(GgafLordActor* prm_pLordActor);
+    virtual void setMyDirector(GgafDirector* prm_pDirector);
 
     /**
      * 団長を設定する。<BR>
      */
-    virtual void setGroupActor(GgafGroupActor* prm_pGroupActor);
+    virtual void setGroupHead(GgafGroupHead* prm_pGroupHead);
 
     /**
-     * シーン管理者取得。 .
-     * @return 管理者
+     * シーン監督取得。 .
+     * @return 監督
      */
-    virtual GgafLordActor* getLordActor();
+    virtual GgafDirector* getDirector();
 
     /**
      * シーン団長を取得する。 .
      * @return 団長
      */
-    virtual GgafGroupActor* getGroupActor();
+    virtual GgafGroupHead* getMyGroupHead();
 
     /**
      * 新たに種別を設定し、アクターを配下に追加する。
      * 種別はアクターが保持する種別を無視し、引数の種別を優先する。
-     * 配下に団長(GgafGroupActor)を挟んでその配下に引数のアクターを追加します。
-     * GgafLordActor::addSubGroup(actorkind, GgafMainActor) の説明を参照して下さい。
+     * 配下に団長(GgafGroupHead)を挟んでその配下に引数のアクターを追加します。
+     * GgafDirector::addSubGroup(actorkind, GgafMainActor) の説明を参照して下さい。
      * @param prm_kind 種別
      * @param prm_pMainActor 種別と共に追加したいアクター
-     * @return 挟み込まれている配下の団長(GgafGroupActor)
+     * @return 挟み込まれている配下の団長(GgafGroupHead)
      */
-    GgafGroupActor* addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
+    GgafGroupHead* addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
     /**
      * 新たに種別を設定し、アクターを配下に追加する。 .
      * ただし、種別はアクターが保持する種別を採用する。
-     * 配下に団長(GgafGroupActor)を挟んでその配下に引数のアクターを追加します。
-     * GgafLordActor::addSubGroup(actorkind, GgafMainActor) の説明を参照して下さい。
+     * 配下に団長(GgafGroupHead)を挟んでその配下に引数のアクターを追加します。
+     * GgafDirector::addSubGroup(actorkind, GgafMainActor) の説明を参照して下さい。
      * @param prm_pMainActor 種別と共に追加したいアクター
-     * @return 挟み込まれている配下の団長(GgafGroupActor)
+     * @return 挟み込まれている配下の団長(GgafGroupHead)
      */
-    GgafGroupActor* addSubGroup(GgafMainActor* prm_pMainActor);
+    GgafGroupHead* addSubGroup(GgafMainActor* prm_pMainActor);
 
     /**
      * 配下の団長を探す。
      * @param prm_kind 探したい団長の種別
      * @return 団長、或いは存在しなければ NULL
      */
-    GgafGroupActor* getSubGroupActor(actorkind prm_kind);
+    GgafGroupHead* searchSubGroupHead(actorkind prm_kind);
 
     /**
      * 神に謁見 .

@@ -25,7 +25,7 @@ void Stage01_Climax::processBehavior() {
         _pBoss = (EnemyAstraea*)obtainActorFromFactory(11111111);
         _pBoss->_Z = -1800000;
         _pBoss->_Y = -100000;
-        getLordActor()->addSubGroup(_pBoss);
+        getDirector()->addSubGroup(_pBoss);
     }
 
     if (getActivePartFrame() > 60) {

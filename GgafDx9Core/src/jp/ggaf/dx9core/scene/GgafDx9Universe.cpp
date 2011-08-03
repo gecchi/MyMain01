@@ -47,7 +47,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name, GgafDx9Camera* prm_pCamer
     _pCamera = prm_pCamera;
 
 
-    getLordActor()->addSubGroup(_pCamera);
+    getDirector()->addSubGroup(_pCamera);
     _pActor_DrawActive = NULL;
 
     //ƒJƒƒ‰‚ÌÊ‚·”ÍˆÍB

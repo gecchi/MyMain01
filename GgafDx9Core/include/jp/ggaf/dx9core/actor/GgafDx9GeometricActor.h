@@ -305,7 +305,7 @@ public:
     }
 
 
-    virtual GgafCore::GgafGroupActor* addSubBone(actorkind prm_kind,
+    virtual GgafCore::GgafGroupHead* addSubBone(actorkind prm_kind,
                                                  GgafDx9GeometricActor* prm_pGeoActor,
                                                  int prm_X_init_local,
                                                  int prm_Y_init_local,
@@ -314,7 +314,7 @@ public:
                                                  int prm_RZ_init_local,
                                                  int prm_RY_init_local);
 
-    virtual GgafCore::GgafGroupActor* addSubBone(GgafDx9GeometricActor* prm_pGeoActor,
+    virtual GgafCore::GgafGroupHead* addSubBone(GgafDx9GeometricActor* prm_pGeoActor,
                                                  int prm_X_init_local,
                                                  int prm_Y_init_local,
                                                  int prm_Z_init_local,

@@ -14,14 +14,14 @@ Stage02Scene::Stage02Scene(const char* prm_name) : StageScene(prm_name) {
     Sleep(2);
     _pWorldBoundSpace  = NEW WorldBoundSpace002("BG_SPACE_TEST");
     _pWorldBoundSpace->inactivateTree();
-    getLordActor()->addSubGroup(KIND_EFFECT, _pWorldBoundSpace);
+    getDirector()->addSubGroup(KIND_EFFECT, _pWorldBoundSpace);
 
     _pHoshiBoshi = NEW HoshiBoshi001("HoshiBoshi001");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pHoshiBoshi);
+    getDirector()->addSubGroup(KIND_EFFECT, _pHoshiBoshi);
 
 
     _pMessage = NEW LabelGecchi16Font("Stage02Msg");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pMessage);
+    getDirector()->addSubGroup(KIND_EFFECT, _pMessage);
     _pMessage->inactivate();
 
     fadeoutScene(0); //Å‰‚Í”ñ•\Ž¦
@@ -50,7 +50,10 @@ void Stage02Scene::processBehavior() {
         }
     }
 
-    if (_pProg->isJustChangedTo(STAGESCENE_PROG_END)) {
+    if (_pProg->get() == STAGESCENE_PROG_END) {
+        if (_pProg->isJustChanged()) {
+            _TRACE_("Stage01Scene::processBehavior()  STAGESCENE_PROG_END‚É‚È‚è‚Ü‚·‚½I");
+        }
         _TRACE_("Stage02Scene::processBehavior()  STAGESCENE_PROG_END‚É‚È‚è‚Ü‚·‚½I");
         _pMessage->activateImmediately();
         _pMessage->update(300*1000, 300*1000, "SCENE 02 CLEAR!!");

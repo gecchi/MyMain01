@@ -27,7 +27,7 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
 
 //    _pTurboMeter001 = NEW TurboMeter("TurboMeter001");
 //    _pTurboMeter001->locate(16 , CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 64);
-//    getLordActor()->addSubGroup(_pTurboMeter001);
+//    getDirector()->addSubGroup(_pTurboMeter001);
 //
 //    orderActorToFactory(100000001, EnemyVesta, "EnemyVesta1");
 //    orderActorToFactory(100000002, EnemyVesta, "EnemyVesta2");
@@ -52,12 +52,12 @@ void TamagoScene::initialize() {
 void TamagoScene::processBehavior() {
 //    if (getActivePartFrame() == 60) {
 //        VarietyTorus001* p = (VarietyTorus001*)obtainActorFromFactory(900000001);
-//        getLordActor()->addSubGroup(p);
+//        getDirector()->addSubGroup(p);
 //    }
 
 //    if (getActivePartFrame() == 120) {
 //        FormationJuno001* p = (FormationJuno001*)obtainActorFromFactory(100000001);
-//        getLordActor()->addSubGroup(p);
+//        getDirector()->addSubGroup(p);
 //    }
 //    if (getActivePartFrame() == 120) {
 //
@@ -77,14 +77,14 @@ void TamagoScene::processBehavior() {
 //        p9->addSubBone(p5,       0,  300000,       0, ANGLE0,  ANGLE90, ANGLE0);
 //        p9->addSubBone(p6,       0, -300000,       0, ANGLE0, ANGLE270, ANGLE0);
 //
-//        getLordActor()->addSubGroup(p9);
+//        getDirector()->addSubGroup(p9);
 //
 //    }
 //    for (int i = 1; i <= 1; i++) {
 //        if (getBehaveingFrame() == (i*8)) {
 //            HoshiBoshi001* p = (HoshiBoshi001*)(obtainActorFromFactory(100000000+i));
 //            p->locate(0,0,0);
-//            getLordActor()->addSubGroup(p);
+//            getDirector()->addSubGroup(p);
 //        }
 //    }
 

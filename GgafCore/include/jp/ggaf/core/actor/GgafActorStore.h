@@ -3,7 +3,7 @@
 namespace GgafCore {
 
 /**
- * アクターストアー（発送者）クラス .
+ * アクターストアー（人材バンク）クラス .
  * 自アクターのサブに予め幾つかアクターを登録(addSubLast)してストックする。<BR>
  * 他からの dispatch() メソッドで、ストックの活動していないアクター探して提供する。<BR>
  * アクターは使い終わったらinactivate()すると、ストックに戻ったことになる。<BR>
@@ -102,8 +102,8 @@ public:
     /**
      * 強制的にアクター取り出し .
      * アクター発送者の暇そうなサブメンバー（active中、またはactive予約されていない）が
-     * 居なくても強制的に取得する。<BR>
-     * dispatch() を試みて取り出せない場合、強制的に先頭のアクターを返します。<BR>
+     * 居ない場合は、活動中のメンバーを無理やり取得する。<BR>
+     * dispatch() を試みて取り出せない場合、強制的にメンバー達の先頭メンバーを返します。<BR>
      * <b>＜注意＞</b><BR>
      * 取り出し後、アクターに active() を実行しても、そのアクターが既に
      * isActiveActor() == true の状態もありうるため、onActive() コールバックは
@@ -111,7 +111,7 @@ public:
      * 強制的にonActive() コールバックを呼び出したい場合に次のようなコードに
      * しなければいけないかも知れない。
      * <pre><code>
-     * GgafMainActor* pActor = pStore->employForce();
+     * GgafMainActor* pActor = pStore->dispatchForce();
      * if (pActor->isActiveActor()) {
      *     pActor->inactivateImmediately();
      *     pActor->onInactive();
@@ -121,7 +121,7 @@ public:
      *
      * @return
      */
-    virtual GgafCore::GgafMainActor* employForce() {
+    virtual GgafCore::GgafMainActor* dispatchForce() {
         GgafMainActor* pActor = dispatch();
         if (pActor == NULL) {
             getSubFirst()->moveLastImmediately(); //お尻に回す

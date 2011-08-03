@@ -10,7 +10,7 @@ ActorTableScene::ActorTableScene(const char* prm_name) : GgafDx9Scene(prm_name) 
 }
 
 
-GgafGroupActor* ActorTableScene::addToTable(GgafDx9FormationActor* prm_pFormationActor, frame prm_max_delay_offset) {
+GgafGroupHead* ActorTableScene::addToTable(GgafDx9FormationActor* prm_pFormationActor, frame prm_max_delay_offset) {
     if (prm_pFormationActor->_obj_class | Obj_GgafDx9FormationActor) {
         //OK
     } else {
@@ -20,7 +20,7 @@ GgafGroupActor* ActorTableScene::addToTable(GgafDx9FormationActor* prm_pFormatio
     prm_pFormationActor->inactivateImmediately();
     _table.addLast(NEW TblElem(prm_pFormationActor, prm_max_delay_offset), true);
 
-    return getLordActor()->addSubGroup(prm_pFormationActor);
+    return getDirector()->addSubGroup(prm_pFormationActor);
 }
 
 void ActorTableScene::onActive() {
@@ -43,7 +43,7 @@ void ActorTableScene::processBehavior() {
         //I—¹‚ð‘Ò‚Â‚Ì‚Ý
     } else {
 
-        if (!getLordActor()->getSubFirst()) {
+        if (!getDirector()->getSubFirst()) {
             end(FORMATION_END_DELAY);
             return;
         }

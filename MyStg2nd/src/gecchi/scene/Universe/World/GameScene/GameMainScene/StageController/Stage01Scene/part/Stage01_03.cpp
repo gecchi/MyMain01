@@ -43,7 +43,7 @@ void Stage01_03::processBehavior() {
 			}
 			case 100: {
 				FormationIris002* pF2 = (FormationIris002*)obtainActorFromFactory(50000001);
-				getLordActor()->addSubGroup(pF2);
+				getDirector()->addSubGroup(pF2);
 				{
 				ActorTableScene* ta = NEW ActorTableScene("TableScene_50000002");
 				ta->setMaxPerformFrame(2000);
@@ -56,12 +56,12 @@ void Stage01_03::processBehavior() {
 				ta->addToTable(((FormationIris002*)obtainActorFromFactory(50000008)), 400);
 				}
 				VarietyTorus001* pTorus = (VarietyTorus001*)obtainActorFromFactory(50000009);
-				getLordActor()->addSubGroup(pTorus);
+				getDirector()->addSubGroup(pTorus);
 				break;
 			}
 			case 200: {
 				FormationIris002* pF1 = (FormationIris002*)obtainActorFromFactory(50000000);
-				getLordActor()->addSubGroup(pF1);
+				getDirector()->addSubGroup(pF1);
 				break;
 			}
 			case 2200: {
@@ -70,7 +70,7 @@ void Stage01_03::processBehavior() {
 			}
 			case 4000: {
 				VarietyTorus002* pTorus = (VarietyTorus002*)obtainActorFromFactory(50000010);
-				getLordActor()->addSubGroup(pTorus);
+				getDirector()->addSubGroup(pTorus);
 				break;
 			}
 			case 8000: {

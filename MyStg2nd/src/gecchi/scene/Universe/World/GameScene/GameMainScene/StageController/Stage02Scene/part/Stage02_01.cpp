@@ -13,9 +13,8 @@ Stage02_01::Stage02_01(const char* prm_name) : DefaultScene(prm_name) {
     // gen01 start
 	frame f[] = {1,100,1000,3000};
 	_paFrame_NextEvent = new frame[4];
-	for (int i = 0; i < 4; i++) {
-		_paFrame_NextEvent[i] = f[i];
-	}
+	memcpy(_paFrame_NextEvent, f, sizeof(f));
+	_event_num = 4;
 	orderActorToFactory(70000000, FormationJuno001, "F002_Juno_1");
 	
 	orderActorToFactory(70000002, FormationIris001, "F001_Iris_2");
@@ -42,7 +41,7 @@ void Stage02_01::processBehavior() {
 			}
 			case 100: {
 				FormationJuno001* pF = (FormationJuno001*)obtainActorFromFactory(70000000);
-				getLordActor()->addSubGroup(pF);
+				getDirector()->addSubGroup(pF);
 				break;
 			}
 			case 1000: {

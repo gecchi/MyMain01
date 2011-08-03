@@ -21,7 +21,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             pEffectExplosion->inactivateTreeImmediately(); //最初非表示
             _pDP_EffectExplosion001->addSubLast(pEffectExplosion);
         }
-        getLordActor()->addSubGroup(_pDP_EffectExplosion001);
+        getDirector()->addSubGroup(_pDP_EffectExplosion001);
     }
 
     //アイテム
@@ -33,7 +33,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             pMpItem001->inactivateTreeImmediately(); //最初非表示
             _pDP_MagicPointItem001->addSubLast(pMpItem001);
         }
-        getLordActor()->addSubGroup(_pDP_MagicPointItem001);
+        getDirector()->addSubGroup(_pDP_MagicPointItem001);
     }
 
     { //Effect EffectTurbo002 ターボ噴射
@@ -44,7 +44,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             pEffectTurbo->inactivateTreeImmediately(); //最初非表示
             _pStore_EffectTurbo002->addSubLast(pEffectTurbo);
         }
-        getLordActor()->addSubGroup(_pStore_EffectTurbo002);
+        getDirector()->addSubGroup(_pStore_EffectTurbo002);
     }
 
     //    { //EnemyShot001
@@ -55,7 +55,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //            pEnemyShot->inactivateTreeImmediately(); //最初非表示
     //            _pStore_EnemyShots001->addSubLast(pEnemyShot);
     //        }
-    //        getLordActor()->addSubGroup(_pStore_EnemyShots001);
+    //        getDirector()->addSubGroup(_pStore_EnemyShots001);
     //    }
 
 
@@ -68,7 +68,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     //            pEffectExplosion->inactivateTreeImmediately(); //最初非表示
     //            _pStore_EffectExplosion003->addSubLast(pEffectExplosion);
     //        }
-    //        getLordActor()->addSubGroup(_pStore_EffectExplosion003);
+    //        getDirector()->addSubGroup(_pStore_EffectExplosion003);
     //    }
 
 //
@@ -90,7 +90,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 //            pLaserChipStore->inactivateImmediately();
 //            _pStore_LaserChipStore->addSubLast(pLaserChipStore);
 //        }
-//        getLordActor()->addSubGroup(_pStore_LaserChipStore);
+//        getDirector()->addSubGroup(_pStore_LaserChipStore);
 //    }
 }
 

@@ -14,7 +14,7 @@ enum {
 GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameOverScene";
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
-    getLordActor()->addSubGroup(_pStringBoard01);
+    getDirector()->addSubGroup(_pStringBoard01);
     useProgress(10);
 }
 

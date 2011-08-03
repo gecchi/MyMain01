@@ -20,11 +20,11 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     useProgress(10);
     _pProg->change(GAMETITLESCENE_PROG_INIT);
     _pStringBoard01 = NEW LabelGecchi16Font("STR01");
-    getLordActor()->addSubGroup(_pStringBoard01);
+    getDirector()->addSubGroup(_pStringBoard01);
     _pStringBoard02 = NEW LabelGecchi16Font("STR02");
-    getLordActor()->addSubGroup(_pStringBoard02);
+    getDirector()->addSubGroup(_pStringBoard02);
     _pTitleBoard = NEW TitleBoard("TitleBoard");
-    getLordActor()->addSubGroup(_pTitleBoard);
+    getDirector()->addSubGroup(_pTitleBoard);
 
     _max_menu_item = 4;
     _papStringItem = NEW LabelGecchi16Font*[_max_menu_item];
@@ -32,7 +32,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
         _papStringItem[i] = NEW LabelGecchi16Font("menu_item");
         _papStringItem[i]->_Z = 1;
         _papStringItem[i]->inactivateImmediately();
-        getLordActor()->addSubGroup(_papStringItem[i]);
+        getDirector()->addSubGroup(_papStringItem[i]);
     }
     _papStringItem[0]->update("GAME START");
     _papStringItem[1]->update("CONFIG");
@@ -41,7 +41,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
 
     _pCursor001= NEW Cursor001("Cursor001");
     _pCursor001->inactivateImmediately();
-    getLordActor()->addSubGroup(_pCursor001);
+    getDirector()->addSubGroup(_pCursor001);
 
     _pSeCon_exec = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection("yume_Sbend");
 

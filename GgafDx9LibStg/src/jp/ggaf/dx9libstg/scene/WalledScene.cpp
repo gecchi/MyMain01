@@ -19,9 +19,9 @@ void WalledScene::buildWalledScene(
     _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] build...");
     _pStore_WallAAB = prm_pStore_WallAAB;
     _pStore_WallAAPrism = prm_pStore_WallAAPrism;
-    getLordActor()->addSubGroup(_pStore_WallAAB);
+    getDirector()->addSubGroup(_pStore_WallAAB);
     if (_pStore_WallAAPrism) {
-        getLordActor()->addSubGroup(_pStore_WallAAPrism);
+        getDirector()->addSubGroup(_pStore_WallAAPrism);
     }
     for (int i = 0; i < prm_section_num; i++) {
         addSubLast(prm_papSection[i]);

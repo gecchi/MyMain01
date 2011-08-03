@@ -52,36 +52,36 @@ void PreDrawScene::processBehavior() {
         int id = 11;
         GgafDx9DrawableActor* pActor;
 
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));    id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));    id++;
 //
 //        for (int i = 0; i < 30; i++) {
 //            pActor = (GgafDx9DrawableActor*)obtainActorFromFactory(id);   id++;
 //            pActor->locate((-(30/2)*5000) + (i * 50000), 200*1000, -50*1000);
-//            getLordActor()->addSubGroup(pActor);
+//            getDirector()->addSubGroup(pActor);
 //        }
 //
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));    id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));    id++;
 
 
 
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
-//        getLordActor()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
+//        getDirector()->addSubGroup(obtainActorFromFactory(id));  id++;
 
     }
 }

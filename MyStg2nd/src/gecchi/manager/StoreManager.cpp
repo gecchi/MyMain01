@@ -19,7 +19,7 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
             pShot001 = NEW Shot001("Shot001");
             pResource->addSubLast(pShot001);
         }
-        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource); //最後にaddSubGroupすべし（さもないと直ぐに削除対象になる）
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource); //最後にaddSubGroupすべし（さもないと直ぐに削除対象になる）
     }
 
     if (GgafUtil::strcmp_ascii("StCon_Shot002", prm_idstr) == 0) {
@@ -29,7 +29,7 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
             pShot002 = NEW Shot002("Shot002");
             pResource->addSubLast(pShot002);
         }
-        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 
     if (GgafUtil::strcmp_ascii("StCon_Shot003", prm_idstr) == 0) {
@@ -40,7 +40,7 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
             pResource->addSubLast(pShot003);
             if (i % 20 == 0) { Sleep(1); }
         }
-        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 
     if (GgafUtil::strcmp_ascii("StCon_Shot004", prm_idstr) == 0) {
@@ -51,7 +51,7 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
             pResource->addSubLast(pShot004);
             if (i % 20 == 0) { Sleep(1); }
         }
-        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 
     if (GgafUtil::strcmp_ascii("StCon_EffRefraction001", prm_idstr) == 0) {
@@ -61,7 +61,7 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
             p = NEW EffectLaserRefraction001("EffRefraction001");
             pResource->addSubLast(p);
         }
-        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 
     if (GgafUtil::strcmp_ascii("StCon_EnemyAstraeaLaserChip001StoreDp", prm_idstr) == 0) {
@@ -80,7 +80,7 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
             }
             pResource->addSubLast(pLaserChipStore);
         }
-        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 
 
@@ -102,7 +102,7 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
             }
             pResource->addSubLast(pLaserChipStore);
         }
-        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 
 
@@ -129,7 +129,7 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
             pResource->addSubLast(pLaserChipStore);
 
         }
-        P_COMMON_SCENE->getLordActor()->addSubGroup(pResource);
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 */
 

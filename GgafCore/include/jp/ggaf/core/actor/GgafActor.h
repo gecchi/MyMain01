@@ -41,8 +41,8 @@ class GgafActor : public GgafElement<GgafActor> {
 
     friend class GgafGod;
     friend class GgafMainActor;
-    friend class GgafLordActor;
-    friend class GgafGroupActor;
+    friend class GgafDirector;
+    friend class GgafGroupHead;
     friend class GgafDummyActor;
     friend class GgafScene;
     friend class GgafUniverse;

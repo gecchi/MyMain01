@@ -139,7 +139,7 @@ void CollisionChecker::updateHitArea() {
         }
 
         //‚W•ª–Ø‚É“o˜^I
-        _pElem->_kindbit = pActor->getGroupActor()->_kind;
+        _pElem->_kindbit = pActor->getMyGroupHead()->_kind;
         _pLinearOctree->registElem(_pElem, pActor->_X + pCollisionArea->_AABB_X1,
                                            pActor->_Y + pCollisionArea->_AABB_Y1,
                                            pActor->_Z + pCollisionArea->_AABB_Z1,

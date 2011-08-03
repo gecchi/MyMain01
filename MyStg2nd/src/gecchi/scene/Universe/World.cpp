@@ -20,12 +20,12 @@ void World::initialize() {
     _TRACE_("World::initialize()");
     orderActorToFactory(0, LabelGecchi16Font, "STR01");
     _pStringBoard01 = (LabelGecchi16Font*)obtainActorFromFactory(0);
-    getLordActor()->addSubGroup(_pStringBoard01);
+    getDirector()->addSubGroup(_pStringBoard01);
     _pStringBoard01->update(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2), Pix2App(100),
                             "WATE A MOMENT PLASE...", ALIGN_CENTER);
     orderActorToFactory(0, LabelGecchi16Font, "ASTER");
     _pFont16_Wait = (LabelGecchi16Font*)obtainActorFromFactory(0);
-    getLordActor()->addSubGroup(_pFont16_Wait);
+    getDirector()->addSubGroup(_pFont16_Wait);
     _pFont16_Wait->update(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT);
     _pFont16_Wait->_pFader->beat(60,30,10,-1);
 #ifdef MY_DEBUG
@@ -36,10 +36,10 @@ void World::initialize() {
 //#ifdef MY_DEBUG
     orderActorToFactory(0, LabelGecchi16Font, "DebugStr");
     _pFont16_Debug = (LabelGecchi16Font*)obtainActorFromFactory(0);
-    getLordActor()->addSubGroup(_pFont16_Debug);
+    getDirector()->addSubGroup(_pFont16_Debug);
 //    orderActorWithModelToFactory(3, DispFpsActor, "FPS_STRING", "28/GECCHI_16FONT");
 //    DispFpsActor* pDispFpsActor = (DispFpsActor*)obtainActorFromFactory(3);
-//    getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
+//    getDirector()->addSubGroup(KIND_EFFECT, pDispFpsActor);
 //#endif
 
     orderSceneToFactory(1, PreDrawScene, "PreDraw");
@@ -52,7 +52,7 @@ void World::initialize() {
     //addSubLast(pGameScene);
 //#ifdef MY_DEBUG
 //    DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "28/moji");
-//    getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
+//    getDirector()->addSubGroup(KIND_EFFECT, pDispFpsActor);
 //#endif
 
 }

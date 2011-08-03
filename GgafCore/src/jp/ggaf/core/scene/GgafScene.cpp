@@ -3,15 +3,15 @@ using namespace std;
 
 using namespace GgafCore;
 
-//GgafGroupActor* GgafScene::_apGroupActor01[MAX_GROUPACTOR_PER_SCENE];
-//GgafGroupActor* GgafScene::_apGroupActor02[MAX_GROUPACTOR_PER_SCENE];
+//GgafGroupHead* GgafScene::_apGroupHead01[MAX_GROUPACTOR_PER_SCENE];
+//GgafGroupHead* GgafScene::_apGroupHead02[MAX_GROUPACTOR_PER_SCENE];
 
 GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     TRACE("GgafScene::GgafScene() " << prm_name);
     _class_name = "GgafScene";
     _obj_class = Obj_GgafScene;
 
-    _pLordActor = NEW GgafLordActor(this);
+    _pDirector = NEW GgafDirector(this);
     _n_once = 1;
 #ifdef MY_DEBUG
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
@@ -27,14 +27,14 @@ GgafScene::~GgafScene() {
 #else
     OutputDebugStringA("*\n");
 #endif
-    DELETE_POSSIBLE_NULL(_pLordActor);
+    DELETE_POSSIBLE_NULL(_pDirector);
 }
 
 void GgafScene::nextFrame() {
     if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
         TRACE("GgafScene::nextFrame() " << getName());
         GgafElement<GgafScene>::nextFrame();
-        _pLordActor->nextFrame();
+        _pDirector->nextFrame();
     }
 }
 
@@ -42,7 +42,7 @@ void GgafScene::behave() {
     if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
         TRACE("GgafScene::behave() " << getName());
         GgafElement<GgafScene>::behave();
-        _pLordActor->behave();
+        _pDirector->behave();
     }
 }
 
@@ -50,7 +50,7 @@ void GgafScene::settleBehavior() {
     if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
         TRACE("GgafScene::settleBehavior() " << getName());
         GgafElement<GgafScene>::settleBehavior();
-        _pLordActor->settleBehavior();
+        _pDirector->settleBehavior();
     }
 }
 
@@ -58,31 +58,31 @@ void GgafScene::judge() {
     if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
         TRACE("GgafScene::judge() " << getName());
         GgafElement<GgafScene>::judge();
-        _pLordActor->judge();
+        _pDirector->judge();
     }
 }
 
 void GgafScene::preDraw() {
     TRACE("GgafScene::preDraw() " << getName());
     GgafElement<GgafScene>::preDraw();
-    _pLordActor->preDraw();
+    _pDirector->preDraw();
 }
 
 void GgafScene::draw() {
     TRACE("GgafScene::draw() " << getName());
     GgafElement<GgafScene>::draw();
-    _pLordActor->draw();
+    _pDirector->draw();
 }
 
 void GgafScene::afterDraw() {
     TRACE("GgafScene::afterDraw() " << getName());
     GgafElement<GgafScene>::afterDraw();
-    _pLordActor->afterDraw();
+    _pDirector->afterDraw();
 }
 
 void GgafScene::throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) {
     GgafElement<GgafScene>::throwEventToLowerTree(prm_no, prm_pSource);
-    _pLordActor->throwEventToLowerTree(prm_no, prm_pSource);
+    _pDirector->throwEventToLowerTree(prm_no, prm_pSource);
 }
 
 void GgafScene::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
@@ -93,162 +93,162 @@ void GgafScene::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
 void GgafScene::doFinally() {
     if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
         GgafElement<GgafScene>::doFinally();
-        _pLordActor->doFinally();
+        _pDirector->doFinally();
     }
 }
 
 void GgafScene::activateTree() {
     GgafElement<GgafScene>::activateTree();
-    _pLordActor->activateTree();
+    _pDirector->activateTree();
 }
 
 void GgafScene::activateDelay(frame prm_offset_frames) {
     GgafElement<GgafScene>::activateDelay(prm_offset_frames);
-    _pLordActor->activateDelay(prm_offset_frames);
+    _pDirector->activateDelay(prm_offset_frames);
 }
 
 void GgafScene::activate() {
     GgafElement<GgafScene>::activate();
-    _pLordActor->activate();
+    _pDirector->activate();
 }
 
 void GgafScene::activateTreeImmediately() {
     GgafElement<GgafScene>::activateTreeImmediately();
-    _pLordActor->activateTreeImmediately();
+    _pDirector->activateTreeImmediately();
 }
 
 void GgafScene::activateImmediately() {
     GgafElement<GgafScene>::activateImmediately();
-    _pLordActor->activateImmediately();
+    _pDirector->activateImmediately();
 }
 
 void GgafScene::inactivateTree() {
     GgafElement<GgafScene>::inactivateTree();
-    _pLordActor->inactivateTree();
+    _pDirector->inactivateTree();
 }
 
 void GgafScene::inactivateDelay(frame prm_offset_frames) {
     GgafElement<GgafScene>::inactivateDelay(prm_offset_frames);
-    _pLordActor->inactivateDelay(prm_offset_frames);
+    _pDirector->inactivateDelay(prm_offset_frames);
 }
 
 void GgafScene::inactivate() {
     GgafElement<GgafScene>::inactivate();
-    _pLordActor->inactivate();
+    _pDirector->inactivate();
 }
 
 void GgafScene::inactivateTreeImmediately() {
     GgafElement<GgafScene>::inactivateTreeImmediately();
-    _pLordActor->inactivateTreeImmediately();
+    _pDirector->inactivateTreeImmediately();
 }
 
 void GgafScene::inactivateImmediately() {
     GgafElement<GgafScene>::inactivateImmediately();
-    _pLordActor->inactivateImmediately();
+    _pDirector->inactivateImmediately();
 }
 
 void GgafScene::pauseTree() {
     GgafElement<GgafScene>::pauseTree();
-    _pLordActor->pauseTree();
+    _pDirector->pauseTree();
 }
 
 void GgafScene::pause() {
     GgafElement<GgafScene>::pause();
-    _pLordActor->pause();
+    _pDirector->pause();
 }
 
 void GgafScene::pauseTreeImmediately() {
     GgafElement<GgafScene>::pauseTreeImmediately();
-    _pLordActor->pauseTreeImmediately();
+    _pDirector->pauseTreeImmediately();
 }
 
 void GgafScene::pauseImmediately() {
     GgafElement<GgafScene>::pauseImmediately();
-    _pLordActor->pauseImmediately();
+    _pDirector->pauseImmediately();
 }
 
 void GgafScene::unpauseTree() {
     GgafElement<GgafScene>::unpauseTree();
-    _pLordActor->unpauseTree();
+    _pDirector->unpauseTree();
 }
 
 void GgafScene::unpause() {
     GgafElement<GgafScene>::unpause();
-    _pLordActor->unpause();
+    _pDirector->unpause();
 }
 
 void GgafScene::unpauseTreeImmediately() {
     GgafElement<GgafScene>::unpauseTreeImmediately();
-    _pLordActor->unpauseTreeImmediately();
+    _pDirector->unpauseTreeImmediately();
 }
 
 void GgafScene::unpauseImmediately() {
     GgafElement<GgafScene>::unpauseImmediately();
-    _pLordActor->unpauseImmediately();
+    _pDirector->unpauseImmediately();
 }
 
 void GgafScene::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
     GgafElement<GgafScene>::executeFuncToLowerTree(pFunc, prm1, prm2);
-    _pLordActor->executeFuncToLowerTree(pFunc, prm1, prm2);
+    _pDirector->executeFuncToLowerTree(pFunc, prm1, prm2);
 }
 
 void GgafScene::reset() {
     GgafElement<GgafScene>::reset();
-    _pLordActor->reset();
+    _pDirector->reset();
 
 }
 void GgafScene::resetTree() {
     GgafElement<GgafScene>::resetTree();
-    _pLordActor->resetTree();
+    _pDirector->resetTree();
 }
 
 
 void GgafScene::end(frame prm_offset_frames) {
-    _pLordActor->end(prm_offset_frames);
+    _pDirector->end(prm_offset_frames);
     GgafElement<GgafScene>::end(prm_offset_frames);
     //この順番は重要。逆にするとゴミ箱の解放時に不正ポインタになりうるため。
 }
 
 void GgafScene::clean(int prm_num_cleaning) {
-    if (_pLordActor) {
-        _pLordActor->clean(prm_num_cleaning);
-        if (_pLordActor->_pSubFirst == NULL) {
-            DELETE_IMPOSSIBLE_NULL(_pLordActor);
+    if (_pDirector) {
+        _pDirector->clean(prm_num_cleaning);
+        if (_pDirector->_pSubFirst == NULL) {
+            DELETE_IMPOSSIBLE_NULL(_pDirector);
         }
     } else {
         GgafElement<GgafScene>::clean(prm_num_cleaning);
     }
 }
 
-GgafLordActor* GgafScene::getLordActor() {
-    return _pLordActor;
+GgafDirector* GgafScene::getDirector() {
+    return _pDirector;
 }
 
 //void GgafScene::executeHitChkGroupActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02) {
 //    static GgafScene* pScene;
 //    pScene = this;
-//    static GgafGroupActor* pGroupActor;
-//    pGroupActor = NULL;
+//    static GgafGroupHead* pGroupHead;
+//    pGroupHead = NULL;
 //    static int index01, index02;
 //    index01 = 0;
 //    index02 = 0;
 //
 //    do {
-//        pGroupActor = (GgafGroupActor*)(pScene->getLordActor()->_pSubFirst);
-//        if (pGroupActor) {
+//        pGroupHead = (GgafGroupHead*)(pScene->getDirector()->_pSubFirst);
+//        if (pGroupHead) {
 //            do {
-//                if ((pGroupActor->_kind & prm_actorkindmask01) > 0) {
-//                    _apGroupActor01[index01] = pGroupActor;
+//                if ((pGroupHead->_kind & prm_actorkindmask01) > 0) {
+//                    _apGroupHead01[index01] = pGroupHead;
 //                    index01++;
 //                }
-//                if ((pGroupActor->_kind & prm_actorkindmask02) > 0) {
-//                    _apGroupActor02[index02] = pGroupActor;
+//                if ((pGroupHead->_kind & prm_actorkindmask02) > 0) {
+//                    _apGroupHead02[index02] = pGroupHead;
 //                    index02++;
 //                }
-//                if (pGroupActor->_is_last_flg) {
+//                if (pGroupHead->_is_last_flg) {
 //                    break;
 //                } else {
-//                    pGroupActor = (GgafGroupActor*)(pGroupActor->_pNext);
+//                    pGroupHead = (GgafGroupHead*)(pGroupHead->_pNext);
 //                    continue;
 //                }
 //            } while (true);
@@ -278,10 +278,10 @@ GgafLordActor* GgafScene::getLordActor() {
 //
 //    for (int i = 0; i < index01; i++) {
 //        for (int j = 0; j < index02; j++) {
-//            if (_apGroupActor01[i] == _apGroupActor02[j]) {
-//                _apGroupActor01[i]->executeHitChk_RoundRobin2(_apGroupActor02[j]);
+//            if (_apGroupHead01[i] == _apGroupHead02[j]) {
+//                _apGroupHead01[i]->executeHitChk_RoundRobin2(_apGroupHead02[j]);
 //            } else {
-//                _apGroupActor01[i]->executeHitChk_RoundRobin(_apGroupActor02[j]);
+//                _apGroupHead01[i]->executeHitChk_RoundRobin(_apGroupHead02[j]);
 //            }
 //        }
 //    }
@@ -324,8 +324,8 @@ void GgafScene::dump() {
                                                                 _will_mv_first_in_next_frame_flg<<
                                                                 _will_mv_last_in_next_frame_flg
                                                                 );
-    if (_pLordActor) {
-        _pLordActor->dump();
+    if (_pDirector) {
+        _pDirector->dump();
         GgafScene* pScene_tmp = _pSubFirst;
         if (_pSubFirst) {
             while (true) {
@@ -372,8 +372,8 @@ void GgafScene::dump(string prm_parent) {
                                                                            _will_mv_first_in_next_frame_flg<<
                                                                            _will_mv_last_in_next_frame_flg
                                                                            );
-    if (_pLordActor) {
-        _pLordActor->dump(prm_parent + "\t\t\t\t\t\t\t\t");
+    if (_pDirector) {
+        _pDirector->dump(prm_parent + "\t\t\t\t\t\t\t\t");
         GgafScene* pScene_tmp = _pSubFirst;
         if (_pSubFirst) {
             while (true) {

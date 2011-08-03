@@ -1,29 +1,29 @@
-#ifndef GGAFLORDACTOR_H_
-#define GGAFLORDACTOR_H_
+#ifndef GGAFDIRECTOR_H_
+#define GGAFDIRECTOR_H_
 namespace GgafCore {
 
 /**
- * 管理者クラス .
- * 団長(GgafGroupActor)の親階層のアクターで、団長達を管理します。<BR>
+ * 監督クラス .
+ * 団長(GgafGroupHead)の親階層のアクターで、団長達を管理します。<BR>
  * また、シーンクラスとの橋渡しを行う特別なアクターでもあります。<BR>
- * シーンクラスと管理者は普通のhasAの関係です。（管理者と団長は階層関係になっています）<BR>
- * 全てのシーン(GgafSceaneオブジェクト)に必ず１人つ管理者のインタンスがあります。<BR>
- * 管理者は、必ずアクター達ツリーの最も頂点に位置します。<BR>
- * 管理者(GgafLordActor)のサブアクターは必ず団長(GgafGroupActor)になっています。<BR>
- * 団長(GgafGroupActor)の解説もあわせて参照して下さい。
+ * シーンクラスと監督は普通のhasAの関係です。（監督と団長は階層関係になっています）<BR>
+ * 全てのシーン(GgafSceaneオブジェクト)に必ず１人つ監督のインタンスがあります。<BR>
+ * 監督は、必ずアクター達ツリーの最も頂点に位置します。<BR>
+ * 監督(GgafDirector)のサブアクターは必ず団長(GgafGroupHead)になっています。<BR>
+ * 団長(GgafGroupHead)の解説もあわせて参照して下さい。
  * @version 1.00
  * @since 2007/11/29
  * @author Masatoshi Tsuge
  */
-class GgafLordActor : public GgafActor {
+class GgafDirector : public GgafActor {
 
 private:
-    GgafLordActor* extract() override {
-        throwGgafCriticalException("GgafLordActor に extract() は実行できません。name="<<getName());
+    GgafDirector* extract() override {
+        throwGgafCriticalException("GgafDirector に extract() は実行できません。name="<<getName());
     }
 
 public:
-    GgafLordActor(GgafScene* prm_pScene_Platform);
+    GgafDirector(GgafScene* prm_pScene_Platform);
 
     /**
      * 初期処理<BR>
@@ -81,11 +81,11 @@ public:
 
     /**
      * グループとして引数のアクターをサブアクターに追加します .
-     * これは自動でGgafGroupActorオブジェクトが間に挿入されます。<BR>
+     * これは自動でGgafGroupHeadオブジェクトが間に挿入されます。<BR>
      * したがってグループ種別と共に登録が必要です。<BR>
-     * 種別とは、内部で生成される GgafGroupActor名 にも使用されます。<BR>
-     * GgafGroupActorオブジェクト は初回種別登録時だけ生成され、２回目以降の同一種別登録は、<BR>
-     * 既存の GgafGroupActorオブジェクトのサブに追加されます。<BR>
+     * 種別とは、内部で生成される GgafGroupHead名 にも使用されます。<BR>
+     * GgafGroupHeadオブジェクト は初回種別登録時だけ生成され、２回目以降の同一種別登録は、<BR>
+     * 既存の GgafGroupHeadオブジェクトのサブに追加されます。<BR>
      * <pre>
      * ＜使用例１＞
      *
@@ -95,7 +95,7 @@ public:
      *
      *  this
      *    |
-     *    +- pObject(GgafGroupActor[KIND_XXX])
+     *    +- pObject(GgafGroupHead[KIND_XXX])
      *         |
      *         +- pActor
      *
@@ -110,34 +110,34 @@ public:
      *
      *  this
      *    |
-     *    +- pObject(GgafGroupActor[KIND_AAA]) -- pObject(GgafGroupActor[KIND_BBB])
+     *    +- pObject(GgafGroupHead[KIND_AAA]) -- pObject(GgafGroupHead[KIND_BBB])
      *         |                                    |
      *         +- pActor01 -- pActor03              + pActor02
      * </pre>
      * 補足：引数の prm_pMainActor 以下全てのアクターに関して、
      *       ・所属シーンメンバ (_pScene_Platform)
-     *       ・管理者アクターメンバ(_pLordActor)
-     *       ・団長アクターメンバ(_pGroupActor) ※但し下位に他の団長がいた場合はそこまで
+     *       ・監督アクターメンバ(_pDirector)
+     *       ・団長アクターメンバ(_pGroupHead) ※但し下位に他の団長がいた場合はそこまで
      *       の更新を行います。
-     * @param   prm_kind    種別名（＝GgafGroupActor名）
+     * @param   prm_kind    種別名（＝GgafGroupHead名）
      * @param   prm_pMainActor   登録するアクター
      */
-    GgafGroupActor* addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
+    GgafGroupHead* addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
     /**
      * 単独GgafActor、或いはGgafDummyActorが単独親となるGgafActor連続体を<BR>
      * 種別は0(無し)で登録される
-     * 本関数はの部的処理は prm_pActor を GgafGroupActor の子アクターとしているだけである。<BR>
+     * 本関数はの部的処理は prm_pActor を GgafGroupHead の子アクターとしているだけである。<BR>
      * @param   prm_pMainActor   登録するアクター
      */
-    GgafGroupActor* addSubGroup(GgafMainActor* prm_pMainActor);
+    GgafGroupHead* addSubGroup(GgafMainActor* prm_pMainActor);
 
     /**
      * サブの団長アクターを取得、無ければNULLを帰す
      * @param prm_kind
      * @return
      */
-    GgafGroupActor* getSubGroupActor(actorkind prm_kind);
+    GgafGroupHead* searchSubGroupHead(actorkind prm_kind);
 
 
 
@@ -147,8 +147,8 @@ public:
      */
     GgafGod* askGod();
 
-    virtual ~GgafLordActor();
+    virtual ~GgafDirector();
 };
 
 }
-#endif /**GGAFLORDACTOR_H_*/
+#endif /**GGAFDIRECTOR_H_*/
