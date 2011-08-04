@@ -19,7 +19,7 @@ FormationIris002::FormationIris002(const char* prm_name) :
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i] = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
-        SplineProgram* pProgram = NEW GgafDx9FixedVelocitySplineProgram(_papIris[i], _pSplineCon->refer(), 4000); //移動速度固定
+        SplineProgram* pProgram = NEW FixedVelocitySplineProgram(_papIris[i], _pSplineCon->refer(), 4000); //移動速度固定
         _papIris[i]->setSplineProgram(pProgram);
         _papIris[i]->setStore_Shot(_pStoreCon->refer());
         _papIris[i]->inactivateImmediately();

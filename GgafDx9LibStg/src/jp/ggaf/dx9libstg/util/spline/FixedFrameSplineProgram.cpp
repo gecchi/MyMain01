@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor)
+FixedFrameSplineProgram::FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor)
  : SplineProgram(prm_pActor) {
     _SPframe_segment = 0;
     _paDistace_to = NULL;
@@ -17,7 +17,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricA
     _ang_veloRzRyMv = ANGLE360;
 }
 
-GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
+FixedFrameSplineProgram::FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
                                                                double prm_paaCriteriaPoints[][3],
                                                                int prm_point_num,
                                                                double prm_accuracy,
@@ -33,7 +33,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricA
     init();
 }
 
-GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
+FixedFrameSplineProgram::FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
                                                                Spline3D* prm_sp,
                                                                frame prm_spent_frame,
                                                                ang_velo prm_ang_veloRzRyMv)
@@ -46,7 +46,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricA
 }
 
 
-void GgafDx9FixedFrameSplineProgram::init() {
+void FixedFrameSplineProgram::init() {
     //各点の時点の、距離と速度を予め全部求めておく
 
     // prm_paaCriteriaPoints[2][3] = { {1000,2000,3000}, {2000,1000,0}, {3900, 0, 1000} }
@@ -127,7 +127,7 @@ void GgafDx9FixedFrameSplineProgram::init() {
 
 }
 
-void GgafDx9FixedFrameSplineProgram::begin(int prm_option) {
+void FixedFrameSplineProgram::begin(int prm_option) {
     if (_sp) {
         _is_executing = true;
         _option = prm_option;
@@ -161,7 +161,7 @@ void GgafDx9FixedFrameSplineProgram::begin(int prm_option) {
 }
 
 
-void GgafDx9FixedFrameSplineProgram::behave() {
+void FixedFrameSplineProgram::behave() {
     if (_is_executing) {
         GgafDx9KurokoA* _pKurokoA = _pActor_target->_pKurokoA;
 
@@ -215,7 +215,7 @@ void GgafDx9FixedFrameSplineProgram::behave() {
     }
 
 }
-GgafDx9FixedFrameSplineProgram::~GgafDx9FixedFrameSplineProgram() {
+FixedFrameSplineProgram::~FixedFrameSplineProgram() {
     //イニシャライズされる前に解放されるかもしれない
     DELETEARR_POSSIBLE_NULL(_paDistace_to);
     //イニシャライズされる前に解放されるかもしれない

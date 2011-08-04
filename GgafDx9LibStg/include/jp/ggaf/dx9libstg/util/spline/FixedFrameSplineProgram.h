@@ -8,7 +8,7 @@ namespace GgafDx9Core {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class GgafDx9FixedFrameSplineProgram : public SplineProgram {
+class FixedFrameSplineProgram : public SplineProgram {
 
 public:
     /** [r]１区間の使用可能フレーム */
@@ -38,7 +38,7 @@ public:
     /**
      * コンストラクタ
      */
-    GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor);
+    FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor);
 
 
     /**
@@ -57,7 +57,7 @@ public:
      * @param prm_spent_frame 始点～終点へ移動するのに費やすフレーム数
      * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      */
-    GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
+    FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
                                    double prm_paaCriteriaPoint[][3],
                                    int prm_point_num,
                                    double prm_accuracy,
@@ -75,7 +75,7 @@ public:
      * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
-    GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
+    FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
                                    Spline3D* prm_sp,
                                    frame prm_spent_frame,
                                    ang_velo prm_ang_veloRzRyMv);
@@ -98,7 +98,7 @@ public:
      */
     void behave() override;
 
-    virtual ~GgafDx9FixedFrameSplineProgram();
+    virtual ~FixedFrameSplineProgram();
 };
 
 }

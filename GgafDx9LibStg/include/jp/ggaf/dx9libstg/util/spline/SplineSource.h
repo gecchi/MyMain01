@@ -21,7 +21,7 @@ public:
 
     /**
      * SplineProgram オブジェクトを作成する .
-     * 定義ファイルにより、GgafDx9FixedFrameSplineProgram か GgafDx9FixedVelocitySplineProgram の
+     * 定義ファイルにより、FixedFrameSplineProgram か FixedVelocitySplineProgram の
      * いづれかのオブジェクトを生成し、それを返す。<BR>
      * 内部スプライン座標情報は共通、いくら呼び出してもインスタンスは一つ。<BR>
      * @param prm_pForWhichActor どのアクターの為の SplineProgram なのかを指定

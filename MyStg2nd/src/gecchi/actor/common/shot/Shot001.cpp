@@ -11,7 +11,7 @@ Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "Flora") 
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
     _pSplineCon = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_HAN")); //スプライン定義
-    _pSplineProgram = NEW GgafDx9FixedVelocitySplineProgram(this, _pSplineCon->refer(), 10000); //移動速度固定
+    _pSplineProgram = NEW FixedVelocitySplineProgram(this, _pSplineCon->refer(), 10000); //移動速度固定
 }
 
 void Shot001::initialize() {

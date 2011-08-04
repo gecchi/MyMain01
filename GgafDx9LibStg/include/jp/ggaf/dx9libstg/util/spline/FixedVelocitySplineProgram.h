@@ -8,7 +8,7 @@ namespace GgafDx9Core {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class GgafDx9FixedVelocitySplineProgram : public SplineProgram {
+class FixedVelocitySplineProgram : public SplineProgram {
 
 public:
     /** [r]現在の補完点(基準点も含む)から、次の補完点(or基準点)までの距離のテーブル */
@@ -45,7 +45,7 @@ public:
      * @param prm_pActor 対象のアクター
      * @return
      */
-    GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor);
+    FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor);
 
     /**
      * コンストラクタ .
@@ -60,7 +60,7 @@ public:
      *                      0.1 とすると基点と基点の間に補完点は9つ入る（なめらかなカーブになる）。
      * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      */
-    GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
+    FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
                                       double prm_paaCriteriaPoint[][3],
                                       int prm_point_num,
                                       double prm_accuracy,
@@ -74,7 +74,7 @@ public:
      * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
-    GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
+    FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
                                       Spline3D* prm_sp,
                                       ang_velo prm_ang_veloRzRyMv);
 
@@ -97,7 +97,7 @@ public:
     void behave() override;
 
 
-    virtual ~GgafDx9FixedVelocitySplineProgram();
+    virtual ~FixedVelocitySplineProgram();
 };
 
 }

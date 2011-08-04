@@ -602,13 +602,12 @@ class MagicMeter;
 #include "gecchi/util/MyStgUtil.h"
 #include "gecchi/util/VamSysCamPosition.h"
 #include "gecchi/MyFactory.h"
-#include "gecchi/util/SplineSource.h"
+
 #include "gecchi/manager/StoreManager.h"
 #include "gecchi/manager/StoreConnection.h"
 #include "gecchi/manager/Spline3DManager.h"
 #include "gecchi/manager/Spline3DConnection.h"
-#include "gecchi/manager/SplineManager.h"
-#include "gecchi/manager/SplineConnection.h"
+
 #include "gecchi/actor/common/template/Formation001.hpp"
 
 #include "gecchi/actor/common/TestStore.h"

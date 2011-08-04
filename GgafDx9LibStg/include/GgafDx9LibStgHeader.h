@@ -39,6 +39,8 @@ class WalledSectionScene;
 
 class StgProperties;
 
+
+
 class DefaultGeometricActor;
 class DefaultD3DXMeshActor;
 class DefaultD3DXAniMeshActor;
@@ -74,6 +76,15 @@ class LinearOctreeForActor;
 class LinearOctreeActorElem;
 class CollisionChecker;
 class CollisionCheckerLaserChip;
+
+
+class Spline3D;
+class SplineProgram;
+class FixedFrameSplineProgram;
+class FixedVelocitySplineProgram;
+class SplineSource;
+class SplineManager;
+class SplineConnection;
 
 class LaserChip;
 class WateringLaserChip;
@@ -139,6 +150,13 @@ class LaserChipStoreDispatcher;
 #include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h"
 
+#include "jp/ggaf/dx9libstg/util/spline/Spline3D.h"
+#include "jp/ggaf/dx9libstg/util/spline/SplineProgram.h"
+#include "jp/ggaf/dx9libstg/util/spline/FixedFrameSplineProgram.h"
+#include "jp/ggaf/dx9libstg/util/spline/FixedVelocitySplineProgram.h"
+#include "jp/ggaf/dx9libstg/util/spline/SplineSource.h"
+#include "jp/ggaf/dx9libstg/manager/SplineManager.h"
+#include "jp/ggaf/dx9libstg/manager/SplineConnection.h"
 
 #include "jp/ggaf/dx9libstg/actor/laserchip/LaserChip.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/WateringLaserChip.h"

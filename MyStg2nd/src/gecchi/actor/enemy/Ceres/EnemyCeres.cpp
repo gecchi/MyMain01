@@ -39,8 +39,8 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorStore* prm_pStore_EnemyCer
     }
 
     _pSplineCon = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_001"));
-    //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //移動速度固定
-    _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(this, _pSplineCon->refer(), 600, 5000); //移動フレーム数固定
+    //_pProgram_CeresMove = NEW FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //移動速度固定
+    _pProgram_CeresMove = NEW FixedFrameSplineProgram(this, _pSplineCon->refer(), 600, 5000); //移動フレーム数固定
 
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "a_shot", GgafRepeatSeq::nextVal("CH_a_shot"));
