@@ -1,6 +1,6 @@
 #ifndef GGAFDX9FIXEDVELOCITYSPLINEPROGRAM_H_
 #define GGAFDX9FIXEDVELOCITYSPLINEPROGRAM_H_
-namespace GgafDx9Core {
+namespace GgafDx9LibStg {
 
 /**
  * 等速移動スプライン曲線移動。 .
@@ -45,7 +45,7 @@ public:
      * @param prm_pActor 対象のアクター
      * @return
      */
-    FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor);
+    FixedVelocitySplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
 
     /**
      * コンストラクタ .
@@ -60,7 +60,7 @@ public:
      *                      0.1 とすると基点と基点の間に補完点は9つ入る（なめらかなカーブになる）。
      * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      */
-    FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
+    FixedVelocitySplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
                                       double prm_paaCriteriaPoint[][3],
                                       int prm_point_num,
                                       double prm_accuracy,
@@ -74,7 +74,7 @@ public:
      * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
-    FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
+    FixedVelocitySplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
                                       Spline3D* prm_sp,
                                       ang_velo prm_ang_veloRzRyMv);
 

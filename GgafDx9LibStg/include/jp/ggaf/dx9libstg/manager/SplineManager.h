@@ -1,6 +1,6 @@
 #ifndef SPLINEPROGRAMMANAGER_H_
 #define SPLINEPROGRAMMANAGER_H_
-namespace MyStg2nd {
+namespace GgafDx9LibStg {
 
 /**
  * Spline ä«óùÉNÉâÉX .

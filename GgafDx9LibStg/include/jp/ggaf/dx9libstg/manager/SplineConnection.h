@@ -1,6 +1,6 @@
 #ifndef SPLINEPROGRAMCONNECTION_H_
 #define SPLINEPROGRAMCONNECTION_H_
-namespace MyStg2nd {
+namespace GgafDx9LibStg {
 
 /**
  * SplineSource資源コネクション.

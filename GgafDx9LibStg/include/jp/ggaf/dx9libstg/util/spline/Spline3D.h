@@ -3,7 +3,7 @@
 
 #define MaxSplineSize 100
 
-namespace GgafDx9Core {
+namespace GgafDx9LibStg {
 
 //本クラスはIshida So 氏作成のサンプルを参考に作成しました。
 //機能的なサンプルを作成されたIshida So氏に感謝いたします。

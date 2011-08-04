@@ -1,6 +1,6 @@
 #ifndef GGAFDX9FIXEDFRAMESPLINEPROGRAM_H_
 #define GGAFDX9FIXEDFRAMESPLINEPROGRAM_H_
-namespace GgafDx9Core {
+namespace GgafDx9LibStg {
 
 /**
  * 固定時間（フレーム）スプライン曲線移動。 .
@@ -38,7 +38,7 @@ public:
     /**
      * コンストラクタ
      */
-    FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor);
+    FixedFrameSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
 
 
     /**
@@ -57,7 +57,7 @@ public:
      * @param prm_spent_frame 始点～終点へ移動するのに費やすフレーム数
      * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      */
-    FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
+    FixedFrameSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
                                    double prm_paaCriteriaPoint[][3],
                                    int prm_point_num,
                                    double prm_accuracy,
@@ -75,7 +75,7 @@ public:
      * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
-    FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
+    FixedFrameSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
                                    Spline3D* prm_sp,
                                    frame prm_spent_frame,
                                    ang_velo prm_ang_veloRzRyMv);

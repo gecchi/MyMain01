@@ -2,6 +2,8 @@
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
+using namespace GgafDx9LibStg;
+
 
 SplineProgram::SplineProgram(GgafDx9GeometricActor* prm_pActor_target) : GgafObject() {
     _pActor_target = prm_pActor_target;

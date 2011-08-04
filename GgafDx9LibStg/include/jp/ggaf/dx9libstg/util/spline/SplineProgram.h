@@ -1,6 +1,6 @@
 #ifndef GGAFDX9SPLINEPROGRAM_H_
 #define GGAFDX9SPLINEPROGRAM_H_
-namespace GgafDx9Core {
+namespace GgafDx9LibStg {
 
 /**
  * スプライン曲線移動のための情報セット .
@@ -19,7 +19,7 @@ public:
     /** 現在プログラム実行中であるかどうか */
     bool _is_executing;
     /** 座標を操作する対象となるアクター */
-    GgafDx9GeometricActor* _pActor_target;
+    GgafDx9Core::GgafDx9GeometricActor* _pActor_target;
     /** コンストラクタ内部でSpline3Dを生成した場合true/コンストラクタ引数にSpline3Dが渡された場合、false */
     bool _is_create_sp;
     /** [r]始点X座標 */
@@ -39,7 +39,7 @@ public:
      * Spline3Dオブジェクトの参照を後から設定して下さい。（setSpline() メソッドで）
      * @param prm_pActor_target 対象のアクター
      */
-    SplineProgram(GgafDx9GeometricActor* prm_pActor_target);
+    SplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target);
 
 
     /**
@@ -55,7 +55,7 @@ public:
      *                      0.5 とすると基点から次基点までに補完点は1つ入る。
      *                      0.1 とすると基点と基点の間に補完点は9つ。
      */
-    SplineProgram(GgafDx9GeometricActor* prm_pActor_target,
+    SplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target,
                          double prm_paaCriteriaPoint[][3],
                          int prm_point_num,
                          double prm_accuracy);
@@ -66,7 +66,7 @@ public:
      * @param prm_pActor_target 対象のアクター
      * @param prm_sp スプライン曲線の補完点生成、保持クラスのインスタンス
      */
-    SplineProgram(GgafDx9GeometricActor* prm_pActor_target,
+    SplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target,
                          Spline3D* prm_sp);
 
 

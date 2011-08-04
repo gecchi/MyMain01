@@ -26,7 +26,7 @@ sample.spl -------------------------------------
 0.2
 
 [CLASS]
-GgafDx9FixedFrameSplineProgram 420 6000
+FixedFrameSplineProgram 420 6000
 
 -------------------------------------------------
 
@@ -53,19 +53,19 @@ GgafDx9FixedFrameSplineProgram 420 6000
 [CLASS]
 スプラインクラスを指定する。構文は以下の２種類のみ
 -------------------------------------------------------------
-GgafDx9FixedFrameSplineProgram <spent_frame> <angveloRzRyMv>
+FixedFrameSplineProgram <spent_frame> <angveloRzRyMv>
 又は
-GgafDx9FixedVelocitySplineProgram <angveloRzRyMv>
+FixedVelocitySplineProgram <angveloRzRyMv>
 -------------------------------------------------------------
 
-GgafDx9FixedFrameSplineProgram ・・・ スプラインの開始点～終了点の移動を、時間(フレーム)固定で移動させる。
+FixedFrameSplineProgram ・・・ スプラインの開始点～終了点の移動を、時間(フレーム)固定で移動させる。
 <spent_frame>   ・・・ 費やすフレーム数
 <angveloRzRyMv> ・・・ 毎フレーム方向転換可能な最大角(1000 で 1度）
 各キャラが保持している移動速度は無視されます。
 スプライン曲線の点の個数と費やすフレーム数から計算された移動速度が逐一キャラの速度値に上書き設定されます。
 このため、スプライン曲線の点の密度が濃いところはスピードが遅く、点の密度が薄いところはスピードが速い移動となります。
 
-GgafDx9FixedVelocitySplineProgram ・・・ スプラインの開始点～終了点の移動を、速度固定で移動させる。
+FixedVelocitySplineProgram ・・・ スプラインの開始点～終了点の移動を、速度固定で移動させる。
 <angveloRzRyMv> ・・・ 毎フレーム方向転換可能な最大角(1000 で 1度）
 各キャラが保持している移動速度がずっと使用されます。
 スプライン曲線の点の密度がスピードに影響しません。

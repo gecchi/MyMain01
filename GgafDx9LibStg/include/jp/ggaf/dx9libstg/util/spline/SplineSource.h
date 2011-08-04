@@ -1,6 +1,6 @@
 #ifndef SPLINESOURCE_H_
 #define SPLINESOURCE_H_
-namespace MyStg2nd {
+namespace GgafDx9LibStg {
 
 /**
  * Splineオブジェクトソース .
@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class SplineSource : public GgafCore::GgafObject {
 
 public:
-    GgafDx9Core::Spline3D* _pSp;
+    Spline3D* _pSp;
     double _accuracy;
     frame _spent_frame;
     ang_velo _ang_veloRzRyMv;
@@ -27,7 +27,7 @@ public:
      * @param prm_pForWhichActor どのアクターの為の SplineProgram なのかを指定
      * @return
      */
-    GgafDx9Core::SplineProgram* makeSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor);
+    SplineProgram* makeSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor);
 
 
     virtual ~SplineSource();
