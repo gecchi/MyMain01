@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9SplineProgram::GgafDx9SplineProgram(GgafDx9GeometricActor* prm_pActor_target) : GgafObject() {
+SplineProgram::SplineProgram(GgafDx9GeometricActor* prm_pActor_target) : GgafObject() {
     _pActor_target = prm_pActor_target;
     _sp = NULL;
     _SPframe = 0;
@@ -16,12 +16,12 @@ GgafDx9SplineProgram::GgafDx9SplineProgram(GgafDx9GeometricActor* prm_pActor_tar
     _Z_begin = 0;
 }
 
-GgafDx9SplineProgram::GgafDx9SplineProgram(GgafDx9GeometricActor* prm_pActor_target,
+SplineProgram::SplineProgram(GgafDx9GeometricActor* prm_pActor_target,
                                            double prm_paaCriteriaPoints[][3],
                                            int prm_point_num,
                                            double prm_accuracy) : GgafObject() {
     _pActor_target = prm_pActor_target;
-    _sp = NEW GgafDx9Spline3D(prm_paaCriteriaPoints, prm_point_num, prm_accuracy);
+    _sp = NEW Spline3D(prm_paaCriteriaPoints, prm_point_num, prm_accuracy);
     _SPframe = 0;
     _is_create_sp = true;
     _rate_X = 1.0;
@@ -35,7 +35,7 @@ GgafDx9SplineProgram::GgafDx9SplineProgram(GgafDx9GeometricActor* prm_pActor_tar
     _offset_Z = 0;
 }
 
-GgafDx9SplineProgram::GgafDx9SplineProgram(GgafDx9GeometricActor* prm_pActor_target, GgafDx9Spline3D* prm_sp) {
+SplineProgram::SplineProgram(GgafDx9GeometricActor* prm_pActor_target, Spline3D* prm_sp) {
     _pActor_target = prm_pActor_target;
     _sp = prm_sp;
     _is_create_sp = false;
@@ -50,12 +50,12 @@ GgafDx9SplineProgram::GgafDx9SplineProgram(GgafDx9GeometricActor* prm_pActor_tar
     _offset_Z = 0;
 }
 
-void GgafDx9SplineProgram::setSpline(GgafDx9Spline3D* prm_sp) {
+void SplineProgram::setSpline(Spline3D* prm_sp) {
     _sp = prm_sp;
     _is_create_sp = false;
 }
 
-void GgafDx9SplineProgram::begin(int prm_option) {
+void SplineProgram::begin(int prm_option) {
     if (_sp) {
         _is_executing = true;
 
@@ -67,12 +67,12 @@ void GgafDx9SplineProgram::begin(int prm_option) {
     }
 }
 
-void GgafDx9SplineProgram::setAbsoluteBeginCoordinate() {
+void SplineProgram::setAbsoluteBeginCoordinate() {
     _pActor_target->_X = _sp->_X_compute[0]*_rate_X + _offset_X;
     _pActor_target->_Y = _sp->_Y_compute[0]*_rate_Y + _offset_Y;
     _pActor_target->_Z = _sp->_Z_compute[0]*_rate_Z + _offset_Z;
 }
-void GgafDx9SplineProgram::behave() {
+void SplineProgram::behave() {
 
     if (_is_executing) {
         //åªç›ÇÃì_INDEX
@@ -92,7 +92,7 @@ void GgafDx9SplineProgram::behave() {
     }
 
 }
-GgafDx9SplineProgram::~GgafDx9SplineProgram() {
+SplineProgram::~SplineProgram() {
     if (_is_create_sp) {
         DELETE_IMPOSSIBLE_NULL(_sp);
     }

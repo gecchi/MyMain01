@@ -79,9 +79,9 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 #endif
     //-1.0 Å` 1.0 Ç™ é©ã@ÇÃà⁄ìÆâ¬î\îÕàÕÇ∆Ç∑ÇÈ
     for (int i = 0; i < n; i++) {
-        p[i][0] = p[i][0] * MyShip::_lim_front; //X
-        p[i][1] = p[i][1] * MyShip::_lim_top;   //Y
-        p[i][2] = p[i][2] * MyShip::_lim_zleft; //Z
+//        p[i][0] = p[i][0] * MyShip::_lim_front; //X
+//        p[i][1] = p[i][1] * MyShip::_lim_top;   //Y
+//        p[i][2] = p[i][2] * MyShip::_lim_zleft; //Z
 
         if (p[i][0] > GgafDx9Universe::_X_goneRight*0.9) {
             p[i][0] = GgafDx9Universe::_X_goneRight*0.9;
@@ -102,7 +102,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
             p[i][2] = GgafDx9Universe::_Z_goneNear*0.9;
         }
     }
-    _pSp = NEW GgafDx9Spline3D(p, n, _accuracy);
+    _pSp = NEW Spline3D(p, n, _accuracy);
 }
 
 //ÅÉê‡ñæÅÑ
@@ -174,8 +174,8 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 
 
 
-GgafDx9SplineProgram* SplineSource::makeSplineProgram(GgafDx9GeometricActor* prm_pForWhichActor) {
-    GgafDx9SplineProgram* pSpProg = NULL;
+SplineProgram* SplineSource::makeSplineProgram(GgafDx9GeometricActor* prm_pForWhichActor) {
+    SplineProgram* pSpProg = NULL;
     if (_classname.find("GgafDx9FixedFrameSplineProgram") != string::npos) {
         pSpProg = NEW GgafDx9FixedFrameSplineProgram(prm_pForWhichActor, _pSp, _spent_frame, _ang_veloRzRyMv);
     } else if (_classname.find("GgafDx9FixedVelocitySplineProgram") != string::npos) {

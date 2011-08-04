@@ -8,7 +8,7 @@ namespace GgafDx9Core {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class GgafDx9FixedVelocitySplineProgram : public GgafDx9SplineProgram {
+class GgafDx9FixedVelocitySplineProgram : public SplineProgram {
 
 public:
     /** [r]現在の補完点(基準点も含む)から、次の補完点(or基準点)までの距離のテーブル */
@@ -75,7 +75,7 @@ public:
      * @return
      */
     GgafDx9FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
-                                      GgafDx9Spline3D* prm_sp,
+                                      Spline3D* prm_sp,
                                       ang_velo prm_ang_veloRzRyMv);
 
     /**

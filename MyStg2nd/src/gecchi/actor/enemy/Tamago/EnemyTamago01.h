@@ -14,7 +14,7 @@ public:
     /** 行動パターン番号 */
     int _iMovePatternNo;
     /** 移動スプラインプログラム */
-    GgafDx9Core::GgafDx9SplineProgram* _pProgram_Tamago01Move;
+    GgafDx9Core::SplineProgram* _pProgram_Tamago01Move;
     /** 弾ストック */
     GgafCore::GgafActorStore* _pStore_Shot;
     /** 弾発射効果エフェクト */

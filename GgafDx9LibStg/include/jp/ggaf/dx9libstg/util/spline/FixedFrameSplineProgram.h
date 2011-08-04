@@ -8,7 +8,7 @@ namespace GgafDx9Core {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class GgafDx9FixedFrameSplineProgram : public GgafDx9SplineProgram {
+class GgafDx9FixedFrameSplineProgram : public SplineProgram {
 
 public:
     /** [r]１区間の使用可能フレーム */
@@ -44,8 +44,8 @@ public:
     /**
      * コンストラクタ.
      * 固定時間移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
-     * 引数から内部でGgafDx9Spline3Dを生成しスプライン曲線補完点を計算します。
-     * GgafDx9Spline3Dオブジェクトの解放も内部で行われます。
+     * 引数から内部でSpline3Dを生成しスプライン曲線補完点を計算します。
+     * Spline3Dオブジェクトの解放も内部で行われます。
      * @param prm_pActor 対象のアクター
      * @param prm_paaCriteriaPoint 基点配列
      * @param prm_point_num  基点配列の要素数
@@ -66,8 +66,8 @@ public:
     /**
      * コンストラクタ.
      * 固定時間移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
-     * 引数のGgafDx9Spline3Dを利用します。GgafDx9Spline3Dの解放は、呼び出し元で行ってください。
-     * たくさんのオブジェクトに同じGgafDx9Spline3Dの動きをさせる場合は、
+     * 引数のSpline3Dを利用します。Spline3Dの解放は、呼び出し元で行ってください。
+     * たくさんのオブジェクトに同じSpline3Dの動きをさせる場合は、
      * こちらのコンストラクタで生成すべきです。
      * @param prm_pActor 対象のアクター
      * @param prm_sp スプライン曲線の補完点生成、保持クラスのインスタンス
@@ -76,7 +76,7 @@ public:
      * @return
      */
     GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
-                                   GgafDx9Spline3D* prm_sp,
+                                   Spline3D* prm_sp,
                                    frame prm_spent_frame,
                                    ang_velo prm_ang_veloRzRyMv);
 

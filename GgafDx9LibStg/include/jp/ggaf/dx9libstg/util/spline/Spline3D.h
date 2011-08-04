@@ -22,18 +22,18 @@ namespace GgafDx9Core {
  * @since 2009/10/16
  * @author Masatoshi Tsuge
  */
-class GgafDx9Spline3D {
+class Spline3D {
 
 public:
 
     /**
      * １次元スプライン生成
      */
-    class GgafDx9Spline {
+    class Spline {
     public:
         int num;
         double a[MaxSplineSize + 1], b[MaxSplineSize + 1], c[MaxSplineSize + 1], d[MaxSplineSize + 1];
-        GgafDx9Spline() {
+        Spline() {
             num = 0;
         }
         void init(double *sp, int spnum) {
@@ -85,7 +85,7 @@ public:
      * コンストラクタ .
      * 後で init() を呼び出して下さい。
      */
-    GgafDx9Spline3D();
+    Spline3D();
 
     /**
      * コンストラクタ .
@@ -101,7 +101,7 @@ public:
      *                     0.1だと1基点間に10点補完、といった具合
      * @return
      */
-    GgafDx9Spline3D(double prm_paaBase[][3], int num, double prm_accuracy);
+    Spline3D(double prm_paaBase[][3], int num, double prm_accuracy);
 
     /**
      * 初期化し補完点し、使用できる状態にします .
@@ -131,16 +131,16 @@ public:
     double* _Z_basepoint;
     int _num_basepoint;
 
-    GgafDx9Spline _xs;
-    GgafDx9Spline _ys;
-    GgafDx9Spline _zs;
+    Spline _xs;
+    Spline _ys;
+    Spline _zs;
 
     double* _X_compute;
     double* _Y_compute;
     double* _Z_compute;
     int _rnum;
 
-    virtual ~GgafDx9Spline3D();
+    virtual ~Spline3D();
 
 };
 

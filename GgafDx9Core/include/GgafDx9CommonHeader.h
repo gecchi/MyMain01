@@ -322,8 +322,8 @@ class GgafDx9ModelManager;
 class GgafDx9EffectConnection;
 class GgafDx9EffectManager;
 
-class GgafDx9Spline3D;
-class GgafDx9SplineProgram;
+class Spline3D;
+class SplineProgram;
 class GgafDx9FixedFrameSplineProgram;
 class GgafDx9FixedVelocitySplineProgram;
 
@@ -452,8 +452,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/manager/GgafDx9ModelManager.h"
 #include "jp/ggaf/dx9core/manager/GgafDx9EffectConnection.h"
 #include "jp/ggaf/dx9core/manager/GgafDx9EffectManager.h"
-#include "jp/ggaf/dx9core/util/spline/GgafDx9Spline3D.h"
-#include "jp/ggaf/dx9core/util/spline/GgafDx9SplineProgram.h"
+#include "jp/ggaf/dx9core/util/spline/Spline3D.h"
+#include "jp/ggaf/dx9core/util/spline/SplineProgram.h"
 #include "jp/ggaf/dx9core/util/spline/GgafDx9FixedFrameSplineProgram.h"
 #include "jp/ggaf/dx9core/util/spline/GgafDx9FixedVelocitySplineProgram.h"
 

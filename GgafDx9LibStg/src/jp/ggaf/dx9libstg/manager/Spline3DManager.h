@@ -4,12 +4,12 @@ namespace MyStg2nd {
 
 /**
  * Spline 管理クラス .
- * 生成済み GgafDx9Spline3D オブジェクトを登録しておき、使いまわします。
+ * 生成済み Spline3D オブジェクトを登録しておき、使いまわします。
  * @version 1.00
  * @since 2010/05/31
  * @author Masatoshi Tsuge
  */
-class Spline3DManager : public GgafCore::GgafResourceManager<GgafDx9Core::GgafDx9Spline3D> {
+class Spline3DManager : public GgafCore::GgafResourceManager<GgafDx9Core::Spline3D> {
 
 public:
 
@@ -19,9 +19,9 @@ public:
      */
     Spline3DManager(const char* prm_manager_name);
 
-    GgafDx9Core::GgafDx9Spline3D* processCreateResource(char* prm_idstr, void* prm_p);
+    GgafDx9Core::Spline3D* processCreateResource(char* prm_idstr, void* prm_p);
 
-    GgafCore::GgafResourceConnection<GgafDx9Core::GgafDx9Spline3D>* processCreateConnection(char* prm_idstr, GgafDx9Core::GgafDx9Spline3D* prm_pResource);
+    GgafCore::GgafResourceConnection<GgafDx9Core::Spline3D>* processCreateConnection(char* prm_idstr, GgafDx9Core::Spline3D* prm_pResource);
 
 
     virtual ~Spline3DManager() {

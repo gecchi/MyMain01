@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor)
- : GgafDx9SplineProgram(prm_pActor) {
+ : SplineProgram(prm_pActor) {
     _SPframe_segment = 0;
     _paDistace_to = NULL;
     _paSPMvVeloTo = NULL;
@@ -24,7 +24,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricA
                                                                frame prm_spent_frame,
                                                                ang_velo prm_ang_veloRzRyMv )
 
-                                        : GgafDx9SplineProgram(prm_pActor,
+                                        : SplineProgram(prm_pActor,
                                                                prm_paaCriteriaPoints,
                                                                prm_point_num,
                                                                prm_accuracy)      {
@@ -34,11 +34,11 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricA
 }
 
 GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
-                                                               GgafDx9Spline3D* prm_sp,
+                                                               Spline3D* prm_sp,
                                                                frame prm_spent_frame,
                                                                ang_velo prm_ang_veloRzRyMv)
 
-                                         : GgafDx9SplineProgram(prm_pActor,
+                                         : SplineProgram(prm_pActor,
                                                                 prm_sp) {
     _spent_frame = prm_spent_frame;
     _ang_veloRzRyMv = prm_ang_veloRzRyMv;
