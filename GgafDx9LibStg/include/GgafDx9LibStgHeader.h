@@ -152,6 +152,4 @@ class LaserChipStoreDispatcher;
 
 
 
-
-
 #endif /*GGAFDX9LIBSTGHEADER_H_*/
