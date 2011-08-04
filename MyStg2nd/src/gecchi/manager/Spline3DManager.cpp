@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 Spline3DManager::Spline3DManager(const char* prm_manager_name) :
-    GgafResourceManager<GgafDx9Core::Spline3D> (prm_manager_name) {
+    GgafResourceManager<GgafDx9LibStg::Spline3D> (prm_manager_name) {
 }
 
 Spline3D* Spline3DManager::processCreateResource(char* prm_idstr, void* prm_p) {
@@ -131,7 +131,7 @@ Spline3D* Spline3DManager::processCreateResource(char* prm_idstr, void* prm_p) {
 //GgafDx9Universe::_Z_goneFar   = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
 //GgafDx9Universe::_Z_goneNear  = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
 
-GgafResourceConnection<GgafDx9Core::Spline3D>* Spline3DManager::processCreateConnection(char* prm_idstr, Spline3D* prm_pResource) {
+GgafResourceConnection<GgafDx9LibStg::Spline3D>* Spline3DManager::processCreateConnection(char* prm_idstr, Spline3D* prm_pResource) {
     TRACE3(" Spline3DManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     Spline3DConnection* pConnection = NEW Spline3DConnection(prm_idstr, prm_pResource);
     TRACE3(" Spline3DManager::processCreateConnection "<<prm_idstr<<" を生成終了。");

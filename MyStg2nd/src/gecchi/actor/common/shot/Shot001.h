@@ -13,7 +13,7 @@ class Shot001 : public GgafDx9LibStg::DefaultMeshSetActor {
 public:
 
     /** 移動スプラインプログラム */
-    GgafDx9Core::SplineProgram* _pSplineProgram;
+    GgafDx9LibStg::SplineProgram* _pSplineProgram;
     /** スプライン定義資源への接続 */
     Spline3DConnection* _pSplineCon;
     Shot001(const char* prm_name);

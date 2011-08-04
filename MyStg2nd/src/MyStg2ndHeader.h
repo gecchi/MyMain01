@@ -359,11 +359,10 @@ class EnemyMassalia;
 class StoreConnection;
 class StoreManager;
 
-class SplineSource;
+
 class Spline3DConnection;
 class Spline3DManager;
-class SplineConnection;
-class SplineManager;
+
 
 class CameraWorkerManager;
 class CameraWorkerConnection;

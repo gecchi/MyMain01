@@ -79,11 +79,7 @@ public:
      * @param prm_offset_Y Y軸方向補正増加分
      * @param prm_offset_Z Z軸方向補正増加分
      */
-    void adjustAxisOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
-        _offset_X = prm_offset_X;
-        _offset_Y = prm_offset_Y;
-        _offset_Z = prm_offset_Z;
-    }
+    void adjustAxisOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z);
 
     /**
      * スプライン曲線全体を、X軸方向、Y軸方向、Z軸方向それぞれに、割合を乗じ補正することが出来ます。
@@ -93,11 +89,7 @@ public:
      * @param prm_rate_Y Y軸方向補正割合
      * @param prm_rate_Z Z軸方向補正割合
      */
-    void adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) {
-        _rate_X = prm_rate_X;
-        _rate_Y = prm_rate_Y;
-        _rate_Z = prm_rate_Z;
-    }
+    void adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z);
 
 
     /**

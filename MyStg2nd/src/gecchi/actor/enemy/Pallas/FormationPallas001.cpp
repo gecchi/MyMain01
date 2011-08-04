@@ -13,11 +13,19 @@ FormationPallas001::FormationPallas001(const char* prm_name) : GgafDx9FormationA
     //パラス編隊作成
     _pSplineCon     = (SplineConnection*)(P_GOD->_pSplineManager->getConnection("Pallas01")); //スプライン定義
     _pStoreCon = NULL;
+
     _papPallas = NEW EnemyPallas*[_num_Pallas];
+    SplineProgram* pSplinProg;
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
-        _papPallas[i]->config(_pSplineCon->refer()->makeSplineProgram(_papPallas[i]), NULL, NULL);
+        pSplinProg = _pSplineCon->refer()->makeSplineProgram(_papPallas[i]);
+        pSplinProg->adjustAxisRate(
+                MyShip::_lim_front, //X方向倍率
+                MyShip::_lim_top,   //Y方向倍率
+                MyShip::_lim_zleft  //Z方向倍率
+        );
+        _papPallas[i]->config(pSplinProg, NULL, NULL);
         //_papPallas[i]->setStore_Shot(_pStoreCon->refer()); //弾設定
         _papPallas[i]->inactivateImmediately();
         addSubLast(_papPallas[i]);

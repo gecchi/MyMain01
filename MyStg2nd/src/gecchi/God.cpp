@@ -11,10 +11,10 @@ VirtualButton* God::_pVbtn_UI = NULL;
 VirtualButton* God::_pVbtn_Active = NULL;
 VirtualButton* God::_pVbtn_Active_next_frame = NULL;
 
-God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) : DefaultGod(prm_hInstance, prm_pHWndPrimary, prm_pHWndSecondary) {
+God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
+      DefaultGod(prm_hInstance, prm_pHWndPrimary, prm_pHWndSecondary) {
     _pStoreManager = NEW StoreManager("StoreManager");
     _pSpline3DManager = NEW Spline3DManager("Spline3DManager");
-    _pSplineManager = NEW SplineManager("SplineManager");
 
     God::_pVbtn_PLAY = NEW VirtualButton("VB_PLAY.rep");
     God::_pVbtn_UI   = NEW VirtualButton("VB_UI.rep");
@@ -96,7 +96,6 @@ void God::clean() {
         DELETE_IMPOSSIBLE_NULL(_pVbtn_UI);
         DELETE_IMPOSSIBLE_NULL(_pStoreManager);
         DELETE_IMPOSSIBLE_NULL(_pSpline3DManager);
-        DELETE_IMPOSSIBLE_NULL(_pSplineManager);
         _TRACE_("God::clean() end");
     }
 }

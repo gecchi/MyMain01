@@ -11,7 +11,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
                                                          velo prm_mv_velo,
                                                          const char* prm_spl_id) : GgafDx9FormationActor(prm_name, 30*60) {
     _class_name = "FormationEunomia";
-    _num_formation_col = prm_col;   //編隊列数
+    _num_formation_col = prm_col > 7 ? 7 : prm_col;   //編隊列数
     _num_formation_row = prm_row;  //１列の編隊数
     _interval_frames    = prm_interval_frames;   //エウノミアの間隔(frame)
     _mv_velo           = prm_mv_velo; //速度
@@ -26,11 +26,13 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
     }
 
     _papapEunomia = NEW EnemyEunomia**[_num_formation_col]; //n列xN機の編隊を組む
+    SplineProgram* pSplinProg;
     for (int i = 0; i < _num_formation_col; i++) {
         _papapEunomia[i] = NEW EnemyEunomia*[_num_formation_row];
         for (int j = 0; j < _num_formation_row; j++) {
             _papapEunomia[i][j] = NEW EnemyEunomia("EUNOMIA");
-            _papapEunomia[i][j]->config(_papSplineCon[i]->refer()->makeSplineProgram(_papapEunomia[i][j]), NULL, NULL);
+            pSplinProg = _papSplineCon[i]->refer()->makeSplineProgram(_papapEunomia[i][j]);
+            _papapEunomia[i][j]->config(pSplinProg, NULL, NULL);
             _papapEunomia[i][j]->inactivateImmediately();
             addSubLast(_papapEunomia[i][j]);
         }

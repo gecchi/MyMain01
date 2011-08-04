@@ -5,13 +5,14 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 DefaultGod::DefaultGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) : GgafDx9God(prm_hInstance, prm_pHWndPrimary, prm_pHWndSecondary) {
-
+    _pSplineManager = NEW SplineManager("SplineManager");
 }
 
 void DefaultGod::clean() {
     if (!_was_cleaned) {
         _TRACE_("DefaultGod::clean() begin");
         GgafDx9God::clean();
+        DELETE_IMPOSSIBLE_NULL(_pSplineManager);
         _TRACE_("DefaultGod::clean() end");
     }
 }

@@ -21,7 +21,7 @@ class God : public GgafDx9LibStg::DefaultGod {
 public:
     StoreManager* _pStoreManager;
     Spline3DManager* _pSpline3DManager;
-    SplineManager* _pSplineManager;
+
 
     static GgafDx9LibStg::VirtualButton* _pVbtn_PLAY;
     static GgafDx9LibStg::VirtualButton* _pVbtn_UI;

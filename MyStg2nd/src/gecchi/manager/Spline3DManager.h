@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @since 2010/05/31
  * @author Masatoshi Tsuge
  */
-class Spline3DManager : public GgafCore::GgafResourceManager<GgafDx9Core::Spline3D> {
+class Spline3DManager : public GgafCore::GgafResourceManager<GgafDx9LibStg::Spline3D> {
 
 public:
 
@@ -19,9 +19,9 @@ public:
      */
     Spline3DManager(const char* prm_manager_name);
 
-    GgafDx9Core::Spline3D* processCreateResource(char* prm_idstr, void* prm_p);
+    GgafDx9LibStg::Spline3D* processCreateResource(char* prm_idstr, void* prm_p);
 
-    GgafCore::GgafResourceConnection<GgafDx9Core::Spline3D>* processCreateConnection(char* prm_idstr, GgafDx9Core::Spline3D* prm_pResource);
+    GgafCore::GgafResourceConnection<GgafDx9LibStg::Spline3D>* processCreateConnection(char* prm_idstr, GgafDx9LibStg::Spline3D* prm_pResource);
 
 
     virtual ~Spline3DManager() {

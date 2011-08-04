@@ -19,7 +19,7 @@ public:
     /** 弾ストック */
     GgafCore::GgafActorStore* _pStore_EnemyCeresShots001;
     /** スプラインプログラム */
-    GgafDx9Core::SplineProgram* _pProgram_CeresMove;
+    GgafDx9LibStg::SplineProgram* _pProgram_CeresMove;
 
     /** GgafActorStoreをコンストラクタで生成したか否か */
     bool _createGgafActorStore;

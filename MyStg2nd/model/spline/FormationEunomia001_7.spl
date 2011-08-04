@@ -22,5 +22,5 @@
 0.2
 
 [CLASS]
-FixedFrameSplineProgram 420 6000
+FixedVelocitySplineProgram 6000
 

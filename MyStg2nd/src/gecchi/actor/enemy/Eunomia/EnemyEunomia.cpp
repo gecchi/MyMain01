@@ -46,7 +46,6 @@ void EnemyEunomia::onActive() {
 void EnemyEunomia::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-
     //【パターン1：スプライン移動】
     if (_pProg->isJustChangedTo(1)) {
         _pSplineProgram->begin(0); //スプライン移動を開始(1:座標相対)

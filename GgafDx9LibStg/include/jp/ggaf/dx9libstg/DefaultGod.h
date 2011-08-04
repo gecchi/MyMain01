@@ -5,6 +5,7 @@ namespace GgafDx9LibStg {
 class DefaultGod : public GgafDx9Core::GgafDx9God {
 
 public:
+    SplineManager* _pSplineManager;
 
     DefaultGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
     virtual void clean() override;

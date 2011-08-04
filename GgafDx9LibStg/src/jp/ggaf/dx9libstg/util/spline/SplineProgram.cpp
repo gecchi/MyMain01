@@ -94,6 +94,18 @@ void SplineProgram::behave() {
     }
 
 }
+void SplineProgram::adjustAxisOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
+    _offset_X = prm_offset_X;
+    _offset_Y = prm_offset_Y;
+    _offset_Z = prm_offset_Z;
+}
+
+void SplineProgram::adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) {
+    _rate_X = prm_rate_X;
+    _rate_Y = prm_rate_Y;
+    _rate_Z = prm_rate_Z;
+}
+
 SplineProgram::~SplineProgram() {
     if (_is_create_sp) {
         DELETE_IMPOSSIBLE_NULL(_sp);
