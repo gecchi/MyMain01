@@ -20,11 +20,6 @@ FormationPallas001::FormationPallas001(const char* prm_name) : GgafDx9FormationA
         _papPallas[i] = NEW EnemyPallas("Pallas01");
         //ƒXƒvƒ‰ƒCƒ“ˆÚ“®ƒvƒƒOƒ‰ƒ€Ý’è
         pSplinProg = _pSplineCon->refer()->makeSplineProgram(_papPallas[i]);
-        pSplinProg->adjustAxisRate(
-                MyShip::_lim_front, //X•ûŒü”{—¦
-                MyShip::_lim_top,   //Y•ûŒü”{—¦
-                MyShip::_lim_zleft  //Z•ûŒü”{—¦
-        );
         _papPallas[i]->config(pSplinProg, NULL, NULL);
         //_papPallas[i]->setStore_Shot(_pStoreCon->refer()); //’eÝ’è
         _papPallas[i]->inactivateImmediately();

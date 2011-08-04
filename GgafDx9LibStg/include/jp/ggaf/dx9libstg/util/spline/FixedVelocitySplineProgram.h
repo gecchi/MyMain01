@@ -84,6 +84,10 @@ public:
      */
     void init();
 
+
+    void adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) override;
+
+
     /**
      * スプライン曲線利用のフレーム数指定移動プログラム開始
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動

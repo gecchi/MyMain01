@@ -128,6 +128,42 @@ void FixedFrameSplineProgram::init() {
 
 }
 
+void FixedFrameSplineProgram::adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) {
+    _rate_X = prm_rate_X;
+    _rate_Y = prm_rate_Y;
+    _rate_Z = prm_rate_Z;
+    //次の補完点までの距離のテーブル、次の補完点到達に必要な移動速度のテーブル再計算
+
+    coord x_from, y_from, z_from;
+    coord x_to, y_to, z_to;
+
+    x_to = _sp->_X_compute[0]*_rate_X;
+    y_to = _sp->_Y_compute[0]*_rate_Y;
+    z_to = _sp->_Z_compute[0]*_rate_Z;
+    for (int t = 1; t < _sp->_rnum; t ++) {
+        x_from = x_to;
+        y_from = y_to;
+        z_from = z_to;
+        x_to = _sp->_X_compute[t]*_rate_X;
+        y_to = _sp->_Y_compute[t]*_rate_Y;
+        z_to = _sp->_Z_compute[t]*_rate_Z;
+        _paDistace_to[t] = GgafDx9Util::getDistance(
+                                    x_from,
+                                    y_from,
+                                    z_from,
+                                    x_to,
+                                    y_to,
+                                    z_to
+                                 );
+
+        //距離 paDistaceTo[t] を、時間frm_segment で移動するために必要な速度を求める。
+        //速さ＝距離÷時間
+        _paSPMvVeloTo[t] = (velo)(_paDistace_to[t] / _SPframe_segment);
+    }
+
+}
+
+
 void FixedFrameSplineProgram::begin(int prm_option) {
     if (_sp) {
         _is_executing = true;
