@@ -45,7 +45,7 @@ using namespace GgafDx9LibStg;
 //    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
 //    init();
 //}
-FixedFrameSplineManufacture::FixedFrameSplineManufacture(char* prm_idstr, const char* prm_sourceid) : SplineManufacture(prm_idstr, prm_sourceid) {
+FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(char* prm_idstr, const char* prm_sourceid) : SplineManufacture(prm_idstr, prm_sourceid) {
     init();
 }
 
