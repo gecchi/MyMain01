@@ -14,7 +14,7 @@ public:
     /** パラスの発射弾の借り入れ元Store資源への接続 */
     StoreConnection* _pStoreCon;
     /** スプライン定義資源への接続 */
-    GgafDx9LibStg::SplineConnection* _pSplineCon;
+    GgafDx9LibStg::SplineSourceConnection* _pSplineCon;
     /** 編隊数(RANK変動) */
     int _num_Pallas;
     /** パラスの配列(RANK変動) */

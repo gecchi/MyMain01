@@ -12,7 +12,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
     _spent_frame = 1;
     _ang_veloRzRyMv = 0;
     _classname = "";
-    string data_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr) + ".spl";
+    string data_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr) + ".spls";
     ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
         throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" が開けません");
@@ -25,22 +25,22 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
         if (line.c_str()[0] == '#') continue;
 
         LOOP_SPLFILE:
-        if (line.find("[CLASS]") != string::npos) {
-            while( getline(ifs,line) ) {
-                if (line.size() == 0 ) break;
-                if (line.c_str()[0] == '#') continue;
-                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
-                istringstream iss(line);
-                iss >> _classname;
-                if (_classname == "FixedFrameSplineProgram") {
-                    iss >> _spent_frame;
-                    iss >> _ang_veloRzRyMv;
-                } else if (_classname == "FixedVelocitySplineProgram") {
-                    iss >> _ang_veloRzRyMv;
-                    _spent_frame = 0;
-                }
-            }
-        }
+//        if (line.find("[CLASS]") != string::npos) {
+//            while( getline(ifs,line) ) {
+//                if (line.size() == 0 ) break;
+//                if (line.c_str()[0] == '#') continue;
+//                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
+//                istringstream iss(line);
+//                iss >> _classname;
+//                if (_classname == "FixedFrameSplineProgram") {
+//                    iss >> _spent_frame;
+//                    iss >> _ang_veloRzRyMv;
+//                } else if (_classname == "FixedVelocitySplineProgram") {
+//                    iss >> _ang_veloRzRyMv;
+//                    _spent_frame = 0;
+//                }
+//            }
+//        }
         if (line.find("[BASEPOINT]") != string::npos) {
             while( getline(ifs,line) ) {
                 if (line.size() == 0 ) break;
@@ -171,19 +171,28 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 //各キャラが保持している移動速度がずっと使用されます。
 //スプライン曲線の点の密度がスピードに影響しません。
 
-
-
-SplineProgram* SplineSource::makeSplineProgram(GgafDx9GeometricActor* prm_pForWhichActor) {
-    SplineProgram* pSpProg = NULL;
-    if (_classname.find("FixedFrameSplineProgram") != string::npos) {
-        pSpProg = NEW FixedFrameSplineProgram(prm_pForWhichActor, _pSp, _spent_frame, _ang_veloRzRyMv);
-    } else if (_classname.find("FixedVelocitySplineProgram") != string::npos) {
-        pSpProg = NEW FixedVelocitySplineProgram(prm_pForWhichActor, _pSp, _ang_veloRzRyMv);
-    } else {
-        throwGgafCriticalException("SplineSource::makeSplineProgram _classname="<<_classname<< "は不明なクラスです");
-    }
-    return pSpProg;
+SplineManufacture* SplineSource::createManufacture(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor) {
+//    if (_classname.find("FixedFrameSplineProgram") != string::npos) {
+//        pSpProg = NEW FixedFrameSplineProgram(prm_pForWhichActor, _pSp, _spent_frame, _ang_veloRzRyMv);
+//    } else if (_classname.find("FixedVelocitySplineProgram") != string::npos) {
+//        pSpProg = NEW FixedVelocitySplineProgram(prm_pForWhichActor, _pSp, _ang_veloRzRyMv);
+//    } else {
+//        throwGgafCriticalException("SplineSource::createSplineProgram _classname="<<_classname<< "は不明なクラスです");
+//    }
+    return NULL;//NEW SplineManufacture(); //TODO:
 }
+
+//SplineProgram* SplineSource::createSplineProgram(GgafDx9GeometricActor* prm_pForWhichActor) {
+//    SplineProgram* pSpProg = NULL;
+//    if (_classname.find("FixedFrameSplineProgram") != string::npos) {
+//        pSpProg = NEW FixedFrameSplineProgram(prm_pForWhichActor, _pSp, _spent_frame, _ang_veloRzRyMv);
+//    } else if (_classname.find("FixedVelocitySplineProgram") != string::npos) {
+//        pSpProg = NEW FixedVelocitySplineProgram(prm_pForWhichActor, _pSp, _ang_veloRzRyMv);
+//    } else {
+//        throwGgafCriticalException("SplineSource::createSplineProgram _classname="<<_classname<< "は不明なクラスです");
+//    }
+//    return pSpProg;
+//}
 
 SplineSource::~SplineSource() {
     DELETE_IMPOSSIBLE_NULL(_pSp);

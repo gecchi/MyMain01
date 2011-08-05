@@ -8,7 +8,7 @@ namespace GgafDx9LibStg {
  * @since 2010/12/14
  * @author Masatoshi Tsuge
  */
-class SplineConnection : public GgafCore::GgafResourceConnection<SplineSource> {
+class SplineSourceConnection : public GgafCore::GgafResourceConnection<SplineSource> {
 
 public:
 
@@ -17,11 +17,11 @@ public:
      * @param prm_idstr 識別名
      * @param prm_pSplineProgram SplineSourceオブジェクト
      */
-    SplineConnection(char* prm_idstr, SplineSource* prm_pSplineProgram);
+    SplineSourceConnection(char* prm_idstr, SplineSource* prm_pSplineProgram);
 
     void processReleaseResource(SplineSource* prm_pResource);
 
-    virtual ~SplineConnection() {
+    virtual ~SplineSourceConnection() {
     }
 };
 

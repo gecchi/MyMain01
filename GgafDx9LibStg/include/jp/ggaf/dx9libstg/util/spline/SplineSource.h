@@ -27,8 +27,9 @@ public:
      * @param prm_pForWhichActor どのアクターの為の SplineProgram なのかを指定
      * @return
      */
-    SplineProgram* makeSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor);
+//    SplineProgram* createSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor);
 
+    SplineManufacture* createManufacture(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor);
 
     virtual ~SplineSource();
 };

@@ -1,5 +1,5 @@
-#ifndef FIXEDFRAMESPLINEPROGRAM_H_
-#define FIXEDFRAMESPLINEPROGRAM_H_
+#ifndef FIXEDFRAMESPLINEMANUFACTURE_H_
+#define FIXEDFRAMESPLINEMANUFACTURE_H_
 namespace GgafDx9LibStg {
 
 /**
@@ -8,30 +8,27 @@ namespace GgafDx9LibStg {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class FixedFrameSplineProgram : public SplineProgram {
+class FixedFrameSplineManufacture : public SplineManufacture {
 
 public:
+    /** [r]１区間の使用可能フレーム */
+    frame _SPframe_segment;
 
-    FixedFrameSplineManufacture* _pFixedFrameSplineManufacture;
-
-//    /** [r]１区間の使用可能フレーム */
-//    frame _SPframe_segment;
-
-//    /** [r]次の補完点までの距離のテーブル */
-//    coord* _paDistace_to;
-//    /** [r]次の補完点到達に必要な移動速度のテーブル */
-//    velo* _paSPMvVeloTo;
-    /** [rw]方向転換に許されるRzRyの軸転速度 */
-    ang_velo _ang_veloRzRyMv;
+    /** [r]次の補完点までの距離のテーブル */
+    coord* _paDistace_to;
+    /** [r]次の補完点到達に必要な移動速度のテーブル */
+    velo* _paSPMvVeloTo;
+//    /** [rw]方向転換に許されるRzRyの軸転速度 */
+//    ang_velo _ang_veloRzRyMv;
     /** [r]目標地点に到着までに設定されたフレーム数 */
     frame _spent_frame;
-    /**
-     * [r]オプション
-     * 0:絶対座標移動。
-     * 1:始点を現座標とし、スプライン座標群は相対移動で計算。
-     * 2:始点を現座標とし、さらに現在の向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
-     */
-    int _option;
+//    /**
+//     * [r]オプション
+//     * 0:絶対座標移動。
+//     * 1:始点を現座標とし、スプライン座標群は相対移動で計算。
+//     * 2:始点を現座標とし、さらに現在の向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
+//     */
+//    int _option;
 
     //計算用定数
     float _SIN_RzMv_begin;
@@ -39,14 +36,12 @@ public:
     float _SIN_RyMv_begin;
     float _COS_RyMv_begin;
 
-    FixedFrameSplineProgram(SplineManufacture* prm_pManufacture, GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target);
-
 //    /**
 //     * コンストラクタ .
 //     * 後から色々設定する場合のコンストラクタ
 //     * @param prm_pActor 対象のアクター
 //     */
-//    FixedFrameSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
+//    FixedFrameSplineManufacture(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
 //
 //
 //    /**
@@ -65,7 +60,7 @@ public:
 //     * @param prm_spent_frame 始点～終点へ移動するのに費やすフレーム数
 //     * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
 //     */
-//    FixedFrameSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
+//    FixedFrameSplineManufacture(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
 //                            double prm_paaCriteriaPoint[][3],
 //                            int prm_point_num,
 //                            double prm_accuracy,
@@ -83,46 +78,50 @@ public:
 //     * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
 //     * @return
 //     */
-//    FixedFrameSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
+//    FixedFrameSplineManufacture(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
 //                            Spline3D* prm_sp,
 //                            frame prm_spent_frame,
 //                            ang_velo prm_ang_veloRzRyMv);
 
-//    /**
-//     * 初期化関数 .
-//     * コンストラクタが利用。
-//     */
-//    void init();
+//    FixedFrameSplineManufacture(Spline3D* prm_sp);
 
-//    /**
-//     * Spline3Dから各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに割合を乗じ、補正します .
-//     * デフォルトは adjustAxisRate(1.0, 1.0, 1.0) となります。<BR>
-//     * <b>[注意]</b><BR>
-//     * 内部で、adjustAxisOffset() よりも先に 本メソッドの adjustAxisRate() が考慮されます。<BR>
-//     * 軸方向の倍率補正 ＞ 平行移動補正 の順番です。<BR>
-//     * <b>[注意２]</b><BR>
-//     * 距離テーブル(_paDistace_to)、必要移動速度テーブル(_paSPMvVeloTo)の再計算が発生します。
-//     * そのため、処理は高速とはいえません。生成時付近で実行を推奨します。<BR>
-//     * @param prm_rate_X X軸方向補正割合
-//     * @param prm_rate_Y Y軸方向補正割合
-//     * @param prm_rate_Z Z軸方向補正割合
-//     */
-//    void adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) override;
 
+    FixedFrameSplineManufacture(char* prm_idstr, const char* prm_sourceid);
     /**
-     * スプライン曲線利用のフレーム数指定移動プログラム開始
-     * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
+     * 初期化関数 .
+     * コンストラクタが利用。
      */
-    void begin(int prm_option = 0) override;
-
+    void init();
+    void calculate();
     /**
-     * 移動実行メソッド .
-     * 移動のために毎フレームこのメソッドを呼び出す必要があります。
+     * Spline3Dから各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに割合を乗じ、補正します .
+     * デフォルトは adjustAxisRate(1.0, 1.0, 1.0) となります。<BR>
+     * <b>[注意]</b><BR>
+     * 内部で、adjustAxisOffset() よりも先に 本メソッドの adjustAxisRate() が考慮されます。<BR>
+     * 軸方向の倍率補正 ＞ 平行移動補正 の順番です。<BR>
+     * <b>[注意２]</b><BR>
+     * 距離テーブル(_paDistace_to)、必要移動速度テーブル(_paSPMvVeloTo)の再計算が発生します。
+     * そのため、処理は高速とはいえません。生成時付近で実行を推奨します。<BR>
+     * @param prm_rate_X X軸方向補正割合
+     * @param prm_rate_Y Y軸方向補正割合
+     * @param prm_rate_Z Z軸方向補正割合
      */
-    void behave() override;
+    void adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) override;
+    SplineProgram* createSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor) override;
+//    /**
+//     * スプライン曲線利用のフレーム数指定移動プログラム開始
+//     * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
+//     */
+//    void begin(int prm_option = 0) override;
+//
+//    /**
+//     * 移動実行メソッド .
+//     * 移動のために毎フレームこのメソッドを呼び出す必要があります。
+//     */
+//    void behave() override;
 
-    virtual ~FixedFrameSplineProgram();
+    virtual ~FixedFrameSplineManufacture();
 };
 
 }
-#endif /*FIXEDFRAMESPLINEPROGRAM_H_*/
+#endif /*FIXEDFRAMESPLINEMANUFACTURE_H_*/

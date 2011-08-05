@@ -10,11 +10,11 @@ FormationPallas001a::FormationPallas001a(const char* prm_name) : FormationPallas
 }
 void FormationPallas001a::onActive() {
     for (int i = 0; i < _num_Pallas; i++) {
-        _papPallas[i]->_pSplineProgram->adjustAxisRate(
-                                            MyShip::_lim_front, //Xï˚å¸î{ó¶
-                                            MyShip::_lim_top,   //Yï˚å¸î{ó¶
-                                            MyShip::_lim_zleft  //Zï˚å¸î{ó¶
-                                        );
+//        _papPallas[i]->_pSplineProgram->adjustAxisRate(
+//                                            MyShip::_lim_front, //Xï˚å¸î{ó¶
+//                                            MyShip::_lim_top,   //Yï˚å¸î{ó¶
+//                                            MyShip::_lim_zleft  //Zï˚å¸î{ó¶
+//                                        );
         _papPallas[i]->_pSplineProgram->setAbsoluteBeginCoordinate();
         _papPallas[i]->_pKurokoA->setMvVelo(_mv_velo);
         _papPallas[i]->activateDelay(i*_interval_frames + 1);//_interval_framesä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB

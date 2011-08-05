@@ -82,10 +82,14 @@ class Spline3D;
 class SplineProgram;
 class FixedFrameSplineProgram;
 class FixedVelocitySplineProgram;
+class SplineManufacture;
 class SplineSource;
-class SplineManager;
-class SplineConnection;
-
+class FixedFrameSplineManufacture;
+class FixedVelocitySplineManufacture;
+class SplineSourceManager;
+class SplineSourceConnection;
+class SplineManufactureManager;
+class SplineManufactureConnection;
 class LaserChip;
 class WateringLaserChip;
 class HomingLaserChip;
@@ -152,11 +156,18 @@ class LaserChipStoreDispatcher;
 
 #include "jp/ggaf/dx9libstg/util/spline/Spline3D.h"
 #include "jp/ggaf/dx9libstg/util/spline/SplineProgram.h"
+#include "jp/ggaf/dx9libstg/util/spline/SplineSource.h"
+#include "jp/ggaf/dx9libstg/util/spline/SplineManufacture.h"
 #include "jp/ggaf/dx9libstg/util/spline/FixedFrameSplineProgram.h"
 #include "jp/ggaf/dx9libstg/util/spline/FixedVelocitySplineProgram.h"
-#include "jp/ggaf/dx9libstg/util/spline/SplineSource.h"
-#include "jp/ggaf/dx9libstg/manager/SplineManager.h"
-#include "jp/ggaf/dx9libstg/manager/SplineConnection.h"
+#include "jp/ggaf/dx9libstg/util/spline/FixedFrameSplineManufacture.h"
+#include "jp/ggaf/dx9libstg/util/spline/FixedVelocitySplineManufacture.h"
+
+
+#include "jp/ggaf/dx9libstg/manager/SplineSourceManager.h"
+#include "jp/ggaf/dx9libstg/manager/SplineSourceConnection.h"
+#include "jp/ggaf/dx9libstg/manager/SplineManufactureManager.h"
+#include "jp/ggaf/dx9libstg/manager/SplineManufactureConnection.h"
 
 #include "jp/ggaf/dx9libstg/actor/laserchip/LaserChip.h"
 #include "jp/ggaf/dx9libstg/actor/laserchip/WateringLaserChip.h"

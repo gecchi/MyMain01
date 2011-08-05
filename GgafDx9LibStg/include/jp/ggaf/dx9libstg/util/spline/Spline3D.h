@@ -1,5 +1,5 @@
-#ifndef GGAFDX9SPLINE3D_H_
-#define GGAFDX9SPLINE3D_H_
+#ifndef SPLINE3D_H_
+#define SPLINE3D_H_
 
 #define MaxSplineSize 100
 
@@ -145,5 +145,5 @@ public:
 };
 
 }
-#endif /*GGAFDX9SPLINE3D_H_*/
+#endif /*SPLINE3D_H_*/
 

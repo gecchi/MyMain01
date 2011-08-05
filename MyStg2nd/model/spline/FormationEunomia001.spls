@@ -21,6 +21,3 @@
 [ACCURACY]
 0.2
 
-[CLASS]
-FixedVelocitySplineProgram 6000
-

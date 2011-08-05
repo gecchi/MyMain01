@@ -1,0 +1,6 @@
+[SPLINE]
+FormationEunomia001
+
+[CLASS]
+FixedVelocitySplineProgram 6000
+
