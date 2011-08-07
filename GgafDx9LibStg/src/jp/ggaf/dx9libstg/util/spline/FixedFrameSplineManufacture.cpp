@@ -54,11 +54,18 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(char* prm_idstr, const 
         SplineManufacture(prm_idstr, prm_sourceid) {
     _spent_frame = prm_spent_frame;
     _ang_veloRzRyMv = prm_ang_veloRzRyMv;
-    init();
+    //１区間の使用可能フレーム
+    _SPframe_segment = 1.0*_spent_frame / (_sp->_rnum-1);
+    if (_SPframe_segment < 1) {
+        _SPframe_segment = 1;
+    }
+    _paDistace_to = NEW coord[_sp->_rnum];
+    _paSPMvVeloTo = NEW velo[_sp->_rnum];
+//    init();
 }
 
 
-void FixedFrameSplineManufacture::init() {
+//void FixedFrameSplineManufacture::init() {
     //各点の時点の、距離と速度を予め全部求めておく
 
     // prm_paaCriteriaPoints[2][3] = { {1000,2000,3000}, {2000,1000,0}, {3900, 0, 1000} }
@@ -99,14 +106,14 @@ void FixedFrameSplineManufacture::init() {
     //                  frm_segment = １区間は 120/8 Frame = prm_spent_frame / (sp._rnum-1);
 
     //１区間の使用可能フレーム
-    _SPframe_segment = 1.0*_spent_frame / (_sp->_rnum-1);
-    if (_SPframe_segment < 1) {
-        _SPframe_segment = 1;
-    }
-    _paDistace_to = NEW coord[_sp->_rnum];
-    _paSPMvVeloTo = NEW velo[_sp->_rnum];
-    calculate();
-}
+//    _SPframe_segment = 1.0*_spent_frame / (_sp->_rnum-1);
+//    if (_SPframe_segment < 1) {
+//        _SPframe_segment = 1;
+//    }
+//    _paDistace_to = NEW coord[_sp->_rnum];
+//    _paSPMvVeloTo = NEW velo[_sp->_rnum];
+//    calculate();
+//}
 void FixedFrameSplineManufacture::calculate() {
     coord x_from, y_from, z_from;
     coord x_to, y_to, z_to;
@@ -142,14 +149,14 @@ void FixedFrameSplineManufacture::calculate() {
 //    }
 
 }
-
-void FixedFrameSplineManufacture::adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) {
-    _rate_X = prm_rate_X;
-    _rate_Y = prm_rate_Y;
-    _rate_Z = prm_rate_Z;
-    //次の補完点までの距離のテーブル、次の補完点到達に必要な移動速度のテーブル再計算
-    calculate();
-}
+//
+//void FixedFrameSplineManufacture::adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) {
+//    _rate_X = prm_rate_X;
+//    _rate_Y = prm_rate_Y;
+//    _rate_Z = prm_rate_Z;
+//    //次の補完点までの距離のテーブル、次の補完点到達に必要な移動速度のテーブル再計算
+//    calculate();
+//}
 
 
 //void FixedFrameSplineManufacture::begin(int prm_option) {

@@ -12,6 +12,9 @@ SplineProgram::SplineProgram(SplineManufacture* prm_pManufacture,  GgafDx9Core::
     _offset_X = 0;
     _offset_Y = 0;
     _offset_Z = 0;
+    _flip_X = 1;
+    _flip_Y = 1;
+    _flip_Z = 1;
     _is_create_pManufacture = false;
 //    _pActor_target->activate();
 //    if (_pActor_target == NULL) {
@@ -69,7 +72,7 @@ void SplineProgram::setManufacture(SplineManufacture* prm_pManufacture) {
     _pManufacture = prm_pManufacture;
     _is_create_pManufacture = false;
 }
-void SplineProgram::adjustAxisOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
+void SplineProgram::adjustCoodOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
     _offset_X = prm_offset_X;
     _offset_Y = prm_offset_Y;
     _offset_Z = prm_offset_Z;
@@ -80,17 +83,17 @@ void SplineProgram::begin(int prm_option) {
 
         _SPframe = 0;
         Spline3D* pSpline = _pManufacture->_sp;
-        _X_begin = pSpline->_X_compute[0]*_pManufacture->_rate_X + _offset_X;
-        _Y_begin = pSpline->_Y_compute[0]*_pManufacture->_rate_Y + _offset_Y;
-        _Z_begin = pSpline->_Z_compute[0]*_pManufacture->_rate_Z + _offset_Z;
+        _X_begin = _flip_X*pSpline->_X_compute[0]*_pManufacture->_rate_X + _offset_X;
+        _Y_begin = _flip_Y*pSpline->_Y_compute[0]*_pManufacture->_rate_Y + _offset_Y;
+        _Z_begin = _flip_Z*pSpline->_Z_compute[0]*_pManufacture->_rate_Z + _offset_Z;
     }
 }
 
 void SplineProgram::setAbsoluteBeginCoordinate() {
     Spline3D* pSpline = _pManufacture->_sp;
-    _pActor_target->_X = pSpline->_X_compute[0]*_pManufacture->_rate_X + _offset_X;
-    _pActor_target->_Y = pSpline->_Y_compute[0]*_pManufacture->_rate_Y + _offset_Y;
-    _pActor_target->_Z = pSpline->_Z_compute[0]*_pManufacture->_rate_Z + _offset_Z;
+    _pActor_target->_X = _flip_X*pSpline->_X_compute[0]*_pManufacture->_rate_X + _offset_X;
+    _pActor_target->_Y = _flip_Y*pSpline->_Y_compute[0]*_pManufacture->_rate_Y + _offset_Y;
+    _pActor_target->_Z = _flip_Z*pSpline->_Z_compute[0]*_pManufacture->_rate_Z + _offset_Z;
 }
 void SplineProgram::behave() {
 
@@ -104,16 +107,16 @@ void SplineProgram::behave() {
             return;
         }
 
-        _pActor_target->_X = (coord)(pSpline->_X_compute[SPPointIndex]*_pManufacture->_rate_X + _offset_X);
-        _pActor_target->_Y = (coord)(pSpline->_Y_compute[SPPointIndex]*_pManufacture->_rate_Y + _offset_Y);
-        _pActor_target->_Z = (coord)(pSpline->_Z_compute[SPPointIndex]*_pManufacture->_rate_Z + _offset_Z);
+        _pActor_target->_X = (coord)(_flip_X*pSpline->_X_compute[SPPointIndex]*_pManufacture->_rate_X + _offset_X);
+        _pActor_target->_Y = (coord)(_flip_Y*pSpline->_Y_compute[SPPointIndex]*_pManufacture->_rate_Y + _offset_Y);
+        _pActor_target->_Z = (coord)(_flip_Z*pSpline->_Z_compute[SPPointIndex]*_pManufacture->_rate_Z + _offset_Z);
 
         _SPframe++;
 
     }
 
 }
-//void SplineProgram::adjustAxisOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
+//void SplineProgram::adjustCoodOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
 //    _offset_X = prm_offset_X;
 //    _offset_Y = prm_offset_Y;
 //    _offset_Z = prm_offset_Z;

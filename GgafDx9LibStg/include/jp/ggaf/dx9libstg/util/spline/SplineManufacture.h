@@ -82,7 +82,7 @@ public:
      * 各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに割合を乗じ、補正します .
      * デフォルトは adjustAxisRate(1.0, 1.0, 1.0) となります。<BR>
      * <b>[注意]</b><BR>
-     * 内部で、adjustAxisOffset() よりも先に 本メソッドの adjustAxisRate() が考慮されます。<BR>
+     * 内部で、adjustCoodOffset() よりも先に 本メソッドの adjustAxisRate() が考慮されます。<BR>
      * 軸方向の倍率補正 ＞ 平行移動補正 の順番です。<BR>
      * @param prm_rate_X X軸方向補正割合
      * @param prm_rate_Y Y軸方向補正割合
@@ -123,7 +123,7 @@ public:
 //    bool isExecuting() {
 //        return _is_executing;
 //    }
-
+    virtual void calculate() = 0;
     virtual SplineProgram* createSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor) = 0;
 
 

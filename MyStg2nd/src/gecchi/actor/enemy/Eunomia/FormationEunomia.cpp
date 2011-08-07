@@ -19,27 +19,26 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
     //エウノミア編隊作成
     //スプライン定義ファイルを読み込む
     _papSplineManufactureCon = NEW SplineManufactureConnection*[_num_formation_col];
+    for (int i = 0; i < _num_formation_col; i++) {
+        stringstream spl_id;
+        spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
+        _papSplineManufactureCon[i] = (SplineManufactureConnection*)((P_GOD)->_pSplineManufactureManager->getConnection(spl_id.str().c_str()));
+//        SplineManufacture* pSpm = _papSplineManufactureCon[i]->refer();
+//        pSpm->adjustAxisRate(
+//                MyShip::_lim_front, //X方向倍率
+//                MyShip::_lim_top,   //Y方向倍率
+//                MyShip::_lim_zleft  //Z方向倍率
+//            );
+    }
+
 
     _papapEunomia = NEW EnemyEunomia**[_num_formation_col]; //n列xN機の編隊を組む
     SplineProgram* pSplinProg;
     for (int i = 0; i < _num_formation_col; i++) {
-
-        stringstream spl_id;
-        spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
-        _papSplineManufactureCon[i] = (SplineManufactureConnection*)((P_GOD)->_pSplineManufactureManager->getConnection(spl_id.str().c_str()));
-        SplineManufacture* pSpm = _papSplineManufactureCon[i]->refer();
-        pSpm->adjustAxisRate(
-                MyShip::_lim_front, //X方向倍率
-                MyShip::_lim_top,   //Y方向倍率
-                MyShip::_lim_zleft  //Z方向倍率
-            );
-
-
         _papapEunomia[i] = NEW EnemyEunomia*[_num_formation_row];
         for (int j = 0; j < _num_formation_row; j++) {
             _papapEunomia[i][j] = NEW EnemyEunomia("EUNOMIA");
 			pSplinProg = _papSplineManufactureCon[i]->refer()->createSplineProgram(_papapEunomia[i][j]);
-			pSplinProg->adjustAxisOffset(i*50*1000, i*50*1000, i*50*1000);
             _papapEunomia[i][j]->config(pSplinProg, NULL, NULL);
             _papapEunomia[i][j]->inactivateImmediately();
             addSubLast(_papapEunomia[i][j]);

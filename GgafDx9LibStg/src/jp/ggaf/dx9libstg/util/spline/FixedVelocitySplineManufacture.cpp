@@ -48,10 +48,14 @@ using namespace GgafDx9LibStg;
 FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(char* prm_idstr, const char* prm_sourceid, ang_velo prm_ang_veloRzRyMv) :
         SplineManufacture(prm_idstr, prm_sourceid) {
     _ang_veloRzRyMv = prm_ang_veloRzRyMv;
-    init();
+
+    _veloMvUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
+    _paDistace_to = NEW coord[_sp->_rnum];
+    _paFrame_need_at = NEW float[_sp->_rnum];
+//    init();
 }
 
-void FixedVelocitySplineManufacture::init() {
+//void FixedVelocitySplineManufacture::init() {
 
     //各点の時点の、距離と必要なフレーム数を予め全部求めておく
 
@@ -99,11 +103,8 @@ void FixedVelocitySplineManufacture::init() {
     //
 
 
-    _veloMvUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
-    _paDistace_to = NEW coord[_sp->_rnum];
-    _paFrame_need_at = NEW float[_sp->_rnum];
-    calculate();
-}
+//    calculate();
+//}
 void FixedVelocitySplineManufacture::calculate() {
     coord x_from, y_from, z_from;
     coord x_to, y_to, z_to;
@@ -137,13 +138,13 @@ void FixedVelocitySplineManufacture::calculate() {
     }
 
 }
-void FixedVelocitySplineManufacture::adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) {
-    _rate_X = prm_rate_X;
-    _rate_Y = prm_rate_Y;
-    _rate_Z = prm_rate_Z;
-    //距離のテーブル、フレーム数のテーブルを再計算
-    calculate();
-}
+//void FixedVelocitySplineManufacture::adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) {
+//    _rate_X = prm_rate_X;
+//    _rate_Y = prm_rate_Y;
+//    _rate_Z = prm_rate_Z;
+//    //距離のテーブル、フレーム数のテーブルを再計算
+////    calculate();
+//}
 
 
 

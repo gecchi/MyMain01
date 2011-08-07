@@ -31,6 +31,9 @@ private:
     int _num_connection;
     /** Žg‚¢‚Ü‚í‚·‘åŽ–‚ÈŽ‘Œ¹ */
     T* _pResource;
+
+    bool _is_created_instance;
+
     /** close’†‚Ítrue‚Ì”r‘¼ƒtƒ‰ƒO */
     static volatile bool _is_closing_resource;
 
@@ -84,6 +87,8 @@ public:
      */
     virtual T* refer();
 
+    bool isCreatedInstance();
+
 
     int getNumConnection();
 
@@ -120,6 +125,7 @@ GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResou
     _pNext = NULL;
     _pManager = NULL;
     _num_connection = 0;
+    _is_created_instance = false;
     _idstr = NEW char[51];
     strcpy(_idstr, prm_idstr);
 }
@@ -131,6 +137,11 @@ T* GgafResourceConnection<T>::refer() {
 template<class T>
 int GgafResourceConnection<T>::getNumConnection() {
     return _num_connection;
+}
+
+template<class T>
+bool GgafResourceConnection<T>::isCreatedInstance() {
+    return _is_created_instance;
 }
 
 

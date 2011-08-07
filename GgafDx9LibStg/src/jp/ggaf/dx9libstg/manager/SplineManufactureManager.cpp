@@ -16,6 +16,9 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     frame spent_frame = 1;
     angle ang_veloRzRyMv = 0;
     string classname = "";
+    float rate_X = 1.0f;
+    float rate_Y = 1.0f;
+    float rate_Z = 1.0f;
 
     string splinefile="";
     string data_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr) + ".splm";
@@ -31,6 +34,28 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
         if (line.c_str()[0] == '#') continue;
 
         LOOP_SPLFILE:
+
+        if (line.find("[SPLINE]") != string::npos) {
+            while( getline(ifs,line) ) {
+                if (line.size() == 0 ) break;
+                if (line.c_str()[0] == '#') continue;
+                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
+                istringstream iss(line);
+                iss >> splinefile;
+            }
+        }
+        if (line.find("[MAGNIFICATION]") != string::npos) {
+            while( getline(ifs,line) ) {
+                if (line.size() == 0 ) break;
+                if (line.c_str()[0] == '#') continue;
+                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
+                istringstream iss(line);
+                iss >> rate_X;
+                iss >> rate_Y;
+                iss >> rate_Z;
+            }
+        }
+
         if (line.find("[CLASS]") != string::npos) {
             while( getline(ifs,line) ) {
                 if (line.size() == 0 ) break;
@@ -64,15 +89,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
 //#endif
 //            }
 //        }
-        if (line.find("[SPLINE]") != string::npos) {
-            while( getline(ifs,line) ) {
-                if (line.size() == 0 ) break;
-                if (line.c_str()[0] == '#') continue;
-                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
-                istringstream iss(line);
-                iss >> splinefile;
-            }
-        }
+
     }
 #ifdef MY_DEBUG
     if (classname.length() == 0) {
@@ -89,8 +106,12 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     SplineManufacture* pSplineManufacture = NULL;
     if (classname.find("FixedFrameSpline") != string::npos) {
         pSplineManufacture = NEW FixedFrameSplineManufacture(prm_idstr, splinefile.c_str(), spent_frame, ang_veloRzRyMv);
+        pSplineManufacture->adjustAxisRate(rate_X, rate_Y, rate_Z);
+        pSplineManufacture->calculate();
     } else if (classname.find("FixedVelocitySpline") != string::npos) {
         pSplineManufacture = NEW FixedVelocitySplineManufacture(prm_idstr, splinefile.c_str(), ang_veloRzRyMv);
+        pSplineManufacture->adjustAxisRate(rate_X, rate_Y, rate_Z);
+        pSplineManufacture->calculate();
     } else {
         throwGgafCriticalException("SplineSource::createSplineProgram _classname="<<classname<< "‚Í•s–¾‚ÈƒNƒ‰ƒX‚Å‚·");
     }

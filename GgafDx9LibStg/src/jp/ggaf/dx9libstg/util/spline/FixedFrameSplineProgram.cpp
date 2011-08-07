@@ -190,21 +190,21 @@ void FixedFrameSplineProgram::begin(int prm_option) {
 
         Spline3D* pSpline = _pFixedFrameSplineManufacture->_sp;
         if (_option == 2) {
-            _X_begin = pSpline->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X - _pActor_target->_X ;
-            _Y_begin = pSpline->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y - _pActor_target->_Y;
-            _Z_begin = pSpline->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z - _pActor_target->_Z;
+            _X_begin = _flip_X*pSpline->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X - _pActor_target->_X ;
+            _Y_begin = _flip_Y*pSpline->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y - _pActor_target->_Y;
+            _Z_begin = _flip_Z*pSpline->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z - _pActor_target->_Z;
             _SIN_RzMv_begin = GgafDx9Util::SIN[_pActor_target->_pKurokoA->_angRzMv/ANGLE_RATE];
             _COS_RzMv_begin = GgafDx9Util::COS[_pActor_target->_pKurokoA->_angRzMv/ANGLE_RATE];
             _SIN_RyMv_begin = GgafDx9Util::SIN[_pActor_target->_pKurokoA->_angRyMv/ANGLE_RATE];
             _COS_RyMv_begin = GgafDx9Util::COS[_pActor_target->_pKurokoA->_angRyMv/ANGLE_RATE];
         } else if (_option == 1) {
-            _X_begin = pSpline->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X - _pActor_target->_X;
-            _Y_begin = pSpline->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y - _pActor_target->_Y;
-            _Z_begin = pSpline->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z - _pActor_target->_Z;
+            _X_begin = _flip_X*pSpline->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X - _pActor_target->_X;
+            _Y_begin = _flip_Y*pSpline->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y - _pActor_target->_Y;
+            _Z_begin = _flip_Z*pSpline->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z - _pActor_target->_Z;
         } else {
-            _X_begin = pSpline->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X;
-            _Y_begin = pSpline->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y;
-            _Z_begin = pSpline->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z;
+            _X_begin = _flip_X*pSpline->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X;
+            _Y_begin = _flip_Y*pSpline->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y;
+            _Z_begin = _flip_Z*pSpline->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z;
 
         }
     }
@@ -226,9 +226,9 @@ void FixedFrameSplineProgram::behave() {
 
         //•Ï‚í‚è–Ú
         if (_SPframe % _pFixedFrameSplineManufacture->_SPframe_segment == 0) {
-            double dx = pSpline->_X_compute[SPPointIndex]*_pFixedFrameSplineManufacture->_rate_X + _offset_X;
-            double dy = pSpline->_Y_compute[SPPointIndex]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y;
-            double dz = pSpline->_Z_compute[SPPointIndex]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z;
+            double dx = _flip_X*pSpline->_X_compute[SPPointIndex]*_pFixedFrameSplineManufacture->_rate_X + _offset_X;
+            double dy = _flip_Y*pSpline->_Y_compute[SPPointIndex]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y;
+            double dz = _flip_Z*pSpline->_Z_compute[SPPointIndex]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z;
 
 
             //Ÿ‚Ì•âŠÔ“_iorŠî“_)‚ÉˆÚ“®•ûŠp‚ğŒü‚¯‚é

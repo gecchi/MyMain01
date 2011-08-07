@@ -91,7 +91,7 @@ public:
      * Spline3Dから各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに割合を乗じ、補正します .
      * デフォルトは adjustAxisRate(1.0, 1.0, 1.0) となります。<BR>
      * <b>[注意]</b><BR>
-     * 内部で、adjustAxisOffset() よりも先に 本メソッドの adjustAxisRate() が考慮されます。<BR>
+     * 内部で、adjustCoodOffset() よりも先に 本メソッドの adjustAxisRate() が考慮されます。<BR>
      * 軸方向の倍率補正 ＞ 平行移動補正 の順番です。<BR>
      * <b>[注意２]</b><BR>
      * 距離テーブル(_paDistace_to)、必要フレーム数テーブル(_paFrame_need_at)の再計算が発生します。

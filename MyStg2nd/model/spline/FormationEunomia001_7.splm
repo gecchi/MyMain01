@@ -1,6 +1,10 @@
 [SPLINE]
-FormationEunomia001
+FormationEunomia001.dat.spls
+
+[MAGNIFICATION]
+4000000.0 1125000.0 4000000.0
 
 [CLASS]
-FixedFrameSplineProgram 600 6000
+FixedVelocitySplineProgram 8000
+
 

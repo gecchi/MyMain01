@@ -12,7 +12,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
     _spent_frame = 1;
     _ang_veloRzRyMv = 0;
     _classname = "";
-    string data_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr) + ".spls";
+    string data_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr);// + ".spls";
     ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
         throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" ‚ªŠJ‚¯‚Ü‚¹‚ñ");

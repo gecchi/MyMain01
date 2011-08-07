@@ -82,13 +82,13 @@ public:
      * 初期化（計算）処理.
      * コンストラクタより呼び出されます。
      */
-    void init();
-    void calculate();
+//    void init();
+    void calculate() override;
     /**
      * Spline3Dから各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに割合を乗じ、補正します .
      * デフォルトは adjustAxisRate(1.0, 1.0, 1.0) となります。<BR>
      * <b>[注意]</b><BR>
-     * 内部で、adjustAxisOffset() よりも先に 本メソッドの adjustAxisRate() が考慮されます。<BR>
+     * 内部で、adjustCoodOffset() よりも先に 本メソッドの adjustAxisRate() が考慮されます。<BR>
      * 軸方向の倍率補正 ＞ 平行移動補正 の順番です。<BR>
      * <b>[注意２]</b><BR>
      * 距離テーブル(_paDistace_to)、必要フレーム数テーブル(_paFrame_need_at)の再計算が発生します。
@@ -97,7 +97,7 @@ public:
      * @param prm_rate_Y Y軸方向補正割合
      * @param prm_rate_Z Z軸方向補正割合
      */
-    void adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) override;
+//    void adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) override;
 
     SplineProgram* createSplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor) override;
     //SplineProgram* SplineManufacture::createSplineProgram(GgafDx9GeometricActor* prm_pForWhichActor) {
