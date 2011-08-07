@@ -1,9 +1,7 @@
 [SPLINE]
 FormationEunomia001.dat
-
 [MAGNIFICATION]
 4000000.0 1125000.0 4000000.0
-
 [CLASS]
 FixedVelocitySplineProgram 8000
 
