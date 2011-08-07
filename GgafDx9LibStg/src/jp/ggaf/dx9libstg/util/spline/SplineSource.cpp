@@ -69,11 +69,11 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
         }
     }
 #ifdef MY_DEBUG
-    if (_classname.length() == 0) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" _classname が指定されてません。");
+    if (int(_accuracy*100000000) == 0) {
+        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" [ACCURACY] が指定されてません。");
     }
     if (n == 0) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" ポイントがありません。");
+        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" [BASEPOINT] に座標がありません。");
     }
 #endif
     //-1.0 ～ 1.0 が 自機の移動可能範囲とする

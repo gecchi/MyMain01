@@ -18,8 +18,8 @@ public:
     coord* _paDistace_to;
     /** [r]次の補完点到達に必要な移動速度のテーブル */
     velo* _paSPMvVeloTo;
-//    /** [rw]方向転換に許されるRzRyの軸転速度 */
-//    ang_velo _ang_veloRzRyMv;
+    /** [rw]方向転換に許されるRzRyの軸転速度 */
+    ang_velo _ang_veloRzRyMv;
     /** [r]目標地点に到着までに設定されたフレーム数 */
     frame _spent_frame;
 //    /**
@@ -86,7 +86,7 @@ public:
 //    FixedFrameSplineManufacture(Spline3D* prm_sp);
 
 
-    FixedFrameSplineManufacture(char* prm_idstr, const char* prm_sourceid);
+    FixedFrameSplineManufacture(char* prm_idstr, const char* prm_sourceid, frame prm_spent_frame, ang_velo prm_ang_veloRzRyMv);
     /**
      * 初期化関数 .
      * コンストラクタが利用。

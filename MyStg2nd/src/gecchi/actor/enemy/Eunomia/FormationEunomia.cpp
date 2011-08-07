@@ -37,8 +37,8 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
 
         _papapEunomia[i] = NEW EnemyEunomia*[_num_formation_row];
         for (int j = 0; j < _num_formation_row; j++) {
-            pSplinProg = _papSplineManufactureCon[i]->refer()->createSplineProgram(_papapEunomia[i][j]);
             _papapEunomia[i][j] = NEW EnemyEunomia("EUNOMIA");
+			pSplinProg = _papSplineManufactureCon[i]->refer()->createSplineProgram(_papapEunomia[i][j]);
             _papapEunomia[i][j]->config(pSplinProg, NULL, NULL);
             _papapEunomia[i][j]->inactivateImmediately();
             addSubLast(_papapEunomia[i][j]);

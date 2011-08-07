@@ -19,8 +19,8 @@ public:
 //    float* _paFrame_need_at;
     /** [r]基準速度 */
     velo _veloMvUnit;
-    /** [rw]1フレームあたり旋回可能な回転角角速度 */
-    ang_velo _ang_veloRzRyMv;
+//    /** [rw]1フレームあたり旋回可能な回転角角速度 */
+//    ang_velo _ang_veloRzRyMv;
     /** [r]基準速度で移動した場合のスプライン移動時の経過フレーム数 */
     float _fFrame_executing;
     /** [r]次の変わり目となる補間点(基準点も含む)に到達する_fFrame_executing */

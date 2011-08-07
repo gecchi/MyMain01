@@ -31,8 +31,8 @@ FixedVelocitySplineProgram::FixedVelocitySplineProgram(GgafDx9GeometricActor* pr
                                                      ang_velo prm_ang_veloRzRyMv):
                                                        SplineProgram(NULL, prm_pActor) {
 //    _pFixedVelocitySplineManufacture = NEW FixedVelocitySplineManufacture(
-    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
-
+//    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
+    throwGgafCriticalException("今はダメ");
 }
 //
 //FixedVelocitySplineProgram::FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor,
@@ -274,20 +274,20 @@ void FixedVelocitySplineProgram::behave() {
                                     ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * _COS_RyMv_begin + dz*_SIN_RyMv_begin) - _X_begin,
                                     (dx*_SIN_RzMv_begin + dy*_COS_RzMv_begin) - _Y_begin,
                                     ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) - _Z_begin,
-                                    _ang_veloRzRyMv, 0,
+                                    _pFixedVelocitySplineManufacture->_ang_veloRzRyMv, 0,
                                     TURN_CLOSE_TO, true);
                 } else if (_option == 1) {
                     //相対座標ターゲット
                     _pKurokoA->execTurnMvAngSequence(
                                     dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
-                                    _ang_veloRzRyMv, 0,
+                                    _pFixedVelocitySplineManufacture->_ang_veloRzRyMv, 0,
                                     TURN_CLOSE_TO, true
                                   );
                 } else {
                     //絶対座標ターゲット
                     _pKurokoA->execTurnMvAngSequence(
                                     dx, dy, dz,
-                                    _ang_veloRzRyMv, 0,
+                                    _pFixedVelocitySplineManufacture->_ang_veloRzRyMv, 0,
                                     TURN_CLOSE_TO, true
                                   );
                 }

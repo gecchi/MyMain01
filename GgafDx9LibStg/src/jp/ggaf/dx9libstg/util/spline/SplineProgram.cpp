@@ -8,6 +8,11 @@ SplineProgram::SplineProgram(SplineManufacture* prm_pManufacture,  GgafDx9Core::
         GgafObject() {
     _pManufacture = prm_pManufacture;
     _pActor_target = prm_pActor_target;
+    _TRACE_("_pActor_target="<<_pActor_target);
+    _pActor_target->activate();
+    if (_pActor_target == NULL) {
+        throwGgafCriticalException("SplineProgram::SplineProgram prm_pActor_target is NULL")
+    }
 }
 //SplineProgram::SplineProgram(GgafDx9GeometricActor* prm_pActor_target) : GgafObject() {
 //    _pActor_target = prm_pActor_target;
@@ -114,6 +119,6 @@ void SplineProgram::behave() {
 
 SplineProgram::~SplineProgram() {
     if (_is_create_pManufacture) {
-        DELETE_IMPOSSIBLE_NULL(_pManufacture);
+	    DELETE_IMPOSSIBLE_NULL(_pManufacture);//TODO
     }
 }

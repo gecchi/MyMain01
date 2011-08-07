@@ -18,14 +18,14 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     string classname = "";
 
     string splinefile="";
-    string data_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr) + ".spm";
+    string data_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr) + ".splm";
     ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" が開けません");
+        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<data_filename<<" が開けません");
     }
 //    double p[MAX_SP_POINT][3];
     string line;
-    int n = 0;
+//    int n = 0;
     while( getline(ifs,line) ) {
         if (line.size() == 0 ) continue;
         if (line.c_str()[0] == '#') continue;
@@ -76,18 +76,21 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     }
 #ifdef MY_DEBUG
     if (classname.length() == 0) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" classname が指定されてません。");
+        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" [CLASS] が指定されてません。");
     }
-    if (n == 0) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" ポイントがありません。");
+    if (splinefile.length() == 0) {
+        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" [SPLINE] が指定されてません。");
     }
+//    if (n == 0) {
+//        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" ポイントがありません。");
+//    }
 #endif
 
     SplineManufacture* pSplineManufacture = NULL;
     if (classname.find("FixedFrameSpline") != string::npos) {
-        pSplineManufacture = NEW FixedFrameSplineManufacture(prm_idstr, splinefile.c_str());
+        pSplineManufacture = NEW FixedFrameSplineManufacture(prm_idstr, splinefile.c_str(), spent_frame, ang_veloRzRyMv);
     } else if (classname.find("FixedVelocitySpline") != string::npos) {
-        pSplineManufacture = NEW FixedVelocitySplineManufacture(prm_idstr, splinefile.c_str());
+        pSplineManufacture = NEW FixedVelocitySplineManufacture(prm_idstr, splinefile.c_str(), ang_veloRzRyMv);
     } else {
         throwGgafCriticalException("SplineSource::createSplineProgram _classname="<<classname<< "は不明なクラスです");
     }

@@ -29,12 +29,17 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,8200,10000,13200,15000,18200,20000,21200,23000};
-	_paFrame_NextEvent = new frame[10];
+	frame f[] = {1,200,560,800,1040,1280,1520,1760,2000};
+	_paFrame_NextEvent = new frame[9];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 10;
-	orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
-	orderActorToFactory(10000005, EnemyAstraea, "Astraea_1");
+	_event_num = 9;
+	orderActorToFactory(10000000, FormationEunomia001a, "F001a_Eunomia_1");
+	orderActorToFactory(10000001, FormationEunomia001b, "F001b_Eunomia_2");
+	orderActorToFactory(10000002, FormationEunomia001a, "F001a_Eunomia_3");
+	orderActorToFactory(10000003, FormationEunomia001b, "F001b_Eunomia_4");
+	orderActorToFactory(10000004, FormationEunomia001a, "F001a_Eunomia_5");
+	orderActorToFactory(10000005, FormationEunomia001b, "F001b_Eunomia_6");
+	orderActorToFactory(10000006, FormationEunomia001a, "F001a_Eunomia_7");
     // gen01 end
     useProgress(STAGE01CONTROLLER_PROG_FAINAL);
 }
@@ -52,59 +57,51 @@ void Stage01Controller::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 100: {
-				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
-				addSubLast(pScene);
-				_pProg->change(STAGE01CONTROLLER_PROG_STG01_01_BEGIN);
-				EnemyAstraea* pAstraea1 = (EnemyAstraea*)obtainActorFromFactory(10000005);
-				getDirector()->addSubGroup(pAstraea1);
-				pAstraea1->_Z = -1800000;
-				pAstraea1->_Y = -100000;
+			case 200: {
+				FormationEunomia001a* pFormation = (FormationEunomia001a*)obtainActorFromFactory(10000000);
+				getDirector()->addSubGroup(pFormation);
+				orderActorToFactory(10000007, FormationEunomia001b, "F001b_Eunomia_8");
 				break;
 			}
-			case 8200: {
-				orderSceneToFactory(10000001, Stage01WalledScene, "GroStage01WalledScene");
+			case 560: {
+				FormationEunomia001b* pFormation = (FormationEunomia001b*)obtainActorFromFactory(10000001);
+				getDirector()->addSubGroup(pFormation);
 				break;
 			}
-			case 10000: {
-				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000001);
-				addSubLast(pScene);
+			case 800: {
+				FormationEunomia001a* pFormation = (FormationEunomia001a*)obtainActorFromFactory(10000002);
+				getDirector()->addSubGroup(pFormation);
 				break;
 			}
-			case 13200: {
-				orderSceneToFactory(10000002, Stage01_02, "Stage01_02");
+			case 1040: {
+				FormationEunomia001b* pFormation = (FormationEunomia001b*)obtainActorFromFactory(10000003);
+				getDirector()->addSubGroup(pFormation);
 				break;
 			}
-			case 15000: {
-				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000002);
-				addSubLast(pScene);
-				_pProg->change(STAGE01CONTROLLER_PROG_STG01_02_BEGIN);
+			case 1280: {
+				FormationEunomia001a* pFormation = (FormationEunomia001a*)obtainActorFromFactory(10000004);
+				getDirector()->addSubGroup(pFormation);
 				break;
 			}
-			case 18200: {
-				orderSceneToFactory(10000003, Stage01_03, "Stage01_03");
+			case 1520: {
+				FormationEunomia001b* pFormation = (FormationEunomia001b*)obtainActorFromFactory(10000005);
+				getDirector()->addSubGroup(pFormation);
 				break;
 			}
-			case 20000: {
-				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000003);
-				addSubLast(pScene);
-				_pProg->change(STAGE01CONTROLLER_PROG_STG01_03_BEGIN);
+			case 1760: {
+				FormationEunomia001a* pFormation = (FormationEunomia001a*)obtainActorFromFactory(10000006);
+				getDirector()->addSubGroup(pFormation);
 				break;
 			}
-			case 21200: {
-				orderSceneToFactory(10000004, Stage01_Climax, "Stage01_Climax");
-				break;
-			}
-			case 23000: {
-				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000004);
-				addSubLast(pScene);
-				_pProg->change(STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN);
+			case 2000: {
+				FormationEunomia001b* pFormation = (FormationEunomia001b*)obtainActorFromFactory(10000007);
+				getDirector()->addSubGroup(pFormation);
 				break;
 			}
 			default :
 				break;
 		}
-		_iCnt_Event = (_iCnt_Event < 10-1 ? _iCnt_Event+1 : _iCnt_Event);
+		_iCnt_Event = (_iCnt_Event < 9-1 ? _iCnt_Event+1 : _iCnt_Event);
 	}
     // gen02 end
 

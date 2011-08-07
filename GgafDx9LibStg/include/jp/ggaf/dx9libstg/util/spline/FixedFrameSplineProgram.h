@@ -21,10 +21,10 @@ public:
 //    coord* _paDistace_to;
 //    /** [r]次の補完点到達に必要な移動速度のテーブル */
 //    velo* _paSPMvVeloTo;
-    /** [rw]方向転換に許されるRzRyの軸転速度 */
-    ang_velo _ang_veloRzRyMv;
-    /** [r]目標地点に到着までに設定されたフレーム数 */
-    frame _spent_frame;
+//    /** [rw]方向転換に許されるRzRyの軸転速度 */
+//    ang_velo _ang_veloRzRyMv;
+//    /** [r]目標地点に到着までに設定されたフレーム数 */
+//    frame _spent_frame;
     /**
      * [r]オプション
      * 0:絶対座標移動。

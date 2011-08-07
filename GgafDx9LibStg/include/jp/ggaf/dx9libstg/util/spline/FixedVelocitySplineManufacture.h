@@ -17,8 +17,8 @@ public:
     float* _paFrame_need_at;
     /** [r]基準速度 */
     velo _veloMvUnit;
-//    /** [rw]1フレームあたり旋回可能な回転角角速度 */
-//    ang_velo _ang_veloRzRyMv;
+    /** [rw]1フレームあたり旋回可能な回転角角速度 */
+    ang_velo _ang_veloRzRyMv;
 //    /** [r]基準速度で移動した場合のスプライン移動時の経過フレーム数 */
 //    float _fFrame_executing;
 //    /** [r]次の変わり目となる補間点(基準点も含む)に到達する_fFrame_executing */
@@ -77,7 +77,7 @@ public:
 //    FixedVelocitySplineManufacture(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
 //                               Spline3D* prm_sp,
 //                               ang_velo prm_ang_veloRzRyMv);
-    FixedVelocitySplineManufacture(char* prm_idstr, const char* prm_sourceid);
+    FixedVelocitySplineManufacture(char* prm_idstr, const char* prm_sourceid, ang_velo prm_ang_veloRzRyMv);
     /**
      * 初期化（計算）処理.
      * コンストラクタより呼び出されます。

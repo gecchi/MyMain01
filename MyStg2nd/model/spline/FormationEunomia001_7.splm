@@ -2,5 +2,5 @@
 FormationEunomia001
 
 [CLASS]
-FixedVelocitySplineProgram 6000
+FixedFrameSplineProgram 600 6000
 
