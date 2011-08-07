@@ -33,12 +33,13 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
                 MyShip::_lim_top,   //Y•ûŒü”{—¦
                 MyShip::_lim_zleft  //Z•ûŒü”{—¦
             );
-        pSpm->adjustAxisOffset(i*50*1000, i*50*1000, i*50*1000);
+
 
         _papapEunomia[i] = NEW EnemyEunomia*[_num_formation_row];
         for (int j = 0; j < _num_formation_row; j++) {
             _papapEunomia[i][j] = NEW EnemyEunomia("EUNOMIA");
 			pSplinProg = _papSplineManufactureCon[i]->refer()->createSplineProgram(_papapEunomia[i][j]);
+			pSplinProg->adjustAxisOffset(i*50*1000, i*50*1000, i*50*1000);
             _papapEunomia[i][j]->config(pSplinProg, NULL, NULL);
             _papapEunomia[i][j]->inactivateImmediately();
             addSubLast(_papapEunomia[i][j]);

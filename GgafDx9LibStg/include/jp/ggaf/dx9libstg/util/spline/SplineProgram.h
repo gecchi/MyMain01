@@ -29,6 +29,10 @@ public:
     coord _Y_begin;
     /** [r]始点Z座標 */
     coord _Z_begin;
+
+    coord _offset_X;
+    coord _offset_Y;
+    coord _offset_Z;
 //    float _rate_X;
 //    float _rate_Y;
 //    float _rate_Z;
@@ -99,7 +103,17 @@ public:
 //     */
 //    virtual void adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z);
 
-
+    /**
+     * 各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに加算(平行移動)し、補正します .
+     * デフォルトは adjustAxisOffset(0, 0, 0) となります。<BR>
+     * <b>[注意]</b><BR>
+     * 内部で、adjustAxisOffset()  が考慮され、その後  adjustAxisRate() が考慮されます。<BR>
+     * 軸方向の倍率補正 ＞ 平行移動補正 の順番です。<BR>
+     * @param prm_offset_X X軸方向補正増加分
+     * @param prm_offset_Y Y軸方向補正増加分
+     * @param prm_offset_Z Z軸方向補正増加分
+     */
+    virtual void adjustAxisOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z);
     /**
      * 対象アクター(_pActor_target)の座標を、スプラインの一番最初の基点座標で設定する .
      * begin(0) の場合、つまり「絶対座標移動スプライン」の場合、有効な設定となりうるでしょう。<BR>

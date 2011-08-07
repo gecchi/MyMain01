@@ -37,9 +37,7 @@ public:
     float _rate_X;
     float _rate_Y;
     float _rate_Z;
-    coord _offset_X;
-    coord _offset_Y;
-    coord _offset_Z;
+
 //    /**
 //     * コンストラクタ .
 //     * Spline3Dオブジェクトの参照を後から設定して下さい。（setSpline() メソッドで）
@@ -79,17 +77,6 @@ public:
     SplineManufacture();
     SplineManufacture(char* prm_idstr, const char* prm_sourceid);
 
-    /**
-     * 各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに加算(平行移動)し、補正します .
-     * デフォルトは adjustAxisOffset(0, 0, 0) となります。<BR>
-     * <b>[注意]</b><BR>
-     * 内部で、adjustAxisOffset()  が考慮され、その後  adjustAxisRate() が考慮されます。<BR>
-     * 軸方向の倍率補正 ＞ 平行移動補正 の順番です。<BR>
-     * @param prm_offset_X X軸方向補正増加分
-     * @param prm_offset_Y Y軸方向補正増加分
-     * @param prm_offset_Z Z軸方向補正増加分
-     */
-    virtual void adjustAxisOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z);
 
     /**
      * 各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに割合を乗じ、補正します .
