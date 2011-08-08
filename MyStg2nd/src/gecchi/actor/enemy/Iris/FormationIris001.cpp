@@ -11,13 +11,13 @@ FormationIris001::FormationIris001(const char* prm_name) : GgafDx9FormationActor
     _interval_frames = R_FormationIris001_LaunchInterval;   //イリスの間隔(frame)
     _mv_velo         = R_FormationIris001_MvVelo; //速度
     //イリス編隊作成
-    _pSplineCon     = (Spline3DConnection*)(P_GOD->_pSpline3DManager->getConnection("SpCon_002_01")); //スプライン定義
+    _pSplCon     = (Spline3DConnection*)(P_GOD->_pSpl3DManager->getConnection("SpCon_002_01")); //スプライン定義
     _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_Shot001"));
     _papIris = NEW EnemyIris*[_num_Iris];
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i] = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
-        SplineProgram* pProgram = NEW FixedVelocitySplineProgram(_papIris[i], _pSplineCon->refer(), 4000); //移動速度固定
+        SplineProgram* pProgram = NEW FixedVelocitySplineProgram(_papIris[i], _pSplCon->refer(), 4000); //移動速度固定
         _papIris[i]->setSplineProgram(pProgram);
         _papIris[i]->setStore_Shot(_pStoreCon->refer()); //弾設定
         _papIris[i]->inactivateImmediately();
@@ -39,7 +39,7 @@ void FormationIris001::onActive() {
 }
 
 FormationIris001::~FormationIris001() {
-    _pSplineCon->close();
+    _pSplCon->close();
     _pStoreCon->close();
     DELETEARR_IMPOSSIBLE_NULL(_papIris);
 }

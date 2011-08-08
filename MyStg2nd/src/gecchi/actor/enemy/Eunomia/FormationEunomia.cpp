@@ -19,24 +19,23 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
 
     //エウノミア編隊作成
     //スプライン定義ファイルを読み込む
-    _papSplineManufactureCon = NEW SplineManufactureConnection*[_num_formation_col];
+    _papSplManufactureCon = NEW SplineManufactureConnection*[_num_formation_col];
     for (int i = 0; i < _num_formation_col; i++) {
         stringstream spl_id;
         spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
-        _papSplineManufactureCon[i] = (SplineManufactureConnection*)((P_GOD)->_pSplineManufactureManager->getConnection(spl_id.str().c_str()));
+        _papSplManufactureCon[i] = getSplineManufactureConnection(spl_id.str().c_str()));
     }
 
-
     _papapEunomia = NEW EnemyEunomia**[_num_formation_col]; //n列xN機の編隊を組む
-    SplineProgram* pSplinProg;
     for (int i = 0; i < _num_formation_col; i++) {
         _papapEunomia[i] = NEW EnemyEunomia*[_num_formation_row];
+        SplineManufacture* pSplManufacture = _papSplManufactureCon[i]->refer();
         for (int j = 0; j < _num_formation_row; j++) {
             stringstream nm;
             nm << "EUNOMIA_col" << i << "_row" << j;
             _papapEunomia[i][j] = NEW EnemyEunomia(nm.str().c_str());
-            pSplinProg = _papSplineManufactureCon[i]->refer()->createSplineProgram(_papapEunomia[i][j]);
-            _papapEunomia[i][j]->config(pSplinProg, NULL, NULL);
+            SplineProgram* pSplProg = pSplManufacture->createSplineProgram(_papapEunomia[i][j]);
+            _papapEunomia[i][j]->config(pSplProg, NULL, NULL);
             _papapEunomia[i][j]->inactivateImmediately();
             addSubLast(_papapEunomia[i][j]);
         }
@@ -60,9 +59,9 @@ void FormationEunomia::processBehavior() {
 
 FormationEunomia::~FormationEunomia() {
     for (int i = 0; i < _num_formation_col; i++) {
-        _papSplineManufactureCon[i]->close();
+        _papSplManufactureCon[i]->close();
     }
-    DELETEARR_IMPOSSIBLE_NULL(_papSplineManufactureCon);
+    DELETEARR_IMPOSSIBLE_NULL(_papSplManufactureCon);
 
     if (_pStoreCon) {
         _pStoreCon->close();

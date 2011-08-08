@@ -19,7 +19,7 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
     MyStgUtil::resetEnemyThaliaStatus(_pStatus);
     _veloTopMv = 20000;
     _iMovePatternNo = 0;
-    _pSplineProgram = NULL;
+    _pSplProgram = NULL;
     _pStore_Shot = NULL;
     _pStore_ShotEffect = NULL;
 
@@ -208,5 +208,5 @@ void EnemyThalia::onInactive() {
 }
 
 EnemyThalia::~EnemyThalia() {
-    DELETE_POSSIBLE_NULL(_pSplineProgram);
+    DELETE_POSSIBLE_NULL(_pSplProgram);
 }

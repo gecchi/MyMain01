@@ -15,9 +15,9 @@ public:
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名
-     * @param prm_pSpline3D Spline3Dオブジェクト
+     * @param prm_pSpl3D Spline3Dオブジェクト
      */
-    Spline3DConnection(char* prm_idstr, GgafDx9LibStg::Spline3D* prm_pSpline3D);
+    Spline3DConnection(char* prm_idstr, GgafDx9LibStg::Spline3D* prm_pSpl3D);
 
     void processReleaseResource(GgafDx9LibStg::Spline3D* prm_pResource);
 

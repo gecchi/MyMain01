@@ -34,26 +34,26 @@ FixedFrameSplineProgram::FixedFrameSplineProgram(SplineManufacture* prm_pManufac
 //                                                               double prm_paaCriteriaPoints[][3],
 //                                                               int prm_point_num,
 //                                                               double prm_accuracy,
-//                                                               frame prmpSplineent_frame,
+//                                                               frame prmpSplent_frame,
 //                                                               ang_velo prm_ang_veloRzRyMv )
 //
 //                                        : SplineProgram(prm_pActor,
 //                                                               prm_paaCriteriaPoints,
 //                                                               prm_point_num,
 //                                                               prm_accuracy)      {
-//    pSplineent_frame = prmpSplineent_frame;
+//    pSplent_frame = prmpSplent_frame;
 //    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
 //    init();
 //}
 //
 //FixedFrameSplineProgram::FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor,
-//                                                               Spline3D* prmpSpline,
-//                                                               frame prmpSplineent_frame,
+//                                                               Spline3D* prmpSpl,
+//                                                               frame prmpSplent_frame,
 //                                                               ang_velo prm_ang_veloRzRyMv)
 //
 //                                         : SplineProgram(prm_pActor,
-//                                                                prmpSpline) {
-//    pSplineent_frame = prmpSplineent_frame;
+//                                                                prmpSpl) {
+//    pSplent_frame = prmpSplent_frame;
 //    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
 //    init();
 //}
@@ -65,7 +65,7 @@ FixedFrameSplineProgram::FixedFrameSplineProgram(SplineManufacture* prm_pManufac
 //    // prm_paaCriteriaPoints[2][3] = { {1000,2000,3000}, {2000,1000,0}, {3900, 0, 1000} }
 //    // prm_point_num = 3          //基点の数
 //    // prm_accuracy = 0.25(=1/4)  //補完点精度
-//    // prmpSplineent_frame = 120      //費やすフレーム
+//    // prmpSplent_frame = 120      //費やすフレーム
 //    // の場合、下図のようになります。
 //    //
 //    // X:基点
@@ -95,30 +95,30 @@ FixedFrameSplineProgram::FixedFrameSplineProgram(SplineManufacture* prm_pManufac
 //    //   = (1000,2000,3000)             = (2000,1000,0)                    = (3900, 0, 1000)
 //    //
 //    //                 <--------------------------------------------------------->
-//    //                                 120Frame費やして移動(=prmpSplineent_frame)
+//    //                                 120Frame費やして移動(=prmpSplent_frame)
 //    //                  <-->
-//    //                  frm_segment = １区間は 120/8 Frame = prmpSplineent_frame / (sp._rnum-1);
+//    //                  frm_segment = １区間は 120/8 Frame = prmpSplent_frame / (sp._rnum-1);
 //
 //    //１区間の使用可能フレーム
-//    _SPframe_segment = 1.0*pSplineent_frame / (pSpline->_rnum-1);
+//    _SPframe_segment = 1.0*pSplent_frame / (pSpl->_rnum-1);
 //    if (_SPframe_segment < 1) {
 //        _SPframe_segment = 1;
 //    }
-//    _paDistace_to = NEW coord[pSpline->_rnum];
-//    _paSPMvVeloTo = NEW velo[pSpline->_rnum];
+//    _paDistace_to = NEW coord[pSpl->_rnum];
+//    _paSPMvVeloTo = NEW velo[pSpl->_rnum];
 //    coord x_from, y_from, z_from;
 //    coord x_to, y_to, z_to;
 //
-//    x_to = pSpline->_X_compute[0];
-//    y_to = pSpline->_Y_compute[0];
-//    z_to = pSpline->_Z_compute[0];
-//    for (int t = 1; t < pSpline->_rnum; t ++) {
+//    x_to = pSpl->_X_compute[0];
+//    y_to = pSpl->_Y_compute[0];
+//    z_to = pSpl->_Z_compute[0];
+//    for (int t = 1; t < pSpl->_rnum; t ++) {
 //        x_from = x_to;
 //        y_from = y_to;
 //        z_from = z_to;
-//        x_to = pSpline->_X_compute[t];
-//        y_to = pSpline->_Y_compute[t];
-//        z_to = pSpline->_Z_compute[t];
+//        x_to = pSpl->_X_compute[t];
+//        y_to = pSpl->_Y_compute[t];
+//        z_to = pSpl->_Z_compute[t];
 //        _paDistace_to[t] = GgafDx9Util::getDistance(
 //                                    x_from,
 //                                    y_from,
@@ -134,8 +134,8 @@ FixedFrameSplineProgram::FixedFrameSplineProgram(SplineManufacture* prm_pManufac
 //    }
 //
 ////
-////    for (int t = 0; t < pSpline->_rnum; t ++) {
-////        _TRACE_((float)pSpline->_X_compute[t]<<"  "<< (float)pSpline->_Y_compute[t]<<"  "<< (float)pSpline->_Z_compute[t]);
+////    for (int t = 0; t < pSpl->_rnum; t ++) {
+////        _TRACE_((float)pSpl->_X_compute[t]<<"  "<< (float)pSpl->_Y_compute[t]<<"  "<< (float)pSpl->_Z_compute[t]);
 ////    }
 //
 //}
@@ -149,16 +149,16 @@ FixedFrameSplineProgram::FixedFrameSplineProgram(SplineManufacture* prm_pManufac
 //    coord x_from, y_from, z_from;
 //    coord x_to, y_to, z_to;
 //
-//    x_to = pSpline->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X;
-//    y_to = pSpline->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y;
-//    z_to = pSpline->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z;
-//    for (int t = 1; t < pSpline->_rnum; t ++) {
+//    x_to = pSpl->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X;
+//    y_to = pSpl->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y;
+//    z_to = pSpl->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z;
+//    for (int t = 1; t < pSpl->_rnum; t ++) {
 //        x_from = x_to;
 //        y_from = y_to;
 //        z_from = z_to;
-//        x_to = pSpline->_X_compute[t]*_pFixedFrameSplineManufacture->_rate_X;
-//        y_to = pSpline->_Y_compute[t]*_pFixedFrameSplineManufacture->_rate_Y;
-//        z_to = pSpline->_Z_compute[t]*_pFixedFrameSplineManufacture->_rate_Z;
+//        x_to = pSpl->_X_compute[t]*_pFixedFrameSplineManufacture->_rate_X;
+//        y_to = pSpl->_Y_compute[t]*_pFixedFrameSplineManufacture->_rate_Y;
+//        z_to = pSpl->_Z_compute[t]*_pFixedFrameSplineManufacture->_rate_Z;
 //        _paDistace_to[t] = GgafDx9Util::getDistance(
 //                                    x_from,
 //                                    y_from,
@@ -192,23 +192,23 @@ void FixedFrameSplineProgram::begin(int prm_option) {
 //            _paSPMvVeloTo[0] = v;
 //        }
 
-        Spline3D* pSpline = _pFixedFrameSplineManufacture->_sp;
+        Spline3D* pSpl = _pFixedFrameSplineManufacture->_sp;
         if (_option == 2) {
-            _X_begin = _flip_X*pSpline->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X - _pActor_target->_X ;
-            _Y_begin = _flip_Y*pSpline->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y - _pActor_target->_Y;
-            _Z_begin = _flip_Z*pSpline->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z - _pActor_target->_Z;
+            _X_begin = _flip_X*pSpl->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X - _pActor_target->_X ;
+            _Y_begin = _flip_Y*pSpl->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y - _pActor_target->_Y;
+            _Z_begin = _flip_Z*pSpl->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z - _pActor_target->_Z;
             _SIN_RzMv_begin = GgafDx9Util::SIN[_pActor_target->_pKurokoA->_angRzMv/ANGLE_RATE];
             _COS_RzMv_begin = GgafDx9Util::COS[_pActor_target->_pKurokoA->_angRzMv/ANGLE_RATE];
             _SIN_RyMv_begin = GgafDx9Util::SIN[_pActor_target->_pKurokoA->_angRyMv/ANGLE_RATE];
             _COS_RyMv_begin = GgafDx9Util::COS[_pActor_target->_pKurokoA->_angRyMv/ANGLE_RATE];
         } else if (_option == 1) {
-            _X_begin = _flip_X*pSpline->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X - _pActor_target->_X;
-            _Y_begin = _flip_Y*pSpline->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y - _pActor_target->_Y;
-            _Z_begin = _flip_Z*pSpline->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z - _pActor_target->_Z;
+            _X_begin = _flip_X*pSpl->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X - _pActor_target->_X;
+            _Y_begin = _flip_Y*pSpl->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y - _pActor_target->_Y;
+            _Z_begin = _flip_Z*pSpl->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z - _pActor_target->_Z;
         } else {
-            _X_begin = _flip_X*pSpline->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X;
-            _Y_begin = _flip_Y*pSpline->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y;
-            _Z_begin = _flip_Z*pSpline->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z;
+            _X_begin = _flip_X*pSpl->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X;
+            _Y_begin = _flip_Y*pSpl->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y;
+            _Z_begin = _flip_Z*pSpl->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z;
 
         }
     }
@@ -217,12 +217,12 @@ void FixedFrameSplineProgram::begin(int prm_option) {
 
 void FixedFrameSplineProgram::behave() {
     if (_is_executing) {
-        Spline3D* pSpline = _pFixedFrameSplineManufacture->_sp;
+        Spline3D* pSpl = _pFixedFrameSplineManufacture->_sp;
         GgafDx9KurokoA* _pKurokoA = _pActor_target->_pKurokoA;
 
         //現在の点INDEX
         int SPPointIndex = _SPframe/_pFixedFrameSplineManufacture->_SPframe_segment;
-        if ( SPPointIndex == pSpline->_rnum) {
+        if ( SPPointIndex == pSpl->_rnum) {
             //終了
             _is_executing = false;
             return;
@@ -230,9 +230,9 @@ void FixedFrameSplineProgram::behave() {
 
         //変わり目
         if (_SPframe % _pFixedFrameSplineManufacture->_SPframe_segment == 0) {
-            double dx = _flip_X*pSpline->_X_compute[SPPointIndex]*_pFixedFrameSplineManufacture->_rate_X + _offset_X;
-            double dy = _flip_Y*pSpline->_Y_compute[SPPointIndex]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y;
-            double dz = _flip_Z*pSpline->_Z_compute[SPPointIndex]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z;
+            double dx = _flip_X*pSpl->_X_compute[SPPointIndex]*_pFixedFrameSplineManufacture->_rate_X + _offset_X;
+            double dy = _flip_Y*pSpl->_Y_compute[SPPointIndex]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y;
+            double dz = _flip_Z*pSpl->_Z_compute[SPPointIndex]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z;
 
 
             //次の補間点（or基点)に移動方角を向ける

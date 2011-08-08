@@ -20,7 +20,7 @@ class God : public GgafDx9LibStg::DefaultGod {
 
 public:
     StoreManager* _pStoreManager;
-    Spline3DManager* _pSpline3DManager;
+    Spline3DManager* _pSpl3DManager;
 
 
     static GgafDx9LibStg::VirtualButton* _pVbtn_PLAY;

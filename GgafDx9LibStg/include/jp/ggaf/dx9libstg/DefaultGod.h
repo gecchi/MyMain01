@@ -3,13 +3,13 @@
 
 namespace GgafDx9LibStg {
 
-#define getSplineSourceManager() ((P_GOD)->_pSplineSourceManager)
+#define getSplineSourceManager() ((P_GOD)->_pSplSourceManager)
 
 class DefaultGod : public GgafDx9Core::GgafDx9God {
 
 public:
-    SplineSourceManager* _pSplineSourceManager;
-    SplineManufactureManager* _pSplineManufactureManager;
+    SplineSourceManager* _pSplSourceManager;
+    SplineManufactureManager* _pSplManufactureManager;
 
     DefaultGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
     virtual void clean() override;

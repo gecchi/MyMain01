@@ -12,7 +12,7 @@ class FormationIris001 : public GgafDx9Core::GgafDx9FormationActor {
     /** イリスの発射弾の借り入れ元Store資源への接続 */
     StoreConnection* _pStoreCon;
     /** スプライン定義資源への接続 */
-    Spline3DConnection* _pSplineCon;
+    Spline3DConnection* _pSplCon;
 public:
     /** 編隊数(RANK変動) */
     int _num_Iris;

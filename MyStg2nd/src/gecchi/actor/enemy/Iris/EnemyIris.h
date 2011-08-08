@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class EnemyIris : public GgafDx9LibStg::DefaultMeshSetActor {
 
     /** 移動スプラインプログラム */
-    GgafDx9LibStg::SplineProgram* _pSplineProgram;
+    GgafDx9LibStg::SplineProgram* _pSplProgram;
     /** 弾ストック */
     GgafCore::GgafActorStore* _pStore_Shot;
     /** 弾発射効果エフェクト */
@@ -70,10 +70,10 @@ public:
     /**
      * スプライン移動設定 .
      * initialize() までに設定して下さい。
-     * @param prm_pSplineProgram
+     * @param prm_pSplProgram
      */
-    void setSplineProgram(GgafDx9LibStg::SplineProgram* prm_pSplineProgram) {
-        _pSplineProgram = prm_pSplineProgram;
+    void setSplineProgram(GgafDx9LibStg::SplineProgram* prm_pSplProgram) {
+        _pSplProgram = prm_pSplProgram;
     }
 
     /**

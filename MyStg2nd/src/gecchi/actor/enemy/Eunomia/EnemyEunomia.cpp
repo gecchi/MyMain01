@@ -9,7 +9,7 @@ EnemyEunomia::EnemyEunomia(const char* prm_name) : DefaultMeshSetActor(prm_name,
     _class_name = "EnemyEunomia";
     MyStgUtil::resetEnemyEunomiaStatus(_pStatus);
     _iMovePatternNo = 0;
-    _pSplineProgram = NULL;
+    _pSplProgram = NULL;
     _pStore_Shot = NULL;
     _pStore_ShotEffect = NULL;
     _pSeTransmitter->useSe(1);
@@ -37,7 +37,7 @@ void EnemyEunomia::onReset() {
 
 
 void EnemyEunomia::onActive() {
-    if (_pSplineProgram == NULL) {
+    if (_pSplProgram == NULL) {
         throwGgafCriticalException("EnemyEunomiaはスプライン必須ですconfigして下さい");
     }
     reset();
@@ -48,11 +48,11 @@ void EnemyEunomia::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //【パターン1：スプライン移動】
     if (_pProg->isJustChangedTo(1)) {
-        _pSplineProgram->begin(0); //スプライン移動を開始(1:座標相対)
+        _pSplProgram->begin(0); //スプライン移動を開始(1:座標相対)
     }
     if (_pProg->get() == 1) {
         //スプライン移動終了待ち
-        if (_pSplineProgram->isExecuting()) {
+        if (_pSplProgram->isExecuting()) {
             //待ちぼうけ
         } else {
             _pProg->changeNext(); //次のパターンへ
@@ -61,16 +61,16 @@ void EnemyEunomia::processBehavior() {
 
     switch (_iMovePatternNo) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (_pSplineProgram) {
-                _pSplineProgram->begin(0); //スプライン移動を開始(1:座標相対)
+            if (_pSplProgram) {
+                _pSplProgram->begin(0); //スプライン移動を開始(1:座標相対)
             }
             _iMovePatternNo++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (_pSplineProgram) {
+            if (_pSplProgram) {
                 //スプライン移動有り
-                if (!(_pSplineProgram->isExecuting())) {
+                if (!(_pSplProgram->isExecuting())) {
                     _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
@@ -117,8 +117,8 @@ void EnemyEunomia::processBehavior() {
     }
 
 
-    if (_pSplineProgram) {
-        _pSplineProgram->behave(); //スプライン移動を振る舞い
+    if (_pSplProgram) {
+        _pSplProgram->behave(); //スプライン移動を振る舞い
     }
     _pKurokoA->behave();
     //_pSeTransmitter->behave();
@@ -163,7 +163,7 @@ void EnemyEunomia::onInactive() {
 }
 
 EnemyEunomia::~EnemyEunomia() {
-    DELETE_POSSIBLE_NULL(_pSplineProgram);
+    DELETE_POSSIBLE_NULL(_pSplProgram);
 }
 
 

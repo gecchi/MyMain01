@@ -63,9 +63,9 @@ using namespace GgafDx9LibStg;
 //}
 SplineManufacture::SplineManufacture(char* prm_idstr, const char* prm_sourceid) : GgafObject() {
 
-    _pSplineSourceConnection = (SplineSourceConnection*)((P_GOD)->_pSplineSourceManager->getConnection(prm_sourceid));
-    _pSplineSource = _pSplineSourceConnection->refer();
-    _sp = _pSplineSource->_pSp;
+    _pSplSourceConnection = (SplineSourceConnection*)((P_GOD)->_pSplSourceManager->getConnection(prm_sourceid));
+    _pSplSource = _pSplSourceConnection->refer();
+    _sp = _pSplSource->_pSp;
     _rate_X = 1.0;
     _rate_Y = 1.0;
     _rate_Z = 1.0;
@@ -129,8 +129,8 @@ void SplineManufacture::adjustAxisRate(float prm_rate_X, float prm_rate_Y, float
 
 
 SplineManufacture::~SplineManufacture () {
-    if (_pSplineSourceConnection) {
-        _pSplineSourceConnection->close();
+    if (_pSplSourceConnection) {
+        _pSplSourceConnection->close();
     }
     if (_is_create_sp) {
         DELETE_IMPOSSIBLE_NULL(_sp);

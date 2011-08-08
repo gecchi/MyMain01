@@ -103,19 +103,19 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
 //    }
 #endif
 
-    SplineManufacture* pSplineManufacture = NULL;
+    SplineManufacture* pSplManufacture = NULL;
     if (classname.find("FixedFrameSpline") != string::npos) {
-        pSplineManufacture = NEW FixedFrameSplineManufacture(prm_idstr, splinefile.c_str(), spent_frame, ang_veloRzRyMv);
-        pSplineManufacture->adjustAxisRate(rate_X, rate_Y, rate_Z);
-        pSplineManufacture->calculate();
+        pSplManufacture = NEW FixedFrameSplineManufacture(prm_idstr, splinefile.c_str(), spent_frame, ang_veloRzRyMv);
+        pSplManufacture->adjustAxisRate(rate_X, rate_Y, rate_Z);
+        pSplManufacture->calculate();
     } else if (classname.find("FixedVelocitySpline") != string::npos) {
-        pSplineManufacture = NEW FixedVelocitySplineManufacture(prm_idstr, splinefile.c_str(), ang_veloRzRyMv);
-        pSplineManufacture->adjustAxisRate(rate_X, rate_Y, rate_Z);
-        pSplineManufacture->calculate();
+        pSplManufacture = NEW FixedVelocitySplineManufacture(prm_idstr, splinefile.c_str(), ang_veloRzRyMv);
+        pSplManufacture->adjustAxisRate(rate_X, rate_Y, rate_Z);
+        pSplManufacture->calculate();
     } else {
         throwGgafCriticalException("SplineSource::createSplineProgram _classname="<<classname<< "‚Í•s–¾‚ÈƒNƒ‰ƒX‚Å‚·");
     }
-    return pSplineManufacture;
+    return pSplManufacture;
 
 
 
@@ -134,7 +134,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
 //
 //
 //
-//    _pSSCon = (SplineSourceConnection*)((P_GOD)->_pSplineSourceManager->getConnection(splinefile.c_str()));
+//    _pSSCon = (SplineSourceConnection*)((P_GOD)->_pSplSourceManager->getConnection(splinefile.c_str()));
 //
 //
 //
@@ -212,7 +212,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
 //
 //
 //
-//    _pSSCon = (SplineSourceConnection*)((P_GOD)->_pSplineSourceManager->getConnection(prm_idstr));
+//    _pSSCon = (SplineSourceConnection*)((P_GOD)->_pSplSourceManager->getConnection(prm_idstr));
 //    pSSCon->refer();
 //    SplineManufacture* pResource = NEW SplineManufacture(prm_idstr);
 //
