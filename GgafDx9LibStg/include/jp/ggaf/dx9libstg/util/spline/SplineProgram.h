@@ -3,7 +3,7 @@
 namespace GgafDx9LibStg {
 
 /**
- * スプライン曲線移動のための情報セット .
+ * スプライン曲線移動を実行するためのオブジェクト .
  * 補完点に移動するため、粒度が荒いとカクカクです。
  * @version 1.00
  * @since 2009/10/27
@@ -12,9 +12,8 @@ namespace GgafDx9LibStg {
 class SplineProgram : public GgafCore::GgafObject {
 
 public:
+    /** スプライン情報セット */
     SplineManufacture* _pManufacture;
-//    /** スプライン曲線の補完点生成、保持するクラス */
-//    Spline3D* _sp;
     /** begin()からの経過フレーム数 */
     frame _SPframe;
     /** 現在プログラム実行中であるかどうか */
@@ -37,12 +36,6 @@ public:
     int _flip_X;
     int _flip_Y;
     int _flip_Z;
-//    float _rate_X;
-//    float _rate_Y;
-//    float _rate_Z;
-//    coord _offset_X;
-//    coord _offset_Y;
-//    coord _offset_Z;
 
     SplineProgram(SplineManufacture* prm_pManufacture,  GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target);
 

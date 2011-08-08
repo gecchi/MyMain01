@@ -13,8 +13,6 @@ class SplineSource : public GgafCore::GgafObject {
 public:
     Spline3D* _pSp;
     double _accuracy;
-    frame _spent_frame;
-    ang_velo _ang_veloRzRyMv;
     std::string _classname;
 
     SplineSource(char* prm_idstr);

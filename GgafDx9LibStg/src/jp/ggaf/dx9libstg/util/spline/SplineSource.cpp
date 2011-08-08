@@ -9,8 +9,6 @@ using namespace GgafDx9LibStg;
 
 SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
     _accuracy = 1.0;
-    _spent_frame = 1;
-    _ang_veloRzRyMv = 0;
     _classname = "";
     string data_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr);// + ".spls";
     ifstream ifs(data_filename.c_str());
@@ -25,22 +23,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
         if (line.c_str()[0] == '#') continue;
 
         LOOP_SPLFILE:
-//        if (line.find("[CLASS]") != string::npos) {
-//            while( getline(ifs,line) ) {
-//                if (line.size() == 0 ) break;
-//                if (line.c_str()[0] == '#') continue;
-//                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
-//                istringstream iss(line);
-//                iss >> _classname;
-//                if (_classname == "FixedFrameSplineProgram") {
-//                    iss >> _spent_frame;
-//                    iss >> _ang_veloRzRyMv;
-//                } else if (_classname == "FixedVelocitySplineProgram") {
-//                    iss >> _ang_veloRzRyMv;
-//                    _spent_frame = 0;
-//                }
-//            }
-//        }
+
         if (line.find("[BASEPOINT]") != string::npos) {
             while( getline(ifs,line) ) {
                 if (line.size() == 0 ) break;

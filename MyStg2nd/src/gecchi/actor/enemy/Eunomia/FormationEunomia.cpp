@@ -17,11 +17,6 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
     _mv_velo           = prm_mv_velo; //速度
     _n = 0;
 
-
-//    _num_formation_col = 2;  //編隊列数
-//    _num_formation_row = 7;
-
-
     //エウノミア編隊作成
     //スプライン定義ファイルを読み込む
     _papSplineManufactureCon = NEW SplineManufactureConnection*[_num_formation_col];
@@ -29,12 +24,6 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
         stringstream spl_id;
         spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
         _papSplineManufactureCon[i] = (SplineManufactureConnection*)((P_GOD)->_pSplineManufactureManager->getConnection(spl_id.str().c_str()));
-//        SplineManufacture* pSpm = _papSplineManufactureCon[i]->refer();
-//        pSpm->adjustAxisRate(
-//                MyShip::_lim_front, //X方向倍率
-//                MyShip::_lim_top,   //Y方向倍率
-//                MyShip::_lim_zleft  //Z方向倍率
-//            );
     }
 
 

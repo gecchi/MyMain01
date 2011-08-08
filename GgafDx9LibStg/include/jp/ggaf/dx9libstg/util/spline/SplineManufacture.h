@@ -4,9 +4,32 @@ namespace GgafDx9LibStg {
 
 /**
  * スプライン曲線移動のための情報セット .
+ * オブジェクトの関係
+ * SplineProgram      各アクター毎に生成される。
+ *                    アクターに対する、スプライン曲線上の現在の補完点の位置・時間・距離等の管理を行い、
+ *                    黒子A(KurokoA)に指示を出してアクターを移動させる。
+ *                    １つの SplineManufacture オブジェクトに対して N 個の SplineProgramオブジェクトが参照している。
+ *                    距離の変わらない情報もココで保持する。
+ *                    つまりスプライン曲線の座標点の軸平行移動オフセット、
+ *                    X,Y,Zの正負入れ替え情報。（TODO:将来は、回転情報もココに）
+ *
+ * SplineManufacture  スプライン曲線の座標点セットの拡大縮小情報、またそれに伴うSplineProgramの実装クラスの情報を保持。
+ *                    拡大縮小により、各補完点毎の距離等の情報を予め計算して保持している。
+ *                    拡大縮小を変更する場合は、このオブジェクトのフィールドも再計算が必要となる。
+ *                    １つの SplineSource オブジェクトに対して N 個の SplineSourceオブジェクトが参照している。
+ *
+ * SplineSource       Spline3D オブジェクトを使いまわすオブジェクト。
+ *                    SplineSource は生成と同時に、引数のファイル名の外部ファイルを読み込み、
+ *                    Spline3Dを生成し、内部保持する。
+ *                    但し、既に生成済みのファイル名であった場合は、Spline3Dを生成せず、
+ *                    参照を保持する。
+ *
+ * Spline3D           スプライン曲線の座標点セットの情報を保持するオブジェクト。
+ *
+ *
  * 補完点に移動するため、粒度が荒いとカクカクです。
  * @version 1.00
- * @since 2009/10/27
+ * @since 2011/08/05
  * @author Masatoshi Tsuge
  */
 class SplineManufacture : public GgafCore::GgafObject {
@@ -17,23 +40,8 @@ public:
 
     /** スプライン曲線の補完点生成、保持するクラス */
     Spline3D* _sp;
-//    /** [r]１区間の使用可能フレーム */
-//    frame _SPframe_segment;
-
-//    /** begin()からの経過フレーム数 */
-//    frame _SPframe;
-//    /** 現在プログラム実行中であるかどうか */
-//    bool _is_executing;
-//    /** 座標を操作する対象となるアクター */
-//    GgafDx9Core::GgafDx9GeometricActor* _pActor_target;
     /** コンストラクタ内部でSpline3Dを生成した場合true/コンストラクタ引数にSpline3Dが渡された場合、false */
     bool _is_create_sp;
-//    /** [r]始点X座標 */
-//    coord _X_begin;
-//    /** [r]始点Y座標 */
-//    coord _Y_begin;
-//    /** [r]始点Z座標 */
-//    coord _Z_begin;
     float _rate_X;
     float _rate_Y;
     float _rate_Z;
@@ -75,6 +83,13 @@ public:
 //                      frame prm_spent_frame,
 //                      ang_velo prm_ang_veloRzRyMv);
 //    SplineManufacture();
+
+
+    /**
+     *
+     * @param prm_idstr
+     * @param prm_sourceid
+     */
     SplineManufacture(char* prm_idstr, const char* prm_sourceid);
 
 
