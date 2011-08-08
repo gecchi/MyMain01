@@ -6,6 +6,16 @@ using namespace GgafDx9LibStg;
 FixedVelocitySplineProgram::FixedVelocitySplineProgram(SplineManufacture* prm_pManufacture, GgafDx9GeometricActor* prm_pActor_target) :
         SplineProgram(prm_pManufacture, prm_pActor_target) {
     _pFixedVelocitySplineManufacture = (FixedVelocitySplineManufacture*)prm_pManufacture;
+    _fFrame_executing = 0.0f;
+    _fFrame_next_point = -0.00001f;
+    _point_index = 0;
+    _option = 0;
+    _veloMvUnit = LEN_UNIT;
+    _SIN_RzMv_begin = 0.0f;
+    _COS_RzMv_begin = 0.0f;
+    _SIN_RyMv_begin = 0.0f;
+    _COS_RyMv_begin = 0.0f;
+
 }
 //FixedVelocitySplineProgram::FixedVelocitySplineProgram(GgafDx9GeometricActor* prm_pActor)
 //  : SplineProgram(prm_pActor) {
@@ -176,8 +186,8 @@ void FixedVelocitySplineProgram::begin(int prm_option) {
     if (_pFixedVelocitySplineManufacture) {
         _is_executing = true;
         _option = prm_option;
-        _fFrame_executing = 0;
-        _fFrame_next_point = 0.0;
+        _fFrame_executing = 0.0f;
+        _fFrame_next_point = -0.00001f;
         _point_index = 0;
         Spline3D* pSpline = _pFixedVelocitySplineManufacture->_sp;
         if (_option == 2) {
@@ -206,9 +216,10 @@ void FixedVelocitySplineProgram::begin(int prm_option) {
 void FixedVelocitySplineProgram::behave() {
     if (_is_executing) {
         GgafDx9KurokoA* _pKurokoA = _pActor_target->_pKurokoA;
-
         //変わり目
+//        printf("%s _point_index=%d _fFrame_executing=%f _fFrame_next_point=%f\n",_pActor_target->getName(), _point_index,_fFrame_executing, _fFrame_next_point);
         if (_fFrame_executing >= _fFrame_next_point) {
+//            printf("%s _point_index=%d _fFrame_executing >= _fFrame_next_point HIT\n",_pActor_target->getName(), _point_index);
             Spline3D* pSpline = _pFixedVelocitySplineManufacture->_sp;
             if (_point_index == 0) {
                 //始点へ行く！
@@ -298,10 +309,14 @@ void FixedVelocitySplineProgram::behave() {
 
             _point_index++;
             if ( _point_index == pSpline->_rnum) {
+//                printf(" %s END _point_index=%d\n",_pActor_target->getName(),_point_index);
                 //終了
                 _is_executing = false;
                 return;
             }
+        } else {
+
+//            printf("%s XX _point_index=%d _fFrame_executing >= _fFrame_next_point NO HIT\n",_pActor_target->getName(),_point_index);
         }
 
         //キャラの速度が1000ならば、_fFrame_executing ++;

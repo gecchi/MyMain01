@@ -16,6 +16,12 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
     _interval_frames    = prm_interval_frames;   //エウノミアの間隔(frame)
     _mv_velo           = prm_mv_velo; //速度
     _n = 0;
+
+
+//    _num_formation_col = 2;  //編隊列数
+//    _num_formation_row = 7;
+
+
     //エウノミア編隊作成
     //スプライン定義ファイルを読み込む
     _papSplineManufactureCon = NEW SplineManufactureConnection*[_num_formation_col];
@@ -37,8 +43,10 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
     for (int i = 0; i < _num_formation_col; i++) {
         _papapEunomia[i] = NEW EnemyEunomia*[_num_formation_row];
         for (int j = 0; j < _num_formation_row; j++) {
-            _papapEunomia[i][j] = NEW EnemyEunomia("EUNOMIA");
-			pSplinProg = _papSplineManufactureCon[i]->refer()->createSplineProgram(_papapEunomia[i][j]);
+            stringstream nm;
+            nm << "EUNOMIA_col" << i << "_row" << j;
+            _papapEunomia[i][j] = NEW EnemyEunomia(nm.str().c_str());
+            pSplinProg = _papSplineManufactureCon[i]->refer()->createSplineProgram(_papapEunomia[i][j]);
             _papapEunomia[i][j]->config(pSplinProg, NULL, NULL);
             _papapEunomia[i][j]->inactivateImmediately();
             addSubLast(_papapEunomia[i][j]);

@@ -21,6 +21,8 @@ BOOL CustmizeSysMenu(HWND hWnd);
 void myUnexpectedHandler();
 void myTerminateHandler();
 
+
+
 /**
  * GNU GCC ならばエントリポイント
  */

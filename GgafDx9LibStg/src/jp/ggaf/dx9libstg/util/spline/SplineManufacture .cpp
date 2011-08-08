@@ -59,8 +59,8 @@ using namespace GgafDx9LibStg;
 //                  ang_velo prm_ang_veloRzRyMv) {
 //
 //}
-SplineManufacture::SplineManufacture() : GgafObject() {
-}
+//SplineManufacture::SplineManufacture() : GgafObject() {
+//}
 SplineManufacture::SplineManufacture(char* prm_idstr, const char* prm_sourceid) : GgafObject() {
 
     _pSplineSourceConnection = (SplineSourceConnection*)((P_GOD)->_pSplineSourceManager->getConnection(prm_sourceid));

@@ -9,7 +9,11 @@ using namespace GgafDx9LibStg;
 FixedFrameSplineProgram::FixedFrameSplineProgram(SplineManufacture* prm_pManufacture, GgafDx9GeometricActor* prm_pActor_target) :
         SplineProgram(prm_pManufacture, prm_pActor_target) {
     _pFixedFrameSplineManufacture = (FixedFrameSplineManufacture*)prm_pManufacture;
-
+    _SIN_RzMv_begin = 0;
+    _COS_RzMv_begin = 0;
+    _SIN_RyMv_begin = 0;
+    _COS_RyMv_begin = 0;
+    _option = 0;
 }
 
 //FixedFrameSplineProgram::FixedFrameSplineProgram(GgafDx9GeometricActor* prm_pActor)

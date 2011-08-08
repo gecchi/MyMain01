@@ -16,6 +16,7 @@ SplineProgram::SplineProgram(SplineManufacture* prm_pManufacture,  GgafDx9Core::
     _flip_Y = 1;
     _flip_Z = 1;
     _is_create_pManufacture = false;
+    _is_executing = false;
 //    _pActor_target->activate();
 //    if (_pActor_target == NULL) {
 //        throwGgafCriticalException("SplineProgram::SplineProgram prm_pActor_target is NULL")
@@ -130,6 +131,6 @@ void SplineProgram::behave() {
 
 SplineProgram::~SplineProgram() {
     if (_is_create_pManufacture) {
-	    DELETE_IMPOSSIBLE_NULL(_pManufacture);//TODO
+        DELETE_IMPOSSIBLE_NULL(_pManufacture);//TODO
     }
 }

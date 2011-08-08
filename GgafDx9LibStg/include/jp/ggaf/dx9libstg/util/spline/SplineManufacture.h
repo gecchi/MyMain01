@@ -74,7 +74,7 @@ public:
 //                      Spline3D* prm_sp,
 //                      frame prm_spent_frame,
 //                      ang_velo prm_ang_veloRzRyMv);
-    SplineManufacture();
+//    SplineManufacture();
     SplineManufacture(char* prm_idstr, const char* prm_sourceid);
 
 
