@@ -9,7 +9,7 @@ EnemyPallas::EnemyPallas(const char* prm_name) : DefaultMeshSetActor(prm_name, "
     _class_name = "EnemyPallas";
     MyStgUtil::resetEnemyPallasStatus(_pStatus);
     _iMovePatternNo = 0;
-    _pSplProgram = NULL;
+    _pSplSeqram = NULL;
     _pStore_Shot = NULL;
     _pStore_ShotEffect = NULL;
     _pSeTransmitter->useSe(1);
@@ -30,7 +30,7 @@ void EnemyPallas::initialize() {
 }
 
 void EnemyPallas::onActive() {
-    if (_pSplProgram == NULL) {
+    if (_pSplSeqram == NULL) {
         throwGgafCriticalException("EnemyPallasはスプライン必須ですconfigして下さい");
     }
 
@@ -46,11 +46,11 @@ void EnemyPallas::processBehavior() {
 
     //【パターン1：スプライン移動】
     if (_pProg->isJustChangedTo(1)) {
-        _pSplProgram->begin(0); //スプライン移動を開始(1:座標相対)
+        _pSplSeqram->exec(0); //スプライン移動を開始(1:座標相対)
     }
     if (_pProg->get() == 1) {
         //スプライン移動終了待ち
-        if (_pSplProgram->isExecuting()) {
+        if (_pSplSeqram->isExecuting()) {
             //待ちぼうけ
         } else {
             _pProg->changeNext(); //次のパターンへ
@@ -60,16 +60,16 @@ void EnemyPallas::processBehavior() {
 
     switch (_iMovePatternNo) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (_pSplProgram) {
-                _pSplProgram->begin(0); //スプライン移動を開始(1:座標相対)
+            if (_pSplSeqram) {
+                _pSplSeqram->exec(0); //スプライン移動を開始(1:座標相対)
             }
             _iMovePatternNo++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (_pSplProgram) {
+            if (_pSplSeqram) {
                 //スプライン移動有り
-                if (!(_pSplProgram->isExecuting())) {
+                if (!(_pSplSeqram->isExecuting())) {
                     _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
@@ -117,8 +117,8 @@ void EnemyPallas::processBehavior() {
     }
 
 
-    if (_pSplProgram) {
-        _pSplProgram->behave(); //スプライン移動を振る舞い
+    if (_pSplSeqram) {
+        _pSplSeqram->behave(); //スプライン移動を振る舞い
     }
     _pKurokoA->behave();
     //_pSeTransmitter->behave();
@@ -158,5 +158,5 @@ void EnemyPallas::onInactive() {
 }
 
 EnemyPallas::~EnemyPallas() {
-    DELETE_POSSIBLE_NULL(_pSplProgram);
+    DELETE_POSSIBLE_NULL(_pSplSeqram);
 }

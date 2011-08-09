@@ -22,15 +22,15 @@ GgafDx9CubeMapMeshActor::GgafDx9CubeMapMeshActor(const char* prm_name,
     _pCubeMapMeshModel = (GgafDx9CubeMapMeshModel*)_pModel;
     _pCubeMapMeshEffect = (GgafDx9CubeMapMeshEffect*)_pEffect;
 //    _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
-//    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->getConnection("uffizi_cross_cubemap.dds"));
-//    _pCubeMapTexture = _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9;
+//    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->connect("uffizi_cross_cubemap.dds"));
+//    _pCubeMapTexture = _pCubeMapTextureCon->use()->_pIDirect3DBaseTexture9;
 //    _reflectance = 0.3f;
 }
 //void GgafDx9CubeMapMeshActor::setCubeMapTexture(const char* prm_cubemap_tex, float prm_reflectance) {
 //    _reflectance = prm_reflectance;
 //    _pCubeMapTextureCon->close();
-//    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->getConnection(prm_cubemap_tex));
-//    _pCubeMapTexture = _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9;
+//    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(P_UNIVERSE->_pCubeMapTextureManager->connect(prm_cubemap_tex));
+//    _pCubeMapTexture = _pCubeMapTextureCon->use()->_pIDirect3DBaseTexture9;
 //}
 
 void GgafDx9CubeMapMeshActor::processDraw() {

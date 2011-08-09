@@ -32,12 +32,12 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     }
 
     _pCon_RefractionEffectStore =
-            (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_EffRefraction001"));
+            (StoreConnection*)(P_GOD->_pStoreManager->connect("StCon_EffRefraction001"));
     _pCon_LaserChipStoreDp =
-            (StoreConnection*)(P_GOD->_pStoreManager->getConnection(
+            (StoreConnection*)(P_GOD->_pStoreManager->connect(
                                                            "StCon_EnemyAstraeaLaserChip001StoreDp",
                                                            //"StCon_EnemyAstraeaLaserChip002StoreDp",
-                                                           _pCon_RefractionEffectStore->refer()
+                                                           _pCon_RefractionEffectStore->use()
                                                       ));
 
     _papaPosLaser = NEW PosLaser*[_laser_way];
@@ -135,7 +135,7 @@ void EnemyAstraea::processBehavior() {
             if (_pProg->isJustChanged()) {
                 //レーザーセット、借入
                 GgafActorStoreDispatcher* pLaserChipStoreDp =
-                        (GgafActorStoreDispatcher*)(_pCon_LaserChipStoreDp->refer());
+                        (GgafActorStoreDispatcher*)(_pCon_LaserChipStoreDp->use());
                 bool can_fire = false;
                 for (int i = 0; i < _laser_way; i++) {
                     for (int j = 0; j < _laser_way; j++) {

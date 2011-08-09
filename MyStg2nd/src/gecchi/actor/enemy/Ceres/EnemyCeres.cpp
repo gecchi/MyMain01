@@ -38,10 +38,10 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorStore* prm_pStore_EnemyCer
         _createGgafActorStore = false;
     }
 
-    _pSplCon = (Spline3DConnection*)(P_GOD->_pSpl3DManager->getConnection("SpCon_001"));
-    //_pProgram_CeresMove = NEW FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //移動速度固定
+    _pSplCon = (Spline3DConnection*)(P_GOD->_pSpl3DManager->connect("SpCon_001"));
+    //_pProgram_CeresMove = NEW FixedVelocitySplineSequence(&EnemyCeres::_spline, 5000); //移動速度固定
 
-//    _pProgram_CeresMove = NEW FixedFrameSplineProgram(this, _pSplCon->refer(), 600, 5000); //移動フレーム数固定
+//    _pProgram_CeresMove = NEW FixedFrameSplineSequence(this, _pSplCon->use(), 600, 5000); //移動フレーム数固定
 
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "a_shot", GgafRepeatSeq::nextVal("CH_a_shot"));
@@ -61,7 +61,7 @@ void EnemyCeres::onActive() {
     _pKurokoA->setFaceAngVelo(AXIS_X, 6000);
     _pKurokoA->setFaceAngVelo(AXIS_X, 6000);
     _pKurokoA->setMvVelo(8000);
-    _pProgram_CeresMove->begin(0); //スプライン移動を開始
+    _pProgram_CeresMove->exec(0); //スプライン移動を開始
     _frame_Active = 0;
 }
 

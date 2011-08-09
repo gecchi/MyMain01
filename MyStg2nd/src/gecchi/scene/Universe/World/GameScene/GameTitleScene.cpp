@@ -43,7 +43,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _pCursor001->inactivateImmediately();
     getDirector()->addSubGroup(_pCursor001);
 
-    _pSeCon_exec = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection("yume_Sbend");
+    _pSeCon_exec = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect("yume_Sbend");
 
     _pBgmPerformer->useBgm(1);
     _pBgmPerformer->set(0, "BGM_DEMO");
@@ -87,7 +87,7 @@ void GameTitleScene::processBehavior() {
                 _pStringBoard02->update(400*1000, 400*1000, "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
-                _pSeCon_exec->refer()->play();
+                _pSeCon_exec->use()->play();
                 _pProg->change(GAMETITLESCENE_PROG_SELECT);
             } else if (_pProg->getFrameInProgress() == GAMETITLE_TIMEOUT) {
                 //ボーっと見てた場合
@@ -127,7 +127,7 @@ void GameTitleScene::processBehavior() {
                 }
                 _frame_of_noinput = _pProg->getFrameInProgress();
             } if (VB->isPushedDown(VB_UI_EXECUTE)) {
-                _pSeCon_exec->refer()->play();
+                _pSeCon_exec->use()->play();
                 _pProg->change(GAMETITLESCENE_PROG_GAMESTART);
             } else if (_pProg->getFrameInProgress() >= _frame_of_noinput + 300) {
                 //ボーっと見てた場合

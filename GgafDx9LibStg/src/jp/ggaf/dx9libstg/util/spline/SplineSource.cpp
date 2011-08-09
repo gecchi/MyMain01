@@ -59,12 +59,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
         throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" [BASEPOINT] に座標がありません。");
     }
 #endif
-    //-1.0 ～ 1.0 が 自機の移動可能範囲とする
     for (int i = 0; i < n; i++) {
-//        p[i][0] = p[i][0] * MyShip::_lim_front; //X
-//        p[i][1] = p[i][1] * MyShip::_lim_top;   //Y
-//        p[i][2] = p[i][2] * MyShip::_lim_zleft; //Z
-
         if (p[i][0] > GgafDx9Universe::_X_goneRight*0.9) {
             p[i][0] = GgafDx9Universe::_X_goneRight*0.9;
         }
@@ -112,9 +107,6 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 //
 //[ACCURACY]
 //0.2
-//
-//[CLASS]
-//FixedFrameSplineProgram 420 6000
 //--------------------------------------------
 
 //[BASEPOINT]
@@ -134,48 +126,6 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 //0.01 を指定すると各基点～基点について、100分割される点に補完点が計算されて挿入される。(つまり補完点は99個挿入される)
 //といった具合。
 //
-//[CLASS]
-//スプラインクラスを指定する。構文は以下の２種類のみ
-//-------------------------------------------------------------
-//FixedFrameSplineProgram <spent_frame> <ang_veloRzRyMv>
-//又は
-//FixedVelocitySplineProgram <ang_veloRzRyMv>
-//-------------------------------------------------------------
-//
-//FixedFrameSplineProgram ・・・ スプラインの開始点～終了点の移動を、時間(フレーム)固定で移動させる。
-//<spent_frame>   ・・・ 費やすフレーム数
-//<ang_veloRzRyMv> ・・・ 毎フレーム方向転換可能な最大角(1000 で 1度）
-//各キャラが保持している移動速度は無視されます。
-//スプライン曲線の点の個数と費やすフレーム数から計算された移動速度が逐一キャラの速度値に上書き設定されます。
-//このため、スプライン曲線の点の密度が濃いところはスピードが遅く、点の密度が薄いところはスピードが速い移動となります。
-//
-//FixedVelocitySplineProgram ・・・ スプラインの開始点～終了点の移動を、速度固定で移動させる。
-//<ang_veloRzRyMv> ・・・ 毎フレーム方向転換可能な最大角(1000 で 1度）
-//各キャラが保持している移動速度がずっと使用されます。
-//スプライン曲線の点の密度がスピードに影響しません。
-
-SplineManufacture* SplineSource::createManufacture(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor) {
-//    if (_classname.find("FixedFrameSplineProgram") != string::npos) {
-//        pSpProg = NEW FixedFrameSplineProgram(prm_pForWhichActor, _pSp, _spent_frame, _ang_veloRzRyMv);
-//    } else if (_classname.find("FixedVelocitySplineProgram") != string::npos) {
-//        pSpProg = NEW FixedVelocitySplineProgram(prm_pForWhichActor, _pSp, _ang_veloRzRyMv);
-//    } else {
-//        throwGgafCriticalException("SplineSource::createSplineProgram _classname="<<_classname<< "は不明なクラスです");
-//    }
-    return NULL;//NEW SplineManufacture(); //TODO:
-}
-
-//SplineProgram* SplineSource::createSplineProgram(GgafDx9GeometricActor* prm_pForWhichActor) {
-//    SplineProgram* pSpProg = NULL;
-//    if (_classname.find("FixedFrameSplineProgram") != string::npos) {
-//        pSpProg = NEW FixedFrameSplineProgram(prm_pForWhichActor, _pSp, _spent_frame, _ang_veloRzRyMv);
-//    } else if (_classname.find("FixedVelocitySplineProgram") != string::npos) {
-//        pSpProg = NEW FixedVelocitySplineProgram(prm_pForWhichActor, _pSp, _ang_veloRzRyMv);
-//    } else {
-//        throwGgafCriticalException("SplineSource::createSplineProgram _classname="<<_classname<< "は不明なクラスです");
-//    }
-//    return pSpProg;
-//}
 
 SplineSource::~SplineSource() {
     DELETE_IMPOSSIBLE_NULL(_pSp);

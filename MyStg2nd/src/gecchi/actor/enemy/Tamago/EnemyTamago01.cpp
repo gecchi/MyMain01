@@ -15,8 +15,8 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     _pStore_Shot = NULL;
     _pStore_ShotEffect = NULL;
 
-    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_Shot001"));
-    //_pStore_Shot = _pStoreCon->refer();
+    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->connect("StCon_Shot001"));
+    //_pStore_Shot = _pStoreCon->use();
 _pStore_Shot = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
@@ -61,7 +61,7 @@ void EnemyTamago01::initialize() {
 void EnemyTamago01::onActive() {
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     if (_pProgram_Tamago01Move) {
-        _pProgram_Tamago01Move->begin(0); //スプライン移動をプログラムしておく
+        _pProgram_Tamago01Move->exec(0); //スプライン移動をプログラムしておく
     }
 
 //    _pUvFlipper->setRotation(16, 1/16.0, 1/16.0);

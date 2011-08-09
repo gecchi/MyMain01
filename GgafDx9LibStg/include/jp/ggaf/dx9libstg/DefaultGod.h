@@ -1,10 +1,12 @@
 #ifndef DEFAULTGOD_H_
 #define DEFAULTGOD_H_
 
+
+#define connectSplineSourceManager(X)      ((GgafDx9LibStg::SplineSourceConnection*)((P_GOD)->_pSplSourceManager->connect(X)))
+#define connectSplineManufactureManager(X) ((GgafDx9LibStg::SplineManufactureConnection*)((P_GOD)->_pSplManufactureManager->connect(X)))
+
+
 namespace GgafDx9LibStg {
-
-#define getSplineSourceManager() ((P_GOD)->_pSplSourceManager)
-
 class DefaultGod : public GgafDx9Core::GgafDx9God {
 
 public:

@@ -28,9 +28,9 @@ _pMyOptionController(NULL) {
     _pEffectMyShipExplosion->inactivateImmediately();
     getDirector()->addSubGroup(_pEffectMyShipExplosion);
     _pVamSysCamWorker = NULL;
-//    _pCon_VamSysCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("VamSysCamWorker");
-//    _pCon_MyShipDivingCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->getConnection("MyShipDivingCamWorker");
-//    _pMyShipDivingCamWorker = (MyShipDivingCamWorker*)_pCon_MyShipDivingCamWorker->refer();
+//    _pCon_VamSysCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->connect("VamSysCamWorker");
+//    _pCon_MyShipDivingCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->connect("MyShipDivingCamWorker");
+//    _pMyShipDivingCamWorker = (MyShipDivingCamWorker*)_pCon_MyShipDivingCamWorker->use();
     //_z = 0.99;//たぶん最背面 （0 <= _z < 1.0）Z=(0～+1)
     //_z = 0.9999999f;
     //魔法メーター設置

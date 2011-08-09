@@ -23,7 +23,7 @@ EnemyVesta::EnemyVesta(const char* prm_name)
     _frame_of_morph_interval   = 60;
 
     _pStore_Fired = NULL;
-    _pDpcon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_Shot004"));
+    _pDpcon = (StoreConnection*)(P_GOD->_pStoreManager->connect("StCon_Shot004"));
 
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
@@ -50,7 +50,7 @@ void EnemyVesta::initialize() {
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 1200);
     _pScaler->beat(30, 5, 5, -1);
-    _pStore_Fired = _pDpcon->refer();
+    _pStore_Fired = _pDpcon->use();
 }
 
 void EnemyVesta::onActive() {

@@ -79,9 +79,9 @@ class CollisionCheckerLaserChip;
 
 
 class Spline3D;
-class SplineProgram;
-class FixedFrameSplineProgram;
-class FixedVelocitySplineProgram;
+class SplineSequence;
+class FixedFrameSplineSequence;
+class FixedVelocitySplineSequence;
 class SplineManufacture;
 class SplineSource;
 class FixedFrameSplineManufacture;
@@ -155,11 +155,11 @@ class LaserChipStoreDispatcher;
 #include "jp/ggaf/dx9libstg/util/LinearOctreeActorElem.h"
 
 #include "jp/ggaf/dx9libstg/util/spline/Spline3D.h"
-#include "jp/ggaf/dx9libstg/util/spline/SplineProgram.h"
+#include "jp/ggaf/dx9libstg/util/spline/SplineSequence.h"
 #include "jp/ggaf/dx9libstg/util/spline/SplineSource.h"
 #include "jp/ggaf/dx9libstg/util/spline/SplineManufacture.h"
-#include "jp/ggaf/dx9libstg/util/spline/FixedFrameSplineProgram.h"
-#include "jp/ggaf/dx9libstg/util/spline/FixedVelocitySplineProgram.h"
+#include "jp/ggaf/dx9libstg/util/spline/FixedFrameSplineSequence.h"
+#include "jp/ggaf/dx9libstg/util/spline/FixedVelocitySplineSequence.h"
 #include "jp/ggaf/dx9libstg/util/spline/FixedFrameSplineManufacture.h"
 #include "jp/ggaf/dx9libstg/util/spline/FixedVelocitySplineManufacture.h"
 

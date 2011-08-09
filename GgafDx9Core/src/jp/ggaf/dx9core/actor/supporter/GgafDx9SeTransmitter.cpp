@@ -33,7 +33,7 @@ void GgafDx9SeTransmitter::set(int prm_id, const char* prm_se_name, int prm_cann
 #endif
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
-    _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection(idstr);
+    _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
 }
 
 void GgafDx9SeTransmitter::playImmediately(int prm_id) {
@@ -42,7 +42,7 @@ void GgafDx9SeTransmitter::playImmediately(int prm_id) {
         throwGgafCriticalException("GgafDx9SeTransmitter::play() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
 #endif
-    _papSeCon[prm_id]->refer()->play(GGAF_MAX_VOLUME, 0.0);
+    _papSeCon[prm_id]->use()->play(GGAF_MAX_VOLUME, 0.0);
     _pa_is3D[prm_id] = false;
 }
 
@@ -53,7 +53,7 @@ void GgafDx9SeTransmitter::play(int prm_id) {
         throwGgafCriticalException("GgafDx9SeTransmitter::play() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
 #endif
-    P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), GGAF_MAX_VOLUME, 0.0, 1.0, 0);
+    P_UNIVERSE->registSe(_papSeCon[prm_id]->use(), GGAF_MAX_VOLUME, 0.0, 1.0, 0);
     _pa_is3D[prm_id] = false;
 }
 void GgafDx9SeTransmitter::play3D(int prm_id) {
@@ -103,7 +103,7 @@ void GgafDx9SeTransmitter::play3D(int prm_id) {
     }
 
 
-    P_UNIVERSE->registSe(_papSeCon[prm_id]->refer(), vol, pan, rate_frequency, delay); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
+    P_UNIVERSE->registSe(_papSeCon[prm_id]->use(), vol, pan, rate_frequency, delay); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
 
     _pa_is3D[prm_id] = true;
     //真ん中からの距離
@@ -134,7 +134,7 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
     bool calc_flg = true;
     for (int i = 0; i < _se_num; i++) {
         if (_pa_is3D[i]) {
-            if (_papSeCon[i]->refer()->isPlaying()) {
+            if (_papSeCon[i]->use()->isPlaying()) {
                 rate_frequency = 1.0;
                 if (calc_flg) {
                     calc_flg = false;
@@ -169,9 +169,9 @@ void GgafDx9SeTransmitter::updatePanVolume3D() {
                     if (_pActor->_fDist_VpPlnFront > 0) {
                         rate_frequency = 0.9; //背後の場合周波数を下げ、音を少しぐぐもらせる。
                     }
-                    _papSeCon[i]->refer()->setPan(pan);
-                    _papSeCon[i]->refer()->setVolume(vol);
-                    _papSeCon[i]->refer()->setFrequencyRate(rate_frequency);
+                    _papSeCon[i]->use()->setPan(pan);
+                    _papSeCon[i]->use()->setVolume(vol);
+                    _papSeCon[i]->use()->setFrequencyRate(rate_frequency);
                 }
             } else {
                 _pa_is3D[i] = false;

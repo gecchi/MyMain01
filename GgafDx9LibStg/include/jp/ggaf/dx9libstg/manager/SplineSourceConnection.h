@@ -15,9 +15,9 @@ public:
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名
-     * @param prm_pSplProgram SplineSourceオブジェクト
+     * @param prm_pSplSeqram SplineSourceオブジェクト
      */
-    SplineSourceConnection(char* prm_idstr, SplineSource* prm_pSplProgram);
+    SplineSourceConnection(char* prm_idstr, SplineSource* prm_pSplSeqram);
 
     void processReleaseResource(SplineSource* prm_pResource);
 

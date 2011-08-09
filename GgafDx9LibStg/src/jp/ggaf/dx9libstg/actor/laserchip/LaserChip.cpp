@@ -97,7 +97,7 @@ void LaserChip::onActive() {
     _chip_kind = 1;
     if (_pChip_front == NULL) {
 //        if (_pStore->_pSeConnection) {
-//            _pStore->_pSeConnection->refer()->play();
+//            _pStore->_pSeConnection->use()->play();
 //            //_TRACE_("LaserChip::onActive() _pChip_front == NULL!!");
 //        }
     } else {

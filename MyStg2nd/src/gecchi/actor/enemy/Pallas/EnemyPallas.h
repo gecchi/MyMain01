@@ -12,7 +12,7 @@ class EnemyPallas : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
     /** 移動スプラインプログラム */
-    GgafDx9LibStg::SplineProgram* _pSplProgram;
+    GgafDx9LibStg::SplineSequence* _pSplSeqram;
     /** 弾ストック */
     GgafCore::GgafActorStore* _pStore_Shot;
     /** 弾発射効果エフェクト */
@@ -61,16 +61,16 @@ public:
 
     /**
      *
-     * @param prm_pSplProgram
+     * @param prm_pSplSeqram
      * @param prm_pStore_Shot
      * @param prm_pStore_ShotEffect
      */
     virtual void config(
-            GgafDx9LibStg::SplineProgram* prm_pSplProgram,
+            GgafDx9LibStg::SplineSequence* prm_pSplSeqram,
             GgafCore::GgafActorStore* prm_pStore_Shot,
             GgafCore::GgafActorStore* prm_pStore_ShotEffect
             ) {
-        _pSplProgram = prm_pSplProgram;
+        _pSplSeqram = prm_pSplSeqram;
         _pStore_Shot = prm_pStore_Shot;
         _pStore_ShotEffect = prm_pStore_ShotEffect;
     }

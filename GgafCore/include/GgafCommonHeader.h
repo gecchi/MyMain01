@@ -56,6 +56,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <list>
 #include <stack>
 #include <sstream>
 #include <cstddef>

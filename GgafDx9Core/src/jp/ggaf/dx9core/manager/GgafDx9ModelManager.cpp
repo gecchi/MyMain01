@@ -694,10 +694,10 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
         texture_filename = (char*)((*material)->_TextureName.c_str());
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(texture_filename);
+            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->connect(texture_filename);
         } else {
             //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection("white.png");
+            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->connect("white.png");
         }
         n++;
     }
@@ -1447,10 +1447,10 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
         texture_filename = (char*)((*material)->_TextureName.c_str());
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(texture_filename);
+            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->connect(texture_filename);
         } else {
             //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection("white.png");
+            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->connect("white.png");
         }
         n++;
     }
@@ -1541,10 +1541,10 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     for( DWORD i = 0; i < dwNumMaterials; i++) {
         texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[i] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(texture_filename);
+            model_papTextureCon[i] = (GgafDx9TextureConnection*)_pModelTextureManager->connect(texture_filename);
         } else {
             //テクスチャ無し
-            model_papTextureCon[i] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection("white.png");
+            model_papTextureCon[i] = (GgafDx9TextureConnection*)_pModelTextureManager->connect("white.png");
         }
     }
     RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
@@ -1669,10 +1669,10 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
 
                 texture_filename = (*it)->pMeshContainer->pMaterials[j].pTextureFilename;
                 if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-                    model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(texture_filename);
+                    model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->connect(texture_filename);
                 } else {
                     //テクスチャ無し時は真っ白なテクスチャに置き換え
-                    model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection("white.png");
+                    model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->connect("white.png");
                 }
                 n ++;
             }
@@ -1771,7 +1771,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
     //テクスチャ取得しモデルに保持させる
     //string texture_filename = CFG_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
-    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
     prm_pSpriteModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pSpriteModel->_papTextureCon[0] = model_pTextureCon;
@@ -1966,7 +1966,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     }
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
     //テクスチャ取得しモデルに保持させる
-    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
     prm_pSpriteSetModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pSpriteSetModel->_papTextureCon[0] = model_pTextureCon;
@@ -2227,7 +2227,7 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     }
 
     //テクスチャ取得しモデルに保持させる
-    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
     prm_pBoardModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pBoardModel->_papTextureCon[0] = model_pTextureCon;
@@ -2237,8 +2237,8 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     prm_pBoardModel->_size_vertex_unit = sizeof(GgafDx9BoardModel::VERTEX);
 
     //1pxあたりのuvの大きさを求める
-    float texWidth  = (float)(model_pTextureCon->refer()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-    float texHeight = (float)(model_pTextureCon->refer()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+    float texWidth  = (float)(model_pTextureCon->use()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+    float texHeight = (float)(model_pTextureCon->use()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
      float pxU = 1.0f / texWidth; //テクスチャの幅(px)で割る
      float pxV = 1.0f / texHeight; //テクスチャの高さ(px)で割る
 
@@ -2399,7 +2399,7 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     }
 
     //テクスチャ取得しモデルに保持させる
-    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
     prm_pBoardSetModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pBoardSetModel->_papTextureCon[0] = model_pTextureCon;
@@ -2411,8 +2411,8 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
         GgafDx9BoardSetModel::VERTEX* paVertex = NEW GgafDx9BoardSetModel::VERTEX[4 * prm_pBoardSetModel->_set_num];
 
         //1pxあたりのuvの大きさを求める
-        float texWidth  = (float)(model_pTextureCon->refer()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-        float texHeight = (float)(model_pTextureCon->refer()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+        float texWidth  = (float)(model_pTextureCon->use()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+        float texHeight = (float)(model_pTextureCon->use()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
         float pxU = 1.0f / texWidth; //テクスチャの幅(px)で割る
         float pxV = 1.0f / texHeight; //テクスチャの高さ(px)で割る
 
@@ -3119,10 +3119,10 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
         texture_filename = (char*)((*material)->_TextureName.c_str());
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(texture_filename);
+            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->connect(texture_filename);
         } else {
             //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection("white.png");
+            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pModelTextureManager->connect("white.png");
         }
         n++;
     }
@@ -3204,10 +3204,10 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     //テクスチャ取得しモデルに保持させる
     GgafDx9TextureConnection** model_papTextureCon = NULL;
     model_papTextureCon = NEW GgafDx9TextureConnection*[1];
-    model_papTextureCon[0] = (GgafDx9TextureConnection*)_pModelTextureManager->getConnection(*ppaChar_TextureFile);
+    model_papTextureCon[0] = (GgafDx9TextureConnection*)_pModelTextureManager->connect(*ppaChar_TextureFile);
 
-    float texWidth  = (float)(model_papTextureCon[0]->refer()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-    float texHeight = (float)(model_papTextureCon[0]->refer()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
+    float texWidth  = (float)(model_papTextureCon[0]->use()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+    float texHeight = (float)(model_papTextureCon[0]->use()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
     FLOAT model_radius_bounding_sphere = 0;
 
     //頂点バッファ作成
@@ -3322,7 +3322,7 @@ void GgafDx9ModelManager::restoreAll() {
     GgafResourceConnection<GgafDx9Model>* pCurrent = _pFirstConnection;
     TRACE3("restoreAll pCurrent="<<pCurrent);
     while (pCurrent) {
-        pCurrent->refer()->restore();
+        pCurrent->use()->restore();
         pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDx9ModelManager::restoreAll() end<--");
@@ -3333,9 +3333,9 @@ void GgafDx9ModelManager::onDeviceLostAll() {
     GgafResourceConnection<GgafDx9Model>* pCurrent = _pFirstConnection;
     TRACE3("onDeviceLostAll pCurrent="<<pCurrent);
     while (pCurrent) {
-        _TRACE_("GgafDx9ModelManager::onDeviceLostAll ["<<pCurrent->refer()->_model_name<<"] onDeviceLost begin");
-        pCurrent->refer()->onDeviceLost();
-        _TRACE_("GgafDx9ModelManager::onDeviceLostAll ["<<pCurrent->refer()->_model_name<<"] onDeviceLost end");
+        _TRACE_("GgafDx9ModelManager::onDeviceLostAll ["<<pCurrent->use()->_model_name<<"] onDeviceLost begin");
+        pCurrent->use()->onDeviceLost();
+        _TRACE_("GgafDx9ModelManager::onDeviceLostAll ["<<pCurrent->use()->_model_name<<"] onDeviceLost end");
         pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDx9ModelManager::onDeviceLostAll() end<--");
@@ -3345,7 +3345,7 @@ void GgafDx9ModelManager::releaseAll() {
     TRACE3("GgafDx9ModelManager::releaseAll() start-->");
     GgafResourceConnection<GgafDx9Model>* pCurrent = _pFirstConnection;
     while (pCurrent) {
-        pCurrent->refer()->release();
+        pCurrent->use()->release();
         pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDx9ModelManager::releaseAll() end<--");

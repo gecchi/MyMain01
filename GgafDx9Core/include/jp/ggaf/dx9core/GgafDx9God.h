@@ -1,5 +1,10 @@
 #ifndef GGAFDX9GOD_H_
 #define GGAFDX9GOD_H_
+
+//#define connectModelManager(X) ((GgafDx9Core::GgafDx9ModelConnection*)(GgafDx9Core::GgafDx9God::_pModelManager->connect(X))
+//#define connectEffectManager(X) ((GgafDx9Core::GgafDx9EffelConnection*)(GgafDx9Core::GgafDx9God::_pModelManager->connect(X))
+//#define connectCubeTextureManager(X) ((GgafDx9Core::GgafDx9TextureConnection*)(GgafDx9Core::GgafDx9God::_pCubeMapTextureManager->connect(X))
+
 namespace GgafDx9Core {
 /**
  * DirectXê_ .
@@ -10,6 +15,10 @@ namespace GgafDx9Core {
 class GgafDx9God : public GgafCore::GgafGod {
 
 public:
+    static GgafDx9ModelManager* _pModelManager;
+    static GgafDx9EffectManager* _pEffectManager;
+    static GgafDx9TextureManager* _pCubeMapTextureManager;
+
     static HWND _pHWndPrimary;
     static HWND _pHWndSecondary;
     static HINSTANCE _hInstance;
@@ -31,9 +40,7 @@ public:
 
     static bool _adjustGameScreen;
     static HWND _pHWnd_adjustScreen;
-    static GgafDx9ModelManager* _pModelManager;
-    static GgafDx9EffectManager* _pEffectManager;
-    static GgafDx9TextureManager* _pCubeMapTextureManager;
+
     static int _iNumAdapter;
     /** PresentóÃàÊ */
 

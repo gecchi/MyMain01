@@ -25,7 +25,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
 //    _pUvFlipper->forcePtnNoRange(0, _pSpriteModel->_pattno_uvflip_Max);
 //    _pUvFlipper->setActivePtnNo(0);
 //    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
-    GgafDx9Texture* pTexture = _pSpriteModel->_papTextureCon[0]->refer();
+    GgafDx9Texture* pTexture = _pSpriteModel->_papTextureCon[0]->use();
     _pUvFlipper = NEW GgafDx9UvFlipper(pTexture);
     _pUvFlipper->setRotation(_pSpriteModel->_col_texture_split,
                              _pSpriteModel->_row_texture_split

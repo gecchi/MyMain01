@@ -110,16 +110,16 @@ public:
      * @param prm_idstr 識別名
      * @param prm_p 何らかの引数
      */
-    virtual GgafResourceConnection<T>* getConnection(char* prm_idstr, void* prm_p);
+    virtual GgafResourceConnection<T>* connect(char* prm_idstr, void* prm_p);
 
-    virtual GgafResourceConnection<T>* getConnection(char* prm_idstr) {
-        return this->getConnection(prm_idstr, NULL);
+    virtual GgafResourceConnection<T>* connect(char* prm_idstr) {
+        return this->connect(prm_idstr, NULL);
     }
-    virtual GgafResourceConnection<T>* getConnection(const char* prm_idstr) {
-        return this->getConnection((char*)prm_idstr, NULL);
+    virtual GgafResourceConnection<T>* connect(const char* prm_idstr) {
+        return this->connect((char*)prm_idstr, NULL);
     }
-    virtual GgafResourceConnection<T>* getConnection(const char* prm_idstr, void* prm_p) {
-        return this->getConnection((char*)prm_idstr, prm_p);
+    virtual GgafResourceConnection<T>* connect(const char* prm_idstr, void* prm_p) {
+        return this->connect((char*)prm_idstr, prm_p);
     }
 
 
@@ -179,19 +179,19 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_New) {
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr, void* prm_p) {
+GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void* prm_p) {
     if (prm_idstr == NULL) {
-        TRACE3("警告 GgafResourceManager<T>::getConnection(NULL) [" << _manager_name << "]");
+        TRACE3("警告 GgafResourceManager<T>::connect(NULL) [" << _manager_name << "]");
     }
     if (_is_waiting_to_connect || _is_connecting_resource) {
-        _TRACE_("GgafResourceManager<T>::getConnection() 既存のコネクト処理中です。待機が発生しました・・・ getConnection("<<prm_idstr<<")");
+        _TRACE_("GgafResourceManager<T>::connect() 既存のコネクト処理中です。待機が発生しました・・・ connect("<<prm_idstr<<")");
     }
     for(int i = 0; _is_waiting_to_connect || _is_connecting_resource; i++) {
         Sleep(1);
         if (i > 1000*60) {
             //１分以上無応答時
-            _TRACE_("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、既存のコネクト処理を１分待機・・・");
-            throwGgafCriticalException("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、既存のコネクト処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
+            _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、既存のコネクト処理を１分待機・・・");
+            throwGgafCriticalException("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、既存のコネクト処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
         }
     }
     _is_waiting_to_connect = false;
@@ -204,15 +204,15 @@ GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr
         Sleep(1);
         if (i > 1000*60) {
             //１分以上無応答時
-            _TRACE_("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、既存のクローズ処理を１分待機・・・");
-            throwGgafCriticalException("GgafResourceManager<T>::getConnection() prm_idstr="<<prm_idstr<<" getConnection()しようとして、既存のクローズ処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
+            _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、既存のクローズ処理を１分待機・・・");
+            throwGgafCriticalException("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、既存のクローズ処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
         }
     }
     //TODO:
-    //close()中に、別スレッドでgetConnection()すると。
+    //close()中に、別スレッドでconnect()すると。
     //シビアなタイミングでメモリを破壊する恐れが残っている！９９％大丈夫と思うのだけども。
     //スレッドセーフ完全対応しようとすると、かなりめんどくさい処理になりそうだ。
-    //たぶん全ての getConnection() 呼び出し元で getConnection() 失敗時の処理を定義しなくてはいけなくなる。
+    //たぶん全ての connect() 呼び出し元で connect() 失敗時の処理を定義しなくてはいけなくなる。
     //templateにしたのは失敗だったのか；（void*にすべきだったか）。
     //時間のあるときにちゃんと勉強してやろう。今は後回し。
 
@@ -287,7 +287,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
             int rnum = pCurrent->_num_connection;
             TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストに[" << pCurrent->_idstr << "←" << rnum
                     << "Connection]が残ってます。強制削除しますが、本来あってはいけません。特別に" << rnum << "回 close()を発行します");
-//            T* r = pCurrent->refer();
+//            T* r = pCurrent->use();
             pCurrent_Next = pCurrent->_pNext;
 //            if (r) {
 //                pCurrent->processReleaseResource(r); //リソースの解放

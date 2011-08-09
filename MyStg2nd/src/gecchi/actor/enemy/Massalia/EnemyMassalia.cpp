@@ -30,13 +30,13 @@ EnemyMassalia::EnemyMassalia(const char* prm_name) : DefaultMeshActor(prm_name, 
     }
 
     _pCon_RefractionEffectStore =
-            (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_EffRefraction001"));
+            (StoreConnection*)(P_GOD->_pStoreManager->connect("StCon_EffRefraction001"));
 
     _pStoreCon_DpEnemyMassaliaLaserChip =
-            (StoreConnection*)(P_GOD->_pStoreManager->getConnection(
+            (StoreConnection*)(P_GOD->_pStoreManager->connect(
                                                                    "StCon_DpEnemyMassaliaLaserChip001",
                                                                    //"StCon_DpEnemyMassaliaLaserChip002",
-                                                                   _pCon_RefractionEffectStore->refer()
+                                                                   _pCon_RefractionEffectStore->use()
                                                                 )
                                    );
 
@@ -197,7 +197,7 @@ void EnemyMassalia::processBehavior() {
             for (int i = 0; i < _laser_way; i++) {
                 for (int j = 0; j < _laser_way; j++) {
                     if (_papapLaserChipStore[i][j] == NULL) {
-                        GgafMainActor* p = _pStoreCon_DpEnemyMassaliaLaserChip->refer()->dispatch();
+                        GgafMainActor* p = _pStoreCon_DpEnemyMassaliaLaserChip->use()->dispatch();
                         if (p == NULL) {
                             //レーザーセットは借入出来ない
                             continue;

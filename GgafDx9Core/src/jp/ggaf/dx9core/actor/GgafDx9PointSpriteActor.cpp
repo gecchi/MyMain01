@@ -23,7 +23,7 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
     _pPointSpriteEffect = (GgafDx9PointSpriteEffect*)_pEffect;
     _pFunc_calcRotMvWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
 
-    GgafDx9Texture* pTexture = _pPointSpriteModel->_papTextureCon[0]->refer();
+    GgafDx9Texture* pTexture = _pPointSpriteModel->_papTextureCon[0]->use();
     _pUvFlipper = NEW GgafDx9UvFlipper(pTexture);
     _pUvFlipper->setRotation(_pPointSpriteModel->_texture_split_rowcol,
                              _pPointSpriteModel->_texture_split_rowcol

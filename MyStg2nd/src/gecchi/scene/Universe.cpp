@@ -12,9 +12,9 @@ Universe::Universe(const char* prm_name, GgafDx9Camera* prm_pCamera) : DefaultUn
     _TRACE_("Universe::Universe()");
     _pCameraWorkerManager = NEW CameraWorkerManager("CameraWorkerManager");
 
-    CameraWorkerConnection* pDefaultCameraWorkerCon = (CameraWorkerConnection*)_pCameraWorkerManager->getConnection("DefaultCamWorker");
+    CameraWorkerConnection* pDefaultCameraWorkerCon = (CameraWorkerConnection*)_pCameraWorkerManager->connect("DefaultCamWorker");
     _stack_CameraWorkerCon.push(pDefaultCameraWorkerCon);
-    _pActiveCameraWorker = pDefaultCameraWorkerCon->refer();
+    _pActiveCameraWorker = pDefaultCameraWorkerCon->use();
     getDirector()->addSubGroup(_pActiveCameraWorker); //基底デフォルトカメラワーク
 
 
@@ -64,8 +64,8 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
     //    | ConA |                             | ConA |
     //    +------+                             +------+
 
-    CameraWorkerConnection* pCon = (CameraWorkerConnection*)_pCameraWorkerManager->getConnection(prm_pID);
-    CameraWorker* pCameraWorker = pCon->refer();
+    CameraWorkerConnection* pCon = (CameraWorkerConnection*)_pCameraWorkerManager->connect(prm_pID);
+    CameraWorker* pCameraWorker = pCon->use();
     if (pCameraWorker != _pActiveCameraWorker) {
         //現在の CameraWork を非活動へ
         _pActiveCameraWorker->onSwitchToOherCameraWork(); //コールバック
@@ -109,7 +109,7 @@ CameraWorker* Universe::undoCameraWork() {
     CameraWorkerConnection* pCon_now = _stack_CameraWorkerCon.pop(); //pCon_nowは上図のConCが返る
     CameraWorkerConnection* pCon = _stack_CameraWorkerCon.getLast(); //pConは上図で言うとConBが返る
     if (pCon) {
-        CameraWorker* pCameraWorker = pCon->refer();
+        CameraWorker* pCameraWorker = pCon->use();
         if (pCameraWorker != _pActiveCameraWorker) {
             //現在の CameraWork を非活動へ
             _pActiveCameraWorker->inactivate();
@@ -153,7 +153,7 @@ void Universe::resetCameraWork() {
         }
     }
     P_CAM->setDefaultPosition();
-    _pActiveCameraWorker = _stack_CameraWorkerCon.getLast()->refer();
+    _pActiveCameraWorker = _stack_CameraWorkerCon.getLast()->use();
     _pActiveCameraWorker->setMoveTargetCamBy(P_CAM);
     _pActiveCameraWorker->setMoveTargetCamVpBy(P_CAM->_pViewPoint);
     _pActiveCameraWorker->_angXY_nowCamUp = GgafDx9Util::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);

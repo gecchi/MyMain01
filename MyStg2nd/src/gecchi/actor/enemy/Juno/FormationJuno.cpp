@@ -20,7 +20,7 @@ FormationJuno::FormationJuno(
             int prm_nJunoStock,
             int prm_frame_app_interval) : GgafDx9FormationActor(prm_name) {
     _class_name = "FormationJuno";
-    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_Shot004")); //Juno‚Ì’e
+    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->connect("StCon_Shot004")); //Juno‚Ì’e
 
     _pRndGen = CmRandomNumberGenerator::getInstance();
     _pRndGen->changeSeed(P_MYSHIP->_Z);
@@ -46,7 +46,7 @@ FormationJuno::FormationJuno(
     _pStore_EnemyJuno = NEW GgafActorStore("RotEnemyJuno");
     for (int i = 0; i < prm_nJunoStock; i++) {
         EnemyJuno* pEnemyJuno = NEW EnemyJuno("Juno01");
-        pEnemyJuno->setStore_Shot(_pStoreCon->refer()); //’eÝ’è
+        pEnemyJuno->setStore_Shot(_pStoreCon->use()); //’eÝ’è
         pEnemyJuno->_pKurokoA->relateFaceAngWithMvAng(true);
         pEnemyJuno->_pKurokoA->setMvVelo(prm_veloMv_Juno);
         pEnemyJuno->_pKurokoA->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);

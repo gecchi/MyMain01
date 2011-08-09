@@ -15,9 +15,9 @@ public:
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名
-     * @param prm_pSplProgram SplineManufactureオブジェクト
+     * @param prm_pSplSeqram SplineManufactureオブジェクト
      */
-    SplineManufactureConnection(char* prm_idstr, SplineManufacture* prm_pSplProgram);
+    SplineManufactureConnection(char* prm_idstr, SplineManufacture* prm_pSplSeqram);
 
     void processReleaseResource(SplineManufacture* prm_pResource);
 

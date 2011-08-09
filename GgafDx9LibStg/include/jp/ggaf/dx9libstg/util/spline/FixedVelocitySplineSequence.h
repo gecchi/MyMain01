@@ -1,5 +1,5 @@
-#ifndef FIXEDVELOCITYSPLINEPROGRAM_H_
-#define FIXEDVELOCITYSPLINEPROGRAM_H_
+#ifndef FIXEDVELOCITYSPLINESEQUENCE_H_
+#define FIXEDVELOCITYSPLINESEQUENCE_H_
 namespace GgafDx9LibStg {
 
 /**
@@ -8,7 +8,7 @@ namespace GgafDx9LibStg {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class FixedVelocitySplineProgram : public SplineProgram {
+class FixedVelocitySplineSequence : public SplineSequence {
 
 public:
     FixedVelocitySplineManufacture* _pFixedVelocitySplineManufacture;
@@ -18,7 +18,7 @@ public:
 //    /** [r]始点からn番目の補完点(基準点も含む)到達に必要なフレーム数のテーブル */
 //    float* _paFrame_need_at;
     /** [r]基準速度 */
-    velo _veloMvUnit;
+//    velo _veloMvUnit;
 //    /** [rw]1フレームあたり旋回可能な回転角角速度 */
 //    ang_velo _ang_veloRzRyMv;
     /** [r]基準速度で移動した場合のスプライン移動時の経過フレーム数 */
@@ -27,28 +27,21 @@ public:
     float _fFrame_next_point;
     /** [r]補完点(基準点も含む)の数 */
     int _point_index;
-    /**
-     * [r]オプション
-     * 0:絶対座標移動。
-     * 1:始点を現座標とし、スプライン座標群は相対移動で計算。
-     * 2:始点を現座標とし、さらに現在の向き（_pKurokoA の _angRzMv, _angRyMv)でスプライン座標群をワールド変換。
-     */
-    int _option;
 
 
-    //計算用定数
+    //計算用
     float _SIN_RzMv_begin;
     float _COS_RzMv_begin;
     float _SIN_RyMv_begin;
     float _COS_RyMv_begin;
 
-    FixedVelocitySplineProgram(SplineManufacture* prm_pManufacture,  GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target);
+    FixedVelocitySplineSequence(SplineManufacture* prm_pManufacture,  GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target);
 //    /**
 //     * コンストラクタ .
 //     * 後から色々設定する場合のコンストラクタ
 //     * @param prm_pActor 対象のアクター
 //     */
-//    FixedVelocitySplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
+//    FixedVelocitySplineSequence(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
 //
 //    /**
 //     * コンストラクタ .
@@ -63,7 +56,7 @@ public:
 //     *                      0.1 とすると基点と基点の間に補完点は9つ入る（なめらかなカーブになる）。
 //     * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
 //     */
-//    FixedVelocitySplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
+//    FixedVelocitySplineSequence(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
 //                               double prm_paaCriteriaPoint[][3],
 //                               int prm_point_num,
 //                               double prm_accuracy,
@@ -77,7 +70,7 @@ public:
      * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
-    FixedVelocitySplineProgram(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
+    FixedVelocitySplineSequence(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
                                Spline3D* prm_sp,
                                ang_velo prm_ang_veloRzRyMv);
 
@@ -107,7 +100,7 @@ public:
      * スプライン曲線利用のフレーム数指定移動プログラム開始
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
      */
-    void begin(int prm_option = 0) override;
+    void exec(int prm_option = 0) override;
 
     /**
      * 毎フレームの振る舞いメソッド .
@@ -116,8 +109,8 @@ public:
     void behave() override;
 
 
-    virtual ~FixedVelocitySplineProgram();
+    virtual ~FixedVelocitySplineSequence();
 };
 
 }
-#endif /*GGAFDX9FIXEDVELOCITYSPLINEPROGRAM_H_*/
+#endif /*FIXEDVELOCITYSPLINESEQUENCE_H_*/

@@ -3,5 +3,5 @@ FormationEunomia001.dat
 [MAGNIFICATION]
 4000000.0 1125000.0 4000000.0
 [CLASS]
-FixedFrameSplineProgram 600 6000
+FixedFrameSpline 600 6000
 

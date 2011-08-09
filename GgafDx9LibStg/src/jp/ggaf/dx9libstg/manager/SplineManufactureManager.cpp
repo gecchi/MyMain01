@@ -20,11 +20,11 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     float rate_Y = 1.0f;
     float rate_Z = 1.0f;
 
-    string splinefile="";
-    string data_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr) + ".splm";
-    ifstream ifs(data_filename.c_str());
+    string spl_data_file="";
+    string spl_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr) + ".spl";
+    ifstream ifs(spl_filename.c_str());
     if (ifs.fail()) {
-        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<data_filename<<" が開けません");
+        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<spl_filename<<" が開けません");
     }
 //    double p[MAX_SP_POINT][3];
     string line;
@@ -41,7 +41,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
                 if (line.c_str()[0] == '#') continue;
                 if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
                 istringstream iss(line);
-                iss >> splinefile;
+                iss >> spl_data_file;
             }
         }
         if (line.find("[MAGNIFICATION]") != string::npos) {
@@ -63,12 +63,15 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
                 if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
                 istringstream iss(line);
                 iss >> classname;
-                if (classname == "FixedFrameSplineProgram") {
+                if (classname == "FixedFrameSpline") {
                     iss >> spent_frame;
                     iss >> ang_veloRzRyMv;
-                } else if (classname == "FixedVelocitySplineProgram") {
+                } else if (classname == "FixedVelocitySpline") {
                     iss >> ang_veloRzRyMv;
                     spent_frame = 0;
+                } else {
+                    throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] の四手が不正です。\n"<<
+                                               "'FixedFrameSpline' or 'FixedVelocitySpline' を指定してください。入力データは '" << classname<< "' でした。");
                 }
             }
         }
@@ -91,29 +94,27 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
 //        }
 
     }
-#ifdef MY_DEBUG
     if (classname.length() == 0) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" [CLASS] が指定されてません。");
+        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] が指定されてません。");
     }
-    if (splinefile.length() == 0) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" [SPLINE] が指定されてません。");
+    if (spl_data_file.length() == 0) {
+        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。");
     }
 //    if (n == 0) {
 //        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" ポイントがありません。");
 //    }
-#endif
 
     SplineManufacture* pSplManufacture = NULL;
     if (classname.find("FixedFrameSpline") != string::npos) {
-        pSplManufacture = NEW FixedFrameSplineManufacture(prm_idstr, splinefile.c_str(), spent_frame, ang_veloRzRyMv);
+        pSplManufacture = NEW FixedFrameSplineManufacture(spl_data_file.c_str(), spent_frame, ang_veloRzRyMv);
         pSplManufacture->adjustAxisRate(rate_X, rate_Y, rate_Z);
         pSplManufacture->calculate();
     } else if (classname.find("FixedVelocitySpline") != string::npos) {
-        pSplManufacture = NEW FixedVelocitySplineManufacture(prm_idstr, splinefile.c_str(), ang_veloRzRyMv);
+        pSplManufacture = NEW FixedVelocitySplineManufacture(spl_data_file.c_str(), ang_veloRzRyMv);
         pSplManufacture->adjustAxisRate(rate_X, rate_Y, rate_Z);
         pSplManufacture->calculate();
     } else {
-        throwGgafCriticalException("SplineSource::createSplineProgram _classname="<<classname<< "は不明なクラスです");
+        throwGgafCriticalException("SplineManufactureManager::processCreateResource _classname="<<classname<< "は不明なクラスです");
     }
     return pSplManufacture;
 
@@ -134,11 +135,11 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
 //
 //
 //
-//    _pSSCon = (SplineSourceConnection*)((P_GOD)->_pSplSourceManager->getConnection(splinefile.c_str()));
+//    _pSSCon = (SplineSourceConnection*)((P_GOD)->_pSplSourceManager->connect(spl_data_file.c_str()));
 //
 //
 //
-//    splinefile
+//    spl_data_file
 //
 //
 //
@@ -212,8 +213,8 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
 //
 //
 //
-//    _pSSCon = (SplineSourceConnection*)((P_GOD)->_pSplSourceManager->getConnection(prm_idstr));
-//    pSSCon->refer();
+//    _pSSCon = (SplineSourceConnection*)((P_GOD)->_pSplSourceManager->connect(prm_idstr));
+//    pSSCon->use();
 //    SplineManufacture* pResource = NEW SplineManufacture(prm_idstr);
 //
 //    return pResource;

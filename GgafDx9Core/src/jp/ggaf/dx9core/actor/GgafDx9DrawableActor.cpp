@@ -30,12 +30,12 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     _is_temp_technique = false;
 
     _pNext_TheSameDrawDepthLevel = NULL;
-    //モデル取得
-    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
-    _pModel = (GgafDx9Model*)_pModelCon->refer();
+    //モデル取得connectModelManager
+    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->connect(prm_model);
+    _pModel = (GgafDx9Model*)_pModelCon->use();
     //エフェクト取得
-    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
-    _pEffect = (GgafDx9Effect*)_pEffectCon->refer();
+    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->connect(prm_effect);
+    _pEffect = (GgafDx9Effect*)_pEffectCon->use();
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_dwNumMaterials];
     for (DWORD i = 0; i < _pModel->_dwNumMaterials; i++){
@@ -50,6 +50,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     _zenable = true;
     _zwriteenable = true;
 }
+//((GgafDx9Core::GgafDx9ModelConnection*)(GgafDx9Core::GgafDx9God::_pModelManager->connect(prm_model))
 
 
 GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
@@ -94,11 +95,11 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
     _pNext_TheSameDrawDepthLevel = NULL;
     //モデル取得
-    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(model_name);
-    _pModel = (GgafDx9Model*)_pModelCon->refer();
+    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->connect(model_name);
+    _pModel = (GgafDx9Model*)_pModelCon->use();
     //エフェクト取得
-    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(effelct_name);
-    _pEffect = (GgafDx9Effect*)_pEffectCon->refer();
+    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->connect(effelct_name);
+    _pEffect = (GgafDx9Effect*)_pEffectCon->use();
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_dwNumMaterials];
     for (DWORD i = 0; i < _pModel->_dwNumMaterials; i++){

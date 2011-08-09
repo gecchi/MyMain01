@@ -72,7 +72,7 @@ void GgafDx9EffectManager::onDeviceLostAll() {
     GgafResourceConnection<GgafDx9Effect>* pCurrent = _pFirstConnection;
     HRESULT hr;
     while (pCurrent) {
-        hr = pCurrent->refer()->_pID3DXEffect->OnLostDevice();
+        hr = pCurrent->use()->_pID3DXEffect->OnLostDevice();
         checkDxException(hr, D3D_OK, "GgafDx9EffectManager::onDeviceLostAll エフェクト["<<pCurrent->getIdStr()<<"]の OnLostDevice() に失敗しました。");
         TRACE3("onDeviceLostAll pCurrent="<<pCurrent->getIdStr() << " OnLostDevice() execute");
         pCurrent = pCurrent->getNext();
@@ -85,7 +85,7 @@ void GgafDx9EffectManager::restoreAll() {
     GgafResourceConnection<GgafDx9Effect>* pCurrent = _pFirstConnection;
     HRESULT hr;
     while (pCurrent) {
-        hr = pCurrent->refer()->_pID3DXEffect->OnResetDevice();
+        hr = pCurrent->use()->_pID3DXEffect->OnResetDevice();
         checkDxException(hr, D3D_OK, "GgafDx9EffectManager::restoreAll() エフェクト["<<pCurrent->getIdStr()<<"]の OnResetDevice() に失敗しました。");
         TRACE3("restoreAll pCurrent="<<pCurrent->getIdStr() << " restoreAll() execute");
         pCurrent = pCurrent->getNext();
@@ -95,7 +95,7 @@ void GgafDx9EffectManager::restoreAll() {
 void GgafDx9EffectManager::setParamPerFrameAll() {
     GgafResourceConnection<GgafDx9Effect>* pCurrent = _pFirstConnection;
     while (pCurrent) {
-        pCurrent->refer()->setParamPerFrame();
+        pCurrent->use()->setParamPerFrame();
         pCurrent = pCurrent->getNext();
     }
 }

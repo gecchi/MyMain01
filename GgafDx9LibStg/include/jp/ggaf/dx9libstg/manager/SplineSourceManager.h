@@ -2,11 +2,6 @@
 #define SPLINEPROGRAMMANAGER_H_
 namespace GgafDx9LibStg {
 
-#ifdef getSplineSourceManager
-    #define getSplineSourceConnection(ID) ((GgafDx9LibStg::SplineSourceConnection*)(getSplineSourceManager()->getConnection(ID)))
-#else
-    P_SPLIN_MANAGER is not define !
-#endif
 /**
  * Spline 管理クラス .
  * 生成済み SplineSource オブジェクトを登録しておき、使いまわします。

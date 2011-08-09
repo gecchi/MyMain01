@@ -11,14 +11,14 @@ FormationThalia::FormationThalia(const char* prm_name) : GgafDx9FormationActor(p
     _interval_frames = R_FormationThalia_LaunchInterval;    //各タリアの出現間隔(frame)
     _mv_velo         = R_FormationThalia_MvVelo; //各タリアの移動速度
 
-    _pDpcon = (StoreConnection*)(P_GOD->_pStoreManager->getConnection("StCon_Shot004"));
+    _pDpcon = (StoreConnection*)(P_GOD->_pStoreManager->connect("StCon_Shot004"));
     //編隊作成
     _papThalia = NEW EnemyThalia*[_num_Thalia];
     for (int i = 0; i < _num_Thalia; i++) {
         _papThalia[i] = NEW EnemyThalia("Thalia01");
         //スプライン移動プログラム設定
-        _papThalia[i]->setSplineProgram(NULL);
-        _papThalia[i]->setStore_Shot(_pDpcon->refer()); //弾設定
+        _papThalia[i]->setSplineSequence(NULL);
+        _papThalia[i]->setStore_Shot(_pDpcon->use()); //弾設定
         _papThalia[i]->inactivateImmediately();
         addSubLast(_papThalia[i]);
     }

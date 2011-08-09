@@ -23,25 +23,26 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
     for (int i = 0; i < _num_formation_col; i++) {
         stringstream spl_id;
         spl_id << prm_spl_id << "_" << i;  //ƒ—á„"FormationEunomia001_0"
-        _papSplManufactureCon[i] = getSplineManufactureConnection(spl_id.str().c_str()));
+        _papSplManufactureCon[i] = connectSplineManufactureManager(spl_id.str().c_str());
     }
 
     _papapEunomia = NEW EnemyEunomia**[_num_formation_col]; //n—ñxN‹@‚Ì•Ò‘à‚ð‘g‚Þ
     for (int i = 0; i < _num_formation_col; i++) {
         _papapEunomia[i] = NEW EnemyEunomia*[_num_formation_row];
-        SplineManufacture* pSplManufacture = _papSplManufactureCon[i]->refer();
+        SplineManufacture* pSplManufacture = _papSplManufactureCon[i]->use();
         for (int j = 0; j < _num_formation_row; j++) {
             stringstream nm;
             nm << "EUNOMIA_col" << i << "_row" << j;
             _papapEunomia[i][j] = NEW EnemyEunomia(nm.str().c_str());
-            SplineProgram* pSplProg = pSplManufacture->createSplineProgram(_papapEunomia[i][j]);
-            _papapEunomia[i][j]->config(pSplProg, NULL, NULL);
+            SplineSequence* pSplSeq = pSplManufacture->createSplineSequence(_papapEunomia[i][j]);
+            _papapEunomia[i][j]->config(pSplSeq, NULL, NULL);
             _papapEunomia[i][j]->inactivateImmediately();
             addSubLast(_papapEunomia[i][j]);
         }
     }
     _pStoreCon = NULL;
 }
+
 void FormationEunomia::initialize() {
     _n = 0;
 }

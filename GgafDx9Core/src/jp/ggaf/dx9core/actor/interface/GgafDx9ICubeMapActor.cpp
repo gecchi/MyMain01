@@ -16,8 +16,8 @@ void GgafDx9ICubeMapActor::setCubeMapTexture(const char* prm_cubemap_tex, float 
     if (_pCubeMapTextureCon) {
         _pCubeMapTextureCon->close();
     }
-    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(GgafDx9God::_pCubeMapTextureManager->getConnection(prm_cubemap_tex));
-    _pCubeMapTexture = _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9;
+    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(GgafDx9God::_pCubeMapTextureManager->connect(prm_cubemap_tex));
+    _pCubeMapTexture = _pCubeMapTextureCon->use()->_pIDirect3DBaseTexture9;
 }
 
 
@@ -25,8 +25,8 @@ IDirect3DBaseTexture9* GgafDx9ICubeMapActor::getCubeMapTexture() {
     if (_pCubeMapTextureCon) {
         return _pCubeMapTexture;
     } else {
-        _pCubeMapTextureCon = (GgafDx9TextureConnection*)(GgafDx9God::_pCubeMapTextureManager->getConnection("uffizi_cross_cubemap.dds"));
-        _pCubeMapTexture = _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9;
+        _pCubeMapTextureCon = (GgafDx9TextureConnection*)(GgafDx9God::_pCubeMapTextureManager->connect("uffizi_cross_cubemap.dds"));
+        _pCubeMapTexture = _pCubeMapTextureCon->use()->_pIDirect3DBaseTexture9;
         return _pCubeMapTexture;
     }
 }
@@ -41,8 +41,8 @@ void GgafDx9ICubeMapActor::releaseCubeMapTex() {
 }
 
 void GgafDx9ICubeMapActor::restoreCubeMapTex() {
-    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(GgafDx9God::_pCubeMapTextureManager->getConnection(_cubemap_tex));
-    _pCubeMapTexture = _pCubeMapTextureCon->refer()->_pIDirect3DBaseTexture9;
+    _pCubeMapTextureCon = (GgafDx9TextureConnection*)(GgafDx9God::_pCubeMapTextureManager->connect(_cubemap_tex));
+    _pCubeMapTexture = _pCubeMapTextureCon->use()->_pIDirect3DBaseTexture9;
 }
 
 

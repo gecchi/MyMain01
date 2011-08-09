@@ -1,9 +1,6 @@
 #ifndef SPLINEMANUFACTUREMANAGER_H_
 #define SPLINEMANUFACTUREMANAGER_H_
 namespace GgafDx9LibStg {
-
-#define getSplineManufactureConnection(X) ((SplineManufactureConnection*)((P_GOD)->_pSplManufactureManager->getConnection(X))
-
 /**
  * Spline 管理クラス .
  * 生成済み SplineManufacture オブジェクトを登録しておき、使いまわします。
