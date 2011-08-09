@@ -14,12 +14,13 @@ Spline3D::Spline3D() {
     _Y_compute = NULL;
     _Z_compute = NULL;
     _rnum = 0;
-
+    _accuracy = 1.0;
 }
 
 
 Spline3D::Spline3D(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
     init(prm_paaEstablish, prm_num, prm_accuracy);
+    _accuracy = prm_accuracy;
 }
 
 

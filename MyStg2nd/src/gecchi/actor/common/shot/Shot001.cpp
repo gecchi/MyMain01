@@ -11,7 +11,7 @@ Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "Flora") 
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
     _pSplCon = (Spline3DConnection*)(P_GOD->_pSpl3DManager->connect("SpCon_HAN")); //スプライン定義
-    _pSplSeqram = NEW FixedVelocitySplineSequence(this, _pSplCon->use(), 10000); //移動速度固定
+    _pSplSeq = NEW FixedVelocitySplineSequence(this, _pSplCon->use(), 10000); //移動速度固定
 }
 
 void Shot001::initialize() {
@@ -27,7 +27,7 @@ void Shot001::onActive() {
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setMvVelo(R_Shot001_MvVelo);    //移動速度
     _pKurokoA->setFaceAngVelo(AXIS_X, R_Shot001_AngVelo); //きりもみ具合
-    _pSplSeqram->exec(2);
+    _pSplSeq->exec(2);
     _pScaler->beat(30,5,2,-1);
 }
 
@@ -35,7 +35,7 @@ void Shot001::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //座標に反映
-    _pSplSeqram->behave(); //スプライン移動を振る舞い
+    _pSplSeq->behave(); //スプライン移動を振る舞い
     _pKurokoA->behave();
     _pScaler->behave();
 }
@@ -70,6 +70,6 @@ void Shot001::onInactive() {
 
 
 Shot001::~Shot001() {
-    DELETE_IMPOSSIBLE_NULL(_pSplSeqram);
+    DELETE_IMPOSSIBLE_NULL(_pSplSeq);
     _pSplCon->close();
 }

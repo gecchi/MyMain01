@@ -12,7 +12,7 @@ class EnemyEunomia : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
     /** 移動スプラインのシークエンスプログラム */
-    GgafDx9LibStg::SplineSequence* _pSplSeqram;
+    GgafDx9LibStg::SplineSequence* _pSplSeq;
     /** 弾ストック */
     GgafCore::GgafActorStore* _pStore_Shot;
     /** 弾発射効果エフェクト */
@@ -66,16 +66,16 @@ public:
 
     /**
      *
-     * @param prm_pSplSeqram
+     * @param prm_pSplSeq
      * @param prm_pStore_Shot
      * @param prm_pStore_ShotEffect
      */
     virtual void config(
-            GgafDx9LibStg::SplineSequence* prm_pSplSeqram,
+            GgafDx9LibStg::SplineSequence* prm_pSplSeq,
             GgafCore::GgafActorStore* prm_pStore_Shot,
             GgafCore::GgafActorStore* prm_pStore_ShotEffect
             ) {
-        _pSplSeqram = prm_pSplSeqram;
+        _pSplSeq = prm_pSplSeq;
         _pStore_Shot = prm_pStore_Shot;
         _pStore_ShotEffect = prm_pStore_ShotEffect;
     }

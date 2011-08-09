@@ -20,8 +20,13 @@ public:
     float _SIN_RyMv_begin;
     float _COS_RyMv_begin;
 
-    FixedFrameSplineSequence(SplineManufacture* prm_pManufacture, GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target);
+    FixedFrameSplineSequence(SplineManufacture* prm_pManufacture,
+                             GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target);
 
+    FixedFrameSplineSequence(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
+                             Spline3D* prmpSpl,
+                             frame prm_spent_frame,
+                             ang_velo prm_ang_veloRzRyMv);
     /**
      * スプライン曲線利用のフレーム数指定移動プログラム開始
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動

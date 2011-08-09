@@ -41,7 +41,7 @@ public:
     /** スプライン曲線の補完点生成、保持するクラス */
     Spline3D* _sp;
     /** コンストラクタ内部でSpline3Dを生成した場合true/コンストラクタ引数にSpline3Dが渡された場合、false */
-    bool _is_create_sp;
+    bool _is_connected;
     /** X軸方向補正割合 */
     float _rate_X;
     /** Y軸方向補正割合 */
@@ -60,6 +60,8 @@ public:
      * @param prm_source_file スプライン座標情報ファイル
      */
     SplineManufacture(const char* prm_source_file);
+
+    SplineManufacture(SplineSource* prm_pSplineSource);
 
 
     /**

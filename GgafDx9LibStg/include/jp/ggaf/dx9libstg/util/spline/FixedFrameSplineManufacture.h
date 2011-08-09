@@ -28,6 +28,7 @@ public:
      * @param prm_ang_veloRzRyMv アクターの旋回角度
      */
     FixedFrameSplineManufacture(const char* prm_source_file, frame prm_spent_frame, ang_velo prm_ang_veloRzRyMv);
+    FixedFrameSplineManufacture(SplineSource* prm_pSplineSource, frame prm_spent_frame, ang_velo prm_ang_veloRzRyMv);
 
     /**
      * 初期化（計算）処理 .

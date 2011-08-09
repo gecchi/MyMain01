@@ -13,6 +13,14 @@ FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_s
     _paFrame_need_at = NEW float[_sp->_rnum];
 }
 
+FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm_pSplineSource, ang_velo prm_ang_veloRzRyMv) :
+        SplineManufacture(prm_pSplineSource) {
+    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
+    _veloMvUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
+    _paDistace_to = NEW coord[_sp->_rnum];
+    _paFrame_need_at = NEW float[_sp->_rnum];
+}
+
 void FixedVelocitySplineManufacture::calculate() {
     //次の２つのテーブルを再計算し更新します。
     // _paDistace_to[] : 現在の補完点から、次の補完点までの距離

@@ -17,6 +17,22 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_
     _paDistace_to = NEW coord[_sp->_rnum];
     _paSPMvVeloTo = NEW velo[_sp->_rnum];
 }
+
+FixedFrameSplineManufacture::FixedFrameSplineManufacture(SplineSource* prm_pSplineSource,
+                                                         frame prm_spent_frame, ang_velo prm_ang_veloRzRyMv) :
+        SplineManufacture(prm_pSplineSource) {
+    _spent_frame = prm_spent_frame;
+    _ang_veloRzRyMv = prm_ang_veloRzRyMv;
+    //１区間の使用可能フレーム
+    _SPframe_segment = 1.0*_spent_frame / (_sp->_rnum-1);
+    if (_SPframe_segment < 1) {
+        _SPframe_segment = 1;
+    }
+    _paDistace_to = NEW coord[_sp->_rnum];
+    _paSPMvVeloTo = NEW velo[_sp->_rnum];
+}
+
+
 void FixedFrameSplineManufacture::calculate() {
     //次の２つのテーブルを再計算し更新します。
     // _paDistace_to[] : 次の補完点までの距離

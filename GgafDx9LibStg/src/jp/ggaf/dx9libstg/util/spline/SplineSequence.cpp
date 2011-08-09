@@ -72,6 +72,6 @@ void SplineSequence::behave() {
 
 SplineSequence::~SplineSequence() {
     if (_is_create_pManufacture) {
-        DELETE_IMPOSSIBLE_NULL(_pManufacture);//TODO
+        DELETE_IMPOSSIBLE_NULL(_pManufacture);
     }
 }

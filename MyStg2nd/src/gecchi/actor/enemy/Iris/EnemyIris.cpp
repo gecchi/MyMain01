@@ -9,7 +9,7 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris
     _class_name = "EnemyIris";
     MyStgUtil::resetEnemyIrisStatus(_pStatus);
     _iMovePatternNo = 0;
-    _pSplSeqram = NULL;
+    _pSplSeq = NULL;
     _pStore_Shot = NULL;
     _pStore_ShotEffect = NULL;
     _pSeTransmitter->useSe(1);
@@ -42,16 +42,16 @@ void EnemyIris::processBehavior() {
 
     switch (_iMovePatternNo) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (_pSplSeqram) {
-                _pSplSeqram->exec(0); //スプライン移動を開始
+            if (_pSplSeq) {
+                _pSplSeq->exec(0); //スプライン移動を開始
             }
             _iMovePatternNo++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (_pSplSeqram) {
+            if (_pSplSeq) {
                 //スプライン移動有り
-                if (!(_pSplSeqram->isExecuting())) {
+                if (!(_pSplSeq->isExecuting())) {
                     _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
@@ -107,8 +107,8 @@ void EnemyIris::processBehavior() {
     }
 
 
-    if (_pSplSeqram) {
-        _pSplSeqram->behave(); //スプライン移動を振る舞い
+    if (_pSplSeq) {
+        _pSplSeq->behave(); //スプライン移動を振る舞い
     }
     _pKurokoA->behave();
     //_pSeTransmitter->behave();
@@ -148,5 +148,5 @@ void EnemyIris::onInactive() {
 }
 
 EnemyIris::~EnemyIris() {
-    DELETE_POSSIBLE_NULL(_pSplSeqram);
+    DELETE_POSSIBLE_NULL(_pSplSeq);
 }

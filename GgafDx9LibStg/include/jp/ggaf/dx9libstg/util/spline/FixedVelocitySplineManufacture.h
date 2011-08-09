@@ -29,6 +29,8 @@ public:
      */
     FixedVelocitySplineManufacture(const char* prm_source_file, ang_velo prm_ang_veloRzRyMv);
 
+    FixedVelocitySplineManufacture(SplineSource* prm_pSplineSource, ang_velo prm_ang_veloRzRyMv);
+
     /**
      * 初期化（計算）処理 .
      * プロパティを変更した場合、内部テーブル情報を更新するために

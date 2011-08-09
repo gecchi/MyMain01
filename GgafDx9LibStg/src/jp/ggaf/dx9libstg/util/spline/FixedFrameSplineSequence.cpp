@@ -14,6 +14,18 @@ FixedFrameSplineSequence::FixedFrameSplineSequence(SplineManufacture* prm_pManuf
     _SIN_RyMv_begin = 0;
     _COS_RyMv_begin = 0;
 }
+FixedFrameSplineSequence::FixedFrameSplineSequence(GgafDx9GeometricActor* prm_pActor,
+                                                 Spline3D* prmpSpl,
+                                                 frame prm_spent_frame,
+                                                 ang_velo prm_ang_veloRzRyMv):
+        SplineSequence(NULL, prm_pActor) {
+
+    SplineSource *pSplSource = NEW SplineSource(prmpSpl);
+    _pFixedFrameSplineManufacture = NEW FixedFrameSplineManufacture(pSplSource, prm_spent_frame, prm_ang_veloRzRyMv);
+    _pManufacture = _pFixedFrameSplineManufacture;
+    _is_create_pManufacture = true;
+}
+
 
 void FixedFrameSplineSequence::exec(int prm_option) {
     if (_pFixedFrameSplineManufacture) {

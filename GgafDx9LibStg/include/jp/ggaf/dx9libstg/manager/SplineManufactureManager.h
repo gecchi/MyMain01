@@ -2,7 +2,7 @@
 #define SPLINEMANUFACTUREMANAGER_H_
 namespace GgafDx9LibStg {
 /**
- * Spline 管理クラス .
+ * SplineManufacture 管理クラス .
  * 生成済み SplineManufacture オブジェクトを登録しておき、使いまわします。
  * @version 1.00
  * @since 2010/12/14

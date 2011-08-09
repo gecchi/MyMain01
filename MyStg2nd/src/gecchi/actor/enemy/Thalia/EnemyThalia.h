@@ -12,7 +12,7 @@ namespace MyStg2nd {
 class EnemyThalia : public GgafDx9LibStg::DefaultMorphMeshActor {
 //class EnemyThalia : public GgafDx9LibStg::CubeMapMorphMeshActor {
     /** 移動スプラインプログラム */
-    GgafDx9LibStg::SplineSequence* _pSplSeqram;
+    GgafDx9LibStg::SplineSequence* _pSplSeq;
     /** 弾ストック */
     GgafCore::GgafActorStore* _pStore_Shot;
     /** 弾発射効果エフェクト */
@@ -77,10 +77,10 @@ public:
     /**
      * スプライン移動設定 .
      * initialize() までに設定して下さい。
-     * @param prm_pSplSeqram
+     * @param prm_pSplSeq
      */
-    void setSplineSequence(GgafDx9LibStg::SplineSequence* prm_pSplSeqram) {
-        _pSplSeqram = prm_pSplSeqram;
+    void setSplineSequence(GgafDx9LibStg::SplineSequence* prm_pSplSeq) {
+        _pSplSeq = prm_pSplSeq;
     }
 
     /**

@@ -6,10 +6,13 @@ using namespace GgafDx9LibStg;
 
 
 #define MAX_SP_POINT 1000
+SplineSource::SplineSource(Spline3D* prm_pSp) {
+    _pSp = prm_pSp;
+    _accuracy = _pSp->_accuracy;
+}
 
 SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
     _accuracy = 1.0;
-    _classname = "";
     string data_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr);// + ".spls";
     ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
@@ -34,11 +37,9 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
                 iss >> p[n][1];
                 iss >> p[n][2];
                 n++;
-#ifdef MY_DEBUG
                 if (n >= MAX_SP_POINT) {
                     throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" ポイントが"<<MAX_SP_POINT<<"を超えました。");
                 }
-#endif
             }
         }
         if (line.find("[ACCURACY]") != string::npos) {
@@ -51,14 +52,12 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
             }
         }
     }
-#ifdef MY_DEBUG
     if (int(_accuracy*100000000) == 0) {
         throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" [ACCURACY] が指定されてません。");
     }
     if (n == 0) {
         throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" [BASEPOINT] に座標がありません。");
     }
-#endif
     for (int i = 0; i < n; i++) {
         if (p[i][0] > GgafDx9Universe::_X_goneRight*0.9) {
             p[i][0] = GgafDx9Universe::_X_goneRight*0.9;

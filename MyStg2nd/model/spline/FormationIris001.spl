@@ -1,0 +1,9 @@
+[SPLINE]
+FormationIris001.dat
+
+[MAGNIFICATION]
+4000000.0 1125000.0 4000000.0
+
+[CLASS]
+FixedFrameSpline 520 6000
+

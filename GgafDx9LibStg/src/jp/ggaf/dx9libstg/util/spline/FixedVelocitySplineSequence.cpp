@@ -17,10 +17,13 @@ FixedVelocitySplineSequence::FixedVelocitySplineSequence(SplineManufacture* prm_
 }
 
 FixedVelocitySplineSequence::FixedVelocitySplineSequence(GgafDx9GeometricActor* prm_pActor,
-                                                     Spline3D* prmpSpl,
-                                                     ang_velo prm_ang_veloRzRyMv):
-                                                       SplineSequence(NULL, prm_pActor) {
-    throwGgafCriticalException("ç°ÇÕÉ_ÉÅ");
+                                                         Spline3D* prmpSpl,
+                                                         ang_velo prm_ang_veloRzRyMv):
+        SplineSequence(NULL, prm_pActor) {
+    SplineSource *pSplSource = NEW SplineSource(prmpSpl);
+    _pFixedVelocitySplineManufacture = NEW FixedVelocitySplineManufacture(pSplSource, prm_ang_veloRzRyMv);
+    _pManufacture = _pFixedVelocitySplineManufacture;
+    _is_create_pManufacture = true;
 }
 
 void FixedVelocitySplineSequence::exec(int prm_option) {

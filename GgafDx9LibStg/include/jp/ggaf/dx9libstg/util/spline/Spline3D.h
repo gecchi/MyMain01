@@ -139,6 +139,7 @@ public:
     double* _Y_compute;
     double* _Z_compute;
     int _rnum;
+    double _accuracy;
 
     virtual ~Spline3D();
 

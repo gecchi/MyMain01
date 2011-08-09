@@ -12,7 +12,7 @@ class FormationPallas002 : public GgafDx9Core::GgafDx9FormationActor {
     /** イリスの発射弾の借り入れ元Store資源への接続 */
     StoreConnection* _pStoreCon;
     /** スプライン定義資源への接続 */
-    Spline3DConnection* _pSplCon;
+    GgafDx9LibStg::SplineManufactureConnection* _pSplManufactureCon;
 public:
     /** 編隊数(RANK変動) */
     int _num_Pallas;
