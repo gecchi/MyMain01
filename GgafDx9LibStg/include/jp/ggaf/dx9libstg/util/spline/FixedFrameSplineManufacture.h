@@ -3,7 +3,7 @@
 namespace GgafDx9LibStg {
 
 /**
- * 固定時間（フレーム）移動による、スプライン曲線移動のための情報セット .
+ * 区間固定時間（フレーム）移動による、スプライン曲線移動のための情報セット .
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge
