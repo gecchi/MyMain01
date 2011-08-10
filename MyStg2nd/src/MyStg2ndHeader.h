@@ -387,7 +387,6 @@ class Item001;
 
 class Properties;
 class MyStgUtil;
-class MyFactory;
 
 template<class T>
 class Formation001;
@@ -600,7 +599,6 @@ class MagicMeter;
 #include "gecchi/Properties.h"
 #include "gecchi/util/MyStgUtil.h"
 #include "gecchi/util/VamSysCamPosition.h"
-#include "gecchi/MyFactory.h"
 
 #include "gecchi/manager/StoreManager.h"
 #include "gecchi/manager/StoreConnection.h"
