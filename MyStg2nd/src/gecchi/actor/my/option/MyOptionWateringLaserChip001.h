@@ -41,16 +41,6 @@ public:
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-//    void processFinal();
-
-//    bool isOutOfUniverse() override {
-//        if (isOutOfView() == 0) {
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-
     virtual ~MyOptionWateringLaserChip001();
 
 };

@@ -106,7 +106,24 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
     }
 
 
-
+    if (GgafUtil::strcmp_ascii("StCon_EnemyAstraeaLaserChip003StoreDp", prm_idstr) == 0) {
+        pResource = NEW GgafActorStoreDispatcher("EnemyAstraeaLaserChip001StoreDp");
+        LaserChipStore* pLaserChipStore;
+        EnemyAstraeaLaserChip003* pChip;
+        for (int nLaser = 0; nLaser < 27; nLaser++) {
+            stringstream name;
+            name <<  "LaserChipStore["<<nLaser<<"]";
+            pLaserChipStore = NEW LaserChipStore(name.str().c_str());
+            for (int nChip = 0; nChip < 50; nChip++) {
+                stringstream name;
+                name <<  "EnemyAstraeaLaserChip003["<<nLaser<<"]["<<nChip<<"]";
+                pChip = NEW EnemyAstraeaLaserChip003(name.str().c_str());
+                pLaserChipStore->addSubLast(pChip);
+            }
+            pResource->addSubLast(pLaserChipStore);
+        }
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+    }
     //敵カーブレーザー01未使用。こぴぺのために残す
     /*
     if (GgafUtil::strcmp_ascii("StCon_EneWateringLaser001Dp", prm_idstr) == 0) {

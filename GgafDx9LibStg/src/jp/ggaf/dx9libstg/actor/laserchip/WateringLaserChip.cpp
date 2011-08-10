@@ -58,6 +58,7 @@ void WateringLaserChip::processSettlementBehavior() {
     //したがって本クラスを継承した場合、継承クラスのprocessSettlementBehavior()では、先頭で呼び出した方が良い。
     if (_was_paused_flg) {
         GgafDx9GeometricActor::processSettlementBehavior();
+//        LaserChip::processSettlementBehavior();
     } else {
         if (_pChip_front == NULL) {
             //先端
