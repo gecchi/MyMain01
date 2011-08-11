@@ -105,8 +105,8 @@ void FixedFrameSplineManufacture::calculate() {
     _paSPMvVeloTo[0] = 1000;
 }
 
-SplineSequence* FixedFrameSplineManufacture::createSplineSequence(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor) {
-    return NEW FixedFrameSplineSequence(this, prm_pForWhichActor);
+SplineSequence* FixedFrameSplineManufacture::createSplineSequence(GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA) {
+    return NEW FixedFrameSplineSequence(this, prm_pKurokoA);
 }
 
 FixedFrameSplineManufacture::~FixedFrameSplineManufacture() {

@@ -10,13 +10,9 @@ PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     int id = 11;
 
 //    orderActorToFactory(id, CubeMapMeshTestActor       , "CubeMapMeshTestActor");             id++;
-//    for (int i = 0; i < 30; i++) {
-//        orderActorToFactory(id, CubeMapMeshSetTestActor    , "CubeMapMeshSetTestActor"); id++;
-//    }
+//    orderActorToFactory(id, CubeMapMeshSetTestActor    , "CubeMapMeshSetTestActor"); id++;
 //    orderActorToFactory(id, CubeMapMorphMeshTestActor  , "CubeMapMorphMeshTestActor");        id++;
-
-
-//    orderActorToFactory(id, DefaultD3DXAniMeshTestActor    , "DefaultD3DXAniMeshTestActor");id++;
+//    orderActorToFactory(id, DefaultD3DXAniMeshTestActor , "DefaultD3DXAniMeshTestActor");id++;
 //    orderActorToFactory(id, DefaultBoardTestActor      , "DefaultBoardTestActor");          id++;
 //    orderActorToFactory(id, DefaultBoardSetTestActor   , "DefaultBoardSetTestActor");       id++;
 //    orderActorToFactory(id, DefaultMeshTestActor       , "DefaultMeshTestActor");           id++;

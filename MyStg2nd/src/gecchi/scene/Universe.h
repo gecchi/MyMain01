@@ -13,6 +13,7 @@
 
 
 namespace MyStg2nd {
+#define connectCameraWorkerManager(X) ((MyStg2nd::CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->connect(X))
 
 
 /**

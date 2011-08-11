@@ -6,19 +6,19 @@ using namespace GgafDx9LibStg;
 
 
 
-FixedFrameSplineSequence::FixedFrameSplineSequence(SplineManufacture* prm_pManufacture, GgafDx9GeometricActor* prm_pActor_target) :
-        SplineSequence(prm_pManufacture, prm_pActor_target) {
+FixedFrameSplineSequence::FixedFrameSplineSequence(SplineManufacture* prm_pManufacture, GgafDx9KurokoA* prm_pKurokoA) :
+        SplineSequence(prm_pManufacture, prm_pKurokoA) {
     _pFixedFrameSplineManufacture = (FixedFrameSplineManufacture*)prm_pManufacture;
     _SIN_RzMv_begin = 0;
     _COS_RzMv_begin = 0;
     _SIN_RyMv_begin = 0;
     _COS_RyMv_begin = 0;
 }
-FixedFrameSplineSequence::FixedFrameSplineSequence(GgafDx9GeometricActor* prm_pActor,
+FixedFrameSplineSequence::FixedFrameSplineSequence(GgafDx9KurokoA* prm_pKurokoA,
                                                  Spline3D* prmpSpl,
                                                  frame prm_spent_frame,
                                                  ang_velo prm_ang_veloRzRyMv):
-        SplineSequence(NULL, prm_pActor) {
+        SplineSequence(NULL, prm_pKurokoA) {
 
     SplineSource *pSplSource = NEW SplineSource(prmpSpl);
     _pFixedFrameSplineManufacture = NEW FixedFrameSplineManufacture(pSplSource, prm_spent_frame, prm_ang_veloRzRyMv);

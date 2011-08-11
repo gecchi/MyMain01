@@ -11,8 +11,8 @@ EnemyAstraeaLaserChip003::EnemyAstraeaLaserChip003(const char* prm_name) :
         WateringLaserChip(prm_name, "AstraeaLaserChip003") {
     _class_name = "EnemyAstraeaLaserChip003";
 //    MyStgUtil::resetEnemyAstraeaLaserChip003Status(_pStatus);
-    _pSplManufactureCon = connectSplineManufactureManager("ttt");
-    _pSplSeq = _pSplManufactureCon->use()->createSplineSequence(this);
+    _pSplManufCon = connectSplineManufactureManager("ttt");
+    _pSplSeq = _pSplManufCon->use()->createSplineSequence(_pKurokoA);
 }
 
 void EnemyAstraeaLaserChip003::initialize() {
@@ -57,6 +57,6 @@ void EnemyAstraeaLaserChip003::onInactive() {
 
 EnemyAstraeaLaserChip003::~EnemyAstraeaLaserChip003() {
     DELETE_IMPOSSIBLE_NULL(_pSplSeq);
-    _pSplManufactureCon->close();
+    _pSplManufCon->close();
 }
 

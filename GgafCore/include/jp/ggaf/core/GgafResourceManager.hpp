@@ -187,8 +187,8 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
         _TRACE_("GgafResourceManager<T>::connect() 既存のコネクト処理中です。待機が発生しました・・・ connect("<<prm_idstr<<")");
     }
     for(int i = 0; _is_waiting_to_connect || _is_connecting_resource; i++) {
-        Sleep(1);
-        if (i > 1000*60) {
+        Sleep(10);
+        if (i > 100*60) {
             //１分以上無応答時
             _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、既存のコネクト処理を１分待機・・・");
             throwGgafCriticalException("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、既存のコネクト処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
@@ -201,8 +201,8 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
     GgafResourceConnection<T>* pObj = NULL;
     for(int i = 0; GgafResourceConnection<T>::_is_closing_resource; i++) {
         _is_waiting_to_connect = true;
-        Sleep(1);
-        if (i > 1000*60) {
+        Sleep(10);
+        if (i > 100*60) {
             //１分以上無応答時
             _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、既存のクローズ処理を１分待機・・・");
             throwGgafCriticalException("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、既存のクローズ処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");

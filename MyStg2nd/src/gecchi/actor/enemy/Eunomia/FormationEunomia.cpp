@@ -19,22 +19,22 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
 
     //エウノミア編隊作成
     //スプライン定義ファイルを読み込む
-    _papSplManufactureCon = NEW SplineManufactureConnection*[_num_formation_col];
+    _papSplManufCon = NEW SplineManufactureConnection*[_num_formation_col];
     for (int i = 0; i < _num_formation_col; i++) {
         stringstream spl_id;
         spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
-        _papSplManufactureCon[i] = connectSplineManufactureManager(spl_id.str().c_str());
+        _papSplManufCon[i] = connectSplineManufactureManager(spl_id.str().c_str());
     }
 
     _papapEunomia = NEW EnemyEunomia**[_num_formation_col]; //n列xN機の編隊を組む
     for (int i = 0; i < _num_formation_col; i++) {
         _papapEunomia[i] = NEW EnemyEunomia*[_num_formation_row];
-        SplineManufacture* pSplManufacture = _papSplManufactureCon[i]->use();
         for (int j = 0; j < _num_formation_row; j++) {
             stringstream nm;
             nm << "EUNOMIA_col" << i << "_row" << j;
             _papapEunomia[i][j] = NEW EnemyEunomia(nm.str().c_str());
-            SplineSequence* pSplSeq = pSplManufacture->createSplineSequence(_papapEunomia[i][j]);
+            SplineSequence* pSplSeq = _papSplManufCon[i]->use()->
+                                            createSplineSequence(_papapEunomia[i][j]->_pKurokoA);
             _papapEunomia[i][j]->config(pSplSeq, NULL, NULL);
             _papapEunomia[i][j]->inactivateImmediately();
             addSubLast(_papapEunomia[i][j]);
@@ -60,9 +60,9 @@ void FormationEunomia::processBehavior() {
 
 FormationEunomia::~FormationEunomia() {
     for (int i = 0; i < _num_formation_col; i++) {
-        _papSplManufactureCon[i]->close();
+        _papSplManufCon[i]->close();
     }
-    DELETEARR_IMPOSSIBLE_NULL(_papSplManufactureCon);
+    DELETEARR_IMPOSSIBLE_NULL(_papSplManufCon);
 
     if (_pStoreCon) {
         _pStoreCon->close();

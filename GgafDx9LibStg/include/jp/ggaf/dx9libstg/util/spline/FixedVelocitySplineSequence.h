@@ -35,7 +35,7 @@ public:
     float _SIN_RyMv_begin;
     float _COS_RyMv_begin;
 
-    FixedVelocitySplineSequence(SplineManufacture* prm_pManufacture,  GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target);
+    FixedVelocitySplineSequence(SplineManufacture* prm_pManufacture,  GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA);
 //    /**
 //     * コンストラクタ .
 //     * 後から色々設定する場合のコンストラクタ
@@ -70,7 +70,7 @@ public:
      * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
      * @return
      */
-    FixedVelocitySplineSequence(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
+    FixedVelocitySplineSequence(GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA,
                                Spline3D* prm_sp,
                                ang_velo prm_ang_veloRzRyMv);
 

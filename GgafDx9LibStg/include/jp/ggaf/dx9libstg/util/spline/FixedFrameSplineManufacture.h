@@ -40,10 +40,10 @@ public:
     /**
      * SplineSequenceオブジェクトの生成 .
      * インスタンスは FixedFrameSplineManufacture です。
-     * @param prm_pForWhichActor スプライン移動させる対象アクター
+     * @param prm_pKurokoA スプライン移動させる対象アクター
      * @return SplineSequenceオブジェクト
      */
-    SplineSequence* createSplineSequence(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor) override;
+    SplineSequence* createSplineSequence(GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA) override;
 
     virtual ~FixedFrameSplineManufacture();
 };

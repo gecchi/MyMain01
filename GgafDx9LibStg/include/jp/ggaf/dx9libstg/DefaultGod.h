@@ -3,7 +3,7 @@
 
 
 #define connectSplineSourceManager(X)      ((GgafDx9LibStg::SplineSourceConnection*)((P_GOD)->_pSplSourceManager->connect(X)))
-#define connectSplineManufactureManager(X) ((GgafDx9LibStg::SplineManufactureConnection*)((P_GOD)->_pSplManufactureManager->connect(X)))
+#define connectSplineManufactureManager(X) ((GgafDx9LibStg::SplineManufactureConnection*)((P_GOD)->_pSplManufManager->connect(X)))
 
 
 namespace GgafDx9LibStg {
@@ -11,7 +11,7 @@ class DefaultGod : public GgafDx9Core::GgafDx9God {
 
 public:
     SplineSourceManager* _pSplSourceManager;
-    SplineManufactureManager* _pSplManufactureManager;
+    SplineManufactureManager* _pSplManufManager;
 
     DefaultGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary);
     virtual void clean() override;

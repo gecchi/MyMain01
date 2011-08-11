@@ -10,6 +10,10 @@ namespace MyStg2nd {
 /** VB_PLAY or VB_UI のどちらかで、アクティブな方のVirtualButton */
 #define VB MyStg2nd::God::_pVbtn_Active
 
+
+//#define connectStoreManager(X) (connectStoreManager(X)))
+#define connectStoreManager(X,Y) ((MyStg2nd::StoreConnection*)(P_GOD->_pStoreManager->connect((X),(Y))))
+
 /**
  * 神
  * @version 1.00

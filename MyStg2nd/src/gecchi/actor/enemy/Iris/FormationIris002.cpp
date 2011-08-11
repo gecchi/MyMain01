@@ -13,13 +13,13 @@ FormationIris002::FormationIris002(const char* prm_name) :
     _mv_velo         = R_FormationIris002_MvVelo; //速度
     //スプライン移動の定義
     _pSplCon = (Spline3DConnection*)(P_GOD->_pSpl3DManager->connect("SpCon_002_02"));
-    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->connect("StCon_Shot002"));
+    _pStoreCon = connectStoreManager("StCon_Shot002", NULL);
     //イリス編隊作成
     _papIris = NEW EnemyIris*[_num_Iris];
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i] = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
-        SplineSequence* pProgram = NEW FixedVelocitySplineSequence(_papIris[i], _pSplCon->use(), 4000); //移動速度固定
+        SplineSequence* pProgram = NEW FixedVelocitySplineSequence(_papIris[i]->_pKurokoA, _pSplCon->use(), 4000); //移動速度固定
         _papIris[i]->setSplineSequence(pProgram);
         _papIris[i]->setStore_Shot(_pStoreCon->use());
         _papIris[i]->inactivateImmediately();

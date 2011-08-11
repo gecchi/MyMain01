@@ -21,9 +21,9 @@ public:
     float _COS_RyMv_begin;
 
     FixedFrameSplineSequence(SplineManufacture* prm_pManufacture,
-                             GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target);
+                             GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA);
 
-    FixedFrameSplineSequence(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
+    FixedFrameSplineSequence(GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA,
                              Spline3D* prmpSpl,
                              frame prm_spent_frame,
                              ang_velo prm_ang_veloRzRyMv);

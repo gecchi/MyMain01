@@ -4,10 +4,10 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-SplineSequence::SplineSequence(SplineManufacture* prm_pManufacture,  GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target) :
+SplineSequence::SplineSequence(SplineManufacture* prm_pManufacture, GgafDx9KurokoA* prm_pKurokoA) :
         GgafObject() {
     _pManufacture = prm_pManufacture;
-    _pActor_target = prm_pActor_target;
+    _pActor_target = prm_pKurokoA->_pActor;
     _option = 0;
     _offset_X = 0;
     _offset_Y = 0;

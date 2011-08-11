@@ -20,7 +20,7 @@ FormationJuno::FormationJuno(
             int prm_nJunoStock,
             int prm_frame_app_interval) : GgafDx9FormationActor(prm_name) {
     _class_name = "FormationJuno";
-    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->connect("StCon_Shot004")); //Juno‚Ì’e
+    _pStoreCon = connectStoreManager("StCon_Shot004", NULL); //Juno‚Ì’e
 
     _pRndGen = CmRandomNumberGenerator::getInstance();
     _pRndGen->changeSeed(P_MYSHIP->_Z);

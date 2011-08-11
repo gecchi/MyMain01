@@ -29,16 +29,13 @@ EnemyMassalia::EnemyMassalia(const char* prm_name) : DefaultMeshActor(prm_name, 
         }
     }
 
-    _pCon_RefractionEffectStore =
-            (StoreConnection*)(P_GOD->_pStoreManager->connect("StCon_EffRefraction001"));
+    _pCon_RefractionEffectStore = connectStoreManager("StCon_EffRefraction001", NULL);
 
-    _pStoreCon_DpEnemyMassaliaLaserChip =
-            (StoreConnection*)(P_GOD->_pStoreManager->connect(
+    _pStoreCon_DpEnemyMassaliaLaserChip = connectStoreManager(
                                                                    "StCon_DpEnemyMassaliaLaserChip001",
                                                                    //"StCon_DpEnemyMassaliaLaserChip002",
                                                                    _pCon_RefractionEffectStore->use()
-                                                                )
-                                   );
+                                                                );
 
 
     _papaPosLaser = NEW PosLaser*[_laser_way];

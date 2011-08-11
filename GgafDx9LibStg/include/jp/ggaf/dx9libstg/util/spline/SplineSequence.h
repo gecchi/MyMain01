@@ -45,7 +45,7 @@ public:
     int _flip_Y;
     int _flip_Z;
 
-    SplineSequence(SplineManufacture* prm_pManufacture,  GgafDx9Core::GgafDx9GeometricActor* prm_pActor_target);
+    SplineSequence(SplineManufacture* prm_pManufacture,  GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA);
 
     /**
      * 各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに加算(平行移動)し、補正します .

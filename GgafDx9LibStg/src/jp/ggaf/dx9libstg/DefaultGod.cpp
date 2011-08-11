@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 
 DefaultGod::DefaultGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) : GgafDx9God(prm_hInstance, prm_pHWndPrimary, prm_pHWndSecondary) {
     _pSplSourceManager = NEW SplineSourceManager("SplineSourceManager");
-    _pSplManufactureManager = NEW SplineManufactureManager("SplineManufactureManager");
+    _pSplManufManager = NEW SplineManufactureManager("SplineManufactureManager");
 }
 
 void DefaultGod::clean() {
@@ -14,7 +14,7 @@ void DefaultGod::clean() {
         _TRACE_("DefaultGod::clean() begin");
         GgafDx9God::clean();
         DELETE_IMPOSSIBLE_NULL(_pSplSourceManager);
-        DELETE_IMPOSSIBLE_NULL(_pSplManufactureManager);
+        DELETE_IMPOSSIBLE_NULL(_pSplManufManager);
         _TRACE_("DefaultGod::clean() end");
     }
 }

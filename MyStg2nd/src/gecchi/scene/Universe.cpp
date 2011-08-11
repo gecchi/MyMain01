@@ -64,7 +64,7 @@ CameraWorker* Universe::switchCameraWork(const char* prm_pID) {
     //    | ConA |                             | ConA |
     //    +------+                             +------+
 
-    CameraWorkerConnection* pCon = (CameraWorkerConnection*)_pCameraWorkerManager->connect(prm_pID);
+    CameraWorkerConnection* pCon = connectCameraWorkerManager(prm_pID);
     CameraWorker* pCameraWorker = pCon->use();
     if (pCameraWorker != _pActiveCameraWorker) {
         //Œ»İ‚Ì CameraWork ‚ğ”ñŠˆ“®‚Ö

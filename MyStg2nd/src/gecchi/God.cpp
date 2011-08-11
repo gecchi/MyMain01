@@ -15,7 +15,6 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
       DefaultGod(prm_hInstance, prm_pHWndPrimary, prm_pHWndSecondary) {
     _pStoreManager = NEW StoreManager("StoreManager");
     _pSpl3DManager = NEW Spline3DManager("Spline3DManager");
-
     God::_pVbtn_PLAY = NEW VirtualButton("VB_PLAY.rep");
     God::_pVbtn_UI   = NEW VirtualButton("VB_UI.rep");
     God::_pVbtn_Active = God::_pVbtn_UI;
@@ -107,9 +106,9 @@ void God::oops() {
 }
 
 God::~God() {
-	if (P_WORLD) {
-		P_WORLD->throwEventToLowerTree(EVENT_GOD_WILL_DIE); //全シーンに通知
-	}
+    if (P_WORLD) {
+        P_WORLD->throwEventToLowerTree(EVENT_GOD_WILL_DIE); //全シーンに通知
+    }
 
     clean();
     _was_cleaned = true;

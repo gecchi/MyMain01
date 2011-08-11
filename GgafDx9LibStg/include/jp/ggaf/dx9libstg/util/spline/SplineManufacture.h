@@ -75,10 +75,10 @@ public:
 
     /**
      * SplineSequence オブジェクトの生成 .
-     * @param prm_pForWhichActor 対象のアクター
+     * @param prm_pKurokoA 対象のアクター
      * @return
      */
-    virtual SplineSequence* createSplineSequence(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor) = 0;
+    virtual SplineSequence* createSplineSequence(GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA) = 0;
 
 
     virtual ~SplineManufacture();

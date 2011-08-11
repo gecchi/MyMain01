@@ -77,19 +77,19 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] ‚ªŽw’è‚³‚ê‚Ä‚Ü‚¹‚ñB");
     }
 
-    SplineManufacture* pSplManufacture = NULL;
+    SplineManufacture* pSplManuf = NULL;
     if (classname.find("FixedFrameSpline") != string::npos) {
-        pSplManufacture = NEW FixedFrameSplineManufacture(spl_data_file.c_str(), spent_frame, ang_veloRzRyMv);
-        pSplManufacture->adjustAxisRate(rate_X, rate_Y, rate_Z); //Šg‘åk¬
-        pSplManufacture->calculate();
+        pSplManuf = NEW FixedFrameSplineManufacture(spl_data_file.c_str(), spent_frame, ang_veloRzRyMv);
+        pSplManuf->adjustAxisRate(rate_X, rate_Y, rate_Z); //Šg‘åk¬
+        pSplManuf->calculate();
     } else if (classname.find("FixedVelocitySpline") != string::npos) {
-        pSplManufacture = NEW FixedVelocitySplineManufacture(spl_data_file.c_str(), ang_veloRzRyMv);
-        pSplManufacture->adjustAxisRate(rate_X, rate_Y, rate_Z); //Šg‘åk¬
-        pSplManufacture->calculate();
+        pSplManuf = NEW FixedVelocitySplineManufacture(spl_data_file.c_str(), ang_veloRzRyMv);
+        pSplManuf->adjustAxisRate(rate_X, rate_Y, rate_Z); //Šg‘åk¬
+        pSplManuf->calculate();
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource _classname="<<classname<< "‚Í•s–¾‚ÈƒNƒ‰ƒX‚Å‚·");
     }
-    return pSplManufacture;
+    return pSplManuf;
 }
 
 GgafResourceConnection<SplineManufacture>* SplineManufactureManager::processCreateConnection(char* prm_idstr, SplineManufacture* prm_pResource) {

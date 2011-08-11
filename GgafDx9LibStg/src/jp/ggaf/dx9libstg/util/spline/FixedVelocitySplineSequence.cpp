@@ -3,8 +3,8 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
-FixedVelocitySplineSequence::FixedVelocitySplineSequence(SplineManufacture* prm_pManufacture, GgafDx9GeometricActor* prm_pActor_target) :
-        SplineSequence(prm_pManufacture, prm_pActor_target) {
+FixedVelocitySplineSequence::FixedVelocitySplineSequence(SplineManufacture* prm_pManufacture, GgafDx9KurokoA* prm_pKurokoA) :
+        SplineSequence(prm_pManufacture, prm_pKurokoA) {
     _pFixedVelocitySplineManufacture = (FixedVelocitySplineManufacture*)prm_pManufacture;
     _fFrame_executing = 0.0f;
     _fFrame_next_point = -0.00001f;
@@ -16,10 +16,10 @@ FixedVelocitySplineSequence::FixedVelocitySplineSequence(SplineManufacture* prm_
 
 }
 
-FixedVelocitySplineSequence::FixedVelocitySplineSequence(GgafDx9GeometricActor* prm_pActor,
+FixedVelocitySplineSequence::FixedVelocitySplineSequence(GgafDx9KurokoA* prm_pKurokoA,
                                                          Spline3D* prmpSpl,
                                                          ang_velo prm_ang_veloRzRyMv):
-        SplineSequence(NULL, prm_pActor) {
+        SplineSequence(NULL, prm_pKurokoA) {
     SplineSource *pSplSource = NEW SplineSource(prmpSpl);
     _pFixedVelocitySplineManufacture = NEW FixedVelocitySplineManufacture(pSplSource, prm_ang_veloRzRyMv);
     _pManufacture = _pFixedVelocitySplineManufacture;

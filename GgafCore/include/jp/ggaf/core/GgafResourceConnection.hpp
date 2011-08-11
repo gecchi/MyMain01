@@ -153,8 +153,8 @@ int GgafResourceConnection<T>::close() {
     }
 
     for(int i = 0; _is_closing_resource || GgafResourceManager<T>::_is_connecting_resource; i++) {
-        Sleep(1);
-        if (i > 1000*60) {
+        Sleep(10);
+        if (i > 100*60) {
             throwGgafCriticalException("GgafResourceConnection<T>::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << _num_connection << "Connection]\n"<<
                                        "現在 connect() 或いは close() 中にもかかわらず、close()しようとしてタイムアウトになりました。connect～colse のスレッドを１本にして下さい。")
         }

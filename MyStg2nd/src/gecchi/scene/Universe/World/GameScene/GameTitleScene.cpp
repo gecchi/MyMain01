@@ -43,7 +43,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _pCursor001->inactivateImmediately();
     getDirector()->addSubGroup(_pCursor001);
 
-    _pSeCon_exec = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect("yume_Sbend");
+    _pSeCon_exec = connectSeManager("yume_Sbend");
 
     _pBgmPerformer->useBgm(1);
     _pBgmPerformer->set(0, "BGM_DEMO");

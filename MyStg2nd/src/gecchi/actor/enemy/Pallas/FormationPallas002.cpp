@@ -11,15 +11,15 @@ FormationPallas002::FormationPallas002(const char* prm_name) : GgafDx9FormationA
     _interval_frames = R_FormationPallas002_LaunchInterval;  //パラスの間隔(frame)
     _mv_velo         = R_FormationPallas002_MvVelo; //速度
     //パラス編隊作成
-    _pSplManufactureCon = connectSplineManufactureManager("Pallas02");
+    _pSplManufCon = connectSplineManufactureManager("Pallas02");
 //    _pSplCon     = (Spline3DConnection*)(P_GOD->_pSpl3DManager->connect("SpCon_Pallas01")); //スプライン定義
-    //_pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->connect("StCon_Shot002"));
+    //_pStoreCon = connectStoreManager("StCon_Shot002", NULL);
     _pStoreCon = NULL;
     _papPallas = NEW EnemyPallas*[_num_Pallas];
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
-        SplineSequence* pProgram = _pSplManufactureCon->use()->createSplineSequence(_papPallas[i]); //移動速度固定
+        SplineSequence* pProgram = _pSplManufCon->use()->createSplineSequence(_papPallas[i]->_pKurokoA); //移動速度固定
         _papPallas[i]->config(pProgram, NULL, NULL);
         //_papPallas[i]->setStore_Shot(_pStoreCon->use()); //弾設定
         _papPallas[i]->inactivateImmediately();
@@ -36,7 +36,7 @@ void FormationPallas002::onActive() {
 }
 
 FormationPallas002::~FormationPallas002() {
-    _pSplManufactureCon->close();
+    _pSplManufCon->close();
     if (_pStoreCon) {
         _pStoreCon->close();
     }

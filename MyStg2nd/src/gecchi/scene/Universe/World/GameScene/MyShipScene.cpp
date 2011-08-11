@@ -28,8 +28,8 @@ _pMyOptionController(NULL) {
     _pEffectMyShipExplosion->inactivateImmediately();
     getDirector()->addSubGroup(_pEffectMyShipExplosion);
     _pVamSysCamWorker = NULL;
-//    _pCon_VamSysCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->connect("VamSysCamWorker");
-//    _pCon_MyShipDivingCamWorker = (CameraWorkerConnection*)P_UNIVERSE->_pCameraWorkerManager->connect("MyShipDivingCamWorker");
+//    _pCon_VamSysCamWorker = connectCameraWorkerManager("VamSysCamWorker");
+//    _pCon_MyShipDivingCamWorker = connectCameraWorkerManager("MyShipDivingCamWorker");
 //    _pMyShipDivingCamWorker = (MyShipDivingCamWorker*)_pCon_MyShipDivingCamWorker->use();
     //_z = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
     //_z = 0.9999999f;

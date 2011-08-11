@@ -2,8 +2,6 @@
 #define STOREMANAGER_H_
 namespace MyStg2nd {
 
-//#define connectStoreManager(X) ((StoreConnection*)(P_GOD->_pStoreManager->connect(X)))
-#define connectStoreManager(X,Y) ((StoreConnection*)(P_GOD->_pStoreManager->connect((X),(Y))))
 /**
  * Store 管理クラス .
  * 生成済み Store オブジェクトを登録しておき、使いまわします。

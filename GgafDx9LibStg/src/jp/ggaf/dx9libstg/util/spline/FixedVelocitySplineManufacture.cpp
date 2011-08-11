@@ -101,8 +101,8 @@ void FixedVelocitySplineManufacture::calculate() {
     }
 }
 
-SplineSequence* FixedVelocitySplineManufacture::createSplineSequence(GgafDx9Core::GgafDx9GeometricActor* prm_pForWhichActor) {
-    return NEW FixedVelocitySplineSequence(this, prm_pForWhichActor);
+SplineSequence* FixedVelocitySplineManufacture::createSplineSequence(GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA) {
+    return NEW FixedVelocitySplineSequence(this, prm_pKurokoA);
 }
 
 FixedVelocitySplineManufacture::~FixedVelocitySplineManufacture() {

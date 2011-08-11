@@ -12,12 +12,12 @@ FormationIris001::FormationIris001(const char* prm_name) : GgafDx9FormationActor
     _mv_velo         = R_FormationIris001_MvVelo; //速度
     //イリス編隊作成
     _pSplCon   = (Spline3DConnection*)(P_GOD->_pSpl3DManager->connect("SpCon_002_01")); //スプライン定義
-    _pStoreCon = (StoreConnection*)(P_GOD->_pStoreManager->connect("StCon_Shot001"));
+    _pStoreCon = connectStoreManager("StCon_Shot001", NULL);
     _papIris = NEW EnemyIris*[_num_Iris];
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i] = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
-        SplineSequence* pProgram = NEW FixedVelocitySplineSequence(_papIris[i], _pSplCon->use(), 4000); //移動速度固定
+        SplineSequence* pProgram = NEW FixedVelocitySplineSequence(_papIris[i]->_pKurokoA, _pSplCon->use(), 4000); //移動速度固定
         _papIris[i]->setSplineSequence(pProgram);
         _papIris[i]->setStore_Shot(_pStoreCon->use()); //弾設定
         _papIris[i]->inactivateImmediately();

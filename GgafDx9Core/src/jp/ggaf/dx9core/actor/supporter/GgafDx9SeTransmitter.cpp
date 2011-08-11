@@ -33,7 +33,7 @@ void GgafDx9SeTransmitter::set(int prm_id, const char* prm_se_name, int prm_cann
 #endif
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
-    _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
+    _papSeCon[prm_id] = connectSeManager(idstr);
 }
 
 void GgafDx9SeTransmitter::playImmediately(int prm_id) {
