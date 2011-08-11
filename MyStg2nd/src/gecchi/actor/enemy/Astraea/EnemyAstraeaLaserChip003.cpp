@@ -8,10 +8,10 @@ using namespace MyStg2nd;
 
 
 EnemyAstraeaLaserChip003::EnemyAstraeaLaserChip003(const char* prm_name) :
-        WateringLaserChip(prm_name, "AstraeaLaserChip003") {
+        WateringLaserChip(prm_name, "AstraeaLaserChip001") {
     _class_name = "EnemyAstraeaLaserChip003";
-//    MyStgUtil::resetEnemyAstraeaLaserChip003Status(_pStatus);
-    _pSplManufCon = connectSplineManufactureManager("ttt");
+    MyStgUtil::resetEnemyAstraeaLaserChip003Status(_pStatus);
+    _pSplManufCon = connectSplineManufactureManager("GURUGURU");
     _pSplSeq = _pSplManufCon->use()->createSplineSequence(_pKurokoA);
 }
 
@@ -20,13 +20,14 @@ void EnemyAstraeaLaserChip003::initialize() {
     setHitAble(true, false);
     setScaleRate(5.0);
     setAlpha(0.9);
+    _pKurokoA->setMvVelo(5000);
     _pKurokoA->relateFaceAngWithMvAng(true);
 }
 
 void EnemyAstraeaLaserChip003::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
-//    MyStgUtil::resetEnemyAstraeaLaserChip003Status(_pStatus);
+    MyStgUtil::resetEnemyAstraeaLaserChip003Status(_pStatus);
 
 
     _pSplSeq->exec(2); //向いた方向にワールド変換

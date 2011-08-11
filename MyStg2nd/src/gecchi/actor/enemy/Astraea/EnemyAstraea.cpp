@@ -32,10 +32,12 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     }
 
     _pCon_RefractionEffectStore = connectStoreManager("StCon_EffRefraction001", NULL);
-    _pCon_LaserChipStoreDp = connectStoreManager("StCon_EnemyAstraeaLaserChip001StoreDp",
-                                                 //"StCon_EnemyAstraeaLaserChip002StoreDp",
-                                                 _pCon_RefractionEffectStore->use()
-                                                );
+    _pCon_LaserChipStoreDp = connectStoreManager(
+            "StCon_EnemyAstraeaLaserChip003StoreDp",
+            //"StCon_EnemyAstraeaLaserChip001StoreDp",
+         //"StCon_EnemyAstraeaLaserChip002StoreDp",
+         _pCon_RefractionEffectStore->use()
+        );
 
     _papaPosLaser = NEW PosLaser*[_laser_way];
     angle* paAngWay = NEW angle[_laser_way];
