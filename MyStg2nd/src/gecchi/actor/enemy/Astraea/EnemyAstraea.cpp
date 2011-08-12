@@ -15,7 +15,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 
     //レーザー
-    _laser_way = 3;
+    _laser_way = 6;
     _X = 0;
     _Y = 0;
     _Z = 0;
@@ -77,14 +77,15 @@ void EnemyAstraea::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 200*1000);
     _pKurokoA->setRzRyMvAng(0, ANGLE180);
-    _pKurokoA->setMvVelo(3000);
+    //_pKurokoA->setMvVelo(3000);
+    _pKurokoA->setMvVelo(0);
 }
 
 
 void EnemyAstraea::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
-    _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
+//    _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
 
     if (_pEffect_Appearance) {
         _pEffect_Appearance->activate();
@@ -99,10 +100,11 @@ void EnemyAstraea::processBehavior() {
     switch (_pProg->get()) {
         case ASTRAEA_PROG_MOVE: {
             if (_pProg->isJustChanged()) {
-                _pKurokoA->setFaceAngVelo(AXIS_X, 0);
-                _pKurokoA->setFaceAngVelo(AXIS_Z, _ang_veloTurn*0.3);
-                _pKurokoA->setFaceAngVelo(AXIS_Y, _ang_veloTurn*0.5);
-                _pKurokoA->setMvVelo(2000);
+//                _pKurokoA->setFaceAngVelo(AXIS_X, 0);
+//                _pKurokoA->setFaceAngVelo(AXIS_Z, _ang_veloTurn*0.3);
+//                _pKurokoA->setFaceAngVelo(AXIS_Y, _ang_veloTurn*0.5);
+                //_pKurokoA->setMvVelo(2000);
+                _pKurokoA->setMvVelo(0);
             }
             if (getActivePartFrame() % _laser_interval == 0) {
                 _pProg->change(ASTRAEA_PROG_TURN);
@@ -121,10 +123,10 @@ void EnemyAstraea::processBehavior() {
                 //ターン中
             } else {
                 //自機にがいた方向に振り向きが完了時
-                _pKurokoA->setFaceAngVelo(AXIS_X, _ang_veloTurn*40);
-                _pKurokoA->setFaceAngVelo(AXIS_Z, 0);
-                _pKurokoA->setFaceAngVelo(AXIS_Y, 0);
-                _pKurokoA->setMvVelo(0);
+//                _pKurokoA->setFaceAngVelo(AXIS_X, _ang_veloTurn*40);
+//                _pKurokoA->setFaceAngVelo(AXIS_Z, 0);
+//                _pKurokoA->setFaceAngVelo(AXIS_Y, 0);
+//                _pKurokoA->setMvVelo(0);
                 _pProg->change(ASTRAEA_PROG_FIRE);
             }
             break;
@@ -248,6 +250,4 @@ EnemyAstraea::~EnemyAstraea() {
     }
     DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser);
     DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipStore);
-
-
 }

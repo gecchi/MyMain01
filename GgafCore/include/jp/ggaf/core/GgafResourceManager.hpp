@@ -184,14 +184,14 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
         TRACE3("警告 GgafResourceManager<T>::connect(NULL) [" << _manager_name << "]");
     }
     if (_is_waiting_to_connect || _is_connecting_resource) {
-        _TRACE_("GgafResourceManager<T>::connect() 既存のコネクト処理中です。待機が発生しました・・・ connect("<<prm_idstr<<")");
+        _TRACE_("GgafResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中です。待機が発生しました・・ 待機中("<<prm_idstr<<")");
     }
     for(int i = 0; _is_waiting_to_connect || _is_connecting_resource; i++) {
         Sleep(10);
         if (i > 100*60) {
             //１分以上無応答時
-            _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、既存のコネクト処理を１分待機・・・");
-            throwGgafCriticalException("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、既存のコネクト処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
+            _TRACE_("GgafResourceManager<T>::connect() "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を１分待機・・・");
+            throwGgafCriticalException("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のコネクト処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
         }
     }
     _is_waiting_to_connect = false;
@@ -204,8 +204,8 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
         Sleep(10);
         if (i > 100*60) {
             //１分以上無応答時
-            _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、既存のクローズ処理を１分待機・・・");
-            throwGgafCriticalException("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、既存のクローズ処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
+            _TRACE_("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が connect()しようとして、既存のクローズ処理を１分待機・・・");
+            throwGgafCriticalException("GgafResourceManager<T>::connect()  "<<_manager_name<<"へ、prm_idstr="<<prm_idstr<<" が  connect()しようとして、既存のクローズ処理を１分待機。排他処理が崩壊しているか、処理が遅すぎます。");
         }
     }
     //TODO:
@@ -215,7 +215,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
     //たぶん全ての connect() 呼び出し元で connect() 失敗時の処理を定義しなくてはいけなくなる。
     //templateにしたのは失敗だったのか；（void*にすべきだったか）。
     //時間のあるときにちゃんと勉強してやろう。今は後回し。
-
+    _TRACE_(" connect to " << _manager_name<<" for "<<prm_idstr<<"...");
     pObj = find(prm_idstr);
     if (pObj == NULL) {
         //未生成ならば生成。接続カウンタを１

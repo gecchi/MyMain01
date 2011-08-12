@@ -43,7 +43,7 @@ void EnemyIris::processBehavior() {
     switch (_iMovePatternNo) {
         case 0:  //【パターン０：スプライン移動開始】
             if (_pSplSeq) {
-                _pSplSeq->exec(0); //スプライン移動を開始
+                _pSplSeq->exec(ABSOLUTE_COORD); //スプライン移動を開始
             }
             _iMovePatternNo++; //次の行動パターンへ
             break;

@@ -48,7 +48,7 @@ void EnemyEunomia::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //【パターン1：スプライン移動】
     if (_pProg->isJustChangedTo(1)) {
-        _pSplSeq->exec(0); //スプライン移動を開始(1:座標相対)
+        _pSplSeq->exec(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
     }
     if (_pProg->get() == 1) {
         //スプライン移動終了待ち
@@ -62,7 +62,7 @@ void EnemyEunomia::processBehavior() {
     switch (_iMovePatternNo) {
         case 0:  //【パターン０：スプライン移動開始】
             if (_pSplSeq) {
-                _pSplSeq->exec(0); //スプライン移動を開始(1:座標相対)
+                _pSplSeq->exec(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
             }
             _iMovePatternNo++; //次の行動パターンへ
             break;

@@ -27,13 +27,13 @@ FixedFrameSplineSequence::FixedFrameSplineSequence(GgafDx9KurokoA* prm_pKurokoA,
 }
 
 
-void FixedFrameSplineSequence::exec(int prm_option) {
+void FixedFrameSplineSequence::exec(SplinTraceOption prm_option) {
     if (_pFixedFrameSplineManufacture) {
         _is_executing = true;
         _option = prm_option;
         _SPframe = 0;
         Spline3D* pSpl = _pFixedFrameSplineManufacture->_sp;
-        if (_option == 2) {
+        if (_option == RELATIVE_DIRECTION) {
             _X_begin = _flip_X*pSpl->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X - _pActor_target->_X ;
             _Y_begin = _flip_Y*pSpl->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y - _pActor_target->_Y;
             _Z_begin = _flip_Z*pSpl->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z - _pActor_target->_Z;
@@ -41,11 +41,11 @@ void FixedFrameSplineSequence::exec(int prm_option) {
             _COS_RzMv_begin = GgafDx9Util::COS[_pActor_target->_pKurokoA->_angRzMv/ANGLE_RATE];
             _SIN_RyMv_begin = GgafDx9Util::SIN[_pActor_target->_pKurokoA->_angRyMv/ANGLE_RATE];
             _COS_RyMv_begin = GgafDx9Util::COS[_pActor_target->_pKurokoA->_angRyMv/ANGLE_RATE];
-        } else if (_option == 1) {
+        } else if (_option == RELATIVE_COORD) {
             _X_begin = _flip_X*pSpl->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X - _pActor_target->_X;
             _Y_begin = _flip_Y*pSpl->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y - _pActor_target->_Y;
             _Z_begin = _flip_Z*pSpl->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z - _pActor_target->_Z;
-        } else {
+        } else { //ABSOLUTE_COORD
             _X_begin = _flip_X*pSpl->_X_compute[0]*_pFixedFrameSplineManufacture->_rate_X + _offset_X;
             _Y_begin = _flip_Y*pSpl->_Y_compute[0]*_pFixedFrameSplineManufacture->_rate_Y + _offset_Y;
             _Z_begin = _flip_Z*pSpl->_Z_compute[0]*_pFixedFrameSplineManufacture->_rate_Z + _offset_Z;
@@ -76,7 +76,7 @@ void FixedFrameSplineSequence::behave() {
 
 
             //次の補間点（or基点)に移動方角を向ける
-            if (_option == 2) {
+            if (_option == RELATIVE_DIRECTION) {
                 //    並行移動 ＞ Z軸回転 ＞ Y軸回転
                 //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |
                 //    | -sinRz*cosRy                           , cosRz                , -sinRz*-sinRy                           , 0 |
@@ -89,14 +89,14 @@ void FixedFrameSplineSequence::behave() {
                                 _pFixedFrameSplineManufacture->_ang_veloRzRyMv, 0,
                                 TURN_CLOSE_TO, true
                               );
-            } else if (_option == 1) {
+            } else if (_option == RELATIVE_COORD) {
                 //相対座標ターゲット
                 _pKurokoA->execTurnMvAngSequence(
                                 dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
                                 _pFixedFrameSplineManufacture->_ang_veloRzRyMv, 0,
                                 TURN_CLOSE_TO, true
                               );
-            } else {
+            } else { //RELATIVE_DIRECTION
                 //絶対座標ターゲット
                 _pKurokoA->execTurnMvAngSequence(
                                 dx, dy, dz,

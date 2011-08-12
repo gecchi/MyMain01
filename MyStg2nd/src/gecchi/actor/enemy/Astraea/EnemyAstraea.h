@@ -10,6 +10,7 @@ class EnemyAstraea : public GgafDx9LibStg::DefaultMeshActor {
 private:
     /** 発射済みレーザーチップ数 */
     int _cnt_laserchip;
+
 public:
     /** レーザ発射間隔(frame) */
     int _laser_interval;

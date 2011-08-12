@@ -4,7 +4,6 @@ namespace MyStg2nd {
 
 class EnemyAstraeaLaserChip003 : public GgafDx9LibStg::WateringLaserChip {
 
-
 public:
     GgafDx9LibStg::SplineManufactureConnection* _pSplManufCon;
     GgafDx9LibStg::SplineSequence* _pSplSeq;

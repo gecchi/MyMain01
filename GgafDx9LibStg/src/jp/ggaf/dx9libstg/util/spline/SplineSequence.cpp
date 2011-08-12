@@ -8,7 +8,7 @@ SplineSequence::SplineSequence(SplineManufacture* prm_pManufacture, GgafDx9Kurok
         GgafObject() {
     _pManufacture = prm_pManufacture;
     _pActor_target = prm_pKurokoA->_pActor;
-    _option = 0;
+    _option = ABSOLUTE_COORD;
     _offset_X = 0;
     _offset_Y = 0;
     _offset_Z = 0;
@@ -30,10 +30,10 @@ void SplineSequence::adjustCoodOffset(coord prm_offset_X, coord prm_offset_Y, co
     _offset_Z = prm_offset_Z;
 }
 
-void SplineSequence::exec(int prm_option) {
+void SplineSequence::exec(SplinTraceOption prm_option) {
     if (_pManufacture) {
         _is_executing = true;
-
+        _option = prm_option;
         _SPframe = 0;
         Spline3D* pSpl = _pManufacture->_sp;
         _X_begin = _flip_X*pSpl->_X_compute[0]*_pManufacture->_rate_X + _offset_X;

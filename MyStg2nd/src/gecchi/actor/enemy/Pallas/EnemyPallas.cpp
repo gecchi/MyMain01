@@ -46,7 +46,7 @@ void EnemyPallas::processBehavior() {
 
     //【パターン1：スプライン移動】
     if (_pProg->isJustChangedTo(1)) {
-        _pSplSeq->exec(0); //スプライン移動を開始(1:座標相対)
+        _pSplSeq->exec(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
     }
     if (_pProg->get() == 1) {
         //スプライン移動終了待ち
@@ -61,7 +61,7 @@ void EnemyPallas::processBehavior() {
     switch (_iMovePatternNo) {
         case 0:  //【パターン０：スプライン移動開始】
             if (_pSplSeq) {
-                _pSplSeq->exec(0); //スプライン移動を開始(1:座標相対)
+                _pSplSeq->exec(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
             }
             _iMovePatternNo++; //次の行動パターンへ
             break;

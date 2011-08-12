@@ -1,4 +1,3 @@
-
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
@@ -20,7 +19,7 @@ void EnemyAstraeaLaserChip003::initialize() {
     setHitAble(true, false);
     setScaleRate(5.0);
     setAlpha(0.9);
-    _pKurokoA->setMvVelo(5000);
+    _pKurokoA->setMvVelo(80000);
     _pKurokoA->relateFaceAngWithMvAng(true);
 }
 
@@ -28,13 +27,10 @@ void EnemyAstraeaLaserChip003::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaLaserChip003Status(_pStatus);
-
-
-    _pSplSeq->exec(2); //向いた方向にワールド変換
+    _pSplSeq->exec(RELATIVE_DIRECTION); //向いた方向にワールド変換
 }
 
 void EnemyAstraeaLaserChip003::processBehavior() {
-
     _pSplSeq->behave();
     _pKurokoA->behave();
     WateringLaserChip::processBehavior();

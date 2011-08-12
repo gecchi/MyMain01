@@ -100,7 +100,7 @@ public:
      * スプライン曲線利用のフレーム数指定移動プログラム開始
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
      */
-    void exec(int prm_option = 0) override;
+    void exec(SplinTraceOption prm_option = ABSOLUTE_COORD) override;
 
     /**
      * 毎フレームの振る舞いメソッド .
