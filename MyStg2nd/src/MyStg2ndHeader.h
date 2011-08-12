@@ -342,6 +342,7 @@ class EnemyAstraea;
 class EnemyAstraeaLaserChip001;
 class EnemyAstraeaLaserChip002;
 class EnemyAstraeaLaserChip003;
+class EnemyAstraeaLaserChip004;
 
 class EnemyIris;
 class FormationIris001;
@@ -566,6 +567,7 @@ class MagicMeter;
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip001.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip002.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip003.h"
+#include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip004.h"
 #include "gecchi/actor/enemy/Iris/EnemyIris.h"
 #include "gecchi/actor/enemy/Iris/FormationIris001.h"
 #include "gecchi/actor/enemy/Iris/FormationIris002.h"
