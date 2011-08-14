@@ -11,7 +11,7 @@ namespace GgafDx9LibStg {
 class FixedVelocitySplineSequence : public SplineSequence {
 
 public:
-    FixedVelocitySplineManufacture* _pFixedVelocitySplineManufacture;
+    FixedVelocitySplineManufacture* _pFixedVeloSplManuf;
 
 //    /** [r]現在の補完点(基準点も含む)から、次の補完点(or基準点)までの距離のテーブル */
 //    coord* _paDistace_to;
@@ -22,9 +22,9 @@ public:
 //    /** [rw]1フレームあたり旋回可能な回転角角速度 */
 //    ang_velo _ang_veloRzRyMv;
     /** [r]基準速度で移動した場合のスプライン移動時の経過フレーム数 */
-    float _fFrame_executing;
-    /** [r]次の変わり目となる補間点(基準点も含む)に到達する_fFrame_executing */
-    float _fFrame_next_point;
+    float _exec_fFrames;
+    /** [r]次の変わり目となる補間点(基準点も含む)に到達する_exec_fFrames */
+    float _fFrame_of_next;
     /** [r]補完点(基準点も含む)の数 */
     int _point_index;
 

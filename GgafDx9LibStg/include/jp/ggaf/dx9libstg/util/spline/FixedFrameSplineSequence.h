@@ -12,7 +12,7 @@ class FixedFrameSplineSequence : public SplineSequence {
 
 public:
 
-    FixedFrameSplineManufacture* _pFixedFrameSplineManufacture;
+    FixedFrameSplineManufacture* _pFixedFrameSplManuf;
 
     //ŒvZ—p’è”
     float _SIN_RzMv_begin;

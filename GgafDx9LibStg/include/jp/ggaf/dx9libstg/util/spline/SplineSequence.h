@@ -21,7 +21,7 @@ public:
     /** スプライン情報セット */
     SplineManufacture* _pManufacture;
     /** exec()からの経過フレーム数 */
-    frame _SPframe;
+    frame _execute_frames;
     /** 現在プログラム実行中であるかどうか */
     bool _is_executing;
     /** 座標を操作する対象となるアクター */

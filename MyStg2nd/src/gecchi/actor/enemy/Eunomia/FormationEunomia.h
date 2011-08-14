@@ -14,7 +14,7 @@ public:
     /** エウノミアの発射弾の借り入れ元Store資源への接続 */
     StoreConnection* _pStoreCon;
     /** スプライン定義資源への接続 */
-//    GgafDx9LibStg::SplineSourceConnection* _pSplSourceCon;
+//    GgafDx9LibStg::SplineSourceConnection* _pSplSrcCon;
     GgafDx9LibStg::SplineManufactureConnection** _papSplManufCon;
     /** 編隊列数(RANK変動) */
     int _num_formation_col;

@@ -30,8 +30,8 @@ namespace GgafDx9LibStg {
  */
 class SplineManufacture : public GgafCore::GgafObject {
 private:
-    SplineSourceConnection* _pSplSourceConnection;
-    SplineSource* _pSplSource;
+    SplineSourceConnection* _pSplSrcCon;
+    SplineSource* _pSplSrc;
 public:
 
     /** スプライン曲線の補完点生成、保持するクラス */
@@ -51,7 +51,7 @@ public:
      */
     SplineManufacture(const char* prm_source_file);
 
-    SplineManufacture(SplineSource* prm_pSplineSource);
+    SplineManufacture(SplineSource* prm_pSplSrc);
 
 
     /**

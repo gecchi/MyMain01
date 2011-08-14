@@ -12,7 +12,7 @@ class FixedFrameSplineManufacture : public SplineManufacture {
 
 public:
     /** [r]１区間の使用可能フレーム */
-    frame _SPframe_segment;
+    frame _frame_of_segment;
     /** [r]次の補完点までの距離のテーブル */
     coord* _paDistace_to;
     /** [r]次の補完点到達に必要な移動速度のテーブル */
@@ -28,7 +28,7 @@ public:
      * @param prm_ang_veloRzRyMv アクターの旋回角度
      */
     FixedFrameSplineManufacture(const char* prm_source_file, frame prm_spent_frame, ang_velo prm_ang_veloRzRyMv);
-    FixedFrameSplineManufacture(SplineSource* prm_pSplineSource, frame prm_spent_frame, ang_velo prm_ang_veloRzRyMv);
+    FixedFrameSplineManufacture(SplineSource* prm_pSplSrc, frame prm_spent_frame, ang_velo prm_ang_veloRzRyMv);
 
     /**
      * 初期化（計算）処理 .

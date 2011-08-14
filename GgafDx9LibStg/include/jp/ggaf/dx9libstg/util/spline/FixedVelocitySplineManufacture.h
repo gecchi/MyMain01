@@ -29,7 +29,7 @@ public:
      */
     FixedVelocitySplineManufacture(const char* prm_source_file, ang_velo prm_ang_veloRzRyMv);
 
-    FixedVelocitySplineManufacture(SplineSource* prm_pSplineSource, ang_velo prm_ang_veloRzRyMv);
+    FixedVelocitySplineManufacture(SplineSource* prm_pSplSrc, ang_velo prm_ang_veloRzRyMv);
 
     /**
      * ‰Šú‰»iŒvZjˆ— .

@@ -9,15 +9,29 @@ SplineManufactureManager::SplineManufactureManager(const char* prm_manager_name)
 }
 
 SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_idstr, void* prm_p) {
-    frame spent_frame = 1;
+    frame spent_frame = 0;
     angle ang_veloRzRyMv = 0;
     string classname = "";
+    int turn_way = -1;
     float rate_X = 1.0f;
     float rate_Y = 1.0f;
     float rate_Z = 1.0f;
 
     string spl_data_file="";
     string spl_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr) + ".spl";
+
+
+    map<string, string> mapSplPropperties;
+
+    GgafUtil::read(spl_filename, &mapSplPropperties);
+    if (GgafUtil::isExistKey("SPLINE", &mapSplPropperties)) {
+        spl_data_file = mapSplPropperties["SPLINE"];
+    } else {
+        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。");
+    }
+
+
+
     ifstream ifs(spl_filename.c_str());
     if (ifs.fail()) {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<spl_filename<<" が開けません");
@@ -57,18 +71,44 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
                 if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
                 istringstream iss(line);
                 iss >> classname;
-                if (classname == "FixedFrameSpline") {
-                    iss >> spent_frame;
-                    iss >> ang_veloRzRyMv;
-                } else if (classname == "FixedVelocitySpline") {
-                    iss >> ang_veloRzRyMv;
-                    spent_frame = 0;
-                } else {
-                    throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] の四手が不正です。\n"<<
-                                               "'FixedFrameSpline' or 'FixedVelocitySpline' を指定してください。入力データは '" << classname<< "' でした。");
-                }
             }
         }
+        if (line.find("[ANGLE_VELOCITY]") != string::npos) {
+            while( getline(ifs,line) ) {
+                if (line.size() == 0 ) break;
+                if (line.c_str()[0] == '#') continue;
+                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
+                istringstream iss(line);
+                iss >> ang_veloRzRyMv;
+            }
+        }
+        if (line.find("[SPENT_FRAME]") != string::npos) {
+            while( getline(ifs,line) ) {
+                if (line.size() == 0 ) break;
+                if (line.c_str()[0] == '#') continue;
+                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
+                istringstream iss(line);
+                iss >> spent_frame;
+            }
+        }
+        if (line.find("[TURN_WAY]") != string::npos) {
+            while( getline(ifs,line) ) {
+                if (line.size() == 0 ) break;
+                if (line.c_str()[0] == '#') continue;
+                if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
+                istringstream iss(line);
+                iss >> turn_way;
+            }
+        }
+        if (line.find("[OPTIMAIZE]") != string::npos) {
+             while( getline(ifs,line) ) {
+                 if (line.size() == 0 ) break;
+                 if (line.c_str()[0] == '#') continue;
+                 if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
+                 istringstream iss(line);
+//                 iss >> OPTIMAIZE;
+             }
+         }
     }
     if (classname.length() == 0) {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] が指定されてません。");
@@ -79,6 +119,9 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
 
     SplineManufacture* pSplManuf = NULL;
     if (classname.find("FixedFrameSpline") != string::npos) {
+        if (spent_frame == 0) {
+            throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" FixedFrameSpline の場合は [SPENT_FRAME] が必要です。");
+        }
         pSplManuf = NEW FixedFrameSplineManufacture(spl_data_file.c_str(), spent_frame, ang_veloRzRyMv);
         pSplManuf->adjustAxisRate(rate_X, rate_Y, rate_Z); //拡大縮小
         pSplManuf->calculate();
@@ -88,6 +131,9 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
         pSplManuf->calculate();
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource _classname="<<classname<< "は不明なクラスです");
+    }
+    if (ang_veloRzRyMv == 0) {
+        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [ANGLE_VELOCITY] が指定されてません。");
     }
     return pSplManuf;
 }

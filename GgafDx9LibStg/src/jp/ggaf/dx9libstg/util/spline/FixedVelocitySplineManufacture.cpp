@@ -13,8 +13,8 @@ FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_s
     _paFrame_need_at = NEW float[_sp->_rnum];
 }
 
-FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm_pSplineSource, ang_velo prm_ang_veloRzRyMv) :
-        SplineManufacture(prm_pSplineSource) {
+FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm_pSplSrc, ang_velo prm_ang_veloRzRyMv) :
+        SplineManufacture(prm_pSplSrc) {
     _ang_veloRzRyMv = prm_ang_veloRzRyMv;
     _veloMvUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
     _paDistace_to = NEW coord[_sp->_rnum];

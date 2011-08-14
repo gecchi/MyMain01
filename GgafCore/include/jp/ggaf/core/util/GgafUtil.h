@@ -1,5 +1,11 @@
 #ifndef GGAFUTIL_H_
 #define GGAFUTIL_H_
+
+
+    typedef std::map<std::string, std::string>::value_type           value_type;
+    typedef std::map<std::string, std::string>::iterator             iteratorP;
+
+
 namespace GgafCore {
 
 /**
@@ -15,6 +21,12 @@ public:
 
     static UINT32 getSystemTime();
 
+    /**
+     * ファイル読み込み .
+     * 戻り値は呼び元で delete[] する必要があります。
+     * @param prm_filename
+     * @return
+     */
     static char* getFileText(std::string prm_filename);
 
     static std::string itos(int prm_n) {
@@ -164,6 +176,18 @@ public:
         return val;
     }
 
+
+    static void read(std::string filename, std::map<std::string, std::string>* pMap);
+    static void read(std::istream &is, std::map<std::string, std::string>* pMap);
+    static void write(const char *filename, std::map<std::string, std::string>* pMap, const char *header = NULL);
+    static void write(std::ostream &os, std::map<std::string, std::string>* pMap, const char *header = NULL);
+    static void print(std::ostream &os, std::map<std::string, std::string>* pMap);
+    static inline char m_hex(int nibble)
+    {
+        static const char *digits = "0123456789ABCDEF";
+        return digits[nibble & 0xf];
+    }
+    static bool isExistKey(std::string prm_key, std::map<std::string, std::string>* p);
 
 };
 

@@ -35,25 +35,8 @@ public:
 //    static int read(std::string prm_properties_filename);
 //    static void parse(char* p);
 
-    typedef std::map<std::string, std::string> PropertyMapT;
-    typedef PropertyMapT::value_type           value_type;
-    typedef PropertyMapT::iterator             iteratorP;
 
-
-
-    static PropertyMapT* _pMapProperties;
-
-    static void read(std::string filename, PropertyMapT* pMap);
-    static void read(std::istream &is, PropertyMapT* pMap);
-    static void write(const char *filename, PropertyMapT* pMap, const char *header = NULL);
-    static void write(std::ostream &os, PropertyMapT* pMap, const char *header = NULL);
-    static void print(std::ostream &os, PropertyMapT* pMap);
-    static inline char m_hex(int nibble)
-    {
-        static const char *digits = "0123456789ABCDEF";
-        return digits[nibble & 0xf];
-    }
-
+    static std::map<std::string, std::string>* _pMapProperties;
 
 
     static bool isExistKey(std::string prm_key);
