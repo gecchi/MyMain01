@@ -80,7 +80,8 @@ void GgafDx9MeshSetActor::processDraw() {
                 checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
                 hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                 //【GgafDx9MeshSetActorのマテリアルカラーについて考え方】備忘録メモ
-                //本来はマテリアル１オブジェクトに複数保持し、マテリアルリストのグループ毎に設定するものだが、実行速度最適化と使用レジスタ数削減の為、各セットの[0]のマテリアルを全体のマテリアルとする。
+                //本来はマテリアル１オブジェクトに複数保持し、マテリアルリストのグループ毎に設定するものだが、実行速度最適化と使用レジスタ数削減(ピクセルシェーダー2.0)の為、
+                //各セットの[0]のマテリアルを全体のマテリアルとする。
                 //したがってGgafDx9MeshSetActorはマテリアル色は１色しか不可能。
                 //それぞれの１色を、マテリアル色としてオブジェクト別につるため頂点カラーで実現している。
                 //もともと本クラスは、同一モデル複数オブジェクトを、同時に一回で描画しスピードアップを図ることを目的としたクラスで、たくさんマテリアルグループがあるオブジェクトには不向というか無意味である。

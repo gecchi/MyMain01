@@ -320,6 +320,8 @@
 
 typedef UINT32 actorkind;
 typedef UINT32 frame;
+typedef std::map<std::string, std::string> GgafStrMap;
+
 
 #define Obj_GgafScene             (0x80000001)       //0b 10000000 00000000 00000000 00000001
 #define Obj_GgafMainScene         (0x80000002)       //0b 10000000 00000000 00000000 00000010
@@ -329,8 +331,8 @@ typedef UINT32 frame;
 #define Obj_GgafActor             (0x1)              //0b 00000000 00000000 00000000 00000001
 #define Obj_GgafMainActor         (0x2)              //0b 00000000 00000000 00000000 00000010
 #define Obj_GgafDummyActor        (0x4)              //0b 00000000 00000000 00000000 00000100
-#define Obj_GgafDirector         (0x8)              //0b 00000000 00000000 00000000 00001000
-#define Obj_GgafGroupHead        (0x10)             //0b 00000000 00000000 00000000 00010000
+#define Obj_GgafDirector          (0x8)              //0b 00000000 00000000 00000000 00001000
+#define Obj_GgafGroupHead         (0x10)             //0b 00000000 00000000 00000000 00010000
 #define Obj_GgafDisusedActor      (0x20)             //0b 00000000 00000000 00000000 00100000
 #define Obj_GgafActorStore        (0x40)             //0b 00000000 00000000 00000000 01000000
 

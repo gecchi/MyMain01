@@ -21,15 +21,45 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     string spl_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr) + ".spl";
 
 
-    map<string, string> mapSplPropperties;
-
-    GgafUtil::read(spl_filename, &mapSplPropperties);
-    if (GgafUtil::isExistKey("SPLINE", &mapSplPropperties)) {
-        spl_data_file = mapSplPropperties["SPLINE"];
-    } else {
-        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。");
-    }
-
+//    GgafStrMap mapSplPropperties;
+//
+//    GgafUtil::read(spl_filename, &mapSplPropperties);
+//
+//    if (GgafUtil::isExistKey("SPLINE", &mapSplPropperties)) {
+//        spl_data_file = mapSplPropperties["SPLINE"];
+//    } else {
+//        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] が指定されてません。");
+//    }
+//
+//    if (GgafUtil::isExistKey("MAG_X", &mapSplPropperties)) {
+//        rate_X = (float)atof(mapSplPropperties["MAG_X"].c_str());
+//    } else {
+//        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_X] が指定されてません。");
+//    }
+//
+//    if (GgafUtil::isExistKey("MAG_Y", &mapSplPropperties)) {
+//        rate_Y = (float)atof(mapSplPropperties["MAG_Y"].c_str());
+//    } else {
+//        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_Y] が指定されてません。");
+//    }
+//
+//    if (GgafUtil::isExistKey("MAG_Z", &mapSplPropperties)) {
+//        rate_Z = (float)atof(mapSplPropperties["MAG_Z"].c_str());
+//    } else {
+//        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_Z] が指定されてません。");
+//    }
+//
+//    if (GgafUtil::isExistKey("CLASS", &mapSplPropperties)) {
+//        classname = mapSplPropperties["CLASS"];
+//    } else {
+//        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] が指定されてません。");
+//    }
+//
+//    if (GgafUtil::isExistKey("CLASS", &mapSplPropperties)) {
+//        classname = mapSplPropperties["CLASS"];
+//    } else {
+//        throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [CLASS] が指定されてません。");
+//    }
 
 
     ifstream ifs(spl_filename.c_str());

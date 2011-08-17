@@ -1,11 +1,6 @@
 #ifndef GGAFUTIL_H_
 #define GGAFUTIL_H_
 
-
-    typedef std::map<std::string, std::string>::value_type           value_type;
-    typedef std::map<std::string, std::string>::iterator             iteratorP;
-
-
 namespace GgafCore {
 
 /**
@@ -177,17 +172,17 @@ public:
     }
 
 
-    static void read(std::string filename, std::map<std::string, std::string>* pMap);
-    static void read(std::istream &is, std::map<std::string, std::string>* pMap);
-    static void write(const char *filename, std::map<std::string, std::string>* pMap, const char *header = NULL);
-    static void write(std::ostream &os, std::map<std::string, std::string>* pMap, const char *header = NULL);
-    static void print(std::ostream &os, std::map<std::string, std::string>* pMap);
+    static void read(std::string filename, GgafStrMap* pMap);
+    static void read(std::istream &is, GgafStrMap* pMap);
+    static void write(const char *filename, GgafStrMap* pMap, const char *header = NULL);
+    static void write(std::ostream &os, GgafStrMap* pMap, const char *header = NULL);
+    static void print(std::ostream &os, GgafStrMap* pMap);
     static inline char m_hex(int nibble)
     {
         static const char *digits = "0123456789ABCDEF";
         return digits[nibble & 0xf];
     }
-    static bool isExistKey(std::string prm_key, std::map<std::string, std::string>* p);
+    static bool isExistKey(std::string prm_key, GgafStrMap* p);
 
 };
 

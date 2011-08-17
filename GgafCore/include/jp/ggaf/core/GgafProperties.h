@@ -36,7 +36,7 @@ public:
 //    static void parse(char* p);
 
 
-    static std::map<std::string, std::string>* _pMapProperties;
+    static GgafStrMap* _pMapProperties;
 
 
     static bool isExistKey(std::string prm_key);

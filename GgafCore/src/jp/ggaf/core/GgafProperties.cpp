@@ -3,7 +3,7 @@ using namespace std;
 
 using namespace GgafCore;
 
-map<std::string, std::string>* GgafProperties::_pMapProperties = NULL;
+GgafStrMap* GgafProperties::_pMapProperties = NULL;
 
 UINT32 GgafProperties::MAX_SKIP_FRAME = 0;
 int GgafProperties::DRAWNUM_TO_SLOWDOWN1 = 0;
@@ -11,7 +11,7 @@ int GgafProperties::DRAWNUM_TO_SLOWDOWN2 = 0;
 float GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = 55.0f;
 void GgafProperties::load(string prm_properties_filename) {
     if (_pMapProperties == NULL) {
-        _pMapProperties = NEW std::map<std::string, std::string>();
+        _pMapProperties = NEW GgafStrMap();
         GgafUtil::read(prm_properties_filename, _pMapProperties);
 //        if (ret != 0) {
 //            throwGgafCriticalException("GgafProperties::load() Error! "<<prm_properties_filename<<"のread()に失敗。ステート→"<<ret);
@@ -106,7 +106,7 @@ double GgafProperties::getDouble(string prm_key) {
 GgafRgb GgafProperties::getRGB(std::string prm_key) {
     if (isExistKey(prm_key)) {
         GgafRgb rgb = GgafRgb(prm_key);
-        return rgb;
+        return rgb; //2回コピーだが仕方ない。
     } else {
         throwGgafCriticalException("GgafProperties::getRGB() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }
@@ -115,7 +115,7 @@ GgafRgb GgafProperties::getRGB(std::string prm_key) {
 
 bool GgafProperties::isExistKey(string prm_key) {
     //_MAP_<string, string>::iterator
-    iteratorP itr;
+    GgafStrMap::iterator itr;
     itr = _pMapProperties->find(prm_key);
     if (itr != _pMapProperties->end()) {
         return true;

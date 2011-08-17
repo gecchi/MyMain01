@@ -110,7 +110,7 @@ GgafActorStore* StoreManager::processCreateResource(char* prm_idstr, void* prm_p
         pResource = NEW GgafActorStoreDispatcher("EnemyAstraeaLaserChip001StoreDp");
         LaserChipStore* pLaserChipStore;
         EnemyAstraeaLaserChip003* pChip;
-        for (int nLaser = 0; nLaser < 27; nLaser++) {
+        for (int nLaser = 0; nLaser < 100; nLaser++) {
             stringstream name;
             name <<  "LaserChipStore["<<nLaser<<"]";
             pLaserChipStore = NEW LaserChipStore(name.str().c_str());

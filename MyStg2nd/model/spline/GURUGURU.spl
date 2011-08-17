@@ -2,8 +2,11 @@
 GURUGURU.dat
 
 [MAGNIFICATION]
-2.0 2.0 2.0
+1.0 1.0 1.0
 
 [CLASS]
-FixedVelocitySpline 15000
+FixedVelocitySpline 
+
+[ANGLE_VELOCITY]
+15000
 

@@ -32,7 +32,7 @@ char* GgafUtil::getFileText(string prm_filename) {
     }
 }
 
-void GgafUtil::read(string filename, std::map<std::string, std::string>* pMap)
+void GgafUtil::read(string filename, GgafStrMap* pMap)
 {
     std::ifstream file(filename.c_str());
     if (!file)
@@ -41,7 +41,7 @@ void GgafUtil::read(string filename, std::map<std::string, std::string>* pMap)
     file.close();
 }
 
-void GgafUtil::read(std::istream &is, std::map<std::string, std::string>* pMap)
+void GgafUtil::read(std::istream &is, GgafStrMap* pMap)
 {
     if (!is)
         throwGgafCriticalException("unable to read from stream");
@@ -145,14 +145,14 @@ void GgafUtil::read(std::istream &is, std::map<std::string, std::string>* pMap)
     }
 }
 
-void GgafUtil::write(const char *filename, std::map<std::string, std::string>* pMap, const char *header)
+void GgafUtil::write(const char *filename, GgafStrMap* pMap, const char *header)
 {
     std::ofstream file(filename);
     write(file, pMap, header);
     file.close();
 }
 
-void GgafUtil::write(std::ostream &os, std::map<std::string, std::string>* pMap, const char *header)
+void GgafUtil::write(std::ostream &os, GgafStrMap* pMap, const char *header)
 {
     if (header != NULL)
         os << '#' << header << std::endl;
@@ -160,7 +160,7 @@ void GgafUtil::write(std::ostream &os, std::map<std::string, std::string>* pMap,
     os << '#';
     os << " <date> " << std::endl;
 
-    for (iteratorP it = pMap->begin(), end = pMap->end(); it != end; ++it)
+    for (GgafStrMap::iterator it = pMap->begin(), end = pMap->end(); it != end; ++it)
     {
         const std::string &key = (*it).first,
                           &val = (*it).second;
@@ -194,9 +194,9 @@ void GgafUtil::write(std::ostream &os, std::map<std::string, std::string>* pMap,
     }
 }
 
-void GgafUtil::print(std::ostream &os, std::map<std::string, std::string>* pMap)
+void GgafUtil::print(std::ostream &os, GgafStrMap* pMap)
 {
-    iteratorP it = pMap->begin(), end = pMap->end();
+    GgafStrMap::iterator it = pMap->begin(), end = pMap->end();
     for (; it != end; ++it)
         os << (*it).first << "=" << (*it).second << std::endl;
 }
@@ -270,7 +270,7 @@ void GgafUtil::print(std::ostream &os, std::map<std::string, std::string>* pMap)
 //            }
 //            *p = '\0';
 //            value = pChar_Token;
-//            _pMapProperties->insert(_MAP_<string, string>::value_type(key, value));
+//            _pMapProperties->insert(GgafStrMap::value_type(key, value));
 //            pChar_Token = NULL;
 //        } else {
 //            if (!pChar_Token) {
@@ -281,8 +281,8 @@ void GgafUtil::print(std::ostream &os, std::map<std::string, std::string>* pMap)
 //}
 
 
-bool GgafUtil::isExistKey(string prm_key, map<string, string>* p) {
-    map<string, string>::iterator itr = p->find(prm_key);
+bool GgafUtil::isExistKey(string prm_key, GgafStrMap* p) {
+    GgafStrMap::iterator itr = p->find(prm_key);
     if (itr != p->end()) {
         return true;
     } else {

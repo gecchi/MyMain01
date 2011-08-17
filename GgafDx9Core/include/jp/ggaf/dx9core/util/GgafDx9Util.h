@@ -517,8 +517,8 @@ public:
 
     /**
      * world•ÏŠ·s—ñÝ’è .
-     * XŽ²‰ñ“] ~ YŽ²‰ñ“] ~ XŽ²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ðÝ’è<BR>
-     * ¦YŽ²‰ñ“]‚ª‚ ‚è‚Ü‚¹‚ñB_RY‚ª‚Q‰ñ–Ú‚ÌXŽ²‰ñ“]‚Æ‚È‚é<BR>
+     * XŽ²‰ñ“] ~ ZŽ²‰ñ“] ~ XŽ²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ðÝ’è<BR>
+     * ¦YŽ²‰ñ“]‚ª‚ ‚è‚Ü‚¹‚ñB_RY‚Í‚Q‰ñ–Ú‚ÌXŽ²‰ñ“]‚Æ‚È‚é<BR>
      * @param prm_pActor [in]‘ÎÛƒAƒNƒ^[
      * @param out_matWorld [out]world•ÏŠ·s—ñ
      */

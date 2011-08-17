@@ -19,7 +19,7 @@ void EnemyAstraeaLaserChip003::initialize() {
     setHitAble(true, false);
     setScaleRate(5.0);
     setAlpha(0.9);
-    _pKurokoA->setMvVelo(80000);
+    _pKurokoA->setMvVelo(30000);
     _pKurokoA->relateFaceAngWithMvAng(true);
 }
 
