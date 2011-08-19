@@ -19,6 +19,10 @@ public:
     velo _veloMvUnit;
     /** [rw]1フレームあたり旋回可能な回転角角速度 */
     ang_velo _ang_veloRzRyMv;
+        /** [rw]旋回方法 */
+    int _turn_way;
+    /** [rw]旋回最適化有無 */
+    bool _turn_optimize;
     /** [r]補完点(基準点も含む)の数 */
     int _point_index;
 
@@ -27,9 +31,15 @@ public:
      * @param prm_source_file スプライン座標情報ファイル
      * @param prm_ang_veloRzRyMv アクターの旋回角度
      */
-    FixedVelocitySplineManufacture(const char* prm_source_file, ang_velo prm_ang_veloRzRyMv);
+    FixedVelocitySplineManufacture(const char* prm_source_file, 
+                                   ang_velo prm_ang_veloRzRyMv = (ANGLE90/9),
+                                   int prm_turn_way = TURN_CLOSE_TO,
+                                   bool prm_turn_optimaize = true );
 
-    FixedVelocitySplineManufacture(SplineSource* prm_pSplSrc, ang_velo prm_ang_veloRzRyMv);
+    FixedVelocitySplineManufacture(SplineSource* prm_pSplSrc,
+                                   ang_velo prm_ang_veloRzRyMv = (ANGLE90/9),
+                                   int prm_turn_way = TURN_CLOSE_TO,
+                                   bool prm_turn_optimaize = true );
 
     /**
      * 初期化（計算）処理 .

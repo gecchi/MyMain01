@@ -15,7 +15,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 
     //ƒŒ[ƒU[
-    _laser_way = 6;
+    _laser_way = 4;
     _X = 0;
     _Y = 0;
     _Z = 0;

@@ -4,18 +4,29 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_source_file, ang_velo prm_ang_veloRzRyMv) :
+FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_source_file, 
+                                                               ang_velo prm_ang_veloRzRyMv,
+                                                               int prm_turn_way,
+                                                               bool prm_turn_optimaize) :                                                               
         SplineManufacture(prm_source_file) {
     _ang_veloRzRyMv = prm_ang_veloRzRyMv;
+    _turn_way = prm_turn_way;
+    _turn_optimize = prm_turn_optimaize;
 
     _veloMvUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
     _paDistace_to = NEW coord[_sp->_rnum];
     _paFrame_need_at = NEW float[_sp->_rnum];
 }
 
-FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm_pSplSrc, ang_velo prm_ang_veloRzRyMv) :
+FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm_pSplSrc, 
+                                                               ang_velo prm_ang_veloRzRyMv,
+                                                               int prm_turn_way,
+                                                               bool prm_turn_optimaize) : 
         SplineManufacture(prm_pSplSrc) {
     _ang_veloRzRyMv = prm_ang_veloRzRyMv;
+    _turn_way = prm_turn_way;
+    _turn_optimize = prm_turn_optimaize;
+
     _veloMvUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
     _paDistace_to = NEW coord[_sp->_rnum];
     _paFrame_need_at = NEW float[_sp->_rnum];

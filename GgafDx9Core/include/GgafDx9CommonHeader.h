@@ -47,6 +47,17 @@
 #define ANGLE_2PI (360000)
 
 
+//近い方向に回転
+#define TURN_CLOSE_TO 0
+//遠い方向に回転
+#define TURN_ANTICLOSE_TO 2
+//時計回りに回転
+#define TURN_CLOCKWISE (-1)
+//反時計回りに回転
+#define TURN_COUNTERCLOCKWISE 1
+//どちらかの回転（いずれの回転でも）
+#define TURN_BOTH 0
+
 //プリズム姿勢(位置)定数
 #define POS_PRISM_XY_nn   (0x11) //0b 0010001
 #define POS_PRISM_XY_np   (0x12) //0b 0010010

@@ -5,10 +5,16 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_file,
-                                                         frame prm_spent_frame, ang_velo prm_ang_veloRzRyMv) :
+                                                         frame prm_spent_frame, 
+                                                         ang_velo prm_ang_veloRzRyMv,
+                                                         int prm_turn_way,
+                                                         bool prm_turn_optimaize) :
         SplineManufacture(prm_source_file) {
     _spent_frame = prm_spent_frame;
     _ang_veloRzRyMv = prm_ang_veloRzRyMv;
+    _turn_way = prm_turn_way;
+    _turn_optimize = prm_turn_optimaize;
+
     //１区間の使用可能フレーム
     _frame_of_segment = 1.0*_spent_frame / (_sp->_rnum-1);
     if (_frame_of_segment < 1) {
@@ -19,10 +25,16 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_
 }
 
 FixedFrameSplineManufacture::FixedFrameSplineManufacture(SplineSource* prm_pSplSrc,
-                                                         frame prm_spent_frame, ang_velo prm_ang_veloRzRyMv) :
-        SplineManufacture(prm_pSplSrc) {
+                                                         frame prm_spent_frame,
+                                                         ang_velo prm_ang_veloRzRyMv,
+                                                         int prm_turn_way,
+                                                         bool prm_turn_optimaize) :
+      SplineManufacture(prm_pSplSrc) {
     _spent_frame = prm_spent_frame;
     _ang_veloRzRyMv = prm_ang_veloRzRyMv;
+    _turn_way = prm_turn_way;
+    _turn_optimize = prm_turn_optimaize;
+
     //１区間の使用可能フレーム
     _frame_of_segment = 1.0*_spent_frame / (_sp->_rnum-1);
     if (_frame_of_segment < 1) {

@@ -5,16 +5,6 @@ namespace GgafDx9Core {
 #define sgn(X) (GgafDx9Core::GgafDx9Util::sign(X))
 #define max3(A,B,C) (GgafDx9Core::GgafDx9Util::max3(A,B,C))
 
-//‹ß‚¢•ûŒü‚É‰ñ“]
-#define TURN_CLOSE_TO 0
-//‰“‚¢•ûŒü‚É‰ñ“]
-#define TURN_ANTICLOSE_TO 2
-//Œv‰ñ‚è‚É‰ñ“]
-#define TURN_CLOCKWISE (-1)
-//”½Œv‰ñ‚è‚É‰ñ“]
-#define TURN_COUNTERCLOCKWISE 1
-//‚Ç‚¿‚ç‚©‚Ì‰ñ“]i‚¢‚¸‚ê‚Ì‰ñ“]‚Å‚àj
-#define TURN_BOTH 0
 
 
 

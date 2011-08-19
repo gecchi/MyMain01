@@ -88,22 +88,21 @@ void FixedFrameSplineSequence::behave() {
                                  (dx*_SIN_RzMv_begin + dy* _COS_RzMv_begin) - _Y_begin,
                                 ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) - _Z_begin,
                                 _pFixedFrameSplManuf->_ang_veloRzRyMv, 0,
-                                TURN_CLOSE_TO, true
-                              );
+                                _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
+
             } else if (_option == RELATIVE_COORD) {
                 //相対座標ターゲット
                 pKurokoA_target->execTurnMvAngSequence(
                                 dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
                                 _pFixedFrameSplManuf->_ang_veloRzRyMv, 0,
-                                TURN_CLOSE_TO, true
-                              );
+                                _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
+
             } else { //RELATIVE_DIRECTION
                 //絶対座標ターゲット
                 pKurokoA_target->execTurnMvAngSequence(
                                 dx, dy, dz,
                                 _pFixedFrameSplManuf->_ang_veloRzRyMv, 0,
-                                TURN_CLOSE_TO, true
-                              );
+                                _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
             }
 
             //移動速度設定

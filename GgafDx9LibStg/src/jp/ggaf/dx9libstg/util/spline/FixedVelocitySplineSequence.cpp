@@ -129,21 +129,25 @@ void FixedVelocitySplineSequence::behave() {
                                     (dx*_SIN_RzMv_begin + dy*_COS_RzMv_begin) - _Y_begin,
                                     ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) - _Z_begin,
                                     _pFixedVeloSplManuf->_ang_veloRzRyMv, 0,
-                                    TURN_CLOSE_TO, true);
+                                    _pFixedVeloSplManuf->_turn_way, 
+                                    _pFixedVeloSplManuf->_turn_optimize);
+
                 } else if (_option == RELATIVE_COORD) {
                     //相対座標ターゲット
                     pKurokoA_target->execTurnMvAngSequence(
                                     dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
                                     _pFixedVeloSplManuf->_ang_veloRzRyMv, 0,
-                                    TURN_CLOSE_TO, true
-                                  );
+                                    _pFixedVeloSplManuf->_turn_way, 
+                                    _pFixedVeloSplManuf->_turn_optimize);
+
                 } else { //ABSOLUTE_COORD
                     //絶対座標ターゲット
                     pKurokoA_target->execTurnMvAngSequence(
                                     dx, dy, dz,
                                     _pFixedVeloSplManuf->_ang_veloRzRyMv, 0,
-                                    TURN_CLOSE_TO, true
-                                  );
+                                    _pFixedVeloSplManuf->_turn_way, 
+                                    _pFixedVeloSplManuf->_turn_optimize);
+
                 }
                 //次の補完点までに必要なフレーム数を更新
                 _fFrame_of_next = _pFixedVeloSplManuf->_paFrame_need_at[0] +

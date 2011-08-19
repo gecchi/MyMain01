@@ -19,6 +19,10 @@ public:
     velo* _paSPMvVeloTo;
     /** [rw]1フレームあたり旋回可能な回転角角速度 */
     ang_velo _ang_veloRzRyMv;
+    /** [rw]旋回方法 */
+    int _turn_way;
+    /** [rw]旋回最適化有無 */
+    bool _turn_optimize;
     /** [r]最終地点到着までのフレーム数 */
     frame _spent_frame;
     /**
@@ -27,9 +31,17 @@ public:
      * @param prm_spent_frame 最終地点到着までのフレーム数
      * @param prm_ang_veloRzRyMv アクターの旋回角度
      */
-    FixedFrameSplineManufacture(const char* prm_source_file, frame prm_spent_frame, ang_velo prm_ang_veloRzRyMv);
-    FixedFrameSplineManufacture(SplineSource* prm_pSplSrc, frame prm_spent_frame, ang_velo prm_ang_veloRzRyMv);
+    FixedFrameSplineManufacture(const char* prm_source_file, 
+                                frame prm_spent_frame, 
+                                ang_velo prm_ang_veloRzRyMv = (ANGLE90/9),
+                                int prm_turn_way = TURN_CLOSE_TO,
+                                bool prm_turn_optimaize = true );
 
+    FixedFrameSplineManufacture(SplineSource* prm_pSplSrc,
+                                frame prm_spent_frame,
+                                ang_velo prm_ang_veloRzRyMv = (ANGLE90/9),
+                                int prm_turn_way = TURN_CLOSE_TO,
+                                bool prm_turn_optimaize = true );
     /**
      * 初期化（計算）処理 .
      * プロパティを変更した場合、内部テーブル情報を更新するために

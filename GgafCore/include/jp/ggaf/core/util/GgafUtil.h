@@ -183,7 +183,7 @@ public:
         return digits[nibble & 0xf];
     }
     static bool isExistKey(std::string prm_key, GgafStrMap* p);
-
+    static bool cnvBool(std::string prm_str);
 };
 
 }
