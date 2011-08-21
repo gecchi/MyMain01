@@ -12,7 +12,6 @@ SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject()
     _rate_X = 1.0f;
     _rate_Y = 1.0f;
     _rate_Z = 1.0f;
-    _is_connected = true;
 }
 SplineManufacture::SplineManufacture(SplineSource* prm_pSplSrc) {
     _pSplSrcCon = NULL;
@@ -21,7 +20,6 @@ SplineManufacture::SplineManufacture(SplineSource* prm_pSplSrc) {
     _rate_X = 1.0f;
     _rate_Y = 1.0f;
     _rate_Z = 1.0f;
-    _is_connected = false;
 }
 void SplineManufacture::adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) {
     _rate_X = prm_rate_X;
@@ -33,7 +31,7 @@ SplineManufacture::~SplineManufacture () {
     if (_pSplSrcCon) {
         _pSplSrcCon->close();
     }
-    if (!_is_connected) {
-        DELETE_IMPOSSIBLE_NULL(_pSplSrc);
-    }
+//    if (!_is_connected) {
+//        DELETE_IMPOSSIBLE_NULL(_pSplSrc);
+//    }
 }

@@ -15,13 +15,20 @@ SplineSequence::SplineSequence(SplineManufacture* prm_pManufacture, GgafDx9Kurok
     _flip_X = 1;
     _flip_Y = 1;
     _flip_Z = 1;
-    _is_create_pManufacture = false;
     _is_executing = false;
 }
 
 void SplineSequence::setManufacture(SplineManufacture* prm_pManufacture) {
     _pManufacture = prm_pManufacture;
-    _is_create_pManufacture = false;
+    _pActor_target = NULL;
+    _option = ABSOLUTE_COORD;
+    _offset_X = 0;
+    _offset_Y = 0;
+    _offset_Z = 0;
+    _flip_X = 1;
+    _flip_Y = 1;
+    _flip_Z = 1;
+    _is_executing = false;
 }
 
 void SplineSequence::adjustCoodOffset(coord prm_offset_X, coord prm_offset_Y, coord prm_offset_Z) {
@@ -71,7 +78,15 @@ void SplineSequence::behave() {
 }
 
 SplineSequence::~SplineSequence() {
-    if (_is_create_pManufacture) {
-        DELETE_IMPOSSIBLE_NULL(_pManufacture);
-    }
+//    if (_pManufacture->_pSplSrcCon) {
+//
+//    } else {
+//        SplineSource* pSplSrc = _pManufacture->_pSplSrc;
+//        DELETE_IMPOSSIBLE_NULL(pSplSrc);
+//        DELETE_IMPOSSIBLE_NULL(_pManufacture);
+//    }
+
+//    if (_is_create_pManufacture) {
+//        DELETE_IMPOSSIBLE_NULL(_pManufacture);
+//    }
 }

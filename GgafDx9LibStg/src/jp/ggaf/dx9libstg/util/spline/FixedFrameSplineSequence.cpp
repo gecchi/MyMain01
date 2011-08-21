@@ -20,10 +20,13 @@ FixedFrameSplineSequence::FixedFrameSplineSequence(GgafDx9KurokoA* prmpKurokoA_t
                                                  ang_velo prm_ang_veloRzRyMv):
         SplineSequence(NULL, prmpKurokoA_target) {
 
-    SplineSource *pSplSrc = NEW SplineSource(prmpSpl);
-    _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(pSplSrc, prm_spent_frame, prm_ang_veloRzRyMv);
+    _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prmpSpl), prm_spent_frame, prm_ang_veloRzRyMv);
     _pManufacture = _pFixedFrameSplManuf;
-    _is_create_pManufacture = true;
+
+    _SIN_RzMv_begin = 0;
+    _COS_RzMv_begin = 0;
+    _SIN_RyMv_begin = 0;
+    _COS_RyMv_begin = 0;
 }
 
 
@@ -122,4 +125,11 @@ void FixedFrameSplineSequence::behave() {
 
 }
 FixedFrameSplineSequence::~FixedFrameSplineSequence() {
+    if (_pFixedFrameSplManuf->_pSplSrcCon) {
+
+    } else {
+        SplineSource* pSplSrc = _pFixedFrameSplManuf->_pSplSrc;
+        DELETE_IMPOSSIBLE_NULL(pSplSrc);
+        DELETE_IMPOSSIBLE_NULL(_pFixedFrameSplManuf);
+    }
 }

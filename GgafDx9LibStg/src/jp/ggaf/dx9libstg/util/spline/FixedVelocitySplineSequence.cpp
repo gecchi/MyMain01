@@ -13,17 +13,22 @@ FixedVelocitySplineSequence::FixedVelocitySplineSequence(SplineManufacture* prm_
     _COS_RzMv_begin = 0.0f;
     _SIN_RyMv_begin = 0.0f;
     _COS_RyMv_begin = 0.0f;
-
 }
 
 FixedVelocitySplineSequence::FixedVelocitySplineSequence(GgafDx9KurokoA* prmpKurokoA_target,
                                                          Spline3D* prmpSpl,
                                                          ang_velo prm_ang_veloRzRyMv):
         SplineSequence(NULL, prmpKurokoA_target) {
-    SplineSource *pSplSrc = NEW SplineSource(prmpSpl);
-    _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(pSplSrc, prm_ang_veloRzRyMv);
-    _pManufacture = _pFixedVeloSplManuf;
-    _is_create_pManufacture = true;
+    _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prmpSpl), prm_ang_veloRzRyMv);
+    _pManufacture = _pFixedVeloSplManuf; //基底メンバーも一応セット
+
+    _exec_fFrames = 0.0f;
+    _fFrame_of_next = -0.00001f;
+    _point_index = 0;
+    _SIN_RzMv_begin = 0.0f;
+    _COS_RzMv_begin = 0.0f;
+    _SIN_RyMv_begin = 0.0f;
+    _COS_RyMv_begin = 0.0f;
 }
 
 void FixedVelocitySplineSequence::exec(SplinTraceOption prm_option) {
@@ -129,7 +134,7 @@ void FixedVelocitySplineSequence::behave() {
                                     (dx*_SIN_RzMv_begin + dy*_COS_RzMv_begin) - _Y_begin,
                                     ((dx*_COS_RzMv_begin + dy*-_SIN_RzMv_begin) * -_SIN_RyMv_begin + dz*_COS_RyMv_begin) - _Z_begin,
                                     _pFixedVeloSplManuf->_ang_veloRzRyMv, 0,
-                                    _pFixedVeloSplManuf->_turn_way, 
+                                    _pFixedVeloSplManuf->_turn_way,
                                     _pFixedVeloSplManuf->_turn_optimize);
 
                 } else if (_option == RELATIVE_COORD) {
@@ -137,7 +142,7 @@ void FixedVelocitySplineSequence::behave() {
                     pKurokoA_target->execTurnMvAngSequence(
                                     dx - _X_begin, dy - _Y_begin, dz - _Z_begin,
                                     _pFixedVeloSplManuf->_ang_veloRzRyMv, 0,
-                                    _pFixedVeloSplManuf->_turn_way, 
+                                    _pFixedVeloSplManuf->_turn_way,
                                     _pFixedVeloSplManuf->_turn_optimize);
 
                 } else { //ABSOLUTE_COORD
@@ -145,7 +150,7 @@ void FixedVelocitySplineSequence::behave() {
                     pKurokoA_target->execTurnMvAngSequence(
                                     dx, dy, dz,
                                     _pFixedVeloSplManuf->_ang_veloRzRyMv, 0,
-                                    _pFixedVeloSplManuf->_turn_way, 
+                                    _pFixedVeloSplManuf->_turn_way,
                                     _pFixedVeloSplManuf->_turn_optimize);
 
                 }
@@ -174,4 +179,11 @@ void FixedVelocitySplineSequence::behave() {
 
 }
 FixedVelocitySplineSequence::~FixedVelocitySplineSequence() {
+    if (_pFixedVeloSplManuf->_pSplSrcCon) {
+
+    } else {
+        SplineSource* pSplSrc = _pFixedVeloSplManuf->_pSplSrc;
+        DELETE_IMPOSSIBLE_NULL(pSplSrc);
+        DELETE_IMPOSSIBLE_NULL(_pFixedVeloSplManuf);
+    }
 }

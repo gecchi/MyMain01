@@ -12,9 +12,11 @@ namespace GgafDx9LibStg {
 class SplineSource : public GgafCore::GgafObject {
 
 public:
+
     Spline3D* _pSp;
     double _accuracy;
 
+    bool _is_create_Spline3D;
     SplineSource(char* prm_idstr);
 
     SplineSource(Spline3D* prm_pSp);

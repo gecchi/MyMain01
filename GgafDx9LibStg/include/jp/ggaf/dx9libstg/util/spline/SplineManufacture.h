@@ -30,14 +30,12 @@ namespace GgafDx9LibStg {
  */
 class SplineManufacture : public GgafCore::GgafObject {
 private:
+
+public:
     SplineSourceConnection* _pSplSrcCon;
     SplineSource* _pSplSrc;
-public:
-
     /** スプライン曲線の補完点生成、保持するクラス */
     Spline3D* _sp;
-    /** コンストラクタ内部でSpline3Dを生成した場合true/コンストラクタ引数にSpline3Dが渡された場合、false */
-    bool _is_connected;
     /** X軸方向補正割合 */
     float _rate_X;
     /** Y軸方向補正割合 */

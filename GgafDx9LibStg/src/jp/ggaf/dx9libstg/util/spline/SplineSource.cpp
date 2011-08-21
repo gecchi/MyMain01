@@ -6,9 +6,10 @@ using namespace GgafDx9LibStg;
 
 
 #define MAX_SP_POINT 1000
-SplineSource::SplineSource(Spline3D* prm_pSp) {
+SplineSource::SplineSource(Spline3D* prm_pSp) : GgafObject() {
     _pSp = prm_pSp;
     _accuracy = _pSp->_accuracy;
+    _is_create_Spline3D = false;
 }
 
 SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
@@ -79,6 +80,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
         }
     }
     _pSp = NEW Spline3D(p, n, _accuracy);
+    _is_create_Spline3D = true;
 }
 
 //ÅÉê‡ñæÅÑ
@@ -127,5 +129,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 //
 
 SplineSource::~SplineSource() {
-    DELETE_IMPOSSIBLE_NULL(_pSp);
+    if (_is_create_Spline3D) {
+        DELETE_IMPOSSIBLE_NULL(_pSp);
+    }
 }
