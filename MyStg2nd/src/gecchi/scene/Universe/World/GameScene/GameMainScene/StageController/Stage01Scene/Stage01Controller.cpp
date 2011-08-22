@@ -29,11 +29,13 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,500};
-	_paFrame_NextEvent = new frame[2];
+	frame f[] = {1,120,500,600};
+	_paFrame_NextEvent = new frame[4];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 2;
+	_event_num = 4;
 	orderActorToFactory(10000000, EnemyAstraea, "Astraea_1");
+	orderActorToFactory(10000001, FormationIris002, "F002_Iris_2");
+	orderActorToFactory(10000002, FormationIris002, "F002_Iris_3");
     // gen01 end
     useProgress(STAGE01CONTROLLER_PROG_FAINAL);
 }
@@ -51,16 +53,26 @@ void Stage01Controller::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 500: {
+			case 120: {
 				EnemyAstraea* pAstraea1 = (EnemyAstraea*)obtainActorFromFactory(10000000);
 				getDirector()->addSubGroup(pAstraea1);
 				pAstraea1->locate(3000000,0,0);
 				break;
 			}
+			case 500: {
+				FormationIris002* pF1 = (FormationIris002*)obtainActorFromFactory(10000001);
+				getDirector()->addSubGroup(pF1);
+				break;
+			}
+			case 600: {
+				FormationIris002* pF2 = (FormationIris002*)obtainActorFromFactory(10000002);
+				getDirector()->addSubGroup(pF2);
+				break;
+			}
 			default :
 				break;
 		}
-		_iCnt_Event = (_iCnt_Event < 2-1 ? _iCnt_Event+1 : _iCnt_Event);
+		_iCnt_Event = (_iCnt_Event < 4-1 ? _iCnt_Event+1 : _iCnt_Event);
 	}
     // gen02 end
 

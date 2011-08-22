@@ -44,30 +44,9 @@ void EnemyAstraeaLaserChip004::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyAstraeaLaserChip004::processBehaviorHeadChip() {
-    //_TRACE_(getName()<<"getActivePartFrame() ="<<getActivePartFrame() );
     if (getActivePartFrame() == 2) {
         _pSplSeq->exec(RELATIVE_DIRECTION); //Œü‚¢‚½•ûŒü‚Éƒ[ƒ‹ƒh•ÏŠ·
     }
-//    if (getActivePartFrame() == 40) {
-//        _pKurokoA->execTurnMvAngSequence(
-//                    P_MYSHIP,
-//                    7000, 0,
-//                    TURN_ANTICLOSE_TO, false);
-//    }
-//
-//
-//    if (_pKurokoA->_mv_ang_ry_target_flg == false && _pKurokoA->_mv_ang_rz_target_flg == false) {
-//        _pKurokoA->execTurnMvAngSequence(
-//                    P_MYSHIP,
-//                    100, 0,
-//                    TURN_CLOSE_TO, false);
-//    }
-//
-//    if (_frame_of_behaving_from_onActive == 35) {
-//        _pKurokoA->execTurnMvAngSequence(
-//                    P_MYSHIP,
-//                    20000, TURN_ANTICLOSE_TO);
-//    }
     _pSplSeq->behave(); //©“r’†‚Å‚¿‚å‚ñ‚¬‚ê‚½‚ç‚¾‚ß‚¶‚á‚ñ
     _pKurokoA->behave();
 }
