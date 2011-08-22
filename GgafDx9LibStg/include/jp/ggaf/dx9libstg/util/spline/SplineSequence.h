@@ -105,6 +105,7 @@ public:
      */
     virtual void exec(SplinTraceOption prm_option = ABSOLUTE_COORD);
 
+    virtual void stop();
     /**
      * 移動実行メソッド .
      * 移動を行うために、毎フレームこのメソッドを呼び出す必要があります。

@@ -58,6 +58,8 @@ void FixedVelocitySplineSequence::exec(SplinTraceOption prm_option) {
             _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pFixedVeloSplManuf->_rate_Y) + _offset_Y;
             _Z_begin = (_flip_Z * pSpl->_Z_compute[0] * _pFixedVeloSplManuf->_rate_Z) + _offset_Z;
        }
+    } else {
+        throwGgafCriticalException("SplineSequence::exec Manufacture‚ª‚ ‚è‚Ü‚¹‚ñB_pActor_target="<<_pActor_target->getName());
     }
 }
 

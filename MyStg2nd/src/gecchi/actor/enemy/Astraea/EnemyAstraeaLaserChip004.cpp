@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 EnemyAstraeaLaserChip004::EnemyAstraeaLaserChip004(const char* prm_name) :
-        HomingLaserChip(prm_name, "AstraeaLaserChip004") {
+        HomingLaserChip(prm_name, "AstraeaLaserChip001") {
     _class_name = "EnemyAstraeaLaserChip004";
     MyStgUtil::resetEnemyAstraeaLaserChip004Status(_pStatus);
     _pSplManufCon = connectSplineManufactureManager("GURUGURU");
@@ -20,7 +20,6 @@ void EnemyAstraeaLaserChip004::initialize() {
     setScaleRate(5.0);
     setAlpha(0.9);
 }
-
 void EnemyAstraeaLaserChip004::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
@@ -29,7 +28,7 @@ void EnemyAstraeaLaserChip004::onActive() {
     _pKurokoA->setMvVelo(10000);
     _pKurokoA->setMvAcce(400);
     _pKurokoA->relateFaceAngWithMvAng(true);
-    _pSplSeq->exec(RELATIVE_DIRECTION); //向いた方向にワールド変換
+    _pSplSeq->stop();
 }
 
 void EnemyAstraeaLaserChip004::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
@@ -45,20 +44,24 @@ void EnemyAstraeaLaserChip004::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyAstraeaLaserChip004::processBehaviorHeadChip() {
-    if (getActivePartFrame() == 40) {
-        _pKurokoA->execTurnMvAngSequence(
-                    P_MYSHIP,
-                    7000, 0,
-                    TURN_ANTICLOSE_TO, false);
+    //_TRACE_(getName()<<"getActivePartFrame() ="<<getActivePartFrame() );
+    if (getActivePartFrame() == 2) {
+        _pSplSeq->exec(RELATIVE_DIRECTION); //向いた方向にワールド変換
     }
-
-
-    if (_pKurokoA->_mv_ang_ry_target_flg == false && _pKurokoA->_mv_ang_rz_target_flg == false) {
-        _pKurokoA->execTurnMvAngSequence(
-                    P_MYSHIP,
-                    100, 0,
-                    TURN_CLOSE_TO, false);
-    }
+//    if (getActivePartFrame() == 40) {
+//        _pKurokoA->execTurnMvAngSequence(
+//                    P_MYSHIP,
+//                    7000, 0,
+//                    TURN_ANTICLOSE_TO, false);
+//    }
+//
+//
+//    if (_pKurokoA->_mv_ang_ry_target_flg == false && _pKurokoA->_mv_ang_rz_target_flg == false) {
+//        _pKurokoA->execTurnMvAngSequence(
+//                    P_MYSHIP,
+//                    100, 0,
+//                    TURN_CLOSE_TO, false);
+//    }
 //
 //    if (_frame_of_behaving_from_onActive == 35) {
 //        _pKurokoA->execTurnMvAngSequence(
@@ -83,6 +86,7 @@ void EnemyAstraeaLaserChip004::onHit(GgafActor* prm_pOtherActor) {
 }
 
 EnemyAstraeaLaserChip004::~EnemyAstraeaLaserChip004() {
-
+    DELETE_IMPOSSIBLE_NULL(_pSplSeq);
+    _pSplManufCon->close();
 }
 

@@ -29,11 +29,11 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,8200,10000,13200,15000,18200,20000,21200,23000};
-	_paFrame_NextEvent = new frame[10];
+	frame f[] = {1,500};
+	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 10;
-	orderSceneToFactory(10000000, Stage01_01, "Stage01_01");
+	_event_num = 2;
+	orderActorToFactory(10000000, EnemyAstraea, "Astraea_1");
     // gen01 end
     useProgress(STAGE01CONTROLLER_PROG_FAINAL);
 }
@@ -51,55 +51,16 @@ void Stage01Controller::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 100: {
-				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
-				addSubLast(pScene);
-				_pProg->change(STAGE01CONTROLLER_PROG_STG01_01_BEGIN);
-				break;
-			}
-			case 8200: {
-				orderSceneToFactory(10000001, Stage01WalledScene, "GroStage01WalledScene");
-				break;
-			}
-			case 10000: {
-				Stage01WalledScene* pScene = (Stage01WalledScene*)obtainSceneFromFactory(10000001);
-				addSubLast(pScene);
-				break;
-			}
-			case 13200: {
-				orderSceneToFactory(10000002, Stage01_02, "Stage01_02");
-				break;
-			}
-			case 15000: {
-				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000002);
-				addSubLast(pScene);
-				_pProg->change(STAGE01CONTROLLER_PROG_STG01_02_BEGIN);
-				break;
-			}
-			case 18200: {
-				orderSceneToFactory(10000003, Stage01_03, "Stage01_03");
-				break;
-			}
-			case 20000: {
-				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000003);
-				addSubLast(pScene);
-				_pProg->change(STAGE01CONTROLLER_PROG_STG01_03_BEGIN);
-				break;
-			}
-			case 21200: {
-				orderSceneToFactory(10000004, Stage01_Climax, "Stage01_Climax");
-				break;
-			}
-			case 23000: {
-				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000004);
-				addSubLast(pScene);
-				_pProg->change(STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN);
+			case 500: {
+				EnemyAstraea* pAstraea1 = (EnemyAstraea*)obtainActorFromFactory(10000000);
+				getDirector()->addSubGroup(pAstraea1);
+				pAstraea1->locate(3000000,0,0);
 				break;
 			}
 			default :
 				break;
 		}
-		_iCnt_Event = (_iCnt_Event < 10-1 ? _iCnt_Event+1 : _iCnt_Event);
+		_iCnt_Event = (_iCnt_Event < 2-1 ? _iCnt_Event+1 : _iCnt_Event);
 	}
     // gen02 end
 

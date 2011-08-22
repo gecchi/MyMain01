@@ -46,8 +46,14 @@ void SplineSequence::exec(SplinTraceOption prm_option) {
         _X_begin = _flip_X*pSpl->_X_compute[0]*_pManufacture->_rate_X + _offset_X;
         _Y_begin = _flip_Y*pSpl->_Y_compute[0]*_pManufacture->_rate_Y + _offset_Y;
         _Z_begin = _flip_Z*pSpl->_Z_compute[0]*_pManufacture->_rate_Z + _offset_Z;
+    } else {
+        throwGgafCriticalException("SplineSequence::exec Manufacture‚ª‚ ‚è‚Ü‚¹‚ñB_pActor_target="<<_pActor_target->getName());
     }
 }
+void SplineSequence::stop() {
+    _is_executing = false;
+}
+
 
 void SplineSequence::setAbsoluteBeginCoordinate() {
     Spline3D* pSpl = _pManufacture->_sp;

@@ -13,7 +13,6 @@ public:
     void initialize() override;
 
     void onActive() override;
-
     void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
 
     /**

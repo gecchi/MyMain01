@@ -35,6 +35,7 @@ public:
 
     virtual void initialize() override;
 
+
     /**
      * レーザーチップ座標計算等処理 .
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
@@ -67,6 +68,7 @@ public:
      * その際 は、本クラスの onActive() メソッドも呼び出してください。
      */
     virtual void onActive() override;
+
 
     /**
      * レーザーチップ消失時処理 .
