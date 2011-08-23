@@ -161,7 +161,7 @@ void GameScene::processBehavior() {
                 P_GOD->setVB(VB_PLAY); //プレイ用に変更
             }
 
-            if (!_pProg->getRelation()->_was_paused_flg) {
+            if (!_pProg->getGazeScene()->_was_paused_flg) {
                 if (_was_paused_flg_GameMainScene_prev_frame == true)  {
                     P_UNIVERSE->undoCameraWork();
                 }
@@ -169,12 +169,12 @@ void GameScene::processBehavior() {
                     _is_frame_advance = false;
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
-                    _pProg->getRelation()->pause();
+                    _pProg->getGazeScene()->pause();
 //                    _pMyShipScene->pause();
 //                    _pCommonScene->pause();
                 }
             }
-            if (_pProg->getRelation()->_was_paused_flg) {
+            if (_pProg->getGazeScene()->_was_paused_flg) {
                 if (_was_paused_flg_GameMainScene_prev_frame == false) {
                     GgafDx9Input::updateMouseState();
                     GgafDx9Input::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
@@ -182,12 +182,12 @@ void GameScene::processBehavior() {
                 }
                 if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
                     P_GOD->setVB(VB_PLAY);
-                    _pProg->getRelation()->unpause();
+                    _pProg->getGazeScene()->unpause();
 //                    _pMyShipScene->unpause();
 //                    _pCommonScene->unpause();
                 }
             }
-            _was_paused_flg_GameMainScene_prev_frame = _pProg->getRelation()->_was_paused_flg;
+            _was_paused_flg_GameMainScene_prev_frame = _pProg->getGazeScene()->_was_paused_flg;
             //イベント待ち EVENT_ALL_MY_SHIP_WAS_DESTROYED
             break;
         }
@@ -274,8 +274,6 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEMODE_DECIDE)");
         _stage = 1;
         _pProg->changeWithFlipping(GAMESCENE_PROG_MAIN);//メインへ
-        _pProg->getRelation()->reset();
-        _pProg->getRelation()->activate();
     } else if (prm_no == EVENT_GOTO_GAMETITLE) {
         //とにかくタイトルへイベント発生
         _TRACE_("GameScene::onCatchEvent(EVENT_GOTO_GAMETITLE)");

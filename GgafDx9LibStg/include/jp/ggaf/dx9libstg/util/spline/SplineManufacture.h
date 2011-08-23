@@ -58,7 +58,7 @@ public:
      * <b>[注意]</b><BR>
      * このメソッドを実行した場合、点の点の距離が変わるため、<BR>
      * 下位クラスの実装によっては、内部保持テーブル情報を更新するために、<BR>
-     * calculate() を実行する必要があるかもしれません。
+     * ※calculate() を実行しないと反映しません。
      * @param prm_rate_X X軸方向補正割合
      * @param prm_rate_Y Y軸方向補正割合
      * @param prm_rate_Z Z軸方向補正割合
@@ -66,8 +66,10 @@ public:
     virtual void adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z);
 
     /**
-     * スプライン座標補正による再計算 .
-     * 下位で実装してください。
+     * 初期化（計算）処理 .
+     * プロパティを変更した場合、内部テーブル情報を更新するために
+     * 一度実行する必要があります。
+     * 下位で実装して下さい。
      */
     virtual void calculate() = 0;
 

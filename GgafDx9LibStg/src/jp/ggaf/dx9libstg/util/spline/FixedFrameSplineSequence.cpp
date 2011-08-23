@@ -21,6 +21,7 @@ FixedFrameSplineSequence::FixedFrameSplineSequence(GgafDx9KurokoA* prmpKurokoA_t
         SplineSequence(NULL, prmpKurokoA_target) {
 
     _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prmpSpl), prm_spent_frame, prm_ang_veloRzRyMv);
+    _pFixedFrameSplManuf->calculate();
     _pManufacture = _pFixedFrameSplManuf;
 
     _SIN_RzMv_begin = 0;

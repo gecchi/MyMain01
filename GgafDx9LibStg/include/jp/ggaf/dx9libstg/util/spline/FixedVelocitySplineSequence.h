@@ -35,6 +35,11 @@ public:
     float _SIN_RyMv_begin;
     float _COS_RyMv_begin;
 
+    /**
+     *
+     * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
+     * @param prm_pKurokoA
+     */
     FixedVelocitySplineSequence(SplineManufacture* prm_pManufacture,  GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA);
 //    /**
 //     * コンストラクタ .
@@ -73,27 +78,6 @@ public:
     FixedVelocitySplineSequence(GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA,
                                Spline3D* prm_sp,
                                ang_velo prm_ang_veloRzRyMv);
-
-    /**
-     * 初期化（計算）処理.
-     * コンストラクタより呼び出されます。
-     */
-//    void init();
-
-    /**
-     * Spline3Dから各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに割合を乗じ、補正します .
-     * デフォルトは adjustAxisRate(1.0, 1.0, 1.0) となります。<BR>
-     * <b>[注意]</b><BR>
-     * 内部で、adjustCoodOffset() よりも先に 本メソッドの adjustAxisRate() が考慮されます。<BR>
-     * 軸方向の倍率補正 ＞ 平行移動補正 の順番です。<BR>
-     * <b>[注意２]</b><BR>
-     * 距離テーブル(_paDistace_to)、必要フレーム数テーブル(_paFrame_need_at)の再計算が発生します。
-     * そのため、処理は高速とはいえません。生成時付近で実行を推奨します。<BR>
-     * @param prm_rate_X X軸方向補正割合
-     * @param prm_rate_Y Y軸方向補正割合
-     * @param prm_rate_Z Z軸方向補正割合
-     */
-//    void adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z) override;
 
 
     /**

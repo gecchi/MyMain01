@@ -20,6 +20,11 @@ public:
     float _SIN_RyMv_begin;
     float _COS_RyMv_begin;
 
+    /**
+     *
+     * @param prm_pManufacture calculate()Ï‚İ‚ÌSplineManufacture‚ğİ’è‚·‚é‚±‚Æ
+     * @param prm_pKurokoA
+     */
     FixedFrameSplineSequence(SplineManufacture* prm_pManufacture,
                              GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA);
 

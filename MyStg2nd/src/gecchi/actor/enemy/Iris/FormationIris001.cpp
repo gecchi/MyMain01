@@ -17,7 +17,7 @@ FormationIris001::FormationIris001(const char* prm_name) : GgafDx9FormationActor
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i] = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
-        SplineSequence* pProgram = NEW FixedVelocitySplineSequence(_papIris[i]->_pKurokoA, _pSplCon->use(), 4000); //移動速度固定
+        SplineSequence* pProgram = NEW FixedVelocitySplineSequence(_papIris[i]->_pKurokoA, _pSplCon->use(), 10000); //移動速度固定
         _papIris[i]->setSplineSequence(pProgram);
         _papIris[i]->setStore_Shot(_pStoreCon->use()); //弾設定
         _papIris[i]->inactivateImmediately();

@@ -80,7 +80,7 @@ void SceneProgress::changeWithOverlapping(progress prm_progress, frame prm_frame
 
 
 
-DefaultScene* SceneProgress::getRelation() {
+DefaultScene* SceneProgress::getGazeScene() {
     return (_mapProg2Scene[get()]);
 }
 SceneProgress::~SceneProgress() {

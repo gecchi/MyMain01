@@ -31,7 +31,7 @@ public:
      * @param prm_source_file スプライン座標情報ファイル
      * @param prm_ang_veloRzRyMv アクターの旋回角度
      */
-    FixedVelocitySplineManufacture(const char* prm_source_file, 
+    FixedVelocitySplineManufacture(const char* prm_source_file,
                                    ang_velo prm_ang_veloRzRyMv = (ANGLE90/9),
                                    int prm_turn_way = TURN_CLOSE_TO,
                                    bool prm_turn_optimaize = true );

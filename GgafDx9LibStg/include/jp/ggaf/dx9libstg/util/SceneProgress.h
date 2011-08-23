@@ -69,7 +69,7 @@ public:
      * 現在の進捗状態に関連づいているシーンを取得 .
      * @return
      */
-    DefaultScene* getRelation();
+    DefaultScene* getGazeScene();
     /**
      * デストラクタ .
      */

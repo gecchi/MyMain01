@@ -24,7 +24,7 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
 }
 
 void GameBeginningScene::onReset() {
-    _TRACE_("GamePreTitleScene::onReset()");
+    _TRACE_("GameBeginningScene::onReset()");
     _pProg->change(GAMEBEGINNINGSCENE_PROG_INIT);
 //    fadeinScene(0);
     _pStringBoard01->update("");

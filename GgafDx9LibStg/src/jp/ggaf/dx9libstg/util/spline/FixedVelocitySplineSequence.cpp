@@ -20,6 +20,7 @@ FixedVelocitySplineSequence::FixedVelocitySplineSequence(GgafDx9KurokoA* prmpKur
                                                          ang_velo prm_ang_veloRzRyMv):
         SplineSequence(NULL, prmpKurokoA_target) {
     _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prmpSpl), prm_ang_veloRzRyMv);
+    _pFixedVeloSplManuf->calculate(); //忘れないように
     _pManufacture = _pFixedVeloSplManuf; //基底メンバーも一応セット
 
     _exec_fFrames = 0.0f;
