@@ -63,10 +63,10 @@
 
 
 #ifdef _MSC_VER
-#define _MAP_ map
+#define __map__ map
 #else
 #include <unordered_map>
-#define _MAP_ unordered_map
+#define __map__ unordered_map
 #endif
 
 #ifndef _MSC_VER

@@ -1,7 +1,7 @@
 #ifndef VBRTUALBUTTON_H_
 #define VBRTUALBUTTON_H_
 
-typedef _MAP_<string, int> keymap;
+typedef __map__<string, int> keymap;
 typedef unsigned long int vbsta;
 
 namespace GgafDx9LibStg {
@@ -115,7 +115,7 @@ public:
         }
     };
     /** オートリピート判定用カウンター */
-    _MAP_<vbsta, frame> _repeat_counter;
+    __map__<vbsta, frame> _repeat_counter;
     /** オートリピート中ならば true */
     bool _is_auto_repeat;
 

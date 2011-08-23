@@ -7,7 +7,7 @@ GgafDx9FormationActor::GgafDx9FormationActor(const char* prm_name, frame prm_off
     GgafDx9GeometricActor(prm_name, NULL)
 {
     _obj_class |= Obj_GgafDx9FormationActor;
-    _class_name = "FormationsActor";
+    _class_name = "GgafDx9FormationActor";
     _offset_frames_end = prm_offset_frames_end;
     setHitAble(false);
     _num_sub = 0;
@@ -22,9 +22,9 @@ void GgafDx9FormationActor::addSubLast(GgafActor* prm_pSub) {
 
     } else {
         if (_pStatus->get(STAT_DEFAULT_ACTOR_KIND) != prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)) {
-            throwGgafCriticalException("GgafActorStore::addSubLast 異なる種別のアクターを登録しようとしています。 \n"<<
-                                       "想定="<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"<<
-                                       "引数="<<prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pSub->getName()<<"]");
+            throwGgafCriticalException("GgafDx9FormationActor::addSubLast 異なる種別のアクターを登録しようとしています。this="<<getName()<<"("<<this<<") \n"<<
+                                       "想定kind="<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<" _pSubFirst="<<_pSubFirst->getName()<<" \n"<<
+                                       "引数kind="<<prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<" prm_pSub="<<prm_pSub->getName()<<"("<<prm_pSub<<")");
         }
     }
     _num_sub++;

@@ -99,7 +99,7 @@ GgafRgb GgafProperties::getRGB(std::string prm_key) {
 
 
 bool GgafProperties::isExistKey(string prm_key) {
-    //_MAP_<string, string>::iterator
+    //__map__<string, string>::iterator
     GgafStrMap::iterator itr;
     itr = _pMapProperties->find(prm_key);
     if (itr != _pMapProperties->end()) {

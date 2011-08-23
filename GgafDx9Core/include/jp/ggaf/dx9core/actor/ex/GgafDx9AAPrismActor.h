@@ -25,7 +25,7 @@ public:
 
 
     static bool init;
-    static _MAP_<int, GgafDx9AAPrismActor::RotPosPrism> pos2r;
+    static __map__<int, GgafDx9AAPrismActor::RotPosPrism> pos2r;
 
     GgafDx9AAPrismActor(const char* prm_name,
                         GgafDx9Checker* prm_pChecker);

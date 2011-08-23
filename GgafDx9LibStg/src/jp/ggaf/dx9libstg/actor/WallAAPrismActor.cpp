@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 
 bool WallAAPrismActor::init = false;
 
-_MAP_<int, UINT> WallAAPrismActor::_delface;
+__map__<int, UINT> WallAAPrismActor::_delface;
 
 WallAAPrismActor::WallAAPrismActor(const char* prm_name,
                                    const char* prm_model) :

@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 bool GgafDx9AAPrismActor::init = false;
-_MAP_<int, GgafDx9AAPrismActor::RotPosPrism> GgafDx9AAPrismActor::pos2r;
+__map__<int, GgafDx9AAPrismActor::RotPosPrism> GgafDx9AAPrismActor::pos2r;
 
 
 GgafDx9AAPrismActor::GgafDx9AAPrismActor(const char* prm_name,

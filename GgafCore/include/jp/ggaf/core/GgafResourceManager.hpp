@@ -215,7 +215,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
     //たぶん全ての connect() 呼び出し元で connect() 失敗時の処理を定義しなくてはいけなくなる。
     //templateにしたのは失敗だったのか；（void*にすべきだったか）。
     //時間のあるときにちゃんと勉強してやろう。今は後回し。
-    _TRACE_(" connect to " << _manager_name<<" for "<<prm_idstr<<"...");
+    //_TRACE_(" connect to " << _manager_name<<" for "<<prm_idstr<<"...");
     pObj = find(prm_idstr);
     if (pObj == NULL) {
         //未生成ならば生成。接続カウンタを１

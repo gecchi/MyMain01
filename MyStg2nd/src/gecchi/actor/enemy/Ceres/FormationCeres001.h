@@ -2,7 +2,7 @@
 #define FORMATIONCERES001_H_
 namespace MyStg2nd {
 
-#define NUM_CERES_FORMATION001 1
+#define NUM_CERES_FORMATION001 10
 /**
  * フォーメーションアクタークラス .
  */
