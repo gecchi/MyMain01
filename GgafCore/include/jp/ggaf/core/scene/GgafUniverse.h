@@ -7,6 +7,7 @@ namespace GgafCore {
  * 本プログラムで言う『この世』とは、全てのシーン(GgafSceneオブジェクト)の頂点に位置する特別なシーンです。<BR>
  * 神(GgafGod)自らが new してくれます。本クラスが new されると、芋づる的に配下シーン(GgafScene)が new されます。<BR>
  * アプリケーションで少なくとも１つはこの世をnewしなければいけません。<BR>
+ * 『この世』 へのメソッド実行は、全てのシーンとアクターに影響します。<BR>
  * @version 1.00
  * @since 2009/07/23
  * @author Masatoshi Tsuge

@@ -16,10 +16,11 @@ class GgafMainActor : public GgafActor {
 protected:
 
 public:
-    /** [r]シーン監督 */
-    GgafDirector* _pDirector;
-    /** [r]グループを司る直近の団長 */
+    /** [r]自身が所属するグループの団長 */
     GgafGroupHead* _pGroupHead;
+    /** [r]自身が所属するグループの団長の監督 */
+    GgafDirector* _pDirector;
+
 
     GgafMainActor(const char* prm_name);
 

@@ -19,7 +19,8 @@ namespace MyStg2nd {
 /**
  * 具体的なこの世 .
  * 本クラスは、この世の振る舞い等を実装ます。<BR>
- * 主にこの世を映し出すカメラ(Camera)の制御などを行います。<BR>
+ * 主に世界(World)を映し出すカメラ(Camera)が所属し、そのカメラの
+ * 大まかな制御メソッドを備えます。<BR>
  * @version 1.00
  * @since 2009/04/24
  * @author Masatoshi Tsuge

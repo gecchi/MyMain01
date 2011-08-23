@@ -30,37 +30,24 @@ namespace MyStg2nd {
 
 /**
  * ゲームシーンクラス .
- * この世にとある世界で、ゲームが行なわれている場面がありました。<BR>
+ * 『この世(Universe)の、とある世界(World)で、ゲームが行なわれている場面(GameScene)がありました。』<BR>
+ * といった概念の元に設計を行いました。<BR>
  * 本クラスは、ゲームの全体的な振る舞いを実装しています。<BR>
- * 主に、サブシーンの切り替えです。
+ * 主に、サブシーンの切り替え等を行います。<BR>
  * @version 1.00
  * @since 2007/11/16
  * @author Masatoshi Tsuge
  */
 class GameScene : public GgafDx9LibStg::DefaultScene {
 
-private:
-//    void changeFlippingSubScene(progress prm_progress);
-//    void changeFadeingSubScene(progress prm_progress, frame prm_fadeout_frames = FADE_FRAMES, frame prm_fadein_frames = FADE_FRAMES);
 public:
     CommonScene* _pCommonScene;
     MyShipScene* _pMyShipScene;
     StageController* _pStageController;
-//    GamePreTitleScene*   _pScene_PreGameTitle;
-//    GameTitleScene*      _pScene_GameTitle;
-//    GameDemoScene*      _pScene_GameDemo;
-//    GameBeginningScene* _pScene_GameBeginning;
-//    GameMainScene*      _pScene_GameMain;
-//    GameEndingScene*    _pScene_GameEnding;
-//    GameOverScene*     _pScene_GameOver;
-
-//    std::map<progress, DefaultScene*> _mapSubScene;
     /** コマ送りフラグ */
     bool _is_frame_advance;
     bool _was_paused_flg_GameMainScene_prev_frame;
     int _stage;
-//    GgafDx9LibStg::DefaultScene* _pSceneCannel;
-
 
     GameScene(const char* prm_name);
 

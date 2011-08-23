@@ -170,8 +170,6 @@ void GameScene::processBehavior() {
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
                     _pProg->getGazeScene()->pause();
-//                    _pMyShipScene->pause();
-//                    _pCommonScene->pause();
                 }
             }
             if (_pProg->getGazeScene()->_was_paused_flg) {
@@ -183,8 +181,6 @@ void GameScene::processBehavior() {
                 if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
                     P_GOD->setVB(VB_PLAY);
                     _pProg->getGazeScene()->unpause();
-//                    _pMyShipScene->unpause();
-//                    _pCommonScene->unpause();
                 }
             }
             _was_paused_flg_GameMainScene_prev_frame = _pProg->getGazeScene()->_was_paused_flg;
@@ -301,7 +297,8 @@ void GameScene::processJudgement() {
 //            CollisionChecker::_pLinearOctree->putTree();
 //        }
 
-        //八分木アルゴリズムで所属シーンの所属アクター全ヒットチェック
+        //本シーンの所属シーンの所属アクター全てについて当たり判定チェックを行う。
+        //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。
         //詳細は 「シーンCreater.xls」 の 「種別相関」 シート参照
         CollisionChecker::_pLinearOctree->executeAllHitChk(
         KIND_MY_BODY_NOMAL,

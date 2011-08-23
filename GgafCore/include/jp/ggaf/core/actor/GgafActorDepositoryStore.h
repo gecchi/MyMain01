@@ -3,10 +3,12 @@
 namespace GgafCore {
 
 /**
- * アクターデポジトリのデポジトリクラス .
+ * アクターデポジトリの保管所クラス .
  * GgafActorDepository は、サブの登録アクター(GgafActor)が暇そうなメンバーを dispatch() するのに対し、
  * GgafActorDepositoryStore は、サブの登録デポジトリ(GgafActorDepository) の 登録アクター(GgafActor)が、
- * 全員暇しているデポジトリを優先的にdispatch() する。
+ * 全員暇にしているデポジトリを優先的に dispatch() します。
+ * つまり、dispatch() で得られるオブジェクトが デポジトリ(GgafActorDepository)になります。
+ * 簡単に言うとデポジトリのデポジトリです。
  * @version 1.00
  * @since 2011/06/15
  * @author Masatoshi Tsuge

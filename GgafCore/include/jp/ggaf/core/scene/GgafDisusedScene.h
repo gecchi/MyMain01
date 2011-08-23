@@ -4,8 +4,10 @@ namespace GgafCore {
 
 /**
  * 不要になったシーン .
- * このシーンに所属したシーンは、遅かれ早かれdeleteされます。<BR>
- * 遅かれ早かれというのは、神(GgafGod)が、Fpsの余裕があるときに delete するという意味です<BR>
+ * GgafGarbageBox（ゴミ箱）に所属し操作されます。<BR>
+ * このシーンに所属したシーンは、遅かれ早かれ delete される恐怖のシーンです。<BR>
+ * 「遅かれ早かれ delete されるシーン達」ツリーの、トップノードに位置します。<BR>
+ * 自身は削除されることはありません。<BR>
  * @version 1.00
  * @since 2008/12/17
  * @author Masatoshi Tsuge
