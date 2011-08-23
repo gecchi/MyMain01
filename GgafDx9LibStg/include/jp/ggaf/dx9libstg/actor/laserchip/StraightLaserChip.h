@@ -14,7 +14,7 @@ namespace GgafDx9LibStg {
  * @author Masatoshi Tsuge
  */
 class StraightLaserChip : public LaserChip {
-    friend class LaserChipStore;
+    friend class LaserChipDepository;
 
 public:
     /** レーザーの位置を同期するための、X座標変数場所 */

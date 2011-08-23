@@ -19,7 +19,7 @@ public:
     SplineManufactureManager(const char* prm_manager_name);
 
     /**
-     * ストアーを識別文字列から生成。
+     * デポジトリを識別文字列から生成。
      * 本アプリのスプライン座標セットはココに集約しようと思っている。
      * @param prm_idstr
      * @return SplineManufactureオブジェクト

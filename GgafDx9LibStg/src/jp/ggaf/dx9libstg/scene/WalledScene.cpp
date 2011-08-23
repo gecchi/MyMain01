@@ -6,26 +6,26 @@ using namespace GgafDx9LibStg;
 
 WalledScene::WalledScene(const char* prm_name) : ScrolledScene(prm_name) {
     _class_name = "WalledScene";
-    _pStore_WallAAB = NULL;
-    _pStore_WallAAPrism = NULL;
+    _pDepo_WallAAB = NULL;
+    _pDepo_WallAAPrism = NULL;
     _pRingSection = NEW GgafLinkedListRing<WalledSectionScene>();
 }
 
 void WalledScene::buildWalledScene(
         int prm_wall_dep, int prm_wall_width, int prm_wall_height,
         WalledSectionScene** prm_papSection, int prm_section_num,
-        GgafActorStore* prm_pStore_WallAAB,
-        GgafActorStore* prm_pStore_WallAAPrism) {
+        GgafActorDepository* prm_pDepo_WallAAB,
+        GgafActorDepository* prm_pDepo_WallAAPrism) {
     _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] build...");
-    _pStore_WallAAB = prm_pStore_WallAAB;
-    _pStore_WallAAPrism = prm_pStore_WallAAPrism;
-    getDirector()->addSubGroup(_pStore_WallAAB);
-    if (_pStore_WallAAPrism) {
-        getDirector()->addSubGroup(_pStore_WallAAPrism);
+    _pDepo_WallAAB = prm_pDepo_WallAAB;
+    _pDepo_WallAAPrism = prm_pDepo_WallAAPrism;
+    getDirector()->addSubGroup(_pDepo_WallAAB);
+    if (_pDepo_WallAAPrism) {
+        getDirector()->addSubGroup(_pDepo_WallAAPrism);
     }
     for (int i = 0; i < prm_section_num; i++) {
         addSubLast(prm_papSection[i]);
-        prm_papSection[i]->config(_pStore_WallAAB, _pStore_WallAAPrism, prm_wall_dep, prm_wall_width, prm_wall_height);
+        prm_papSection[i]->config(_pDepo_WallAAB, _pDepo_WallAAPrism, prm_wall_dep, prm_wall_width, prm_wall_height);
         prm_papSection[i]->inactivateImmediately();
         _pRingSection->addLast(prm_papSection[i], false);
     }
@@ -67,7 +67,7 @@ void WalledScene::buildWalledScene(
 }
 
 void WalledScene::initialize() {
-    if (_pStore_WallAAB == NULL) {
+    if (_pDepo_WallAAB == NULL) {
         throwGgafCriticalException("WalledScene["<<getName()<<"] オブジェクトが未完成です。buildWalledScene()を実行し構築してください。");
     }
 }

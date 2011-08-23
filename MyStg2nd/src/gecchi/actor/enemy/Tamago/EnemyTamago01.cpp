@@ -11,13 +11,13 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     _iMovePatternNo = 0;
     _pProgram_Tamago01Move = NULL;
-    _pStoreCon = NULL;
-    _pStore_Shot = NULL;
-    _pStore_ShotEffect = NULL;
+    _pDepoCon = NULL;
+    _pDepo_Shot = NULL;
+    _pDepo_ShotEffect = NULL;
 
-    _pStoreCon = connectStoreManager("StCon_Shot001", NULL);
-    //_pStore_Shot = _pStoreCon->use();
-_pStore_Shot = NULL;
+    _pDepoCon = connectDepositoryManager("StCon_Shot001", NULL);
+    //_pDepo_Shot = _pDepoCon->use();
+_pDepo_Shot = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
@@ -133,7 +133,7 @@ void EnemyTamago01::processBehavior() {
     if (getBehaveingFrame() % 30 == 0) {
         _pKurokoA->execTurnMvAngSequence(P_MYSHIP, 2000,0,TURN_CLOSE_TO);
 
-        if (_pStore_Shot) {
+        if (_pDepo_Shot) {
             //放射状ショット発射
             int way = 8;
             angle* paAngWay = NEW angle[way];
@@ -144,7 +144,7 @@ void EnemyTamago01::processBehavior() {
             GgafDx9Util::getWayAngle2D(target_RyRz_Ry, way, 10000, paAngWay);
             GgafDx9DrawableActor* pActor;
             for (int i = 0; i < way; i++) {
-                pActor = (GgafDx9DrawableActor*)_pStore_Shot->dispatch();
+                pActor = (GgafDx9DrawableActor*)_pDepo_Shot->dispatch();
                 if (pActor) {
                     pActor->_pKurokoA->relateFaceAngWithMvAng(true);
                     pActor->_pKurokoA->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
@@ -153,8 +153,8 @@ void EnemyTamago01::processBehavior() {
             }
             DELETEARR_IMPOSSIBLE_NULL(paAngWay);
             //ショット発射エフェクト
-            if (_pStore_ShotEffect) {
-                pActor = (GgafDx9DrawableActor*)_pStore_Shot->dispatch();
+            if (_pDepo_ShotEffect) {
+                pActor = (GgafDx9DrawableActor*)_pDepo_Shot->dispatch();
                 if (pActor) {
                     pActor->locateAs(this);
                 }
@@ -198,6 +198,6 @@ void EnemyTamago01::onInactive() {
 }
 
 EnemyTamago01::~EnemyTamago01() {
-    _pStoreCon->close();
+    _pDepoCon->close();
     DELETE_POSSIBLE_NULL(_pProgram_Tamago01Move);
 }

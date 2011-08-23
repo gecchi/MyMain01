@@ -22,13 +22,13 @@ MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOpt
         addSubGroup(_papMyTorpedo[i]);
     }
 
-    _pStore_TorpedoBlast = NEW GgafActorStore("DP_TorpedoBlast");
+    _pDepo_TorpedoBlast = NEW GgafActorDepository("DP_TorpedoBlast");
     for (int i = 0; i < MyOption::_max_lockon_num*2; i++) {
         MyTorpedoBlast* pTorpedoBlast = NEW MyTorpedoBlast("TorpedoBlast");
         pTorpedoBlast->inactivateImmediately();
-        _pStore_TorpedoBlast->addSubLast(pTorpedoBlast);
+        _pDepo_TorpedoBlast->addSubLast(pTorpedoBlast);
     }
-    addSubGroup(_pStore_TorpedoBlast);
+    addSubGroup(_pDepo_TorpedoBlast);
 
 }
 

@@ -57,8 +57,8 @@ private:
     void setScenePlatform(GgafScene* prm_pScene_Platform);
 
 public:
-    /** [r]所属ストアー(NULLは未所属) */
-    GgafActorStore* _pDependenceStore;
+    /** [r]所属デポジトリ(NULLは未所属) */
+    GgafActorDepository* _pDependenceDepository;
     /** [r]アクター開始システム時刻 */
     UINT32 _start_system_time;
     /** [r]アクター衝突判定有無フラグ */
@@ -170,8 +170,8 @@ public:
      * 未所属の場合NULL
      * @return 所属Dispcher
      */
-    GgafActorStore* getDependenceDispcher() {
-        return _pDependenceStore;
+    GgafActorDepository* getDependenceDispcher() {
+        return _pDependenceDepository;
     }
 
     /**

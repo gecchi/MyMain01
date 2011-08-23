@@ -47,7 +47,7 @@ public:
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
         if (prm_no == GGAF_EVENT_ON_DEVICE_LOST) {
             releaseCubeMapTex();
-        } else if (prm_no == GGAF_EVENT_DEVICE_LOST_RESTORE) {
+        } else if (prm_no == GGAF_EVENT_DEVICE_LOST_REDEPOSITORY) {
             restoreCubeMapTex();
         }
     }

@@ -14,7 +14,7 @@ namespace GgafDx9LibStg {
  * @author Masatoshi Tsuge
  */
 class WateringLaserChip : public LaserChip {
-    friend class LaserChipStore;
+    friend class LaserChipDepository;
 public:
     int _tmpX, _tmpY, _tmpZ;
     WateringLaserChip(const char* prm_name, const char* prm_model);

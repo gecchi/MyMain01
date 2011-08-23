@@ -949,7 +949,7 @@ void GgafDx9God::makeUniversalMaterialize() {
             //モデル再設定
             GgafDx9God::_pModelManager->restoreAll();
             //全ノードに再設定しなさいイベント発令
-            getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_RESTORE, this);
+            getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY, this);
             //前回描画モデル情報を無効にする
             GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
             _is_device_lost_flg = false;
@@ -1138,7 +1138,7 @@ void GgafDx9God::presentUniversalVisualize() {
             //モデル再設定
             GgafDx9God::_pModelManager->restoreAll();
             //全ノードに再設定しなさいイベント発令
-            getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_RESTORE, this);
+            getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY, this);
             //前回描画モデル情報を無効にする
             GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
 

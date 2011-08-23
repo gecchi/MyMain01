@@ -17,8 +17,8 @@ public:
     MyOption* _pMyOption;
     /** [r]保持する魚雷配列（要素数は MyOption::_max_lockon_num 個） */
     MyTorpedo** _papMyTorpedo;
-    /** [r]保持する魚雷爆風ストアー */
-    GgafCore::GgafActorStore* _pStore_TorpedoBlast;
+    /** [r]保持する魚雷爆風デポジトリ */
+    GgafCore::GgafActorDepository* _pDepo_TorpedoBlast;
     /** 同時発射魚雷数 */
     int _firing_num;
     /** 現在魚雷発射中かどうか true:いづれかの魚雷が活動中/false:全ての魚雷が非活動状態 */

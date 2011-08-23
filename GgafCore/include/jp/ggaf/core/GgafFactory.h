@@ -197,7 +197,7 @@ public:
     static X* createActorWithDp(void* p1, void* p2, void* p3) {
         //p1 : 識別名称
         //p2 : アクター発送者
-        X* p = NEW X((char*)p1, (GgafCore::GgafActorStore*)p2);
+        X* p = NEW X((char*)p1, (GgafCore::GgafActorDepository*)p2);
         return p;
     }
 
@@ -206,7 +206,7 @@ public:
         //p1 : 識別名称
         //p2 : モデル識別文字列
         //p3 : アクター発送者
-        X* p = NEW X((char*)p1, (char*)p2, (GgafCore::GgafActorStore*)p3);
+        X* p = NEW X((char*)p1, (char*)p2, (GgafCore::GgafActorDepository*)p3);
         return p;
     }
 
@@ -222,8 +222,8 @@ public:
 
 #define orderActorToFactory(ID, CLASS, NAME) GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActor,(void*)(NAME),(void*)(NULL),(void*)(NULL))
 #define orderActorWithModelToFactory(ID, CLASS, NAME, MODEL) GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModel,(void*)(NAME),(void*)(MODEL),(void*)(NULL))
-#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, STORE) GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModelDp,(void*)(NAME),(void*)(MODEL),(void*)(STORE))
-#define orderActorWithDpToFactory(ID, CLASS, NAME, STORE) GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithDp,(void*)(NAME),(void*)(STORE), (void*)(NULL))
+#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, DEPOSITORY) GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModelDp,(void*)(NAME),(void*)(MODEL),(void*)(DEPOSITORY))
+#define orderActorWithDpToFactory(ID, CLASS, NAME, DEPOSITORY) GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithDp,(void*)(NAME),(void*)(DEPOSITORY), (void*)(NULL))
 
 #define obtainActorFromFactory(ID) GgafCore::GgafFactory::obtainActor((ID))
 #define orderSceneToFactory(ID, CLASS, NAME) GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene,(void*)(NAME),(void*)(NULL),(void*)(NULL))

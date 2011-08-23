@@ -13,15 +13,15 @@ FormationPallas002::FormationPallas002(const char* prm_name) : GgafDx9FormationA
     //パラス編隊作成
     _pSplManufCon = connectSplineManufactureManager("Pallas02");
 //    _pSplCon     = (Spline3DConnection*)(P_GOD->_pSpl3DManager->connect("SpCon_Pallas01")); //スプライン定義
-    //_pStoreCon = connectStoreManager("StCon_Shot002", NULL);
-    _pStoreCon = NULL;
+    //_pDepoCon = connectDepositoryManager("StCon_Shot002", NULL);
+    _pDepoCon = NULL;
     _papPallas = NEW EnemyPallas*[_num_Pallas];
     for (int i = 0; i < _num_Pallas; i++) {
         _papPallas[i] = NEW EnemyPallas("Pallas01");
         //スプライン移動プログラム設定
         SplineSequence* pProgram = _pSplManufCon->use()->createSplineSequence(_papPallas[i]->_pKurokoA); //移動速度固定
         _papPallas[i]->config(pProgram, NULL, NULL);
-        //_papPallas[i]->setStore_Shot(_pStoreCon->use()); //弾設定
+        //_papPallas[i]->setDepository_Shot(_pDepoCon->use()); //弾設定
         _papPallas[i]->inactivateImmediately();
         addSubLast(_papPallas[i]);
     }
@@ -37,8 +37,8 @@ void FormationPallas002::onActive() {
 
 FormationPallas002::~FormationPallas002() {
     _pSplManufCon->close();
-    if (_pStoreCon) {
-        _pStoreCon->close();
+    if (_pDepoCon) {
+        _pDepoCon->close();
     }
     DELETEARR_IMPOSSIBLE_NULL(_papPallas);
 }

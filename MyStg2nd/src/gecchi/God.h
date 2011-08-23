@@ -11,8 +11,8 @@ namespace MyStg2nd {
 #define VB MyStg2nd::God::_pVbtn_Active
 
 
-//#define connectStoreManager(X) (connectStoreManager(X)))
-#define connectStoreManager(X,Y) ((MyStg2nd::StoreConnection*)(P_GOD->_pStoreManager->connect((X),(Y))))
+//#define connectDepositoryManager(X) (connectDepositoryManager(X)))
+#define connectDepositoryManager(X,Y) ((MyStg2nd::DepositoryConnection*)(P_GOD->_pDepoManager->connect((X),(Y))))
 
 /**
  * ê_
@@ -23,7 +23,7 @@ namespace MyStg2nd {
 class God : public GgafDx9LibStg::DefaultGod {
 
 public:
-    StoreManager* _pStoreManager;
+    DepositoryManager* _pDepoManager;
     Spline3DManager* _pSpl3DManager;
 
 

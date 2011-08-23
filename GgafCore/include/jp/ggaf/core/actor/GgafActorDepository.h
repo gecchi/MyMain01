@@ -1,11 +1,11 @@
-#ifndef GGAFACTORSTORE_H_
-#define GGAFACTORSTORE_H_
+#ifndef GGAFACTORDEPOSITORY_H_
+#define GGAFACTORDEPOSITORY_H_
 namespace GgafCore {
 
 /**
- * アクターストアー（人材バンク）クラス .
+ * アクターデポジトリ（人材バンク）クラス .
  * 自アクターのサブに予め幾つかアクターを登録(addSubLast)してストックする。<BR>
- * 他からの dispatch() メソッドで、ストックの活動していないアクター探して提供する。<BR>
+ * 他からの dispatch() メソッドが呼び出されると、デポジトリ内の活動していないアクター探して提供する。<BR>
  * アクターは使い終わったらinactivate()すると、ストックに戻ったことになる。<BR>
  * 弾など何度も使いまわしたいアクターや、出現数制限したい場合等に有効となるハズである。<BR>
  * 連続dispatch()の場合、次のdispatch()のアクターは必ず隣同士となっているという法則がある。<BR>
@@ -16,16 +16,16 @@ namespace GgafCore {
  * @since 2008/08/11
  * @author Masatoshi Tsuge
  */
-class GgafActorStore : public GgafDummyActor {
+class GgafActorDepository : public GgafDummyActor {
 public:
 
-    GgafActorStore(const char* prm_name);
+    GgafActorDepository(const char* prm_name);
 
     /**
      * 貸出メンバー(GgafActor)を追加登録します.
      * ストックの追加的なイメージです。<BR>
      * GgafNode<T>::addSubLast() を実行する前に、アクター種別のを引き継ぎを行います。
-     * 最初に登録したアクターの種別が、本ストアーの種別となります。
+     * 最初に登録したアクターの種別が、本デポジトリの種別となります。
      * それ以降は同じ種別のアクターを登録する制限があります。<BR>
      * また、引数のアクターには inactivateImmediately() が実行され、メンバーは非活動状態に強制されます。<BR>
      * @param prm_pSub 貸出メンバーアクター
@@ -65,7 +65,7 @@ public:
      * 一時的にキャラを派遣するようなイメージ<BR>
      * ＜使用例＞
      * <pre><code>
-     * GgafMainActor* pActor = pStore->dispatch();
+     * GgafMainActor* pActor = pDepository->dispatch();
      * if (pActor) {
      *     //アクターの初期処理
      *     //・・・
@@ -78,7 +78,7 @@ public:
     virtual GgafCore::GgafMainActor* dispatch() {
 #ifdef MY_DEBUG
         if (_pSubFirst == NULL) {
-            throwGgafCriticalException("GgafActorStore::dispatch() "<<getName()<<" の子がありません");
+            throwGgafCriticalException("GgafActorDepository::dispatch() "<<getName()<<" の子がありません");
         }
 #endif
         GgafMainActor* pActor = getSubFirst();
@@ -112,7 +112,7 @@ public:
      * 強制的にonActive() コールバックを呼び出したい場合に次のようなコードに
      * しなければいけないかも知れない。
      * <pre><code>
-     * GgafMainActor* pActor = pStore->dispatchForce();
+     * GgafMainActor* pActor = pDepository->dispatchForce();
      * if (pActor->isActiveActor()) {
      *     pActor->inactivateImmediately();
      *     pActor->onInactive();
@@ -137,9 +137,9 @@ public:
      */
     virtual void onReset() override;
 
-    virtual ~GgafActorStore() {
+    virtual ~GgafActorDepository() {
     }
 };
 
 }
-#endif /*GGAFACTORSTORE_H_*/
+#endif /*GGAFACTORDEPOSITORY_H_*/

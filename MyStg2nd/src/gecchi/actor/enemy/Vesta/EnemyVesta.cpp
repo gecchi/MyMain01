@@ -22,8 +22,8 @@ EnemyVesta::EnemyVesta(const char* prm_name)
     _frame_of_moment_nextclose = 0;
     _frame_of_morph_interval   = 60;
 
-    _pStore_Fired = NULL;
-    _pDpcon = connectStoreManager("StCon_Shot004", NULL);
+    _pDepo_Fired = NULL;
+    _pDpcon = connectDepositoryManager("StCon_Shot004", NULL);
 
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
@@ -50,7 +50,7 @@ void EnemyVesta::initialize() {
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 1200);
     _pScaler->beat(30, 5, 5, -1);
-    _pStore_Fired = _pDpcon->use();
+    _pDepo_Fired = _pDpcon->use();
 }
 
 void EnemyVesta::onActive() {
@@ -143,8 +143,8 @@ void EnemyVesta::processBehavior() {
         int openningFrame = getActivePartFrame() - _frame_of_moment_nextopen; //開いてからのフレーム数。
         //_frame_of_moment_nextopenは、ここの処理の時点では直近でオープンしたフレームとなる。
         if (openningFrame % (int)(R_EnemyVesta_ShotInterval) == 0) {
-            if (_pStore_Fired) {
-                GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pStore_Fired->dispatch();
+            if (_pDepo_Fired) {
+                GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDepo_Fired->dispatch();
                 if (pActor) {
                     pActor->locateAs(this);
                     pActor->_pKurokoA->relateFaceAngWithMvAng(true);

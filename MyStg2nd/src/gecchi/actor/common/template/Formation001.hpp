@@ -9,10 +9,10 @@ namespace MyStg2nd {
 template<class T>
 class Formation001 : public GgafDx9Core::GgafDx9FormationActor {
 
-    GgafCore::GgafActorStore* _pStore;
+    GgafCore::GgafActorDepository* _pDepo;
     bool _was_create_dispatcher;
 public:
-    Formation001(const char* prm_name, GgafCore::GgafActorStore* prm_pStore = NULL);
+    Formation001(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo = NULL);
 
     virtual void initialize() override;
 
@@ -21,21 +21,21 @@ public:
 
 
 template<class T>
-Formation001<T>::Formation001(const char* prm_name, GgafCore::GgafActorStore* prm_pStore) : GgafDx9Core::GgafDx9FormationActor(prm_name) {
+Formation001<T>::Formation001(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo) : GgafDx9Core::GgafDx9FormationActor(prm_name) {
     _class_name = "Formation001";
-    if (prm_pStore == NULL) {
+    if (prm_pDepo == NULL) {
         _was_create_dispatcher = true;
-        _pStore = NEW GgafCore::GgafActorStore("Store_Formation001");
+        _pDepo = NEW GgafCore::GgafActorDepository("Depository_Formation001");
         T* _paActor = NEW T[ACTOR_NUM_FORMATION001];
         T* pActor;
         for (int i = 0; i < ACTOR_NUM_FORMATION001; i++) {
             pActor = NEW T("Actor_Formation001");
             pActor->inactivateImmediately(); //Å‰”ñ•\Ž¦
-            _pStore->addSubLast(pActor);
+            _pDepo->addSubLast(pActor);
         }
     } else {
         _was_create_dispatcher = false;
-        _pStore = prm_pStore;
+        _pDepo = prm_pDepo;
     }
 }
 

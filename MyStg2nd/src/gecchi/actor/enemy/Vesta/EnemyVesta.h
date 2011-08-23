@@ -27,9 +27,9 @@ public:
     frame _frame_of_morph_interval;
     /** [r/w]ハッチの土台となってるアクター */
 
-    /** [r/w]ハッチから発射されるアクターをメンバーに持つストアー */
-    GgafCore::GgafActorStore* _pStore_Fired;
-    StoreConnection* _pDpcon;
+    /** [r/w]ハッチから発射されるアクターをメンバーに持つデポジトリ */
+    GgafCore::GgafActorDepository* _pDepo_Fired;
+    DepositoryConnection* _pDpcon;
 
     /**
      * コンストラクタ

@@ -8,8 +8,8 @@ using namespace MyStg2nd;
 EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Pallas") {
     _class_name = "EnemyJuno";
     MyStgUtil::resetEnemyJunoStatus(_pStatus);
-    _pStore_ShotEffect = NULL;
-    _pStore_Shot = NULL;
+    _pDepo_ShotEffect = NULL;
+    _pDepo_Shot = NULL;
     _iMovePatternNo = 0;
     _nMaxShot = 1;
     _nShot = 0;
@@ -58,8 +58,8 @@ void EnemyJuno::processBehavior() {
             _pKurokoA->setMvVelo(500); //減速
             _pKurokoA->execTurnRxSpinAngSequence(ANGLE180, 8000, 0, TURN_CLOCKWISE);
         } else if (getActivePartFrame() == _frame_when_shot + 20) {
-            if (_pStore_Shot) {
-                GgafDx9DrawableActor* pShot = (GgafDx9DrawableActor*)_pStore_Shot->dispatch();
+            if (_pDepo_Shot) {
+                GgafDx9DrawableActor* pShot = (GgafDx9DrawableActor*)_pDepo_Shot->dispatch();
                 if (pShot) {
                     _nShot++;
                     pShot->locateAs(this);
@@ -72,7 +72,7 @@ void EnemyJuno::processBehavior() {
 
                 }
                 //ショット発射エフェクト
-                if (_pStore_ShotEffect) {
+                if (_pDepo_ShotEffect) {
                 }
                 _pKurokoA->setMvVelo(_veloMv_begin); //再加速
             }

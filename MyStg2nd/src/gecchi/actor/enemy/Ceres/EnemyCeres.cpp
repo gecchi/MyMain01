@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyCeres::EnemyCeres(const char* prm_name, GgafActorStore* prm_pStore_EnemyCeresShots001) :
+EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyCeresShots001) :
         DefaultMeshSetActor(prm_name, "Ceres") {
     _class_name = "EnemyCeres";
     MyStgUtil::resetEnemyCeresStatus(_pStatus);
@@ -20,22 +20,22 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorStore* prm_pStore_EnemyCer
 
 
 
-    if (prm_pStore_EnemyCeresShots001 == NULL) {
+    if (prm_pDepo_EnemyCeresShots001 == NULL) {
         //‹¤—L‚Ì’e‚ªˆø”‚É–¢w’è‚Ìê‡
         //’eƒXƒgƒbƒNì¬
-        _pStore_EnemyCeresShots001 = NEW GgafActorStore("RotEnemyMeshS001");
+        _pDepo_EnemyCeresShots001 = NEW GgafActorDepository("RotEnemyMeshS001");
         EnemyCeresShot001* pCeresShot001;
         for (int i = 0; i < 32; i++) {
             pCeresShot001 = NEW EnemyCeresShot001("EnemyMeshShot");
             pCeresShot001->inactivateTreeImmediately(); //Å‰”ñ•\¦
-            _pStore_EnemyCeresShots001->addSubLast(pCeresShot001);
+            _pDepo_EnemyCeresShots001->addSubLast(pCeresShot001);
         }
-        addSubGroup(_pStore_EnemyCeresShots001);
-        _createGgafActorStore = true;
+        addSubGroup(_pDepo_EnemyCeresShots001);
+        _createGgafActorDepository = true;
     } else {
         //‹¤—L‚Ì’e‚ªw’è‚³‚ê‚Ä‚é‚Ìê‡
-        _pStore_EnemyCeresShots001 = prm_pStore_EnemyCeresShots001;
-        _createGgafActorStore = false;
+        _pDepo_EnemyCeresShots001 = prm_pDepo_EnemyCeresShots001;
+        _createGgafActorDepository = false;
     }
 
     _pSplCon = (Spline3DConnection*)(P_GOD->_pSpl3DManager->connect("SpCon_001"));
@@ -76,14 +76,14 @@ void EnemyCeres::processBehavior() {
         GgafDx9Util::getRadialAngle2D(0, 32, way);
         GgafDx9DrawableActor* pTama;
         for (int i = 0; i < 16; i++) {
-            pTama = (GgafDx9DrawableActor*)_pStore_EnemyCeresShots001->dispatch();
+            pTama = (GgafDx9DrawableActor*)_pDepo_EnemyCeresShots001->dispatch();
             if (pTama) {
                 pTama->locate(_X, _Y, _Z);
                 pTama->_pKurokoA->setRzRyMvAng(-ANGLE90 + way[i], ANGLE90);
             }
         }
         for (int i = 16; i < 32; i++) {
-            pTama = (GgafDx9DrawableActor*)_pStore_EnemyCeresShots001->dispatch();
+            pTama = (GgafDx9DrawableActor*)_pDepo_EnemyCeresShots001->dispatch();
             if (pTama) {
                 pTama->locate(_X, _Y, _Z);
                 pTama->_pKurokoA->setRzRyMvAng(-ANGLE90 - way[i], -ANGLE90);
@@ -121,10 +121,10 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyCeres::onInactive() {
-    if (_createGgafActorStore) {
+    if (_createGgafActorDepository) {
         //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ğŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-        getDirector()->addSubLast(_pStore_EnemyCeresShots001->getMyGroupHead()->extract());
-       _pStore_EnemyCeresShots001->sayonara(60 * 5);//‰ğ•ú—\–ñ
+        getDirector()->addSubLast(_pDepo_EnemyCeresShots001->getMyGroupHead()->extract());
+       _pDepo_EnemyCeresShots001->sayonara(60 * 5);//‰ğ•ú—\–ñ
     }
     sayonara();
 }

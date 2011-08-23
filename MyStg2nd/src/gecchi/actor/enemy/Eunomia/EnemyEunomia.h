@@ -14,9 +14,9 @@ public:
     /** 移動スプラインのシークエンスプログラム */
     GgafDx9LibStg::SplineSequence* _pSplSeq;
     /** 弾ストック */
-    GgafCore::GgafActorStore* _pStore_Shot;
+    GgafCore::GgafActorDepository* _pDepo_Shot;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorStore* _pStore_ShotEffect;
+    GgafCore::GgafActorDepository* _pDepo_ShotEffect;
 
     /** 行動パターン番号 */
     int _iMovePatternNo;
@@ -67,17 +67,17 @@ public:
     /**
      *
      * @param prm_pSplSeq
-     * @param prm_pStore_Shot
-     * @param prm_pStore_ShotEffect
+     * @param prm_pDepo_Shot
+     * @param prm_pDepo_ShotEffect
      */
     virtual void config(
             GgafDx9LibStg::SplineSequence* prm_pSplSeq,
-            GgafCore::GgafActorStore* prm_pStore_Shot,
-            GgafCore::GgafActorStore* prm_pStore_ShotEffect
+            GgafCore::GgafActorDepository* prm_pDepo_Shot,
+            GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
             ) {
         _pSplSeq = prm_pSplSeq;
-        _pStore_Shot = prm_pStore_Shot;
-        _pStore_ShotEffect = prm_pStore_ShotEffect;
+        _pDepo_Shot = prm_pDepo_Shot;
+        _pDepo_ShotEffect = prm_pDepo_ShotEffect;
     }
 
 

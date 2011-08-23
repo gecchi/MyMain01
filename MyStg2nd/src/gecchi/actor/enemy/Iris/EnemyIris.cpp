@@ -10,8 +10,8 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris
     MyStgUtil::resetEnemyIrisStatus(_pStatus);
     _iMovePatternNo = 0;
     _pSplSeq = NULL;
-    _pStore_Shot = NULL;
-    _pStore_ShotEffect = NULL;
+    _pDepo_Shot = NULL;
+    _pDepo_ShotEffect = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
 }
@@ -61,14 +61,14 @@ void EnemyIris::processBehavior() {
             break;
 
         case 2:  //【パターン２：放射状ショット発射と自機へ方向転換】
-            if (_pStore_Shot) {
+            if (_pDepo_Shot) {
                 //放射状ショット
                 int way = R_EnemyIris_ShotWay; //ショットWAY数
                 angle* paAngWay = NEW angle[way];
                 GgafDx9Util::getRadialAngle2D(0, way, paAngWay);
                 GgafDx9DrawableActor* pActor_Shot;
                 for (int i = 0; i < way; i++) {
-                    pActor_Shot = (GgafDx9DrawableActor*)_pStore_Shot->dispatch();
+                    pActor_Shot = (GgafDx9DrawableActor*)_pDepo_Shot->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->locateAs(this);
                         pActor_Shot->_pKurokoA->setRzRyMvAng(paAngWay[i], ANGLE90);
@@ -76,8 +76,8 @@ void EnemyIris::processBehavior() {
                 }
                 DELETEARR_IMPOSSIBLE_NULL(paAngWay);
                 //ショット発射エフェクト
-                if (_pStore_ShotEffect) {
-                    GgafDx9DrawableActor* pTestActor_Shot = (GgafDx9DrawableActor*)_pStore_ShotEffect->dispatch();
+                if (_pDepo_ShotEffect) {
+                    GgafDx9DrawableActor* pTestActor_Shot = (GgafDx9DrawableActor*)_pDepo_ShotEffect->dispatch();
                     if (pTestActor_Shot) {
                         pTestActor_Shot->locateAs(this);
                     }

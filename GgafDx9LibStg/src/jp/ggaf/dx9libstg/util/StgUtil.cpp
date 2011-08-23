@@ -9,7 +9,7 @@ using namespace GgafDx9LibStg;
 
 
 void StgUtil::shotWay001(GgafDx9GeometricActor* prm_pFrom,
-                       GgafActorStore* prm_pStore_Shot,
+                       GgafActorDepository* prm_pDepo_Shot,
                        GgafDx9GeometricActor* prm_pTarget,
                        int prm_way, angle prm_angClearance,
                        velo prm_velo, acce prm_acce) {
@@ -22,7 +22,7 @@ void StgUtil::shotWay001(GgafDx9GeometricActor* prm_pFrom,
     GgafDx9Util::getWayAngle2D(0,prm_way, prm_angClearance, paAngWay);
     GgafDx9DrawableActor* pActor_Shot;
     for (int i = 0; i < prm_way; i++) {
-        pActor_Shot = (GgafDx9DrawableActor*)prm_pStore_Shot->dispatch();
+        pActor_Shot = (GgafDx9DrawableActor*)prm_pDepo_Shot->dispatch();
         if (pActor_Shot) {
             pActor_Shot->locateAs(prm_pFrom);
             pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAngWay[i], ry);
@@ -34,7 +34,7 @@ void StgUtil::shotWay001(GgafDx9GeometricActor* prm_pFrom,
 }
 
 void StgUtil::shotWay001v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
-                           GgafCore::GgafActorStore*     prm_pStore_Shot,
+                           GgafCore::GgafActorDepository*     prm_pDepo_Shot,
                            GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
                            int prm_way, angle prm_angClearance,
                            velo prm_velo_top, acce prm_acce_top,
@@ -51,7 +51,7 @@ void StgUtil::shotWay001v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
     acce now_acce = prm_acce_top;
     for (int n = 0; n < prm_num; n++) {
         for (int i = 0; i < prm_way; i++) {
-            pActor_Shot = (GgafDx9DrawableActor*)prm_pStore_Shot->dispatch();
+            pActor_Shot = (GgafDx9DrawableActor*)prm_pDepo_Shot->dispatch();
             if (pActor_Shot) {
                 pActor_Shot->locateAs(prm_pFrom);
                 pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAngWay[i], ry);
@@ -66,7 +66,7 @@ void StgUtil::shotWay001v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
 }
 
 void StgUtil::shotWay002(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
-                        GgafCore::GgafActorStore*     prm_pStore_Shot,
+                        GgafCore::GgafActorDepository*     prm_pDepo_Shot,
                         GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
                         int prm_way, angle prm_angBegin,
                         velo prm_velo, acce prm_acce) {
@@ -79,7 +79,7 @@ void StgUtil::shotWay002(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
     GgafDx9Util::getRadialAngle2D(prm_angBegin, prm_way, paAngWay);
     GgafDx9DrawableActor* pActor_Shot;
     for (int i = 0; i < prm_way; i++) {
-        pActor_Shot = (GgafDx9DrawableActor*)prm_pStore_Shot->dispatch();
+        pActor_Shot = (GgafDx9DrawableActor*)prm_pDepo_Shot->dispatch();
         if (pActor_Shot) {
             pActor_Shot->locateAs(prm_pFrom);
             pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAngWay[i], ry+ANGLE90);
@@ -90,7 +90,7 @@ void StgUtil::shotWay002(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
     DELETEARR_IMPOSSIBLE_NULL(paAngWay);
 }
 void StgUtil::shotWay002v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
-                           GgafCore::GgafActorStore*     prm_pStore_Shot,
+                           GgafCore::GgafActorDepository*     prm_pDepo_Shot,
                            GgafDx9Core::GgafDx9GeometricActor* prm_pTarget,
                            int prm_way, angle prm_angBegin,
                            velo prm_velo_top, acce prm_acce_top,
@@ -107,7 +107,7 @@ void StgUtil::shotWay002v2(GgafDx9Core::GgafDx9GeometricActor* prm_pFrom,
     acce now_acce = prm_acce_top;
     for (int n = 0; n < prm_num; n++) {
         for (int i = 0; i < prm_way; i++) {
-            pActor_Shot = (GgafDx9DrawableActor*)prm_pStore_Shot->dispatch();
+            pActor_Shot = (GgafDx9DrawableActor*)prm_pDepo_Shot->dispatch();
             if (pActor_Shot) {
                 pActor_Shot->locateAs(prm_pFrom);
                 pActor_Shot->_pKurokoA->setRzRyMvAng(rz+paAngWay[i], ry+ANGLE90);

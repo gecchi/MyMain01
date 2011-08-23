@@ -20,7 +20,7 @@ FormationJuno::FormationJuno(
             int prm_nJunoStock,
             int prm_frame_app_interval) : GgafDx9FormationActor(prm_name) {
     _class_name = "FormationJuno";
-    _pStoreCon = connectStoreManager("StCon_Shot004", NULL); //Juno‚Ì’e
+    _pDepoCon = connectDepositoryManager("StCon_Shot004", NULL); //Juno‚Ì’e
 
     _pRndGen = CmRandomNumberGenerator::getInstance();
     _pRndGen->changeSeed(P_MYSHIP->_Z);
@@ -43,10 +43,10 @@ FormationJuno::FormationJuno(
 
     _frame_app_interval = prm_frame_app_interval;
 
-    _pStore_EnemyJuno = NEW GgafActorStore("RotEnemyJuno");
+    _pDepo_EnemyJuno = NEW GgafActorDepository("RotEnemyJuno");
     for (int i = 0; i < prm_nJunoStock; i++) {
         EnemyJuno* pEnemyJuno = NEW EnemyJuno("Juno01");
-        pEnemyJuno->setStore_Shot(_pStoreCon->use()); //’eÝ’è
+        pEnemyJuno->setDepository_Shot(_pDepoCon->use()); //’eÝ’è
         pEnemyJuno->_pKurokoA->relateFaceAngWithMvAng(true);
         pEnemyJuno->_pKurokoA->setMvVelo(prm_veloMv_Juno);
         pEnemyJuno->_pKurokoA->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);
@@ -54,9 +54,9 @@ FormationJuno::FormationJuno(
         pEnemyJuno->_pKurokoB->setVyMvVelo(vY_AppBox*prm_veloMv_App);
         pEnemyJuno->_pKurokoB->setVzMvVelo(vZ_AppBox*prm_veloMv_App);
         pEnemyJuno->inactivateTreeImmediately();
-        _pStore_EnemyJuno->addSubLast(pEnemyJuno);
+        _pDepo_EnemyJuno->addSubLast(pEnemyJuno);
     }
-    addSubGroup(_pStore_EnemyJuno);
+    addSubGroup(_pDepo_EnemyJuno);
 }
 
 void FormationJuno::initialize() {
@@ -64,7 +64,7 @@ void FormationJuno::initialize() {
 
 void FormationJuno::processBehavior() {
     if (getActivePartFrame() % _frame_app_interval == 0) {
-        EnemyJuno* pEnemyJuno = (EnemyJuno*)_pStore_EnemyJuno->dispatch();
+        EnemyJuno* pEnemyJuno = (EnemyJuno*)_pDepo_EnemyJuno->dispatch();
         if (pEnemyJuno) {
             pEnemyJuno->_X = (_pRndGen->genrand_int32() % (_X2_app-_X1_app)) + _X1_app + _X;
             pEnemyJuno->_Y = (_pRndGen->genrand_int32() % (_Y2_app-_Y1_app)) + _Y1_app + _Y;
@@ -76,5 +76,5 @@ void FormationJuno::processBehavior() {
 }
 
 FormationJuno::~FormationJuno() {
-    _pStoreCon->close();
+    _pDepoCon->close();
 }

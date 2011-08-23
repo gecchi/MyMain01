@@ -6,8 +6,8 @@ class EnemyAstraeaLaserChip002 : public GgafDx9LibStg::RefractionLaserChip {
 
 
 public:
-    /** 反射時エフェクトストアーへの接続 */
-    StoreConnection* _pCon_RefractionEffectStore;
+    /** 反射時エフェクトデポジトリへの接続 */
+    DepositoryConnection* _pCon_RefractionEffectDepository;
 
 
     EnemyAstraeaLaserChip002(const char* prm_name);

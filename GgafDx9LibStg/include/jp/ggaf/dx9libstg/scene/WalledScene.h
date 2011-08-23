@@ -13,9 +13,9 @@ class WalledScene : public GgafDx9LibStg::ScrolledScene {
 public:
     /** セクションシーンのリスト */
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::WalledSectionScene>* _pRingSection;
-    /** 壁ブロックを供給するストアー(buildWalledScene()で設定される) */
-    GgafCore::GgafActorStore* _pStore_WallAAB;
-    GgafCore::GgafActorStore* _pStore_WallAAPrism;
+    /** 壁ブロックを供給するデポジトリ(buildWalledScene()で設定される) */
+    GgafCore::GgafActorDepository* _pDepo_WallAAB;
+    GgafCore::GgafActorDepository* _pDepo_WallAAPrism;
 
     /**
      * コンストラクタ
@@ -32,13 +32,13 @@ public:
      * @param prm_wall_height   壁ブロック１個のY軸方向の幅
      * @param prm_papSection    セクションシーン配列へのポインタ
      * @param prm_section_num   セクションシーン数
-     * @param prm_pStore_Wall 壁ブロックを供給するストアー
+     * @param prm_pDepo_Wall 壁ブロックを供給するデポジトリ
      */
     void buildWalledScene(
             int prm_wall_dep, int prm_wall_width, int prm_wall_height,
             WalledSectionScene** prm_papSection, int prm_section_num,
-            GgafCore::GgafActorStore* prm_pStore_WallAABox,
-            GgafCore::GgafActorStore* prm_pStore_WallAAPrism = NULL
+            GgafCore::GgafActorDepository* prm_pDepo_WallAABox,
+            GgafCore::GgafActorDepository* prm_pDepo_WallAAPrism = NULL
          );
 
     /**

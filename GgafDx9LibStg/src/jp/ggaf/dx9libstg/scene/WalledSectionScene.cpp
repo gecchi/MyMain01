@@ -66,24 +66,24 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     ifs.close();
     _pWallPartsLast = NULL;;
     _wall_start_X = 0;
-    _pStore_WallAAB = NULL;
-    _pStore_WallAAPrism = NULL;
+    _pDepo_WallAAB = NULL;
+    _pDepo_WallAAPrism = NULL;
     _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" done");
 }
 void WalledSectionScene::config(
-        GgafActorStore* prm_pStore_WallAAB,
-        GgafActorStore* prm_pStore_WallAAPrism,
+        GgafActorDepository* prm_pDepo_WallAAB,
+        GgafActorDepository* prm_pDepo_WallAAPrism,
         int prm_wall_dep, int prm_wall_width, int prm_wall_height) {
-    _pStore_WallAAB = prm_pStore_WallAAB;
-    _pStore_WallAAPrism = prm_pStore_WallAAPrism;
+    _pDepo_WallAAB = prm_pDepo_WallAAB;
+    _pDepo_WallAAPrism = prm_pDepo_WallAAPrism;
     _wall_dep = prm_wall_dep;
     _wall_width = prm_wall_width;
     _wall_height = prm_wall_height;
 }
 
 void WalledSectionScene::initialize() {
-    if (_pStore_WallAAB == NULL) {
-        throwGgafCriticalException("WalledSectionScene::initialize()   GgafActorStore* _pStore_WallAAB をセットして下さい。")
+    if (_pDepo_WallAAB == NULL) {
+        throwGgafCriticalException("WalledSectionScene::initialize()   GgafActorDepository* _pDepo_WallAAB をセットして下さい。")
     }
 }
 
@@ -114,10 +114,10 @@ void WalledSectionScene::processBehavior() {
             WallPartsActor* pWallParts = NULL;
             for (int n = 0; n < _paWallInfoLen[_cnt_area_len]; n++) {
                 if (_papaWallInfo[_cnt_area_len][n]._pos_prism == 0) {
-                    pWallParts = (WallPartsActor*)_pStore_WallAAB->dispatchForce();
+                    pWallParts = (WallPartsActor*)_pDepo_WallAAB->dispatchForce();
                 } else {
-                    if (_pStore_WallAAPrism) {
-                        pWallParts = (WallPartsActor*)_pStore_WallAAPrism->dispatchForce();
+                    if (_pDepo_WallAAPrism) {
+                        pWallParts = (WallPartsActor*)_pDepo_WallAAPrism->dispatchForce();
                     } else {
                         continue;
                     }

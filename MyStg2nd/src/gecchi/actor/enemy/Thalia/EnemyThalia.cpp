@@ -20,11 +20,11 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
     _veloTopMv = 20000;
     _iMovePatternNo = 0;
     _pSplSeq = NULL;
-    _pStore_Shot = NULL;
-    _pStore_ShotEffect = NULL;
+    _pDepo_Shot = NULL;
+    _pDepo_ShotEffect = NULL;
 
-    _pLaserChipStore = NEW LaserChipStore("MyRotLaser");
-    _pLaserChipStore->config(100, 0, NULL);
+    _pLaserChipDepo = NEW LaserChipDepository("MyRotLaser");
+    _pLaserChipDepo->config(100, 0, NULL);
     EnemyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
         stringstream name;
@@ -32,9 +32,9 @@ EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name,
         pChip = NEW EnemyStraightLaserChip001(name.str().c_str());
         pChip->setSource(this); //位置向き同期
         pChip->inactivateImmediately();
-        _pLaserChipStore->addSubLast(pChip);
+        _pLaserChipDepo->addSubLast(pChip);
     }
-    addSubGroup(_pLaserChipStore);
+    addSubGroup(_pLaserChipDepo);
 
     _pSeTransmitter->useSe(2);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
@@ -111,7 +111,7 @@ void EnemyThalia::processBehavior() {
                                                     100, 0,
                                                     TURN_CLOSE_TO);
             }
-            EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)_pLaserChipStore->dispatch();
+            EnemyStraightLaserChip001* pLaser = (EnemyStraightLaserChip001*)_pLaserChipDepo->dispatch();
             if (pLaser) {
                 if (pLaser->_pChip_front == NULL) {
                     _pSeTransmitter->play3D(1);
@@ -168,25 +168,25 @@ void EnemyThalia::onHit(GgafActor* prm_pOtherActor) {
 
 
             //打ち返し弾
-            if (_pStore_Shot) {
+            if (_pDepo_Shot) {
 //                MyStgUtil::shotWay001(this,
-//                                       _pStore_Shot,
+//                                       _pDepo_Shot,
 //                                       P_MYSHIP,
 //                                       10+_RANK_*10, 10000,
 //                                       2000, 200);
 //                MyStgUtil::shotWay001v2(this,
-//                                       _pStore_Shot,
+//                                       _pDepo_Shot,
 //                                       P_MYSHIP,
 //                                       10+_RANK_*10, 10000,
 //                                       3000, 200,
 //                                       5, 0.8);
 //                MyStgUtil::shotWay002(this,
-//                                       _pStore_Shot,
+//                                       _pDepo_Shot,
 //                                       P_MYSHIP,
 //                                       20+_RANK_*10, 0,
 //                                       2000, 200);
                   StgUtil::shotWay002v2(this,
-                                       _pStore_Shot,
+                                       _pDepo_Shot,
                                        P_MYSHIP,
                                        R_EnemyThalia_ShotWay, 0,
                                        2000, 200,

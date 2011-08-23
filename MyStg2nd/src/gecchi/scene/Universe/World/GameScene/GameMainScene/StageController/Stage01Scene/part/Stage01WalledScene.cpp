@@ -8,27 +8,27 @@ using namespace MyStg2nd;
 Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_name) {
     _class_name = "Stage01WalledScene";
 
-    //壁ブロックストアー生成
+    //壁ブロックデポジトリ生成
     float scale_r = 1.0f; //壁ブロックの元モデルからの拡大率
     WallAABActor* pWallAABActor;
-    GgafActorStore* pStore_WallAAB = NEW GgafActorStore("Dp_WallAAB");
+    GgafActorDepository* pDepo_WallAAB = NEW GgafActorDepository("Dp_WallAAB");
     for (int i = 0; i < 1500; i++) {
         stringstream name;
         name <<  "Wall001_" << i;
         pWallAABActor = NEW Wall001(name.str().c_str());
         pWallAABActor->setScaleRate(scale_r);
         pWallAABActor->inactivateTreeImmediately();
-        pStore_WallAAB->addSubLast(pWallAABActor);
+        pDepo_WallAAB->addSubLast(pWallAABActor);
     }
     WallAAPrismActor* pWallAAPrismActor;
-    GgafActorStore* pStore_WallAAPrism = NEW GgafActorStore("Dp_WallAAPrism");
+    GgafActorDepository* pDepo_WallAAPrism = NEW GgafActorDepository("Dp_WallAAPrism");
     for (int i = 0; i < 500; i++) {
         stringstream name;
         name <<  "Wall001Prism_" << i;
         pWallAAPrismActor = NEW Wall001Prism(name.str().c_str());
         pWallAAPrismActor->setScaleRate(scale_r);
         pWallAAPrismActor->inactivateTreeImmediately();
-        pStore_WallAAPrism->addSubLast(pWallAAPrismActor);
+        pDepo_WallAAPrism->addSubLast(pWallAAPrismActor);
     }
 
     //シーンセクション生成
@@ -44,7 +44,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     buildWalledScene(
         400000*scale_r, 100000*scale_r, 100000*scale_r,
         (WalledSectionScene**)&apSection, 4,
-        pStore_WallAAB ,pStore_WallAAPrism
+        pDepo_WallAAB ,pDepo_WallAAPrism
 
     );
 

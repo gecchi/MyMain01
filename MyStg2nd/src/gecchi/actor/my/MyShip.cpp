@@ -53,16 +53,16 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
 //    _pMyOptionController = NEW MyOptionController("MY_OPTION_PARENT");
 //    addSubLast(_pMyOptionController);
 
-    _pStore_MyShots001 = NEW GgafActorStore("RotShot001");
+    _pDepo_MyShots001 = NEW GgafActorDepository("RotShot001");
     MyShot001* pShot;
     for (int i = 0; i < 25; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateImmediately();
-        _pStore_MyShots001->addSubLast(pShot);
+        _pDepo_MyShots001->addSubLast(pShot);
     }
-    addSubGroup(_pStore_MyShots001);
+    addSubGroup(_pDepo_MyShots001);
 
-    _pLaserChipStore = NEW LaserChipStore("MyRotLaser");
+    _pLaserChipDepo = NEW LaserChipDepository("MyRotLaser");
     MyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
         stringstream name;
@@ -71,9 +71,9 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
         pChip = NEW MyStraightLaserChip001(name2.c_str());
         pChip->setPositionSource(this); //位置だけ同期
         pChip->inactivateImmediately();
-        _pLaserChipStore->addSubLast(pChip);
+        _pLaserChipDepo->addSubLast(pChip);
     }
-    addSubGroup(_pLaserChipStore);
+    addSubGroup(_pLaserChipDepo);
 
 
     _pEffectTurbo001 = NEW EffectTurbo001("EffectTurbo001");
@@ -185,9 +185,9 @@ void MyShip::onCreateModel() {
 void MyShip::initialize() {
 
     //種別に振り分け
-//    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pStore_MyShots001->extract());
-//    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pStore_MyWaves001->extract());
-    //getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipStore->extract());
+//    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDepo_MyShots001->extract());
+//    getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDepo_MyWaves001->extract());
+    //getDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDepo->extract());
 
     setHitAble(true);
     _pCollisionChecker->makeCollision(1);
@@ -366,7 +366,7 @@ void MyShip::processBehavior() {
 
     if (VB_PLAY->isPushedDown(VB_TURBO)) {
         //ターボ開始時
-        EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pStore_EffectTurbo002->dispatchForce();
+        EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDepo_EffectTurbo002->dispatchForce();
          if (pTurbo002) {
              pTurbo002->locateAs(this);
              pTurbo002->activate();
@@ -498,8 +498,8 @@ void MyShip::processJudgement() {
 
     if (_is_shooting_laser) {
         if (VB_PLAY->isBeingPressed(VB_SHOT1)) {//isBeingPressed
-            //GgafActorStoreの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
-            MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipStore->dispatch();
+            //GgafActorDepositoryの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
+            MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDepo->dispatch();
             if (pLaser) {
                 if (pLaser->_pChip_front == NULL) {
                     _pSeTransmitter->play3D(1);
@@ -526,7 +526,7 @@ void MyShip::processJudgement() {
     if (_is_being_soft_rapidshot) {
         if (_frame_soft_rapidshot % SOFT_RAPIDSHOT_INTERVAL == 0) {
             _just_shot = true;//たった今ショットしましたフラグ
-            MyShot001* pShot = (MyShot001*)_pStore_MyShots001->dispatch();
+            MyShot001* pShot = (MyShot001*)_pDepo_MyShots001->dispatch();
             if (pShot) {
                 _pSeTransmitter->play3D(2);
                 pShot->locateAs(this);

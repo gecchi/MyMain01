@@ -15,7 +15,7 @@ public:
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名
-     * @param prm_pCameraWorker ストアー
+     * @param prm_pCameraWorker デポジトリ
      */
     CameraWorkerConnection(char* prm_idstr, CameraWorker* prm_pCameraWorker);
 
@@ -26,4 +26,4 @@ public:
 };
 
 }
-#endif /*STORECONNECTION_H_*/
+#endif /*DEPOSITORYCONNECTION_H_*/

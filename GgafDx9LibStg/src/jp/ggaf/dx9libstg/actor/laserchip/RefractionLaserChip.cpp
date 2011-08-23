@@ -135,7 +135,7 @@ void RefractionLaserChip::processBehavior() {
     //座標に反映
     RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
     if (getActivePartFrame() > 1) {
-        //GgafActorStore::dispatch() は
+        //GgafActorDepository::dispatch() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
         //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
         //数珠繋ぎになる。
@@ -165,7 +165,7 @@ void RefractionLaserChip::processBehavior() {
                                 _pRefractionEffect->locateAs(this);
                                 //最長時間の解除予約。
                                 //何かの拍子でレーザーチップが消滅した場合、正しくsayonara()出来ない場合がある。その場合の保険。
-                                _pRefractionEffect->inactivateDelay(_pStore->_num_chip_max +_frame_standstill_refraction);
+                                _pRefractionEffect->inactivateDelay(_pDepo->_num_chip_max +_frame_standstill_refraction);
                             }
                         }
                     }

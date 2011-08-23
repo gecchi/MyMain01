@@ -8,9 +8,9 @@ class EnemyJuno : public GgafDx9LibStg::DefaultMeshSetActor {
 public:
     int _iMovePatternNo;
     /** 弾ストック */
-    GgafCore::GgafActorStore* _pStore_Shot;
+    GgafCore::GgafActorDepository* _pDepo_Shot;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorStore* _pStore_ShotEffect;
+    GgafCore::GgafActorDepository* _pDepo_ShotEffect;
     bool _do_Shot;
     bool _can_Shot;
     frame _frame_when_shot;
@@ -38,10 +38,10 @@ public:
 
     /**
      * 発射弾設定 .
-     * @param prm_pStore (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つストアーのポインタ
+     * @param prm_pDepo (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
      */
-    void setStore_Shot(GgafCore::GgafActorStore* prm_pStore) {
-        _pStore_Shot = prm_pStore;
+    void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
+        _pDepo_Shot = prm_pDepo;
     }
 };
 

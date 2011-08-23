@@ -17,7 +17,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _class_name = "LaserChip";
     _pChip_front = NULL;
     _pChip_behind = NULL;
-    _pStore = NULL; //LaserChipStoreの new 時に設定される。
+    _pDepo = NULL; //LaserChipDepositoryの new 時に設定される。
     _chip_kind = 1;
     _is_regist_hitarea = false;
     _hitarea_edge_length = 0;
@@ -96,15 +96,15 @@ void LaserChip::onActive() {
     //出現時
     _chip_kind = 1;
     if (_pChip_front == NULL) {
-//        if (_pStore->_pSeConnection) {
-//            _pStore->_pSeConnection->use()->play();
+//        if (_pDepo->_pSeConnection) {
+//            _pDepo->_pSeConnection->use()->play();
 //            //_TRACE_("LaserChip::onActive() _pChip_front == NULL!!");
 //        }
     } else {
         //_TRACE_("LaserChip::onActive() _pChip_front == "<<(_pChip_front->getName())<<"");
     }
 
-    _pStore->_num_chip_active++;
+    _pDepo->_num_chip_active++;
 
 
     //_TRACE_("LaserChip::onActive()ed "<<getName()<<" bump="<<canHit());
@@ -281,7 +281,7 @@ void LaserChip::onHit(GgafActor* prm_pOtherActor) {
 void LaserChip::onInactive() {
 
     //消失時
-    _pStore->_num_chip_active--;
+    _pDepo->_num_chip_active--;
     //前後の繋がりを切断
     if (_pChip_front) {
         _pChip_front->_pChip_behind = NULL;
@@ -392,7 +392,7 @@ void LaserChip::onInactive() {
 //            _pChip_behind = NULL;
 //        }
 //
-//        _pStore->_num_chip_active--;
+//        _pDepo->_num_chip_active--;
 //    } else if (_chip_kind == 3) {
 //        //無理やり先端を解放、自分が先端になりかわる
 //        if (_pChip_front) {
@@ -402,7 +402,7 @@ void LaserChip::onInactive() {
 //            _pChip_front = NULL;
 //        }
 //        activateImmediately();
-//        _pStore->_num_chip_active--;
+//        _pDepo->_num_chip_active--;
 //    } else if (_chip_kind == 2) {
 //        //鎖が切れるだけで解放しない
 //        activateImmediately(); //無理やりactiveに戻す
@@ -414,14 +414,14 @@ void LaserChip::onInactive() {
 //        }
 //        _pChip_front = NULL;
 //        _pChip_behind = NULL;
-//        //_pStore->_num_chip_active は変化なし
+//        //_pDepo->_num_chip_active は変化なし
 //    } else if (_chip_kind == 1) {
 //        if (_pChip_front) {
 //            _pChip_front->_pChip_behind = NULL;
 //        }
 //        _pChip_front = NULL;
 //        _pChip_behind = NULL;
-//        _pStore->_num_chip_active--;
+//        _pDepo->_num_chip_active--;
 //    }
 }
 

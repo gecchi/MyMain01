@@ -23,21 +23,21 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "A
     _laser_interval = 300;
     _ang_veloTurn = 100;
     _angClearance = 30000;//開き具合
-    _papapLaserChipStore = NEW LaserChipStore**[_laser_way];
+    _papapLaserChipDepo = NEW LaserChipDepository**[_laser_way];
     for (int i = 0; i < _laser_way; i++) {
-        _papapLaserChipStore[i] = NEW LaserChipStore*[_laser_way];
+        _papapLaserChipDepo[i] = NEW LaserChipDepository*[_laser_way];
         for (int j = 0; j < _laser_way; j++) {
-            _papapLaserChipStore[i][j] = NULL;
+            _papapLaserChipDepo[i][j] = NULL;
         }
     }
 
-    _pCon_RefractionEffectStore = connectStoreManager("StCon_EffRefraction001", NULL);
-    _pCon_LaserChipStoreDp = connectStoreManager(
-            "StCon_EnemyAstraeaLaserChip004StoreDp",
-         //"StCon_EnemyAstraeaLaserChip003StoreDp",
-         //"StCon_EnemyAstraeaLaserChip001StoreDp",
-         //"StCon_EnemyAstraeaLaserChip002StoreDp",
-         _pCon_RefractionEffectStore->use()
+    _pCon_RefractionEffectDepository = connectDepositoryManager("StCon_EffRefraction001", NULL);
+    _pCon_LaserChipDepoStore = connectDepositoryManager(
+            "StCon_EnemyAstraeaLaserChip004DepoStore",
+         //"StCon_EnemyAstraeaLaserChip003DepoStore",
+         //"StCon_EnemyAstraeaLaserChip001DepoStore",
+         //"StCon_EnemyAstraeaLaserChip002DepoStore",
+         _pCon_RefractionEffectDepository->use()
         );
 
     _papaPosLaser = NEW PosLaser*[_laser_way];
@@ -136,14 +136,14 @@ void EnemyAstraea::processBehavior() {
         case ASTRAEA_PROG_FIRE: {
             if (_pProg->isJustChanged()) {
                 //レーザーセット、借入
-                GgafActorStoreDispatcher* pLaserChipStoreDp =
-                        (GgafActorStoreDispatcher*)(_pCon_LaserChipStoreDp->use());
+                GgafActorDepositoryStore* pLaserChipDepoStore =
+                        (GgafActorDepositoryStore*)(_pCon_LaserChipDepoStore->use());
                 bool can_fire = false;
                 for (int i = 0; i < _laser_way; i++) {
                     for (int j = 0; j < _laser_way; j++) {
-                        _papapLaserChipStore[i][j] = (LaserChipStore*)(pLaserChipStoreDp->dispatch());
-                        if (_papapLaserChipStore[i][j]) {
-                            _papapLaserChipStore[i][j]->config(_laser_length, 1);
+                        _papapLaserChipDepo[i][j] = (LaserChipDepository*)(pLaserChipDepoStore->dispatch());
+                        if (_papapLaserChipDepo[i][j]) {
+                            _papapLaserChipDepo[i][j]->config(_laser_length, 1);
                             can_fire = true;
                         }
                     }
@@ -163,8 +163,8 @@ void EnemyAstraea::processBehavior() {
                 int vX, vY, vZ;
                 for (int i = 0; i < _laser_way; i++) {
                     for (int j = 0; j < _laser_way; j++) {
-                        if (_papapLaserChipStore[i][j]) {
-                            pLaserChip = _papapLaserChipStore[i][j]->dispatch();
+                        if (_papapLaserChipDepo[i][j]) {
+                            pLaserChip = _papapLaserChipDepo[i][j]->dispatch();
                             if (pLaserChip) {
                                 //レーザーの向きを計算
                                 //ローカルでのショットの方向ベクトルを(_Xorg,_Yorg,_Zorg)、
@@ -230,11 +230,11 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
 
 
 void EnemyAstraea::onInactive() {
-    //レーザーストアーは遅れてから戻す
+    //レーザーデポジトリは遅れてから戻す
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
-            if (_papapLaserChipStore[i][j]) {
-                _papapLaserChipStore[i][j]->sayonara(60*10);
+            if (_papapLaserChipDepo[i][j]) {
+                _papapLaserChipDepo[i][j]->sayonara(60*10);
             }
         }
     }
@@ -243,12 +243,12 @@ void EnemyAstraea::onInactive() {
 
 
 EnemyAstraea::~EnemyAstraea() {
-    _pCon_RefractionEffectStore->close();
-    _pCon_LaserChipStoreDp->close();
+    _pCon_RefractionEffectDepository->close();
+    _pCon_LaserChipDepoStore->close();
     for (int i = 0; i < _laser_way; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser[i]);
-        DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipStore[i]);
+        DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipDepo[i]);
     }
     DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser);
-    DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipStore);
+    DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipDepo);
 }

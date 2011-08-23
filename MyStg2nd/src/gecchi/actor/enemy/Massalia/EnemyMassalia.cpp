@@ -17,24 +17,24 @@ EnemyMassalia::EnemyMassalia(const char* prm_name) : DefaultMeshActor(prm_name, 
     _laser_interval = 600;
     _ang_veloTurn = 100;
     _angClearance = 40000;//開き具合
-    _papapLaserChipStore = NEW LaserChipStore**[_laser_way];
+    _papapLaserChipDepo = NEW LaserChipDepository**[_laser_way];
     for (int i = 0; i < _laser_way; i++) {
-        _papapLaserChipStore[i] = NEW LaserChipStore*[_laser_way];
+        _papapLaserChipDepo[i] = NEW LaserChipDepository*[_laser_way];
     }
 
 
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
-            _papapLaserChipStore[i][j] = NULL;
+            _papapLaserChipDepo[i][j] = NULL;
         }
     }
 
-    _pCon_RefractionEffectStore = connectStoreManager("StCon_EffRefraction001", NULL);
+    _pCon_RefractionEffectDepository = connectDepositoryManager("StCon_EffRefraction001", NULL);
 
-    _pStoreCon_DpEnemyMassaliaLaserChip = connectStoreManager(
+    _pDepoCon_DpEnemyMassaliaLaserChip = connectDepositoryManager(
                                                                    "StCon_DpEnemyMassaliaLaserChip001",
                                                                    //"StCon_DpEnemyMassaliaLaserChip002",
-                                                                   _pCon_RefractionEffectStore->use()
+                                                                   _pCon_RefractionEffectDepository->use()
                                                                 );
 
 
@@ -193,18 +193,18 @@ void EnemyMassalia::processBehavior() {
             int vX, vY, vZ;
             for (int i = 0; i < _laser_way; i++) {
                 for (int j = 0; j < _laser_way; j++) {
-                    if (_papapLaserChipStore[i][j] == NULL) {
-                        GgafMainActor* p = _pStoreCon_DpEnemyMassaliaLaserChip->use()->dispatch();
+                    if (_papapLaserChipDepo[i][j] == NULL) {
+                        GgafMainActor* p = _pDepoCon_DpEnemyMassaliaLaserChip->use()->dispatch();
                         if (p == NULL) {
                             //レーザーセットは借入出来ない
                             continue;
                         } else {
-                            _papapLaserChipStore[i][j] = (LaserChipStore*)p;
-                            _papapLaserChipStore[i][j]->config(_laser_length, 1);
+                            _papapLaserChipDepo[i][j] = (LaserChipDepository*)p;
+                            _papapLaserChipDepo[i][j]->config(_laser_length, 1);
                         }
                     }
 
-                    pLaserChip = _papapLaserChipStore[i][j]->dispatch();
+                    pLaserChip = _papapLaserChipDepo[i][j]->dispatch();
                     if (pLaserChip) {
                         //レーザーの向きを計算
                         //ローカルでのショットの方向ベクトルを(_Xorg,_Yorg,_Zorg)、
@@ -242,7 +242,7 @@ void EnemyMassalia::processBehavior() {
         } else {
 //            for (int i = 0; i < _laser_way; i++) {
 //                for (int j = 0; j < _laser_way; j++) {
-//                    _papapLaserChipStore[i][j] = NULL;
+//                    _papapLaserChipDepo[i][j] = NULL;
 //                }
 //            }
             _iMovePatternNo = 0;
@@ -282,11 +282,11 @@ void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
 
 
 void EnemyMassalia::onInactive() {
-    //レーザーストアーは遅れてから戻す
+    //レーザーデポジトリは遅れてから戻す
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
-            if (_papapLaserChipStore[i][j]) {
-                _papapLaserChipStore[i][j]->sayonara(60*10);
+            if (_papapLaserChipDepo[i][j]) {
+                _papapLaserChipDepo[i][j]->sayonara(60*10);
             }
         }
     }
@@ -295,14 +295,14 @@ void EnemyMassalia::onInactive() {
 
 
 EnemyMassalia::~EnemyMassalia() {
-    _pCon_RefractionEffectStore->close();
-    _pStoreCon_DpEnemyMassaliaLaserChip->close();
+    _pCon_RefractionEffectDepository->close();
+    _pDepoCon_DpEnemyMassaliaLaserChip->close();
     for (int i = 0; i < _laser_way; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser[i]);
-        DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipStore[i]);
+        DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipDepo[i]);
     }
     DELETEARR_IMPOSSIBLE_NULL(_papaPosLaser);
-    DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipStore);
+    DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipDepo);
 
 
 }

@@ -13,8 +13,8 @@ class LaserChip : public GgafDx9Core::GgafDx9MeshSetActor {
     friend class HomingLaserChip;
     friend class RefractionLaserChip;
     friend class StraightLaserChip;
-    friend class LaserChipStore;
-    friend class LaserChipStoreDispatcher;
+    friend class LaserChipDepository;
+    friend class LaserChipDepositoryStore;
 
 private:
     D3DXHANDLE _ahKind[11];
@@ -26,7 +26,7 @@ private:
     frame _frame_of_behaving_from_onActive;
 
     /** 自身を管理してるアクター発送者 */
-    LaserChipStore* _pStore;
+    LaserChipDepository* _pDepo;
     /** registHitAreaCube() メソッドにより登録されているかどうか。trueならば、中間当たり判定自動生成機能が使える */
     bool _is_regist_hitarea;
     /** registHitAreaCube() メソッドにより登録時の当たり判定立方体の１辺の長さ */

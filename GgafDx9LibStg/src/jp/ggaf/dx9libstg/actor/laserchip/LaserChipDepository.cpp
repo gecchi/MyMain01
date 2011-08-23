@@ -4,8 +4,8 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-LaserChipStore::LaserChipStore(const char* prm_name) : GgafActorStore(prm_name) {
-    _class_name = "LaserChipStore";
+LaserChipDepository::LaserChipDepository(const char* prm_name) : GgafActorDepository(prm_name) {
+    _class_name = "LaserChipDepository";
     _num_continual_employ_count = 0;
     _num_chip_active = 0;
     _is_tear_laser = true;
@@ -19,7 +19,7 @@ LaserChipStore::LaserChipStore(const char* prm_name) : GgafActorStore(prm_name) 
     _pEffectActor_Irradiate = NULL;
 }
 
-void LaserChipStore::config(int prm_num_continual_employ_max,
+void LaserChipDepository::config(int prm_num_continual_employ_max,
                                  UINT32 prm_num_chip_interval,
                                  GgafDx9Core::GgafDx9DrawableActor* prm_pEffectActor_Irradiate) {
     _num_continual_employ_max = prm_num_continual_employ_max;
@@ -31,7 +31,7 @@ void LaserChipStore::config(int prm_num_continual_employ_max,
 }
 
 
-LaserChip* LaserChipStore::dispatch() {
+LaserChip* LaserChipDepository::dispatch() {
     if (_num_continual_employ_count > _num_continual_employ_max) { //_num_continual_employ_max連続発射時、弾切れにする(_num_interval_frame_countをリセット)。
         _is_tear_laser = true;
         _pChip_prev_employ = NULL;
@@ -51,7 +51,7 @@ LaserChip* LaserChipStore::dispatch() {
         _num_interval_frame_count++;
         return NULL;
     } else {
-        LaserChip* pChip = (LaserChip*)GgafActorStore::dispatch();
+        LaserChip* pChip = (LaserChip*)GgafActorDepository::dispatch();
         if (pChip) {
 //            pChip->activate();
             if (_pChip_prev_employ) {
@@ -99,7 +99,7 @@ LaserChip* LaserChipStore::dispatch() {
     }
 }
 
-void LaserChipStore::processFinal() {
+void LaserChipDepository::processFinal() {
     //発射中エフェクト表示切り替え
     if (_pEffectActor_Irradiate) {
         if (_pChip_prev_employ && _frame_of_behaving_prev_employ == _pChip_prev_employ->getBehaveingFrame()) {
@@ -114,20 +114,20 @@ void LaserChipStore::processFinal() {
     }
 }
 
-void LaserChipStore::addSubLast(LaserChip* prm_pLaserChip) {
+void LaserChipDepository::addSubLast(LaserChip* prm_pLaserChip) {
     _num_chip_max ++;
     _num_continual_employ_max++;
-    prm_pLaserChip->_pStore = this;
-    GgafActorStore::addSubLast(prm_pLaserChip);
+    prm_pLaserChip->_pDepo = this;
+    GgafActorDepository::addSubLast(prm_pLaserChip);
 }
 
-void LaserChipStore::onReset() {
+void LaserChipDepository::onReset() {
     _is_tear_laser = true;
     _num_continual_employ_count = 0;
     _num_chip_active = 0;
     _frame_of_behaving_prev_employ = 0;
-    GgafActorStore::onReset();
+    GgafActorDepository::onReset();
 }
 
-LaserChipStore::~LaserChipStore() {
+LaserChipDepository::~LaserChipDepository() {
 }

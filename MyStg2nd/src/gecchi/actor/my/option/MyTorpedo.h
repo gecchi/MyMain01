@@ -19,8 +19,8 @@ public:
     MyOptionTorpedoController* _pMyOptionTorpedoController;
     /** [r]魚雷の移動軌跡エフェクトの数 */
     int _length_TailEffect;
-    /** [r]魚雷の移動軌跡エフェクトのストアー */
-    GgafDx9LibStg::LaserChipStore* _pTailEffectStore;
+    /** [r]魚雷の移動軌跡エフェクトのデポジトリ */
+    GgafDx9LibStg::LaserChipDepository* _pTailEffectDepository;
     /** [r]魚雷発射時の座標 */
     int _begin_X,_begin_Y,_begin_Z;
     /** [r]到達目標のアクター。NULLの場合は自機前方のゲーム領域境界点を目標とする仕組み */

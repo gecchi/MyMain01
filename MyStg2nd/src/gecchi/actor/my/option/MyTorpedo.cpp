@@ -12,17 +12,17 @@ MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOpti
     _pMyOptionTorpedoController = prm_pMyOptionTorpedoController;
     _length_TailEffect = 4;
 
-    _pTailEffectStore = NEW LaserChipStore("DP_TailEffect");
-    _pTailEffectStore->config(_length_TailEffect, 0, NULL);
+    _pTailEffectDepository = NEW LaserChipDepository("DP_TailEffect");
+    _pTailEffectDepository->config(_length_TailEffect, 0, NULL);
     for (int i = 0; i < _length_TailEffect; i++) {
         stringstream name;
         name <<  "MYOPTION"<<(_pMyOptionTorpedoController->_pMyOption->_no)<<"'s Torpedo's TailEffect["<<i<<"]";
         MyTorpedoTail* pChip = NEW MyTorpedoTail(name.str().c_str(), this);
 
         pChip->inactivateImmediately();
-        _pTailEffectStore->addSubLast(pChip);
+        _pTailEffectDepository->addSubLast(pChip);
     }
-    addSubGroup(_pTailEffectStore);
+    addSubGroup(_pTailEffectDepository);
     changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -64,7 +64,7 @@ void MyTorpedo::onActive() {
 
 void MyTorpedo::processBehavior() {
     if (_pProg->get() == MyTorpedo_RELEASE) {
-        if (_pTailEffectStore->_num_chip_active == 0) {
+        if (_pTailEffectDepository->_num_chip_active == 0) {
             //軌跡エフェクトが全て非活動になった場合
             inactivate(); //自身を最後にinactivate()
         } else {
@@ -74,8 +74,8 @@ void MyTorpedo::processBehavior() {
 
     if (_pProg->get() == MyTorpedo_IN_FIRE) {
         //尾っぽエフェクト追加処理
-        if (_pTailEffectStore->_num_chip_active < _length_TailEffect) {
-            MyTorpedoTail* pTailEffect = (MyTorpedoTail*)_pTailEffectStore->dispatch();
+        if (_pTailEffectDepository->_num_chip_active < _length_TailEffect) {
+            MyTorpedoTail* pTailEffect = (MyTorpedoTail*)_pTailEffectDepository->dispatch();
             if (pTailEffect) {
                 pTailEffect->locate(_begin_X,_begin_Y,_begin_Z);
             }
@@ -187,7 +187,7 @@ void MyTorpedo::processJudgement() {
     if (isOutOfUniverse() && _pProg->get() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
         _pProg->change(MyTorpedo_RELEASE);
-        GgafMainActor* pTailEffect = _pTailEffectStore->getSubFirst();
+        GgafMainActor* pTailEffect = _pTailEffectDepository->getSubFirst();
         for (int i = 0; i < _length_TailEffect; i++) {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
             pTailEffect = pTailEffect->getNext();
@@ -209,7 +209,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     int sta = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
     setHitAble(false);
     _pProg->change(MyTorpedo_RELEASE);
-    GgafMainActor* pTailEffect = _pTailEffectStore->getSubFirst();
+    GgafMainActor* pTailEffect = _pTailEffectDepository->getSubFirst();
     for (int i = 0; i < _length_TailEffect; i++) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
         pTailEffect = pTailEffect->getNext();
@@ -219,7 +219,7 @@ void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 
     //爆風発生
-    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)_pMyOptionTorpedoController->_pStore_TorpedoBlast->dispatch();
+    MyTorpedoBlast* pBlast = (MyTorpedoBlast*)_pMyOptionTorpedoController->_pDepo_TorpedoBlast->dispatch();
     if (pBlast) {
         pBlast->locateAs(this);
         pBlast->reset();
