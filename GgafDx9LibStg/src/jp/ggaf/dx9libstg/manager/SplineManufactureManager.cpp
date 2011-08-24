@@ -14,9 +14,9 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     string classname = "";
     int turn_way = -1;
     bool turn_optimize = true;
-    float rate_X = 1.0f;
-    float rate_Y = 1.0f;
-    float rate_Z = 1.0f;
+    double rate_X = 1.0f;
+    double rate_Y = 1.0f;
+    double rate_Z = 1.0f;
 
     string spl_data_file="";
     string spl_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr) + ".spl";
@@ -33,19 +33,19 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
     }
 
     if (GgafUtil::isExistKey("MAG_X", &mapSplPropperties)) {
-        rate_X = (float)atof(mapSplPropperties["MAG_X"].c_str());
+        rate_X = atof(mapSplPropperties["MAG_X"].c_str());
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_X] が指定されてません。");
     }
 
     if (GgafUtil::isExistKey("MAG_Y", &mapSplPropperties)) {
-        rate_Y = (float)atof(mapSplPropperties["MAG_Y"].c_str());
+        rate_Y = atof(mapSplPropperties["MAG_Y"].c_str());
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_Y] が指定されてません。");
     }
 
     if (GgafUtil::isExistKey("MAG_Z", &mapSplPropperties)) {
-        rate_Z = (float)atof(mapSplPropperties["MAG_Z"].c_str());
+        rate_Z = atof(mapSplPropperties["MAG_Z"].c_str());
     } else {
         throwGgafCriticalException("SplineManufactureManager::processCreateResource "<<prm_idstr<<" [MAG_Z] が指定されてません。");
     }

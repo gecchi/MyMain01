@@ -37,11 +37,11 @@ public:
     /** スプライン曲線の補完点生成、保持するクラス */
     Spline3D* _sp;
     /** X軸方向補正割合 */
-    float _rate_X;
+    double _rate_X;
     /** Y軸方向補正割合 */
-    float _rate_Y;
+    double _rate_Y;
     /** Z軸方向補正割合 */
-    float _rate_Z;
+    double _rate_Z;
 
     /**
      * コンストラクタ .
@@ -63,7 +63,7 @@ public:
      * @param prm_rate_Y Y軸方向補正割合
      * @param prm_rate_Z Z軸方向補正割合
      */
-    virtual void adjustAxisRate(float prm_rate_X, float prm_rate_Y, float prm_rate_Z);
+    virtual void adjustAxisRate(double prm_rate_X, double prm_rate_Y, double prm_rate_Z);
 
     /**
      * 初期化（計算）処理 .

@@ -27,12 +27,15 @@ MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper"
 
     //画面の大きさに伴って、移動範囲を決定
     //このあたりはFovXに依存するので微調整。
-    _lim_top     = CFG_PROPERTY(GAME_BUFFER_HEIGHT)*5*LEN_UNIT / 2;      //上下は画面高さの大体５画面分
-    _lim_bottom  = -(CFG_PROPERTY(GAME_BUFFER_HEIGHT)*5*LEN_UNIT / 2);
-    _lim_front   = CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2 ;    //前は画面幅の大体2.5画面分
-    _lim_behaind = -(CFG_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT / 2 ); //後は画面幅の大体1画面分
-    _lim_zleft   = CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2;       //奥手前は画面幅の大体５画面分
-    _lim_zright  = -(CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2);
+    int harf_width = CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2;
+    int harf_height = CFG_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2;
+
+    _lim_top     =  harf_height + CFG_PROPERTY(GAME_BUFFER_HEIGHT)*4*LEN_UNIT; //上は、高さ4画面分
+    _lim_bottom  = -harf_height - CFG_PROPERTY(GAME_BUFFER_HEIGHT)*4*LEN_UNIT; //下は、高さ4画面分
+    _lim_front   =  harf_width + CFG_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //前は、幅の2画面分
+    _lim_behaind = -harf_width - CFG_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //後ろは、幅の2画面分
+    _lim_zleft   =  harf_width + CFG_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //手前は、幅の2画面分
+    _lim_zright  = -harf_width - CFG_PROPERTY(GAME_BUFFER_WIDTH)*2*LEN_UNIT;   //奥は、幅の2画面分
     _TRACE_("MyShip::MyShip 範囲 X("<<_lim_behaind<<" ~ "<<_lim_front<<") Y("<<_lim_bottom<<" ~ "<<_lim_top<<") Z("<<_lim_zright<<" ~ "<<_lim_zleft<<")");
 
     /** 移動スピードレベルに相応する移動スピード */
