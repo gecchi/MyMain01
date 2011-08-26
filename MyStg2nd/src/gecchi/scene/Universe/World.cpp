@@ -23,11 +23,13 @@ void World::initialize() {
     getDirector()->addSubGroup(_pStringBoard01);
     _pStringBoard01->update(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2), Pix2App(100),
                             "WATE A MOMENT PLASE...", ALIGN_CENTER);
+//    _pStringBoard01->_pFader->beat(60,10,20,20,-1);
+
     orderActorToFactory(0, LabelGecchi16Font, "ASTER");
     _pFont16_Wait = (LabelGecchi16Font*)obtainActorFromFactory(0);
     getDirector()->addSubGroup(_pFont16_Wait);
     _pFont16_Wait->update(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT);
-    _pFont16_Wait->_pFader->beat(60,30,10,-1);
+    _pFont16_Wait->_pFader->beat(60,30,0,0,-1);
 #ifdef MY_DEBUG
     ColliAABActor::get();   //当たり判定領域表示用直方体、プリロード
     ColliAAPrismActor::get();   //当たり判定領域表示用直方体、プリロード
@@ -83,6 +85,7 @@ void World::processBehavior() {
             _pFont16_Wait->end();
         } else {
             //待ちぼうけ
+//            _pStringBoard01->_pFader->behave();
             _pFont16_Wait->_pFader->behave();
         }
     }

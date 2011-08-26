@@ -29,6 +29,8 @@ void GameBeginningScene::onReset() {
 //    fadeinScene(0);
     _pStringBoard01->update("");
     _pStringBoard02->update("");
+    _pStringBoard02->_pFader->stopImmediately();
+    _pStringBoard02->_pFader->setAlphaToTop();
 }
 //void GameBeginningScene::ready() {
 //    _TRACE_("GameBeginningScene::ready()");
@@ -62,17 +64,18 @@ void GameBeginningScene::processBehavior() {
 
         case GAMEBEGINNINGSCENE_PROG_DECIDE: {
             if (_pProg->isJustChanged()) {
-                fadeoutScene(FADE_FRAMES);
+                _pStringBoard02->update(300*1000, 300*1000, "OK OK OK");
+                _pStringBoard02->_pFader->beat(20,3,7,3,-1);
+//                fadeoutScene(FADE_FRAMES);
+            }
+            if (_pProg->getFrameInProgress() == 20) {
                 throwEventToUpperTree(EVENT_GAMEMODE_DECIDE);
             }
-            if (_pProg->getFrameInProgress() % 10 < 5 ) {
-                _pStringBoard02->update(400*1000, 400*1000, "OK OK OK");
-            } else {
-                _pStringBoard02->update(400*1000, 400*1000, "");
-            }
-            if (_pProg->getFrameInProgress() == FADE_FRAMES) {
-                _pProg->change(GAMEBEGINNINGSCENE_PROG_FINISH);
-            }
+
+//
+//            if (_pProg->getFrameInProgress() == FADE_FRAMES) {
+//                _pProg->change(GAMEBEGINNINGSCENE_PROG_FINISH);
+//            }
             break;
         }
 
@@ -86,7 +89,7 @@ void GameBeginningScene::processBehavior() {
         default:
             break;
     }
-
+    _pStringBoard02->_pFader->behave();
 }
 
 void GameBeginningScene::processFinal() {

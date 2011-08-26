@@ -14,6 +14,7 @@ GgafDx9AlphaFader::GgafDx9AlphaFader(GgafDx9DrawableActor* prm_pActor) :
     _bottom_alpha = 0.0f;
     _one_way_cnt = 0;
     _beat_attack_frames = 0;
+    _beat_duration_frames = 0;
     _beat_rest_frames = 0;
     _beat_target_frames = 0;
     _beat_down_frames = 0;
@@ -81,24 +82,40 @@ void GgafDx9AlphaFader::behave() {
                 if (_one_way_cnt == _stop_one_way_num) {
                     _method = NO_ALPHAFADE;
                 }
+                _velo_alpha = 0;
                 _beat_progres = 1; //次へ
             }
-        } else if (_beat_progres == 1) { //アタック～下限まで
+        } else if (_beat_progres == 1) { //アタック～持続完了まで
+            if (_beat_frame_count >= _beat_attack_frames+_beat_duration_frames) { //持続完了時
+                _velo_alpha = (_bottom_alpha - _top_alpha) / int(_beat_down_frames);
+                _beat_progres = 2; //次へ
+            }
+        } else if (_beat_progres == 2) { //持続完了～下限まで
             _alpha += _velo_alpha;
-            if (_beat_frame_count >= _beat_attack_frames+_beat_down_frames) { //下限時
+            if (_beat_frame_count >= _beat_attack_frames+_beat_duration_frames+_beat_down_frames) { //下限時
                 _alpha = _bottom_alpha;
                 _velo_alpha = 0;
-                _beat_progres = 2;//次へ
+                _beat_progres = 3;//次へ
             }
-        } else if (_beat_progres == 2) { //下限～終了まで
+        } else if (_beat_progres == 3) { //下限～終了まで
             if (_beat_frame_count >= _beat_target_frames) { //終了時
                 _one_way_cnt++; //半ループカウント＋１
                 if (_one_way_cnt == _stop_one_way_num) {
                     _method = NO_ALPHAFADE;
                 }
-                _velo_alpha = (_top_alpha - _alpha) / int(_beat_attack_frames);
+
+                //最初のアタックまでのvelo
+                if (_beat_attack_frames > 0) {
+                    _velo_alpha = (_top_alpha - _alpha) / int(_beat_attack_frames);
+                    _beat_progres = 0;
+                } else { //アタックまでが無いの場合
+                    _alpha = _top_alpha;
+                    _velo_alpha = 0;
+                    _one_way_cnt++; //半ループカウント＋１
+                    _beat_progres = 1;
+                }
                 _beat_frame_count = 0; //カウンタリセット
-                _beat_progres = 0;//次へ(元に戻る)
+
             }
         }
     }
@@ -143,15 +160,24 @@ void GgafDx9AlphaFader::loopLiner(frame prm_beat_target_frames, float prm_beat_n
     }
 }
 
-void GgafDx9AlphaFader::beat(frame prm_beat_target_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_beat_num) {
+void GgafDx9AlphaFader::beat(frame prm_beat_target_frames,
+                             frame prm_attack_frames,
+                             frame prm_duration_frames,
+                             frame prm_rest_frames,
+                             float prm_beat_num) {
     _method = BEAT_ALPHAFADE_TRIANGLEWAVE;
     _one_way_cnt = 0;
     _stop_one_way_num = (int)(prm_beat_num*2.0f);
 
     _beat_attack_frames = prm_attack_frames;
     _beat_rest_frames = prm_rest_frames;
+    _beat_duration_frames = prm_duration_frames;
     _beat_target_frames = prm_beat_target_frames;
-    _beat_down_frames = _beat_target_frames - _beat_attack_frames - _beat_rest_frames;
+    if (_beat_target_frames <= _beat_attack_frames + _beat_duration_frames + _beat_rest_frames) {
+        _beat_down_frames = 1.0f;
+    } else {
+        _beat_down_frames = _beat_target_frames - _beat_attack_frames - _beat_duration_frames - _beat_rest_frames;
+    }
     _beat_frame_count = 0;
 
     //最初のアタックまでのvelo
@@ -160,7 +186,7 @@ void GgafDx9AlphaFader::beat(frame prm_beat_target_frames, frame prm_attack_fram
         _beat_progres = 0;
     } else { //アタックまでが無いの場合
         _alpha = _top_alpha;
-        _velo_alpha = (_bottom_alpha - _top_alpha) / int(_beat_down_frames);
+        _velo_alpha = 0;
         _one_way_cnt++; //半ループカウント＋１
         _beat_progres = 1;
     }

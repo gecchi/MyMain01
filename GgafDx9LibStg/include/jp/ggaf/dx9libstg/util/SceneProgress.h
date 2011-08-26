@@ -21,55 +21,70 @@ public:
      * @param prm_num_progress 最大進捗番号数(10を設定すると 0番～10番の11個の進捗状態が使用可能となる)
      */
     SceneProgress(DefaultScene* prm_pScene, int prm_num_progress);
+
     /**
      * 進捗状態とサブシーンを関連付け連動させる.
      * このメソッドにより、関連付けを行うと、以下のメソッドが使用可能（効果あり）となります。<BR>
      * <code>
-     * changeWithFlipping(progress)
-     * changeWithCrossfading(progress, frame);
-     * changeWithOverlapping(progress, frame);
+     * changeWithScene_Flipping(progress)
+     * changeWithScene_Crossfading(progress, frame);
+     * changeWithScene_Overlapping(progress, frame);
      * </code>
      * @param prm_FirstProgress 先頭の進捗状態
      * @param prm_EndProgress 末尾の進捗状態
      * @param prm_FirstSubSceneName 先頭の進捗状態(prm_FirstProgress)に対応するサブシーンの名称
      */
     void relatSubScene(progress prm_FirstProgress, progress prm_EndProgress, const char* prm_FirstSubSceneName);
+
     /**
      * 進捗状態とサブシーンを関連付け連動させる.
      * このメソッドにより、関連付けを行うと、以下のメソッドが使用可能（効果あり）となります。<BR>
      * <code>
-     * changeWithFlipping(progress)
-     * changeWithCrossfading(progress, frame);
-     * changeWithOverlapping(progress, frame);
+     * changeWithScene_Flipping(progress)
+     * changeWithScene_Crossfading(progress, frame);
+     * changeWithScene_Overlapping(progress, frame);
      * </code>
      * @param prm_FirstProgress 先頭の進捗状態
      * @param prm_EndProgress 末尾の進捗状態
      * @param prm_FirstSubSceneName 先頭の進捗状態(prm_FirstProgress)に対応するサブシーン
      */
     void relatSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene);
+
     /**
-     * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態に切り替える .
-     * 現在の活動状態サブシーンは、非活動状態となる。
+     * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態にする .
+     * @param prm_progress
+     */
+    void changeWithScene(progress prm_progress);
+
+    /**
+     * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態に切り替え、
+     * 活動状態サブシーンは非活動状態にする .
      * @param prm_progress 新しい進捗状態
      */
-    void changeWithFlipping(progress prm_progress);
+    void changeWithScene_Flipping(progress prm_progress);
+
     /**
-     * 進捗状態を切り替えた後、関連付いたサブシーンをフェードアウト・フェードインを行う .
+     * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態に切り替え、
+     * 活動状態サブシーンは非活動状態にする。その際、フェードアウト・フェードイン効果を行う .
      * @param prm_progress 新しい進捗状態
      * @param prm_fade_frames フェードイン・フェードアウトを行う時間
      */
-    void changeWithCrossfading(progress prm_progress, frame prm_fade_frames = 60);
+    void changeWithScene_Crossfading(progress prm_progress, frame prm_fade_frames = 60);
+
     /**
-     * 進捗状態を切り替えた後、サブシーンはしばらくの間同時進行（オーバーラッピング）させる .
+     * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態に切り替え、
+     * 活動状態サブシーンは非活動状態にする。その際、指定フレーム間、同時進行（オーバーラッピング）させる .
      * @param prm_progress 新しい進捗状態
-     * @param prm_frames
+     * @param prm_frames 同時進行させるフレーム数
      */
-    void changeWithOverlapping(progress prm_progress, frame prm_frames);
+    void changeWithScene_Overlapping(progress prm_progress, frame prm_frames);
+
     /**
      * 現在の進捗状態に関連づいているシーンを取得 .
      * @return
      */
     DefaultScene* getGazeScene();
+
     /**
      * デストラクタ .
      */

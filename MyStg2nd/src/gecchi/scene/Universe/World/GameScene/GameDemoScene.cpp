@@ -54,13 +54,15 @@ void GameDemoScene::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _pStringBoard01->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
+                _pStringBoard02->_pFader->setAlphaToTop();
+                _pStringBoard02->_pFader->beat(60,3,27,27,-1);
             }
 
-            if (_pProg->getFrameInProgress() % 60 == 0) {
-                _pStringBoard02->update("");
-            } else if (_pProg->getFrameInProgress() % 60 == 30) {
-                _pStringBoard02->update("GAME OVER");
-            }
+//            if (_pProg->getFrameInProgress() % 60 == 0) {
+//                _pStringBoard02->update("");
+//            } else if (_pProg->getFrameInProgress() % 60 == 30) {
+//                _pStringBoard02->update("GAME OVER");
+//            }
 
 
             if (_pProg->getFrameInProgress() == 180) {
@@ -72,13 +74,14 @@ void GameDemoScene::processBehavior() {
         case GAMEDEMOSCENE_PROG_RANKING: {
             if (_pProg->isJustChanged()) {
                 _pStringBoard01->update(100*1000, 100*1000, "RANKING NOW");
-                _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
+//                _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
+//                _pStringBoard02->_pFader->beat(60,3,27,27,-1);
             }
-            if (_pProg->getFrameInProgress() % 60 == 0) {
-                _pStringBoard02->update("");
-            } else if (_pProg->getFrameInProgress() % 60 == 30) {
-                _pStringBoard02->update("GAME OVER");
-            }
+//            if (_pProg->getFrameInProgress() % 60 == 0) {
+//                _pStringBoard02->update("");
+//            } else if (_pProg->getFrameInProgress() % 60 == 30) {
+//                _pStringBoard02->update("GAME OVER");
+//            }
 
 
             if (_pProg->getFrameInProgress() == 60*60) {
@@ -97,6 +100,7 @@ void GameDemoScene::processBehavior() {
         default:
             break;
     }
+    _pStringBoard02->_pFader->behave();
 
 }
 

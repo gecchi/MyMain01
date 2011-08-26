@@ -41,6 +41,7 @@ public:
     frame _beat_attack_frames;
     /** ビート時、αの三角波の波形でフェーディングのレストフレーム数 */
     frame _beat_rest_frames;
+    frame _beat_duration_frames;
     /** ビート時、αのフェーディングに費やすフレーム数 */
     frame _beat_target_frames;
     /** ビート時、αのアタックから下限までのフレーム数 */
@@ -159,32 +160,37 @@ public:
     void loopLiner(frame prm_beat_target_frames, float prm_beat_num);
 
     /**
-     * 三角波の波形でフェーディングする。（全色要素指定）.
+     * 矩形波でフェーディングする。 .
      * <PRE>
-     * ④  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-     *            /＼                     /＼
-     *           /   ＼                  /   ＼
-     *          /      ＼               /      ＼
-     *         /         ＼            /         ＼
-     *        /            ＼         /            ＼
-     * ⑤  ＿/               ＼＿＿＿/               ＼＿
+     *             ←③→
+     * ⑤  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+     *            /      ＼                     /      ＼
+     *           /         ＼                  /         ＼
+     *          /            ＼               /            ＼
+     *         /               ＼            /               ＼
+     *        /                  ＼         /                  ＼
+     * ⑥  ＿/                     ＼＿＿＿/                     ＼＿
      *
-     *       ←②→            ←③→
-     *       ←──── ① ────→
+     *       ←②→                  ←④→
+     *       ←──────── ① ────→
+     * </PRE>
      * </PRE>
      * ＜必要な設定値＞<BR>
      * ① １ループのフレーム数<BR>
      * ② アタックまでのフレーム数<BR>
-     * ③ 休憩フレーム数<BR>
-     * ④ 強度上限(_top_alpha[色要素] 配列が保持)<BR>
-     * ⑤ 強度下限(_bottom_alpha[色要素] 配列が保持)<BR>
+     * ③ 持続フレーム数<BR>
+     * ④ 休憩フレーム数<BR>
+     * ⑤ 強度上限(_top_alpha[色要素] 配列が保持)<BR>
+     * ⑥ 強度下限(_bottom_alpha[色要素] 配列が保持)<BR>
      * @param prm_beat_target_frames 上図で①のフレーム数
      * @param prm_attack_frames 上図で②のフレーム数
-     * @param prm_rest_frames 上図で③のフレーム数
+     * @param prm_duration_frames 上図で③のフレーム数
+     * @param prm_rest_frames 上図で④のフレーム数
      * @param prm_beat_num ループ数(-1で無限)
      */
     void beat(frame prm_beat_target_frames,
               frame prm_attack_frames,
+              frame prm_duration_frames,
               frame prm_rest_frames,
               float prm_beat_num);
 

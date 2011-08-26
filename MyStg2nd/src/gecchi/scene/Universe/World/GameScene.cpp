@@ -107,7 +107,7 @@ void GameScene::processBehavior() {
                 P_GOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
             }
             if (_pProg->getFrameInProgress() == 60) {
-                _pProg->changeWithCrossfading(GAMESCENE_PROG_PRE_TITLE);
+                _pProg->changeWithScene_Crossfading(GAMESCENE_PROG_PRE_TITLE);
             }
             break;
         }
@@ -119,7 +119,7 @@ void GameScene::processBehavior() {
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
-                _pProg->changeWithFlipping(GAMESCENE_PROG_TITLE);
+                _pProg->changeWithScene_Flipping(GAMESCENE_PROG_TITLE);
             }
             //EVENT_PREGAMETITLESCENE_FINISH イベント受付
             break;
@@ -139,7 +139,7 @@ void GameScene::processBehavior() {
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
-                _pProg->changeWithFlipping(GAMESCENE_PROG_TITLE);
+                _pProg->changeWithScene_Flipping(GAMESCENE_PROG_TITLE);
             }
 
             //或いは EVENT_GAMEDEMOSCENE_FINISH イベント受付
@@ -175,7 +175,8 @@ void GameScene::processBehavior() {
             if (_pProg->getGazeScene()->_was_paused_flg) {
                 if (_was_paused_flg_GameMainScene_prev_frame == false) {
                     GgafDx9Input::updateMouseState();
-                    GgafDx9Input::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
+                    GgafDx9Input::updateMouseState(); //マウス座標の相対座標を0にリセットするため
+                                                      //連続２回呼び出す
                     P_UNIVERSE->switchCameraWork("PauseCamWorker");
                 }
                 if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
@@ -247,40 +248,40 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_PREGAMETITLESCENE_FINISH) {
         //プレタイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_PREGAMETITLESCENE_FINISH)");
-        _pProg->changeWithFlipping(GAMESCENE_PROG_TITLE); //タイトルへ
+        _pProg->changeWithScene_Flipping(GAMESCENE_PROG_TITLE); //タイトルへ
 
     } else if (prm_no == EVENT_GAMETITLESCENE_FINISH) {
         //タイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLESCENE_FINISH)");
         //changeFlippingSubScene(GAMESCENE_PROG_DEMO);
-        _pProg->changeWithCrossfading(GAMESCENE_PROG_DEMO); //デモへ
+        _pProg->changeWithScene_Crossfading(GAMESCENE_PROG_DEMO); //デモへ
 
     } else if (prm_no == EVENT_GAMEDEMOSCENE_FINISH) {
         //デモシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
-        _pProg->changeWithCrossfading(GAMESCENE_PROG_INIT); //最初へ
+        _pProg->changeWithScene_Crossfading(GAMESCENE_PROG_INIT); //最初へ
 
     } else if (prm_no == EVENT_GAMESTART) {
         //スタート
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMESTART)");
-        _pProg->changeWithCrossfading(GAMESCENE_PROG_BEGINNING); //オープニング（ゲームモードセレクト）へ
+        _pProg->changeWithScene_Crossfading(GAMESCENE_PROG_BEGINNING); //オープニング（ゲームモードセレクト）へ
 
     } else if (prm_no == EVENT_GAMEMODE_DECIDE) {
         //ゲームモードセレクト完了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEMODE_DECIDE)");
         _stage = 1;
-        _pProg->changeWithFlipping(GAMESCENE_PROG_MAIN);//メインへ
+        _pProg->changeWithScene_Crossfading(GAMESCENE_PROG_MAIN,600);//メインへ
     } else if (prm_no == EVENT_GOTO_GAMETITLE) {
         //とにかくタイトルへイベント発生
         _TRACE_("GameScene::onCatchEvent(EVENT_GOTO_GAMETITLE)");
-        _pProg->changeWithFlipping(GAMESCENE_PROG_TITLE); //タイトルへ
+        _pProg->changeWithScene_Flipping(GAMESCENE_PROG_TITLE); //タイトルへ
     }
 
 
 
     if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
         _TRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
-        _pProg->changeWithCrossfading(GAMESCENE_PROG_GAME_OVER); //ゲームオーバーへ
+        _pProg->changeWithScene_Crossfading(GAMESCENE_PROG_GAME_OVER); //ゲームオーバーへ
     } else if (prm_no == EVENT_GAME_OVER_FINISH) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GAME_OVER_FINISH)");
         _pProg->change(GAMESCENE_PROG_FINISH);
