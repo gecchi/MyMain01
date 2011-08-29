@@ -247,7 +247,7 @@ void MyShip::onActive() {
 
 void MyShip::processBehavior() {
 
-    //スペキュラテスト
+    ///////////////////////スペキュラテスト
     if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
         _pModel->_specular += 0.1;
     }
@@ -260,6 +260,7 @@ void MyShip::processBehavior() {
     if (GgafDx9Input::isBeingPressedKey(DIK_P)) {
         _pModel->_specular_power -= 0.1;
     }
+    /////////////////////////////////////
 
     if (!_can_control) {
         return;

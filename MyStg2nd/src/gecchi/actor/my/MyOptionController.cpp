@@ -227,6 +227,15 @@ void MyOptionController::processBehavior() {
         }
     }
 
+    if (VB_PLAY->isPushedDown(VB_OPTION)) {
+        _papMyOption[0]->_pModel->_pTextureBlinker->forceBlinkRange(1.0, 0.8, 3.0);
+        _papMyOption[0]->_pModel->_pTextureBlinker->beat(30,10,2,-1);
+    } else if (VB_PLAY->isBeingPressed(VB_OPTION)) {
+        _papMyOption[0]->_pModel->_pTextureBlinker->behave();
+    } else if (VB_PLAY->isReleasedUp(VB_OPTION)) {
+        _papMyOption[0]->_pModel->_pTextureBlinker->setBlink(1.0f);
+    }
+
 
     //ƒMƒYƒ‚
     _pDirectionVector->locateAs(this);
