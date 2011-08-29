@@ -18,8 +18,8 @@ public:
     int _event_num;
     /** シーンの現在イベント(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     int _iCnt_Event;
-
-    /*new*/ SceneProgress* _pProg; //隠蔽
+    /** 進捗管理(シーン用) */
+    /*new*/ SceneProgress* _pProg; //進捗管理(シーン用)。上書き隠蔽
 
     DefaultScene(const char* prm_name);
 
