@@ -82,10 +82,11 @@ void EnemyAstraea::initialize() {
     _pKurokoA->setMvVelo(0);
 }
 
-
+#define STATUS_RESET(X) MyStgUtil::reset##X##Status(_pStatus)
 void EnemyAstraea::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
+    STATUS_RESET(EnemyAstraea);
 //    _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
 
     if (_pEffect_Appearance) {
