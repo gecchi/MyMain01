@@ -5,7 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EffectMyShipExplosion::EffectMyShipExplosion(const char* prm_name) : DefaultSpriteSetActor(prm_name, "EffectExplosion001") {
+EffectMyShipExplosion::EffectMyShipExplosion(const char* prm_name) : 
+        DefaultSpriteSetActor(prm_name, "EffectExplosion001", NULL) {
     _class_name = "EffectMyShipExplosion";
     changeEffectTechnique("DestBlendOne"); //â¡éZçáê¨TechniqueéwíË
     defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv);

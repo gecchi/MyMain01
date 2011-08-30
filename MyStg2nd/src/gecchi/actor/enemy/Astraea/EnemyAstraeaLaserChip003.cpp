@@ -7,9 +7,8 @@ using namespace MyStg2nd;
 
 
 EnemyAstraeaLaserChip003::EnemyAstraeaLaserChip003(const char* prm_name) :
-        WateringLaserChip(prm_name, "AstraeaLaserChip001") {
+        WateringLaserChip(prm_name, "AstraeaLaserChip001", STATUS(EnemyAstraeaLaserChip003)) {
     _class_name = "EnemyAstraeaLaserChip003";
-    MyStgUtil::resetEnemyAstraeaLaserChip003Status(_pStatus);
     _pSplManufCon = connectSplineManufactureManager("GURUGURU");
     _pSplSeq = _pSplManufCon->use()->createSplineSequence(_pKurokoA);
 }

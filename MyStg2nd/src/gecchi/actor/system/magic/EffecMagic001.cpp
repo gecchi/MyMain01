@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 EffectMagic001::EffectMagic001(const char* prm_name)
-               : DefaultMeshSetActor(prm_name, "EffectMagic001") {
+               : DefaultMeshSetActor(prm_name, "EffectMagic001", NULL) {
     _class_name = "EffectMagic001";
     changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り

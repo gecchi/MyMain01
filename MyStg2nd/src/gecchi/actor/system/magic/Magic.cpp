@@ -22,7 +22,7 @@ Magic::Magic(const char*  prm_name,
              magic_time   prm_time_of_invoking_base, float prm_fRate_time_of_invoking ,
              magic_time   prm_time_of_effect_base  , float prm_fRate_time_of_effecting,
              magic_point  prm_keep_cost_base       , float prm_fRate_keep_cost
-                ) : GgafMainActor(prm_name) {
+                ) : GgafMainActor(prm_name, NULL) {
 //    GgafDx9GeometricActor* prm_pCaster,
 //     GgafDx9GeometricActor* prm_pReceiver) : GgafDx9BoardSetActor(prm_name, "magic") {
     _pMP = NULL; //initialize()Ç≈ê›íËÇ∑ÇÈÅB

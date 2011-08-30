@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 EffectMyOption::EffectMyOption(const char* prm_name, MyOption* prm_pMyOption) :
-        DefaultMeshSetActor(prm_name, "8/option_enagy") {
+        DefaultMeshSetActor(prm_name, "8/option_enagy", NULL) {
     changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
     _pMyOption = prm_pMyOption;
     setZEnable(true);        //Zバッファは考慮して描画

@@ -16,7 +16,9 @@ public:
 
     frame _offset_frames;
 
-    SpriteMeshWorldBoundActor(const char* prm_name, const char* prm_model);
+    SpriteMeshWorldBoundActor(const char* prm_name,
+                              const char* prm_model,
+                              GgafCore::GgafStatus* prm_pStat);
 
     virtual void onCreateModel() override {
     }

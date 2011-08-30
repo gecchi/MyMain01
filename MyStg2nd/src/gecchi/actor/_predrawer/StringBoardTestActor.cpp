@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 StringBoardTestActor::StringBoardTestActor(const char* prm_name) :
-        StringBoardActor(prm_name, "_chk_StringBoardEffectTest", NULL) {
+        StringBoardActor(prm_name, "_chk_StringBoardEffectTest") {
 
     _class_name = "StringBoardTestActor";
 }
