@@ -19,7 +19,7 @@ enum {
 class Item : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
-    Item(const char* prm_name, const char* prm_model);
+    Item(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
     virtual void initialize() override;
 

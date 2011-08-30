@@ -146,7 +146,7 @@ public:
      * @param prm_pChecker チェッカー(使用しない時 NULL)
      * @return
      */
-    GgafDx9GeometricActor(const char* prm_name,
+    GgafDx9GeometricActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat,
                           GgafDx9Checker* prm_pChecker);
 
     /**

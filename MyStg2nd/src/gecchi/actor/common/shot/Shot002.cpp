@@ -5,9 +5,9 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-Shot002::Shot002(const char* prm_name) : DefaultMeshSetActor(prm_name, "Flora") {
+Shot002::Shot002(const char* prm_name) :
+        DefaultMeshSetActor(prm_name, "Flora", STATUS(Shot002)) {
     _class_name = "Shot002";
-    MyStgUtil::resetShot002Status(_pStatus);
     _my_frame = 0;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));

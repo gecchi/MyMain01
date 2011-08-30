@@ -28,6 +28,7 @@ public:
      */
     GgafDx9SpriteMeshActor(const char* prm_name,
                            const char* prm_model,
+                           GgafCore::GgafStatus* prm_pStat,
                            GgafDx9Checker* prm_pChecker );
 
     virtual void processDraw() override;

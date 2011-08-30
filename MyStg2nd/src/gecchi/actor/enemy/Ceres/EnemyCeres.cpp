@@ -6,9 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyCeresShots001) :
-        DefaultMeshSetActor(prm_name, "Ceres") {
+        DefaultMeshSetActor(prm_name, "Ceres", STATUS(EnemyCeres)) {
     _class_name = "EnemyCeres";
-    MyStgUtil::resetEnemyCeresStatus(_pStatus);
     _iMovePatternNo = 0;
     _X = -356000; //äJénç¿ïW
     _Y = 0;

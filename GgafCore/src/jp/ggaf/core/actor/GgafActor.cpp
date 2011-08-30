@@ -3,14 +3,17 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafActor::GgafActor(const char* prm_name) :
+GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
     GgafElement<GgafActor> (prm_name) {
     TRACE("GgafActor::GgafActor("<<this<<") "<<prm_name);
     _class_name = "GgafActor";
     _obj_class = Obj_GgafActor;
-
-    _pStatus = NEW GgafStatus(12);
-    _pStatus->set(0, 0);
+    if (prm_pStat) {
+        _pStatus = prm_pStat;
+    } else {
+        _pStatus = NEW GgafStatus(12);
+        _pStatus->set(0, 0);
+    }
     _pScene_Platform = NULL;
     _pGod = NULL;
     _can_hit_flg = false;

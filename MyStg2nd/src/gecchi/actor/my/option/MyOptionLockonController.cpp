@@ -6,7 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-MyOptionLockonController::MyOptionLockonController(const char* prm_name) : GgafDummyActor(prm_name) {
+MyOptionLockonController::MyOptionLockonController(const char* prm_name) :
+        GgafDummyActor(prm_name, NULL) {
     _class_name = "MyOptionLockonController";
     _pRingTarget = NEW GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor>();
     _pMainLockonEffect = NEW EffectLockon001_Main("MAIN");

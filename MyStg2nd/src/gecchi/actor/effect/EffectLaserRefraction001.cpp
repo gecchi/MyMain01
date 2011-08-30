@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 EffectLaserRefraction001::EffectLaserRefraction001(const char* prm_name)
-               : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001") {
+               : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", NULL) {
     _class_name = "EffectLaserRefraction001";
     changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り

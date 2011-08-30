@@ -28,10 +28,11 @@ public:
      * @return
      */
     GgafDx9CubeMapMeshSetActor(const char* prm_name,
-                        const char* prm_model_id,
-                        const char* prm_effect_id,
-                        const char* prm_technique,
-                        GgafDx9Checker* prm_pChecker );
+                               const char* prm_model_id,
+                               const char* prm_effect_id,
+                               const char* prm_technique,
+                               GgafCore::GgafStatus* prm_pStat,
+                               GgafDx9Checker* prm_pChecker );
 
     virtual void processDraw() override;
 

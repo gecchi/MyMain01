@@ -6,14 +6,14 @@ using namespace GgafDx9LibStg;
 
 ColliSphereActor* ColliSphereActor::_pObj = NULL;
 
-ColliSphereActor::ColliSphereActor(const char* prm_name) : GgafDx9SphereActor(prm_name, NULL) {
+ColliSphereActor::ColliSphereActor(const char* prm_name, GgafStatus* prm_pStat) : GgafDx9SphereActor(prm_name, prm_pStat, NULL) {
     _class_name = "ColliSphereActor";
     setAlpha(0.8);
 }
 
 ColliSphereActor* ColliSphereActor::get() {
     if (ColliSphereActor::_pObj == NULL) {
-        ColliSphereActor::_pObj = NEW ColliSphereActor("HITAREA");
+        ColliSphereActor::_pObj = NEW ColliSphereActor("HITAREA", NULL);
     }
     return ColliSphereActor::_pObj;
 }

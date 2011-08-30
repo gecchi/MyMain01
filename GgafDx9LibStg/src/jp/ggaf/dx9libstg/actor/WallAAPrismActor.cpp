@@ -9,12 +9,14 @@ bool WallAAPrismActor::init = false;
 __map__<int, UINT> WallAAPrismActor::_delface;
 
 WallAAPrismActor::WallAAPrismActor(const char* prm_name,
-                                   const char* prm_model) :
+                                   const char* prm_model,
+                                   GgafStatus* prm_pStat) :
 
                                       WallPartsActor(prm_name,
-                                                string("11/" + string(prm_model)).c_str(),
-                                                "WallAAPrismEffect",
-                                                "WallAAPrismTechnique") {
+                                                     string("11/" + string(prm_model)).c_str(),
+                                                     "WallAAPrismEffect",
+                                                     "WallAAPrismTechnique",
+                                                     prm_pStat) {
 
     _class_name = "WallAAPrismActor";
     _pMeshSetModel->_set_num = 11; //WallPartsActor最大セット数は20。

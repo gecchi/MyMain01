@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 //åªç›ñ¢égóp
 HoshiBoshi002::HoshiBoshi002(const char* prm_name) :
-DefaultPointSpriteActor(prm_name, "hoshitest") {
+        DefaultPointSpriteActor(prm_name, "hoshitest", NULL) {
     _class_name = "HoshiBoshi002";
     changeEffectTechnique("DestBlendOne"); //â¡éZçáê¨
     setHitAble(false);

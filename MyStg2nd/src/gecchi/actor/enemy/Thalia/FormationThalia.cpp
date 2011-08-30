@@ -5,7 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-FormationThalia::FormationThalia(const char* prm_name) : GgafDx9FormationActor(prm_name, 30*60) {
+FormationThalia::FormationThalia(const char* prm_name) :
+        GgafDx9FormationActor(prm_name, 30*60) {
     _class_name = "FormationThalia";
     _num_Thalia      = R_FormationThalia_Num;         //編隊のタリアの数
     _interval_frames = R_FormationThalia_LaunchInterval;    //各タリアの出現間隔(frame)

@@ -13,10 +13,11 @@ enum {
     THALIA_PROG_CLOSE     ,
 };
 
-EnemyThalia::EnemyThalia(const char* prm_name) : DefaultMorphMeshActor(prm_name, "1/Thalia") {
-//EnemyThalia::EnemyThalia(const char* prm_name) : CubeMapMorphMeshActor(prm_name, "1/ThaliaCM") {
+EnemyThalia::EnemyThalia(const char* prm_name) :
+        DefaultMorphMeshActor(prm_name, "1/Thalia", STATUS(EnemyThalia)) {
+        //CubeMapMorphMeshActor(prm_name, "1/ThaliaCM", STATUS(EnemyThalia)) {
+
     _class_name = "EnemyThalia";
-    MyStgUtil::resetEnemyThaliaStatus(_pStatus);
     _veloTopMv = 20000;
     _iMovePatternNo = 0;
     _pSplSeq = NULL;

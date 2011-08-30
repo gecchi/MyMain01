@@ -7,10 +7,11 @@ using namespace MyStg2nd;
 
 GroundMeshTestActor::GroundMeshTestActor(const char* prm_name) :
         GgafDx9MeshActor(prm_name,
-                     "_chk_GroundMeshEffectTest",
-                     "GroundMeshEffect",
-                     "GroundMeshEffectTechnique",
-                     NULL) {
+                         "_chk_GroundMeshEffectTest",
+                         "GroundMeshEffect",
+                         "GroundMeshEffectTechnique",
+                         NULL,
+                         NULL) {
 
     _class_name = "GroundMeshTestActor";
     _offset_frames = 0;

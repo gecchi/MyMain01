@@ -7,13 +7,14 @@ bool GgafDx9AAPrismActor::init = false;
 __map__<int, GgafDx9AAPrismActor::RotPosPrism> GgafDx9AAPrismActor::pos2r;
 
 
-GgafDx9AAPrismActor::GgafDx9AAPrismActor(const char* prm_name,
+GgafDx9AAPrismActor::GgafDx9AAPrismActor(const char* prm_name, GgafStatus* prm_pStat,
                                    GgafDx9Checker* prm_pChecker) :
 
                                    GgafDx9MeshActor(prm_name,
                                                     "prism",
                                                     "DefaultMeshEffect",
                                                     "DefaultMeshTechnique",
+                                                    prm_pStat,
                                                     prm_pChecker) {
     //_obj_class |= Obj_GgafDx9AAPrismActor;
     _class_name = "GgafDx9AAPrismActor";

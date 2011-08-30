@@ -6,14 +6,14 @@ using namespace GgafDx9LibStg;
 
 ColliAAPrismActor* ColliAAPrismActor::_pObj = NULL;
 
-ColliAAPrismActor::ColliAAPrismActor(const char* prm_name) : GgafDx9AAPrismActor(prm_name, NULL) {
+ColliAAPrismActor::ColliAAPrismActor(const char* prm_name, GgafStatus* prm_pStat) : GgafDx9AAPrismActor(prm_name, prm_pStat, NULL) {
     _class_name = "ColliAAPrismActor";
     setAlpha(0.8);
 }
 
 ColliAAPrismActor* ColliAAPrismActor::get() {
     if (ColliAAPrismActor::_pObj == NULL) {
-        ColliAAPrismActor::_pObj = NEW ColliAAPrismActor("HITAREA");
+        ColliAAPrismActor::_pObj = NEW ColliAAPrismActor("HITAREA", NULL);
     }
     return ColliAAPrismActor::_pObj;
 }

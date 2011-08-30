@@ -11,8 +11,8 @@ enum {
     ASTRAEA_PROG_FIRE    ,
 };
 
-EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshActor(prm_name, "Astraea") {
-    MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
+EnemyAstraea::EnemyAstraea(const char* prm_name) :
+        DefaultMeshActor(prm_name, "Astraea", STATUS(EnemyAstraea)) {
 
     //ÉåÅ[ÉUÅ[
     _laser_way = 4;

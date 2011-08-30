@@ -5,7 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-TamagoActor::TamagoActor(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "anibox") {
+TamagoActor::TamagoActor(const char* prm_name, GgafStatus* prm_pStat) :
+        DefaultD3DXAniMeshActor(prm_name, "anibox", NULL) {
     _class_name = "TamagoActor";
 }
 

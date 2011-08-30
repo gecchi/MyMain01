@@ -19,7 +19,7 @@ public:
     GgafDx9Core::GgafDx9Scaler* _pScaler;
 
 
-    DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model);
+    DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
     virtual void onCreateModel() override {
     }

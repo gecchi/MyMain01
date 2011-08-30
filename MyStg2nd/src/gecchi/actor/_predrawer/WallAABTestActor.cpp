@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 WallAABTestActor::WallAABTestActor(const char* prm_name) :
-        WallAABActor(prm_name, "_chk_WallAABTestActorTest") {
+        WallAABActor(prm_name, "_chk_WallAABTestActorTest", NULL) {
     _class_name = "WallAABTestActor";
 }
 

@@ -5,14 +5,16 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 WallPartsActor::WallPartsActor(const char* prm_name,
-                     const char* prm_model_id,
-                     const char* prm_effect_id,
-                     const char* prm_technique) :
+                                 const char* prm_model_id,
+                                 const char* prm_effect_id,
+                                 const char* prm_technique,
+                                 GgafStatus* prm_pStat) :
 
                         GgafDx9MeshSetActor(prm_name,
                                             prm_model_id,
                                             prm_effect_id,
                                             prm_technique,
+                                            prm_pStat,
                                             NEW CollisionChecker(this) ) {
     _class_name = "WallPartsActor";
     _obj_class |= Obj_WallPartsActor;

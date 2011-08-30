@@ -5,7 +5,7 @@ namespace MyStg2nd {
 class TestDepository : public GgafCore::GgafActorDepository {
 
 public:
-    TestDepository(const char* prm_name);
+    TestDepository(const char* prm_name, GgafCore::GgafStatus* prm_pStat);
 
     virtual ~TestDepository() {
         _TRACE_("TestDepository::~TestDepository()");

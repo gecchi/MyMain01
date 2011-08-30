@@ -5,10 +5,9 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyTorpedoBlast::MyTorpedoBlast(const char* prm_name)
-               : DefaultMeshSetActor(prm_name, "MyTorpedoBlast") {
+MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
+        DefaultMeshSetActor(prm_name, "MyTorpedoBlast",STATUS(MyTorpedoBlast)) {
     _class_name = "MyTorpedoBlast";
-    MyStgUtil::resetMyTorpedoBlastStatus(_pStatus);
     changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
     setAlpha(0.2);
     setZEnable(true);        //Zバッファは考慮有り

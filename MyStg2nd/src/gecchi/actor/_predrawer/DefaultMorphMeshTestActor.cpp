@@ -6,7 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-DefaultMorphMeshTestActor::DefaultMorphMeshTestActor(const char* prm_name) : DefaultMorphMeshActor(prm_name, "_chk_DefaultMorphMeshEffectTest") {
+DefaultMorphMeshTestActor::DefaultMorphMeshTestActor(const char* prm_name) :
+        DefaultMorphMeshActor(prm_name, "_chk_DefaultMorphMeshEffectTest", NULL) {
     _class_name = "DefaultMorphMeshTestActor";
     setHitAble(false);
 }

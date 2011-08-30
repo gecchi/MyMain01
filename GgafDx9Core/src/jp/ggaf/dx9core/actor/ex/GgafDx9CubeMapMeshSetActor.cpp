@@ -4,16 +4,18 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9CubeMapMeshSetActor::GgafDx9CubeMapMeshSetActor(const char* prm_name,
-                                         const char* prm_model_id,
-                                         const char* prm_effect_id,
-                                         const char* prm_technique,
-                                         GgafDx9Checker* prm_pChecker) :
+                                                       const char* prm_model_id,
+                                                       const char* prm_effect_id,
+                                                       const char* prm_technique,
+                                                       GgafStatus* prm_pStat,
+                                                       GgafDx9Checker* prm_pChecker) :
                                               GgafDx9MeshSetActor(prm_name,
                                                                   prm_model_id,
                                                                   "g",
                                                                   prm_effect_id,
                                                                   "g",
                                                                   prm_technique,
+                                                                  prm_pStat,
                                                                   prm_pChecker) ,
                                               GgafDx9ICubeMapActor() {
     _obj_class |= Obj_GgafDx9CubeMapMeshSetActor;

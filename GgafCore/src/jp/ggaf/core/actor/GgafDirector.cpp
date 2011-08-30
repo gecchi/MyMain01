@@ -3,7 +3,7 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafDirector::GgafDirector(GgafScene* prm_pScene_Platform) : GgafActor(prm_pScene_Platform->getName()) {
+GgafDirector::GgafDirector(GgafScene* prm_pScene_Platform) : GgafActor(prm_pScene_Platform->getName(), NULL) {
     _obj_class |= Obj_GgafDirector;
     _class_name = "GgafDirector";
 

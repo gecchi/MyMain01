@@ -9,8 +9,9 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
                                            const char* prm_model,
                                            const char* prm_effect,
                                            const char* prm_technique,
+                                           GgafStatus* prm_pStat,
                                            GgafDx9Checker* prm_pChecker) :
-  GgafDx9GeometricActor(prm_name, prm_pChecker) {
+  GgafDx9GeometricActor(prm_name, prm_pStat, prm_pChecker) {
     _obj_class |= Obj_GgafDx9DrawableActor;
     _class_name = "GgafDx9DrawableActor";
 
@@ -59,8 +60,9 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
                                            const char* prm_effect_id,
                                            const char* prm_effect_type,
                                            const char* prm_technique,
+                                           GgafStatus* prm_pStat,
                                            GgafDx9Checker* prm_pChecker) :
-  GgafDx9GeometricActor(prm_name, prm_pChecker) {
+  GgafDx9GeometricActor(prm_name, prm_pStat, prm_pChecker) {
 
     _class_name = "GgafDx9DrawableActor";
     _hash_technique = GgafUtil::easy_hash(prm_technique);

@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
+GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name, 
                                            const char* prm_model_id,
                                            const char* prm_effect_id,
                                            const char* prm_technique) :
@@ -13,6 +13,7 @@ GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
                                                                     prm_effect_id,
                                                                     "b",
                                                                     prm_technique,
+                                                                    NULL,
                                                                     NULL) {
     _obj_class |= Obj_GgafDx9BoardSetActor;
     _class_name = "GgafDx9BoardSetActor";

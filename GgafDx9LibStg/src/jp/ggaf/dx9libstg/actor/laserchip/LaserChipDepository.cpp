@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-LaserChipDepository::LaserChipDepository(const char* prm_name) : GgafActorDepository(prm_name) {
+LaserChipDepository::LaserChipDepository(const char* prm_name, GgafStatus* prm_pStat) : GgafActorDepository(prm_name, prm_pStat) {
     _class_name = "LaserChipDepository";
     _num_continual_employ_count = 0;
     _num_chip_active = 0;

@@ -6,7 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-SpriteMeshSetTestActor::SpriteMeshSetTestActor(const char* prm_name) : SpriteMeshSetActor(prm_name, "_chk_DefaultMeshSetEffectTest") {
+SpriteMeshSetTestActor::SpriteMeshSetTestActor(const char* prm_name) :
+        SpriteMeshSetActor(prm_name, "_chk_DefaultMeshSetEffectTest", NULL) {
     _class_name = "DefaultMeshSetTestActor";
     setHitAble(false);
 }

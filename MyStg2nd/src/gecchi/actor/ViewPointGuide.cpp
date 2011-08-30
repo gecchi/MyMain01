@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 ViewPointGuide::ViewPointGuide(const char* prm_name)
-               : DefaultD3DXMeshActor(prm_name, "Gizmo") {
+               : DefaultD3DXMeshActor(prm_name, "Gizmo", NULL) {
     _class_name = "ViewPointGuide";
     setHitAble(false);
 }

@@ -4,11 +4,12 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model_id) :
+DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
     GgafDx9SpriteActor(prm_name,
                        prm_model_id,
                        "DefaultSpriteEffect",
                        "DefaultSpriteTechnique",
+                       prm_pStat,
                        NEW CollisionChecker(this) ) {
     _class_name = "DefaultSpriteActor";
     _offset_frames = 0;

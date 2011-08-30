@@ -5,9 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyMassalia::EnemyMassalia(const char* prm_name) : DefaultMeshActor(prm_name, "Massalia") {
-    //MyStgUtil::resetEnemyMassaliaStatus(_pStatus);
-
+EnemyMassalia::EnemyMassalia(const char* prm_name) :
+        DefaultMeshActor(prm_name, "Massalia", STATUS(EnemyMassalia)) {
     //ÉåÅ[ÉUÅ[
     _laser_way = 3;
     _X = 0;

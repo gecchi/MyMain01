@@ -5,7 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id) : DefaultSpriteSetActor(prm_name, prm_model_id) {
+EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id) :
+        DefaultSpriteSetActor(prm_name, prm_model_id, NULL) {
     _class_name = "EffectLockon001";
     _pTarget = NULL;
     inactivateImmediately();

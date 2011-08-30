@@ -6,9 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOptionTorpedoController)
-               : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001") {
+               : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
     _class_name = "MyTorpedo";
-    MyStgUtil::resetMyTorpedoStatus(_pStatus);
     _pMyOptionTorpedoController = prm_pMyOptionTorpedoController;
     _length_TailEffect = 4;
 

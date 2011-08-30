@@ -34,7 +34,7 @@ public:
     /** [r/w]レーザー発射時エフェクト。不要の場合はNULLを設定する */
     GgafDx9Core::GgafDx9DrawableActor* _pEffectActor_Irradiate;
 
-    LaserChipDepository(const char* prm_name);
+    LaserChipDepository(const char* prm_name, GgafCore::GgafStatus* prm_pStat = NULL);
 
     /**
      * LaserChipDepositoryを設定する。

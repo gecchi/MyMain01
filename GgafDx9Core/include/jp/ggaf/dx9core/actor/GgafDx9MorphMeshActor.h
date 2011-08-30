@@ -34,6 +34,7 @@ public:
                           const char* prm_model_id,
                           const char* prm_effect_id,
                           const char* prm_technique,
+                          GgafCore::GgafStatus* prm_pStat,
                           GgafDx9Checker* prm_pChecker );
 
     /**
@@ -53,6 +54,7 @@ public:
                           const char* prm_effect_id,
                           const char* prm_effect_type,
                           const char* prm_technique,
+                          GgafCore::GgafStatus* prm_pStat,
                           GgafDx9Checker* prm_pChecker);
 
     virtual void processDraw() override;

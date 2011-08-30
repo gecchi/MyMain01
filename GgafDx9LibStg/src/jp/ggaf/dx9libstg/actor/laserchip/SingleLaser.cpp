@@ -5,11 +5,12 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 
-SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id) :
+SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
              GgafDx9MeshSetActor(prm_name,
                                  string("27/" + string(prm_model_id)).c_str(),
                                  "SingleLaserEffect",
                                  "SingleLaserTechnique",
+                                 prm_pStat,
                                  NEW CollisionChecker(this) ) {
 
     _pMeshSetModel->_set_num = 27; //現在のシングルレーザーの最大セット数は27。

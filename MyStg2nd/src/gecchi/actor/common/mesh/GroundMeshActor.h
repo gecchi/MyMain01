@@ -15,7 +15,7 @@ public:
 
     GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 
-    GroundMeshActor(const char* prm_name, const char* prm_model);
+    GroundMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
     virtual void onCreateModel() override {
     }
     virtual void initialize() override {

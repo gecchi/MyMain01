@@ -8,6 +8,7 @@ GgafDx9CubeMapMeshActor::GgafDx9CubeMapMeshActor(const char* prm_name,
                                    const char* prm_model_id,
                                    const char* prm_effect_id,
                                    const char* prm_technique,
+                                   GgafStatus* prm_pStat,
                                    GgafDx9Checker* prm_pChecker) :
                                            GgafDx9MeshActor(prm_name,
                                                             prm_model_id,
@@ -15,6 +16,7 @@ GgafDx9CubeMapMeshActor::GgafDx9CubeMapMeshActor(const char* prm_name,
                                                             prm_effect_id,
                                                             "G",
                                                             prm_technique,
+                                                            prm_pStat,
                                                             prm_pChecker) ,
                                             GgafDx9ICubeMapActor() {
     _obj_class |= Obj_GgafDx9CubeMapMeshActor;

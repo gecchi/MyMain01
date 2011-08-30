@@ -5,8 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 
-StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model) :
-    LaserChip(prm_name, prm_model) {
+StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
+    LaserChip(prm_name, prm_model, prm_pStat) {
 //    _pPosSourceActor = NULL;
 //    _pAngleSourceActor = NULL;
     _pSourceActor = NULL;

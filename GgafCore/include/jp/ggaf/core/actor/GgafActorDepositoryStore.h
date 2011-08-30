@@ -19,7 +19,7 @@ private :
 
 
 public:
-    GgafActorDepositoryStore(const char* prm_name);
+    GgafActorDepositoryStore(const char* prm_name, GgafStatus* prm_pStat = NULL);
 
     /**
      * デポジトリを登録します.

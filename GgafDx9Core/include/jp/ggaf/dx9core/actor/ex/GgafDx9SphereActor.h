@@ -14,7 +14,8 @@ class GgafDx9SphereActor : public GgafDx9MeshActor {
 
 public:
     GgafDx9SphereActor(const char* prm_name,
-                     GgafDx9Checker* prm_pChecker);
+                       GgafCore::GgafStatus* prm_pStat,
+                       GgafDx9Checker* prm_pChecker);
 
 ///**
 //     * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>

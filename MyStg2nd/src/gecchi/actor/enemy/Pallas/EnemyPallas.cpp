@@ -5,9 +5,9 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyPallas::EnemyPallas(const char* prm_name) : DefaultMeshSetActor(prm_name, "Pallas") {
+EnemyPallas::EnemyPallas(const char* prm_name) :
+        DefaultMeshSetActor(prm_name, "Pallas", STATUS(EnemyPallas)) {
     _class_name = "EnemyPallas";
-    MyStgUtil::resetEnemyPallasStatus(_pStatus);
     _iMovePatternNo = 0;
     _pSplSeq = NULL;
     _pDepo_Shot = NULL;

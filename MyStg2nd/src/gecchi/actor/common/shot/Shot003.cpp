@@ -5,9 +5,9 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-Shot003::Shot003(const char* prm_name) : DefaultMeshSetActor(prm_name, "laser_single") {
+Shot003::Shot003(const char* prm_name) :
+        DefaultMeshSetActor(prm_name, "laser_single", STATUS(Shot003)) {
     _class_name = "Shot003";
-    MyStgUtil::resetShot003Status(_pStatus);
 }
 
 void Shot003::initialize() {

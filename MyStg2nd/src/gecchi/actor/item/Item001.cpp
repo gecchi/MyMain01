@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 Item001::Item001(const char* prm_name)
-               : DefaultMeshSetActor(prm_name, "vic2") {
+               : DefaultMeshSetActor(prm_name, "vic2", NULL) {
     _class_name = "Item001";
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(true);  //Zバッファは書き込み有り

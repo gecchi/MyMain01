@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
 class FontSpriteActor : public DefaultSpriteActor {
 
 public:
-    FontSpriteActor(const char* prm_name, const char* prm_model);
+    FontSpriteActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
     virtual ~FontSpriteActor();
 

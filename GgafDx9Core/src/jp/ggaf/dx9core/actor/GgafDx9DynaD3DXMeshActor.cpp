@@ -9,6 +9,7 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
                                                    const char* prm_model_id,
                                                    const char* prm_effect_id,
                                                    const char* prm_technique,
+                                                   GgafStatus* prm_pStat,
                                                    GgafDx9Checker* prm_pChecker) :
 
                                                        GgafDx9DrawableActor(prm_name,
@@ -17,6 +18,7 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
                                                                             prm_effect_id,
                                                                             "X",
                                                                             prm_technique,
+                                                                            prm_pStat,
                                                                             prm_pChecker) {
     _obj_class |= Obj_GgafDx9DynaD3DXMeshActor;
     _class_name = "GgafDx9DynaD3DXMeshActor";

@@ -5,10 +5,10 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-//Torus::Torus(const char* prm_name, const char* prm_model, int prm_r1, int prm_r2) : GroundMeshActor(prm_name, prm_model) {
-Torus::Torus(const char* prm_name, const char* prm_model, int prm_r1, int prm_r2) : CubeMapMeshActor(prm_name, prm_model) {
+//Torus::Torus(const char* prm_name, const char* prm_model, int prm_r1, int prm_r2) : GroundMeshActor(prm_name, prm_model, prm_pStat) {
+Torus::Torus(const char* prm_name, const char* prm_model, int prm_r1, int prm_r2) :
+        CubeMapMeshActor(prm_name, prm_model, STATUS(Torus)) {
     _class_name = "Torus";
-    MyStgUtil::resetTorusStatus(_pStatus);
     _r1 = prm_r1;
     _r2 = prm_r2;
 }

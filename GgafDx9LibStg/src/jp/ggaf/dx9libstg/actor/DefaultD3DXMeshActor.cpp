@@ -4,11 +4,12 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultD3DXMeshActor::DefaultD3DXMeshActor(const char* prm_name, const char* prm_model) :
+DefaultD3DXMeshActor::DefaultD3DXMeshActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
     GgafDx9D3DXMeshActor(prm_name,
                          prm_model,
                          "DefaultMeshEffect",
                          "DefaultMeshTechnique",
+                         prm_pStat,
                          NEW CollisionChecker(this) ) {
     _class_name = "DefaultD3DXMeshActor";
     _offset_frames = 0;

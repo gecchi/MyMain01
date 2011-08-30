@@ -3,12 +3,12 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9StringSpriteActor::GgafDx9StringSpriteActor(const char* prm_name, const char* prm_model)
-//: GgafDx9SpriteSetActor(prm_name, prm_model, "DefaultSpriteSetEffect", "DefaultSpriteSetTechnique") {
+GgafDx9StringSpriteActor::GgafDx9StringSpriteActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat)
   : GgafDx9SpriteSetActor(prm_name,
                           prm_model,
                           "StringSpriteEffect",
                           "StringSpriteTechnique",
+                          prm_pStat,
                           NULL) {
 
     _class_name = "GgafDx9StringSpriteActor";

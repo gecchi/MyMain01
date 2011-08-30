@@ -5,7 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-WorldBoundSpace002::WorldBoundSpace002(const char* prm_name) : WorldBoundActor(prm_name, "WorldBoundSpace002") {
+WorldBoundSpace002::WorldBoundSpace002(const char* prm_name) :
+        WorldBoundActor(prm_name, "WorldBoundSpace002") {
     _class_name = "WorldBoundSpace002";
     _base_u = 0;
     _base_v = 0;

@@ -25,7 +25,7 @@ public:
      * @param prm_model
      * @return
      */
-    SpriteMeshSetActor(const char* prm_name, const char* prm_model);
+    SpriteMeshSetActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
     virtual void onCreateModel() override {
     }

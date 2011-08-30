@@ -7,9 +7,8 @@ using namespace MyStg2nd;
 
 
 MyOptionStraightLaserChip001::MyOptionStraightLaserChip001(const char* prm_name) :
-        StraightLaserChip(prm_name, "MyOptionStraightLaserChip001") {
+        StraightLaserChip(prm_name, "MyOptionStraightLaserChip001", STATUS(MyOptionStraightLaserChip001)) {
     _class_name = "MyOptionStraightLaserChip001";
-    MyStgUtil::resetMyOptionStraightLaserChip001Status(_pStatus);
     _default_stamina = _pStatus->get(STAT_Stamina);
     _veloMv = 100000;
 

@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 
 
 MyTorpedoTail::MyTorpedoTail(const char* prm_name, MyTorpedo* prm_pMyTorpedo) :
-        HomingLaserChip(prm_name, "AstraeaLaserChip001") {
+        HomingLaserChip(prm_name, "AstraeaLaserChip001", NULL) {
     _class_name = "MyTorpedoTail";
     _pMyTorpedo = prm_pMyTorpedo;
 }

@@ -6,9 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 MagicPointItem001::MagicPointItem001(const char* prm_name)
-               : Item(prm_name, "EffectMagic001") {
+               : Item(prm_name, "EffectMagic001", STATUS(MagicPointItem001)) {
     _class_name = "MagicPointItem001";
-    MyStgUtil::resetMagicPointItem001Status(_pStatus);
     changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
     setZEnable(true);        //Zバッファは考慮有り
     setZWriteEnable(false);  //Zバッファは書き込み無し
@@ -47,7 +46,7 @@ void MagicPointItem001::onReset() {
 void MagicPointItem001::onActive() {
     reset();
     MyShip* pMyShip = P_MYSHIP;
-	GgafCore::CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
+    GgafCore::CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
     //散らばり範囲正方形１辺の長さ
     int scattered_renge    = _pCollisionChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
     //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)

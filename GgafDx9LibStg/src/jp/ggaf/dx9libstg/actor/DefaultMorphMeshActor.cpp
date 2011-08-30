@@ -4,12 +4,13 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* prm_model_id) :
+DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
     GgafDx9MorphMeshActor(prm_name,
-                     prm_model_id,
-                     "DefaultMorphMeshEffect",
-                     "DefaultMorphMeshTechnique",
-                     NEW CollisionChecker(this) ) {
+                          prm_model_id,
+                          "DefaultMorphMeshEffect",
+                          "DefaultMorphMeshTechnique",
+                          prm_pStat,
+                          NEW CollisionChecker(this) ) {
 
     _class_name = "DefaultMorphMeshActor";
     _offset_frames = 0;

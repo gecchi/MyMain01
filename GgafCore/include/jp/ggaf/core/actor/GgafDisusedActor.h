@@ -15,7 +15,7 @@ namespace GgafCore {
 class GgafDisusedActor : public GgafActor {
 public:
     GgafDisusedActor() :
-        GgafActor("DisusedActor") {
+        GgafActor("DisusedActor", NULL) {
     }
     void initialize() override {
     }

@@ -4,9 +4,10 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name, const char* prm_model) :
+SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
         GgafDx9SpriteMeshActor(prm_name,
                                prm_model,
+                               prm_pStat,
                                NULL) {
 
     _class_name = "SpriteMeshWorldBoundActor";

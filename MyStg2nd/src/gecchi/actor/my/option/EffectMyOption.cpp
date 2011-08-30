@@ -6,7 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-EffectMyOption::EffectMyOption(const char* prm_name, MyOption* prm_pMyOption) : DefaultMeshSetActor(prm_name, "8/option_enagy") {
+EffectMyOption::EffectMyOption(const char* prm_name, MyOption* prm_pMyOption) :
+        DefaultMeshSetActor(prm_name, "8/option_enagy") {
     changeEffectTechnique("DestBlendOne"); //加算合成するTechnique指定
     _pMyOption = prm_pMyOption;
     setZEnable(true);        //Zバッファは考慮して描画

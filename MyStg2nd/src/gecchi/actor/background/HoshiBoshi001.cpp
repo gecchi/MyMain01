@@ -12,6 +12,7 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
                                "HoshiBoshi001",
                                "HoshiBoshiEffect",
                                "HoshiBoshiTechnique",
+                               NULL,
                                NULL ) {
     _class_name = "HoshiBoshi001";
     _h_fX_MyShip  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fX_MyShip" );

@@ -10,8 +10,7 @@ int MyOptionController::_max_option_num = 8;
 //    DefaultMeshActor(prm_name, "Gizmo") {
 
 MyOptionController::MyOptionController(const char* prm_name) :
-  GgafDx9GeometricActor(prm_name,
-                            NULL) {
+  GgafDx9GeometricActor(prm_name, NULL, NULL) {
     _is_handle_move_mode = false;
     _is_free_from_myship_mode = false;
     _return_to_default_position_seq = false;

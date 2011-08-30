@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name) {
+CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, NULL) {
     _class_name = "CameraWorker";
     _pos_camera = 0;
     _pLockOnTarget = NULL;

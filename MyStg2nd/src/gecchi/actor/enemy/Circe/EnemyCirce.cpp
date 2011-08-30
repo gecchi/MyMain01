@@ -5,9 +5,9 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyCirce::EnemyCirce(const char* prm_name) : DefaultMeshActor(prm_name, "ebi") { //8/をいれとかないとユニークにならない
+EnemyCirce::EnemyCirce(const char* prm_name) :
+        DefaultMeshActor(prm_name, "ebi", STATUS(EnemyCirce)) { //8/をいれとかないとユニークにならない
     _class_name = "EnemyCirce";
-    MyStgUtil::resetEnemyCirceStatus(_pStatus);
     _iMovePatternNo = 0;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));

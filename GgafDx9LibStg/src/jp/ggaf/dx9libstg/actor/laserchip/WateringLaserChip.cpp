@@ -5,8 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 
-WateringLaserChip::WateringLaserChip(const char* prm_name, const char* prm_model) :
-    LaserChip(prm_name, prm_model) {
+WateringLaserChip::WateringLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
+    LaserChip(prm_name, prm_model, prm_pStat) {
     _class_name = "WateringLaserChip";
     _tmpX = 0;
     _tmpY = 0;

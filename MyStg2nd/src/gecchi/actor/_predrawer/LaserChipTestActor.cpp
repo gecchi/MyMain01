@@ -6,7 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-LaserChipTestActor::LaserChipTestActor(const char* prm_name) : StraightLaserChip(prm_name, "_chk_LaserChipEffectTest") {
+LaserChipTestActor::LaserChipTestActor(const char* prm_name) :
+        StraightLaserChip(prm_name, "_chk_LaserChipEffectTest", NULL) {
     _class_name = "LaserChipTestActor";
     setHitAble(false);
 }

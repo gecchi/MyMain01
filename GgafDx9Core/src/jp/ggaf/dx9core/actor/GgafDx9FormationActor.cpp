@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9FormationActor::GgafDx9FormationActor(const char* prm_name, frame prm_offset_frames_end) :
-    GgafDx9GeometricActor(prm_name, NULL)
+    GgafDx9GeometricActor(prm_name, NULL, NULL)
 {
     _obj_class |= Obj_GgafDx9FormationActor;
     _class_name = "GgafDx9FormationActor";

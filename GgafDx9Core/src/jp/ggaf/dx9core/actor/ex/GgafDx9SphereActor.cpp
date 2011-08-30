@@ -4,12 +4,14 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9SphereActor::GgafDx9SphereActor(const char* prm_name,
-                                   GgafDx9Checker* prm_pChecker) :
+                                       GgafStatus* prm_pStat,
+                                       GgafDx9Checker* prm_pChecker) :
 
                                    GgafDx9MeshActor(prm_name,
                                                     "sphere",
                                                     "DefaultMeshEffect",
                                                     "DefaultMeshTechnique",
+                                                    prm_pStat,
                                                     prm_pChecker) {
     _class_name = "GgafDx9SphereActor";
 }

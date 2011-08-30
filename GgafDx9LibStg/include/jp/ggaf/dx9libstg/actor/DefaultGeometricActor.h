@@ -11,7 +11,7 @@ namespace GgafDx9LibStg {
 class DefaultGeometricActor : public GgafDx9Core::GgafDx9GeometricActor {
 
 public:
-    DefaultGeometricActor(const char* prm_name, GgafDx9Core::GgafDx9Checker* prm_pChecker = NULL);
+    DefaultGeometricActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat, GgafDx9Core::GgafDx9Checker* prm_pChecker = NULL);
 
 
     virtual void initialize() override {

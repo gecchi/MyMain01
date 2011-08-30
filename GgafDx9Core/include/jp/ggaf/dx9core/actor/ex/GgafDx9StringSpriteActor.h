@@ -21,7 +21,7 @@ public:
      * @param prm_model 文字セットテクスチャのモデル
      * @return
      */
-    GgafDx9StringSpriteActor(const char* prm_name, const char* prm_model);
+    GgafDx9StringSpriteActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
     virtual void onCreateModel() override;
 

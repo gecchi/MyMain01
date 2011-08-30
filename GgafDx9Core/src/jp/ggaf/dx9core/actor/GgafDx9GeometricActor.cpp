@@ -5,7 +5,8 @@ using namespace GgafDx9Core;
 
 
 GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
-                                             GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name) {
+                                             GgafStatus* prm_pStat,
+                                             GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name, prm_pStat) {
     _obj_class |= Obj_GgafDx9GeometricActor;
     _class_name = "GgafDx9GeometricActor";
     _is2DActor = false;

@@ -19,7 +19,7 @@ namespace GgafCore {
 class GgafActorDepository : public GgafDummyActor {
 public:
 
-    GgafActorDepository(const char* prm_name);
+    GgafActorDepository(const char* prm_name, GgafStatus* prm_pStat = NULL);
 
     /**
      * ‘İoƒƒ“ƒo[(GgafActor)‚ğ’Ç‰Á“o˜^‚µ‚Ü‚·.

@@ -22,7 +22,7 @@ public:
     GgafDirector* _pDirector;
 
 
-    GgafMainActor(const char* prm_name);
+    GgafMainActor(const char* prm_name, GgafStatus* prm_pStat);
 
     /**
      * Ÿ‚Ìƒm[ƒhæ“¾‚·‚éB .

@@ -5,7 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EffectCondensation001::EffectCondensation001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "8/Lockon001") {
+EffectCondensation001::EffectCondensation001(const char* prm_name) :
+        DefaultSpriteSetActor(prm_name, "8/Lockon001", NULL) {
     _class_name = "EffectCondensation001";
     inactivateImmediately();
     changeEffectTechnique("DestBlendOne"); //â¡éZçáê¨

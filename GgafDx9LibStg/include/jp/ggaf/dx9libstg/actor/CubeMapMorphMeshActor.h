@@ -20,7 +20,7 @@ public:
     /** チェッカー */
     CollisionChecker* _pCollisionChecker;
 
-    CubeMapMorphMeshActor(const char* prm_name, const char* prm_model_id);
+    CubeMapMorphMeshActor(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat);
 
     virtual void onCreateModel() override {
     }

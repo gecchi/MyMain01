@@ -12,6 +12,7 @@ HoshiBoshiTestActor::HoshiBoshiTestActor(const char* prm_name) :
                                "_chk_HoshiBoshiEffectTest",
                                "HoshiBoshiEffect",
                                "HoshiBoshiTechnique",
+                               NULL,
                                NULL ) {
     _class_name = "HoshiBoshiTestActor";
     _h_fX_MyShip  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_fX_MyShip" );

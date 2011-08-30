@@ -6,7 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-CubeMapMeshTestActor::CubeMapMeshTestActor(const char* prm_name) : CubeMapMeshActor(prm_name, "Thalia_0") {
+CubeMapMeshTestActor::CubeMapMeshTestActor(const char* prm_name) :
+        CubeMapMeshActor(prm_name, "Thalia_0", NULL) {
     //_chk_CubeMapMeshEffectTest
     _class_name = "CubeMapMeshTestActor";
     setHitAble(false);

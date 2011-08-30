@@ -6,8 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOption* prm_pMyOption)
-                                                                                  : GgafDummyActor(prm_name) {
+MyOptionTorpedoController::MyOptionTorpedoController(const char* prm_name, MyOption* prm_pMyOption) :
+        GgafDummyActor(prm_name, NULL) {
     _class_name = "MyOptionTorpedoController";
     _firing_num = 0;
     _in_firing = false;

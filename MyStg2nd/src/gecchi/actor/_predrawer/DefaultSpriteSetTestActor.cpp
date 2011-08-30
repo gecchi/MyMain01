@@ -6,7 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-DefaultSpriteSetTestActor::DefaultSpriteSetTestActor(const char* prm_name) : DefaultSpriteSetActor(prm_name, "_chk_DefaultSpriteSetEffectTest") {
+DefaultSpriteSetTestActor::DefaultSpriteSetTestActor(const char* prm_name) :
+        DefaultSpriteSetActor(prm_name, "_chk_DefaultSpriteSetEffectTest", NULL) {
     _class_name = "DefaultSpriteSetTestActor";
     setHitAble(false);
 }

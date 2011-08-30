@@ -2,7 +2,7 @@
 using namespace std;
 using namespace GgafCore;
 
-GgafActorDepositoryStore::GgafActorDepositoryStore(const char* prm_name) : GgafActorDepository(prm_name) {
+GgafActorDepositoryStore::GgafActorDepositoryStore(const char* prm_name, GgafStatus* prm_pStat) : GgafActorDepository(prm_name, prm_pStat) {
     _class_name = "GgafActorDepositoryStore";
     setHitAble(false);
 }

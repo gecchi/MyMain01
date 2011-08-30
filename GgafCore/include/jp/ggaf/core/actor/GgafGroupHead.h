@@ -40,7 +40,7 @@ public:
     /** [r/w]í•Ê */
     actorkind _kind;
 
-    GgafGroupHead(actorkind prm_kind);
+    GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat = NULL);
 
     /**
      * ‰Šúˆ— .

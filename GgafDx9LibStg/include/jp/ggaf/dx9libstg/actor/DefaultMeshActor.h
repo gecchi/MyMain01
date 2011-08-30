@@ -19,7 +19,7 @@ public:
 
     CollisionChecker* _pCollisionChecker;
 
-    DefaultMeshActor(const char* prm_name, const char* prm_model);
+    DefaultMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
     virtual void onCreateModel() override {
     }

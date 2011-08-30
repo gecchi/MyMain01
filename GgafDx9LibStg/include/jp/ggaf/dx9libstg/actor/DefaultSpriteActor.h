@@ -19,7 +19,7 @@ public:
     GgafDx9Core::GgafDx9Scaler* _pScaler;
 
 
-    DefaultSpriteActor(const char* prm_name, const char* prm_model_id);
+    DefaultSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat);
 
     virtual void onCreateModel() override {
     }

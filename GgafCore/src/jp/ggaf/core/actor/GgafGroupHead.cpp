@@ -3,7 +3,7 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafGroupHead::GgafGroupHead(actorkind prm_kind) : GgafActor("GROUP") {
+GgafGroupHead::GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat) : GgafActor("GROUP", prm_pStat) {
     _obj_class |= Obj_GgafGroupHead;
     _class_name = "GgafGroupHead";
 

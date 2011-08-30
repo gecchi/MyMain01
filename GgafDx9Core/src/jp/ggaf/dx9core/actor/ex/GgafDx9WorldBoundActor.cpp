@@ -7,6 +7,7 @@ GgafDx9WorldBoundActor::GgafDx9WorldBoundActor(const char* prm_name,
                                              const char* prm_model_id,
                                              const char* prm_effect_id,
                                              const char* prm_technique,
+                                             GgafStatus* prm_pStat,
                                              GgafDx9Checker* prm_pChecker) :
 
                                                  GgafDx9MorphMeshActor(prm_name,
@@ -15,6 +16,7 @@ GgafDx9WorldBoundActor::GgafDx9WorldBoundActor(const char* prm_name,
                                                                        prm_effect_id,
                                                                        "W",
                                                                        prm_technique,
+                                                                       prm_pStat,
                                                                        prm_pChecker),
                                                  GgafDx9ICubeMapActor() {
     _obj_class |= Obj_GgafDx9WorldBoundActor;

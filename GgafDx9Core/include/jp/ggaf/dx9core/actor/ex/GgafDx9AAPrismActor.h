@@ -28,6 +28,7 @@ public:
     static __map__<int, GgafDx9AAPrismActor::RotPosPrism> pos2r;
 
     GgafDx9AAPrismActor(const char* prm_name,
+                        GgafCore::GgafStatus* prm_pStat,
                         GgafDx9Checker* prm_pChecker);
 
 ///**

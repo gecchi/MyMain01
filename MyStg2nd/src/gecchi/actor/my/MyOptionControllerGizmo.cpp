@@ -5,7 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyOptionControllerGizmo::MyOptionControllerGizmo(const char* prm_name) : DefaultMeshActor(prm_name, "Nothing") {
+MyOptionControllerGizmo::MyOptionControllerGizmo(const char* prm_name) :
+        DefaultMeshActor(prm_name, "Nothing", NULL) {
     _class_name = "MyOptionControllerGizmo";
 
     _ptn_no = 0;

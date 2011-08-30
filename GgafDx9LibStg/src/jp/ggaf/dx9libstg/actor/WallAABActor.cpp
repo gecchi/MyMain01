@@ -5,12 +5,14 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 WallAABActor::WallAABActor(const char* prm_name,
-                           const char* prm_model) :
+                           const char* prm_model,
+                           GgafStatus* prm_pStat) :
 
                           WallPartsActor(prm_name,
-                                    string("19/" + string(prm_model)).c_str(),
-                                    "WallAABEffect",
-                                    "WallAABTechnique") {
+                                        string("19/" + string(prm_model)).c_str(),
+                                        "WallAABEffect",
+                                        "WallAABTechnique",
+                                        prm_pStat) {
 
     _class_name = "WallAABActor";
     _pMeshSetModel->_set_num = 19; //WallPartsActor最大セット数は20。

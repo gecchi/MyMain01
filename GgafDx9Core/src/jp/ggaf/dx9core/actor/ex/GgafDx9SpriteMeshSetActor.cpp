@@ -4,14 +4,16 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9SpriteMeshSetActor::GgafDx9SpriteMeshSetActor(const char* prm_name,
-                                       const char* prm_model,
-                                       GgafDx9Checker* prm_pChecker) :
+                                                   const char* prm_model,
+                                                   GgafStatus* prm_pStat,
+                                                   GgafDx9Checker* prm_pChecker) :
 
-                                        GgafDx9MeshSetActor(prm_name,
-                                                           prm_model,
-                                                           "SpriteMeshSetEffect",
-                                                           "SpriteMeshSetTechnique",
-                                                           prm_pChecker) {
+                                                    GgafDx9MeshSetActor(prm_name,
+                                                                       prm_model,
+                                                                       "SpriteMeshSetEffect",
+                                                                       "SpriteMeshSetTechnique",
+                                                                       prm_pStat,
+                                                                       prm_pChecker) {
 
     _obj_class |= Obj_GgafDx9SpriteMeshSetActor;
     _class_name = "GgafDx9SpriteMeshSetActor";

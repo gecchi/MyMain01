@@ -4,10 +4,11 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-SpriteMeshActor::SpriteMeshActor(const char* prm_name, const char* prm_model) :
+SpriteMeshActor::SpriteMeshActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
     GgafDx9SpriteMeshActor(prm_name,
-                     prm_model,
-                     NEW CollisionChecker(this) ) {
+                           prm_model,
+                           prm_pStat,
+                           NEW CollisionChecker(this) ) {
 
     _class_name = "SpriteMeshActor";
     _offset_frames = 0;

@@ -6,7 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-DefaultBoardSetTestActor::DefaultBoardSetTestActor(const char* prm_name) : DefaultBoardSetActor(prm_name, "_chk_DefaultBoardSetEffectTest") {
+DefaultBoardSetTestActor::DefaultBoardSetTestActor(const char* prm_name) :
+        DefaultBoardSetActor(prm_name, "_chk_DefaultBoardSetEffectTest") {
     _class_name = "DefaultBoardSetTestActor";
 }
 void DefaultBoardSetTestActor::initialize() {

@@ -15,12 +15,12 @@ coord MyShip::_lim_behaind =  0;
 coord MyShip::_lim_zleft   =  0;
 coord MyShip::_lim_zright  =  0;
 
-MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "VicViper") {
-//MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
-//MyShip::MyShip(const char* prm_name) : CubeMapMeshActor(prm_name, "wakka") {
-//MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
+MyShip::MyShip(const char* prm_name) :
+        DefaultD3DXMeshActor(prm_name, "VicViper", STATUS(MyShip)) {
+//DefaultMeshActor(prm_name, "jiki", STATUS(MyShip)) {
+//CubeMapMeshActor(prm_name, "wakka", STATUS(MyShip)) {
+//DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton", STATUS(MyShip)) {
     _class_name = "MyShip";
-    MyStgUtil::resetMyShipStatus(_pStatus);
     //changeEffectTechnique("DestBlendOne"); //â¡éZçáê¨TechniqueéwíË
 
     GameGlobal::init();

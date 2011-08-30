@@ -16,7 +16,7 @@ public:
     static ColliSphereActor* get();
     static void release();
 
-    ColliSphereActor(const char* prm_name);
+    ColliSphereActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat = NULL);
 
     virtual void onCreateModel() override {
     }

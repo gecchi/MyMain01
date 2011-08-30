@@ -4,11 +4,12 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_model) :
+DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
     GgafDx9MeshSetActor(prm_name,
                         prm_model,
                         "DefaultMeshSetEffect",
                         "DefaultMeshSetTechnique",
+                        prm_pStat,
                         NEW CollisionChecker(this) ) {
 
     _class_name = "DefaultMeshSetActor";

@@ -5,9 +5,9 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyMetis::EnemyMetis(const char* prm_name) : DefaultMeshSetActor(prm_name, "Metis") {
+EnemyMetis::EnemyMetis(const char* prm_name) :
+        DefaultMeshSetActor(prm_name, "Metis", STATUS(EnemyMetis)) {
     _class_name = "EnemyMetis";
-    MyStgUtil::resetEnemyMetisStatus(_pStatus);
     _width_X = 220*2*LEN_UNIT;
     _height_Z = 220*2*LEN_UNIT;
     _depth_Y = 36*2*LEN_UNIT;

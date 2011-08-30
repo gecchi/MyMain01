@@ -9,6 +9,7 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
                                prm_model,
                                "WorldBoundEffect",
                                "WorldBoundTechnique",
+                               NULL,
                                NULL) {
 
     _class_name = "WorldBoundActor";

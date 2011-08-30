@@ -6,11 +6,10 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 Shot004::Shot004(const char* prm_name) :
-        SingleLaser(prm_name, "Shot004") { //SingleLaserは最大27セットである
+        SingleLaser(prm_name, "Shot004", STATUS(Shot004)) { //SingleLaserは最大27セットである
         //SingleLaser(prm_name, "27/laser_single") { //SingleLaserは最大27セットである
     _class_name = "Shot004";
     _view_in = false;
-    MyStgUtil::resetShot004Status(_pStatus);
 }
 
 void Shot004::initialize() {

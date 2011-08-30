@@ -10,8 +10,9 @@ using namespace MyStg2nd;
 int MyOption::_max_lockon_num = 9;
 int MyOption::_lockon_num = 8;
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
-MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMeshSetActor(prm_name, "8/option_kaku") {
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : CubeMapMeshSetActor(prm_name, "4/Core4_cm") {
+MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) :
+        DefaultMeshSetActor(prm_name, "8/option_kaku", STATUS(MyOption)) {
 
 
 _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");

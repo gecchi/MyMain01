@@ -5,11 +5,12 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model) :
-    GgafDx9MeshActor(prm_name,
+GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
+    GgafDx9MeshActor(prm_name, 
                      prm_model,
                      "GroundMeshEffect",
                      "GroundMeshTechnique",
+                     prm_pStat,
                      NEW CollisionChecker(this) ) {
 
     _class_name = "GroundMeshActor";

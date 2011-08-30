@@ -5,8 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-Item::Item(const char* prm_name, const char* prm_model)
-               : DefaultMeshSetActor(prm_name, prm_model) {
+Item::Item(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat)
+               : DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _class_name = "Item";
 }
 

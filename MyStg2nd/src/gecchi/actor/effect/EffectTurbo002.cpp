@@ -5,7 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EffectTurbo002::EffectTurbo002(const char* prm_name) : DefaultSpriteActor(prm_name, "Turbo002") {
+EffectTurbo002::EffectTurbo002(const char* prm_name) :
+        DefaultSpriteActor(prm_name, "Turbo002", NULL) {
     _class_name = "EffectTurbo002";
     inactivateImmediately();
     changeEffectTechnique("DestBlendOne"); //â¡éZçáê¨

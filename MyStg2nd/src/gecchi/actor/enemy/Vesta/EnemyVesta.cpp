@@ -9,10 +9,9 @@ using namespace MyStg2nd;
 #define VESTA_HATCH_CLOSED      0
 #define VESTA_HATCH_OPENED      1
 
-EnemyVesta::EnemyVesta(const char* prm_name)
-                       : DefaultMorphMeshActor(prm_name, "1/Vesta") {
+EnemyVesta::EnemyVesta(const char* prm_name) :
+        DefaultMorphMeshActor(prm_name, "1/Vesta", STATUS(EnemyVesta)) {
     _class_name = "EnemyVesta";
-    MyStgUtil::resetEnemyVestaStatus(_pStatus);
     _pActor_Base = NULL;
     _iMovePatternNo = 0;
     _is_open_hatch = false;

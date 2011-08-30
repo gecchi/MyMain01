@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
 class LaserChipDepositoryStore : public GgafCore::GgafActorDepository {
     friend class LaserChip;
 public:
-    LaserChipDepositoryStore(const char* prm_name);
+    LaserChipDepositoryStore(const char* prm_name, GgafCore::GgafStatus* prm_pStat = NULL);
 
     virtual void processBehavior() override;
 

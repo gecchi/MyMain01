@@ -2,7 +2,7 @@
 using namespace std;
 using namespace GgafCore;
 
-GgafActorDepository::GgafActorDepository(const char* prm_name) : GgafDummyActor(prm_name) {
+GgafActorDepository::GgafActorDepository(const char* prm_name, GgafStatus* prm_pStat) : GgafDummyActor(prm_name, prm_pStat) {
     _obj_class |= Obj_GgafActorDepository;
     _class_name = "GgafActorDepository";
     setHitAble(false);

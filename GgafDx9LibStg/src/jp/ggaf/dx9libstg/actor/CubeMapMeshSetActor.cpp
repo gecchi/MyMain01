@@ -4,12 +4,13 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-CubeMapMeshSetActor::CubeMapMeshSetActor(const char* prm_name, const char* prm_model) :
+CubeMapMeshSetActor::CubeMapMeshSetActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
     GgafDx9CubeMapMeshSetActor(prm_name,
-                        prm_model,
-                        "CubeMapMeshSetEffect",
-                        "CubeMapMeshSetTechnique",
-                        NEW CollisionChecker(this) ) {
+                               prm_model,
+                               "CubeMapMeshSetEffect",
+                               "CubeMapMeshSetTechnique",
+                               prm_pStat,
+                               NEW CollisionChecker(this) ) {
 
     _class_name = "CubeMapMeshSetActor";
     _offset_frames = 0;

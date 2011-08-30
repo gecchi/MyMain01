@@ -49,7 +49,7 @@ private:
     GgafDx9Core::GgafDx9DrawableActor* _pRefractionEffect;
 
 public:
-    RefractionLaserChip(const char* prm_name, const char* prm_model);
+    RefractionLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
 
     /**
      * リフレクションレーザーを定義 .

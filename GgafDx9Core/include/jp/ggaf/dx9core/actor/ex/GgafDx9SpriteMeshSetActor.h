@@ -19,8 +19,9 @@ public:
     GgafDx9UvFlipper* _pUvFlipper;
 
     GgafDx9SpriteMeshSetActor(const char* prm_name,
-                          const char* prm_model,
-                          GgafDx9Checker* prm_pChecker );
+                              const char* prm_model,
+                              GgafCore::GgafStatus* prm_pStat,
+                              GgafDx9Checker* prm_pChecker );
 
     virtual void processDraw() override;
 

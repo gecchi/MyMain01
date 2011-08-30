@@ -16,7 +16,7 @@ public:
     static ColliAABActor* get();
     static void release();
 
-    ColliAABActor(const char* prm_name);
+    ColliAABActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat = NULL);
 
     //void processDraw() {} //オーバーライド未実装にする。
     virtual void onCreateModel() override {

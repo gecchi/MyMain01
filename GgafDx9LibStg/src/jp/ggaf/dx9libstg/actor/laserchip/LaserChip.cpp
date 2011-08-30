@@ -5,11 +5,12 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 
-LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
+LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
      GgafDx9MeshSetActor(prm_name,
                          string("11/" + string(prm_model)).c_str(),
                          "LaserChipEffect",
                          "LaserChipTechnique",
+                         prm_pStat,
                          NEW CollisionChecker(this) ) {
     _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
     _obj_class |= Obj_LaserChip;

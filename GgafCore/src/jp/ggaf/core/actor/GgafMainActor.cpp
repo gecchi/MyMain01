@@ -3,7 +3,8 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafMainActor::GgafMainActor(const char* prm_name) : GgafActor(prm_name) {
+GgafMainActor::GgafMainActor(const char* prm_name, GgafStatus* prm_pStat) :
+        GgafActor(prm_name, prm_pStat) {
     _obj_class |= Obj_GgafMainActor;
     _class_name = "GgafMainActor";
     _pGroupHead = NULL;

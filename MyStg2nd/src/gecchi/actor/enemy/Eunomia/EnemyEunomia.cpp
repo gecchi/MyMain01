@@ -5,9 +5,9 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyEunomia::EnemyEunomia(const char* prm_name) : DefaultMeshSetActor(prm_name, "Eunomia") {
+EnemyEunomia::EnemyEunomia(const char* prm_name) :
+        DefaultMeshSetActor(prm_name, "Eunomia", STATUS(EnemyEunomia)) {
     _class_name = "EnemyEunomia";
-    MyStgUtil::resetEnemyEunomiaStatus(_pStatus);
     _iMovePatternNo = 0;
     _pSplSeq = NULL;
     _pDepo_Shot = NULL;

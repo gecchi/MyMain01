@@ -13,6 +13,7 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
                                                               prm_effect_id,
                                                               "B",
                                                               prm_technique,
+                                                              NULL,
                                                               NULL) {
     _obj_class |= Obj_GgafDx9BoardActor;
     _class_name = "GgafDx9BoardActor";
