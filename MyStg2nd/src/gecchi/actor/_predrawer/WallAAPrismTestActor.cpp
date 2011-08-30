@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 WallAAPrismTestActor::WallAAPrismTestActor(const char* prm_name) :
-        WallAAPrismActor(prm_name, "_chk_WallAAPrismEffectTest", NULL) {
+        WallAAPrismActor(prm_name, "_chk_WallAAPrismEffectTest") {
     _class_name = "WallAAPrismTestActor";
     MyStgUtil::resetWall001Status(_pStatus);//éÌï ÅFKIND_CHIKEI
 }
