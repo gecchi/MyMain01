@@ -85,7 +85,7 @@ void EnemyAstraea::initialize() {
 #define STATUS_RESET(X) MyStgUtil::reset##X##Status(_pStatus)
 void EnemyAstraea::onActive() {
     //ステータスリセット
-    MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
+    //MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
     STATUS_RESET(EnemyAstraea);
 //    _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
 
