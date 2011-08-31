@@ -1,9 +1,8 @@
 #ifndef GGAFDX9GOD_H_
 #define GGAFDX9GOD_H_
 
-//#define connectModelManager(X) ((GgafDx9Core::GgafDx9ModelConnection*)(GgafDx9Core::GgafDx9God::_pModelManager->connect(X))
-//#define connectEffectManager(X) ((GgafDx9Core::GgafDx9EffelConnection*)(GgafDx9Core::GgafDx9God::_pModelManager->connect(X))
-//#define connectCubeTextureManager(X) ((GgafDx9Core::GgafDx9TextureConnection*)(GgafDx9Core::GgafDx9God::_pCubeMapTextureManager->connect(X))
+#define  ___BeginSynchronized02 ::EnterCriticalSection(&(GgafDx9Core::GgafDx9God::CS2))
+#define  ___EndSynchronized02 ::LeaveCriticalSection(&(GgafDx9Core::GgafDx9God::CS2))
 
 namespace GgafDx9Core {
 /**
@@ -37,6 +36,9 @@ public:
     static DWORD _dwAmbientBrightness_default;
     /** デバイスロストフラグ (true=ロスト中) */
     static bool _is_device_lost_flg;
+
+    /** [r]クリティカルセクションその２（セマフォ） */
+    static CRITICAL_SECTION CS2;
 
     static bool _adjustGameScreen;
     static HWND _pHWnd_adjustScreen;

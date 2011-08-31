@@ -34,9 +34,8 @@ void EnemyPallas::onActive() {
         throwGgafCriticalException("EnemyPallasはスプライン必須ですconfigして下さい");
     }
 
-    MyStgUtil::resetEnemyPallasStatus(_pStatus);
-
-    _iMovePatternNo = 0; //行動パターンリセット
+    _pStatus->reset();
+   _iMovePatternNo = 0; //行動パターンリセット
     _pProg->change(1);
 }
 

@@ -11,9 +11,9 @@ using namespace Dix;
 //    }
 //    _file_name = string(prm_ogg_name);
 //    string ogg_filename = CFG_PROPERTY(DIR_OGG) + _file_name + ".ogg";
-//    pOggResource = NEW OggVorbisFile( ogg_filename.c_str() );
-//    pOggDecoder =  NEW OggDecoder( pOggResource );
-//    pPcmPlayer = NEW PCMPlayer(GgafDx9Sound::_pIDirectSound8 , pOggDecoder);
+//    _pOggResource = NEW OggVorbisFile( ogg_filename.c_str() );
+//    _pOggDecoder =  NEW OggDecoder( _pOggResource );
+//    _pPcmPlayer = NEW PCMPlayer(GgafDx9Sound::_pIDirectSound8 , _pOggDecoder);
 //}
 
 GgafDx9Bgm::GgafDx9Bgm(char* prm_bgm_key) : GgafObject() {
@@ -26,42 +26,42 @@ GgafDx9Bgm::GgafDx9Bgm(char* prm_bgm_key) : GgafObject() {
     _title = (*GgafProperties::_pMapProperties)[bgm_key+"_TITLE"];
     _TRACE_("GgafDx9Bgm::GgafDx9Bgm KEY="<<prm_bgm_key<<" _file_name="<<_ogg_file_name<<" _bpm="<<_bpm<<" _title="<<_title);
     string full_ogg_file_name = CFG_PROPERTY(DIR_OGG) + string(_ogg_file_name);
-    pOggResource = NEW OggVorbisFile( full_ogg_file_name.c_str() );
-    pOggDecoder =  NEW OggDecoder( pOggResource );
-    pPcmPlayer = NEW PCMPlayer(GgafDx9Sound::_pIDirectSound8 , pOggDecoder);
+    _pOggResource = NEW OggVorbisFile( full_ogg_file_name.c_str() );
+    _pOggDecoder =  NEW OggDecoder( _pOggResource );
+    _pPcmPlayer = NEW PCMPlayer(GgafDx9Sound::_pIDirectSound8 , _pOggDecoder);
 }
 
-void GgafDx9Bgm::play(int prm_volume, float prm_pan, bool prm_isLoop) {
+void GgafDx9Bgm::play(int prm_volume, float prm_pan, bool prm_is_looping) {
     setVolume(prm_volume);
     setPan(prm_pan);
-    pPcmPlayer->play(prm_isLoop);
+    _pPcmPlayer->play(prm_is_looping);
 }
 
 void GgafDx9Bgm::pause() {
-    pPcmPlayer->pause();
+    _pPcmPlayer->pause();
 }
 
 void GgafDx9Bgm::stop() {
-    pPcmPlayer->stop();
+    _pPcmPlayer->stop();
 }
 
 void GgafDx9Bgm::setVolume(int prm_volume) {
     //ボリューム→デシベル
     int db = GgafDx9Sound::aDbVolume[(LONG)(prm_volume * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_bgm_volume_rate)];
-    pPcmPlayer->setVolume(db);
+    _pPcmPlayer->setVolume(db);
 }
 
 void GgafDx9Bgm::setPan(float prm_pan) {
 
-    pPcmPlayer->setPan(prm_pan*DSBPAN_RIGHT);
+    _pPcmPlayer->setPan(prm_pan*DSBPAN_RIGHT);
 }
 
 void GgafDx9Bgm::clear() {
-    pPcmPlayer->clear();
+    _pPcmPlayer->clear();
 }
 
 bool GgafDx9Bgm::isActiveActor() {
-    if (pPcmPlayer->getState() == PCMPlayer::STATE_PLAY) {
+    if (_pPcmPlayer->getState() == PCMPlayer::STATE_PLAY) {
         return true;
     } else {
         return false;
@@ -70,16 +70,16 @@ bool GgafDx9Bgm::isActiveActor() {
 
 GgafDx9Bgm::~GgafDx9Bgm() {
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() begin");
-    _TRACE_("pPcmPlayer->setVolume(DSBVOLUME_MIN);");
-    pPcmPlayer->setVolume(DSBVOLUME_MIN);
-    _TRACE_("pPcmPlayer->terminateThread();");
-    pPcmPlayer->terminateThread();
-    _TRACE_("DELETE_IMPOSSIBLE_NULL(pPcmPlayer);");
-    DELETE_IMPOSSIBLE_NULL(pPcmPlayer);
-    _TRACE_("DELETE_IMPOSSIBLE_NULL(pOggDecoder);");
-    DELETE_IMPOSSIBLE_NULL(pOggDecoder);
-    _TRACE_("DELETE_IMPOSSIBLE_NULL(pOggResource);");
-    DELETE_IMPOSSIBLE_NULL(pOggResource);
+    _TRACE_("_pPcmPlayer->setVolume(DSBVOLUME_MIN);");
+    _pPcmPlayer->setVolume(DSBVOLUME_MIN);
+    _TRACE_("_pPcmPlayer->terminateThread();");
+    _pPcmPlayer->terminateThread();
+    _TRACE_("DELETE_IMPOSSIBLE_NULL(_pPcmPlayer);");
+    DELETE_IMPOSSIBLE_NULL(_pPcmPlayer);
+    _TRACE_("DELETE_IMPOSSIBLE_NULL(_pOggDecoder);");
+    DELETE_IMPOSSIBLE_NULL(_pOggDecoder);
+    _TRACE_("DELETE_IMPOSSIBLE_NULL(_pOggResource);");
+    DELETE_IMPOSSIBLE_NULL(_pOggResource);
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() end");
 
 }

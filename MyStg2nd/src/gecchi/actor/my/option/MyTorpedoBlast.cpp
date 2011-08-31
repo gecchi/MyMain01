@@ -23,7 +23,7 @@ void MyTorpedoBlast::initialize() {
 }
 
 void MyTorpedoBlast::onReset() {
-    MyStgUtil::resetMyTorpedoBlastStatus(_pStatus);
+    _pStatus->reset();
     _pCollisionChecker->setColliSphere(0, 1000);
     _pKurokoA->setMvVelo(0);
     _pScaler->setScale(1000);

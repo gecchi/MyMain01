@@ -27,7 +27,7 @@ void MyOptionWateringLaserChip001::initialize() {
 }
 
 void MyOptionWateringLaserChip001::onActive() {
-    MyStgUtil::resetMyOptionWateringLaserChip001Status(_pStatus);
+    _pStatus->reset();
     _default_stamina = _pStatus->get(STAT_Stamina);
     WateringLaserChip::onActive();
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();

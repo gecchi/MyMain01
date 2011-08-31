@@ -19,7 +19,7 @@ void Shot002::initialize() {
 }
 
 void Shot002::onActive() {
-    MyStgUtil::resetShot002Status(_pStatus);
+    _pStatus->reset();
     setHitAble(true);
     _pScaler->setScale(2000);
     _pKurokoA->relateFaceAngWithMvAng(true);

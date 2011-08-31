@@ -128,7 +128,8 @@ public:
 
     /**
      * 単独GgafActor、或いはGgafDummyActorが単独親となるGgafActor連続体を<BR>
-     * 種別は0(無し)で登録される
+     * 種別は引数子アクターのステータス(_pStatus)の項目 'STAT_DEFAULT_ACTOR_KIND' の値が、種別として
+     * 上書きコピーされる。
      * 本関数はの部的処理は prm_pActor を GgafGroupHead の子アクターとしているだけである。<BR>
      * @param   prm_pMainActor   登録するアクター
      */

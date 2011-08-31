@@ -32,8 +32,7 @@ void EnemyIris::initialize() {
 }
 
 void EnemyIris::onActive() {
-    MyStgUtil::resetEnemyIrisStatus(_pStatus);
-
+    _pStatus->reset();
     _iMovePatternNo = 0; //行動パターンリセット
 }
 

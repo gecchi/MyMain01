@@ -47,7 +47,7 @@ void MyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
     _pKurokoA->setMvVelo(80000);
     _pKurokoA->setMvAcce(300);
-    MyStgUtil::resetMyStraightLaserChip001Status(_pStatus);
+    _pStatus->reset();
     _default_stamina = _pStatus->get(STAT_Stamina);
 }
 

@@ -11,30 +11,29 @@
 #include "vorbis/vorbisfile.h"
 
 namespace Dix {
-    class OggDecoder : public PCMDecoder {
-    public:
-        OggDecoder();
-        OggDecoder(OggVorbisResource* pOggVorbisResource );
-        virtual ~OggDecoder();
+class OggDecoder : public PCMDecoder {
+public:
+    OggDecoder();
+    OggDecoder(OggVorbisResource* prm_pOggVorbisResource);
+    virtual ~OggDecoder();
 
-        //! クリア
-        virtual void clear();
+    //! クリア
+    virtual void clear();
 
-        //! セグメント取得
-        virtual bool getSegment( char* buffer, unsigned int size, unsigned int* writeSize, bool* isEnd );
+    //! セグメント取得
+    virtual bool getSegment(char* prm_buffer, unsigned int prm_size, unsigned int* pUInt_write_size, bool* pBool_is_end);
+    //! 頭出し
+    virtual void setHead();
 
-        //! 頭出し
-        virtual void setHead();
+    //! クローンを生成
+    virtual PCMDecoder* createClone();
 
-        //! クローンを生成
-        virtual PCMDecoder* createClone();
+    //! サウンドをセット
+    virtual bool setResource(OggVorbisResource* pOggVorbisResource);
 
-        //! サウンドをセット
-        virtual bool setResource(OggVorbisResource* pOggVorbisResource );
-
-    protected:
-        OggVorbisResource* pOggVorbisResource_;
-    };
+protected:
+    OggVorbisResource* _pOggVorbisResource;
+};
 }
 
 #endif

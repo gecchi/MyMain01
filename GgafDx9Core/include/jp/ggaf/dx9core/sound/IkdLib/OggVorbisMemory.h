@@ -5,44 +5,43 @@
 // 一部変更して使用しています。<BR>
 //                                            2009/01/13 Masatoshi Tsuge<BR>
 
-
 #ifndef IKD_DIX_OGGVORBISMEMORY_H
 #define IKD_DIX_OGGVORBISMEMORY_H
 
 namespace Dix {
-    class OggVorbisMemory : public OggVorbisResource {
-    public:
-        OggVorbisMemory();
-        OggVorbisMemory( const char* filePath );
-        virtual ~OggVorbisMemory();
+class OggVorbisMemory : public OggVorbisResource {
+public:
+    OggVorbisMemory();
+    OggVorbisMemory(const char* prm_filepath);
+    virtual ~OggVorbisMemory();
 
-        //! Oggバッファを作成
-        bool createBuffer( const char* filePath );
+    //! Oggバッファを作成
+    bool createBuffer(const char* prm_filepath);
 
-        virtual OggVorbisResource* createClone();
+    virtual OggVorbisResource* createClone();
 
-        //! クリア
-        virtual void clear();
+    //! クリア
+    virtual void clear();
 
-    protected:
-        //! メモリ読み込み
-        static size_t read( void* buffer, size_t size, size_t maxCount, void* stream );
+protected:
+    //! メモリ読み込み
+    static size_t read(void* prm_buffer, size_t prm_size, size_t prm_max_count, void* prm_stream);
 
-        //! メモリシーク
-        static int seek( void* buffer, ogg_int64_t offset, int flag );
+    //! メモリシーク
+    static int seek(void* prm_buffer, ogg_int64_t offset, int flag);
 
-        //! メモリクローズ
-        static int close( void* buffer );
+    //! メモリクローズ
+    static int close(void* prm_buffer);
 
-        //! メモリ位置通達
-        static long tell( void* buffer );
+    //! メモリ位置通達
+    static long tell(void* prm_buffer);
 
-    protected:
-        char		filePath_[ 256 ];	// ファイルパス
-        char*       pBuffer_;          // Oggファイルバッファ
-        int			size_;				// バッファサイズ
-        long		curPos_;			// 現在の位置
-    };
+protected:
+    char _filepath[256]; // ファイルパス
+    char* _buffer; // Oggファイルバッファ
+    int _size; // バッファサイズ
+    long _pos_current; // 現在の位置
+};
 }
 
 #endif

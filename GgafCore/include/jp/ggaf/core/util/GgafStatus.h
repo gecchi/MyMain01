@@ -28,12 +28,16 @@ public:
     /** ステータス値配列 */
     VALUE* _paValue;
 
+    /** リセットメソッド */
+    GgafStatus* (*_pFunc_reset)(GgafStatus*);
+
     /**
      * ステータスセットを作成 .
+     * リセットメソッドを実行しステータス初期化を行います。
      * @param n 最大ステータス要素数。
-     * @return
+     * @param prm_pFunc_reset ステータスリセットメソッド
      */
-    GgafStatus(int n) {
+    GgafStatus(int n, GgafStatus* (*prm_pFunc_reset)(GgafStatus*) = NULL) {
         _len = n;
         _paValue = NEW VALUE[n];
         for (int i = 0; i < n; i++) {
@@ -41,6 +45,10 @@ public:
             _paValue[i]._int_val = 0;
             _paValue[i]._char_val = 0;
             _paValue[i]._ptr = NULL;
+        }
+        _pFunc_reset = prm_pFunc_reset;
+        if (_pFunc_reset) {
+            (*_pFunc_reset)(this);
         }
     }
 
@@ -115,6 +123,18 @@ public:
 
     void* getPtr(int n) {
         return _paValue[n]._ptr;
+    }
+
+    /**
+     * ステータスをリセットします。
+     * @return
+     */
+    GgafStatus* reset() {
+        if (_pFunc_reset) {
+            return (*_pFunc_reset)(this);
+        } else {
+            throwGgafCriticalException("GgafStatus::reset() リセット用メソッドがNULLです。");
+        }
     }
 
     ~GgafStatus() {

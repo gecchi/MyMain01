@@ -69,7 +69,7 @@ void Torus::onCreateModel() {
 }
 
 void Torus::onActive() {
-    MyStgUtil::resetTorusStatus(_pStatus);
+    _pStatus->reset();
 }
 
 void Torus::processJudgement() {

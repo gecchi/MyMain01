@@ -29,9 +29,7 @@ void MyOptionStraightLaserChip001::initialize() {
 
 }
 void MyOptionStraightLaserChip001::onActive() {
-
-
-    MyStgUtil::resetMyOptionStraightLaserChip001Status(_pStatus);
+    _pStatus->reset();
     _default_stamina = _pStatus->get(STAT_Stamina);
     StraightLaserChip::onActive();
 

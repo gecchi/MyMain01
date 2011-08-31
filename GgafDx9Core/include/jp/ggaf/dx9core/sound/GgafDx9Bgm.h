@@ -20,12 +20,10 @@ public:
     int _bpm;
     std::string _title;
     std::string _ogg_file_name;
-    Dix::PCMPlayer* pPcmPlayer;
-    Dix::OggVorbisFile* pOggResource;
-    Dix::OggDecoder* pOggDecoder;
+    Dix::PCMPlayer* _pPcmPlayer;
+    Dix::OggVorbisFile* _pOggResource;
+    Dix::OggDecoder* _pOggDecoder;
 
-//    Dix::sp< Dix::OggVorbisFile> pOggResource;
-//    Dix::sp< Dix::OggDecoder> pOggDecoder;
     /**
      *
      * @param prm_bgm_key プロパティファイルのkey
@@ -38,11 +36,11 @@ public:
      *
      * @param prm_volume 0~100
      * @param prm_pan    -1.0 ~ 0 ~ 1.0
-     * @param prm_isLoop
+     * @param prm_is_looping
      */
-    void play(int prm_volume, float prm_pan, bool prm_isLoop);
-    void play(bool prm_isLoop) {
-        play(GGAF_MAX_VOLUME, 0.0f, prm_isLoop);
+    void play(int prm_volume, float prm_pan, bool prm_is_looping);
+    void play(bool prm_is_looping) {
+        play(GGAF_MAX_VOLUME, 0.0f, prm_is_looping);
     }
     void pause();
     void stop();

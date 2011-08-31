@@ -37,7 +37,7 @@ void EnemyJuno::initialize() {
 }
 
 void EnemyJuno::onActive() {
-    MyStgUtil::resetEnemyJunoStatus(_pStatus);
+    _pStatus->reset();
     setHitAble(true);
     _do_Shot = false;
     //_can_Shot = ((CmRandomNumberGenerator::getInstance()->genrand_int32() % 2) == 0) ? true : false;

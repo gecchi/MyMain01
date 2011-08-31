@@ -62,7 +62,7 @@ void EnemyThalia::initialize() {
 }
 
 void EnemyThalia::onActive() {
-    MyStgUtil::resetEnemyThaliaStatus(_pStatus);
+    _pStatus->reset();
     _pMorpher->setWeight(0, 1.0);
     _pMorpher->setWeight(1, 0.0);
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);

@@ -35,7 +35,7 @@ void MyTorpedo::initialize() {
 }
 
 void MyTorpedo::onActive() {
-    MyStgUtil::resetMyTorpedoStatus(_pStatus);
+    _pStatus->reset();
     setAlpha(0.3);
     _SX = _SY = _SZ = 100;
     _pScaler->setScale(100);

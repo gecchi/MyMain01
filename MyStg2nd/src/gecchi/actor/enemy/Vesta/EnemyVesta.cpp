@@ -53,7 +53,7 @@ void EnemyVesta::initialize() {
 }
 
 void EnemyVesta::onActive() {
-    MyStgUtil::resetEnemyVestaStatus(_pStatus);
+    _pStatus->reset();
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
     _is_open_hatch = false;
     _iMovePatternNo = VESTA_HATCH_CLOSED;

@@ -21,7 +21,7 @@ void EnemyAstraeaLaserChip002::initialize() {
 void EnemyAstraeaLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
-    MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
+    _pStatus->reset();
 
     _pKurokoA->setMvVelo(80000);
     //_pKurokoA->setMvAcce(300);

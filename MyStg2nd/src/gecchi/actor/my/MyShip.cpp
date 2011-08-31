@@ -235,7 +235,8 @@ void MyShip::onReset() {
     _way = WAY_NONE;
     _prev_way = WAY_NONE;
     _way_switch.reset();
-    MyStgUtil::resetMyShipStatus(_pStatus);
+    _pStatus->reset();
+
 }
 
 void MyShip::onActive() {

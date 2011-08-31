@@ -22,7 +22,7 @@ void Shot001::initialize() {
 }
 
 void Shot001::onActive() {
-    MyStgUtil::resetShot001Status(_pStatus);
+    _pStatus->reset();
     setHitAble(true);
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setMvVelo(R_Shot001_MvVelo);    //ˆÚ“®‘¬“x

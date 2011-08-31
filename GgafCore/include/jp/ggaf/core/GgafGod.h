@@ -32,8 +32,7 @@ public:
     static volatile bool _can_be;
     /** [r]クリティカルセクション（セマフォ） */
     static CRITICAL_SECTION CS1;
-    /** [r]クリティカルセクション（セマフォ） */
-    static CRITICAL_SECTION CS2;
+
     /** be() 中かどうか */
     bool _is_being;
     /** [r]自身 */

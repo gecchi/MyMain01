@@ -30,8 +30,7 @@ void MagicPointItem001::initialize() {
 }
 
 void MagicPointItem001::onReset() {
-
-    MyStgUtil::resetMagicPointItem001Status(_pStatus);
+    _pStatus->reset();
     setHitAble(true, false);
     _pKurokoA->setMvVelo(2000);
     _pKurokoA->setMvAcce(100);

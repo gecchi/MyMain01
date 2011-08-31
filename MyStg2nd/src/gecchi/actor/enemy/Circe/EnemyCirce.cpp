@@ -29,7 +29,7 @@ void EnemyCirce::initialize() {
 }
 
 void EnemyCirce::onActive() {
-    MyStgUtil::resetEnemyCirceStatus(_pStatus);
+    _pStatus->reset();
     _iMovePatternNo = 0;
 }
 

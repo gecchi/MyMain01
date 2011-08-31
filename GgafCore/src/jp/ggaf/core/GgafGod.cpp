@@ -5,7 +5,6 @@ using namespace GgafCore;
 
 GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
-CRITICAL_SECTION GgafGod::CS2;
 
 int GgafGod::_num_actor_drawing = 0;
 GgafGod* GgafGod::_pGod = NULL;
@@ -28,7 +27,6 @@ GgafGod::GgafGod() : GgafObject(),
         throwGgafCriticalException("GgafGod::GgafGod() Error! スレッド作成失敗！");
     }
     ::InitializeCriticalSection(&(GgafGod::CS1));
-    ::InitializeCriticalSection(&(GgafGod::CS2));
     ::ResumeThread(_handleFactory01);
     ::SetThreadPriority(_handleFactory01, THREAD_PRIORITY_IDLE);
     GgafGod::_pGod = this;
@@ -218,7 +216,6 @@ void GgafGod::clean() {
 //            _TRACE_("GgafGod::~GgafGod() 排他解除OK");
 
             CloseHandle(_handleFactory01);
-            DeleteCriticalSection(&(GgafGod::CS2));
             DeleteCriticalSection(&(GgafGod::CS1));
             _TRACE_("GgafGod::~GgafGod() クリティカルセクション解除");
 

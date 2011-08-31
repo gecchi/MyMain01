@@ -22,7 +22,7 @@ void EnemyAstraeaLaserChip001::initialize() {
 void EnemyAstraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
-    MyStgUtil::resetEnemyAstraeaLaserChip001Status(_pStatus);
+    _pStatus->reset();
 
     _pKurokoA->setMvVelo(10000);
     _pKurokoA->setMvAcce(400);

@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : 
+EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "myvic", STATUS(EnemyCeresShot001)) {
     _class_name = "EnemyCeresShot001";
     inactivateTree();
@@ -40,7 +40,7 @@ void EnemyCeresShot001::initialize() {
 }
 
 void EnemyCeresShot001::onActive() {
-    MyStgUtil::resetEnemyCeresShot001Status(_pStatus);
+    _pStatus->reset();
 
     //oŒ»Žž
     _pKurokoA->setMvVelo(_iMvVelo_1st);

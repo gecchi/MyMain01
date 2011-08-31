@@ -30,7 +30,7 @@ void EnemyEunomia::initialize() {
 }
 
 void EnemyEunomia::onReset() {
-    MyStgUtil::resetEnemyEunomiaStatus(_pStatus);
+    _pStatus->reset();
     _iMovePatternNo = 0; //行動パターンリセット
     _pProg->change(1);
 }

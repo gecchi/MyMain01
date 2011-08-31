@@ -24,7 +24,7 @@ void EnemyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
     _pKurokoA->setMvVelo(100000);
     _pKurokoA->setMvAcce(300);
-    MyStgUtil::resetEnemyStraightLaserChip001Status(_pStatus);
+    _pStatus->reset();
 }
 
 void EnemyStraightLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {

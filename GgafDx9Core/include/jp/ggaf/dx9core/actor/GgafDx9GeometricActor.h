@@ -72,7 +72,7 @@ public:
     /** [r/w]WORLD•ÏŠ·s—ñŒvZŠÖ”(’Êí‚Í‰ñ“]~ˆÚ“®‚Ì‚İ) */
     void (*_pFunc_calcRotMvWorldMatrix)(GgafDx9GeometricActor*, D3DXMATRIX&);
 
-    void (*_pFunc_calcWorldMatrix)(GgafDx9GeometricActor*, D3DXMATRIX&);
+//    void (*_pFunc_calcWorldMatrix)(GgafDx9GeometricActor*, D3DXMATRIX&);
 
     /** [r]©g‚ÌŒ»İ‚ÌWorld•ÏŠ·s—ñ(’Êí‚ÍŠg‘åk¬~‰ñ“]~ˆÚ“®) */
     D3DXMATRIX _matWorld;

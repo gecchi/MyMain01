@@ -52,7 +52,7 @@ void EnemyCeres::initialize() {
 
 void EnemyCeres::onActive() {
     setHitAble(true);
-    MyStgUtil::resetEnemyCeresStatus(_pStatus);
+    _pStatus->reset();
     _iMovePatternNo = 0;
     _frame_Active = 0;
     _pKurokoA->relateFaceAngWithMvAng(true);

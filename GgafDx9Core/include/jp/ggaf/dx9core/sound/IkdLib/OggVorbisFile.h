@@ -27,7 +27,7 @@ namespace Dix {
         bool open( const char* filePath );
 
     protected:
-        char filePath_[ 256 ];	// ファイル名
+        char _filepath[ 256 ];	// ファイル名
     };
 }
 

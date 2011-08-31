@@ -25,7 +25,7 @@ void EnemyAstraeaLaserChip003::initialize() {
 void EnemyAstraeaLaserChip003::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
-    MyStgUtil::resetEnemyAstraeaLaserChip003Status(_pStatus);
+    _pStatus->reset();
     _pSplSeq->exec(RELATIVE_DIRECTION); //向いた方向にワールド変換
 }
 

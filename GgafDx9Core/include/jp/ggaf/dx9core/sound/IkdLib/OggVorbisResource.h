@@ -14,40 +14,42 @@
 #include "vorbis/vorbisfile.h"
 
 namespace Dix {
-    class OggVorbisResource {
-    public:
-        OggVorbisResource() : isReady_( false ){
-            memset( &oggVorbisFile_, 0, sizeof( OggVorbis_File ) );
-        }
+class OggVorbisResource {
+public:
+    OggVorbisResource() :
+            _is_ready(false)
+    {
+        memset(&_ogg_vorbis_file, 0, sizeof(OggVorbis_File));
+    }
 
-        virtual ~OggVorbisResource(){
-            clear();
-        }
+    virtual ~OggVorbisResource() {
+        clear();
+    }
 
-        // クリア
-        virtual void clear() {
-            ov_clear( &oggVorbisFile_ );
-            memset( &oggVorbisFile_, 0, sizeof( OggVorbis_File ) );
-            isReady_ = false;
-        }
+    // クリア
+    virtual void clear() {
+        ov_clear(&_ogg_vorbis_file);
+        memset(&_ogg_vorbis_file, 0, sizeof(OggVorbis_File));
+        _is_ready = false;
+    }
 
-        // OggVorbis_File構造体を取得
-        virtual OggVorbis_File& getOggVorbisFile() {
-            return oggVorbisFile_;
-        }
+    // OggVorbis_File構造体を取得
+    virtual OggVorbis_File& getOggVorbisFile() {
+        return _ogg_vorbis_file;
+    }
 
-        // 安全なクローンを作成
-        virtual OggVorbisResource* createClone() = 0;
+    // 安全なクローンを作成
+    virtual OggVorbisResource* createClone() = 0;
 
-        // 準備できた？
-        bool isReady() {
-            return isReady_;
-        }
+    // 準備できた？
+    bool isReady() {
+        return _is_ready;
+    }
 
-    protected:
-        OggVorbis_File	oggVorbisFile_;	// OggVorbis_File構造体
-        bool			isReady_;		// 準備できた？
-    };
+protected:
+    OggVorbis_File _ogg_vorbis_file; // OggVorbis_File構造体
+    bool _is_ready; // 準備できた？
+};
 }
 
 #endif
