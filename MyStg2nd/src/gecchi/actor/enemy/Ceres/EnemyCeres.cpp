@@ -138,5 +138,6 @@ bool EnemyCeres::isOutOfUniverse() {
 
 EnemyCeres::~EnemyCeres() {
     //static‚È‚Ì‚ÅÅ‰‚Ì‚P‰ñ‚¾‚¯‰ð•ú‚µ‚½‚¢
+    _pSplCon->close();
     DELETE_POSSIBLE_NULL(_pProgram_CeresMove);
 }

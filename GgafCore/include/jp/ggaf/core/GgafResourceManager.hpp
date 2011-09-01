@@ -287,7 +287,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
         GgafResourceConnection<T>* pCurrent_Next;
         while (pCurrent) {
             int rnum = pCurrent->_num_connection;
-            TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストに[" << pCurrent->_idstr << "←" << rnum
+            _TRACE_("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストに[" << pCurrent->_idstr << "←" << rnum
                     << "Connection]が残ってます。強制削除しますが、本来あってはいけません。特別に" << rnum << "回 close()を発行します");
 //            T* r = pCurrent->use();
             pCurrent_Next = pCurrent->_pNext;
