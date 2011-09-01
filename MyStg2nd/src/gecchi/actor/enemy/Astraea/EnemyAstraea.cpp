@@ -78,7 +78,7 @@ void EnemyAstraea::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 200*1000);
     _pKurokoA->setRzRyMvAng(0, ANGLE180);
-    _pKurokoA->setMvVelo(3000);
+    _pKurokoA->setMvVelo(5000);
 }
 
 void EnemyAstraea::onActive() {
@@ -113,7 +113,7 @@ void EnemyAstraea::processBehavior() {
             if (_pProg->isJustChanged()) {
                 //ターン開始
                 _pKurokoA->execTurnFaceAngSequence(P_MYSHIP, _ang_veloTurn*20, 0,
-                                                       TURN_COUNTERCLOCKWISE, false);
+                                                   TURN_COUNTERCLOCKWISE, false);
                 _cnt_laserchip = 0;
             }
             if (_pKurokoA->isTurningFaceAng()) {
@@ -174,7 +174,6 @@ void EnemyAstraea::processBehavior() {
                                 // vX = _Xorg*mat_11 + _Yorg*mat_21 + _Zorg*mat_31
                                 // vY = _Xorg*mat_12 + _Yorg*mat_22 + _Zorg*mat_32
                                 // vZ = _Xorg*mat_13 + _Yorg*mat_23 + _Zorg*mat_33
-                                //となる
                                 p = &(_papaPosLaser[i][j]);
                                 vX = p->X*matWorldRot._11 + p->Y*matWorldRot._21 + p->Z*matWorldRot._31;
                                 vY = p->X*matWorldRot._12 + p->Y*matWorldRot._22 + p->Z*matWorldRot._32;
