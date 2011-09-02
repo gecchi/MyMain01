@@ -142,7 +142,7 @@ progress GgafProgress::getNext_WhenWillChange() {
 void GgafProgress::update() {
     //êiíªÇîΩâfÇ∑ÇÈ
     if (_progress != _progress_next) {
-        _paFrame_ProgressChanged[_progress_next] = (*_pFrame_count);
+        _paFrame_ProgressChanged[_progress_next] = (*_pFrame_count) - 1;
     }
     _progress_prev = _progress;
     _progress = _progress_next;

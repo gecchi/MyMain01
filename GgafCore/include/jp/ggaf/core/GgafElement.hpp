@@ -740,10 +740,11 @@ public:
     virtual UINT32 getBehaveingFrame();
 
     /**
-     * onActive()からの振る舞い状態に加算されるフレーム数を取得する .
+     * 振る舞い状態onActive()から開始した、振る舞い状態は何フレーム目かを返す。 .
      * 汎用オブジェクトなど、一度生成して使いまわす(deleteしない)場合、<BR>
      * 消失時に inactivate() 、 出現時 activate() を繰り返すことを想定。<BR>
-     * getBehaveingFrame() と同じタイミングで加算されるが、onActive()でリセットされる。<BR>
+     * getBehaveingFrame() と同じタイミングで加算される。processBehavior()では、1 ～ を返す。
+     * onActive()コールバック条件成立時にリセットされる。<BR>
      * @return onActive()からの振る舞いフレーム数
      */
     virtual UINT32 getActivePartFrame();

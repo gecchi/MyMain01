@@ -301,6 +301,7 @@ class TurboMeter;
 class LabelGecchi8Font;
 class LabelGecchi16Font;
 class LabelRankFont;
+class LabelRankingFont;
 
 class TamagoActor;
 class EnemyTamago01Actor;
@@ -530,6 +531,7 @@ class MagicMeter;
 #include "gecchi/actor/label/LabelGecchi8Font.h"
 #include "gecchi/actor/label/LabelGecchi16Font.h"
 #include "gecchi/actor/label/LabelRankFont.h"
+#include "gecchi/actor/label/LabelRankingFont.h"
 
 #include "gecchi/actor/background/WorldBound/WorldBoundSpace001.h"
 #include "gecchi/actor/background/WorldBound/WorldBoundSpace002.h"

@@ -13,9 +13,21 @@ class GameDemoScene : public GgafDx9LibStg::DefaultScene {
 
 public:
 
+    struct ScoreInfo {
+        int rank;
+        std::string name;
+        int score;
+        std::string date;
+    };
+
+    vector<ScoreInfo> ranking;
+    LabelRankingFont** _papLabelRanking;
+
     LabelGecchi16Font* _pStringBoard01;
     LabelGecchi16Font* _pStringBoard02;
     int _demo_stage;
+
+    int _ranking_num;
 
     GameDemoScene(const char* prm_name);
     void onReset() override;

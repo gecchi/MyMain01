@@ -121,6 +121,17 @@ public:
     }
 
     /**
+     * 現在フェーディング中かどうか .
+     * @return
+     */
+    bool isWorking() {
+        if (_method == NO_ALPHAFADE) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    /**
      * 片道等速フェーディング（持続フレーム数指定） .
      * 目標の強度へ一定速度でフェーディングする。
      * @param prm_target_alpha 目標強度

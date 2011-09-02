@@ -72,7 +72,9 @@ public:
     virtual frame getFrameWhenChanged(progress prm_progress);
 
     /**
-     * 現在の進捗番号内での経過時間を取得 .
+     * 現在の進捗番号内で何フレームなのかを取得(1～) .
+     * isJustChanged() 成立時は 1 が返る。（リセットされる）
+     * その後、加算されていく。
      * @return 進捗内経過時間
      */
     virtual frame getFrameInProgress();

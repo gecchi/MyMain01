@@ -100,8 +100,8 @@ void EnemyAstraea::processBehavior() {
                 _pKurokoA->setFaceAngVelo(AXIS_X, 0);
                 _pKurokoA->setFaceAngVelo(AXIS_Z, _ang_veloTurn*0.3);
                 _pKurokoA->setFaceAngVelo(AXIS_Y, _ang_veloTurn*0.5);
-                _pKurokoA->setMvVelo(2000);
-                _pKurokoA->setMvVelo(0);
+                _pKurokoA->setMvVelo(5000);
+                //_pKurokoA->setMvVelo(0);
             }
             if (getActivePartFrame() % _laser_interval == 0) {
                 _pProg->change(ASTRAEA_PROG_TURN);
