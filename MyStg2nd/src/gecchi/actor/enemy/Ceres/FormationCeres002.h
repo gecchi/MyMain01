@@ -6,7 +6,7 @@ namespace MyStg2nd {
 /**
  * フォーメーションアクタークラス .
  */
-class FormationCeres002 : public GgafDx9Core::GgafDx9FormationActor {
+class FormationCeres002 : public GgafDx9LibStg::FormationActor {
 
     EnemyCeres* _pEnemyCeres[NUM_CERES_FORMATION002];
 public:

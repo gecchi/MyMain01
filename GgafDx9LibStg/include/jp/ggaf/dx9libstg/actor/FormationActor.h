@@ -1,8 +1,8 @@
-#ifndef GGAFDX9FORMATIONACTOR_H_
-#define GGAFDX9FORMATIONACTOR_H_
+#ifndef FORMATIONACTOR_H_
+#define FORMATIONACTOR_H_
 
 #define FORMATION_END_DELAY (30*60)
-namespace GgafDx9Core {
+namespace GgafDx9LibStg {
 
 
 
@@ -14,7 +14,7 @@ namespace GgafDx9Core {
  * @since 2008/08/08
  * @author Masatoshi Tsuge
  */
-class GgafDx9FormationActor : public GgafDx9GeometricActor {
+class FormationActor : public GgafDx9Core::GgafDx9GeometricActor {
 private:
     /**
      * サブが無ければ死
@@ -22,7 +22,7 @@ private:
     virtual void processJudgement() override;
 
 public:
-    /** [r]所属アクター数(addSubLastにより増加) */
+    /** [r]所属アクター数(addSubLastにより増加、wasDestroyedFollowerで減少) */
     int _num_sub;
 
     frame _offset_frames_end;
@@ -33,7 +33,7 @@ public:
      * @param prm_offset_frames_end 子が無くなったときに解放する猶予フレーム
      * @return
      */
-    GgafDx9FormationActor(const char* prm_name, frame prm_offset_frames_end = FORMATION_END_DELAY);
+    FormationActor(const char* prm_name, frame prm_offset_frames_end = FORMATION_END_DELAY);
 
     virtual void initialize() override {
     }
@@ -78,12 +78,12 @@ public:
     /**
      * 編隊に所属したアクターが消滅する際にコールしてもらうメソッド .
      * 編隊全滅判定を行いたい（wasDestroyedFormation(GgafDx9GeometricActor*) をコールバックさせたい）場合は、<BR>
-     * 本メソッドをアクター側で自身がやられた時に、都度呼びだを行い必要があります。<BR>
+     * 本メソッドをアクター側で自身がやられた時に、都度呼びだしを行う必要があります。<BR>
      * 具体的に、編隊要素の各アクターの「破壊による」消滅処理時に、次のような１行を加えてください。<BR>
      * （※「領域外による」消滅処理で呼び出してはいけません）<BR>
      * <code>
      *
-     * ((GgafDx9FormationActor*)getParent())->wasDestroyedFollower(this);
+     * ((FormationActor*)getParent())->wasDestroyedFollower(this);
      *
      * </code>
      * 実は、単に内部でカウンタを減らし、カウントが0になれば wasDestroyedFormation() をコールバックしているだけです。<BR>
@@ -92,8 +92,8 @@ public:
     virtual void wasDestroyedFollower(GgafDx9GeometricActor* prm_pActor);
 
 
-    virtual ~GgafDx9FormationActor();
+    virtual ~FormationActor();
 };
 
 }
-#endif /*GGAFDX9FORMATIONACTOR_H_*/
+#endif /*FORMATIONACTOR_H_*/

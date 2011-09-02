@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2009/12/25
  * @author Masatoshi Tsuge
  */
-class FormationIris001 : public GgafDx9Core::GgafDx9FormationActor {
+class FormationIris001 : public GgafDx9LibStg::FormationActor {
     /** イリスの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* _pDepoCon;
     /** スプライン定義資源への接続 */

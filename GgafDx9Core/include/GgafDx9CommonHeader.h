@@ -313,7 +313,7 @@ enum GgafDx9StringAlign {
 #define Obj_GgafDx9BoardActor            (0x1000000)      //0b 00000001 00000000 00000000 00000000
 #define Obj_GgafDx9BoardSetActor         (0x2000000)      //0b 00000010 00000000 00000000 00000000
 #define Obj_GgafDx9PointSpriteActor      (0x4000000)      //0b 00000100 00000000 00000000 00000000
-#define Obj_GgafDx9FormationActor        (0x8000000)      //0b 00001000 00000000 00000000 00000000
+#define Obj_FormationActor        (0x8000000)      //0b 00001000 00000000 00000000 00000000
 #undef P_GOD
 #define P_GOD ((GgafDx9Core::GgafDx9God*)GgafDx9Core::GgafDx9God::_pGod)
 #undef P_UNIVERSE
@@ -369,7 +369,6 @@ class GgafDx9CameraViewPoint;
 class GgafDx9BoardActor;
 class GgafDx9BoardSetActor;
 class GgafDx9PointSpriteActor;
-class GgafDx9FormationActor;
 
 class GgafDx9Model;
 class GgafDx9D3DXMeshModel;
@@ -481,7 +480,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/GgafDx9BoardActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9BoardSetActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9PointSpriteActor.h"
-#include "jp/ggaf/dx9core/actor/GgafDx9FormationActor.h"
+
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9AABActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9AAPrismActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SphereActor.h"

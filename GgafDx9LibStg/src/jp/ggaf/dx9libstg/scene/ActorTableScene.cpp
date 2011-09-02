@@ -10,11 +10,11 @@ ActorTableScene::ActorTableScene(const char* prm_name) : GgafDx9Scene(prm_name) 
 }
 
 
-GgafGroupHead* ActorTableScene::addToTable(GgafDx9FormationActor* prm_pFormationActor, frame prm_max_delay_offset) {
-    if (prm_pFormationActor->_obj_class | Obj_GgafDx9FormationActor) {
+GgafGroupHead* ActorTableScene::addToTable(FormationActor* prm_pFormationActor, frame prm_max_delay_offset) {
+    if (prm_pFormationActor->_obj_class | Obj_FormationActor) {
         //OK
     } else {
-        throwGgafCriticalException("ActorTableScene::processBehavior() GgafDx9FormationActor ˆÈŠO‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚·B")
+        throwGgafCriticalException("ActorTableScene::processBehavior() FormationActor ˆÈŠO‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚·B")
     }
     prm_pFormationActor->_offset_frames_end = FORMATION_END_DELAY;
     prm_pFormationActor->inactivateImmediately();
@@ -49,7 +49,7 @@ void ActorTableScene::processBehavior() {
         }
 
         TblElem* e = _table.getCurrent();
-        GgafDx9FormationActor* pF = e->_pFormationActor;
+        FormationActor* pF = e->_pFormationActor;
         //‘S–Å”»’è
         bool was_destroyed = false;
 

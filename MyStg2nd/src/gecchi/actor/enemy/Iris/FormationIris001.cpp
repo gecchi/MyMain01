@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-FormationIris001::FormationIris001(const char* prm_name) : GgafDx9FormationActor(prm_name, 30*60) {
+FormationIris001::FormationIris001(const char* prm_name) : FormationActor(prm_name, 30*60) {
     _class_name = "FormationIris001";
     _num_Iris        = R_FormationIris001_Num;    //ï“ë‡êî
     _interval_frames = R_FormationIris001_LaunchInterval;   //ÉCÉäÉXÇÃä‘äu(frame)

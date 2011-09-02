@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/02/14
  * @author Masatoshi Tsuge
  */
-class FormationEunomia : public GgafDx9Core::GgafDx9FormationActor {
+class FormationEunomia : public GgafDx9LibStg::FormationActor {
 
 public:
     /** エウノミアの発射弾の借り入れ元Depository資源への接続 */

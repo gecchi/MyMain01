@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/06/13
  * @author Masatoshi Tsuge
  */
-class FormationPallas001 : public GgafDx9Core::GgafDx9FormationActor {
+class FormationPallas001 : public GgafDx9LibStg::FormationActor {
 
 public:
     /** ƒpƒ‰ƒX‚Ì”­Ë’e‚ÌØ‚è“ü‚êŒ³Depository‘Œ¹‚Ö‚ÌÚ‘± */

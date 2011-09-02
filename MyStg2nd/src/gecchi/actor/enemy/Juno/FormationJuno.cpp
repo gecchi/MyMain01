@@ -18,7 +18,7 @@ FormationJuno::FormationJuno(
             velo prm_veloMv_Juno,
             angle prm_angRzMv_JunoMv, angle prm_angRyMv_JunoMv,
             int prm_nJunoStock,
-            int prm_frame_app_interval) : GgafDx9FormationActor(prm_name) {
+            int prm_frame_app_interval) : FormationActor(prm_name) {
     _class_name = "FormationJuno";
     _pDepoCon = connectDepositoryManager("StCon_Shot004", NULL); //Juno‚Ì’e
 

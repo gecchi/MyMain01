@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 FormationIris002::FormationIris002(const char* prm_name) :
-        GgafDx9FormationActor(prm_name, 30*60) { //30*60後にend()する。早く開放しすぎると Depository の接続が切れるため。
+        FormationActor(prm_name, 30*60) { //30*60後にend()する。早く開放しすぎると Depository の接続が切れるため。
     _class_name = "FormationIris002";
     _num_Iris        = R_FormationIris002_Num;    //編隊数
     _interval_frames = R_FormationIris002_LaunchInterval;   //イリスの間隔(frame)

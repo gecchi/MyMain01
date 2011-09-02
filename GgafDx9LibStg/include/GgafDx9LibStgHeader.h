@@ -39,8 +39,7 @@ class WalledSectionScene;
 
 class StgProperties;
 
-
-
+class FormationActor;
 class DefaultGeometricActor;
 class DefaultD3DXMeshActor;
 class DefaultD3DXAniMeshActor;
@@ -121,6 +120,7 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/dx9libstg/StgProperties.h"
 
 #include "jp/ggaf/dx9libstg/scene/DefaultUniverse.h"
+#include "jp/ggaf/dx9libstg/actor/FormationActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultCamera.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultD3DXMeshActor.h"

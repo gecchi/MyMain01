@@ -41,6 +41,7 @@ public:
     scale _SZ;
     /** [r]黒子A */
     GgafDx9KurokoA* _pKurokoA;
+    /** [r]黒子B */
     GgafDx9KurokoB* _pKurokoB;
     /** [r]チェッカー */
     GgafDx9Checker* _pChecker;
@@ -69,21 +70,18 @@ public:
     dxcoord _fDist_VpPlnFront;
     /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     dxcoord _fDist_VpPlnBack;
-    /** [r/w]WORLD変換行列計算関数(通常は回転×移動のみ) */
+    /** [r/w]WORLD変換行列計算関数 */
     void (*_pFunc_calcRotMvWorldMatrix)(GgafDx9GeometricActor*, D3DXMATRIX&);
-
-//    void (*_pFunc_calcWorldMatrix)(GgafDx9GeometricActor*, D3DXMATRIX&);
-
-    /** [r]自身の現在のWorld変換行列(通常は拡大縮小×回転×移動) */
+    /** [r]自身の現在のWorld変換行列(通常は「拡大縮小×回転×移動」) */
     D3DXMATRIX _matWorld;
-    /** [r]自身の現在のWorld変換行列(回転×移動のみ) */
+    /** [r]自身の現在のWorld変換行列の「回転×移動」のみ */
     D3DXMATRIX _matWorldRotMv;
-    /** [r]自身の現在のWorld変換行列の逆行列(回転×移動のインバース) */
+    /** [r]自身の現在のWorld変換行列の「回転×移動」の逆行列(回転×移動のインバース) */
     D3DXMATRIX _matInvWorldRotMv;
     /** [r]カレントフレームで自身の現在のWorld変換行列の逆行列(_matInvWorldRotMv)を計算して求めたかどうかのフラグ。 */
     bool _wasCalc_matInvWorldRotMv;
 
-    /** 土台となるアクター(土台が無い場合はNULL) */
+    /** 土台となるアクター、土台が無い場合はNULL（IK用） */
     GgafDx9Core::GgafDx9GeometricActor* _pActor_Base;
     /** 土台アクター上でのワールドX座標 */
     coord _X_local;
@@ -104,12 +102,6 @@ public:
     angle _RX_final;
     angle _RY_final;
     angle _RZ_final;
-//    coord _X_offset;
-//    coord _Y_offset;
-//    coord _Z_offset;
-//    angle _RX_offset;
-//    angle _RY_offset;
-//    angle _RZ_offset;
 
     bool _is_local;
 
@@ -143,6 +135,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name アクター名
+     * @param prm_pStat ステータス(使用しない時 NULL)
      * @param prm_pChecker チェッカー(使用しない時 NULL)
      * @return
      */
@@ -169,7 +162,7 @@ public:
     /**
      * 判定処理事前処理 .
      * processBehavior() 後、座標計算事後処理として次の処理を行う <BR>
-     * ①自身の座標情報から以下のメンバの更新を行う。 <BR>
+     * ①自身の座標情報(_X,_Y,_Z)から以下のメンバの更新を行う。 <BR>
      *     _fX <BR>
      *     _fY <BR>
      *     _fZ <BR>
@@ -226,7 +219,7 @@ public:
     virtual bool isOutOfUniverse();
 
     /**
-     * 未変換ワールド座標を設定 .
+     * ワールド座標を設定 .
      * @param X
      * @param Y
      * @param Z
@@ -236,13 +229,19 @@ public:
         _Y = Y;
         _Z = Z;
     }
+
+    /**
+     * ワールド座標を設定 .
+     * @param X
+     * @param Y
+     */
     virtual void locate(coord X, coord Y) {
         _X = X;
         _Y = Y;
     }
 
     /**
-     * スケールをスケール値で設定します。
+     * スケールを値で設定。
      * 【注意】
      * _pScaler->behave(); が存在すると無意味になります。
      * @param S スケール値(1000 で 1.0倍)
@@ -255,7 +254,7 @@ public:
     }
 
     /**
-     * スケールを倍率で設定します。
+     * スケールを倍率で設定。
      * 1.0 で 1.0倍。
      * 【注意】
      * _pScaler->behave(); が存在すると無意味になります。
@@ -285,8 +284,17 @@ public:
         _Y = prm_pActor->_Y;
         _Z = prm_pActor->_Z;
     }
+
+    /**
+     * 未変換座標をコピーして設定 .
+     * @param prm_pGeoElem 座標オブジェクト
+     */
     virtual void locateAs(GgafDx9GeoElem* prm_pGeoElem);
 
+    /**
+     * 回転角度(_RX, _RY, _RZ)をコピーして設定 .
+     * @param prm_pActor コピー元アクター
+     */
     virtual void rotateWith(GgafDx9GeometricActor* prm_pActor);
 
     /**

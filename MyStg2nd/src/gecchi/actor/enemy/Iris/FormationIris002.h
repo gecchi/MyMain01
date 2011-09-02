@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2009/12/25
  * @author Masatoshi Tsuge
  */
-class FormationIris002 : public GgafDx9Core::GgafDx9FormationActor {
+class FormationIris002 : public GgafDx9LibStg::FormationActor {
 
     DepositoryConnection* _pDepoCon;
     Spline3DConnection* _pSplCon;

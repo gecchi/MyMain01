@@ -7,7 +7,7 @@ namespace MyStg2nd {
  * フォーメーションアクタークラス .
  */
 template<class T>
-class Formation001 : public GgafDx9Core::GgafDx9FormationActor {
+class Formation001 : public GgafDx9LibStg::FormationActor {
 
     GgafCore::GgafActorDepository* _pDepo;
     bool _was_create_dispatcher;
@@ -21,7 +21,7 @@ public:
 
 
 template<class T>
-Formation001<T>::Formation001(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo) : GgafDx9Core::GgafDx9FormationActor(prm_name) {
+Formation001<T>::Formation001(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo) : GgafDx9LibStg::FormationActor(prm_name) {
     _class_name = "Formation001";
     if (prm_pDepo == NULL) {
         _was_create_dispatcher = true;

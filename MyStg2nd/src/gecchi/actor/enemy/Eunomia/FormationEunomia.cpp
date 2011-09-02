@@ -9,7 +9,7 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
                                                          int prm_row,
                                                          frame prm_interval_frames,
                                                          velo prm_mv_velo,
-                                                         const char* prm_spl_id) : GgafDx9FormationActor(prm_name, 30*60) {
+                                                         const char* prm_spl_id) : FormationActor(prm_name, 30*60) {
     _class_name = "FormationEunomia";
     _num_formation_col = prm_col > 7 ? 7 : prm_col;   //•Ò‘à—ñ”
     _num_formation_row = prm_row;  //‚P—ñ‚Ì•Ò‘à”

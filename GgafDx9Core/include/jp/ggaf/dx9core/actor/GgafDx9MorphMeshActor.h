@@ -27,6 +27,7 @@ public:
      * @param prm_model_id モデル定義名、末尾に ".x" をつけてXファイル名になること。
      * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
      * @param prm_technique エフェクトのテクニック名
+     * @param prm_pStat 使用するステータスオブジェクト(使用しない時 NULLでよい)
      * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
      * @return
      */
@@ -45,6 +46,7 @@ public:
      * @param prm_effect_id エフェクト定義名
      * @param prm_effect_type エフェクトタイプ
      * @param prm_technique エフェクトのテクニック
+     * @param prm_pStat 使用するステータスオブジェクト(使用しない時 NULLでよい)
      * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
      * @return
      */
