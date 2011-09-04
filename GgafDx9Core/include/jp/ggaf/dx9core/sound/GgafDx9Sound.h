@@ -5,6 +5,7 @@ namespace GgafDx9Core {
 
 #define connectSeManager(X) ((GgafDx9Core::GgafDx9SeConnection*)GgafDx9Core::GgafDx9Sound::_pSeManager->connect(X))
 
+
 /**
  * サウンドクラス.
  * IDirectSound8を保持し、サウンドに関するもろもろの機能を持ったクラスです

@@ -59,7 +59,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     std::set_terminate(myTerminateHandler);
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
-
     MSG msg;
 
     // グローバル文字列を初期化しています。

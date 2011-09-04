@@ -1,8 +1,6 @@
 #ifndef GGAFDX9GOD_H_
 #define GGAFDX9GOD_H_
 
-#define  ___BeginSynchronized02 ::EnterCriticalSection(&(GgafDx9Core::GgafDx9God::CS2))
-#define  ___EndSynchronized02 ::LeaveCriticalSection(&(GgafDx9Core::GgafDx9God::CS2))
 
 namespace GgafDx9Core {
 /**
@@ -37,8 +35,6 @@ public:
     /** デバイスロストフラグ (true=ロスト中) */
     static bool _is_device_lost_flg;
 
-    /** [r]クリティカルセクションその２（セマフォ） */
-    static CRITICAL_SECTION CS2;
 
     static bool _adjustGameScreen;
     static HWND _pHWnd_adjustScreen;

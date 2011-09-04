@@ -147,11 +147,10 @@ bool PCMPlayer::setDecoder(PCMDecoder* prm_pPcmDecoder) {
 
     // バッファを初期化
     //内部のpDSBuffer->Lock で極稀におちる。
-    //→initializeBuffer() と再生を排他すればよさそう、
-    //というような記事が○×掲示板に投稿されていたので、とりあえずクリティカルセクションで囲む。
- ___BeginSynchronized02;
+    //→initializeBuffer() と再生を排他すればよさそうというような記事が○×掲示板に投稿されていた.
+// ___BeginSynchronized02;
     bool r = initializeBuffer();
- ___EndSynchronized02;
+// ___EndSynchronized02;
     if (r == false) {
         return false;
     }
@@ -233,7 +232,7 @@ void PCMPlayer::streamThread(void* playerPtr) {
             case STATE_PLAY: // 再生中
                 // ストリーム再生
                 // 現在位置をチェック
-             ___BeginSynchronized02;
+//             ___BeginSynchronized02;
                 player->_pDSBuffer->GetCurrentPosition(&point, 0);
                 if (flag == 0 && point >= size) {
                     // 前半に書き込み
@@ -264,7 +263,7 @@ void PCMPlayer::streamThread(void* playerPtr) {
                         waitFinish = true;
                     }
                 }
-             ___EndSynchronized02;
+//             ___EndSynchronized02;
                 break;
 
             case STATE_STOP:
@@ -338,9 +337,9 @@ void PCMPlayer::stop() {
     _pDSBuffer->Stop();
 
     // バッファの頭出し
-    ___BeginSynchronized02;
+//    ___BeginSynchronized02;
     bool r = initializeBuffer();
-    ___EndSynchronized02;
+//    ___EndSynchronized02;
     _TRACE_("PCMPlayer::stop() initializeBuffer() = " << r);
 }
 

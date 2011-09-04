@@ -25,7 +25,6 @@ D3DLIGHT9 GgafDx9God::_d3dlight9_default;
 D3DLIGHT9 GgafDx9God::_d3dlight9_temp;
 DWORD GgafDx9God::_dwAmbientBrightness_default = 0xff404040;
 
-CRITICAL_SECTION GgafDx9God::CS2;
 
 D3DFILLMODE GgafDx9God::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFILL_SOLID;
 
@@ -57,7 +56,6 @@ D3DXMACRO GgafDx9God::_aD3DXMacro_Defines[3] =
 GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
     GgafGod() {
     TRACE("GgafDx9God::GgafDx9God() ");
-    ::InitializeCriticalSection(&(GgafDx9God::CS2));
 
     GgafDx9God::_pHWndPrimary = prm_pHWndPrimary;
     GgafDx9God::_pHWndSecondary = prm_pHWndSecondary;
@@ -1283,7 +1281,7 @@ GgafDx9God::~GgafDx9God() {
     GgafDx9Sound::release();
     //DirectInputâï˙
     GgafDx9Input::release();
-    DeleteCriticalSection(&(GgafDx9God::CS2));
+
     _TRACE_("_pID3DDevice9 âï˙Ç´ÇΩÅ[");
     Sleep(60);
     RELEASE_SAFETY(_pRenderTextureSurface);

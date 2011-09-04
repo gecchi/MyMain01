@@ -5,6 +5,7 @@ using namespace GgafCore;
 
 GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
+int GgafGod::ppp = 0;
 
 int GgafGod::_num_actor_drawing = 0;
 GgafGod* GgafGod::_pGod = NULL;
@@ -214,7 +215,6 @@ void GgafGod::clean() {
 //            ___BeginSynchronized; // ----->”r‘¼ŠJŽn
 //            ___EndSynchronized; // <----- ”r‘¼I—¹
 //            _TRACE_("GgafGod::~GgafGod() ”r‘¼‰ðœOK");
-
             CloseHandle(_handleFactory01);
             DeleteCriticalSection(&(GgafGod::CS1));
             _TRACE_("GgafGod::~GgafGod() ƒNƒŠƒeƒBƒJƒ‹ƒZƒNƒVƒ‡ƒ“‰ðœ");
@@ -239,6 +239,10 @@ void GgafGod::clean() {
             DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
             //‚±‚Ì¢‚Å¶‚«‚Ä‚¢‚é•¨‚à‘|œ
             Sleep(20);
+
+	        _TRACE_("Dumping _pUniverse ‚»‚Ì‚Q ...");
+            _pUniverse->dump();
+
             _TRACE_("DELETE_IMPOSSIBLE_NULL(_pUniverse);");
             DELETE_IMPOSSIBLE_NULL(_pUniverse);
         }
