@@ -2,9 +2,13 @@
 #define GGAFGOD_H_
 namespace GgafCore {
 
-#define  ___BeginSynchronized  ::EnterCriticalSection(&(GgafCore::GgafGod::CS1));  {GgafGod::ppp++; std::stringstream ss; ss << GgafGod::ppp<<": BeginSynchronized file:"<<__FILE__<<" line="<<__LINE__;  GgafCore::GgafLogger::writeln(ss);}
-#define  ___EndSynchronized {GgafGod::ppp--; std::stringstream ss; ss << GgafGod::ppp<<": EndSynchronized file:"<<__FILE__<<" line="<<__LINE__; GgafCore::GgafLogger::writeln(ss);} ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
-#define XXXX(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+//#define  ___BeginSynchronized  ::EnterCriticalSection(&(GgafCore::GgafGod::CS1));  {GgafGod::ppp++; std::stringstream ss; ss << GgafGod::ppp<<": BeginSynchronized file:"<<__FILE__<<" line="<<__LINE__;  GgafCore::GgafLogger::writeln(ss);}
+//#define  ___EndSynchronized {GgafGod::ppp--; std::stringstream ss; ss << GgafGod::ppp<<": EndSynchronized file:"<<__FILE__<<" line="<<__LINE__; GgafCore::GgafLogger::writeln(ss);} ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
+//#define XXXX(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+
+#define  ___BeginSynchronized   ::EnterCriticalSection(&(GgafCore::GgafGod::CS1))
+#define  ___EndSynchronized     ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
+
 #define  SLOWDOWN_MODE_DEFAULT 0
 #define  SLOWDOWN_MODE_40FPS 1
 #define  SLOWDOWN_MODE_30FPS 2
