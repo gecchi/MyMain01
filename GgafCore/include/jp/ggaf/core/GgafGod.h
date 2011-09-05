@@ -2,7 +2,7 @@
 #define GGAFGOD_H_
 namespace GgafCore {
 
-#define  ___BeginSynchronized {GgafGod::ppp++; std::stringstream ss; ss << GgafGod::ppp<<": BeginSynchronized file:"<<__FILE__<<" line="<<__LINE__;  GgafCore::GgafLogger::writeln(ss);}  ::EnterCriticalSection(&(GgafCore::GgafGod::CS1))
+#define  ___BeginSynchronized  ::EnterCriticalSection(&(GgafCore::GgafGod::CS1));  {GgafGod::ppp++; std::stringstream ss; ss << GgafGod::ppp<<": BeginSynchronized file:"<<__FILE__<<" line="<<__LINE__;  GgafCore::GgafLogger::writeln(ss);}
 #define  ___EndSynchronized {GgafGod::ppp--; std::stringstream ss; ss << GgafGod::ppp<<": EndSynchronized file:"<<__FILE__<<" line="<<__LINE__; GgafCore::GgafLogger::writeln(ss);} ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
 #define XXXX(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
 #define  SLOWDOWN_MODE_DEFAULT 0

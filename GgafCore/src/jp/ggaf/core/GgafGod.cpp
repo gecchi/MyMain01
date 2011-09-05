@@ -215,8 +215,19 @@ void GgafGod::clean() {
 //            ___BeginSynchronized; // ----->排他開始
 //            ___EndSynchronized; // <----- 排他終了
 //            _TRACE_("GgafGod::~GgafGod() 排他解除OK");
+            /* スレッドが終了するまで待つ */
+            _TRACE_("WaitForSingleObject(_handleFactory01, 120*1000) .....");
+            DWORD r = WaitForSingleObject(_handleFactory01, 120*1000);  //DeleteCriticalSectionを行うために必要
+            if (r == WAIT_TIMEOUT) {
+                throwGgafCriticalException("GgafGod::~GgafGod() 工場が落ち着きましたが、まだ完全に終わっていないみたいです。");
+            }
+            _TRACE_("CloseHandle(_handleFactory01) .....");
             CloseHandle(_handleFactory01);
+            _TRACE_("DeleteCriticalSection(&(GgafGod::CS1)); .....");
             DeleteCriticalSection(&(GgafGod::CS1));
+            _TRACE_("無事に工場スレッドを終了");
+
+            _handleFactory01 = NULL;
             _TRACE_("GgafGod::~GgafGod() クリティカルセクション解除");
 
     #ifdef MY_DEBUG
@@ -240,7 +251,7 @@ void GgafGod::clean() {
             //この世で生きている物も掃除
             Sleep(20);
 
-	        _TRACE_("Dumping _pUniverse その２ ...");
+            _TRACE_("Dumping _pUniverse その２ ...");
             _pUniverse->dump();
 
             _TRACE_("DELETE_IMPOSSIBLE_NULL(_pUniverse);");
