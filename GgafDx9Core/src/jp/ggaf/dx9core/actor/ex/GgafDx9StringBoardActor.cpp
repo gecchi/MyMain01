@@ -150,7 +150,7 @@ void GgafDx9StringBoardActor::processDraw() {
                 strindex = _len - (pack * _pBoardSetModel->_set_num + i) - 1;
                 if (_draw_string[strindex] == '\0') {
                     break;
-                } else if (_draw_string[strindex] - ' ' < 0) {
+                } else if (_draw_string[strindex]  - ' ' > '_'  || _draw_string[strindex] - ' ' < 0) {
                     pattno = '?' - ' '; //”ÍˆÍŠO‚Í"?"‚ğ•\¦
                 } else {
                     pattno = _draw_string[strindex] - ' '; //’Êí•¶š—ñ
