@@ -84,6 +84,7 @@ public:
      * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param prm_str 描画文字列
+     * @param prm_align ALIGN_LEFT:左揃え／ALIGN_CENTER:中央寄せ／ALIGN_RIGHT:右揃え
      */
     virtual void update(coord X, coord Y, const char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT);
 
@@ -92,6 +93,7 @@ public:
      * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param prm_str 描画文字列
+     * @param prm_align ALIGN_LEFT:左揃え／ALIGN_CENTER:中央寄せ／ALIGN_RIGHT:右揃え
      */
     virtual void update(coord X, coord Y, char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT);
 
@@ -101,6 +103,7 @@ public:
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param Z プライオリティ(値が小さい方が手前)
      * @param prm_str 描画文字列
+     * @param prm_align ALIGN_LEFT:左揃え／ALIGN_CENTER:中央寄せ／ALIGN_RIGHT:右揃え
      */
     virtual void update(coord X, coord Y, coord Z, const char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT);
 
@@ -110,22 +113,23 @@ public:
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param Z プライオリティ(値が小さい方が手前)
      * @param prm_str 描画文字列
+     * @param prm_align ALIGN_LEFT:左揃え／ALIGN_CENTER:中央寄せ／ALIGN_RIGHT:右揃え
      */
     virtual void update(coord X, coord Y, coord Z, char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT);
 
     /**
      * 描画文字を更新設定  .
      * @param prm_str 描画文字列
+     * @param prm_align ALIGN_LEFT:左揃え／ALIGN_CENTER:中央寄せ／ALIGN_RIGHT:右揃え
      */
     virtual void update(const char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT);
 
     /**
      * 描画文字を更新設定  .
      * @param prm_str 描画文字列
+     * @param prm_align ALIGN_LEFT:左揃え／ALIGN_CENTER:中央寄せ／ALIGN_RIGHT:右揃え
      */
     virtual void update(char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT);
-
-
 
 
     virtual ~GgafDx9StringBoardActor();

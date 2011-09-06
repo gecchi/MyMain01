@@ -45,13 +45,13 @@ void GgafDx9SpriteMeshSetActor::processDraw() {
                 checkDxException(hr, D3D_OK, "GgafDx9SpriteMeshSetActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
                 hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pSpriteMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                 checkDxException(hr, D3D_OK, "GgafDx9SpriteMeshSetActor::processDraw() SetValue(g_colMaterialDiffuse) に失敗しました。");
-        #ifdef MY_DEBUG
+#ifdef MY_DEBUG
                 if (pDrawActor->_obj_class & Obj_GgafDx9SpriteMeshSetActor) {
                     //OK
                 } else {
                     throwGgafCriticalException("GgafDx9SpriteMeshSetActor::processDraw() pDrawActor["<<pDrawActor->getName()<<"] はGgafDx9SpriteMeshSetActorではありません。");
                 }
-        #endif
+#endif
                 //[MEMO]
                 //GgafDx9SpriteMeshSetActor は、GgafDx9MeshSetActor から派生しているため、モデルクラスは同じGgafDx9MeshSetModelである。
                 //GgafDx9SpriteMeshSetActorが使用するモデル名("x/10/Flora"等)と、GgafDx9MeshSetActorが使用するモデル名が

@@ -1107,14 +1107,14 @@ void GgafDx9God::presentUniversalVisualize() {
             _TRACE_("Present() == D3DERR_DRIVERINTERNALERROR!! Reset()を試みます。（駄目かもしれません）");
             //工場休止
             GgafFactory::beginRest();
-            ___EndSynchronized; // <----- 排他終了
+         ___EndSynchronized; // <----- 排他終了
             for (int i = 0; GgafFactory::isResting() == false; i++) {
                 Sleep(60); //工場が落ち着くまで待つ
                 if (i > 1000) {
                     _TRACE_("GgafDx9God::presentUniversalVisualize() 1分待機しましたが、工場から反応がありません。breakします。要調査");
                 }
             }
-            ___BeginSynchronized; // ----->排他開始
+         ___BeginSynchronized; // ----->排他開始
             _TRACE_("D3DERR_DRIVERINTERNALERROR！ 処理Begin");
             //エフェクト、デバイスロスト処理
             GgafDx9God::_pEffectManager->onDeviceLostAll();

@@ -65,9 +65,14 @@ void GgafDx9StringBoardActor::update(const char* prm_str, GgafDx9StringAlign prm
 }
 
 void GgafDx9StringBoardActor::update(char* prm_str, GgafDx9StringAlign prm_align) {
+    _len = strlen(prm_str);
+#ifdef MY_DEBUG
+    if (_len > 1024-1) {
+        throwGgafCriticalException("GgafDx9StringBoardActor::update 引数文字列数が範囲外です。name="<<getName());
+    }
+#endif
     _draw_string = _buf;
     strcpy(_draw_string, prm_str);
-    _len = strlen(prm_str);
     _len_pack_num = _len/_pBoardSetModel->_set_num;
     _remainder_len = _len%_pBoardSetModel->_set_num;
     _align = prm_align;
@@ -79,16 +84,6 @@ void GgafDx9StringBoardActor::update(char* prm_str, GgafDx9StringAlign prm_align
             _width_len_px += _aWidthPx[i];
         }
     }
-
-//    if (_align == ALIGN_RIGHT) {
-////        _width_len_px = 0;
-////        for (int i = 0; i < _len; i++) {
-////            _width_len_px += _aWidthPx[i];
-////        }
-////        _X_offset_align = Pix2App(-_width_len_px);
-//    } else  else {
-////        _X_offset_align = 0;
-//    }
 }
 
 
@@ -120,7 +115,7 @@ void GgafDx9StringBoardActor::processDraw() {
                 strindex = pack * _pBoardSetModel->_set_num + i;
                 if (_draw_string[strindex] == '\0') {
                     break;
-                } else if (_draw_string[strindex] - ' ' < 0) {
+                } else if (_draw_string[strindex]  - ' ' > '_'  || _draw_string[strindex] - ' ' < 0) {
                     pattno = '?' - ' '; //範囲外は"?"を表示
                 } else {
                     pattno = _draw_string[strindex] - ' '; //通常文字列

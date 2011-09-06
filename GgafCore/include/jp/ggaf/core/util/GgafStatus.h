@@ -39,7 +39,7 @@ public:
      */
     GgafStatus(int n, GgafStatus* (*prm_pFunc_reset)(GgafStatus*) = NULL) {
         _len = n;
-        _paValue = NEW VALUE[n];
+        _paValue = new VALUE[n];
         for (int i = 0; i < n; i++) {
             _paValue[i]._double_val = 0;
             _paValue[i]._int_val = 0;
@@ -138,7 +138,8 @@ public:
     }
 
     ~GgafStatus() {
-        DELETEARR_IMPOSSIBLE_NULL(_paValue);
+        delete[] _paValue;
+        //DELETEARR_IMPOSSIBLE_NULL(_paValue);
     }
 
 };

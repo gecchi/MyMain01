@@ -32,7 +32,7 @@ GgafActor::~GgafActor() {
 #ifdef MY_DEBUG
     _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
 #else
-    OutputDebugStringA("*\n");
+    //OutputDebugStringA("*");
 #endif
 }
 
