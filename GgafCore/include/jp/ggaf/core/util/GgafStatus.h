@@ -138,7 +138,7 @@ public:
     }
 
     ~GgafStatus() {
-        delete[] _paValue;
+        DELETEARR_IMPOSSIBLE_NULL(_paValue);
     }
 
 };
