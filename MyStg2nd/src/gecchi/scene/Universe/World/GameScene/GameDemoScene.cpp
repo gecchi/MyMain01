@@ -43,7 +43,7 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _papLabelRanking = NEW LabelRankingFont*[10];
     for (int i = 0; i < _ranking_num; i++) {
         _papLabelRanking[i] = NEW LabelRankingFont("RANK_INFO");
-        sprintf(buf, "No.%02d...%8s...%010d...%10s", ranking[i].rank,
+        sprintf(buf, "NO.%02d...%8s...%010d...%10s", ranking[i].rank,
                                                      ranking[i].name.c_str(),
                                                      ranking[i].score,
                                                      ranking[i].date.c_str());
