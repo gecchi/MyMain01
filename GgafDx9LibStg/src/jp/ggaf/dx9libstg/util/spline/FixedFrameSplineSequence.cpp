@@ -18,10 +18,10 @@ FixedFrameSplineSequence::FixedFrameSplineSequence(GgafDx9KurokoA* prmpKurokoA_t
                                                  Spline3D* prmpSpl,
                                                  frame prm_spent_frame,
                                                  ang_velo prm_ang_veloRzRyMv):
-        SplineSequence(NULL, prmpKurokoA_target) {
+        SplineSequence(NULL, prmpKurokoA_target) {  //NULLで渡す事により、_is_created_pManufacture が falseになる
 
     _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prmpSpl), prm_spent_frame, prm_ang_veloRzRyMv);
-    _pFixedFrameSplManuf->calculate();
+    _pFixedFrameSplManuf->calculate();//これも忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedFrameSplManuf;
 
     _SIN_RzMv_begin = 0;
@@ -126,11 +126,5 @@ void FixedFrameSplineSequence::behave() {
 
 }
 FixedFrameSplineSequence::~FixedFrameSplineSequence() {
-    if (_pFixedFrameSplManuf->_pSplSrcCon) {
 
-    } else {
-        SplineSource* pSplSrc = _pFixedFrameSplManuf->_pSplSrc;
-        DELETE_IMPOSSIBLE_NULL(pSplSrc);
-        DELETE_IMPOSSIBLE_NULL(_pFixedFrameSplManuf);
-    }
 }

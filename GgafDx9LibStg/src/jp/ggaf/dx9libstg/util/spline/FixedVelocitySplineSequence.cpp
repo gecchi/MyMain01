@@ -18,10 +18,10 @@ FixedVelocitySplineSequence::FixedVelocitySplineSequence(SplineManufacture* prm_
 FixedVelocitySplineSequence::FixedVelocitySplineSequence(GgafDx9KurokoA* prmpKurokoA_target,
                                                          Spline3D* prmpSpl,
                                                          ang_velo prm_ang_veloRzRyMv):
-        SplineSequence(NULL, prmpKurokoA_target) {
+        SplineSequence(NULL, prmpKurokoA_target) { //NULLで渡す事により、_is_created_pManufacture が falseになる
     _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prmpSpl), prm_ang_veloRzRyMv);
-    _pFixedVeloSplManuf->calculate(); //忘れないように
-    _pManufacture = _pFixedVeloSplManuf; //基底メンバーも一応セット
+    _pFixedVeloSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
+    _pManufacture = _pFixedVeloSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
 
     _exec_fFrames = 0.0f;
     _fFrame_of_next = -0.00001f;
@@ -182,11 +182,9 @@ void FixedVelocitySplineSequence::behave() {
 
 }
 FixedVelocitySplineSequence::~FixedVelocitySplineSequence() {
-    if (_pFixedVeloSplManuf->_pSplSrcCon) {
-
-    } else {
-        SplineSource* pSplSrc = _pFixedVeloSplManuf->_pSplSrc;
-        DELETE_IMPOSSIBLE_NULL(pSplSrc);
-        DELETE_IMPOSSIBLE_NULL(_pFixedVeloSplManuf);
-    }
+//    if (_is_created_pManufacture) {
+//        SplineSource* pSplSrc = _pFixedVeloSplManuf->_pSplSrc;
+//        DELETE_IMPOSSIBLE_NULL(pSplSrc);
+//        DELETE_IMPOSSIBLE_NULL(_pFixedVeloSplManuf);
+//    }
 }

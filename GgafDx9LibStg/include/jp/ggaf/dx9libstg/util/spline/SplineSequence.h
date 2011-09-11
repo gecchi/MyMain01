@@ -26,8 +26,8 @@ public:
     bool _is_executing;
     /** 座標を操作する対象となるアクター */
     GgafDx9Core::GgafDx9GeometricActor* _pActor_target;
-    /** コンストラクタ内部でSpline3Dを生成した場合true/コンストラクタ引数にSpline3Dが渡された場合、false */
-//    bool _is_create_pManufacture;
+    /** コンストラクタ内部でSpline3Dを生成した場合true/コンストラクタ引数にSpline3Dが渡された場合false。一時しのぎいずれ消す。*/
+    bool _is_created_pManufacture;
     /**
      * [r]オプション
      * ABSOLUTE_COORD     : 絶対座標移動。

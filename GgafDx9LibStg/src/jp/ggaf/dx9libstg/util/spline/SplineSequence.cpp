@@ -16,6 +16,11 @@ SplineSequence::SplineSequence(SplineManufacture* prm_pManufacture, GgafDx9Kurok
     _flip_Y = 1;
     _flip_Z = 1;
     _is_executing = false;
+    if (prm_pManufacture) {
+        _is_created_pManufacture = false;
+    } else {
+        _is_created_pManufacture = true;
+    }
 }
 
 void SplineSequence::setManufacture(SplineManufacture* prm_pManufacture) {
@@ -84,6 +89,11 @@ void SplineSequence::behave() {
 }
 
 SplineSequence::~SplineSequence() {
+    if (_is_created_pManufacture) {
+        SplineSource* pSplSrc = _pManufacture->_pSplSrc;
+        DELETE_IMPOSSIBLE_NULL(pSplSrc);
+        DELETE_IMPOSSIBLE_NULL(_pManufacture);
+    }
 //    if (_pManufacture->_pSplSrcCon) {
 //
 //    } else {

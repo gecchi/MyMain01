@@ -11,7 +11,7 @@
 #ifdef _DEBUG
     #define MY_DEBUG _DEBUG
 #endif
-#undef MY_DEBUG
+//#undef MY_DEBUG
 
 #ifdef _MSC_VER
     #ifdef _DEBUG
