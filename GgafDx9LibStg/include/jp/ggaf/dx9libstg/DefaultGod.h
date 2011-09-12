@@ -2,7 +2,7 @@
 #define DEFAULTGOD_H_
 
 
-#define connectSplineSourceManager(X)      ((GgafDx9LibStg::SplineSourceConnection*)((P_GOD)->_pSplSrcManager->connect(X)))
+//#define connectSplineSourceManager(X)      ((GgafDx9LibStg::SplineSourceConnection*)((P_GOD)->_pSplSrcManager->connect(X)))
 #define connectSplineManufactureManager(X) ((GgafDx9LibStg::SplineManufactureConnection*)((P_GOD)->_pSplManufManager->connect(X)))
 
 
