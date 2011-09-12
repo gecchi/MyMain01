@@ -96,6 +96,9 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
 void CommonScene::initialize() {
 }
+void CommonScene::onReset() {
+    fadeinScene(0);
+}
 
 void CommonScene::processBehavior() {
 

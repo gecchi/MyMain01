@@ -69,7 +69,7 @@ public:
      * @param prm_progress 新しい進捗状態
      * @param prm_fade_frames フェードイン・フェードアウトを行う時間
      */
-    void changeWithScene_Crossfading(progress prm_progress, frame prm_fade_frames = 60);
+    void changeWithScene_Crossfading(progress prm_progress, frame prm_fade_frames = 300);
 
     /**
      * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態に切り替え、

@@ -24,6 +24,7 @@ public:
      * ‰Šúˆ—
      */
     void initialize() override;
+    void onReset() override;
 
     virtual void processBehavior() override;
 
