@@ -594,3 +594,50 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
 //        break;
 //}
 //}
+
+//
+//#include <windows.h>
+//#include <iphlpapi.h>
+//#include <stdio.h>
+//
+//
+
+//int main(void) {
+//    PIP_ADAPTER_INFO pAdapterInfo;
+//    DWORD aiSize;
+//    BYTE* paBuff;
+//
+//    GetAdaptersInfo(NULL, &aiSize);//必要バッファサイズ取得
+//    paBuff = new BYTE[aiSize];
+//    pAdapterInfo = (PIP_ADAPTER_INFO) paBuff;
+//
+//    if (GetAdaptersInfo(pAdapterInfo, &aiSize) != ERROR_SUCCESS) {
+//        printf("GetAdapterInfo呼び出し失敗\n");
+//        return 1;
+//    }
+//    std::stringstream ss;
+//
+//
+//    while (pAdapterInfo) {
+//        //fprintf(stdout, "MACアドレス = [");
+//
+//        for (UINT i = 0; i < pAdapterInfo->AddressLength; i++) {
+//            ss.width(2);
+//            ss.fill('0');
+//            ss << std::hex << (int)pAdapterInfo->Address[i];
+//            //fprintf(stdout, "%.2X", (int)pAdapterInfo->Address[i]);
+//
+//            if (i == (pAdapterInfo->AddressLength - 1)) {
+//                //fputs("]\n", stdout);
+//            } else {
+//                ss.width(1);
+//                ss << "-";
+//                //fputs("-", stdout);
+//            }
+//        }
+//        pAdapterInfo = pAdapterInfo->Next;
+//    }
+//    delete[] paBuff;
+//    printf("%s", ss.str().c_str());
+//    return 0;
+//}
