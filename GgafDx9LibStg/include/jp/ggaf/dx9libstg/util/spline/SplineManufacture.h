@@ -34,6 +34,8 @@ private:
 public:
     SplineSourceConnection* _pSplSrcCon;
     SplineSource* _pSplSrc;
+
+    std::string _source_file;
     /** スプライン曲線の補完点生成、保持するクラス */
     Spline3D* _sp;
     /** X軸方向補正割合 */

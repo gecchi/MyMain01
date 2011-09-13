@@ -7,17 +7,19 @@ using namespace GgafDx9LibStg;
 
 #define MAX_SP_POINT 1000
 SplineSource::SplineSource(Spline3D* prm_pSp) : GgafObject() {
+    _idstr = "Nothing";
     _pSp = prm_pSp;
     _accuracy = _pSp->_accuracy;
     _is_create_Spline3D = false;
 }
 
 SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
+    _idstr = string(prm_idstr);
     _accuracy = 1.0;
-    string data_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + string(prm_idstr);// + ".spls";
+    string data_filename = CFG_PROPERTY(DIR_SPLINE_DATA) + _idstr;// + ".spls";
     ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" が開けません");
+        throwGgafCriticalException("SplineSource::SplineSource "<<data_filename<<" が開けません");
     }
     double p[MAX_SP_POINT][3];
     string line;
@@ -39,7 +41,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
                 iss >> p[n][2];
                 n++;
                 if (n >= MAX_SP_POINT) {
-                    throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" ポイントが"<<MAX_SP_POINT<<"を超えました。");
+                    throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" ポイントが"<<MAX_SP_POINT<<"を超えました。");
                 }
             }
         }
@@ -54,10 +56,10 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
         }
     }
     if (int(_accuracy*100000000) == 0) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" [ACCURACY] が指定されてません。");
+        throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [ACCURACY] が指定されてません。");
     }
     if (n == 0) {
-        throwGgafCriticalException("SplineSource::SplineSource "<<prm_idstr<<" [BASEPOINT] に座標がありません。");
+        throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" [BASEPOINT] に座標がありません。");
     }
     for (int i = 0; i < n; i++) {
         if (p[i][0] > GgafDx9Universe::_X_goneRight*0.9) {

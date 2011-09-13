@@ -9,7 +9,7 @@ SplineSourceConnection::SplineSourceConnection(char* prm_idstr, SplineSource* pr
 }
 
 void SplineSourceConnection::processReleaseResource(SplineSource* prm_pResource) {
-    _TRACE_("SplineSourceConnection::processReleaseResourceで開放(ここでぶっ壊れたらclose()漏れの可能性あり)");
+    _TRACE_("SplineSourceConnection::processReleaseResourceで"<<prm_pResource->_idstr<<"開放(ここでぶっ壊れたらclose()漏れの可能性あり)");
     DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }
 

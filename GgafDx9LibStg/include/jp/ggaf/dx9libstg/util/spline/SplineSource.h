@@ -15,7 +15,7 @@ public:
 
     Spline3D* _pSp;
     double _accuracy;
-
+    std::string _idstr;
     bool _is_create_Spline3D;
     SplineSource(char* prm_idstr);
 

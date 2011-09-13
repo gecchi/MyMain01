@@ -11,7 +11,6 @@
 #ifdef _DEBUG
     #define MY_DEBUG _DEBUG
 #endif
-//#undef MY_DEBUG
 
 #ifdef _MSC_VER
     #ifdef _DEBUG
@@ -266,7 +265,9 @@
     #define TRACE4(X)
     #define TRACE5(X)
     #define TEXT5(X)
+    //#define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
     #define _TRACE_(X)
+    //#define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
     #define _TEXT_(X)
     #define _TRACEORE(X)
 

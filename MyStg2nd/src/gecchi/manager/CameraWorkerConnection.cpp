@@ -10,6 +10,8 @@ CameraWorkerConnection::CameraWorkerConnection(char* prm_idstr, CameraWorker* pr
 }
 
 void CameraWorkerConnection::processReleaseResource(CameraWorker* prm_pResource) {
-    prm_pResource->end();
+    _TRACE_("CameraWorkerConnection::processReleaseResource‚Å"<<prm_pResource->getName()<<"ŠJ•ú‚Æ‚¢‚¤‚©end() (‚±‚±‚Å‚Ô‚Á‰ó‚ê‚½‚çclose()˜R‚ê‚Ì‰Â”\«‚ ‚è)");
+    //DELETE_IMPOSSIBLE_NULL(prm_pResource);
+    prm_pResource->end(5);
 }
 

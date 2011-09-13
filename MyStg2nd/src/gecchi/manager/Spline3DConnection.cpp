@@ -10,6 +10,6 @@ Spline3DConnection::Spline3DConnection(char* prm_idstr, GgafDx9LibStg::Spline3D*
 }
 
 void Spline3DConnection::processReleaseResource(GgafDx9LibStg::Spline3D* prm_pResource) {
-    _TRACE_("Spline3DConnection::processReleaseResourceで開放(ここでぶっ壊れたらclose()漏れの可能性あり)");
+    _TRACE_("Spline3DConnection::processReleaseResourceで _num_basepoint="<<prm_pResource->_num_basepoint<<"のを開放(ここでぶっ壊れたらclose()漏れの可能性あり)");
     DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }

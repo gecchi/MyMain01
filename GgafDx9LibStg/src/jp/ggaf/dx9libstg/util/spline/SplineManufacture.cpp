@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject() {
-
+    _source_file = string(prm_source_file);
     _pSplSrcCon = (SplineSourceConnection*)((P_GOD)->_pSplSrcManager->connect(prm_source_file));
     _pSplSrc = _pSplSrcCon->use();
     _sp = _pSplSrc->_pSp;
@@ -14,6 +14,7 @@ SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject()
     _rate_Z = 1.0;
 }
 SplineManufacture::SplineManufacture(SplineSource* prm_pSplSrc) {
+    _source_file = "Nothing";
     _pSplSrcCon = NULL;
     _pSplSrc = prm_pSplSrc;
     _sp = _pSplSrc->_pSp;

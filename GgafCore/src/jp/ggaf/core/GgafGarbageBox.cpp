@@ -2,41 +2,83 @@
 using namespace std;
 using namespace GgafCore;
 
-
-CRITICAL_SECTION GgafGarbageBox::CS;
+#define GgafGarbage_MAX_WAIT 2000
+//CRITICAL_SECTION GgafGarbageBox::CS;
+bool GgafGarbageBox::_wait = false;
 
 GgafGarbageBox::GgafGarbageBox() : GgafObject() {
+    GgafGarbageBox::_wait = false;
     _pDisusedActor = NEW GgafDisusedActor();
     _pDisusedScene = NEW GgafDisusedScene();
-    ::InitializeCriticalSection(&CS);
 }
 
 void GgafGarbageBox::add(GgafActor* prm_pActor) {
-    ::EnterCriticalSection(&CS);
+    prm_pActor->_can_live_flg = false;
+    for (int i = 0; i < GgafGarbage_MAX_WAIT; i++) {
+        if (GgafGarbageBox::_wait) {
+            Sleep(1);
+            if (i == GgafGarbage_MAX_WAIT-1) {
+                _TRACE_("ÅÉåxçêÅÑ GgafGarbageBox::add("<<prm_pActor->getName()<<") ã≠êßadd");
+            }
+        } else {
+
+            break;
+        }
+    }
+    GgafGarbageBox::_wait = true;
     prm_pActor->_can_live_flg = false;
     _pDisusedActor->addSubLast(prm_pActor->extract());
     _TRACE_("ÉSÉ~î†(Actor) GgafGarbageBox::add("<<prm_pActor->getName()<<")");
-    ::LeaveCriticalSection(&CS);
+    GgafGarbageBox::_wait = false;
 }
 
 void GgafGarbageBox::add(GgafScene* prm_pScene) {
-    ::EnterCriticalSection(&CS);
+    prm_pScene->_can_live_flg = false;
+    for (int i = 0; i < GgafGarbage_MAX_WAIT; i++) {
+        if (GgafGarbageBox::_wait) {
+            Sleep(1);
+            if (i == GgafGarbage_MAX_WAIT-1) {
+                _TRACE_("ÅÉåxçêÅÑ GgafGarbageBox::add("<<prm_pScene->getName()<<") ã≠êßadd");
+            }
+        } else {
+            break;
+        }
+    }
+    GgafGarbageBox::_wait = true;
     prm_pScene->_can_live_flg = false;
     _pDisusedScene->addSubLast(prm_pScene->extract());
     _TRACE_("ÉSÉ~î†(Scene) GgafGarbageBox::add("<<prm_pScene->getName()<<")");
-    ::LeaveCriticalSection(&CS);
+    GgafGarbageBox::_wait = false;
 }
 
 void GgafGarbageBox::clean(int prm_num_cleaning) {
-    ::EnterCriticalSection(&CS);
+    for (int i = 0; i < GgafGarbage_MAX_WAIT; i++) {
+        if (GgafGarbageBox::_wait) {
+            Sleep(1);
+            if (i == GgafGarbage_MAX_WAIT-1) {
+                _TRACE_("ÅÉåxçêÅÑ GgafGarbageBox::clean() ã≠êßreturn");
+                return;
+            }
+        } else {
+            break;
+        }
+    }
+    GgafGarbageBox::_wait = true;
     _pDisusedActor->clean(prm_num_cleaning);
     _pDisusedScene->clean(prm_num_cleaning);
-    ::LeaveCriticalSection(&CS);
+    GgafGarbageBox::_wait = false;
 }
 
 GgafGarbageBox::~GgafGarbageBox() {
     _TRACE_("GgafGarbageBox::~GgafGarbageBox() begin");
-    ::DeleteCriticalSection(&CS);
+    for (int i = 0; i < GgafGarbage_MAX_WAIT; i++) {
+        if (GgafGarbageBox::_wait) {
+            Sleep(1);
+        } else {
+            break;
+        }
+    }
+    GgafGarbageBox::_wait = true;
     DELETE_IMPOSSIBLE_NULL(_pDisusedScene);
     DELETE_IMPOSSIBLE_NULL(_pDisusedActor);
     _TRACE_("GgafGarbageBox::~GgafGarbageBox() done");
