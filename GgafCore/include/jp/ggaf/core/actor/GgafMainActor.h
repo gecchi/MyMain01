@@ -118,7 +118,7 @@ public:
     GgafGroupHead* addSubGroup(GgafMainActor* prm_pMainActor);
 
     /**
-     * ”z‰º‚Ì’c’·‚ğ’T‚·B
+     * ”z‰º‚Ì¶‘¶‰Â”\‚È’c’·‚ğ’T‚·B
      * @param prm_kind ’T‚µ‚½‚¢’c’·‚Ìí•Ê
      * @return ’c’·Aˆ½‚¢‚Í‘¶İ‚µ‚È‚¯‚ê‚Î NULL
      */

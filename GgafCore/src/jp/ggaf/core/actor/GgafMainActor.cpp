@@ -153,12 +153,12 @@ GgafGroupHead* GgafMainActor::searchSubGroupHead(actorkind prm_kind) {
         return NULL;
     } else {
         GgafActor* pSubActor = _pSubFirst;
-        GgafGroupHead* pSubGroupActor_ret = NULL;
+        GgafGroupHead* pSubGroupHead_ret = NULL;
         do {
             if (pSubActor->_obj_class & Obj_GgafGroupHead) {
-                pSubGroupActor_ret = (GgafGroupHead*)pSubActor;
-                if (pSubGroupActor_ret->_kind == prm_kind) {
-                    return pSubGroupActor_ret;
+                pSubGroupHead_ret = (GgafGroupHead*)pSubActor;
+                if (pSubGroupHead_ret->_kind == prm_kind && pSubGroupHead_ret->_will_end_after_flg == false) {
+                    return pSubGroupHead_ret;
                 }
             }
             if (pSubActor->_is_last_flg) {
