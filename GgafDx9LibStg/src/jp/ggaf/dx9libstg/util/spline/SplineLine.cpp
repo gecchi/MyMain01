@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 
-Spline3D::Spline3D() {
+SplineLine::SplineLine() {
     _X_basepoint = NULL;
     _Y_basepoint = NULL;
     _Z_basepoint = NULL;
@@ -18,13 +18,13 @@ Spline3D::Spline3D() {
 }
 
 
-Spline3D::Spline3D(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
+SplineLine::SplineLine(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
     init(prm_paaEstablish, prm_num, prm_accuracy);
     _accuracy = prm_accuracy;
 }
 
 
-void Spline3D::init(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
+void SplineLine::init(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
     _num_basepoint = prm_num;
     _X_basepoint = NEW double[prm_num];
     _Y_basepoint = NEW double[prm_num];
@@ -43,7 +43,7 @@ void Spline3D::init(double prm_paaEstablish[][3], int prm_num, double prm_accura
     compute(prm_accuracy);
 }
 
-void Spline3D::compute(double prm_accuracy) {
+void SplineLine::compute(double prm_accuracy) {
     _rnum = _num_basepoint/prm_accuracy;
     if (_X_compute) {
         DELETEARR_IMPOSSIBLE_NULL(_X_compute);
@@ -64,8 +64,8 @@ void Spline3D::compute(double prm_accuracy) {
     _rnum = index;
 }
 
-Spline3D::~Spline3D() {
-    _TRACE_("Spline3D::~Spline3D() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+SplineLine::~SplineLine() {
+    _TRACE_("SplineLine::~SplineLine() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     DELETEARR_IMPOSSIBLE_NULL(_X_basepoint);
     DELETEARR_IMPOSSIBLE_NULL(_Y_basepoint);
     DELETEARR_IMPOSSIBLE_NULL(_Z_basepoint);

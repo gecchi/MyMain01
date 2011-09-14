@@ -20,7 +20,7 @@ FormationJuno::FormationJuno(
             int prm_nJunoStock,
             int prm_frame_app_interval) : FormationActor(prm_name) {
     _class_name = "FormationJuno";
-    _pDepoCon = connectDepositoryManager("StCon_Shot004", NULL); //Juno‚Ì’e
+    _pDepoCon = connectDepositoryManager("DpCon_Shot004", NULL); //Juno‚Ì’e
 
     _pRndGen = CmRandomNumberGenerator::getInstance();
     _pRndGen->changeSeed(P_MYSHIP->_Z);

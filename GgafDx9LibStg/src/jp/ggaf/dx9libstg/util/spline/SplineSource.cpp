@@ -5,12 +5,11 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 
-#define MAX_SP_POINT 1000
-SplineSource::SplineSource(Spline3D* prm_pSp) : GgafObject() {
+SplineSource::SplineSource(SplineLine* prm_pSp) : GgafObject() {
     _idstr = "Nothing";
     _pSp = prm_pSp;
     _accuracy = _pSp->_accuracy;
-    _is_create_Spline3D = false;
+    _is_create_SplineLine = false;
 }
 
 SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
@@ -21,7 +20,7 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
     if (ifs.fail()) {
         throwGgafCriticalException("SplineSource::SplineSource "<<data_filename<<" が開けません");
     }
-    double p[MAX_SP_POINT][3];
+    double p[MaxSplineSize][3];
     string line;
     int n = 0;
     while( getline(ifs,line) ) {
@@ -40,8 +39,8 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
                 iss >> p[n][1];
                 iss >> p[n][2];
                 n++;
-                if (n >= MAX_SP_POINT) {
-                    throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" ポイントが"<<MAX_SP_POINT<<"を超えました。");
+                if (n >= MaxSplineSize) {
+                    throwGgafCriticalException("SplineSource::SplineSource "<<_idstr<<" ポイントが"<<MaxSplineSize<<"を超えました。");
                 }
             }
         }
@@ -81,8 +80,8 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
             p[i][2] = GgafDx9Universe::_Z_goneNear*0.9;
         }
     }
-    _pSp = NEW Spline3D(p, n, _accuracy);
-    _is_create_Spline3D = true;
+    _pSp = NEW SplineLine(p, n, _accuracy);
+    _is_create_SplineLine = true;
 }
 
 //＜説明＞
@@ -113,25 +112,25 @@ SplineSource::SplineSource(char* prm_idstr)  : GgafObject() {
 //--------------------------------------------
 
 //[BASEPOINT]
-//スプライン曲線上の基点を X Y Z で設定。
+//スプライン曲線上の制御点を X Y Z で設定。
 //指定できるポイント数は最大1000個まで
 //自機の移動範囲を -1.0 ～ 1.0 として設定する。
 //但し、このスプライン座標は、絶対座標として移動を行うキャラも居るし、
-//始点をキャラの現時点の座標とおき、基点は相対座標として移動するキャラも居る、
+//始点をキャラの現時点の座標とおき、制御点は相対座標として移動するキャラも居る、
 //それらの設定は各キャラのプログラムに組み込まれており、ココでの指定は不可。
 //
 //[ACCURACY]
-//スプライン曲線の精度。BASEPOINTで指定した基点～基点の間にどのくらいの補完点を追加して、折れ線をなめらかな曲線に近づけるかという割合。
-//1.0  を指定すると基点～基点の間に補完点は挿入されず、BASEPOINT指定通りのままとなる。
-//0.5  を指定すると各基点～基点について、2分割される点に補完点が計算されて挿入される。(つまり補完点は1個挿入される)
-//0.25 を指定すると各基点～基点について、4分割される点に補完点が計算されて挿入される。(つまり補完点は3個挿入される)
-//0.1  を指定すると各基点～基点について、10分割される点に補完点が計算されて挿入される。(つまり補完点は9個挿入される)
-//0.01 を指定すると各基点～基点について、100分割される点に補完点が計算されて挿入される。(つまり補完点は99個挿入される)
+//スプライン曲線の精度。BASEPOINTで指定した制御点～制御点の間にどのくらいの補完点を追加して、折れ線をなめらかな曲線に近づけるかという割合。
+//1.0  を指定すると制御点～制御点の間に補完点は挿入されず、BASEPOINT指定通りのままとなる。
+//0.5  を指定すると各制御点～制御点について、2分割される点に補完点が計算されて挿入される。(つまり補完点は1個挿入される)
+//0.25 を指定すると各制御点～制御点について、4分割される点に補完点が計算されて挿入される。(つまり補完点は3個挿入される)
+//0.1  を指定すると各制御点～制御点について、10分割される点に補完点が計算されて挿入される。(つまり補完点は9個挿入される)
+//0.01 を指定すると各制御点～制御点について、100分割される点に補完点が計算されて挿入される。(つまり補完点は99個挿入される)
 //といった具合。
 //
 
 SplineSource::~SplineSource() {
-    if (_is_create_Spline3D) {
+    if (_is_create_SplineLine) {
         DELETE_IMPOSSIBLE_NULL(_pSp);
     }
 }

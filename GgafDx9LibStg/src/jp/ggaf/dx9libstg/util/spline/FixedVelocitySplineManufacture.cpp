@@ -4,10 +4,10 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_source_file, 
+FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_source_file,
                                                                ang_velo prm_ang_veloRzRyMv,
                                                                int prm_turn_way,
-                                                               bool prm_turn_optimaize) :                                                               
+                                                               bool prm_turn_optimaize) :
         SplineManufacture(prm_source_file) {
     _ang_veloRzRyMv = prm_ang_veloRzRyMv;
     _turn_way = prm_turn_way;
@@ -18,10 +18,10 @@ FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_s
     _paFrame_need_at = NEW float[_sp->_rnum];
 }
 
-FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm_pSplSrc, 
+FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm_pSplSrc,
                                                                ang_velo prm_ang_veloRzRyMv,
                                                                int prm_turn_way,
-                                                               bool prm_turn_optimaize) : 
+                                                               bool prm_turn_optimaize) :
         SplineManufacture(prm_pSplSrc) {
     _ang_veloRzRyMv = prm_ang_veloRzRyMv;
     _turn_way = prm_turn_way;
@@ -38,20 +38,20 @@ void FixedVelocitySplineManufacture::calculate() {
     // _paFrame_need_at[] : 始点から補完点到達に必要なフレーム数の配列
 
     //各点の時点の、距離と必要なフレーム数を予め全部求めておく
-    // 基点[2][3] = { {1000,2000,3000}, {2000,1000,0}, {3900, 0, 1000} }
-    // point_num = 3          //基点の数
+    // 制御点[2][3] = { {1000,2000,3000}, {2000,1000,0}, {3900, 0, 1000} }
+    // point_num = 3          //制御点の数
     // accuracy = 0.25(=1/4)  //補完点精度
     //
     // の場合、下図のようになります。
     //
-    // X:基点
-    // o:基点間の補完点（スプライン曲線通過点）
+    // X:制御点
+    // o:制御点間の補完点（スプライン曲線通過点）
     // X--o: 移動予定の座標線
     // _paDistace_to[] : 現在の補完点から、次の補完点までの距離
     // _paFrame_need_at[] : 始点から補完点到達に必要なフレーム数の配列
     //
     // sp._rnum は合計の点の数を返す。したがって sp._rnum = 9 になる。
-    // prm_accuracy が綺麗な分数にならない場合、基点上に補完点が繰るかとか、全然わからないので、sp._rnumを必ず使用せよ
+    // prm_accuracy が綺麗な分数にならない場合、制御点上に補完点が繰るかとか、全然わからないので、sp._rnumを必ず使用せよ
     // 下図は綺麗に重なった場合の図である。
     //
     //                           ＜速さは  _veloMvUnit = 1000＞
@@ -72,9 +72,9 @@ void FixedVelocitySplineManufacture::calculate() {
     //             sp._Y_compute[0],         |  sp._Y_compute[5],        sp._Y_compute[8]
     //             sp._Z_compute[0])         |  sp._Z_compute[5])        sp._Z_compute[8]
     //                  |                    |                                   |
-    //            (基点[0][0],            (基点[1][0],                      (基点[2][0],
-    //             基点[0][1],             基点[1][1],                       基点[2][1],
-    //             基点[0][2])             基点[1][2])                       基点[2][2])
+    //            (制御点[0][0],           (制御点[1][0],                   (制御点[2][0],
+    //             制御点[0][1],            制御点[1][1],                    制御点[2][1],
+    //             制御点[0][2])            制御点[1][2])                    制御点[2][2])
     //              = (1000,2000,3000)    = (2000,1000,0)                   = (3900, 0, 1000)
     //
     //                 <--------------------------------------------------------->

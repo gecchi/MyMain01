@@ -363,8 +363,8 @@ class DepositoryConnection;
 class DepositoryManager;
 
 
-class Spline3DConnection;
-class Spline3DManager;
+class SplineLineConnection;
+class SplineLineManager;
 
 
 class CameraWorkerManager;
@@ -608,8 +608,8 @@ class MagicMeter;
 
 #include "gecchi/manager/DepositoryManager.h"
 #include "gecchi/manager/DepositoryConnection.h"
-#include "gecchi/manager/Spline3DManager.h"
-#include "gecchi/manager/Spline3DConnection.h"
+#include "gecchi/manager/SplineLineManager.h"
+#include "gecchi/manager/SplineLineConnection.h"
 
 #include "gecchi/actor/common/template/Formation001.hpp"
 

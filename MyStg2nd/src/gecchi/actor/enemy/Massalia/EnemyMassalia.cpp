@@ -28,11 +28,11 @@ EnemyMassalia::EnemyMassalia(const char* prm_name) :
         }
     }
 
-    _pCon_RefractionEffectDepository = connectDepositoryManager("StCon_EffRefraction001", NULL);
+    _pCon_RefractionEffectDepository = connectDepositoryManager("DpCon_EffRefraction001", NULL);
 
     _pDepoCon_DpEnemyMassaliaLaserChip = connectDepositoryManager(
-                                                                   "StCon_DpEnemyMassaliaLaserChip001",
-                                                                   //"StCon_DpEnemyMassaliaLaserChip002",
+                                                                   "DpCon_DpEnemyMassaliaLaserChip001",
+                                                                   //"DpCon_DpEnemyMassaliaLaserChip002",
                                                                    _pCon_RefractionEffectDepository->use()
                                                                 );
 

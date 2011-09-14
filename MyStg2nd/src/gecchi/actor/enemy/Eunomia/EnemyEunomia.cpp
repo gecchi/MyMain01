@@ -12,6 +12,7 @@ EnemyEunomia::EnemyEunomia(const char* prm_name) :
     _pSplSeq = NULL;
     _pDepo_Shot = NULL;
     _pDepo_ShotEffect = NULL;
+    _pFormation = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     useProgress(10);
@@ -145,8 +146,8 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
 
         //自機側に撃たれて消滅、かつフォメーション所属の場合、
         //フォーメーションに自身が撃たれた事を伝える。
-        if ((pOther->getKind() & KIND_MY) && (getParent()->_obj_class & Obj_FormationActor)) {
-            ((FormationActor*)getParent())->wasDestroyedFollower(this);
+        if (_pFormation && (pOther->getKind() & KIND_MY) && (getParent()->_obj_class & Obj_FormationActor)) {
+            _pFormation->wasDestroyedFollower(this);
         }
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
         sayonara();
@@ -159,6 +160,9 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyEunomia::onInactive() {
+    if (_pFormation) {
+        _pFormation->wasInactiveFollower(this);
+    }
     sayonara();
 }
 

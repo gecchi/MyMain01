@@ -31,12 +31,12 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
         }
     }
 
-    _pCon_RefractionEffectDepository = connectDepositoryManager("StCon_EffRefraction001", NULL);
+    _pCon_RefractionEffectDepository = connectDepositoryManager("DpCon_EffRefraction001", NULL);
     _pCon_LaserChipDepoStore = connectDepositoryManager(
-            "StCon_EnemyAstraeaLaserChip004DepoStore",
-         //"StCon_EnemyAstraeaLaserChip003DepoStore",
-         //"StCon_EnemyAstraeaLaserChip001DepoStore",
-         //"StCon_EnemyAstraeaLaserChip002DepoStore",
+            "DpCon_EnemyAstraeaLaserChip004DepoStore",
+         //"DpCon_EnemyAstraeaLaserChip003DepoStore",
+         //"DpCon_EnemyAstraeaLaserChip001DepoStore",
+         //"DpCon_EnemyAstraeaLaserChip002DepoStore",
          _pCon_RefractionEffectDepository->use()
         );
 

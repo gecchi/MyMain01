@@ -15,7 +15,7 @@ public:
     /** 移動スプラインプログラム */
     GgafDx9LibStg::SplineSequence* _pSplSeq;
     /** スプライン定義資源への接続 */
-    Spline3DConnection* _pSplCon;
+    SplineLineConnection* _pSplLineCon;
     Shot001(const char* prm_name);
 
     void initialize() override;

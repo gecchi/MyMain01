@@ -52,13 +52,13 @@ public:
 //     * コンストラクタ .
 //     * 等速移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
 //     * @param prm_pActor 対象のアクター
-//     * @param prm_paaCriteriaPoint 基点配列
-//     * @param prm_point_num  基点配列の要素数
-//     * @param prm_accuracy  1基点の精度（荒い 1.0 ～ 0.0 細かい)、
-//     *                      基点と基点の間を1とした場合の、補完点の入り具合（細やかさ）を指定。
-//     *                      1.0を指定した場合、基点から次基点まで何も無い（直線で結ぶイメージ）。
-//     *                      0.5 とすると基点から次基点までに補完点は1つ入る。
-//     *                      0.1 とすると基点と基点の間に補完点は9つ入る（なめらかなカーブになる）。
+//     * @param prm_paaCriteriaPoint 制御点配列
+//     * @param prm_point_num  制御点配列の要素数
+//     * @param prm_accuracy  1制御点の精度（荒い 1.0 ～ 0.0 細かい)、
+//     *                      制御点と制御点の間を1とした場合の、補完点の入り具合（細やかさ）を指定。
+//     *                      1.0を指定した場合、制御点から次制御点まで何も無い（直線で結ぶイメージ）。
+//     *                      0.5 とすると制御点から次制御点までに補完点は1つ入る。
+//     *                      0.1 とすると制御点と制御点の間に補完点は9つ入る（なめらかなカーブになる）。
 //     * @param prm_ang_veloRzRyMv 1フレームあたりの旋回可能な回転角角速度 (1000 が 1度)
 //     */
 //    FixedVelocitySplineSequence(GgafDx9Core::GgafDx9GeometricActor* prm_pActor,
@@ -76,7 +76,7 @@ public:
      * @return
      */
     FixedVelocitySplineSequence(GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA,
-                               Spline3D* prm_sp,
+                               SplineLine* prm_sp,
                                ang_velo prm_ang_veloRzRyMv);
 
 

@@ -13,6 +13,8 @@ namespace GgafCore {
 class GgafDummyActor : public GgafMainActor {
 
 public:
+//    bool _can_auto_end;
+
     GgafDummyActor(const char* prm_name, GgafStatus* prm_pStat = NULL);
 
     virtual void initialize() override {

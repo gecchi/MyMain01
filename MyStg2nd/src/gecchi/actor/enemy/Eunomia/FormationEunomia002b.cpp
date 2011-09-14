@@ -15,7 +15,7 @@ void FormationEunomia002b::processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, i
 //                                       -1.0 * MyShip::_lim_top,   //Y•ûŒü”{—¦
 //                                        MyShip::_lim_zleft  //Z•ûŒü”{—¦
 //                                    );
-//    pEnemyEunomia->locate(_papSplCon[col]->use()->_pSp->_X_basepoint[0], 0, 0);
+//    pEnemyEunomia->locate(_papSplLineCon[col]->use()->_pSp->_X_basepoint[0], 0, 0);
     pEnemyEunomia->_pKurokoA->setMvVelo(_mv_velo);
 }
 

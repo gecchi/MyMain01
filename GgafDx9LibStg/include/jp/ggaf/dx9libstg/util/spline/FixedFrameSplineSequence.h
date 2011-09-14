@@ -29,7 +29,7 @@ public:
                              GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA);
 
     FixedFrameSplineSequence(GgafDx9Core::GgafDx9KurokoA* prm_pKurokoA,
-                             Spline3D* prmpSpl,
+                             SplineLine* prmpSpl,
                              frame prm_spent_frame,
                              ang_velo prm_ang_veloRzRyMv);
     /**

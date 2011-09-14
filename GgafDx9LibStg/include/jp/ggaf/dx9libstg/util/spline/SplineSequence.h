@@ -26,7 +26,7 @@ public:
     bool _is_executing;
     /** 座標を操作する対象となるアクター */
     GgafDx9Core::GgafDx9GeometricActor* _pActor_target;
-    /** コンストラクタ内部でSpline3Dを生成した場合true/コンストラクタ引数にSpline3Dが渡された場合false。一時しのぎいずれ消す。*/
+    /** コンストラクタ内部でSplineLineを生成した場合true/コンストラクタ引数にSplineLineが渡された場合false。一時しのぎいずれ消す。*/
     bool _is_created_pManufacture;
     /**
      * [r]オプション
@@ -87,7 +87,7 @@ public:
     }
 
     /**
-     * 対象アクター(_pActor_target)の座標を、スプラインの一番最初の基点座標で設定する .
+     * 対象アクター(_pActor_target)の座標を、スプラインの一番最初の制御点座標で設定する .
      * exec(ABSOLUTE_COORD) の場合、つまり「絶対座標移動スプライン」の場合、有効な設定となりうるでしょう。<BR>
      * 「絶対座標移動スプライン」あまり意味がありません。<BR>
      */

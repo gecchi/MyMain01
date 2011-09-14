@@ -13,6 +13,7 @@ namespace MyStg2nd {
 
 //#define connectDepositoryManager(X) (connectDepositoryManager(X)))
 #define connectDepositoryManager(X,Y) ((MyStg2nd::DepositoryConnection*)(P_GOD->_pDepoManager->connect((X),(Y))))
+#define connectSplineLineManager(X)   ((MyStg2nd::SplineLineConnection*)(P_GOD->_pSpl3DManager->connect(X)))
 
 /**
  * ê_
@@ -24,7 +25,7 @@ class God : public GgafDx9LibStg::DefaultGod {
 
 public:
     DepositoryManager* _pDepoManager;
-    Spline3DManager* _pSpl3DManager;
+    SplineLineManager* _pSpl3DManager;
 
 
     static GgafDx9LibStg::VirtualButton* _pVbtn_PLAY;

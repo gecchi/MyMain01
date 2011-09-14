@@ -15,7 +15,7 @@ FixedFrameSplineSequence::FixedFrameSplineSequence(SplineManufacture* prm_pManuf
     _COS_RyMv_begin = 0;
 }
 FixedFrameSplineSequence::FixedFrameSplineSequence(GgafDx9KurokoA* prmpKurokoA_target,
-                                                 Spline3D* prmpSpl,
+                                                 SplineLine* prmpSpl,
                                                  frame prm_spent_frame,
                                                  ang_velo prm_ang_veloRzRyMv):
         SplineSequence(NULL, prmpKurokoA_target) {  //NULLで渡す事により、_is_created_pManufacture が falseになる
@@ -37,7 +37,7 @@ void FixedFrameSplineSequence::exec(SplinTraceOption prm_option) {
         _is_executing = true;
         _option = prm_option;
         _execute_frames = 0;
-        Spline3D* pSpl = _pFixedFrameSplManuf->_sp;
+        SplineLine* pSpl = _pFixedFrameSplManuf->_sp;
         if (_option == RELATIVE_DIRECTION) {
             _X_begin = (_flip_X * pSpl->_X_compute[0] * _pFixedFrameSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
             _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pFixedFrameSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
@@ -63,7 +63,7 @@ void FixedFrameSplineSequence::exec(SplinTraceOption prm_option) {
 
 void FixedFrameSplineSequence::behave() {
     if (_is_executing) {
-        Spline3D* pSpl = _pFixedFrameSplManuf->_sp;
+        SplineLine* pSpl = _pFixedFrameSplManuf->_sp;
         GgafDx9KurokoA* pKurokoA_target = _pActor_target->_pKurokoA;
 
         //現在の点INDEX
@@ -80,7 +80,7 @@ void FixedFrameSplineSequence::behave() {
             double dy = _flip_Y*pSpl->_Y_compute[point_index]*_pFixedFrameSplManuf->_rate_Y + _offset_Y;
             double dz = _flip_Z*pSpl->_Z_compute[point_index]*_pFixedFrameSplManuf->_rate_Z + _offset_Z;
 
-            //次の補間点（or基点)に移動方角を向ける
+            //次の補間点（or制御点)に移動方角を向ける
             if (_option == RELATIVE_DIRECTION) {
                 //    並行移動 ＞ Z軸回転 ＞ Y軸回転
                 //    | cosRz*cosRy                            , sinRz                , cosRz*-sinRy                            , 0 |

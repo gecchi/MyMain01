@@ -18,11 +18,11 @@ namespace GgafDx9LibStg {
  *                    拡大縮小率を変更する場合は、このオブジェクトのフィールドも再計算が必要となる。
  *                    １つの SplineSource オブジェクトに対して N 個の SplineSourceオブジェクトが参照している。
  *
- * SplineSource       Spline3D オブジェクトを使いまわすためのSpline3Dラッパークラス。
+ * SplineSource       SplineLine オブジェクトを使いまわすためのSplineLineラッパークラス。
  *                    SplineSource は生成と同時に、引数のファイル名の外部ファイルを読み込み、
- *                    Spline3Dを生成し、内部保持する。
+ *                    SplineLineを生成し、内部保持する。
  *
- * Spline3D           スプライン曲線の座標点セットの情報を保持するオブジェクト。
+ * SplineLine           スプライン曲線の座標点セットの情報を保持するオブジェクト。
  *
  * @version 1.00
  * @since 2011/08/05
@@ -37,7 +37,7 @@ public:
 
     std::string _source_file;
     /** スプライン曲線の補完点生成、保持するクラス */
-    Spline3D* _sp;
+    SplineLine* _sp;
     /** X軸方向補正割合 */
     double _rate_X;
     /** Y軸方向補正割合 */

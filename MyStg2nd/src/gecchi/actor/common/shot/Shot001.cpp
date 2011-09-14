@@ -10,8 +10,8 @@ Shot001::Shot001(const char* prm_name) :
     _class_name = "Shot001";
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
-    _pSplCon = (Spline3DConnection*)(P_GOD->_pSpl3DManager->connect("SpCon_HAN")); //スプライン定義
-    _pSplSeq = NEW FixedVelocitySplineSequence(_pKurokoA, _pSplCon->use(), 10000); //移動速度固定
+    _pSplLineCon = (SplineLineConnection*)(P_GOD->_pSpl3DManager->connect("SpCon_HAN")); //スプライン定義
+    _pSplSeq = NEW FixedVelocitySplineSequence(_pKurokoA, _pSplLineCon->use(), 10000); //移動速度固定
 }
 
 void Shot001::initialize() {
@@ -71,5 +71,5 @@ void Shot001::onInactive() {
 
 Shot001::~Shot001() {
     DELETE_IMPOSSIBLE_NULL(_pSplSeq);
-    _pSplCon->close();
+    _pSplLineCon->close();
 }

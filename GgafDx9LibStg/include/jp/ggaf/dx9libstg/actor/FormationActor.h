@@ -24,9 +24,15 @@ private:
 public:
     /** [r]所属アクター数(addSubLastにより増加、wasDestroyedFollowerで減少) */
     int _num_sub;
+    int _num_destory;
+    int _num_inactive;
 
     frame _offset_frames_end;
 
+    bool _is_init;
+
+    /** 構成メンバーのストッカー */
+    GgafCore::GgafActorDepository* _pDepo;
     /**
      * コンストラクタ .
      * @param prm_name
@@ -34,6 +40,8 @@ public:
      * @return
      */
     FormationActor(const char* prm_name, frame prm_offset_frames_end = FORMATION_END_DELAY);
+
+    void setActorDepository(GgafCore::GgafActorDepository* prm_pDepo);
 
     virtual void initialize() override {
     }
@@ -53,7 +61,7 @@ public:
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
-
+    GgafDx9GeometricActor* callUp();
     /**
      * 編隊のメンバーの登録します.
      * 具体的には、addSubLast() を呼び出し、種別を引き継ぎます。
@@ -91,6 +99,7 @@ public:
      */
     virtual void wasDestroyedFollower(GgafDx9GeometricActor* prm_pActor);
 
+    virtual void wasInactiveFollower(GgafDx9GeometricActor* prm_pActor);
 
     virtual ~FormationActor();
 };

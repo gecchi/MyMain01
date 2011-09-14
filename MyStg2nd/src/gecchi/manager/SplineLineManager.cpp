@@ -5,12 +5,12 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-Spline3DManager::Spline3DManager(const char* prm_manager_name) :
-    GgafResourceManager<GgafDx9LibStg::Spline3D> (prm_manager_name) {
+SplineLineManager::SplineLineManager(const char* prm_manager_name) :
+    GgafResourceManager<GgafDx9LibStg::SplineLine> (prm_manager_name) {
 }
 
-Spline3D* Spline3DManager::processCreateResource(char* prm_idstr, void* prm_p) {
-    Spline3D* pResource = NULL;
+SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_p) {
+    SplineLine* pResource = NULL;
 
     if (GgafUtil::strcmp_ascii("SpCon_001", prm_idstr) == 0) {
         double p[][3] = { //        X ,        Y ,       Z
@@ -32,7 +32,7 @@ Spline3D* Spline3DManager::processCreateResource(char* prm_idstr, void* prm_p) {
                           {        0 ,        0 , -300000 },
                           {  -800000 ,        0 ,       0 }
                         };
-        pResource = NEW Spline3D(p, 17, 0.2);//粒度 0.2
+        pResource = NEW SplineLine(p, 17, 0.2);//粒度 0.2
     }
 
     if (GgafUtil::strcmp_ascii("SpCon_002_01", prm_idstr) == 0) {
@@ -44,7 +44,7 @@ Spline3D* Spline3DManager::processCreateResource(char* prm_idstr, void* prm_p) {
            {                       3000000 , MyShip::_lim_top * 1.0 ,                       0.0 },
            {                       3000000 ,                    0.0 ,                       0.0 }
         };
-        pResource = NEW Spline3D(p, 5, 0.2); //粒度 0.2
+        pResource = NEW SplineLine(p, 5, 0.2); //粒度 0.2
     }
 
     if (GgafUtil::strcmp_ascii("SpCon_002_02", prm_idstr) == 0) {
@@ -56,7 +56,7 @@ Spline3D* Spline3DManager::processCreateResource(char* prm_idstr, void* prm_p) {
            {      MyShip::_lim_front * 2.2 , MyShip::_lim_bottom * 1.0 ,                       0.0 },
            {      MyShip::_lim_front * 2.0 ,                       0.0 ,                       0.0 }
         };
-        pResource = NEW Spline3D(p, 5, 0.2); //粒度 0.2
+        pResource = NEW SplineLine(p, 5, 0.2); //粒度 0.2
     }
 
     if (GgafUtil::strcmp_ascii("SpCon_HAN", prm_idstr) == 0) {
@@ -80,7 +80,7 @@ Spline3D* Spline3DManager::processCreateResource(char* prm_idstr, void* prm_p) {
                           { 1200000 ,     0.0 , -200000 },
                           {     0.0 ,     0.0 ,     0.0 }
         };
-        pResource = NEW Spline3D(p, 18, 0.2); //粒度 0.2
+        pResource = NEW SplineLine(p, 18, 0.2); //粒度 0.2
     }
 
     if (GgafUtil::strcmp_ascii("SpCon_Pallas01", prm_idstr) == 0) {
@@ -112,7 +112,7 @@ Spline3D* Spline3DManager::processCreateResource(char* prm_idstr, void* prm_p) {
             p[i][2] = p[i][2] * MyShip::_lim_zleft;
 
         }
-        pResource = NEW Spline3D(p, 17, 0.2); //粒度 0.2
+        pResource = NEW SplineLine(p, 17, 0.2); //粒度 0.2
     }
 
     return pResource;
@@ -131,10 +131,10 @@ Spline3D* Spline3DManager::processCreateResource(char* prm_idstr, void* prm_p) {
 //GgafDx9Universe::_Z_goneFar   = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
 //GgafDx9Universe::_Z_goneNear  = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
 
-GgafResourceConnection<GgafDx9LibStg::Spline3D>* Spline3DManager::processCreateConnection(char* prm_idstr, Spline3D* prm_pResource) {
-    TRACE3(" Spline3DManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
-    Spline3DConnection* pConnection = NEW Spline3DConnection(prm_idstr, prm_pResource);
-    TRACE3(" Spline3DManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+GgafResourceConnection<GgafDx9LibStg::SplineLine>* SplineLineManager::processCreateConnection(char* prm_idstr, SplineLine* prm_pResource) {
+    TRACE3(" SplineLineManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    SplineLineConnection* pConnection = NEW SplineLineConnection(prm_idstr, prm_pResource);
+    TRACE3(" SplineLineManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return pConnection;
 }
 

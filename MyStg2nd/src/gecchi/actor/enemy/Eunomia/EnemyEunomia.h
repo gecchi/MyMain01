@@ -11,6 +11,7 @@ namespace MyStg2nd {
 class EnemyEunomia : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
+    GgafDx9LibStg::FormationActor* _pFormation;
     /** 移動スプラインのシークエンスプログラム */
     GgafDx9LibStg::SplineSequence* _pSplSeq;
     /** 弾ストック */
@@ -71,10 +72,15 @@ public:
      * @param prm_pDepo_ShotEffect
      */
     virtual void config(
+            GgafDx9LibStg::FormationActor* prm_pFormation,
             GgafDx9LibStg::SplineSequence* prm_pSplSeq,
             GgafCore::GgafActorDepository* prm_pDepo_Shot,
             GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
             ) {
+        _pFormation = prm_pFormation;
+        if (_pSplSeq) {
+            DELETE_IMPOSSIBLE_NULL(_pSplSeq);
+        }
         _pSplSeq = prm_pSplSeq;
         _pDepo_Shot = prm_pDepo_Shot;
         _pDepo_ShotEffect = prm_pDepo_ShotEffect;

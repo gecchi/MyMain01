@@ -12,7 +12,7 @@ DepositoryManager::DepositoryManager(const char* prm_manager_name) :
 GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, void* prm_p) {
     GgafActorDepository* pResource = NULL;
 
-    if (GgafUtil::strcmp_ascii("StCon_Shot001", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("DpCon_Shot001", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("DP_Shot001_Stock");
         Shot001* pShot001;
         for (int i = 0; i < 100; i++) { //ストック100個
@@ -22,7 +22,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource); //最後にaddSubGroupすべし（さもないと直ぐに削除対象になる）
     }
 
-    if (GgafUtil::strcmp_ascii("StCon_Shot002", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("DpCon_Shot002", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("DP_Shot002_Stock");
         Shot002* pShot002;
         for (int i = 0; i < 100; i++) { //ストック100個
@@ -32,7 +32,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 
-    if (GgafUtil::strcmp_ascii("StCon_Shot003", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("DpCon_Shot003", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("DP_Shot003_Stock");
         Shot003* pShot003;
         for (int i = 0; i < 300; i++) {
@@ -43,7 +43,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 
-    if (GgafUtil::strcmp_ascii("StCon_Shot004", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("DpCon_Shot004", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("DP_Shot004_Stock");
         Shot004* pShot004;
         for (int i = 0; i < 1600; i++) {
@@ -54,7 +54,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 
-    if (GgafUtil::strcmp_ascii("StCon_EffRefraction001", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("DpCon_EffRefraction001", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("DP_EffRefraction001");
         EffectLaserRefraction001* p;
         for (int i = 0; i < 100; i++) {
@@ -64,7 +64,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 
-    if (GgafUtil::strcmp_ascii("StCon_EnemyAstraeaLaserChip001DepoStore", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("DpCon_EnemyAstraeaLaserChip001DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         EnemyAstraeaLaserChip001* pChip;
@@ -85,7 +85,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
 
 
 
-    if (GgafUtil::strcmp_ascii("StCon_EnemyAstraeaLaserChip002DepoStore", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("DpCon_EnemyAstraeaLaserChip002DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip002DepoStore");
         LaserChipDepository* pLaserChipDepo;
         EnemyAstraeaLaserChip002* pChip;
@@ -106,7 +106,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     }
 
 
-    if (GgafUtil::strcmp_ascii("StCon_EnemyAstraeaLaserChip003DepoStore", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("DpCon_EnemyAstraeaLaserChip003DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         EnemyAstraeaLaserChip003* pChip;
@@ -125,7 +125,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 
-    if (GgafUtil::strcmp_ascii("StCon_EnemyAstraeaLaserChip004DepoStore", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("DpCon_EnemyAstraeaLaserChip004DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyAstraeaLaserChip004DepoStore");
         LaserChipDepository* pLaserChipDepo;
         EnemyAstraeaLaserChip004* pChip;
@@ -144,9 +144,25 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
 
+    if (GgafUtil::strcmp_ascii("DpCon_EnemyEunomia4Formation", prm_idstr) == 0) {
+        pResource = NEW GgafActorDepository("EnemyEunomiaDepo");
+        EnemyEunomia* p;
+        for (int i = 0; i < 300; i++) {
+            p = NEW EnemyEunomia("Eunomia");
+            pResource->addSubLast(p);
+        }
+
+        P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
+//        if (prm_p) {
+//            ((FormationActor*)prm_p)->setActorDepository()
+//        } else {
+//            throwGgafCriticalException("DepositoryManager::processCreateResource("<<prm_idstr<<") Formationを指定して下さい");
+//        }
+    }
+
     //敵カーブレーザー01未使用。こぴぺのために残す
     /*
-    if (GgafUtil::strcmp_ascii("StCon_EneWateringLaser001Dp", prm_idstr) == 0) {
+    if (GgafUtil::strcmp_ascii("DpCon_EneWateringLaser001Dp", prm_idstr) == 0) {
         pResource = NEW LaserChipDepositoryStore("DPDP_EneWateringLaser001");
         LaserChipDepository* pLaserChipDepo;
         EnemyWateringLaserChip001* pChip;

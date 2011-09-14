@@ -15,7 +15,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     _pDepo_Shot = NULL;
     _pDepo_ShotEffect = NULL;
 
-    _pDepoCon = connectDepositoryManager("StCon_Shot001", NULL);
+    _pDepoCon = connectDepositoryManager("DpCon_Shot001", NULL);
     //_pDepo_Shot = _pDepoCon->use();
 _pDepo_Shot = NULL;
     _pSeTransmitter->useSe(1);

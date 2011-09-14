@@ -11,8 +11,11 @@ namespace MyStg2nd {
 class FormationEunomia : public GgafDx9LibStg::FormationActor {
 
 public:
+    /** エウノミア借り入れ元Depository資源への接続 */
+    DepositoryConnection* _pDepoCon_Eunomia;
+
     /** エウノミアの発射弾の借り入れ元Depository資源への接続 */
-    DepositoryConnection* _pDepoCon;
+    DepositoryConnection* _pDepoCon_shot;
     /** スプライン定義資源への接続 */
 //    GgafDx9LibStg::SplineSourceConnection* _pSplSrcCon;
     GgafDx9LibStg::SplineManufactureConnection** _papSplManufCon;
@@ -20,8 +23,8 @@ public:
     int _num_formation_col;
     /** １列の編隊数(RANK変動) */
     int _num_formation_row;
-    /** エウノミアの2次元配列(RANK変動) */
-    EnemyEunomia*** _papapEunomia;
+//    /** エウノミアの2次元配列(RANK変動) */
+//    EnemyEunomia*** _papapEunomia;
     /** 編隊間隔フレーム(RANK変動) */
     frame _interval_frames;
     /** 移動速度(RANK変動) */

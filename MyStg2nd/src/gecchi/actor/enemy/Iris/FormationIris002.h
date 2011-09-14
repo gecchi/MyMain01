@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class FormationIris002 : public GgafDx9LibStg::FormationActor {
 
     DepositoryConnection* _pDepoCon;
-    Spline3DConnection* _pSplCon;
+    SplineLineConnection* _pSplLineCon;
 public:
     /** ï“ë‡êî(RANKïœìÆ) */
     int _num_Iris;

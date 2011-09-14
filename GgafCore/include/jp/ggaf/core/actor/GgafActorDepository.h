@@ -73,7 +73,7 @@ public:
      * }
      *
      * </code></pre>
-     * @return アクター発送者の暇そうなメンバーアクター
+     * @return アクター発送者の暇そうなメンバーアクターのポインタ
      */
     virtual GgafCore::GgafMainActor* dispatch() {
 #ifdef MY_DEBUG
@@ -99,6 +99,35 @@ public:
         }
         return pActor;
     }
+
+
+//    virtual GgafCore::GgafMainActor* bring() {
+//        _can_auto_end = false; //自動削除無し
+//        GgafMainActor* pActor = getSubFirst();
+//        if (pActor) {
+//            while (true) {
+//                if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
+//                    pActor->moveLast(); //次フレームお尻に回す
+//                    pActor->activate(); //activate自動実行。
+//                    break;//取得！
+//                } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
+//                    if (pActor->isLast()) {
+//                        pActor = NULL;
+//                        break;
+//                    } else {
+//                        pActor = pActor->getNext();
+//                        continue;
+//                    }
+//                }
+//            }
+//        }
+//        if (pActor) {
+//            return pActor->extract();
+//        } else {
+//            return NULL;
+//        }
+//    }
+
 
     /**
      * 強制的にアクター取り出し .

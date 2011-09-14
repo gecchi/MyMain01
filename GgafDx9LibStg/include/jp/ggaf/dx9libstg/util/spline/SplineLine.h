@@ -1,7 +1,7 @@
-#ifndef SPLINE3D_H_
-#define SPLINE3D_H_
+#ifndef SPLINELINE_H_
+#define SPLINELINE_H_
 
-#define MaxSplineSize 100
+#define MaxSplineSize 300
 
 namespace GgafDx9LibStg {
 
@@ -17,23 +17,23 @@ namespace GgafDx9LibStg {
 //                                2009/10/16 Masatoshi Tsuge
 
 /**
- * 3次元スプライン曲線生成クラス .
+ * 空間B-スプライン曲線クラス .
  * @version 1.00
  * @since 2009/10/16
  * @author Masatoshi Tsuge
  */
-class Spline3D {
+class SplineLine {
 
 public:
 
     /**
-     * １次元スプライン生成
+     * 簡易３次スプライン .
      */
-    class Spline {
+    class BSpline {
     public:
         int num;
         double a[MaxSplineSize + 1], b[MaxSplineSize + 1], c[MaxSplineSize + 1], d[MaxSplineSize + 1];
-        Spline() {
+        BSpline() {
             num = 0;
         }
         void init(double *sp, int spnum) {
@@ -85,35 +85,35 @@ public:
      * コンストラクタ .
      * 後で init() を呼び出して下さい。
      */
-    Spline3D();
+    SplineLine();
 
     /**
      * コンストラクタ .
      * 後で init() を呼び出さなくて良い。
-     * @param prm_paaBase 基点座標の配列
+     * @param prm_paaBase 制御点座標の配列
      *                    [][0] X座標
      *                    [][1] Y座標
      *                    [][2] Z座標
-     * @param num         基点座標の配列数
+     * @param num         制御点座標の配列数
      * @param prm_accuracy 補完点挿入粒度。
      *                     1.0で補完点なし。
-     *                     0.5で基点間中点を一つ追加。
-     *                     0.1だと1基点間に10点補完、といった具合
+     *                     0.5で制御点間中点を一つ追加。
+     *                     0.1だと1制御点間に10点補完、といった具合
      * @return
      */
-    Spline3D(double prm_paaBase[][3], int num, double prm_accuracy);
+    SplineLine(double prm_paaBase[][3], int num, double prm_accuracy);
 
     /**
      * 初期化し補完点し、使用できる状態にします .
-     * @param prm_paaBase 基点座標の配列
+     * @param prm_paaBase 制御点座標の配列
      *                    [][0] X座標
      *                    [][1] Y座標
      *                    [][2] Z座標
-     * @param num         基点座標の配列数
+     * @param num         制御点座標の配列数
      * @param prm_accuracy 補完点挿入粒度。
      *                     1.0で補完点なし。
-     *                     0.5で基点間中点を1つ追加。
-     *                     0.1だと1基点間に9個の補完点、といった具合
+     *                     0.5で制御点間中点を1つ追加。
+     *                     0.1だと1制御点間に9個の補完点、といった具合
      */
     void init(double prm_paaBase[][3], int num, double prm_accuracy);
 
@@ -121,30 +121,39 @@ public:
      * 補完点計算
      * @param prm_accuracy 補完点挿入粒度。
      *                     1.0で補完点なし。
-     *                     0.5で基点間に中点を1つ追加。
-     *                     0.1だと基点間に9個の補完点、といった具合
+     *                     0.5で制御点間に中点を1つ追加。
+     *                     0.1だと制御点間に9個の補完点、といった具合
      */
     void compute(double prm_accuracy);
 
+    /** 制御点X座標の配列 */
     double* _X_basepoint;
+    /** 制御点Y座標の配列 */
     double* _Y_basepoint;
+    /** 制御点Z座標の配列 */
     double* _Z_basepoint;
+    /** 制御点座標数 */
     int _num_basepoint;
 
-    Spline _xs;
-    Spline _ys;
-    Spline _zs;
+    BSpline _xs;
+    BSpline _ys;
+    BSpline _zs;
 
+    /** 補完点（制御点含む）X座標の配列 */
     double* _X_compute;
+    /** 補完点（制御点含む）Y座標の配列 */
     double* _Y_compute;
+    /** 補完点（制御点含む）Z座標の配列 */
     double* _Z_compute;
+    /** 補完点座標数 */
     int _rnum;
+    /** 補完粒度(1.0 で制御点＝補完点、0.5 で、制御点間に補完点を１つ挿入、0.1で補完点９個 */
     double _accuracy;
 
-    virtual ~Spline3D();
+    virtual ~SplineLine();
 
 };
 
 }
-#endif /*SPLINE3D_H_*/
+#endif /*SPLINELINE_H_*/
 

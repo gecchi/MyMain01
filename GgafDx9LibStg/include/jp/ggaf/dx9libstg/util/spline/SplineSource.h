@@ -4,7 +4,7 @@ namespace GgafDx9LibStg {
 
 /**
  * Splineオブジェクトソース .
- * Spline3Dのラッパーであり、ファイルからの読み込み機能を追加したクラス。
+ * SplineLineのラッパーであり、ファイルからの読み込み機能を追加したクラス。
  * @version 1.00
  * @since 2010/12/14
  * @author Masatoshi Tsuge
@@ -13,13 +13,13 @@ class SplineSource : public GgafCore::GgafObject {
 
 public:
 
-    Spline3D* _pSp;
+    SplineLine* _pSp;
     double _accuracy;
     std::string _idstr;
-    bool _is_create_Spline3D;
+    bool _is_create_SplineLine;
     SplineSource(char* prm_idstr);
 
-    SplineSource(Spline3D* prm_pSp);
+    SplineSource(SplineLine* prm_pSp);
 
     virtual ~SplineSource();
 };

@@ -12,14 +12,14 @@ FormationIris002::FormationIris002(const char* prm_name) :
     _interval_frames = R_FormationIris002_LaunchInterval;   //イリスの間隔(frame)
     _mv_velo         = R_FormationIris002_MvVelo; //速度
     //スプライン移動の定義
-    _pSplCon = (Spline3DConnection*)(P_GOD->_pSpl3DManager->connect("SpCon_002_02"));
-    _pDepoCon = connectDepositoryManager("StCon_Shot002", NULL);
+    _pSplLineCon = connectSplineLineManager("SpCon_002_02");
+    _pDepoCon = connectDepositoryManager("DpCon_Shot002", NULL);
     //イリス編隊作成
     _papIris = NEW EnemyIris*[_num_Iris];
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i] = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
-        SplineSequence* pProgram = NEW FixedVelocitySplineSequence(_papIris[i]->_pKurokoA, _pSplCon->use(), 10000); //移動速度固定
+        SplineSequence* pProgram = NEW FixedVelocitySplineSequence(_papIris[i]->_pKurokoA, _pSplLineCon->use(), 10000); //移動速度固定
         _papIris[i]->setSplineSequence(pProgram);
         _papIris[i]->setDepository_Shot(_pDepoCon->use());
         _papIris[i]->inactivateImmediately();
@@ -40,7 +40,7 @@ void FormationIris002::onActive() {
 }
 
 FormationIris002::~FormationIris002() {
-    _pSplCon->close();
+    _pSplLineCon->close();
     _pDepoCon->close();
     DELETEARR_IMPOSSIBLE_NULL(_papIris);
 }

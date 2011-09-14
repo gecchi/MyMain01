@@ -16,7 +16,7 @@ FixedVelocitySplineSequence::FixedVelocitySplineSequence(SplineManufacture* prm_
 }
 
 FixedVelocitySplineSequence::FixedVelocitySplineSequence(GgafDx9KurokoA* prmpKurokoA_target,
-                                                         Spline3D* prmpSpl,
+                                                         SplineLine* prmpSpl,
                                                          ang_velo prm_ang_veloRzRyMv):
         SplineSequence(NULL, prmpKurokoA_target) { //NULLで渡す事により、_is_created_pManufacture が falseになる
     _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prmpSpl), prm_ang_veloRzRyMv);
@@ -40,7 +40,7 @@ void FixedVelocitySplineSequence::exec(SplinTraceOption prm_option) {
         _exec_fFrames = 0.0f;
         _fFrame_of_next = -0.00001f;
         _point_index = 0;
-        Spline3D* pSpl = _pFixedVeloSplManuf->_sp;
+        SplineLine* pSpl = _pFixedVeloSplManuf->_sp;
         if (_option == RELATIVE_DIRECTION) {
             _X_begin = (_flip_X * pSpl->_X_compute[0] * _pFixedVeloSplManuf->_rate_X) + _offset_X - _pActor_target->_X;
             _Y_begin = (_flip_Y * pSpl->_Y_compute[0] * _pFixedVeloSplManuf->_rate_Y) + _offset_Y - _pActor_target->_Y;
@@ -71,7 +71,7 @@ void FixedVelocitySplineSequence::behave() {
 //        printf("%s _point_index=%d _exec_fFrames=%f _fFrame_of_next=%f\n",_pActor_target->getName(), _point_index,_exec_fFrames, _fFrame_of_next);
         if (_exec_fFrames >= _fFrame_of_next) {
 //            printf("%s _point_index=%d _exec_fFrames >= _fFrame_of_next HIT\n",_pActor_target->getName(), _point_index);
-            Spline3D* pSpl = _pFixedVeloSplManuf->_sp;
+            SplineLine* pSpl = _pFixedVeloSplManuf->_sp;
             if (_point_index == 0) {
                 //始点へ行く！
                 int distace_to;
@@ -122,7 +122,7 @@ void FixedVelocitySplineSequence::behave() {
                 _fFrame_of_next = (float)(1.0*distace_to / _pFixedVeloSplManuf->_veloMvUnit);
             } else {
                 //始点以外の場合
-                //次の補間点（or基点)に移動方角を向ける
+                //次の補間点（or制御点)に移動方角を向ける
                 double dx = _flip_X*pSpl->_X_compute[_point_index]*_pFixedVeloSplManuf->_rate_X + _offset_X;
                 double dy = _flip_Y*pSpl->_Y_compute[_point_index]*_pFixedVeloSplManuf->_rate_Y + _offset_Y;
                 double dz = _flip_Z*pSpl->_Z_compute[_point_index]*_pFixedVeloSplManuf->_rate_Z + _offset_Z;

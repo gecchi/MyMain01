@@ -18,6 +18,10 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
     _n = 0;
 
     //エウノミア編隊作成
+    _pDepoCon_Eunomia = connectDepositoryManager("DpCon_EnemyEunomia4Formation", this);
+    setActorDepository(_pDepoCon_Eunomia->use());
+
+
     //スプライン定義ファイルを読み込む
     _papSplManufCon = NEW SplineManufactureConnection*[_num_formation_col];
     for (int i = 0; i < _num_formation_col; i++) {
@@ -26,21 +30,21 @@ FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
         _papSplManufCon[i] = connectSplineManufactureManager(spl_id.str().c_str());
     }
 
-    _papapEunomia = NEW EnemyEunomia**[_num_formation_col]; //n列xN機の編隊を組む
-    for (int i = 0; i < _num_formation_col; i++) {
-        _papapEunomia[i] = NEW EnemyEunomia*[_num_formation_row];
-        for (int j = 0; j < _num_formation_row; j++) {
-            stringstream nm;
-            nm << "EUNOMIA_col" << i << "_row" << j;
-            _papapEunomia[i][j] = NEW EnemyEunomia(nm.str().c_str());
-            SplineSequence* pSplSeq = _papSplManufCon[i]->use()->
-                                            createSplineSequence(_papapEunomia[i][j]->_pKurokoA);
-            _papapEunomia[i][j]->config(pSplSeq, NULL, NULL);
-            _papapEunomia[i][j]->inactivateImmediately();
-            addSubLast(_papapEunomia[i][j]);
-        }
-    }
-    _pDepoCon = NULL;
+//    _papapEunomia = NEW EnemyEunomia**[_num_formation_col]; //n列xN機の編隊を組む
+//    for (int i = 0; i < _num_formation_col; i++) {
+//        _papapEunomia[i] = NEW EnemyEunomia*[_num_formation_row];
+//        for (int j = 0; j < _num_formation_row; j++) {
+//            stringstream nm;
+//            nm << "EUNOMIA_col" << i << "_row" << j;
+//            _papapEunomia[i][j] = NEW EnemyEunomia(nm.str().c_str());
+//            SplineSequence* pSplSeq = _papSplManufCon[i]->use()->
+//                                            createSplineSequence(_papapEunomia[i][j]->_pKurokoA);
+//            _papapEunomia[i][j]->config(this, pSplSeq, NULL, NULL);
+//            _papapEunomia[i][j]->inactivateImmediately();
+//            addSubLast(_papapEunomia[i][j]);
+//        }
+//    }
+    _pDepoCon_shot = NULL;
 }
 
 void FormationEunomia::initialize() {
@@ -51,24 +55,32 @@ void FormationEunomia::initialize() {
 void FormationEunomia::processBehavior() {
     if (_n < _num_formation_row && getActivePartFrame() % _interval_frames == 0) {
         for (int i = 0; i < _num_formation_col; i++) {
-            _papapEunomia[i][_n]->activate();
-            processOnActiveEunomia(_papapEunomia[i][_n], i); //個別実装の処理
+            EnemyEunomia* e = (EnemyEunomia*)callUp();
+            if (e) {
+                SplineSequence* pSplSeq = _papSplManufCon[i]->use()->
+                                              createSplineSequence(e->_pKurokoA);
+                e->config(this, pSplSeq, NULL, NULL);
+    //            _papapEunomia[i][_n]->activate();
+                processOnActiveEunomia(e, i); //個別実装の処理
+            }
         }
         _n++;
     }
 }
 
 FormationEunomia::~FormationEunomia() {
+    _pDepoCon_Eunomia->close();
+
     for (int i = 0; i < _num_formation_col; i++) {
         _papSplManufCon[i]->close();
     }
     DELETEARR_IMPOSSIBLE_NULL(_papSplManufCon);
 
-    if (_pDepoCon) {
-        _pDepoCon->close();
+    if (_pDepoCon_shot) {
+        _pDepoCon_shot->close();
     }
-    for (int i = 0; i < _num_formation_col; i++) {
-        DELETEARR_IMPOSSIBLE_NULL(_papapEunomia[i]);
-    }
-    DELETEARR_IMPOSSIBLE_NULL(_papapEunomia);
+//    for (int i = 0; i < _num_formation_col; i++) {
+//        DELETEARR_IMPOSSIBLE_NULL(_papapEunomia[i]);
+//    }
+//    DELETEARR_IMPOSSIBLE_NULL(_papapEunomia);
 }
