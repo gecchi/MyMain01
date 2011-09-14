@@ -161,9 +161,9 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
 
 void EnemyEunomia::onInactive() {
     if (_pFormation) {
-        _pFormation->wasInactiveFollower(this);
+        _pFormation->wasInactiveFollower();
     }
-    sayonara();
+//    sayonara();
 }
 
 EnemyEunomia::~EnemyEunomia() {

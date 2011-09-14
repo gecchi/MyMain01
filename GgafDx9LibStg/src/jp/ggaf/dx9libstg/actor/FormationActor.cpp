@@ -16,6 +16,7 @@ FormationActor::FormationActor(const char* prm_name, frame prm_offset_frames_end
     _pDepo = NULL;
     _num_destory = 0;
     _num_inactive = 0;
+    _is_called_up = false;
 }
 void FormationActor::setActorDepository(GgafActorDepository* prm_pDepo) {
     _pDepo = prm_pDepo;
@@ -47,13 +48,20 @@ GgafDx9GeometricActor* FormationActor::callUp() {
         throwGgafCriticalException("FormationActor::callUp "<<getName()<<"は、Depositoryが指定されてません。setActorDepositoryが必要です。");
     }
 #endif
-    _num_sub++;
     GgafMainActor* pActor = _pDepo->dispatch();
+    if (pActor) {
+        _num_sub++;
+    }
+    _is_called_up = true;
     return (GgafDx9GeometricActor*)pActor;
 }
 
 void FormationActor::processJudgement() {
-    if (!_pDepo) {
+    if (_pDepo) {
+        if (_is_called_up && _num_sub == _num_inactive) {
+            sayonara(_offset_frames_end);
+        }
+    } else {
         if (wasDeclaredEnd() || _will_inactivate_after_flg) {
             //終了を待つのみ
         } else {
@@ -72,14 +80,10 @@ void FormationActor::wasDestroyedFollower(GgafDx9GeometricActor* prm_pActor) {
     }
 }
 
-void FormationActor::wasInactiveFollower(GgafDx9GeometricActor* prm_pActor) {
+void FormationActor::wasInactiveFollower() {
     if (_pDepo) {
         _num_inactive++;
-        if (_num_sub == _num_inactive) {
-            sayonara(_offset_frames_end);
-        }
     }
-
 }
 
 FormationActor::~FormationActor() {

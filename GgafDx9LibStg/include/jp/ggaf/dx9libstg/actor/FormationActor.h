@@ -28,7 +28,7 @@ public:
     int _num_inactive;
 
     frame _offset_frames_end;
-
+    bool _is_called_up;
     bool _is_init;
 
     /** 構成メンバーのストッカー */
@@ -99,7 +99,7 @@ public:
      */
     virtual void wasDestroyedFollower(GgafDx9GeometricActor* prm_pActor);
 
-    virtual void wasInactiveFollower(GgafDx9GeometricActor* prm_pActor);
+    virtual void wasInactiveFollower();
 
     virtual ~FormationActor();
 };
