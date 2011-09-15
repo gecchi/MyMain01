@@ -9,7 +9,8 @@ namespace MyStg2nd {
  * @author Masatoshi Tsuge
  */
 class EnemyIris : public GgafDx9LibStg::DefaultMeshSetActor {
-
+    /** フォーメーション(非フォーメーション時はNULL) */
+    GgafDx9LibStg::FormationActor* _pFormation;
     /** 移動スプラインプログラム */
     GgafDx9LibStg::SplineSequence* _pSplSeq;
     /** 弾ストック */
@@ -58,31 +59,44 @@ public:
 
     void onInactive() override;
 
-    /**
-     * 発射弾Depository設定 .
-     * initialize() までに設定して下さい。
-     * @param prm_pDepo
-     */
-    void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
-        _pDepo_Shot = prm_pDepo;
-    }
 
-    /**
-     * スプライン移動設定 .
-     * initialize() までに設定して下さい。
-     * @param prm_pSplSeq
-     */
-    void setSplineSequence(GgafDx9LibStg::SplineSequence* prm_pSplSeq) {
+    virtual void config(
+            GgafDx9LibStg::FormationActor* prm_pFormation,
+            GgafDx9LibStg::SplineSequence* prm_pSplSeq,
+            GgafCore::GgafActorDepository* prm_pDepo_Shot,
+            GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
+            ) {
+        _pFormation = prm_pFormation;
         _pSplSeq = prm_pSplSeq;
+        _pDepo_Shot = prm_pDepo_Shot;
+        _pDepo_ShotEffect = prm_pDepo_ShotEffect;
     }
 
-    /**
-     * ショット発射効果エフェクト設定 .
-     * @param prm_pDepo
-     */
-    void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
-        _pDepo_ShotEffect = prm_pDepo;
-    }
+//    /**
+//     * 発射弾Depository設定 .
+//     * initialize() までに設定して下さい。
+//     * @param prm_pDepo
+//     */
+//    void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
+//        _pDepo_Shot = prm_pDepo;
+//    }
+//
+//    /**
+//     * スプライン移動設定 .
+//     * initialize() までに設定して下さい。
+//     * @param prm_pSplSeq
+//     */
+//    void setSplineSequence(GgafDx9LibStg::SplineSequence* prm_pSplSeq) {
+//        _pSplSeq = prm_pSplSeq;
+//    }
+//
+//    /**
+//     * ショット発射効果エフェクト設定 .
+//     * @param prm_pDepo
+//     */
+//    void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
+//        _pDepo_ShotEffect = prm_pDepo;
+//    }
 
     virtual ~EnemyIris();
 };

@@ -45,6 +45,7 @@ public:
      */
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
         if (prm_no == GGAF_EVENT_ON_DEVICE_LOST) {
+            _TRACE_("GgafDx9WorldBoundActor::onCatchEvent "<<getName()<<" GGAF_EVENT_ON_DEVICE_LOST ƒLƒƒƒbƒ`");
             releaseCubeMapTex();
         } else if (prm_no == GGAF_EVENT_DEVICE_LOST_REDEPOSITORY) {
             restoreCubeMapTex();

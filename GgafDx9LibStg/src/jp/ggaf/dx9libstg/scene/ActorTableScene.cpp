@@ -51,15 +51,15 @@ void ActorTableScene::processBehavior() {
         TblElem* e = _table.getCurrent();
         FormationActor* pF = e->_pFormationActor;
         //全滅判定
-        bool was_destroyed = false;
+//        bool was_destroyed = false;
+//
+//        if (pF->_was_all_destroyed) { //編隊破壊による全滅(画面外に逃げた場合は0にはならない)
+//            was_destroyed = true;
+//        } else {
+//            was_destroyed = false;
+//        }
 
-        if (pF->_num_sub == 0) { //編隊破壊による全滅(画面外に逃げた場合は0にはならない)
-            was_destroyed = true;
-        } else {
-            was_destroyed = false;
-        }
-
-        if (was_destroyed) {
+        if (pF->_was_all_destroyed) {
             //全滅の場合
             if (_table.isLast()) {
                 //最終パートだったらTABLE終了

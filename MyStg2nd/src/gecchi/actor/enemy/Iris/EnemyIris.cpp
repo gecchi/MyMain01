@@ -10,6 +10,7 @@ EnemyIris::EnemyIris(const char* prm_name)
       : DefaultMeshSetActor(prm_name, "Iris", STATUS(EnemyIris)) {
     _class_name = "EnemyIris";
     _iMovePatternNo = 0;
+    _pFormation = NULL;
     _pSplSeq = NULL;
     _pDepo_Shot = NULL;
     _pDepo_ShotEffect = NULL;

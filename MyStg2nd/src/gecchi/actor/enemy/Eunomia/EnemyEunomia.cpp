@@ -161,7 +161,7 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
 
 void EnemyEunomia::onInactive() {
     if (_pFormation) {
-        _TRACE_("EnemyEunomia::onInactive() _pFormation="<<_pFormation->getName());
+        //_TRACE_("EnemyEunomia::onInactive() _pFormation="<<_pFormation->getName());
         _pFormation->wasInactiveFollower();
     }
     DELETE_POSSIBLE_NULL(_pSplSeq);

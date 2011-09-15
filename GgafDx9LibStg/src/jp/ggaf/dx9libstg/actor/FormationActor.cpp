@@ -17,6 +17,7 @@ FormationActor::FormationActor(const char* prm_name, frame prm_offset_frames_end
     _num_destory = 0;
     _num_inactive = 0;
     _is_called_up = false;
+    _was_all_destroyed = false;
 }
 void FormationActor::setActorDepository(GgafActorDepository* prm_pDepo) {
     _pDepo = prm_pDepo;
@@ -71,7 +72,7 @@ void FormationActor::processJudgement() {
     } else {
         if (_pDepo) {
 //            _TRACE_("FormationActor::processJudgement() this="<<getName()<<" _is_called_up="<<_is_called_up<<" _num_sub="<<_num_sub<<" _num_inactive="<<_num_inactive);
-            if (_is_called_up && _num_sub == _num_inactive) {
+            if (_is_called_up && _num_sub == 0) { //デポジトリから借りれない場合、フォーメーション自身を削除
 //                _TRACE_("FormationActor::processJudgement()  this="<<getName()<<" sayonara("<<_offset_frames_end<<");");
                 sayonara(_offset_frames_end);
             }
@@ -87,6 +88,7 @@ void FormationActor::processJudgement() {
 void FormationActor::wasDestroyedFollower(GgafDx9GeometricActor* prm_pActor) {
     _num_destory++;
     if (_num_sub == _num_destory) {
+        _was_all_destroyed = true;
         wasDestroyedFormation(prm_pActor);
     }
 }
@@ -95,6 +97,9 @@ void FormationActor::wasInactiveFollower() {
 //    _TRACE_("FormationActor::wasInactiveFollower() this="<<getName()<<" _num_sub="<<_num_sub<<" _num_inactive="<<_num_inactive);
     if (_pDepo) {
         _num_inactive++;
+        if (_num_sub == _num_inactive) {
+            sayonara(_offset_frames_end);
+        }
 //        _TRACE_("FormationActor::wasInactiveFollower() this="<<getName()<<" _num_sub="<<_num_sub<<" _num_inactive++ _num_inactive="<<_num_inactive);
     }
 }

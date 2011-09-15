@@ -33,9 +33,12 @@ IDirect3DBaseTexture9* GgafDx9ICubeMapActor::getCubeMapTexture() {
 
 void GgafDx9ICubeMapActor::releaseCubeMapTex() {
     //テクスチャを解放
+    _TRACE_("デバイスロストキューブマップ解放 GgafDx9ICubeMapActor::releaseCubeMapTex() begin "<<_pCubeMapTextureCon->getIdStr()<<"<-"<<_pCubeMapTextureCon->getNumConnection()<<"connection");
     if (_pCubeMapTextureCon) {
+        _TRACE_("デバイスロストキューブマップ解放 GgafDx9ICubeMapActor::releaseCubeMapTex()->close() !");
         _pCubeMapTextureCon->close();
     }
+    //_TRACE_("デバイスロストキューブマップ解放 GgafDx9ICubeMapActor::releaseCubeMapTex() end "<<_pCubeMapTextureCon->getIdStr()<<"<-"<<_pCubeMapTextureCon->getNumConnection()<<"connection");
     _pCubeMapTextureCon = NULL;
     _pCubeMapTexture = NULL;
 }

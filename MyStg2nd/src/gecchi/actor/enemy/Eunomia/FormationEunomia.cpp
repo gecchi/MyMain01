@@ -19,8 +19,8 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
 
 
     //スプライン定義ファイルを読み込む
-    _papSplManufCon = NEW SplineManufactureConnection*[_num_formation_col];
-    for (int i = 0; i < _num_formation_col; i++) {
+    _papSplManufCon = NEW SplineManufactureConnection*[7];
+    for (int i = 0; i < 7; i++) {
         stringstream spl_id;
         spl_id << prm_spl_id << "_" << i;  //＜例＞"FormationEunomia001_0"
         _papSplManufCon[i] = connectSplineManufactureManager(spl_id.str().c_str());

@@ -29,6 +29,7 @@ public:
 
     frame _offset_frames_end;
     bool _is_called_up;
+    bool _was_all_destroyed;
     bool _is_init;
 
     /** 構成メンバーのストッカー */
