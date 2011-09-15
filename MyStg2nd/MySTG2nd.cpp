@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "MySTG2nd.h"
 #include "resource.h"
-
 using namespace std;
 
 #define MAX_LOADSTRING 100

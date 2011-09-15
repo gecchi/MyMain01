@@ -147,7 +147,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
     if (GgafUtil::strcmp_ascii("DpCon_EnemyEunomia4Formation", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("EnemyEunomiaDepo");
         EnemyEunomia* p;
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 800; i++) {
             p = NEW EnemyEunomia("Eunomia");
             pResource->addSubLast(p);
         }

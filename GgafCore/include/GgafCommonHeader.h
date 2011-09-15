@@ -12,6 +12,7 @@
     #define MY_DEBUG _DEBUG
 #endif
 
+
 #ifdef _MSC_VER
     #ifdef _DEBUG
         #define _CRTDBG_MAP_ALLOC

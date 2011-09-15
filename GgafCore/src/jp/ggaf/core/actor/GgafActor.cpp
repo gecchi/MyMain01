@@ -19,21 +19,13 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
     _can_hit_flg = false;
     _can_hit_out_of_view = false;
     _pDependenceDepository = NULL;
-#ifdef MY_DEBUG
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
-#else
-
-#endif
-
 }
 
 GgafActor::~GgafActor() {
     DELETE_IMPOSSIBLE_NULL(_pStatus);
-#ifdef MY_DEBUG
     _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
-#else
     //OutputDebugStringA("*");
-#endif
 }
 
 void GgafActor::setScenePlatform(GgafScene* prm_pScene_Platform) {

@@ -23,26 +23,35 @@ void FormationActor::setActorDepository(GgafActorDepository* prm_pDepo) {
 }
 
 void FormationActor::addSubLast(GgafActor* prm_pSub) {
-    if (_pDepo) {
-        throwGgafCriticalException("FormationActor::addSubLast("<<prm_pSub->getName()<<") Depository指定モード時は、addSubLastではなくて～callUp");
-    } else {
-        if (_pSubFirst == NULL) {
-            //種別を引き継ぐ
-            _pStatus->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND));
-
-        } else {
-            if (_pStatus->get(STAT_DEFAULT_ACTOR_KIND) != prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)) {
-                throwGgafCriticalException("FormationActor::addSubLast 異なる種別のアクターを登録しようとしています。this="<<getName()<<"("<<this<<") \n"<<
-                                           "想定kind="<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<" _pSubFirst="<<_pSubFirst->getName()<<" \n"<<
-                                           "引数kind="<<prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<" prm_pSub="<<prm_pSub->getName()<<"("<<prm_pSub<<")");
-            }
-        }
-        _num_sub++;
-        GgafDx9GeometricActor::addSubLast(prm_pSub);
+#ifdef MY_DEBUG
+    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
+        //終了を待つのみ
+        throwGgafCriticalException("FormationActor::addSubLast("<<prm_pSub->getName()<<") 既に死にゆく定めのFormationです。サブに追加することはおかしいでしょう。this="<<getName());
     }
+    if (_pDepo) {
+        throwGgafCriticalException("FormationActor::addSubLast("<<prm_pSub->getName()<<") Depository指定モード時は、addSubLastではなくてcallUpして下さい this="<<getName());
+    }
+#endif
+    if (_pSubFirst == NULL) {
+        //種別を引き継ぐ
+        _pStatus->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND));
+
+    } else {
+        if (_pStatus->get(STAT_DEFAULT_ACTOR_KIND) != prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)) {
+            throwGgafCriticalException("FormationActor::addSubLast 異なる種別のアクターを登録しようとしています。this="<<getName()<<"("<<this<<") \n"<<
+                                       "想定kind="<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<" _pSubFirst="<<_pSubFirst->getName()<<" \n"<<
+                                       "引数kind="<<prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<" prm_pSub="<<prm_pSub->getName()<<"("<<prm_pSub<<")");
+        }
+    }
+    _num_sub++;
+    GgafDx9GeometricActor::addSubLast(prm_pSub);
 }
 
 GgafDx9GeometricActor* FormationActor::callUp() {
+    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
+        //終了を待つのみ
+        return NULL;
+    }
 #ifdef MY_DEBUG
     if (!_pDepo) {
         throwGgafCriticalException("FormationActor::callUp "<<getName()<<"は、Depositoryが指定されてません。setActorDepositoryが必要です。");
@@ -57,13 +66,15 @@ GgafDx9GeometricActor* FormationActor::callUp() {
 }
 
 void FormationActor::processJudgement() {
-    if (_pDepo) {
-        if (_is_called_up && _num_sub == _num_inactive) {
-            sayonara(_offset_frames_end);
-        }
+    if (wasDeclaredEnd() || _will_inactivate_after_flg) {
+        //終了を待つのみ
     } else {
-        if (wasDeclaredEnd() || _will_inactivate_after_flg) {
-            //終了を待つのみ
+        if (_pDepo) {
+//            _TRACE_("FormationActor::processJudgement() this="<<getName()<<" _is_called_up="<<_is_called_up<<" _num_sub="<<_num_sub<<" _num_inactive="<<_num_inactive);
+            if (_is_called_up && _num_sub == _num_inactive) {
+//                _TRACE_("FormationActor::processJudgement()  this="<<getName()<<" sayonara("<<_offset_frames_end<<");");
+                sayonara(_offset_frames_end);
+            }
         } else {
             if (getSubFirst() == NULL) {
                 sayonara(_offset_frames_end);
@@ -81,8 +92,10 @@ void FormationActor::wasDestroyedFollower(GgafDx9GeometricActor* prm_pActor) {
 }
 
 void FormationActor::wasInactiveFollower() {
+//    _TRACE_("FormationActor::wasInactiveFollower() this="<<getName()<<" _num_sub="<<_num_sub<<" _num_inactive="<<_num_inactive);
     if (_pDepo) {
         _num_inactive++;
+//        _TRACE_("FormationActor::wasInactiveFollower() this="<<getName()<<" _num_sub="<<_num_sub<<" _num_inactive++ _num_inactive="<<_num_inactive);
     }
 }
 

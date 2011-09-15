@@ -5,16 +5,12 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-FormationEunomia::FormationEunomia(const char* prm_name, int prm_col,
-                                                         int prm_row,
-                                                         frame prm_interval_frames,
-                                                         velo prm_mv_velo,
-                                                         const char* prm_spl_id) : FormationActor(prm_name, 20*60) {
+FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id) : FormationActor(prm_name, 20*60) {
     _class_name = "FormationEunomia";
-    _num_formation_col = prm_col > 7 ? 7 : prm_col;   //編隊列数
-    _num_formation_row = prm_row;  //１列の編隊数
-    _interval_frames    = prm_interval_frames;   //エウノミアの間隔(frame)
-    _mv_velo           = prm_mv_velo; //速度
+    _num_formation_col = 7;   //編隊列数
+    _num_formation_row = 1;  //１列の編隊数
+    _interval_frames   = R_FormationEunomia001_LaunchInterval;  //エウノミアの間隔(frame)
+    _mv_velo           = 10; //速度
     _n = 0;
 
     //エウノミア編隊作成
@@ -53,15 +49,21 @@ void FormationEunomia::initialize() {
 
 
 void FormationEunomia::processBehavior() {
+
     if (_n < _num_formation_row && getActivePartFrame() % _interval_frames == 0) {
+        _num_formation_col = R_FormationEunomia001_Col;   //編隊列数
+        _num_formation_row = R_FormationEunomia001_Num;  //１列の編隊数
+        _interval_frames   = R_FormationEunomia001_LaunchInterval;   //エウノミアの間隔(frame)
+        _mv_velo           = R_FormationEunomia001_MvVelo; //速度
         for (int i = 0; i < _num_formation_col; i++) {
-            EnemyEunomia* e = (EnemyEunomia*)callUp();
-            if (e) {
+            EnemyEunomia* pEunomia = (EnemyEunomia*)callUp();
+            if (pEunomia) {
                 SplineSequence* pSplSeq = _papSplManufCon[i]->use()->
-                                              createSplineSequence(e->_pKurokoA);
-                e->config(this, pSplSeq, NULL, NULL);
+                                              createSplineSequence(pEunomia->_pKurokoA);
+                pEunomia->config(this, pSplSeq, NULL, NULL);
+                pEunomia->_pKurokoA->setMvVelo(_mv_velo);
     //            _papapEunomia[i][_n]->activate();
-                processOnActiveEunomia(e, i); //個別実装の処理
+                processOnActiveEunomia(pEunomia, i); //フォーメーション個別実装の処理
             }
         }
         _n++;
@@ -71,7 +73,7 @@ void FormationEunomia::processBehavior() {
 FormationEunomia::~FormationEunomia() {
     _pDepoCon_Eunomia->close();
 
-    for (int i = 0; i < _num_formation_col; i++) {
+    for (int i = 0; i < 7; i++) {
         _papSplManufCon[i]->close();
     }
     DELETEARR_IMPOSSIBLE_NULL(_papSplManufCon);

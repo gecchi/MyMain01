@@ -16,7 +16,6 @@ void FormationEunomia001a::processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, i
 //                                    );
     pEnemyEunomia->_pSplSeq->adjustCoodOffset(0, col*50*1000, col*50*1000);
     pEnemyEunomia->_pSplSeq->setAbsoluteBeginCoordinate();
-    pEnemyEunomia->_pKurokoA->setMvVelo(_mv_velo);
 }
 
 FormationEunomia001a::~FormationEunomia001a() {

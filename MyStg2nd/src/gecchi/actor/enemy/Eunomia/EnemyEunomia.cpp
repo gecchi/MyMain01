@@ -144,9 +144,9 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
             pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
         }
 
-        //自機側に撃たれて消滅、かつフォメーション所属の場合、
+        //自機側に撃たれて消滅の場合、
         //フォーメーションに自身が撃たれた事を伝える。
-        if (_pFormation && (pOther->getKind() & KIND_MY) && (getParent()->_obj_class & Obj_FormationActor)) {
+        if (_pFormation && (pOther->getKind() & KIND_MY)) {
             _pFormation->wasDestroyedFollower(this);
         }
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
@@ -161,13 +161,15 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
 
 void EnemyEunomia::onInactive() {
     if (_pFormation) {
+        _TRACE_("EnemyEunomia::onInactive() _pFormation="<<_pFormation->getName());
         _pFormation->wasInactiveFollower();
     }
+    DELETE_POSSIBLE_NULL(_pSplSeq);
 //    sayonara();
 }
 
 EnemyEunomia::~EnemyEunomia() {
-    DELETE_POSSIBLE_NULL(_pSplSeq);
+//    DELETE_POSSIBLE_NULL(_pSplSeq);
 }
 
 

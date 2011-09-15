@@ -43,11 +43,7 @@ public:
      *                           "FormationEunomia001_0.spl" ÇÃ "FormationEunomia001" Çê›íË
      * @return
      */
-    FormationEunomia(const char* prm_name, int   prm_col,
-                                           int   prm_row,
-                                           frame prm_interval_frames,
-                                           velo  prm_mv_velo,
-                                           const char* prm_spl_id) ;
+    FormationEunomia(const char* prm_name, const char* prm_spl_id) ;
 
     virtual void initialize() override;
 
