@@ -958,15 +958,14 @@ void GgafDx9God::makeUniversalMaterialize() {
 
         _TRACE_("【デバイスロスト処理】リソース解放 BEGIN ------>");
         int c_again_cnt = 0;
-        for (int i = 0; i < 3*60*1000; i++) {
-            if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() != D3DERR_DEVICENOTRESET) {
+        while (true) {
+            hr = GgafDx9God::_pID3DDevice9->TestCooperativeLevel();
+            if (hr == D3DERR_DEVICENOTRESET) {
                 break;
-            } else {
-                if (i < 3*60*1000-1) {
-                    _TRACE_("【デバイスロスト処理/リソース解放】TestCooperativeLevel() D3DERR_DEVICENOTRESET待ちタイムアップ");
-                    break;
-                }
+            } else if (hr == D3DERR_DEVICELOST) {
                 Sleep(1);
+            } else {
+                throwGgafDxCriticalException(hr, "【デバイスロスト処理/リソース解放】TestCooperativeLevelの異常。強制終了します。");
             }
         }
         //レンダリングターゲット、デバイスロスト処理
@@ -988,11 +987,14 @@ void GgafDx9God::makeUniversalMaterialize() {
         _TRACE_("【デバイスロスト処理】デバイスリセット BEGIN ------>");
         int again_cnt = 0;
 again:
-        for (int i = 0; i < 60*1000; i++) {
-            if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() != D3DERR_DEVICENOTRESET) {
+        while (true) {
+            hr = GgafDx9God::_pID3DDevice9->TestCooperativeLevel();
+            if (hr == D3DERR_DEVICENOTRESET) {
                 break;
-            } else {
+            } else if (hr == D3DERR_DEVICELOST) {
                 Sleep(1);
+            } else {
+                throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】TestCooperativeLevelの異常。強制終了します。");
             }
         }
         if (CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
@@ -1000,19 +1002,18 @@ again:
         } else {
             hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[0]));
         }
-        if (hr == D3DERR_DRIVERINTERNALERROR) {
-            throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】D3DERR_DRIVERINTERNALERROR。強制終了します。");
-        } else if (hr == D3DERR_OUTOFVIDEOMEMORY) {
-            throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】D3DERR_OUTOFVIDEOMEMORY。メモリがありません。強制終了します。");
+        if (hr != D3D_OK) {
+            if (hr == D3DERR_DRIVERINTERNALERROR) {
+                Sleep(1);
+                goto again;
+            } else if (hr == D3DERR_DRIVERINTERNALERROR) {
+                throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】D3DERR_DRIVERINTERNALERROR。強制終了します。");
+            } else if (hr == D3DERR_OUTOFVIDEOMEMORY) {
+                throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】D3DERR_OUTOFVIDEOMEMORY。メモリがありません。強制終了します。");
+            } else {
+                throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】リセットに失敗しました。");
+            }
         }
-        if (hr != D3D_OK && again_cnt < 60*100) {
-            again_cnt++;
-            _TEXT_(" "<<again_cnt);
-            Sleep(10);
-            goto again;
-        }
-        _TRACE_("");
-        checkDxException(hr, D3D_OK, "【デバイスロスト処理/デバイスリセット】リセットに失敗しました。");
         _TRACE_("【デバイスロスト処理】デバイスリセット <-------- END");
 
         //デバイス再設定
@@ -1043,7 +1044,7 @@ again:
         GgafFactory::finishRest();
         _TRACE_("【デバイスロスト処理】工場再起動 <-------- END");
 
-
+        _color_clear = D3DCOLOR_RGBA(0, 0, 0, 0);
         _TRACE_("【デバイスロスト処理】<-------- END");
     } else {
         //通常時処理
@@ -1185,15 +1186,17 @@ void GgafDx9God::presentUniversalVisualize() {
                 }
             }
         }
-        if (hr == D3DERR_DEVICELOST) {
-            //出刃異素露巣斗！
-            _TRACE_("通常の正常デバイスロスト発生！");
-            _is_device_lost_flg = true;
-        } else {
-            //Present異常時、デバイスロストと同じ処理を試みる。
-            _TRACE_("＜警告＞デバイス異常発生!!" <<DXGetErrorString(hr) << " "<< DXGetErrorDescription(hr) << "\n" <<
-                    "もう駄目かもしれないが、デバイスロストと同じ処理のReset()を試みます。");
-            _is_device_lost_flg = true;
+        if (hr != D3D_OK) { //hr は Present の戻り値
+            if (hr == D3DERR_DEVICELOST) {
+                //出刃異素露巣斗！
+                _TRACE_("通常の正常デバイスロスト発生！");
+                _is_device_lost_flg = true;
+            } else {
+                //Present異常時、デバイスロストと同じ処理を試みる。
+                _TRACE_("＜警告＞デバイス異常発生!!" <<DXGetErrorString(hr) << " "<< DXGetErrorDescription(hr) << "\n" <<
+                        "もう駄目かもしれないが、デバイスロストと同じ処理のReset()を試みます。");
+                _is_device_lost_flg = true;
+            }
         }
     }
 }
