@@ -940,52 +940,70 @@ void GgafDx9God::makeUniversalMaterialize() {
     if (_is_device_lost_flg) {
         //正常デバイスロスト処理。デバイスリソースの解放→復帰処理を試みる。
         int cnt = 0;
-DEVICE_WAIT:
-        if (! GgafDx9God::_pID3DDevice9->TestCooperativeLevel() == D3DERR_DEVICENOTRESET) {
-            cnt++;
-            if (cnt > 3*60*1000) {
-                throwGgafCriticalException("GgafDx9God::makeUniversalMaterialize() デバイスロスとのためリセットを行いたいのですが、強調レベルがリセット可能になりませんでした。");
+        //工場休止
+        GgafFactory::beginRest();
+        ___EndSynchronized; // <----- 排他終了
+        for (int i = 0; GgafFactory::isResting() == false; i++) {
+            Sleep(1); //工場が落ち着くまで待つ
+            if (i > 3*60*1000) {
+                _TRACE_("GgafDx9God::makeUniversalMaterialize() 3分待機しましたが、工場から反応がありません。強制breakします。要調査");
+                break;
             }
-            Sleep(1);
-            goto DEVICE_WAIT;
-        } else {
-            //工場休止
-            GgafFactory::beginRest();
-            ___EndSynchronized; // <----- 排他終了
-            for (int i = 0; GgafFactory::isResting() == false; i++) {
-                Sleep(1); //工場が落ち着くまで待つ
-                if (i > 3*60*1000) {
-                    _TRACE_("GgafDx9God::makeUniversalMaterialize() 3分待機しましたが、工場から反応がありません。強制breakします。要調査");
+        }
+        //            while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
+        //                Sleep(10);
+        //            }
+        ___BeginSynchronized; // ----->排他開始
+        _TRACE_("正常デバイスロスト処理。Begin");
+        int c_again_cnt = 0;
+        for (int i = 0; i < 3*60*1000; i++) {
+            if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() != D3DERR_DEVICENOTRESET) {
+                break;
+            } else {
+                if (i < 3*60*1000-1) {
+                    _TRACE_("D3DERR_DEVICENOTRESET待ちタイムアップ");
                     break;
                 }
+                Sleep(1);
             }
-            //            while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
-            //                Sleep(10);
-            //            }
-            ___BeginSynchronized; // ----->排他開始
-            _TRACE_("正常デバイスロスト処理。Begin");
-            //レンダリングターゲット、デバイスロスト処理
-            if (CFG_PROPERTY(FULL_SCREEN)) {
-                releaseFullScreenRenderTarget();
-            }
-            //環境マップテクスチャ、デバイスロスト処理
-            GgafDx9God::_pCubeMapTextureManager->releaseAll();
-            //エフェクト、デバイスロスト処理
-            GgafDx9God::_pEffectManager->onDeviceLostAll();
-            //モデル解放
-            GgafDx9God::_pModelManager->onDeviceLostAll();
+        }
+        //レンダリングターゲット、デバイスロスト処理
+        if (CFG_PROPERTY(FULL_SCREEN)) {
+            releaseFullScreenRenderTarget();
+        }
+        //環境マップテクスチャ、デバイスロスト処理
+        GgafDx9God::_pCubeMapTextureManager->releaseAll();
+        //エフェクト、デバイスロスト処理
+        GgafDx9God::_pEffectManager->onDeviceLostAll();
+        //モデル解放
+        GgafDx9God::_pModelManager->onDeviceLostAll();
 
 
-            //全ノードに解放しなさいイベント発令
-            getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
+        //全ノードに解放しなさいイベント発令
+        getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
 
-            //デバイスリセットを試みる
-            if (CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
-                hr = GgafDx9God::_pID3DDevice9->Reset(_d3dparam);
+        //デバイスリセットを試みる
+        int again_cnt = 0;
+again:
+        for (int i = 0; i < 60*1000; i++) {
+            if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() != D3DERR_DEVICENOTRESET) {
+                break;
             } else {
-                hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[0]));
+                Sleep(1);
             }
-            checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[0]に失敗しました。");
+        }
+        if (CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
+            hr = GgafDx9God::_pID3DDevice9->Reset(_d3dparam);
+        } else {
+            hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[0]));
+        }
+        if (hr != D3D_OK && again_cnt < 60*100) {
+            again_cnt++;
+            _TRACE_("Reset again_cnt = "<<again_cnt);
+            Sleep(10);
+            goto again;
+        }
+        checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[0]に失敗しました。");
 //            if (CFG_PROPERTY(DUAL_VIEW)) {
 //                for (int i = 1; i < _iNumAdapter; i++) {
 //                    hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[i]));
@@ -993,28 +1011,27 @@ DEVICE_WAIT:
 //                }
 //            }
 
-            //デバイス再設定
-            initDx9Device();
-            if (CFG_PROPERTY(FULL_SCREEN)) {
-                restoreFullScreenRenderTarget();
-            }
-
-            //環境マップテクスチャ、復帰処理
-            GgafDx9God::_pCubeMapTextureManager->restoreAll();
-            //エフェクトリセット
-            GgafDx9God::_pEffectManager->restoreAll();
-            //モデル再設定
-            GgafDx9God::_pModelManager->restoreAll();
-            //全ノードに再設定しなさいイベント発令
-            getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY, this);
-            //前回描画モデル情報を無効にする
-            GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
-            _is_device_lost_flg = false;
-
-            //工場再開
-            GgafFactory::finishRest();
-            _TRACE_("正常デバイスロスト処理。End");
+        //デバイス再設定
+        initDx9Device();
+        if (CFG_PROPERTY(FULL_SCREEN)) {
+            restoreFullScreenRenderTarget();
         }
+
+        //環境マップテクスチャ、復帰処理
+        GgafDx9God::_pCubeMapTextureManager->restoreAll();
+        //エフェクトリセット
+        GgafDx9God::_pEffectManager->restoreAll();
+        //モデル再設定
+        GgafDx9God::_pModelManager->restoreAll();
+        //全ノードに再設定しなさいイベント発令
+        getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY, this);
+        //前回描画モデル情報を無効にする
+        GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
+        _is_device_lost_flg = false;
+
+        //工場再開
+        GgafFactory::finishRest();
+        _TRACE_("正常デバイスロスト処理。End");
     } else {
         //通常時（デバイスロストではない）の処理
 
@@ -1173,6 +1190,13 @@ void GgafDx9God::presentUniversalVisualize() {
             }
          ___BeginSynchronized; // ----->排他開始
             _TRACE_("D3DERR_DRIVERINTERNALERROR！ 処理Begin");
+            for (int i = 0; i < 3*60*1000; i++) {
+                if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() != D3DERR_DEVICENOTRESET) {
+                    break;
+                } else {
+                    Sleep(1);
+                }
+            }
             //レンダリングターゲット、デバイスロスト処理
             if (CFG_PROPERTY(FULL_SCREEN)) {
                 releaseFullScreenRenderTarget();
@@ -1185,12 +1209,26 @@ void GgafDx9God::presentUniversalVisualize() {
             GgafDx9God::_pModelManager->onDeviceLostAll();
             //全ノードに解放しなさいイベント発令
             getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
+
             //デバイスリセットを試みる
+            int again_cnt = 0;
+    again2:
+            for (int i = 0; i < 60*1000; i++) {
+                if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() != D3DERR_DEVICENOTRESET) {
+                    break;
+                } else {
+                    Sleep(1);
+                }
+            }
             if (CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
-                 hr = GgafDx9God::_pID3DDevice9->Reset(GgafDx9God::_d3dparam);
-             } else {
-                 hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
-             }
+                hr = GgafDx9God::_pID3DDevice9->Reset(_d3dparam);
+            } else {
+                hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[0]));
+            }
+            if (hr != D3D_OK && again_cnt < 5) {
+                again_cnt++;
+                goto again2;
+            }
             checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([0]) を試しましが、駄目でした。");
 //            if (CFG_PROPERTY(DUAL_VIEW)) {
 //                for (int i = 1; i < _iNumAdapter; i++) {
