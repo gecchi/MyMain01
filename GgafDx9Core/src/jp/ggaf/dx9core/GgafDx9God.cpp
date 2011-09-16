@@ -939,13 +939,22 @@ void GgafDx9God::makeUniversalMaterialize() {
     HRESULT hr;
     if (_is_device_lost_flg) {
         //正常デバイスロスト処理。デバイスリソースの解放→復帰処理を試みる。
-        if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() == D3DERR_DEVICENOTRESET) {
+        int cnt = 0;
+DEVICE_WAIT:
+        if (! GgafDx9God::_pID3DDevice9->TestCooperativeLevel() == D3DERR_DEVICENOTRESET) {
+            cnt++;
+            if (cnt > 3*60*1000) {
+                throwGgafCriticalException("GgafDx9God::makeUniversalMaterialize() デバイスロスとのためリセットを行いたいのですが、強調レベルがリセット可能になりませんでした。");
+            }
+            Sleep(1);
+            goto DEVICE_WAIT;
+        } else {
             //工場休止
             GgafFactory::beginRest();
             ___EndSynchronized; // <----- 排他終了
             for (int i = 0; GgafFactory::isResting() == false; i++) {
-                Sleep(60); //工場が落ち着くまで待つ
-                if (i > 3000) {
+                Sleep(1); //工場が落ち着くまで待つ
+                if (i > 3*60*1000) {
                     _TRACE_("GgafDx9God::makeUniversalMaterialize() 3分待機しましたが、工場から反応がありません。強制breakします。要調査");
                     break;
                 }

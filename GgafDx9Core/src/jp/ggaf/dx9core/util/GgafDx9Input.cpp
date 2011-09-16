@@ -245,7 +245,8 @@ void GgafDx9Input::updateMouseState() {
     _active_MouseState = !_active_MouseState; //ステートセットフリップ
 
     HRESULT hr;
-    again:
+
+again:
     hr = _pIDirectInputDevice8_Mouse->Poll(); //マウスは通常Poll不用と思うが呼び出しても無害と書いてあるので呼ぶ。
     hr = _pIDirectInputDevice8_Mouse->GetDeviceState(sizeof(DIMOUSESTATE2), (void*)&_dimousestate[_active_MouseState]);
     if (FAILED(hr)) {
