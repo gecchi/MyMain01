@@ -24,6 +24,12 @@ public:
      */
     GgafDx9Texture* processCreateResource(char* prm_idstr, void* prm_p);
 
+    void releaseAll();
+
+    void restoreAll();
+
+
+
     /**
      * オーバーライド
      */

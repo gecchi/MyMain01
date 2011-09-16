@@ -6,11 +6,15 @@ using namespace GgafDx9Core;
 
 GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
     TRACE("GgafDx9Texture::GgafDx9Texture(" << prm_texture_name << ")");
-    _pIDirect3DBaseTexture9 = NULL;
-    _pD3DXIMAGE_INFO = NEW D3DXIMAGE_INFO();
-
     _texture_name = NEW char[51];
     strcpy(_texture_name, prm_texture_name);
+    restore();
+}
+
+void GgafDx9Texture::restore() {
+    TRACE("GgafDx9Texture::restore()");
+    _pIDirect3DBaseTexture9 = NULL;
+    _pD3DXIMAGE_INFO = NEW D3DXIMAGE_INFO();
     string texture_name = string(_texture_name);
     string texture_file_name = CFG_PROPERTY(DIR_TEXTURE) + texture_name;
 
@@ -38,7 +42,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                          &pIDirect3DTexture9        // [out] LPDIRECT3DTEXTURE9* ppTexture
                     );
         if (hr != D3D_OK) {
-            _TRACE_("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_texture_name);
+            _TRACE_("GgafDx9TextureManager::restore() D3DXCreateTextureFromFileEx失敗。対象="<<texture_name);
             //失敗用テクスチャ"GgafDx9IlligalTexture.png"を設定
             string texture_file_name2 = CFG_PROPERTY(DIR_TEXTURE) + "GgafDx9IlligalTexture.png";
             HRESULT hr2 = D3DXCreateTextureFromFileEx(
@@ -57,7 +61,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                              NULL,                      // [in] PALETTEENTRY *pPalette,
                              &pIDirect3DTexture9        // [out] GgafDx9TextureConnection* *ppTextureCon
                           );
-            checkDxException(hr2, D3D_OK, "＜警告＞[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_texture_name);
+            checkDxException(hr2, D3D_OK, "＜警告＞GgafDx9TextureManager::restore() D3DXCreateTextureFromFileEx失敗。対象="<<texture_name);
         }
         D3DSURFACE_DESC d3dsurface_desc;
         pIDirect3DTexture9->GetLevelDesc(0, &d3dsurface_desc);
@@ -84,7 +88,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                             &pIDirect3DCubeTexture9        // [out] LPDIRECT3DCUBETEXTURE9 * ppCubeTexture
                     );
         if (hr != D3D_OK) {
-            _TRACE_("＜警告＞[GgafDx9TextureManager::createResource] D3DXCreateCubeTextureFromFileEx 失敗。対象="<<prm_texture_name);
+            _TRACE_("＜警告＞GgafDx9TextureManager::restore() D3DXCreateCubeTextureFromFileEx 失敗。対象="<<texture_name);
             //失敗用環境マップテクスチャ"GgafDx9IlligalCubeMapTexture.dds"を設定
             string texture_file_name2 = CFG_PROPERTY(DIR_TEXTURE) + "GgafDx9IlligalCubeMapTexture.dds";
             HRESULT hr2 = D3DXCreateCubeTextureFromFileEx(
@@ -102,7 +106,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                                     NULL,                          // [out] PALETTEENTRY * pPalette,
                                     &pIDirect3DCubeTexture9        // [out] LPDIRECT3DCUBETEXTURE9 * ppCubeTexture
                             );
-            checkDxException(hr2, D3D_OK, "[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_texture_name);
+            checkDxException(hr2, D3D_OK, "GgafDx9TextureManager::restore() D3DXCreateTextureFromFileEx失敗。対象="<<texture_name);
         }
 
         D3DSURFACE_DESC d3dsurface_desc;
@@ -118,13 +122,16 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
     //     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
     //     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
 
-    _TRACE_(" GgafDx9TextureManager::processCreateResource "<<prm_texture_name<<" のテクスチャ生成しました。");
+    _TRACE_("GgafDx9TextureManager::restore() "<<texture_name<<" のテクスチャ生成しました。");
+}
+void GgafDx9Texture::release() {
+    DELETE_IMPOSSIBLE_NULL(_pD3DXIMAGE_INFO);
+    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DBaseTexture9);
 }
 
 GgafDx9Texture::~GgafDx9Texture() {
     TRACE3("GgafDx9Texture::~GgafDx9Texture() " << _texture_name << " start-->");
+    release();
     DELETEARR_IMPOSSIBLE_NULL(_texture_name);
-    DELETE_IMPOSSIBLE_NULL(_pD3DXIMAGE_INFO);
-    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DBaseTexture9);
 }
 

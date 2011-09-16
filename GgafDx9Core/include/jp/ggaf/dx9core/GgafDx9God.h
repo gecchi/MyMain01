@@ -87,16 +87,18 @@ public:
      */
     HRESULT init();
     HRESULT initDx9Device();
+    HRESULT restoreFullScreenRenderTarget();
+    HRESULT releaseFullScreenRenderTarget();
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    virtual void makeUniversalMaterialize();
+    virtual void makeUniversalMaterialize() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    virtual void presentUniversalVisualize();
+    virtual void presentUniversalVisualize() override;
 
     void adjustGameScreen(HWND prm_pHWnd);
 
@@ -117,6 +119,8 @@ public:
     //	 * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
     //	 */
     //	virtual GgafDx9Universe* createDx9World() = 0;
+
+    HRESULT restoreRenderSurface();
 
     virtual void clean() override;
     /**

@@ -14,6 +14,26 @@ GgafDx9Texture* GgafDx9TextureManager::processCreateResource(char* prm_idstr, vo
     return pResourceTexture;
 }
 
+void GgafDx9TextureManager::releaseAll() {
+    TRACE3("GgafDx9TextureManager::releaseAll() start-->");
+    GgafResourceConnection<GgafDx9Texture>* pCurrent = _pFirstConnection;
+    while (pCurrent) {
+        pCurrent->use()->release();
+        pCurrent = pCurrent->getNext();
+    }
+    TRACE3("GgafDx9TextureManager::releaseAll() end<--");
+}
+
+void GgafDx9TextureManager::restoreAll() {
+    TRACE3("GgafDx9TextureManager::restoreAll() start-->");
+    GgafResourceConnection<GgafDx9Texture>* pCurrent = _pFirstConnection;
+    while (pCurrent) {
+        pCurrent->use()->restore();
+        pCurrent = pCurrent->getNext();
+    }
+    TRACE3("GgafDx9TextureManager::restoreAll() end<--");
+}
+
 GgafResourceConnection<GgafDx9Texture>* GgafDx9TextureManager::processCreateConnection(char* prm_idstr, GgafDx9Texture* prm_pResource) {
     TRACE3(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" ‚ð¶¬ŠJŽnB");
     GgafDx9TextureConnection* pConnection = NEW GgafDx9TextureConnection(prm_idstr, prm_pResource);

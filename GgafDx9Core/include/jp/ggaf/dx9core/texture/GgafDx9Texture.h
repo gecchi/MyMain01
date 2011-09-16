@@ -29,6 +29,10 @@ public:
      */
     GgafDx9Texture(char* prm_texture_name);
 
+    void restore();
+
+    void release();
+
     char* getName() {
         return _texture_name;
     }

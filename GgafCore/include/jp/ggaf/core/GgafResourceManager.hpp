@@ -86,6 +86,7 @@ protected:
      */
     virtual T* processCreateResource(char* prm_idstr, void* prm_p) = 0;
 
+//    int GgafResourceManager<T>::getConnectionNum();
 
 public:
     /**
@@ -211,10 +212,11 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
     //TODO:
     //close()中に、別スレッドでconnect()すると。
     //シビアなタイミングでメモリを破壊する恐れが残っている！９９％大丈夫と思うのだけども。
-    //スレッドセーフ完全対応しようとすると、かなりめんどくさい処理になりそうだ。
+    //bool や int のアトミック性を利用する排他は、スレッドセーフ完全対応しようとすると、
+    //かなりめんどくさい処理になりそうだ。簡単だと思ったのに・・・。
     //たぶん全ての connect() 呼び出し元で connect() 失敗時の処理を定義しなくてはいけなくなる。
     //templateにしたのは失敗だったのか；（void*にすべきだったか）。
-    //時間のあるときにちゃんと勉強してやろう。今は後回し。
+    //時間のあるときにちゃんと勉強してやろう。後回し。
     //_TRACE_(" connect to " << _manager_name<<" for "<<prm_idstr<<"...");
     pObj = find(prm_idstr);
     if (pObj == NULL) {
@@ -271,6 +273,18 @@ void GgafResourceManager<T>::dump() {
         }
     }
 }
+
+//template<class T>
+//int* GgafResourceManager<T>::getConnectionNum() {
+//    GgafResourceConnection<T>* pCurrent = _pFirstConnection;
+//    int n = 0;
+//    while (pCurrent) {
+//        n++;
+//        pCurrent = pCurrent->_pNext;
+//    }
+//    return n;
+//}
+
 
 template<class T>
 GgafResourceManager<T>::~GgafResourceManager() {

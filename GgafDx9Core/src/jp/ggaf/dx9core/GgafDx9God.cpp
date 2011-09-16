@@ -564,6 +564,7 @@ HRESULT GgafDx9God::init() {
     // <------------------------------------------------ NVIDIA PerfHUD 用 end
 
     if (CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
+        //＜フルスクリーン かつ マルチビュー＞
 
         //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
@@ -604,6 +605,8 @@ HRESULT GgafDx9God::init() {
         }
 
     } else {
+        //＜(フルスクリーン かつ マルチビュー) 以外の場合＞
+
         //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
         hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_pHWndPrimary,
@@ -656,7 +659,17 @@ HRESULT GgafDx9God::init() {
 
 
 //    _adjustGameScreen = true;
-    return initDx9Device();
+    hr = initDx9Device();
+    if (hr == E_FAIL) {
+        return E_FAIL;
+    }
+    if (CFG_PROPERTY(FULL_SCREEN)) {
+        hr = restoreFullScreenRenderTarget();
+        if (hr == E_FAIL) {
+            return E_FAIL;
+        }
+    }
+    return D3D_OK;
 
 }
 
@@ -825,72 +838,89 @@ HRESULT GgafDx9God::initDx9Device() {
                                           0 // ステンシルバッファのクリア値
             );
     returnWhenFailed(hr, D3D_OK, "背景色(_color_background)の塗りつぶしよる、画面クリアに失敗しました。");
-    if (CFG_PROPERTY(FULL_SCREEN)) {
+    return D3D_OK;
+}
 
 
-        //描画先となるテクスチャを別途作成（バックバッファ的な使用を行う）
-        hr = GgafDx9God::_pID3DDevice9->CreateTexture(
-                                                CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH),
-                                                CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT),
-                                                 1, //MipLevel Mip無し
-                                                 D3DUSAGE_RENDERTARGET,
-                                                 _d3dparam[0].BackBufferFormat,
-                                                 D3DPOOL_DEFAULT,
-                                                 &_pRenderTexture,
-                                                 NULL);
-        returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャ("<<CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH)<<"x"<<CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT)<<")の作成に失敗。\nサイズを確認して下さい。");
-        //RenderTarget(描画先)をテクスチャへ切り替え
-        hr = _pRenderTexture->GetSurfaceLevel(0, &_pRenderTextureSurface);
-        returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのサーフェイス取得に失敗しました。");
-        hr = GgafDx9God::_pID3DDevice9->SetRenderTarget(0, _pRenderTextureSurface);
-        returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetRenderTarget 出来ませんでした。");
-        hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
-                                              NULL, // 矩形領域
-                                              D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                              //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-                                              _color_clear, //背景黒にクリア
-                                              1.0f, // Zバッファのクリア値
-                                              0 // ステンシルバッファのクリア値
-                );
-        returnWhenFailed(hr, D3D_OK,  "クリア色(_color_clear)の塗りつぶしよる、画面クリアに失敗しました。");
+HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
 
-        //テクスチャに描画する際の深度バッファ用サーフェイスを別途作成
-        hr = GgafDx9God::_pID3DDevice9->CreateDepthStencilSurface(
-                CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH),
-                CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT),
-                _d3dparam[0].AutoDepthStencilFormat,   //D3DFORMAT   Format,
-                _d3dparam[0].MultiSampleType,          //D3DMULTISAMPLE_TYPE     MultiSample,
-                _d3dparam[0].MultiSampleQuality,       //DWORD   MultisampleQuality,
-                TRUE,                                  //BOOL    Discard, SetDepthStencileSurface関数で深度バッファを変更した時にバッファを破棄するかどうか
-                &_pRenderTextureZ,                     //IDirect3DSurface9**     ppSurface,
-                NULL                                   //HANDLE*     pHandle 現在未使用
-        );
-        //深度バッファ作成自動生成の、深度バッファ用サーフェイスを上記に変更
-        returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのZバッファ作成に失敗しました。");
-        hr =  GgafDx9God::_pID3DDevice9->SetDepthStencilSurface(_pRenderTextureZ);
-        returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetDepthStencilSurface 出来ませんでした。");
-        //アダプタに関連付けられたスワップチェーンを取得してバックバッファも取得
-        hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &_pSwapChain00 );
-        returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました。");
-        hr = _pSwapChain00->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_pBackBuffer00 );
-        returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました。");
+    HRESULT hr;
+    //描画先となるテクスチャを別途作成（バックバッファ的な使用を行う）
+    hr = GgafDx9God::_pID3DDevice9->CreateTexture(
+                                            CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH),
+                                            CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT),
+                                             1, //MipLevel Mip無し
+                                             D3DUSAGE_RENDERTARGET,
+                                             _d3dparam[0].BackBufferFormat,
+                                             D3DPOOL_DEFAULT,
+                                             &_pRenderTexture,
+                                             NULL);
+    returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャ("<<CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH)<<"x"<<CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT)<<")の作成に失敗。\nサイズを確認して下さい。");
+    //RenderTarget(描画先)をテクスチャへ切り替え
+    hr = _pRenderTexture->GetSurfaceLevel(0, &_pRenderTextureSurface);
+    returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのサーフェイス取得に失敗しました。");
+    hr = GgafDx9God::_pID3DDevice9->SetRenderTarget(0, _pRenderTextureSurface);
+    returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetRenderTarget 出来ませんでした。");
+    hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
+                                          NULL, // 矩形領域
+                                          D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+                                          //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
+                                          _color_clear, //背景黒にクリア
+                                          1.0f, // Zバッファのクリア値
+                                          0 // ステンシルバッファのクリア値
+            );
+    returnWhenFailed(hr, D3D_OK,  "クリア色(_color_clear)の塗りつぶしよる、画面クリアに失敗しました。");
 
-        if (CFG_PROPERTY(DUAL_VIEW)) {
-            hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 1, &_pSwapChain01 );
-            returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェイン取得に失敗しました。\nマルチディスプレイ環境に問題発生しました。");
-            hr = _pSwapChain01->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_pBackBuffer01 );
-            returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェインから、ターゲットのバックバッファ取得に失敗しました。");
-            //２画面目の背景をクリア
-            hr = GgafDx9God::_pID3DDevice9->StretchRect(
-                    _pBackBuffer00,  &_aRect_ViewScreen[0],
-                    _pBackBuffer01,  &_aRect_ViewScreen[1],
-                    D3DTEXF_NONE);
-            returnWhenFailed(hr, D3D_OK, "１画面目のバックバッファ→２画面目のバックバッファの StretchRect に失敗しました。");
-        }
-        hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+    //テクスチャに描画する際の深度バッファ用サーフェイスを別途作成
+    hr = GgafDx9God::_pID3DDevice9->CreateDepthStencilSurface(
+            CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH),
+            CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT),
+            _d3dparam[0].AutoDepthStencilFormat,   //D3DFORMAT   Format,
+            _d3dparam[0].MultiSampleType,          //D3DMULTISAMPLE_TYPE     MultiSample,
+            _d3dparam[0].MultiSampleQuality,       //DWORD   MultisampleQuality,
+            TRUE,                                  //BOOL    Discard, SetDepthStencileSurface関数で深度バッファを変更した時にバッファを破棄するかどうか
+            &_pRenderTextureZ,                     //IDirect3DSurface9**     ppSurface,
+            NULL                                   //HANDLE*     pHandle 現在未使用
+    );
+    //深度バッファ作成自動生成の、深度バッファ用サーフェイスを上記に変更
+    returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのZバッファ作成に失敗しました。");
+    hr =  GgafDx9God::_pID3DDevice9->SetDepthStencilSurface(_pRenderTextureZ);
+    returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetDepthStencilSurface 出来ませんでした。");
+    //アダプタに関連付けられたスワップチェーンを取得してバックバッファも取得
+    hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &_pSwapChain00 );
+    returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました。");
+    hr = _pSwapChain00->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_pBackBuffer00 );
+    returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました。");
+
+    if (CFG_PROPERTY(DUAL_VIEW)) {
+        hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 1, &_pSwapChain01 );
+        returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェイン取得に失敗しました。\nマルチディスプレイ環境に問題発生しました。");
+        hr = _pSwapChain01->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_pBackBuffer01 );
+        returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェインから、ターゲットのバックバッファ取得に失敗しました。");
+        //２画面目の背景をクリア
+        hr = GgafDx9God::_pID3DDevice9->StretchRect(
+                _pBackBuffer00,  &_aRect_ViewScreen[0],
+                _pBackBuffer01,  &_aRect_ViewScreen[1],
+                D3DTEXF_NONE);
+        returnWhenFailed(hr, D3D_OK, "１画面目のバックバッファ→２画面目のバックバッファの StretchRect に失敗しました。");
     }
+    hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+    returnWhenFailed(hr, D3D_OK, "Present(NULL, NULL, NULL, NULL)に失敗しました。");
 
-    return S_OK;
+    return D3D_OK;
+}
+
+HRESULT GgafDx9God::releaseFullScreenRenderTarget() {
+    RELEASE_SAFETY(_pRenderTextureSurface);
+    RELEASE_SAFETY(_pRenderTexture);
+    RELEASE_SAFETY(_pRenderTextureZ);
+    RELEASE_SAFETY(_pBackBuffer00);
+    RELEASE_SAFETY(_pSwapChain00);
+    if (CFG_PROPERTY(DUAL_VIEW)) {
+        RELEASE_SAFETY(_pBackBuffer01);
+        RELEASE_SAFETY(_pSwapChain01);
+    }
+    return D3D_OK;
 }
 
 // カメラと対峙する回転行列を取得
@@ -925,25 +955,43 @@ void GgafDx9God::makeUniversalMaterialize() {
             //            }
             ___BeginSynchronized; // ----->排他開始
             _TRACE_("正常デバイスロスト処理。Begin");
+            //レンダリングターゲット、デバイスロスト処理
+            if (CFG_PROPERTY(FULL_SCREEN)) {
+                releaseFullScreenRenderTarget();
+            }
+            //環境マップテクスチャ、デバイスロスト処理
+            GgafDx9God::_pCubeMapTextureManager->releaseAll();
             //エフェクト、デバイスロスト処理
             GgafDx9God::_pEffectManager->onDeviceLostAll();
             //モデル解放
             GgafDx9God::_pModelManager->onDeviceLostAll();
+
+
             //全ノードに解放しなさいイベント発令
             getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
 
             //デバイスリセットを試みる
-            hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[0]));
-            checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[0]に失敗しました。");
-            if (CFG_PROPERTY(DUAL_VIEW)) {
-                for (int i = 1; i < _iNumAdapter; i++) {
-                    hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[i]));
-                    checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[1]に失敗しました。");
-                }
+            if (CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
+                hr = GgafDx9God::_pID3DDevice9->Reset(_d3dparam);
+            } else {
+                hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[0]));
             }
+            checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[0]に失敗しました。");
+//            if (CFG_PROPERTY(DUAL_VIEW)) {
+//                for (int i = 1; i < _iNumAdapter; i++) {
+//                    hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[i]));
+//                    checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[1]に失敗しました。");
+//                }
+//            }
 
             //デバイス再設定
-            GgafDx9God::initDx9Device();
+            initDx9Device();
+            if (CFG_PROPERTY(FULL_SCREEN)) {
+                restoreFullScreenRenderTarget();
+            }
+
+            //環境マップテクスチャ、復帰処理
+            GgafDx9God::_pCubeMapTextureManager->restoreAll();
             //エフェクトリセット
             GgafDx9God::_pEffectManager->restoreAll();
             //モデル再設定
@@ -1104,7 +1152,7 @@ void GgafDx9God::presentUniversalVisualize() {
             _is_device_lost_flg = true;
         } else if (hr == D3DERR_DRIVERINTERNALERROR) {
             //Present異常時、無駄かもしれないがデバイスロストと同じ処理を試みる。
-            _TRACE_("Present() == D3DERR_DRIVERINTERNALERROR!! Reset()を試みます。（駄目かもしれません）");
+            _TRACE_("Present() == D3DERR_DRIVERINTERNALERROR!! 無駄かもしれないがデバイスロストと同じ処理Reset()を試みます。（駄目かもしれません）");
             //工場休止
             GgafFactory::beginRest();
          ___EndSynchronized; // <----- 排他終了
@@ -1116,6 +1164,12 @@ void GgafDx9God::presentUniversalVisualize() {
             }
          ___BeginSynchronized; // ----->排他開始
             _TRACE_("D3DERR_DRIVERINTERNALERROR！ 処理Begin");
+            //レンダリングターゲット、デバイスロスト処理
+            if (CFG_PROPERTY(FULL_SCREEN)) {
+                releaseFullScreenRenderTarget();
+            }
+            //環境マップテクスチャ、デバイスロスト処理
+            GgafDx9God::_pCubeMapTextureManager->releaseAll();
             //エフェクト、デバイスロスト処理
             GgafDx9God::_pEffectManager->onDeviceLostAll();
             //モデル解放
@@ -1123,20 +1177,31 @@ void GgafDx9God::presentUniversalVisualize() {
             //全ノードに解放しなさいイベント発令
             getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
             //デバイスリセットを試みる
-            hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
+            if (CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
+                 hr = GgafDx9God::_pID3DDevice9->Reset(GgafDx9God::_d3dparam);
+             } else {
+                 hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[0]));
+             }
             checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([0]) を試しましが、駄目でした。");
-            if (CFG_PROPERTY(DUAL_VIEW)) {
-                for (int i = 1; i < _iNumAdapter; i++) {
-                    hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[i]));
-                    checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([1]) を試しましが、駄目でした。");
-                }
-            }
+//            if (CFG_PROPERTY(DUAL_VIEW)) {
+//                for (int i = 1; i < _iNumAdapter; i++) {
+//                    hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[i]));
+//                    checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([1]) を試しましが、駄目でした。");
+//                }
+//            }
             //デバイス再設定
-            GgafDx9God::initDx9Device();
-            //エフェクトリセット
+            initDx9Device();
+            if (CFG_PROPERTY(FULL_SCREEN)) {
+                restoreFullScreenRenderTarget();
+            }
+
+            //環境マップテクスチャ、復帰処理
+            GgafDx9God::_pCubeMapTextureManager->restoreAll();
+            //エフェクトリセット、復帰処理
             GgafDx9God::_pEffectManager->restoreAll();
-            //モデル再設定
+            //モデル再設定、復帰処理
             GgafDx9God::_pModelManager->restoreAll();
+
             //全ノードに再設定しなさいイベント発令
             getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY, this);
             //前回描画モデル情報を無効にする
@@ -1282,15 +1347,12 @@ GgafDx9God::~GgafDx9God() {
     //DirectInput解放
     GgafDx9Input::release();
 
+    if(CFG_PROPERTY(FULL_SCREEN)) {
+        releaseFullScreenRenderTarget();
+    }
+
     _TRACE_("_pID3DDevice9 解放きたー");
     Sleep(60);
-    RELEASE_SAFETY(_pRenderTextureSurface);
-    RELEASE_SAFETY(_pRenderTexture);
-    RELEASE_SAFETY(_pRenderTextureZ);
-    RELEASE_SAFETY(_pBackBuffer00);
-    RELEASE_SAFETY(_pBackBuffer01);
-    RELEASE_SAFETY(_pSwapChain00);
-    RELEASE_SAFETY(_pSwapChain01);
     DELETEARR_IMPOSSIBLE_NULL(_d3dparam);
     RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
     RELEASE_IMPOSSIBLE_NULL(_pID3D9);

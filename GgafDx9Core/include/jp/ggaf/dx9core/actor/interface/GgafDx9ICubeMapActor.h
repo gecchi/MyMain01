@@ -37,9 +37,9 @@ public:
         return _reflectance;
     }
 
-    void releaseCubeMapTex();
-
-    void restoreCubeMapTex();
+//    void releaseCubeMapTex();
+//
+//    void restoreCubeMapTex();
 
     virtual ~GgafDx9ICubeMapActor(); //デストラクタ
 
