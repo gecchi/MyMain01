@@ -127,6 +127,13 @@ DECLARE_CONST(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
     #define checkDxException(HR, OKVAL, X)
 #endif
 
+#define throwGgafDxCriticalException(HR, X) { \
+        std::stringstream ss; \
+        ss <<__FILE__<<"("<<__LINE__<<") : " << X; \
+        throw GgafDx9Core::GgafDx9CriticalException(ss.str(),HR); \
+}
+
+
 //シェーダー2.0の限界のモーフターゲットは6個だった
 #define MAX_MORPH_TARGET 6
 

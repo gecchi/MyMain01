@@ -938,30 +938,32 @@ void GgafDx9God::makeUniversalMaterialize() {
     TRACE("GgafDx9God::materialize() start");
     HRESULT hr;
     if (_is_device_lost_flg) {
-        //正常デバイスロスト処理。デバイスリソースの解放→復帰処理を試みる。
-        int cnt = 0;
+        _TRACE_("【デバイスロスト処理】BEGIN ------>");
+
         //工場休止
+        _TRACE_("【デバイスロスト処理】工場停止 BEGIN ------>");
+        int cnt = 0;
         GgafFactory::beginRest();
         ___EndSynchronized; // <----- 排他終了
         for (int i = 0; GgafFactory::isResting() == false; i++) {
             Sleep(1); //工場が落ち着くまで待つ
             if (i > 3*60*1000) {
-                _TRACE_("GgafDx9God::makeUniversalMaterialize() 3分待機しましたが、工場から反応がありません。強制breakします。要調査");
+                _TRACE_("【デバイスロスト処理/工場停止】 3分待機しましたが、工場から反応がありません。強制breakします。要調査");
                 break;
             }
         }
-        //            while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
-        //                Sleep(10);
-        //            }
         ___BeginSynchronized; // ----->排他開始
-        _TRACE_("正常デバイスロスト処理。Begin");
+        _TRACE_("【デバイスロスト処理】工場停止 <-------- END");
+
+
+        _TRACE_("【デバイスロスト処理】リソース解放 BEGIN ------>");
         int c_again_cnt = 0;
         for (int i = 0; i < 3*60*1000; i++) {
             if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() != D3DERR_DEVICENOTRESET) {
                 break;
             } else {
                 if (i < 3*60*1000-1) {
-                    _TRACE_("D3DERR_DEVICENOTRESET待ちタイムアップ");
+                    _TRACE_("【デバイスロスト処理/リソース解放】TestCooperativeLevel() D3DERR_DEVICENOTRESET待ちタイムアップ");
                     break;
                 }
                 Sleep(1);
@@ -977,12 +979,13 @@ void GgafDx9God::makeUniversalMaterialize() {
         GgafDx9God::_pEffectManager->onDeviceLostAll();
         //モデル解放
         GgafDx9God::_pModelManager->onDeviceLostAll();
-
-
         //全ノードに解放しなさいイベント発令
         getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
+        _TRACE_("【デバイスロスト処理】リソース解放 <-------- END");
+
 
         //デバイスリセットを試みる
+        _TRACE_("【デバイスロスト処理】デバイスリセット BEGIN ------>");
         int again_cnt = 0;
 again:
         for (int i = 0; i < 60*1000; i++) {
@@ -997,26 +1000,31 @@ again:
         } else {
             hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[0]));
         }
+        if (hr == D3DERR_DRIVERINTERNALERROR) {
+            throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】D3DERR_DRIVERINTERNALERROR。強制終了します。");
+        } else if (hr == D3DERR_OUTOFVIDEOMEMORY) {
+            throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】D3DERR_OUTOFVIDEOMEMORY。メモリがありません。強制終了します。");
+        }
         if (hr != D3D_OK && again_cnt < 60*100) {
             again_cnt++;
-            _TRACE_("Reset again_cnt = "<<again_cnt);
+            _TEXT_(" "<<again_cnt);
             Sleep(10);
             goto again;
         }
-        checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[0]に失敗しました。");
-//            if (CFG_PROPERTY(DUAL_VIEW)) {
-//                for (int i = 1; i < _iNumAdapter; i++) {
-//                    hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[i]));
-//                    checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセット[1]に失敗しました。");
-//                }
-//            }
+        _TRACE_("");
+        checkDxException(hr, D3D_OK, "【デバイスロスト処理/デバイスリセット】リセットに失敗しました。");
+        _TRACE_("【デバイスロスト処理】デバイスリセット <-------- END");
 
         //デバイス再設定
+        _TRACE_("【デバイスロスト処理】デバイス再構築 BEGIN ------>");
         initDx9Device();
         if (CFG_PROPERTY(FULL_SCREEN)) {
             restoreFullScreenRenderTarget();
         }
+        _TRACE_("【デバイスロスト処理】デバイス再構築 <-------- END");
 
+        //リソース再構築
+        _TRACE_("【デバイスロスト処理】リソース再構築 BEGIN ------>");
         //環境マップテクスチャ、復帰処理
         GgafDx9God::_pCubeMapTextureManager->restoreAll();
         //エフェクトリセット
@@ -1028,12 +1036,17 @@ again:
         //前回描画モデル情報を無効にする
         GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
         _is_device_lost_flg = false;
+        _TRACE_("【デバイスロスト処理】リソース再構築 <-------- END");
 
         //工場再開
+        _TRACE_("【デバイスロスト処理】工場再起動 BEGIN ------>");
         GgafFactory::finishRest();
-        _TRACE_("正常デバイスロスト処理。End");
+        _TRACE_("【デバイスロスト処理】工場再起動 <-------- END");
+
+
+        _TRACE_("【デバイスロスト処理】<-------- END");
     } else {
-        //通常時（デバイスロストではない）の処理
+        //通常時処理
 
         //バッファクリア
         hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
@@ -1174,89 +1187,13 @@ void GgafDx9God::presentUniversalVisualize() {
         }
         if (hr == D3DERR_DEVICELOST) {
             //出刃異素露巣斗！
-            _TRACE_("通常デバイスロスト！Present()");
+            _TRACE_("通常の正常デバイスロスト発生！");
             _is_device_lost_flg = true;
-        } else if (hr == D3DERR_DRIVERINTERNALERROR) {
-            //Present異常時、無駄かもしれないがデバイスロストと同じ処理を試みる。
-            _TRACE_("Present() == D3DERR_DRIVERINTERNALERROR!! 無駄かもしれないがデバイスロストと同じ処理Reset()を試みます。（駄目かもしれません）");
-            //工場休止
-            GgafFactory::beginRest();
-         ___EndSynchronized; // <----- 排他終了
-            for (int i = 0; GgafFactory::isResting() == false; i++) {
-                Sleep(60); //工場が落ち着くまで待つ
-                if (i > 1000) {
-                    _TRACE_("GgafDx9God::presentUniversalVisualize() 1分待機しましたが、工場から反応がありません。breakします。要調査");
-                }
-            }
-         ___BeginSynchronized; // ----->排他開始
-            _TRACE_("D3DERR_DRIVERINTERNALERROR！ 処理Begin");
-            for (int i = 0; i < 3*60*1000; i++) {
-                if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() != D3DERR_DEVICENOTRESET) {
-                    break;
-                } else {
-                    Sleep(1);
-                }
-            }
-            //レンダリングターゲット、デバイスロスト処理
-            if (CFG_PROPERTY(FULL_SCREEN)) {
-                releaseFullScreenRenderTarget();
-            }
-            //環境マップテクスチャ、デバイスロスト処理
-            GgafDx9God::_pCubeMapTextureManager->releaseAll();
-            //エフェクト、デバイスロスト処理
-            GgafDx9God::_pEffectManager->onDeviceLostAll();
-            //モデル解放
-            GgafDx9God::_pModelManager->onDeviceLostAll();
-            //全ノードに解放しなさいイベント発令
-            getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
-
-            //デバイスリセットを試みる
-            int again_cnt = 0;
-    again2:
-            for (int i = 0; i < 60*1000; i++) {
-                if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() != D3DERR_DEVICENOTRESET) {
-                    break;
-                } else {
-                    Sleep(1);
-                }
-            }
-            if (CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
-                hr = GgafDx9God::_pID3DDevice9->Reset(_d3dparam);
-            } else {
-                hr = GgafDx9God::_pID3DDevice9->Reset(&(_d3dparam[0]));
-            }
-            if (hr != D3D_OK && again_cnt < 5) {
-                again_cnt++;
-                goto again2;
-            }
-            checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([0]) を試しましが、駄目でした。");
-//            if (CFG_PROPERTY(DUAL_VIEW)) {
-//                for (int i = 1; i < _iNumAdapter; i++) {
-//                    hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_d3dparam[i]));
-//                    checkDxException(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset([1]) を試しましが、駄目でした。");
-//                }
-//            }
-            //デバイス再設定
-            initDx9Device();
-            if (CFG_PROPERTY(FULL_SCREEN)) {
-                restoreFullScreenRenderTarget();
-            }
-
-            //環境マップテクスチャ、復帰処理
-            GgafDx9God::_pCubeMapTextureManager->restoreAll();
-            //エフェクトリセット、復帰処理
-            GgafDx9God::_pEffectManager->restoreAll();
-            //モデル再設定、復帰処理
-            GgafDx9God::_pModelManager->restoreAll();
-
-            //全ノードに再設定しなさいイベント発令
-            getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY, this);
-            //前回描画モデル情報を無効にする
-            GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
-
-            //工場再開
-            GgafFactory::finishRest();
-            _TRACE_("D3DERR_DRIVERINTERNALERROR！ 処理End");
+        } else {
+            //Present異常時、デバイスロストと同じ処理を試みる。
+            _TRACE_("＜警告＞デバイス異常発生!!" <<DXGetErrorString(hr) << " "<< DXGetErrorDescription(hr) << "\n" <<
+                    "もう駄目かもしれないが、デバイスロストと同じ処理のReset()を試みます。");
+            _is_device_lost_flg = true;
         }
     }
 }
