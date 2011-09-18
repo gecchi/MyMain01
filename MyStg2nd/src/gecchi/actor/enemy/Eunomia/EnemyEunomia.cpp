@@ -23,15 +23,16 @@ void EnemyEunomia::onCreateModel() {
 }
 
 void EnemyEunomia::initialize() {
-    setHitAble(true);
-    _pKurokoA->setFaceAngVelo(AXIS_X, -4000);
     _pKurokoA->relateFaceAngWithMvAng(true);
+	_pKurokoA->setFaceAngVelo(AXIS_X, -4000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB_Cube(0, 40000);
 }
 
 void EnemyEunomia::onReset() {
     _pStatus->reset();
+	setHitAble(true);
+	_pKurokoA->setFaceAng(AXIS_X, 0);
     _iMovePatternNo = 0; //行動パターンリセット
     _pProg->change(1);
 }

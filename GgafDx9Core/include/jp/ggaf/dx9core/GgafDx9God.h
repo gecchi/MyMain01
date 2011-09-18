@@ -47,7 +47,8 @@ public:
     /* スクリーン高さ（ピクセル） */
     //static int const GAME_BUFFER_HEIGHT;
 
-    static D3DPRESENT_PARAMETERS* _d3dparam;
+    D3DPRESENT_PARAMETERS* _paPresetParam;
+    D3DDISPLAYMODEEX* _paDisplayMode;
 //    static LPDIRECT3DSWAPCHAIN9 _paSwapChain;
 //    static LPDIRECT3DSWAPCHAIN9 _paBackBuffer;
 
@@ -69,7 +70,7 @@ public:
     LPDIRECT3DSWAPCHAIN9 _pSwapChain01;//アダプタに関連付けれられたスワップチェーン
     LPDIRECT3DSURFACE9 _pBackBuffer01;//バックバッファ１画面分
 
-
+    bool _can_wddm;
     static UINT32 _vs_v;
     static UINT32 _ps_v;
 
@@ -86,19 +87,22 @@ public:
      * 初期化<BR>
      */
     HRESULT init();
+    HRESULT createDx9Device(UINT Adapter,
+                            D3DDEVTYPE DeviceType,
+                            HWND hFocusWindow,
+                            DWORD BehaviorFlags,
+                            D3DPRESENT_PARAMETERS* pPresentationParameters,
+                            D3DDISPLAYMODEEX *pFullscreenDisplayMode
+                          );
     HRESULT initDx9Device();
     HRESULT restoreFullScreenRenderTarget();
     HRESULT releaseFullScreenRenderTarget();
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
+    virtual void presentUniversalMoment() override;
+    virtual void executeUniversalJudge() override;
     virtual void makeUniversalMaterialize() override;
-
-    /**
-     * ＜OverRide です＞<BR>
-     */
     virtual void presentUniversalVisualize() override;
+    virtual void finalizeUniversal() override;
 
     void adjustGameScreen(HWND prm_pHWnd);
 
@@ -121,7 +125,6 @@ public:
     //	virtual GgafDx9Universe* createDx9World() = 0;
 
     HRESULT restoreRenderSurface();
-
     virtual void clean() override;
     /**
      * デストラクタ<BR>

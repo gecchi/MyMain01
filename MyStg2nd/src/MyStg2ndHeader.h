@@ -79,7 +79,7 @@
 
 #define R_EnemyEunomia_ShotWay (10+_RANK_*10) //ショットWAY数
 
-#define R_FormationEunomia001_Col (5 + _RANK_*2)    //編隊列数
+#define R_FormationEunomia001_Col (5 + (_RANK_>1.0?1.0:_RANK_)*2)    //編隊列数
 #define R_FormationEunomia001_Num (20 + _RANK_*10)  //１列の編隊数
 #define R_FormationEunomia001_LaunchInterval (2  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //出現間隔(frame)
 #define R_FormationEunomia001_MvVelo (10000 + _RANK_*10000) //移動速度

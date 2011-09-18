@@ -25,7 +25,7 @@ GgafScene::~GgafScene() {
 #ifdef MY_DEBUG
     _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
 #else
-    OutputDebugStringA("*\n");
+    //OutputDebugStringA("*");
 #endif
     DELETE_POSSIBLE_NULL(_pDirector);
 }

@@ -232,7 +232,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
         while (_is_working_flg) {
             if (_have_to_rest_flg) {
                 _is_resting_flg = true;
-                Sleep(20);
+                Sleep(100);
                 continue;
             } else {
                 _is_resting_flg = false;

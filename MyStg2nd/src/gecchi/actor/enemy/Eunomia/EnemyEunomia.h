@@ -77,6 +77,7 @@ public:
             GgafCore::GgafActorDepository* prm_pDepo_Shot,
             GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
             ) {
+        DELETE_POSSIBLE_NULL(_pSplSeq);
         _pFormation = prm_pFormation;
         _pSplSeq = prm_pSplSeq;
         _pDepo_Shot = prm_pDepo_Shot;

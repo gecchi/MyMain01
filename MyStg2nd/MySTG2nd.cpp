@@ -133,6 +133,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                         hInstance,
                         NULL
                     );
+
         }
     } else {
         if (CFG_PROPERTY(DUAL_VIEW)) {
@@ -436,7 +437,7 @@ ATOM MyRegisterClass_Primary(HINSTANCE hInstance) {
     WNDCLASSEX wcex;
     wcex.cbSize = sizeof(WNDCLASSEX);
     wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
-    wcex.lpfnWndProc = WndProc; //ウィンドウプロシージャのアドレスを指定する。
+    wcex.lpfnWndProc =  (WNDPROC)WndProc; //ウィンドウプロシージャのアドレスを指定する。
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = hInstance;
@@ -457,7 +458,7 @@ ATOM MyRegisterClass_Secondary(HINSTANCE hInstance) {
     WNDCLASSEX wcex;
     wcex.cbSize = sizeof(WNDCLASSEX);
     wcex.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
-    wcex.lpfnWndProc = WndProc;
+    wcex.lpfnWndProc =  (WNDPROC)WndProc;
                        //(WNDPROC)GetWindowLong(_pHWndPrimary, GWL_WNDPROC ); //１画面目のウィンドウプロシージャを共通指定する。
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
@@ -530,7 +531,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 DialogBox(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
             }
             break;
-
         case WM_DESTROY:
             PostQuitMessage(0);
             break;

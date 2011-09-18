@@ -45,7 +45,7 @@ void GgafDx9CubeMapMeshSetActor::processDraw() {
         if (pDrawActor)  {
             if (pDrawActor->_pModel == _pCubeMapMeshSetModel && pDrawActor->_hash_technique == _hash_technique ) {
                 pCubeMapMeshSetActor = (GgafDx9CubeMapMeshSetActor*)pDrawActor;
-                if (_pCubeMapTexture == pCubeMapMeshSetActor->_pCubeMapTexture && _reflectance == pCubeMapMeshSetActor->_reflectance) {
+                if (getCubeMapTexture() == pCubeMapMeshSetActor->getCubeMapTexture() && _reflectance == pCubeMapMeshSetActor->_reflectance) {
                     hr = pID3DXEffect->SetMatrix(_pCubeMapMeshSetEffect->_ah_matWorld[_draw_set_num], &(pCubeMapMeshSetActor->_matWorld));
                     checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                     hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[_draw_set_num], &(pCubeMapMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
