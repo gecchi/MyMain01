@@ -330,10 +330,10 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_
             }
         }
     }
-    _TRACE_(" _aRect_Present[0].left     = "<<_aRect_Present[0].left    );
-    _TRACE_(" _aRect_Present[0].top      = "<<_aRect_Present[0].top     );
-    _TRACE_(" _aRect_Present[0].right    = "<<_aRect_Present[0].right   );
-    _TRACE_(" _aRect_Present[0].bottom   = "<<_aRect_Present[0].bottom  );
+    _TRACE_(" _aRect_Present[0].left   = "<<_aRect_Present[0].left  );
+    _TRACE_(" _aRect_Present[0].top    = "<<_aRect_Present[0].top   );
+    _TRACE_(" _aRect_Present[0].right  = "<<_aRect_Present[0].right );
+    _TRACE_(" _aRect_Present[0].bottom = "<<_aRect_Present[0].bottom);
     _TRACE_(" _aRect_Present[1].left   = "<<_aRect_Present[1].left  );
     _TRACE_(" _aRect_Present[1].top    = "<<_aRect_Present[1].top   );
     _TRACE_(" _aRect_Present[1].right  = "<<_aRect_Present[1].right );
@@ -376,14 +376,12 @@ HRESULT GgafDx9God::init() {
             FreeLibrary(hD3D);
             return E_FAIL; //失敗
         }
-		/*
-        hr = pID3D9Ex->QueryInterface(IID_IDirect3D9, reinterpret_cast<void **>(&pID3D9)); //COMとして使用
-        if (FAILED(hr)) {
-            MessageBox(GgafDx9God::_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(2)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
-            FreeLibrary(hD3D);
-            return E_FAIL; //失敗
-        }
-		*/
+//        hr = pID3D9Ex->QueryInterface(IID_IDirect3D9, reinterpret_cast<void **>(&pID3D9)); //COMとして使用
+//        if (FAILED(hr)) {
+//            MessageBox(GgafDx9God::_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(2)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+//            FreeLibrary(hD3D);
+//            return E_FAIL; //失敗
+//        }
         GgafDx9God::_pID3D9 = (IDirect3D9*)pID3D9Ex;
         _can_wddm = true;
     } else {
@@ -398,15 +396,6 @@ HRESULT GgafDx9God::init() {
         _can_wddm = false;
     }
 	FreeLibrary(hD3D);
-
-
-
-//    if (!(GgafDx9God::_pID3D9 = Direct3DCreate9(D3D_SDK_VERSION))) {
-//        MessageBox(GgafDx9God::_pHWndPrimary, TEXT("DirectX コンポーネント取得に失敗しました。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
-//        return E_FAIL; //失敗
-//    }
-
-
 
     //デバイスパラメータ作成
     _paPresetParam = NEW D3DPRESENT_PARAMETERS[2];
@@ -429,21 +418,6 @@ HRESULT GgafDx9God::init() {
         _paPresetParam[0].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //リフレッシュレート
         _paPresetParam[0].PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT; //スワップのタイミング
         _paPresetParam[0].SwapEffect = D3DSWAPEFFECT_DISCARD;
-//        if (CFG_PROPERTY(DUAL_VIEW)) {
-//            _paPresetParam[0].SwapEffect = D3DSWAPEFFECT_COPY;
-//        } else {
-//            _paPresetParam[0].SwapEffect = D3DSWAPEFFECT_DISCARD; //1画面フルスクリーン時のみ
-//        }
-
-
-//        if (_can_wddm) {
-//            D3DDISPLAYMODEEX DisplayMode;
-//            ZeroMemory(&DisplayMode, sizeof(DisplayMode));
-//            DisplayMode.Size = sizeof(DisplayMode);
-//            ((IDirect3D9Ex*)GgafDx9God::_pID3D9)->GetAdapterDisplayModeEx(0, &DisplayMode, NULL);
-//            DisplayMode.Format = _paPresetParam[0].BackBufferFormat;
-//            _paPresetParam[0].FullScreen_RefreshRateInHz = DisplayMode.RefreshRate;
-//        }
     } else {
         //ウィンドウ時
         _paPresetParam[0].Windowed = true; //ウィンドウモード時
@@ -451,8 +425,6 @@ HRESULT GgafDx9God::init() {
         _paPresetParam[0].PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
         _paPresetParam[0].SwapEffect = D3DSWAPEFFECT_COPY; //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
     }
-
-
 
 
     //アンチアイリアスにできるかチェック
@@ -700,8 +672,6 @@ HRESULT GgafDx9God::init() {
                              &_paPresetParam[0], &_paDisplayMode[0]);
 //                                           D3DCREATE_MIXED_VERTEXPROCESSING|D3DCREATE_MULTITHREADED,
 //                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
-
-
         if (hr != D3D_OK) {
             //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
             hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_pHWndPrimary,
@@ -729,27 +699,20 @@ HRESULT GgafDx9God::init() {
         }
     }
 
-
     //その他必要な初期化
     _pCubeMapTextureManager = NEW GgafDx9TextureManager("CMTexManager");
     _pModelManager = NEW GgafDx9ModelManager("ModelManager");
     _pEffectManager = NEW GgafDx9EffectManager("EffectManager");
-    GgafDx9Util::init(); //ユーティリティ準備
+    GgafDx9Util::init();  //ユーティリティ準備
     GgafDx9Input::init(); //DirectInput準備
     GgafDx9Sound::init(); //DirectSound準備
 
-//ココで呼ぶとメモリ違反
-//    adjustGameScreen(_pHWndPrimary);
-//    if (_pHWndSecondary) {
-//        adjustGameScreen(_pHWndSecondary);
-//    }
-
-
-//    _adjustGameScreen = true;
+    //デバイス初期化
     hr = initDx9Device();
     if (hr == E_FAIL) {
         return E_FAIL;
     }
+    //フルスクリーン時、レンダリングターゲットテクスチャー作成
     if (CFG_PROPERTY(FULL_SCREEN)) {
         hr = restoreFullScreenRenderTarget();
         if (hr == E_FAIL) {
@@ -757,8 +720,8 @@ HRESULT GgafDx9God::init() {
         }
     }
     return D3D_OK;
-
 }
+
 HRESULT GgafDx9God::createDx9Device(UINT Adapter,
                                     D3DDEVTYPE DeviceType,
                                     HWND hFocusWindow,
@@ -766,10 +729,6 @@ HRESULT GgafDx9God::createDx9Device(UINT Adapter,
                                     D3DPRESENT_PARAMETERS* pPresentationParameters,
                                     D3DDISPLAYMODEEX *pFullscreenDisplayMode
                                   ) {
-
-
-
-
     HRESULT hr;
     if (_can_wddm) {
         if (!CFG_PROPERTY(FULL_SCREEN)) {
@@ -1035,7 +994,7 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
         hr = GgafDx9God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[0],
                 _pBackBuffer00,         &_aRect_ViewScreen[0],
-                D3DTEXF_NONE); //TODO:D3DTEXF_LINEARをオプション指定にするか？
+                D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(1)\n"<<
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_pBackBuffer00="<<_pBackBuffer00);
 
@@ -1049,8 +1008,7 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
         hr = GgafDx9God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderTargetBuffer,
                 _pBackBuffer00, &_aRect_ViewScreen[0],
-                D3DTEXF_NONE
-                );
+                D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(1)");
     }
 
@@ -1061,7 +1019,7 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
         hr = GgafDx9God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[0],
                 _pBackBuffer00,         &_aRect_ViewScreen[0],
-                D3DTEXF_NONE); //TODO:D3DTEXF_LINEARをオプション指定にするか？
+                D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(2)\n"<<
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_pBackBuffer00="<<_pBackBuffer00);
 
@@ -1137,7 +1095,7 @@ void GgafDx9God::makeUniversalMaterialize() {
                                           _color_clear, //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
                                           1.0f, // Zバッファのクリア値
                                           0 // ステンシルバッファのクリア値
-            );
+                                         );
     checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
 
     //描画事前処理
@@ -1156,7 +1114,6 @@ void GgafDx9God::makeUniversalMaterialize() {
 }
 
 void GgafDx9God::presentUniversalVisualize() {
-//    if (_is_device_lost_flg != true) {
     //バックバッファをプライマリバッファに転送
     //if (GgafDx9God::_pID3DDevice9->Present(NULL,&_aRect_Present[0],NULL,NULL) == D3DERR_DEVICELOST) {
     //        static D3DRASTER_STATUS rs;
@@ -1174,8 +1131,7 @@ void GgafDx9God::presentUniversalVisualize() {
             adjustGameScreen(_pHWndSecondary);
         }
 
-
-    //        hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+        //Present
         if (CFG_PROPERTY(FULL_SCREEN)) {
             if (CFG_PROPERTY(DUAL_VIEW)) {
                 //２画面使用・フルスクリーン
@@ -1193,51 +1149,16 @@ void GgafDx9God::presentUniversalVisualize() {
                 checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
 
                 hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
-
-    //            //プライマリバックバッファの右半分をセカンダリバックバッファへコピー
-                //hr = GgafDx9God::_pID3DDevice9->UpdateSurface( _pBackBuffer00, &_aRect_HarfRenderTargetBuffer[1], _pBackBuffer01, _pPoint);
-                //checkDxException(hr, D3D_OK, "UpdateSurface() に失敗しました。");
-    //            //コピーフリップ
-    //                hr = _pSwapChain00->Present(NULL, NULL, NULL, NULL,0);
-    //    //            hr = _pSwapChain00->Present(&_aRect_HarfRenderTargetBuffer[0], NULL, NULL, NULL,0);
-    //                checkDxException(hr, D3D_OK, "0Present() に失敗しました。");
-    //                hr = _pSwapChain01->Present(NULL, NULL, NULL, NULL,0);
-    //                checkDxException(hr, D3D_OK, "1Present() に失敗しました。");
-    ////            //バックバッファとZバッファを取得する
-    ////            if(FAILED(m_pd3dDevice->GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&m_pBackBuffer))){
-    ////            }
-    ////            if(FAILED(m_pd3dDevice->GetDepthStencilSurface(&m_pZBuffer))){
-    ////            }
-
             } else {
-                //１画面使用・フルスクリーンモード
-    //                LPDIRECT3DSWAPCHAIN9 _pSwapChain00 = NULL;//アダプタに関連付けれられたスワップチェーン
-    //                LPDIRECT3DSURFACE9 _pBackBuffer00 = NULL;//バックバッファ1画面分
-                //フルスクリーン
-    //                hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &_pSwapChain00 );
-    //                checkDxException(hr, D3D_OK, "0GetSwapChain() に失敗しました。");
-    //                hr = _pSwapChain00->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_pBackBuffer00 );
-    //                checkDxException(hr, D3D_OK, "FULL 1gamen GetBackBuffer() に失敗しました。");
-
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,
                         &_rectRenderTargetBuffer,
                         _pBackBuffer00,
                         &_aRect_Present[0],
-                        D3DTEXF_LINEAR
-                        );
+                        D3DTEXF_LINEAR);
                 checkDxException(hr, D3D_OK, "FULL 1gamen StretchRect() に失敗しました。");
 
                 hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
-
-    //                //コピーフリップ
-    //                hr = _pSwapChain00->Present(NULL, NULL, NULL, NULL,0);
-    //                checkDxException(hr, D3D_OK, "FULL 1gamen Present() に失敗しました。");
-
-
-    //                RELEASE_SAFETY(_pBackBuffer00);
-    //                RELEASE_SAFETY(_pSwapChain00);
-
             }
         } else {
             if (CFG_PROPERTY(DUAL_VIEW)) {
@@ -1267,27 +1188,11 @@ void GgafDx9God::presentUniversalVisualize() {
             }
         }
 
-
-
-        if (hr != D3D_OK) { //hr は通常描画時は Present の戻り値
-//            if (hr == D3DERR_DEVICELOST) {
-                //出刃異素露巣斗！
+        if (hr != D3D_OK) { //hr は Present の戻り値
+             //出刃異素露巣斗？
             _TRACE_("＜警告＞デバイス異常発生!!" <<DXGetErrorString(hr) << " "<< DXGetErrorDescription(hr));
             if (hr == D3DERR_DEVICELOST) {
                 _TRACE_("通常の正常デバイスロスト！");
-//                _TRACE_("【デバイスロスト処理/リソース解放】協調性レベルチェック BEGIN ------>");
-                //for(int i = 0; i < 300; i++) {
-//                while(true) {
-//                    hr = GgafDx9God::_pID3DDevice9->TestCooperativeLevel();
-//                    if (hr == D3DERR_DEVICENOTRESET) {
-//                        break;
-//                    } else if (hr == D3DERR_DEVICELOST) {
-//                        return;
-//                    } else {
-//                        throwGgafDxCriticalException(hr, "【デバイスロスト処理/リソース解放】TestCooperativeLevelの異常。強制終了します。");
-//                    }
-//                }
-//                _TRACE_("【デバイスロスト処理/リソース解放】協調性レベルチェック <-------- END");
             }
 
             Sleep(1000); // 1秒待つ
@@ -1297,19 +1202,18 @@ void GgafDx9God::presentUniversalVisualize() {
             _TRACE_("【デバイスロスト処理】工場停止 BEGIN ------>");
             int cnt = 0;
             GgafFactory::beginRest();
-            ___EndSynchronized; // <----- 排他終了
+         ___EndSynchronized; // <----- 排他終了
             for (int i = 0; GgafFactory::isResting() == false; i++) {
                 Sleep(10); //工場が落ち着くまで待つ
-                if (i > 3*60*1000) {
-                    _TRACE_("【デバイスロスト処理/工場停止】 3分待機しましたが、工場から反応がありません。強制breakします。要調査");
+                if (i > 5*60*100) {
+                    _TRACE_("【デバイスロスト処理/工場停止】 5分待機しましたが、工場から反応がありません。強制breakします。要調査");
                     break;
                 }
             }
-            ___BeginSynchronized; // ----->排他開始
+         ___BeginSynchronized; // ----->排他開始
             _TRACE_("【デバイスロスト処理】工場停止 <-------- END");
 
             _TRACE_("【デバイスロスト処理】リソース解放 BEGIN ------>");
-            int c_again_cnt = 0;
 
             //レンダリングターゲット、デバイスロスト処理
             if (CFG_PROPERTY(FULL_SCREEN)) {
@@ -1325,57 +1229,10 @@ void GgafDx9God::presentUniversalVisualize() {
             getUniverse()->throwEventToLowerTree(GGAF_EVENT_ON_DEVICE_LOST, this);
             _TRACE_("【デバイスロスト処理】リソース解放 <-------- END");
             _is_device_lost_flg = true;
-//            } else {
-//                //Present異常時、デバイスロストと同じ処理を試みる。
-//                _TRACE_("＜警告＞デバイス異常発生!!" <<DXGetErrorString(hr) << " "<< DXGetErrorDescription(hr) << "\n" <<
-//                        "もう駄目かもしれないが、デバイスロストと同じ処理のReset()を試みます。");
-//                _is_device_lost_flg = true;
-//            }
         }
     }
 
     if (_is_device_lost_flg) {
-
-
-//        if (CFG_PROPERTY(FULL_SCREEN)) {
-//            HWND p;
-//            while(true) {
-////                p = GetActiveWindow();
-//                if (CFG_PROPERTY(DUAL_VIEW)) {
-//                    if (IsIconic(_pHWndPrimary) && IsIconic(_pHWndSecondary) ) {
-//                        return;
-//                    } else {
-////                        ShowWindow(_pHWndSecondary, SW_SHOWNORMAL);
-////                        ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
-//                        break;
-//                    }
-//                } else {
-//                    if (IsIconic(_pHWndPrimary) ) {
-//                        return;
-//                    } else {
-//                        ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
-//                        break;
-//                    }
-//                }
-////                _TRACE_("p="<<p<<" _pHWndPrimary="<<_pHWndPrimary);
-//
-//                Sleep(5);
-//            }
-////        }
-
-//        if (CFG_PROPERTY(FULL_SCREEN)) {
-//			//MessageBox(GgafDx9God::_pHWndPrimary, TEXT("デバイスロスト検出。「 O K 」クリックで続行。"), TEXT("ERROR"), MB_OK | MB_ICONINFORMATION);
-//
-//
-////            SetActiveWindow(_pHWndPrimary);
-//            if (CFG_PROPERTY(DUAL_VIEW)) {
-////                SetActiveWindow(_pHWndSecondary);
-//                ShowWindow(_pHWndSecondary, SW_SHOWNORMAL);
-//            }
-//			ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
-//        }
-
-
         _TRACE_("【デバイスロスト処理/リソース解放】協調性レベルチェック BEGIN ------>");
         //for(int i = 0; i < 300; i++) {
         while(true) {
@@ -1394,27 +1251,12 @@ void GgafDx9God::presentUniversalVisualize() {
                     break;
                 }
             }
-
         }
         _TRACE_("【デバイスロスト処理/リソース解放】協調性レベルチェック <-------- END");
 
         //デバイスリセットを試みる
         _TRACE_("【デバイスロスト処理】デバイスリセット BEGIN ------>");
-        int again_cnt = 0;
-        //for(int i = 0; i < 5; i++) {
-        while(true) {
-
-//          //for(int j = 0; j < 100; j++) {
-//          while(true) {
-//                hr = GgafDx9God::_pID3DDevice9->TestCooperativeLevel();
-//                if (hr == D3DERR_DEVICENOTRESET) {
-//                    break;
-//                } else if (hr == D3DERR_DEVICELOST) {
-//                  return;
-//                } else {
-//                    throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】TestCooperativeLevelの異常。強制終了します。");
-//                }
-//            }
+        for(int i = 0; i < 100*60*10; i++) {
             if (CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
                 hr = GgafDx9God::_pID3DDevice9->Reset(_paPresetParam);
             } else {
@@ -1422,14 +1264,14 @@ void GgafDx9God::presentUniversalVisualize() {
             }
             if (hr != D3D_OK) {
                 if (hr == D3DERR_DRIVERINTERNALERROR) {
-                    Sleep(20);
+                    Sleep(10);
                     return;
                 } else if (hr == D3DERR_DRIVERINTERNALERROR) {
                     throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】D3DERR_DRIVERINTERNALERROR。強制終了します。");
                 } else if (hr == D3DERR_OUTOFVIDEOMEMORY) {
                     throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】D3DERR_OUTOFVIDEOMEMORY。メモリがありません。強制終了します。");
                 } else {
-                    Sleep(20);
+                    Sleep(10);
                     return;
 //                    throwGgafDxCriticalException(hr, "【デバイスロスト処理/デバイスリセット】リセットに失敗しました。");
                 }
@@ -1440,27 +1282,28 @@ void GgafDx9God::presentUniversalVisualize() {
         _TRACE_("【デバイスロスト処理】デバイスリセット <-------- END");
 
 
-
-
         //デバイス再設定
-        _TRACE_("【デバイスロスト処理】レンダリングターゲット再構築 BEGIN ------>");
+        _TRACE_("【デバイスロスト処理】デバイス再構築 BEGIN ------>");
         initDx9Device();
-        if (CFG_PROPERTY(FULL_SCREEN)) {
-            restoreFullScreenRenderTarget();
-        }
-        _TRACE_("【デバイスロスト処理】レンダリングターゲット描画先再構築 <-------- END");
+        _TRACE_("【デバイスロスト処理】デバイス再構築 <-------- END");
 
-		_TRACE_("【デバイスロスト処理】フルスクリーン時ウィンドウアクティブ BEGIN ------>");
+        if (CFG_PROPERTY(FULL_SCREEN)) {
+            _TRACE_("【デバイスロスト処理】フルスクリーン時レンダリングターゲットテクスチャ再構築 BEGIN ------>");
+            restoreFullScreenRenderTarget();
+            _TRACE_("【デバイスロスト処理】フルスクリーン時レンダリングターゲットテクスチャ再構築 <-------- END");
+        }
+
 		if (CFG_PROPERTY(FULL_SCREEN)) {
+		    _TRACE_("【デバイスロスト処理】フルスクリーン時ウィンドウアクティブ BEGIN ------>");
             if (CFG_PROPERTY(DUAL_VIEW)) {
                 ShowWindow(_pHWndSecondary, SW_SHOWNORMAL);
 				ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
 			} else {
 				ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
 			}
+            Sleep(1000);
+            _TRACE_("【デバイスロスト処理】フルスクリーン時ウィンドウアクティブ BEGIN ------>");
         }
-		Sleep(1000);
-		_TRACE_("【デバイスロスト処理】フルスクリーン時ウィンドウアクティブ BEGIN ------>");
 
         //リソース再構築
         _TRACE_("【デバイスロスト処理】リソース再構築 BEGIN ------>");
@@ -1473,7 +1316,7 @@ void GgafDx9God::presentUniversalVisualize() {
         //全ノードに再設定しなさいイベント発令
         getUniverse()->throwEventToLowerTree(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY, this);
         //前回描画モデル情報を無効にする
-        GgafDx9God::_pModelManager->_pModelLastDraw = NULL;
+        GgafDx9ModelManager::_pModelLastDraw = NULL;
         _is_device_lost_flg = false;
         _TRACE_("【デバイスロスト処理】リソース再構築 <-------- END");
 
@@ -1488,14 +1331,11 @@ void GgafDx9God::presentUniversalVisualize() {
         hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                               NULL, // 矩形領域
                                               D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                              //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-                                              _color_background, //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
+                                              _color_background, //背景色にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
                                               1.0f, // Zバッファのクリア値
                                               0 // ステンシルバッファのクリア値
                                               );
     }
-
-//    }
 }
 
 void GgafDx9God::finalizeUniversal() {
@@ -1509,8 +1349,8 @@ void GgafDx9God::finalizeUniversal() {
 void GgafDx9God::clean() {
     if (!_was_cleaned) {
         _TRACE_("GgafDx9God::clean() begin");
-        for( int i=0; i<8; ++i ) { GgafDx9God::_pID3DDevice9->SetTexture( i, NULL ); }
-        for( int i=0; i<8; ++i ) { GgafDx9God::_pID3DDevice9->SetStreamSource( i, NULL, 0, 0 ); }
+        for(int i = 0; i < 8; ++i) { GgafDx9God::_pID3DDevice9->SetTexture( i, NULL ); }
+        for(int i = 0; i < 8; ++i) { GgafDx9God::_pID3DDevice9->SetStreamSource( i, NULL, 0, 0 ); }
         GgafDx9God::_pID3DDevice9->SetIndices( NULL );
         GgafDx9God::_pID3DDevice9->SetPixelShader( NULL );
         GgafDx9God::_pID3DDevice9->SetVertexShader( NULL );
@@ -1528,7 +1368,7 @@ void GgafDx9God::clean() {
 }
 
 void GgafDx9God::adjustGameScreen(HWND prm_pHWnd) {
-     RECT rect;
+    RECT rect;
     if (prm_pHWnd && !CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(FIXED_GAME_VIEW_ASPECT)) {
         HRESULT hr;
         hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
@@ -1538,7 +1378,7 @@ void GgafDx9God::adjustGameScreen(HWND prm_pHWnd) {
                                               _color_background, //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
                                               1.0f, // Zバッファのクリア値
                                               0 // ステンシルバッファのクリア値
-                );
+                                             );
         checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
         if (::GetClientRect(prm_pHWnd, &rect)) {
             LONG width = rect.right;
@@ -1568,7 +1408,6 @@ void GgafDx9God::adjustGameScreen(HWND prm_pHWnd) {
                     _aRect_Present[1].bottom = _aRect_Present[1].top  + (fix_height * rate);
                     positionPresentRect(CFG_PROPERTY(GAME_VIEW2_POSITION), _aRect_Present[1], width, height);
                 }
-
 
             } else {
                 //より縦長になってしまっている
@@ -1628,50 +1467,10 @@ void GgafDx9God::positionPresentRect(int prm_pos, RECT& prm_rectPresent, int prm
     }
 }
 
-
-
-//HRESULT
-//GgafDx9God::EnsureD3DObjects()
-//{
-//	    UINT m_cAdapters;
-//    HRESULT hr = S_OK;
-// IDirect3D9    *m_pD3D;
-//    IDirect3D9Ex  *m_pD3DEx;
-//    HMODULE hD3D = NULL;
-//    if (!m_pD3D)
-//    {
-//        hD3D = LoadLibrary(TEXT("d3d9.dll"));
-//        DIRECT3DCREATE9EXFUNCTION pfnCreate9Ex = (DIRECT3DCREATE9EXFUNCTION)GetProcAddress(hD3D, "Direct3DCreate9Ex");
-//        if (pfnCreate9Ex)
-//        {
-//            IFC((*pfnCreate9Ex)(D3D_SDK_VERSION, &m_pD3DEx));
-//            IFC(m_pD3DEx->QueryInterface(IID_IDirect3D9, reinterpret_cast<void **>(&m_pD3D)));
-//        }
-//        else
-//        {
-//            m_pD3D = Direct3DCreate9(D3D_SDK_VERSION);
-//            if (!m_pD3D)
-//            {
-//                IFC(E_FAIL);
-//            }
-//        }
-//
-//        m_cAdapters = m_pD3D->GetAdapterCount();
-//    }
-//
-//Cleanup:
-//    if (hD3D)
-//    {
-//        FreeLibrary(hD3D);
-//    }
-//
-//    return hr;
-//}
 GgafDx9God::~GgafDx9God() {
 
     clean();
     _was_cleaned = true;
-
     //DirectSound解放
     GgafDx9Sound::release();
     //DirectInput解放

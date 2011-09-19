@@ -44,13 +44,9 @@ public:
 
     RECT _aRect_Present[2];
     int _primary, _secondary;
-    /* スクリーン高さ（ピクセル） */
-    //static int const GAME_BUFFER_HEIGHT;
 
     D3DPRESENT_PARAMETERS* _paPresetParam;
     D3DDISPLAYMODEEX* _paDisplayMode;
-//    static LPDIRECT3DSWAPCHAIN9 _paSwapChain;
-//    static LPDIRECT3DSWAPCHAIN9 _paBackBuffer;
 
 
 
@@ -59,9 +55,7 @@ public:
     RECT _aRect_HarfGameBuffer[2];
     RECT _aRect_HarfRenderTargetBuffer[2];
     RECT _aRect_ViewScreen[2];
-//    static RECT*  _pRectViewScreen;
     IDirect3DTexture9*  _pRenderTexture;   //テクスチャ
-//    static IDirect3DSurface9*  _pBackBuffer;      //バックバッファ
     IDirect3DSurface9*  _pRenderTextureSurface;     //サーフェイス
     IDirect3DSurface9*  _pRenderTextureZ;   //テクスチャ
 
@@ -109,20 +103,6 @@ public:
     void positionPresentRect(int prm_pos, RECT& prm_rectPresent, int prm_screen_width, int prm_screen_height);
 
     D3DXMATRIX getInvRotateMat();
-    //    /**
-    //     * Worldシーンを作成。
-    //	 * ＜OverRide です＞<BR>
-    //	 */
-    //	virtual GgafUniverse* createUniverse() {
-    //		return (GgafUniverse*)createDx9World();
-    //	};
-    //
-    //
-    //    /**
-    //     * Worldシーンを作成。
-    //	 * ＜OverRide です＞<BR>
-    //	 */
-    //	virtual GgafDx9Universe* createDx9World() = 0;
 
     HRESULT restoreRenderSurface();
     virtual void clean() override;
