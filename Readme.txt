@@ -1,1 +1,2 @@
-<a href="http://bochibochi.ddo.jp/~gecchi/doxygen">Doxygen document is here</a>
+Doxygen document is here
+http://bochibochi.ddo.jp/~gecchi/doxygen
