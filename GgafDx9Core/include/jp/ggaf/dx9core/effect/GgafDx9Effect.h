@@ -13,6 +13,8 @@ class GgafDx9Effect : public GgafCore::GgafObject {
     friend class GgafDx9EffectManager;
 
 protected:
+    static D3DXMACRO _aD3DXMacro_Defines[3];
+
 public:
     D3DXHANDLE _h_alpha_master;
     /** エフェクト定義の識別名。(50文字まで) */

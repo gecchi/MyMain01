@@ -170,7 +170,7 @@ void GgafDx9Util::init() {
         if (i > 100000) {
             _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(450000));
         }
-        SLANT2ANG[i] = (angle)( (450000-1) + (1.0*d)/(1.0*d_index_slant) );
+        SLANT2ANG[i] = (angle)( (45000-1) + (1.0*d)/(1.0*d_index_slant) );
     }
 
     //<PROJ_ANG2ROT_ANG> （2009/10/20 経緯・・・速くするためなら何でもやってみよう）

@@ -2,7 +2,12 @@
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
-
+D3DXMACRO GgafDx9Effect::_aD3DXMacro_Defines[3] =
+{
+    { "VS_VERSION", "vs_3_0" },
+    { "PS_VERSION", "ps_3_0" },
+    { NULL, NULL }
+};
 
 GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
     TRACE4("GgafDx9Effect::GgafDx9Effect(" << prm_effect_name << ")");
@@ -30,18 +35,19 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
     DWORD dwFlags = D3DXSHADER_SKIPVALIDATION;
 #endif
     if ( GgafDx9God::_ps_v >= D3DPS_VERSION(3, 0)) {
+        //ピクセルシェーダーが 3.0 以上の場合
         hr = D3DXCreateEffectFromFile(
                  GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
                  effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
-                 GgafDx9God::_aD3DXMacro_Defines, // [in] CONST D3DXMACRO* pDefines
+                 _aD3DXMacro_Defines,       // [in] CONST D3DXMACRO* pDefines
                  0,                         // [in] LPD3DXINCLUDE pInclude
                  dwFlags,                   // [in] DWORD Flags
                  0,                         // [in] LPD3DXEFFECTPOOL pPool
-                 &_pID3DXEffect,         // [out] LPD3DXEFFECT* ppEffect
+                 &_pID3DXEffect,            // [out] LPD3DXEFFECT* ppEffect
                  &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
             );
-
     } else {
+        //ピクセルシェーダーが 3.0 未満の場合(2.0と想定する)
         hr = D3DXCreateEffectFromFile(
                  GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
                  effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
@@ -49,10 +55,9 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
                  0,                         // [in] LPD3DXINCLUDE pInclude
                  dwFlags,                   // [in] DWORD Flags
                  0,                         // [in] LPD3DXEFFECTPOOL pPool
-                 &_pID3DXEffect,         // [out] LPD3DXEFFECT* ppEffect
+                 &_pID3DXEffect,            // [out] LPD3DXEFFECT* ppEffect
                  &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
             );
-
     }
     if (hr != D3D_OK && pError == NULL) {
         throwGgafCriticalException("GgafDx9Effect::GgafDx9Effect "<<effect_file_name<<" が存在しないのではないだろうか・・・");
@@ -68,6 +73,6 @@ GgafDx9Effect::~GgafDx9Effect() {
     _pID3DXEffect->EndPass();
     _pID3DXEffect->End();
     DELETEARR_IMPOSSIBLE_NULL(_effect_name);
-    RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);  //
+    RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);
 }
 

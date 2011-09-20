@@ -28,8 +28,6 @@ public:
     static IDirect3DDevice9* _pID3DDevice9;
     /** デフォルトのライト */
     static D3DLIGHT9 _d3dlight9_default;
-    /** 一時的なライト（現在未使用） */
-    static D3DLIGHT9 _d3dlight9_temp;
     /** アンビエントライトのデフォルトの明るさ */
     static DWORD _dwAmbientBrightness_default;
     /** デバイスロストフラグ (true=ロスト中) */
@@ -39,38 +37,55 @@ public:
     static bool _adjustGameScreen;
     static HWND _pHWnd_adjustScreen;
 
-    static int _iNumAdapter;
-    /** Present領域 */
+    /** 使用可能なデバイスのアダプタ数 */
+    int _num_adapter;
 
-    RECT _aRect_Present[2];
-    int _primary, _secondary;
 
+    /** Windows Display Driver Model（WDDM）が使用可能か否か */
+    bool _can_wddm;
+
+    /** デバイス作成時パラメーター */
     D3DPRESENT_PARAMETERS* _paPresetParam;
+    /** デバイス作成時パラメーター（WDDM使用時のみ必要） */
     D3DDISPLAYMODEEX* _paDisplayMode;
 
-
-
+    /** ゲームバッファ領域 */
     RECT _rectGameBuffer;
+    /** フルスクリーン時、レンダリングターゲットテクスチャの領域 */
     RECT _rectRenderTargetBuffer;
+    /** ゲームバッファ領域の、[0]:左半分領域、[1]:右半分領域 */
     RECT _aRect_HarfGameBuffer[2];
+    /** フルスクリーン時、レンダリングターゲットテクスチャ領域の、[0]:左半分領域、[1]:右半分領域 */
     RECT _aRect_HarfRenderTargetBuffer[2];
+    /** 最終表示フロントバッファフレームの領域、[0]:１画面目、[1]:２画面目 */
     RECT _aRect_ViewScreen[2];
-    IDirect3DTexture9*  _pRenderTexture;   //テクスチャ
-    IDirect3DSurface9*  _pRenderTextureSurface;     //サーフェイス
-    IDirect3DSurface9*  _pRenderTextureZ;   //テクスチャ
+    /** Present領域、[0]:１画面目、[1]:２画面目  */
+    RECT _aRect_Present[2];
+    /** １画面目の _aRect_HarfRenderTargetBuffer[] の序数 */
+    int _primary;
+    /** ２画面目の _aRect_HarfRenderTargetBuffer[] の序数 */
+    int _secondary;
 
-    LPDIRECT3DSWAPCHAIN9 _pSwapChain00;//アダプタに関連付けれられたスワップチェーン
-    LPDIRECT3DSURFACE9 _pBackBuffer00;//バックバッファ1画面分
-    LPDIRECT3DSWAPCHAIN9 _pSwapChain01;//アダプタに関連付けれられたスワップチェーン
-    LPDIRECT3DSURFACE9 _pBackBuffer01;//バックバッファ１画面分
+    /** フルスクリーン時、レンダリングターゲットテクスチャ */
+    IDirect3DTexture9*  _pRenderTexture;
+    /** フルスクリーン時、レンダリングターゲットテクスチャのサーフェイス */
+    IDirect3DSurface9*  _pRenderTextureSurface;
+    /** フルスクリーン時、レンダリングターゲットのZバッファのサーフェイス */
+    IDirect3DSurface9*  _pRenderTextureZ;
+    /** フルスクリーン時、アダプタに関連付けれられたスワップチェーン、[0]:１画面目、[1]:２画面目 */
+    IDirect3DSwapChain9* _apSwapChain[2];
+    /** フルスクリーン時、DirectXのバックバッファ、[0]:１画面目、[1]:２画面目 */
+    IDirect3DSurface9* _apBackBuffer[2];
 
-    bool _can_wddm;
+    /** 頂点シェーダーのバージョン(D3DVS_VERSION(_Major,_Minor)) */
     static UINT32 _vs_v;
+    /** ピクセルシェーダーのバージョン(D3DPS_VERSION(_Major,_Minor)) */
     static UINT32 _ps_v;
 
-    static D3DXMACRO _aD3DXMacro_Defines[3];
 
+    /** ゲーム表示領域以外のクリップ領域背景色 */
     D3DCOLOR _color_background;
+    /** ゲーム表示領域の表示クリア時の背景色 */
     D3DCOLOR _color_clear;
     /**
      * コンストラクタ<BR>
@@ -102,13 +117,10 @@ public:
 
     void positionPresentRect(int prm_pos, RECT& prm_rectPresent, int prm_screen_width, int prm_screen_height);
 
-    D3DXMATRIX getInvRotateMat();
-
     HRESULT restoreRenderSurface();
+
     virtual void clean() override;
-    /**
-     * デストラクタ<BR>
-     */
+
     virtual ~GgafDx9God();
 };
 

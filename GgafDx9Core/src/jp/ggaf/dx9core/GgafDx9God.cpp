@@ -22,7 +22,6 @@ HINSTANCE GgafDx9God::_hInstance = NULL;
 IDirect3D9* GgafDx9God::_pID3D9 = NULL;
 IDirect3DDevice9* GgafDx9God::_pID3DDevice9 = NULL;
 D3DLIGHT9 GgafDx9God::_d3dlight9_default;
-D3DLIGHT9 GgafDx9God::_d3dlight9_temp;
 DWORD GgafDx9God::_dwAmbientBrightness_default = 0xff404040;
 
 
@@ -36,18 +35,9 @@ bool GgafDx9God::_is_device_lost_flg = false;
 bool GgafDx9God::_adjustGameScreen = false;
 HWND GgafDx9God::_pHWnd_adjustScreen = NULL;
 
-int GgafDx9God::_iNumAdapter = 1;
 
 UINT32 GgafDx9God::_vs_v = 0;
 UINT32 GgafDx9God::_ps_v = 0;
-
-D3DXMACRO GgafDx9God::_aD3DXMacro_Defines[3] =
-{
-    { "VS_VERSION", "vs_3_0" },
-    { "PS_VERSION", "ps_3_0" },
-    { NULL, NULL }
-};
-
 
 
 #define IFC(x) { hr = (x); if (FAILED(hr)) goto Cleanup; }
@@ -70,15 +60,14 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_
     _color_background = D3DCOLOR_RGBA(rgb._R, rgb._G, rgb._B, 0);
     _color_clear = D3DCOLOR_RGBA(0, 0, 0, 0);
 
-    _pRenderTexture = NULL;   //テクスチャ
-    //_pBackBuffer = NULL;      //バックバッファ
-    _pRenderTextureSurface = NULL;     //サーフェイス
+    _pRenderTexture = NULL;
+    _pRenderTextureSurface = NULL;
     _pRenderTextureZ = NULL;
-
-    _pSwapChain00 = NULL;//アダプタに関連付けれられたスワップチェーン
-    _pBackBuffer00 = NULL;//バックバッファ1画面分
-    _pSwapChain01 = NULL;//アダプタに関連付けれられたスワップチェーン
-    _pBackBuffer01 = NULL;//バックバッファ１画面分
+    _num_adapter = 1;
+    _apSwapChain[0] = NULL;
+    _apBackBuffer[0] = NULL;
+    _apSwapChain[1] = NULL;
+    _apBackBuffer[1] = NULL;
 
 
     //[メモ：RECT構造体]
@@ -338,28 +327,26 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_
     _TRACE_(" _aRect_Present[1].top    = "<<_aRect_Present[1].top   );
     _TRACE_(" _aRect_Present[1].right  = "<<_aRect_Present[1].right );
     _TRACE_(" _aRect_Present[1].bottom = "<<_aRect_Present[1].bottom);
-
-
 }
 
 HRESULT GgafDx9God::init() {
 
 
     //2011/09/18 WDDM が使用できるなら使用するように変更。
-	// マルチモニタフルスクリーン時のデバイスロスト時の復旧が、
+    // マルチモニタフルスクリーン時のデバイスロスト時の復旧が、
     // XPではうまくいくのにVistaではうまくいかない時があるため、
-	// IDirect3D9Ex の存在が気になり、試す事に至った。
-	// WDDMつまり IDirect3D9Ex or IDirect3D9 の選択を行う。
+    // IDirect3D9Ex の存在が気になり、試す事に至った。
+    // WDDMつまり IDirect3D9Ex or IDirect3D9 の選択を行う。
     // IDirect3D9Ex を取得する Direct3DCreate9Ex() を使用し、
-	// 戻り値の結果で判定すれば良いと安易に考えていたが、
-	// IDirect3D9Ex の実態が、Vista 以降 の d3d9.dll にのみ存在するらしく、
-	// Direct3DCreate9Ex() 関数のコードを書いた時点で、XPの場合 d3d9.dll ロード時に
-	// 「エントリポイントがありません」とかいうエラーになってしまい実行すらできない。
-	// コードを両対応させるには、Direct3DCreate9Ex() は使えないと思う。
-	// そこで以下のように d3d9.dll から、Direct3DCreate9Ex を直接探して、ポインタを
-	// 取得する方法がMSDNにあったので、参考にして実装。
-	// __uuid 演算子が GCC には無いので、IDD_IDirect3D9 に変更。
-	// TODO::これで正解なのだろうか…。
+    // 戻り値の結果で判定すれば良いと安易に考えていたが、
+    // IDirect3D9Ex の実態が、Vista 以降 の d3d9.dll にのみ存在するらしく、
+    // Direct3DCreate9Ex() 関数のコードを書いた時点で、XPの場合 d3d9.dll ロード時に
+    // 「エントリポイントがありません」とかいうエラーになってしまい実行すらできない。
+    // コードを両対応させるには、Direct3DCreate9Ex() は使えないと思う。
+    // そこで以下のように d3d9.dll から、Direct3DCreate9Ex を直接探して、ポインタを
+    // 取得する方法がMSDNにあったので、参考にして実装。
+    // __uuid 演算子が GCC には無いので、IDD_IDirect3D9 に変更。
+    // TODO::これで正解なのだろうか…。
 
     HRESULT hr;
     typedef HRESULT (WINAPI *DIRECT3DCREATE9EXFUNCTION)(UINT SDKVersion, IDirect3D9Ex**);
@@ -385,7 +372,7 @@ HRESULT GgafDx9God::init() {
         GgafDx9God::_pID3D9 = (IDirect3D9*)pID3D9Ex;
         _can_wddm = true;
     } else {
-		//d3d9.dll に Direct3DCreate9Ex は存在しない。
+        //d3d9.dll に Direct3DCreate9Ex は存在しない。
         pID3D9 = Direct3DCreate9(D3D_SDK_VERSION);
         if (!pID3D9) {
             MessageBox(GgafDx9God::_pHWndPrimary, TEXT("IDirect3D9 コンポーネント取得に失敗しました。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
@@ -395,7 +382,7 @@ HRESULT GgafDx9God::init() {
         GgafDx9God::_pID3D9 = pID3D9;
         _can_wddm = false;
     }
-	FreeLibrary(hD3D);
+    FreeLibrary(hD3D);
 
     //デバイスパラメータ作成
     _paPresetParam = NEW D3DPRESENT_PARAMETERS[2];
@@ -403,8 +390,6 @@ HRESULT GgafDx9God::init() {
     //バックバッファの数
     _paPresetParam[0].BackBufferCount = 1;
     //深度ステンシルバッファ
-    //_paPresetParam[0].EnableAutoDepthStencil = FALSE;
-    //_paPresetParam[0].AutoDepthStencilFormat = 0;
     _paPresetParam[0].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
     _paPresetParam[0].AutoDepthStencilFormat = D3DFMT_D24S8;//D3DFMT_D16;
     //0にしておく
@@ -540,8 +525,8 @@ HRESULT GgafDx9God::init() {
                                        D3DDEVTYPE_HAL, // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
                                        &caps); // [out] デバイスの能力が格納される
 
-    _iNumAdapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
-    _TRACE_("_iNumAdapter = "<< _iNumAdapter);
+    _num_adapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
+    _TRACE_("_num_adapter = "<< _num_adapter);
     if (CFG_PROPERTY(FULL_SCREEN)) {
         for (int disp_no = 0; disp_no <= (CFG_PROPERTY(DUAL_VIEW) ? 1 : 0); disp_no++) {
             int mode_num = GgafDx9God::_pID3D9->GetAdapterModeCount(disp_no,
@@ -738,7 +723,7 @@ HRESULT GgafDx9God::createDx9Device(UINT Adapter,
         IDirect3DDevice9Ex* pID3DDevice9Ex;
         hr = pID3D9Ex->CreateDeviceEx(Adapter,
                                        DeviceType,
-									   hFocusWindow,
+                                       hFocusWindow,
                                        BehaviorFlags,
                                        pPresentationParameters,
                                        pFullscreenDisplayMode,
@@ -749,7 +734,7 @@ HRESULT GgafDx9God::createDx9Device(UINT Adapter,
     } else {
         hr = GgafDx9God::_pID3D9->CreateDevice(Adapter,
                                                DeviceType,
-											   hFocusWindow,
+                                               hFocusWindow,
                                                BehaviorFlags,
                                                pPresentationParameters,
                                                &GgafDx9God::_pID3DDevice9
@@ -918,10 +903,10 @@ HRESULT GgafDx9God::initDx9Device() {
                                           NULL, // 矩形領域
                                           D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
                                           //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-                                          _color_background, //ウィンドウ背景色とそろえる
+                                          _color_background, //クリッピング背景色
                                           1.0f, // Zバッファのクリア値
-                                          0 // ステンシルバッファのクリア値
-            );
+                                          0     // ステンシルバッファのクリア値
+                                         );
     returnWhenFailed(hr, D3D_OK, "背景色(_color_background)の塗りつぶしよる、画面クリアに失敗しました。");
     return D3D_OK;
 }
@@ -936,14 +921,14 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
     HRESULT hr;
     //描画先となるテクスチャを別途作成（バックバッファ的な使用を行う）
     hr = GgafDx9God::_pID3DDevice9->CreateTexture(
-                                            CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH),
-                                            CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT),
-                                             1, //MipLevel Mip無し
-                                             D3DUSAGE_RENDERTARGET,
-                                             _paPresetParam[0].BackBufferFormat,
-                                             D3DPOOL_DEFAULT,
-                                             &_pRenderTexture,
-                                             NULL);
+                                        CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH),
+                                        CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT),
+                                        1, //MipLevel Mip無し
+                                        D3DUSAGE_RENDERTARGET,
+                                        _paPresetParam[0].BackBufferFormat,
+                                        D3DPOOL_DEFAULT,
+                                        &_pRenderTexture,
+                                        NULL);
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャ("<<CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH)<<"x"<<CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT)<<")の作成に失敗。\nサイズを確認して下さい。");
     //RenderTarget(描画先)をテクスチャへ切り替え
     hr = _pRenderTexture->GetSurfaceLevel(0, &_pRenderTextureSurface);
@@ -956,12 +941,12 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
     hr = GgafDx9God::_pID3DDevice9->CreateDepthStencilSurface(
             CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH),
             CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT),
-            _paPresetParam[0].AutoDepthStencilFormat,   //D3DFORMAT   Format,
-            _paPresetParam[0].MultiSampleType,          //D3DMULTISAMPLE_TYPE     MultiSample,
-            _paPresetParam[0].MultiSampleQuality,       //DWORD   MultisampleQuality,
-            TRUE,                                  //BOOL    Discard, SetDepthStencileSurface関数で深度バッファを変更した時にバッファを破棄するかどうか
-            &_pRenderTextureZ,                     //IDirect3DSurface9**     ppSurface,
-            NULL                                   //HANDLE*     pHandle 現在未使用
+            _paPresetParam[0].AutoDepthStencilFormat, //D3DFORMAT           Format,
+            _paPresetParam[0].MultiSampleType,        //D3DMULTISAMPLE_TYPE MultiSample,
+            _paPresetParam[0].MultiSampleQuality,     //DWORD               MultisampleQuality,
+            TRUE,                                     //BOOL                Discard, SetDepthStencileSurface関数で深度バッファを変更した時にバッファを破棄するかどうか
+            &_pRenderTextureZ,                        //IDirect3DSurface9** ppSurface,
+            NULL                                      //HANDLE*             pHandle 現在未使用
     );
     //深度バッファ作成自動生成の、深度バッファ用サーフェイスを上記に変更
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのZバッファ作成に失敗しました。");
@@ -978,14 +963,14 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_background)の塗りつぶしよる、画面クリアに失敗しました。");
 
     //アダプタに関連付けられたスワップチェーンを取得してバックバッファ取得
-    hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &_pSwapChain00 );
+    hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 0, &_apSwapChain[0] );
     returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました。");
-    hr = _pSwapChain00->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_pBackBuffer00 );
+    hr = _apSwapChain[0]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[0] );
     returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました。");
     if (CFG_PROPERTY(DUAL_VIEW)) {
-        hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 1, &_pSwapChain01 );
+        hr = GgafDx9God::_pID3DDevice9->GetSwapChain( 1, &_apSwapChain[1] );
         returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェイン取得に失敗しました。\nマルチディスプレイ環境に問題発生しました。");
-        hr = _pSwapChain01->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_pBackBuffer01 );
+        hr = _apSwapChain[1]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[1] );
         returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェインから、ターゲットのバックバッファ取得に失敗しました。");
     }
 
@@ -993,21 +978,21 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
     if (CFG_PROPERTY(DUAL_VIEW)) {
         hr = GgafDx9God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[0],
-                _pBackBuffer00,         &_aRect_ViewScreen[0],
+                _apBackBuffer[0],         &_aRect_ViewScreen[0],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(1)\n"<<
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_pBackBuffer00="<<_pBackBuffer00);
+                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[0]="<<_apBackBuffer[0]);
 
         hr = GgafDx9God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[1],
-                _pBackBuffer01,         &_aRect_ViewScreen[1],
+                _apBackBuffer[1],         &_aRect_ViewScreen[1],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(1)\n"<<
-                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_pBackBuffer00="<<_pBackBuffer00);
+                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[0]="<<_apBackBuffer[0]);
     } else {
         hr = GgafDx9God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderTargetBuffer,
-                _pBackBuffer00, &_aRect_ViewScreen[0],
+                _apBackBuffer[0], &_aRect_ViewScreen[0],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(1)");
     }
@@ -1018,21 +1003,21 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
     if (CFG_PROPERTY(DUAL_VIEW)) {
         hr = GgafDx9God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[0],
-                _pBackBuffer00,         &_aRect_ViewScreen[0],
+                _apBackBuffer[0],         &_aRect_ViewScreen[0],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(2)\n"<<
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_pBackBuffer00="<<_pBackBuffer00);
+                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[0]="<<_apBackBuffer[0]);
 
         hr = GgafDx9God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[1],
-                _pBackBuffer01,         &_aRect_ViewScreen[1],
+                _apBackBuffer[1],         &_aRect_ViewScreen[1],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(2)\n"<<
-                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_pBackBuffer00="<<_pBackBuffer00);
+                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[0]="<<_apBackBuffer[0]);
     } else {
         hr = GgafDx9God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderTargetBuffer,
-                _pBackBuffer00, &_aRect_ViewScreen[0],
+                _apBackBuffer[0], &_aRect_ViewScreen[0],
                 D3DTEXF_NONE
                 );
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(2)");
@@ -1045,25 +1030,15 @@ HRESULT GgafDx9God::releaseFullScreenRenderTarget() {
     RELEASE_SAFETY(_pRenderTextureSurface);
     RELEASE_SAFETY(_pRenderTexture);
     RELEASE_SAFETY(_pRenderTextureZ);
-    RELEASE_SAFETY(_pBackBuffer00);
-    RELEASE_SAFETY(_pSwapChain00);
+    RELEASE_SAFETY(_apBackBuffer[0]);
+    RELEASE_SAFETY(_apSwapChain[0]);
     if (CFG_PROPERTY(DUAL_VIEW)) {
-        RELEASE_SAFETY(_pBackBuffer01);
-        RELEASE_SAFETY(_pSwapChain01);
+        RELEASE_SAFETY(_apBackBuffer[1]);
+        RELEASE_SAFETY(_apSwapChain[1]);
     }
     return D3D_OK;
 }
 
-// カメラと対峙する回転行列を取得
-// ビルボードのVIEW変換行列を取得
-D3DXMATRIX GgafDx9God::getInvRotateMat() {
-    D3DXMATRIX Inv;
-    //   D3DXMatrixIdentity(&Inv);
-    //   D3DXMatrixLookAtLH(&Inv, &D3DXVECTOR3(0,0,0), &D3DXVECTOR3( 0.0f, 0.0f, 0.0f ), &D3DXVECTOR3( 0.0f, 1.0f, 0.0f ));
-    //   D3DXMatrixInverse(&Inv, NULL, &Inv);
-
-    return Inv;
-}
 void GgafDx9God::presentUniversalMoment() {
     if (_is_device_lost_flg) {
         return;
@@ -1138,13 +1113,13 @@ void GgafDx9God::presentUniversalVisualize() {
                 //画面０バックバッファを画面１バックバッファへコピーする
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[0],
-                        _pBackBuffer00,         &_aRect_Present[0],
+                        _apBackBuffer[0],       &_aRect_Present[0],
                         D3DTEXF_LINEAR); //TODO:D3DTEXF_LINEARをオプション指定にするか？
-                checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目 StretchRect() に失敗しました。\n_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_pBackBuffer00="<<_pBackBuffer00);
+                checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目 StretchRect() に失敗しました。\n_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[0]="<<_apBackBuffer[0]);
 
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[1],
-                        _pBackBuffer01,         &_aRect_Present[1],
+                        _apBackBuffer[1],       &_aRect_Present[1],
                         D3DTEXF_LINEAR);
                 checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
 
@@ -1153,7 +1128,7 @@ void GgafDx9God::presentUniversalVisualize() {
                 hr = GgafDx9God::_pID3DDevice9->StretchRect(
                         _pRenderTextureSurface,
                         &_rectRenderTargetBuffer,
-                        _pBackBuffer00,
+                        _apBackBuffer[0],
                         &_aRect_Present[0],
                         D3DTEXF_LINEAR);
                 checkDxException(hr, D3D_OK, "FULL 1gamen StretchRect() に失敗しました。");
@@ -1293,14 +1268,14 @@ void GgafDx9God::presentUniversalVisualize() {
             _TRACE_("【デバイスロスト処理】フルスクリーン時レンダリングターゲットテクスチャ再構築 <-------- END");
         }
 
-		if (CFG_PROPERTY(FULL_SCREEN)) {
-		    _TRACE_("【デバイスロスト処理】フルスクリーン時ウィンドウアクティブ BEGIN ------>");
+        if (CFG_PROPERTY(FULL_SCREEN)) {
+            _TRACE_("【デバイスロスト処理】フルスクリーン時ウィンドウアクティブ BEGIN ------>");
             if (CFG_PROPERTY(DUAL_VIEW)) {
-                ShowWindow(_pHWndSecondary, SW_SHOWNORMAL);
-				ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
-			} else {
-				ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
-			}
+                ShowWindow(_pHWndSecondary, SW_SHOWNORMAL); //これを行なっておかないと、デバイスロストを復帰してた後
+                ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);   //２画面目の領域をクリックした際、再びフルスクリーンが解除されてしまう。
+            } else {
+                ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
+            }
             Sleep(1000);
             _TRACE_("【デバイスロスト処理】フルスクリーン時ウィンドウアクティブ BEGIN ------>");
         }
@@ -1342,7 +1317,7 @@ void GgafDx9God::finalizeUniversal() {
     if (_is_device_lost_flg) {
         return;
     } else {
-		GgafGod::finalizeUniversal();
+        GgafGod::finalizeUniversal();
     }
 }
 
@@ -1502,7 +1477,7 @@ GgafDx9God::~GgafDx9God() {
 //                                               ↑
 //                                               ｜ Present
 //                                               ｜(D3DSWAPEFFECT_COPY)
-//                                                                     |
+//                                                |
 //                                  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 //    バックバッファ              ／                                        ／
 //                              ／                                        ／ Draw   ＿＿＿
@@ -1555,7 +1530,7 @@ GgafDx9God::~GgafDx9God() {
 //                                        ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 //                                      ／                              ／
 //                                    ／                              ／
-//    バックバッファ                ／      _pBackBuffer00          ／
+//    バックバッファ                ／      _apBackBuffer[0]          ／
 //                                ／                              ／
 //                              ／                              ／
 //                              ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
@@ -1591,7 +1566,7 @@ GgafDx9God::~GgafDx9God() {
 //
 //                            ＿＿＿＿＿＿＿＿＿＿＿             ＿＿＿＿＿＿＿＿＿＿＿
 //                          ／                    ／           ／                    ／
-//    バックバッファ      ／  _pBackBuffer00    ／           ／  _pBackBuffer01    ／
+//    バックバッファ      ／  _apBackBuffer[0]    ／           ／  _apBackBuffer[1]    ／
 //                      ／                    ／           ／                    ／
 //                      ￣￣￣￣￣￣￣￣￣￣￣             ￣￣￣￣￣￣￣￣￣￣￣
 //                     DUAL_VIEW_FULL_SCREEN1_WIDTH x        DUAL_VIEW_FULL_SCREEN2_WIDTH x

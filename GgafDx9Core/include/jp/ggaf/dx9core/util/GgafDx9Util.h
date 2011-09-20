@@ -172,7 +172,7 @@ public:
 
     /**
      * 平面上において、'N'way弾(N=整数)の射出アングル値をセット(配列)で取得 .
-     * @param prm_angCenter	    [in]'N'way弾の全体として向いている方向のアングル値
+     * @param prm_angCenter	    [in] 'N'way弾の全体として向いている方向のアングル値
      * @param prm_nWay	        [in] 'N'way弾の N
      * @param prm_angClearance	[in] 'N'way弾の弾と弾との成す角をアングル値で指定
      * @param out_paAngle	    [out] 得られる'N'way弾 のアングル値配列のポインタ

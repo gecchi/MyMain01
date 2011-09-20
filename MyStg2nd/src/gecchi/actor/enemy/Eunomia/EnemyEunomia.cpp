@@ -24,15 +24,15 @@ void EnemyEunomia::onCreateModel() {
 
 void EnemyEunomia::initialize() {
     _pKurokoA->relateFaceAngWithMvAng(true);
-	_pKurokoA->setFaceAngVelo(AXIS_X, -4000);
+    _pKurokoA->setFaceAngVelo(AXIS_X, -4000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB_Cube(0, 40000);
 }
 
 void EnemyEunomia::onReset() {
     _pStatus->reset();
-	setHitAble(true);
-	_pKurokoA->setFaceAng(AXIS_X, 0);
+    setHitAble(true);
+    _pKurokoA->setFaceAng(AXIS_X, 0);
     _iMovePatternNo = 0; //行動パターンリセット
     _pProg->change(1);
 }
@@ -146,17 +146,17 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
         }
 
         //自機側に撃たれて消滅の場合、
-        //フォーメーションに自身が撃たれた事を伝える。
         if (_pFormation && (pOther->getKind() & KIND_MY)) {
+            //フォーメーションに自身が撃たれた事を伝える。
             _pFormation->wasDestroyedFollower(this);
+            //アイテム出現
+            Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->dispatch();
+            if (pItem) {
+                pItem->locateAs(this);
+            }
         }
         setHitAble(false); //消滅した場合、同一フレーム内の以降の処理でヒットさせないため（重要）
         sayonara();
-
-        Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->dispatch();
-        if (pItem) {
-            pItem->locateAs(this);
-        }
     }
 }
 
@@ -170,7 +170,7 @@ void EnemyEunomia::onInactive() {
 }
 
 EnemyEunomia::~EnemyEunomia() {
-//    DELETE_POSSIBLE_NULL(_pSplSeq);
+    DELETE_POSSIBLE_NULL(_pSplSeq);
 }
 
 
