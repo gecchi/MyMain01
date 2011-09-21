@@ -30,11 +30,20 @@ void EnemyEunomia::initialize() {
 }
 
 void EnemyEunomia::onReset() {
-    _pStatus->reset();
-    setHitAble(true);
-    _pKurokoA->setFaceAng(AXIS_X, 0);
-    _iMovePatternNo = 0; //行動パターンリセット
-    _pProg->change(1);
+
+}
+
+void EnemyEunomia::config(
+        GgafDx9LibStg::FormationActor* prm_pFormation,
+        GgafDx9LibStg::SplineSequence* prm_pSplSeq,
+        GgafCore::GgafActorDepository* prm_pDepo_Shot,
+        GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
+        ) {
+    DELETE_POSSIBLE_NULL(_pSplSeq);
+    _pFormation = prm_pFormation;
+    _pSplSeq = prm_pSplSeq;
+    _pDepo_Shot = prm_pDepo_Shot;
+    _pDepo_ShotEffect = prm_pDepo_ShotEffect;
 }
 
 
@@ -42,7 +51,11 @@ void EnemyEunomia::onActive() {
     if (_pSplSeq == NULL) {
         throwGgafCriticalException("EnemyEunomiaはスプライン必須ですconfigして下さい");
     }
-    reset();
+    _pStatus->reset();
+    setHitAble(true);
+    _pKurokoA->setFaceAng(AXIS_X, 0);
+    _iMovePatternNo = 0; //行動パターンリセット
+    _pProg->change(1);
 }
 
 void EnemyEunomia::processBehavior() {

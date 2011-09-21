@@ -2,7 +2,6 @@
 #define COMMONSCENE_H_
 
 
-
 namespace MyStg2nd {
 
 /**
