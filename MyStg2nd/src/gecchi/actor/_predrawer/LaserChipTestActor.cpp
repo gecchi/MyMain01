@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 LaserChipTestActor::LaserChipTestActor(const char* prm_name) :
-        StraightLaserChip(prm_name, "_chk_LaserChipEffectTest", NULL) {
+        StraightLaserChip(prm_name, "_chk_LaserChipTestModel", NULL) {
     _class_name = "LaserChipTestActor";
     setHitAble(false);
 }

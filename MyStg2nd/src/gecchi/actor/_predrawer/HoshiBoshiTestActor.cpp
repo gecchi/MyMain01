@@ -9,7 +9,7 @@ using namespace MyStg2nd;
 
 HoshiBoshiTestActor::HoshiBoshiTestActor(const char* prm_name) :
         GgafDx9PointSpriteActor(prm_name,
-                               "_chk_HoshiBoshiEffectTest",
+                               "_chk_HoshiBoshiTestModel",
                                "HoshiBoshiEffect",
                                "HoshiBoshiTechnique",
                                NULL,

@@ -74,6 +74,12 @@ void SceneProgress::changeWithScene_Crossfading(progress prm_progress, frame prm
     change(prm_progress);
 }
 
+void SceneProgress::changeWithScene_FadeoutFadin(progress prm_progress, frame prm_fade_frames) {
+
+
+
+}
+
 void SceneProgress::changeWithScene_Overlapping(progress prm_progress, frame prm_frames) {
     if (_mapProg2Scene[get()]) {
         _mapProg2Scene[get()]->inactivateDelay(prm_frames);

@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 DefaultBoardSetTestActor::DefaultBoardSetTestActor(const char* prm_name) :
-        DefaultBoardSetActor(prm_name, "_chk_DefaultBoardSetEffectTest") {
+        DefaultBoardSetActor(prm_name, "_chk_DefaultBoardSetTestModel") {
     _class_name = "DefaultBoardSetTestActor";
 }
 void DefaultBoardSetTestActor::initialize() {

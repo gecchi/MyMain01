@@ -7,8 +7,7 @@ using namespace MyStg2nd;
 
 
 CubeMapMeshTestActor::CubeMapMeshTestActor(const char* prm_name) :
-        CubeMapMeshActor(prm_name, "Thalia_0", NULL) {
-    //_chk_CubeMapMeshEffectTest
+        CubeMapMeshActor(prm_name, "_chk_CubeMapMeshTestModel", NULL) {
     _class_name = "CubeMapMeshTestActor";
     setHitAble(false);
 }
@@ -33,40 +32,40 @@ void CubeMapMeshTestActor::onActive() {
 
 
 void CubeMapMeshTestActor::processBehavior() {
-    if (GgafDx9Input::isPushedDownKey(DIK_T)) {
-//        _pKurokoA->execSmoothMvVeloSequence(0, 600*1000, 180, 0.4, 0.6, true);
-        _pKurokoA->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.4, 0.6);
-        _TRACE_("execSmoothMvVeloSequence!!");
-    }
-    if (GgafDx9Input::isPushedDownKey(DIK_Y)) {
-//        _pKurokoA->execSmoothMvVeloSequence(0, 600*1000, 180, 0.1, 0.3, true);
-        _pKurokoA->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.1, 0.3);
-        _TRACE_("execSmoothMvVeloSequence!!");
-    }
-    if (GgafDx9Input::isPushedDownKey(DIK_U)) {
-//        _pKurokoA->execSmoothMvVeloSequence(0, 600*1000, 180, 0.7, 0.9, true);
-        _pKurokoA->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.7, 0.9);
-        _TRACE_("execSmoothMvVeloSequence!!");
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
-        _X = _X - 2000;
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_R)) {
-        _X = _X + 2000;
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-        _Y = _Y + 2000;
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_E)) {
-        _Y = _Y - 2000;
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-        _X = 0;
-    }
-//    _TRACE_(getActivePartFrame() <<":"<<_X<<","<<_Y<<","<<_Z);
-
-
-    _pKurokoA->behave();
+//    if (GgafDx9Input::isPushedDownKey(DIK_T)) {
+////        _pKurokoA->execSmoothMvVeloSequence(0, 600*1000, 180, 0.4, 0.6, true);
+//        _pKurokoA->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.4, 0.6);
+//        _TRACE_("execSmoothMvVeloSequence!!");
+//    }
+//    if (GgafDx9Input::isPushedDownKey(DIK_Y)) {
+////        _pKurokoA->execSmoothMvVeloSequence(0, 600*1000, 180, 0.1, 0.3, true);
+//        _pKurokoA->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.1, 0.3);
+//        _TRACE_("execSmoothMvVeloSequence!!");
+//    }
+//    if (GgafDx9Input::isPushedDownKey(DIK_U)) {
+////        _pKurokoA->execSmoothMvVeloSequence(0, 600*1000, 180, 0.7, 0.9, true);
+//        _pKurokoA->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.7, 0.9);
+//        _TRACE_("execSmoothMvVeloSequence!!");
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
+//        _X = _X - 2000;
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_R)) {
+//        _X = _X + 2000;
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+//        _Y = _Y + 2000;
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_E)) {
+//        _Y = _Y - 2000;
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+//        _X = 0;
+//    }
+////    _TRACE_(getActivePartFrame() <<":"<<_X<<","<<_Y<<","<<_Z);
+//
+//
+//    _pKurokoA->behave();
 }
 
 CubeMapMeshTestActor::~CubeMapMeshTestActor() {

@@ -6,6 +6,20 @@ using namespace GgafDx9Core;
 GgafDx9Puppeteer::GgafDx9Puppeteer(GgafDx9D3DXAniMeshActor* prm_pPuppet) : GgafObject() {
     _pPuppet = prm_pPuppet;
     _pModel = (GgafDx9D3DXAniMeshModel*)_pPuppet->_pModel;
+    _num_perform = 0;
+    _paPerformances = NULL;
+    _pAc = NULL;
+	//操り棒情報初期化
+    //左手の操り棒
+    _aStick[GgafDx9PuppeteerStick::LEFT_HAND]._no = 0;
+    _aStick[GgafDx9PuppeteerStick::LEFT_HAND]._pPerformance = NULL;
+    //右手の操り棒
+    _aStick[GgafDx9PuppeteerStick::RIGHT_HAND]._no = 1;
+    _aStick[GgafDx9PuppeteerStick::RIGHT_HAND]._pPerformance = NULL;
+
+	if (!_pModel->_pAcBase) {
+		throwGgafCriticalException("GgafDx9Puppeteer::GgafDx9Puppeteer アニメーションコントローラーが存在しません");
+	}
     HRESULT hr = _pModel->_pAcBase->CloneAnimationController(
                                         _pModel->_pAcBase->GetMaxNumAnimationOutputs(),
                                         _pModel->_pAcBase->GetMaxNumAnimationSets(),
@@ -15,7 +29,9 @@ GgafDx9Puppeteer::GgafDx9Puppeteer(GgafDx9D3DXAniMeshActor* prm_pPuppet) : GgafO
     checkDxException(hr, D3D_OK, "GgafDx9Puppeteer::GgafDx9Puppeteer() アニメーションコントローラーのクローンに失敗しました。name="<<_pPuppet->getName());
     _num_perform = _pAc->GetMaxNumAnimationSets();
     if (_pAc->GetMaxNumTracks() < 2) {
-    throwGgafCriticalException("GgafDx9Puppeteer アニメーショントラックは少なくとも2つ必要です。");
+        throwGgafCriticalException("GgafDx9Puppeteer::GgafDx9Puppeteer()  アニメーショントラックが少なくとも2つ必要です。ご使用のビデオカードではトラック機能がありません。");
+		_paPerformances = NULL;
+		return;
     }
     _TRACE_("_pAc->GetMaxNumTracks()="<<_pAc->GetMaxNumTracks());
     _TRACE_("_pAc->GetMaxNumAnimationSets()="<<_pAc->GetMaxNumAnimationSets());
@@ -73,13 +89,7 @@ GgafDx9Puppeteer::GgafDx9Puppeteer(GgafDx9D3DXAniMeshActor* prm_pPuppet) : GgafO
     checkDxException(hr, D3D_OK, "失敗しました。");
 
 
-    //操り棒情報初期化
-    //左手の操り棒
-    _aStick[GgafDx9PuppeteerStick::LEFT_HAND]._no = 0;
-    _aStick[GgafDx9PuppeteerStick::LEFT_HAND]._pPerformance = NULL;
-    //右手の操り棒
-    _aStick[GgafDx9PuppeteerStick::RIGHT_HAND]._no = 1;
-    _aStick[GgafDx9PuppeteerStick::RIGHT_HAND]._pPerformance = NULL;
+
 }
 
 void GgafDx9Puppeteer::exchangPerformance() {

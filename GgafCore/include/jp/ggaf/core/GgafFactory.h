@@ -220,14 +220,14 @@ public:
 
 };
 
-#define orderActorToFactory(ID, CLASS, NAME) GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActor,(void*)(NAME),(void*)(NULL),(void*)(NULL))
-#define orderActorWithModelToFactory(ID, CLASS, NAME, MODEL) GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModel,(void*)(NAME),(void*)(MODEL),(void*)(NULL))
-#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, DEPOSITORY) GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModelDp,(void*)(NAME),(void*)(MODEL),(void*)(DEPOSITORY))
-#define orderActorWithDpToFactory(ID, CLASS, NAME, DEPOSITORY) GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithDp,(void*)(NAME),(void*)(DEPOSITORY), (void*)(NULL))
+#define orderActorToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActor,(void*)(NAME),(void*)(NULL),(void*)(NULL)))
+#define orderActorWithModelToFactory(ID, CLASS, NAME, MODEL) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModel,(void*)(NAME),(void*)(MODEL),(void*)(NULL)))
+#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModelDp,(void*)(NAME),(void*)(MODEL),(void*)(DEPOSITORY)))
+#define orderActorWithDpToFactory(ID, CLASS, NAME, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithDp,(void*)(NAME),(void*)(DEPOSITORY), (void*)(NULL)))
 
-#define obtainActorFromFactory(ID) GgafCore::GgafFactory::obtainActor((ID))
-#define orderSceneToFactory(ID, CLASS, NAME) GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene,(void*)(NAME),(void*)(NULL),(void*)(NULL))
-#define obtainSceneFromFactory(ID) GgafCore::GgafFactory::obtainScene((ID))
+#define obtainActorFromFactory(ID) (GgafCore::GgafFactory::obtainActor((ID)))
+#define orderSceneToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene,(void*)(NAME),(void*)(NULL),(void*)(NULL)))
+#define obtainSceneFromFactory(ID) (GgafCore::GgafFactory::obtainScene((ID)))
 
 }
 #endif /*GGAFGACTORY_H_*/

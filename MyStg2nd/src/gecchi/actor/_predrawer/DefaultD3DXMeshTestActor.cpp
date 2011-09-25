@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 DefaultD3DXMeshTestActor::DefaultD3DXMeshTestActor(const char* prm_name) :
-        DefaultD3DXMeshActor(prm_name, "_chk_DefaultD3DXMeshEffectTest", NULL) {
+        DefaultD3DXMeshActor(prm_name, "_chk_DefaultD3DXMeshTestModel", NULL) {
     _class_name = "DefaultD3DXMeshTestActor";
     setHitAble(false);
 }

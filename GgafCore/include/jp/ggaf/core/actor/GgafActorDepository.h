@@ -166,6 +166,8 @@ public:
      */
     virtual void onReset() override;
 
+    virtual void end(frame prm_offset_frames = 1) override;
+
     virtual ~GgafActorDepository() {
     }
 };

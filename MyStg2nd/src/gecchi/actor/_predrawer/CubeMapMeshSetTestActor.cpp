@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 CubeMapMeshSetTestActor::CubeMapMeshSetTestActor(const char* prm_name) :
-        CubeMapMeshSetActor(prm_name, "_chk_CubeMapMeshSetEffectTest", NULL) {
+        CubeMapMeshSetActor(prm_name, "_chk_CubeMapMeshSetTestModel", NULL) {
     _class_name = "CubeMapMeshSetTestActor";
     setHitAble(false);
 }

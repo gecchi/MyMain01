@@ -42,7 +42,32 @@ void GgafActorDepository::onReset() {
         }
     }
 }
+void GgafActorDepository::end(frame prm_offset_frames) {
+    frame end_frame_delay = prm_offset_frames + (_sub_num*2) + 1;
+    if (_will_end_after_flg) {
+        //既にend()実行済みの場合、より早くend()するならば有効とする
+        if (_frame_of_life_when_end < _frame_of_life + end_frame_delay + GGAF_SAYONARA_DELAY) {
+            //今回指定の方が遅いフレーム指定であるため無視する。
+            return;
+        }
+    }
+    _will_end_after_flg = true;
+    _frame_of_life_when_end = _frame_of_life + end_frame_delay + GGAF_SAYONARA_DELAY;
+    inactivateDelay(end_frame_delay); //指定フレームにはinactivateが行われる
 
+    if (_pSubFirst) {
+        GgafActor* pElementTemp = _pSubFirst;
+        while(true) {
+            end_frame_delay -= 2;
+            pElementTemp->end(end_frame_delay);
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
+    }
+}
 
 
 //＜最適化案＞

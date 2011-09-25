@@ -104,9 +104,10 @@ void GameScene::processBehavior() {
     switch (_pProg->get()) {
         case GAMESCENE_PROG_INIT: {
             if (_pProg->isJustChanged()) {
-                P_GOD->syncTimeFrame(); //•`‰æ‚ð’†Ž~‚µ‚ÄAƒtƒŒ[ƒ€‚ÆŽžŠÔ‚Ì“¯Šú‚ðs‚¤
+                //P_GOD->syncTimeFrame(); //•`‰æ‚ð’†Ž~‚µ‚ÄAƒtƒŒ[ƒ€‚ÆŽžŠÔ‚Ì“¯Šú‚ðs‚¤
             }
-            if (_pProg->getFrameInProgress() == 60) {
+            if (_pProg->getFrameInProgress() >= 180 && P_GOD->_fps > CFG_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
+                _TRACE_("P_GOD->_fps = "<<P_GOD->_fps);
                 _pProg->changeWithScene_Crossfading(GAMESCENE_PROG_PRE_TITLE);
             }
             break;

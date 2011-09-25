@@ -5,6 +5,7 @@ using namespace GgafDx9Core;
 
 GgafDx9D3DXAniMeshModel::GgafDx9D3DXAniMeshModel(char* prm_model_name) : GgafDx9Model(prm_model_name) {
     TRACE("GgafDx9D3DXAniMeshModel::GgafDx9D3DXAniMeshModel(" << prm_model_name << ")");
+    _pAH = NULL;
     _pFR = NULL;
     _pAcBase = NULL;
     _dwNumMaterials = 0L;

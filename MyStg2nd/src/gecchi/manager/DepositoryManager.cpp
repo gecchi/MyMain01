@@ -49,7 +49,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         for (int i = 0; i < 1600; i++) {
             pShot004 = NEW Shot004("Shot004");
             pResource->addSubLast(pShot004);
-            if (i % 20 == 0) { Sleep(1); }
+            if (i % 2 == 0) { Sleep(1); }
         }
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);
     }
@@ -77,6 +77,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
                 name <<  "EnemyAstraeaLaserChip001["<<nLaser<<"]["<<nChip<<"]";
                 pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
                 pLaserChipDepo->addSubLast(pChip);
+                if (nChip % 4 == 0) { Sleep(1); }
             }
             pResource->addSubLast(pLaserChipDepo);
         }
@@ -99,6 +100,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
                 pChip = NEW EnemyAstraeaLaserChip002(name.str().c_str());
                 pChip->config(30, 20, 8, (GgafActorDepository*)prm_p);
                 pLaserChipDepo->addSubLast(pChip);
+                if (nChip % 4 == 0) { Sleep(1); }
             }
             pResource->addSubLast(pLaserChipDepo);
         }
@@ -119,6 +121,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
                 name <<  "EnemyAstraeaLaserChip003["<<nLaser<<"]["<<nChip<<"]";
                 pChip = NEW EnemyAstraeaLaserChip003(name.str().c_str());
                 pLaserChipDepo->addSubLast(pChip);
+                if (nChip % 4 == 0) { Sleep(1); }
             }
             pResource->addSubLast(pLaserChipDepo);
         }
@@ -138,6 +141,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
                 name <<  "EnemyAstraeaLaserChip004["<<nLaser<<"]["<<nChip<<"]";
                 pChip = NEW EnemyAstraeaLaserChip004(name.str().c_str());
                 pLaserChipDepo->addSubLast(pChip);
+                if (nChip % 4 == 0) { Sleep(1); }
             }
             pResource->addSubLast(pLaserChipDepo);
         }
@@ -150,6 +154,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(char* prm_idstr, v
         for (int i = 0; i < 800; i++) {
             p = NEW EnemyEunomia("Eunomia");
             pResource->addSubLast(p);
+            if (i % 4 == 0) { Sleep(1); }
         }
 
         P_COMMON_SCENE->getDirector()->addSubGroup(pResource);

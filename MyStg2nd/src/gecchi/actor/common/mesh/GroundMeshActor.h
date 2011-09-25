@@ -5,6 +5,7 @@ namespace MyStg2nd {
 /**
  * メッシュアクターの具象クラス.
  * GgafDx9Core::GgafDx9MeshActor を空実装した具象アクターです。
+ * （現在未使用）
  */
 class GroundMeshActor : public GgafDx9Core::GgafDx9MeshActor {
 

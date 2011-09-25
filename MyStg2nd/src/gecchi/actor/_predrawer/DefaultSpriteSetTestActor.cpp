@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 DefaultSpriteSetTestActor::DefaultSpriteSetTestActor(const char* prm_name) :
-        DefaultSpriteSetActor(prm_name, "_chk_DefaultSpriteSetEffectTest", NULL) {
+        DefaultSpriteSetActor(prm_name, "_chk_DefaultSpriteSetTestModel", NULL) {
     _class_name = "DefaultSpriteSetTestActor";
     setHitAble(false);
 }

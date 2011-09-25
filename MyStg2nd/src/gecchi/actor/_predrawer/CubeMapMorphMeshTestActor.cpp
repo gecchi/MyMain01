@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 CubeMapMorphMeshTestActor::CubeMapMorphMeshTestActor(const char* prm_name) :
-        CubeMapMorphMeshActor(prm_name, "4/_chk_CubeMapMorphMeshEffectTest", NULL) {
+        CubeMapMorphMeshActor(prm_name, "0/_chk_CubeMapMorphMeshTestModel", NULL) {
     _class_name = "CubeMapMorphMeshTestActor";
     setHitAble(false);
 }
@@ -21,16 +21,16 @@ void CubeMapMorphMeshTestActor::onCreateModel() {
 void CubeMapMorphMeshTestActor::initialize() {
     setHitAble(false);
     setCubeMapTexture("Torus_cubemap.dds", 0.1);
-    _pMorpher->setWeight(0, 1.0);
-    setScaleRate(0.1);
+//    _pMorpher->setWeight(0, 1.0);
+//    setScaleRate(0.1);
 }
 
 void CubeMapMorphMeshTestActor::onActive() {
-    _pMorpher->beat(1, 240, 60, 30, -1);
-    _pMorpher->beat(2, 240, 90, 30, -1);
-    _pMorpher->beat(3, 240, 120, 30, -1);
-    _pMorpher->beat(4, 240, 150, 30, -1);
-    _pKurokoA->setFaceAngVelo(AXIS_Y, 500);
+//    _pMorpher->beat(1, 240, 60, 30, -1);
+//    _pMorpher->beat(2, 240, 90, 30, -1);
+//    _pMorpher->beat(3, 240, 120, 30, -1);
+//    _pMorpher->beat(4, 240, 150, 30, -1);
+//    _pKurokoA->setFaceAngVelo(AXIS_Y, 500);
 }
 
 
@@ -93,9 +93,9 @@ void CubeMapMorphMeshTestActor::processBehavior() {
 //        _pMorpher->intoTargetLinerUntil(4, 0, 30);
 //    }
 //    _pMorpher->behave();
-    /////////////モーフテスト////////////////
-    _pKurokoA->behave();
-    _pMorpher->behave();
+//    /////////////モーフテスト////////////////
+//    _pKurokoA->behave();
+//    _pMorpher->behave();
 }
 
 CubeMapMorphMeshTestActor::~CubeMapMorphMeshTestActor() {

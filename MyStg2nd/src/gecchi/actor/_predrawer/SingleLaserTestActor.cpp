@@ -6,23 +6,23 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 SingleLaserTestActor::SingleLaserTestActor(const char* prm_name) :
-        SingleLaser(prm_name, "_chk_SingleLaserEffectTest", NULL) { //SingleLaserは最大27セットである
+        SingleLaser(prm_name, "_chk_SingleLaserTestModel", NULL) { //SingleLaserは最大27セットである
         //SingleLaser(prm_name, "27/laser_single") { //SingleLaserは最大27セットである
     _class_name = "SingleLaserTestActor";
 }
 
 void SingleLaserTestActor::initialize() {
     setHitAble(false);
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
+//    _pCollisionChecker->makeCollision(1);
+//    _pCollisionChecker->setColliAAB(0, -30000, -30000, 30000, 30000);
 
 }
 void SingleLaserTestActor::onReset() {
-    setScaleRate(100.0);
+//    setScaleRate(100.0);
     setAlpha(0.99); //半透明にすることで両面レンダリング
-    _pKurokoA->setMvVelo(40000);             //移動速度
-    _pKurokoA->setMvAcce(1000);             //移動速度
-    _pKurokoA->relateFaceAngWithMvAng(true);
+//    _pKurokoA->setMvVelo(40000);             //移動速度
+//    _pKurokoA->setMvAcce(1000);             //移動速度
+//    _pKurokoA->relateFaceAngWithMvAng(true);
 }
 
 void SingleLaserTestActor::onActive() {
@@ -35,32 +35,29 @@ void SingleLaserTestActor::processBehavior() {
     //弾なので不要
 
     //座標に反映
-    _pKurokoA->behave();
+//    _pKurokoA->behave();
 }
 
 void SingleLaserTestActor::processJudgement() {
-    if (isOutOfUniverse()) {
-        sayonara();
-    }
+//    if (isOutOfUniverse()) {
+//        sayonara();
+//    }
 }
 
 void SingleLaserTestActor::onHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-//    //・・・ココにヒットされたエフェクト
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //破壊された場合
-        //・・・ココに破壊されたエフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
-        if (pExplo001) {
-            pExplo001->locateAs(this);
-        }
-        sayonara();
-    }
+//    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+////    //・・・ココにヒットされたエフェクト
+//    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+//        //破壊された場合
+//        //・・・ココに破壊されたエフェクト
+//        EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+//        if (pExplo001) {
+//            pExplo001->locateAs(this);
+//        }
+//        sayonara();
+//    }
 }
 
 
-void SingleLaserTestActor::drawHitArea() {
-    ColliAABActor::get()->drawHitarea(_pCollisionChecker); ColliAAPrismActor::get()->drawHitarea(_pCollisionChecker); ColliSphereActor::get()->drawHitarea(_pCollisionChecker);
-}
 SingleLaserTestActor::~SingleLaserTestActor() {
 }

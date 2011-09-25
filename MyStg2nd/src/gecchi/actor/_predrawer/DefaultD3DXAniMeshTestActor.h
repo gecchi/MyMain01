@@ -14,6 +14,22 @@ public:
 
     DefaultD3DXAniMeshTestActor(const char* prm_name);
 
+    void processBehavior() override;
+
+    void processJudgement() override {
+    }
+
+    void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
+    }
+
+    int isOutOfView() override {
+        return 0;
+    }
+
+    bool isOutOfUniverse() override {
+        return false;
+    }
+
     virtual ~DefaultD3DXAniMeshTestActor();
 
 };

@@ -63,7 +63,7 @@ HRESULT GgafDx9WorldBoundModel::draw(GgafDx9DrawableActor* prm_pActor_Target, in
             if (GgafDx9EffectManager::_pEffect_Active) {
                TRACE4("EndPass("<<GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "GgafDx9WorldBoundModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                checkDxException(hr, D3D_OK, "GgafDx9WorldBoundModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB"<<GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect<<"): /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name<<"("<<GgafDx9EffectManager::_pEffect_Active<<")");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
                 checkDxException(hr, D3D_OK, "GgafDx9WorldBoundModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 

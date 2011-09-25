@@ -7,7 +7,9 @@ class PreDrawScene : public GgafDx9LibStg::DefaultScene {
 
 public:
     TurboMeter* _pTurboMeter001;
-
+    int _order_id_begin;
+    int _order_id_end;
+    int _id;
     PreDrawScene(const char* prm_name);
     void onReset() override;
     void ready();

@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 DefaultMeshSetTestActor::DefaultMeshSetTestActor(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "_chk_DefaultMeshEffectTest", NULL) {
+        DefaultMeshSetActor(prm_name, "_chk_DefaultMeshTestModel", NULL) {
     _class_name = "DefaultMeshSetTestActor";
     setHitAble(false);
 }

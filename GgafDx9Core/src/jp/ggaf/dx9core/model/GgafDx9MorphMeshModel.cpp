@@ -23,8 +23,7 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
     int num = (int)strtol(pT, NULL, 10);
     pT = strtok(NULL, "/");
     if (pT == NULL) {
-        _TRACE_("GgafDx9MorphMeshModel モーフターゲット数は指定なし、よって0個とします");
-        _morph_target_num = 0;
+        throwGgafCriticalException("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel モデルIDにモーフターゲット数が指定されてません。prm_model_name="<<prm_model_name);
     } else {
         _morph_target_num = num;
         _TRACE_("GgafDx9MorphMeshModel モーフターゲット数は指定あり、_morph_target_num="<<_morph_target_num);

@@ -71,6 +71,8 @@ public:
      */
     void changeWithScene_Crossfading(progress prm_progress, frame prm_fade_frames = 300);
 
+    //未実装
+    void changeWithScene_FadeoutFadin(progress prm_progress, frame prm_fade_frames = 300);
     /**
      * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態に切り替え、
      * 活動状態サブシーンは非活動状態にする。その際、指定フレーム間、同時進行（オーバーラッピング）させる .

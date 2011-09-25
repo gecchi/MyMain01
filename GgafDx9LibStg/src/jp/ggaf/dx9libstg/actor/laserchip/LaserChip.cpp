@@ -18,7 +18,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _class_name = "LaserChip";
     _pChip_front = NULL;
     _pChip_behind = NULL;
-    _pDepo = NULL; //LaserChipDepositoryの new 時に設定される。
+    _pDepo = NULL; //LaserChipDepositoryに追加される時に設定される。通常LaserChipとLaserChipDepositoryはセット。
     _chip_kind = 1;
     _is_regist_hitarea = false;
     _hitarea_edge_length = 0;
@@ -104,8 +104,9 @@ void LaserChip::onActive() {
     } else {
         //_TRACE_("LaserChip::onActive() _pChip_front == "<<(_pChip_front->getName())<<"");
     }
-
-    _pDepo->_num_chip_active++;
+    if (_pDepo) {
+        _pDepo->_num_chip_active++;
+    }
 
 
     //_TRACE_("LaserChip::onActive()ed "<<getName()<<" bump="<<canHit());
@@ -282,7 +283,9 @@ void LaserChip::onHit(GgafActor* prm_pOtherActor) {
 void LaserChip::onInactive() {
 
     //消失時
-    _pDepo->_num_chip_active--;
+    if (_pDepo) {
+        _pDepo->_num_chip_active--;
+    }
     //前後の繋がりを切断
     if (_pChip_front) {
         _pChip_front->_pChip_behind = NULL;

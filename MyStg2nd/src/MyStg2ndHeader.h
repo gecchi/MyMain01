@@ -628,7 +628,6 @@ class MagicMeter;
 #include "gecchi/actor/_predrawer/DefaultPointSpriteTestActor.h"
 #include "gecchi/actor/_predrawer/DefaultSpriteTestActor.h"
 #include "gecchi/actor/_predrawer/DefaultSpriteSetTestActor.h"
-#include "gecchi/actor/_predrawer/GroundMeshTestActor.h"
 #include "gecchi/actor/_predrawer/HoshiBoshiTestActor.h"
 #include "gecchi/actor/_predrawer/LaserChipTestActor.h"
 #include "gecchi/actor/_predrawer/SingleLaserTestActor.h"

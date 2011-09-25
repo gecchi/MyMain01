@@ -38,9 +38,9 @@ GgafDx9MeshEffect::GgafDx9MeshEffect(char* prm_effect_name) : GgafDx9Effect(prm_
 
 void GgafDx9MeshEffect::setParamPerFrame() {
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, &(P_CAM->_matView) );
-    checkDxException(hr, D3D_OK, "GgafDx9MeshEffect::setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "GgafDx9MeshEffect::setParamPerFrame SetMatrix(_h_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB_effect_name="<<_effect_name);
     hr = _pID3DXEffect->SetValue(_h_posCam, P_CAM->_pVecCamFromPoint, sizeof(D3DXVECTOR3) );
-    checkDxException(hr, D3D_OK, "GgafDx9MeshEffect::setParamPerFrame SetValue(_h_posCam) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "GgafDx9MeshEffect::setParamPerFrame SetValue(_h_posCam) Ç…é∏îsÇµÇ‹ÇµÇΩÅB_effect_name="<<_effect_name);
 }
 
 GgafDx9MeshEffect::~GgafDx9MeshEffect() {
