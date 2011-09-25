@@ -1628,13 +1628,14 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
     ID3DXAnimationController* pAC; // アニメーションコントローラ
     hr = D3DXLoadMeshHierarchyFromX(
             xfile_name.c_str(),
-            D3DXMESH_MANAGED,
+            D3DXMESH_SYSTEMMEM, //D3DXMESH_MANAGED,
             GgafDx9God::_pID3DDevice9,
             pAH,
             NULL,
             (D3DXFRAME**)(&pFR),
             &pAC
          );
+	_TRACE_("pAH="<<pAH<<" pFR="<<pFR<<" pAC="<<pAC<<" xfile_name.c_str()="<<xfile_name.c_str());
     checkDxException(hr, D3D_OK, "GgafDx9ModelManager::restoreD3DXAniMeshModel "<<xfile_name<<" 読み込みに失敗しました。対象="<<xfile_name);
     if (pFR == NULL) {
         throwGgafCriticalException("GgafDx9ModelManager::restoreD3DXAniMeshModel "<<xfile_name<<" のフレーム情報が取得できません！");
