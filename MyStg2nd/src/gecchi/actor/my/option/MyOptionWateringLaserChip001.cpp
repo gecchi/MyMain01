@@ -14,8 +14,8 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
     _pOrg = NULL;
     _lockon = 0;
     _isLockon = false;
-    _renge = 150000;
-    _r_maxacce = 15;
+    _renge = 150000; //この値を大きくすると、最高速度が早くなる。
+    _r_maxacce = 20; //この値を大きくすると、カーブが緩くなる
 }
 
 void MyOptionWateringLaserChip001::initialize() {
@@ -59,7 +59,7 @@ void MyOptionWateringLaserChip001::onActive() {
 
 void MyOptionWateringLaserChip001::processBehavior() {
     GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
-    if (getActivePartFrame() > 5) {
+    if (getActivePartFrame() > 10) {
         if (_lockon == 1) {
             if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
                 //    |             vVT 仮的                        |
@@ -102,6 +102,8 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 _pKurokoB->setVxMvAcce(((vTx * r) - vVMx)/_r_maxacce);
                 _pKurokoB->setVyMvAcce(((vTy * r) - vVMy)/_r_maxacce);
                 _pKurokoB->setVzMvAcce(((vTz * r) - vVMz)/_r_maxacce);
+
+                //ネジレ描画が汚くならないように回転を制限
                 if (lVM > _renge/2) {
                     angle RZ_temp = _RZ;
                     angle RY_temp = _RY;
@@ -109,17 +111,17 @@ void MyOptionWateringLaserChip001::processBehavior() {
                                             RZ_temp, RY_temp);
                     angle angDRZ = GgafDx9Util::getAngDiff(RZ_temp, _RZ);
                     angle angDRY = GgafDx9Util::getAngDiff(RY_temp, _RY);
-                    if (-5000 <= angDRZ) {
-                        _RZ -= 5000;
-                    } else if (angDRZ <= 5000) {
-                        _RZ += 5000;
+                    if (-4000 <= angDRZ) {
+                        _RZ -= 4000;
+                    } else if (angDRZ <= 4000) {
+                        _RZ += 4000;
                     } else {
                         _RZ += angDRZ;
                     }
-                    if (-5000 <= angDRY) {
-                        _RY -= 5000;
-                    } else if (angDRY <= 5000) {
-                        _RY += 5000;
+                    if (-4000 <= angDRY) {
+                        _RY -= 4000;
+                    } else if (angDRY <= 4000) {
+                        _RY += 4000;
                     } else {
                         _RY += angDRY;
                     }
@@ -136,26 +138,6 @@ void MyOptionWateringLaserChip001::processBehavior() {
                         _RY += ANGLE360;
                     }
                 }
-
-//                angle RZ2 = _RZ;
-//                angle RY2 = _RY;
-//                GgafDx9Util::getRzRyAng(vVMx,vVMy,vVMz,RZ2,RY2);
-//                angle RZ1 = RZ2;
-//                angle RY1 = RY2;
-//                GgafDx9Util::anotherRzRy(RZ2, RY2);
-//                angle d1_angRz = GgafDx9Util::getAngDiff(_RZ, RZ1);
-//                angle d1_angRy = GgafDx9Util::getAngDiff(_RY, RY1);
-//                angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
-//                angle d2_angRz = GgafDx9Util::getAngDiff(_RZ, RZ2);
-//                angle d2_angRy = GgafDx9Util::getAngDiff(_RY, RY2);
-//                angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
-//                if (d1 <= d2) {
-//                    _RZ = RZ1;
-//                    _RY = RY1;
-//                } else {
-//                    _RZ = RZ2;
-//                    _RY = RY2;
-//                }
             } else {
                 //_pKurokoB->setZeroVxyzMvAcce();
                 _lockon = 2;
@@ -164,35 +146,26 @@ void MyOptionWateringLaserChip001::processBehavior() {
 
         if (_lockon == 2) {
 
-//            //先端ならば特別に、オプションの反対の座標をターゲットする
+//
             int vTx,vTy,vTz;
             if (_pChip_front == NULL) {
+                //先端ならば特別に、オプションの反対の座標をターゲットする
                 int dx = (_X - _pOrg->_X);
                 int dy = (_Y - _pOrg->_Y);
                 int dz = (_Z - _pOrg->_Z);
-
-                double rrr;
-                if (dx == 0) {
-                    rrr = Dx2App(P_CAM->_zf);
-                } else {
-                    rrr = Dx2App(P_CAM->_zf)/dx;
-                }
-                vTx = _X+dx*rrr;
-                vTy = _Y+dy*rrr;
-                vTz = _Z+dz*rrr;
+                coord zf = Dx2App(P_CAM->_zf);
+                vTx = _X+dx*(dx == 0 ? zf : zf/dx);
+                vTy = _Y+dy*(dy == 0 ? zf : zf/dy);
+                vTz = _Z+dz*(dz == 0 ? zf : zf/dz);
             } else if (_pChip_front->_pChip_front == NULL) {
-                //新たなターゲットを作成
+                //先端以外は前方のチップを新たなターゲットにする
                 vTx = _pChip_front->_X - _X;
                 vTy = _pChip_front->_Y - _Y;
                 vTz = _pChip_front->_Z - _Z;
-            } else if (_pChip_front->_pChip_front->_pChip_front == NULL) {
+            } else {
                 vTx = _pChip_front->_pChip_front->_X - _X;
                 vTy = _pChip_front->_pChip_front->_Y - _Y;
                 vTz = _pChip_front->_pChip_front->_Z - _Z;
-            } else {
-                vTx = _pChip_front->_pChip_front->_pChip_front->_X - _X;
-                vTy = _pChip_front->_pChip_front->_pChip_front->_Y - _Y;
-                vTz = _pChip_front->_pChip_front->_pChip_front->_Z - _Z;
             }
             //自→仮自。上図の |仮自| = 5*vM
             int vVMx = _pKurokoB->_veloVxMv*5;
@@ -219,17 +192,17 @@ void MyOptionWateringLaserChip001::processBehavior() {
                                         RZ_temp, RY_temp);
                 angle angDRZ = GgafDx9Util::getAngDiff(RZ_temp, _RZ);
                 angle angDRY = GgafDx9Util::getAngDiff(RY_temp, _RY);
-                if (-5000 <= angDRZ) {
-                    _RZ -= 5000;
-                } else if (angDRZ <= 5000) {
-                    _RZ += 5000;
+                if (-4000 <= angDRZ) {
+                    _RZ -= 4000;
+                } else if (angDRZ <= 4000) {
+                    _RZ += 4000;
                 } else {
                     _RZ += angDRZ;
                 }
-                if (-5000 <= angDRY) {
-                    _RY -= 5000;
-                } else if (angDRY <= 5000) {
-                    _RY += 5000;
+                if (-4000 <= angDRY) {
+                    _RY -= 4000;
+                } else if (angDRY <= 4000) {
+                    _RY += 4000;
                 } else {
                     _RY += angDRY;
                 }
