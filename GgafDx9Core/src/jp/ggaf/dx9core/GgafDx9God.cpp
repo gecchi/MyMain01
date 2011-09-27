@@ -697,6 +697,7 @@ HRESULT GgafDx9God::init() {
     if (hr == E_FAIL) {
         return E_FAIL;
     }
+    Sleep(1000);
     //フルスクリーン時、レンダリングターゲットテクスチャー作成
     if (CFG_PROPERTY(FULL_SCREEN)) {
         hr = restoreFullScreenRenderTarget();
@@ -917,7 +918,12 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
         _TRACE_("GgafDx9God::restoreFullScreenRenderTarget() ＜警告＞フルスクリーン時意外、呼び出し不要です。");
         return D3D_OK;
     }
-
+    if (CFG_PROPERTY(DUAL_VIEW)) {
+        ShowWindow(_pHWndSecondary, SW_SHOWNORMAL); //これを行なっておかないと、デバイスロストを復帰してた後
+        ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);   //２画面目の領域をクリックした際、再びフルスクリーンが解除されてしまう。
+    } else {
+        ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
+    }
     HRESULT hr;
     //描画先となるテクスチャを別途作成（バックバッファ的な使用を行う）
     hr = GgafDx9God::_pID3DDevice9->CreateTexture(
@@ -1266,18 +1272,6 @@ void GgafDx9God::presentUniversalVisualize() {
             _TRACE_("【デバイスロスト処理】フルスクリーン時レンダリングターゲットテクスチャ再構築 BEGIN ------>");
             restoreFullScreenRenderTarget();
             _TRACE_("【デバイスロスト処理】フルスクリーン時レンダリングターゲットテクスチャ再構築 <-------- END");
-        }
-
-        if (CFG_PROPERTY(FULL_SCREEN)) {
-            _TRACE_("【デバイスロスト処理】フルスクリーン時ウィンドウアクティブ BEGIN ------>");
-            if (CFG_PROPERTY(DUAL_VIEW)) {
-                ShowWindow(_pHWndSecondary, SW_SHOWNORMAL); //これを行なっておかないと、デバイスロストを復帰してた後
-                ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);   //２画面目の領域をクリックした際、再びフルスクリーンが解除されてしまう。
-            } else {
-                ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
-            }
-            Sleep(1000);
-            _TRACE_("【デバイスロスト処理】フルスクリーン時ウィンドウアクティブ BEGIN ------>");
         }
 
         //リソース再構築
