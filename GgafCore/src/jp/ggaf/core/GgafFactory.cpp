@@ -260,7 +260,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 //    _TRACE_("＜工場例外＞ 製造中エラー；"<<e.getMsg());
 //    string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能性があります。\n誠に申し訳ございません。\n";
 //    string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-//    MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
+//    MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
 //    _is_working_flg = false;
 //    _was_finished_flg = true;
 //    GgafGod::_pException_Factory = NEW GgafCriticalException(e.getMsg());

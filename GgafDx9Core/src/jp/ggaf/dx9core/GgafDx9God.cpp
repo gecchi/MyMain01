@@ -7,7 +7,7 @@ using namespace GgafDx9Core;
     if (HR != OKVAL) { \
         std::stringstream ss; \
         ss << X; \
-        MessageBox(GgafDx9God::_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP); \
+        MessageBox(GgafDx9God::_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND); \
         return E_FAIL; \
     } \
 }
@@ -359,13 +359,13 @@ HRESULT GgafDx9God::init() {
         //d3d9.dll に Direct3DCreate9Ex は存在する。
         hr = ((*pFunc_Direct3DCreate9Ex)(D3D_SDK_VERSION, &pID3D9Ex)); //Direct3DCreate9Ex 実行
         if (FAILED(hr)) {
-            MessageBox(GgafDx9God::_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(1)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+            MessageBox(GgafDx9God::_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(1)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
             FreeLibrary(hD3D);
             return E_FAIL; //失敗
         }
 //        hr = pID3D9Ex->QueryInterface(IID_IDirect3D9, reinterpret_cast<void **>(&pID3D9)); //COMとして使用
 //        if (FAILED(hr)) {
-//            MessageBox(GgafDx9God::_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(2)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+//            MessageBox(GgafDx9God::_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(2)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
 //            FreeLibrary(hD3D);
 //            return E_FAIL; //失敗
 //        }
@@ -375,7 +375,7 @@ HRESULT GgafDx9God::init() {
         //d3d9.dll に Direct3DCreate9Ex は存在しない。
         pID3D9 = Direct3DCreate9(D3D_SDK_VERSION);
         if (!pID3D9) {
-            MessageBox(GgafDx9God::_pHWndPrimary, TEXT("IDirect3D9 コンポーネント取得に失敗しました。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+            MessageBox(GgafDx9God::_pHWndPrimary, TEXT("IDirect3D9 コンポーネント取得に失敗しました。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
             FreeLibrary(hD3D);
             return E_FAIL; //失敗
         }
@@ -554,12 +554,12 @@ HRESULT GgafDx9God::init() {
                             ss << _paPresetParam[disp_no].BackBufferWidth<<"x"<<_paPresetParam[disp_no].BackBufferHeight<<" フルスクリーンモードにする事ができません。\n"<<
                                     "解像度の設定を確認してください。";
                         }
-                        MessageBox(GgafDx9God::_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                        MessageBox(GgafDx9God::_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
                         return E_FAIL;
                     }
                 }
             } else {
-                MessageBox(GgafDx9God::_pHWndPrimary, TEXT("フルスクリーンモード可能な解像度情報が取得できませんでした。\nご使用のビデオカードではプログラムを実行できません。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                MessageBox(GgafDx9God::_pHWndPrimary, TEXT("フルスクリーンモード可能な解像度情報が取得できませんでした。\nご使用のビデオカードではプログラムを実行できません。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
                 return E_FAIL;
             }
         }
@@ -633,7 +633,7 @@ HRESULT GgafDx9God::init() {
                     _TRACE_("D3DCREATE_SOFTWARE_VERTEXPROCESSING: "<<GgafDx9CriticalException::getHresultMsg(hr));
 
                     //どのデバイスの作成も失敗した場合
-                    MessageBox(GgafDx9God::_pHWndPrimary, TEXT("DirectXの初期化に失敗しました。\nマルチヘッドディスプレイ環境が存在していません。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                    MessageBox(GgafDx9God::_pHWndPrimary, TEXT("DirectXの初期化に失敗しました。\nマルチヘッドディスプレイ環境が存在していません。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
                     return E_FAIL;
                 } else {
                     _TRACE_("GgafDx9God::init デバイスは MULTI FULLSCRREEN REF で初期化できました。");
@@ -669,7 +669,7 @@ HRESULT GgafDx9God::init() {
                                      &_paPresetParam[0], &_paDisplayMode[0]);
                 if (hr != D3D_OK) {
                     //どのデバイスの作成も失敗した場合
-                    MessageBox(GgafDx9God::_pHWndPrimary, TEXT("DirectXの初期化に失敗しました。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                    MessageBox(GgafDx9God::_pHWndPrimary, TEXT("DirectXの初期化に失敗しました。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
                     return E_FAIL;
                 } else {
                     _TRACE_("GgafDx9God::init デバイスは REF で初期化できました。");
@@ -919,10 +919,13 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
         return D3D_OK;
     }
     if (CFG_PROPERTY(DUAL_VIEW)) {
-        ShowWindow(_pHWndSecondary, SW_SHOWNORMAL); //これを行なっておかないと、デバイスロストを復帰してた後
-        ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);   //２画面目の領域をクリックした際、再びフルスクリーンが解除されてしまう。
+        ShowWindow(_pHWndSecondary, SW_SHOWMAXIMIZED); //これを行なっておかないと、デバイスロストを復帰してた後
+        UpdateWindow(_pHWndSecondary);
+        ShowWindow(_pHWndPrimary, SW_SHOWMAXIMIZED);   //２画面目の領域をクリックした際、再びフルスクリーンが解除されてしまう。
+        UpdateWindow(_pHWndPrimary);
     } else {
-        ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
+        ShowWindow(_pHWndPrimary, SW_SHOWMAXIMIZED);
+        UpdateWindow(_pHWndPrimary);
     }
     HRESULT hr;
     //描画先となるテクスチャを別途作成（バックバッファ的な使用を行う）
@@ -966,6 +969,15 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
                                           1.0f, // Zバッファのクリア値
                                           0 // ステンシルバッファのクリア値
                                           );
+    hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
+    hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
+                                          NULL, // 矩形領域
+                                          D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
+                                          _color_background, //背景黒にクリア
+                                          1.0f, // Zバッファのクリア値
+                                          0 // ステンシルバッファのクリア値
+                                          );
+
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_background)の塗りつぶしよる、画面クリアに失敗しました。");
 
     //アダプタに関連付けられたスワップチェーンを取得してバックバッファ取得
@@ -1630,3 +1642,283 @@ GgafDx9God::~GgafDx9God() {
 //テクスチャの横幅の最大数
 //MaxTextureHeight
 //テクスチャの縦幅の最大数
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+メモ
+
+
+
+
+
+//  マルチモニターの緒元取得プログラム Windows 2000以降(Unicode,MBCS対応)
+//  Visual C++ 2005 Express
+
+
+#include <windows.h>
+#include <stdio.h>
+#include <tchar.h>
+
+TCHAR szClassNme[] = TEXT("EnumDisplay");
+#define MONITORS_MAX_LIM 16 //  サポートする最大モニター数
+
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+
+
+RECT monitors[MONITORS_MAX_LIM];    //  各モニターの緒元
+int monitors_max=0;                 //  実際のモニター数
+
+int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPreInst,
+                     TCHAR* lpszCmdLine, int nCmdShow){
+    HWND hWnd;
+    MSG lpMsg;
+    WNDCLASS myProg;
+
+    if (!hPreInst) {
+        myProg.style            =CS_HREDRAW | CS_VREDRAW;
+        myProg.lpfnWndProc        =WndProc;
+        myProg.cbClsExtra   =0;
+        myProg.cbWndExtra        =0;
+        myProg.hInstance        =hInstance;
+        myProg.hIcon            =NULL;
+        myProg.hCursor            =LoadCursor(NULL, IDC_ARROW);
+        myProg.hbrBackground    =(HBRUSH__ *)GetStockObject(WHITE_BRUSH);
+        myProg.lpszMenuName        =NULL;
+        myProg.lpszClassName    =szClassNme;
+        if (!RegisterClass(&myProg))
+            return FALSE;
+    }
+    hWnd = CreateWindow(szClassNme,
+        TEXT("EnumDisplay"),
+        WS_OVERLAPPEDWINDOW,
+  CW_USEDEFAULT,
+        CW_USEDEFAULT,
+        CW_USEDEFAULT,
+        CW_USEDEFAULT,
+        NULL,
+        NULL,
+        hInstance,
+        NULL);
+    ShowWindow(hWnd, nCmdShow);
+    UpdateWindow(hWnd);
+    while (GetMessage(&lpMsg, NULL, 0, 0)) {
+        TranslateMessage(&lpMsg);
+        DispatchMessage(&lpMsg);
+    }
+    return int(lpMsg.wParam);
+}
+
+//  モニター緒元取得
+
+BOOL myinfoenumproc(HMONITOR hMon,HDC hdcMon,LPRECT lpMon,LPARAM dwDate){
+    monitors[monitors_max].bottom=lpMon->bottom;
+    monitors[monitors_max].left=lpMon->left;
+    monitors[monitors_max].right=lpMon->right;
+    monitors[monitors_max].top=lpMon->top;
+    if(MONITORS_MAX_LIM-1 <= monitors_max)
+        return FALSE;
+    ++monitors_max;
+    return TRUE;
+}
+
+//  仮想画面サイズ
+
+int vs_top;
+int vs_left;
+int vs_right;
+int vs_bottom;
+
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
+    HDC hdc;
+    PAINTSTRUCT ps;
+    int n;
+    static int wx=100;
+    static int wy=100;
+    TCHAR buf[128];
+    switch (msg) {
+        case WM_CREATE:
+            EnumDisplayMonitors(NULL,NULL,(MONITORENUMPROC)myinfoenumproc,0);
+            vs_left=GetSystemMetrics(SM_XVIRTUALSCREEN);
+            vs_top=GetSystemMetrics(SM_YVIRTUALSCREEN);
+            vs_right=vs_left+GetSystemMetrics(SM_CXVIRTUALSCREEN);
+            vs_bottom=vs_top+GetSystemMetrics(SM_CYVIRTUALSCREEN);
+
+            break;
+        case WM_PAINT:
+            {
+                hdc = BeginPaint(hWnd, &ps);
+
+                int x=vs_right-vs_left;
+                int y=vs_bottom-vs_top;
+                double sx=0.2;
+                double sy=0.2;
+                int cx=wx/2-int(double(x)*sx/2);
+                int cy=wy/2-int(double(y)*sy/2);
+
+                Rectangle(hdc , cx , cy ,   int(double(x)*sx+cx) , int(double(y)*sy+cy));
+
+                for (n = 0; n < monitors_max; n++) {
+                    int x1=int(double(monitors[n].left-vs_left)*sx)+cx;
+                    int y1=int(double(monitors[n].top-vs_top)*sy)+cy;
+                    int x2=int(double(monitors[n].right-vs_left)*sx)-1+cx;
+                    int y2=int(double(monitors[n].bottom-vs_top)*sy)-1+cy;
+                    RECT rect;
+
+                    Rectangle(hdc , x1 , y1 ,   x2 , y2);
+
+                    _stprintf_s(buf,sizeof(buf)/sizeof(TCHAR),TEXT("%i*%i") , monitors[n].right-monitors[n].left , monitors[n].bottom-monitors[n].top);
+                    rect.left=x1;   rect.right=x2;  rect.top=y1; rect.bottom=y2;
+                    DrawText(hdc,buf,-1,&rect,DT_CENTER + DT_VCENTER + DT_SINGLELINE);
+
+                    _stprintf_s(buf,sizeof(buf)/sizeof(TCHAR),TEXT("%i,%i") , monitors[n].left, monitors[n].top);
+                    rect.left=x1+4; rect.right=x2;  rect.top=y1+4; rect.bottom=y2;
+                    DrawText(hdc,buf,-1,&rect,DT_LEFT + DT_TOP + DT_SINGLELINE);
+
+                    _stprintf_s(buf,sizeof(buf)/sizeof(TCHAR),TEXT("%i,%i") , monitors[n].right, monitors[n].bottom);
+                    rect.left=x1;   rect.right=x2-4;    rect.top=y1; rect.bottom=y2-4;
+                    DrawText(hdc,buf,-1,&rect,DT_RIGHT + DT_BOTTOM + DT_SINGLELINE);
+                }
+                EndPaint(hWnd, &ps);
+                break;
+            }
+        case WM_SIZE:   //  ウィンドウサイズの取得
+            wx=LOWORD(lParam);
+            wy=HIWORD(lParam);
+            break;
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            break;
+        default:
+            return(DefWindowProc(hWnd, msg, wParam, lParam));
+    }
+    return (0L);
+}
+
+
+
+
+RECT bounds;
+
+//callback function from EnumDisplayMonitors()
+BOOL CALLBACK MyInfoEnumProc(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData)
+{
+    MONITORINFOEX mInfo;
+    mInfo.cbSize = sizeof(MONITORINFOEX);
+    GetMonitorInfo(hMonitor,&mInfo);
+
+    if(mInfo.dwFlags == 0)
+    {
+        //bounds is global variable available only in this file
+        bounds = mInfo.rcMonitor;
+    }
+    return TRUE;
+}
+
+// set full screen in the second monitor
+void ProjectorWindow::setFullScreen(bool fullScreen)
+{
+    int n_monitors = GetSystemMetrics(SM_CMONITORS);
+    if(n_monitors < 2){
+        return;
+    }
+
+    EnumDisplayMonitors(NULL, NULL, MyInfoEnumProc, 0);
+
+    // Obtaining a handler for the window of the current context
+    // (in English: getting a reference to the current OpenGL screen)
+    HDC dc = GetDC(this->winId());
+    HWND hwnd = WindowFromDC(dc);
+
+    SetWindowLong(hwnd, GWL_STYLE, WS_POPUP|WS_VISIBLE);
+
+     // Placing the window with the bigger dimensions to cover the whole
+    // multi-monitor screen
+    SetWindowPos(hwnd, NULL, bounds.left, bounds.top, bounds.right - bounds.left + 1,
+            bounds.bottom - bounds.top + 1, SWP_FRAMECHANGED);
+}
+
+
+
+マルチディスプレイの各種情報取得では・・・
+GetSystemMetrics(SM_CMONITORS)  で、ディスプレイ台数取得
+GetSystemMetrics(SM_XVIRTUALSCREEN)
+GetSystemMetrics(SM_YVIRTUALSCREEN)
+GetSystemMetrics(SM_CXVIRTUALSCREEN)
+GetSystemMetrics(SM_CYVIRTUALSCREEN) で、仮想画面全体のサイズ取得
+MonitorFromPoint( p , MONITOR_DEFAULTTONEARESET) で、領域に対する
+ディスプレイのハンドル取得・・・
+GetMonitorInfo( hMon , &mInfo ) で、ディスプレイハンドルからサイズ
+情報を取得。
+
+と言う流れになります。
+
+お試し下さい。
+
+※　各種APIの詳細は、ちゃんと調べて下さい。
+　　ちゃんと書いてありますヨ！
+
+BOOL CTestDlg::OnInitDialog()
+{
+//Append Start
+    long     x, y;
+    HMONITOR    MonitorHandle;
+    MONITORINFO MonitorInfo;
+    x = 1280;
+    y = 0;
+    POINT Point = {x, y};
+    MonitorHandle = ::MonitorFromPoint(Point, MONITOR_DEFAULTTOPRIMARY);
+    MonitorInfo.cbSize = sizeof(MonitorInfo);
+    ::GetMonitorInfo(MonitorHandle, &MonitorInfo);
+//Append End
+}
+
+
+#define COMPILE_MULTIMON_STUBS
+#include <multimon.h>
+POINT Point = {x, y};
+MONITORINFO MonitorInfo;
+HMONITOR MonitorHandle = ::MonitorFromPoint(Point, MONITOR_DEFAULTTOPRIMARY);
+MonitorInfo.cbSize = sizeof(MonitorInfo);
+::GetMonitorInfo(MonitorHandle, &MonitorInfo);
+
+*/
+
+
+
+
+
+
+
+
+
+

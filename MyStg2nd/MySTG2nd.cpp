@@ -71,7 +71,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     try {
         MyStg2nd::Properties::load(".\\config.properties");
     } catch (GgafCore::GgafCriticalException& e) {
-        MessageBox(NULL, (string("config.properties のロードの失敗。\n理由：")+e.getMsg()).c_str(),"Error", MB_OK|MB_ICONSTOP);
+        MessageBox(NULL, (string("config.properties のロードの失敗。\n理由：")+e.getMsg()).c_str(),"Error", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         MyStg2nd::Properties::clean();
         _TRACE_("[GgafCriticalException]:" << e.getMsg());
         return EXIT_FAILURE;
@@ -194,38 +194,54 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         return FALSE;
     }
 
-    if (CFG_PROPERTY(FULL_SCREEN)) {
 
+    if (CFG_PROPERTY(FULL_SCREEN)) {
+        SetWindowPos(
+                hWnd1,
+                HWND_NOTOPMOST,
+                0, 0, 0, 0,
+                SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE
+        );
     } else {
-        if (CFG_PROPERTY(DUAL_VIEW)) {
-            RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
-            int ww1, wh1; // ウィンドウ全体の幅、高さ
-            int cw1, ch1; // クライアント領域の幅、高さ
-            int fw1, fh1; // フレームの幅、高さ
-            // ウィンドウ全体の幅・高さを計算
-            GetWindowRect(hWnd1, &wRect1);
-            ww1 = wRect1.right - wRect1.left;
-            wh1 = wRect1.bottom - wRect1.top;
-            // クライアント領域の幅・高さを計算
-            GetClientRect(hWnd1, &cRect1);
-            cw1 = cRect1.right - cRect1.left;
-            ch1 = cRect1.bottom - cRect1.top;
-            // クライアント領域以外に必要なサイズを計算
-            fw1 = ww1 - cw1;
-            fh1 = wh1 - ch1;
-            // 計算した幅と高さをウィンドウに設定
+        RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
+        int ww1, wh1; // ウィンドウ全体の幅、高さ
+        int cw1, ch1; // クライアント領域の幅、高さ
+        int fw1, fh1; // フレームの幅、高さ
+        // ウィンドウ全体の幅・高さを計算
+        GetWindowRect(hWnd1, &wRect1);
+        ww1 = wRect1.right - wRect1.left;
+        wh1 = wRect1.bottom - wRect1.top;
+        // クライアント領域の幅・高さを計算
+        GetClientRect(hWnd1, &cRect1);
+        cw1 = cRect1.right - cRect1.left;
+        ch1 = cRect1.bottom - cRect1.top;
+        // クライアント領域以外に必要なサイズを計算
+        fw1 = ww1 - cw1;
+        fh1 = wh1 - ch1;
+        // 計算した幅と高さをウィンドウに設定
+        SetWindowPos(
+                hWnd1,
+                HWND_TOP,
+                wRect1.left,
+                wRect1.top,
+                CFG_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH) + fw1,
+                CFG_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT) + fh1,
+                SWP_NOMOVE
+        );
+    }
+    ShowWindow(hWnd1, nCmdShow);
+    UpdateWindow(hWnd1);
+
+
+    if (CFG_PROPERTY(DUAL_VIEW)) {
+        if (CFG_PROPERTY(FULL_SCREEN)) {
             SetWindowPos(
                     hWnd1,
-                    HWND_TOP,
-                    wRect1.left,
-                    wRect1.top,
-                    CFG_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH) + fw1,
-                    CFG_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT) + fh1,
-                    SWP_NOMOVE
+                    HWND_NOTOPMOST,
+                    0, 0, 0, 0,
+                    SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE
             );
-            ShowWindow(hWnd1, nCmdShow);
-            UpdateWindow(hWnd1);
-
+        } else {
             RECT wRect2, cRect2; // ウィンドウ全体の矩形、クライアント領域の矩形
             int ww2, wh2; // ウィンドウ全体の幅、高さ
             int cw2, ch2; // クライアント領域の幅、高さ
@@ -251,38 +267,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     CFG_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT) + fh2,
                     SWP_NOMOVE
             );
-
-            ShowWindow(hWnd2, nCmdShow);
-            UpdateWindow(hWnd2);
-        } else {
-            RECT wRect, cRect; // ウィンドウ全体の矩形、クライアント領域の矩形
-            int ww, wh; // ウィンドウ全体の幅、高さ
-            int cw, ch; // クライアント領域の幅、高さ
-            int fw, fh; // フレームの幅、高さ
-            // ウィンドウ全体の幅・高さを計算
-            GetWindowRect(hWnd1, &wRect);
-            ww = wRect.right - wRect.left;
-            wh = wRect.bottom - wRect.top;
-            // クライアント領域の幅・高さを計算
-            GetClientRect(hWnd1, &cRect);
-            cw = cRect.right - cRect.left;
-            ch = cRect.bottom - cRect.top;
-            // クライアント領域以外に必要なサイズを計算
-            fw = ww - cw;
-            fh = wh - ch;
-            // 計算した幅と高さをウィンドウに設定
-            SetWindowPos(
-                    hWnd1,
-                    HWND_TOP,
-                    wRect.left,
-                    wRect.top,
-                    CFG_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH) + fw,
-                    CFG_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT) + fh,
-                    SWP_NOMOVE
-            );
         }
 
+        ShowWindow(hWnd2, nCmdShow);
+        UpdateWindow(hWnd2);
+    }
 
+    if (CFG_PROPERTY(FULL_SCREEN)) {
         ShowWindow(hWnd1, nCmdShow);
         UpdateWindow(hWnd1);
         //hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MTSTG17_031));//ショートカットロード
@@ -381,7 +372,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         _TRACE_("＜例外＞"<<e.getMsg());
         string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
         string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-        MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
+        MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_GgafException.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_GgafException.rep");
         _TRACE_("[GgafCriticalException]:"<<e.getMsg());
@@ -392,7 +383,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         _TRACE_("＜致命的な例外＞"<<what);
         string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予測できなかった致命的エラーです。\n誠に申し訳ございません。\n";
         string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-        MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP);
+        MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         _TRACE_("[exception]:"<<what);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_exception.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_exception.rep");
@@ -406,7 +397,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         _TRACE_("＜致命的な謎例外＞");
         string message = "恐れ入りますが、不明な内部エラーが発生しました。\n誠に申し訳ございません。\n";
         string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-        MessageBox(NULL, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP);
+        MessageBox(NULL, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
         VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_UNKNOWN_ERROR.rep");
         VB_UI->_pRpy->outputFile("VB_UI_LAST_UNKNOWN_ERROR.rep");
         ::timeEndPeriod(1);
@@ -418,14 +409,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 }
 
 void myUnexpectedHandler() {
-    MessageBox(NULL, "UnexpectedHandler called.","ERROR", MB_OK|MB_ICONSTOP);
+    MessageBox(NULL, "UnexpectedHandler called.","ERROR", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Unexpected.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Unexpected.rep");
     terminate();
 }
 
 void myTerminateHandler() {
-    MessageBox(NULL, "TerminateHandler called.","ERROR", MB_OK|MB_ICONSTOP);
+    MessageBox(NULL, "TerminateHandler called.","ERROR", MB_OK|MB_ICONSTOP | MB_SETFOREGROUND);
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Terminate.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Terminate.rep");
     abort();
@@ -508,7 +499,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 hr = GgafDx9Core::GgafDx9Input::_pIDirectInputDevice8_Keyboard->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
                 if (hr != D3D_OK) {
                     MessageBox(hWnd, TEXT("GgafDx9Input::initDx9Input() キーボードのSetCooperativeLevelに失敗しました"),
-                               TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+                               TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
                 }
             }
             if (GgafDx9Core::GgafDx9Input::_pIDirectInputDevice8_Joystick) {
