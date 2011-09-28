@@ -194,9 +194,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         return FALSE;
     }
 
-
-
-
     //ウィンドウ時、タイトルバー、リサイズの厚さを考慮。
     if (!CFG_PROPERTY(FULL_SCREEN)) {
         RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
@@ -215,17 +212,16 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         fw1 = ww1 - cw1;
         fh1 = wh1 - ch1;
         // 計算した幅と高さをウィンドウに設定
-        SetWindowPos(
-                hWnd1,
-                HWND_TOP,
-                0,
-                0,
-                CFG_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH) + fw1,
-                CFG_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT) + fh1,
-                SWP_NOMOVE
-        );
-
-        if (CFG_PROPERTY(DUAL_VIEW)) {
+		if (CFG_PROPERTY(DUAL_VIEW)) {
+            SetWindowPos(
+                    hWnd1,
+                    HWND_TOP,
+                    0,
+                    0,
+                    CFG_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH) + fw1,
+                    CFG_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT) + fh1,
+                    SWP_NOMOVE
+            );
             SetWindowPos(
                     hWnd2,
                     HWND_TOP,
@@ -235,6 +231,17 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     CFG_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT) + fh1,
                     SWP_NOMOVE
             );
+        } else {
+            SetWindowPos(
+                    hWnd1,
+                    HWND_TOP,
+                    0,
+                    0,
+                    CFG_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH) + fw1,
+                    CFG_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT) + fh1,
+                    SWP_NOMOVE
+            );
+
         }
     }
 

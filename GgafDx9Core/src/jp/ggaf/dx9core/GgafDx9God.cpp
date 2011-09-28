@@ -13,6 +13,26 @@ using namespace GgafDx9Core;
 }
 
 //TODO:コメントとか多すぎる。整理する。
+/**
+ * GgafDx9Godのメンバーの _secondary_screen_x, _secondary_screen_y に
+ * ２画面目の左上座標を保持させるためだけの、
+ * EnumDisplayMonitorsによるコールバック関数。
+ */
+BOOL CALLBACK getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
+                                                  HDC hdcMonitor,
+                                                  LPRECT lprcMonitor,
+                                                  LPARAM dwData) {
+    MONITORINFOEX moniter_info;
+    moniter_info.cbSize = sizeof(MONITORINFOEX);
+    GetMonitorInfo(hMonitor, &moniter_info); //モニタの情報をとってくる
+    if (moniter_info.dwFlags != MONITORINFOF_PRIMARY) {
+        //プライマリモニタでは無い、セカンダリと見なす・・・
+        //座標の保持
+        P_GOD->_secondary_screen_x = moniter_info.rcMonitor.left;
+        P_GOD->_secondary_screen_y = moniter_info.rcMonitor.top;
+    }
+    return TRUE;
+}
 
 
 HWND GgafDx9God::_pHWndPrimary = NULL;
@@ -706,6 +726,18 @@ HRESULT GgafDx9God::init() {
             return E_FAIL;
         }
     }
+
+    //2011/09/28
+    //TODO:VISTAで２画面フルスクリーン時、フルスクリーンが解除対策
+    //WDDMでデバイス作成し、２画面フルスクリーン時で起動した後、２画面目の領域のうち、
+    //もともとの１画面目だった領域(解像度変更により２画面目へはみ出た出た部分）でクリックすると、
+    //フルスクリーンが解除されてしまうことが発覚。かなり時間を費やし調べたが、解決方法は見つからなかった。
+    //そこで、無理やり回避するため、いきなりデバイスロスト処理を１回実行。
+    //再描画することで、なぜか問題は回避できた。たぶん、正規の方法じゃない。苦肉の策・・・。
+    if (_can_wddm && CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
+        hr = releaseFullScreenRenderTarget();
+        hr = restoreFullScreenRenderTarget();
+	}
     return D3D_OK;
 }
 
@@ -913,26 +945,6 @@ HRESULT GgafDx9God::initDx9Device() {
     return D3D_OK;
 }
 
-/**
- * GgafDx9Godのメンバーの _secondary_screen_x, _secondary_screen_y に
- * ２画面目の左上座標を保持させるためだけの、
- * EnumDisplayMonitorsによるコールバック関数。
- */
-BOOL CALLBACK getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
-                                                  HDC hdcMonitor,
-                                                  LPRECT lprcMonitor,
-                                                  LPARAM dwData) {
-    MONITORINFOEX moniter_info;
-    moniter_info.cbSize = sizeof(MONITORINFOEX);
-    GetMonitorInfo(hMonitor, &moniter_info); //モニタの情報をとってくる
-    if (moniter_info.dwFlags != MONITORINFOF_PRIMARY) {
-        //プライマリモニタでは無い、セカンダリと見なす・・・
-        //座標の保持
-        P_GOD->_secondary_screen_x = moniter_info.rcMonitor.left;
-        P_GOD->_secondary_screen_y = moniter_info.rcMonitor.top;
-    }
-    return TRUE;
-}
 
 HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
     if (!CFG_PROPERTY(FULL_SCREEN)) {
@@ -1057,11 +1069,12 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
     if (CFG_PROPERTY(DUAL_VIEW)) {
         //２画面目のウィンドウ位置を補正
         EnumDisplayMonitors(NULL, NULL, getSecondaryMoniterPixcoordCallback, NULL);
-        ShowWindow(_pHWndSecondary, SW_SHOWMAXIMIZED);
+        _TRACE_("２画面目の座標("<<_secondary_screen_x<<","<<_secondary_screen_y<<")");
+        ShowWindow(_pHWndSecondary, SW_SHOWNORMAL);
         UpdateWindow(_pHWndSecondary);
         SetWindowPos(
                 _pHWndSecondary,
-                HWND_NOTOPMOST,
+                HWND_TOPMOST,
                 _secondary_screen_x, _secondary_screen_y, 0, 0,
                 SWP_SHOWWINDOW | SWP_NOSIZE
         );
@@ -1069,20 +1082,20 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
         //再びフルスクリーンが解除されてしまう。
         //１画面目はフルスクリーンになっても、Windowの左上が(0,0)のためズレないので、
         //SetWindowPosはたぶん不要。しかし念のために同様の処理を行う。
-        ShowWindow(_pHWndPrimary, SW_SHOWMAXIMIZED);
+        ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
         UpdateWindow(_pHWndPrimary);
         SetWindowPos(
                 _pHWndPrimary,
-                HWND_NOTOPMOST,
+                HWND_TOPMOST,
                 0, 0, 0, 0,
                 SWP_SHOWWINDOW | SWP_NOSIZE
         );
     } else {
-        ShowWindow(_pHWndPrimary, SW_SHOWMAXIMIZED);
+        ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
         UpdateWindow(_pHWndPrimary);
         SetWindowPos(
                 _pHWndPrimary,
-                HWND_NOTOPMOST,
+                HWND_TOPMOST,
                 0, 0, 0, 0,
                 SWP_SHOWWINDOW | SWP_NOSIZE
         );
@@ -1237,7 +1250,7 @@ void GgafDx9God::presentUniversalVisualize() {
                 _TRACE_("通常の正常デバイスロスト！");
             }
 
-            Sleep(1000); // 1秒待つ
+            Sleep(100); // 1秒待つ
             _TRACE_("【デバイスロスト処理】BEGIN ------>");
 
             //工場休止
@@ -1357,7 +1370,7 @@ void GgafDx9God::presentUniversalVisualize() {
 
         _TRACE_("【デバイスロスト処理】<-------- END");
 
-        Sleep(5000);
+        Sleep(500);
         hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                               NULL, // 矩形領域
                                               D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
