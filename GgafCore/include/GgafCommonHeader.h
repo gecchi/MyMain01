@@ -12,6 +12,11 @@
     #define MY_DEBUG _DEBUG
 #endif
 
+//Windows XP 以上。
+#define WINVER 0x0501
+#define _WIN32_WINNT 0x0501
+//GCCの場合、上の２つのシンボルはコンパイラの
+//引数で設定する方が無難。
 
 #ifdef _MSC_VER
     #ifdef _DEBUG
@@ -60,6 +65,7 @@
 #include <stack>
 #include <sstream>
 #include <cstddef>
+
 
 
 #ifdef _MSC_VER

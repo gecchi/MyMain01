@@ -195,14 +195,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     }
 
 
-    if (CFG_PROPERTY(FULL_SCREEN)) {
-        SetWindowPos(
-                hWnd1,
-                HWND_NOTOPMOST,
-                0, 0, 0, 0,
-                SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE
-        );
-    } else {
+
+
+    //ウィンドウ時、タイトルバー、リサイズの厚さを考慮。
+    if (!CFG_PROPERTY(FULL_SCREEN)) {
         RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
         int ww1, wh1; // ウィンドウ全体の幅、高さ
         int cw1, ch1; // クライアント領域の幅、高さ
@@ -222,61 +218,32 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         SetWindowPos(
                 hWnd1,
                 HWND_TOP,
-                wRect1.left,
-                wRect1.top,
+                0,
+                0,
                 CFG_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH) + fw1,
                 CFG_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT) + fh1,
                 SWP_NOMOVE
         );
-    }
-    ShowWindow(hWnd1, nCmdShow);
-    UpdateWindow(hWnd1);
 
-
-    if (CFG_PROPERTY(DUAL_VIEW)) {
-        if (CFG_PROPERTY(FULL_SCREEN)) {
-            SetWindowPos(
-                    hWnd1,
-                    HWND_NOTOPMOST,
-                    0, 0, 0, 0,
-                    SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE
-            );
-        } else {
-            RECT wRect2, cRect2; // ウィンドウ全体の矩形、クライアント領域の矩形
-            int ww2, wh2; // ウィンドウ全体の幅、高さ
-            int cw2, ch2; // クライアント領域の幅、高さ
-            int fw2, fh2; // フレームの幅、高さ
-            // ウィンドウ全体の幅・高さを計算
-            GetWindowRect(hWnd2, &wRect2);
-            ww2 = wRect2.right - wRect2.left;
-            wh2 = wRect2.bottom - wRect2.top;
-            // クライアント領域の幅・高さを計算
-            GetClientRect(hWnd2, &cRect2);
-            cw2 = cRect2.right - cRect2.left;
-            ch2 = cRect2.bottom - cRect2.top;
-            // クライアント領域以外に必要なサイズを計算
-            fw2 = ww2 - cw2;
-            fh2 = wh2 - ch2;
-            // 計算した幅と高さをウィンドウに設定
+        if (CFG_PROPERTY(DUAL_VIEW)) {
             SetWindowPos(
                     hWnd2,
                     HWND_TOP,
-                    wRect2.left,
-                    wRect2.top,
-                    CFG_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH) + fw2,
-                    CFG_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT) + fh2,
+                    0,
+                    0,
+                    CFG_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH) + fw1,
+                    CFG_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT) + fh1,
                     SWP_NOMOVE
             );
         }
-
-        ShowWindow(hWnd2, nCmdShow);
-        UpdateWindow(hWnd2);
     }
 
-    if (CFG_PROPERTY(FULL_SCREEN)) {
-        ShowWindow(hWnd1, nCmdShow);
-        UpdateWindow(hWnd1);
-        //hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MTSTG17_031));//ショートカットロード
+    //アクティブに
+    ShowWindow(hWnd1, nCmdShow);
+    UpdateWindow(hWnd1);
+    if (CFG_PROPERTY(DUAL_VIEW)) {
+        ShowWindow(hWnd2, nCmdShow);
+        UpdateWindow(hWnd2);
     }
 
 #ifdef MY_DEBUG

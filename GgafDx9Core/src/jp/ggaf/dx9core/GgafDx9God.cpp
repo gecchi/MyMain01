@@ -69,7 +69,8 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_
     _apSwapChain[1] = NULL;
     _apBackBuffer[1] = NULL;
 
-
+    _secondary_screen_x = 0;
+    _secondary_screen_y = 0;
     //[メモ：RECT構造体]
     //引数に使用するRECT構造体のメンバ right, bottom は「右下座標」となっているが、これは正確ではない。
     //実際の定義は
@@ -912,20 +913,31 @@ HRESULT GgafDx9God::initDx9Device() {
     return D3D_OK;
 }
 
+/**
+ * GgafDx9Godのメンバーの _secondary_screen_x, _secondary_screen_y に
+ * ２画面目の左上座標を保持させるためだけの、
+ * EnumDisplayMonitorsによるコールバック関数。
+ */
+BOOL CALLBACK getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
+                                                  HDC hdcMonitor,
+                                                  LPRECT lprcMonitor,
+                                                  LPARAM dwData) {
+    MONITORINFOEX moniter_info;
+    moniter_info.cbSize = sizeof(MONITORINFOEX);
+    GetMonitorInfo(hMonitor, &moniter_info); //モニタの情報をとってくる
+    if (moniter_info.dwFlags != MONITORINFOF_PRIMARY) {
+        //プライマリモニタでは無い、セカンダリと見なす・・・
+        //座標の保持
+        P_GOD->_secondary_screen_x = moniter_info.rcMonitor.left;
+        P_GOD->_secondary_screen_y = moniter_info.rcMonitor.top;
+    }
+    return TRUE;
+}
 
 HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
     if (!CFG_PROPERTY(FULL_SCREEN)) {
         _TRACE_("GgafDx9God::restoreFullScreenRenderTarget() ＜警告＞フルスクリーン時意外、呼び出し不要です。");
         return D3D_OK;
-    }
-    if (CFG_PROPERTY(DUAL_VIEW)) {
-        ShowWindow(_pHWndSecondary, SW_SHOWMAXIMIZED); //これを行なっておかないと、デバイスロストを復帰してた後
-        UpdateWindow(_pHWndSecondary);
-        ShowWindow(_pHWndPrimary, SW_SHOWMAXIMIZED);   //２画面目の領域をクリックした際、再びフルスクリーンが解除されてしまう。
-        UpdateWindow(_pHWndPrimary);
-    } else {
-        ShowWindow(_pHWndPrimary, SW_SHOWMAXIMIZED);
-        UpdateWindow(_pHWndPrimary);
     }
     HRESULT hr;
     //描画先となるテクスチャを別途作成（バックバッファ的な使用を行う）
@@ -1041,8 +1053,45 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(2)");
     }
 
+
+    if (CFG_PROPERTY(DUAL_VIEW)) {
+        //２画面目のウィンドウ位置を補正
+        EnumDisplayMonitors(NULL, NULL, getSecondaryMoniterPixcoordCallback, NULL);
+        ShowWindow(_pHWndSecondary, SW_SHOWMAXIMIZED);
+        UpdateWindow(_pHWndSecondary);
+        SetWindowPos(
+                _pHWndSecondary,
+                HWND_NOTOPMOST,
+                _secondary_screen_x, _secondary_screen_y, 0, 0,
+                SWP_SHOWWINDOW | SWP_NOSIZE
+        );
+        //これを行なっておかないと、初回起動時、２画面目のとある領域をクリックした際、
+        //再びフルスクリーンが解除されてしまう。
+        //１画面目はフルスクリーンになっても、Windowの左上が(0,0)のためズレないので、
+        //SetWindowPosはたぶん不要。しかし念のために同様の処理を行う。
+        ShowWindow(_pHWndPrimary, SW_SHOWMAXIMIZED);
+        UpdateWindow(_pHWndPrimary);
+        SetWindowPos(
+                _pHWndPrimary,
+                HWND_NOTOPMOST,
+                0, 0, 0, 0,
+                SWP_SHOWWINDOW | SWP_NOSIZE
+        );
+    } else {
+        ShowWindow(_pHWndPrimary, SW_SHOWMAXIMIZED);
+        UpdateWindow(_pHWndPrimary);
+        SetWindowPos(
+                _pHWndPrimary,
+                HWND_NOTOPMOST,
+                0, 0, 0, 0,
+                SWP_SHOWWINDOW | SWP_NOSIZE
+        );
+    }
+
     return D3D_OK;
 }
+
+
 
 HRESULT GgafDx9God::releaseFullScreenRenderTarget() {
     RELEASE_SAFETY(_pRenderTextureSurface);
@@ -1469,6 +1518,9 @@ GgafDx9God::~GgafDx9God() {
     RELEASE_IMPOSSIBLE_NULL(_pID3D9);
 
 }
+
+
+
 
 //メモ 2011/07/26
 //

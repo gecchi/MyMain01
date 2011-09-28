@@ -65,6 +65,10 @@ public:
     int _primary;
     /** ２画面目の _aRect_HarfRenderTargetBuffer[] の序数 */
     int _secondary;
+    /** フルスクリーン時２画面目の左上X座標 */
+    pixcoord _secondary_screen_x;
+    /** フルスクリーン時２画面目の左上Y座標 */
+    pixcoord _secondary_screen_y;
 
     /** フルスクリーン時、レンダリングターゲットテクスチャ */
     IDirect3DTexture9*  _pRenderTexture;
