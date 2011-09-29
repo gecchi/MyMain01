@@ -6,8 +6,8 @@
 		<project>CustomizeOgg_static</project>
 		<project>CustomizeVorbis_static</project>
 		<project>GgafCore</project>
-		<project>GgafDx9Core</project>
-		<project>GgafDx9LibStg</project>
+		<project>GgafDxCore</project>
+		<project>GgafLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

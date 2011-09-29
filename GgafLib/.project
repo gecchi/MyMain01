@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>GgafDx9LibStg</name>
+	<name>GgafLib</name>
 	<comment></comment>
 	<projects>
 		<project>CustomizeOgg_static</project>
 		<project>CustomizeVorbis_static</project>
 		<project>GgafCore</project>
-		<project>GgafDx9Core</project>
+		<project>GgafDxCore</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -31,7 +31,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildLocation</key>
-					<value>${workspace_loc:/GgafDx9LibStg/DebugCdt}</value>
+					<value>${workspace_loc:/GgafLib/DebugCdt}</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.contents</key>

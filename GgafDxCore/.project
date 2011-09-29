@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>GgafDx9Core</name>
+	<name>GgafDxCore</name>
 	<comment></comment>
 	<projects>
 		<project>CustomizeOgg_static</project>
@@ -30,7 +30,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildLocation</key>
-					<value>${workspace_loc:/GgafDx9Core/DebugCdt}</value>
+					<value>${workspace_loc:/GgafDxCore/DebugCdt}</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.contents</key>
