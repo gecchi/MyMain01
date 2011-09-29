@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDx9SpriteSetModel用シェーダー
+// Ggafライブラリ、GgafDxSpriteSetModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06 
@@ -104,7 +104,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //スプライト標準頂点シェーダー
-OUT_VS GgafDx9VS_DefaultSpriteSet(                              
+OUT_VS GgafDxVS_DefaultSpriteSet(                              
       float4 prm_pos    : POSITION,     // モデルの頂点
       float3 prm_normal : NORMAL,        // モデルの頂点の法
       float  prm_index  : PSIZE ,    // モデル番号
@@ -220,7 +220,7 @@ OUT_VS GgafDx9VS_DefaultSpriteSet(
 }
 
 //スプライト標準ピクセルシェーダー
-float4 GgafDx9PS_DefaultSpriteSet(
+float4 GgafDxPS_DefaultSpriteSet(
 	float2 prm_uv	  : TEXCOORD0 ,
 	float4 prm_color    : COLOR0 
 ) : COLOR  {
@@ -249,7 +249,7 @@ float4 PS_Flush(
 
 //＜テクニック：DefaultSpriteSetTechnique＞
 //【機能】
-//GgafDx9SpriteSetModel用標準シェーダー
+//GgafDxSpriteSetModel用標準シェーダー
 //【概要】
 //板ポリ（擬似スプライト）を描画する。ライトなどの陰影は無し。
 //【考慮される要素】
@@ -276,8 +276,8 @@ technique DefaultSpriteSetTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultSpriteSet();
-		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultSpriteSet();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultSpriteSet();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultSpriteSet();
 	}
 }
 
@@ -287,8 +287,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultSpriteSet();
-		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultSpriteSet();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultSpriteSet();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultSpriteSet();
 	}
 }
 
@@ -299,7 +299,7 @@ technique Flush
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultSpriteSet();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultSpriteSet();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

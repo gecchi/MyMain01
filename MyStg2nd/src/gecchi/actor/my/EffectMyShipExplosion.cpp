@@ -1,15 +1,15 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 EffectMyShipExplosion::EffectMyShipExplosion(const char* prm_name) : 
         DefaultSpriteSetActor(prm_name, "EffectExplosion001", NULL) {
     _class_name = "EffectMyShipExplosion";
     changeEffectTechnique("DestBlendOne"); //â¡éZçáê¨TechniqueéwíË
-    defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv);
+    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv);
 }
 
 void EffectMyShipExplosion::initialize() {

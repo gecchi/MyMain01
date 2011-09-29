@@ -10,7 +10,7 @@ namespace MyStg2nd {
  * @since 2011/04/07
  * @author Masatoshi Tsuge
  */
-class Cursor001 : public GgafDx9LibStg::DefaultBoardActor {
+class Cursor001 : public GgafLib::DefaultBoardActor {
 
 public:
     Cursor001(const char* prm_name);
@@ -25,7 +25,7 @@ public:
 
     void moveTo(int X, int Y);
 
-    void moveTo(GgafDx9Core::GgafDx9GeometricActor* prm_pActor) {
+    void moveTo(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
         moveTo(prm_pActor->_X, prm_pActor->_Y);
     }
     virtual ~Cursor001();

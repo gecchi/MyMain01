@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/08/18
  * @author Masatoshi Tsuge
  */
-class Stage02_01 : public GgafDx9LibStg::DefaultScene {
+class Stage02_01 : public GgafLib::DefaultScene {
 
 
 public:

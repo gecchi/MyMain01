@@ -2,11 +2,11 @@
 #define ENEMYASTRAEALASERCHIP003_H_
 namespace MyStg2nd {
 
-class EnemyAstraeaLaserChip003 : public GgafDx9LibStg::WateringLaserChip {
+class EnemyAstraeaLaserChip003 : public GgafLib::WateringLaserChip {
 
 public:
-    GgafDx9LibStg::SplineManufactureConnection* _pSplManufCon;
-    GgafDx9LibStg::SplineSequence* _pSplSeq;
+    GgafLib::SplineManufactureConnection* _pSplManufCon;
+    GgafLib::SplineSequence* _pSplSeq;
 
     EnemyAstraeaLaserChip003(const char* prm_name);
 

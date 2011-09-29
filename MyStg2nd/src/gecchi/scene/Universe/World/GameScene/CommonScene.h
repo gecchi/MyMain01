@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * 共通シーンクラス .
  * 2008/9/8
  */
-class CommonScene : public GgafDx9LibStg::DefaultScene {
+class CommonScene : public GgafLib::DefaultScene {
 
 
 public:

@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 
@@ -62,7 +62,7 @@ void MyOptionTorpedoController::fire() {
         angle angFireCenter = angBegin + (ANGLE360*(_pMyOption->_no-1) / _pMyOption->_pMyOptionController->_now_option_num);
         angle out_rz,out_ry,out_dz,out_dy;
         angle* pa_angWay = NEW angle[ _firing_num+2];
-        GgafDx9Util::getWayAngle2D(angFireCenter, _firing_num+1, angRenge / _firing_num, pa_angWay);
+        GgafDxUtil::getWayAngle2D(angFireCenter, _firing_num+1, angRenge / _firing_num, pa_angWay);
         for (int i = 0; i < _firing_num; i++) { //—¼’[‚Ì•ûŒü‚Í•s—v
             _papMyTorpedo[i]->locateAs(P_MYSHIP);
             if (target_num == 0) {

@@ -4,17 +4,17 @@ namespace MyStg2nd {
 
 /**
  * メッシュアクターの具象クラス.
- * GgafDx9Core::GgafDx9MeshActor を空実装した具象アクターです。
+ * GgafDxCore::GgafDxMeshActor を空実装した具象アクターです。
  * （現在未使用）
  */
-class GroundMeshActor : public GgafDx9Core::GgafDx9MeshActor {
+class GroundMeshActor : public GgafDxCore::GgafDxMeshActor {
 
 public:
-    GgafDx9Core::GgafDx9Scaler* _pScaler;
+    GgafDxCore::GgafDxScaler* _pScaler;
 
     frame _offset_frames;
 
-    GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
+    GgafLib::CollisionChecker* _pCollisionChecker;
 
     GroundMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
     virtual void onCreateModel() override {

@@ -20,7 +20,7 @@ public:
      * 編隊が全て自機側の攻撃で殲滅させられた場合
      * @param prm_pActorLast 最後に破壊されたアクター
      */
-    virtual void wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) override;
+    virtual void wasDestroyedFormation(GgafDxGeometricActor* prm_pActorLast) override;
 
     virtual ~FormationEunomia001();
 };

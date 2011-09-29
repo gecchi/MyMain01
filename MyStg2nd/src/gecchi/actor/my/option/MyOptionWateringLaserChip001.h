@@ -11,7 +11,7 @@ namespace MyStg2nd {
  * @since 2010/10/6
  * @author Masatoshi Tsuge
  */
-class MyOptionWateringLaserChip001 : public GgafDx9LibStg::WateringLaserChip {
+class MyOptionWateringLaserChip001 : public GgafLib::WateringLaserChip {
 
 public:
     /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */

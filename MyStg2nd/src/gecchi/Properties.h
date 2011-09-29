@@ -8,7 +8,7 @@
 
 namespace MyStg2nd {
 
-class Properties: public GgafDx9LibStg::StgProperties {
+class Properties: public GgafLib::StgProperties {
 public:
     static std::string MY_KEY_SHOT1;
     static std::string MY_KEY_SHOT2;

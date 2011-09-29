@@ -5,7 +5,7 @@ namespace MyStg2nd {
 /**
  * ゲームメインシーンクラス .
  */
-class GameMainScene : public GgafDx9LibStg::DefaultScene {
+class GameMainScene : public GgafLib::DefaultScene {
 
 public:
     char _buf[60];

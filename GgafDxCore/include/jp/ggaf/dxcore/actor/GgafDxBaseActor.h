@@ -1,0 +1,24 @@
+#ifndef GGAFDXBASEACTOR_H_
+#define GGAFDXBASEACTOR_H_
+namespace GgafDxCore {
+
+/**
+ * GgafDxCore名前空間の基底アクタークラス.
+ * GgafMainActorを継承しただけです。<BR>
+ * GgafDxCore名前空間内では、このクラスを基底アクターとします。<BR>
+ * @version 1.00
+ * @since 2009/09/08
+ * @author Masatoshi Tsuge
+ */
+class GgafDxBaseActor : public GgafCore::GgafMainActor {
+
+public:
+
+    GgafDxBaseActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat);
+
+    virtual ~GgafDxBaseActor(); //デストラクタ
+
+};
+
+}
+#endif /*GGAFDXBASEACTOR_H_*/

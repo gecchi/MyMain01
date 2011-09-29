@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 MagicPointItem001::MagicPointItem001(const char* prm_name)
@@ -53,7 +53,7 @@ void MagicPointItem001::onActive() {
     //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
 
     float vX, vY, vZ;
-    GgafDx9Util::getNormalizeVector(
+    GgafDxUtil::getNormalizeVector(
             pMyShip->_X - _X,
             pMyShip->_Y - _Y,
             pMyShip->_Z - _Z,
@@ -155,7 +155,7 @@ void MagicPointItem001::onInactive() {
 }
 
 void MagicPointItem001::onHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
 
 

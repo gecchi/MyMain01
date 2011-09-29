@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2009/12/25
  * @author Masatoshi Tsuge
  */
-class FormationThalia : public GgafDx9LibStg::FormationActor {
+class FormationThalia : public GgafLib::FormationActor {
 public:
     /** ï“ë‡êî(RANKïœìÆ) */
     int _num_Thalia;

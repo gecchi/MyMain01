@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/02/14
  * @author Masatoshi Tsuge
  */
-class FormationEunomia : public GgafDx9LibStg::FormationActor {
+class FormationEunomia : public GgafLib::FormationActor {
 
 public:
     /** エウノミア借り入れ元Depository資源への接続 */
@@ -17,8 +17,8 @@ public:
     /** エウノミアの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* _pDepoCon_shot;
     /** スプライン定義資源への接続 */
-//    GgafDx9LibStg::SplineSourceConnection* _pSplSrcCon;
-    GgafDx9LibStg::SplineManufactureConnection** _papSplManufCon;
+//    GgafLib::SplineSourceConnection* _pSplSrcCon;
+    GgafLib::SplineManufactureConnection** _papSplManufCon;
     /** 編隊列数(RANK変動) */
     int _num_formation_col;
     /** １列の編隊数(RANK変動) */
@@ -49,7 +49,7 @@ public:
 
     virtual void processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, int col) = 0;
 
-    virtual void wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) override {
+    virtual void wasDestroyedFormation(GgafDxGeometricActor* prm_pActorLast) override {
     }
 
     virtual void processBehavior() override;

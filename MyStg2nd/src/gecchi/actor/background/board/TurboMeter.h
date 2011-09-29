@@ -2,7 +2,7 @@
 #define TURBOMETER_H_
 namespace MyStg2nd {
 
-class TurboMeter : public GgafDx9LibStg::DefaultBoardActor {
+class TurboMeter : public GgafLib::DefaultBoardActor {
 
 public:
     /** 100%‚Ìƒ[ƒ^[‚Ì’·‚³(px) */

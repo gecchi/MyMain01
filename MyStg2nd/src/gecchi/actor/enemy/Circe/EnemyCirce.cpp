@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 EnemyCirce::EnemyCirce(const char* prm_name) :
@@ -50,7 +50,7 @@ void EnemyCirce::processJudgement() {
 }
 
 void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 =
             (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
     _pSeTransmitter->play3D(0);

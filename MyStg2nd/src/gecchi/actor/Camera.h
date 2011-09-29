@@ -10,7 +10,7 @@ namespace MyStg2nd {
  * @since 2010/10/22
  * @author Masatoshi Tsuge
  */
-class Camera : public GgafDx9LibStg::DefaultCamera {
+class Camera : public GgafLib::DefaultCamera {
 
 public:
 

@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2006/01/10
  * @author Masatoshi Tsuge
  */
-class HoshiBoshi002 : public GgafDx9LibStg::DefaultPointSpriteActor {
+class HoshiBoshi002 : public GgafLib::DefaultPointSpriteActor {
 
 public:
     int _CAM_ZF;

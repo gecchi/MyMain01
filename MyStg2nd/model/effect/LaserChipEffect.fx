@@ -139,7 +139,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //レーザーチップ頂点シェーダー
-OUT_VS GgafDx9VS_LaserChip(
+OUT_VS GgafDxVS_LaserChip(
       float4 prm_pos    : POSITION,      // モデルの頂点
       float  prm_index  : PSIZE ,    // PSIZEではなくてなんとモデルの頂点番号
       float3 prm_normal : NORMAL,        
@@ -296,7 +296,7 @@ OUT_VS GgafDx9VS_LaserChip(
 	return out_vs;
 }
 
-float4 GgafDx9PS_LaserChip( 
+float4 GgafDxPS_LaserChip( 
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0
 ) : COLOR  {
@@ -332,8 +332,8 @@ BlendFactor = {1,1,1,1};
  //BlendOpAlpha = Add;
 //BlendOp=Max ;       BlendOpとBlendOpAlphaはおなじようだ
 //BlendOpAlpha= Add ;
-		VertexShader = compile VS_VERSION GgafDx9VS_LaserChip();
-		PixelShader  = compile PS_VERSION GgafDx9PS_LaserChip();
+		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
+		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
 	}
 
 }

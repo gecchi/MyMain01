@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @since 2011/04/18
  * @author Masatoshi Tsuge
  */
-class DefaultBoardSetTestActor : public GgafDx9LibStg::DefaultBoardSetActor {
+class DefaultBoardSetTestActor : public GgafLib::DefaultBoardSetActor {
 
 public:
     DefaultBoardSetTestActor(const char* prm_name);

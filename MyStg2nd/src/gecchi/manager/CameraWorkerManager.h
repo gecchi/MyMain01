@@ -34,4 +34,4 @@ public:
 };
 
 }
-#endif /*GGAFDX9BGMMANAGER_H_*/
+#endif /*GGAFDXBGMMANAGER_H_*/

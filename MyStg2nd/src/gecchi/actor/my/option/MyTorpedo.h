@@ -12,7 +12,7 @@ namespace MyStg2nd {
  * @since 2010/09/21
  * @author Masatoshi Tsuge
  */
-class MyTorpedo : public GgafDx9LibStg::DefaultMeshSetActor {
+class MyTorpedo : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** [r]親アクターとなる魚雷コンローラー */
@@ -20,11 +20,11 @@ public:
     /** [r]魚雷の移動軌跡エフェクトの数 */
     int _length_TailEffect;
     /** [r]魚雷の移動軌跡エフェクトのデポジトリ */
-    GgafDx9LibStg::LaserChipDepository* _pTailEffectDepository;
+    GgafLib::LaserChipDepository* _pTailEffectDepository;
     /** [r]魚雷発射時の座標 */
     int _begin_X,_begin_Y,_begin_Z;
     /** [r]到達目標のアクター。NULLの場合は自機前方のゲーム領域境界点を目標とする仕組み */
-    GgafDx9Core::GgafDx9GeometricActor* _pTarget;
+    GgafDxCore::GgafDxGeometricActor* _pTarget;
 
     int _move_section;
 

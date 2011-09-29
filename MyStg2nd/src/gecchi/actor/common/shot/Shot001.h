@@ -9,11 +9,11 @@ namespace MyStg2nd {
  * @since 2009/12/28
  * @author Masatoshi Tsuge
  */
-class Shot001 : public GgafDx9LibStg::DefaultMeshSetActor {
+class Shot001 : public GgafLib::DefaultMeshSetActor {
 public:
 
     /** 移動スプラインプログラム */
-    GgafDx9LibStg::SplineSequence* _pSplSeq;
+    GgafLib::SplineSequence* _pSplSeq;
     /** スプライン定義資源への接続 */
     SplineLineConnection* _pSplLineCon;
     Shot001(const char* prm_name);

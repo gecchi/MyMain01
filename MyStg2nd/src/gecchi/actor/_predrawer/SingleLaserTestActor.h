@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/04/18
  * @author Masatoshi Tsuge
  */
-class SingleLaserTestActor : public GgafDx9LibStg::SingleLaser {
+class SingleLaserTestActor : public GgafLib::SingleLaser {
 public:
 
     SingleLaserTestActor(const char* prm_name);

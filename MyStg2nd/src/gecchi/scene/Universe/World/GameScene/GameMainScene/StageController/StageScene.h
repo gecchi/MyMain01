@@ -10,7 +10,7 @@ enum {
     STAGESCENE_PROG_END     ,
 };
 
-class StageScene : public GgafDx9LibStg::DefaultScene {
+class StageScene : public GgafLib::DefaultScene {
 
 public:
     static bool _pause;

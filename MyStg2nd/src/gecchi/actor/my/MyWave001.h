@@ -2,7 +2,7 @@
 #define MYWAVE001_H_
 namespace MyStg2nd {
 
-class MyWave001 : public GgafDx9LibStg::DefaultMeshActor {
+class MyWave001 : public GgafLib::DefaultMeshActor {
 
 public:
     MyWave001(const char* prm_name);

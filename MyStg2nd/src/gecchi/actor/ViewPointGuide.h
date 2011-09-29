@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @since 2011/03/21
  * @author Masatoshi Tsuge
  */
-class ViewPointGuide : public GgafDx9LibStg::DefaultD3DXMeshActor {
+class ViewPointGuide : public GgafLib::DefaultD3DXMeshActor {
 
 public:
 

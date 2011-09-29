@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 
@@ -66,10 +66,10 @@ void EnemyIris::processBehavior() {
                 //放射状ショット
                 int way = R_EnemyIris_ShotWay; //ショットWAY数
                 angle* paAngWay = NEW angle[way];
-                GgafDx9Util::getRadialAngle2D(0, way, paAngWay);
-                GgafDx9DrawableActor* pActor_Shot;
+                GgafDxUtil::getRadialAngle2D(0, way, paAngWay);
+                GgafDxDrawableActor* pActor_Shot;
                 for (int i = 0; i < way; i++) {
-                    pActor_Shot = (GgafDx9DrawableActor*)_pDepo_Shot->dispatch();
+                    pActor_Shot = (GgafDxDrawableActor*)_pDepo_Shot->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->locateAs(this);
                         pActor_Shot->_pKurokoA->setRzRyMvAng(paAngWay[i], ANGLE90);
@@ -78,7 +78,7 @@ void EnemyIris::processBehavior() {
                 DELETEARR_IMPOSSIBLE_NULL(paAngWay);
                 //ショット発射エフェクト
                 if (_pDepo_ShotEffect) {
-                    GgafDx9DrawableActor* pTestActor_Shot = (GgafDx9DrawableActor*)_pDepo_ShotEffect->dispatch();
+                    GgafDxDrawableActor* pTestActor_Shot = (GgafDxDrawableActor*)_pDepo_ShotEffect->dispatch();
                     if (pTestActor_Shot) {
                         pTestActor_Shot->locateAs(this);
                     }
@@ -124,7 +124,7 @@ void EnemyIris::processJudgement() {
 void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyIris::onHit!!! this="<<getName()<<"("<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
     //_TRACE_("EnemyIris::onHit!!! prm_pOtherActor="<<prm_pOtherActor->getName()<<"("<<prm_pOtherActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 
         //自機側に撃たれて消滅、かつフォメーション所属の場合、

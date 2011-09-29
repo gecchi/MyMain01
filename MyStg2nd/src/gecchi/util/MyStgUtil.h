@@ -5,7 +5,7 @@
 
 namespace MyStg2nd {
 
-class MyStgUtil: public GgafDx9LibStg::StgUtil {
+class MyStgUtil: public GgafLib::StgUtil {
 public:
 
 

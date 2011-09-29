@@ -5,7 +5,7 @@ namespace MyStg2nd {
 /**
  * マッサリア  .
  */
-class EnemyMassalia : public GgafDx9LibStg::DefaultMeshActor {
+class EnemyMassalia : public GgafLib::DefaultMeshActor {
 
 private:
     /** 発射済みレーザーチップ数 */
@@ -39,10 +39,10 @@ public:
 
 
 
-    GgafDx9LibStg::LaserChipDepository*** _papapLaserChipDepo;
+    GgafLib::LaserChipDepository*** _papapLaserChipDepo;
 
     /** 出現エフェクト */
-    GgafDx9Core::GgafDx9DrawableActor* _pEffect_Appearance;
+    GgafDxCore::GgafDxDrawableActor* _pEffect_Appearance;
 
     EnemyMassalia(const char* prm_name);
 

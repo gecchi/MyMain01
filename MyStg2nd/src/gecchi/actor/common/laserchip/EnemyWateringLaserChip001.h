@@ -2,7 +2,7 @@
 //#define ENEMYCURVELASERCHIP001_H_
 //namespace MyStg2nd {
 //
-//class EnemyWateringLaserChip001 : public GgafDx9LibStg::WateringLaserChip {
+//class EnemyWateringLaserChip001 : public GgafLib::WateringLaserChip {
 //
 //public:
 //    /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */

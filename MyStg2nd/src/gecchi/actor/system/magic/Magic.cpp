@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 enum {
@@ -23,8 +23,8 @@ Magic::Magic(const char*  prm_name,
              magic_time   prm_time_of_effect_base  , float prm_fRate_time_of_effecting,
              magic_point  prm_keep_cost_base       , float prm_fRate_keep_cost
                 ) : GgafMainActor(prm_name, NULL) {
-//    GgafDx9GeometricActor* prm_pCaster,
-//     GgafDx9GeometricActor* prm_pReceiver) : GgafDx9BoardSetActor(prm_name, "magic") {
+//    GgafDxGeometricActor* prm_pCaster,
+//     GgafDxGeometricActor* prm_pReceiver) : GgafDxBoardSetActor(prm_name, "magic") {
     _pMP = NULL; //initialize()Ç≈ê›íËÇ∑ÇÈÅB
     _new_level = 0;
     _last_level = 0;

@@ -10,7 +10,7 @@ namespace MyStg2nd {
  * @author Masatoshi Tsuge
  */
 //class Torus : public GroundMeshActor {
-class Torus : public GgafDx9LibStg::CubeMapMeshActor {
+class Torus : public GgafLib::CubeMapMeshActor {
 public:
     /** トーラス半径1(輪) */
     int _r1;
@@ -38,7 +38,7 @@ public:
     virtual int isOutOfView() override;
 
     virtual bool isOutOfUniverse() override {
-        if (GgafDx9Core::GgafDx9Universe::_X_goneLeft < _X) {
+        if (GgafDxCore::GgafDxUniverse::_X_goneLeft < _X) {
             return false;
         } else {
             return true;
@@ -59,7 +59,7 @@ protected:
      * @param prm_angPos1 輪の角度位置
      * @param prm_angPos2 輪周りの角度位置
      */
-    void addSubBoneOnSurface(GgafDx9Core::GgafDx9GeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2);
+    void addSubBoneOnSurface(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2);
 
 };
 

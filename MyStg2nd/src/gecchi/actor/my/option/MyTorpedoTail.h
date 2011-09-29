@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/09/21
  * @author Masatoshi Tsuge
  */
-class MyTorpedoTail : public GgafDx9LibStg::HomingLaserChip {
+class MyTorpedoTail : public GgafLib::HomingLaserChip {
 
 public:
     /** [r]軌跡を描く元の魚雷オブジェクト */

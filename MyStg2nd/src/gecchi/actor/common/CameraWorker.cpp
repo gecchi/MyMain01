@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, NULL) {
@@ -23,12 +23,12 @@ CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, NULL)
     //注意：Cameraはまだ生成されていないためここでP_CAMは使用不可
 }
 
-void CameraWorker::setMoveTargetCamBy(GgafDx9Core::GgafDx9GeometricActor* pTarget) {
+void CameraWorker::setMoveTargetCamBy(GgafDxCore::GgafDxGeometricActor* pTarget) {
     _move_target_X_CAM = pTarget->_X;
     _move_target_Y_CAM = pTarget->_Y;
     _move_target_Z_CAM = pTarget->_Z;
 }
-void CameraWorker::setMoveTargetCamVpBy(GgafDx9Core::GgafDx9GeometricActor* pTarget) {
+void CameraWorker::setMoveTargetCamVpBy(GgafDxCore::GgafDxGeometricActor* pTarget) {
     _move_target_X_VP = pTarget->_X;
     _move_target_Y_VP = pTarget->_Y;
     _move_target_Z_VP = pTarget->_Z;
@@ -44,7 +44,7 @@ void CameraWorker::setMoveTargetCamVp(coord X, coord Y, coord Z) {
     _move_target_Y_VP = Y;
     _move_target_Z_VP = Z;
 }
-void CameraWorker::lockCamVp(GgafDx9Core::GgafDx9GeometricActor* pTarget) {
+void CameraWorker::lockCamVp(GgafDxCore::GgafDxGeometricActor* pTarget) {
     _pLockOnTarget = pTarget;
 }
 void CameraWorker::unlockCamVp() {
@@ -55,7 +55,7 @@ void CameraWorker::unlockCamVp() {
 void CameraWorker::onSwitchCameraWork() {
     setMoveTargetCamBy(P_CAM);
     setMoveTargetCamVpBy(P_CAM->_pViewPoint);
-    _angXY_nowCamUp = GgafDx9Util::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    _angXY_nowCamUp = GgafDxUtil::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
     _move_target_XY_CAM_UP = _angXY_nowCamUp;
 }
 
@@ -66,7 +66,7 @@ void CameraWorker::onSwitchToOherCameraWork() {
 }
 
 void CameraWorker::onCameBackFromOtherCameraWork() {
-    _angXY_nowCamUp = GgafDx9Util::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    _angXY_nowCamUp = GgafDxUtil::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
 }
 
 void CameraWorker::processBehavior() {
@@ -75,8 +75,8 @@ void CameraWorker::processBehavior() {
 
     //初期カメラ移動範囲制限
 //    float revise = 0.7; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
-    GgafDx9Camera* pCam = P_CAM;
-    GgafDx9GeometricActor* pVP = pCam->_pViewPoint;
+    GgafDxCamera* pCam = P_CAM;
+    GgafDxGeometricActor* pVP = pCam->_pViewPoint;
 
     int cam_velo_renge = _cam_velo_renge;  //カメラの移動速度の最大、最小敷居値
     //カメラの移動速度の最大、最小制限を設定
@@ -179,15 +179,15 @@ void CameraWorker::processBehavior() {
     ang_velo ang_velo_cam_up = cam_velo_renge/20;
 
     if (_angXY_nowCamUp != _move_target_XY_CAM_UP) {
-        angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, _move_target_XY_CAM_UP);
+        angle da = GgafDxUtil::getAngDiff(_angXY_nowCamUp, _move_target_XY_CAM_UP);
         if (-ang_velo_cam_up < da && da < ang_velo_cam_up) {
             _angXY_nowCamUp = _move_target_XY_CAM_UP;
         } else {
             _angXY_nowCamUp += (ang_velo_cam_up * sgn(da));
         }
-        _angXY_nowCamUp = GgafDx9Util::simplifyAng(_angXY_nowCamUp);
-        pCam->_pVecCamUp->x = GgafDx9Util::COS[_angXY_nowCamUp/ANGLE_RATE];
-        pCam->_pVecCamUp->y = GgafDx9Util::SIN[_angXY_nowCamUp/ANGLE_RATE];
+        _angXY_nowCamUp = GgafDxUtil::simplifyAng(_angXY_nowCamUp);
+        pCam->_pVecCamUp->x = GgafDxUtil::COS[_angXY_nowCamUp/ANGLE_RATE];
+        pCam->_pVecCamUp->y = GgafDxUtil::SIN[_angXY_nowCamUp/ANGLE_RATE];
         pCam->_pVecCamUp->z = 0.0f;
     }
 

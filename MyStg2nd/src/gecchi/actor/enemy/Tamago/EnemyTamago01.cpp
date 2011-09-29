@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 EnemyTamago01::EnemyTamago01(const char* prm_name) :
@@ -73,34 +73,34 @@ void EnemyTamago01::onActive() {
 
 void EnemyTamago01::processBehavior() {
 
-//    if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_Q)) {
 //        _pScaler->addScale(500);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_W)) {
 //        _pScaler->addScale(-500);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_1)) {
 //        _pModel->_pTextureBlinker->->addScale(2000);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_2)) {
 //        _pModel->_pTextureBlinker->->addScale(-2000);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
 //        _pModel->_pTextureBlinker->->intoTargetScaleAcceStep(3000, 0, 3);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
 //        _pModel->_pTextureBlinker->->loopLiner(20, -1);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_5)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_5)) {
 //        _pModel->_pTextureBlinker->->loopLiner(10, 5);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_6)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_6)) {
 //        _pModel->_pTextureBlinker->->beat(20, 2 ,5, -1);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_7)) {
 //        _pModel->_pTextureBlinker->->stopImmediately();
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
 //        _pModel->_pTextureBlinker->->setScaleToBottom();
 //    }
 
@@ -138,13 +138,13 @@ void EnemyTamago01::processBehavior() {
             int way = 8;
             angle* paAngWay = NEW angle[way];
             angle target_RzRy_Rz, target_RzRy_Ry;
-            GgafDx9Util::getRzRyAng(P_MYSHIP->_X - _X, P_MYSHIP->_Y - _Y, P_MYSHIP->_Z - _Z, target_RzRy_Rz, target_RzRy_Ry);
+            GgafDxUtil::getRzRyAng(P_MYSHIP->_X - _X, P_MYSHIP->_Y - _Y, P_MYSHIP->_Z - _Z, target_RzRy_Rz, target_RzRy_Ry);
             angle target_RyRz_Ry, target_RyRz_Rz;
-            GgafDx9Util::convRzRyToRyRz(target_RzRy_Rz, target_RzRy_Ry, target_RyRz_Ry, target_RyRz_Rz);
-            GgafDx9Util::getWayAngle2D(target_RyRz_Ry, way, 10000, paAngWay);
-            GgafDx9DrawableActor* pActor;
+            GgafDxUtil::convRzRyToRyRz(target_RzRy_Rz, target_RzRy_Ry, target_RyRz_Ry, target_RyRz_Rz);
+            GgafDxUtil::getWayAngle2D(target_RyRz_Ry, way, 10000, paAngWay);
+            GgafDxDrawableActor* pActor;
             for (int i = 0; i < way; i++) {
-                pActor = (GgafDx9DrawableActor*)_pDepo_Shot->dispatch();
+                pActor = (GgafDxDrawableActor*)_pDepo_Shot->dispatch();
                 if (pActor) {
                     pActor->_pKurokoA->relateFaceAngWithMvAng(true);
                     pActor->_pKurokoA->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
@@ -154,7 +154,7 @@ void EnemyTamago01::processBehavior() {
             DELETEARR_IMPOSSIBLE_NULL(paAngWay);
             //ショット発射エフェクト
             if (_pDepo_ShotEffect) {
-                pActor = (GgafDx9DrawableActor*)_pDepo_Shot->dispatch();
+                pActor = (GgafDxDrawableActor*)_pDepo_Shot->dispatch();
                 if (pActor) {
                     pActor->locateAs(this);
                 }
@@ -178,7 +178,7 @@ void EnemyTamago01::processJudgement() {
 }
 
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
     _pSeTransmitter->play3D(0);
     _TRACE_("HIT!!!");

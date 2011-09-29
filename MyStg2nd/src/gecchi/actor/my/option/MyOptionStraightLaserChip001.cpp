@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 
@@ -33,7 +33,7 @@ void MyOptionStraightLaserChip001::onActive() {
     _default_stamina = _pStatus->get(STAT_Stamina);
     StraightLaserChip::onActive();
 
-    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
     _pKurokoA->setMvVelo(80000);
     _pKurokoA->setMvAcce(300);
     _isLockon = false;
@@ -63,7 +63,7 @@ void MyOptionStraightLaserChip001::onActive() {
 
 
 void MyOptionStraightLaserChip001::processBehavior() {
-    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
 
 
     if (_lockon == 1) {
@@ -108,12 +108,12 @@ void MyOptionStraightLaserChip001::processBehavior() {
 void MyOptionStraightLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
     if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
         if (_chip_kind != 2 || _can_chikei_hit) {
-            GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+            GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
         } else {
             return;
         }
     } else {
-        GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+        GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
     }
 }
 
@@ -121,8 +121,8 @@ void MyOptionStraightLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActo
 
 
 void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
-    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
+    GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
     //ヒットエフェクト
     //無し
 
@@ -175,7 +175,7 @@ void MyOptionStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
         }
         sayonara();
     }
-//    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+//    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 //
 //
 //    if ((pOther->getKind() & KIND_ENEMY_BODY) ) {

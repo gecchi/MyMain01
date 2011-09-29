@@ -6,7 +6,7 @@ namespace MyStg2nd {
 /**
  * フォーメーションアクタークラス .
  */
-class FormationMetis001 : public GgafDx9LibStg::FormationActor {
+class FormationMetis001 : public GgafLib::FormationActor {
 
     EnemyMetis* _pEnemyMetis[NUM_METIS_FORMATION001];
 public:

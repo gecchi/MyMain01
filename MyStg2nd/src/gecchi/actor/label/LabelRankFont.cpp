@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 char LabelRankFont::RANK_1stDeg[10][6] = {
@@ -150,7 +150,7 @@ void LabelRankFont::initialize() {
 }
 
 void LabelRankFont::processBehavior() {
-    if (GgafDx9Input::isPushedDownKey(DIK_R)) {
+    if (GgafDxInput::isPushedDownKey(DIK_R)) {
         _RANK_+=0.0001;
     }
 

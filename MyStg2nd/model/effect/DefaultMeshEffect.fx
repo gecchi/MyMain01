@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 /**
- * GgafDx9MeshModel用シェーダー .
+ * GgafDxMeshModel用シェーダー .
  * 静的モデル１つを描画する標準的シェーダー。
  * 頂点バッファフォーマットは
  * FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1)
@@ -30,11 +30,11 @@ float g_specular;
 /** スペキュラーの強度 */
 float g_specular_power;
 
-/** モデルのテクスチャ色点滅機能(GgafDx9TextureBlinker参照)の点滅強度 */
+/** モデルのテクスチャ色点滅機能(GgafDxTextureBlinker参照)の点滅強度 */
 float g_tex_blink_power;   
-/** モデルのテクスチャ色点滅機能(GgafDx9TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
+/** モデルのテクスチャ色点滅機能(GgafDxTextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
 float g_tex_blink_threshold;
-/** フェードイン・アウト機能(GgafDx9AlphaCurtain参照)のためのマスターアルファ値(0.0～1.0) */
+/** フェードイン・アウト機能(GgafDxAlphaCurtain参照)のためのマスターアルファ値(0.0～1.0) */
 float g_alpha_master;
 /** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
 float g_zf;
@@ -70,7 +70,7 @@ struct OUT_VS {
  * @param prm_normal モデル頂点の法線
  * @param prm_normal モデル頂点のUV座標
  */
-OUT_VS GgafDx9VS_DefaultMesh(
+OUT_VS GgafDxVS_DefaultMesh(
       float4 prm_pos    : POSITION, 
       float3 prm_normal : NORMAL,   
       float2 prm_uv     : TEXCOORD0 
@@ -107,7 +107,7 @@ OUT_VS GgafDx9VS_DefaultMesh(
 /**
  * 通常ピクセルシェーダー
  */
-float4 GgafDx9PS_DefaultMesh(
+float4 GgafDxPS_DefaultMesh(
     float2 prm_uv     : TEXCOORD0,
     float4 prm_color    : COLOR0,
     float3 prm_normal : TEXCOORD1,
@@ -153,8 +153,8 @@ technique DefaultMeshTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDx9VS_DefaultMesh();
-        PixelShader  = compile PS_VERSION GgafDx9PS_DefaultMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_DefaultMesh();
+        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMesh();
     }
 }
 
@@ -164,8 +164,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;   
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_DefaultMesh();
-        PixelShader  = compile PS_VERSION GgafDx9PS_DefaultMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_DefaultMesh();
+        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMesh();
     }
 }
 
@@ -175,7 +175,7 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDx9VS_DefaultMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_DefaultMesh();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }

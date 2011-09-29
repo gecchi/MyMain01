@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 #define MORPHTARGET_VESTA_HATCH_OPENED 1
@@ -68,7 +68,7 @@ void EnemyVesta::processBehavior() {
     //・ローカル座標     ・・・ 親アクターの基点(0,0,0)からの相対的な座標系を意味します。
     //                          座標計算はこちらで行って下さい。
     //＜方針＞
-    //  ①座標計算は主にローカル座標系の計算である。GgafDx9KurokoA でローカル座標系の操作を行うこととする。
+    //  ①座標計算は主にローカル座標系の計算である。GgafDxKurokoA でローカル座標系の操作を行うこととする。
     //    しかし、８分木登録や、当たり判定や、ターゲット座標など、他のオブジェクトからワールド座標を参照する等、
     //    基本状態は最終（絶対）座標系。
     //    processBehavior()開始時は 最終（絶対）座標系(changeGeoFinal())の状態とする。
@@ -89,19 +89,19 @@ void EnemyVesta::processBehavior() {
 
     //＜changeGeoFinal(); 実行時＞
     //最終（絶対）座標系に切り替えます。
-    //・_X, _Y, _Z    ・・・ 毎フレーム GgafDx9GeometricActor::processSettlementBehavior() で計算され自動更新されてます。
+    //・_X, _Y, _Z    ・・・ 毎フレーム GgafDxGeometricActor::processSettlementBehavior() で計算され自動更新されてます。
     //                       processBehavior() で changeGeoFinal() を行うと、１フレーム前の_X, _Y, _Zに切り替わる事になります。
     //                       _X, _Y, _Z は参照専用。値を代入しても意味が有りません
-    //・_RX, _RY, _RZ ・・・ 毎フレーム GgafDx9GeometricActor::processSettlementBehavior() 自動代入されません！
+    //・_RX, _RY, _RZ ・・・ 毎フレーム GgafDxGeometricActor::processSettlementBehavior() 自動代入されません！
     //                       changeGeoFinal(); を実行しても、_RX, _RY, _RZ は以前の最終（絶対）座標系の値が
     //                       入りっぱなしで変化しません。
     //                       他のオブジェクトから、ボーンにあたるアクターを参照するとき、_RX, _RY, _RZは全く信用できません。
 
     //＜注意＞
-    //・GgafDx9KurokoA(_pKurokoA)の behave() 以外メソッドは、常にローカル座標の操作とする。
+    //・GgafDxKurokoA(_pKurokoA)の behave() 以外メソッドは、常にローカル座標の操作とする。
     //  behave()以外メソッドは実際に座標計算しているわけではないので、
     //  changeGeoFinal()時、changeGeoLocal()時に関係なく、呼び出し可能。
-    //・GgafDx9KurokoA(_pKurokoA)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
+    //・GgafDxKurokoA(_pKurokoA)の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
     //  したがって、次のように ローカル座標時(changeGeoLocal()時)で呼び出す事とする。
     //    changeGeoLocal();
     //    _pKurokoA->behave();
@@ -143,7 +143,7 @@ void EnemyVesta::processBehavior() {
         //_frame_of_moment_nextopenは、ここの処理の時点では直近でオープンしたフレームとなる。
         if (openningFrame % (int)(R_EnemyVesta_ShotInterval) == 0) {
             if (_pDepo_Fired) {
-                GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDepo_Fired->dispatch();
+                GgafDxDrawableActor* pActor = (GgafDxDrawableActor*)_pDepo_Fired->dispatch();
                 if (pActor) {
                     pActor->locateAs(this);
                     pActor->_pKurokoA->relateFaceAngWithMvAng(true);
@@ -170,7 +170,7 @@ void EnemyVesta::processBehavior() {
                     //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
                     //最終的な方向ベクトルは（_Xorg*mat_11, _Xorg*mat_12, _Xorg*mat_13) である。
                     angle Rz, Ry;
-                    GgafDx9Util::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
+                    GgafDxUtil::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                             Rz, Ry); //現在の最終的な向きを、RzRyで取得！
                     pActor->_pKurokoA->setRzRyMvAng(Rz, Ry); //RzRyでMoverに設定
                     pActor->reset();
@@ -212,7 +212,7 @@ void EnemyVesta::processBehavior() {
         int TvZ = MvX*pBaseInvMatRM->_13 + MvY*pBaseInvMatRM->_23 + MvZ * pBaseInvMatRM->_33;
         //自動方向向きシークエンス開始
         angle angRz_Target, angRy_Target;
-        GgafDx9Util::getRzRyAng(TvX, TvY, TvZ,
+        GgafDxUtil::getRzRyAng(TvX, TvY, TvZ,
                                 angRz_Target, angRy_Target);
         _pKurokoA->execTurnMvAngSequence(angRz_Target, angRy_Target,
                                            1000, 0,
@@ -247,7 +247,7 @@ void EnemyVesta::processJudgement() {
 void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
 
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
 
     if (pExplo001) {

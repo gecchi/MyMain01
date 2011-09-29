@@ -14,10 +14,10 @@ enum {
  * @since 2010/01/28
  * @author Masatoshi Tsuge
  */
-class EffectLockon001 : public GgafDx9LibStg::DefaultSpriteSetActor {
+class EffectLockon001 : public GgafLib::DefaultSpriteSetActor {
 
 public:
-    GgafDx9Core::GgafDx9GeometricActor* _pTarget;
+    GgafDxCore::GgafDxGeometricActor* _pTarget;
 
     EffectLockon001(const char* prm_name, const char* prm_model_id);
 
@@ -33,7 +33,7 @@ public:
 
     virtual void releaseLockon() = 0;
 
-    virtual void lockon(GgafDx9GeometricActor* prm_pTarget) = 0;
+    virtual void lockon(GgafDxGeometricActor* prm_pTarget) = 0;
 
     virtual ~EffectLockon001();
 

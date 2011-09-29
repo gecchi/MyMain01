@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/04/18
  * @author Masatoshi Tsuge
  */
-class CubeMapMeshSetTestActor : public GgafDx9LibStg::CubeMapMeshSetActor {
+class CubeMapMeshSetTestActor : public GgafLib::CubeMapMeshSetActor {
 
 public:
 

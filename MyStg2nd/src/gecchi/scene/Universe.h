@@ -25,7 +25,7 @@ namespace MyStg2nd {
  * @since 2009/04/24
  * @author Masatoshi Tsuge
  */
-class Universe : public GgafDx9LibStg::DefaultUniverse {
+class Universe : public GgafLib::DefaultUniverse {
 
     class CameraWorkerConnectionStack {
     public:
@@ -89,7 +89,7 @@ public:
     World* _pWorld;
     CameraWorkerConnectionStack _stack_CameraWorkerCon;
 
-    Universe(const char* prm_name, GgafDx9Core::GgafDx9Camera* prm_pCamera);
+    Universe(const char* prm_name, GgafDxCore::GgafDxCamera* prm_pCamera);
 
     void initialize() override;
 

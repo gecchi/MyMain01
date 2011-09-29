@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 EffectExplosion003::EffectExplosion003(const char* prm_name) :
@@ -11,7 +11,7 @@ EffectExplosion003::EffectExplosion003(const char* prm_name) :
     //加算合成Technique指定
     changeEffectTechnique("DestBlendOne");
     //ワールド変換行列はビルボード指定
-    defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv);
+    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv);
 }
 
 void EffectExplosion003::initialize() {

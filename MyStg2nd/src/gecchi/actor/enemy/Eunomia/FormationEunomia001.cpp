@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 FormationEunomia001::FormationEunomia001(const char* prm_name) :
@@ -12,7 +12,7 @@ FormationEunomia001::FormationEunomia001(const char* prm_name) :
 }
 
 
-void FormationEunomia001::wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) {
+void FormationEunomia001::wasDestroyedFormation(GgafDxGeometricActor* prm_pActorLast) {
     //•Ò‘àÁ–ÅŽž‚ÌŽÀŒ±
     EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDepo_EffectTurbo002->dispatchForce();
     if (pTurbo002) {

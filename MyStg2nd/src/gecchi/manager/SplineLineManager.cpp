@@ -1,12 +1,12 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 SplineLineManager::SplineLineManager(const char* prm_manager_name) :
-    GgafResourceManager<GgafDx9LibStg::SplineLine> (prm_manager_name) {
+    GgafResourceManager<GgafLib::SplineLine> (prm_manager_name) {
 }
 
 SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_p) {
@@ -124,14 +124,14 @@ SplineLine* SplineLineManager::processCreateResource(char* prm_idstr, void* prm_
 //MyShip::_lim_behaind = -(CFG_PROPERTY(GAME_BUFFER_WIDTH)*0.5*LEN_UNIT / 2 );
 //MyShip::_lim_zleft   = CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2;       //奥手前は画面幅の大体５画面分
 //MyShip::_lim_zright  = -(CFG_PROPERTY(GAME_BUFFER_WIDTH)*5*LEN_UNIT / 2);
-//GgafDx9Universe::_X_goneLeft   = GgafDx9Camera::_X_ScreenLeft - 3000*LEN_UNIT; //最大3000pxのオブジェクトまで想定
-//GgafDx9Universe::_X_goneRight  = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-//GgafDx9Universe::_Y_goneTop    = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-//GgafDx9Universe::_Y_goneBottom = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-//GgafDx9Universe::_Z_goneFar   = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-//GgafDx9Universe::_Z_goneNear  = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+//GgafDxUniverse::_X_goneLeft   = GgafDxCamera::_X_ScreenLeft - 3000*LEN_UNIT; //最大3000pxのオブジェクトまで想定
+//GgafDxUniverse::_X_goneRight  = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+//GgafDxUniverse::_Y_goneTop    = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+//GgafDxUniverse::_Y_goneBottom = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+//GgafDxUniverse::_Z_goneFar   = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+//GgafDxUniverse::_Z_goneNear  = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
 
-GgafResourceConnection<GgafDx9LibStg::SplineLine>* SplineLineManager::processCreateConnection(char* prm_idstr, SplineLine* prm_pResource) {
+GgafResourceConnection<GgafLib::SplineLine>* SplineLineManager::processCreateConnection(char* prm_idstr, SplineLine* prm_pResource) {
     TRACE3(" SplineLineManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     SplineLineConnection* pConnection = NEW SplineLineConnection(prm_idstr, prm_pResource);
     TRACE3(" SplineLineManager::processCreateConnection "<<prm_idstr<<" を生成終了。");

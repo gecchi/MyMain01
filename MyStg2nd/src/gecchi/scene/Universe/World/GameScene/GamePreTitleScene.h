@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/11/15
  * @author Masatoshi Tsuge
  */
-class GamePreTitleScene : public GgafDx9LibStg::DefaultScene {
+class GamePreTitleScene : public GgafLib::DefaultScene {
 
 public:
 

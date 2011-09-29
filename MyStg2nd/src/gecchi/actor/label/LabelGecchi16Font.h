@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/06/23
  * @author Masatoshi Tsuge
  */
-class LabelGecchi16Font : public GgafDx9LibStg::StringBoardActor {
+class LabelGecchi16Font : public GgafLib::StringBoardActor {
 
 public:
     LabelGecchi16Font(const char* prm_name);

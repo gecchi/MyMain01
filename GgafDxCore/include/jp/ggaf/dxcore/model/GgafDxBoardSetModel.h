@@ -1,0 +1,82 @@
+#ifndef GGAFDXBOARDSETMODEL_H_
+#define GGAFDXBOARDSETMODEL_H_
+namespace GgafDxCore {
+
+/**
+ * GgafDxBoardSetActor用モデルクラス.
+ * @version 1.00
+ * @since 2009/07/21
+ * @author Masatoshi Tsuge
+ */
+class GgafDxBoardSetModel : public GgafDxModel {
+    friend class GgafDxModelManager;
+    friend class GgafDxBoardSetActor;
+
+public:
+    static int _draw_set_num_LastDraw;
+    struct INDEXPARAM {
+        UINT MaterialNo;
+        INT BaseVertexIndex;
+        UINT MinIndex;
+        UINT NumVertices;
+        UINT StartIndex;
+        UINT PrimitiveCount;
+    };
+
+    /** 頂点構造体 */
+    struct VERTEX {
+        float x, y, z;    // 頂点座標
+        float index;      // psizeではなくてはなくて頂点番号を埋め込む。シェーダー側で何セット目かを判断するために使用。
+        float tu, tv;     // 頂点のテクスチャ座標
+    };
+
+    /** 頂点バッファの各セット */
+    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    /** インデックスバッファ */
+    LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
+    /** 頂点のFVF */
+    static DWORD FVF;
+    /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
+//    GgafDxRectUV* _paRectUV;
+    /** 矩形の頂点合計のサイズ */
+    UINT _size_vertices;
+    /** 1頂点のサイズ */
+    UINT _size_vertex_unit;
+    INDEXPARAM* _paIndexParam;
+    /**
+     * コンストラクタ<BR>
+     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     */
+    GgafDxBoardSetModel(char* prm_model_name);
+
+public:
+    /** 全アニメパターン数(0～) */
+//    int _pattno_max;
+    float _fSize_BoardSetModelWidthPx;
+    float _fSize_BoardSetModelHeightPx;
+    int _row_texture_split;
+    int _col_texture_split;
+
+    /**
+     * GgafDxBoardSetModelオブジェクトの描画<BR>
+     * @param	prm_pActor_Target 描画するGgafDxBoardSetActor
+     * @return	HRESULT
+     */
+    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
+
+    virtual void restore() override;
+
+    virtual void onDeviceLost() override;
+
+    void release() override;
+
+    void changeVertexAlpha(int prm_vertex_alpha);
+
+    /**
+     * デストラクタ<BR>
+     */
+    virtual ~GgafDxBoardSetModel(); //デストラクタ
+};
+
+}
+#endif /*GGAFDXBOARDSETMODEL_H_*/

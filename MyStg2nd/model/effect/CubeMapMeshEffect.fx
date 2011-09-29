@@ -25,11 +25,11 @@ float4 g_colLightAmbient;
 float4 g_colLightDiffuse;
 /** モデルのマテリアル色（表面色）。いわゆる拡散光反射色で環境光反射色も兼ねる */
 float4 g_colMaterialDiffuse;
-/** モデルのテクスチャ点滅機能(GgafDx9TextureBlinker参照)の点滅強度 */
+/** モデルのテクスチャ点滅機能(GgafDxTextureBlinker参照)の点滅強度 */
 float g_tex_blink_power;   
-/** モデルのテクスチャ点滅機能(GgafDx9TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
+/** モデルのテクスチャ点滅機能(GgafDxTextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
 float g_tex_blink_threshold;
-/** アルファカーテン(フェードイン・アウト)機能(GgafDx9AlphaCurtain参照)のマスターアルファ値(0.0～1.0) */
+/** アルファカーテン(フェードイン・アウト)機能(GgafDxAlphaCurtain参照)のマスターアルファ値(0.0～1.0) */
 float g_alpha_master;
 /** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
 float g_zf;
@@ -55,7 +55,7 @@ struct OUT_VS {
  * @param prm_normal モデル頂点の法線
  * @param prm_normal モデル頂点のUV座標
  */
-OUT_VS GgafDx9VS_CubeMapMesh(
+OUT_VS GgafDxVS_CubeMapMesh(
       float4 prm_pos    : POSITION, 
       float3 prm_normal : NORMAL,   
       float2 prm_uv     : TEXCOORD0 
@@ -111,7 +111,7 @@ OUT_VS GgafDx9VS_CubeMapMesh(
 /**
  * 通常ピクセルシェーダー（テクスチャ有り）
  */
-float4 GgafDx9PS_CubeMapMesh(
+float4 GgafDxPS_CubeMapMesh(
     float2 prm_uv     : TEXCOORD0,
     float4 prm_color    : COLOR0,
     float3 prm_normal : TEXCOORD1,
@@ -174,8 +174,8 @@ technique CubeMapMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMesh();
-		PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMesh();
+		VertexShader = compile VS_VERSION GgafDxVS_CubeMapMesh();
+		PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMesh();
 	}
 }
 
@@ -185,8 +185,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMesh();
-		PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMesh();
+		VertexShader = compile VS_VERSION GgafDxVS_CubeMapMesh();
+		PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMesh();
 	}
 }
 
@@ -196,7 +196,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMesh();
+		VertexShader = compile VS_VERSION GgafDxVS_CubeMapMesh();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

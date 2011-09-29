@@ -779,7 +779,7 @@ public:
      * あと、早くC++でラムダ式を使わせてください。<BR>
      *
      * ＜使用例＞<BR>
-     * XXXXScene 配下のオブジェクト全てのアクター(但しGgafDx9GeometricActor)のメンバ変数 _X に、
+     * XXXXScene 配下のオブジェクト全てのアクター(但しGgafDxGeometricActor)のメンバ変数 _X に、
      * XXXXSceneメンバ変数 _velo の値を加算させる。<BR>
      * XXXXScene クラスの実装サンプルを以下に記す<BR>
      * <code><pre>
@@ -793,9 +793,9 @@ public:
      *             return; //シーンならば無視
      *         }
      *         GgafActor* pActor = (GgafActor*)pThat;
-     *         if (pActor->_obj_class & Obj_GgafDx9GeometricActor) {
-     *             //GgafDx9GeometricActorならば _X を加算
-     *             ((GgafDx9GeometricActor*)pActor)->_X += (*((int*)p1));
+     *         if (pActor->_obj_class & Obj_GgafDxGeometricActor) {
+     *             //GgafDxGeometricActorならば _X を加算
+     *             ((GgafDxGeometricActor*)pActor)->_X += (*((int*)p1));
      *         }
      *     }
      *

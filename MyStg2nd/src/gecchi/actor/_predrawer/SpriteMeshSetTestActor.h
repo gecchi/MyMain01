@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/04/18
  * @author Masatoshi Tsuge
  */
-class SpriteMeshSetTestActor : public GgafDx9LibStg::SpriteMeshSetActor {
+class SpriteMeshSetTestActor : public GgafLib::SpriteMeshSetActor {
 
 public:
 

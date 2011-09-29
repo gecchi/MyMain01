@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/07/04
  * @author Masatoshi Tsuge
  */
-class MyShot001 : public GgafDx9LibStg::SingleLaser {
+class MyShot001 : public GgafLib::SingleLaser {
 public:
 
     MyShot001(const char* prm_name);

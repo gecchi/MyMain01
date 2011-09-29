@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 MyTorpedo::MyTorpedo(const char* prm_name,MyOptionTorpedoController* prm_pMyOptionTorpedoController)
@@ -91,7 +91,7 @@ void MyTorpedo::processBehavior() {
                                 TURN_CLOSE_TO, false);
                 } else {
                     _pKurokoA->execTurnMvAngSequence(
-                                GgafDx9Universe::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
+                                GgafDxUniverse::_X_goneRight, P_MYSHIP->_Y, P_MYSHIP->_Z,
                                 2000, 200,
                                 TURN_CLOSE_TO, false);
                 }
@@ -128,7 +128,7 @@ void MyTorpedo::processBehavior() {
                         }
                     } else {
                             _pKurokoA->execTurnMvAngSequence(
-                                        GgafDx9Universe::_X_goneRight, _Y, _Z,
+                                        GgafDxUniverse::_X_goneRight, _Y, _Z,
                                         1000, 200,
                                         TURN_CLOSE_TO, false);
                     }
@@ -158,7 +158,7 @@ void MyTorpedo::processBehavior() {
                         }
                     } else {
                             _pKurokoA->execTurnMvAngSequence(
-                                        GgafDx9Universe::_X_goneRight, _Y, _Z,
+                                        GgafDxUniverse::_X_goneRight, _Y, _Z,
                                         300, 0,
                                         TURN_CLOSE_TO, false);
                     }
@@ -203,7 +203,7 @@ void MyTorpedo::onInactive() {
 
 
 void MyTorpedo::onHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ƒqƒbƒgŽž’ÊŠÑ‚Í‚µ‚Ü‚¹‚ñ
     int sta = MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind());
     setHitAble(false);

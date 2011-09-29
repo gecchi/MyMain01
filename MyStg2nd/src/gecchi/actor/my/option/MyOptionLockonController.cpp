@@ -1,15 +1,15 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 
 MyOptionLockonController::MyOptionLockonController(const char* prm_name) :
         GgafDummyActor(prm_name, NULL) {
     _class_name = "MyOptionLockonController";
-    _pRingTarget = NEW GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor>();
+    _pRingTarget = NEW GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>();
     _pMainLockonEffect = NEW EffectLockon001_Main("MAIN");
     _pMainLockonEffect->inactivateImmediately();
     addSubLast(_pMainLockonEffect);
@@ -28,8 +28,8 @@ void MyOptionLockonController::initialize() {
 
 void MyOptionLockonController::processBehavior() {
     //ロックオンターゲット生存確認
-    GgafDx9GeometricActor* pMainLockonTarget = _pRingTarget->getCurrent(); //メインロックオンのターゲット
-    GgafDx9GeometricActor* pTarget = _pRingTarget->getCurrent(); //ターゲットカーソル
+    GgafDxGeometricActor* pMainLockonTarget = _pRingTarget->getCurrent(); //メインロックオンのターゲット
+    GgafDxGeometricActor* pTarget = _pRingTarget->getCurrent(); //ターゲットカーソル
     GgafMainActor* pLockonEffect_Active = getSubFirst();         //ロックオンエフェクトカーソル
     int n = _pRingTarget->length();
     for (int i = 0; i < n; i++) {
@@ -74,7 +74,7 @@ void MyOptionLockonController::processBehavior() {
         }
     }
 
-    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+    if (GgafDxInput::isBeingPressedKey(DIK_I)) {
         dumpTarget(_pRingTarget->getCurrent());
         dump();
     }
@@ -86,7 +86,7 @@ void MyOptionLockonController::processJudgement() {
 }
 
 
-void MyOptionLockonController::lockon(GgafDx9GeometricActor* prm_pTarget) {
+void MyOptionLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
     if (_pRingTarget->indexOf(prm_pTarget) == -1) { //ロックオン済みに無ければ
 
         if (_pRingTarget->length() >= MyOption::_lockon_num) {
@@ -165,7 +165,7 @@ MyOptionLockonController::~MyOptionLockonController() {
 }
 
 
-void MyOptionLockonController::dumpTarget(GgafDx9GeometricActor* pMain) {
+void MyOptionLockonController::dumpTarget(GgafDxGeometricActor* pMain) {
 
     if (_pRingTarget->getNextFromFirst(0) == NULL) {
         _TEXT_("NULL\n");

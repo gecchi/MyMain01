@@ -8,11 +8,11 @@ namespace MyStg2nd {
  * @since 2009/12/22
  * @author Masatoshi Tsuge
  */
-class EnemyIris : public GgafDx9LibStg::DefaultMeshSetActor {
+class EnemyIris : public GgafLib::DefaultMeshSetActor {
     /** フォーメーション(非フォーメーション時はNULL) */
-    GgafDx9LibStg::FormationActor* _pFormation;
+    GgafLib::FormationActor* _pFormation;
     /** 移動スプラインプログラム */
-    GgafDx9LibStg::SplineSequence* _pSplSeq;
+    GgafLib::SplineSequence* _pSplSeq;
     /** 弾ストック */
     GgafCore::GgafActorDepository* _pDepo_Shot;
     /** 弾発射効果エフェクト */
@@ -61,8 +61,8 @@ public:
 
 
     virtual void config(
-            GgafDx9LibStg::FormationActor* prm_pFormation,
-            GgafDx9LibStg::SplineSequence* prm_pSplSeq,
+            GgafLib::FormationActor* prm_pFormation,
+            GgafLib::SplineSequence* prm_pSplSeq,
             GgafCore::GgafActorDepository* prm_pDepo_Shot,
             GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
             ) {
@@ -86,7 +86,7 @@ public:
 //     * initialize() までに設定して下さい。
 //     * @param prm_pSplSeq
 //     */
-//    void setSplineSequence(GgafDx9LibStg::SplineSequence* prm_pSplSeq) {
+//    void setSplineSequence(GgafLib::SplineSequence* prm_pSplSeq) {
 //        _pSplSeq = prm_pSplSeq;
 //    }
 //

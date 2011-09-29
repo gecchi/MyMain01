@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 
@@ -24,7 +24,7 @@ void Cursor001::processJudgement() {
 
 void Cursor001::moveTo(int X, int Y) {
     _pKurokoA->setMvAng(X, Y);
-    _pKurokoA->execSmoothMvVeloSequence(0,GgafDx9Util::getDistance(_X, _Y, X, Y),
+    _pKurokoA->execSmoothMvVeloSequence(0,GgafDxUtil::getDistance(_X, _Y, X, Y),
                                             10,0.2,0.3);
 }
 

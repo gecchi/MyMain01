@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/03/18
  * @author Masatoshi Tsuge
  */
-class MyOptionControllerDirectionVector : public GgafDx9LibStg::DefaultMeshActor {
+class MyOptionControllerDirectionVector : public GgafLib::DefaultMeshActor {
 
 public:
     int _ptn_no;

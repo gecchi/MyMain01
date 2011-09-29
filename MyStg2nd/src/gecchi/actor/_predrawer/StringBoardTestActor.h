@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/04/18
  * @author Masatoshi Tsuge
  */
-class StringBoardTestActor : public GgafDx9LibStg::StringBoardActor {
+class StringBoardTestActor : public GgafLib::StringBoardActor {
 
 public:
     StringBoardTestActor(const char* prm_name);

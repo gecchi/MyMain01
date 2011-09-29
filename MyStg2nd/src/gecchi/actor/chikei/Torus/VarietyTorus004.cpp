@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 VarietyTorus004::VarietyTorus004(const char* prm_name) : Torus(prm_name, "Torus", 2000*1000, 800*1000) {
@@ -19,7 +19,7 @@ void VarietyTorus004::initialize() {
     makeCollisionArea(16);
     setHitAble(true);
     setAlpha(1.00);
-    _X = GgafDx9Core::GgafDx9Universe::_X_goneRight+_r1+_r2;
+    _X = GgafDxCore::GgafDxUniverse::_X_goneRight+_r1+_r2;
     _Y = MyShip::_lim_bottom;
     _Z = 0;
     _pKurokoA->setRzRyMvAng(ANGLE180, 0);

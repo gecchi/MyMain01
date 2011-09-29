@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2009/01/22
  * @author Masatoshi Tsuge
  */
-class EnemyVesta : public GgafDx9LibStg::DefaultMorphMeshActor {
+class EnemyVesta : public GgafLib::DefaultMorphMeshActor {
 private:
     /** [r]次回ハッチが開くフレーム */
     frame _frame_of_moment_nextopen;

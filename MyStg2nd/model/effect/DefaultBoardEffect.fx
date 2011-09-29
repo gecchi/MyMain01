@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDx9BoardModel用シェーダー
+// Ggafライブラリ、GgafDxBoardModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06 
@@ -32,8 +32,8 @@ struct OUT_VS
 
 ///////////////////////////////////////////////////////////////////////////
 
-//GgafDx9BoardModel標準頂点シェーダー
-OUT_VS GgafDx9VS_DefaultBoard(
+//GgafDxBoardModel標準頂点シェーダー
+OUT_VS GgafDxVS_DefaultBoard(
       float4 prm_pos    : POSITION,     // モデルの頂点
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 
@@ -52,7 +52,7 @@ OUT_VS GgafDx9VS_DefaultBoard(
 }
 
 
-float4 GgafDx9PS_DefaultBoard(
+float4 GgafDxPS_DefaultBoard(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
@@ -86,7 +86,7 @@ float4 PS_Flush(
 
 //＜テクニック：DefaultBoardTechnique＞
 //【機能】
-//GgafDx9BoardModel用標準シェーダー
+//GgafDxBoardModel用標準シェーダー
 //【概要】
 //D3DFVF_XYZRHW で描画したような仕様で２Ｄ表示します。
 //画面左上隅が(0,0)で画面右下隅が（画面幅(px), 画面高さ(px))となる座標系で
@@ -114,8 +114,8 @@ technique DefaultBoardTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultBoard();
-		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultBoard();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultBoard();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultBoard();
 	}
 }
 
@@ -125,8 +125,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultBoard();
-		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultBoard();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultBoard();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultBoard();
 	}
 }
 
@@ -136,7 +136,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultBoard();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultBoard();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

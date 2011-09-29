@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 //現在未使用
 HoshiBoshi002::HoshiBoshi002(const char* prm_name) :
@@ -44,7 +44,7 @@ void HoshiBoshi002::processBehavior() {
 
 void HoshiBoshi002::processSettlementBehavior() {
     //画面外判定無しに伴ない処理簡略化
-    //GgafDx9GeometricActor::processSettlementBehavior() と同期を取る事！
+    //GgafDxGeometricActor::processSettlementBehavior() と同期を取る事！
     _fX = App2Dx(_X);
     _fY = App2Dx(_Y);
     _fZ = App2Dx(_Z);
@@ -55,8 +55,8 @@ void HoshiBoshi002::processJudgement() {
 
 //void HoshiBoshi002::processPreDraw() {
 //    //画面外判定無しに伴ない処理簡略化
-//    //GgafDx9DrawableActor::processPreDraw() と同期を取る事！
-//    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL-1,this); //最深部-1、最深部はWorldBound
+//    //GgafDxDrawableActor::processPreDraw() と同期を取る事！
+//    GgafDxUniverse::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL-1,this); //最深部-1、最深部はWorldBound
 //
 ////    //一時テクニック期間チェック
 ////    if (_is_temp_technique) {

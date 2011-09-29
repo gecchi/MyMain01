@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 
@@ -19,7 +19,7 @@ void WallAABTestActor::onCreateModel() {
 
 
 bool WallAABTestActor::isOutOfUniverse() {
-    if (GgafDx9Universe::_X_goneLeft < _X) {
+    if (GgafDxUniverse::_X_goneLeft < _X) {
         return false;
     }
     return true;

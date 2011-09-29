@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 //int FormationJuno::_X_FormationWhole = 0;
@@ -38,7 +38,7 @@ FormationJuno::FormationJuno(
     _pKurokoA->setMvVelo(prm_veloMv_App);
     _pKurokoA->setRzRyMvAng(prm_angRzMv_AppBox, prm_angRyMv_AppBox);
     float vX_AppBox, vY_AppBox, vZ_AppBox;
-    GgafDx9Util::getNormalizeVectorZY(prm_angRzMv_AppBox, prm_angRyMv_AppBox,
+    GgafDxUtil::getNormalizeVectorZY(prm_angRzMv_AppBox, prm_angRyMv_AppBox,
                                       vX_AppBox, vY_AppBox, vZ_AppBox);
 
     _frame_app_interval = prm_frame_app_interval;

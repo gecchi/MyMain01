@@ -9,10 +9,10 @@ namespace MyStg2nd {
  * @since 2010/11/15
  * @author Masatoshi Tsuge
  */
-class GameTitleScene : public GgafDx9LibStg::DefaultScene {
+class GameTitleScene : public GgafLib::DefaultScene {
 
 public:
-    GgafDx9Core::GgafDx9SeConnection* _pSeCon_exec;
+    GgafDxCore::GgafDxSeConnection* _pSeCon_exec;
 
     LabelGecchi16Font* _pStringBoard01;
     LabelGecchi16Font* _pStringBoard02;

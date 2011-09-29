@@ -2,7 +2,7 @@
 #define MYOPTIONSTRAIGHTLASERCHIP001_H_
 namespace MyStg2nd {
 
-class MyOptionStraightLaserChip001 : public GgafDx9LibStg::StraightLaserChip {
+class MyOptionStraightLaserChip001 : public GgafLib::StraightLaserChip {
 
 public:
     /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */

@@ -8,11 +8,11 @@ namespace MyStg2nd {
  * @since 2010/06/13
  * @author Masatoshi Tsuge
  */
-class FormationPallas002 : public GgafDx9LibStg::FormationActor {
+class FormationPallas002 : public GgafLib::FormationActor {
     /** イリスの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* _pDepoCon;
     /** スプライン定義資源への接続 */
-    GgafDx9LibStg::SplineManufactureConnection* _pSplManufCon;
+    GgafLib::SplineManufactureConnection* _pSplManufCon;
 public:
     /** 編隊数(RANK変動) */
     int _num_Pallas;

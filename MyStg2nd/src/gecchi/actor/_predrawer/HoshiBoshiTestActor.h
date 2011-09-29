@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @since 2011/04/18
  * @author Masatoshi Tsuge
  */
-class HoshiBoshiTestActor : public GgafDx9Core::GgafDx9PointSpriteActor {
+class HoshiBoshiTestActor : public GgafDxCore::GgafDxPointSpriteActor {
 
 public:
 
@@ -56,7 +56,7 @@ public:
 
 
 
-    static void setWorldMatrix_HoshiBoshiTestActor(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_HoshiBoshiTestActor(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 };
 
 }

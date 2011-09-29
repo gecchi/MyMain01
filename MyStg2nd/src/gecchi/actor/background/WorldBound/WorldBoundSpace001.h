@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/06/16
  * @author Masatoshi Tsuge
  */
-class WorldBoundSpace001 : public GgafDx9LibStg::WorldBoundActor {
+class WorldBoundSpace001 : public GgafLib::WorldBoundActor {
 
 public:
 

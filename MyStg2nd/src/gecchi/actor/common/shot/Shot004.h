@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @since 2009/12/28
  * @author Masatoshi Tsuge
  */
-class Shot004 : public GgafDx9LibStg::SingleLaser {
+class Shot004 : public GgafLib::SingleLaser {
 public:
 
     bool _view_in;

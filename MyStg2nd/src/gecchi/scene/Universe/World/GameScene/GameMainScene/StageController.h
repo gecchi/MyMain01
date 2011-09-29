@@ -7,7 +7,7 @@ namespace MyStg2nd {
 /**
  * ゲームメインシーンクラス .
  */
-class StageController : public GgafDx9LibStg::DefaultScene {
+class StageController : public GgafLib::DefaultScene {
 
 public:
 //    static StageController* _pStageController;

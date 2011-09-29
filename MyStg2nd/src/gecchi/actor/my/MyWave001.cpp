@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 MyWave001::MyWave001(const char* prm_name) :
@@ -75,7 +75,7 @@ void MyWave001::processJudgement() {
 }
 
 /*
- bool MyWave001::processHitChkLogic(GgafDx9GeometricActor* prm_pOtherActor) {
+ bool MyWave001::processHitChkLogic(GgafDxGeometricActor* prm_pOtherActor) {
  //TRACE("MyWave001::processHitChkLogic "+getPlatformScene()->getName()+"."+getName()+"‚˜"+prm_pOtherActor->getPlatformScene()->getName()+"."+prm_pOtherActor->getName());
  return false;
  }

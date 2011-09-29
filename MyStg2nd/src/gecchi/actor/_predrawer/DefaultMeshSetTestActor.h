@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/04/18
  * @author Masatoshi Tsuge
  */
-class DefaultMeshSetTestActor : public GgafDx9LibStg::DefaultMeshSetActor {
+class DefaultMeshSetTestActor : public GgafLib::DefaultMeshSetActor {
 
 public:
 

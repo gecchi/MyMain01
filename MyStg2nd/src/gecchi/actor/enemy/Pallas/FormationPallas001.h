@@ -8,13 +8,13 @@ namespace MyStg2nd {
  * @since 2010/06/13
  * @author Masatoshi Tsuge
  */
-class FormationPallas001 : public GgafDx9LibStg::FormationActor {
+class FormationPallas001 : public GgafLib::FormationActor {
 
 public:
     /** パラスの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* _pDepoCon;
     /** スプライン定義資源への接続 */
-    GgafDx9LibStg::SplineManufactureConnection* _pSplManufCon;
+    GgafLib::SplineManufactureConnection* _pSplManufCon;
     /** 編隊数(RANK変動) */
     int _num_Pallas;
     /** パラスの配列(RANK変動) */
@@ -39,7 +39,7 @@ public:
      * 編隊が全て自機側の攻撃で殲滅させられた場合
      * @param prm_pActorLast 最後に破壊されたアクター
      */
-    virtual void wasDestroyedFormation(GgafDx9GeometricActor* prm_pActorLast) override;
+    virtual void wasDestroyedFormation(GgafDxGeometricActor* prm_pActorLast) override;
 
     virtual ~FormationPallas001();
 };

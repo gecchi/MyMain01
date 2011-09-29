@@ -11,7 +11,7 @@ namespace MyStg2nd {
  * @since 2010/09/22
  * @author Masatoshi Tsuge
  */
-class MyTorpedoBlast : public GgafDx9LibStg::DefaultMeshSetActor {
+class MyTorpedoBlast : public GgafLib::DefaultMeshSetActor {
 
 public:
 

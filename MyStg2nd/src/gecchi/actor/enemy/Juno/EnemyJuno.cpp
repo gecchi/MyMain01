@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 EnemyJuno::EnemyJuno(const char* prm_name) :
@@ -59,7 +59,7 @@ void EnemyJuno::processBehavior() {
             _pKurokoA->execTurnRxSpinAngSequence(ANGLE180, 8000, 0, TURN_CLOCKWISE);
         } else if (getActivePartFrame() == _frame_when_shot + 20) {
             if (_pDepo_Shot) {
-                GgafDx9DrawableActor* pShot = (GgafDx9DrawableActor*)_pDepo_Shot->dispatch();
+                GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)_pDepo_Shot->dispatch();
                 if (pShot) {
                     _nShot++;
                     pShot->locateAs(this);
@@ -107,7 +107,7 @@ void EnemyJuno::onInactive() {
 }
 
 void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         _pSeTransmitter->play3D(0);
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();

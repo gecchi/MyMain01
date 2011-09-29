@@ -10,7 +10,7 @@ namespace MyStg2nd {
  * 【上書き可能なメンバー】
  *
  */
-class EnemyCeresShot001 : public GgafDx9LibStg::DefaultMeshSetActor {
+class EnemyCeresShot001 : public GgafLib::DefaultMeshSetActor {
 public:
     //本Actorのカスタムプロパティ --->
     /** 出現時の初速 */

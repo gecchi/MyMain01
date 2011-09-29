@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 
@@ -32,34 +32,34 @@ void CubeMapMeshTestActor::onActive() {
 
 
 void CubeMapMeshTestActor::processBehavior() {
-//    if (GgafDx9Input::isPushedDownKey(DIK_T)) {
+//    if (GgafDxInput::isPushedDownKey(DIK_T)) {
 ////        _pKurokoA->execSmoothMvVeloSequence(0, 600*1000, 180, 0.4, 0.6, true);
 //        _pKurokoA->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.4, 0.6);
 //        _TRACE_("execSmoothMvVeloSequence!!");
 //    }
-//    if (GgafDx9Input::isPushedDownKey(DIK_Y)) {
+//    if (GgafDxInput::isPushedDownKey(DIK_Y)) {
 ////        _pKurokoA->execSmoothMvVeloSequence(0, 600*1000, 180, 0.1, 0.3, true);
 //        _pKurokoA->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.1, 0.3);
 //        _TRACE_("execSmoothMvVeloSequence!!");
 //    }
-//    if (GgafDx9Input::isPushedDownKey(DIK_U)) {
+//    if (GgafDxInput::isPushedDownKey(DIK_U)) {
 ////        _pKurokoA->execSmoothMvVeloSequence(0, 600*1000, 180, 0.7, 0.9, true);
 //        _pKurokoA->execSmoothMvVeloSequenceD(10*1000, 0, 600*1000, 0.7, 0.9);
 //        _TRACE_("execSmoothMvVeloSequence!!");
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_W)) {
 //        _X = _X - 2000;
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_R)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_R)) {
 //        _X = _X + 2000;
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
 //        _Y = _Y + 2000;
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_E)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_E)) {
 //        _Y = _Y - 2000;
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
 //        _X = 0;
 //    }
 ////    _TRACE_(getActivePartFrame() <<":"<<_X<<","<<_Y<<","<<_Z);

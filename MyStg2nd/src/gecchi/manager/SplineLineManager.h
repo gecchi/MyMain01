@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @since 2010/05/31
  * @author Masatoshi Tsuge
  */
-class SplineLineManager : public GgafCore::GgafResourceManager<GgafDx9LibStg::SplineLine> {
+class SplineLineManager : public GgafCore::GgafResourceManager<GgafLib::SplineLine> {
 
 public:
 
@@ -19,9 +19,9 @@ public:
      */
     SplineLineManager(const char* prm_manager_name);
 
-    GgafDx9LibStg::SplineLine* processCreateResource(char* prm_idstr, void* prm_p);
+    GgafLib::SplineLine* processCreateResource(char* prm_idstr, void* prm_p);
 
-    GgafCore::GgafResourceConnection<GgafDx9LibStg::SplineLine>* processCreateConnection(char* prm_idstr, GgafDx9LibStg::SplineLine* prm_pResource);
+    GgafCore::GgafResourceConnection<GgafLib::SplineLine>* processCreateConnection(char* prm_idstr, GgafLib::SplineLine* prm_pResource);
 
 
     virtual ~SplineLineManager() {

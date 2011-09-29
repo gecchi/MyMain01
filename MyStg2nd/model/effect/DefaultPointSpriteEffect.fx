@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDx9MeshModel用シェーダー
+// Ggafライブラリ、GgafDxMeshModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06 
@@ -73,7 +73,7 @@ struct OUT_VS
 
 
 //メッシュ標準頂点シェーダー
-OUT_VS GgafDx9VS_DefaultPointSprite(
+OUT_VS GgafDxVS_DefaultPointSprite(
       float4 prm_pos         : POSITION,  //ポイントスプライトのポイント群
       float  prm_psize_rate  : PSIZE,     //PSIZEでは無くて、スケールの率(0.0～N (1.0=等倍)) が入ってくる
       float4 prm_color         : COLOR0,     //オブジェクトのカラー
@@ -109,7 +109,7 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDx9PS_DefaultPointSprite(
+float4 GgafDxPS_DefaultPointSprite(
 	float2 prm_uv_pointsprite	  : TEXCOORD0,   //(0.F, 0.F), (0.F, 1.F), (1.F, 0.F), (1.F, 1.F)が来る   
 	float4 prm_color                : COLOR0,
 	float4 prm_uv_ps              : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
@@ -143,8 +143,8 @@ technique DefaultPointSpriteTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultPointSprite();
-		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultPointSprite();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultPointSprite();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultPointSprite();
 	}
 }
 
@@ -154,8 +154,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultPointSprite();
-		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultPointSprite();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultPointSprite();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultPointSprite();
 	}
 }
 
@@ -165,7 +165,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultPointSprite();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultPointSprite();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

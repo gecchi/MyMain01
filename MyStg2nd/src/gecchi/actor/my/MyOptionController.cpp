@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 int MyOptionController::_max_option_num = 8;
 
@@ -10,7 +10,7 @@ int MyOptionController::_max_option_num = 8;
 //    DefaultMeshActor(prm_name, "Gizmo") {
 
 MyOptionController::MyOptionController(const char* prm_name) :
-  GgafDx9GeometricActor(prm_name, NULL, NULL) {
+  GgafDxGeometricActor(prm_name, NULL, NULL) {
     _is_handle_move_mode = false;
     _is_free_from_myship_mode = false;
     _return_to_default_position_seq = false;
@@ -99,9 +99,9 @@ MyOptionController::MyOptionController(const char* prm_name) :
     addSubGroup(_pDirectionVector);
 
     //トレース用履歴
-    _pRing_GeoHistory = NEW GgafLinkedListRing<GgafDx9GeoElem>();
+    _pRing_GeoHistory = NEW GgafLinkedListRing<GgafDxGeoElem>();
     for (DWORD i = 0; i < 100; i++) {
-        _pRing_GeoHistory->addLast(NEW GgafDx9GeoElem(this));
+        _pRing_GeoHistory->addLast(NEW GgafDxGeoElem(this));
     }
 
 }
@@ -126,7 +126,7 @@ void MyOptionController::onActive() {
 }
 
 void MyOptionController::processBehavior() {
-//    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_I)) {
 //        dump();
 //    }
 
@@ -169,7 +169,7 @@ void MyOptionController::processBehavior() {
     }
 
     if (VB_PLAY->isRoundPushDown(VB_OPTION)) {
-    //if (VB_PLAY->isPushedDown(VB_OPTION) && GgafDx9Input::isBeingPressedKey(DIK_S)) {
+    //if (VB_PLAY->isPushedDown(VB_OPTION) && GgafDxInput::isBeingPressedKey(DIK_S)) {
         if (_papMyOption[0]) {
             _is_free_from_myship_mode = true;
             _is_handle_move_mode = true;
@@ -187,14 +187,14 @@ void MyOptionController::processBehavior() {
         if (VB_PLAY->isBeingPressed(VB_OPTION) && _is_handle_move_mode) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちのオプション移動速度のみを設定。
-            _pKurokoA->setMvVelo(GgafDx9Util::COS[_papMyOption[0]->_angExpanse/ ANGLE_RATE] * _veloOptionsMv);
+            _pKurokoA->setMvVelo(GgafDxUtil::COS[_papMyOption[0]->_angExpanse/ ANGLE_RATE] * _veloOptionsMv);
             //旋回半径増加速度の処理はMyOptionクラスで行う。
         } else {
             _is_handle_move_mode = false;
             _pKurokoA->setMvVelo(0);
         }
     } else {
-        GgafDx9GeoElem* pGeoMyShip = P_MYSHIP->_pRing_GeoHistory->getPrev(4); //自機にすこしおくれて追従
+        GgafDxGeoElem* pGeoMyShip = P_MYSHIP->_pRing_GeoHistory->getPrev(4); //自機にすこしおくれて追従
         if (_return_to_default_position_seq) {
             //元の位置へ
             int dx = pGeoMyShip->_X - (_X + _pKurokoB->_veloVxMv*6);

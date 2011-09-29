@@ -8,9 +8,9 @@ namespace MyStg2nd {
  * @since 2010/08/18
  * @author Masatoshi Tsuge
  */
-class Stage01Controller : public GgafDx9LibStg::DefaultScene {
+class Stage01Controller : public GgafLib::DefaultScene {
 
-    GgafDx9Core::GgafDx9Bgm* _bgm_st1;
+    GgafDxCore::GgafDxBgm* _bgm_st1;
 
 public:
 

@@ -8,8 +8,8 @@ namespace MyStg2nd {
  * @since 2006/06/22
  * @author Masatoshi Tsuge
  */
-//class MyOptionController : public GgafDx9LibStg::DefaultMeshActor {
-class MyOptionController : public GgafDx9Core::GgafDx9GeometricActor {
+//class MyOptionController : public GgafLib::DefaultMeshActor {
+class MyOptionController : public GgafDxCore::GgafDxGeometricActor {
 
 
     struct AngRzRy {
@@ -23,7 +23,7 @@ public:
     MyOptionControllerGizmo* _pGizmo;
     MyOptionControllerDirectionVector* _pDirectionVector;
 
-    GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeoElem>* _pRing_GeoHistory;
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* _pRing_GeoHistory;
     velo _veloOptionsMv;
     MoveWay _way_myship_prev;
     static int _max_option_num;
@@ -50,7 +50,7 @@ public:
     virtual void processJudgement() override {}
 
 //DefaultMeshActor等で表示したい場合はコメントにすること
-//GgafDx9GeometricActorの場合はコメントを外すこと
+//GgafDxGeometricActorの場合はコメントを外すこと
     virtual void processDraw() override {}
 
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {}

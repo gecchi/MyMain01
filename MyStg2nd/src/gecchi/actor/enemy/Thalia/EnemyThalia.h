@@ -9,10 +9,10 @@ namespace MyStg2nd {
  * @since 2010/08/03
  * @author Masatoshi Tsuge
  */
-class EnemyThalia : public GgafDx9LibStg::DefaultMorphMeshActor {
-//class EnemyThalia : public GgafDx9LibStg::CubeMapMorphMeshActor {
+class EnemyThalia : public GgafLib::DefaultMorphMeshActor {
+//class EnemyThalia : public GgafLib::CubeMapMorphMeshActor {
     /** 移動スプラインプログラム */
-    GgafDx9LibStg::SplineSequence* _pSplSeq;
+    GgafLib::SplineSequence* _pSplSeq;
     /** 弾ストック */
     GgafCore::GgafActorDepository* _pDepo_Shot;
     /** 弾発射効果エフェクト */
@@ -26,7 +26,7 @@ public:
 
     velo _veloTopMv;
 
-    GgafDx9LibStg::LaserChipDepository* _pLaserChipDepo;
+    GgafLib::LaserChipDepository* _pLaserChipDepo;
     /**
      * コンストラクタ
      * @param prm_name
@@ -79,7 +79,7 @@ public:
      * initialize() までに設定して下さい。
      * @param prm_pSplSeq
      */
-    void setSplineSequence(GgafDx9LibStg::SplineSequence* prm_pSplSeq) {
+    void setSplineSequence(GgafLib::SplineSequence* prm_pSplSeq) {
         _pSplSeq = prm_pSplSeq;
     }
 

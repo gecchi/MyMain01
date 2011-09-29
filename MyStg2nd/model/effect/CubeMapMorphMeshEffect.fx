@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh"
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDx9MorphMeshModel用シェーダー
+// Ggafライブラリ、GgafDxMorphMeshModel用シェーダー
 // author : Masatoshi Tsuge
 // date:2009/05/12
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ struct OUT_VS {
 ///////////////////////////////////////////////////////////////////////////
 
 //モーフターゲットなし
-OUT_VS GgafDx9VS_CubeMapMorphMesh0(
+OUT_VS GgafDxVS_CubeMapMorphMesh0(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0       // モデルの頂点のUV
@@ -86,7 +86,7 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh0(
 }
 
 //モーフターゲット１つ
-OUT_VS GgafDx9VS_CubeMapMorphMesh1(
+OUT_VS GgafDxVS_CubeMapMorphMesh1(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -101,12 +101,12 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh1(
         pos += ((prm_pos1 - prm_pos0) * g_weight1);
         normal = lerp(normal, prm_normal1, g_weight1);
     }
-    return GgafDx9VS_CubeMapMorphMesh0(pos, normal,prm_uv0);
+    return GgafDxVS_CubeMapMorphMesh0(pos, normal,prm_uv0);
 }
 
 
 //モーフターゲット２つ
-OUT_VS GgafDx9VS_CubeMapMorphMesh2(
+OUT_VS GgafDxVS_CubeMapMorphMesh2(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -126,11 +126,11 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh2(
         pos += ((prm_pos2 - prm_pos0) * g_weight2);
         normal = lerp(normal, prm_normal2, g_weight2);
     }
-    return GgafDx9VS_CubeMapMorphMesh0(pos, normal,prm_uv0);
+    return GgafDxVS_CubeMapMorphMesh0(pos, normal,prm_uv0);
 }
 
 //モーフターゲット３つ
-OUT_VS GgafDx9VS_CubeMapMorphMesh3(
+OUT_VS GgafDxVS_CubeMapMorphMesh3(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -156,11 +156,11 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh3(
         pos += ((prm_pos3 - prm_pos0) * g_weight3);
         normal = lerp(normal, prm_normal3, g_weight3);
     }
-    return GgafDx9VS_CubeMapMorphMesh0(pos, normal,prm_uv0);
+    return GgafDxVS_CubeMapMorphMesh0(pos, normal,prm_uv0);
 }
 
 //モーフターゲット４つ
-OUT_VS GgafDx9VS_CubeMapMorphMesh4(
+OUT_VS GgafDxVS_CubeMapMorphMesh4(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -192,11 +192,11 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh4(
         pos += ((prm_pos4 - prm_pos0) * g_weight4);
         normal = lerp(normal, prm_normal4, g_weight4);
     }
-    return GgafDx9VS_CubeMapMorphMesh0(pos, normal,prm_uv0);
+    return GgafDxVS_CubeMapMorphMesh0(pos, normal,prm_uv0);
 }
 
 //モーフターゲット５つ
-OUT_VS GgafDx9VS_CubeMapMorphMesh5(
+OUT_VS GgafDxVS_CubeMapMorphMesh5(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -234,11 +234,11 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh5(
         pos += ((prm_pos5 - prm_pos0) * g_weight5);
         normal = lerp(normal, prm_normal5, g_weight5);
     }
-    return GgafDx9VS_CubeMapMorphMesh0(pos, normal,prm_uv0);
+    return GgafDxVS_CubeMapMorphMesh0(pos, normal,prm_uv0);
 }
 
 //モーフターゲット６つ
-OUT_VS GgafDx9VS_CubeMapMorphMesh6(
+OUT_VS GgafDxVS_CubeMapMorphMesh6(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -283,11 +283,11 @@ OUT_VS GgafDx9VS_CubeMapMorphMesh6(
         pos += ((prm_pos6 - prm_pos0) * g_weight6);
         normal = lerp(normal, prm_normal6, g_weight6);
     }
-    return GgafDx9VS_CubeMapMorphMesh0(pos, normal,prm_uv0);
+    return GgafDxVS_CubeMapMorphMesh0(pos, normal,prm_uv0);
 }
 
 
-float4 GgafDx9PS_CubeMapMorphMesh(       
+float4 GgafDxPS_CubeMapMorphMesh(       
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0,
     float3 prm_normal : TEXCOORD1,
@@ -331,8 +331,8 @@ technique CubeMapMorphMeshTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh0();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh0();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
     //モーフターゲット１つ
@@ -340,8 +340,8 @@ technique CubeMapMorphMeshTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh1();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh1();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
     //モーフターゲット２つ
@@ -349,8 +349,8 @@ technique CubeMapMorphMeshTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh2();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh2();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
     //モーフターゲット３つ
@@ -358,8 +358,8 @@ technique CubeMapMorphMeshTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh3();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh3();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
     //モーフターゲット４つ
@@ -367,8 +367,8 @@ technique CubeMapMorphMeshTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh4();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh4();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
     //モーフターゲット５つ
@@ -376,8 +376,8 @@ technique CubeMapMorphMeshTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh5();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh5();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
     //モーフターゲット６つ
@@ -385,8 +385,8 @@ technique CubeMapMorphMeshTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh6();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh6();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
 //	//モーフターゲット７つ
@@ -394,8 +394,8 @@ technique CubeMapMorphMeshTechnique
 //		AlphaBlendEnable = true;
 //		SrcBlend  = SrcAlpha;
 //		DestBlend = InvSrcAlpha;
-//		VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh7();
-//		PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+//		VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh7();
+//		PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
 //	}
 }
 
@@ -407,8 +407,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh0();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh0();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
     //モーフターゲット１つ
@@ -416,8 +416,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh1();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh1();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
     //モーフターゲット２つ
@@ -425,8 +425,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh2();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh2();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
     //モーフターゲット３つ
@@ -434,8 +434,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh3();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh3();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
     //モーフターゲット４つ
@@ -443,8 +443,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh4();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh4();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
     //モーフターゲット５つ
@@ -452,8 +452,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh5();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh5();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 
     //モーフターゲット６つ
@@ -461,8 +461,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh6();
-        PixelShader  = compile PS_VERSION GgafDx9PS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh6();
+        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
     }
 }
 
@@ -473,7 +473,7 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh0();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh0();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -482,7 +482,7 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh1();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh1();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -491,7 +491,7 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh2();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh2();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -500,7 +500,7 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh3();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh3();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -509,7 +509,7 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh4();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh4();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -518,7 +518,7 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh5();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh5();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -527,7 +527,7 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDx9VS_CubeMapMorphMesh6();
+        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh6();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 

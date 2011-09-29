@@ -1,0 +1,14 @@
+#include "stdafx.h"
+
+using namespace std;
+using namespace GgafCore;
+using namespace GgafDxCore;
+
+
+GgafDxCubeMapMeshModel::GgafDxCubeMapMeshModel(char* prm_model_name) : GgafDxMeshModel(prm_model_name) {
+    TRACE3("GgafDxCubeMapMeshModel::GgafDxCubeMapMeshModel(" << _model_name << ")");
+}
+
+GgafDxCubeMapMeshModel::~GgafDxCubeMapMeshModel() {
+}
+

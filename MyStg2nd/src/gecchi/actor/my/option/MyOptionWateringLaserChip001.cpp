@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 
@@ -30,7 +30,7 @@ void MyOptionWateringLaserChip001::onActive() {
     _pStatus->reset();
     _default_stamina = _pStatus->get(STAT_Stamina);
     WateringLaserChip::onActive();
-    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
     if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
         if (_pChip_front == NULL) {
             //先端チップ
@@ -58,7 +58,7 @@ void MyOptionWateringLaserChip001::onActive() {
 }
 
 void MyOptionWateringLaserChip001::processBehavior() {
-    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
+    GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
     if (getActivePartFrame() > 10) {
         if (_lockon == 1) {
             if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
@@ -107,10 +107,10 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 if (lVM > _renge/2) {
                     angle RZ_temp = _RZ;
                     angle RY_temp = _RY;
-                    GgafDx9Util::getRzRyAng(vVMx, vVMy, vVMz,
+                    GgafDxUtil::getRzRyAng(vVMx, vVMy, vVMz,
                                             RZ_temp, RY_temp);
-                    angle angDRZ = GgafDx9Util::getAngDiff(RZ_temp, _RZ);
-                    angle angDRY = GgafDx9Util::getAngDiff(RY_temp, _RY);
+                    angle angDRZ = GgafDxUtil::getAngDiff(RZ_temp, _RZ);
+                    angle angDRY = GgafDxUtil::getAngDiff(RY_temp, _RY);
                     if (-4000 <= angDRZ) {
                         _RZ -= 4000;
                     } else if (angDRZ <= 4000) {
@@ -188,10 +188,10 @@ void MyOptionWateringLaserChip001::processBehavior() {
             if (lVM > _renge/2) {
                 angle RZ_temp = _RZ;
                 angle RY_temp = _RY;
-                GgafDx9Util::getRzRyAng(vVMx, vVMy, vVMz,
+                GgafDxUtil::getRzRyAng(vVMx, vVMy, vVMz,
                                         RZ_temp, RY_temp);
-                angle angDRZ = GgafDx9Util::getAngDiff(RZ_temp, _RZ);
-                angle angDRY = GgafDx9Util::getAngDiff(RY_temp, _RY);
+                angle angDRZ = GgafDxUtil::getAngDiff(RZ_temp, _RZ);
+                angle angDRY = GgafDxUtil::getAngDiff(RY_temp, _RY);
                 if (-4000 <= angDRZ) {
                     _RZ -= 4000;
                 } else if (angDRZ <= 4000) {
@@ -288,18 +288,18 @@ void MyOptionWateringLaserChip001::processBehavior() {
 void MyOptionWateringLaserChip001::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
     if (((GgafMainActor*)prm_pOtherActor)->getKind() & KIND_CHIKEI) {
         if (_chip_kind != 2 || _can_chikei_hit) {
-            GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+            GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
         } else {
             return;
         }
     } else {
-        GgafDx9DrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
+        GgafDxDrawableActor::executeHitChk_MeAnd(prm_pOtherActor);
     }
 }
 
 void MyOptionWateringLaserChip001::onHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
-    GgafDx9GeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
+    GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
     //ヒットエフェクト
     //無し
 

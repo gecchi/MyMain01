@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/04/18
  * @author Masatoshi Tsuge
  */
-class DefaultMorphMeshTestActor : public GgafDx9LibStg::DefaultMorphMeshActor {
+class DefaultMorphMeshTestActor : public GgafLib::DefaultMorphMeshActor {
 
 public:
 

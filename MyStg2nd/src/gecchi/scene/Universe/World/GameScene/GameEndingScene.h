@@ -2,7 +2,7 @@
 #define GAMEENDINGSCENE_H_
 namespace MyStg2nd {
 
-class GameEndingScene : public GgafDx9LibStg::DefaultScene {
+class GameEndingScene : public GgafLib::DefaultScene {
 
 public:
 

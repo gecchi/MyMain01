@@ -29,10 +29,10 @@ enum Switch {
  * @since 2006/06/22
  * @author Masatoshi Tsuge
  */
-class MyShip : public GgafDx9LibStg::DefaultD3DXMeshActor {
-//class MyShip : public GgafDx9LibStg::DefaultMeshActor {
-//class MyShip : public GgafDx9LibStg::CubeMapMeshActor {
-//class MyShip : public GgafDx9LibStg::DefaultD3DXAniMeshActor {
+class MyShip : public GgafLib::DefaultD3DXMeshActor {
+//class MyShip : public GgafLib::DefaultMeshActor {
+//class MyShip : public GgafLib::CubeMapMeshActor {
+//class MyShip : public GgafLib::DefaultD3DXAniMeshActor {
 
 
     class State {
@@ -252,11 +252,11 @@ public:
 
     State _state;
 
-    GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeoElem>* _pRing_GeoHistory;
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* _pRing_GeoHistory;
 
     GgafCore::GgafActorDepository* _pDepo_MyShots001;
     GgafCore::GgafActorDepository* _pDP_EffectExplosion001;
-    GgafDx9LibStg::LaserChipDepository* _pLaserChipDepo;
+    GgafLib::LaserChipDepository* _pLaserChipDepo;
 
 //    MyOptionController* _pMyOptionController;
     EffectTurbo001* _pEffectTurbo001;

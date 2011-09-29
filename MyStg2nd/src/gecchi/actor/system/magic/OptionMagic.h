@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class OptionMagic : public Magic {
 
 public:
-    GgafDx9Core::GgafDx9DrawableActor** _papEffect;
+    GgafDxCore::GgafDxDrawableActor** _papEffect;
     float _r_effect;
     int _old_level;
     OptionMagic(const char* prm_name);

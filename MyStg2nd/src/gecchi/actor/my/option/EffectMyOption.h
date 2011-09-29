@@ -3,8 +3,8 @@
 namespace MyStg2nd {
 
 
-//class EffectMyOption : public GgafDx9LibStg::DefaultMorphMeshActor {
-class EffectMyOption : public GgafDx9LibStg::DefaultMeshSetActor {
+//class EffectMyOption : public GgafLib::DefaultMorphMeshActor {
+class EffectMyOption : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** 親オプション */

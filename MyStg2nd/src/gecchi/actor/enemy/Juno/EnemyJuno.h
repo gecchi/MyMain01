@@ -3,7 +3,7 @@
 namespace MyStg2nd {
 
 //ジュノー
-class EnemyJuno : public GgafDx9LibStg::DefaultMeshSetActor {
+class EnemyJuno : public GgafLib::DefaultMeshSetActor {
 
 public:
     int _iMovePatternNo;
@@ -38,7 +38,7 @@ public:
 
     /**
      * 発射弾設定 .
-     * @param prm_pDepo (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
+     * @param prm_pDepo (GgafDxDrawableActor*)にキャスト可能なアクターをサブに持つデポジトリのポインタ
      */
     void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
         _pDepo_Shot = prm_pDepo;

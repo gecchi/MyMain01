@@ -6,4 +6,4 @@
 #pragma once
 
 //ライブラリヘッダ
-#include "include/GgafDx9CommonHeader.h"
+#include "include/GgafDxCommonHeader.h"

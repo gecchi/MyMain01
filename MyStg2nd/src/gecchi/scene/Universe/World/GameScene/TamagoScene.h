@@ -3,7 +3,7 @@
 
 namespace MyStg2nd {
 
-class TamagoScene : public GgafDx9LibStg::DefaultScene {
+class TamagoScene : public GgafLib::DefaultScene {
 
 public:
     TurboMeter* _pTurboMeter001;

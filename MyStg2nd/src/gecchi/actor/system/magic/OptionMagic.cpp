@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 OptionMagic::OptionMagic(const char* prm_name)
@@ -40,7 +40,7 @@ OptionMagic::OptionMagic(const char* prm_name)
     _lvinfo[7]._pno = 45;
     _lvinfo[8]._pno = 41;
 
-    _papEffect = NEW GgafDx9DrawableActor*[8];
+    _papEffect = NEW GgafDxDrawableActor*[8];
     for (int i = 0; i < 8; i++) {
         _papEffect[i] = NEW EffectMagic001("EF");
         _papEffect[i]->inactivateImmediately();
@@ -49,7 +49,7 @@ OptionMagic::OptionMagic(const char* prm_name)
 }
 void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     angle* paAngWay = NEW angle[prm_new_level-prm_now_level];
-    GgafDx9Util::getRadialAngle2D(0, prm_new_level-prm_now_level, paAngWay);
+    GgafDxUtil::getRadialAngle2D(0, prm_new_level-prm_now_level, paAngWay);
     for (int i = prm_now_level; i < prm_new_level; i++) {
         _papEffect[i]->locateAs(P_MYSHIP);
         _papEffect[i]->_pKurokoA->setRzRyMvAng(paAngWay[i], ANGLE90);

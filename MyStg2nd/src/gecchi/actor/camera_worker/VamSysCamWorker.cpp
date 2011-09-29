@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) {
@@ -26,8 +26,8 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
     _lim_VP_zright  = MyShip::_lim_zright  + (Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
 }
 void VamSysCamWorker::initialize() {
-    GgafDx9Camera* pCam = P_CAM;
-    GgafDx9GeometricActor* pVP = pCam->_pViewPoint;
+    GgafDxCamera* pCam = P_CAM;
+    GgafDxGeometricActor* pVP = pCam->_pViewPoint;
 
     //初期カメラZ位置
     _dZ_camera_init = -Dx2App(pCam->_cameraZ_org);
@@ -55,7 +55,7 @@ void VamSysCamWorker::initialize() {
     pVP->_pKurokoB->forceVzMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
 
     _stop_renge = 60000;
-    _angXY_nowCamUp = GgafDx9Util::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    _angXY_nowCamUp = GgafDxUtil::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
     _stop_dZ = 0;
     _stop_dY = 0;
     _TRACE_("VamSysCamWorker::initialize() this="<<this);
@@ -71,8 +71,8 @@ void VamSysCamWorker::processBehavior() {
         return; //MyShipSceneシーンが未だならカメラワーク禁止
     }
 
-    GgafDx9Camera* pCam = P_CAM;
-    GgafDx9GeometricActor* pVP = pCam->_pViewPoint;
+    GgafDxCamera* pCam = P_CAM;
+    GgafDxGeometricActor* pVP = pCam->_pViewPoint;
     MyOptionController* pOptionController = P_MYOPTIONCON;
 
     //カメラ位置番号を決定処理
@@ -152,7 +152,7 @@ void VamSysCamWorker::processBehavior() {
         move_target_X_VP = pOptionController->_X + pOptionController->_pKurokoA->_vX*d;
         move_target_Y_VP = pOptionController->_Y + pOptionController->_pKurokoA->_vY*d;
         move_target_Z_VP = pOptionController->_Z + pOptionController->_pKurokoA->_vZ*d;
-        move_target_XY_CAM_UP = GgafDx9Util::simplifyAng(pOptionController->_pKurokoA->_angRzMv+ANGLE90);
+        move_target_XY_CAM_UP = GgafDxUtil::simplifyAng(pOptionController->_pKurokoA->_angRzMv+ANGLE90);
 
     } else {//通常時
         if (_pos_camera < VAM_POS_TO_BEHIND) {
@@ -274,8 +274,8 @@ void VamSysCamWorker::processBehavior() {
     }
 
 //
-//    GgafDx9GeoElem* pGeoMyShip = _pMyShip->_pRing_GeoHistory->getCurrent(); //現在の自機座標
-//    GgafDx9GeoElem* pGeoMyShip_prev= _pMyShip->_pRing_GeoHistory->getPrev(); //現在のひとつ前のフレームの自機座標
+//    GgafDxGeoElem* pGeoMyShip = _pMyShip->_pRing_GeoHistory->getCurrent(); //現在の自機座標
+//    GgafDxGeoElem* pGeoMyShip_prev= _pMyShip->_pRing_GeoHistory->getPrev(); //現在のひとつ前のフレームの自機座標
 //    _stop_dZ += (pGeoMyShip_prev->_Z - pGeoMyShip->_Z)*0.1; //自機の移動量の1割の移動量を
 //    _stop_dY += (pGeoMyShip_prev->_Y - pGeoMyShip->_Y)*0.1; //カメラの目標座標に加算してます。
 //    move_target_Z_CAM += _stop_dZ;
@@ -535,15 +535,15 @@ void VamSysCamWorker::processBehavior() {
     //カメラのUPを計算
     ang_velo ang_velo_cam_up = cam_velo_renge/20; //cam_velo_rengeはVB_VIEW押しっぱで超低速になる方の速度
     if (_angXY_nowCamUp != move_target_XY_CAM_UP) {
-        angle da = GgafDx9Util::getAngDiff(_angXY_nowCamUp, move_target_XY_CAM_UP);
+        angle da = GgafDxUtil::getAngDiff(_angXY_nowCamUp, move_target_XY_CAM_UP);
         if (-ang_velo_cam_up < da && da < ang_velo_cam_up) {
             _angXY_nowCamUp = move_target_XY_CAM_UP;
         } else {
             _angXY_nowCamUp += (ang_velo_cam_up * sgn(da));
         }
-        _angXY_nowCamUp = GgafDx9Util::simplifyAng(_angXY_nowCamUp);
-        pCam->_pVecCamUp->x = GgafDx9Util::COS[_angXY_nowCamUp/ANGLE_RATE];
-        pCam->_pVecCamUp->y = GgafDx9Util::SIN[_angXY_nowCamUp/ANGLE_RATE];
+        _angXY_nowCamUp = GgafDxUtil::simplifyAng(_angXY_nowCamUp);
+        pCam->_pVecCamUp->x = GgafDxUtil::COS[_angXY_nowCamUp/ANGLE_RATE];
+        pCam->_pVecCamUp->y = GgafDxUtil::SIN[_angXY_nowCamUp/ANGLE_RATE];
         pCam->_pVecCamUp->z = 0.0f;
     }
 

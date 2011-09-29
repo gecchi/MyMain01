@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 EnemyMassalia::EnemyMassalia(const char* prm_name) :
@@ -39,15 +39,15 @@ EnemyMassalia::EnemyMassalia(const char* prm_name) :
 
     _papaPosLaser = NEW PosLaser*[_laser_way];
     angle* paAngWay = NEW angle[_laser_way];
-    GgafDx9Util::getWayAngle2D(0, _laser_way, _angClearance, paAngWay);
+    GgafDxUtil::getWayAngle2D(0, _laser_way, _angClearance, paAngWay);
     angle Rz,Ry;
     float vx, vy, vz;
     for (int i = 0; i < _laser_way; i++) {
-        Rz = GgafDx9Util::simplifyAng(paAngWay[i]);
+        Rz = GgafDxUtil::simplifyAng(paAngWay[i]);
         _papaPosLaser[i] = NEW PosLaser[_laser_way];
         for (int j = 0; j < _laser_way; j++) {
-            Ry = GgafDx9Util::simplifyAng(paAngWay[j]);
-            GgafDx9Util::getNormalizeVectorZY(Rz, Ry,
+            Ry = GgafDxUtil::simplifyAng(paAngWay[j]);
+            GgafDxUtil::getNormalizeVectorZY(Rz, Ry,
                                               vx, vy, vz);
             _papaPosLaser[i][j].X = vx * 100*1000;
             _papaPosLaser[i][j].Y = vy * 100*1000;
@@ -80,7 +80,7 @@ void EnemyMassalia::initialize() {
     _pCollisionChecker->setColliSphere(0, 200*1000);
     _pKurokoA->setMvVelo(-1000);
     _iMovePatternNo = 0;
-    _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
+    _X = GgafDxCore::GgafDxUniverse::_X_goneRight;
 }
 
 
@@ -89,7 +89,7 @@ void EnemyMassalia::onActive() {
     //MyStgUtil::resetEnemyMassaliaStatus(_pStatus);
     _pKurokoA->setMvVelo(-5000);
     _iMovePatternNo = 0;
-    _X = GgafDx9Core::GgafDx9Universe::_X_goneRight;
+    _X = GgafDxCore::GgafDxUniverse::_X_goneRight;
 
     if (_pEffect_Appearance) {
         _pEffect_Appearance->activate();
@@ -101,58 +101,58 @@ void EnemyMassalia::processBehavior() {
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     /////////////モーフテスト(DefaultMorphMeshActor継承要)////////////////
-//    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_1)) {
 //        _pMorpher->beat(1, 30, 3, 22);
-//    } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
+//    } else if (GgafDxInput::isBeingPressedKey(DIK_7)) {
 //        _pMorpher->stopImmediately(1);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_2)) {
 //        _pMorpher->intoTargetAcceStep(2, 1.0f, 0, 0.002f);
-//    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
+//    } else if (GgafDxInput::isBeingPressedKey(DIK_8)) {
 //        _pMorpher->intoTargetAcceStep(2, 0, 0, -0.004f);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
 //        _pMorpher->beat(3, 20, 13, 2);
-//    } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
+//    } else if (GgafDxInput::isBeingPressedKey(DIK_9)) {
 //        _pMorpher->stopImmediately(3);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
 //        _pMorpher->beat(4, 60, 3, 20);
-//    } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+//    } else if (GgafDxInput::isBeingPressedKey(DIK_0)) {
 //        _pMorpher->stopImmediately(4);
 //    }
 //    _pMorpher->behave();
 
-//    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_1)) {
 //        _pMorpher->intoTargetLinerUntil(1, 1.0, 30);
 //        _pMorpher->intoTargetLinerUntil(2, 0, 30);
 //        _pMorpher->intoTargetLinerUntil(3, 0, 30);
 //        _pMorpher->intoTargetLinerUntil(4, 0, 30);
-//    } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
+//    } else if (GgafDxInput::isBeingPressedKey(DIK_7)) {
 //        _pMorpher->intoTargetLinerUntil(1, 0, 30);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_2)) {
 //        _pMorpher->intoTargetLinerUntil(1, 0, 30);
 //        _pMorpher->intoTargetLinerUntil(2, 1.0, 30);
 //        _pMorpher->intoTargetLinerUntil(3, 0, 30);
 //        _pMorpher->intoTargetLinerUntil(4, 0, 30);
-//    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
+//    } else if (GgafDxInput::isBeingPressedKey(DIK_8)) {
 //        _pMorpher->intoTargetLinerUntil(2, 0, 30);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_3)) {
 //        _pMorpher->intoTargetLinerUntil(1, 0, 30);
 //        _pMorpher->intoTargetLinerUntil(2, 0, 30);
 //        _pMorpher->intoTargetLinerUntil(3, 1.0, 30);
 //        _pMorpher->intoTargetLinerUntil(4, 0, 30);
-//    } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
+//    } else if (GgafDxInput::isBeingPressedKey(DIK_9)) {
 //        _pMorpher->intoTargetLinerUntil(3, 0, 30);
 //    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+//    if (GgafDxInput::isBeingPressedKey(DIK_4)) {
 //        _pMorpher->intoTargetLinerUntil(1, 0, 30);
 //        _pMorpher->intoTargetLinerUntil(2, 0, 30);
 //        _pMorpher->intoTargetLinerUntil(3, 0, 30);
 //        _pMorpher->intoTargetLinerUntil(4, 1.0, 30);
-//    } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+//    } else if (GgafDxInput::isBeingPressedKey(DIK_0)) {
 //        _pMorpher->intoTargetLinerUntil(4, 0, 30);
 //    }
 //    _pMorpher->behave();
@@ -187,7 +187,7 @@ void EnemyMassalia::processBehavior() {
 
             LaserChip* pLaserChip;
             D3DXMATRIX matWorldRot;
-            GgafDx9Util::setWorldMatrix_RxRzRy(this, matWorldRot);
+            GgafDxUtil::setWorldMatrix_RxRzRy(this, matWorldRot);
             angle Rz, Ry;
             int vX, vY, vZ;
             for (int i = 0; i < _laser_way; i++) {
@@ -221,7 +221,7 @@ void EnemyMassalia::processBehavior() {
                         vX = _papaPosLaser[i][j].X*matWorldRot._11 + _papaPosLaser[i][j].Y*matWorldRot._21 + _papaPosLaser[i][j].Z*matWorldRot._31;
                         vY = _papaPosLaser[i][j].X*matWorldRot._12 + _papaPosLaser[i][j].Y*matWorldRot._22 + _papaPosLaser[i][j].Z*matWorldRot._32;
                         vZ = _papaPosLaser[i][j].X*matWorldRot._13 + _papaPosLaser[i][j].Y*matWorldRot._23 + _papaPosLaser[i][j].Z*matWorldRot._33;
-                        GgafDx9Util::getRzRyAng(vX, vY, vZ, Rz, Ry); //現在の最終的な向きを、RzRyで取得
+                        GgafDxUtil::getRzRyAng(vX, vY, vZ, Rz, Ry); //現在の最終的な向きを、RzRyで取得
 
 
                         pLaserChip->locate(_X+vX, _Y+vY, _Z+vZ);
@@ -259,7 +259,7 @@ void EnemyMassalia::processJudgement() {
 }
 
 void EnemyMassalia::onHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

@@ -17,7 +17,7 @@ public:
     /** カメラ位置番号 */
     int _pos_camera;
 
-    GgafDx9Core::GgafDx9GeometricActor* _pLockOnTarget;
+    GgafDxCore::GgafDxGeometricActor* _pLockOnTarget;
 
     /** 原点から初期カメラZ位置の距離 */
     coord _dZ_camera_init;
@@ -79,11 +79,11 @@ public:
     }
 
 
-    void setMoveTargetCamBy(GgafDx9Core::GgafDx9GeometricActor* pTarget);
-    void setMoveTargetCamVpBy(GgafDx9Core::GgafDx9GeometricActor* pTarget);
+    void setMoveTargetCamBy(GgafDxCore::GgafDxGeometricActor* pTarget);
+    void setMoveTargetCamVpBy(GgafDxCore::GgafDxGeometricActor* pTarget);
     void setMoveTargetCam(coord X, coord Y, coord Z);
     void setMoveTargetCamVp(coord X, coord Y, coord Z);
-    void lockCamVp(GgafDx9Core::GgafDx9GeometricActor* pTarget);
+    void lockCamVp(GgafDxCore::GgafDxGeometricActor* pTarget);
 
     void unlockCamVp();
     virtual ~CameraWorker(); //デストラクタ

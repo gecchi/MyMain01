@@ -2,7 +2,7 @@
 #define GAMEOVERSCENE_H_
 namespace MyStg2nd {
 
-class GameOverScene : public GgafDx9LibStg::DefaultScene {
+class GameOverScene : public GgafLib::DefaultScene {
 
 public:
     LabelGecchi16Font* _pStringBoard01;

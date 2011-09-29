@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 enum {
@@ -81,10 +81,10 @@ void GameScene::processBehavior() {
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
     if (VB->isPushedDown(VB_UI_DEBUG)) {
-        if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
-            GgafDx9God::_d3dfillmode = D3DFILL_SOLID;
+        if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
+            GgafDxGod::_d3dfillmode = D3DFILL_SOLID;
         } else {
-            GgafDx9God::_d3dfillmode = D3DFILL_WIREFRAME;
+            GgafDxGod::_d3dfillmode = D3DFILL_WIREFRAME;
         }
     }
 #endif
@@ -175,8 +175,8 @@ void GameScene::processBehavior() {
             }
             if (_pProg->getGazeScene()->_was_paused_flg) {
                 if (_was_paused_flg_GameMainScene_prev_frame == false) {
-                    GgafDx9Input::updateMouseState();
-                    GgafDx9Input::updateMouseState(); //マウス座標の相対座標を0にリセットするため
+                    GgafDxInput::updateMouseState();
+                    GgafDxInput::updateMouseState(); //マウス座標の相対座標を0にリセットするため
                                                       //連続２回呼び出す
                     P_UNIVERSE->switchCameraWork("PauseCamWorker");
                 }
@@ -295,7 +295,7 @@ void GameScene::processJudgement() {
     if (getBehaveingFrame() >= 120) {
         CollisionChecker::_num_check = 0;
 
-//        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+//        if (GgafDxInput::isBeingPressedKey(DIK_I)) {
 //            CollisionChecker::_pLinearOctree->putTree();
 //        }
 

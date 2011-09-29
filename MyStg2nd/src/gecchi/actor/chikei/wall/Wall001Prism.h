@@ -9,7 +9,7 @@ namespace MyStg2nd  {
  * @since 2011/01/09
  * @author Masatoshi Tsuge
  */
-class Wall001Prism : public GgafDx9LibStg::WallAAPrismActor {
+class Wall001Prism : public GgafLib::WallAAPrismActor {
 public:
     Wall001Prism(const char* prm_name);
 

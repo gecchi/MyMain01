@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/02/15
  * @author Masatoshi Tsuge
  */
-class EffectTurbo001 : public GgafDx9LibStg::DefaultSpriteActor {
+class EffectTurbo001 : public GgafLib::DefaultSpriteActor {
 
 public:
     EffectTurbo001(const char* prm_name);

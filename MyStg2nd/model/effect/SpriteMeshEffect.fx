@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDx9MeshModel用シェーダー
+// Ggafライブラリ、GgafDxMeshModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06 
@@ -48,7 +48,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //メッシュ標準頂点シェーダー
-OUT_VS GgafDx9VS_SpriteMesh(
+OUT_VS GgafDxVS_SpriteMesh(
       float4 prm_pos    : POSITION,      // モデルの頂点
       float3 prm_normal : NORMAL,        // モデルの頂点の法線
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
@@ -100,7 +100,7 @@ OUT_VS VS_NoLight(
 
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDx9PS_SpriteMesh(
+float4 GgafDxPS_SpriteMesh(
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_color    : COLOR0
 ) : COLOR  {
@@ -170,8 +170,8 @@ technique SpriteMeshTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile VS_VERSION GgafDx9VS_SpriteMesh();
-		PixelShader  = compile PS_VERSION GgafDx9PS_SpriteMesh();
+		VertexShader = compile VS_VERSION GgafDxVS_SpriteMesh();
+		PixelShader  = compile PS_VERSION GgafDxPS_SpriteMesh();
 	}
 }
 
@@ -181,8 +181,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile VS_VERSION GgafDx9VS_SpriteMesh();
-		PixelShader  = compile PS_VERSION GgafDx9PS_SpriteMesh();
+		VertexShader = compile VS_VERSION GgafDxVS_SpriteMesh();
+		PixelShader  = compile PS_VERSION GgafDxPS_SpriteMesh();
 	}
 }
 
@@ -192,7 +192,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile VS_VERSION GgafDx9VS_SpriteMesh();
+		VertexShader = compile VS_VERSION GgafDxVS_SpriteMesh();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

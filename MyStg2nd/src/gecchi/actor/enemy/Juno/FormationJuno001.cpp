@@ -1,15 +1,15 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 FormationJuno001::FormationJuno001(const char* prm_name) :
     FormationJuno(prm_name,
                   -800000, -400000, -1,
                    400000,  800000,  1,
-                   GgafDx9Universe::_X_goneRight - 300000, 0, GgafDx9Universe::_Z_goneFar - 1000,
+                   GgafDxUniverse::_X_goneRight - 300000, 0, GgafDxUniverse::_Z_goneFar - 1000,
                    2000,
                    ANGLE0, ANGLE180,
                    30000,
@@ -20,7 +20,7 @@ FormationJuno001::FormationJuno001(const char* prm_name) :
 }
 
 void FormationJuno001::processJudgement() {
-    if (_X < GgafDx9Universe::_X_goneLeft) {
+    if (_X < GgafDxUniverse::_X_goneLeft) {
         _TRACE_("FormationJuno001::processJudgement() I—¹");
         sayonara();
     }

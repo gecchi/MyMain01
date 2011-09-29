@@ -11,7 +11,7 @@ namespace MyStg2nd {
  * ・_veloBegin 折り返し地点に行くまでの加速度<BR>
  *
  */
-class EnemyCeres : public GgafDx9LibStg::DefaultMeshSetActor {
+class EnemyCeres : public GgafLib::DefaultMeshSetActor {
 
 private:
 
@@ -19,7 +19,7 @@ public:
     /** 弾ストック */
     GgafCore::GgafActorDepository* _pDepo_EnemyCeresShots001;
     /** スプラインプログラム */
-    GgafDx9LibStg::SplineSequence* _pProgram_CeresMove;
+    GgafLib::SplineSequence* _pProgram_CeresMove;
 
     /** GgafActorDepositoryをコンストラクタで生成したか否か */
     bool _createGgafActorDepository;

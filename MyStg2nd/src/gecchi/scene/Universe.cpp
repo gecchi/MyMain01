@@ -1,12 +1,12 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 
-Universe::Universe(const char* prm_name, GgafDx9Camera* prm_pCamera) : DefaultUniverse(prm_name, prm_pCamera) {
+Universe::Universe(const char* prm_name, GgafDxCamera* prm_pCamera) : DefaultUniverse(prm_name, prm_pCamera) {
     _class_name = "Universe";
 
     _TRACE_("Universe::Universe()");
@@ -156,7 +156,7 @@ void Universe::resetCameraWork() {
     _pActiveCameraWorker = _stack_CameraWorkerCon.getLast()->use();
     _pActiveCameraWorker->setMoveTargetCamBy(P_CAM);
     _pActiveCameraWorker->setMoveTargetCamVpBy(P_CAM->_pViewPoint);
-    _pActiveCameraWorker->_angXY_nowCamUp = GgafDx9Util::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
+    _pActiveCameraWorker->_angXY_nowCamUp = GgafDxUtil::getAngle2D(P_CAM->_pVecCamUp->x, P_CAM->_pVecCamUp->y);
     _pActiveCameraWorker->_move_target_XY_CAM_UP = _pActiveCameraWorker->_angXY_nowCamUp;
     _pActiveCameraWorker->activate();
 //    _TRACE_("resetCameraWork end---");

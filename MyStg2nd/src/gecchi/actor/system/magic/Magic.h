@@ -59,8 +59,8 @@ public:
                       _pno(0) {
         }
     };
-    GgafDx9Core::GgafDx9GeometricActor* _pCaster;
-    GgafDx9Core::GgafDx9GeometricActor* _pReceiver;
+    GgafDxCore::GgafDxGeometricActor* _pCaster;
+    GgafDxCore::GgafDxGeometricActor* _pReceiver;
 
     char* _name;
     /** 現在のレベル */
@@ -68,7 +68,7 @@ public:
     /** 最高レベル */
     int _max_level;
     /** マジックポイント数量バー */
-    GgafDx9LibStg::AmountGraph* _pMP;
+    GgafLib::AmountGraph* _pMP;
     MagicMeter* _pMagicMeter;
 
     /** 各レベルの情報 0～MMETER_MAX_LEVEL */
@@ -146,8 +146,8 @@ public:
           magic_point prm_keep_cost_base       , float prm_fRate_keep_cost_base);
 
 
-//          GgafDx9Core::GgafDx9GeometricActor* prm_pCaster,
-//          GgafDx9Core::GgafDx9GeometricActor* prm_pReceiver);
+//          GgafDxCore::GgafDxGeometricActor* prm_pCaster,
+//          GgafDxCore::GgafDxGeometricActor* prm_pReceiver);
     void initialize() override;
 
     void onReset() override {

@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/04/18
  * @author Masatoshi Tsuge
  */
-class LaserChipTestActor : public GgafDx9LibStg::StraightLaserChip {
+class LaserChipTestActor : public GgafLib::StraightLaserChip {
 
 public:
 

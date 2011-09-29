@@ -1,14 +1,14 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 
 
 HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
-        GgafDx9PointSpriteActor(prm_name,
+        GgafDxPointSpriteActor(prm_name,
                                "HoshiBoshi001",
                                "HoshiBoshiEffect",
                                "HoshiBoshiTechnique",
@@ -60,7 +60,7 @@ void HoshiBoshi001::processBehavior() {
 
 void HoshiBoshi001::processSettlementBehavior() {
     //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
-    //GgafDx9GeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
+    //GgafDxGeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
     _fX = App2Dx(_X);
     _fY = App2Dx(_Y);
     _fZ = App2Dx(_Z);
@@ -74,15 +74,15 @@ void HoshiBoshi001::processDraw() {
     ID3DXEffect* pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetFloat(_h_fX_MyShip, P_MYSHIP->_fX);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_fX_MyShip) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(_h_fX_MyShip) ‚É¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_h_fY_MyShip, P_MYSHIP->_fY);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_fY_MyShip) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(_h_fY_MyShip) ‚É¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_h_fZ_MyShip, P_MYSHIP->_fZ);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_fZ_MyShip) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(_h_fZ_MyShip) ‚É¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_h_far_rate, _far_rate);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_h_far_rate) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDxPointSpriteActor::processDraw() SetFloat(_h_far_rate) ‚É¸”s‚µ‚Ü‚µ‚½B");
 
-    GgafDx9PointSpriteActor::processDraw();
+    GgafDxPointSpriteActor::processDraw();
 }
 
 
@@ -92,7 +92,7 @@ void HoshiBoshi001::drawHitArea() {
 HoshiBoshi001::~HoshiBoshi001() {
 }
 
-void HoshiBoshi001::setWorldMatrix_HoshiBoshi001(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void HoshiBoshi001::setWorldMatrix_HoshiBoshi001(GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ

@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 EnemyMetis::EnemyMetis(const char* prm_name) :
@@ -47,7 +47,7 @@ void EnemyMetis::onActive() {
     pRndGen->changeSeed(P_GAME_SCENE->_frame_of_behaving);
     DWORD appearances_renge_Z = (MyShip::_lim_zleft - MyShip::_lim_zright) * 3;
     DWORD appearances_renge_Y = (MyShip::_lim_top - MyShip::_lim_bottom) * 3;
-    _X = GgafDx9Universe::_X_goneRight - 1000;
+    _X = GgafDxUniverse::_X_goneRight - 1000;
     _Y = (pRndGen->genrand_int32() % (appearances_renge_Y)) - (appearances_renge_Y/2);
     _Z = (pRndGen->genrand_int32() % (appearances_renge_Z)) - (appearances_renge_Z/2);
     setHitAble(true);
@@ -72,7 +72,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     if (_pStatus->get(STAT_Stamina) < 0) {
         return;
     }
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     //ここにヒットエフェクト
     changeEffectTechniqueInterim("Flush", 2); //フラッシュ
@@ -81,7 +81,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     if (pOther->getKind() & KIND_MY) {
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
         if (pExplo001) {
-            pExplo001->locateAs((GgafDx9GeometricActor*)prm_pOtherActor);
+            pExplo001->locateAs((GgafDxGeometricActor*)prm_pOtherActor);
             pExplo001->activate();
         }
     } else {
@@ -93,7 +93,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
         EffectExplosion001* pExplo001_2 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
         _pSeTransmitter->play3D(1);
         if (pExplo001_2) {
-            pExplo001_2->locateAs((GgafDx9GeometricActor*)prm_pOtherActor);
+            pExplo001_2->locateAs((GgafDxGeometricActor*)prm_pOtherActor);
             pExplo001_2->activate();
         }
         sayonara();

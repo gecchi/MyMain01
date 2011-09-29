@@ -2,7 +2,7 @@
 #define ENEMYSTRAIGHTLASERCHIP001_H_
 namespace MyStg2nd {
 
-class EnemyStraightLaserChip001 : public GgafDx9LibStg::StraightLaserChip {
+class EnemyStraightLaserChip001 : public GgafLib::StraightLaserChip {
 
 public:
 

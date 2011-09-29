@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/07/05
  * @author Masatoshi Tsuge
  */
-class EffectExplosion003 : public GgafDx9LibStg::DefaultSpriteSetActor {
+class EffectExplosion003 : public GgafLib::DefaultSpriteSetActor {
 
 public:
     EffectExplosion003(const char* prm_name);

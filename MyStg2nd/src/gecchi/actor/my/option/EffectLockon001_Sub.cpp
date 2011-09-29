@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 EffectLockon001_Sub::EffectLockon001_Sub(const char* prm_name) :
@@ -87,7 +87,7 @@ void EffectLockon001_Sub::onInactive() {
     EffectLockon001::onInactive();
 }
 
-void EffectLockon001_Sub::lockon(GgafDx9GeometricActor* prm_pTarget) {
+void EffectLockon001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
     if (prm_pTarget == NULL || _pTarget == prm_pTarget) {
         return;
     }

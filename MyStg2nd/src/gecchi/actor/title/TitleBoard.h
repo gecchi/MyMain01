@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @since 2010/11/15
  * @author Masatoshi Tsuge
  */
-class TitleBoard : public GgafDx9LibStg::DefaultBoardSetActor {
+class TitleBoard : public GgafLib::DefaultBoardSetActor {
 
 public:
     TitleBoard(const char* prm_name);

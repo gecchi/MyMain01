@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDx9BoardSetModel用シェーダー
+// Ggafライブラリ、GgafDxBoardSetModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06 
@@ -206,8 +206,8 @@ struct OUT_VS
 
 ///////////////////////////////////////////////////////////////////////////
 
-//GgafDx9BoardSetModel標準頂点シェーダー
-OUT_VS GgafDx9VS_DefaultBoardSet(
+//GgafDxBoardSetModel標準頂点シェーダー
+OUT_VS GgafDxVS_DefaultBoardSet(
       float4 prm_pos    : POSITION,     // モデルの頂点
 	  float  prm_index  : PSIZE ,    // モデル番号
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
@@ -434,8 +434,8 @@ OUT_VS GgafDx9VS_DefaultBoardSet(
 }
 
 
-//GgafDx9BoardSetModel標準ピクセルシェーダー
-float4 GgafDx9PS_DefaultBoardSet(
+//GgafDxBoardSetModel標準ピクセルシェーダー
+float4 GgafDxPS_DefaultBoardSet(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0 
 ) : COLOR  {
@@ -465,7 +465,7 @@ float4 PS_Flush(
 
 //＜テクニック：DefaultBoardSetTechnique＞
 //【機能】
-//GgafDx9BoardSetModel用標準シェーダー
+//GgafDxBoardSetModel用標準シェーダー
 //【概要】
 //D3DFVF_XYZRHW で描画したような仕様で２Ｄ表示します。
 //画面左上隅が(0,0)で画面右下隅が（画面幅(px), 画面高さ(px))となる座標系で
@@ -493,8 +493,8 @@ technique DefaultBoardSetTechnique
 		SrcBlend = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultBoardSet();
-		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultBoardSet();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultBoardSet();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultBoardSet();
 	}
 }
 
@@ -504,8 +504,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultBoardSet();
-		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultBoardSet();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultBoardSet();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultBoardSet();
 	}
 }
 
@@ -516,7 +516,7 @@ technique Flush
 		SrcBlend = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultBoardSet();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultBoardSet();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

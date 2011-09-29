@@ -1,0 +1,116 @@
+#ifndef GGAFDXMESHSETMODEL_H_
+#define GGAFDXMESHSETMODEL_H_
+namespace GgafDxCore {
+
+/**
+ * メッシュモデルクラス(GgafDxMeshActor用) .
+ * GgafDxMeshSetModel は独自にXファイルからモデルデータを読み込み、<BR>
+ * オブジェクトを描画する機能を持った静的モデル用のクラスです。 <BR>
+ * 読み込み時、モデルの頂点バッファを、複数個コピーして連結し、一つの頂点バッファとしてセットします。<BR>
+ * 同一モデルの複数のオブジェクトを1回で描画し、高速化を目指すクラス。 <BR>
+ * 編隊を組む敵や、弾、などに使用することを想定する。 <BR>
+ * ＜長所＞  <BR>
+ * ・GgafDxMeshModel の長所と同じ長所。
+ * ・複数オブジェクトを描画する場合は、GgafDxMeshModel よりさらに高速描画。  <BR>
+ * ＜短所＞  <BR>
+ * ・GgafDxMeshModel の短所と同じ短所。
+ * ・描画キャラ分の頂点のコピー連結して頂点バッファに持つため、1キャラクタの頂点数が、 65536/同時描画数 個<BR>
+ *  を超えると駄目である。<BR>
+ * ・さらに、マテリアルは1種類が望ましい。これは全体で1種類ではなく、<BR>
+ *  各キャラごとにそれぞれマテリアル色が1種類しか割り当てれないという意味。しかし、テクスチャは全体で1種類しか駄目。<BR>
+ *  ※複数マテリアルのXファイルを指定してもエラーにはならないが、複数マテリアルの場合、マテリアル毎にシェーダーのレジスタを更新
+ *  （CommitChangesが発生）してしまうため、オブジェクトそれぞれ描画していることになり、やや高速化の意味が薄くなる。<BR>
+ * @version 1.00
+ * @since 2009/06/15
+ * @author Masatoshi Tsuge
+ */
+class GgafDxMeshSetModel : public GgafDxModel {
+    friend class GgafDxModelManager;
+
+protected:
+public:
+
+    struct INDEXPARAM {
+        UINT MaterialNo;
+        INT BaseVertexIndex;
+        UINT MinIndex;
+        UINT NumVertices;
+        UINT StartIndex;
+        UINT PrimitiveCount;
+    };
+
+    struct VERTEX {
+        float x, y, z;    // 頂点座標
+        float nx, ny, nz; // 法線
+        float index;      // psizeではなくてはなくて頂点番号として使用。シェーダー側で何セット目かを判断するために使用。
+        DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
+        float tu, tv;     // テクスチャ座標
+    };
+
+    /** 前回表示の同時描画したセット数（キャラクタ数）*/
+    static int _draw_set_num_LastDraw;
+
+    /** 頂点のFVF */
+    static DWORD FVF;
+    /** 頂点バッファ（ｎキャラ分） */
+    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    /** インデックスバッファ（ｎキャラ分） */
+    LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
+
+
+    /** １頂点のサイズ */
+    UINT _size_vertex_unit;
+    /** 基本モデル（１キャラ分）頂点サイズ計 */
+    UINT _size_vertices;
+    /** 基本モデル（１キャラ分）頂点数 */
+    UINT _nVertices;
+    /** 基本モデル（１キャラ分）の面の数 */
+    UINT _nFaces;
+
+    INDEXPARAM** _papaIndexParam;
+
+    /** マテリアルリストの連続で同一のマテリアル番号の塊（グループ）が幾つあるか */
+    UINT* _pa_nMaterialListGrp;
+
+    VERTEX* _paVtxBuffer_org;
+    WORD* _paIdxBuffer_org;
+
+    /** Paulさんモデル */
+    Frm::Model3D* _pModel3D;
+    /** Paulさんメッシュ */
+    Frm::Mesh* _pMeshesFront;
+
+
+
+
+    /**
+     * コンストラクタ<BR>
+     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     */
+    GgafDxMeshSetModel(char* prm_model_name);
+
+public:
+
+    /**
+     * GgafDxMeshSetModelオブジェクトの描画<BR>
+     * @param	prm_pActor_Target 描画するGgafDxMeshSetActor
+     * @return	HRESULT
+     */
+    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
+
+    virtual void restore() override;
+
+    virtual void onDeviceLost() override;
+
+    void release() override;
+
+    void changeVertexAlpha(int prm_vertex_alpha);
+
+    /**
+     * デストラクタ<BR>
+     */
+    virtual ~GgafDxMeshSetModel(); //デストラクタ
+};
+
+}
+#endif /*GGAFDXMESHSETMODEL_H_*/

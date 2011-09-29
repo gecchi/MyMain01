@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/03/16
  * @author Masatoshi Tsuge
  */
-class MyOptionControllerGizmo : public GgafDx9LibStg::DefaultMeshActor {
+class MyOptionControllerGizmo : public GgafLib::DefaultMeshActor {
 
 public:
     int _ptn_no;

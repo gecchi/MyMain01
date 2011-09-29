@@ -28,7 +28,7 @@ public:
 
     void releaseLockon() override;
 
-    void lockon(GgafDx9GeometricActor* prm_pTarget)  override;
+    void lockon(GgafDxGeometricActor* prm_pTarget)  override;
 
     virtual ~EffectLockon001_Sub();
 };

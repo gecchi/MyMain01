@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/01/18
  * @author Masatoshi Tsuge
  */
-class EffectMagic001 : public GgafDx9LibStg::DefaultMeshSetActor {
+class EffectMagic001 : public GgafLib::DefaultMeshSetActor {
 
 public:
     EffectMagic001(const char* prm_name);

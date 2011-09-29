@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDx9SpriteModel用シェーダー
+// Ggafライブラリ、GgafDxSpriteModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06 
@@ -31,7 +31,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //スプライト標準頂点シェーダー
-OUT_VS GgafDx9VS_DefaultSprite(
+OUT_VS GgafDxVS_DefaultSprite(
       float4 prm_pos    : POSITION,     // モデルの頂点
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 ) {
@@ -50,7 +50,7 @@ OUT_VS GgafDx9VS_DefaultSprite(
 
 
 //スプライト標準ピクセルシェーダー
-float4 GgafDx9PS_DefaultSprite(
+float4 GgafDxPS_DefaultSprite(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
@@ -74,7 +74,7 @@ float4 PS_Flush(
 
 //＜テクニック：DefaultSpriteTechnique＞
 //【機能】
-//GgafDx9SpriteModel用標準シェーダー
+//GgafDxSpriteModel用標準シェーダー
 //【概要】
 //板ポリ（擬似スプライト）を描画する。ライトなどの陰影は無し。
 //【考慮される要素】
@@ -101,8 +101,8 @@ technique DefaultSpriteTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultSprite();
-		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultSprite();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultSprite();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultSprite();
 	}
 }
 
@@ -112,8 +112,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultSprite();
-		PixelShader  = compile PS_VERSION GgafDx9PS_DefaultSprite();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultSprite();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultSprite();
 	}
 }
 
@@ -124,7 +124,7 @@ technique Flush
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile VS_VERSION GgafDx9VS_DefaultSprite();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultSprite();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

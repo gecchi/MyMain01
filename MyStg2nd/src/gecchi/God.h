@@ -21,17 +21,17 @@ namespace MyStg2nd {
  * @since 2007/11/26
  * @author Masatoshi Tsuge
  */
-class God : public GgafDx9LibStg::DefaultGod {
+class God : public GgafLib::DefaultGod {
 
 public:
     DepositoryManager* _pDepoManager;
     SplineLineManager* _pSpl3DManager;
 
 
-    static GgafDx9LibStg::VirtualButton* _pVbtn_PLAY;
-    static GgafDx9LibStg::VirtualButton* _pVbtn_UI;
-    static GgafDx9LibStg::VirtualButton* _pVbtn_Active;
-    static GgafDx9LibStg::VirtualButton* _pVbtn_Active_next_frame;
+    static GgafLib::VirtualButton* _pVbtn_PLAY;
+    static GgafLib::VirtualButton* _pVbtn_UI;
+    static GgafLib::VirtualButton* _pVbtn_Active;
+    static GgafLib::VirtualButton* _pVbtn_Active_next_frame;
 
     /**
      * コンストラクタ .
@@ -44,7 +44,7 @@ public:
      * VBを更新を予約する。 .
      * @param prm_pVB
      */
-    void setVB(GgafDx9LibStg::VirtualButton* prm_pVB) {
+    void setVB(GgafLib::VirtualButton* prm_pVB) {
         if (_pVbtn_Active != prm_pVB) {
             //VBのセットが切り替わる
         }
@@ -58,7 +58,7 @@ public:
         //VBを反映
         _pVbtn_Active = _pVbtn_Active_next_frame;
         //上位呼び出し
-        GgafDx9LibStg::DefaultGod::presentUniversalMoment();
+        GgafLib::DefaultGod::presentUniversalMoment();
     }
 
     /**

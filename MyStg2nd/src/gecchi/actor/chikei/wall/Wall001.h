@@ -9,7 +9,7 @@ namespace MyStg2nd  {
  * @since 2010/11/08
  * @author Masatoshi Tsuge
  */
-class Wall001 : public GgafDx9LibStg::WallAABActor {
+class Wall001 : public GgafLib::WallAABActor {
 public:
     Wall001(const char* prm_name);
 

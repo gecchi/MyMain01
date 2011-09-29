@@ -16,7 +16,7 @@ enum {
  * @since 2011/02/04
  * @author Masatoshi Tsuge
  */
-class Item : public GgafDx9LibStg::DefaultMeshSetActor {
+class Item : public GgafLib::DefaultMeshSetActor {
 
 public:
     Item(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);

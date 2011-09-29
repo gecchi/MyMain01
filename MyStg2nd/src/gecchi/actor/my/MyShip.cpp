@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 int MyShip::wk_dist = 0;
 angle MyShip::wk_angRx = 0;
@@ -88,9 +88,9 @@ MyShip::MyShip(const char* prm_name) :
 
 
     //トレース用履歴
-    _pRing_GeoHistory = NEW GgafLinkedListRing<GgafDx9GeoElem>();
+    _pRing_GeoHistory = NEW GgafLinkedListRing<GgafDxGeoElem>();
     for (UINT32 i = 0; i < 100; i++) {
-        _pRing_GeoHistory->addLast(NEW GgafDx9GeoElem(this));
+        _pRing_GeoHistory->addLast(NEW GgafDxGeoElem(this));
     }
 
     _iMoveVelo = 0;
@@ -249,16 +249,16 @@ void MyShip::onActive() {
 void MyShip::processBehavior() {
 
     ///////////////////////スペキュラテスト
-    if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
+    if (GgafDxInput::isBeingPressedKey(DIK_9)) {
         _pModel->_specular += 0.1;
     }
-    if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+    if (GgafDxInput::isBeingPressedKey(DIK_0)) {
         _pModel->_specular -= 0.1;
     }
-    if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
+    if (GgafDxInput::isBeingPressedKey(DIK_O)) {
         _pModel->_specular_power += 0.1;
     }
-    if (GgafDx9Input::isBeingPressedKey(DIK_P)) {
+    if (GgafDxInput::isBeingPressedKey(DIK_P)) {
         _pModel->_specular_power -= 0.1;
     }
     /////////////////////////////////////
@@ -571,7 +571,7 @@ void MyShip::processJudgement() {
 }
 
 void MyShip::onHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
 
 

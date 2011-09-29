@@ -8,32 +8,32 @@ namespace MyStg2nd {
  * @since 2011/06/04
  * @author Masatoshi Tsuge
  */
-class LabelRankFont : public GgafDx9LibStg::StringBoardActor {
+class LabelRankFont : public GgafLib::StringBoardActor {
 private:
     /**
      * 使用不可
      */
-    virtual void update(coord X, coord Y, const char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT) override {}
+    virtual void update(coord X, coord Y, const char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT) override {}
     /**
      * 使用不可
      */
-    virtual void update(coord X, coord Y, char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT) override {}
+    virtual void update(coord X, coord Y, char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT) override {}
     /**
      * 使用不可
      */
-    virtual void update(coord X, coord Y, coord Z, const char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT) override {}
+    virtual void update(coord X, coord Y, coord Z, const char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT) override {}
     /**
      * 使用不可
      */
-    virtual void update(coord X, coord Y, coord Z, char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT) override {}
+    virtual void update(coord X, coord Y, coord Z, char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT) override {}
     /**
      * 使用不可
      */
-    virtual void update(const char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT) override {}
+    virtual void update(const char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT) override {}
     /**
      * 使用不可
      */
-    virtual void update(char* prm_str, GgafDx9StringAlign prm_align = ALIGN_LEFT) override {}
+    virtual void update(char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT) override {}
 
     static char RANK_1stDeg[10][6];
     static char RANK_10thDeg[10][5];

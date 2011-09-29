@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 
@@ -13,7 +13,7 @@ DefaultD3DXAniMeshTestActor::DefaultD3DXAniMeshTestActor(const char* prm_name) :
 }
 
 void DefaultD3DXAniMeshTestActor::processBehavior() {
-    if (GgafDx9Input::isPushedDownKey(DIK_0)) {
+    if (GgafDxInput::isPushedDownKey(DIK_0)) {
         _pPuppeteer->play(LEFT_HAND,
                             0,          //UINT   prm_performance_no,
                             -1,         //double prm_loopnum,
@@ -23,7 +23,7 @@ void DefaultD3DXAniMeshTestActor::processBehavior() {
                             0    );     //frame  prm_shift_weight_frames
 
     }
-    if (GgafDx9Input::isPushedDownKey(DIK_9)) {
+    if (GgafDxInput::isPushedDownKey(DIK_9)) {
         _pPuppeteer->play(LEFT_HAND,
                             1,          //UINT   prm_performance_no,
                             -1,         //double prm_loopnum,
@@ -33,7 +33,7 @@ void DefaultD3DXAniMeshTestActor::processBehavior() {
                             0    );     //frame  prm_shift_weight_frames
     }
 
-    if (GgafDx9Input::isPushedDownKey(DIK_8)) {
+    if (GgafDxInput::isPushedDownKey(DIK_8)) {
         _pPuppeteer->exchangPerformance();
     }
 

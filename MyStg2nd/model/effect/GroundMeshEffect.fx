@@ -25,7 +25,7 @@ struct OUT_VS
 };
 
 
-OUT_VS GgafDx9VS_GroundMesh(
+OUT_VS GgafDxVS_GroundMesh(
       float4 prm_pos    : POSITION,      // モデルの頂点
       float3 prm_normal : NORMAL,        // モデルの頂点の法線
       float2 prm_uv     : TEXCOORD0      // モデルの頂点のUV
@@ -69,7 +69,7 @@ OUT_VS GgafDx9VS_GroundMesh(
 	return out_vs;
 }
 
-float4 GgafDx9PS_GroundMesh(
+float4 GgafDxPS_GroundMesh(
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_color    : COLOR0
 ) : COLOR  {
@@ -93,8 +93,8 @@ technique GroundMeshTechnique
 		DestBlend = InvSrcAlpha;
 		ColorVertex  = True;
 
-		VertexShader = compile VS_VERSION GgafDx9VS_GroundMesh();
-		PixelShader  = compile PS_VERSION GgafDx9PS_GroundMesh();
+		VertexShader = compile VS_VERSION GgafDxVS_GroundMesh();
+		PixelShader  = compile PS_VERSION GgafDxPS_GroundMesh();
 	}
 }
 

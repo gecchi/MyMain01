@@ -8,11 +8,11 @@ namespace MyStg2nd {
  * @since 2010/06/13
  * @author Masatoshi Tsuge
  */
-class EnemyPallas : public GgafDx9LibStg::DefaultMeshSetActor {
+class EnemyPallas : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** 移動スプラインプログラム */
-    GgafDx9LibStg::SplineSequence* _pSplSeq;
+    GgafLib::SplineSequence* _pSplSeq;
     /** 弾ストック */
     GgafCore::GgafActorDepository* _pDepo_Shot;
     /** 弾発射効果エフェクト */
@@ -66,7 +66,7 @@ public:
      * @param prm_pDepo_ShotEffect
      */
     virtual void config(
-            GgafDx9LibStg::SplineSequence* prm_pSplSeq,
+            GgafLib::SplineSequence* prm_pSplSeq,
             GgafCore::GgafActorDepository* prm_pDepo_Shot,
             GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
             ) {

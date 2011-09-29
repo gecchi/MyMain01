@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/08/02
  * @author Masatoshi Tsuge
  */
-class LabelRankingFont : public GgafDx9LibStg::StringBoardActor {
+class LabelRankingFont : public GgafLib::StringBoardActor {
 
 public:
     LabelRankingFont(const char* prm_name);

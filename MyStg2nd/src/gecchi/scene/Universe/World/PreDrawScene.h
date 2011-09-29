@@ -3,7 +3,7 @@
 
 namespace MyStg2nd {
 
-class PreDrawScene : public GgafDx9LibStg::DefaultScene {
+class PreDrawScene : public GgafLib::DefaultScene {
 
 public:
     TurboMeter* _pTurboMeter001;

@@ -2,11 +2,11 @@
 #define MYOPTION_H_
 namespace MyStg2nd {
 
-//class MyOption : public GgafDx9LibStg::DefaultMorphMeshActor {
-class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
+//class MyOption : public GgafLib::DefaultMorphMeshActor {
+class MyOption : public GgafLib::DefaultMeshSetActor {
 
 
-    GgafDx9Core::GgafDx9Quaternion _Q;
+    GgafDxCore::GgafDxQuaternion _Q;
 
 private:
     /**
@@ -46,11 +46,11 @@ public:
     /** [r]魚雷コントローラー */
     MyOptionTorpedoController* _pTorpedoController;
     /** [r]発射するレーザーチップのデポジトリ */
-    GgafDx9LibStg::LaserChipDepository* _pLaserChipDepo;
+    GgafLib::LaserChipDepository* _pLaserChipDepo;
     /** [r]発射するショットのデポジトリ */
     GgafCore::GgafActorDepository* _pDepo_MyShots001;
     /** [r]レーザー発射中のエフェクト */
-    GgafDx9Core::GgafDx9DrawableActor* _pEffect_LaserIrradiate;
+    GgafDxCore::GgafDxDrawableActor* _pEffect_LaserIrradiate;
 
 
     /** [r]計算された現在の旋廻円周移動角速度（読み出し専用） */
@@ -90,7 +90,7 @@ public:
     frame _adjust_angPos_seq_spent_frame;
     angle _adjust_angPos_seq_angPosition;
 
-    //GgafDx9Core::GgafDx9Quaternion _Q;
+    //GgafDxCore::GgafDxQuaternion _Q;
     EffectMyOption* _pEffect;
 
     /**

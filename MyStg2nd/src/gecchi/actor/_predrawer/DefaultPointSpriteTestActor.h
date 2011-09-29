@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/04/18
  * @author Masatoshi Tsuge
  */
-class DefaultPointSpriteTestActor : public GgafDx9LibStg::DefaultPointSpriteActor {
+class DefaultPointSpriteTestActor : public GgafLib::DefaultPointSpriteActor {
 
 public:
     int _CAM_ZF;

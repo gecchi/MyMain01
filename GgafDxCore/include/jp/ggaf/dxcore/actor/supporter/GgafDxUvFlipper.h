@@ -1,0 +1,263 @@
+#ifndef GGAFDXUVFLIPPER_H_
+#define GGAFDXUVFLIPPER_H_
+namespace GgafDxCore {
+
+/**
+ * テクスチャUVフリッパー.
+ * テクスチャをパラパラアニメが如く切り替える事を簡単に行うために
+ * 作成したクラス。
+ * @version 1.00
+ * @since 2010/02/16
+ * @author Masatoshi Tsuge
+ */
+class GgafDxUvFlipper : public GgafCore::GgafObject {
+private:
+
+    /** 内部アニメフレーム用カウンタ */
+    frame _frame_counter_uvflip;
+
+
+public:
+
+    struct UV {
+        float _u;
+        float _v;
+    };
+
+
+    GgafDxTexture* _pTexture;
+
+    float _one_ptn_tex_width;
+    float _one_ptn_tex_height;
+    int _ptn_col_num;
+    int _ptn_row_num;
+    float _base_u;
+    float _base_v;
+
+    /** 現在表示中のアニメパターン番号(0～) */
+    int _pattno_uvflip_now;
+    /** 最大アニメパターン番号 */
+    int _pattno_uvflip_max;
+    /** アニメパターン番号の上限番号 */
+    int _pattno_uvflip_top;
+    /** アニメパターン番号の下限番号 */
+    int _pattno_uvflip_bottom;
+    /** パターンとパターンの間隔フレーム数 */
+    frame _uvflip_interval_frames;
+    /** アニメ方式 */
+    GgafDxUvFlippingMethod _uvflip_method;
+    /** FLIP_OSCILLATE_LOOP用の現在のアニメ方向 */
+    bool _is_reverse_order_in_oscillate_animation_flg;
+
+    int* _paInt_PtnOffset_Customized;
+    int _nPtn_Customized;
+    int _cnt_Customized;
+    UV* _paUV;
+
+
+    GgafDxUvFlipper(GgafDxTexture* prm_pTexture);
+
+
+    virtual ~GgafDxUvFlipper();
+
+
+    void copyStatesFrom(GgafDxUvFlipper* prm_pUvFlipper_Other) {
+        _one_ptn_tex_width             = prm_pUvFlipper_Other->_one_ptn_tex_width;
+        _one_ptn_tex_height            = prm_pUvFlipper_Other->_one_ptn_tex_height;
+        _ptn_col_num           = prm_pUvFlipper_Other->_ptn_col_num;
+        _pattno_uvflip_now     = prm_pUvFlipper_Other->_pattno_uvflip_now;
+        _pattno_uvflip_top     = prm_pUvFlipper_Other->_pattno_uvflip_top;
+        _pattno_uvflip_bottom  = prm_pUvFlipper_Other->_pattno_uvflip_bottom;
+        _pattno_uvflip_max      = prm_pUvFlipper_Other->_pattno_uvflip_max;
+        _uvflip_interval_frames = prm_pUvFlipper_Other->_uvflip_interval_frames;
+        _uvflip_method         = prm_pUvFlipper_Other->_uvflip_method;
+        _is_reverse_order_in_oscillate_animation_flg =
+                prm_pUvFlipper_Other->_is_reverse_order_in_oscillate_animation_flg;
+    }
+
+    /**
+     * テクスチャのフリッピングパターンの番号に対応するUV座標のズレるオフセットを定義する。 .
+     * <pre>
+     * ＜例＞
+     *
+     *   setRotation(0, 0, 1.0/5, 1.0/4, 3, 10);
+     *   setActivePtnNo(5);
+     *
+     * を実行時のパターン概念図
+     *
+     *          3 = prm_ptn_col_num
+     *     <-------->
+     *     1.0/5 = 0.2 = prm_one_ptn_tex_width
+     *     <-->
+     * (0,0)              (1,0)
+     *     +--+--+--+--+--+  ^
+     *     | 0| 1| 2|  |  |  | 1.0/4 = 0.25 = prm_one_ptn_tex_height
+     *     +--+--+--+--+--+  v
+     *     | 3| 4|!5|  |  |
+     *     +--+--+--+--+--+
+     *     | 6| 7| 8|  |  |
+     *     +--+--+--+--+--+
+     *     | 9|  |  |  |  |
+     *     +--+--+--+--+--+
+     * (1,0)              (1,1)
+     *  u,v
+     *
+     * (※"!" は現在アクティブなパターン番号)
+     *
+     * ０～９はパターン番号と呼ぶこととする。
+     * パターン番号の並び順は左上から右へ、改行して再び右への順で固定。
+     * 但し、基準となる左上の座標、改行までのパターン数は設定が可能。
+     * 描画時、頂点バッファの各頂点のUV座標に、
+     * アクティブなパターンの左上のUV座標がオフセットとして加算されることを想定して本メソッドを作成。
+     * 上の図の例では、パターン番号5がアクティブなのでこの状態で
+     *
+     *   float u, v;
+     *   getUV(u, v);
+     *
+     * を実行するとパターン番号5番の左上のUV座標の
+     *
+     *   u = 0.4, v = 0.25
+     *
+     * が得られる。
+     * 本メソッドによるパターン設定は、この getUV() メソッドの結果にのみ影響を与える。
+     * getUV()を使用しないのでれば、本メソッドによる設定は無意味である。
+     *
+     * 【補足】
+     * GgafDxUvFlipper はフレームワークの描画処理に埋め込まれているアクタークラスが存在する。
+     * メンバ _pUvFlipper が存在しているクラスがそれである。
+     *
+     * ・GgafDxSpriteActor
+     *   GgafDxSpriteSetActor
+     *   GgafDxBoardActor
+     *   GgafDxBoardSetActor
+     *   GgafDxPointSpriteActor について・・・
+     *       コンストラクタで以下の初期処理を実行している。
+     *       ----------------------------------------------------------
+     *       _pUvFlipper = NEW GgafDxUvFlipper(this);
+     *       _pUvFlipper->setRotation(縦分割数, 横分割数);
+     *       _pUvFlipper->setActivePtnNo(0);
+     *       _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+     *       ----------------------------------------------------------
+     *       縦分割数, 横分割数はスプライト定義ファイル(.sprx)から取得される。
+     *
+     * ・GgafDxSpriteMeshActor
+     *   GgafDxSpriteMeshSetActor  について・・・
+     *       コンストラクタで以下の初期処理を実行している。必要に応じて下位実装クラスで setRotation() を再実行可能。
+     *       ----------------------------------------------------------
+     *       _pUvFlipper = NEW GgafDxUvFlipper(this);
+     *       _pUvFlipper->setRotation(1, 1);
+     *       _pUvFlipper->setActivePtnNo(0);
+     *       _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+     *       ----------------------------------------------------------
+     *
+     * ・その他のアクタークラスについて・・・
+     *       クラス内部に GgafDxUvFlipper は組み込まれていない。
+     *
+     * </pre>
+     * @param prm_base_u 基準左上U座標(0.0f～1.0f)
+     * @param prm_base_v 基準左上V座標(0.0f～1.0f)
+     * @param prm_one_ptn_tex_width １パターンの幅(0.0f～1.0f)
+     * @param prm_one_ptn_tex_height １パターンの高さ(0.0f～1.0f)
+     * @param prm_ptn_col_num パターンのカラム数(横に並ぶパターン数)
+     * @param prm_num_of_max_patterns 最大パターン数 (1～)
+     */
+    virtual void setRotation(float prm_base_u, float prm_base_v,
+                             float prm_one_ptn_tex_width, float prm_one_ptn_tex_height,
+                             int prm_ptn_col_num, int prm_num_of_max_patterns);
+
+    /**
+     * テクスチャのフリッピングパターンの番号に対応するUV座標のズレるオフセットを定義する。 .
+     * setRotation(float, float, float, float, int, int); <BR>
+     * の簡易設定版。内部で他の引数の値が自動計算されて実行される。 <BR>
+     * setRotation(5, 4); とした場合以下のようになる。 <BR>
+     * <pre>
+     *     prm_base_u = 0
+     *     prm_base_v = 0
+     *
+     *              5 = prm_ptn_col_num
+     *     <-------------->
+     *     1.0/5 = 0.2 = prm_one_ptn_tex_width
+     *     <-->
+     * (0,0)              (1,0)
+     *     +--+--+--+--+--+  ^
+     *     | 0| 1| 2| 3| 4|  | 1.0/4 = 0.25 = prm_one_ptn_tex_height
+     *     +--+--+--+--+--+  v
+     *     | 5| 6| 7| 8| 9|
+     *     +--+--+--+--+--+
+     *     |10|11|12|13|14|
+     *     +--+--+--+--+--+
+     *     |15|16|17|18|19|
+     *     +--+--+--+--+--+
+     * (1,0)              (1,1)
+     *
+     *  prm_pattno_uvflip_max = 19
+     *
+     *  </pre>
+     * @param prm_ptn_col_num テクスチャ縦分割数
+     * @param prm_ptn_row_num テクスチャ横分割数
+     */
+    virtual void setRotation(int prm_ptn_col_num, int prm_ptn_row_num);
+
+    virtual void setBaseUv(float prm_base_u, float prm_base_v) {
+        _base_u = prm_base_v;
+        _base_v = prm_base_u;
+    }
+
+    /**
+     * アニメーションを1フレーム分進行させる .
+     * 本メソッドを、processBehavior() 等で毎フレーム呼び出す必要があります。<BR>
+     * 呼び出すことで、setFlipMethod()で設定した方法に応じて<BR>
+     * アクティブなパターン番号(_pattno_uvflip_now)が内部で切り替わります。<BR>
+     */
+    virtual void behave();
+
+    /**
+     * 現在のアニメーションパターン番号(_pattno_uvflip_now)に対応する左上のUV座標を取得する。 .
+     * 事前に setRotation() の呼び出を行ってく必要がある。
+     * @param out_u [out] 座標U
+     * @param out_v [out] 座標V
+     */
+    virtual void getUV(float& out_u, float& out_v);
+
+    virtual void getUV(int prm_pattno_uvflip, float& out_u, float& out_v);
+
+    /**
+     * 現在のアニメーションパターンを設定する .
+     * @param prm_pattno_uvflip アニメーションパターン番号
+     */
+    void setActivePtnNo(int prm_pattno_uvflip);
+
+    /**
+     * アニメーションパターンを上限のアニメーションパターン番号(一番若い番号)に設定する .
+     */
+    void setActivePtnNoToTop();
+
+    /**
+     * アニメーションパターンの範囲を制限する .
+     * @param prm_top 上限のアニメーションパターン番号(若い方の番号)
+     * @param prm_bottom 下限のアニメーションパターン番号(古い方の番号。若いの反対語ってないのか)
+     */
+    void forcePtnNoRange(int prm_top, int prm_bottom);
+
+    void customizePtnOrder(int prm_aPtnOffset[], int prm_num);
+
+    /**
+     * アニメーション方法を設定する .
+     * <pre>
+     * ＜例＞forcePtnNoRange(0,5) が設定済みとした場合。
+     * FLIP_ORDER_LOOP     : 0,1,2,3,4,5,0,1,2,3,4,5,...
+     * FLIP_REVERSE_LOOP   : 5,4,3,2,1,0,5,4,3,2,1,0,5,4...
+     * FLIP_ORDER_NOLOOP   : 0,1,2,3,4,5,5,5,5,5,5,5...
+     * FLIP_REVERSE_NOLOOP : 5,4,3,2,1,0,0,0,0,0,0...
+     * FLIP_OSCILLATE_LOOP : 0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
+     * NOT_ANIMATED        : 3,3,3,3,3,3,3... （何もしない）
+     * </pre>
+     * @param prm_method アニメーション方法定数
+     * @param prm_interval アニメーション間隔フレーム（default=1)
+     */
+    void setFlipMethod(GgafDxUvFlippingMethod prm_method, int prm_interval = 1);
+
+};
+
+}
+#endif /*GGAFDXSPRITEMESHACTOR_H_*/

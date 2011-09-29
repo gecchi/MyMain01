@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDx9MeshSetModel用シェーダー
+// Ggafライブラリ、GgafDxMeshSetModel用シェーダー
 // 【概要】
 // 頂点バッファに、同じモデルキャラの頂点情報が、複数個分繰り返し詰め込んである。
 // ステートやレジスタの更新を行わず、１回の DrawIndexedPrimitiveで、最大
@@ -116,7 +116,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //頂点シェーダー
-OUT_VS GgafDx9VS_SpriteMeshSet(
+OUT_VS GgafDxVS_SpriteMeshSet(
       float4 prm_pos    : POSITION,      // モデルの頂点
       float  prm_index  : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
       float3 prm_normal : NORMAL,        // モデルの頂点の法線
@@ -240,7 +240,7 @@ OUT_VS GgafDx9VS_SpriteMeshSet(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDx9PS_SpriteMeshSet(
+float4 GgafDxPS_SpriteMeshSet(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0
 ) : COLOR  {
@@ -295,8 +295,8 @@ technique SpriteMeshSetTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile VS_VERSION GgafDx9VS_SpriteMeshSet();
-		PixelShader  = compile PS_VERSION GgafDx9PS_SpriteMeshSet();
+		VertexShader = compile VS_VERSION GgafDxVS_SpriteMeshSet();
+		PixelShader  = compile PS_VERSION GgafDxPS_SpriteMeshSet();
 	}
 }
 
@@ -306,8 +306,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-		VertexShader = compile VS_VERSION GgafDx9VS_SpriteMeshSet();
-		PixelShader  = compile PS_VERSION GgafDx9PS_SpriteMeshSet();
+		VertexShader = compile VS_VERSION GgafDxVS_SpriteMeshSet();
+		PixelShader  = compile PS_VERSION GgafDxPS_SpriteMeshSet();
 	}
 }
 
@@ -317,7 +317,7 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		VertexShader = compile VS_VERSION GgafDx9VS_SpriteMeshSet();
+		VertexShader = compile VS_VERSION GgafDxVS_SpriteMeshSet();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

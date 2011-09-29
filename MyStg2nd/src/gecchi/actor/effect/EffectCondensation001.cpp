@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 EffectCondensation001::EffectCondensation001(const char* prm_name) :
@@ -10,7 +10,7 @@ EffectCondensation001::EffectCondensation001(const char* prm_name) :
     _class_name = "EffectCondensation001";
     inactivateImmediately();
     changeEffectTechnique("DestBlendOne"); //加算合成
-    defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
+    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
     setHitAble(false); //当たり判定無し
 }
 

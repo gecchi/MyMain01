@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id) :
@@ -10,7 +10,7 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
     _class_name = "EffectLockon001";
     _pTarget = NULL;
     inactivateImmediately();
-    defineRotMvWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
+    defineRotMvWorldMatrix(GgafDxUtil::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     changeEffectTechnique("DestBlendOne"); //エフェクトテクニックは加算合成に強制
     setZEnable(false);      //Zバッファは考慮無しに強制
     setZWriteEnable(false); //Zバッファは書き込み無しに強制

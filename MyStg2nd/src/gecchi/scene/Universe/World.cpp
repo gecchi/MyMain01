@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 World::World(const char* prm_name) : DefaultScene(prm_name) {
@@ -70,7 +70,7 @@ void World::processBehavior() {
             _TEXT_("z");
         }
 #endif
-        if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
+        if (GgafDxInput::isBeingPressedKey(DIK_Q)) {
             //TODO:èIóπèàóù
         }
     } else {

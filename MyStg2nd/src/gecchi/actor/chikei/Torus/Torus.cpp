@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 //Torus::Torus(const char* prm_name, const char* prm_model, int prm_r1, int prm_r2) : GroundMeshActor(prm_name, prm_model, prm_pStat) {
@@ -13,7 +13,7 @@ Torus::Torus(const char* prm_name, const char* prm_model, int prm_r1, int prm_r2
     _r2 = prm_r2;
 }
 
-void Torus::addSubBoneOnSurface(GgafDx9GeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {
+void Torus::addSubBoneOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {
     //トーラスはZY平面に円
     s_ang angPos1 = prm_angPos1 /ANGLE_RATE;
     s_ang angPos2 = prm_angPos2 /ANGLE_RATE;
@@ -25,9 +25,9 @@ void Torus::addSubBoneOnSurface(GgafDx9GeometricActor* prm_pGeoActor, angle prm_
     //    | SIN[angPos2]    ,  COS[angPos2]*-SIN[angPos1]             ,  COS[angPos2]*COS[angPos]              , 0 |
     //    | _r2*COS[angPos2], (_r2*-SIN[angPos2] + -_r1)*-SIN[angPos1], (_r2*-SIN[angPos2] + -_r1)*COS[angPos1], 1 |
     //より
-    double X = _r2*GgafDx9Util::COS[angPos2];
-    double Y = (_r2*-GgafDx9Util::SIN[angPos2] - _r1) * -GgafDx9Util::SIN[angPos1];
-    double Z = (_r2*-GgafDx9Util::SIN[angPos2] - _r1) *  GgafDx9Util::COS[angPos1];
+    double X = _r2*GgafDxUtil::COS[angPos2];
+    double Y = (_r2*-GgafDxUtil::SIN[angPos2] - _r1) * -GgafDxUtil::SIN[angPos1];
+    double Z = (_r2*-GgafDxUtil::SIN[angPos2] - _r1) *  GgafDxUtil::COS[angPos1];
 
     //向きを求める
     //平行移動( +0, +0, -_r1) > angPos1のX軸回転 変換行列の dx, dy, dz を使用
@@ -37,22 +37,22 @@ void Torus::addSubBoneOnSurface(GgafDx9GeometricActor* prm_pGeoActor, angle prm_
     //    | 0, -_r1*-SIN[angPos1], -_r1*COS[angPos1], 1 |
     //より
     double CX = 0;
-    double CY = -_r1*-GgafDx9Util::SIN[angPos1];
-    double CZ = -_r1*GgafDx9Util::COS[angPos1];
+    double CY = -_r1*-GgafDxUtil::SIN[angPos1];
+    double CZ = -_r1*GgafDxUtil::COS[angPos1];
     angle angRz, angRy;
-    GgafDx9Util::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
+    GgafDxUtil::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
     //ボーンとして追加
     this->addSubBone(prm_pGeoActor, X, Y, Z, ANGLE0, angRz, angRy);
 }
 
 void Torus::makeCollisionArea(int prm_nSphere){
     angle* paAngRadial = NEW angle[prm_nSphere];
-    GgafDx9Util::getRadialAngle2D(0, prm_nSphere, paAngRadial);
+    GgafDxUtil::getRadialAngle2D(0, prm_nSphere, paAngRadial);
     _pCollisionChecker->makeCollision(prm_nSphere);
     for (int i = 0; i < prm_nSphere; i++) {
         _pCollisionChecker->setColliSphere(
                 i,
-                0 , GgafDx9Util::SIN[paAngRadial[i]/ANGLE_RATE] * _r1, GgafDx9Util::COS[paAngRadial[i]/ANGLE_RATE] * _r1,
+                0 , GgafDxUtil::SIN[paAngRadial[i]/ANGLE_RATE] * _r1, GgafDxUtil::COS[paAngRadial[i]/ANGLE_RATE] * _r1,
                 _r2,
                 false, true, true
                 );

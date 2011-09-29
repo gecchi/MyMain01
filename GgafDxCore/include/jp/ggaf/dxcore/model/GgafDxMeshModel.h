@@ -1,0 +1,118 @@
+#ifndef GGAFDXMESHMODEL_H_
+#define GGAFDXMESHMODEL_H_
+namespace GgafDxCore {
+
+
+// 本プログラムは Paul Coppens さんの作成された、Xファイルを読み込むサンプル
+// を元に、独自に改良修正（やデバッグ）したクラスを使用しています。
+// ありがとう Paulさん。
+//
+// 【対象】
+// Frm 名前空間のクラス
+//
+// 【Loading and displaying .X files without DirectX 】
+// http://www.gamedev.net/reference/programming/features/xfilepc/
+//
+//                                         2009/03/06 Masatoshi Tsuge
+
+/**
+ * メッシュモデルクラス(GgafDxMeshActor用).
+ * GgafDxMeshModel は独自にXファイルからモデルデータを読み込み、<BR>
+ * オブジェクトを描画する機能を持った静的モデル用のクラスです。 <BR>
+ * <b>＜長所＞</b>  <BR>
+ * ・Xファイルの頂点数を保証。 <BR>
+ * ・GgafDxD3DXMeshModel より読み込みが高速（templateとか見てない）。 <BR>
+ * ・Xファイルに複数メッシュ登録されている場合、これを連結して一つの頂点バッファ、インデックスバッファと扱うため
+ *   描画がより高速になる。 <BR>
+ * <b>＜短所＞</b> <BR>
+ * ・D3DXLoadMeshFromXを使用しておらず、Xファイルの template 宣言は見ていないため、データ構造名のヘッダ名
+ *  ("Mesh"や"TextureFilename"等）は ハードコーディングされている。予測しない複雑なXファイルはまず読めない。<BR>
+ * ・勝手に共有頂点の法線を平均化する <BR>
+ * <BR>
+ * 「その他注意点」<BR>
+ * 頂点数を保証するため、法線が足りなくなってしまう場合がある。そこで共有頂点の法線は独自計算で平均化を行うことにしている。<BR>
+ * もしエッジをクッキリ出したい場合は、Xファイル側で最初からちゃんと立方体ならば頂点を32個書けばよい。<BR>
+ * また、法線の無いXファイルでも頂点インデックスから自動で法線を計算し生成する。<BR>
+ * @version 1.00
+ * @since 2009/03/10
+ * @author Masatoshi Tsuge
+ */
+class GgafDxMeshModel : public GgafDxModel {
+    friend class GgafDxModelManager;
+
+protected:
+public:
+
+    struct INDEXPARAM {
+        UINT MaterialNo;
+        INT BaseVertexIndex;
+        UINT MinIndex;
+        UINT NumVertices;
+        UINT StartIndex;
+        UINT PrimitiveCount;
+    };
+
+    struct VERTEX {
+        float x, y, z; // 頂点座標
+        float nx, ny, nz; // 法線
+        DWORD color; // 頂点の色（現在未使用）
+        float tu, tv; // テクスチャ座標
+    };
+
+    /** 頂点のFVF */
+    static DWORD FVF;
+    /** 頂点バッファ */
+    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    /** インデックスバッファ */
+    LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
+
+    UINT _size_vertices;
+    /** 1頂点のサイズ */
+    UINT _size_vertex_unit;
+    INDEXPARAM* _paIndexParam;
+
+    UINT _nMaterialListGrp;
+
+    VERTEX* _paVtxBuffer_org;
+    WORD* _paIdxBuffer_org;
+
+    /** Paulさんモデル */
+    Frm::Model3D* _pModel3D;
+    /** Paulさんメッシュ */
+    Frm::Mesh* _pMeshesFront;
+
+
+
+
+    /**
+     * コンストラクタ<BR>
+     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     */
+    GgafDxMeshModel(char* prm_model_name);
+
+public:
+
+    /**
+     * GgafDxMeshModelオブジェクトの描画<BR>
+     * @param	prm_pActor_Target 描画するGgafDxMeshActor
+     * @return	HRESULT
+     */
+    virtual HRESULT draw(GgafDxDrawableActor* prm_pActor_Target, int prm_draw_set_num = 1) override;
+
+    virtual void restore() override;
+
+    virtual void onDeviceLost() override;
+
+    void release() override;
+
+    void changeVertexAlpha(int prm_vertex_alpha);
+
+    /**
+     * デストラクタ<BR>
+     */
+    virtual ~GgafDxMeshModel(); //デストラクタ
+};
+
+}
+#endif /*GGAFDXMESHMODEL_H_*/
+

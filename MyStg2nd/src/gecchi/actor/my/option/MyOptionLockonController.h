@@ -15,7 +15,7 @@ public:
     /** メインロックオンエフェクト */
     EffectLockon001_Main* _pMainLockonEffect;
     /** ロックオンターゲットリストリング */
-    GgafCore::GgafLinkedListRing<GgafDx9Core::GgafDx9GeometricActor>* _pRingTarget;
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>* _pRingTarget;
 
     MyOptionLockonController(const char* prm_name);
 
@@ -27,14 +27,14 @@ public:
 
     void releaseAllLockon();
 
-    void lockon(GgafDx9Core::GgafDx9GeometricActor* prm_pTarget);
+    void lockon(GgafDxCore::GgafDxGeometricActor* prm_pTarget);
 
     virtual ~MyOptionLockonController();
     /**
      * _pRingTarget内容表示(デバッグ用) .
      * @param pMain
      */
-    void dumpTarget(GgafDx9Core::GgafDx9GeometricActor* pMain);
+    void dumpTarget(GgafDxCore::GgafDxGeometricActor* pMain);
 
 
 };

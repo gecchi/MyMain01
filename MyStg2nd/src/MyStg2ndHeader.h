@@ -2,9 +2,9 @@
 #define MYSTG2NDHEADER_H_
 
 //「DirectX9ライブラリ」を利用する場合（利用者は俺）
-//次の"GgafDx9LibStgHeader.h"ヘッダをインクルードします。
+//次の"GgafLibHeader.h"ヘッダをインクルードします。
 
-#include "GgafDx9LibStgHeader.h"
+#include "GgafLibHeader.h"
 
 #define KIND_EFFECT                  (0x0)       //0b 00000000000000000000000000000000
 #define KIND_MY_SHOT_NOMAL           (0x8)       //0b 00000000000000000000000000001000

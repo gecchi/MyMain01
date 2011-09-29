@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @since 2011/02/04
  * @author Masatoshi Tsuge
  */
-class Item001 : public GgafDx9LibStg::DefaultMeshSetActor {
+class Item001 : public GgafLib::DefaultMeshSetActor {
 
 public:
     Item001(const char* prm_name);

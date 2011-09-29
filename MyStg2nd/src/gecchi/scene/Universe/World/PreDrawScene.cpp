@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 #define ID_ORDER_BEGIN 11
@@ -40,8 +40,8 @@ void PreDrawScene::ready() {
 }
 
 void PreDrawScene::initialize() {
-    GgafDx9Input::updateMouseState();
-    GgafDx9Input::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
+    GgafDxInput::updateMouseState();
+    GgafDxInput::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
     _id = 0;
     _pProg->set(1);
 }
@@ -55,7 +55,7 @@ void PreDrawScene::processBehavior() {
             if (_id > _order_id_end-_order_id_begin) {
                 _pProg->changeNext();
             } else {
-                GgafDx9GeometricActor* pActor = (GgafDx9GeometricActor*)obtainActorFromFactory(_id+_order_id_begin);
+                GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)obtainActorFromFactory(_id+_order_id_begin);
                 pActor->locate(_id*50*1000,0,0);
                 getDirector()->addSubGroup(pActor);  _id++;
             }

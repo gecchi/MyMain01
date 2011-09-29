@@ -1,8 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
-using namespace GgafDx9Core;
-using namespace GgafDx9LibStg;
+using namespace GgafDxCore;
+using namespace GgafLib;
 using namespace MyStg2nd;
 
 EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyCeresShots001) :
@@ -12,7 +12,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDepository* prm_pDepo_Enem
     _X = -356000; //開始座標
     _Y = 0;
     _Z = -680000;
-    _X_turn = GgafDx9Camera::_X_ScreenRight - 30000;
+    _X_turn = GgafDxCamera::_X_ScreenRight - 30000;
     _Y_turn = -10000;
     _Z_turn = 0;
     _veloBegin = 5000;
@@ -71,18 +71,18 @@ void EnemyCeres::processBehavior() {
     if (_iMovePatternNo == 0 && _X > 400000) {
 
         angle way[32];
-        //GgafDx9Util::getWayAngle2D(180000, 8, 10000, way);
-        GgafDx9Util::getRadialAngle2D(0, 32, way);
-        GgafDx9DrawableActor* pTama;
+        //GgafDxUtil::getWayAngle2D(180000, 8, 10000, way);
+        GgafDxUtil::getRadialAngle2D(0, 32, way);
+        GgafDxDrawableActor* pTama;
         for (int i = 0; i < 16; i++) {
-            pTama = (GgafDx9DrawableActor*)_pDepo_EnemyCeresShots001->dispatch();
+            pTama = (GgafDxDrawableActor*)_pDepo_EnemyCeresShots001->dispatch();
             if (pTama) {
                 pTama->locate(_X, _Y, _Z);
                 pTama->_pKurokoA->setRzRyMvAng(-ANGLE90 + way[i], ANGLE90);
             }
         }
         for (int i = 16; i < 32; i++) {
-            pTama = (GgafDx9DrawableActor*)_pDepo_EnemyCeresShots001->dispatch();
+            pTama = (GgafDxDrawableActor*)_pDepo_EnemyCeresShots001->dispatch();
             if (pTama) {
                 pTama->locate(_X, _Y, _Z);
                 pTama->_pKurokoA->setRzRyMvAng(-ANGLE90 - way[i], -ANGLE90);
@@ -105,13 +105,13 @@ void EnemyCeres::processJudgement() {
 
 
 void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         setHitAble(false);
         _pSeTransmitter->play3D(0);
-        GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
+        GgafDxDrawableActor* pExplo001 = (GgafDxDrawableActor*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
         if (pExplo001) {
             pExplo001->locateAs(this);
         }
@@ -129,7 +129,7 @@ void EnemyCeres::onInactive() {
 }
 
 bool EnemyCeres::isOutOfUniverse() {
-    if (_X < GgafDx9Camera::_X_ScreenLeft - 20000000) {
+    if (_X < GgafDxCamera::_X_ScreenLeft - 20000000) {
         return true;
     } else {
         return false;

@@ -6,7 +6,7 @@ namespace MyStg2nd {
  * フォーメーションアクタークラス .
  * 自身は出現ポイントの中心
  */
-class FormationJuno : public GgafDx9LibStg::FormationActor {
+class FormationJuno : public GgafLib::FormationActor {
     /** ジュノーストック */
     GgafCore::GgafActorDepository* _pDepo_EnemyJuno;
 	GgafCore::CmRandomNumberGenerator* _pRndGen;

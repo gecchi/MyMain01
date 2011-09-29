@@ -10,7 +10,7 @@ namespace MyStg2nd {
  * @since 2011/01/11
  * @author Masatoshi Tsuge
  */
-class MagicMeter : public GgafDx9LibStg::DefaultBoardSetActor {
+class MagicMeter : public GgafLib::DefaultBoardSetActor {
 
 public:
     D3DXHANDLE _h_active_magic;

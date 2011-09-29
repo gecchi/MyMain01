@@ -14,7 +14,7 @@ namespace MyStg2nd {
  * 世界シーンクラス .
  * アプリ上の「この世(Universe)」の一つ下の階層に位置します。<BR>
  */
-class World : public GgafDx9LibStg::DefaultScene {
+class World : public GgafLib::DefaultScene {
 
 public:
     bool _is_create_GameScene;

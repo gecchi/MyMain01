@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/05/31
  * @author Masatoshi Tsuge
  */
-class SplineLineConnection : public GgafCore::GgafResourceConnection<GgafDx9LibStg::SplineLine> {
+class SplineLineConnection : public GgafCore::GgafResourceConnection<GgafLib::SplineLine> {
 
 public:
 
@@ -17,9 +17,9 @@ public:
      * @param prm_idstr 識別名
      * @param prm_pSpl3D SplineLineオブジェクト
      */
-    SplineLineConnection(char* prm_idstr, GgafDx9LibStg::SplineLine* prm_pSpl3D);
+    SplineLineConnection(char* prm_idstr, GgafLib::SplineLine* prm_pSpl3D);
 
-    void processReleaseResource(GgafDx9LibStg::SplineLine* prm_pResource);
+    void processReleaseResource(GgafLib::SplineLine* prm_pResource);
 
     virtual ~SplineLineConnection() {
     }

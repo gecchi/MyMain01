@@ -17,7 +17,7 @@ namespace MyStg2nd {
  * 共通シーンクラス .
  * 2008/9/8
  */
-class MyShipScene : public GgafDx9LibStg::DefaultScene {
+class MyShipScene : public GgafLib::DefaultScene {
 
 public:
     /** 自機 */

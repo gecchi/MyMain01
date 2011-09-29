@@ -2,11 +2,11 @@
 #define ENAGYBAR_H_
 namespace MyStg2nd {
 
-class EnagyBar : public GgafDx9LibStg::DefaultBoardActor {
+class EnagyBar : public GgafLib::DefaultBoardActor {
 
 public:
 
-    GgafDx9LibStg::AmountGraph _amount;
+    GgafLib::AmountGraph _amount;
 
     float _fSize_BoardModelWidthPx;
 

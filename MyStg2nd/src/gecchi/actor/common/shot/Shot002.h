@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @since 2009/12/28
  * @author Masatoshi Tsuge
  */
-class Shot002 : public GgafDx9LibStg::DefaultMeshSetActor {
+class Shot002 : public GgafLib::DefaultMeshSetActor {
 public:
     /** 自機へ方向転換開始フレーム */
     frame _my_frame;
