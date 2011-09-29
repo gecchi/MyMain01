@@ -14,6 +14,7 @@ using namespace GgafDx9Core;
 
 //TODO:コメントとか多すぎる。整理する。
 /**
+ * マルチディスプレイ、フルスクリーンモード時、
  * GgafDx9Godのメンバーの _secondary_screen_x, _secondary_screen_y に
  * ２画面目の左上座標を保持させるためだけの、
  * EnumDisplayMonitorsによるコールバック関数。
@@ -24,10 +25,10 @@ BOOL CALLBACK getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
                                                   LPARAM dwData) {
     MONITORINFOEX moniter_info;
     moniter_info.cbSize = sizeof(MONITORINFOEX);
-    GetMonitorInfo(hMonitor, &moniter_info); //モニタの情報をとってくる
+    GetMonitorInfo(hMonitor, &moniter_info);
     if (moniter_info.dwFlags != MONITORINFOF_PRIMARY) {
-        //プライマリモニタでは無い、セカンダリと見なす・・・
-        //座標の保持
+        //プライマリモニタでは無い、よってセカンダリと見なす・・・
+        //２画面目の左上座標を保存
         P_GOD->_secondary_screen_x = moniter_info.rcMonitor.left;
         P_GOD->_secondary_screen_y = moniter_info.rcMonitor.top;
     }
@@ -91,16 +92,15 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_
 
     _secondary_screen_x = 0;
     _secondary_screen_y = 0;
+
     //[メモ：RECT構造体]
-    //引数に使用するRECT構造体のメンバ right, bottom は「右下座標」となっているが、これは正確ではない。
+    //引数に使用するRECT構造体のメンバ right, bottom は「右下座標」となっているが表現が正確ではない。
     //実際の定義は
     //rect.right = rect.left + 矩形幅;
     //rect.bottom = rect.top + 矩形高さ;
-    //らしい。
-    //よって、例えば (10,10)-(17,17)領域は、RECT(10,10,18,18) と指定しなければいけないらしい。ややこしい。
-    //ただ、辺の長さを求める場合は便利である。
+    //つまり (10,10)-(17,17) 領域は、RECT(10,10,18,18) と指定するのが意図した使用方法らしい。
+    //ややこしい、しかし、辺の長さを求める場合は便利である。
     //（※本当の右下座標は、right, bottom の -1 の値になる）
-
     _rectGameBuffer.left   = 0;
     _rectGameBuffer.top    = 0;
     _rectGameBuffer.right  = _rectGameBuffer.left + CFG_PROPERTY(GAME_BUFFER_WIDTH);
@@ -351,11 +351,9 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_
 }
 
 HRESULT GgafDx9God::init() {
-
-
     //2011/09/18 WDDM が使用できるなら使用するように変更。
     // マルチモニタフルスクリーン時のデバイスロスト時の復旧が、
-    // XPではうまくいくのにVistaではうまくいかない時があるため、
+    // XPではうまくいくのにVistaではうまくいかない時があることが発覚。
     // IDirect3D9Ex の存在が気になり、試す事に至った。
     // WDDMつまり IDirect3D9Ex or IDirect3D9 の選択を行う。
     // IDirect3D9Ex を取得する Direct3DCreate9Ex() を使用し、
@@ -418,8 +416,7 @@ HRESULT GgafDx9God::init() {
 
     if (CFG_PROPERTY(FULL_SCREEN)) {
         //フルスクリーン時
-        _paPresetParam[0].BackBufferFormat = D3DFMT_X8R8G8B8;
-                                        //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
+        _paPresetParam[0].BackBufferFormat = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
         _paPresetParam[0].Windowed = false; //フルスクリーンモード時
         _paPresetParam[0].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //リフレッシュレート
         _paPresetParam[0].PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT; //スワップのタイミング
@@ -543,8 +540,8 @@ HRESULT GgafDx9God::init() {
     //フルスクリーンに出来るか調べる
     D3DCAPS9 caps;
     GgafDx9God::_pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
-                                       D3DDEVTYPE_HAL, // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
-                                       &caps); // [out] デバイスの能力が格納される
+                                       D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
+                                       &caps);             // [out] デバイスの能力が格納される
 
     _num_adapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
     _TRACE_("_num_adapter = "<< _num_adapter);
@@ -586,8 +583,6 @@ HRESULT GgafDx9God::init() {
         }
     }
 
-
-
     //ピクセルシェーダー、頂点シェーダーバージョンチェック
     _vs_v = caps.VertexShaderVersion;
     _ps_v = caps.PixelShaderVersion;
@@ -628,30 +623,28 @@ HRESULT GgafDx9God::init() {
 
 
     if (CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
-        //＜フルスクリーン かつ マルチビュー＞
-
+        //＜フルスクリーン かつ デュアルビュー の場合＞
         //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
         hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_pHWndPrimary,
                              D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
                              _paPresetParam, _paDisplayMode);
-        //checkDxException(hr, D3D_OK, "CreateDevice() に失敗しました。");
         if (hr != D3D_OK) {
-            _TRACE_("D3DCREATE_PUREDEVICE: "<<GgafDx9CriticalException::getHresultMsg(hr));
+            _TRACE_("マルチヘッドD3DCREATE_HARDWARE_VERTEXPROCESSING : "<<GgafDx9CriticalException::getHresultMsg(hr));
 
             //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
             hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_pHWndPrimary,
                                  D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
                                  _paPresetParam, _paDisplayMode);
             if (hr != D3D_OK) {
-                _TRACE_("D3DCREATE_SOFTWARE_VERTEXPROCESSING: "<<GgafDx9CriticalException::getHresultMsg(hr));
+                _TRACE_("マルチヘッドD3DCREATE_HARDWARE_VERTEXPROCESSING : "<<GgafDx9CriticalException::getHresultMsg(hr));
 
                 //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
                 hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_pHWndPrimary,
                                      D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE | D3DCREATE_ADAPTERGROUP_DEVICE,
                                      _paPresetParam, _paDisplayMode);
                 if (hr != D3D_OK) {
-                    _TRACE_("D3DCREATE_SOFTWARE_VERTEXPROCESSING: "<<GgafDx9CriticalException::getHresultMsg(hr));
+                    _TRACE_("マルチヘッドD3DCREATE_SOFTWARE_VERTEXPROCESSING : "<<GgafDx9CriticalException::getHresultMsg(hr));
 
                     //どのデバイスの作成も失敗した場合
                     MessageBox(GgafDx9God::_pHWndPrimary, TEXT("DirectXの初期化に失敗しました。\nマルチヘッドディスプレイ環境が存在していません。"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND);
@@ -669,8 +662,7 @@ HRESULT GgafDx9God::init() {
         }
 
     } else {
-        //＜(フルスクリーン かつ マルチビュー) 以外の場合＞
-
+        //＜(フルスクリーン かつ デュアルビュー) 以外の場合＞
         //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
         hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_pHWndPrimary,
@@ -728,16 +720,16 @@ HRESULT GgafDx9God::init() {
     }
 
     //2011/09/28
-    //TODO:VISTAで２画面フルスクリーン時、フルスクリーンが解除対策
+    //TODO:VISTAで２画面フルスクリーン時、クリックでフルスクリーンが解除の対策
     //WDDMでデバイス作成し、２画面フルスクリーン時で起動した後、２画面目の領域のうち、
-    //もともとの１画面目だった領域(解像度変更により２画面目へはみ出た出た部分）でクリックすると、
-    //フルスクリーンが解除されてしまうことが発覚。かなり時間を費やし調べたが、解決方法は見つからなかった。
-    //そこで、無理やり回避するため、いきなりデバイスロスト処理を１回実行。
-    //再描画することで、なぜか問題は回避できた。たぶん、正規の方法じゃない。苦肉の策・・・。
+    //もともとの１画面目だった領域(解像度変更により２画面目へはみ出た出た部分）をクリックすると、
+    //フルスクリーンが解除されてしまうことが気になった。かなりの時間を費やしたが、解決方法は見つからなかった。
+    //しかし、ここでウィンドウを再構築することで、なぜか問題は回避できた。
+    //たぶん、正規の方法じゃない。苦肉の策・・・。
     if (_can_wddm && CFG_PROPERTY(FULL_SCREEN) && CFG_PROPERTY(DUAL_VIEW)) {
         hr = releaseFullScreenRenderTarget();
         hr = restoreFullScreenRenderTarget();
-	}
+    }
     return D3D_OK;
 }
 
@@ -764,7 +756,6 @@ HRESULT GgafDx9God::createDx9Device(UINT Adapter,
                                        &pID3DDevice9Ex
                                        );
         GgafDx9God::_pID3DDevice9 = (IDirect3DDevice9Ex*)pID3DDevice9Ex;
-
     } else {
         hr = GgafDx9God::_pID3D9->CreateDevice(Adapter,
                                                DeviceType,
@@ -989,19 +980,18 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
     hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                           NULL, // 矩形領域
                                           D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                          _color_background, //背景黒にクリア
-                                          1.0f, // Zバッファのクリア値
-                                          0 // ステンシルバッファのクリア値
+                                          _color_background, // 背景色
+                                          1.0f,              // Zバッファのクリア値
+                                          0                  // ステンシルバッファのクリア値
                                           );
     hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
     hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                           NULL, // 矩形領域
                                           D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                          _color_background, //背景黒にクリア
-                                          1.0f, // Zバッファのクリア値
-                                          0 // ステンシルバッファのクリア値
+                                          _color_background, // 背景色
+                                          1.0f,              // Zバッファのクリア値
+                                          0                  // ステンシルバッファのクリア値
                                           );
-
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_background)の塗りつぶしよる、画面クリアに失敗しました。");
 
     //アダプタに関連付けられたスワップチェーンを取得してバックバッファ取得
@@ -1064,6 +1054,8 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
                 );
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(2)");
     }
+    //↑無駄な感じだが、VISTAとXPの２画面目フルスクリーンモード時
+    //  両対応させるのはこのようなコードしかないという結論。
 
 
     if (CFG_PROPERTY(DUAL_VIEW)) {
@@ -1078,7 +1070,7 @@ HRESULT GgafDx9God::restoreFullScreenRenderTarget() {
                 _secondary_screen_x, _secondary_screen_y, 0, 0,
                 SWP_SHOWWINDOW | SWP_NOSIZE
         );
-        //これを行なっておかないと、初回起動時、２画面目のとある領域をクリックした際、
+        //↑これを行なっておかないと、初回起動時、２画面目の領域をクリックした際、
         //再びフルスクリーンが解除されてしまう。
         //１画面目はフルスクリーンになっても、Windowの左上が(0,0)のためズレないので、
         //SetWindowPosはたぶん不要。しかし念のために同様の処理を行う。
@@ -1146,10 +1138,9 @@ void GgafDx9God::makeUniversalMaterialize() {
     hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                           NULL, // 矩形領域
                                           D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                          //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-                                          _color_clear, //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
-                                          1.0f, // Zバッファのクリア値
-                                          0 // ステンシルバッファのクリア値
+                                          _color_clear, //クリア色（not 背景色）
+                                          1.0f,         // Zバッファのクリア値
+                                          0             // ステンシルバッファのクリア値
                                          );
     checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
 
@@ -1169,7 +1160,7 @@ void GgafDx9God::makeUniversalMaterialize() {
 }
 
 void GgafDx9God::presentUniversalVisualize() {
-    //バックバッファをプライマリバッファに転送
+    //垂直帰線期間
     //if (GgafDx9God::_pID3DDevice9->Present(NULL,&_aRect_Present[0],NULL,NULL) == D3DERR_DEVICELOST) {
     //        static D3DRASTER_STATUS rs;
     //        while (SUCCEEDED(GgafDx9God::_pID3DDevice9->GetRasterStatus(0, &rs)) ) {
@@ -1374,9 +1365,9 @@ void GgafDx9God::presentUniversalVisualize() {
         hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                               NULL, // 矩形領域
                                               D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                              _color_background, //背景色にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
+                                              _color_background, //背景色      //D3DCOLOR_XRGB( 0, 0, 0 )
                                               1.0f, // Zバッファのクリア値
-                                              0 // ステンシルバッファのクリア値
+                                              0     // ステンシルバッファのクリア値
                                               );
     }
 }
@@ -1417,8 +1408,7 @@ void GgafDx9God::adjustGameScreen(HWND prm_pHWnd) {
         hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                               NULL, // 矩形領域
                                               D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
-                                              //D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // レンダリングターゲットと深度バッファをクリア
-                                              _color_background, //背景黒にクリア //D3DCOLOR_XRGB( 0, 0, 0 ), //背景黒にクリア
+                                              _color_background, //背景色
                                               1.0f, // Zバッファのクリア値
                                               0 // ステンシルバッファのクリア値
                                              );
@@ -1548,7 +1538,7 @@ GgafDx9God::~GgafDx9God() {
 //                                               ↑
 //                                               ｜ Present
 //                                               ｜(D3DSWAPEFFECT_COPY)
-//                                                |
+//                                               ｜
 //                                  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 //    バックバッファ              ／                                        ／
 //                              ／                                        ／ Draw   ＿＿＿
@@ -1601,7 +1591,7 @@ GgafDx9God::~GgafDx9God() {
 //                                        ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 //                                      ／                              ／
 //                                    ／                              ／
-//    バックバッファ                ／      _apBackBuffer[0]          ／
+//    バックバッファ                ／      _apBackBuffer[0]        ／
 //                                ／                              ／
 //                              ／                              ／
 //                              ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
@@ -1637,7 +1627,7 @@ GgafDx9God::~GgafDx9God() {
 //
 //                            ＿＿＿＿＿＿＿＿＿＿＿             ＿＿＿＿＿＿＿＿＿＿＿
 //                          ／                    ／           ／                    ／
-//    バックバッファ      ／  _apBackBuffer[0]    ／           ／  _apBackBuffer[1]    ／
+//    バックバッファ      ／  _apBackBuffer[0]  ／           ／  _apBackBuffer[1]  ／
 //                      ／                    ／           ／                    ／
 //                      ￣￣￣￣￣￣￣￣￣￣￣             ￣￣￣￣￣￣￣￣￣￣￣
 //                     DUAL_VIEW_FULL_SCREEN1_WIDTH x        DUAL_VIEW_FULL_SCREEN2_WIDTH x
@@ -1697,293 +1687,5 @@ GgafDx9God::~GgafDx9God() {
 //         v  32   +-----------------------+-----------------------+-----------------------+-----------------------+
 //
 //                                                                 <----256----><---256---->
-
-
-//D3DPTEXTURECAPS_POW2
-//テクスチャの縦横のサイズは２の累乗である必要がある
-//D3DPTEXTURECAPS_SQUAREONLY
-//テクスチャの縦横のサイズは同じ、つまりテクスチャは正方形である必要がある
-//MaxTextureWidth
-//テクスチャの横幅の最大数
-//MaxTextureHeight
-//テクスチャの縦幅の最大数
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-メモ
-
-
-
-
-
-//  マルチモニターの緒元取得プログラム Windows 2000以降(Unicode,MBCS対応)
-//  Visual C++ 2005 Express
-
-
-#include <windows.h>
-#include <stdio.h>
-#include <tchar.h>
-
-TCHAR szClassNme[] = TEXT("EnumDisplay");
-#define MONITORS_MAX_LIM 16 //  サポートする最大モニター数
-
-LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-
-
-RECT monitors[MONITORS_MAX_LIM];    //  各モニターの緒元
-int monitors_max=0;                 //  実際のモニター数
-
-int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPreInst,
-                     TCHAR* lpszCmdLine, int nCmdShow){
-    HWND hWnd;
-    MSG lpMsg;
-    WNDCLASS myProg;
-
-    if (!hPreInst) {
-        myProg.style            =CS_HREDRAW | CS_VREDRAW;
-        myProg.lpfnWndProc        =WndProc;
-        myProg.cbClsExtra   =0;
-        myProg.cbWndExtra        =0;
-        myProg.hInstance        =hInstance;
-        myProg.hIcon            =NULL;
-        myProg.hCursor            =LoadCursor(NULL, IDC_ARROW);
-        myProg.hbrBackground    =(HBRUSH__ *)GetStockObject(WHITE_BRUSH);
-        myProg.lpszMenuName        =NULL;
-        myProg.lpszClassName    =szClassNme;
-        if (!RegisterClass(&myProg))
-            return FALSE;
-    }
-    hWnd = CreateWindow(szClassNme,
-        TEXT("EnumDisplay"),
-        WS_OVERLAPPEDWINDOW,
-  CW_USEDEFAULT,
-        CW_USEDEFAULT,
-        CW_USEDEFAULT,
-        CW_USEDEFAULT,
-        NULL,
-        NULL,
-        hInstance,
-        NULL);
-    ShowWindow(hWnd, nCmdShow);
-    UpdateWindow(hWnd);
-    while (GetMessage(&lpMsg, NULL, 0, 0)) {
-        TranslateMessage(&lpMsg);
-        DispatchMessage(&lpMsg);
-    }
-    return int(lpMsg.wParam);
-}
-
-//  モニター緒元取得
-
-BOOL myinfoenumproc(HMONITOR hMon,HDC hdcMon,LPRECT lpMon,LPARAM dwDate){
-    monitors[monitors_max].bottom=lpMon->bottom;
-    monitors[monitors_max].left=lpMon->left;
-    monitors[monitors_max].right=lpMon->right;
-    monitors[monitors_max].top=lpMon->top;
-    if(MONITORS_MAX_LIM-1 <= monitors_max)
-        return FALSE;
-    ++monitors_max;
-    return TRUE;
-}
-
-//  仮想画面サイズ
-
-int vs_top;
-int vs_left;
-int vs_right;
-int vs_bottom;
-
-
-LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
-    HDC hdc;
-    PAINTSTRUCT ps;
-    int n;
-    static int wx=100;
-    static int wy=100;
-    TCHAR buf[128];
-    switch (msg) {
-        case WM_CREATE:
-            EnumDisplayMonitors(NULL,NULL,(MONITORENUMPROC)myinfoenumproc,0);
-            vs_left=GetSystemMetrics(SM_XVIRTUALSCREEN);
-            vs_top=GetSystemMetrics(SM_YVIRTUALSCREEN);
-            vs_right=vs_left+GetSystemMetrics(SM_CXVIRTUALSCREEN);
-            vs_bottom=vs_top+GetSystemMetrics(SM_CYVIRTUALSCREEN);
-
-            break;
-        case WM_PAINT:
-            {
-                hdc = BeginPaint(hWnd, &ps);
-
-                int x=vs_right-vs_left;
-                int y=vs_bottom-vs_top;
-                double sx=0.2;
-                double sy=0.2;
-                int cx=wx/2-int(double(x)*sx/2);
-                int cy=wy/2-int(double(y)*sy/2);
-
-                Rectangle(hdc , cx , cy ,   int(double(x)*sx+cx) , int(double(y)*sy+cy));
-
-                for (n = 0; n < monitors_max; n++) {
-                    int x1=int(double(monitors[n].left-vs_left)*sx)+cx;
-                    int y1=int(double(monitors[n].top-vs_top)*sy)+cy;
-                    int x2=int(double(monitors[n].right-vs_left)*sx)-1+cx;
-                    int y2=int(double(monitors[n].bottom-vs_top)*sy)-1+cy;
-                    RECT rect;
-
-                    Rectangle(hdc , x1 , y1 ,   x2 , y2);
-
-                    _stprintf_s(buf,sizeof(buf)/sizeof(TCHAR),TEXT("%i*%i") , monitors[n].right-monitors[n].left , monitors[n].bottom-monitors[n].top);
-                    rect.left=x1;   rect.right=x2;  rect.top=y1; rect.bottom=y2;
-                    DrawText(hdc,buf,-1,&rect,DT_CENTER + DT_VCENTER + DT_SINGLELINE);
-
-                    _stprintf_s(buf,sizeof(buf)/sizeof(TCHAR),TEXT("%i,%i") , monitors[n].left, monitors[n].top);
-                    rect.left=x1+4; rect.right=x2;  rect.top=y1+4; rect.bottom=y2;
-                    DrawText(hdc,buf,-1,&rect,DT_LEFT + DT_TOP + DT_SINGLELINE);
-
-                    _stprintf_s(buf,sizeof(buf)/sizeof(TCHAR),TEXT("%i,%i") , monitors[n].right, monitors[n].bottom);
-                    rect.left=x1;   rect.right=x2-4;    rect.top=y1; rect.bottom=y2-4;
-                    DrawText(hdc,buf,-1,&rect,DT_RIGHT + DT_BOTTOM + DT_SINGLELINE);
-                }
-                EndPaint(hWnd, &ps);
-                break;
-            }
-        case WM_SIZE:   //  ウィンドウサイズの取得
-            wx=LOWORD(lParam);
-            wy=HIWORD(lParam);
-            break;
-        case WM_DESTROY:
-            PostQuitMessage(0);
-            break;
-        default:
-            return(DefWindowProc(hWnd, msg, wParam, lParam));
-    }
-    return (0L);
-}
-
-
-
-
-RECT bounds;
-
-//callback function from EnumDisplayMonitors()
-BOOL CALLBACK MyInfoEnumProc(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData)
-{
-    MONITORINFOEX mInfo;
-    mInfo.cbSize = sizeof(MONITORINFOEX);
-    GetMonitorInfo(hMonitor,&mInfo);
-
-    if(mInfo.dwFlags == 0)
-    {
-        //bounds is global variable available only in this file
-        bounds = mInfo.rcMonitor;
-    }
-    return TRUE;
-}
-
-// set full screen in the second monitor
-void ProjectorWindow::setFullScreen(bool fullScreen)
-{
-    int n_monitors = GetSystemMetrics(SM_CMONITORS);
-    if(n_monitors < 2){
-        return;
-    }
-
-    EnumDisplayMonitors(NULL, NULL, MyInfoEnumProc, 0);
-
-    // Obtaining a handler for the window of the current context
-    // (in English: getting a reference to the current OpenGL screen)
-    HDC dc = GetDC(this->winId());
-    HWND hwnd = WindowFromDC(dc);
-
-    SetWindowLong(hwnd, GWL_STYLE, WS_POPUP|WS_VISIBLE);
-
-     // Placing the window with the bigger dimensions to cover the whole
-    // multi-monitor screen
-    SetWindowPos(hwnd, NULL, bounds.left, bounds.top, bounds.right - bounds.left + 1,
-            bounds.bottom - bounds.top + 1, SWP_FRAMECHANGED);
-}
-
-
-
-マルチディスプレイの各種情報取得では・・・
-GetSystemMetrics(SM_CMONITORS)  で、ディスプレイ台数取得
-GetSystemMetrics(SM_XVIRTUALSCREEN)
-GetSystemMetrics(SM_YVIRTUALSCREEN)
-GetSystemMetrics(SM_CXVIRTUALSCREEN)
-GetSystemMetrics(SM_CYVIRTUALSCREEN) で、仮想画面全体のサイズ取得
-MonitorFromPoint( p , MONITOR_DEFAULTTONEARESET) で、領域に対する
-ディスプレイのハンドル取得・・・
-GetMonitorInfo( hMon , &mInfo ) で、ディスプレイハンドルからサイズ
-情報を取得。
-
-と言う流れになります。
-
-お試し下さい。
-
-※　各種APIの詳細は、ちゃんと調べて下さい。
-　　ちゃんと書いてありますヨ！
-
-BOOL CTestDlg::OnInitDialog()
-{
-//Append Start
-    long     x, y;
-    HMONITOR    MonitorHandle;
-    MONITORINFO MonitorInfo;
-    x = 1280;
-    y = 0;
-    POINT Point = {x, y};
-    MonitorHandle = ::MonitorFromPoint(Point, MONITOR_DEFAULTTOPRIMARY);
-    MonitorInfo.cbSize = sizeof(MonitorInfo);
-    ::GetMonitorInfo(MonitorHandle, &MonitorInfo);
-//Append End
-}
-
-
-#define COMPILE_MULTIMON_STUBS
-#include <multimon.h>
-POINT Point = {x, y};
-MONITORINFO MonitorInfo;
-HMONITOR MonitorHandle = ::MonitorFromPoint(Point, MONITOR_DEFAULTTOPRIMARY);
-MonitorInfo.cbSize = sizeof(MonitorInfo);
-::GetMonitorInfo(MonitorHandle, &MonitorInfo);
-
-*/
-
-
-
-
-
-
-
-
 
 

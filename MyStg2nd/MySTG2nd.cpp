@@ -194,7 +194,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         return FALSE;
     }
 
-    //ウィンドウ時、タイトルバー、リサイズの厚さを考慮。
+    //ウィンドウ時、
+    //クライアント領域を所望の大きさにするため、
+    //タイトルバー、リサイズボーダーの厚さを考慮し、再設定。
     if (!CFG_PROPERTY(FULL_SCREEN)) {
         RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
         int ww1, wh1; // ウィンドウ全体の幅、高さ
@@ -212,7 +214,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         fw1 = ww1 - cw1;
         fh1 = wh1 - ch1;
         // 計算した幅と高さをウィンドウに設定
-		if (CFG_PROPERTY(DUAL_VIEW)) {
+        if (CFG_PROPERTY(DUAL_VIEW)) {
             SetWindowPos(
                     hWnd1,
                     HWND_TOP,
@@ -277,10 +279,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 #endif
 
     try {
-        //神の誕生！
+        //神の誕生
         pGod = NEW MyStg2nd::God(hInstance, hWnd1, hWnd2);
         if (SUCCEEDED(pGod->init())) {
-
             // ループ・ザ・ループ
             ::timeBeginPeriod(1);
             while (true) {
@@ -288,14 +289,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     if (msg.message == WM_QUIT) {
                         if (MyStg2nd::God::_can_be) {
                             MyStg2nd::God::_can_be = false;
-//                            pGod->_can_be = false;
                             while (pGod->_is_being) {
                                 Sleep(2);
                                 _TRACE_("Wait! 神 is being yet..");
                             }
-                            delete pGod; //神さようなら
-
-                            //RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
+                            delete pGod; //神の最期
                             pGod = NULL;
                             MyStg2nd::Properties::clean();
                         }
@@ -335,7 +333,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
                     ::DispatchMessage(&msg);
                 } else {
                     if (MyStg2nd::God::_can_be && pGod->_is_being == false) {
-                        pGod->be(); //神が存在したらしめる（この世が動く）
+                        pGod->be(); //be() で、この世が動く
                     }
 
                 }
