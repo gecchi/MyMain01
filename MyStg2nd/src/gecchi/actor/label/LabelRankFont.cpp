@@ -134,6 +134,7 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
 {
     _class_name = "LabelRankFont";
     _align = ALIGN_RIGHT;
+    _valign = VALIGN_BOTTOM;
     useProgress(RANKFONT_PROG_RANKUP);
 }
 

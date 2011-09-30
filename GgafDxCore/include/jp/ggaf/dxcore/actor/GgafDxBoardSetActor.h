@@ -88,6 +88,12 @@ public:
     GgafDxBoardSetEffect* _pBoardSetEffect;
     /** UVフリッパー(パラパラアニメ) */
     GgafDxUvFlipper* _pUvFlipper;
+    /** [r]幅(px) */
+    pixcoord _width_px;
+    /** [r]高さ(px) */
+    pixcoord _height_px;
+    GgafDxAlign _align;
+    GgafDxValign _valign;
 
     GgafDxBoardSetActor(const char* prm_name,
                          const char* prm_model_id,
@@ -109,6 +115,7 @@ public:
 
     virtual void locateAs(GgafDxGeoElem* prm_pGeoElem) override;
 
+    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
 };
 
 }

@@ -141,7 +141,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
             hWnd1 = CreateWindow(
                     szWindowClass, //WINDOW_CLASS,          // ウインドウクラス名
                     szTitle,//WINDOW_TITLE,             // ウインドウのタイトル名
-                    //WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX, // ウインドウスタイル
                     WS_OVERLAPPEDWINDOW, // ウインドウスタイル
                     CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
                     CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
@@ -173,7 +172,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
             hWnd1 = CreateWindow(
                     szWindowClass, //WINDOW_CLASS,          // ウインドウクラス名
                     szTitle,//WINDOW_TITLE,             // ウインドウのタイトル名
-                    //WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX, // ウインドウスタイル
                     WS_OVERLAPPEDWINDOW, // ウインドウスタイル
                     CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
                     CW_USEDEFAULT, // ウィンドウの表示Ｙ座標

@@ -32,7 +32,9 @@ _pStageController(NULL) {
     _pStageController = new StageController("StageController");
     _pStageController->inactivateImmediately();
     addSubLast(_pStageController);
-
+    _pGamePauseScene = new GamePauseScene("GamePauseScene");
+    _pStageController->inactivateImmediately();
+    addSubLast(_pGamePauseScene);
 
     addSubLast(NEW GamePreTitleScene("PreGameTitle"));
     addSubLast(NEW GameTitleScene("GameTitle"));
@@ -162,27 +164,50 @@ void GameScene::processBehavior() {
                 P_GOD->setVB(VB_PLAY); //プレイ用に変更
             }
 
+            //今ポーズではない時
             if (!_pProg->getGazeScene()->_was_paused_flg) {
                 if (_was_paused_flg_GameMainScene_prev_frame == true)  {
+                    //現フレームポーズではない、かつ前フレームポーズの場合。
+                    //ポーズ解除から最初のフレーム処理はココへ
                     P_UNIVERSE->undoCameraWork();
                 }
+
+                //通常進行時処理はココ
+
+                //
+
                 if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
+                    //ポーズではないときに、ポーズキーを押して離した場合の処理
+                    //ポーズ発生時直後の初期処理はココへ
                     _is_frame_advance = false;
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
-                    _pProg->getGazeScene()->pause();
+                    _pProg->getGazeScene()->pause(); //ポーズ！！
+                    _pGamePauseScene->activate();
                 }
             }
+            //今ポーズ時
             if (_pProg->getGazeScene()->_was_paused_flg) {
                 if (_was_paused_flg_GameMainScene_prev_frame == false) {
+                    //現フレームポーズで、前フレームポーズではない場合
+                    //ポーズ発生後の、最初のフレーム処理はココへ
                     GgafDxInput::updateMouseState();
                     GgafDxInput::updateMouseState(); //マウス座標の相対座標を0にリセットするため
-                                                      //連続２回呼び出す
+                                                     //連続２回呼び出す
                     P_UNIVERSE->switchCameraWork("PauseCamWorker");
                 }
+
+                //ポーズ進行時処理はココ
+
+                //
+
                 if (VB->isReleasedUp(VB_PAUSE) || _is_frame_advance) {
+                    //ポーズ時に、ポーズキーを押して離した場合の処理
+                    //ポーズ解除時直後の初期処理はココへ
+                    _TRACE_("UNPAUSE!");
                     P_GOD->setVB(VB_PLAY);
-                    _pProg->getGazeScene()->unpause();
+                    _pProg->getGazeScene()->unpause();//ポーズ解除！！
+                    _pGamePauseScene->inactivate();
                 }
             }
             _was_paused_flg_GameMainScene_prev_frame = _pProg->getGazeScene()->_was_paused_flg;

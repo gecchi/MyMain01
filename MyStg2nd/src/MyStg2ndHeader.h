@@ -209,6 +209,7 @@ class GameBeginningScene;
 class GameMainScene;
 class GameEndingScene;
 class GameOverScene;
+class GamePauseScene;
 class StageController;
 class StageScene;
 class Stage01Scene;
@@ -444,6 +445,7 @@ class MagicMeter;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameEndingScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameOverScene.h"
+#include "gecchi/scene/Universe/World/GameScene/GamePauseScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageController.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageController/StageScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageController/Stage01Scene.h"

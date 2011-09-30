@@ -87,7 +87,20 @@ public:
     GgafDxBoardEffect* _pBoardEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
     GgafDxUvFlipper* _pUvFlipper;
+    /** [r]幅(px) */
+    pixcoord _width_px;
+    /** [r]高さ(px) */
+    pixcoord _height_px;
+    GgafDxAlign _align;
+    GgafDxValign _valign;
 
+    /**
+     *
+     * @param prm_name
+     * @param prm_model_id
+     * @param prm_effect_id
+     * @param prm_technique
+     */
     GgafDxBoardActor(const char* prm_name,
                       const char* prm_model_id,
                       const char* prm_effect_id,
@@ -100,6 +113,7 @@ public:
 
     virtual ~GgafDxBoardActor(); //デストラクタ
 
+    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
 
     virtual void locateAs(GgafDxGeometricActor* prm_pActor) override {
         _X = prm_pActor->_X;

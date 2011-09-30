@@ -16,7 +16,7 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
         _aWidthPx[i] = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx);
     }
     _chr_width_px = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //‚P•¶Žš‚Ì•(px)
-    _align = ALIGN_LEFT;
+    _chr_height_px = (int)(_pBoardSetModel->_fSize_BoardSetModelHeightPx); //‚P•¶Žš‚Ì‚‚³(px)
     _X_offset_align = 0;
     _width_len_px = 0;
 }
@@ -26,27 +26,37 @@ void GgafDxStringBoardActor::onCreateModel() {
 }
 
 
-void GgafDxStringBoardActor::update(coord X, coord Y, const char* prm_str, GgafDxStringAlign prm_align) {
-    update(prm_str, prm_align);
+void GgafDxStringBoardActor::update(coord X, coord Y, const char* prm_str,
+                                    GgafDxAlign prm_align,
+                                    GgafDxValign prm_valign) {
+    update(prm_str, prm_align, prm_valign);
     locate(X, Y);
 }
 
-void GgafDxStringBoardActor::update(coord X, coord Y, char* prm_str, GgafDxStringAlign prm_align) {
-    update(prm_str, prm_align);
+void GgafDxStringBoardActor::update(coord X, coord Y, char* prm_str,
+                                    GgafDxAlign prm_align,
+                                    GgafDxValign prm_valign) {
+    update(prm_str, prm_align, prm_valign);
     locate(X, Y);
 }
 
-void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, const char* prm_str, GgafDxStringAlign prm_align) {
-    update(prm_str, prm_align);
+void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, const char* prm_str,
+                                    GgafDxAlign prm_align,
+                                    GgafDxValign prm_valign) {
+    update(prm_str, prm_align, prm_valign);
     locate(X, Y, Z);
 }
 
-void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, char* prm_str, GgafDxStringAlign prm_align) {
-    update(prm_str, prm_align);
+void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, char* prm_str,
+                                    GgafDxAlign prm_align,
+                                    GgafDxValign prm_valign) {
+    update(prm_str, prm_align, prm_valign);
     locate(X, Y, Z);
 }
 
-void GgafDxStringBoardActor::update(const char* prm_str, GgafDxStringAlign prm_align) {
+void GgafDxStringBoardActor::update(const char* prm_str,
+                                    GgafDxAlign prm_align,
+                                    GgafDxValign prm_valign) {
     if (prm_str == _draw_string && _align == prm_align) {
         return;
     }
@@ -64,7 +74,9 @@ void GgafDxStringBoardActor::update(const char* prm_str, GgafDxStringAlign prm_a
     }
 }
 
-void GgafDxStringBoardActor::update(char* prm_str, GgafDxStringAlign prm_align) {
+void GgafDxStringBoardActor::update(char* prm_str,
+                                    GgafDxAlign prm_align,
+                                    GgafDxValign prm_valign) {
     _len = strlen(prm_str);
 #ifdef MY_DEBUG
     if (_len > 1024-1) {
@@ -97,6 +109,14 @@ void GgafDxStringBoardActor::processDraw() {
     }
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
+    if (_valign == VALIGN_BOTTOM) {
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)-_chr_height_px));
+    } else  if (_valign == VALIGN_TOP) {
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)-(_chr_height_px/2)));
+    } else {
+        //VALIGN_TOP
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)));
+    }
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)));
     checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(App2Pix(_Z)));

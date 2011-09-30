@@ -39,7 +39,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     getDirector()->addSubGroup(_pFont8_JIKI_Z);
 
     _pRankFont = NEW LabelRankFont("RankFont");
-    _pRankFont->locate(1000*1000, (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 100*1-1)*1000);
+    _pRankFont->locate(CFG_PROPERTY(GAME_BUFFER_WIDTH), CFG_PROPERTY(GAME_BUFFER_HEIGHT));
     getDirector()->addSubGroup(_pRankFont);
 
     useProgress(GAMEMAINSCENE_PROG_FINISH);

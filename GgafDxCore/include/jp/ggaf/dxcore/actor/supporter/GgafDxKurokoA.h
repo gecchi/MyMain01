@@ -935,8 +935,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_end_velo 最終スピード(Ve)
      * @param prm_target_distance 目標直線移動距離(D)
      * @param prm_target_frames 費やす時間(Te)(フレーム数を指定、負の数は不可)
-     * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合
-     * @param prm_p2 減速を開始時刻となるような、Teに対する割合
+     * @param prm_p1 トップスピードに達する時刻となるような、Teに対する割合(p1)
+     * @param prm_p2 減速を開始時刻となるような、Teに対する割合(p2)
      * @param prm_endacc_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void execSmoothMvVeloSequence(velo prm_end_velo, coord prm_target_distance,

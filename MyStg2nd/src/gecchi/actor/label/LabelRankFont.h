@@ -13,27 +13,39 @@ private:
     /**
      * 使用不可
      */
-    virtual void update(coord X, coord Y, const char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT) override {}
+    virtual void update(coord X, coord Y, const char* prm_str,
+                        GgafDxAlign prm_align = ALIGN_LEFT,
+                        GgafDxValign prm_valign = VALIGN_TOP) override {}
     /**
      * 使用不可
      */
-    virtual void update(coord X, coord Y, char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT) override {}
+    virtual void update(coord X, coord Y, char* prm_str,
+                        GgafDxAlign prm_align = ALIGN_LEFT,
+                        GgafDxValign prm_valign = VALIGN_TOP) override {}
     /**
      * 使用不可
      */
-    virtual void update(coord X, coord Y, coord Z, const char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT) override {}
+    virtual void update(coord X, coord Y, coord Z, const char* prm_str,
+                        GgafDxAlign prm_align = ALIGN_LEFT,
+                        GgafDxValign prm_valign = VALIGN_TOP) override {}
     /**
      * 使用不可
      */
-    virtual void update(coord X, coord Y, coord Z, char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT) override {}
+    virtual void update(coord X, coord Y, coord Z, char* prm_str,
+                        GgafDxAlign prm_align = ALIGN_LEFT,
+                        GgafDxValign prm_valign = VALIGN_TOP) override {}
     /**
      * 使用不可
      */
-    virtual void update(const char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT) override {}
+    virtual void update(const char* prm_str,
+                        GgafDxAlign prm_align = ALIGN_LEFT,
+                        GgafDxValign prm_valign = VALIGN_TOP) override {}
     /**
      * 使用不可
      */
-    virtual void update(char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT) override {}
+    virtual void update(char* prm_str,
+                        GgafDxAlign prm_align = ALIGN_LEFT,
+                        GgafDxValign prm_valign = VALIGN_TOP) override {}
 
     static char RANK_1stDeg[10][6];
     static char RANK_10thDeg[10][5];

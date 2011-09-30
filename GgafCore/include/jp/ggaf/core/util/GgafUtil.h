@@ -49,8 +49,6 @@ public:
         return (*s1 - *(s2 - 1));
     }
 
-    /*  */
-
     /**
      * 10i”-->2i”•¶š—ñ•ÏŠ·ŠÖ”
      * @param prm_decimal

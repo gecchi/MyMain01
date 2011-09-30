@@ -34,10 +34,10 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
         _papStringItem[i]->inactivateImmediately();
         getDirector()->addSubGroup(_papStringItem[i]);
     }
-    _papStringItem[0]->update("GAME START");
-    _papStringItem[1]->update("CONFIG");
-    _papStringItem[2]->update("DEBUG");
-    _papStringItem[3]->update("HOGEHOGE");
+    _papStringItem[0]->update("GAME START", ALIGN_LEFT, VALIGN_MIDDLE);
+    _papStringItem[1]->update("CONFIG", ALIGN_LEFT, VALIGN_MIDDLE);
+    _papStringItem[2]->update("DEBUG", ALIGN_LEFT, VALIGN_MIDDLE);
+    _papStringItem[3]->update("QUIT", ALIGN_LEFT, VALIGN_MIDDLE);
 
     _pCursor001= NEW Cursor001("Cursor001");
     _pCursor001->inactivateImmediately();
@@ -89,6 +89,8 @@ void GameTitleScene::processBehavior() {
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 _pSeCon_exec->use()->play();
                 _pProg->change(GAMETITLESCENE_PROG_SELECT);
+
+
             } else if (_pProg->getFrameInProgress() == GAMETITLE_TIMEOUT) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH)");
@@ -127,8 +129,22 @@ void GameTitleScene::processBehavior() {
                 }
                 _frame_of_noinput = _pProg->getFrameInProgress();
             } if (VB->isPushedDown(VB_UI_EXECUTE)) {
-                _pSeCon_exec->use()->play();
-                _pProg->change(GAMETITLESCENE_PROG_GAMESTART);
+
+                if (_active_item == 0) {
+                    _pSeCon_exec->use()->play();
+                    _pProg->change(GAMETITLESCENE_PROG_GAMESTART);
+                } else if (_active_item == 1) {
+
+
+                } else if (_active_item == 2) {
+
+
+                } else if (_active_item == 3) {
+                    PostQuitMessage(0);
+                }
+
+
+
             } else if (_pProg->getFrameInProgress() >= _frame_of_noinput + 300) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventToUpperTree(EVENT_GAMETITLESCENE_FINISH)");

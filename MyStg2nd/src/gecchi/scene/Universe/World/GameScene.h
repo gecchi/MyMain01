@@ -43,6 +43,7 @@ class GameScene : public GgafLib::DefaultScene {
 public:
     CommonScene* _pCommonScene;
     MyShipScene* _pMyShipScene;
+    GamePauseScene* _pGamePauseScene;
     StageController* _pStageController;
     /** コマ送りフラグ */
     bool _is_frame_advance;

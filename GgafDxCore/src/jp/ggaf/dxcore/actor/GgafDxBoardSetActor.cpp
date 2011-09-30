@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name, 
+GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
                                            const char* prm_model_id,
                                            const char* prm_effect_id,
                                            const char* prm_technique) :
@@ -32,7 +32,10 @@ GgafDxBoardSetActor::GgafDxBoardSetActor(const char* prm_name,
     _pUvFlipper->setActivePtnNo(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
 
-
+    _width_px = (int)(_pBoardSetModel->_fSize_BoardSetModelWidthPx); //•(px)
+    _height_px = (int)(_pBoardSetModel->_fSize_BoardSetModelHeightPx); //‚‚³(px)
+    _align = ALIGN_LEFT;
+    _valign = VALIGN_TOP;
     _fAlpha = 1.0f;
 
     _is2DActor = true;
@@ -55,9 +58,23 @@ void GgafDxBoardSetActor::processDraw() {
             if (pDrawActor->_pModel == _pBoardSetModel && pDrawActor->_hash_technique == _hash_technique) {
                 pBoardSetActor = (GgafDxBoardSetActor*)pDrawActor;
 
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[_draw_set_num], float(App2Pix(_X)));
+                if (_align == ALIGN_RIGHT) {
+                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[_draw_set_num], float(App2Pix(_X)-_width_px));
+                } else if (_align == ALIGN_CENTER) {
+                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[_draw_set_num], float(App2Pix(_X)-_width_px/2));
+                } else {
+                    //ALIGN_LEFT
+                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[_draw_set_num], float(App2Pix(_X)));
+                }
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-                hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[_draw_set_num], float(App2Pix(_Y)));
+                if (_valign == VALIGN_BOTTOM) {
+                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[_draw_set_num], float(App2Pix(_Y)-_height_px));
+                } else if (_valign == VALIGN_MIDDLE) {
+                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[_draw_set_num], float(App2Pix(_Y)-_height_px/2));
+                } else {
+                    //VALIGN_MIDDLE_TOP
+                    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[_draw_set_num], float(App2Pix(_Y)));
+                }
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[_draw_set_num], float(App2Pix(_Z)));
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahDepthZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -90,6 +107,11 @@ void GgafDxBoardSetActor::processDraw() {
 void GgafDxBoardSetActor::locateAs(GgafDxGeoElem* prm_pGeoElem) {
     _X = prm_pGeoElem->_X;
     _Y = prm_pGeoElem->_Y;
+}
+
+void GgafDxBoardSetActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
+    _align = prm_align;
+    _valign = prm_valign;
 }
 
 GgafDxBoardSetActor::~GgafDxBoardSetActor() {

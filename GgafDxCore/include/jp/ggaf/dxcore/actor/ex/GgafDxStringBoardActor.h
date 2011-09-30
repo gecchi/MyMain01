@@ -33,7 +33,9 @@ namespace GgafDxCore {
  */
 class GgafDxStringBoardActor : public GgafDxBoardSetActor {
 
-
+    /**
+     * オーバーライド不可 .
+     */
     virtual void processSettlementBehavior() override;
 
 public:
@@ -48,13 +50,15 @@ public:
     /** [r]最終のパックで表示しなければならない文字数。*/
     int _remainder_len;
 
-    /** [r/w]各文字間隔(px) */
-    pixcoord _aWidthPx[256];
     /** [r/w]ベースの１文字幅(px) */
     pixcoord _chr_width_px;
+    /** [r/w]ベースの１文字高さ(px) */
+    pixcoord _chr_height_px;
+    /** [r/w]各文字間隔(px) */
+    pixcoord _aWidthPx[256];
+
 
     pixcoord _width_len_px;
-    GgafDxStringAlign _align;
     coord _X_offset_align;
 
     /**
@@ -84,28 +88,21 @@ public:
      * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param prm_str 描画文字列
-     * @param prm_align ALIGN_LEFT:左揃え／ALIGN_CENTER:中央寄せ／ALIGN_RIGHT:右揃え
+     * @param prm_align ALIGN_LEFT:X座標は左端を意味する／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端を意味する
      */
-    virtual void update(coord X, coord Y, const char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT);
-
+    virtual void update(coord X, coord Y, const char* prm_str,
+                        GgafDxAlign prm_align = ALIGN_LEFT,
+                        GgafDxValign prm_valign = VALIGN_TOP);
     /**
      * 描画文字を更新設定  .
      * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param prm_str 描画文字列
-     * @param prm_align ALIGN_LEFT:左揃え／ALIGN_CENTER:中央寄せ／ALIGN_RIGHT:右揃え
+     * @param prm_align ALIGN_LEFT:X座標は左端を意味する／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端を意味する
      */
-    virtual void update(coord X, coord Y, char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT);
-
-    /**
-     * 描画文字を更新設定  .
-     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
-     * @param Z プライオリティ(値が小さい方が手前)
-     * @param prm_str 描画文字列
-     * @param prm_align ALIGN_LEFT:左揃え／ALIGN_CENTER:中央寄せ／ALIGN_RIGHT:右揃え
-     */
-    virtual void update(coord X, coord Y, coord Z, const char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT);
+    virtual void update(coord X, coord Y, char* prm_str,
+                        GgafDxAlign prm_align = ALIGN_LEFT,
+                        GgafDxValign prm_valign = VALIGN_TOP);
 
     /**
      * 描画文字を更新設定  .
@@ -113,24 +110,38 @@ public:
      * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
      * @param Z プライオリティ(値が小さい方が手前)
      * @param prm_str 描画文字列
-     * @param prm_align ALIGN_LEFT:左揃え／ALIGN_CENTER:中央寄せ／ALIGN_RIGHT:右揃え
+     * @param prm_align ALIGN_LEFT:X座標は左端を意味する／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端を意味する
      */
-    virtual void update(coord X, coord Y, coord Z, char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT);
-
+    virtual void update(coord X, coord Y, coord Z, const char* prm_str,
+                        GgafDxAlign prm_align = ALIGN_LEFT,
+                        GgafDxValign prm_valign = VALIGN_TOP);
+    /**
+     * 描画文字を更新設定  .
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Z プライオリティ(値が小さい方が手前)
+     * @param prm_str 描画文字列
+     * @param prm_align ALIGN_LEFT:X座標は左端を意味する／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端を意味する
+     */
+    virtual void update(coord X, coord Y, coord Z, char* prm_str,
+                        GgafDxAlign prm_align = ALIGN_LEFT,
+                        GgafDxValign prm_valign = VALIGN_TOP);
     /**
      * 描画文字を更新設定  .
      * @param prm_str 描画文字列
-     * @param prm_align ALIGN_LEFT:左揃え／ALIGN_CENTER:中央寄せ／ALIGN_RIGHT:右揃え
+     * @param prm_align ALIGN_LEFT:X座標は左端を意味する／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端を意味する
      */
-    virtual void update(const char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT);
-
+    virtual void update(const char* prm_str,
+                        GgafDxAlign prm_align = ALIGN_LEFT,
+                        GgafDxValign prm_valign = VALIGN_TOP);
     /**
      * 描画文字を更新設定  .
      * @param prm_str 描画文字列
-     * @param prm_align ALIGN_LEFT:左揃え／ALIGN_CENTER:中央寄せ／ALIGN_RIGHT:右揃え
+     * @param prm_align ALIGN_LEFT:X座標は左端を意味する／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端を意味する
      */
-    virtual void update(char* prm_str, GgafDxStringAlign prm_align = ALIGN_LEFT);
-
+    virtual void update(char* prm_str,
+                        GgafDxAlign prm_align = ALIGN_LEFT,
+                        GgafDxValign prm_valign = VALIGN_TOP);
 
     virtual ~GgafDxStringBoardActor();
 

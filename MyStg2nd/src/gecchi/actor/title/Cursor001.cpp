@@ -6,17 +6,21 @@ using namespace GgafLib;
 using namespace MyStg2nd;
 
 
-Cursor001::Cursor001(const char* prm_name) : DefaultBoardActor(prm_name, "LockOn001") {
+Cursor001::Cursor001(const char* prm_name) : DefaultBoardActor(prm_name, "Cursor001") {
     _class_name = "Cursor001";
 }
 void Cursor001::initialize() {
+    setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
+    _pUvFlipper->setFlipMethod(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void Cursor001::onActive() {
+
 }
 
 void Cursor001::processBehavior() {
     _pKurokoA->behave();
+    _pUvFlipper->behave();
 }
 
 void Cursor001::processJudgement() {

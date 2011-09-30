@@ -290,11 +290,17 @@ enum GgafDxPuppeteerStick {
 };
 
 
-enum GgafDxStringAlign {
+enum GgafDxAlign {
     ALIGN_LEFT,
     ALIGN_CENTER,
     ALIGN_RIGHT,
 };
+enum GgafDxValign {
+    VALIGN_TOP,
+    VALIGN_MIDDLE,
+    VALIGN_BOTTOM,
+};
+
 
 
 #define Obj_GgafDxScene                 (0x80000010)     //0b 10000000 00000000 00000000 00010000
