@@ -637,7 +637,7 @@ public:
 
 
     /**
-     * 終了します。(自ツリー) .
+     * 終了宣言します。(自ツリー) .
      * 自ノードを引数のフレーム後に「生存終了」状態にすることを宣言する。（終了フラグを立てる） <BR>
      * 自ツリーノード全て道連れで、終了(end())がお知らせが届く。<br>
      * 親ノードが終了すれば、子ノードも終了せざるを得ないからである。<BR>
@@ -655,6 +655,14 @@ public:
      * @param prm_offset_frames 生存終了猶予フレーム(1～)
      */
     virtual void end(frame prm_offset_frames = 1);
+
+    /**
+     * ゴミ箱に放り込まれる直前に呼び出されるコールバック .
+     * end(frame) 実行後、GgafGarbageBox に取り込まれる直前に呼び出されます。
+     */
+    virtual void onGarbaged() {
+    }
+
 
     /**
      * 自ツリーノードを最終ノードに移動する(単体) .
@@ -955,6 +963,7 @@ void GgafElement<T>::nextFrame() {
             if (pElementTemp->_is_last_flg) {
                 pElementTemp->nextFrame();
                 if (pElementTemp->_can_live_flg == false) {
+                    pElementTemp->onGarbaged();
                     GgafFactory::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
                 }
                 break;
@@ -962,6 +971,7 @@ void GgafElement<T>::nextFrame() {
                 pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 pElementTemp->GGAF_NODE::_pPrev->nextFrame();
                 if (pElementTemp->GGAF_NODE::_pPrev->_can_live_flg == false) {
+                    ((T*)(pElementTemp->GGAF_NODE::_pPrev))->onGarbaged();
                     GgafFactory::_pGarbageBox->add(pElementTemp->GGAF_NODE::_pPrev); //ゴミ箱へ
                 }
             }
@@ -1254,6 +1264,11 @@ void GgafElement<T>::activateTreeImmediately() {
 
 template<class T>
 void GgafElement<T>::activateDelay(frame prm_offset_frames) {
+#ifdef MY_DEBUG
+    if (prm_offset_frames == 0) {
+        _TRACE_("＜警告＞activateDelay(0) は無意味です。意図してますか？");
+    }
+#endif
     if (_can_live_flg) {
         //既にinactivateDelay()実行済みの場合は
         //そのinactivateDelay()は無効化される。
@@ -1267,6 +1282,11 @@ void GgafElement<T>::activateDelay(frame prm_offset_frames) {
 }
 template<class T>
 void GgafElement<T>::activateWhile(frame prm_frames) {
+#ifdef MY_DEBUG
+    if (prm_frames == 0) {
+        _TRACE_("＜警告＞activateWhile(0) は無意味です。意図してますか？");
+    }
+#endif
     if (_can_live_flg) {
         _will_activate_after_flg = true;
         _frame_of_life_when_activation = _frame_of_life + 1;
@@ -1278,6 +1298,11 @@ void GgafElement<T>::activateWhile(frame prm_frames) {
 
 template<class T>
 void GgafElement<T>::activateTreeDelay(frame prm_offset_frames) {
+#ifdef MY_DEBUG
+    if (prm_offset_frames == 0) {
+        _TRACE_("＜警告＞activateTreeDelay(0) は無意味です。意図してますか？");
+    }
+#endif
     if (_can_live_flg) {
         activateDelay(prm_offset_frames);
         if (GGAF_NODE::_pSubFirst) {
@@ -1321,6 +1346,11 @@ void GgafElement<T>::inactivateTree() {
 
 template<class T>
 void GgafElement<T>::inactivateDelay(frame prm_offset_frames) {
+#ifdef MY_DEBUG
+    if (prm_offset_frames == 0) {
+        _TRACE_("＜警告＞inactivateDelay(0) は無意味です。意図してますか？");
+    }
+#endif
     if (_can_live_flg) {
         if (_will_activate_after_flg) {
             //既にactivateDelay()実行済みの場合
@@ -1344,6 +1374,11 @@ void GgafElement<T>::inactivateDelay(frame prm_offset_frames) {
 
 template<class T>
 void GgafElement<T>::inactivateTreeDelay(frame prm_offset_frames) {
+#ifdef MY_DEBUG
+    if (prm_offset_frames == 0) {
+        _TRACE_("＜警告＞inactivateTreeDelay(0) は無意味です。意図してますか？");
+    }
+#endif
     if (_can_live_flg) {
         inactivateDelay(prm_offset_frames);
         if (GGAF_NODE::_pSubFirst) {

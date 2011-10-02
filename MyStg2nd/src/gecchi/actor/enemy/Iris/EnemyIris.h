@@ -8,9 +8,11 @@ namespace MyStg2nd {
  * @since 2009/12/22
  * @author Masatoshi Tsuge
  */
-class EnemyIris : public GgafLib::DefaultMeshSetActor {
-    /** フォーメーション(非フォーメーション時はNULL) */
-    GgafLib::FormationActor* _pFormation;
+class EnemyIris :
+  public GgafLib::DefaultMeshSetActor, public GgafLib::IFormationAble {
+
+//    /** フォーメーション(非フォーメーション時はNULL) */
+//    GgafLib::FormationActor* _pFormation;
     /** 移動スプラインプログラム */
     GgafLib::SplineSequence* _pSplSeq;
     /** 弾ストック */
@@ -61,12 +63,12 @@ public:
 
 
     virtual void config(
-            GgafLib::FormationActor* prm_pFormation,
+            //GgafLib::FormationActor* prm_pFormation,
             GgafLib::SplineSequence* prm_pSplSeq,
             GgafCore::GgafActorDepository* prm_pDepo_Shot,
             GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
             ) {
-        _pFormation = prm_pFormation;
+        //_pFormation = prm_pFormation;
         _pSplSeq = prm_pSplSeq;
         _pDepo_Shot = prm_pDepo_Shot;
         _pDepo_ShotEffect = prm_pDepo_ShotEffect;

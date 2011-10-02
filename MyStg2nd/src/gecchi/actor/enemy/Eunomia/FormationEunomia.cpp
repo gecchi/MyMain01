@@ -60,7 +60,7 @@ void FormationEunomia::processBehavior() {
             if (pEunomia) {
                 SplineSequence* pSplSeq = _papSplManufCon[i]->use()->
                                               createSplineSequence(pEunomia->_pKurokoA);
-                pEunomia->config(this, pSplSeq, NULL, NULL);
+                pEunomia->config(pSplSeq, NULL, NULL);
                 pEunomia->_pKurokoA->setMvVelo(_mv_velo);
     //            _papapEunomia[i][_n]->activate();
                 processOnActiveEunomia(pEunomia, i); //フォーメーション個別実装の処理

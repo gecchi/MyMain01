@@ -23,7 +23,7 @@ GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
     _pMsgLabel02->update("YOU SURE ?");
     getDirector()->addSubGroup(_pMsgLabel02);
 
-    const char** item = {
+    const char* item[] = {
           "BACK TO GAME",
           "CONFIG",
           "BACK TO TITLE",
@@ -85,15 +85,15 @@ void GamePauseScene::processBehavior() {
                 for (int i = 0; i < _max_menu_item; i++) {
                     //初期設定
                     _papMenuItemLabel[i]->locate(-1000*1000,-1000*1000);
-                    _papMenuItemLabel[i]->activateDelay(i*25); //パラパラと順に
+                    _papMenuItemLabel[i]->activateDelay(i*30+1); //パラパラと順に
                     //飛ばす
                     coord tX = Pix2App(1000);
-                    coord tY = Pix2App(200+i*20);
+                    coord tY = Pix2App(200+i*32);
                     _papMenuItemLabel[i]->_pKurokoA->setMvAng(tX, tY);
                     _papMenuItemLabel[i]->_pKurokoA->execSmoothMvVeloSequence(
                                                         0,
-                                                        GgafDxUtil::getDistance(_X, _Y, tX, tY),
-                                                        10,
+                                                        GgafDxUtil::getDistance(_papMenuItemLabel[i]->_X, _papMenuItemLabel[i]->_Y, tX, tY),
+                                                        60,
                                                         0.3, 0.7);
                 }
 

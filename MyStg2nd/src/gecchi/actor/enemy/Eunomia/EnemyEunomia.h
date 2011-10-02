@@ -8,10 +8,9 @@ namespace MyStg2nd {
  * @since 2011/02/14
  * @author Masatoshi Tsuge
  */
-class EnemyEunomia : public GgafLib::DefaultMeshSetActor {
+class EnemyEunomia : public GgafLib::DefaultMeshSetActor, public GgafLib::IFormationAble {
 
 public:
-    GgafLib::FormationActor* _pFormation;
     /** 移動スプラインのシークエンスプログラム */
     GgafLib::SplineSequence* _pSplSeq;
     /** 弾ストック */
@@ -72,7 +71,7 @@ public:
      * @param prm_pDepo_ShotEffect
      */
     virtual void config(
-            GgafLib::FormationActor* prm_pFormation,
+//            GgafLib::FormationActor* prm_pFormation,
             GgafLib::SplineSequence* prm_pSplSeq,
             GgafCore::GgafActorDepository* prm_pDepo_Shot,
             GgafCore::GgafActorDepository* prm_pDepo_ShotEffect

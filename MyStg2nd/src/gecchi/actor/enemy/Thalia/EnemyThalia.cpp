@@ -14,7 +14,7 @@ enum {
 };
 
 EnemyThalia::EnemyThalia(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "1/Thalia", STATUS(EnemyThalia)) {
+        DefaultMorphMeshActor(prm_name, "1/Thalia", STATUS(EnemyThalia)), IFormationAble() {
         //CubeMapMorphMeshActor(prm_name, "1/ThaliaCM", STATUS(EnemyThalia)) {
 
     _class_name = "EnemyThalia";

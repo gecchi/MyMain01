@@ -30,6 +30,8 @@ public:
 
     virtual void onActive() override;
 
+    virtual void onDestroyedFormation(GgafDxCore::GgafDxGeometricActor* prm_pActor_LastDestroyed) override {
+    }
 
     virtual ~FormationThalia();
 };

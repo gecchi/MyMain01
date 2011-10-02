@@ -8,7 +8,8 @@ namespace MyStg2nd {
  * @since 2010/06/13
  * @author Masatoshi Tsuge
  */
-class EnemyPallas : public GgafLib::DefaultMeshSetActor {
+class EnemyPallas :
+    public GgafLib::DefaultMeshSetActor, public GgafLib::IFormationAble {
 
 public:
     /** 移動スプラインプログラム */

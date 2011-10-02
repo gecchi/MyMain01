@@ -6,13 +6,12 @@ using namespace GgafLib;
 using namespace MyStg2nd;
 
 EnemyEunomia::EnemyEunomia(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Eunomia", STATUS(EnemyEunomia)) {
+        DefaultMeshSetActor(prm_name, "Eunomia", STATUS(EnemyEunomia)), IFormationAble() {
     _class_name = "EnemyEunomia";
     _iMovePatternNo = 0;
     _pSplSeq = NULL;
     _pDepo_Shot = NULL;
     _pDepo_ShotEffect = NULL;
-    _pFormation = NULL;
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
     useProgress(10);
@@ -34,13 +33,12 @@ void EnemyEunomia::onReset() {
 }
 
 void EnemyEunomia::config(
-        GgafLib::FormationActor* prm_pFormation,
+//        GgafLib::FormationActor* prm_pFormation,
         GgafLib::SplineSequence* prm_pSplSeq,
         GgafCore::GgafActorDepository* prm_pDepo_Shot,
         GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
         ) {
     DELETE_POSSIBLE_NULL(_pSplSeq);
-    _pFormation = prm_pFormation;
     _pSplSeq = prm_pSplSeq;
     _pDepo_Shot = prm_pDepo_Shot;
     _pDepo_ShotEffect = prm_pDepo_ShotEffect;
@@ -159,9 +157,10 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
         }
 
         //自機側に撃たれて消滅の場合、
-        if (_pFormation && (pOther->getKind() & KIND_MY)) {
+        //if (_pFormation && (pOther->getKind() & KIND_MY)) {
+		if (pOther->getKind() & KIND_MY) {
             //フォーメーションに自身が撃たれた事を伝える。
-            _pFormation->wasDestroyedFollower(this);
+		    informDestroyedFollower();
             //アイテム出現
             Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->dispatch();
             if (pItem) {
@@ -174,10 +173,10 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyEunomia::onInactive() {
-    if (_pFormation) {
-        //_TRACE_("EnemyEunomia::onInactive() _pFormation="<<_pFormation->getName());
-        _pFormation->wasInactiveFollower();
-    }
+//    if (_pFormation) {
+//        //_TRACE_("EnemyEunomia::onInactive() _pFormation="<<_pFormation->getName());
+//        _pFormation->wasInactiveFollower(this);
+//    }
     DELETE_POSSIBLE_NULL(_pSplSeq);
 //    sayonara();
 }

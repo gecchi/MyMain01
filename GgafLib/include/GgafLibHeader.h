@@ -12,6 +12,7 @@ namespace GgafLib {
 
 #define Obj_LaserChip                    (0x10000000)     //0b 00010000 00000000 00000000 00000000
 #define Obj_WallPartsActor               (0x20000000)     //0b 00100000 00000000 00000000 00000000
+#define Obj_IFormationAble               (0x40000000)     //0b 01000000 00000000 00000000 00000000
 
 #undef P_GOD
 #define P_GOD ((GgafLib::DefaultGod*)GgafCore::GgafGod::_pGod)
@@ -38,7 +39,7 @@ class WalledSectionScene;
 
 
 class StgProperties;
-
+class IFormationAble;
 class FormationActor;
 class DefaultGeometricActor;
 class DefaultD3DXMeshActor;
@@ -120,6 +121,7 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/StgProperties.h"
 
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
+#include "jp/ggaf/lib/actor/interface/IFormationAble.h"
 #include "jp/ggaf/lib/actor/FormationActor.h"
 #include "jp/ggaf/lib/actor/DefaultCamera.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"

@@ -60,8 +60,8 @@ bool OggDecoder::getSegment(char* prm_buffer, unsigned int prm_size, unsigned in
     }
 
     while (1) {
-        readSize = ov_read(&ovf, (char*)(prm_buffer + comSize ), requestSize, 0, 2, 1, &bitstream );if(readSize
-==        0 ) {
+        readSize = ov_read(&ovf, (char*) (prm_buffer + comSize ), requestSize, 0, 2, 1, &bitstream );
+        if(readSize == 0 ) {
             // ファイルエンドに達した
             if (isLooping() == true ) {
                 // ループする場合読み込み位置を最初に戻す

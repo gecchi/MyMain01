@@ -33,7 +33,7 @@ _pStageController(NULL) {
     _pStageController->inactivateImmediately();
     addSubLast(_pStageController);
     _pGamePauseScene = new GamePauseScene("GamePauseScene");
-    _pStageController->inactivateImmediately();
+    _pGamePauseScene->inactivateImmediately();
     addSubLast(_pGamePauseScene);
 
     addSubLast(NEW GamePreTitleScene("PreGameTitle"));
@@ -183,6 +183,7 @@ void GameScene::processBehavior() {
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
                     _pProg->getGazeScene()->pause(); //ポーズ！！
+                    _pGamePauseScene->reset();
                     _pGamePauseScene->activate();
                 }
             }

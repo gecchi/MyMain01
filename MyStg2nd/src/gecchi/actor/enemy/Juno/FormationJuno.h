@@ -53,7 +53,10 @@ public:
 
     virtual void initialize() override;
 
-    void processBehavior() override;
+    virtual void processBehavior() override;
+
+    virtual void onDestroyedFormation(GgafDxCore::GgafDxGeometricActor* prm_pActor_LastDestroyed) override {
+    }
 
     virtual ~FormationJuno();
 };

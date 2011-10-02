@@ -20,7 +20,7 @@ FormationIris002::FormationIris002(const char* prm_name) :
         _papIris[i] = NEW EnemyIris("Iris01");
         //スプライン移動プログラム設定
         SplineSequence* pProgram = NEW FixedVelocitySplineSequence(_papIris[i]->_pKurokoA, _pSplLineCon->use(), 10000); //移動速度固定
-        _papIris[i]->config(NULL, pProgram, _pDepoCon->use(), NULL);
+        _papIris[i]->config(pProgram, _pDepoCon->use(), NULL);
         _papIris[i]->inactivateImmediately();
         addSubLast(_papIris[i]);
     }

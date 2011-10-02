@@ -285,6 +285,22 @@ public:
     virtual T* first();
 
     /**
+     * カレント要素を移動させる。 .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ current(1);
+     * ---「実行後」-------------
+     * (E)⇔A⇔B!⇔C⇔D⇔E⇔(A)
+     *      0  1   2  3  4
+     * --------------------------
+     * </pre>
+     * @return カレント要素を移動した後の、その要素の値
+     */
+    virtual T* current(int n);
+
+    /**
      * 先頭の要素の値を取得する。カレント要素は変化しない .
      *<pre>
      * ---「実行前」-------------
@@ -700,6 +716,17 @@ T* GgafLinkedListRing<T>::getPrev(int n) {
 template<class T>
 T* GgafLinkedListRing<T>::first() {
     _pElemActive = _pElemFirst;
+    return _pElemActive->_pValue;
+}
+
+template<class T>
+T* GgafLinkedListRing<T>::current(int n) {
+
+    Elem* pElem = _pElemFirst;
+    for (int i = 0; i < n; i++) {
+        pElem = pElem->_pNext;
+    }
+    _pElemActive = pElem;
     return _pElemActive->_pValue;
 }
 
