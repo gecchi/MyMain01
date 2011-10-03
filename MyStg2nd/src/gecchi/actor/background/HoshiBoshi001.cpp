@@ -96,12 +96,12 @@ void HoshiBoshi001::setWorldMatrix_HoshiBoshi001(GgafDxGeometricActor* prm_pActo
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
-    float sinRx = cnvAppang2Sin(prm_pActor->_RX);
-    float cosRx = cnvAppang2Cos(prm_pActor->_RX);
-    float sinRy = cnvAppang2Sin(prm_pActor->_RY);
-    float cosRy = cnvAppang2Cos(prm_pActor->_RY);
-    float sinRz = cnvAppang2Sin(prm_pActor->_RZ);
-    float cosRz = cnvAppang2Cos(prm_pActor->_RZ);
+    float sinRx = Angle2Sin(prm_pActor->_RX);
+    float cosRx = Angle2Cos(prm_pActor->_RX);
+    float sinRy = Angle2Sin(prm_pActor->_RY);
+    float cosRy = Angle2Cos(prm_pActor->_RY);
+    float sinRz = Angle2Sin(prm_pActor->_RZ);
+    float cosRz = Angle2Cos(prm_pActor->_RZ);
     float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
     float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
     float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);

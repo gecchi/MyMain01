@@ -198,8 +198,8 @@ typedef int scale;
 
 #define cnvScaleApp2Rate(X) (1.0f * (X) / LEN_UNIT)
 #define cnvScaleRate2App(X) ((X) * LEN_UNIT)
-#define cnvAppang2Sin(X) (GgafDxCore::GgafDxUtil::SIN[(X) / ANGLE_RATE])
-#define cnvAppang2Cos(X) (GgafDxCore::GgafDxUtil::COS[(X) / ANGLE_RATE])
+#define Angle2Sin(X) (GgafDxCore::GgafDxUtil::SIN[(X) / ANGLE_RATE])
+#define Angle2Cos(X) (GgafDxCore::GgafDxUtil::COS[(X) / ANGLE_RATE])
 
 
 enum GgafDxUvFlippingMethod {

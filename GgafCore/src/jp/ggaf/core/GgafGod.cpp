@@ -221,8 +221,6 @@ void GgafGod::clean() {
             CloseHandle(_handleFactory01);
             _TRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS1)); .....");
             DeleteCriticalSection(&(GgafGod::CS1));
-            _TRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS2)); .....");
-            DeleteCriticalSection(&(GgafGod::CS2));
             _handleFactory01 = NULL;
             _TRACE_("GgafGod::~GgafGod() 無事に工場スレッドを終了。クリティカルセクション解除");
 
@@ -248,6 +246,8 @@ void GgafGod::clean() {
             Sleep(20);
             _TRACE_("DELETE_IMPOSSIBLE_NULL(_pUniverse);");
             DELETE_IMPOSSIBLE_NULL(_pUniverse);
+            _TRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS2)); .....");
+            DeleteCriticalSection(&(GgafGod::CS2));
         }
 
         //工場例外 _pException_Factory が起こっているかもしれない。

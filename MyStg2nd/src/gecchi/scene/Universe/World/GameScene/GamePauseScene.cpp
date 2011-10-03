@@ -84,8 +84,8 @@ void GamePauseScene::processBehavior() {
                 //アイテム
                 for (int i = 0; i < _max_menu_item; i++) {
                     //初期設定
-                    _papMenuItemLabel[i]->locate(-1000*1000,-1000*1000);
-                    _papMenuItemLabel[i]->activateDelay(i*30+1); //パラパラと順に
+                    _papMenuItemLabel[i]->locate(Pix2App(-256), Pix2App(0));
+                    _papMenuItemLabel[i]->activateDelay(i*10+1); //パラパラと順に
                     //飛ばす
                     coord tX = Pix2App(1000);
                     coord tY = Pix2App(200+i*32);
@@ -93,7 +93,7 @@ void GamePauseScene::processBehavior() {
                     _papMenuItemLabel[i]->_pKurokoA->execSmoothMvVeloSequence(
                                                         0,
                                                         GgafDxUtil::getDistance(_papMenuItemLabel[i]->_X, _papMenuItemLabel[i]->_Y, tX, tY),
-                                                        60,
+                                                        30,
                                                         0.3, 0.7);
                 }
 
@@ -130,8 +130,8 @@ void GamePauseScene::processBehavior() {
                     _pProg->change(GAMEPAUSESCENE_PROG_CONFIRM);
 
                 } else if (_active_item == 3) {
-                    _pProg->change(GAMEPAUSESCENE_PROG_CONFIRM);
-//                    PostQuitMessage(0);
+//                    _pProg->change(GAMEPAUSESCENE_PROG_CONFIRM);
+                    PostQuitMessage(0);
                 }
             }
             break;
@@ -158,7 +158,9 @@ void GamePauseScene::processBehavior() {
 
 
     for (int i = 0; i < _max_menu_item; i++) {
-        _papMenuItemLabel[i]->_pKurokoA->behave();
+        if (_papMenuItemLabel[i]->isActiveActor()) {
+            _papMenuItemLabel[i]->_pKurokoA->behave();
+        }
     }
     _pMsgLabel01->_pKurokoA->behave();
     _pMsgLabel02->_pKurokoA->behave();
