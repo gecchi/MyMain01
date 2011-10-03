@@ -8,7 +8,8 @@ namespace MyStg2nd {
  * @since 2011/02/14
  * @author Masatoshi Tsuge
  */
-class EnemyEunomia : public GgafLib::DefaultMeshSetActor, public GgafLib::IFormationAble {
+class EnemyEunomia :
+  public GgafLib::DefaultMeshSetActor, public GgafLib::IFormationAble {
 
 public:
     /** 移動スプラインのシークエンスプログラム */

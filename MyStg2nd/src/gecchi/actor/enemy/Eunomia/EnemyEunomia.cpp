@@ -144,8 +144,6 @@ void EnemyEunomia::processJudgement() {
 }
 
 void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
-    //_TRACE_("EnemyEunomia::onHit!!! this="<<getName()<<"("<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
-    //_TRACE_("EnemyEunomia::onHit!!! prm_pOtherActor="<<prm_pOtherActor->getName()<<"("<<prm_pOtherActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
@@ -157,10 +155,9 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
         }
 
         //自機側に撃たれて消滅の場合、
-        //if (_pFormation && (pOther->getKind() & KIND_MY)) {
-		if (pOther->getKind() & KIND_MY) {
+        if (pOther->getKind() & KIND_MY) {
             //フォーメーションに自身が撃たれた事を伝える。
-		    informDestroyedFollower();
+            informDestroyedFollower();
             //アイテム出現
             Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->dispatch();
             if (pItem) {
@@ -173,12 +170,7 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyEunomia::onInactive() {
-//    if (_pFormation) {
-//        //_TRACE_("EnemyEunomia::onInactive() _pFormation="<<_pFormation->getName());
-//        _pFormation->wasInactiveFollower(this);
-//    }
     DELETE_POSSIBLE_NULL(_pSplSeq);
-//    sayonara();
 }
 
 EnemyEunomia::~EnemyEunomia() {
