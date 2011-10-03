@@ -36,13 +36,6 @@ public:
 
     /**
      * コンストラクタ
-     * @param prm_name オブジェクト名
-     * @param prm_model モデル名
-     */
-    //EnemyCeres(const char* prm_name);
-
-    /**
-     * コンストラクタ
      * @param prm_name オブジェクト
      * @param prm_pDepo_EnemyCeresShots001 発射弾ストックのアクター発送者
      * @return

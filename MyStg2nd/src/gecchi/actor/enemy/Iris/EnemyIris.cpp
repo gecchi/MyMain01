@@ -10,7 +10,6 @@ EnemyIris::EnemyIris(const char* prm_name)
       : DefaultMeshSetActor(prm_name, "Iris", STATUS(EnemyIris)), IFormationAble() {
     _class_name = "EnemyIris";
     _iMovePatternNo = 0;
-//    _pFormation = NULL;
     _pSplSeq = NULL;
     _pDepo_Shot = NULL;
     _pDepo_ShotEffect = NULL;
@@ -132,10 +131,6 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
         if (pOther->getKind() & KIND_MY) {
             informDestroyedFollower();
         }
-
-//        if ((pOther->getKind() & KIND_MY) && (getParent()->_obj_class & Obj_FormationActor)) {
-//            ((FormationActor*)getParent())->wasDestroyedFollower(this);
-//        }
 
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();
         _pSeTransmitter->play3D(0);

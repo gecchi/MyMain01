@@ -2,13 +2,12 @@
 #define GGAFGOD_H_
 namespace GgafCore {
 
-//#define  ___BeginSynchronized  ::EnterCriticalSection(&(GgafCore::GgafGod::CS1));  {GgafGod::ppp++; std::stringstream ss; ss << GgafGod::ppp<<": BeginSynchronized file:"<<__FILE__<<" line="<<__LINE__;  GgafCore::GgafLogger::writeln(ss);}
-//#define  ___EndSynchronized {GgafGod::ppp--; std::stringstream ss; ss << GgafGod::ppp<<": EndSynchronized file:"<<__FILE__<<" line="<<__LINE__; GgafCore::GgafLogger::writeln(ss);} ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
 //#define XXXX(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
 
-#define  ___BeginSynchronized   ::EnterCriticalSection(&(GgafCore::GgafGod::CS1))
-#define  ___EndSynchronized     ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
-
+#define  ___BeginSynchronized1   ::EnterCriticalSection(&(GgafCore::GgafGod::CS1))
+#define  ___EndSynchronized1     ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
+#define  ___BeginSynchronized2   ::EnterCriticalSection(&(GgafCore::GgafGod::CS2))
+#define  ___EndSynchronized2     ::LeaveCriticalSection(&(GgafCore::GgafGod::CS2))
 #define  SLOWDOWN_MODE_DEFAULT 0
 #define  SLOWDOWN_MODE_40FPS 1
 #define  SLOWDOWN_MODE_30FPS 2
@@ -39,7 +38,7 @@ public:
     static volatile bool _can_be;
     /** [r]クリティカルセクション（セマフォ） */
     static CRITICAL_SECTION CS1;
-
+    static CRITICAL_SECTION CS2;
     /** be() 中かどうか */
     bool _is_being;
     /** [r]自身 */

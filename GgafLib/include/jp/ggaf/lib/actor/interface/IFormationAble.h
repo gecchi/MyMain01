@@ -20,7 +20,7 @@ public:
      * コンストラクタ .
      * フォーメーション処理を行ないたいアクターは、
      * 次のように感じで多重継承してください。
-     * <code>
+     * <pre><code>
      * ＜例＞
      *
      * class SampleActor :
@@ -34,8 +34,7 @@ public:
      *
      *     _class_name = "EnemyEunomia";
      * }
-     * </code>
-     *
+     * </pre></code>
      */
     IFormationAble();
 
@@ -50,7 +49,7 @@ public:
      *
      * のコールバックが行われます。
      * 編隊ボーナス、アイテム出現等は FormationActor::onDestroyedFormation() 実装で行って下さい。
-     * <code>
+     * <pre><code>
      * ＜例＞
      * void SampleActor::onHit(GgafActor* prm_pOtherActor) {
      *    //自身の耐久力チェック
@@ -62,7 +61,7 @@ public:
      *        }
      *    }
      * }
-     * <code>
+     * </pre></code>
      */
     void informDestroyedFollower();
 

@@ -17,14 +17,11 @@ public:
     /** エウノミアの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* _pDepoCon_shot;
     /** スプライン定義資源への接続 */
-//    GgafLib::SplineSourceConnection* _pSplSrcCon;
     GgafLib::SplineManufactureConnection** _papSplManufCon;
     /** 編隊列数(RANK変動) */
     int _num_formation_col;
     /** １列の編隊数(RANK変動) */
     int _num_formation_row;
-//    /** エウノミアの2次元配列(RANK変動) */
-//    EnemyEunomia*** _papapEunomia;
     /** 編隊間隔フレーム(RANK変動) */
     frame _interval_frames;
     /** 移動速度(RANK変動) */
@@ -35,13 +32,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_col            編隊列数 ( >= 1)
-     * @param prm_row            １列の編隊数 ( >= 1)
-     * @param prm_interval_frames エウノミアの間隔(frame) ( >= 1)
-     * @param prm_mv_velo        速度
-     * @param prm_spl_id         スプライン定義ファイルプレフィクス
-     *                           "FormationEunomia001_0.spl" の "FormationEunomia001" を設定
-     * @return
+     * @param prm_spl_id スプライン定義ID(XXX.spl の XXX)
      */
     FormationEunomia(const char* prm_name, const char* prm_spl_id) ;
 

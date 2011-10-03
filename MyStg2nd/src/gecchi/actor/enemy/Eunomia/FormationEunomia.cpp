@@ -25,21 +25,6 @@ FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
         spl_id << prm_spl_id << "_" << i;  //ƒ—á„"FormationEunomia001_0"
         _papSplManufCon[i] = connectSplineManufactureManager(spl_id.str().c_str());
     }
-
-//    _papapEunomia = NEW EnemyEunomia**[_num_formation_col]; //n—ñxN‹@‚Ì•Ò‘à‚ð‘g‚Þ
-//    for (int i = 0; i < _num_formation_col; i++) {
-//        _papapEunomia[i] = NEW EnemyEunomia*[_num_formation_row];
-//        for (int j = 0; j < _num_formation_row; j++) {
-//            stringstream nm;
-//            nm << "EUNOMIA_col" << i << "_row" << j;
-//            _papapEunomia[i][j] = NEW EnemyEunomia(nm.str().c_str());
-//            SplineSequence* pSplSeq = _papSplManufCon[i]->use()->
-//                                            createSplineSequence(_papapEunomia[i][j]->_pKurokoA);
-//            _papapEunomia[i][j]->config(this, pSplSeq, NULL, NULL);
-//            _papapEunomia[i][j]->inactivateImmediately();
-//            addSubLast(_papapEunomia[i][j]);
-//        }
-//    }
     _pDepoCon_shot = NULL;
 }
 
@@ -81,8 +66,4 @@ FormationEunomia::~FormationEunomia() {
     if (_pDepoCon_shot) {
         _pDepoCon_shot->close();
     }
-//    for (int i = 0; i < _num_formation_col; i++) {
-//        DELETEARR_IMPOSSIBLE_NULL(_papapEunomia[i]);
-//    }
-//    DELETEARR_IMPOSSIBLE_NULL(_papapEunomia);
 }

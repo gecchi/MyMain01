@@ -262,7 +262,7 @@ public:
      * 存在しない場合はエラー<BR>
      * 内部で char* の比較を見つかるまで行うため、やや重いです。<BR>
      * 毎フレーム実行されるような使用は避けるべきです。<BR>
-     * @param	prm_sub_actor_name	子ノード名
+     * @param	prm_sub_name	子ノード名
      * @return	T*	最初にヒットした子ノード名に対応する子ノードのポインタ
      */
     virtual T* getSubByName(const char* prm_sub_name);

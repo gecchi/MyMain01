@@ -81,7 +81,7 @@ public:
 
     /**
      * コンストラクタ .
-     * @param prm_pActor 操られる者
+     * @param prm_pPuppet 操られる者
      * @return
      */
     GgafDxPuppeteer(GgafDxD3DXAniMeshActor* prm_pPuppet);

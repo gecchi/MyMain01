@@ -18,7 +18,6 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_pMyOptionTorpedoController 親アクターとなる魚雷コンローラー .
      * @return
      */
     MyTorpedoBlast(const char* prm_name);

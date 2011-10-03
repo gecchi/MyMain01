@@ -63,42 +63,14 @@ public:
 
 
     virtual void config(
-            //GgafLib::FormationActor* prm_pFormation,
             GgafLib::SplineSequence* prm_pSplSeq,
             GgafCore::GgafActorDepository* prm_pDepo_Shot,
             GgafCore::GgafActorDepository* prm_pDepo_ShotEffect
             ) {
-        //_pFormation = prm_pFormation;
         _pSplSeq = prm_pSplSeq;
         _pDepo_Shot = prm_pDepo_Shot;
         _pDepo_ShotEffect = prm_pDepo_ShotEffect;
     }
-
-//    /**
-//     * 発射弾Depository設定 .
-//     * initialize() までに設定して下さい。
-//     * @param prm_pDepo
-//     */
-//    void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
-//        _pDepo_Shot = prm_pDepo;
-//    }
-//
-//    /**
-//     * スプライン移動設定 .
-//     * initialize() までに設定して下さい。
-//     * @param prm_pSplSeq
-//     */
-//    void setSplineSequence(GgafLib::SplineSequence* prm_pSplSeq) {
-//        _pSplSeq = prm_pSplSeq;
-//    }
-//
-//    /**
-//     * ショット発射効果エフェクト設定 .
-//     * @param prm_pDepo
-//     */
-//    void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
-//        _pDepo_ShotEffect = prm_pDepo;
-//    }
 
     virtual ~EnemyIris();
 };

@@ -39,21 +39,7 @@ public:
 
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
     }
-//    /**
-//     * デバイスロスト対応イベント処理 .
-//     * モデルとは別管理のキューブマップテクスチャの解放と再構築処理を実行します。
-//     * 下位で onCatchEvent(UINT32, void*) オーバーライドしたい場合は、上位を呼び出して下さい。
-//     * @param prm_no
-//     * @param prm_pSource
-//     */
-//    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
-//        if (prm_no == GGAF_EVENT_ON_DEVICE_LOST) {
-//            _TRACE_("GgafDxCubeMapMeshSetActor::onCatchEvent "<<getName()<<" GGAF_EVENT_ON_DEVICE_LOST キャッチ");
-//            releaseCubeMapTex();
-//        } else if (prm_no == GGAF_EVENT_DEVICE_LOST_REDEPOSITORY) {
-//            restoreCubeMapTex();
-//        }
-//    }
+
     virtual ~GgafDxCubeMapMeshSetActor(); //デストラクタ
 };
 

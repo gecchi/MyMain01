@@ -83,11 +83,11 @@ public:
     /**
      * 外壁シーンを設定.
      * new した後、initialize() が実行されるまでに config して下さい。
-     * @param prm_pDepo_Wall 壁ブロック（WallPartsActor実装クラスのオブジェクト）が登録されているデポジトリ
+     * @param prm_pDepo_WallAAB 壁ブロック（WallAABActorオブジェクト）が登録されているデポジトリ
+     * @param prm_pDepo_WallAAPrism 壁プリズムブロック（WallAAPrismActorオブジェクト）が登録されているデポジトリ
      * @param prm_wall_dep 壁ブロックの長さ（１つのWallPartsActorオブジェクトのX座標軸長さ）
      * @param prm_wall_width 壁ブロックの高さ（１つのWallPartsActorオブジェクトのY座標軸長さ）
      * @param prm_wall_height 壁ブロックの高さ（１つのWallPartsActorオブジェクトのZ座標軸長さ）
-     * @param prm_loop_num セクション繰り返し回数
      */
     virtual void config(
             GgafCore::GgafActorDepository* prm_pDepo_WallAAB,

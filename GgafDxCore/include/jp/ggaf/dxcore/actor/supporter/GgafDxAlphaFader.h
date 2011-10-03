@@ -66,15 +66,11 @@ public:
         addAlpha(prm_alpha_diff);
     }
 
-
     /**
      * 強度を絶対指定
-     * @param prm_c 色要素
      * @param prm_alpha 強度値
      */
     void setAlpha(float prm_alpha) {
-        //_TRACE_("setAlpha ["<<prm_c<<"]prm_alpha="<<prm_alpha);
-        //_TRACE_("setAlpha _bottom_alpha["<<prm_c<<"]="<<_bottom_alpha<<"/_top_alpha["<<prm_c<<"]="<<_top_alpha<<"");
         if (_top_alpha < prm_alpha) {
             _alpha = _top_alpha;
         } else if (_bottom_alpha > prm_alpha) {
@@ -82,7 +78,6 @@ public:
         } else {
             _alpha = prm_alpha;
         }
-        //_TRACE_("setAlpha _alpha ["<<prm_c<<"] _alpha="<<prm_alpha);
     }
     /**
      * 強度の上限下限を設定
@@ -97,13 +92,12 @@ public:
             _bottom_alpha = prm_alpha2;
             _top_alpha = prm_alpha1;
         }
-        //_TRACE_("forceAlphaRange _bottom_alpha["<<prm_c<<"]="<<_bottom_alpha<<"/_top_alpha["<<prm_c<<"]="<<_top_alpha<<"");
     }
+
     /**
      * 強度をリセット
      * 本オブジェクト(GgafDxAlphaFader)によって変化さえる前の
      * 初期の大きさに戻す。
-     * @param prm_c 色要素
      */
     void setAlphaToBottom() {
         _alpha = _bottom_alpha;

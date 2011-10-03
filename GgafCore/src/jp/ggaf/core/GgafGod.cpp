@@ -5,6 +5,7 @@ using namespace GgafCore;
 
 GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
+CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::ppp = 0;
 
 int GgafGod::_num_actor_drawing = 0;
@@ -28,6 +29,7 @@ GgafGod::GgafGod() : GgafObject(),
         throwGgafCriticalException("GgafGod::GgafGod() Error! スレッド作成失敗！");
     }
     ::InitializeCriticalSection(&(GgafGod::CS1));
+    ::InitializeCriticalSection(&(GgafGod::CS2));
     ::ResumeThread(_handleFactory01);
     ::SetThreadPriority(_handleFactory01, THREAD_PRIORITY_IDLE);
     GgafGod::_pGod = this;
@@ -71,11 +73,11 @@ void GgafGod::be() {
 
         if (_is_behaved_flg == false) {
             _is_behaved_flg = true;
-        ___BeginSynchronized; // ----->排他開始
+        ___BeginSynchronized1; // ----->排他開始
             _frame_of_God++;
             presentUniversalMoment();
             executeUniversalJudge();
-        ___EndSynchronized; // <----- 排他終了
+        ___EndSynchronized1; // <----- 排他終了
             //描画タイミングフレーム加算
             if (_num_actor_drawing > CFG_PROPERTY(DRAWNUM_TO_SLOWDOWN2)) {
                 _slowdown_mode = SLOWDOWN_MODE_30FPS;
@@ -122,7 +124,7 @@ void GgafGod::be() {
                     //スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
                     _skip_count_of_frame = 0;
                     _frame_of_visualize++;
-                 ___BeginSynchronized; // ----->排他開始
+                 ___BeginSynchronized1; // ----->排他開始
                     if (_is_materialized_flg) {
                         presentUniversalVisualize();
                         finalizeUniversal();
@@ -131,18 +133,18 @@ void GgafGod::be() {
                         presentUniversalVisualize();
                         finalizeUniversal();
                     }
-                 ___EndSynchronized; // <----- 排他終了
+                 ___EndSynchronized1; // <----- 排他終了
                 } else {
                     //スキップ時はfinalizeUniversal()だけ
-                 ___BeginSynchronized; // ----->排他開始
+                 ___BeginSynchronized1; // ----->排他開始
                     finalizeUniversal();
-                 ___EndSynchronized; // <----- 排他終了
+                 ___EndSynchronized1; // <----- 排他終了
                 }
             } else {
                 //通常時描画（スキップなし）
                 _sync_frame_time = false;
                 _frame_of_visualize++;
-             ___BeginSynchronized; // ----->排他開始
+             ___BeginSynchronized1; // ----->排他開始
                 if (_is_materialized_flg) {
                     presentUniversalVisualize();
                     finalizeUniversal();
@@ -152,7 +154,7 @@ void GgafGod::be() {
                     finalizeUniversal();
 
                 }
-             ___EndSynchronized; // <----- 排他終了
+             ___EndSynchronized1; // <----- 排他終了
             }
             _is_behaved_flg = false;
             _is_materialized_flg = false;
@@ -219,6 +221,8 @@ void GgafGod::clean() {
             CloseHandle(_handleFactory01);
             _TRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS1)); .....");
             DeleteCriticalSection(&(GgafGod::CS1));
+            _TRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS2)); .....");
+            DeleteCriticalSection(&(GgafGod::CS2));
             _handleFactory01 = NULL;
             _TRACE_("GgafGod::~GgafGod() 無事に工場スレッドを終了。クリティカルセクション解除");
 

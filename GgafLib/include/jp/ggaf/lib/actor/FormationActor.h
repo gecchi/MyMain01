@@ -109,7 +109,7 @@ public:
      * また、本メソッドが機能するためには、アクター側で自身がやられた場合に、<BR>
      * wasDestroyedFollower() を呼び出す事が必須です。 <BR>
      * 編隊全滅時の処理がない場合は、override する必要はありません 。 <BR>
-     * @param prm_pActorLast 最後にやられたアクター
+     * @param prm_pActor_LastDestroyed 最後にやられたアクター
      */
     virtual void onDestroyedFormation(GgafDxCore::GgafDxGeometricActor* prm_pActor_LastDestroyed) = 0;
 

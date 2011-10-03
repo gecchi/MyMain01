@@ -148,9 +148,7 @@ bool PCMPlayer::setDecoder(PCMDecoder* prm_pPcmDecoder) {
     // バッファを初期化
     //内部のpDSBuffer->Lock で極稀におちる。
     //→initializeBuffer() と再生を排他すればよさそうというような記事が○×掲示板に投稿されていた.
-// ___BeginSynchronized02;
     bool r = initializeBuffer();
-// ___EndSynchronized02;
     if (r == false) {
         return false;
     }
@@ -170,7 +168,7 @@ bool PCMPlayer::initializeBuffer() {
     if (_pPCMDecoder == NULL) {
         return false;
     }
-
+ ___BeginSynchronized2;
     _pPCMDecoder->setHead(); // 頭出し
     HRESULT hr = _pDSBuffer->SetCurrentPosition(0);
     checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer()  SetCurrentPosition( 0 ) に失敗しました。");
@@ -204,10 +202,12 @@ bool PCMPlayer::initializeBuffer() {
                 //あきらめる
                 _TRACE_("PCMPlayer::initializeBuffer() もうLockをあきらめて解放します。ごめんなさい；");
                 clear();
+             ___EndSynchronized2;
                 return false;
             }
         }
     }
+ ___EndSynchronized2;
     return true;
 }
 
@@ -228,11 +228,11 @@ void PCMPlayer::streamThread(void* playerPtr) {
     bool waitFinish = false;
 
     while (player->_is_terminate == false) {
+     ___BeginSynchronized2;
         switch (player->getState()) {
             case STATE_PLAY: // 再生中
                 // ストリーム再生
                 // 現在位置をチェック
-//             ___BeginSynchronized02;
                 player->_pDSBuffer->GetCurrentPosition(&point, 0);
                 if (flag == 0 && point >= size) {
                     // 前半に書き込み
@@ -263,7 +263,6 @@ void PCMPlayer::streamThread(void* playerPtr) {
                         waitFinish = true;
                     }
                 }
-//             ___EndSynchronized02;
                 break;
 
             case STATE_STOP:
@@ -279,6 +278,7 @@ void PCMPlayer::streamThread(void* playerPtr) {
             default:
                 break;
         }
+     ___EndSynchronized2;
 
         // 終了位置判定チェック
         if (isEnd == true) {
@@ -337,9 +337,7 @@ void PCMPlayer::stop() {
     _pDSBuffer->Stop();
 
     // バッファの頭出し
-//    ___BeginSynchronized02;
     bool r = initializeBuffer();
-//    ___EndSynchronized02;
     _TRACE_("PCMPlayer::stop() initializeBuffer() = " << r);
 }
 

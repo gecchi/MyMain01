@@ -142,10 +142,9 @@ void FormationActor::processJudgement() {
         GgafMainActor* pFllower = _listFllower.getCurrent();
         int num_follwer = _listFllower.length();
         for (int i = 0; i < num_follwer; i++) {
-            if (pFllower->_can_live_flg && (pFllower->_is_active_flg || pFllower->_will_activate_after_flg)) {
+            if (_can_live_flg && (pFllower->_is_active_flg || pFllower->_will_activate_after_flg)) {
                 pFllower = _listFllower.next();
             } else {
-                _TRACE_("FormationActor::processJudgement _listFllower‚Ì"<<_listFllower.getCurrent()->getName()<<"‚ðsayonara‚µ‚Ü‚·B");
                 _listFllower.remove();
             }
         }

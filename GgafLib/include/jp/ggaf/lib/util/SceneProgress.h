@@ -36,6 +36,7 @@ public:
      */
     void relatSubScene(progress prm_FirstProgress, progress prm_EndProgress, const char* prm_FirstSubSceneName);
 
+
     /**
      * 進捗状態とサブシーンを関連付け連動させる.
      * このメソッドにより、関連付けを行うと、以下のメソッドが使用可能（効果あり）となります。<BR>
@@ -45,8 +46,8 @@ public:
      * changeWithScene_Overlapping(progress, frame);
      * </code>
      * @param prm_FirstProgress 先頭の進捗状態
-     * @param prm_EndProgress 末尾の進捗状態
-     * @param prm_FirstSubSceneName 先頭の進捗状態(prm_FirstProgress)に対応するサブシーン
+     * @param prm_EndProgress   末尾の進捗状態
+     * @param prm_pFirstSubScene 先頭の進捗状態(prm_FirstProgress)に対応するサブシーン
      */
     void relatSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene);
 

@@ -95,7 +95,7 @@ public:
 
     /**
      * 後からスプラインオブジェクトを設定。
-     * @param prm_sp
+     * @param prm_pManufacture
      */
     virtual void setManufacture(SplineManufacture* prm_pManufacture);
 
