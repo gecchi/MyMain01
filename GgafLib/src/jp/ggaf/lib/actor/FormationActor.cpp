@@ -24,17 +24,18 @@ void FormationActor::setFormationAbleActorDepository(GgafActorDepository* prm_pD
 #ifdef MY_DEBUG
     GgafMainActor* pActor = _pDepo->getSubFirst();
     if (pActor) {
-        throwGgafCriticalException("FormationActor::setFormationAbleActorDepository("<<prm_pDepo->getName()<<") 引数デポジトリのサブが存在しません this="<<getName());
-    } else {
         //最初の１つ目の要素だけIFormationAbleチェック
-        IFormationAble* pIFormationAbleActor = dynamic_cast<IFormationAble*>(pActor);
-        if (pIFormationAbleActor) {
-            //OK
-        } else {
-            throwGgafCriticalException("FormationActor::setFormationAbleActorDepository("<<prm_pDepo->getName()<<")  IFormationAble*へクロスキャスト失敗。"<<
-                                       "_pDepo->getSubFirst()="<<pActor->getName()<<" のクラスから IFormationAble が見えません。public 継承して下さい。 this="<<getName()<<" _num_sub="<<_num_sub);
-        }
-    }
+         IFormationAble* pIFormationAbleActor = dynamic_cast<IFormationAble*>(pActor);
+         if (pIFormationAbleActor) {
+             //OK
+         } else {
+             throwGgafCriticalException("FormationActor::setFormationAbleActorDepository("<<prm_pDepo->getName()<<")  IFormationAble*へクロスキャスト失敗。"<<
+                                        "_pDepo->getSubFirst()="<<pActor->getName()<<" のクラスから IFormationAble が見えません。public 継承して下さい。 this="<<getName()<<" _num_sub="<<_num_sub);
+         }
+
+    } else {
+        throwGgafCriticalException("FormationActor::setFormationAbleActorDepository("<<prm_pDepo->getName()<<") 引数デポジトリのサブが存在しません this="<<getName());
+     }
 #endif
 }
 
