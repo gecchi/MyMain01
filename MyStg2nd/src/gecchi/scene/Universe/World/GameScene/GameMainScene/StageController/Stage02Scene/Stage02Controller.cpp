@@ -27,12 +27,12 @@ Stage02Controller::Stage02Controller(const char* prm_name) : DefaultScene(prm_na
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,3,100,1200,3000};
-	_paFrame_NextEvent = new frame[5];
-	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 5;
-	orderSceneToFactory(60000000, Stage02_01, "Stage02_01");
-	orderActorToFactory(60000002, EnemyAstraea, "Astraea_1");
+    frame f[] = {1,3,100,1200,3000};
+    _paFrame_NextEvent = new frame[5];
+    memcpy(_paFrame_NextEvent, f, sizeof(f));
+    _event_num = 5;
+    orderSceneToFactory(60000000, Stage02_01, "Stage02_01");
+    orderActorToFactory(60000002, EnemyAstraea, "Astraea_1");
     // gen01 end
     useProgress(STAGE02CONTROLLER_PROG_FAINAL);
 }
@@ -47,39 +47,39 @@ void Stage02Controller::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
-		switch (getActivePartFrame()) {
-			case 1: {
-				break;
-			}
-			case 3: {
-				Stage02_01* pScene = (Stage02_01*)obtainSceneFromFactory(60000000);
-				addSubLast(pScene);
-				_pProg->change(STAGE02CONTROLLER_PROG_STG02_01_BEGIN);
-				break;
-			}
-			case 100: {
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(60000002);
-				getDirector()->addSubGroup(pActor);
-				pActor->_Z = -1800000;
-				pActor->_Y = -100000;
-				break;
-			}
-			case 1200: {
-				orderSceneToFactory(60000001, Stage02_Climax, "Stage02_Climax");
-				break;
-			}
-			case 3000: {
-				Stage02_Climax* pScene = (Stage02_Climax*)obtainSceneFromFactory(60000001);
-				addSubLast(pScene);
-				_pProg->change(STAGE02CONTROLLER_PROG_STG02_CLIMAX_BEGIN);
-				break;
-			}
-			default :
-				break;
-		}
-		_iCnt_Event = (_iCnt_Event < 5-1 ? _iCnt_Event+1 : _iCnt_Event);
-	}
+    if (getActivePartFrame() == _paFrame_NextEvent[_iCnt_Event]) {
+        switch (getActivePartFrame()) {
+            case 1: {
+                break;
+            }
+            case 3: {
+                Stage02_01* pScene = (Stage02_01*)obtainSceneFromFactory(60000000);
+                addSubLast(pScene);
+                _pProg->change(STAGE02CONTROLLER_PROG_STG02_01_BEGIN);
+                break;
+            }
+            case 100: {
+                EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(60000002);
+                getDirector()->addSubGroup(pActor);
+                pActor->_Z = -1800000;
+                pActor->_Y = -100000;
+                break;
+            }
+            case 1200: {
+                orderSceneToFactory(60000001, Stage02_Climax, "Stage02_Climax");
+                break;
+            }
+            case 3000: {
+                Stage02_Climax* pScene = (Stage02_Climax*)obtainSceneFromFactory(60000001);
+                addSubLast(pScene);
+                _pProg->change(STAGE02CONTROLLER_PROG_STG02_CLIMAX_BEGIN);
+                break;
+            }
+            default :
+                break;
+        }
+        _iCnt_Event = (_iCnt_Event < 5-1 ? _iCnt_Event+1 : _iCnt_Event);
+    }
     // gen02 end
 
     if (_pProg->isJustChangedTo(STAGE02CONTROLLER_PROG_INIT)) {
@@ -137,7 +137,8 @@ void Stage02Controller::processBehavior() {
         _frame_prog_fainal++;
 
         if (_frame_prog_fainal == 420) { //BGMフェードアウトを待つ。
-            throwEventToUpperTree(EVENT_STAGE02CONTROLLER_WAS_END, this); //ステージエンドを上位に伝える
+            fadeoutScene(300);
+            throwEventToUpperTree(EVENT_STAGE02_CONTROLLER_WAS_END, this); //ステージエンドを上位に伝える
         }
     }
 

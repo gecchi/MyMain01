@@ -9,8 +9,6 @@ public:
     /** スコア */
     static UINT32 _score;
 
-    /** ステージ */
-    static int _iScene;
     /** ランク（0.0 ～ 1.0。 1.0がMAXランクとする) */
     static double _rank;
 

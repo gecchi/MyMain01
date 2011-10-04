@@ -56,18 +56,26 @@ void Stage01Scene::processBehavior() {
                 _pMessage->update(300*1000, 300*1000, "SCENE 01 START!");
                 _pMessage->inactivateDelay(240);
             }
-            //EVENT_STAGE01CONTROLLER_WAS_ENDイベント待ち
+            //EVENT_STAGE01_CONTROLLER_WAS_ENDイベント待ち
             break;
         }
         case STAGESCENE_PROG_END: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("Stage01Scene::processBehavior()  STAGESCENE_PROG_ENDになりますた！");
+                throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, this); //次ステージ準備へ
             }
-            _pMessage->activateImmediately();
-            _pMessage->update(300*1000, 300*1000, "SCENE 01 CLEAR!!");
-            _pMessage->inactivateDelay(120);
-            fadeoutScene(120);
-            throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, this); //次ステージ準備へ
+
+            if (_pProg->getFrameInProgress() == 60) {
+                _pMessage->activateImmediately();
+                _pMessage->update(300*1000, 300*1000, "SCENE 01 CLEAR!!");
+                _pMessage->inactivateDelay(120);
+                fadeoutScene(300);
+            }
+            if (_pProg->getFrameInProgress() == 300) {
+                throwEventToUpperTree(EVENT_STAGE01_WAS_END);
+            }
+
+
             break;
         }
         default:
@@ -85,8 +93,9 @@ void Stage01Scene::processFinal() {
 }
 
 void Stage01Scene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_STAGE01CONTROLLER_WAS_END ) {
+    if (prm_no == EVENT_STAGE01_CONTROLLER_WAS_END ) {
         _TRACE_("Stage01Scene::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGESCENE_PROG_ENDへ");
+        _pScene_Stage01Controller->end(60*60);
         _pProg->change(STAGESCENE_PROG_END);
     } else {
 

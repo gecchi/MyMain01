@@ -23,8 +23,6 @@ MyShip::MyShip(const char* prm_name) :
     _class_name = "MyShip";
     //changeEffectTechnique("DestBlendOne"); //‰ÁZ‡¬Techniquew’è
 
-    GameGlobal::init();
-
     //‰æ–Ê‚Ì‘å‚«‚³‚É”º‚Á‚ÄAˆÚ“®”ÍˆÍ‚ğŒˆ’è
     //‚±‚Ì‚ ‚½‚è‚ÍFovX‚ÉˆË‘¶‚·‚é‚Ì‚Å”÷’²®B
     int harf_width = CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2;

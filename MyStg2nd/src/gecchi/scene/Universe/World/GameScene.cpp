@@ -49,7 +49,6 @@ _pStageController(NULL) {
     //addSubLast(NEW TamagoScene("TamagoScene"));
     _is_frame_advance = false;
 
-    _stage = 1;
     _was_paused_flg_GameMainScene_prev_frame = false;
 
 }
@@ -73,6 +72,7 @@ void GameScene::onReset() {
         }
     }
     P_UNIVERSE->resetCameraWork();
+    GameGlobal::init();
     _pProg->set(GAMESCENE_PROG_INIT);
 }
 
@@ -296,7 +296,6 @@ void GameScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_GAMEMODE_DECIDE) {
         //ゲームモードセレクト完了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEMODE_DECIDE)");
-        _stage = 1;
         _pProg->changeWithScene_Crossfading(GAMESCENE_PROG_MAIN,600);//メインへ
     } else if (prm_no == EVENT_GOTO_GAMETITLE) {
         //とにかくタイトルへイベント発生

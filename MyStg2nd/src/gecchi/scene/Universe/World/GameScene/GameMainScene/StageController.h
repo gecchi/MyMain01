@@ -19,9 +19,9 @@ public:
 //    frame _frame_Begin;
 //    frame _frame_Play;
 //    frame _frame_End;
-
+    int _loop;
     int _stage;
-    bool _had_ready_stage;
+//    bool _had_ready_stage;
 //    frame _frame_ready_stage;
     StageController(const char* prm_name);
 
@@ -31,12 +31,13 @@ public:
 
     void onReset() override;
     void readyStage(int prm_stage);
-    void readyNextStage();
+//    void readyNextStage();
 //    void cannelStage(int prm_stage);
 
     void initialize() override;
     void processBehavior() override;
     void processFinal() override;
+    void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
     virtual ~StageController();
 
 };

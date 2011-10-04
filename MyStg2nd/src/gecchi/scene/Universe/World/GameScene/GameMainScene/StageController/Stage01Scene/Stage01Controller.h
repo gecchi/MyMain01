@@ -14,7 +14,6 @@ class Stage01Controller : public GgafLib::DefaultScene {
 
 public:
 
-    frame _frame_prog_fainal;
 
     Stage01Controller(const char* prm_name);
     /**

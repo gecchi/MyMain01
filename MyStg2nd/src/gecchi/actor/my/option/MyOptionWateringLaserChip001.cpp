@@ -153,19 +153,15 @@ void MyOptionWateringLaserChip001::processBehavior() {
 
 //
             int vTx,vTy,vTz;
-//            _KTRACE_("XYZ="<<_X<<","<<_Y<<","<<_Z<<" Org="<<_pOrg->_X<<","<<_pOrg->_Y<<","<<_pOrg->_Z);
             if (_pChip_front == NULL) {
                 //先端ならば特別に、オプションの反対の座標をターゲットする
                 int dx = (_X - _pOrg->_X);
                 int dy = (_Y - _pOrg->_Y);
                 int dz = (_Z - _pOrg->_Z);
-//                _KTRACE_("_pChip_front == NULL");
-//                _KTRACE_("dx,dy,dz="<<dx<<","<<dy<<","<<dz);
                 coord zf = Dx2App(P_CAM->_zf);
                 vTx = _X+dx*(dx == 0 ? zf : zf/dx);
                 vTy = _Y+dy*(dy == 0 ? zf : zf/dy);
                 vTz = _Z+dz*(dz == 0 ? zf : zf/dz);
-//                _KTRACE_("vTx,vTy,vTz="<<vTx<<","<<vTy<<","<<vTz);
             } else {
                 LaserChip* p = _pChip_front;
                 for (int i = 0; i < 5; i++) {
@@ -179,54 +175,26 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 }
             }
 
-//
-//
-//                if (_pChip_front->_pChip_front == NULL) {
-////                _KTRACE_("_pChip_front->_pChip_front == NULL");
-//                //先端以外は前方のチップを新たなターゲットにする
-//                vTx = _pChip_front->_X - _X;
-//                vTy = _pChip_front->_Y - _Y;
-//                vTz = _pChip_front->_Z - _Z;
-////                _KTRACE_("vTx,vTy,vTz="<<vTx<<","<<vTy<<","<<vTz);
-//            } else if (_pChip_front->_pChip_front->_pChip_front == NULL) {
-////                _KTRACE_("} else {");
-//                vTx = _pChip_front->_pChip_front->_X - _X;
-//                vTy = _pChip_front->_pChip_front->_Y - _Y;
-//                vTz = _pChip_front->_pChip_front->_Z - _Z;
-////                _KTRACE_("vTx,vTy,vTz="<<vTx<<","<<vTy<<","<<vTz);
-//            } else {
-//
-//            }
             //自→仮自。上図の |仮自| = 5*vM
-//            _KTRACE_("_pKurokoB->_veloVxyzMv="<<_pKurokoB->_veloVxMv<<","<<_pKurokoB->_veloVyMv<<","<<_pKurokoB->_veloVzMv);
             int vVMx = _pKurokoB->_veloVxMv*5;
             int vVMy = _pKurokoB->_veloVyMv*5;
             int vVMz = _pKurokoB->_veloVzMv*5;
-//            _KTRACE_("vVMx,vVMy,vVMz="<<vVMx<<","<<vVMy<<","<<vVMz);
             //|仮自|
             int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
             //|的|
             int lT =  MAX3(abs(vTx), abs(vTy), abs(vTz)); //的ベクトル大きさ簡易版
-//            _KTRACE_("lVM="<<lVM<<"/lT="<<lT);
             //|仮自|/|的|
             double r = 1.5*lVM / lT;
-//            _KTRACE_("r="<<r<<" 1.5*lVM / lT="<<(1.5*lVM / lT));
             //1.5は 右上図のように一直線に並んだ際も、進行方向を維持するために、
             //|仮的| > |仮自| という関係を維持するためにかけた適当な割合
 
             //仮自→仮的 の加速度設定
-//            _KTRACE_("_r_maxacce="<<_r_maxacce);
-//            _KTRACE_("befor _pKurokoB->_acceVxyzMv="<<_pKurokoB->_acceVxMv<<","<<_pKurokoB->_acceVyMv<<","<<_pKurokoB->_acceVzMv);
-//            _KTRACE_("((vTx * r) - vVMx)/_r_maxacce="<<(((vTx * r) - vVMx)/_r_maxacce));
-//            _KTRACE_("((vTy * r) - vVMy)/_r_maxacce="<<(((vTy * r) - vVMy)/_r_maxacce));
-//            _KTRACE_("((vTz * r) - vVMz)/_r_maxacce="<<(((vTz * r) - vVMz)/_r_maxacce));
             double accX = ((vTx * r) - vVMx)/_r_maxacce;
             double accY = ((vTy * r) - vVMy)/_r_maxacce;
             double accZ = ((vTz * r) - vVMz)/_r_maxacce;
             _pKurokoB->setVxMvAcce(accX+sgn(accX)*2);
             _pKurokoB->setVyMvAcce(accY+sgn(accY)*2);
             _pKurokoB->setVzMvAcce(accZ+sgn(accZ)*2);
-//            _KTRACE_("after _pKurokoB->_acceVxyzMv="<<_pKurokoB->_acceVxMv<<","<<_pKurokoB->_acceVyMv<<","<<_pKurokoB->_acceVzMv);
 
             if (lVM > _renge/2) {
                 angle RZ_temp = _RZ;
@@ -264,58 +232,6 @@ void MyOptionWateringLaserChip001::processBehavior() {
             }
         }
     }
-
-//                _pKurokoB->setVxMvAcce(dx/_r_maxacce);
-//                _pKurokoB->setVyMvAcce(dy/_r_maxacce);
-////                _pKurokoB->setVzMvAcce(dy/_r_maxacce);
-//           } else {
-////                //新たなターゲットを作成
-//
-//                if (_pChip_front->_pChip_front == NULL) {
-//                    //新たなターゲットを作成
-//                    int dx = _pChip_front->_X - (_X + _pKurokoB->_veloVxMv);
-//                    int dy = _pChip_front->_Y - (_Y + _pKurokoB->_veloVyMv);
-//                    int dz = _pChip_front->_Z - (_Z + _pKurokoB->_veloVzMv);
-//                    _pKurokoB->setVxMvAcce(dx);
-//                    _pKurokoB->setVyMvAcce(dy);
-//                    _pKurokoB->setVzMvAcce(dz);
-//                } else if (_pChip_front->_pChip_front->_pChip_front == NULL) {
-//                    int dx = _pChip_front->_pChip_front->_X - (_X + _pKurokoB->_veloVxMv*5);
-//                    int dy = _pChip_front->_pChip_front->_Y - (_Y + _pKurokoB->_veloVyMv*5);
-//                    int dz = _pChip_front->_pChip_front->_Z - (_Z + _pKurokoB->_veloVzMv*5);
-//                    _pKurokoB->setVxMvAcce(dx);
-//                    _pKurokoB->setVyMvAcce(dy);
-//                    _pKurokoB->setVzMvAcce(dz);
-//                } else if (_pChip_front->_pChip_front->_pChip_front->_pChip_front == NULL) {
-//                    int dx = _pChip_front->_pChip_front->_pChip_front->_X - (_X + _pKurokoB->_veloVxMv*5);
-//                    int dy = _pChip_front->_pChip_front->_pChip_front->_Y - (_Y + _pKurokoB->_veloVyMv*5);
-//                    int dz = _pChip_front->_pChip_front->_pChip_front->_Z - (_Z + _pKurokoB->_veloVzMv*5);
-//                    _pKurokoB->setVxMvAcce(dx);
-//                    _pKurokoB->setVyMvAcce(dy);
-//                    _pKurokoB->setVzMvAcce(dz);
-//                } else {
-//                    int dx = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_X - (_X + _pKurokoB->_veloVxMv*5);
-//                    int dy = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_Y - (_Y + _pKurokoB->_veloVyMv*5);
-//                    int dz = _pChip_front->_pChip_front->_pChip_front->_pChip_front->_Z - (_Z + _pKurokoB->_veloVzMv*5);
-//                    _pKurokoB->setVxMvAcce(dx);
-//                    _pKurokoB->setVyMvAcce(dy);
-//                    _pKurokoB->setVzMvAcce(dz);
-//                }
-//
-//
-////                _pKurokoB->setVxMvAcce((_pChip_front->_X - _X)/_r_maxacce);
-////                _pKurokoB->setVyMvAcce((_pChip_front->_Y - _Y)/_r_maxacce);
-////                _pKurokoB->setVzMvAcce((_pChip_front->_Z - _Z)/_r_maxacce);
-//                _pKurokoB->setVxMvAcce(0);
-//                _pKurokoB->setVyMvAcce(0);
-//                _pKurokoB->setVzMvAcce(0);
-//                MyOptionWateringLaserChip001* p = (MyOptionWateringLaserChip001*)_pChip_front;
-//                _pKurokoB->setVxMvVelo(p->_tmpX - _X);
-//                _pKurokoB->setVyMvVelo(p->_tmpY - _Y);
-//                _pKurokoB->setVzMvVelo(p->_tmpZ - _Z);
-//            }
-
-
 
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正

@@ -48,7 +48,6 @@ public:
     /** コマ送りフラグ */
     bool _is_frame_advance;
     bool _was_paused_flg_GameMainScene_prev_frame;
-    int _stage;
 
     GameScene(const char* prm_name);
 
