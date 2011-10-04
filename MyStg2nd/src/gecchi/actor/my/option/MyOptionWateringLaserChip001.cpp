@@ -14,8 +14,8 @@ MyOptionWateringLaserChip001::MyOptionWateringLaserChip001(const char* prm_name)
     _pOrg = NULL;
     _lockon = 0;
     _isLockon = false;
-    _renge = 150000; //この値を大きくすると、最高速度が早くなる。
-    _r_maxacce = 20; //この値を大きくすると、カーブが緩くなる
+    _renge = 160000; //この値を大きくすると、最高速度が早くなる。
+    _r_maxacce = 18; //この値を大きくすると、カーブが緩くなる
 }
 
 void MyOptionWateringLaserChip001::initialize() {
@@ -58,8 +58,10 @@ void MyOptionWateringLaserChip001::onActive() {
 }
 
 void MyOptionWateringLaserChip001::processBehavior() {
+    _KTRACE_("this="<<this<<" "<<getName()<<"  "<<_pChip_front <<"<--["<<this<<"]<--"<<_pChip_behind);
+
     GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
-    if (getActivePartFrame() > 10) {
+    if (getActivePartFrame() > 8) {
         if (_lockon == 1) {
             if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
                 //    |             vVT 仮的                        |
@@ -99,9 +101,12 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 //|仮的| > |仮自| という関係を維持するためにかけた適当な割合
 
                 //仮自→仮的 の加速度設定
-                _pKurokoB->setVxMvAcce(((vTx * r) - vVMx)/_r_maxacce);
-                _pKurokoB->setVyMvAcce(((vTy * r) - vVMy)/_r_maxacce);
-                _pKurokoB->setVzMvAcce(((vTz * r) - vVMz)/_r_maxacce);
+                double accX = ((vTx * r) - vVMx)/_r_maxacce;
+                double accY = ((vTy * r) - vVMy)/_r_maxacce;
+                double accZ = ((vTz * r) - vVMz)/_r_maxacce;
+                _pKurokoB->setVxMvAcce(accX+sgn(accX)*2); //sgn(accX)*2 を加算するのは、加速度を0にしないため
+                _pKurokoB->setVyMvAcce(accY+sgn(accY)*2);
+                _pKurokoB->setVzMvAcce(accZ+sgn(accZ)*2);
 
                 //ネジレ描画が汚くならないように回転を制限
                 if (lVM > _renge/2) {
@@ -148,43 +153,81 @@ void MyOptionWateringLaserChip001::processBehavior() {
 
 //
             int vTx,vTy,vTz;
+//            _KTRACE_("XYZ="<<_X<<","<<_Y<<","<<_Z<<" Org="<<_pOrg->_X<<","<<_pOrg->_Y<<","<<_pOrg->_Z);
             if (_pChip_front == NULL) {
                 //先端ならば特別に、オプションの反対の座標をターゲットする
                 int dx = (_X - _pOrg->_X);
                 int dy = (_Y - _pOrg->_Y);
                 int dz = (_Z - _pOrg->_Z);
+//                _KTRACE_("_pChip_front == NULL");
+//                _KTRACE_("dx,dy,dz="<<dx<<","<<dy<<","<<dz);
                 coord zf = Dx2App(P_CAM->_zf);
                 vTx = _X+dx*(dx == 0 ? zf : zf/dx);
                 vTy = _Y+dy*(dy == 0 ? zf : zf/dy);
                 vTz = _Z+dz*(dz == 0 ? zf : zf/dz);
-            } else if (_pChip_front->_pChip_front == NULL) {
-                //先端以外は前方のチップを新たなターゲットにする
-                vTx = _pChip_front->_X - _X;
-                vTy = _pChip_front->_Y - _Y;
-                vTz = _pChip_front->_Z - _Z;
+//                _KTRACE_("vTx,vTy,vTz="<<vTx<<","<<vTy<<","<<vTz);
             } else {
-                vTx = _pChip_front->_pChip_front->_X - _X;
-                vTy = _pChip_front->_pChip_front->_Y - _Y;
-                vTz = _pChip_front->_pChip_front->_Z - _Z;
+                LaserChip* p = _pChip_front;
+                for (int i = 0; i < 5; i++) {
+                    if (p->_pChip_front == NULL) {
+                        vTx = p->_X - _X;
+                        vTy = p->_Y - _Y;
+                        vTz = p->_Z - _Z;
+                    } else {
+                        p = p->_pChip_front;
+                    }
+                }
             }
+
+//
+//
+//                if (_pChip_front->_pChip_front == NULL) {
+////                _KTRACE_("_pChip_front->_pChip_front == NULL");
+//                //先端以外は前方のチップを新たなターゲットにする
+//                vTx = _pChip_front->_X - _X;
+//                vTy = _pChip_front->_Y - _Y;
+//                vTz = _pChip_front->_Z - _Z;
+////                _KTRACE_("vTx,vTy,vTz="<<vTx<<","<<vTy<<","<<vTz);
+//            } else if (_pChip_front->_pChip_front->_pChip_front == NULL) {
+////                _KTRACE_("} else {");
+//                vTx = _pChip_front->_pChip_front->_X - _X;
+//                vTy = _pChip_front->_pChip_front->_Y - _Y;
+//                vTz = _pChip_front->_pChip_front->_Z - _Z;
+////                _KTRACE_("vTx,vTy,vTz="<<vTx<<","<<vTy<<","<<vTz);
+//            } else {
+//
+//            }
             //自→仮自。上図の |仮自| = 5*vM
+//            _KTRACE_("_pKurokoB->_veloVxyzMv="<<_pKurokoB->_veloVxMv<<","<<_pKurokoB->_veloVyMv<<","<<_pKurokoB->_veloVzMv);
             int vVMx = _pKurokoB->_veloVxMv*5;
             int vVMy = _pKurokoB->_veloVyMv*5;
             int vVMz = _pKurokoB->_veloVzMv*5;
-
+//            _KTRACE_("vVMx,vVMy,vVMz="<<vVMx<<","<<vVMy<<","<<vVMz);
             //|仮自|
             int lVM = MAX3(abs(vVMx), abs(vVMy), abs(vVMz)); //仮自ベクトル大きさ簡易版
             //|的|
             int lT =  MAX3(abs(vTx), abs(vTy), abs(vTz)); //的ベクトル大きさ簡易版
+//            _KTRACE_("lVM="<<lVM<<"/lT="<<lT);
             //|仮自|/|的|
             double r = 1.5*lVM / lT;
+//            _KTRACE_("r="<<r<<" 1.5*lVM / lT="<<(1.5*lVM / lT));
             //1.5は 右上図のように一直線に並んだ際も、進行方向を維持するために、
             //|仮的| > |仮自| という関係を維持するためにかけた適当な割合
 
             //仮自→仮的 の加速度設定
-            _pKurokoB->setVxMvAcce(((vTx * r) - vVMx)/_r_maxacce);
-            _pKurokoB->setVyMvAcce(((vTy * r) - vVMy)/_r_maxacce);
-            _pKurokoB->setVzMvAcce(((vTz * r) - vVMz)/_r_maxacce);
+//            _KTRACE_("_r_maxacce="<<_r_maxacce);
+//            _KTRACE_("befor _pKurokoB->_acceVxyzMv="<<_pKurokoB->_acceVxMv<<","<<_pKurokoB->_acceVyMv<<","<<_pKurokoB->_acceVzMv);
+//            _KTRACE_("((vTx * r) - vVMx)/_r_maxacce="<<(((vTx * r) - vVMx)/_r_maxacce));
+//            _KTRACE_("((vTy * r) - vVMy)/_r_maxacce="<<(((vTy * r) - vVMy)/_r_maxacce));
+//            _KTRACE_("((vTz * r) - vVMz)/_r_maxacce="<<(((vTz * r) - vVMz)/_r_maxacce));
+            double accX = ((vTx * r) - vVMx)/_r_maxacce;
+            double accY = ((vTy * r) - vVMy)/_r_maxacce;
+            double accZ = ((vTz * r) - vVMz)/_r_maxacce;
+            _pKurokoB->setVxMvAcce(accX+sgn(accX)*2);
+            _pKurokoB->setVyMvAcce(accY+sgn(accY)*2);
+            _pKurokoB->setVzMvAcce(accZ+sgn(accZ)*2);
+//            _KTRACE_("after _pKurokoB->_acceVxyzMv="<<_pKurokoB->_acceVxMv<<","<<_pKurokoB->_acceVyMv<<","<<_pKurokoB->_acceVzMv);
+
             if (lVM > _renge/2) {
                 angle RZ_temp = _RZ;
                 angle RY_temp = _RY;

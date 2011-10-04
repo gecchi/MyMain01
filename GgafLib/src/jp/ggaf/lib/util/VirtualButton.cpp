@@ -674,7 +674,8 @@ void VirtualButton::update() {
         throwGgafCriticalException("VirtualButton::update() 利用前に一度 init() を呼び出して下さい。");
     }
 #endif
-
+    GgafDxInput::updateKeyboardState();
+    GgafDxInput::updateJoystickState();
 
     if (_is_replaying) {
         //リプレイモード時
@@ -688,8 +689,8 @@ void VirtualButton::update() {
     } else {
 
         //通常操作時
-        GgafDxInput::updateKeyboardState();
-        GgafDxInput::updateJoystickState();
+//        GgafDxInput::updateKeyboardState();
+//        GgafDxInput::updateJoystickState();
 
         _pVBRecord_Active = _pVBRecord_Active->_next;
 

@@ -1,5 +1,7 @@
 #ifndef GGAFDXINPUT_H_
 #define GGAFDXINPUT_H_
+
+#define _KTRACE_(M) {if (GgafDxCore::GgafDxInput::isBeingPressedKey(DIK_P)) { _TRACE_(M); }}
 namespace GgafDxCore {
 
 /**
