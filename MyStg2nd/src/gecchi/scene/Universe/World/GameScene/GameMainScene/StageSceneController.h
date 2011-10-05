@@ -20,25 +20,15 @@ public:
     char _buf[60];
 
     StageScene* _pSceneMainCannnel;
-
-//    frame _frame_Begin;
-//    frame _frame_Play;
-//    frame _frame_End;
+    TransitStage* _pTransitStage;
+Ç±Ç±Ç±Å™
     int _loop;
     int _stage;
-//    bool _had_ready_stage;
-//    frame _frame_ready_stage;
     StageSceneController(const char* prm_name);
 
-//    void setStage(int prm_stage) {
-//        _stage = prm_stage;
-//    }
 
     void onReset() override;
     void readyStage(int prm_stage);
-//    void readyNextStage();
-//    void cannelStage(int prm_stage);
-
     void initialize() override;
     void processBehavior() override;
     void processFinal() override;

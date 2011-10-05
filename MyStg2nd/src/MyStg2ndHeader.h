@@ -156,7 +156,7 @@ enum MoveWay {
 };
 //イベント用 UINT32 数値宣言
 DECLARE_CONST(EVENT_GOD_WILL_DIE);
-
+DECLARE_CONST(EVENT_PREPARE_TRANSIT_STAGE);
 DECLARE_CONST(EVENT_PREPARE_NEXT_STAGE);
 DECLARE_CONST(EVENT_JUST_GAME_OVER);
 DECLARE_CONST(EVENT_STG01_01_WAS_BROKEN);
@@ -165,6 +165,8 @@ DECLARE_CONST(EVENT_STG01_03_WAS_BROKEN);
 DECLARE_CONST(EVENT_STG01_CLIMAX_WAS_BROKEN);
 DECLARE_CONST(EVENT_STG01_CONTROLLER_WAS_END);
 DECLARE_CONST(EVENT_STG01_WAS_END);
+
+DECLARE_CONST(EVENT_TRANSIT_WAS_END);
 
 DECLARE_CONST(EVENT_STG02_01_WAS_BROKEN);
 DECLARE_CONST(EVENT_STG02_02_WAS_BROKEN);
@@ -309,10 +311,13 @@ class EffectTurbo002;
 class EffectCondensation001;
 class EffectLaserRefraction001;
 
+class HoshiBoshiTransit;
 class HoshiBoshi001;
 class HoshiBoshi002;
+class WorldBoundSpaceTransit;
 class WorldBoundSpace001;
 class WorldBoundSpace002;
+
 class TurboMeter;
 class LabelGecchi8Font;
 class LabelGecchi16Font;
@@ -549,17 +554,21 @@ class MagicMeter;
 #include "gecchi/actor/title/Cursor001.h"
 
 #include "gecchi/actor/background/board/TurboMeter.h"
-#include "gecchi/actor/background/HoshiBoshi.h"
-#include "gecchi/actor/background/HoshiBoshi001.h"
-#include "gecchi/actor/background/HoshiBoshi002.h"
+#include "gecchi/actor/background/HoshiBoshi/HoshiBoshi.h"
+#include "gecchi/actor/background/HoshiBoshi/HoshiBoshiTransit.h"
+#include "gecchi/actor/background/HoshiBoshi/HoshiBoshi001.h"
+#include "gecchi/actor/background/HoshiBoshi/HoshiBoshi002.h"
+
+#include "gecchi/actor/background/WorldBound/WorldBoundSpaceTransit.h"
+#include "gecchi/actor/background/WorldBound/WorldBoundSpace001.h"
+#include "gecchi/actor/background/WorldBound/WorldBoundSpace002.h"
 
 #include "gecchi/actor/label/LabelGecchi8Font.h"
 #include "gecchi/actor/label/LabelGecchi16Font.h"
 #include "gecchi/actor/label/LabelRankFont.h"
 #include "gecchi/actor/label/LabelRankingFont.h"
 
-#include "gecchi/actor/background/WorldBound/WorldBoundSpace001.h"
-#include "gecchi/actor/background/WorldBound/WorldBoundSpace002.h"
+
 
 #include "gecchi/GameGlobal.h"
 

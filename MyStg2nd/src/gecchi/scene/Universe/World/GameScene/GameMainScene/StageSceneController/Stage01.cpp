@@ -62,7 +62,7 @@ void Stage01::processBehavior() {
         case STAGESCENE_PROG_END: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("Stage01::processBehavior()  STAGESCENE_PROG_ENDになりますた！");
-                throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, this); //次ステージ準備へ
+                throwEventToUpperTree(EVENT_PREPARE_TRANSIT_STAGE, this); //通過ステージ準備へ
             }
 
             if (_pProg->getFrameInProgress() == 60) {

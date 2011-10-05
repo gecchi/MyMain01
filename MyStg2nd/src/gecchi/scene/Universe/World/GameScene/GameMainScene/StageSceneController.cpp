@@ -8,10 +8,12 @@ using namespace MyStg2nd;
 enum {
     STAGESCENECONTROLLER_PROG_INIT = 1,
     STAGESCENECONTROLLER_PROG_BEGIN   ,
-    STAGESCENECONTROLLER_PROG_PLAY    ,
+    STAGESCENECONTROLLER_PROG_PLAY_STAGE,
+    STAGESCENECONTROLLER_PROG_PLAY_TRANSIT,
     STAGESCENECONTROLLER_PROG_FINISH  ,
 };
 #define ORDER_ID_STAGESCENE 11
+#define ORDER_ID_TRANSIT 111
 
 StageSceneController::StageSceneController(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "StageSceneController";
@@ -42,14 +44,8 @@ void StageSceneController::onReset() {
 //    readyStage(_stage);
 //}
 
+
 void StageSceneController::readyStage(int prm_stage) {
-//    if (_had_ready_stage) {
-//        _TRACE_("＜警告＞StageSceneController::readyStage 既に準備済みのステージがありますので無視します。_stage="<<_stage<<" prm_stage="<<prm_stage);
-//        return;
-//    }
-//
-//    _stage = prm_stage;
-//    _had_ready_stage = true;
     switch (prm_stage) {
         case 1:
             orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage01, "Stage01");
@@ -87,12 +83,12 @@ void StageSceneController::processBehavior() {
             if (_pProg->isJustChanged()) {
             }
             if (_pProg->getFrameInProgress() == 120) { //deleteを考慮し２秒遊ぶ
-                _pProg->change(STAGESCENECONTROLLER_PROG_PLAY);
+                _pProg->change(STAGESCENECONTROLLER_PROG_PLAY_STAGE);
             }
             break;
         }
 
-        case STAGESCENECONTROLLER_PROG_PLAY: {
+        case STAGESCENECONTROLLER_PROG_PLAY_STAGE: {
             if (_pProg->isJustChanged()) {
                 readyStage(_stage);
                 _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE+_stage);
@@ -115,6 +111,9 @@ void StageSceneController::processBehavior() {
 
 }
 void StageSceneController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+    if (prm_no == EVENT_PREPARE_TRANSIT_STAGE) {
+
+    }
     if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
         //次のステージを工場に注文していいよというイベント
         _TRACE_("StageSceneController::onCatchEvent() EVENT_PREPARE_NEXT_STAGE 準備きた");

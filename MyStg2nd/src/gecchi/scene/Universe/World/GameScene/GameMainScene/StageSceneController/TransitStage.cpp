@@ -8,11 +8,11 @@ using namespace MyStg2nd;
 TransitStage::TransitStage(const char* prm_name) : StageScene(prm_name) {
     _class_name = "TransitStage";
 
-    _pWorldBoundSpace  = NEW WorldBoundSpace001("BG_SPACE");
+    _pWorldBoundSpace  = NEW WorldBoundSpaceTransit("WBSTransit");
     _pWorldBoundSpace->inactivateTree();
-    getDirector()->addSubGroup(KIND_EFFECT, _pWorldBoundSpace);
+    getDirector()->addSubGroup(_pWorldBoundSpace);
 
-    _pHoshiBoshi = NEW HoshiBoshi001("HoshiBoshi001");
+    _pHoshiBoshi = NEW HoshiBoshiTransit("HoshiBoshiTransit");
     _pHoshiBoshi->inactivateTree();
     getDirector()->addSubGroup(KIND_EFFECT, _pHoshiBoshi);
 
@@ -47,11 +47,16 @@ void TransitStage::processBehavior() {
             break;
         }
         case STAGESCENE_PROG_PLAYING: {
-            if (_pProg->getFrameInProgress() == 60) { //ステージ１開始！
-                _pMessage->update(300*1000, 300*1000, "SCENE 01 START!");
+            if (_pProg->getFrameInProgress() == 60) { //ステージ開始！
+                _pMessage->update(300*1000, 300*1000, "SELECT NEXT STAGE!");
                 _pMessage->inactivateDelay(240);
             }
-            //EVENT_STG01_CONTROLLER_WAS_ENDイベント待ち
+
+            //ステージ決定処理はココ
+
+            if (_pProg->getFrameInProgress() == 5*60) {
+                _pProg->change(STAGESCENE_PROG_END);
+            }
             break;
         }
         case STAGESCENE_PROG_END: {
@@ -62,12 +67,12 @@ void TransitStage::processBehavior() {
 
             if (_pProg->getFrameInProgress() == 60) {
                 _pMessage->activateImmediately();
-                _pMessage->update(300*1000, 300*1000, "SCENE 01 CLEAR!!");
+                _pMessage->update(300*1000, 300*1000, "GOOD LUCK!");
                 _pMessage->inactivateDelay(120);
                 fadeoutScene(300);
             }
             if (_pProg->getFrameInProgress() == 300) {
-                throwEventToUpperTree(EVENT_STG01_WAS_END);
+                throwEventToUpperTree(EVENT_TRANSIT_WAS_END);
             }
 
 
@@ -93,6 +98,22 @@ void TransitStage::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         _pProg->change(STAGESCENE_PROG_END);
     } else {
 
+    }
+}
+void TransitStage::ready(int prm_stage) {
+    switch (prm_stage) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        default:
+            break;
     }
 }
 

@@ -15,8 +15,8 @@ class TransitStage : public StageScene {
 
 public:
 
-    WorldBoundSpace001* _pWorldBoundSpace;
-    HoshiBoshi001* _pHoshiBoshi;
+    WorldBoundSpaceTransit* _pWorldBoundSpace;
+    HoshiBoshiTransit* _pHoshiBoshi;
     LabelGecchi16Font* _pMessage;
 
     TransitStage(const char* prm_name);
@@ -28,6 +28,7 @@ public:
     virtual void processJudgement() override;
     virtual void processFinal() override;
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
+    void ready(int prm_stage);
     virtual ~TransitStage();
 };
 
