@@ -138,7 +138,7 @@ void Stage02Controller::processBehavior() {
 
         if (_frame_prog_fainal == 420) { //BGMフェードアウトを待つ。
             fadeoutScene(300);
-            throwEventToUpperTree(EVENT_STAGE02_CONTROLLER_WAS_END, this); //ステージエンドを上位に伝える
+            throwEventToUpperTree(EVENT_STG02_CONTROLLER_WAS_END, this); //ステージエンドを上位に伝える
         }
     }
 

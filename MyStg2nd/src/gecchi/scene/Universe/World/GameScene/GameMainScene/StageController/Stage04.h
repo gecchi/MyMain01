@@ -1,12 +1,12 @@
-#ifndef STAGE05SCENE_H_
-#define STAGE05SCENE_H_
+#ifndef STAGE04_H_
+#define STAGE04_H_
 namespace MyStg2nd {
 
-class Stage05Scene : public StageScene {
+class Stage04 : public StageScene {
 
 public:
 
-    Stage05Scene(const char* prm_name);
+    Stage04(const char* prm_name);
     /**
      * ‰Šúˆ—
      */
@@ -16,8 +16,8 @@ public:
 
     virtual void processFinal() override;
 
-    virtual ~Stage05Scene();
+    virtual ~Stage04();
 };
 
 }
-#endif /*STAGE05SCENE_H_*/
+#endif /*STAGE04_H_*/

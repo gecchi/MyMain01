@@ -17,8 +17,8 @@ void StageScene::initialize() {
 }
 
 void StageScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_STAGE01_CONTROLLER_WAS_END ||
-        prm_no == EVENT_STAGE02_CONTROLLER_WAS_END
+    if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ||
+        prm_no == EVENT_STG02_CONTROLLER_WAS_END
     ) {
         _TRACE_("StageScene::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGESCENE_PROG_ENDへ");
         _pProg->change(STAGESCENE_PROG_END);

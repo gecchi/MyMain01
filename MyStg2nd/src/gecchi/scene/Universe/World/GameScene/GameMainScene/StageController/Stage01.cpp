@@ -5,8 +5,8 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
-    _class_name = "Stage01Scene";
+Stage01::Stage01(const char* prm_name) : StageScene(prm_name) {
+    _class_name = "Stage01";
 
     _pScene_Stage01Controller = NEW Stage01Controller("Stage01Ctrl");
     _pScene_Stage01Controller->inactivate();
@@ -28,11 +28,11 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     useProgress(10);
 }
 
-void Stage01Scene::initialize() {
+void Stage01::initialize() {
     StageScene::initialize();
 }
 
-void Stage01Scene::processBehavior() {
+void Stage01::processBehavior() {
     StageScene::processBehavior();
 
     switch (_pProg->get()) {
@@ -56,12 +56,12 @@ void Stage01Scene::processBehavior() {
                 _pMessage->update(300*1000, 300*1000, "SCENE 01 START!");
                 _pMessage->inactivateDelay(240);
             }
-            //EVENT_STAGE01_CONTROLLER_WAS_ENDイベント待ち
+            //EVENT_STG01_CONTROLLER_WAS_ENDイベント待ち
             break;
         }
         case STAGESCENE_PROG_END: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("Stage01Scene::processBehavior()  STAGESCENE_PROG_ENDになりますた！");
+                _TRACE_("Stage01::processBehavior()  STAGESCENE_PROG_ENDになりますた！");
                 throwEventToUpperTree(EVENT_PREPARE_NEXT_STAGE, this); //次ステージ準備へ
             }
 
@@ -72,7 +72,7 @@ void Stage01Scene::processBehavior() {
                 fadeoutScene(300);
             }
             if (_pProg->getFrameInProgress() == 300) {
-                throwEventToUpperTree(EVENT_STAGE01_WAS_END);
+                throwEventToUpperTree(EVENT_STG01_WAS_END);
             }
 
 
@@ -85,16 +85,16 @@ void Stage01Scene::processBehavior() {
 
 }
 
-void Stage01Scene::processJudgement() {
+void Stage01::processJudgement() {
 }
 
-void Stage01Scene::processFinal() {
+void Stage01::processFinal() {
 
 }
 
-void Stage01Scene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_STAGE01_CONTROLLER_WAS_END ) {
-        _TRACE_("Stage01Scene::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGESCENE_PROG_ENDへ");
+void Stage01::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+    if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
+        _TRACE_("Stage01::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGESCENE_PROG_ENDへ");
         _pScene_Stage01Controller->end(60*60);
         _pProg->change(STAGESCENE_PROG_END);
     } else {
@@ -103,6 +103,6 @@ void Stage01Scene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 }
 
 
-Stage01Scene::~Stage01Scene() {
+Stage01::~Stage01() {
 
 }

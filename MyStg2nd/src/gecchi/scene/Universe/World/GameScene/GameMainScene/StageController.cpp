@@ -52,19 +52,19 @@ void StageController::readyStage(int prm_stage) {
 //    _had_ready_stage = true;
     switch (prm_stage) {
         case 1:
-            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage01Scene, "Stage01");
+            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage01, "Stage01");
             break;
         case 2:
-            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage02Scene, "Stage02");
+            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage02, "Stage02");
             break;
         case 3:
-            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage03Scene, "Stage03");
+            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage03, "Stage03");
             break;
         case 4:
-            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage04Scene, "Stage04");
+            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage04, "Stage04");
             break;
         case 5:
-            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage05Scene, "Stage05");
+            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage05, "Stage05");
             break;
         default:
             break;
@@ -85,11 +85,6 @@ void StageController::processBehavior() {
 
         case STAGECONTROLLER_PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
-//                if (_pSceneMainCannnel && !_pSceneMainCannnel->wasDeclaredEnd()) {
-//                    //2面目以降はこのタイミングで前ステージをend
-//                    _TRACE_("_pSceneMainCannnel="<<_pSceneMainCannnel->getName()<<" end()");
-//                    _pSceneMainCannnel->end();
-//                }
             }
             if (_pProg->getFrameInProgress() == 120) { //deleteを考慮し２秒遊ぶ
                 _pProg->change(STAGECONTROLLER_PROG_PLAY);
@@ -132,13 +127,13 @@ void StageController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         }
     }
 
-    if (prm_no == EVENT_STAGE01_WAS_END) {
-        _TRACE_("StageController::onCatchEvent() EVENT_STAGE01_WAS_END");
+    if (prm_no == EVENT_STG01_WAS_END) {
+        _TRACE_("StageController::onCatchEvent() EVENT_STG01_WAS_END");
         _pSceneMainCannnel->end(60*60);
         _pProg->change(STAGECONTROLLER_PROG_FINISH);
     }
-    if (prm_no == EVENT_STAGE02_WAS_END) {
-        _TRACE_("StageController::onCatchEvent() EVENT_STAGE01_WAS_END");
+    if (prm_no == EVENT_STG02_WAS_END) {
+        _TRACE_("StageController::onCatchEvent() EVENT_STG01_WAS_END");
         _pSceneMainCannnel->end(60*60);
         _pProg->change(STAGECONTROLLER_PROG_FINISH);
     }

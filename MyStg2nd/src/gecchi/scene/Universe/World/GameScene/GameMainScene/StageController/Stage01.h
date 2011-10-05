@@ -1,32 +1,32 @@
-#ifndef STAGE02SCENE_H_
-#define STAGE02SCENE_H_
+#ifndef STAGE01_H_
+#define STAGE01_H_
+
+
 
 namespace MyStg2nd {
 
-class Stage02Scene : public StageScene {
+class Stage01 : public StageScene {
 
 public:
 
-    Stage02Controller* _pScene_Stage02Controller;
-    WorldBoundSpace002* _pWorldBoundSpace;
+    Stage01Controller* _pScene_Stage01Controller;
+    WorldBoundSpace001* _pWorldBoundSpace;
     HoshiBoshi001* _pHoshiBoshi;
+
 
     LabelGecchi16Font* _pMessage;
 
-    Stage02Scene(const char* prm_name);
+    Stage01(const char* prm_name);
     /**
      * èâä˙èàóù
      */
     virtual void initialize() override;
-
     virtual void processBehavior() override;
-
     virtual void processJudgement() override;
-
     virtual void processFinal() override;
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
-    virtual ~Stage02Scene();
+    virtual ~Stage01();
 };
 
 }
-#endif /*STAGE02SCENE_H_*/
+#endif /*STAGE01_H_*/
