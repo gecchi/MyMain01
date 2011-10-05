@@ -136,13 +136,16 @@ DECLARE_CONST(GGAF_EVENT_DEVICE_LOST_REDEPOSITORY);
 
 //シェーダー2.0の限界のモーフターゲットは6個だった
 #define MAX_MORPH_TARGET 6
-
+//#pragma GCC diagnostic push
+//#pragma GCC diagnostic ignored "-Wall"
+//#pragma GCC diagnostic warning "-w"
 #include <dxerr.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dinput.h>
 #include <dsound.h>
 #include <dxfile.h>
+//#pragma GCC diagnostic pop
 namespace Dix {
 class PCMPlayer;
 class OggVorbisResource;
