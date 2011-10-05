@@ -14,8 +14,10 @@
 namespace MyStg2nd {
 
 /**
- * 共通シーンクラス .
- * 2008/9/8
+ * 自機関連シーン .
+ * @version 1.00
+ * @since 2010/10/25
+ * @author Masatoshi Tsuge
  */
 class MyShipScene : public GgafLib::DefaultScene {
 

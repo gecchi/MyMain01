@@ -21,7 +21,7 @@
 #endif
 
 #ifdef P_GAME_SCENE
-    #define P_STAGE_CONTROLLER (P_GAME_SCENE->_pStageController)
+    #define P_STAGE_CONTROLLER (P_GAME_SCENE->_pStageSceneController)
 #else
     #error P_GAME_SCENE isnt define
 #endif
@@ -44,7 +44,8 @@ public:
     CommonScene* _pCommonScene;
     MyShipScene* _pMyShipScene;
     GamePauseScene* _pGamePauseScene;
-    StageController* _pStageController;
+    /** GameMain、或いは、Demoの配下へ移動される */
+    StageSceneController* _pStageSceneController;
     /** コマ送りフラグ */
     bool _is_frame_advance;
     bool _was_paused_flg_GameMainScene_prev_frame;

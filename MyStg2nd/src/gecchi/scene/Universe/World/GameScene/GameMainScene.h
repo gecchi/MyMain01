@@ -3,7 +3,11 @@
 namespace MyStg2nd {
 
 /**
- * ゲームメインシーンクラス .
+ * ゲームのメインシーンクラス .
+ * 主な仕事はランクアップステージの切り替えです。
+ * @version 1.00
+ * @since 2008/10/08
+ * @author Masatoshi Tsuge
  */
 class GameMainScene : public GgafLib::DefaultScene {
 

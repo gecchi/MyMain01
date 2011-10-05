@@ -1,16 +1,21 @@
-#ifndef STAGECONTROLLER_H_
-#define STAGECONTROLLER_H_
+#ifndef STAGESCENECONTROLLER_H_
+#define STAGESCENECONTROLLER_H_
 
 
 namespace MyStg2nd {
 
 /**
- * ゲームメインシーンクラス .
+ * ゲームメインシーンのコントローラー .
+ * 主な仕事はメインステージの切り替え、
+ * ランクアップシーンの差込です。
+ * @version 1.00
+ * @since 2011/07/17
+ * @author Masatoshi Tsuge
  */
-class StageController : public GgafLib::DefaultScene {
+class StageSceneController : public GgafLib::DefaultScene {
 
 public:
-//    static StageController* _pStageController;
+//    static StageSceneController* _pStageSceneController;
 
     char _buf[60];
 
@@ -23,7 +28,7 @@ public:
     int _stage;
 //    bool _had_ready_stage;
 //    frame _frame_ready_stage;
-    StageController(const char* prm_name);
+    StageSceneController(const char* prm_name);
 
 //    void setStage(int prm_stage) {
 //        _stage = prm_stage;
@@ -38,9 +43,9 @@ public:
     void processBehavior() override;
     void processFinal() override;
     void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
-    virtual ~StageController();
+    virtual ~StageSceneController();
 
 };
 
 }
-#endif /*STAGECONTROLLER_H_*/
+#endif /*STAGESCENECONTROLLER_H_*/
