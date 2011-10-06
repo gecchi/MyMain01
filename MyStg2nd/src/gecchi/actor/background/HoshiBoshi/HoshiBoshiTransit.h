@@ -1,5 +1,5 @@
-#ifndef HOSHIBOSHI001_H_
-#define HOSHIBOSHI001_H_
+#ifndef HOSHIBOSHITRANSIT_H_
+#define HOSHIBOSHITRANSIT_H_
 namespace MyStg2nd {
 
 /**
@@ -26,5 +26,5 @@ public:
 };
 
 }
-#endif /*HOSHIBOSHI001_H_*/
+#endif /*HOSHIBOSHITRANSIT_H_*/
 

@@ -12,10 +12,10 @@ namespace MyStg2nd {
  * @author Masatoshi Tsuge
  */
 class TransitStage : public StageScene {
+
+public:
     int _teansit_stage;
     int _next_main_stage;
-public:
-
     WorldBoundSpaceTransit* _pWorldBoundSpace;
     HoshiBoshiTransit* _pHoshiBoshi;
     LabelGecchi16Font* _pMessage;

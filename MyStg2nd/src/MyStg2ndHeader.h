@@ -468,9 +468,7 @@ class MagicMeter;
 
 
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUpScene.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUp001.h"
+
 
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/StageScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01.h"
@@ -479,6 +477,10 @@ class MagicMeter;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage04.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage05.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/TransitStage.h"
+
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUpScene.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUp001.h"
 #include "gecchi/scene/Universe/World/GameScene/TamagoScene.h"
 
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/Stage01PartController.h"

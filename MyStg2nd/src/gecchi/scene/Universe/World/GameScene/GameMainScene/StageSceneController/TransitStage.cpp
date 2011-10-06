@@ -7,6 +7,7 @@ using namespace MyStg2nd;
 
 TransitStage::TransitStage(const char* prm_name) : StageScene(prm_name) {
     _class_name = "TransitStage";
+    _TRACE_("TransitStage::TransitStage("<<prm_name<<")");
     _teansit_stage = 1;
     _pWorldBoundSpace = NEW WorldBoundSpaceTransit("WBSTransit");
     getDirector()->addSubGroup(_pWorldBoundSpace);

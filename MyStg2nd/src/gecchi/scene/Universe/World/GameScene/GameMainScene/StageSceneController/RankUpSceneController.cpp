@@ -11,14 +11,15 @@ enum {
     RANKUPCONTROLLER_PROG_PLAY    ,
     RANKUPCONTROLLER_PROG_FINISH  ,
 };
-#define ORDER_ID_RANKUP 111
+
+#define ORDER_ID_RANKUP 80
 
 RankUpSceneController::RankUpSceneController(const char* prm_name) : StageScene(prm_name) {
     _class_name = "RankUpSceneController";
-
+    _TRACE_("RankUpSceneController::RankUpSceneController("<<prm_name<<")");
     _pRankUpSceneMainCannel = NULL;
 //    _had_ready_rank = false;
-    _loop = 1;
+//    _loop = 1;
     _rank = 1;
     useProgress(RANKUPCONTROLLER_PROG_FINISH);
 }
@@ -136,7 +137,7 @@ void RankUpSceneController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 //        _TRACE_("RankUpSceneController::onCatchEvent() EVENT_STG01_WAS_END");
 //        _pRankUpSceneMainCannel->end(60*60);
 //        _pProg->change(RANKUPCONTROLLER_PROG_FINISH);
-    }
+//    }
 
 
 }

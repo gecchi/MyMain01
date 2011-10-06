@@ -122,7 +122,7 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
 void EnemyCeres::onInactive() {
     if (_createGgafActorDepository) {
         //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-        getDirector()->addSubLast(_pDepo_EnemyCeresShots001->getMyGroupHead()->extract());
+        getSceneDirector()->addSubLast(_pDepo_EnemyCeresShots001->getMyGroupHead()->extract());
        _pDepo_EnemyCeresShots001->sayonara(60 * 5);//‰ð•ú—\–ñ
     }
     sayonara();

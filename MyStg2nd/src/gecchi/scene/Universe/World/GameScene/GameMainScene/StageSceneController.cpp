@@ -14,13 +14,11 @@ enum {
     STAGESCENECONTROLLER_PROG_FINISH  ,
 };
 #define ORDER_ID_STAGESCENE 11
-#define ORDER_ID_TRANSIT 111
-#define ORDER_ID_RANKUPSCENECONTROLLER 112
 
 StageSceneController::StageSceneController(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "StageSceneController";
 
-
+    _TRACE_("StageSceneController::StageSceneController("<<prm_name<<")");
 //    _had_ready_main_stage = false;
     _loop = 1;
     _main_stage = 1;
@@ -28,13 +26,11 @@ StageSceneController::StageSceneController(const char* prm_name) : DefaultScene(
 
     _pStageSceneMainCannel = NULL;
 
-    orderSceneToFactory(ORDER_ID_TRANSIT, TransitStage, "TransitStage");
-    _pTransitStage = (StageScene*)obtainSceneFromFactory(ORDER_ID_TRANSIT);
+    _pTransitStage = NEW TransitStage("TransitStage");
     _pTransitStage->inactivateImmediately();
     addSubLast(_pTransitStage);
 
-    orderSceneToFactory(ORDER_ID_RANKUPSCENECONTROLLER, RankUpSceneController, "RankUpSceneController");
-    _pRankUpSceneController = (StageScene*)obtainSceneFromFactory(ORDER_ID_RANKUPSCENECONTROLLER);
+    _pRankUpSceneController = NEW RankUpSceneController("RankUpSceneController");
     _pRankUpSceneController->inactivateImmediately();
     addSubLast(_pRankUpSceneController);
 
