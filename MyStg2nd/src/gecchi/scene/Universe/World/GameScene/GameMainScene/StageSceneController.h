@@ -18,17 +18,19 @@ public:
 //    static StageSceneController* _pStageSceneController;
 
     char _buf[60];
-
-    StageScene* _pSceneMainCannnel;
+    /** メインステージ(現在アクティブな面のシーンポインタ） */
+    StageScene* _pStageSceneMainCannel;
+    /** 通過ステージシーン */
     TransitStage* _pTransitStage;
-//こここ↑
+    /** ランクアップ挿入シーン */
+    RankUpSceneController* _pRankUpSceneController;
     int _loop;
-    int _stage;
+    int _main_stage;
     StageSceneController(const char* prm_name);
 
 
     void onReset() override;
-    void readyStage(int prm_stage);
+    void readyStage(int prm_main_stage);
     void initialize() override;
     void processBehavior() override;
     void processFinal() override;

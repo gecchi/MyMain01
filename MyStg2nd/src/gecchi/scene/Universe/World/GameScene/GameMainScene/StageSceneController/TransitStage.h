@@ -12,7 +12,8 @@ namespace MyStg2nd {
  * @author Masatoshi Tsuge
  */
 class TransitStage : public StageScene {
-
+    int _teansit_stage;
+    int _next_main_stage;
 public:
 
     WorldBoundSpaceTransit* _pWorldBoundSpace;
@@ -27,10 +28,16 @@ public:
     virtual void onReset() override;
     virtual void onActive() override;
     virtual void processBehavior() override;
+    void processBehaviorProgPlaying();
+
     virtual void processJudgement() override;
     virtual void processFinal() override;
+    virtual void onInactive() override;
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
     void ready(int prm_stage);
+    void setStage(int prm_stage) {
+        _teansit_stage = prm_stage;
+    }
     virtual ~TransitStage();
 };
 

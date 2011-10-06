@@ -218,12 +218,8 @@ class GameOverScene;
 class GamePauseScene;
 
 
-class RankUpSceneController;
 class RankUpScene;
 class RankUp001;
-
-
-
 
 
 class StageSceneController;
@@ -234,6 +230,9 @@ class Stage03;
 class Stage04;
 class Stage05;
 class TransitStage;
+class RankUpSceneController;
+class RankUpScene;
+class RankUp001;
 class TamagoScene;
 
 class Stage01PartController;

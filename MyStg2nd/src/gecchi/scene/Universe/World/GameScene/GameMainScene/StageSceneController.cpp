@@ -15,20 +15,36 @@ enum {
 };
 #define ORDER_ID_STAGESCENE 11
 #define ORDER_ID_TRANSIT 111
+#define ORDER_ID_RANKUPSCENECONTROLLER 112
 
 StageSceneController::StageSceneController(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "StageSceneController";
 
-    _pSceneMainCannnel = NULL;
-//    _had_ready_stage = false;
+
+//    _had_ready_main_stage = false;
     _loop = 1;
-    _stage = 1;
+    _main_stage = 1;
+
+
+    _pStageSceneMainCannel = NULL;
+
+    orderSceneToFactory(ORDER_ID_TRANSIT, TransitStage, "TransitStage");
+    _pTransitStage = (StageScene*)obtainSceneFromFactory(ORDER_ID_TRANSIT);
+    _pTransitStage->inactivateImmediately();
+    addSubLast(_pTransitStage);
+
+    orderSceneToFactory(ORDER_ID_RANKUPSCENECONTROLLER, RankUpSceneController, "RankUpSceneController");
+    _pRankUpSceneController = (StageScene*)obtainSceneFromFactory(ORDER_ID_RANKUPSCENECONTROLLER);
+    _pRankUpSceneController->inactivateImmediately();
+    addSubLast(_pRankUpSceneController);
+
     useProgress(STAGESCENECONTROLLER_PROG_FINISH);
 }
 
 void StageSceneController::onReset() {
-    if (_pSceneMainCannnel) {
-        _pSceneMainCannnel->inactivate();
+    _TRACE_("StageSceneController::onReset()");
+    if (_pStageSceneMainCannel) {
+        _pStageSceneMainCannel->inactivate();
     }
     //共通シーン、自機シーンを配下に引っ張ってくる
     P_COMMON_SCENE->resetTree();
@@ -41,27 +57,28 @@ void StageSceneController::onReset() {
     _pProg->set(STAGESCENECONTROLLER_PROG_INIT);
 }
 //void StageSceneController::readyNextStage() {
-//    _stage++;
-//    readyStage(_stage);
+//    _main_stage++;
+//    readyStage(_main_stage);
 //}
 
 
-void StageSceneController::readyStage(int prm_stage) {
-    switch (prm_stage) {
+void StageSceneController::readyStage(int prm_main_stage) {
+    _TRACE_("StageSceneController::readyStage("<<prm_main_stage<<")");
+    switch (prm_main_stage) {
         case 1:
-            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage01, "Stage01");
+            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_main_stage, Stage01, "Stage01");
             break;
         case 2:
-            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage02, "Stage02");
+            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_main_stage, Stage02, "Stage02");
             break;
         case 3:
-            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage03, "Stage03");
+            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_main_stage, Stage03, "Stage03");
             break;
         case 4:
-            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage04, "Stage04");
+            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_main_stage, Stage04, "Stage04");
             break;
         case 5:
-            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_stage, Stage05, "Stage05");
+            orderSceneToFactory(ORDER_ID_STAGESCENE+prm_main_stage, Stage05, "Stage05");
             break;
         default:
             break;
@@ -75,15 +92,21 @@ void StageSceneController::processBehavior() {
     //SCORE表示
     switch (_pProg->get()) {
         case STAGESCENECONTROLLER_PROG_INIT: {
-            readyStage(_stage);
-            _pProg->change(STAGESCENECONTROLLER_PROG_BEGIN);
+            if (_pProg->isJustChanged()) {
+                _TRACE_("StageSceneController::processBehavior() Prog(=STAGESCENECONTROLLER_PROG_INIT) is Just Changed");
+                readyStage(_main_stage);
+                _pProg->change(STAGESCENECONTROLLER_PROG_BEGIN);
+            }
+
             break;
         }
 
         case STAGESCENECONTROLLER_PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
+                _TRACE_("StageSceneController::processBehavior() Prog(=STAGESCENECONTROLLER_PROG_BEGIN) is Just Changed");
             }
-            if (_pProg->getFrameInProgress() == 120) { //deleteを考慮し２秒遊ぶ
+
+            if (_pProg->getFrameInProgress() == 120) { //２秒遊ぶ
                 _pProg->change(STAGESCENECONTROLLER_PROG_PLAY_STAGE);
             }
             break;
@@ -91,16 +114,36 @@ void StageSceneController::processBehavior() {
 
         case STAGESCENECONTROLLER_PROG_PLAY_STAGE: {
             if (_pProg->isJustChanged()) {
-                readyStage(_stage);
-                _pSceneMainCannnel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE+_stage);
-                addSubLast(_pSceneMainCannnel); //ステージシーン追加
+                _TRACE_("StageSceneController::processBehavior() Prog(=STAGESCENECONTROLLER_PROG_PLAY_STAGE) is Just Changed");
+                readyStage(_main_stage); //念のために呼ぶ。通常はもう準備できているハズ。
+                //ステージシーン追加
+                _pStageSceneMainCannel = (StageScene*)obtainSceneFromFactory(ORDER_ID_STAGESCENE+_main_stage);
+                _pStageSceneMainCannel->fadeoutScene(0);
+                addSubLast(_pStageSceneMainCannel);
+                _pStageSceneMainCannel->fadeinSceneTree(180);
             }
             break;
         }
 
+        case STAGESCENECONTROLLER_PROG_PLAY_TRANSIT: {
+            if (_pProg->isJustChanged()) {
+                _TRACE_("StageSceneController::processBehavior() Prog(=STAGESCENECONTROLLER_PROG_PLAY_TRANSIT) is Just Changed");
+                _pTransitStage->fadeoutSceneTree(0);
+                _pTransitStage->setStage(_main_stage);
+                _pTransitStage->reset();
+                _pTransitStage->activate();
+                _pTransitStage->fadeinSceneTree(180);
+            }
+            //EVENT_TRANSIT_WAS_ENDイベント待ち
+
+            break;
+        }
+
+
         case STAGESCENECONTROLLER_PROG_FINISH: {
             if (_pProg->isJustChanged()) {
-                _stage++;
+                _TRACE_("StageSceneController::processBehavior() Prog(=STAGESCENECONTROLLER_PROG_FINISH) is Just Changed");
+                _main_stage = _pTransitStage->_next_main_stage; //次のステージ
                 _pProg->change(STAGESCENECONTROLLER_PROG_BEGIN); //ループ
             }
             break;
@@ -113,28 +156,35 @@ void StageSceneController::processBehavior() {
 }
 void StageSceneController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_PREPARE_TRANSIT_STAGE) {
-
+        _TRACE_("StageSceneController::onCatchEvent(EVENT_PREPARE_TRANSIT_STAGE)");
+        _pTransitStage->ready(_main_stage);
     }
+
     if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
-        //次のステージを工場に注文していいよというイベント
-        _TRACE_("StageSceneController::onCatchEvent() EVENT_PREPARE_NEXT_STAGE 準備きた");
-        if (_stage <= 5) {
-            readyStage(_stage+1);
-        } else {
+        _TRACE_("StageSceneController::onCatchEvent(EVENT_PREPARE_NEXT_STAGE)");
+        readyStage(_pTransitStage->_next_main_stage);//次のステージ準備
 //            _TRACE_("最終面クリア");
 //            _pProg->change(STAGESCENECONTROLLER_PROG_END);
             //TODO:エデニング？
-        }
+//        }
     }
 
     if (prm_no == EVENT_STG01_WAS_END) {
-        _TRACE_("StageSceneController::onCatchEvent() EVENT_STG01_WAS_END");
-        _pSceneMainCannnel->end(60*60);
-        _pProg->change(STAGESCENECONTROLLER_PROG_FINISH);
+        _TRACE_("StageSceneController::onCatchEvent(EVENT_STG01_WAS_END)");
+        _pStageSceneMainCannel->end(180);
+        _pStageSceneMainCannel->fadeoutSceneTree(180);
+        _pProg->change(STAGESCENECONTROLLER_PROG_PLAY_TRANSIT);
     }
     if (prm_no == EVENT_STG02_WAS_END) {
-        _TRACE_("StageSceneController::onCatchEvent() EVENT_STG01_WAS_END");
-        _pSceneMainCannnel->end(60*60);
+        _TRACE_("StageSceneController::onCatchEvent(EVENT_STG02_WAS_END)");
+        _pStageSceneMainCannel->end(180);
+        _pStageSceneMainCannel->fadeoutSceneTree(180);
+        _pProg->change(STAGESCENECONTROLLER_PROG_PLAY_TRANSIT);
+    }
+    if (prm_no == EVENT_TRANSIT_WAS_END) {
+        _TRACE_("StageSceneController::onCatchEvent(EVENT_TRANSIT_WAS_END)");
+        _pTransitStage->inactivateDelay(180);
+        _pTransitStage->fadeoutSceneTree(180);
         _pProg->change(STAGESCENECONTROLLER_PROG_FINISH);
     }
 

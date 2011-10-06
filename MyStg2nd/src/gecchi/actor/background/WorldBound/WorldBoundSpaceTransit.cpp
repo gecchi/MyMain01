@@ -14,7 +14,7 @@ void WorldBoundSpaceTransit::initialize() {
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
     _SX = _SY = _SZ =  ((P_CAM->_zf-P_CAM->_zn)*1000)*0.989;
-    setCubeMapTexture("BkSpace_cubemap.dds");
+    setCubeMapTexture("Torus_cubemap.dds");
 }
 
 void WorldBoundSpaceTransit::onActive() {

@@ -1,5 +1,5 @@
-#ifndef RANKUPCONTROLLER_H_
-#define RANKUPCONTROLLER_H_
+#ifndef RANKUPSCENECONTROLLER_H_
+#define RANKUPSCENECONTROLLER_H_
 
 
 namespace MyStg2nd {
@@ -11,20 +11,19 @@ namespace MyStg2nd {
  * @since 2011/07/17
  * @author Masatoshi Tsuge
  */
-class RankUpSceneController : public GgafLib::DefaultScene {
+class RankUpSceneController : public StageScene {
 
 public:
 //    static RankUpSceneController* _pRankUpSceneController;
 
     char _buf[60];
 
-    RankUpScene* _pSceneMainCannnel;
+    RankUpScene* _pRankUpSceneMainCannel;
 
 //    frame _frame_Begin;
 //    frame _frame_Play;
 //    frame _frame_End;
-    int _loop;
-    int _stage;
+    int _rank;
 //    bool _had_ready_stage;
 //    frame _frame_ready_stage;
     RankUpSceneController(const char* prm_name);
@@ -47,4 +46,4 @@ public:
 };
 
 }
-#endif /*RANKUPCONTROLLER_H_*/
+#endif /*RANKUPSCENECONTROLLER_H_*/
