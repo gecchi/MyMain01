@@ -29,8 +29,8 @@ GgafGroupHead* GgafDirector::addSubGroup(actorkind prm_kind, GgafMainActor* prm_
     }
     pSubGroupActor->addSubLast(prm_pMainActor);
     prm_pMainActor->setGroupHead(pSubGroupActor);
-    prm_pMainActor->setMyDirector(this);
-    prm_pMainActor->setScenePlatform(_pScene_Platform);
+    prm_pMainActor->setSceneDirector(this);
+    prm_pMainActor->setPlatformScene(_pScene_Platform);
     return pSubGroupActor;
 }
 

@@ -20,6 +20,9 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         pWallAABActor->inactivateTreeImmediately();
         pDepo_WallAAB->addSubLast(pWallAABActor);
     }
+    P_COMMON_SCENE->getDirector()->addSubGroup(pDepo_WallAAB);
+    //getDirector()->addSubGroup(pDepo_WallAAB); は P_UNIVERSE 配下になってしまう
+
     WallAAPrismActor* pWallAAPrismActor;
     GgafActorDepository* pDepo_WallAAPrism = NEW GgafActorDepository("Dp_WallAAPrism");
     for (int i = 0; i < 500; i++) {
@@ -30,6 +33,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         pWallAAPrismActor->inactivateTreeImmediately();
         pDepo_WallAAPrism->addSubLast(pWallAAPrismActor);
     }
+    P_COMMON_SCENE->getDirector()->addSubGroup(pDepo_WallAAPrism);
 
     //シーンセクション生成
     WalledSectionScene* apSection[] = {
@@ -37,7 +41,6 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
       NEW Stage01WalledSection001("gbs", this, "scene5_wall_1.dat"),
       NEW Stage01WalledSection001("gbs", this, "scene5_wall_2.dat"),
       NEW Stage01WalledSection001("gbs", this, "scene5_wall_3.dat"),
-
     };
 
     //構築

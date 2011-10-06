@@ -1,5 +1,5 @@
-#ifndef STAGE01CONTROLLER_H_
-#define STAGE01CONTROLLER_H_
+#ifndef STAGE02PARTCONTROLLER_H_
+#define STAGE02PARTCONTROLLER_H_
 namespace MyStg2nd {
 
 /**
@@ -8,14 +8,15 @@ namespace MyStg2nd {
  * @since 2010/08/18
  * @author Masatoshi Tsuge
  */
-class Stage01Controller : public GgafLib::DefaultScene {
+class Stage02PartController : public GgafLib::DefaultScene {
 
     GgafDxCore::GgafDxBgm* _bgm_st1;
 
 public:
 
+    frame _frame_prog_fainal;
 
-    Stage01Controller(const char* prm_name);
+    Stage02PartController(const char* prm_name);
     /**
      * èâä˙èàóù
      */
@@ -27,8 +28,8 @@ public:
 
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
 
-    virtual ~Stage01Controller();
+    virtual ~Stage02PartController();
 };
 
 }
-#endif /*STAGE01CONTROLLER_H_*/
+#endif /*STAGE02PARTCONTROLLER_H_*/

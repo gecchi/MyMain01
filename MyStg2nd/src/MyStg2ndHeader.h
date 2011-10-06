@@ -236,7 +236,7 @@ class Stage05;
 class TransitStage;
 class TamagoScene;
 
-class Stage01Controller;
+class Stage01PartController;
 class Stage01_01;
 class Stage01_02;
 class Stage01_03;
@@ -247,7 +247,7 @@ class Stage01WalledScene;
 class Wall001;
 class Wall001Prism;
 
-class Stage02Controller;
+class Stage02PartController;
 class Stage02_01;
 class Stage02_Climax;
 
@@ -482,13 +482,13 @@ class MagicMeter;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/TransitStage.h"
 #include "gecchi/scene/Universe/World/GameScene/TamagoScene.h"
 
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/Stage01Controller.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/Stage01PartController.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/part/Stage01_01.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/part/Stage01_02.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/part/Stage01_03.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/part/Stage01_Climax.h"
 
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage02/Stage02Controller.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage02/Stage02PartController.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage02/part/Stage02_01.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage02/part/Stage02_Climax.h"
 

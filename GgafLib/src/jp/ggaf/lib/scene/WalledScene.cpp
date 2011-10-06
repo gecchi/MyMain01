@@ -19,9 +19,18 @@ void WalledScene::buildWalledScene(
     _TRACE_("WalledScene::buildWalledScene ["<<getName()<<"] build...");
     _pDepo_WallAAB = prm_pDepo_WallAAB;
     _pDepo_WallAAPrism = prm_pDepo_WallAAPrism;
-    getDirector()->addSubGroup(_pDepo_WallAAB);
+    if (_pDepo_WallAAB->getPlatformScene()) {
+        //Šù‚ÉŠ‘®‚µ‚Ä‚¢‚é‚È‚ç‚ÎOK
+    } else {
+
+        getDirector()->addSubGroup(_pDepo_WallAAB);
+    }
     if (_pDepo_WallAAPrism) {
-        getDirector()->addSubGroup(_pDepo_WallAAPrism);
+        if (_pDepo_WallAAPrism->getPlatformScene()) {
+            //Šù‚ÉŠ‘®‚µ‚Ä‚¢‚é‚È‚ç‚ÎOK
+        } else {
+            getDirector()->addSubGroup(_pDepo_WallAAPrism);
+        }
     }
     for (int i = 0; i < prm_section_num; i++) {
         addSubLast(prm_papSection[i]);

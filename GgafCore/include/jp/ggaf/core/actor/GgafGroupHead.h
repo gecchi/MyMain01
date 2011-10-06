@@ -93,13 +93,13 @@ public:
      * ŠÄ“Â(GgafDirector)‚ğæ“¾ .
      * @return ©g‚ªŠÇ—‚³‚ê‚Ä‚¢‚éŠÄ“Â
      */
-    GgafDirector* getDirector();
+    GgafDirector* getSceneDirector();
 
     /**
      * ŠÄ“Â(GgafDirector)‚ğİ’è .
      * @param prm_pDirector ŠÄ“Â
      */
-    void setMyDirector(GgafDirector* prm_pDirector);
+    void setSceneDirector(GgafDirector* prm_pDirector);
 
     /**
      * _‚É‰yŒ© .

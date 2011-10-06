@@ -8,9 +8,9 @@ using namespace MyStg2nd;
 Stage01::Stage01(const char* prm_name) : StageScene(prm_name) {
     _class_name = "Stage01";
 
-    _pScene_Stage01Controller = NEW Stage01Controller("Stage01Ctrl");
-    _pScene_Stage01Controller->inactivate();
-    addSubLast(_pScene_Stage01Controller);
+    _pScene_Stage01PartController = NEW Stage01PartController("Stage01Ctrl");
+    _pScene_Stage01PartController->inactivate();
+    addSubLast(_pScene_Stage01PartController);
     Sleep(2);
     _pWorldBoundSpace  = NEW WorldBoundSpace001("BG_SPACE");
     _pWorldBoundSpace->inactivateTree();
@@ -45,7 +45,7 @@ void Stage01::processBehavior() {
                 _pMessage->activateImmediately();
                 _pWorldBoundSpace->activateTree();    //背景ON
                 _pHoshiBoshi->activateTree();    //背景ON
-                _pScene_Stage01Controller->activate();
+                _pScene_Stage01PartController->activate();
                 fadeinSceneTree(360);
                 _pProg->change(STAGESCENE_PROG_PLAYING);
             }
@@ -95,7 +95,7 @@ void Stage01::processFinal() {
 void Stage01::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
         _TRACE_("Stage01::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをSTAGESCENE_PROG_ENDへ");
-        _pScene_Stage01Controller->end(60*60);
+        _pScene_Stage01PartController->end(60*60);
         _pProg->change(STAGESCENE_PROG_END);
     } else {
 

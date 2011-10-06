@@ -7,7 +7,7 @@ class Stage02 : public StageScene {
 
 public:
 
-    Stage02Controller* _pScene_Stage02Controller;
+    Stage02PartController* _pScene_Stage02PartController;
     WorldBoundSpace002* _pWorldBoundSpace;
     HoshiBoshi001* _pHoshiBoshi;
 

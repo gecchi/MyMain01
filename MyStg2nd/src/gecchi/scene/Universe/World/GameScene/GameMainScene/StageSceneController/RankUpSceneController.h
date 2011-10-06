@@ -11,10 +11,10 @@ namespace MyStg2nd {
  * @since 2011/07/17
  * @author Masatoshi Tsuge
  */
-class RankUpController : public GgafLib::DefaultScene {
+class RankUpSceneController : public GgafLib::DefaultScene {
 
 public:
-//    static RankUpController* _pRankUpController;
+//    static RankUpSceneController* _pRankUpSceneController;
 
     char _buf[60];
 
@@ -27,7 +27,7 @@ public:
     int _stage;
 //    bool _had_ready_stage;
 //    frame _frame_ready_stage;
-    RankUpController(const char* prm_name);
+    RankUpSceneController(const char* prm_name);
 
 //    void setStage(int prm_stage) {
 //        _stage = prm_stage;
@@ -42,7 +42,7 @@ public:
     void processBehavior() override;
     void processFinal() override;
     void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
-    virtual ~RankUpController();
+    virtual ~RankUpSceneController();
 
 };
 

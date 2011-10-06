@@ -19,7 +19,6 @@ TransitStage::TransitStage(const char* prm_name) : StageScene(prm_name) {
     _pMessage = NEW LabelGecchi16Font("TransitStageMsg");
     getDirector()->addSubGroup(KIND_EFFECT, _pMessage);
     _pMessage->inactivate();
-
     fadeoutScene(0); //Å‰‚Í”ñ•\¦
     useProgress(10);
 }

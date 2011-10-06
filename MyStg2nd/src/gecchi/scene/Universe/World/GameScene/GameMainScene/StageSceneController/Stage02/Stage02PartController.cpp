@@ -17,8 +17,8 @@ enum {
     STAGE02CONTROLLER_PROG_FAINAL              ,
 };
 
-Stage02Controller::Stage02Controller(const char* prm_name) : DefaultScene(prm_name) {
-    _class_name = "Stage02Controller";
+Stage02PartController::Stage02PartController(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "Stage02PartController";
 
     _pBgmPerformer->useBgm(3);
     _pBgmPerformer->set(0, "BGM_01_01");
@@ -37,13 +37,13 @@ Stage02Controller::Stage02Controller(const char* prm_name) : DefaultScene(prm_na
     useProgress(STAGE02CONTROLLER_PROG_FAINAL);
 }
 
-void Stage02Controller::initialize() {
+void Stage02PartController::initialize() {
     _pBgmPerformer->play(0, GGAF_MIN_VOLUME, true);
     _pBgmPerformer->fadein(0, 420);
     _pProg->change(STAGE02CONTROLLER_PROG_INIT);
 }
 
-void Stage02Controller::processBehavior() {
+void Stage02PartController::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
@@ -83,7 +83,7 @@ void Stage02Controller::processBehavior() {
     // gen02 end
 
     if (_pProg->isJustChangedTo(STAGE02CONTROLLER_PROG_INIT)) {
-        _TRACE_("Stage02Controller::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
+        _TRACE_("Stage02PartController::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
 
     }
 
@@ -148,15 +148,15 @@ void Stage02Controller::processBehavior() {
 
 }
 
-void Stage02Controller::processFinal() {
+void Stage02PartController::processFinal() {
 }
 
-void Stage02Controller::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void Stage02PartController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG02_01_WAS_BROKEN) {
-        _TRACE_("Stage02Controller::onCatchEvent() EVENT_STG02_01_WAS_BROKEN");
+        _TRACE_("Stage02PartController::onCatchEvent() EVENT_STG02_01_WAS_BROKEN");
         ((Stage02_01*)prm_pSource)->end(30*60);
     } else if (prm_no == EVENT_STG02_CLIMAX_WAS_BROKEN) {
-        _TRACE_("Stage02Controller::onCatchEvent() EVENT_STG02_CLIMAX_WAS_BROKENキャッチした。STAGE02CONTROLLER_ENDINGを投げる");
+        _TRACE_("Stage02PartController::onCatchEvent() EVENT_STG02_CLIMAX_WAS_BROKENキャッチした。STAGE02CONTROLLER_ENDINGを投げる");
         ((Stage02_Climax*)prm_pSource)->end(30*60);
         _pProg->change(STAGE02CONTROLLER_PROG_FAINAL); //進捗をSTAGE02CONTROLLER_PROG_FAINALに切り替える
     } else {
@@ -164,6 +164,6 @@ void Stage02Controller::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     }
 }
 
-Stage02Controller::~Stage02Controller() {
+Stage02PartController::~Stage02PartController() {
 
 }

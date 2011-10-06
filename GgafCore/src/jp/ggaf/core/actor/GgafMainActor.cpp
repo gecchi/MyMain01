@@ -14,8 +14,8 @@ GgafMainActor::GgafMainActor(const char* prm_name, GgafStatus* prm_pStat) :
 
 GgafMainActor* GgafMainActor::extract() {
     GgafMainActor* pActor = (GgafMainActor*)GgafActor::extract();
-    pActor->setMyDirector(NULL); //監督アクターリセット
-    pActor->setScenePlatform(NULL); //所属シーンリセット
+    pActor->setSceneDirector(NULL); //監督アクターリセット
+    pActor->setPlatformScene(NULL); //所属シーンリセット
     return pActor;
 }
 
@@ -27,15 +27,15 @@ GgafMainActor* GgafMainActor::extract() {
 //    }
 //}
 
-void GgafMainActor::setMyDirector(GgafDirector* prm_pDirector) {
+void GgafMainActor::setSceneDirector(GgafDirector* prm_pDirector) {
     _pDirector = prm_pDirector;
     if (_pSubFirst) {
         GgafActor* pActor = getSubFirst();
         while (true) {
             if (pActor->_obj_class & Obj_GgafMainActor) {
-                ((GgafMainActor*)(pActor))->setMyDirector(prm_pDirector);
+                ((GgafMainActor*)(pActor))->setSceneDirector(prm_pDirector);
             } else if (pActor->_obj_class & Obj_GgafGroupHead) {
-                ((GgafGroupHead*)(pActor))->setMyDirector(prm_pDirector);
+                ((GgafGroupHead*)(pActor))->setSceneDirector(prm_pDirector);
             }
             if (pActor->_is_last_flg) {
                 break;
@@ -100,16 +100,16 @@ GgafGroupHead* GgafMainActor::getMyGroupHead() {
 }
 
 
-GgafDirector* GgafMainActor::getDirector() {
+GgafDirector* GgafMainActor::getSceneDirector() {
     if (_pDirector == NULL) {
         if (_pParent == NULL) {
             _pDirector = GgafGod::_pGod->_pUniverse->getDirector(); //この世の監督アクターに仮所属
             _TRACE_("【警告】GgafMainActor::getDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで勝手にこの世(Universe)のDirectorを返しました");
         } else {
             if (_pParent->_obj_class & Obj_GgafMainActor) {
-                _pDirector = ((GgafMainActor*)(_pParent))->getDirector();
+                _pDirector = ((GgafMainActor*)(_pParent))->getSceneDirector();
             } else if (_pParent->_obj_class & Obj_GgafGroupHead) {
-                _pDirector = ((GgafGroupHead*)(_pParent))->getDirector();
+                _pDirector = ((GgafGroupHead*)(_pParent))->getSceneDirector();
             } else if (_pParent->_obj_class & Obj_GgafDirector) { //ありえんかな
                 return (GgafDirector*)_pParent;
             } else {
@@ -138,8 +138,8 @@ GgafGroupHead* GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm
     }
     pSubGroupActor->addSubLast(prm_pMainActor);
     prm_pMainActor->setGroupHead(pSubGroupActor);
-    prm_pMainActor->setMyDirector(getDirector()); //監督アクターリセット
-    prm_pMainActor->setScenePlatform(getPlatformScene()); //所属シーンリセット
+    prm_pMainActor->setSceneDirector(getSceneDirector()); //監督アクターリセット
+    prm_pMainActor->setPlatformScene(getPlatformScene()); //所属シーンリセット
     return pSubGroupActor;
 }
 

@@ -28,13 +28,13 @@ GgafActor::~GgafActor() {
     //OutputDebugStringA("*");
 }
 
-void GgafActor::setScenePlatform(GgafScene* prm_pScene_Platform) {
+void GgafActor::setPlatformScene(GgafScene* prm_pScene_Platform) {
     _pScene_Platform = prm_pScene_Platform;
     GgafActor* pActor_tmp;
     if (_pSubFirst) {
         pActor_tmp = _pSubFirst;
         while (true) {
-            pActor_tmp->setScenePlatform(prm_pScene_Platform);
+            pActor_tmp->setPlatformScene(prm_pScene_Platform);
             if (pActor_tmp->_is_last_flg) {
                 break;
             } else {

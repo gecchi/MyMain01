@@ -54,7 +54,7 @@ private:
     /**
      * 所属シーンを設定する。 .
      */
-    void setScenePlatform(GgafScene* prm_pScene_Platform);
+    void setPlatformScene(GgafScene* prm_pScene_Platform);
 
 public:
     /** [r]所属デポジトリ(NULLは未所属) */

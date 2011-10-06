@@ -19,8 +19,8 @@ enum {
 };
 
 
-Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_name) {
-    _class_name = "Stage01Controller";
+Stage01PartController::Stage01PartController(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "Stage01PartController";
 
     _pBgmPerformer->useBgm(3);
     _pBgmPerformer->set(0, "BGM_01_01");
@@ -39,11 +39,11 @@ Stage01Controller::Stage01Controller(const char* prm_name) : DefaultScene(prm_na
     useProgress(STAGE01CONTROLLER_PROG_FAINAL);
 }
 
-void Stage01Controller::initialize() {
+void Stage01PartController::initialize() {
     _pProg->set(STAGE01CONTROLLER_PROG_INIT);
 }
 
-void Stage01Controller::processBehavior() {
+void Stage01PartController::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
@@ -114,7 +114,7 @@ void Stage01Controller::processBehavior() {
     switch (_pProg->get()) {
         case STAGE01CONTROLLER_PROG_INIT: {
             if (_pProg->isJustChanged()) {
-                _TRACE_("Stage01Controller::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
+                _TRACE_("Stage01PartController::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
             }
             //進捗更新待ち
             break;
@@ -193,21 +193,21 @@ void Stage01Controller::processBehavior() {
     }
 }
 
-void Stage01Controller::processFinal() {
+void Stage01PartController::processFinal() {
 }
 
-void Stage01Controller::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void Stage01PartController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG01_01_WAS_BROKEN) {
-        _TRACE_("Stage01Controller::onCatchEvent() EVENT_STG01_01_WAS_BROKEN");
+        _TRACE_("Stage01PartController::onCatchEvent() EVENT_STG01_01_WAS_BROKEN");
         ((Stage01_01*)prm_pSource)->end(60*60);
     } else if (prm_no == EVENT_STG01_02_WAS_BROKEN) {
-        _TRACE_("Stage01Controller::onCatchEvent() EVENT_STG01_02_WAS_BROKEN");
+        _TRACE_("Stage01PartController::onCatchEvent() EVENT_STG01_02_WAS_BROKEN");
         ((Stage01_02*)prm_pSource)->end(60*60);
     } else if (prm_no == EVENT_STG01_03_WAS_BROKEN) {
-        _TRACE_("Stage01Controller::onCatchEvent() EVENT_STG01_03_WAS_BROKEN");
+        _TRACE_("Stage01PartController::onCatchEvent() EVENT_STG01_03_WAS_BROKEN");
         ((Stage01_03*)prm_pSource)->end(60*60);
     } else if (prm_no == EVENT_STG01_CLIMAX_WAS_BROKEN) {
-        _TRACE_("Stage01Controller::onCatchEvent() EVENT_STG01_CLIMAX_WAS_BROKENキャッチした。STAGE01CONTROLLER_ENDINGを投げる");
+        _TRACE_("Stage01PartController::onCatchEvent() EVENT_STG01_CLIMAX_WAS_BROKENキャッチした。STAGE01CONTROLLER_ENDINGを投げる");
         ((Stage01_Climax*)prm_pSource)->end(60*60);
         _pProg->change(STAGE01CONTROLLER_PROG_FAINAL); //進捗をSTAGE01CONTROLLER_PROG_FAINALに切り替える
     } else {
@@ -216,6 +216,6 @@ void Stage01Controller::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 
 }
 
-Stage01Controller::~Stage01Controller() {
+Stage01PartController::~Stage01PartController() {
 
 }

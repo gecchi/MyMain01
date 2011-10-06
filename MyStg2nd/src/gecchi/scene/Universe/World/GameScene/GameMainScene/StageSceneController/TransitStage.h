@@ -24,6 +24,8 @@ public:
      * ‰Šúˆ—
      */
     virtual void initialize() override;
+    virtual void onReset() override;
+    virtual void onActive() override;
     virtual void processBehavior() override;
     virtual void processJudgement() override;
     virtual void processFinal() override;

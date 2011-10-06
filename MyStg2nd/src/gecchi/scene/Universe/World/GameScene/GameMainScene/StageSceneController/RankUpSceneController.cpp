@@ -13,8 +13,8 @@ enum {
 };
 #define ORDER_ID_RANKUP 111
 
-RankUpController::RankUpController(const char* prm_name) : DefaultScene(prm_name) {
-    _class_name = "RankUpController";
+RankUpSceneController::RankUpSceneController(const char* prm_name) : DefaultScene(prm_name) {
+    _class_name = "RankUpSceneController";
 
     _pSceneMainCannnel = NULL;
 //    _had_ready_stage = false;
@@ -23,7 +23,7 @@ RankUpController::RankUpController(const char* prm_name) : DefaultScene(prm_name
     useProgress(RANKUPCONTROLLER_PROG_FINISH);
 }
 
-void RankUpController::onReset() {
+void RankUpSceneController::onReset() {
     if (_pSceneMainCannnel) {
         _pSceneMainCannnel->inactivate();
     }
@@ -37,14 +37,14 @@ void RankUpController::onReset() {
 
     _pProg->set(RANKUPCONTROLLER_PROG_INIT);
 }
-//void RankUpController::readyNextStage() {
+//void RankUpSceneController::readyNextStage() {
 //    _stage++;
 //    readyStage(_stage);
 //}
 
-void RankUpController::readyStage(int prm_stage) {
+void RankUpSceneController::readyStage(int prm_stage) {
 //    if (_had_ready_stage) {
-//        _TRACE_("＜警告＞RankUpController::readyStage 既に準備済みのステージがありますので無視します。_stage="<<_stage<<" prm_stage="<<prm_stage);
+//        _TRACE_("＜警告＞RankUpSceneController::readyStage 既に準備済みのステージがありますので無視します。_stage="<<_stage<<" prm_stage="<<prm_stage);
 //        return;
 //    }
 //
@@ -71,10 +71,10 @@ void RankUpController::readyStage(int prm_stage) {
     }
 }
 
-void RankUpController::initialize() {
+void RankUpSceneController::initialize() {
 }
 
-void RankUpController::processBehavior() {
+void RankUpSceneController::processBehavior() {
     //SCORE表示
     switch (_pProg->get()) {
         case RANKUPCONTROLLER_PROG_INIT: {
@@ -114,10 +114,10 @@ void RankUpController::processBehavior() {
     }
 
 }
-void RankUpController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+void RankUpSceneController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
         //次のステージを工場に注文していいよというイベント
-        _TRACE_("RankUpController::onCatchEvent() EVENT_PREPARE_NEXT_STAGE 準備きた");
+        _TRACE_("RankUpSceneController::onCatchEvent() EVENT_PREPARE_NEXT_STAGE 準備きた");
         if (_stage <= 5) {
             readyStage(_stage+1);
         } else {
@@ -128,21 +128,21 @@ void RankUpController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     }
 
     if (prm_no == EVENT_STG01_WAS_END) {
-        _TRACE_("RankUpController::onCatchEvent() EVENT_STG01_WAS_END");
+        _TRACE_("RankUpSceneController::onCatchEvent() EVENT_STG01_WAS_END");
         _pSceneMainCannnel->end(60*60);
         _pProg->change(RANKUPCONTROLLER_PROG_FINISH);
     }
     if (prm_no == EVENT_STG02_WAS_END) {
-        _TRACE_("RankUpController::onCatchEvent() EVENT_STG01_WAS_END");
+        _TRACE_("RankUpSceneController::onCatchEvent() EVENT_STG01_WAS_END");
         _pSceneMainCannnel->end(60*60);
         _pProg->change(RANKUPCONTROLLER_PROG_FINISH);
     }
 
 
 }
-void RankUpController::processFinal() {
+void RankUpSceneController::processFinal() {
 }
 
-RankUpController::~RankUpController() {
+RankUpSceneController::~RankUpSceneController() {
 }
 

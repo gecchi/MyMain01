@@ -77,7 +77,7 @@ public:
     /**
      * シーン監督を設定する。 .
      */
-    virtual void setMyDirector(GgafDirector* prm_pDirector);
+    virtual void setSceneDirector(GgafDirector* prm_pDirector);
 
     /**
      * 団長を設定する。<BR>
@@ -88,7 +88,7 @@ public:
      * シーン監督取得。 .
      * @return 監督
      */
-    virtual GgafDirector* getDirector();
+    virtual GgafDirector* getSceneDirector();
 
     /**
      * シーン団長を取得する。 .

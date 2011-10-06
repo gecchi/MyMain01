@@ -21,7 +21,7 @@ public:
 
     StageScene* _pSceneMainCannnel;
     TransitStage* _pTransitStage;
-‚±‚±‚±ª
+//‚±‚±‚±ª
     int _loop;
     int _stage;
     StageSceneController(const char* prm_name);
