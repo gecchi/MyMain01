@@ -70,16 +70,17 @@ void GameDemoScene::processBehavior() {
 
     switch (_pProg->get()) {
         case GAMEDEMOSCENE_PROG_INIT: {
+            _TRACE_("GameDemoScene::processBehavior() Prog(=GAMEDEMOSCENE_PROG_INIT) is Just Changed");
             addSubLast(P_STAGE_CONTROLLER->extract());
             P_STAGE_CONTROLLER->reset();
             P_STAGE_CONTROLLER->activateImmediately();
             _pProg->change(GAMEDEMOSCENE_PROG_DEMOPLAY);
-
             break;
         }
 
         case GAMEDEMOSCENE_PROG_DEMOPLAY: {
             if (_pProg->isJustChanged()) {
+                _TRACE_("GameDemoScene::processBehavior() Prog(=GAMEDEMOSCENE_PROG_DEMOPLAY) is Just Changed");
                 _pStringBoard01->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 _pStringBoard02->update(100*1000, 150*1000, "GAME OVER");
                 _pStringBoard02->_pFader->setAlphaToTop();
@@ -101,6 +102,7 @@ void GameDemoScene::processBehavior() {
 
         case GAMEDEMOSCENE_PROG_RANKING: {
             if (_pProg->isJustChanged()) {
+                _TRACE_("GameDemoScene::processBehavior() Prog(=GAMEDEMOSCENE_PROG_RANKING) is Just Changed");
                 _pStringBoard01->update(100*1000, 100*1000, "RANKING NOW");
                 for (int i = 0; i < 10; i++) {
                     _papLabelRanking[i]->locate(800*1000, 50*1000+(i*22*1000));
@@ -124,7 +126,7 @@ void GameDemoScene::processBehavior() {
 
         case GAMEDEMOSCENE_PROG_FINISH: {
             if (_pProg->isJustChanged()) {
-
+                _TRACE_("GameDemoScene::processBehavior() Prog(=GAMEDEMOSCENE_PROG_FINISH) is Just Changed");
             }
             if (_pProg->getFrameInProgress() == 600) {
                 throwEventToUpperTree(EVENT_GAMEDEMOSCENE_FINISH); //終わったイベント発動

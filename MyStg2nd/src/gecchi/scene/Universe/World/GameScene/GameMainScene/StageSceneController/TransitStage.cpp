@@ -39,10 +39,8 @@ void TransitStage::processBehavior() {
 
     switch (_pProg->get()) {
         case STAGESCENE_PROG_INIT: {
-            if (_pProg->isJustChanged()) {
-                _TRACE_("TransitStage::processBehavior() Prog(=STAGESCENE_PROG_INIT) is Just Changed");
-                _pProg->change(STAGESCENE_PROG_BEGIN);
-            }
+            _TRACE_("TransitStage::processBehavior() Prog(=STAGESCENE_PROG_INIT) is Just Changed");
+            _pProg->change(STAGESCENE_PROG_BEGIN);
             break;
         }
         case STAGESCENE_PROG_BEGIN: {
@@ -81,6 +79,7 @@ void TransitStage::processBehavior() {
             }
 
             if (_pProg->getFrameInProgress() == 300) {
+                _TRACE_("TransitStage::processBehavior() Prog(=STAGESCENE_PROG_END) throwEventToUpperTree(EVENT_TRANSIT_WAS_END)");
                 throwEventToUpperTree(EVENT_TRANSIT_WAS_END);
             }
 
@@ -103,22 +102,17 @@ void TransitStage::onInactive() {
 
 }
 void TransitStage::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
-        _TRACE_("TransitStage::onCatchEvent(EVENT_STG01_CONTROLLER_WAS_END)");
-        _pProg->change(STAGESCENE_PROG_END);
-    } else {
-
-    }
+    //if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
+    //    _TRACE_("TransitStage::onCatchEvent(EVENT_STG01_CONTROLLER_WAS_END)");
+    //    _pProg->change(STAGESCENE_PROG_END);
+    //} else {
+    //
+    //}
 }
 void TransitStage::ready(int prm_stage) {
     switch (prm_stage) {
         case 1:
-            if (_pProg->getFrameInProgress() == 5*60) {
-                //‚T•bŒo‚Á‚½‚ç“n“‡Ž
-                _pMessage->update("OKOKOK!!");
-                _next_main_stage = 2;
-                 _pProg->change(STAGESCENE_PROG_END);
-            }
+
             break;
         case 2:
             break;
@@ -135,6 +129,14 @@ void TransitStage::ready(int prm_stage) {
 void TransitStage::processBehaviorProgPlaying() {
     switch (_teansit_stage) {
         case 1:
+             if (_pProg->getFrameInProgress() == 5*60) {
+
+                //‚T•bŒo‚Á‚½‚ç“n“‡Ž
+                _pMessage->update("OKOKOK!!");
+                _next_main_stage = 2;
+                _TRACE_("TransitStage::processBehaviorProgPlaying() GOTO NEXT STAGE="<<_next_main_stage);
+                 _pProg->change(STAGESCENE_PROG_END);
+            }
             break;
         case 2:
             break;

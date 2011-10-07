@@ -88,12 +88,8 @@ void StageSceneController::processBehavior() {
     //SCORE•\Ž¦
     switch (_pProg->get()) {
         case STAGESCENECONTROLLER_PROG_INIT: {
-            if (_pProg->isJustChanged()) {
-                _TRACE_("StageSceneController::processBehavior() Prog(=STAGESCENECONTROLLER_PROG_INIT) is Just Changed");
-                readyStage(_main_stage);
-                _pProg->change(STAGESCENECONTROLLER_PROG_BEGIN);
-            }
-
+            readyStage(_main_stage);
+            _pProg->change(STAGESCENECONTROLLER_PROG_BEGIN);
             break;
         }
 

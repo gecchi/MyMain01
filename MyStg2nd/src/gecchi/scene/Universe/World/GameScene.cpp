@@ -93,6 +93,7 @@ void GameScene::processBehavior() {
 
     switch (_pProg->getPrev_WhenJustChanged()) {
         case GAMESCENE_PROG_MAIN: {
+            _TRACE_("GameScene::processBehavior() Prog(=GAMESCENE_PROG_MAIN) has just been Changed ");
             VB_UI->clear();
             P_GOD->setVB(VB_UI);  //元に戻す
             break;
@@ -105,9 +106,8 @@ void GameScene::processBehavior() {
 
     switch (_pProg->get()) {
         case GAMESCENE_PROG_INIT: {
-            if (_pProg->isJustChanged()) {
-                //P_GOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
-            }
+//            _TRACE_("GameScene::processBehavior() Prog(=GAMESCENE_PROG_INIT) is Just Changed");
+            //P_GOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
             if (_pProg->getFrameInProgress() >= 180 && P_GOD->_fps > CFG_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
                 _TRACE_("P_GOD->_fps = "<<P_GOD->_fps);
                 _pProg->changeWithScene_Crossfading(GAMESCENE_PROG_PRE_TITLE);
@@ -118,7 +118,7 @@ void GameScene::processBehavior() {
         case GAMESCENE_PROG_PRE_TITLE: {
             //##########  タイトル前演出  ##########
             if (_pProg->isJustChanged()) {
-
+                _TRACE_("GameScene::processBehavior() Prog(=GAMESCENE_PROG_PRE_TITLE) is Just Changed");
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
@@ -131,6 +131,7 @@ void GameScene::processBehavior() {
         case GAMESCENE_PROG_TITLE: {
             //##########  タイトル  ##########
             if (_pProg->isJustChanged()) {
+                _TRACE_("GameScene::processBehavior() Prog(=GAMESCENE_PROG_TITLE) is Just Changed");
             }
             //イベント待ち EVENT_GAMETITLESCENE_FINISH or EVENT_GAMESTART
             break;
@@ -139,6 +140,7 @@ void GameScene::processBehavior() {
         case GAMESCENE_PROG_DEMO: {
             //##########  デモ  ##########
             if (_pProg->isJustChanged()) {
+                _TRACE_("GameScene::processBehavior() Prog(=GAMESCENE_PROG_DEMO) is Just Changed");
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
@@ -152,6 +154,7 @@ void GameScene::processBehavior() {
         case GAMESCENE_PROG_BEGINNING: {
             //##########  ゲーム開始（モード選択等）  ##########
             if (_pProg->isJustChanged()) {
+                _TRACE_("GameScene::processBehavior() Prog(=GAMESCENE_PROG_BEGINNING) is Just Changed");
             }
             //イベント待ち EVENT_GAMEMODE_DECIDE
             break;
@@ -160,6 +163,7 @@ void GameScene::processBehavior() {
         case GAMESCENE_PROG_MAIN: {
             //##########  ゲームメイン  ##########
             if (_pProg->isJustChanged()) {
+                _TRACE_("GameScene::processBehavior() Prog(=GAMESCENE_PROG_MAIN) is Just Changed");
                 VB_PLAY->clear();
                 P_GOD->setVB(VB_PLAY); //プレイ用に変更
             }
@@ -218,6 +222,7 @@ void GameScene::processBehavior() {
 
         case GAMESCENE_PROG_ENDING: {
             if (_pProg->isJustChanged()) {
+                _TRACE_("GameMainScene::processBehavior() Prog(=GAMESCENE_PROG_ENDING) is Just Changed");
             }
             break;
         }
@@ -225,6 +230,7 @@ void GameScene::processBehavior() {
         case GAMESCENE_PROG_GAME_OVER: {
             //##########  ゲームオーバー  ##########
             if (_pProg->isJustChanged()) {
+                _TRACE_("GameMainScene::processBehavior() Prog(=GAMESCENE_PROG_GAME_OVER) is Just Changed");
             }
             //イベント待ち EVENT_GAME_OVER_FINISH
             break;
@@ -233,6 +239,7 @@ void GameScene::processBehavior() {
         case GAMESCENE_PROG_FINISH: {
             //##########  ゲームシーン終了  ##########
             if (_pProg->isJustChanged()) {
+                _TRACE_("GameMainScene::processBehavior() Prog(=GAMESCENE_PROG_FINISH) is Just Changed");
                 DefaultScene* pSubScene;
                 for (map<progress, DefaultScene*>::const_iterator it = _pProg->_mapProg2Scene.begin(); it != _pProg->_mapProg2Scene.end(); it++) {
                     pSubScene = it->second;

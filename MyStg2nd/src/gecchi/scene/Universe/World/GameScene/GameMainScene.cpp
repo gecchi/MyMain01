@@ -46,6 +46,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameMainScene::onReset() {
+    _TRACE_("GameMainScene::onReset()");
     _pProg->set(GAMEMAINSCENE_PROG_INIT);
 }
 
@@ -70,6 +71,7 @@ void GameMainScene::processBehavior() {
 
     switch (_pProg->get()) {
         case GAMEMAINSCENE_PROG_INIT: {
+            _TRACE_("GameMainScene::processBehavior() Prog(=GAMEMAINSCENE_PROG_INIT)");
             addSubLast(P_STAGE_CONTROLLER->extract());
             P_STAGE_CONTROLLER->reset();
             P_STAGE_CONTROLLER->activateImmediately();
@@ -78,16 +80,23 @@ void GameMainScene::processBehavior() {
         }
 
         case GAMEMAINSCENE_PROG_BEGIN: {
-            _pProg->change(GAMEMAINSCENE_PROG_PLAY);
+            if (_pProg->isJustChanged()) {
+                _TRACE_("GameMainScene::processBehavior() Prog(=GAMEMAINSCENE_PROG_BEGIN) is Just Changed");
+                _pProg->change(GAMEMAINSCENE_PROG_PLAY);
+            }
             break;
         }
 
         case GAMEMAINSCENE_PROG_PLAY: {
+            if (_pProg->isJustChanged()) {
+                _TRACE_("GameMainScene::processBehavior() Prog(=GAMEMAINSCENE_PROG_PLAY) is Just Changed");
+            }
             break;
         }
 
         case GAMEMAINSCENE_PROG_FINISH: {
             if (_pProg->isJustChanged()) {
+                _TRACE_("GameMainScene::processBehavior() Prog(=GAMEMAINSCENE_PROG_FINISH) is Just Changed");
             }
             break;
         }
