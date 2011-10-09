@@ -65,6 +65,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 }
 
 void Stage01WalledScene::initialize() {
+    WalledScene::initialize(); //èdóv
 }
 
 void Stage01WalledScene::processBehavior() {

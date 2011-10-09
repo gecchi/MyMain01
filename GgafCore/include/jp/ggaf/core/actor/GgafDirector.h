@@ -20,6 +20,10 @@ namespace GgafCore {
 class GgafDirector : public GgafActor {
 
 private:
+
+    /**
+     * 使用不可 .
+     */
     GgafDirector* extract() override {
         throwGgafCriticalException("GgafDirector に extract() は実行できません。name="<<getName());
     }
@@ -59,7 +63,7 @@ public:
     void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
     }
 
-    virtual void throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
+    void throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) override {
         GgafScene* s = getPlatformScene();
         if (s) {
             s->throwEventToUpperTree(prm_no, this); //自分より上位は居ない。そこで所属シーンへ投げる

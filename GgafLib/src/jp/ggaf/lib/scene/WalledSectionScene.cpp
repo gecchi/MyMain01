@@ -11,6 +11,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
     _TRACE_("WalledSectionScene::WalledSectionScene "<<prm_data_filename<<" begin");
     _class_name = "WalledSectionScene";
     _pTarget_FrontAlpha = NULL;
+	_pTarget_FrontAlpha = NULL;
     _pScrolledScene = prm_pScrolledScene;
     _wall_dep = 0;
     _wall_width = 0;

@@ -867,10 +867,7 @@ template<class T>
 void GgafElement<T>::nextFrame() {
     TRACE("GgafElement::nextFrame BEGIN _frame_of_behaving=" << _frame_of_behaving << " name=" << GgafNode<T>::_name << " class="
             << GgafNode<T>::_class_name);
-    _was_paused_flg  = _was_paused_flg_in_next_frame;
-    if (_was_paused_flg) {
-        return;
-    }
+
     //moveLast予約時
     if (_will_mv_last_in_next_frame_flg) {
         _will_mv_last_in_next_frame_flg = false;
@@ -880,79 +877,87 @@ void GgafElement<T>::nextFrame() {
         //このノードは、末尾に回されているため、必ずもう一度 nextFrame() の機会が訪れる。
     }
 
+    _was_paused_flg  = _was_paused_flg_in_next_frame;
+    if (!_was_paused_flg) {
 
-    //終了の時か
-    if (_will_end_after_flg && _frame_of_life_when_end == _frame_of_life+1) { //まだ _frame_of_life が進んで無いため+1
-       // _is_active_flg_in_next_frame = false;
-        _can_live_flg = false;
-    }
-
-    //_can_live_flg    = _can_live_flg_in_next_frame;
-
-    _on_change_to_active_flg = false;
-    _on_change_to_inactive_flg = false;
-    _frame_of_life++;
-    if (_can_live_flg) {
-
-        if(_was_initialize_flg == false) {
-            initialize();       //初期化
-            _was_initialize_flg = true;
-            reset(); //リセット
+        //終了の時か
+        if (_will_end_after_flg && _frame_of_life_when_end == _frame_of_life+1) { //まだ _frame_of_life が進んで無いため+1
+           // _is_active_flg_in_next_frame = false;
+            _can_live_flg = false;
         }
 
+        //_can_live_flg    = _can_live_flg_in_next_frame;
 
-        if (_is_active_flg && _frame_of_life == 1) {
-            //生まれてそのままならば、いきなり一回だけonActive()。
-            _on_change_to_active_flg = true;
-            //フレーム加算してからonActive()
-            _frame_of_behaving++;
-            _frame_of_behaving_since_onActive = 1;
-            onActive(); //コールバック
-            _frame_of_life_when_activation = 0;
-            _will_activate_after_flg = false;
-        } else if (_will_activate_after_flg) {
-            if (_is_active_flg) { //もともと活動中
+        _on_change_to_active_flg = false;
+        _on_change_to_inactive_flg = false;
+        _frame_of_life++;
+        if (_can_live_flg) {
+
+            if(_was_initialize_flg == false) {
+                initialize();       //初期化
+                _was_initialize_flg = true;
+                reset(); //リセット
+            }
+
+
+            if (_is_active_flg && _frame_of_life == 1) {
+                //生まれてそのままならば、いきなり一回だけonActive()。
+                _on_change_to_active_flg = true;
+                //フレーム加算してからonActive()
                 _frame_of_behaving++;
-                _frame_of_behaving_since_onActive++;
-            } else if(_frame_of_life == _frame_of_life_when_activation) {
-                //activate処理
-                if (_is_active_flg == false) {//_is_active_flg = false → true  時
-                    _is_active_flg = true; //活動フラグON!!!
-                    _on_change_to_active_flg = true;
-                    //フレーム加算してからonActive()
-                    _frame_of_behaving++;
-                    _frame_of_behaving_since_onActive = 1;
-                    onActive(); //コールバック
-                    _frame_of_life_when_activation = 0;
-                    _will_activate_after_flg = false;
-                } else {                      //もともと活動中
+                _frame_of_behaving_since_onActive = 1;
+                onActive(); //コールバック
+                _frame_of_life_when_activation = 0;
+                _will_activate_after_flg = false;
+            } else if (_will_activate_after_flg) {
+                if (_is_active_flg) { //もともと活動中
                     _frame_of_behaving++;
                     _frame_of_behaving_since_onActive++;
-                }
-            }
-        } else {
-            _frame_of_behaving++;
-            _frame_of_behaving_since_onActive++;
-        }
-
-        if (_will_inactivate_after_flg) {
-            if (_frame_of_life == _frame_of_life_when_inactivation) {
-                _frame_of_life_when_inactivation = 0;
-                _will_inactivate_after_flg = false;
-                //inactivate処理
-                if (_is_active_flg == true) { //_is_active_flg = true → false 時
-                    _is_active_flg = false;//活動フラグOFF!!!
-                    _on_change_to_inactive_flg = true;
-                    onInactive(); //コールバック
-
-                } else {
-                    //もともと非活動中
+                } else if(_frame_of_life == _frame_of_life_when_activation) {
+                    //activate処理
+                    if (_is_active_flg == false) {//_is_active_flg = false → true  時
+                        _is_active_flg = true; //活動フラグON!!!
+                        _on_change_to_active_flg = true;
+                        //フレーム加算してからonActive()
+                        _frame_of_behaving++;
+                        _frame_of_behaving_since_onActive = 1;
+                        onActive(); //コールバック
+                        _frame_of_life_when_activation = 0;
+                        _will_activate_after_flg = false;
+                    } else {                      //もともと活動中
+                        _frame_of_behaving++;
+                        _frame_of_behaving_since_onActive++;
+                    }
                 }
             } else {
-
+                _frame_of_behaving++;
+                _frame_of_behaving_since_onActive++;
             }
+
+            if (_will_inactivate_after_flg) {
+                if (_frame_of_life == _frame_of_life_when_inactivation) {
+                    _frame_of_life_when_inactivation = 0;
+                    _will_inactivate_after_flg = false;
+                    //inactivate処理
+                    if (_is_active_flg == true) { //_is_active_flg = true → false 時
+                        _is_active_flg = false;//活動フラグOFF!!!
+                        _on_change_to_inactive_flg = true;
+                        onInactive(); //コールバック
+
+                    } else {
+                        //もともと非活動中
+                    }
+                } else {
+
+                }
+            }
+            _is_already_reset = false;
         }
-        _is_already_reset = false;
+
+        // 進捗を反映
+        if (_pProg) {
+            _pProg->update();
+        }
     }
 
     //配下のnextFrame()実行
@@ -986,10 +991,7 @@ void GgafElement<T>::nextFrame() {
         //これは nextFrame() の２重実行を避けるため。
     }
 
-    // 進捗を反映
-    if (_pProg) {
-        _pProg->update();
-    }
+
     TRACE("GgafElement::nextFrame END _frame_of_behaving="<<_frame_of_behaving<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
 }
 

@@ -27,7 +27,6 @@
         #define override
     #endif
 #else
-   #define _WIN32_IE 0x0300
    #define override
 #endif
 
@@ -71,9 +70,9 @@
 #ifdef _MSC_VER
 #define __map__ map
 #else
-
-#include <unordered_map>
-#define __map__ unordered_map
+#define __map__ map
+//#include <unordered_map>
+//#define __map__ unordered_map
 #endif
 
 #ifndef _MSC_VER

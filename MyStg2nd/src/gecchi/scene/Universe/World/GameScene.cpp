@@ -186,7 +186,7 @@ void GameScene::processBehavior() {
                     _is_frame_advance = false;
                     _TRACE_("PAUSE!");
                     P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
-                    _pProg->getGazeScene()->pause(); //ポーズ！！
+                    _pProg->getGazeScene()->pauseTree(); //ポーズ！！
                     _pGamePauseScene->reset();
                     _pGamePauseScene->activate();
                 }
@@ -211,7 +211,7 @@ void GameScene::processBehavior() {
                     //ポーズ解除時直後の初期処理はココへ
                     _TRACE_("UNPAUSE!");
                     P_GOD->setVB(VB_PLAY);
-                    _pProg->getGazeScene()->unpause();//ポーズ解除！！
+                    _pProg->getGazeScene()->unpauseTree();//ポーズ解除！！
                     _pGamePauseScene->inactivate();
                 }
             }

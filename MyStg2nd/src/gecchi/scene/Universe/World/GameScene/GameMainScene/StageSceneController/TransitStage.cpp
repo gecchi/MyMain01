@@ -8,7 +8,8 @@ using namespace MyStg2nd;
 TransitStage::TransitStage(const char* prm_name) : StageScene(prm_name) {
     _class_name = "TransitStage";
     _TRACE_("TransitStage::TransitStage("<<prm_name<<")");
-    _teansit_stage = 1;
+    _teansit_stage = 0;
+    _next_main_stage = 0;
     _pWorldBoundSpace = NEW WorldBoundSpaceTransit("WBSTransit");
     getDirector()->addSubGroup(_pWorldBoundSpace);
 
@@ -60,7 +61,7 @@ void TransitStage::processBehavior() {
 
             if (_pProg->getFrameInProgress() == 60) { //ƒXƒe[ƒWŠJŽnI
                 _pMessage->update("SELECT NEXT STAGE!");
-                _pMessage->inactivateDelay(240);
+//                _pMessage->inactivateDelay(240);
             }
 
             processBehaviorProgPlaying();
@@ -132,13 +133,21 @@ void TransitStage::processBehaviorProgPlaying() {
              if (_pProg->getFrameInProgress() == 5*60) {
 
                 //‚T•bŒo‚Á‚½‚ç“n“‡Ž
-                _pMessage->update("OKOKOK!!");
+                _pMessage->update("OKOKOK!! NEXT STAGE 2");
                 _next_main_stage = 2;
                 _TRACE_("TransitStage::processBehaviorProgPlaying() GOTO NEXT STAGE="<<_next_main_stage);
                  _pProg->change(STAGESCENE_PROG_END);
             }
             break;
         case 2:
+            if (_pProg->getFrameInProgress() == 5*60) {
+
+               //‚T•bŒo‚Á‚½‚ç“n“‡Ž
+                _pMessage->update("OKOKOK!! NEXT STAGE 3?");
+               _next_main_stage = 3;
+               _TRACE_("TransitStage::processBehaviorProgPlaying() GOTO NEXT STAGE="<<_next_main_stage);
+                _pProg->change(STAGESCENE_PROG_END);
+           }
             break;
         case 3:
             break;

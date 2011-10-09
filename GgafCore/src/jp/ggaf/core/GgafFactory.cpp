@@ -315,13 +315,13 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
         }
         TRACE2("GgafFactory::work ＜工場長＞ 工場はこれにて店じまいです。さようなら、また会いましょう。");
         _was_finished_flg = true;
-        return 0;
     } catch (GgafCriticalException& e) {
         _TRACE_("＜工場例外＞ 私としたことがすみません；"<<e.getMsg());
         _is_working_flg = false;
         _was_finished_flg = true;
         GgafGod::_pException_Factory = NEW GgafCriticalException(e.getMsg());
-        return 0;
+        return 1;
     }
+    return 0;
 }
 

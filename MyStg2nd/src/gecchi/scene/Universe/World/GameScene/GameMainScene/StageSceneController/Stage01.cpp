@@ -13,11 +13,9 @@ Stage01::Stage01(const char* prm_name) : StageScene(prm_name) {
     addSubLast(_pScene_Stage01PartController);
     Sleep(2);
     _pWorldBoundSpace  = NEW WorldBoundSpace001("BG_SPACE");
-    _pWorldBoundSpace->inactivateTree();
     getDirector()->addSubGroup(KIND_EFFECT, _pWorldBoundSpace);
 
     _pHoshiBoshi = NEW HoshiBoshi001("HoshiBoshi001");
-    _pHoshiBoshi->inactivateTree();
     getDirector()->addSubGroup(KIND_EFFECT, _pHoshiBoshi);
 
     _pMessage = NEW LabelGecchi16Font("Stage01Msg");

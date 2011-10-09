@@ -27,13 +27,17 @@ public:
     /**
      * WalledSceneを構築する。
      * 本クラス new 後 initialize() までに、必ず１回実行する必要があります。
+     * 【注意】
+     * prm_pDepo_WallAABox 及び prm_pDepo_WallAAPrism は処理内で本シーンのinitialize() で
+     * 配下に強制移動されます。したがって、マネージャ管理の共通デポジトリの場合は、
+     * マネージャ側の不正ポインタの原因になります。
      * @param prm_wall_dep      壁ブロック１個のX軸方向の幅
      * @param prm_wall_width    壁ブロック１個のZ軸方向の幅
      * @param prm_wall_height   壁ブロック１個のY軸方向の幅
      * @param prm_papSection    セクションシーン配列へのポインタ
      * @param prm_section_num   セクションシーン数
-     * @param prm_pDepo_WallAABox 壁ブロックを供給するデポジトリ
-     * @param prm_pDepo_WallAAPrism 壁プリズムブロックを供給するデポジトリ（省略可）
+     * @param prm_pDepo_WallAABox 壁ブロックを供給するデポジトリ（※initialize()時、配下に強制移動）
+     * @param prm_pDepo_WallAAPrism 壁プリズムブロックを供給するデポジトリ（※initialize()時、配下に強制移。省略可）
      */
     void buildWalledScene(
             int prm_wall_dep, int prm_wall_width, int prm_wall_height,
