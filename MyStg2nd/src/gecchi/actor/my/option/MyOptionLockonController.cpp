@@ -24,7 +24,15 @@ MyOptionLockonController::MyOptionLockonController(const char* prm_name) :
 
 void MyOptionLockonController::initialize() {
 }
-
+void MyOptionLockonController::onReset() {
+    GgafMainActor* pLockonEffect_Active = getSubFirst();
+    int n = _pRingTarget->length();
+    for (int i = 0; i < n; i++) {
+        _pRingTarget->remove();
+        ((EffectLockon001*)pLockonEffect_Active)->releaseLockon();
+        pLockonEffect_Active->getPrev()->moveLastImmediately();
+    }
+}
 
 void MyOptionLockonController::processBehavior() {
     //ロックオンターゲット生存確認

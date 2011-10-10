@@ -72,7 +72,7 @@ void GgafDxBoardSetActor::processDraw() {
                 } else if (_valign == VALIGN_MIDDLE) {
                     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[_draw_set_num], float(App2Pix(_Y)-_height_px/2));
                 } else {
-                    //VALIGN_MIDDLE_TOP
+                    //VALIGN_TOP
                     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[_draw_set_num], float(App2Pix(_Y)));
                 }
                 checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

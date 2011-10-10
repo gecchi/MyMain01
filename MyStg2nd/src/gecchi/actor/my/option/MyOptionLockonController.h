@@ -21,6 +21,8 @@ public:
 
     void initialize() override;
 
+    void onReset() override;
+
     void processBehavior() override;
 
     void processJudgement() override;

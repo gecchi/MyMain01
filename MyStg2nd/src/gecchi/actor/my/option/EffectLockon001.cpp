@@ -26,6 +26,11 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
 void EffectLockon001::initialize() {
 }
 
+
+void EffectLockon001::onReset() {
+	_pProg->set(LOCKON001_PROG_RELEASE);
+}
+
 void EffectLockon001::onActive() {
 }
 

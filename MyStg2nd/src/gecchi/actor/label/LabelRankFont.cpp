@@ -189,13 +189,22 @@ void LabelRankFont::processBehavior() {
 }
 
 void LabelRankFont::processDraw() {
+    //âEãlÇﬂå≈íËï\é¶
     if (_len == 0) {
         return;
     }
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
 
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)));
+
+    if (_valign == VALIGN_BOTTOM) {
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)-_height_px));
+    } else if (_valign == VALIGN_MIDDLE) {
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)-_height_px/2));
+    } else {
+        //VALIGN_TOP
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)));
+    }
     checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahTransformedY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(App2Pix(_Z)));
     checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

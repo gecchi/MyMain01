@@ -118,6 +118,7 @@ void GgafDxUniverse::draw() {
     //※TODO:本来は手前から描画のほうが効率良い。が、その内最適化
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
     GgafDxScene* pScene;
+    float fAlpha;
     while (_pActor_DrawActive) {
         //マスターαを設定する。
 #ifdef MY_DEBUG
@@ -131,8 +132,8 @@ void GgafDxUniverse::draw() {
         _pActor_DrawActive->_pEffect->_pID3DXEffect->SetFloat(
                 _pActor_DrawActive->_pEffect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha
         );
-
-        if (_pActor_DrawActive->_fAlpha < 1.0f) {
+        fAlpha = pScene->_pAlphaCurtain->_alpha * _pActor_DrawActive->_fAlpha;
+        if (fAlpha < 1.0f) {
             GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリングを一時OFF
             //但し、段階レンダリング不要であるにもかかわらず、半透明表示は、前後がうまく表示されないので避けるべき。
         }
@@ -140,7 +141,7 @@ void GgafDxUniverse::draw() {
         //描画
         _pActor_DrawActive->processDraw();
 
-        if (_pActor_DrawActive->_fAlpha < 1.0f) {
+        if (fAlpha < 1.0f) {
             GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //カリング有りに戻す
         }
         _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
@@ -165,8 +166,9 @@ void GgafDxUniverse::draw() {
             _pActor_DrawActive->_pEffect->_pID3DXEffect->SetFloat(
                     _pActor_DrawActive->_pEffect->_h_alpha_master, pScene->_pAlphaCurtain->_alpha);
 
+            fAlpha = pScene->_pAlphaCurtain->_alpha * _pActor_DrawActive->_fAlpha;
             //半透明要素ありの場合カリングを一時OFF
-            if (_pActor_DrawActive->_fAlpha < 1.0f) {
+            if (fAlpha < 1.0f) {
                 GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
             }
             //Zバッファを考慮無効設定
@@ -181,7 +183,7 @@ void GgafDxUniverse::draw() {
             _pActor_DrawActive->processDraw();
 
             //カリング有りに戻す
-            if (_pActor_DrawActive->_fAlpha < 1.0f) {
+            if (fAlpha < 1.0f) {
                 GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
             }
             //Zバッファを考慮無効設定
@@ -192,8 +194,6 @@ void GgafDxUniverse::draw() {
             if (!_pActor_DrawActive->_zwriteenable) {
                 GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
             }
-
-
 
             _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }

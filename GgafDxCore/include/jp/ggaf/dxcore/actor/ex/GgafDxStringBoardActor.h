@@ -82,6 +82,62 @@ public:
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) {
     }
+    /**
+     * 描画文字を更新設定 .
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param prm_str 描画文字列
+     */
+    virtual void update(coord X, coord Y, const char* prm_str);
+    /**
+     * 描画文字を更新設定  .
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param prm_str 描画文字列
+     */
+    virtual void update(coord X, coord Y, char* prm_str);
+
+    /**
+     * 描画文字を更新設定  .
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Z プライオリティ(値が小さい方が手前)
+     * @param prm_str 描画文字列
+     */
+    virtual void update(coord X, coord Y, coord Z, const char* prm_str);
+    /**
+     * 描画文字を更新設定  .
+     * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Y 左上のY座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
+     * @param Z プライオリティ(値が小さい方が手前)
+     * @param prm_str 描画文字列
+     */
+    virtual void update(coord X, coord Y, coord Z, char* prm_str);
+    /**
+     * 描画文字を更新設定  .
+     * @param prm_str 描画文字列
+     */
+    virtual void update(const char* prm_str);
+    /**
+     * 描画文字を更新設定  .
+     * @param prm_str 描画文字列
+     */
+    virtual void update(char* prm_str);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 描画文字を更新設定 .
@@ -91,8 +147,8 @@ public:
      * @param prm_align ALIGN_LEFT:X座標は左端を意味する／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端を意味する
      */
     virtual void update(coord X, coord Y, const char* prm_str,
-                        GgafDxAlign prm_align = ALIGN_LEFT,
-                        GgafDxValign prm_valign = VALIGN_TOP);
+                        GgafDxAlign prm_align,
+                        GgafDxValign prm_valign);
     /**
      * 描画文字を更新設定  .
      * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
@@ -101,8 +157,8 @@ public:
      * @param prm_align ALIGN_LEFT:X座標は左端を意味する／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端を意味する
      */
     virtual void update(coord X, coord Y, char* prm_str,
-                        GgafDxAlign prm_align = ALIGN_LEFT,
-                        GgafDxValign prm_valign = VALIGN_TOP);
+                        GgafDxAlign prm_align,
+                        GgafDxValign prm_valign);
 
     /**
      * 描画文字を更新設定  .
@@ -113,8 +169,8 @@ public:
      * @param prm_align ALIGN_LEFT:X座標は左端を意味する／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端を意味する
      */
     virtual void update(coord X, coord Y, coord Z, const char* prm_str,
-                        GgafDxAlign prm_align = ALIGN_LEFT,
-                        GgafDxValign prm_valign = VALIGN_TOP);
+                        GgafDxAlign prm_align,
+                        GgafDxValign prm_valign);
     /**
      * 描画文字を更新設定  .
      * @param X 左上のX座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
@@ -124,24 +180,27 @@ public:
      * @param prm_align ALIGN_LEFT:X座標は左端を意味する／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端を意味する
      */
     virtual void update(coord X, coord Y, coord Z, char* prm_str,
-                        GgafDxAlign prm_align = ALIGN_LEFT,
-                        GgafDxValign prm_valign = VALIGN_TOP);
+                        GgafDxAlign prm_align,
+                        GgafDxValign prm_valign);
     /**
      * 描画文字を更新設定  .
      * @param prm_str 描画文字列
      * @param prm_align ALIGN_LEFT:X座標は左端を意味する／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端を意味する
      */
     virtual void update(const char* prm_str,
-                        GgafDxAlign prm_align = ALIGN_LEFT,
-                        GgafDxValign prm_valign = VALIGN_TOP);
+                        GgafDxAlign prm_align,
+                        GgafDxValign prm_valign);
     /**
      * 描画文字を更新設定  .
      * @param prm_str 描画文字列
      * @param prm_align ALIGN_LEFT:X座標は左端を意味する／ALIGN_CENTER:X座標は文字列の真ん中／ALIGN_RIGHT:X座標は右端を意味する
      */
     virtual void update(char* prm_str,
-                        GgafDxAlign prm_align = ALIGN_LEFT,
-                        GgafDxValign prm_valign = VALIGN_TOP);
+                        GgafDxAlign prm_align,
+                        GgafDxValign prm_valign);
+
+    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) override;
+
 
     virtual ~GgafDxStringBoardActor();
 

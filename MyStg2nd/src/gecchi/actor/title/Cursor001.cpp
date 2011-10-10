@@ -10,7 +10,6 @@ Cursor001::Cursor001(const char* prm_name) : DefaultBoardActor(prm_name, "Cursor
     _class_name = "Cursor001";
 }
 void Cursor001::initialize() {
-    setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
     _pUvFlipper->setFlipMethod(FLIP_OSCILLATE_LOOP, 10);
 }
 

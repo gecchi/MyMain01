@@ -34,6 +34,10 @@ void MyTorpedo::initialize() {
     _pCollisionChecker->setColliAAB_Cube(0, 70000);
 }
 
+void MyTorpedo::onReset() {
+    _pTarget = NULL;
+}
+
 void MyTorpedo::onActive() {
     _pStatus->reset();
     setAlpha(0.3);

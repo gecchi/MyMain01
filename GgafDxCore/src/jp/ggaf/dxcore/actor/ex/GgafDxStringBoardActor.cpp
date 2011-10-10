@@ -26,6 +26,83 @@ void GgafDxStringBoardActor::onCreateModel() {
 }
 
 
+
+
+
+
+
+
+void GgafDxStringBoardActor::update(coord X, coord Y, const char* prm_str) {
+    update(prm_str);
+    locate(X, Y);
+}
+
+void GgafDxStringBoardActor::update(coord X, coord Y, char* prm_str) {
+    update(prm_str);
+    locate(X, Y);
+}
+
+void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, const char* prm_str) {
+    update(prm_str);
+    locate(X, Y, Z);
+}
+
+void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, char* prm_str) {
+    update(prm_str);
+    locate(X, Y, Z);
+}
+
+void GgafDxStringBoardActor::update(const char* prm_str) {
+    if (prm_str == _draw_string) {
+        return;
+    }
+    _draw_string = (char*)prm_str;
+    _len = strlen(prm_str);
+    _len_pack_num = _len/_pBoardSetModel->_set_num;
+    _remainder_len = _len%_pBoardSetModel->_set_num;
+    if (_align == ALIGN_CENTER) {
+        _width_len_px = 0;
+        for (int i = 0; i < _len; i++) {
+            _width_len_px += _aWidthPx[_draw_string[i]];
+        }
+    } else {
+		_width_len_px = 0;
+	}
+}
+
+void GgafDxStringBoardActor::update(char* prm_str) {
+    _len = strlen(prm_str);
+#ifdef MY_DEBUG
+    if (_len > 1024-1) {
+        throwGgafCriticalException("GgafDxStringBoardActor::update 引数文字列数が範囲外です。name="<<getName());
+    }
+#endif
+    _draw_string = _buf;
+    strcpy(_draw_string, prm_str);
+    _len_pack_num = _len/_pBoardSetModel->_set_num;
+    _remainder_len = _len%_pBoardSetModel->_set_num;
+    if (_align == ALIGN_CENTER) {
+        _width_len_px = 0;
+        for (int i = 0; i < _len; i++) {
+            _width_len_px += _aWidthPx[_draw_string[i]];
+        }
+	} else {
+		_width_len_px = 0;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 void GgafDxStringBoardActor::update(coord X, coord Y, const char* prm_str,
                                     GgafDxAlign prm_align,
                                     GgafDxValign prm_valign) {
@@ -57,45 +134,28 @@ void GgafDxStringBoardActor::update(coord X, coord Y, coord Z, char* prm_str,
 void GgafDxStringBoardActor::update(const char* prm_str,
                                     GgafDxAlign prm_align,
                                     GgafDxValign prm_valign) {
-    if (prm_str == _draw_string && _align == prm_align) {
-        return;
-    }
-    _draw_string = (char*)prm_str;
-    _len = strlen(prm_str);
-    _len_pack_num = _len/_pBoardSetModel->_set_num;
-    _remainder_len = _len%_pBoardSetModel->_set_num;
-    _align = prm_align;
-
-    if (_align == ALIGN_CENTER) {
-        _width_len_px = 0;
-        for (int i = 0; i < _len; i++) {
-            _width_len_px += _aWidthPx[i];
-        }
-    }
+    update(prm_str);
+    setAlign(prm_align, prm_valign);
 }
 
 void GgafDxStringBoardActor::update(char* prm_str,
                                     GgafDxAlign prm_align,
                                     GgafDxValign prm_valign) {
-    _len = strlen(prm_str);
-#ifdef MY_DEBUG
-    if (_len > 1024-1) {
-        throwGgafCriticalException("GgafDxStringBoardActor::update 引数文字列数が範囲外です。name="<<getName());
-    }
-#endif
-    _draw_string = _buf;
-    strcpy(_draw_string, prm_str);
-    _len_pack_num = _len/_pBoardSetModel->_set_num;
-    _remainder_len = _len%_pBoardSetModel->_set_num;
+    update(prm_str);
+    setAlign(prm_align, prm_valign);
+}
+
+void GgafDxStringBoardActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
     _align = prm_align;
-
-
+    _valign = prm_valign;
     if (_align == ALIGN_CENTER) {
         _width_len_px = 0;
         for (int i = 0; i < _len; i++) {
-            _width_len_px += _aWidthPx[i];
+            _width_len_px += _aWidthPx[_draw_string[i]];
         }
-    }
+	} else {
+        _width_len_px = 0;
+	}
 }
 
 
@@ -111,7 +171,7 @@ void GgafDxStringBoardActor::processDraw() {
     HRESULT hr;
     if (_valign == VALIGN_BOTTOM) {
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)-_chr_height_px));
-    } else  if (_valign == VALIGN_TOP) {
+    } else  if (_valign == VALIGN_MIDDLE) {
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)-(_chr_height_px/2)));
     } else {
         //VALIGN_TOP

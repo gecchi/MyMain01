@@ -40,6 +40,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _papStringItem[3]->update("QUIT", ALIGN_LEFT, VALIGN_MIDDLE);
 
     _pCursor001= NEW Cursor001("Cursor001");
+    _pCursor001->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
     _pCursor001->inactivateImmediately();
     getDirector()->addSubGroup(_pCursor001);
 

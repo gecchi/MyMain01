@@ -27,6 +27,8 @@ public:
 
     virtual void onActive() override;
 
+    virtual void onReset() override;
+
     virtual void onInactive() override;
 
     virtual void processJudgement() override;

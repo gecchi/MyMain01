@@ -40,6 +40,7 @@ GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
     }
 
     _pCursor001= NEW Cursor001("Cursor001");
+    _pCursor001->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     _pCursor001->inactivateImmediately();
     getDirector()->addSubGroup(_pCursor001);
 
@@ -54,6 +55,7 @@ void GamePauseScene::onReset() {
     for (int i = 0; i < _max_menu_item; i++) {
         _papMenuItemLabel[i]->inactivateImmediately();
     }
+    _pCursor001->inactivateImmediately();
     _pProg->set(GAMEPAUSESCENE_PROG_INIT);
 }
 

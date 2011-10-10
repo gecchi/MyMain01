@@ -113,7 +113,7 @@ public:
 
     virtual ~GgafDxBoardActor(); //デストラクタ
 
-    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
+    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign = VALIGN_TOP);
 
     virtual void locateAs(GgafDxGeometricActor* prm_pActor) override {
         _X = prm_pActor->_X;
