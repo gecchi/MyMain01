@@ -53,8 +53,10 @@ void GamePauseScene::onReset() {
     _pMsgLabel01->inactivateImmediately();
     _pMsgLabel02->inactivateImmediately();
     for (int i = 0; i < _max_menu_item; i++) {
+        _papMenuItemLabel[i]->_pKurokoA->setMvVelo(0);
         _papMenuItemLabel[i]->inactivateImmediately();
     }
+    _pCursor001->_pKurokoA->setMvVelo(0);
     _pCursor001->inactivateImmediately();
     _pProg->set(GAMEPAUSESCENE_PROG_INIT);
 }
