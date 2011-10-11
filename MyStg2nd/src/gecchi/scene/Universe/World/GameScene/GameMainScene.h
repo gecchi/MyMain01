@@ -26,6 +26,7 @@ public:
     void initialize() override;
     void processBehavior() override;
     void processFinal() override;
+    void onInactive() override;
     void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
     virtual ~GameMainScene();
 

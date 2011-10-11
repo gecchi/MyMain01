@@ -24,17 +24,17 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pFont16_SCORE->locate(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)), Pix2App(1));
     getDirector()->addSubGroup(_pFont16_SCORE);
 
-	_pFont16_RANK = NEW LabelGecchi16Font("RANK");
+    _pFont16_RANK = NEW LabelGecchi16Font("RANK");
     _pFont16_RANK->setAlign(ALIGN_RIGHT, VALIGN_TOP);
     _pFont16_RANK->locate(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)), Pix2App(20));
     getDirector()->addSubGroup(_pFont16_RANK);
 
     _pFont16_STAMINA = NEW LabelGecchi16Font("STAMINA");
-	_pFont16_STAMINA->setAlign(ALIGN_RIGHT, VALIGN_TOP);
+    _pFont16_STAMINA->setAlign(ALIGN_RIGHT, VALIGN_TOP);
     _pFont16_STAMINA->locate(Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)), Pix2App(40));
     getDirector()->addSubGroup(_pFont16_STAMINA);
 
-	_pFont8_JIKI_X = NEW LabelGecchi8Font("JIKI_X");
+    _pFont8_JIKI_X = NEW LabelGecchi8Font("JIKI_X");
     _pFont8_JIKI_Y = NEW LabelGecchi8Font("JIKI_Y");
     _pFont8_JIKI_Z = NEW LabelGecchi8Font("JIKI_Z");
     _pFont8_JIKI_X->locate(Pix2App(1), Pix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1));
@@ -113,7 +113,10 @@ void GameMainScene::processBehavior() {
 
 }
 
-
+void GameMainScene::onInactive() {
+    P_STAGE_CONTROLLER->_pStageSceneMainCannel->end();
+    P_STAGE_CONTROLLER->_pStageSceneMainCannel = NULL;
+}
 
 
 void GameMainScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {

@@ -145,6 +145,10 @@ void GameDemoScene::processBehavior() {
 void GameDemoScene::processFinal() {
 
 }
+void GameDemoScene::onInactive() {
+    P_STAGE_CONTROLLER->_pStageSceneMainCannel->end();
+    P_STAGE_CONTROLLER->_pStageSceneMainCannel = NULL;
+}
 
 GameDemoScene::~GameDemoScene() {
     DELETEARR_IMPOSSIBLE_NULL(_papLabelRanking);
