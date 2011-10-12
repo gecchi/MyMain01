@@ -689,9 +689,6 @@ void VirtualButton::update() {
     } else {
 
         //’Êí‘€ì
-//        GgafDxInput::updateKeyboardState();
-//        GgafDxInput::updateJoystickState();
-
         _pVBRecord_Active = _pVBRecord_Active->_next;
 
         _pVBRecord_Active->_state = 0; //ƒŠƒZƒbƒg

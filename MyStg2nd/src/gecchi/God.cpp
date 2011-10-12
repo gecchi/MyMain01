@@ -17,9 +17,22 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
     _pSpl3DManager = NEW SplineLineManager("SplineLineManager");
     God::_pVbtn_PLAY = NEW VirtualButton("VB_PLAY.rep");
     God::_pVbtn_UI   = NEW VirtualButton("VB_UI.rep");
+#ifdef MY_DEBUG
+    _pVbtn_PLAY->_pRpy->setRealtimeOutputFile("VB_PLAY_LAST_REALTIME.rep");
+    _pVbtn_UI->_pRpy->setRealtimeOutputFile("VB_UI_LAST_REALTIME.rep");
+#endif
     God::_pVbtn_Active = God::_pVbtn_UI;
     God::_pVbtn_Active_next_frame = God::_pVbtn_UI;
-    if (_pVbtn_PLAY->_is_replaying && !_pVbtn_UI->_is_replaying) {
+
+    if (_pVbtn_PLAY->_is_replaying && _pVbtn_UI->_is_replaying) {
+        _TRACE_("プレイリプレイ情報○、UIリプレイ情報○");
+        _TRACE_("リプレイ再生モードです。");
+    } else if (!_pVbtn_PLAY->_is_replaying && _pVbtn_UI->_is_replaying) {
+        _TRACE_("プレイリプレイ情報×、UIリプレイ情報○");
+    } else if (_pVbtn_PLAY->_is_replaying && !_pVbtn_UI->_is_replaying) {
+        _TRACE_("プレイリプレイ情報○、UIリプレイ情報×");
+        _TRACE_("リプレイ再生モードです。");
+        _TRACE_("但し、プレイリプレイから PAUSE情報を切り取ります。");
         //プレイリプレイあり、かつUIリプレイ無しの場合のみ、プレイリプレイのPAUSE情報を除去する
         VBReplayRecorder* pRepPlay = _pVbtn_PLAY->_pRpy;
         VBReplayRecorder::VBRecordNote* pRecNote = pRepPlay->_pFirstVBNote;
@@ -27,6 +40,9 @@ God::God(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary
             pRecNote->_state = pRecNote->_state & ~((vbsta)VB_PAUSE);
             pRecNote = pRecNote->_pNext;
         }
+    } else {
+        _TRACE_("プレイリプレイ情報×、UIリプレイ情報×");
+        _TRACE_("リプレイ登録モードです。");
     }
 
 

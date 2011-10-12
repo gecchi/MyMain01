@@ -51,10 +51,14 @@ public:
     /** [r]同一ステータス継続フレームカウンタ */
     frame _frame_of_the_same_vbsta_reading;
 
+    ofstream _ofs_realtime;
+
+    bool _write_realtime;
     /**
      * コンストラクタ .
      */
     VBReplayRecorder();
+
 
     /**
      * 内部カーソルを先頭に持ってくる .
@@ -67,6 +71,13 @@ public:
      */
     vbsta read();
 
+    /**
+     * リアルタイム記述モードをオンにする。
+     * write(vbsta) 実行の度に、リアルタイムでファイルに情報を記述していきます。
+     * @param prm_filename リアルタイムに書きだすファイル名
+     * @return
+     */
+    bool setRealtimeOutputFile(const char* prm_filename);
     /**
      * 仮想ボタンステータスを書き込み、内部状態を、次の状態へ遷移 .
      * @param state

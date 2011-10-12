@@ -88,11 +88,6 @@ void EnemyJuno::processBehavior() {
             }
         }
     }
-
-
-
-
-
     _pKurokoA->behave();
 }
 

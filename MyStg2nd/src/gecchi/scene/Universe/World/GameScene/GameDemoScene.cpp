@@ -146,8 +146,10 @@ void GameDemoScene::processFinal() {
 
 }
 void GameDemoScene::onInactive() {
-    P_STAGE_CONTROLLER->_pStageSceneMainCannel->end();
-    P_STAGE_CONTROLLER->_pStageSceneMainCannel = NULL;
+    if (P_STAGE_CONTROLLER->_pStageSceneMainCannel) {
+        P_STAGE_CONTROLLER->_pStageSceneMainCannel->end();
+        P_STAGE_CONTROLLER->_pStageSceneMainCannel = NULL;
+    }
 }
 
 GameDemoScene::~GameDemoScene() {

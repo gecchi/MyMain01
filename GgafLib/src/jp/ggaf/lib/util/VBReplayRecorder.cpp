@@ -8,6 +8,18 @@ VBReplayRecorder::VBReplayRecorder() : GgafObject() {
     _pFirstVBNote = NULL;
     _pRecNote = NULL;
     _pRecNote_RreadPrev = NULL;
+    _write_realtime = false;
+}
+
+bool VBReplayRecorder::setRealtimeOutputFile(const char* prm_filename) {
+    _write_realtime = true;
+    _ofs_realtime.open(prm_filename);
+    if (_ofs_realtime.fail()) {
+        _TRACE_("VBReplayRecorder::setRealtimeOutputFile "<<prm_filename<<" ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+        return false;
+    } else {
+        return true;
+    }
 }
 
 void VBReplayRecorder::first() {
@@ -52,13 +64,21 @@ void VBReplayRecorder::write(vbsta prm_state) {
             _pRecNote->_frame_of_keeping++;
         }
     }
+
+    if (_write_realtime) {
+        _ofs_realtime << prm_state << " 1" << endl;
+    }
 }
+
 void VBReplayRecorder::outputFile(const char* prm_filename) {
     ofstream ofs(prm_filename);
     VBRecordNote* p = _pFirstVBNote;
     while (p != NULL) {
         ofs << p->_state << " " << p->_frame_of_keeping << endl;
         p = p ->_pNext;
+    }
+    if (_write_realtime) {
+        _ofs_realtime.flush();
     }
 }
 
@@ -97,6 +117,10 @@ VBReplayRecorder::~VBReplayRecorder() {
         w = p ->_pNext;
         DELETE_IMPOSSIBLE_NULL(p);
         p = w;
+    }
+
+    if (_write_realtime) {
+        _ofs_realtime.close();
     }
 
 }
