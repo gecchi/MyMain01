@@ -61,7 +61,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
     _KTRACE_("this="<<this<<" "<<getName()<<"  "<<_pChip_front <<"<--["<<this<<"]<--"<<_pChip_behind);
 
     GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
-    if (getActivePartFrame() > 8) {
+    if (getActivePartFrame() > 6) {
         if (_lockon == 1) {
             if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
                 //    |             vVT ‰¼“I                        |
@@ -104,10 +104,17 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 double accX = ((vTx * r) - vVMx)/_r_maxacce;
                 double accY = ((vTy * r) - vVMy)/_r_maxacce;
                 double accZ = ((vTz * r) - vVMz)/_r_maxacce;
-                _pKurokoB->setVxMvAcce(accX+sgn(accX)*2); //sgn(accX)*2 ‚ð‰ÁŽZ‚·‚é‚Ì‚ÍA‰Á‘¬“x‚ð0‚É‚µ‚È‚¢‚½‚ß
-                _pKurokoB->setVyMvAcce(accY+sgn(accY)*2);
-                _pKurokoB->setVzMvAcce(accZ+sgn(accZ)*2);
 
+                if (_pChip_front == NULL) {
+                    //æ“ª‚Í‚â‚â‘¬‚ß‚É
+                    _pKurokoB->setVxMvAcce(accX+sgn(accX)*5); //sgn(accX)*5 ‚ð‰ÁŽZ‚·‚é‚Ì‚ÍA‰Á‘¬“x‚ð0‚É‚µ‚È‚¢‚½‚ß
+                    _pKurokoB->setVyMvAcce(accY+sgn(accY)*5);
+                    _pKurokoB->setVzMvAcce(accZ+sgn(accZ)*5);
+                } else {
+                    _pKurokoB->setVxMvAcce(accX+sgn(accX)*3); //sgn(accX)*3 ‚ð‰ÁŽZ‚·‚é‚Ì‚ÍA‰Á‘¬“x‚ð0‚É‚µ‚È‚¢‚½‚ß
+                    _pKurokoB->setVyMvAcce(accY+sgn(accY)*3);
+                    _pKurokoB->setVzMvAcce(accZ+sgn(accZ)*3);
+                }
                 //ƒlƒWƒŒ•`‰æ‚ª‰˜‚­‚È‚ç‚È‚¢‚æ‚¤‚É‰ñ“]‚ð§ŒÀ
                 if (lVM > _renge/2) {
                     angle RZ_temp = _RZ;
@@ -150,7 +157,6 @@ void MyOptionWateringLaserChip001::processBehavior() {
         }
 
         if (_lockon == 2) {
-
 //
             int vTx,vTy,vTz;
             if (_pChip_front == NULL) {
@@ -158,13 +164,13 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 int dx = (_X - _pOrg->_X);
                 int dy = (_Y - _pOrg->_Y);
                 int dz = (_Z - _pOrg->_Z);
-                coord zf = Dx2App(P_CAM->_zf);
-                vTx = _X+dx*(dx == 0 ? zf : zf/dx);
-                vTy = _Y+dy*(dy == 0 ? zf : zf/dy);
-                vTz = _Z+dz*(dz == 0 ? zf : zf/dz);
+                static coord zf = Dx2App(P_CAM->_zf)*2;
+                vTx = _X+dx*(dx == 0 ? zf : abs(zf/dx));
+                vTy = _Y+dy*(dy == 0 ? zf : abs(zf/dy));
+                vTz = _Z+dz*(dz == 0 ? zf : abs(zf/dz));
             } else {
                 LaserChip* p = _pChip_front;
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 4; i++) {
                     if (p->_pChip_front == NULL) {
                         vTx = p->_X - _X;
                         vTy = p->_Y - _Y;
@@ -192,9 +198,17 @@ void MyOptionWateringLaserChip001::processBehavior() {
             double accX = ((vTx * r) - vVMx)/_r_maxacce;
             double accY = ((vTy * r) - vVMy)/_r_maxacce;
             double accZ = ((vTz * r) - vVMz)/_r_maxacce;
-            _pKurokoB->setVxMvAcce(accX+sgn(accX)*2);
-            _pKurokoB->setVyMvAcce(accY+sgn(accY)*2);
-            _pKurokoB->setVzMvAcce(accZ+sgn(accZ)*2);
+            if (_pChip_front == NULL) {
+                //æ“ª‚Í‚â‚â‘¬‚ß‚É
+                _pKurokoB->setVxMvAcce(accX+sgn(accX)*5); //sgn(accX)*5 ‚ð‰ÁŽZ‚·‚é‚Ì‚ÍA‰Á‘¬“x‚ð0‚É‚µ‚È‚¢‚½‚ß
+                _pKurokoB->setVyMvAcce(accY+sgn(accY)*5);
+                _pKurokoB->setVzMvAcce(accZ+sgn(accZ)*5);
+            } else {
+                _pKurokoB->setVxMvAcce(accX+sgn(accX)*3); //sgn(accX)*3 ‚ð‰ÁŽZ‚·‚é‚Ì‚ÍA‰Á‘¬“x‚ð0‚É‚µ‚È‚¢‚½‚ß
+                _pKurokoB->setVyMvAcce(accY+sgn(accY)*3);
+                _pKurokoB->setVzMvAcce(accZ+sgn(accZ)*3);
+            }
+
 
             if (lVM > _renge/2) {
                 angle RZ_temp = _RZ;

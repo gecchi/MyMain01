@@ -9,7 +9,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     _class_name = "Stage01WalledScene";
 
     //壁ブロックデポジトリ生成
-    float scale_r = 1.0f; //壁ブロックの元モデルからの拡大率
+    float scale_r = 3.0f; //壁ブロックの元モデルからの拡大率
     WallAABActor* pWallAABActor;
     GgafActorDepository* pDepo_WallAAB = NEW GgafActorDepository("Dp_WallAAB");
     for (int i = 0; i < 1500; i++) {
