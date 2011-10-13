@@ -15,12 +15,12 @@ volatile bool GgafFactory::_was_finished_flg = false;
 int GgafFactory::_cnt_cleaned = 0;
 GgafGarbageBox* GgafFactory::_pGarbageBox = NULL;
 
-GgafMainActor* GgafFactory::obtainActor(unsigned long prm_id) {
-    return (GgafMainActor*)obtain(prm_id);
+GgafMainActor* GgafFactory::obtainActor(unsigned long prm_id, GgafObject* prm_org) {
+    return (GgafMainActor*)obtain(prm_id, prm_org);
 }
 
-GgafMainScene* GgafFactory::obtainScene(unsigned long prm_id) {
-    return (GgafMainScene*)obtain(prm_id);
+GgafMainScene* GgafFactory::obtainScene(unsigned long prm_id, GgafObject* prm_org) {
+    return (GgafMainScene*)obtain(prm_id, prm_org);
 }
 
 //注文
@@ -94,7 +94,7 @@ int GgafFactory::chkProgress(unsigned long prm_id) {
     return -2;
 }
 
-void* GgafFactory::obtain(unsigned long prm_id) {
+void* GgafFactory::obtain(unsigned long prm_id, GgafObject* prm_org) {
     TRACE("GgafFactory::obtain "<<prm_id<<"/");
     GgafOrder* pOrder;
     GgafOrder* pOrder_MyNext;
@@ -103,7 +103,12 @@ void* GgafFactory::obtain(unsigned long prm_id) {
     pOrder = ROOT_ORDER;
     void* objectCreation;
     if (pOrder == NULL) {
-        throwGgafCriticalException("GgafFactory::obtain("<<prm_id<<") Error! 注文はNULLです。orederとobtainの対応が取れていません。");
+        if (prm_org->_obj_class & Obj_GgafActor) {
+            _TRACE_("エラー追跡情報、呼び元="<<((GgafActor*)prm_org)->getName());
+        } else if (prm_org->_obj_class  & Obj_GgafScene) {
+            _TRACE_("エラー追跡情報、呼び元="<<((GgafScene*)prm_org)->getName());
+        }
+        throwGgafCriticalException("GgafFactory::obtain("<<prm_id<<") Error! 注文はNULLです。orederとobtainの対応が取れていません。呼び元="<<prm_org);
     }
     while (_is_working_flg) {
 
@@ -117,7 +122,12 @@ void* GgafFactory::obtain(unsigned long prm_id) {
 #else
 
                     if (waittime > 1000*60) { //約60秒
-                        throwGgafCriticalException("GgafFactory::obtain Error! ["<<prm_id<<"]の製造待ち時間、タイムアウト。\n何らかの理由でメインスレッドが停止している可能性が大きいです。");
+                        if (prm_org->_obj_class & Obj_GgafActor) {
+                            _TRACE_("エラー追跡情報、呼び元="<<((GgafActor*)prm_org)->getName());
+                        } else if (prm_org->_obj_class & Obj_GgafScene) {
+                            _TRACE_("エラー追跡情報、呼び元="<<((GgafScene*)prm_org)->getName());
+                        }
+                        throwGgafCriticalException("GgafFactory::obtain Error! ["<<prm_id<<"]の製造待ち時間、タイムアウト。\n何らかの理由でメインスレッドが停止している可能性が大きいです。呼び元="<<prm_org);
                     } else {
                     }
 #endif
@@ -176,7 +186,13 @@ void* GgafFactory::obtain(unsigned long prm_id) {
             }
         } else {
             if (pOrder->_is_last_order_flg) {
-                throwGgafCriticalException("GgafFactory::obtain Error! ＜工場長＞全部探しましたけど、そんな注文(prm_id="<<prm_id<<")は、ありません。\n oreder() と obtain() の対応が取れていません。oreder()漏れ、或いは同じ obtain() を２回以上してませんか？。");
+                if (prm_org->_obj_class & Obj_GgafActor) {
+                    _TRACE_("エラー追跡情報、呼び元="<<((GgafActor*)prm_org)->getName());
+                } else if (prm_org->_obj_class & Obj_GgafScene) {
+                    _TRACE_("エラー追跡情報、呼び元="<<((GgafScene*)prm_org)->getName());
+                }
+                throwGgafCriticalException("GgafFactory::obtain Error! ＜工場長＞全部探しましたけど、そんな注文(prm_id="<<prm_id<<")は、ありません。\n oreder() と obtain() の対応が取れていません。"<<
+					                       "oreder()漏れ、或いは同じ obtain() を２回以上してませんか？。呼び元="<<prm_org);
             } else {
                 pOrder = pOrder->_pOrder_Next;
             }

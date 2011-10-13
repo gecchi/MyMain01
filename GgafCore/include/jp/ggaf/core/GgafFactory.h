@@ -46,9 +46,10 @@ private:
      * 注文した商品を取り出す .
      * 未製造だった場合、製造が完了するまで待つ。<BR>
      * @param   prm_id	注文識別ID番号
+     * @param   prm_org 注文元（デバッグ用）
      * @return	製品のポインタ
      */
-    static void* obtain(unsigned long prm_id);
+    static void* obtain(unsigned long prm_id, GgafObject* prm_org);
 
 public:
     /** [r]ゴミ箱(不要なアクター置き場) */
@@ -107,18 +108,20 @@ public:
      * メイン処理が呼び出します。<BR>
      * 未製造だった場合、製造が完了するまで待つ。<BR>
      * @param   prm_id	注文識別ID
+     * @param   prm_org 注文元（デバッグ用）
      * @return	生成されたアクターのポインタ
      */
-    static GgafMainActor* obtainActor(unsigned long prm_id);
+    static GgafMainActor* obtainActor(unsigned long prm_id, GgafObject* prm_org);
 
     /**
      * 注文したシーンを取り出す。（メインスレッドが使用） .
      * メイン処理が呼び出します。<BR>
      * 未製造だった場合、製造が完了するまで待つ。<BR>
      * @param   prm_id	注文識別ID
+     * @param   prm_org 注文元（デバッグ用）
      * @return	生成されたシーンのポインタ
      */
-    static GgafMainScene* obtainScene(unsigned long prm_id);
+    static GgafMainScene* obtainScene(unsigned long prm_id, GgafObject* prm_org);
 
     /**
      * 注文した商品が出来上がっているか調べる。（メインスレッドが使用） .
@@ -225,9 +228,9 @@ public:
 #define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModelDp,(void*)(NAME),(void*)(MODEL),(void*)(DEPOSITORY)))
 #define orderActorWithDpToFactory(ID, CLASS, NAME, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithDp,(void*)(NAME),(void*)(DEPOSITORY), (void*)(NULL)))
 
-#define obtainActorFromFactory(ID) (GgafCore::GgafFactory::obtainActor((ID)))
+#define obtainActorFromFactory(ID) (GgafCore::GgafFactory::obtainActor((ID),this))
 #define orderSceneToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene,(void*)(NAME),(void*)(NULL),(void*)(NULL)))
-#define obtainSceneFromFactory(ID) (GgafCore::GgafFactory::obtainScene((ID)))
+#define obtainSceneFromFactory(ID) (GgafCore::GgafFactory::obtainScene((ID),this))
 
 }
 #endif /*GGAFGACTORY_H_*/

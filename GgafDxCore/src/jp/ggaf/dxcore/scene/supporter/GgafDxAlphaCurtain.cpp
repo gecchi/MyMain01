@@ -5,7 +5,7 @@ using namespace GgafDxCore;
 
 GgafDxAlphaCurtain::GgafDxAlphaCurtain(GgafDxScene* prm_pDxScene,
                                        float prm_min_alpha,
-                                       float prm_max_alpha) : GgafCurtain(prm_pDxScene, _max_alpha-_min_alpha) {
+                                       float prm_max_alpha) : GgafCurtain(prm_pDxScene, prm_max_alpha-prm_min_alpha) {
     _pDxScene = prm_pDxScene;
     _min_alpha = prm_min_alpha;
     _max_alpha = prm_max_alpha;

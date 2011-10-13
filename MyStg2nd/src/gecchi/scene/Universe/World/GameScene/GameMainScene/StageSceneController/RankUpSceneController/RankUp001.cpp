@@ -84,9 +84,6 @@ void RankUp001::processBehavior() {
 void RankUp001::processJudgement() {
 }
 
-void RankUp001::processFinal() {
-
-}
 
 void RankUp001::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ) {
