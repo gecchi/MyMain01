@@ -80,8 +80,6 @@ OUT_VS GgafDxVS_CubeMapMorphMesh0(
     if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
         out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
     }
-    //マスターα
-    out_vs.color.a *= g_alpha_master;
 	return out_vs;
 }
 
@@ -309,8 +307,7 @@ float4 GgafDxPS_CubeMapMorphMesh(
 	if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
 		out_color *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
 	} 
-
-    out_color.a = prm_color.a; 
+    out_color.a = prm_color.a * g_alpha_master; 
 	return out_color;
 }
 
@@ -321,6 +318,7 @@ float4 PS_Flush(
 ) : COLOR  {
     float4 colTex2D  = tex2D( MyTextureSampler, prm_uv);
     float4 out_color = colTex2D * prm_color * FLUSH_COLOR;
+    out_color.a *= g_alpha_master;
 	return 	out_color;
 }
 

@@ -21,7 +21,7 @@ void GgafDxScene::fadeinSceneTree(int prm_frame_fade) {
     if (prm_frame_fade == 0) {
         _pAlphaCurtain->open();
     } else {
-        _pAlphaCurtain->open(1.0 / prm_frame_fade);
+        _pAlphaCurtain->open(_pAlphaCurtain->_range_alpha / prm_frame_fade);
     }
     if (getSubFirst()) {
 #ifdef MY_DEBUG
@@ -54,7 +54,7 @@ void GgafDxScene::fadeinScene(int prm_frame_fade) {
     if (prm_frame_fade == 0) {
         _pAlphaCurtain->open();
     } else {
-        _pAlphaCurtain->open(1.0 / prm_frame_fade);
+        _pAlphaCurtain->open(_pAlphaCurtain->_range_alpha / prm_frame_fade);
     }
 }
 
@@ -63,7 +63,7 @@ void GgafDxScene::fadeoutSceneTree(int prm_frame_fade) {
     if (prm_frame_fade == 0) {
         _pAlphaCurtain->close();
     } else {
-        _pAlphaCurtain->close(1.0 / prm_frame_fade);
+        _pAlphaCurtain->close(_pAlphaCurtain->_range_alpha / prm_frame_fade);
     }
     if (getSubFirst()) {
 #ifdef MY_DEBUG
@@ -97,7 +97,7 @@ void GgafDxScene::fadeoutScene(int prm_frame_fade){
     if (prm_frame_fade == 0) {
         _pAlphaCurtain->close();
     } else {
-        _pAlphaCurtain->close(1.0 / prm_frame_fade);
+        _pAlphaCurtain->close(_pAlphaCurtain->_range_alpha / prm_frame_fade);
     }
 }
 

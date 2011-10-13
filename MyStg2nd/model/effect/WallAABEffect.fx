@@ -251,8 +251,6 @@ OUT_VS GgafDxVS_WallAAB(
 	if ( out_vs.pos.z < g_distance_AlphaTarget) {
 		out_vs.color.a = (out_vs.pos.z + 1.0)  / (g_distance_AlphaTarget*2);
 	}
-	//マスターα
-	out_vs.color.a *= g_alpha_master;
 	return out_vs;
 }
 
@@ -272,6 +270,8 @@ float4 GgafDxPS_WallAAB(
 	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
 		out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
 	} 
+	//マスターα
+	out_color.a *= g_alpha_master;
 	return out_color;
 }
 

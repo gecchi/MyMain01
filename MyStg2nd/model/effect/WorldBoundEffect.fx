@@ -88,8 +88,6 @@ OUT_VS GgafDx9VS_WorldBound0(
 //    if (out_vs.pos.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
 //        out_vs.color.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.pos.z + 2.0);
 //    } 
-    //マスターα
-    out_vs.color.a *= g_alpha_master;
 	return out_vs;
 }
 
@@ -333,6 +331,8 @@ float4 GgafDx9PS_WorldBound(
 	} 
 //
 //    out_color.a = prm_color.a; 
+    //マスターα
+    out_color.a *= g_alpha_master;
 	return out_color;
 }
 float4 PS_Flush(       
@@ -350,6 +350,7 @@ float4 PS_Flush(
 //	float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_cam, -prm_normal));
 	float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_normal);
     float4 out_color = colTexCube * prm_color * FLUSH_COLOR;
+    out_color.a *= g_alpha_master;
 	return 	out_color;
 }
 

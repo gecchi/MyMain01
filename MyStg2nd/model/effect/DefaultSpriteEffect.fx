@@ -67,8 +67,8 @@ float4 GgafDxPS_DefaultSprite(
 float4 PS_Flush(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_hAlpha * FLUSH_COLOR;
-	out_color.a = out_color.a * g_alpha_master; 
+	float4 out_color = tex2D( MyTextureSampler, prm_uv)  * FLUSH_COLOR;
+	out_color.a = out_color.a * g_hAlpha * g_alpha_master;
 	return out_color;
 }
 

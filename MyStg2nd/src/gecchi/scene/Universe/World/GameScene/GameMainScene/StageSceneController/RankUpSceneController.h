@@ -18,22 +18,10 @@ public:
 
     char _buf[60];
 
-    RankUpScene* _pRankUpSceneMainCannel;
-
-//    frame _frame_Begin;
-//    frame _frame_Play;
-//    frame _frame_End;
-    int _rank;
-//    bool _had_ready_stage;
-//    frame _frame_ready_stage;
     RankUpSceneController(const char* prm_name);
 
-//    void setStage(int prm_stage) {
-//        _stage = prm_stage;
-//    }
-
     void onReset() override;
-    void readyStage(int prm_stage);
+    void readyStage(int prm_rank_level);
 //    void readyNextStage();
 //    void cannelStage(int prm_stage);
 

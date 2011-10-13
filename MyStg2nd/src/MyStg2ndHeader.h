@@ -68,6 +68,7 @@
 
 
 #define _RANK_ (GameGlobal::_rank)
+#define _RANK_LEVEL_ ((int)(_RANK_*100000))
 #define _SCORE_ (GameGlobal::_score)
 
 

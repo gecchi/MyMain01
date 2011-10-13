@@ -65,7 +65,8 @@ public:
      * カーテンを徐々に閉める .
      * 本メソッドを実行すると、behave() が呼び出されるごとに
      * prm_closing_velocity づつカーテンがを閉じてゆきます（長さが長くなります）。<BR>
-     * カーテンの長さの最大は 1.0 です。長さ 1.0 に達すると、processCloseDone() を１回
+     * カーテンの長さの最大はデフォルトで 1.0 です。
+     * デフォルトでは長さ 1.0 に達すると、processCloseDone() を１回
      * コールバックし、close は終了します。
      * @param prm_closing_velocity カーテンを閉める速度
      */

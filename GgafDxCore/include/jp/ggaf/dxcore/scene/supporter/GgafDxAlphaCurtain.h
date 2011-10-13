@@ -12,30 +12,33 @@ namespace GgafDxCore {
 class GgafDxAlphaCurtain : public GgafCore::GgafCurtain {
 public:
     GgafDxScene* _pDxScene;
+    float _min_alpha;
+    float _max_alpha;
+    float _range_alpha;
     float _alpha;
 
-    GgafDxAlphaCurtain(GgafDxScene* prm_pScene);
+    GgafDxAlphaCurtain(GgafDxScene* prm_pScene, float prm_min_alpha = 0.0f, float prm_max_alpha = 1.0f);
 
     void processOpenBegin() override {
     }
 
     void processOpening() override {
-        _alpha = 1.0 - _now_curtain_length;
+        _alpha = _max_alpha - _now_curtain_length;
     }
 
     void processOpenDone() override {
-        _alpha = 1.0f;
+        _alpha = _max_alpha;
     }
 
     void processCloseBegin() override {
     }
 
     void processClosing() override {
-        _alpha = 1.0 - _now_curtain_length;
+        _alpha = _max_alpha - _now_curtain_length;
     }
 
     void processCloseDone() override {
-        _alpha = 0.0f;
+        _alpha = _min_alpha;
     }
 
     virtual ~GgafDxAlphaCurtain();

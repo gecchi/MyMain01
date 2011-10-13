@@ -122,13 +122,16 @@ float4 GgafDxPS_DefaultMesh(
     }
     float4 tex_color = tex2D( MyTextureSampler, prm_uv);
     //テクスチャ色に        
-    float4 out_color = tex_color * prm_color;
+    float4 out_color = tex_color * prm_color + s;
 
     //Blinkerを考慮
     if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
         out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
     } 
-    return out_color + s;
+    //マスターα
+    out_color.a *= g_alpha_master;
+
+    return out_color;
 }
 
 float4 PS_Flush( 
@@ -138,6 +141,7 @@ float4 PS_Flush(
     //テクスチャをサンプリングして色取得（原色を取得）
     float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
     float4 out_color = tex_color * prm_color * FLUSH_COLOR;
+    out_color.a *= g_alpha_master;
     return out_color;
 }
 

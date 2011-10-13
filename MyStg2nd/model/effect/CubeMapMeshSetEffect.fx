@@ -173,8 +173,6 @@ OUT_VS GgafDxVS_CubeMapMeshSet(
     if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
         out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
     }
-    //マスターα
-    out_vs.color.a *= g_alpha_master;
 	return out_vs;
 
 
@@ -231,7 +229,7 @@ float4 GgafDxPS_CubeMapMeshSet(
 		out_color *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
 	} 
 
-    out_color.a = prm_color.a; 
+    out_color.a = prm_color.a * g_alpha_master; 
 	return out_color;
 
 
@@ -263,6 +261,7 @@ float4 PS_Flush(
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
 	float4 out_color = tex_color * prm_color * FLUSH_COLOR;
+    out_color.a *= g_alpha_master;
 	return out_color;
 }
 

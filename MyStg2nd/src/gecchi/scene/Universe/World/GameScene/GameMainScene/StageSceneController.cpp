@@ -31,7 +31,6 @@ StageSceneController::StageSceneController(const char* prm_name) : DefaultScene(
     addSubLast(_pTransitStage);
 
     _pRankUpSceneController = NEW RankUpSceneController("RankUpSceneController");
-    _pRankUpSceneController->inactivateImmediately();
     addSubLast(_pRankUpSceneController);
 
     useProgress(STAGESCENECONTROLLER_PROG_FINISH);

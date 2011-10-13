@@ -234,8 +234,6 @@ OUT_VS GgafDxVS_SpriteMeshSet(
     if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
         out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
     }
-	//マスターα
-	out_vs.color.a *= g_alpha_master;
 	return out_vs;
 }
 
@@ -252,6 +250,8 @@ float4 GgafDxPS_SpriteMeshSet(
 	if (tex_color.r >= g_tex_blink_threshold || tex_color.g >= g_tex_blink_threshold || tex_color.b >= g_tex_blink_threshold) {
 		out_color *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
 	} 
+	//マスターα
+	out_color.a *= g_alpha_master;
 	return out_color;
 }
 

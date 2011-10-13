@@ -55,9 +55,7 @@ private:
     static char RANK_INF[7];
 
 public:
-    /** [r]整数化のランク */
-    int _rank;
-    /** [r]前フレームのランク */
+    /** [r]前フレームの_RANK_LEVEL_ */
     int _tmp_rank;
 
 
