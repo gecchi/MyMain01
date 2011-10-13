@@ -16,8 +16,53 @@ RankUpSceneController::RankUpSceneController(const char* prm_name) : StageScene(
     _class_name = "RankUpSceneController";
     _TRACE_("RankUpSceneController::RankUpSceneController("<<prm_name<<")");
     useProgress(RANKUPCONTROLLER_PROG_FINISH);
+    readyStage(_RANK_LEVEL_ + 1);
+}
+void RankUpSceneController::execute() {
+    readyStage(_RANK_LEVEL_ + 1); //次のシーンを先行予約
+    _pLastRankUpScene = (RankUpScene*)obtainSceneFromFactory(ORDER_ID_RANKUP+_RANK_LEVEL_);
+    _pLastRankUpScene->fadeoutScene(0);
+    addSubLast(_pLastRankUpScene);
+    _pLastRankUpScene->fadeinSceneTree(180);
+
+    //スローダウン
+
+}
+void RankUpSceneController::slowdown(RankUpScene* prm_pLastAdded) {
+    //スローダウン
+    if (getSubFirst()) {
+        //初回
+        P_STAGE_CONTROLLER->setRunFrameOnceTree(2);
+    } else {
+        //連チャン
+        P_STAGE_CONTROLLER->setRunFrameOnceTree(P_STAGE_CONTROLLER->_n_once*2);
+        RankUpScene* pRankUpScene = (RankUpScene*)_pSubFirst;
+        while(true) {
+            pRankUpScene->setRunFrameOnceTree(pRankUpScene->_n_once*2);
+            if (pRankUpScene == prm_pLastAdded) {
+                //追加したてのシーンは等速
+                break;
+            } else {
+                pRankUpScene = (RankUpScene*)(pRankUpScene->_pNext);
+            }
+        }
+    }
 }
 
+void RankUpSceneController::slowRelease(RankUpScene* prm_pInactive) {
+    RankUpScene* pRankUpScene = prm_pInactive;
+    while(true) {
+        pRankUpScene->setRunFrameOnceTree(pRankUpScene->_n_once/2);
+        if (pRankUpScene->_is_first_flg) {
+            //追加したてのシーンは等速
+            ((RankUpScene*)(pRankUpScene->_pPrev))->setRunFrameOnceTree(pRankUpScene->_n_once/2);
+            break;
+        } else {
+            pRankUpScene = (RankUpScene*)(pRankUpScene->_pPrev);
+        }
+    }
+    P_STAGE_CONTROLLER->setRunFrameOnceTree(P_STAGE_CONTROLLER->_n_once/2);
+}
 void RankUpSceneController::onReset() {
     _pProg->set(RANKUPCONTROLLER_PROG_INIT);
 }

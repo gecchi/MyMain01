@@ -116,9 +116,9 @@ public:
      * 4 を設定すると 1/4倍速進行。上位シーンの4フレームで1フレーム進む。<BR>
      * @param prm_n_once 何フレームに１回実行するか
      */
-    void setRunFrameOnce(frame prm_n_once) {
-        _n_once = prm_n_once;
-    }
+    virtual void setRunFrameOnce(int prm_n_once);
+    virtual void setRunFrameOnceTree(int prm_n_once);
+
 
     virtual void addSubLast(GgafScene* prm_pScene) override {
         GgafElement<GgafScene>::addSubLast(prm_pScene);

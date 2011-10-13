@@ -23,7 +23,7 @@ StageSceneController::StageSceneController(const char* prm_name) : DefaultScene(
     _loop = 1;
     _main_stage = 1;
 
-
+    _rank_level_wk = _RANK_LEVEL_;
     _pStageSceneMainCannel = NULL;
 
     _pTransitStage = NEW TransitStage("TransitStage");
@@ -48,7 +48,7 @@ void StageSceneController::onReset() {
     P_MYSHIP_SCENE->activateImmediately();
     addSubLast(P_COMMON_SCENE->extract());
     addSubLast(P_MYSHIP_SCENE->extract());
-
+    _rank_level_wk = _RANK_LEVEL_;
     _pProg->set(STAGESCENECONTROLLER_PROG_INIT);
 }
 //void StageSceneController::readyNextStage() {
@@ -143,6 +143,15 @@ void StageSceneController::processBehavior() {
         default:
             break;
     }
+
+    //ランクアップシーン差し込み
+    if (_rank_level_wk != _RANK_LEVEL_) {
+        _pRankUpSceneController->execute();
+        _rank_level_wk = _RANK_LEVEL_;
+    } else {
+
+    }
+
 
 }
 void StageSceneController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {

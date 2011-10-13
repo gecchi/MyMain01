@@ -22,7 +22,6 @@ public:
     virtual void initialize() override;
     virtual void processBehavior() override;
     virtual void processJudgement() override;
-    virtual void processFinal() override;
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
     virtual ~RankUp001();
 };

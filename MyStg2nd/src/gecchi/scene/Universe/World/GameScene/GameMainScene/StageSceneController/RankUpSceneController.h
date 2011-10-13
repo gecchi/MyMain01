@@ -3,7 +3,11 @@
 
 
 namespace MyStg2nd {
-
+#ifdef P_STAGE_CONTROLLER
+    #define P_RANK_UP_CONTROLLER (P_STAGE_CONTROLLER->_pRankUpSceneController)
+#else
+    #error P_STAGE_CONTROLLER isnt define
+#endif
 /**
  * ランクアップシーンのコントローラー .
  * 主な仕事はランクアップステージの切り替えです。
@@ -17,8 +21,12 @@ public:
 //    static RankUpSceneController* _pRankUpSceneController;
 
     char _buf[60];
+    RankUpScene* _pLastRankUpScene;
 
     RankUpSceneController(const char* prm_name);
+    void execute();
+    void slowdown(RankUpScene* prm_pLastAdded);
+    void slowRelease(RankUpScene* prm_pInactive);
 
     void onReset() override;
     void readyStage(int prm_rank_level);
@@ -29,6 +37,7 @@ public:
     void processBehavior() override;
     void processFinal() override;
     void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
+
     virtual ~RankUpSceneController();
 
 };

@@ -29,8 +29,40 @@ GgafScene::~GgafScene() {
 #endif
     DELETE_POSSIBLE_NULL(_pDirector);
 }
+void GgafScene::setRunFrameOnce(int prm_n_once) {
+    if (isActiveScene()) {
+        if (prm_n_once <= 1) {
+            _n_once = 1;
+        } else {
+            _n_once = prm_n_once;
+        }
+    }
+}
 
+void GgafScene::setRunFrameOnceTree(int prm_n_once) {
+    if (isActiveScene()) {
+        if (prm_n_once <= 1) {
+            _n_once = 1;
+        } else {
+            _n_once = prm_n_once;
+        }
+    }
+    if (_pSubFirst) {
+        GgafScene* pSceneTemp = _pSubFirst;
+        while(true) {
+            pSceneTemp->setRunFrameOnceTree(prm_n_once);
+            if (pSceneTemp->_is_last_flg) {
+                break;
+            } else {
+                pSceneTemp = pSceneTemp->_pNext;
+            }
+        }
+    }
+}
 void GgafScene::nextFrame() {
+    if (!isActiveScene()) {
+        _n_once = 1;
+    }
     if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
         TRACE("GgafScene::nextFrame() " << getName());
         GgafElement<GgafScene>::nextFrame();

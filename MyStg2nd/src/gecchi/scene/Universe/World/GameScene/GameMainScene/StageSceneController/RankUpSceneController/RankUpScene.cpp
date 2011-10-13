@@ -26,7 +26,23 @@ void RankUpScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
 
     }
 }
+void RankUpScene::processFinal() {
+    if (getActivePartFrame() == 200) {
+        //スローダウン
+        P_RANK_UP_CONTROLLER->slowdown(this);
+    }
+    //SCORE表示
+    switch (_pProg->get()) {
+        case RANKUPSCENE_PROG_END: {
+            if (_pProg->isJustChanged()) {
+               _TRACE_("RankUpScene::processFinal()  Prog(=RANKUPSCENE_PROG_END) is Just Changed");
+               P_RANK_UP_CONTROLLER->slowRelease(this);
+            }
+            break;
+        }
 
+    }
+}
 
 //
 //void RankUpScene::initialize() {

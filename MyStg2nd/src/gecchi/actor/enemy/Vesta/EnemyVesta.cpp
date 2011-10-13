@@ -26,7 +26,6 @@ EnemyVesta::EnemyVesta(const char* prm_name) :
 
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "explos3", GgafRepeatSeq::nextVal("CH_explos3"));
-    setAlpha(1.0);
 }
 
 void EnemyVesta::onCreateModel() {
