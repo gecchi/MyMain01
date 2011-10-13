@@ -308,7 +308,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
              ___EndSynchronized1; // <----- îrëºèIóπ
                 if (GgafGod::_pGod->_fps > CFG_PROPERTY(FPS_TO_CLEAN_GARBAGE_BOX)) {
                     TRACE2("GgafFactory::work ÅÉçHèÍí∑ÅÑ FPSÇÕçÇÇ¢ÇÊÇ»ÇüÅAÇªÇÃä‘ÇóòópÇµÇƒÉSÉ~î†ë|èúÇ≈Ç‡Ç‚Ç¡Ç∆Ç´Ç‹Ç∑ÅB1");
-                    _pGarbageBox->clean(10); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
+                    _pGarbageBox->clean(5); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
                     _cnt_cleaned = 0;
                 }
             } else {
