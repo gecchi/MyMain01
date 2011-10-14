@@ -142,7 +142,7 @@ void StageSceneController::processBehavior() {
         default:
             break;
     }
-
+/*
     //ランクアップシーン差し込み
     if (_RANK_DISP_ % 10 == 0) {
         if (_can_rank_up) {
@@ -155,7 +155,7 @@ void StageSceneController::processBehavior() {
     } else {
         _can_rank_up = false;
     }
-
+*/
 //    __non_rtti_object
 //    http://msdn.microsoft.com/en-us/library/cby9kycs.aspx
 

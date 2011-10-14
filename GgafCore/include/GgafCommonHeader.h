@@ -9,8 +9,10 @@
 
 //MY_DEBUGは自分用のデバッグビルド
 #ifdef _DEBUG
+    //#undef _DEBUG
     #define MY_DEBUG _DEBUG
 #endif
+
 
 //Windows XP 以上。
 #define WINVER 0x0501
@@ -103,8 +105,10 @@
     #else
         //GCC で自分用デバッグビルド時
         //GCC用のリーク検出を仕込む
-        #include "DetectMemoryLeaks.h"
-        #define NEW new(__FILE__, __LINE__)
+//        #include "DetectMemoryLeaks.h"
+//        #define NEW new(__FILE__, __LINE__)
+
+        #define NEW new
     #endif
 
     //#define PFUNC std::cout << __PRETTY_FUNCTION__ << std::endl
