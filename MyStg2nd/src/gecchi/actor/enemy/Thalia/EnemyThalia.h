@@ -10,7 +10,7 @@ namespace MyStg2nd {
  * @author Masatoshi Tsuge
  */
 class EnemyThalia :
-  public GgafLib::DefaultMorphMeshActor, public GgafLib::IFormationAble {
+  public GgafLib::DefaultMorphMeshActor {
 //class EnemyThalia : public GgafLib::CubeMapMorphMeshActor {
     /** 移動スプラインプログラム */
     GgafLib::SplineSequence* _pSplSeq;

@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace MyStg2nd;
 
 EnemyPallas::EnemyPallas(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Pallas", STATUS(EnemyPallas)), IFormationAble() {
+        DefaultMeshSetActor(prm_name, "Pallas", STATUS(EnemyPallas)) {
     _class_name = "EnemyPallas";
     _iMovePatternNo = 0;
     _pSplSeq = NULL;
@@ -145,7 +145,7 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
         //自機側に撃たれて消滅、かつフォメーション所属の場合、
         //フォーメーションに自身が撃たれた事を伝える。
         if (pOther->getKind() & KIND_MY) {
-            informDestroyedFollower();
+            notifyFormationAboutDestroyed();
         }
 //        if ((pOther->getKind() & KIND_MY) && (getParent()->_obj_class & Obj_FormationActor)) {
 //            ((FormationActor*)getParent())->wasDestroyedFollower(this);

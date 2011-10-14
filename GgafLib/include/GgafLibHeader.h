@@ -31,7 +31,7 @@ class VBReplayRecorder;
 class AmountGraph;
 
 class DefaultScene;
-class ActorTableScene;
+class FormationTableScene;
 class ScrolledScene;
 class WalledScene;
 class WalledSectionScene;
@@ -39,7 +39,6 @@ class WalledSectionScene;
 
 
 class StgProperties;
-class IFormationAble;
 class FormationActor;
 class DefaultGeometricActor;
 class DefaultD3DXMeshActor;
@@ -113,7 +112,7 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/util/AmountGraph.h"
 
 #include "jp/ggaf/lib/scene/DefaultScene.h"
-#include "jp/ggaf/lib/scene/ActorTableScene.h"
+#include "jp/ggaf/lib/scene/FormationTableScene.h"
 #include "jp/ggaf/lib/scene/ScrolledScene.h"
 #include "jp/ggaf/lib/scene/WalledScene.h"
 #include "jp/ggaf/lib/scene/WalledSectionScene.h"
@@ -121,7 +120,6 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/StgProperties.h"
 
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
-#include "jp/ggaf/lib/actor/interface/IFormationAble.h"
 #include "jp/ggaf/lib/actor/FormationActor.h"
 #include "jp/ggaf/lib/actor/DefaultCamera.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"

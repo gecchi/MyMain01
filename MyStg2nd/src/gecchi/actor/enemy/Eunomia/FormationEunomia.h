@@ -40,7 +40,7 @@ public:
 
     virtual void processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, int col) = 0;
 
-    virtual void onDestroyedFormation(GgafDxCore::GgafDxGeometricActor* prm_pActor_LastDestroyed) override {
+    virtual void onDestroyedAll(GgafDxCore::GgafDxGeometricActor* prm_pActor_LastDestroyed) override {
     }
 
     virtual void processBehavior() override;

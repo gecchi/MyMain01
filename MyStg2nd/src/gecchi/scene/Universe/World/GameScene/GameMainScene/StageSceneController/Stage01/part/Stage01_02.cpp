@@ -54,7 +54,7 @@ void Stage01_02::processBehavior() {
 				pAstraea->_Z = -1800000;
 				pAstraea->_Y = -100000;
 				{
-				ActorTableScene* ta = NEW ActorTableScene("TableScene_40000001");
+				FormationTableScene* ta = NEW FormationTableScene("TableScene_40000001");
 				ta->setMaxPerformFrame(2500);
 				addSubLast(ta);
 				ta->addToTable(((FormationPallas001a*)obtainActorFromFactory(40000002)), 400);

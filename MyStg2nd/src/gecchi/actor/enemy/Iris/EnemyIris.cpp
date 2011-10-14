@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 EnemyIris::EnemyIris(const char* prm_name)
-      : DefaultMeshSetActor(prm_name, "Iris", STATUS(EnemyIris)), IFormationAble() {
+      : DefaultMeshSetActor(prm_name, "Iris", STATUS(EnemyIris)) {
     _class_name = "EnemyIris";
     _iMovePatternNo = 0;
     _pSplSeq = NULL;
@@ -129,7 +129,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
         //自機側に撃たれて消滅、かつフォメーション所属の場合、
         //フォーメーションに自身が撃たれた事を伝える。
         if (pOther->getKind() & KIND_MY) {
-            informDestroyedFollower();
+            notifyFormationAboutDestroyed();
         }
 
         EffectExplosion001* pExplo001 = (EffectExplosion001*)P_COMMON_SCENE->_pDP_EffectExplosion001->dispatch();

@@ -151,8 +151,8 @@ void StageSceneController::processBehavior() {
 //    } else {
 //
 //    }
-    __non_rtti_object
-    http://msdn.microsoft.com/en-us/library/cby9kycs.aspx
+//    __non_rtti_object
+//    http://msdn.microsoft.com/en-us/library/cby9kycs.aspx
 
 }
 void StageSceneController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {

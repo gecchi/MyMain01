@@ -26,7 +26,7 @@ FormationIris001::FormationIris001(const char* prm_name) : FormationActor(prm_na
 
 void FormationIris001::initialize() {
     //編隊作成はonActive()で行わうこと。
-    //ActorTableScene で active にされるタイミングは変動するため
+    //FormationTableScene で active にされるタイミングは変動するため
 }
 
 void FormationIris001::onActive() {

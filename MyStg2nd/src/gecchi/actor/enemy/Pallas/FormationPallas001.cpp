@@ -43,7 +43,7 @@ void FormationPallas001::onActive() {
     } while (!pActor->isFirst());
 }
 
-void FormationPallas001::onDestroyedFormation(GgafDxGeometricActor* prm_pActor_LastDestroyed) {
+void FormationPallas001::onDestroyedAll(GgafDxGeometricActor* prm_pActor_LastDestroyed) {
     //•Ò‘àÁ–ÅŽž‚ÌŽÀŒ±
     EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDepo_EffectTurbo002->dispatchForce();
     if (pTurbo002) {

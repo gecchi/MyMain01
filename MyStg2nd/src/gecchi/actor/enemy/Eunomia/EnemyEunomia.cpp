@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace MyStg2nd;
 
 EnemyEunomia::EnemyEunomia(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Eunomia", STATUS(EnemyEunomia)), IFormationAble() {
+        DefaultMeshSetActor(prm_name, "Eunomia", STATUS(EnemyEunomia)) {
     _class_name = "EnemyEunomia";
     _iMovePatternNo = 0;
     _pSplSeq = NULL;
@@ -157,7 +157,7 @@ void EnemyEunomia::onHit(GgafActor* prm_pOtherActor) {
         //自機側に撃たれて消滅の場合、
         if (pOther->getKind() & KIND_MY) {
             //フォーメーションに自身が撃たれた事を伝える。
-            informDestroyedFollower();
+            notifyFormationAboutDestroyed();
             //アイテム出現
             Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem001->dispatch();
             if (pItem) {

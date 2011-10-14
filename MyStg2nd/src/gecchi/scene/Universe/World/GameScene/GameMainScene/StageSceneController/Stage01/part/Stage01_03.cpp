@@ -45,7 +45,7 @@ void Stage01_03::processBehavior() {
 				FormationIris002* pF2 = (FormationIris002*)obtainActorFromFactory(50000001);
 				getDirector()->addSubGroup(pF2);
 				{
-				ActorTableScene* ta = NEW ActorTableScene("TableScene_50000002");
+				FormationTableScene* ta = NEW FormationTableScene("TableScene_50000002");
 				ta->setMaxPerformFrame(2000);
 				addSubLast(ta);
 				ta->addToTable(((FormationIris002*)obtainActorFromFactory(50000003)), 400);

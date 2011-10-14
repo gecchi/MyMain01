@@ -105,6 +105,9 @@ public:
 
     bool _is_local;
 
+    /** 自身がフォーメーション所属の場合、所属元が保持される */
+    GgafDxFormationActor* _pFormation;
+
     //補足メモ
     //【_X, _Y, _Z の単位について】
     //　座標値 _X, _Y, _Z は独自の単位である。
@@ -397,6 +400,36 @@ public:
     virtual void setBoundingSphereRadiusRate(FLOAT prm_rate) {
         _rate_BoundingSphereRadius = prm_rate;
     }
+
+    /**
+     * 自身が破壊された事を所属のフォーメーション(GgafDxFormationActor)に通知するメソッド .
+     * 自身がフォーメーションに所属(_pFormation != NULL)している場合、
+     * フォーメーションの編隊全滅判定を行うために、自身が編隊全滅に有効な消滅
+     * （画面外等では無く、破壊されたとかボム等）であることを通知する必要があります。<BR>
+     * 破壊されたタイミングで本メソッドを実行し、フォーメーションに通知して下さい。<BR>
+     * 通知を行うことにより、管理されている GgafDxFormationActor オブジェクトから、
+     * 編隊全滅時に、
+     *
+     * FormationActor::onDestroyedAll()
+     *
+     * のコールバックが行われます。
+     * 編隊ボーナス、アイテム出現等の処理を GgafDxFormationActor::onDestroyedAll() の
+     * オーバーライドで行って下さい。
+     * <pre><code>
+     * ＜例＞
+     * void SampleActor::onHit(GgafActor* prm_pOtherActor) {
+     *    //自身の耐久力チェック
+     *    if (MyStgUtil::calcSampleStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+     *        //Hitの相手のチェック
+     *        if (pOther->getKind() & KIND_MY) {
+     *            //Hitの相手は自機関連（自機、自機ユニット、自機発射弾)
+     *            informDestroyedFollower(); //編隊全滅判定に有効な破壊を通知する
+     *        }
+     *    }
+     * }
+     * </pre></code>
+     */
+    virtual void notifyFormationAboutDestroyed();
 
     /**
      * デストラクタ

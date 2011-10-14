@@ -329,7 +329,7 @@ enum GgafDxValign {
 #define Obj_GgafDxBoardActor            (0x1000000)      //0b 00000001 00000000 00000000 00000000
 #define Obj_GgafDxBoardSetActor         (0x2000000)      //0b 00000010 00000000 00000000 00000000
 #define Obj_GgafDxPointSpriteActor      (0x4000000)      //0b 00000100 00000000 00000000 00000000
-#define Obj_FormationActor        (0x8000000)      //0b 00001000 00000000 00000000 00000000
+#define Obj_GgafDxFormationActor        (0x8000000)      //0b 00001000 00000000 00000000 00000000
 #undef P_GOD
 #define P_GOD ((GgafDxCore::GgafDxGod*)GgafDxCore::GgafDxGod::_pGod)
 #undef P_UNIVERSE
@@ -360,6 +360,7 @@ class GgafDxICubeMapActor;
 class GgafDxBaseActor;
 class GgafDxGeometricActor;
 class GgafDxDrawableActor;
+class GgafDxFormationActor;
 class GgafDxMeshActor;
 class GgafDxMeshSetActor;
 class GgafDxMorphMeshActor;
@@ -483,6 +484,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dxcore/actor/GgafDxBaseActor.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFormationActor.h"
+
 #include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
 #include "jp/ggaf/dxcore/actor/GgafDxD3DXMeshActor.h"

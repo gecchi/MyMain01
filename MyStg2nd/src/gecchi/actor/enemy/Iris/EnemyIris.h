@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @author Masatoshi Tsuge
  */
 class EnemyIris :
-  public GgafLib::DefaultMeshSetActor, public GgafLib::IFormationAble {
+  public GgafLib::DefaultMeshSetActor {
 
 //    /** フォーメーション(非フォーメーション時はNULL) */
 //    GgafLib::FormationActor* _pFormation;

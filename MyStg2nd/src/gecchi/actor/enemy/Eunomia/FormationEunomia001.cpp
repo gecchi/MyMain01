@@ -12,7 +12,7 @@ FormationEunomia001::FormationEunomia001(const char* prm_name) :
 }
 
 
-void FormationEunomia001::onDestroyedFormation(GgafDxGeometricActor* prm_pActor_LastDestroyed) {
+void FormationEunomia001::onDestroyedAll(GgafDxGeometricActor* prm_pActor_LastDestroyed) {
     //•Ò‘àÁ–ÅŽž‚ÌŽÀŒ±
     EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDepo_EffectTurbo002->dispatchForce();
     if (pTurbo002) {
