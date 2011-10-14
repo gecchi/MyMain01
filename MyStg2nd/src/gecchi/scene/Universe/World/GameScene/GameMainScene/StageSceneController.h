@@ -24,9 +24,9 @@ public:
     TransitStage* _pTransitStage;
     /** ランクアップ挿入シーン */
     RankUpSceneController* _pRankUpSceneController;
-    int _rank_level_wk;
     int _loop;
     int _main_stage;
+    bool _can_rank_up;
     StageSceneController(const char* prm_name);
 
 

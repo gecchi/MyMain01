@@ -15,33 +15,68 @@ RankUpScene::RankUpScene(const char* prm_name) : DefaultScene(prm_name) {
 void RankUpScene::initialize() {
     _pProg->set(RANKUPSCENE_PROG_INIT);
 }
+void RankUpScene::processBehavior() {
 
-void RankUpScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_STG01_CONTROLLER_WAS_END ||
-        prm_no == EVENT_STG02_CONTROLLER_WAS_END
-    ) {
-        _TRACE_("RankUpScene::onCatchEvent() STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをRANKUPSCENE_PROG_ENDへ");
-        _pProg->change(RANKUPSCENE_PROG_END);
-    } else {
-
-    }
-}
-void RankUpScene::processFinal() {
-    if (getActivePartFrame() == 200) {
-        //スローダウン
-        P_RANK_UP_CONTROLLER->slowdown(this);
-    }
-    //SCORE表示
     switch (_pProg->get()) {
-        case RANKUPSCENE_PROG_END: {
+        case RANKUPSCENE_PROG_INIT: {
+            _pProg->change(RANKUPSCENE_PROG_BEGIN);
+            break;
+        }
+        case RANKUPSCENE_PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
-               _TRACE_("RankUpScene::processFinal()  Prog(=RANKUPSCENE_PROG_END) is Just Changed");
-               P_RANK_UP_CONTROLLER->slowRelease(this);
+                _TRACE_("RankUpScene::processBehavior() ["<<getName()<<"] RANKUPSCENE_PROG_BEGIN !");
+                _pMessage->update(Pix2App(500), Pix2App(500), "RANKUPSCENE_PROG_BEGIN");
+            }
+
+            if (_pProg->getFrameInProgress() == 180) { //ステージ開始！
+                _pProg->change(RANKUPSCENE_PROG_PLAYING);
             }
             break;
         }
+        case RANKUPSCENE_PROG_PLAYING: {
+            if (_pProg->isJustChanged()) {
+                P_RANK_UP_CONTROLLER->slowdown(this); //スローダウン
+                _pMessage->update("RANKUPSCENE_PROG_PLAYING");
+                _TRACE_("RankUpScene::processBehavior() ["<<getName()<<"] RANKUPSCENE_PROG_BEGIN !");
+            }
+            //継承実装クラスのRANKUPSCENE_PROG_RESULTへ進捗更新待ちイベント待ち
+            break;
+        }
+        case RANKUPSCENE_PROG_RESULT: {
+            if (_pProg->isJustChanged()) {
+                _pMessage->update("RANKUPSCENE_PROG_RESULT");
+                _TRACE_("RankUpScene::processBehavior() ["<<getName()<<"] RANKUPSCENE_PROG_RESULT !");
+            }
+
+            //結果表示？
+            if (_pProg->getFrameInProgress() == 180) {
+                _pMessage->update("KEKKA HAPYOU!!!");
+            }
+            break;
+        }
+        case RANKUPSCENE_PROG_END: {
+            if (_pProg->isJustChanged()) {
+                P_RANK_UP_CONTROLLER->slowRelease(this); //スロー回復
+                _TRACE_("RankUp001::processBehavior()  RANKUPSCENE_PROG_ENDになりますた！");
+                _pMessage->update("RANKUPSCENE_PROG_END");
+            }
+
+            if (_pProg->getFrameInProgress() == 180) {
+                _pMessage->update("BYBY!");
+            }
+
+            break;
+        }
+        default:
+            break;
 
     }
+
+}
+
+void RankUpScene::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
+}
+void RankUpScene::processFinal() {
 }
 
 //

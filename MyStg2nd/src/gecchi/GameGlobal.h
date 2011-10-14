@@ -11,7 +11,7 @@ public:
 
     /** ランク（0.0 ～ 1.0。 1.0がMAXランクとする) */
     static double _rank;
-
+    static int _rank_up_level;
     static void init();
 };
 

@@ -1,15 +1,21 @@
-#ifndef RANKUP001_H_
-#define RANKUP001_H_
+#ifndef RANKUP100_H_
+#define RANKUP100_H_
 
 
 
 namespace MyStg2nd {
 
-class RankUp001 : public RankUpScene {
+class RankUp100 : public RankUpScene {
 
 public:
 
-    RankUp001(const char* prm_name);
+    WorldBoundSpace001* _pWorldBoundSpace;
+    HoshiBoshi001* _pHoshiBoshi;
+
+
+    LabelGecchi16Font* _pMessage;
+
+    RankUp100(const char* prm_name);
     /**
      * èâä˙èàóù
      */
@@ -17,8 +23,8 @@ public:
     virtual void processBehavior() override;
     virtual void processJudgement() override;
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
-    virtual ~RankUp001();
+    virtual ~RankUp100();
 };
 
 }
-#endif /*RANKUP001_H_*/
+#endif /*RANKUP100_H_*/

@@ -7,6 +7,7 @@ enum {
     RANKUPSCENE_PROG_INIT = 1,
     RANKUPSCENE_PROG_BEGIN   ,
     RANKUPSCENE_PROG_PLAYING ,
+    RANKUPSCENE_PROG_RESULT  ,
     RANKUPSCENE_PROG_END     ,
 };
 
@@ -16,11 +17,17 @@ public:
     static bool _pause;
 public:
 
+    WorldBoundSpace001* _pWorldBoundSpace;
+    HoshiBoshi001* _pHoshiBoshi;
+    LabelGecchi16Font* _pMessage;
+
     RankUpScene(const char* prm_name);
 
     virtual void initialize() override;
-    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
+    virtual void processBehavior() override;
     virtual void processFinal() override;
+    virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override;
+
     /**
      * èâä˙èàóù
      */

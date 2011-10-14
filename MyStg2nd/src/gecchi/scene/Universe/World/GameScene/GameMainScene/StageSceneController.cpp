@@ -23,7 +23,7 @@ StageSceneController::StageSceneController(const char* prm_name) : DefaultScene(
     _loop = 1;
     _main_stage = 1;
 
-    _rank_level_wk = _RANK_LEVEL_;
+    _can_rank_up = true;
     _pStageSceneMainCannel = NULL;
 
     _pTransitStage = NEW TransitStage("TransitStage");
@@ -48,7 +48,6 @@ void StageSceneController::onReset() {
     P_MYSHIP_SCENE->activateImmediately();
     addSubLast(P_COMMON_SCENE->extract());
     addSubLast(P_MYSHIP_SCENE->extract());
-    _rank_level_wk = _RANK_LEVEL_;
     _pProg->set(STAGESCENECONTROLLER_PROG_INIT);
 }
 //void StageSceneController::readyNextStage() {
@@ -145,12 +144,18 @@ void StageSceneController::processBehavior() {
     }
 
     //ランクアップシーン差し込み
-//    if (_rank_level_wk != _RANK_LEVEL_) {
-//        _pRankUpSceneController->execute();
-//        _rank_level_wk = _RANK_LEVEL_;
-//    } else {
-//
-//    }
+    if (_RANK_DISP_ % 10 == 0) {
+        if (_can_rank_up) {
+            _can_rank_up = false;
+            _RANK_UP_LEVEL_++;
+            _pRankUpSceneController->execute();
+        } else {
+            //スルー
+        }
+    } else {
+        _can_rank_up = false;
+    }
+
 //    __non_rtti_object
 //    http://msdn.microsoft.com/en-us/library/cby9kycs.aspx
 

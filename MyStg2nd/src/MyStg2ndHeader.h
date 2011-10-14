@@ -66,9 +66,12 @@
 
 
 
-
+/** ランク (0.0 ～ 1.0) */
 #define _RANK_ (GameGlobal::_rank)
-#define _RANK_LEVEL_ ((int)(_RANK_*100000))
+/** 表示用ランク値 */
+#define _RANK_DISP_ ((int)(_RANK_*100000))
+/** ランクアップレベル値 */
+#define _RANK_UP_LEVEL_ (GameGlobal::_rank_up_level)
 #define _SCORE_ (GameGlobal::_score)
 
 
@@ -234,6 +237,8 @@ class TransitStage;
 class RankUpSceneController;
 class RankUpScene;
 class RankUp001;
+class RankUp002;
+class RankUp100;
 class TamagoScene;
 
 class Stage01PartController;
@@ -482,6 +487,8 @@ class MagicMeter;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUpScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUp001.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUp002.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUp100.h"
 #include "gecchi/scene/Universe/World/GameScene/TamagoScene.h"
 
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/Stage01PartController.h"
