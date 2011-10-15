@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classGgafCore_1_1GgafLinkedListRing.html#a3c1fad65730309765a24740cdcb5051d" title="引数要素を、末尾(_is_last_flg が true)として追加する ." alt="" coords="367,5,633,35"/>
-<area shape="rect" id="node5" href="$classGgafCore_1_1GgafStatus.html#a56f9c889136bb439f1b8e2cd9a08440e" title="GgafCore::GgafStatus::get" alt="" coords="407,59,593,88"/>
-<area shape="rect" id="node7" href="$classGgafCore_1_1GgafNode.html#a0440bb10b1762567a67b76db9dca0f15" title="ノード名取得 ." alt="" coords="395,112,605,141"/>
-<area shape="rect" id="node10" href="$classGgafCore_1_1GgafStatus.html#a7662a8010c789bbe52ef959831927bba" title="GgafCore::GgafStatus::set" alt="" coords="407,165,593,195"/>
-<area shape="rect" id="node12" href="$classGgafCore_1_1GgafElement.html#a1a662e097c0f2d64d0b90c9b7c844ff2" title="終了宣言したかどうか" alt="" coords="319,219,681,248"/>
-</map>

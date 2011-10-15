@@ -1,4 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classGgafCore_1_1GgafActor.html#a607de44d830aa623447b37d5969c8794" title="アクターと衝突した時の処理 ." alt="" coords="400,5,592,35"/>
-<area shape="rect" id="node5" href="$classGgafCore_1_1GgafActor.html#a9ba167ede1d34d371f0996d2e08977d6" title="自アクターと何かのアクターと衝突したかどうか判定するロジック。 ." alt="" coords="355,59,637,88"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classMyStg2nd_1_1MyStgUtil.html#a67fe585fa436139913835ad2bfb25579" title="自分(自機)の体力計算 ." alt="" coords="291,85,536,115"/>
-<area shape="rect" id="node5" href="$classMyStg2nd_1_1MyStgUtil.html#a28c72aa24f95d14e494e9f3203ba9006" title="優位性を調べる" alt="" coords="584,5,859,35"/>
-<area shape="rect" id="node7" href="$classGgafCore_1_1GgafStatus.html#a56f9c889136bb439f1b8e2cd9a08440e" title="GgafCore::GgafStatus::get" alt="" coords="628,59,815,88"/>
-<area shape="rect" id="node9" href="$classGgafCore_1_1GgafStatus.html#abea867ec766bca27e140c5a9e249c7fa" title="GgafCore::GgafStatus::minus" alt="" coords="620,112,823,141"/>
-<area shape="rect" id="node11" href="$classGgafCore_1_1GgafStatus.html#aa308c46fbf5d375ee9ded381b598ddb9" title="GgafCore::GgafStatus::getDouble" alt="" coords="607,165,836,195"/>
-</map>

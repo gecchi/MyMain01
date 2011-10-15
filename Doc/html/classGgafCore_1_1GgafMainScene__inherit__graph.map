@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node17" href="$classGgafCore_1_1GgafUniverse.html" title="この世クラス ." alt="" coords="112,517,280,547"/>
-<area shape="rect" id="node2" href="$classGgafCore_1_1GgafScene.html" title="シーンクラス ." alt="" coords="120,357,272,387"/>
-<area shape="rect" id="node4" href="$classGgafCore_1_1GgafElement.html" title="GgafCore::GgafElement\&lt; GgafScene \&gt;" alt="" coords="67,277,325,307"/>
-<area shape="rect" id="node6" href="$classGgafCore_1_1GgafNode.html" title="GgafCore::GgafNode\&lt; GgafScene \&gt;" alt="" coords="5,181,245,211"/>
-<area shape="rect" id="node8" href="$classGgafCore_1_1GgafObject.html" title="基底クラス" alt="" coords="87,5,244,35"/>
-<area shape="rect" id="node10" href="$classGgafCore_1_1GgafNode.html" title="要素同士を環状双方向連結リストのツリー構造を作ることができるテンプレートです。." alt="" coords="163,85,344,115"/>
-<area shape="rect" id="node13" href="$classGgafCore_1_1GgafElement.html" title="GgafNodeに、様々な状態遷移管理（タスクシステム）を追加。 ." alt="" coords="269,181,469,211"/>
-</map>

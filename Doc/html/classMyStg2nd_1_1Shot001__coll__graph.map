@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node2" href="$classMyStg2nd_1_1SplineLineConnection.html" title="SplineLine資源コネクション." alt="" coords="1512,193,1739,223"/>
-<area shape="rect" id="node4" href="$classGgafCore_1_1GgafResourceConnection.html" title="GgafCore::GgafResourceConnection\&lt; GgafLib::SplineLine \&gt;" alt="" coords="880,157,1269,187"/>
-<area shape="rect" id="node9" href="$classGgafCore_1_1GgafResourceManager.html" title="GgafCore::GgafResourceManager\&lt; GgafLib::SplineLine \&gt;" alt="" coords="1440,83,1811,112"/>
-<area shape="rect" id="node6" href="$classGgafCore_1_1GgafObject.html" title="基底クラス" alt="" coords="7,89,164,119"/>
-<area shape="rect" id="node13" href="$classGgafCore_1_1GgafResourceManager.html" title="資源管理クラス。 ." alt="" coords="597,5,856,35"/>
-<area shape="rect" id="node16" href="$classGgafCore_1_1GgafResourceConnection.html" title="資源接続クラス ." alt="" coords="295,167,572,196"/>
-</map>

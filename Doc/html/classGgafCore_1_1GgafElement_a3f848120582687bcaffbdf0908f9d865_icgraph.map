@@ -1,5 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classGgafCore_1_1GgafScene.html#af8d78a26eb66c2d90b4092cc3907964b" title="ノードのフレーム毎の描画事前処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） ." alt="" coords="281,5,492,35"/>
-<area shape="rect" id="node5" href="$classGgafCore_1_1GgafGod.html#a5bea1ad2d7a520ea9324031e95d7a225" title="この世の具現的なものを作成 ." alt="" coords="543,5,844,35"/>
-<area shape="rect" id="node7" href="$classGgafCore_1_1GgafGod.html#a69c74b93d7d988f954ec222d51679696" title="在ります。というメソッド ." alt="" coords="895,5,1057,35"/>
-</map>

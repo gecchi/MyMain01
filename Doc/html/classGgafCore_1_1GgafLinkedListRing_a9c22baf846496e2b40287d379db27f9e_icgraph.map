@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classMyStg2nd_1_1MyOptionLockonController.html#ab09bd61da87570081c523b3443ef7315" title="フレーム毎の個別振る舞い処理を実装。(ユーザー実装用、単体) ." alt="" coords="299,5,669,35"/>
-<area shape="rect" id="node5" href="$classMyStg2nd_1_1MyOptionController.html#a372ec5efe82c8a18a2ce58452ca5dfab" title="MyStg2nd::MyOptionController::processBehavior" alt="" coords="321,59,647,88"/>
-<area shape="rect" id="node7" href="$classMyStg2nd_1_1MyShip.html#ab72172cce7d474a9958a756aae1489be" title="MyStg2nd::MyShip::processBehavior" alt="" coords="360,112,608,141"/>
-<area shape="rect" id="node9" href="$classMyStg2nd_1_1MagicMeter.html#a6a43e5a2d27f64c5b270ef6a660a5419" title="MyStg2nd::MagicMeter::processJudgement" alt="" coords="339,165,629,195"/>
-<area shape="rect" id="node11" href="$classGgafCore_1_1GgafTreeFormation.html#a777eb007512e33ab75dd00c6032339b4" title="サブが無ければ死 ." alt="" coords="317,219,651,248"/>
-<area shape="rect" id="node13" href="$classGgafCore_1_1GgafDeositoryFormation.html#a320d2002d4ed0b56a7678661041e5cd9" title="サブが無ければ死 ." alt="" coords="301,272,667,301"/>
-</map>

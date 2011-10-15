@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classGgafCore_1_1GgafActor.html#a9ca34549f0defc128104ccdeb13f55df" title="切り離す ." alt="" coords="332,29,535,59"/>
-<area shape="rect" id="node8" href="$classGgafCore_1_1GgafMainActor.html#a21088ba8da43276251bc076012011c0a" title="活動中か調べる ." alt="" coords="287,83,580,112"/>
-<area shape="rect" id="node5" href="$classGgafCore_1_1GgafActor.html#a4133db668cc7572cf542186f3e2b4348" title="所属シーンを設定する。 ." alt="" coords="631,29,900,59"/>
-<area shape="rect" id="node10" href="$classGgafCore_1_1GgafNode.html#abd8d03da551091aeb49292e72ff6399a" title="次のノード取得する。" alt="" coords="663,83,868,112"/>
-<area shape="rect" id="node12" href="$classGgafCore_1_1GgafMainActor.html#adc4fefef661bee66071d627f91a98cec" title="子ノードのグループの先頭ノードを取得する ." alt="" coords="636,136,895,165"/>
-</map>

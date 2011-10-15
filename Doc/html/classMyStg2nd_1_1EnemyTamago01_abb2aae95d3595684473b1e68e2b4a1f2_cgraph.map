@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classMyStg2nd_1_1MyStgUtil.html#a60a0b9476e5352cd06de0357634861b5" title="MyStg2nd::MyStgUtil::calcEnemyStatus" alt="" coords="299,85,568,115"/>
-<area shape="rect" id="node5" href="$classMyStg2nd_1_1MyStgUtil.html#a32f3473d818a549ebf9b1ba56f25ab46" title="MyStg2nd::MyStgUtil::judgeEnemyDominant" alt="" coords="616,5,915,35"/>
-<area shape="rect" id="node7" href="$classGgafCore_1_1GgafStatus.html#a56f9c889136bb439f1b8e2cd9a08440e" title="GgafCore::GgafStatus::get" alt="" coords="672,59,859,88"/>
-<area shape="rect" id="node9" href="$classGgafCore_1_1GgafStatus.html#abea867ec766bca27e140c5a9e249c7fa" title="GgafCore::GgafStatus::minus" alt="" coords="664,112,867,141"/>
-<area shape="rect" id="node11" href="$classGgafCore_1_1GgafStatus.html#aa308c46fbf5d375ee9ded381b598ddb9" title="GgafCore::GgafStatus::getDouble" alt="" coords="651,165,880,195"/>
-</map>

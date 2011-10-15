@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classMyStg2nd_1_1MyStraightLaserChip001.html#a65aff4f315a71a942a21bd820c8c6230" title="MyStg2nd::MyStraightLaserChip001::onHit" alt="" coords="324,5,615,35"/>
-<area shape="rect" id="node5" href="$classMyStg2nd_1_1MyOptionStraightLaserChip001.html#a80fed2a8db66c9b4072d6b93bdc058eb" title="MyStg2nd::MyOptionStraightLaserChip001::onHit" alt="" coords="303,59,636,88"/>
-<area shape="rect" id="node7" href="$classMyStg2nd_1_1MyOptionWateringLaserChip001.html#a4fa973d8ab2e2a6ef5d2aecc97f0be86" title="MyStg2nd::MyOptionWateringLaserChip001::onHit" alt="" coords="300,112,639,141"/>
-<area shape="rect" id="node9" href="$classMyStg2nd_1_1MyTorpedoBlast.html#a237d80d6dec22e5f0d5d3c220edd13ec" title="MyStg2nd::MyTorpedoBlast::onHit" alt="" coords="352,165,587,195"/>
-<area shape="rect" id="node11" href="$classMyStg2nd_1_1MyTorpedo.html#a10c73babfa0d4a32488fe8818f4ffa33" title="MyStg2nd::MyTorpedo::onHit" alt="" coords="367,219,572,248"/>
-<area shape="rect" id="node13" href="$classMyStg2nd_1_1MyShip.html#a5fc7e80e39a5233fbf7dd2bd8b352469" title="MyStg2nd::MyShip::onHit" alt="" coords="380,272,559,301"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classGgafCore_1_1GgafMainActor.html#a59d74abbb4da022e6e2eb88663d53a17" title="次のノード取得する。 ." alt="" coords="440,5,677,35"/>
-<area shape="rect" id="node5" href="$classGgafCore_1_1GgafMainActor.html#adc4fefef661bee66071d627f91a98cec" title="子ノードのグループの先頭ノードを取得する ." alt="" coords="429,59,688,88"/>
-<area shape="rect" id="node7" href="$classGgafCore_1_1GgafNode.html#abc0b2b9becb95ef37d7e11f47b5211f5" title="自ノードが末尾ノードか調べる ." alt="" coords="461,112,656,141"/>
-<area shape="rect" id="node9" href="$classGgafCore_1_1GgafLinkedListRing.html#a934513a251dee8dea7ecce474f7d0457" title="要素数を返す ." alt="" coords="431,165,687,195"/>
-<area shape="rect" id="node11" href="$classGgafCore_1_1GgafLinkedListRing.html#a8e8ca6cd66f78285786ba4e0928004b3" title="カレント要素を抜き取る ." alt="" coords="428,219,689,248"/>
-</map>

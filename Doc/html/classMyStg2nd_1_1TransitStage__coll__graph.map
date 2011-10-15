@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node2" href="$classMyStg2nd_1_1StageScene.html" title="MyStg2nd::StageScene" alt="" coords="261,5,427,35"/>
-<area shape="rect" id="node4" href="$classMyStg2nd_1_1WorldBoundSpaceTransit.html" title="通過ステージの世界空間 ." alt="" coords="219,59,469,88"/>
-<area shape="rect" id="node6" href="$classMyStg2nd_1_1HoshiBoshiTransit.html" title="星々ポイントスプライト001 ." alt="" coords="241,112,447,141"/>
-<area shape="rect" id="node8" href="$classMyStg2nd_1_1HoshiBoshi.html" title="星々ポイントスプライト001 ." alt="" coords="5,112,168,141"/>
-<area shape="rect" id="node10" href="$classMyStg2nd_1_1LabelGecchi16Font.html" title="オリジナル16x16ドットフォントのラベル ." alt="" coords="237,165,451,195"/>
-</map>

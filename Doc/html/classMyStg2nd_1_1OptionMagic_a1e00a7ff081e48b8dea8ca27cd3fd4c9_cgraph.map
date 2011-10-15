@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classGgafCore_1_1GgafActor.html#ad9ec79ac256a30f3498853e9e33795ac" title="GgafCore::GgafActor::isActiveActor" alt="" coords="355,56,597,85"/>
-<area shape="rect" id="node5" href="$classGgafCore_1_1GgafActor.html#adf84264f19ae862d24963bfa44ba5298" title="所属しているシーンを取得。 ." alt="" coords="647,29,916,59"/>
-<area shape="rect" id="node10" href="$classGgafCore_1_1GgafScene.html#ad8843a5bd9e0d74248535ff1c32ed3f4" title="GgafCore::GgafScene::isActiveScene" alt="" coords="659,83,904,112"/>
-<area shape="rect" id="node7" href="$classGgafCore_1_1GgafNode.html#ab6c00db0d18973ac53ec075bb69cd947" title="１つ上の親ノード取得する。" alt="" coords="967,29,1273,59"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classMyStg2nd_1_1MyOptionLockonController.html#a030708f866814459ea9a6cd413fe131d" title="MyStg2nd::MyOptionLockonController::lockon" alt="" coords="297,32,607,61"/>
-<area shape="rect" id="node9" href="$classMyStg2nd_1_1MagicMeter.html#a6a43e5a2d27f64c5b270ef6a660a5419" title="MyStg2nd::MagicMeter::processJudgement" alt="" coords="307,85,597,115"/>
-<area shape="rect" id="node5" href="$classMyStg2nd_1_1MyOptionStraightLaserChip001.html#a80fed2a8db66c9b4072d6b93bdc058eb" title="MyStg2nd::MyOptionStraightLaserChip001::onHit" alt="" coords="660,5,993,35"/>
-<area shape="rect" id="node7" href="$classMyStg2nd_1_1MyOptionWateringLaserChip001.html#a4fa973d8ab2e2a6ef5d2aecc97f0be86" title="MyStg2nd::MyOptionWateringLaserChip001::onHit" alt="" coords="657,59,996,88"/>
-</map>

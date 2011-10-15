@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classMyStg2nd_1_1EnemyCeres.html#a4d726c29aca4ee50e12fccc71db7ef15" title="MyStg2nd::EnemyCeres::onInactive" alt="" coords="333,5,573,35"/>
-<area shape="rect" id="node5" href="$classGgafCore_1_1GgafTreeFormation.html#a777eb007512e33ab75dd00c6032339b4" title="サブが無ければ死 ." alt="" coords="287,59,620,88"/>
-<area shape="rect" id="node7" href="$classGgafCore_1_1GgafGroupHead.html#aadf90cb4a41c92a223516f4ac805a776" title="毎フレームのGgafGroupHead判定処理 ." alt="" coords="297,112,609,141"/>
-<area shape="rect" id="node9" href="$classGgafCore_1_1GgafDeositoryFormation.html#a320d2002d4ed0b56a7678661041e5cd9" title="サブが無ければ死 ." alt="" coords="271,165,636,195"/>
-<area shape="rect" id="node12" href="$classGgafCore_1_1GgafFormation.html#a0534a8df233efb336c0d9844804a269f" title="GgafCore::GgafFormation::sayonaraFollwer" alt="" coords="311,219,596,248"/>
-<area shape="rect" id="node14" href="$classGgafCore_1_1GgafFormation.html#a151fc1c81e9469fe39c9890ee5c64efd" title="メンバーが残っていれば解放します。 継承してオーバーライドする場合は、処理内で GgafFormation::onGarbaged() を呼び出して下さい。" alt="" coords="687,219,948,248"/>
-</map>

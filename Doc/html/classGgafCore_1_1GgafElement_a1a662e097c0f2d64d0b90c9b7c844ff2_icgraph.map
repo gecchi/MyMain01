@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classGgafCore_1_1GgafFormation.html#a19f4b8edb6125dc24434c70407ff5649" title="編隊のメンバーの登録します." alt="" coords="472,5,733,35"/>
-<area shape="rect" id="node5" href="$classGgafCore_1_1GgafDeositoryFormation.html#a86645cf15a2c3e4ad942ab80b430b431" title="デポジトリからメンバー呼び出しする。 ." alt="" coords="460,59,745,88"/>
-<area shape="rect" id="node7" href="$classGgafCore_1_1GgafTreeFormation.html#a777eb007512e33ab75dd00c6032339b4" title="サブが無ければ死 ." alt="" coords="436,112,769,141"/>
-<area shape="rect" id="node9" href="$classGgafCore_1_1GgafDeositoryFormation.html#a320d2002d4ed0b56a7678661041e5cd9" title="サブが無ければ死 ." alt="" coords="420,165,785,195"/>
-</map>

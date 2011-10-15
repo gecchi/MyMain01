@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classMyStg2nd_1_1MyOptionLockonController.html#a030708f866814459ea9a6cd413fe131d" title="MyStg2nd::MyOptionLockonController::lockon" alt="" coords="319,32,628,61"/>
-<area shape="rect" id="node9" href="$classMyStg2nd_1_1MyOptionLockonController.html#a41324b36eed8521ff64a1f6289a6efe3" title="状態をリセットする(ユーザー実装用) ." alt="" coords="313,85,633,115"/>
-<area shape="rect" id="node11" href="$classMyStg2nd_1_1MyOptionLockonController.html#ab09bd61da87570081c523b3443ef7315" title="フレーム毎の個別振る舞い処理を実装。(ユーザー実装用、単体) ." alt="" coords="288,139,659,168"/>
-<area shape="rect" id="node13" href="$classGgafCore_1_1GgafActorDepositoryStore.html#a022ed0603318354dbd05cbd86bbc2704" title="サブの登録デポジトリの状態更新 ." alt="" coords="304,192,643,221"/>
-<area shape="rect" id="node5" href="$classMyStg2nd_1_1MyOptionStraightLaserChip001.html#a80fed2a8db66c9b4072d6b93bdc058eb" title="MyStg2nd::MyOptionStraightLaserChip001::onHit" alt="" coords="711,5,1044,35"/>
-<area shape="rect" id="node7" href="$classMyStg2nd_1_1MyOptionWateringLaserChip001.html#a4fa973d8ab2e2a6ef5d2aecc97f0be86" title="MyStg2nd::MyOptionWateringLaserChip001::onHit" alt="" coords="708,59,1047,88"/>
-</map>
