@@ -1,5 +1,5 @@
-#ifndef GGAFFORMATIONACTOR_H_
-#define GGAFFORMATIONACTOR_H_
+#ifndef GGAFFORMATION_H_
+#define GGAFFORMATION_H_
 
 namespace GgafCore {
 
@@ -16,7 +16,7 @@ private:
 
 
 public:
-    /** [r]編隊要素として管理されているアクター数(addSubLast() callUp() により増加) */
+    /** [r]編隊要素として管理されているアクター数(addSubLast() callUpUntil() により増加) */
     int _num_sub;
     /** [r]破壊による消滅したアクター数 (所属アクターの informDestroyedFollower() により増加)*/
     int _num_destory;
@@ -35,7 +35,7 @@ public:
      */
     GgafFormation(const char* prm_name, frame prm_offset_frames_end);
 
-    void DestroyedFollower(GgafActor* prm_pActor_Destroyed);
+    void destroyedFollower(GgafActor* prm_pActor_Destroyed);
 
 
     /**
@@ -60,4 +60,4 @@ public:
 };
 
 }
-#endif /*GGAFFORMATIONACTOR_H_*/
+#endif /*GGAFFORMATION_H_*/

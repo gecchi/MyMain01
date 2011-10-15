@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/06/13
  * @author Masatoshi Tsuge
  */
-class FormationPallas001 : public GgafLib::FormationActor {
+class FormationPallas001 : public GgafLib::TreeFormation {
 
 public:
     /** パラスの発射弾の借り入れ元Depository資源への接続 */
@@ -39,7 +39,7 @@ public:
      * 編隊が全て自機側の攻撃で殲滅させられた場合
      * @param prm_pActorLast 最後に破壊されたアクター
      */
-    virtual void onDestroyedAll(GgafDxCore::GgafDxGeometricActor* prm_pActor_LastDestroyed) override;
+    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override;
 
     virtual ~FormationPallas001();
 };

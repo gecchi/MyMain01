@@ -1,5 +1,5 @@
-#ifndef GGAFDEOSITORYFORMATION_H_
-#define GGAFDEOSITORYFORMATION_H_
+#ifndef GGAFDEPOSITORYFORMATION_H_
+#define GGAFDEPOSITORYFORMATION_H_
 
 namespace GgafCore {
 
@@ -10,10 +10,8 @@ namespace GgafCore {
  * @since 2008/08/08
  * @author Masatoshi Tsuge
  */
-class GgafDeositoryFormation : public GgafFormation {
+class GgafDepositoryFormation : public GgafFormation {
 private:
-
-    void sayonaraFollwer();
 
     virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override {
     }
@@ -21,7 +19,7 @@ public:
     /** [r]編隊要素として管理されているアクターのリスト */
     GgafCore::GgafLinkedListRing<GgafActor> _listFllower;
     bool _is_called_up;
-
+    bool _is_all_called_up;
     /** 全滅時 true (GgafActor::notifyFormationAboutDestroyed() が設定) */
     bool _was_all_destroyed;
     bool _is_init;
@@ -34,7 +32,7 @@ public:
      * @param prm_offset_frames_end 子が無くなったときに解放する猶予フレーム
      * @return
      */
-    GgafDeositoryFormation(const char* prm_name, frame prm_offset_frames_end);
+    GgafDepositoryFormation(const char* prm_name, frame prm_offset_frames_end);
 
     /**
      * デポジトリモードにする。
@@ -43,7 +41,7 @@ public:
      * 本メソッドを実行し、構成メンバーの入ったデポジトリを設定した場合、
      * 本フォーメーションオブジェクトはデポジトリモードになる。
      * デポジトリモードでは、addSubLast は不要。
-     * メンバー呼び出しで、callUp() が使用可能。
+     * メンバー呼び出しで、callUpUntil() が使用可能。
      * @param prm_pDepo
      */
     void setFormationAbleActorDepository(GgafCore::GgafActorDepository* prm_pDepo);
@@ -53,7 +51,7 @@ public:
      * processJudgement() を実装済みのため、オーバーライドしないで下さい。
      * どうしてもオーバーライドが必要な場合は、処理中での何処かで
      * <code>
-     * GgafDeositoryFormation::processJudgement();
+     * GgafDepositoryFormation::processJudgement();
      * </code>
      * を呼び出してください、
      */
@@ -66,20 +64,20 @@ public:
      * 本フォーメーションオブジェクトは終了する。
      * @return
      */
-    GgafActor* callUp();
+    GgafActor* callUpUntil(int prm_formation_sub_num);
 
 
     /**
      * メンバーが残っていれば解放します。
      * 継承してオーバーライドする場合は、処理内で
-     * GgafDeositoryFormation::onGarbaged() を呼び出して下さい。
+     * GgafDepositoryFormation::onGarbaged() を呼び出して下さい。
      */
     virtual void onGarbaged() override;
 
-    void sayonaraFollwer();
+    virtual void sayonaraFollwer();
 
-    virtual ~GgafDeositoryFormation();
+    virtual ~GgafDepositoryFormation();
 };
 
 }
-#endif /*GGAFDEOSITORYFORMATION_H_*/
+#endif /*GGAFDEPOSITORYFORMATION_H_*/

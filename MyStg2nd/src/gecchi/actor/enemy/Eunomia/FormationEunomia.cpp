@@ -5,7 +5,8 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id) : FormationActor(prm_name, 20*60) {
+FormationEunomia::FormationEunomia(const char* prm_name, const char* prm_spl_id)
+   : DepositoryFormation(prm_name, 20*60) {
     _class_name = "FormationEunomia";
     _num_formation_col = 7;   //編隊列数
     _num_formation_row = 1;  //１列の編隊数
@@ -41,7 +42,7 @@ void FormationEunomia::processBehavior() {
         _interval_frames   = R_FormationEunomia001_LaunchInterval;   //エウノミアの間隔(frame)
         _mv_velo           = R_FormationEunomia001_MvVelo; //速度
         for (int i = 0; i < _num_formation_col; i++) {
-            EnemyEunomia* pEunomia = (EnemyEunomia*)callUp();
+            EnemyEunomia* pEunomia = (EnemyEunomia*)callUpUntil(_num_formation_col*_num_formation_row);
             if (pEunomia) {
                 SplineSequence* pSplSeq = _papSplManufCon[i]->use()->
                                               createSplineSequence(pEunomia->_pKurokoA);

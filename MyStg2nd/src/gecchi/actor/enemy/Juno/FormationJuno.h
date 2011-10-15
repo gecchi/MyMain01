@@ -6,7 +6,7 @@ namespace MyStg2nd {
  * フォーメーションアクタークラス .
  * 自身は出現ポイントの中心
  */
-class FormationJuno : public GgafLib::FormationActor {
+class FormationJuno : public GgafLib::TreeFormation {
     /** ジュノーストック */
     GgafCore::GgafActorDepository* _pDepo_EnemyJuno;
 	GgafCore::CmRandomNumberGenerator* _pRndGen;
@@ -55,7 +55,7 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void onDestroyedAll(GgafDxCore::GgafDxGeometricActor* prm_pActor_LastDestroyed) override {
+    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override {
     }
 
     virtual ~FormationJuno();

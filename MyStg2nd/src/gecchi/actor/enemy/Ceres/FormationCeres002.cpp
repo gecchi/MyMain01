@@ -5,7 +5,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-FormationCeres002::FormationCeres002(const char* prm_name) : FormationActor(prm_name) {
+FormationCeres002::FormationCeres002(const char* prm_name) : TreeFormation(prm_name) {
     _class_name = "FormationCeres002";
 //    _pDepo_EnemyMeshShots001 = NEW GgafActorDepository("FmtCeres002_RotEnemyMeshS001");
 //    EnemyCeresShot001* pShot;

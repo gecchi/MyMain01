@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2011/02/14
  * @author Masatoshi Tsuge
  */
-class FormationEunomia : public GgafLib::FormationActor {
+class FormationEunomia : public GgafLib::DepositoryFormation {
 
 public:
     /** エウノミア借り入れ元Depository資源への接続 */
@@ -40,7 +40,7 @@ public:
 
     virtual void processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, int col) = 0;
 
-    virtual void onDestroyedAll(GgafDxCore::GgafDxGeometricActor* prm_pActor_LastDestroyed) override {
+    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override {
     }
 
     virtual void processBehavior() override;

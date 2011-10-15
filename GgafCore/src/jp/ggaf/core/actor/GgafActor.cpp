@@ -114,7 +114,7 @@ void GgafActor::notifyFormationAboutDestroyed() {
         //OK
     } else {
         throwGgafCriticalException("GgafDxGeometricActor::informDestroyedFollower() _pFormation が NULLです。"<<
-                                   "対応する FormationActor による addSubLast() 或いは callUp() により、IFormationAbleアクターが設定されていません。this="<<this);
+                                   "対応する TreeFormation による addSubLast() 或いは callUpUntil() により、IFormationAbleアクターが設定されていません。this="<<this);
     }
 #endif
     _pFormation->destroyedFollower(this);

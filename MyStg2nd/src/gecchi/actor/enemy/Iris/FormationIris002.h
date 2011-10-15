@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2009/12/25
  * @author Masatoshi Tsuge
  */
-class FormationIris002 : public GgafLib::FormationActor {
+class FormationIris002 : public GgafLib::TreeFormation {
 
     DepositoryConnection* _pDepoCon;
     SplineLineConnection* _pSplLineCon;
@@ -28,7 +28,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void onDestroyedAll(GgafDxCore::GgafDxGeometricActor* prm_pActor_LastDestroyed) override {
+    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override {
     }
     virtual ~FormationIris002();
 };

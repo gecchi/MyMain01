@@ -12,7 +12,7 @@ class EnemyIris :
   public GgafLib::DefaultMeshSetActor {
 
 //    /** フォーメーション(非フォーメーション時はNULL) */
-//    GgafLib::FormationActor* _pFormation;
+//    GgafLib::TreeFormation* _pFormation;
     /** 移動スプラインプログラム */
     GgafLib::SplineSequence* _pSplSeq;
     /** 弾ストック */

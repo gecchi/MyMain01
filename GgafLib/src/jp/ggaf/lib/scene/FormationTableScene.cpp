@@ -10,14 +10,11 @@ FormationTableScene::FormationTableScene(const char* prm_name) : GgafDxScene(prm
 }
 
 
-GgafGroupHead* FormationTableScene::addToTable(FormationActor* prm_pFormationActor, frame prm_max_delay_offset) {
+GgafGroupHead* FormationTableScene::addToTable(GgafFormation* prm_pFormationActor, frame prm_max_delay_offset) {
     if (prm_pFormationActor->_obj_class | Obj_GgafFormation) {
         //OK
-        if (prm_pFormationActor->_pDepo) {
-            throwGgafCriticalException("FormationTableScene::addToTable() デポジトリモードの FormationActor は使用できません。prm_pFormationActor="<<prm_pFormationActor->getName())
-        }
     } else {
-        throwGgafCriticalException("FormationTableScene::addToTable() FormationActor 以外が登録されています。")
+        throwGgafCriticalException("FormationTableScene::addToTable() TreeFormation 以外が登録されています。")
     }
     prm_pFormationActor->_offset_frames_end = FORMATION_END_DELAY;
     prm_pFormationActor->inactivateImmediately();
@@ -52,7 +49,7 @@ void FormationTableScene::processBehavior() {
         }
 
         TblElem* e = _table.getCurrent();
-        FormationActor* pF = e->_pFormationActor;
+        TreeFormation* pF = e->_pFormationActor;
         //全滅判定
 //        bool was_destroyed = false;
 //

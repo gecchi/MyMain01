@@ -360,7 +360,6 @@ class GgafDxICubeMapActor;
 class GgafDxBaseActor;
 class GgafDxGeometricActor;
 class GgafDxDrawableActor;
-class GgafDxFormationActor;
 class GgafDxMeshActor;
 class GgafDxMeshSetActor;
 class GgafDxMorphMeshActor;
@@ -484,7 +483,6 @@ class CWaveDecorder;
 #include "jp/ggaf/dxcore/actor/GgafDxBaseActor.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/GgafDxDrawableActor.h"
-#include "jp/ggaf/dxcore/actor/GgafDxFormationActor.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"

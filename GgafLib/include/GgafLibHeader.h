@@ -39,7 +39,8 @@ class WalledSectionScene;
 
 
 class StgProperties;
-class FormationActor;
+class TreeFormation;
+class DepositoryFormation;
 class DefaultGeometricActor;
 class DefaultD3DXMeshActor;
 class DefaultD3DXAniMeshActor;
@@ -120,7 +121,8 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/StgProperties.h"
 
 #include "jp/ggaf/lib/scene/DefaultUniverse.h"
-#include "jp/ggaf/lib/actor/FormationActor.h"
+#include "jp/ggaf/lib/actor/TreeFormation.h"
+#include "jp/ggaf/lib/actor/DepositoryFormation.h"
 #include "jp/ggaf/lib/actor/DefaultCamera.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/lib/actor/DefaultD3DXMeshActor.h"

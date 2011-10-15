@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2009/12/25
  * @author Masatoshi Tsuge
  */
-class FormationThalia : public GgafLib::FormationActor {
+class FormationThalia : public GgafLib::TreeFormation {
 public:
     /** ï“ë‡êî(RANKïœìÆ) */
     int _num_Thalia;
@@ -30,7 +30,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void onDestroyedAll(GgafDxCore::GgafDxGeometricActor* prm_pActor_LastDestroyed) override {
+    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override {
     }
 
     virtual ~FormationThalia();

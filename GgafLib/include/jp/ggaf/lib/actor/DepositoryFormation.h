@@ -1,5 +1,5 @@
-#ifndef FORMATIONACTOR_H_
-#define FORMATIONACTOR_H_
+#ifndef DEPOSITORYFORMATION_H_
+#define DEPOSITORYFORMATION_H_
 
 #define FORMATION_END_DELAY (30*60)
 namespace GgafLib {
@@ -13,13 +13,13 @@ namespace GgafLib {
  * @since 2008/08/08
  * @author Masatoshi Tsuge
  */
-class FormationActor : public GgafDxCore::GgafDxFormationActor {
+class DepositoryFormation : public GgafCore::GgafDepositoryFormation {
 private:
     /**
      * 使用不可 .
      */
     virtual void processJudgement() override {
-        GgafDxFormationActor::processJudgement();
+        GgafCore::GgafDepositoryFormation::processJudgement();
     }
 public:
     /**
@@ -28,7 +28,7 @@ public:
      * @param prm_offset_frames_end 子が無くなったときに解放する猶予フレーム
      * @return
      */
-    FormationActor(const char* prm_name, frame prm_offset_frames_end = FORMATION_END_DELAY);
+    DepositoryFormation(const char* prm_name, frame prm_offset_frames_end = FORMATION_END_DELAY);
 
 
     virtual void initialize() override {
@@ -50,8 +50,8 @@ public:
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
-    virtual ~FormationActor();
+    virtual ~DepositoryFormation();
 };
 
 }
-#endif /*FORMATIONACTOR_H_*/
+#endif /*DEPOSITORYFORMATION_H_*/

@@ -72,7 +72,7 @@ public:
      * @param prm_pDepo_ShotEffect
      */
     virtual void config(
-//            GgafLib::FormationActor* prm_pFormation,
+//            GgafLib::TreeFormation* prm_pFormation,
             GgafLib::SplineSequence* prm_pSplSeq,
             GgafCore::GgafActorDepository* prm_pDepo_Shot,
             GgafCore::GgafActorDepository* prm_pDepo_ShotEffect

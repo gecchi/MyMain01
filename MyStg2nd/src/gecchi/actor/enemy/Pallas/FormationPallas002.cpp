@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace MyStg2nd;
 
 FormationPallas002::FormationPallas002(const char* prm_name) :
-        FormationActor(prm_name, 30*60) {
+        TreeFormation(prm_name, 30*60) {
     _class_name = "FormationPallas002";
     _num_Pallas      = R_FormationPallas002_Num;  //ï“ë‡êî
     _interval_frames = R_FormationPallas002_LaunchInterval;  //ÉpÉâÉXÇÃä‘äu(frame)

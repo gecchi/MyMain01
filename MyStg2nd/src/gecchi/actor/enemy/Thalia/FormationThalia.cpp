@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace MyStg2nd;
 
 FormationThalia::FormationThalia(const char* prm_name) :
-        FormationActor(prm_name, 30*60) {
+        TreeFormation(prm_name, 30*60) {
     _class_name = "FormationThalia";
     _num_Thalia      = R_FormationThalia_Num;         //編隊のタリアの数
     _interval_frames = R_FormationThalia_LaunchInterval;    //各タリアの出現間隔(frame)

@@ -2,23 +2,24 @@
 using namespace std;
 using namespace GgafCore;
 
-GgafDeositoryFormation::GgafDeositoryFormation(const char* prm_name, frame prm_offset_frames_end) :
+GgafDepositoryFormation::GgafDepositoryFormation(const char* prm_name, frame prm_offset_frames_end) :
         GgafFormation(prm_name, NULL)
 {
-    _class_name = "GgafDeositoryFormation";
+    _class_name = "GgafDepositoryFormation";
     _pDepo = NULL;
     _is_called_up = false;
+    _is_all_called_up = false;
 }
-void GgafDeositoryFormation::setFormationAbleActorDepository(GgafActorDepository* prm_pDepo) {
+void GgafDepositoryFormation::setFormationAbleActorDepository(GgafActorDepository* prm_pDepo) {
 #ifdef MY_DEBUG
     if (_pDepo) {
-        throwGgafCriticalException("GgafDeositoryFormation::setFormationAbleActorDepository 既にデポジトリは登録済みです。\n"<<
+        throwGgafCriticalException("GgafDepositoryFormation::setFormationAbleActorDepository 既にデポジトリは登録済みです。\n"<<
                                    "this="<<getName()<<" prm_pDepo="<<prm_pDepo);
     }
     if (prm_pDepo && _pDepo->_pSubFirst) {
         //OK
     } else {
-        throwGgafCriticalException("GgafDeositoryFormation::setFormationAbleActorDepository 不正なデポジトリです。\n"<<
+        throwGgafCriticalException("GgafDepositoryFormation::setFormationAbleActorDepository 不正なデポジトリです。\n"<<
                                    "this="<<getName()<<" prm_pDepo="<<prm_pDepo);
 
     }
@@ -33,49 +34,53 @@ void GgafDeositoryFormation::setFormationAbleActorDepository(GgafActorDepository
     if (pActor) {
 
     } else {
-        throwGgafCriticalException("GgafDeositoryFormation::setFormationAbleActorDepository("<<prm_pDepo->getName()<<") 引数デポジトリのサブが存在しません this="<<getName());
+        throwGgafCriticalException("GgafDepositoryFormation::setFormationAbleActorDepository("<<prm_pDepo->getName()<<") 引数デポジトリのサブが存在しません this="<<getName());
     }
 }
 
 
-GgafActor* GgafDeositoryFormation::callUp() {
+GgafActor* GgafDepositoryFormation::callUpUntil(int prm_formation_sub_num) {
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //終了を待つのみ
         return NULL;
     }
 #ifdef MY_DEBUG
     if (!_pDepo) {
-        throwGgafCriticalException("GgafDeositoryFormation::callUp "<<getName()<<"は、Depositoryが指定されてません。setFormationAbleActorDepositoryが必要です。"<<
+        throwGgafCriticalException("GgafDepositoryFormation::callUpUntil "<<getName()<<"は、Depositoryが指定されてません。setFormationAbleActorDepositoryが必要です。"<<
                                    "this="<<getName()<<" _num_sub="<<_num_sub);
     }
 #endif
-    GgafActor* pActor = _pDepo->dispatch();
-    if (pActor) {
-        _num_sub++;
-
-        pActor->_pFormation = this;
-        _listFllower.addLast(pActor, false);
-    }
     _is_called_up = true;
-    return (GgafActor*)pActor;
+    if (prm_formation_sub_num < _num_sub) {
+        _is_all_called_up = true;
+        return NULL; //もうこれ以上callUpUntil不可
+    } else {
+        GgafActor* pActor = _pDepo->dispatch();
+        if (pActor) {
+            _num_sub++;
+            _is_all_called_up = false;
+            pActor->_pFormation = this;
+            _listFllower.addLast(pActor, false);
+            return (GgafActor*)pActor;
+        } else {
+            _is_all_called_up = true;
+            return NULL; //もうこれ以上callUpUntil不可
+        }
+    }
 }
 
-void GgafDeositoryFormation::processJudgement() {
+void GgafDepositoryFormation::processJudgement() {
     if (wasDeclaredEnd() || _will_inactivate_after_flg) {
         //終了を待つのみ
-    } else {
-        if (_is_called_up && _num_sub == 0) { //デポジトリモード時、いきなり借りれない場合、フォーメーションはなかったことになり、自身を終了
-            sayonara(_offset_frames_end);
-        }
     }
 
     if (_listFllower.length() == 0) {
-        if (_num_sub > 0) {
-            //過去に１度でも追加した後、メンバーが0の場合はさよなら
+        if (_is_all_called_up) {
+            //もうこれ以上callUpUntil不可で
+            //メンバーが0の場合はさよなら
             sayonara(_offset_frames_end);
         } else {
-            //メンバーが0だが、過去に１度も追加していない。
-            //つまり、生成直後であるのでそのまま。
+            //メンバーが0だが、まだ追加中。
             return;
         }
     } else {
@@ -93,18 +98,18 @@ void GgafDeositoryFormation::processJudgement() {
 
 
 }
-void GgafDeositoryFormation::onGarbaged() {
+void GgafDepositoryFormation::onGarbaged() {
     GgafActor::onGarbaged();
     sayonaraFollwer();
 }
-void GgafDeositoryFormation::sayonaraFollwer() {
+void GgafDepositoryFormation::sayonaraFollwer() {
     if (_listFllower.length() == 0) {
         return;
     }
     while (_listFllower.length() > 0) {
         GgafActor* pFllower =  _listFllower.getCurrent();
         if (pFllower->_pFormation == this) {
-            _TRACE_("GgafFormation::sayonaraFollwer _listFllowerの"<<_listFllower.getCurrent()->getName()<<"をsayonaraします。");
+            _TRACE_("GgafDepositoryFormation::sayonaraFollwer _listFllowerの"<<_listFllower.getCurrent()->getName()<<"をsayonaraします。");
             _listFllower.getCurrent()->sayonara();
         }
         _listFllower.remove();
@@ -112,6 +117,6 @@ void GgafDeositoryFormation::sayonaraFollwer() {
 
 }
 
-GgafDeositoryFormation::~GgafDeositoryFormation() {
+GgafDepositoryFormation::~GgafDepositoryFormation() {
 
 }

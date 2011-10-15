@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace MyStg2nd;
 
 FormationPallas001::FormationPallas001(const char* prm_name) :
-        FormationActor(prm_name, 30*60) {
+        TreeFormation(prm_name, 30*60) {
     _class_name = "FormationPallas001";
     _num_Pallas      = R_FormationPallas001_Num;    //•Ò‘à”
     _interval_frames = R_FormationPallas001_LaunchInterval;  //ƒpƒ‰ƒX‚ÌŠÔŠu(frame)
@@ -30,7 +30,7 @@ void FormationPallas001::initialize() {
 }
 
 void FormationPallas001::onActive() {
-    GgafMainActor* pActor = getSubFirst();
+    GgafActor* pActor = getSubFirst();
     EnemyPallas* pPallas = NULL;
     int t = 0;
     do {
@@ -43,7 +43,7 @@ void FormationPallas001::onActive() {
     } while (!pActor->isFirst());
 }
 
-void FormationPallas001::onDestroyedAll(GgafDxGeometricActor* prm_pActor_LastDestroyed) {
+void FormationPallas001::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
     //•Ò‘àÁ–ÅŽž‚ÌŽÀŒ±
     EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDepo_EffectTurbo002->dispatchForce();
     if (pTurbo002) {
