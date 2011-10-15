@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafDummyActor.html#a8be18d88fb5e30e9685ddf5309ddf853" title="毎フレームのGgafDummyActor判定処理 サブが無ければ自動的に死亡する処理になっている。" alt="" coords="343,35,668,64"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafActor.html#afd1a2ddde0bca4dccf1d41784faeaaa2" title="さよならします ." alt="" coords="399,112,612,141"/>
+<area shape="rect" id="node7" href="$classMyStg2nd_1_1EnemyCeres.html#a4d726c29aca4ee50e12fccc71db7ef15" title="MyStg2nd::EnemyCeres::onInactive" alt="" coords="781,5,1021,35"/>
+<area shape="rect" id="node9" href="$classGgafCore_1_1GgafTreeFormation.html#a777eb007512e33ab75dd00c6032339b4" title="サブが無ければ死 ." alt="" coords="735,59,1068,88"/>
+<area shape="rect" id="node11" href="$classGgafCore_1_1GgafGroupHead.html#aadf90cb4a41c92a223516f4ac805a776" title="毎フレームのGgafGroupHead判定処理 ." alt="" coords="745,112,1057,141"/>
+<area shape="rect" id="node13" href="$classGgafCore_1_1GgafDeositoryFormation.html#a320d2002d4ed0b56a7678661041e5cd9" title="サブが無ければ死 ." alt="" coords="719,165,1084,195"/>
+<area shape="rect" id="node16" href="$classGgafCore_1_1GgafFormation.html#a0534a8df233efb336c0d9844804a269f" title="GgafCore::GgafFormation::sayonaraFollwer" alt="" coords="759,219,1044,248"/>
+<area shape="rect" id="node18" href="$classGgafCore_1_1GgafFormation.html#a151fc1c81e9469fe39c9890ee5c64efd" title="メンバーが残っていれば解放します。 継承してオーバーライドする場合は、処理内で GgafFormation::onGarbaged() を呼び出して下さい。" alt="" coords="1135,219,1396,248"/>
+</map>

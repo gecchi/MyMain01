@@ -15,7 +15,6 @@ GgafMainActor::GgafMainActor(const char* prm_name, GgafStatus* prm_pStat) :
 GgafMainActor* GgafMainActor::extract() {
     GgafMainActor* pActor = (GgafMainActor*)GgafActor::extract();
     pActor->setSceneDirector(NULL); //監督アクターリセット
-    pActor->setPlatformScene(NULL); //所属シーンリセット
     return pActor;
 }
 
@@ -144,7 +143,9 @@ GgafGroupHead* GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm
 }
 
 GgafGroupHead* GgafMainActor::addSubGroup(GgafMainActor* prm_pMainActor) {
-    return addSubGroup(prm_pMainActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
+    //_pStatus->get() はint 型だが、例え負の数になっていたとしても、ビットの情報に影響はない
+    //したがって actorkind へキャストしても問題ない。
+    return addSubGroup((actorkind)(prm_pMainActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)), prm_pMainActor);
 }
 
 

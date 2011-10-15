@@ -309,27 +309,27 @@ enum GgafDxValign {
 #define Obj_GgafDxScene                 (0x80000010)     //0b 10000000 00000000 00000000 00010000
 #define Obj_GgafDxUniverse              (0x80000020)     //0b 10000000 00000000 00000000 00100000
 
-#define Obj_GgafDxBaseActor             (0x80)           //0b 00000000 00000000 00000000 10000000
-#define Obj_GgafDxGeometricActor        (0x100)          //0b 00000000 00000000 00000001 00000000
-#define Obj_GgafDxDrawableActor         (0x200)          //0b 00000000 00000000 00000010 00000000
-#define Obj_GgafDxMeshActor             (0x400)          //0b 00000000 00000000 00000100 00000000
-#define Obj_GgafDxMeshSetActor          (0x800)          //0b 00000000 00000000 00001000 00000000
-#define Obj_GgafDxMorphMeshActor        (0x1000)         //0b 00000000 00000000 00010000 00000000
-#define Obj_GgafDxD3DXMeshActor         (0x2000)         //0b 00000000 00000000 00100000 00000000
-#define Obj_GgafDxDynaD3DXMeshActor     (0x4000)         //0b 00000000 00000000 01000000 00000000
-#define Obj_GgafDxD3DXAniMeshActor      (0x8000)         //0b 00000000 00000000 10000000 00000000
-#define Obj_GgafDxSpriteMeshActor       (0x10000)        //0b 00000000 00000001 00000000 00000000
-#define Obj_GgafDxSpriteMeshSetActor    (0x20000)        //0b 00000000 00000010 00000000 00000000
-#define Obj_GgafDxCubeMapMeshActor      (0x40000)        //0b 00000000 00000100 00000000 00000000
-#define Obj_GgafDxCubeMapMeshSetActor   (0x80000)        //0b 00000000 00001000 00000000 00000000
-#define Obj_GgafDxCubeMapMorphMeshActor (0x100000)       //0b 00000000 00010000 00000000 00000000
-#define Obj_GgafDxWorldBoundActor       (0x200000)       //0b 00000000 00100000 00000000 00000000
-#define Obj_GgafDxSpriteActor           (0x400000)       //0b 00000000 01000000 00000000 00000000
-#define Obj_GgafDxSpriteSetActor        (0x800000)       //0b 00000000 10000000 00000000 00000000
-#define Obj_GgafDxBoardActor            (0x1000000)      //0b 00000001 00000000 00000000 00000000
-#define Obj_GgafDxBoardSetActor         (0x2000000)      //0b 00000010 00000000 00000000 00000000
-#define Obj_GgafDxPointSpriteActor      (0x4000000)      //0b 00000100 00000000 00000000 00000000
-#define Obj_GgafDxFormationActor        (0x8000000)      //0b 00001000 00000000 00000000 00000000
+#define Obj_GgafDxBaseActor             (0x100)          //0b 00000000 00000000 00000001 00000000
+#define Obj_GgafDxGeometricActor        (0x200)          //0b 00000000 00000000 00000010 00000000
+#define Obj_GgafDxDrawableActor         (0x400)          //0b 00000000 00000000 00000100 00000000
+#define Obj_GgafDxMeshActor             (0x800)          //0b 00000000 00000000 00001000 00000000
+#define Obj_GgafDxMeshSetActor          (0x1000)         //0b 00000000 00000000 00010000 00000000
+#define Obj_GgafDxMorphMeshActor        (0x2000)         //0b 00000000 00000000 00100000 00000000
+#define Obj_GgafDxD3DXMeshActor         (0x4000)         //0b 00000000 00000000 01000000 00000000
+#define Obj_GgafDxDynaD3DXMeshActor     (0x8000)         //0b 00000000 00000000 10000000 00000000
+#define Obj_GgafDxD3DXAniMeshActor      (0x10000)        //0b 00000000 00000001 00000000 00000000
+#define Obj_GgafDxSpriteMeshActor       (0x20000)        //0b 00000000 00000010 00000000 00000000
+#define Obj_GgafDxSpriteMeshSetActor    (0x40000)        //0b 00000000 00000100 00000000 00000000
+#define Obj_GgafDxCubeMapMeshActor      (0x80000)        //0b 00000000 00001000 00000000 00000000
+#define Obj_GgafDxCubeMapMeshSetActor   (0x100000)       //0b 00000000 00010000 00000000 00000000
+#define Obj_GgafDxCubeMapMorphMeshActor (0x200000)       //0b 00000000 00100000 00000000 00000000
+#define Obj_GgafDxWorldBoundActor       (0x400000)       //0b 00000000 01000000 00000000 00000000
+#define Obj_GgafDxSpriteActor           (0x800000)       //0b 00000000 10000000 00000000 00000000
+#define Obj_GgafDxSpriteSetActor        (0x1000000)      //0b 00000001 00000000 00000000 00000000
+#define Obj_GgafDxBoardActor            (0x2000000)      //0b 00000010 00000000 00000000 00000000
+#define Obj_GgafDxBoardSetActor         (0x4000000)      //0b 00000100 00000000 00000000 00000000
+#define Obj_GgafDxPointSpriteActor      (0x8000000)      //0b 00001000 00000000 00000000 00000000
+
 #undef P_GOD
 #define P_GOD ((GgafDxCore::GgafDxGod*)GgafDxCore::GgafDxGod::_pGod)
 #undef P_UNIVERSE

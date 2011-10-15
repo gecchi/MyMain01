@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>MyStg2nd: MagicMeter.cpp ソースファイル</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MyStg2nd
+   &#160;<span id="projectnumber">0.0.3526</span>
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- 作成： Doxygen 1.7.5.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="dynsections.js"></script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>メインページ</span></a></li>
+      <li><a href="namespaces.html"><span>ネームスペース</span></a></li>
+      <li><a href="annotated.html"><span>データ構造</span></a></li>
+      <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+      <li><a href="dirs.html"><span>ディレクトリ</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="globals.html"><span>グローバル</span></a></li>
+    </ul>
+  </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('MagicMeter_8cpp.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle">
+<div class="title">MagicMeter.cpp</div>  </div>
+</div>
+<div class="contents">
+<a href="MagicMeter_8cpp.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &quot;stdafx.h&quot;</span>
+<a name="l00002"></a>00002 <span class="keyword">using namespace </span>std;
+<a name="l00003"></a>00003 <span class="keyword">using namespace </span>GgafCore;
+<a name="l00004"></a>00004 <span class="keyword">using namespace </span>GgafDxCore;
+<a name="l00005"></a>00005 <span class="keyword">using namespace </span>GgafLib;
+<a name="l00006"></a>00006 <span class="keyword">using namespace </span>MyStg2nd;
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 
+<a name="l00009"></a><a class="code" href="classMyStg2nd_1_1MagicMeter.html#a70f3d72b6291387df378c1715eb641fb">00009</a> MagicMeter::MagicMeter(<span class="keyword">const</span> <span class="keywordtype">char</span>* prm_name)
+<a name="l00010"></a>00010 : DefaultBoardSetActor(prm_name, <span class="stringliteral">&quot;MagicMeter&quot;</span>) {
+<a name="l00011"></a>00011     _class_name = <span class="stringliteral">&quot;MagicMeter&quot;</span>;
+<a name="l00012"></a>00012     <a class="code" href="classMyStg2nd_1_1MagicMeter.html#aec4e0d868a0c5d9b320ae438ad5e9840">_width_px</a> = _pBoardSetModel-&gt;_fSize_BoardSetModelWidthPx + 1.0f;
+<a name="l00013"></a>00013     <a class="code" href="classMyStg2nd_1_1MagicMeter.html#adec6b4e50275ecb7195c7df9ffa3f3b8">_height_px</a> = _pBoardSetModel-&gt;_fSize_BoardSetModelHeightPx + 1.0f;
+<a name="l00014"></a>00014     _X = 100*LEN_UNIT;
+<a name="l00015"></a>00015     _Y = (<a class="code" href="GgafProperties_8h.html#ace362a365851c585f69b61cdb0c08b0d">CFG_PROPERTY</a>(GAME_BUFFER_HEIGHT) - (<a class="code" href="classMyStg2nd_1_1MagicMeter.html#adec6b4e50275ecb7195c7df9ffa3f3b8">_height_px</a>*2)) * LEN_UNIT;
+<a name="l00016"></a>00016 <span class="comment">//    AmountGraph _qu;</span>
+<a name="l00017"></a>00017 <span class="comment">//    _qu.set(1.0);</span>
+<a name="l00018"></a>00018 <span class="comment">//    _qu.config(400.0, 1.0);</span>
+<a name="l00019"></a>00019 <span class="comment">//    float _value = 1000;</span>
+<a name="l00020"></a>00020 <span class="comment">//    _qu.config(400.0f, _value);</span>
+<a name="l00021"></a>00021 <span class="comment">//    AmountGraph _qu();</span>
+<a name="l00022"></a>00022 <span class="comment">//    [0][0]  [1][0]  [2][0]  [3][0]</span>
+<a name="l00023"></a>00023 <span class="comment">//    [0][1]  [1][1]  [2][1]  [3][1]</span>
+<a name="l00024"></a>00024 <span class="comment">//    [0][2]  [1][2]  [2][2]  [3][2]</span>
+<a name="l00025"></a>00025 <span class="comment">//    [0][3]  [1][3]  [2][3]  [3][3]</span>
+<a name="l00026"></a>00026 <span class="comment">//    [0][4]  [1][4]  [2][4]  [3][4]</span>
+<a name="l00027"></a>00027 <span class="comment">//    [0][5]  [1][5]  [2][5]  [3][5]</span>
+<a name="l00028"></a>00028 <span class="comment">//    [0][6]  [1][6]  [2][6]  [3][6]</span>
+<a name="l00029"></a>00029 <span class="comment">//    [0][7]  [1][7]  [2][7]  [3][7]</span>
+<a name="l00030"></a>00030 <span class="comment">//</span>
+<a name="l00031"></a>00031 <span class="comment">//    [4][0]  [5][0]  [6][0]  [7][0]</span>
+<a name="l00032"></a>00032 <span class="comment">//    [4][1]  [5][1]  [6][1]  [7][1]</span>
+<a name="l00033"></a>00033 <span class="comment">//    [4][2]  [5][2]  [6][2]  [7][2]</span>
+<a name="l00034"></a>00034 <span class="comment">//    [4][3]  [5][3]  [6][3]  [7][3]</span>
+<a name="l00035"></a>00035 <span class="comment">//    [4][4]  [5][4]  [6][4]  [7][4]</span>
+<a name="l00036"></a>00036 <span class="comment">//    [4][5]  [5][5]  [6][5]  [7][5]</span>
+<a name="l00037"></a>00037 <span class="comment">//    [4][6]  [5][6]  [6][6]  [7][6]</span>
+<a name="l00038"></a>00038 <span class="comment">//    [4][7]  [5][7]  [6][7]  [7][7]</span>
+<a name="l00039"></a>00039 <span class="comment">//</span>
+<a name="l00040"></a>00040     <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a3c1fad65730309765a24740cdcb5051d" title="引数要素を、末尾(_is_last_flg が true)として追加する .">addLast</a>(<a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> <a class="code" href="classMyStg2nd_1_1TractorMagic.html" title="魔法「アイテム引き寄せ」 .">TractorMagic</a>(<span class="stringliteral">&quot;TRACTOR&quot;</span>));
+<a name="l00041"></a>00041     <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a3c1fad65730309765a24740cdcb5051d" title="引数要素を、末尾(_is_last_flg が true)として追加する .">addLast</a>(<a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> <a class="code" href="classMyStg2nd_1_1SpeedMagic.html" title="魔法「スピード」 .">SpeedMagic</a>(<span class="stringliteral">&quot;SPEED&quot;</span>));
+<a name="l00042"></a>00042     <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a3c1fad65730309765a24740cdcb5051d" title="引数要素を、末尾(_is_last_flg が true)として追加する .">addLast</a>(<a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> <a class="code" href="classMyStg2nd_1_1LockonMagic.html" title="魔法「ロックオン」 .">LockonMagic</a>(<span class="stringliteral">&quot;LOCKON&quot;</span>));
+<a name="l00043"></a>00043     <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a3c1fad65730309765a24740cdcb5051d" title="引数要素を、末尾(_is_last_flg が true)として追加する .">addLast</a>(<a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> <a class="code" href="classMyStg2nd_1_1TorpedoMagic.html" title="魔法「魚雷」 .">TorpedoMagic</a>(<span class="stringliteral">&quot;TORPEDO&quot;</span>));
+<a name="l00044"></a>00044     <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a3c1fad65730309765a24740cdcb5051d" title="引数要素を、末尾(_is_last_flg が true)として追加する .">addLast</a>(<a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> <a class="code" href="classMyStg2nd_1_1LaserMagic.html" title="魔法「オプション」 .">LaserMagic</a>(<span class="stringliteral">&quot;LASER&quot;</span>));
+<a name="l00045"></a>00045     <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a3c1fad65730309765a24740cdcb5051d" title="引数要素を、末尾(_is_last_flg が true)として追加する .">addLast</a>(<a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> <a class="code" href="classMyStg2nd_1_1OptionMagic.html" title="魔法「オプション」 .">OptionMagic</a>(<span class="stringliteral">&quot;OPTION&quot;</span>));
+<a name="l00046"></a>00046     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a934513a251dee8dea7ecce474f7d0457" title="要素数を返す .">length</a>(); i++) {
+<a name="l00047"></a>00047         addSubGroup(<a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#ae085010290f015c8804ab98cafbdfee8" title="カレント要素の次の要素の値を取得する。カレント要素は変化しない .">getNext</a>(i));
+<a name="l00048"></a>00048     }
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051     <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a> = <a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> <span class="keywordtype">int</span>[<a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a934513a251dee8dea7ecce474f7d0457" title="要素数を返す .">length</a>()];
+<a name="l00052"></a>00052     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a934513a251dee8dea7ecce474f7d0457" title="要素数を返す .">length</a>(); i++) {
+<a name="l00053"></a>00053         <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i] = <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a852d162792cb57611917eb79ac1e196d">getNextFromFirst</a>(i)-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>;
+<a name="l00054"></a>00054     }
+<a name="l00055"></a>00055     _pSeTransmitter-&gt;useSe(4);
+<a name="l00056"></a>00056     _pSeTransmitter-&gt;set(0, <span class="stringliteral">&quot;click07_2&quot;</span>); <span class="comment">//メーター移動</span>
+<a name="l00057"></a>00057     _pSeTransmitter-&gt;set(1, <span class="stringliteral">&quot;G_EFC5&quot;</span>);  <span class="comment">//レベル移動</span>
+<a name="l00058"></a>00058     _pSeTransmitter-&gt;set(2, <span class="stringliteral">&quot;warp&quot;</span>);  <span class="comment">//決定</span>
+<a name="l00059"></a>00059     _pSeTransmitter-&gt;set(3, <span class="stringliteral">&quot;SwingA@11&quot;</span>); <span class="comment">//キャンセル</span>
+<a name="l00060"></a>00060 }
+<a name="l00061"></a>00061 
+<a name="l00062"></a><a class="code" href="classMyStg2nd_1_1MagicMeter.html#a7584d201143f79a059b636a07213c934">00062</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a7584d201143f79a059b636a07213c934">MagicMeter::initialize</a>() {
+<a name="l00063"></a>00063     _pUvFlipper-&gt;setFlipMethod(FLIP_ORDER_LOOP, 10); <span class="comment">//アニメ順序</span>
+<a name="l00064"></a>00064 }
+<a name="l00065"></a>00065 
+<a name="l00066"></a><a class="code" href="classMyStg2nd_1_1MagicMeter.html#abc9122db09bd835d74de1fec905d4de6">00066</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MagicMeter.html#abc9122db09bd835d74de1fec905d4de6">MagicMeter::onActive</a>() {
+<a name="l00067"></a>00067 }
+<a name="l00068"></a>00068 
+<a name="l00069"></a><a class="code" href="classMyStg2nd_1_1MagicMeter.html#afcb68fe08d9f51608d161118fb4d27f7">00069</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MagicMeter.html#afcb68fe08d9f51608d161118fb4d27f7">MagicMeter::processBehavior</a>() {
+<a name="l00070"></a>00070     <span class="comment">//_pUvFlipper-&gt;behave();</span>
+<a name="l00071"></a>00071     <a class="code" href="classGgafCore_1_1GgafLinkedListRing.html" title="要素（同一型インスタンスへのポインタ）の環状双方向連結リストを構築するテンプレートです。.">GgafLinkedListRing&lt;Magic&gt;::Elem</a>* pElem = <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a67efbfcaedd8d1f4e20d17df0f8d9e23">getElemFirst</a>();
+<a name="l00072"></a>00072     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a934513a251dee8dea7ecce474f7d0457" title="要素数を返す .">length</a>(); i++) {
+<a name="l00073"></a>00073         pElem-&gt;_pValue-&gt;behave();
+<a name="l00074"></a>00074         pElem = pElem-&gt;_pNext;
+<a name="l00075"></a>00075     }
+<a name="l00076"></a>00076     <span class="comment">//updatePanVolume3D しないため _pSeTransmitter-&gt;behave(); は不要</span>
+<a name="l00077"></a>00077 }
+<a name="l00078"></a>00078 
+<a name="l00079"></a><a class="code" href="classMyStg2nd_1_1MagicMeter.html#a6a43e5a2d27f64c5b270ef6a660a5419">00079</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a6a43e5a2d27f64c5b270ef6a660a5419">MagicMeter::processJudgement</a>() {
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082     <span class="keywordflow">if</span> (<a class="code" href="God_8h.html#ad8b1fb6e7bde4e67541b6228864b864c" title="ゲーム時のVirtualButton">VB_PLAY</a>-&gt;isBeingPressed(<a class="code" href="MyStg2ndHeader_8h.html#a1c31d65f5592d4c008587b457d262716">VB_POWERUP</a>)) {
+<a name="l00083"></a>00083         <a class="code" href="classMyStg2nd_1_1Magic.html" title="抽象魔法クラス .">Magic</a>* pActiveMagic = <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a0ba9770ab88e48441aa17b5c58a28ba6" title="カレント要素の値（保持している内容）を取得する .">getCurrent</a>();
+<a name="l00084"></a>00084         <span class="keywordtype">int</span> i = <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a6bfb022aabb5e60451d2a06882c8da39" title="引数が先頭から何番目かを返す。 内部保持している要素の値はポインタのため、値の比較ではなくポインタ(アドレス)が一致した インデックスを返します。インデックスは0からの数値です。">indexOf</a>(pActiveMagic);
+<a name="l00085"></a>00085         <span class="keywordflow">if</span> (<a class="code" href="God_8h.html#ad8b1fb6e7bde4e67541b6228864b864c" title="ゲーム時のVirtualButton">VB_PLAY</a>-&gt;isPushedDown(<a class="code" href="MyStg2ndHeader_8h.html#a1c31d65f5592d4c008587b457d262716">VB_POWERUP</a>)) {
+<a name="l00086"></a>00086             pActiveMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a2a977cb5945634a145db2c5208b554b7">rollOpen</a>();
+<a name="l00087"></a>00087         }
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089         <span class="keywordflow">if</span> (<a class="code" href="God_8h.html#ad8b1fb6e7bde4e67541b6228864b864c" title="ゲーム時のVirtualButton">VB_PLAY</a>-&gt;isAutoRepeat(VB_RIGHT)) {
+<a name="l00090"></a>00090             <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i] = pActiveMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>;
+<a name="l00091"></a>00091             _pSeTransmitter-&gt;playImmediately(0);
+<a name="l00092"></a>00092             pActiveMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a72285397933aecefaa12eddf1d98dec2">rollClose</a>();
+<a name="l00093"></a>00093             <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a9c22baf846496e2b40287d379db27f9e" title="カレント要素を一つ進める。 .">next</a>();
+<a name="l00094"></a>00094             <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a0ba9770ab88e48441aa17b5c58a28ba6" title="カレント要素の値（保持している内容）を取得する .">getCurrent</a>()-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a2a977cb5945634a145db2c5208b554b7">rollOpen</a>();
+<a name="l00095"></a>00095         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="God_8h.html#ad8b1fb6e7bde4e67541b6228864b864c" title="ゲーム時のVirtualButton">VB_PLAY</a>-&gt;isAutoRepeat(VB_LEFT)) {
+<a name="l00096"></a>00096             <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i] = pActiveMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>;
+<a name="l00097"></a>00097             _pSeTransmitter-&gt;playImmediately(0);
+<a name="l00098"></a>00098             pActiveMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a72285397933aecefaa12eddf1d98dec2">rollClose</a>();
+<a name="l00099"></a>00099             <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#aae27b7c965cbbbb03ebb7cfad9dee7c7" title="カレント要素を一つ戻す。 .">prev</a>();
+<a name="l00100"></a>00100             <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a0ba9770ab88e48441aa17b5c58a28ba6" title="カレント要素の値（保持している内容）を取得する .">getCurrent</a>()-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a2a977cb5945634a145db2c5208b554b7">rollOpen</a>();
+<a name="l00101"></a>00101         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="God_8h.html#ad8b1fb6e7bde4e67541b6228864b864c" title="ゲーム時のVirtualButton">VB_PLAY</a>-&gt;isAutoRepeat(VB_UP)) {
+<a name="l00102"></a>00102             <span class="keywordflow">if</span> (pActiveMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a6ec184657200e5614a273538f71b41e7" title="最高レベル">_max_level</a> &gt; <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i]) {
+<a name="l00103"></a>00103                 _pSeTransmitter-&gt;playImmediately(0);
+<a name="l00104"></a>00104                 <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i] ++;
+<a name="l00105"></a>00105             }
+<a name="l00106"></a>00106         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="God_8h.html#ad8b1fb6e7bde4e67541b6228864b864c" title="ゲーム時のVirtualButton">VB_PLAY</a>-&gt;isAutoRepeat(VB_DOWN)) {
+<a name="l00107"></a>00107             <span class="keywordflow">if</span> (0 &lt; <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i]) {
+<a name="l00108"></a>00108                 _pSeTransmitter-&gt;playImmediately(0);
+<a name="l00109"></a>00109                 <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i] --;
+<a name="l00110"></a>00110             }
+<a name="l00111"></a>00111         }
+<a name="l00112"></a>00112     } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="God_8h.html#ad8b1fb6e7bde4e67541b6228864b864c" title="ゲーム時のVirtualButton">VB_PLAY</a>-&gt;isReleasedUp(<a class="code" href="MyStg2ndHeader_8h.html#a1c31d65f5592d4c008587b457d262716">VB_POWERUP</a>)) {
+<a name="l00113"></a>00113         <a class="code" href="classMyStg2nd_1_1Magic.html" title="抽象魔法クラス .">Magic</a>* pActiveMagic = <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a0ba9770ab88e48441aa17b5c58a28ba6" title="カレント要素の値（保持している内容）を取得する .">getCurrent</a>();
+<a name="l00114"></a>00114         <span class="keywordtype">int</span> i = <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a6bfb022aabb5e60451d2a06882c8da39" title="引数が先頭から何番目かを返す。 内部保持している要素の値はポインタのため、値の比較ではなくポインタ(アドレス)が一致した インデックスを返します。インデックスは0からの数値です。">indexOf</a>(pActiveMagic);
+<a name="l00115"></a>00115         <span class="keywordflow">if</span> (pActiveMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a> &lt; <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i]) {
+<a name="l00116"></a>00116             _pSeTransmitter-&gt;playImmediately(2);
+<a name="l00117"></a>00117             pActiveMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a9318871c516c784acc4dabd192932e10" title="実行 .">execute</a>(<a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i]);
+<a name="l00118"></a>00118                  <span class="comment">//レベルアップ魔法実行！</span>
+<a name="l00119"></a>00119 
+<a name="l00120"></a>00120         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pActiveMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a> &gt; <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i]) {
+<a name="l00121"></a>00121             _pSeTransmitter-&gt;playImmediately(3);
+<a name="l00122"></a>00122             pActiveMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a9318871c516c784acc4dabd192932e10" title="実行 .">execute</a>(<a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i]);
+<a name="l00123"></a>00123                 <span class="comment">//レベルダウン魔法実行！</span>
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pActiveMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a> == <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i]) {
+<a name="l00126"></a>00126             <span class="comment">//同じレベル実行＝何もしない</span>
+<a name="l00127"></a>00127         }
+<a name="l00128"></a>00128         pActiveMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a72285397933aecefaa12eddf1d98dec2">rollClose</a>();
+<a name="l00129"></a>00129     }
+<a name="l00130"></a>00130 }
+<a name="l00131"></a>00131 
+<a name="l00132"></a><a class="code" href="classMyStg2nd_1_1MagicMeter.html#a50369557fed361a512368460e501e0b3">00132</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a50369557fed361a512368460e501e0b3">MagicMeter::onInactive</a>() {
+<a name="l00133"></a>00133 }
+<a name="l00134"></a>00134 
+<a name="l00135"></a><a class="code" href="classMyStg2nd_1_1MagicMeter.html#a6d302b69591f206944e3c07c17f91c2e">00135</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a6d302b69591f206944e3c07c17f91c2e">MagicMeter::processDraw</a>() {
+<a name="l00136"></a>00136     ID3DXEffect* pID3DXEffect = _pBoardSetEffect-&gt;_pID3DXEffect;
+<a name="l00137"></a>00137     <span class="comment">//GgafDxRectUV* pRectUV_Active;</span>
+<a name="l00138"></a>00138     HRESULT hr;
+<a name="l00139"></a>00139     <span class="comment">//パワーメーター</span>
+<a name="l00140"></a>00140     <span class="comment">//[====]が１つの大きさ [====][====][====]</span>
+<a name="l00141"></a>00141     <a class="code" href="classGgafCore_1_1GgafLinkedListRing.html" title="要素（同一型インスタンスへのポインタ）の環状双方向連結リストを構築するテンプレートです。.">GgafLinkedListRing&lt;Magic&gt;::Elem</a>* pElem = <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a67efbfcaedd8d1f4e20d17df0f8d9e23">getElemFirst</a>();
+<a name="l00142"></a>00142     <a class="code" href="classMyStg2nd_1_1Magic.html" title="抽象魔法クラス .">Magic</a>* pMagic;
+<a name="l00143"></a>00143     <span class="keywordtype">int</span> len_magics = <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a934513a251dee8dea7ecce474f7d0457" title="要素数を返す .">length</a>();
+<a name="l00144"></a>00144     <span class="keywordtype">int</span> n = 0;
+<a name="l00145"></a>00145     <span class="keywordtype">float</span> u,v;
+<a name="l00146"></a>00146     <span class="keywordtype">float</span> x = float(App2Pix(_X));
+<a name="l00147"></a>00147     <span class="keywordtype">float</span> y = float(App2Pix(_Y));
+<a name="l00148"></a>00148     <span class="keywordtype">float</span> z = float(App2Pix(_Z));
+<a name="l00149"></a>00149     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; len_magics; i++) {
+<a name="l00150"></a>00150         pMagic = pElem-&gt;_pValue;<span class="comment">//一周したのでアクティブであるはず</span>
+<a name="l00151"></a>00151         <span class="comment">//各マジック要素</span>
+<a name="l00152"></a>00152         n = 0;
+<a name="l00153"></a>00153         <span class="keywordflow">if</span> (pMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a0e996ea5b0c5a856ce16bcbfdb535714">_rr</a> &gt; 0.1) {
+<a name="l00154"></a>00154             <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; pMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a6ec184657200e5614a273538f71b41e7" title="最高レベル">_max_level</a>+1; j++) {
+<a name="l00155"></a>00155                 n++;
+<a name="l00156"></a>00156                 hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedX[n], x + <a class="code" href="classMyStg2nd_1_1MagicMeter.html#aec4e0d868a0c5d9b320ae438ad5e9840">_width_px</a>*i);
+<a name="l00157"></a>00157                 checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。&quot;</span>);
+<a name="l00158"></a>00158                 hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedY[n], y - (<a class="code" href="classMyStg2nd_1_1MagicMeter.html#adec6b4e50275ecb7195c7df9ffa3f3b8">_height_px</a>*(j+1)*pMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a0e996ea5b0c5a856ce16bcbfdb535714">_rr</a>));
+<a name="l00159"></a>00159                 checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。&quot;</span>);
+<a name="l00160"></a>00160                 hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahDepthZ[n], 0.00000002f);
+<a name="l00161"></a>00161                 checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。&quot;</span>);
+<a name="l00162"></a>00162                 hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahAlpha[n], pMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a0e996ea5b0c5a856ce16bcbfdb535714">_rr</a>); <span class="comment">//アクティブなら濃いめ</span>
+<a name="l00163"></a>00163                 checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahAlpha) に失敗しました。&quot;</span>);
+<a name="l00164"></a>00164 <span class="comment">//                pRectUV_Active = _pBoardSetModel-&gt;_paRectUV + pMagic-&gt;_lvinfo[j]._pno;</span>
+<a name="l00165"></a>00165                <span class="comment">// pRectUV_Active = _pUvFlipper-&gt;_paRectUV + pMagic-&gt;_lvinfo[j]._pno;</span>
+<a name="l00166"></a>00166                 _pUvFlipper-&gt;getUV(pMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[j]._pno, u, v);
+<a name="l00167"></a>00167 
+<a name="l00168"></a>00168                 hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahOffsetU[n], u);
+<a name="l00169"></a>00169                 checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw() SetFloat(_hOffsetU) に失敗しました。&quot;</span>);
+<a name="l00170"></a>00170                 hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahOffsetV[n], v);
+<a name="l00171"></a>00171                 checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw() SetFloat(_hOffsetV) に失敗しました。&quot;</span>);
+<a name="l00172"></a>00172             }
+<a name="l00173"></a>00173 
+<a name="l00174"></a>00174             <span class="comment">//各マジックのカーソル</span>
+<a name="l00175"></a>00175             n++;
+<a name="l00176"></a>00176             hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedX[n], x + <a class="code" href="classMyStg2nd_1_1MagicMeter.html#aec4e0d868a0c5d9b320ae438ad5e9840">_width_px</a>*i);
+<a name="l00177"></a>00177             checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。&quot;</span>);
+<a name="l00178"></a>00178             hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedY[n], y - ((<a class="code" href="classMyStg2nd_1_1MagicMeter.html#adec6b4e50275ecb7195c7df9ffa3f3b8">_height_px</a>*(<a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>[i]+1))*pMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a0e996ea5b0c5a856ce16bcbfdb535714">_rr</a>));
+<a name="l00179"></a>00179             checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。&quot;</span>);
+<a name="l00180"></a>00180             hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahDepthZ[n], 0.00000001f);
+<a name="l00181"></a>00181             checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。&quot;</span>);
+<a name="l00182"></a>00182             hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahAlpha[n], pMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a0e996ea5b0c5a856ce16bcbfdb535714">_rr</a>*2);
+<a name="l00183"></a>00183             checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahAlpha) に失敗しました。&quot;</span>);
+<a name="l00184"></a>00184             <span class="comment">//pRectUV_Active = _pUvFlipper-&gt;_paRectUV + 1; //パターン1がメーター要素アクティブ</span>
+<a name="l00185"></a>00185             _pUvFlipper-&gt;getUV(1, u, v);
+<a name="l00186"></a>00186             hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahOffsetU[n], u);
+<a name="l00187"></a>00187             checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw() SetFloat(_hOffsetU) に失敗しました。&quot;</span>);
+<a name="l00188"></a>00188             hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahOffsetV[n], v);
+<a name="l00189"></a>00189             checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw() SetFloat(_hOffsetV) に失敗しました。&quot;</span>);
+<a name="l00190"></a>00190 
+<a name="l00191"></a>00191         }
+<a name="l00192"></a>00192 
+<a name="l00193"></a>00193 
+<a name="l00194"></a>00194         <span class="comment">//マジックメーター背景</span>
+<a name="l00195"></a>00195         n++;
+<a name="l00196"></a>00196         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedX[n], x +<a class="code" href="classMyStg2nd_1_1MagicMeter.html#aec4e0d868a0c5d9b320ae438ad5e9840">_width_px</a>*i);
+<a name="l00197"></a>00197         checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。&quot;</span>);
+<a name="l00198"></a>00198         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedY[n], y) ;
+<a name="l00199"></a>00199         checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。&quot;</span>);
+<a name="l00200"></a>00200         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahDepthZ[n], z);
+<a name="l00201"></a>00201         checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。&quot;</span>);
+<a name="l00202"></a>00202         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahAlpha[n], _fAlpha);
+<a name="l00203"></a>00203         checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahAlpha) に失敗しました。&quot;</span>);
+<a name="l00204"></a>00204         <span class="comment">//pRectUV_Active = _pUvFlipper-&gt;_paRectUV + 2; //3番目のパターンを式つけろ！</span>
+<a name="l00205"></a>00205         _pUvFlipper-&gt;getUV(2, u, v);
+<a name="l00206"></a>00206 
+<a name="l00207"></a>00207         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahOffsetU[n], u);
+<a name="l00208"></a>00208         checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw() SetFloat(_hOffsetU) に失敗しました。&quot;</span>);
+<a name="l00209"></a>00209         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahOffsetV[n], v);
+<a name="l00210"></a>00210         checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw() SetFloat(_hOffsetV) に失敗しました。&quot;</span>);
+<a name="l00211"></a>00211 
+<a name="l00212"></a>00212         <span class="comment">//現在のマジックレベル表示</span>
+<a name="l00213"></a>00213         n++;
+<a name="l00214"></a>00214         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedX[n], x + <a class="code" href="classMyStg2nd_1_1MagicMeter.html#aec4e0d868a0c5d9b320ae438ad5e9840">_width_px</a>*i);
+<a name="l00215"></a>00215         checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。&quot;</span>);
+<a name="l00216"></a>00216         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedY[n], y);
+<a name="l00217"></a>00217         checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。&quot;</span>);
+<a name="l00218"></a>00218         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahDepthZ[n], 0.00000001f);
+<a name="l00219"></a>00219         checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。&quot;</span>);
+<a name="l00220"></a>00220         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahAlpha[n], _fAlpha);
+<a name="l00221"></a>00221         checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahAlpha) に失敗しました。&quot;</span>);
+<a name="l00222"></a>00222         <span class="comment">//pRectUV_Active = _pUvFlipper-&gt;_paRectUV + pMagic-&gt;_lvinfo[pMagic-&gt;_level]._pno;</span>
+<a name="l00223"></a>00223         _pUvFlipper-&gt;getUV(pMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[pMagic-&gt;<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>]._pno, u, v);
+<a name="l00224"></a>00224 
+<a name="l00225"></a>00225         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahOffsetU[n], u);
+<a name="l00226"></a>00226         checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw() SetFloat(_hOffsetU) に失敗しました。&quot;</span>);
+<a name="l00227"></a>00227         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahOffsetV[n], v);
+<a name="l00228"></a>00228         checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw() SetFloat(_hOffsetV) に失敗しました。&quot;</span>);
+<a name="l00229"></a>00229 
+<a name="l00230"></a>00230         _pBoardSetModel-&gt;draw(<span class="keyword">this</span>, n+1);
+<a name="l00231"></a>00231         pElem = pElem-&gt;_pNext;
+<a name="l00232"></a>00232     }
+<a name="l00233"></a>00233 
+<a name="l00234"></a>00234 
+<a name="l00235"></a>00235 
+<a name="l00236"></a>00236 
+<a name="l00237"></a>00237     <span class="comment">//パワーメーターアクティブカーソル</span>
+<a name="l00238"></a>00238     n = 0;
+<a name="l00239"></a>00239     hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedX[n], x + <a class="code" href="classMyStg2nd_1_1MagicMeter.html#aec4e0d868a0c5d9b320ae438ad5e9840">_width_px</a>*<a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a6bfb022aabb5e60451d2a06882c8da39" title="引数が先頭から何番目かを返す。 内部保持している要素の値はポインタのため、値の比較ではなくポインタ(アドレス)が一致した インデックスを返します。インデックスは0からの数値です。">indexOf</a>(<a class="code" href="classMyStg2nd_1_1MagicMeter.html#a849a90e21270eb196c0b6f0a51e55fd5">_ringMagics</a>.<a class="code" href="classGgafCore_1_1GgafLinkedListRing.html#a0ba9770ab88e48441aa17b5c58a28ba6" title="カレント要素の値（保持している内容）を取得する .">getCurrent</a>()));
+<a name="l00240"></a>00240     checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。&quot;</span>);
+<a name="l00241"></a>00241     hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedY[n], y) ;
+<a name="l00242"></a>00242     checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。&quot;</span>);
+<a name="l00243"></a>00243     hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahDepthZ[n], z);
+<a name="l00244"></a>00244     checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。&quot;</span>);
+<a name="l00245"></a>00245     hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahAlpha[n], _fAlpha);
+<a name="l00246"></a>00246     checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw SetFloat(_ahAlpha) に失敗しました。&quot;</span>);
+<a name="l00247"></a>00247     <span class="comment">//pRectUV_Active = _pUvFlipper-&gt;_paRectUV + 0; //パターン0が</span>
+<a name="l00248"></a>00248     _pUvFlipper-&gt;getUV(0, u, v);
+<a name="l00249"></a>00249 
+<a name="l00250"></a>00250     hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahOffsetU[n], u);
+<a name="l00251"></a>00251     checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw() SetFloat(_hOffsetU) に失敗しました。&quot;</span>);
+<a name="l00252"></a>00252     hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahOffsetV[n], v);
+<a name="l00253"></a>00253     checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;MagicMeter::processDraw() SetFloat(_hOffsetV) に失敗しました。&quot;</span>);
+<a name="l00254"></a>00254     _pBoardSetModel-&gt;draw(<span class="keyword">this</span>, n+1);
+<a name="l00255"></a>00255 }
+<a name="l00256"></a>00256 
+<a name="l00257"></a><a class="code" href="classMyStg2nd_1_1MagicMeter.html#a04aa757a8f1be27730c9ec3bea600d08">00257</a> <a class="code" href="classMyStg2nd_1_1MagicMeter.html#a04aa757a8f1be27730c9ec3bea600d08">MagicMeter::~MagicMeter</a>() {
+<a name="l00258"></a>00258     <a class="code" href="GgafCommonHeader_8h.html#ac418da911740806e97d5f4b5314081ff" title="NULLはありえない delete[].">DELETEARR_IMPOSSIBLE_NULL</a>(<a class="code" href="classMyStg2nd_1_1MagicMeter.html#a2be071687820a3171de6db605cde6bce">_paLevelCursor</a>);
+<a name="l00259"></a>00259 }
+</pre></div></div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="MagicMeter_8cpp.html">MagicMeter.cpp</a>      </li>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>データ構造</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>ネームスペース</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙型の値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+    <li class="footer">MyStg2ndに対してSat Oct 15 2011 13:58:43に生成されました。
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
+   </ul>
+ </div>
+
+
+</body>
+</html>

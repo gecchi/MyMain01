@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node1" href="$classMyStg2nd_1_1FormationEunomia.html" title="敵機エウノミア用フォーメーション基底 ." alt="" coords="5,85,216,115"/>
+<area shape="rect" id="node3" href="$classMyStg2nd_1_1FormationEunomia001.html" title="敵機エウノミア用フォーメーション001グループ ." alt="" coords="265,59,503,88"/>
+<area shape="rect" id="node9" href="$classMyStg2nd_1_1FormationEunomia002.html" title="敵機エウノミア用フォーメーション002グループ ." alt="" coords="265,112,503,141"/>
+<area shape="rect" id="node5" href="$classMyStg2nd_1_1FormationEunomia001a.html" title="敵機エウノミア用フォーメーションその001&#45;a ." alt="" coords="553,5,799,35"/>
+<area shape="rect" id="node7" href="$classMyStg2nd_1_1FormationEunomia001b.html" title="敵機エウノミア用フォーメーションその001&#45;b ." alt="" coords="553,59,799,88"/>
+<area shape="rect" id="node11" href="$classMyStg2nd_1_1FormationEunomia002a.html" title="敵機エウノミア用フォーメーションその002&#45;a ." alt="" coords="553,112,799,141"/>
+<area shape="rect" id="node13" href="$classMyStg2nd_1_1FormationEunomia002b.html" title="敵機エウノミア用フォーメーションその002&#45;b ." alt="" coords="553,165,799,195"/>
+</map>

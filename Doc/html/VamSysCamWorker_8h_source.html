@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>MyStg2nd: VamSysCamWorker.h ソースファイル</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MyStg2nd
+   &#160;<span id="projectnumber">0.0.3526</span>
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- 作成： Doxygen 1.7.5.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="dynsections.js"></script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>メインページ</span></a></li>
+      <li><a href="namespaces.html"><span>ネームスペース</span></a></li>
+      <li><a href="annotated.html"><span>データ構造</span></a></li>
+      <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+      <li><a href="dirs.html"><span>ディレクトリ</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="globals.html"><span>グローバル</span></a></li>
+    </ul>
+  </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('VamSysCamWorker_8h.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle">
+<div class="title">VamSysCamWorker.h</div>  </div>
+</div>
+<div class="contents">
+<a href="VamSysCamWorker_8h.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef VAMSYSCAMWORKER_H_</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define VAMSYSCAMWORKER_H_</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a><a class="code" href="VamSysCamWorker_8h.html#a90e0d1c283a5f597ce79cc0a641fbf83">00004</a> <span class="preprocessor">#define VAM_POS_RIGHT 1</span>
+<a name="l00005"></a><a class="code" href="VamSysCamWorker_8h.html#a818ddb2a9121b0ef0cc8622ddcf94b5d">00005</a> <span class="preprocessor"></span><span class="preprocessor">#define VAM_POS_LEFT 2</span>
+<a name="l00006"></a><a class="code" href="VamSysCamWorker_8h.html#a8e095a321b4f20bd617d9bef31eefb6e">00006</a> <span class="preprocessor"></span><span class="preprocessor">#define VAM_POS_TOP 3</span>
+<a name="l00007"></a><a class="code" href="VamSysCamWorker_8h.html#a5f708c0af26171f3c890233d72873127">00007</a> <span class="preprocessor"></span><span class="preprocessor">#define VAM_POS_BOTTOM 4</span>
+<a name="l00008"></a><a class="code" href="VamSysCamWorker_8h.html#a3d7a8292d81663ab15fcecbb65aa5a1e">00008</a> <span class="preprocessor"></span><span class="preprocessor">#define VAM_POS_TO_BEHIND 10</span>
+<a name="l00009"></a><a class="code" href="VamSysCamWorker_8h.html#a449d2175e8d159a8307a3cf440754b0e">00009</a> <span class="preprocessor"></span><span class="preprocessor">#define VAM_POS_BEHIND_RIGHT 11</span>
+<a name="l00010"></a><a class="code" href="VamSysCamWorker_8h.html#ab9e231c201c8cf4e7a4ced9ddab9c9ab">00010</a> <span class="preprocessor"></span><span class="preprocessor">#define VAM_POS_BEHIND_LEFT 12</span>
+<a name="l00011"></a><a class="code" href="VamSysCamWorker_8h.html#a136d306cb1d8f5a67e40951f2a1a339f">00011</a> <span class="preprocessor"></span><span class="preprocessor">#define VAM_POS_BEHIND_TOP 13</span>
+<a name="l00012"></a><a class="code" href="VamSysCamWorker_8h.html#acc04b2ff8e1be495576a8a970c64a9b9">00012</a> <span class="preprocessor"></span><span class="preprocessor">#define VAM_POS_BEHIND_BOTTOM 14</span>
+<a name="l00013"></a>00013 <span class="preprocessor"></span>
+<a name="l00014"></a>00014 <span class="keyword">namespace </span>MyStg2nd {
+<a name="l00015"></a>00015 
+<a name="l00022"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html">00022</a> <span class="keyword">class </span><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html" title="VamSystemのカメラマン .">VamSysCamWorker</a> : <span class="keyword">public</span> <a class="code" href="classMyStg2nd_1_1CameraWorker.html" title="カメラマン .">CameraWorker</a> {
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 <span class="keyword">public</span>:
+<a name="l00025"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#ae91b68942e1e3af3ee5eb3297c75a382">00025</a>     <a class="code" href="classMyStg2nd_1_1MyShip.html" title="自機クラス">MyShip</a>* <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#ae91b68942e1e3af3ee5eb3297c75a382">_pMyShip</a>;
+<a name="l00026"></a>00026 
+<a name="l00028"></a>00028 <span class="comment">//    int _dZ_camera_init;</span>
+<a name="l00029"></a>00029 
+<a name="l00031"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a099fc43bd25afe49012659817052fe0e">00031</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a099fc43bd25afe49012659817052fe0e" title="原点から初期カメラZ位置の距離">_lim_CAM_top</a>;
+<a name="l00033"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a4b93d24861079d23b6e7ecf486aa75eb">00033</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a4b93d24861079d23b6e7ecf486aa75eb" title="カメラY座標下限">_lim_CAM_bottom</a>;
+<a name="l00035"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a98ca2c0d1d19c2178496aaff85addfeb">00035</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a98ca2c0d1d19c2178496aaff85addfeb" title="カメラX座標上限">_lim_CAM_front</a>;
+<a name="l00037"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a928f8952f8ade7aa5be4b6f669346616">00037</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a928f8952f8ade7aa5be4b6f669346616" title="カメラX座標下限">_lim_CAM_behaind</a>;
+<a name="l00039"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a37bcfaf83b5f2ce6f443bb92053129a2">00039</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a37bcfaf83b5f2ce6f443bb92053129a2" title="カメラZ座標上限">_lim_CAM_zleft</a>;
+<a name="l00041"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#af7cf39648fdf6b995505737d5680e993">00041</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#af7cf39648fdf6b995505737d5680e993" title="カメラZ座標下限">_lim_CAM_zright</a>;
+<a name="l00043"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#abf103967741acaae37f8aec0b2c8dea2">00043</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#abf103967741acaae37f8aec0b2c8dea2" title="ビューポイントY座標上限">_lim_VP_top</a>;
+<a name="l00045"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#ac0c7338b23000b242da369e8be27f531">00045</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#ac0c7338b23000b242da369e8be27f531" title="ビューポイントY座標下限">_lim_VP_bottom</a>;
+<a name="l00047"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a509155177c737edc796d2eb95e0b7772">00047</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a509155177c737edc796d2eb95e0b7772" title="ビューポイントX座標上限">_lim_VP_front</a>;
+<a name="l00049"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a309e6d289e0d5e32e40812d914428cc2">00049</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a309e6d289e0d5e32e40812d914428cc2" title="ビューポイントX座標下限">_lim_VP_behaind</a>;
+<a name="l00051"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a3330d9adad5dd1885e20c1cd9a64771a">00051</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a3330d9adad5dd1885e20c1cd9a64771a" title="ビューポイントZ座標上限">_lim_VP_zleft</a>;
+<a name="l00053"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a83132e2c68002f34443a7629d9d11b32">00053</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a83132e2c68002f34443a7629d9d11b32" title="ビューポイントZ座標下限">_lim_VP_zright</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055 <span class="comment">//    /** 現在のカメラのUPのアングル値 */</span>
+<a name="l00056"></a>00056 <span class="comment">//    angle _angXY_nowCamUp;</span>
+<a name="l00058"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#afc3731ae84b31d92eb8502e770624b11">00058</a> <span class="comment"></span>    coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#afc3731ae84b31d92eb8502e770624b11" title="現在のカメラのUPのアングル値">_correction_width</a>;
+<a name="l00060"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#aa4e7227fc1ffd2056149f50849b3bd91">00060</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#aa4e7227fc1ffd2056149f50849b3bd91" title="画面背後時用Y軸補正範囲差分">_correction_height</a>;
+<a name="l00062"></a>00062 <span class="comment">//    int _cam_velo_renge;</span>
+<a name="l00064"></a>00064 <span class="comment"></span><span class="comment">//    int _stop_renge; //カメラ目標座標距離が、これより小さいと、     1.0倍より減</span>
+<a name="l00065"></a>00065 <span class="comment">//                     //カメラ目標座標距離が、これより大きいとさいと 1.0倍より超</span>
+<a name="l00067"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a10d36e312626c25b7b1489ff90ff77a2">00067</a> <span class="comment"></span>    coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a10d36e312626c25b7b1489ff90ff77a2" title="カメラの最高速度（上限、負数で下限）">_stop_dZ</a>;
+<a name="l00069"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a4fee5ed68f92eaf9eee9bf432f80a991">00069</a>     coord <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a4fee5ed68f92eaf9eee9bf432f80a991" title="カメラ目標座標に加えられるY軸座標オフセット補正値">_stop_dY</a>;
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#ad93c43aa26f27b722a9a5ed5f0a45c03">VamSysCamWorker</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* prm_name);
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a67f857e13043348fd7ec11a0ca159416" title="ノード初期処理(単体) .">initialize</a>() <span class="keyword">override</span>;
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a56584e440d51c0a512489eddfa000196" title="フレーム毎の個別振る舞い処理を実装。(ユーザー実装用、単体) .">processBehavior</a>() <span class="keyword">override</span>;
+<a name="l00077"></a>00077 
+<a name="l00078"></a><a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a0cf038f5c91930c1fec88a3355b7edd3">00078</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#a0cf038f5c91930c1fec88a3355b7edd3" title="フレーム毎の個別判断処理を実装。(ユーザー実装用、単体) .">processJudgement</a>()<span class="keyword"> override </span>{
+<a name="l00079"></a>00079     }
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081     <span class="keyword">virtual</span> <a class="code" href="classMyStg2nd_1_1VamSysCamWorker.html#ac075a9cb0c008a19e5e79df8c31bd5f6">~VamSysCamWorker</a>(); <span class="comment">//デストラクタ</span>
+<a name="l00082"></a>00082 };
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084 }
+<a name="l00085"></a>00085 <span class="preprocessor">#endif </span><span class="comment">/*CAMERA_H_*/</span>
+</pre></div></div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="VamSysCamWorker_8h.html">VamSysCamWorker.h</a>      </li>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>データ構造</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>ネームスペース</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙型の値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+    <li class="footer">MyStg2ndに対してSat Oct 15 2011 13:58:48に生成されました。
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
+   </ul>
+ </div>
+
+
+</body>
+</html>

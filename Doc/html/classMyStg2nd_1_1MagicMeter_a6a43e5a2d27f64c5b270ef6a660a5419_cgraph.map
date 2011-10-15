@@ -1,0 +1,13 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classMyStg2nd_1_1Magic.html#a9318871c516c784acc4dabd192932e10" title="実行 ." alt="" coords="393,59,580,88"/>
+<area shape="rect" id="node13" href="$classGgafCore_1_1GgafLinkedListRing.html#a0ba9770ab88e48441aa17b5c58a28ba6" title="カレント要素の値（保持している内容）を取得する ." alt="" coords="345,112,628,141"/>
+<area shape="rect" id="node15" href="$classGgafCore_1_1GgafLinkedListRing.html#a6bfb022aabb5e60451d2a06882c8da39" title="引数が先頭から何番目かを返す。 内部保持している要素の値はポインタのため、値の比較ではなくポインタ(アドレス)が一致した インデックスを返します。インデックスは0からの数値です。" alt="" coords="355,165,619,195"/>
+<area shape="rect" id="node17" href="$classGgafCore_1_1GgafLinkedListRing.html#a9c22baf846496e2b40287d379db27f9e" title="カレント要素を一つ進める。 ." alt="" coords="365,219,608,248"/>
+<area shape="rect" id="node19" href="$classGgafCore_1_1GgafLinkedListRing.html#aae27b7c965cbbbb03ebb7cfad9dee7c7" title="カレント要素を一つ戻す。 ." alt="" coords="365,272,608,301"/>
+<area shape="rect" id="node21" href="$classMyStg2nd_1_1Magic.html#a72285397933aecefaa12eddf1d98dec2" title="MyStg2nd::Magic::rollClose" alt="" coords="392,325,581,355"/>
+<area shape="rect" id="node23" href="$classMyStg2nd_1_1Magic.html#a2a977cb5945634a145db2c5208b554b7" title="MyStg2nd::Magic::rollOpen" alt="" coords="392,379,581,408"/>
+<area shape="rect" id="node5" href="$classMyStg2nd_1_1Magic.html#a838dc293d36a40daae90746e1b055efa" title="そのレベルの魔法が実行できるか調べる" alt="" coords="696,5,931,35"/>
+<area shape="rect" id="node9" href="$classGgafCore_1_1GgafProgress.html#a512e92d247b98207fc73274a49254062" title="進捗番号を変更 ." alt="" coords="701,59,925,88"/>
+<area shape="rect" id="node11" href="$classMyStg2nd_1_1Magic.html#ac29e002bddfced11d2e8a740c1f5b8d9" title="魔法破棄コールバック ." alt="" coords="679,112,948,141"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafProgress.html#a48e7cb388cee9746025ab1897609ccaf" title="現在の進捗番号取得 ." alt="" coords="997,5,1197,35"/>
+</map>

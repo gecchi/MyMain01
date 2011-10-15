@@ -1,0 +1,37 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafActorDepository.html#ab7313b5c393c81fb8a8529ea4851ecf4" title="メンバー借り入れ ." alt="" coords="361,405,641,435"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafActorDepository.html#adf98a20f3dade71c7cfda9d57cfee3ba" title="強制的にアクター取り出し ." alt="" coords="749,5,1064,35"/>
+<area shape="rect" id="node36" href="$classMyStg2nd_1_1MyOptionLockonController.html#a030708f866814459ea9a6cd413fe131d" title="MyStg2nd::MyOptionLockonController::lockon" alt="" coords="347,805,656,835"/>
+<area shape="rect" id="node42" href="$classMyStg2nd_1_1MyOptionLockonController.html#a41324b36eed8521ff64a1f6289a6efe3" title="状態をリセットする(ユーザー実装用) ." alt="" coords="341,859,661,888"/>
+<area shape="rect" id="node44" href="$classGgafCore_1_1GgafActorDepository.html#a956567b167fda8813c748a33d5d62e18" title="リセット時の処理 ." alt="" coords="363,912,640,941"/>
+<area shape="rect" id="node46" href="$classMyStg2nd_1_1MyOptionLockonController.html#ab09bd61da87570081c523b3443ef7315" title="フレーム毎の個別振る舞い処理を実装。(ユーザー実装用、単体) ." alt="" coords="316,965,687,995"/>
+<area shape="rect" id="node48" href="$classGgafCore_1_1GgafActorDepositoryStore.html#a022ed0603318354dbd05cbd86bbc2704" title="サブの登録デポジトリの状態更新 ." alt="" coords="332,1019,671,1048"/>
+<area shape="rect" id="node50" href="$classGgafCore_1_1GgafDummyActor.html#a8be18d88fb5e30e9685ddf5309ddf853" title="毎フレームのGgafDummyActor判定処理 サブが無ければ自動的に死亡する処理になっている。" alt="" coords="339,1072,664,1101"/>
+<area shape="rect" id="node52" href="$classMyStg2nd_1_1MyOptionLockonController.html#a2ddef1921344425a8eae92a2da97278b" title="MyStg2nd::MyOptionLockonController::releaseAllLockon" alt="" coords="315,752,688,781"/>
+<area shape="rect" id="node55" href="$classGgafCore_1_1GgafMainActor.html#a2ec8c5eac450cf7ac886f9e4838bd033" title="団長を設定する。 " alt="" coords="769,1111,1044,1140"/>
+<area shape="rect" id="node71" href="$classGgafCore_1_1GgafMainActor.html#a21088ba8da43276251bc076012011c0a" title="活動中か調べる ." alt="" coords="355,1201,648,1231"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafDeositoryFormation.html#a86645cf15a2c3e4ad942ab80b430b431" title="デポジトリからメンバー呼び出しする。 ." alt="" coords="764,645,1049,675"/>
+<area shape="rect" id="node9" href="$classMyStg2nd_1_1MyTorpedo.html#a10c73babfa0d4a32488fe8818f4ffa33" title="MyStg2nd::MyTorpedo::onHit" alt="" coords="804,699,1009,728"/>
+<area shape="rect" id="node11" href="$classMyStg2nd_1_1EnemyJuno.html#aa76dc42337303043f9ac87be7915b26c" title="MyStg2nd::EnemyJuno::processBehavior" alt="" coords="769,59,1044,88"/>
+<area shape="rect" id="node13" href="$classMyStg2nd_1_1EnemyPallas.html#ac8c63ad09f7eda580730509eb128619f" title="パラスの振る舞い ." alt="" coords="767,112,1047,141"/>
+<area shape="rect" id="node15" href="$classMyStg2nd_1_1EnemyIris.html#a158b803ec933fe813017ac0238626525" title="イリスの振る舞い ." alt="" coords="776,165,1037,195"/>
+<area shape="rect" id="node17" href="$classMyStg2nd_1_1EnemyCeres.html#a4c5440cee13ed1e75a6d41eeb2313d2e" title="MyStg2nd::EnemyCeres::processBehavior" alt="" coords="768,219,1045,248"/>
+<area shape="rect" id="node19" href="$classMyStg2nd_1_1EnemyTamago01.html#ae8465cd953bde2eb5b94e59a33cfcf87" title="たまごの振る舞い ." alt="" coords="751,272,1063,301"/>
+<area shape="rect" id="node21" href="$classMyStg2nd_1_1EnemyEunomia.html#ad2ee78baa2a418568b961614208b4c1c" title="エウノミアの振る舞い ." alt="" coords="757,325,1056,355"/>
+<area shape="rect" id="node23" href="$classMyStg2nd_1_1EnemyAstraea.html#a314d3af04ff897a188c8cffc36d1dff1" title="MyStg2nd::EnemyAstraea::processBehavior" alt="" coords="760,379,1053,408"/>
+<area shape="rect" id="node25" href="$classMyStg2nd_1_1EnemyMassalia.html#a31d5f9e41e1887cf3b5f99e3570ede83" title="MyStg2nd::EnemyMassalia::processBehavior" alt="" coords="759,432,1055,461"/>
+<area shape="rect" id="node27" href="$classMyStg2nd_1_1FormationJuno.html#a49e523344087cb31d4e796279bd80f65" title="MyStg2nd::FormationJuno::processBehavior" alt="" coords="757,485,1056,515"/>
+<area shape="rect" id="node29" href="$classMyStg2nd_1_1EnemyVesta.html#a3d1442c2ba05052f5cfcef9839a7266b" title="ヴェスタの振る舞い ." alt="" coords="767,539,1047,568"/>
+<area shape="rect" id="node31" href="$classMyStg2nd_1_1MyOption.html#a54334d02ee6ddeca108b1d4a7ef725c8" title="MyStg2nd::MyOption::processBehavior" alt="" coords="775,752,1039,781"/>
+<area shape="rect" id="node33" href="$classMyStg2nd_1_1MyShip.html#a7b753aac0a4b0f47a194a7b035110a62" title="MyStg2nd::MyShip::processJudgement" alt="" coords="775,592,1039,621"/>
+<area shape="rect" id="node38" href="$classMyStg2nd_1_1MyOptionStraightLaserChip001.html#a80fed2a8db66c9b4072d6b93bdc058eb" title="MyStg2nd::MyOptionStraightLaserChip001::onHit" alt="" coords="740,859,1073,888"/>
+<area shape="rect" id="node40" href="$classMyStg2nd_1_1MyOptionWateringLaserChip001.html#a4fa973d8ab2e2a6ef5d2aecc97f0be86" title="MyStg2nd::MyOptionWateringLaserChip001::onHit" alt="" coords="737,805,1076,835"/>
+<area shape="rect" id="node57" href="$classGgafCore_1_1GgafMainActor.html#abe25dfbaa6a6aa60121a78b6c71351d8" title="新たに種別を設定し、アクターを配下に追加する。 種別はアクターが保持する種別を無視し、引数の種別を優先する。 配下に団長(GgafGroupHead)を挟んでその配下に引数のアクターを追加します。 Gg..." alt="" coords="1125,1161,1397,1191"/>
+<area shape="rect" id="node67" href="$classGgafCore_1_1GgafDirector.html#ae075787798590a0e0e073d370e594434" title="グループとして引数のアクターをサブアクターに追加します ." alt="" coords="1132,1241,1391,1271"/>
+<area shape="rect" id="node59" href="$classGgafCore_1_1GgafMainActor.html#aa5b39f451d91658862216d0fcaa924f0" title="新たに種別を設定し、アクターを配下に追加する。 ." alt="" coords="1533,1215,1805,1244"/>
+<area shape="rect" id="node61" href="$classMyStg2nd_1_1MyOptionTorpedoController.html#a5f3ffc90140cf3e2fddfaaf5a052d69e" title="コンストラクタ ." alt="" coords="1445,1055,1893,1084"/>
+<area shape="rect" id="node63" href="$classMyStg2nd_1_1OptionMagic.html#ad9cbf210defbfd93ea94adb69b22a6a3" title="MyStg2nd::OptionMagic::OptionMagic" alt="" coords="1540,1108,1799,1137"/>
+<area shape="rect" id="node65" href="$classMyStg2nd_1_1Universe.html#abde058a284d56dfb8c1bf4e4bf7dc8a6" title="MyStg2nd::Universe::Universe" alt="" coords="1565,1161,1773,1191"/>
+<area shape="rect" id="node69" href="$classGgafCore_1_1GgafDirector.html#a6bc1cc57c38e6401bc19c0fd2e0b2b79" title="単独GgafActor、或いはGgafDummyActorが単独親となるGgafActor連続体を &#160;種別は引数子アクターのステータス(_pStatus)の項目 &#39;STAT_DEFAULT_ACTOR_..." alt="" coords="1540,1268,1799,1297"/>
+<area shape="rect" id="node75" href="$classGgafCore_1_1GgafMainActor.html#a1854fa78a52008d232ab6a0843fa524e" title="自ツリーノードを連結リストから切り離し、独立する。 ." alt="" coords="791,1215,1023,1244"/>
+</map>

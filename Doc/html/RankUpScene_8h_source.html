@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>MyStg2nd: RankUpScene.h ソースファイル</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MyStg2nd
+   &#160;<span id="projectnumber">0.0.3526</span>
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- 作成： Doxygen 1.7.5.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="dynsections.js"></script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>メインページ</span></a></li>
+      <li><a href="namespaces.html"><span>ネームスペース</span></a></li>
+      <li><a href="annotated.html"><span>データ構造</span></a></li>
+      <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+      <li><a href="dirs.html"><span>ディレクトリ</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="globals.html"><span>グローバル</span></a></li>
+    </ul>
+  </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('RankUpScene_8h.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle">
+<div class="title">RankUpScene.h</div>  </div>
+</div>
+<div class="contents">
+<a href="RankUpScene_8h.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef RANKUPSCENE_H_</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define RANKUPSCENE_H_</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="keyword">namespace </span>MyStg2nd {
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="keyword">enum</span> {
+<a name="l00007"></a><a class="code" href="namespaceMyStg2nd.html#a288905ebe9c7539ab13c15b411a015dba07a9db26c378b81e4b0d4a0133f16ff7">00007</a>     <a class="code" href="namespaceMyStg2nd.html#a288905ebe9c7539ab13c15b411a015dba07a9db26c378b81e4b0d4a0133f16ff7">RANKUPSCENE_PROG_INIT</a> = 1,
+<a name="l00008"></a><a class="code" href="namespaceMyStg2nd.html#a288905ebe9c7539ab13c15b411a015dba89b60e6842a8d34a9006b12821acd089">00008</a>     <a class="code" href="namespaceMyStg2nd.html#a288905ebe9c7539ab13c15b411a015dba89b60e6842a8d34a9006b12821acd089">RANKUPSCENE_PROG_BEGIN</a>   ,
+<a name="l00009"></a><a class="code" href="namespaceMyStg2nd.html#a288905ebe9c7539ab13c15b411a015dba1772dec41540fcbfdc2d4a48a61b73da">00009</a>     <a class="code" href="namespaceMyStg2nd.html#a288905ebe9c7539ab13c15b411a015dba1772dec41540fcbfdc2d4a48a61b73da">RANKUPSCENE_PROG_PLAYING</a> ,
+<a name="l00010"></a><a class="code" href="namespaceMyStg2nd.html#a288905ebe9c7539ab13c15b411a015dbaffbe18f8a2534fa9e8609ff793e30af3">00010</a>     <a class="code" href="namespaceMyStg2nd.html#a288905ebe9c7539ab13c15b411a015dbaffbe18f8a2534fa9e8609ff793e30af3">RANKUPSCENE_PROG_RESULT</a>  ,
+<a name="l00011"></a><a class="code" href="namespaceMyStg2nd.html#a288905ebe9c7539ab13c15b411a015dba1e739bff99084548a7035c5c61661dfa">00011</a>     <a class="code" href="namespaceMyStg2nd.html#a288905ebe9c7539ab13c15b411a015dba1e739bff99084548a7035c5c61661dfa">RANKUPSCENE_PROG_END</a>     ,
+<a name="l00012"></a>00012 };
+<a name="l00013"></a>00013 
+<a name="l00014"></a><a class="code" href="classMyStg2nd_1_1RankUpScene.html">00014</a> <span class="keyword">class </span><a class="code" href="classMyStg2nd_1_1RankUpScene.html">RankUpScene</a> : <span class="keyword">public</span> GgafLib::DefaultScene {
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">public</span>:
+<a name="l00017"></a><a class="code" href="classMyStg2nd_1_1RankUpScene.html#a92da25c01883a1e404dd3d91daeda47d">00017</a>     <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classMyStg2nd_1_1RankUpScene.html#a92da25c01883a1e404dd3d91daeda47d">_pause</a>;
+<a name="l00018"></a>00018 <span class="keyword">public</span>:
+<a name="l00019"></a>00019 
+<a name="l00020"></a><a class="code" href="classMyStg2nd_1_1RankUpScene.html#a0cd1bd566a9946cc063fad7ba74ff631">00020</a>     <a class="code" href="classMyStg2nd_1_1WorldBoundSpace001.html" title="世界空間 .">WorldBoundSpace001</a>* <a class="code" href="classMyStg2nd_1_1RankUpScene.html#a0cd1bd566a9946cc063fad7ba74ff631">_pWorldBoundSpace</a>;
+<a name="l00021"></a><a class="code" href="classMyStg2nd_1_1RankUpScene.html#ace31d44bc381dd74b9c8298923c6d076">00021</a>     <a class="code" href="classMyStg2nd_1_1HoshiBoshi001.html" title="星々ポイントスプライト001 .">HoshiBoshi001</a>* <a class="code" href="classMyStg2nd_1_1RankUpScene.html#ace31d44bc381dd74b9c8298923c6d076">_pHoshiBoshi</a>;
+<a name="l00022"></a><a class="code" href="classMyStg2nd_1_1RankUpScene.html#ac7035745f26ca782ae131cdd6d473d66">00022</a>     <a class="code" href="classMyStg2nd_1_1LabelGecchi16Font.html" title="オリジナル16x16ドットフォントのラベル .">LabelGecchi16Font</a>* <a class="code" href="classMyStg2nd_1_1RankUpScene.html#ac7035745f26ca782ae131cdd6d473d66">_pMessage</a>;
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024     <a class="code" href="classMyStg2nd_1_1RankUpScene.html#a353eec7d8333a5fd792ae0691a09bab7">RankUpScene</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* prm_name);
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1RankUpScene.html#a8fae82ac19cb0b83261a11f111752a65">initialize</a>() <span class="keyword">override</span>;
+<a name="l00027"></a>00027     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1RankUpScene.html#aeed0bb584611ed3b7d1c89f10b01c3a6">processBehavior</a>() <span class="keyword">override</span>;
+<a name="l00028"></a>00028     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1RankUpScene.html#ae503a1647fc9e89d88a984e8803524d8">processFinal</a>() <span class="keyword">override</span>;
+<a name="l00029"></a>00029     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1RankUpScene.html#ad1ee9e580ba8e3ad65d69e7a0b8aa2c8">onCatchEvent</a>(UINT32 prm_no, <span class="keywordtype">void</span>* prm_pSource) <span class="keyword">override</span>;
+<a name="l00030"></a>00030 
+<a name="l00034"></a>00034     <span class="comment">//virtual void orderStageMain() = 0;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036     <span class="keyword">virtual</span> <a class="code" href="classMyStg2nd_1_1RankUpScene.html#aef30542357dcb6615fc47945e0d0fdea" title="初期処理">~RankUpScene</a>();
+<a name="l00037"></a>00037 };
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 }
+<a name="l00040"></a>00040 <span class="preprocessor">#endif </span><span class="comment">/*RANKUPSCENE_H_*/</span>
+</pre></div></div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="RankUpScene_8h.html">RankUpScene.h</a>      </li>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>データ構造</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>ネームスペース</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙型の値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+    <li class="footer">MyStg2ndに対してSat Oct 15 2011 13:58:45に生成されました。
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
+   </ul>
+ </div>
+
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$classGgafCore_1_1GgafLinkedListRing.html" title="GgafCore::GgafLinkedListRing\&lt; Magic \&gt;" alt="" coords="781,56,1051,85"/>
+<area shape="rect" id="node4" href="$classGgafCore_1_1GgafObject.html" title="基底クラス" alt="" coords="67,5,224,35"/>
+<area shape="rect" id="node9" href="$classGgafCore_1_1GgafLinkedListRing.html" title="要素（同一型インスタンスへのポインタ）の環状双方向連結リストを構築するテンプレートです。." alt="" coords="424,56,667,85"/>
+<area shape="rect" id="node6" href="$classGgafCore_1_1GgafLinkedListRing_1_1Elem.html" title="専用の要素値ラップクラス ." alt="" coords="7,123,284,152"/>
+</map>

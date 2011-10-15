@@ -6,7 +6,7 @@ using namespace GgafDxCore;
 GgafDxFormationActor::GgafDxFormationActor(const char* prm_name, frame prm_offset_frames_end) :
     GgafDxGeometricActor(prm_name, NULL, NULL)
 {
-    _obj_class |= Obj_GgafDxFormationActor;
+    _obj_class |= Obj_GgafFormation;
     _class_name = "GgafDxFormationActor";
     _offset_frames_end = prm_offset_frames_end;
     _num_sub = 0;
@@ -48,8 +48,8 @@ void GgafDxFormationActor::addSubLast(GgafActor* prm_pSub) {
     if (_pSubFirst == NULL) {
         //種別を引き継ぐ
         _pStatus->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND));
-
     } else {
+        //同一種別かチェック
         if (_pStatus->get(STAT_DEFAULT_ACTOR_KIND) != prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)) {
             throwGgafCriticalException("GgafDxFormationActor::addSubLast 異なる種別のアクターを登録しようとしています。this="<<getName()<<"("<<this<<") \n"<<
                                        "想定kind="<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<" _pSubFirst="<<_pSubFirst->getName()<<" \n"<<
@@ -58,14 +58,8 @@ void GgafDxFormationActor::addSubLast(GgafActor* prm_pSub) {
     }
     if (prm_pSub->_obj_class & Obj_GgafDxGeometricActor) {
         _num_sub++;
-//        IFormationAble* p = dynamic_cast<IFormationAble*>(prm_pSub);
-//        if (p == NULL) {
-//            throwGgafCriticalException("GgafDxFormationActor::addSubLast IFormationAble*へクロスキャスト失敗。prm_pSub="<<prm_pSub->getName()<<" のクラスから IFormationAble が見えません。public 継承して下さい。"<<
-//                                       " this="<<getName()<<" _num_sub="<<_num_sub);
-//        }
-//        p->_pFormation = this;
-        ((GgafDxGeometricActor*)prm_pSub)->_pFormation = this;
-        _listFllower.addLast((GgafDxGeometricActor*)prm_pSub, false);
+        ((GgafDxGeometricActor*)prm_pSub)->_pFormation = this; //メンバーへフォーメーションを設定
+        _listFllower.addLast((GgafDxGeometricActor*)prm_pSub, false); //フォーメーションメンバーとして内部保持
     } else {
         _TRACE_("＜警告＞ GgafDxFormationActor::addSubLast("<<prm_pSub->getName()<<") Obj_GgafDxGeometricActor 以外のアクターが追加されます。GgafDxFormationActor使用意図は正しいですか？。"<<
                 "this="<<getName()<<" _num_sub="<<_num_sub);
@@ -111,9 +105,7 @@ void GgafDxFormationActor::processJudgement() {
         //終了を待つのみ
     } else {
         if (_pDepo) {
-//            _TRACE_("GgafDxFormationActor::processJudgement() this="<<getName()<<" _is_called_up="<<_is_called_up<<" _num_sub="<<_num_sub<<" _num_inactive="<<_num_inactive);
             if (_is_called_up && _num_sub == 0) { //デポジトリモード時、いきなり借りれない場合、フォーメーションはなかったことになり、自身を終了
-//                _TRACE_("GgafDxFormationActor::processJudgement()  this="<<getName()<<" sayonara("<<_offset_frames_end<<");");
                 sayonara(_offset_frames_end);
             }
         } else {
@@ -125,12 +117,15 @@ void GgafDxFormationActor::processJudgement() {
 
     if (_listFllower.length() == 0) {
         if (_num_sub > 0) {
+            //過去に１度でも追加した後、メンバーが0の場合はさよなら
             sayonara(_offset_frames_end);
         } else {
+            //メンバーが0だが、過去に１度も追加していない。つまり、生成直後あたり。
             return;
         }
     } else {
-        GgafMainActor* pFllower = _listFllower.getCurrent();
+        //不正ポインタのチェック
+        GgafDxGeometricActor* pFllower = _listFllower.getCurrent();
         int num_follwer = _listFllower.length();
         for (int i = 0; i < num_follwer; i++) {
             if (_can_live_flg && (pFllower->_is_active_flg || pFllower->_will_activate_after_flg)) {
@@ -144,6 +139,7 @@ void GgafDxFormationActor::processJudgement() {
 
 }
 void GgafDxFormationActor::onGarbaged() {
+    GgafDxGeometricActor::onGarbaged();
     sayonaraFollwer();
 }
 

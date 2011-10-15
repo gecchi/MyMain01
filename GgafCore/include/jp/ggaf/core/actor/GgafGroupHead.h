@@ -37,7 +37,7 @@ class GgafGroupHead : public GgafActor {
 public:
     /** [r]監督 */
     GgafDirector* _pDirector;
-    /** [r/w]種別 */
+    /** [r/w]本グループの種別 */
     actorkind _kind;
 
     GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat = NULL);

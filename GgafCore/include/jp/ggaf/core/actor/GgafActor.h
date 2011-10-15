@@ -59,6 +59,9 @@ private:
 public:
     /** [r]所属デポジトリ(NULLは未所属) */
     GgafActorDepository* _pDependenceDepository;
+    /** [r]所属フォーメーション(NULLは未所属) */
+    GgafFormation* _pFormation;
+
     /** [r]アクター開始システム時刻 */
     UINT32 _start_system_time;
     /** [r]アクター衝突判定有無フラグ */
@@ -170,6 +173,8 @@ public:
         return _pDependenceDepository;
     }
 
+    void notifyFormationAboutDestroyed();
+
     /**
      * さよならします .
      * Dispcherに所属している場合は inactiveAfter(prm_offset_frames) <BR>
@@ -179,6 +184,12 @@ public:
      * @param prm_offset_frames 猶予フレーム(1～)
      */
     virtual void sayonara(frame prm_offset_frames = 1);
+
+    /**
+     * 切り離す .
+     * @return
+     */
+    virtual GgafActor* extract() override;
 
     /**
      * デバッグ用：ツリー構造を表示<BR>

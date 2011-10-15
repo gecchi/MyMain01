@@ -1,0 +1,36 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$classMyStg2nd_1_1EnemyCeres.html" title="敵機ケレス ." alt="" coords="449,955,617,984"/>
+<area shape="rect" id="node4" href="$classGgafCore_1_1GgafActorDepository.html" title="アクター保管所（人材バンク）クラス ." alt="" coords="117,101,336,131"/>
+<area shape="rect" id="node10" href="$classGgafCore_1_1GgafActor.html" title="アクターの基底クラス ." alt="" coords="581,197,731,227"/>
+<area shape="rect" id="node6" href="$classGgafCore_1_1GgafDummyActor.html" title="ダミーアクタークラス ." alt="" coords="200,763,397,792"/>
+<area shape="rect" id="node8" href="$classGgafCore_1_1GgafMainActor.html" title="普通のアクター(演者)." alt="" coords="340,627,519,656"/>
+<area shape="rect" id="node14" href="$classGgafCore_1_1GgafNode.html" title="GgafCore::GgafNode\&lt; GgafActor \&gt;" alt="" coords="2007,763,2244,792"/>
+<area shape="rect" id="node50" href="$classGgafCore_1_1GgafDirector.html" title="監督クラス ." alt="" coords="453,277,619,307"/>
+<area shape="rect" id="node70" href="$classGgafCore_1_1GgafFormation.html" title="フォーメーションアクタークラス ." alt="" coords="805,859,984,888"/>
+<area shape="rect" id="node85" href="$classGgafCore_1_1GgafGroupHead.html" title="団長(GgafGroupHead)クラス ." alt="" coords="264,403,448,432"/>
+<area shape="rect" id="node12" href="$classGgafCore_1_1GgafElement.html" title="GgafCore::GgafElement\&lt; GgafActor \&gt;" alt="" coords="1859,1051,2115,1080"/>
+<area shape="rect" id="node16" href="$classGgafCore_1_1GgafObject.html" title="基底クラス" alt="" coords="1752,403,1909,432"/>
+<area shape="rect" id="node19" href="$classGgafCore_1_1GgafNode.html" title="要素同士を環状双方向連結リストのツリー構造を作ることができるテンプレートです。." alt="" coords="2007,627,2188,656"/>
+<area shape="rect" id="node24" href="$classGgafCore_1_1GgafProgress.html" title="進捗管理クラス ." alt="" coords="2017,859,2188,888"/>
+<area shape="rect" id="node27" href="$classGgafCore_1_1GgafGod.html" title="神クラス." alt="" coords="2344,859,2485,888"/>
+<area shape="rect" id="node38" href="$classGgafCore_1_1GgafNode.html" title="GgafCore::GgafNode\&lt; GgafScene \&gt;" alt="" coords="2612,763,2852,792"/>
+<area shape="rect" id="node55" href="$classGgafCore_1_1GgafException.html" title="本ライブラリ例外" alt="" coords="2313,627,2489,656"/>
+<area shape="rect" id="node73" href="$classGgafCore_1_1GgafLinkedListRing.html" title="GgafCore::GgafLinkedListRing\&lt; GgafActor \&gt;" alt="" coords="745,763,1044,792"/>
+<area shape="rect" id="node79" href="$classGgafCore_1_1GgafLinkedListRing.html" title="要素（同一型インスタンスへのポインタ）の環状双方向連結リストを構築するテンプレートです。." alt="" coords="801,627,1044,656"/>
+<area shape="rect" id="node91" href="$classGgafCore_1_1GgafResourceConnection.html" title="GgafCore::GgafResourceConnection\&lt; GgafLib::SplineLine \&gt;" alt="" coords="1468,763,1857,792"/>
+<area shape="rect" id="node95" href="$classGgafCore_1_1GgafResourceManager.html" title="GgafCore::GgafResourceManager\&lt; GgafLib::SplineLine \&gt;" alt="" coords="1220,859,1591,888"/>
+<area shape="rect" id="node99" href="$classGgafCore_1_1GgafResourceManager.html" title="資源管理クラス。 ." alt="" coords="1273,709,1532,739"/>
+<area shape="rect" id="node102" href="$classGgafCore_1_1GgafResourceConnection.html" title="資源接続クラス ." alt="" coords="1604,627,1881,656"/>
+<area shape="rect" id="node45" href="$classGgafCore_1_1GgafElement.html" title="GgafNodeに、様々な状態遷移管理（タスクシステム）を追加。 ." alt="" coords="2061,955,2261,984"/>
+<area shape="rect" id="node36" href="$classGgafCore_1_1GgafElement.html" title="GgafCore::GgafElement\&lt; GgafScene \&gt;" alt="" coords="2373,1051,2632,1080"/>
+<area shape="rect" id="node30" href="$classGgafCore_1_1GgafUniverse.html" title="この世クラス ." alt="" coords="2876,763,3044,792"/>
+<area shape="rect" id="node32" href="$classGgafCore_1_1GgafMainScene.html" title="下位シーンクラスへのインターフェイス ." alt="" coords="2852,627,3033,656"/>
+<area shape="rect" id="node34" href="$classGgafCore_1_1GgafScene.html" title="シーンクラス ." alt="" coords="2656,403,2808,432"/>
+<area shape="rect" id="node53" href="$classGgafCore_1_1GgafCriticalException.html" title="GgafCoreライブラリ専用、ライブラリ業務例外 ." alt="" coords="2369,763,2588,792"/>
+<area shape="rect" id="node58" title="STL class." alt="" coords="2471,403,2559,432"/>
+<area shape="rect" id="node60" title="STL class." alt="" coords="2424,277,2605,307"/>
+<area shape="rect" id="node65" href="$classGgafCore_1_1GgafStatus.html" title="ステースクラス." alt="" coords="577,101,735,131"/>
+<area shape="rect" id="node67" href="$structGgafCore_1_1GgafStatus_1_1VALUE.html" title="ステータス値を表す ." alt="" coords="552,5,760,35"/>
+<area shape="rect" id="node76" href="$classGgafCore_1_1GgafLinkedListRing_1_1Elem.html" title="専用の要素値ラップクラス ." alt="" coords="693,403,971,432"/>
+<area shape="rect" id="node89" href="$classMyStg2nd_1_1SplineLineConnection.html" title="SplineLine資源コネクション." alt="" coords="1615,859,1841,888"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$classMyStg2nd_1_1StageScene.html" title="MyStg2nd::StageScene" alt="" coords="253,5,419,35"/>
+<area shape="rect" id="node4" href="$classMyStg2nd_1_1WorldBoundSpace001.html" title="世界空間 ." alt="" coords="219,59,453,88"/>
+<area shape="rect" id="node6" href="$classMyStg2nd_1_1Stage01PartController.html" title="ステージ１コントローラー ." alt="" coords="219,112,453,141"/>
+<area shape="rect" id="node8" href="$classMyStg2nd_1_1HoshiBoshi001.html" title="星々ポイントスプライト001 ." alt="" coords="241,165,431,195"/>
+<area shape="rect" id="node10" href="$classMyStg2nd_1_1HoshiBoshi.html" title="星々ポイントスプライト001 ." alt="" coords="5,165,168,195"/>
+<area shape="rect" id="node12" href="$classMyStg2nd_1_1LabelGecchi16Font.html" title="オリジナル16x16ドットフォントのラベル ." alt="" coords="229,219,443,248"/>
+</map>

@@ -13,8 +13,6 @@ namespace GgafDxCore {
 class GgafDxFormationActor : public GgafDxGeometricActor {
 private:
 
-    virtual void onGarbaged();
-
     void sayonaraFollwer();
 
 
@@ -93,6 +91,13 @@ public:
      * @param prm_pActor_LastDestroyed 最後にやられたアクター
      */
     virtual void onDestroyedAll(GgafDxGeometricActor* prm_pActor_LastDestroyed) = 0;
+
+    /**
+     * メンバーが残っていれば解放します。
+     * 継承してオーバーライドする場合は、処理内で
+     * GgafDxFormationActor::onGarbaged() を呼び出して下さい。
+     */
+    virtual void onGarbaged() override;
 
     virtual ~GgafDxFormationActor();
 };

@@ -1,0 +1,574 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>MyStg2nd: GgafCommonHeader.h ソースファイル</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MyStg2nd
+   &#160;<span id="projectnumber">0.0.3526</span>
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- 作成： Doxygen 1.7.5.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="dynsections.js"></script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>メインページ</span></a></li>
+      <li><a href="namespaces.html"><span>ネームスペース</span></a></li>
+      <li><a href="annotated.html"><span>データ構造</span></a></li>
+      <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+      <li><a href="dirs.html"><span>ディレクトリ</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="globals.html"><span>グローバル</span></a></li>
+    </ul>
+  </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('GgafCommonHeader_8h.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle">
+<div class="title">GgafCommonHeader.h</div>  </div>
+</div>
+<div class="contents">
+<a href="GgafCommonHeader_8h.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef GGAFCOMMONHEADER_H_</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define GGAFCOMMONHEADER_H_</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00010"></a>00010 <span class="comment">//MY_DEBUGは自分用のデバッグビルド</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#ifdef _DEBUG</span>
+<a name="l00012"></a>00012 <span class="preprocessor"></span>    <span class="comment">//#undef _DEBUG</span>
+<a name="l00013"></a>00013 <span class="preprocessor">    #define MY_DEBUG _DEBUG</span>
+<a name="l00014"></a>00014 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00015"></a>00015 <span class="preprocessor"></span>
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 <span class="comment">//Windows XP 以上。</span>
+<a name="l00018"></a><a class="code" href="GgafCommonHeader_8h.html#a966cd377b9f3fdeb1432460c33352af1">00018</a> <span class="preprocessor">#define WINVER 0x0501</span>
+<a name="l00019"></a><a class="code" href="GgafCommonHeader_8h.html#ac50762666aa00bd3a4308158510f1748">00019</a> <span class="preprocessor"></span><span class="preprocessor">#define _WIN32_WINNT 0x0501</span>
+<a name="l00020"></a>00020 <span class="preprocessor"></span><span class="comment">//GCCの場合、上の２つのシンボルはコンパイラの</span>
+<a name="l00021"></a>00021 <span class="comment">//引数で設定する方が無難。</span>
+<a name="l00022"></a>00022 
+<a name="l00023"></a>00023 <span class="preprocessor">#ifdef _MSC_VER</span>
+<a name="l00024"></a>00024 <span class="preprocessor"></span><span class="preprocessor">    #ifdef _DEBUG</span>
+<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">        #define _CRTDBG_MAP_ALLOC</span>
+<a name="l00026"></a>00026 <span class="preprocessor"></span><span class="preprocessor">        #define _CRTDBG_MAP_ALLOC_NEW</span>
+<a name="l00027"></a>00027 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00028"></a>00028 <span class="preprocessor"></span><span class="preprocessor">    #if _MSC_VER &lt; 1500</span>
+<a name="l00029"></a>00029 <span class="preprocessor"></span><span class="preprocessor">        #define override</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00031"></a>00031 <span class="preprocessor"></span><span class="preprocessor">#else</span>
+<a name="l00032"></a><a class="code" href="GgafCommonHeader_8h.html#a421c2a84099be332814e021bcf72c6cf">00032</a> <span class="preprocessor"></span><span class="preprocessor">   #define override</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00034"></a>00034 <span class="preprocessor"></span>
+<a name="l00035"></a><a class="code" href="GgafCommonHeader_8h.html#af65265def0941b7ad090c2c6283263df">00035</a> <span class="preprocessor">#define _HAS_ITERATOR_DEBUGGING 0</span>
+<a name="l00036"></a>00036 <span class="preprocessor"></span>
+<a name="l00037"></a>00037 <span class="comment">// Windows ヘッダー ファイル:</span>
+<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;windows.h&gt;</span>
+<a name="l00039"></a>00039 <span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042 <span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<a name="l00043"></a>00043 <span class="preprocessor">#ifdef _MSC_VER</span>
+<a name="l00044"></a>00044 <span class="preprocessor"></span><span class="preprocessor">    #ifdef _DEBUG</span>
+<a name="l00045"></a>00045 <span class="preprocessor"></span><span class="preprocessor">        #include &lt;crtdbg.h&gt;</span>
+<a name="l00046"></a>00046 <span class="preprocessor">    #endif</span>
+<a name="l00047"></a>00047 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00048"></a>00048 <span class="preprocessor"></span>
+<a name="l00049"></a>00049 <span class="preprocessor">#include &lt;malloc.h&gt;</span>
+<a name="l00050"></a>00050 <span class="preprocessor">#include &lt;memory.h&gt;</span>
+<a name="l00051"></a>00051 <span class="preprocessor">#include &lt;tchar.h&gt;</span>
+<a name="l00052"></a>00052 <span class="preprocessor">#include &lt;mmsystem.h&gt;</span>
+<a name="l00053"></a>00053 <span class="preprocessor">#include &lt;process.h&gt;</span>
+<a name="l00054"></a>00054 <span class="preprocessor">#include &lt;conio.h&gt;</span>
+<a name="l00055"></a>00055 <span class="preprocessor">#include &lt;math.h&gt;</span>
+<a name="l00056"></a>00056 <span class="preprocessor">#include &lt;limits.h&gt;</span>
+<a name="l00057"></a>00057 <span class="preprocessor">#include &lt;sys/stat.h&gt;</span>
+<a name="l00058"></a>00058 <span class="preprocessor">#include &lt;iostream&gt;</span>
+<a name="l00059"></a>00059 <span class="preprocessor">#include &lt;fstream&gt;</span>
+<a name="l00060"></a>00060 <span class="preprocessor">#include &lt;typeinfo&gt;</span>
+<a name="l00061"></a>00061 <span class="preprocessor">#include &lt;set&gt;</span>
+<a name="l00062"></a>00062 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00063"></a>00063 <span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00064"></a>00064 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00065"></a>00065 <span class="preprocessor">#include &lt;list&gt;</span>
+<a name="l00066"></a>00066 <span class="preprocessor">#include &lt;stack&gt;</span>
+<a name="l00067"></a>00067 <span class="preprocessor">#include &lt;sstream&gt;</span>
+<a name="l00068"></a>00068 <span class="preprocessor">#include &lt;cstddef&gt;</span>
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072 <span class="preprocessor">#ifdef _MSC_VER</span>
+<a name="l00073"></a>00073 <span class="preprocessor"></span><span class="preprocessor">#define __map__ map</span>
+<a name="l00074"></a>00074 <span class="preprocessor"></span><span class="preprocessor">#else</span>
+<a name="l00075"></a><a class="code" href="GgafCommonHeader_8h.html#a10c802bd3157c1a302e3557a5c431779">00075</a> <span class="preprocessor"></span><span class="preprocessor">#define __map__ map</span>
+<a name="l00076"></a>00076 <span class="preprocessor"></span><span class="comment">//#include &lt;unordered_map&gt;</span>
+<a name="l00077"></a>00077 <span class="comment">//#define __map__ unordered_map</span>
+<a name="l00078"></a>00078 <span class="preprocessor">#endif</span>
+<a name="l00079"></a>00079 <span class="preprocessor"></span>
+<a name="l00080"></a>00080 <span class="preprocessor">#ifndef _MSC_VER</span>
+<a name="l00081"></a>00081 <span class="preprocessor"></span>    <span class="comment">//GCCの場合、sal.hを別途インクルード</span>
+<a name="l00082"></a>00082 <span class="preprocessor">    #include &quot;sal.h&quot;</span>
+<a name="l00083"></a>00083     <span class="comment">//GCCの場合sal.hで何故かNULL が __null で 未定義のため強制的に再定義(ナンノコッチャ)</span>
+<a name="l00084"></a>00084 <span class="preprocessor">    #undef NULL</span>
+<a name="l00085"></a>00085 <span class="preprocessor"></span><span class="preprocessor">    #ifdef __cplusplus</span>
+<a name="l00086"></a>00086 <span class="preprocessor"></span><span class="preprocessor">        #define NULL 0</span>
+<a name="l00087"></a>00087 <span class="preprocessor"></span><span class="preprocessor">    #else</span>
+<a name="l00088"></a><a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">00088</a> <span class="preprocessor"></span><span class="preprocessor">        #define NULL ((void*)0)</span>
+<a name="l00089"></a>00089 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00090"></a>00090 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00091"></a>00091 <span class="preprocessor"></span>
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093 <span class="preprocessor">#ifdef MY_DEBUG</span>
+<a name="l00094"></a>00094 <span class="preprocessor"></span><span class="comment">//自分用デバッグビルドの場合</span>
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096 <span class="preprocessor">    #ifdef _MSC_VER</span>
+<a name="l00097"></a>00097 <span class="preprocessor"></span><span class="preprocessor">        #ifdef _DEBUG</span>
+<a name="l00098"></a>00098 <span class="preprocessor"></span>            <span class="comment">//自分用デバッグ かつ VC++の デバッグビルド時</span>
+<a name="l00099"></a>00099             <span class="comment">//VC++のリーク検出を仕込む</span>
+<a name="l00100"></a>00100 <span class="preprocessor">            #define NEW  ::new(_NORMAL_BLOCK, __FILE__, __LINE__ )</span>
+<a name="l00101"></a>00101 <span class="preprocessor"></span><span class="preprocessor">        #else</span>
+<a name="l00102"></a>00102 <span class="preprocessor"></span>            <span class="comment">//自分用デバッグ かつ VC++のリリースビルド時</span>
+<a name="l00103"></a>00103 <span class="preprocessor">            #define NEW new</span>
+<a name="l00104"></a>00104 <span class="preprocessor"></span><span class="preprocessor">        #endif</span>
+<a name="l00105"></a>00105 <span class="preprocessor"></span><span class="preprocessor">    #else</span>
+<a name="l00106"></a>00106 <span class="preprocessor"></span>        <span class="comment">//GCC で自分用デバッグビルド時</span>
+<a name="l00107"></a>00107         <span class="comment">//GCC用のリーク検出を仕込む</span>
+<a name="l00108"></a>00108 <span class="comment">//        #include &quot;DetectMemoryLeaks.h&quot;</span>
+<a name="l00109"></a>00109 <span class="comment">//        #define NEW new(__FILE__, __LINE__)</span>
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111 <span class="preprocessor">        #define NEW new</span>
+<a name="l00112"></a>00112 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00113"></a>00113 <span class="preprocessor"></span>
+<a name="l00114"></a>00114     <span class="comment">//#define PFUNC std::cout &lt;&lt; __PRETTY_FUNCTION__ &lt;&lt; std::endl</span>
+<a name="l00115"></a>00115 
+<a name="l00117"></a>00117     <span class="comment">//#define TRACE(X) {std::stringstream ss; ss &lt;&lt; X; GgafCore::GgafLogger::writeln(ss); }</span>
+<a name="l00118"></a>00118 <span class="preprocessor">    #define TRACE(X)</span>
+<a name="l00119"></a>00119 <span class="preprocessor"></span>
+<a name="l00121"></a>00121     <span class="comment">//#define TRACE2(X) {std::stringstream ss; ss &lt;&lt; &quot;[製造工場]&quot; &lt;&lt; X; GgafCore::GgafLogger::writeln(ss); }</span>
+<a name="l00122"></a>00122 <span class="preprocessor">    #define TRACE2(X)</span>
+<a name="l00123"></a>00123 <span class="preprocessor"></span>
+<a name="l00125"></a>00125     <span class="comment">//#define TRACE3(X) {std::stringstream ss; ss &lt;&lt; X; GgafCore::GgafLogger::writeln(ss); }</span>
+<a name="l00126"></a>00126 <span class="preprocessor">    #define TRACE3(X)</span>
+<a name="l00127"></a>00127 <span class="preprocessor"></span>
+<a name="l00129"></a>00129     <span class="comment">//#define TRACE4(X) {std::stringstream ss; ss &lt;&lt; X; GgafCore::GgafLogger::writeln(ss); }</span>
+<a name="l00130"></a>00130 <span class="preprocessor">    #define TRACE4(X)</span>
+<a name="l00131"></a>00131 <span class="preprocessor"></span>
+<a name="l00133"></a>00133     <span class="comment">//#define TRACE5(X) {std::stringstream ss; ss &lt;&lt; X; GgafCore::GgafLogger::writeln(ss); }</span>
+<a name="l00134"></a>00134 <span class="preprocessor">    #define TRACE5(X)</span>
+<a name="l00135"></a>00135 <span class="preprocessor"></span>    <span class="comment">//#define TEXT5(X) {std::stringstream ss; ss &lt;&lt; X; GgafCore::GgafLogger::write(ss); }</span>
+<a name="l00136"></a>00136 <span class="preprocessor">    #define TEXT5(X)</span>
+<a name="l00137"></a>00137 <span class="preprocessor"></span>
+<a name="l00139"></a>00139 <span class="preprocessor">    #define _TRACE_(X) { std::stringstream ss; ss &lt;&lt; X; GgafCore::GgafLogger::writeln(ss); }</span>
+<a name="l00140"></a>00140 <span class="preprocessor"></span>    <span class="comment">//#define _TRACE_(X)</span>
+<a name="l00141"></a>00141 <span class="preprocessor">    #define _TEXT_(X) { std::stringstream ss; ss &lt;&lt; X; GgafCore::GgafLogger::write(ss); }</span>
+<a name="l00142"></a>00142 <span class="preprocessor"></span>    <span class="comment">//#define _TEXT_(X)</span>
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144     <span class="comment">//メモリ解放用マクロ</span>
+<a name="l00146"></a>00146 <span class="comment"></span><span class="preprocessor">    #define DELETE_POSSIBLE_NULL(POINTER) { \</span>
+<a name="l00147"></a>00147 <span class="preprocessor">        if (POINTER) { \</span>
+<a name="l00148"></a>00148 <span class="preprocessor">            delete (POINTER); \</span>
+<a name="l00149"></a>00149 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00150"></a>00150 <span class="preprocessor">        } else { \</span>
+<a name="l00151"></a>00151 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00152"></a>00152 <span class="preprocessor">        } \</span>
+<a name="l00153"></a>00153 <span class="preprocessor">    }</span>
+<a name="l00154"></a>00154 <span class="preprocessor"></span>
+<a name="l00155"></a>00155 <span class="preprocessor">    #define DELETEARR_POSSIBLE_NULL(POINTER) { \</span>
+<a name="l00156"></a>00156 <span class="preprocessor">        if (POINTER) { \</span>
+<a name="l00157"></a>00157 <span class="preprocessor">            delete[] (POINTER); \</span>
+<a name="l00158"></a>00158 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00159"></a>00159 <span class="preprocessor">        } else { \</span>
+<a name="l00160"></a>00160 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00161"></a>00161 <span class="preprocessor">        } \</span>
+<a name="l00162"></a>00162 <span class="preprocessor">    }</span>
+<a name="l00163"></a>00163 <span class="preprocessor"></span>
+<a name="l00165"></a>00165 <span class="preprocessor">    #define DELETE_IMPOSSIBLE_NULL(POINTER) { \</span>
+<a name="l00166"></a>00166 <span class="preprocessor">        if (POINTER) { \</span>
+<a name="l00167"></a>00167 <span class="preprocessor">            delete (POINTER); \</span>
+<a name="l00168"></a>00168 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00169"></a>00169 <span class="preprocessor">        } else { \</span>
+<a name="l00170"></a>00170 <span class="preprocessor">            std::stringstream ss; \</span>
+<a name="l00171"></a>00171 <span class="preprocessor">            ss &lt;&lt; &quot;DELETE_IMPOSSIBLE_NULL(file:&quot;&lt;&lt;__FILE__&lt;&lt;&quot; line:&quot;&lt;&lt;__LINE__&lt;&lt;&quot;) 既にNULLであるため &quot;&lt;&lt; \</span>
+<a name="l00172"></a>00172 <span class="preprocessor">                  #POINTER &lt;&lt; &quot; の解放をやむなく無視しました。本来は、ここでNULLになってこと自体おかしいのでは？。調査せよ。&quot;; \</span>
+<a name="l00173"></a>00173 <span class="preprocessor">            GgafCore::GgafLogger::writeln(ss); \</span>
+<a name="l00174"></a>00174 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00175"></a>00175 <span class="preprocessor">        } \</span>
+<a name="l00176"></a>00176 <span class="preprocessor">    }</span>
+<a name="l00177"></a>00177 <span class="preprocessor"></span>
+<a name="l00178"></a>00178 <span class="preprocessor">    #define DELETEARR_IMPOSSIBLE_NULL(POINTER) { \</span>
+<a name="l00179"></a>00179 <span class="preprocessor">        if (POINTER) { \</span>
+<a name="l00180"></a>00180 <span class="preprocessor">            delete[] (POINTER); \</span>
+<a name="l00181"></a>00181 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00182"></a>00182 <span class="preprocessor">        } else { \</span>
+<a name="l00183"></a>00183 <span class="preprocessor">            std::stringstream ss; \</span>
+<a name="l00184"></a>00184 <span class="preprocessor">            ss &lt;&lt; &quot;DELETEARR_IMPOSSIBLE_NULL(file:&quot;&lt;&lt;__FILE__&lt;&lt;&quot; line:&quot;&lt;&lt;__LINE__&lt;&lt;&quot;) 既にNULLであるため &quot;&lt;&lt; \</span>
+<a name="l00185"></a>00185 <span class="preprocessor">                  #POINTER &lt;&lt; &quot;の解放をやむなく無視しました。本来は、ここでNULLになってこと自体おかしいのでは？。調査せよ。&quot;; \</span>
+<a name="l00186"></a>00186 <span class="preprocessor">            GgafCore::GgafLogger::writeln(ss); \</span>
+<a name="l00187"></a>00187 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00188"></a>00188 <span class="preprocessor">        } \</span>
+<a name="l00189"></a>00189 <span class="preprocessor">    }</span>
+<a name="l00190"></a>00190 <span class="preprocessor"></span>
+<a name="l00191"></a>00191 <span class="preprocessor">    #define RELEASE_POSSIBLE_NULL(POINTER) { \</span>
+<a name="l00192"></a>00192 <span class="preprocessor">        if (POINTER) { \</span>
+<a name="l00193"></a>00193 <span class="preprocessor">            int rc = (POINTER)-&gt;AddRef(); \</span>
+<a name="l00194"></a>00194 <span class="preprocessor">            rc = (POINTER)-&gt;Release(); \</span>
+<a name="l00195"></a>00195 <span class="preprocessor">            if (rc == 0) { \</span>
+<a name="l00196"></a>00196 <span class="preprocessor">                std::stringstream ss; \</span>
+<a name="l00197"></a>00197 <span class="preprocessor">                ss &lt;&lt; &quot;RELEASE_POSSIBLE_NULL(file:&quot;&lt;&lt;__FILE__&lt;&lt;&quot; line:&quot;&lt;&lt;__LINE__&lt;&lt;&quot;) &quot;&lt;&lt; \</span>
+<a name="l00198"></a>00198 <span class="preprocessor">                      #POINTER &lt;&lt; &quot;は、既に参照カウンタ0です。Release() は行いませんでした。調査が必要です！&quot;; \</span>
+<a name="l00199"></a>00199 <span class="preprocessor">                GgafCore::GgafLogger::writeln(ss); \</span>
+<a name="l00200"></a>00200 <span class="preprocessor">            } else { \</span>
+<a name="l00201"></a>00201 <span class="preprocessor">                rc = (POINTER)-&gt;Release(); \</span>
+<a name="l00202"></a>00202 <span class="preprocessor">                if (rc &gt; 0) { \</span>
+<a name="l00203"></a>00203 <span class="preprocessor">                    std::stringstream ss; \</span>
+<a name="l00204"></a>00204 <span class="preprocessor">                    ss &lt;&lt; &quot;RELEASE_POSSIBLE_NULL(file:&quot;&lt;&lt;__FILE__&lt;&lt;&quot; line:&quot;&lt;&lt;__LINE__&lt;&lt;&quot;) &quot;&lt;&lt; \</span>
+<a name="l00205"></a>00205 <span class="preprocessor">                          #POINTER &lt;&lt; &quot;は、まだ解放されません。参照カウンタ=&quot;&lt;&lt;rc; \</span>
+<a name="l00206"></a>00206 <span class="preprocessor">                    GgafCore::GgafLogger::writeln(ss); \</span>
+<a name="l00207"></a>00207 <span class="preprocessor">                } \</span>
+<a name="l00208"></a>00208 <span class="preprocessor">            } \</span>
+<a name="l00209"></a>00209 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00210"></a>00210 <span class="preprocessor">        } else { \</span>
+<a name="l00211"></a>00211 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00212"></a>00212 <span class="preprocessor">        } \</span>
+<a name="l00213"></a>00213 <span class="preprocessor">    }</span>
+<a name="l00214"></a>00214 <span class="preprocessor"></span>
+<a name="l00215"></a>00215 <span class="preprocessor">    #define RELEASE_IMPOSSIBLE_NULL(POINTER) { \</span>
+<a name="l00216"></a>00216 <span class="preprocessor">        if (POINTER) { \</span>
+<a name="l00217"></a>00217 <span class="preprocessor">            int rc = (POINTER)-&gt;AddRef(); \</span>
+<a name="l00218"></a>00218 <span class="preprocessor">            rc = (POINTER)-&gt;Release(); \</span>
+<a name="l00219"></a>00219 <span class="preprocessor">            if (rc == 0) { \</span>
+<a name="l00220"></a>00220 <span class="preprocessor">                std::stringstream ss; \</span>
+<a name="l00221"></a>00221 <span class="preprocessor">                ss &lt;&lt; &quot;RELEASE_POSSIBLE_NULL(file:&quot;&lt;&lt;__FILE__&lt;&lt;&quot; line:&quot;&lt;&lt;__LINE__&lt;&lt;&quot;) &quot;&lt;&lt; \</span>
+<a name="l00222"></a>00222 <span class="preprocessor">                      #POINTER &lt;&lt; &quot;は、既に参照カウンタ0です。リリースをやむなく無視しました。調査が必要です！&quot;; \</span>
+<a name="l00223"></a>00223 <span class="preprocessor">                GgafCore::GgafLogger::writeln(ss); \</span>
+<a name="l00224"></a>00224 <span class="preprocessor">            } else { \</span>
+<a name="l00225"></a>00225 <span class="preprocessor">                rc = (POINTER)-&gt;Release(); \</span>
+<a name="l00226"></a>00226 <span class="preprocessor">                if (rc &gt; 0) { \</span>
+<a name="l00227"></a>00227 <span class="preprocessor">                    std::stringstream ss; \</span>
+<a name="l00228"></a>00228 <span class="preprocessor">                    ss &lt;&lt; &quot;RELEASE_IMPOSSIBLE_NULL(file:&quot;&lt;&lt;__FILE__&lt;&lt;&quot; line:&quot;&lt;&lt;__LINE__&lt;&lt;&quot;) &quot;&lt;&lt; \</span>
+<a name="l00229"></a>00229 <span class="preprocessor">                          #POINTER &lt;&lt; &quot;は、まだ解放されません。参照カウンタ=&quot;&lt;&lt;rc; \</span>
+<a name="l00230"></a>00230 <span class="preprocessor">                    GgafCore::GgafLogger::writeln(ss); \</span>
+<a name="l00231"></a>00231 <span class="preprocessor">                } \</span>
+<a name="l00232"></a>00232 <span class="preprocessor">            } \</span>
+<a name="l00233"></a>00233 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00234"></a>00234 <span class="preprocessor">        } else { \</span>
+<a name="l00235"></a>00235 <span class="preprocessor">            std::stringstream ss; \</span>
+<a name="l00236"></a>00236 <span class="preprocessor">            ss &lt;&lt; &quot;RELEASE_IMPOSSIBLE_NULL(file:&quot;&lt;&lt;__FILE__&lt;&lt;&quot; line:&quot;&lt;&lt;__LINE__&lt;&lt;&quot;) 既にNULLであるため &quot;&lt;&lt; \</span>
+<a name="l00237"></a>00237 <span class="preprocessor">                  #POINTER &lt;&lt; &quot;のリリースをやむなく無視しました。本来は、ここでNULLになってこと自体おかしいのでは？。調査せよ。&quot;; \</span>
+<a name="l00238"></a>00238 <span class="preprocessor">            GgafCore::GgafLogger::writeln(ss); \</span>
+<a name="l00239"></a>00239 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00240"></a>00240 <span class="preprocessor">        } \</span>
+<a name="l00241"></a>00241 <span class="preprocessor">    }</span>
+<a name="l00242"></a>00242 <span class="preprocessor"></span>
+<a name="l00243"></a>00243 <span class="preprocessor">    #define RELEASE_SAFETY(POINTER) { \</span>
+<a name="l00244"></a>00244 <span class="preprocessor">        if (POINTER) { \</span>
+<a name="l00245"></a>00245 <span class="preprocessor">            (POINTER)-&gt;Release(); \</span>
+<a name="l00246"></a>00246 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00247"></a>00247 <span class="preprocessor">        } else { \</span>
+<a name="l00248"></a>00248 <span class="preprocessor">            (POINTER) = NULL; \</span>
+<a name="l00249"></a>00249 <span class="preprocessor">        } \</span>
+<a name="l00250"></a>00250 <span class="preprocessor">    }</span>
+<a name="l00251"></a>00251 <span class="preprocessor"></span><span class="comment">//#define RELEASE_POSSIBLE_NULL(POINTER) {(POINTER) = NULL;}</span>
+<a name="l00252"></a>00252 <span class="comment">//#define RELEASE_IMPOSSIBLE_NULL(POINTER) {(POINTER) = NULL;}</span>
+<a name="l00253"></a>00253 <span class="comment">//#define RELEASE_SAFETY(POINTER) {(POINTER) = NULL;}</span>
+<a name="l00254"></a>00254 
+<a name="l00255"></a>00255 <span class="preprocessor">#else</span>
+<a name="l00256"></a>00256 <span class="preprocessor"></span><span class="comment">//自分用リリースビルド時</span>
+<a name="l00257"></a>00257 
+<a name="l00258"></a>00258 <span class="preprocessor">    #ifdef _MSC_VER</span>
+<a name="l00259"></a>00259 <span class="preprocessor"></span><span class="preprocessor">        #ifdef _DEBUG</span>
+<a name="l00260"></a>00260 <span class="preprocessor"></span>            <span class="comment">//自分用リリースビルド時 かつ VC++の デバッグビルド時</span>
+<a name="l00261"></a>00261             <span class="comment">//VC++のリーク検出あり（にしておこう）</span>
+<a name="l00262"></a>00262 <span class="preprocessor">            #define NEW  ::new(_NORMAL_BLOCK, __FILE__, __LINE__ )</span>
+<a name="l00263"></a>00263 <span class="preprocessor"></span><span class="preprocessor">        #else</span>
+<a name="l00264"></a>00264 <span class="preprocessor"></span>            <span class="comment">//自分用リリースビルド時 VC++の リリースビルド時</span>
+<a name="l00265"></a>00265 <span class="preprocessor">            #define NEW new</span>
+<a name="l00266"></a>00266 <span class="preprocessor"></span><span class="preprocessor">        #endif</span>
+<a name="l00267"></a>00267 <span class="preprocessor"></span><span class="preprocessor">    #else</span>
+<a name="l00268"></a>00268 <span class="preprocessor"></span>        <span class="comment">//GCC で自分用リリースビルド時</span>
+<a name="l00269"></a><a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">00269</a> <span class="preprocessor">        #define NEW new</span>
+<a name="l00270"></a>00270 <span class="preprocessor"></span><span class="preprocessor">    #endif</span>
+<a name="l00271"></a>00271 <span class="preprocessor"></span>
+<a name="l00272"></a><a class="code" href="GgafCommonHeader_8h.html#a638b671f4fa00cd5267c8df6c19c4477">00272</a> <span class="preprocessor">    #define TRACE(X)</span>
+<a name="l00273"></a><a class="code" href="GgafCommonHeader_8h.html#a788385421c36b18be911a24756b554db">00273</a> <span class="preprocessor"></span><span class="preprocessor">    #define TRACE2(X)</span>
+<a name="l00274"></a><a class="code" href="GgafCommonHeader_8h.html#aef3714929bf26fce06310727767938f1">00274</a> <span class="preprocessor"></span><span class="preprocessor">    #define TRACE3(X)</span>
+<a name="l00275"></a><a class="code" href="GgafCommonHeader_8h.html#afb5e4df88a44497c48f0042dd23d7425">00275</a> <span class="preprocessor"></span><span class="preprocessor">    #define TRACE4(X)</span>
+<a name="l00276"></a><a class="code" href="GgafCommonHeader_8h.html#adbc2ddb6725f988f85edde1d86498f79">00276</a> <span class="preprocessor"></span><span class="preprocessor">    #define TRACE5(X)</span>
+<a name="l00277"></a><a class="code" href="GgafCommonHeader_8h.html#a482198e7d8f55173334cb3cfe118e703">00277</a> <span class="preprocessor"></span><span class="preprocessor">    #define TEXT5(X)</span>
+<a name="l00278"></a>00278 <span class="preprocessor"></span>    <span class="comment">//#define _TRACE_(X) { std::stringstream ss; ss &lt;&lt; X; GgafCore::GgafLogger::writeln(ss); }</span>
+<a name="l00279"></a><a class="code" href="GgafCommonHeader_8h.html#a22f26e5307f94be30bda84b96fca7b8b">00279</a> <span class="preprocessor">    #define _TRACE_(X)</span>
+<a name="l00280"></a>00280 <span class="preprocessor"></span>    <span class="comment">//#define _TEXT_(X) { std::stringstream ss; ss &lt;&lt; X; GgafCore::GgafLogger::write(ss); }</span>
+<a name="l00281"></a><a class="code" href="GgafCommonHeader_8h.html#a2edad686d7d455ec667b85f21b8ee038">00281</a> <span class="preprocessor">    #define _TEXT_(X)</span>
+<a name="l00282"></a><a class="code" href="GgafCommonHeader_8h.html#aaeeddc0d7a6ad8ca12a658bfa79d6102">00282</a> <span class="preprocessor"></span><span class="preprocessor">    #define _TRACEORE(X)</span>
+<a name="l00283"></a>00283 <span class="preprocessor"></span>
+<a name="l00284"></a>00284     <span class="comment">//メモリ解放用マクロ</span>
+<a name="l00286"></a><a class="code" href="GgafCommonHeader_8h.html#ac5582455c17b52cfc88c7190674b8849">00286</a> <span class="comment"></span><span class="preprocessor">    #define DELETE_POSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }</span>
+<a name="l00287"></a>00287 <span class="preprocessor"></span>
+<a name="l00288"></a><a class="code" href="GgafCommonHeader_8h.html#ab0947d2cbc8d2903a8d1c3a131167662">00288</a> <span class="preprocessor">    #define DELETEARR_POSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }</span>
+<a name="l00289"></a>00289 <span class="preprocessor"></span>
+<a name="l00290"></a><a class="code" href="GgafCommonHeader_8h.html#a42bf34e9a7f076e0c16384807af87e5d">00290</a> <span class="preprocessor">    #define RELEASE_POSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)-&gt;Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }</span>
+<a name="l00291"></a>00291 <span class="preprocessor"></span>
+<a name="l00292"></a><a class="code" href="GgafCommonHeader_8h.html#ae5d747deb8aa2c8d2b082d12f7f49836">00292</a> <span class="preprocessor">    #define DELETE_IMPOSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }</span>
+<a name="l00293"></a>00293 <span class="preprocessor"></span>
+<a name="l00294"></a><a class="code" href="GgafCommonHeader_8h.html#ac418da911740806e97d5f4b5314081ff">00294</a> <span class="preprocessor">    #define DELETEARR_IMPOSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }</span>
+<a name="l00295"></a>00295 <span class="preprocessor"></span>
+<a name="l00296"></a><a class="code" href="GgafCommonHeader_8h.html#a3661444126f41a41d0904a981f453592">00296</a> <span class="preprocessor">    #define RELEASE_IMPOSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)-&gt;Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }</span>
+<a name="l00297"></a>00297 <span class="preprocessor"></span>
+<a name="l00298"></a><a class="code" href="GgafCommonHeader_8h.html#ab4ac4f2752f0d1f04f122d7938c88e84">00298</a> <span class="preprocessor">    #define RELEASE_SAFETY(POINTER)      { if(POINTER) { (POINTER)-&gt;Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }</span>
+<a name="l00299"></a>00299 <span class="preprocessor"></span>
+<a name="l00300"></a>00300 <span class="preprocessor">#endif</span>
+<a name="l00301"></a>00301 <span class="preprocessor"></span>
+<a name="l00302"></a><a class="code" href="GgafCommonHeader_8h.html#a9dc19656697a84144f067a543d5eeb2d">00302</a> <span class="preprocessor">#define throwGgafCriticalException(X) { \</span>
+<a name="l00303"></a>00303 <span class="preprocessor">    std::stringstream ss; \</span>
+<a name="l00304"></a>00304 <span class="preprocessor">    ss &lt;&lt;__FILE__&lt;&lt;&quot;(&quot;&lt;&lt;__LINE__&lt;&lt;&quot;) : &quot;&lt;&lt; X; \</span>
+<a name="l00305"></a>00305 <span class="preprocessor">    throw GgafCore::GgafCriticalException(ss.str()); \</span>
+<a name="l00306"></a>00306 <span class="preprocessor">}</span>
+<a name="l00307"></a>00307 <span class="preprocessor"></span>
+<a name="l00308"></a>00308 
+<a name="l00309"></a>00309 
+<a name="l00310"></a>00310 
+<a name="l00311"></a>00311 <span class="comment">//#define PP_ADD_0_0 0</span>
+<a name="l00312"></a>00312 <span class="comment">//#define PP_ADD_0_1 1</span>
+<a name="l00313"></a>00313 <span class="comment">//#define PP_ADD_0_2 2</span>
+<a name="l00314"></a>00314 <span class="comment">//#define PP_ADD_0_3 3</span>
+<a name="l00315"></a>00315 <span class="comment">//#define PP_ADD_1_0 1</span>
+<a name="l00316"></a>00316 <span class="comment">//#define PP_ADD_1_1 2</span>
+<a name="l00317"></a>00317 <span class="comment">//</span>
+<a name="l00318"></a>00318 <span class="comment">//#define PP_ADD(m, n) PP_ADD_I(m, n)</span>
+<a name="l00319"></a>00319 <span class="comment">//#define PP_ADD_I(m, n) PP_ADD_ ## m ## _ ## n</span>
+<a name="l00320"></a>00320 
+<a name="l00321"></a>00321 
+<a name="l00322"></a>00322 
+<a name="l00323"></a>00323 
+<a name="l00324"></a><a class="code" href="GgafCommonHeader_8h.html#a523e0b216dd4381d42d91b3ed17c288a">00324</a> <span class="preprocessor">#define DECLARE_CONST(X) const static UINT32 X = GgafCore::GgafUtil::easy_hash(#X)</span>
+<a name="l00325"></a>00325 <span class="preprocessor"></span>
+<a name="l00326"></a>00326 
+<a name="l00327"></a>00327 <span class="comment">//#define DECLARE_CONST(X)  const static UINT32 X=__LINE__*3+/*&#39;&quot;*/__TIME__&quot;</span>
+<a name="l00328"></a>00328 
+<a name="l00329"></a><a class="code" href="GgafCommonHeader_8h.html#aaa54f7e1a36379ac652ae049c94bcca1">00329</a> <span class="preprocessor">#define MAX2(a, b) ((a) &gt; (b) ? (a) : (b))</span>
+<a name="l00330"></a><a class="code" href="GgafCommonHeader_8h.html#a37c6d7fcb9c177c308ef38e1d51d35e3">00330</a> <span class="preprocessor"></span><span class="preprocessor">#define MAX3(a, b, c) ( (a)&gt;(b) ? ((a)&gt;(c)?(a):(c)) : ((b)&gt;(c)?(b):(c)) )</span>
+<a name="l00331"></a>00331 <span class="preprocessor"></span>
+<a name="l00332"></a><a class="code" href="GgafCommonHeader_8h.html#a6ea3bd7555c391c5d23f5faf5450395a">00332</a> <span class="keyword">typedef</span> UINT32 <a class="code" href="GgafCommonHeader_8h.html#a6ea3bd7555c391c5d23f5faf5450395a">actorkind</a>;
+<a name="l00333"></a><a class="code" href="GgafCommonHeader_8h.html#a30ad2b1055b8608cd8df837b05b0a402">00333</a> <span class="keyword">typedef</span> UINT32 <a class="code" href="GgafCommonHeader_8h.html#a30ad2b1055b8608cd8df837b05b0a402">frame</a>;
+<a name="l00334"></a><a class="code" href="GgafCommonHeader_8h.html#a15cbb52f85e4623bf03a9a089c51ef0c">00334</a> <span class="keyword">typedef</span> std::map&lt;std::string, std::string&gt; <a class="code" href="GgafCommonHeader_8h.html#a15cbb52f85e4623bf03a9a089c51ef0c">GgafStrMap</a>;
+<a name="l00335"></a>00335 
+<a name="l00336"></a>00336 
+<a name="l00337"></a><a class="code" href="GgafCommonHeader_8h.html#a51b09ee5e816a4c2cafc9c6207583c67">00337</a> <span class="preprocessor">#define Obj_GgafScene             (0x80000001)       //0b 10000000 00000000 00000000 00000001</span>
+<a name="l00338"></a><a class="code" href="GgafCommonHeader_8h.html#ad20826f4b6ff96fb2336345d34d573fd">00338</a> <span class="preprocessor"></span><span class="preprocessor">#define Obj_GgafMainScene         (0x80000002)       //0b 10000000 00000000 00000000 00000010</span>
+<a name="l00339"></a><a class="code" href="GgafCommonHeader_8h.html#add88eb260fd73e4ab30b9601f6c17f8d">00339</a> <span class="preprocessor"></span><span class="preprocessor">#define Obj_GgafDisusedScene      (0x80000004)       //0b 10000000 00000000 00000000 00000100</span>
+<a name="l00340"></a><a class="code" href="GgafCommonHeader_8h.html#a28d18005f67eda7e52663a3171aef1e3">00340</a> <span class="preprocessor"></span><span class="preprocessor">#define Obj_GgafUniverse          (0x80000008)       //0b 10000000 00000000 00000000 00001000</span>
+<a name="l00341"></a>00341 <span class="preprocessor"></span>
+<a name="l00342"></a><a class="code" href="GgafCommonHeader_8h.html#a2f46e52e3f1b9b30793318f8a832d14d">00342</a> <span class="preprocessor">#define Obj_GgafActor             (0x1)              //0b 00000000 00000000 00000000 00000001</span>
+<a name="l00343"></a><a class="code" href="GgafCommonHeader_8h.html#a41979e5e36abfac415cdc004826951a9">00343</a> <span class="preprocessor"></span><span class="preprocessor">#define Obj_GgafMainActor         (0x2)              //0b 00000000 00000000 00000000 00000010</span>
+<a name="l00344"></a><a class="code" href="GgafCommonHeader_8h.html#a3890f869149c5dc83631c70257be9ff4">00344</a> <span class="preprocessor"></span><span class="preprocessor">#define Obj_GgafDummyActor        (0x4)              //0b 00000000 00000000 00000000 00000100</span>
+<a name="l00345"></a><a class="code" href="GgafCommonHeader_8h.html#aeca696673db0a17dbb3659854e22c58e">00345</a> <span class="preprocessor"></span><span class="preprocessor">#define Obj_GgafDirector          (0x8)              //0b 00000000 00000000 00000000 00001000</span>
+<a name="l00346"></a><a class="code" href="GgafCommonHeader_8h.html#ac0736f2367ab0a02e534b6450eb9865c">00346</a> <span class="preprocessor"></span><span class="preprocessor">#define Obj_GgafGroupHead         (0x10)             //0b 00000000 00000000 00000000 00010000</span>
+<a name="l00347"></a><a class="code" href="GgafCommonHeader_8h.html#a5047385aaf10de1d67b702a37f815d48">00347</a> <span class="preprocessor"></span><span class="preprocessor">#define Obj_GgafDisusedActor      (0x20)             //0b 00000000 00000000 00000000 00100000</span>
+<a name="l00348"></a><a class="code" href="GgafCommonHeader_8h.html#a443712de50d884edce250efbece3377c">00348</a> <span class="preprocessor"></span><span class="preprocessor">#define Obj_GgafActorDepository   (0x40)             //0b 00000000 00000000 00000000 01000000</span>
+<a name="l00349"></a><a class="code" href="GgafCommonHeader_8h.html#a7c36b13e77791bd9469fb3c83c8228dd">00349</a> <span class="preprocessor"></span><span class="preprocessor">#define Obj_GgafFormation    (0x80)             //0b 00000000 00000000 00000000 10000000</span>
+<a name="l00350"></a>00350 <span class="preprocessor"></span>
+<a name="l00351"></a><a class="code" href="namespaceGgafCore.html">00351</a> <span class="keyword">namespace </span>GgafCore {
+<a name="l00352"></a>00352 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafUtil.html" title="ユーティリティクラス .">GgafUtil</a>;
+<a name="l00353"></a>00353 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafRepeatSeq.html" title="順序クラス .">GgafRepeatSeq</a>;
+<a name="l00354"></a>00354 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafObject.html" title="基底クラス">GgafObject</a>;
+<a name="l00355"></a>00355 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafException.html" title="本ライブラリ例外">GgafException</a>;
+<a name="l00356"></a>00356 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafCriticalException.html" title="GgafCoreライブラリ専用、ライブラリ業務例外 .">GgafCriticalException</a>;
+<a name="l00357"></a>00357 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafLogger.html" title="ログクラス">GgafLogger</a>;
+<a name="l00358"></a>00358 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafGod.html" title="神クラス.">GgafGod</a>;
+<a name="l00359"></a>00359 
+<a name="l00360"></a>00360 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1CmRandomNumberGenerator.html" title="Class (of mathematical module) for generating random number by Mersenne Twister.">CmRandomNumberGenerator</a>;
+<a name="l00361"></a>00361 
+<a name="l00362"></a>00362 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00363"></a>00363 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafResourceConnection.html" title="資源接続クラス .">GgafResourceConnection</a>;
+<a name="l00364"></a>00364 
+<a name="l00365"></a>00365 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00366"></a>00366 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafResourceManager.html" title="資源管理クラス。 .">GgafResourceManager</a>;
+<a name="l00367"></a>00367 
+<a name="l00368"></a>00368 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00369"></a>00369 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafNode.html" title="要素同士を環状双方向連結リストのツリー構造を作ることができるテンプレートです。.">GgafNode</a>;
+<a name="l00370"></a>00370 
+<a name="l00371"></a>00371 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00372"></a>00372 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafElement.html" title="GgafNodeに、様々な状態遷移管理（タスクシステム）を追加。 .">GgafElement</a>;
+<a name="l00373"></a>00373 
+<a name="l00374"></a>00374 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00375"></a>00375 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafLinkedListRing.html" title="要素（同一型インスタンスへのポインタ）の環状双方向連結リストを構築するテンプレートです。.">GgafLinkedListRing</a>;
+<a name="l00376"></a>00376 
+<a name="l00377"></a>00377 
+<a name="l00378"></a>00378 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafFactory.html" title="インスタンス生成工場クラス .">GgafFactory</a>;
+<a name="l00379"></a>00379 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafGarbageBox.html" title="ゴミ箱 .">GgafGarbageBox</a>;
+<a name="l00380"></a>00380 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafProgress.html" title="進捗管理クラス .">GgafProgress</a>;
+<a name="l00381"></a>00381 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafScene.html" title="シーンクラス .">GgafScene</a>;
+<a name="l00382"></a>00382 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafDisusedScene.html" title="不要になったシーン .">GgafDisusedScene</a>;
+<a name="l00383"></a>00383 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafActor.html" title="アクターの基底クラス .">GgafActor</a>;
+<a name="l00384"></a>00384 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafStatus.html" title="ステースクラス.">GgafStatus</a>;
+<a name="l00385"></a>00385 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafDisusedActor.html" title="不要になったアクター .">GgafDisusedActor</a>;
+<a name="l00386"></a>00386 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafMainActor.html" title="普通のアクター(演者).">GgafMainActor</a>;
+<a name="l00387"></a>00387 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafDummyActor.html" title="ダミーアクタークラス .">GgafDummyActor</a>;
+<a name="l00388"></a>00388 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafUniverse.html" title="この世クラス .">GgafUniverse</a>;
+<a name="l00389"></a>00389 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafMainScene.html" title="下位シーンクラスへのインターフェイス .">GgafMainScene</a>;
+<a name="l00390"></a>00390 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafDirector.html" title="監督クラス .">GgafDirector</a>;
+<a name="l00391"></a>00391 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafGroupHead.html" title="団長(GgafGroupHead)クラス .">GgafGroupHead</a>;
+<a name="l00392"></a>00392 
+<a name="l00393"></a>00393 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafFormation.html" title="フォーメーションアクタークラス .">GgafFormation</a>;
+<a name="l00394"></a>00394 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafTreeFormation.html" title="フォーメーションアクタークラス .">GgafTreeFormation</a>;
+<a name="l00395"></a>00395 <span class="keyword">class </span>GgafDepositoryFormation;
+<a name="l00396"></a>00396 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafActorDepository.html" title="アクター保管所（人材バンク）クラス .">GgafActorDepository</a>;
+<a name="l00397"></a>00397 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafActorDepositoryStore.html" title="アクターデポジトリの保管所クラス .">GgafActorDepositoryStore</a>;
+<a name="l00398"></a>00398 
+<a name="l00399"></a>00399 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafOrder.html" title="商品（何かのインスタンス）の注文クラス .">GgafOrder</a>;
+<a name="l00400"></a>00400 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafRgb.html">GgafRgb</a>;
+<a name="l00401"></a>00401 
+<a name="l00402"></a>00402 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafProperties.html" title="プロパティクラス .">GgafProperties</a>;
+<a name="l00403"></a>00403 
+<a name="l00404"></a>00404 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafLinearOctree.html" title="線形八分木クラス .">GgafLinearOctree</a>;
+<a name="l00405"></a>00405 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafLinearOctreeSpace.html" title="線形八分木配列用空間クラス .">GgafLinearOctreeSpace</a>;
+<a name="l00406"></a>00406 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafLinearOctreeElem.html" title="線形八分木配列用空間の要素クラス .">GgafLinearOctreeElem</a>;
+<a name="l00407"></a>00407 
+<a name="l00408"></a>00408 <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafCurtain.html" title="シーンのカーテン .">GgafCurtain</a>;
+<a name="l00409"></a>00409 
+<a name="l00410"></a>00410 
+<a name="l00411"></a>00411 }
+<a name="l00412"></a>00412 
+<a name="l00413"></a>00413 <span class="preprocessor">#include &quot;<a class="code" href="CmRandomNumberGenerator_8h.html">jp/ggaf/core/util/CmRandomNumberGenerator.h</a>&quot;</span>
+<a name="l00414"></a>00414 <span class="preprocessor">#include &quot;<a class="code" href="GgafUtil_8h.html">jp/ggaf/core/util/GgafUtil.h</a>&quot;</span>
+<a name="l00415"></a>00415 <span class="preprocessor">#include &quot;<a class="code" href="GgafRepeatSeq_8h.html">jp/ggaf/core/util/GgafRepeatSeq.h</a>&quot;</span>
+<a name="l00416"></a>00416 <span class="preprocessor">#include &quot;<a class="code" href="GgafObject_8h.html">jp/ggaf/core/GgafObject.h</a>&quot;</span>
+<a name="l00417"></a>00417 <span class="preprocessor">#include &quot;<a class="code" href="GgafException_8h.html">jp/ggaf/core/exception/GgafException.h</a>&quot;</span>
+<a name="l00418"></a>00418 <span class="preprocessor">#include &quot;<a class="code" href="GgafCriticalException_8h.html">jp/ggaf/core/exception/GgafCriticalException.h</a>&quot;</span>
+<a name="l00419"></a>00419 <span class="preprocessor">#include &quot;<a class="code" href="GgafStatus_8h.html">jp/ggaf/core/util/GgafStatus.h</a>&quot;</span>
+<a name="l00420"></a>00420 <span class="preprocessor">#include &quot;<a class="code" href="GgafLogger_8h.html">jp/ggaf/core/util/GgafLogger.h</a>&quot;</span>
+<a name="l00421"></a>00421 <span class="preprocessor">#include &quot;<a class="code" href="GgafRgb_8h.html">jp/ggaf/core/util/GgafRgb.h</a>&quot;</span>
+<a name="l00422"></a>00422 <span class="preprocessor">#include &quot;<a class="code" href="GgafProperties_8h.html">jp/ggaf/core/GgafProperties.h</a>&quot;</span>
+<a name="l00423"></a>00423 <span class="preprocessor">#include &quot;<a class="code" href="GgafGod_8h.html">jp/ggaf/core/GgafGod.h</a>&quot;</span>
+<a name="l00424"></a>00424 
+<a name="l00425"></a>00425 <span class="preprocessor">#include &quot;<a class="code" href="GgafResourceConnection_8hpp.html">jp/ggaf/core/GgafResourceConnection.hpp</a>&quot;</span>
+<a name="l00426"></a>00426 <span class="preprocessor">#include &quot;<a class="code" href="GgafResourceManager_8hpp.html">jp/ggaf/core/GgafResourceManager.hpp</a>&quot;</span>
+<a name="l00427"></a>00427 
+<a name="l00428"></a>00428 <span class="preprocessor">#include &quot;<a class="code" href="GgafFactory_8h.html">jp/ggaf/core/GgafFactory.h</a>&quot;</span>
+<a name="l00429"></a>00429 <span class="preprocessor">#include &quot;<a class="code" href="GgafGarbageBox_8h.html">jp/ggaf/core/GgafGarbageBox.h</a>&quot;</span>
+<a name="l00430"></a>00430 <span class="preprocessor">#include &quot;<a class="code" href="GgafProgress_8h.html">jp/ggaf/core/GgafProgress.h</a>&quot;</span>
+<a name="l00431"></a>00431 <span class="preprocessor">#include &quot;<a class="code" href="GgafNode_8hpp.html">jp/ggaf/core/GgafNode.hpp</a>&quot;</span>
+<a name="l00432"></a>00432 <span class="preprocessor">#include &quot;<a class="code" href="GgafElement_8hpp.html">jp/ggaf/core/GgafElement.hpp</a>&quot;</span>
+<a name="l00433"></a>00433 <span class="preprocessor">#include &quot;<a class="code" href="GgafLinkedListRing_8hpp.html">jp/ggaf/core/GgafLinkedListRing.hpp</a>&quot;</span>
+<a name="l00434"></a>00434 <span class="preprocessor">#include &quot;<a class="code" href="GgafScene_8h.html">jp/ggaf/core/scene/GgafScene.h</a>&quot;</span>
+<a name="l00435"></a>00435 <span class="preprocessor">#include &quot;<a class="code" href="GgafDisusedScene_8h.html">jp/ggaf/core/scene/GgafDisusedScene.h</a>&quot;</span>
+<a name="l00436"></a>00436 <span class="preprocessor">#include &quot;<a class="code" href="GgafMainScene_8h.html">jp/ggaf/core/scene/GgafMainScene.h</a>&quot;</span>
+<a name="l00437"></a>00437 <span class="preprocessor">#include &quot;<a class="code" href="GgafActor_8h.html">jp/ggaf/core/actor/GgafActor.h</a>&quot;</span>
+<a name="l00438"></a>00438 
+<a name="l00439"></a>00439 <span class="preprocessor">#include &quot;<a class="code" href="GgafDisusedActor_8h.html">jp/ggaf/core/actor/GgafDisusedActor.h</a>&quot;</span>
+<a name="l00440"></a>00440 <span class="preprocessor">#include &quot;<a class="code" href="GgafMainActor_8h.html">jp/ggaf/core/actor/GgafMainActor.h</a>&quot;</span>
+<a name="l00441"></a>00441 <span class="preprocessor">#include &quot;<a class="code" href="GgafDummyActor_8h.html">jp/ggaf/core/actor/GgafDummyActor.h</a>&quot;</span>
+<a name="l00442"></a>00442 <span class="preprocessor">#include &quot;<a class="code" href="GgafUniverse_8h.html">jp/ggaf/core/scene/GgafUniverse.h</a>&quot;</span>
+<a name="l00443"></a>00443 <span class="preprocessor">#include &quot;<a class="code" href="GgafDirector_8h.html">jp/ggaf/core/actor/GgafDirector.h</a>&quot;</span>
+<a name="l00444"></a>00444 <span class="preprocessor">#include &quot;<a class="code" href="GgafGroupHead_8h.html">jp/ggaf/core/actor/GgafGroupHead.h</a>&quot;</span>
+<a name="l00445"></a>00445 <span class="preprocessor">#include &quot;<a class="code" href="GgafFormation_8h.html">jp/ggaf/core/actor/ex/GgafFormation.h</a>&quot;</span>
+<a name="l00446"></a>00446 <span class="preprocessor">#include &quot;<a class="code" href="GgafTreeFormation_8h.html">jp/ggaf/core/actor/ex/GgafTreeFormation.h</a>&quot;</span>
+<a name="l00447"></a>00447 <span class="preprocessor">#include &quot;<a class="code" href="GgafDepositoryFormation_8h.html">jp/ggaf/core/actor/ex/GgafDepositoryFormation.h</a>&quot;</span>
+<a name="l00448"></a>00448 <span class="preprocessor">#include &quot;<a class="code" href="GgafActorDepository_8h.html">jp/ggaf/core/actor/ex/GgafActorDepository.h</a>&quot;</span>
+<a name="l00449"></a>00449 <span class="preprocessor">#include &quot;<a class="code" href="GgafActorDepositoryStore_8h.html">jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h</a>&quot;</span>
+<a name="l00450"></a>00450 <span class="preprocessor">#include &quot;<a class="code" href="GgafOrder_8h.html">jp/ggaf/core/GgafOrder.h</a>&quot;</span>
+<a name="l00451"></a>00451 <span class="preprocessor">#include &quot;<a class="code" href="GgafLinearOctree_8h.html">jp/ggaf/core/util/GgafLinearOctree.h</a>&quot;</span>
+<a name="l00452"></a>00452 <span class="preprocessor">#include &quot;<a class="code" href="GgafLinearOctreeSpace_8h.html">jp/ggaf/core/util/GgafLinearOctreeSpace.h</a>&quot;</span>
+<a name="l00453"></a>00453 <span class="preprocessor">#include &quot;<a class="code" href="GgafLinearOctreeElem_8h.html">jp/ggaf/core/util/GgafLinearOctreeElem.h</a>&quot;</span>
+<a name="l00454"></a>00454 <span class="preprocessor">#include &quot;<a class="code" href="GgafCurtain_8h.html">jp/ggaf/core/util/GgafCurtain.h</a>&quot;</span>
+<a name="l00455"></a>00455 
+<a name="l00456"></a>00456 
+<a name="l00457"></a>00457 
+<a name="l00458"></a>00458 
+<a name="l00459"></a>00459 <span class="preprocessor">#endif </span><span class="comment">/*GGAFCOMMONHEADER_H_*/</span>
+</pre></div></div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="GgafCommonHeader_8h.html">GgafCommonHeader.h</a>      </li>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>データ構造</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>ネームスペース</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙型の値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+    <li class="footer">MyStg2ndに対してSat Oct 15 2011 13:58:40に生成されました。
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
+   </ul>
+ </div>
+
+
+</body>
+</html>

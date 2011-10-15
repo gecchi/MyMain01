@@ -346,6 +346,7 @@ typedef std::map<std::string, std::string> GgafStrMap;
 #define Obj_GgafGroupHead         (0x10)             //0b 00000000 00000000 00000000 00010000
 #define Obj_GgafDisusedActor      (0x20)             //0b 00000000 00000000 00000000 00100000
 #define Obj_GgafActorDepository   (0x40)             //0b 00000000 00000000 00000000 01000000
+#define Obj_GgafFormation    (0x80)             //0b 00000000 00000000 00000000 10000000
 
 namespace GgafCore {
 class GgafUtil;
@@ -388,8 +389,13 @@ class GgafUniverse;
 class GgafMainScene;
 class GgafDirector;
 class GgafGroupHead;
+
+class GgafFormation;
+class GgafTreeFormation;
+class GgafDepositoryFormation;
 class GgafActorDepository;
 class GgafActorDepositoryStore;
+
 class GgafOrder;
 class GgafRgb;
 
@@ -436,8 +442,11 @@ class GgafCurtain;
 #include "jp/ggaf/core/scene/GgafUniverse.h"
 #include "jp/ggaf/core/actor/GgafDirector.h"
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
-#include "jp/ggaf/core/actor/GgafActorDepository.h"
-#include "jp/ggaf/core/actor/GgafActorDepositoryStore.h"
+#include "jp/ggaf/core/actor/ex/GgafFormation.h"
+#include "jp/ggaf/core/actor/ex/GgafTreeFormation.h"
+#include "jp/ggaf/core/actor/ex/GgafDepositoryFormation.h"
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
 #include "jp/ggaf/core/GgafOrder.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"

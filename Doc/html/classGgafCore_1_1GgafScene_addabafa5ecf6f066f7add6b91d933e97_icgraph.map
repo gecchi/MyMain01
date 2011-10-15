@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafMainActor.html#aba3d129452bd64b877ae6ce908df78a4" title="シーン監督取得。 ." alt="" coords="289,85,583,115"/>
+<area shape="rect" id="node15" href="$classGgafCore_1_1GgafGroupHead.html#afaa66aebe14778dcea1863e7ff5759b0" title="監督(GgafDirector)を取得 ." alt="" coords="285,139,587,168"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafMainActor.html#abe25dfbaa6a6aa60121a78b6c71351d8" title="新たに種別を設定し、アクターを配下に追加する。 種別はアクターが保持する種別を無視し、引数の種別を優先する。 配下に団長(GgafGroupHead)を挟んでその配下に引数のアクターを追加します。 Gg..." alt="" coords="635,85,907,115"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafMainActor.html#aa5b39f451d91658862216d0fcaa924f0" title="新たに種別を設定し、アクターを配下に追加する。 ." alt="" coords="1043,5,1315,35"/>
+<area shape="rect" id="node9" href="$classMyStg2nd_1_1MyOptionTorpedoController.html#a5f3ffc90140cf3e2fddfaaf5a052d69e" title="コンストラクタ ." alt="" coords="955,59,1403,88"/>
+<area shape="rect" id="node11" href="$classMyStg2nd_1_1OptionMagic.html#ad9cbf210defbfd93ea94adb69b22a6a3" title="MyStg2nd::OptionMagic::OptionMagic" alt="" coords="1049,112,1308,141"/>
+<area shape="rect" id="node13" href="$classMyStg2nd_1_1Universe.html#abde058a284d56dfb8c1bf4e4bf7dc8a6" title="MyStg2nd::Universe::Universe" alt="" coords="1075,165,1283,195"/>
+</map>

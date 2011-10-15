@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>MyStg2nd: LabelRankFont.cpp ソースファイル</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MyStg2nd
+   &#160;<span id="projectnumber">0.0.3526</span>
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- 作成： Doxygen 1.7.5.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="dynsections.js"></script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>メインページ</span></a></li>
+      <li><a href="namespaces.html"><span>ネームスペース</span></a></li>
+      <li><a href="annotated.html"><span>データ構造</span></a></li>
+      <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+      <li><a href="dirs.html"><span>ディレクトリ</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="globals.html"><span>グローバル</span></a></li>
+    </ul>
+  </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('LabelRankFont_8cpp.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle">
+<div class="title">LabelRankFont.cpp</div>  </div>
+</div>
+<div class="contents">
+<a href="LabelRankFont_8cpp.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &quot;stdafx.h&quot;</span>
+<a name="l00002"></a>00002 <span class="keyword">using namespace </span>std;
+<a name="l00003"></a>00003 <span class="keyword">using namespace </span>GgafCore;
+<a name="l00004"></a>00004 <span class="keyword">using namespace </span>GgafDxCore;
+<a name="l00005"></a>00005 <span class="keyword">using namespace </span>GgafLib;
+<a name="l00006"></a>00006 <span class="keyword">using namespace </span>MyStg2nd;
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keywordtype">char</span> LabelRankFont::RANK_1stDeg[10][6] = {
+<a name="l00009"></a>00009                                       <span class="stringliteral">&quot;&quot;</span>     ,
+<a name="l00010"></a>00010                                       <span class="stringliteral">&quot;!&quot;</span>    ,
+<a name="l00011"></a>00011                                       <span class="stringliteral">&quot;!!&quot;</span>   ,
+<a name="l00012"></a>00012                                       <span class="stringliteral">&quot;!!!&quot;</span>  ,
+<a name="l00013"></a>00013                                       <span class="stringliteral">&quot;!!!!&quot;</span> ,
+<a name="l00014"></a>00014                                       <span class="stringliteral">&quot;\&quot;&quot;</span>    ,
+<a name="l00015"></a>00015                                       <span class="stringliteral">&quot;\&quot;!&quot;</span>   ,
+<a name="l00016"></a>00016                                       <span class="stringliteral">&quot;\&quot;!!&quot;</span>  ,
+<a name="l00017"></a>00017                                       <span class="stringliteral">&quot;\&quot;!!!&quot;</span> ,
+<a name="l00018"></a>00018                                       <span class="stringliteral">&quot;\&quot;!!!!&quot;</span>
+<a name="l00019"></a>00019             };
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021 <span class="keywordtype">char</span> LabelRankFont::RANK_10thDeg[10][5] = {
+<a name="l00022"></a>00022                                        <span class="stringliteral">&quot;&quot;</span>    ,
+<a name="l00023"></a>00023                                        <span class="stringliteral">&quot;#$&quot;</span>  ,
+<a name="l00024"></a>00024                                        <span class="stringliteral">&quot;%&amp;&quot;</span>  ,
+<a name="l00025"></a>00025                                        <span class="stringliteral">&quot;&#39;(&quot;</span>  ,
+<a name="l00026"></a>00026                                        <span class="stringliteral">&quot;)*&quot;</span>  ,
+<a name="l00027"></a>00027                                        <span class="stringliteral">&quot;+,&quot;</span>  ,
+<a name="l00028"></a>00028                                        <span class="stringliteral">&quot;+,#$&quot;</span>,
+<a name="l00029"></a>00029                                        <span class="stringliteral">&quot;+,%&amp;&quot;</span>,
+<a name="l00030"></a>00030                                        <span class="stringliteral">&quot;+,&#39;(&quot;</span>,
+<a name="l00031"></a>00031                                        <span class="stringliteral">&quot;+,)*&quot;</span>
+<a name="l00032"></a>00032             };
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034 <span class="keywordtype">char</span> LabelRankFont::RANK_100thDeg[10][7] = {
+<a name="l00035"></a>00035                                         <span class="stringliteral">&quot;&quot;</span>      ,
+<a name="l00036"></a>00036                                         <span class="stringliteral">&quot;-./&quot;</span>   ,
+<a name="l00037"></a>00037                                         <span class="stringliteral">&quot;012&quot;</span>   ,
+<a name="l00038"></a>00038                                         <span class="stringliteral">&quot;345&quot;</span>   ,
+<a name="l00039"></a>00039                                         <span class="stringliteral">&quot;678&quot;</span>   ,
+<a name="l00040"></a>00040                                         <span class="stringliteral">&quot;9:;&quot;</span>   ,
+<a name="l00041"></a>00041                                         <span class="stringliteral">&quot;9:;-./&quot;</span>,
+<a name="l00042"></a>00042                                         <span class="stringliteral">&quot;9:;012&quot;</span>,
+<a name="l00043"></a>00043                                         <span class="stringliteral">&quot;9:;345&quot;</span>,
+<a name="l00044"></a>00044                                         <span class="stringliteral">&quot;9:;678&quot;</span>
+<a name="l00045"></a>00045                                  };
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049 <span class="keywordtype">char</span> LabelRankFont::RANK_1000thDeg[10][9] = {
+<a name="l00050"></a>00050                                          <span class="stringliteral">&quot;&quot;</span>        ,
+<a name="l00051"></a>00051                                          <span class="stringliteral">&quot;&lt;=&gt;?&quot;</span>    ,
+<a name="l00052"></a>00052                                          <span class="stringliteral">&quot;@ABC&quot;</span>    ,
+<a name="l00053"></a>00053                                          <span class="stringliteral">&quot;DEFG&quot;</span>    ,
+<a name="l00054"></a>00054                                          <span class="stringliteral">&quot;HIJK&quot;</span>    ,
+<a name="l00055"></a>00055                                          <span class="stringliteral">&quot;LMNO&quot;</span>    ,
+<a name="l00056"></a>00056                                          <span class="stringliteral">&quot;LMNO&lt;=&gt;?&quot;</span>,
+<a name="l00057"></a>00057                                          <span class="stringliteral">&quot;LMNO@ABC&quot;</span>,
+<a name="l00058"></a>00058                                          <span class="stringliteral">&quot;LMNODEFG&quot;</span>,
+<a name="l00059"></a>00059                                          <span class="stringliteral">&quot;LMNOHIJK&quot;</span>
+<a name="l00060"></a>00060                                   };
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063 <span class="keywordtype">char</span> LabelRankFont::RANK_10000thDeg[10][46] = {
+<a name="l00064"></a>00064                                            <span class="stringliteral">&quot;&quot;</span>    ,
+<a name="l00065"></a>00065                                            <span class="stringliteral">&quot;PQRST&quot;</span>                                        ,
+<a name="l00066"></a>00066                                            <span class="stringliteral">&quot;PQRSTPQRST&quot;</span>                                   ,
+<a name="l00067"></a>00067                                            <span class="stringliteral">&quot;PQRSTPQRSTPQRST&quot;</span>                              ,
+<a name="l00068"></a>00068                                            <span class="stringliteral">&quot;PQRSTPQRSTPQRSTPQRST&quot;</span>                         ,
+<a name="l00069"></a>00069                                            <span class="stringliteral">&quot;PQRSTPQRSTPQRSTPQRSTPQRST&quot;</span>                    ,
+<a name="l00070"></a>00070                                            <span class="stringliteral">&quot;PQRSTPQRSTPQRSTPQRSTPQRSTPQRST&quot;</span>               ,
+<a name="l00071"></a>00071                                            <span class="stringliteral">&quot;PQRSTPQRSTPQRSTPQRSTPQRSTPQRSTPQRST&quot;</span>          ,
+<a name="l00072"></a>00072                                            <span class="stringliteral">&quot;PQRSTPQRSTPQRSTPQRSTPQRSTPQRSTPQRSTPQRST&quot;</span>     ,
+<a name="l00073"></a>00073                                            <span class="stringliteral">&quot;PQRSTPQRSTPQRSTPQRSTPQRSTPQRSTPQRSTPQRSTPQRST&quot;</span>
+<a name="l00074"></a>00074             };
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076 <span class="keywordtype">char</span> LabelRankFont::RANK_INF[] = <span class="stringliteral">&quot;UVWXYZ&quot;</span>;
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078 <span class="keyword">enum</span> {
+<a name="l00079"></a><a class="code" href="LabelRankFont_8cpp.html#abc6126af1d45847bc59afa0aa3216b04a52095b3331450da5432238180e80dca9">00079</a>     <a class="code" href="LabelRankFont_8cpp.html#abc6126af1d45847bc59afa0aa3216b04a52095b3331450da5432238180e80dca9">RANKFONT_PROG_NOMALDISP</a> = 1,
+<a name="l00080"></a><a class="code" href="LabelRankFont_8cpp.html#abc6126af1d45847bc59afa0aa3216b04a68b9a920c2b83c4394d88b909140f103">00080</a>     <a class="code" href="LabelRankFont_8cpp.html#abc6126af1d45847bc59afa0aa3216b04a68b9a920c2b83c4394d88b909140f103">RANKFONT_PROG_RANKUP</a>       ,
+<a name="l00081"></a>00081 };
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="classMyStg2nd_1_1LabelRankFont.html#afd14b6a162352e562beed6ea36da02c3">00083</a> <span class="keywordtype">void</span> LabelRankFont::cnvRankStr(<span class="keywordtype">int</span> prm_rank, <span class="keywordtype">char</span>* out) {
+<a name="l00084"></a>00084     out[0] = <span class="charliteral">&#39;\0&#39;</span>;
+<a name="l00085"></a>00085     <span class="keywordflow">if</span> (prm_rank &lt;= 0) {
+<a name="l00086"></a>00086         strcat(out, <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00087"></a>00087         <span class="keywordflow">return</span>;
+<a name="l00088"></a>00088     }
+<a name="l00089"></a>00089     <span class="keywordflow">if</span> (prm_rank &gt; 100000) {
+<a name="l00090"></a>00090         strcat(out, RANK_INF);
+<a name="l00091"></a>00091         <span class="keywordflow">return</span>;
+<a name="l00092"></a>00092     }
+<a name="l00093"></a>00093     <span class="keywordtype">int</span> idx_rank_10000thDeg = prm_rank/10000;
+<a name="l00094"></a>00094     <span class="keywordflow">if</span> (idx_rank_10000thDeg &gt; 0) {
+<a name="l00095"></a>00095         strcat(out, RANK_10000thDeg[idx_rank_10000thDeg]);
+<a name="l00096"></a>00096         prm_rank -= idx_rank_10000thDeg*10000;
+<a name="l00097"></a>00097     }
+<a name="l00098"></a>00098     <span class="keywordtype">int</span> idx_rank_1000thDeg = prm_rank/1000;
+<a name="l00099"></a>00099     <span class="keywordflow">if</span> (idx_rank_1000thDeg &gt; 0) {
+<a name="l00100"></a>00100         strcat(out, RANK_1000thDeg[idx_rank_1000thDeg]);
+<a name="l00101"></a>00101         prm_rank -= idx_rank_1000thDeg*1000;
+<a name="l00102"></a>00102     }
+<a name="l00103"></a>00103     <span class="keywordtype">int</span> idx_rank_100thDeg = prm_rank/100;
+<a name="l00104"></a>00104     <span class="keywordflow">if</span> (idx_rank_100thDeg &gt; 0) {
+<a name="l00105"></a>00105         strcat(out, RANK_100thDeg[idx_rank_100thDeg]);
+<a name="l00106"></a>00106         prm_rank -= idx_rank_100thDeg*100;
+<a name="l00107"></a>00107     }
+<a name="l00108"></a>00108     <span class="keywordtype">int</span> idx_rank_10thDeg = prm_rank/10;
+<a name="l00109"></a>00109     <span class="keywordflow">if</span> (idx_rank_10thDeg &gt; 0) {
+<a name="l00110"></a>00110         strcat(out, RANK_10thDeg[idx_rank_10thDeg]);
+<a name="l00111"></a>00111         prm_rank -= idx_rank_10thDeg*10;
+<a name="l00112"></a>00112     }
+<a name="l00113"></a>00113     <span class="keywordtype">int</span> idx_rank_1stDeg = prm_rank;
+<a name="l00114"></a>00114     <span class="keywordflow">if</span> (idx_rank_1stDeg &gt; 0) {
+<a name="l00115"></a>00115         strcat(out, RANK_1stDeg[idx_rank_1stDeg]);
+<a name="l00116"></a>00116         prm_rank -= idx_rank_1stDeg;
+<a name="l00117"></a>00117     }
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119 <span class="comment">//    1     !    10   #$    100    -./    1000     ,-./    10000                                         PQRST</span>
+<a name="l00120"></a>00120 <span class="comment">//    2    !!    20   %&amp;    200    012    2000     @ABC    20000                                    PQRSTPQRST</span>
+<a name="l00121"></a>00121 <span class="comment">//    3   !!!    30   &#39;(    300    345    3000     DEFG    30000                               PQRSTPQRSTPQRST</span>
+<a name="l00122"></a>00122 <span class="comment">//    4  !!!!    40   )*    400    678    4000     HIJK    40000                          PQRSTPQRSTPQRSTPQRST</span>
+<a name="l00123"></a>00123 <span class="comment">//    5     &quot;    50   +,    500    9:;    5000     LMNO    50000                     PQRSTPQRSTPQRSTPQRSTPQRST</span>
+<a name="l00124"></a>00124 <span class="comment">//    6    &quot;!    60 +,#$    600 9:;-./    6000 LMNO,-./    60000                PQRSTPQRSTPQRSTPQRSTPQRSTPQRST</span>
+<a name="l00125"></a>00125 <span class="comment">//    7   &quot;!!    70 +,%&amp;    700 9:;012    7000 LMNO@ABC    70000           PQRSTPQRSTPQRSTPQRSTPQRSTPQRSTPQRST</span>
+<a name="l00126"></a>00126 <span class="comment">//    8  &quot;!!!    80 +,&#39;(    800 9:;345    8000 LMNODEFG    80000      PQRSTPQRSTPQRSTPQRSTPQRSTPQRSTPQRSTPQRST</span>
+<a name="l00127"></a>00127 <span class="comment">//    9 &quot;!!!!    90 +,)*    900 9:;678    9000 LMNOHIJK    90000 PQRSTPQRSTPQRSTPQRSTPQRSTPQRSTPQRSTPQRSTPQRST</span>
+<a name="l00128"></a>00128 <span class="comment">//無限大 UVWXYZ</span>
+<a name="l00129"></a>00129 }
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131 
+<a name="l00132"></a><a class="code" href="classMyStg2nd_1_1LabelRankFont.html#aa1bcd8001b4f03bf2f9feb70cfa7b2a9">00132</a> LabelRankFont::LabelRankFont(<span class="keyword">const</span> <span class="keywordtype">char</span>* prm_name) :
+<a name="l00133"></a>00133         StringBoardActor(prm_name, <span class="stringliteral">&quot;RankFont&quot;</span>)
+<a name="l00134"></a>00134 {
+<a name="l00135"></a>00135     _class_name = <span class="stringliteral">&quot;LabelRankFont&quot;</span>;
+<a name="l00136"></a>00136     _align = ALIGN_RIGHT;
+<a name="l00137"></a>00137     _valign = VALIGN_BOTTOM;
+<a name="l00138"></a>00138     useProgress(<a class="code" href="LabelRankFont_8cpp.html#abc6126af1d45847bc59afa0aa3216b04a68b9a920c2b83c4394d88b909140f103">RANKFONT_PROG_RANKUP</a>);
+<a name="l00139"></a>00139 }
+<a name="l00140"></a>00140 
+<a name="l00141"></a><a class="code" href="classMyStg2nd_1_1LabelRankFont.html#ad26f3a1d52df73e290551dc02dd874d0">00141</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1LabelRankFont.html#ad26f3a1d52df73e290551dc02dd874d0">LabelRankFont::onCreateModel</a>() {
+<a name="l00142"></a>00142     _pModel-&gt;_pTextureBlinker-&gt;forceBlinkRange(0.01, 0.5, 5.0);
+<a name="l00143"></a>00143     _pModel-&gt;_pTextureBlinker-&gt;setBlink(1.0);
+<a name="l00144"></a>00144 }
+<a name="l00145"></a>00145 
+<a name="l00146"></a><a class="code" href="classMyStg2nd_1_1LabelRankFont.html#ac82e9ef0be7ff203c3dc31be3d481a24">00146</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1LabelRankFont.html#ac82e9ef0be7ff203c3dc31be3d481a24">LabelRankFont::initialize</a>() {
+<a name="l00147"></a>00147     <a class="code" href="classMyStg2nd_1_1LabelRankFont.html#a7fe3bc3c2e898d9816214497cfb1abe5" title="[r]前フレームの_RANK_DISP_">_tmp_rank</a> = <a class="code" href="MyStg2ndHeader_8h.html#a40bb9233666fd3bc8bebccc16b2a08c6" title="表示用ランク値">_RANK_DISP_</a>;
+<a name="l00148"></a>00148     _pProg-&gt;set(<a class="code" href="LabelRankFont_8cpp.html#abc6126af1d45847bc59afa0aa3216b04a52095b3331450da5432238180e80dca9">RANKFONT_PROG_NOMALDISP</a>);
+<a name="l00149"></a>00149     _draw_string = _buf;
+<a name="l00150"></a>00150 }
+<a name="l00151"></a>00151 
+<a name="l00152"></a><a class="code" href="classMyStg2nd_1_1LabelRankFont.html#aef82b4c6c635e921e31e5250607c79df">00152</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1LabelRankFont.html#aef82b4c6c635e921e31e5250607c79df">LabelRankFont::processBehavior</a>() {
+<a name="l00153"></a>00153     <span class="keywordflow">if</span> (GgafDxInput::isPushedDownKey(DIK_R)) {
+<a name="l00154"></a>00154         <a class="code" href="MyStg2ndHeader_8h.html#a59ed7213002150ac891494ee3aaa8ff9" title="ランク (0.0 〜 1.0)">_RANK_</a>+=0.0001;
+<a name="l00155"></a>00155     }
+<a name="l00156"></a>00156     <span class="keywordtype">int</span> rank_level = <a class="code" href="MyStg2ndHeader_8h.html#a40bb9233666fd3bc8bebccc16b2a08c6" title="表示用ランク値">_RANK_DISP_</a>;
+<a name="l00157"></a>00157     <span class="keywordflow">if</span> (rank_level != <a class="code" href="classMyStg2nd_1_1LabelRankFont.html#a7fe3bc3c2e898d9816214497cfb1abe5" title="[r]前フレームの_RANK_DISP_">_tmp_rank</a>) {
+<a name="l00158"></a>00158         <a class="code" href="classMyStg2nd_1_1LabelRankFont.html#afd14b6a162352e562beed6ea36da02c3" title="ランク数値から文字列変換">cnvRankStr</a>(rank_level, _draw_string);
+<a name="l00159"></a>00159         _len = strlen(_draw_string);
+<a name="l00160"></a>00160         _len_pack_num = _len/_pBoardSetModel-&gt;_set_num;
+<a name="l00161"></a>00161         _remainder_len = _len%_pBoardSetModel-&gt;_set_num;
+<a name="l00162"></a>00162         _pProg-&gt;set(<a class="code" href="LabelRankFont_8cpp.html#abc6126af1d45847bc59afa0aa3216b04a68b9a920c2b83c4394d88b909140f103">RANKFONT_PROG_RANKUP</a>);
+<a name="l00163"></a>00163         <a class="code" href="classMyStg2nd_1_1LabelRankFont.html#a7fe3bc3c2e898d9816214497cfb1abe5" title="[r]前フレームの_RANK_DISP_">_tmp_rank</a> = rank_level;
+<a name="l00164"></a>00164     }
+<a name="l00165"></a>00165 
+<a name="l00166"></a>00166 
+<a name="l00167"></a>00167     <span class="keywordflow">switch</span> (_pProg-&gt;get()) {
+<a name="l00168"></a>00168         <span class="keywordflow">case</span> <a class="code" href="LabelRankFont_8cpp.html#abc6126af1d45847bc59afa0aa3216b04a52095b3331450da5432238180e80dca9">RANKFONT_PROG_NOMALDISP</a>: {
+<a name="l00169"></a>00169             <span class="keywordflow">if</span> (_pProg-&gt;isJustChanged()) {
+<a name="l00170"></a>00170                 _pModel-&gt;_pTextureBlinker-&gt;intoTargetBlinkLinerUntil(1.0, 5);
+<a name="l00171"></a>00171             }
+<a name="l00172"></a>00172             <span class="keywordflow">break</span>;
+<a name="l00173"></a>00173         }
+<a name="l00174"></a>00174 
+<a name="l00175"></a>00175         <span class="keywordflow">case</span> <a class="code" href="LabelRankFont_8cpp.html#abc6126af1d45847bc59afa0aa3216b04a68b9a920c2b83c4394d88b909140f103">RANKFONT_PROG_RANKUP</a>: {
+<a name="l00176"></a>00176             <span class="keywordflow">if</span> (_pProg-&gt;isJustChanged()) {
+<a name="l00177"></a>00177                 _pModel-&gt;_pTextureBlinker-&gt;beat(10, 10, 1, 3);
+<a name="l00178"></a>00178             }
+<a name="l00179"></a>00179             <span class="keywordflow">if</span> (_pModel-&gt;_pTextureBlinker-&gt;_method == NOBLINK) {
+<a name="l00180"></a>00180                 _pProg-&gt;change(<a class="code" href="LabelRankFont_8cpp.html#abc6126af1d45847bc59afa0aa3216b04a52095b3331450da5432238180e80dca9">RANKFONT_PROG_NOMALDISP</a>);
+<a name="l00181"></a>00181             }
+<a name="l00182"></a>00182             <span class="keywordflow">break</span>;
+<a name="l00183"></a>00183         }
+<a name="l00184"></a>00184         <span class="keywordflow">default</span>:
+<a name="l00185"></a>00185             <span class="keywordflow">break</span>;
+<a name="l00186"></a>00186     }
+<a name="l00187"></a>00187 }
+<a name="l00188"></a>00188 
+<a name="l00189"></a><a class="code" href="classMyStg2nd_1_1LabelRankFont.html#a886c30baedf99fa9afb262ee82f8a2dd">00189</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1LabelRankFont.html#a886c30baedf99fa9afb262ee82f8a2dd" title="右揃え固定長表示の最適化のためオーバーライド .">LabelRankFont::processDraw</a>() {
+<a name="l00190"></a>00190     <span class="comment">//右詰め固定表示</span>
+<a name="l00191"></a>00191     <span class="keywordflow">if</span> (_len == 0) {
+<a name="l00192"></a>00192         <span class="keywordflow">return</span>;
+<a name="l00193"></a>00193     }
+<a name="l00194"></a>00194     ID3DXEffect* pID3DXEffect = _pBoardSetEffect-&gt;_pID3DXEffect;
+<a name="l00195"></a>00195     HRESULT hr;
+<a name="l00196"></a>00196 
+<a name="l00197"></a>00197 
+<a name="l00198"></a>00198     <span class="keywordflow">if</span> (_valign == VALIGN_BOTTOM) {
+<a name="l00199"></a>00199         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedY[0], <span class="keywordtype">float</span>(App2Pix(_Y)-_height_px));
+<a name="l00200"></a>00200     } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (_valign == VALIGN_MIDDLE) {
+<a name="l00201"></a>00201         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedY[0], <span class="keywordtype">float</span>(App2Pix(_Y)-_height_px/2));
+<a name="l00202"></a>00202     } <span class="keywordflow">else</span> {
+<a name="l00203"></a>00203         <span class="comment">//VALIGN_TOP</span>
+<a name="l00204"></a>00204         hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedY[0], <span class="keywordtype">float</span>(App2Pix(_Y)));
+<a name="l00205"></a>00205     }
+<a name="l00206"></a>00206     checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;LabelRankFont::processDraw SetFloat(_ahTransformedY) に失敗しました。&quot;</span>);
+<a name="l00207"></a>00207     hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahDepthZ[0], <span class="keywordtype">float</span>(App2Pix(_Z)));
+<a name="l00208"></a>00208     checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;LabelRankFont::processDraw SetFloat(_ahDepthZ) に失敗しました。&quot;</span>);
+<a name="l00209"></a>00209     hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahAlpha[0], _fAlpha);
+<a name="l00210"></a>00210     checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;LabelRankFont::processDraw SetFloat(_ahAlpha) に失敗しました。&quot;</span>);
+<a name="l00211"></a>00211     <span class="keywordtype">int</span> strindex, pattno;
+<a name="l00212"></a>00212     pixcoord x = App2Pix(_X) - (_chr_width_px * _len); <span class="comment">//右詰にするため _chr_width_px*_len をマイナス</span>
+<a name="l00213"></a>00213     <span class="keywordtype">float</span> u,v;
+<a name="l00214"></a>00214     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> pack = 0; pack &lt; _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
+<a name="l00215"></a>00215         _draw_set_num = pack &lt; _len_pack_num ? _pBoardSetModel-&gt;_set_num : _remainder_len;
+<a name="l00216"></a>00216         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; _draw_set_num; i++) {
+<a name="l00217"></a>00217             strindex = pack * _pBoardSetModel-&gt;_set_num + i;
+<a name="l00218"></a>00218             <span class="keywordflow">if</span> (_draw_string[strindex] == <span class="charliteral">&#39;\0&#39;</span>) {
+<a name="l00219"></a>00219                 <span class="keywordflow">break</span>;
+<a name="l00220"></a>00220             } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (_draw_string[strindex] - <span class="charliteral">&#39; &#39;</span> &lt; 0) {
+<a name="l00221"></a>00221                 pattno = <span class="charliteral">&#39;?&#39;</span> - <span class="charliteral">&#39; &#39;</span>; <span class="comment">//範囲外は&quot;?&quot;を表示</span>
+<a name="l00222"></a>00222             } <span class="keywordflow">else</span> {
+<a name="l00223"></a>00223                 pattno = _draw_string[strindex] - <span class="charliteral">&#39; &#39;</span>; <span class="comment">//通常文字列</span>
+<a name="l00224"></a>00224             }
+<a name="l00225"></a>00225             hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahTransformedX[i], <span class="keywordtype">float</span>(x));
+<a name="l00226"></a>00226             checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;LabelRankFont::processDraw SetFloat(_ahTransformedX) に失敗しました。&quot;</span>);
+<a name="l00227"></a>00227             _pUvFlipper-&gt;getUV(pattno, u, v);
+<a name="l00228"></a>00228             hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahOffsetU[i], u);
+<a name="l00229"></a>00229             checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;LabelRankFont::processDraw SetFloat(_hOffsetU) に失敗しました。&quot;</span>);
+<a name="l00230"></a>00230             hr = pID3DXEffect-&gt;SetFloat(_pBoardSetEffect-&gt;_ahOffsetV[i], v);
+<a name="l00231"></a>00231             checkDxException(hr, D3D_OK, <span class="stringliteral">&quot;LabelRankFont::processDraw SetFloat(_hOffsetV) に失敗しました。&quot;</span>);
+<a name="l00232"></a>00232             x += _chr_width_px;
+<a name="l00233"></a>00233         }
+<a name="l00234"></a>00234         _pBoardSetModel-&gt;draw(<span class="keyword">this</span>, _draw_set_num);
+<a name="l00235"></a>00235     }
+<a name="l00236"></a>00236 }
+<a name="l00237"></a>00237 
+<a name="l00238"></a><a class="code" href="classMyStg2nd_1_1LabelRankFont.html#a60ae079fe479c277b4f2fb1466952dd6">00238</a> <a class="code" href="classMyStg2nd_1_1LabelRankFont.html#a60ae079fe479c277b4f2fb1466952dd6">LabelRankFont::~LabelRankFont</a>() {
+<a name="l00239"></a>00239 }
+<a name="l00240"></a>00240 
+</pre></div></div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="LabelRankFont_8cpp.html">LabelRankFont.cpp</a>      </li>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>データ構造</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>ネームスペース</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙型の値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+    <li class="footer">MyStg2ndに対してSat Oct 15 2011 13:58:42に生成されました。
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
+   </ul>
+ </div>
+
+
+</body>
+</html>

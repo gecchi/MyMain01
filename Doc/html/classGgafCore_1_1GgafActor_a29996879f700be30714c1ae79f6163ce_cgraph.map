@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafFormation.html#adff579daa44040ace7e1b6b5c1024194" title="GgafCore::GgafFormation::destroyedFollower" alt="" coords="417,5,719,35"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafFormation.html#a180d437c0968638eeb28ebbe3b13f902" title="編隊に所属したアクターが破壊により全滅した場合に呼び出されるメソッド（とする) ." alt="" coords="768,5,1051,35"/>
+</map>

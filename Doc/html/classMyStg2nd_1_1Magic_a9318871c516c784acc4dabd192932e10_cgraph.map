@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafProgress.html#a512e92d247b98207fc73274a49254062" title="進捗番号を変更 ." alt="" coords="264,5,488,35"/>
+<area shape="rect" id="node5" href="$classMyStg2nd_1_1Magic.html#a838dc293d36a40daae90746e1b055efa" title="そのレベルの魔法が実行できるか調べる" alt="" coords="259,59,493,88"/>
+<area shape="rect" id="node9" href="$classMyStg2nd_1_1Magic.html#ac29e002bddfced11d2e8a740c1f5b8d9" title="魔法破棄コールバック ." alt="" coords="241,112,511,141"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafProgress.html#a48e7cb388cee9746025ab1897609ccaf" title="現在の進捗番号取得 ." alt="" coords="560,59,760,88"/>
+</map>

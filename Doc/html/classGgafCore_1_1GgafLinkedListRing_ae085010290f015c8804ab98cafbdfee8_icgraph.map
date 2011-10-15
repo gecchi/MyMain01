@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classMyStg2nd_1_1MyOptionTorpedoController.html#a77a95b3a4ec0e594ce1a8b9ddbf97b3e" title="魚雷を一斉発射する。 但し、いづれかの魚雷が活動中の場合は、何もしない。 全ての魚雷が非活動状態で、本メソッドを実行すると魚雷を一斉発射する。" alt="" coords="329,5,623,35"/>
+<area shape="rect" id="node7" href="$classMyStg2nd_1_1MyOptionLockonController.html#a030708f866814459ea9a6cd413fe131d" title="MyStg2nd::MyOptionLockonController::lockon" alt="" coords="321,59,631,88"/>
+<area shape="rect" id="node13" href="$classMyStg2nd_1_1MagicMeter.html#a70f3d72b6291387df378c1715eb641fb" title="MyStg2nd::MagicMeter::MagicMeter" alt="" coords="355,112,597,141"/>
+<area shape="rect" id="node5" href="$classMyStg2nd_1_1MyShip.html#a7b753aac0a4b0f47a194a7b035110a62" title="MyStg2nd::MyShip::processJudgement" alt="" coords="719,5,983,35"/>
+<area shape="rect" id="node9" href="$classMyStg2nd_1_1MyOptionStraightLaserChip001.html#a80fed2a8db66c9b4072d6b93bdc058eb" title="MyStg2nd::MyOptionStraightLaserChip001::onHit" alt="" coords="684,59,1017,88"/>
+<area shape="rect" id="node11" href="$classMyStg2nd_1_1MyOptionWateringLaserChip001.html#a4fa973d8ab2e2a6ef5d2aecc97f0be86" title="MyStg2nd::MyOptionWateringLaserChip001::onHit" alt="" coords="681,112,1020,141"/>
+</map>

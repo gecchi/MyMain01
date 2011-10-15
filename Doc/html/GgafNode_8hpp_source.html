@@ -1,0 +1,550 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>MyStg2nd: GgafNode.hpp ソースファイル</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MyStg2nd
+   &#160;<span id="projectnumber">0.0.3526</span>
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- 作成： Doxygen 1.7.5.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="dynsections.js"></script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>メインページ</span></a></li>
+      <li><a href="namespaces.html"><span>ネームスペース</span></a></li>
+      <li><a href="annotated.html"><span>データ構造</span></a></li>
+      <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+      <li><a href="dirs.html"><span>ディレクトリ</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="globals.html"><span>グローバル</span></a></li>
+    </ul>
+  </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('GgafNode_8hpp.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle">
+<div class="title">GgafNode.hpp</div>  </div>
+</div>
+<div class="contents">
+<a href="GgafNode_8hpp.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef GGAFNODE_H_</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define GGAFNODE_H_</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span><span class="keyword">namespace </span>GgafCore {
+<a name="l00004"></a>00004 
+<a name="l00073"></a>00073 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00074"></a><a class="code" href="classGgafCore_1_1GgafNode.html">00074</a> <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafNode.html" title="要素同士を環状双方向連結リストのツリー構造を作ることができるテンプレートです。.">GgafNode</a> : <span class="keyword">public</span> <a class="code" href="classGgafCore_1_1GgafObject.html" title="基底クラス">GgafObject</a> {
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076 <span class="keyword">private</span>:
+<a name="l00078"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a7e93eeb86de49c22eec281cbc1fb9abc">00078</a>     T* <a class="code" href="classGgafCore_1_1GgafNode.html#a7e93eeb86de49c22eec281cbc1fb9abc" title="ループ用">_pNodeTemp</a>;
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080 <span class="keyword">public</span>:
+<a name="l00082"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a7acc1f8acaa86fa5d530179e690338e4">00082</a>     <span class="keywordtype">char</span>* <a class="code" href="classGgafCore_1_1GgafNode.html#a7acc1f8acaa86fa5d530179e690338e4" title="[r]ノード識別名(50文字まで)">_name</a>;
+<a name="l00084"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a40bb90c97bacbc520229865e71c239ab">00084</a>     <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classGgafCore_1_1GgafNode.html#a40bb90c97bacbc520229865e71c239ab" title="[r]クラス名">_class_name</a>;
+<a name="l00085"></a>00085 
+<a name="l00087"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a025f8b914d96d3505ef17bc181b0a446">00087</a>     T* <a class="code" href="classGgafCore_1_1GgafNode.html#a025f8b914d96d3505ef17bc181b0a446" title="[r]親ノード">_pParent</a>;
+<a name="l00089"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a503ad408dee8b98a2e701c4a7df17a14">00089</a>     T* <a class="code" href="classGgafCore_1_1GgafNode.html#a503ad408dee8b98a2e701c4a7df17a14" title="[r]次ノード">_pNext</a>;
+<a name="l00091"></a><a class="code" href="classGgafCore_1_1GgafNode.html#ade8f607d42f22e98551067362d12d92d">00091</a>     T* <a class="code" href="classGgafCore_1_1GgafNode.html#ade8f607d42f22e98551067362d12d92d" title="[r]前ノード">_pPrev</a>;
+<a name="l00093"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a98c95526f4c48a602d1e8383a1c37336">00093</a>     T* <a class="code" href="classGgafCore_1_1GgafNode.html#a98c95526f4c48a602d1e8383a1c37336" title="[r]子ノードの先頭ノード">_pSubFirst</a>;
+<a name="l00095"></a><a class="code" href="classGgafCore_1_1GgafNode.html#ac8849b79600e32026d86c9c759a248db">00095</a>     <span class="keywordtype">bool</span> <a class="code" href="classGgafCore_1_1GgafNode.html#ac8849b79600e32026d86c9c759a248db" title="[r]先頭ノードフラグ (自ノードが先頭ノードの場合 true)">_is_first_flg</a>;
+<a name="l00097"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a82beaf7d3d201e8a88dc5786887110ae">00097</a>     <span class="keywordtype">bool</span> <a class="code" href="classGgafCore_1_1GgafNode.html#a82beaf7d3d201e8a88dc5786887110ae" title="[r]末尾ノードフラグ (自ノードが末尾ノードの場合 true)">_is_last_flg</a>;
+<a name="l00098"></a>00098 
+<a name="l00099"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a1f1e1da615ae1d0d21a1f2a305c0f021">00099</a>     <span class="keywordtype">int</span> <a class="code" href="classGgafCore_1_1GgafNode.html#a1f1e1da615ae1d0d21a1f2a305c0f021">_sub_num</a>;
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101 <span class="keyword">public</span>:
+<a name="l00106"></a>00106     <a class="code" href="classGgafCore_1_1GgafNode.html#a29921f1d0b3481cc999b8d8542a435fd" title="コンストラクタ">GgafNode</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* prm_name);
+<a name="l00107"></a>00107 
+<a name="l00129"></a>00129     <span class="keyword">virtual</span> <a class="code" href="classGgafCore_1_1GgafNode.html#a129834a441e5aaae1961f75490091ca6" title="デストラクタ。自ツリーノードを解放します。 .">~GgafNode</a>();
+<a name="l00130"></a>00130 
+<a name="l00135"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a0440bb10b1762567a67b76db9dca0f15">00135</a>     <span class="keyword">virtual</span> <span class="keywordtype">char</span>* <a class="code" href="classGgafCore_1_1GgafNode.html#a0440bb10b1762567a67b76db9dca0f15" title="ノード名取得 .">getName</a>(){
+<a name="l00136"></a>00136         <span class="keywordflow">return</span> <a class="code" href="classGgafCore_1_1GgafNode.html#a7acc1f8acaa86fa5d530179e690338e4" title="[r]ノード識別名(50文字まで)">_name</a>;
+<a name="l00137"></a>00137     }
+<a name="l00138"></a>00138 
+<a name="l00143"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a2a8436479c9a7e9dd49df531f0476e4c">00143</a>     <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classGgafCore_1_1GgafNode.html#a2a8436479c9a7e9dd49df531f0476e4c" title="クラス名取得 .">getClassName</a>() {
+<a name="l00144"></a>00144         <span class="keywordflow">return</span> <a class="code" href="classGgafCore_1_1GgafNode.html#a40bb90c97bacbc520229865e71c239ab" title="[r]クラス名">_class_name</a>;
+<a name="l00145"></a>00145     }
+<a name="l00146"></a>00146 
+<a name="l00150"></a>00150     <span class="comment">//  virtual bool isNamed(const char* prm_name);</span>
+<a name="l00151"></a>00151 
+<a name="l00156"></a><a class="code" href="classGgafCore_1_1GgafNode.html#ae30967daa5a113bd10b48b449f05f36c">00156</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafNode.html#ae30967daa5a113bd10b48b449f05f36c" title="ノード名問い合わせ">setParent</a>(T* prm_pParent){
+<a name="l00157"></a>00157         <a class="code" href="classGgafCore_1_1GgafNode.html#a025f8b914d96d3505ef17bc181b0a446" title="[r]親ノード">_pParent</a> = prm_pParent;
+<a name="l00158"></a>00158     }
+<a name="l00159"></a>00159 
+<a name="l00166"></a>00166     <span class="keyword">virtual</span> T* <a class="code" href="classGgafCore_1_1GgafNode.html#aed984b980c96d382a8a4b55610406d73" title="自ツリーノードを連結リストから切り離し、独立する。 .">extract</a>();
+<a name="l00167"></a>00167 
+<a name="l00185"></a>00185     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafNode.html#a3102ca2aa019431ca1a0954f219d8ade" title="自ノードを、最終ノードへ移動する .">moveLast</a>();
+<a name="l00186"></a>00186 
+<a name="l00204"></a>00204     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafNode.html#af23b47e503ab5e5b04135c1a3b2f4031" title="自ノードを、先頭ノードへ移動する .">moveFirst</a>();
+<a name="l00205"></a>00205 
+<a name="l00210"></a><a class="code" href="classGgafCore_1_1GgafNode.html#abd8d03da551091aeb49292e72ff6399a">00210</a>     <span class="keyword">virtual</span> T* <a class="code" href="classGgafCore_1_1GgafNode.html#abd8d03da551091aeb49292e72ff6399a" title="次のノード取得する。">getNext</a>() {
+<a name="l00211"></a>00211         <span class="keywordflow">return</span> <a class="code" href="classGgafCore_1_1GgafNode.html#a503ad408dee8b98a2e701c4a7df17a14" title="[r]次ノード">_pNext</a>;
+<a name="l00212"></a>00212     }
+<a name="l00213"></a>00213 
+<a name="l00218"></a><a class="code" href="classGgafCore_1_1GgafNode.html#addace30b22195e25a8f6167f8a1df175">00218</a>     <span class="keyword">virtual</span> T* <a class="code" href="classGgafCore_1_1GgafNode.html#addace30b22195e25a8f6167f8a1df175" title="前のノード取得する。">getPrev</a>() {
+<a name="l00219"></a>00219         <span class="keywordflow">return</span> <a class="code" href="classGgafCore_1_1GgafNode.html#ade8f607d42f22e98551067362d12d92d" title="[r]前ノード">_pPrev</a>;
+<a name="l00220"></a>00220     }
+<a name="l00221"></a>00221 
+<a name="l00226"></a>00226     <span class="keyword">virtual</span> T* <a class="code" href="classGgafCore_1_1GgafNode.html#ab6c00db0d18973ac53ec075bb69cd947" title="１つ上の親ノード取得する。">getParent</a>();
+<a name="l00227"></a>00227 
+<a name="l00236"></a>00236     <span class="keyword">virtual</span> T* <a class="code" href="classGgafCore_1_1GgafNode.html#ab6c00db0d18973ac53ec075bb69cd947" title="１つ上の親ノード取得する。">getParent</a>(<span class="keywordtype">char</span>* prm_parent_name);
+<a name="l00237"></a>00237 
+<a name="l00258"></a>00258     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafNode.html#af1e607eba3baf69665215b63a245af2a" title="引数ノードを子ノードとして追加する .">addSubLast</a>(T* prm_pSub);
+<a name="l00259"></a>00259 
+<a name="l00268"></a>00268     <span class="keyword">virtual</span> T* <a class="code" href="classGgafCore_1_1GgafNode.html#af86f03ac041328fadbf74f4966dbbf7a" title="子ノードをノード名称を指定して取得する .">getSubByName</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* prm_sub_name);
+<a name="l00269"></a>00269 
+<a name="l00275"></a>00275     <span class="keyword">virtual</span> T* <a class="code" href="classGgafCore_1_1GgafNode.html#ad7e3e70f80799ffbae3ff7e81c2db234" title="子ノードが存在する場合取得する .">getSub</a>(T* prm_pSub);
+<a name="l00276"></a>00276     <span class="keyword">virtual</span> T* <a class="code" href="classGgafCore_1_1GgafNode.html#ad7e3e70f80799ffbae3ff7e81c2db234" title="子ノードが存在する場合取得する .">getSub</a>(<span class="keywordtype">int</span> prm_index);
+<a name="l00282"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a4ed933dffdb68cae32d5b69c8aac1799">00282</a>     <span class="keyword">virtual</span> T* <a class="code" href="classGgafCore_1_1GgafNode.html#a4ed933dffdb68cae32d5b69c8aac1799" title="子ノードのグループの先頭ノードを取得する .">getSubFirst</a>() {
+<a name="l00283"></a>00283         <span class="keywordflow">return</span> <a class="code" href="classGgafCore_1_1GgafNode.html#a98c95526f4c48a602d1e8383a1c37336" title="[r]子ノードの先頭ノード">_pSubFirst</a>;
+<a name="l00284"></a>00284     }
+<a name="l00285"></a>00285 
+<a name="l00293"></a>00293     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classGgafCore_1_1GgafNode.html#aca1c7ad37db2ca25ef0d79fa58f10d6a" title="子ノード存在チェック .">hasSub</a>(<span class="keywordtype">char</span>* prm_sub_actor_name);
+<a name="l00294"></a>00294 
+<a name="l00295"></a>00295 
+<a name="l00300"></a>00300     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classGgafCore_1_1GgafNode.html#ab4fd3f491209fed36a6dafe96a3e4258" title="子ノード数を取得する .">getNumSub</a>();
+<a name="l00301"></a>00301 
+<a name="l00302"></a>00302 
+<a name="l00307"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a7d2ada7561efd15cab22595ac0d06a6b">00307</a>     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classGgafCore_1_1GgafNode.html#a7d2ada7561efd15cab22595ac0d06a6b" title="自ノードが先頭ノードか調べる .">isFirst</a>() {
+<a name="l00308"></a>00308         <span class="keywordflow">return</span> <a class="code" href="classGgafCore_1_1GgafNode.html#ac8849b79600e32026d86c9c759a248db" title="[r]先頭ノードフラグ (自ノードが先頭ノードの場合 true)">_is_first_flg</a>;
+<a name="l00309"></a>00309     }
+<a name="l00310"></a>00310 
+<a name="l00315"></a><a class="code" href="classGgafCore_1_1GgafNode.html#abc0b2b9becb95ef37d7e11f47b5211f5">00315</a>     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classGgafCore_1_1GgafNode.html#abc0b2b9becb95ef37d7e11f47b5211f5" title="自ノードが末尾ノードか調べる .">isLast</a>(){
+<a name="l00316"></a>00316         <span class="keywordflow">return</span> <a class="code" href="classGgafCore_1_1GgafNode.html#a82beaf7d3d201e8a88dc5786887110ae" title="[r]末尾ノードフラグ (自ノードが末尾ノードの場合 true)">_is_last_flg</a>;
+<a name="l00317"></a>00317     }
+<a name="l00318"></a>00318 
+<a name="l00319"></a>00319 };
+<a name="l00320"></a>00320 
+<a name="l00322"></a>00322 
+<a name="l00326"></a>00326 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00327"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a29921f1d0b3481cc999b8d8542a435fd">00327</a> <a class="code" href="classGgafCore_1_1GgafNode.html#a29921f1d0b3481cc999b8d8542a435fd" title="コンストラクタ">GgafNode&lt;T&gt;::GgafNode</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* prm_name) : <a class="code" href="classGgafCore_1_1GgafObject.html" title="基底クラス">GgafObject</a>(),
+<a name="l00328"></a>00328 _pNodeTemp(<a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+<a name="l00329"></a>00329 _name(<a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+<a name="l00330"></a>00330 _class_name(<span class="stringliteral">&quot;GgafNode&lt;T&gt;&quot;</span>),
+<a name="l00331"></a>00331 _pParent(<a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+<a name="l00332"></a>00332 _pNext((T*)this),
+<a name="l00333"></a>00333 _pPrev((T*)this),
+<a name="l00334"></a>00334 _pSubFirst(<a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+<a name="l00335"></a>00335 _is_first_flg(false),
+<a name="l00336"></a>00336 _is_last_flg(false),
+<a name="l00337"></a>00337 _sub_num(0)
+<a name="l00338"></a>00338 {
+<a name="l00339"></a>00339     <a class="code" href="classGgafCore_1_1GgafNode.html#a7acc1f8acaa86fa5d530179e690338e4" title="[r]ノード識別名(50文字まで)">_name</a> = <a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> <span class="keywordtype">char</span>[51];
+<a name="l00340"></a>00340     strcpy(<a class="code" href="classGgafCore_1_1GgafNode.html#a7acc1f8acaa86fa5d530179e690338e4" title="[r]ノード識別名(50文字まで)">_name</a>, prm_name);
+<a name="l00341"></a>00341     <a class="code" href="GgafCommonHeader_8h.html#a638b671f4fa00cd5267c8df6c19c4477">TRACE</a>(<span class="stringliteral">&quot;template&lt;class T&gt; GgafNode&lt;T&gt;::GgafNode(&quot;</span> &lt;&lt; <a class="code" href="classGgafCore_1_1GgafNode.html#a7acc1f8acaa86fa5d530179e690338e4" title="[r]ノード識別名(50文字まで)">_name</a> &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>);
+<a name="l00342"></a>00342 }
+<a name="l00343"></a>00343 
+<a name="l00344"></a>00344 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00345"></a><a class="code" href="classGgafCore_1_1GgafNode.html#aed984b980c96d382a8a4b55610406d73">00345</a> T* <a class="code" href="classGgafCore_1_1GgafNode.html#aed984b980c96d382a8a4b55610406d73" title="自ツリーノードを連結リストから切り離し、独立する。 .">GgafNode&lt;T&gt;::extract</a>() {
+<a name="l00346"></a>00346     <span class="keywordflow">if</span> (_pParent) {
+<a name="l00347"></a>00347         <span class="comment">//連結から外す</span>
+<a name="l00348"></a>00348         _pParent-&gt;_sub_num--;
+<a name="l00349"></a>00349         T* pMyNext = _pNext;
+<a name="l00350"></a>00350         T* pMyPrev = _pPrev;
+<a name="l00351"></a>00351         <span class="keywordflow">if</span> (_is_first_flg &amp;&amp; _is_last_flg) {
+<a name="l00352"></a>00352             <span class="comment">//連結が自分のみ場合</span>
+<a name="l00353"></a>00353             _pParent-&gt;_pSubFirst = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00354"></a>00354         } <span class="keywordflow">else</span> {
+<a name="l00355"></a>00355             <span class="comment">//連結がから抜け出す場合</span>
+<a name="l00356"></a>00356             <span class="comment">//両隣のノード同士を繋ぎ、自分を指さなくする。</span>
+<a name="l00357"></a>00357             pMyPrev-&gt;_pNext = pMyNext;
+<a name="l00358"></a>00358             pMyNext-&gt;_pPrev = pMyPrev;
+<a name="l00359"></a>00359             <span class="keywordflow">if</span> (_is_last_flg) {
+<a name="l00360"></a>00360                 pMyPrev-&gt;_is_last_flg = <span class="keyword">true</span>;
+<a name="l00361"></a>00361             }
+<a name="l00362"></a>00362             <span class="keywordflow">if</span> (_is_first_flg) {
+<a name="l00363"></a>00363                 pMyNext-&gt;_is_first_flg = <span class="keyword">true</span>;
+<a name="l00364"></a>00364                 _pParent-&gt;_pSubFirst = pMyNext;
+<a name="l00365"></a>00365             }
+<a name="l00366"></a>00366         }
+<a name="l00367"></a>00367         _pParent = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00368"></a>00368         _pNext = (T*)<span class="keyword">this</span>;
+<a name="l00369"></a>00369         _pPrev = (T*)<span class="keyword">this</span>;
+<a name="l00370"></a>00370         _is_first_flg = <span class="keyword">true</span>;
+<a name="l00371"></a>00371         _is_last_flg = <span class="keyword">true</span>;
+<a name="l00372"></a>00372         <span class="keywordflow">return</span> ((T*)<span class="keyword">this</span>);
+<a name="l00373"></a>00373     } <span class="keywordflow">else</span> {
+<a name="l00374"></a>00374         <span class="comment">//TODO:ココに処理が来る場合は、extract()する必要なし。</span>
+<a name="l00375"></a>00375         <span class="comment">//_pParentが居ない＝何所にも所属してない＝extract()する必要なし。</span>
+<a name="l00376"></a>00376         <span class="comment">//と、解釈されているが、これは、要素を追加するためのメソッドが現在 addSubLast() のみであることに関連する。</span>
+<a name="l00377"></a>00377         <span class="comment">//addSubLast()のみで作られる自ツリー構造は、親の頂点は常に唯一となるからだ。</span>
+<a name="l00378"></a>00378         <span class="comment">//しかし将来、addNext() のように隣に要素を追加するメソッドを作らなければいけなくなった場合、</span>
+<a name="l00379"></a>00379         <span class="comment">//親の頂点が横並び手をつなぎ、台形のような構造を採れるようにした場合は、</span>
+<a name="l00380"></a>00380         <span class="comment">//ここの場所に横連結からのみ切り離す処理を追加する必要がある事を忘れずに。</span>
+<a name="l00381"></a>00381 
+<a name="l00382"></a>00382         <a class="code" href="GgafCommonHeader_8h.html#a638b671f4fa00cd5267c8df6c19c4477">TRACE</a>(<span class="stringliteral">&quot;[GgafNode&lt;&quot;</span> &lt;&lt; _class_name &lt;&lt; <span class="stringliteral">&quot;&gt;::extract()] ＜警告＞ &quot;</span> &lt;&lt; getName() &lt;&lt; <span class="stringliteral">&quot;は、何所にも所属していません。既に独立してました&quot;</span>);
+<a name="l00383"></a>00383         <span class="keywordflow">return</span> ((T*)<span class="keyword">this</span>);
+<a name="l00384"></a>00384     }
+<a name="l00385"></a>00385 }
+<a name="l00386"></a>00386 
+<a name="l00387"></a>00387 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00388"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a3102ca2aa019431ca1a0954f219d8ade">00388</a> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafNode.html#a3102ca2aa019431ca1a0954f219d8ade" title="自ノードを、最終ノードへ移動する .">GgafNode&lt;T&gt;::moveLast</a>() {
+<a name="l00389"></a>00389     <span class="keywordflow">if</span> (_is_last_flg) { <span class="comment">//既に最終ノードならば何もしない</span>
+<a name="l00390"></a>00390         <span class="keywordflow">return</span>;
+<a name="l00391"></a>00391     } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (_is_first_flg) { <span class="comment">//先頭ノードならば、親の指している先頭ノードを次へずらす</span>
+<a name="l00392"></a>00392         _pParent-&gt;_pSubFirst = _pNext;
+<a name="l00393"></a>00393         _pPrev-&gt;_is_last_flg = <span class="keyword">false</span>;
+<a name="l00394"></a>00394         _is_first_flg = <span class="keyword">false</span>;
+<a name="l00395"></a>00395         _is_last_flg = <span class="keyword">true</span>;
+<a name="l00396"></a>00396         _pNext-&gt;_is_first_flg = <span class="keyword">true</span>;
+<a name="l00397"></a>00397     } <span class="keywordflow">else</span> { <span class="comment">//中間ノード時</span>
+<a name="l00398"></a>00398         <span class="comment">//両隣のノード同士を繋ぐ</span>
+<a name="l00399"></a>00399         _pPrev-&gt;_pNext = _pNext;
+<a name="l00400"></a>00400         _pNext-&gt;_pPrev = _pPrev;
+<a name="l00401"></a>00401         <span class="comment">//末尾ノードと先頭ノードの間にもぐりこませる</span>
+<a name="l00402"></a>00402         _pParent-&gt;_pSubFirst-&gt;_pPrev-&gt;_is_last_flg = <span class="keyword">false</span>;
+<a name="l00403"></a>00403         _is_last_flg = <span class="keyword">true</span>;
+<a name="l00404"></a>00404         _pPrev = _pParent-&gt;_pSubFirst-&gt;_pPrev;
+<a name="l00405"></a>00405         _pNext = _pParent-&gt;_pSubFirst;
+<a name="l00406"></a>00406         _pParent-&gt;_pSubFirst-&gt;_pPrev-&gt;_pNext = (T*)<span class="keyword">this</span>;
+<a name="l00407"></a>00407         _pParent-&gt;_pSubFirst-&gt;_pPrev = (T*)<span class="keyword">this</span>;
+<a name="l00408"></a>00408     }
+<a name="l00409"></a>00409 }
+<a name="l00410"></a>00410 
+<a name="l00411"></a>00411 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00412"></a><a class="code" href="classGgafCore_1_1GgafNode.html#af23b47e503ab5e5b04135c1a3b2f4031">00412</a> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafNode.html#af23b47e503ab5e5b04135c1a3b2f4031" title="自ノードを、先頭ノードへ移動する .">GgafNode&lt;T&gt;::moveFirst</a>() {
+<a name="l00413"></a>00413     <span class="keywordflow">if</span> (_is_first_flg) { <span class="comment">//既に先頭ノードならば何もしない</span>
+<a name="l00414"></a>00414         <span class="keywordflow">return</span>;
+<a name="l00415"></a>00415     } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (_is_last_flg) { <span class="comment">//末尾ノードならば、親の指している先頭ノードを前にずらす</span>
+<a name="l00416"></a>00416         _pParent-&gt;_pSubFirst = (T*)<span class="keyword">this</span>;
+<a name="l00417"></a>00417         _pPrev-&gt;_is_last_flg = <span class="keyword">true</span>;
+<a name="l00418"></a>00418         _is_first_flg = <span class="keyword">true</span>;
+<a name="l00419"></a>00419         _is_last_flg = <span class="keyword">false</span>;
+<a name="l00420"></a>00420         _pNext-&gt;_is_first_flg = <span class="keyword">false</span>;
+<a name="l00421"></a>00421     } <span class="keywordflow">else</span> { <span class="comment">//中間ノード時</span>
+<a name="l00422"></a>00422         <span class="comment">//両隣のノード同士を繋ぐ</span>
+<a name="l00423"></a>00423         _pPrev-&gt;_pNext = _pNext;
+<a name="l00424"></a>00424         _pNext-&gt;_pPrev = _pPrev;
+<a name="l00425"></a>00425         <span class="comment">//末尾ノードと先頭ノードの間にもぐりこませる</span>
+<a name="l00426"></a>00426         _pParent-&gt;_pSubFirst-&gt;_is_first_flg = <span class="keyword">false</span>;
+<a name="l00427"></a>00427         _is_first_flg = <span class="keyword">true</span>;
+<a name="l00428"></a>00428         _pPrev = _pParent-&gt;_pSubFirst-&gt;_pPrev;
+<a name="l00429"></a>00429         _pNext = _pParent-&gt;_pSubFirst;
+<a name="l00430"></a>00430         _pParent-&gt;_pSubFirst-&gt;_pPrev-&gt;_pNext = (T*)<span class="keyword">this</span>;
+<a name="l00431"></a>00431         _pParent-&gt;_pSubFirst-&gt;_pPrev = (T*)<span class="keyword">this</span>;
+<a name="l00432"></a>00432         _pParent-&gt;_pSubFirst = (T*)<span class="keyword">this</span>;
+<a name="l00433"></a>00433     }
+<a name="l00434"></a>00434 }
+<a name="l00435"></a>00435 
+<a name="l00436"></a>00436 
+<a name="l00437"></a>00437 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00438"></a><a class="code" href="classGgafCore_1_1GgafNode.html#ab6c00db0d18973ac53ec075bb69cd947">00438</a> T* <a class="code" href="classGgafCore_1_1GgafNode.html#ab6c00db0d18973ac53ec075bb69cd947" title="１つ上の親ノード取得する。">GgafNode&lt;T&gt;::getParent</a>() {
+<a name="l00439"></a>00439 <span class="preprocessor">#ifdef MY_DEBUG</span>
+<a name="l00440"></a>00440 <span class="preprocessor"></span>    <span class="keywordflow">if</span> (_pParent == <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+<a name="l00441"></a>00441         <span class="comment">//_TRACE_(&quot;[GgafNode&lt;&quot; &lt;&lt; _class_name &lt;&lt; &quot;&gt;::getParent()] ＜警告＞ 親ノードがありません。NULLを返します。&quot;);</span>
+<a name="l00442"></a>00442     }
+<a name="l00443"></a>00443 <span class="preprocessor">#endif</span>
+<a name="l00444"></a>00444 <span class="preprocessor"></span>    <span class="keywordflow">return</span> ((T*)_pParent);
+<a name="l00445"></a>00445 }
+<a name="l00446"></a>00446 
+<a name="l00447"></a>00447 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00448"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a4d656c1b67fe39106c45fd9a54953bb6">00448</a> T* <a class="code" href="classGgafCore_1_1GgafNode.html#ab6c00db0d18973ac53ec075bb69cd947" title="１つ上の親ノード取得する。">GgafNode&lt;T&gt;::getParent</a>(<span class="keywordtype">char</span>* prm_parent_name) {
+<a name="l00449"></a>00449     _pNodeTemp = (T*)<span class="keyword">this</span>;
+<a name="l00450"></a>00450     <span class="keywordflow">while</span> (<span class="keyword">true</span>) {
+<a name="l00451"></a>00451         _pNodeTemp = _pNodeTemp-&gt;_pParent;
+<a name="l00452"></a>00452         <span class="keywordflow">if</span> (_pNodeTemp == <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+<a name="l00453"></a>00453 <span class="preprocessor">#ifdef MY_DEBUG</span>
+<a name="l00454"></a>00454 <span class="preprocessor"></span>            <span class="comment">//_TRACE_(&quot;[GgafNode&lt;&quot; &lt;&lt; _class_name &lt;&lt; &quot;&gt;::getParent(&quot;&lt;&lt;prm_parent_name&lt;&lt;&quot;)] ＜警告＞ 親ノードを遡って検索しましたがありません。NULLを返します。&quot;);</span>
+<a name="l00455"></a>00455 <span class="preprocessor">#endif</span>
+<a name="l00456"></a>00456 <span class="preprocessor"></span>            <span class="keywordflow">return</span> <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00457"></a>00457         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classGgafCore_1_1GgafUtil.html#a3992ec1c316f7941f84767d1762cb737" title="ASCII限定文字列比較 .">GgafUtil::strcmp_ascii</a>(_pNodeTemp-&gt;_name, prm_parent_name) == 0) {
+<a name="l00458"></a>00458             <span class="keywordflow">break</span>;
+<a name="l00459"></a>00459         }
+<a name="l00460"></a>00460     }
+<a name="l00461"></a>00461     <span class="keywordflow">return</span> _pNodeTemp;
+<a name="l00462"></a>00462 }
+<a name="l00463"></a>00463 
+<a name="l00464"></a>00464 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00465"></a><a class="code" href="classGgafCore_1_1GgafNode.html#af86f03ac041328fadbf74f4966dbbf7a">00465</a> T* <a class="code" href="classGgafCore_1_1GgafNode.html#af86f03ac041328fadbf74f4966dbbf7a" title="子ノードをノード名称を指定して取得する .">GgafNode&lt;T&gt;::getSubByName</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* prm_sub_name) {
+<a name="l00466"></a>00466 <span class="preprocessor">#ifdef MY_DEBUG</span>
+<a name="l00467"></a>00467 <span class="preprocessor"></span>    <span class="keywordflow">if</span> (_pSubFirst == <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+<a name="l00468"></a>00468         <a class="code" href="GgafCommonHeader_8h.html#a9dc19656697a84144f067a543d5eeb2d">throwGgafCriticalException</a>(<span class="stringliteral">&quot;[GgafNode&lt;&quot;</span> &lt;&lt; _class_name &lt;&lt; <span class="stringliteral">&quot;&gt;::getSub()] Error! _pSubFirstがNULLです。&quot;</span>);
+<a name="l00469"></a>00469     }
+<a name="l00470"></a>00470 <span class="preprocessor">#endif</span>
+<a name="l00471"></a>00471 <span class="preprocessor"></span>    _pNodeTemp = _pSubFirst;
+<a name="l00472"></a>00472     <span class="keywordflow">do</span> {
+<a name="l00473"></a>00473         <span class="keywordflow">if</span> (<a class="code" href="classGgafCore_1_1GgafUtil.html#a3992ec1c316f7941f84767d1762cb737" title="ASCII限定文字列比較 .">GgafUtil::strcmp_ascii</a>(_pNodeTemp-&gt;getName(), prm_sub_name) == 0) {
+<a name="l00474"></a>00474             <span class="keywordflow">break</span>;
+<a name="l00475"></a>00475         }
+<a name="l00476"></a>00476 <span class="preprocessor">#ifdef MY_DEBUG</span>
+<a name="l00477"></a>00477 <span class="preprocessor"></span>        <span class="keywordflow">if</span> (_pNodeTemp-&gt;_is_last_flg) {
+<a name="l00478"></a>00478             <a class="code" href="GgafCommonHeader_8h.html#a9dc19656697a84144f067a543d5eeb2d">throwGgafCriticalException</a>(<span class="stringliteral">&quot;[GgafNode&lt;&quot;</span> &lt;&lt; _class_name &lt;&lt; <span class="stringliteral">&quot;&gt;::getSub()] Error! 子ノードは存在しません。(prm_sub_actor_name=&quot;</span> &lt;&lt; prm_sub_name &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>);
+<a name="l00479"></a>00479         }
+<a name="l00480"></a>00480 <span class="preprocessor">#endif</span>
+<a name="l00481"></a>00481 <span class="preprocessor"></span>        _pNodeTemp = _pNodeTemp-&gt;_pNext;
+<a name="l00482"></a>00482     } <span class="keywordflow">while</span> (<span class="keyword">true</span>);
+<a name="l00483"></a>00483     <span class="keywordflow">return</span> _pNodeTemp;
+<a name="l00484"></a>00484 }
+<a name="l00485"></a>00485 
+<a name="l00486"></a>00486 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00487"></a><a class="code" href="classGgafCore_1_1GgafNode.html#ad7e3e70f80799ffbae3ff7e81c2db234">00487</a> T* <a class="code" href="classGgafCore_1_1GgafNode.html#ad7e3e70f80799ffbae3ff7e81c2db234" title="子ノードが存在する場合取得する .">GgafNode&lt;T&gt;::getSub</a>(T* prm_pSub) {
+<a name="l00488"></a>00488     <span class="keywordflow">if</span> (_pSubFirst == <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+<a name="l00489"></a>00489         <span class="keywordflow">return</span> <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00490"></a>00490     }
+<a name="l00491"></a>00491     T* pNodeTemp = _pSubFirst;
+<a name="l00492"></a>00492     <span class="keywordflow">do</span> {
+<a name="l00493"></a>00493         <span class="keywordflow">if</span> (prm_pSub == pNodeTemp) {
+<a name="l00494"></a>00494             <span class="keywordflow">break</span>;
+<a name="l00495"></a>00495         }
+<a name="l00496"></a>00496         <span class="keywordflow">if</span> (pNodeTemp-&gt;_is_last_flg) {
+<a name="l00497"></a>00497             <span class="keywordflow">return</span> <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00498"></a>00498         }
+<a name="l00499"></a>00499         pNodeTemp = pNodeTemp-&gt;_pNext;
+<a name="l00500"></a>00500     } <span class="keywordflow">while</span> (<span class="keyword">true</span>);
+<a name="l00501"></a>00501     <span class="keywordflow">return</span> pNodeTemp;
+<a name="l00502"></a>00502 }
+<a name="l00503"></a>00503 
+<a name="l00504"></a>00504 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00505"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a14eee147d64f730fda839d4f45e8fd70">00505</a> T* <a class="code" href="classGgafCore_1_1GgafNode.html#ad7e3e70f80799ffbae3ff7e81c2db234" title="子ノードが存在する場合取得する .">GgafNode&lt;T&gt;::getSub</a>(<span class="keywordtype">int</span> prm_index) {
+<a name="l00506"></a>00506     T* pNodeTemp = _pSubFirst;
+<a name="l00507"></a>00507     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; prm_index; i++) {
+<a name="l00508"></a>00508         pNodeTemp = pNodeTemp-&gt;_pNext;
+<a name="l00509"></a>00509     }
+<a name="l00510"></a>00510     <span class="keywordflow">return</span> pNodeTemp;
+<a name="l00511"></a>00511 }
+<a name="l00512"></a>00512 
+<a name="l00513"></a>00513 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00514"></a><a class="code" href="classGgafCore_1_1GgafNode.html#aca1c7ad37db2ca25ef0d79fa58f10d6a">00514</a> <span class="keywordtype">bool</span> <a class="code" href="classGgafCore_1_1GgafNode.html#aca1c7ad37db2ca25ef0d79fa58f10d6a" title="子ノード存在チェック .">GgafNode&lt;T&gt;::hasSub</a>(<span class="keywordtype">char</span>* prm_sub_actor_name) {
+<a name="l00515"></a>00515     <span class="keywordflow">if</span> (_pSubFirst == <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+<a name="l00516"></a>00516         <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00517"></a>00517     } <span class="keywordflow">else</span> {
+<a name="l00518"></a>00518         _pNodeTemp = _pSubFirst;
+<a name="l00519"></a>00519         <span class="keywordflow">do</span> {
+<a name="l00520"></a>00520             <span class="keywordflow">if</span> (<a class="code" href="classGgafCore_1_1GgafUtil.html#a3992ec1c316f7941f84767d1762cb737" title="ASCII限定文字列比較 .">GgafUtil::strcmp_ascii</a>(_pNodeTemp-&gt;getName(), prm_sub_actor_name)) {
+<a name="l00521"></a>00521                 <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00522"></a>00522             }
+<a name="l00523"></a>00523             <span class="keywordflow">if</span> (_pNodeTemp-&gt;_is_last_flg) {
+<a name="l00524"></a>00524                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00525"></a>00525             } <span class="keywordflow">else</span> {
+<a name="l00526"></a>00526                 _pNodeTemp = _pNodeTemp-&gt;_pNext;
+<a name="l00527"></a>00527             }
+<a name="l00528"></a>00528         } <span class="keywordflow">while</span> (<span class="keyword">true</span>);
+<a name="l00529"></a>00529     }
+<a name="l00530"></a>00530 }
+<a name="l00531"></a>00531 
+<a name="l00532"></a>00532 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00533"></a><a class="code" href="classGgafCore_1_1GgafNode.html#ab4fd3f491209fed36a6dafe96a3e4258">00533</a> <span class="keywordtype">int</span> <a class="code" href="classGgafCore_1_1GgafNode.html#ab4fd3f491209fed36a6dafe96a3e4258" title="子ノード数を取得する .">GgafNode&lt;T&gt;::getNumSub</a>() {
+<a name="l00534"></a>00534     <span class="keywordflow">return</span> _sub_num;
+<a name="l00535"></a>00535 <span class="comment">//</span>
+<a name="l00536"></a>00536 <span class="comment">//    if (_pSubFirst == NULL) {</span>
+<a name="l00537"></a>00537 <span class="comment">//        return 0;</span>
+<a name="l00538"></a>00538 <span class="comment">//    }</span>
+<a name="l00539"></a>00539 <span class="comment">//    int n = 1;</span>
+<a name="l00540"></a>00540 <span class="comment">//    _pNodeTemp = _pSubFirst;</span>
+<a name="l00541"></a>00541 <span class="comment">//    do {</span>
+<a name="l00542"></a>00542 <span class="comment">//        if (_pNodeTemp-&gt;isLast()) {</span>
+<a name="l00543"></a>00543 <span class="comment">//            break;</span>
+<a name="l00544"></a>00544 <span class="comment">//        }</span>
+<a name="l00545"></a>00545 <span class="comment">//        _pNodeTemp = _pNodeTemp-&gt;_pNext;</span>
+<a name="l00546"></a>00546 <span class="comment">//        n++;</span>
+<a name="l00547"></a>00547 <span class="comment">//    } while (true);</span>
+<a name="l00548"></a>00548 <span class="comment">//    return n;</span>
+<a name="l00549"></a>00549 }
+<a name="l00550"></a>00550 
+<a name="l00551"></a>00551 
+<a name="l00552"></a>00552 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00553"></a><a class="code" href="classGgafCore_1_1GgafNode.html#af1e607eba3baf69665215b63a245af2a">00553</a> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafNode.html#af1e607eba3baf69665215b63a245af2a" title="引数ノードを子ノードとして追加する .">GgafNode&lt;T&gt;::addSubLast</a>(T* prm_pSub) {
+<a name="l00554"></a>00554 <span class="preprocessor">#ifdef MY_DEBUG</span>
+<a name="l00555"></a>00555 <span class="preprocessor"></span>    <span class="keywordflow">if</span> (prm_pSub-&gt;_pParent) {
+<a name="l00556"></a>00556         <a class="code" href="GgafCommonHeader_8h.html#a9dc19656697a84144f067a543d5eeb2d">throwGgafCriticalException</a>(<span class="stringliteral">&quot;[GgafNode&lt;&quot;</span> &lt;&lt; _class_name &lt;&lt; <span class="stringliteral">&quot;&gt;::addSubLast()] Error! ノードは既に所属(&quot;</span>
+<a name="l00557"></a>00557                 &lt;&lt; prm_pSub-&gt;_pParent-&gt;_name &lt;&lt; <span class="stringliteral">&quot;に所属)しています(this=&quot;</span> &lt;&lt; _name &lt;&lt; <span class="stringliteral">&quot;/prm_pSub=&quot;</span> &lt;&lt; prm_pSub-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>);
+<a name="l00558"></a>00558     }
+<a name="l00559"></a>00559 <span class="preprocessor">#endif</span>
+<a name="l00560"></a>00560 <span class="preprocessor"></span>
+<a name="l00561"></a>00561     _sub_num++;
+<a name="l00562"></a>00562     prm_pSub-&gt;_pParent = (T*)<span class="keyword">this</span>;
+<a name="l00563"></a>00563     prm_pSub-&gt;_is_last_flg = <span class="keyword">true</span>;
+<a name="l00564"></a>00564     <span class="comment">//prm_pSub-&gt;_pScene_Platform = _pScene_Platform;</span>
+<a name="l00565"></a>00565 
+<a name="l00566"></a>00566     <span class="keywordflow">if</span> (_pSubFirst == <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+<a name="l00567"></a>00567         prm_pSub-&gt;_is_first_flg = <span class="keyword">true</span>;
+<a name="l00568"></a>00568         _pSubFirst = prm_pSub;
+<a name="l00569"></a>00569         _pSubFirst-&gt;_pNext = prm_pSub;
+<a name="l00570"></a>00570         _pSubFirst-&gt;_pPrev = prm_pSub;
+<a name="l00571"></a>00571     } <span class="keywordflow">else</span> {
+<a name="l00572"></a>00572         prm_pSub-&gt;_is_first_flg = <span class="keyword">false</span>;
+<a name="l00573"></a>00573         T* pSubLast = _pSubFirst-&gt;_pPrev;
+<a name="l00574"></a>00574         pSubLast-&gt;_is_last_flg = <span class="keyword">false</span>;
+<a name="l00575"></a>00575         pSubLast-&gt;_pNext = prm_pSub;
+<a name="l00576"></a>00576         prm_pSub-&gt;_pPrev = pSubLast;
+<a name="l00577"></a>00577         prm_pSub-&gt;_pNext = _pSubFirst;
+<a name="l00578"></a>00578         _pSubFirst-&gt;_pPrev = prm_pSub;
+<a name="l00579"></a>00579     }
+<a name="l00580"></a>00580 
+<a name="l00581"></a>00581 }
+<a name="l00582"></a>00582 
+<a name="l00583"></a>00583 <span class="comment">/*</span>
+<a name="l00584"></a>00584 <span class="comment"> template&lt;class T&gt;</span>
+<a name="l00585"></a>00585 <span class="comment"> bool GgafNode&lt;T&gt;::isNamed(const char* prm_name) {</span>
+<a name="l00586"></a>00586 <span class="comment"> char*::size_type iLen = prm_name.length();</span>
+<a name="l00587"></a>00587 <span class="comment"> if (prm_name.rfind(&#39;*&#39;) == iLen-1) {}</span>
+<a name="l00588"></a>00588 <span class="comment"></span>
+<a name="l00589"></a>00589 <span class="comment"></span>
+<a name="l00590"></a>00590 <span class="comment"> return _name;</span>
+<a name="l00591"></a>00591 <span class="comment"> }</span>
+<a name="l00592"></a>00592 <span class="comment"> */</span>
+<a name="l00593"></a>00593 
+<a name="l00594"></a>00594 
+<a name="l00595"></a>00595 <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;
+<a name="l00596"></a><a class="code" href="classGgafCore_1_1GgafNode.html#a129834a441e5aaae1961f75490091ca6">00596</a> <a class="code" href="classGgafCore_1_1GgafNode.html#a129834a441e5aaae1961f75490091ca6" title="デストラクタ。自ツリーノードを解放します。 .">GgafNode&lt;T&gt;::~GgafNode</a>() {
+<a name="l00597"></a>00597     <span class="comment">//自分に子がある場合</span>
+<a name="l00598"></a>00598     <span class="keywordflow">if</span> (_pSubFirst) {
+<a name="l00599"></a>00599         <span class="comment">//まず子をdelete</span>
+<a name="l00600"></a>00600         <span class="keywordflow">if</span> (_pSubFirst-&gt;_is_last_flg) {
+<a name="l00601"></a>00601             <span class="comment">//子ノードは１つの場合</span>
+<a name="l00602"></a>00602             <a class="code" href="GgafCommonHeader_8h.html#ae5d747deb8aa2c8d2b082d12f7f49836" title="NULLはありえない delete.">DELETE_IMPOSSIBLE_NULL</a>(_pSubFirst);
+<a name="l00603"></a>00603             _pSubFirst = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00604"></a>00604         } <span class="keywordflow">else</span> {
+<a name="l00605"></a>00605             <span class="comment">//子ノードは２つ以上の場合</span>
+<a name="l00606"></a>00606             T* pSubLast = _pSubFirst-&gt;_pPrev;
+<a name="l00607"></a>00607             T* pSubLastPrev = pSubLast-&gt;_pPrev;
+<a name="l00608"></a>00608             <span class="keywordflow">while</span> (<span class="keyword">true</span>) {
+<a name="l00609"></a>00609                 <a class="code" href="GgafCommonHeader_8h.html#ae5d747deb8aa2c8d2b082d12f7f49836" title="NULLはありえない delete.">DELETE_IMPOSSIBLE_NULL</a>(pSubLast); <span class="comment">//末尾からdelete</span>
+<a name="l00610"></a>00610                 <span class="keywordflow">if</span> (pSubLastPrev-&gt;_is_first_flg) {
+<a name="l00611"></a>00611                     <a class="code" href="GgafCommonHeader_8h.html#ae5d747deb8aa2c8d2b082d12f7f49836" title="NULLはありえない delete.">DELETE_IMPOSSIBLE_NULL</a>(_pSubFirst); <span class="comment">//pSubLastPrev == _pSubFirst である</span>
+<a name="l00612"></a>00612                     _pSubFirst = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00613"></a>00613                     <span class="keywordflow">break</span>;
+<a name="l00614"></a>00614                 }
+<a name="l00615"></a>00615                 pSubLast = pSubLastPrev;
+<a name="l00616"></a>00616                 pSubLastPrev = pSubLastPrev-&gt;_pPrev;
+<a name="l00617"></a>00617             }
+<a name="l00618"></a>00618         }
+<a name="l00619"></a>00619     }
+<a name="l00620"></a>00620 
+<a name="l00621"></a>00621     <span class="comment">//子がない状態の場合</span>
+<a name="l00622"></a>00622     <span class="keywordflow">if</span> (_pParent) {
+<a name="l00623"></a>00623         _pParent-&gt;_sub_num--;
+<a name="l00624"></a>00624         <span class="comment">//連結から外す</span>
+<a name="l00625"></a>00625         T* pMyNext = _pNext;
+<a name="l00626"></a>00626         T* pMyPrev = _pPrev;
+<a name="l00627"></a>00627         <span class="keywordflow">if</span> (_is_first_flg &amp;&amp; _is_last_flg) {
+<a name="l00628"></a>00628             <span class="comment">//連結しているノードが無く、自分のみ場合</span>
+<a name="l00629"></a>00629             _pParent-&gt;_pSubFirst = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00630"></a>00630             _pParent = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00631"></a>00631             _pNext = (T*)<span class="keyword">this</span>;
+<a name="l00632"></a>00632             _pPrev = (T*)<span class="keyword">this</span>;
+<a name="l00633"></a>00633             _pSubFirst = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00634"></a>00634         } <span class="keywordflow">else</span> {
+<a name="l00635"></a>00635             <span class="comment">//連結がから抜け出す場合</span>
+<a name="l00636"></a>00636             <span class="comment">//両隣のノード同士を繋ぎ、自分を指さなくする。</span>
+<a name="l00637"></a>00637             pMyPrev-&gt;_pNext = pMyNext;
+<a name="l00638"></a>00638             pMyNext-&gt;_pPrev = pMyPrev;
+<a name="l00639"></a>00639             <span class="keywordflow">if</span> (_is_last_flg) {
+<a name="l00640"></a>00640                 pMyPrev-&gt;_is_last_flg = <span class="keyword">true</span>;
+<a name="l00641"></a>00641             }
+<a name="l00642"></a>00642             <span class="keywordflow">if</span> (_is_first_flg) {
+<a name="l00643"></a>00643                 pMyNext-&gt;_is_first_flg = <span class="keyword">true</span>;
+<a name="l00644"></a>00644                 _pParent-&gt;_pSubFirst = pMyNext;
+<a name="l00645"></a>00645             }
+<a name="l00646"></a>00646             _pParent = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00647"></a>00647             _pNext = (T*)<span class="keyword">this</span>;
+<a name="l00648"></a>00648             _pPrev = (T*)<span class="keyword">this</span>;
+<a name="l00649"></a>00649             _pSubFirst = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00650"></a>00650             _is_first_flg = <span class="keyword">true</span>;
+<a name="l00651"></a>00651             _is_last_flg = <span class="keyword">true</span>;
+<a name="l00652"></a>00652         }
+<a name="l00653"></a>00653     }
+<a name="l00654"></a>00654     <a class="code" href="GgafCommonHeader_8h.html#ac418da911740806e97d5f4b5314081ff" title="NULLはありえない delete[].">DELETEARR_IMPOSSIBLE_NULL</a>(_name);
+<a name="l00655"></a>00655 }
+<a name="l00656"></a>00656 
+<a name="l00657"></a>00657 }
+<a name="l00658"></a>00658 <span class="preprocessor">#endif </span><span class="comment">/*GGAFNODE_H_*/</span>
+</pre></div></div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="GgafNode_8hpp.html">GgafNode.hpp</a>      </li>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>データ構造</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>ネームスペース</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙型の値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+    <li class="footer">MyStg2ndに対してSat Oct 15 2011 13:58:41に生成されました。
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
+   </ul>
+ </div>
+
+
+</body>
+</html>

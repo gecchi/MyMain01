@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>MyStg2nd: Magic.cpp ソースファイル</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MyStg2nd
+   &#160;<span id="projectnumber">0.0.3526</span>
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- 作成： Doxygen 1.7.5.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="dynsections.js"></script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>メインページ</span></a></li>
+      <li><a href="namespaces.html"><span>ネームスペース</span></a></li>
+      <li><a href="annotated.html"><span>データ構造</span></a></li>
+      <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+      <li><a href="dirs.html"><span>ディレクトリ</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="globals.html"><span>グローバル</span></a></li>
+    </ul>
+  </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('Magic_8cpp.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle">
+<div class="title">Magic.cpp</div>  </div>
+</div>
+<div class="contents">
+<a href="Magic_8cpp.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &quot;stdafx.h&quot;</span>
+<a name="l00002"></a>00002 <span class="keyword">using namespace </span>std;
+<a name="l00003"></a>00003 <span class="keyword">using namespace </span>GgafCore;
+<a name="l00004"></a>00004 <span class="keyword">using namespace </span>GgafDxCore;
+<a name="l00005"></a>00005 <span class="keyword">using namespace </span>GgafLib;
+<a name="l00006"></a>00006 <span class="keyword">using namespace </span>MyStg2nd;
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keyword">enum</span> {
+<a name="l00009"></a><a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea00d246e5f018b9a09cff7d67c28f4ca3">00009</a>     <a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea00d246e5f018b9a09cff7d67c28f4ca3">MAGIC_NOTHING</a> = 1,
+<a name="l00010"></a><a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea18f07a19664e2a0574b0884d5a8d8fef">00010</a>     <a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea18f07a19664e2a0574b0884d5a8d8fef">MAGIC_STAND_BY</a>   ,
+<a name="l00011"></a><a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea16bcb21bbac4d4abd84c082b01b4c2f1">00011</a>     <a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea16bcb21bbac4d4abd84c082b01b4c2f1">MAGIC_CASTING</a>    ,
+<a name="l00012"></a><a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea85f0c8e26fe4c766870be80035032b60">00012</a>     <a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea85f0c8e26fe4c766870be80035032b60">MAGIC_INVOKING</a>   ,
+<a name="l00013"></a><a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9eae350d76c4854265f873f8a9cacd49edf">00013</a>     <a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9eae350d76c4854265f873f8a9cacd49edf">MAGIC_EFFECTING</a>  ,
+<a name="l00014"></a><a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ead176a95c44f5d847f42c2b0a855ec0ff">00014</a>     <a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ead176a95c44f5d847f42c2b0a855ec0ff">MAGIC_ABANDONING</a> ,
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 };
+<a name="l00017"></a>00017 
+<a name="l00018"></a><a class="code" href="classMyStg2nd_1_1Magic.html#ade850fa40f3eee8a208a3272f8e7df30">00018</a> Magic::Magic(<span class="keyword">const</span> <span class="keywordtype">char</span>*  prm_name,
+<a name="l00019"></a>00019              <span class="keywordtype">int</span>          prm_max_level,
+<a name="l00020"></a>00020              <a class="code" href="namespaceMyStg2nd.html#a5009be97d3ffe5a650e9ab340ae890db">magic_point</a>  prm_cost_base            , <span class="keywordtype">float</span> prm_fRate_cost             ,
+<a name="l00021"></a>00021              <a class="code" href="namespaceMyStg2nd.html#ada3038c1831798821fc7000cba706eb0">magic_time</a>   prm_time_of_casting_base , <span class="keywordtype">float</span> prm_fRate_time_of_casting  ,
+<a name="l00022"></a>00022              <a class="code" href="namespaceMyStg2nd.html#ada3038c1831798821fc7000cba706eb0">magic_time</a>   prm_time_of_invoking_base, <span class="keywordtype">float</span> prm_fRate_time_of_invoking ,
+<a name="l00023"></a>00023              <a class="code" href="namespaceMyStg2nd.html#ada3038c1831798821fc7000cba706eb0">magic_time</a>   prm_time_of_effect_base  , <span class="keywordtype">float</span> prm_fRate_time_of_effecting,
+<a name="l00024"></a>00024              <a class="code" href="namespaceMyStg2nd.html#a5009be97d3ffe5a650e9ab340ae890db">magic_point</a>  prm_keep_cost_base       , <span class="keywordtype">float</span> prm_fRate_keep_cost
+<a name="l00025"></a>00025                 ) : <a class="code" href="classGgafCore_1_1GgafMainActor.html" title="普通のアクター(演者).">GgafMainActor</a>(prm_name, <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+<a name="l00026"></a>00026 <span class="comment">//    GgafDxGeometricActor* prm_pCaster,</span>
+<a name="l00027"></a>00027 <span class="comment">//     GgafDxGeometricActor* prm_pReceiver) : GgafDxBoardSetActor(prm_name, &quot;magic&quot;) {</span>
+<a name="l00028"></a>00028     <a class="code" href="classMyStg2nd_1_1Magic.html#ad5f118c4e813b5a3fe211406dfa3de0c" title="マジックポイント数量バー">_pMP</a> = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; <span class="comment">//initialize()で設定する。</span>
+<a name="l00029"></a>00029     <a class="code" href="classMyStg2nd_1_1Magic.html#a2cb84df0ff0eb614e76e518d0b1e2f84" title="新しいレベル">_new_level</a> = 0;
+<a name="l00030"></a>00030     <a class="code" href="classMyStg2nd_1_1Magic.html#ab7b34ee2a65ca581d4e9a1620d213751" title="前回のレベル">_last_level</a> = 0;
+<a name="l00031"></a>00031     <a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a> = 0;
+<a name="l00032"></a>00032     <a class="code" href="classMyStg2nd_1_1Magic.html#a6ec184657200e5614a273538f71b41e7" title="最高レベル">_max_level</a> = prm_max_level;
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034 <span class="comment">//    _cost = _cost_base;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="comment">//    _time_of_casting = _time_of_casting_base;</span>
+<a name="l00037"></a>00037 <span class="comment">//    _cast_speed = 100;</span>
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 <span class="comment">//    _left_time_to_expire =  _time_of_invoking;</span>
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041     <a class="code" href="classMyStg2nd_1_1Magic.html#ad49a99ca17f7fe2cacfdec95275b70a1" title="本魔法発動に必要なコストの基本単位">_cost_base</a>             = prm_cost_base;
+<a name="l00042"></a>00042     <a class="code" href="classMyStg2nd_1_1Magic.html#aedd6a906114104b70b73f10f12d9ac4c" title="本魔法詠唱開始 〜 魔法詠唱終了の基本単位時間">_time_of_casting_base</a>  = prm_time_of_casting_base;
+<a name="l00043"></a>00043     <a class="code" href="classMyStg2nd_1_1Magic.html#af827a29f9a4b4de6aa68b493357fcf4c" title="本魔法発動開始 〜 魔法発動終了の基本単位時間">_time_of_invoking_base</a> = prm_time_of_invoking_base;
+<a name="l00044"></a>00044     <a class="code" href="classMyStg2nd_1_1Magic.html#a98a4db1a59c8dcfbfaae30f85d4f8898" title="本魔法効果持続開始 〜 魔法効果持続終了の基本単位時間">_time_of_effect_base</a>   = prm_time_of_effect_base;
+<a name="l00045"></a>00045     <a class="code" href="classMyStg2nd_1_1Magic.html#a771155a9e8fcf6fa64b5320d1a567ee7" title="本魔法効果持続中コストの基本単位">_keep_cost_base</a>        = prm_keep_cost_base;
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047     <a class="code" href="classMyStg2nd_1_1Magic.html#a0b2bc968f68f8aa1cbcf9e3d4e2970ca">_fRate_cost</a>               = prm_fRate_cost;
+<a name="l00048"></a>00048     <a class="code" href="classMyStg2nd_1_1Magic.html#a101006cf89f5a9294b06a953af06d9c0">_fRate_time_of_casting</a>    = prm_fRate_time_of_casting;
+<a name="l00049"></a>00049     <a class="code" href="classMyStg2nd_1_1Magic.html#a2b3581b779bdc00dfc72856f5a34b72e">_fRate_time_of_invoking</a>   = prm_fRate_time_of_invoking;
+<a name="l00050"></a>00050     <a class="code" href="classMyStg2nd_1_1Magic.html#ac3d0998cdbb0ea6d0e63f1ea7849ae49">_fRate_time_of_effecting</a>  = prm_fRate_time_of_effecting;
+<a name="l00051"></a>00051     <a class="code" href="classMyStg2nd_1_1Magic.html#a9166a2e26329b07f977279265609582f">_fRate_keep_cost</a>          = prm_fRate_keep_cost;
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053     <span class="comment">//飛びレベル差別情報を設定</span>
+<a name="l00054"></a>00054     <a class="code" href="classMyStg2nd_1_1Magic.html#a6eb9805a9c59f568f956bf28cc6fbd84" title="飛びレベル差別魔法コスト情報 0差〜MMETER_MAX_LEVEL差">_interest_cost</a>[0] = 0;
+<a name="l00055"></a>00055     <a class="code" href="classMyStg2nd_1_1Magic.html#abdf0944beadc93a79f83c3eafc84ec9f" title="飛びレベル差別詠唱時間情報 0差〜MMETER_MAX_LEVEL差">_interest_time_of_casting</a>[0] = 0;
+<a name="l00056"></a>00056     <a class="code" href="classMyStg2nd_1_1Magic.html#a8ea3473226bce3a455e04bba96c12283" title="飛びレベル差別発動時間情報 0差〜MMETER_MAX_LEVEL差">_interest_time_of_invoking</a>[0] = 0;
+<a name="l00057"></a>00057     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt;= <a class="code" href="classMyStg2nd_1_1Magic.html#a6ec184657200e5614a273538f71b41e7" title="最高レベル">_max_level</a>; i++) {
+<a name="l00058"></a>00058         <a class="code" href="classMyStg2nd_1_1Magic.html#a6eb9805a9c59f568f956bf28cc6fbd84" title="飛びレベル差別魔法コスト情報 0差〜MMETER_MAX_LEVEL差">_interest_cost</a>[i]             = (<a class="code" href="classMyStg2nd_1_1Magic.html#ad49a99ca17f7fe2cacfdec95275b70a1" title="本魔法発動に必要なコストの基本単位">_cost_base</a> * i) * <a class="code" href="classMyStg2nd_1_1Magic.html#a0b2bc968f68f8aa1cbcf9e3d4e2970ca">_fRate_cost</a>;
+<a name="l00059"></a>00059         <a class="code" href="classMyStg2nd_1_1Magic.html#abdf0944beadc93a79f83c3eafc84ec9f" title="飛びレベル差別詠唱時間情報 0差〜MMETER_MAX_LEVEL差">_interest_time_of_casting</a>[i]  = (<a class="code" href="classMyStg2nd_1_1Magic.html#aedd6a906114104b70b73f10f12d9ac4c" title="本魔法詠唱開始 〜 魔法詠唱終了の基本単位時間">_time_of_casting_base</a> * i) *  <a class="code" href="classMyStg2nd_1_1Magic.html#a101006cf89f5a9294b06a953af06d9c0">_fRate_time_of_casting</a>;
+<a name="l00060"></a>00060         <a class="code" href="classMyStg2nd_1_1Magic.html#a8ea3473226bce3a455e04bba96c12283" title="飛びレベル差別発動時間情報 0差〜MMETER_MAX_LEVEL差">_interest_time_of_invoking</a>[i] = (<a class="code" href="classMyStg2nd_1_1Magic.html#af827a29f9a4b4de6aa68b493357fcf4c" title="本魔法発動開始 〜 魔法発動終了の基本単位時間">_time_of_invoking_base</a> * i) *  <a class="code" href="classMyStg2nd_1_1Magic.html#a2b3581b779bdc00dfc72856f5a34b72e">_fRate_time_of_invoking</a>;
+<a name="l00061"></a>00061     }
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063     <span class="comment">//各レベル別持続時間及び、維持コストを予め設定</span>
+<a name="l00064"></a>00064     <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[0].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a17d7e5ffd8a902a3bdc63c77ba0023f5" title="該当レベルで魔法が適用中であるかどうか(発動開始〜効果終了までtrue)">_is_working</a> = <span class="keyword">false</span>;
+<a name="l00065"></a>00065     <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[0].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#ae16b88d5b7e6e55e1b0d2d5b5fcc1490" title="魔法効果持続中コスト">_keep_cost</a> = 0;
+<a name="l00066"></a>00066     <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[0].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a4d9f09bab1e103fc3df0df6ce9999b35" title="魔法効果持続時間">_time_of_effect</a> = 0;
+<a name="l00067"></a>00067     <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[0].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#ae16b88d5b7e6e55e1b0d2d5b5fcc1490" title="魔法効果持続中コスト">_keep_cost</a> = 0;
+<a name="l00068"></a>00068     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt;= <a class="code" href="classMyStg2nd_1_1Magic.html#a6ec184657200e5614a273538f71b41e7" title="最高レベル">_max_level</a>; i++) {
+<a name="l00069"></a>00069         <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[i].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a17d7e5ffd8a902a3bdc63c77ba0023f5" title="該当レベルで魔法が適用中であるかどうか(発動開始〜効果終了までtrue)">_is_working</a> = <span class="keyword">false</span>;
+<a name="l00070"></a>00070         <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[i].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#aad4915d826ed291d635bb8595a6ec9bb" title="魔法効果持続終了残り時間">_remaining_time_of_effect</a> = 0;
+<a name="l00071"></a>00071         <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[i].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a4d9f09bab1e103fc3df0df6ce9999b35" title="魔法効果持続時間">_time_of_effect</a> = <a class="code" href="classMyStg2nd_1_1Magic.html#a98a4db1a59c8dcfbfaae30f85d4f8898" title="本魔法効果持続開始 〜 魔法効果持続終了の基本単位時間">_time_of_effect_base</a> + ((i-1) * <a class="code" href="classMyStg2nd_1_1Magic.html#a98a4db1a59c8dcfbfaae30f85d4f8898" title="本魔法効果持続開始 〜 魔法効果持続終了の基本単位時間">_time_of_effect_base</a> * <a class="code" href="classMyStg2nd_1_1Magic.html#ac3d0998cdbb0ea6d0e63f1ea7849ae49">_fRate_time_of_effecting</a>);
+<a name="l00072"></a>00072         <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[i].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#ae16b88d5b7e6e55e1b0d2d5b5fcc1490" title="魔法効果持続中コスト">_keep_cost</a>      = <a class="code" href="classMyStg2nd_1_1Magic.html#a771155a9e8fcf6fa64b5320d1a567ee7" title="本魔法効果持続中コストの基本単位">_keep_cost_base</a>      + ((i-1) * <a class="code" href="classMyStg2nd_1_1Magic.html#a771155a9e8fcf6fa64b5320d1a567ee7" title="本魔法効果持続中コストの基本単位">_keep_cost_base</a> * <a class="code" href="classMyStg2nd_1_1Magic.html#a9166a2e26329b07f977279265609582f">_fRate_keep_cost</a>);
+<a name="l00073"></a>00073     }
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075 <span class="comment">//    for (int i = 1; i &lt;= _max_level; i++) {</span>
+<a name="l00076"></a>00076 <span class="comment">//        _TRACE_(getName()&lt;&lt;&quot;:_lvinfo[&quot;&lt;&lt;i&lt;&lt;&quot;]._is_working =&quot;&lt;&lt;_lvinfo[i]._is_working);</span>
+<a name="l00077"></a>00077 <span class="comment">//        _TRACE_(getName()&lt;&lt;&quot;:_lvinfo[&quot;&lt;&lt;i&lt;&lt;&quot;]._remaining_time_of_effect =&quot;&lt;&lt;_lvinfo[i]._remaining_time_of_effect);</span>
+<a name="l00078"></a>00078 <span class="comment">//        _TRACE_(getName()&lt;&lt;&quot;:_lvinfo[&quot;&lt;&lt;i&lt;&lt;&quot;]._time_of_effect =&quot;&lt;&lt;_lvinfo[i]._time_of_effect);</span>
+<a name="l00079"></a>00079 <span class="comment">//        _TRACE_(getName()&lt;&lt;&quot;:_lvinfo[&quot;&lt;&lt;i&lt;&lt;&quot;]._keep_cost =&quot;&lt;&lt;_lvinfo[i]._keep_cost);</span>
+<a name="l00080"></a>00080 <span class="comment">//    }</span>
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082     <a class="code" href="classMyStg2nd_1_1Magic.html#a780901b112c0722f588edf93fc837020">_time_of_next_state</a> = 0;
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084     <a class="code" href="classMyStg2nd_1_1Magic.html#aafe83bfdba9bc0ac559cb1a10490ee50" title="状態">_is_working</a> = <span class="keyword">false</span>;
+<a name="l00085"></a>00085     <a class="code" href="classMyStg2nd_1_1Magic.html#a0582a46d243f5cba5afecbe8679937fd">_pCaster</a> = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00086"></a>00086     <a class="code" href="classMyStg2nd_1_1Magic.html#af209a9040d0c6d83c4a8fdc0477977db">_pReceiver</a> = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00087"></a>00087     <a class="code" href="classMyStg2nd_1_1Magic.html#a0e996ea5b0c5a856ce16bcbfdb535714">_rr</a> = 0.0f;
+<a name="l00088"></a>00088     <a class="code" href="classMyStg2nd_1_1Magic.html#add77e84288d3c310411cde595f9f3af2">_velo_rr</a> = 0.0f;
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090     <a class="code" href="classGgafCore_1_1GgafElement.html#aa0e3372df185cc48d0d4e587372ea96a">useProgress</a>(<a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ead176a95c44f5d847f42c2b0a855ec0ff">MAGIC_ABANDONING</a>);
+<a name="l00091"></a>00091     <a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#ad42dd8f92822f629f8b66b32293937cf" title="現在の進捗を設定する .">set</a>(<a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea00d246e5f018b9a09cff7d67c28f4ca3">MAGIC_NOTHING</a>);
+<a name="l00092"></a>00092 }
+<a name="l00093"></a>00093 
+<a name="l00094"></a><a class="code" href="classMyStg2nd_1_1Magic.html#ae9cb554c8627154a4a0d3aa111035416">00094</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1Magic.html#ae9cb554c8627154a4a0d3aa111035416" title="ノード初期処理(単体) .">Magic::initialize</a>()  {
+<a name="l00095"></a>00095     <a class="code" href="classMyStg2nd_1_1Magic.html#ad5f118c4e813b5a3fe211406dfa3de0c" title="マジックポイント数量バー">_pMP</a> = &amp;(P_MYSHIP_SCENE-&gt;_pEnagyBar-&gt;_amount); <span class="comment">//MPに当たるAmountGraph</span>
+<a name="l00096"></a>00096 }
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098 
+<a name="l00099"></a><a class="code" href="classMyStg2nd_1_1Magic.html#a2a977cb5945634a145db2c5208b554b7">00099</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1Magic.html#a2a977cb5945634a145db2c5208b554b7">Magic::rollOpen</a>() {
+<a name="l00100"></a>00100     <a class="code" href="classMyStg2nd_1_1Magic.html#add77e84288d3c310411cde595f9f3af2">_velo_rr</a> = 0.1;
+<a name="l00101"></a>00101 }
+<a name="l00102"></a><a class="code" href="classMyStg2nd_1_1Magic.html#a72285397933aecefaa12eddf1d98dec2">00102</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1Magic.html#a72285397933aecefaa12eddf1d98dec2">Magic::rollClose</a>() {
+<a name="l00103"></a>00103     <a class="code" href="classMyStg2nd_1_1Magic.html#add77e84288d3c310411cde595f9f3af2">_velo_rr</a> = -0.02;
+<a name="l00104"></a>00104 }
+<a name="l00105"></a>00105 
+<a name="l00106"></a><a class="code" href="classMyStg2nd_1_1Magic.html#a838dc293d36a40daae90746e1b055efa">00106</a> <span class="keywordtype">int</span> <a class="code" href="classMyStg2nd_1_1Magic.html#a838dc293d36a40daae90746e1b055efa" title="そのレベルの魔法が実行できるか調べる">Magic::chkExecuteAble</a>(<span class="keywordtype">int</span> prm_new_level) {
+<a name="l00107"></a>00107     <span class="keywordflow">if</span> (<a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a48e7cb388cee9746025ab1897609ccaf" title="現在の進捗番号取得 .">get</a>() == <a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea85f0c8e26fe4c766870be80035032b60">MAGIC_INVOKING</a>) {
+<a name="l00108"></a>00108         <span class="comment">//発動中のため実行不可</span>
+<a name="l00109"></a>00109         <span class="keywordflow">return</span> <a class="code" href="Magic_8h.html#abc60772eda1a1b99012df501d89bfa7b">MAGIC_EXECUTE_NG_INVOKING</a>;
+<a name="l00110"></a>00110     } <span class="keywordflow">else</span> {
+<a name="l00111"></a>00111         <span class="keywordflow">if</span> (<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a> &gt; prm_new_level) {
+<a name="l00112"></a>00112             <span class="keywordflow">return</span> <a class="code" href="Magic_8h.html#a9d210d19997dd424dda07ca91ea87875">MAGIC_EXECUTE_OK_LEVELDOWN</a>;
+<a name="l00113"></a>00113         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a> &lt; prm_new_level) {
+<a name="l00114"></a>00114             <span class="keywordflow">if</span> (<a class="code" href="classMyStg2nd_1_1Magic.html#a6eb9805a9c59f568f956bf28cc6fbd84" title="飛びレベル差別魔法コスト情報 0差〜MMETER_MAX_LEVEL差">_interest_cost</a>[prm_new_level-<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>] &lt; <a class="code" href="classMyStg2nd_1_1Magic.html#ad5f118c4e813b5a3fe211406dfa3de0c" title="マジックポイント数量バー">_pMP</a>-&gt;get()) {
+<a name="l00115"></a>00115                 <span class="keywordflow">return</span> <a class="code" href="Magic_8h.html#aba32200aee64f9b8d097f49593184bde">MAGIC_EXECUTE_OK_LEVELUP</a>;
+<a name="l00116"></a>00116             } <span class="keywordflow">else</span> {
+<a name="l00117"></a>00117                 <span class="keywordflow">return</span> <a class="code" href="Magic_8h.html#a89286e7164b4bbeafdd2e5f9aa15e090">MAGIC_EXECUTE_NG_MP_IS_SHORT</a>;
+<a name="l00118"></a>00118             }
+<a name="l00119"></a>00119         } <span class="keywordflow">else</span> {
+<a name="l00120"></a>00120             <span class="keywordflow">return</span> <a class="code" href="Magic_8h.html#a0b7ef32d1d67510cb9fc758726270103">MAGIC_EXECUTE_THE_SAME_LEVEL</a>;
+<a name="l00121"></a>00121         }
+<a name="l00122"></a>00122     }
+<a name="l00123"></a>00123 }
+<a name="l00124"></a><a class="code" href="classMyStg2nd_1_1Magic.html#a9318871c516c784acc4dabd192932e10">00124</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1Magic.html#a9318871c516c784acc4dabd192932e10" title="実行 .">Magic::execute</a>(<span class="keywordtype">int</span> prm_new_level) {
+<a name="l00125"></a>00125     <span class="keywordtype">int</span> r = <a class="code" href="classMyStg2nd_1_1Magic.html#a838dc293d36a40daae90746e1b055efa" title="そのレベルの魔法が実行できるか調べる">chkExecuteAble</a>(prm_new_level);
+<a name="l00126"></a>00126     <span class="keywordflow">if</span> (r &gt; 0) {
+<a name="l00127"></a>00127         <a class="code" href="classMyStg2nd_1_1Magic.html#a2cb84df0ff0eb614e76e518d0b1e2f84" title="新しいレベル">_new_level</a> = prm_new_level;
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129         <a class="code" href="classMyStg2nd_1_1Magic.html#aafe83bfdba9bc0ac559cb1a10490ee50" title="状態">_is_working</a> = <span class="keyword">true</span>;
+<a name="l00130"></a>00130         <span class="keywordflow">if</span> (r == <a class="code" href="Magic_8h.html#aba32200aee64f9b8d097f49593184bde">MAGIC_EXECUTE_OK_LEVELUP</a>) {
+<a name="l00131"></a>00131             <span class="comment">//レベルアップ</span>
+<a name="l00132"></a>00132             <a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a512e92d247b98207fc73274a49254062" title="進捗番号を変更 .">change</a>(<a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea18f07a19664e2a0574b0884d5a8d8fef">MAGIC_STAND_BY</a>);
+<a name="l00133"></a>00133         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (r == <a class="code" href="Magic_8h.html#a9d210d19997dd424dda07ca91ea87875">MAGIC_EXECUTE_OK_LEVELDOWN</a>) {
+<a name="l00134"></a>00134             <span class="comment">//レベルダウン</span>
+<a name="l00135"></a>00135             <span class="comment">//TODO:MP増加</span>
+<a name="l00136"></a>00136             <span class="comment">//現在を停止し</span>
+<a name="l00137"></a>00137             <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a17d7e5ffd8a902a3bdc63c77ba0023f5" title="該当レベルで魔法が適用中であるかどうか(発動開始〜効果終了までtrue)">_is_working</a> = <span class="keyword">false</span>;
+<a name="l00138"></a>00138             <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#aad4915d826ed291d635bb8595a6ec9bb" title="魔法効果持続終了残り時間">_remaining_time_of_effect</a> = 0;
+<a name="l00139"></a>00139             <span class="comment">//飛び越し</span>
+<a name="l00140"></a>00140             <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = <a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>-1; i &gt;= prm_new_level+1; i--) {
+<a name="l00141"></a>00141                 <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[i].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a17d7e5ffd8a902a3bdc63c77ba0023f5" title="該当レベルで魔法が適用中であるかどうか(発動開始〜効果終了までtrue)">_is_working</a> = <span class="keyword">false</span>; <span class="comment">//停止し</span>
+<a name="l00142"></a>00142                 <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[i].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#aad4915d826ed291d635bb8595a6ec9bb" title="魔法効果持続終了残り時間">_remaining_time_of_effect</a> = 0;
+<a name="l00143"></a>00143             }
+<a name="l00144"></a>00144             <span class="comment">//新しい低いレベルを設定</span>
+<a name="l00145"></a>00145             <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[prm_new_level].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a17d7e5ffd8a902a3bdc63c77ba0023f5" title="該当レベルで魔法が適用中であるかどうか(発動開始〜効果終了までtrue)">_is_working</a> = <span class="keyword">true</span>;
+<a name="l00146"></a>00146             <a class="code" href="classMyStg2nd_1_1Magic.html#ac29e002bddfced11d2e8a740c1f5b8d9" title="魔法破棄コールバック .">processOnLevelDown</a>(<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>, prm_new_level); <span class="comment">//下位の処理実行</span>
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148             <a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a512e92d247b98207fc73274a49254062" title="進捗番号を変更 .">change</a>(<a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9eae350d76c4854265f873f8a9cacd49edf">MAGIC_EFFECTING</a>);
+<a name="l00149"></a>00149         }
+<a name="l00150"></a>00150     }
+<a name="l00151"></a>00151 }
+<a name="l00152"></a>00152 
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154 
+<a name="l00155"></a><a class="code" href="classMyStg2nd_1_1Magic.html#a49d777b5021ed352e21eba3e5dec7eab">00155</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1Magic.html#a49d777b5021ed352e21eba3e5dec7eab" title="魔法を完了する .">Magic::cancel</a>() {
+<a name="l00156"></a>00156     <a class="code" href="classMyStg2nd_1_1Magic.html#a2cb84df0ff0eb614e76e518d0b1e2f84" title="新しいレベル">_new_level</a> = <a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>;
+<a name="l00157"></a>00157     <a class="code" href="classMyStg2nd_1_1Magic.html#aafe83bfdba9bc0ac559cb1a10490ee50" title="状態">_is_working</a> = <span class="keyword">false</span>;
+<a name="l00158"></a>00158     <a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a512e92d247b98207fc73274a49254062" title="進捗番号を変更 .">change</a>(<a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea00d246e5f018b9a09cff7d67c28f4ca3">MAGIC_NOTHING</a>);
+<a name="l00159"></a>00159 }
+<a name="l00160"></a>00160 
+<a name="l00161"></a>00161 <span class="comment">//void Magic::commit() {</span>
+<a name="l00162"></a>00162 <span class="comment">//    if (_is_working) {</span>
+<a name="l00163"></a>00163 <span class="comment">//        _level = _new_level;</span>
+<a name="l00164"></a>00164 <span class="comment">//        _is_working = false;</span>
+<a name="l00165"></a>00165 <span class="comment">//        _lvinfo[_level]._is_working = true;</span>
+<a name="l00167"></a>00167 <span class="comment"></span><span class="comment">//        _pProg-&gt;change(MAGIC_NOTHING);</span>
+<a name="l00168"></a>00168 <span class="comment">//    }</span>
+<a name="l00169"></a>00169 <span class="comment">//}</span>
+<a name="l00170"></a>00170 
+<a name="l00171"></a>00171 
+<a name="l00172"></a>00172 
+<a name="l00173"></a><a class="code" href="classMyStg2nd_1_1Magic.html#a5adbc3743d59d56159fecbd6e19f55d7">00173</a> <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1Magic.html#a5adbc3743d59d56159fecbd6e19f55d7" title="フレーム毎の個別振る舞い処理を実装。(ユーザー実装用、単体) .">Magic::processBehavior</a>() {
+<a name="l00174"></a>00174     <a class="code" href="classMyStg2nd_1_1Magic.html#a0e996ea5b0c5a856ce16bcbfdb535714">_rr</a> += <a class="code" href="classMyStg2nd_1_1Magic.html#add77e84288d3c310411cde595f9f3af2">_velo_rr</a>;
+<a name="l00175"></a>00175     <span class="keywordflow">if</span> (<a class="code" href="classMyStg2nd_1_1Magic.html#a0e996ea5b0c5a856ce16bcbfdb535714">_rr</a> &lt; 0.0f) {
+<a name="l00176"></a>00176         <a class="code" href="classMyStg2nd_1_1Magic.html#a0e996ea5b0c5a856ce16bcbfdb535714">_rr</a> = 0.0f;
+<a name="l00177"></a>00177         <a class="code" href="classMyStg2nd_1_1Magic.html#add77e84288d3c310411cde595f9f3af2">_velo_rr</a> = 0.0f;
+<a name="l00178"></a>00178     }
+<a name="l00179"></a>00179     <span class="keywordflow">if</span> (<a class="code" href="classMyStg2nd_1_1Magic.html#a0e996ea5b0c5a856ce16bcbfdb535714">_rr</a> &gt; 1.0f) {
+<a name="l00180"></a>00180         <a class="code" href="classMyStg2nd_1_1Magic.html#a0e996ea5b0c5a856ce16bcbfdb535714">_rr</a> = 1.0f;
+<a name="l00181"></a>00181         <a class="code" href="classMyStg2nd_1_1Magic.html#add77e84288d3c310411cde595f9f3af2">_velo_rr</a> = 0.0f;
+<a name="l00182"></a>00182     }
+<a name="l00184"></a>00184 <span class="comment">//        if (_lvinfo[_level]._is_working) {</span>
+<a name="l00185"></a>00185 <span class="comment">//            _lvinfo[_level]._remaining_time_of_effect --;</span>
+<a name="l00187"></a>00187 <span class="comment"></span><span class="comment">//            if (_lvinfo[_level]._remaining_time_of_effect &lt;= 0) {</span>
+<a name="l00188"></a>00188 <span class="comment">//                abandon(_level);</span>
+<a name="l00189"></a>00189 <span class="comment">//            }</span>
+<a name="l00190"></a>00190 <span class="comment">//        }</span>
+<a name="l00192"></a>00192 <span class="comment"></span>    <span class="keywordflow">if</span> (<a class="code" href="classMyStg2nd_1_1Magic.html#aafe83bfdba9bc0ac559cb1a10490ee50" title="状態">_is_working</a>) {
+<a name="l00193"></a>00193 
+<a name="l00194"></a>00194         <span class="keywordflow">switch</span> (<a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a48e7cb388cee9746025ab1897609ccaf" title="現在の進捗番号取得 .">get</a>()) {
+<a name="l00196"></a>00196             <span class="keywordflow">case</span> <a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea18f07a19664e2a0574b0884d5a8d8fef">MAGIC_STAND_BY</a>:
+<a name="l00197"></a>00197                 <a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a512e92d247b98207fc73274a49254062" title="進捗番号を変更 .">change</a>(<a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea16bcb21bbac4d4abd84c082b01b4c2f1">MAGIC_CASTING</a>);
+<a name="l00198"></a>00198                 <span class="keywordflow">break</span>;
+<a name="l00199"></a>00199 
+<a name="l00201"></a>00201             <span class="keywordflow">case</span> <a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea16bcb21bbac4d4abd84c082b01b4c2f1">MAGIC_CASTING</a>:
+<a name="l00202"></a>00202                 <span class="keywordflow">if</span> (<a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a4809ea10aa163537e7b9bfd168fbb125" title="進捗番号が切り替わった直後なのかどうかを判定。 .">isJustChanged</a>()) {
+<a name="l00203"></a>00203                     <span class="comment">//詠唱開始、詠唱終了時間を計算</span>
+<a name="l00204"></a>00204                     <a class="code" href="classMyStg2nd_1_1Magic.html#a780901b112c0722f588edf93fc837020">_time_of_next_state</a> = <a class="code" href="classMyStg2nd_1_1Magic.html#abdf0944beadc93a79f83c3eafc84ec9f" title="飛びレベル差別詠唱時間情報 0差〜MMETER_MAX_LEVEL差">_interest_time_of_casting</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#a2cb84df0ff0eb614e76e518d0b1e2f84" title="新しいレベル">_new_level</a>- <a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>];
+<a name="l00205"></a>00205                     <a class="code" href="classMyStg2nd_1_1Magic.html#ace6cf908ad7c8c844d7298f51c109401" title="詠唱開始コールバック(１回だけコールバック) .">processCastBegin</a>(<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>, <a class="code" href="classMyStg2nd_1_1Magic.html#a2cb84df0ff0eb614e76e518d0b1e2f84" title="新しいレベル">_new_level</a>);
+<a name="l00206"></a>00206                 }
+<a name="l00207"></a>00207                 <span class="comment">//詠唱中</span>
+<a name="l00208"></a>00208                 <a class="code" href="classMyStg2nd_1_1Magic.html#ae12b70fc40f80a0703fdd74611f67172" title="詠唱中コールバック .">processCastingBehavior</a>(<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>, <a class="code" href="classMyStg2nd_1_1Magic.html#a2cb84df0ff0eb614e76e518d0b1e2f84" title="新しいレベル">_new_level</a>);
+<a name="l00209"></a>00209 
+<a name="l00210"></a>00210                 <span class="keywordflow">if</span> (<a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a3e2ace21abfda5c8aafd80f4e6f7f2c9" title="現在の進捗番号内で何フレームなのかを取得(1〜) .">getFrameInProgress</a>() &gt;= <a class="code" href="classMyStg2nd_1_1Magic.html#a780901b112c0722f588edf93fc837020">_time_of_next_state</a>) {
+<a name="l00211"></a>00211                     <span class="comment">//詠唱終了</span>
+<a name="l00212"></a>00212                     <a class="code" href="classMyStg2nd_1_1Magic.html#aa0fbbd20c6cfe7984038bfa4f09f3829" title="詠唱終了コールバック .">processCastFinish</a>(<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>, <a class="code" href="classMyStg2nd_1_1Magic.html#a2cb84df0ff0eb614e76e518d0b1e2f84" title="新しいレベル">_new_level</a>);
+<a name="l00213"></a>00213                     <a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a512e92d247b98207fc73274a49254062" title="進捗番号を変更 .">change</a>(<a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea85f0c8e26fe4c766870be80035032b60">MAGIC_INVOKING</a>);
+<a name="l00214"></a>00214                 }
+<a name="l00215"></a>00215                 <span class="keywordflow">break</span>;
+<a name="l00216"></a>00216 
+<a name="l00218"></a>00218             <span class="keywordflow">case</span> <a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea85f0c8e26fe4c766870be80035032b60">MAGIC_INVOKING</a>:
+<a name="l00219"></a>00219                 <span class="keywordflow">if</span> (<a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a4809ea10aa163537e7b9bfd168fbb125" title="進捗番号が切り替わった直後なのかどうかを判定。 .">isJustChanged</a>()) {
+<a name="l00220"></a>00220                     <span class="comment">//発動開始、</span>
+<a name="l00221"></a>00221                     <span class="comment">//発動終了時間設定</span>
+<a name="l00222"></a>00222                     <a class="code" href="classMyStg2nd_1_1Magic.html#a780901b112c0722f588edf93fc837020">_time_of_next_state</a> = <a class="code" href="classMyStg2nd_1_1Magic.html#a8ea3473226bce3a455e04bba96c12283" title="飛びレベル差別発動時間情報 0差〜MMETER_MAX_LEVEL差">_interest_time_of_invoking</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#a2cb84df0ff0eb614e76e518d0b1e2f84" title="新しいレベル">_new_level</a>- <a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>];
+<a name="l00223"></a>00223 
+<a name="l00224"></a>00224                     <a class="code" href="classMyStg2nd_1_1Magic.html#a06e87b74ef3bc911a35dd8ec986c5d3d" title="魔法発動開始コールバック。ここまでくると詠唱キャンセルは不可とする。(１回だけコールバック) .">processInvokeBegin</a>(<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>, <a class="code" href="classMyStg2nd_1_1Magic.html#a2cb84df0ff0eb614e76e518d0b1e2f84" title="新しいレベル">_new_level</a>);
+<a name="l00225"></a>00225                 }
+<a name="l00226"></a>00226                 <span class="comment">//発動中</span>
+<a name="l00227"></a>00227                 <a class="code" href="classMyStg2nd_1_1Magic.html#a3ed5a1caf903cd47bdedf6b152dd3f26" title="魔法発動中コールバック .">processInvokeingBehavior</a>(<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>, <a class="code" href="classMyStg2nd_1_1Magic.html#a2cb84df0ff0eb614e76e518d0b1e2f84" title="新しいレベル">_new_level</a>);
+<a name="l00228"></a>00228 
+<a name="l00229"></a>00229                 <span class="keywordflow">if</span> (<a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a3e2ace21abfda5c8aafd80f4e6f7f2c9" title="現在の進捗番号内で何フレームなのかを取得(1〜) .">getFrameInProgress</a>() &gt;= <a class="code" href="classMyStg2nd_1_1Magic.html#a780901b112c0722f588edf93fc837020">_time_of_next_state</a>) {
+<a name="l00230"></a>00230                     <span class="comment">//発動終了</span>
+<a name="l00231"></a>00231                     <span class="comment">//レベル変更適用</span>
+<a name="l00232"></a>00232                     <a class="code" href="classMyStg2nd_1_1Magic.html#ab7b34ee2a65ca581d4e9a1620d213751" title="前回のレベル">_last_level</a> = <a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>;
+<a name="l00233"></a>00233                     <a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a> = <a class="code" href="classMyStg2nd_1_1Magic.html#a2cb84df0ff0eb614e76e518d0b1e2f84" title="新しいレベル">_new_level</a>;
+<a name="l00234"></a>00234 
+<a name="l00235"></a>00235                     <span class="comment">//以前を停止し</span>
+<a name="l00236"></a>00236                     <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#ab7b34ee2a65ca581d4e9a1620d213751" title="前回のレベル">_last_level</a>].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a17d7e5ffd8a902a3bdc63c77ba0023f5" title="該当レベルで魔法が適用中であるかどうか(発動開始〜効果終了までtrue)">_is_working</a> = <span class="keyword">false</span>;
+<a name="l00237"></a>00237                     <span class="comment">//飛び越しは持続時間を満タンを設定</span>
+<a name="l00238"></a>00238                     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = <a class="code" href="classMyStg2nd_1_1Magic.html#ab7b34ee2a65ca581d4e9a1620d213751" title="前回のレベル">_last_level</a>+1; i &lt;= <a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>-1; i++) {
+<a name="l00239"></a>00239                         <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[i].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a17d7e5ffd8a902a3bdc63c77ba0023f5" title="該当レベルで魔法が適用中であるかどうか(発動開始〜効果終了までtrue)">_is_working</a> = <span class="keyword">false</span>; <span class="comment">//停止し</span>
+<a name="l00240"></a>00240                         <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[i].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#aad4915d826ed291d635bb8595a6ec9bb" title="魔法効果持続終了残り時間">_remaining_time_of_effect</a> = <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[i].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a4d9f09bab1e103fc3df0df6ce9999b35" title="魔法効果持続時間">_time_of_effect</a>; <span class="comment">//持続時間を満タン</span>
+<a name="l00241"></a>00241                     }
+<a name="l00242"></a>00242                     <span class="comment">//今回レベルを設定</span>
+<a name="l00243"></a>00243                     <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a17d7e5ffd8a902a3bdc63c77ba0023f5" title="該当レベルで魔法が適用中であるかどうか(発動開始〜効果終了までtrue)">_is_working</a> = <span class="keyword">true</span>;
+<a name="l00244"></a>00244                     <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#aad4915d826ed291d635bb8595a6ec9bb" title="魔法効果持続終了残り時間">_remaining_time_of_effect</a> = <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a4d9f09bab1e103fc3df0df6ce9999b35" title="魔法効果持続時間">_time_of_effect</a>; <span class="comment">//持続時間を満タン</span>
+<a name="l00245"></a>00245                     <a class="code" href="classMyStg2nd_1_1Magic.html#ad5f118c4e813b5a3fe211406dfa3de0c" title="マジックポイント数量バー">_pMP</a>-&gt;dec(<a class="code" href="classMyStg2nd_1_1Magic.html#a6eb9805a9c59f568f956bf28cc6fbd84" title="飛びレベル差別魔法コスト情報 0差〜MMETER_MAX_LEVEL差">_interest_cost</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#a2cb84df0ff0eb614e76e518d0b1e2f84" title="新しいレベル">_new_level</a>-<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>]); <span class="comment">//MP消費</span>
+<a name="l00246"></a>00246 
+<a name="l00247"></a>00247                     <a class="code" href="classMyStg2nd_1_1Magic.html#ac976a45b4f91ee16c3dd7e23c2c98582">processInvokeFinish</a>(<a class="code" href="classMyStg2nd_1_1Magic.html#ab7b34ee2a65ca581d4e9a1620d213751" title="前回のレベル">_last_level</a>, <a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>);
+<a name="l00248"></a>00248                     <a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a512e92d247b98207fc73274a49254062" title="進捗番号を変更 .">change</a>(<a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9eae350d76c4854265f873f8a9cacd49edf">MAGIC_EFFECTING</a>);
+<a name="l00249"></a>00249                 }
+<a name="l00250"></a>00250                 <span class="keywordflow">break</span>;
+<a name="l00251"></a>00251 
+<a name="l00253"></a>00253             <span class="keywordflow">case</span> <a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9eae350d76c4854265f873f8a9cacd49edf">MAGIC_EFFECTING</a>:
+<a name="l00254"></a>00254                 <span class="keywordflow">if</span> (<a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a4809ea10aa163537e7b9bfd168fbb125" title="進捗番号が切り替わった直後なのかどうかを判定。 .">isJustChanged</a>()) {
+<a name="l00255"></a>00255                     <span class="comment">//持続開始</span>
+<a name="l00256"></a>00256                     <a class="code" href="classMyStg2nd_1_1Magic.html#aa499b088b965958f3ab270ae7d3f6c35" title="魔法持続開始コールバック(１回だけコールバック) .">processEffectBegin</a>(<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>);
+<a name="l00257"></a>00257                 }
+<a name="l00258"></a>00258                 <span class="comment">//持続中</span>
+<a name="l00259"></a>00259 <span class="comment">//                _TRACE_(&quot;_lvinfo[&quot;&lt;&lt;_level&lt;&lt;&quot;]._remaining_time_of_effect=&quot;&lt;&lt;_lvinfo[_level]._remaining_time_of_effect);</span>
+<a name="l00260"></a>00260                 <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#aad4915d826ed291d635bb8595a6ec9bb" title="魔法効果持続終了残り時間">_remaining_time_of_effect</a> --;     <span class="comment">//効果持続残り時間</span>
+<a name="l00261"></a>00261                 <a class="code" href="classMyStg2nd_1_1Magic.html#ad5f118c4e813b5a3fe211406dfa3de0c" title="マジックポイント数量バー">_pMP</a>-&gt;inc(-1*<a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>]._keep_cost); <span class="comment">//維持コスト</span>
+<a name="l00262"></a>00262                 <a class="code" href="classMyStg2nd_1_1Magic.html#aa2b2479b2253ae4f5543895c3e97ff51" title="魔法持続中コールバック .">processEffectingBehavior</a>(<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>);
+<a name="l00263"></a>00263 
+<a name="l00264"></a>00264                 <span class="keywordflow">if</span> (<a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>]._remaining_time_of_effect &lt;= 0) { <span class="comment">// || _pEnagyBar-&gt;_value &lt;= 0.0) {</span>
+<a name="l00265"></a>00265                     <a class="code" href="classMyStg2nd_1_1Magic.html#a0435dbe7c5d74ae79375b87283beba2b">processEffectFinish</a>(<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>);
+<a name="l00266"></a>00266                     <a class="code" href="classMyStg2nd_1_1Magic.html#a16f4d2e3955c4ec66f79cf5db49cf3b5" title="各レベルの情報 0〜MMETER_MAX_LEVEL">_lvinfo</a>[<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>].<a class="code" href="classMyStg2nd_1_1Magic_1_1LevelInfo.html#a17d7e5ffd8a902a3bdc63c77ba0023f5" title="該当レベルで魔法が適用中であるかどうか(発動開始〜効果終了までtrue)">_is_working</a> = <span class="keyword">false</span>;
+<a name="l00267"></a>00267                     <span class="keywordflow">if</span> (<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a> &gt; 0) {
+<a name="l00268"></a>00268                         <a class="code" href="classMyStg2nd_1_1Magic.html#a9318871c516c784acc4dabd192932e10" title="実行 .">execute</a>(<a class="code" href="classMyStg2nd_1_1Magic.html#a0e1020aeb09ba98b7361f73d2c8dfee8" title="現在のレベル">_level</a>-1);
+<a name="l00269"></a>00269                     } <span class="keywordflow">else</span> {
+<a name="l00270"></a>00270                         <a class="code" href="classGgafCore_1_1GgafElement.html#ac41e3644a41a8c9923591d6e500bb73b">_pProg</a>-&gt;<a class="code" href="classGgafCore_1_1GgafProgress.html#a512e92d247b98207fc73274a49254062" title="進捗番号を変更 .">change</a>(<a class="code" href="Magic_8cpp.html#a61dadd085c1777f559549e05962b2c9ea00d246e5f018b9a09cff7d67c28f4ca3">MAGIC_NOTHING</a>);
+<a name="l00271"></a>00271                     }
+<a name="l00272"></a>00272                 }
+<a name="l00273"></a>00273                 <span class="keywordflow">break</span>;
+<a name="l00274"></a>00274 
+<a name="l00275"></a>00275             <span class="keywordflow">default</span> :
+<a name="l00276"></a>00276                 <span class="keywordflow">break</span>;
+<a name="l00277"></a>00277         }
+<a name="l00278"></a>00278     }
+<a name="l00279"></a>00279 
+<a name="l00280"></a>00280 }
+<a name="l00281"></a><a class="code" href="classMyStg2nd_1_1Magic.html#a9ddffd1706c85d126bb4b2199f957cca">00281</a> <a class="code" href="classMyStg2nd_1_1Magic.html#a9ddffd1706c85d126bb4b2199f957cca">Magic::~Magic</a>() {
+<a name="l00282"></a>00282 }
+</pre></div></div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="Magic_8cpp.html">Magic.cpp</a>      </li>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>データ構造</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>ネームスペース</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙型の値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+    <li class="footer">MyStg2ndに対してSat Oct 15 2011 13:58:43に生成されました。
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
+   </ul>
+ </div>
+
+
+</body>
+</html>

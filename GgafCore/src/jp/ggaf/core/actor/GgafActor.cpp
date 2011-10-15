@@ -19,6 +19,7 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
     _can_hit_flg = false;
     _can_hit_out_of_view = false;
     _pDependenceDepository = NULL;
+    _pFormation = NULL;
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
 }
 
@@ -86,6 +87,7 @@ void GgafActor::sayonara(frame prm_offset_frames) {
     } else {
         end(prm_offset_frames);
     }
+    _pFormation = NULL;
     GgafActor* pActor;
     if (_pSubFirst) {
         pActor = _pSubFirst;
@@ -98,6 +100,24 @@ void GgafActor::sayonara(frame prm_offset_frames) {
             }
         }
     }
+}
+
+GgafActor* GgafActor::extract() {
+    GgafActor* pActor = GgafElement<GgafActor>::extract();
+    pActor->setPlatformScene(NULL); //所属シーンリセット
+    return pActor;
+}
+
+void GgafActor::notifyFormationAboutDestroyed() {
+#ifdef MY_DEBUG
+    if (_pFormation) {
+        //OK
+    } else {
+        throwGgafCriticalException("GgafDxGeometricActor::informDestroyedFollower() _pFormation が NULLです。"<<
+                                   "対応する FormationActor による addSubLast() 或いは callUp() により、IFormationAbleアクターが設定されていません。this="<<this);
+    }
+#endif
+    _pFormation->destroyedFollower(this);
 }
 
 void GgafActor::dump() {

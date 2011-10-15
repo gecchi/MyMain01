@@ -1,0 +1,1085 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>MyStg2nd: GgafCommonHeader.h</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MyStg2nd
+   &#160;<span id="projectnumber">0.0.3526</span>
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- 作成： Doxygen 1.7.5.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="dynsections.js"></script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>メインページ</span></a></li>
+      <li><a href="namespaces.html"><span>ネームスペース</span></a></li>
+      <li><a href="annotated.html"><span>データ構造</span></a></li>
+      <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+      <li><a href="dirs.html"><span>ディレクトリ</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="globals.html"><span>グローバル</span></a></li>
+    </ul>
+  </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('GgafCommonHeader_8h.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">ネームスペース</a> &#124;
+<a href="#define-members">マクロ定義</a> &#124;
+<a href="#typedef-members">型定義</a>  </div>
+  <div class="headertitle">
+<div class="title">GgafCommonHeader.h</div>  </div>
+</div>
+<div class="contents">
+<div class="textblock"><code>#include &lt;windows.h&gt;</code><br/>
+<code>#include &lt;stdio.h&gt;</code><br/>
+<code>#include &lt;stdlib.h&gt;</code><br/>
+<code>#include &lt;malloc.h&gt;</code><br/>
+<code>#include &lt;memory.h&gt;</code><br/>
+<code>#include &lt;tchar.h&gt;</code><br/>
+<code>#include &lt;mmsystem.h&gt;</code><br/>
+<code>#include &lt;process.h&gt;</code><br/>
+<code>#include &lt;conio.h&gt;</code><br/>
+<code>#include &lt;math.h&gt;</code><br/>
+<code>#include &lt;limits.h&gt;</code><br/>
+<code>#include &lt;sys/stat.h&gt;</code><br/>
+<code>#include &lt;iostream&gt;</code><br/>
+<code>#include &lt;fstream&gt;</code><br/>
+<code>#include &lt;typeinfo&gt;</code><br/>
+<code>#include &lt;set&gt;</code><br/>
+<code>#include &lt;string&gt;</code><br/>
+<code>#include &lt;map&gt;</code><br/>
+<code>#include &lt;vector&gt;</code><br/>
+<code>#include &lt;list&gt;</code><br/>
+<code>#include &lt;stack&gt;</code><br/>
+<code>#include &lt;sstream&gt;</code><br/>
+<code>#include &lt;cstddef&gt;</code><br/>
+<code>#include &quot;sal.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="CmRandomNumberGenerator_8h_source.html">jp/ggaf/core/util/CmRandomNumberGenerator.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafUtil_8h_source.html">jp/ggaf/core/util/GgafUtil.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafRepeatSeq_8h_source.html">jp/ggaf/core/util/GgafRepeatSeq.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafObject_8h_source.html">jp/ggaf/core/GgafObject.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafException_8h_source.html">jp/ggaf/core/exception/GgafException.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafCriticalException_8h_source.html">jp/ggaf/core/exception/GgafCriticalException.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafStatus_8h_source.html">jp/ggaf/core/util/GgafStatus.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafLogger_8h_source.html">jp/ggaf/core/util/GgafLogger.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafRgb_8h_source.html">jp/ggaf/core/util/GgafRgb.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafProperties_8h_source.html">jp/ggaf/core/GgafProperties.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafGod_8h_source.html">jp/ggaf/core/GgafGod.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafResourceConnection_8hpp_source.html">jp/ggaf/core/GgafResourceConnection.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafResourceManager_8hpp_source.html">jp/ggaf/core/GgafResourceManager.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafFactory_8h_source.html">jp/ggaf/core/GgafFactory.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafGarbageBox_8h_source.html">jp/ggaf/core/GgafGarbageBox.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafProgress_8h_source.html">jp/ggaf/core/GgafProgress.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafNode_8hpp_source.html">jp/ggaf/core/GgafNode.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafElement_8hpp_source.html">jp/ggaf/core/GgafElement.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafLinkedListRing_8hpp_source.html">jp/ggaf/core/GgafLinkedListRing.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafScene_8h_source.html">jp/ggaf/core/scene/GgafScene.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafDisusedScene_8h_source.html">jp/ggaf/core/scene/GgafDisusedScene.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafMainScene_8h_source.html">jp/ggaf/core/scene/GgafMainScene.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafActor_8h_source.html">jp/ggaf/core/actor/GgafActor.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafDisusedActor_8h_source.html">jp/ggaf/core/actor/GgafDisusedActor.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafMainActor_8h_source.html">jp/ggaf/core/actor/GgafMainActor.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafDummyActor_8h_source.html">jp/ggaf/core/actor/GgafDummyActor.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafUniverse_8h_source.html">jp/ggaf/core/scene/GgafUniverse.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafDirector_8h_source.html">jp/ggaf/core/actor/GgafDirector.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafGroupHead_8h_source.html">jp/ggaf/core/actor/GgafGroupHead.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafFormation_8h_source.html">jp/ggaf/core/actor/ex/GgafFormation.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafTreeFormation_8h_source.html">jp/ggaf/core/actor/ex/GgafTreeFormation.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafDepositoryFormation_8h_source.html">jp/ggaf/core/actor/ex/GgafDepositoryFormation.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafActorDepository_8h_source.html">jp/ggaf/core/actor/ex/GgafActorDepository.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafActorDepositoryStore_8h_source.html">jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafOrder_8h_source.html">jp/ggaf/core/GgafOrder.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafLinearOctree_8h_source.html">jp/ggaf/core/util/GgafLinearOctree.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafLinearOctreeSpace_8h_source.html">jp/ggaf/core/util/GgafLinearOctreeSpace.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafLinearOctreeElem_8h_source.html">jp/ggaf/core/util/GgafLinearOctreeElem.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="GgafCurtain_8h_source.html">jp/ggaf/core/util/GgafCurtain.h</a>&quot;</code><br/>
+</div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> GgafCommonHeader.hのインクルード依存関係図</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="GgafCommonHeader_8h__incl.png" border="0" usemap="#GgafCommonHeader_8h" alt=""/></div>
+<map name="GgafCommonHeader_8h" id="GgafCommonHeader_8h">
+<area shape="rect" id="node51" href="CmRandomNumberGenerator_8h.html" title="jp/ggaf/core/util/CmRandomNumberGenerator.h" alt="" coords="2227,83,2557,112"/><area shape="rect" id="node53" href="GgafUtil_8h.html" title="jp/ggaf/core/util/GgafUtil.h" alt="" coords="2581,83,2779,112"/><area shape="rect" id="node55" href="GgafRepeatSeq_8h.html" title="jp/ggaf/core/util/GgafRepeatSeq.h" alt="" coords="2803,83,3045,112"/><area shape="rect" id="node57" href="GgafObject_8h.html" title="jp/ggaf/core/GgafObject.h" alt="" coords="3069,83,3261,112"/><area shape="rect" id="node59" href="GgafException_8h.html" title="jp/ggaf/core/exception/GgafException.h" alt="" coords="3285,83,3565,112"/><area shape="rect" id="node61" href="GgafCriticalException_8h.html" title="jp/ggaf/core/exception/GgafCriticalException.h" alt="" coords="3589,83,3912,112"/><area shape="rect" id="node63" href="GgafStatus_8h.html" title="jp/ggaf/core/util/GgafStatus.h" alt="" coords="3936,83,4155,112"/><area shape="rect" id="node65" href="GgafLogger_8h.html" title="jp/ggaf/core/util/GgafLogger.h" alt="" coords="4179,83,4400,112"/><area shape="rect" id="node67" href="GgafRgb_8h.html" title="jp/ggaf/core/util/GgafRgb.h" alt="" coords="4424,83,4627,112"/><area shape="rect" id="node69" href="GgafProperties_8h.html" title="jp/ggaf/core/GgafProperties.h" alt="" coords="4651,83,4864,112"/><area shape="rect" id="node71" href="GgafGod_8h.html" title="jp/ggaf/core/GgafGod.h" alt="" coords="4888,83,5064,112"/><area shape="rect" id="node73" href="GgafResourceConnection_8hpp.html" title="jp/ggaf/core/GgafResourceConnection.hpp" alt="" coords="5088,83,5381,112"/><area shape="rect" id="node75" href="GgafResourceManager_8hpp.html" title="jp/ggaf/core/GgafResourceManager.hpp" alt="" coords="5405,83,5680,112"/><area shape="rect" id="node77" href="GgafFactory_8h.html" title="jp/ggaf/core/GgafFactory.h" alt="" coords="5704,83,5901,112"/><area shape="rect" id="node79" href="GgafGarbageBox_8h.html" title="jp/ggaf/core/GgafGarbageBox.h" alt="" coords="5925,83,6149,112"/><area shape="rect" id="node81" href="GgafProgress_8h.html" title="jp/ggaf/core/GgafProgress.h" alt="" coords="6173,83,6379,112"/><area shape="rect" id="node83" href="GgafNode_8hpp.html" title="jp/ggaf/core/GgafNode.hpp" alt="" coords="6403,83,6600,112"/><area shape="rect" id="node85" href="GgafElement_8hpp.html" title="jp/ggaf/core/GgafElement.hpp" alt="" coords="6624,83,6840,112"/><area shape="rect" id="node87" href="GgafLinkedListRing_8hpp.html" title="jp/ggaf/core/GgafLinkedListRing.hpp" alt="" coords="6864,83,7123,112"/><area shape="rect" id="node89" href="GgafScene_8h.html" title="jp/ggaf/core/scene/GgafScene.h" alt="" coords="7147,83,7376,112"/><area shape="rect" id="node91" href="GgafDisusedScene_8h.html" title="jp/ggaf/core/scene/GgafDisusedScene.h" alt="" coords="7400,83,7680,112"/><area shape="rect" id="node93" href="GgafMainScene_8h.html" title="jp/ggaf/core/scene/GgafMainScene.h" alt="" coords="7704,83,7963,112"/><area shape="rect" id="node95" href="GgafActor_8h.html" title="jp/ggaf/core/actor/GgafActor.h" alt="" coords="7987,83,8213,112"/><area shape="rect" id="node97" href="GgafDisusedActor_8h.html" title="jp/ggaf/core/actor/GgafDisusedActor.h" alt="" coords="8237,83,8512,112"/><area shape="rect" id="node99" href="GgafMainActor_8h.html" title="jp/ggaf/core/actor/GgafMainActor.h" alt="" coords="8536,83,8789,112"/><area shape="rect" id="node101" href="GgafDummyActor_8h.html" title="jp/ggaf/core/actor/GgafDummyActor.h" alt="" coords="8813,83,9088,112"/><area shape="rect" id="node103" href="GgafUniverse_8h.html" title="jp/ggaf/core/scene/GgafUniverse.h" alt="" coords="9112,83,9357,112"/><area shape="rect" id="node105" href="GgafDirector_8h.html" title="jp/ggaf/core/actor/GgafDirector.h" alt="" coords="9381,83,9621,112"/><area shape="rect" id="node107" href="GgafGroupHead_8h.html" title="jp/ggaf/core/actor/GgafGroupHead.h" alt="" coords="9645,83,9904,112"/><area shape="rect" id="node109" href="GgafFormation_8h.html" title="jp/ggaf/core/actor/ex/GgafFormation.h" alt="" coords="9928,83,10203,112"/><area shape="rect" id="node111" href="GgafTreeFormation_8h.html" title="jp/ggaf/core/actor/ex/GgafTreeFormation.h" alt="" coords="10227,83,10528,112"/><area shape="rect" id="node113" href="GgafDepositoryFormation_8h.html" title="jp/ggaf/core/actor/ex/GgafDepositoryFormation.h" alt="" coords="10552,83,10896,112"/><area shape="rect" id="node115" href="GgafActorDepository_8h.html" title="jp/ggaf/core/actor/ex/GgafActorDepository.h" alt="" coords="10920,83,11235,112"/><area shape="rect" id="node117" href="GgafActorDepositoryStore_8h.html" title="jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h" alt="" coords="11259,83,11608,112"/><area shape="rect" id="node119" href="GgafOrder_8h.html" title="jp/ggaf/core/GgafOrder.h" alt="" coords="11632,83,11819,112"/><area shape="rect" id="node121" href="GgafLinearOctree_8h.html" title="jp/ggaf/core/util/GgafLinearOctree.h" alt="" coords="11843,83,12101,112"/><area shape="rect" id="node123" href="GgafLinearOctreeSpace_8h.html" title="jp/ggaf/core/util/GgafLinearOctreeSpace.h" alt="" coords="12125,83,12419,112"/><area shape="rect" id="node125" href="GgafLinearOctreeElem_8h.html" title="jp/ggaf/core/util/GgafLinearOctreeElem.h" alt="" coords="12443,83,12728,112"/><area shape="rect" id="node127" href="GgafCurtain_8h.html" title="jp/ggaf/core/util/GgafCurtain.h" alt="" coords="12752,83,12973,112"/></map>
+</div>
+</div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> このグラフは、どのファイルから直接、間接的にインクルードされているかを示しています。</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="GgafCommonHeader_8h__dep__incl.png" border="0" usemap="#GgafCommonHeader_8hdep" alt=""/></div>
+<map name="GgafCommonHeader_8hdep" id="GgafCommonHeader_8hdep">
+<area shape="rect" id="node3" href="GgafCore_2stdafx_8h.html" title="stdafx.h" alt="" coords="49,83,124,112"/><area shape="rect" id="node5" href="GgafCore_2stdafx_8cpp.html" title="stdafx.cpp" alt="" coords="43,160,131,189"/></map>
+</div>
+</div>
+<p><a href="GgafCommonHeader_8h_source.html">ソースコードを見る。</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="namespaces"></a>
+ネームスペース</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceGgafCore.html">GgafCore</a></td></tr>
+<tr><td colspan="2"><h2><a name="define-members"></a>
+マクロ定義</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a966cd377b9f3fdeb1432460c33352af1">WINVER</a>&#160;&#160;&#160;0x0501</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ggafライブラリヘッダー郡ヘッダー  <a href="#a966cd377b9f3fdeb1432460c33352af1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#ac50762666aa00bd3a4308158510f1748">_WIN32_WINNT</a>&#160;&#160;&#160;0x0501</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a421c2a84099be332814e021bcf72c6cf">override</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#af65265def0941b7ad090c2c6283263df">_HAS_ITERATOR_DEBUGGING</a>&#160;&#160;&#160;0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a10c802bd3157c1a302e3557a5c431779">__map__</a>&#160;&#160;&#160;map</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>&#160;&#160;&#160;((void*)0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a>&#160;&#160;&#160;new</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a638b671f4fa00cd5267c8df6c19c4477">TRACE</a>(X)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a788385421c36b18be911a24756b554db">TRACE2</a>(X)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#aef3714929bf26fce06310727767938f1">TRACE3</a>(X)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#afb5e4df88a44497c48f0042dd23d7425">TRACE4</a>(X)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#adbc2ddb6725f988f85edde1d86498f79">TRACE5</a>(X)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a482198e7d8f55173334cb3cfe118e703">TEXT5</a>(X)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a22f26e5307f94be30bda84b96fca7b8b">_TRACE_</a>(X)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a2edad686d7d455ec667b85f21b8ee038">_TEXT_</a>(X)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#aaeeddc0d7a6ad8ca12a658bfa79d6102">_TRACEORE</a>(X)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#ac5582455c17b52cfc88c7190674b8849">DELETE_POSSIBLE_NULL</a>(POINTER)&#160;&#160;&#160;{ if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">NULLかもしれない delete.  <a href="#ac5582455c17b52cfc88c7190674b8849"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#ab0947d2cbc8d2903a8d1c3a131167662">DELETEARR_POSSIBLE_NULL</a>(POINTER)&#160;&#160;&#160;{ if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">NULLかもしれない delete[].  <a href="#ab0947d2cbc8d2903a8d1c3a131167662"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a42bf34e9a7f076e0c16384807af87e5d">RELEASE_POSSIBLE_NULL</a>(POINTER)&#160;&#160;&#160;{ if(POINTER) { (POINTER)-&gt;Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">NULLかもしれない Release()  <a href="#a42bf34e9a7f076e0c16384807af87e5d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#ae5d747deb8aa2c8d2b082d12f7f49836">DELETE_IMPOSSIBLE_NULL</a>(POINTER)&#160;&#160;&#160;{ if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">NULLはありえない delete.  <a href="#ae5d747deb8aa2c8d2b082d12f7f49836"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#ac418da911740806e97d5f4b5314081ff">DELETEARR_IMPOSSIBLE_NULL</a>(POINTER)&#160;&#160;&#160;{ if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">NULLはありえない delete[].  <a href="#ac418da911740806e97d5f4b5314081ff"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a3661444126f41a41d0904a981f453592">RELEASE_IMPOSSIBLE_NULL</a>(POINTER)&#160;&#160;&#160;{ if(POINTER) { (POINTER)-&gt;Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">NULLはありえない Release()  <a href="#a3661444126f41a41d0904a981f453592"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#ab4ac4f2752f0d1f04f122d7938c88e84">RELEASE_SAFETY</a>(POINTER)&#160;&#160;&#160;{ if(POINTER) { (POINTER)-&gt;Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">自明で検査不要の何も言わないRelease()  <a href="#ab4ac4f2752f0d1f04f122d7938c88e84"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a9dc19656697a84144f067a543d5eeb2d">throwGgafCriticalException</a>(X)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a523e0b216dd4381d42d91b3ed17c288a">DECLARE_CONST</a>(X)&#160;&#160;&#160;const static UINT32 X = GgafCore::GgafUtil::easy_hash(#X)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#aaa54f7e1a36379ac652ae049c94bcca1">MAX2</a>(a, b)&#160;&#160;&#160;((a) &gt; (b) ? (a) : (b))</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a37c6d7fcb9c177c308ef38e1d51d35e3">MAX3</a>(a, b, c)&#160;&#160;&#160;( (a)&gt;(b) ? ((a)&gt;(c)?(a):(c)) : ((b)&gt;(c)?(b):(c)) )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a51b09ee5e816a4c2cafc9c6207583c67">Obj_GgafScene</a>&#160;&#160;&#160;(0x80000001)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#ad20826f4b6ff96fb2336345d34d573fd">Obj_GgafMainScene</a>&#160;&#160;&#160;(0x80000002)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#add88eb260fd73e4ab30b9601f6c17f8d">Obj_GgafDisusedScene</a>&#160;&#160;&#160;(0x80000004)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a28d18005f67eda7e52663a3171aef1e3">Obj_GgafUniverse</a>&#160;&#160;&#160;(0x80000008)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a2f46e52e3f1b9b30793318f8a832d14d">Obj_GgafActor</a>&#160;&#160;&#160;(0x1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a41979e5e36abfac415cdc004826951a9">Obj_GgafMainActor</a>&#160;&#160;&#160;(0x2)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a3890f869149c5dc83631c70257be9ff4">Obj_GgafDummyActor</a>&#160;&#160;&#160;(0x4)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#aeca696673db0a17dbb3659854e22c58e">Obj_GgafDirector</a>&#160;&#160;&#160;(0x8)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#ac0736f2367ab0a02e534b6450eb9865c">Obj_GgafGroupHead</a>&#160;&#160;&#160;(0x10)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a5047385aaf10de1d67b702a37f815d48">Obj_GgafDisusedActor</a>&#160;&#160;&#160;(0x20)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a443712de50d884edce250efbece3377c">Obj_GgafActorDepository</a>&#160;&#160;&#160;(0x40)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a7c36b13e77791bd9469fb3c83c8228dd">Obj_GgafFormation</a>&#160;&#160;&#160;(0x80)</td></tr>
+<tr><td colspan="2"><h2><a name="typedef-members"></a>
+型定義</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a6ea3bd7555c391c5d23f5faf5450395a">actorkind</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef UINT32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a30ad2b1055b8608cd8df837b05b0a402">frame</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::string, <br class="typebreak"/>
+std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="GgafCommonHeader_8h.html#a15cbb52f85e4623bf03a9a089c51ef0c">GgafStrMap</a></td></tr>
+</table>
+<hr/><h2>マクロ定義</h2>
+<a class="anchor" id="a966cd377b9f3fdeb1432460c33352af1"></a><!-- doxytag: member="GgafCommonHeader.h::WINVER" ref="a966cd377b9f3fdeb1432460c33352af1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WINVER&#160;&#160;&#160;0x0501</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Ggafライブラリヘッダー郡ヘッダー </p>
+<dl class="version"><dt><b>バージョン:</b></dt><dd>1.00 </dd></dl>
+<dl class="since"><dt><b>から:</b></dt><dd>2007/11/14 </dd></dl>
+<dl class="author"><dt><b>作者:</b></dt><dd>Masatoshi Tsuge </dd></dl>
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00018">18</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="ac50762666aa00bd3a4308158510f1748"></a><!-- doxytag: member="GgafCommonHeader.h::_WIN32_WINNT" ref="ac50762666aa00bd3a4308158510f1748" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define _WIN32_WINNT&#160;&#160;&#160;0x0501</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00019">19</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="a421c2a84099be332814e021bcf72c6cf"></a><!-- doxytag: member="GgafCommonHeader.h::override" ref="a421c2a84099be332814e021bcf72c6cf" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define override</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00032">32</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="af65265def0941b7ad090c2c6283263df"></a><!-- doxytag: member="GgafCommonHeader.h::_HAS_ITERATOR_DEBUGGING" ref="af65265def0941b7ad090c2c6283263df" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define _HAS_ITERATOR_DEBUGGING&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00035">35</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="a10c802bd3157c1a302e3557a5c431779"></a><!-- doxytag: member="GgafCommonHeader.h::__map__" ref="a10c802bd3157c1a302e3557a5c431779" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __map__&#160;&#160;&#160;map</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00075">75</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="a070d2ce7b6bb7e5c05602aa8c308d0c4"></a><!-- doxytag: member="GgafCommonHeader.h::NULL" ref="a070d2ce7b6bb7e5c05602aa8c308d0c4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NULL&#160;&#160;&#160;((void*)0)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00088">88</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="MySTG2nd_8cpp_source.html#l00057">_tWinMain()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00168">GgafCore::GgafResourceManager&lt; T &gt;::add()</a>, <a class="el" href="GgafLinearOctreeElem_8cpp_source.html#l00071">GgafCore::GgafLinearOctreeElem::addElem()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00853">GgafCore::GgafLinkedListRing&lt; T &gt;::addFirst()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00823">GgafCore::GgafLinkedListRing&lt; T &gt;::addLast()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00884">GgafCore::GgafLinkedListRing&lt; T &gt;::addNext()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00914">GgafCore::GgafLinkedListRing&lt; T &gt;::addPrev()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00126">GgafCore::GgafMainActor::addSubGroup()</a>, <a class="el" href="GgafDirector_8cpp_source.html#l00018">GgafCore::GgafDirector::addSubGroup()</a>, <a class="el" href="GgafActorDepositoryStore_8cpp_source.html#l00011">GgafCore::GgafActorDepositoryStore::addSubLast()</a>, <a class="el" href="GgafActorDepository_8cpp_source.html#l00012">GgafCore::GgafActorDepository::addSubLast()</a>, <a class="el" href="GgafFormation_8cpp_source.html#l00019">GgafCore::GgafFormation::addSubLast()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00553">GgafCore::GgafNode&lt; T &gt;::addSubLast()</a>, <a class="el" href="GgafDisusedActor_8h_source.html#l00041">GgafCore::GgafDisusedActor::askGod()</a>, <a class="el" href="GgafGroupHead_8cpp_source.html#l00061">GgafCore::GgafGroupHead::askGod()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00175">GgafCore::GgafMainActor::askGod()</a>, <a class="el" href="GgafDirector_8cpp_source.html#l00075">GgafCore::GgafDirector::askGod()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00324">GgafCore::GgafScene::askGod()</a>, <a class="el" href="GgafGod_8cpp_source.html#l00055">GgafCore::GgafGod::be()</a>, <a class="el" href="GgafDepositoryFormation_8cpp_source.html#l00034">GgafCore::GgafDeositoryFormation::callUp()</a>, <a class="el" href="CameraWorker_8cpp_source.html#l00008">MyStg2nd::CameraWorker::CameraWorker()</a>, <a class="el" href="Universe_8h_source.html#l00034">MyStg2nd::Universe::CameraWorkerConnectionStack::CameraWorkerConnectionStack()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00077">GgafCore::GgafFactory::chkProgress()</a>, <a class="el" href="GgafElement_8hpp_source.html#l01653">GgafCore::GgafElement&lt; T &gt;::clean()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00209">GgafCore::GgafFactory::clean()</a>, <a class="el" href="GgafGod_8cpp_source.html#l00197">GgafCore::GgafGod::clean()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00244">GgafCore::GgafScene::clean()</a>, <a class="el" href="Universe_8h_source.html#l00064">MyStg2nd::Universe::CameraWorkerConnectionStack::clear()</a>, <a class="el" href="GgafLinearOctree_8cpp_source.html#l00208">GgafCore::GgafLinearOctree::clearElem()</a>, <a class="el" href="GgafResourceConnection_8hpp_source.html#l00149">GgafCore::GgafResourceConnection&lt; T &gt;::close()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00183">GgafCore::GgafResourceManager&lt; T &gt;::connect()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00116">GgafCore::GgafResourceManager&lt; GgafLib::SplineLine &gt;::connect()</a>, <a class="el" href="MySTG2nd_8cpp_source.html#l00505">CustmizeSysMenu()</a>, <a class="el" href="GgafActorDepository_8h_source.html#l00078">GgafCore::GgafActorDepository::dispatch()</a>, <a class="el" href="GgafActorDepository_8h_source.html#l00154">GgafCore::GgafActorDepository::dispatchForce()</a>, <a class="el" href="GgafLinearOctreeSpace_8cpp_source.html#l00007">GgafCore::GgafLinearOctreeSpace::dump()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00258">GgafCore::GgafResourceManager&lt; T &gt;::dump()</a>, <a class="el" href="MyOptionLockonController_8cpp_source.html#l00176">MyStg2nd::MyOptionLockonController::dumpTarget()</a>, <a class="el" href="EffectLockon001_8cpp_source.html#l00008">MyStg2nd::EffectLockon001::EffectLockon001()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00091">GgafCore::GgafLinkedListRing&lt; T &gt;::Elem::Elem()</a>, <a class="el" href="EnemyAstraea_8cpp_source.html#l00014">MyStg2nd::EnemyAstraea::EnemyAstraea()</a>, <a class="el" href="EnemyCeres_8cpp_source.html#l00008">MyStg2nd::EnemyCeres::EnemyCeres()</a>, <a class="el" href="EnemyEunomia_8cpp_source.html#l00008">MyStg2nd::EnemyEunomia::EnemyEunomia()</a>, <a class="el" href="EnemyIris_8cpp_source.html#l00009">MyStg2nd::EnemyIris::EnemyIris()</a>, <a class="el" href="EnemyJuno_8cpp_source.html#l00008">MyStg2nd::EnemyJuno::EnemyJuno()</a>, <a class="el" href="EnemyMassalia_8cpp_source.html#l00008">MyStg2nd::EnemyMassalia::EnemyMassalia()</a>, <a class="el" href="EnemyPallas_8cpp_source.html#l00008">MyStg2nd::EnemyPallas::EnemyPallas()</a>, <a class="el" href="EnemyTamago01_8cpp_source.html#l00008">MyStg2nd::EnemyTamago01::EnemyTamago01()</a>, <a class="el" href="EnemyThalia_8cpp_source.html#l00016">MyStg2nd::EnemyThalia::EnemyThalia()</a>, <a class="el" href="EnemyVesta_8cpp_source.html#l00012">MyStg2nd::EnemyVesta::EnemyVesta()</a>, <a class="el" href="GgafLinearOctreeElem_8cpp_source.html#l00016">GgafCore::GgafLinearOctreeElem::extract()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00015">GgafCore::GgafMainActor::extract()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00345">GgafCore::GgafNode&lt; T &gt;::extract()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00105">GgafCore::GgafActor::extract()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00154">GgafCore::GgafResourceManager&lt; T &gt;::find()</a>, <a class="el" href="MyOptionTorpedoController_8cpp_source.html#l00053">MyStg2nd::MyOptionTorpedoController::fire()</a>, <a class="el" href="Formation001_8hpp_source.html#l00024">MyStg2nd::Formation001&lt; T &gt;::Formation001()</a>, <a class="el" href="FormationEunomia_8cpp_source.html#l00008">MyStg2nd::FormationEunomia::FormationEunomia()</a>, <a class="el" href="FormationIris001_8cpp_source.html#l00008">MyStg2nd::FormationIris001::FormationIris001()</a>, <a class="el" href="FormationIris002_8cpp_source.html#l00008">MyStg2nd::FormationIris002::FormationIris002()</a>, <a class="el" href="FormationJuno_8cpp_source.html#l00011">MyStg2nd::FormationJuno::FormationJuno()</a>, <a class="el" href="FormationPallas001_8cpp_source.html#l00008">MyStg2nd::FormationPallas001::FormationPallas001()</a>, <a class="el" href="FormationPallas002_8cpp_source.html#l00008">MyStg2nd::FormationPallas002::FormationPallas002()</a>, <a class="el" href="FormationThalia_8cpp_source.html#l00008">MyStg2nd::FormationThalia::FormationThalia()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00653">GgafCore::GgafLinkedListRing&lt; T &gt;::getCurrent()</a>, <a class="el" href="GgafUtil_8cpp_source.html#l00014">GgafCore::GgafUtil::getFileText()</a>, <a class="el" href="CmRandomNumberGenerator_8cpp_source.html#l00055">GgafCore::CmRandomNumberGenerator::getInstance()</a>, <a class="el" href="Universe_8h_source.html#l00040">MyStg2nd::Universe::CameraWorkerConnectionStack::getLast()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00085">GgafCore::GgafMainActor::getMyGroupHead()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00682">GgafCore::GgafLinkedListRing&lt; T &gt;::getNextFromFirst()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00438">GgafCore::GgafNode&lt; T &gt;::getParent()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00073">GgafCore::GgafActor::getPlatformScene()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00102">GgafCore::GgafMainActor::getSceneDirector()</a>, <a class="el" href="GgafGroupHead_8cpp_source.html#l00022">GgafCore::GgafGroupHead::getSceneDirector()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00487">GgafCore::GgafNode&lt; T &gt;::getSub()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00465">GgafCore::GgafNode&lt; T &gt;::getSubByName()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00006">GgafCore::GgafActor::GgafActor()</a>, <a class="el" href="GgafDepositoryFormation_8cpp_source.html#l00005">GgafCore::GgafDeositoryFormation::GgafDeositoryFormation()</a>, <a class="el" href="GgafException_8cpp_source.html#l00006">GgafCore::GgafException::GgafException()</a>, <a class="el" href="GgafGod_8cpp_source.html#l00020">GgafCore::GgafGod::GgafGod()</a>, <a class="el" href="GgafGroupHead_8cpp_source.html#l00006">GgafCore::GgafGroupHead::GgafGroupHead()</a>, <a class="el" href="GgafLinearOctree_8cpp_source.html#l00006">GgafCore::GgafLinearOctree::GgafLinearOctree()</a>, <a class="el" href="GgafLinearOctreeElem_8cpp_source.html#l00006">GgafCore::GgafLinearOctreeElem::GgafLinearOctreeElem()</a>, <a class="el" href="GgafLinearOctreeSpace_8h_source.html#l00026">GgafCore::GgafLinearOctreeSpace::GgafLinearOctreeSpace()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00645">GgafCore::GgafLinkedListRing&lt; T &gt;::GgafLinkedListRing()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00006">GgafCore::GgafMainActor::GgafMainActor()</a>, <a class="el" href="GgafOrder_8cpp_source.html#l00006">GgafCore::GgafOrder::GgafOrder()</a>, <a class="el" href="GgafResourceConnection_8hpp_source.html#l00121">GgafCore::GgafResourceConnection&lt; T &gt;::GgafResourceConnection()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00145">GgafCore::GgafResourceManager&lt; T &gt;::GgafResourceManager()</a>, <a class="el" href="GgafStatus_8h_source.html#l00040">GgafCore::GgafStatus::GgafStatus()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00514">GgafCore::GgafNode&lt; T &gt;::hasSub()</a>, <a class="el" href="HoshiBoshi_8cpp_source.html#l00010">MyStg2nd::HoshiBoshi::HoshiBoshi()</a>, <a class="el" href="HoshiBoshiTestActor_8cpp_source.html#l00010">MyStg2nd::HoshiBoshiTestActor::HoshiBoshiTestActor()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00801">GgafCore::GgafLinkedListRing&lt; T &gt;::indexOf()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00012">GgafCore::GgafProperties::load()</a>, <a class="el" href="EffectLockon001__Main_8cpp_source.html#l00092">MyStg2nd::EffectLockon001_Main::lockon()</a>, <a class="el" href="EffectLockon001__Sub_8cpp_source.html#l00090">MyStg2nd::EffectLockon001_Sub::lockon()</a>, <a class="el" href="Magic_8cpp_source.html#l00018">MyStg2nd::Magic::Magic()</a>, <a class="el" href="MyOption_8cpp_source.html#l00014">MyStg2nd::MyOption::MyOption()</a>, <a class="el" href="MyOptionController_8cpp_source.html#l00012">MyStg2nd::MyOptionController::MyOptionController()</a>, <a class="el" href="MyOptionStraightLaserChip001_8cpp_source.html#l00009">MyStg2nd::MyOptionStraightLaserChip001::MyOptionStraightLaserChip001()</a>, <a class="el" href="MyOptionWateringLaserChip001_8cpp_source.html#l00010">MyStg2nd::MyOptionWateringLaserChip001::MyOptionWateringLaserChip001()</a>, <a class="el" href="MySTG2nd_8cpp_source.html#l00396">MyRegisterClass_Primary()</a>, <a class="el" href="MySTG2nd_8cpp_source.html#l00417">MyRegisterClass_Secondary()</a>, <a class="el" href="MyShipScene_8cpp_source.html#l00016">MyStg2nd::MyShipScene::MyShipScene()</a>, <a class="el" href="MySTG2nd_8cpp_source.html#l00388">myTerminateHandler()</a>, <a class="el" href="MyTorpedo_8cpp_source.html#l00008">MyStg2nd::MyTorpedo::MyTorpedo()</a>, <a class="el" href="MySTG2nd_8cpp_source.html#l00381">myUnexpectedHandler()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00097">GgafCore::GgafFactory::obtain()</a>, <a class="el" href="MyOptionStraightLaserChip001_8cpp_source.html#l00031">MyStg2nd::MyOptionStraightLaserChip001::onActive()</a>, <a class="el" href="MyOptionWateringLaserChip001_8cpp_source.html#l00029">MyStg2nd::MyOptionWateringLaserChip001::onActive()</a>, <a class="el" href="FormationPallas001_8cpp_source.html#l00032">MyStg2nd::FormationPallas001::onActive()</a>, <a class="el" href="EnemyPallas_8cpp_source.html#l00032">MyStg2nd::EnemyPallas::onActive()</a>, <a class="el" href="EnemyEunomia_8cpp_source.html#l00048">MyStg2nd::EnemyEunomia::onActive()</a>, <a class="el" href="MyOptionStraightLaserChip001_8cpp_source.html#l00123">MyStg2nd::MyOptionStraightLaserChip001::onHit()</a>, <a class="el" href="MyOptionWateringLaserChip001_8cpp_source.html#l00273">MyStg2nd::MyOptionWateringLaserChip001::onHit()</a>, <a class="el" href="GameMainScene_8cpp_source.html#l00116">MyStg2nd::GameMainScene::onInactive()</a>, <a class="el" href="GameDemoScene_8cpp_source.html#l00148">MyStg2nd::GameDemoScene::onInactive()</a>, <a class="el" href="MyTorpedo_8cpp_source.html#l00037">MyStg2nd::MyTorpedo::onReset()</a>, <a class="el" href="GgafActorDepository_8cpp_source.html#l00029">GgafCore::GgafActorDepository::onReset()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00028">GgafCore::GgafFactory::order()</a>, <a class="el" href="PauseCamWorker_8cpp_source.html#l00008">MyStg2nd::PauseCamWorker::PauseCamWorker()</a>, <a class="el" href="Universe_8h_source.html#l00054">MyStg2nd::Universe::CameraWorkerConnectionStack::pop()</a>, <a class="el" href="VamSysCamPosition_8h_source.html#l00031">MyStg2nd::VamSysCamPosition::Pos::Pos()</a>, <a class="el" href="MyOptionStraightLaserChip001_8cpp_source.html#l00065">MyStg2nd::MyOptionStraightLaserChip001::processBehavior()</a>, <a class="el" href="EffectLockon001__Main_8cpp_source.html#l00033">MyStg2nd::EffectLockon001_Main::processBehavior()</a>, <a class="el" href="EffectLockon001__Sub_8cpp_source.html#l00033">MyStg2nd::EffectLockon001_Sub::processBehavior()</a>, <a class="el" href="Stage01WalledSection001_8cpp_source.html#l00017">MyStg2nd::Stage01WalledSection001::processBehavior()</a>, <a class="el" href="MyOptionLockonController_8cpp_source.html#l00037">MyStg2nd::MyOptionLockonController::processBehavior()</a>, <a class="el" href="PauseCamWorker_8cpp_source.html#l00025">MyStg2nd::PauseCamWorker::processBehavior()</a>, <a class="el" href="MyOptionWateringLaserChip001_8cpp_source.html#l00060">MyStg2nd::MyOptionWateringLaserChip001::processBehavior()</a>, <a class="el" href="FormationEunomia_8cpp_source.html#l00036">MyStg2nd::FormationEunomia::processBehavior()</a>, <a class="el" href="EnemyThalia_8cpp_source.html#l00076">MyStg2nd::EnemyThalia::processBehavior()</a>, <a class="el" href="EnemyMassalia_8cpp_source.html#l00099">MyStg2nd::EnemyMassalia::processBehavior()</a>, <a class="el" href="VamSysCamWorker_8cpp_source.html#l00065">MyStg2nd::VamSysCamWorker::processBehavior()</a>, <a class="el" href="MyOption_8cpp_source.html#l00220">MyStg2nd::MyOption::processBehavior()</a>, <a class="el" href="SplineLineManager_8cpp_source.html#l00012">MyStg2nd::SplineLineManager::processCreateResource()</a>, <a class="el" href="DepositoryManager_8cpp_source.html#l00012">MyStg2nd::DepositoryManager::processCreateResource()</a>, <a class="el" href="CameraWorkerManager_8cpp_source.html#l00012">MyStg2nd::CameraWorkerManager::processCreateResource()</a>, <a class="el" href="GgafDummyActor_8h_source.html#l00030">GgafCore::GgafDummyActor::processJudgement()</a>, <a class="el" href="GgafTreeFormation_8cpp_source.html#l00012">GgafCore::GgafTreeFormation::processJudgement()</a>, <a class="el" href="GgafGroupHead_8h_source.html#l00058">GgafCore::GgafGroupHead::processJudgement()</a>, <a class="el" href="EnemyVesta_8cpp_source.html#l00232">MyStg2nd::EnemyVesta::processJudgement()</a>, <a class="el" href="MyShip_8cpp_source.html#l00479">MyStg2nd::MyShip::processJudgement()</a>, <a class="el" href="GgafLinearOctree_8cpp_source.html#l00037">GgafCore::GgafLinearOctree::registElem()</a>, <a class="el" href="EffectLockon001__Main_8cpp_source.html#l00110">MyStg2nd::EffectLockon001_Main::releaseLockon()</a>, <a class="el" href="EffectLockon001__Sub_8cpp_source.html#l00103">MyStg2nd::EffectLockon001_Sub::releaseLockon()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00768">GgafCore::GgafLinkedListRing&lt; T &gt;::remove()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00084">GgafCore::GgafActor::sayonara()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00152">GgafCore::GgafMainActor::searchSubGroupHead()</a>, <a class="el" href="GgafDirector_8cpp_source.html#l00045">GgafCore::GgafDirector::searchSubGroupHead()</a>, <a class="el" href="StageSceneController_8cpp_source.html#l00018">MyStg2nd::StageSceneController::StageSceneController()</a>, <a class="el" href="CameraWorker_8cpp_source.html#l00050">MyStg2nd::CameraWorker::unlockCamVp()</a>, <a class="el" href="GgafElement_8hpp_source.html#l00826">GgafCore::GgafElement&lt; GgafActor &gt;::useProgress()</a>, <a class="el" href="VamSysCamWorker_8cpp_source.html#l00008">MyStg2nd::VamSysCamWorker::VamSysCamWorker()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00240">GgafCore::GgafFactory::work()</a>, <a class="el" href="World_8cpp_source.html#l00008">MyStg2nd::World::World()</a>, <a class="el" href="GgafUtil_8cpp_source.html#l00155">GgafCore::GgafUtil::write()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00951">GgafCore::GgafLinkedListRing&lt; T &gt;::~GgafLinkedListRing()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00596">GgafCore::GgafNode&lt; T &gt;::~GgafNode()</a>, と <a class="el" href="GgafResourceManager_8hpp_source.html#l00290">GgafCore::GgafResourceManager&lt; T &gt;::~GgafResourceManager()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab6bca16ed021b1e211fde8669758f199"></a><!-- doxytag: member="GgafCommonHeader.h::NEW" ref="ab6bca16ed021b1e211fde8669758f199" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NEW&#160;&#160;&#160;new</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00269">269</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="MySTG2nd_8cpp_source.html#l00057">_tWinMain()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00853">GgafCore::GgafLinkedListRing&lt; T &gt;::addFirst()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00823">GgafCore::GgafLinkedListRing&lt; T &gt;::addLast()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00884">GgafCore::GgafLinkedListRing&lt; T &gt;::addNext()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00914">GgafCore::GgafLinkedListRing&lt; T &gt;::addPrev()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00126">GgafCore::GgafMainActor::addSubGroup()</a>, <a class="el" href="GgafDirector_8cpp_source.html#l00018">GgafCore::GgafDirector::addSubGroup()</a>, <a class="el" href="CommonScene_8cpp_source.html#l00009">MyStg2nd::CommonScene::CommonScene()</a>, <a class="el" href="GgafFactory_8h_source.html#l00185">GgafCore::GgafFactory::createActor()</a>, <a class="el" href="GgafFactory_8h_source.html#l00200">GgafCore::GgafFactory::createActorWithDp()</a>, <a class="el" href="GgafFactory_8h_source.html#l00192">GgafCore::GgafFactory::createActorWithModel()</a>, <a class="el" href="GgafFactory_8h_source.html#l00208">GgafCore::GgafFactory::createActorWithModelDp()</a>, <a class="el" href="GgafFactory_8h_source.html#l00217">GgafCore::GgafFactory::createScene()</a>, <a class="el" href="God_8cpp_source.html#l00086">MyStg2nd::God::createUniverse()</a>, <a class="el" href="EnemyAstraea_8cpp_source.html#l00014">MyStg2nd::EnemyAstraea::EnemyAstraea()</a>, <a class="el" href="EnemyCeres_8cpp_source.html#l00008">MyStg2nd::EnemyCeres::EnemyCeres()</a>, <a class="el" href="EnemyMassalia_8cpp_source.html#l00008">MyStg2nd::EnemyMassalia::EnemyMassalia()</a>, <a class="el" href="EnemyThalia_8cpp_source.html#l00016">MyStg2nd::EnemyThalia::EnemyThalia()</a>, <a class="el" href="MyOptionTorpedoController_8cpp_source.html#l00053">MyStg2nd::MyOptionTorpedoController::fire()</a>, <a class="el" href="Formation001_8hpp_source.html#l00024">MyStg2nd::Formation001&lt; T &gt;::Formation001()</a>, <a class="el" href="FormationCeres001_8cpp_source.html#l00008">MyStg2nd::FormationCeres001::FormationCeres001()</a>, <a class="el" href="FormationCeres002_8cpp_source.html#l00008">MyStg2nd::FormationCeres002::FormationCeres002()</a>, <a class="el" href="FormationEunomia_8cpp_source.html#l00008">MyStg2nd::FormationEunomia::FormationEunomia()</a>, <a class="el" href="FormationIris001_8cpp_source.html#l00008">MyStg2nd::FormationIris001::FormationIris001()</a>, <a class="el" href="FormationIris002_8cpp_source.html#l00008">MyStg2nd::FormationIris002::FormationIris002()</a>, <a class="el" href="FormationJuno_8cpp_source.html#l00011">MyStg2nd::FormationJuno::FormationJuno()</a>, <a class="el" href="FormationMetis001_8cpp_source.html#l00008">MyStg2nd::FormationMetis001::FormationMetis001()</a>, <a class="el" href="FormationPallas001_8cpp_source.html#l00008">MyStg2nd::FormationPallas001::FormationPallas001()</a>, <a class="el" href="FormationPallas002_8cpp_source.html#l00008">MyStg2nd::FormationPallas002::FormationPallas002()</a>, <a class="el" href="FormationThalia_8cpp_source.html#l00008">MyStg2nd::FormationThalia::FormationThalia()</a>, <a class="el" href="GameBeginningScene_8cpp_source.html#l00015">MyStg2nd::GameBeginningScene::GameBeginningScene()</a>, <a class="el" href="GameDemoScene_8cpp_source.html#l00016">MyStg2nd::GameDemoScene::GameDemoScene()</a>, <a class="el" href="GameMainScene_8cpp_source.html#l00019">MyStg2nd::GameMainScene::GameMainScene()</a>, <a class="el" href="GameOverScene_8cpp_source.html#l00014">MyStg2nd::GameOverScene::GameOverScene()</a>, <a class="el" href="GamePauseScene_8cpp_source.html#l00015">MyStg2nd::GamePauseScene::GamePauseScene()</a>, <a class="el" href="GamePreTitleScene_8cpp_source.html#l00014">MyStg2nd::GamePreTitleScene::GamePreTitleScene()</a>, <a class="el" href="GameScene_8cpp_source.html#l00019">MyStg2nd::GameScene::GameScene()</a>, <a class="el" href="GameTitleScene_8cpp_source.html#l00018">MyStg2nd::GameTitleScene::GameTitleScene()</a>, <a class="el" href="GgafUtil_8cpp_source.html#l00014">GgafCore::GgafUtil::getFileText()</a>, <a class="el" href="CmRandomNumberGenerator_8cpp_source.html#l00055">GgafCore::CmRandomNumberGenerator::getInstance()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00037">GgafCore::GgafProperties::getStr()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00006">GgafCore::GgafActor::GgafActor()</a>, <a class="el" href="GgafGarbageBox_8cpp_source.html#l00009">GgafCore::GgafGarbageBox::GgafGarbageBox()</a>, <a class="el" href="GgafGod_8cpp_source.html#l00020">GgafCore::GgafGod::GgafGod()</a>, <a class="el" href="GgafLinearOctree_8cpp_source.html#l00006">GgafCore::GgafLinearOctree::GgafLinearOctree()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00327">GgafCore::GgafNode&lt; T &gt;::GgafNode()</a>, <a class="el" href="GgafProgress_8cpp_source.html#l00005">GgafCore::GgafProgress::GgafProgress()</a>, <a class="el" href="GgafResourceConnection_8hpp_source.html#l00121">GgafCore::GgafResourceConnection&lt; T &gt;::GgafResourceConnection()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00009">GgafCore::GgafScene::GgafScene()</a>, <a class="el" href="God_8cpp_source.html#l00014">MyStg2nd::God::God()</a>, <a class="el" href="GroundMeshActor_8cpp_source.html#l00008">MyStg2nd::GroundMeshActor::GroundMeshActor()</a>, <a class="el" href="Universe_8cpp_source.html#l00039">MyStg2nd::Universe::initialize()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00012">GgafCore::GgafProperties::load()</a>, <a class="el" href="MagicMeter_8cpp_source.html#l00009">MyStg2nd::MagicMeter::MagicMeter()</a>, <a class="el" href="Torus_8cpp_source.html#l00048">MyStg2nd::Torus::makeCollisionArea()</a>, <a class="el" href="MyOption_8cpp_source.html#l00014">MyStg2nd::MyOption::MyOption()</a>, <a class="el" href="MyOptionController_8cpp_source.html#l00012">MyStg2nd::MyOptionController::MyOptionController()</a>, <a class="el" href="MyOptionLockonController_8cpp_source.html#l00009">MyStg2nd::MyOptionLockonController::MyOptionLockonController()</a>, <a class="el" href="MyOptionTorpedoController_8cpp_source.html#l00009">MyStg2nd::MyOptionTorpedoController::MyOptionTorpedoController()</a>, <a class="el" href="MyShip_8cpp_source.html#l00018">MyStg2nd::MyShip::MyShip()</a>, <a class="el" href="MyShipScene_8cpp_source.html#l00016">MyStg2nd::MyShipScene::MyShipScene()</a>, <a class="el" href="MyTorpedo_8cpp_source.html#l00008">MyStg2nd::MyTorpedo::MyTorpedo()</a>, <a class="el" href="OptionMagic_8cpp_source.html#l00008">MyStg2nd::OptionMagic::OptionMagic()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00028">GgafCore::GgafFactory::order()</a>, <a class="el" href="Stage01__02_8cpp_source.html#l00042">MyStg2nd::Stage01_02::processBehavior()</a>, <a class="el" href="Stage01__03_8cpp_source.html#l00035">MyStg2nd::Stage01_03::processBehavior()</a>, <a class="el" href="Stage02__01_8cpp_source.html#l00033">MyStg2nd::Stage02_01::processBehavior()</a>, <a class="el" href="EnemyPallas_8cpp_source.html#l00042">MyStg2nd::EnemyPallas::processBehavior()</a>, <a class="el" href="EnemyIris_8cpp_source.html#l00039">MyStg2nd::EnemyIris::processBehavior()</a>, <a class="el" href="EnemyTamago01_8cpp_source.html#l00074">MyStg2nd::EnemyTamago01::processBehavior()</a>, <a class="el" href="EnemyEunomia_8cpp_source.html#l00059">MyStg2nd::EnemyEunomia::processBehavior()</a>, <a class="el" href="OptionMagic_8cpp_source.html#l00050">MyStg2nd::OptionMagic::processCastBegin()</a>, <a class="el" href="DepositoryManager_8cpp_source.html#l00200">MyStg2nd::DepositoryManager::processCreateConnection()</a>, <a class="el" href="CameraWorkerManager_8cpp_source.html#l00043">MyStg2nd::CameraWorkerManager::processCreateConnection()</a>, <a class="el" href="SplineLineManager_8cpp_source.html#l00134">GgafCore::GgafResourceManager&lt; GgafLib::SplineLine &gt;::processCreateConnection()</a>, <a class="el" href="SplineLineManager_8cpp_source.html#l00012">MyStg2nd::SplineLineManager::processCreateResource()</a>, <a class="el" href="CameraWorkerManager_8cpp_source.html#l00012">MyStg2nd::CameraWorkerManager::processCreateResource()</a>, <a class="el" href="DepositoryManager_8cpp_source.html#l00012">MyStg2nd::DepositoryManager::processCreateResource()</a>, <a class="el" href="RankUp001_8cpp_source.html#l00008">MyStg2nd::RankUp001::RankUp001()</a>, <a class="el" href="RankUp002_8cpp_source.html#l00008">MyStg2nd::RankUp002::RankUp002()</a>, <a class="el" href="RankUp100_8cpp_source.html#l00008">MyStg2nd::RankUp100::RankUp100()</a>, <a class="el" href="Shot001_8cpp_source.html#l00008">MyStg2nd::Shot001::Shot001()</a>, <a class="el" href="Stage01_8cpp_source.html#l00008">MyStg2nd::Stage01::Stage01()</a>, <a class="el" href="Stage01WalledScene_8cpp_source.html#l00008">MyStg2nd::Stage01WalledScene::Stage01WalledScene()</a>, <a class="el" href="Stage02_8cpp_source.html#l00008">MyStg2nd::Stage02::Stage02()</a>, <a class="el" href="StageSceneController_8cpp_source.html#l00018">MyStg2nd::StageSceneController::StageSceneController()</a>, <a class="el" href="TransitStage_8cpp_source.html#l00008">MyStg2nd::TransitStage::TransitStage()</a>, <a class="el" href="Universe_8cpp_source.html#l00009">MyStg2nd::Universe::Universe()</a>, <a class="el" href="GgafElement_8hpp_source.html#l00826">GgafCore::GgafElement&lt; GgafActor &gt;::useProgress()</a>, <a class="el" href="VamSysCamPosition_8cpp_source.html#l00009">MyStg2nd::VamSysCamPosition::VamSysCamPosition()</a>, <a class="el" href="VarietyTorus001_8cpp_source.html#l00008">MyStg2nd::VarietyTorus001::VarietyTorus001()</a>, <a class="el" href="VarietyTorus002_8cpp_source.html#l00008">MyStg2nd::VarietyTorus002::VarietyTorus002()</a>, <a class="el" href="VarietyTorus003_8cpp_source.html#l00008">MyStg2nd::VarietyTorus003::VarietyTorus003()</a>, <a class="el" href="VarietyTorus004_8cpp_source.html#l00008">MyStg2nd::VarietyTorus004::VarietyTorus004()</a>, と <a class="el" href="GgafFactory_8cpp_source.html#l00240">GgafCore::GgafFactory::work()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a638b671f4fa00cd5267c8df6c19c4477"></a><!-- doxytag: member="GgafCommonHeader.h::TRACE" ref="a638b671f4fa00cd5267c8df6c19c4477" args="(X)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TRACE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00272">272</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafScene_8cpp_source.html#l00109">GgafCore::GgafScene::afterDraw()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00073">GgafCore::GgafScene::behave()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00103">GgafCore::GgafScene::draw()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00345">GgafCore::GgafNode&lt; T &gt;::extract()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00006">GgafCore::GgafActor::GgafActor()</a>, <a class="el" href="GgafGod_8cpp_source.html#l00020">GgafCore::GgafGod::GgafGod()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00327">GgafCore::GgafNode&lt; T &gt;::GgafNode()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00009">GgafCore::GgafScene::GgafScene()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00089">GgafCore::GgafScene::judge()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00062">GgafCore::GgafScene::nextFrame()</a>, <a class="el" href="GgafElement_8hpp_source.html#l00869">GgafCore::GgafElement&lt; T &gt;::nextFrame()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00097">GgafCore::GgafFactory::obtain()</a>, <a class="el" href="DetectMemoryLeaks_8cpp_source.html#l00009">operator new()</a>, <a class="el" href="DetectMemoryLeaks_8cpp_source.html#l00029">operator new[]()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00097">GgafCore::GgafScene::preDraw()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00048">GgafCore::GgafActor::setHitAble()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00054">GgafCore::GgafActor::setHitAbleTree()</a>, と <a class="el" href="GgafScene_8cpp_source.html#l00081">GgafCore::GgafScene::settleBehavior()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a788385421c36b18be911a24756b554db"></a><!-- doxytag: member="GgafCommonHeader.h::TRACE2" ref="a788385421c36b18be911a24756b554db" args="(X)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TRACE2</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00273">273</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafFactory_8cpp_source.html#l00209">GgafCore::GgafFactory::clean()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00097">GgafCore::GgafFactory::obtain()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00028">GgafCore::GgafFactory::order()</a>, と <a class="el" href="GgafFactory_8cpp_source.html#l00240">GgafCore::GgafFactory::work()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aef3714929bf26fce06310727767938f1"></a><!-- doxytag: member="GgafCommonHeader.h::TRACE3" ref="aef3714929bf26fce06310727767938f1" args="(X)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TRACE3</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00274">274</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafResourceConnection_8hpp_source.html#l00149">GgafCore::GgafResourceConnection&lt; T &gt;::close()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00183">GgafCore::GgafResourceManager&lt; T &gt;::connect()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00243">GgafCore::GgafResourceManager&lt; T &gt;::createResource()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00250">GgafCore::GgafResourceManager&lt; T &gt;::createResourceConnection()</a>, <a class="el" href="GgafResourceConnection_8hpp_source.html#l00121">GgafCore::GgafResourceConnection&lt; T &gt;::GgafResourceConnection()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00145">GgafCore::GgafResourceManager&lt; T &gt;::GgafResourceManager()</a>, <a class="el" href="DepositoryManager_8cpp_source.html#l00200">MyStg2nd::DepositoryManager::processCreateConnection()</a>, <a class="el" href="CameraWorkerManager_8cpp_source.html#l00043">MyStg2nd::CameraWorkerManager::processCreateConnection()</a>, <a class="el" href="SplineLineManager_8cpp_source.html#l00134">GgafCore::GgafResourceManager&lt; GgafLib::SplineLine &gt;::processCreateConnection()</a>, と <a class="el" href="GgafResourceManager_8hpp_source.html#l00290">GgafCore::GgafResourceManager&lt; T &gt;::~GgafResourceManager()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afb5e4df88a44497c48f0042dd23d7425"></a><!-- doxytag: member="GgafCommonHeader.h::TRACE4" ref="afb5e4df88a44497c48f0042dd23d7425" args="(X)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TRACE4</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00275">275</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="adbc2ddb6725f988f85edde1d86498f79"></a><!-- doxytag: member="GgafCommonHeader.h::TRACE5" ref="adbc2ddb6725f988f85edde1d86498f79" args="(X)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TRACE5</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00276">276</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="a482198e7d8f55173334cb3cfe118e703"></a><!-- doxytag: member="GgafCommonHeader.h::TEXT5" ref="a482198e7d8f55173334cb3cfe118e703" args="(X)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEXT5</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00277">277</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="a22f26e5307f94be30bda84b96fca7b8b"></a><!-- doxytag: member="GgafCommonHeader.h::_TRACE_" ref="a22f26e5307f94be30bda84b96fca7b8b" args="(X)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define _TRACE_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00279">279</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="MySTG2nd_8cpp_source.html#l00057">_tWinMain()</a>, <a class="el" href="GgafElement_8hpp_source.html#l01285">GgafCore::GgafElement&lt; T &gt;::activateDelay()</a>, <a class="el" href="GgafElement_8hpp_source.html#l01319">GgafCore::GgafElement&lt; T &gt;::activateTreeDelay()</a>, <a class="el" href="GgafElement_8hpp_source.html#l01303">GgafCore::GgafElement&lt; T &gt;::activateWhile()</a>, <a class="el" href="GgafGarbageBox_8cpp_source.html#l00015">GgafCore::GgafGarbageBox::add()</a>, <a class="el" href="GgafActorDepositoryStore_8cpp_source.html#l00011">GgafCore::GgafActorDepositoryStore::addSubLast()</a>, <a class="el" href="GgafFactory_8h_source.html#l00157">GgafCore::GgafFactory::beginRest()</a>, <a class="el" href="MyStgUtil_8h_source.html#l00118">MyStg2nd::MyStgUtil::calcEnemyStatus()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00032">GgafCore::GgafProperties::clean()</a>, <a class="el" href="GgafGarbageBox_8cpp_source.html#l00054">GgafCore::GgafGarbageBox::clean()</a>, <a class="el" href="God_8cpp_source.html#l00093">MyStg2nd::God::clean()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00209">GgafCore::GgafFactory::clean()</a>, <a class="el" href="GgafGod_8cpp_source.html#l00197">GgafCore::GgafGod::clean()</a>, <a class="el" href="GgafResourceConnection_8hpp_source.html#l00149">GgafCore::GgafResourceConnection&lt; T &gt;::close()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00183">GgafCore::GgafResourceManager&lt; T &gt;::connect()</a>, <a class="el" href="DefaultPointSpriteTestActor_8cpp_source.html#l00007">MyStg2nd::DefaultPointSpriteTestActor::DefaultPointSpriteTestActor()</a>, <a class="el" href="DetectMemoryLeaks_8cpp_source.html#l00091">detectMemoryLeaksEnd()</a>, <a class="el" href="DetectMemoryLeaks_8cpp_source.html#l00085">detectMemoryLeaksStart()</a>, <a class="el" href="Universe_8h_source.html#l00071">MyStg2nd::Universe::CameraWorkerConnectionStack::dump()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00258">GgafCore::GgafResourceManager&lt; T &gt;::dump()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00123">GgafCore::GgafActor::dump()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00331">GgafCore::GgafScene::dump()</a>, <a class="el" href="GgafFactory_8h_source.html#l00178">GgafCore::GgafFactory::finishRest()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00102">GgafCore::GgafMainActor::getSceneDirector()</a>, <a class="el" href="GgafGroupHead_8cpp_source.html#l00022">GgafCore::GgafGroupHead::getSceneDirector()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00006">GgafCore::GgafActor::GgafActor()</a>, <a class="el" href="GgafCriticalException_8cpp_source.html#l00006">GgafCore::GgafCriticalException::GgafCriticalException()</a>, <a class="el" href="GgafException_8cpp_source.html#l00006">GgafCore::GgafException::GgafException()</a>, <a class="el" href="GgafLinearOctree_8cpp_source.html#l00006">GgafCore::GgafLinearOctree::GgafLinearOctree()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00009">GgafCore::GgafScene::GgafScene()</a>, <a class="el" href="God_8cpp_source.html#l00014">MyStg2nd::God::God()</a>, <a class="el" href="HoshiBoshi_8cpp_source.html#l00010">MyStg2nd::HoshiBoshi::HoshiBoshi()</a>, <a class="el" href="HoshiBoshi002_8cpp_source.html#l00008">MyStg2nd::HoshiBoshi002::HoshiBoshi002()</a>, <a class="el" href="HoshiBoshiTestActor_8cpp_source.html#l00010">MyStg2nd::HoshiBoshiTestActor::HoshiBoshiTestActor()</a>, <a class="el" href="GgafElement_8hpp_source.html#l01367">GgafCore::GgafElement&lt; T &gt;::inactivateDelay()</a>, <a class="el" href="GgafElement_8hpp_source.html#l01395">GgafCore::GgafElement&lt; T &gt;::inactivateTreeDelay()</a>, <a class="el" href="GameOverScene_8cpp_source.html#l00026">MyStg2nd::GameOverScene::initialize()</a>, <a class="el" href="GameEndingScene_8cpp_source.html#l00029">MyStg2nd::GameEndingScene::initialize()</a>, <a class="el" href="GamePreTitleScene_8cpp_source.html#l00037">MyStg2nd::GamePreTitleScene::initialize()</a>, <a class="el" href="GamePauseScene_8cpp_source.html#l00067">MyStg2nd::GamePauseScene::initialize()</a>, <a class="el" href="GameTitleScene_8cpp_source.html#l00067">MyStg2nd::GameTitleScene::initialize()</a>, <a class="el" href="World_8cpp_source.html#l00019">MyStg2nd::World::initialize()</a>, <a class="el" href="MyShipScene_8cpp_source.html#l00052">MyStg2nd::MyShipScene::initialize()</a>, <a class="el" href="GameScene_8cpp_source.html#l00056">MyStg2nd::GameScene::initialize()</a>, <a class="el" href="VamSysCamWorker_8cpp_source.html#l00028">MyStg2nd::VamSysCamWorker::initialize()</a>, <a class="el" href="Universe_8cpp_source.html#l00039">MyStg2nd::Universe::initialize()</a>, <a class="el" href="GgafFactory_8h_source.html#l00166">GgafCore::GgafFactory::isResting()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00012">GgafCore::GgafProperties::load()</a>, <a class="el" href="Properties_8cpp_source.html#l00041">MyStg2nd::Properties::load()</a>, <a class="el" href="MyShip_8h_source.html#l00558">MyStg2nd::MyShip::move_WAY_ZLEFT_DOWN_BEHIND()</a>, <a class="el" href="MyShip_8h_source.html#l00554">MyStg2nd::MyShip::move_WAY_ZLEFT_DOWN_FRONT()</a>, <a class="el" href="MyShip_8h_source.html#l00550">MyStg2nd::MyShip::move_WAY_ZLEFT_UP_BEHIND()</a>, <a class="el" href="MyShip_8h_source.html#l00544">MyStg2nd::MyShip::move_WAY_ZLEFT_UP_FRONT()</a>, <a class="el" href="MyShip_8h_source.html#l00574">MyStg2nd::MyShip::move_WAY_ZRIGHT_DOWN_BEHIND()</a>, <a class="el" href="MyShip_8h_source.html#l00570">MyStg2nd::MyShip::move_WAY_ZRIGHT_DOWN_FRONT()</a>, <a class="el" href="MyShip_8h_source.html#l00566">MyStg2nd::MyShip::move_WAY_ZRIGHT_UP_BEHIND()</a>, <a class="el" href="MyShip_8h_source.html#l00562">MyStg2nd::MyShip::move_WAY_ZRIGHT_UP_FRONT()</a>, <a class="el" href="MyOption_8cpp_source.html#l00014">MyStg2nd::MyOption::MyOption()</a>, <a class="el" href="MyShip_8cpp_source.html#l00018">MyStg2nd::MyShip::MyShip()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00097">GgafCore::GgafFactory::obtain()</a>, <a class="el" href="TransitStage_8cpp_source.html#l00034">MyStg2nd::TransitStage::onActive()</a>, <a class="el" href="RankUp002_8cpp_source.html#l00088">MyStg2nd::RankUp002::onCatchEvent()</a>, <a class="el" href="RankUp100_8cpp_source.html#l00088">MyStg2nd::RankUp100::onCatchEvent()</a>, <a class="el" href="Stage01_8cpp_source.html#l00093">MyStg2nd::Stage01::onCatchEvent()</a>, <a class="el" href="Stage02_8cpp_source.html#l00075">MyStg2nd::Stage02::onCatchEvent()</a>, <a class="el" href="Stage01PartController_8cpp_source.html#l00199">MyStg2nd::Stage01PartController::onCatchEvent()</a>, <a class="el" href="Stage02PartController_8cpp_source.html#l00154">MyStg2nd::Stage02PartController::onCatchEvent()</a>, <a class="el" href="StageSceneController_8cpp_source.html#l00163">MyStg2nd::StageSceneController::onCatchEvent()</a>, <a class="el" href="MyShipScene_8cpp_source.html#l00148">MyStg2nd::MyShipScene::onCatchEvent()</a>, <a class="el" href="GameScene_8cpp_source.html#l00262">MyStg2nd::GameScene::onCatchEvent()</a>, <a class="el" href="TamagoActor_8cpp_source.html#l00061">MyStg2nd::TamagoActor::onHit()</a>, <a class="el" href="EnemyTamago01_8cpp_source.html#l00180">MyStg2nd::EnemyTamago01::onHit()</a>, <a class="el" href="GameBeginningScene_8cpp_source.html#l00026">MyStg2nd::GameBeginningScene::onReset()</a>, <a class="el" href="GamePreTitleScene_8cpp_source.html#l00025">MyStg2nd::GamePreTitleScene::onReset()</a>, <a class="el" href="GameMainScene_8cpp_source.html#l00054">MyStg2nd::GameMainScene::onReset()</a>, <a class="el" href="GamePauseScene_8cpp_source.html#l00051">MyStg2nd::GamePauseScene::onReset()</a>, <a class="el" href="TransitStage_8cpp_source.html#l00029">MyStg2nd::TransitStage::onReset()</a>, <a class="el" href="GameTitleScene_8cpp_source.html#l00055">MyStg2nd::GameTitleScene::onReset()</a>, <a class="el" href="StageSceneController_8cpp_source.html#l00039">MyStg2nd::StageSceneController::onReset()</a>, <a class="el" href="MyShipScene_8cpp_source.html#l00056">MyStg2nd::MyShipScene::onReset()</a>, <a class="el" href="GgafActorDepository_8cpp_source.html#l00029">GgafCore::GgafActorDepository::onReset()</a>, <a class="el" href="GgafGod_8h_source.html#l00148">GgafCore::GgafGod::oops()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00028">GgafCore::GgafFactory::order()</a>, <a class="el" href="RankUp001_8cpp_source.html#l00022">MyStg2nd::RankUp001::processBehavior()</a>, <a class="el" href="Stage02_8cpp_source.html#l00033">MyStg2nd::Stage02::processBehavior()</a>, <a class="el" href="RankUp100_8cpp_source.html#l00032">MyStg2nd::RankUp100::processBehavior()</a>, <a class="el" href="RankUp002_8cpp_source.html#l00032">MyStg2nd::RankUp002::processBehavior()</a>, <a class="el" href="Stage01_8cpp_source.html#l00033">MyStg2nd::Stage01::processBehavior()</a>, <a class="el" href="Stage01PartController_8cpp_source.html#l00046">MyStg2nd::Stage01PartController::processBehavior()</a>, <a class="el" href="Stage02__Climax_8cpp_source.html#l00019">MyStg2nd::Stage02_Climax::processBehavior()</a>, <a class="el" href="Stage01__Climax_8cpp_source.html#l00019">MyStg2nd::Stage01_Climax::processBehavior()</a>, <a class="el" href="Stage02PartController_8cpp_source.html#l00046">MyStg2nd::Stage02PartController::processBehavior()</a>, <a class="el" href="GameMainScene_8cpp_source.html#l00062">MyStg2nd::GameMainScene::processBehavior()</a>, <a class="el" href="RankUpScene_8cpp_source.html#l00018">MyStg2nd::RankUpScene::processBehavior()</a>, <a class="el" href="TransitStage_8cpp_source.html#l00038">MyStg2nd::TransitStage::processBehavior()</a>, <a class="el" href="GameTitleScene_8cpp_source.html#l00071">MyStg2nd::GameTitleScene::processBehavior()</a>, <a class="el" href="GameDemoScene_8cpp_source.html#l00069">MyStg2nd::GameDemoScene::processBehavior()</a>, <a class="el" href="StageSceneController_8cpp_source.html#l00085">MyStg2nd::StageSceneController::processBehavior()</a>, <a class="el" href="World_8cpp_source.html#l00062">MyStg2nd::World::processBehavior()</a>, <a class="el" href="MyOptionController_8cpp_source.html#l00128">MyStg2nd::MyOptionController::processBehavior()</a>, <a class="el" href="GameScene_8cpp_source.html#l00082">MyStg2nd::GameScene::processBehavior()</a>, <a class="el" href="TransitStage_8cpp_source.html#l00130">MyStg2nd::TransitStage::processBehaviorProgPlaying()</a>, <a class="el" href="Stage04_8cpp_source.html#l00019">MyStg2nd::Stage04::processFinal()</a>, <a class="el" href="Stage05_8cpp_source.html#l00019">MyStg2nd::Stage05::processFinal()</a>, <a class="el" href="FormationJuno001_8cpp_source.html#l00022">MyStg2nd::FormationJuno001::processJudgement()</a>, <a class="el" href="MyShip_8cpp_source.html#l00479">MyStg2nd::MyShip::processJudgement()</a>, <a class="el" href="DepositoryConnection_8cpp_source.html#l00012">MyStg2nd::DepositoryConnection::processReleaseResource()</a>, <a class="el" href="CameraWorkerConnection_8cpp_source.html#l00012">MyStg2nd::CameraWorkerConnection::processReleaseResource()</a>, <a class="el" href="SplineLineConnection_8cpp_source.html#l00012">MyStg2nd::SplineLineConnection::processReleaseResource()</a>, <a class="el" href="GgafLinearOctree_8cpp_source.html#l00232">GgafCore::GgafLinearOctree::putTree()</a>, <a class="el" href="RankUpSceneController_8cpp_source.html#l00015">MyStg2nd::RankUpSceneController::RankUpSceneController()</a>, <a class="el" href="GgafUtil_8cpp_source.html#l00044">GgafCore::GgafUtil::read()</a>, <a class="el" href="GameEndingScene_8cpp_source.html#l00025">MyStg2nd::GameEndingScene::ready()</a>, <a class="el" href="StageSceneController_8cpp_source.html#l00059">MyStg2nd::StageSceneController::readyStage()</a>, <a class="el" href="GgafLinearOctree_8cpp_source.html#l00037">GgafCore::GgafLinearOctree::registElem()</a>, <a class="el" href="GgafFormation_8cpp_source.html#l00052">GgafCore::GgafFormation::sayonaraFollwer()</a>, <a class="el" href="StageSceneController_8cpp_source.html#l00018">MyStg2nd::StageSceneController::StageSceneController()</a>, <a class="el" href="Universe_8cpp_source.html#l00055">MyStg2nd::Universe::switchCameraWork()</a>, <a class="el" href="TransitStage_8cpp_source.html#l00008">MyStg2nd::TransitStage::TransitStage()</a>, <a class="el" href="MyShip_8h_source.html#l00759">MyStg2nd::MyShip::turbo_WAY_ZLEFT_DOWN_BEHIND()</a>, <a class="el" href="MyShip_8h_source.html#l00755">MyStg2nd::MyShip::turbo_WAY_ZLEFT_DOWN_FRONT()</a>, <a class="el" href="MyShip_8h_source.html#l00751">MyStg2nd::MyShip::turbo_WAY_ZLEFT_UP_BEHIND()</a>, <a class="el" href="MyShip_8h_source.html#l00745">MyStg2nd::MyShip::turbo_WAY_ZLEFT_UP_FRONT()</a>, <a class="el" href="MyShip_8h_source.html#l00775">MyStg2nd::MyShip::turbo_WAY_ZRIGHT_DOWN_BEHIND()</a>, <a class="el" href="MyShip_8h_source.html#l00771">MyStg2nd::MyShip::turbo_WAY_ZRIGHT_DOWN_FRONT()</a>, <a class="el" href="MyShip_8h_source.html#l00767">MyStg2nd::MyShip::turbo_WAY_ZRIGHT_UP_BEHIND()</a>, <a class="el" href="MyShip_8h_source.html#l00763">MyStg2nd::MyShip::turbo_WAY_ZRIGHT_UP_FRONT()</a>, <a class="el" href="Universe_8cpp_source.html#l00096">MyStg2nd::Universe::undoCameraWork()</a>, <a class="el" href="Universe_8cpp_source.html#l00009">MyStg2nd::Universe::Universe()</a>, <a class="el" href="GgafElement_8hpp_source.html#l00826">GgafCore::GgafElement&lt; GgafActor &gt;::useProgress()</a>, <a class="el" href="MySTG2nd_8cpp_source.html#l00440">WndProc()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00240">GgafCore::GgafFactory::work()</a>, <a class="el" href="World_8cpp_source.html#l00008">MyStg2nd::World::World()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00026">GgafCore::GgafActor::~GgafActor()</a>, <a class="el" href="GgafGarbageBox_8cpp_source.html#l00072">GgafCore::GgafGarbageBox::~GgafGarbageBox()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00951">GgafCore::GgafLinkedListRing&lt; T &gt;::~GgafLinkedListRing()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00290">GgafCore::GgafResourceManager&lt; T &gt;::~GgafResourceManager()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00023">GgafCore::GgafScene::~GgafScene()</a>, と <a class="el" href="TestDepository_8h_source.html#l00010">MyStg2nd::TestDepository::~TestDepository()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2edad686d7d455ec667b85f21b8ee038"></a><!-- doxytag: member="GgafCommonHeader.h::_TEXT_" ref="a2edad686d7d455ec667b85f21b8ee038" args="(X)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define _TEXT_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00281">281</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafLinearOctreeSpace_8cpp_source.html#l00007">GgafCore::GgafLinearOctreeSpace::dump()</a>, <a class="el" href="GgafLinearOctreeElem_8cpp_source.html#l00119">GgafCore::GgafLinearOctreeElem::dump()</a>, <a class="el" href="MyOptionLockonController_8cpp_source.html#l00176">MyStg2nd::MyOptionLockonController::dumpTarget()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00097">GgafCore::GgafFactory::obtain()</a>, <a class="el" href="World_8cpp_source.html#l00062">MyStg2nd::World::processBehavior()</a>, と <a class="el" href="GgafLinearOctree_8cpp_source.html#l00232">GgafCore::GgafLinearOctree::putTree()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaeeddc0d7a6ad8ca12a658bfa79d6102"></a><!-- doxytag: member="GgafCommonHeader.h::_TRACEORE" ref="aaeeddc0d7a6ad8ca12a658bfa79d6102" args="(X)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define _TRACEORE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00282">282</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="ac5582455c17b52cfc88c7190674b8849"></a><!-- doxytag: member="GgafCommonHeader.h::DELETE_POSSIBLE_NULL" ref="ac5582455c17b52cfc88c7190674b8849" args="(POINTER)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELETE_POSSIBLE_NULL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">POINTER</td><td>)</td>
+          <td>&#160;&#160;&#160;{ if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>NULLかもしれない delete. </p>
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00286">286</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafGod_8cpp_source.html#l00197">GgafCore::GgafGod::clean()</a>, <a class="el" href="EnemyEunomia_8cpp_source.html#l00035">MyStg2nd::EnemyEunomia::config()</a>, <a class="el" href="EnemyEunomia_8cpp_source.html#l00172">MyStg2nd::EnemyEunomia::onInactive()</a>, <a class="el" href="CmRandomNumberGenerator_8cpp_source.html#l00071">GgafCore::CmRandomNumberGenerator::release()</a>, <a class="el" href="EnemyCeres_8cpp_source.html#l00139">MyStg2nd::EnemyCeres::~EnemyCeres()</a>, <a class="el" href="EnemyEunomia_8cpp_source.html#l00176">MyStg2nd::EnemyEunomia::~EnemyEunomia()</a>, <a class="el" href="EnemyIris_8cpp_source.html#l00150">MyStg2nd::EnemyIris::~EnemyIris()</a>, <a class="el" href="EnemyPallas_8cpp_source.html#l00162">MyStg2nd::EnemyPallas::~EnemyPallas()</a>, <a class="el" href="EnemyTamago01_8cpp_source.html#l00200">MyStg2nd::EnemyTamago01::~EnemyTamago01()</a>, <a class="el" href="EnemyThalia_8cpp_source.html#l00211">MyStg2nd::EnemyThalia::~EnemyThalia()</a>, <a class="el" href="GgafElement_8hpp_source.html#l01782">GgafCore::GgafElement&lt; T &gt;::~GgafElement()</a>, <a class="el" href="GgafOrder_8cpp_source.html#l00020">GgafCore::GgafOrder::~GgafOrder()</a>, と <a class="el" href="GgafScene_8cpp_source.html#l00023">GgafCore::GgafScene::~GgafScene()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab0947d2cbc8d2903a8d1c3a131167662"></a><!-- doxytag: member="GgafCommonHeader.h::DELETEARR_POSSIBLE_NULL" ref="ab0947d2cbc8d2903a8d1c3a131167662" args="(POINTER)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELETEARR_POSSIBLE_NULL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">POINTER</td><td>)</td>
+          <td>&#160;&#160;&#160;{ if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>NULLかもしれない delete[]. </p>
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00288">288</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="a42bf34e9a7f076e0c16384807af87e5d"></a><!-- doxytag: member="GgafCommonHeader.h::RELEASE_POSSIBLE_NULL" ref="a42bf34e9a7f076e0c16384807af87e5d" args="(POINTER)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RELEASE_POSSIBLE_NULL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">POINTER</td><td>)</td>
+          <td>&#160;&#160;&#160;{ if(POINTER) { (POINTER)-&gt;Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>NULLかもしれない Release() </p>
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00290">290</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="ae5d747deb8aa2c8d2b082d12f7f49836"></a><!-- doxytag: member="GgafCommonHeader.h::DELETE_IMPOSSIBLE_NULL" ref="ae5d747deb8aa2c8d2b082d12f7f49836" args="(POINTER)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELETE_IMPOSSIBLE_NULL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">POINTER</td><td>)</td>
+          <td>&#160;&#160;&#160;{ if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>NULLはありえない delete. </p>
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00292">292</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafProperties_8cpp_source.html#l00032">GgafCore::GgafProperties::clean()</a>, <a class="el" href="God_8cpp_source.html#l00093">MyStg2nd::God::clean()</a>, <a class="el" href="GgafElement_8hpp_source.html#l01653">GgafCore::GgafElement&lt; T &gt;::clean()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00209">GgafCore::GgafFactory::clean()</a>, <a class="el" href="GgafGod_8cpp_source.html#l00197">GgafCore::GgafGod::clean()</a>, <a class="el" href="GgafScene_8cpp_source.html#l00244">GgafCore::GgafScene::clean()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00037">GgafCore::GgafProperties::getStr()</a>, <a class="el" href="Torus_8cpp_source.html#l00048">MyStg2nd::Torus::makeCollisionArea()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00097">GgafCore::GgafFactory::obtain()</a>, <a class="el" href="SplineLineConnection_8cpp_source.html#l00012">MyStg2nd::SplineLineConnection::processReleaseResource()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00768">GgafCore::GgafLinkedListRing&lt; T &gt;::remove()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00240">GgafCore::GgafFactory::work()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00102">GgafCore::GgafLinkedListRing&lt; T &gt;::Elem::~Elem()</a>, <a class="el" href="EnemyAstraeaLaserChip003_8cpp_source.html#l00054">MyStg2nd::EnemyAstraeaLaserChip003::~EnemyAstraeaLaserChip003()</a>, <a class="el" href="EnemyAstraeaLaserChip004_8cpp_source.html#l00066">MyStg2nd::EnemyAstraeaLaserChip004::~EnemyAstraeaLaserChip004()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00026">GgafCore::GgafActor::~GgafActor()</a>, <a class="el" href="GgafGarbageBox_8cpp_source.html#l00072">GgafCore::GgafGarbageBox::~GgafGarbageBox()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00951">GgafCore::GgafLinkedListRing&lt; T &gt;::~GgafLinkedListRing()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00596">GgafCore::GgafNode&lt; T &gt;::~GgafNode()</a>, <a class="el" href="GroundMeshActor_8cpp_source.html#l00066">MyStg2nd::GroundMeshActor::~GroundMeshActor()</a>, <a class="el" href="MyOptionController_8cpp_source.html#l00274">MyStg2nd::MyOptionController::~MyOptionController()</a>, <a class="el" href="MyOptionLockonController_8cpp_source.html#l00171">MyStg2nd::MyOptionLockonController::~MyOptionLockonController()</a>, <a class="el" href="MyShip_8cpp_source.html#l00615">MyStg2nd::MyShip::~MyShip()</a>, <a class="el" href="Shot001_8cpp_source.html#l00072">MyStg2nd::Shot001::~Shot001()</a>, と <a class="el" href="Universe_8cpp_source.html#l00167">MyStg2nd::Universe::~Universe()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac418da911740806e97d5f4b5314081ff"></a><!-- doxytag: member="GgafCommonHeader.h::DELETEARR_IMPOSSIBLE_NULL" ref="ac418da911740806e97d5f4b5314081ff" args="(POINTER)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELETEARR_IMPOSSIBLE_NULL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">POINTER</td><td>)</td>
+          <td>&#160;&#160;&#160;{ if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>NULLはありえない delete[]. </p>
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00294">294</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="EnemyAstraea_8cpp_source.html#l00014">MyStg2nd::EnemyAstraea::EnemyAstraea()</a>, <a class="el" href="EnemyMassalia_8cpp_source.html#l00008">MyStg2nd::EnemyMassalia::EnemyMassalia()</a>, <a class="el" href="MyOptionTorpedoController_8cpp_source.html#l00053">MyStg2nd::MyOptionTorpedoController::fire()</a>, <a class="el" href="EnemyPallas_8cpp_source.html#l00042">MyStg2nd::EnemyPallas::processBehavior()</a>, <a class="el" href="EnemyIris_8cpp_source.html#l00039">MyStg2nd::EnemyIris::processBehavior()</a>, <a class="el" href="EnemyTamago01_8cpp_source.html#l00074">MyStg2nd::EnemyTamago01::processBehavior()</a>, <a class="el" href="EnemyEunomia_8cpp_source.html#l00059">MyStg2nd::EnemyEunomia::processBehavior()</a>, <a class="el" href="OptionMagic_8cpp_source.html#l00050">MyStg2nd::OptionMagic::processCastBegin()</a>, <a class="el" href="EnemyAstraea_8cpp_source.html#l00240">MyStg2nd::EnemyAstraea::~EnemyAstraea()</a>, <a class="el" href="EnemyMassalia_8cpp_source.html#l00296">MyStg2nd::EnemyMassalia::~EnemyMassalia()</a>, <a class="el" href="FormationEunomia_8cpp_source.html#l00058">MyStg2nd::FormationEunomia::~FormationEunomia()</a>, <a class="el" href="FormationIris001_8cpp_source.html#l00040">MyStg2nd::FormationIris001::~FormationIris001()</a>, <a class="el" href="FormationIris002_8cpp_source.html#l00041">MyStg2nd::FormationIris002::~FormationIris002()</a>, <a class="el" href="FormationPallas001_8cpp_source.html#l00058">MyStg2nd::FormationPallas001::~FormationPallas001()</a>, <a class="el" href="FormationPallas002_8cpp_source.html#l00039">MyStg2nd::FormationPallas002::~FormationPallas002()</a>, <a class="el" href="FormationThalia_8cpp_source.html#l00041">MyStg2nd::FormationThalia::~FormationThalia()</a>, <a class="el" href="GameDemoScene_8cpp_source.html#l00155">MyStg2nd::GameDemoScene::~GameDemoScene()</a>, <a class="el" href="GamePauseScene_8cpp_source.html#l00178">MyStg2nd::GamePauseScene::~GamePauseScene()</a>, <a class="el" href="GameTitleScene_8cpp_source.html#l00192">MyStg2nd::GameTitleScene::~GameTitleScene()</a>, <a class="el" href="GgafLinearOctree_8cpp_source.html#l00226">GgafCore::GgafLinearOctree::~GgafLinearOctree()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00596">GgafCore::GgafNode&lt; T &gt;::~GgafNode()</a>, <a class="el" href="GgafProgress_8cpp_source.html#l00152">GgafCore::GgafProgress::~GgafProgress()</a>, <a class="el" href="MagicMeter_8cpp_source.html#l00257">MyStg2nd::MagicMeter::~MagicMeter()</a>, <a class="el" href="MyOptionController_8cpp_source.html#l00274">MyStg2nd::MyOptionController::~MyOptionController()</a>, <a class="el" href="MyOptionTorpedoController_8cpp_source.html#l00087">MyStg2nd::MyOptionTorpedoController::~MyOptionTorpedoController()</a>, と <a class="el" href="OptionMagic_8cpp_source.html#l00168">MyStg2nd::OptionMagic::~OptionMagic()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3661444126f41a41d0904a981f453592"></a><!-- doxytag: member="GgafCommonHeader.h::RELEASE_IMPOSSIBLE_NULL" ref="a3661444126f41a41d0904a981f453592" args="(POINTER)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RELEASE_IMPOSSIBLE_NULL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">POINTER</td><td>)</td>
+          <td>&#160;&#160;&#160;{ if(POINTER) { (POINTER)-&gt;Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>NULLはありえない Release() </p>
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00296">296</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="ab4ac4f2752f0d1f04f122d7938c88e84"></a><!-- doxytag: member="GgafCommonHeader.h::RELEASE_SAFETY" ref="ab4ac4f2752f0d1f04f122d7938c88e84" args="(POINTER)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RELEASE_SAFETY</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">POINTER</td><td>)</td>
+          <td>&#160;&#160;&#160;{ if(POINTER) { (POINTER)-&gt;Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>自明で検査不要の何も言わないRelease() </p>
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00298">298</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="a9dc19656697a84144f067a543d5eeb2d"></a><!-- doxytag: member="GgafCommonHeader.h::throwGgafCriticalException" ref="a9dc19656697a84144f067a543d5eeb2d" args="(X)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define throwGgafCriticalException</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<b>値:</b><div class="fragment"><pre class="fragment">{ \
+    std::stringstream ss; \
+    ss &lt;&lt;__FILE__&lt;&lt;<span class="stringliteral">&quot;(&quot;</span>&lt;&lt;__LINE__&lt;&lt;<span class="stringliteral">&quot;) : &quot;</span>&lt;&lt; X; \
+    throw <a class="code" href="classGgafCore_1_1GgafCriticalException.html" title="GgafCoreライブラリ専用、ライブラリ業務例外 .">GgafCore::GgafCriticalException</a>(ss.str()); \
+}
+</pre></div>
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00302">302</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00853">GgafCore::GgafLinkedListRing&lt; T &gt;::addFirst()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00823">GgafCore::GgafLinkedListRing&lt; T &gt;::addLast()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00884">GgafCore::GgafLinkedListRing&lt; T &gt;::addNext()</a>, <a class="el" href="GgafLinkedListRing_8hpp_source.html#l00914">GgafCore::GgafLinkedListRing&lt; T &gt;::addPrev()</a>, <a class="el" href="GgafActorDepositoryStore_8cpp_source.html#l00011">GgafCore::GgafActorDepositoryStore::addSubLast()</a>, <a class="el" href="GgafActorDepository_8cpp_source.html#l00012">GgafCore::GgafActorDepository::addSubLast()</a>, <a class="el" href="GgafFormation_8cpp_source.html#l00019">GgafCore::GgafFormation::addSubLast()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00553">GgafCore::GgafNode&lt; T &gt;::addSubLast()</a>, <a class="el" href="GgafGroupHead_8cpp_source.html#l00061">GgafCore::GgafGroupHead::askGod()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00175">GgafCore::GgafMainActor::askGod()</a>, <a class="el" href="GgafDirector_8cpp_source.html#l00075">GgafCore::GgafDirector::askGod()</a>, <a class="el" href="GgafGod_8cpp_source.html#l00055">GgafCore::GgafGod::be()</a>, <a class="el" href="GgafDepositoryFormation_8cpp_source.html#l00034">GgafCore::GgafDeositoryFormation::callUp()</a>, <a class="el" href="GgafProgress_8cpp_source.html#l00050">GgafCore::GgafProgress::change()</a>, <a class="el" href="GgafProgress_8cpp_source.html#l00060">GgafCore::GgafProgress::changeNext()</a>, <a class="el" href="GgafGod_8cpp_source.html#l00197">GgafCore::GgafGod::clean()</a>, <a class="el" href="GgafResourceConnection_8hpp_source.html#l00149">GgafCore::GgafResourceConnection&lt; T &gt;::close()</a>, <a class="el" href="GgafResourceManager_8hpp_source.html#l00183">GgafCore::GgafResourceManager&lt; T &gt;::connect()</a>, <a class="el" href="GgafRepeatSeq_8cpp_source.html#l00009">GgafCore::GgafRepeatSeq::create()</a>, <a class="el" href="GgafActorDepository_8h_source.html#l00078">GgafCore::GgafActorDepository::dispatch()</a>, <a class="el" href="GgafDirector_8h_source.html#l00027">GgafCore::GgafDirector::extract()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00074">GgafCore::GgafProperties::getBool()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00082">GgafCore::GgafProperties::getDouble()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00047">GgafCore::GgafProperties::getFloat()</a>, <a class="el" href="GgafProgress_8cpp_source.html#l00038">GgafCore::GgafProgress::getFrameWhenChanged()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00056">GgafCore::GgafProperties::getInt()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00085">GgafCore::GgafMainActor::getMyGroupHead()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00091">GgafCore::GgafProperties::getRGB()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00037">GgafCore::GgafProperties::getStr()</a>, <a class="el" href="GgafNode_8hpp_source.html#l00465">GgafCore::GgafNode&lt; T &gt;::getSubByName()</a>, <a class="el" href="GgafProperties_8cpp_source.html#l00065">GgafCore::GgafProperties::getUInt()</a>, <a class="el" href="GgafGod_8cpp_source.html#l00020">GgafCore::GgafGod::GgafGod()</a>, <a class="el" href="GgafProgress_8cpp_source.html#l00092">GgafCore::GgafProgress::isJustChangedFrom()</a>, <a class="el" href="GgafProgress_8cpp_source.html#l00068">GgafCore::GgafProgress::isJustChangedTo()</a>, <a class="el" href="GgafRepeatSeq_8cpp_source.html#l00028">GgafCore::GgafRepeatSeq::nextVal()</a>, <a class="el" href="GgafActor_8cpp_source.html#l00111">GgafCore::GgafActor::notifyFormationAboutDestroyed()</a>, <a class="el" href="GgafFactory_8cpp_source.html#l00097">GgafCore::GgafFactory::obtain()</a>, <a class="el" href="EnemyPallas_8cpp_source.html#l00032">MyStg2nd::EnemyPallas::onActive()</a>, <a class="el" href="EnemyEunomia_8cpp_source.html#l00048">MyStg2nd::EnemyEunomia::onActive()</a>, <a class="el" href="Universe_8h_source.html#l00054">MyStg2nd::Universe::CameraWorkerConnectionStack::pop()</a>, <a class="el" href="VamSysCamWorker_8cpp_source.html#l00065">MyStg2nd::VamSysCamWorker::processBehavior()</a>, <a class="el" href="CameraWorkerManager_8cpp_source.html#l00012">MyStg2nd::CameraWorkerManager::processCreateResource()</a>, <a class="el" href="DepositoryManager_8cpp_source.html#l00012">MyStg2nd::DepositoryManager::processCreateResource()</a>, <a class="el" href="Universe_8h_source.html#l00047">MyStg2nd::Universe::CameraWorkerConnectionStack::push()</a>, <a class="el" href="GgafUtil_8cpp_source.html#l00035">GgafCore::GgafUtil::read()</a>, <a class="el" href="GgafDirector_8cpp_source.html#l00014">GgafCore::GgafDirector::remove()</a>, <a class="el" href="GgafStatus_8h_source.html#l00132">GgafCore::GgafStatus::reset()</a>, <a class="el" href="GgafRgb_8h_source.html#l00037">GgafCore::GgafRgb::set()</a>, <a class="el" href="GgafProgress_8cpp_source.html#l00021">GgafCore::GgafProgress::set()</a>, <a class="el" href="GgafDepositoryFormation_8cpp_source.html#l00012">GgafCore::GgafDeositoryFormation::setFormationAbleActorDepository()</a>, と <a class="el" href="Universe_8cpp_source.html#l00096">MyStg2nd::Universe::undoCameraWork()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a523e0b216dd4381d42d91b3ed17c288a"></a><!-- doxytag: member="GgafCommonHeader.h::DECLARE_CONST" ref="a523e0b216dd4381d42d91b3ed17c288a" args="(X)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DECLARE_CONST</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td>&#160;&#160;&#160;const static UINT32 X = GgafCore::GgafUtil::easy_hash(#X)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00324">324</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="aaa54f7e1a36379ac652ae049c94bcca1"></a><!-- doxytag: member="GgafCommonHeader.h::MAX2" ref="aaa54f7e1a36379ac652ae049c94bcca1" args="(a, b)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX2</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">a, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">b&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;((a) &gt; (b) ? (a) : (b))</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00329">329</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="a37c6d7fcb9c177c308ef38e1d51d35e3"></a><!-- doxytag: member="GgafCommonHeader.h::MAX3" ref="a37c6d7fcb9c177c308ef38e1d51d35e3" args="(a, b, c)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX3</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">a, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">b, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">c&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;( (a)&gt;(b) ? ((a)&gt;(c)?(a):(c)) : ((b)&gt;(c)?(b):(c)) )</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00330">330</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="MyOptionWateringLaserChip001_8cpp_source.html#l00060">MyStg2nd::MyOptionWateringLaserChip001::processBehavior()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a51b09ee5e816a4c2cafc9c6207583c67"></a><!-- doxytag: member="GgafCommonHeader.h::Obj_GgafScene" ref="a51b09ee5e816a4c2cafc9c6207583c67" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Obj_GgafScene&#160;&#160;&#160;(0x80000001)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00337">337</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafScene_8cpp_source.html#l00009">GgafCore::GgafScene::GgafScene()</a>, と <a class="el" href="GgafFactory_8cpp_source.html#l00097">GgafCore::GgafFactory::obtain()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad20826f4b6ff96fb2336345d34d573fd"></a><!-- doxytag: member="GgafCommonHeader.h::Obj_GgafMainScene" ref="ad20826f4b6ff96fb2336345d34d573fd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Obj_GgafMainScene&#160;&#160;&#160;(0x80000002)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00338">338</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafMainScene_8cpp_source.html#l00006">GgafCore::GgafMainScene::GgafMainScene()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="add88eb260fd73e4ab30b9601f6c17f8d"></a><!-- doxytag: member="GgafCommonHeader.h::Obj_GgafDisusedScene" ref="add88eb260fd73e4ab30b9601f6c17f8d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Obj_GgafDisusedScene&#160;&#160;&#160;(0x80000004)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00339">339</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafDisusedScene_8h_source.html#l00017">GgafCore::GgafDisusedScene::GgafDisusedScene()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a28d18005f67eda7e52663a3171aef1e3"></a><!-- doxytag: member="GgafCommonHeader.h::Obj_GgafUniverse" ref="a28d18005f67eda7e52663a3171aef1e3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Obj_GgafUniverse&#160;&#160;&#160;(0x80000008)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00340">340</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafUniverse_8cpp_source.html#l00006">GgafCore::GgafUniverse::GgafUniverse()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2f46e52e3f1b9b30793318f8a832d14d"></a><!-- doxytag: member="GgafCommonHeader.h::Obj_GgafActor" ref="a2f46e52e3f1b9b30793318f8a832d14d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Obj_GgafActor&#160;&#160;&#160;(0x1)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00342">342</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafActor_8cpp_source.html#l00006">GgafCore::GgafActor::GgafActor()</a>, と <a class="el" href="GgafFactory_8cpp_source.html#l00097">GgafCore::GgafFactory::obtain()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a41979e5e36abfac415cdc004826951a9"></a><!-- doxytag: member="GgafCommonHeader.h::Obj_GgafMainActor" ref="a41979e5e36abfac415cdc004826951a9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Obj_GgafMainActor&#160;&#160;&#160;(0x2)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00343">343</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafMainActor_8cpp_source.html#l00085">GgafCore::GgafMainActor::getMyGroupHead()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00102">GgafCore::GgafMainActor::getSceneDirector()</a>, <a class="el" href="GgafGroupHead_8cpp_source.html#l00022">GgafCore::GgafGroupHead::getSceneDirector()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00006">GgafCore::GgafMainActor::GgafMainActor()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00048">GgafCore::GgafMainActor::setGroupHead()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00029">GgafCore::GgafMainActor::setSceneDirector()</a>, と <a class="el" href="GgafGroupHead_8cpp_source.html#l00042">GgafCore::GgafGroupHead::setSceneDirector()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3890f869149c5dc83631c70257be9ff4"></a><!-- doxytag: member="GgafCommonHeader.h::Obj_GgafDummyActor" ref="a3890f869149c5dc83631c70257be9ff4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Obj_GgafDummyActor&#160;&#160;&#160;(0x4)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00344">344</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafDummyActor_8cpp_source.html#l00006">GgafCore::GgafDummyActor::GgafDummyActor()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeca696673db0a17dbb3659854e22c58e"></a><!-- doxytag: member="GgafCommonHeader.h::Obj_GgafDirector" ref="aeca696673db0a17dbb3659854e22c58e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Obj_GgafDirector&#160;&#160;&#160;(0x8)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00345">345</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafMainActor_8cpp_source.html#l00102">GgafCore::GgafMainActor::getSceneDirector()</a>, <a class="el" href="GgafGroupHead_8cpp_source.html#l00022">GgafCore::GgafGroupHead::getSceneDirector()</a>, と <a class="el" href="GgafDirector_8cpp_source.html#l00006">GgafCore::GgafDirector::GgafDirector()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac0736f2367ab0a02e534b6450eb9865c"></a><!-- doxytag: member="GgafCommonHeader.h::Obj_GgafGroupHead" ref="ac0736f2367ab0a02e534b6450eb9865c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Obj_GgafGroupHead&#160;&#160;&#160;(0x10)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00346">346</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafMainActor_8cpp_source.html#l00085">GgafCore::GgafMainActor::getMyGroupHead()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00102">GgafCore::GgafMainActor::getSceneDirector()</a>, <a class="el" href="GgafGroupHead_8cpp_source.html#l00022">GgafCore::GgafGroupHead::getSceneDirector()</a>, <a class="el" href="GgafGroupHead_8cpp_source.html#l00006">GgafCore::GgafGroupHead::GgafGroupHead()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00152">GgafCore::GgafMainActor::searchSubGroupHead()</a>, <a class="el" href="GgafDirector_8cpp_source.html#l00045">GgafCore::GgafDirector::searchSubGroupHead()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00048">GgafCore::GgafMainActor::setGroupHead()</a>, <a class="el" href="GgafMainActor_8cpp_source.html#l00029">GgafCore::GgafMainActor::setSceneDirector()</a>, と <a class="el" href="GgafGroupHead_8cpp_source.html#l00042">GgafCore::GgafGroupHead::setSceneDirector()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5047385aaf10de1d67b702a37f815d48"></a><!-- doxytag: member="GgafCommonHeader.h::Obj_GgafDisusedActor" ref="a5047385aaf10de1d67b702a37f815d48" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Obj_GgafDisusedActor&#160;&#160;&#160;(0x20)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00347">347</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="a443712de50d884edce250efbece3377c"></a><!-- doxytag: member="GgafCommonHeader.h::Obj_GgafActorDepository" ref="a443712de50d884edce250efbece3377c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Obj_GgafActorDepository&#160;&#160;&#160;(0x40)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00348">348</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafActorDepositoryStore_8cpp_source.html#l00011">GgafCore::GgafActorDepositoryStore::addSubLast()</a>, と <a class="el" href="GgafActorDepository_8cpp_source.html#l00005">GgafCore::GgafActorDepository::GgafActorDepository()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7c36b13e77791bd9469fb3c83c8228dd"></a><!-- doxytag: member="GgafCommonHeader.h::Obj_GgafFormation" ref="a7c36b13e77791bd9469fb3c83c8228dd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Obj_GgafFormation&#160;&#160;&#160;(0x80)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00349">349</a> 行で定義されています。</p>
+
+<p>参照元 <a class="el" href="GgafFormation_8cpp_source.html#l00005">GgafCore::GgafFormation::GgafFormation()</a>.</p>
+
+</div>
+</div>
+<hr/><h2>型定義</h2>
+<a class="anchor" id="a6ea3bd7555c391c5d23f5faf5450395a"></a><!-- doxytag: member="GgafCommonHeader.h::actorkind" ref="a6ea3bd7555c391c5d23f5faf5450395a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef UINT32 <a class="el" href="GgafCommonHeader_8h.html#a6ea3bd7555c391c5d23f5faf5450395a">actorkind</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00332">332</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="a30ad2b1055b8608cd8df837b05b0a402"></a><!-- doxytag: member="GgafCommonHeader.h::frame" ref="a30ad2b1055b8608cd8df837b05b0a402" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef UINT32 <a class="el" href="GgafCommonHeader_8h.html#a30ad2b1055b8608cd8df837b05b0a402">frame</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00333">333</a> 行で定義されています。</p>
+
+</div>
+</div>
+<a class="anchor" id="a15cbb52f85e4623bf03a9a089c51ef0c"></a><!-- doxytag: member="GgafCommonHeader.h::GgafStrMap" ref="a15cbb52f85e4623bf03a9a089c51ef0c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;std::string, std::string&gt; <a class="el" href="GgafCommonHeader_8h.html#a15cbb52f85e4623bf03a9a089c51ef0c">GgafStrMap</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p> <a class="el" href="GgafCommonHeader_8h_source.html">GgafCommonHeader.h</a> の <a class="el" href="GgafCommonHeader_8h_source.html#l00334">334</a> 行で定義されています。</p>
+
+</div>
+</div>
+</div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="GgafCommonHeader_8h.html">GgafCommonHeader.h</a>      </li>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>データ構造</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>ネームスペース</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙型の値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+    <li class="footer">MyStg2ndに対してSat Oct 15 2011 13:58:55に生成されました。
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
+   </ul>
+ </div>
+
+
+</body>
+</html>

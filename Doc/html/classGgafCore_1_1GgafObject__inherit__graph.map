@@ -1,0 +1,67 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafCurtain.html" title="シーンのカーテン ." alt="" coords="276,5,436,35"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafException.html" title="本ライブラリ例外" alt="" coords="268,59,444,88"/>
+<area shape="rect" id="node9" href="$classGgafCore_1_1GgafGarbageBox.html" title="ゴミ箱 ." alt="" coords="261,112,451,141"/>
+<area shape="rect" id="node11" href="$classGgafCore_1_1GgafGod.html" title="神クラス." alt="" coords="285,165,427,195"/>
+<area shape="rect" id="node13" href="$classGgafCore_1_1GgafLinkedListRing.html" title="要素（同一型インスタンスへのポインタ）の環状双方向連結リストを構築するテンプレートです。." alt="" coords="235,384,477,413"/>
+<area shape="rect" id="node15" href="$classGgafCore_1_1GgafLinkedListRing.html" title="GgafCore::GgafLinkedListRing\&lt; GgafDxCore::GgafDxGeometricActor \&gt;" alt="" coords="804,247,1263,276"/>
+<area shape="rect" id="node17" href="$classGgafCore_1_1GgafLinkedListRing.html" title="GgafCore::GgafLinkedListRing\&lt; GgafDxCore::GgafDxGeoElem \&gt;" alt="" coords="827,409,1240,439"/>
+<area shape="rect" id="node19" href="$classGgafCore_1_1GgafLinkedListRing.html" title="GgafCore::GgafLinkedListRing\&lt; GgafActor \&gt;" alt="" coords="884,479,1183,508"/>
+<area shape="rect" id="node21" href="$classGgafCore_1_1GgafLinkedListRing.html" title="GgafCore::GgafLinkedListRing\&lt; Magic \&gt;" alt="" coords="899,315,1168,344"/>
+<area shape="rect" id="node23" href="$classGgafCore_1_1GgafNode.html" title="要素同士を環状双方向連結リストのツリー構造を作ることができるテンプレートです。." alt="" coords="265,612,447,641"/>
+<area shape="rect" id="node93" href="$classGgafCore_1_1GgafNode.html" title="GgafCore::GgafNode\&lt; GgafScene \&gt;" alt="" coords="913,545,1153,575"/>
+<area shape="rect" id="node96" href="$classGgafCore_1_1GgafNode.html" title="GgafCore::GgafNode\&lt; GgafActor \&gt;" alt="" coords="915,692,1152,721"/>
+<area shape="rect" id="node99" href="$classGgafCore_1_1GgafOrder.html" title="商品（何かのインスタンス）の注文クラス ." alt="" coords="281,716,431,745"/>
+<area shape="rect" id="node101" href="$classGgafCore_1_1GgafProgress.html" title="進捗管理クラス ." alt="" coords="271,769,441,799"/>
+<area shape="rect" id="node103" href="$classGgafCore_1_1GgafResourceConnection.html" title="資源接続クラス ." alt="" coords="217,932,495,961"/>
+<area shape="rect" id="node105" href="$classGgafCore_1_1GgafResourceConnection.html" title="GgafCore::GgafResourceConnection\&lt; CameraWorker \&gt;" alt="" coords="853,919,1213,948"/>
+<area shape="rect" id="node109" href="$classGgafCore_1_1GgafResourceConnection.html" title="GgafCore::GgafResourceConnection\&lt; GgafCore::GgafActorDepository \&gt;" alt="" coords="800,849,1267,879"/>
+<area shape="rect" id="node113" href="$classGgafCore_1_1GgafResourceConnection.html" title="GgafCore::GgafResourceConnection\&lt; GgafLib::SplineLine \&gt;" alt="" coords="839,1012,1228,1041"/>
+<area shape="rect" id="node117" href="$classGgafCore_1_1GgafResourceManager.html" title="資源管理クラス。 ." alt="" coords="227,1172,485,1201"/>
+<area shape="rect" id="node119" href="$classGgafCore_1_1GgafResourceManager.html" title="GgafCore::GgafResourceManager\&lt; CameraWorker \&gt;" alt="" coords="863,1155,1204,1184"/>
+<area shape="rect" id="node123" href="$classGgafCore_1_1GgafResourceManager.html" title="GgafCore::GgafResourceManager\&lt; GgafCore::GgafActorDepository \&gt;" alt="" coords="809,1077,1257,1107"/>
+<area shape="rect" id="node127" href="$classGgafCore_1_1GgafResourceManager.html" title="GgafCore::GgafResourceManager\&lt; GgafLib::SplineLine \&gt;" alt="" coords="848,1231,1219,1260"/>
+<area shape="rect" id="node131" href="$classGgafCore_1_1GgafRgb.html" title="GgafCore::GgafRgb" alt="" coords="287,1324,425,1353"/>
+<area shape="rect" id="node145" href="$classMyStg2nd_1_1VamSysCamPosition.html" title="現在未使用 ." alt="" coords="245,1377,467,1407"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafCriticalException.html" title="GgafCoreライブラリ専用、ライブラリ業務例外 ." alt="" coords="924,59,1143,88"/>
+<area shape="rect" id="node25" href="$classGgafCore_1_1GgafElement.html" title="GgafNodeに、様々な状態遷移管理（タスクシステム）を追加。 ." alt="" coords="933,624,1133,653"/>
+<area shape="rect" id="node27" href="$classGgafCore_1_1GgafElement.html" title="GgafCore::GgafElement\&lt; GgafScene \&gt;" alt="" coords="1413,545,1672,575"/>
+<area shape="rect" id="node37" href="$classGgafCore_1_1GgafElement.html" title="GgafCore::GgafElement\&lt; GgafActor \&gt;" alt="" coords="1415,692,1671,721"/>
+<area shape="rect" id="node29" href="$classGgafCore_1_1GgafScene.html" title="シーンクラス ." alt="" coords="1724,457,1876,487"/>
+<area shape="rect" id="node31" href="$classGgafCore_1_1GgafDisusedScene.html" title="不要になったシーン ." alt="" coords="1928,457,2131,487"/>
+<area shape="rect" id="node33" href="$classGgafCore_1_1GgafMainScene.html" title="下位シーンクラスへのインターフェイス ." alt="" coords="1939,392,2120,421"/>
+<area shape="rect" id="node35" href="$classGgafCore_1_1GgafUniverse.html" title="この世クラス ." alt="" coords="2217,385,2385,415"/>
+<area shape="rect" id="node39" href="$classGgafCore_1_1GgafActor.html" title="アクターの基底クラス ." alt="" coords="1725,744,1875,773"/>
+<area shape="rect" id="node41" href="$classGgafCore_1_1GgafDirector.html" title="監督クラス ." alt="" coords="1947,697,2112,727"/>
+<area shape="rect" id="node43" href="$classGgafCore_1_1GgafDisusedActor.html" title="不要になったアクター ." alt="" coords="1929,751,2129,780"/>
+<area shape="rect" id="node45" href="$classGgafCore_1_1GgafFormation.html" title="フォーメーションアクタークラス ." alt="" coords="1940,831,2119,860"/>
+<area shape="rect" id="node51" href="$classGgafCore_1_1GgafGroupHead.html" title="団長(GgafGroupHead)クラス ." alt="" coords="1937,884,2121,913"/>
+<area shape="rect" id="node53" href="$classGgafCore_1_1GgafMainActor.html" title="普通のアクター(演者)." alt="" coords="1940,631,2119,660"/>
+<area shape="rect" id="node47" href="$classGgafCore_1_1GgafDeositoryFormation.html" title="フォーメーションアクタークラス ." alt="" coords="2181,837,2421,867"/>
+<area shape="rect" id="node49" href="$classGgafCore_1_1GgafTreeFormation.html" title="フォーメーションアクタークラス ." alt="" coords="2199,891,2404,920"/>
+<area shape="rect" id="node55" href="$classGgafCore_1_1GgafDummyActor.html" title="ダミーアクタークラス ." alt="" coords="2203,627,2400,656"/>
+<area shape="rect" id="node67" href="$classMyStg2nd_1_1CameraWorker.html" title="カメラマン ." alt="" coords="2209,784,2393,813"/>
+<area shape="rect" id="node79" href="$classMyStg2nd_1_1Magic.html" title="抽象魔法クラス ." alt="" coords="2237,439,2365,468"/>
+<area shape="rect" id="node57" href="$classGgafCore_1_1GgafActorDepository.html" title="アクター保管所（人材バンク）クラス ." alt="" coords="2496,572,2715,601"/>
+<area shape="rect" id="node63" href="$classMyStg2nd_1_1MyOptionLockonController.html" title="ロックオンコントローラー ." alt="" coords="2475,625,2736,655"/>
+<area shape="rect" id="node65" href="$classMyStg2nd_1_1MyOptionTorpedoController.html" title="魚雷コントローラー ." alt="" coords="2472,679,2739,708"/>
+<area shape="rect" id="node59" href="$classGgafCore_1_1GgafActorDepositoryStore.html" title="アクターデポジトリの保管所クラス ." alt="" coords="2789,545,3043,575"/>
+<area shape="rect" id="node61" href="$classMyStg2nd_1_1TestDepository.html" title="MyStg2nd::TestDepository" alt="" coords="2821,599,3011,628"/>
+<area shape="rect" id="node69" href="$classMyStg2nd_1_1DefaultCamWorker.html" title="何もしないカメラマン ." alt="" coords="2500,785,2711,815"/>
+<area shape="rect" id="node71" href="$classMyStg2nd_1_1MyShipDivingCamWorker.html" title="ステージ突入時のカメラマン ." alt="" coords="2483,839,2728,868"/>
+<area shape="rect" id="node73" href="$classMyStg2nd_1_1PauseCamWorker.html" title="一時停止時のカメラマン ." alt="" coords="2504,892,2707,921"/>
+<area shape="rect" id="node75" href="$classMyStg2nd_1_1TestCamWorker.html" title="何もしないカメラマン ." alt="" coords="2509,945,2701,975"/>
+<area shape="rect" id="node77" href="$classMyStg2nd_1_1VamSysCamWorker.html" title="VamSystemのカメラマン ." alt="" coords="2499,732,2712,761"/>
+<area shape="rect" id="node81" href="$classMyStg2nd_1_1LaserMagic.html" title="魔法「オプション」 ." alt="" coords="2524,252,2687,281"/>
+<area shape="rect" id="node83" href="$classMyStg2nd_1_1LockonMagic.html" title="魔法「ロックオン」 ." alt="" coords="2519,305,2692,335"/>
+<area shape="rect" id="node85" href="$classMyStg2nd_1_1OptionMagic.html" title="魔法「オプション」 ." alt="" coords="2520,359,2691,388"/>
+<area shape="rect" id="node87" href="$classMyStg2nd_1_1SpeedMagic.html" title="魔法「スピード」 ." alt="" coords="2523,412,2688,441"/>
+<area shape="rect" id="node89" href="$classMyStg2nd_1_1TorpedoMagic.html" title="魔法「魚雷」 ." alt="" coords="2515,465,2696,495"/>
+<area shape="rect" id="node91" href="$classMyStg2nd_1_1TractorMagic.html" title="魔法「アイテム引き寄せ」 ." alt="" coords="2519,519,2692,548"/>
+<area shape="rect" id="node107" href="$classMyStg2nd_1_1CameraWorkerConnection.html" title="CameraWorkerコネクション." alt="" coords="1416,919,1669,948"/>
+<area shape="rect" id="node111" href="$classMyStg2nd_1_1DepositoryConnection.html" title="Depositoryコネクション." alt="" coords="1427,849,1659,879"/>
+<area shape="rect" id="node115" href="$classMyStg2nd_1_1SplineLineConnection.html" title="SplineLine資源コネクション." alt="" coords="1429,1012,1656,1041"/>
+<area shape="rect" id="node121" href="$classMyStg2nd_1_1CameraWorkerManager.html" title="CameraWorker 管理クラス ." alt="" coords="1425,1155,1660,1184"/>
+<area shape="rect" id="node125" href="$classMyStg2nd_1_1DepositoryManager.html" title="Depository 管理クラス ." alt="" coords="1436,1077,1649,1107"/>
+<area shape="rect" id="node129" href="$classMyStg2nd_1_1SplineLineManager.html" title="Spline 管理クラス ." alt="" coords="1439,1231,1647,1260"/>
+</map>

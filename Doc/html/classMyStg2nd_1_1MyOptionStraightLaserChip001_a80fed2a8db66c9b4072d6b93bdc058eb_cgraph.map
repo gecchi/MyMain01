@@ -1,0 +1,19 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classMyStg2nd_1_1MyStgUtil.html#a67fe585fa436139913835ad2bfb25579" title="自分(自機)の体力計算 ." alt="" coords="423,112,668,141"/>
+<area shape="rect" id="node13" href="$classGgafCore_1_1GgafLinkedListRing.html#a0ba9770ab88e48441aa17b5c58a28ba6" title="カレント要素の値（保持している内容）を取得する ." alt="" coords="404,272,687,301"/>
+<area shape="rect" id="node15" href="$classMyStg2nd_1_1MyOptionLockonController.html#a030708f866814459ea9a6cd413fe131d" title="MyStg2nd::MyOptionLockonController::lockon" alt="" coords="391,432,700,461"/>
+<area shape="rect" id="node5" href="$classMyStg2nd_1_1MyStgUtil.html#a28c72aa24f95d14e494e9f3203ba9006" title="優位性を調べる" alt="" coords="749,5,1024,35"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafStatus.html#a56f9c889136bb439f1b8e2cd9a08440e" title="GgafCore::GgafStatus::get" alt="" coords="793,59,980,88"/>
+<area shape="rect" id="node9" href="$classGgafCore_1_1GgafStatus.html#abea867ec766bca27e140c5a9e249c7fa" title="GgafCore::GgafStatus::minus" alt="" coords="785,112,988,141"/>
+<area shape="rect" id="node11" href="$classGgafCore_1_1GgafStatus.html#aa308c46fbf5d375ee9ded381b598ddb9" title="GgafCore::GgafStatus::getDouble" alt="" coords="772,165,1001,195"/>
+<area shape="rect" id="node17" href="$classGgafCore_1_1GgafElement.html#a2e6e48500413659255d66fb55acb8e9d" title="活動状態にする(単体・コールバック有り) ." alt="" coords="775,219,999,248"/>
+<area shape="rect" id="node19" href="$classGgafCore_1_1GgafLinkedListRing.html#ab4f5d185f8e7894fc13b180a7f50c4e1" title="引数要素を、カレント要素の「前」に追加する ." alt="" coords="753,272,1020,301"/>
+<area shape="rect" id="node21" href="$classGgafCore_1_1GgafMainActor.html#a59d74abbb4da022e6e2eb88663d53a17" title="次のノード取得する。 ." alt="" coords="768,325,1005,355"/>
+<area shape="rect" id="node23" href="$classGgafCore_1_1GgafLinkedListRing.html#ae085010290f015c8804ab98cafbdfee8" title="カレント要素の次の要素の値を取得する。カレント要素は変化しない ." alt="" coords="753,379,1020,408"/>
+<area shape="rect" id="node25" href="$classGgafCore_1_1GgafMainActor.html#a30fb867bcdd529d9c9b8c5b34d1720f7" title="前のノード取得する。 ." alt="" coords="769,432,1004,461"/>
+<area shape="rect" id="node27" href="$classGgafCore_1_1GgafMainActor.html#adc4fefef661bee66071d627f91a98cec" title="子ノードのグループの先頭ノードを取得する ." alt="" coords="757,485,1016,515"/>
+<area shape="rect" id="node29" href="$classGgafCore_1_1GgafLinkedListRing.html#a6bfb022aabb5e60451d2a06882c8da39" title="引数が先頭から何番目かを返す。 内部保持している要素の値はポインタのため、値の比較ではなくポインタ(アドレス)が一致した インデックスを返します。インデックスは0からの数値です。" alt="" coords="755,539,1019,568"/>
+<area shape="rect" id="node31" href="$classGgafCore_1_1GgafLinkedListRing.html#a934513a251dee8dea7ecce474f7d0457" title="要素数を返す ." alt="" coords="759,592,1015,621"/>
+<area shape="rect" id="node33" href="$classGgafCore_1_1GgafLinkedListRing.html#aae27b7c965cbbbb03ebb7cfad9dee7c7" title="カレント要素を一つ戻す。 ." alt="" coords="765,645,1008,675"/>
+<area shape="rect" id="node35" href="$classGgafCore_1_1GgafLinkedListRing.html#a4a0124f45c41c664ee79bb5bdde699c7" title="カレント要素に値を上書き設定する。 ." alt="" coords="769,699,1004,728"/>
+</map>

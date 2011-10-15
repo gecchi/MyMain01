@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classMyStg2nd_1_1MyOptionLockonController.html#a41324b36eed8521ff64a1f6289a6efe3" title="状態をリセットする(ユーザー実装用) ." alt="" coords="344,5,664,35"/>
+<area shape="rect" id="node5" href="$classMyStg2nd_1_1MyOptionLockonController.html#ab09bd61da87570081c523b3443ef7315" title="フレーム毎の個別振る舞い処理を実装。(ユーザー実装用、単体) ." alt="" coords="319,59,689,88"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafTreeFormation.html#a777eb007512e33ab75dd00c6032339b4" title="サブが無ければ死 ." alt="" coords="337,112,671,141"/>
+<area shape="rect" id="node9" href="$classGgafCore_1_1GgafDeositoryFormation.html#a320d2002d4ed0b56a7678661041e5cd9" title="サブが無ければ死 ." alt="" coords="321,165,687,195"/>
+<area shape="rect" id="node11" href="$classMyStg2nd_1_1MyOptionLockonController.html#a2ddef1921344425a8eae92a2da97278b" title="MyStg2nd::MyOptionLockonController::releaseAllLockon" alt="" coords="317,219,691,248"/>
+<area shape="rect" id="node15" href="$classGgafCore_1_1GgafFormation.html#a0534a8df233efb336c0d9844804a269f" title="GgafCore::GgafFormation::sayonaraFollwer" alt="" coords="361,272,647,301"/>
+<area shape="rect" id="node13" href="$classMyStg2nd_1_1MyOption.html#a54334d02ee6ddeca108b1d4a7ef725c8" title="MyStg2nd::MyOption::processBehavior" alt="" coords="739,219,1003,248"/>
+<area shape="rect" id="node17" href="$classGgafCore_1_1GgafFormation.html#a151fc1c81e9469fe39c9890ee5c64efd" title="メンバーが残っていれば解放します。 継承してオーバーライドする場合は、処理内で GgafFormation::onGarbaged() を呼び出して下さい。" alt="" coords="740,272,1001,301"/>
+</map>

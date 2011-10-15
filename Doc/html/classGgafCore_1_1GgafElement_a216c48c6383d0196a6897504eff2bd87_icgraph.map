@@ -1,0 +1,14 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafActorDepository.html#a38f52c29b22f3fcb83550ab399dfdf8c" title="貸出メンバー(GgafActor)を追加登録します." alt="" coords="411,219,712,248"/>
+<area shape="rect" id="node23" href="$classGgafCore_1_1GgafScene.html#aed17d5c02d558b69e0acc4d8156168c2" title="非活動状態にする(単体・即時・コールバック無し) ." alt="" coords="413,272,709,301"/>
+<area shape="rect" id="node25" href="$classMyStg2nd_1_1CameraWorkerManager.html#a114b4e6e5df4dea7590d2ab42e762a3e" title="CameraWorker を識別文字列から生成。 本アプリのCameraWorker はココに集約しようと思っている。" alt="" coords="367,325,756,355"/>
+<area shape="rect" id="node5" href="$classMyStg2nd_1_1CommonScene.html#a5ef79f2b19eab82377c111280f3840f0" title="MyStg2nd::CommonScene::CommonScene" alt="" coords="885,5,1173,35"/>
+<area shape="rect" id="node7" href="$classMyStg2nd_1_1EnemyCeres.html#aedfd46e2d5d6ade8520b5fc007e4f9b6" title="コンストラクタ" alt="" coords="904,59,1155,88"/>
+<area shape="rect" id="node9" href="$classMyStg2nd_1_1Formation001.html#a4f74d96f3ed8c74dcc9cf985410add13" title="MyStg2nd::Formation001::Formation001" alt="" coords="888,112,1171,141"/>
+<area shape="rect" id="node11" href="$classMyStg2nd_1_1FormationJuno.html#a4e82257176971c2a552a0d4f576a5f29" title="コンストラクタ ." alt="" coords="884,165,1175,195"/>
+<area shape="rect" id="node13" href="$classMyStg2nd_1_1MyOption.html#a9e9c0d7d7ecda834f92edaf60fa25185" title="コンストラクタ ." alt="" coords="919,219,1140,248"/>
+<area shape="rect" id="node15" href="$classMyStg2nd_1_1MyOptionTorpedoController.html#a5f3ffc90140cf3e2fddfaaf5a052d69e" title="コンストラクタ ." alt="" coords="805,272,1253,301"/>
+<area shape="rect" id="node17" href="$classMyStg2nd_1_1MyShip.html#a4e262bdaaf2b3c8574f8648324b19059" title="MyStg2nd::MyShip::MyShip" alt="" coords="935,325,1124,355"/>
+<area shape="rect" id="node19" href="$classMyStg2nd_1_1DepositoryManager.html#a5a8afea595cf88ed3f0654e2fbfbeebf" title="デポジトリを識別文字列から生成。 本アプリのデポジトリはココに集約しようと思っている。" alt="" coords="845,379,1213,408"/>
+<area shape="rect" id="node21" href="$classMyStg2nd_1_1Stage01WalledScene.html#ac9feb2b72be04218d48667a35726baf0" title="MyStg2nd::Stage01WalledScene::Stage01WalledScene" alt="" coords="848,432,1211,461"/>
+</map>

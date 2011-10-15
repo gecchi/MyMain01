@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafLinkedListRing.html#a0ba9770ab88e48441aa17b5c58a28ba6" title="カレント要素の値（保持している内容）を取得する ." alt="" coords="313,5,596,35"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafLinkedListRing.html#a67efbfcaedd8d1f4e20d17df0f8d9e23" title="GgafCore::GgafLinkedListRing::getElemFirst" alt="" coords="308,59,601,88"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafLinkedListRing.html#a6bfb022aabb5e60451d2a06882c8da39" title="引数が先頭から何番目かを返す。 内部保持している要素の値はポインタのため、値の比較ではなくポインタ(アドレス)が一致した インデックスを返します。インデックスは0からの数値です。" alt="" coords="323,112,587,141"/>
+<area shape="rect" id="node9" href="$classGgafCore_1_1GgafLinkedListRing.html#a934513a251dee8dea7ecce474f7d0457" title="要素数を返す ." alt="" coords="327,165,583,195"/>
+</map>

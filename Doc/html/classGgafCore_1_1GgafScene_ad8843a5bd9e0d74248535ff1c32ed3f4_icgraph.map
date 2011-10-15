@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafActor.html#ad9ec79ac256a30f3498853e9e33795ac" title="GgafCore::GgafActor::isActiveActor" alt="" coords="332,59,575,88"/>
+<area shape="rect" id="node9" href="$classGgafCore_1_1GgafScene.html#a606f11a4c1daa8c59fa835a23ce5d004" title="ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理(自ツリー) ." alt="" coords="340,112,567,141"/>
+<area shape="rect" id="node15" href="$classGgafCore_1_1GgafScene.html#abc4b579aca24414a42f1aa4069c08362" title="何フレームに１回実行するかを指定 ." alt="" coords="316,165,591,195"/>
+<area shape="rect" id="node17" href="$classGgafCore_1_1GgafScene.html#a7e326cac5f936026cd6473b99d4f42fd" title="GgafCore::GgafScene::setRunFrameOnceTree" alt="" coords="303,243,604,272"/>
+<area shape="rect" id="node5" href="$classMyStg2nd_1_1MyOptionTorpedoController.html#a0bc259950486c7666f4fc984836ad99c" title="フレーム毎の個別振る舞い処理を実装。(ユーザー実装用、単体) ." alt="" coords="655,5,1031,35"/>
+<area shape="rect" id="node7" href="$classMyStg2nd_1_1OptionMagic.html#a1e00a7ff081e48b8dea8ca27cd3fd4c9" title="魔法持続開始コールバック(１回だけコールバック) ." alt="" coords="693,59,992,88"/>
+<area shape="rect" id="node11" href="$classGgafCore_1_1GgafGod.html#acd3b1bc845f9403b23a00dccf0375240" title="この世の瞬間を創造 ." alt="" coords="691,112,995,141"/>
+<area shape="rect" id="node13" href="$classGgafCore_1_1GgafGod.html#a69c74b93d7d988f954ec222d51679696" title="在ります。というメソッド ." alt="" coords="1081,112,1244,141"/>
+</map>

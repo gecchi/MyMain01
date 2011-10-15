@@ -1,0 +1,16 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classMyStg2nd_1_1MyOptionLockonController.html#aae6953d000f0525d13c2c55a0d02720a" title="_pRingTarget内容表示(デバッグ用) ." alt="" coords="369,5,716,35"/>
+<area shape="rect" id="node5" href="$classMyStg2nd_1_1MyOptionLockonController.html#ab09bd61da87570081c523b3443ef7315" title="フレーム毎の個別振る舞い処理を実装。(ユーザー実装用、単体) ." alt="" coords="795,32,1165,61"/>
+<area shape="rect" id="node7" href="$classMyStg2nd_1_1MyOptionStraightLaserChip001.html#a8b05c713590acbf641d169496608bc9f" title="MyStg2nd::MyOptionStraightLaserChip001::onActive" alt="" coords="365,109,720,139"/>
+<area shape="rect" id="node9" href="$classMyStg2nd_1_1MyOptionWateringLaserChip001.html#a57b39ff86ae942951f8cb79df5d67e62" title="MyStg2nd::MyOptionWateringLaserChip001::onActive" alt="" coords="363,163,723,192"/>
+<area shape="rect" id="node11" href="$classMyStg2nd_1_1MyOptionStraightLaserChip001.html#a80fed2a8db66c9b4072d6b93bdc058eb" title="MyStg2nd::MyOptionStraightLaserChip001::onHit" alt="" coords="376,216,709,245"/>
+<area shape="rect" id="node13" href="$classMyStg2nd_1_1MyOptionWateringLaserChip001.html#a4fa973d8ab2e2a6ef5d2aecc97f0be86" title="MyStg2nd::MyOptionWateringLaserChip001::onHit" alt="" coords="373,269,712,299"/>
+<area shape="rect" id="node15" href="$classMyStg2nd_1_1MyOptionStraightLaserChip001.html#ad748a9412feac0e42091a3885bd98e90" title="MyStg2nd::MyOptionStraightLaserChip001::processBehavior" alt="" coords="341,323,744,352"/>
+<area shape="rect" id="node18" href="$classMyStg2nd_1_1MyOptionWateringLaserChip001.html#a3c65d76c4678b15fcee5379644a1e750" title="MyStg2nd::MyOptionWateringLaserChip001::processBehavior" alt="" coords="339,376,747,405"/>
+<area shape="rect" id="node20" href="$classMyStg2nd_1_1MagicMeter.html#a6d302b69591f206944e3c07c17f91c2e" title="MyStg2nd::MagicMeter::processDraw" alt="" coords="417,429,668,459"/>
+<area shape="rect" id="node22" href="$classMyStg2nd_1_1MagicMeter.html#a6a43e5a2d27f64c5b270ef6a660a5419" title="MyStg2nd::MagicMeter::processJudgement" alt="" coords="397,483,688,512"/>
+<area shape="rect" id="node24" href="$classGgafCore_1_1GgafTreeFormation.html#a777eb007512e33ab75dd00c6032339b4" title="サブが無ければ死 ." alt="" coords="376,536,709,565"/>
+<area shape="rect" id="node26" href="$classGgafCore_1_1GgafDeositoryFormation.html#a320d2002d4ed0b56a7678661041e5cd9" title="サブが無ければ死 ." alt="" coords="360,589,725,619"/>
+<area shape="rect" id="node28" href="$classGgafCore_1_1GgafFormation.html#a0534a8df233efb336c0d9844804a269f" title="GgafCore::GgafFormation::sayonaraFollwer" alt="" coords="400,643,685,672"/>
+<area shape="rect" id="node30" href="$classGgafCore_1_1GgafFormation.html#a151fc1c81e9469fe39c9890ee5c64efd" title="メンバーが残っていれば解放します。 継承してオーバーライドする場合は、処理内で GgafFormation::onGarbaged() を呼び出して下さい。" alt="" coords="849,643,1111,672"/>
+</map>

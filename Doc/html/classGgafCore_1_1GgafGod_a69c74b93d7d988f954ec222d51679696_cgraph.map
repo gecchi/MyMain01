@@ -1,0 +1,33 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafGod.html#a3fb217302dc5e8ae0e6fa9c0364e9881" title="この世を創造 ." alt="" coords="252,163,492,192"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafGod.html#ac2eb0641afc54b123c8fcadf5d770f8e" title="この世を審判する ." alt="" coords="227,320,517,349"/>
+<area shape="rect" id="node24" href="$classGgafCore_1_1GgafGod.html#adb614e9365a87e70b666338189d8671c" title="この世の後始末 ." alt="" coords="248,373,496,403"/>
+<area shape="rect" id="node32" href="$classGgafCore_1_1GgafGod.html#a5bea1ad2d7a520ea9324031e95d7a225" title="この世の具現的なものを作成 ." alt="" coords="916,59,1217,88"/>
+<area shape="rect" id="node46" href="$classGgafCore_1_1GgafGod.html#acd3b1bc845f9403b23a00dccf0375240" title="この世の瞬間を創造 ." alt="" coords="220,449,524,479"/>
+<area shape="rect" id="node74" href="$classGgafCore_1_1GgafGod.html#ab7f588ff1abd8459e29bb8bc1a61203a" title="この世の状態を視覚化 ." alt="" coords="219,528,525,557"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafScene.html#a95656a1ef6333cfef954d7ea7e3e2389" title="ノードのフレーム毎の振る舞い事後処理(自ツリー) ." alt="" coords="573,320,824,349"/>
+<area shape="rect" id="node17" href="$classGgafCore_1_1GgafScene.html#aa05f2f096179b3a74e8c4337085ecd60" title="ノードのフレーム毎の判定処理(自ツリー) ." alt="" coords="601,267,796,296"/>
+<area shape="rect" id="node9" href="$classGgafCore_1_1GgafNode.html#ab6c00db0d18973ac53ec075bb69cd947" title="１つ上の親ノード取得する。" alt="" coords="912,320,1221,349"/>
+<area shape="rect" id="node11" href="$classGgafCore_1_1GgafElement.html#ad0ef23500672249b0b2223e0ede6256f" title="振る舞い状態に加算されるフレーム数を取得する ." alt="" coords="873,427,1260,456"/>
+<area shape="rect" id="node13" href="$classGgafCore_1_1GgafNode.html#a0440bb10b1762567a67b76db9dca0f15" title="ノード名取得 ." alt="" coords="1581,479,1885,508"/>
+<area shape="rect" id="node15" href="$classGgafCore_1_1GgafElement.html#aa321ff7796858b8c88fa00854a9142e8" title="ノードのフレーム毎の振る舞い事後処理(自ツリー) ." alt="" coords="936,216,1197,245"/>
+<area shape="rect" id="node22" href="$classGgafCore_1_1GgafElement.html#aa030ef420a958ed8fe7086be0ab82b4c" title="ノードのフレーム毎の判定処理(自ツリー) ." alt="" coords="963,112,1171,141"/>
+<area shape="rect" id="node26" href="$classGgafCore_1_1GgafScene.html#af731f47cada629acc141c9225af8de5a" title="ノードのフレーム毎の最終処理(自ツリー) ." alt="" coords="592,373,805,403"/>
+<area shape="rect" id="node30" href="$classGgafCore_1_1GgafElement.html#aebbcab9be1fe2fdfa8ed4fb80e2aca79" title="ノードのフレーム毎の最終処理(自ツリー) ." alt="" coords="953,373,1180,403"/>
+<area shape="rect" id="node34" href="$classGgafCore_1_1GgafScene.html#af8d78a26eb66c2d90b4092cc3907964b" title="ノードのフレーム毎の描画事前処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） ." alt="" coords="1316,59,1527,88"/>
+<area shape="rect" id="node39" href="$classGgafCore_1_1GgafUniverse.html#a9415e0215d96f9524abc6e48ce289eb7" title="フレーム毎の描画処理 " alt="" coords="1319,112,1524,141"/>
+<area shape="rect" id="node41" href="$classGgafCore_1_1GgafScene.html#a6b38602f0a1f1b1f2911d290de9626f6" title="ノードのフレーム毎の描画事後処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） ." alt="" coords="1311,5,1532,35"/>
+<area shape="rect" id="node37" href="$classGgafCore_1_1GgafElement.html#a3f848120582687bcaffbdf0908f9d865" title="ノードのフレーム毎の描画事前処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） ." alt="" coords="1621,59,1845,88"/>
+<area shape="rect" id="node44" href="$classGgafCore_1_1GgafElement.html#a356058e20e18619929166cef23f60a19" title="ノードのフレーム毎の描画事後処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） ." alt="" coords="1616,5,1851,35"/>
+<area shape="rect" id="node48" href="$classGgafCore_1_1GgafScene.html#a606f11a4c1daa8c59fa835a23ce5d004" title="ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理(自ツリー) ." alt="" coords="585,548,812,577"/>
+<area shape="rect" id="node67" href="$classGgafCore_1_1GgafScene.html#ac59880c44cabdaf62f8bddf0931fed57" title="ノードのフレーム毎の振る舞い処理(自ツリー) ." alt="" coords="596,449,801,479"/>
+<area shape="rect" id="node50" href="$classGgafCore_1_1GgafScene.html#ad8843a5bd9e0d74248535ff1c32ed3f4" title="GgafCore::GgafScene::isActiveScene" alt="" coords="944,635,1189,664"/>
+<area shape="rect" id="node55" href="$classGgafCore_1_1GgafElement.html#a19ddcffb8cc172e3e00aa207b1950974" title="ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理(自ツリー) ." alt="" coords="947,765,1187,795"/>
+<area shape="rect" id="node57" href="$classGgafCore_1_1GgafGarbageBox.html#ac601d751371ef27378a832e32382bab2" title="ゴミ箱にアクターを追加 ." alt="" coords="1311,764,1532,793"/>
+<area shape="rect" id="node59" href="$classGgafCore_1_1GgafNode.html#af1e607eba3baf69665215b63a245af2a" title="引数ノードを子ノードとして追加する ." alt="" coords="1619,791,1848,820"/>
+<area shape="rect" id="node61" href="$classGgafCore_1_1GgafActor.html#a9ca34549f0defc128104ccdeb13f55df" title="切り離す ." alt="" coords="1632,737,1835,767"/>
+<area shape="rect" id="node63" href="$classGgafCore_1_1GgafActor.html#a4133db668cc7572cf542186f3e2b4348" title="所属シーンを設定する。 ." alt="" coords="1935,737,2204,767"/>
+<area shape="rect" id="node72" href="$classGgafCore_1_1GgafElement.html#ad8fca6c0c44d66aa66dbd29bd1b6833b" title="ノードのフレーム毎の振る舞い処理(自ツリー) ." alt="" coords="957,531,1176,560"/>
+<area shape="rect" id="node76" href="$classGgafCore_1_1GgafScene.html#a7ae90291bec96fd80a7f65ef5117250f" title="デバッグ用：ツリー構造を表示 ." alt="" coords="968,712,1165,741"/>
+<area shape="rect" id="node79" href="$classGgafCore_1_1GgafActor.html#aca08133cc9e6196a648c12d5160ec011" title="デバッグ用：ツリー構造を表示 " alt="" coords="1324,659,1519,688"/>
+</map>

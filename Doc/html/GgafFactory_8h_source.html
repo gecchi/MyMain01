@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>MyStg2nd: GgafFactory.h ソースファイル</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MyStg2nd
+   &#160;<span id="projectnumber">0.0.3526</span>
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- 作成： Doxygen 1.7.5.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="dynsections.js"></script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>メインページ</span></a></li>
+      <li><a href="namespaces.html"><span>ネームスペース</span></a></li>
+      <li><a href="annotated.html"><span>データ構造</span></a></li>
+      <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+      <li><a href="dirs.html"><span>ディレクトリ</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="globals.html"><span>グローバル</span></a></li>
+    </ul>
+  </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('GgafFactory_8h.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle">
+<div class="title">GgafFactory.h</div>  </div>
+</div>
+<div class="contents">
+<a href="GgafFactory_8h.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef GGAFGACTORY_H_</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define GGAFGACTORY_H_</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span><span class="keyword">namespace </span>GgafCore {
+<a name="l00004"></a>00004 
+<a name="l00017"></a><a class="code" href="classGgafCore_1_1GgafFactory.html">00017</a> <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafFactory.html" title="インスタンス生成工場クラス .">GgafFactory</a> {
+<a name="l00018"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#aac6553974828ad36f76d47af017b9ec8">00018</a>     <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafGod.html" title="神クラス.">GgafGod</a>;
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 <span class="keyword">private</span>:
+<a name="l00022"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#ad77c3934dc4dd884eb64a71f8801ef30">00022</a>     <span class="keyword">static</span> <a class="code" href="classGgafCore_1_1GgafOrder.html" title="商品（何かのインスタンス）の注文クラス .">GgafOrder</a>* <a class="code" href="classGgafCore_1_1GgafFactory.html#ad77c3934dc4dd884eb64a71f8801ef30" title="先頭の注文">ROOT_ORDER</a>;
+<a name="l00024"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#a0c189cff985ee01b75c1da86593fdc20">00024</a>     <span class="keyword">static</span> <a class="code" href="classGgafCore_1_1GgafOrder.html" title="商品（何かのインスタンス）の注文クラス .">GgafOrder</a>* <a class="code" href="classGgafCore_1_1GgafFactory.html#a0c189cff985ee01b75c1da86593fdc20" title="現在製造中の注文">CREATING_ORDER</a>;
+<a name="l00025"></a>00025     <span class="comment">//CREATING_ORDER は、全て製造済みの場合、最終注文を指しつづける</span>
+<a name="l00026"></a>00026     <span class="comment">//全て製造済みかつ、製品が全て取得されてしまった場合は NULL になる。</span>
+<a name="l00027"></a>00027     <span class="comment">//_is_last_order_flg == false を常に判定し、最終注文でなくなったら（新規注文があれば）、</span>
+<a name="l00028"></a>00028     <span class="comment">//製造を行って次に進める。 _is_last_order_flg == false になるまで製造しつづける</span>
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030 
+<a name="l00039"></a>00039     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#a900e8e8aa6507d11317b1b57b042d9ce" title="工場に注文を行う .">order</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> prm_id,
+<a name="l00040"></a>00040                       <a class="code" href="classGgafCore_1_1GgafObject.html" title="基底クラス">GgafObject</a>* (*prm_pFunc)(<span class="keywordtype">void</span>*, <span class="keywordtype">void</span>*, <span class="keywordtype">void</span>*),
+<a name="l00041"></a>00041                       <span class="keywordtype">void</span>* prm_pArg1,
+<a name="l00042"></a>00042                       <span class="keywordtype">void</span>* prm_pArg2,
+<a name="l00043"></a>00043                       <span class="keywordtype">void</span>* prm_pArg3);
+<a name="l00044"></a>00044 
+<a name="l00052"></a>00052     <span class="keyword">static</span> <span class="keywordtype">void</span>* <a class="code" href="classGgafCore_1_1GgafFactory.html#a5515238fa034f33552278be56a1a7f08" title="注文した商品を取り出す .">obtain</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> prm_id, <a class="code" href="classGgafCore_1_1GgafObject.html" title="基底クラス">GgafObject</a>* prm_org);
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054 <span class="keyword">public</span>:
+<a name="l00056"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#aeb673e1d33ae8688f69fa40232014464">00056</a>     <span class="keyword">static</span> <a class="code" href="classGgafCore_1_1GgafGarbageBox.html" title="ゴミ箱 .">GgafGarbageBox</a>* <a class="code" href="classGgafCore_1_1GgafFactory.html#aeb673e1d33ae8688f69fa40232014464" title="[r]ゴミ箱(不要なアクター置き場)">_pGarbageBox</a>;
+<a name="l00057"></a>00057 
+<a name="l00059"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#aff6e1d916bf717a32a79d6327138e317">00059</a>     <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#aff6e1d916bf717a32a79d6327138e317" title="[r]掃除オブジェクト数">_cnt_cleaned</a>;
+<a name="l00060"></a>00060 
+<a name="l00062"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#ac7e18bd9d0f31fe4f0048f61c22595aa">00062</a>     <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keywordtype">bool</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#ac7e18bd9d0f31fe4f0048f61c22595aa" title="[r]活動フラグ(神が操作する)">_is_working_flg</a>;
+<a name="l00064"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#a4219e8ad50b3cbbb596060922d2adbf6">00064</a>     <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keywordtype">bool</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#a4219e8ad50b3cbbb596060922d2adbf6" title="[r]休むフラグ">_have_to_rest_flg</a>;
+<a name="l00066"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#ad8a63e19ed64fda62429fc0cb2b63cc9">00066</a>     <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keywordtype">bool</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#ad8a63e19ed64fda62429fc0cb2b63cc9" title="[r]休でいるフラグ">_is_resting_flg</a>;
+<a name="l00068"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#adc191cad705b1cbe9dc06c4b20d20f1a">00068</a>     <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keywordtype">bool</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#adc191cad705b1cbe9dc06c4b20d20f1a" title="[r]完全店終い">_was_finished_flg</a>;
+<a name="l00069"></a>00069 
+<a name="l00079"></a>00079     <span class="keyword">template</span>&lt;<span class="keyword">class</span> X&gt;
+<a name="l00080"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#a696625fa4a5f6e3d4b612245655782a3">00080</a>     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#a696625fa4a5f6e3d4b612245655782a3" title="工場にアクター作成の注文を行う（メインスレッドが使用） .">orderActor</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> prm_id,
+<a name="l00081"></a>00081                            X* (*prm_pFunc)(<span class="keywordtype">void</span>*, <span class="keywordtype">void</span>*, <span class="keywordtype">void</span>*),
+<a name="l00082"></a>00082                            <span class="keywordtype">void</span>* prm_pArg1,
+<a name="l00083"></a>00083                            <span class="keywordtype">void</span>* prm_pArg2,
+<a name="l00084"></a>00084                            <span class="keywordtype">void</span>* prm_pArg3) {
+<a name="l00085"></a>00085         <a class="code" href="classGgafCore_1_1GgafFactory.html#a900e8e8aa6507d11317b1b57b042d9ce" title="工場に注文を行う .">order</a>(prm_id, (<a class="code" href="classGgafCore_1_1GgafObject.html" title="基底クラス">GgafObject</a>* (*)(<span class="keywordtype">void</span>*, <span class="keywordtype">void</span>*, <span class="keywordtype">void</span>*))prm_pFunc, prm_pArg1, prm_pArg2, prm_pArg3);
+<a name="l00086"></a>00086     }
+<a name="l00087"></a>00087 
+<a name="l00097"></a>00097     <span class="keyword">template</span>&lt;<span class="keyword">class</span> X&gt;
+<a name="l00098"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#a63b475bc435024149fe4a4590b0cc778">00098</a>     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#a63b475bc435024149fe4a4590b0cc778" title="工場にシーン作成の注文を行う（メインスレッドが使用） .">orderScene</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> prm_id,
+<a name="l00099"></a>00099                            X* (*prm_pFunc)(<span class="keywordtype">void</span>*, <span class="keywordtype">void</span>*, <span class="keywordtype">void</span>*),
+<a name="l00100"></a>00100                            <span class="keywordtype">void</span>* prm_pArg1,
+<a name="l00101"></a>00101                            <span class="keywordtype">void</span>* prm_pArg2,
+<a name="l00102"></a>00102                            <span class="keywordtype">void</span>* prm_pArg3) {
+<a name="l00103"></a>00103         <a class="code" href="classGgafCore_1_1GgafFactory.html#a900e8e8aa6507d11317b1b57b042d9ce" title="工場に注文を行う .">order</a>(prm_id, (<a class="code" href="classGgafCore_1_1GgafObject.html" title="基底クラス">GgafObject</a>* (*)(<span class="keywordtype">void</span>*, <span class="keywordtype">void</span>*, <span class="keywordtype">void</span>*))prm_pFunc, prm_pArg1, prm_pArg2, prm_pArg3);
+<a name="l00104"></a>00104     }
+<a name="l00105"></a>00105 
+<a name="l00114"></a>00114     <span class="keyword">static</span> <a class="code" href="classGgafCore_1_1GgafMainActor.html" title="普通のアクター(演者).">GgafMainActor</a>* <a class="code" href="classGgafCore_1_1GgafFactory.html#af986625baf3be14f2fe29f06d47e220d" title="注文したアクターを取り出す。（メインスレッドが使用） .">obtainActor</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> prm_id, <a class="code" href="classGgafCore_1_1GgafObject.html" title="基底クラス">GgafObject</a>* prm_org);
+<a name="l00115"></a>00115 
+<a name="l00124"></a>00124     <span class="keyword">static</span> <a class="code" href="classGgafCore_1_1GgafMainScene.html" title="下位シーンクラスへのインターフェイス .">GgafMainScene</a>* <a class="code" href="classGgafCore_1_1GgafFactory.html#acb7c9a85043de08495501847cb26a1f3" title="注文したシーンを取り出す。（メインスレッドが使用） .">obtainScene</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> prm_id, <a class="code" href="classGgafCore_1_1GgafObject.html" title="基底クラス">GgafObject</a>* prm_org);
+<a name="l00125"></a>00125 
+<a name="l00130"></a>00130     <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#a52850868a2645fc3dad8d8973f799020" title="注文した商品が出来上がっているか調べる。（メインスレッドが使用） .">chkProgress</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> prm_id);
+<a name="l00131"></a>00131 
+<a name="l00142"></a>00142     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#a874f710e5732a484762f43202589c0c2" title="工場を掃除する（メインスレッドが使用） .">clean</a>();
+<a name="l00143"></a>00143 
+<a name="l00150"></a>00150     <span class="keyword">static</span> <span class="keywordtype">unsigned</span> __stdcall <a class="code" href="classGgafCore_1_1GgafFactory.html#a210101ebed60093c3604b76b92683cca" title="稼動する。（工場スレッドメインループ）.">work</a>(<span class="keywordtype">void</span>* prm_arg);
+<a name="l00151"></a>00151 
+<a name="l00157"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#a47a57baa70f379ffafda79eef447d18e">00157</a>     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#a47a57baa70f379ffafda79eef447d18e" title="工場一時休止を指示 （メインスレッドが使用） .">beginRest</a>() {
+<a name="l00158"></a>00158         <a class="code" href="GgafCommonHeader_8h.html#a22f26e5307f94be30bda84b96fca7b8b">_TRACE_</a>(<span class="stringliteral">&quot;GgafFactory::beginRest() ＜神＞工場、休憩しなさい&quot;</span>);
+<a name="l00159"></a>00159         <a class="code" href="classGgafCore_1_1GgafFactory.html#a4219e8ad50b3cbbb596060922d2adbf6" title="[r]休むフラグ">_have_to_rest_flg</a> = <span class="keyword">true</span>;
+<a name="l00160"></a>00160     }
+<a name="l00161"></a>00161 
+<a name="l00166"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#ac22ff7952dc6e7121442d0a06bb7fa17">00166</a>     <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#ac22ff7952dc6e7121442d0a06bb7fa17" title="工場の状態を取得（メインスレッドが使用） .">isResting</a>() {
+<a name="l00167"></a>00167         <span class="keywordflow">if</span> (<a class="code" href="classGgafCore_1_1GgafFactory.html#ad8a63e19ed64fda62429fc0cb2b63cc9" title="[r]休でいるフラグ">_is_resting_flg</a>) {
+<a name="l00168"></a>00168             <a class="code" href="GgafCommonHeader_8h.html#a22f26e5307f94be30bda84b96fca7b8b">_TRACE_</a>(<span class="stringliteral">&quot;GgafFactory::isResting() 工場休止状態&quot;</span>);
+<a name="l00169"></a>00169         } <span class="keywordflow">else</span> {
+<a name="l00170"></a>00170             <a class="code" href="GgafCommonHeader_8h.html#a22f26e5307f94be30bda84b96fca7b8b">_TRACE_</a>(<span class="stringliteral">&quot;GgafFactory::isResting() 工場稼働状態&quot;</span>);
+<a name="l00171"></a>00171         }
+<a name="l00172"></a>00172         <span class="keywordflow">return</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#ad8a63e19ed64fda62429fc0cb2b63cc9" title="[r]休でいるフラグ">_is_resting_flg</a>;
+<a name="l00173"></a>00173     }
+<a name="l00174"></a>00174 
+<a name="l00178"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#a6f0700dbeee2bdbda43c51ec91109459">00178</a>     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafFactory.html#a6f0700dbeee2bdbda43c51ec91109459" title="工場休止の解除を指示 （メインスレッドが使用） .">finishRest</a>() {
+<a name="l00179"></a>00179         <a class="code" href="GgafCommonHeader_8h.html#a22f26e5307f94be30bda84b96fca7b8b">_TRACE_</a>(<span class="stringliteral">&quot;GgafFactory::beginRest() ＜神＞工場、休憩はおしまい。さあ動け！&quot;</span>);
+<a name="l00180"></a>00180         <a class="code" href="classGgafCore_1_1GgafFactory.html#a4219e8ad50b3cbbb596060922d2adbf6" title="[r]休むフラグ">_have_to_rest_flg</a> = <span class="keyword">false</span>;
+<a name="l00181"></a>00181     }
+<a name="l00182"></a>00182 
+<a name="l00183"></a>00183 
+<a name="l00184"></a>00184     <span class="keyword">template</span>&lt;<span class="keyword">class</span> X&gt;
+<a name="l00185"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#a0db38f8c10e2877fe711544401b51a01">00185</a>     <span class="keyword">static</span> X* <a class="code" href="classGgafCore_1_1GgafFactory.html#a0db38f8c10e2877fe711544401b51a01">createActor</a>(<span class="keywordtype">void</span>* p1, <span class="keywordtype">void</span>* p2, <span class="keywordtype">void</span>* p3) {
+<a name="l00186"></a>00186         <span class="comment">//p1 : 名称</span>
+<a name="l00187"></a>00187         X* p = <a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> X((<span class="keywordtype">char</span>*)p1);
+<a name="l00188"></a>00188         <span class="keywordflow">return</span> p;
+<a name="l00189"></a>00189     }
+<a name="l00190"></a>00190 
+<a name="l00191"></a>00191     <span class="keyword">template</span>&lt;<span class="keyword">class</span> X&gt;
+<a name="l00192"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#a9616a18ec7ea15c2a54a2ff62ff556aa">00192</a>     <span class="keyword">static</span> X* <a class="code" href="classGgafCore_1_1GgafFactory.html#a9616a18ec7ea15c2a54a2ff62ff556aa">createActorWithModel</a>(<span class="keywordtype">void</span>* p1, <span class="keywordtype">void</span>* p2, <span class="keywordtype">void</span>* p3) {
+<a name="l00193"></a>00193         <span class="comment">//p1 : 識別名称</span>
+<a name="l00194"></a>00194         <span class="comment">//p2 : モデル識別文字列</span>
+<a name="l00195"></a>00195         X* p = <a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> X((<span class="keywordtype">char</span>*)p1, (<span class="keywordtype">char</span>*)p2);
+<a name="l00196"></a>00196         <span class="keywordflow">return</span> p;
+<a name="l00197"></a>00197     }
+<a name="l00198"></a>00198 
+<a name="l00199"></a>00199     <span class="keyword">template</span>&lt;<span class="keyword">class</span> X&gt;
+<a name="l00200"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#ae48b1f5d95cc58399e813f335c2a2e06">00200</a>     <span class="keyword">static</span> X* <a class="code" href="classGgafCore_1_1GgafFactory.html#ae48b1f5d95cc58399e813f335c2a2e06">createActorWithDp</a>(<span class="keywordtype">void</span>* p1, <span class="keywordtype">void</span>* p2, <span class="keywordtype">void</span>* p3) {
+<a name="l00201"></a>00201         <span class="comment">//p1 : 識別名称</span>
+<a name="l00202"></a>00202         <span class="comment">//p2 : アクター発送者</span>
+<a name="l00203"></a>00203         X* p = <a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> X((<span class="keywordtype">char</span>*)p1, (<a class="code" href="classGgafCore_1_1GgafActorDepository.html" title="アクター保管所（人材バンク）クラス .">GgafCore::GgafActorDepository</a>*)p2);
+<a name="l00204"></a>00204         <span class="keywordflow">return</span> p;
+<a name="l00205"></a>00205     }
+<a name="l00206"></a>00206 
+<a name="l00207"></a>00207     <span class="keyword">template</span>&lt;<span class="keyword">class</span> X&gt;
+<a name="l00208"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#a19de00a1be363cf6e111c79829b9f847">00208</a>     <span class="keyword">static</span> X* <a class="code" href="classGgafCore_1_1GgafFactory.html#a19de00a1be363cf6e111c79829b9f847">createActorWithModelDp</a>(<span class="keywordtype">void</span>* p1, <span class="keywordtype">void</span>* p2, <span class="keywordtype">void</span>* p3) {
+<a name="l00209"></a>00209         <span class="comment">//p1 : 識別名称</span>
+<a name="l00210"></a>00210         <span class="comment">//p2 : モデル識別文字列</span>
+<a name="l00211"></a>00211         <span class="comment">//p3 : アクター発送者</span>
+<a name="l00212"></a>00212         X* p = <a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> X((<span class="keywordtype">char</span>*)p1, (<span class="keywordtype">char</span>*)p2, (<a class="code" href="classGgafCore_1_1GgafActorDepository.html" title="アクター保管所（人材バンク）クラス .">GgafCore::GgafActorDepository</a>*)p3);
+<a name="l00213"></a>00213         <span class="keywordflow">return</span> p;
+<a name="l00214"></a>00214     }
+<a name="l00215"></a>00215 
+<a name="l00216"></a>00216     <span class="keyword">template</span>&lt;<span class="keyword">class</span> X&gt;
+<a name="l00217"></a><a class="code" href="classGgafCore_1_1GgafFactory.html#ae48cd8342ba2d84ed5eb438944217c54">00217</a>     <span class="keyword">static</span> X* <a class="code" href="classGgafCore_1_1GgafFactory.html#ae48cd8342ba2d84ed5eb438944217c54">createScene</a>(<span class="keywordtype">void</span>* p1, <span class="keywordtype">void</span>* p2, <span class="keywordtype">void</span>* p3) {
+<a name="l00218"></a>00218         <span class="comment">//Scene生成で一番多い形の引数。</span>
+<a name="l00219"></a>00219         <span class="comment">//p1 : 識別名称</span>
+<a name="l00220"></a>00220         X* p = <a class="code" href="GgafCommonHeader_8h.html#ab6bca16ed021b1e211fde8669758f199">NEW</a> X((<span class="keywordtype">char</span>*)p1);
+<a name="l00221"></a>00221         <span class="keywordflow">return</span> p;
+<a name="l00222"></a>00222     }
+<a name="l00223"></a>00223 
+<a name="l00224"></a>00224 };
+<a name="l00225"></a>00225 
+<a name="l00226"></a><a class="code" href="GgafFactory_8h.html#ab4476860962a1e0cd12feed355fd7610">00226</a> <span class="preprocessor">#define orderActorToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderActor&lt;CLASS&gt;((ID),GgafCore::GgafFactory::createActor,(void*)(NAME),(void*)(NULL),(void*)(NULL)))</span>
+<a name="l00227"></a><a class="code" href="GgafFactory_8h.html#a728ad475198421ff39729eafe23a6118">00227</a> <span class="preprocessor"></span><span class="preprocessor">#define orderActorWithModelToFactory(ID, CLASS, NAME, MODEL) (GgafCore::GgafFactory::orderActor&lt;CLASS&gt;((ID),GgafCore::GgafFactory::createActorWithModel,(void*)(NAME),(void*)(MODEL),(void*)(NULL)))</span>
+<a name="l00228"></a><a class="code" href="GgafFactory_8h.html#ad61909d1f922e63c68221ae698ea3617">00228</a> <span class="preprocessor"></span><span class="preprocessor">#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, DEPOSITORY) (GgafCore::GgafFactory::orderActor&lt;CLASS&gt;((ID),GgafCore::GgafFactory::createActorWithModelDp,(void*)(NAME),(void*)(MODEL),(void*)(DEPOSITORY)))</span>
+<a name="l00229"></a><a class="code" href="GgafFactory_8h.html#a07e1666628c5b6b0dab5bcb5a66ec73a">00229</a> <span class="preprocessor"></span><span class="preprocessor">#define orderActorWithDpToFactory(ID, CLASS, NAME, DEPOSITORY) (GgafCore::GgafFactory::orderActor&lt;CLASS&gt;((ID),GgafCore::GgafFactory::createActorWithDp,(void*)(NAME),(void*)(DEPOSITORY), (void*)(NULL)))</span>
+<a name="l00230"></a>00230 <span class="preprocessor"></span>
+<a name="l00231"></a><a class="code" href="GgafFactory_8h.html#acfc1dd7a22fda525c8917d5cae14d2e1">00231</a> <span class="preprocessor">#define obtainActorFromFactory(ID) (GgafCore::GgafFactory::obtainActor((ID),this))</span>
+<a name="l00232"></a><a class="code" href="GgafFactory_8h.html#a9c5771356b911b5c19d300f898e4bf54">00232</a> <span class="preprocessor"></span><span class="preprocessor">#define orderSceneToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderScene&lt;CLASS&gt;((ID),GgafCore::GgafFactory::createScene,(void*)(NAME),(void*)(NULL),(void*)(NULL)))</span>
+<a name="l00233"></a><a class="code" href="GgafFactory_8h.html#aa18adcd3b042af62e2e0aecd351634c4">00233</a> <span class="preprocessor"></span><span class="preprocessor">#define obtainSceneFromFactory(ID) (GgafCore::GgafFactory::obtainScene((ID),this))</span>
+<a name="l00234"></a>00234 <span class="preprocessor"></span>
+<a name="l00235"></a>00235 }
+<a name="l00236"></a>00236 <span class="preprocessor">#endif </span><span class="comment">/*GGAFGACTORY_H_*/</span>
+</pre></div></div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="GgafFactory_8h.html">GgafFactory.h</a>      </li>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>データ構造</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>ネームスペース</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙型の値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+    <li class="footer">MyStg2ndに対してSat Oct 15 2011 13:58:40に生成されました。
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
+   </ul>
+ </div>
+
+
+</body>
+</html>

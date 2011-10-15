@@ -324,6 +324,11 @@ void GgafDxGeometricActor::notifyFormationAboutDestroyed() {
         _pFormation->onDestroyedAll(this);
     }
 }
+void GgafDxGeometricActor::onGarbaged() {
+    GgafDxBaseActor::onGarbaged();
+    _pFormation = NULL;
+}
+
 GgafDxGeometricActor::~GgafDxGeometricActor() {
     DELETE_IMPOSSIBLE_NULL(_pKurokoA);
     DELETE_IMPOSSIBLE_NULL(_pKurokoB);

@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>MyStg2nd: MyOption.h ソースファイル</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MyStg2nd
+   &#160;<span id="projectnumber">0.0.3526</span>
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- 作成： Doxygen 1.7.5.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="dynsections.js"></script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>メインページ</span></a></li>
+      <li><a href="namespaces.html"><span>ネームスペース</span></a></li>
+      <li><a href="annotated.html"><span>データ構造</span></a></li>
+      <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+      <li><a href="dirs.html"><span>ディレクトリ</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="globals.html"><span>グローバル</span></a></li>
+    </ul>
+  </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('MyOption_8h.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle">
+<div class="title">MyOption.h</div>  </div>
+</div>
+<div class="contents">
+<a href="MyOption_8h.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef MYOPTION_H_</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define MYOPTION_H_</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span><span class="keyword">namespace </span>MyStg2nd {
+<a name="l00004"></a>00004 
+<a name="l00005"></a>00005 <span class="comment">//class MyOption : public GgafLib::DefaultMorphMeshActor {</span>
+<a name="l00006"></a><a class="code" href="classMyStg2nd_1_1MyOption.html">00006</a> <span class="keyword">class </span><a class="code" href="classMyStg2nd_1_1MyOption.html">MyOption</a> : <span class="keyword">public</span> GgafLib::DefaultMeshSetActor {
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 
+<a name="l00009"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#aad496dcb6a0538a86f86c854e7214a4f">00009</a>     GgafDxCore::GgafDxQuaternion <a class="code" href="classMyStg2nd_1_1MyOption.html#aad496dcb6a0538a86f86c854e7214a4f">_Q</a>;
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="keyword">private</span>:
+<a name="l00017"></a>00017     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a01cadd450a588bb0c43c65a93ff28af1" title="旋廻円周半径を再設定する .">setRadiusPosition</a>(<span class="keywordtype">int</span> prm_radius);
+<a name="l00018"></a>00018 
+<a name="l00024"></a>00024     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#aa5ad02a6dadbf3f22ae62f46110358fd" title="旋廻円周半径を差分で再設定する .">addRadiusPosition</a>(<span class="keywordtype">int</span> prm_radius_offset);
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030 <span class="keyword">public</span>:
+<a name="l00031"></a>00031     <span class="comment">//一時変数達</span>
+<a name="l00032"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#aad59a2a9c7b805846c48753c2b5d8a9c">00032</a>     <span class="keywordtype">int</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a89f67f3f9912e0b5d3c37182204b0424">_Xorg</a>,<a class="code" href="classMyStg2nd_1_1MyOption.html#a604b7d5755c6711f5bd510729f352fe3">_Yorg</a>,<a class="code" href="classMyStg2nd_1_1MyOption.html#aad59a2a9c7b805846c48753c2b5d8a9c">_Zorg</a>;
+<a name="l00033"></a>00033     <span class="comment">//angle _RXorg,_RYorg,_RZorg;</span>
+<a name="l00034"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a034bbe1bb1fbd5c06a9821bbd06004e6">00034</a>     <span class="keywordtype">float</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a47654a46f2bc04eca71e90a267a192c0">_vXwk</a>,<a class="code" href="classMyStg2nd_1_1MyOption.html#a56ed67e05bf67f3a14c16c1c1006e913">_vYwk</a>,<a class="code" href="classMyStg2nd_1_1MyOption.html#a034bbe1bb1fbd5c06a9821bbd06004e6">_vZwk</a>;
+<a name="l00035"></a>00035 
+<a name="l00037"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a01554ea4c26b9b6f5cf1fa1e53e27ae6">00037</a>     <a class="code" href="classMyStg2nd_1_1MyOptionController.html" title="オプションの纏め役クラス .">MyOptionController</a>* <a class="code" href="classMyStg2nd_1_1MyOption.html#a01554ea4c26b9b6f5cf1fa1e53e27ae6" title="[r]親アクター">_pMyOptionController</a>;
+<a name="l00039"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a8f0d855d60dfe45f691e6d197b7cc556">00039</a>     <span class="keywordtype">int</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a8f0d855d60dfe45f691e6d197b7cc556" title="[r]自身のオプション番号(０〜・・・)">_no</a>;
+<a name="l00041"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a63d723bcec3af34501e3d0261151f913">00041</a>     <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a63d723bcec3af34501e3d0261151f913" title="[r]１オプション当たりの最大可能ロックオン数">_max_lockon_num</a>;
+<a name="l00043"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a42f43f0832aede89153e8cf5e2a053a5">00043</a>     <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a42f43f0832aede89153e8cf5e2a053a5" title="[r]１オプション当たりの現在可能ロックオン数">_lockon_num</a>;
+<a name="l00045"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#af5f79b5be0a18927d9ae8299fb713e33">00045</a>     <a class="code" href="classMyStg2nd_1_1MyOptionLockonController.html" title="ロックオンコントローラー .">MyOptionLockonController</a>* <a class="code" href="classMyStg2nd_1_1MyOption.html#af5f79b5be0a18927d9ae8299fb713e33" title="[r]ロックオンコントローラー">_pLockonController</a>;
+<a name="l00047"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a2c627508e29ef8b3b6690339cb8d1372">00047</a>     <a class="code" href="classMyStg2nd_1_1MyOptionTorpedoController.html" title="魚雷コントローラー .">MyOptionTorpedoController</a>* <a class="code" href="classMyStg2nd_1_1MyOption.html#a2c627508e29ef8b3b6690339cb8d1372" title="[r]魚雷コントローラー">_pTorpedoController</a>;
+<a name="l00049"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#aec370e132ac7fe4c14568794b0aeca4d">00049</a>     GgafLib::LaserChipDepository* <a class="code" href="classMyStg2nd_1_1MyOption.html#aec370e132ac7fe4c14568794b0aeca4d" title="[r]発射するレーザーチップのデポジトリ">_pLaserChipDepo</a>;
+<a name="l00051"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#ac22bdceb12551d2ee5e48e59cd2ed061">00051</a>     <a class="code" href="classGgafCore_1_1GgafActorDepository.html" title="アクター保管所（人材バンク）クラス .">GgafCore::GgafActorDepository</a>* <a class="code" href="classMyStg2nd_1_1MyOption.html#ac22bdceb12551d2ee5e48e59cd2ed061" title="[r]発射するショットのデポジトリ">_pDepo_MyShots001</a>;
+<a name="l00053"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a3a192315d9a6cadf7bc5fd1294a2abee">00053</a>     GgafDxCore::GgafDxDrawableActor* <a class="code" href="classMyStg2nd_1_1MyOption.html#a3a192315d9a6cadf7bc5fd1294a2abee" title="[r]レーザー発射中のエフェクト">_pEffect_LaserIrradiate</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055 
+<a name="l00057"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#aadefc80e53878d3858df793dbd88087c">00057</a>     ang_velo <a class="code" href="classMyStg2nd_1_1MyOption.html#aadefc80e53878d3858df793dbd88087c" title="[r]計算された現在の旋廻円周移動角速度（読み出し専用）">_ang_veloMove</a>;
+<a name="l00059"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#abe1e49e0114501b834d918549d98a3fc">00059</a>     angle <a class="code" href="classMyStg2nd_1_1MyOption.html#abe1e49e0114501b834d918549d98a3fc" title="[r]円周上初期位置角度（周囲角）（initialize()までに変更可／デフォルト=0）">_angPosition</a>;
+<a name="l00061"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a7a9b129f2eecc85768df51b3a6d4dde5">00061</a>     <span class="keywordtype">int</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a7a9b129f2eecc85768df51b3a6d4dde5" title="[r]旋廻円周半径（initialize()までに変更可／デフォルト=200000）">_radiusPosition</a>;
+<a name="l00063"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a5d2bfda7c17470fdea7f9d8aa91df630">00063</a>     velo <a class="code" href="classMyStg2nd_1_1MyOption.html#a5d2bfda7c17470fdea7f9d8aa91df630" title="[r/w]旋廻円周移動速度（随時変更可／デフォルト=1000）">_veloMv</a>;
+<a name="l00065"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a7dc5a090faf5e3083fdace43c8ce8330">00065</a>     angle <a class="code" href="classMyStg2nd_1_1MyOption.html#a7dc5a090faf5e3083fdace43c8ce8330" title="[r/w]オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionControllerと同じ方向（前方）を向いている）">_angExpanse</a>;
+<a name="l00066"></a>00066 
+<a name="l00068"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#ac0d7b26f083071286587667d5ae7e85d">00068</a>     angle <a class="code" href="classMyStg2nd_1_1MyOption.html#ac0d7b26f083071286587667d5ae7e85d" title="[r]初期円周上初期位置角度">_angPosition_base</a>;
+<a name="l00070"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#ae2756fdcba54025253724717d913d375">00070</a>     <span class="keywordtype">int</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#ae2756fdcba54025253724717d913d375" title="[r]初期旋廻円周半径">_radiusPosition_base</a>;
+<a name="l00072"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#af60b1c0bde873a27fcaa16f7b9980aaf">00072</a>     velo <a class="code" href="classMyStg2nd_1_1MyOption.html#af60b1c0bde873a27fcaa16f7b9980aaf" title="[r]初期旋廻円周移動速度">_veloMv_base</a>;
+<a name="l00074"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#af6362d2dc9ddcd45b67dae1691bfee1b">00074</a>     angle <a class="code" href="classMyStg2nd_1_1MyOption.html#af6362d2dc9ddcd45b67dae1691bfee1b" title="[r]初期オプションの広がり回転角">_angExpanse_default</a>;
+<a name="l00075"></a>00075 
+<a name="l00077"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a144ac5fc98f4fc629842269866b6c980">00077</a>     ang_velo <a class="code" href="classMyStg2nd_1_1MyOption.html#a144ac5fc98f4fc629842269866b6c980" title="オプションの広がり回転角速度（通常時）">_ang_veloExpanseNomal</a>;
+<a name="l00079"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a74a722d19d8a42603e1e9b87c47a7839">00079</a>     ang_velo <a class="code" href="classMyStg2nd_1_1MyOption.html#a74a722d19d8a42603e1e9b87c47a7839" title="オプションの広がり回転角速度（微調整時）">_ang_veloExpanseSlow</a>;
+<a name="l00080"></a>00080 
+<a name="l00082"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#ac6b2d0484f251bf678488b84aa79a359">00082</a>     <span class="keywordtype">bool</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#ac6b2d0484f251bf678488b84aa79a359" title="オプションの初期位置に自動戻りを行っている最中は true">_return_to_base_radiusPosition_seq</a>;
+<a name="l00084"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a589ed5216887a6520af0d536c9c50536">00084</a>     <span class="keywordtype">bool</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a589ed5216887a6520af0d536c9c50536" title="オプションの初期円周半径に自動戻りを行っている最中は true">_return_to_base_angExpanse_seq</a>;
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087 
+<a name="l00088"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a37ee28edcf2f1da72a3828e9bc584e96">00088</a>     <span class="keywordtype">int</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a37ee28edcf2f1da72a3828e9bc584e96">_adjust_angPos_seq_progress</a>;
+<a name="l00089"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a456dbf4411aa33a3200c32db243b8136">00089</a>     angle <a class="code" href="classMyStg2nd_1_1MyOption.html#a456dbf4411aa33a3200c32db243b8136">_adjust_angPos_seq_new_angPosition_base</a>;
+<a name="l00090"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a2ff3f66edbdeb267dce543ae55595531">00090</a>     <a class="code" href="GgafCommonHeader_8h.html#a30ad2b1055b8608cd8df837b05b0a402">frame</a> <a class="code" href="classMyStg2nd_1_1MyOption.html#a2ff3f66edbdeb267dce543ae55595531">_adjust_angPos_seq_spent_frame</a>;
+<a name="l00091"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a86aed739656db5b94418aa85c7c1d7ee">00091</a>     angle <a class="code" href="classMyStg2nd_1_1MyOption.html#a86aed739656db5b94418aa85c7c1d7ee">_adjust_angPos_seq_angPosition</a>;
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093     <span class="comment">//GgafDxCore::GgafDxQuaternion _Q;</span>
+<a name="l00094"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a1eb7d6493f0c3a9343a3d25ba3c84849">00094</a>     <a class="code" href="classMyStg2nd_1_1EffectMyOption.html">EffectMyOption</a>* <a class="code" href="classMyStg2nd_1_1MyOption.html#a1eb7d6493f0c3a9343a3d25ba3c84849">_pEffect</a>;
+<a name="l00095"></a>00095 
+<a name="l00103"></a>00103     <a class="code" href="classMyStg2nd_1_1MyOption.html#a9e9c0d7d7ecda834f92edaf60fa25185" title="コンストラクタ .">MyOption</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* prm_name, UINT32 prm_no, <a class="code" href="classMyStg2nd_1_1MyOptionController.html" title="オプションの纏め役クラス .">MyOptionController</a>* prm_pMyOptionController);
+<a name="l00104"></a>00104 
+<a name="l00114"></a><a class="code" href="classMyStg2nd_1_1MyOption.html#a5d4b9753438886d7c0a40d86c9e089c0">00114</a>     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a5d4b9753438886d7c0a40d86c9e089c0" title="初期設定パラメーター .">config</a>(
+<a name="l00115"></a>00115             angle prm_radiusPosition,
+<a name="l00116"></a>00116             angle prm_angPosition,
+<a name="l00117"></a>00117             angle prm_angExpanse,
+<a name="l00118"></a>00118             velo prm_veloMv)
+<a name="l00119"></a>00119     {
+<a name="l00120"></a>00120         <a class="code" href="classMyStg2nd_1_1MyOption.html#abe1e49e0114501b834d918549d98a3fc" title="[r]円周上初期位置角度（周囲角）（initialize()までに変更可／デフォルト=0）">_angPosition</a> = prm_angPosition;
+<a name="l00121"></a>00121         <a class="code" href="classMyStg2nd_1_1MyOption.html#a7a9b129f2eecc85768df51b3a6d4dde5" title="[r]旋廻円周半径（initialize()までに変更可／デフォルト=200000）">_radiusPosition</a> = prm_radiusPosition;
+<a name="l00122"></a>00122         <a class="code" href="classMyStg2nd_1_1MyOption.html#a7dc5a090faf5e3083fdace43c8ce8330" title="[r/w]オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionControllerと同じ方向（前方）を向いている）">_angExpanse</a> = prm_angExpanse;
+<a name="l00123"></a>00123         <a class="code" href="classMyStg2nd_1_1MyOption.html#a5d2bfda7c17470fdea7f9d8aa91df630" title="[r/w]旋廻円周移動速度（随時変更可／デフォルト=1000）">_veloMv</a> = prm_veloMv;
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125         <a class="code" href="classMyStg2nd_1_1MyOption.html#ac0d7b26f083071286587667d5ae7e85d" title="[r]初期円周上初期位置角度">_angPosition_base</a> = prm_angPosition;
+<a name="l00126"></a>00126         <a class="code" href="classMyStg2nd_1_1MyOption.html#ae2756fdcba54025253724717d913d375" title="[r]初期旋廻円周半径">_radiusPosition_base</a> = prm_radiusPosition;
+<a name="l00127"></a>00127         <a class="code" href="classMyStg2nd_1_1MyOption.html#af6362d2dc9ddcd45b67dae1691bfee1b" title="[r]初期オプションの広がり回転角">_angExpanse_default</a> = prm_angExpanse;
+<a name="l00128"></a>00128         <a class="code" href="classMyStg2nd_1_1MyOption.html#af60b1c0bde873a27fcaa16f7b9980aaf" title="[r]初期旋廻円周移動速度">_veloMv_base</a> = prm_veloMv;
+<a name="l00129"></a>00129     }
+<a name="l00130"></a>00130     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a41eeb8513634214fe942c673d6faef66">onCreateModel</a>() <span class="keyword">override</span>;
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a177929e96307460a51f414864130ee29">initialize</a>() <span class="keyword">override</span>;
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#ad05bce43b248f309a0507bffa2a27594">onReset</a>() <span class="keyword">override</span>;
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a7db8ac59b92fb1cfb6288a67ab77f554">onActive</a>() <span class="keyword">override</span>;
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a54334d02ee6ddeca108b1d4a7ef725c8">processBehavior</a>() <span class="keyword">override</span>;
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a61652080b972e6dd8c71e316db4567e1">processJudgement</a>() <span class="keyword">override</span>;
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#afbda69e29f7ba0bea553a4f9f8d3ad3b">processFinal</a>() <span class="keyword">override</span>;
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a5746db2cac8b0dad880a347f536cfae4">onHit</a>(<a class="code" href="classGgafCore_1_1GgafActor.html" title="アクターの基底クラス .">GgafCore::GgafActor</a>* prm_pOtherActor) <span class="keyword">override</span>;
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146     <span class="keyword">virtual</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#a5ad00073f9c77c7ca5e7050893b36b1f">~MyOption</a>();
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148 
+<a name="l00149"></a>00149     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1MyOption.html#ae6c92bbcdc17f7b428d951240379c747">adjustAngPosition</a>(angle prm_new_angPosition_base, <a class="code" href="GgafCommonHeader_8h.html#a30ad2b1055b8608cd8df837b05b0a402">frame</a> prm_spent_frame);
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151 };
+<a name="l00152"></a>00152 
+<a name="l00153"></a>00153 }
+<a name="l00154"></a>00154 <span class="preprocessor">#endif </span><span class="comment">/*MYOPTION_H_*/</span>
+<a name="l00155"></a>00155 
+</pre></div></div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="MyOption_8h.html">MyOption.h</a>      </li>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>データ構造</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>ネームスペース</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙型の値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+    <li class="footer">MyStg2ndに対してSat Oct 15 2011 13:58:43に生成されました。
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
+   </ul>
+ </div>
+
+
+</body>
+</html>

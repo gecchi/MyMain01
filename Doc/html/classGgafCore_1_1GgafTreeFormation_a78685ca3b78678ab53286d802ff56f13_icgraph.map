@@ -1,0 +1,3 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafTreeFormation.html#a6b2982d245d839882ed72f3c4f65843b" title="メンバーが残っていれば解放します。 継承してオーバーライドする場合は、処理内で GgafTreeFormation::onGarbaged() を呼び出して下さい。" alt="" coords="368,5,659,35"/>
+</map>

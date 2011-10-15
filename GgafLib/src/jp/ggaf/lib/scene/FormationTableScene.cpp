@@ -11,7 +11,7 @@ FormationTableScene::FormationTableScene(const char* prm_name) : GgafDxScene(prm
 
 
 GgafGroupHead* FormationTableScene::addToTable(FormationActor* prm_pFormationActor, frame prm_max_delay_offset) {
-    if (prm_pFormationActor->_obj_class | Obj_GgafDxFormationActor) {
+    if (prm_pFormationActor->_obj_class | Obj_GgafFormation) {
         //OK
         if (prm_pFormationActor->_pDepo) {
             throwGgafCriticalException("FormationTableScene::addToTable() デポジトリモードの FormationActor は使用できません。prm_pFormationActor="<<prm_pFormationActor->getName())

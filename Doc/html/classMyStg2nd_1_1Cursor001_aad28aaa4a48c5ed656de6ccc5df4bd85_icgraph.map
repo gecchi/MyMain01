@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classMyStg2nd_1_1Cursor001.html#a6a33e7dccfec35399553b9a6f2a2d757" title="MyStg2nd::Cursor001::moveTo" alt="" coords="323,5,541,35"/>
+<area shape="rect" id="node5" href="$classMyStg2nd_1_1GamePauseScene.html#a34328b5bd498e010e741de8338c29836" title="MyStg2nd::GamePauseScene::processBehavior" alt="" coords="276,59,588,88"/>
+<area shape="rect" id="node7" href="$classMyStg2nd_1_1GameTitleScene.html#a18db39752a88e06c4d679c099d47ed75" title="MyStg2nd::GameTitleScene::processBehavior" alt="" coords="281,112,583,141"/>
+</map>

@@ -21,7 +21,6 @@ public:
     /** [r]自身が所属するグループの団長の監督 */
     GgafDirector* _pDirector;
 
-
     GgafMainActor(const char* prm_name, GgafStatus* prm_pStat);
 
     /**

@@ -1,0 +1,16 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafGarbageBox.html#ac601d751371ef27378a832e32382bab2" title="ゴミ箱にアクターを追加 ." alt="" coords="269,72,491,101"/>
+<area shape="rect" id="node13" href="$classGgafCore_1_1GgafMainActor.html#a1854fa78a52008d232ab6a0843fa524e" title="自ツリーノードを連結リストから切り離し、独立する。 ." alt="" coords="264,152,496,181"/>
+<area shape="rect" id="node29" href="$classMyStg2nd_1_1EnemyCeres.html#a4d726c29aca4ee50e12fccc71db7ef15" title="MyStg2nd::EnemyCeres::onInactive" alt="" coords="260,205,500,235"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafElement.html#a19ddcffb8cc172e3e00aa207b1950974" title="ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理(自ツリー) ." alt="" coords="565,19,805,48"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafScene.html#a606f11a4c1daa8c59fa835a23ce5d004" title="ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理(自ツリー) ." alt="" coords="980,5,1207,35"/>
+<area shape="rect" id="node9" href="$classGgafCore_1_1GgafGod.html#acd3b1bc845f9403b23a00dccf0375240" title="この世の瞬間を創造 ." alt="" coords="1365,5,1669,35"/>
+<area shape="rect" id="node11" href="$classGgafCore_1_1GgafGod.html#a69c74b93d7d988f954ec222d51679696" title="在ります。というメソッド ." alt="" coords="1719,5,1881,35"/>
+<area shape="rect" id="node15" href="$classGgafCore_1_1GgafMainActor.html#abe25dfbaa6a6aa60121a78b6c71351d8" title="新たに種別を設定し、アクターを配下に追加する。 種別はアクターが保持する種別を無視し、引数の種別を優先する。 配下に団長(GgafGroupHead)を挟んでその配下に引数のアクターを追加します。 Gg..." alt="" coords="549,152,821,181"/>
+<area shape="rect" id="node25" href="$classGgafCore_1_1GgafDirector.html#ae075787798590a0e0e073d370e594434" title="グループとして引数のアクターをサブアクターに追加します ." alt="" coords="556,232,815,261"/>
+<area shape="rect" id="node17" href="$classGgafCore_1_1GgafMainActor.html#aa5b39f451d91658862216d0fcaa924f0" title="新たに種別を設定し、アクターを配下に追加する。 ." alt="" coords="957,59,1229,88"/>
+<area shape="rect" id="node19" href="$classMyStg2nd_1_1MyOptionTorpedoController.html#a5f3ffc90140cf3e2fddfaaf5a052d69e" title="コンストラクタ ." alt="" coords="869,112,1317,141"/>
+<area shape="rect" id="node21" href="$classMyStg2nd_1_1OptionMagic.html#ad9cbf210defbfd93ea94adb69b22a6a3" title="MyStg2nd::OptionMagic::OptionMagic" alt="" coords="964,165,1223,195"/>
+<area shape="rect" id="node23" href="$classMyStg2nd_1_1Universe.html#abde058a284d56dfb8c1bf4e4bf7dc8a6" title="MyStg2nd::Universe::Universe" alt="" coords="989,219,1197,248"/>
+<area shape="rect" id="node27" href="$classGgafCore_1_1GgafDirector.html#a6bc1cc57c38e6401bc19c0fd2e0b2b79" title="単独GgafActor、或いはGgafDummyActorが単独親となるGgafActor連続体を &#160;種別は引数子アクターのステータス(_pStatus)の項目 &#39;STAT_DEFAULT_ACTOR_..." alt="" coords="964,272,1223,301"/>
+</map>

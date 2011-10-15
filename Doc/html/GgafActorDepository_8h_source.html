@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>MyStg2nd: GgafActorDepository.h ソースファイル</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MyStg2nd
+   &#160;<span id="projectnumber">0.0.3526</span>
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- 作成： Doxygen 1.7.5.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="dynsections.js"></script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>メインページ</span></a></li>
+      <li><a href="namespaces.html"><span>ネームスペース</span></a></li>
+      <li><a href="annotated.html"><span>データ構造</span></a></li>
+      <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+      <li><a href="dirs.html"><span>ディレクトリ</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="globals.html"><span>グローバル</span></a></li>
+    </ul>
+  </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('GgafActorDepository_8h.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle">
+<div class="title">GgafActorDepository.h</div>  </div>
+</div>
+<div class="contents">
+<a href="GgafActorDepository_8h.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef GGAFACTORDEPOSITORY_H_</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define GGAFACTORDEPOSITORY_H_</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span><span class="keyword">namespace </span>GgafCore {
+<a name="l00004"></a>00004 
+<a name="l00019"></a><a class="code" href="classGgafCore_1_1GgafActorDepository.html">00019</a> <span class="keyword">class </span><a class="code" href="classGgafCore_1_1GgafActorDepository.html" title="アクター保管所（人材バンク）クラス .">GgafActorDepository</a> : <span class="keyword">public</span> <a class="code" href="classGgafCore_1_1GgafDummyActor.html" title="ダミーアクタークラス .">GgafDummyActor</a> {
+<a name="l00020"></a>00020 <span class="keyword">public</span>:
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022     <a class="code" href="classGgafCore_1_1GgafActorDepository.html#ad64efd984735827767d2b54b600d5028">GgafActorDepository</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* prm_name, <a class="code" href="classGgafCore_1_1GgafStatus.html" title="ステースクラス.">GgafStatus</a>* prm_pStat = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<a name="l00023"></a>00023 
+<a name="l00033"></a>00033     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafActorDepository.html#a38f52c29b22f3fcb83550ab399dfdf8c" title="貸出メンバー(GgafActor)を追加登録します.">addSubLast</a>(<a class="code" href="classGgafCore_1_1GgafActor.html" title="アクターの基底クラス .">GgafActor</a>* prm_pSub) <span class="keyword">override</span>;
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 
+<a name="l00040"></a><a class="code" href="classGgafCore_1_1GgafActorDepository.html#a2a674d7342cdb08747ba7cdbdb14ee48">00040</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafActorDepository.html#a2a674d7342cdb08747ba7cdbdb14ee48" title="activate系は子アクターへは影響させないようにする .">activateTree</a>()<span class="keyword"> override </span>{
+<a name="l00041"></a>00041         <a class="code" href="classGgafCore_1_1GgafElement.html#a2e6e48500413659255d66fb55acb8e9d" title="活動状態にする(単体・コールバック有り) .">activate</a>();
+<a name="l00042"></a>00042     }
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044 <span class="comment">//    virtual void inactivateTree() override {</span>
+<a name="l00045"></a>00045 <span class="comment">//        inactivate();</span>
+<a name="l00046"></a>00046 <span class="comment">//    }</span>
+<a name="l00051"></a><a class="code" href="classGgafCore_1_1GgafActorDepository.html#a36a8a40343236a6ec24f1ce7c782d41c">00051</a> <span class="comment"></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafActorDepository.html#a36a8a40343236a6ec24f1ce7c782d41c" title="activate系は子アクターへは影響させないする .">activateTreeDelay</a>(<a class="code" href="GgafCommonHeader_8h.html#a30ad2b1055b8608cd8df837b05b0a402">frame</a> prm_offset_frames)<span class="keyword"> override </span>{
+<a name="l00052"></a>00052         <a class="code" href="classGgafCore_1_1GgafElement.html#a9db9d74ad990b1224595e571b22411fd" title="活動状態にする(単体・コールバック有り).">activateDelay</a>(prm_offset_frames);
+<a name="l00053"></a>00053     }
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055 <span class="comment">//    virtual void inactivateTreeDelay(frame prm_offset_frames) override {</span>
+<a name="l00056"></a>00056 <span class="comment">//        inactivateDelay(prm_offset_frames);</span>
+<a name="l00057"></a>00057 <span class="comment">//    }</span>
+<a name="l00058"></a>00058 
+<a name="l00078"></a><a class="code" href="classGgafCore_1_1GgafActorDepository.html#ab7313b5c393c81fb8a8529ea4851ecf4">00078</a>     <span class="keyword">virtual</span> <a class="code" href="classGgafCore_1_1GgafMainActor.html" title="普通のアクター(演者).">GgafCore::GgafMainActor</a>* <a class="code" href="classGgafCore_1_1GgafActorDepository.html#ab7313b5c393c81fb8a8529ea4851ecf4" title="メンバー借り入れ .">dispatch</a>() {
+<a name="l00079"></a>00079 <span class="preprocessor">#ifdef MY_DEBUG</span>
+<a name="l00080"></a>00080 <span class="preprocessor"></span>        <span class="keywordflow">if</span> (<a class="code" href="classGgafCore_1_1GgafNode.html#a98c95526f4c48a602d1e8383a1c37336" title="[r]子ノードの先頭ノード">_pSubFirst</a> == <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+<a name="l00081"></a>00081             <a class="code" href="GgafCommonHeader_8h.html#a9dc19656697a84144f067a543d5eeb2d">throwGgafCriticalException</a>(<span class="stringliteral">&quot;GgafActorDepository::dispatch() &quot;</span>&lt;&lt;<a class="code" href="classGgafCore_1_1GgafNode.html#a0440bb10b1762567a67b76db9dca0f15" title="ノード名取得 .">getName</a>()&lt;&lt;<span class="stringliteral">&quot; の子がありません&quot;</span>);
+<a name="l00082"></a>00082         }
+<a name="l00083"></a>00083 <span class="preprocessor">#endif</span>
+<a name="l00084"></a>00084 <span class="preprocessor"></span>        <a class="code" href="classGgafCore_1_1GgafMainActor.html" title="普通のアクター(演者).">GgafMainActor</a>* pActor = <a class="code" href="classGgafCore_1_1GgafMainActor.html#adc4fefef661bee66071d627f91a98cec" title="子ノードのグループの先頭ノードを取得する .">getSubFirst</a>();
+<a name="l00085"></a>00085         <span class="keywordflow">while</span> (<span class="keyword">true</span>) {
+<a name="l00086"></a>00086             <span class="keywordflow">if</span> (pActor-&gt;<a class="code" href="classGgafCore_1_1GgafElement.html#af7d2ee5b627d4c22f058f68c8363c65f" title="[r]ノード活動フラグ">_is_active_flg</a> == <span class="keyword">false</span> &amp;&amp; pActor-&gt;<a class="code" href="classGgafCore_1_1GgafElement.html#a280a4ab83786f36268e013bbe8b00f2f" title="[r]あとで活動予約フラグ">_will_activate_after_flg</a> == <span class="keyword">false</span>) {
+<a name="l00087"></a>00087                 pActor-&gt;<a class="code" href="classGgafCore_1_1GgafElement.html#abd69d1208fd776654b2743377c13fb80" title="自ツリーノードを最終ノードに移動する(単体) .">moveLast</a>(); <span class="comment">//次フレームお尻に回す</span>
+<a name="l00088"></a>00088                 pActor-&gt;<a class="code" href="classGgafCore_1_1GgafElement.html#a2e6e48500413659255d66fb55acb8e9d" title="活動状態にする(単体・コールバック有り) .">activate</a>(); <span class="comment">//activate自動実行。</span>
+<a name="l00089"></a>00089                 <span class="keywordflow">break</span>;<span class="comment">//取得！</span>
+<a name="l00090"></a>00090             } <span class="keywordflow">else</span> {   <span class="comment">//今活動中、或いは、次フレーム活動予定の場合は見送る</span>
+<a name="l00091"></a>00091                 <span class="keywordflow">if</span> (pActor-&gt;<a class="code" href="classGgafCore_1_1GgafNode.html#abc0b2b9becb95ef37d7e11f47b5211f5" title="自ノードが末尾ノードか調べる .">isLast</a>()) {
+<a name="l00092"></a>00092                     pActor = <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<a name="l00093"></a>00093                     <span class="keywordflow">break</span>;
+<a name="l00094"></a>00094                 } <span class="keywordflow">else</span> {
+<a name="l00095"></a>00095                     pActor = pActor-&gt;<a class="code" href="classGgafCore_1_1GgafMainActor.html#a59d74abbb4da022e6e2eb88663d53a17" title="次のノード取得する。 .">getNext</a>();
+<a name="l00096"></a>00096                     <span class="keywordflow">continue</span>;
+<a name="l00097"></a>00097                 }
+<a name="l00098"></a>00098             }
+<a name="l00099"></a>00099         }
+<a name="l00100"></a>00100         <span class="keywordflow">return</span> pActor;
+<a name="l00101"></a>00101     }
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104 <span class="comment">//    virtual GgafCore::GgafMainActor* bring() {</span>
+<a name="l00105"></a>00105 <span class="comment">//        _can_auto_end = false; //自動削除無し</span>
+<a name="l00106"></a>00106 <span class="comment">//        GgafMainActor* pActor = getSubFirst();</span>
+<a name="l00107"></a>00107 <span class="comment">//        if (pActor) {</span>
+<a name="l00108"></a>00108 <span class="comment">//            while (true) {</span>
+<a name="l00109"></a>00109 <span class="comment">//                if (pActor-&gt;_is_active_flg == false &amp;&amp; pActor-&gt;_will_activate_after_flg == false) {</span>
+<a name="l00110"></a>00110 <span class="comment">//                    pActor-&gt;moveLast(); //次フレームお尻に回す</span>
+<a name="l00111"></a>00111 <span class="comment">//                    pActor-&gt;activate(); //activate自動実行。</span>
+<a name="l00112"></a>00112 <span class="comment">//                    break;//取得！</span>
+<a name="l00113"></a>00113 <span class="comment">//                } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る</span>
+<a name="l00114"></a>00114 <span class="comment">//                    if (pActor-&gt;isLast()) {</span>
+<a name="l00115"></a>00115 <span class="comment">//                        pActor = NULL;</span>
+<a name="l00116"></a>00116 <span class="comment">//                        break;</span>
+<a name="l00117"></a>00117 <span class="comment">//                    } else {</span>
+<a name="l00118"></a>00118 <span class="comment">//                        pActor = pActor-&gt;getNext();</span>
+<a name="l00119"></a>00119 <span class="comment">//                        continue;</span>
+<a name="l00120"></a>00120 <span class="comment">//                    }</span>
+<a name="l00121"></a>00121 <span class="comment">//                }</span>
+<a name="l00122"></a>00122 <span class="comment">//            }</span>
+<a name="l00123"></a>00123 <span class="comment">//        }</span>
+<a name="l00124"></a>00124 <span class="comment">//        if (pActor) {</span>
+<a name="l00125"></a>00125 <span class="comment">//            return pActor-&gt;extract();</span>
+<a name="l00126"></a>00126 <span class="comment">//        } else {</span>
+<a name="l00127"></a>00127 <span class="comment">//            return NULL;</span>
+<a name="l00128"></a>00128 <span class="comment">//        }</span>
+<a name="l00129"></a>00129 <span class="comment">//    }</span>
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131 
+<a name="l00154"></a><a class="code" href="classGgafCore_1_1GgafActorDepository.html#adf98a20f3dade71c7cfda9d57cfee3ba">00154</a>     <span class="keyword">virtual</span> <a class="code" href="classGgafCore_1_1GgafMainActor.html" title="普通のアクター(演者).">GgafCore::GgafMainActor</a>* <a class="code" href="classGgafCore_1_1GgafActorDepository.html#adf98a20f3dade71c7cfda9d57cfee3ba" title="強制的にアクター取り出し .">dispatchForce</a>() {
+<a name="l00155"></a>00155         <a class="code" href="classGgafCore_1_1GgafMainActor.html" title="普通のアクター(演者).">GgafMainActor</a>* pActor = <a class="code" href="classGgafCore_1_1GgafActorDepository.html#ab7313b5c393c81fb8a8529ea4851ecf4" title="メンバー借り入れ .">dispatch</a>();
+<a name="l00156"></a>00156         <span class="keywordflow">if</span> (pActor == <a class="code" href="GgafCommonHeader_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+<a name="l00157"></a>00157             <a class="code" href="classGgafCore_1_1GgafMainActor.html#adc4fefef661bee66071d627f91a98cec" title="子ノードのグループの先頭ノードを取得する .">getSubFirst</a>()-&gt;<a class="code" href="classGgafCore_1_1GgafElement.html#a50afe05b4268812ccdd8cfd0892df84f">moveLastImmediately</a>(); <span class="comment">//お尻に回す</span>
+<a name="l00158"></a>00158             pActor = <a class="code" href="classGgafCore_1_1GgafMainActor.html#adc4fefef661bee66071d627f91a98cec" title="子ノードのグループの先頭ノードを取得する .">getSubFirst</a>();
+<a name="l00159"></a>00159         }
+<a name="l00160"></a>00160         <span class="keywordflow">return</span> pActor;
+<a name="l00161"></a>00161     }
+<a name="l00162"></a>00162 
+<a name="l00167"></a>00167     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafActorDepository.html#a956567b167fda8813c748a33d5d62e18" title="リセット時の処理 .">onReset</a>() <span class="keyword">override</span>;
+<a name="l00168"></a>00168 
+<a name="l00169"></a>00169     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGgafCore_1_1GgafActorDepository.html#a5ef704deae3d18d40331e820f4e71658" title="終了宣言します。(自ツリー) .">end</a>(<a class="code" href="GgafCommonHeader_8h.html#a30ad2b1055b8608cd8df837b05b0a402">frame</a> prm_offset_frames = 1) <span class="keyword">override</span>;
+<a name="l00170"></a>00170 
+<a name="l00171"></a><a class="code" href="classGgafCore_1_1GgafActorDepository.html#aefa4648c48d3b75cf38ec1fac1fa6f17">00171</a>     <span class="keyword">virtual</span> <a class="code" href="classGgafCore_1_1GgafActorDepository.html#aefa4648c48d3b75cf38ec1fac1fa6f17">~GgafActorDepository</a>() {
+<a name="l00172"></a>00172     }
+<a name="l00173"></a>00173 };
+<a name="l00174"></a>00174 
+<a name="l00175"></a>00175 }
+<a name="l00176"></a>00176 <span class="preprocessor">#endif </span><span class="comment">/*GGAFACTORDEPOSITORY_H_*/</span>
+</pre></div></div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="GgafActorDepository_8h.html">GgafActorDepository.h</a>      </li>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>データ構造</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>ネームスペース</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙型の値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+    <li class="footer">MyStg2ndに対してSat Oct 15 2011 13:58:40に生成されました。
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
+   </ul>
+ </div>
+
+
+</body>
+</html>

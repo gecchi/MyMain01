@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classMyStg2nd_1_1MyShip_1_1WaySwitch.html#a0ac901e9238c6e94565946fe97aca84f" title="MyStg2nd::MyShip::WaySwitch::getIndex" alt="" coords="312,5,587,35"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafLinkedListRing.html#a9c22baf846496e2b40287d379db27f9e" title="カレント要素を一つ進める。 ." alt="" coords="328,59,571,88"/>
+<area shape="rect" id="node7" href="$classMyStg2nd_1_1MyShip_1_1WaySwitch.html#adde2d46aaf87dd6ca1acb82c6df5eb01" title="MyStg2nd::MyShip::WaySwitch::OFF_DOWN" alt="" coords="303,112,596,141"/>
+<area shape="rect" id="node9" href="$classMyStg2nd_1_1MyShip_1_1WaySwitch.html#a682ae5ee17321ec77ef82ddf8adc7a5b" title="MyStg2nd::MyShip::WaySwitch::OFF_LEFT" alt="" coords="307,165,592,195"/>
+<area shape="rect" id="node11" href="$classMyStg2nd_1_1MyShip_1_1WaySwitch.html#a7635bfcc2533c4a093390af876077fcd" title="MyStg2nd::MyShip::WaySwitch::OFF_RIGHT" alt="" coords="304,219,595,248"/>
+<area shape="rect" id="node13" href="$classMyStg2nd_1_1MyShip_1_1WaySwitch.html#ac1b83e756835862de684ed4894c4dc30" title="MyStg2nd::MyShip::WaySwitch::OFF_UP" alt="" coords="313,272,585,301"/>
+<area shape="rect" id="node15" href="$classMyStg2nd_1_1MyShip_1_1WaySwitch.html#a7db18d702cd12f0882f9553dbbd6a41d" title="MyStg2nd::MyShip::WaySwitch::ON_DOWN" alt="" coords="304,325,595,355"/>
+<area shape="rect" id="node17" href="$classMyStg2nd_1_1MyShip_1_1WaySwitch.html#afb0fcfcfc424eda33c0f76db9bfb85ac" title="MyStg2nd::MyShip::WaySwitch::ON_LEFT" alt="" coords="309,379,589,408"/>
+<area shape="rect" id="node19" href="$classMyStg2nd_1_1MyShip_1_1WaySwitch.html#a3bf37d87c3068ae3f471460fe6ce3000" title="MyStg2nd::MyShip::WaySwitch::ON_RIGHT" alt="" coords="307,432,592,461"/>
+<area shape="rect" id="node21" href="$classMyStg2nd_1_1MyShip_1_1WaySwitch.html#a7729efd008b3529e3241784a0980a7e1" title="MyStg2nd::MyShip::WaySwitch::ON_UP" alt="" coords="316,485,583,515"/>
+</map>

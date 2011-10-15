@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafLinkedListRing.html#a3c1fad65730309765a24740cdcb5051d" title="引数要素を、末尾(_is_last_flg が true)として追加する ." alt="" coords="388,5,655,35"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafDeositoryFormation.html#a8ba56d3fa4ae81157aca337d456f7626" title="編隊のメンバーの登録します." alt="" coords="360,59,683,88"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafActorDepository.html#ab7313b5c393c81fb8a8529ea4851ecf4" title="メンバー借り入れ ." alt="" coords="381,163,661,192"/>
+<area shape="rect" id="node11" href="$classGgafCore_1_1GgafNode.html#a0440bb10b1762567a67b76db9dca0f15" title="ノード名取得 ." alt="" coords="753,56,1055,85"/>
+<area shape="rect" id="node22" href="$classGgafCore_1_1GgafElement.html#a1a662e097c0f2d64d0b90c9b7c844ff2" title="終了宣言したかどうか" alt="" coords="340,216,703,245"/>
+<area shape="rect" id="node9" href="$classGgafCore_1_1GgafElement.html#a2e6e48500413659255d66fb55acb8e9d" title="活動状態にする(単体・コールバック有り) ." alt="" coords="792,109,1016,139"/>
+<area shape="rect" id="node13" href="$classGgafCore_1_1GgafMainActor.html#a59d74abbb4da022e6e2eb88663d53a17" title="次のノード取得する。 ." alt="" coords="785,163,1023,192"/>
+<area shape="rect" id="node15" href="$classGgafCore_1_1GgafMainActor.html#adc4fefef661bee66071d627f91a98cec" title="子ノードのグループの先頭ノードを取得する ." alt="" coords="775,216,1033,245"/>
+<area shape="rect" id="node17" href="$classGgafCore_1_1GgafNode.html#abc0b2b9becb95ef37d7e11f47b5211f5" title="自ノードが末尾ノードか調べる ." alt="" coords="807,269,1001,299"/>
+<area shape="rect" id="node19" href="$classGgafCore_1_1GgafElement.html#abd69d1208fd776654b2743377c13fb80" title="自ツリーノードを最終ノードに移動する(単体) ." alt="" coords="787,323,1021,352"/>
+</map>

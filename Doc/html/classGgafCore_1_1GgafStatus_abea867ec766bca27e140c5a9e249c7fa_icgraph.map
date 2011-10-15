@@ -1,0 +1,29 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classMyStg2nd_1_1MyStgUtil.html#a60a0b9476e5352cd06de0357634861b5" title="MyStg2nd::MyStgUtil::calcEnemyStatus" alt="" coords="259,512,528,541"/>
+<area shape="rect" id="node43" href="$classMyStg2nd_1_1MyStgUtil.html#a67fe585fa436139913835ad2bfb25579" title="自分(自機)の体力計算 ." alt="" coords="271,1125,516,1155"/>
+<area shape="rect" id="node5" href="$classMyStg2nd_1_1EnemyAstraea.html#ae9353d55521fe8f032bc9d88b60a4c7c" title="MyStg2nd::EnemyAstraea::onHit" alt="" coords="635,5,859,35"/>
+<area shape="rect" id="node7" href="$classMyStg2nd_1_1EnemyAstraeaLaserChip001.html#a858e5f3678b600721f85e80e1288205a" title="MyStg2nd::EnemyAstraeaLaserChip001::onHit" alt="" coords="591,59,903,88"/>
+<area shape="rect" id="node9" href="$classMyStg2nd_1_1EnemyAstraeaLaserChip003.html#acac473d5ef7f9df3d05de9ad2d3889a0" title="MyStg2nd::EnemyAstraeaLaserChip003::onHit" alt="" coords="591,112,903,141"/>
+<area shape="rect" id="node11" href="$classMyStg2nd_1_1EnemyAstraeaLaserChip004.html#a222b38161299e89b75f6788bd7677f90" title="MyStg2nd::EnemyAstraeaLaserChip004::onHit" alt="" coords="591,165,903,195"/>
+<area shape="rect" id="node13" href="$classMyStg2nd_1_1EnemyCeres.html#aac260cc7fe346b4f02cee24b9a1b52a8" title="MyStg2nd::EnemyCeres::onHit" alt="" coords="641,219,852,248"/>
+<area shape="rect" id="node15" href="$classMyStg2nd_1_1EnemyCeresShot001.html#a81f4d373c58b08e7bba7213e35ef5c88" title="MyStg2nd::EnemyCeresShot001::onHit" alt="" coords="613,272,880,301"/>
+<area shape="rect" id="node17" href="$classMyStg2nd_1_1EnemyEunomia.html#a1df12402c78b7aa82184c3eca2e2baec" title="エウノミアの衝突時処理 ." alt="" coords="632,325,861,355"/>
+<area shape="rect" id="node19" href="$classMyStg2nd_1_1EnemyIris.html#a365bc96a5a4e3cc582fb0968e0c95c73" title="イリスの衝突時処理 ." alt="" coords="649,379,844,408"/>
+<area shape="rect" id="node21" href="$classMyStg2nd_1_1EnemyJuno.html#a39a15fcaa2183f67efc8c483650f703c" title="MyStg2nd::EnemyJuno::onHit" alt="" coords="644,432,849,461"/>
+<area shape="rect" id="node23" href="$classMyStg2nd_1_1EnemyMassalia.html#a5029a55c05c57c220e201d803f75b270" title="MyStg2nd::EnemyMassalia::onHit" alt="" coords="633,485,860,515"/>
+<area shape="rect" id="node25" href="$classMyStg2nd_1_1EnemyMetis.html#a4155659831f0011c3552594df93dcf2b" title="MyStg2nd::EnemyMetis::onHit" alt="" coords="641,539,852,568"/>
+<area shape="rect" id="node27" href="$classMyStg2nd_1_1EnemyPallas.html#aa7e76020c44b44b1d4ada967856ebf39" title="パラスの衝突時処理 ." alt="" coords="641,592,852,621"/>
+<area shape="rect" id="node29" href="$classMyStg2nd_1_1EnemyStraightLaserChip001.html#ac59c9b1536b5d9c329e71d4388cee043" title="MyStg2nd::EnemyStraightLaserChip001::onHit" alt="" coords="589,645,904,675"/>
+<area shape="rect" id="node31" href="$classMyStg2nd_1_1EnemyTamago01.html#abb2aae95d3595684473b1e68e2b4a1f2" title="たまごの衝突時処理 ." alt="" coords="624,699,869,728"/>
+<area shape="rect" id="node33" href="$classMyStg2nd_1_1EnemyThalia.html#a9008701d8239159f95733a093047a706" title="タリアの衝突時処理 ." alt="" coords="640,752,853,781"/>
+<area shape="rect" id="node35" href="$classMyStg2nd_1_1EnemyVesta.html#a51b342b0533258eed91a84de5aef98fd" title="ヴェスタの衝突時処理 ." alt="" coords="640,805,853,835"/>
+<area shape="rect" id="node37" href="$classMyStg2nd_1_1Shot001.html#a9472e9f489215e0109e4b5d7b38e5d8f" title="MyStg2nd::Shot001::onHit" alt="" coords="651,859,843,888"/>
+<area shape="rect" id="node39" href="$classMyStg2nd_1_1Shot002.html#a1694e756dc37ca8babb2bf0d484b3ddc" title="MyStg2nd::Shot002::onHit" alt="" coords="651,912,843,941"/>
+<area shape="rect" id="node41" href="$classMyStg2nd_1_1Shot004.html#ab0476f88dcbc546aee21e6ef114f6d81" title="MyStg2nd::Shot004::onHit" alt="" coords="651,965,843,995"/>
+<area shape="rect" id="node45" href="$classMyStg2nd_1_1MyOptionStraightLaserChip001.html#a80fed2a8db66c9b4072d6b93bdc058eb" title="MyStg2nd::MyOptionStraightLaserChip001::onHit" alt="" coords="580,1019,913,1048"/>
+<area shape="rect" id="node47" href="$classMyStg2nd_1_1MyOptionWateringLaserChip001.html#a4fa973d8ab2e2a6ef5d2aecc97f0be86" title="MyStg2nd::MyOptionWateringLaserChip001::onHit" alt="" coords="577,1072,916,1101"/>
+<area shape="rect" id="node49" href="$classMyStg2nd_1_1MyShip.html#a5fc7e80e39a5233fbf7dd2bd8b352469" title="MyStg2nd::MyShip::onHit" alt="" coords="657,1125,836,1155"/>
+<area shape="rect" id="node51" href="$classMyStg2nd_1_1MyStraightLaserChip001.html#a65aff4f315a71a942a21bd820c8c6230" title="MyStg2nd::MyStraightLaserChip001::onHit" alt="" coords="601,1179,892,1208"/>
+<area shape="rect" id="node53" href="$classMyStg2nd_1_1MyTorpedo.html#a10c73babfa0d4a32488fe8818f4ffa33" title="MyStg2nd::MyTorpedo::onHit" alt="" coords="644,1232,849,1261"/>
+<area shape="rect" id="node55" href="$classMyStg2nd_1_1MyTorpedoBlast.html#a237d80d6dec22e5f0d5d3c220edd13ec" title="MyStg2nd::MyTorpedoBlast::onHit" alt="" coords="629,1285,864,1315"/>
+</map>

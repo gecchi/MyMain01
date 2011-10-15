@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafActor.html#adf84264f19ae862d24963bfa44ba5298" title="所属しているシーンを取得。 ." alt="" coords="404,29,673,59"/>
+<area shape="rect" id="node8" href="$classGgafCore_1_1GgafScene.html#a0bc32cfee7d5aad97474404ec6511f7e" title="配下ノード全てにイベントメッセージを通知します ." alt="" coords="383,83,695,112"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafNode.html#ab6c00db0d18973ac53ec075bb69cd947" title="１つ上の親ノード取得する。" alt="" coords="745,29,1052,59"/>
+</map>

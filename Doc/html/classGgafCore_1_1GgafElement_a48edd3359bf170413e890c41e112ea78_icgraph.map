@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafScene.html#a8003421d7a6a353f91200b8bd698dd17" title="非活動状態にする(単体・コールバック有り) ." alt="" coords="347,5,568,35"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafActorDepository.html#a956567b167fda8813c748a33d5d62e18" title="リセット時の処理 ." alt="" coords="319,59,596,88"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafActorDepositoryStore.html#a022ed0603318354dbd05cbd86bbc2704" title="サブの登録デポジトリの状態更新 ." alt="" coords="288,112,627,141"/>
+<area shape="rect" id="node9" href="$classMyStg2nd_1_1Universe.html#a8cb0b7c60fade955f60acf35f731c09e" title="MyStg2nd::Universe::switchCameraWork" alt="" coords="320,165,595,195"/>
+<area shape="rect" id="node11" href="$classMyStg2nd_1_1Universe.html#a7ae14b5f5ef9e4928048aec23ea00a0b" title="MyStg2nd::Universe::undoCameraWork" alt="" coords="325,219,589,248"/>
+</map>

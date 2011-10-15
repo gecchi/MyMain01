@@ -967,23 +967,38 @@ void GgafElement<T>::nextFrame() {
         T* pElementTemp = GGAF_NODE::_pSubFirst;
         while(true) {
 
-            if (pElementTemp->_is_last_flg) {
-                pElementTemp->nextFrame();
-                if (pElementTemp->_can_live_flg == false) {
-                    pElementTemp->onGarbaged();
-                    GgafFactory::_pGarbageBox->add(pElementTemp); //ÉSÉ~î†Ç÷
-                }
-                break;
-            } else {
-                pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                pElementTemp->GGAF_NODE::_pPrev->nextFrame();
-                if (pElementTemp->GGAF_NODE::_pPrev->_can_live_flg == false) {
-                    ((T*)(pElementTemp->GGAF_NODE::_pPrev))->onGarbaged();
-                    GgafFactory::_pGarbageBox->add(pElementTemp->GGAF_NODE::_pPrev); //ÉSÉ~î†Ç÷
+            pElementTemp->nextFrame(); //é¿çs
+
+            if (pElementTemp->_can_live_flg == false) {
+                pElementTemp->onGarbaged();
+                GgafFactory::_pGarbageBox->add(pElementTemp); //ÉSÉ~î†Ç÷
+                if (pElementTemp->_is_last_flg) {
+                    break; //êeÇ÷ñﬂÇÈ
+                } else {
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
     }
+
+//        if (GGAF_NODE::_pSubFirst) {
+//            if (pElementTemp->_is_last_flg) {
+//                pElementTemp->nextFrame();
+//                if (pElementTemp->_can_live_flg == false) {
+//                    pElementTemp->onGarbaged();
+//                    GgafFactory::_pGarbageBox->add(pElementTemp); //ÉSÉ~î†Ç÷
+//                }
+//                break;
+//            } else {
+//                pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+//                pElementTemp->GGAF_NODE::_pPrev->nextFrame();
+//                if (pElementTemp->GGAF_NODE::_pPrev->_can_live_flg == false) {
+//                    ((T*)(pElementTemp->GGAF_NODE::_pPrev))->onGarbaged();
+//                    GgafFactory::_pGarbageBox->add(pElementTemp->GGAF_NODE::_pPrev); //ÉSÉ~î†Ç÷
+//                }
+//            }
+//        }
+
 
 
     if (_will_mv_first_in_next_frame_flg) {

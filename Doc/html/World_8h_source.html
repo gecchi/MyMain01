@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>MyStg2nd: World.h ソースファイル</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MyStg2nd
+   &#160;<span id="projectnumber">0.0.3526</span>
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- 作成： Doxygen 1.7.5.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="dynsections.js"></script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>メインページ</span></a></li>
+      <li><a href="namespaces.html"><span>ネームスペース</span></a></li>
+      <li><a href="annotated.html"><span>データ構造</span></a></li>
+      <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+      <li><a href="dirs.html"><span>ディレクトリ</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="globals.html"><span>グローバル</span></a></li>
+    </ul>
+  </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('World_8h.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle">
+<div class="title">World.h</div>  </div>
+</div>
+<div class="contents">
+<a href="World_8h.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef WORLD_H_</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define WORLD_H_</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span><span class="keyword">namespace </span>MyStg2nd {
+<a name="l00004"></a>00004 
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#ifdef P_UNIVERSE</span>
+<a name="l00007"></a>00007 <span class="preprocessor"></span><span class="preprocessor">    #define P_WORLD ((MyStg2nd::World*)(P_UNIVERSE-&gt;_pWorld))</span>
+<a name="l00008"></a>00008 <span class="preprocessor"></span><span class="preprocessor">#else</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">    #error P_UNIVERSE isnt define</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00011"></a>00011 <span class="preprocessor"></span>
+<a name="l00012"></a>00012 
+<a name="l00017"></a><a class="code" href="classMyStg2nd_1_1World.html">00017</a> <span class="keyword">class </span><a class="code" href="classMyStg2nd_1_1World.html" title="世界シーンクラス .">World</a> : <span class="keyword">public</span> GgafLib::DefaultScene {
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="keyword">public</span>:
+<a name="l00020"></a><a class="code" href="classMyStg2nd_1_1World.html#a18cc788a7865b75de5abb75c1951d85a">00020</a>     <span class="keywordtype">bool</span> <a class="code" href="classMyStg2nd_1_1World.html#a18cc788a7865b75de5abb75c1951d85a">_is_create_GameScene</a>;
+<a name="l00021"></a><a class="code" href="classMyStg2nd_1_1World.html#aec7e92393670fbe99e0053407564f89e">00021</a>     <span class="keywordtype">char</span> <a class="code" href="classMyStg2nd_1_1World.html#aec7e92393670fbe99e0053407564f89e">_aBufDebug</a>[80];
+<a name="l00022"></a><a class="code" href="classMyStg2nd_1_1World.html#a7ba75d84af082c010652a1ae8b6eb9ab">00022</a>     <a class="code" href="classMyStg2nd_1_1LabelGecchi16Font.html" title="オリジナル16x16ドットフォントのラベル .">LabelGecchi16Font</a>* <a class="code" href="classMyStg2nd_1_1World.html#a7ba75d84af082c010652a1ae8b6eb9ab">_pFont16_Wait</a>;
+<a name="l00023"></a><a class="code" href="classMyStg2nd_1_1World.html#a1c96cf21efe3d4e98ad12e0cb68d0584">00023</a>     <a class="code" href="classMyStg2nd_1_1LabelGecchi16Font.html" title="オリジナル16x16ドットフォントのラベル .">LabelGecchi16Font</a>* <a class="code" href="classMyStg2nd_1_1World.html#a1c96cf21efe3d4e98ad12e0cb68d0584">_pFont16_Debug</a>;
+<a name="l00024"></a><a class="code" href="classMyStg2nd_1_1World.html#af583f3e3f2edcfb3806f9b20f64f3c85">00024</a>     <a class="code" href="classMyStg2nd_1_1LabelGecchi16Font.html" title="オリジナル16x16ドットフォントのラベル .">LabelGecchi16Font</a>* <a class="code" href="classMyStg2nd_1_1World.html#af583f3e3f2edcfb3806f9b20f64f3c85">_pStringBoard01</a>;
+<a name="l00025"></a><a class="code" href="classMyStg2nd_1_1World.html#ac0a08ea41a305c040880d3c7dfe1467e">00025</a>     <a class="code" href="classMyStg2nd_1_1PreDrawScene.html">PreDrawScene</a>* <a class="code" href="classMyStg2nd_1_1World.html#ac0a08ea41a305c040880d3c7dfe1467e">_pPreDrawScene</a>;
+<a name="l00026"></a><a class="code" href="classMyStg2nd_1_1World.html#a26394bd56a8c9ba7a87b484acdb43721">00026</a>     <a class="code" href="classMyStg2nd_1_1GameScene.html" title="ゲームシーンクラス .">GameScene</a>* <a class="code" href="classMyStg2nd_1_1World.html#a26394bd56a8c9ba7a87b484acdb43721">_pGameScene</a>;
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028     <a class="code" href="classMyStg2nd_1_1World.html#a86e6f4e2030307da6f2bafbde4b20883">World</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* prm_name);
+<a name="l00029"></a>00029 
+<a name="l00033"></a>00033     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1World.html#a9997d23f68fa6372936e67cc8aca4d59" title="初期処理">initialize</a>() <span class="keyword">override</span>;
+<a name="l00034"></a>00034 
+<a name="l00038"></a>00038     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1World.html#ae92f107f71c84c88af8ab973fe71ac82" title="＜OverRide です＞">processBehavior</a>() <span class="keyword">override</span>;
+<a name="l00039"></a>00039 
+<a name="l00043"></a>00043     <span class="keywordtype">void</span> <a class="code" href="classMyStg2nd_1_1World.html#a9a29e8115896e4da91bcdb89410802f1" title="＜OverRide です＞">processJudgement</a>() <span class="keyword">override</span>;
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045     <span class="keyword">virtual</span> <a class="code" href="classMyStg2nd_1_1World.html#a8c73fba541a5817fff65147ba47cd827">~World</a>();
+<a name="l00046"></a>00046 };
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048 }
+<a name="l00049"></a>00049 <span class="preprocessor">#endif </span><span class="comment">/*WORLD_H_*/</span>
+</pre></div></div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="World_8h.html">World.h</a>      </li>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>データ構造</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>ネームスペース</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙型の値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+    <li class="footer">MyStg2ndに対してSat Oct 15 2011 13:58:48に生成されました。
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
+   </ul>
+ </div>
+
+
+</body>
+</html>

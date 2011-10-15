@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafActor.html#a9ca34549f0defc128104ccdeb13f55df" title="切り離す ." alt="" coords="343,29,545,59"/>
+<area shape="rect" id="node8" href="$classGgafCore_1_1GgafMainActor.html#a4e033b3ac19f1c71aca4e7491ecce082" title="シーン団長を取得する。 ." alt="" coords="297,83,591,112"/>
+<area shape="rect" id="node12" href="$classGgafCore_1_1GgafActor.html#afd1a2ddde0bca4dccf1d41784faeaaa2" title="さよならします ." alt="" coords="337,160,551,189"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafActor.html#a4133db668cc7572cf542186f3e2b4348" title="所属シーンを設定する。 ." alt="" coords="685,29,955,59"/>
+<area shape="rect" id="node10" href="$classGgafCore_1_1GgafNode.html#a0440bb10b1762567a67b76db9dca0f15" title="ノード名取得 ." alt="" coords="669,83,971,112"/>
+<area shape="rect" id="node14" href="$classGgafCore_1_1GgafElement.html#ad56689bb7f3be483623356e18ebb07c9" title="終了宣言します。(自ツリー) ." alt="" coords="677,148,963,177"/>
+<area shape="rect" id="node16" href="$classGgafCore_1_1GgafElement.html#a8711093189aafb98e857ba8941270ef3" title="非活動予約する(自ツリー・コールバック有り) ." alt="" coords="641,201,999,231"/>
+</map>

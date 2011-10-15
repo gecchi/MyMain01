@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classGgafCore_1_1GgafCurtain.html#a00f7f33238f38157d4e7599b6e337e24" title="カーテンが閉まり始める瞬間の処理 ." alt="" coords="267,5,552,35"/>
+<area shape="rect" id="node5" href="$classGgafCore_1_1GgafCurtain.html#aec3bfea1debfbe2d5151a9b37ae8fa09" title="カーテンが閉まった時の処理 ." alt="" coords="268,59,551,88"/>
+<area shape="rect" id="node7" href="$classGgafCore_1_1GgafCurtain.html#a3d7bf43c4f4ed129d058910bc5991422" title="カーテンが閉まっていく途中の処理 ." alt="" coords="279,112,540,141"/>
+<area shape="rect" id="node9" href="$classGgafCore_1_1GgafCurtain.html#a423ca0659518bf88c68fa8c09ac95271" title="カーテンが開き始める瞬間の処理 ." alt="" coords="267,165,552,195"/>
+<area shape="rect" id="node11" href="$classGgafCore_1_1GgafCurtain.html#a4251387f7a44f41fb0475793de670ce7" title="カーテンが開ききった時の処理 ." alt="" coords="268,219,551,248"/>
+<area shape="rect" id="node13" href="$classGgafCore_1_1GgafCurtain.html#afe2f2209eb88f2f851844685e84f0555" title="カーテンが開いていく途中の処理 ." alt="" coords="275,272,544,301"/>
+</map>
