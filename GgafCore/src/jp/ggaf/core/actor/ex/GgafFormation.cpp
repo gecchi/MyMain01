@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 
 GgafFormation::GgafFormation(const char* prm_name, frame prm_offset_frames_end) :
-        GgafActor(prm_name, NULL)
+        GgafMainActor(prm_name, NULL)
 {
     _obj_class |= Obj_GgafFormation;
     _class_name = "GgafFormation";

@@ -24,6 +24,7 @@ GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
 }
 
 GgafActor::~GgafActor() {
+    _pFormation = NULL;
     DELETE_IMPOSSIBLE_NULL(_pStatus);
     _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
     //OutputDebugStringA("*");
@@ -87,7 +88,6 @@ void GgafActor::sayonara(frame prm_offset_frames) {
     } else {
         end(prm_offset_frames);
     }
-    _pFormation = NULL;
     GgafActor* pActor;
     if (_pSubFirst) {
         pActor = _pSubFirst;
@@ -113,8 +113,8 @@ void GgafActor::notifyFormationAboutDestroyed() {
     if (_pFormation) {
         //OK
     } else {
-        throwGgafCriticalException("GgafDxGeometricActor::informDestroyedFollower() _pFormation が NULLです。"<<
-                                   "対応する TreeFormation による addSubLast() 或いは callUpUntil() により、IFormationAbleアクターが設定されていません。this="<<this);
+        throwGgafCriticalException("GgafActor::notifyFormationAboutDestroyed() _pFormation が NULLです。"<<
+                                   "対応する Formation から addSubLast() 或いは callUpUntil() により、_pFormation は登録されます。this="<<this);
     }
 #endif
     _pFormation->destroyedFollower(this);

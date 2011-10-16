@@ -10,7 +10,7 @@ namespace GgafCore {
  * @since 2008/08/08
  * @author Masatoshi Tsuge
  */
-class GgafFormation : public GgafActor {
+class GgafFormation : public GgafMainActor {
 private:
 
 

@@ -32,7 +32,6 @@ int main(int argc, char *argv[]) {
     LPSTR lpCmdLine;
     int nCmdShow;
 
-
     GetStartupInfo(&StatUpInfo);
     hInstance = GetModuleHandle(0);
     hPrevInstance = 0;

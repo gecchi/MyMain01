@@ -16,7 +16,7 @@ void GgafDepositoryFormation::setFormationAbleActorDepository(GgafActorDepositor
         throwGgafCriticalException("GgafDepositoryFormation::setFormationAbleActorDepository 既にデポジトリは登録済みです。\n"<<
                                    "this="<<getName()<<" prm_pDepo="<<prm_pDepo);
     }
-    if (prm_pDepo && _pDepo->_pSubFirst) {
+    if (prm_pDepo && prm_pDepo->_pSubFirst) {
         //OK
     } else {
         throwGgafCriticalException("GgafDepositoryFormation::setFormationAbleActorDepository 不正なデポジトリです。\n"<<
@@ -26,12 +26,10 @@ void GgafDepositoryFormation::setFormationAbleActorDepository(GgafActorDepositor
 
 #endif
     _pDepo = prm_pDepo;
-    //デポジトリ種別引継ぎ
+    //団長に種別を正しく伝えるためにデポジトリ種別引継ぎ
     _pStatus->set(STAT_DEFAULT_ACTOR_KIND, _pDepo->_pStatus->get(STAT_DEFAULT_ACTOR_KIND));
 
-
-    GgafActor* pActor = _pDepo->getSubFirst();
-    if (pActor) {
+    if (_pDepo->getSubFirst()) {
 
     } else {
         throwGgafCriticalException("GgafDepositoryFormation::setFormationAbleActorDepository("<<prm_pDepo->getName()<<") 引数デポジトリのサブが存在しません this="<<getName());
@@ -55,7 +53,7 @@ GgafActor* GgafDepositoryFormation::callUpUntil(int prm_formation_sub_num) {
         _is_all_called_up = true;
         return NULL; //もうこれ以上callUpUntil不可
     } else {
-        GgafActor* pActor = _pDepo->dispatch();
+        GgafMainActor* pActor = _pDepo->dispatch();
         if (pActor) {
             _num_sub++;
             _is_all_called_up = false;
@@ -99,7 +97,7 @@ void GgafDepositoryFormation::processJudgement() {
 
 }
 void GgafDepositoryFormation::onGarbaged() {
-    GgafActor::onGarbaged();
+    GgafFormation::onGarbaged();
     sayonaraFollwer();
 }
 void GgafDepositoryFormation::sayonaraFollwer() {

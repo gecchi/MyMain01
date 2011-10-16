@@ -13,7 +13,6 @@ class DefaultGeometricActor : public GgafDxCore::GgafDxGeometricActor {
 public:
     DefaultGeometricActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat, GgafDxCore::GgafDxChecker* prm_pChecker = NULL);
 
-
     virtual void initialize() override {
     }
 
@@ -21,6 +20,9 @@ public:
     }
 
     virtual void processJudgement() override {
+    }
+
+    virtual void processDraw() override {
     }
 
     virtual void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {

@@ -49,7 +49,7 @@ void FormationTableScene::processBehavior() {
         }
 
         TblElem* e = _table.getCurrent();
-        TreeFormation* pF = e->_pFormationActor;
+        GgafFormation* pF = e->_pFormationActor;
         //‘S–Å”»’è
 //        bool was_destroyed = false;
 //

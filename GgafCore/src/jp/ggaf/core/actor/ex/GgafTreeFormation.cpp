@@ -14,9 +14,19 @@ void GgafTreeFormation::addSubLast(GgafActor* prm_pSub) {
         throwGgafCriticalException("GgafTreeFormation::addSubLast("<<prm_pSub->getName()<<") 既に死にゆく定めのFormationです。サブに追加することはおかしいでしょう。this="<<getName());
     }
     _num_sub++;
+    if (_pSubFirst == NULL) {
+        //団長に種別を正しく伝えるために種別を引き継ぐ
+        _pStatus->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND));
+    } else {
+        if (_pStatus->get(STAT_DEFAULT_ACTOR_KIND) != prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)) {
+            throwGgafCriticalException("GgafTreeFormation::addSubLast 異なる種別のアクターを登録しようとしています。 \n"<<
+                                       "想定="<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"<<
+                                       "引数="<<prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pSub->getName()<<"]");
+        }
+    }
     prm_pSub->_pFormation = this; //メンバーへフォーメーションを設定
 //        _listFllower.addLast((GgafActor*)prm_pSub, false); //フォーメーションメンバーとして内部保持
-    GgafActor::addSubLast(prm_pSub);
+    GgafFormation::addSubLast(prm_pSub);
 }
 
 
@@ -31,7 +41,7 @@ void GgafTreeFormation::processJudgement() {
 
 }
 void GgafTreeFormation::onGarbaged() {
-    GgafActor::onGarbaged();
+    GgafFormation::onGarbaged();
 }
 
 
