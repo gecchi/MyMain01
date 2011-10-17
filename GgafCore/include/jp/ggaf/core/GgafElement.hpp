@@ -63,12 +63,12 @@ public:
     /** [r]ノード生存フラグ */
     bool _can_live_flg;
 
-    /** [r]次フレームのノード活動フラグ、次フレームのフレーム加算時 _is_active_flg に反映される */
+//    /** [r]次フレームのノード活動フラグ、次フレームのフレーム加算時 _is_active_flg に反映される */
 //    bool _is_active_flg_in_next_frame;
     /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
     bool _was_paused_flg_in_next_frame;
-    /** [r]次フレームの一時非表示フラグ、次フレームのフレーム加算時 _can_live_flg に反映される  */
-    //bool _can_live_flg_in_next_frame;
+//    /** [r]次フレームの一時非表示フラグ、次フレームのフレーム加算時 _can_live_flg に反映される  */
+//    bool _can_live_flg_in_next_frame;
 
     /** [r]終了フラグ */
     bool _will_end_after_flg;

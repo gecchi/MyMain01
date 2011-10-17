@@ -165,11 +165,11 @@ public:
     virtual void onHit(GgafActor* prm_pOtherActor) {}
 
     /**
-     * Dispcherに所属している場合、それを返す。
+     * Depositoryに所属している場合、それを返す。
      * 未所属の場合NULL
-     * @return 所属Dispcher
+     * @return 所属Depository
      */
-    GgafActorDepository* getDependenceDispcher() {
+    GgafActorDepository* getDependenceDepository() {
         return _pDependenceDepository;
     }
     /**
@@ -204,8 +204,8 @@ public:
 
     /**
      * さよならします .
-     * Dispcherに所属している場合は inactiveAfter(prm_offset_frames) <BR>
-     * Dispcherに所属していない場合は end(prm_offset_frames) <BR>
+     * Depository に所属している場合は inactiveAfter(prm_offset_frames) <BR>
+     * Depository に所属していない場合は end(prm_offset_frames) <BR>
      * が、実行されます。
      * アクターをシーンから離脱させたい場合はこのメソッドを実行すること。
      * @param prm_offset_frames 猶予フレーム(1～)
@@ -213,7 +213,7 @@ public:
     virtual void sayonara(frame prm_offset_frames = 1);
 
     /**
-     * 切り離す .
+     * ツリー構造から切り離す .
      * @return
      */
     virtual GgafActor* extract() override;
