@@ -261,7 +261,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         #endif
     #else
         //メモリーリ－クチェックBEGIN
-        ::detectMemoryLeaksStart(std::cout);
+       // ::detectMemoryLeaksStart(std::cout);
     #endif
 #else
     #ifdef _MSC_VER
@@ -307,7 +307,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         #endif
     #else
                         //メモリーリ－クチェックEND
-                        ::detectMemoryLeaksEnd(std::cout);
+                      //  ::detectMemoryLeaksEnd(std::cout);
     #endif
 #else
     #ifdef _MSC_VER

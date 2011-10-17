@@ -78,6 +78,8 @@ private:
     T* _pNodeTemp;
 
 public:
+    /** [r]ノード識別名(50文字まで) */
+    char* _name;
     /** [r]クラス名 */
     const char* _class_name;
 
@@ -125,6 +127,14 @@ public:
      *
      */
     virtual ~GgafNode();
+
+    /**
+     * ノード名取得 .
+     * @return ノード名称
+     */
+    virtual char* getName(){
+        return _name;
+    }
 
     /**
      * クラス名取得 .
@@ -314,8 +324,9 @@ public:
  * ここからは実装部
  */
 template<class T>
-GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(prm_name),
+GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
 _pNodeTemp(NULL),
+_name(NULL),
 _class_name("GgafNode<T>"),
 _pParent(NULL),
 _pNext((T*)this),
@@ -325,7 +336,9 @@ _is_first_flg(false),
 _is_last_flg(false),
 _sub_num(0)
 {
-
+    _name = NEW char[51];
+    strcpy(_name, prm_name);
+    TRACE("template<class T> GgafNode<T>::GgafNode(" << _name << ")");
 }
 
 template<class T>
@@ -638,6 +651,7 @@ GgafNode<T>::~GgafNode() {
             _is_last_flg = true;
         }
     }
+    DELETEARR_IMPOSSIBLE_NULL(_name);
 }
 
 }

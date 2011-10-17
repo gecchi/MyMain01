@@ -13,18 +13,16 @@ class GgafObject {
 
 public:
     int _id;
-    /** [r]識別名(50文字まで) */
-    char* _name;
     /** [r]インスタンス種類 */
     UINT32 _obj_class;
 
-    GgafObject(const char* prm_name = NULL);
+    GgafObject();
 
     /**
      * 識別名取得 .
      * @return 識別名
      */
-    virtual char* getName();
+//    virtual char* getName();
 
     virtual std::string toString();
     virtual ~GgafObject();
