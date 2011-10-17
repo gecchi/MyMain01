@@ -19,8 +19,7 @@ public:
      */
     WorldBoundSpaceTransit(const char* prm_name);
 
-    void onCreateModel() override {
-    }
+    void onCreateModel() override;
 
     void initialize() override;
 

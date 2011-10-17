@@ -3,8 +3,9 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafOrder::GgafOrder(unsigned long prm_id) {
+GgafOrder::GgafOrder(unsigned long prm_id) : GgafObject("Order") {
     _id = prm_id;
+    _pOrderer = NULL;
     _pOrder_Next = NULL;
     _pOrder_Prev = NULL;
     _is_first_order_flg = false;

@@ -10,8 +10,12 @@ GgafDxICubeMapActor::GgafDxICubeMapActor()  {
     _cubemap_tex = "uffizi_cross_cubemap.dds";
 }
 
-void GgafDxICubeMapActor::setCubeMapTexture(const char* prm_cubemap_tex, float prm_reflectance) {
-    _reflectance = prm_reflectance;
+void GgafDxICubeMapActor::setCubeMap(const char* prm_cubemap_tex, float prm_reflectance) {
+    setCubeMapTexture(prm_cubemap_tex);
+    setCubeMapReflectance(prm_reflectance);
+}
+
+void GgafDxICubeMapActor::setCubeMapTexture(const char* prm_cubemap_tex) {
     _cubemap_tex = prm_cubemap_tex;
     if (_pCubeMapTextureCon) {
         _pCubeMapTextureCon->close();
@@ -19,7 +23,9 @@ void GgafDxICubeMapActor::setCubeMapTexture(const char* prm_cubemap_tex, float p
     _pCubeMapTextureCon = (GgafDxTextureConnection*)(GgafDxGod::_pCubeMapTextureManager->connect(prm_cubemap_tex));
 //    _pCubeMapTexture = _pCubeMapTextureCon->use()->_pIDirect3DBaseTexture9;
 }
-
+void GgafDxICubeMapActor::setCubeMapReflectance(float prm_reflectance) {
+    _reflectance = prm_reflectance;
+}
 
 IDirect3DBaseTexture9* GgafDxICubeMapActor::getCubeMapTexture() {
     if (!_pCubeMapTextureCon) {

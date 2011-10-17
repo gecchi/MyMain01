@@ -21,8 +21,7 @@ public:
      */
     WorldBoundSpace001(const char* prm_name);
 
-    void onCreateModel() override {
-    }
+    void onCreateModel() override;
 
     void initialize() override;
 

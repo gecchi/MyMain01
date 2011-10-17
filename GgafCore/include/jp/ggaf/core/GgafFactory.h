@@ -32,12 +32,15 @@ private:
      * 工場に注文を行う .
      * @param prm_id	注文識別ID番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
-     * @param prm_pArg1	その引数1
-     * @param prm_pArg2	その引数2
-     * @param prm_pArg3	その引数3
+     * @param prm_pOrderer 発注者
+     * @param prm_pArg1	製造処理を行う関数への引数1
+     * @param prm_pArg2	製造処理を行う関数への引数2
+     * @param prm_pArg3	製造処理を行う関数への引数3
+     *
      */
     static void order(unsigned long prm_id,
                       GgafObject* (*prm_pFunc)(void*, void*, void*),
+                      GgafObject* prm_pOrderer,
                       void* prm_pArg1,
                       void* prm_pArg2,
                       void* prm_pArg3);
@@ -72,17 +75,18 @@ public:
      * メイン処理が呼び出します。<BR>
      * @param prm_id	注文識別ID番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
-     * @param prm_pArg1	その引数1
-     * @param prm_pArg2	その引数2
-     * @param prm_pArg3	その引数3
+     * @param prm_pArg1	製造処理を行う関数への引数1
+     * @param prm_pArg2	製造処理を行う関数への引数2
+     * @param prm_pArg3	製造処理を行う関数への引数3
      */
     template<class X>
     static void orderActor(unsigned long prm_id,
                            X* (*prm_pFunc)(void*, void*, void*),
+                           GgafObject* prm_pOrderer,
                            void* prm_pArg1,
                            void* prm_pArg2,
                            void* prm_pArg3) {
-        order(prm_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pArg1, prm_pArg2, prm_pArg3);
+        order(prm_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
     /**
@@ -90,17 +94,18 @@ public:
      * メイン処理が呼び出します。<BR>
      * @param prm_id	注文識別ID番号
      * @param prm_pFunc	実際に製造処理を行う関数のポインタ
-     * @param prm_pArg1	その引数1
-     * @param prm_pArg2	その引数2
-     * @param prm_pArg3	その引数3
+     * @param prm_pArg1	製造処理を行う関数への引数1
+     * @param prm_pArg2	製造処理を行う関数への引数2
+     * @param prm_pArg3	製造処理を行う関数への引数3
      */
     template<class X>
     static void orderScene(unsigned long prm_id,
                            X* (*prm_pFunc)(void*, void*, void*),
+                           GgafObject* prm_pOrderer,
                            void* prm_pArg1,
                            void* prm_pArg2,
                            void* prm_pArg3) {
-        order(prm_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pArg1, prm_pArg2, prm_pArg3);
+        order(prm_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
     /**
@@ -222,14 +227,13 @@ public:
     }
 
 };
-
-#define orderActorToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActor,(void*)(NAME),(void*)(NULL),(void*)(NULL)))
-#define orderActorWithModelToFactory(ID, CLASS, NAME, MODEL) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModel,(void*)(NAME),(void*)(MODEL),(void*)(NULL)))
-#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModelDp,(void*)(NAME),(void*)(MODEL),(void*)(DEPOSITORY)))
-#define orderActorWithDpToFactory(ID, CLASS, NAME, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithDp,(void*)(NAME),(void*)(DEPOSITORY), (void*)(NULL)))
+#define orderSceneToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene, this, (void*)(NAME),(void*)(NULL),(void*)(NULL)))
+#define orderActorToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActor, this, (void*)(NAME),(void*)(NULL),(void*)(NULL)))
+#define orderActorWithModelToFactory(ID, CLASS, NAME, MODEL) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModel,this,(void*)(NAME),(void*)(MODEL),(void*)(NULL)))
+#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithModelDp,this,(void*)(NAME),(void*)(MODEL),(void*)(DEPOSITORY)))
+#define orderActorWithDpToFactory(ID, CLASS, NAME, DEPOSITORY) (GgafCore::GgafFactory::orderActor<CLASS>((ID),GgafCore::GgafFactory::createActorWithDp,this,(void*)(NAME),(void*)(DEPOSITORY), (void*)(NULL)))
 
 #define obtainActorFromFactory(ID) (GgafCore::GgafFactory::obtainActor((ID),this))
-#define orderSceneToFactory(ID, CLASS, NAME) (GgafCore::GgafFactory::orderScene<CLASS>((ID),GgafCore::GgafFactory::createScene,(void*)(NAME),(void*)(NULL),(void*)(NULL)))
 #define obtainSceneFromFactory(ID) (GgafCore::GgafFactory::obtainScene((ID),this))
 
 }

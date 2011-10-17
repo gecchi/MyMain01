@@ -9,6 +9,7 @@ using namespace MyStg2nd;
 CubeMapMeshSetTestActor::CubeMapMeshSetTestActor(const char* prm_name) :
         CubeMapMeshSetActor(prm_name, "_chk_CubeMapMeshSetTestModel", NULL) {
     _class_name = "CubeMapMeshSetTestActor";
+    setCubeMap("Torus_cubemap.dds", 0.2);
     setHitAble(false);
 }
 
@@ -21,7 +22,6 @@ void CubeMapMeshSetTestActor::onCreateModel() {
 
 void CubeMapMeshSetTestActor::initialize() {
     setHitAble(false);
-    setCubeMapTexture("Torus_cubemap.dds", 0.2);
     setScaleRate(2);
 }
 

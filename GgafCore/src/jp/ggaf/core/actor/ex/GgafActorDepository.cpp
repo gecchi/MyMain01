@@ -43,7 +43,7 @@ void GgafActorDepository::onReset() {
     }
 }
 void GgafActorDepository::end(frame prm_offset_frames) {
-    frame end_frame_delay = prm_offset_frames + (_sub_num*2) + 1;
+    frame end_frame_delay = prm_offset_frames + (_sub_num*2) + 1; //メンバーを順に少し遅らせる。
     if (_will_end_after_flg) {
         //既にend()実行済みの場合、より早くend()するならば有効とする
         if (_frame_of_life_when_end < _frame_of_life + end_frame_delay + GGAF_SAYONARA_DELAY) {
@@ -53,7 +53,7 @@ void GgafActorDepository::end(frame prm_offset_frames) {
     }
     _will_end_after_flg = true;
     _frame_of_life_when_end = _frame_of_life + end_frame_delay + GGAF_SAYONARA_DELAY;
-    inactivateDelay(end_frame_delay); //指定フレームにはinactivateが行われる
+    inactivateDelay(prm_offset_frames); //指定フレームにはinactivateが行われるのは同じ
 
     if (_pSubFirst) {
         GgafActor* pElementTemp = _pSubFirst;

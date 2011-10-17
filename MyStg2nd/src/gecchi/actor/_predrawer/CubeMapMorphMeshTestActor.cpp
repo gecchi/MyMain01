@@ -9,6 +9,7 @@ using namespace MyStg2nd;
 CubeMapMorphMeshTestActor::CubeMapMorphMeshTestActor(const char* prm_name) :
         CubeMapMorphMeshActor(prm_name, "0/_chk_CubeMapMorphMeshTestModel", NULL) {
     _class_name = "CubeMapMorphMeshTestActor";
+    setCubeMap("Torus_cubemap.dds", 0.1);
     setHitAble(false);
 }
 void CubeMapMorphMeshTestActor::onCreateModel() {
@@ -20,7 +21,6 @@ void CubeMapMorphMeshTestActor::onCreateModel() {
 
 void CubeMapMorphMeshTestActor::initialize() {
     setHitAble(false);
-    setCubeMapTexture("Torus_cubemap.dds", 0.1);
 //    _pMorpher->setWeight(0, 1.0);
 //    setScaleRate(0.1);
 }

@@ -17,6 +17,8 @@ class GgafOrder : public GgafObject {
 private:
     /** ’•¶¯•ÊID */
     unsigned long _id;
+    /** ”­’Ò */
+    GgafObject* _pOrderer;
     /** ˆê‚ÂŸ‚Ì’•¶ */
     GgafOrder* _pOrder_Next;
     /** ˆê‚Â‘O‚Ì’•¶ */
