@@ -867,7 +867,7 @@ _pProg(NULL)
 
 template<class T>
 void GgafElement<T>::nextFrame() {
-    TRACE("GgafElement::nextFrame BEGIN _frame_of_behaving=" << _frame_of_behaving << " name=" << GgafNode<T>::_name << " class="
+    TRACE("GgafElement::nextFrame BEGIN _frame_of_behaving=" << _frame_of_behaving << " name=" << GgafObject::_name << " class="
             << GgafNode<T>::_class_name);
 
     //moveLast—\–ñŽž
@@ -1014,7 +1014,7 @@ void GgafElement<T>::nextFrame() {
     }
 
 
-    TRACE("GgafElement::nextFrame END _frame_of_behaving="<<_frame_of_behaving<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
+    TRACE("GgafElement::nextFrame END _frame_of_behaving="<<_frame_of_behaving<<" name="<<GgafObject::_name<<" class="<<GgafNode<T>::_class_name);
 }
 
 template<class T>

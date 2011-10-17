@@ -66,14 +66,6 @@
 
 
 
-/** ランク (0.0 ～ 1.0) */
-#define _RANK_ (GameGlobal::_rank)
-/** 表示用ランク値 */
-#define _RANK_DISP_ ((int)(_RANK_*100000))
-/** ランクアップレベル値 */
-#define _RANK_UP_LEVEL_ (GameGlobal::_rank_up_level)
-#define _SCORE_ (GameGlobal::_score)
-
 
 #define R_Shot001_MvVelo (5000+_RANK_*5000)       //移動速度
 #define R_Shot001_AngVelo (6000+_RANK_*6000)  //きりもみ具合
@@ -322,6 +314,7 @@ class HoshiBoshi002;
 class WorldBoundSpaceTransit;
 class WorldBoundSpace001;
 class WorldBoundSpace002;
+class WorldBoundSpaceTransit;
 
 class TurboMeter;
 class LabelGecchi8Font;
@@ -452,6 +445,7 @@ class MagicMeter;
 
 }
 
+#include "gecchi/GameGlobal.h"
 #include "gecchi/God.h"
 #include "gecchi/manager/CameraWorkerManager.h"
 #include "gecchi/manager/CameraWorkerConnection.h"
@@ -571,6 +565,7 @@ class MagicMeter;
 #include "gecchi/actor/background/WorldBound/WorldBoundSpaceTransit.h"
 #include "gecchi/actor/background/WorldBound/WorldBoundSpace001.h"
 #include "gecchi/actor/background/WorldBound/WorldBoundSpace002.h"
+#include "gecchi/actor/background/WorldBound/WorldBoundSpaceRankUp.h"
 
 #include "gecchi/actor/label/LabelGecchi8Font.h"
 #include "gecchi/actor/label/LabelGecchi16Font.h"
@@ -579,7 +574,6 @@ class MagicMeter;
 
 
 
-#include "gecchi/GameGlobal.h"
 
 #include "gecchi/actor/enemy/Ceres/EnemyCeres.h"
 #include "gecchi/actor/enemy/Ceres/EnemyCeresShot001.h"

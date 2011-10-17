@@ -142,6 +142,21 @@ void StageSceneController::processBehavior() {
         default:
             break;
     }
+    //ランクアップシーン差し込み
+    /*
+    if (GgafDxInput::isPushedDownKey(DIK_U)) {
+        _TRACE_("_RANK_UP_LEVEL_？？？"<<_RANK_UP_LEVEL_);
+        if (_can_rank_up) {
+            _can_rank_up = false;
+            _RANK_UP_LEVEL_ = _RANK_UP_LEVEL_ + 1;
+            _pRankUpSceneController->execute();
+        } else {
+            //スルー
+        }
+    } else {
+        _can_rank_up = false;
+    }
+*/
 /*
     //ランクアップシーン差し込み
     if (_RANK_DISP_ % 10 == 0) {

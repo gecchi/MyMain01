@@ -3,15 +3,20 @@ using namespace std;
 using namespace GgafCore;
 
 int GgafObject::_iSeq = 0;
-const char* GgafObject::NANASHI = "NANASHI";
-GgafObject::GgafObject(const char* prm_name) :
-_id(GgafObject::_iSeq++),
-_obj_class(0) {
+GgafObject::GgafObject(const char* prm_name) {
+    _obj_class = 0;
+    _id = (_iSeq++);
     _name = NEW char[51];
-    strcpy(_name, prm_name);
+    if (prm_name) {
+        strcpy(_name, prm_name);
+    } else {
+        strcpy(_name, "?NANASHISAN?");
+    }
     TRACE("GgafObject::GgafObject(" << _name << ")");
 }
-
+char* GgafObject::getName() {
+       return _name;
+}
 string GgafObject::toString() {
     //TODO:java‚Ì‚æ‚¤‚É‚µ‚½‚¢‚Ì‚©
     return "‚¿‚å‚Á‚Æ‚Ü‚Á‚Ä‚æ";
