@@ -73,7 +73,7 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_d
      CFG_PROPERTY(GAME_BUFFER_HEIGHT)
      );
      */
-    locate(0, 0, Dx2App(_cameraZ));
+    locate(0, 0, Dx2Co(_cameraZ));
     _pKurokoA->setMvAng(0,0,0);
     _pKurokoA->setMvVelo(0);
     _pKurokoA->setRzMvAngVelo(0);
@@ -85,10 +85,10 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, float prm_rad_fovX, float prm_d
     _pViewPoint = NEW GgafDxCameraViewPoint();
     _pViewPoint->locate(0, 0, 0);
 
-    _X_ScreenLeft   = Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)) / -2;
-    _X_ScreenRight  = Pix2App(CFG_PROPERTY(GAME_BUFFER_WIDTH)) / 2;
-    _Y_ScreenTop    = Pix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT)) / 2;
-    _Y_ScreenBottom = Pix2App(CFG_PROPERTY(GAME_BUFFER_HEIGHT)) / -2;
+    _X_ScreenLeft   = Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH)) / -2;
+    _X_ScreenRight  = Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH)) / 2;
+    _Y_ScreenTop    = Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT)) / 2;
+    _Y_ScreenBottom = Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT)) / -2;
     GgafDxGod::_pID3DDevice9->GetViewport(&_viewport);
 }
 
@@ -227,9 +227,9 @@ void GgafDxCamera::processJudgement() {
     _pVecCamFromPoint->x = _fX;
     _pVecCamFromPoint->y = _fY;
     _pVecCamFromPoint->z = _fZ;
-    _pVecCamLookatPoint->x = App2Dx(_pViewPoint->_X);
-    _pVecCamLookatPoint->y = App2Dx(_pViewPoint->_Y);
-    _pVecCamLookatPoint->z = App2Dx(_pViewPoint->_Z);
+    _pVecCamLookatPoint->x = Co2Dx(_pViewPoint->_X);
+    _pVecCamLookatPoint->y = Co2Dx(_pViewPoint->_Y);
+    _pVecCamLookatPoint->z = Co2Dx(_pViewPoint->_Z);
     D3DXMatrixLookAtLH(&_matView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 }
 
@@ -247,7 +247,7 @@ void GgafDxCamera::setViewPoint(GgafDxGeometricActor* prm_pActor) {
 void GgafDxCamera::setDefaultPosition() {
     _X = 0;
     _Y = 0;
-    _Z = Dx2App(_cameraZ_org);
+    _Z = Dx2Co(_cameraZ_org);
     _pViewPoint->_X = 0;
     _pViewPoint->_Y = 0;
     _pViewPoint->_Z = 0;

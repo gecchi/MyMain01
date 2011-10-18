@@ -38,20 +38,20 @@ GgafDxAAPrismActor::GgafDxAAPrismActor(const char* prm_name, GgafStatus* prm_pSt
         //                 |
 
  //                                             RX        RZ       RY
-        pos2r[POS_PRISM_XY_nn] = RotPosPrism(ANGLE0  , ANGLE0  , ANGLE0  );
-        pos2r[POS_PRISM_XY_np] = RotPosPrism(ANGLE0  , ANGLE270, ANGLE0  );
-        pos2r[POS_PRISM_XY_pn] = RotPosPrism(ANGLE0  , ANGLE90 , ANGLE0  );
-        pos2r[POS_PRISM_XY_pp] = RotPosPrism(ANGLE0  , ANGLE180, ANGLE0  );
+        pos2r[POS_PRISM_XY_nn] = RotPosPrism(D0ANG  , D0ANG  , D0ANG  );
+        pos2r[POS_PRISM_XY_np] = RotPosPrism(D0ANG  , D270ANG, D0ANG  );
+        pos2r[POS_PRISM_XY_pn] = RotPosPrism(D0ANG  , D90ANG , D0ANG  );
+        pos2r[POS_PRISM_XY_pp] = RotPosPrism(D0ANG  , D180ANG, D0ANG  );
 
-        pos2r[POS_PRISM_YZ_nn] = RotPosPrism(ANGLE0  , ANGLE90 , ANGLE90 );
-        pos2r[POS_PRISM_YZ_np] = RotPosPrism(ANGLE0  , ANGLE0  , ANGLE90 );
-        pos2r[POS_PRISM_YZ_pn] = RotPosPrism(ANGLE0  , ANGLE180, ANGLE90 );
-        pos2r[POS_PRISM_YZ_pp] = RotPosPrism(ANGLE0  , ANGLE270, ANGLE90 );
+        pos2r[POS_PRISM_YZ_nn] = RotPosPrism(D0ANG  , D90ANG , D90ANG );
+        pos2r[POS_PRISM_YZ_np] = RotPosPrism(D0ANG  , D0ANG  , D90ANG );
+        pos2r[POS_PRISM_YZ_pn] = RotPosPrism(D0ANG  , D180ANG, D90ANG );
+        pos2r[POS_PRISM_YZ_pp] = RotPosPrism(D0ANG  , D270ANG, D90ANG );
 
-        pos2r[POS_PRISM_ZX_nn] = RotPosPrism(ANGLE90 , ANGLE0  , ANGLE0  );
-        pos2r[POS_PRISM_ZX_np] = RotPosPrism(ANGLE90 , ANGLE0  , ANGLE270);
-        pos2r[POS_PRISM_ZX_pn] = RotPosPrism(ANGLE90 , ANGLE0  , ANGLE90 );
-        pos2r[POS_PRISM_ZX_pp] = RotPosPrism(ANGLE90 , ANGLE0  , ANGLE180);
+        pos2r[POS_PRISM_ZX_nn] = RotPosPrism(D90ANG , D0ANG  , D0ANG  );
+        pos2r[POS_PRISM_ZX_np] = RotPosPrism(D90ANG , D0ANG  , D270ANG);
+        pos2r[POS_PRISM_ZX_pn] = RotPosPrism(D90ANG , D0ANG  , D90ANG );
+        pos2r[POS_PRISM_ZX_pp] = RotPosPrism(D90ANG , D0ANG  , D180ANG);
         init = true;
     }
 }
@@ -72,9 +72,9 @@ void GgafDxAAPrismActor::drawPrism(coord prm_x1, coord prm_y1, coord prm_z1,
     _X = prm_x1 + (prm_x2 - prm_x1) / 2;
     _Y = prm_y1 + (prm_y2 - prm_y1) / 2;
     _Z = prm_z1 + (prm_z2 - prm_z1) / 2;
-    _fX = App2Dx(_X);
-    _fY = App2Dx(_Y);
-    _fZ = App2Dx(_Z);
+    _fX = Co2Dx(_X);
+    _fY = Co2Dx(_Y);
+    _fZ = Co2Dx(_Z);
 
     //GgafDxUtil::setWorldMatrix_ScRzMv(this, _matWorld);
     GgafDxUtil::setWorldMatrix_RxRzRyScMv(this, _matWorld); //回転後にスケールがポイント

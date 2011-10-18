@@ -25,7 +25,7 @@ void RankUpScene::processBehavior() {
         case RANKUPSCENE_PROG_BEGIN: {
             if (_pProg->isJustChanged()) {
                 _TRACE_("RankUpScene::processBehavior() ["<<getName()<<"] RANKUPSCENE_PROG_BEGIN !");
-                _pMessage->update(Pix2App(500), Pix2App(500), "RANKUPSCENE_PROG_BEGIN");
+                _pMessage->update(Px2Co(500), Px2Co(500), "RANKUPSCENE_PROG_BEGIN");
             }
 
             if (_pProg->getFrameInProgress() == 180) { //ステージ開始！

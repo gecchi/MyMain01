@@ -405,9 +405,9 @@ void MyShip::processBehavior() {
     } else {
 
         angle dist = _pKurokoA->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
-        if (0 <= dist && dist < ANGLE180) {
+        if (0 <= dist && dist < D180ANG) {
             _pKurokoA->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
-        } else if (-1*ANGLE180 < dist && dist < 0) {
+        } else if (-1*D180ANG < dist && dist < 0) {
             _pKurokoA->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
         }
         _pKurokoA->setMvAcce(0);
@@ -603,6 +603,10 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
 void MyShip::doNotingMoveInput() {
 
 }
+void MyShip::setMoveSpeedLv(int lv) {
+        //_lv_MoveSpeed = lv;
+        _iMoveSpeed = Px2Co(lv);
+    }
 
 void MyShip::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {

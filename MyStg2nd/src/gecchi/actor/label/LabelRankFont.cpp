@@ -196,20 +196,20 @@ void LabelRankFont::processDraw() {
 
 
     if (_valign == VALIGN_BOTTOM) {
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)-_height_px));
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(Co2Px(_Y)-_height_px));
     } else if (_valign == VALIGN_MIDDLE) {
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)-_height_px/2));
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(Co2Px(_Y)-_height_px/2));
     } else {
         //VALIGN_TOP
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(App2Pix(_Y)));
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(Co2Px(_Y)));
     }
     checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahTransformedY) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(App2Pix(_Z)));
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(Co2Px(_Z)));
     checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahDepthZ) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _fAlpha);
     checkDxException(hr, D3D_OK, "LabelRankFont::processDraw SetFloat(_ahAlpha) に失敗しました。");
     int strindex, pattno;
-    pixcoord x = App2Pix(_X) - (_chr_width_px * _len); //右詰にするため _chr_width_px*_len をマイナス
+    pixcoord x = Co2Px(_X) - (_chr_width_px * _len); //右詰にするため _chr_width_px*_len をマイナス
     float u,v;
     for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
         _draw_set_num = pack < _len_pack_num ? _pBoardSetModel->_set_num : _remainder_len;

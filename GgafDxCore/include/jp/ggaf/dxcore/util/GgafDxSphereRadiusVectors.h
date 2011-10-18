@@ -68,7 +68,7 @@ public:
 
     /** 作成目的の 1/8球分のソート可能方向ベクトル配列(要素数は900*900) */
     //COMPARE_ABLE_SR_VECTOR _sr[];
-    COMPARE_ABLE_SR_VECTOR _sr[(S_ANG90 + 1) * (S_ANG90 + 1)];
+    COMPARE_ABLE_SR_VECTOR _sr[(D90SANG + 1) * (D90SANG + 1)];
     GgafDxSphereRadiusVectors();
 
     /**

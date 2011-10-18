@@ -88,7 +88,7 @@ void EnemyPallas::processBehavior() {
                     pActor_Shot = (GgafDxDrawableActor*)_pDepo_Shot->dispatch();
                     if (pActor_Shot) {
                         pActor_Shot->locateAs(this);
-                        pActor_Shot->_pKurokoA->setRzRyMvAng(paAngWay[i], ANGLE90);
+                        pActor_Shot->_pKurokoA->setRzRyMvAng(paAngWay[i], D90ANG);
                         pActor_Shot->activate();
                     }
                 }

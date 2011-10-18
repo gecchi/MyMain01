@@ -20,42 +20,18 @@
 #define GGAF_MAX_VOLUME (100)
 #define GGAF_MIN_VOLUME (0)
 
-#define ANGLE0 (0)
-#define ANGLE360 (360000)
-#define ANGLE45 (45000)
-#define ANGLE90 (90000)
-#define ANGLE135 (135000)
-#define ANGLE180 (180000)
-#define ANGLE225 (225000)
-#define ANGLE270 (270000)
-#define ANGLE315 (315000)
 
 
-#define S_ANG0 (0)
-#define S_ANG360 (3600)
-#define S_ANG45 (450)
-#define S_ANG90 (900)
-#define S_ANG135 (1350)
-#define S_ANG180 (1800)
-#define S_ANG225 (2250)
-#define S_ANG270 (2700)
-#define S_ANG315 (3150)
 
-#define ANGLE_RATE (100)
-
-#define ANGLE_PI (180000)
-#define ANGLE_2PI (360000)
-
-
-//近い方向に回転
+/** 回転方法定数、近い方向に回転 */
 #define TURN_CLOSE_TO 0
-//遠い方向に回転
+/** 回転方法定数、遠い方向に回転 */
 #define TURN_ANTICLOSE_TO 2
-//時計回りに回転
+/** 回転方法定数、時計回りに回転 */
 #define TURN_CLOCKWISE (-1)
-//反時計回りに回転
+/** 回転方法定数、反時計回りに回転 */
 #define TURN_COUNTERCLOCKWISE 1
-//どちらかの回転（いずれの回転でも）
+/** 回転方法定数、どちらかの回転（いずれの回転でも） */
 #define TURN_BOTH 0
 
 //プリズム姿勢(位置)定数
@@ -168,41 +144,107 @@ class OggVorbisMemory;
 
 
 //class CmRandomNumberGenerator;
-/** 座標 (目安：10.0 dxcoord = 1 pixcoord = 1000 coord)  */
+/** アプリケーション座標単位 (目安： 1 coord  =  0.001 pixcoord  =  0.00001 dxcoord  ) */
 typedef int coord;
-/** 速度 (座標に毎フレーム加算される座標差分) */
+/** アプリケーション座標単位系の速度 */
 typedef int velo;
-/** 加速度 (速度に毎フレーム加算される速度差分) */
+/**  アプリケーション座標単位系の加速度 */
 typedef int acce;
+/**  アプリケーション座標単位系の躍度(TODO:現在未使用) */
 typedef int jerk;
 
+/** ピクセル座標単位 (目安： 1 pixcoord  =  1000 coord   =  0.1 dxcoord ) */
 typedef int pixcoord;
+/** DirectX座標単位  (目安： 1 dxcoord   =  10 pixcoord  =  10000 coord ) */
 typedef float dxcoord;
 
-typedef int angle;
-typedef int ang_velo;
-typedef int ang_acce;
-typedef int ang_jerk;
-typedef int s_ang;
-
-typedef int axis;
-
+/** アプリケーションスケール単位 (目安： 1 scale  =  0.0001 倍) */
 typedef int scale;
 
+/** アプリケーション角度単位 (目安： 1 angle  =  0.0001 度) */
+typedef int angle;
+/** アプリケーション角度単位系の角速度 */
+typedef int ang_velo;
+/** アプリケーション角度単位系の角加速度 */
+typedef int ang_acce;
+/** アプリケーション角度単位系の角加加速度 */
+typedef int ang_jerk;
+
+/** アプリケーション内部の角度精度単位(フレームワーク用) */
+typedef int s_ang;
+
+/** 軸型(AXIS_X / AXIS_Y / AXIS_Z) */
+typedef int axis;
 
 
-#define App2Dx(X)  ((dxcoord)(1.0f * (X) / LEN_UNIT / PX_UNIT))
-#define Dx2App(X)  ((coord)((X) * LEN_UNIT * PX_UNIT))
-#define Dx2Pix(X)  ((X) * PX_UNIT)
-#define Pix2Dx(X)  (1.0f * (X) / PX_UNIT)
-#define App2Pix(X) (1.0f * (X) / LEN_UNIT)
-#define Pix2App(X) ((X) * LEN_UNIT)
+/** アプリの座標 → DirectX座標 変換 */
+#define Co2Dx(X) ((dxcoord)(1.0f * (X) / LEN_UNIT / PX_UNIT))
+/** DirectX座標 → アプリの座標 変換 */
+#define Dx2Co(X) ((coord)((X) * LEN_UNIT * PX_UNIT))
+/** DirectX座標 → ピクセル座標(初期カメラ位置の時) 変換 */
+#define Dx2Px(X) ((X) * PX_UNIT)
+/** ピクセル座標(初期カメラ位置の時) →DirectX座標 変換 */
+#define Px2Dx(X) (1.0f * (X) / PX_UNIT)
+/** アプリの座標 → ピクセル座標(初期カメラ位置の時) 変換 */
+#define Co2Px(X) (1.0f * (X) / LEN_UNIT)
+/** ピクセル座標(初期カメラ位置の時) → アプリの座標 変換 */
+#define Px2Co(X) ((X) * LEN_UNIT)
 
+/** アプリのアングル値→度数法角度 変換 */
+#define Ang2Deg(X) ((float)(X / 1000))
+/** 度数法角度→アプリのアングル値 変換 */
+#define Deg2Ang(X) ((angle)(X * 1000))
+/** アプリのアングル値→ラジアン 変換 */
+#define Ang2Rad(X) (GgafDxCore::GgafDxUtil::RAD[(X) / SANG_RATE])
+/** アプリのアングル値→正弦 変換 */
+#define Ang2Sin(X) (GgafDxCore::GgafDxUtil::SIN[(X) / SANG_RATE])
+/** アプリのアングル値→余弦 変換 */
+#define Ang2Cos(X) (GgafDxCore::GgafDxUtil::COS[(X) / SANG_RATE])
 
-#define cnvScaleApp2Rate(X) (1.0f * (X) / LEN_UNIT)
-#define cnvScaleRate2App(X) ((X) * LEN_UNIT)
-#define Angle2Sin(X) (GgafDxCore::GgafDxUtil::SIN[(X) / ANGLE_RATE])
-#define Angle2Cos(X) (GgafDxCore::GgafDxUtil::COS[(X) / ANGLE_RATE])
+/** アプリのスケール値 → 拡大率 変換 */
+#define Sc2R(X) (1.0f * (X) / LEN_UNIT)
+/** 拡大率 → アプリのスケール値 変換 */
+#define R2Sc(X) ((X) * LEN_UNIT)
+
+/** X軸を表す定数 */
+#define AXIS_X 0
+/** Y軸を表す定数 */
+#define AXIS_Y 1
+/** Z軸を表す定数 */
+#define AXIS_Z 2
+
+/** 度数法 0 度に対応するアプリのアングル値定数 */
+#define D0ANG   (0)
+/** 度数法 360 度に対応するアプリのアングル値定数 */
+#define D360ANG (360000)
+/** 度数法 45 度に対応するアプリのアングル値定数 */
+#define D45ANG  (45000)
+/** 度数法 90 度に対応するアプリのアングル値定数 */
+#define D90ANG  (90000)
+/** 度数法 135 度に対応するアプリのアングル値定数 */
+#define D135ANG (135000)
+/** 度数法 180 度に対応するアプリのアングル値定数 */
+#define D180ANG (180000)
+/** 度数法 255 度に対応するアプリのアングル値定数 */
+#define D255ANG (225000)
+/** 度数法 270 度に対応するアプリのアングル値定数 */
+#define D270ANG (270000)
+/** 度数法 315 度に対応するアプリのアングル値定数 */
+#define D315ANG (315000)
+/** ラジアンのπ に対応するアプリのアングル値定数 */
+#define PI_Ang (180000)
+
+#define D0SANG   (0)
+#define D360SANG (3600)
+#define D45SANG  (450)
+#define D90SANG  (900)
+#define D135SANG (1350)
+#define D180SANG (1800)
+#define D225SANG (2250)
+#define D270SANG (2700)
+#define D315SANG (3150)
+/** 内部精度角度単位 → アプリケーション角度単位 への倍率 */
+#define SANG_RATE (100)
 
 
 enum GgafDxUvFlippingMethod {

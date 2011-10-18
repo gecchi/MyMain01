@@ -13,9 +13,9 @@ namespace MyStg2nd {
 class Torus : public GgafLib::CubeMapMeshActor {
 public:
     /** トーラス半径1(輪) */
-    int _r1;
+    coord _r1;
     /** トーラス半径2(太さ) */
-    int _r2;
+    coord _r2;
 
     /**
      * コンストラクタ .
@@ -25,7 +25,7 @@ public:
      * @param prm_r2 トーラス半径2(輪の太さ)
      * @return
      */
-    Torus(const char* prm_name, const char* prm_model, int prm_r1, int prm_r2);
+    Torus(const char* prm_name, const char* prm_model, coord prm_r1, coord prm_r2);
 
     virtual void onCreateModel() override;
 

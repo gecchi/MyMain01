@@ -51,7 +51,7 @@ void Stage01::processBehavior() {
         }
         case STAGESCENE_PROG_PLAYING: {
             if (_pProg->getFrameInProgress() == 60) { //ステージ１開始！
-                _pMessage->update(300*1000, 300*1000, "SCENE 01 START!");
+                _pMessage->update(Px2Co(300), Px2Co(300), "SCENE 01 START!");
                 _pMessage->inactivateDelay(240);
             }
             //EVENT_STG01_CONTROLLER_WAS_ENDイベント待ち
@@ -65,7 +65,7 @@ void Stage01::processBehavior() {
 
             if (_pProg->getFrameInProgress() == 60) {
                 _pMessage->activateImmediately();
-                _pMessage->update(300*1000, 300*1000, "SCENE 01 CLEAR!!");
+                _pMessage->update(Px2Co(300), Px2Co(300), "SCENE 01 CLEAR!!");
                 _pMessage->inactivateDelay(120);
                 fadeoutScene(300);
             }

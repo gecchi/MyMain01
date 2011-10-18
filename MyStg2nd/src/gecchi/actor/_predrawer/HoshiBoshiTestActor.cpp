@@ -60,9 +60,9 @@ void HoshiBoshiTestActor::processBehavior() {
 void HoshiBoshiTestActor::processSettlementBehavior() {
     //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
     //GgafDxGeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
-    _fX = App2Dx(_X);
-    _fY = App2Dx(_Y);
-    _fZ = App2Dx(_Z);
+    _fX = Co2Dx(_X);
+    _fY = Co2Dx(_Y);
+    _fZ = Co2Dx(_Z);
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ƒ[ƒ‹ƒh•ÏŠ·
 }
 
@@ -92,15 +92,15 @@ void HoshiBoshiTestActor::setWorldMatrix_HoshiBoshiTestActor(GgafDxGeometricActo
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
-    float sinRx = Angle2Sin(prm_pActor->_RX);
-    float cosRx = Angle2Cos(prm_pActor->_RX);
-    float sinRy = Angle2Sin(prm_pActor->_RY);
-    float cosRy = Angle2Cos(prm_pActor->_RY);
-    float sinRz = Angle2Sin(prm_pActor->_RZ);
-    float cosRz = Angle2Cos(prm_pActor->_RZ);
-    float Sx = cnvScaleApp2Rate(prm_pActor->_SX);
-    float Sy = cnvScaleApp2Rate(prm_pActor->_SY);
-    float Sz = cnvScaleApp2Rate(prm_pActor->_SZ);
+    float sinRx = Ang2Sin(prm_pActor->_RX);
+    float cosRx = Ang2Cos(prm_pActor->_RX);
+    float sinRy = Ang2Sin(prm_pActor->_RY);
+    float cosRy = Ang2Cos(prm_pActor->_RY);
+    float sinRz = Ang2Sin(prm_pActor->_RZ);
+    float cosRz = Ang2Cos(prm_pActor->_RZ);
+    float Sx = Sc2R(prm_pActor->_SX);
+    float Sy = Sc2R(prm_pActor->_SY);
+    float Sz = Sc2R(prm_pActor->_SZ);
 
     out_matWorld._11 = Sx * cosRz *cosRy;
     out_matWorld._12 = Sx * sinRz;

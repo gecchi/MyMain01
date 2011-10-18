@@ -33,13 +33,13 @@ public:
      */
     FixedFrameSplineManufacture(const char* prm_source_file, 
                                 frame prm_spent_frame, 
-                                ang_velo prm_ang_veloRzRyMv = (ANGLE90/9),
+                                ang_velo prm_ang_veloRzRyMv = (D90ANG/9),
                                 int prm_turn_way = TURN_CLOSE_TO,
                                 bool prm_turn_optimaize = true );
 
     FixedFrameSplineManufacture(SplineSource* prm_pSplSrc,
                                 frame prm_spent_frame,
-                                ang_velo prm_ang_veloRzRyMv = (ANGLE90/9),
+                                ang_velo prm_ang_veloRzRyMv = (D90ANG/9),
                                 int prm_turn_way = TURN_CLOSE_TO,
                                 bool prm_turn_optimaize = true );
     /**

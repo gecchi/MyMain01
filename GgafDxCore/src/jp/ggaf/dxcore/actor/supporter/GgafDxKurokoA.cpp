@@ -125,9 +125,9 @@ GgafDxKurokoA::GgafDxKurokoA(GgafDxGeometricActor* prm_pActor) :
         //正面方角の角速度（正面方角の増分）= 0 angle/fream
         _ang_veloFace[i] = 0; //1フレームに加算される正面方角の角増分。デフォルトは正面方角の角増分無し、つまり振り向き無し。
         //正面方角の角速度上限 ＝ 360,000 angle/fream
-        _ang_veloTopFace[i] = ANGLE360; //_ang_veloFace[n] の増分の上限。デフォルトは1フレームで好きな正面方角に振り向く事が出来る事を意味する
+        _ang_veloTopFace[i] = D360ANG; //_ang_veloFace[n] の増分の上限。デフォルトは1フレームで好きな正面方角に振り向く事が出来る事を意味する
         //正面方角の角速度下限 ＝ -360,000 angle/fream
-        _ang_veloBottomFace[i] = ANGLE360 * -1; //_ang_veloFace[n] の増分の下限。デフォルトは1フレームで好きな正面方角に振り向く事が出来る事を意味する
+        _ang_veloBottomFace[i] = D360ANG * -1; //_ang_veloFace[n] の増分の下限。デフォルトは1フレームで好きな正面方角に振り向く事が出来る事を意味する
         //正面方角の角加速度（角速度の増分） ＝ 0 angle/fream^2
         _ang_acceFace[i] = 0; //_ang_veloFace[n] の増分。デフォルトは正面方角の角加速度無し
 
@@ -141,7 +141,7 @@ GgafDxKurokoA::GgafDxKurokoA(GgafDxGeometricActor* prm_pActor) :
         //目標の正面方角自動停止機能が有効になる回転方向
         _face_ang_target_allow_way[i] = TURN_BOTH;
         //目標の正面方角自動停止機能が有効になる角速度（回転正負共通）
-        _face_ang_target_allow_velo[i] = ANGLE180;
+        _face_ang_target_allow_velo[i] = D180ANG;
     }
 
     //////////////////////////////////////////////////////
@@ -165,9 +165,9 @@ GgafDxKurokoA::GgafDxKurokoA(GgafDxGeometricActor* prm_pActor) :
     //移動方角（Z軸回転）の角速度 = 0 angle/fream
     _ang_veloRzMv = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
     //移動方角（Z軸回転）の角速度上限 = +360,000 angle/fream
-    _ang_veloRzTopMv = ANGLE360; //_ang_veloRzMv の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+    _ang_veloRzTopMv = D360ANG; //_ang_veloRzMv の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
     //移動方角（Z軸回転）の角速度下限 = -360,000 angle/fream
-    _ang_veloRzBottomMv = ANGLE360 * -1; //_ang_veloRzMv の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+    _ang_veloRzBottomMv = D360ANG * -1; //_ang_veloRzMv の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
     //移動方角（Z軸回転）の角加速度 = 0 angle/fream^2
     _ang_acceRzMv = 0; //_ang_veloRzMv の増分。デフォルトは移動方角の角加速度無し
 
@@ -182,16 +182,16 @@ GgafDxKurokoA::GgafDxKurokoA(GgafDxGeometricActor* prm_pActor) :
     //目標の移動方角（Z軸回転）自動停止機能が有効になる回転方向
     _mv_ang_rz_target_allow_way = TURN_BOTH;
     //目標の移動方角（Z軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
-    _mv_ang_rz_target_allow_velo = ANGLE180;
+    _mv_ang_rz_target_allow_velo = D180ANG;
     //移動方角（Z軸回転）に伴いZ正面方角の同期を取る機能フラグ ＝ 無効
     _relate_RzFaceAng_with_RzMvAng_flg = false; //有効の場合は、移動方角を設定するとZ正面方角が同じになる。
 
     //移動方角（Y軸回転）の角速度 = 0 angle/fream
     _ang_veloRyMv = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
     //移動方角（Y軸回転）の角速度上限 = +360,000 angle/fream
-    _ang_veloRyTopMv = ANGLE360; //_ang_veloRyMv の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+    _ang_veloRyTopMv = D360ANG; //_ang_veloRyMv の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
     //移動方角（Y軸回転）の角速度下限 = -360,000 angle/fream
-    _ang_veloRyBottomMv = ANGLE360 * -1; //_ang_veloRyMv の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+    _ang_veloRyBottomMv = D360ANG * -1; //_ang_veloRyMv の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
     //移動方角（Y軸回転）の角加速度 = 0 angle/fream^2
     _ang_acceRyMv = 0; //_ang_veloRyMv の増分。デフォルトは移動方角の角加速度無し
 
@@ -205,7 +205,7 @@ GgafDxKurokoA::GgafDxKurokoA(GgafDxGeometricActor* prm_pActor) :
     //目標の移動方角（Y軸回転）自動停止機能が有効になる回転方向
     _mv_ang_ry_target_allow_way = TURN_BOTH;
     //目標の移動方角（Y軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
-    _mv_ang_ry_target_allow_velo = ANGLE180;
+    _mv_ang_ry_target_allow_velo = D180ANG;
     //移動方角（Y軸回転）に伴いZ正面方角の同期を取る機能フラグ ＝ 無効
     _relate_RyFaceAng_with_RyMvAng_flg = false; //有効の場合は、移動方角を設定するとZ正面方角が同じになる。
 
@@ -275,8 +275,8 @@ void GgafDxKurokoA::behave() {
 
             if (_face_ang_targeting_flg[i] == false) {
                 //目標方向に到達した時の処理
-                //_ang_veloTopFace[i] = ANGLE360; //正面方角の角速度上限 ＝ 360,000 angle/fream
-                //_ang_veloBottomFace[i] = ANGLE360 * -1; //正面方角の角速度下限 ＝ -360,000 angle/fream
+                //_ang_veloTopFace[i] = D360ANG; //正面方角の角速度上限 ＝ 360,000 angle/fream
+                //_ang_veloBottomFace[i] = D360ANG * -1; //正面方角の角速度下限 ＝ -360,000 angle/fream
 
                 //目標方向に到達した時、停止処理を行なう
                 _ang_acceFace[i] = 0; //軸回転方向角、角速度を０へ
@@ -424,8 +424,8 @@ void GgafDxKurokoA::behave() {
             addRzMvAng(0);
         }
         if (_mv_ang_rz_target_flg == false) {
-            //_ang_veloRzTopMv = ANGLE360; //移動方角（Z軸回転）の角速度上限 ＝ 360,000 angle/fream
-            //_ang_veloRzBottomMv = ANGLE360 * -1; //移動方角（Z軸回転）の角速度下限 ＝ -360,000 angle/fream
+            //_ang_veloRzTopMv = D360ANG; //移動方角（Z軸回転）の角速度上限 ＝ 360,000 angle/fream
+            //_ang_veloRzBottomMv = D360ANG * -1; //移動方角（Z軸回転）の角速度下限 ＝ -360,000 angle/fream
 
             //目標方向に到達した時、停止処理を行なう
             _ang_acceRzMv = 0; //Z軸移動方向角、角加速度を０へ
@@ -482,8 +482,8 @@ void GgafDxKurokoA::behave() {
             addRyMvAng(0);
         }
         if (_mv_ang_ry_target_flg == false) {
-            //_ang_veloRyTopMv = ANGLE360; //移動方角（Y軸回転）の角速度上限 ＝ 360,000 angle/fream
-            //_ang_veloRyBottomMv = ANGLE360*-1; //移動方角（Y軸回転）の角速度下限 ＝ -360,000 angle/fream
+            //_ang_veloRyTopMv = D360ANG; //移動方角（Y軸回転）の角速度上限 ＝ 360,000 angle/fream
+            //_ang_veloRyBottomMv = D360ANG*-1; //移動方角（Y軸回転）の角速度下限 ＝ -360,000 angle/fream
 
             //目標方向に到達した時、停止処理を行なう
             _ang_acceRyMv = 0; //Y軸移動方向角、角加速度を０へ
@@ -612,40 +612,40 @@ angle GgafDxKurokoA::getFaceAngDistance(axis prm_axis, angle prm_angTargetRot, i
     angle _angTargetRot;
     _angTargetRot = GgafDxUtil::simplifyAng(prm_angTargetRot);
     if (prm_way == TURN_CLOSE_TO) { //近いほう回転
-        if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < ANGLE180) {
+        if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < D180ANG) {
             if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis]) {
                 return -1 * (_angFace[prm_axis] - _angTargetRot);
             } else if (_angTargetRot == _angFace[prm_axis]) {
                 //重なってる場合
                 return 0;
             } else if (_angFace[prm_axis] < _angTargetRot && _angTargetRot < _angFace[prm_axis]
-                    + ANGLE180) {
+                    + D180ANG) {
                 return _angTargetRot - _angFace[prm_axis];
-            } else if (_angTargetRot == _angFace[prm_axis] + ANGLE180) {
+            } else if (_angTargetRot == _angFace[prm_axis] + D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので正の値とする。
-                return ANGLE180;
-            } else if (_angFace[prm_axis] + ANGLE180 < _angTargetRot && _angTargetRot <= ANGLE360) {
-                return -1 * (_angFace[prm_axis] + (ANGLE360 - _angTargetRot));
+                return D180ANG;
+            } else if (_angFace[prm_axis] + D180ANG < _angTargetRot && _angTargetRot <= D360ANG) {
+                return -1 * (_angFace[prm_axis] + (D360ANG - _angTargetRot));
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
                 throwGgafCriticalException("GgafDxKurokoA::getFaceAngDistance() 現在の正面方角アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
-        } else if (ANGLE180 <= _angFace[prm_axis] && _angFace[prm_axis] <= ANGLE360) {
-            if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis] - ANGLE180) {
-                return ANGLE360 - _angFace[prm_axis] + _angTargetRot;
-            } else if (_angTargetRot == _angFace[prm_axis] - ANGLE180) {
+        } else if (D180ANG <= _angFace[prm_axis] && _angFace[prm_axis] <= D360ANG) {
+            if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis] - D180ANG) {
+                return D360ANG - _angFace[prm_axis] + _angTargetRot;
+            } else if (_angTargetRot == _angFace[prm_axis] - D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので負の値とする。
-                return -ANGLE180;
-            } else if (_angFace[prm_axis] - ANGLE180 < _angTargetRot && _angTargetRot
+                return -D180ANG;
+            } else if (_angFace[prm_axis] - D180ANG < _angTargetRot && _angTargetRot
                     < _angFace[prm_axis]) {
                 return -1 * (_angFace[prm_axis] - _angTargetRot);
             } else if (_angFace[prm_axis] == _angTargetRot) {
                 //重なってる場合
                 return 0;
-            } else if (_angFace[prm_axis] < _angTargetRot && _angTargetRot <= ANGLE360) {
+            } else if (_angFace[prm_axis] < _angTargetRot && _angTargetRot <= D360ANG) {
                 return _angTargetRot - _angFace[prm_axis];
             } else {
                 //おかしい
@@ -654,39 +654,39 @@ angle GgafDxKurokoA::getFaceAngDistance(axis prm_axis, angle prm_angTargetRot, i
             }
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
-        if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < ANGLE180) {
+        if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < D180ANG) {
             if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis]) {
-                return ANGLE360 - _angFace[prm_axis] + _angTargetRot;
+                return D360ANG - _angFace[prm_axis] + _angTargetRot;
             } else if (_angTargetRot == _angFace[prm_axis]) {
                 //重なってる場合
-                return ANGLE360;
-            } else if (_angFace[prm_axis] < _angTargetRot && _angTargetRot < _angFace[prm_axis] + ANGLE180) {
-                return -1 * ( _angFace[prm_axis] + (ANGLE360 -_angTargetRot));
-            } else if (_angTargetRot == _angFace[prm_axis] + ANGLE180) {
+                return D360ANG;
+            } else if (_angFace[prm_axis] < _angTargetRot && _angTargetRot < _angFace[prm_axis] + D180ANG) {
+                return -1 * ( _angFace[prm_axis] + (D360ANG -_angTargetRot));
+            } else if (_angTargetRot == _angFace[prm_axis] + D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので正の値とする。
-                return ANGLE180;
-            } else if (_angFace[prm_axis] + ANGLE180 < _angTargetRot && _angTargetRot <= ANGLE360) {
+                return D180ANG;
+            } else if (_angFace[prm_axis] + D180ANG < _angTargetRot && _angTargetRot <= D360ANG) {
                 return _angTargetRot - _angFace[prm_axis];
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
                 throwGgafCriticalException("GgafDxKurokoA::getFaceAngDistance() 現在の正面方角アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
-        } else if (ANGLE180 <= _angFace[prm_axis] && _angFace[prm_axis] <= ANGLE360) {
-            if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis] - ANGLE180) {
+        } else if (D180ANG <= _angFace[prm_axis] && _angFace[prm_axis] <= D360ANG) {
+            if (0 <= _angTargetRot && _angTargetRot < _angFace[prm_axis] - D180ANG) {
                 return -1 * (_angTargetRot - _angFace[prm_axis]);
-            } else if (_angTargetRot == _angFace[prm_axis] - ANGLE180) {
+            } else if (_angTargetRot == _angFace[prm_axis] - D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので正の値とする。
-                return -ANGLE180;
-            } else if (_angFace[prm_axis] - ANGLE180 < _angTargetRot && _angTargetRot < _angFace[prm_axis]) {
-                return (ANGLE360 - _angFace[prm_axis]) + _angTargetRot;
+                return -D180ANG;
+            } else if (_angFace[prm_axis] - D180ANG < _angTargetRot && _angTargetRot < _angFace[prm_axis]) {
+                return (D360ANG - _angFace[prm_axis]) + _angTargetRot;
             } else if (_angFace[prm_axis] == _angTargetRot) {
                 //重なってる場合
-                return -ANGLE360;
-            } else if (_angFace[prm_axis] < _angTargetRot && _angTargetRot <= ANGLE360) {
-                return (_angFace[prm_axis] + (ANGLE360 - _angTargetRot)) ;
+                return -D360ANG;
+            } else if (_angFace[prm_axis] < _angTargetRot && _angTargetRot <= D360ANG) {
+                return (_angFace[prm_axis] + (D360ANG - _angTargetRot)) ;
             } else {
                 //おかしい
                 _TRACE_("_angFace["<<prm_axis<<"]=" << _angFace[prm_axis] << "/_angTargetRot=" << _angTargetRot);
@@ -696,8 +696,8 @@ angle GgafDxKurokoA::getFaceAngDistance(axis prm_axis, angle prm_angTargetRot, i
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
         if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < _angTargetRot) {
             return (_angTargetRot - _angFace[prm_axis]);
-        } else if (_angTargetRot < _angFace[prm_axis] && _angFace[prm_axis] <= ANGLE360) {
-            return ANGLE360 - _angFace[prm_axis] + _angTargetRot;
+        } else if (_angTargetRot < _angFace[prm_axis] && _angFace[prm_axis] <= D360ANG) {
+            return D360ANG - _angFace[prm_axis] + _angTargetRot;
         } else if (_angFace[prm_axis] == _angTargetRot) {
             //重なってる場合
             return 0;
@@ -708,8 +708,8 @@ angle GgafDxKurokoA::getFaceAngDistance(axis prm_axis, angle prm_angTargetRot, i
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
         if (0 <= _angFace[prm_axis] && _angFace[prm_axis] < _angTargetRot) {
-            return -1 * (_angFace[prm_axis] + ANGLE360 - _angTargetRot);
-        } else if (_angTargetRot < _angFace[prm_axis] && _angFace[prm_axis] <= ANGLE360) {
+            return -1 * (_angFace[prm_axis] + D360ANG - _angTargetRot);
+        } else if (_angTargetRot < _angFace[prm_axis] && _angFace[prm_axis] <= D360ANG) {
             return -1 * (_angFace[prm_axis] - _angTargetRot);
         } else if (_angFace[prm_axis] == _angTargetRot) {
             //重なってる場合
@@ -724,11 +724,11 @@ angle GgafDxKurokoA::getFaceAngDistance(axis prm_axis, angle prm_angTargetRot, i
     throwGgafCriticalException("GgafDxKurokoA::getFaceAngDistance() 何故かしら角の距離が求めれません(2)。_pActor="<<_pActor->getName());
 }
 
-void GgafDxKurokoA::forceMvVeloRange(int prm_velo) {
+void GgafDxKurokoA::forceMvVeloRange(velo prm_velo) {
     forceMvVeloRange(-prm_velo, prm_velo);
 }
 
-void GgafDxKurokoA::forceMvVeloRange(int prm_veloMv01, int prm_veloMv02) {
+void GgafDxKurokoA::forceMvVeloRange(velo prm_veloMv01, velo prm_veloMv02) {
     if (prm_veloMv01 < prm_veloMv02) {
         _veloTopMv = prm_veloMv02;
         _veloBottomMv = prm_veloMv01;
@@ -739,7 +739,7 @@ void GgafDxKurokoA::forceMvVeloRange(int prm_veloMv01, int prm_veloMv02) {
     setMvVelo(_veloMv); //再設定して範囲内に補正
 }
 
-void GgafDxKurokoA::setMvVelo(int prm_veloMv) {
+void GgafDxKurokoA::setMvVelo(velo prm_veloMv) {
     if (prm_veloMv > _veloTopMv) {
         _veloMv = _veloTopMv;
     } else if (prm_veloMv < _veloBottomMv) {
@@ -749,7 +749,7 @@ void GgafDxKurokoA::setMvVelo(int prm_veloMv) {
     }
 }
 
-void GgafDxKurokoA::addMvVelo(int prm_veloMv_Offset) {
+void GgafDxKurokoA::addMvVelo(velo prm_veloMv_Offset) {
     setMvVelo(_veloMv + prm_veloMv_Offset);
 }
 
@@ -1052,38 +1052,38 @@ angle GgafDxKurokoA::getRzMvAngDistance(coord prm_tX, coord prm_tY, int prm_way)
 angle GgafDxKurokoA::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
     angle angTargetRzMv = GgafDxUtil::simplifyAng(prm_angTargetRzMv);
     if (prm_way == TURN_CLOSE_TO) { //近いほう回転
-        if (0 <= _angRzMv && _angRzMv < ANGLE180) {
+        if (0 <= _angRzMv && _angRzMv < D180ANG) {
             if (0 <= angTargetRzMv && angTargetRzMv < _angRzMv) {
                 return -1 * (_angRzMv - angTargetRzMv);
             } else if (angTargetRzMv == _angRzMv) {
                 //重なってる場合
                 return 0;
-            } else if (_angRzMv < angTargetRzMv && angTargetRzMv < _angRzMv + ANGLE180) {
+            } else if (_angRzMv < angTargetRzMv && angTargetRzMv < _angRzMv + D180ANG) {
                 return angTargetRzMv - _angRzMv;
-            } else if (angTargetRzMv == _angRzMv + ANGLE180) {
+            } else if (angTargetRzMv == _angRzMv + D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので正の値とする。
-                return ANGLE180;
-            } else if (_angRzMv + ANGLE180 < angTargetRzMv && angTargetRzMv <= ANGLE360) {
-                return -1 * (_angRzMv + (ANGLE360 - angTargetRzMv));
+                return D180ANG;
+            } else if (_angRzMv + D180ANG < angTargetRzMv && angTargetRzMv <= D360ANG) {
+                return -1 * (_angRzMv + (D360ANG - angTargetRzMv));
             } else {
                 //おかしい
                 _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
                 throwGgafCriticalException("GgafDxKurokoA::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
-        } else if (ANGLE180 <= _angRzMv && _angRzMv <= ANGLE360) {
-            if (0 <= angTargetRzMv && angTargetRzMv < _angRzMv - ANGLE180) {
-                return ANGLE360 - _angRzMv + angTargetRzMv;
-            } else if (angTargetRzMv == _angRzMv - ANGLE180) {
+        } else if (D180ANG <= _angRzMv && _angRzMv <= D360ANG) {
+            if (0 <= angTargetRzMv && angTargetRzMv < _angRzMv - D180ANG) {
+                return D360ANG - _angRzMv + angTargetRzMv;
+            } else if (angTargetRzMv == _angRzMv - D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので負の値とする。
-                return -ANGLE180;
-            } else if (_angRzMv - ANGLE180 < angTargetRzMv && angTargetRzMv < _angRzMv) {
+                return -D180ANG;
+            } else if (_angRzMv - D180ANG < angTargetRzMv && angTargetRzMv < _angRzMv) {
                 return -1 * (_angRzMv - angTargetRzMv);
             } else if (_angRzMv == angTargetRzMv) {
                 //重なってる場合
                 return 0;
-            } else if (_angRzMv < angTargetRzMv && angTargetRzMv <= ANGLE360) {
+            } else if (_angRzMv < angTargetRzMv && angTargetRzMv <= D360ANG) {
                 return angTargetRzMv - _angRzMv;
             } else {
                 //おかしい
@@ -1092,39 +1092,39 @@ angle GgafDxKurokoA::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
             }
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
-        if (0 <= _angRzMv && _angRzMv < ANGLE180) {
+        if (0 <= _angRzMv && _angRzMv < D180ANG) {
             if (0 <= angTargetRzMv && angTargetRzMv < _angRzMv) {
-                return ANGLE360 - _angRzMv + angTargetRzMv;
+                return D360ANG - _angRzMv + angTargetRzMv;
             } else if (angTargetRzMv == _angRzMv) {
                 //重なってる場合
-                return ANGLE360;
-            } else if (_angRzMv < angTargetRzMv && angTargetRzMv < _angRzMv + ANGLE180) {
-                return -1*(_angRzMv + (ANGLE360-angTargetRzMv));
-            } else if (angTargetRzMv == _angRzMv + ANGLE180) {
+                return D360ANG;
+            } else if (_angRzMv < angTargetRzMv && angTargetRzMv < _angRzMv + D180ANG) {
+                return -1*(_angRzMv + (D360ANG-angTargetRzMv));
+            } else if (angTargetRzMv == _angRzMv + D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので正の値とする。
-                return ANGLE180;
-            } else if (_angRzMv + ANGLE180 < angTargetRzMv && angTargetRzMv <= ANGLE360) {
+                return D180ANG;
+            } else if (_angRzMv + D180ANG < angTargetRzMv && angTargetRzMv <= D360ANG) {
                 return angTargetRzMv - _angRzMv;
             } else {
                 //おかしい
                 _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
                 throwGgafCriticalException("GgafDxKurokoA::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
-        } else if (ANGLE180 <= _angRzMv && _angRzMv <= ANGLE360) {
-            if (0 <= angTargetRzMv && angTargetRzMv < _angRzMv - ANGLE180) {
+        } else if (D180ANG <= _angRzMv && _angRzMv <= D360ANG) {
+            if (0 <= angTargetRzMv && angTargetRzMv < _angRzMv - D180ANG) {
                 return  -1*(_angRzMv - angTargetRzMv);
-            } else if (angTargetRzMv == _angRzMv - ANGLE180) {
+            } else if (angTargetRzMv == _angRzMv - D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので負の値とする。
-                return -ANGLE180;
-            } else if (_angRzMv - ANGLE180 < angTargetRzMv && angTargetRzMv < _angRzMv) {
-                return _angRzMv + (ANGLE360 - angTargetRzMv);
+                return -D180ANG;
+            } else if (_angRzMv - D180ANG < angTargetRzMv && angTargetRzMv < _angRzMv) {
+                return _angRzMv + (D360ANG - angTargetRzMv);
             } else if (_angRzMv == angTargetRzMv) {
                 //重なってる場合
-                return -ANGLE360;
-            } else if (_angRzMv < angTargetRzMv && angTargetRzMv <= ANGLE360) {
-                return angTargetRzMv + (ANGLE360 - _angRzMv);
+                return -D360ANG;
+            } else if (_angRzMv < angTargetRzMv && angTargetRzMv <= D360ANG) {
+                return angTargetRzMv + (D360ANG - _angRzMv);
             } else {
                 //おかしい
                 _TRACE_("_angRzMv=" << _angRzMv << "/angTargetRzMv=" << angTargetRzMv);
@@ -1134,8 +1134,8 @@ angle GgafDxKurokoA::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
         if (0 <= _angRzMv && _angRzMv < angTargetRzMv) {
             return (angTargetRzMv - _angRzMv);
-        } else if (angTargetRzMv < _angRzMv && _angRzMv <= ANGLE360) {
-            return ANGLE360 - _angRzMv + angTargetRzMv;
+        } else if (angTargetRzMv < _angRzMv && _angRzMv <= D360ANG) {
+            return D360ANG - _angRzMv + angTargetRzMv;
         } else if (_angRzMv == angTargetRzMv) {
             //重なってる場合
             return 0;
@@ -1146,8 +1146,8 @@ angle GgafDxKurokoA::getRzMvAngDistance(angle prm_angTargetRzMv, int prm_way) {
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
         if (0 <= _angRzMv && _angRzMv < angTargetRzMv) {
-            return -1 * (_angRzMv + ANGLE360 - angTargetRzMv);
-        } else if (angTargetRzMv < _angRzMv && _angRzMv <= ANGLE360) {
+            return -1 * (_angRzMv + D360ANG - angTargetRzMv);
+        } else if (angTargetRzMv < _angRzMv && _angRzMv <= D360ANG) {
             return -1 * (_angRzMv - angTargetRzMv);
         } else if (_angRzMv == angTargetRzMv) {
             //重なってる場合
@@ -1239,38 +1239,38 @@ angle GgafDxKurokoA::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
     angle angTargetRyMv;
     angTargetRyMv = GgafDxUtil::simplifyAng(prm_angTargetRyMv);
     if (prm_way == TURN_CLOSE_TO) { //近いほう回転
-        if (0 <= _angRyMv && _angRyMv < ANGLE180) {
+        if (0 <= _angRyMv && _angRyMv < D180ANG) {
             if (0 <= angTargetRyMv && angTargetRyMv < _angRyMv) {
                 return -1 * (_angRyMv - angTargetRyMv);
             } else if (angTargetRyMv == _angRyMv) {
                 //重なってる場合
                 return 0;
-            } else if (_angRyMv < angTargetRyMv && angTargetRyMv < _angRyMv + ANGLE180) {
+            } else if (_angRyMv < angTargetRyMv && angTargetRyMv < _angRyMv + D180ANG) {
                 return angTargetRyMv - _angRyMv;
-            } else if (angTargetRyMv == _angRyMv + ANGLE180) {
+            } else if (angTargetRyMv == _angRyMv + D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので正の値とする。
-                return ANGLE180;
-            } else if (_angRyMv + ANGLE180 < angTargetRyMv && angTargetRyMv <= ANGLE360) {
-                return -1 * (_angRyMv + (ANGLE360 - angTargetRyMv));
+                return D180ANG;
+            } else if (_angRyMv + D180ANG < angTargetRyMv && angTargetRyMv <= D360ANG) {
+                return -1 * (_angRyMv + (D360ANG - angTargetRyMv));
             } else {
                 //おかしい
                 _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
                 throwGgafCriticalException("GgafDxKurokoA::behave() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
-        } else if (ANGLE180 <= _angRyMv && _angRyMv <= ANGLE360) {
-            if (0 <= angTargetRyMv && angTargetRyMv < _angRyMv - ANGLE180) {
-                return ANGLE360 - _angRyMv + angTargetRyMv;
-            } else if (angTargetRyMv == _angRyMv - ANGLE180) {
+        } else if (D180ANG <= _angRyMv && _angRyMv <= D360ANG) {
+            if (0 <= angTargetRyMv && angTargetRyMv < _angRyMv - D180ANG) {
+                return D360ANG - _angRyMv + angTargetRyMv;
+            } else if (angTargetRyMv == _angRyMv - D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので負の値とする。
-                return -ANGLE180;
-            } else if (_angRyMv - ANGLE180 < angTargetRyMv && angTargetRyMv < _angRyMv) {
+                return -D180ANG;
+            } else if (_angRyMv - D180ANG < angTargetRyMv && angTargetRyMv < _angRyMv) {
                 return -1 * (_angRyMv - angTargetRyMv);
             } else if (_angRyMv == angTargetRyMv) {
                 //重なってる場合
                 return 0;
-            } else if (_angRyMv < angTargetRyMv && angTargetRyMv <= ANGLE360) {
+            } else if (_angRyMv < angTargetRyMv && angTargetRyMv <= D360ANG) {
                 return angTargetRyMv - _angRyMv;
             } else {
                 //おかしい
@@ -1279,39 +1279,39 @@ angle GgafDxKurokoA::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
             }
         }
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
-        if (0 <= _angRyMv && _angRyMv < ANGLE180) {
+        if (0 <= _angRyMv && _angRyMv < D180ANG) {
             if (0 <= angTargetRyMv && angTargetRyMv < _angRyMv) {
-                return ANGLE360 - _angRyMv + angTargetRyMv;
+                return D360ANG - _angRyMv + angTargetRyMv;
             } else if (angTargetRyMv == _angRyMv) {
                 //重なってる場合
-                return ANGLE360;
-            } else if (_angRyMv < angTargetRyMv && angTargetRyMv < _angRyMv + ANGLE180) {
-                return -1*(_angRyMv + (ANGLE360-angTargetRyMv));
-            } else if (angTargetRyMv == _angRyMv + ANGLE180) {
+                return D360ANG;
+            } else if (_angRyMv < angTargetRyMv && angTargetRyMv < _angRyMv + D180ANG) {
+                return -1*(_angRyMv + (D360ANG-angTargetRyMv));
+            } else if (angTargetRyMv == _angRyMv + D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので正の値とする。
-                return ANGLE180;
-            } else if (_angRyMv + ANGLE180 < angTargetRyMv && angTargetRyMv <= ANGLE360) {
+                return D180ANG;
+            } else if (_angRyMv + D180ANG < angTargetRyMv && angTargetRyMv <= D360ANG) {
                 return angTargetRyMv - _angRyMv;
             } else {
                 //おかしい
                 _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
                 throwGgafCriticalException("GgafDxKurokoA::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。_pActor="<<_pActor->getName());
             }
-        } else if (ANGLE180 <= _angRyMv && _angRyMv <= ANGLE360) {
-            if (0 <= angTargetRyMv && angTargetRyMv < _angRyMv - ANGLE180) {
+        } else if (D180ANG <= _angRyMv && _angRyMv <= D360ANG) {
+            if (0 <= angTargetRyMv && angTargetRyMv < _angRyMv - D180ANG) {
                 return  -1*(_angRyMv - angTargetRyMv);
-            } else if (angTargetRyMv == _angRyMv - ANGLE180) {
+            } else if (angTargetRyMv == _angRyMv - D180ANG) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので正の値とする。
-                return -ANGLE180;
-            } else if (_angRyMv - ANGLE180 < angTargetRyMv && angTargetRyMv < _angRyMv) {
-                return _angRyMv + (ANGLE360 - angTargetRyMv);
+                return -D180ANG;
+            } else if (_angRyMv - D180ANG < angTargetRyMv && angTargetRyMv < _angRyMv) {
+                return _angRyMv + (D360ANG - angTargetRyMv);
             } else if (_angRyMv == angTargetRyMv) {
                 //重なってる場合
-                return -ANGLE360;
-            } else if (_angRyMv < angTargetRyMv && angTargetRyMv <= ANGLE360) {
-                return angTargetRyMv + (ANGLE360 - _angRyMv);
+                return -D360ANG;
+            } else if (_angRyMv < angTargetRyMv && angTargetRyMv <= D360ANG) {
+                return angTargetRyMv + (D360ANG - _angRyMv);
             } else {
                 //おかしい
                 _TRACE_("_angRyMv=" << _angRyMv << "/angTargetRyMv=" << angTargetRyMv);
@@ -1321,8 +1321,8 @@ angle GgafDxKurokoA::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
         if (0 <= _angRyMv && _angRyMv < angTargetRyMv) {
             return (angTargetRyMv - _angRyMv);
-        } else if (angTargetRyMv < _angRyMv && _angRyMv <= ANGLE360) {
-            return ANGLE360 - _angRyMv + angTargetRyMv;
+        } else if (angTargetRyMv < _angRyMv && _angRyMv <= D360ANG) {
+            return D360ANG - _angRyMv + angTargetRyMv;
         } else if (_angRyMv == angTargetRyMv) {
             //重なってる場合
             return 0;
@@ -1333,8 +1333,8 @@ angle GgafDxKurokoA::getRyMvAngDistance(angle prm_angTargetRyMv, int prm_way) {
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
         if (0 <= _angRyMv && _angRyMv < angTargetRyMv) {
-            return -1 * (_angRyMv + ANGLE360 - angTargetRyMv);
-        } else if (angTargetRyMv < _angRyMv && _angRyMv <= ANGLE360) {
+            return -1 * (_angRyMv + D360ANG - angTargetRyMv);
+        } else if (angTargetRyMv < _angRyMv && _angRyMv <= D360ANG) {
             return -1 * (_angRyMv - angTargetRyMv);
         } else if (_angRyMv == angTargetRyMv) {
             //重なってる場合
@@ -1437,7 +1437,7 @@ void GgafDxKurokoA::getRzRyFaceAngDistance(int prm_way,
         angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
         GgafDxUtil::anotherRzRy(target_angRz, target_angRy);
         angle d2_angRz = getFaceAngDistance(AXIS_Z, target_angRz, TURN_CLOSE_TO);
-        angle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO) * ((GgafDxUtil::COS[GgafDxUtil::simplifyAng(target_angRz*2)/ANGLE_RATE]/2.0) + 0.5);
+        angle d2_angRy = getFaceAngDistance(AXIS_Y, target_angRy, TURN_CLOSE_TO) * ((GgafDxUtil::COS[GgafDxUtil::simplifyAng(target_angRz*2)/SANG_RATE]/2.0) + 0.5);
         angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
         if (d1 <= d2) {
             out_d_angRz = d1_angRz;
@@ -1504,7 +1504,7 @@ void GgafDxKurokoA::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_angRyRz
     angle RyRz_Ry = GgafDxUtil::simplifyAng(prm_angRyRz_Ry);
     angle RyRz_Rz = GgafDxUtil::simplifyAng(prm_angRyRz_Rz);
     float out_vY, out_vZ;
-    GgafDxUtil::getNormalizeVectorZY(RyRz_Ry, ANGLE360-RyRz_Rz, _vX, out_vY, out_vZ);
+    GgafDxUtil::getNormalizeVectorZY(RyRz_Ry, D360ANG-RyRz_Rz, _vX, out_vY, out_vZ);
     _vY = -1.0f*out_vZ;
     _vZ = out_vY;
     GgafDxUtil::getRzRyAng(_vX, _vZ, _vY, _angRzMv, _angRyMv);
@@ -1790,9 +1790,9 @@ void GgafDxKurokoA::resetMv() {
     //移動方角（Z軸回転）の角速度 = 0 angle/fream
     _ang_veloRzMv = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
     //移動方角（Z軸回転）の角速度上限 = +360,000 angle/fream
-    _ang_veloRzTopMv = ANGLE360; //_ang_veloRzMv の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+    _ang_veloRzTopMv = D360ANG; //_ang_veloRzMv の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
     //移動方角（Z軸回転）の角速度下限 = -360,000 angle/fream
-    _ang_veloRzBottomMv = ANGLE360 * -1; //_ang_veloRzMv の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+    _ang_veloRzBottomMv = D360ANG * -1; //_ang_veloRzMv の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
     //移動方角（Z軸回転）の角加速度 = 0 angle/fream^2
     _ang_acceRzMv = 0; //_ang_veloRzMv の増分。デフォルトは移動方角の角加速度無し
 

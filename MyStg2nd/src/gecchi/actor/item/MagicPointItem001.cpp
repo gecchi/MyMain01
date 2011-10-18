@@ -13,9 +13,9 @@ MagicPointItem001::MagicPointItem001(const char* prm_name)
     setZWriteEnable(false);  //Zバッファは書き込み無し
     setAlpha(0.9);
 
-    _pKurokoA->setFaceAngVelo(AXIS_X, 3*1000);
-    _pKurokoA->setFaceAngVelo(AXIS_Y, 5*1000);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 7*1000);
+    _pKurokoA->setFaceAngVelo(AXIS_X, Deg2Ang(3));
+    _pKurokoA->setFaceAngVelo(AXIS_Y, Deg2Ang(5));
+    _pKurokoA->setFaceAngVelo(AXIS_Z, Deg2Ang(7));
     _pKurokoA->relateFaceAngWithMvAng(true);
     _kDX = _kDY = _kDZ = 0;
 }

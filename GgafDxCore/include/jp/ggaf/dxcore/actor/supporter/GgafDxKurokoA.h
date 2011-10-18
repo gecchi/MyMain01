@@ -2,12 +2,6 @@
 #define GGAFDXMVNAVIGATOR_H_
 namespace GgafDxCore {
 
-//軸X
-#define AXIS_X 0
-#define AXIS_Y 1
-#define AXIS_Z 2
-
-
 /**
  * 黒子A .
  * 黒子Aは舞台には見えないですが、演者(アクター)を持ち上げ、「方向移動」「向きの回転」を行わせる世話人です。<BR>
@@ -120,7 +114,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
     void setStopTarget_FaceAng(axis prm_axis,
                                angle prm_angTargetRot,
                                int prm_way_allow = TURN_BOTH,
-                               ang_velo prm_ang_veloAllow = ANGLE180);
+                               ang_velo prm_ang_veloAllow = D180ANG);
 
     /**
      * Actorの目標回転方向自動停止機能を有効(現在XY座標からの対象XY座標で設定)<BR>
@@ -134,7 +128,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
                                 coord prm_tX,
                                 coord prm_tY,
                                 int prm_way_allow = TURN_BOTH,
-                                ang_velo prm_ang_veloAllowRyMv = ANGLE180);
+                                ang_velo prm_ang_veloAllowRyMv = D180ANG);
 
     void setFaceAngVelo(axis prm_axis, ang_velo prm_ang_veloRot);
 
@@ -439,7 +433,7 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      */
     void setStopTarget_RzMvAng(angle prm_angRzMv,
                                int prm_way_allow = TURN_BOTH,
-                               ang_velo prm_ang_veloAllowRyMv = ANGLE180);
+                               ang_velo prm_ang_veloAllowRyMv = D180ANG);
 
     /**
      * Actorの目標の移動方角（Z軸回転）自動停止機能を有効(目標の移動方角（Z軸回転）を現在Z軸座標からの対象Z軸座標で設定)<BR>
@@ -453,7 +447,7 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
     void setStopTarget_RzMvAngV(coord prm_tX,
                                        coord prm_tY,
                                        int prm_way_allow = TURN_BOTH,
-                                       ang_velo prm_ang_veloAllowRyMv = ANGLE180);
+                                       ang_velo prm_ang_veloAllowRyMv = D180ANG);
 
     void setRzMvAngVelo(ang_velo prm_ang_veloRzMv);
 
@@ -538,7 +532,7 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      */
     void setStopTarget_RyMvAng(angle prm_angRyMv,
                                int prm_mv_ang_ry_target_allow_way = TURN_BOTH,
-                               ang_velo prm_ang_veloAllowRyMv = ANGLE180);
+                               ang_velo prm_ang_veloAllowRyMv = D180ANG);
 
     /**
      * Actorの目標のY軸回転移動方角自動停止機能を有効 .
@@ -552,7 +546,7 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
     void setStopTarget_RyMvAngV(coord prm_tX,
                                 coord prm_tY,
                                 int prm_mv_ang_ry_target_allow_way = TURN_BOTH,
-                                ang_velo prm_ang_veloAllowRyMv = ANGLE180);
+                                ang_velo prm_ang_veloAllowRyMv = D180ANG);
 
     void setRyMvAngVelo(ang_velo prm_ang_veloRyMv);
 
@@ -659,8 +653,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTurnFaceAngSequence(coord prm_tX, coord prm_tY, coord prm_tZ,
-                                      ang_velo prm_angVelo, ang_acce prm_angAcce,
-                                      int prm_way, bool prm_optimize_ang = true);
+                                 ang_velo prm_angVelo, ang_acce prm_angAcce,
+                                 int prm_way, bool prm_optimize_ang = true);
 
 
     /**
@@ -680,8 +674,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTurnFaceAngSequence(GgafDxGeometricActor* prm_pActor_Target,
-                                      ang_velo prm_angVelo, ang_acce prm_angAcce,
-                                      int prm_way, bool prm_optimize_ang = true) {
+                                 ang_velo prm_angVelo, ang_acce prm_angAcce,
+                                 int prm_way, bool prm_optimize_ang = true) {
         execTurnFaceAngSequence(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
@@ -702,8 +696,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void execTurnRzFaceAngSequence(angle prm_angRz_Target,
-                                        ang_velo prm_angVelo, ang_acce prm_angAcce,
-                                        int prm_way);
+                                   ang_velo prm_angVelo, ang_acce prm_angAcce,
+                                   int prm_way);
 
     /**
      * 軸回転方角(Y軸)を目標にターゲットするシークエンスを実行 .
@@ -714,8 +708,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void execTurnRyFaceAngSequence(angle prm_angRy_Target,
-                                        ang_velo prm_angVelo, ang_acce prm_angAcce,
-                                        int prm_way);
+                                   ang_velo prm_angVelo, ang_acce prm_angAcce,
+                                   int prm_way);
 
     /**
      * 軸回転方角(X軸)を目標にターゲットするシークエンスを実行 .
@@ -726,8 +720,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void execTurnRxSpinAngSequence(angle prm_angRx_Target,
-                                          ang_velo prm_angVelo, ang_acce prm_angAcce,
-                                          int prm_way);
+                                   ang_velo prm_angVelo, ang_acce prm_angAcce,
+                                   int prm_way);
 
     /**
      * 移動方角を目標にターゲットするシークエンスを実行 .
@@ -747,8 +741,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTurnMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
-                                    ang_velo prm_angVelo, ang_acce prm_angAcce,
-                                    int prm_way, bool prm_optimize_ang = true);
+                               ang_velo prm_angVelo, ang_acce prm_angAcce,
+                               int prm_way, bool prm_optimize_ang = true);
 
 
     /**
@@ -770,12 +764,12 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTurnMvAngSequence(coord prm_tX, coord prm_tY, coord prm_tZ,
-                                    ang_velo prm_angVelo, ang_acce prm_angAcce,
-                                    int prm_way, bool prm_optimize_ang = true);
+                               ang_velo prm_angVelo, ang_acce prm_angAcce,
+                               int prm_way, bool prm_optimize_ang = true);
 
     void keepTurnMvAngAllTime(coord prm_tX, coord prm_tY, coord prm_tZ,
-                            ang_velo prm_angVelo, ang_acce prm_angAcce,
-                            int prm_way, bool prm_optimize_ang = true) {
+                              ang_velo prm_angVelo, ang_acce prm_angAcce,
+                              int prm_way, bool prm_optimize_ang = true) {
         execTurnMvAngSequence(prm_tX, prm_tY, prm_tZ,
                                     prm_angVelo,  prm_angAcce,
                                     prm_way, prm_optimize_ang );
@@ -790,8 +784,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
         _taget_mv_ang_alltime_optimize_ang = prm_optimize_ang;
     }
     void keepTurnMvAngAllTime(GgafDxGeometricActor* prm_pActor_Target,
-                            ang_velo prm_angVelo, ang_acce prm_angAcce,
-                            int prm_way, bool prm_optimize_ang = true) {
+                              ang_velo prm_angVelo, ang_acce prm_angAcce,
+                              int prm_way, bool prm_optimize_ang = true) {
         keepTurnMvAngAllTime(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
@@ -818,8 +812,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。<BR>
      */
     void execTurnMvAngSequence(GgafDxGeometricActor* prm_pActor_Target,
-                                    ang_velo prm_angVelo, ang_acce prm_angAcce,
-                                    int prm_way, bool prm_optimize_ang = true) {
+                               ang_velo prm_angVelo, ang_acce prm_angAcce,
+                               int prm_way, bool prm_optimize_ang = true) {
         execTurnMvAngSequence(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
@@ -840,8 +834,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void execTurnRzMvAngSequence(angle prm_angRz_Target,
-                                      ang_velo prm_angVelo, ang_acce prm_angAcce,
-                                      int prm_way);
+                                 ang_velo prm_angVelo, ang_acce prm_angAcce,
+                                 int prm_way);
 
     /**
      * 移動方角(Y軸)を目標にターゲットするシークエンスを実行 .
@@ -852,8 +846,8 @@ public: //_X, _Y, _Z 操作関連 //////////////////////////////////////////////
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void execTurnRyMvAngSequence(angle prm_angRy_Target,
-                                      ang_velo prm_angVelo, ang_acce prm_angAcce,
-                                      int prm_way);
+                                 ang_velo prm_angVelo, ang_acce prm_angAcce,
+                                 int prm_way);
 
 
     void stopTurnMvAngSequence() {

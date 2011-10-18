@@ -75,9 +75,9 @@ public:
     /** 視野角Yの半分(読み込み専用、生成後不変) */
     float _rad_half_fovY;
     /** カメラのZ座標(読み込み専用) */
-    float _cameraZ;
+    dxcoord _cameraZ;
     /** カメラのZ座標初期位置(読み込み専用、生成後不変) */
-    float _cameraZ_org;
+    dxcoord _cameraZ_org;
     /** アスペクト比(読み込み専用、生成後不変) */
     float _screen_aspect;
 
@@ -86,19 +86,19 @@ public:
     float _dCamHarfXfovTan;
 
     /** カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
-    float _zn;
+    dxcoord _zn;
     /** カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn  */
-    float _zf;
+    dxcoord _zf;
 
     float _dep;
     /** 注視点 **/
     GgafDxCameraViewPoint* _pViewPoint;
 
 
-    static int _X_ScreenLeft;
-    static int _X_ScreenRight;
-    static int _Y_ScreenTop;
-    static int _Y_ScreenBottom;
+    static coord _X_ScreenLeft;
+    static coord _X_ScreenRight;
+    static coord _Y_ScreenTop;
+    static coord _Y_ScreenBottom;
 
 
     /**

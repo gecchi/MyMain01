@@ -22,11 +22,11 @@ void EffectMyOption::onCreateModel() {
 }
 
 void EffectMyOption::initialize() {
-    _pKurokoA->setFaceAngVelo(AXIS_X, 5*1000);
-    _pKurokoA->setFaceAngVelo(AXIS_Y, 3*1000);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 1000);
-    _pScaler->setScale(1000);
-    _pScaler->forceScaleRange(1000, 1500);
+    _pKurokoA->setFaceAngVelo(AXIS_X, Deg2Ang(5));
+    _pKurokoA->setFaceAngVelo(AXIS_Y, Deg2Ang(3));
+    _pKurokoA->setFaceAngVelo(AXIS_Z, Deg2Ang(1));
+    _pScaler->setScale(R2Sc(1));
+    _pScaler->forceScaleRange(R2Sc(1), R2Sc(1.5));
     _pScaler->beat(AXIS_X, 30, 10, 1, -1);
     _pScaler->beat(AXIS_Y, 30, 15, 1, -1);
     _pScaler->beat(AXIS_Z, 30, 20, 1, -1);

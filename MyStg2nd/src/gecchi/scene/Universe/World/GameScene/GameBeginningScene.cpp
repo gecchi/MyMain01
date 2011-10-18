@@ -51,8 +51,8 @@ void GameBeginningScene::processBehavior() {
 
         case GAMEBEGINNINGSCENE_PROG_SELECT_MODE: {
             if (_pProg->isJustChanged()) {
-                _pStringBoard01->update(200*1000, 200*1000, "GAME_BEGINNING_SCENE BEGIN");
-                _pStringBoard02->update(200*1000, 250*1000, "SELECT MODE!");
+                _pStringBoard01->update(Px2Co(200), Px2Co(200), "GAME_BEGINNING_SCENE BEGIN");
+                _pStringBoard02->update(Px2Co(200), Px2Co(250), "SELECT MODE!");
             }
             if (_pProg->get() == GAMEBEGINNINGSCENE_PROG_SELECT_MODE) {
                 if (VB->isPushedDown(VB_UI_EXECUTE) || _pProg->getFrameInProgress() == 300) {
@@ -64,7 +64,7 @@ void GameBeginningScene::processBehavior() {
 
         case GAMEBEGINNINGSCENE_PROG_DECIDE: {
             if (_pProg->isJustChanged()) {
-                _pStringBoard02->update(300*1000, 300*1000, "OK OK OK");
+                _pStringBoard02->update(Px2Co(300), Px2Co(300), "OK OK OK");
                 _pStringBoard02->_pFader->beat(20,3,7,3,-1);
 //                fadeoutScene(FADE_FRAMES);
             }

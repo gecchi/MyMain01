@@ -88,11 +88,11 @@ void GamePauseScene::processBehavior() {
                 //アイテム
                 for (int i = 0; i < _max_menu_item; i++) {
                     //初期設定
-                    _papMenuItemLabel[i]->locate(Pix2App(-256), Pix2App(0));
+                    _papMenuItemLabel[i]->locate(Px2Co(-256), Px2Co(0));
                     _papMenuItemLabel[i]->activateDelay(i*10+1); //パラパラと順に
                     //飛ばす
-                    coord tX = Pix2App(1000);
-                    coord tY = Pix2App(200+i*32);
+                    coord tX = Px2Co(1000);
+                    coord tY = Px2Co(200+i*32);
                     _papMenuItemLabel[i]->_pKurokoA->setMvAng(tX, tY);
                     _papMenuItemLabel[i]->_pKurokoA->execSmoothMvVeloSequence(
                                                         0,

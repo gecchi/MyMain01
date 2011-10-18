@@ -29,7 +29,7 @@ void TurboMeter::processBehavior() {
     //_sx += 0.01;
     _val = P_MYSHIP->_iMvVelo_BeginMT;
     float length_px = _unit_px * _val;
-    _SX = cnvScaleRate2App(length_px / _pBoardModel->_fSize_BoardModelWidthPx);
+    _SX = R2Sc(length_px / _pBoardModel->_fSize_BoardModelWidthPx);
     _pUvFlipper->behave();
 }
 

@@ -44,9 +44,9 @@ void MyTorpedo::onActive() {
     _SX = _SY = _SZ = 100;
     _pScaler->setScale(100);
     _pScaler->intoTargetScaleLinerStep(7000, 500);
-    _pKurokoA->setFaceAngVelo(AXIS_X, 3*1000);
-    _pKurokoA->setFaceAngVelo(AXIS_Y, 5*1000);
-    _pKurokoA->setFaceAngVelo(AXIS_Z, 7*1000);
+    _pKurokoA->setFaceAngVelo(AXIS_X, Deg2Ang(3));
+    _pKurokoA->setFaceAngVelo(AXIS_Y, Deg2Ang(5));
+    _pKurokoA->setFaceAngVelo(AXIS_Z, Deg2Ang(7));
     _pKurokoA->setMvVelo(20000);
     _pKurokoA->setMvAcce(-1000);
     _pKurokoA->setRzMvAngVelo(0);

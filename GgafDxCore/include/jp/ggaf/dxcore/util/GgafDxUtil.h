@@ -18,8 +18,8 @@ namespace GgafDxCore {
 class GgafDxUtil: public GgafCore::GgafUtil {
 
     struct AngleSet {
-        angle RZ[S_ANG360+1];
-        angle RY[S_ANG360+1];
+        angle RZ[D360SANG+1];
+        angle RY[D360SANG+1];
     };
 
 public:
@@ -27,20 +27,20 @@ public:
     static float PARABORA[];
     /**
      * cosテーブル .
-     * 要素番号範囲：0 ~ S_ANG360
-     * angle値 r の cosは、COS[r/ANGLE_RATE]
+     * 要素番号範囲：0 ~ D360SANG
+     * angle値 r の cosは、COS[r/SANG_RATE]
      */
     static float COS[];
     /**
      * sinテーブル .
-     * 要素番号範囲：0 ~ S_ANG360
-     * angle値 r の sin は、SIN[r/ANGLE_RATE]
+     * 要素番号範囲：0 ~ D360SANG
+     * angle値 r の sin は、SIN[r/SANG_RATE]
      */
     static float SIN[];
     /**
      * 弧度法変換テーブル .
-     * 要素番号範囲：0 ~ S_ANG360
-     * angle値 r のラディアンは、RAD[r/ANGLE_RATE]
+     * 要素番号範囲：0 ~ D360SANG
+     * angle値 r のラディアンは、RAD[r/SANG_RATE]
      */
     static float RAD[];
     /**
@@ -53,24 +53,24 @@ public:
      * 平面射影時にできるなす角 → 2軸回角  の変換テーブル(その1-1) .
      * 方向ベクトルを、[XY平面へ射影した時のなす角][XZ平面へ射影した時のなす角] → 元の方向ベクトルのZ軸回転角 の変換テーブル
      */
-    static angle PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
+    static angle PROJANG_XY_XZ_TO_ROTANG_Z[D90SANG+1][D90SANG+1];
     /**
      * 平面射影時にできるなす角 → 2軸回角  の変換テーブル(その1-2) .
      * 方向ベクトルを、[XY平面へ射影した時のなす角][XZ平面へ射影した時のなす角] → 元の方向ベクトルのY軸(逆)回転角 の変換テーブル
      */
-    static angle PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
+    static angle PROJANG_XY_XZ_TO_ROTANG_Y_REV[D90SANG+1][D90SANG+1];
     /**
      * 平面射影時にできるなす角 → 2軸回角  の変換テーブル(その2-1) .
      * 方向ベクトルを、[ZY平面へ射影した時のなす角][ZX平面へ射影した時のなす角] → 元の方向ベクトルのX軸(逆)回転角 の変換テーブル
      */
-    static angle PROJANG_ZY_ZX_TO_ROTANG_X_REV[S_ANG90+1][S_ANG90+1];
+    static angle PROJANG_ZY_ZX_TO_ROTANG_X_REV[D90SANG+1][D90SANG+1];
     /**
      * 平面射影時にできるなす角 → 2軸回角  の変換テーブル(その2-2) .
      * 方向ベクトルを、[ZY平面へ射影した時のなす角][ZX平面へ射影した時のなす角] → 元の方向ベクトルのY軸回転角 の変換テーブル
      */
-    static angle PROJANG_ZY_ZX_TO_ROTANG_Y[S_ANG90+1][S_ANG90+1];
+    static angle PROJANG_ZY_ZX_TO_ROTANG_Y[D90SANG+1][D90SANG+1];
 
-    //static AngleSet ROTY_ANGLE[S_ANG360+1];
+    //static AngleSet ROTY_ANGLE[D360SANG+1];
 
 
     /**
@@ -98,9 +98,9 @@ public:
     static angle getAngle2D(T prm_vx, T prm_vy) {
         if (prm_vx == 0) {
             if (prm_vy > 0) {
-                return ANGLE90;
+                return D90ANG;
             } else if (prm_vy < 0) {
-                return ANGLE270;
+                return D270ANG;
             } else {
                 //原点である、不定。
                 return 0;
@@ -110,7 +110,7 @@ public:
             if (prm_vx > 0) {
                 return 0;
             } else if (prm_vx < 0) {
-                return ANGLE180;
+                return D180ANG;
             } else {
                 //原点である、不定。
                 return 0;
@@ -118,27 +118,27 @@ public:
         }
         if (prm_vx >= 0 && prm_vy >= 0) { //第1象限
             if (prm_vx >= prm_vy) {
-                return ANGLE0  + SLANT2ANG[(int)(1.0*prm_vy/prm_vx*100000)];
+                return D0ANG  + SLANT2ANG[(int)(1.0*prm_vy/prm_vx*100000)];
             } else {
-                return ANGLE90 - SLANT2ANG[(int)(1.0*prm_vx/prm_vy*100000)];
+                return D90ANG - SLANT2ANG[(int)(1.0*prm_vx/prm_vy*100000)];
             }
         } else if (prm_vx <= 0 && prm_vy >= 0) { //第2象限
             if (-prm_vx <= prm_vy) {
-                return ANGLE90 + SLANT2ANG[(int)(1.0*-prm_vx/prm_vy*100000)];
+                return D90ANG + SLANT2ANG[(int)(1.0*-prm_vx/prm_vy*100000)];
             } else {
-                return ANGLE180 - SLANT2ANG[(int)(1.0*prm_vy/-prm_vx*100000)];
+                return D180ANG - SLANT2ANG[(int)(1.0*prm_vy/-prm_vx*100000)];
             }
         } else if (prm_vx <= 0 && prm_vy <= 0) { //第3象限
             if (-prm_vx >= -prm_vy) {
-                return ANGLE180 + SLANT2ANG[(int)(1.0*-prm_vy/-prm_vx*100000)];
+                return D180ANG + SLANT2ANG[(int)(1.0*-prm_vy/-prm_vx*100000)];
             } else {
-                return ANGLE270 - SLANT2ANG[(int)(1.0*-prm_vx/-prm_vy*100000)];
+                return D270ANG - SLANT2ANG[(int)(1.0*-prm_vx/-prm_vy*100000)];
             }
         } else if (prm_vx >= 0 && prm_vy <= 0) { //第4象限
             if (prm_vx <= -prm_vy) {
-                return ANGLE270 + SLANT2ANG[(int)(1.0*prm_vx/-prm_vy*100000)];
+                return D270ANG + SLANT2ANG[(int)(1.0*prm_vx/-prm_vy*100000)];
             } else {
-                return ANGLE360 - SLANT2ANG[(int)(1.0*-prm_vy/prm_vx*100000)];
+                return D360ANG - SLANT2ANG[(int)(1.0*-prm_vy/prm_vx*100000)];
             }
         }
         return 0;
@@ -365,34 +365,34 @@ public:
     static void anotherRzRy(angle& rz1, angle& ry1) {
         int rz2 = 0;
         int ry2 = 0;
-        if (0 <= rz1 && rz1 < ANGLE90) {
-            rz2 = ANGLE180 - rz1;
+        if (0 <= rz1 && rz1 < D90ANG) {
+            rz2 = D180ANG - rz1;
 
-            if (0 <= ry1 && ry1 < ANGLE180) {
-                ry2 = ry1 + ANGLE180;
+            if (0 <= ry1 && ry1 < D180ANG) {
+                ry2 = ry1 + D180ANG;
             } else {
-                ry2 = ry1 - ANGLE180;
+                ry2 = ry1 - D180ANG;
             }
-        } else if (ANGLE90 <= rz1 && rz1 < ANGLE180) {
-            rz2 = ANGLE180 - rz1;
-            if (0 <= ry1 && ry1 < ANGLE180) {
-                ry2 = ry1 + ANGLE180;
+        } else if (D90ANG <= rz1 && rz1 < D180ANG) {
+            rz2 = D180ANG - rz1;
+            if (0 <= ry1 && ry1 < D180ANG) {
+                ry2 = ry1 + D180ANG;
             } else {
-                ry2 = ry1 - ANGLE180;
+                ry2 = ry1 - D180ANG;
             }
-        } else if (ANGLE180 <= rz1 && rz1 < ANGLE270) {
-            rz2 = ANGLE180 + (ANGLE360 - rz1);
-            if (0 <= ry1 && ry1 < ANGLE180) {
-                ry2 = ry1 + ANGLE180;
+        } else if (D180ANG <= rz1 && rz1 < D270ANG) {
+            rz2 = D180ANG + (D360ANG - rz1);
+            if (0 <= ry1 && ry1 < D180ANG) {
+                ry2 = ry1 + D180ANG;
             } else {
-                ry2 = ry1 - ANGLE180;
+                ry2 = ry1 - D180ANG;
             }
-        } else if (ANGLE270 <= rz1 && rz1 <= ANGLE360) {
-            rz2 = ANGLE180 + (ANGLE360 - rz1);
-            if (0 <= ry1 && ry1 < ANGLE180) {
-                ry2 = ry1 + ANGLE180;
+        } else if (D270ANG <= rz1 && rz1 <= D360ANG) {
+            rz2 = D180ANG + (D360ANG - rz1);
+            if (0 <= ry1 && ry1 < D180ANG) {
+                ry2 = ry1 + D180ANG;
             } else {
-                ry2 = ry1 - ANGLE180;
+                ry2 = ry1 - D180ANG;
             }
         }
         rz1 = rz2;
@@ -408,34 +408,34 @@ public:
     static void optimizeRzRy(angle& rz1, angle& ry1) {
         int rz2 = 0;
         int ry2 = 0;
-        if (0 <= rz1 && rz1 < ANGLE90) {
-            rz2 = ANGLE180 - rz1;
+        if (0 <= rz1 && rz1 < D90ANG) {
+            rz2 = D180ANG - rz1;
 
-            if (0 <= ry1 && ry1 < ANGLE180) {
-                ry2 = ry1 + ANGLE180;
+            if (0 <= ry1 && ry1 < D180ANG) {
+                ry2 = ry1 + D180ANG;
             } else {
-                ry2 = ry1 - ANGLE180;
+                ry2 = ry1 - D180ANG;
             }
-        } else if (ANGLE90 <= rz1 && rz1 < ANGLE180) {
-            rz2 = ANGLE180 - rz1;
-            if (0 <= ry1 && ry1 < ANGLE180) {
-                ry2 = ry1 + ANGLE180;
+        } else if (D90ANG <= rz1 && rz1 < D180ANG) {
+            rz2 = D180ANG - rz1;
+            if (0 <= ry1 && ry1 < D180ANG) {
+                ry2 = ry1 + D180ANG;
             } else {
-                ry2 = ry1 - ANGLE180;
+                ry2 = ry1 - D180ANG;
             }
-        } else if (ANGLE180 <= rz1 && rz1 < ANGLE270) {
-            rz2 = ANGLE180 + (ANGLE360 - rz1);
-            if (0 <= ry1 && ry1 < ANGLE180) {
-                ry2 = ry1 + ANGLE180;
+        } else if (D180ANG <= rz1 && rz1 < D270ANG) {
+            rz2 = D180ANG + (D360ANG - rz1);
+            if (0 <= ry1 && ry1 < D180ANG) {
+                ry2 = ry1 + D180ANG;
             } else {
-                ry2 = ry1 - ANGLE180;
+                ry2 = ry1 - D180ANG;
             }
-        } else if (ANGLE270 <= rz1 && rz1 <= ANGLE360) {
-            rz2 = ANGLE180 + (ANGLE360 - rz1);
-            if (0 <= ry1 && ry1 < ANGLE180) {
-                ry2 = ry1 + ANGLE180;
+        } else if (D270ANG <= rz1 && rz1 <= D360ANG) {
+            rz2 = D180ANG + (D360ANG - rz1);
+            if (0 <= ry1 && ry1 < D180ANG) {
+                ry2 = ry1 + D180ANG;
             } else {
-                ry2 = ry1 - ANGLE180;
+                ry2 = ry1 - D180ANG;
             }
         }
         rz1 = rz2;
@@ -445,11 +445,11 @@ public:
 
     static angle simplifyAng(angle prm_ang) {
         angle angSimple = prm_ang;
-        while (angSimple >= ANGLE360) {
-            angSimple -= ANGLE360;
+        while (angSimple >= D360ANG) {
+            angSimple -= D360ANG;
         }
         while (angSimple < 0) {
-            angSimple += ANGLE360;
+            angSimple += D360ANG;
         }
         return angSimple;
     }

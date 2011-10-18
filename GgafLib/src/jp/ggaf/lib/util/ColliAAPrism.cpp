@@ -222,10 +222,10 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
     //ここで保持しておきたいのは-90度(+270度)のベクトルである
     angle angIH = GgafDxUtil::simplifyAng(
         GgafDxUtil::getAngle2D(x2_e-x1_s, y2_e-y1_s)
-        + ANGLE270
+        + D270ANG
         );
-    _vIH_x = GgafDxUtil::COS[angIH/ANGLE_RATE];
-    _vIH_y = GgafDxUtil::SIN[angIH/ANGLE_RATE];
+    _vIH_x = GgafDxUtil::COS[angIH/SANG_RATE];
+    _vIH_y = GgafDxUtil::SIN[angIH/SANG_RATE];
 
 }
 

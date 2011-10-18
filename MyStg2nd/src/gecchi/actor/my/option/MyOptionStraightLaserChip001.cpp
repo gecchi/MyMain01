@@ -22,7 +22,7 @@ void MyOptionStraightLaserChip001::initialize() {
     _pKurokoA->setRzRyMvAng(0,0);
     registHitAreaCube(60000);
     setHitAble(true);
-    _SX = _SY = _SZ = 5 * 1000;
+    _SX = _SY = _SZ = R2Sc(5);
     _fAlpha = 0.99;
     _radius_bounding_sphere = 20.0;
 

@@ -78,14 +78,14 @@ void EnemyCeres::processBehavior() {
             pTama = (GgafDxDrawableActor*)_pDepo_EnemyCeresShots001->dispatch();
             if (pTama) {
                 pTama->locate(_X, _Y, _Z);
-                pTama->_pKurokoA->setRzRyMvAng(-ANGLE90 + way[i], ANGLE90);
+                pTama->_pKurokoA->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
             pTama = (GgafDxDrawableActor*)_pDepo_EnemyCeresShots001->dispatch();
             if (pTama) {
                 pTama->locate(_X, _Y, _Z);
-                pTama->_pKurokoA->setRzRyMvAng(-ANGLE90 - way[i], -ANGLE90);
+                pTama->_pKurokoA->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
             }
         }
 

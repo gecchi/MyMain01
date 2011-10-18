@@ -56,7 +56,7 @@ void EnemyJuno::processBehavior() {
     if (_do_Shot) {
         if (getActivePartFrame() == _frame_when_shot) {
             _pKurokoA->setMvVelo(500); //Œ¸‘¬
-            _pKurokoA->execTurnRxSpinAngSequence(ANGLE180, 8000, 0, TURN_CLOCKWISE);
+            _pKurokoA->execTurnRxSpinAngSequence(D180ANG, 8000, 0, TURN_CLOCKWISE);
         } else if (getActivePartFrame() == _frame_when_shot + 20) {
             if (_pDepo_Shot) {
                 GgafDxDrawableActor* pShot = (GgafDxDrawableActor*)_pDepo_Shot->dispatch();

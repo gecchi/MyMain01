@@ -771,7 +771,7 @@ public:
 
 
     /**
-     * Ry は目標への向き＋ANGLE90で、Rz変化による nWay放射弾を打つ .
+     * Ry は目標への向き＋D90ANGで、Rz変化による nWay放射弾を打つ .
      * @param prm_pFrom 発射元
      * @param prm_pDepo_Shot 発射するショットのデポジトリ
      * @param prm_pTarget 目標

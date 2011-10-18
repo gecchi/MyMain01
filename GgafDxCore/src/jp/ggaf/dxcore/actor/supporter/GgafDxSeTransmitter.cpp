@@ -88,7 +88,7 @@ void GgafDxSeTransmitter::play3D(int prm_id) {
             pCam->_plnVerticalCenter.d;
 
     angle ang = GgafDxUtil::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
-    float pan = GgafDxUtil::COS[ang/ANGLE_RATE] * 0.7; //0.7は完全に右のみ或いは左のみから聞こえるのを避けるため
+    float pan = GgafDxUtil::COS[ang/SANG_RATE] * 0.7; //0.7は完全に右のみ或いは左のみから聞こえるのを避けるため
 
     int delay = (d / (pCam->_zf*PX_UNIT))*MAX_SE_DELAY-10; //10フレーム底上げ
     if (delay < 0) {
@@ -164,7 +164,7 @@ void GgafDxSeTransmitter::updatePanVolume3D() {
                             pCam->_plnVerticalCenter.c*_pActor->_fZ +
                             pCam->_plnVerticalCenter.d;
                     angle ang = GgafDxUtil::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
-                    pan = GgafDxUtil::COS[ang/ANGLE_RATE] * 0.7; //0.7は完全に右のみ或いは左のみから聞こえるのを避けるため
+                    pan = GgafDxUtil::COS[ang/SANG_RATE] * 0.7; //0.7は完全に右のみ或いは左のみから聞こえるのを避けるため
 
                     if (_pActor->_fDist_VpPlnFront > 0) {
                         rate_frequency = 0.9; //背後の場合周波数を下げ、音を少しぐぐもらせる。

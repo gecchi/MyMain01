@@ -50,9 +50,9 @@ void ColliSphere::rotateRxRzRy(angle rX, angle rY, angle rZ) {
     s_ang s_RX, s_RY, s_RZ;
     int wk_cx, wk_cy, wk_cz;
     //当たり判定領域軸回転
-    s_RX = rX / ANGLE_RATE;
-    s_RY = rY / ANGLE_RATE;
-    s_RZ = rZ / ANGLE_RATE;
+    s_RX = rX / SANG_RATE;
+    s_RY = rY / SANG_RATE;
+    s_RZ = rZ / SANG_RATE;
     wk_cx = _base_cx;
     wk_cy = _base_cy;
     wk_cz = _base_cz;
@@ -77,8 +77,8 @@ void ColliSphere::rotateRxRzRy(angle rX, angle rY, angle rZ) {
 //            _cx = (wk_cz * GgafDxUtil::SIN[s_RY]) + (wk_cx * GgafDxUtil::COS[s_RY]);
         //↑普通はこう考えるけど
         //RYは、(1,0,0)を０度として、Y軸の方向を向いて反時計回りなのでこうなる
-        _cx = (wk_cx * GgafDxUtil::COS[S_ANG360-s_RY]) - (wk_cz * GgafDxUtil::SIN[S_ANG360-s_RY]);
-        _cz = (wk_cx * GgafDxUtil::SIN[S_ANG360-s_RY]) + (wk_cz * GgafDxUtil::COS[S_ANG360-s_RY]);
+        _cx = (wk_cx * GgafDxUtil::COS[D360SANG-s_RY]) - (wk_cz * GgafDxUtil::SIN[D360SANG-s_RY]);
+        _cz = (wk_cx * GgafDxUtil::SIN[D360SANG-s_RY]) + (wk_cz * GgafDxUtil::COS[D360SANG-s_RY]);
         wk_cz = _cz;
         wk_cx = _cx;
     }

@@ -11,9 +11,9 @@ FormationJuno001::FormationJuno001(const char* prm_name) :
                    400000,  800000,  1,
                    GgafDxUniverse::_X_goneRight - 300000, 0, GgafDxUniverse::_Z_goneFar - 1000,
                    2000,
-                   ANGLE0, ANGLE180,
+                   D0ANG, D180ANG,
                    30000,
-                   ANGLE0, ANGLE90,
+                   D0ANG, D90ANG,
                    150,
                    10) {
     _class_name = "FormationJuno001";

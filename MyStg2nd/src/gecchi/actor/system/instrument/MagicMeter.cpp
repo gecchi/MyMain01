@@ -143,9 +143,9 @@ void MagicMeter::processDraw() {
     int len_magics = _ringMagics.length();
     int n = 0;
     float u,v;
-    float x = float(App2Pix(_X));
-    float y = float(App2Pix(_Y));
-    float z = float(App2Pix(_Z));
+    float x = float(Co2Px(_X));
+    float y = float(Co2Px(_Y));
+    float z = float(Co2Px(_Z));
     for (int i = 0; i < len_magics; i++) {
         pMagic = pElem->_pValue;//一周したのでアクティブであるはず
         //各マジック要素

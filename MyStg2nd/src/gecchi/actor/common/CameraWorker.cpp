@@ -9,8 +9,8 @@ CameraWorker::CameraWorker(const char* prm_name) : GgafMainActor(prm_name, NULL)
     _class_name = "CameraWorker";
     _pos_camera = 0;
     _pLockOnTarget = NULL;
-    _move_target_XY_CAM_UP = ANGLE90;
-    _angXY_nowCamUp = ANGLE90;
+    _move_target_XY_CAM_UP = D90ANG;
+    _angXY_nowCamUp = D90ANG;
     _burenai_speed = 10000;
     _cam_velo_renge = 30000;
     _stop_renge = 60000;
@@ -186,8 +186,8 @@ void CameraWorker::processBehavior() {
             _angXY_nowCamUp += (ang_velo_cam_up * sgn(da));
         }
         _angXY_nowCamUp = GgafDxUtil::simplifyAng(_angXY_nowCamUp);
-        pCam->_pVecCamUp->x = GgafDxUtil::COS[_angXY_nowCamUp/ANGLE_RATE];
-        pCam->_pVecCamUp->y = GgafDxUtil::SIN[_angXY_nowCamUp/ANGLE_RATE];
+        pCam->_pVecCamUp->x = GgafDxUtil::COS[_angXY_nowCamUp/SANG_RATE];
+        pCam->_pVecCamUp->y = GgafDxUtil::SIN[_angXY_nowCamUp/SANG_RATE];
         pCam->_pVecCamUp->z = 0.0f;
     }
 

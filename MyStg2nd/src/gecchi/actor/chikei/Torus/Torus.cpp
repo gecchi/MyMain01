@@ -5,8 +5,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-//Torus::Torus(const char* prm_name, const char* prm_model, int prm_r1, int prm_r2) : GroundMeshActor(prm_name, prm_model, prm_pStat) {
-Torus::Torus(const char* prm_name, const char* prm_model, int prm_r1, int prm_r2) :
+Torus::Torus(const char* prm_name, const char* prm_model, coord prm_r1, coord prm_r2) :
         CubeMapMeshActor(prm_name, prm_model, STATUS(Torus)) {
     _class_name = "Torus";
     setCubeMapTexture("BkSky_cubemap.dds");
@@ -16,8 +15,8 @@ Torus::Torus(const char* prm_name, const char* prm_model, int prm_r1, int prm_r2
 
 void Torus::addSubBoneOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_angPos1, angle prm_angPos2) {
     //トーラスはZY平面に円
-    s_ang angPos1 = prm_angPos1 /ANGLE_RATE;
-    s_ang angPos2 = prm_angPos2 /ANGLE_RATE;
+    s_ang angPos1 = prm_angPos1 /SANG_RATE;
+    s_ang angPos2 = prm_angPos2 /SANG_RATE;
     //位置を求める
     //平行移動( +_r2, +0, +0) > angPos2のY軸回転 > 平行移動( +0, +0, -_r1) > angPos1のX軸回転 変換行列の dx, dy, dz が欲しい
     //
@@ -43,7 +42,7 @@ void Torus::addSubBoneOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_a
     angle angRz, angRy;
     GgafDxUtil::getRzRyAng((int)(X - CX), (int)(Y - CY), (int)(Z - CZ), angRz, angRy);
     //ボーンとして追加
-    this->addSubBone(prm_pGeoActor, X, Y, Z, ANGLE0, angRz, angRy);
+    this->addSubBone(prm_pGeoActor, X, Y, Z, D0ANG, angRz, angRy);
 }
 
 void Torus::makeCollisionArea(int prm_nSphere){
@@ -53,7 +52,7 @@ void Torus::makeCollisionArea(int prm_nSphere){
     for (int i = 0; i < prm_nSphere; i++) {
         _pCollisionChecker->setColliSphere(
                 i,
-                0 , GgafDxUtil::SIN[paAngRadial[i]/ANGLE_RATE] * _r1, GgafDxUtil::COS[paAngRadial[i]/ANGLE_RATE] * _r1,
+                0 , GgafDxUtil::SIN[paAngRadial[i]/SANG_RATE] * _r1, GgafDxUtil::COS[paAngRadial[i]/SANG_RATE] * _r1,
                 _r2,
                 false, true, true
                 );

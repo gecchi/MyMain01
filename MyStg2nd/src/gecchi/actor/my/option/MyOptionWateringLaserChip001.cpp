@@ -137,17 +137,17 @@ void MyOptionWateringLaserChip001::processBehavior() {
                     } else {
                         _RY += angDRY;
                     }
-                    if (_RZ >= ANGLE360) {
-                        _RZ -= ANGLE360;
+                    if (_RZ >= D360ANG) {
+                        _RZ -= D360ANG;
                     }
                     if (_RZ < 0) {
-                        _RZ += ANGLE360;
+                        _RZ += D360ANG;
                     }
-                    if (_RY >= ANGLE360) {
-                        _RY -= ANGLE360;
+                    if (_RY >= D360ANG) {
+                        _RY -= D360ANG;
                     }
                     if (_RY < 0) {
-                        _RY += ANGLE360;
+                        _RY += D360ANG;
                     }
                 }
             } else {
@@ -164,7 +164,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 int dx = (_X - _pOrg->_X);
                 int dy = (_Y - _pOrg->_Y);
                 int dz = (_Z - _pOrg->_Z);
-                static coord zf = Dx2App(P_CAM->_zf)*2;
+                static coord zf = Dx2Co(P_CAM->_zf)*2;
                 vTx = _X+dx*(dx == 0 ? zf : abs(zf/dx));
                 vTy = _Y+dy*(dy == 0 ? zf : abs(zf/dy));
                 vTz = _Z+dz*(dz == 0 ? zf : abs(zf/dz));
@@ -231,17 +231,17 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 } else {
                     _RY += angDRY;
                 }
-                if (_RZ >= ANGLE360) {
-                    _RZ -= ANGLE360;
+                if (_RZ >= D360ANG) {
+                    _RZ -= D360ANG;
                 }
                 if (_RZ < 0) {
-                    _RZ += ANGLE360;
+                    _RZ += D360ANG;
                 }
-                if (_RY >= ANGLE360) {
-                    _RY -= ANGLE360;
+                if (_RY >= D360ANG) {
+                    _RY -= D360ANG;
                 }
                 if (_RY < 0) {
-                    _RY += ANGLE360;
+                    _RY += D360ANG;
                 }
             }
         }

@@ -26,9 +26,9 @@ public:
 
 
     struct PosLaser {
-        int X;
-        int Y;
-        int Z;
+        coord X;
+        coord Y;
+        coord Z;
     };
     /** レーザー発射ローカル座標 */
     PosLaser** _papaPosLaser;
