@@ -26,7 +26,7 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     //“ÆŽ©ƒ[ƒ‹ƒh•ÏŠ·
     defineRotMvWorldMatrix(HoshiBoshi::setWorldMatrix_HoshiBoshi);
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-3);//Å[•”
-    //¯‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñ‚ÅA
+    //¯X‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñ‚ÅA
     //Œ»‹óŠÔ‚Ì‘å‚«‚³‚ÉŽU‚ç‚Î‚ç‚¹‚é
     _far_rate = 30.0f;
     _SX = _SY = _SZ =  (P_CAM->_zf*LEN_UNIT)*_far_rate;

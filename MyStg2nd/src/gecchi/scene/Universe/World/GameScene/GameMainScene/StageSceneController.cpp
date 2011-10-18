@@ -47,7 +47,7 @@ void StageSceneController::onReset() {
     P_COMMON_SCENE->activateImmediately();
     P_MYSHIP_SCENE->activateImmediately();
     addSubLast(P_COMMON_SCENE->extract());
-    addSubLast(P_MYSHIP_SCENE->extract());
+    addSubLast(P_MYSHIP_SCENE->extract()); //スローの影響を与えないために一つ上
     _pProg->set(STAGESCENECONTROLLER_PROG_INIT);
 }
 //void StageSceneController::readyNextStage() {
@@ -143,7 +143,7 @@ void StageSceneController::processBehavior() {
             break;
     }
     //ランクアップシーン差し込み
-    
+
     if (GgafDxInput::isPushedDownKey(DIK_U)) {
         _TRACE_("_RANK_UP_LEVEL_？？？"<<_RANK_UP_LEVEL_);
         if (_can_rank_up) {

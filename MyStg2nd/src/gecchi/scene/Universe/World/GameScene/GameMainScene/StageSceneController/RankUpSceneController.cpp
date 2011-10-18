@@ -15,6 +15,10 @@ enum {
 RankUpSceneController::RankUpSceneController(const char* prm_name) : StageScene(prm_name) {
     _class_name = "RankUpSceneController";
     _TRACE_("RankUpSceneController::RankUpSceneController("<<prm_name<<")");
+
+    for (int i = 0; i < MAX_RANKUP_SCENE; i ++) {
+        _apLastRankUpScene[i] = NULL;
+    }
     useProgress(RANKUPCONTROLLER_PROG_FINISH);
     readyStage(_RANK_UP_LEVEL_ + 1);
 }
@@ -26,6 +30,7 @@ void RankUpSceneController::execute() {
     addSubLast(_pLastRankUpScene);
     _pLastRankUpScene->fadeinSceneTree(180);
 
+    _apLastRankUpScene[_RANK_UP_LEVEL_-1] = _pLastRankUpScene;
     //スローダウン
 
 }
@@ -33,10 +38,14 @@ void RankUpSceneController::slowdown(RankUpScene* prm_pLastAdded) {
     //スローダウン
     if (getSubFirst()) {
         //初回
-        P_STAGE_CONTROLLER->setRunFrameOnceTree(2);
+        P_STAGE_CONTROLLER->_pStageSceneMainCannel->setRunFrameOnceTree(2);
+        P_STAGE_CONTROLLER->_pTransitStage->setRunFrameOnceTree(2);
+        P_COMMON_SCENE->setRunFrameOnceTree(2);
     } else {
         //連チャン
-        P_STAGE_CONTROLLER->setRunFrameOnceTree(P_STAGE_CONTROLLER->_n_once*2);
+        P_STAGE_CONTROLLER->_pStageSceneMainCannel->setRunFrameOnceTree(P_STAGE_CONTROLLER->_pStageSceneMainCannel->_n_once*2);
+        P_STAGE_CONTROLLER->_pTransitStage->setRunFrameOnceTree(P_STAGE_CONTROLLER->_pTransitStage->_n_once*2);
+        P_COMMON_SCENE->setRunFrameOnceTree(P_COMMON_SCENE->_n_once*2);
         RankUpScene* pRankUpScene = (RankUpScene*)_pSubFirst;
         while(true) {
             pRankUpScene->setRunFrameOnceTree(pRankUpScene->_n_once*2);
@@ -62,7 +71,10 @@ void RankUpSceneController::slowRelease(RankUpScene* prm_pInactive) {
             pRankUpScene = (RankUpScene*)(pRankUpScene->_pPrev);
         }
     }
-    P_STAGE_CONTROLLER->setRunFrameOnceTree(P_STAGE_CONTROLLER->_n_once/2);
+    P_STAGE_CONTROLLER->_pStageSceneMainCannel->setRunFrameOnceTree(P_STAGE_CONTROLLER->_pStageSceneMainCannel->_n_once/2);
+    P_STAGE_CONTROLLER->_pTransitStage->setRunFrameOnceTree(P_STAGE_CONTROLLER->_pTransitStage->_n_once/2);
+    P_COMMON_SCENE->setRunFrameOnceTree(P_COMMON_SCENE->_n_once/2);
+
 }
 void RankUpSceneController::onReset() {
     _pProg->set(RANKUPCONTROLLER_PROG_INIT);
@@ -380,55 +392,37 @@ void RankUpSceneController::initialize() {
 }
 
 void RankUpSceneController::processBehavior() {
-    switch (_pProg->get()) {
-        case RANKUPCONTROLLER_PROG_INIT: {
-            _pProg->change(RANKUPCONTROLLER_PROG_PLAY);
-            break;
-        }
-
-
-        case RANKUPCONTROLLER_PROG_PLAY: {
-            if (_pProg->isJustChanged()) {
-            }
-            break;
-        }
-
-        case RANKUPCONTROLLER_PROG_FINISH: {
-            if (_pProg->isJustChanged()) {
-            }
-            break;
-        }
-
-        default:
-            break;
-    }
+//    switch (_pProg->get()) {
+//        case RANKUPCONTROLLER_PROG_INIT: {
+//            _pProg->change(RANKUPCONTROLLER_PROG_PLAY);
+//            break;
+//        }
+//
+//
+//        case RANKUPCONTROLLER_PROG_PLAY: {
+//            if (_pProg->isJustChanged()) {
+//            }
+//            break;
+//        }
+//
+//        case RANKUPCONTROLLER_PROG_FINISH: {
+//            if (_pProg->isJustChanged()) {
+//            }
+//            break;
+//        }
+//
+//        default:
+//            break;
+//    }
 
 }
 void RankUpSceneController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
-//    if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
-//        //次のステージを工場に注文していいよというイベント
-//        _TRACE_("RankUpSceneController::onCatchEvent() EVENT_PREPARE_NEXT_STAGE 準備きた");
-//        if (_rank <= 5) {
-//            readyStage(_rank+1);
-//        } else {
-////            _TRACE_("最終面クリア");
-////            _pProg->change(RANKUPCONTROLLER_PROG_END);
-//            //TODO:エデニング？
-//        }
-//    }
-//
-//    if (prm_no == EVENT_STG01_WAS_END) {
-//        _TRACE_("RankUpSceneController::onCatchEvent() EVENT_STG01_WAS_END");
-//        _pRankUpSceneMainCannel->end(60*60);
-//        _pProg->change(RANKUPCONTROLLER_PROG_FINISH);
-//    }
-//    if (prm_no == EVENT_STG02_WAS_END) {
-//        _TRACE_("RankUpSceneController::onCatchEvent() EVENT_STG01_WAS_END");
-//        _pRankUpSceneMainCannel->end(60*60);
-//        _pProg->change(RANKUPCONTROLLER_PROG_FINISH);
-//    }
-
-
+    if (prm_no == EVENT_RANKUP_WAS_END) {
+        _TRACE_("RankUpSceneController::onCatchEvent() _pLastRankUpScene");
+        RankUpScene* pScene = (RankUpScene*)prm_pSource; //終了宣言したRankUpScene
+        pScene->fadeoutScene(300);
+        pScene->end(300);
+    }
 }
 void RankUpSceneController::processFinal() {
 }

@@ -9,12 +9,6 @@ class RankUp002 : public RankUpScene {
 
 public:
 
-    WorldBoundSpace001* _pWorldBoundSpace;
-    HoshiBoshi001* _pHoshiBoshi;
-
-
-    LabelGecchi16Font* _pMessage;
-
     RankUp002(const char* prm_name);
     /**
      * ‰Šúˆ—

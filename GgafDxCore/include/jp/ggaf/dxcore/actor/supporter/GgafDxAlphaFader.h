@@ -115,6 +115,20 @@ public:
     }
 
     /**
+     * 状態をリセットする .
+     * 例えば beat() 中、途中で元に戻したい場合等に使用する。
+     * 内部的には、次のように実行するだけです。
+     * stopImmediately()
+     * setAlphaToTop()
+     * behave()
+     */
+    void reset() {
+        stopImmediately();
+        setAlphaToTop();
+        behave();
+    }
+
+    /**
      * 現在フェーディング中かどうか .
      * @return
      */

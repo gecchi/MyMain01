@@ -8,6 +8,9 @@ namespace MyStg2nd {
 #else
     #error P_STAGE_CONTROLLER isnt define
 #endif
+
+#define MAX_RANKUP_SCENE 100
+
 /**
  * ランクアップシーンのコントローラー .
  * 主な仕事はランクアップステージの切り替えです。
@@ -21,6 +24,7 @@ public:
 //    static RankUpSceneController* _pRankUpSceneController;
 
     char _buf[60];
+    RankUpScene* _apLastRankUpScene[MAX_RANKUP_SCENE];
     RankUpScene* _pLastRankUpScene;
 
     RankUpSceneController(const char* prm_name);

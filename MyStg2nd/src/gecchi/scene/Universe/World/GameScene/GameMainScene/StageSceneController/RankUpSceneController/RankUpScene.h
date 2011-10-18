@@ -17,8 +17,8 @@ public:
     static bool _pause;
 public:
 
-    WorldBoundSpace001* _pWorldBoundSpace;
-    HoshiBoshi001* _pHoshiBoshi;
+    WorldBoundSpaceRankUp* _pWorldBoundSpace;
+    HoshiBoshiRankUp* _pHoshiBoshi;
     LabelGecchi16Font* _pMessage;
 
     RankUpScene(const char* prm_name);

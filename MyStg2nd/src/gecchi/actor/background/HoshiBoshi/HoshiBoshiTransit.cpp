@@ -10,6 +10,7 @@ using namespace MyStg2nd;
 HoshiBoshiTransit::HoshiBoshiTransit(const char* prm_name) :
         HoshiBoshi(prm_name, "HoshiBoshiTransit") {
     _class_name = "HoshiBoshiTransit";
+    //¯X‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñ‚ÅA
     _far_rate = 1.0f;
     _SX = _SY = _SZ =  (P_CAM->_zf*LEN_UNIT)*_far_rate;
 }

@@ -10,6 +10,7 @@ using namespace MyStg2nd;
 HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
         HoshiBoshi(prm_name, "HoshiBoshi001") {
     _class_name = "HoshiBoshi001";
+    //¯X‚ÍDIRECTX‹——£-1.0`1.0i-10px`10px)‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñB
     _far_rate = 30.0f;
     _SX = _SY = _SZ =  (P_CAM->_zf*LEN_UNIT)*_far_rate;
 }

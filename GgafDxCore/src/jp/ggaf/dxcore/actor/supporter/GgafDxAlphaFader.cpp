@@ -161,10 +161,10 @@ void GgafDxAlphaFader::loopLiner(frame prm_beat_target_frames, float prm_beat_nu
 }
 
 void GgafDxAlphaFader::beat(frame prm_beat_target_frames,
-                             frame prm_attack_frames,
-                             frame prm_duration_frames,
-                             frame prm_rest_frames,
-                             float prm_beat_num) {
+                            frame prm_attack_frames,
+                            frame prm_duration_frames,
+                            frame prm_rest_frames,
+                            float prm_beat_num) {
     _method = BEAT_ALPHAFADE_TRIANGLEWAVE;
     _one_way_cnt = 0;
     _stop_one_way_num = (int)(prm_beat_num*2.0f);

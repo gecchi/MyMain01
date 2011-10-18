@@ -163,6 +163,7 @@ DECLARE_CONST(EVENT_STG01_CONTROLLER_WAS_END);
 DECLARE_CONST(EVENT_STG01_WAS_END);
 
 DECLARE_CONST(EVENT_TRANSIT_WAS_END);
+DECLARE_CONST(EVENT_RANKUP_WAS_END);
 
 DECLARE_CONST(EVENT_STG02_01_WAS_BROKEN);
 DECLARE_CONST(EVENT_STG02_02_WAS_BROKEN);
@@ -309,12 +310,13 @@ class EffectCondensation001;
 class EffectLaserRefraction001;
 
 class HoshiBoshiTransit;
+class HoshiBoshiRankUp;
 class HoshiBoshi001;
 class HoshiBoshi002;
 class WorldBoundSpaceTransit;
 class WorldBoundSpace001;
 class WorldBoundSpace002;
-class WorldBoundSpaceTransit;
+class WorldBoundSpaceRankUp;
 
 class TurboMeter;
 class LabelGecchi8Font;
@@ -559,6 +561,7 @@ class MagicMeter;
 #include "gecchi/actor/background/board/TurboMeter.h"
 #include "gecchi/actor/background/HoshiBoshi/HoshiBoshi.h"
 #include "gecchi/actor/background/HoshiBoshi/HoshiBoshiTransit.h"
+#include "gecchi/actor/background/HoshiBoshi/HoshiBoshiRankUp.h"
 #include "gecchi/actor/background/HoshiBoshi/HoshiBoshi001.h"
 #include "gecchi/actor/background/HoshiBoshi/HoshiBoshi002.h"
 
