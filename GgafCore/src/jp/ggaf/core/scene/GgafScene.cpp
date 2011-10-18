@@ -63,9 +63,10 @@ void GgafScene::nextFrame() {
     if (!isActiveScene()) {
         _n_once = 1;
     }
+
+    TRACE("GgafScene::nextFrame() " << getName());
+    GgafElement<GgafScene>::nextFrame();
     if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
-        TRACE("GgafScene::nextFrame() " << getName());
-        GgafElement<GgafScene>::nextFrame();
         _pDirector->nextFrame();
     }
 }
@@ -79,17 +80,17 @@ void GgafScene::behave() {
 }
 
 void GgafScene::settleBehavior() {
+    TRACE("GgafScene::settleBehavior() " << getName());
+    GgafElement<GgafScene>::settleBehavior();
     if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
-        TRACE("GgafScene::settleBehavior() " << getName());
-        GgafElement<GgafScene>::settleBehavior();
         _pDirector->settleBehavior();
     }
 }
 
 void GgafScene::judge() {
+    TRACE("GgafScene::judge() " << getName());
+    GgafElement<GgafScene>::judge();
     if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
-        TRACE("GgafScene::judge() " << getName());
-        GgafElement<GgafScene>::judge();
         _pDirector->judge();
     }
 }
@@ -123,8 +124,8 @@ void GgafScene::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
 
 
 void GgafScene::doFinally() {
+    GgafElement<GgafScene>::doFinally();
     if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
-        GgafElement<GgafScene>::doFinally();
         _pDirector->doFinally();
     }
 }
