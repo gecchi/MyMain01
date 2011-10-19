@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace MyStg2nd;
 
 EnemyCirce::EnemyCirce(const char* prm_name) :
-        DefaultMeshActor(prm_name, "ebi", STATUS(EnemyCirce)) { //8/をいれとかないとユニークにならない
+        DefaultMeshSetActor(prm_name, "Ceres", STATUS(EnemyCirce)) { //8/をいれとかないとユニークにならない
     _class_name = "EnemyCirce";
     _iMovePatternNo = 0;
     _pSeTransmitter->useSe(1);
@@ -23,7 +23,7 @@ void EnemyCirce::initialize() {
     setHitAble(true);
     _pScaler->setScale(100);
     _pKurokoA->relateFaceAngWithMvAng(true);
-    _pKurokoA->setMvVelo(300);
+    _pKurokoA->setMvVelo(3000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
 }
@@ -59,9 +59,9 @@ void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
         pExplo001->_pKurokoA->takeoverMvFrom(_pKurokoA);
     }
 
-//    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-//        sayonara();
-//    }
+    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        sayonara();
+    }
 }
 
 void EnemyCirce::onInactive() {

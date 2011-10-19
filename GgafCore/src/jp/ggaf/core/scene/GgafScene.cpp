@@ -12,7 +12,7 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     _obj_class = Obj_GgafScene;
 
     _pDirector = NEW GgafDirector(this);
-    _n_once = 1;
+    _once_in_n_time = 1;
 #ifdef MY_DEBUG
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
 #else
@@ -29,28 +29,28 @@ GgafScene::~GgafScene() {
 #endif
     DELETE_POSSIBLE_NULL(_pDirector);
 }
-void GgafScene::setRunFrameOnce(int prm_n_once) {
+void GgafScene::setRunFrameOnce(int prm_once_in_n_time) {
     if (isActiveScene()) {
-        if (prm_n_once <= 1) {
-            _n_once = 1;
+        if (prm_once_in_n_time <= 1) {
+            _once_in_n_time = 1;
         } else {
-            _n_once = prm_n_once;
+            _once_in_n_time = prm_once_in_n_time;
         }
     }
 }
 
-void GgafScene::setRunFrameOnceTree(int prm_n_once) {
+void GgafScene::setRunFrameOnceTree(int prm_once_in_n_time) {
     if (isActiveScene()) {
-        if (prm_n_once <= 1) {
-            _n_once = 1;
+        if (prm_once_in_n_time <= 1) {
+            _once_in_n_time = 1;
         } else {
-            _n_once = prm_n_once;
+            _once_in_n_time = prm_once_in_n_time;
         }
     }
     if (_pSubFirst) {
         GgafScene* pSceneTemp = _pSubFirst;
         while(true) {
-            pSceneTemp->setRunFrameOnceTree(prm_n_once);
+            pSceneTemp->setRunFrameOnceTree(prm_once_in_n_time);
             if (pSceneTemp->_is_last_flg) {
                 break;
             } else {
@@ -59,39 +59,73 @@ void GgafScene::setRunFrameOnceTree(int prm_n_once) {
         }
     }
 }
+
+void GgafScene::addSubLast(GgafScene* prm_pScene) override {
+//    prm_pScene->_once_in_n_time = _once_in_n_time;
+    GgafElement<GgafScene>::addSubLast(prm_pScene);
+}
+
 void GgafScene::nextFrame() {
     if (!isActiveScene()) {
-        _n_once = 1;
+        _once_in_n_time = 1;
     }
 
     TRACE("GgafScene::nextFrame() " << getName());
-    GgafElement<GgafScene>::nextFrame();
-    if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
+    if (_once_in_n_time == 1 || getParent()->getBehaveingFrame() % _once_in_n_time == 0) {
+        GgafElement<GgafScene>::nextFrame();
         _pDirector->nextFrame();
+    } else {
+        if (_pSubFirst) {
+            GgafScene* pElementTemp = _pSubFirst;
+            while (true) {
+
+                if (pElementTemp->_is_last_flg) {
+                    pElementTemp->nextFrame();
+                    if (pElementTemp->_can_live_flg == false) {
+                        pElementTemp->onGarbaged();
+                        GgafFactory::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
+                    }
+                    break;
+                } else {
+                    pElementTemp = pElementTemp->_pNext;
+                    pElementTemp->_pPrev->nextFrame();
+                    if (pElementTemp->_pPrev->_can_live_flg == false) {
+                        ((GgafScene*)(pElementTemp->_pPrev))->onGarbaged();
+                        GgafFactory::_pGarbageBox->add(pElementTemp->_pPrev); //ゴミ箱へ
+                    }
+                }
+            }
+        }
     }
 }
 
 void GgafScene::behave() {
-    if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
-        TRACE("GgafScene::behave() " << getName());
+    TRACE("GgafScene::behave() " << getName());
+    if (_once_in_n_time == 1 || getBehaveingFrame() % _once_in_n_time == 0) {
         GgafElement<GgafScene>::behave();
         _pDirector->behave();
+    } else {
+        callRecursive(&GgafElement<GgafScene>::behave); //再帰
     }
 }
 
 void GgafScene::settleBehavior() {
     TRACE("GgafScene::settleBehavior() " << getName());
-    GgafElement<GgafScene>::settleBehavior();
-    if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
+    if (_once_in_n_time == 1 || getBehaveingFrame() % _once_in_n_time == 0) {
+        GgafElement<GgafScene>::settleBehavior();
         _pDirector->settleBehavior();
+    } else {
+        callRecursive(&GgafElement<GgafScene>::settleBehavior); //再帰
     }
 }
 
 void GgafScene::judge() {
     TRACE("GgafScene::judge() " << getName());
-    GgafElement<GgafScene>::judge();
-    if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
+    if (_once_in_n_time == 1 || getBehaveingFrame() % _once_in_n_time == 0) {
+        GgafElement<GgafScene>::judge();
         _pDirector->judge();
+    } else {
+        callRecursive(&GgafElement<GgafScene>::judge); //再帰
     }
 }
 
@@ -124,9 +158,11 @@ void GgafScene::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
 
 
 void GgafScene::doFinally() {
-    GgafElement<GgafScene>::doFinally();
-    if (_n_once == 1 || getParent()->getBehaveingFrame() % _n_once == 0) {
+    if (_once_in_n_time == 1 || getParent()->getBehaveingFrame() % _once_in_n_time == 0) {
+        GgafElement<GgafScene>::doFinally();
         _pDirector->doFinally();
+    } else {
+        callRecursive(&GgafElement<GgafScene>::doFinally); //再帰
     }
 }
 

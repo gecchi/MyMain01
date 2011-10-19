@@ -2,7 +2,6 @@
 #define GGAFELEMENT_H_
 namespace GgafCore {
 
-#define GGAF_NODE GgafCore::GgafNode<T>
 /** 共通遅延解放フレーム数 */
 #define GGAF_SAYONARA_DELAY (60*15)
 //GGAF_SAYONARA_DELAYは全Element共通の解放遅延フレーム数で、
@@ -164,6 +163,7 @@ public:
      * 神(GgafGod)は、この世(GgafUniverse)に対して behave() 実行後、次は settleBehavior() を実行することになる。<BR>
      */
     virtual void behave();
+    void callRecursive(void (GgafElement<T>::*pFunc)());
 
     /**
      * 非活動→活動時に切り替わった時の処理(単体) .
@@ -201,6 +201,7 @@ public:
      * 神(GgafGod)は、この世(GgafUniverse)に対して settleBehavior() 実行後、次に judge() を実行することになる。<BR>
      */
     virtual void settleBehavior();
+
 
 
     /**
@@ -676,7 +677,7 @@ public:
     }
 
     virtual void moveLastImmediately() {
-        GGAF_NODE::moveLast();
+        GgafCore::GgafNode<T>::moveLast();
     }
     /**
      * 自ツリーノードを先頭ノードに移動する(単体) .
@@ -688,7 +689,7 @@ public:
     }
 
     virtual void moveFirstImmediately() {
-        GGAF_NODE::moveFirst();
+        GgafCore::GgafNode<T>::moveFirst();
     }
 //    /**
 //     * 所属ツリーから独立する(単体)
@@ -827,7 +828,7 @@ public:
         if (_pProg == NULL) {
             _pProg = NEW GgafProgress(&_frame_of_behaving, prm_num);
         } else {
-            _TRACE_("["<<GGAF_NODE::getName()<<"] は既に useProgress しています。prm_num="<<prm_num);
+            _TRACE_("["<<GgafCore::GgafNode<T>::getName()<<"] は既に useProgress しています。prm_num="<<prm_num);
         }
     }
 
@@ -873,7 +874,7 @@ void GgafElement<T>::nextFrame() {
     //moveLast予約時
     if (_will_mv_last_in_next_frame_flg) {
         _will_mv_last_in_next_frame_flg = false;
-        GGAF_NODE::moveLast();
+        GgafCore::GgafNode<T>::moveLast();
         return;
         //即returnする事は重要。nextFrame() 処理の２重実行をさけるため。
         //このノードは、末尾に回されているため、必ずもう一度 nextFrame() の機会が訪れる。
@@ -961,30 +962,9 @@ void GgafElement<T>::nextFrame() {
             _pProg->update();
         }
     }
-/*
     //配下のnextFrame()実行
-    if (GGAF_NODE::_pSubFirst) {
-        T* pElementTemp = GGAF_NODE::_pSubFirst;
-        while(true) {
-
-            pElementTemp->nextFrame(); //実行
-
-            if (pElementTemp->_can_live_flg == false) {
-                pElementTemp->onGarbaged();
-                GgafFactory::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
-                if (pElementTemp->_is_last_flg) {
-                    break; //親へ戻る
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
-    }
-*/
-
-    //配下のnextFrame()実行
-    if (GGAF_NODE::_pSubFirst) {
-        T* pElementTemp = GGAF_NODE::_pSubFirst;
+    if (GgafCore::GgafNode<T>::_pSubFirst) {
+        T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
         while(true) {
 
             if (pElementTemp->_is_last_flg) {
@@ -995,11 +975,11 @@ void GgafElement<T>::nextFrame() {
                 }
                 break;
             } else {
-                pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                pElementTemp->GGAF_NODE::_pPrev->nextFrame();
-                if (pElementTemp->GGAF_NODE::_pPrev->_can_live_flg == false) {
-                    ((T*)(pElementTemp->GGAF_NODE::_pPrev))->onGarbaged();
-                    GgafFactory::_pGarbageBox->add(pElementTemp->GGAF_NODE::_pPrev); //ゴミ箱へ
+                pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
+                pElementTemp->GgafCore::GgafNode<T>::_pPrev->nextFrame();
+                if (pElementTemp->GgafCore::GgafNode<T>::_pPrev->_can_live_flg == false) {
+                    ((T*)(pElementTemp->GgafCore::GgafNode<T>::_pPrev))->onGarbaged();
+                    GgafFactory::_pGarbageBox->add(pElementTemp->GgafCore::GgafNode<T>::_pPrev); //ゴミ箱へ
                 }
             }
         }
@@ -1008,7 +988,7 @@ void GgafElement<T>::nextFrame() {
 
     if (_will_mv_first_in_next_frame_flg) {
         _will_mv_first_in_next_frame_flg = false;
-        GGAF_NODE::moveFirst();
+        GgafCore::GgafNode<T>::moveFirst();
         //moveFirstを一番最後にすることは重要。
         //これは nextFrame() の２重実行を避けるため。
     }
@@ -1019,107 +999,60 @@ void GgafElement<T>::nextFrame() {
 
 template<class T>
 void GgafElement<T>::behave() {
-//    if(_was_initialize_flg == false) {
-//        initialize();
-//        _was_initialize_flg = true;
-//    }
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
             processBehavior();    //ユーザー実装用
         }
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->behave();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::behave); //再帰
     }
 }
 
 template<class T>
 void GgafElement<T>::settleBehavior() {
-//    if(_was_initialize_flg == false) {
-//        initialize();
-//        _was_initialize_flg = true;
-//    }
-
-    //if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
-    if (_is_active_flg && _can_live_flg) {
+    if (_is_active_flg && _can_live_flg) { //_was_paused_flg は忘れていません
         if (_was_initialize_flg) {
             _frameEnd = 0;
             processSettlementBehavior(); //フレームワーク用
         }
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->settleBehavior();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
+        callRecursive(&GgafElement<T>::settleBehavior); //再帰
+    }
+}
+template<class T>
+void GgafElement<T>::callRecursive(void (GgafElement<T>::*pFunc)()) {
+    if (GgafCore::GgafNode<T>::_pSubFirst) {
+        T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
+        while(true) {
+            (pElementTemp->*pFunc)(); //実行
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
             }
         }
     }
 }
 
-
 template<class T>
 void GgafElement<T>::judge() {
-//    if(_was_initialize_flg == false) {
-//        initialize();
-//        _was_initialize_flg = true;
-//    }
-
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
             processJudgement();    //ユーザー実装用
         }
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->judge();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::judge); //再帰
     }
 }
 
 template<class T>
 void GgafElement<T>::preDraw() {
-//    if(_was_initialize_flg == false) {
-//        initialize();
-//        _was_initialize_flg = true;
-//    }
-
     if (_is_active_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
             processPreDraw();
         }
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->preDraw();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::preDraw); //再帰
     }
 }
 
@@ -1130,17 +1063,7 @@ void GgafElement<T>::draw() {
             _frameEnd = 0;
             processDraw();
         }
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->draw();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::draw); //再帰
     }
 }
 
@@ -1151,44 +1074,19 @@ void GgafElement<T>::afterDraw() {
             _frameEnd = 0;
             processAfterDraw();
         }
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->afterDraw();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::afterDraw); //再帰
     }
 }
 
 
 template<class T>
 void GgafElement<T>::doFinally() {
-//    if(_was_initialize_flg == false) {
-//        initialize();
-//        _was_initialize_flg = true;
-//    }
-
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
             processFinal();
         }
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->doFinally();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::doFinally); //再帰
     }
 }
 
@@ -1222,17 +1120,7 @@ void GgafElement<T>::resetTree() {
             onReset();
             _is_already_reset = true;
         }
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->resetTree();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::resetTree); //再帰
     }
 }
 
@@ -1247,17 +1135,7 @@ template<class T>
 void GgafElement<T>::activateTree() {
     if (_can_live_flg) {
         activateDelay(1);
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->activateTree();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::activateTree); //再帰
     }
 }
 
@@ -1272,17 +1150,7 @@ template<class T>
 void GgafElement<T>::activateTreeImmediately() {
     if (_can_live_flg) {
         activateImmediately();
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->activateTreeImmediately();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::activateTreeImmediately); //再帰
     }
 }
 
@@ -1329,14 +1197,14 @@ void GgafElement<T>::activateTreeDelay(frame prm_offset_frames) {
 #endif
     if (_can_live_flg) {
         activateDelay(prm_offset_frames);
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
+        if (GgafCore::GgafNode<T>::_pSubFirst) {
+            T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
             while(true) {
-                pElementTemp->activateTree();
+                pElementTemp->activateTreeDelay(prm_offset_frames);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+                    pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
                 }
             }
         }
@@ -1354,17 +1222,7 @@ template<class T>
 void GgafElement<T>::inactivateTree() {
     if (_can_live_flg) {
         inactivateDelay(1);
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->inactivateTree();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::inactivateTree); //再帰
     }
 }
 
@@ -1405,14 +1263,14 @@ void GgafElement<T>::inactivateTreeDelay(frame prm_offset_frames) {
 #endif
     if (_can_live_flg) {
         inactivateDelay(prm_offset_frames);
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
+        if (GgafCore::GgafNode<T>::_pSubFirst) {
+            T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
             while(true) {
                 pElementTemp->inactivateTreeDelay(prm_offset_frames);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+                    pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
                 }
             }
         }
@@ -1430,17 +1288,7 @@ template<class T>
 void GgafElement<T>::inactivateTreeImmediately() {
     if (_can_live_flg) {
         inactivateImmediately();
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->inactivateTreeImmediately();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::inactivateTreeImmediately); //再帰
     }
 }
 
@@ -1449,17 +1297,7 @@ void GgafElement<T>::pauseTree() {
     if (_can_live_flg) {
         _was_paused_flg_in_next_frame = true;
         //_is_active_flg = false;
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->pauseTree();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::pauseTree); //再帰
     }
 }
 
@@ -1475,17 +1313,7 @@ void GgafElement<T>::pauseTreeImmediately() {
     if (_can_live_flg) {
         _was_paused_flg = true;
         _was_paused_flg_in_next_frame = true;
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->pauseTreeImmediately();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::pauseTreeImmediately); //再帰
     }
 }
 
@@ -1501,17 +1329,7 @@ template<class T>
 void GgafElement<T>::unpauseTree() {
     if (_can_live_flg) {
         _was_paused_flg_in_next_frame = false;
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->unpauseTree();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::unpauseTree); //再帰
     }
 }
 
@@ -1527,17 +1345,7 @@ void GgafElement<T>::unpauseTreeImmediately() {
     if (_can_live_flg) {
         _was_paused_flg = false;
         _was_paused_flg_in_next_frame = false;
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
-            while(true) {
-                pElementTemp->unpauseTreeImmediately();
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::unpauseTreeImmediately); //再帰
     }
 }
 
@@ -1560,8 +1368,8 @@ void GgafElement<T>::end(frame prm_offset_frames) {
     _will_end_after_flg = true;
     _frame_of_life_when_end = _frame_of_life + prm_offset_frames + GGAF_SAYONARA_DELAY;
     inactivateDelay(prm_offset_frames); //指定フレームにはinactivateが行われる
-    if (GGAF_NODE::_pSubFirst) {
-        T* pElementTemp = GGAF_NODE::_pSubFirst;
+    if (GgafCore::GgafNode<T>::_pSubFirst) {
+        T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
         while(true) {
             if (prm_offset_frames > 2) {
                 pElementTemp->end(prm_offset_frames-1); //出来るだけ末端からendする
@@ -1571,7 +1379,7 @@ void GgafElement<T>::end(frame prm_offset_frames) {
             if (pElementTemp->_is_last_flg) {
                 break;
             } else {
-                pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+                pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
             }
         }
     }
@@ -1647,20 +1455,20 @@ bool GgafElement<T>::relativeFrame(frame prm_frameEnd) {
 //template<class T>
 //T* GgafElement<T>::extract() {
 //    if (_can_live_flg) {
-//        return GGAF_NODE::extract();
+//        return GgafCore::GgafNode<T>::extract();
 //    } else {
-//        //_TRACE_("[GgafElement<"<<GGAF_NODE::_class_name<<">::extract()] ＜警告＞ "<<GGAF_NODE::getName()<<"は、死んでいます。");
-//        return GGAF_NODE::extract();
+//        //_TRACE_("[GgafElement<"<<GgafCore::GgafNode<T>::_class_name<<">::extract()] ＜警告＞ "<<GgafCore::GgafNode<T>::getName()<<"は、死んでいます。");
+//        return GgafCore::GgafNode<T>::extract();
 //    }
 //}
 
 template<class T>
 void GgafElement<T>::clean(int prm_num_cleaning) {
-    if (GGAF_NODE::_pSubFirst == NULL) {
+    if (GgafCore::GgafNode<T>::_pSubFirst == NULL) {
         return;
     }
 
-    T* pElementTemp = GGAF_NODE::_pSubFirst->_pPrev;
+    T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst->_pPrev;
     T* pWk;
 
     while(GgafFactory::_cnt_cleaned < prm_num_cleaning) {
@@ -1720,14 +1528,14 @@ void GgafElement<T>::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, vo
         if (_was_initialize_flg) {
             pFunc(this, prm1, prm2);
         }
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
+        if (GgafCore::GgafNode<T>::_pSubFirst) {
+            T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
             while(true) {
                 pElementTemp->executeFuncToLowerTree(pFunc, prm1, prm2);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+                    pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
                 }
             }
         }
@@ -1739,14 +1547,14 @@ void GgafElement<T>::throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         _frameEnd = 0;
         onCatchEvent(prm_no, prm_pSource);
-        if (GGAF_NODE::_pSubFirst) {
-            T* pElementTemp = GGAF_NODE::_pSubFirst;
+        if (GgafCore::GgafNode<T>::_pSubFirst) {
+            T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
             while(true) {
-                pElementTemp->throwEventToLowerTree(prm_no, this);
+                pElementTemp->throwEventToLowerTree(prm_no, prm_pSource);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+                    pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
                 }
             }
         }
@@ -1760,9 +1568,9 @@ void GgafElement<T>::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
             _frameEnd = 0;
             onCatchEvent(prm_no, prm_pSource);
         }
-        if (GGAF_NODE::_pParent) {
-            T* pElementTemp = GGAF_NODE::_pParent;
-            pElementTemp->throwEventToUpperTree(prm_no, this);
+        if (GgafCore::GgafNode<T>::_pParent) {
+            T* pElementTemp = GgafCore::GgafNode<T>::_pParent;
+            pElementTemp->throwEventToUpperTree(prm_no, prm_pSource);
         } else {
             //てっぺん
         }

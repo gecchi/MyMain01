@@ -92,8 +92,8 @@ protected:
     GgafDirector* _pDirector;
 
 public:
-
-    frame _n_once;
+    /** 何フレームに１回動作するか */
+    frame _once_in_n_time;
     /**
      * コンストラクタ .
      * 引数： prm_name シーン名<BR>
@@ -114,19 +114,13 @@ public:
      * 2 を設定すると 1/2倍速進行。上位シーンの2フレームで1フレーム進む。<BR>
      * 3 を設定すると 1/3倍速進行。上位シーンの3フレームで1フレーム進む。<BR>
      * 4 を設定すると 1/4倍速進行。上位シーンの4フレームで1フレーム進む。<BR>
-     * @param prm_n_once 何フレームに１回実行するか
+     * @param prm_once_in_n_time 何フレームに１回実行するか
      */
-    virtual void setRunFrameOnce(int prm_n_once);
-    virtual void setRunFrameOnceTree(int prm_n_once);
+    virtual void setRunFrameOnce(int prm_once_in_n_time);
+    virtual void setRunFrameOnceTree(int prm_once_in_n_time);
 
 
-    virtual void addSubLast(GgafScene* prm_pScene) override {
-        GgafElement<GgafScene>::addSubLast(prm_pScene);
-//        if(prm_pScene->_was_initialize_flg == false) {
-//            prm_pScene->initialize();
-//            prm_pScene->_was_initialize_flg = true;
-//        }
-    }
+    virtual void addSubLast(GgafScene* prm_pScene) override;
 
     virtual void nextFrame() override;
     virtual void behave() override;

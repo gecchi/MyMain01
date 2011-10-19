@@ -36,45 +36,16 @@ void RankUpSceneController::execute() {
 }
 void RankUpSceneController::slowdown(RankUpScene* prm_pLastAdded) {
     //スローダウン
-    if (getSubFirst()) {
-        //初回
-        P_STAGE_CONTROLLER->_pStageSceneMainCannel->setRunFrameOnceTree(2);
-        P_STAGE_CONTROLLER->_pTransitStage->setRunFrameOnceTree(2);
-        P_COMMON_SCENE->setRunFrameOnceTree(2);
-    } else {
-        //連チャン
-        P_STAGE_CONTROLLER->_pStageSceneMainCannel->setRunFrameOnceTree(P_STAGE_CONTROLLER->_pStageSceneMainCannel->_n_once*2);
-        P_STAGE_CONTROLLER->_pTransitStage->setRunFrameOnceTree(P_STAGE_CONTROLLER->_pTransitStage->_n_once*2);
-        P_COMMON_SCENE->setRunFrameOnceTree(P_COMMON_SCENE->_n_once*2);
-        RankUpScene* pRankUpScene = (RankUpScene*)_pSubFirst;
-        while(true) {
-            pRankUpScene->setRunFrameOnceTree(pRankUpScene->_n_once*2);
-            if (pRankUpScene == prm_pLastAdded) {
-                //追加したてのシーンは等速
-                break;
-            } else {
-                pRankUpScene = (RankUpScene*)(pRankUpScene->_pNext);
-            }
-        }
-    }
+    P_STAGE_CONTROLLER->setRunFrameOnceTree(3);
+    P_RANK_UP_CONTROLLER->setRunFrameOnce(1); //ラックアップシーンも除く
+    P_MYSHIP_SCENE->setRunFrameOnceTree(1); //自機シーンツリーは除く
+    prm_pLastAdded->setRunFrameOnceTree(1); //追加したシーンツリーも除く
 }
 
 void RankUpSceneController::slowRelease(RankUpScene* prm_pInactive) {
-    RankUpScene* pRankUpScene = prm_pInactive;
-    while(true) {
-        pRankUpScene->setRunFrameOnceTree(pRankUpScene->_n_once/2);
-        if (pRankUpScene->_is_first_flg) {
-            //追加したてのシーンは等速
-            ((RankUpScene*)(pRankUpScene->_pPrev))->setRunFrameOnceTree(pRankUpScene->_n_once/2);
-            break;
-        } else {
-            pRankUpScene = (RankUpScene*)(pRankUpScene->_pPrev);
-        }
-    }
-    P_STAGE_CONTROLLER->_pStageSceneMainCannel->setRunFrameOnceTree(P_STAGE_CONTROLLER->_pStageSceneMainCannel->_n_once/2);
-    P_STAGE_CONTROLLER->_pTransitStage->setRunFrameOnceTree(P_STAGE_CONTROLLER->_pTransitStage->_n_once/2);
-    P_COMMON_SCENE->setRunFrameOnceTree(P_COMMON_SCENE->_n_once/2);
-
+    P_STAGE_CONTROLLER->setRunFrameOnceTree(P_STAGE_CONTROLLER->_once_in_n_time/3);
+    P_RANK_UP_CONTROLLER->setRunFrameOnce(1); //ラックアップシーンも除く
+    P_MYSHIP_SCENE->setRunFrameOnceTree(1); //自機シーンツリーは除く
 }
 void RankUpSceneController::onReset() {
     _pProg->set(RANKUPCONTROLLER_PROG_INIT);

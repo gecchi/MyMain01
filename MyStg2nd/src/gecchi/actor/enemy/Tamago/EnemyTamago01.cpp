@@ -6,7 +6,7 @@ using namespace GgafLib;
 using namespace MyStg2nd;
 
 EnemyTamago01::EnemyTamago01(const char* prm_name) :
-        SpriteMeshSetActor(prm_name, "8/Flora", STATUS(EnemyTamago01)) { //8/をいれとかないとユニークにならない
+        SpriteMeshSetActor(prm_name, "8/tamago", STATUS(EnemyTamago01)) { //8/をいれとかないとユニークにならない
 
     _class_name = "EnemyTamago01";
     _iMovePatternNo = 0;
@@ -34,28 +34,28 @@ void EnemyTamago01::initialize() {
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setFaceAngVelo(AXIS_X, 1000);
     _pKurokoA->setMvAng(900000, 300000, 300000);
-    _pKurokoA->setMvVelo(2);
-    _pCollisionChecker->makeCollision(2);
+    _pKurokoA->setMvVelo(3000);
+    _pCollisionChecker->makeCollision(1);
 //    _pCollisionChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_pp);
-        _pCollisionChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_pn);
+//        _pCollisionChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_pn);
 
     //ヒットしない理由を探せ！！
 //      _pCollisionChecker->setColliAAPrism_WHD(0,20000,-30000,50000,
 //                                                90000,140000,60000,POS_PRISM_XY_nn);
 //
-      _pCollisionChecker->setColliAAPrism_WHD(1,-20000,-30000,-50000,
-                                                 60000,90000,140000,POS_PRISM_ZX_pp);
+//      _pCollisionChecker->setColliAAPrism_WHD(1,-20000,-30000,-50000,
+//                                                 60000,90000,140000,POS_PRISM_ZX_pp);
 
 //    _pCollisionChecker->setColliAAB_WHD(0,20000,-30000,50000,
 //                                              90000,140000,60000);
-//    _pCollisionChecker->setColliAAB_Cube(0, 50000);
+    _pCollisionChecker->setColliAAB_Cube(0, 50000);
 
 
     //_pCollisionChecker->setColliAAB(0, -30000, -30000, -30000, 30000, 30000, 30000);
     _X = -50000;
     _Y = 200000;
     _Z = 100000;
-    _pScaler->setScale(5000);
+    _pScaler->setScale(100);
 }
 
 void EnemyTamago01::onActive() {
@@ -187,9 +187,7 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     }
 
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-
-
-        //sayonara();
+        sayonara();
     }
 }
 

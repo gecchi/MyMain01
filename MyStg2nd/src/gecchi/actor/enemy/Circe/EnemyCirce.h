@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/03/25
  * @author Masatoshi Tsuge
  */
-class EnemyCirce : public GgafLib::DefaultMeshActor {
+class EnemyCirce : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** 行動パターン番号 */

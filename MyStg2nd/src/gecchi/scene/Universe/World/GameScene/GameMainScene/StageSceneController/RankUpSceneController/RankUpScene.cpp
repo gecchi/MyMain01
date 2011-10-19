@@ -69,13 +69,14 @@ void RankUpScene::processBehavior() {
         }
         case RANKUPSCENE_PROG_END: {
             if (_pProg->isJustChanged()) {
-                P_RANK_UP_CONTROLLER->slowRelease(this); //スロー回復
+
                 _TRACE_("RankUpScene::processBehavior() ["<<getName()<<"] RANKUPSCENE_PROG_ENDになりますた！");
                 _pMessage->update("RANKUPSCENE_PROG_END");
             }
 
             if (_pProg->getFrameInProgress() == 180) {
                 _pMessage->update("BYBY!");
+                P_RANK_UP_CONTROLLER->slowRelease(this); //スロー回復
                 throwEventToUpperTree(EVENT_RANKUP_WAS_END, this);
             }
 
