@@ -677,7 +677,7 @@ public:
     }
 
     virtual void moveLastImmediately() {
-        GgafCore::GgafNode<T>::moveLast();
+        moveLast();
     }
     /**
      * 自ツリーノードを先頭ノードに移動する(単体) .
@@ -689,7 +689,7 @@ public:
     }
 
     virtual void moveFirstImmediately() {
-        GgafCore::GgafNode<T>::moveFirst();
+        moveFirst();
     }
 //    /**
 //     * 所属ツリーから独立する(単体)
@@ -828,7 +828,7 @@ public:
         if (_pProg == NULL) {
             _pProg = NEW GgafProgress(&_frame_of_behaving, prm_num);
         } else {
-            _TRACE_("["<<GgafCore::GgafNode<T>::getName()<<"] は既に useProgress しています。prm_num="<<prm_num);
+            _TRACE_("["<<GgafNode<T>::getName()<<"] は既に useProgress しています。prm_num="<<prm_num);
         }
     }
 
@@ -874,7 +874,7 @@ void GgafElement<T>::nextFrame() {
     //moveLast予約時
     if (_will_mv_last_in_next_frame_flg) {
         _will_mv_last_in_next_frame_flg = false;
-        GgafCore::GgafNode<T>::moveLast();
+        moveLast();
         return;
         //即returnする事は重要。nextFrame() 処理の２重実行をさけるため。
         //このノードは、末尾に回されているため、必ずもう一度 nextFrame() の機会が訪れる。
@@ -963,8 +963,8 @@ void GgafElement<T>::nextFrame() {
         }
     }
     //配下のnextFrame()実行
-    if (GgafCore::GgafNode<T>::_pSubFirst) {
-        T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
+    if (GgafNode<T>::_pSubFirst) {
+        T* pElementTemp = GgafNode<T>::_pSubFirst;
         while(true) {
 
             if (pElementTemp->_is_last_flg) {
@@ -975,11 +975,11 @@ void GgafElement<T>::nextFrame() {
                 }
                 break;
             } else {
-                pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
-                pElementTemp->GgafCore::GgafNode<T>::_pPrev->nextFrame();
-                if (pElementTemp->GgafCore::GgafNode<T>::_pPrev->_can_live_flg == false) {
-                    ((T*)(pElementTemp->GgafCore::GgafNode<T>::_pPrev))->onGarbaged();
-                    GgafFactory::_pGarbageBox->add(pElementTemp->GgafCore::GgafNode<T>::_pPrev); //ゴミ箱へ
+                pElementTemp = pElementTemp->_pNext;
+                pElementTemp->_pPrev->nextFrame();
+                if (pElementTemp->_pPrev->_can_live_flg == false) {
+                    ((T*)(pElementTemp->_pPrev))->onGarbaged();
+                    GgafFactory::_pGarbageBox->add(pElementTemp->_pPrev); //ゴミ箱へ
                 }
             }
         }
@@ -988,7 +988,7 @@ void GgafElement<T>::nextFrame() {
 
     if (_will_mv_first_in_next_frame_flg) {
         _will_mv_first_in_next_frame_flg = false;
-        GgafCore::GgafNode<T>::moveFirst();
+        moveFirst();
         //moveFirstを一番最後にすることは重要。
         //これは nextFrame() の２重実行を避けるため。
     }
@@ -1021,14 +1021,14 @@ void GgafElement<T>::settleBehavior() {
 }
 template<class T>
 void GgafElement<T>::callRecursive(void (GgafElement<T>::*pFunc)()) {
-    if (GgafCore::GgafNode<T>::_pSubFirst) {
-        T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
+    if (GgafNode<T>::_pSubFirst) {
+        T* pElementTemp = GgafNode<T>::_pSubFirst;
         while(true) {
             (pElementTemp->*pFunc)(); //実行
             if (pElementTemp->_is_last_flg) {
                 break;
             } else {
-                pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
+                pElementTemp = pElementTemp->_pNext;
             }
         }
     }
@@ -1197,14 +1197,14 @@ void GgafElement<T>::activateTreeDelay(frame prm_offset_frames) {
 #endif
     if (_can_live_flg) {
         activateDelay(prm_offset_frames);
-        if (GgafCore::GgafNode<T>::_pSubFirst) {
-            T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
+        if (GgafNode<T>::_pSubFirst) {
+            T* pElementTemp = GgafNode<T>::_pSubFirst;
             while(true) {
                 pElementTemp->activateTreeDelay(prm_offset_frames);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
+                    pElementTemp = pElementTemp->_pNext;
                 }
             }
         }
@@ -1263,14 +1263,14 @@ void GgafElement<T>::inactivateTreeDelay(frame prm_offset_frames) {
 #endif
     if (_can_live_flg) {
         inactivateDelay(prm_offset_frames);
-        if (GgafCore::GgafNode<T>::_pSubFirst) {
-            T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
+        if (GgafNode<T>::_pSubFirst) {
+            T* pElementTemp = GgafNode<T>::_pSubFirst;
             while(true) {
                 pElementTemp->inactivateTreeDelay(prm_offset_frames);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
+                    pElementTemp = pElementTemp->_pNext;
                 }
             }
         }
@@ -1368,8 +1368,8 @@ void GgafElement<T>::end(frame prm_offset_frames) {
     _will_end_after_flg = true;
     _frame_of_life_when_end = _frame_of_life + prm_offset_frames + GGAF_SAYONARA_DELAY;
     inactivateDelay(prm_offset_frames); //指定フレームにはinactivateが行われる
-    if (GgafCore::GgafNode<T>::_pSubFirst) {
-        T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
+    if (GgafNode<T>::_pSubFirst) {
+        T* pElementTemp = GgafNode<T>::_pSubFirst;
         while(true) {
             if (prm_offset_frames > 2) {
                 pElementTemp->end(prm_offset_frames-1); //出来るだけ末端からendする
@@ -1379,7 +1379,7 @@ void GgafElement<T>::end(frame prm_offset_frames) {
             if (pElementTemp->_is_last_flg) {
                 break;
             } else {
-                pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
+                pElementTemp = pElementTemp->_pNext;
             }
         }
     }
@@ -1455,20 +1455,20 @@ bool GgafElement<T>::relativeFrame(frame prm_frameEnd) {
 //template<class T>
 //T* GgafElement<T>::extract() {
 //    if (_can_live_flg) {
-//        return GgafCore::GgafNode<T>::extract();
+//        return extract();
 //    } else {
-//        //_TRACE_("[GgafElement<"<<GgafCore::GgafNode<T>::_class_name<<">::extract()] ＜警告＞ "<<GgafCore::GgafNode<T>::getName()<<"は、死んでいます。");
-//        return GgafCore::GgafNode<T>::extract();
+//        //_TRACE_("[GgafElement<"<<_class_name<<">::extract()] ＜警告＞ "<<getName()<<"は、死んでいます。");
+//        return extract();
 //    }
 //}
 
 template<class T>
 void GgafElement<T>::clean(int prm_num_cleaning) {
-    if (GgafCore::GgafNode<T>::_pSubFirst == NULL) {
+    if (GgafNode<T>::_pSubFirst == NULL) {
         return;
     }
 
-    T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst->_pPrev;
+    T* pElementTemp = GgafNode<T>::_pSubFirst->_pPrev;
     T* pWk;
 
     while(GgafFactory::_cnt_cleaned < prm_num_cleaning) {
@@ -1528,14 +1528,14 @@ void GgafElement<T>::executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, vo
         if (_was_initialize_flg) {
             pFunc(this, prm1, prm2);
         }
-        if (GgafCore::GgafNode<T>::_pSubFirst) {
-            T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
+        if (GgafNode<T>::_pSubFirst) {
+            T* pElementTemp = GgafNode<T>::_pSubFirst;
             while(true) {
                 pElementTemp->executeFuncToLowerTree(pFunc, prm1, prm2);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
+                    pElementTemp = pElementTemp->_pNext;
                 }
             }
         }
@@ -1547,14 +1547,14 @@ void GgafElement<T>::throwEventToLowerTree(UINT32 prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         _frameEnd = 0;
         onCatchEvent(prm_no, prm_pSource);
-        if (GgafCore::GgafNode<T>::_pSubFirst) {
-            T* pElementTemp = GgafCore::GgafNode<T>::_pSubFirst;
+        if (GgafNode<T>::_pSubFirst) {
+            T* pElementTemp = GgafNode<T>::_pSubFirst;
             while(true) {
                 pElementTemp->throwEventToLowerTree(prm_no, prm_pSource);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->GgafCore::GgafNode<T>::_pNext;
+                    pElementTemp = pElementTemp->_pNext;
                 }
             }
         }
@@ -1568,8 +1568,8 @@ void GgafElement<T>::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
             _frameEnd = 0;
             onCatchEvent(prm_no, prm_pSource);
         }
-        if (GgafCore::GgafNode<T>::_pParent) {
-            T* pElementTemp = GgafCore::GgafNode<T>::_pParent;
+        if (GgafNode<T>::_pParent) {
+            T* pElementTemp = GgafNode<T>::_pParent;
             pElementTemp->throwEventToUpperTree(prm_no, prm_pSource);
         } else {
             //てっぺん

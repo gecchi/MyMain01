@@ -60,7 +60,7 @@ void GgafScene::setRunFrameOnceTree(int prm_once_in_n_time) {
     }
 }
 
-void GgafScene::addSubLast(GgafScene* prm_pScene) override {
+void GgafScene::addSubLast(GgafScene* prm_pScene) {
 //    prm_pScene->_once_in_n_time = _once_in_n_time;
     GgafElement<GgafScene>::addSubLast(prm_pScene);
 }
