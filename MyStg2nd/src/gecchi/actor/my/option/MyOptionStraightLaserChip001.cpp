@@ -37,7 +37,7 @@ void MyOptionStraightLaserChip001::onActive() {
     _pKurokoA->setMvVelo(80000);
     _pKurokoA->setMvAcce(300);
     _isLockon = false;
-    if (pMainLockOnTarget && pMainLockOnTarget->isActive()) {
+    if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheWorld()) {
         if (_pChip_front == NULL) {
             //先端チップ
             _lockon = 1;

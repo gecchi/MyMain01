@@ -31,7 +31,7 @@
 //    _pKurokoA->setVxMvAcce(0);
 //    _pKurokoA->setVyMvAcce(0);
 //    _pKurokoA->setVzMvAcce(0);
-//    if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive()) {
+//    if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActiveInTheWorld()) {
 //        if (_pChip_front == NULL) {
 //            //先端チップ
 //            _lockon = 1;
@@ -66,7 +66,7 @@
 //            _pKurokoA->forceVxMvAcceRange(-_maxAcceRange, _maxAcceRange);
 //            _pKurokoA->forceVyMvAcceRange(-_maxAcceRange, _maxAcceRange);
 //            _pKurokoA->forceVzMvAcceRange(-_maxAcceRange, _maxAcceRange);
-//            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActive()) {
+//            if (_pOrg->_pLockonTarget && _pOrg->_pLockonTarget->isActiveInTheWorld()) {
 //                float rate = 8.0 - 0.06*getActivePartFrame(); //0.06 * 120 = 8.0
 //                rate = rate > 0 ? rate : 0;
 //                int fdx = _pOrg->_pLockonTarget->_X - (_X + _pKurokoA->_veloVxMv*rate);

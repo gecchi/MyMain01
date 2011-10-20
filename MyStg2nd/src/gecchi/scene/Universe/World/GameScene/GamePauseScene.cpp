@@ -162,7 +162,7 @@ void GamePauseScene::processBehavior() {
 
 
     for (int i = 0; i < _max_menu_item; i++) {
-        if (_papMenuItemLabel[i]->isActive()) {
+        if (_papMenuItemLabel[i]->isActiveInTheWorld()) {
             _papMenuItemLabel[i]->_pKurokoA->behave();
         }
     }

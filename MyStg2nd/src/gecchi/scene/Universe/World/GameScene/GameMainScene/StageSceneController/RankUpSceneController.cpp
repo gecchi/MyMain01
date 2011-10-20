@@ -37,15 +37,18 @@ void RankUpSceneController::execute() {
 void RankUpSceneController::slowdown(RankUpScene* prm_pLastAdded) {
     //スローダウン
     P_STAGE_CONTROLLER->setRunFrameOnceTree(3);
-    P_RANK_UP_CONTROLLER->setRunFrameOnce(1); //ラックアップシーンも除く
+
+    P_RANK_UP_CONTROLLER->setRunFrameOnce(1);
     P_MYSHIP_SCENE->setRunFrameOnceTree(1); //自機シーンツリーは除く
-    prm_pLastAdded->setRunFrameOnceTree(1); //追加したシーンツリーも除く
+    prm_pLastAdded->setRunFrameOnceTree(1);
+
+    //自機シーンツリーは除く
+    //ラックアップシーンも除く
+    //追加したシーンツリーも除く
 }
 
 void RankUpSceneController::slowRelease(RankUpScene* prm_pInactive) {
     P_STAGE_CONTROLLER->setRunFrameOnceTree(P_STAGE_CONTROLLER->_once_in_n_time/3);
-    P_RANK_UP_CONTROLLER->setRunFrameOnce(1); //ラックアップシーンも除く
-    P_MYSHIP_SCENE->setRunFrameOnceTree(1); //自機シーンツリーは除く
 }
 void RankUpSceneController::onReset() {
     _pProg->set(RANKUPCONTROLLER_PROG_INIT);

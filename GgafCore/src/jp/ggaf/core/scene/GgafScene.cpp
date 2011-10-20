@@ -30,23 +30,23 @@ GgafScene::~GgafScene() {
     DELETE_POSSIBLE_NULL(_pDirector);
 }
 void GgafScene::setRunFrameOnce(int prm_once_in_n_time) {
-    if (isActive()) {
+//    if (isActiveInTheWorld()) {
         if (prm_once_in_n_time <= 1) {
             _once_in_n_time = 1;
         } else {
             _once_in_n_time = prm_once_in_n_time;
         }
-    }
+//    }
 }
 
 void GgafScene::setRunFrameOnceTree(int prm_once_in_n_time) {
-    if (isActive()) {
+//    if (isActiveInTheWorld()) {
         if (prm_once_in_n_time <= 1) {
             _once_in_n_time = 1;
         } else {
             _once_in_n_time = prm_once_in_n_time;
         }
-    }
+//    }
     if (_pSubFirst) {
         GgafScene* pSceneTemp = _pSubFirst;
         while(true) {
@@ -66,56 +66,66 @@ void GgafScene::addSubLast(GgafScene* prm_pScene) {
 }
 
 void GgafScene::nextFrame() {
-    if (!isActive()) {
-        _once_in_n_time = 1;
-    }
-
-    TRACE("GgafScene::nextFrame() " << getName());
-    if (_once_in_n_time == 1 || getParent()->getBehaveingFrame() % _once_in_n_time == 0) {
+    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::nextFrame();
         _pDirector->nextFrame();
     } else {
-        _last_frame_of_god = P_GOD->_frame_of_God;
-        if (_pSubFirst) {
-            GgafScene* pElementTemp = _pSubFirst;
-            while (true) {
-
-                if (pElementTemp->_is_last_flg) {
-                    pElementTemp->nextFrame();
-                    if (pElementTemp->_can_live_flg == false) {
-                        pElementTemp->onGarbaged();
-                        GgafFactory::_pGarbageBox->add(pElementTemp); //ƒSƒ~” ‚Ö
-                    }
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->_pNext;
-                    pElementTemp->_pPrev->nextFrame();
-                    if (pElementTemp->_pPrev->_can_live_flg == false) {
-                        ((GgafScene*)(pElementTemp->_pPrev))->onGarbaged();
-                        GgafFactory::_pGarbageBox->add(pElementTemp->_pPrev); //ƒSƒ~” ‚Ö
-                    }
-                }
-            }
-        }
-        _pDirector->_last_frame_of_god = P_GOD->_frame_of_God;
-        if (_pDirector->_pSubFirst) {
-            GgafActor* pElementTemp = _pDirector->_pSubFirst;
-            while (true) {
-                if (pElementTemp->_is_last_flg) {
-                    pElementTemp->_last_frame_of_god = P_GOD->_frame_of_God;
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->_pNext;
-                    pElementTemp->_pPrev->_last_frame_of_god = P_GOD->_frame_of_God;
-                }
-            }
-        }
+        _was_paused2_flg = true;
+        GgafElement<GgafScene>::nextFrame();
+        _was_paused2_flg = false;
     }
 }
 
+//    TRACE("GgafScene::nextFrame() " << getName());
+//    if (_once_in_n_time == 1 || getBehaveingFrame() % _once_in_n_time == 0) {
+//        GgafElement<GgafScene>::nextFrame();
+//        _pDirector->nextFrame();
+//    } else {
+//        _last_frame_of_god = P_GOD->_frame_of_God;
+//        if (_pSubFirst) {
+//            GgafScene* pElementTemp = _pSubFirst;
+//            while (true) {
+//
+//                if (pElementTemp->_is_last_flg) {
+//                    pElementTemp->nextFrame();
+//                    if (pElementTemp->_can_live_flg == false) {
+//                        pElementTemp->onGarbaged();
+//                        GgafFactory::_pGarbageBox->add(pElementTemp); //ƒSƒ~” ‚Ö
+//                    }
+//                    break;
+//                } else {
+//                    pElementTemp = pElementTemp->_pNext;
+//                    pElementTemp->_pPrev->nextFrame();
+//                    if (pElementTemp->_pPrev->_can_live_flg == false) {
+//                        ((GgafScene*)(pElementTemp->_pPrev))->onGarbaged();
+//                        GgafFactory::_pGarbageBox->add(pElementTemp->_pPrev); //ƒSƒ~” ‚Ö
+//                    }
+//                }
+//            }
+//        }
+//
+//        //
+//        //_pDirectorˆÈ‰º_last_frame_of_god‚ÌXV‚Ì‚Ýs‚¤B
+//
+//        _pDirector->_last_frame_of_god = P_GOD->_frame_of_God;
+//        if (_pDirector->_pSubFirst) {
+//            GgafActor* pElementTemp = _pDirector->_pSubFirst;
+//            while (true) {
+//                if (pElementTemp->_is_last_flg) {
+//                    pElementTemp->_last_frame_of_god = P_GOD->_frame_of_God;
+//                    break;
+//                } else {
+//                    pElementTemp = pElementTemp->_pNext;
+//                    pElementTemp->_pPrev->_last_frame_of_god = P_GOD->_frame_of_God;
+//                }
+//            }
+//        }
+//    }
+//}
+
 void GgafScene::behave() {
     TRACE("GgafScene::behave() " << getName());
-    if (_once_in_n_time == 1 || getBehaveingFrame() % _once_in_n_time == 0) {
+    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::behave();
         _pDirector->behave();
     } else {
@@ -125,7 +135,7 @@ void GgafScene::behave() {
 
 void GgafScene::settleBehavior() {
     TRACE("GgafScene::settleBehavior() " << getName());
-    if (_once_in_n_time == 1 || getBehaveingFrame() % _once_in_n_time == 0) {
+    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::settleBehavior();
         _pDirector->settleBehavior();
     } else {
@@ -135,7 +145,7 @@ void GgafScene::settleBehavior() {
 
 void GgafScene::judge() {
     TRACE("GgafScene::judge() " << getName());
-    if (_once_in_n_time == 1 || getBehaveingFrame() % _once_in_n_time == 0) {
+    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::judge();
         _pDirector->judge();
     } else {
@@ -172,7 +182,7 @@ void GgafScene::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
 
 
 void GgafScene::doFinally() {
-    if (_once_in_n_time == 1 || getParent()->getBehaveingFrame() % _once_in_n_time == 0) {
+    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::doFinally();
         _pDirector->doFinally();
     } else {

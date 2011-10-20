@@ -118,7 +118,7 @@ void MyTorpedo::processBehavior() {
             if (getActivePartFrame() < 120) {
                 if (getActivePartFrame() % 10 == 0) {
                     if (_pTarget) {
-                        if (_pTarget->isActive())  {
+                        if (_pTarget->isActiveInTheWorld())  {
                             _pKurokoA->execTurnMvAngSequence(
                                         _pTarget,
                                         1000, 200,
@@ -148,7 +148,7 @@ void MyTorpedo::processBehavior() {
             if (getActivePartFrame() < 300) {
                 if (getActivePartFrame() % 20 == 0) {
                     if (_pTarget) {
-                        if (_pTarget->isActive())  {
+                        if (_pTarget->isActiveInTheWorld())  {
                             _pKurokoA->execTurnMvAngSequence(
                                         _pTarget,
                                         300, 0,

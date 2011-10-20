@@ -61,8 +61,10 @@ public:
     bool _is_active_flg;
     /** [r]一時停止フラグ */
     bool _was_paused_flg;
+    bool _was_paused2_flg;
     /** [r]ノード生存フラグ */
     bool _can_live_flg;
+
 
 //    /** [r]次フレームのノード活動フラグ、次フレームのフレーム加算時 _is_active_flg に反映される */
 //    bool _is_active_flg_in_next_frame;
@@ -736,10 +738,22 @@ public:
     }
 
     /**
-     * 活動中か調べる
+     * 活動中か調べる .
+     * 次の似た機能に注意。<BR>
+     * isActive() ・・・ フラグの状態で活動中可動化を判断 <BR>
+     * isActiveInTheWorld() ・・・ isActive()に加え、現フレームでnextFrame()を実行した際にtrue<BR>
      * @return  bool true:活動中／false:非活動中
      */
     virtual bool isActive();
+
+    /**
+     * 世界という中で活動中か調べる .
+     * 次の似た機能に注意。<BR>
+     * isActive() ・・・ フラグの状態で活動中可動化を判断 <BR>
+     * isActiveInTheWorld() ・・・ isActive()に加え、現フレームでnextFrame()を実行した際にtrue<BR>
+     * @return
+     */
+    virtual bool isActiveInTheWorld();
 
     /**
      * 振る舞い可能か調べる（＝一時停止されていないか）
@@ -859,6 +873,7 @@ _last_frame_of_god(P_GOD->_frame_of_God),
 _frameEnd(0),
 _is_active_flg(true),
 _was_paused_flg(false),
+_was_paused2_flg(false),
 _can_live_flg(true),
 //_is_active_flg_in_next_frame(true),
 _was_paused_flg_in_next_frame(false),
@@ -885,10 +900,6 @@ void GgafElement<T>::nextFrame() {
     TRACE("GgafElement::nextFrame BEGIN _frame_of_behaving=" << _frame_of_behaving << " name=" << GgafObject::_name << " class="
             << GgafNode<T>::_class_name);
 
-    if (GgafUtil::strcmp_ascii(_class_name, "MyStraightLaserChip001") == 0) {
-        volatile int eeee = 0;
-        eeee ++;
-    }
     //moveLast予約時
     if (_will_mv_last_in_next_frame_flg) {
         _will_mv_last_in_next_frame_flg = false;
@@ -898,7 +909,7 @@ void GgafElement<T>::nextFrame() {
         //このノードは、末尾に回されているため、必ずもう一度 nextFrame() の機会が訪れる。
     }
     _was_paused_flg  = _was_paused_flg_in_next_frame;
-    if (!_was_paused_flg) {
+    if (!_was_paused_flg && !_was_paused2_flg) {
 
         //終了の時か
         if (_will_end_after_flg && _frame_of_life_when_end == _frame_of_life+1) { //まだ _frame_of_life が進んで無いため+1
@@ -1411,10 +1422,18 @@ void GgafElement<T>::end(frame prm_offset_frames) {
     }
 }
 
-
 template<class T>
 bool GgafElement<T>::isActive() {
-    if (_can_live_flg && _is_active_flg && _last_frame_of_god == P_GOD->_frame_of_God) {
+    if (_can_live_flg && _is_active_flg) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+template<class T>
+bool GgafElement<T>::isActiveInTheWorld() {
+    if (isActive() && _last_frame_of_god == P_GOD->_frame_of_God) {
         return true;
     } else {
         return false;

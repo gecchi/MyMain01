@@ -123,7 +123,7 @@ void WalledSectionScene::processBehavior() {
                         continue;
                     }
                 }
-                if (pWallParts->isActive()) {
+                if (pWallParts->isActiveInTheWorld()) {
                     pWallParts->inactivateImmediately();
                     pWallParts->onInactive();
                 }

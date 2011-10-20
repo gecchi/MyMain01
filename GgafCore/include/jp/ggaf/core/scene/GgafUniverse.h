@@ -77,7 +77,7 @@ public:
     virtual void processFinal() override {
     }
 
-    bool isActive() override {
+    bool isActiveInTheWorld() override {
         return true;
     }
 
