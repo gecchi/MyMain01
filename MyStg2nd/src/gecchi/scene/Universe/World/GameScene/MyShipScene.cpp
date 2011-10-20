@@ -35,12 +35,12 @@ _pMyOptionController(NULL) {
     //_z = 0.9999999f;
     //魔法メーター設置
     _pMagicMeter = NEW MagicMeter("MagicMeter");
-    _pMagicMeter->locate(Px2Co(100), Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 100.0f), 0.00000001f );
+    _pMagicMeter->locate(PX2CO(100), PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 100.0f), 0.00000001f );
     getDirector()->addSubGroup(_pMagicMeter);
 
     //エネルギーバー設置
     _pEnagyBar = NEW EnagyBar("EnagyBar");
-    _pEnagyBar->locate(Px2Co(100), Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), 0.00000001f );
+    _pEnagyBar->locate(PX2CO(100), PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), 0.00000001f );
     getDirector()->addSubGroup(_pEnagyBar);
     _zanki = 3;
     useProgress(10);

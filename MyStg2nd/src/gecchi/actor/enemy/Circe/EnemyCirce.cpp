@@ -21,11 +21,12 @@ void EnemyCirce::onCreateModel() {
 
 void EnemyCirce::initialize() {
     setHitAble(true);
-    _pScaler->setScale(100);
+    _pScaler->setScale(1000);
     _pKurokoA->relateFaceAngWithMvAng(true);
     _pKurokoA->setMvVelo(3000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB(0, -10000, -10000, -10000, 10000, 10000, 10000);
+    _X = PX2CO(200);
 }
 
 void EnemyCirce::onActive() {

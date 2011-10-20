@@ -106,13 +106,6 @@ public:
         }
     }
 
-    inline bool isActiveActor() {
-        if (_can_live_flg && _is_active_flg && getPlatformScene() && _pScene_Platform->isActiveScene()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     /**
      * Š‘®‚µ‚Ä‚¢‚éƒV[ƒ“‚ğæ“¾B .

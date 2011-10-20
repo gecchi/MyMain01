@@ -5,10 +5,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-VarietyTorus003::VarietyTorus003(const char* prm_name) : Torus(prm_name, "Torus", Px2Co(2000), Px2Co(800)) {
+VarietyTorus003::VarietyTorus003(const char* prm_name) : Torus(prm_name, "Torus", PX2CO(2000), PX2CO(800)) {
     _class_name = "VarietyTorus003";
-    for (angle angPos1 = D0ANG; angPos1 < D360ANG;  angPos1 += Deg2Ang(60)) {
-        for (angle angPos2 = D0ANG; angPos2 < D360ANG;  angPos2 += Deg2Ang(20)) {
+    for (angle angPos1 = D0ANG; angPos1 < D360ANG;  angPos1 += DEG2ANG(60)) {
+        for (angle angPos2 = D0ANG; angPos2 < D360ANG;  angPos2 += DEG2ANG(20)) {
             EnemyVesta* p = NEW EnemyVesta("pEV1");
             addSubBoneOnSurface(p, angPos1, angPos2);
             Sleep(1);

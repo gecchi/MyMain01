@@ -30,9 +30,9 @@ void GgafDxAABActor::drawBox(coord prm_x1, coord prm_y1, coord prm_z1, coord prm
     _X = prm_x1 + (prm_x2 - prm_x1) / 2;
     _Y = prm_y1 + (prm_y2 - prm_y1) / 2;
     _Z = prm_z1 + (prm_z2 - prm_z1) / 2;
-    _fX = Co2Dx(_X);
-    _fY = Co2Dx(_Y);
-    _fZ = Co2Dx(_Z);
+    _fX = CO2DX(_X);
+    _fY = CO2DX(_Y);
+    _fZ = CO2DX(_Z);
     GgafDxUtil::setWorldMatrix_ScRzMv(this, _matWorld);
     processDraw();
 }

@@ -15,7 +15,7 @@ MyTorpedoTail::MyTorpedoTail(const char* prm_name, MyTorpedo* prm_pMyTorpedo) :
 
 void MyTorpedoTail::initialize() {
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
-    _SX = _SY = _SZ = R2Sc(6);
+    _SX = _SY = _SZ = R2SC(6);
     setAlpha(0.3);
     _radius_bounding_sphere = 5.0f;
 

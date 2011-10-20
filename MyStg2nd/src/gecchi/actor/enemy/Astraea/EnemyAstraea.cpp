@@ -51,9 +51,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) :
         for (int j = 0; j < _laser_way; j++) {
             Ry = GgafDxUtil::simplifyAng(paAngWay[j]);
             GgafDxUtil::getNormalizeVectorZY(Rz, Ry, vx, vy, vz);
-            _papaPosLaser[i][j].X = vx * Px2Co(100);
-            _papaPosLaser[i][j].Y = vy * Px2Co(100);
-            _papaPosLaser[i][j].Z = vz * Px2Co(100);
+            _papaPosLaser[i][j].X = vx * PX2CO(100);
+            _papaPosLaser[i][j].Y = vy * PX2CO(100);
+            _papaPosLaser[i][j].Z = vz * PX2CO(100);
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(paAngWay);
@@ -76,9 +76,9 @@ void EnemyAstraea::initialize() {
     setHitAble(true);
     setAlpha(0.99);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliSphere(0, Px2Co(200));
+    _pCollisionChecker->setColliSphere(0, PX2CO(200));
     _pKurokoA->setRzRyMvAng(0, D180ANG);
-    _pKurokoA->setMvVelo(Px2Co(5));
+    _pKurokoA->setMvVelo(PX2CO(5));
 }
 
 void EnemyAstraea::onActive() {

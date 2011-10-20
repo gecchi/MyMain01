@@ -85,7 +85,7 @@ void GameTitleScene::processBehavior() {
 
         case GAMETITLESCENE_PROG_TITLE: {
             if (_pProg->isJustChanged()) {
-                _pStringBoard02->update(Px2Co(400), Px2Co(400), "PUSH UI_EXECUTE TO BEGIN!");
+                _pStringBoard02->update(PX2CO(400), PX2CO(400), "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 _pSeCon_exec->use()->play();
@@ -106,7 +106,7 @@ void GameTitleScene::processBehavior() {
                 _pStringBoard02->update("");
                 if (_pProg->isJustChanged()) {
                     for (int i = 0; i < _max_menu_item; i++) {
-                        _papStringItem[i]->locate(Px2Co(700)+Px2Co(i*20), Px2Co(100+(i*20))*2);
+                        _papStringItem[i]->locate(PX2CO(700)+PX2CO(i*20), PX2CO(100+(i*20))*2);
                         _papStringItem[i]->activate();
                     }
                 }
@@ -164,9 +164,9 @@ void GameTitleScene::processBehavior() {
             }
             //“_–Å
             if (_pProg->getFrameInProgress() % 10 < 5 ) {
-                _pStringBoard02->update(Px2Co(700), Px2Co(200), "READY GO!");
+                _pStringBoard02->update(PX2CO(700), PX2CO(200), "READY GO!");
             } else {
-                _pStringBoard02->update(Px2Co(700), Px2Co(200), "");
+                _pStringBoard02->update(PX2CO(700), PX2CO(200), "");
             }
             break;
         }

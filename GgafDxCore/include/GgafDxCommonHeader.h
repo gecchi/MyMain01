@@ -178,33 +178,33 @@ typedef int axis;
 
 
 /** アプリの座標 → DirectX座標 変換 */
-#define Co2Dx(X) ((dxcoord)(1.0f * (X) / LEN_UNIT / PX_UNIT))
+#define CO2DX(X) ((dxcoord)(1.0f * (X) / LEN_UNIT / PX_UNIT))
 /** DirectX座標 → アプリの座標 変換 */
-#define Dx2Co(X) ((coord)((X) * LEN_UNIT * PX_UNIT))
+#define DX2CO(X) ((coord)((X) * LEN_UNIT * PX_UNIT))
 /** DirectX座標 → ピクセル座標(初期カメラ位置の時) 変換 */
-#define Dx2Px(X) ((X) * PX_UNIT)
+#define DX2PX(X) ((X) * PX_UNIT)
 /** ピクセル座標(初期カメラ位置の時) →DirectX座標 変換 */
-#define Px2Dx(X) (1.0f * (X) / PX_UNIT)
+#define PX2DX(X) (1.0f * (X) / PX_UNIT)
 /** アプリの座標 → ピクセル座標(初期カメラ位置の時) 変換 */
-#define Co2Px(X) (1.0f * (X) / LEN_UNIT)
+#define CO2PX(X) (1.0f * (X) / LEN_UNIT)
 /** ピクセル座標(初期カメラ位置の時) → アプリの座標 変換 */
-#define Px2Co(X) ((X) * LEN_UNIT)
+#define PX2CO(X) ((X) * LEN_UNIT)
 
 /** アプリのアングル値→度数法角度 変換 */
-#define Ang2Deg(X) ((float)(X / 1000))
+#define ANG2DEG(X) ((float)(X / 1000))
 /** 度数法角度→アプリのアングル値 変換 */
-#define Deg2Ang(X) ((angle)(X * 1000))
+#define DEG2ANG(X) ((angle)(X * 1000))
 /** アプリのアングル値→ラジアン 変換 */
-#define Ang2Rad(X) (GgafDxCore::GgafDxUtil::RAD[(X) / SANG_RATE])
+#define ANG2RAD(X) (GgafDxCore::GgafDxUtil::RAD[(X) / SANG_RATE])
 /** アプリのアングル値→正弦 変換 */
-#define Ang2Sin(X) (GgafDxCore::GgafDxUtil::SIN[(X) / SANG_RATE])
+#define ANG2SIN(X) (GgafDxCore::GgafDxUtil::SIN[(X) / SANG_RATE])
 /** アプリのアングル値→余弦 変換 */
-#define Ang2Cos(X) (GgafDxCore::GgafDxUtil::COS[(X) / SANG_RATE])
+#define ANG2COS(X) (GgafDxCore::GgafDxUtil::COS[(X) / SANG_RATE])
 
 /** アプリのスケール値 → 拡大率 変換 */
-#define Sc2R(X) (1.0f * (X) / LEN_UNIT)
+#define SC2R(X) (1.0f * (X) / LEN_UNIT)
 /** 拡大率 → アプリのスケール値 変換 */
-#define R2Sc(X) ((X) * LEN_UNIT)
+#define R2SC(X) ((X) * LEN_UNIT)
 
 /** X軸を表す定数 */
 #define AXIS_X 0

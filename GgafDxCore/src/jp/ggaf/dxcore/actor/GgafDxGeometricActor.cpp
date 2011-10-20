@@ -61,17 +61,17 @@ void GgafDxGeometricActor::processSettlementBehavior() {
     }
 
     //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
-    _fX = Co2Dx(_X);
-    _fY = Co2Dx(_Y);
-    _fZ = Co2Dx(_Z);
+    _fX = CO2DX(_X);
+    _fY = CO2DX(_Y);
+    _fZ = CO2DX(_Z);
     //World変換行列（_matWorld）を更新
     if (_pFunc_calcRotMvWorldMatrix) {
         (*_pFunc_calcRotMvWorldMatrix)(this, _matWorldRotMv);
         //スケールを考慮
         if (_SX != LEN_UNIT || _SY != LEN_UNIT || _SZ != LEN_UNIT) {
-           float Sx = Sc2R(_SX);
-           float Sy = Sc2R(_SY);
-           float Sz = Sc2R(_SZ);
+           float Sx = SC2R(_SX);
+           float Sy = SC2R(_SY);
+           float Sz = SC2R(_SZ);
 
            _matWorld._11 = Sx * _matWorldRotMv._11;
            _matWorld._12 = Sx * _matWorldRotMv._12;
@@ -104,9 +104,9 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //合成
         changeGeoFinal();
         //ワールド変換行列から飛行移動を取り出し最終的な座標とする
-        _X = Dx2Co(_matWorld._41);
-        _Y = Dx2Co(_matWorld._42);
-        _Z = Dx2Co(_matWorld._43);
+        _X = DX2CO(_matWorld._41);
+        _Y = DX2CO(_matWorld._42);
+        _Z = DX2CO(_matWorld._43);
         _fX = _matWorld._41;
         _fY = _matWorld._42;
         _fZ = _matWorld._43;
@@ -131,9 +131,9 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         //メンバー更新
         GgafDxCamera* pCam = P_CAM;
         //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
-    //        _fX = Co2Dx(_X);
-    //        _fY = Co2Dx(_Y);
-    //        _fZ = Co2Dx(_Z);
+    //        _fX = CO2DX(_X);
+    //        _fY = CO2DX(_Y);
+    //        _fZ = CO2DX(_Z);
         //視錐台
         _fDist_VpPlnTop    = pCam->_plnTop.a*_fX +
                              pCam->_plnTop.b*_fY +

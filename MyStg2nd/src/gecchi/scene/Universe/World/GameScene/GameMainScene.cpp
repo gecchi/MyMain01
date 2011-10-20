@@ -21,31 +21,31 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 
     _pFont16_SCORE = NEW LabelGecchi16Font("SCORE");
     _pFont16_SCORE->setAlign(ALIGN_RIGHT, VALIGN_TOP);
-    _pFont16_SCORE->locate(Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH)), Px2Co(1));
+    _pFont16_SCORE->locate(PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)), PX2CO(1));
     getDirector()->addSubGroup(_pFont16_SCORE);
 
     _pFont16_RANK = NEW LabelGecchi16Font("RANK");
     _pFont16_RANK->setAlign(ALIGN_RIGHT, VALIGN_TOP);
-    _pFont16_RANK->locate(Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH)), Px2Co(20));
+    _pFont16_RANK->locate(PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)), PX2CO(20));
     getDirector()->addSubGroup(_pFont16_RANK);
 
     _pFont16_STAMINA = NEW LabelGecchi16Font("STAMINA");
     _pFont16_STAMINA->setAlign(ALIGN_RIGHT, VALIGN_TOP);
-    _pFont16_STAMINA->locate(Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH)), Px2Co(40));
+    _pFont16_STAMINA->locate(PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)), PX2CO(40));
     getDirector()->addSubGroup(_pFont16_STAMINA);
 
     _pFont8_JIKI_X = NEW LabelGecchi8Font("JIKI_X");
     _pFont8_JIKI_Y = NEW LabelGecchi8Font("JIKI_Y");
     _pFont8_JIKI_Z = NEW LabelGecchi8Font("JIKI_Z");
-    _pFont8_JIKI_X->locate(Px2Co(1), Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1));
-    _pFont8_JIKI_Y->locate(Px2Co(1), Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1));
-    _pFont8_JIKI_Z->locate(Px2Co(1), Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1));
+    _pFont8_JIKI_X->locate(PX2CO(1), PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*3-1));
+    _pFont8_JIKI_Y->locate(PX2CO(1), PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*2-1));
+    _pFont8_JIKI_Z->locate(PX2CO(1), PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 8*1-1));
     getDirector()->addSubGroup(_pFont8_JIKI_X);
     getDirector()->addSubGroup(_pFont8_JIKI_Y);
     getDirector()->addSubGroup(_pFont8_JIKI_Z);
 
     _pRankFont = NEW LabelRankFont("RankFont"); //LabelRankFont‚Í ALIGN_RIGHT,VALIGN_BOTTOM ŒÅ’è
-    _pRankFont->locate(Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH)), Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT)));
+    _pRankFont->locate(PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)), PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT)));
     getDirector()->addSubGroup(_pRankFont);
 
     useProgress(GAMEMAINSCENE_PROG_FINISH);

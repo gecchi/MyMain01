@@ -131,7 +131,7 @@ void GgafDxDrawableActor::processPreDraw() {
 
     _pNext_TheSameDrawDepthLevel = NULL;
     //TODO:óvåüèÿ
-    if (isActiveActor()) {
+    if (isActive()) {
         if (_is2DActor) {
 //            _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(
 //                                (int)((1.0*_Z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),

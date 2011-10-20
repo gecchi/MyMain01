@@ -28,9 +28,9 @@ void SpriteMeshWorldBoundActor::processSettlementBehavior() {
     //・視錐台からの距離計算
     //GgafDxGeometricActor::processSettlementBehavior() と同期を取る事！
     locateAs(P_CAM);
-    _fX = Co2Dx(_X);
-    _fY = Co2Dx(_Y);
-    _fZ = Co2Dx(_Z);
+    _fX = CO2DX(_X);
+    _fY = CO2DX(_Y);
+    _fZ = CO2DX(_Z);
     (*_pFunc_calcRotMvWorldMatrix)(this, _matWorld); //ワールド変換
 }
 //void SpriteMeshWorldBoundActor::processPreDraw() {

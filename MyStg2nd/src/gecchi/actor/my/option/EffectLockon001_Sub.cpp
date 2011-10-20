@@ -47,7 +47,7 @@ void EffectLockon001_Sub::processBehavior() {
          _SX = _SY = _SZ = _pEffectLockon001_Main->_SX;
          _pKurokoA->_ang_veloFace[AXIS_Z] = _pEffectLockon001_Main->_pKurokoA->_ang_veloFace[AXIS_Z];
          if (_pTarget) {
-             if (_pTarget->isActiveActor() || _pTarget->_will_activate_after_flg) {
+             if (_pTarget->isActive() || _pTarget->_will_activate_after_flg) {
                  if (abs(_pTarget->_X-_X) <= 200000 &&
                      abs(_pTarget->_Y-_Y) <= 200000 &&
                      abs(_pTarget->_Z-_Z) <= 200000) {
@@ -101,7 +101,7 @@ void EffectLockon001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
 
 }
 void EffectLockon001_Sub::releaseLockon() {
-    if (isActiveActor()) {
+    if (isActive()) {
         if (_pProg->get() == LOCKON001_PROG_LOCK) {
             _pKurokoA->setFaceAngVelo(AXIS_Z, _pKurokoA->_ang_veloFace[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
             _pProg->change(LOCKON001_PROG_RELEASE);

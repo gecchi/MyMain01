@@ -517,7 +517,7 @@ bool GgafNode<T>::hasSub(char* prm_sub_actor_name) {
     } else {
         _pNodeTemp = _pSubFirst;
         do {
-            if (GgafUtil::strcmp_ascii(_pNodeTemp->getName(), prm_sub_actor_name)) {
+            if (GgafUtil::strcmp_ascii(_pNodeTemp->getName(), prm_sub_actor_name) == 0) {
                 return true;
             }
             if (_pNodeTemp->_is_last_flg) {

@@ -31,9 +31,9 @@ void GgafDxSphereActor::drawSphere(coord prm_x, coord prm_y, coord prm_z, coord 
     _X = prm_x;
     _Y = prm_y;
     _Z = prm_z;
-    _fX = Co2Dx(_X);
-    _fY = Co2Dx(_Y);
-    _fZ = Co2Dx(_Z);
+    _fX = CO2DX(_X);
+    _fY = CO2DX(_Y);
+    _fZ = CO2DX(_Z);
     GgafDxUtil::setWorldMatrix_ScRzMv(this, _matWorld);
     processDraw();
 }

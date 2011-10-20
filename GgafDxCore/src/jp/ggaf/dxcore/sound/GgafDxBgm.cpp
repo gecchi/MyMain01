@@ -60,7 +60,7 @@ void GgafDxBgm::clear() {
     _pPcmPlayer->clear();
 }
 
-bool GgafDxBgm::isActiveActor() {
+bool GgafDxBgm::isActive() {
     if (_pPcmPlayer->getState() == PCMPlayer::STATE_PLAY) {
         return true;
     } else {

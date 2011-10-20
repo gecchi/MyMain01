@@ -10,7 +10,7 @@ HoshiBoshi002::HoshiBoshi002(const char* prm_name) :
     _class_name = "HoshiBoshi002";
     changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     setHitAble(false);
-    _CAM_ZF = abs(Dx2Co(P_CAM->_zf));
+    _CAM_ZF = abs(DX2CO(P_CAM->_zf));
     setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-1);
     _TRACE_("HoshiBoshi002::HoshiBoshi002 _CAM_ZF="<<_CAM_ZF);
 }
@@ -45,9 +45,9 @@ void HoshiBoshi002::processBehavior() {
 void HoshiBoshi002::processSettlementBehavior() {
     //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
     //GgafDxGeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ðŽæ‚éŽ–I
-    _fX = Co2Dx(_X);
-    _fY = Co2Dx(_Y);
-    _fZ = Co2Dx(_Z);
+    _fX = CO2DX(_X);
+    _fY = CO2DX(_Y);
+    _fZ = CO2DX(_Z);
 }
 
 void HoshiBoshi002::processJudgement() {

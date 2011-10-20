@@ -77,6 +77,10 @@ public:
     virtual void processFinal() override {
     }
 
+    bool isActive() override {
+        return true;
+    }
+
     virtual ~GgafUniverse();
 };
 

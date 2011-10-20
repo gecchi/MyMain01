@@ -11,26 +11,26 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name) : CameraWorker(prm_name) 
 
     //初期カメラ移動範囲制限
     float revise = 0.7; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
-    _lim_CAM_top     = MyShip::_lim_top     - (Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT))/2)*revise;
-    _lim_CAM_bottom  = MyShip::_lim_bottom  + (Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT))/2)*revise;
-    _lim_CAM_front   = MyShip::_lim_front   - (Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
-    _lim_CAM_behaind = MyShip::_lim_behaind + (Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
-    _lim_CAM_zleft   = MyShip::_lim_zleft   - (Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
-    _lim_CAM_zright  = MyShip::_lim_zright  + (Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_CAM_top     = MyShip::_lim_top     - (PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT))/2)*revise;
+    _lim_CAM_bottom  = MyShip::_lim_bottom  + (PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT))/2)*revise;
+    _lim_CAM_front   = MyShip::_lim_front   - (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_CAM_behaind = MyShip::_lim_behaind + (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_CAM_zleft   = MyShip::_lim_zleft   - (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_CAM_zright  = MyShip::_lim_zright  + (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
 
-    _lim_VP_top     = MyShip::_lim_top     - (Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT))/2)*revise;
-    _lim_VP_bottom  = MyShip::_lim_bottom  + (Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT))/2)*revise;
-    _lim_VP_front   = MyShip::_lim_front   - (Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
-    _lim_VP_behaind = MyShip::_lim_behaind + (Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
-    _lim_VP_zleft   = MyShip::_lim_zleft   - (Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
-    _lim_VP_zright  = MyShip::_lim_zright  + (Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_VP_top     = MyShip::_lim_top     - (PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT))/2)*revise;
+    _lim_VP_bottom  = MyShip::_lim_bottom  + (PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT))/2)*revise;
+    _lim_VP_front   = MyShip::_lim_front   - (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_VP_behaind = MyShip::_lim_behaind + (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_VP_zleft   = MyShip::_lim_zleft   - (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
+    _lim_VP_zright  = MyShip::_lim_zright  + (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH))/2)*revise;
 }
 void VamSysCamWorker::initialize() {
     GgafDxCamera* pCam = P_CAM;
     GgafDxGeometricActor* pVP = pCam->_pViewPoint;
 
     //初期カメラZ位置
-    _dZ_camera_init = -Dx2Co(pCam->_cameraZ_org);
+    _dZ_camera_init = -DX2CO(pCam->_cameraZ_org);
 
 
     //画面背後用範囲差分
@@ -137,8 +137,8 @@ void VamSysCamWorker::processBehavior() {
     static int Dx = (int)((CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2)/4*2);
     static int Ddx_hw = (int)((CFG_PROPERTY(GAME_BUFFER_WIDTH)*LEN_UNIT/2) - (CFG_PROPERTY(GAME_BUFFER_HEIGHT)*LEN_UNIT/2));
 
-//    static coord Dx = Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2)/4*2;
-//    static coord Ddx_hw = (Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2) - (Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT)/2));
+//    static coord Dx = PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2)/4*2;
+//    static coord Ddx_hw = (PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2) - (PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT)/2));
 
 
     //static int Dd = 30000;

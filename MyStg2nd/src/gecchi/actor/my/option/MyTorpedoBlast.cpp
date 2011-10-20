@@ -16,18 +16,18 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
 
 void MyTorpedoBlast::initialize() {
     _pCollisionChecker->makeCollision(1);
-    _pKurokoA->setFaceAngVelo(AXIS_X, Deg2Ang(27));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, Deg2Ang(33));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, Deg2Ang(17));
+    _pKurokoA->setFaceAngVelo(AXIS_X, DEG2ANG(27));
+    _pKurokoA->setFaceAngVelo(AXIS_Y, DEG2ANG(33));
+    _pKurokoA->setFaceAngVelo(AXIS_Z, DEG2ANG(17));
     setHitAble(true);
 }
 
 void MyTorpedoBlast::onReset() {
     _pStatus->reset();
-    _pCollisionChecker->setColliSphere(0, Px2Co(10));
+    _pCollisionChecker->setColliSphere(0, PX2CO(10));
     _pKurokoA->setMvVelo(0);
-    _pScaler->setScale(R2Sc(1));
-    _pScaler->forceScaleRange(R2Sc(1), R2Sc(400));
+    _pScaler->setScale(R2SC(1));
+    _pScaler->forceScaleRange(R2SC(1), R2SC(400));
 
 }
 

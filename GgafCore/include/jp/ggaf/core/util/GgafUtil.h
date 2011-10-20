@@ -32,17 +32,21 @@ public:
 
     /**
      * ASCII限定文字列比較 .
-     * 標準よりほんのちょびと速いのではないだろうか、使用には注意しましょう。
      * @param s1
      * @param s2
-     * @return
+     * @return s1 > s2 で正の値、s1 < s2 で負の値、s1 = s2で 0 を返す。
      */
     static int strcmp_ascii(const char* s1, const char* s2) {
         while (*s1 == *s2++)
             if (*s1++ == 0) return (0);
         return (*s1 - *(s2 - 1));
     }
-
+    /**
+     * ASCII限定文字列比較 .
+     * @param s1
+     * @param s2
+     * @return s1 > s2 で正の値、s1 < s2 で負の値、s1 = s2で 0 を返す。
+     */
     static int strcmp_ascii(char* s1, const char* s2) {
         while (*s1 == *s2++)
             if (*s1++ == 0) return (0);

@@ -605,7 +605,7 @@ void MyShip::doNotingMoveInput() {
 }
 void MyShip::setMoveSpeedLv(int lv) {
         //_lv_MoveSpeed = lv;
-        _iMoveSpeed = Px2Co(lv);
+        _iMoveSpeed = PX2CO(lv);
     }
 
 void MyShip::onCatchEvent(UINT32 prm_no, void* prm_pSource) {

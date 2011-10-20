@@ -12,19 +12,19 @@ MyShot001::MyShot001(const char* prm_name) :
 
 void MyShot001::initialize() {
     setHitAble(false);
-    _SX = R2Sc(45);
-    _SY = _SZ = R2Sc(35);
+    _SX = R2SC(45);
+    _SY = _SZ = R2SC(35);
     setBoundingSphereRadiusRate(45.0f);
     setAlpha(0.99); //半透明にすることで両面レンダリング
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB(0, -Px2Co(50), -Px2Co(50), -Px2Co(50),
-                                        Px2Co(50),  Px2Co(50),  Px2Co(50));
-    _pKurokoA->setFaceAngVelo(AXIS_X, Deg2Ang(12));
+    _pCollisionChecker->setColliAAB(0, -PX2CO(50), -PX2CO(50), -PX2CO(50),
+                                        PX2CO(50),  PX2CO(50),  PX2CO(50));
+    _pKurokoA->setFaceAngVelo(AXIS_X, DEG2ANG(12));
 }
 
 void MyShot001::onActive() {
     setHitAble(true);
-    _pKurokoA->setMvVelo(Px2Co(70));             //移動速度
+    _pKurokoA->setMvVelo(PX2CO(70));             //移動速度
     _pKurokoA->setMvAcce(100);
 }
 

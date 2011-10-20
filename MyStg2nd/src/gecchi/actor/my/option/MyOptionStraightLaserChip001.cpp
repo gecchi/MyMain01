@@ -22,7 +22,7 @@ void MyOptionStraightLaserChip001::initialize() {
     _pKurokoA->setRzRyMvAng(0,0);
     registHitAreaCube(60000);
     setHitAble(true);
-    _SX = _SY = _SZ = R2Sc(5);
+    _SX = _SY = _SZ = R2SC(5);
     _fAlpha = 0.99;
     _radius_bounding_sphere = 20.0;
 
@@ -37,7 +37,7 @@ void MyOptionStraightLaserChip001::onActive() {
     _pKurokoA->setMvVelo(80000);
     _pKurokoA->setMvAcce(300);
     _isLockon = false;
-    if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
+    if (pMainLockOnTarget && pMainLockOnTarget->isActive()) {
         if (_pChip_front == NULL) {
             //先端チップ
             _lockon = 1;

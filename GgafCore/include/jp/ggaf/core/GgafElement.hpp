@@ -53,6 +53,8 @@ public:
     frame _frame_of_behaving;
     /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計(但し、_was_paused_flg==true 又は _is_active_flg==false 時は加算され無い) */
     frame _frame_of_behaving_since_onActive;
+
+    frame _last_frame_of_god;
     /** [r]相対フレーム計算用 */
     frame _frameEnd;
     /** [r]ノード活動フラグ */
@@ -163,31 +165,6 @@ public:
      * 神(GgafGod)は、この世(GgafUniverse)に対して behave() 実行後、次は settleBehavior() を実行することになる。<BR>
      */
     virtual void behave();
-    void callRecursive(void (GgafElement<T>::*pFunc)());
-
-    /**
-     * 非活動→活動時に切り替わった時の処理(単体) .
-     * 非活動状態から活動状態に変化したときに、 behave() よりも前に１回コールバックされる。<BR>
-     * 必要に応じてオーバーライドする。<BR>
-     * ＜コールされるタイミング詳細＞
-     * ①非活動→活動時に切り替わった時
-     * nextFrame() 処理中、前フレームの状態フラグ「非活動状態」で、現フレームの状態フラグが「活動状態」となる場合、
-     * nextFrame() 内で、現フレームの状態フラグを「活動状態」にし、フレーム加算した後 コールバック
-     * ②生成後、１フレーム目の時
-     * 実際には存在しない前フレーム(0フレーム目)の状態フラグを、生成後の初期値で「非活動状態」としている為。
-     * 生成後、初めて nextFrame() 処理される場合、nextFrame() 内でコールバックされることになる。
-     */
-    virtual void onActive() {
-    }
-
-    /**
-     * 活動→非活動時に切り替わった時の処理(単体) .
-     * 活動状態から非活動状態に変化したときに１回コールバックされる。<BR>
-     * 呼び出されるタイミングはフレーム加算直後である。通常 behave() よりも前に実行される。<BR>
-     * 必要に応じてオーバーライドする。<BR>
-     */
-    virtual void onInactive() {
-    }
 
     /**
      * ノードのフレーム毎の振る舞い事後処理(自ツリー) .
@@ -266,6 +243,41 @@ public:
      */
     virtual void doFinally();
 
+    /**
+     * ツリー構造において、再帰呼び出しを行う。
+     * @param pFunc 再帰呼び出しするメソッド
+     */
+    void callRecursive(void (GgafElement<T>::*pFunc)());
+
+    /**
+     * ツリー構造において、再帰呼び出しを行う。
+     * @param pFunc 再帰呼び出しするメソッド(frame 引数有り)
+     */
+    void callRecursive(void (GgafElement<T>::*pFunc)(frame), frame prm_frame);
+
+    /**
+     * 非活動→活動時に切り替わった時の処理(単体) .
+     * 非活動状態から活動状態に変化したときに、 behave() よりも前に１回コールバックされる。<BR>
+     * 必要に応じてオーバーライドする。<BR>
+     * ＜コールされるタイミング詳細＞
+     * ①非活動→活動時に切り替わった時
+     * nextFrame() 処理中、前フレームの状態フラグ「非活動状態」で、現フレームの状態フラグが「活動状態」となる場合、
+     * nextFrame() 内で、現フレームの状態フラグを「活動状態」にし、フレーム加算した後 コールバック
+     * ②生成後、１フレーム目の時
+     * 実際には存在しない前フレーム(0フレーム目)の状態フラグを、生成後の初期値で「非活動状態」としている為。
+     * 生成後、初めて nextFrame() 処理される場合、nextFrame() 内でコールバックされることになる。
+     */
+    virtual void onActive() {
+    }
+
+    /**
+     * 活動→非活動時に切り替わった時の処理(単体) .
+     * 活動状態から非活動状態に変化したときに１回コールバックされる。<BR>
+     * 呼び出されるタイミングはフレーム加算直後である。通常 behave() よりも前に実行される。<BR>
+     * 必要に応じてオーバーライドする。<BR>
+     */
+    virtual void onInactive() {
+    }
 
     /**
      * フレーム毎の個別振る舞い処理を実装。(ユーザー実装用、単体) .
@@ -677,7 +689,7 @@ public:
     }
 
     virtual void moveLastImmediately() {
-        moveLast();
+        GgafNode<T>::moveLast();
     }
     /**
      * 自ツリーノードを先頭ノードに移動する(単体) .
@@ -689,7 +701,7 @@ public:
     }
 
     virtual void moveFirstImmediately() {
-        moveFirst();
+        GgafNode<T>::moveFirst();
     }
 //    /**
 //     * 所属ツリーから独立する(単体)
@@ -727,7 +739,7 @@ public:
      * 活動中か調べる
      * @return  bool true:活動中／false:非活動中
      */
-//    virtual bool isActive();
+    virtual bool isActive();
 
     /**
      * 振る舞い可能か調べる（＝一時停止されていないか）
@@ -843,6 +855,7 @@ _was_initialize_flg(false),
 _frame_of_life(0),
 _frame_of_behaving(0),
 _frame_of_behaving_since_onActive(0),
+_last_frame_of_god(P_GOD->_frame_of_God),
 _frameEnd(0),
 _is_active_flg(true),
 _was_paused_flg(false),
@@ -868,18 +881,22 @@ _pProg(NULL)
 
 template<class T>
 void GgafElement<T>::nextFrame() {
+    _last_frame_of_god = P_GOD->_frame_of_God;
     TRACE("GgafElement::nextFrame BEGIN _frame_of_behaving=" << _frame_of_behaving << " name=" << GgafObject::_name << " class="
             << GgafNode<T>::_class_name);
 
+    if (GgafUtil::strcmp_ascii(_class_name, "MyStraightLaserChip001") == 0) {
+        volatile int eeee = 0;
+        eeee ++;
+    }
     //moveLast予約時
     if (_will_mv_last_in_next_frame_flg) {
         _will_mv_last_in_next_frame_flg = false;
-        moveLast();
+        moveLastImmediately();
         return;
         //即returnする事は重要。nextFrame() 処理の２重実行をさけるため。
         //このノードは、末尾に回されているため、必ずもう一度 nextFrame() の機会が訪れる。
     }
-
     _was_paused_flg  = _was_paused_flg_in_next_frame;
     if (!_was_paused_flg) {
 
@@ -896,64 +913,76 @@ void GgafElement<T>::nextFrame() {
         _frame_of_life++;
         if (_can_live_flg) {
 
+
             if(_was_initialize_flg == false) {
                 initialize();       //初期化
                 _was_initialize_flg = true;
                 reset(); //リセット
             }
 
-
-            if (_is_active_flg && _frame_of_life == 1) {
-                //生まれてそのままならば、いきなり一回だけonActive()。
-                _on_change_to_active_flg = true;
-                //フレーム加算してからonActive()
-                _frame_of_behaving++;
-                _frame_of_behaving_since_onActive = 1;
-                onActive(); //コールバック
-                _frame_of_life_when_activation = 0;
-                _will_activate_after_flg = false;
-            } else if (_will_activate_after_flg) {
-                if (_is_active_flg) { //もともと活動中
+            if (_is_active_flg) {  //現在activate
+                if (_frame_of_life == 1) { //現在activate で １フレーム目
+                    //onActive処理
+                    _on_change_to_active_flg = true;
                     _frame_of_behaving++;
-                    _frame_of_behaving_since_onActive++;
-                } else if(_frame_of_life == _frame_of_life_when_activation) {
-                    //activate処理
-                    if (_is_active_flg == false) {//_is_active_flg = false → true  時
-                        _is_active_flg = true; //活動フラグON!!!
-                        _on_change_to_active_flg = true;
-                        //フレーム加算してからonActive()
-                        _frame_of_behaving++;
-                        _frame_of_behaving_since_onActive = 1;
-                        onActive(); //コールバック
-                        _frame_of_life_when_activation = 0;
-                        _will_activate_after_flg = false;
-                    } else {                      //もともと活動中
+                    _frame_of_behaving_since_onActive = 1;
+                    onActive(); //フレーム加算してからコールバック
+                    _frame_of_life_when_activation = 0;
+                    _will_activate_after_flg = false;
+
+                } else { //現在activate で ２フレーム目以降
+
+                    if (_will_inactivate_after_flg) {  //現在activate で、２フレーム目以降で、
+                                                       //さらに inactivate予定
+                        if (_frame_of_life == _frame_of_life_when_inactivation) { //現在activate で、２フレーム目以降で、
+                                                                                  //inactivate予定で、今inactivateになる時が来た
+                            //活動フラグOFF
+                            _is_active_flg = false;
+                            //onInactive処理
+                            _on_change_to_inactive_flg = true;
+                            onInactive(); //コールバック
+                            _frame_of_life_when_inactivation = 0;
+                            _will_inactivate_after_flg = false;
+
+                        } else { //現在activate で、２フレーム目以降で、inactivate予定だが、
+                                 //未だinactivateになる時ではなかった
+                            //通常の活動中の処理
+                            _frame_of_behaving++;
+                            _frame_of_behaving_since_onActive++;
+                        }
+                    } else { //現在activate で、２フレーム目以降で、
+                             //さらに inactivateもありゃしません。
+                        //通常の活動中の処理
                         _frame_of_behaving++;
                         _frame_of_behaving_since_onActive++;
                     }
                 }
-            } else {
-                _frame_of_behaving++;
-                _frame_of_behaving_since_onActive++;
-            }
+            } else { //現在inactivate
+                if (_will_activate_after_flg) { //現在inactivate だが、activate予定。
 
-            if (_will_inactivate_after_flg) {
-                if (_frame_of_life == _frame_of_life_when_inactivation) {
-                    _frame_of_life_when_inactivation = 0;
-                    _will_inactivate_after_flg = false;
-                    //inactivate処理
-                    if (_is_active_flg == true) { //_is_active_flg = true → false 時
-                        _is_active_flg = false;//活動フラグOFF!!!
-                        _on_change_to_inactive_flg = true;
-                        onInactive(); //コールバック
-
-                    } else {
-                        //もともと非活動中
+                    if(_frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、activate予定
+                                                                           //そして、activateになる時が来た
+                        //活動フラグON
+                        _is_active_flg = true;
+                        //onActive処理
+                        _on_change_to_active_flg = true;
+                        _frame_of_behaving++;
+                        _frame_of_behaving_since_onActive = 1;
+                        onActive();  //フレーム加算してからコールバック
+                        _frame_of_life_when_activation = 0;
+                        _will_activate_after_flg = false;
+                    } else { //現在inactivate だが、activate予定
+                             //そして、まだactivateになる時は来ない
+                        //通常の非活動中の処理
+                        //何もしない
                     }
-                } else {
-
+                } else {  //現在inactivate で、activate予定も無し・・・
+                    //通常の非活動中の処理
+                    //何もしない
                 }
             }
+
+
             _is_already_reset = false;
         }
 
@@ -988,7 +1017,7 @@ void GgafElement<T>::nextFrame() {
 
     if (_will_mv_first_in_next_frame_flg) {
         _will_mv_first_in_next_frame_flg = false;
-        moveFirst();
+        moveFirstImmediately();
         //moveFirstを一番最後にすることは重要。
         //これは nextFrame() の２重実行を避けるため。
     }
@@ -1006,6 +1035,7 @@ void GgafElement<T>::behave() {
             processBehavior();    //ユーザー実装用
         }
         callRecursive(&GgafElement<T>::behave); //再帰
+    } else {
     }
 }
 
@@ -1017,20 +1047,6 @@ void GgafElement<T>::settleBehavior() {
             processSettlementBehavior(); //フレームワーク用
         }
         callRecursive(&GgafElement<T>::settleBehavior); //再帰
-    }
-}
-template<class T>
-void GgafElement<T>::callRecursive(void (GgafElement<T>::*pFunc)()) {
-    if (GgafNode<T>::_pSubFirst) {
-        T* pElementTemp = GgafNode<T>::_pSubFirst;
-        while(true) {
-            (pElementTemp->*pFunc)(); //実行
-            if (pElementTemp->_is_last_flg) {
-                break;
-            } else {
-                pElementTemp = pElementTemp->_pNext;
-            }
-        }
     }
 }
 
@@ -1087,6 +1103,36 @@ void GgafElement<T>::doFinally() {
             processFinal();
         }
         callRecursive(&GgafElement<T>::doFinally); //再帰
+    }
+}
+
+template<class T>
+void GgafElement<T>::callRecursive(void (GgafElement<T>::*pFunc)()) {
+    if (GgafNode<T>::_pSubFirst) {
+        T* pElementTemp = GgafNode<T>::_pSubFirst;
+        while(true) {
+            (pElementTemp->*pFunc)(); //実行
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
+    }
+}
+
+template<class T>
+void GgafElement<T>::callRecursive(void (GgafElement<T>::*pFunc)(frame), frame prm_frame) {
+    if (GgafNode<T>::_pSubFirst) {
+        T* pElementTemp = GgafNode<T>::_pSubFirst;
+        while(true) {
+            (pElementTemp->*pFunc)(prm_frame); //実行
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -1197,17 +1243,7 @@ void GgafElement<T>::activateTreeDelay(frame prm_offset_frames) {
 #endif
     if (_can_live_flg) {
         activateDelay(prm_offset_frames);
-        if (GgafNode<T>::_pSubFirst) {
-            T* pElementTemp = GgafNode<T>::_pSubFirst;
-            while(true) {
-                pElementTemp->activateTreeDelay(prm_offset_frames);
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::activateTreeDelay, prm_offset_frames); //再帰
     }
 }
 
@@ -1263,17 +1299,7 @@ void GgafElement<T>::inactivateTreeDelay(frame prm_offset_frames) {
 #endif
     if (_can_live_flg) {
         inactivateDelay(prm_offset_frames);
-        if (GgafNode<T>::_pSubFirst) {
-            T* pElementTemp = GgafNode<T>::_pSubFirst;
-            while(true) {
-                pElementTemp->inactivateTreeDelay(prm_offset_frames);
-                if (pElementTemp->_is_last_flg) {
-                    break;
-                } else {
-                    pElementTemp = pElementTemp->_pNext;
-                }
-            }
-        }
+        callRecursive(&GgafElement<T>::inactivateTreeDelay, prm_offset_frames); //再帰
     }
 }
 
@@ -1386,14 +1412,14 @@ void GgafElement<T>::end(frame prm_offset_frames) {
 }
 
 
-//template<class T>
-//bool GgafElement<T>::isActive() {
-//    if (_can_live_flg && _is_active_flg) {
-//        return true;
-//    } else {
-//        return false;
-//    }
-//}
+template<class T>
+bool GgafElement<T>::isActive() {
+    if (_can_live_flg && _is_active_flg && _last_frame_of_god == P_GOD->_frame_of_God) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 template<class T>
 bool GgafElement<T>::onChangeToActive() {

@@ -55,7 +55,7 @@ void EnemyTamago01::initialize() {
     _X = -50000;
     _Y = 200000;
     _Z = 100000;
-    _pScaler->setScale(100);
+    _pScaler->setScale(1000);
 }
 
 void EnemyTamago01::onActive() {

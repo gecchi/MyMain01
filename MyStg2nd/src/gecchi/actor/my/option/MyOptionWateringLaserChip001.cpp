@@ -31,7 +31,7 @@ void MyOptionWateringLaserChip001::onActive() {
     _default_stamina = _pStatus->get(STAT_Stamina);
     WateringLaserChip::onActive();
     GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
-    if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
+    if (pMainLockOnTarget && pMainLockOnTarget->isActive()) {
         if (_pChip_front == NULL) {
             //先端チップ
             _lockon = 1;
@@ -63,7 +63,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
     GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
     if (getActivePartFrame() > 6) {
         if (_lockon == 1) {
-            if (pMainLockOnTarget && pMainLockOnTarget->isActiveActor()) {
+            if (pMainLockOnTarget && pMainLockOnTarget->isActive()) {
                 //    |             vVT 仮的                        |
                 //    |                 ^                           |      仮的
                 //    |  |仮的| > 5*vM /                            |       ｜
@@ -164,7 +164,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
                 int dx = (_X - _pOrg->_X);
                 int dy = (_Y - _pOrg->_Y);
                 int dz = (_Z - _pOrg->_Z);
-                static coord zf = Dx2Co(P_CAM->_zf)*2;
+                static coord zf = DX2CO(P_CAM->_zf)*2;
                 vTx = _X+dx*(dx == 0 ? zf : abs(zf/dx));
                 vTy = _Y+dy*(dy == 0 ? zf : abs(zf/dy));
                 vTz = _Z+dz*(dz == 0 ? zf : abs(zf/dz));

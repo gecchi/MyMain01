@@ -15,7 +15,7 @@ void FormationEunomia001b::processOnActiveEunomia(EnemyEunomia* pEnemyEunomia, i
 //                                       -1.0 * MyShip::_lim_top,   //Y•ûŒü”{—¦
 //                                        MyShip::_lim_zleft  //Z•ûŒü”{—¦
 //                                    );
-    pEnemyEunomia->_pSplSeq->adjustCoodOffset(Px2Co(col*50), Px2Co(col*50), Px2Co(col*50));
+    pEnemyEunomia->_pSplSeq->adjustCoodOffset(PX2CO(col*50), PX2CO(col*50), PX2CO(col*50));
     pEnemyEunomia->_pSplSeq->adjustAxisYFlip();
     pEnemyEunomia->_pSplSeq->setAbsoluteBeginCoordinate();
 }

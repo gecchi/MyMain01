@@ -49,9 +49,9 @@ EnemyMassalia::EnemyMassalia(const char* prm_name) :
             Ry = GgafDxUtil::simplifyAng(paAngWay[j]);
             GgafDxUtil::getNormalizeVectorZY(Rz, Ry,
                                               vx, vy, vz);
-            _papaPosLaser[i][j].X = Px2Co(vx * 100);
-            _papaPosLaser[i][j].Y = Px2Co(vy * 100);
-            _papaPosLaser[i][j].Z = Px2Co(vz * 100);
+            _papaPosLaser[i][j].X = PX2CO(vx * 100);
+            _papaPosLaser[i][j].Y = PX2CO(vy * 100);
+            _papaPosLaser[i][j].Z = PX2CO(vz * 100);
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(paAngWay);
@@ -77,7 +77,7 @@ void EnemyMassalia::initialize() {
     setHitAble(true);
     setAlpha(0.99);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliSphere(0, Px2Co(200));
+    _pCollisionChecker->setColliSphere(0, PX2CO(200));
     _pKurokoA->setMvVelo(-1000);
     _iMovePatternNo = 0;
     _X = GgafDxCore::GgafDxUniverse::_X_goneRight;

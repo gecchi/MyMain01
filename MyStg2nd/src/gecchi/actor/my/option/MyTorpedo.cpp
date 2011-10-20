@@ -44,9 +44,9 @@ void MyTorpedo::onActive() {
     _SX = _SY = _SZ = 100;
     _pScaler->setScale(100);
     _pScaler->intoTargetScaleLinerStep(7000, 500);
-    _pKurokoA->setFaceAngVelo(AXIS_X, Deg2Ang(3));
-    _pKurokoA->setFaceAngVelo(AXIS_Y, Deg2Ang(5));
-    _pKurokoA->setFaceAngVelo(AXIS_Z, Deg2Ang(7));
+    _pKurokoA->setFaceAngVelo(AXIS_X, DEG2ANG(3));
+    _pKurokoA->setFaceAngVelo(AXIS_Y, DEG2ANG(5));
+    _pKurokoA->setFaceAngVelo(AXIS_Z, DEG2ANG(7));
     _pKurokoA->setMvVelo(20000);
     _pKurokoA->setMvAcce(-1000);
     _pKurokoA->setRzMvAngVelo(0);
@@ -118,7 +118,7 @@ void MyTorpedo::processBehavior() {
             if (getActivePartFrame() < 120) {
                 if (getActivePartFrame() % 10 == 0) {
                     if (_pTarget) {
-                        if (_pTarget->isActiveActor())  {
+                        if (_pTarget->isActive())  {
                             _pKurokoA->execTurnMvAngSequence(
                                         _pTarget,
                                         1000, 200,
@@ -148,7 +148,7 @@ void MyTorpedo::processBehavior() {
             if (getActivePartFrame() < 300) {
                 if (getActivePartFrame() % 20 == 0) {
                     if (_pTarget) {
-                        if (_pTarget->isActiveActor())  {
+                        if (_pTarget->isActive())  {
                             _pKurokoA->execTurnMvAngSequence(
                                         _pTarget,
                                         300, 0,

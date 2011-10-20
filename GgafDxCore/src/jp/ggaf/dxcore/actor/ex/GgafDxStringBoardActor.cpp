@@ -170,23 +170,23 @@ void GgafDxStringBoardActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     HRESULT hr;
     if (_valign == VALIGN_BOTTOM) {
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(Co2Px(_Y)-_chr_height_px));
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(CO2PX(_Y)-_chr_height_px));
     } else  if (_valign == VALIGN_MIDDLE) {
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(Co2Px(_Y)-(_chr_height_px/2)));
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(CO2PX(_Y)-(_chr_height_px/2)));
     } else {
         //VALIGN_TOP
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(Co2Px(_Y)));
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(CO2PX(_Y)));
     }
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(Co2Px(_Y)));
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], float(CO2PX(_Y)));
     checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahTransformedY) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(Co2Px(_Z)));
+    hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[0], float(CO2PX(_Z)));
     checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahDepthZ) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[0], _fAlpha); //注意：アルファは文字ごとは不可
     checkDxException(hr, D3D_OK, "GgafDxBoardSetModel::draw SetFloat(_ahAlpha) に失敗しました。");
 
     if (_align == ALIGN_LEFT || _align == ALIGN_CENTER) {
         int strindex, pattno;
-        pixcoord x = Co2Px(_X) - (_width_len_px/2);
+        pixcoord x = CO2PX(_X) - (_width_len_px/2);
         pixcoord x_tmp = x;
         float u,v;
         for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {
@@ -216,7 +216,7 @@ void GgafDxStringBoardActor::processDraw() {
         }
     } else if (_align == ALIGN_RIGHT) {
         int strindex, pattno;
-        pixcoord x = Co2Px(_X)-_aWidthPx[_len-1];
+        pixcoord x = CO2PX(_X)-_aWidthPx[_len-1];
         pixcoord x_tmp = x;
         float u,v;
         for (int pack = 0; pack < _len_pack_num+(_remainder_len == 0 ? 0 : 1); pack++) {

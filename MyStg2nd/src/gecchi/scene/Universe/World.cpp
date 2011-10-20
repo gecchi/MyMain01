@@ -21,14 +21,14 @@ void World::initialize() {
     orderActorToFactory(0, LabelGecchi16Font, "STR01");
     _pStringBoard01 = (LabelGecchi16Font*)obtainActorFromFactory(0);
     getDirector()->addSubGroup(_pStringBoard01);
-    _pStringBoard01->update(Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2), Px2Co(CFG_PROPERTY(GAME_BUFFER_HEIGHT)/2),
+    _pStringBoard01->update(PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)/2), PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT)/2),
                             "WATE A MOMENT PLASE...", ALIGN_CENTER, VALIGN_MIDDLE);
 //    _pStringBoard01->_pFader->beat(60,10,20,20,-1);
 
     orderActorToFactory(0, LabelGecchi16Font, "ASTER");
     _pFont16_Wait = (LabelGecchi16Font*)obtainActorFromFactory(0);
     getDirector()->addSubGroup(_pFont16_Wait);
-    _pFont16_Wait->update(Px2Co(CFG_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
+    _pFont16_Wait->update(PX2CO(CFG_PROPERTY(GAME_BUFFER_WIDTH)), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
     _pFont16_Wait->_pFader->beat(60,30,0,0,-1);
 #ifdef MY_DEBUG
     ColliAABActor::get();   //当たり判定領域表示用直方体、プリロード
