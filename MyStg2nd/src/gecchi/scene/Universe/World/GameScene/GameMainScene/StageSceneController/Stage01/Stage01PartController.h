@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2010/08/18
  * @author Masatoshi Tsuge
  */
-class Stage01PartController : public GgafLib::DefaultScene {
+class Stage01PartController : public StagePartController {
 
     GgafDxCore::GgafDxBgm* _bgm_st1;
 

@@ -30,35 +30,58 @@ GgafScene::~GgafScene() {
     DELETE_POSSIBLE_NULL(_pDirector);
 }
 void GgafScene::setRunFrameOnce(int prm_once_in_n_time) {
-//    if (isActiveInTheWorld()) {
-        if (prm_once_in_n_time <= 1) {
-            _once_in_n_time = 1;
-        } else {
-            _once_in_n_time = prm_once_in_n_time;
-        }
-//    }
-}
-
-void GgafScene::setRunFrameOnceTree(int prm_once_in_n_time) {
-//    if (isActiveInTheWorld()) {
-        if (prm_once_in_n_time <= 1) {
-            _once_in_n_time = 1;
-        } else {
-            _once_in_n_time = prm_once_in_n_time;
-        }
-//    }
-    if (_pSubFirst) {
-        GgafScene* pSceneTemp = _pSubFirst;
-        while(true) {
-            pSceneTemp->setRunFrameOnceTree(prm_once_in_n_time);
-            if (pSceneTemp->_is_last_flg) {
-                break;
-            } else {
-                pSceneTemp = pSceneTemp->_pNext;
-            }
-        }
+    if (prm_once_in_n_time <= 1) {
+        _once_in_n_time = 1;
+    } else {
+        _once_in_n_time = prm_once_in_n_time;
     }
 }
+
+//void GgafScene::setRunFrameOnceTree(int prm_once_in_n_time) {
+//    if (prm_once_in_n_time <= 1) {
+//        _once_in_n_time = 1;
+//    } else {
+//        _once_in_n_time = prm_once_in_n_time;
+//    }
+//    if (_pSubFirst) {
+//        GgafScene* pSceneTemp = _pSubFirst;
+//        while(true) {
+//            pSceneTemp->setRunFrameOnceTree(prm_once_in_n_time);
+//            if (pSceneTemp->_is_last_flg) {
+//                break;
+//            } else {
+//                pSceneTemp = pSceneTemp->_pNext;
+//            }
+//        }
+//    }
+//}
+
+void GgafScene::addRunFrameOnce(int prm_once_in_n_time) {
+    if ((int)_once_in_n_time + prm_once_in_n_time <= 1) {
+        _once_in_n_time = 1;
+    } else {
+        _once_in_n_time += prm_once_in_n_time;
+    }
+}
+
+//void GgafScene::addRunFrameOnceTree(int prm_once_in_n_time) {
+//    if ((int)_once_in_n_time + prm_once_in_n_time <= 1) {
+//        _once_in_n_time = 1;
+//    } else {
+//        _once_in_n_time += prm_once_in_n_time;
+//    }
+//    if (_pSubFirst) {
+//        GgafScene* pSceneTemp = _pSubFirst;
+//        while(true) {
+//            pSceneTemp->setRunFrameOnceTree(prm_once_in_n_time);
+//            if (pSceneTemp->_is_last_flg) {
+//                break;
+//            } else {
+//                pSceneTemp = pSceneTemp->_pNext;
+//            }
+//        }
+//    }
+//}
 
 void GgafScene::addSubLast(GgafScene* prm_pScene) {
 //    prm_pScene->_once_in_n_time = _once_in_n_time;
@@ -69,78 +92,35 @@ void GgafScene::nextFrame() {
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::nextFrame();
         _pDirector->nextFrame();
-    } else {
-        _was_paused2_flg = true;
-        GgafElement<GgafScene>::nextFrame();
-        _was_paused2_flg = false;
     }
+//    else {
+//        _was_paused2_flg = true;
+//        GgafElement<GgafScene>::nextFrame();
+//        _was_paused2_flg = false;
+//    }
 }
 
-//    TRACE("GgafScene::nextFrame() " << getName());
-//    if (_once_in_n_time == 1 || getBehaveingFrame() % _once_in_n_time == 0) {
-//        GgafElement<GgafScene>::nextFrame();
-//        _pDirector->nextFrame();
-//    } else {
-//        _last_frame_of_god = P_GOD->_frame_of_God;
-//        if (_pSubFirst) {
-//            GgafScene* pElementTemp = _pSubFirst;
-//            while (true) {
-//
-//                if (pElementTemp->_is_last_flg) {
-//                    pElementTemp->nextFrame();
-//                    if (pElementTemp->_can_live_flg == false) {
-//                        pElementTemp->onGarbaged();
-//                        GgafFactory::_pGarbageBox->add(pElementTemp); //ゴミ箱へ
-//                    }
-//                    break;
-//                } else {
-//                    pElementTemp = pElementTemp->_pNext;
-//                    pElementTemp->_pPrev->nextFrame();
-//                    if (pElementTemp->_pPrev->_can_live_flg == false) {
-//                        ((GgafScene*)(pElementTemp->_pPrev))->onGarbaged();
-//                        GgafFactory::_pGarbageBox->add(pElementTemp->_pPrev); //ゴミ箱へ
-//                    }
-//                }
-//            }
-//        }
-//
-//        //
-//        //_pDirector以下_last_frame_of_godの更新のみ行う。
-//
-//        _pDirector->_last_frame_of_god = P_GOD->_frame_of_God;
-//        if (_pDirector->_pSubFirst) {
-//            GgafActor* pElementTemp = _pDirector->_pSubFirst;
-//            while (true) {
-//                if (pElementTemp->_is_last_flg) {
-//                    pElementTemp->_last_frame_of_god = P_GOD->_frame_of_God;
-//                    break;
-//                } else {
-//                    pElementTemp = pElementTemp->_pNext;
-//                    pElementTemp->_pPrev->_last_frame_of_god = P_GOD->_frame_of_God;
-//                }
-//            }
-//        }
-//    }
-//}
 
 void GgafScene::behave() {
     TRACE("GgafScene::behave() " << getName());
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::behave();
         _pDirector->behave();
-    } else {
-        callRecursive(&GgafElement<GgafScene>::behave); //再帰
     }
+//    else {
+//        callRecursive(&GgafElement<GgafScene>::behave); //再帰
+//    }
 }
 
 void GgafScene::settleBehavior() {
     TRACE("GgafScene::settleBehavior() " << getName());
-    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
+//    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::settleBehavior();
         _pDirector->settleBehavior();
-    } else {
-        callRecursive(&GgafElement<GgafScene>::settleBehavior); //再帰
-    }
+//    }
+//    else {
+//        callRecursive(&GgafElement<GgafScene>::settleBehavior); //再帰
+//    }
 }
 
 void GgafScene::judge() {
@@ -148,9 +128,10 @@ void GgafScene::judge() {
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::judge();
         _pDirector->judge();
-    } else {
-        callRecursive(&GgafElement<GgafScene>::judge); //再帰
     }
+//    else {
+//        callRecursive(&GgafElement<GgafScene>::judge); //再帰
+//    }
 }
 
 void GgafScene::preDraw() {
@@ -185,9 +166,10 @@ void GgafScene::doFinally() {
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::doFinally();
         _pDirector->doFinally();
-    } else {
-        callRecursive(&GgafElement<GgafScene>::doFinally); //再帰
     }
+//    else {
+//        callRecursive(&GgafElement<GgafScene>::doFinally); //再帰
+//    }
 }
 
 void GgafScene::activateTree() {

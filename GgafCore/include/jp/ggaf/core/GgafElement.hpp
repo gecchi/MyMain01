@@ -1040,7 +1040,7 @@ void GgafElement<T>::nextFrame() {
 template<class T>
 void GgafElement<T>::behave() {
 
-    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+    if (_is_active_flg && !_was_paused_flg && !_was_paused2_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
             processBehavior();    //ユーザー実装用
@@ -1063,7 +1063,7 @@ void GgafElement<T>::settleBehavior() {
 
 template<class T>
 void GgafElement<T>::judge() {
-    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+    if (_is_active_flg && !_was_paused_flg && !_was_paused2_flg &&  _can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
             processJudgement();    //ユーザー実装用
@@ -1108,7 +1108,7 @@ void GgafElement<T>::afterDraw() {
 
 template<class T>
 void GgafElement<T>::doFinally() {
-    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+    if (_is_active_flg && !_was_paused_flg && !_was_paused2_flg  && _can_live_flg) {
         if (_was_initialize_flg) {
             _frameEnd = 0;
             processFinal();

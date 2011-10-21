@@ -117,8 +117,9 @@ public:
      * @param prm_once_in_n_time âΩÉtÉåÅ[ÉÄÇ…ÇPâÒé¿çsÇ∑ÇÈÇ©
      */
     virtual void setRunFrameOnce(int prm_once_in_n_time);
-    virtual void setRunFrameOnceTree(int prm_once_in_n_time);
-
+//    virtual void setRunFrameOnceTree(int prm_once_in_n_time);
+    virtual void addRunFrameOnce(int prm_once_in_n_time);
+//    virtual void addRunFrameOnceTree(int prm_once_in_n_time);
 
     virtual void addSubLast(GgafScene* prm_pScene) override;
 

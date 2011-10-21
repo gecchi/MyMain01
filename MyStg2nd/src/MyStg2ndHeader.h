@@ -234,12 +234,12 @@ class RankUp002;
 class RankUp100;
 class TamagoScene;
 
+class StagePartController;
 class Stage01PartController;
 class Stage01_01;
 class Stage01_02;
 class Stage01_03;
 class Stage01_Climax;
-
 class Stage01WalledSection001;
 class Stage01WalledScene;
 class Wall001;
@@ -486,7 +486,7 @@ class MagicMeter;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUp002.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUp100.h"
 #include "gecchi/scene/Universe/World/GameScene/TamagoScene.h"
-
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/StageScene/StagePartController.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/Stage01PartController.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/part/Stage01_01.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/part/Stage01_02.h"
