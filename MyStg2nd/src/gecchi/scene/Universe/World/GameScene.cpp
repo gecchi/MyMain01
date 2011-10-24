@@ -19,7 +19,7 @@ enum {
 GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) ,
 _pCommonScene(NULL),
 _pMyShipScene(NULL),
-_pStageSceneController(NULL) {
+_pStageWorld(NULL) {
 
     _class_name = "GameScene";
     useProgress(GAMESCENE_PROG_FINISH);
@@ -29,9 +29,10 @@ _pStageSceneController(NULL) {
     _pMyShipScene = NEW MyShipScene("MyShipScene");
     _pMyShipScene->inactivateImmediately();
     addSubLast(_pMyShipScene);
-    _pStageSceneController = new StageSceneController("StageSceneController");
-    _pStageSceneController->inactivateImmediately();
-    addSubLast(_pStageSceneController);
+    _pStageWorld = new StageWorld("StageWorld");
+    _pStageWorld->inactivateImmediately();
+    addSubLast(_pStageWorld);
+
     _pGamePauseScene = new GamePauseScene("GamePauseScene");
     _pGamePauseScene->inactivateImmediately();
     addSubLast(_pGamePauseScene);

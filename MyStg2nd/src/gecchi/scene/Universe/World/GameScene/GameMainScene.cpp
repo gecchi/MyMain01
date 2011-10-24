@@ -12,7 +12,7 @@ enum {
     GAMEMAINSCENE_PROG_FINISH  ,
 };
 
-#define ORDER_ID_STAGESCENE 11
+#define ORDER_ID_STAGE 11
 
 //GameMainScene* GameMainScene::_pGameMainScene = NULL;
 
@@ -78,9 +78,9 @@ void GameMainScene::processBehavior() {
     switch (_pProg->get()) {
         case GAMEMAINSCENE_PROG_INIT: {
             _TRACE_("GameMainScene::processBehavior() Prog(=GAMEMAINSCENE_PROG_INIT)");
-            addSubLast(P_STAGE_CONTROLLER->extract());
-            P_STAGE_CONTROLLER->reset();
-            P_STAGE_CONTROLLER->activateImmediately();
+            addSubLast(P_STAGE_WORLD->extract());
+            P_STAGE_WORLD->resetTree();
+            P_STAGE_WORLD->activateImmediately();
             _pProg->change(GAMEMAINSCENE_PROG_BEGIN);
             break;
         }
@@ -114,9 +114,9 @@ void GameMainScene::processBehavior() {
 }
 
 void GameMainScene::onInactive() {
-    if (P_STAGE_CONTROLLER->_pStageSceneMainCannel) {
-        P_STAGE_CONTROLLER->_pStageSceneMainCannel->end();
-        P_STAGE_CONTROLLER->_pStageSceneMainCannel = NULL;
+    if (P_STAGE_CONTROLLER->_pStageMainCannel) {
+        P_STAGE_CONTROLLER->_pStageMainCannel->end();
+        P_STAGE_CONTROLLER->_pStageMainCannel = NULL;
     }
 }
 

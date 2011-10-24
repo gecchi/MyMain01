@@ -164,6 +164,7 @@ DECLARE_CONST(EVENT_STG01_WAS_END);
 
 DECLARE_CONST(EVENT_TRANSIT_WAS_END);
 DECLARE_CONST(EVENT_RANKUP_WAS_END);
+DECLARE_CONST(EVENT_RANKUP_ON_GARBAGED);
 
 DECLARE_CONST(EVENT_STG02_01_WAS_BROKEN);
 DECLARE_CONST(EVENT_STG02_02_WAS_BROKEN);
@@ -215,20 +216,27 @@ class GameOverScene;
 class GamePauseScene;
 
 
-class RankUpScene;
+class RankUpStage;
 class RankUp001;
+class RankUp002;
+class RankUp003;
+class RankUp004;
+class RankUp005;
+class RankUp006;
+class RankUp007;
 
 
-class StageSceneController;
-class StageScene;
+class StageWorld;
+class StageController;
+class Stage;
 class Stage01;
 class Stage02;
 class Stage03;
 class Stage04;
 class Stage05;
 class TransitStage;
-class RankUpSceneController;
-class RankUpScene;
+class RankUpStageController;
+class RankUpStage;
 class RankUp001;
 class RankUp002;
 class RankUp100;
@@ -467,38 +475,34 @@ class MagicMeter;
 #include "gecchi/scene/Universe/World/GameScene/GameEndingScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameOverScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GamePauseScene.h"
-
-
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController.h"
-
-
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/StageScene.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage02.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage03.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage04.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage05.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/TransitStage.h"
-
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUpScene.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUp001.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUp002.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/RankUpSceneController/RankUp100.h"
 #include "gecchi/scene/Universe/World/GameScene/TamagoScene.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/StageScene/StagePartController.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/Stage01PartController.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/part/Stage01_01.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/part/Stage01_02.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/part/Stage01_03.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/part/Stage01_Climax.h"
 
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage02/Stage02PartController.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage02/part/Stage02_01.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage02/part/Stage02_Climax.h"
-
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/part/Stage01WalledScene.h"
-#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageSceneController/Stage01/part/Stage01WalledSection001.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp001.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp002.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp003.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp100.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage02.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage03.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage04.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage05.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/TransitStage.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage/StagePartController.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/Stage01PartController.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01_01.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01_02.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01_03.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01_Climax.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage02/Stage02PartController.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage02/part/Stage02_01.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage02/part/Stage02_Climax.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01WalledScene.h"
+#include "gecchi/scene/Universe/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/part/Stage01WalledSection001.h"
 #include "gecchi/actor/chikei/wall/Wall001.h"
 #include "gecchi/actor/chikei/wall/Wall001Prism.h"
 

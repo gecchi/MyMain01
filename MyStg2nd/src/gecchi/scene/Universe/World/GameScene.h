@@ -8,23 +8,7 @@
     #error P_WORLD isnt define
 #endif
 
-#ifdef P_GAME_SCENE
-    #define P_COMMON_SCENE (P_GAME_SCENE->_pCommonScene)
-#else
-    #error P_GAME_SCENE isnt define
-#endif
 
-#ifdef P_GAME_SCENE
-    #define P_MYSHIP_SCENE (P_GAME_SCENE->_pMyShipScene)
-#else
-    #error P_GAME_SCENE isnt define
-#endif
-
-#ifdef P_GAME_SCENE
-    #define P_STAGE_CONTROLLER (P_GAME_SCENE->_pStageSceneController)
-#else
-    #error P_GAME_SCENE isnt define
-#endif
 namespace MyStg2nd {
 
 
@@ -45,7 +29,8 @@ public:
     MyShipScene* _pMyShipScene;
     GamePauseScene* _pGamePauseScene;
     /** GameMain、或いは、Demoの配下へ移動される */
-    StageSceneController* _pStageSceneController;
+    StageWorld* _pStageWorld;
+
     /** コマ送りフラグ */
     bool _is_frame_advance;
     bool _was_paused_flg_GameMainScene_prev_frame;

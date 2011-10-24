@@ -114,10 +114,10 @@ void GgafScene::behave() {
 
 void GgafScene::settleBehavior() {
     TRACE("GgafScene::settleBehavior() " << getName());
-//    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
+    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::settleBehavior();
         _pDirector->settleBehavior();
-//    }
+    }
 //    else {
 //        callRecursive(&GgafElement<GgafScene>::settleBehavior); //çƒãA
 //    }

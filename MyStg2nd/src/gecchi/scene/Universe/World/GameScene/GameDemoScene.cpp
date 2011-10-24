@@ -12,7 +12,7 @@ enum {
     GAMEDEMOSCENE_PROG_FINISH  ,
 };
 
-#define ORDER_ID_DEMOSTAGESCENE 12
+#define ORDER_ID_DEMOSTAGE 12
 GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameDemoScene";
     useProgress(GAMEDEMOSCENE_PROG_FINISH);
@@ -71,9 +71,9 @@ void GameDemoScene::processBehavior() {
     switch (_pProg->get()) {
         case GAMEDEMOSCENE_PROG_INIT: {
             _TRACE_("GameDemoScene::processBehavior() Prog(=GAMEDEMOSCENE_PROG_INIT) is Just Changed");
-            addSubLast(P_STAGE_CONTROLLER->extract());
-            P_STAGE_CONTROLLER->reset();
-            P_STAGE_CONTROLLER->activateImmediately();
+            addSubLast(P_STAGE_WORLD->extract());
+            P_STAGE_WORLD->reset();
+            P_STAGE_WORLD->activateImmediately();
             _pProg->change(GAMEDEMOSCENE_PROG_DEMOPLAY);
             break;
         }
@@ -146,9 +146,9 @@ void GameDemoScene::processFinal() {
 
 }
 void GameDemoScene::onInactive() {
-    if (P_STAGE_CONTROLLER->_pStageSceneMainCannel) {
-        P_STAGE_CONTROLLER->_pStageSceneMainCannel->end();
-        P_STAGE_CONTROLLER->_pStageSceneMainCannel = NULL;
+    if (P_STAGE_CONTROLLER->_pStageMainCannel) {
+        P_STAGE_CONTROLLER->_pStageMainCannel->end();
+        P_STAGE_CONTROLLER->_pStageMainCannel = NULL;
     }
 }
 
