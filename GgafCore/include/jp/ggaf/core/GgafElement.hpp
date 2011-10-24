@@ -129,6 +129,8 @@ public:
      */
     virtual void initialize() = 0;
 
+    virtual void update_last_frame_of_god();
+
     /**
      * ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理(自ツリー) .
      * 様々な状態フラグの更新を主に行う <BR>
@@ -893,6 +895,13 @@ _pProg(NULL)
 {
 
 }
+
+template<class T>
+void GgafElement<T>::update_last_frame_of_god() {
+    _last_frame_of_god = P_GOD->_frame_of_God;
+    callRecursive(&GgafElement<T>::update_last_frame_of_god); //再帰
+}
+
 
 template<class T>
 void GgafElement<T>::nextFrame() {

@@ -92,12 +92,12 @@ void GgafScene::nextFrame() {
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::nextFrame();
         _pDirector->nextFrame();
+
+    } else {
+        //isActiveInTheWorld() ‚ð¬—§‚³‚¹‚é‚½‚ß
+        update_last_frame_of_god();
+        _pDirector->update_last_frame_of_god();
     }
-//    else {
-//        _was_paused2_flg = true;
-//        GgafElement<GgafScene>::nextFrame();
-//        _was_paused2_flg = false;
-//    }
 }
 
 
