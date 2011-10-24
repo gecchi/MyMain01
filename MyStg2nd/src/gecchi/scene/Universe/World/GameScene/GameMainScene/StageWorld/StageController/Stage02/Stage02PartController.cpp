@@ -55,7 +55,7 @@ void Stage02PartController::processBehavior() {
 			case 3: {
 				Stage02_01* pScene = (Stage02_01*)obtainSceneFromFactory(60000000);
 				addSubLast(pScene);
-				_pProg->change(STAGE02CONTROLLER_PROG_STG02_01_BEGIN);
+				_pProg->change(STAGE02PARTCONTROLLER_PROG_STG02_01_BEGIN);
 				break;
 			}
 			case 100: {
@@ -72,7 +72,7 @@ void Stage02PartController::processBehavior() {
 			case 3000: {
 				Stage02_Climax* pScene = (Stage02_Climax*)obtainSceneFromFactory(60000001);
 				addSubLast(pScene);
-				_pProg->change(STAGE02CONTROLLER_PROG_STG02_CLIMAX_BEGIN);
+				_pProg->change(STAGE02PARTCONTROLLER_PROG_STG02_CLIMAX_BEGIN);
 				break;
 			}
 			default :

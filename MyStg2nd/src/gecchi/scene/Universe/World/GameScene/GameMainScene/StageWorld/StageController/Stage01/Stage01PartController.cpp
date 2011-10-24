@@ -55,7 +55,7 @@ void Stage01PartController::processBehavior() {
 			case 100: {
 				Stage01_01* pScene = (Stage01_01*)obtainSceneFromFactory(10000000);
 				addSubLast(pScene);
-				_pProg->change(STAGE01CONTROLLER_PROG_STG01_01_BEGIN);
+				_pProg->change(STAGE01PARTCONTROLLER_PROG_STG01_01_BEGIN);
 				break;
 			}
 			case 120: {
@@ -80,7 +80,7 @@ void Stage01PartController::processBehavior() {
 			case 10000: {
 				Stage01_02* pScene = (Stage01_02*)obtainSceneFromFactory(10000001);
 				addSubLast(pScene);
-				_pProg->change(STAGE01CONTROLLER_PROG_STG01_02_BEGIN);
+				_pProg->change(STAGE01PARTCONTROLLER_PROG_STG01_02_BEGIN);
 				break;
 			}
 			case 13200: {
@@ -90,7 +90,7 @@ void Stage01PartController::processBehavior() {
 			case 15000: {
 				Stage01_03* pScene = (Stage01_03*)obtainSceneFromFactory(10000002);
 				addSubLast(pScene);
-				_pProg->change(STAGE01CONTROLLER_PROG_STG01_03_BEGIN);
+				_pProg->change(STAGE01PARTCONTROLLER_PROG_STG01_03_BEGIN);
 				break;
 			}
 			case 18200: {
@@ -100,7 +100,7 @@ void Stage01PartController::processBehavior() {
 			case 20000: {
 				Stage01_Climax* pScene = (Stage01_Climax*)obtainSceneFromFactory(10000003);
 				addSubLast(pScene);
-				_pProg->change(STAGE01CONTROLLER_PROG_STG01_CLIMAX_BEGIN);
+				_pProg->change(STAGE01PARTCONTROLLER_PROG_STG01_CLIMAX_BEGIN);
 				break;
 			}
 			default :
