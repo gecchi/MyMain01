@@ -395,7 +395,7 @@ void RankUpStageController::onCatchEvent(UINT32 prm_no, void* prm_pSource) {
         pScene->end(240);
     }
 
-    if (prm_no == EVENT_RANKUP_WAS_END) {
+    if (prm_no == EVENT_RANKUP_ON_GARBAGED) {
         _TRACE_("RankUpStageController::onCatchEvent() EVENT_RANKUP_WAS_END prm_pSource="<<prm_pSource);
         //ƒXƒ[‰ñ•œ
         GgafScene* pRankUpStage = getSubFirst();
