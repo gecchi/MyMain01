@@ -17,6 +17,9 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
     _pMessage = NEW LabelGecchi16Font("RankUpMsg");
     getDirector()->addSubGroup(_pMessage);
     useProgress(RANKUPSTAGE_PROG_END);
+
+    _pBgmPerformer->useBgm(1);
+    _pBgmPerformer->set(0, "RANKUP_THEMA");
 }
 
 void RankUpStage::initialize() {
@@ -33,6 +36,8 @@ void RankUpStage::processBehavior() {
             if (_pProg->isJustChanged()) {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RANKUPSTAGE_PROG_BEGIN !");
                 _pMessage->update(PX2CO(500), PX2CO(200), "RANKUPSTAGE_PROG_BEGIN");
+                _pBgmPerformer->play(0, 0, true);
+                _pBgmPerformer->fadein(0, 420);
             }
 
             if (_pProg->getFrameInProgress() == 60) { //ステージ開始！
@@ -72,6 +77,7 @@ void RankUpStage::processBehavior() {
                 _TRACE_("RankUpStage::processBehavior() ["<<getName()<<"] RANKUPSTAGE_PROG_ENDになりますた！");
                 _pMessage->update("RANKUPSTAGE_PROG_END");
                 throwEventToUpperTree(EVENT_RANKUP_WAS_END, this);
+                _pBgmPerformer->fadeout_stop(0, 420);
             }
 
             if (_pProg->getFrameInProgress() == 180) {
