@@ -117,13 +117,12 @@ public:
      * @param prm_once_in_n_time âΩÉtÉåÅ[ÉÄÇ…ÇPâÒé¿çsÇ∑ÇÈÇ©
      */
     virtual void setRunFrameOnce(int prm_once_in_n_time);
-//    virtual void setRunFrameOnceTree(int prm_once_in_n_time);
     virtual void addRunFrameOnce(int prm_once_in_n_time);
-//    virtual void addRunFrameOnceTree(int prm_once_in_n_time);
 
     virtual void addSubLast(GgafScene* prm_pScene) override;
 
     virtual void nextFrame() override;
+    virtual void update_last_frame_of_god() override;
     virtual void behave() override;
     virtual void settleBehavior() override;
     virtual void judge() override;

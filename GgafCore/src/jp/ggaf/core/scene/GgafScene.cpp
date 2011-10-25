@@ -3,8 +3,6 @@ using namespace std;
 
 using namespace GgafCore;
 
-//GgafGroupHead* GgafScene::_apGroupHead01[MAX_GROUPACTOR_PER_SCENE];
-//GgafGroupHead* GgafScene::_apGroupHead02[MAX_GROUPACTOR_PER_SCENE];
 
 GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     TRACE("GgafScene::GgafScene() " << prm_name);
@@ -37,25 +35,6 @@ void GgafScene::setRunFrameOnce(int prm_once_in_n_time) {
     }
 }
 
-//void GgafScene::setRunFrameOnceTree(int prm_once_in_n_time) {
-//    if (prm_once_in_n_time <= 1) {
-//        _once_in_n_time = 1;
-//    } else {
-//        _once_in_n_time = prm_once_in_n_time;
-//    }
-//    if (_pSubFirst) {
-//        GgafScene* pSceneTemp = _pSubFirst;
-//        while(true) {
-//            pSceneTemp->setRunFrameOnceTree(prm_once_in_n_time);
-//            if (pSceneTemp->_is_last_flg) {
-//                break;
-//            } else {
-//                pSceneTemp = pSceneTemp->_pNext;
-//            }
-//        }
-//    }
-//}
-
 void GgafScene::addRunFrameOnce(int prm_once_in_n_time) {
     if ((int)_once_in_n_time + prm_once_in_n_time <= 1) {
         _once_in_n_time = 1;
@@ -63,25 +42,6 @@ void GgafScene::addRunFrameOnce(int prm_once_in_n_time) {
         _once_in_n_time += prm_once_in_n_time;
     }
 }
-
-//void GgafScene::addRunFrameOnceTree(int prm_once_in_n_time) {
-//    if ((int)_once_in_n_time + prm_once_in_n_time <= 1) {
-//        _once_in_n_time = 1;
-//    } else {
-//        _once_in_n_time += prm_once_in_n_time;
-//    }
-//    if (_pSubFirst) {
-//        GgafScene* pSceneTemp = _pSubFirst;
-//        while(true) {
-//            pSceneTemp->setRunFrameOnceTree(prm_once_in_n_time);
-//            if (pSceneTemp->_is_last_flg) {
-//                break;
-//            } else {
-//                pSceneTemp = pSceneTemp->_pNext;
-//            }
-//        }
-//    }
-//}
 
 void GgafScene::addSubLast(GgafScene* prm_pScene) {
 //    prm_pScene->_once_in_n_time = _once_in_n_time;
@@ -92,12 +52,18 @@ void GgafScene::nextFrame() {
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::nextFrame();
         _pDirector->nextFrame();
-
-    } else {
-        //isActiveInTheWorld() を成立させるため
-        update_last_frame_of_god();
-        _pDirector->update_last_frame_of_god();
     }
+    else {
+        //isActiveInTheWorld() を成立させるため、配下の全てのシーンと、
+        //それぞれのシーン所属アクター全てに
+        //_last_frame_of_god = P_GOD->_frame_of_God;
+        //のみを実行する。
+        update_last_frame_of_god();
+    }
+}
+void GgafScene::update_last_frame_of_god() {
+    GgafElement<GgafScene>::update_last_frame_of_god();
+    _pDirector->update_last_frame_of_god();
 }
 
 
@@ -107,20 +73,12 @@ void GgafScene::behave() {
         GgafElement<GgafScene>::behave();
         _pDirector->behave();
     }
-//    else {
-//        callRecursive(&GgafElement<GgafScene>::behave); //再帰
-//    }
 }
 
 void GgafScene::settleBehavior() {
     TRACE("GgafScene::settleBehavior() " << getName());
-    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
-        GgafElement<GgafScene>::settleBehavior();
-        _pDirector->settleBehavior();
-    }
-//    else {
-//        callRecursive(&GgafElement<GgafScene>::settleBehavior); //再帰
-//    }
+    GgafElement<GgafScene>::settleBehavior();
+    _pDirector->settleBehavior();
 }
 
 void GgafScene::judge() {
@@ -129,9 +87,6 @@ void GgafScene::judge() {
         GgafElement<GgafScene>::judge();
         _pDirector->judge();
     }
-//    else {
-//        callRecursive(&GgafElement<GgafScene>::judge); //再帰
-//    }
 }
 
 void GgafScene::preDraw() {
@@ -167,9 +122,6 @@ void GgafScene::doFinally() {
         GgafElement<GgafScene>::doFinally();
         _pDirector->doFinally();
     }
-//    else {
-//        callRecursive(&GgafElement<GgafScene>::doFinally); //再帰
-//    }
 }
 
 void GgafScene::activateTree() {
@@ -298,71 +250,6 @@ void GgafScene::clean(int prm_num_cleaning) {
 GgafDirector* GgafScene::getDirector() {
     return _pDirector;
 }
-
-//void GgafScene::executeHitChkGroupActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02) {
-//    static GgafScene* pScene;
-//    pScene = this;
-//    static GgafGroupHead* pGroupHead;
-//    pGroupHead = NULL;
-//    static int index01, index02;
-//    index01 = 0;
-//    index02 = 0;
-//
-//    do {
-//        pGroupHead = (GgafGroupHead*)(pScene->getDirector()->_pSubFirst);
-//        if (pGroupHead) {
-//            do {
-//                if ((pGroupHead->_kind & prm_actorkindmask01) > 0) {
-//                    _apGroupHead01[index01] = pGroupHead;
-//                    index01++;
-//                }
-//                if ((pGroupHead->_kind & prm_actorkindmask02) > 0) {
-//                    _apGroupHead02[index02] = pGroupHead;
-//                    index02++;
-//                }
-//                if (pGroupHead->_is_last_flg) {
-//                    break;
-//                } else {
-//                    pGroupHead = (GgafGroupHead*)(pGroupHead->_pNext);
-//                    continue;
-//                }
-//            } while (true);
-//        }
-//
-//        if (pScene->_pSubFirst) {
-//            pScene = pScene->_pSubFirst;
-//            continue;
-//        }
-//
-//        loop: if (pScene->_is_last_flg) {
-//            if (pScene == this) {
-//                break;
-//            } else {
-//                if (pScene->_pParent == this) {
-//                    break;
-//                } else {
-//                    pScene = pScene->_pParent;
-//                    goto loop;
-//                }
-//            }
-//        } else {
-//            pScene = pScene->_pNext;
-//            continue;
-//        }
-//    } while (true);
-//
-//    for (int i = 0; i < index01; i++) {
-//        for (int j = 0; j < index02; j++) {
-//            if (_apGroupHead01[i] == _apGroupHead02[j]) {
-//                _apGroupHead01[i]->executeHitChk_RoundRobin2(_apGroupHead02[j]);
-//            } else {
-//                _apGroupHead01[i]->executeHitChk_RoundRobin(_apGroupHead02[j]);
-//            }
-//        }
-//    }
-//}
-
-
 
 GgafGod* GgafScene::askGod() {
     if (_pGod == NULL) {

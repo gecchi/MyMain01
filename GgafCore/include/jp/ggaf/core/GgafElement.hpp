@@ -1635,9 +1635,6 @@ void GgafElement<T>::throwEventToUpperTree(UINT32 prm_no, void* prm_pSource) {
 template<class T>
 bool GgafElement<T>::isDisappear() {
     if (_is_active_flg == false) {
-//    if (_will_inactivate_after_flg ||
-//        _is_active_flg_in_next_frame == false ||
-//        _will_end_after_flg ) {
         return true;
     } else {
         return false;
