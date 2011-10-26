@@ -846,8 +846,8 @@ public:
      *
      * </pre></code>
      * @param pFunc ƒIƒuƒWƒFƒNƒg‚ÉÀs‚³‚¹‚½‚¢ŠÖ”
-     * @param prm1 “¯‚É“n‚µ‚½‚¢ˆø”‚»‚Ì‚P
-     * @param prm2 “¯‚É“n‚µ‚½‚¢ˆø”‚»‚Ì‚Q
+     * @param prm1 “n‚µ‚½‚¢ˆø”‚»‚Ì‚P
+     * @param prm2 “n‚µ‚½‚¢ˆø”‚»‚Ì‚Q
      */
     virtual void executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
 

@@ -155,8 +155,8 @@ public:
 
     virtual void reset() override;
     virtual void resetTree() override;
-
     virtual void executeFuncToLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) override;
+
     /**
      * 自ツリーシーンをnフレーム後にゴミ箱へ移動 .
      * @param prm_offset_frames ゴミ箱へ移動タイミング残りフレーム数(デフォルト=1)

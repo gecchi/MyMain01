@@ -16,8 +16,8 @@ void ScrolledScene::scroll_X(GgafObject* pThat, void* p1, void* p2) {
         return; //シーンならば無視
     }
     GgafActor* pActor = (GgafActor*)pThat;
-    if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {
-        if (pActor->_obj_class & Obj_GgafDxGeometricActor) {
+    if (pActor->_obj_class & Obj_GgafDxGeometricActor) {
+        if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {
             ((GgafDxGeometricActor*)pActor)->_X -= (*((int*)p1));
         }
     }
@@ -26,8 +26,9 @@ void ScrolledScene::scroll_X(GgafObject* pThat, void* p1, void* p2) {
 void ScrolledScene::processSettlementBehavior() {
     DefaultScene::processSettlementBehavior();
     if (_pFuncScrolling && _is_active_flg && !_was_paused_flg && _can_live_flg) {
-        //TODO:PAUSE時もスクロールする
-        executeFuncToLowerTree(_pFuncScrolling, &_scrool_speed, NULL);
+        if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
+            executeFuncToLowerTree(_pFuncScrolling, &_scrool_speed, NULL);
+        }
     }
 
 }
