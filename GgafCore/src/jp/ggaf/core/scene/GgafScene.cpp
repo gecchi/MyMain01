@@ -53,6 +53,7 @@ void GgafScene::nextFrame() {
         GgafElement<GgafScene>::nextFrame();
         _pDirector->nextFrame();
     } else {
+		isActive()?
         //isActiveInTheWorld() を成立させるため、配下の全てのシーンと、
         //それぞれのシーン所属アクター全てに
         //_last_frame_of_god = P_GOD->_frame_of_God;
