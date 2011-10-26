@@ -10,7 +10,7 @@ namespace GgafLib {
  */
 class ScrolledScene : public DefaultScene {
     /** スクロール速度 */
-    velo _scrool_speed;
+    velo _scroll_speed;
     /** [r/w]毎フレームprocessSettlementBehavior()で、配下アクター全てに実行される関数。*/
     void (*_pFuncScrolling)(GgafCore::GgafObject*, void*, void*);
 public:
@@ -22,16 +22,16 @@ public:
         _pFuncScrolling = prm_pFuncScrolling;
     }
 
-    void setScroolSpeed(velo prm_scrool_speed) {
-        _scrool_speed = prm_scrool_speed;
+    void setScrollSpeed(velo prm_scroll_speed) {
+        _scroll_speed = prm_scroll_speed;
     }
 
-    velo getScroolSpeed() {
-        return _scrool_speed;
+    velo getScrollSpeed() {
+        return _scroll_speed;
     }
 
-    void addScroolSpeed(acce prm_acce) {
-        _scrool_speed += prm_acce;
+    void addScrollSpeed(acce prm_acce) {
+        _scroll_speed += prm_acce;
     }
 
 
@@ -43,7 +43,7 @@ public:
     ScrolledScene(const char* prm_name);
 
 
-    virtual void processSettlementBehavior() override;
+    virtual void processBehavior() override;
 
 
     virtual ~ScrolledScene();

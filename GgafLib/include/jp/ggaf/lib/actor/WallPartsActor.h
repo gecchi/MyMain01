@@ -40,7 +40,7 @@ public:
     /** [r]壁ブロックの幅（Z座標軸長さ）*/
     coord _wall_width;
 //    /** [r]壁ブロック移動スピード(値は正、但し移動方向はX軸負の方向) */
-//    int _scrool_speed;
+//    int _scroll_speed;
 
 
     GgafDxCore::GgafDxScaler* _pScaler;

@@ -89,7 +89,7 @@ void WalledSectionScene::initialize() {
 }
 
 void WalledSectionScene::onActive() {
-    _frame_of_launch_next = (frame)(_wall_dep /_pScrolledScene->getScroolSpeed());
+    _frame_of_launch_next = (frame)(_wall_dep /_pScrolledScene->getScrollSpeed());
     _cnt_area_len = 0;
     _cnt_loop = 0;
     _is_loop_end = false;
@@ -99,7 +99,7 @@ void WalledSectionScene::onActive() {
 void WalledSectionScene::processBehavior() {
     if (!_is_loop_end) {
 
-        velo parent_scroll_speed =_pScrolledScene->getScroolSpeed();
+        velo parent_scroll_speed =_pScrolledScene->getScrollSpeed();
         if (_pWallPartsLast == NULL || (_wall_start_X - _pWallPartsLast->_X) >= _wall_dep) {
             if (_cnt_area_len >= _area_len && _cnt_loop+1 >= _loop_num) {
                 //I—¹
@@ -132,10 +132,11 @@ void WalledSectionScene::processBehavior() {
                               _papaWallInfo[_cnt_area_len][n]._pos_prism,
                               _papaWallInfo[_cnt_area_len][n]._wall_draw_face,
                               _papaWallInfo[_cnt_area_len][n]._aColliBoxStretch);
-                pWallParts->locate(_pWallPartsLast==NULL ? _wall_start_X : _pWallPartsLast->_X + _wall_dep - parent_scroll_speed,
+                pWallParts->locate(_pWallPartsLast==NULL ? _wall_start_X : _pWallPartsLast->_X + _wall_dep,
                                   ((-_area_height/2) + _papaWallInfo[_cnt_area_len][n]._Y) * _wall_height,
                                   ((-_area_width/2) + _papaWallInfo[_cnt_area_len][n]._Z) * _wall_width);
-                pWallParts->activate();
+                pWallParts->activateImmediately();
+                pWallParts->onActive();
             }
             _pWallPartsLast = pWallParts;
             _frame_of_launch_next = (frame)(_wall_dep / parent_scroll_speed);

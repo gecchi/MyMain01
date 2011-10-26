@@ -101,15 +101,15 @@ void WalledScene::processBehavior() {
             pNewSection->activate();
             pNewSection->_pWallPartsLast = pCurrentSection->getLastWallParts();
             pCurrentSection->end(
-                    120 + (GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScroolSpeed()
+                    120 + (GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScrollSpeed()
                  );
         }
     } else {
         if (pCurrentSection->_is_loop_end) {
-            end(120 + (GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScroolSpeed());
+            end(120 + (GgafDxUniverse::_X_goneRight - GgafDxUniverse::_X_goneLeft) / getScrollSpeed());
         }
     }
-
+	ScrolledScene::processBehavior();
 }
 
 void WalledScene::processFinal() {

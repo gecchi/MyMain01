@@ -28,7 +28,7 @@ void StageWorld::initialize() {
 void StageWorld::processBehavior() {
     //ランクアップシーン差し込み
 
-    if (GgafDxInput::isPushedDownKey(DIK_U)) {
+    if (VB_PLAY->isPushedDown(VB_BUTTON7)) {
         _TRACE_("_RANK_UP_LEVEL_？？？"<<_RANK_UP_LEVEL_);
         if (_can_rank_up) {
             _RANK_UP_LEVEL_ = _RANK_UP_LEVEL_ + 1;
