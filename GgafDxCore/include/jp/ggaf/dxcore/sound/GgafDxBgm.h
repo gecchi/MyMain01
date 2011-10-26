@@ -47,7 +47,7 @@ public:
     void setVolume(int volume);
     void setPan(float pan);
     void clear();
-    bool isActiveInTheWorld();
+    bool isActive();
 
     virtual ~GgafDxBgm();
 };
