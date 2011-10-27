@@ -21,7 +21,7 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
     _TRACE_("StageController::StageController("<<prm_name<<")");
 //    _had_ready_main_stage = false;
     _loop = 1;
-    _main_stage = 2;
+    _main_stage = 1;
     _pStageMainCannel = NULL;
 
     _pTransitStage = NEW TransitStage("TransitStage");

@@ -21,7 +21,6 @@ void myUnexpectedHandler();
 void myTerminateHandler();
 
 
-
 /**
  * GNU GCC ならばエントリポイント
  */
