@@ -27,7 +27,7 @@ void ColliAABActor::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
     if (prm_pCollisionChecker != NULL &&
         prm_pCollisionChecker->_pCollisionArea != NULL &&
         prm_pCollisionChecker->getTargetActor()->canHit() &&
-        prm_pCollisionChecker->getTargetActor()->isActiveInTheWorld()) {
+        prm_pCollisionChecker->getTargetActor()->isActiveInTheTree()) {
 
         GgafDxGeometricActor* pActor = prm_pCollisionChecker->getTargetActor();
         GgafDxCollisionArea* pCollisionArea = prm_pCollisionChecker->_pCollisionArea;

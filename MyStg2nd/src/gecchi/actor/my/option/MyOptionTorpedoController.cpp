@@ -39,7 +39,7 @@ void MyOptionTorpedoController::processBehavior() {
     if (_in_firing) {
         _in_firing = false;
         for (int i = 0; i < _firing_num; i++) {
-            if (_papMyTorpedo[i]->isActiveInTheWorld()) {
+            if (_papMyTorpedo[i]->isActiveInTheTree()) {
                 _in_firing = true;
                 break;
             }

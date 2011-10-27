@@ -207,6 +207,7 @@ public:
      */
     virtual GgafActor* extract() override;
 
+
     /**
      * デバッグ用：ツリー構造を表示<BR>
      */

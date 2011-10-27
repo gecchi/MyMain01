@@ -52,19 +52,20 @@ void GgafScene::nextFrame() {
     if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::nextFrame();
         _pDirector->nextFrame();
-    } else {
-		isActive()?
-        //isActiveInTheWorld() を成立させるため、配下の全てのシーンと、
-        //それぞれのシーン所属アクター全てに
-        //_last_frame_of_god = P_GOD->_frame_of_God;
-        //のみを実行する。
-        update_last_frame_of_god();
     }
+//    } else {
+//		isActive()?
+//        //isActiveInTheTree() を成立させるため、配下の全てのシーンと、
+//        //それぞれのシーン所属アクター全てに
+//        //_last_frame_of_god = P_GOD->_frame_of_God;
+//        //のみを実行する。
+//        update_last_frame_of_god();
+//    }
 }
-void GgafScene::update_last_frame_of_god() {
-    GgafElement<GgafScene>::update_last_frame_of_god();
-    _pDirector->update_last_frame_of_god();
-}
+//void GgafScene::update_last_frame_of_god() {
+//    GgafElement<GgafScene>::update_last_frame_of_god();
+//    _pDirector->update_last_frame_of_god();
+//}
 
 
 void GgafScene::behave() {

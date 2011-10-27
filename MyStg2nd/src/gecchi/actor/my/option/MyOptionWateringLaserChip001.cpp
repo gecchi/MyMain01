@@ -31,7 +31,7 @@ void MyOptionWateringLaserChip001::onActive() {
     _default_stamina = _pStatus->get(STAT_Stamina);
     WateringLaserChip::onActive();
     GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
-    if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheWorld()) {
+    if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
         if (_pChip_front == NULL) {
             //先端チップ
             _lockon = 1;
@@ -63,7 +63,7 @@ void MyOptionWateringLaserChip001::processBehavior() {
     GgafDxGeometricActor* pMainLockOnTarget = _pOrg->_pLockonController->_pRingTarget->getCurrent();
     if (getActivePartFrame() > 6) {
         if (_lockon == 1) {
-            if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheWorld()) {
+            if (pMainLockOnTarget && pMainLockOnTarget->isActiveInTheTree()) {
                 //    |             vVT 仮的                        |
                 //    |                 ^                           |      仮的
                 //    |  |仮的| > 5*vM /                            |       ｜

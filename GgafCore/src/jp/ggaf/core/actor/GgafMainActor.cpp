@@ -18,8 +18,8 @@ GgafMainActor* GgafMainActor::extract() {
     return pActor;
 }
 
-//bool GgafMainActor::isActiveInTheWorld() {
-//    if (GgafActor::isActiveInTheWorld() && getPlatformScene() && getPlatformScene()->isActiveInTheWorld()) {
+//bool GgafMainActor::isActiveInTheTree() {
+//    if (GgafActor::isActiveInTheTree() && getPlatformScene() && getPlatformScene()->isActiveInTheTree()) {
 //        return true;
 //    } else {
 //        return false;

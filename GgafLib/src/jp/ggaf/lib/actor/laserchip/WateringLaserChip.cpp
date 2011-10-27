@@ -62,7 +62,7 @@ void WateringLaserChip::processSettlementBehavior() {
     } else {
         if (_pChip_front == NULL) {
             //先端
-            if (_pChip_behind != NULL && _pChip_behind->isActiveInTheWorld()) {
+            if (_pChip_behind != NULL && _pChip_behind->isActiveInTheTree()) {
                 //普通の先端
             } else {
                 //先端で末端
@@ -70,7 +70,7 @@ void WateringLaserChip::processSettlementBehavior() {
             }
         } else if (_pChip_behind == NULL) {
             //末端
-            if (_pChip_front != NULL && _pChip_front->isActiveInTheWorld()) {
+            if (_pChip_front != NULL && _pChip_front->isActiveInTheTree()) {
                 //普通の末端
 
             } else {
@@ -78,7 +78,7 @@ void WateringLaserChip::processSettlementBehavior() {
                 //どこへでもいきなはれ
             }
         } else if (_pChip_front->_is_active_flg && _pChip_behind->_is_active_flg) {
-            //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->isActiveInTheWorld()と判定すること
+            //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->isActiveInTheTree()と判定すること
             //なぜならemployの瞬間に_pChip_behind != NULL となるが、active()により有効になるのは次フレームだから
             //_X,_Y,_Z にはまだ変な値が入っている。
             WateringLaserChip* pF = (WateringLaserChip*)_pChip_front;
@@ -108,7 +108,7 @@ void WateringLaserChip::processSettlementBehavior() {
 //    } else {
 //        if (_pChip_front == NULL) {
 //            //先端
-//            if (_pChip_behind != NULL && _pChip_behind->isActiveInTheWorld()) {
+//            if (_pChip_behind != NULL && _pChip_behind->isActiveInTheTree()) {
 //                //普通の先端
 //            } else {
 //                //先端で末端
@@ -116,7 +116,7 @@ void WateringLaserChip::processSettlementBehavior() {
 //            }
 //        } else if (_pChip_behind == NULL) {
 //            //末端
-//            if (_pChip_front != NULL && _pChip_front->isActiveInTheWorld()) {
+//            if (_pChip_front != NULL && _pChip_front->isActiveInTheTree()) {
 //                //普通の末端
 //
 //            } else {
@@ -124,7 +124,7 @@ void WateringLaserChip::processSettlementBehavior() {
 //                //どこへでもいきなはれ
 //            }
 //        } else if (_pChip_front->_is_active_flg && _pChip_behind->_is_active_flg) {
-//            //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->isActiveInTheWorld()と判定すること
+//            //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->isActiveInTheTree()と判定すること
 //            //なぜならemployの瞬間に_pChip_behind != NULL となるが、active()により有効になるのは次フレームだから
 //            //_X,_Y,_Z にはまだ変な値が入っている。
 //            WateringLaserChip* pF = (WateringLaserChip*)_pChip_front;

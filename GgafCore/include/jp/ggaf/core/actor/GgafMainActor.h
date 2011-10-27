@@ -64,9 +64,9 @@ public:
 //     * TODO:厳密には、シーンの親シーンも全て調査する必要があるのだが、そのようなぶった切りは行わないように工夫する。
 //     * @return アクターが活動中（かつ所属元シーンも活動中）
 //     */
-//    virtual bool isActiveInTheWorld() override;
+//    virtual bool isActiveInTheTree() override;
 
-//        if (isActiveInTheWorld() && _can_hit_flg) {
+//        if (isActiveInTheTree() && _can_hit_flg) {
 //            return true;
 //        } else {
 //            return false;

@@ -136,7 +136,7 @@ void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level) {
 void OptionMagic::processEffectBegin(int prm_now_level)  {
     _r_effect = 1.0f;
     for (int i = 0; i < prm_now_level; i++) {
-        if (_papEffect[i]->isActiveInTheWorld()) {
+        if (_papEffect[i]->isActiveInTheTree()) {
             _papEffect[i]->_pKurokoB->_gravitation_mv_seq_pActor_target = P_MYOPTIONCON->_papMyOption[i];
         }
     }

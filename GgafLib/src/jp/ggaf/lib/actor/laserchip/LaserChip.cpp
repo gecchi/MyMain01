@@ -182,7 +182,7 @@ void LaserChip::processSettlementBehavior() {
     setHitAble(true);
     if (_pChip_front) {
         if (_pChip_behind) {
-            if (_pChip_behind->isActiveInTheWorld()) {
+            if (_pChip_behind->isActiveInTheTree()) {
                 if (_pChip_front->_pChip_front) {
                     _chip_kind = 2; //中間テクスチャチップ
                 } else {
@@ -367,7 +367,7 @@ void LaserChip::onInactive() {
 
 //    if (_pChip_front) {
 //        if (_pChip_behind) {
-//            if (_pChip_behind->isActiveInTheWorld()) {
+//            if (_pChip_behind->isActiveInTheTree()) {
 //                if (_pChip_front->_pChip_front) {
 //                    _chip_kind = 2; //中間テクスチャチップ
 //                } else {
