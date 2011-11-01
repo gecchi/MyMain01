@@ -19,7 +19,7 @@ namespace GgafCore {
 
 
 /**
- * GgafNodeに、様々な状態遷移管理（タスクシステム）を追加。 .
+ * GgafNode<T>に、様々な状態遷移管理（タスクシステム）を追加。 .
  * 毎フレーム、神(GgafGod)はこの世(GgafUniverse)に、次のメソッド順で呼び出す仕組みになっている。この世(GgafUniverse)も本templateを実装している。<BR>
  * nextFrame() > behave() > settleBehavior() > judge() > [preDraw() > draw() > afterDraw()] > doFinally() <BR>
  * 上記の内、nextFrame() doFinally() は毎フレーム実行される。<BR>
