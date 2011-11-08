@@ -96,9 +96,9 @@ public:
     bool _will_mv_first_in_next_frame_flg;
     /** [r]末尾ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが末尾ノードに移動する */
     bool _will_mv_last_in_next_frame_flg;
-
+    /** [r]カレントフレーム内で一度でもリセットが実行されればtrue。毎フレーム false に更新される */
     bool _is_already_reset;
-
+    /** [r]進捗管理オブジェクト */
     GgafProgress* _pProg;
 
     /**

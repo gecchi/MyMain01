@@ -5,7 +5,7 @@ namespace GgafCore {
 /**
  * 資源接続クラス .
  * 資源(Resource)を無駄に生成を行わず、参照して使いまわしたい。しかし new するのかどうかを意識したくない。<BR>
- * そんなときに使うクラス。<BR>
+ * そんなときに使うクラス。簡単にいえばCOMオブジェクトの簡易版といったところか。<BR>
  * GgafResourceManager : 資源(Resource) : GgafResourceConnection  = 1 : N : N
  * の関係で、これでワンセットです。GgafResourceConnection は言わば 資源(Resource)のラッパークラスです。
  * GgafResourceConnection実装クラスのインスタンスを、マネージャークラス(GgafResourceManager実装クラス)
@@ -89,7 +89,10 @@ public:
 
     bool isNew();
 
-
+    /**
+     * 資源(Resource)への接続数を取得 .
+     * @return 資源(Resource)への接続数
+     */
     int getNumConnection();
 
 
@@ -98,6 +101,7 @@ public:
      * 資源接続を解除 .
      * 解除といってもマネージャの接続カウンタを1減らすだけです。<BR>
      * 但し、接続カウンタが 0 になれば、processReleaseResourceを呼び出し、本当に解放します。<BR>
+     * COMで言うところの Release() にあたる。
      * @return 資源接続を解除した後の、接続カウンタ
      */
     int close();

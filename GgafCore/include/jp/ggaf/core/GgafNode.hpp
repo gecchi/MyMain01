@@ -6,7 +6,8 @@ namespace GgafCore {
  * 要素同士を環状双方向連結リストのツリー構造を作ることができるテンプレートです。.
  * 所謂ツリーオブジェクトですが、通常のツリーオブジェクトのように実値（本体インスタンス）を
  * 指しているわけではなく、ツリーオブジェクト自身を本体として使用するように設計。<BR>
- * 少しでも参照回数を減らそうという目論見・・・。<BR>
+ * 所謂コンテナではありません。（コンテナ自身が実体)<BR>
+ * 少しでも参照回数を減らそうとした為・・・。<BR>
  *
  * <B>【解説】</B><BR>
  * <PRE STYLE="font-size:12px">
@@ -98,7 +99,7 @@ public:
     bool _is_first_flg;
     /** [r]末尾ノードフラグ (自ノードが末尾ノードの場合 true)*/
     bool _is_last_flg;
-
+    /** [r]子ノードの数 */
     int _sub_num;
 
 public:
@@ -535,20 +536,6 @@ bool GgafNode<T>::hasSub(char* prm_sub_actor_name) {
 template<class T>
 int GgafNode<T>::getNumSub() {
     return _sub_num;
-//
-//    if (_pSubFirst == NULL) {
-//        return 0;
-//    }
-//    int n = 1;
-//    _pNodeTemp = _pSubFirst;
-//    do {
-//        if (_pNodeTemp->isLast()) {
-//            break;
-//        }
-//        _pNodeTemp = _pNodeTemp->_pNext;
-//        n++;
-//    } while (true);
-//    return n;
 }
 
 

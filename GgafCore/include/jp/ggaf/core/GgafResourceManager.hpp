@@ -104,27 +104,52 @@ public:
     virtual ~GgafResourceManager();
 
     /**
-     * GgafResourceConnectionオブジェクトを取得。<BR>
+     * 資源接続(GgafResourceConnection)オブジェクトを取得。<BR>
      * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
      * 保持リストから取得した場合、接続カウンタが増えます。<BR>
      * new した場合、接続カウンタは1です。<BR>
      * @param prm_idstr 識別名
      * @param prm_p 何らかの引数
+     * @return 識別名に紐付く資源接続(GgafResourceConnection)
      */
     virtual GgafResourceConnection<T>* connect(char* prm_idstr, void* prm_p);
 
+    /**
+     * 資源接続(GgafResourceConnection)オブジェクトを取得。<BR>
+     * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
+     * 保持リストから取得した場合、接続カウンタが増えます。<BR>
+     * new した場合、接続カウンタは1です。<BR>
+     * @param prm_idstr 識別名
+     * @return 識別名に紐付く資源接続(GgafResourceConnection)
+     */
     virtual GgafResourceConnection<T>* connect(char* prm_idstr) {
         return this->connect(prm_idstr, NULL);
     }
+
+    /**
+     * 資源接続(GgafResourceConnection)オブジェクトを取得。<BR>
+     * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
+     * 保持リストから取得した場合、接続カウンタが増えます。<BR>
+     * new した場合、接続カウンタは1です。<BR>
+     * @param prm_idstr 識別名
+     * @return 識別名に紐付く資源接続(GgafResourceConnection)
+     */
     virtual GgafResourceConnection<T>* connect(const char* prm_idstr) {
         return this->connect((char*)prm_idstr, NULL);
     }
+
+    /**
+     * 資源接続(GgafResourceConnection)オブジェクトを取得。<BR>
+     * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
+     * 保持リストから取得した場合、接続カウンタが増えます。<BR>
+     * new した場合、接続カウンタは1です。<BR>
+     * @param prm_idstr 識別名
+     * @param prm_p 何らかの引数
+     * @return 識別名に紐付く資源接続(GgafResourceConnection)
+     */
     virtual GgafResourceConnection<T>* connect(const char* prm_idstr, void* prm_p) {
         return this->connect((char*)prm_idstr, prm_p);
     }
-
-
-
 
     /**
      * マネジャーが保持するリストを出力します。（デバッグ用） .
@@ -212,9 +237,9 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr, void
     //TODO:
     //close()中に、別スレッドでconnect()すると。
     //シビアなタイミングでメモリを破壊する恐れが残っている！９９％大丈夫と思うのだけども。
-    //bool や int のアトミック性を利用する排他は、スレッドセーフ完全対応しようとすると、
+    //int (プリミティブ) のアトミック性を利用する排他は、スレッドセーフ完全対応しようとすると、
     //かなりめんどくさい処理になりそうだ。簡単だと思ったのに・・・。
-    //たぶん全ての connect() 呼び出し元で connect() 失敗時の処理を定義しなくてはいけなくなる。
+    //たぶん全ての connect() 呼び出し元で connect() 失敗時の処理を定義するべきだった。
     //templateにしたのは失敗だったのか；（void*にすべきだったか）。
     //時間のあるときにちゃんと勉強してやろう。後回し。
     //_TRACE_(" connect to " << _manager_name<<" for "<<prm_idstr<<"...");
