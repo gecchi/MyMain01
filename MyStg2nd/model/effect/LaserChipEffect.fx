@@ -301,7 +301,7 @@ float4 GgafDxPS_LaserChip_SHADOW(
 	float4 prm_color    : COLOR0
 ) : COLOR  {
     //ÉåÅ[ÉUÅ[ÇÃâe
-	float4 out_color = {0.2, 0, 0, 0};
+	float4 out_color = {1.0, 0, 0, 1.0};
 	return out_color;
 }
 
@@ -319,39 +319,63 @@ float4 GgafDxPS_LaserChip(
 
 technique LaserChipTechnique
 {
+
 	pass P0 {
 		AlphaBlendEnable = true;
-//í èÌçáê¨
 		SrcBlend  = SrcAlpha;
-		DestBlend = InvSrcAlpha;
+DestBlend = One;
 		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
 		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_SHADOW();
 	}
 	pass P1 {
 		AlphaBlendEnable = true;
-//â¡éZçáê¨
 		SrcBlend  = SrcAlpha; 
-//		DestBlend = One;
-
-//í èÌçáê¨
-//		SrcBlend  = SrcAlpha;
-//		DestBlend = InvSrcAlpha;
-//Zero/One/SrcColor/InvSrcColor/SrcAlpha/InvSrcAlpha/DestColor/InvDestColor/DestAlpha/InvDestAlpha
-//SrcBlend  = SrcAlpha; 
-//		DestBlend = One;
-		//SrcBlend  = SrcAlphaSat;
-                         // AARRGGBB
-//        BlendFactor     = 0x11111111;//0xffffffff;
-BlendFactor = {1,1,1,1};
-		DestBlend =  BlendFactor;
-//DestBlend = One;
-        //BlendOp = Min;
-        //BlendOpAlpha = Max;
- //BlendOpAlpha = Add;
-//BlendOp=Max ;       BlendOpÇ∆BlendOpAlphaÇÕÇ®Ç»Ç∂ÇÊÇ§Çæ
-//BlendOpAlpha= Add ;
+DestBlend = One;
+		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
 		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
 	}
+
+
+//	pass P0 {
+//		AlphaBlendEnable = true;
+////í èÌçáê¨
+//		SrcBlend  = SrcAlpha;
+////		DestBlend = InvSrcAlpha;
+//
+//        BlendFactor = {1,1,1,1};
+//		DestBlend =  BlendFactor;
+//
+//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
+//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_SHADOW();
+////		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
+////		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_SHADOW();
+//	}
+//	pass P1 {
+//		AlphaBlendEnable = true;
+////â¡éZçáê¨
+//		SrcBlend  = SrcAlpha; 
+////		DestBlend = One;
+//
+////í èÌçáê¨
+////		SrcBlend  = SrcAlpha;
+////		DestBlend = InvSrcAlpha;
+////Zero/One/SrcColor/InvSrcColor/SrcAlpha/InvSrcAlpha/DestColor/InvDestColor/DestAlpha/InvDestAlpha
+////SrcBlend  = SrcAlpha; 
+////		DestBlend = One;
+//		//SrcBlend  = SrcAlphaSat;
+//                         // AARRGGBB
+////        BlendFactor     = 0x11111111;//0xffffffff;
+//        BlendFactor = {1,1,1,1};
+//		DestBlend =  BlendFactor;
+////DestBlend = One;
+//        //BlendOp = Min;
+//        //BlendOpAlpha = Max;
+// //BlendOpAlpha = Add;
+////BlendOp=Max ;       BlendOpÇ∆BlendOpAlphaÇÕÇ®Ç»Ç∂ÇÊÇ§Çæ
+////BlendOpAlpha= Add ;
+//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
+//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
+//	}
 
 }
 

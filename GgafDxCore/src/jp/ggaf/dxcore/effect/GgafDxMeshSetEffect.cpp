@@ -5,7 +5,6 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxMeshSetEffect::GgafDxMeshSetEffect(char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
-    _numPass = 1;
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
 

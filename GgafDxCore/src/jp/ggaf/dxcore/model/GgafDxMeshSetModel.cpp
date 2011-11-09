@@ -118,7 +118,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
 
             TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name<<"("<<pMeshSetEffect<<")");
             //UINT numPass;
-            hr = pID3DXEffect->Begin( &(pMeshSetEffect->_numPass), D3DXFX_DONOTSAVESTATE );
+            hr = pID3DXEffect->Begin(&_numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -144,12 +144,14 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
         GgafGod::_num_actor_drawing++;
     }
 
-    if (pMeshSetEffect->_numPass >= 2) {
+    if (_numPass >= 2) {
         //ÇQÉpÉXñ⁄Ç†ÇËÇÃèÍçá
         hr = pID3DXEffect->EndPass();
-        checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() EndPass  Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() ÇPÉpÉXñ⁄ EndPass  Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->BeginPass(1);
-        checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() ÇQÉpÉXñ⁄ BeginPass(1) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        hr = pID3DXEffect->CommitChanges();
+        checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() ÇQÉpÉXñ⁄ CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
         for (UINT material_grp_index = 0; material_grp_index < _pa_nMaterialListGrp[prm_draw_set_num-1]; material_grp_index++) {
             GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
@@ -160,6 +162,7 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
                                             _papaIndexParam[prm_draw_set_num-1][material_grp_index].PrimitiveCount);
         }
     }
+
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxMeshSetModel::_draw_set_num_LastDraw = prm_draw_set_num;
     GgafDxEffectManager::_pEffect_Active = pMeshSetEffect;
