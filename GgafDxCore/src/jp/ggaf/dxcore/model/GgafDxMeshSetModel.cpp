@@ -141,26 +141,25 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
                                         _papaIndexParam[prm_draw_set_num-1][material_grp_index].NumVertices,
                                         _papaIndexParam[prm_draw_set_num-1][material_grp_index].StartIndex,
                                         _papaIndexParam[prm_draw_set_num-1][material_grp_index].PrimitiveCount);
-        GgafGod::_num_actor_drawing++;
-    }
-
-    if (_numPass >= 2) {
-        //２パス目ありの場合
-        hr = pID3DXEffect->EndPass();
-        checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() １パス目 EndPass  に失敗しました。");
-        hr = pID3DXEffect->BeginPass(1);
-        checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() ２パス目 BeginPass(1) に失敗しました。");
-        hr = pID3DXEffect->CommitChanges();
-        checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() ２パス目 CommitChanges() に失敗しました。");
-
-        for (UINT material_grp_index = 0; material_grp_index < _pa_nMaterialListGrp[prm_draw_set_num-1]; material_grp_index++) {
-            GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                            _papaIndexParam[prm_draw_set_num-1][material_grp_index].BaseVertexIndex,
-                                            _papaIndexParam[prm_draw_set_num-1][material_grp_index].MinIndex,
-                                            _papaIndexParam[prm_draw_set_num-1][material_grp_index].NumVertices,
-                                            _papaIndexParam[prm_draw_set_num-1][material_grp_index].StartIndex,
-                                            _papaIndexParam[prm_draw_set_num-1][material_grp_index].PrimitiveCount);
+        if (_numPass >= 2) { //２パス目以降が存在
+            hr = pID3DXEffect->EndPass();
+            checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() １パス目 EndPass() に失敗しました。");
+            for (int i = 1; i < _numPass; i++) {
+                hr = pID3DXEffect->BeginPass(i);
+                checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() "<<i+1<<"パス目 BeginPass("<<i<<") に失敗しました。");
+                GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                                _papaIndexParam[prm_draw_set_num-1][material_grp_index].BaseVertexIndex,
+                                                _papaIndexParam[prm_draw_set_num-1][material_grp_index].MinIndex,
+                                                _papaIndexParam[prm_draw_set_num-1][material_grp_index].NumVertices,
+                                                _papaIndexParam[prm_draw_set_num-1][material_grp_index].StartIndex,
+                                                _papaIndexParam[prm_draw_set_num-1][material_grp_index].PrimitiveCount);
+                hr = pID3DXEffect->EndPass();
+                checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() "<<i+1<<"パス目 EndPass() に失敗しました。");
+            }
+            hr = pID3DXEffect->BeginPass(0);
+            checkDxException(hr, D3D_OK, "GgafDxMeshSetModel::draw() １パス目 BeginPass(0) に失敗しました。");
         }
+        GgafGod::_num_actor_drawing++;
     }
 
     GgafDxModelManager::_pModelLastDraw = this;

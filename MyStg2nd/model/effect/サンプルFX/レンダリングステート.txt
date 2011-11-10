@@ -406,3 +406,105 @@ stateblock defaultState = stateblock_state
                                         0.0f, 0.0f, 1.0f, 0.0f,
                                         0.0f, 0.0f, 0.0f, 1.0f);
 };
+
+
+
+SRCCOLOR       : Cs = rgba( Rs, Gs, Bs, As )
+INVSRCCOLOR    : rgba( 1-Rs, 1-Gs, 1-Bs, 1-As )
+SRCALPHA       : rgba( As, As, As, As )
+INVSRCALPHA    : rgba( 1-As, 1-As, 1-As, 1-As )
+
+DESTCOLOR      : Cd = rgba( Rd, Gd, Bd, Ad )
+INVDESTCOLOR   : rgba( 1-Rd, 1-Gd, 1-Bd, 1-Ad )
+DESTALPHA      : rgba( Ad, Ad, Ad, Ad )
+INVDESTALPHA   : rgba( 1-Ad, 1-Ad, 1-Ad, 1-Ad )
+
+ZERO           : rgba( 0, 0, 0, 0 )
+ONE            : rgba( 1, 1, 1, 1 )
+
+SRCALPHASAT    : rgba( f, f, f, 1)　f = min( As, 1-Ad )
+
+
+
+
+
+～不透明合成～
+そのまま、上書きするだけです。
+
+計算式 : src = dest
+
+アルファブレンドの基本式
+計算式 : (Cs * X) + (Cd * Y) = dest
+
+～半透明合成～
+後ろの画像が透けて見えます。
+煙のエフェクトなどで良く使います。
+
+計算式 : (Cs * As) + (Cd * (1-As)) = dest
+
+SrcBlend  = SrcAlpha;
+DestBlend = InvSrcAlpha;
+BlendOp = Add; (Addはデフォルト)
+
+
+～加算合成～
+単純に色を足し合わせます。
+結果、白色に近付き明るく見えます。
+魔法や炎など、エフェクトで一番良く使われています。
+
+計算式 : (Cs * As) + (Cd * 1) = dest
+※Asを入れることで加算半透明合成になります。
+
+SrcBlend  = SrcAlpha;
+DestBlend = One;
+BlendOp = Add; (Addはデフォルト)
+
+
+～減算合成～
+加算合成とは逆に色を減算します。
+
+計算式 : (Cd * 1) - (Cs * As) = dest
+※Asを入れることで減算半透明合成になります。
+
+SrcBlend  = SrcAlpha;
+DestBlend = One;
+BlendOp = RevSubtract;
+
+～乗算合成～
+色を乗算すると、
+色付のセロハンテープの効果が出ます。
+
+計算式 : Cd * Cs = dest
+次のようにして考える
+(Cs * Cd) + (Cd * 0) = dest
+
+SrcBlend  = SrcColor;
+DestBlend = Zero;
+BlendOp = Add;
+
+または
+
+(Cs * 0) + (Cd * Cs) = dest
+SrcBlend  = Zero;
+DestBlend = DestColor;
+BlendOp = Add;
+
+どちらでも効果は同じ
+
+
+
+～ハイライト（覆い焼き）～
+計算方法は特殊なんですが、
+効果としては、明るい色ほどより明るくなります。
+光り輝いてるって感じですね。
+
+計算式 : Cd + Cs * Cd = dest
+
+～リバース（反転）～
+ネガポジの効果です。
+
+計算式 : (1-Cd) * Cs = dest
+
+
+
+
