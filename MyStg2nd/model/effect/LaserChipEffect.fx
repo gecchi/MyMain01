@@ -296,15 +296,21 @@ OUT_VS GgafDxVS_LaserChip(
 	return out_vs;
 }
 
+float4 GgafDxPS_LaserChip_ONE( 
+	float2 prm_uv	  : TEXCOORD0,
+	float4 prm_color    : COLOR0
+) : COLOR  {
+	float4 out_color = float4(1,1,1,1);
+	return out_color;
+}
+
 float4 GgafDxPS_LaserChip_SHADOW( 
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0
 ) : COLOR  {
     //ÉåÅ[ÉUÅ[ÇÃâe
 	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_color;
-    //out_color.rgb = 0.0;
-    out_color.a *= 5;
-    out_color.rgb *= 0.01;
+    out_color.rgb = 1;
 	return out_color;
 }
 
@@ -322,21 +328,36 @@ float4 GgafDxPS_LaserChip(
 
 technique LaserChipTechnique
 {
+ 	pass P0 {
+		AlphaBlendEnable = true;
 
-	pass P0 {
+		SrcBlend  = InvDestColor; 
+        DestBlend = ZERO;
+		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
+		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_ONE();
+
+    }
+	pass P1 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha; 
         DestBlend = DestAlpha;
 		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
 		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_SHADOW();
 	}
-	pass P1 {
-		AlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha; 
-        DestBlend = One;
-		//VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
-	}
+//	pass P3 {
+//		AlphaBlendEnable = true;
+//		SrcBlend  = InvDestColor; 
+//        DestBlend = ZERO;
+//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
+//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_ONE();
+//	}
+//	pass P4 {
+//		AlphaBlendEnable = true;
+//		SrcBlend  = SrcAlpha; 
+//        DestBlend = One;
+//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
+//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
+//	}
 
 
 //	pass P0 {
