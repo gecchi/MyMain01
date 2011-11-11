@@ -71,8 +71,7 @@ HRESULT GgafDxSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_
         checkDxException(hr, S_OK, "GgafDxSpriteActor::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
         TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name<<"("<<pSpriteEffect<<")");
-        UINT numPass;
-        hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
+        hr = pID3DXEffect->Begin(&_numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() Begin() に失敗しました。");
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "GgafDxSpriteActor::draw() BeginPass(0) に失敗しました。");
@@ -91,6 +90,21 @@ HRESULT GgafDxSpriteModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
     GgafDxGod::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+    if (_numPass >= 2) { //２パス目以降が存在
+        hr = pID3DXEffect->EndPass();
+        checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() １パス目 EndPass() に失敗しました。");
+
+        for (int pass = 1; pass < _numPass; pass++) {
+            hr = pID3DXEffect->BeginPass(pass);
+            checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() "<<pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
+            GgafDxGod::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+            hr = pID3DXEffect->EndPass();
+            checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() "<<pass+1<<"パス目 EndPass() に失敗しました。");
+        }
+
+        hr = pID3DXEffect->BeginPass(0);
+        checkDxException(hr, D3D_OK, "GgafDxSpriteModel::draw() １パス目 BeginPass(0) に失敗しました。");
+    }
 
     //前回描画モデル保持
     GgafDxModelManager::_pModelLastDraw = this;

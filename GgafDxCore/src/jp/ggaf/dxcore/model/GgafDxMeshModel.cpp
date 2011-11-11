@@ -90,8 +90,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
             checkDxException(hr, S_OK, "GgafDxMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
             TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
-            UINT numPass;
-            hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
+            hr = pID3DXEffect->Begin( &_numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -116,6 +115,24 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
                                                         _paIndexParam[i].NumVertices,
                                                         _paIndexParam[i].StartIndex,
                                                         _paIndexParam[i].PrimitiveCount);
+        if (_numPass >= 2) { //ÇQÉpÉXñ⁄à»ç~Ç™ë∂ç›
+            hr = pID3DXEffect->EndPass();
+            checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() ÇPÉpÉXñ⁄ EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            for (int pass = 1; pass < _numPass; pass++) {
+                hr = pID3DXEffect->BeginPass(pass);
+                checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() "<<pass+1<<"ÉpÉXñ⁄ BeginPass("<<pass<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                                                _paIndexParam[i].BaseVertexIndex,
+                                                                _paIndexParam[i].MinIndex,
+                                                                _paIndexParam[i].NumVertices,
+                                                                _paIndexParam[i].StartIndex,
+                                                                _paIndexParam[i].PrimitiveCount);
+                hr = pID3DXEffect->EndPass();
+                checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() "<<pass+1<<"ÉpÉXñ⁄ EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            }
+            hr = pID3DXEffect->BeginPass(0);
+            checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() ÇPÉpÉXñ⁄ BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        }
         GgafGod::_num_actor_drawing++;
     }
     GgafDxModelManager::_pModelLastDraw = this;

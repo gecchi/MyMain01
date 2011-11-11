@@ -86,7 +86,7 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
 
         TRACE4("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name<<"("<<pSpriteSetEffect<<")");
         UINT numPass;
-        hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
+        hr = pID3DXEffect->Begin( &_numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::draw() Begin() に失敗しました。");
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "GgafDxSpriteSetActor::draw() BeginPass(0) に失敗しました。");
@@ -110,6 +110,26 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
                                                     _paIndexParam[prm_draw_set_num - 1].NumVertices,
                                                     _paIndexParam[prm_draw_set_num - 1].StartIndex,
                                                     _paIndexParam[prm_draw_set_num - 1].PrimitiveCount);
+    if (_numPass >= 2) { //２パス目以降が存在
+        hr = pID3DXEffect->EndPass();
+        checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() １パス目 EndPass() に失敗しました。");
+
+        for (int pass = 1; pass < _numPass; pass++) {
+            hr = pID3DXEffect->BeginPass(pass);
+            checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() "<<pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
+            GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                                            _paIndexParam[prm_draw_set_num - 1].BaseVertexIndex,
+                                                            _paIndexParam[prm_draw_set_num - 1].MinIndex,
+                                                            _paIndexParam[prm_draw_set_num - 1].NumVertices,
+                                                            _paIndexParam[prm_draw_set_num - 1].StartIndex,
+                                                            _paIndexParam[prm_draw_set_num - 1].PrimitiveCount);
+            hr = pID3DXEffect->EndPass();
+            checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() "<<pass+1<<"パス目 EndPass() に失敗しました。");
+        }
+
+        hr = pID3DXEffect->BeginPass(0);
+        checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() １パス目 BeginPass(0) に失敗しました。");
+    }
 
     //前回描画モデル保持
     GgafDxModelManager::_pModelLastDraw = this;

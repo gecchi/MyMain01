@@ -161,7 +161,6 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm
         }
         GgafGod::_num_actor_drawing++;
     }
-
     GgafDxModelManager::_pModelLastDraw = this;
     GgafDxMeshSetModel::_draw_set_num_LastDraw = prm_draw_set_num;
     GgafDxEffectManager::_pEffect_Active = pMeshSetEffect;

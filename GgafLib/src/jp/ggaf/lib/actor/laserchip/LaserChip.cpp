@@ -245,7 +245,9 @@ void LaserChip::processDraw() {
     }
     GgafDxUniverse::_pActor_DrawActive = pLaserChip; //描画セットの最後アクターをセット
     if (_draw_set_num > 0) { //描画されない可能性があるためこの判定が必要
+        GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_BLENDFACTOR,0x00888888);
         _pMeshSetModel->draw(this, _draw_set_num);
+        GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_BLENDFACTOR,0x00888888);
     }
 }
 
