@@ -25,7 +25,7 @@ HoshiBoshiTestActor::HoshiBoshiTestActor(const char* prm_name) :
     _TRACE_("HoshiBoshiTestActor::HoshiBoshiTestActor _CAM_ZF="<<_CAM_ZF);
     //“ÆŽ©ƒ[ƒ‹ƒh•ÏŠ·
     defineRotMvWorldMatrix(HoshiBoshiTestActor::setWorldMatrix_HoshiBoshiTestActor);
-    setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-10);//Å[•”‚ÌŽŸ‚­‚ç‚¢‚ÉEE
+    setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);//Å[•”‚ÌŽŸ‚­‚ç‚¢‚ÉEE
     //¯‚ÍDIRECTX‹——£-1.0`1.0‚ÉŽû‚Ü‚Á‚Ä‚¢‚é‘O’ñ‚ÅA
     //Œ»‹óŠÔ‚Ì‘å‚«‚³‚ÉŽU‚ç‚Î‚ç‚¹‚é
     _SX = _SY = _SZ =  P_CAM->_zf*1000;

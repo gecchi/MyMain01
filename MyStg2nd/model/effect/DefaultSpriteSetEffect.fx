@@ -216,6 +216,9 @@ OUT_VS GgafDxVS_DefaultSpriteSet(
 	out_vs.uv.x = prm_uv.x + offsetU;
 	out_vs.uv.y = prm_uv.y + offsetV;
 	out_vs.color.a  = alpha;
+    if (out_vs.pos.z > 0.9) {   
+        out_vs.pos.z = 0.9; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+    }
 	return out_vs;
 }
 
@@ -275,7 +278,8 @@ technique DefaultSpriteSetTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultSpriteSet();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultSpriteSet();
 	}
@@ -287,6 +291,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultSpriteSet();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultSpriteSet();
 	}
@@ -298,7 +304,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultSpriteSet();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}

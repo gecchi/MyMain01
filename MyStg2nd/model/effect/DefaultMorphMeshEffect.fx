@@ -87,6 +87,9 @@ OUT_VS GgafDxVS_DefaultMorphMesh0(
     if (out_vs.pos.z > 0.6*g_zf) {   // ç≈âìÇÃñÒ 2/3 ÇÊÇËÇ≥ÇÁÇ…âúÇÃèÍçáèôÅXÇ…ìßñæÇ…
         out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
     }
+    if (out_vs.pos.z > 0.9) {   
+        out_vs.pos.z = 0.9; //ñ{óàéãñÏäOÇÃZÇ≈Ç‡ÅAï`âÊÇã≠êßÇ∑ÇÈÇΩÇﬂ0.9à»ì‡Ç…è„èëÇ´ÅA
+    }
 	return out_vs;
 }
 
@@ -367,6 +370,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh0();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -376,6 +381,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh1();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -385,6 +392,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh2();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -394,6 +403,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh3();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -403,6 +414,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh4();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -412,6 +425,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh5();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -421,6 +436,8 @@ technique DefaultMorphMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh6();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -434,6 +451,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh0();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -443,6 +462,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh1();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -452,6 +473,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh2();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -461,6 +484,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh3();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -470,6 +495,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh4();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -479,6 +506,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh5();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -488,6 +517,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh6();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -510,6 +541,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh0();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
@@ -519,6 +552,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh1();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
@@ -528,6 +563,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh2();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
@@ -537,6 +574,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh3();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
@@ -546,6 +585,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh4();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
@@ -555,6 +596,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh5();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
@@ -564,6 +607,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh6();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}

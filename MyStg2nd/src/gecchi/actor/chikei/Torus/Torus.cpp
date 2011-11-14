@@ -57,7 +57,7 @@ void Torus::makeCollisionArea(int prm_nSphere){
                 false, true, true
                 );
     }
-    setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-10);
+    setSpecialDrawDepth(DRAW_DEPTH_LEVEL_BIGOBJ-2);
     DELETE_IMPOSSIBLE_NULL(paAngRadial);
 }
 

@@ -105,6 +105,9 @@ OUT_VS GgafDxVS_DefaultPointSprite(
 //	out_vs.uv_ps.y = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
 
 	out_vs.color = prm_color;
+    if (out_vs.pos.z > 0.9) {   
+        out_vs.pos.z = 0.9; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+    }
 	return out_vs;
 }
 
@@ -142,7 +145,8 @@ technique DefaultPointSpriteTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultPointSprite();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultPointSprite();
 	}
@@ -154,6 +158,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultPointSprite();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultPointSprite();
 	}
@@ -165,6 +171,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultPointSprite();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}

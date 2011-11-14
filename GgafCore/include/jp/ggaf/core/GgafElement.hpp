@@ -59,18 +59,14 @@ public:
     frame _frameEnd;
     /** [r]ノード活動フラグ */
     bool _is_active_flg;
-
+    /** [r]ノード活動フラグ(自ツリーも考慮あり) */
     bool _is_active_in_the_tree_flg;
     /** [r]一時停止フラグ */
     bool _was_paused_flg;
-    bool _was_paused2_flg;
     /** [r]ノード生存フラグ */
     bool _can_live_flg;
-
-
     /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
     bool _was_paused_flg_in_next_frame;
-
     /** [r]終了フラグ */
     bool _will_end_after_flg;
     /** [r]終了する予定の _frame_of_life */
@@ -857,7 +853,6 @@ _frameEnd(0),
 _is_active_flg(true),
 _is_active_in_the_tree_flg(true),
 _was_paused_flg(false),
-_was_paused2_flg(false),
 _can_live_flg(true),
 _was_paused_flg_in_next_frame(false),
 _will_end_after_flg(false),

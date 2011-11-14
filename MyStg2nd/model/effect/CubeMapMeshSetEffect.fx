@@ -173,6 +173,9 @@ OUT_VS GgafDxVS_CubeMapMeshSet(
     if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
         out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
     }
+    if (out_vs.pos.z > 0.9) {   
+        out_vs.pos.z = 0.9; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+    }
 	return out_vs;
 
 
@@ -271,6 +274,8 @@ technique CubeMapMeshSetTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_CubeMapMeshSet();
 		PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMeshSet();
 	}
@@ -282,6 +287,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_CubeMapMeshSet();
 		PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMeshSet();
 	}
@@ -293,6 +300,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_CubeMapMeshSet();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}

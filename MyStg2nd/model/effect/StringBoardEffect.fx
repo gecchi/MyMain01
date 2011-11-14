@@ -326,7 +326,8 @@ technique StringBoardTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_StringBoard();
 		PixelShader  = compile PS_VERSION GgafDxPS_StringBoard();
 	}
@@ -338,6 +339,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_StringBoard();
 		PixelShader  = compile PS_VERSION GgafDxPS_StringBoard();
 	}
@@ -349,7 +352,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_StringBoard();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}

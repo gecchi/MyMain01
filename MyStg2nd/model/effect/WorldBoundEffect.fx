@@ -361,6 +361,8 @@ technique WorldBoundTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound0();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -370,6 +372,8 @@ technique WorldBoundTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound1();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -379,6 +383,8 @@ technique WorldBoundTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound2();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -388,6 +394,8 @@ technique WorldBoundTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound3();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -397,6 +405,8 @@ technique WorldBoundTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound4();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -406,6 +416,8 @@ technique WorldBoundTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound5();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -415,6 +427,8 @@ technique WorldBoundTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound6();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -437,6 +451,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound0();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -446,6 +462,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound1();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -455,6 +473,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound2();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -464,6 +484,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound3();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -473,6 +495,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound4();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -482,6 +506,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound5();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -491,6 +517,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound6();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -503,6 +531,8 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound0();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -512,6 +542,8 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound1();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -521,6 +553,8 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound2();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -530,6 +564,8 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound3();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -539,6 +575,8 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound4();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -548,6 +586,8 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound5();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -557,6 +597,8 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //‰ÁŽZ‡¬
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound6();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

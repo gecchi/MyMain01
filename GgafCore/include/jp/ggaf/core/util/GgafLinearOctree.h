@@ -172,7 +172,6 @@ public:
                             int tX1 ,int tY1 ,int tZ1 ,
                             int tX2 ,int tY2 ,int tZ2);
 
-
     virtual void clearElem();
 
     /**

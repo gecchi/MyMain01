@@ -292,7 +292,9 @@ OUT_VS GgafDxVS_LaserChip(
 	//簡易フォグ
 //	out_vs.color.a = 1.0/((g_zf*0.9)*0.5))*out_vs.pos.z - 1.0; // 1/2 より奥の場合徐々に透明に
 	//out_vs.color.a = 1.0/(g_zf - (g_zf*0.75))*out_vs.pos.z - 3.0;  // 3/4 より奥の場合徐々に透明に
-
+    if (out_vs.pos.z > 0.9) {   
+        out_vs.pos.z = 0.9; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+    }
 	return out_vs;
 }
 
@@ -310,8 +312,7 @@ float4 GgafDxPS_LaserChip_SHADOW(
 ) : COLOR  {
     //レーザーの影
 	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_color;
-	out_color.rgb = 1;
-	out_color.a *= 0.01;
+	out_color.rgba *= 0.2;
 	return out_color;
 }
 
@@ -320,8 +321,8 @@ float4 GgafDxPS_LaserChip(
 	float4 prm_color    : COLOR0
 ) : COLOR  {
 
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);
-	float4 out_color = tex_color * prm_color;
+	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_color;
+	out_color.rgba *= 0.9;
 	return out_color;
 }
 
@@ -332,18 +333,31 @@ technique LaserChipTechnique
  	pass P0 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha; 
+        DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;     //default
+        DestBlendAlpha = One;    //default
+		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
+		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_SHADOW();
+    }
+
+ 	pass P1 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha; 
         DestBlend = ONE;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = ZERO;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
 		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
-
     }
-//	pass P1 {
-//		AlphaBlendEnable = true;
-//		SrcBlend  = SrcAlpha; 
-//        DestBlend = DestAlpha;
-//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_SHADOW();
-//	}
+
+
+//    pass P1 {
+//    	AlphaBlendEnable = true;
+//    	SrcBlend  = SrcAlpha; 
+//          DestBlend = DestAlpha;
+//    	VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
+//    	PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
+//    }
 //	pass P3 {
 //		AlphaBlendEnable = true;
 //		SrcBlend  = InvDestColor; 

@@ -91,8 +91,8 @@ technique GroundMeshTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-		ColorVertex  = True;
-
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_GroundMesh();
 		PixelShader  = compile PS_VERSION GgafDxPS_GroundMesh();
 	}

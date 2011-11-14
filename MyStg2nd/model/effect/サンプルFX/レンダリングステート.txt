@@ -409,12 +409,12 @@ stateblock defaultState = stateblock_state
 
 
 
-SRCCOLOR       : Cs = rgba( Rs, Gs, Bs, As )
-INVSRCCOLOR    : rgba( 1-Rs, 1-Gs, 1-Bs, 1-As )
+SRCCOLOR       : rgba( Rs, Gs, Bs, As )          (※Cs=rgb( Rs, Gs, Bs) )
+INVSRCCOLOR    : rgba( 1-Rs, 1-Gs, 1-Bs, 1-As ) 
 SRCALPHA       : rgba( As, As, As, As )
 INVSRCALPHA    : rgba( 1-As, 1-As, 1-As, 1-As )
 
-DESTCOLOR      : Cd = rgba( Rd, Gd, Bd, Ad )
+DESTCOLOR      : rgba( Rd, Gd, Bd, Ad )          (※Cd=rgb( Rd, Gd, Bd) )
 INVDESTCOLOR   : rgba( 1-Rd, 1-Gd, 1-Bd, 1-Ad )
 DESTALPHA      : rgba( Ad, Ad, Ad, Ad )
 INVDESTALPHA   : rgba( 1-Ad, 1-Ad, 1-Ad, 1-Ad )
@@ -433,38 +433,45 @@ SRCALPHASAT    : rgba( f, f, f, 1)　f = min( As, 1-Ad )
 
 計算式 : src = dest
 
+
 アルファブレンドの基本式
-計算式 : (Cs * X) + (Cd * Y) = dest
+計算式 rgb : (Cs * X) + (Cd * Y) = dest rgb
+       α  : (As * X) + (Ad * Y) = dest α
 
 ～半透明合成～
 後ろの画像が透けて見えます。
 煙のエフェクトなどで良く使います。
 
-計算式 : (Cs * As) + (Cd * (1-As)) = dest
+rgb :  (Cs * As) + (Cd * (1-As)) = dest rgb
+α  :  (As * 1 ) + (Ad * 0)      = dest α
 
 SrcBlend  = SrcAlpha;
 DestBlend = InvSrcAlpha;
-BlendOp = Add; (Addはデフォルト)
-
+BlendOp = Add;            //default
+SrcBlendAlpha = One;      //default
+DestBlendAlpha = Zero;    //default
+BlendOpAlpha = Add;       //default
 
 ～加算合成～
 単純に色を足し合わせます。
 結果、白色に近付き明るく見えます。
 魔法や炎など、エフェクトで一番良く使われています。
 
-計算式 : (Cs * As) + (Cd * 1) = dest
-※Asを入れることで加算半透明合成になります。
+rgb :  (Cs * As) + (Cd * 1) = dest rgb
+α  :  (As * 1 ) + (Ad * 0) = dest α
 
 SrcBlend  = SrcAlpha;
 DestBlend = One;
-BlendOp = Add; (Addはデフォルト)
+BlendOp = Add;            //default
+SrcBlendAlpha = One;      //default
+DestBlendAlpha = Zero;    //default
+BlendOpAlpha = Add;       //default
 
 
 ～減算合成～
 加算合成とは逆に色を減算します。
 
-計算式 : (Cd * 1) - (Cs * As) = dest
-※Asを入れることで減算半透明合成になります。
+計算式 : (Cd * 1) - (Cs * As) = dest rgb
 
 SrcBlend  = SrcAlpha;
 DestBlend = One;
@@ -508,3 +515,6 @@ BlendOp = Add;
 
 
 
+デバイスのポインタ->SetRenderState(D3DRS_ALPHAREF, 0x00000066);
+デバイスのポインタ->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE); 
+デバイスのポインタ->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);

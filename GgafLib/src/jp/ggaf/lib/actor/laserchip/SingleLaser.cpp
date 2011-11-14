@@ -7,13 +7,13 @@ using namespace GgafLib;
 
 SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
              GgafDxMeshSetActor(prm_name,
-                                 string("27/" + string(prm_model_id)).c_str(),
+                                 string("26/" + string(prm_model_id)).c_str(),
                                  "SingleLaserEffect",
                                  "SingleLaserTechnique",
                                  prm_pStat,
                                  NEW CollisionChecker(this) ) {
 
-    _pMeshSetModel->_set_num = 27; //現在のシングルレーザーの最大セット数は27。
+    _pMeshSetModel->_set_num = 26; //現在のシングルレーザーの最大セット数強制上書き。
 
     _class_name = "SingleLaser";
     _pCollisionChecker = (CollisionChecker*)_pChecker;
@@ -43,7 +43,7 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafSta
     _ah_matWorld[23]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld024" );
     _ah_matWorld[24]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld025" );
     _ah_matWorld[25]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld026" );
-    _ah_matWorld[26]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld027" );
+//    _ah_matWorld[26]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld027" );
 //    _ah_matWorld[27]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld028" );
 //    _ah_matWorld[28]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld029" );
 //    _ah_matWorld[29]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld030" );

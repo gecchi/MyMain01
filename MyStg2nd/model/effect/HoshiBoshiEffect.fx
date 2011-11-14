@@ -184,8 +184,8 @@ float w_zf = g_zf * g_far_rate;
 
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 
-    if (out_vs.pos.z > 1.0) {   
-        out_vs.pos.z = 1.0; //視野外のZ座標でも、描画を強制するため1.0以内に上書き、
+    if (out_vs.pos.z > 0.9) {   
+        out_vs.pos.z = 0.9; //本来視野外のZ座標でも、描画を強制するため0.9以内に上書き、
     }
 
 	//奥ほど小さく表示するために縮小率計算
@@ -250,7 +250,8 @@ technique HoshiBoshiTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION VS_HoshiBoshi();
 		PixelShader  = compile PS_VERSION PS_HoshiBoshi();
 	}
@@ -262,6 +263,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION VS_HoshiBoshi();
 		PixelShader  = compile PS_VERSION PS_HoshiBoshi();
 	}
@@ -273,6 +276,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION VS_HoshiBoshi();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}

@@ -241,10 +241,10 @@ int GgafDxUniverse::setDrawDepthLevel(int prm_draw_depth_level, GgafDxDrawableAc
     int draw_depth_level;
     GgafDxDrawableActor* pActorTmp;
     //ãŒÀ‰ºŒÀƒJƒbƒg
-    if (prm_draw_depth_level > MAX_DRAW_DEPTH_LEVEL - 2) {
-        draw_depth_level = MAX_DRAW_DEPTH_LEVEL - 2;
-    } else if (prm_draw_depth_level < 0) {
-        draw_depth_level = 0;
+    if (prm_draw_depth_level > MAX_DRAW_DEPTH_LEVEL - 3) {
+        draw_depth_level = MAX_DRAW_DEPTH_LEVEL - 3;
+    } else if (prm_draw_depth_level < 1) {
+        draw_depth_level = 1;
     } else {
         draw_depth_level = prm_draw_depth_level;
     }

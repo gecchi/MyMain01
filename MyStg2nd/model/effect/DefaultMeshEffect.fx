@@ -100,7 +100,9 @@ OUT_VS GgafDxVS_DefaultMesh(
     }
     //マスターα
     out_vs.color.a *= g_alpha_master;
-
+    if (out_vs.pos.z > 0.9) {   
+        out_vs.pos.z = 0.9; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+    }
     return out_vs;
 }
 
@@ -157,6 +159,8 @@ technique DefaultMeshTechnique
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDxVS_DefaultMesh();
         PixelShader  = compile PS_VERSION GgafDxPS_DefaultMesh();
     }
@@ -168,6 +172,8 @@ technique DestBlendOne
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;   
         DestBlend = One; //加算合成
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDxVS_DefaultMesh();
         PixelShader  = compile PS_VERSION GgafDxPS_DefaultMesh();
     }
@@ -179,6 +185,8 @@ technique Flush
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
         VertexShader = compile VS_VERSION GgafDxVS_DefaultMesh();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

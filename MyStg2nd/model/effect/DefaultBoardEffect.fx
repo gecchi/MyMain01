@@ -113,7 +113,8 @@ technique DefaultBoardTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultBoard();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultBoard();
 	}
@@ -125,6 +126,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //â¡éZçáê¨
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultBoard();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultBoard();
 	}

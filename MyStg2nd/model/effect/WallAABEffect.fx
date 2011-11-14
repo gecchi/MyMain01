@@ -251,6 +251,9 @@ OUT_VS GgafDxVS_WallAAB(
 	if ( out_vs.pos.z < g_distance_AlphaTarget) {
 		out_vs.color.a = (out_vs.pos.z + 1.0)  / (g_distance_AlphaTarget*2);
 	}
+    if (out_vs.pos.z > 0.9) {   
+        out_vs.pos.z = 0.9; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+    }
 	return out_vs;
 }
 
@@ -292,6 +295,8 @@ technique WallAABTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_WallAAB();
 		PixelShader  = compile PS_VERSION GgafDxPS_WallAAB();
 	}
@@ -303,6 +308,8 @@ technique DestBlendOne
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_WallAAB();
 		PixelShader  = compile PS_VERSION GgafDxPS_WallAAB();
 	}
@@ -314,6 +321,8 @@ technique Flush
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_WallAAB();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}

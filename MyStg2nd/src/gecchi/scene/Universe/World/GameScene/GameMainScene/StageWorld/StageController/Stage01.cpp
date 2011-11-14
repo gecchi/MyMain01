@@ -22,6 +22,10 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
     getDirector()->addSubGroup(KIND_EFFECT, _pMessage);
     _pMessage->inactivate();
 
+
+    _pPlanets = NEW Planets001("Planets001");
+    getDirector()->addSubGroup(KIND_EFFECT, _pPlanets);
+
     fadeoutScene(0); //Å‰‚Í”ñ•\Ž¦
     useProgress(10);
 }
@@ -44,6 +48,9 @@ void Stage01::processBehavior() {
                 _pWorldBoundSpace->activateTree();    //”wŒiON
                 _pHoshiBoshi->activateTree();    //”wŒiON
                 _pScene_Stage01PartController->activate();
+
+                _pPlanets->activate();
+
                 fadeinSceneTree(360);
                 _pProg->change(STAGE_PROG_PLAYING);
             }

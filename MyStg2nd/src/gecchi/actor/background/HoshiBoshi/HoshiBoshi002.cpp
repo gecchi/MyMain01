@@ -11,7 +11,7 @@ HoshiBoshi002::HoshiBoshi002(const char* prm_name) :
     changeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     setHitAble(false);
     _CAM_ZF = abs(DX2CO(P_CAM->_zf));
-    setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL-1);
+    setSpecialDrawDepth(DRAW_DEPTH_LEVEL_HOSHIBOSHI);
     _TRACE_("HoshiBoshi002::HoshiBoshi002 _CAM_ZF="<<_CAM_ZF);
 }
 

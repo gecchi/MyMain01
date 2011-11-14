@@ -121,6 +121,9 @@
 
 #define FADE_FRAMES 60
 
+#define DRAW_DEPTH_LEVEL_HOSHIBOSHI (MAX_DRAW_DEPTH_LEVEL-1)
+#define DRAW_DEPTH_LEVEL_BIGOBJ     (MAX_DRAW_DEPTH_LEVEL-2)
+
 enum MoveWay {
     WAY_ZRIGHT_DOWN_BEHIND = 0,   //0    TN(-1,-1,-1)
     WAY_DOWN_BEHIND,              //1    TN(-1,-1, 0)
@@ -424,6 +427,7 @@ template<class T>
 class Formation001;
 
 
+class Planets001;
 
 class CubeMapMeshTestActor;
 class CubeMapMeshSetTestActor;
@@ -658,6 +662,8 @@ class MagicMeter;
 #include "gecchi/actor/common/template/Formation001.hpp"
 
 #include "gecchi/actor/common/TestDepository.h"
+
+#include "gecchi/actor/chikei/Planets/Planets001.h"
 
 #include "gecchi/actor/_predrawer/CubeMapMeshTestActor.h"
 #include "gecchi/actor/_predrawer/CubeMapMeshSetTestActor.h"

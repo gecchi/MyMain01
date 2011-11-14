@@ -88,8 +88,6 @@ OUT_VS GgafDxVS_SingleLaser(
 
 	//頂点計算
 	float4x4 matWorld;
-	float4 colorMaterialDiffuse;
-
 	if (index == 0) {		
 		matWorld = g_matWorld001;	
 	} else if (index == 1) {		
@@ -141,10 +139,11 @@ OUT_VS GgafDxVS_SingleLaser(
 	} else if (index == 24) {		
 		matWorld = g_matWorld025;	
 	} else if (index == 25) {		
-		matWorld = g_matWorld026;	
-	} else if (index == 26) {		
-		matWorld = g_matWorld027;	
-	} 
+		matWorld = g_matWorld026;
+    }	
+//	} else {		
+//		matWorld = g_matWorld027;	
+//	} 
 
 
 	//World*View*射影変換
@@ -152,14 +151,20 @@ OUT_VS GgafDxVS_SingleLaser(
 	//UVはそのまま
 	out_vs.uv = prm_uv;
 	//αフォグ
-    float c = 1.3-((out_vs.pos.z)/g_zf);
-	out_vs.color = (c < 0.5  ? 0.5 : c);
+    float c = 1.3 - (out_vs.pos.z / g_zf);
+    if (c < 0.5) { 
+        out_vs.color = 0.5;
+    }
+	//out_vs.color = (c < 0.5  ? 0.5 : c);
 
 //	out_vs.color = float4(1.0, 1.0, 1.0, 1.0);
 //    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
 //        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
 //    }
 	out_vs.color.a *= g_alpha_master;
+    if (out_vs.pos.z > 0.9) {   
+        out_vs.pos.z = 0.9; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+    }
 	return out_vs;
 }
 
@@ -181,9 +186,8 @@ technique SingleLaserTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   //加算合成
 		DestBlend = One;
-
-//		SrcBlend  = SrcAlpha;
-//		DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_SingleLaser();
 		PixelShader  = compile PS_VERSION GgafDxPS_SingleLaser();
 	}

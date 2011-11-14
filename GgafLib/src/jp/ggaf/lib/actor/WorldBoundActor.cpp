@@ -15,7 +15,9 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
     _class_name = "WorldBoundActor";
     _offset_frames = 0;
     _pScaler = NEW GgafDxScaler(this);
-    setSpecialDrawDepth(MAX_DRAW_DEPTH_LEVEL);
+    setSpecialDrawDepth(DRAW_DEPTH_LEVEL_WORLDBOUND);
+    setZEnable(false);        //Zバッファは考慮無し
+    setZWriteEnable(false);  //Zバッファは書き込み無し
 }
 
 void WorldBoundActor::processSettlementBehavior() {
