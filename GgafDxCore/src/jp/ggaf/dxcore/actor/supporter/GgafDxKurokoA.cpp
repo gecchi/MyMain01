@@ -241,36 +241,36 @@ void GgafDxKurokoA::behave() {
     for (int i = 0; i < 3; i++) {
         if (_face_ang_targeting_flg[i]) { //ƒ^[ƒQƒbƒg•ûŒü‚ª‚ ‚éê‡
             _ang_veloFace[i] += _ang_acceFace[i];
-            setFaceAngVelo(i, _ang_veloFace[i]);
+            setFaceAngVelo((axis)i, _ang_veloFace[i]);
 
             if (_ang_veloFace[i] > 0) { //”½ŽžŒv‰ñ‚è‚Ìê‡
-                angDistance = getFaceAngDistance(i, _angTargetFace[i], TURN_COUNTERCLOCKWISE);
+                angDistance = getFaceAngDistance((axis)i, _angTargetFace[i], TURN_COUNTERCLOCKWISE);
                 if (_ang_veloFace[i] > angDistance && _face_ang_target_allow_way[i] != TURN_CLOCKWISE
                         && _face_ang_target_allow_velo[i] >= _ang_veloFace[i]) {
 
                     //_TRACE_("STOP1 _ang_veloFace["<<i<<"]="<<_ang_veloFace[i]<<" angDistance="<<angDistance<<" _face_ang_target_allow_velo["<<i<<"]="<<_face_ang_target_allow_velo[i]<<" _ang_veloFace["<<i<<"]="<<_ang_veloFace[i]);
-                    addFaceAng(i, angDistance);
+                    addFaceAng((axis)i, angDistance);
                     if (_face_ang_targeting_stop_flg[i]) {
                         _face_ang_targeting_flg[i] = false; //ƒtƒ‰ƒO‚ð–ß‚µ‚ÄI—¹
                         _face_ang_targeting_stop_flg[i] = false;
                     }
                 } else {
-                    addFaceAng(i, _ang_veloFace[i]);
+                    addFaceAng((axis)i, _ang_veloFace[i]);
                 }
             } else if (_ang_veloFace[i] < 0) { //ŽžŒv‰ñ‚è‚Ìê‡
-                angDistance = getFaceAngDistance(i, _angTargetFace[i], TURN_CLOCKWISE);
+                angDistance = getFaceAngDistance((axis)i, _angTargetFace[i], TURN_CLOCKWISE);
                 if (_ang_veloFace[i] < angDistance && _face_ang_target_allow_way[i] != TURN_COUNTERCLOCKWISE
                         && -1 * _face_ang_target_allow_velo[i] <= _ang_veloFace[i]) { //–Ú•W‚ðs‚«‰ß‚¬‚Ä‚µ‚Ü‚¢‚»‚¤EEE‚È“ú
-                    addFaceAng(i, angDistance);
+                    addFaceAng((axis)i, angDistance);
                     if (_face_ang_targeting_stop_flg[i]) { //’âŽ~‚µ‚Ä—L‚è‚È‚ç‚Î
                         _face_ang_targeting_flg[i] = false; //ƒtƒ‰ƒO‚ð–ß‚µ‚ÄI—¹
                     }
                 } else {
-                    addFaceAng(i, _ang_veloFace[i]);
+                    addFaceAng((axis)i, _ang_veloFace[i]);
                 }
             } else {
                 //_ang_veloFace[i] == 0
-                addFaceAng(i, 0);
+                addFaceAng((axis)i, 0);
             }
 
             if (_face_ang_targeting_flg[i] == false) {
@@ -280,7 +280,7 @@ void GgafDxKurokoA::behave() {
 
                 //–Ú•W•ûŒü‚É“ž’B‚µ‚½ŽžA’âŽ~ˆ—‚ðs‚È‚¤
                 _ang_acceFace[i] = 0; //Ž²‰ñ“]•ûŒüŠpAŠp‘¬“x‚ð‚O‚Ö
-                setFaceAngVelo(i, 0); //Ž²‰ñ“]•ûŒüŠpAŠp‰Á‘¬“x‚ð‚O‚Ö
+                setFaceAngVelo((axis)i, 0); //Ž²‰ñ“]•ûŒüŠpAŠp‰Á‘¬“x‚ð‚O‚Ö
             }
 
         } else {
@@ -288,7 +288,7 @@ void GgafDxKurokoA::behave() {
             //ƒtƒŒ[ƒ€–ˆ‚Ì³–Ê•ûŠpù‰ô‚Ìˆ—
             _ang_veloFace[i] += _ang_acceFace[i];
             if (_ang_veloFace[i] != 0) {
-                addFaceAng(i, _ang_veloFace[i]);
+                addFaceAng((axis)i, _ang_veloFace[i]);
             }
             //}
         }

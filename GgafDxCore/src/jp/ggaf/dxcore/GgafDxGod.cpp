@@ -430,35 +430,6 @@ HRESULT GgafDxGod::init() {
     }
 
 
-    //アンチアイリアスにできるかチェック
-    UINT32 qualityLevels = D3DMULTISAMPLE_NONE;
-    D3DMULTISAMPLE_TYPE multiSampleType = D3DMULTISAMPLE_NONE;
-
-    //	if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
-    //		D3DADAPTER_DEFAULT,
-    //		D3DDEVTYPE_HAL,
-    //		D3DFMT_A8R8G8B8,
-    //		CFG_PROPERTY(FULL_SCREEN) ? FALSE : TRUE,
-    //		D3DMULTISAMPLE_2_SAMPLES,
-    //		&qualityLevels) ) )
-    //	{
-    //		if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
-    //			D3DADAPTER_DEFAULT,
-    //			D3DDEVTYPE_HAL,
-    //			D3DFMT_D24S8,
-    //			CFG_PROPERTY(FULL_SCREEN) ? FALSE : TRUE,
-    //			D3DMULTISAMPLE_2_SAMPLES,
-    //			NULL) ) )
-    //		{
-    //			multiSampleType = D3DMULTISAMPLE_2_SAMPLES;
-    //			_TRACE_("MultiSampleType = D3DMULTISAMPLE_2_SAMPLES");
-    //		}
-    //	}
-    //マルチサンプルの数
-    _paPresetParam[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
-    //マルチサンプルの品質レベル
-    _paPresetParam[0].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
-
     //２画面使用時の D3DPRESENT_PARAMETERS 差分上書き
     _paPresetParam[1] = _paPresetParam[0]; //共通が多いためコピー
 
@@ -486,6 +457,65 @@ HRESULT GgafDxGod::init() {
             _paPresetParam[1].BackBufferFormat = D3DFMT_UNKNOWN; //現在の画面モードを利用
         }
     }
+
+    //アンチアイリアスにできるかチェック
+    DWORD qualityLevels = D3DMULTISAMPLE_NONE;
+    D3DMULTISAMPLE_TYPE multiSampleType = D3DMULTISAMPLE_NONE;
+	if(CFG_PROPERTY(FULL_SCREEN)) {
+		if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
+			D3DADAPTER_DEFAULT,
+			D3DDEVTYPE_HAL,
+			_paPresetParam[0].BackBufferFormat,  //TODO:ウィンドウモード時は
+			CFG_PROPERTY(FULL_SCREEN) ? FALSE : TRUE,
+			D3DMULTISAMPLE_2_SAMPLES,
+			&qualityLevels) ) )
+		{
+			if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
+				D3DADAPTER_DEFAULT,
+				D3DDEVTYPE_HAL,
+				_paPresetParam[0].AutoDepthStencilFormat,
+				CFG_PROPERTY(FULL_SCREEN) ? FALSE : TRUE,
+				D3DMULTISAMPLE_2_SAMPLES,
+				NULL) ) )
+			{
+				multiSampleType = D3DMULTISAMPLE_2_SAMPLES;
+				_TRACE_("ハードウェア MultiSampleType = D3DMULTISAMPLE_2_SAMPLES 有効！！");
+
+			}
+		}
+	}
+
+    if(CFG_PROPERTY(DUAL_VIEW)) {
+        //マルチサンプルの数
+        _paPresetParam[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+        //マルチサンプルの品質レベル
+        _paPresetParam[0].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+        //マルチサンプルの数
+        _paPresetParam[1].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+        //マルチサンプルの品質レベル
+        _paPresetParam[1].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+    } else {
+        //マルチサンプルの数
+        _paPresetParam[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+        //マルチサンプルの品質レベル
+        _paPresetParam[0].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+    }
+
+//    //マルチサンプルの数
+//    _paPresetParam[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+//    //マルチサンプルの品質レベル
+//    _paPresetParam[0].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
+
+
+
+
+
+
+
+
+
+
+
 
     //Windowハンドルを個別指定
     _paPresetParam[0].hDeviceWindow = _pHWndPrimary;

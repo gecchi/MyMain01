@@ -105,8 +105,8 @@ OUT_VS GgafDxVS_DefaultPointSprite(
 //	out_vs.uv_ps.y = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
 
 	out_vs.color = prm_color;
-    if (out_vs.pos.z > 0.9) {   
-        out_vs.pos.z = 0.9; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+    if (out_vs.pos.z > g_zf*0.98) {   
+        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
     }
 	return out_vs;
 }

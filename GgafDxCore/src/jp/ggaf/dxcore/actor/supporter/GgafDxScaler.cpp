@@ -127,8 +127,8 @@ void GgafDxScaler::behave() {
 //            _TRACE_("_scale["<<axis<<"] _velo_scale["<<axis<<"]="<<_scale[axis]<<" "<<_velo_scale[axis]);
 
 void GgafDxScaler::intoTargetScaleLinerUntil(int prm_target_scale, frame prm_spend_frame) {
-    for (int axis = 0; axis < 3; axis++) {
-        intoTargetScaleLinerUntil(axis, prm_target_scale, prm_spend_frame);
+    for (int a = 0; a < 3; a++) {
+        intoTargetScaleLinerUntil((axis)a, prm_target_scale, prm_spend_frame);
     }
 }
 
@@ -145,8 +145,8 @@ void GgafDxScaler::intoTargetScaleLinerUntil(axis prm_axis, int prm_target_scale
 }
 
 void GgafDxScaler::intoTargetScaleAcceStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
-    for (int axis = 0; axis < 3; axis++) {
-        intoTargetScaleAcceStep(axis, prm_target_scale, prm_velo_scale, prm_acce_scale);
+    for (int a = 0; a < 3; a++) {
+        intoTargetScaleAcceStep((axis)a, prm_target_scale, prm_velo_scale, prm_acce_scale);
     }
 }
 
@@ -158,8 +158,8 @@ void GgafDxScaler::intoTargetScaleAcceStep(axis prm_axis, int prm_target_scale, 
 }
 
 void GgafDxScaler::intoTargetScaleLinerStep(int prm_target_scale, int prm_velo_scale) {
-    for (int axis = 0; axis < 3; axis++) {
-        intoTargetScaleLinerStep(axis, prm_target_scale, prm_velo_scale);
+    for (int a = 0; a < 3; a++) {
+        intoTargetScaleLinerStep((axis)a, prm_target_scale, prm_velo_scale);
     }
 }
 
@@ -171,8 +171,8 @@ void GgafDxScaler::intoTargetScaleLinerStep(axis prm_axis, int prm_target_scale,
 
 
 void GgafDxScaler::loopLiner(frame prm_beat_target_frames, float prm_beat_num) {
-    for (int axis = 0; axis < 3; axis++) {
-        loopLiner(axis, prm_beat_target_frames, prm_beat_num);
+    for (int a = 0; a < 3; a++) {
+        loopLiner((axis)a, prm_beat_target_frames, prm_beat_num);
     }
 }
 
@@ -188,8 +188,8 @@ void GgafDxScaler::loopLiner(axis prm_axis, frame prm_beat_target_frames, float 
 }
 
 void GgafDxScaler::beat(frame prm_beat_target_frames, frame prm_attack_frames, frame prm_rest_frames, float prm_beat_num) {
-    for (int axis = 0; axis < 3; axis++) {
-        beat(axis, prm_beat_target_frames, prm_attack_frames, prm_rest_frames, prm_beat_num);
+    for (int a = 0; a < 3; a++) {
+        beat((axis)a, prm_beat_target_frames, prm_attack_frames, prm_rest_frames, prm_beat_num);
     }
 }
 
@@ -218,8 +218,8 @@ void GgafDxScaler::beat(axis prm_axis, frame prm_beat_target_frames, frame prm_a
 }
 
 void GgafDxScaler::stopImmediately() {
-    for (int axis = 0; axis < 3; axis++) {
-        stopImmediately(axis);
+    for (int a = 0; a < 3; a++) {
+        stopImmediately((axis)a);
     }
 }
 

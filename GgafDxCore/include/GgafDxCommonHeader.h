@@ -174,7 +174,13 @@ typedef int ang_jerk;
 typedef int s_ang;
 
 /** 軸型(AXIS_X / AXIS_Y / AXIS_Z) */
-typedef int axis;
+enum GgafDxAxis {
+    AXIS_X = 0,
+    AXIS_Y,
+    AXIS_Z
+};
+
+typedef GgafDxAxis axis;
 
 
 /** アプリの座標 → DirectX座標 変換 */
@@ -205,13 +211,15 @@ typedef int axis;
 #define SC2R(X) (1.0f * (X) / LEN_UNIT)
 /** 拡大率 → アプリのスケール値 変換 */
 #define R2SC(X) ((X) * LEN_UNIT)
+//
+///** X軸を表す定数 */
+//#define AXIS_X 0
+///** Y軸を表す定数 */
+//#define AXIS_Y 1
+///** Z軸を表す定数 */
+//#define AXIS_Z 2
 
-/** X軸を表す定数 */
-#define AXIS_X 0
-/** Y軸を表す定数 */
-#define AXIS_Y 1
-/** Z軸を表す定数 */
-#define AXIS_Z 2
+
 
 /** 度数法 0 度に対応するアプリのアングル値定数 */
 #define D0ANG   (0)

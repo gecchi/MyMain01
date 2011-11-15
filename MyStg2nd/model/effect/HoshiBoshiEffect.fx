@@ -184,8 +184,8 @@ float w_zf = g_zf * g_far_rate;
 
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 
-    if (out_vs.pos.z > 0.9) {   
-        out_vs.pos.z = 0.9; //本来視野外のZ座標でも、描画を強制するため0.9以内に上書き、
+    if (out_vs.pos.z > g_zf*0.98) {   
+        out_vs.pos.z = g_zf*0.98; //本来視野外のZ座標でも、描画を強制するため0.9以内に上書き、
     }
 
 	//奥ほど小さく表示するために縮小率計算

@@ -72,8 +72,8 @@ public:
      * @param prm_scale_diff スケール値増分
      */
     void addScale(int prm_scale_diff) {
-        for (int axis = 0; axis < 3; axis++) {
-            addScale(axis, prm_scale_diff);
+        for (int a = 0; a < 3; a++) {
+            addScale((axis)a, prm_scale_diff);
         }
     }
     /**
@@ -90,8 +90,8 @@ public:
      * @param prm_scale スケール値
      */
     void setScale(int prm_scale) {
-        for (int axis = 0; axis < 3; axis++) {
-            setScale(axis, prm_scale);
+        for (int a = 0; a < 3; a++) {
+            setScale((axis)a, prm_scale);
         }
     }
 
@@ -119,9 +119,9 @@ public:
      * @param prm_scale2 スケール値2
      */
     void forceScaleRange(int prm_scale1, int prm_scale2) {
-        for (int axis = 0; axis < 3; axis++) {
-            forceScaleRange(axis, prm_scale1, prm_scale2);
-            setScale(axis, _scale[axis]);
+        for (int a = 0; a < 3; a++) {
+            forceScaleRange((axis)a, prm_scale1, prm_scale2);
+            setScale((axis)a, _scale[a]);
         }
     }
     /**
@@ -146,8 +146,8 @@ public:
      * 初期の大きさに戻す。
      */
     void setScaleToBottom() {
-        for (int axis = 0; axis < 3; axis++) {
-            setScaleToBottom(axis);
+        for (int a = 0; a < 3; a++) {
+            setScaleToBottom((axis)a);
         }
     }
     /**
@@ -161,8 +161,8 @@ public:
     }
 
     void setScaleToTop() {
-        for (int axis = 0; axis < 3; axis++) {
-            setScaleToTop(axis);
+        for (int a = 0; a < 3; a++) {
+            setScaleToTop((axis)a);
         }
     }
     void setScaleToTop(axis prm_axis) {
