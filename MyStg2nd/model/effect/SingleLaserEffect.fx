@@ -151,10 +151,8 @@ OUT_VS GgafDxVS_SingleLaser(
 	//UVはそのまま
 	out_vs.uv = prm_uv;
 	//αフォグ
-    float c = 1.3 - (out_vs.pos.z / g_zf);
-    if (c < 0.5) { 
-        out_vs.color = 0.5;
-    }
+    float c = 1.3-((out_vs.pos.z)/g_zf);
+	out_vs.color = (c < 0.5  ? 0.5 : c);
 	//out_vs.color = (c < 0.5  ? 0.5 : c);
 
 //	out_vs.color = float4(1.0, 1.0, 1.0, 1.0);
@@ -162,9 +160,9 @@ OUT_VS GgafDxVS_SingleLaser(
 //        out_vs.color.a *= (-3.0*(out_vs.pos.z/g_zf) + 3.0);
 //    }
 	out_vs.color.a *= g_alpha_master;
-    if (out_vs.pos.z > g_zf*0.98) {   
-        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
-    }
+//    if (out_vs.pos.z > g_zf*0.98) {   
+//        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+//    }
 	return out_vs;
 }
 

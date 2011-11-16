@@ -45,9 +45,9 @@ OUT_VS GgafDxVS_DefaultSprite(
 	//UVのオフセット(パターン番号による増分)加算
 	out_vs.uv.x = prm_uv.x + g_offsetU;
 	out_vs.uv.y = prm_uv.y + g_offsetV;
-    if (out_vs.pos.z > g_zf*0.98) {   
-        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
-    }
+//    if (out_vs.pos.z > g_zf*0.98) {   
+//        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+//    }
 	return out_vs;
 }
 

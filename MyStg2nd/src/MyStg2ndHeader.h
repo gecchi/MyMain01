@@ -405,6 +405,7 @@ class CameraWorkerConnection;
 
 class TestDepository;
 class MagicMeter;
+class MagicMeterStatus;
 class EnagyBar;
 
 class Magic;
@@ -415,6 +416,7 @@ class LockonMagic;
 class TorpedoMagic;
 class TractorMagic;
 class EffectMagic001;
+class EffectSpeedMagic;
 
 class Item;
 class MagicPointItem001;
@@ -455,7 +457,6 @@ class WallAAPrismTestActor;
 
 class VamSysCamPosition;
 
-class MagicMeter;
 
 }
 
@@ -635,6 +636,7 @@ class MagicMeter;
 
 
 #include "gecchi/actor/system/instrument/MagicMeter.h"
+#include "gecchi/actor/system/instrument/MagicMeterStatus.h"
 #include "gecchi/actor/system/instrument/EnagyBar.h"
 
 #include "gecchi/actor/system/magic/Magic.h"
@@ -643,8 +645,9 @@ class MagicMeter;
 #include "gecchi/actor/system/magic/SpeedMagic.h"
 #include "gecchi/actor/system/magic/LockonMagic.h"
 #include "gecchi/actor/system/magic/TorpedoMagic.h"
-#include "gecchi/actor/system/magic/EffectMagic001.h"
 #include "gecchi/actor/system/magic/TractorMagic.h"
+#include "gecchi/actor/system/magic/effect/EffectMagic001.h"
+#include "gecchi/actor/system/magic/effect/EffectSpeedMagic.h"
 
 #include "gecchi/actor/item/Item.h"
 #include "gecchi/actor/item/MagicPointItem001.h"

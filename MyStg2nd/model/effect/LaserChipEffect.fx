@@ -292,9 +292,9 @@ OUT_VS GgafDxVS_LaserChip(
 	//簡易フォグ
 //	out_vs.color.a = 1.0/((g_zf*0.9)*0.5))*out_vs.pos.z - 1.0; // 1/2 より奥の場合徐々に透明に
 	//out_vs.color.a = 1.0/(g_zf - (g_zf*0.75))*out_vs.pos.z - 3.0;  // 3/4 より奥の場合徐々に透明に
-    if (out_vs.pos.z > g_zf*0.98) {   
-        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
-    }
+//    if (out_vs.pos.z > g_zf*0.98) {   
+//        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+//    }
 	return out_vs;
 }
 

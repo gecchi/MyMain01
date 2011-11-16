@@ -37,7 +37,7 @@ MyShip::MyShip(const char* prm_name) :
     _TRACE_("MyShip::MyShip 範囲 X("<<_lim_behaind<<" ~ "<<_lim_front<<") Y("<<_lim_bottom<<" ~ "<<_lim_top<<") Z("<<_lim_zright<<" ~ "<<_lim_zleft<<")");
 
     /** 移動スピードレベルに相応する移動スピード */
-    _iMoveSpeed = 5000;
+    _iMoveSpeed = 2000;
     //CommonSceneがnewの場合設定
     _angRXVelo_BeginMZ = 1000; //奥又は手前へ通常Z通常移動開始時のX軸回転角速度の初速度
     _angRXAcce_MZ = 300; //奥又は手前へ通常Z移動中のX軸回転角速度の初角加速度

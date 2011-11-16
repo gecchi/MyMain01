@@ -16,7 +16,6 @@ public:
     D3DXHANDLE _h_active_magic;
 
     GgafCore::GgafLinkedListRing<Magic> _ringMagics;
-
     int* _paLevelCursor;
     float _width_px;
     float _height_px;

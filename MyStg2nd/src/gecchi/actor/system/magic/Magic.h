@@ -15,17 +15,29 @@ typedef frame magic_time;
 
 /**
  * 抽象魔法クラス .
- * 魔法についての本クラスの基本的な約束事。
- * ①次のステップがあります。
- * a) 詠唱：魔法詠唱開始 ～ 魔法詠唱終了
- * b) 発動：魔法発動開始・魔法コスト発生 ～ 魔法発動終了
- * c) 持続：魔法効果持続開始 ～ 魔法効果持続終了
- * ②レベルの概念があります。
- * レベルによって、a)b)c) の "～"の時間、及び魔法コストを個別で保持できます。
- * ②機能
- * ・a) 詠唱ならば魔法破棄（停止）が可能
- * ・詠唱は基本詠唱時間を設定し、詠唱速度割合が調整可能
- * ・魔法コストは基本魔法コストを設定し、コスト割合が調整可能
+ * 魔法とMPについての本クラスの基本的な約束事。
+ * ・魔法を使用すると各く魔法に設定されたMPを消費します。これを「基本魔法コスト」呼びます。<BR>
+ * ・魔法にはレベルという概念があり、基本的にレベルを＋１するのに「基本魔法コスト」が消費されます。<BR>
+ *   但し、飛びレベル(＋２以上)の場合、MP消費を割安にする設定が出来ます。<BR>
+ *   たとえば「スピード」と言う魔法にレベル１～５があり、基本魔法コストは 10 だったとします。<BR>
+ *   「スピード Level1」＞「スピード Level2」 とした場合、MPコストは 10+10=20 ですが、<BR>
+ *   いきなり「スピード Level2」とした場合、MPコストは (10+10)*0.8 = 16 という設定が可能です。<BR>
+ *   この 0.8 のことを「削減割合」と呼ぶ事とします。
+ * ・レベルダウンの概念が存在します。レベルダウンはいつでも行えます。<BR>
+ *   レベルダウン時にその分をMPに幾らか戻すという設定も出来ます。<BR>
+ * ・魔法にはライフサイクルがあり、次のステップが存在します。各パラメータが設定可能です。<BR>
+ *   a) 魔法のレベルアップ実行<BR>
+ *   b) 詠唱：魔法詠唱開始 ～ 魔法詠唱終了<BR>
+ *   c) 発動：魔法発動開始(コスト発生) ～ 魔法発動終了<BR>
+ *   d) 持続：魔法効果持続開始 ～ 魔法効果持続終了<BR>
+ *   e) 魔法のレベルダウン<BR>
+ * ・「b) 詠唱」までならば破棄（停止）が可能です。<BR>
+ *   「c) 発動」までステップが進むと、MPが消費され破棄は不可能になります。<BR>
+ *   「d) 持続」になるまで、レベルアップ、レベルダウンの操作は出来ないこととします。<BR>
+ * ・魔法には、維持コスト無し、維持コスト有り の２種類があります。<BR>
+ *   維持コスト有りは、「d) 持続」中にMPを消費します。<BR>
+ *   この種の魔法は、MPが枯渇した場合自動でレベルダウンします。<BR>
+ *   維持コスト無しは、MPが枯渇してもレベルダウンしません。<BR>
  * @version 1.00
  * @since 2009/05/19
  * @author Masatoshi Tsuge
@@ -111,7 +123,7 @@ public:
 
 public:
     /**
-     *
+     * 魔法の定義を行う .
      * 飛びレベルとはレベル差が１より大きい(レベル差２以上)を指す。
      * @param prm_name 魔法名
      * @param prm_max_level 本魔法の最高レベル 1～MMETER_MAX_LEVEL
@@ -184,44 +196,68 @@ public:
 
     /**
      * 詠唱開始コールバック(１回だけコールバック) .
+     * @param prm_now_level 現在のレベル
+     * @param prm_new_level 新しいレベル
      */
     virtual void processCastBegin(int prm_now_level, int prm_new_level) {};
 
     /**
-     * 詠唱中コールバック .
+     * 詠唱中コールバック(毎フレームコールバック) .
+     * @param prm_now_level 現在のレベル
+     * @param prm_new_level 新しいレベル
      */
     virtual void processCastingBehavior(int prm_now_level, int prm_new_level) {};
 
     /**
-     * 詠唱終了コールバック .
+     * 詠唱終了コールバック(１回だけコールバック) .
+     * @param prm_now_level 現在のレベル
+     * @param prm_new_level 新しいレベル
      */
     virtual void processCastFinish(int prm_now_level, int prm_new_level) {};
 
     /**
      * 魔法発動開始コールバック。ここまでくると詠唱キャンセルは不可とする。(１回だけコールバック) .
+     * @param prm_now_level 現在のレベル
+     * @param prm_new_level 新しいレベル
      */
     virtual void processInvokeBegin(int prm_now_level, int prm_new_level) {};
 
     /**
-     * 魔法発動中コールバック .
+     * 魔法発動中コールバック(毎フレームコールバック) .
+     * @param prm_now_level 現在のレベル
+     * @param prm_new_level 新しいレベル
      */
     virtual void processInvokeingBehavior(int prm_now_level, int prm_new_level) {};
 
+    /**
+     * 魔法発動終了コールバック(１回だけコールバック) .
+     * @param prm_last_level 魔法発動以前のレベル。
+     * @param prm_now_level 魔法発動により、新たに昇格したレベル。
+     */
     virtual void processInvokeFinish(int prm_last_level, int prm_now_level) {};
+
     /**
      * 魔法持続開始コールバック(１回だけコールバック) .
+     * @param prm_now_level 現在(持続中)のレベル
      */
     virtual void processEffectBegin(int prm_now_level) {};
 
     /**
-     * 魔法持続中コールバック .
+     * 魔法持続中コールバック(毎フレームコールバック) .
+     * @param prm_now_level 現在(持続中)のレベル
      */
     virtual void processEffectingBehavior(int prm_now_level) {};
 
+    /**
+     * 魔法持続終了コールバック(１回だけコールバック) .
+     * @param prm_now_level 現在(持続中)のレベル
+     */
     virtual void processEffectFinish(int prm_now_level) {};
 
     /**
      * 魔法破棄コールバック .
+     * @param prm_last_high_level 降格前の現在のレベル
+     * @param prm_new_low_level 新しく変わる降格レベル
      */
     virtual void processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {};
 

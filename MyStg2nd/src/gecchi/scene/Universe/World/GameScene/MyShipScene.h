@@ -32,6 +32,8 @@ public:
 
     /** 魔法メーター */
     MagicMeter* _pMagicMeter;
+    /** 残魔法効果持続時間表示 */
+    MagicMeterStatus* _pMagicMeterStatus;
     /** エネルギーバー */
     EnagyBar* _pEnagyBar;
 

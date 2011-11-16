@@ -256,18 +256,36 @@ void Magic::processBehavior() {
                     processEffectBegin(_level);
                 }
                 //持続中
-//                _TRACE_("_lvinfo["<<_level<<"]._remaining_time_of_effect="<<_lvinfo[_level]._remaining_time_of_effect);
-                _lvinfo[_level]._remaining_time_of_effect --;     //効果持続残り時間
-                _pMP->inc(-1*_lvinfo[_level]._keep_cost); //維持コスト
                 processEffectingBehavior(_level);
-
-                if (_lvinfo[_level]._remaining_time_of_effect <= 0) { // || _pEnagyBar->_value <= 0.0) {
+                _lvinfo[_level]._remaining_time_of_effect --;     //効果持続残り時間
+                _pMP->inc(-1*_lvinfo[_level]._keep_cost);         //維持コスト
+                if (_pMP->_val <= 0) {
+                    _pMP->_val = 0; //MP枯渇
+                    //MP枯渇による持続終了時
                     processEffectFinish(_level);
                     _lvinfo[_level]._is_working = false;
                     if (_level > 0) {
                         execute(_level-1);
+                        //レベルダウンは即座にレベル変更適用
+                        _last_level = _level;
+                        _level = _new_level;
                     } else {
                         _pProg->change(MAGIC_NOTHING);
+                    }
+                } else {
+
+                    if (_lvinfo[_level]._remaining_time_of_effect <= 0) { // || _pEnagyBar->_value <= 0.0) {
+                        //持続時間満期による持続終了時
+                        processEffectFinish(_level);
+                        _lvinfo[_level]._is_working = false;
+                        if (_level > 0) {
+                            execute(_level-1);
+                            //レベルダウンは即座にレベル変更適用
+                            _last_level = _level;
+                            _level = _new_level;
+                        } else {
+                            _pProg->change(MAGIC_NOTHING);
+                        }
                     }
                 }
                 break;

@@ -319,9 +319,9 @@ OUT_VS GgafDxVS_WallAAPrism(
 	if ( out_vs.pos.z < g_distance_AlphaTarget) {
 		out_vs.color.a = (out_vs.pos.z + 1.0)  / (g_distance_AlphaTarget*2);
 	}
-    if (out_vs.pos.z > g_zf*0.98) {   
-        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
-    }
+//    if (out_vs.pos.z > g_zf*0.98) {   
+//        out_vs.pos.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+//    }
 	return out_vs;
 }
 

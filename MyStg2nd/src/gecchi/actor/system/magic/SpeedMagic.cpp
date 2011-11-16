@@ -8,10 +8,10 @@ using namespace MyStg2nd;
 SpeedMagic::SpeedMagic(const char* prm_name)
 : Magic(prm_name,
     5,          //max_level
-    1000*4  , 0.9,   //基本魔法コスト , 飛びレベル時の rate
-    60*3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
-    60*2    , 0.9,   //基本発動時間   , 飛びレベル時の rate
-    60*60*10,    0.0,   //基本持続時間, 各レベルの削減割合
+    1000*4    , 0.9,   //基本魔法コスト , 飛びレベル時の rate
+    60*0.3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
+    60*0.1    , 0.9,   //基本発動時間   , 飛びレベル時の rate
+    60*60*10  , 0.0,   //基本持続時間, 各レベルの削減割合
     1.0     , 0.0    //基本維持コスト , 各レベル時の rate
 ) {
     //    |  0,   1,   2,   3 |
@@ -36,6 +36,49 @@ SpeedMagic::SpeedMagic(const char* prm_name)
     _lvinfo[3]._pno = 52;
     _lvinfo[4]._pno = 48;
     _lvinfo[5]._pno = 44;
+
+    _pEffect = NEW EffectSpeedMagic("EffectSpeedMagic");
+    _pEffect->inactivateImmediately();
+    addSubGroup(_pEffect);
+}
+void SpeedMagic::processCastBegin(int prm_now_level, int prm_new_level) {
+    _pEffect->locateAs(P_MYSHIP);
+    _pEffect->setAlpha(0.9);
+    _pEffect->_pKurokoA->setFaceAngVelo(AXIS_Z, 100);
+    _pEffect->_pScaler->setScale(1000);
+    _pEffect->activate();
+}
+void SpeedMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
+    _pEffect->locateAs(P_MYSHIP);
+    _pEffect->_pScaler->addScale(10);
+}
+void SpeedMagic::processCastFinish(int prm_now_level, int prm_new_level) {
+    P_MYSHIP->setMoveSpeedLv((prm_new_level+1)*5);
+}
+
+
+void SpeedMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
+    _pEffect->_pScaler->setScale(1000);
+    _pEffect->_pKurokoA->setFaceAngVelo(AXIS_Z, 3000);
+}
+void SpeedMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level) {
+    _pEffect->_pScaler->addScale(100);
+}
+void SpeedMagic::processInvokeFinish(int prm_last_level, int prm_now_level) {
+    _pEffect->inactivate();
+}
+
+void SpeedMagic::processEffectBegin(int prm_now_level) {
+}
+void SpeedMagic::processEffectingBehavior(int prm_now_level) {
+}
+void SpeedMagic::processEffectFinish(int prm_now_level) {
+}
+
+
+
+void SpeedMagic::processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {
+    P_MYSHIP->setMoveSpeedLv((prm_new_low_level+1)*5);
 }
 
 SpeedMagic::~SpeedMagic() {
