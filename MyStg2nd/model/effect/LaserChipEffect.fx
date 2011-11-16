@@ -312,7 +312,7 @@ float4 GgafDxPS_LaserChip_SHADOW(
 ) : COLOR  {
     //ÉåÅ[ÉUÅ[ÇÃâe
 	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_color;
-	out_color.rgba *= 0.2;
+	out_color.rgb = 0;
 	return out_color;
 }
 
@@ -333,19 +333,19 @@ technique LaserChipTechnique
  	pass P0 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha; 
-        DestBlend = InvSrcAlpha;
+        DestBlend = DestAlpha;
         SrcBlendAlpha = One;     //default
         DestBlendAlpha = One;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
 		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
     }
 
-// 	pass P1 {
+//	pass P1 {
 //		AlphaBlendEnable = true;
-//		SrcBlend  = SrcAlpha; 
-//        DestBlend = ONE;
+//		SrcBlend  = One; 
+//        DestBlend = DestAlpha;
 //        SrcBlendAlpha = One;      //default
-//        DestBlendAlpha = ZERO;    //default
+//        DestBlendAlpha = One;    //default
 //		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
 //		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
 //    }
