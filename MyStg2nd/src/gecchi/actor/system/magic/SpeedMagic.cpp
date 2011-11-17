@@ -53,7 +53,6 @@ void SpeedMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     _pEffect->_pScaler->addScale(10);
 }
 void SpeedMagic::processCastFinish(int prm_now_level, int prm_new_level) {
-    P_MYSHIP->setMoveSpeedLv((prm_new_level+1)*5);
 }
 
 
@@ -64,22 +63,23 @@ void SpeedMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
 void SpeedMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level) {
     _pEffect->_pScaler->addScale(100);
 }
-void SpeedMagic::processInvokeFinish(int prm_last_level, int prm_now_level) {
+void SpeedMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
     _pEffect->inactivate();
 }
 
-void SpeedMagic::processEffectBegin(int prm_now_level) {
+void SpeedMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
+    P_MYSHIP->setMoveSpeedLv((prm_now_level+1)*5);
 }
-void SpeedMagic::processEffectingBehavior(int prm_now_level) {
+void SpeedMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
 }
-void SpeedMagic::processEffectFinish(int prm_now_level) {
+void SpeedMagic::processEffectFinish(int prm_justbefore_level) {
 }
 
 
 
-void SpeedMagic::processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {
-    P_MYSHIP->setMoveSpeedLv((prm_new_low_level+1)*5);
-}
+//void SpeedMagic::processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {
+//    P_MYSHIP->setMoveSpeedLv((prm_new_low_level+1)*5);
+//}
 
 SpeedMagic::~SpeedMagic() {
 }

@@ -12,7 +12,7 @@ OptionMagic::OptionMagic(const char* prm_name)
     60*2    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
     60*1    , 0.9,   //基本発動時間   , 飛びレベル時の rate
     60*60*10, 0.0,   //基本持続時間   , 各レベルの削減割合
-    1.0     , 0.0    //基本維持コスト , 各レベル時の rate
+    0.0     , 0.0    //基本維持コスト , 各レベル時の rate
 ) {
 //    |  0,   1,   2,   3 |
 //    |  4,   5,   6,   7 |
@@ -50,14 +50,14 @@ OptionMagic::OptionMagic(const char* prm_name)
 void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     angle* paAngWay = NEW angle[prm_new_level-prm_now_level];
     GgafDxUtil::getRadialAngle2D(0, prm_new_level-prm_now_level, paAngWay);
-    for (int i = prm_now_level; i < prm_new_level; i++) {
-        _papEffect[i]->locateAs(P_MYSHIP);
-        _papEffect[i]->_pKurokoA->setRzRyMvAng(paAngWay[i], D90ANG);
-        _papEffect[i]->_pKurokoA->setMvVelo(2000);
-        _papEffect[i]->_pKurokoA->setMvAcce(0);
-        _papEffect[i]->setAlpha(0.9);
-        _papEffect[i]->setScaleRate(2.0f);
-        _papEffect[i]->activate();
+    for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
+        _papEffect[lv-1]->locateAs(P_MYSHIP);
+        _papEffect[lv-1]->_pKurokoA->setRzRyMvAng(paAngWay[lv-1], D90ANG);
+        _papEffect[lv-1]->_pKurokoA->setMvVelo(2000);
+        _papEffect[lv-1]->_pKurokoA->setMvAcce(-10);
+        _papEffect[lv-1]->setAlpha(0.9);
+        _papEffect[lv-1]->setScaleRate(2.0f);
+        _papEffect[lv-1]->activate();
     }
     DELETEARR_IMPOSSIBLE_NULL(paAngWay);
     _r_effect = 1;
@@ -66,20 +66,24 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 
 void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
     _r_effect += 0.02;
-    for (int i = prm_now_level; i < prm_new_level; i++) {
-        _papEffect[i]->setScaleRate(_r_effect);
+    for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
+        _papEffect[lv-1]->setScaleRate(_r_effect);
     }
 }
 
-void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
+void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level) {
+}
 
-    for (int i = prm_now_level; i < prm_new_level; i++) {
-        _papEffect[i]->_pKurokoA->setMvVelo(0);
-        _papEffect[i]->_pKurokoA->setMvAcce(0);
-        _papEffect[i]->_pKurokoB->execGravitationVxyzMvSequence(
-               P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
-               P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[i]->_Yorg,
-               P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg,
+
+void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
+    _r_effect = 1;
+    for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
+        _papEffect[lv-1]->_pKurokoA->setMvVelo(0);
+        _papEffect[lv-1]->_pKurokoA->setMvAcce(0);
+        _papEffect[lv-1]->_pKurokoB->execGravitationVxyzMvSequence(
+               P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[lv-1]->_Xorg,
+               P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[lv-1]->_Yorg,
+               P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[lv-1]->_Zorg,
                20000, 1000, 50000);
 //
 //        _papEffect[i]->_pKurokoA->setMvVelo(1000);
@@ -123,47 +127,46 @@ void OptionMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level)
 //    }
 }
 
-void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level) {
+void OptionMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
+}
+
+void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
     //オプション有効にする。
     //(processEffectBegin 時、 option は一度はbehave()されて座標を計算しておいてほしい）
-    P_MYOPTIONCON->setNumOption(prm_new_level);
+    P_MYOPTIONCON->setNumOption(prm_now_level);
     P_MYOPTIONCON->adjustDefaltAngPosition(60);
-    for (int i = prm_now_level; i < prm_new_level; i++) {
-        _papEffect[i]->inactivateDelay(120);
+    //レベルアップ時、エフェクトの処理
+    for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
+        _papEffect[lv-1]->inactivateDelay(120); //非活動の保険
+        _papEffect[lv-1]->_pKurokoB->_gravitation_mv_seq_pActor_target = P_MYOPTIONCON->_papMyOption[lv-1];
     }
 }
 
-void OptionMagic::processEffectBegin(int prm_now_level)  {
-    _r_effect = 1.0f;
-    for (int i = 0; i < prm_now_level; i++) {
-        if (_papEffect[i]->isActiveInTheTree()) {
-            _papEffect[i]->_pKurokoB->_gravitation_mv_seq_pActor_target = P_MYOPTIONCON->_papMyOption[i];
+void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
+    _r_effect -= 0.01f;
+    //レベルアップ時、エフェクトの処理
+    for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
+        _papEffect[lv-1]->setAlpha(_r_effect);
+//        _papEffect[lv-1]->setScaleRate(3.0f+(1.0f-_r_effect)*4.0);
+        _papEffect[lv-1]->locateAs(P_MYOPTIONCON->_papMyOption[lv-1]);
+        P_MYOPTIONCON->_papMyOption[lv-1]->setAlpha(1.0f-_r_effect);
+    }
+    if (_r_effect < 0) {
+        for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
+            _papEffect[lv-1]->inactivate();
+            P_MYOPTIONCON->_papMyOption[lv-1]->setAlpha(1.0);
         }
     }
-
 }
 
-void OptionMagic::processEffectingBehavior(int prm_now_level) {
-//    _r_effect -= 0.01f;
-//    for (int i = _old_level; i < _new_level; i++) {
-//        _papEffect[i]->setAlpha(_r_effect);
-//        _papEffect[i]->setScaleRate(3.0f+(1.0f-_r_effect)*4.0);
-//        _papEffect[i]->locateAs(P_MYOPTIONCON->_papMyOption[i]);
-//        P_MYOPTIONCON->_papMyOption[i]->setAlpha(1.0f-_r_effect);
-//    }
-//    if (_r_effect < 0) {
-//        for (int i = _old_level; i < _new_level; i++) {
-//            _papEffect[i]->inactivate();
-//            P_MYOPTIONCON->_papMyOption[i]->setAlpha(1.0);
-//        }
-//    }
+void OptionMagic::processEffectFinish(int prm_justbefore_level) {
+    P_MYOPTIONCON->setNumOption(0);
 }
-
-void OptionMagic::processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {
-    //レベルダウン時、
-    P_MYOPTIONCON->setNumOption(prm_new_low_level);
-    P_MYOPTIONCON->adjustDefaltAngPosition(60);
-}
+//void OptionMagic::processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {
+//    //レベルダウン時、
+//    P_MYOPTIONCON->setNumOption(prm_new_low_level);
+//    P_MYOPTIONCON->adjustDefaltAngPosition(60);
+//}
 
 OptionMagic::~OptionMagic() {
     DELETEARR_IMPOSSIBLE_NULL(_papEffect);

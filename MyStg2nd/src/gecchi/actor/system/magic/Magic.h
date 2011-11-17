@@ -29,10 +29,10 @@ typedef frame magic_time;
  *   a) 魔法のレベルアップ実行<BR>
  *   b) 詠唱：魔法詠唱開始 ～ 魔法詠唱終了<BR>
  *   c) 発動：魔法発動開始(コスト発生) ～ 魔法発動終了<BR>
- *   d) 持続：魔法効果持続開始 ～ 魔法効果持続終了<BR>
+ *   d) 持続：魔法効果持続開始(効果発生) ～ 魔法効果持続終了<BR>
  *   e) 魔法のレベルダウン<BR>
  * ・「b) 詠唱」までならば破棄（停止）が可能です。<BR>
- *   「c) 発動」までステップが進むと、MPが消費され破棄は不可能になります。<BR>
+ *   「c) 発動」までステップが進むと、MPが消費され途中破棄は不可能になります。<BR>
  *   「d) 持続」になるまで、レベルアップ、レベルダウンの操作は出来ないこととします。<BR>
  * ・魔法には、維持コスト無し、維持コスト有り の２種類があります。<BR>
  *   維持コスト有りは、「d) 持続」中にMPを消費します。<BR>
@@ -43,10 +43,6 @@ typedef frame magic_time;
  * @author Masatoshi Tsuge
  */
 class Magic : public GgafCore::GgafMainActor {
-    /** 新しいレベル */
-    int _new_level;
-    /** 前回のレベル */
-    int _last_level;
 
 
 public:
@@ -75,10 +71,18 @@ public:
     GgafDxCore::GgafDxGeometricActor* _pReceiver;
 
     char* _name;
-    /** 現在のレベル */
-    int _level;
     /** 最高レベル */
     int _max_level;
+    /** 現在のレベル */
+    int _level;
+
+
+    /** 新しいレベル */
+    int _new_level;
+    /** 前回のレベル */
+    int _last_level;
+
+
     /** マジックポイント数量バー */
     GgafLib::AmountGraph* _pMP;
     MagicMeter* _pMagicMeter;
@@ -196,70 +200,84 @@ public:
 
     /**
      * 詠唱開始コールバック(１回だけコールバック) .
-     * @param prm_now_level 現在のレベル
-     * @param prm_new_level 新しいレベル
+     * @param prm_now_level 現在のレベル(0～ )
+     * @param prm_new_level 詠唱する新しいレベル(1～ )
      */
     virtual void processCastBegin(int prm_now_level, int prm_new_level) {};
 
     /**
      * 詠唱中コールバック(毎フレームコールバック) .
-     * @param prm_now_level 現在のレベル
-     * @param prm_new_level 新しいレベル
+     * @param prm_now_level 現在のレベル(0～ )
+     * @param prm_new_level 詠唱中の新しいレベル(1～ )
      */
     virtual void processCastingBehavior(int prm_now_level, int prm_new_level) {};
 
     /**
      * 詠唱終了コールバック(１回だけコールバック) .
-     * @param prm_now_level 現在のレベル
-     * @param prm_new_level 新しいレベル
+     * @param prm_now_level 現在のレベル(0～ )
+     * @param prm_new_level 詠唱中完了した新しいレベル(1～ )
      */
     virtual void processCastFinish(int prm_now_level, int prm_new_level) {};
 
     /**
      * 魔法発動開始コールバック。ここまでくると詠唱キャンセルは不可とする。(１回だけコールバック) .
-     * @param prm_now_level 現在のレベル
-     * @param prm_new_level 新しいレベル
+     * @param prm_now_level 現在のレベル(0～ )
+     * @param prm_new_level 発動させようとしている新しいレベル(1～ )
      */
     virtual void processInvokeBegin(int prm_now_level, int prm_new_level) {};
 
     /**
      * 魔法発動中コールバック(毎フレームコールバック) .
-     * @param prm_now_level 現在のレベル
-     * @param prm_new_level 新しいレベル
+     * @param prm_now_level 現在のレベル(0～ )
+     * @param prm_new_level 発動させようとしている新しいレベル(1～ )
      */
     virtual void processInvokeingBehavior(int prm_now_level, int prm_new_level) {};
 
     /**
      * 魔法発動終了コールバック(１回だけコールバック) .
-     * @param prm_last_level 魔法発動以前のレベル。
-     * @param prm_now_level 魔法発動により、新たに昇格したレベル。
+     * @param prm_last_level 発動中だった頃の、現在のレベル。(0～ )
+     * @param prm_now_level 発動により、これから昇格する新しいレベル。(1～ )
      */
-    virtual void processInvokeFinish(int prm_last_level, int prm_now_level) {};
+    virtual void processInvokeFinish(int prm_now_level, int prm_new_level) {};
 
     /**
-     * 魔法持続開始コールバック(１回だけコールバック) .
-     * @param prm_now_level 現在(持続中)のレベル
+     * 魔法効果持続開始コールバック(１回だけコールバック) .
+     * 魔法発動終了 ＞ 魔法効果持続開始 のタイミングで呼び出される。さらに、<BR>
+     * 魔法効果持続中 ＞ レベルアップ or レベルダウン のタイミングでも呼び出される。<BR>
+     * prm_last_level < prm_now_level の場合レベルアップ .
+     * prm_last_level > prm_now_level の場合レベルダウン .
+     * @param prm_last_level 効果持続が開始される前のレベル。(レベルアップ時：0～ ／レベルダウン時：1～)
+     * @param prm_now_level 効果持続が開始されたレベル。(レベルアップ時：1～ ／レベルダウン時：1～)
      */
-    virtual void processEffectBegin(int prm_now_level) {};
+    virtual void processEffectBegin(int prm_last_level, int prm_now_level) {};
 
     /**
-     * 魔法持続中コールバック(毎フレームコールバック) .
-     * @param prm_now_level 現在(持続中)のレベル
+     * 魔法効果持続中コールバック(毎フレームコールバック) .
+     * @param prm_last_level  以前のレベル。
+     * @param prm_now_level 現在(持続中)のレベル。
      */
-    virtual void processEffectingBehavior(int prm_now_level) {};
+    virtual void processEffectingBehavior(int prm_last_level, int prm_now_level) {};
 
     /**
-     * 魔法持続終了コールバック(１回だけコールバック) .
-     * @param prm_now_level 現在(持続中)のレベル
+     * 魔法持続全終了コールバック(１回だけコールバック) .
+     * @param prm_justbefore_level 効果持続が終了する直前のレベル(∵現在はレベル０)。
      */
-    virtual void processEffectFinish(int prm_now_level) {};
+    virtual void processEffectFinish(int prm_justbefore_level) {};
 
-    /**
-     * 魔法破棄コールバック .
-     * @param prm_last_high_level 降格前の現在のレベル
-     * @param prm_new_low_level 新しく変わる降格レベル
-     */
-    virtual void processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {};
+//    /**
+//     * 魔法破棄コールバック .
+//     * @param prm_last_high_level 降格前の現在のレベル
+//     * @param prm_new_low_level 新しく変わる降格レベル
+//     */
+//    virtual void processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {};
+//
+//
+//    /**
+//     * 魔法破棄コールバック .
+//     * @param prm_last_high_level 降格前の現在のレベル
+//     * @param prm_new_low_level 新しく変わる降格レベル
+//     */
+//    virtual void processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {};
 
 
     /**

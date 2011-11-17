@@ -32,8 +32,8 @@ void MagicMeterStatus::processDraw() {
         _X = _pMagicMeter->_X + PX2CO(_pMagicMeter->_width_px)*(i+1); //i+1 は右隣に表示
         //各マジック要素
         if (pMagic->_rr > 0.1) {
-            for (int j = 0; j < pMagic->_level; j++) {
-                _Y = _pMagicMeter->_Y - (PX2CO(_pMagicMeter->_height_px)*(j+1)*pMagic->_rr);
+            for (int j = 1; j <= pMagic->_level; j++) {
+                _Y = _pMagicMeter->_Y - (PX2CO(_pMagicMeter->_height_px)*(j-1)*pMagic->_rr); //j-1 の -1 は最下段が nothing の為
                 sprintf(_aBuf, "%07d", pMagic->_lvinfo[j]._remaining_time_of_effect);
                 update(_aBuf);
                 StringBoardActor::processDraw();

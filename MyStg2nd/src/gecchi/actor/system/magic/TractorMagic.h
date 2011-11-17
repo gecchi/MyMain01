@@ -25,13 +25,10 @@ public:
     virtual void processInvokeingBehavior(int prm_now_level, int prm_new_level) override {
     }
 
-    virtual void processEffectBegin(int prm_now_level) override {
+    virtual void processEffectBegin(int prm_last_level, int prm_now_level) override {
     }
 
-    virtual void processEffectingBehavior(int prm_now_level) override {
-    }
-
-    virtual void processOnLevelDown(int prm_last_high_level, int prm_new_low_level) override {
+    virtual void processEffectingBehavior(int prm_last_level, int prm_now_level) override {
     }
 
     virtual ~TractorMagic();
