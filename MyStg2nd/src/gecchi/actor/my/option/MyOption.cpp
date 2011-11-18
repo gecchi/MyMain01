@@ -12,7 +12,7 @@ int MyOption::_lockon_num = 8;
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
 //MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) : CubeMapMeshSetActor(prm_name, "4/Core4_cm") {
 MyOption::MyOption(const char* prm_name, UINT32 prm_no, MyOptionController* prm_pMyOptionController) :
-        DefaultMeshSetActor(prm_name, "8/option_kaku", STATUS(MyOption)) {
+        DefaultMeshSetActor(prm_name, "8/CORE4", STATUS(MyOption)) {
 
 
 _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
@@ -102,7 +102,7 @@ void MyOption::onCreateModel() {
 }
 
 void MyOption::initialize() {
-    _SX=_SY=_SZ=1000;
+    _SX=_SY=_SZ=100;
 }
 
 void MyOption::onReset() {

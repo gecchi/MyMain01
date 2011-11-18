@@ -278,7 +278,7 @@ OUT_VS GgafDxVS_LaserChip(
 	}
 	//αフォグ
     float c = 1.25-(((out_vs.pos.z)/g_zf)*2);
-	out_vs.color = (c < 0.2  ? 0.2 : c);
+	out_vs.color = (c < 0.3  ? 0.3 : c);
     out_vs.color.a = out_vs.color.a*g_alpha_master;
 //	out_vs.color = c < 0.2  ? 2.0 : c;//1.0-((out_vs.pos.z/g_zf)*2) ;//float4((out_vs.pos.z/g_zf), (out_vs.pos.z/g_zf), (out_vs.pos.z/g_zf), 1.0-(out_vs.pos.z/g_zf));
 //    if (out_vs.pos.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
@@ -322,7 +322,7 @@ float4 GgafDxPS_LaserChip(
 ) : COLOR  {
 
 	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_color;
-	out_color.rgba *= 0.9;
+	//out_color.rgba *= 0.9;
 	return out_color;
 }
 
@@ -332,24 +332,26 @@ technique LaserChipTechnique
 {
  	pass P0 {
 		AlphaBlendEnable = true;
+//        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha; 
-        DestBlend = DestAlpha;
-        SrcBlendAlpha = One;     //default
-        DestBlendAlpha = One;    //default
+        DestBlend = One;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default  
 		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
 		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
     }
 
 //	pass P1 {
 //		AlphaBlendEnable = true;
-//		SrcBlend  = One; 
-//        DestBlend = DestAlpha;
-//        SrcBlendAlpha = One;      //default
-//        DestBlendAlpha = One;    //default
+////        SeparateAlphaBlendEnable = true;
+//		SrcBlend  = Zero; 
+//        DestBlend = SrcColor;
+////        SrcBlendAlpha = One;      //default
+////        DestBlendAlpha = Zero;    //default
 //		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
 //		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
-//    }
-//
+//   }
+
 
 //    pass P1 {
 //    	AlphaBlendEnable = true;

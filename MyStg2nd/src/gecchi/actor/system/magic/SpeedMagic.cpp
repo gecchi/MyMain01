@@ -12,7 +12,7 @@ SpeedMagic::SpeedMagic(const char* prm_name)
     60*0.3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
     60*0.1    , 0.9,   //基本発動時間   , 飛びレベル時の rate
     60*60*10  , 0.0,   //基本持続時間, 各レベルの削減割合
-    1.0     , 0.0    //基本維持コスト , 各レベル時の rate
+    0.0     , 0.0    //基本維持コスト , 各レベル時の rate
 ) {
     //    |  0,   1,   2,   3 |
     //    |  4,   5,   6,   7 |
@@ -72,14 +72,9 @@ void SpeedMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
 }
 void SpeedMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {
 }
+
 void SpeedMagic::processEffectFinish(int prm_justbefore_level) {
 }
-
-
-
-//void SpeedMagic::processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {
-//    P_MYSHIP->setMoveSpeedLv((prm_new_low_level+1)*5);
-//}
 
 SpeedMagic::~SpeedMagic() {
 }

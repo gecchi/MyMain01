@@ -27,17 +27,18 @@ typedef frame magic_time;
  *   レベルダウン時にその分をMPに幾らか戻すという設定も出来ます。<BR>
  * ・魔法にはライフサイクルがあり、次のステップが存在します。各パラメータが設定可能です。<BR>
  *   a) 魔法のレベルアップ実行<BR>
- *   b) 詠唱：魔法詠唱開始 ～ 魔法詠唱終了<BR>
- *   c) 発動：魔法発動開始(コスト発生) ～ 魔法発動終了<BR>
- *   d) 持続：魔法効果持続開始(効果発生) ～ 魔法効果持続終了<BR>
+ *   b) 詠唱：魔法詠唱開始・詠唱中・詠唱終了<BR>
+ *   c) 発動：魔法発動開始(コスト発生) ・魔法中・魔法終了<BR>
+ *   d) 持続：魔法効果持続開始(効果発生) ・効果持続中・果持続終了<BR>
  *   e) 魔法のレベルダウン<BR>
  * ・「b) 詠唱」までならば破棄（停止）が可能です。<BR>
  *   「c) 発動」までステップが進むと、MPが消費され途中破棄は不可能になります。<BR>
  *   「d) 持続」になるまで、レベルアップ、レベルダウンの操作は出来ないこととします。<BR>
  * ・魔法には、維持コスト無し、維持コスト有り の２種類があります。<BR>
+ *   維持コスト無しは、「d) 持続」中にMPを消費しません。<BR>
  *   維持コスト有りは、「d) 持続」中にMPを消費します。<BR>
- *   この種の魔法は、MPが枯渇した場合自動でレベルダウンします。<BR>
  *   維持コスト無しは、MPが枯渇してもレベルダウンしません。<BR>
+ *   維持コスト有りは、MPが枯渇した場合自動でレベルダウンします。<BR>
  * @version 1.00
  * @since 2009/05/19
  * @author Masatoshi Tsuge
@@ -107,10 +108,15 @@ public:
     /** 本魔法効果持続中コストの基本単位  */
     magic_point _keep_cost_base;
 
+    /** 飛びレベル時の魔法コスト削減割合(0.0～1.0) */
     float _fRate_cost;
+    /** 飛びレベル時の詠唱時間削減割合(0.0～1.0) */
     float _fRate_time_of_casting;
+    /** 飛びレベル時の発動時間削減割合(0.0～1.0) */
     float _fRate_time_of_invoking;
+    /** 各レベル毎の効果持続時間削減割合(0.0～1.0) */
     float _fRate_time_of_effecting;
+    /** 各レベル毎の維持コスト増加割合 (1.0～ )*/
     float _fRate_keep_cost;
 
     magic_time _time_of_next_state;
@@ -138,14 +144,14 @@ public:
      * @param prm_time_of_invoking_base 基本魔法発動時間
      * @param prm_fRate_time_of_invoking 飛びレベル時の発動時間削減割合0.0～1.0 (1.0:飛びレベルでも割引無し, 0.8:レベル差２以上時、発動時間２割引)
      * @param prm_time_of_effect 基本魔法効果持続時間
-     * @param prm_fRate_time_of_effecting 各レベル毎の効果持続時間減割合  0.0～1.0
+     * @param prm_fRate_time_of_effecting 各レベル毎の効果持続時間削減割合  0.0～1.0
      *                            (1.0:レベルによる効果持続時削減無し,
      *                            (0.8:レベル1のとき prm_time_of_effect
      *                                 レベル2のとき prm_time_of_effect * 0.8
      *                                 レベル3のとき prm_time_of_effect * 0.8 * 0.8
      *                                 レベル4のとき prm_time_of_effect * 0.8 * 0.8 * 0.8  という持続時間が設定される)
      * @param prm_keep_cost_base 基本魔法効果持続中維持コスト
-     * @param prm_fRate_keep_cost_base 各レベル毎の維持コスト増加割合  1.0～
+     * @param prm_fRate_keep_cost_base 各レベル毎の維持コスト増加割合 1.0～
      *                            (1.0:レベルによる維持コスト増加無し,
      *                            (1.2:レベル1のとき prm_keep_cost_base
      *                                 レベル2のとき prm_keep_cost_base * 1.2
@@ -195,25 +201,25 @@ public:
      * 実行 .
      * @param prm_new_level
      */
-    void execute(int prm_new_level);
+    void cast(int prm_new_level);
 
 
     /**
-     * 詠唱開始コールバック(１回だけコールバック) .
+     * 魔法詠唱開始コールバック(１回だけコールバック) .
      * @param prm_now_level 現在のレベル(0～ )
      * @param prm_new_level 詠唱する新しいレベル(1～ )
      */
     virtual void processCastBegin(int prm_now_level, int prm_new_level) {};
 
     /**
-     * 詠唱中コールバック(毎フレームコールバック) .
+     * 魔法詠唱中コールバック(毎フレームコールバック) .
      * @param prm_now_level 現在のレベル(0～ )
      * @param prm_new_level 詠唱中の新しいレベル(1～ )
      */
     virtual void processCastingBehavior(int prm_now_level, int prm_new_level) {};
 
     /**
-     * 詠唱終了コールバック(１回だけコールバック) .
+     * 魔法詠唱終了コールバック(１回だけコールバック) .
      * @param prm_now_level 現在のレベル(0～ )
      * @param prm_new_level 詠唱中完了した新しいレベル(1～ )
      */
@@ -242,8 +248,8 @@ public:
 
     /**
      * 魔法効果持続開始コールバック(１回だけコールバック) .
-     * 魔法発動終了 ＞ 魔法効果持続開始 のタイミングで呼び出される。さらに、<BR>
-     * 魔法効果持続中 ＞ レベルアップ or レベルダウン のタイミングでも呼び出される。<BR>
+     * 魔法発動終了 → 魔法効果持続開始、のタイミングで呼び出される。さらに、<BR>
+     * 魔法効果持続中 → レベルアップ or レベルダウン、のタイミングでも呼び出される。<BR>
      * prm_last_level < prm_now_level の場合レベルアップ .
      * prm_last_level > prm_now_level の場合レベルダウン .
      * @param prm_last_level 効果持続が開始される前のレベル。(レベルアップ時：0～ ／レベルダウン時：1～)
@@ -260,7 +266,9 @@ public:
 
     /**
      * 魔法持続全終了コールバック(１回だけコールバック) .
-     * @param prm_justbefore_level 効果持続が終了する直前のレベル(∵現在はレベル０)。
+     * レベル0になるレベルダウンが行われた直前に呼び出されます。<BR>
+     * 捕捉：レベル0にならないレベルダウン processEffectBegin() が呼び出されます。<BR>
+     * @param prm_justbefore_level 効果持続が終了する直前のレベル(∵現在はレベル0)。
      */
     virtual void processEffectFinish(int prm_justbefore_level) {};
 

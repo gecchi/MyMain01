@@ -63,7 +63,7 @@ Magic::Magic(const char*  prm_name,
 
     //各レベル別持続時間及び、維持コストを予め設定
     _lvinfo[0]._is_working = false;
-    _lvinfo[0]._keep_cost = 0;
+    _lvinfo[0]._remaining_time_of_effect = 0;
     _lvinfo[0]._time_of_effect = 0;
     _lvinfo[0]._keep_cost = 0;
     for (int i = 1; i <= _max_level; i++) {
@@ -101,7 +101,7 @@ void Magic::rollOpen() {
     _velo_rr = 0.1;
 }
 void Magic::rollClose() {
-    _velo_rr = -0.02;
+    _velo_rr = -0.01;
 }
 
 int Magic::chkExecuteAble(int prm_new_level) {
@@ -122,7 +122,7 @@ int Magic::chkExecuteAble(int prm_new_level) {
         }
     }
 }
-void Magic::execute(int prm_new_level) {
+void Magic::cast(int prm_new_level) {
     int r = chkExecuteAble(prm_new_level);
     if (r > 0) {
         _new_level = prm_new_level;
@@ -262,9 +262,15 @@ void Magic::processBehavior() {
                         _lvinfo[lv]._is_working = false; //停止し
                         _lvinfo[lv]._remaining_time_of_effect = 0; //果持続終了残り時間を0
                     }
+
                     if (_keep_cost_base == 0) { //維持コストがかからない魔法の場合は
-                        _pMP->inc(_cost_base*(_last_level-_level)*0.5); //MP50%還元
+                        if (_lvinfo[_last_level]._time_of_effect > 0) {
+                            //基本コストの60%還元。但し残効果持続の割合を乗ずる。早くレベルダウンしたほうがお得にするため。
+                            _pMP->inc( _cost_base*(_last_level-_level)*0.6*
+                                       (1.0*_lvinfo[_last_level]._remaining_time_of_effect / _lvinfo[_last_level]._time_of_effect) );
+                        }
                     }
+
                 }
 
                 if (_level == 0) {
@@ -318,6 +324,7 @@ void Magic::processBehavior() {
                         _last_level = _level;
                         _level = _new_level;
                         _pProg->change(MAGIC_EFFECT_BEGEIN);      //持続時間満期レベルダウン
+                        break;
                     }
                 }
                 break;

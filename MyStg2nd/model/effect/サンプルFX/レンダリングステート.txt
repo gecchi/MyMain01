@@ -407,24 +407,29 @@ stateblock defaultState = stateblock_state
                                         0.0f, 0.0f, 0.0f, 1.0f);
 };
 
+Cs  = rgba( Rs, Gs, Bs, As )
+Ds  = rgba( Rd, Gd, Bd, Ad ) 
 
 
-SRCCOLOR       : rgba( Rs, Gs, Bs, As )          (※Cs=rgb( Rs, Gs, Bs) )
-INVSRCCOLOR    : rgba( 1-Rs, 1-Gs, 1-Bs, 1-As ) 
-SRCALPHA       : rgba( As, As, As, As )
-INVSRCALPHA    : rgba( 1-As, 1-As, 1-As, 1-As )
-
-DESTCOLOR      : rgba( Rd, Gd, Bd, Ad )          (※Cd=rgb( Rd, Gd, Bd) )
-INVDESTCOLOR   : rgba( 1-Rd, 1-Gd, 1-Bd, 1-Ad )
-DESTALPHA      : rgba( Ad, Ad, Ad, Ad )
-INVDESTALPHA   : rgba( 1-Ad, 1-Ad, 1-Ad, 1-Ad )
-
-ZERO           : rgba( 0, 0, 0, 0 )
-ONE            : rgba( 1, 1, 1, 1 )
-
-SRCALPHASAT    : rgba( f, f, f, 1)　f = min( As, 1-Ad )
-
-
+<Color BrendFactor>
+SRCCOLOR       : rgb( Rs, Gs, Bs )
+INVSRCCOLOR    : rgb( 1-Rs, 1-Gs, 1-Bs ) 
+SRCALPHA       : rgb( As, As, As )
+INVSRCALPHA    : rgb( 1-As, 1-As, 1-As )
+DESTCOLOR      : rgb( Rd, Gd, Bd, Ad )
+INVDESTCOLOR   : rgb( 1-Rd, 1-Gd, 1-Bd )
+DESTALPHA      : rgb( Ad, Ad, Ad )
+INVDESTALPHA   : rgb( 1-Ad, 1-Ad, 1-Ad )
+ZERO           : rgb( 0, 0, 0 )
+ONE            : rgb( 1, 1, 1 )
+SRCALPHASAT    : rgb( f, f, f )　f = min( As, 1-Ad )
+<alpha>
+ZERO         : 0
+ONE          : 1
+SRCALPHA     : As
+INVSRCALPHA  : 1-As
+DESTALPHA    : Ad
+INVDESTALPHA : 1-Ad
 
 
 
@@ -435,43 +440,54 @@ SRCALPHASAT    : rgba( f, f, f, 1)　f = min( As, 1-Ad )
 
 
 アルファブレンドの基本式
-計算式 rgb : (Cs * X) + (Cd * Y) = dest rgb
-       α  : (As * X) + (Ad * Y) = dest α
+計算式 rgb : (Cs.rgb * ①) + (Cd.rgb * ②)
+       α  : (Cs.a   * ③) + (Cd.a   * ④)
+
+①SrcBlend
+②DestBlend
+③SrcBlendAlpha
+④DestBlendAlpha
 
 ～半透明合成～
 後ろの画像が透けて見えます。
 煙のエフェクトなどで良く使います。
 
-rgb :  (Cs * As) + (Cd * (1-As)) = dest rgb
-α  :  (As * 1 ) + (Ad * 0)      = dest α
-
+rgb :  (Cs.rgb * As) + (Cd.rgb * (1-As)) 
+α  :  (Cs.a   * 1 ) + (Cs.d   * 0     )
+---------------------------------------
+AlphaBlendEnable = true;
+SeparateAlphaBlendEnable = true;
 SrcBlend  = SrcAlpha;
 DestBlend = InvSrcAlpha;
 BlendOp = Add;            //default
 SrcBlendAlpha = One;      //default
 DestBlendAlpha = Zero;    //default
 BlendOpAlpha = Add;       //default
+---------------------------------------
 
 ～加算合成～
 単純に色を足し合わせます。
 結果、白色に近付き明るく見えます。
 魔法や炎など、エフェクトで一番良く使われています。
 
-rgb :  (Cs * As) + (Cd * 1) = dest rgb
-α  :  (As * 1 ) + (Ad * 0) = dest α
-
+rgb :  (Cs.rgb * As) + (Cd.rgb * 1) 
+α  :  (Cs.a   * 1 ) + (Cs.d   * 0)
+---------------------------------------
+AlphaBlendEnable = true;
+SeparateAlphaBlendEnable = true;
 SrcBlend  = SrcAlpha;
 DestBlend = One;
 BlendOp = Add;            //default
 SrcBlendAlpha = One;      //default
 DestBlendAlpha = Zero;    //default
 BlendOpAlpha = Add;       //default
-
+---------------------------------------
 
 ～減算合成～
 加算合成とは逆に色を減算します。
 
-計算式 : (Cd * 1) - (Cs * As) = dest rgb
+rgb : (Cd.rgb * 1) - (Cs.rgb * As) = dest rgb
+α  : (Cs.a   * 1 ) + (Cs.d   * 0)
 
 SrcBlend  = SrcAlpha;
 DestBlend = One;
@@ -481,9 +497,9 @@ BlendOp = RevSubtract;
 色を乗算すると、
 色付のセロハンテープの効果が出ます。
 
-計算式 : Cd * Cs = dest
+計算式 : Cd.rgb * Cs.rgb = dest
 次のようにして考える
-(Cs * Cd) + (Cd * 0) = dest
+(Cs.rgb * Cd.rgb) + (Cd.rgb * 0) = dest
 
 SrcBlend  = SrcColor;
 DestBlend = Zero;
@@ -491,7 +507,7 @@ BlendOp = Add;
 
 または
 
-(Cs * 0) + (Cd * Cs) = dest
+(Cs.rgb * 0) + (Cd * Cs.rgb) = dest
 SrcBlend  = Zero;
 DestBlend = DestColor;
 BlendOp = Add;
@@ -511,7 +527,6 @@ BlendOp = Add;
 ネガポジの効果です。
 
 計算式 : (1-Cd) * Cs = dest
-
 
 
 
