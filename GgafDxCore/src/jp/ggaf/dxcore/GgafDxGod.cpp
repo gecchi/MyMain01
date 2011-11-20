@@ -461,29 +461,32 @@ HRESULT GgafDxGod::init() {
     //アンチアイリアスにできるかチェック
     DWORD qualityLevels = D3DMULTISAMPLE_NONE;
     D3DMULTISAMPLE_TYPE multiSampleType = D3DMULTISAMPLE_NONE;
-	if(CFG_PROPERTY(FULL_SCREEN)) {
-		if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
-			D3DADAPTER_DEFAULT,
-			D3DDEVTYPE_HAL,
-			_paPresetParam[0].BackBufferFormat,  //TODO:ウィンドウモード時は
-			CFG_PROPERTY(FULL_SCREEN) ? FALSE : TRUE,
-			D3DMULTISAMPLE_2_SAMPLES,
-			&qualityLevels) ) )
-		{
-			if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
-				D3DADAPTER_DEFAULT,
-				D3DDEVTYPE_HAL,
-				_paPresetParam[0].AutoDepthStencilFormat,
-				CFG_PROPERTY(FULL_SCREEN) ? FALSE : TRUE,
-				D3DMULTISAMPLE_2_SAMPLES,
-				NULL) ) )
-			{
-				multiSampleType = D3DMULTISAMPLE_2_SAMPLES;
-				_TRACE_("ハードウェア MultiSampleType = D3DMULTISAMPLE_2_SAMPLES 有効！！");
-
-			}
-		}
-	}
+//    if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
+//        D3DADAPTER_DEFAULT,
+//        D3DDEVTYPE_HAL,
+//        _paPresetParam[0].BackBufferFormat,  //TODO:ウィンドウモード時は
+//        CFG_PROPERTY(FULL_SCREEN) ? FALSE : TRUE,
+//        D3DMULTISAMPLE_2_SAMPLES,
+//        &qualityLevels) ) )
+//    {
+//        if( SUCCEEDED(GgafDxGod::_pID3D9->CheckDeviceMultiSampleType(
+//            D3DADAPTER_DEFAULT,
+//            D3DDEVTYPE_HAL,
+//            _paPresetParam[0].AutoDepthStencilFormat,
+//            CFG_PROPERTY(FULL_SCREEN) ? FALSE : TRUE,
+//            D3DMULTISAMPLE_2_SAMPLES,
+//            NULL) ) )
+//        {
+//            multiSampleType = D3DMULTISAMPLE_2_SAMPLES;
+//            _TRACE_("ハードウェア MultiSampleType = D3DMULTISAMPLE_2_SAMPLES 有効！！");
+//        } else {
+//            multiSampleType = D3DMULTISAMPLE_NONE;
+//            qualityLevels = D3DMULTISAMPLE_NONE;
+//        }
+//    } else {
+//        multiSampleType = D3DMULTISAMPLE_NONE;
+//        qualityLevels = D3DMULTISAMPLE_NONE;
+//    }
 
     if(CFG_PROPERTY(DUAL_VIEW)) {
         //マルチサンプルの数
