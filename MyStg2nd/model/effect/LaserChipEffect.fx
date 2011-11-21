@@ -332,25 +332,25 @@ technique LaserChipTechnique
 {
  	pass P0 {
 		AlphaBlendEnable = true;
-//        SeparateAlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha; 
-        DestBlend = One;
-        SrcBlendAlpha = One;      //default
-        DestBlendAlpha = Zero;    //default  
+        SeparateAlphaBlendEnable = true;
+		SrcBlend  = Zero; 
+        DestBlend = InvSrcAlpha;
+        SrcBlendAlpha = Zero;      //default
+        DestBlendAlpha = One;    //default  
 		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
 		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
     }
 
-//	pass P1 {
-//		AlphaBlendEnable = true;
-////        SeparateAlphaBlendEnable = true;
-//		SrcBlend  = Zero; 
-//        DestBlend = SrcColor;
-////        SrcBlendAlpha = One;      //default
-////        DestBlendAlpha = Zero;    //default
-//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
-//   }
+    pass P1 {
+    	AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
+    	SrcBlend  = SrcAlpha; 
+        DestBlend = One;
+        SrcBlendAlpha = Zero;      //default
+        DestBlendAlpha = Zero;    //default
+    	VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
+    	PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
+     }
 
 
 //    pass P1 {

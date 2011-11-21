@@ -16,12 +16,6 @@ public:
 
     virtual void processBehavior() override;
 
-    /**
-     * 編隊が全て自機側の攻撃で殲滅させられた場合
-     * @param prm_pActorLast 最後に破壊されたアクター
-     */
-    virtual void onDestroyedAll(GgafCore::GgafActor* prm_pActor_LastDestroyed) override;
-
     virtual ~FormationEunomia001();
 };
 

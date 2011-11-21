@@ -11,64 +11,16 @@ namespace GgafDxCore {
  */
 class GgafDxGod : public GgafCore::GgafGod {
 
-public:
-    static GgafDxModelManager* _pModelManager;
-    static GgafDxEffectManager* _pEffectManager;
-    static GgafDxTextureManager* _pCubeMapTextureManager;
-
-    static HWND _pHWndPrimary;
-    static HWND _pHWndSecondary;
-    static HINSTANCE _hInstance;
-
-    static D3DFILLMODE _d3dfillmode;
-
-    /** DirectX9のオブジェクト */
-    static IDirect3D9* _pID3D9;
-    /** デバイス */
-    static IDirect3DDevice9* _pID3DDevice9;
-    /** デフォルトのライト */
-    static D3DLIGHT9 _d3dlight9_default;
-    /** アンビエントライトのデフォルトの明るさ */
-    static DWORD _dwAmbientBrightness_default;
-    /** デバイスロストフラグ (true=ロスト中) */
-    static bool _is_device_lost_flg;
-
-
-    static bool _adjustGameScreen;
-    static HWND _pHWnd_adjustScreen;
+private:
 
     /** 使用可能なデバイスのアダプタ数 */
     int _num_adapter;
-
-
     /** Windows Display Driver Model（WDDM）が使用可能か否か */
     bool _can_wddm;
-
-    /** デバイス作成時パラメーター */
-    D3DPRESENT_PARAMETERS* _paPresetParam;
-    /** デバイス作成時パラメーター（WDDM使用時のみ必要） */
-    D3DDISPLAYMODEEX* _paDisplayMode;
-
-    /** ゲームバッファ領域 */
-    RECT _rectGameBuffer;
-    /** フルスクリーン時、レンダリングターゲットテクスチャの領域 */
-    RECT _rectRenderTargetBuffer;
-    /** ゲームバッファ領域の、[0]:左半分領域、[1]:右半分領域 */
-    RECT _aRect_HarfGameBuffer[2];
-    /** フルスクリーン時、レンダリングターゲットテクスチャ領域の、[0]:左半分領域、[1]:右半分領域 */
-    RECT _aRect_HarfRenderTargetBuffer[2];
-    /** 最終表示フロントバッファフレームの領域、[0]:１画面目、[1]:２画面目 */
-    RECT _aRect_ViewScreen[2];
-    /** Present領域、[0]:１画面目、[1]:２画面目  */
-    RECT _aRect_Present[2];
-    /** １画面目の _aRect_HarfRenderTargetBuffer[] の序数 */
-    int _primary;
-    /** ２画面目の _aRect_HarfRenderTargetBuffer[] の序数 */
-    int _secondary;
-    /** フルスクリーン時２画面目の左上X座標 */
-    pixcoord _secondary_screen_x;
-    /** フルスクリーン時２画面目の左上Y座標 */
-    pixcoord _secondary_screen_y;
+    /** ゲーム表示領域以外のクリップ領域背景色 */
+    D3DCOLOR _color_background;
+    /** ゲーム表示領域の表示クリア時の背景色 */
+    D3DCOLOR _color_clear;
 
     /** フルスクリーン時、レンダリングターゲットテクスチャ */
     IDirect3DTexture9*  _pRenderTexture;
@@ -81,16 +33,96 @@ public:
     /** フルスクリーン時、DirectXのバックバッファ、[0]:１画面目、[1]:２画面目 */
     IDirect3DSurface9* _apBackBuffer[2];
 
-    /** 頂点シェーダーのバージョン(D3DVS_VERSION(_Major,_Minor)) */
+    /** デバイス作成時パラメーター */
+    D3DPRESENT_PARAMETERS* _paPresetParam;
+    /** デバイス作成時パラメーター（WDDM使用時のみ必要） */
+    D3DDISPLAYMODEEX* _paDisplayMode;
+
+    /**
+     * WDDMかどうか判定し、デバイスを作成 .
+     * 結果は GgafDxGod::_pID3D9 と GgafDxGod::_pID3DDevice9に保持される。
+     * @param Adapter
+     * @param DeviceType
+     * @param hFocusWindow
+     * @param BehaviorFlags
+     * @param pPresentationParameters
+     * @param pFullscreenDisplayMode
+     * @return
+     */
+    HRESULT createDx9Device(UINT Adapter,
+                            D3DDEVTYPE DeviceType,
+                            HWND hFocusWindow,
+                            DWORD BehaviorFlags,
+                            D3DPRESENT_PARAMETERS* pPresentationParameters,
+                            D3DDISPLAYMODEEX *pFullscreenDisplayMode
+                          );
+    HRESULT initDx9Device();
+
+    HRESULT restoreFullScreenRenderTarget();
+    HRESULT releaseFullScreenRenderTarget();
+    void adjustGameScreen(HWND prm_pHWnd);
+
+    void positionPresentRect(int prm_pos, RECT& prm_rectPresent, int prm_screen_width, int prm_screen_height);
+
+public:
+    /** モデル(GgafDxModel)資源管理者 */
+    static GgafDxModelManager* _pModelManager;
+    /** エフェクト(GgafDxEffect)資源管理者 */
+    static GgafDxEffectManager* _pEffectManager;
+    /** テクスチャー(GgafDxTexture)資源管理者、ここでは環境マップのみ。（※通常のテクスチャはGgafDxModelの内部管理） */
+    static GgafDxTextureManager* _pCubeMapTextureManager;
+    /** [r] 1画面目のウィンドウハンドル  */
+    static HWND _pHWndPrimary;
+    /** [r] 2画面目のウィンドウハンドル  */
+    static HWND _pHWndSecondary;
+
+    static HINSTANCE _hInstance;
+    /** [r] デバッグモード時、ワイヤーフレーム表示 */
+    static D3DFILLMODE _d3dfillmode;
+    /** [r] DirectX9のオブジェクト */
+    static IDirect3D9* _pID3D9;
+    /** [r] デバイス */
+    static IDirect3DDevice9* _pID3DDevice9;
+    /** [r] デフォルトのライト */
+    static D3DLIGHT9 _d3dlight9_default;
+    /** [r] アンビエントライトのデフォルトの明るさ */
+    static DWORD _dwAmbientBrightness_default;
+    /** [r] デバイスロストフラグ (true=ロスト中) */
+    static bool _is_device_lost_flg;
+    /** [r] 画面アスペクト比調整フラグ (true=ウィンドウがリサイズされ、表示領域を再計算) */
+    static bool _adjustGameScreen;
+    /** [r] 表示領域を再計算が必要なウィンドウ(のハンドル) */
+    static HWND _pHWnd_adjustScreen;
+
+
+    /** [r] 頂点シェーダーのバージョン(D3DVS_VERSION(_Major,_Minor)) */
     static UINT32 _vs_v;
-    /** ピクセルシェーダーのバージョン(D3DPS_VERSION(_Major,_Minor)) */
+    /** [r] ピクセルシェーダーのバージョン(D3DPS_VERSION(_Major,_Minor)) */
     static UINT32 _ps_v;
 
+    /** [r] ゲームバッファ領域 */
+    RECT _rectGameBuffer;
+    /** [r] フルスクリーン時、レンダリングターゲットテクスチャの領域 */
+    RECT _rectRenderTargetBuffer;
+    /** [r] ゲームバッファ領域の、[0]:左半分領域、[1]:右半分領域 */
+    RECT _aRect_HarfGameBuffer[2];
+    /** [r] フルスクリーン時、レンダリングターゲットテクスチャ領域の、[0]:左半分領域、[1]:右半分領域 */
+    RECT _aRect_HarfRenderTargetBuffer[2];
+    /** [r] 最終表示フロントバッファフレームの領域、[0]:１画面目、[1]:２画面目 */
+    RECT _aRect_ViewScreen[2];
+    /** [r] Present領域、[0]:１画面目、[1]:２画面目  */
+    RECT _aRect_Present[2];
+    /** [r] １画面目の _aRect_HarfRenderTargetBuffer[] の序数 0 or 1 */
+    int _primary;
+    /** [r] ２画面目の _aRect_HarfRenderTargetBuffer[] の序数 0 or 1 */
+    int _secondary;
+    /** [r] フルスクリーン時２画面目の左上X座標 */
+    pixcoord _secondary_screen_x;
+    /** [r] フルスクリーン時２画面目の左上Y座標 */
+    pixcoord _secondary_screen_y;
 
-    /** ゲーム表示領域以外のクリップ領域背景色 */
-    D3DCOLOR _color_background;
-    /** ゲーム表示領域の表示クリア時の背景色 */
-    D3DCOLOR _color_clear;
+
+
     /**
      * コンストラクタ<BR>
      */
@@ -100,28 +132,12 @@ public:
      * 初期化<BR>
      */
     HRESULT init();
-    HRESULT createDx9Device(UINT Adapter,
-                            D3DDEVTYPE DeviceType,
-                            HWND hFocusWindow,
-                            DWORD BehaviorFlags,
-                            D3DPRESENT_PARAMETERS* pPresentationParameters,
-                            D3DDISPLAYMODEEX *pFullscreenDisplayMode
-                          );
-    HRESULT initDx9Device();
-    HRESULT restoreFullScreenRenderTarget();
-    HRESULT releaseFullScreenRenderTarget();
 
     virtual void presentUniversalMoment() override;
     virtual void executeUniversalJudge() override;
     virtual void makeUniversalMaterialize() override;
     virtual void presentUniversalVisualize() override;
     virtual void finalizeUniversal() override;
-
-    void adjustGameScreen(HWND prm_pHWnd);
-
-    void positionPresentRect(int prm_pos, RECT& prm_rectPresent, int prm_screen_width, int prm_screen_height);
-
-    HRESULT restoreRenderSurface();
 
     virtual void clean() override;
 

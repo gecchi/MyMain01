@@ -22,7 +22,7 @@ public:
     GgafCore::GgafActorDepository* _pDP_EffectExplosion001;
     GgafCore::GgafActorDepository* _pDepo_EffectTurbo002;
     GgafCore::GgafActorDepository* _pDP_MagicPointItem001;
-
+    GgafCore::GgafActorDepository* _pDP_MagicPointItem002;
 
     CommonScene(const char* prm_name);
     /**

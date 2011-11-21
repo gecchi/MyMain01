@@ -4,9 +4,11 @@ using namespace std;
 using namespace GgafCore;
 
 GgafCriticalException* GgafGod::_pException_Factory = NULL;
+HINSTANCE GgafGod::_hInstance = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::ppp = 0;
+
 
 int GgafGod::_num_actor_drawing = 0;
 GgafGod* GgafGod::_pGod = NULL;
@@ -17,12 +19,13 @@ DWORD GgafGod::_aaTime_OffsetOfNextFrame[3][60] = {
 };
 volatile bool GgafGod::_can_be = false;
 
-GgafGod::GgafGod() : GgafObject(),
+GgafGod::GgafGod(HINSTANCE prm_hInstance) : GgafObject(),
   _pUniverse(NULL),
   _fps(0) {
     TRACE("GgafGod::GgafGod");
-    _frame_of_God = 0;
+    GgafGod::_hInstance = prm_hInstance;
 
+    _frame_of_God = 0;
     _handleFactory01 = (HANDLE)::_beginthreadex(NULL, 0, GgafFactory::work, NULL, CREATE_SUSPENDED, &_thID01);
 
     if (_handleFactory01 == 0) {
@@ -56,6 +59,7 @@ void GgafGod::be() {
     if (_can_be) {
         _is_being = true;
         if (_pUniverse == NULL) {
+            //Ç±ÇÃê¢Ç™Ç‹Çæñ≥Ç¢èÍçáÇÕÅAêÊÇ∏Ç±ÇÃê¢ÇçÏê¨ÅB
             _pUniverse = createUniverse();
 #ifdef MY_DEBUG
             if (_pUniverse == NULL) {

@@ -533,3 +533,6 @@ BlendOp = Add;
 デバイスのポインタ->SetRenderState(D3DRS_ALPHAREF, 0x00000066);
 デバイスのポインタ->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE); 
 デバイスのポインタ->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
+
+Max(DestAlpha,SrcAlpha) + (DestAlpha × SrcAlpha)
+がしたい。

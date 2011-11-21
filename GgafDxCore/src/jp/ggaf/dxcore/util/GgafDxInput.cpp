@@ -74,7 +74,7 @@ HRESULT GgafDxInput::init() {
 
     HRESULT hr;
     // DirectInput ÇÃçÏê¨
-    hr = DirectInput8Create(GgafDxGod::_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
+    hr = DirectInput8Create(GgafGod::_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
                             (LPVOID*)&_pIDirectInput8, NULL);
     if (hr != D3D_OK) {
         MessageBox(GgafDxGod::_pHWndPrimary, TEXT("GgafDxInput::initDx9Input() Ç¢Ç´Ç»ÇËDirectInput8ÇÃçÏê¨Ç…é∏îsÇµÇ‹ÇµÇΩÅBÇ‡Å`Ç‚ÇÈãCÇ‡Ç»Ç≠Ç»ÇËÇ‹Ç∑ÇÌÅG"),

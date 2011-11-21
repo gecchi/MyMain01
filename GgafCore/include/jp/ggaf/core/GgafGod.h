@@ -36,46 +36,50 @@ public:
 
     /** be() できるかどうか */
     static volatile bool _can_be;
-    /** [r]クリティカルセクション（セマフォ） */
+    /** [r] クリティカルセクションその１（セマフォ） */
     static CRITICAL_SECTION CS1;
+    /** [r] クリティカルセクションその２（セマフォ） */
     static CRITICAL_SECTION CS2;
-    /** be() 中かどうか */
-    bool _is_being;
-    /** [r]自身 */
+    /** [r] 自身 */
     static GgafGod* _pGod;
-    /** [r]生成工場(別スレッド)のエラー状態。NULL＝正常稼働中／not NULL＝異常発生 */
+    /** [r] 生成工場(別スレッド)のエラー状態。NULL＝正常稼働中／not NULL＝異常発生 */
     static GgafCriticalException* _pException_Factory;
-    /** [r]次にこの世を活動させる時間のオフセット */
+    /** [r] 次にこの世を活動させる時間のオフセット */
     static DWORD _aaTime_OffsetOfNextFrame[3][60];
-    /** [r]GgafFactory::work スレッドハンドル  */
-    HANDLE _handleFactory01;
-    /** [r]GgafFactory::work スレッドID  */
-    unsigned int _thID01;
-    /** [r]神のフレーム開始システム時間 */
-    DWORD _time_at_beginning_frame;
-    /** [r]次にこの世を活動させるシステム時間 */
-    DWORD _expected_time_of_next_frame;
-    /** [r]神誕生からのフレーム数 */
-    frame _frame_of_God;
-    /** [r]この世を視覚化できなかった（スキップした）回数 */
-    int _skip_count_of_frame;
-    /** [r]この世 */
-    GgafUniverse* _pUniverse;
-    /** [r]fps値（約1000ms毎に計算される） */
-    float _fps;
-    /** [r]前回fps計算時のシステム時間 */
-    DWORD _time_prev;
-    /** [r]描画フレームカウンタ */
-    frame _frame_of_visualize;
-    /** [r]前回fps計算時の描画フレームカウント値 */
-    frame _frame_of_prev_visualize;
-    /** [r]元フレームの描画回数 */
-    static int _num_actor_drawing;
+    /** [r] 本アプリケーションのインスタンスハンドル */
+    static HINSTANCE _hInstance;
 
+    /** [r] be() 中かどうか */
+    bool _is_being;
+    /** [r] GgafFactory::work スレッドハンドル  */
+    HANDLE _handleFactory01;
+    /** [r] GgafFactory::work スレッドID  */
+    unsigned int _thID01;
+    /** [r] 神のフレーム開始システム時間 */
+    DWORD _time_at_beginning_frame;
+    /** [r] 次にこの世を活動させるシステム時間 */
+    DWORD _expected_time_of_next_frame;
+    /** [r] 神誕生からのフレーム数 */
+    frame _frame_of_God;
+    /** [r] この世を視覚化できなかった（スキップした）回数 */
+    int _skip_count_of_frame;
+    /** [r] この世 */
+    GgafUniverse* _pUniverse;
+    /** [r] fps値（約1000ms毎に計算される） */
+    float _fps;
+    /** [r] 前回fps計算時のシステム時間 */
+    DWORD _time_prev;
+    /** [r] 描画フレームカウンタ */
+    frame _frame_of_visualize;
+    /** [r] 前回fps計算時の描画フレームカウント値 */
+    frame _frame_of_prev_visualize;
+    /** [r] 元フレームの描画回数 */
+    static int _num_actor_drawing;
+    /** [r] 描画処理、最高スキップフレーム数 */
     int _max_skip_frames;
-    /** 現在の処理落ちモード 0:60fps 1:40fps 2:30fps。_aaTime_OffsetOfNextFrameの一つ目の要素 */
+    /** [r] 現在の処理落ちモード 0:60fps 1:40fps 2:30fps。_aaTime_OffsetOfNextFrameの一つ目の要素 */
     int _slowdown_mode;
-    /** 時間とフレームの動機調整モード中はtrue */
+    /** [r] 時間とフレームの動機調整モード中はtrue */
     bool _sync_frame_time;
     bool _was_cleaned;
 
@@ -83,12 +87,13 @@ public:
      * コンストラクタ .
      * 別スレッドで工場を稼動させます。
      */
-    GgafGod();
+    GgafGod(HINSTANCE prm_hInstance);
 
     /**
-     * 在ります。というメソッド .
-     * 神が在るすなわち、この世が動き、アプリが進行します。<BR>
-     * OS側で、このメソッドをひたすら呼び続けてください。<BR>
+     * 「存在する」というメソッド .
+     * 神が存在すなわち、この世(GgafUniverse)が動き、アプリが進行します。<BR>
+     * 初回呼び出し時、この世(GgafUniverse)が作成されます。<BR>
+     * アプリケーションは、最小時間単位(frame)でこのメソッドをひたすら呼び続けてください。<BR>
      */
     void be();
 
@@ -143,7 +148,8 @@ public:
     virtual void clean();
 
     /**
-     * しまった～！、という時に呼び出す。
+     * 神「しまった～！」 .
+     * 例外発生時にコールバックされます。
      */
     virtual void oops() {
         _TRACE_("(-_-;) {Oops!");

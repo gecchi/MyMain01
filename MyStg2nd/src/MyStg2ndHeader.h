@@ -80,11 +80,6 @@
 #define R_FormationEunomia001_LaunchInterval (2  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //èoåªä‘äu(frame)
 #define R_FormationEunomia001_MvVelo (10000 + _RANK_*10000) //à⁄ìÆë¨ìx
 
-#define R_FormationEunomia002_Col (5 + _RANK_*2)    //ï“ë‡óÒêî
-#define R_FormationEunomia002_FormationNum (20 + _RANK_*10)  //ÇPóÒÇÃï“ë‡êî
-#define R_FormationEunomia002_LaunchInterval (2  + (10 - (_RANK_>1.0?1.0:_RANK_)*10))  //èoåªä‘äu(frame)
-#define R_FormationEunomia002_MvVelo (10000 + _RANK_*10000) //à⁄ìÆë¨ìx
-
 #define R_EnemyIris_ShotWay (10+_RANK_*10) //ÉVÉáÉbÉgWAYêî
 #define R_FormationIris001_Num   (7 + _RANK_*7)    //ï“ë‡êî
 #define R_FormationIris001_LaunchInterval (5 + (20 - (_RANK_>1.0?1.0:_RANK_) *20))   //èoåªä‘äu(frame)
@@ -419,8 +414,9 @@ class EffectMagic001;
 class EffectSpeedMagic;
 
 class Item;
+class MagicPointItem;
 class MagicPointItem001;
-class Item001;
+class MagicPointItem002;
 
 class Properties;
 class MyStgUtil;
@@ -650,8 +646,9 @@ class VamSysCamPosition;
 #include "gecchi/actor/system/magic/effect/EffectSpeedMagic.h"
 
 #include "gecchi/actor/item/Item.h"
+#include "gecchi/actor/item/MagicPointItem.h"
 #include "gecchi/actor/item/MagicPointItem001.h"
-#include "gecchi/actor/item/Item001.h"
+#include "gecchi/actor/item/MagicPointItem002.h"
 
 #include "gecchi/Properties.h"
 #include "gecchi/util/MyStgUtil.h"

@@ -234,12 +234,14 @@ public:
 	static GgafCore::GgafStatus* resetEnemyEunomiaStatus(GgafCore::GgafStatus* p);
 	//自機ショット
 	static GgafCore::GgafStatus* resetMyShot001Status(GgafCore::GgafStatus* p);
-	//アイテム
-	static GgafCore::GgafStatus* resetMagicPointItem001Status(GgafCore::GgafStatus* p);
 	//
 	static GgafCore::GgafStatus* resetEnemyMassaliaStatus(GgafCore::GgafStatus* p);
 	//
 	static GgafCore::GgafStatus* resetMyOptionStatus(GgafCore::GgafStatus* p);
+	//アイテム
+	static GgafCore::GgafStatus* resetMagicPointItem001Status(GgafCore::GgafStatus* p);
+	//編隊全滅アイテム
+	static GgafCore::GgafStatus* resetMagicPointItem002Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 

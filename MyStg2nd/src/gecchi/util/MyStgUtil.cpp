@@ -431,19 +431,6 @@ using namespace MyStg2nd;
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 		return p;
 	}
-	GgafStatus* MyStgUtil::resetMagicPointItem001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM);  //種別(デフォルト)
-		p->set(STAT_LockonAble, 0 );  //ロックオン可否
-		p->set(STAT_AddScorePoint, 500 );  //加算得点
-		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
-		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //加算ランク減少率
-		p->set(STAT_Stamina, 100 );  //体力
-		p->set(STAT_Attack, 100 );  //攻撃力
-		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
-		p->set(STAT_DominantDefenceRate, 0.50000 );  //優性時の防御率
-		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
-		return p;
-	}
 	GgafStatus* MyStgUtil::resetEnemyMassaliaStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
 		p->set(STAT_LockonAble, 1 );  //ロックオン可否
@@ -462,6 +449,32 @@ using namespace MyStg2nd;
 		p->set(STAT_LockonAble, 0 );  //ロックオン可否
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
 		p->set(STAT_AddRankPoint, 0.00000 );  //加算ランク
+		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
+		p->set(STAT_Stamina, 0 );  //体力
+		p->set(STAT_Attack, 0 );  //攻撃力
+		p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
+		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
+		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
+		return p;
+	}
+	GgafStatus* MyStgUtil::resetMagicPointItem001Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM);  //種別(デフォルト)
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
+		p->set(STAT_AddScorePoint, 500 );  //加算得点
+		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
+		p->set(STAT_Stamina, 0 );  //体力
+		p->set(STAT_Attack, 0 );  //攻撃力
+		p->set(STAT_DefaultDefenceRate, 0.00000 );  //基準防御率
+		p->set(STAT_DominantDefenceRate, 0.00000 );  //優性時の防御率
+		p->set(STAT_RecessiveDefenceRate, 0.00000 );  //劣性時の防御率
+		return p;
+	}
+	GgafStatus* MyStgUtil::resetMagicPointItem002Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ITEM);  //種別(デフォルト)
+		p->set(STAT_LockonAble, 0 );  //ロックオン可否
+		p->set(STAT_AddScorePoint, 500 );  //加算得点
+		p->set(STAT_AddRankPoint, 0.10000 );  //加算ランク
 		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 0 );  //体力
 		p->set(STAT_Attack, 0 );  //攻撃力

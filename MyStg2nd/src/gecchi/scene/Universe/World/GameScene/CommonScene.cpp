@@ -24,7 +24,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         getDirector()->addSubGroup(_pDP_EffectExplosion001);
     }
 
-    //アイテム
+    //アイテム小
     { //_pDP_MagicPointItem001
         _pDP_MagicPointItem001 = NEW GgafActorDepository("DpMpItem001");
         MagicPointItem001* pMpItem001;
@@ -34,6 +34,18 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
             _pDP_MagicPointItem001->addSubLast(pMpItem001);
         }
         getDirector()->addSubGroup(_pDP_MagicPointItem001);
+    }
+
+    //アイテム中
+    { //_pDP_MagicPointItem002
+        _pDP_MagicPointItem002 = NEW GgafActorDepository("DpMpItem002");
+        MagicPointItem002* pMpItem002;
+        for (int i = 0; i < 10; i++) { //ストック100個
+            pMpItem002 = NEW MagicPointItem002("MP002");
+            pMpItem002->inactivateTreeImmediately(); //最初非表示
+            _pDP_MagicPointItem002->addSubLast(pMpItem002);
+        }
+        getDirector()->addSubGroup(_pDP_MagicPointItem002);
     }
 
     { //Effect EffectTurbo002 ターボ噴射

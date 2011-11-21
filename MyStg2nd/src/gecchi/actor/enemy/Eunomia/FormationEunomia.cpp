@@ -33,6 +33,20 @@ void FormationEunomia::initialize() {
     _n = 0;
 }
 
+void FormationEunomia::onDestroyedAll(GgafActor* prm_pActor_LastDestroyed) {
+    //編隊消滅時の実験
+    EffectTurbo002* pTurbo002 = (EffectTurbo002*)P_COMMON_SCENE->_pDepo_EffectTurbo002->dispatchForce();
+    if (pTurbo002) {
+        pTurbo002->locateAs((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
+        pTurbo002->activate();
+    }
+    //編隊全滅アイテム出現
+    Item* pItem = (Item*)P_COMMON_SCENE->_pDP_MagicPointItem002->dispatch();
+    if (pItem) {
+        pItem->locateAs((GgafDxGeometricActor*)prm_pActor_LastDestroyed);
+    }
+}
+
 
 void FormationEunomia::processBehavior() {
 

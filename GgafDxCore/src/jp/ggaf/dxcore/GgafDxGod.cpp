@@ -38,7 +38,6 @@ BOOL CALLBACK getSecondaryMoniterPixcoordCallback(HMONITOR hMonitor,
 
 HWND GgafDxGod::_pHWndPrimary = NULL;
 HWND GgafDxGod::_pHWndSecondary = NULL;
-HINSTANCE GgafDxGod::_hInstance = NULL;
 
 IDirect3D9* GgafDxGod::_pID3D9 = NULL;
 IDirect3DDevice9* GgafDxGod::_pID3DDevice9 = NULL;
@@ -67,12 +66,11 @@ UINT32 GgafDxGod::_ps_v = 0;
 
 
 GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pHWndSecondary) :
-    GgafGod() {
+    GgafGod(prm_hInstance) {
     TRACE("GgafDxGod::GgafDxGod() ");
 
     GgafDxGod::_pHWndPrimary = prm_pHWndPrimary;
     GgafDxGod::_pHWndSecondary = prm_pHWndSecondary;
-    GgafDxGod::_hInstance = prm_hInstance;
     _is_device_lost_flg = false;
     _adjustGameScreen = false;
     _pHWnd_adjustScreen = NULL;
@@ -442,20 +440,30 @@ HRESULT GgafDxGod::init() {
             _paPresetParam[1].BackBufferFormat = D3DFMT_UNKNOWN;
         }
     } else {
-        //デスプレイモードの取得
-        D3DDISPLAYMODE structD3DDisplayMode0; //結果が格納される構造体
-        hr = GgafDxGod::_pID3D9->GetAdapterDisplayMode(0, &structD3DDisplayMode0);
-        returnWhenFailed(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。");
+
         if(CFG_PROPERTY(DUAL_VIEW)) {
-            D3DDISPLAYMODE structD3DDisplayMode1;
-            hr = GgafDxGod::_pID3D9->GetAdapterDisplayMode(1, &structD3DDisplayMode1);
-            returnWhenFailed(hr, D3D_OK, "2画面目 GetAdapterDisplayMode に失敗しました");
-            _paPresetParam[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
-            _paPresetParam[1].BackBufferFormat = structD3DDisplayMode1.Format; //現在の画面モードを利用
+            _paPresetParam[0].BackBufferFormat = D3DFMT_A8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
+            _paPresetParam[1].BackBufferFormat = _paPresetParam[0].BackBufferFormat;
         } else {
-            _paPresetParam[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
-            _paPresetParam[1].BackBufferFormat = D3DFMT_UNKNOWN; //現在の画面モードを利用
+            _paPresetParam[0].BackBufferFormat = D3DFMT_A8R8G8B8;
+            _paPresetParam[1].BackBufferFormat = D3DFMT_UNKNOWN;
         }
+
+
+//        //デスプレイモードの取得
+//        D3DDISPLAYMODE structD3DDisplayMode0; //結果が格納される構造体
+//        hr = GgafDxGod::_pID3D9->GetAdapterDisplayMode(0, &structD3DDisplayMode0);
+//        returnWhenFailed(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。");
+//        if(CFG_PROPERTY(DUAL_VIEW)) {
+//            D3DDISPLAYMODE structD3DDisplayMode1;
+//            hr = GgafDxGod::_pID3D9->GetAdapterDisplayMode(1, &structD3DDisplayMode1);
+//            returnWhenFailed(hr, D3D_OK, "2画面目 GetAdapterDisplayMode に失敗しました");
+//            _paPresetParam[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
+//            _paPresetParam[1].BackBufferFormat = structD3DDisplayMode1.Format; //現在の画面モードを利用
+//        } else {
+//            _paPresetParam[0].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
+//            _paPresetParam[1].BackBufferFormat = D3DFMT_UNKNOWN; //現在の画面モードを利用
+//        }
     }
 
     //アンチアイリアスにできるかチェック
@@ -508,13 +516,6 @@ HRESULT GgafDxGod::init() {
 //    _paPresetParam[0].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
 //    //マルチサンプルの品質レベル
 //    _paPresetParam[0].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
-
-
-
-
-
-
-
 
 
 
@@ -986,6 +987,20 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
                                         D3DPOOL_DEFAULT,
                                         &_pRenderTexture,
                                         NULL);
+    //TODO:アンチエイリアスの実験のため
+    //     テクスチャーの代わりにサーフェイスを試す事。
+    //    HRESULT CreateRenderTarget(
+    //        UINT Width,
+    //        UINT Height,
+    //        D3DFORMAT Format,
+    //        D3DMULTISAMPLE_TYPE MultiSample,
+    //        DWORD MultisampleQuality,
+    //        BOOL Lockable,
+    //        IDirect3DSurface9** ppSurface,
+    //        HANDLE* pHandle
+    //    );
+
+
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャ("<<CFG_PROPERTY(RENDER_TARGET_BUFFER_WIDTH)<<"x"<<CFG_PROPERTY(RENDER_TARGET_BUFFER_HEIGHT)<<")の作成に失敗。\nサイズを確認して下さい。");
     //RenderTarget(描画先)をテクスチャへ切り替え
     hr = _pRenderTexture->GetSurfaceLevel(0, &_pRenderTextureSurface);

@@ -27,17 +27,21 @@ public:
     }
 
     /**
-     * フレーム毎の振る舞い<BR>
+     * フレーム毎の振る舞い処理<BR>
      */
     virtual void processBehavior() override {
     }
+
+    /**
+     * フレーム毎の振る舞いの事後処理<BR>
+     */
     virtual void processSettlementBehavior() override {
     }
+
     /**
      * フレーム毎の判定処理<BR>
      */
     virtual void processJudgement() override {
-
     }
 
     /**
@@ -77,6 +81,10 @@ public:
     virtual void processFinal() override {
     }
 
+    /**
+     * 活動フラグ（常に活動）を返す .
+     * @return
+     */
     bool isActiveInTheTree() override {
         return true;
     }

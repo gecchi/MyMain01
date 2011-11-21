@@ -3,12 +3,6 @@
 
 namespace MyStg2nd {
 
-enum {
-    ITEM_PROG_NOTIONG = 1, //‰½‚à‚µ‚Ä‚¢‚È‚¢ó‘Ô
-    ITEM_PROG_DRIFT      , //’ÊíˆÚ“®ó‘Ô
-    ITEM_PROG_ATTACH     , //‹z’…’†(–¢‹z’…)ó‘Ô
-    ITEM_PROG_ABSORB     , //‹z’…’†(‹z’…Ï)ó‘Ô
-};
 
 /**
  * ƒAƒCƒeƒ€ .
