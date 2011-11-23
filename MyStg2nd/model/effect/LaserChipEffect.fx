@@ -298,7 +298,7 @@ OUT_VS GgafDxVS_LaserChip(
 	return out_vs;
 }
 
-float4 GgafDxPS_LaserChip_ONE( 
+float4 GgafDxPS_LaserChip_ZERO( 
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0
 ) : COLOR  {
@@ -312,7 +312,7 @@ float4 GgafDxPS_LaserChip_SHADOW(
 ) : COLOR  {
     //レーザーの影
 	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_color;
-	out_color.rgb = 0;
+//	out_color.a = 1-out_color.a;
 	return out_color;
 }
 
@@ -322,7 +322,7 @@ float4 GgafDxPS_LaserChip(
 ) : COLOR  {
 
 	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_color;
-	//out_color.rgba *= 0.9;
+	//out_color.rgba *= 0.5;
 	return out_color;
 }
 
@@ -333,24 +333,26 @@ technique LaserChipTechnique
  	pass P0 {
 		AlphaBlendEnable = true;
         SeparateAlphaBlendEnable = true;
-		SrcBlend  = Zero; 
-        DestBlend = InvSrcAlpha;
-        SrcBlendAlpha = Zero;      //default
-        DestBlendAlpha = One;    //default  
+		SrcBlend  = SrcAlpha; 
+        DestBlend = One;
+        SrcBlendAlpha = One;      //default
+        DestBlendAlpha = Zero;    //default  
+		BlendOpAlpha = Add;
 		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
 		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
     }
 
-    pass P1 {
-    	AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = true;
-    	SrcBlend  = SrcAlpha; 
-        DestBlend = One;
-        SrcBlendAlpha = Zero;      //default
-        DestBlendAlpha = Zero;    //default
-    	VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-    	PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
-     }
+//    pass P1 {
+//		AlphaBlendEnable = true;
+//        SeparateAlphaBlendEnable = true;
+//		SrcBlend  = InvSrcAlpha; 
+//        DestBlend = SrcAlpha;
+//        SrcBlendAlpha = One;      //default
+//        DestBlendAlpha = Zero;    //default  
+//		BlendOpAlpha = Add;
+//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
+//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_SHADOW();
+//   }
 
 
 //    pass P1 {
@@ -416,6 +418,7 @@ technique LaserChipTechnique
 //		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
 //		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
 //	}
+//BlendOpにMin,Maxはきかない？
 //BlendOp=REVSUBTRACT, SrcBlend=SRCALPHA, DestBlend=ON
 
 }
