@@ -891,6 +891,8 @@ HRESULT GgafDxGod::initDx9Device() {
     //    //下地の画像の合成法(シェーダーに影響)
     //    GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
 
+
+
     //頂点カラーを無効にする
     //GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_COLORVERTEX, FALSE );
     // GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_COLORVERTEX, TRUE );
