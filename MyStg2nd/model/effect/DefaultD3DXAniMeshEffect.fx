@@ -130,10 +130,12 @@ technique DefaultD3DXAniMeshTechnique
 	// s0レジスタ				:	2Dテクスチャ
 	pass P0 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultD3DXAniMesh();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultD3DXAniMesh();
 	}
@@ -143,10 +145,12 @@ technique DefaultD3DXAniMeshTechnique2
 {
 	pass P0 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultD3DXAniMesh();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultD3DXAniMesh2();
 	}

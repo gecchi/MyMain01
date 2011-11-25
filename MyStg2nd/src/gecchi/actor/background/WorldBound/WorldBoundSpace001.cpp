@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 WorldBoundSpace001::WorldBoundSpace001(const char* prm_name) :
         WorldBoundActor(prm_name, "0/WorldBoundSpace001") {
     _class_name = "WorldBoundSpace001";
-    setCubeMapTexture("BkSpace_cubemap.dds");
+    setCubeMapTexture("BkSky_cubemap.dds");
 //    setCubeMapTexture("BkSky_cubemap.dds");
 //    _base_u = 0;
 //    _base_v = 0;

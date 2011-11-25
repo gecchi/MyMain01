@@ -182,10 +182,12 @@ technique SingleLaserTechnique
 	// s0レジスタ				:	2Dテクスチャ
 	pass P0 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   //加算合成
 		DestBlend = One;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
 		VertexShader = compile VS_VERSION GgafDxVS_SingleLaser();
 		PixelShader  = compile PS_VERSION GgafDxPS_SingleLaser();
 	}

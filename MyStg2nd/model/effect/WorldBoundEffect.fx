@@ -359,10 +359,12 @@ technique WorldBoundTechnique
     //モーフターゲット無し
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound0();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -370,10 +372,12 @@ technique WorldBoundTechnique
     //モーフターゲット１つ
     pass P1 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound1();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -381,10 +385,12 @@ technique WorldBoundTechnique
     //モーフターゲット２つ
     pass P2 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound2();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -392,10 +398,12 @@ technique WorldBoundTechnique
     //モーフターゲット３つ
     pass P3 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound3();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -403,10 +411,12 @@ technique WorldBoundTechnique
     //モーフターゲット４つ
     pass P4 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound4();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -414,10 +424,12 @@ technique WorldBoundTechnique
     //モーフターゲット５つ
     pass P5 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound5();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -425,10 +437,12 @@ technique WorldBoundTechnique
     //モーフターゲット６つ
     pass P6 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound6();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -449,10 +463,12 @@ technique DestBlendOne
     //モーフターゲット無し
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound0();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -460,10 +476,12 @@ technique DestBlendOne
     //モーフターゲット１つ
     pass P1 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound1();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -471,10 +489,12 @@ technique DestBlendOne
     //モーフターゲット２つ
     pass P2 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound2();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -482,10 +502,12 @@ technique DestBlendOne
     //モーフターゲット３つ
     pass P3 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound3();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -493,10 +515,12 @@ technique DestBlendOne
     //モーフターゲット４つ
     pass P4 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound4();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -504,10 +528,12 @@ technique DestBlendOne
     //モーフターゲット５つ
     pass P5 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound5();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -515,10 +541,12 @@ technique DestBlendOne
     //モーフターゲット６つ
     pass P6 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound6();
         PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
     }
@@ -529,10 +557,12 @@ technique Flush
     //モーフターゲット無し
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound0();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -540,10 +570,12 @@ technique Flush
     //モーフターゲット１つ
     pass P1 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound1();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -554,7 +586,9 @@ technique Flush
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
+        SeparateAlphaBlendEnable = true;
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound2();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -562,10 +596,12 @@ technique Flush
     //モーフターゲット３つ
     pass P3 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound3();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -573,10 +609,12 @@ technique Flush
     //モーフターゲット４つ
     pass P4 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound4();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -584,10 +622,12 @@ technique Flush
     //モーフターゲット５つ
     pass P5 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound5();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -595,10 +635,12 @@ technique Flush
     //モーフターゲット６つ
     pass P6 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;
         VertexShader = compile VS_VERSION GgafDx9VS_WorldBound6();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

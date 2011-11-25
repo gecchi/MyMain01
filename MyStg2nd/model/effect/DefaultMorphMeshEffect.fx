@@ -368,10 +368,12 @@ technique DefaultMorphMeshTechnique
 	//モーフターゲット無し
 	pass P0 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh0();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -379,10 +381,12 @@ technique DefaultMorphMeshTechnique
 	//モーフターゲット１つ
 	pass P1 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh1();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -390,10 +394,12 @@ technique DefaultMorphMeshTechnique
 	//モーフターゲット２つ
 	pass P2 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh2();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -401,10 +407,12 @@ technique DefaultMorphMeshTechnique
 	//モーフターゲット３つ
 	pass P3 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh3();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -412,10 +420,12 @@ technique DefaultMorphMeshTechnique
 	//モーフターゲット４つ
 	pass P4 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh4();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -423,10 +433,12 @@ technique DefaultMorphMeshTechnique
 	//モーフターゲット５つ
 	pass P5 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh5();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -434,10 +446,12 @@ technique DefaultMorphMeshTechnique
 	//モーフターゲット６つ
 	pass P6 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh6();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -449,10 +463,12 @@ technique DestBlendOne
 	//モーフターゲット無し
 	pass P0 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh0();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -460,10 +476,12 @@ technique DestBlendOne
 	//モーフターゲット１つ
 	pass P1 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh1();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -471,10 +489,12 @@ technique DestBlendOne
 	//モーフターゲット２つ
 	pass P2 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh2();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -482,10 +502,12 @@ technique DestBlendOne
 	//モーフターゲット３つ
 	pass P3 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh3();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -493,10 +515,12 @@ technique DestBlendOne
 	//モーフターゲット４つ
 	pass P4 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh4();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -504,10 +528,12 @@ technique DestBlendOne
 	//モーフターゲット５つ
 	pass P5 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh5();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -515,10 +541,12 @@ technique DestBlendOne
 	//モーフターゲット６つ
 	pass P6 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh6();
 		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
 	}
@@ -539,21 +567,25 @@ technique Flush
 	//モーフターゲット無し
 	pass P0 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh0();
+		BlendOpAlpha = Add;       //default  
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 
 	//モーフターゲット１つ
 	pass P1 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh1();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
@@ -561,10 +593,12 @@ technique Flush
 	//モーフターゲット２つ
 	pass P2 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh2();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
@@ -572,10 +606,12 @@ technique Flush
 	//モーフターゲット３つ
 	pass P3 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh3();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
@@ -583,10 +619,12 @@ technique Flush
 	//モーフターゲット４つ
 	pass P4 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh4();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
@@ -594,10 +632,12 @@ technique Flush
 	//モーフターゲット５つ
 	pass P5 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh5();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
@@ -605,10 +645,12 @@ technique Flush
 	//モーフターゲット６つ
 	pass P6 {
 		AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = One; //加算合成
         SrcBlendAlpha = One;      //default
         DestBlendAlpha = Zero;    //default
+		BlendOpAlpha = Add;       //default  
 		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh6();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
