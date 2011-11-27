@@ -102,7 +102,8 @@ void Properties::load(string prm_ini_filename) {
     _TRACE_("Properties::MY_JOY_BUTTON8="<<Properties::MY_JOY_BUTTON8);
     _TRACE_("Properties::MY_JOY_PAUSE="<<Properties::MY_JOY_PAUSE);
     _TRACE_("Properties::MY_JOY_UI_EXECUTE="<<Properties::MY_JOY_UI_EXECUTE);
-    _TRACE_("Properties::MY_JOY_UI_CANCEL="<<Properties::MY_JOY_UI_CANCEL);}
+    _TRACE_("Properties::MY_JOY_UI_CANCEL="<<Properties::MY_JOY_UI_CANCEL);
+}
 
 void Properties::clean() {
     StgProperties::clean();

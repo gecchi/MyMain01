@@ -5,7 +5,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace MyStg2nd;
 
-
 VirtualButton* God::_pVbtn_PLAY = NULL;
 VirtualButton* God::_pVbtn_UI = NULL;
 VirtualButton* God::_pVbtn_Active = NULL;
