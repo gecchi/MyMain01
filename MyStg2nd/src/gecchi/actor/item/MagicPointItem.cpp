@@ -32,7 +32,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
 
 void MagicPointItem::initialize() {
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB_Cube(0, 300000);
+    _pCollisionChecker->setColliAAB_Cube(0, 400000);
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "decide1");
 }
@@ -48,6 +48,8 @@ void MagicPointItem::onActive() {
     _pKurokoB->_gravitation_mv_seq_flg = false;
     _pProg->set(ITEM_PROG_DRIFT);
     _SX = _SY = _SZ = 1000;
+
+    //‰Šú•ûŒüİ’è
     MyShip* pMyShip = P_MYSHIP;
     GgafCore::CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
     //U‚ç‚Î‚è”ÍˆÍ³•ûŒ`‚P•Ó‚Ì’·‚³

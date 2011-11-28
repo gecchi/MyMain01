@@ -62,6 +62,59 @@ MagicMeter::MagicMeter(const char* prm_name)
     _pSeTransmitter->set(SE_EXECUTE_LEVELDOWN_MAGIC, "SwingA@11"); //キャンセル
 }
 
+void MagicMeter::save(stringstream& ss) {
+    Magic* pOrgMagic = _ringMagics.getCurrent();
+    Magic::LevelInfo* info;
+    int len_magics = _ringMagics.length();
+    for (int i = 0; i < len_magics; i++) {
+        for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
+            info = &(pOrgMagic->_lvinfo[lv]);
+            ss  << info->_is_working <<
+                << info->_remaining_time_of_effect <<
+                << info->_time_of_effect <<
+                << info->_keep_cost <<
+                << info->_pno;
+        }
+        pOrgMagic = _ringMagics.next();
+    }
+}
+
+void MagicMeter::load(stringstream& ss) {
+    Magic* pOrgMagic = _ringMagics.getCurrent();
+    Magic::LevelInfo* info;
+    int len_magics = _ringMagics.length();
+    for (int i = 0; i < len_magics; i++) {
+        for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
+            info = &(pOrgMagic->_lvinfo[lv]);
+            ss  >> info->_is_working >>
+                >> info->_remaining_time_of_effect >>
+                >> info->_time_of_effect >>
+                >> info->_keep_cost >>
+                >> info->_pno;
+        }
+        pOrgMagic = _ringMagics.next();
+    }
+}
+//    VBRecordNote* p = _pFirstVBNote;
+//    while (p != NULL) {
+//        ofs << p->_state << " " << p->_frame_of_keeping << endl;
+//        p = p ->_pNext;
+//    }
+//    if (_write_realtime) {
+//        _ofs_realtime.flush();
+//    }
+}
+//    MagicMeter* pCopy = NEW MagicMeter(getName());
+//    Magic* pOrgMagic = _ringMagics.getCurrent();
+//    Magic* pCopyMagic = pCopy->_ringMagics.getCurrent();
+//
+//    int len_magics = _ringMagics.length();
+//    for (int i = 0; i < len_magics; i++) {
+//        &pCopyMagic = &pOrgMagic;
+//        pOrgMagic = _ringMagics.next();
+//        pCopyMagic = pCopy->_ringMagics.next();
+//    }
+
 void MagicMeter::initialize() {
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //アニメ順序
 }

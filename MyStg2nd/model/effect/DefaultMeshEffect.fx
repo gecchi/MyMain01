@@ -157,12 +157,12 @@ technique DefaultMeshTechnique
     //ÉÅÉbÉVÉÖÇï`âÊÇ∑ÇÈ
     pass P0 {
         AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = true;
+        //SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        SrcBlendAlpha = One;      //default
-        DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;       //default  
+        //SrcBlendAlpha = One;      //default
+        //DestBlendAlpha = Zero;    //default
+		//BlendOpAlpha = Add;       //default  
         VertexShader = compile VS_VERSION GgafDxVS_DefaultMesh();
         PixelShader  = compile PS_VERSION GgafDxPS_DefaultMesh();
     }
@@ -172,12 +172,12 @@ technique DestBlendOne
 {
     pass P0 {
         AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = true;
+        //SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;   
         DestBlend = One; //â¡éZçáê¨
-        SrcBlendAlpha = One;      //default
-        DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;       //default  
+        //SrcBlendAlpha = One;      //default
+        //DestBlendAlpha = Zero;    //default
+		//BlendOpAlpha = Add;       //default  
         VertexShader = compile VS_VERSION GgafDxVS_DefaultMesh();
         PixelShader  = compile PS_VERSION GgafDxPS_DefaultMesh();
     }
@@ -187,12 +187,12 @@ technique Flush
 {
     pass P0 {
         AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = true;
+        //SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        SrcBlendAlpha = One;      //default
-        DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;       //default  
+        //SrcBlendAlpha = One;      //default
+        //DestBlendAlpha = Zero;    //default
+		//BlendOpAlpha = Add;       //default  
         VertexShader = compile VS_VERSION GgafDxVS_DefaultMesh();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

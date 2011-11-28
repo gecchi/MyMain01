@@ -306,22 +306,22 @@ float4 GgafDxPS_LaserChip_ZERO(
 	return out_color;
 }
 
-float4 GgafDxPS_LaserChip_SHADOW( 
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color    : COLOR0
-) : COLOR  {
-    //レーザーの影
-	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_color;
-//out_color.r = 1-out_color.r;
-//out_color.g = 1-out_color.g;
-//out_color.b = 1-out_color.b;
-//out_color.a = 1-out_color.a;
-
-//    out_color.rgb = 1;
-    out_color.a = 1-out_color.a;
-    //out_color.a = 1-out_color.a;
-	return out_color;
-}
+//float4 GgafDxPS_LaserChip_SHADOW( 
+//	float2 prm_uv	  : TEXCOORD0,
+//	float4 prm_color    : COLOR0
+//) : COLOR  {
+//    //レーザーの影
+//	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_color;
+////out_color.r = 1-out_color.r;
+////out_color.g = 1-out_color.g;
+////out_color.b = 1-out_color.b;
+////out_color.a = 1-out_color.a;
+//
+////    out_color.rgb = 1;
+//    out_color.a = 1-out_color.a;
+//    //out_color.a = 1-out_color.a;
+//	return out_color;
+//}
 
 float4 GgafDxPS_LaserChip( 
 	float2 prm_uv	  : TEXCOORD0,
@@ -338,10 +338,9 @@ technique LaserChipTechnique
 {
  	pass P0 {
 		AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = false;
 		SrcBlend  = SrcAlpha; 
         DestBlend = One;
-		BlendOp = Add;    //default  
+		//BlendOp = Add;    //default  
 		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
 		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
     }
@@ -359,10 +358,10 @@ technique LaserChipTechnique
 //
 //    pass P1 {
 //		AlphaBlendEnable = true;
-//        SeparateAlphaBlendEnable = true;
+//        //SeparateAlphaBlendEnable = true;
 //		SrcBlend  = Zero; 
 //        DestBlend = DestAlpha;
-//        SrcBlendAlpha = One;      //default
+//        //SrcBlendAlpha = One;      //default
 //        DestBlendAlpha = One;    //default  
 //		BlendOpAlpha = Revsubtract;       //default  
 //		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();

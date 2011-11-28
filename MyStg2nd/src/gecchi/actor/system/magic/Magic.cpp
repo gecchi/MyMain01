@@ -83,8 +83,6 @@ Magic::Magic(const char*  prm_name,
     _time_of_next_state = 0;
 
     _is_working = false;
-    _pCaster = NULL;
-    _pReceiver = NULL;
     _rr = 0.0f;
     _velo_rr = 0.0f;
 
@@ -270,7 +268,6 @@ void Magic::processBehavior() {
                                        (1.0*_lvinfo[_last_level]._remaining_time_of_effect / _lvinfo[_last_level]._time_of_effect) );
                         }
                     }
-
                 }
 
                 if (_level == 0) {
@@ -285,9 +282,8 @@ void Magic::processBehavior() {
                 processEffectBegin(_last_level, _level); //コールバック
 
                 _pProg->set(MAGIC_EFFECTING);
-                //break 無しの落下(falldown).
-            }
-
+            }   //↓break 無しの落下(falldown).
+                //↓
             case MAGIC_EFFECTING: { //持続中
                 processEffectingBehavior(_last_level, _level); //コールバック
 
@@ -296,17 +292,17 @@ void Magic::processBehavior() {
                 if (_keep_cost_base != 0) { //維持コストがかかる場合
                     _pMP->inc(-1*_lvinfo[_level]._keep_cost); //維持コスト減少
                     if (_pMP->_val <= 0) {//MP枯渇
-                         //MP枯渇による持続終了時
-                         _pMP->_val = 0;
-                         //リセットを設定
-                         for (int lv = 1; lv <= _level; lv++) {
-                             _lvinfo[lv]._is_working = false; //停止し
-                             _lvinfo[lv]._remaining_time_of_effect = 0; //果持続終了残り時間を0
-                         }
-                         _last_level = _level;
-                         _level = 0;
-                         _pProg->change(MAGIC_NOTHING); //MP枯渇による魔法終了
-                         break;
+                        //MP枯渇による持続終了時
+                        _pMP->_val = 0;
+                        //リセットを設定
+                        for (int lv = 1; lv <= _level; lv++) {
+                         _lvinfo[lv]._is_working = false; //停止し
+                         _lvinfo[lv]._remaining_time_of_effect = 0; //果持続終了残り時間を0
+                        }
+                        _last_level = _level;
+                        _level = 0;
+                        _pProg->change(MAGIC_NOTHING); //MP枯渇による魔法終了
+                        break;
                     }
                 }
 

@@ -169,11 +169,11 @@ technique SpriteMeshTechnique
 	// s0レジスタ				    D3DXHANDLE _h_cnt_vertec;:	2Dテクスチャ
 	pass P0 {
 		AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = true;
+        //SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-        SrcBlendAlpha = One;      //default
-        DestBlendAlpha = Zero;    //default
+        //SrcBlendAlpha = One;      //default
+        //DestBlendAlpha = Zero;    //default
 		VertexShader = compile VS_VERSION GgafDxVS_SpriteMesh();
 		PixelShader  = compile PS_VERSION GgafDxPS_SpriteMesh();
 	}
@@ -182,13 +182,13 @@ technique SpriteMeshTechnique
 technique DestBlendOne
 {
 	pass P0 {
-        SeparateAlphaBlendEnable = true;
+        //SeparateAlphaBlendEnable = true;
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-        SrcBlendAlpha = One;      //default
-        DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;       //default
+        //SrcBlendAlpha = One;      //default
+        //DestBlendAlpha = Zero;    //default
+		//BlendOpAlpha = Add;       //default
 		VertexShader = compile VS_VERSION GgafDxVS_SpriteMesh();
 		PixelShader  = compile PS_VERSION GgafDxPS_SpriteMesh();
 	}
@@ -198,12 +198,12 @@ technique Flush
 {
 	pass P0 {
 		AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = true;
+        //SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-        SrcBlendAlpha = One;      //default
-        DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;       //default
+        //SrcBlendAlpha = One;      //default
+        //DestBlendAlpha = Zero;    //default
+		//BlendOpAlpha = Add;       //default
 		VertexShader = compile VS_VERSION GgafDxVS_SpriteMesh();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
@@ -213,12 +213,12 @@ technique NoLight
 {
 	pass P0 {
 		AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = true;
+        //SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-        SrcBlendAlpha = One;      //default
-        DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;       //default
+        //SrcBlendAlpha = One;      //default
+        //DestBlendAlpha = Zero;    //default
+		//BlendOpAlpha = Add;       //default
 		VertexShader = compile VS_VERSION VS_NoLight();
 		PixelShader  = compile PS_VERSION PS_NoLight();
 	}

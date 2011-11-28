@@ -11,11 +11,10 @@ MagicPointItem001::MagicPointItem001(const char* prm_name)
 }
 
 void MagicPointItem001::initialize() {
-    _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliAAB_Cube(0, 300000);
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "decide1");
 }
+
 
 MagicPointItem001::~MagicPointItem001() {
 }

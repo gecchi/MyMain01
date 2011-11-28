@@ -25,6 +25,10 @@ public:
     float _height_px;
     MagicMeter(const char* prm_name);
 
+    void save(std::stringstream& ss);
+
+    void load(std::stringstream& ss);
+
     void initialize() override;
 
     void onActive() override;

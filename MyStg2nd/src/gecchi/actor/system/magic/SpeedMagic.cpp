@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 SpeedMagic::SpeedMagic(const char* prm_name)
 : Magic(prm_name,
     5,          //max_level
-    1000*4    , 0.9,   //基本魔法コスト , 飛びレベル時の rate
+    100       , 0.9,   //基本魔法コスト , 飛びレベル時の rate
     60*0.3    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
     60*0.1    , 0.9,   //基本発動時間   , 飛びレベル時の rate
     60*60*10  , 0.0,   //基本持続時間, 各レベルの削減割合

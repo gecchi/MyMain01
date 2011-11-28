@@ -296,12 +296,12 @@ technique SpriteMeshSetTechnique
 	// s0レジスタ				:	2Dテクスチャ
 	pass P0 {
 		AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = true;
+        //SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-        SrcBlendAlpha = One;      //default
-        DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;       //default
+        //SrcBlendAlpha = One;      //default
+        //DestBlendAlpha = Zero;    //default
+		//BlendOpAlpha = Add;       //default
 		VertexShader = compile VS_VERSION GgafDxVS_SpriteMeshSet();
 		PixelShader  = compile PS_VERSION GgafDxPS_SpriteMeshSet();
 	}
@@ -311,12 +311,12 @@ technique DestBlendOne
 {
 	pass P0 {
 		AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = true;
+        //SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
-        SrcBlendAlpha = One;      //default
-        DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;       //default
+        //SrcBlendAlpha = One;      //default
+        //DestBlendAlpha = Zero;    //default
+		//BlendOpAlpha = Add;       //default
 		VertexShader = compile VS_VERSION GgafDxVS_SpriteMeshSet();
 		PixelShader  = compile PS_VERSION GgafDxPS_SpriteMeshSet();
 	}
@@ -326,12 +326,12 @@ technique Flush
 {
 	pass P0 {
 		AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = true;
+        //SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-        SrcBlendAlpha = One;      //default
-        DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;       //default
+        //SrcBlendAlpha = One;      //default
+        //DestBlendAlpha = Zero;    //default
+		//BlendOpAlpha = Add;       //default
 		VertexShader = compile VS_VERSION GgafDxVS_SpriteMeshSet();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}

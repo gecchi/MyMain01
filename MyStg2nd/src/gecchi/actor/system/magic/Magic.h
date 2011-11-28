@@ -68,8 +68,8 @@ public:
                       _pno(0) {
         }
     };
-    GgafDxCore::GgafDxGeometricActor* _pCaster;
-    GgafDxCore::GgafDxGeometricActor* _pReceiver;
+//    GgafDxCore::GgafDxGeometricActor* _pCaster;
+//    GgafDxCore::GgafDxGeometricActor* _pReceiver;
 
     char* _name;
     /** ç≈çÇÉåÉxÉã */
@@ -198,7 +198,7 @@ public:
      */
     int chkExecuteAble(int prm_new_level);
     /**
-     * é¿çs .
+     * ârè• .
      * @param prm_new_level
      */
     void cast(int prm_new_level);

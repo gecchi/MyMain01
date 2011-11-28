@@ -89,12 +89,12 @@ technique GroundMeshTechnique
 {
 	pass P0 {
 		AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = true;
+        //SeparateAlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-        SrcBlendAlpha = One;      //default
-        DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;       //default
+        //SrcBlendAlpha = One;      //default
+        //DestBlendAlpha = Zero;    //default
+		//BlendOpAlpha = Add;       //default
 		VertexShader = compile VS_VERSION GgafDxVS_GroundMesh();
 		PixelShader  = compile PS_VERSION GgafDxPS_GroundMesh();
 	}
