@@ -14,7 +14,12 @@ class MagicMeter : public GgafLib::DefaultBoardSetActor {
 
 public:
     D3DXHANDLE _h_active_magic;
-
+    /** MP */
+    GgafLib::AmountGraph _mp;
+    /** 残魔法効果持続時間表示 */
+    MagicMeterStatus* _pMagicMeterStatus;
+    /** エネルギーバー */
+    EnagyBar* _pEnagyBar;
     GgafCore::GgafLinkedListRing<Magic> _ringMagics;
     /** 各魔法のアクティブカーソル位置 */
     int* _paLevelCursor;
@@ -25,9 +30,9 @@ public:
     float _height_px;
     MagicMeter(const char* prm_name);
 
-    void save(std::stringstream& ss);
+    void save(std::stringstream& sts);
 
-    void load(std::stringstream& ss);
+    void load(std::stringstream& sts);
 
     void initialize() override;
 

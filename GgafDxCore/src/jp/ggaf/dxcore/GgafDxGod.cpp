@@ -442,10 +442,10 @@ HRESULT GgafDxGod::init() {
     } else {
 
         if(CFG_PROPERTY(DUAL_VIEW)) {
-            _paPresetParam[0].BackBufferFormat = D3DFMT_A8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
+            _paPresetParam[0].BackBufferFormat = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
             _paPresetParam[1].BackBufferFormat = _paPresetParam[0].BackBufferFormat;
         } else {
-            _paPresetParam[0].BackBufferFormat = D3DFMT_A8R8G8B8;
+            _paPresetParam[0].BackBufferFormat = D3DFMT_X8R8G8B8;
             _paPresetParam[1].BackBufferFormat = D3DFMT_UNKNOWN;
         }
 

@@ -11,8 +11,6 @@ MagicPointItem002::MagicPointItem002(const char* prm_name)
 }
 
 void MagicPointItem002::initialize() {
-    _pSeTransmitter->useSe(1);
-    _pSeTransmitter->set(0, "decide1");
 }
 
 MagicPointItem002::~MagicPointItem002() {

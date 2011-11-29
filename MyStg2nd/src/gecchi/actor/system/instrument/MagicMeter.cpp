@@ -41,19 +41,32 @@ MagicMeter::MagicMeter(const char* prm_name)
 //    [4][6]  [5][6]  [6][6]  [7][6]
 //    [4][7]  [5][7]  [6][7]  [7][7]
 //
-    _ringMagics.addLast(NEW TractorMagic("TRACTOR"));
-    _ringMagics.addLast(NEW SpeedMagic("SPEED"));
-    _ringMagics.addLast(NEW LockonMagic("LOCKON"));
-    _ringMagics.addLast(NEW TorpedoMagic("TORPEDO"));
-    _ringMagics.addLast(NEW LaserMagic("LASER"));
-    _ringMagics.addLast(NEW OptionMagic("OPTION"));
+    _mp.config(600, 10000); //値 10000 で表示は400pxとする。
+    _mp.set(10000);           //初期値は5000
+    _ringMagics.addLast(NEW TractorMagic("TRACTOR", &_mp));
+    _ringMagics.addLast(NEW SpeedMagic("SPEED", &_mp));
+    _ringMagics.addLast(NEW LockonMagic("LOCKON", &_mp));
+    _ringMagics.addLast(NEW TorpedoMagic("TORPEDO", &_mp));
+    _ringMagics.addLast(NEW LaserMagic("LASER", &_mp));
+    _ringMagics.addLast(NEW OptionMagic("OPTION", &_mp));
     for (int i = 0; i < _ringMagics.length(); i++) {
         addSubGroup(_ringMagics.getNext(i));
     }
+
     _paLevelCursor = NEW int[_ringMagics.length()];
     for (int i = 0; i < _ringMagics.length(); i++) {
         _paLevelCursor[i] = _ringMagics.getNextFromFirst(i)->_level;
     }
+
+    _pMagicMeterStatus = NEW MagicMeterStatus("MagicMeterStatus", this);
+    _pMagicMeterStatus->locateAs(this);
+    addSubGroup(_pMagicMeterStatus);
+
+    //エネルギーバー設置
+    _pEnagyBar = NEW EnagyBar("EnagyBar", &_mp);
+    _pEnagyBar->locate(PX2CO(100), PX2CO(CFG_PROPERTY(GAME_BUFFER_HEIGHT) - 50.0f), 0.00000001f );
+    addSubGroup(_pEnagyBar);
+
 
     _pSeTransmitter->useSe(4);
     _pSeTransmitter->set(SE_CURSOR_MOVE_METER, "click07_2"); //メーター移動
@@ -62,34 +75,35 @@ MagicMeter::MagicMeter(const char* prm_name)
     _pSeTransmitter->set(SE_EXECUTE_LEVELDOWN_MAGIC, "SwingA@11"); //キャンセル
 }
 
-void MagicMeter::save(stringstream& ss) {
+void MagicMeter::save(stringstream& sts) {
     Magic* pOrgMagic = _ringMagics.getCurrent();
     Magic::LevelInfo* info;
     int len_magics = _ringMagics.length();
     for (int i = 0; i < len_magics; i++) {
         for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
             info = &(pOrgMagic->_lvinfo[lv]);
-            ss  << info->_is_working <<
-                << info->_remaining_time_of_effect <<
-                << info->_time_of_effect <<
-                << info->_keep_cost <<
-                << info->_pno;
+            sts << info->_is_working               << " " <<
+                   info->_remaining_time_of_effect << " " <<
+                   info->_time_of_effect           << " " <<
+                   info->_keep_cost                << " " <<
+                   info->_pno                      << " ";
         }
         pOrgMagic = _ringMagics.next();
     }
 }
 
-void MagicMeter::load(stringstream& ss) {
+void MagicMeter::load(stringstream& sts) {
     Magic* pOrgMagic = _ringMagics.getCurrent();
     Magic::LevelInfo* info;
     int len_magics = _ringMagics.length();
+    sts.seekg(stringstream::beg); //頭出し
     for (int i = 0; i < len_magics; i++) {
         for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
             info = &(pOrgMagic->_lvinfo[lv]);
-            ss  >> info->_is_working >>
-                >> info->_remaining_time_of_effect >>
-                >> info->_time_of_effect >>
-                >> info->_keep_cost >>
+            sts >> info->_is_working
+                >> info->_remaining_time_of_effect
+                >> info->_time_of_effect
+                >> info->_keep_cost
                 >> info->_pno;
         }
         pOrgMagic = _ringMagics.next();
@@ -103,7 +117,6 @@ void MagicMeter::load(stringstream& ss) {
 //    if (_write_realtime) {
 //        _ofs_realtime.flush();
 //    }
-}
 //    MagicMeter* pCopy = NEW MagicMeter(getName());
 //    Magic* pOrgMagic = _ringMagics.getCurrent();
 //    Magic* pCopyMagic = pCopy->_ringMagics.getCurrent();

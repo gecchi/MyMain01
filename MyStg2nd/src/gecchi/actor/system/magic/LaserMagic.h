@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class LaserMagic : public Magic {
 
 public:
-    LaserMagic(const char* prm_name);
+    LaserMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
 
     virtual void processCastBegin(int prm_now_level, int prm_new_level) override {
     }

@@ -274,6 +274,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     #endif
 #endif
 
+
     try {
         //ê_ÇÃíaê∂
         pGod = NEW MyStg2nd::God(hInstance, hWnd1, hWnd2);

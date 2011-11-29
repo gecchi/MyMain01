@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class TorpedoMagic : public Magic {
 
 public:
-    TorpedoMagic(const char* prm_name);
+    TorpedoMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
 
     virtual void processCastBegin(int prm_now_level, int prm_new_level) override {
     }

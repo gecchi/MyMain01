@@ -11,7 +11,7 @@ namespace MyStg2nd {
 class TractorMagic : public Magic {
 
 public:
-    TractorMagic(const char* prm_name);
+    TractorMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
 
     virtual void processCastBegin(int prm_now_level, int prm_new_level) override {
     }

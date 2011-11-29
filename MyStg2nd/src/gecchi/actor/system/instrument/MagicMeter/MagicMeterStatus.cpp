@@ -52,6 +52,8 @@ void MagicMeterStatus::processDraw() {
         }
         pElem = pElem->_pNext;
     }
+
+
 }
 MagicMeterStatus::~MagicMeterStatus() {
 }

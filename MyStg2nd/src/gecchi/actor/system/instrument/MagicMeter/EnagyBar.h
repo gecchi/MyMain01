@@ -5,12 +5,17 @@ namespace MyStg2nd {
 class EnagyBar : public GgafLib::DefaultBoardActor {
 
 public:
-
-    GgafLib::AmountGraph _amount;
+    /** 内容量 */
+    GgafLib::AmountGraph* _pAmount;
 
     float _fSize_BoardModelWidthPx;
 
-    EnagyBar(const char* prm_name);
+    /**
+     *
+     * @param prm_name
+     * @param prm_pAmount config済みの AmountGraphオブジェクトの参照
+     */
+    EnagyBar(const char* prm_name, GgafLib::AmountGraph* prm_pAmount);
 
     void initialize() override;
 

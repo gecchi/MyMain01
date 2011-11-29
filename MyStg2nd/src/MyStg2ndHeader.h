@@ -632,8 +632,8 @@ class VamSysCamPosition;
 
 
 #include "gecchi/actor/system/instrument/MagicMeter.h"
-#include "gecchi/actor/system/instrument/MagicMeterStatus.h"
-#include "gecchi/actor/system/instrument/EnagyBar.h"
+#include "gecchi/actor/system/instrument/MagicMeter/MagicMeterStatus.h"
+#include "gecchi/actor/system/instrument/MagicMeter/EnagyBar.h"
 
 #include "gecchi/actor/system/magic/Magic.h"
 #include "gecchi/actor/system/magic/OptionMagic.h"

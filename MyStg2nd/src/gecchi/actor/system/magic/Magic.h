@@ -159,7 +159,7 @@ public:
      *                                 レベル4のとき prm_keep_cost_base * 1.2 * 1.2 * 1.2  という維持コストが設定される)
      * @return
      */
-    Magic(const char* prm_name,
+    Magic(const char* prm_name, GgafLib::AmountGraph* prm_pMP,
           int   prm_max_level,
           magic_point prm_cost_base, float prm_fRate_cost,
           magic_time  prm_time_of_casting_base , float prm_fRate_time_of_casting,
@@ -170,7 +170,8 @@ public:
 
 //          GgafDxCore::GgafDxGeometricActor* prm_pCaster,
 //          GgafDxCore::GgafDxGeometricActor* prm_pReceiver);
-    void initialize() override;
+    void initialize() override {
+    }
 
     void onReset() override {
     }

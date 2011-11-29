@@ -16,7 +16,7 @@ enum {
 
 };
 
-Magic::Magic(const char*  prm_name,
+Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
              int          prm_max_level,
              magic_point  prm_cost_base            , float prm_fRate_cost             ,
              magic_time   prm_time_of_casting_base , float prm_fRate_time_of_casting  ,
@@ -26,7 +26,7 @@ Magic::Magic(const char*  prm_name,
                 ) : GgafMainActor(prm_name, NULL) {
 //    GgafDxGeometricActor* prm_pCaster,
 //     GgafDxGeometricActor* prm_pReceiver) : GgafDxBoardSetActor(prm_name, "magic") {
-    _pMP = NULL; //initialize()‚Åİ’è‚·‚éB
+    _pMP = prm_pMP;
     _new_level = 0;
     _last_level = 0;
     _level = 0;
@@ -88,10 +88,6 @@ Magic::Magic(const char*  prm_name,
 
     useProgress(MAGIC_ABANDONING);
     _pProg->set(MAGIC_NOTHING);
-}
-
-void Magic::initialize()  {
-    _pMP = &(P_MYSHIP_SCENE->_pEnagyBar->_amount); //MP‚É“–‚½‚éAmountGraph
 }
 
 

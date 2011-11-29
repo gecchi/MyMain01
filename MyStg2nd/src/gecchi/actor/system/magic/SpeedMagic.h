@@ -13,7 +13,7 @@ class SpeedMagic : public Magic {
     EffectSpeedMagic* _pEffect;
 
 public:
-    SpeedMagic(const char* prm_name);
+    SpeedMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
 
     virtual void processCastBegin(int prm_now_level, int prm_new_level) override;
     virtual void processCastingBehavior(int prm_now_level, int prm_new_level) override;

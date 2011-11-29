@@ -28,13 +28,13 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     _kDX = _kDY = _kDZ = 0;
     useProgress();
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³Œø
-}
-
-void MagicPointItem::initialize() {
-    _pCollisionChecker->makeCollision(1);
+	_pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB_Cube(0, 400000);
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "decide1");
+}
+
+void MagicPointItem::initialize() {
 }
 
 void MagicPointItem::onActive() {
@@ -111,7 +111,7 @@ void MagicPointItem::processBehavior() {
             _pProg->change(ITEM_PROG_NOTIONG);
             sayonara(); //I—¹
         }
-        P_MYSHIP_SCENE->_pEnagyBar->_amount.inc(1);
+        P_MYSHIP_SCENE->_pMagicMeter->_pEnagyBar->_pAmount->inc(1);
     }
     _pKurokoA->behave();
     _pKurokoB->behave();
