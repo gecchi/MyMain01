@@ -198,11 +198,12 @@ public:
      * @return
      */
     int chkExecuteAble(int prm_new_level);
+
     /**
-     * 詠唱 .
+     * 詠唱開始実行 .
      * @param prm_new_level
      */
-    void cast(int prm_new_level);
+    virtual void cast(int prm_new_level);
 
 
     /**
@@ -227,6 +228,12 @@ public:
     virtual void processCastFinish(int prm_now_level, int prm_new_level) {};
 
     /**
+     * 発動開始実行 .
+     * @param prm_new_level
+     */
+    virtual void invoke(int prm_new_level);
+
+    /**
      * 魔法発動開始コールバック。ここまでくると詠唱キャンセルは不可とする。(１回だけコールバック) .
      * @param prm_now_level 現在のレベル(0～ )
      * @param prm_new_level 発動させようとしている新しいレベル(1～ )
@@ -246,6 +253,12 @@ public:
      * @param prm_now_level 発動により、これから昇格する新しいレベル。(1～ )
      */
     virtual void processInvokeFinish(int prm_now_level, int prm_new_level) {};
+
+    /**
+     * 効果発揮実行 .
+     * @param prm_new_level
+     */
+    virtual void effect(int prm_level);
 
     /**
      * 魔法効果持続開始コールバック(１回だけコールバック) .

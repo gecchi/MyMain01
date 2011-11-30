@@ -118,36 +118,63 @@ int Magic::chkExecuteAble(int prm_new_level) {
 }
 void Magic::cast(int prm_new_level) {
     int r = chkExecuteAble(prm_new_level);
-    if (r > 0) {
-        _new_level = prm_new_level;
-
-        _is_working = true;
-        if (r == MAGIC_EXECUTE_OK_LEVELUP) {
-            //レベルアップ
-            _pProg->change(MAGIC_STAND_BY);
-        } else if (r == MAGIC_EXECUTE_OK_LEVELDOWN) {
-            //レベルダウン
-            //TODO:MP増加
-            //現在を停止し
-//            _lvinfo[_level]._is_working = false;
-//            _lvinfo[_level]._remaining_time_of_effect = 0;
-//            //飛び越し
-//            for (int i = _level-1; i >= prm_new_level+1; i--) {
-//                _lvinfo[i]._is_working = false; //停止し
-//                _lvinfo[i]._remaining_time_of_effect = 0;
-//            }
-//            //新しい低いレベルを設定
-//            _lvinfo[prm_new_level]._is_working = true;
-////            processOnLevelDown(_level, prm_new_level); //下位の処理実行
-
-            _pProg->change(MAGIC_EFFECT_BEGEIN);
+    switch (r) {
+        case MAGIC_EXECUTE_THE_SAME_LEVEL: {
+            break;
         }
-    } else {
-
+        case MAGIC_EXECUTE_NG_MP_IS_SHORT: {
+            break;
+        }
+        case MAGIC_EXECUTE_NG_INVOKING: {
+            break;
+        }
+        case MAGIC_EXECUTE_OK_LEVELUP: {
+            _is_working = true;
+            _new_level = prm_new_level;
+            _pProg->change(MAGIC_CASTING);
+            break;
+        }
+        case MAGIC_EXECUTE_OK_LEVELDOWN: {
+            _is_working = true;
+            effect(prm_new_level);
+            break;
+        }
     }
 }
 
-
+void Magic::invoke(int prm_new_level) {
+    int r = chkExecuteAble(prm_new_level);
+    switch (r) {
+        case MAGIC_EXECUTE_THE_SAME_LEVEL: {
+            break;
+        }
+        case MAGIC_EXECUTE_NG_MP_IS_SHORT: {
+            break;
+        }
+        case MAGIC_EXECUTE_NG_INVOKING: {
+            break;
+        }
+        case MAGIC_EXECUTE_OK_LEVELUP: {
+            _is_working = true;
+            _new_level = prm_new_level;
+            _pProg->change(MAGIC_INVOKING);
+            break;
+        }
+        case MAGIC_EXECUTE_OK_LEVELDOWN: {
+            _is_working = true;
+            effect(prm_new_level);
+            break;
+        }
+    }
+}
+void Magic::effect(int prm_level) {
+    //現在魔法レベルは停止して
+    _lvinfo[_level]._is_working = false;
+    //レベル更新
+    _last_level = _level;
+    _level = prm_level;
+    _pProg->change(MAGIC_EFFECT_BEGEIN);
+}
 
 void Magic::cancel() {
     _new_level = _level;
@@ -191,7 +218,6 @@ void Magic::processBehavior() {
         switch (_pProg->get()) {
             /////////////////////////////////////// 待機
             case MAGIC_STAND_BY: {
-                _pProg->change(MAGIC_CASTING);
                 break;
             }
             /////////////////////////////////////// 詠唱
@@ -209,7 +235,6 @@ void Magic::processBehavior() {
                 if (_pProg->getFrameInProgress() >= _time_of_next_state) {
                     //詠唱終了
                     processCastFinish(_level, _new_level);  //コールバック
-                    _pProg->change(MAGIC_INVOKING);
                 }
                 break;
             }
@@ -228,19 +253,11 @@ void Magic::processBehavior() {
                 if (_pProg->getFrameInProgress() >= _time_of_next_state) {
                     //発動終了
                     processInvokeFinish(_level, _new_level); //コールバック
-                    _pProg->change(MAGIC_EFFECT_BEGEIN);
                 }
                 break;
             }
             /////////////////////////////////////// 持続
             case MAGIC_EFFECT_BEGEIN: { //持続開始
-                //魔法は停止して
-                _lvinfo[_level]._is_working = false;
-
-                //レベル更新
-                _last_level = _level;
-                _level = _new_level;
-
                 if (_last_level < _level) {
                     //レベルアップだった場合
                     //飛び越された間のレベルは停止して効果持続終了残り時間を満タンを設定

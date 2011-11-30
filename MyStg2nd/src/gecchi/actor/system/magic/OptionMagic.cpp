@@ -72,8 +72,8 @@ void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
 }
 
 void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level) {
+    invoke(prm_new_level);
 }
-
 
 void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     _r_effect = 1;
@@ -128,6 +128,7 @@ void OptionMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level)
 }
 
 void OptionMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
+    effect(prm_new_level);
 }
 
 void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
