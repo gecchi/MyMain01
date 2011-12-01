@@ -54,7 +54,7 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         _papEffect[lv-1]->locateAs(P_MYSHIP);
         _papEffect[lv-1]->_pKurokoA->setRzRyMvAng(paAngWay[lv-1], D90ANG);
         _papEffect[lv-1]->_pKurokoA->setMvVelo(2000);
-        _papEffect[lv-1]->_pKurokoA->setMvAcce(-10);
+        _papEffect[lv-1]->_pKurokoA->setMvAcce(-5);
         _papEffect[lv-1]->setAlpha(0.9);
         _papEffect[lv-1]->setScaleRate(2.0f);
         _papEffect[lv-1]->activate();
@@ -85,46 +85,11 @@ void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
                P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[lv-1]->_Yorg,
                P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[lv-1]->_Zorg,
                20000, 1000, 50000);
-//
-//        _papEffect[i]->_pKurokoA->setMvVelo(1000);
-//        _papEffect[i]->_pKurokoA->setMvAcce(100);
-//        _papEffect[i]->_pKurokoA->execTurnMvAngSequence(P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg,
-//                                                           P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[i]->_Yorg,
-//                                                           P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg,
-//                                                           3000,
-//                                                           0,TURN_CLOSE_TO,true);
-//
-//
-//
-//        _papEffect[i]->_pKurokoA->forceMvVeloRange(P_MYOPTIONCON->_papMyOption[i]->_veloMv*5.0);
-////                                SmoothMvVeloSequence2(2000, 0, _time_of_casting, true);
     }
 
 }
 
 void OptionMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level)  {
-//    if ((_time_of_invoking - _left_time_to_expire) < (D180ANG/3000)) {
-//        return;
-//    }
-//    int targetX,targetY,targetZ;
-//    int ok = 0;
-//    for (int i = _old_level; i < _new_level; i++) {
-//        targetX = P_MYOPTIONCON->_X + P_MYOPTIONCON->_papMyOption[i]->_Xorg;
-//        targetY = P_MYOPTIONCON->_Y + P_MYOPTIONCON->_papMyOption[i]->_Yorg;
-//        targetZ = P_MYOPTIONCON->_Z + P_MYOPTIONCON->_papMyOption[i]->_Zorg;
-//        if (GgafUtil::abs(_papEffect[i]->_X - targetX) + GgafUtil::abs(_papEffect[i]->_Y - targetY) + GgafUtil::abs(_papEffect[i]->_Z - targetZ)/3  < GgafUtil::abs(P_MYOPTIONCON->_papMyOption[i]->_veloMv)*5) {
-//            ok++;
-//            _papEffect[i]->_pKurokoA->setMvVelo(500);
-//        }
-//        _papEffect[i]->_pKurokoA->execTurnMvAngSequence(targetX,
-//                                                           targetY,
-//                                                           targetZ,
-//                                                           40000,
-//                                                           0,TURN_CLOSE_TO,true);
-//    }
-//    if (ok == (_new_level - _old_level)) {
-//        effect();
-//    }
 }
 
 void OptionMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
@@ -165,11 +130,6 @@ void OptionMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
 void OptionMagic::processEffectFinish(int prm_justbefore_level) {
     P_MYOPTIONCON->setNumOption(0);
 }
-//void OptionMagic::processOnLevelDown(int prm_last_high_level, int prm_new_low_level) {
-//    //レベルダウン時、
-//    P_MYOPTIONCON->setNumOption(prm_new_low_level);
-//    P_MYOPTIONCON->adjustDefaltAngPosition(60);
-//}
 
 OptionMagic::~OptionMagic() {
     DELETEARR_IMPOSSIBLE_NULL(_papEffect);

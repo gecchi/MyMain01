@@ -31,14 +31,6 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
     _last_level = 0;
     _level = 0;
     _max_level = prm_max_level;
-
-//    _cost = _cost_base;
-
-//    _time_of_casting = _time_of_casting_base;
-//    _cast_speed = 100;
-
-//    _left_time_to_expire =  _time_of_invoking;
-
     _cost_base             = prm_cost_base;
     _time_of_casting_base  = prm_time_of_casting_base;
     _time_of_invoking_base = prm_time_of_invoking_base;
@@ -72,13 +64,6 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
         _lvinfo[i]._time_of_effect = _time_of_effect_base + ((i-1) * _time_of_effect_base * _fRate_time_of_effecting);
         _lvinfo[i]._keep_cost      = _keep_cost_base      + ((i-1) * _keep_cost_base * _fRate_keep_cost);
     }
-
-//    for (int i = 1; i <= _max_level; i++) {
-//        _TRACE_(getName()<<":_lvinfo["<<i<<"]._is_working ="<<_lvinfo[i]._is_working);
-//        _TRACE_(getName()<<":_lvinfo["<<i<<"]._remaining_time_of_effect ="<<_lvinfo[i]._remaining_time_of_effect);
-//        _TRACE_(getName()<<":_lvinfo["<<i<<"]._time_of_effect ="<<_lvinfo[i]._time_of_effect);
-//        _TRACE_(getName()<<":_lvinfo["<<i<<"]._keep_cost ="<<_lvinfo[i]._keep_cost);
-//    }
 
     _time_of_next_state = 0;
 
@@ -182,18 +167,6 @@ void Magic::cancel() {
     _pProg->change(MAGIC_NOTHING);
 }
 
-//void Magic::commit() {
-//    if (_is_working) {
-//        _level = _new_level;
-//        _is_working = false;
-//        _lvinfo[_level]._is_working = true;
-////        _lvinfo[_level]._working_time = 0;
-//        _pProg->change(MAGIC_NOTHING);
-//    }
-//}
-
-
-
 void Magic::processBehavior() {
     _rr += _velo_rr;
     if (_rr < 0.0f) {
@@ -204,15 +177,6 @@ void Magic::processBehavior() {
         _rr = 1.0f;
         _velo_rr = 0.0f;
     }
-////    for (int i = 0; i < _max_level; i++) {
-//        if (_lvinfo[_level]._is_working) {
-//            _lvinfo[_level]._remaining_time_of_effect --;
-////            _lvinfo[i]._working_time ++;
-//            if (_lvinfo[_level]._remaining_time_of_effect <= 0) {
-//                abandon(_level);
-//            }
-//        }
-////    }
     if (_is_working) {
 
         switch (_pProg->get()) {
@@ -328,7 +292,7 @@ void Magic::processBehavior() {
                     if (_level == 1) { //現レベルが１の場合
                         _last_level = _level;
                         _level = 0;
-                        processEffectFinish(_last_level); //コールバック
+                        processEffectFinish(_lasst_level); //コールバック
                         _pProg->change(MAGIC_NOTHING); //レベルダウン(0レベル指定)による魔法終了
                         break;
                     } else {   //現レベルが2以上の場合
