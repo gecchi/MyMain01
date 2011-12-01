@@ -235,6 +235,7 @@ void Magic::processBehavior() {
                 if (_pProg->getFrameInProgress() >= _time_of_next_state) {
                     //詠唱終了
                     processCastFinish(_level, _new_level);  //コールバック
+					invoke(_new_level);
                 }
                 break;
             }
@@ -253,6 +254,7 @@ void Magic::processBehavior() {
                 if (_pProg->getFrameInProgress() >= _time_of_next_state) {
                     //発動終了
                     processInvokeFinish(_level, _new_level); //コールバック
+				    effect(_new_level);
                 }
                 break;
             }

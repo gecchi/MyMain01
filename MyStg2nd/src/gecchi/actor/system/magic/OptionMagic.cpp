@@ -72,7 +72,7 @@ void OptionMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
 }
 
 void OptionMagic::processCastFinish(int prm_now_level, int prm_new_level) {
-    invoke(prm_new_level);
+
 }
 
 void OptionMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
@@ -128,14 +128,16 @@ void OptionMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level)
 }
 
 void OptionMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
-    effect(prm_new_level);
+}
+void OptionMagic::effect(int prm_level) {
+    Magic::effect(prm_level);
+    //オプション有効にする。
+    //(processEffectBegin 時、 option は一度はbehave()されて座標を計算しておいてほしい）
+    P_MYOPTIONCON->setNumOption(prm_level);
+    P_MYOPTIONCON->adjustDefaltAngPosition(60);
 }
 
 void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
-    //オプション有効にする。
-    //(processEffectBegin 時、 option は一度はbehave()されて座標を計算しておいてほしい）
-    P_MYOPTIONCON->setNumOption(prm_now_level);
-    P_MYOPTIONCON->adjustDefaltAngPosition(60);
     //レベルアップ時、エフェクトの処理
     for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
         _papEffect[lv-1]->inactivateDelay(120); //非活動の保険

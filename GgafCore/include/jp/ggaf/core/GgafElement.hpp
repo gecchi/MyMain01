@@ -960,7 +960,13 @@ void GgafElement<T>::nextFrame() {
             _frame_of_behaving++;
             // êiíªÇîΩâf
             if (_pProg) {
+//				if (GgafUtil::strcmp_ascii(getName(), "OPTION") == 0) { 
+//				_TRACE_("name="<<getName()<<"("<<this<<") _pProg="<<_pProg->get() <<" _pProg->update(); begin "<<getActivePartFrame()); 
+//				}
                 _pProg->update();
+//				if (GgafUtil::strcmp_ascii(getName(), "OPTION") == 0) { 
+//				_TRACE_("name="<<getName()<<"("<<this<<") _pProg="<<_pProg->get() <<" _pProg->update(); end"<<getActivePartFrame()); 
+//				}
             }
             _frame_of_behaving_since_onActive++;
         }

@@ -137,11 +137,11 @@ void MagicMeter::onActive() {
 
 void MagicMeter::processBehavior() {
     //_pUvFlipper->behave();
-    GgafLinkedListRing<Magic>::Elem* pElem = _ringMagics.getElemFirst();
-    for (int i = 0; i < _ringMagics.length(); i++) {
-        pElem->_pValue->behave();
-        pElem = pElem->_pNext;
-    }
+//    GgafLinkedListRing<Magic>::Elem* pElem = _ringMagics.getElemFirst();
+//    for (int i = 0; i < _ringMagics.length(); i++) {
+//        pElem->_pValue->behave();
+//        pElem = pElem->_pNext;
+//    }
     //updatePanVolume3D ‚µ‚È‚¢‚½‚ß _pSeTransmitter->behave(); ‚Í•s—v
 }
 
