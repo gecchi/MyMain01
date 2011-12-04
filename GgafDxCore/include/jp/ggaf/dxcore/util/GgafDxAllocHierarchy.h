@@ -5,39 +5,6 @@ namespace GgafDxCore {
 
 
 
-//http://www36.atwiki.jp/directx/m/pages/33.html?guid=on
-//
-////階層割り当てクラス
-//class CAllocateHierarchy: public ID3DXAllocateHierarchy {
-//public:
-//    STDMETHOD(CreateFrame)(THIS_ LPCSTR Name, LPD3DXFRAME *ppNewFrame);//フレーム作成
-//    STDMETHOD(CreateMeshContainer)(THIS_ //メッシュコンテナ作成
-//            LPCSTR Name, //名前
-//            CONST D3DXMESHDATA *pMeshData,//メッシュデータ
-//            CONST D3DXMATERIAL *pMaterials, //マテリアル
-//            CONST D3DXEFFECTINSTANCE *pEffectInstances, //エフェクトの実体
-//            DWORD NumMaterials, //マテリアル数
-//            CONST DWORD *pAdjacency, //隣接関係
-//            LPD3DXSKININFO pSkinInfo, //スキン情報
-//            LPD3DXMESHCONTAINER *ppNewMeshContainer);//メッシュコンテナのポインタ
-//    STDMETHOD(DestroyFrame)(THIS_ LPD3DXFRAME pFrameToFree);//フレーム削除
-//    STDMETHOD(DestroyMeshContainer)(THIS_ LPD3DXMESHCONTAINER pMeshContainerBase);//メッシュコンテナ削除
-//
-//    CAllocateHierarchy() {
-//    }
-//};
-//
-//WCHAR ShaderSource[4][30] = { L"skinmesh1.vsh",
-//L"skinmesh2.vsh",
-//L"skinmesh3.vsh",
-//L"skinmesh4.vsh"
-//};
-//
-//
-//
-
-
-
 
 class GgafDxAllocHierarchy : public ID3DXAllocateHierarchy
 {

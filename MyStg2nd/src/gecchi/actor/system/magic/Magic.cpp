@@ -276,7 +276,7 @@ void Magic::processBehavior() {
                         //リセットを設定
                         for (int lv = 1; lv <= _level; lv++) {
                          _lvinfo[lv]._is_working = false; //停止し
-                         _lvinfo[lv]._remaining_time_of_effect = 0; //果持続終了残り時間を0
+                         _lvinfo[lv]._remaining_time_of_effect = 0; //効果持続終了残り時間を0
                         }
                         _last_level = _level;
                         _level = 0;
@@ -287,12 +287,12 @@ void Magic::processBehavior() {
 
                 if (_lvinfo[_level]._remaining_time_of_effect <= 0) { //持続時間満期
                     _lvinfo[_level]._is_working = false;           //現魔法は停止して
-                    _lvinfo[_level]._remaining_time_of_effect = 0; //果持続終了残り時間を0
+                    _lvinfo[_level]._remaining_time_of_effect = 0; //効果持続終了残り時間を0
                     //レベルダウン(-1)を行う。
                     if (_level == 1) { //現レベルが１の場合
                         _last_level = _level;
                         _level = 0;
-                        processEffectFinish(_lasst_level); //コールバック
+                        processEffectFinish(_last_level); //コールバック
                         _pProg->change(MAGIC_NOTHING); //レベルダウン(0レベル指定)による魔法終了
                         break;
                     } else {   //現レベルが2以上の場合
