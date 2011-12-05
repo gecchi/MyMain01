@@ -235,7 +235,7 @@ void Magic::processBehavior() {
                 } else if (_last_level > _level) {
                     //レベルダウンだった場合
                     //飛び越された間のレベルは停止して効果持続終了残り時間をリセットを設定
-                    for (int lv = _last_level+1; lv <= _level-1; lv++) {
+                    for (int lv = _level+1 ; lv <= _last_level-1; lv++) {
                         _lvinfo[lv]._is_working = false; //停止し
                         _lvinfo[lv]._remaining_time_of_effect = 0; //果持続終了残り時間を0
                     }
@@ -256,7 +256,12 @@ void Magic::processBehavior() {
 
                 //今回の新たなレベルを設定
                 _lvinfo[_level]._is_working = true;
-                _lvinfo[_level]._remaining_time_of_effect = _lvinfo[_level]._time_of_effect; //持続時間を満タン
+                if (_last_level < _level) {
+                    //レベルアップだった場合
+                    _lvinfo[_level]._remaining_time_of_effect = _lvinfo[_level]._time_of_effect; //今回持続時間を満タン
+                } else {
+                    //レベルダウンだった場合、今回持続時間は前回の続き
+                }
                 //効果持続開始
                 processEffectBegin(_last_level, _level); //コールバック
 
