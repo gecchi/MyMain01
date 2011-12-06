@@ -25,21 +25,29 @@ public:
     static float _master_volume_rate;
     static float _bgm_volume_rate;
     static float _se_volume_rate;
+    /** 要素番号にボリューム値を入れると、対応デシベルが取得できる配列 */
     static LONG aDbVolume[GGAF_MAX_VOLUME+1];
 
     /**
-     * マスタボリューム設定(現在未実装).
-     * TODO:マスターボリューム処理をする！
-     * @param prm_master_volume_rate
+     * マスタボリューム設定の率設定 .
+     * @param prm_master_volume_rate 0.0(無音) ～ 1.0(サンプリング本来の音量)
      */
     static void setMasterVolume(float prm_master_volume_rate) {
         GgafDxSound::_master_volume_rate = prm_master_volume_rate;
     }
 
+    /**
+     * 全体的なBGMボリュームの率設定 .
+     * @param prm_bgm_volume_rate  0.0(無音) ～ 1.0(サンプリング本来の音量)
+     */
     static void setBgmVolume(float prm_bgm_volume_rate) {
         GgafDxSound::_bgm_volume_rate = prm_bgm_volume_rate;
     }
 
+    /**
+     * 全体的なSEボリュームの率設定 .
+     * @param prm_se_volume_rate  0.0(無音) ～ 1.0(サンプリング本来の音量)
+     */
     static void setSeVolume(float prm_se_volume_rate) {
         GgafDxSound::_se_volume_rate = prm_se_volume_rate;
     }

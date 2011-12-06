@@ -9,7 +9,6 @@ namespace {
 const unsigned int requestSize_g = 4096; // 読み込み単位
 }
 
-//namespace Dix {
 //! コンストラクタ
 OggDecoder::OggDecoder() {
     _pOggVorbisResource = NULL;
@@ -20,18 +19,15 @@ OggDecoder::OggDecoder(OggVorbisResource* prm_pOggVorbisResource) {
     setResource(prm_pOggVorbisResource);
 }
 
-//! デストラクタ
 OggDecoder::~OggDecoder() {
     DELETE_IMPOSSIBLE_NULL(_pOggVorbisResource);
     clear();
 }
 
-//! クリア
 void OggDecoder::clear() {
     PCMDecoder::clear();
 }
 
-//! セグメント取得
 bool OggDecoder::getSegment(char* prm_buffer, unsigned int prm_size, unsigned int* pUInt_write_size, bool* pBool_is_end) {
     if (isReady() == false) {
         return false;
@@ -101,14 +97,12 @@ bool OggDecoder::getSegment(char* prm_buffer, unsigned int prm_size, unsigned in
     return false; //不明エラー
 }
 
-//! 頭出し
 void OggDecoder::setHead() {
     if (isReady() == true) {
         ov_time_seek(&_pOggVorbisResource->getOggVorbisFile(), 0.0);
     }
 }
 
-//! クローンを生成
 PCMDecoder* OggDecoder::createClone() {
     OggDecoder * spObj = NEW
     OggDecoder;
@@ -121,7 +115,6 @@ PCMDecoder* OggDecoder::createClone() {
     return spObj;
 }
 
-//! サウンドをセット
 bool OggDecoder::setResource(OggVorbisResource* prm_pOggVorbisResource) {
     clear();
     if (prm_pOggVorbisResource == NULL || prm_pOggVorbisResource->isReady() == false) {
@@ -141,4 +134,3 @@ bool OggDecoder::setResource(OggVorbisResource* prm_pOggVorbisResource) {
     setReady(true);
     return true;
 }
-//}

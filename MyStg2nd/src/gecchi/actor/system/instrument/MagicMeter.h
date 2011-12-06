@@ -4,6 +4,13 @@ namespace MyStg2nd {
 
 #define MMETER_MAX_LEVEL 8
 
+#ifdef P_MYSHIP_SCENE
+    #define P_MAGICMETER (P_MYSHIP_SCENE->_pMagicMeter)
+#else
+    #error P_MYSHIP_SCENE isnt define
+#endif
+
+
 /**
  * 魔法メーター .
  * @version 1.00

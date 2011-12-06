@@ -9,27 +9,25 @@ namespace MyStg2nd {
  * @author Masatoshi Tsuge
  */
 class TractorMagic : public Magic {
-
 public:
+    /** TractorMagicå¯â éùë±íÜÇÕtrue */
+    bool _is_tracting;
+
     TractorMagic(const char* prm_name, GgafLib::AmountGraph* prm_pMP);
 
-    virtual void processCastBegin(int prm_now_level, int prm_new_level) override {
-    }
+    virtual void processCastBegin(int prm_now_level, int prm_new_level) override;
+    virtual void processCastingBehavior(int prm_now_level, int prm_new_level) override;
+    virtual void processCastFinish(int prm_now_level, int prm_new_level) override;
 
-    virtual void processCastingBehavior(int prm_now_level, int prm_new_level)override {
-    }
+    virtual void processInvokeBegin(int prm_now_level, int prm_new_level) override;
+    virtual void processInvokeingBehavior(int prm_now_level, int prm_new_level) override;
+    virtual void processInvokeFinish(int prm_now_level, int prm_new_level) override;
 
-    virtual void processInvokeBegin(int prm_now_level, int prm_new_level) override {
-    }
+    virtual void effect(int prm_level) override;
 
-    virtual void processInvokeingBehavior(int prm_now_level, int prm_new_level) override {
-    }
-
-    virtual void processEffectBegin(int prm_last_level, int prm_now_level) override {
-    }
-
-    virtual void processEffectingBehavior(int prm_last_level, int prm_now_level) override {
-    }
+    virtual void processEffectBegin(int prm_last_level, int prm_now_level) override;
+    virtual void processEffectingBehavior(int prm_last_level, int prm_now_level) override;
+    virtual void processEffectFinish(int prm_justbefore_level) override;
 
     virtual ~TractorMagic();
 };

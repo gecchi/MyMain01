@@ -13,7 +13,11 @@ namespace MyStg2nd {
 class Item : public GgafLib::DefaultMeshSetActor {
 
 public:
+    TractorMagic* _pTractorMagic;
+
     Item(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
+
+	TractorMagic* getTractorMagic();
 
     virtual void initialize() override;
 

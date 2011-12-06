@@ -2,16 +2,6 @@
 #define GGAFDXSE_H_
 namespace GgafDxCore {
 
-
-
-// 本プログラムは、<BR>
-// 「越後屋Cyber」 http://www.e-cyber.org/ <BR>
-// のメンバーのアンダー氏のサンプルプログラムのクラスを使用し実装しています。<BR>
-// アンダー氏ありがとう！
-//
-// 対象： CWaveDecorder クラス
-//                                            2009/01/13 Masatoshi Tsuge<BR>
-
 /**
  * Sound Effect(Wave) クラス .
  */
@@ -21,11 +11,12 @@ public:
     LPDIRECTSOUNDBUFFER _pIDirectSoundBuffer;
     /** waveファイル名 */
     char* _wave_name;
-
+    /** 元の周波数 */
     DWORD _dwDefaultFrequency;
+
     /**
      * コンストラクタ
-     * @param prm_wave_name
+     * @param prm_wave_name 識別ID (識別ID + ".wav"で読み込むファイル名になる)
      * @return
      */
     GgafDxSe(char* prm_wave_name);
@@ -60,17 +51,38 @@ public:
         play(prm_iVolume, prm_fPan, 1.0f);
     }
 
+    /**
+     * SEを1回再生 .
+     */
     virtual void play() {
         play(GGAF_MAX_VOLUME, 0.0f);
     }
 
+    /**
+     * SEが再生中か調べる .
+     * @return
+     */
     bool isPlaying();
 
-
+    /**
+     * ボリュームを変更 .
+     * play()実行後、SEが再生中に使用することを想定 .
+     * @param prm_iVolume ボリューム(min:0 max:100)
+     */
     void setVolume(int prm_iVolume);
 
+    /**
+     * パンを変更 .
+     * play()実行後、SEが再生中に使用することを想定 .
+     * @param prm_fPan パン(left:-1.0 center:0 right:1.0)
+     */
     void setPan(float prm_fPan);
 
+    /**
+     * 周波数の率を変更 .
+     * play()実行後、SEが再生中に使用することを想定 .
+     * @param prm_fRate_Frequency 元の周波数に乗ずる率
+     */
     void setFrequencyRate(float prm_fRate_Frequency);
 
     virtual ~GgafDxSe();

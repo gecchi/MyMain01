@@ -199,7 +199,7 @@ void Magic::processBehavior() {
                 if (_pProg->getFrameInProgress() >= _time_of_next_state) {
                     //詠唱終了
                     processCastFinish(_level, _new_level);  //コールバック
-					invoke(_new_level);
+                    invoke(_new_level);
                 }
                 break;
             }
@@ -218,7 +218,7 @@ void Magic::processBehavior() {
                 if (_pProg->getFrameInProgress() >= _time_of_next_state) {
                     //発動終了
                     processInvokeFinish(_level, _new_level); //コールバック
-				    effect(_new_level);
+                    effect(_new_level);
                 }
                 break;
             }
@@ -285,6 +285,7 @@ void Magic::processBehavior() {
                         }
                         _last_level = _level;
                         _level = 0;
+                        processEffectFinish(_last_level);
                         _pProg->change(MAGIC_NOTHING); //MP枯渇による魔法終了
                         break;
                     }
@@ -298,12 +299,13 @@ void Magic::processBehavior() {
                         _last_level = _level;
                         _level = 0;
                         processEffectFinish(_last_level); //コールバック
-                        _pProg->change(MAGIC_NOTHING); //レベルダウン(0レベル指定)による魔法終了
+                        _pProg->change(MAGIC_NOTHING);    //持続時間満期レベルダウン(0レベル指定)による
+                                                          //魔法終了
                         break;
                     } else {   //現レベルが2以上の場合
                         _last_level = _level;
                         _level = _new_level;
-                        _pProg->change(MAGIC_EFFECT_BEGEIN);      //持続時間満期レベルダウン
+                        _pProg->change(MAGIC_EFFECT_BEGEIN); //持続時間満期レベルダウン
                         break;
                     }
                 }

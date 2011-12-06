@@ -42,6 +42,7 @@ protected:
     int _size; // バッファサイズ
     long _pos_current; // 現在の位置
 };
+
 }
 
 #endif

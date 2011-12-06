@@ -18,13 +18,11 @@ OggVorbisFile::OggVorbisFile(const char* filePath) {
 OggVorbisFile::~OggVorbisFile() {
 }
 
-//! クリア
 void OggVorbisFile::clear() {
     memset(_filepath, 0, sizeof(_filepath));
     OggVorbisResource::clear();
 }
 
-//! 安全なクローンを作成
 OggVorbisResource* OggVorbisFile::createClone() {
     OggVorbisFile * obj = NEW
     OggVorbisFile;
@@ -34,11 +32,9 @@ OggVorbisResource* OggVorbisFile::createClone() {
     return obj;
 }
 
-//! Oggファイルオープン
 bool OggVorbisFile::open(const char* filePath) {
 
     clear();
-
     // Oggファイルオープン
     if (ov_fopen((char*)filePath, &_ogg_vorbis_file) != 0) {
         // 失敗

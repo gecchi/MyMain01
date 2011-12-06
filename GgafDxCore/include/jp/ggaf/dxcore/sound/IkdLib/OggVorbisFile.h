@@ -9,26 +9,27 @@
 #define IKD_DIX_OGGVORBISFILE_H
 
 namespace Dix {
-    class OggVorbisFile : public OggVorbisResource {
-    public:
-        OggVorbisFile();
-        OggVorbisFile( const char* filePath );
 
-        virtual ~OggVorbisFile();
+class OggVorbisFile : public OggVorbisResource {
+public:
+    OggVorbisFile();
+    OggVorbisFile(const char* filePath);
 
-        //! クリア
-        virtual void clear();
+    virtual ~OggVorbisFile();
 
-        //! 安全なクローンを作成
-        virtual OggVorbisResource* createClone();
+    //! クリア
+    virtual void clear();
 
+    //! 安全なクローンを作成
+    virtual OggVorbisResource* createClone();
 
-        //! Oggファイルオープン
-        bool open( const char* filePath );
+    //! Oggファイルオープン
+    bool open(const char* filePath);
 
-    protected:
-        char _filepath[ 256 ];	// ファイル名
-    };
+protected:
+    char _filepath[256];	// ファイル名
+};
+
 }
 
 #endif

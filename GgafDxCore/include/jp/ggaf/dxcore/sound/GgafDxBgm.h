@@ -2,16 +2,6 @@
 #define GGAFDXBGM_H_
 namespace GgafDxCore {
 
-// 本プログラムは、<BR>
-// 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html <BR>
-// サイト内コンテンツの 「Ogg Vorbis入門編」 http://marupeke296.com/OGG_main.html <BR>
-// のサンプルプログラムのクラスを一部変更し使用しています。<BR>
-// 製作者IKD氏の惜しみない知識共有の心に感謝。<BR>
-//
-//対象箇所
-// Dix ネームスペースのクラス
-//                                            2009/01/13 Masatoshi Tsuge<BR>
-
 /**
  * Bgm(Ogg ストリーム)クラス .
  */

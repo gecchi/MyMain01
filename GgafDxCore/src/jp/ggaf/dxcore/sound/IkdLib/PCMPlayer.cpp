@@ -1,3 +1,10 @@
+// 本プログラムは、<BR>
+// 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html <BR>
+// サイト内コンテンツの 「Ogg Vorbis入門編」 http://marupeke296.com/OGG_main.html <BR>
+// のサンプルプログラムがオリジナルです。<BR>
+// 一部変更して使用しています。<BR>
+//                                            2009/01/13 Masatoshi Tsuge<BR>
+
 #include "stdafx.h"
 
 using namespace std;
@@ -5,12 +12,6 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace Dix;
 
-// PCMPlayer.cpp
-//
-//#include "GgafDxCommonHeader.h"
-//#include "PCMPlayer.h"
-//#include <process.h>
-//#include <stdio.h>
 
 #ifdef _MSC_VER
 
@@ -168,7 +169,7 @@ bool PCMPlayer::initializeBuffer() {
     if (_pPCMDecoder == NULL) {
         return false;
     }
- ___BeginSynchronized2;
+ ___BeginSynchronized2; //これが効いてる
     _pPCMDecoder->setHead(); // 頭出し
     HRESULT hr = _pDSBuffer->SetCurrentPosition(0);
     checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer()  SetCurrentPosition( 0 ) に失敗しました。");
@@ -177,16 +178,19 @@ bool PCMPlayer::initializeBuffer() {
                                    //これは DSBLOCK_ENTIREBUFFER （全体ロック)が
                                    //仕組上特定のタイミングで失敗することは避けれないと考えたため。
                                    //TODO:はたしてこんな方法でいいのだろうか。
-                                   //TODO:極極稀に落ちるのはなぜか？。環境依存なのか？完全に納得していない。
+
 
         void* AP1 = 0, *AP2 = 0;
         DWORD AB1 = 0, AB2 = 0;
         hr = _pDSBuffer->Lock(0, 0, &AP1, &AB1, &AP2, &AB2, DSBLOCK_ENTIREBUFFER);
         //checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Lock に失敗しました。");
-        //↑ロック失敗している場合がある。仕方ないのでエラーチェックはコメントにする。
-        //  起こった場合、メモリリークしていた。２ヶ月ぐらい悩んだが放置。
+        //↑TODO:ロック失敗している場合がある。仕方ないのでエラーチェックはコメントにする。
+        //  起こった場合、メモリリークしているっぽい。長い期間悩んだが放置・・。
+        //クリティカルセクション___BeginSynchronized2 ～ ___EndSynchronized2 で挟むようにしてみた。
+        //TODO:後で見直す。
+
         if (SUCCEEDED(hr)) {
-            _pPCMDecoder->getSegment((char*)AP1, AB1, 0, 0); //← ココでも極稀に落ちる！排他しないといけないのか。
+            _pPCMDecoder->getSegment((char*)AP1, AB1, 0, 0); //← ココでも極稀に落ちる！
             hr = _pDSBuffer->Unlock(AP1, AB1, AP2, AB2);
             checkDxException(hr, DS_OK , "PCMPlayer::initializeBuffer() Unlock に失敗しました。");
             break;

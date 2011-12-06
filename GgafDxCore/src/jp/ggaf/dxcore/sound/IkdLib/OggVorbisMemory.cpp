@@ -5,36 +5,21 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace Dix;
 
-// OggVorbisMemory.cpp
-//
-
-//#pragma warning ( disable : 4267 )
-//#pragma warning ( disable : 4244 )
-//#pragma warning ( disable : 4996 )
-//#include "OggVorbisMemory.h"
-//#include <stdio.h>
-//#include <string.h>
-
-//namespace Dix {
-// コンストラクタ
 OggVorbisMemory::OggVorbisMemory() :
         _size(0), _pos_current(0)
 {
 }
 
-// コンストラクタ
 OggVorbisMemory::OggVorbisMemory(const char* prm_filepath) :
         _size(0), _pos_current(0)
 {
     createBuffer(prm_filepath);
 }
 
-// デストラクタ
 OggVorbisMemory::~OggVorbisMemory() {
     clear();
 }
 
-//! クリア
 void OggVorbisMemory::clear() {
     _size = 0;
     _pos_current = 0;
@@ -42,8 +27,6 @@ void OggVorbisMemory::clear() {
     OggVorbisResource::clear();
 }
 
-// 安全なクローンを作成
-//sp< OggVorbisResource > OggVorbisMemory::createClone() {
 OggVorbisResource* OggVorbisMemory::createClone() {
     if (_is_ready == false) {
         return 0;
@@ -65,7 +48,6 @@ OggVorbisResource* OggVorbisMemory::createClone() {
     return obj;
 }
 
-//! メモリ読み込み
 size_t OggVorbisMemory::read(void* prm_buffer, size_t prm_size, size_t prm_max_count, void* prm_stream) {
     if (prm_buffer == 0) {
         return 0;
@@ -88,7 +70,6 @@ size_t OggVorbisMemory::read(void* prm_buffer, size_t prm_size, size_t prm_max_c
     return count;
 }
 
-//! メモリシーク
 int OggVorbisMemory::seek(void* prm_buffer, ogg_int64_t offset, int flag) {
 
     // ストリームからオブジェクトのポインタを取得
@@ -122,20 +103,17 @@ int OggVorbisMemory::seek(void* prm_buffer, ogg_int64_t offset, int flag) {
     return 0;
 }
 
-//! メモリクローズ
 int OggVorbisMemory::close(void* prm_buffer) {
     // デストラクタやクリアが先に処理してくれているので
     // ここは何もしない
     return 0;
 }
 
-//! メモリ位置通達
 long OggVorbisMemory::tell(void* prm_buffer) {
     OggVorbisMemory *p = (OggVorbisMemory*)prm_buffer;
     return p->_pos_current;
 }
 
-//! Oggバッファを作成
 bool OggVorbisMemory::createBuffer(const char* prm_filepath) {
 
     clear();
@@ -174,4 +152,3 @@ bool OggVorbisMemory::createBuffer(const char* prm_filepath) {
     return true;
 }
 
-//}

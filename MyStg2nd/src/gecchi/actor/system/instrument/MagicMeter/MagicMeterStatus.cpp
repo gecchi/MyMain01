@@ -34,7 +34,7 @@ void MagicMeterStatus::processDraw() {
             setAlpha(1.0);
             _X = _pMagicMeter->_X + PX2CO(_pMagicMeter->_width_px)*i;
             _Y = _pMagicMeter->_Y + PX2CO(_pMagicMeter->_height_px);
-            sprintf(_aBuf, "%06d", pMagic->_lvinfo[pMagic->_level]._remaining_time_of_effect);
+            sprintf(_aBuf, "%06d", (pMagic->_lvinfo[pMagic->_level]._remaining_time_of_effect)/60);
             update(_aBuf);
             StringBoardActor::processDraw();
         }
@@ -45,7 +45,7 @@ void MagicMeterStatus::processDraw() {
             for (int j = 1; j <= pMagic->_level; j++) {
                 setAlpha(pMagic->_rr);
                 _Y = _pMagicMeter->_Y - (PX2CO(_pMagicMeter->_height_px)*(j+1)*pMagic->_rr); //j+1 ‚Ì +1 ‚ÍÅ‰º’i‚ª nothing ‚Ìˆ×
-                sprintf(_aBuf, "%06d", pMagic->_lvinfo[j]._remaining_time_of_effect);
+                sprintf(_aBuf, "%06d", (pMagic->_lvinfo[j]._remaining_time_of_effect)/60);
                 update(_aBuf);
                 StringBoardActor::processDraw();
             }

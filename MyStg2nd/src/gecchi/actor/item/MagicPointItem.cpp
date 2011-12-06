@@ -28,7 +28,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     _kDX = _kDY = _kDZ = 0;
     useProgress();
     setHitAble(true, false); //画面外当たり判定は無効
-	_pCollisionChecker->makeCollision(1);
+    _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliAAB_Cube(0, 400000);
     _pSeTransmitter->useSe(1);
     _pSeTransmitter->set(0, "decide1");
@@ -75,13 +75,20 @@ void MagicPointItem::onActive() {
 void MagicPointItem::processBehavior() {
     //通常移動
     if (_pProg->get() == ITEM_PROG_DRIFT) {
-        //onHit() で状態変化するのを待つ
+        //TractorMagic発動中はITEM_PROG_ATTACHへ移行
+        if (getTractorMagic()->_is_tracting) {
+            changeEffectTechniqueInterim("Flush", 6); //フラッシュ
+            setHitAble(false);
+            _pProg->change(ITEM_PROG_ATTACH);
+        }
+
+        //あるいは onHit() で ITEM_PROG_ATTACH 状態変化するのを待つ
     }
 
     //自機と当たり判定がヒットし、自機に向かう動き
     if (_pProg->get() == ITEM_PROG_ATTACH) {
         MyShip* pMyShip = P_MYSHIP;
-        if (_pProg->isJustChanged()) {
+        if (_pProg->isJustChanged() || (getTractorMagic()->_is_tracting && getActivePartFrame() % 10 == 0)) {
             _pKurokoB->setVxMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv);
             _pKurokoB->setVyMvVelo(_pKurokoA->_vY*_pKurokoA->_veloMv);
             _pKurokoB->setVzMvVelo(_pKurokoA->_vZ*_pKurokoA->_veloMv);
@@ -90,9 +97,21 @@ void MagicPointItem::processBehavior() {
             _pKurokoA->setMvAcce(0);
             _pKurokoA->setMvVelo(5000);
         }
+
+        //かつ自機近辺に到達？
+        if (abs(pMyShip->_X - _X) < 20000 &&
+            abs(pMyShip->_Y - _Y) < 20000 &&
+            abs(pMyShip->_Z - _Z) < 20000 ) {
+
+            _kDX = pMyShip->_X - _X;
+            _kDY = pMyShip->_Y - _Y;
+            _kDZ = pMyShip->_Z - _Z;
+            _pProg->change(ITEM_PROG_ABSORB); //吸着吸収へ
+        }
+
     }
 
-    //自機に吸着し、吸収中の動き
+    //自機近辺に到達し、吸着、吸収中の動き
     if (_pProg->get() == ITEM_PROG_ABSORB) {
         MyShip* pMyShip = P_MYSHIP;
         if (_pProg->isJustChanged()) {
@@ -121,28 +140,19 @@ void MagicPointItem::processJudgement() {
     if (isOutOfUniverse()) {
         sayonara();
     }
-    //通常移動
-    if (_pProg->get() == ITEM_PROG_DRIFT) {
-        //onHit() で状態変化するのを待つ
-    }
-
-    //自機と当たり判定がヒットし、自機に向かう動き
-    if (_pProg->get() == ITEM_PROG_ATTACH) {
-        MyShip* pMyShip = P_MYSHIP;
-        if (abs(pMyShip->_X - _X) < 20000 &&
-            abs(pMyShip->_Y - _Y) < 20000 &&
-            abs(pMyShip->_Z - _Z) < 20000 ) {
-            //自機に吸着した
-            _kDX = pMyShip->_X - _X;
-            _kDY = pMyShip->_Y - _Y;
-            _kDZ = pMyShip->_Z - _Z;
-            _pProg->change(ITEM_PROG_ABSORB);
-        }
-    }
-
-    //自機に吸着し、吸収中の動き
-    if (_pProg->get() == ITEM_PROG_ABSORB) {
-    }
+//    //通常移動
+//    if (_pProg->get() == ITEM_PROG_DRIFT) {
+//        //onHit() で状態変化するのを待つ
+//    }
+//
+//    //自機と当たり判定がヒット時
+//    if (_pProg->get() == ITEM_PROG_ATTACH) {
+//
+//    }
+//
+//    //自機に吸着し、吸収中の動き
+//    if (_pProg->get() == ITEM_PROG_ABSORB) {
+//    }
 }
 
 void MagicPointItem::onInactive() {

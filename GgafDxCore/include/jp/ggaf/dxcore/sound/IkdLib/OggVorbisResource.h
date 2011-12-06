@@ -5,9 +5,6 @@
 // 一部変更して使用しています。<BR>
 //                                            2009/01/13 Masatoshi Tsuge<BR>
 
-// OggVorbisResource.h
-//
-
 #ifndef IKD_DIX_OGGVORBISRESOURCE_H
 #define IKD_DIX_OGGVORBISRESOURCE_H
 
@@ -17,8 +14,7 @@ namespace Dix {
 class OggVorbisResource {
 public:
     OggVorbisResource() :
-            _is_ready(false)
-    {
+            _is_ready(false) {
         memset(&_ogg_vorbis_file, 0, sizeof(OggVorbis_File));
     }
 
