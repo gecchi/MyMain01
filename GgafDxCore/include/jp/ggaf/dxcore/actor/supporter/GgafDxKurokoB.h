@@ -194,12 +194,15 @@ public:
     void forceVxyzMvAcceRange(acce prm_acceVxyzMv01, acce prm_acceVxyzMv02);
 
     /**
-     * X軸Y軸Z軸方向の移動加速度を 0 に設定する。
+     * X軸Y軸Z軸方向の移動速度を 0 に設定する。
      */
     void setZeroVxyzMvVelo() {
         _veloVxMv = _veloVyMv = _veloVzMv = 0;
     }
 
+    /**
+     * X軸Y軸Z軸方向の移動加速度を 0 に設定する。
+     */
     void setZeroVxyzMvAcce() {
         _acceVxMv = _acceVyMv = _acceVzMv = 0;
     }
@@ -210,13 +213,23 @@ public:
     }
 
     /**
-     *
-     * @param prm_tX
-     * @param prm_tY
-     * @param prm_tZ
-     * @param prm_max_velo
-     * @param prm_acce
-     * @param prm_stop_renge
+     * 重力により物体が引き寄せられるかような感じの動き .
+     * 【アルゴリズム概要】<BR>
+     * X,Y,Zの各軸の座標それぞれに、目標の座標とアクターの座標差分を取り、<BR>
+     * その正負により、加速度を加算減算させて目標に近づこうとします。<BR>
+     * 但し、このままであると、衛生が旋回するが如く、永遠に目標の座標に到達しません。<BR>
+     * そこで、目標の座標X,Y,Zの各軸と、アクターの座標差が<BR>
+     * -1*prm_stop_renge ～ prm_stop_renge<BR>
+     * の範囲内になった場合、速度を緩和(減速)し、目標の座標に更に近づこうします。<BR>
+     * 各軸それぞれ、目標に近づくと軸速度は0に近づく、という訳で、重力の引力とは根本的に動きが異なります。<BR>
+     * 数学的には、目標の座標に限りなく近づくだけで、目標座標と一致することはありません。<BR>
+     * ホーミングミサイルにも向きません。<BR>
+     * @param prm_tX 引き寄せられて到達する目標のX座標
+     * @param prm_tY 引き寄せられて到達する目標のY座標
+     * @param prm_tZ 引き寄せられて到達する目標のZ座標
+     * @param prm_max_velo 引き寄せられている最中の各軸(XYZ)の軸移動速度上限値
+     * @param prm_acce 引き寄せられている最中の各軸(XYZ)の軸移動加速度上限値
+     * @param prm_stop_renge 速度が抑えられる目標座標からの各軸の距離
      */
     void execGravitationVxyzMvSequence(
             coord prm_tX, coord prm_tY, coord prm_tZ,
@@ -225,7 +238,16 @@ public:
             int prm_stop_renge
             );
 
-
+    /**
+     * 重力により物体が引き寄せられるかような感じの動き .
+     * 説明は、
+     * execGravitationVxyzMvSequence(coord,coord,coord,velo,acce,int)
+     * を参照。
+     * @param prm_pActor_target 引き寄せられて到達する目標座標となるアクター
+     * @param prm_max_velo 引き寄せられている最中の各軸(XYZ)の軸移動速度上限値
+     * @param prm_acce 引き寄せられている最中の各軸(XYZ)の軸移動加速度上限値
+     * @param prm_stop_renge 速度が抑えられる目標座標からの各軸の距離
+     */
     void execGravitationVxyzMvSequence(
             GgafDxGeometricActor* prm_pActor_target,
             velo prm_max_velo,

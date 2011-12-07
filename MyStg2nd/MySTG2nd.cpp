@@ -3,6 +3,9 @@
 #include "resource.h"
 using namespace std;
 
+#define MY_IDM_RESET_WINDOW_SIZE 10
+#define MY_IDM_ABOUT             11
+
 #define MAX_LOADSTRING 100
 // グローバル変数:
 HINSTANCE hInst; // 現在のインターフェイス
@@ -19,7 +22,7 @@ BOOL CustmizeSysMenu(HWND hWnd);
 
 void myUnexpectedHandler();
 void myTerminateHandler();
-
+void resetWindowsize(HWND, int, int);
 
 /**
  * GNU GCC ならばエントリポイント
@@ -48,6 +51,8 @@ int main(int argc, char *argv[]) {
 }
 
 static MyStg2nd::God* pGod = NULL;
+HWND hWnd1 = NULL;
+HWND hWnd2 = NULL;
 
 /**
  * VCならばエントリポイント
@@ -74,8 +79,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
         _TRACE_("[GgafCriticalException]:" << e.getMsg());
         return EXIT_FAILURE;
     }
-    HWND hWnd1 = NULL;
-    HWND hWnd2 = NULL;
+
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
 
     // ウインドウの生成
@@ -194,52 +198,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     //クライアント領域を所望の大きさにするため、
     //タイトルバー、リサイズボーダーの厚さを考慮し、再設定。
     if (!CFG_PROPERTY(FULL_SCREEN)) {
-        RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
-        int ww1, wh1; // ウィンドウ全体の幅、高さ
-        int cw1, ch1; // クライアント領域の幅、高さ
-        int fw1, fh1; // フレームの幅、高さ
-        // ウィンドウ全体の幅・高さを計算
-        GetWindowRect(hWnd1, &wRect1);
-        ww1 = wRect1.right - wRect1.left;
-        wh1 = wRect1.bottom - wRect1.top;
-        // クライアント領域の幅・高さを計算
-        GetClientRect(hWnd1, &cRect1);
-        cw1 = cRect1.right - cRect1.left;
-        ch1 = cRect1.bottom - cRect1.top;
-        // クライアント領域以外に必要なサイズを計算
-        fw1 = ww1 - cw1;
-        fh1 = wh1 - ch1;
-        // 計算した幅と高さをウィンドウに設定
         if (CFG_PROPERTY(DUAL_VIEW)) {
-            SetWindowPos(
-                    hWnd1,
-                    HWND_TOP,
-                    0,
-                    0,
-                    CFG_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH) + fw1,
-                    CFG_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT) + fh1,
-                    SWP_NOMOVE
-            );
-            SetWindowPos(
-                    hWnd2,
-                    HWND_TOP,
-                    0,
-                    0,
-                    CFG_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH) + fw1,
-                    CFG_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT) + fh1,
-                    SWP_NOMOVE
-            );
+            resetWindowsize(hWnd1, CFG_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH), CFG_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT));
+            resetWindowsize(hWnd2, CFG_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH), CFG_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT));
         } else {
-            SetWindowPos(
-                    hWnd1,
-                    HWND_TOP,
-                    0,
-                    0,
-                    CFG_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH) + fw1,
-                    CFG_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT) + fh1,
-                    SWP_NOMOVE
-            );
-
+            resetWindowsize(hWnd1, CFG_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH), CFG_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT));
         }
     }
 
@@ -486,9 +449,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             }
             if(wParam == SC_CLOSE){
                 PostQuitMessage(0);
-            } else if(wParam == IDM_ABOUT) {
+            } else if(wParam == MY_IDM_ABOUT) {
+                //バージョンダイアログ
 //                dhwnd  = CreateDialog(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
                 DialogBox(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
+            } else if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
+                //ウィンドウリサイズ
+                if (!CFG_PROPERTY(FULL_SCREEN)) {
+                    if (CFG_PROPERTY(DUAL_VIEW)) {
+                        if (hWnd == hWnd2) {
+                            resetWindowsize(hWnd, CFG_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH), CFG_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT));
+                        } else if (hWnd == hWnd1) {
+                            resetWindowsize(hWnd, CFG_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH), CFG_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT));
+                        }
+                    } else {
+                        resetWindowsize(hWnd, CFG_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH), CFG_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT));
+                    }
+                }
             }
             break;
         case WM_DESTROY:
@@ -511,8 +488,8 @@ BOOL CustmizeSysMenu(HWND hWnd)
 //        DeleteMenu(hMenu, 0, MF_BYPOSITION);
 //    //システムメニューの項目を追加
     InsertMenu(hMenu, 5, MF_BYPOSITION | MF_SEPARATOR, NULL, "");
-    InsertMenu(hMenu, 6, MF_BYPOSITION | MF_STRING, IDM_ABOUT, "reset window size");
-    InsertMenu(hMenu, 7, MF_BYPOSITION | MF_STRING, IDM_ABOUT, "about");
+    InsertMenu(hMenu, 6, MF_BYPOSITION | MF_STRING, MY_IDM_RESET_WINDOW_SIZE, "Reset window size.");
+    InsertMenu(hMenu, 7, MF_BYPOSITION | MF_STRING, MY_IDM_ABOUT, "about");
 
 //    AppendMenu(hMenu, MF_STRING, IDM_ABOUT, "アバウト");
     //システムメニューを作成
@@ -539,6 +516,34 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
             break;
     }
     return (INT_PTR) FALSE;
+}
+
+void resetWindowsize(HWND hWnd, int client_width, int client_height) {
+    RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
+    int ww1, wh1; // ウィンドウ全体の幅、高さ
+    int cw1, ch1; // クライアント領域の幅、高さ
+    int fw1, fh1; // フレームの幅、高さ
+    // ウィンドウ全体の幅・高さを計算
+    GetWindowRect(hWnd, &wRect1);
+    ww1 = wRect1.right - wRect1.left;
+    wh1 = wRect1.bottom - wRect1.top;
+    // クライアント領域の幅・高さを計算
+    GetClientRect(hWnd, &cRect1);
+    cw1 = cRect1.right - cRect1.left;
+    ch1 = cRect1.bottom - cRect1.top;
+    // クライアント領域以外に必要なサイズを計算
+    fw1 = ww1 - cw1;
+    fh1 = wh1 - ch1;
+    // 計算した幅と高さをウィンドウに設定
+    SetWindowPos(
+            hWnd,
+            HWND_TOP,
+            0,
+            0,
+            client_width + fw1,
+            client_height + fh1,
+            SWP_NOMOVE
+    );
 }
 //// システムメニューの挙動を記述
 //LRESULT SysMenuProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)

@@ -28,9 +28,9 @@ int GgafDxProperties::DUAL_VIEW_FULL_SCREEN_HEIGHT = 0;
 
 bool GgafDxProperties::FIXED_GAME_VIEW_ASPECT = false;
 bool GgafDxProperties::SWAP_GAME_VIEW = false;
-
-int GgafDxProperties::GAME_VIEW1_POSITION = 5;
-int GgafDxProperties::GAME_VIEW2_POSITION = 5;
+int GgafDxProperties::SINGLE_VIEW_DRAW_POSITION = 5;
+int GgafDxProperties::DUAL_VIEW_DRAW_POSITION1 = 6;
+int GgafDxProperties::DUAL_VIEW_DRAW_POSITION2 = 4;
 
 string GgafDxProperties::BG_COLOR = "";
 
@@ -71,8 +71,9 @@ void GgafDxProperties::load(string prm_ini_filename) {
     GgafDxProperties::DUAL_VIEW_FULL_SCREEN2_HEIGHT  = DUAL_VIEW_FULL_SCREEN_HEIGHT;
     GgafDxProperties::FIXED_GAME_VIEW_ASPECT         = getBool("FIXED_GAME_VIEW_ASPECT");
     GgafDxProperties::SWAP_GAME_VIEW                 = getBool("SWAP_GAME_VIEW");
-    GgafDxProperties::GAME_VIEW1_POSITION            = getInt("GAME_VIEW1_POSITION");
-    GgafDxProperties::GAME_VIEW2_POSITION            = getInt("GAME_VIEW2_POSITION");
+    GgafDxProperties::SINGLE_VIEW_DRAW_POSITION      = getInt("SINGLE_VIEW_DRAW_POSITION");
+    GgafDxProperties::DUAL_VIEW_DRAW_POSITION1       = getInt("DUAL_VIEW_DRAW_POSITION1");
+    GgafDxProperties::DUAL_VIEW_DRAW_POSITION2       = getInt("DUAL_VIEW_DRAW_POSITION2");
     GgafDxProperties::BG_COLOR                       = getStr("BG_COLOR");
 
     GgafDxProperties::MASTER_VOLUME = getInt("MASTER_VOLUME");
@@ -107,8 +108,9 @@ void GgafDxProperties::load(string prm_ini_filename) {
     _TRACE_("GgafDxProperties::DUAL_VIEW_FULL_SCREEN_HEIGHT="<<GgafDxProperties::DUAL_VIEW_FULL_SCREEN_HEIGHT);
     _TRACE_("GgafDxProperties::FIXED_GAME_VIEW_ASPECT="<<GgafDxProperties::FIXED_GAME_VIEW_ASPECT);
     _TRACE_("GgafDxProperties::SWAP_GAME_VIEW="<<GgafDxProperties::SWAP_GAME_VIEW);
-    _TRACE_("GgafDxProperties::GAME_VIEW1_POSITION="<<GgafDxProperties::GAME_VIEW1_POSITION);
-    _TRACE_("GgafDxProperties::GAME_VIEW2_POSITION="<<GgafDxProperties::GAME_VIEW2_POSITION);
+    _TRACE_("GgafDxProperties::SINGLE_VIEW_DRAW_POSITION="<<GgafDxProperties::SINGLE_VIEW_DRAW_POSITION);
+    _TRACE_("GgafDxProperties::DUAL_VIEW_DRAW_POSITION1="<<GgafDxProperties::DUAL_VIEW_DRAW_POSITION1);
+    _TRACE_("GgafDxProperties::DUAL_VIEW_DRAW_POSITION2="<<GgafDxProperties::DUAL_VIEW_DRAW_POSITION2);
     _TRACE_("GgafDxProperties::BG_COLOR="<<GgafDxProperties::BG_COLOR);
 
     _TRACE_("GgafDxProperties::MASTER_VOLUME="<<GgafDxProperties::MASTER_VOLUME);

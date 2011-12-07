@@ -186,9 +186,9 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
                     _aRect_Present[1].right  = _aRect_Present[1].left + (fix_width * rate);
                     _aRect_Present[1].bottom = _aRect_Present[1].top  + (fix_height * rate);
                 }
-                positionPresentRect(CFG_PROPERTY(GAME_VIEW1_POSITION), _aRect_Present[0],
+                positionPresentRect(CFG_PROPERTY(DUAL_VIEW_DRAW_POSITION1), _aRect_Present[0],
                                     CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN1_WIDTH), CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN1_HEIGHT));
-                positionPresentRect(CFG_PROPERTY(GAME_VIEW2_POSITION), _aRect_Present[1],
+                positionPresentRect(CFG_PROPERTY(DUAL_VIEW_DRAW_POSITION2), _aRect_Present[1],
                                     CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN2_WIDTH), CFG_PROPERTY(DUAL_VIEW_FULL_SCREEN2_HEIGHT));
             } else {
                 //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の１画面目フロントバッファ描画領域
@@ -231,9 +231,9 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
                 }
                 _aRect_Present[1] = _aRect_Present[0];
 
-                positionPresentRect(CFG_PROPERTY(GAME_VIEW1_POSITION), _aRect_Present[0],
+                positionPresentRect(CFG_PROPERTY(SINGLE_VIEW_DRAW_POSITION), _aRect_Present[0],
                                     CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_WIDTH), CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_HEIGHT));
-                positionPresentRect(CFG_PROPERTY(GAME_VIEW2_POSITION), _aRect_Present[1],
+                positionPresentRect(CFG_PROPERTY(DUAL_VIEW_DRAW_POSITION2), _aRect_Present[1],
                                     CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_WIDTH), CFG_PROPERTY(SINGLE_VIEW_FULL_SCREEN_HEIGHT));
             } else {
                 //「フルスクリーンモード・１画面使用・縦横比ストレッチ」のフロントバッファ描画領域
@@ -285,9 +285,9 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
                     _aRect_Present[1].bottom = _aRect_Present[1].top  + (fix_height * rate);
                 }
 
-                positionPresentRect(CFG_PROPERTY(GAME_VIEW1_POSITION), _aRect_Present[0],
+                positionPresentRect(CFG_PROPERTY(DUAL_VIEW_DRAW_POSITION1), _aRect_Present[0],
                                     CFG_PROPERTY(DUAL_VIEW_WINDOW1_WIDTH), CFG_PROPERTY(DUAL_VIEW_WINDOW1_HEIGHT));
-                positionPresentRect(CFG_PROPERTY(GAME_VIEW2_POSITION), _aRect_Present[1],
+                positionPresentRect(CFG_PROPERTY(DUAL_VIEW_DRAW_POSITION2), _aRect_Present[1],
                                     CFG_PROPERTY(DUAL_VIEW_WINDOW2_WIDTH), CFG_PROPERTY(DUAL_VIEW_WINDOW2_HEIGHT));
             } else {
                 //「ウィンドウモード・２窓使用・縦横比ストレッチ」の１窓目フロントバッファ描画領域
@@ -324,9 +324,9 @@ GgafDxGod::GgafDxGod(HINSTANCE prm_hInstance, HWND prm_pHWndPrimary, HWND prm_pH
                 }
                 _aRect_Present[1] = _aRect_Present[0];
 
-                positionPresentRect(CFG_PROPERTY(GAME_VIEW1_POSITION), _aRect_Present[0],
+                positionPresentRect(CFG_PROPERTY(SINGLE_VIEW_DRAW_POSITION), _aRect_Present[0],
                                     CFG_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH), CFG_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT));
-                positionPresentRect(CFG_PROPERTY(GAME_VIEW2_POSITION), _aRect_Present[1],
+                positionPresentRect(CFG_PROPERTY(DUAL_VIEW_DRAW_POSITION2), _aRect_Present[1],
                                     CFG_PROPERTY(SINGLE_VIEW_WINDOW_WIDTH), CFG_PROPERTY(SINGLE_VIEW_WINDOW_HEIGHT));
             } else {
                 //「ウィンドウモード・１窓使用・縦横比ストレッチ」のフロントバッファ描画領域
@@ -1466,12 +1466,17 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
             LONG width = rect.right;
             LONG height = rect.bottom;
             LONG fix_width, fix_height;
+            int pos1, pos2;
             if (CFG_PROPERTY(DUAL_VIEW)) {
                 fix_width = CFG_PROPERTY(GAME_BUFFER_WIDTH)/2;
                 fix_height = CFG_PROPERTY(GAME_BUFFER_HEIGHT);
+                pos1 = CFG_PROPERTY(DUAL_VIEW_DRAW_POSITION1);
+                pos2 = CFG_PROPERTY(DUAL_VIEW_DRAW_POSITION2);
             } else {
                 fix_width = CFG_PROPERTY(GAME_BUFFER_WIDTH);
                 fix_height = CFG_PROPERTY(GAME_BUFFER_HEIGHT);
+                pos1 = CFG_PROPERTY(SINGLE_VIEW_DRAW_POSITION);
+                pos2 = CFG_PROPERTY(DUAL_VIEW_DRAW_POSITION2); //とりあえず
             }
 
             if (1.0f * width / height > 1.0f * fix_width / fix_height) {
@@ -1482,13 +1487,13 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
                     _aRect_Present[0].top = 0;
                     _aRect_Present[0].right  = _aRect_Present[0].left + (fix_width * rate);
                     _aRect_Present[0].bottom = _aRect_Present[0].top  + (fix_height * rate);
-                    positionPresentRect(CFG_PROPERTY(GAME_VIEW1_POSITION), _aRect_Present[0], width, height);
+                    positionPresentRect(pos1, _aRect_Present[0], width, height);
                 } else {
                     _aRect_Present[1].left = (width / 2.0) - (fix_width * rate / 2.0);
                     _aRect_Present[1].top = 0;
                     _aRect_Present[1].right  = _aRect_Present[1].left + (fix_width * rate);
                     _aRect_Present[1].bottom = _aRect_Present[1].top  + (fix_height * rate);
-                    positionPresentRect(CFG_PROPERTY(GAME_VIEW2_POSITION), _aRect_Present[1], width, height);
+                    positionPresentRect(pos2, _aRect_Present[1], width, height);
                 }
 
             } else {
@@ -1499,13 +1504,13 @@ void GgafDxGod::adjustGameScreen(HWND prm_pHWnd) {
                     _aRect_Present[0].top = (height / 2.0) - (fix_height * rate / 2.0);
                     _aRect_Present[0].right  = _aRect_Present[0].left + (fix_width * rate);
                     _aRect_Present[0].bottom = _aRect_Present[0].top  + (fix_height * rate);
-                    positionPresentRect(CFG_PROPERTY(GAME_VIEW1_POSITION), _aRect_Present[0], width, height);
+                    positionPresentRect(pos1, _aRect_Present[0], width, height);
                 } else {
                     _aRect_Present[1].left = 0;
                     _aRect_Present[1].top = (height / 2.0) - (fix_height * rate / 2.0);
                     _aRect_Present[1].right  = _aRect_Present[1].left + (fix_width * rate);
                     _aRect_Present[1].bottom = _aRect_Present[1].top  + (fix_height * rate);
-                    positionPresentRect(CFG_PROPERTY(GAME_VIEW2_POSITION), _aRect_Present[1], width, height);
+                    positionPresentRect(pos2, _aRect_Present[1], width, height);
                 }
             }
         }

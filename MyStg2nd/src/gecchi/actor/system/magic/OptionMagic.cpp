@@ -11,7 +11,7 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
             1000    , 0.9,   //基本魔法コスト , 飛びレベル時の rate
             60*2    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
             60*0.2  , 0.9,   //基本発動時間   , 飛びレベル時の rate
-            60*60*10, 0.0,   //基本持続時間   , 各レベルの削減割合
+            60*60    , 0.0,  //基本持続時間   , 各レベルの削減割合
             0.0     , 0.0    //基本維持コスト , 各レベル時の rate
         ) {
 //    |  0,   1,   2,   3 |
@@ -50,7 +50,7 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
 void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     angle* paAngWay = NEW angle[prm_new_level-prm_now_level];
     GgafDxUtil::getRadialAngle2D(0, prm_new_level-prm_now_level, paAngWay);
-	int n = 0;
+    int n = 0;
     for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
         _papEffect[lv-1]->locateAs(P_MYSHIP);
         _papEffect[lv-1]->_pKurokoA->setRzRyMvAng(paAngWay[n], D90ANG);
@@ -59,8 +59,8 @@ void OptionMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         _papEffect[lv-1]->setAlpha(0.9);
         _papEffect[lv-1]->setScaleRate(2.0f);
         _papEffect[lv-1]->activate();
-		n++;
-	}
+        n++;
+    }
     DELETEARR_IMPOSSIBLE_NULL(paAngWay);
     _r_effect = 1;
 
@@ -135,5 +135,4 @@ void OptionMagic::processEffectFinish(int prm_justbefore_level) {
 
 OptionMagic::~OptionMagic() {
     DELETEARR_IMPOSSIBLE_NULL(_papEffect);
-
 }

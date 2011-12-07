@@ -35,8 +35,9 @@ public:
     static int DUAL_VIEW_FULL_SCREEN_HEIGHT;
     static bool FIXED_GAME_VIEW_ASPECT;
     static bool SWAP_GAME_VIEW;
-    static int GAME_VIEW1_POSITION;
-    static int GAME_VIEW2_POSITION;
+    static int SINGLE_VIEW_DRAW_POSITION;
+    static int DUAL_VIEW_DRAW_POSITION1;
+    static int DUAL_VIEW_DRAW_POSITION2;
     static std::string BG_COLOR;
 
     static int MASTER_VOLUME;

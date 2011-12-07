@@ -188,7 +188,6 @@ public:
     }
 
 
-
     void rollOpen();
     void rollClose();
 
@@ -204,7 +203,6 @@ public:
      * @param prm_new_level
      */
     virtual void cast(int prm_new_level);
-
 
     /**
      * 魔法詠唱開始コールバック(１回だけコールバック) .
@@ -282,7 +280,7 @@ public:
      * 魔法持続全終了コールバック(１回だけコールバック) .
      * レベル0になるレベルダウンが行われた直前に呼び出されます。<BR>
      * 捕捉：レベル0にならないレベルダウン processEffectBegin() が呼び出されます。<BR>
-     * @param prm_justbefore_level 効果持続が終了する直前のレベル(∵現在はレベル0)。
+     * @param prm_justbefore_level 効果持続が終了する直前のレベル(ちなみに現在レベルは必ず0)。
      */
     virtual void processEffectFinish(int prm_justbefore_level) {};
 

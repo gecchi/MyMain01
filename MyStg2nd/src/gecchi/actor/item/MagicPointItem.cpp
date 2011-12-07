@@ -81,14 +81,14 @@ void MagicPointItem::processBehavior() {
             setHitAble(false);
             _pProg->change(ITEM_PROG_ATTACH);
         }
-
         //あるいは onHit() で ITEM_PROG_ATTACH 状態変化するのを待つ
     }
 
     //自機と当たり判定がヒットし、自機に向かう動き
     if (_pProg->get() == ITEM_PROG_ATTACH) {
         MyShip* pMyShip = P_MYSHIP;
-        if (_pProg->isJustChanged() || (getTractorMagic()->_is_tracting && getActivePartFrame() % 10 == 0)) {
+        if (_pProg->isJustChanged()) {
+            //自機に引力で引き寄せられるような動き設定
             _pKurokoB->setVxMvVelo(_pKurokoA->_vX*_pKurokoA->_veloMv);
             _pKurokoB->setVyMvVelo(_pKurokoA->_vY*_pKurokoA->_veloMv);
             _pKurokoB->setVzMvVelo(_pKurokoA->_vZ*_pKurokoA->_veloMv);
