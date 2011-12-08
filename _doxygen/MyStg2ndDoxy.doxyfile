@@ -32,7 +32,7 @@ PROJECT_NAME           = MyStg2nd
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = 0.0.3526
+PROJECT_NUMBER         = 0.0.3527
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description 
 # for a project that appears at the top of each page and should give viewer 
@@ -652,7 +652,10 @@ INPUT_ENCODING         = CP932
 FILE_PATTERNS          = *.c \
                          *.cpp \
                          *.h \
-                         *.hpp
+                         *.hpp \
+                         *.c \
+                         *.fx \
+                         *.rc
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 
@@ -680,7 +683,8 @@ EXCLUDE_SYMLINKS       = NO
 # for example use the pattern */test/*
 
 EXCLUDE_PATTERNS       = */.svn/* \
-                         */sal.h
+                         */sal.h \
+                         */サンプルFX/*
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names 
 # (namespaces, classes, functions, etc.) that should be excluded from the 

@@ -1,10 +1,3 @@
-// 本プログラムは、<BR>
-// 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html <BR>
-// サイト内コンテンツの 「Ogg Vorbis入門編」 http://marupeke296.com/OGG_main.html <BR>
-// のサンプルプログラムがオリジナルです。<BR>
-// 一部変更して使用しています。<BR>
-//                                            2009/01/13 Masatoshi Tsuge<BR>
-
 #ifndef IKD_DIX_OGGDECODER_H
 #define IKD_DIX_OGGDECODER_H
 
@@ -12,6 +5,16 @@
 
 namespace Dix {
 
+/**
+ * OggDecoder .
+ * 本プログラムは、<BR>
+ * 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html <BR>
+ * サイト内コンテンツの 「Ogg Vorbis入門編」 http://marupeke296.com/OGG_main.html <BR>
+ * のサンプルプログラムがオリジナルです。<BR>
+ * 変更して使用しています。<BR>
+ *                                            2009/01/13 Masatoshi Tsuge<BR>
+ * @author  IKD
+ */
 class OggDecoder : public PCMDecoder {
 public:
     OggDecoder();

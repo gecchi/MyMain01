@@ -2,13 +2,6 @@
 #define GGAFLINEAROCTREE_H_
 namespace GgafCore {
 
-// 本プログラムは、
-// 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html
-// サイト内コンテンツの 「その15 8分木空間分割を最適化する！」 http://marupeke296.com/COL_3D_No15_Octree.html
-// の記事を参考に作成しています。
-//                                            2009/01/13 Masatoshi Tsuge
-
-
 /**
  * 線形八分木クラス .
  * 線形八分木とは、八分木空間分割手法の各空間を、一列の配列(線形)に並べた状態を意味します。
@@ -99,7 +92,14 @@ namespace GgafCore {
  *  ・Lv1 空間のモートン順序位置 1 は Lv2 空間の空間番号 4 5 6 7 に当たる。<BR>
  *  ・Lv2 空間番号 13 は、親空間のモートン順序位置 3 に存在する。<BR>
  *  というように表現したりする（と定義する）。<BR>
- *
+ * <BR>
+ * 【謝辞】<BR>
+ * 本プログラムは、<BR>
+ * 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html<BR>
+ * サイト内コンテンツの 「その15 8分木空間分割を最適化する！」 http://marupeke296.com/COL_3D_No15_Octree.html<BR>
+ * の記事を参考に作成しています。<BR>
+ * 非常に解りやすい解説に感謝いたします。<BR>
+ * <BR>
  * @version 1.00
  * @since 2009/11/23
  * @author Masatoshi Tsuge

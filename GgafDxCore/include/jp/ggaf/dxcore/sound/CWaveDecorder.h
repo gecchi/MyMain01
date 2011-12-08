@@ -1,12 +1,4 @@
 
-// 本プログラムは、<BR>
-// 「越後屋Cyber」 http://www.e-cyber.org/ <BR>
-// のメンバーのアンダー氏のサンプルプログラムがオリジナルです。<BR>
-// 一部変更して使用しています。<BR>
-//
-// 対象： CWaveDecorder クラス
-//                                            2009/01/13 Masatoshi Tsuge<BR>
-
 /****************************************************************
  *			waveデコーダ制御クラス
  *	@author		Ander/Echigo-ya koubou
@@ -20,6 +12,19 @@
 namespace GgafDxCore {
 /**
  @brief		Waveファイルデコーダ
+
+
+ */
+
+/**
+ * waveデコーダ制御クラス .
+ * 本プログラムは、<BR>
+ *「越後屋Cyber」 http://www.e-cyber.org/ <BR>
+ * のメンバーのアンダー氏のサンプルプログラムがオリジナルです。<BR>
+ * 一部変更して使用しています。<BR>
+ * 対象： CWaveDecorder クラス<BR>
+ *                                            2009/01/13 Masatoshi Tsuge<BR>
+ * @author      Ander/Echigo-ya koubou
  */
 class CWaveDecorder {
 private:

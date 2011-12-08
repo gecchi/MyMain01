@@ -6,66 +6,6 @@
  *
  ******************************************************************************/
 
-// このプログラムは松本眞氏、西村拓士氏らによって開発された
-// Mersenne Twister法のCプログラムがオリジナルです。
-// CmRandomNumberGenerator クラスは、Takayuki HARUKI により
-// Cプログラムを C++のSingleton パターンに書き直されたコードです。
-// 本コード内容は、CmRandomNumberGenerator を流用しております。
-// 以下はオリジナルCプログラムの使用ライセンスです。
-/*
-   A C-program for MT19937, with initialization improved 2002/1/26.
-   Coded by Takuji Nishimura and Makoto Matsumoto.
-
-   Before using, initialize the state by using init_genrand(seed)
-   or init_by_array(init_key, key_length).
-
-   Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
-   All rights reserved.
-
-   Redistribution and use in source and binary forms, with or without
-   modification, are permitted provided that the following conditions
-   are met:
-
-     1. Redistributions of source code must retain the above copyright
-        notice, this list of conditions and the following disclaimer.
-
-     2. Redistributions in binary form must reproduce the above copyright
-        notice, this list of conditions and the following disclaimer in the
-        documentation and/or other materials provided with the distribution.
-
-     3. The names of its contributors may not be used to endorse or promote
-        products derived from this software without specific prior written
-        permission.
-
-   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-
-   Any feedback is very welcome.
-   http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
-   email: m-mat @ math.sci.hiroshima-u.ac.jp (remove space)
-*/
-// 多大な努力と時間を費やし研究された、松本・西村両氏に敬意を表し、
-// 利用させていただきます。
-//                                         2008/09/09 Masatoshi Tsuge
-//
-// 【Mersenne Twister Home Page】
-// http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/mt.html
-// 【Original C code】
-// http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/MT2002/emt19937ar.html as mt19937ar.tgz
-// 【Download CmRandomNumberGenerator】
-// http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/C-LANG/Singleton.zip
-
-
 
 #ifndef _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_
 #define _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_
@@ -81,6 +21,64 @@ namespace GgafCore {
 #define __LONG_RND__(A, B) ((CmRandomNumberGenerator::getInstance()->genrand_int32() % ((B)-(A))) + (A))
 
 /**
+ * 乱数生成クラス .
+ * このプログラムは松本眞氏、西村拓士氏らによって開発された
+ * Mersenne Twister法のCプログラムがオリジナルです。<BR>
+ * CmRandomNumberGenerator クラスは、Takayuki HARUKI により
+ * Cプログラムを C++のSingleton パターンに書き直されたコードです。<BR>
+ * 本コード内容は、CmRandomNumberGenerator を流用しております。<BR>
+ * 多大な努力と時間を費やし研究された、松本・西村両氏に敬意を表し、
+ * 利用させていただきます。<BR>
+ *                                         2008/09/09 Masatoshi Tsuge<BR>
+ * 【Mersenne Twister Home Page】<BR>
+ * http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/mt.html<BR>
+ * 【Original C code】<BR>
+ * http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/MT2002/emt19937ar.html as mt19937ar.tgz<BR>
+ * 【Download CmRandomNumberGenerator】<BR>
+ * http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/C-LANG/Singleton.zip<BR>
+ *
+ * 以下はオリジナルCプログラムの使用ライセンスです。<BR>
+ * <pre>
+ * A C-program for MT19937, with initialization improved 2002/1/26.
+ * Coded by Takuji Nishimura and Makoto Matsumoto.
+ *
+ * Before using, initialize the state by using init_genrand(seed)
+ * or init_by_array(init_key, key_length).
+ *
+ * Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright
+ *      notice, this list of conditions and the following disclaimer.
+ *
+ *   2. Redistributions in binary form must reproduce the above copyright
+ *      notice, this list of conditions and the following disclaimer in the
+ *      documentation and/or other materials provided with the distribution.
+ *
+ *   3. The names of its contributors may not be used to endorse or promote
+ *      products derived from this software without specific prior written
+ *      permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * Any feedback is very welcome.
+ * http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
+ * email: m-mat @ math.sci.hiroshima-u.ac.jp (remove space)
+ * </pre>
  * @class	CmRandomNumberGenerator
  * @brief	Class (of mathematical module) for generating random number
  *			by Mersenne Twister
