@@ -399,7 +399,6 @@ class GgafDxModelManager;
 class GgafDxEffectConnection;
 class GgafDxEffectManager;
 
-
 class GgafDxAllocHierarchy;
 class D3DXFRAME_WORLD;
 class GgafDxAllocHierarchyWorldFrame;
@@ -475,6 +474,7 @@ class GgafDxScene;
 class GgafDxUniverse;
 
 class GgafDxUtil;
+class GgafDxAgainstWay;
 class GgafDxSphereRadiusVectors;
 class GgafDxQuaternion;
 class GgafDxCollisionArea;
@@ -598,6 +598,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dxcore/scene/GgafDxUniverse.h"
 
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dxcore/util/GgafDxAgainstWay.h"
 #include "jp/ggaf/dxcore/util/GgafDxSphereRadiusVectors.h"
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"

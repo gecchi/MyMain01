@@ -25,7 +25,7 @@ public:
 
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeoElem>* _pRing_GeoHistory;
     velo _veloOptionsMv;
-    MoveWay _way_myship_prev;
+    MyShip::MoveWay _way_myship_prev;
     static int _max_option_num;
     int _now_option_num;
     bool _is_handle_move_mode;

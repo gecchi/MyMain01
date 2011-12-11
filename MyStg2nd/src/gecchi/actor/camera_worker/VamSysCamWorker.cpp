@@ -76,55 +76,55 @@ void VamSysCamWorker::processBehavior() {
     MyOptionController* pOptionController = P_MYOPTIONCON;
 
     //カメラ位置番号を決定処理
-    if (VB_PLAY->isPushedDown(VB_VIEW)) {
-        if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-            _pos_camera = VAM_POS_RIGHT;
-        } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-            _pos_camera = VAM_POS_LEFT;
-        } else if (VB_PLAY->isBeingPressed(VB_UP)) {
-            _pos_camera = VAM_POS_TOP;
-        } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-            _pos_camera = VAM_POS_BOTTOM;
-        } else {
-            _pos_camera += VAM_POS_TO_BEHIND;  //それぞれの対応背面ビューポイントへ
-        }
-    } else if (VB_PLAY->isBeingPressed(VB_VIEW)) {
-        if (VB_PLAY->isPushedDown(VB_RIGHT)) {
-            _pos_camera = VAM_POS_RIGHT;
-        } else if (VB_PLAY->isPushedDown(VB_LEFT)) {
-            _pos_camera = VAM_POS_LEFT;
-        } else if (VB_PLAY->isPushedDown(VB_UP)) {
-            _pos_camera = VAM_POS_TOP;
-        } else if (VB_PLAY->isPushedDown(VB_DOWN)) {
-            _pos_camera = VAM_POS_BOTTOM;
-        }
-    }
-
-
-
 //    if (VB_PLAY->isPushedDown(VB_VIEW)) {
-//        _TRACE_("VB_VIEW!! now _pos_camera="<<_pos_camera);
-//        if (_pos_camera < VAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
+//        if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+//            _pos_camera = VAM_POS_RIGHT;
+//        } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+//            _pos_camera = VAM_POS_LEFT;
+//        } else if (VB_PLAY->isBeingPressed(VB_UP)) {
+//            _pos_camera = VAM_POS_TOP;
+//        } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+//            _pos_camera = VAM_POS_BOTTOM;
+//        } else {
 //            _pos_camera += VAM_POS_TO_BEHIND;  //それぞれの対応背面ビューポイントへ
-//        } else if (_pos_camera > VAM_POS_TO_BEHIND) {//背面ビューポイントの場合
-//            //方向入力により新たなビューポイントへ
-//            if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
-//                _pos_camera = VAM_POS_LEFT;
-//            } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
-//                _pos_camera = VAM_POS_RIGHT;
-//            } else if (VB_PLAY->isBeingPressed(VB_UP)) {
-//                _pos_camera = VAM_POS_BOTTOM;
-//            } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
-//                _pos_camera = VAM_POS_TOP;
-//            } else {
-//                //方向未入力の場合、そのまま
-//
-////                //方向未入力の場合、元のビューポイントへ
-////                _pos_camera -= VAM_POS_TO_BEHIND;
-//            }
 //        }
-//        _TRACE_("VB_VIEW!!  -> _pos_camera="<<_pos_camera);
+//    } else if (VB_PLAY->isBeingPressed(VB_VIEW)) {
+//        if (VB_PLAY->isPushedDown(VB_RIGHT)) {
+//            _pos_camera = VAM_POS_RIGHT;
+//        } else if (VB_PLAY->isPushedDown(VB_LEFT)) {
+//            _pos_camera = VAM_POS_LEFT;
+//        } else if (VB_PLAY->isPushedDown(VB_UP)) {
+//            _pos_camera = VAM_POS_TOP;
+//        } else if (VB_PLAY->isPushedDown(VB_DOWN)) {
+//            _pos_camera = VAM_POS_BOTTOM;
+//        }
 //    }
+
+
+
+    if (VB_PLAY->isPushedDown(VB_VIEW)) {
+        _TRACE_("VB_VIEW!! now _pos_camera="<<_pos_camera);
+        if (_pos_camera < VAM_POS_TO_BEHIND) { //背面ビューポイントではない場合、
+            _pos_camera += VAM_POS_TO_BEHIND;  //それぞれの対応背面ビューポイントへ
+        } else if (_pos_camera > VAM_POS_TO_BEHIND) {//背面ビューポイントの場合
+            //方向入力により新たなビューポイントへ
+            if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
+                _pos_camera = VAM_POS_LEFT;
+            } else if (VB_PLAY->isBeingPressed(VB_LEFT)) {
+                _pos_camera = VAM_POS_RIGHT;
+            } else if (VB_PLAY->isBeingPressed(VB_UP)) {
+                _pos_camera = VAM_POS_BOTTOM;
+            } else if (VB_PLAY->isBeingPressed(VB_DOWN)) {
+                _pos_camera = VAM_POS_TOP;
+            } else {
+                //方向未入力の場合、そのまま
+
+//                //方向未入力の場合、元のビューポイントへ
+//                _pos_camera -= VAM_POS_TO_BEHIND;
+            }
+        }
+        _TRACE_("VB_VIEW!!  -> _pos_camera="<<_pos_camera);
+    }
 
     //カメラの移動目標座標
     int move_target_X_CAM, move_target_Y_CAM, move_target_Z_CAM;
@@ -144,7 +144,9 @@ void VamSysCamWorker::processBehavior() {
     //static int Dd = 30000;
 
     //オプション操作中
-    if (VB_PLAY->isBeingPressed(VB_OPTION)) {
+    if (VB_PLAY->isBeingPressed(VB_OPTION) && VB_PLAY->isPushedDown(VB_VIEW)) {
+        //オプション操作中にポンと VB_VIEW を押す
+        //オプション背後に回る
         coord d = _dZ_camera_init*0.6;
         move_target_X_CAM = pOptionController->_X + pOptionController->_pKurokoA->_vX*-d;
         move_target_Y_CAM = pOptionController->_Y + pOptionController->_pKurokoA->_vY*-d;

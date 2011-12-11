@@ -6,8 +6,6 @@ namespace GgafDxCore {
 #define max3(A,B,C) (GgafDxCore::GgafDxUtil::max3(A,B,C))
 
 
-
-
 /**
  * ユーティリティクラス .
  * 静的な座標計算関連関数はココに集約していこう。
@@ -70,6 +68,8 @@ public:
      */
     static angle PROJANG_ZY_ZX_TO_ROTANG_Y[D90SANG+1][D90SANG+1];
 
+
+//    static MoveWay Against[2^(6+8)+];
     //static AngleSet ROTY_ANGLE[D360SANG+1];
 
 

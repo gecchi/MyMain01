@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-const int GgafDxInput::BUFFER_SIZE = 256;
+//const int GgafDxInput::BUFFER_SIZE = 256;
 LPDIRECTINPUT8 GgafDxInput::_pIDirectInput8 = NULL;
 LPDIRECTINPUTDEVICE8 GgafDxInput::_pIDirectInputDevice8_Keyboard = NULL;
 LPDIRECTINPUTDEVICE8 GgafDxInput::_pIDirectInputDevice8_Joystick = NULL;
@@ -16,6 +16,9 @@ int GgafDxInput::_active_KeyboardState = 0;
 DIDEVCAPS GgafDxInput::_didevcap;
 DIJOYSTATE GgafDxInput::_dijoystate;
 
+/**
+ * ゲームスティックデバイス列挙コールバック関数
+ */
 BOOL CALLBACK EnumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInstance, VOID *pContext) {
     _TRACE_("EnumGameCtrlCallback こーるばっく！");
 
@@ -66,9 +69,6 @@ BOOL CALLBACK EnumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef
     return DIENUM_CONTINUE;
 }
 
-GgafDxInput::GgafDxInput() {
-    TRACE("GgafDxInput::GgafDxInput(HWND prm_pHWndPrimary) ");
-}
 
 HRESULT GgafDxInput::init() {
 
@@ -132,7 +132,6 @@ HRESULT GgafDxInput::init() {
         _pIDirectInputDevice8_Mouse->Acquire();
     }
 
-
     // キーボードデバイスの作成
     hr = _pIDirectInput8->CreateDevice(GUID_SysKeyboard, &_pIDirectInputDevice8_Keyboard, NULL);
     if (hr != D3D_OK) {
@@ -158,8 +157,7 @@ HRESULT GgafDxInput::init() {
     }
 
     /*
-     //ばふぁなぞいらんｗ
-     // バッファサイズの指定
+     //マウスバッファサイズの指定
      DIPROPDWORD dipropdword;
      dipropdword.diph.dwSize			= sizeof(DIPROPDWORD);
      dipropdword.diph.dwHeaderSize	= sizeof(DIPROPHEADER);
@@ -250,14 +248,10 @@ again:
     hr = _pIDirectInputDevice8_Mouse->Poll(); //マウスは通常Poll不用と思うが呼び出しても無害と書いてあるので呼ぶ。
     hr = _pIDirectInputDevice8_Mouse->GetDeviceState(sizeof(DIMOUSESTATE2), (void*)&_dimousestate[_active_MouseState]);
     if (FAILED(hr)) {
-        //_TRACE_("GetDeviceState is FAILED");
-        //Acquire()を試みる。
         hr = _pIDirectInputDevice8_Mouse->Acquire();
         if (hr == DI_OK) {
-            //_TRACE_("Acquire is DI_OK");
             goto again;
         } else {
-            //_TRACE_("Acquire is not DI_OK");
             //ダメならまた次回へ
         }
     }
@@ -493,6 +487,8 @@ bool GgafDxInput::isBeingPressedJoyDirection(int prm_iDirectionNo) {
         } else if (_dijoystate.lX > 127 && prm_iDirectionNo == 6) {
             return true;
         } else if (_dijoystate.lX < -127 && prm_iDirectionNo == 4) {
+            return true;
+        } else if (prm_iDirectionNo == 5) {
             return true;
         } else {
             return false;
