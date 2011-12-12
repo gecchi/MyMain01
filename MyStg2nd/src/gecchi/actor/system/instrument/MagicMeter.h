@@ -27,14 +27,26 @@ public:
     MagicMeterStatus* _pMagicMeterStatus;
     /** エネルギーバー */
     EnagyBar* _pEnagyBar;
+    /** 魔法リスト */
     GgafCore::GgafLinkedListRing<Magic> _ringMagics;
-    /** 各魔法のアクティブカーソル位置 */
-    int* _paLevelCursor;
+
+    /** メータ主カーソル */
+    MagicMeterCursor001* _pMagicCursor;
+    /** 各魔法のレベルカーソル(配列) */
+    MagicMeterCursor002** _papLvCursor;
+    /** 各魔法のレベルカーソルが指しているレベル(配列) */
+    int* _paCursorLv;
 
     /** 魔法メーター１つの横幅(px) */
     float _width_px;
     /** 魔法メーター１つの高さ(px) */
     float _height_px;
+    /** 魔法メーター１つの横幅 */
+    coord _width;
+    /** 魔法メーター１つの高さ */
+    coord _height;
+
+
     MagicMeter(const char* prm_name);
 
     void save(std::stringstream& sts);

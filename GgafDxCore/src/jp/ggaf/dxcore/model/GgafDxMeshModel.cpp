@@ -118,7 +118,7 @@ HRESULT GgafDxMeshModel::draw(GgafDxDrawableActor* prm_pActor_Target, int prm_dr
         if (_numPass >= 2) { //２パス目以降が存在
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() １パス目 EndPass() に失敗しました。");
-            for (int pass = 1; pass < _numPass; pass++) {
+            for (UINT pass = 1; pass < _numPass; pass++) {
                 hr = pID3DXEffect->BeginPass(pass);
                 checkDxException(hr, D3D_OK, "GgafDxMeshModel::draw() "<<pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
                 GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,

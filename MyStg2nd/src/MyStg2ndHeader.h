@@ -372,6 +372,8 @@ class CameraWorkerConnection;
 class TestDepository;
 class MagicMeter;
 class MagicMeterStatus;
+class MagicMeterCursor001;
+class MagicMeterCursor002;
 class EnagyBar;
 
 class Magic;
@@ -604,6 +606,8 @@ class VamSysCamPosition;
 
 #include "gecchi/actor/system/instrument/MagicMeter.h"
 #include "gecchi/actor/system/instrument/MagicMeter/MagicMeterStatus.h"
+#include "gecchi/actor/system/instrument/MagicMeter/MagicMeterCursor001.h"
+#include "gecchi/actor/system/instrument/MagicMeter/MagicMeterCursor002.h"
 #include "gecchi/actor/system/instrument/MagicMeter/EnagyBar.h"
 
 #include "gecchi/actor/system/magic/Magic.h"

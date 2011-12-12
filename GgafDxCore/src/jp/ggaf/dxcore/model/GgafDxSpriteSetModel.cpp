@@ -114,7 +114,7 @@ HRESULT GgafDxSpriteSetModel::draw(GgafDxDrawableActor* prm_pActor_Target, int p
         hr = pID3DXEffect->EndPass();
         checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() １パス目 EndPass() に失敗しました。");
 
-        for (int pass = 1; pass < _numPass; pass++) {
+        for (UINT pass = 1; pass < _numPass; pass++) {
             hr = pID3DXEffect->BeginPass(pass);
             checkDxException(hr, D3D_OK, "GgafDxSpriteSetModel::draw() "<<pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
             GgafDxGod::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,

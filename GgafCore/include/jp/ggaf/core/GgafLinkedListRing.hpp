@@ -151,6 +151,13 @@ public:
     virtual T* getCurrent();
 
     /**
+     * カレント要素の先頭から何番目か(0～)を返す。
+     * getCurrent() がNULL の場合は -1 を返す。
+     * @return カレント要素のインデックス
+     */
+    virtual int getCurrentIndex();
+
+    /**
      * カレント要素を一つ進める。 .
      *<pre>
      * ---「実行前」-------------
@@ -657,6 +664,23 @@ T* GgafLinkedListRing<T>::getCurrent() {
         return _pElemActive->_pValue;
     }
 }
+template<class T>
+int GgafLinkedListRing<T>::getCurrentIndex() {
+    if (_pElemActive == NULL) {
+        return -1;
+    } else {
+        Elem* pElem = _pElemFirst;
+        for (int i = 0; i < _num_elem; i++) {
+            if (pElem == _pElemActive) {
+                return i;
+            } else {
+                pElem = pElem -> _pNext;
+            }
+        }
+        return -1;
+    }
+}
+
 
 template<class T>
 T* GgafLinkedListRing<T>::next() {

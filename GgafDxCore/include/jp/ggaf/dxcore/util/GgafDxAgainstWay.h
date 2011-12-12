@@ -1,9 +1,9 @@
-//#ifndef GGAFDXAGAINSTWAY_H_
-//#define GGAFDXAGAINSTWAY_H_
-//namespace GgafDxCore {
+#ifndef GGAFDXAGAINSTWAY_H_
+#define GGAFDXAGAINSTWAY_H_
+namespace GgafDxCore {
+//çÏÇÎÇ§Ç©ñ¿Ç¢íÜ2011/12/12
 //
-//
-//class GgafDxAgainstWay {
+class GgafDxAgainstWay {
 //    enum MoveWay {
 //        WAY_ZRIGHT_DOWN_BEHIND = 0,   //0    TN(-1,-1,-1)
 //        WAY_DOWN_BEHIND,              //1    TN(-1,-1, 0)
@@ -43,7 +43,8 @@
 //        //_TRACE_("_way.X, _way.Y, _way.Z="<<_way.X<<","<<_way.Y<<","<< _way.Z);
 //        return (3 * 3 * (sgn(_X) + 1)) + (3 * (sgn(_way.Y) + 1)) + (sgn(_way.Z) + 1);
 //    }
-//};
-//}
-//#endif /*GGAFDXAGAINSTWAY_H_*/
-//
+
+};
+}
+#endif /*GGAFDXAGAINSTWAY_H_*/
+

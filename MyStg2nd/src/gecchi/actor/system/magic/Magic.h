@@ -86,6 +86,7 @@ public:
 
     /** マジックポイント数量バー */
     GgafLib::AmountGraph* _pMP;
+    /** メーターへのポインタ */
     MagicMeter* _pMagicMeter;
 
     /** 各レベルの情報 0～MMETER_MAX_LEVEL */

@@ -21,9 +21,9 @@ private:
     frame _frame_of_behaving_temp_technique_end;
     /** [r]一時テクニック適用中の場合 true */
     bool _is_temp_technique;
-    /** モデル資源接続 */
+    /** [r]モデル資源接続 */
     GgafDxModelConnection* _pModelCon;
-    /** エフェクト資源接続 */
+    /** [r]エフェクト資源接続 */
     GgafDxEffectConnection* _pEffectCon;
 
 
@@ -62,7 +62,7 @@ public:
     int _now_drawdepth;
     /** [r]特別な固定描画深度、-1でなければ _now_drawdepth より優先でこの深度が適用される */
     int _specal_drawdepth;
-
+    /** [r]フィードインフェードアウト支援 */
     GgafDxAlphaFader* _pFader;
 
     /**
@@ -97,13 +97,13 @@ public:
      * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
      */
     GgafDxDrawableActor(const char* prm_name,
-                         const char* prm_model_id,
-                         const char* prm_model_type,
-                         const char* prm_effect_id,
-                         const char* prm_effect_type,
-                         const char* prm_technique,
-                         GgafCore::GgafStatus* prm_pStat,
-                         GgafDxChecker* prm_pChecker);
+                        const char* prm_model_id,
+                        const char* prm_model_type,
+                        const char* prm_effect_id,
+                        const char* prm_effect_type,
+                        const char* prm_technique,
+                        GgafCore::GgafStatus* prm_pStat,
+                        GgafDxChecker* prm_pChecker);
 
     virtual GgafDxDrawableActor* getPrev() override {
         return (GgafDxDrawableActor*)GgafActor::getPrev();
@@ -257,7 +257,6 @@ public:
     void setZWriteEnable(bool prm_bool) {
         _zwriteenable = prm_bool;
     }
-
 
     /**
      * モデルが生成された時の処理 .

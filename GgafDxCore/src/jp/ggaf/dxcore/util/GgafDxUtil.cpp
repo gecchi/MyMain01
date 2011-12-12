@@ -362,7 +362,8 @@ angle GgafDxUtil::getAngDiff(angle angFrom, angle angTo, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_("GgafDxUtil::getAngDiff bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
-                throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(1)。");
+                throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(1)。\n"<<
+                                           "angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
             }
         } else if (D180ANG <= angFrom && angFrom <= D360ANG) {
             if (0 <= angTo && angTo < angFrom - D180ANG) {
@@ -381,7 +382,8 @@ angle GgafDxUtil::getAngDiff(angle angFrom, angle angTo, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_("GgafDxUtil::getAngDiff bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
-                throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(2)。");
+                throwGgafCriticalException("GgafDxUtil::getDiffAngle アングル値が範囲外です(2)。\n"<<
+                                           "angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
             }
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) {
@@ -402,14 +404,13 @@ angle GgafDxUtil::getAngDiff(angle angFrom, angle angTo, int prm_way) {
     }
 
     _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
-    throwGgafCriticalException("GgafDxUtil::getDiffAngle  何故かしら角の距離が求めれません。(1)");
+    throwGgafCriticalException("GgafDxUtil::getDiffAngle  何故かしら角の距離が求めれません。(1) \n"<<
+                               "angFrom=" << angFrom << "/angTo=" << angTo<<"/prm_way="<<prm_way);
 }
 
 void GgafDxUtil::rotXY(int prm_X, int prm_Y, angle prm_ang, int& out_X, int& out_Y) {
-    out_X = (int)(floor((prm_X * GgafDxUtil::COS[prm_ang / SANG_RATE]) - (prm_Y * GgafDxUtil::SIN[prm_ang
-            / SANG_RATE])));
-    out_Y = (int)(floor((prm_X * GgafDxUtil::SIN[prm_ang / SANG_RATE]) + (prm_Y * GgafDxUtil::COS[prm_ang
-            / SANG_RATE])));
+    out_X = (int)(floor((prm_X * GgafDxUtil::COS[prm_ang/SANG_RATE]) - (prm_Y * GgafDxUtil::SIN[prm_ang/SANG_RATE])));
+    out_Y = (int)(floor((prm_X * GgafDxUtil::SIN[prm_ang/SANG_RATE]) + (prm_Y * GgafDxUtil::COS[prm_ang/SANG_RATE])));
 }
 
 // 線分の当たり判定 (x11,y11)-(x12,y12) × (x21,y21)-(x22,y22)
