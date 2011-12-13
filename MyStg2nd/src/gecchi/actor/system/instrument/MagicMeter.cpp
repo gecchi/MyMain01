@@ -370,4 +370,5 @@ void MagicMeter::processDraw() {
 
 MagicMeter::~MagicMeter() {
     DELETEARR_IMPOSSIBLE_NULL(_paCursorLv);
+    DELETEARR_IMPOSSIBLE_NULL(_papLvCursor);
 }

@@ -15,7 +15,7 @@ MagicMeterCursor002::MagicMeterCursor002(const char* prm_name, MagicMeter* prm_p
 
 }
 void MagicMeterCursor002::initialize() {
-    _X = _pMagicMeter->_width * _magic_index;
+    _X = _pMagicMeter->_X + (_pMagicMeter->_width * _magic_index);
     _Y = _pMagicMeter->_Y;
     _tmp_Y = _Y;
     _pUvFlipper->setActivePtnNo(0);
@@ -35,24 +35,27 @@ void MagicMeterCursor002::processJudgement() {
 }
 
 void MagicMeterCursor002::processPreDraw() {
-    if (_pMagic->_rr > 0.0) {
-        _tmp_Y = _Y;
-        _Y -= (_pMagicMeter->_height*(_pMagicMeter->_paCursorLv[_magic_index]+1)*(1.0-_pMagic->_rr));
-    //    _Y -= (_pMagicMeter->_height*(_pMagicMeter->_paCursorLv[i]+1)*_pMagic->_rr); //ƒ[ƒ‹·•ª
-    }
+//    if (_pMagic->_rr > 0.0) {
+//        _tmp_Y = _Y;
+//        _Y -= (_pMagicMeter->_height*(_pMagicMeter->_paCursorLv[_magic_index]+1)*(1.0-_pMagic->_rr));
+//    //    _Y -= (_pMagicMeter->_height*(_pMagicMeter->_paCursorLv[i]+1)*_pMagic->_rr); //ƒ[ƒ‹·•ª
+//    }
 
 }
 
 void MagicMeterCursor002::processAfterDraw() {
-    _Y = _tmp_Y;
+//    _Y = _tmp_Y;
 }
 
 
 
 void MagicMeterCursor002::moveToLv(int prm_lv) {
-    _pKurokoA->execSmoothMvVeloSequence(
-        0, GgafDxUtil::getDistance(_X, _Y, _X, _pMagicMeter->_Y - (_pMagicMeter->_height*(prm_lv+1))),
-                                    8, 0.1, 0.4);
+    coord tX = _X;
+    coord tY = _pMagicMeter->_Y - (_pMagicMeter->_height*(prm_lv+1));
+    _TRACE_("_magic_index="<<_magic_index<<" (tX, tY)="<<tX<<","<<tY);
+    _pKurokoA->setMvAng(tX, tY);
+    _pKurokoA->execSmoothMvVeloSequence(0, GgafDxUtil::getDistance(_X, _Y, tX, tY),
+                                        8, 0.1, 0.4);
 
 }
 
