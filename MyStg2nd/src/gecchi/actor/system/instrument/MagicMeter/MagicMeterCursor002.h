@@ -41,6 +41,9 @@ public:
 
     void moveToLv(int prm_lv);
 
+    void blink();
+
+
     virtual ~MagicMeterCursor002();
 };
 

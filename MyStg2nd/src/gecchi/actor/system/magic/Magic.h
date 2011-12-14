@@ -52,15 +52,15 @@ public:
      */
     class LevelInfo {
     public:
-        /** 該当レベルで魔法が適用中であるかどうか(発動開始～効果終了までtrue) */
+        /** [r]該当レベルで魔法が適用中であるかどうか(発動開始～効果終了までtrue) */
         bool _is_working;
-        /** 魔法効果持続終了残り時間 */
+        /** [r]魔法効果持続終了残り時間 */
         magic_time _remaining_time_of_effect;
-        /** 魔法効果持続時間 */
+        /** [r/w]魔法効果持続時間 */
         magic_time _time_of_effect;
-        /** 魔法効果持続中コスト  */
+        /** [r/w]魔法効果持続中コスト  */
         magic_point _keep_cost;
-        /** アニメパターン番号 */
+        /** [r/w]アニメパターン番号 */
         int _pno;
         LevelInfo() : _is_working(false),
                       _remaining_time_of_effect(0),
@@ -68,68 +68,59 @@ public:
                       _pno(0) {
         }
     };
-//    GgafDxCore::GgafDxGeometricActor* _pCaster;
-//    GgafDxCore::GgafDxGeometricActor* _pReceiver;
 
-    char* _name;
-    /** 最高レベル */
+    /** [r]最高上限レベル */
     int _max_level;
-    /** 現在のレベル */
+    /** [r]現在のレベル */
     int _level;
-
-
-    /** 新しいレベル */
+    /** [r]新しいレベル */
     int _new_level;
-    /** 前回のレベル */
+    /** [r]前回のレベル */
     int _last_level;
 
 
-    /** マジックポイント数量バー */
+    /** [r]マジックポイント数量バー */
     GgafLib::AmountGraph* _pMP;
-    /** メーターへのポインタ */
+    /** [r]メーターへのポインタ */
     MagicMeter* _pMagicMeter;
 
-    /** 各レベルの情報 0～MMETER_MAX_LEVEL */
+    /** [r]各レベルの情報 0～MMETER_MAX_LEVEL */
     LevelInfo _lvinfo[MMETER_MAX_LEVEL+1];
-    /** 飛びレベル差別魔法コスト情報 0差～MMETER_MAX_LEVEL差 */
+    /** [r]飛びレベル差別魔法コスト情報 0差～MMETER_MAX_LEVEL差 */
     magic_point _interest_cost[MMETER_MAX_LEVEL+1];
-    /** 飛びレベル差別詠唱時間情報 0差～MMETER_MAX_LEVEL差 */
+    /** [r]飛びレベル差別詠唱時間情報 0差～MMETER_MAX_LEVEL差 */
     magic_time  _interest_time_of_casting[MMETER_MAX_LEVEL+1];
-    /** 飛びレベル差別発動時間情報 0差～MMETER_MAX_LEVEL差 */
+    /** [r]飛びレベル差別発動時間情報 0差～MMETER_MAX_LEVEL差 */
     magic_time  _interest_time_of_invoking[MMETER_MAX_LEVEL+1];
 
-    /** 本魔法発動に必要なコストの基本単位 */
+    /** [r/w]本魔法発動に必要なコストの基本単位 */
     magic_point _cost_base;
-    /** 本魔法詠唱開始 ～ 魔法詠唱終了の基本単位時間  */
+    /** [r/w]本魔法詠唱開始 ～ 魔法詠唱終了の基本単位時間  */
     magic_time _time_of_casting_base;
-    /** 本魔法発動開始 ～ 魔法発動終了の基本単位時間 */
+    /** [r/w]本魔法発動開始 ～ 魔法発動終了の基本単位時間 */
     magic_time _time_of_invoking_base;
-    /** 本魔法効果持続開始 ～ 魔法効果持続終了の基本単位時間  */
+    /** [r/w]本魔法効果持続開始 ～ 魔法効果持続終了の基本単位時間  */
     magic_time _time_of_effect_base;
-    /** 本魔法効果持続中コストの基本単位  */
+    /** [r/w]本魔法効果持続中コストの基本単位  */
     magic_point _keep_cost_base;
 
-    /** 飛びレベル時の魔法コスト削減割合(0.0～1.0) */
+    /** [r/w]飛びレベル時の魔法コスト削減割合(0.0～1.0) */
     float _fRate_cost;
-    /** 飛びレベル時の詠唱時間削減割合(0.0～1.0) */
+    /** [r/w]飛びレベル時の詠唱時間削減割合(0.0～1.0) */
     float _fRate_time_of_casting;
-    /** 飛びレベル時の発動時間削減割合(0.0～1.0) */
+    /** [r/w]飛びレベル時の発動時間削減割合(0.0～1.0) */
     float _fRate_time_of_invoking;
-    /** 各レベル毎の効果持続時間削減割合(0.0～1.0) */
+    /** [r/w]各レベル毎の効果持続時間削減割合(0.0～1.0) */
     float _fRate_time_of_effecting;
-    /** 各レベル毎の維持コスト増加割合 (1.0～ )*/
+    /** [r/w]各レベル毎の維持コスト増加割合 (1.0～ )*/
     float _fRate_keep_cost;
-
+    /** [r]次の進捗状態になる為に必要なフレーム数(を一時保持) */
     magic_time _time_of_next_state;
-
-//    /** 状態 */
-//    int _state;
-    /** レベルアップ中かどうか */
+    /** [r]レベルアップ中かどうか */
     bool _is_working;
-
-    float _discount_rate;
-
+    /** [r]現在の各レベルのロールアップ表示状態(0.0:閉じている ～ 1.0:開いている) */
     float _rr;
+    /** [r/w]ロールアップの速さ */
     float _velo_rr;
 
 public:
@@ -188,8 +179,14 @@ public:
     void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
     }
 
-
+    /**
+     * レベル表示ロールを開く .
+     */
     void rollOpen();
+
+    /**
+     * レベル表示ロールを閉じる .
+     */
     void rollClose();
 
     /**
