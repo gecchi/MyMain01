@@ -39,6 +39,7 @@ void MagicMeterCursor002::processJudgement() {
 }
 
 void MagicMeterCursor002::processPreDraw() {
+    //ロールを考慮せずにLVカーソル移動させ、ここで、ロール分を補正
     _tmp_Y = _Y;
     _Y += (_pMagicMeter->_height * (_pMagicMeter->_paCursorLv[_magic_index]+1) * (1.0-_pMagic->_rr));
     DefaultBoardActor::processPreDraw();
@@ -49,8 +50,12 @@ void MagicMeterCursor002::processAfterDraw() {
     _Y = _tmp_Y;
 }
 
-void MagicMeterCursor002::blink() {
-    _pFader->beat(8, 0, 4, 4, 10);
+void MagicMeterCursor002::beginBlinking() {
+    _pFader->beat(8, 0, 4, 4, -1); //ピカピカしっぱなし
+}
+
+void MagicMeterCursor002::stopBlinking() {
+    _pFader->beat(8, 0, 4, 4, 1); //ピカピカ終了
 }
 
 void MagicMeterCursor002::moveToLv(int prm_lv) {
@@ -58,7 +63,7 @@ void MagicMeterCursor002::moveToLv(int prm_lv) {
     coord tY = _pMagicMeter->_Y - (_pMagicMeter->_height*(prm_lv+1));
     _pKurokoA->setMvAng(tX, tY);
     _pKurokoA->execSmoothMvVeloSequence(0, GgafDxUtil::getDistance(_X, _Y, tX, tY),
-                                        10, 0.2, 0.4);
+                                        20, 0.2, 0.4); //ロールを考慮せずにとりあえず移動
 }
 
 MagicMeterCursor002::~MagicMeterCursor002() {

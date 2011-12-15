@@ -5,13 +5,25 @@ namespace MyStg2nd {
 typedef int magic_point;
 typedef frame magic_time;
 
-#define MAGIC_EXECUTE_NG_INVOKING    (-2)
-#define MAGIC_EXECUTE_NG_MP_IS_SHORT (-1)
-#define MAGIC_EXECUTE_NG             (-1)
-#define MAGIC_EXECUTE_THE_SAME_LEVEL (0)
-#define MAGIC_EXECUTE_OK             (1)
-#define MAGIC_EXECUTE_OK_LEVELUP     (1)
-#define MAGIC_EXECUTE_OK_LEVELDOWN   (2)
+#define MAGIC_CAST_NG_INVOKING_NOW          (-3)
+#define MAGIC_CAST_NG_MP_IS_SHORT           (-2)
+#define MAGIC_CAST_CANCEL                   (-1)
+#define MAGIC_CAST_NOTHING                  (0)
+#define MAGIC_CAST_OK_LEVELUP               (1)
+#define MAGIC_CAST_OK_LEVELDOWN             (2)
+#define MAGIC_CAST_OK_CANCEL_AND_LEVELUP    (3)
+#define MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN  (4)
+
+#define MAGIC_INVOKE_NG_INVOKING_NOW (-3)
+#define MAGIC_INVOKE_NG_MP_IS_SHORT (-2)
+#define MAGIC_INVOKE_NOTHING        (0)
+#define MAGIC_INVOKE_OK_LEVELUP     (1)
+#define MAGIC_INVOKE_OK_LEVELDOWN   (2)
+
+#define MAGIC_EFFECT_NG_INVOKING_NOW (-3)
+#define MAGIC_EFFECT_NOTHING        (0)
+#define MAGIC_EFFECT_OK_LEVELUP     (1)
+#define MAGIC_EFFECT_OK_LEVELDOWN   (2)
 
 /**
  * 抽象魔法クラス .
@@ -189,18 +201,12 @@ public:
      */
     void rollClose();
 
-    /**
-     * そのレベルの魔法が実行できるか調べる
-     * @param prm_new_level
-     * @return
-     */
-    int chkExecuteAble(int prm_new_level);
 
     /**
      * 詠唱開始実行 .
      * @param prm_new_level
      */
-    virtual void cast(int prm_new_level);
+    virtual int cast(int prm_new_level);
 
     /**
      * 魔法詠唱開始コールバック(１回だけコールバック) .
@@ -227,7 +233,7 @@ public:
      * 発動開始実行 .
      * @param prm_new_level
      */
-    virtual void invoke(int prm_new_level);
+    virtual int invoke(int prm_new_level);
 
     /**
      * 魔法発動開始コールバック。ここまでくると詠唱キャンセルは不可とする。(１回だけコールバック) .
@@ -254,7 +260,7 @@ public:
      * 効果発揮実行 .
      * @param prm_new_level
      */
-    virtual void effect(int prm_level);
+    virtual int effect(int prm_level);
 
     /**
      * 魔法効果持続開始コールバック(１回だけコールバック) .
@@ -281,6 +287,28 @@ public:
      * @param prm_justbefore_level 効果持続が終了する直前のレベル(ちなみに現在レベルは必ず0)。
      */
     virtual void processEffectFinish(int prm_justbefore_level) {};
+
+
+    /**
+     * そのレベルの魔法が詠唱実行できるか調べる
+     * @param prm_new_level 詠唱するレベル
+     * @return
+     */
+    int chkCastAble(int prm_new_level);
+
+    /**
+     * そのレベルの魔法が発動実行ができるか調べる
+     * @param prm_new_level 発動するレベル
+     * @return
+     */
+    int chkInvokeAble(int prm_new_level);
+
+    /**
+     * そのレベルの魔法が効果が実行ができるか調べる
+     * @param prm_level
+     * @return
+     */
+    int chkEffectAble(int prm_level);
 
 //    /**
 //     * 魔法破棄コールバック .

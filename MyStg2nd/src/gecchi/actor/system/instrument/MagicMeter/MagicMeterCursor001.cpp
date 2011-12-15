@@ -34,7 +34,7 @@ void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
     coord tY = _pMagicMeter->_Y;
     _pKurokoA->setMvAng(tX, tY);
     _pKurokoA->execSmoothMvVeloSequence(0, GgafDxUtil::getDistance(_X, _Y, tX, tY),
-                                        10, 0.2, 0.4);
+                                        20, 0.2, 0.4);
 }
 
 MagicMeterCursor001::~MagicMeterCursor001() {

@@ -83,76 +83,127 @@ void Magic::rollClose() {
     _velo_rr = -0.01;
 }
 
-int Magic::chkExecuteAble(int prm_new_level) {
+int Magic::chkCastAble(int prm_new_level) {
     if (_pProg->get() == MAGIC_INVOKING) {
-        //発動中のため実行不可
-        return MAGIC_EXECUTE_NG_INVOKING;
-    } else {
+        return MAGIC_CAST_NG_INVOKING_NOW; //発動中のため実行不可
+    } else if (_pProg->get() == MAGIC_CASTING) {
+        //他のレベルを詠唱中に詠唱再実行
         if (_level > prm_new_level) {
-            return MAGIC_EXECUTE_OK_LEVELDOWN;
+            return MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN; //再詠唱レベルダウンOK
         } else if (_level < prm_new_level) {
             if (_interest_cost[prm_new_level-_level] < _pMP->get()) {
-                return MAGIC_EXECUTE_OK_LEVELUP;
+                return MAGIC_CAST_OK_CANCEL_AND_LEVELUP; //再詠唱レベルアップOK
             } else {
-                return MAGIC_EXECUTE_NG_MP_IS_SHORT;
+                return MAGIC_CAST_NG_MP_IS_SHORT; //MPが足りないため、再詠唱レベルアップ不可
             }
-        } else {
-            return MAGIC_EXECUTE_THE_SAME_LEVEL;
+        } else { //_level==prm_new_level
+            return MAGIC_CAST_CANCEL; //詠唱キャンセル
+        }
+    } else {
+        //待機状態か効果持続中に詠唱実行
+        if (_level > prm_new_level) {
+            return MAGIC_CAST_OK_LEVELDOWN; //詠唱レベルダウンOK
+        } else if (_level < prm_new_level) {
+            if (_interest_cost[prm_new_level-_level] < _pMP->get()) {
+                return MAGIC_CAST_OK_LEVELUP; //詠唱レベルアップOK
+            } else {
+                return MAGIC_CAST_NG_MP_IS_SHORT; //MPが足りないため、再詠唱レベルアップ不可
+            }
+        } else { //_level==prm_new_level
+            return MAGIC_CAST_NOTHING; //何もしない。
         }
     }
 }
-void Magic::cast(int prm_new_level) {
-    int r = chkExecuteAble(prm_new_level);
+int Magic::cast(int prm_new_level) {
+    int r = chkCastAble(prm_new_level);
     switch (r) {
-        case MAGIC_EXECUTE_THE_SAME_LEVEL: {
+        case MAGIC_CAST_NG_INVOKING_NOW: {
             break;
         }
-        case MAGIC_EXECUTE_NG_MP_IS_SHORT: {
+        case MAGIC_CAST_NG_MP_IS_SHORT: {
             break;
         }
-        case MAGIC_EXECUTE_NG_INVOKING: {
+        case MAGIC_CAST_NOTHING: {
             break;
         }
-        case MAGIC_EXECUTE_OK_LEVELUP: {
+        case MAGIC_CAST_CANCEL: {
+            _is_working = false;
+            _new_level = prm_new_level;
+            _pProg->change(MAGIC_NOTHING);
+            break;
+        }
+        case MAGIC_CAST_OK_LEVELUP: {
             _is_working = true;
             _new_level = prm_new_level;
             _pProg->change(MAGIC_CASTING);
             break;
         }
-        case MAGIC_EXECUTE_OK_LEVELDOWN: {
+        case MAGIC_CAST_OK_LEVELDOWN: {
+            _is_working = true;
+            effect(prm_new_level);
+            break;
+        }
+        case MAGIC_CAST_OK_CANCEL_AND_LEVELUP: {
+            _is_working = true;
+            _new_level = prm_new_level;
+            _pProg->change(MAGIC_CASTING);
+            break;
+        }
+        case MAGIC_CAST_OK_CANCEL_AND_LEVELDOWN: {
             _is_working = true;
             effect(prm_new_level);
             break;
         }
     }
+    return r;
 }
 
-void Magic::invoke(int prm_new_level) {
-    int r = chkExecuteAble(prm_new_level);
+int Magic::chkInvokeAble(int prm_new_level) {
+    if (_pProg->get() == MAGIC_INVOKING) {
+        //発動中のため実行不可
+        return MAGIC_INVOKE_NG_INVOKING_NOW;
+    } else {
+        if (_level > prm_new_level) {
+            return MAGIC_INVOKE_OK_LEVELDOWN;
+        } else if (_level < prm_new_level) {
+            if (_interest_cost[prm_new_level-_level] < _pMP->get()) {
+                return MAGIC_INVOKE_OK_LEVELUP;
+            } else {
+                return MAGIC_INVOKE_NG_MP_IS_SHORT;
+            }
+        } else { //_level==prm_new_level
+            return MAGIC_INVOKE_NOTHING;
+        }
+    }
+}
+
+int Magic::invoke(int prm_new_level) {
+    int r = chkInvokeAble(prm_new_level);
     switch (r) {
-        case MAGIC_EXECUTE_THE_SAME_LEVEL: {
+        case MAGIC_INVOKE_NG_INVOKING_NOW: {
             break;
         }
-        case MAGIC_EXECUTE_NG_MP_IS_SHORT: {
+        case MAGIC_INVOKE_NG_MP_IS_SHORT: {
             break;
         }
-        case MAGIC_EXECUTE_NG_INVOKING: {
-            break;
-        }
-        case MAGIC_EXECUTE_OK_LEVELUP: {
+        case MAGIC_INVOKE_OK_LEVELUP: {
             _is_working = true;
             _new_level = prm_new_level;
             _pProg->change(MAGIC_INVOKING);
             break;
         }
-        case MAGIC_EXECUTE_OK_LEVELDOWN: {
+        case MAGIC_INVOKE_OK_LEVELDOWN: {
             _is_working = true;
             effect(prm_new_level);
             break;
         }
+        case MAGIC_INVOKE_NOTHING: {
+            break;
+        }
     }
+    return r;
 }
-void Magic::effect(int prm_level) {
+int Magic::effect(int prm_level) {
     //現在魔法レベルは停止して
     _lvinfo[_level]._is_working = false;
     //レベル更新
