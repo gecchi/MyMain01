@@ -10,6 +10,7 @@ MagicMeterCursor001::MagicMeterCursor001(const char* prm_name, MagicMeter* prm_p
         DefaultBoardActor(prm_name, "MagicMeter") {
     _class_name = "MagicMeterCursor001";
     _pMagicMeter = prm_pMagicMeter;
+	_Z = 0;
 }
 void MagicMeterCursor001::initialize() {
     _X = _pMagicMeter->_X + _pMagicMeter->_width*_pMagicMeter->_ringMagics.getCurrentIndex();
@@ -22,6 +23,7 @@ void MagicMeterCursor001::onActive() {
 }
 
 void MagicMeterCursor001::processBehavior() {
+    _Z = 0;
     _pKurokoA->behave();
     _pUvFlipper->behave();
 }

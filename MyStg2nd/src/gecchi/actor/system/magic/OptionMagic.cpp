@@ -11,7 +11,7 @@ OptionMagic::OptionMagic(const char* prm_name, AmountGraph* prm_pMP)
             1000    , 0.9,   //基本魔法コスト , 飛びレベル時の rate
             60*2    , 0.9,   //基本詠唱時間   , 飛びレベル時の rate
             60*0.2  , 0.9,   //基本発動時間   , 飛びレベル時の rate
-            60*10    , 0.0,  //基本持続時間   , 各レベルの削減割合
+            60*60    , 0.0,  //基本持続時間   , 各レベルの削減割合
             0.0     , 0.0    //基本維持コスト , 各レベル時の rate
         ) {
 //    |  0,   1,   2,   3 |
@@ -96,12 +96,13 @@ void OptionMagic::processInvokeingBehavior(int prm_now_level, int prm_new_level)
 
 void OptionMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
 }
-void OptionMagic::effect(int prm_level) {
-    Magic::effect(prm_level);
+int OptionMagic::effect(int prm_level) {
+    int r = Magic::effect(prm_level);
     //オプション有効にする。
     //(processEffectBegin 時、 option は一度はbehave()されて座標を計算しておいてほしい）
     P_MYOPTIONCON->setNumOption(prm_level);
     P_MYOPTIONCON->adjustDefaltAngPosition(60);
+	return r;
 }
 
 void OptionMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {

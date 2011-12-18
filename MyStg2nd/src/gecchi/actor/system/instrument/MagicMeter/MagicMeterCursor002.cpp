@@ -22,6 +22,7 @@ void MagicMeterCursor002::initialize() {
     _Y = _pMagicMeter->_Y;
     _tmp_Y = _Y;
     _pUvFlipper->setActivePtnNo(0);
+	_Z = 1;
 }
 
 void MagicMeterCursor002::onActive() {
@@ -30,6 +31,7 @@ void MagicMeterCursor002::onActive() {
 
 void MagicMeterCursor002::processBehavior() {
     setAlpha(_pMagic->_rr);
+    _Z = 1;
     _pKurokoA->behave();
     _pUvFlipper->behave();
     _pFader->behave();
@@ -51,11 +53,12 @@ void MagicMeterCursor002::processAfterDraw() {
 }
 
 void MagicMeterCursor002::beginBlinking() {
-    _pFader->beat(8, 0, 4, 4, -1); //ピカピカしっぱなし
+    //_pFader->beat(8, 0, 4, 4, -1); //ピカピカしっぱなし
 }
 
 void MagicMeterCursor002::stopBlinking() {
-    _pFader->beat(8, 0, 4, 4, 1); //ピカピカ終了
+    //_pFader->beat(8, 0, 4, 4, 1); //ピカピカ終了
+	setAlpha(_pMagic->_rr);
 }
 
 void MagicMeterCursor002::moveToLv(int prm_lv) {

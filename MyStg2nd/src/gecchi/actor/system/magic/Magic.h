@@ -20,10 +20,21 @@ typedef frame magic_time;
 #define MAGIC_INVOKE_OK_LEVELUP     (1)
 #define MAGIC_INVOKE_OK_LEVELDOWN   (2)
 
-#define MAGIC_EFFECT_NG_INVOKING_NOW (-3)
+#define MAGIC_EFFECT_NG_MP_IS_SHORT (-2)
 #define MAGIC_EFFECT_NOTHING        (0)
 #define MAGIC_EFFECT_OK_LEVELUP     (1)
 #define MAGIC_EFFECT_OK_LEVELDOWN   (2)
+
+enum {
+    MAGIC_STATE_NOTHING = 1,
+    MAGIC_STATE_STAND_BY   ,
+    MAGIC_STATE_CASTING    ,
+    MAGIC_STATE_INVOKING   ,
+    MAGIC_STATE_EFFECT_BEGEIN,
+    MAGIC_STATE_EFFECTING  ,
+    MAGIC_STATE_ABANDONING ,
+};
+
 
 /**
  * íäè€ñÇñ@ÉNÉâÉX .

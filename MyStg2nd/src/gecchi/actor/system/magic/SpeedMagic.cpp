@@ -67,10 +67,11 @@ void SpeedMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
     _pEffect->inactivate();
 }
 
-void SpeedMagic::effect(int prm_level) {
-    Magic::effect(prm_level);
+int SpeedMagic::effect(int prm_level) {
+    int r = Magic::effect(prm_level);
     //スピードを変更する。
     P_MYSHIP->setMoveSpeedLv((prm_level+1)*4);
+	return r;
 }
 
 void SpeedMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
