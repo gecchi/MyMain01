@@ -12,7 +12,7 @@ float GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX = 55.0f;
 void GgafProperties::load(string prm_properties_filename) {
     if (_pMapProperties == NULL) {
         _pMapProperties = NEW GgafStrMap();
-        GgafUtil::read(prm_properties_filename, _pMapProperties);
+        GgafUtil::readProperties(prm_properties_filename, _pMapProperties);
 //        if (ret != 0) {
 //            throwGgafCriticalException("GgafProperties::load() Error! "<<prm_properties_filename<<"のread()に失敗。ステート→"<<ret);
 //        }
@@ -26,7 +26,7 @@ void GgafProperties::load(string prm_properties_filename) {
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN1="<<GgafProperties::DRAWNUM_TO_SLOWDOWN1);
     _TRACE_("GgafProperties::DRAWNUM_TO_SLOWDOWN2="<<GgafProperties::DRAWNUM_TO_SLOWDOWN2);
     _TRACE_("GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX="<<GgafProperties::FPS_TO_CLEAN_GARBAGE_BOX);
-    GgafUtil::write("back.properties", _pMapProperties);
+    GgafUtil::writeProperties("back.properties", _pMapProperties);
 }
 
 void GgafProperties::clean() {

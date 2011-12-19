@@ -12,15 +12,15 @@ namespace GgafLib {
 class AmountGraph : public GgafCore::GgafObject {
 
 public:
-    /** 100%のメーター値(≠0) */
+    /** [r]100%のメーター値(≠0) */
     int _max_val;
-    /** 現在のメーター値 */
+    /** [r]現在のメーター値 */
     int _val;
-    /** 100%のメーターの長さ(px) */
+    /** [r]100%のメーターの長さ(px) */
     float _max_val_px;
-    /** 現在のメーターの長さ(px) */
+    /** [r]現在のメーターの長さ(px) */
     float _val_px;
-    /** 現在のメーター値の割合 */
+    /** [r]現在のメーター値の割合 */
     float _rate_val;
 
     /**

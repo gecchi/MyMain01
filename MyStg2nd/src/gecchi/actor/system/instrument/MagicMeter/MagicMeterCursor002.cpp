@@ -18,11 +18,11 @@ MagicMeterCursor002::MagicMeterCursor002(const char* prm_name, MagicMeter* prm_p
     }
 }
 void MagicMeterCursor002::initialize() {
-    _X = _pMagicMeter->_X + (_pMagicMeter->_width * _magic_index);
-    _Y = _pMagicMeter->_Y;
+    _X = _tX = _pMagicMeter->_X + (_pMagicMeter->_width * _magic_index);
+    _Y = _tY = _pMagicMeter->_Y;
     _tmp_Y = _Y;
     _pUvFlipper->setActivePtnNo(0);
-	_Z = 1;
+    _Z = 1;
 }
 
 void MagicMeterCursor002::onActive() {
@@ -32,6 +32,10 @@ void MagicMeterCursor002::onActive() {
 void MagicMeterCursor002::processBehavior() {
     setAlpha(_pMagic->_rr);
     _Z = 1;
+    if (_pKurokoA->isMoveingSmooth() == false) {
+        _X = _tX;
+        _Y = _tY;
+    }
     _pKurokoA->behave();
     _pUvFlipper->behave();
     _pFader->behave();
@@ -58,15 +62,15 @@ void MagicMeterCursor002::beginBlinking() {
 
 void MagicMeterCursor002::stopBlinking() {
     //_pFader->beat(8, 0, 4, 4, 1); //ピカピカ終了
-	setAlpha(_pMagic->_rr);
+    setAlpha(_pMagic->_rr);
 }
 
 void MagicMeterCursor002::moveToLv(int prm_lv) {
-    coord tX = _X;
-    coord tY = _pMagicMeter->_Y - (_pMagicMeter->_height*(prm_lv+1));
-    _pKurokoA->setMvAng(tX, tY);
-    _pKurokoA->execSmoothMvVeloSequence(0, GgafDxUtil::getDistance(_X, _Y, tX, tY),
-                                        20, 0.2, 0.4); //ロールを考慮せずにとりあえず移動
+    _tX = _X;
+    _tY = _pMagicMeter->_Y - (_pMagicMeter->_height*(prm_lv+1));
+    _pKurokoA->setMvAng(_tX, _tY);
+    _pKurokoA->execSmoothMvVeloSequence(0, GgafDxUtil::getDistance(_X, _Y, _tX, _tY),
+                                        10, 0.2, 0.4); //ロールを考慮せずにとりあえず移動
 }
 
 MagicMeterCursor002::~MagicMeterCursor002() {

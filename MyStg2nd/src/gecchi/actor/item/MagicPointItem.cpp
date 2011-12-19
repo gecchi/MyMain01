@@ -163,7 +163,7 @@ void MagicPointItem::onHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
 
 
-    if (_pProg->get() == ITEM_PROG_DRIFT && pOther->getKind() & KIND_MY_BODY)  {
+    if (_pProg->get() == ITEM_PROG_DRIFT && (pOther->getKind() & KIND_MY_BODY))  {
         setHitAble(false);
         _pProg->change(ITEM_PROG_ATTACH);
     }

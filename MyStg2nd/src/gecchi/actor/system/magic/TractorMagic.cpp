@@ -54,9 +54,9 @@ void TractorMagic::processInvokeFinish(int prm_now_level, int prm_new_level) {
 }
 
 int TractorMagic::effect(int prm_level) {
-    _is_tracting = true;
-	int r = Magic::effect(prm_level);
-	return r;
+    _is_tracting = true; //
+    int r = Magic::effect(prm_level);
+    return r;
 }
 
 void TractorMagic::processEffectBegin(int prm_last_level, int prm_now_level) {

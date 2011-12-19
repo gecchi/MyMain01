@@ -174,10 +174,10 @@ public:
     }
 
 
-    static void read(std::string filename, GgafStrMap* pMap);
-    static void read(std::istream &is, GgafStrMap* pMap);
-    static void write(const char *filename, GgafStrMap* pMap, const char *header = NULL);
-    static void write(std::ostream &os, GgafStrMap* pMap, const char *header = NULL);
+    static void readProperties(std::string filename, GgafStrMap* pMap);
+    static void readProperties(std::istream &is, GgafStrMap* pMap);
+    static void writeProperties(const char *filename, GgafStrMap* pMap, const char *header = NULL);
+    static void writeProperties(std::ostream &os, GgafStrMap* pMap, const char *header = NULL);
     static void print(std::ostream &os, GgafStrMap* pMap);
     static inline char m_hex(int nibble)
     {

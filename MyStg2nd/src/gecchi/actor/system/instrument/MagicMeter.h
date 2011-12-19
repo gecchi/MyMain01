@@ -46,8 +46,13 @@ public:
     /** 魔法メーター１つの高さ */
     coord _height;
 
+    stringstream _st[10];
 
     MagicMeter(const char* prm_name);
+
+    void saveStatus(int prm_saveno);
+
+    void loadStatus(int prm_saveno);
 
     void save(std::stringstream& sts);
 

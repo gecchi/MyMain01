@@ -137,7 +137,11 @@ void GgafDxDrawableActor::processPreDraw() {
 //                                (int)((1.0*_Z/LEN_UNIT) * MAX_DRAW_DEPTH_LEVEL),
 //                                this
 //                             );
-            _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(_Z, this); //2Dは_Zはプライオリティに使用。
+            if (_fAlpha <= 0.0f || ((GgafDxScene*)getPlatformScene())->_pAlphaCurtain->_alpha <= 0.0f) {
+                //描画しないので登録なし
+            } else {
+                _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(_Z, this); //2Dは_Zはプライオリティに使用。
+            }
         } else {
             if (isOutOfView() || _fAlpha <= 0.0f || ((GgafDxScene*)getPlatformScene())->_pAlphaCurtain->_alpha <= 0.0f) {
                 //描画しないので登録なし
@@ -177,35 +181,35 @@ void GgafDxDrawableActor::processPreDraw() {
                 //   7975036 <DEBUG> GgafDxCamera::GgafDxCamera 範囲 [0.01 ~ 1001.07]
                 //
                 // 1001.07 つまり約10000px相当の奥行きを描画
+                dxcoord dep = -_fDist_VpPlnFront; //オブジェクトの視点からの距離(DIRECTX距離)
+
+                static double dep_rate_point1 = 0.3;                                //荒くなるポイント１の割合(カメラ可視奥行の 3/10 の地点)
+                static double dep_rate_point2 = 0.6;                                //荒くなるポイント２の割合(カメラ可視奥行の 6/10 の地点)
+                static dxcoord roughly_dep_point1 = (P_CAM->_zf * dep_rate_point1); //荒くなるポイント１距離
+                static dxcoord roughly_dep_point2 = (P_CAM->_zf * dep_rate_point2); //荒くなるポイント２距離
+                static double dep_level_rate_cam_to_point1 = 0.5;                   //視点～荒くなるポイント１までの、深度レベルを求めるために距離に場する割合。
+                static double dep_level_rate_point1_to_point2 = 0.2;                //荒くなるポイント１～ポイント２間の、深度レベルを求めるために距離に場する割合。
+                static double dep_level_rate_point2_to_far_away = 0.01;             //荒くなるポイント２～最遠の、深度レベルを求めるために距離に場する割合。
+                static int roughly_dep_point1_DRAW_DEPTH_LEVEL = roughly_dep_point1*dep_level_rate_cam_to_point1;    //荒くなるポイント１深度レベル
+                static int roughly_dep_point2_DRAW_DEPTH_LEVEL = roughly_dep_point1_DRAW_DEPTH_LEVEL +
+                               ((roughly_dep_point2 - roughly_dep_point1) * dep_level_rate_point1_to_point2);        //荒くなるポイント２深度レベル
+
                 if (_specal_drawdepth < 0) { //特別な描画深度指定無し
-
-                    float dep = -_fDist_VpPlnFront; //オブジェクトの視点からの距離(DIRECTX距離)
-                    static float roughly_dep_point1 = (P_CAM->_zf * 0.3); //荒くなるポイント１(カメラ可視奥行の 3/10 の地点)(約 300 DIRECTX距離)
-                    static float roughly_dep_point2 = (P_CAM->_zf * 0.6); //荒くなるポイント２(カメラ可視奥行の 6/10 の地点)(約 600 DIRECTX距離)
-
-                    if (dep <= roughly_dep_point1) { //depが ～ roughly_dep_point1 までの距離のオブジェクトは
-
-                        _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(dep*0.5, this); //DirectXの距離1の0.5倍、DirectXの距離2が深さ1。よって20px間隔
-                        // MAX_DRAW_DEPTH_LEVEL の 0 ～ (int)roughly_dep_point1 までココで当てはめられることになる
-                        // 上記の例では 1001.07 * 0.3 = 300 より、DIRECTX距離 0～300 に対し 300*0.5 = 150 であるので
-                        // MAX_DRAW_DEPTH_LEVEL = 0 ～ 150 が割り当てられる
-                    } else if (dep <= roughly_dep_point2) {
-                        //dep が roughly_dep_point1(300 DIRECTX距離) ～ roughly_dep_point2(600 DIRECTX距離) までの距離のオブジェクトは
-                        int offset_DRAW_DEPTH_LEVEL = roughly_dep_point1*0.5; //段階レベルオフセット = 150
-
-                        _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(offset_DRAW_DEPTH_LEVEL + ((dep - roughly_dep_point1) * 0.2), this);  //DirectXの距離1の0.2倍。つまりDirectXの距離5が深さ1。よって50px間隔で段階レンダ
-                        // (dep - roughly_dep_point1) * 0.2 の dep が roughly_dep_point2 の場合
-                        // (600 - 300) * 0.2 =  60、となるのでDIRECTX距離 300～600 に対して MAX_DRAW_DEPTH_LEVEL の 150～210 がここで当てはめられる
-                    } else {
-                        //dep が roughly_dep_point2(600) ～ の距離のオブジェクトは
-                        //上の offset_DRAW_DEPTH_LEVEL + (dep - roughly_dep_point1) * 0.2) の dep に roughly_dep_point2を代入した値がオフセットである
-                        int offset_DRAW_DEPTH_LEVEL = (roughly_dep_point1*0.5) + ((roughly_dep_point2 - roughly_dep_point1) * 0.2);
-
-                        _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(offset_DRAW_DEPTH_LEVEL  + ((dep - roughly_dep_point2) * 0.01), this); //0.01倍。つまりDirectXの距離100が深さ1。よって1000px間隔で段階レンダ
+                    if (dep <= roughly_dep_point1) {         //depが 視点 ～ r荒くなるポイント１ までの距離のオブジェクト
+                        _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(
+                                             dep*dep_level_rate_cam_to_point1,
+                                             this); //DirectXの距離1の0.5倍、DirectXの距離2が深さ1。よって約20px間隔
+                    } else if (dep <= roughly_dep_point2) {  //depが 荒くなるポイント１～ポイント２間
+                        _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(
+                                             roughly_dep_point1_DRAW_DEPTH_LEVEL +
+                                               ((dep - roughly_dep_point1) * dep_level_rate_point1_to_point2),
+                                             this);  //DirectXの距離1の0.2倍。つまりDirectXの距離5が深さ1。よって50px間隔で段階レンダ
+                    } else {                                 //depが ポイント２以降
+                        _now_drawdepth = GgafDxUniverse::setDrawDepthLevel(
+                                             roughly_dep_point2_DRAW_DEPTH_LEVEL +
+                                               ((dep - roughly_dep_point2) * dep_level_rate_point2_to_far_away),
+                                             this); //0.01倍。つまりDirectXの距離100が深さ1。よって1000px間隔で段階レンダ
                     }
-//                    if (GgafDxInput::isBeingPressedKey(DIK_I)) {
-//                        _TRACE_("setDep ["<<_now_drawdepth<<"]:dep="<<dep<<" roughly_dep_point1="<<roughly_dep_point1<<" roughly_dep_point2="<<roughly_dep_point2<<" name="<<this->getName());
-//                    }
                 } else {
                     //特別な描画深度指定有り
                     if (GgafDxUniverse::_apAlphaActorList_DrawDepthLevel[_specal_drawdepth] == NULL) {
@@ -219,9 +223,6 @@ void GgafDxDrawableActor::processPreDraw() {
                         GgafDxUniverse::_apAlphaActorList_DrawDepthLevel[_specal_drawdepth] = this;
                     }
                     _now_drawdepth = _specal_drawdepth;
-//                    if (GgafDxInput::isBeingPressedKey(DIK_I)) {
-//                        _TRACE_("_specal_drawdepth ["<<_now_drawdepth<<"]: name="<<this->getName());
-//                    }
                 }
 
             }

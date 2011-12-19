@@ -13,6 +13,11 @@ namespace MyStg2nd {
 class MagicMeterCursor002 : public GgafLib::DefaultBoardActor {
 
 public:
+    /** 移動目標X座標 */
+    coord _tX;
+    /** 移動目標Y座標 */
+    coord _tY;
+
     /** 対象魔法 */
     Magic* _pMagic;
     /** 対象魔法メーター */

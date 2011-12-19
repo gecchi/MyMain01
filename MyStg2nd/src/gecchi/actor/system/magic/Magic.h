@@ -116,27 +116,28 @@ public:
     /** [r]飛びレベル差別発動時間情報 0差～MMETER_MAX_LEVEL差 */
     magic_time  _interest_time_of_invoking[MMETER_MAX_LEVEL+1];
 
-    /** [r/w]本魔法発動に必要なコストの基本単位 */
+    /** [r]本魔法発動に必要なコストの基本単位 */
     magic_point _cost_base;
-    /** [r/w]本魔法詠唱開始 ～ 魔法詠唱終了の基本単位時間  */
+    /** [r]本魔法詠唱開始 ～ 魔法詠唱終了の基本単位時間  */
     magic_time _time_of_casting_base;
-    /** [r/w]本魔法発動開始 ～ 魔法発動終了の基本単位時間 */
+    /** [r]本魔法発動開始 ～ 魔法発動終了の基本単位時間 */
     magic_time _time_of_invoking_base;
-    /** [r/w]本魔法効果持続開始 ～ 魔法効果持続終了の基本単位時間  */
+    /** [r]本魔法効果持続開始 ～ 魔法効果持続終了の基本単位時間  */
     magic_time _time_of_effect_base;
-    /** [r/w]本魔法効果持続中コストの基本単位  */
+    /** [r]本魔法効果持続中コストの基本単位  */
     magic_point _keep_cost_base;
 
-    /** [r/w]飛びレベル時の魔法コスト削減割合(0.0～1.0) */
+    /** [r]飛びレベル時の魔法コスト削減割合(0.0～1.0) */
     float _fRate_cost;
-    /** [r/w]飛びレベル時の詠唱時間削減割合(0.0～1.0) */
+    /** [r]飛びレベル時の詠唱時間削減割合(0.0～1.0) */
     float _fRate_time_of_casting;
-    /** [r/w]飛びレベル時の発動時間削減割合(0.0～1.0) */
+    /** [r]飛びレベル時の発動時間削減割合(0.0～1.0) */
     float _fRate_time_of_invoking;
-    /** [r/w]各レベル毎の効果持続時間削減割合(0.0～1.0) */
+    /** [r]各レベル毎の効果持続時間削減割合(0.0～1.0) */
     float _fRate_time_of_effecting;
-    /** [r/w]各レベル毎の維持コスト増加割合 (1.0～ )*/
+    /** [r]各レベル毎の維持コスト増加割合 (1.0～ )*/
     float _fRate_keep_cost;
+
     /** [r]次の進捗状態になる為に必要なフレーム数(を一時保持) */
     magic_time _time_of_next_state;
     /** [r]レベルアップ中かどうか */
@@ -201,6 +202,10 @@ public:
     }
     void onCatchEvent(UINT32 prm_no, void* prm_pSource) override {
     }
+
+    void save(std::stringstream& sts);
+
+    void load(std::stringstream& sts);
 
     /**
      * レベル表示ロールを開く .

@@ -24,7 +24,7 @@ MagicMeter::MagicMeter(const char* prm_name)
 
     _X = 100*LEN_UNIT;
     _Y = (CFG_PROPERTY(GAME_BUFFER_HEIGHT) - (_height_px*2)) * LEN_UNIT;
-	_Z = 3;
+    _Z = 10;
 //    AmountGraph _qu;
 //    _qu.set(1.0);
 //    _qu.config(400.0, 1.0);
@@ -92,59 +92,36 @@ MagicMeter::MagicMeter(const char* prm_name)
     _pSeTransmitter->set(SE_EXECUTE_LEVELUP_MAGIC, "warp");      //レベルダウンアップ
     _pSeTransmitter->set(SE_EXECUTE_LEVELDOWN_MAGIC, "SwingA@11"); //レベルダウン実行
 }
+void MagicMeter::loadStatus(int prm_saveno) {
+    _st[prm_saveno].seekg(stringstream::beg); //頭出し
+    load(_st[prm_saveno]);
+}
+void MagicMeter::saveStatus(int prm_saveno) {
+    save(_st[prm_saveno]);
+}
 
 void MagicMeter::save(stringstream& sts) {
+    sts << _mp.get() << " ";
     Magic* pOrgMagic = _ringMagics.getCurrent();
-    Magic::LevelInfo* info;
     int len_magics = _ringMagics.length();
     for (int i = 0; i < len_magics; i++) {
-        for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
-            info = &(pOrgMagic->_lvinfo[lv]);
-            sts << info->_is_working               << " " <<
-                   info->_remaining_time_of_effect << " " <<
-                   info->_time_of_effect           << " " <<
-                   info->_keep_cost                << " " <<
-                   info->_pno                      << " ";
-        }
+        pOrgMagic->save(sts);
         pOrgMagic = _ringMagics.next();
     }
 }
 
 void MagicMeter::load(stringstream& sts) {
+    int mp;
+    sts << mp << " ";
+    _mp.set(mp);
+
     Magic* pOrgMagic = _ringMagics.getCurrent();
-    Magic::LevelInfo* info;
     int len_magics = _ringMagics.length();
-    sts.seekg(stringstream::beg); //頭出し
     for (int i = 0; i < len_magics; i++) {
-        for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
-            info = &(pOrgMagic->_lvinfo[lv]);
-            sts >> info->_is_working
-                >> info->_remaining_time_of_effect
-                >> info->_time_of_effect
-                >> info->_keep_cost
-                >> info->_pno;
-        }
+        pOrgMagic->load(sts);
         pOrgMagic = _ringMagics.next();
     }
 }
-//    VBRecordNote* p = _pFirstVBNote;
-//    while (p != NULL) {
-//        ofs << p->_state << " " << p->_frame_of_keeping << endl;
-//        p = p ->_pNext;
-//    }
-//    if (_write_realtime) {
-//        _ofs_realtime.flush();
-//    }
-//    MagicMeter* pCopy = NEW MagicMeter(getName());
-//    Magic* pOrgMagic = _ringMagics.getCurrent();
-//    Magic* pCopyMagic = pCopy->_ringMagics.getCurrent();
-//
-//    int len_magics = _ringMagics.length();
-//    for (int i = 0; i < len_magics; i++) {
-//        &pCopyMagic = &pOrgMagic;
-//        pOrgMagic = _ringMagics.next();
-//        pCopyMagic = pCopy->_ringMagics.next();
-//    }
 
 void MagicMeter::initialize() {
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //アニメ順序
@@ -154,18 +131,6 @@ void MagicMeter::onActive() {
 }
 
 void MagicMeter::processBehavior() {
-    //_pUvFlipper->behave();
-//    GgafLinkedListRing<Magic>::Elem* pElem = _ringMagics.getElemFirst();
-//    for (int i = 0; i < _ringMagics.length(); i++) {
-//        pElem->_pValue->behave();
-//        pElem = pElem->_pNext;
-//    }
-    //updatePanVolume3D しないため _pSeTransmitter->behave(); は不要
-}
-
-void MagicMeter::processJudgement() {
-
-
     if (VB_PLAY->isBeingPressed(VB_POWERUP)) {
 
         Magic* pActiveMagic = _ringMagics.getCurrent();
@@ -256,6 +221,22 @@ void MagicMeter::processJudgement() {
         }
         pActiveMagic->rollClose();
     }
+
+
+
+    if (GgafDxInput::isPushedDownKey(DIK_K)) {
+        saveStatus(0);
+    }
+
+    if (GgafDxInput::isPushedDownKey(DIK_L)) {
+        loadStatus(0);
+    }
+
+}
+
+void MagicMeter::processJudgement() {
+
+
 }
 
 void MagicMeter::onInactive() {
@@ -280,10 +261,42 @@ void MagicMeter::processDraw() {
     float z = float(CO2PX(_Z));
     for (int i = 0; i < len_magics; i++) {
         pMagic = pElem->_pValue;//一周したのでアクティブであるはず
-        //各マジック要素
         n = 0;
-        if (pMagic->_rr > 0.1) {
 
+        //マジックメーター背景
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], x +_width_px*i);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], y) ;
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[n], 0.010f);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[n], _fAlpha);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahAlpha) に失敗しました。");
+        _pUvFlipper->getUV(2, u, v);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[n], u);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(_hOffsetU) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[n], v);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(_hOffsetV) に失敗しました。");
+        n++;
+
+        //マジックメーター上の現在のマジックレベル表示
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], x + _width_px*i);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], y);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[n], 0.009f);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[n], _fAlpha);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahAlpha) に失敗しました。");
+        _pUvFlipper->getUV(pMagic->_lvinfo[pMagic->_level]._pno, u, v);
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[n], u);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(_hOffsetU) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[n], v);
+        checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(_hOffsetV) に失敗しました。");
+        n++;
+
+        if (pMagic->_rr > 0.1) {
+            //各マジック要素
             for (int j = 0; j < pMagic->_max_level+1; j++) {
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], x + _width_px*i);
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。");
@@ -298,9 +311,8 @@ void MagicMeter::processDraw() {
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(_hOffsetU) に失敗しました。");
                 hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[n], v);
                 checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(_hOffsetV) に失敗しました。");
-				n++;
+                n++;
             }
-
 
             //各マジックの現レベル強調表示
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], x + _width_px*i);
@@ -319,40 +331,6 @@ void MagicMeter::processDraw() {
             checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(_hOffsetV) に失敗しました。");
             n++;
         }
-
-
-        //マジックメーター背景
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], x +_width_px*i);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], y) ;
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[n], 0.010f);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[n], _fAlpha);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahAlpha) に失敗しました。");
-        _pUvFlipper->getUV(2, u, v);
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[n], u);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(_hOffsetU) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[n], v);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(_hOffsetV) に失敗しました。");
-		n++;
-
-
-        //マジックメーター上の現在のマジックレベル表示
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[n], x + _width_px*i);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedX) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[n], y);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahTransformedY) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[n], 0.009f);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahDepthZ) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[n], _fAlpha);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw SetFloat(_ahAlpha) に失敗しました。");
-        _pUvFlipper->getUV(pMagic->_lvinfo[pMagic->_level]._pno, u, v);
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[n], u);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(_hOffsetU) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[n], v);
-        checkDxException(hr, D3D_OK, "MagicMeter::processDraw() SetFloat(_hOffsetV) に失敗しました。");
-        n++;
 
         _pBoardSetModel->draw(this, n);
         pElem = pElem->_pNext;

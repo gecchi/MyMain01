@@ -32,16 +32,16 @@ char* GgafUtil::getFileText(string prm_filename) {
     }
 }
 
-void GgafUtil::read(string filename, GgafStrMap* pMap)
+void GgafUtil::readProperties(string filename, GgafStrMap* pMap)
 {
     std::ifstream file(filename.c_str());
     if (!file)
         throwGgafCriticalException("unable to open properties file");
-    read(file, pMap);
+    readProperties(file, pMap);
     file.close();
 }
 
-void GgafUtil::read(std::istream &is, GgafStrMap* pMap)
+void GgafUtil::readProperties(std::istream &is, GgafStrMap* pMap)
 {
     if (!is)
         throwGgafCriticalException("unable to read from stream");
@@ -145,14 +145,14 @@ void GgafUtil::read(std::istream &is, GgafStrMap* pMap)
     }
 }
 
-void GgafUtil::write(const char *filename, GgafStrMap* pMap, const char *header)
+void GgafUtil::writeProperties(const char *filename, GgafStrMap* pMap, const char *header)
 {
     std::ofstream file(filename);
-    write(file, pMap, header);
+    writeProperties(file, pMap, header);
     file.close();
 }
 
-void GgafUtil::write(std::ostream &os, GgafStrMap* pMap, const char *header)
+void GgafUtil::writeProperties(std::ostream &os, GgafStrMap* pMap, const char *header)
 {
     if (header != NULL)
         os << '#' << header << std::endl;

@@ -24,7 +24,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(char* prm_ids
 
     GgafStrMap mapSplPropperties;
 
-    GgafUtil::read(spl_filename, &mapSplPropperties);
+    GgafUtil::readProperties(spl_filename, &mapSplPropperties);
 
     if (GgafUtil::isExistKey("SPLINE", &mapSplPropperties)) {
         spl_data_file = mapSplPropperties["SPLINE"];

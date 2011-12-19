@@ -65,6 +65,35 @@ Magic::Magic(const char*  prm_name, AmountGraph* prm_pMP,
     _pProg->set(MAGIC_STATE_NOTHING);
 }
 
+void Magic::save(stringstream& sts) {
+    sts << _max_level  << " " <<
+           _level      << " " <<
+           _new_level  << " " <<
+           _last_level << " ";
+    for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
+        sts <<  _lvinfo[lv]._is_working               << " " <<
+                _lvinfo[lv]._remaining_time_of_effect << " " <<
+                _lvinfo[lv]._time_of_effect           << " " <<
+                _lvinfo[lv]._keep_cost                << " " <<
+                _lvinfo[lv]._pno                      << " ";
+    }
+}
+
+void Magic::load(stringstream& sts) {
+    sts >> _max_level
+        >> _level
+        >> _new_level
+        >> _last_level;
+
+    for (int lv = 0; lv < MMETER_MAX_LEVEL+1; lv++) {
+        sts >> _lvinfo[lv]._is_working
+            >> _lvinfo[lv]._remaining_time_of_effect
+            >> _lvinfo[lv]._time_of_effect
+            >> _lvinfo[lv]._keep_cost
+            >> _lvinfo[lv]._pno;
+    }
+    effect(_level); //MAGIC_EFFECT_NOTHING‚¾‚©‚çOK‚ÆŽv‚¤
+}
 
 void Magic::rollOpen() {
     _velo_rr = 0.1;
