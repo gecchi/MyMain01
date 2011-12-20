@@ -146,12 +146,14 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/actor/ColliSphereActor.h"
 #include "jp/ggaf/lib/actor/SpriteMeshActor.h"
 #include "jp/ggaf/lib/actor/SpriteMeshSetActor.h"
+#include "jp/ggaf/lib/actor/SingleLaser.h"
 #include "jp/ggaf/lib/actor/StringBoardActor.h"
 #include "jp/ggaf/lib/actor/WallPartsActor.h"
 #include "jp/ggaf/lib/actor/WallAABActor.h"
 #include "jp/ggaf/lib/actor/WallAAPrismActor.h"
 #include "jp/ggaf/lib/actor/SpriteMeshWorldBoundActor.h"
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
+
 #include "jp/ggaf/lib/util/FontSpriteString.h"
 #include "jp/ggaf/lib/util/LinearOctreeForActor.h"
 #include "jp/ggaf/lib/util/LinearOctreeActorElem.h"
@@ -178,8 +180,8 @@ class LaserChipDepositoryStore;
 #include "jp/ggaf/lib/actor/laserchip/RefractionLaserChip.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepositoryStore.h"
-#include "jp/ggaf/lib/actor/laserchip/SingleLaser.h"
 
+#include "jp/ggaf/lib/actor/menu/MenuActor.hpp"
 
 
 

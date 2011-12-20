@@ -71,7 +71,6 @@ MyShip::MyShip(const char* prm_name) :
         string name2 = name.str();
         pChip = NEW MyStraightLaserChip001(name2.c_str());
         pChip->setPositionSource(this); //ˆÊ’u‚¾‚¯“¯Šú
-        pChip->inactivateImmediately();
         _pLaserChipDepo->addSubLast(pChip);
     }
     addSubGroup(_pLaserChipDepo);

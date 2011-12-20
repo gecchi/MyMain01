@@ -75,6 +75,8 @@ public:
         Elem* _pNext;
         /** 前要素 */
         Elem* _pPrev;
+        /** 関連要素配列 */
+        Elem** _papRelation;
         /** 先頭要素フラグ (自要素が先頭要素の場合 true)*/
         bool _is_first_flg;
         /** 末尾要素フラグ (自要素が末尾要素の場合 true)*/
@@ -85,14 +87,51 @@ public:
         /**
          * コンストラクタ
          * @param prm_pValue 値（ポインタ）
+         * @param prm_relation_num 追加確保する関連要素数
          * @param prm_is_delete_value true  : GgafLinkedListRingインスタンスdelete時に、要素(_pValue)もdeleteする。
          *                            false : 要素(_pValue)をdeleteしない。
          */
-        Elem(T* prm_pValue, bool prm_is_delete_value = true) {
+        Elem(T* prm_pValue, int prm_relation_num, bool prm_is_delete_value = true) {
             _pValue = prm_pValue;
             _pNext = _pPrev = NULL;
+            if (prm_relation_num == 0) {
+                _papRelation = NULL;
+            } else {
+                _papRelation = NEW Elem*[prm_relation_num];
+                for (int i = 0; i < prm_relation_num; i++) {
+                    _papRelation[i] = NULL;
+                }
+            }
             _is_first_flg = _is_last_flg = false;
             _is_delete_value = prm_is_delete_value;
+        }
+
+        /**
+         * 要素を互いに関連付ける .
+         * @param prm_connection_index 要素関連接続番号
+         * @param prm_pOppElem 被関連要素
+         */
+        void connectEachOther(int prm_connection_index, Elem* prm_pOppElem) {
+            _papRelation[prm_connection_index] = prm_pOppElem;
+            prm_pOppElem[prm_connection_index] = this;
+        }
+
+        /**
+         * 要素を一方的に関連付ける .
+         * @param prm_connection_index 要素関連接続番号
+         * @param prm_pOppElem 被関連要素
+         */
+        void connect(int prm_connection_index, Elem* prm_pOppElem) {
+            _papRelation[prm_connection_index] = prm_pOppElem;
+        }
+
+        /**
+         * 相手要素から自分へ、一方的に関連付けてもらう .
+         * @param prm_pOppElem 相手の要素
+         * @param prm_opp_connection_index 相手要素から自分への要素関連接続番号
+         */
+        void gotConnected(Elem* prm_pOppElem, int prm_opp_connection_index) {
+            prm_pOppElem[prm_opp_connection_index] = this;
         }
 
         /**
@@ -103,22 +142,25 @@ public:
             if (_is_delete_value) {
                 DELETE_IMPOSSIBLE_NULL(_pValue);
             }
+            DELETEARR_POSSIBLE_NULL(_papRelation);
         }
     };
 
     /** [r]先頭要素 */
     Elem* _pElemFirst;
-
     /** [r]カレント要素 */
     Elem* _pElemActive;
-
     /** [r]要素数 */
     int _num_elem;
+    /** 関連要素数 */
+    int _relation_num;
 
     /**
-     * コンストラクタ
+     * コンストラクタ .
+     * 拡張関連要素数とは、next prev 以外にリレーションを行う枝数です。
+     * @param prm_extend_relation_num 拡張関連要素数
      */
-    GgafLinkedListRing();
+    GgafLinkedListRing(int prm_extend_relation_num = 0);
 
     /**
      * デストラクタ.
@@ -134,397 +176,6 @@ public:
     Elem* getElemActive() {
         return _pElemActive;
     }
-
-    /**
-     * カレント要素の値（保持している内容）を取得する .
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ 変化せずにCをゲット
-     * ---「実行後」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     * </pre>
-     * @return	カレント要素の値
-     */
-    virtual T* getCurrent();
-
-    /**
-     * カレント要素の先頭から何番目か(0～)を返す。
-     * getCurrent() がNULL の場合は -1 を返す。
-     * @return カレント要素のインデックス
-     */
-    virtual int getCurrentIndex();
-
-    /**
-     * カレント要素を一つ進める。 .
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ next()実行。カレント要素を「次」に進めDをゲット
-     * ---「実行後」-------------
-     * (E)⇔A⇔B⇔C⇔D!⇔E⇔(A)
-     * --------------------------
-     * </pre>
-     * <BR>
-     * カレント要素が末尾の状態で本メソッドを実行すると、<BR>
-     * 先頭がカレント要素になります。<BR>
-     * <pre>
-     * ---「実行前」-------------
-     * (E!)⇔A⇔B⇔C⇔D⇔E!⇔(A)
-     * --------------------------
-     *               ↓  next()実行。カレント要素を「次（＝先頭）」に進めAをゲット
-     * ---「実行後」-------------
-     * (E)⇔A!⇔B⇔C⇔D⇔E⇔(A!)
-     * --------------------------
-     * </pre>
-     * @return カレント要素を一つ進めた後の、その要素の値。
-     */
-    virtual T* next();
-
-    /**
-     * カレント要素の次の要素の値を取得する。カレント要素は変化しない .
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ getNext()実行。変化せずにDをゲット
-     * ---「実行後」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     * </pre>
-     * カレント要素が末尾の状態で本メソッドを実行すると、<BR>
-     * 先頭要素の値を取得することになります。<BR>
-     * <pre>
-     * ---「実行前」-------------
-     * (E!)⇔A⇔B⇔C⇔D⇔E!⇔(A)
-     * --------------------------
-     *               ↓  getNext()実行。変化せずにAをゲット
-     * ---「実行後」-------------
-     * (!E)⇔A⇔B⇔C⇔D⇔E!⇔(A)
-     * --------------------------
-     * </pre>
-     * @return 次の要素の値
-     */
-    virtual T* getNext();
-
-    /**
-     * カレント要素のｎ番目の要素の値を取得する。カレント要素は変化しない .
-     * getNext(1) は、getNext() と同じです。getNext(0) は getCurrent()と同じです。
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ getNext(2) … 変化せずにEをゲット
-     * ---「実行後」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     * </pre>
-     * @param n インデックス
-     * @return カレント要素からｎ番目の要素の値
-     */
-    virtual T* getNext(int n);
-
-    virtual T* getNextFromFirst(int n);
-
-    /**
-     * カレント要素を一つ戻す。 .
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ Bをゲット
-     * ---「実行後」-------------
-     * (E)⇔A⇔B!⇔C⇔D⇔E⇔(A)
-     * --------------------------
-     * </pre>
-     * @return カレント要素を一つ戻した後の、その要素の値
-     */
-    virtual T* prev();
-
-    /**
-     * カレント要素をの１つ前の要素の値を取得する。カレント要素は変化しない .
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ 変化せずにBをゲット
-     * ---「実行後」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     * </pre>
-     * @return 前の要素の値
-     */
-    virtual T* getPrev();
-
-    /**
-     * カレント要素のｎ番目前の要素の値を取得する。カレント要素は変化しない .
-     * getPrev(1) は、getPrev() と同じです。getPrev(0) は get()と同じです。
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ getPrev(2) … 変化せずにAをゲット
-     * ---「実行後」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     * </pre>
-     * @param n インデックス
-     * @return カレント要素からｎ番目前の要素の値
-     */
-    virtual T* getPrev(int n);
-
-    /**
-     * カレント要素を先頭に戻す。 .
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ カレントを先頭にしてAをゲット
-     * ---「実行後」-------------
-     * (E)⇔A!⇔B⇔C⇔D⇔E⇔(A)
-     * --------------------------
-     * </pre>
-     * @return カレント要素を先頭に戻した後の、その要素の値
-     */
-    virtual T* first();
-
-    /**
-     * カレント要素を移動させる。 .
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ current(1);
-     * ---「実行後」-------------
-     * (E)⇔A⇔B!⇔C⇔D⇔E⇔(A)
-     *      0  1   2  3  4
-     * --------------------------
-     * </pre>
-     * @return カレント要素を移動した後の、その要素の値
-     */
-    virtual T* current(int n);
-
-    /**
-     * 先頭の要素の値を取得する。カレント要素は変化しない .
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ 変化せずにAをゲット
-     * ---「実行後」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     * </pre>
-     * @return 先頭の要素の値
-     */
-    virtual T* getFirst();
-
-    /**
-     * カレント要素を末尾へ移動。 .
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ カレントを末尾にしてEをゲット
-     * ---「実行後」-------------
-     * (E)⇔A⇔B⇔C⇔D⇔E!⇔(A)
-     * --------------------------
-     * </pre>
-     * @return カレント要素を末尾へ移動した後の、その要素の値
-     */
-    virtual T* last();
-
-    /**
-     * 末尾の要素の値を取得する。カレント要素は変化しない .
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ 変化せずにEをゲット
-     * ---「実行後」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     * </pre>
-     * @return 末尾の要素の値
-     */
-    virtual T* getLast();
-
-    /**
-     * カレント要素がリストの末尾であるか判定する .
-     *<pre>
-     * --------------------------
-     * (E)⇔A⇔B⇔C⇔D⇔E!⇔(A)
-     * --------------------------
-     * 上図の場合true
-     * </pre>
-     * @return true:末尾である／false:そうでは無い
-     */
-    virtual bool isLast();
-
-    /**
-     * カレント要素がリストの先頭であるか判定する .
-     *<pre>
-     * --------------------------
-     * (E)⇔A!⇔B⇔C⇔D⇔E⇔(A)
-     * --------------------------
-     * 上図の場合true
-     * </pre>
-     * @return true:末尾である／false:そうでは無い
-     */
-    virtual bool isFirst();
-
-    /**
-     * カレント要素に値を上書き設定する。 .
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ set(X) … Xを上書きして元のCをゲット
-     * ---「実行後」-------------
-     * (E)⇔A⇔B⇔X!⇔D⇔E⇔(A)
-     * --------------------------
-     * </pre>
-     * 元の要素の値の解放等は、戻り値を使用して呼び元で行って下さい。
-     * @return 上書きされる前の要素の値
-     */
-    virtual T* set(T* prm_pVal);
-
-    /**
-     * カレント要素を抜き取る .
-     * 新たなカレント要素は next の要素に変わる。
-     * <pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ remove() … C抜き出してゲット
-     * ---「実行後」-------------
-     * (E)⇔A⇔B⇔D!⇔E⇔(A)
-     * --------------------------
-     * </pre>
-     *
-     * <BR>
-     * カレント要素が末尾だった場合<BR>
-     * 新たなカレント要素は先頭要素に変わる。
-     * <pre>
-     * ---「実行前」-------------
-     * (E!)⇔A⇔B⇔C⇔D⇔E!⇔(A)
-     * --------------------------
-     *               ↓ remove() … Eを抜き出してゲット
-     * ---「実行後」-------------
-     * (D)⇔A!⇔B⇔C⇔D⇔(A!)
-     * --------------------------
-     * </pre>
-     *
-     * 抜き取った値の解放等が必要な場合は、戻り値を使用して呼び元で行って下さい。
-     * @return 抜き取る前にカレント要素だった要素の値
-     */
-    virtual T* remove();
-
-    /**
-     * 引数が先頭から何番目かを返す。
-     * 内部保持している要素の値はポインタのため、値の比較ではなくポインタ(アドレス)が一致した
-     * インデックスを返します。インデックスは0からの数値です。
-     * <pre><code>
-     * Object* A = new Object();
-     * Object* B = new Object();
-     * Object* C = new Object();
-     * Object* D = new Object();
-     * Object* E = new Object();
-     * GgafLinkedListRing<Object> ring_list = GgafLinkedListRing<Object>();
-     * ring_list.addLast(A);
-     * ring_list.addLast(B);
-     * ring_list.addLast(C);
-     * ring_list.addLast(D);
-     *
-     * int a = ring_list.indexOf(A);   // a = 0 となる
-     * int b = ring_list.indexOf(B);   // b = 1 となる
-     * int c = ring_list.indexOf(C);   // c = 2 となる
-     * int d = ring_list.indexOf(D);   // d = 3 となる
-     * int e = ring_list.indexOf(E);   // e = -1 となる(存在しない場合の戻り値)
-     * </code></pre>
-     * @param prm_pVal インデックスを調べたい要素
-     * @return 存在する場合、そのインデックス(0～)を返す、存在しない場合 -1 を返す。
-     */
-    virtual int indexOf(T* prm_pVal);
-
-    /**
-     * 引数要素を、末尾(_is_last_flg が true)として追加する .
-     * 追加される場所は以下の図のようになります。
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ addLast(X)
-     * ---「実行後」-------------
-     * (X)⇔A⇔B⇔C!⇔D⇔E⇔X⇔(A)
-     * --------------------------
-     * </pre>
-     * <BR>
-     * また、初めてのaddLastは、引数要素はカレント要素なり、<BR>
-     * ２回目以降addLastを行なってもカレント要素を影響しません。<BR>
-     * <pre>
-     * ---「実行前」-------------
-     * NULL(要素なし)
-     * --------------------------
-     *               ↓ addLast(A)
-     * --------------------------
-     * (A!)⇔A!⇔(A!)
-     * --------------------------
-     *               ↓ addLast(B)
-     * --------------------------
-     * (B)⇔A!⇔B⇔(A!)
-     * --------------------------
-     *               ↓ addLast(C)
-     * --------------------------
-     * (C)⇔A!⇔B⇔C⇔(A!)
-     * --------------------------
-     * </pre>
-     * @param prm_pNew 新しい要素の値
-     * @param prm_is_delete_value true  : リストのインスタンスdelete時に、引数の追加要素値についてもdeleteを発行する。
-     *                            false : リストのインスタンスdelete時に、引数の追加要素値について何も行わない。
-     */
-    virtual void addLast(T* prm_pNew, bool prm_is_delete_value = true);
-
-    /**
-     * 引数要素を、先頭(_is_first_flg が true)として追加する .
-     * 追加される場所は以下の図のようになります。
-     *<pre>
-     * ---「実行前」-------------
-     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
-     * --------------------------
-     *               ↓ addFirst(X)
-     * ---「実行後」-------------
-     * (E)⇔X⇔A⇔B⇔C!⇔D⇔E⇔(X)
-     * --------------------------
-     * </pre>
-     * <BR>
-     * また、初めてのaddFirstは、引数要素はカレント要素なり、<BR>
-     * ２回目以降addFirstを行なってもカレント要素を影響しません。<BR>
-     * <pre>
-     * ---「実行前」-------------
-     * NULL(要素なし)
-     * --------------------------
-     *               ↓ addFirst(A)
-     * --------------------------
-     * (A!)⇔A!⇔(A!)
-     * --------------------------
-     *               ↓ addFirst(B)
-     * --------------------------
-     * (A!)⇔B⇔A!⇔(B)
-     * --------------------------
-     *               ↓ addFirst(C)
-     * --------------------------
-     * (A!)⇔C⇔B⇔A!⇔(C)
-     * --------------------------
-     * </pre>
-     * @param prm_pNew 新しい要素の値
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。
-     *                            false : リストのdelete時に、引数の追加要素値について何も行わない。
-     */
-    virtual void addFirst(T* prm_pNew, bool prm_is_delete_value = true);
 
     /**
      * 引数要素を、カレント要素の「次」に追加する .
@@ -627,6 +278,417 @@ public:
      */
     virtual void addPrev(T* prm_pNew, bool prm_is_delete_value = true);
 
+    /**
+     * 引数要素を、末尾(_is_last_flg が true)として追加する .
+     * 追加される場所は以下の図のようになります。
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ addLast(X)
+     * ---「実行後」-------------
+     * (X)⇔A⇔B⇔C!⇔D⇔E⇔X⇔(A)
+     * --------------------------
+     * </pre>
+     * <BR>
+     * また、初めてのaddLastは、引数要素はカレント要素なり、<BR>
+     * ２回目以降addLastを行なってもカレント要素を影響しません。<BR>
+     * <pre>
+     * ---「実行前」-------------
+     * NULL(要素なし)
+     * --------------------------
+     *               ↓ addLast(A)
+     * --------------------------
+     * (A!)⇔A!⇔(A!)
+     * --------------------------
+     *               ↓ addLast(B)
+     * --------------------------
+     * (B)⇔A!⇔B⇔(A!)
+     * --------------------------
+     *               ↓ addLast(C)
+     * --------------------------
+     * (C)⇔A!⇔B⇔C⇔(A!)
+     * --------------------------
+     * </pre>
+     * @param prm_pNew 新しい要素の値
+     * @param prm_is_delete_value true  : リストのインスタンスdelete時に、引数の追加要素値についてもdeleteを発行する。
+     *                            false : リストのインスタンスdelete時に、引数の追加要素値について何も行わない。
+     */
+    virtual void addLast(T* prm_pNew, bool prm_is_delete_value = true);
+
+    /**
+     * 引数要素を、先頭(_is_first_flg が true)として追加する .
+     * 追加される場所は以下の図のようになります。
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ addFirst(X)
+     * ---「実行後」-------------
+     * (E)⇔X⇔A⇔B⇔C!⇔D⇔E⇔(X)
+     * --------------------------
+     * </pre>
+     * <BR>
+     * また、初めてのaddFirstは、引数要素はカレント要素なり、<BR>
+     * ２回目以降addFirstを行なってもカレント要素を影響しません。<BR>
+     * <pre>
+     * ---「実行前」-------------
+     * NULL(要素なし)
+     * --------------------------
+     *               ↓ addFirst(A)
+     * --------------------------
+     * (A!)⇔A!⇔(A!)
+     * --------------------------
+     *               ↓ addFirst(B)
+     * --------------------------
+     * (A!)⇔B⇔A!⇔(B)
+     * --------------------------
+     *               ↓ addFirst(C)
+     * --------------------------
+     * (A!)⇔C⇔B⇔A!⇔(C)
+     * --------------------------
+     * </pre>
+     * @param prm_pNew 新しい要素の値
+     * @param prm_is_delete_value true  : リストのdelete時に、引数の追加要素値についてもdeleteを発行する。
+     *                            false : リストのdelete時に、引数の追加要素値について何も行わない。
+     */
+    virtual void addFirst(T* prm_pNew, bool prm_is_delete_value = true);
+
+    /**
+     * カレント要素を一つ進める。 .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ next()実行。カレント要素を「次」に進めDをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C⇔D!⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * <BR>
+     * カレント要素が末尾の状態で本メソッドを実行すると、<BR>
+     * 先頭がカレント要素になります。<BR>
+     * <pre>
+     * ---「実行前」-------------
+     * (E!)⇔A⇔B⇔C⇔D⇔E!⇔(A)
+     * --------------------------
+     *               ↓  next()実行。カレント要素を「次（＝先頭）」に進めAをゲット
+     * ---「実行後」-------------
+     * (E)⇔A!⇔B⇔C⇔D⇔E⇔(A!)
+     * --------------------------
+     * </pre>
+     * @return カレント要素を一つ進めた後の、その要素の値。
+     */
+    virtual T* next();
+
+    /**
+     * カレント要素を一つ戻す。 .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ Bをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B!⇔C⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * @return カレント要素を一つ戻した後の、その要素の値
+     */
+    virtual T* prev();
+
+    /**
+     * カレント要素を先頭に戻す。 .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ カレントを先頭にしてAをゲット
+     * ---「実行後」-------------
+     * (E)⇔A!⇔B⇔C⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * @return カレント要素を先頭に戻した後の、その要素の値
+     */
+    virtual T* first();
+    /**
+     * カレント要素を末尾へ移動。 .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ カレントを末尾にしてEをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C⇔D⇔E!⇔(A)
+     * --------------------------
+     * </pre>
+     * @return カレント要素を末尾へ移動した後の、その要素の値
+     */
+    virtual T* last();
+
+    /**
+     * カレント要素を指定インデックスに移動させる。 .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ current(1);
+     * ---「実行後」-------------
+     * (E)⇔A⇔B!⇔C⇔D⇔E⇔(A)
+     *      0  1   2  3  4
+     * --------------------------
+     * </pre>
+     * @return カレント要素が移動した後の、その要素の値
+     */
+    virtual T* current(int n);
+
+    /**
+     * カレント要素を関連要素へ移動させる。 .
+     * 引数の関連要素接続番号が範囲外の場合、又は関連未設定の場合エラー
+     * @param prm_connection_index 関連要素接続番号
+     * @return カレント要素が関連要素へ移動した後の、その要素の値
+     */
+    virtual T* gotoRelation(int prm_connection_index);
+
+    /**
+     * カレント要素の次の要素の値を取得する。カレント要素は変化しない .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ getNext()実行。変化せずにDをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * カレント要素が末尾の状態で本メソッドを実行すると、<BR>
+     * 先頭要素の値を取得することになります。<BR>
+     * <pre>
+     * ---「実行前」-------------
+     * (E!)⇔A⇔B⇔C⇔D⇔E!⇔(A)
+     * --------------------------
+     *               ↓  getNext()実行。変化せずにAをゲット
+     * ---「実行後」-------------
+     * (!E)⇔A⇔B⇔C⇔D⇔E!⇔(A)
+     * --------------------------
+     * </pre>
+     * @return 次の要素の値
+     */
+    virtual T* getNext();
+
+    /**
+     * カレント要素のｎ番目の要素の値を取得する。カレント要素は変化しない .
+     * getNext(1) は、getNext() と同じです。getNext(0) は getCurrent()と同じです。
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ getNext(2) … 変化せずにEをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * @param n インデックス
+     * @return カレント要素からｎ番目の要素の値
+     */
+    virtual T* getNext(int n);
+
+    virtual T* getNextFromFirst(int n);
+
+
+
+    /**
+     * カレント要素をの１つ前の要素の値を取得する。カレント要素は変化しない .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ 変化せずにBをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * @return 前の要素の値
+     */
+    virtual T* getPrev();
+
+    /**
+     * カレント要素のｎ番目前の要素の値を取得する。カレント要素は変化しない .
+     * getPrev(1) は、getPrev() と同じです。getPrev(0) は get()と同じです。
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ getPrev(2) … 変化せずにAをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * @param n インデックス
+     * @return カレント要素からｎ番目前の要素の値
+     */
+    virtual T* getPrev(int n);
+
+
+    /**
+     * 先頭の要素の値を取得する。カレント要素は変化しない .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ 変化せずにAをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * @return 先頭の要素の値
+     */
+    virtual T* getFirst();
+
+
+    /**
+     * 末尾の要素の値を取得する。カレント要素は変化しない .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ 変化せずにEをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * @return 末尾の要素の値
+     */
+    virtual T* getLast();
+
+    /**
+     * カレント要素の値（保持している内容）を取得する .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ 変化せずにCをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * @return  カレント要素の値
+     */
+    virtual T* getCurrent();
+
+    /**
+     * 関連要素の値を取得する。カレント要素は変化しない .
+     * @param prm_connection_index 関連要素接続番号
+     * @return 関連要素の値／引数が範囲外の場合、又は関連未設定の場合 NULL
+     */
+    virtual T* getRelation(int prm_connection_index);
+
+    /**
+     * カレント要素の先頭から何番目か(0～)を返す。
+     * getCurrent() がNULL の場合は -1 を返す。
+     * @return カレント要素のインデックス
+     */
+    virtual int getCurrentIndex();
+
+
+
+    /**
+     * カレント要素がリストの末尾であるか判定する .
+     *<pre>
+     * --------------------------
+     * (E)⇔A⇔B⇔C⇔D⇔E!⇔(A)
+     * --------------------------
+     * 上図の場合true
+     * </pre>
+     * @return true:末尾である／false:そうでは無い
+     */
+    virtual bool isLast();
+
+    /**
+     * カレント要素がリストの先頭であるか判定する .
+     *<pre>
+     * --------------------------
+     * (E)⇔A!⇔B⇔C⇔D⇔E⇔(A)
+     * --------------------------
+     * 上図の場合true
+     * </pre>
+     * @return true:末尾である／false:そうでは無い
+     */
+    virtual bool isFirst();
+
+    /**
+     * カレント要素に値を上書き設定する。 .
+     *<pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ set(X) … Xを上書きして元のCをゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔X!⇔D⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     * 元の要素の値の解放は呼び元で行って下さい。
+     * @return 上書きされる前の要素の値(解放に利用する事を想定)
+     */
+    virtual T* set(T* prm_pVal);
+
+    /**
+     * カレント要素を抜き取る .
+     * 新たなカレント要素は next の要素に変わる。
+     * <pre>
+     * ---「実行前」-------------
+     * (E)⇔A⇔B⇔C!⇔D⇔E⇔(A)
+     * --------------------------
+     *               ↓ remove() … C抜き出してゲット
+     * ---「実行後」-------------
+     * (E)⇔A⇔B⇔D!⇔E⇔(A)
+     * --------------------------
+     * </pre>
+     *
+     * <BR>
+     * カレント要素が末尾だった場合<BR>
+     * 新たなカレント要素は先頭要素に変わる。
+     * <pre>
+     * ---「実行前」-------------
+     * (E!)⇔A⇔B⇔C⇔D⇔E!⇔(A)
+     * --------------------------
+     *               ↓ remove() … Eを抜き出してゲット
+     * ---「実行後」-------------
+     * (D)⇔A!⇔B⇔C⇔D⇔(A!)
+     * --------------------------
+     * </pre>
+     *
+     * 抜き取った値の解放等が必要な場合は、戻り値を使用して呼び元で行って下さい。
+     * @return 抜き取る前にカレント要素だった要素の値
+     */
+    virtual T* remove();
+
+    /**
+     * 引数が先頭から何番目かを返す。
+     * 内部保持している要素の値はポインタのため、値の比較ではなくポインタ(アドレス)が一致した
+     * インデックスを返します。インデックスは0からの数値です。
+     * <pre><code>
+     * Object* A = new Object();
+     * Object* B = new Object();
+     * Object* C = new Object();
+     * Object* D = new Object();
+     * Object* E = new Object();
+     * GgafLinkedListRing<Object> ring_list = GgafLinkedListRing<Object>();
+     * ring_list.addLast(A);
+     * ring_list.addLast(B);
+     * ring_list.addLast(C);
+     * ring_list.addLast(D);
+     *
+     * int a = ring_list.indexOf(A);   // a = 0 となる
+     * int b = ring_list.indexOf(B);   // b = 1 となる
+     * int c = ring_list.indexOf(C);   // c = 2 となる
+     * int d = ring_list.indexOf(D);   // d = 3 となる
+     * int e = ring_list.indexOf(E);   // e = -1 となる(存在しない場合の戻り値)
+     * </code></pre>
+     * @param prm_pVal インデックスを調べたい要素
+     * @return 存在する場合、そのインデックス(0～)を返す、存在しない場合 -1 を返す。
+     */
+    virtual int indexOf(T* prm_pVal);
+
 
     /**
      * 要素数を返す .
@@ -640,6 +702,7 @@ public:
      * @return 要素数
      */
     virtual int length();
+
 };
 
 //////////////////////////////////////////////////////////////////
@@ -649,42 +712,179 @@ public:
  */
 
 template<class T>
-GgafLinkedListRing<T>::GgafLinkedListRing() :
+GgafLinkedListRing<T>::GgafLinkedListRing(int prm_extend_relation_num) :
     GgafObject() {
     _num_elem = 0;
     _pElemActive = NULL;
     _pElemFirst = NULL;
+    _relation_num = prm_extend_relation_num;
 }
 
+
 template<class T>
-T* GgafLinkedListRing<T>::getCurrent() {
-    if (_pElemActive == NULL) {
-        return NULL;
-    } else {
-        return _pElemActive->_pValue;
+void GgafLinkedListRing<T>::addNext(T* prm_pNew, bool prm_is_delete_value) {
+    if (prm_pNew == NULL) {
+        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
     }
-}
-template<class T>
-int GgafLinkedListRing<T>::getCurrentIndex() {
-    if (_pElemActive == NULL) {
-        return -1;
+    Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
+    if (_pElemFirst == NULL) {
+        //最初の１つ
+        pElem->_is_last_flg = true;
+        pElem->_is_first_flg = true;
+        pElem->_pNext = pElem;
+        pElem->_pPrev = pElem;
+        _pElemActive = pElem;
+        _pElemFirst = pElem;
     } else {
-        Elem* pElem = _pElemFirst;
-        for (int i = 0; i < _num_elem; i++) {
-            if (pElem == _pElemActive) {
-                return i;
-            } else {
-                pElem = pElem -> _pNext;
-            }
+        Elem* pMy = _pElemActive;
+        if (pMy->_is_last_flg) {
+            pMy->_is_last_flg = false;
+            pElem->_is_last_flg = true;
+            pElem->_is_first_flg = false;
         }
-        return -1;
+        Elem* pMyNext = _pElemActive->_pNext;
+        pMy->_pNext = pElem;
+        pElem->_pPrev = pMy;
+        pElem->_pNext = pMyNext;
+        pMyNext->_pPrev = pElem;
     }
+    _num_elem++;
 }
 
+template<class T>
+void GgafLinkedListRing<T>::addPrev(T* prm_pNew, bool prm_is_delete_value) {
+    if (prm_pNew == NULL) {
+        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
+    }
+    Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
+    if (_pElemFirst == NULL) {
+        //最初の１つ
+        pElem->_is_last_flg = true;
+        pElem->_is_first_flg = true;
+        pElem->_pNext = pElem;
+        pElem->_pPrev = pElem;
+        _pElemActive = pElem;
+        _pElemFirst = pElem;
+    } else {
+        Elem* pMy = _pElemActive;
+        if (pMy->_is_first_flg) {
+            pMy->_is_first_flg = false;
+            pElem->_is_first_flg = true;
+            pElem->_is_last_flg = false;
+            _pElemFirst = pElem;
+        }
+        Elem* pMyPrev = _pElemActive->_pPrev;
+        pMyPrev->_pNext = pElem;
+        pElem->_pPrev = pMyPrev;
+        pElem->_pNext = pMy;
+        pMy->_pPrev = pElem;
+    }
+    _num_elem++;
+}
+
+template<class T>
+void GgafLinkedListRing<T>::addLast(T* prm_pNew, bool prm_is_delete_value) {
+    if (prm_pNew == NULL) {
+        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
+    }
+    Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
+
+    if (_pElemFirst == NULL) {
+        //最初の１つ
+        pElem->_is_first_flg = true;
+        pElem->_is_last_flg = true;
+        pElem->_pNext = pElem;
+        pElem->_pPrev = pElem;
+        _pElemActive = pElem;
+        _pElemFirst = pElem;
+    } else {
+        //２つ目以降
+        pElem->_is_first_flg = false;
+        pElem->_is_last_flg = true;
+        Elem* pLastElem = _pElemFirst->_pPrev;
+        pLastElem->_is_last_flg = false;
+        pLastElem->_pNext = pElem;
+        pElem->_pPrev = pLastElem;
+        pElem->_pNext = _pElemFirst;
+        _pElemFirst->_pPrev = pElem;
+    }
+    _num_elem++;
+}
+
+
+template<class T>
+void GgafLinkedListRing<T>::addFirst(T* prm_pNew, bool prm_is_delete_value) {
+    if (prm_pNew == NULL) {
+        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
+    }
+    Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
+    if (_pElemFirst == NULL) {
+        //最初の１つ
+        pElem->_is_first_flg = true;
+        pElem->_is_last_flg = true;
+        pElem->_pNext = pElem;
+        pElem->_pPrev = pElem;
+        _pElemActive = pElem;
+        _pElemFirst = pElem;
+    } else {
+        Elem* pFirstElem = _pElemFirst;
+        Elem* pLastElem = _pElemFirst->_pPrev;
+        pLastElem->_pNext = pElem;
+        pElem->_pPrev = pLastElem;
+        pElem->_pNext = pFirstElem;
+        pFirstElem->_pPrev = pElem;
+        pFirstElem->_is_first_flg = false;
+
+        pElem->_is_first_flg = true;
+        pElem->_is_last_flg = false;
+        _pElemFirst = pElem;
+    }
+    _num_elem++;
+}
 
 template<class T>
 T* GgafLinkedListRing<T>::next() {
     _pElemActive = _pElemActive->_pNext;
+    return _pElemActive->_pValue;
+}
+
+template<class T>
+T* GgafLinkedListRing<T>::prev() {
+    _pElemActive = _pElemActive->_pPrev;
+    return _pElemActive->_pValue;
+}
+
+template<class T>
+T* GgafLinkedListRing<T>::first() {
+    _pElemActive = _pElemFirst;
+    return _pElemActive->_pValue;
+}
+
+template<class T>
+T* GgafLinkedListRing<T>::last() {
+    _pElemActive = _pElemFirst->_pPrev; //環状なので、先頭の一つ前は末尾
+    return _pElemActive->_pValue;
+}
+
+template<class T>
+T* GgafLinkedListRing<T>::current(int n) {
+    Elem* pElem = _pElemFirst;
+    for (int i = 0; i < n; i++) {
+        pElem = pElem->_pNext;
+    }
+    _pElemActive = pElem;
+    return _pElemActive->_pValue;
+}
+
+template<class T>
+T* GgafLinkedListRing<T>::gotoRelation(int prm_connection_index) {
+    if (_relation_num-1 < prm_connection_index) {
+        throwGgafCriticalException("GgafLinkedListRing<T>::gotoRelation 接続要素番号の範囲外です。prm_connection_index="<<prm_connection_index);
+    }
+    _pElemActive = _pElemActive->_papRelation[prm_connection_index];
+    if (_pElemActive == NULL) {
+        throwGgafCriticalException("GgafLinkedListRing<T>::gotoRelation 接続要素番号の要素が未設定です。prm_connection_index="<<prm_connection_index);
+    }
     return _pElemActive->_pValue;
 }
 
@@ -715,14 +915,6 @@ T* GgafLinkedListRing<T>::getNextFromFirst(int n) {
 }
 
 
-
-
-template<class T>
-T* GgafLinkedListRing<T>::prev() {
-    _pElemActive = _pElemActive->_pPrev;
-    return _pElemActive->_pValue;
-}
-
 template<class T>
 T* GgafLinkedListRing<T>::getPrev() {
     return _pElemActive->_pPrev->_pValue;
@@ -738,36 +930,50 @@ T* GgafLinkedListRing<T>::getPrev(int n) {
 }
 
 template<class T>
-T* GgafLinkedListRing<T>::first() {
-    _pElemActive = _pElemFirst;
-    return _pElemActive->_pValue;
-}
-
-template<class T>
-T* GgafLinkedListRing<T>::current(int n) {
-
-    Elem* pElem = _pElemFirst;
-    for (int i = 0; i < n; i++) {
-        pElem = pElem->_pNext;
-    }
-    _pElemActive = pElem;
-    return _pElemActive->_pValue;
-}
-
-template<class T>
 T* GgafLinkedListRing<T>::getFirst() {
     return _pElemFirst->_pValue;
 }
 
 template<class T>
-T* GgafLinkedListRing<T>::last() {
-    _pElemActive = _pElemFirst->_pPrev; //環状なので、先頭の一つ前は末尾
-    return _pElemActive->_pValue;
+T* GgafLinkedListRing<T>::getLast() {
+    return _pElemFirst->_pPrev->_pValue; //環状なので、先頭の一つ前は末尾
+}
+
+
+template<class T>
+T* GgafLinkedListRing<T>::getCurrent() {
+    if (_pElemActive == NULL) {
+        return NULL;
+    } else {
+        return _pElemActive->_pValue;
+    }
 }
 
 template<class T>
-T* GgafLinkedListRing<T>::getLast() {
-    return _pElemFirst->_pPrev->_pValue; //環状なので、先頭の一つ前は末尾
+T* GgafLinkedListRing<T>::getRelation(int prm_connection_index) {
+    if (_relation_num-1 < prm_connection_index) {
+        throwGgafCriticalException("GgafLinkedListRing<T>::getRelation 接続要素番号の範囲外です。prm_connection_index="<<prm_connection_index);
+    } else {
+        return _pElemActive->_papRelation[prm_connection_index]->_pValue;
+    }
+}
+
+
+template<class T>
+int GgafLinkedListRing<T>::getCurrentIndex() {
+    if (_pElemActive == NULL) {
+        return -1;
+    } else {
+        Elem* pElem = _pElemFirst;
+        for (int i = 0; i < _num_elem; i++) {
+            if (pElem == _pElemActive) {
+                return i;
+            } else {
+                pElem = pElem -> _pNext;
+            }
+        }
+        return -1;
+    }
 }
 
 
@@ -843,127 +1049,6 @@ int GgafLinkedListRing<T>::indexOf(T* prm_pVal) {
     return -1;
 }
 
-template<class T>
-void GgafLinkedListRing<T>::addLast(T* prm_pNew, bool prm_is_delete_value) {
-    if (prm_pNew == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
-    }
-    Elem* pElem = NEW Elem(prm_pNew, prm_is_delete_value);
-
-    if (_pElemFirst == NULL) {
-        //最初の１つ
-        pElem->_is_first_flg = true;
-        pElem->_is_last_flg = true;
-        pElem->_pNext = pElem;
-        pElem->_pPrev = pElem;
-        _pElemActive = pElem;
-        _pElemFirst = pElem;
-    } else {
-        //２つ目以降
-        pElem->_is_first_flg = false;
-        pElem->_is_last_flg = true;
-        Elem* pLastElem = _pElemFirst->_pPrev;
-        pLastElem->_is_last_flg = false;
-        pLastElem->_pNext = pElem;
-        pElem->_pPrev = pLastElem;
-        pElem->_pNext = _pElemFirst;
-        _pElemFirst->_pPrev = pElem;
-    }
-    _num_elem++;
-}
-
-
-template<class T>
-void GgafLinkedListRing<T>::addFirst(T* prm_pNew, bool prm_is_delete_value) {
-    if (prm_pNew == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
-    }
-    Elem* pElem = NEW Elem(prm_pNew, prm_is_delete_value);
-    if (_pElemFirst == NULL) {
-        //最初の１つ
-        pElem->_is_first_flg = true;
-        pElem->_is_last_flg = true;
-        pElem->_pNext = pElem;
-        pElem->_pPrev = pElem;
-        _pElemActive = pElem;
-        _pElemFirst = pElem;
-    } else {
-        Elem* pFirstElem = _pElemFirst;
-        Elem* pLastElem = _pElemFirst->_pPrev;
-        pLastElem->_pNext = pElem;
-        pElem->_pPrev = pLastElem;
-        pElem->_pNext = pFirstElem;
-        pFirstElem->_pPrev = pElem;
-        pFirstElem->_is_first_flg = false;
-
-        pElem->_is_first_flg = true;
-        pElem->_is_last_flg = false;
-        _pElemFirst = pElem;
-    }
-    _num_elem++;
-}
-
-
-template<class T>
-void GgafLinkedListRing<T>::addNext(T* prm_pNew, bool prm_is_delete_value) {
-    if (prm_pNew == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
-    }
-    Elem* pElem = NEW Elem(prm_pNew, prm_is_delete_value);
-    if (_pElemFirst == NULL) {
-        //最初の１つ
-        pElem->_is_last_flg = true;
-        pElem->_is_first_flg = true;
-        pElem->_pNext = pElem;
-        pElem->_pPrev = pElem;
-        _pElemActive = pElem;
-        _pElemFirst = pElem;
-    } else {
-        Elem* pMy = _pElemActive;
-        if (pMy->_is_last_flg) {
-            pMy->_is_last_flg = false;
-            pElem->_is_last_flg = true;
-            pElem->_is_first_flg = false;
-        }
-        Elem* pMyNext = _pElemActive->_pNext;
-        pMy->_pNext = pElem;
-        pElem->_pPrev = pMy;
-        pElem->_pNext = pMyNext;
-        pMyNext->_pPrev = pElem;
-    }
-    _num_elem++;
-}
-
-template<class T>
-void GgafLinkedListRing<T>::addPrev(T* prm_pNew, bool prm_is_delete_value) {
-    if (prm_pNew == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
-    }
-    Elem* pElem = NEW Elem(prm_pNew, prm_is_delete_value);
-    if (_pElemFirst == NULL) {
-        //最初の１つ
-        pElem->_is_last_flg = true;
-        pElem->_is_first_flg = true;
-        pElem->_pNext = pElem;
-        pElem->_pPrev = pElem;
-        _pElemActive = pElem;
-        _pElemFirst = pElem;
-    } else {
-        Elem* pMy = _pElemActive;
-        if (pMy->_is_first_flg) {
-            pMy->_is_first_flg = false;
-            pElem->_is_first_flg = true;
-            pElem->_is_last_flg = false;
-            _pElemFirst = pElem;
-        }
-        Elem* pMyPrev = _pElemActive->_pPrev;
-        pMyPrev->_pNext = pElem;
-        pElem->_pPrev = pMyPrev;
-        pElem->_pNext = pMy;
-        pMy->_pPrev = pElem;
-    }
-    _num_elem++;
-}
 
 
 template<class T>

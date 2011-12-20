@@ -3,11 +3,34 @@
 namespace GgafLib {
 
 /**
- * レーザーチップ使いまわし管理クラス .
+ * レーザ１本分(レーザーチップ使いまわし管理クラス。) .
  * new した後 addSubLast メソッドで LaserChipインスタンスを好きな個数登録してください。<BR>
  * new から initialize()まで、又は随時変更が有効なパラメータ<BR>
  * ・_num_chip_interval ・・・弾切れフレーム数（デフォルト:20）<BR>
  * ・_pSeCon_Laser ・・・ レーザーチップ発射時SE（デフォルト:NULL）<BR>
+ * <使用例><BR>
+ * <code><pre>
+ *
+ * ----- 事前準備（コンストラクタで１本分作成例） --------------
+ *
+ * LaserChipDepository* pLaserDepo = new LaserChipDepository("MyLaserDp");  //本デポジトリクラスを生成する
+ * MyStraightLaserChip* pChip;                    //MyStraightLaserChip は LaserChip 継承クラス。
+ * for (int i = 0; i < 60; i++) {                 //1本を60個のチップで構成
+ *     pChip = new MyStraightLaserChip("chip");   //LaserChip クラスを継承・実装したオブジェクト作成
+ *     pChip->setSource(this);                    //継承 LaserChip 固有の設定を施す。左の例はワインダーのための発射元設定。
+ *     pLaserDepo->addSubLast(pChip);             //本デポジトリに LaserChip オブジェクトを登録(サブに所属させる)
+ * }
+ * pLaserDepo->config(40, 25);                    //LaserChip の最大連結数、弾切れフレーム数を設定。
+ * addSubGroup(_pLaserChipDepo);                  //デポジトリ自体を活動可能にさせるため、何処かに所属させる。
+ *
+ *
+ * ----- 発射処理（Zキー押しっぱなしで発射例） --------------
+ *
+ * if (GgafDxInput::isBeingPressedKey(DIK_Z)) {   //Zキー判定
+ *     pLaserDepo->dispatch();                    //dispatch()することで、登録されたMyStraightLaserChip達が活動する。
+ * }
+ *
+ * </pre></code>
  */
 class LaserChipDepository : public GgafCore::GgafActorDepository {
     friend class LaserChip;
@@ -52,9 +75,10 @@ public:
     virtual void processFinal() override;
 
     /**
-     * レーザーチップの借り入れを試みる .
-     * ストック切れの場合は NULL が返る。必ずチェックすること。
-     * 使い終われば sayonara() か、inactivate() を実行してください。自動的にストックに戻ります。
+     * レーザーチップの借り入れを試み、借り入れできれば取得し活動状態にする。 .
+     * ストック切れ、或いは弾切れ中の場合は戻りに NULL が返る。
+     * 取得したチップの利用を終了する場合は sayonara() (或いはinactivate()) を実行してください。
+     * 自動的にストックに戻ります。
      * @return 借り入れしたレーザーチップ。借り入れできない場合はNULL
      */
     virtual LaserChip* dispatch() override;

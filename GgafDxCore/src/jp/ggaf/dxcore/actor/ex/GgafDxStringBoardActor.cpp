@@ -9,6 +9,9 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
     _class_name = "GgafDxStringBoardActor";
     _draw_string = NULL;
     _len = 0;
+    _len_pack_num = 0;
+    _remainder_len = 0;
+
     _buf = NEW char[1024];
     _buf[0] = '\0';
     //デフォルトの１文字の幅(px)設定
@@ -19,18 +22,27 @@ GgafDxStringBoardActor::GgafDxStringBoardActor(const char* prm_name, const char*
     _chr_height_px = (int)(_pBoardSetModel->_fSize_BoardSetModelHeightPx); //１文字の高さ(px)
     _X_offset_align = 0;
     _width_len_px = 0;
+
+    //デフォルトで名前(prm_name)が表示文字列になる
+    if (prm_name != NULL) {
+        _draw_string = (char*)prm_name;
+        _len = strlen(prm_name);
+        _len_pack_num = _len/_pBoardSetModel->_set_num;
+        _remainder_len = _len%_pBoardSetModel->_set_num;
+        if (_align == ALIGN_CENTER) {
+            _width_len_px = 0;
+            for (int i = 0; i < _len; i++) {
+                _width_len_px += _aWidthPx[_draw_string[i]];
+            }
+        } else {
+            _width_len_px = 0;
+        }
+    }
 }
 
 void GgafDxStringBoardActor::onCreateModel() {
 
 }
-
-
-
-
-
-
-
 
 void GgafDxStringBoardActor::update(coord X, coord Y, const char* prm_str) {
     update(prm_str);
@@ -66,8 +78,8 @@ void GgafDxStringBoardActor::update(const char* prm_str) {
             _width_len_px += _aWidthPx[_draw_string[i]];
         }
     } else {
-		_width_len_px = 0;
-	}
+        _width_len_px = 0;
+    }
 }
 
 void GgafDxStringBoardActor::update(char* prm_str) {
@@ -86,21 +98,10 @@ void GgafDxStringBoardActor::update(char* prm_str) {
         for (int i = 0; i < _len; i++) {
             _width_len_px += _aWidthPx[_draw_string[i]];
         }
-	} else {
-		_width_len_px = 0;
-	}
+    } else {
+        _width_len_px = 0;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 void GgafDxStringBoardActor::update(coord X, coord Y, const char* prm_str,
@@ -153,9 +154,9 @@ void GgafDxStringBoardActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_va
         for (int i = 0; i < _len; i++) {
             _width_len_px += _aWidthPx[_draw_string[i]];
         }
-	} else {
+    } else {
         _width_len_px = 0;
-	}
+    }
 }
 
 

@@ -12,7 +12,7 @@ namespace GgafLib {
 class DefaultBoardSetActor : public GgafDxCore::GgafDxBoardSetActor {
 
 public:
-    DefaultBoardSetActor(const char* prm_name, const char* prm_model);
+    DefaultBoardSetActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat = NULL);
 
     virtual void onCreateModel() override {
     }

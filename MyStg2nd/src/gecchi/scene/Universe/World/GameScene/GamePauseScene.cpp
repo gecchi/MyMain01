@@ -14,6 +14,33 @@ enum {
 
 GamePauseScene::GamePauseScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GamePauseScene";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     useProgress(10);
     _pProg->change(GAMEPAUSESCENE_PROG_INIT);
     _pMsgLabel01 = NEW LabelGecchi16Font("STR01");

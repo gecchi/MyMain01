@@ -427,7 +427,7 @@ class WallAAPrismTestActor;
 
 class VamSysCamPosition;
 
-
+class MenuBoardPause;
 }
 
 #include "gecchi/GameGlobal.h"
@@ -663,7 +663,7 @@ class VamSysCamPosition;
 #include "gecchi/actor/_predrawer/WallAABTestActor.h"
 #include "gecchi/actor/_predrawer/WallAAPrismTestActor.h"
 
-
+#include "gecchi/actor/menu/pause/MenuBoardPause.h"
 
 
 

@@ -122,7 +122,6 @@ void MagicMeter::load(stringstream& sts) {
         pOrgMagic = _ringMagics.next();
     }
 }
-
 void MagicMeter::initialize() {
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
 }

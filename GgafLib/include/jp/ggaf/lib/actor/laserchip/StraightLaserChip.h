@@ -5,7 +5,8 @@ namespace GgafLib {
 /**
  * ストレートレーザー用ポリラインのチップ .
  * ストレートレーザーなどと表現しているが、正確には<BR>
- * ・発射座標任意（発射元座標が移動可能）<BR>
+ * ・発射座標任意、発射元座標が移動すると、それにともなって平行移動する（ことも可能）<BR>
+ * ・発射方向任意、発射元方向の角度が変化すると、それにともなって発射元を中心に回転移動する（ことも可能）<BR>
  * ・移動方法は基本等速で直進<BR>
  * ・但し全チップ発射元オブジェクト座標と向きの差分を加算。同期をとる。<BR>
  * と言うべきか、グラディウス方式ワインダー可能なレーザーと言うべきか、そんな感じ。<BR>
@@ -54,23 +55,10 @@ public:
 
     virtual void onInactive() override;
 
-    void setPositionSource(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor) {
-        _pSource_X = &prm_pGeoActor->_X;
-        _pSource_Y = &prm_pGeoActor->_Y;
-        _pSource_Z = &prm_pGeoActor->_Z;
-        _pSourceActor = prm_pGeoActor;
-    }
-
-    void setAngleSource(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor) {
-        _pSource_RX = &prm_pGeoActor->_RX;
-        _pSource_RY = &prm_pGeoActor->_RY;
-        _pSource_RZ = &prm_pGeoActor->_RZ;
-        _pSource_vX = &prm_pGeoActor->_pKurokoA->_vX;
-        _pSource_vY = &prm_pGeoActor->_pKurokoA->_vY;
-        _pSource_vZ = &prm_pGeoActor->_pKurokoA->_vZ;
-        _pSourceActor = prm_pGeoActor;
-    }
-
+    /**
+     * 平行移動と回転移動の同期をとる発射アクターを設定 .
+     * @param prm_pGeoActor 発射元アクター
+     */
     void setSource(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor) {
         _pSource_X = &prm_pGeoActor->_X;
         _pSource_Y = &prm_pGeoActor->_Y;
@@ -84,8 +72,33 @@ public:
         _pSourceActor = prm_pGeoActor;
     }
 
-    virtual ~StraightLaserChip();
 
+    /**
+     * 平行移動のみ同期をとる発射アクターを設定 .
+     * @param prm_pGeoActor
+     */
+    void setPositionSource(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor) {
+        _pSource_X = &prm_pGeoActor->_X;
+        _pSource_Y = &prm_pGeoActor->_Y;
+        _pSource_Z = &prm_pGeoActor->_Z;
+        _pSourceActor = prm_pGeoActor;
+    }
+
+    /**
+     * 回転移動のみ同期をとる発射アクターを設定 .
+     * @param prm_pGeoActor
+     */
+    void setAngleSource(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor) {
+        _pSource_RX = &prm_pGeoActor->_RX;
+        _pSource_RY = &prm_pGeoActor->_RY;
+        _pSource_RZ = &prm_pGeoActor->_RZ;
+        _pSource_vX = &prm_pGeoActor->_pKurokoA->_vX;
+        _pSource_vY = &prm_pGeoActor->_pKurokoA->_vY;
+        _pSource_vZ = &prm_pGeoActor->_pKurokoA->_vZ;
+        _pSourceActor = prm_pGeoActor;
+    }
+
+    virtual ~StraightLaserChip();
 };
 
 }
